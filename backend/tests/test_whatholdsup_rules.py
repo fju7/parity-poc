@@ -399,3 +399,53 @@ def test_a_real_figure_beside_a_spaced_name_survives():
     got = B._claim_figures("CheckMate 238 enrolled 906 patients.",
                            {"CheckMate 238"})
     assert "906" in got and "238" not in got
+
+
+# ---------------------------------------------------------------------------
+# An attestation is not a span, satisfies rule 1, and is counted apart
+# ---------------------------------------------------------------------------
+#
+# NCCN's licence forbids putting the guideline through any automated tool. No
+# check has read it or ever may. A rule 1 that demanded a span from sentences
+# resting on it would push us toward pasting licence-bound text into a file to
+# satisfy a check — the worst outcome available.
+
+ATTESTED = {"bucket": "figure", "source_id": "S001",
+            "attested_by": "fred",
+            "attested_in": "advocate/2026-08-29-adjudication.md",
+            "locator": "Categories of Evidence and Consensus, front matter"}
+
+
+def test_a_complete_attestation_satisfies_both_rules_without_a_span():
+    put(dict(ATTESTED, sentence="The guideline assigns ribociclib category 1."))
+    v = verdicts()
+    assert v[R1] == B.OK and v[R2] == B.OK
+
+
+def test_an_incomplete_attestation_satisfies_neither():
+    for missing in ("attested_by", "attested_in", "locator"):
+        row = dict(ATTESTED, sentence="The guideline assigns ribociclib category 1.")
+        row[missing] = ""
+        put(row)
+        assert verdicts()[R1] == B.BAD, "missing %s" % missing
+        assert verdicts()[R2] == B.BAD, "missing %s" % missing
+
+
+def test_an_attestation_is_reported_apart_from_verified_spans():
+    """"A human says so about a document nothing may read" and "this string is
+    in these bytes" are different claims. Merging them is the oldest error here."""
+    put(dict(ATTESTED, sentence="The guideline assigns ribociclib category 1."),
+        dict(BOUND, bucket="deterministic",
+             sentence="Sixty percent were alive at five years."))
+    rows = {n: w for n, _, w in B.rule_rows(SLUG)}
+    label = "sentences resting on a human attestation"
+    assert label in rows
+    assert "1 of 2" in rows[label]
+    assert "never counted as one" in rows[label]
+
+
+def test_the_figure_bucket_does_not_excuse_a_sentence_from_a_bucket_check():
+    """It buys a different obligation, not a lighter one."""
+    put({"sentence": "The guideline assigns ribociclib category 1.",
+         "on_page": True, "bucket": "figure"})
+    assert verdicts()[R2] == B.BAD, "no attestation at all"

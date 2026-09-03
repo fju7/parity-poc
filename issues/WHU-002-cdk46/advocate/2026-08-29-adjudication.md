@@ -220,3 +220,53 @@ DID:         A new paragraph. This is the most useful answer of the ten and it c
 
 > nobody can open this source, so no advocate runs on it. The ledger blocks new characterisation of it instead — which is the correct control, because an advocate here would be guessing.
 
+
+
+---
+
+## S001 — three further questions, answered 2026-09-03
+
+The page had been asserting three things about the guideline that the ten
+questions above did not cover. Two of the three answers were corrections.
+
+### S001-11 — the definitions of category 1 and category 2A
+
+**Question.** What does the Categories of Evidence and Consensus section say
+word-for-word for category 1 and for category 2A?
+
+ANSWERED BY: Fred Ugast
+ON:          2026-09-03
+ANSWER:      Category 1 — "Based upon high-level evidence (>=1 randomized phase 3 trials or high-quality, robust meta-analyses), there is uniform NCCN consensus (>=85% support of the Panel) that the intervention is appropriate." Category 2A — "Based upon lower-level evidence, there is uniform NCCN consensus (>=85% support of the Panel) that the intervention is appropriate."
+LOCATOR:     Categories of Evidence and Consensus table, front matter
+EFFECT:      sharpens
+DID:         The page said "high-level evidence and uniform panel consensus" and "lower-level evidence with uniform consensus", which is right but loose: the guideline quantifies both — at least one randomised phase 3 trial or a robust meta-analysis, and at least 85% panel support. The page now quotes the definitions.
+
+### S001-12 — "directly compared in clinical trials"
+
+**Question.** Please quote the sentence containing that phrase, and say whether
+the guideline defines it as meaning a randomised head-to-head trial.
+
+ANSWERED BY: Fred Ugast
+ON:          2026-09-03
+ANSWER:      The sentence is "However, the CDK4/6 inhibitors have not been directly compared in clinical trials." The guideline does NOT define the phrase anywhere — not in this section and not in any definitions section.
+LOCATOR:     Discussion, HR+/HER2- advanced breast cancer, "Preferred First-Line Therapy Options", page 188 right column, paragraph beginning "AI in combination with CDK4/6 inhibitor:", last sentence
+EFFECT:      corrects
+DID:         The page said "In guideline language, 'directly compared in clinical trials' means a randomised head-to-head trial." That attributed a definition to the guideline that it does not give. It is our reading of the phrase, not the guideline's stipulation, and the page now says so and shows why the reading holds.
+
+### S001-13 — does the guideline say the category records which trial produced a significant survival result?
+
+**Question.** The page claims the guideline states this plainly. Which sentence
+is it, verbatim?
+
+ANSWERED BY: Fred Ugast
+ON:          2026-09-03
+ANSWER:      There is no such sentence. The guideline gives the basis for particular category 1 assignments in narrative discussion — for example that ribociclib and abemaciclib with fulvestrant are category 1 since those combinations showed an OS benefit in MONALEESA-3 and MONARCH 2 — but nowhere states that the category designation itself records which trial produced a significant survival result.
+LOCATOR:     Searched the whole HR+/HER2- section, its tables and footnotes
+EFFECT:      corrects
+DID:         The page said "the guideline says so plainly." It does not. What the guideline does is give the OS-benefit reason for specific assignments; the generalisation from those instances to what the category records is OURS. The claim is now made in our own voice, with the instances as its premises.
+
+### Still outstanding
+
+**S001-14.** What is the guideline's own wording for the scope of the section —
+the sentence the page paraphrases as "covers first-line treatment of
+hormone-receptor-positive, HER2-negative advanced breast cancer"?

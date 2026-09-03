@@ -59,8 +59,8 @@
       "sentence": "For an aromatase inhibitor combined with a CDK4/6 inhibitor, the guideline assigns ribociclib category 1 .",
       "sentence_sha": "02311196265d1957",
       "why_empirical": "names the guideline",
-      "bucket": null,
-      "locator": null,
+      "bucket": "figure",
+      "locator": "S001-06; Categories of Evidence and Consensus, first-line HR+/HER2- AI+CDK4/6 tables",
       "scope_words": [],
       "falsifier": null,
       "verdicts": {
@@ -70,7 +70,12 @@
       },
       "first_seen": "2026-09-01",
       "on_page": true,
-      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)"
+      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)",
+      "attested_by": "fred",
+      "attested_in": "issues/WHU-002-cdk46/advocate/2026-08-29-adjudication.md",
+      "locator_type": "figure",
+      "source_id": "S001",
+      "why_bound": "NCCN's licence forbids putting this document through any automated tool, so no check has read it or ever may. The operator read it and the questions and answers are in issues/WHU-002-cdk46/advocate/2026-08-29-adjudication.md. This row records an attestation, not a verified span."
     },
     "770f57ef440cd9aa": {
       "sentence": "That is one of two systems NCCN runs, and it is not the one that says which drug to prefer.",
@@ -110,8 +115,8 @@
       "sentence": "On that second system the guideline lists all three aromatase-inhibitor-plus-CDK4/6-inhibitor combinations as preferred first-line options — for postmenopausal patients and for premenopausal patients on ovarian suppression alike — and explains the evidence grade elsewhere, in the categories-of-evidence discussion rather than beside the preference listing: Due to the clear OS benefit seen with ribociclib in combination with AI, it is a category 1 recommendation.",
       "sentence_sha": "552734e53ea48d68",
       "why_empirical": "names the guideline",
-      "bucket": null,
-      "locator": null,
+      "bucket": "figure",
+      "locator": "S001-01; Categories of Preference tables, first-line HR+/HER2-, both population subsections",
       "scope_words": [],
       "falsifier": null,
       "verdicts": {
@@ -121,7 +126,12 @@
       },
       "first_seen": "2026-09-01",
       "on_page": true,
-      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)"
+      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)",
+      "attested_by": "fred",
+      "attested_in": "issues/WHU-002-cdk46/advocate/2026-08-29-adjudication.md",
+      "locator_type": "figure",
+      "source_id": "S001",
+      "why_bound": "NCCN's licence forbids putting this document through any automated tool, so no check has read it or ever may. The operator read it and the questions and answers are in issues/WHU-002-cdk46/advocate/2026-08-29-adjudication.md. This row records an attestation, not a verified span."
     },
     "d21a27c491f95031": {
       "sentence": "And there the guideline stops.",
@@ -179,8 +189,8 @@
       "sentence": "That second setting is worth pausing on, because the guideline gives the same reason for it: ribociclib and abemaciclib with fulvestrant are category 1 because those combinations showed an overall survival benefit, in MONALEESA-3 and MONARCH 2.",
       "sentence_sha": "b6b3527c8dc49ee3",
       "why_empirical": "names the guideline",
-      "bucket": null,
-      "locator": null,
+      "bucket": "figure",
+      "locator": "S001-03; first-line fulvestrant combination section",
       "scope_words": [],
       "falsifier": null,
       "verdicts": {
@@ -190,7 +200,12 @@
       },
       "first_seen": "2026-09-01",
       "on_page": true,
-      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)"
+      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)",
+      "attested_by": "fred",
+      "attested_in": "issues/WHU-002-cdk46/advocate/2026-08-29-adjudication.md",
+      "locator_type": "figure",
+      "source_id": "S001",
+      "why_bound": "NCCN's licence forbids putting this document through any automated tool, so no check has read it or ever may. The operator read it and the questions and answers are in issues/WHU-002-cdk46/advocate/2026-08-29-adjudication.md. This row records an attestation, not a verified span."
     },
     "c28b755471e5b727": {
       "sentence": "It is a record of which of its trials produced a significant survival result, and the guideline says so plainly.",
@@ -206,8 +221,9 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true,
-      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)"
+      "on_page": false,
+      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)",
+      "left_page": "2026-09-03"
     },
     "7e95dd6e8b6c5378": {
       "sentence": "Trial Drug Progression-free survival Overall survival MONARCH 3 abemaciclib not reached vs 14.7 mo HR 0.54 (0.41–0.72) primary analysis, JCO 2017 66.8 vs 53.7 mo HR 0.80 (0.64–1.02) final analysis, 8.1 y, Ann Oncol 2024 · two-sided P = .0664 against a final-analysis threshold of .034 — not significant † MONALEESA-2 ribociclib postmenopausal 25.3 vs 16.0 mo HR 0.57 (0.46–0.70) updated analysis, Ann Oncol 2018 63.9 vs 51.4 mo HR 0.76 (0.63–0.93) final analysis, 6.6 y, NEJM 2022 · p = 0.008 — significant † MONALEESA-7 ribociclib pre/perimenopausal, endocrine therapy including tamoxifen 23.8 vs 13",
@@ -1448,8 +1464,9 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true,
-      "autobind": "anchors too weak to identify a document: directly compared in clinical trials (strength 3, need 4)"
+      "on_page": false,
+      "autobind": "anchors too weak to identify a document: directly compared in clinical trials (strength 3, need 4)",
+      "left_page": "2026-09-03"
     },
     "b18fa23f236abab4": {
       "sentence": "Shaaban and colleagues randomised 116 patients — 58 to each arm, in 29 blocks of four by opaque sealed envelope, at a single centre in Egypt — to palbociclib plus fulvestrant or ribociclib plus fulvestrant in the second line.",
@@ -2034,8 +2051,8 @@
       "sentence": "Guideline NCCN Clinical Practice Guidelines in Oncology — Breast Cancer, version 6.2026 Source of the category assignments, the stated reason for them, and the record that the three drugs have not been directly compared in clinical trials.",
       "sentence_sha": "2f27329e2c76d922",
       "why_empirical": "figure",
-      "bucket": null,
-      "locator": null,
+      "bucket": "figure",
+      "locator": "S001-01 through S001-13; the HR+/HER2- advanced breast cancer section",
       "scope_words": [],
       "falsifier": null,
       "verdicts": {
@@ -2046,7 +2063,12 @@
       "first_seen": "2026-09-01",
       "on_page": true,
       "autobind": "anchors too weak to identify a document: 6.2026 (strength 3, need 4)",
-      "left_page": "2026-09-01"
+      "left_page": "2026-09-01",
+      "attested_by": "fred",
+      "attested_in": "issues/WHU-002-cdk46/advocate/2026-08-29-adjudication.md",
+      "locator_type": "figure",
+      "source_id": "S001",
+      "why_bound": "NCCN's licence forbids putting this document through any automated tool, so no check has read it or ever may. The operator read it and the questions and answers are in issues/WHU-002-cdk46/advocate/2026-08-29-adjudication.md. This row records an attestation, not a verified span."
     },
     "574018a0d6bef965": {
       "sentence": "J Clin Oncol , 2017 Primary progression-free survival: median not reached vs 14.7 months, HR 0.54 (95% CI 0.41–0.72), P = .000021.",
@@ -4577,6 +4599,75 @@
       },
       "first_seen": "2026-09-01",
       "on_page": true
+    },
+    "1c895d650b602573": {
+      "sentence": "The guideline defines category 1 as based upon high-level evidence (≥1 randomized phase 3 trials or high-quality, robust meta-analyses), there is uniform NCCN consensus (≥85% support of the Panel) that the intervention is appropriate , and category 2A as based upon lower-level evidence, there is uniform NCCN consensus (≥85% support of the Panel) that the intervention is appropriate .",
+      "sentence_sha": "1c895d650b602573",
+      "why_empirical": "figure",
+      "bucket": "figure",
+      "source_id": "S001",
+      "document_sha": null,
+      "locator_type": "figure",
+      "locator": "S001-11; Categories of Evidence and Consensus table, front matter",
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-09-03",
+      "on_page": true,
+      "attested_by": "fred",
+      "attested_in": "issues/WHU-002-cdk46/advocate/2026-08-29-adjudication.md",
+      "why_bound": "NCCN's licence forbids putting this document through any automated tool, so no check has read it or ever may. The operator read it and the questions and answers are in issues/WHU-002-cdk46/advocate/2026-08-29-adjudication.md. This row records an attestation, not a verified span."
+    },
+    "3f31f94498770743": {
+      "sentence": "The difference between them is the evidence, not the consensus: both require the same ≥85% panel support.",
+      "sentence_sha": "3f31f94498770743",
+      "why_empirical": "figure",
+      "bucket": null,
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-09-03",
+      "on_page": true
+    },
+    "f58e1f9e6806eaf1": {
+      "sentence": "That reading is ours, and this is the whole of what the guideline gives for it: it says ribociclib with an aromatase inhibitor is category 1 due to the clear overall survival benefit, and that ribociclib and abemaciclib with fulvestrant are category 1 since those combinations showed an overall survival benefit in MONALEESA-3 and MONARCH 2.",
+      "sentence_sha": "f58e1f9e6806eaf1",
+      "why_empirical": "names the guideline",
+      "bucket": "figure",
+      "source_id": "S001",
+      "document_sha": null,
+      "locator_type": "figure",
+      "locator": "S001-13; searched the whole HR+/HER2- section, its tables and footnotes",
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-09-03",
+      "on_page": true,
+      "attested_by": "fred",
+      "attested_in": "issues/WHU-002-cdk46/advocate/2026-08-29-adjudication.md",
+      "why_bound": "NCCN's licence forbids putting this document through any automated tool, so no check has read it or ever may. The operator read it and the questions and answers are in issues/WHU-002-cdk46/advocate/2026-08-29-adjudication.md. This row records an attestation, not a verified span."
     }
   }
 }

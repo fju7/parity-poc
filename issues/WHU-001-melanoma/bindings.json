@@ -1434,7 +1434,7 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true,
+      "on_page": false,
       "autobind": "anchors too weak to identify a document: 3.4 (strength 1, need 4)",
       "premises": [
         {
@@ -1446,7 +1446,8 @@
           "span": "The companies have not disclosed hazard ratios, confidence intervals, p-values, median follow-up or event counts for the Phase 3 trial."
         }
       ],
-      "step": "Our scorecard's 3.4 and the headline 'landmark trial succeeds' describe the same announcement. The announcement discloses no effect size, which the score reflects and the headline does not."
+      "step": "Our scorecard's 3.4 and the headline 'landmark trial succeeds' describe the same announcement. The announcement discloses no effect size, which the score reflects and the headline does not.",
+      "left_page": "2026-09-03"
     },
     "aa13a72c97ee7cf8": {
       "sentence": "If someone quotes \"49%\" at you, ask which trial.",
@@ -3226,7 +3227,7 @@
         "warranted": null
       },
       "first_seen": "2026-09-02",
-      "on_page": true,
+      "on_page": false,
       "autobind": "no held document contains all 2 anchors: absolute recurrence risk in that group is lower, so the same hazard ratio delivers a smaller absolute benefit., can face risks of recurrence and melanoma-specific mortality similar to those observed in stage III disease.",
       "proposed_by": "model",
       "confirmed": false,
@@ -3237,7 +3238,8 @@
           "source_id": "S010",
           "span": "patients with resected stage IIB or IIC melanoma can face risks of recurrence and melanoma-specific mortality similar to those observed in stage III disease"
         }
-      ]
+      ],
+      "left_page": "2026-09-03"
     },
     "a1c0d514137eace8": {
       "sentence": "Morning Glory says as much in the same article, and it is the more important half of its argument: Because the Phase 3 hazard ratios have not been disclosed, those 157-patient figures cannot be placed alongside the 1,137-patient result.",
@@ -4050,6 +4052,106 @@
         }
       ],
       "step": "CheckMate 238 randomises nivolumab against ipilimumab. Its registry title states both arms, so there is no placebo arm in it and it cannot bear on a claim about trials against placebo."
+    },
+    "8418e6f2d16c3ad6": {
+      "sentence": "For adjuvant PD-1 inhibitors specifically — the comparison arm in this very trial — in the three trials whose registry records we hold — KEYNOTE-054, KEYNOTE-716 and CheckMate 238 — none has reported a statistically significant overall survival benefit against placebo as a prespecified endpoint in its own population, though indirect comparisons have suggested a signal.",
+      "sentence_sha": "8418e6f2d16c3ad6",
+      "why_empirical": "names KEYNOTE-716",
+      "bucket": "judgement",
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-09-03",
+      "on_page": true,
+      "premises": [
+        {
+          "source_id": "S020",
+          "span": "\"title\":\"Overall Survival (OS) for All Participants\""
+        },
+        {
+          "source_id": "S026",
+          "span": "\"title\":\"Overall Survival (OS)\""
+        },
+        {
+          "source_id": "S021",
+          "span": "Nivolumab Versus Ipilimumab"
+        }
+      ],
+      "step": "All three registry records are held in full and were read on 3 September 2026. In KEYNOTE-054 and KEYNOTE-716 — both pembrolizumab against placebo — the overall-survival measure appears in the posted results with an empty analyses list, so no hazard ratio, interval or p-value was ever posted for it. CheckMate 238 randomises nivolumab against ipilimumab and so cannot report against placebo at all. The claim is deliberately bounded to these three: it says what we checked rather than what is true of every trial that exists."
+    },
+    "febf876e370134bb": {
+      "sentence": "Morning Glory Sciences — the English edition of a non-English industry site, which we cite for an argument we have checked ourselves rather than on its standing — the Phase 2b population was stage IIIB–IV, the Phase 3 adds node-negative disease, and “absolute recurrence risk in that group is lower, so the same hazard ratio delivers a smaller absolute benefit.” Pharmacy Times makes the opposite case about the same patients: resected stage IIB or IIC melanoma “can face risks of recurrence and melanoma-specific mortality similar to those observed in stage III disease.” Neither reading reached the",
+      "sentence_sha": "febf876e370134bb",
+      "why_empirical": "quoted passage",
+      "bucket": "judgement",
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-09-03",
+      "on_page": true,
+      "premises": [
+        {
+          "source_id": "S009",
+          "span": "The Phase 2b population was stage IIIB-IV; the Phase 3 adds stage IIB and IIC - node-negative disease . Absolute recurrence risk in that group is lower, so the same hazard ratio delivers a smaller absolute benefit."
+        },
+        {
+          "source_id": "S010",
+          "span": "patients with resected stage IIB or IIC melanoma can face risks of recurrence and melanoma-specific mortality similar to those observed in stage III disease"
+        }
+      ],
+      "step": "The site publishes at /en/ under a strapline that reads as translated, and a search of the open web excluding its own domain on 3 September 2026 returned no third party citing it — no publication, aggregator or outlet. So we can vouch for the argument but not for the outlet, and the sentence says which. The argument itself is checkable without it: the stage widening is in the Phase 3 release, and Pharmacy Times, an outlet with standing, makes the opposing case in its own words."
+    },
+    "fcb86b6a4be8e32e": {
+      "sentence": "“Landmark trial succeeds” and “3.35, moderate” describe the same event, and only one of them tells you the numbers are still missing.",
+      "sentence_sha": "fcb86b6a4be8e32e",
+      "why_empirical": "figure",
+      "bucket": "judgement",
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-09-03",
+      "on_page": true,
+      "premises": [
+        {
+          "source_id": "S001",
+          "span": "The trial met its primary endpoint of recurrence-free survival (RFS) and a key secondary endpoint of distant metastasis-free survival (DMFS)."
+        },
+        {
+          "source_id": "S011",
+          "span": "The companies have not disclosed hazard ratios, confidence intervals, p-values, median follow-up or event counts for the Phase 3 trial."
+        }
+      ],
+      "step": "The release states the endpoints were met and, as MLQ News records, discloses no hazard ratio, interval, p-value or event count. Our composite is 3.35 because data support scores 1 against the rubric's anchor for a purely qualitative assertion. Both describe the same announcement; only the score carries the fact that the magnitude is missing."
     }
   }
 }

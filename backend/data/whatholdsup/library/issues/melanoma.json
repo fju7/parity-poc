@@ -274,6 +274,19 @@
       "kind_why": "type 'reference' does not settle whether this is a journal article, and the source declares no form — so no substance test applies and none has run",
       "superseded": [],
       "also_held": []
+    },
+    "S026": {
+      "sha256": "266e8448b1083b0c54a8908ef6ec9a97ff721da8bf2699cd592abb564b4d379a",
+      "file": "docs/26/266e8448b1083b0c54a8908ef6ec9a97ff721da8bf2699cd592abb564b4d379a.json",
+      "bytes": 121630,
+      "url": "https://clinicaltrials.gov/api/v2/studies/NCT03553836",
+      "held": "2026-09-03",
+      "via": "acquire_sources.py on the operator's machine",
+      "note": "",
+      "kind": "document",
+      "kind_why": "form 'record' — 121601 characters held. The article test does not apply to this form",
+      "superseded": [],
+      "also_held": []
     }
   }
 }

@@ -527,7 +527,29 @@ def rule_rows(slug: str) -> list[tuple[str, str, str]]:
                       for x in (v.get("premises") or [])]
         return [(sid, sp) for sid, sp in spans if sid and sp]
 
-    unbound = [k for k, v in on_page.items() if not covering(v)]
+    # AN ATTESTATION IS NOT A SPAN, AND SATISFIES RULE 1 ANYWAY.
+    #
+    # NCCN's licence forbids putting the guideline through any automated tool,
+    # so no check has read it or ever may. Spec section 3 says so in the table:
+    # for a figure-based sentence, "locatable" is NOT POSSIBLE. Section 7 routes
+    # it to the operator, by recorded question and answer. A rule 1 that
+    # demanded a span from those sentences would make the attested route
+    # useless and push us toward pasting licence-bound text into a file to
+    # satisfy a check -- the worst outcome available.
+    #
+    # So a `figure` row rests on its attestation, and rule 2 makes that cost a
+    # named person, the record of their reading, and a locator. The count is
+    # reported SEPARATELY below and never added to the verified ones, because
+    # "a human says this is in a document nothing may read" and "this string is
+    # in these bytes" are different claims and merging them is the oldest error
+    # in this repository.
+    attested = [k for k, v in on_page.items()
+                if (v.get("bucket") or "") == "figure"
+                and (v.get("attested_by") or "").strip()
+                and (v.get("attested_in") or "").strip()
+                and (v.get("locator") or "").strip()]
+    unbound = [k for k, v in on_page.items()
+               if not covering(v) and k not in set(attested)]
 
     # A SENTENCE IS NOT BOUND BECAUSE ONE OF ITS FIGURES IS.
     #
@@ -540,6 +562,8 @@ def rule_rows(slug: str) -> list[tuple[str, str, str]]:
     # sentence is actually bound to.
     loose, loose_keys = [], set()
     for k, v in on_page.items():
+        if k in set(attested):
+            continue          # nothing here may read the document it rests on
         spans = covering(v)
         if not spans:
             continue
@@ -559,6 +583,16 @@ def rule_rows(slug: str) -> list[tuple[str, str, str]]:
                          % (k[:8], ", ".join(sorted(missing)[:4]),
                             v["sentence"][:40]))
             loose_keys.add(k)
+
+    if attested:
+        out_extra = [("sentences resting on a human attestation", WARN,
+                      "%d of %d rest on a document no check may read: a named "
+                      "person read it, the record of that reading is named, and "
+                      "the place in the document is named. This is not a "
+                      "verified span and is never counted as one."
+                      % (len(attested), len(on_page)))]
+    else:
+        out_extra = []
 
     out = [("rule 1 — written from a document we hold",
             OK if not (unbound or loose) else BAD,
@@ -635,6 +669,7 @@ def rule_rows(slug: str) -> list[tuple[str, str, str]]:
                    " || ".join((bad + [on_page[k]["sentence"][:50]
                                        for k in unbucketed])[:3]))))
 
+    out.extend(out_extra)
     todo = set(unbound) | set(unbucketed) | set(wrong)
     todo |= loose_keys
     if todo:
