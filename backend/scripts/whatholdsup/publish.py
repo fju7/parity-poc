@@ -185,6 +185,11 @@ source_store = _sibling("source_store")
 # and absence and never truth.
 errata = _sibling("errata")
 bindings = _sibling("bindings")
+# furniture: text the page generates about itself -- an axis, a scorecard's
+# working, a table restating what the article proved. Each marked element makes
+# a claim about itself and this checks that claim. It is not an exemption list:
+# a table that introduces a figure no bound sentence rests on BLOCKS.
+furniture = _sibling("furniture")
 # B9 starts from the PAGE rather than the source list, which is the only way to
 # see a source nobody wrote down. B8 asks whether a closer document says the
 # same thing.
@@ -1255,6 +1260,12 @@ def preflight(slug: str, *, for_email: bool,
     except BaseException as exc:
         out.append(("page to ledger", WARN, "did not run: %s: %s"
                     % (type(exc).__name__, exc)))
+    try:
+        out.extend(furniture.preflight_rows(
+            slug, page.read_text(encoding="utf-8")))
+    except BaseException as exc:
+        out.append(("text the page generates about itself", WARN,
+                    "did not run: %s: %s" % (type(exc).__name__, exc)))
     for _mod, _name in ((errata, "errata check"), (bindings, "claim bindings"),
                         (coverage, "check coverage"),
                         (b13, "figures in held documents"),

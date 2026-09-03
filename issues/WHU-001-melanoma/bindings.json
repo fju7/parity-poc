@@ -2047,7 +2047,8 @@
       "proposed_by": "model",
       "confirmed": false,
       "proposed_on": "2026-09-02",
-      "why_bound": "a model proposed this span and B2 confirmed the string is in S004; nobody has yet signed that the sentence is warranted by it"
+      "why_bound": "a model proposed this span and B2 confirmed the string is in S004; nobody has yet signed that the sentence is warranted by it",
+      "left_page": "2026-09-03"
     },
     "fa3b7745cc06ce41": {
       "sentence": "The companies say the data \"will be presented at an upcoming international medical meeting and shared with regulatory authorities.\"",
@@ -2074,7 +2075,8 @@
       "proposed_on": "2026-09-01",
       "why_bound": "a model proposed this span and B2 confirmed the string is in S001; nobody has yet signed that the sentence is warranted by it",
       "check_flags": [],
-      "checked_on": "2026-09-02"
+      "checked_on": "2026-09-02",
+      "left_page": "2026-09-03"
     },
     "d1e8f24478af9d9d": {
       "sentence": "The outlets we reached attributed those figures correctly to KEYNOTE-942 — among them The ASCO Post, Dermatology Times, OncLive and FierceBiotech — and several said plainly that no Phase 3 efficacy numbers had been released.",
@@ -2172,7 +2174,8 @@
       "proposed_by": "model",
       "confirmed": false,
       "proposed_on": "2026-09-02",
-      "why_bound": "a model proposed this span and B2 confirmed the string is in S003; nobody has yet signed that the sentence is warranted by it"
+      "why_bound": "a model proposed this span and B2 confirmed the string is in S003; nobody has yet signed that the sentence is warranted by it",
+      "left_page": "2026-09-03"
     },
     "b7ec0d96346893ab": {
       "sentence": "Recurrence-free 5-year · HR 0.510",
@@ -2198,7 +2201,8 @@
       "proposed_by": "model",
       "confirmed": false,
       "proposed_on": "2026-09-02",
-      "why_bound": "a model proposed this span and B2 confirmed the string is in S004; nobody has yet signed that the sentence is warranted by it"
+      "why_bound": "a model proposed this span and B2 confirmed the string is in S004; nobody has yet signed that the sentence is warranted by it",
+      "left_page": "2026-09-03"
     },
     "2560dcc038541b47": {
       "sentence": "Distant metastasis-free 5-year · HR 0.411",
@@ -2224,7 +2228,8 @@
       "proposed_by": "model",
       "confirmed": false,
       "proposed_on": "2026-09-02",
-      "why_bound": "a model proposed this span and B2 confirmed the string is in S004; nobody has yet signed that the sentence is warranted by it"
+      "why_bound": "a model proposed this span and B2 confirmed the string is in S004; nobody has yet signed that the sentence is warranted by it",
+      "left_page": "2026-09-03"
     },
     "6d8b1ca818cb8d50": {
       "sentence": "Overall survival exploratory · HR 0.471 · \"n=14\"",
@@ -2251,7 +2256,8 @@
       "proposed_on": "2026-09-01",
       "why_bound": "a model proposed this span and B2 confirmed the string is in S004; nobody has yet signed that the sentence is warranted by it",
       "check_flags": [],
-      "checked_on": "2026-09-02"
+      "checked_on": "2026-09-02",
+      "left_page": "2026-09-03"
     },
     "ce4dfd12e8ef5751": {
       "sentence": "0 0.5 1.0 — no effect 1.5",
@@ -2272,8 +2278,9 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true,
-      "autobind": "anchors too weak to identify a document: 0.5, 1.0, 1.5 (strength 3, need 4)"
+      "on_page": false,
+      "autobind": "anchors too weak to identify a document: 0.5, 1.0, 1.5 (strength 3, need 4)",
+      "left_page": "2026-09-03"
     },
     "05b63c6758eac12e": {
       "sentence": "When KEYNOTE-942 first reported in 2023, its recurrence result was HR 0.561, 95% CI 0.309–1.017 — the interval crossed 1.0, so \"no effect\" could not be ruled out.",
@@ -2400,8 +2407,9 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true,
-      "autobind": "anchors too weak to identify a document: 1,137 (strength 3, need 4)"
+      "on_page": false,
+      "autobind": "anchors too weak to identify a document: 1,137 (strength 3, need 4)",
+      "left_page": "2026-09-03"
     },
     "b003ac91d8f72c71": {
       "sentence": "HR 0.510 (0.294–0.887)",
@@ -2422,12 +2430,13 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true,
+      "on_page": false,
       "autobind": "2 held documents contain all these anchors (S004, S019) — which one the sentence rests on is not decidable by presence alone",
       "proposed_by": "model",
       "confirmed": false,
       "proposed_on": "2026-09-02",
-      "why_bound": "a model proposed this span and B2 confirmed the string is in S004; nobody has yet signed that the sentence is warranted by it"
+      "why_bound": "a model proposed this span and B2 confirmed the string is in S004; nobody has yet signed that the sentence is warranted by it",
+      "left_page": "2026-09-03"
     },
     "249bf5363088486d": {
       "sentence": "HR 0.411 (0.200–0.843)",
@@ -2448,12 +2457,13 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true,
+      "on_page": false,
       "autobind": "8 held documents contain all these anchors (S001, S002, S004, S006, S009) — which one the sentence rests on is not decidable by presence alone",
       "proposed_by": "model",
       "confirmed": false,
       "proposed_on": "2026-09-02",
-      "why_bound": "a model proposed this span and B2 confirmed the string is in S004; nobody has yet signed that the sentence is warranted by it"
+      "why_bound": "a model proposed this span and B2 confirmed the string is in S004; nobody has yet signed that the sentence is warranted by it",
+      "left_page": "2026-09-03"
     },
     "33aa3fcd1fb9c5e5": {
       "sentence": "HR 0.471 (0.165–1.345)",
@@ -2474,12 +2484,13 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true,
+      "on_page": false,
       "autobind": "2 held documents contain all these anchors (S002, S004) — which one the sentence rests on is not decidable by presence alone",
       "proposed_by": "model",
       "confirmed": false,
       "proposed_on": "2026-09-02",
-      "why_bound": "a model proposed this span and B2 confirmed the string is in S004; nobody has yet signed that the sentence is warranted by it"
+      "why_bound": "a model proposed this span and B2 confirmed the string is in S004; nobody has yet signed that the sentence is warranted by it",
+      "left_page": "2026-09-03"
     },
     "669e6a70d9211c32": {
       "sentence": "\"Intismeran autogene plus pembrolizumab improves recurrence-free survival versus pembrolizumab alone in resected stage IIB–IV melanoma.\"",
@@ -2500,8 +2511,9 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true,
-      "autobind": "anchors too weak to identify a document: Intismeran autogene plus pembrolizumab improves recurrence-free survival versus pembrolizumab alone in resected stage IIB–IV melanoma. (strength 3, need 4)"
+      "on_page": false,
+      "autobind": "anchors too weak to identify a document: Intismeran autogene plus pembrolizumab improves recurrence-free survival versus pembrolizumab alone in resected stage IIB–IV melanoma. (strength 3, need 4)",
+      "left_page": "2026-09-03"
     },
     "72d73db944cf6d9a": {
       "sentence": "3.4",
@@ -2786,7 +2798,8 @@
       "proposed_by": "model",
       "confirmed": false,
       "proposed_on": "2026-09-02",
-      "why_bound": "a model proposed this span and B2 confirmed the string is in S001; nobody has yet signed that the sentence is warranted by it"
+      "why_bound": "a model proposed this span and B2 confirmed the string is in S001; nobody has yet signed that the sentence is warranted by it",
+      "left_page": "2026-09-03"
     },
     "a91903fd523589f3": {
       "sentence": "Of the study it is actually announcing it says only that the endpoints were met, \"statistically significant and clinically meaningful\".",
@@ -2887,8 +2900,9 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true,
-      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)"
+      "on_page": false,
+      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)",
+      "left_page": "2026-09-03"
     },
     "2a5ab63e6db0fcd1": {
       "sentence": "3.4 Moderate (3×.25)+(1×.20)+(4×.15)+(4×.15)+(5×.15)+(5×.10)",
@@ -2909,8 +2923,9 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true,
-      "autobind": "the sentence shows its own working ('×') — it rests on figures already on the page, not on a source"
+      "on_page": false,
+      "autobind": "the sentence shows its own working ('×') — it rests on figures already on the page, not on a source",
+      "left_page": "2026-09-03"
     },
     "389fa2fdb6bcd167": {
       "sentence": "By the three-year readout at ASCO 2024, since published in full, the interval no longer crossed it: HR 0.510, 95% CI 0.288–0.906 — though that paper states plainly that its analyses were descriptive only and not intended for formal hypothesis testing, so this is an interval that stopped including 1.0 rather than a threshold anyone crossed.",
@@ -3006,8 +3021,9 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true,
-      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)"
+      "on_page": false,
+      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)",
+      "left_page": "2026-09-03"
     },
     "a0a2e2b7553ee03a": {
       "sentence": "It reports the recurrence hazard ratio with an 80% confidence interval of 0.351–0.743 in the text, and the 95% interval 0.288–0.906 in its results table; the 95% interval is the one quoted above, so that it can be read beside the others on this page.",
@@ -3186,8 +3202,9 @@
         "warranted": null
       },
       "first_seen": "2026-09-02",
-      "on_page": true,
-      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)"
+      "on_page": false,
+      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)",
+      "left_page": "2026-09-03"
     },
     "f088ceecb9290762": {
       "sentence": "Morning Glory Sciences: the Phase 2b population was stage IIIB–IV, the Phase 3 adds node-negative disease, and “absolute recurrence risk in that group is lower, so the same hazard ratio delivers a smaller absolute benefit.” Pharmacy Times makes the opposite case about the same patients: resected stage IIB or IIC melanoma “can face risks of recurrence and melanoma-specific mortality similar to those observed in stage III disease.” Neither reading reached the general coverage.",
@@ -3529,7 +3546,8 @@
           "span": "The companies did not disclose hazard ratios, absolute event rates, P values, or other phase 3 efficacy estimates in the topline announcement."
         }
       ],
-      "step": "Each outlet we hold attributes the 49% and 59% figures to KEYNOTE-942 rather than to the Phase 3, and several state in their own words that no Phase 3 efficacy estimates were released. The claim is a summary of the held coverage and can be checked against it article by article."
+      "step": "Each outlet we hold attributes the 49% and 59% figures to KEYNOTE-942 rather than to the Phase 3, and several state in their own words that no Phase 3 efficacy estimates were released. The claim is a summary of the held coverage and can be checked against it article by article.",
+      "left_page": "2026-09-03"
     },
     "180a81052fba84f6": {
       "sentence": "MLQ News : The companies have not disclosed hazard ratios, confidence intervals, p-values, median follow-up or event counts for the Phase 3 trial.",
@@ -3646,7 +3664,7 @@
         "warranted": null
       },
       "first_seen": "2026-09-02",
-      "on_page": true,
+      "on_page": false,
       "autobind": "4 held documents contain all these anchors (S003, S004, S005, S019) — which one the sentence rests on is not decidable by presence alone",
       "proposed_by": "model",
       "confirmed": false,
@@ -3662,7 +3680,8 @@
           "span": "The hazard ratio is an estimate of the ratio of the hazard rate in the treated versus the control group. For example if there are two groups, group 1 and group 2, HR = 4.5 for treatment means that the risk (of relapse) for group 2 is 4.5 times that of group 1. If HR = 1 then Group 1 h (t) = Group 2 h (t)."
         }
       ],
-      "step": "The two-sided 95% interval is 0.309 to 1.017 and 1.0 falls inside it, which is why the two-sided p of 0.053 sits just above 0.05: the interval and the test are the same statement about the same data."
+      "step": "The two-sided 95% interval is 0.309 to 1.017 and 1.0 falls inside it, which is why the two-sided p of 0.053 sits just above 0.05: the interval and the test are the same statement about the same data.",
+      "left_page": "2026-09-03"
     },
     "9896f5ed7196d682": {
       "sentence": "The source of the one-sided p = 0.0266.",
@@ -3771,6 +3790,113 @@
         {
           "source_id": "S021",
           "span": "Efficacy Study of Nivolumab Compared to Ipilimumab in Prevention of Recurrence of Melanoma After Complete Resection of Stage IIIb/c or Stage IV Melanoma"
+        }
+      ]
+    },
+    "a53b8c8efe269fcd": {
+      "sentence": "The companies say the data \"will be presented at an upcoming international medical meeting and shared with regulatory authorities.\" Why this is worth a whole article Every outlet whose article we hold attributed those figures correctly to KEYNOTE-942 — The ASCO Post, Dermatology Times, Practical Dermatology, KOL Pulse and MLQ News — and several said plainly that no Phase 3 efficacy numbers had been released.",
+      "sentence_sha": "a53b8c8efe269fcd",
+      "why_empirical": "quoted passage",
+      "bucket": null,
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-09-03",
+      "on_page": false,
+      "left_page": "2026-09-03"
+    },
+    "3005ff408de14e52": {
+      "sentence": "Recurrence-free first readout, 2023 · HR 0.561 Recurrence-free 5-year · HR 0.510 Distant metastasis-free 5-year · HR 0.411 Overall survival exploratory · HR 0.471 · \"n=14\" All four intervals are from KEYNOTE-942, the 157-patient Phase 2b.",
+      "sentence_sha": "3005ff408de14e52",
+      "why_empirical": "figure",
+      "bucket": null,
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-09-03",
+      "on_page": false,
+      "left_page": "2026-09-03"
+    },
+    "4131b6361af71236": {
+      "sentence": "The confidence interval is the tell: 0.309–1.017 crosses 1.0, which is exactly what a two-sided 95% interval keys on.",
+      "sentence_sha": "4131b6361af71236",
+      "why_empirical": "figure",
+      "bucket": "judgement",
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-09-03",
+      "on_page": true,
+      "premises": [
+        {
+          "source_id": "S003",
+          "span": "hazard ratio [HR] for recurrence or death, 0.561 [95% CI 0.309-1.017]; two-sided p=0.053"
+        },
+        {
+          "source_id": "S025",
+          "span": "The hazard ratio is an estimate of the ratio of the hazard rate in the treated versus the control group. For example if there are two groups, group 1 and group 2, HR = 4.5 for treatment means that the risk (of relapse) for group 2 is 4.5 times that of group 1. If HR = 1 then Group 1 h (t) = Group 2 h (t)."
+        }
+      ],
+      "step": "The two-sided 95% interval is 0.309 to 1.017 and a hazard ratio of 1 is the value at which the groups' hazard rates are equal. 1.0 falls inside that interval, which is the same statement as the two-sided p of 0.053 sitting just above 0.05."
+    },
+    "2fe183f5ccda1521": {
+      "sentence": "The Three-Year Update, published in JCO Oncology Advances on 12 February 2026.",
+      "sentence_sha": "2fe183f5ccda1521",
+      "why_empirical": "names Three-Year Update",
+      "bucket": "context",
+      "source_id": "S007",
+      "document_sha": "a20f53ae0482863d106992b7395208832dcba85d2c8e48d66a795d084bfa369e",
+      "locator_type": "prose",
+      "locator": null,
+      "span": "Three-Year Update of a Randomized Phase IIb Study of the Individualized Neoantigen Therapy Intismeran Autogene (mRNA-4157, V940) Plus Pembrolizumab Versus Pembrolizumab in Resected Melanoma",
+      "envelope": "Brief Reports Three-Year Update of a Randomized Phase IIb Study of the Individualized Neoantigen Therapy Intismeran Autogene (mRNA-4157, V940) Plus Pembrolizumab Versus Pembrolizumab in Resected Melanoma Downloaded from ascopubs.org by 73.135.186.24 on September 1, 2026 from 073.135.186.024 Copyright © 2026 American Society of Clinical Oncology. All rights reserved. Matteo S. Carlino, MD, PhD1 ; Adnan Khattak, MD, PhD2;",
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-09-03",
+      "on_page": true,
+      "proposed_by": "model",
+      "confirmed": false,
+      "proposed_on": "2026-09-03",
+      "why_bound": "a model proposed this span and B2 confirmed the string is in S007; nobody has yet signed that the sentence is warranted by it",
+      "also_rests_on": [
+        {
+          "source_id": "S007",
+          "span": "Accepted September 30, 2025 Published February 12, 2026 JCO Oncology Adv 3:e2500008"
         }
       ]
     }

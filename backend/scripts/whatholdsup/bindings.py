@@ -111,6 +111,13 @@ def page_sentences(slug: str) -> list[str]:
     if html is None:
         html = _page_html(slug)
     html = FURNITURE.sub(" ", html)
+    # Text the page generates about itself -- an axis, a scorecard's working, a
+    # table restating what the article proved -- is checked by furniture.py
+    # against the claim its mark makes, not bound to a source. Removing it here
+    # stops rule 1 demanding a document for an axis tick. It is NOT skipped:
+    # see furniture.py, where each mark buys an obligation rather than a pass.
+    import furniture
+    html = furniture.strip_marked(html)
     return [" ".join(s.split()) for s in ledger.sentences(ledger.plain(html))]
 
 
@@ -498,6 +505,16 @@ def rule_rows(slug: str) -> list[tuple[str, str, str]]:
     # escape rule 1 buys strictly more work, which is the property that keeps
     # the bucket honest.
     known_names = trial_names(store.sources(slug))
+    # A figure the page WORKS OUT rather than reports -- the scorecard's
+    # composite -- is verified by furniture.py against its own arithmetic, the
+    # scores shown beside it and weights summing to 1. That is a stricter test
+    # than a quotation, so a sentence may refer to it. Only from an element
+    # that passes; a scorecard that does not add up donates nothing.
+    try:
+        import furniture
+        worked_out = furniture.computed_figures(_page_html(slug))
+    except Exception:
+        worked_out = set()
 
     def covering(v):
         spans = []
@@ -534,7 +551,7 @@ def rule_rows(slug: str) -> list[tuple[str, str, str]]:
                 loose_keys.add(k)
                 continue
             covered += " " + SC._norm(span)
-        held = _as_numbers(MB.figures(covered))
+        held = _as_numbers(MB.figures(covered)) | worked_out
         missing = [f for f in _claim_figures(v["sentence"], known_names)
                    if MB._weight(f) and not _as_numbers([f]) <= held]
         if missing:
