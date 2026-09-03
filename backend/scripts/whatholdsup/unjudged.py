@@ -154,9 +154,32 @@ def regate_cost(page: Path, report: dict, n_unjudged: int) -> str:
     no longer on the page, and that is not a rate to be guessed at. It is a set
     to be counted.
 
-    Checked against both known runs. Six figures are gone from issue two now:
-    $1.00 + 6 x $0.28 = $2.68, against v2's $13.86. And for the run that
-    actually cost $5.20, the same method gives about $5.67.
+      v3 counted the claims whose FIGURE IS GONE from the page, on the
+         docstring's belief that "--since carries a verdict forward when the
+         claim's (figure, source) key still matches". That is not what the
+         carry does. carry_forward() keeps a claim only when it finds a prior
+         entry AND that entry's verdict is VERIFIED. So two whole populations
+         re-run that v3 charged nothing for:
+
+           * every claim the last run did NOT verify. Issue one's last report
+             held 54 claims, 42 VERIFIED — so twelve were going to re-run
+             before anyone touched the page.
+           * every claim the last run never extracted. Extraction is a model
+             call and its output is not stable: the same page yielded 54
+             claims one run and 59 the next.
+
+         On 3 September v3 predicted $2.90 for a one-sentence edit. The run
+         re-checked 35 of 59 claims and cost $6.59, and it was quoted to the
+         editor as $2.90 because the number came from here.
+
+    So v4 counts what CAN carry rather than what cannot: a claim with a
+    VERIFIED verdict whose figure is still on the page. Everything else is
+    charged for.
+
+    IT IS A FLOOR AND SAYS SO. Extraction drift is the part no counting can
+    reach — the claims the next run invents are not in this report to be
+    counted — and a number offered without that caveat is how $2.90 became
+    $6.59 in a sentence somebody budgeted against.
     """
     usage = (report.get("usage") or {})
     by = usage.get("by_role") or {}
@@ -171,17 +194,28 @@ def regate_cost(page: Path, report: dict, n_unjudged: int) -> str:
     flat = " ".join(html.unescape(re.sub(r"<[^>]+>", " ",
                     page.read_text(encoding="utf-8"))).split())
     claims = report.get("claims") or []
-    gone = [c for c in claims
-            if (c.get("figure") or "").strip()
-            and " ".join((c["figure"] or "").split()) not in flat]
     if not claims:
         return ""
-    est = doc_roles + per_claim * max(len(gone), 1)
-    return ("re-gating costs roughly $%.2f — $%.2f for the roles that must read the whole "
-            "page, plus %d claim(s) whose figure is no longer on it, at $%.2f each. Every "
-            "other claim's verdict carries forward under --since. Counted, not estimated "
-            "from a rate: the last full run was $%.2f for %d claims."
-            % (est, doc_roles, max(len(gone), 1), per_claim, total, len(claims)))
+    verdicts = report.get("verdicts") or {}
+
+    def _verdict(c):
+        v = verdicts.get(c.get("id") or "")
+        return (v or {}).get("verdict") if isinstance(v, dict) else None
+
+    carries = [c for c in claims
+               if _verdict(c) == "VERIFIED"
+               and (not (c.get("figure") or "").strip()
+                    or " ".join((c["figure"] or "").split()) in flat)]
+    recheck = max(len(claims) - len(carries), 1)
+    est = doc_roles + per_claim * recheck
+    unverified = len(claims) - sum(1 for c in claims if _verdict(c) == "VERIFIED")
+    return ("re-gating costs AT LEAST $%.2f — $%.2f for the roles that must read the "
+            "whole page, plus %d claim(s) that cannot carry forward, at $%.2f each. "
+            "%d of those were not VERIFIED last run and would re-run whatever the page "
+            "says. A floor, not an estimate: extraction is a model call and the claims "
+            "the next run invents are not in this report to be counted. Last full run: "
+            "$%.2f for %d claims."
+            % (est, doc_roles, recheck, per_claim, unverified, total, len(claims)))
 
 
 def preflight_rows(slug: str, page: Path) -> list[tuple[str, str, str]]:
