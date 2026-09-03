@@ -59,6 +59,50 @@ QUESTIONS = ("locatable", "faithful", "warranted")
 # ---------------------------------------------------------------------------
 
 FIGURE = re.compile(r"\b\d+\.\d+\b|\b\d{1,3}(?:,\d{3})+\b|\b\d+(?:\.\d+)?\s?%")
+
+# A BARE INTEGER IS A CLAIM, AND FIGURE COULD NOT SEE ONE.
+#
+# FIGURE matches a decimal, a thousands-separated number, or a percentage.
+# Every plain integer was therefore invisible to is_empirical, so the sentences
+# below were never classified as empirical, never bound, never counted in the
+# 82, and never subject to rule 1 or rule 2:
+#
+#     "0 Phase 3 efficacy numbers released"      <- the article's whole thesis
+#     "14 deaths the whole survival analysis"
+#     "That sense is drawn from 157 patients in an open-label trial"
+#
+# The first of those is the largest type on the page. It survived four gate
+# runs and every binder pass by being a number with no decimal point.
+#
+# This is the same blind spot as modelbind._weight, found the same day in a
+# different module: a rule written for what a number LOOKS LIKE, standing in
+# for whether it is a claim. There it made a furniture mark unable to see any
+# integer under 100. Here it made the binder unable to see any integer at all.
+#
+# What has to be excluded is not small numbers but NAMES that contain digits.
+# Measured on issue one before writing this: adding bare integers alone turned
+# 24 more sentences empirical, and 15 of them were "Phase 3" — a study's name,
+# no more a quantity than KEYNOTE-054 is. Excluding phase names, calendar dates
+# and years leaves NINE, and every one is a real quantitative claim: the zero
+# card, the fourteen deaths, three sentences about 157 patients, a 20
+# percentage-point gap, a 48-month landmark, and two rubric scores.
+#
+# Trial names are already dropped by _claim_figures from the ledger's own
+# also_called. These three are the same kind of thing and are not in it.
+PHASE_NAME = re.compile(r"\bphase\s*\d+[a-z]?\b", re.I)
+DAY_MONTH = re.compile(r"\b\d{1,2}\s+(?:January|February|March|April|May|June|"
+                       r"July|August|September|October|November|December)\b", re.I)
+YEAR = re.compile(r"\b(?:19|20)\d\d\b")
+BARE_INT = re.compile(r"(?<![A-Za-z0-9.,-])\d{1,3}(?![0-9.,%])")
+
+
+def counts_as_claim(sent: str, names: set[str]) -> str:
+    """The first bare integer in this sentence that is a quantity, or ""."""
+    t = YEAR.sub(" ", DAY_MONTH.sub(" ", PHASE_NAME.sub(" ", sent)))
+    for n in names:
+        t = re.sub(r"\b%s\b" % re.escape(n), " ", t)
+    m = BARE_INT.search(t)
+    return m.group(0) if m else ""
 NCT = re.compile(r"\bNCT\d{8}\b")
 DOI = re.compile(r"\b10\.\d{4,9}/\S+")
 QUOTED = re.compile(r"[“\"][^”\"]{25,}[”\"]")
@@ -84,6 +128,9 @@ def is_empirical(sent: str, names: set[str]) -> tuple[bool, str]:
         return True, "quoted passage"
     if FIGURE.search(sent):
         return True, "figure"
+    bare = counts_as_claim(sent, names)
+    if bare:
+        return True, "the bare integer %s is a quantity" % bare
     hit = next((n for n in names if re.search(r"\b%s\b" % re.escape(n), sent)), None)
     if hit:
         return True, "names %s" % hit

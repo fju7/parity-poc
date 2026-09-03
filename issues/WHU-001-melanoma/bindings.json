@@ -4929,6 +4929,237 @@
       "proposed_by": "human",
       "confirmed": true,
       "proposed_on": "2026-09-03"
+    },
+    "e77772887fc6282b": {
+      "sentence": "0 Phase 3 efficacy numbers released",
+      "sentence_sha": "e77772887fc6282b",
+      "why_empirical": "the bare integer 0 is a quantity",
+      "bucket": null,
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-09-03",
+      "on_page": true
+    },
+    "5f60f52b74a520c6": {
+      "sentence": "14 deaths the whole survival analysis",
+      "sentence_sha": "5f60f52b74a520c6",
+      "why_empirical": "the bare integer 14 is a quantity",
+      "bucket": null,
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-09-03",
+      "on_page": true
+    },
+    "27e83c19e098e820": {
+      "sentence": "And the one endpoint that would tell you whether anyone lives longer rests, at five years, on an analysis the companies label only \"n=14\" .",
+      "sentence_sha": "27e83c19e098e820",
+      "why_empirical": "the bare integer 14 is a quantity",
+      "bucket": null,
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-09-03",
+      "on_page": true
+    },
+    "1502754327b79c60": {
+      "sentence": "That sense is drawn from 157 patients in an open-label trial, and the study that could correct it has released no number describing the size of its own effect.",
+      "sentence_sha": "1502754327b79c60",
+      "why_empirical": "the bare integer 157 is a quantity",
+      "bucket": null,
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-09-03",
+      "on_page": true
+    },
+    "cff6a47d15faa0c4": {
+      "sentence": "That is a gap of roughly 20 percentage points at the five-year mark — a far more tangible figure than the hazard ratio, and the one that rarely reaches a headline.",
+      "sentence_sha": "cff6a47d15faa0c4",
+      "why_empirical": "the bare integer 20 is a quantity",
+      "bucket": null,
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-09-03",
+      "on_page": true
+    },
+    "d3d89f8c2830f3bb": {
+      "sentence": "All four intervals are from KEYNOTE-942, the 157-patient Phase 2b.",
+      "sentence_sha": "d3d89f8c2830f3bb",
+      "why_empirical": "the bare integer 157 is a quantity",
+      "bucket": null,
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-09-03",
+      "on_page": true
+    },
+    "ed05c7bcb78948f8": {
+      "sentence": "(The full paper reports its landmark rates only to 48 months — its figure legend says so — which is why the five-year rates above come from the report of the analysis rather than from the paper.) This is what \"an encouraging trend\" looks like underneath, and it is why the trend is labelled exploratory.",
+      "sentence_sha": "ed05c7bcb78948f8",
+      "why_empirical": "the bare integer 48 is a quantity",
+      "bucket": null,
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-09-03",
+      "on_page": true
+    },
+    "4721114bb698a332": {
+      "sentence": "In this programme, overall survival has been reported only as an exploratory analysis in the smaller trial, on an \"n=14\" — fourteen deaths among 157 patients, seven in each arm.",
+      "sentence_sha": "4721114bb698a332",
+      "why_empirical": "the bare integer 14 is a quantity",
+      "bucket": null,
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-09-03",
+      "on_page": true
+    },
+    "820a543db95a9de4": {
+      "sentence": "Data support scores 1 — the rubric's anchor for 1 is purely qualitative assertion with no numeric support , which is what a statement that two endpoints were met, with no figure for either, is.",
+      "sentence_sha": "820a543db95a9de4",
+      "why_empirical": "the bare integer 1 is a quantity",
+      "bucket": null,
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-09-03",
+      "on_page": true
+    },
+    "b50c431a41bb5f8f": {
+      "sentence": "That single release converts this from a directional claim into a measurable one, and would move data support from 1 to 4 or 5 and source quality from 3 to 5.",
+      "sentence_sha": "b50c431a41bb5f8f",
+      "why_empirical": "the bare integer 1 is a quantity",
+      "bucket": null,
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-09-03",
+      "on_page": true
+    },
+    "04e4dcfae58aad69": {
+      "sentence": "It is a figure from 157 patients in an open-label study, not the result announced this month — and it describes a rate of recurrence, not a share of patients cured.",
+      "sentence_sha": "04e4dcfae58aad69",
+      "why_empirical": "the bare integer 157 is a quantity",
+      "bucket": null,
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-09-03",
+      "on_page": true
     }
   }
 }
