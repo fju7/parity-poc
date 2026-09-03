@@ -1,0 +1,10 @@
+{
+  "note": "Issue one, first page gate of a new cycle. The previous cycle's two runs are spent and its findings are all adjudicated — thirteen of them on 3 September, plus the outside review's nine. The gate's own instruction after a review is --new-cycle then one run, and this is that run. Since run 012 the whole article was revalidated against the two writing rules: 82 sentences, every one bound to a span verified against held bytes or declared a judgement with premises and a written step. Eight outside-review findings applied, including three composite-endpoint slips, a p-value gloss that overreached its own cited premise, and a Rule 11 universal negative falsified by a document in our own library. The scorecard was split into direction 3.94 and magnitude 1.0. Two previously blocked sources were obtained by hand and are now held: S014, the ASCO abstract carrying the five-year landmark rates and 'No alpha was assigned to this analysis', and S017, OncLive. The five-year rates moved off a news report onto the abstract. This run is asking what a fresh adversarial read finds in a page whose sourcing has been rebuilt.",
+  "issue": "melanoma",
+  "cwd": "backend",
+  "script": "scripts/signal/factcheck_draft.py",
+  "args": ["../site/whatholdsup/melanoma.html",
+           "--new-cycle",
+           "--since", "../site/whatholdsup/melanoma.html.gate.json",
+           "--report", "../site/whatholdsup/melanoma.html.gate.json"]
+}

@@ -95,6 +95,48 @@ orphaned decisions — entries matching no finding — which is the signal that
 would have shown this in seconds. `publish.py status` already computes an
 orphan count; it is not on the board.
 
+**A third cause, found while fixing the first two.** Finding ids are reused
+across runs. Run 013's `o1` was an objection about the ASCO 2024 interval; run
+014's `o1` is a contradiction about blinding. A script that deduplicated new
+decisions on `(finding_id, date)` therefore dropped two of them silently, on a
+day when both runs happened. The id is a position in one report, not a name for
+a finding, and nothing in the file says so. The writer should key on the quote
+and refuse to record a decision whose quote is not in the report it claims to
+be adjudicating.
+
 **What would show the gap is closed.** A test that writes a decision through
 the writer for each of the three roles and asserts `gate_state` reports each
-as ADJUDICATED rather than NEW.
+as ADJUDICATED rather than NEW; and one that writes two decisions carrying the
+same finding id from different runs and asserts both survive.
+
+
+---
+
+## GAP-003 — the change log is checked by nothing
+
+**Raised by** applying the 3 September gate's o5 finding.
+**Fix when** issue one is published, with GAP-001 and GAP-002.
+
+`body_only()` strips the change log before the binder and the quotation check
+see the page. That was right when it was written — five modules had been
+reporting the change log's own sentences as unbound claims, and "the change log
+is not the article" is a real distinction.
+
+But the change log is where corrections are explained, and explaining a
+correction means quoting the document that forced it. Today's o5 fix put two
+verbatim quotations into it — the January 2026 release's <q>one-sided nominal
+p=0.0075</q> and the ASCO abstract's <q>No alpha was assigned to this
+analysis</q> — and nothing checked either. Both were verified by hand against
+held bytes; the quotation count stayed at 18 and neither appeared in it.
+
+So the page's most self-critical section, the one a sceptical reader turns to
+first, is the one section where a misquotation would pass silently.
+
+**Shape of the fix.** The change log should be excluded from BINDING — its
+sentences are about us, not about the world — and included in the QUOTATION
+check, which asks only whether quoted words are really in the document they are
+attributed to. That question is just as meaningful there as in the body. Two
+different exclusions are being served by one function.
+
+**What would show the gap is closed.** A test that plants a misquotation in a
+change-log entry and asserts the quotation check reports it.

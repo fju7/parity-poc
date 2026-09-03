@@ -4135,7 +4135,7 @@
         "warranted": null
       },
       "first_seen": "2026-09-03",
-      "on_page": true,
+      "on_page": false,
       "premises": [
         {
           "source_id": "S009",
@@ -4146,7 +4146,8 @@
           "span": "patients with resected stage IIB or IIC melanoma can face risks of recurrence and melanoma-specific mortality similar to those observed in stage III disease"
         }
       ],
-      "step": "The site publishes at /en/ under a strapline that reads as translated, and a search of the open web excluding its own domain on 3 September 2026 returned no third party citing it — no publication, aggregator or outlet. So we can vouch for the argument but not for the outlet, and the sentence says which. The argument itself is checkable without it: the stage widening is in the Phase 3 release, and Pharmacy Times, an outlet with standing, makes the opposing case in its own words."
+      "step": "The site publishes at /en/ under a strapline that reads as translated, and a search of the open web excluding its own domain on 3 September 2026 returned no third party citing it — no publication, aggregator or outlet. So we can vouch for the argument but not for the outlet, and the sentence says which. The argument itself is checkable without it: the stage widening is in the Phase 3 release, and Pharmacy Times, an outlet with standing, makes the opposing case in its own words.",
+      "left_page": "2026-09-03"
     },
     "fcb86b6a4be8e32e": {
       "sentence": "“Landmark trial succeeds” and “3.35, moderate” describe the same event, and only one of them tells you the numbers are still missing.",
@@ -4498,6 +4499,38 @@
         }
       ],
       "step": "The article is in the library, acquired 3 September after every automated fetch returned 403, and the span above is its own sentence attributing the figures to the phase 2b trial. Naming an outlet the page had removed for want of the document is only honest if the document is now held and says what we say it says; both are checkable against the library and the span."
+    },
+    "84e5d804881639ee": {
+      "sentence": "Morning Glory Sciences — a site publishing this article in English translation, and one we can find no other publication citing, so we give the argument on its merits rather than on the outlet’s authority — the Phase 2b population was stage IIIB–IV, the Phase 3 adds node-negative disease, and “absolute recurrence risk in that group is lower, so the same hazard ratio delivers a smaller absolute benefit.” Pharmacy Times makes the opposite case about the same patients: resected stage IIB or IIC melanoma “can face risks of recurrence and melanoma-specific mortality similar to those observed in sta",
+      "sentence_sha": "84e5d804881639ee",
+      "why_empirical": "quoted passage",
+      "bucket": "judgement",
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-09-03",
+      "on_page": true,
+      "premises": [
+        {
+          "source_id": "S009",
+          "span": "The Phase 2b population was stage IIIB-IV; the Phase 3 adds stage IIB and IIC - node-negative disease . Absolute recurrence risk in that group is lower, so the same hazard ratio delivers a smaller absolute benefit."
+        },
+        {
+          "source_id": "S010",
+          "span": "patients with resected stage IIB or IIC melanoma can face risks of recurrence and melanoma-specific mortality similar to those observed in stage III disease"
+        }
+      ],
+      "step": "Two things we can show, and nothing beyond them. The article is published under an /en/ path on a site whose strapline reads as translated, and a search of the open web excluding that domain on 3 September 2026 returned no third party citing it. Neither fact establishes that the outlet is weak — only that we cannot vouch for it — so the sentence claims no more than that and rests the argument on its premises instead. Those premises are checkable: the stage widening is in the Phase 3 release, and Pharmacy Times makes the opposing case in its own words in the same section."
     }
   }
 }

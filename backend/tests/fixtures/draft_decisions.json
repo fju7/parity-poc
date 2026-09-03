@@ -2460,6 +2460,94 @@
       "decided": "2026-09-03",
       "reason": "The role reports that no entity called Morning Glory Sciences can be found — no site, filing or profile. We hold an article from its domain, so the outlet is not fictitious, but a search of the open web excluding that domain on 3 September returned no third party citing it either. So the role's inability to place it is real information and not a reach failure. Accepted in the sense that the page now says what the outlet is: the English edition of a non-English industry site, cited for an argument we have checked ourselves rather than on its standing. The argument is independently supported — the stage widening is in the Phase 3 release, and Pharmacy Times, an outlet with standing, makes the opposing case in its own words on the same page.",
       "what_would_change_it": "Evidence of the outlet's standing, which would let the page cite it plainly; or evidence that the article misstates the trials, which would remove it."
+    },
+    {
+      "draft": "site/whatholdsup/melanoma.html",
+      "role": "SOURCE",
+      "severity": "NOT_FOUND",
+      "finding_id": "c10",
+      "quote": "Every outlet whose article the publication holds attributed the KEYNOTE-942 figures correctly to that trial, including The ASCO Post, Dermatology Times, Practical Dermatology, KOL Pulse, MLQ News and OncLive.",
+      "decision": "reject",
+      "decided": "2026-09-03",
+      "reason": "The role could not retrieve articles from four of the six outlets. We hold all six and each was checked against its own bytes on 3 September: Dermatology Times 'reduced the risk of recurrence or death by 49%' following 'the phase 2b KEYNOTE-942/mRNA-4157-P201 trial'; Practical Dermatology 'At 5-year follow-up'; KOL Pulse 'overall one-sided alpha=0.10, performed at primary analysis'; MLQ News 'The Phase 3 result builds on the Phase 2b KEYNOTE-942 study.' A NOT_FOUND is a statement about what the role reached, not about what exists.",
+      "what_would_change_it": "Any held article turning out to attribute those figures to the Phase 3."
+    },
+    {
+      "draft": "site/whatholdsup/melanoma.html",
+      "role": "SOURCE",
+      "severity": "NOT_FOUND",
+      "finding_id": "c25",
+      "quote": "The three-year paper states KEYNOTE-942 was designed with approximately 80% power to detect a hazard ratio of 0.5 against a one-sided alpha of 0.10.",
+      "decision": "reject",
+      "decided": "2026-09-03",
+      "reason": "The role could not open OA-25-00008. We hold it in full. It reads: 'The trial was designed with approximately 80% power to detect a hazard ratio (HR) of 0.5 with a one-sided a of 0.10 after 40 RFS events.' Verified against the held bytes today.",
+      "what_would_change_it": "That sentence no longer being in the held bytes of S007."
+    },
+    {
+      "draft": "site/whatholdsup/melanoma.html",
+      "role": "SOURCE",
+      "severity": "NOT_FOUND",
+      "finding_id": "c43",
+      "quote": "The three-year KEYNOTE-942 paper states in its own words that its subsequent analyses 'are not intended for formal hypothesis testing (ie, are descriptive only)'.",
+      "decision": "reject",
+      "decided": "2026-09-03",
+      "reason": "Same document, same reach failure. The held full text reads: 'These subsequent analyses are not intended for formal hypothesis testing (ie, are descriptive only).' The role found similar wording in the conference abstract and inferred the paper differs; the paper says it.",
+      "what_would_change_it": "That sentence no longer being in the held bytes of S007."
+    },
+    {
+      "draft": "site/whatholdsup/melanoma.html",
+      "role": "ADVOCATE",
+      "severity": "MINOR",
+      "finding_id": "o6",
+      "quote": "Data support scores 1 — the rubric's anchor for 1 is purely qualitative assertion with no numeric support, which is what a statement that two endpoints were met, with no figure for either, is.",
+      "decision": "accept",
+      "decided": "2026-09-03",
+      "reason": "Right. The change log recorded a correction that a later finding superseded: we had said the rubric's anchor for 1 was 'no data cited' and treated the score as ill-fitting, then discovered on 3 September that the anchor actually reads 'purely qualitative assertion with no numeric support', under which the score is correct. The change log now records the misquotation rather than the phantom correction.",
+      "what_would_change_it": "n/a — accepted and fixed."
+    },
+    {
+      "draft": "site/whatholdsup/melanoma.html",
+      "role": "ADVOCATE",
+      "severity": "MINOR",
+      "finding_id": "o3",
+      "quote": "Morning Glory Sciences — the English edition of a non-English industry site, which we cite for an argument we have checked ourselves rather than on its standing",
+      "decision": "accept",
+      "decided": "2026-09-03",
+      "reason": "Right, and self-inflicted: the sentence was written yesterday to settle a different finding about the same outlet, and in saying what the outlet is it characterised its standing without evidence. Now says only what we can show — it publishes this article in English translation, and we can find no other publication citing it — and rests the argument on its premises.",
+      "what_would_change_it": "n/a — accepted and fixed in the text."
+    },
+    {
+      "draft": "site/whatholdsup/melanoma.html",
+      "role": "ADVOCATE",
+      "severity": "SERIOUS",
+      "finding_id": "o5",
+      "quote": "We also removed a 'five-year topline of 20 January 2026' reporting a one-sided nominal p = 0.0075. That document is still in nothing we hold and in no source list on this page, and nothing found since has changed that. It stays out until somebody produces it.",
+      "decision": "accept",
+      "decided": "2026-09-03",
+      "reason": "The most valuable finding in the run. The page said a five-year topline of 20 January 2026 carrying one-sided nominal p = 0.0075 was in nothing we held, and that it would stay out until somebody produced it. The gate produced it. The announcement is now held as S027 and reads 'one-sided nominal p=0.0075'. Our failure to find a document was never evidence it did not exist — the same error as OR-1 from the outside review, four hours later, in the same piece.",
+      "what_would_change_it": "n/a — accepted and fixed in the text."
+    },
+    {
+      "draft": "site/whatholdsup/melanoma.html",
+      "role": "ADVOCATE",
+      "severity": "MINOR",
+      "finding_id": "o1 (run 014)",
+      "quote": "It is the more trustworthy trial by a wide margin — seven times larger, and blinded against the assessment bias the earlier one carried.",
+      "decision": "accept",
+      "decided": "2026-09-03",
+      "reason": "Right, and the page contradicted itself one paragraph later. Double-blinding governs the DIRECTION an assessment bias can run in; it does not remove investigator assessment, which both trials keep. Reworded to say exactly that and to point at the paragraph that explains it. The role reports the finding as 'partial' because the opening clause survives, which it should.",
+      "what_would_change_it": "n/a — accepted and fixed."
+    },
+    {
+      "draft": "site/whatholdsup/melanoma.html",
+      "role": "SOURCE",
+      "severity": "NOT_FOUND",
+      "finding_id": "c36 (run 014)",
+      "quote": "The Three-Year Update of KEYNOTE-942 was published in JCO Oncology Advances on 12 February 2026.",
+      "decision": "reject",
+      "decided": "2026-09-03",
+      "reason": "The role says no source it reached displays the publication date. We hold the full text and it carries its own front matter: 'Accepted September 30, 2025 Published February 12, 2026 JCO Oncology Adv 3:e2500008'. Verified against the held bytes on 3 September. A NOT_FOUND is a statement about what the role reached.",
+      "what_would_change_it": "That front matter no longer being in the held bytes of S007."
     }
   ],
   "obsolete_note": "A decision whose quote no longer appears in the draft is dead weight, not a record. Remove it when the sentence goes.",

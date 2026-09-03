@@ -1008,6 +1008,22 @@
         "melanoma:S017"
       ],
       "note": ""
+    },
+    "fbe0cd755f97173978104a56c7f1ca53e14360b063fbd469d2e1929c3c93ab43": {
+      "file": "docs/fb/fbe0cd755f97173978104a56c7f1ca53e14360b063fbd469d2e1929c3c93ab43.html",
+      "bytes": 189014,
+      "content_type": "text/html; charset=UTF-8",
+      "first_held": "2026-09-03",
+      "urls": [
+        "https://www.merck.com/news/moderna-merck-announce-5-year-data-for-intismeran-autogene-in-combination-with-keytruda-pembrolizumab-demonstrated-sustained-improvement-in-the-primary-endpoint-of-recurrence-free-survival-i/"
+      ],
+      "titles": [
+        "Moderna & Merck — five-year KEYNOTE-942 data, January 2026 announcement"
+      ],
+      "used_by": [
+        "melanoma:S027"
+      ],
+      "note": ""
     }
   }
 }

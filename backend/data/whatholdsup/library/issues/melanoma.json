@@ -313,6 +313,19 @@
       "kind_why": "form 'page' — 28 prose sentence(s) over sixty characters, 1252 words — this reads as the page itself",
       "superseded": [],
       "also_held": []
+    },
+    "S027": {
+      "sha256": "fbe0cd755f97173978104a56c7f1ca53e14360b063fbd469d2e1929c3c93ab43",
+      "file": "docs/fb/fbe0cd755f97173978104a56c7f1ca53e14360b063fbd469d2e1929c3c93ab43.html",
+      "bytes": 189014,
+      "url": "https://www.merck.com/news/moderna-merck-announce-5-year-data-for-intismeran-autogene-in-combination-with-keytruda-pembrolizumab-demonstrated-sustained-improvement-in-the-primary-endpoint-of-recurrence-free-survival-i/",
+      "held": "2026-09-03",
+      "via": "acquire_sources.py on the operator's machine",
+      "note": "",
+      "kind": "document",
+      "kind_why": "form 'page' — 278 prose sentence(s) over sixty characters, 10970 words — this reads as the page itself",
+      "superseded": [],
+      "also_held": []
     }
   }
 }

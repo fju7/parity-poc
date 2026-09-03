@@ -1,14 +1,9 @@
 {
-  "cycle": 3,
+  "cycle": 4,
   "runs": [
     {
-      "at": "2026-09-02T12:53:27+00:00",
-      "sha": "0a379d98a708a32acfa9f7a0678e25f7fd28883f36279f185e5d8fc7e1aab02d",
-      "past_cap": null
-    },
-    {
-      "at": "2026-09-02T16:50:59+00:00",
-      "sha": "e166e9597e0b6636d03bb6ab3d1f99d33e9a58d43a54de7db3538f1a8afa2754",
+      "at": "2026-09-03T17:40:07+00:00",
+      "sha": "6d94e9ff622d32abe9645a27c7ab248571c28b852a740c6f01d4c6cbfc513025",
       "past_cap": null
     }
   ],

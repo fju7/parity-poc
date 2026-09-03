@@ -600,6 +600,28 @@
         },
         "on": "2026-09-03"
       }
+    },
+    {
+      "id": "S027",
+      "url": "https://www.merck.com/news/moderna-merck-announce-5-year-data-for-intismeran-autogene-in-combination-with-keytruda-pembrolizumab-demonstrated-sustained-improvement-in-the-primary-endpoint-of-recurrence-free-survival-i/",
+      "type": "press_release",
+      "title": "Moderna & Merck — five-year KEYNOTE-942 data, January 2026 announcement",
+      "accessed": "2026-09-03",
+      "used_for": "The page removed a five-year topline of 20 January 2026 carrying a one-sided nominal p = 0.0075, saying the document was in nothing we held and would stay out until somebody produced it. The page gate produced it on 3 September. Acquired to settle whether the figure is real and what the release actually says.",
+      "also_called": [
+        "the January 2026 release",
+        "the five-year topline"
+      ],
+      "access": {
+        "state": "full_text_held",
+        "held": {
+          "file": "docs/fb/fbe0cd755f97173978104a56c7f1ca53e14360b063fbd469d2e1929c3c93ab43.html",
+          "sha256": "fbe0cd755f97173978104a56c7f1ca53e14360b063fbd469d2e1929c3c93ab43",
+          "bytes": 189014,
+          "identified_by": "contains 6 of 7 distinctive title words"
+        },
+        "on": "2026-09-03"
+      }
     }
   ],
   "also_called_note": "The role-nouns the page uses for a source. These must identify the DOCUMENT, not its subject: 'KEYNOTE-942' is a trial that three of these sources report on, and listing it as an alias for all three made every sentence about the trial match all three at once -- so the one source marked `blocked` absorbed the blame for claims the read sources actually support. The ledger audit matches sentences to sources by these plus the title's trial and journal names; a reference the page makes that is not listed here is invisible to the audit."
