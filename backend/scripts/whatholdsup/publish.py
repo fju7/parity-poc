@@ -212,6 +212,11 @@ b13 = _sibling("b13")
 # page is supported; none asked whether a REMOVAL was, and 35% of the recorded
 # errors on issue two came in with an earlier correction. See deletions.py.
 deletions = _sibling("deletions")
+# B15: GAP-001. Every other check asks whether a span the page CITES is in the
+# document it cites. This one asks the opposite question -- is there something in
+# our own library that CONTRADICTS a sentence the page asserts -- which only has
+# teeth for a universal negative. See negatives.py.
+negatives = _sibling("negatives")
 # B15: a finding is settled by a DOCUMENT, never by the finding. Closes MEL-11 --
 # a correction notice that asserted more than the check which prompted it, on a
 # live page. See findings.py.
@@ -1207,6 +1212,12 @@ def preflight(slug: str, *, for_email: bool,
     _ptext = ledger.plain(ledger.body_only(page.read_text(encoding="utf-8")))
     out.extend(lint.lint(page.read_text(encoding="utf-8"), slug))
     out.extend(counterexample.preflight_rows(slug, _ptext))
+    try:
+        out.extend(negatives.preflight_rows(slug))
+    except BaseException as exc:
+        out.append(("universal negatives searched against the library", BAD,
+                    "the check did not run: %s — an unrun check is not a pass"
+                    % str(exc)[:120]))
     out.extend(inherited.preflight_rows(slug, _ptext))
     # Reads the page's own markup, not the flattened text: the extractor strips
     # tags itself and needs the quotation marks as the page sets them.

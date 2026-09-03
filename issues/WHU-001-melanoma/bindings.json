@@ -1363,7 +1363,16 @@
       "deferred_why": "DEFERRED TO GAP-001 by the editor, 2026-09-03. This scope word ranges over the whole programme — both trials, five releases, the papers and four registry records — so no search of one document can settle it and B14 correctly declines. The editor chose not to sign a disposition: it stays flagged and it keeps blocking until the library-wide check exists. THIS FIELD CLEARS NOTHING; it records why the flag is still here.",
       "deferred_words": "only",
       "deferred_by": "Fred Ugast",
-      "deferred_on": "2026-09-03"
+      "deferred_on": "2026-09-03",
+      "negative_over": {
+        "class": "os_estimate",
+        "subject": "",
+        "claim": "one",
+        "declared_by": "claude",
+        "declared_on": "2026-09-03",
+        "what_it_claims": "that exactly ONE overall-survival figure exists across the whole programme — both trials, every release, both papers, four registry records — and that it is the descriptive one resting on fourteen deaths. Subject is deliberately empty: the claim ranges over the programme, so no trial filter applies and every hit is a candidate.",
+        "read": []
+      }
     },
     "ee91cf76edff9ccb": {
       "sentence": "\"Intismeran autogene plus pembrolizumab improves recurrence-free survival versus pembrolizumab alone in resected stage IIB–IV melanoma.\" Source quality 3 / 5 Data support 1 / 5 Reproducibility 4 / 5 Consensus 4 / 5 Recency 5 / 5 Rigor 5 / 5 3.4 Moderate (3×.25)+(1×.20)+(4×.15)+(4×.15)+(5×.15)+(5×.10) The two extremes are the whole story.",
@@ -3395,7 +3404,16 @@
       "deferred_why": "DEFERRED TO GAP-001 by the editor, 2026-09-03. This scope word ranges over the whole programme — both trials, five releases, the papers and four registry records — so no search of one document can settle it and B14 correctly declines. The editor chose not to sign a disposition: it stays flagged and it keeps blocking until the library-wide check exists. THIS FIELD CLEARS NOTHING; it records why the flag is still here.",
       "deferred_words": "any, all",
       "deferred_by": "Fred Ugast",
-      "deferred_on": "2026-09-03"
+      "deferred_on": "2026-09-03",
+      "negative_over": {
+        "class": "efficacy_figure",
+        "subject": "INTerpath-001",
+        "claim": "none",
+        "declared_by": "claude",
+        "declared_on": "2026-09-03",
+        "what_it_claims": "that no hazard ratio, interval or p-value for INTerpath-001 appears in any document this issue holds — the two company releases, every piece of coverage, and the registry record.",
+        "read": []
+      }
     },
     "075bae729c357078": {
       "sentence": "They do not share a statistical standing: the Phase 2b’s later analyses are, in its own words, descriptive only , against a one-sided alpha of 0.10, while the Phase 3 crossed a prespecified interim threshold.",
