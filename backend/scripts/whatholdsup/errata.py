@@ -55,6 +55,7 @@ import source_store as store  # noqa: E402
 OK, BAD, WARN = "ok", "BLOCKED", "warn"
 
 EPMC = "https://www.ebi.ac.uk/europepmc/webservices/rest/search"
+CROSSREF = "https://api.crossref.org/works/"
 UA = "whatholdsup-errata/1.0 (editorial fact-check; contact fred.ugast@uspv.co)"
 
 # The corrections that matter. Europe PMC's commentCorrectionList types include
@@ -132,6 +133,31 @@ def identifier_from_held(slug: str, src: dict) -> tuple[str, str] | None:
     hold is evidence; one recalled is a guess, and on 2026-08-31 three of five
     guesses resolved to entirely different papers.
     """
+    # ONLY AN ARTICLE'S OWN BYTES CARRY ITS OWN DOI.
+    #
+    # The two guards below name TYPES — coverage, corrigendum — which is an
+    # allow-list built from the two cases that had bitten us, and on 3 September
+    # a third walked straight past it. Issue three's S035 is a Science Media
+    # Centre expert-reaction page, typed `critique`. It prints the DOI of the
+    # Budzyn colonoscopy paper it is reacting to. Read out and filed as the SMC
+    # page's own identifier, Europe PMC reported the PAPER's erratum against the
+    # PAGE — and resolves_to_us waved it through, because our shorthand title
+    # for the page says "colonoscopy deskilling study" and so does the paper's.
+    #
+    # Both identity checks failed together, which is what happens when the thing
+    # being identified is genuinely about the thing it is being confused with.
+    #
+    # So the test is FORM, not type: a document that is not an article is not
+    # the article whose DOI it prints. That is the distinction `form` was added
+    # for, and it covers the cases nobody has met yet.
+    form = store.form_of(src)
+    if form != "article":
+        # An UNDECLARED form is not permission either. Reading a DOI out of a
+        # document nobody has classified is a guess about what the document is,
+        # and this function's whole justification is that it does not guess.
+        # The remedy is two words in sources.json, and coverage.py already
+        # reports every source that needs them.
+        return None
     if src.get("type") == "coverage":
         # A NEWS ARTICLE ABOUT A PAPER PRINTS THE PAPER'S DOI. Reading it out
         # and treating it as the news article's own identifier is the
@@ -163,14 +189,40 @@ def identifier_from_held(slug: str, src: dict) -> tuple[str, str] | None:
         text, _how = store.text_of(f.read_bytes(), ct, pages=0)
     except Exception:
         return None
-    hits = re.findall(r"\b(10\.\d{4,9}/[^\s\"<>)\]]+)", text)
-    for h in hits:
-        h = h.rstrip(".,;)")
+    for h in re.findall(r"\b(10\.\d{4,9}/[^\s\"<>\]]+)", text):
+        h = clean_doi(h)
         # the article's own DOI, not one from its reference list: it appears in
         # the first pages and, for these publishers, beside the journal name
-        if len(h) < 60:
+        if h and len(h) < 60:
             return "DOI", h
     return None
+
+
+def clean_doi(raw: str) -> str:
+    """Trim a DOI read out of running text, WITHOUT breaking Elsevier's.
+
+    Two failures, both found on 3 September by running this over every source
+    in the estate:
+
+      * a query string became part of the DOI. Issue three's S016 was looked up
+        as "10.5117/EJEP2025.1.001.TUOM?ref=404media.co" — a referrer parameter
+        from the URL the document happened to print. A DOI ends at "?" or "#".
+
+      * a closing bracket ended the match, and Elsevier DOIs contain brackets.
+        S035 was looked up as "10.1016/S2468-1253(25" — the real DOI is
+        10.1016/S2468-1253(25)00294-8. Excluding ")" from the character class
+        cut every Annals-of-Oncology-style DOI in half, and the ones it cut
+        returned "no record", which reads exactly like a clean lookup of a
+        document nobody has corrected.
+
+    So ")" is allowed through and then UNBALANCED trailing brackets are dropped
+    — a DOI in prose is usually inside a parenthesis of somebody else's.
+    """
+    h = raw.split("?", 1)[0].split("#", 1)[0]
+    h = h.rstrip(".,;:")
+    while h.endswith(")") and h.count(")") > h.count("("):
+        h = h[:-1].rstrip(".,;:")
+    return h
 
 
 def query_for(kind: str, value: str) -> str:
@@ -196,6 +248,70 @@ def lookup(kind: str, value: str, *, timeout: int = 25) -> tuple[dict | None, st
     if not hits:
         return None, "Europe PMC has no record for %s %s" % (kind, value)
     return hits[0], "matched on %s %s" % (kind, value)
+
+
+def crossref(doi: str, *, timeout: int = 25) -> tuple[dict | None, str]:
+    """The registration agency's own record. (record, why); None means we could
+    not look, never that there is nothing to find.
+
+    WHY A SECOND INDEX, AND WHY IT IS NOT AS GOOD AS THE FIRST.
+
+    Europe PMC indexes what PubMed and PMC index. On 3 September it had no
+    record for either of issue one's two ASCO documents — the JCO Oncology
+    Advances three-year paper and the ASCO 2026 meeting abstract — and the
+    check reported both as "could not look up".
+
+    That collapses the distinction this whole file exists to keep. "The lookup
+    failed" and "this index does not carry this journal" are different states,
+    and only the first is a reason to try again. Both DOIs are registered, both
+    resolve at Crossref, and both titles match ours.
+
+    Crossref's answer is weaker and must not be reported as though it were the
+    same answer. Europe PMC records a correction because a curator linked it.
+    Crossref records one only if the PUBLISHER deposited the relation. So a
+    publisher who registers no Crossmark update policy cannot produce a
+    correction here even when one exists, and an absence from that publisher is
+    not evidence of anything. JCO Oncology Advances is exactly that case today.
+    """
+    url = CROSSREF + urllib.parse.quote(doi, safe="")
+    req = urllib.request.Request(url, headers={"User-Agent": UA})
+    try:
+        with urllib.request.urlopen(req, timeout=timeout) as fh:
+            data = json.loads(fh.read().decode("utf-8", "replace"))
+    except urllib.error.HTTPError as exc:
+        return None, "HTTP %s from Crossref" % exc.code
+    except Exception as exc:
+        return None, "%s: %s" % (type(exc).__name__, exc)
+    msg = data.get("message")
+    if not isinstance(msg, dict):
+        return None, "Crossref returned no record for DOI %s" % doi
+    return msg, "matched on DOI %s at Crossref" % doi
+
+
+# Relations a publisher deposits when a work has been corrected, withdrawn or
+# replaced. Not an allow-list of vocabulary we have met: these are the names
+# Crossref defines for the relation, and one we have never seen is still one of
+# these names.
+CROSSREF_AMENDING = ("is-corrected-by", "has-correction", "is-retracted-by",
+                     "is-replaced-by", "is-expressed-by-erratum")
+
+
+def crossref_amendments(msg: dict) -> list[dict]:
+    out = []
+    rel = msg.get("relation") or {}
+    for name in CROSSREF_AMENDING:
+        for item in (rel.get(name) or []):
+            out.append({"type": name, "id": item.get("id"),
+                        "source": "Crossref relation"})
+    for item in (msg.get("updated-by") or []):
+        out.append({"type": item.get("type") or "update",
+                    "id": item.get("DOI"), "source": "Crossref updated-by"})
+    return out
+
+
+def crossref_title_record(msg: dict) -> dict:
+    """Shaped like a Europe PMC hit, so resolves_to_us can judge it unchanged."""
+    return {"title": (msg.get("title") or [""])[0]}
 
 
 def resolves_to_us(rec: dict, src: dict) -> tuple[bool, str]:
@@ -303,6 +419,47 @@ def sweep(slug: str, *, only: set[str] | None = None, pause: float = 1.0) -> dic
                 rec, why = lookup(kind, value)
         row["identifier"] = "%s %s" % (kind, value)
         row["identifier_from"] = "the held document" if from_held else "the source URL"
+        if rec is None and kind == "DOI":
+            # Europe PMC does not carry every journal. Ask the agency that
+            # registered the DOI before reporting that we could not look.
+            msg, why_cr = crossref(value)
+            if msg is not None:
+                same, why_same = resolves_to_us(crossref_title_record(msg), src)
+                if same:
+                    amend = crossref_amendments(msg)
+                    policy = msg.get("update-policy")
+                    row["identity"] = why_same
+                    row["resolved_title"] = (msg.get("title") or [""])[0][:160]
+                    row["index"] = "Crossref"
+                    row["update_policy"] = policy
+                    row["amendments"] = amend
+                    row["comments"] = []
+                    if amend:
+                        row["state"] = "AMENDED"
+                        row["why"] = why_cr
+                        for a in amend:
+                            print("  %-6s AMENDED      %s: %s"
+                                  % (sid, a.get("type"), a.get("id")))
+                    elif policy:
+                        row["state"] = "CLEAN"
+                        row["why"] = (why_cr + "; not in Europe PMC. The publisher "
+                                      "registers a Crossmark update policy, so a "
+                                      "correction would have been deposited here")
+                        print("  %-6s clean        %s" % (sid, "Crossref, publisher deposits updates"))
+                    else:
+                        row["state"] = "UNCHECKED"
+                        row["why"] = (why_cr + "; not in Europe PMC, and the "
+                                      "publisher registers NO update policy — so "
+                                      "Crossref would not know of a correction "
+                                      "even if one existed. This is not a pass")
+                        print("  %-6s UNCHECKED    %s"
+                              % (sid, "at Crossref but publisher deposits no updates"))
+                    doc["checked"][sid] = row
+                    time.sleep(pause)
+                    continue
+                why = "%s; Crossref %s" % (why, why_same)
+            else:
+                why = "%s; %s" % (why, why_cr)
         if rec is None:
             row.update(state="UNCHECKED", why=why, amendments=[], comments=[])
             print("  %-6s UNCHECKED    %s" % (sid, why[:70]))

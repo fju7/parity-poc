@@ -4,7 +4,7 @@
     "S001": {
       "source": "S001",
       "title": "Liu, Christian, Dumbalska, Bakker & Dubey — AI Assistance Reduces Persistence and Hurts Independent Performance",
-      "checked_on": "2026-09-01",
+      "checked_on": "2026-09-03",
       "state": "UNCHECKABLE",
       "why": "no DOI, PMID, PMCID or PII can be parsed from the URL we hold; nothing is typed from memory, so this source cannot be looked up automatically",
       "amendments": [],
@@ -13,7 +13,7 @@
     "S002": {
       "source": "S002",
       "title": "Wu, Zhu, Zhang, Yin & Wang (2026) — ChatGPT's impact on student learning outcomes: a meta-analysis of 35 experimental st",
-      "checked_on": "2026-09-01",
+      "checked_on": "2026-09-03",
       "state": "UNCHECKABLE",
       "why": "no DOI, PMID, PMCID or PII can be parsed from the URL we hold; nothing is typed from memory, so this source cannot be looked up automatically",
       "amendments": [],
@@ -22,7 +22,7 @@
     "S003": {
       "source": "S003",
       "title": "Wang & Fan (2025) — The effect of ChatGPT on students' learning performance, learning perception, and higher-order think",
-      "checked_on": "2026-09-01",
+      "checked_on": "2026-09-03",
       "state": "UNCHECKABLE",
       "why": "no DOI, PMID, PMCID or PII can be parsed from the URL we hold; nothing is typed from memory, so this source cannot be looked up automatically",
       "amendments": [],
@@ -31,7 +31,7 @@
     "S004": {
       "source": "S004",
       "title": "Retraction Note, Hum Soc Sci Commun, 22 April 2026",
-      "checked_on": "2026-09-01",
+      "checked_on": "2026-09-03",
       "state": "UNCHECKABLE",
       "why": "no DOI, PMID, PMCID or PII can be parsed from the URL we hold; nothing is typed from memory, so this source cannot be looked up automatically",
       "amendments": [],
@@ -40,7 +40,7 @@
     "S005": {
       "source": "S005",
       "title": "Ingebrigtsen & Lukic — Substantial Errors Invalidate the Conclusion from Wang and Fan (2025) About ChatGPT and Learning ",
-      "checked_on": "2026-09-01",
+      "checked_on": "2026-09-03",
       "state": "UNCHECKABLE",
       "why": "no DOI, PMID, PMCID or PII can be parsed from the URL we hold; nothing is typed from memory, so this source cannot be looked up automatically",
       "amendments": [],
@@ -49,18 +49,22 @@
     "S006": {
       "source": "S006",
       "title": "Weidlich, Gašević, Drachsler & Kirschner (2025) — ChatGPT in Education: An Effect in Search of a Cause, J Comput Assist ",
-      "checked_on": "2026-09-01",
+      "checked_on": "2026-09-03",
       "identifier": "DOI 10.1111/jcal.70105",
       "identifier_from": "the source URL",
-      "state": "UNCHECKED",
-      "why": "Europe PMC has no record for DOI 10.1111/jcal.70105",
+      "identity": "resolved title shares 5 word(s) with ours: cause, chatgpt, education, effect, search",
+      "resolved_title": "<scp>ChatGPT</scp>\n                    in Education: An Effect in Search of a Cause",
+      "index": "Crossref",
+      "update_policy": "https://doi.org/10.1002/crossmark_policy",
       "amendments": [],
-      "comments": []
+      "comments": [],
+      "state": "CLEAN",
+      "why": "matched on DOI 10.1111/jcal.70105 at Crossref; not in Europe PMC. The publisher registers a Crossmark update policy, so a correction would have been deposited here"
     },
     "S007": {
       "source": "S007",
       "title": "Kosmyna, Hauptmann, Yuan, Situ, Liao, Beresnitzky, Braunstein & Maes — Your Brain on ChatGPT: Accumulation of Cognitive ",
-      "checked_on": "2026-09-01",
+      "checked_on": "2026-09-03",
       "state": "UNCHECKABLE",
       "why": "no DOI, PMID, PMCID or PII can be parsed from the URL we hold; nothing is typed from memory, so this source cannot be looked up automatically",
       "amendments": [],
@@ -69,7 +73,7 @@
     "S008": {
       "source": "S008",
       "title": "Gerlich, M. (2025) — AI Tools in Society: Impacts on Cognitive Offloading and the Future of Critical Thinking. Societies",
-      "checked_on": "2026-09-01",
+      "checked_on": "2026-09-03",
       "state": "UNCHECKABLE",
       "why": "no DOI, PMID, PMCID or PII can be parsed from the URL we hold; nothing is typed from memory, so this source cannot be looked up automatically",
       "amendments": [],
@@ -78,7 +82,7 @@
     "S009": {
       "source": "S009",
       "title": "Hesselmann (2020) — No conclusive evidence that difficult general knowledge questions cause a “Google Stroop effect”. A ",
-      "checked_on": "2026-09-01",
+      "checked_on": "2026-09-03",
       "state": "UNCHECKABLE",
       "why": "no DOI, PMID, PMCID or PII can be parsed from the URL we hold; nothing is typed from memory, so this source cannot be looked up automatically",
       "amendments": [],
@@ -87,7 +91,7 @@
     "S010": {
       "source": "S010",
       "title": "Sparrow, Liu & Wegner (2011), Science — Google Effects on Memory",
-      "checked_on": "2026-09-01",
+      "checked_on": "2026-09-03",
       "identifier": "DOI 10.1126/science.1207745",
       "identifier_from": "the source URL",
       "resolved_title": "Google effects on memory: cognitive consequences of having information at our fingertips.",
@@ -100,29 +104,31 @@
     "S011": {
       "source": "S011",
       "title": "Deng et al. (2025) — Does ChatGPT Enhance Student Learning? A Systematic Review and Meta-Analysis of Experimental Studie",
-      "checked_on": "2026-09-01",
+      "checked_on": "2026-09-03",
       "identifier": "DOI 10.1016/j.compedu.2024.105224",
       "identifier_from": "the source URL",
-      "state": "UNCHECKED",
-      "why": "Europe PMC has no record for DOI 10.1016/j.compedu.2024.105224",
+      "identity": "resolved title shares 11 word(s) with ours: analysis, chatgpt, does, enhance, experimental, learning, meta, review, student,",
+      "resolved_title": "Does ChatGPT enhance student learning? A systematic review and meta-analysis of experimental studies",
+      "index": "Crossref",
+      "update_policy": "https://doi.org/10.1016/elsevier_cm_policy",
       "amendments": [],
-      "comments": []
+      "comments": [],
+      "state": "CLEAN",
+      "why": "matched on DOI 10.1016/j.compedu.2024.105224 at Crossref; not in Europe PMC. The publisher registers a Crossmark update policy, so a correction would have been deposited here"
     },
     "S012": {
       "source": "S012",
       "title": "Babaei-Balderlou & Shakya, The Conversation, 30 April 2026",
-      "checked_on": "2026-09-01",
-      "identifier": "DOI 10.64628/AAI.vppxk3t6x",
-      "identifier_from": "the held document",
-      "state": "UNCHECKED",
-      "why": "Europe PMC has no record for DOI 10.64628/AAI.vppxk3t6x",
+      "checked_on": "2026-09-03",
+      "state": "UNCHECKABLE",
+      "why": "no DOI, PMID, PMCID or PII can be parsed from the URL we hold; nothing is typed from memory, so this source cannot be looked up automatically",
       "amendments": [],
       "comments": []
     },
     "S013": {
       "source": "S013",
       "title": "Hana Lee Goldin, Card Catalog, 26 May 2026",
-      "checked_on": "2026-09-01",
+      "checked_on": "2026-09-03",
       "state": "UNCHECKABLE",
       "why": "no DOI, PMID, PMCID or PII can be parsed from the URL we hold; nothing is typed from memory, so this source cannot be looked up automatically",
       "amendments": [],
@@ -131,7 +137,7 @@
     "S014": {
       "source": "S014",
       "title": "Kate Hurley, EDUCAUSE Review, 15 December 2025 — The Paradox of AI Assistance",
-      "checked_on": "2026-09-01",
+      "checked_on": "2026-09-03",
       "state": "UNCHECKABLE",
       "why": "no DOI, PMID, PMCID or PII can be parsed from the URL we hold; nothing is typed from memory, so this source cannot be looked up automatically",
       "amendments": [],
@@ -140,7 +146,7 @@
     "S015": {
       "source": "S015",
       "title": "Plagiarism Today, 15 July 2026 — Study Claiming AI Helps Students Learn Retracted",
-      "checked_on": "2026-09-01",
+      "checked_on": "2026-09-03",
       "state": "UNCHECKABLE",
       "why": "no DOI, PMID, PMCID or PII can be parsed from the URL we hold; nothing is typed from memory, so this source cannot be looked up automatically",
       "amendments": [],
@@ -149,18 +155,16 @@
     "S016": {
       "source": "S016",
       "title": "NEPC, on 404 Media's coverage — Williamson and Tuomi quoted",
-      "checked_on": "2026-09-01",
-      "identifier": "DOI 10.5117/EJEP2025.1.001.TUOM?ref=404media.co",
-      "identifier_from": "the held document",
-      "state": "UNCHECKED",
-      "why": "Europe PMC has no record for DOI 10.5117/EJEP2025.1.001.TUOM?ref=404media.co",
+      "checked_on": "2026-09-03",
+      "state": "UNCHECKABLE",
+      "why": "no DOI, PMID, PMCID or PII can be parsed from the URL we hold; nothing is typed from memory, so this source cannot be looked up automatically",
       "amendments": [],
       "comments": []
     },
     "S017": {
       "source": "S017",
       "title": "Shaw & Nave — Thinking—Fast, Slow, and Artificial: How AI is Reshaping Human Reasoning and the Rise of Cognitive Surrend",
-      "checked_on": "2026-09-01",
+      "checked_on": "2026-09-03",
       "state": "UNCHECKABLE",
       "why": "no DOI, PMID, PMCID or PII can be parsed from the URL we hold; nothing is typed from memory, so this source cannot be looked up automatically",
       "amendments": [],
@@ -169,7 +173,7 @@
     "S018": {
       "source": "S018",
       "title": "Wang & Zhang (2026) — Pedagogical partnerships with generative AI in higher education: how dual cognitive pathways parad",
-      "checked_on": "2026-09-01",
+      "checked_on": "2026-09-03",
       "state": "UNCHECKABLE",
       "why": "no DOI, PMID, PMCID or PII can be parsed from the URL we hold; nothing is typed from memory, so this source cannot be looked up automatically",
       "amendments": [],
@@ -178,18 +182,18 @@
     "S019": {
       "source": "S019",
       "title": "Stankovic, Hirche, Kollatzsch & Doetsch — Comment on: Your Brain on ChatGPT. arXiv 2601.00856, submitted 29 December 202",
-      "checked_on": "2026-09-01",
+      "checked_on": "2026-09-03",
       "identifier": "DOI 10.48550/arXiv.2601.00856",
       "identifier_from": "the held document",
       "state": "UNCHECKED",
-      "why": "Europe PMC has no record for DOI 10.48550/arXiv.2601.00856",
+      "why": "Europe PMC has no record for DOI 10.48550/arXiv.2601.00856; HTTP 404 from Crossref",
       "amendments": [],
       "comments": []
     },
     "S020": {
       "source": "S020",
       "title": "Georgiou (2025), University of Nicosia — ChatGPT produces more “lazy” thinkers: Evidence of cognitive engagement decline",
-      "checked_on": "2026-09-01",
+      "checked_on": "2026-09-03",
       "state": "UNCHECKABLE",
       "why": "no DOI, PMID, PMCID or PII can be parsed from the URL we hold; nothing is typed from memory, so this source cannot be looked up automatically",
       "amendments": [],
@@ -198,7 +202,7 @@
     "S021": {
       "source": "S021",
       "title": "Budzyń, Romańczyk, Kitala, Kołodziej, Bugajski, Adami, Blom, Buszkiewicz, Halvorsen, Hassan, Romańczyk, Holme, Jarus, Fi",
-      "checked_on": "2026-09-01",
+      "checked_on": "2026-09-03",
       "identifier": "DOI 10.1016/S2468-1253(25)00133-5",
       "identifier_from": "the source URL",
       "resolved_title": "Endoscopist deskilling risk after exposure to artificial intelligence in colonoscopy: a multicentre, observational study.",
@@ -219,7 +223,7 @@
     "S023": {
       "source": "S023",
       "title": "Sasha Rogelberg, Fortune, 26 August 2025 — on the colonoscopy deskilling study",
-      "checked_on": "2026-09-01",
+      "checked_on": "2026-09-03",
       "state": "UNCHECKABLE",
       "why": "no DOI, PMID, PMCID or PII can be parsed from the URL we hold; nothing is typed from memory, so this source cannot be looked up automatically",
       "amendments": [],
@@ -228,7 +232,7 @@
     "S024": {
       "source": "S024",
       "title": "Omer F. Ahmad — 'Endoscopist deskilling: an unintended consequence of AI-assisted colonoscopy?' Comment, The Lancet Gast",
-      "checked_on": "2026-09-01",
+      "checked_on": "2026-09-03",
       "state": "UNCHECKABLE",
       "why": "no DOI, PMID, PMCID or PII can be parsed from the URL we hold; nothing is typed from memory, so this source cannot be looked up automatically",
       "amendments": [],
@@ -237,7 +241,7 @@
     "S025": {
       "source": "S025",
       "title": "Ke, Jin, Ong, Thirunavukarasu, Car, Cheung, Tham, Ting, Ong, Compton, Narayan, Keane, Wong, Bates, Tan & Liu (2026) — AI",
-      "checked_on": "2026-09-01",
+      "checked_on": "2026-09-03",
       "state": "UNCHECKABLE",
       "why": "no DOI, PMID, PMCID or PII can be parsed from the URL we hold; nothing is typed from memory, so this source cannot be looked up automatically",
       "amendments": [],
@@ -246,18 +250,18 @@
     "S026": {
       "source": "S026",
       "title": "Chalkidis & Søgaard — Brainrot: Deskilling and Addiction are Overlooked AI Risks. arXiv 2605.03512, submitted 5 May 2026",
-      "checked_on": "2026-09-01",
+      "checked_on": "2026-09-03",
       "identifier": "DOI 10.48550/arXiv.2605.03512",
       "identifier_from": "the held document",
       "state": "UNCHECKED",
-      "why": "Europe PMC has no record for DOI 10.48550/arXiv.2605.03512",
+      "why": "Europe PMC has no record for DOI 10.48550/arXiv.2605.03512; HTTP 404 from Crossref",
       "amendments": [],
       "comments": []
     },
     "S027": {
       "source": "S027",
       "title": "Katrina Ray — 'AI-assisted colonoscopy and risk of endoscopist deskilling', Research Highlight, Nature Reviews Gastroent",
-      "checked_on": "2026-09-01",
+      "checked_on": "2026-09-03",
       "state": "UNCHECKABLE",
       "why": "no DOI, PMID, PMCID or PII can be parsed from the URL we hold; nothing is typed from memory, so this source cannot be looked up automatically",
       "amendments": [],
@@ -266,7 +270,7 @@
     "S028": {
       "source": "S028",
       "title": "Gommers, Verboom, Duvivier et al. — Influence of AI Decision Support on Radiologists' Performance and Visual Search in S",
-      "checked_on": "2026-09-01",
+      "checked_on": "2026-09-03",
       "identifier": "DOI 10.1148/radiol.243688",
       "identifier_from": "the source URL",
       "resolved_title": "Influence of AI Decision Support on Radiologists' Performance and Visual Search in Screening Mammography.",
@@ -287,7 +291,7 @@
     "S029": {
       "source": "S029",
       "title": "Heudel, Crochet, Filori, Bachelot & Blay (2026) — Artificial intelligence in medicine: a scoping review of the risk of d",
-      "checked_on": "2026-09-01",
+      "checked_on": "2026-09-03",
       "identifier": "PII S2949-8201(26)00012-3",
       "identifier_from": "the source URL",
       "resolved_title": "Artificial intelligence in medicine: a scoping review of the risk of deskilling and loss of expertise among physicians.",
@@ -300,7 +304,7 @@
     "S030": {
       "source": "S030",
       "title": "Dratsch, Chen, Mehrizi, Kloeckner, Mähringer-Kunz, Püsken, Baeßler, Sauer, Maintz & dos Santos (2023) — Automation Bias ",
-      "checked_on": "2026-09-01",
+      "checked_on": "2026-09-03",
       "identifier": "DOI 10.1148/radiol.222176",
       "identifier_from": "the source URL",
       "resolved_title": "Automation Bias in Mammography: The Impact of Artificial Intelligence BI-RADS Suggestions on Reader Performance.",
@@ -321,7 +325,7 @@
     "S031": {
       "source": "S031",
       "title": "Troya J, Fitting D, Brand M, Sudarevic B, Kather JN, Meining A, Hann A — The influence of computer-aided polyp detection",
-      "checked_on": "2026-09-01",
+      "checked_on": "2026-09-03",
       "identifier": "DOI 10.1055/a-1770-7353",
       "identifier_from": "the source URL",
       "resolved_title": "The influence of computer-aided polyp detection systems on reaction time for polyp detection and eye gaze.",
@@ -334,52 +338,45 @@
     "S032": {
       "source": "S032",
       "title": "Zhou MJ (Stanford) — 'Artificial intelligence in colonoscopy: Could it be making us worse?', ACG Evidence-Based GI, Sept",
-      "checked_on": "2026-09-01",
+      "checked_on": "2026-09-03",
       "identifier": "DOI 10.48550/arXiv.2506.08872",
       "identifier_from": "the held document",
       "state": "UNCHECKED",
-      "why": "Europe PMC has no record for DOI 10.48550/arXiv.2506.08872",
+      "why": "Europe PMC has no record for DOI 10.48550/arXiv.2506.08872; HTTP 404 from Crossref",
       "amendments": [],
       "comments": []
     },
     "S033": {
       "source": "S033",
       "title": "Samuel Greengard — 'The AI Deskilling Paradox', Communications of the ACM",
-      "checked_on": "2026-09-01",
-      "identifier": "DOI 10.1145/3491102.3517578",
-      "identifier_from": "the held document",
-      "state": "UNCHECKED",
-      "why": "Europe PMC has no record for DOI 10.1145/3491102.3517578",
+      "checked_on": "2026-09-03",
+      "state": "UNCHECKABLE",
+      "why": "no DOI, PMID, PMCID or PII can be parsed from the URL we hold; nothing is typed from memory, so this source cannot be looked up automatically",
       "amendments": [],
       "comments": []
     },
     "S034": {
       "source": "S034",
       "title": "Josh Decker MD — 'When AI Reads the Easy Cases: Radiology's Training Paradox', Rad Insights, 15 May 2026 (updated 31 Jul",
-      "checked_on": "2026-09-01",
-      "identifier": "DOI 10.1148/radiol.222176",
-      "identifier_from": "the held document",
-      "resolved_title": "Automation Bias in Mammography: The Impact of Artificial Intelligence BI-RADS Suggestions on Reader Performance.",
-      "state": "UNCHECKED",
-      "why": "lookup on DOI 10.1148/radiol.222176 resolved to a DIFFERENT document: 'Automation Bias in Mammography: The Impact of Artificial Intelligence ' shares nothing distinctive with \"Josh Decker MD — 'When AI Reads the Easy Cases: Radiology's Training P\"",
+      "checked_on": "2026-09-03",
+      "state": "UNCHECKABLE",
+      "why": "no DOI, PMID, PMCID or PII can be parsed from the URL we hold; nothing is typed from memory, so this source cannot be looked up automatically",
       "amendments": [],
       "comments": []
     },
     "S035": {
       "source": "S035",
       "title": "Science Media Centre — expert reaction to the colonoscopy deskilling study, 12 August 2025",
-      "checked_on": "2026-09-01",
-      "identifier": "DOI 10.1016/S2468-1253(25",
-      "identifier_from": "the held document",
-      "state": "UNCHECKED",
-      "why": "Europe PMC has no record for DOI 10.1016/S2468-1253(25",
+      "checked_on": "2026-09-03",
+      "state": "UNCHECKABLE",
+      "why": "no DOI, PMID, PMCID or PII can be parsed from the URL we hold; nothing is typed from memory, so this source cannot be looked up automatically",
       "amendments": [],
       "comments": []
     },
     "S036": {
       "source": "S036",
       "title": "Katie Palmer, STAT News, 12 August 2025 — 'AI use may be deskilling doctors, new Lancet study warns'",
-      "checked_on": "2026-09-01",
+      "checked_on": "2026-09-03",
       "state": "UNCHECKABLE",
       "why": "no DOI, PMID, PMCID or PII can be parsed from the URL we hold; nothing is typed from memory, so this source cannot be looked up automatically",
       "amendments": [],
@@ -388,7 +385,7 @@
     "S037": {
       "source": "S037",
       "title": "Fox News Health — 'Colon cancer may be missed as doctors rely on AI, alarming study warns'",
-      "checked_on": "2026-09-01",
+      "checked_on": "2026-09-03",
       "state": "UNCHECKABLE",
       "why": "no DOI, PMID, PMCID or PII can be parsed from the URL we hold; nothing is typed from memory, so this source cannot be looked up automatically",
       "amendments": [],
@@ -397,7 +394,7 @@
     "S038": {
       "source": "S038",
       "title": "Rosbach E, Ganz J, Ammeling J, Riener A, Aubreville M — Automation Bias in AI-assisted Medical Decision-making under Tim",
-      "checked_on": "2026-09-01",
+      "checked_on": "2026-09-03",
       "state": "UNCHECKABLE",
       "why": "no DOI, PMID, PMCID or PII can be parsed from the URL we hold; nothing is typed from memory, so this source cannot be looked up automatically",
       "amendments": [],
@@ -406,7 +403,7 @@
     "S039": {
       "source": "S039",
       "title": "Royal College of Pathologists — Cervical cancer and human papillomavirus screening in the UK: a cytopathology and histop",
-      "checked_on": "2026-09-01",
+      "checked_on": "2026-09-03",
       "state": "UNCHECKABLE",
       "why": "no DOI, PMID, PMCID or PII can be parsed from the URL we hold; nothing is typed from memory, so this source cannot be looked up automatically",
       "amendments": [],
@@ -415,7 +412,7 @@
     "S040": {
       "source": "S040",
       "title": "Jeyaretnam M, Time, 13 August 2025 — on the colonoscopy deskilling study",
-      "checked_on": "2026-09-01",
+      "checked_on": "2026-09-03",
       "state": "UNCHECKABLE",
       "why": "no DOI, PMID, PMCID or PII can be parsed from the URL we hold; nothing is typed from memory, so this source cannot be looked up automatically",
       "amendments": [],
@@ -424,7 +421,7 @@
     "S041": {
       "source": "S041",
       "title": "The ASCO Post Staff, The ASCO Post, 13 August 2025 (updated 11 November 2025)",
-      "checked_on": "2026-09-01",
+      "checked_on": "2026-09-03",
       "state": "UNCHECKABLE",
       "why": "no DOI, PMID, PMCID or PII can be parsed from the URL we hold; nothing is typed from memory, so this source cannot be looked up automatically",
       "amendments": [],
@@ -433,7 +430,7 @@
     "S042": {
       "source": "S042",
       "title": "Schimelpfening N (fact-checked by Seladi-Schulman J), Healthgrades, 19 August 2025",
-      "checked_on": "2026-09-01",
+      "checked_on": "2026-09-03",
       "state": "UNCHECKABLE",
       "why": "no DOI, PMID, PMCID or PII can be parsed from the URL we hold; nothing is typed from memory, so this source cannot be looked up automatically",
       "amendments": [],
@@ -442,7 +439,7 @@
     "S043": {
       "source": "S043",
       "title": "Pedersen TA, Mori Y, Botteri E, Engjom T, Seip B, Dimcevski GG, Havre RF (2026) — Learning and deskilling effects of art",
-      "checked_on": "2026-09-01",
+      "checked_on": "2026-09-03",
       "identifier": "DOI 10.1055/a-2858-7084",
       "identifier_from": "the source URL",
       "resolved_title": "Learning and deskilling effects of artificial intelligence in colonoscopy among endoscopists with different levels of experience: a pragmatic, prospective trial",
@@ -455,7 +452,7 @@
     "S044": {
       "source": "S044",
       "title": "Weinberg DS, Bretthauer M (2026) — Upskilling, Deskilling, or Never Skilling: Who Benefits From Artificial Intelligence ",
-      "checked_on": "2026-09-01",
+      "checked_on": "2026-09-03",
       "identifier": "DOI 10.1053/j.gastro.2026.05.026",
       "identifier_from": "the source URL",
       "resolved_title": "Upskilling, Deskilling, or Never Skilling: Who Benefits From Artificial Intelligence in Colonoscopy?",
@@ -468,7 +465,7 @@
     "S045": {
       "source": "S045",
       "title": "Correction to Lancet Gastroenterol Hepatol 2025; 10: 896-903 [Budzyn et al., endoscopist deskilling]. Lancet Gastroenter",
-      "checked_on": "2026-09-01",
+      "checked_on": "2026-09-03",
       "identifier": "DOI 10.1016/S2468-1253(25)00294-8",
       "identifier_from": "the source URL",
       "resolved_title": "Correction to Lancet Gastroenterol Hepatol 2025; 10: 896-903.",

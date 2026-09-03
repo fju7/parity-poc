@@ -4,7 +4,7 @@
     "S003": {
       "source": "S003",
       "title": "MONARCH 3 — final overall survival. Ann Oncol, 2024",
-      "checked_on": "2026-09-01",
+      "checked_on": "2026-09-03",
       "identifier": "DOI 10.1016/j.annonc.2024.04.013",
       "identifier_from": "the held document",
       "resolved_title": "Abemaciclib plus a nonsteroidal aromatase inhibitor as initial therapy for HR+, HER2- advanced breast cancer: final overall survival results of MONARCH 3.",
@@ -25,7 +25,7 @@
     "S004": {
       "source": "S004",
       "title": "MONALEESA-2 — updated results. Ann Oncol, 2018",
-      "checked_on": "2026-09-01",
+      "checked_on": "2026-09-03",
       "identifier": "PMID 29718092",
       "identifier_from": "the source URL",
       "resolved_title": "Updated results from MONALEESA-2, a phase III trial of first-line ribociclib plus letrozole versus placebo plus letrozole in hormone receptor-positive, HER2-neg",
@@ -46,7 +46,7 @@
     "S005": {
       "source": "S005",
       "title": "MONALEESA-2 — overall survival with ribociclib plus letrozole. N Engl J Med, 2022",
-      "checked_on": "2026-09-01",
+      "checked_on": "2026-09-03",
       "identifier": "DOI 10.1056/NEJMoa2114663",
       "identifier_from": "the source URL",
       "resolved_title": "Overall Survival with Ribociclib plus Letrozole in Advanced Breast Cancer.",
@@ -67,7 +67,7 @@
     "S007": {
       "source": "S007",
       "title": "MONALEESA-7 — overall survival. N Engl J Med, 2019",
-      "checked_on": "2026-09-01",
+      "checked_on": "2026-09-03",
       "identifier": "DOI 10.1056/NEJMoa1903765",
       "identifier_from": "the source URL",
       "resolved_title": "Overall Survival with Ribociclib plus Endocrine Therapy in Breast Cancer.",
@@ -102,7 +102,7 @@
     "S010": {
       "source": "S010",
       "title": "PALOMA-2 — final overall survival. J Clin Oncol, 2024",
-      "checked_on": "2026-09-01",
+      "checked_on": "2026-09-03",
       "identifier": "PMCID PMC10950136",
       "identifier_from": "the source URL",
       "resolved_title": "Overall Survival With Palbociclib Plus Letrozole in Advanced Breast Cancer.",
@@ -115,7 +115,7 @@
     "S001": {
       "source": "S001",
       "title": "NCCN Clinical Practice Guidelines in Oncology — Breast Cancer, version 6.2026",
-      "checked_on": "2026-09-01",
+      "checked_on": "2026-09-03",
       "state": "NOT_APPLICABLE",
       "why": "type 'guideline' is not a journal article; it has versions, not errata, and B11 covers those",
       "amendments": [],
@@ -124,7 +124,7 @@
     "S002": {
       "source": "S002",
       "title": "MONARCH 3 — abemaciclib as initial therapy. J Clin Oncol, 2017",
-      "checked_on": "2026-09-01",
+      "checked_on": "2026-09-03",
       "identifier": "DOI 10.1200/JCO.2017.75.6155",
       "identifier_from": "the source URL",
       "resolved_title": "MONARCH 3: Abemaciclib As Initial Therapy for Advanced Breast Cancer.",
@@ -137,7 +137,7 @@
     "S006": {
       "source": "S006",
       "title": "MONALEESA-7 — ribociclib plus endocrine therapy in premenopausal women. Lancet Oncol, 2018",
-      "checked_on": "2026-09-01",
+      "checked_on": "2026-09-03",
       "state": "UNCHECKABLE",
       "why": "no DOI, PMID, PMCID or PII can be parsed from the URL we hold; nothing is typed from memory, so this source cannot be looked up automatically",
       "amendments": [],
@@ -146,7 +146,7 @@
     "S008": {
       "source": "S008",
       "title": "MONALEESA-7 — updated overall survival. Clin Cancer Res, 2022;28:851",
-      "checked_on": "2026-09-01",
+      "checked_on": "2026-09-03",
       "state": "UNCHECKABLE",
       "why": "no DOI, PMID, PMCID or PII can be parsed from the URL we hold; nothing is typed from memory, so this source cannot be looked up automatically",
       "amendments": [],
@@ -155,7 +155,7 @@
     "S009": {
       "source": "S009",
       "title": "PALOMA-2 — palbociclib and letrozole. N Engl J Med, 2016",
-      "checked_on": "2026-09-01",
+      "checked_on": "2026-09-03",
       "identifier": "DOI 10.1056/NEJMoa1607303",
       "identifier_from": "the source URL",
       "resolved_title": "Palbociclib and Letrozole in Advanced Breast Cancer.",
@@ -183,7 +183,7 @@
     "S011": {
       "source": "S011",
       "title": "PALMARES-2 — real-world comparison of first-line palbociclib, ribociclib and abemaciclib. Ann Oncol, April 2025",
-      "checked_on": "2026-09-01",
+      "checked_on": "2026-09-03",
       "identifier": "PII S0923-7534(25)00134-6",
       "identifier_from": "the source URL",
       "state": "UNCHECKED",
@@ -194,7 +194,7 @@
     "S012": {
       "source": "S012",
       "title": "KISQALI (ribociclib) — US prescribing information",
-      "checked_on": "2026-09-01",
+      "checked_on": "2026-09-03",
       "state": "NOT_APPLICABLE",
       "why": "type 'label' is not a journal article; it has versions, not errata, and B11 covers those",
       "amendments": [],
@@ -203,7 +203,7 @@
     "S013": {
       "source": "S013",
       "title": "VERZENIO (abemaciclib) — US prescribing information",
-      "checked_on": "2026-09-01",
+      "checked_on": "2026-09-03",
       "state": "NOT_APPLICABLE",
       "why": "type 'label' is not a journal article; it has versions, not errata, and B11 covers those",
       "amendments": [],
@@ -212,7 +212,7 @@
     "S014": {
       "source": "S014",
       "title": "IBRANCE (palbociclib) — warnings and precautions",
-      "checked_on": "2026-09-01",
+      "checked_on": "2026-09-03",
       "state": "NOT_APPLICABLE",
       "why": "type 'label' is not a journal article; it has versions, not errata, and B11 covers those",
       "amendments": [],
@@ -221,7 +221,7 @@
     "S015": {
       "source": "S015",
       "title": "Network meta-analysis of CDK4/6 inhibitors. Scientific Reports, February 2024",
-      "checked_on": "2026-09-01",
+      "checked_on": "2026-09-03",
       "identifier": "DOI 10.1038/s41598-024-53151-8",
       "identifier_from": "the held document",
       "resolved_title": "Comparative overall survival of CDK4/6 inhibitors in combination with endocrine therapy in advanced breast cancer.",
@@ -234,7 +234,7 @@
     "S016": {
       "source": "S016",
       "title": "P-VERIFY — comparative overall survival of CDK4/6 inhibitors plus an aromatase inhibitor, US real-world setting, 2025",
-      "checked_on": "2026-09-01",
+      "checked_on": "2026-09-03",
       "identifier": "PMID 39754979",
       "identifier_from": "the source URL",
       "resolved_title": "Comparative overall survival of CDK4/6 inhibitors plus an aromatase inhibitor in HR+/HER2- metastatic breast cancer in the US real-world setting.",
@@ -247,7 +247,7 @@
     "S017": {
       "source": "S017",
       "title": "Shaaban MHA, Elbaiomy MA, Eltantawy A, Abdel-Fattah A-HE, Shamaa SSA (2024) — Comparing ribociclib versus palbociclib as",
-      "checked_on": "2026-09-01",
+      "checked_on": "2026-09-03",
       "identifier": "PMCID PMC11700305",
       "identifier_from": "the source URL",
       "resolved_title": "Comparing Ribociclib versus Palbociclib as a Second Line Treatment in Combination with Fulvestrant in Metastatic Breast Cancer: A Randomized Clinical Trial.",
@@ -260,7 +260,7 @@
     "S018": {
       "source": "S018",
       "title": "HARMONIA — A Phase III, Multicenter, Open-label Study of Ribociclib vs. Palbociclib in Patients With Advanced Hormone Re",
-      "checked_on": "2026-09-01",
+      "checked_on": "2026-09-03",
       "state": "NOT_APPLICABLE",
       "why": "type 'registry' is not a journal article; it has versions, not errata, and B11 covers those",
       "amendments": [],
@@ -269,7 +269,7 @@
     "S019": {
       "source": "S019",
       "title": "MONALEESA-2 — ClinicalTrials.gov results posting. NCT01958021.",
-      "checked_on": "2026-09-01",
+      "checked_on": "2026-09-03",
       "state": "NOT_APPLICABLE",
       "why": "type 'registry' is not a journal article; it has versions, not errata, and B11 covers those",
       "amendments": [],
@@ -278,7 +278,7 @@
     "S020": {
       "source": "S020",
       "title": "PALOMA-2 — ClinicalTrials.gov results posting. NCT01740427.",
-      "checked_on": "2026-09-01",
+      "checked_on": "2026-09-03",
       "state": "NOT_APPLICABLE",
       "why": "type 'registry' is not a journal article; it has versions, not errata, and B11 covers those",
       "amendments": [],
@@ -287,7 +287,7 @@
     "S021": {
       "source": "S021",
       "title": "PALMARES-2 — ClinicalTrials.gov record. NCT06805812.",
-      "checked_on": "2026-09-01",
+      "checked_on": "2026-09-03",
       "state": "NOT_APPLICABLE",
       "why": "type 'registry' is not a journal article; it has versions, not errata, and B11 covers those",
       "amendments": [],
@@ -296,7 +296,7 @@
     "S022": {
       "source": "S022",
       "title": "MONALEESA-7 — ClinicalTrials.gov results posting. NCT02278120.",
-      "checked_on": "2026-09-01",
+      "checked_on": "2026-09-03",
       "state": "NOT_APPLICABLE",
       "why": "type 'registry' is not a journal article; it has versions, not errata, and B11 covers those",
       "amendments": [],
@@ -305,18 +305,22 @@
     "S023": {
       "source": "S023",
       "title": "MONALEESA-7 — overall survival, ASCO 2019 late-breaking abstract LBA1008. J Clin Oncol 37, no. 18_suppl.",
-      "checked_on": "2026-09-01",
+      "checked_on": "2026-09-03",
       "identifier": "DOI 10.1200/JCO.2019.37.18_suppl.LBA1008",
       "identifier_from": "the source URL",
-      "state": "UNCHECKED",
-      "why": "Europe PMC has no record for DOI 10.1200/JCO.2019.37.18_suppl.LBA1008",
+      "identity": "resolved title shares 3 word(s) with ours: monaleesa, overall, survival",
+      "resolved_title": "Phase III MONALEESA-7 trial of premenopausal patients with HR+/HER2− advanced breast cancer (ABC) treated with endocrine therapy ± ribociclib: Overall survival ",
+      "index": "Crossref",
+      "update_policy": "https://doi.org/10.1200/crossmark",
       "amendments": [],
-      "comments": []
+      "comments": [],
+      "state": "CLEAN",
+      "why": "matched on DOI 10.1200/JCO.2019.37.18_suppl.LBA1008 at Crossref; not in Europe PMC. The publisher registers a Crossmark update policy, so a correction would have been deposited here"
     },
     "S024": {
       "source": "S024",
       "title": "Tanguy M-L, Cabel L, Berger F, Pierga J-Y, Savignoni A, Bidard F-C. Cdk4/6 inhibitors and overall survival: power of fir",
-      "checked_on": "2026-09-01",
+      "checked_on": "2026-09-03",
       "identifier": "DOI 10.1038/s41523-018-0068-4",
       "identifier_from": "the held document",
       "resolved_title": "Cdk4/6 inhibitors and overall survival: power of first-line trials in metastatic breast cancer.",
@@ -329,11 +333,20 @@
     "S025": {
       "source": "S025",
       "title": "Corrigendum to “Abemaciclib plus a nonsteroidal aromatase inhibitor as initial therapy for HR+, HER2- advanced breast ca",
-      "checked_on": "2026-09-01",
+      "checked_on": "2026-09-03",
       "identifier": "PII S0923-7534(25)00851-8",
       "identifier_from": "the source URL",
       "state": "UNCHECKED",
       "why": "Europe PMC has no record for PII S0923-7534(25)00851-8",
+      "amendments": [],
+      "comments": []
+    },
+    "S026": {
+      "source": "S026",
+      "title": "Corrigendum to “Updated results from MONALEESA-2, a phase III trial of first-line ribociclib plus letrozole versus place",
+      "checked_on": "2026-09-03",
+      "state": "UNCHECKABLE",
+      "why": "no DOI, PMID, PMCID or PII can be parsed from the URL we hold; nothing is typed from memory, so this source cannot be looked up automatically",
       "amendments": [],
       "comments": []
     }

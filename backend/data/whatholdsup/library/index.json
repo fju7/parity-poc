@@ -1040,6 +1040,22 @@
         "melanoma:S023"
       ],
       "note": "Publisher PDF, ASM. AAC 2004;48(8):2787-2792."
+    },
+    "025d49ad9e8db52430a81a93b9925e0f09aa25ae1815aa886e0cc4b897cd034b": {
+      "file": "docs/02/025d49ad9e8db52430a81a93b9925e0f09aa25ae1815aa886e0cc4b897cd034b.xml",
+      "bytes": 9829,
+      "content_type": "application/xml",
+      "first_held": "2026-09-03",
+      "urls": [
+        "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC6927326/fullTextXML"
+      ],
+      "titles": [
+        "Corrigendum to “Updated results from MONALEESA-2, a phase III trial of first-line ribociclib plus letrozole versus placebo plus letrozole in hormone receptor-positive, HER2-negative advanced breast cancer”. Ann Oncol 2019;30(11):1842"
+      ],
+      "used_by": [
+        "cdk46:S026"
+      ],
+      "note": "CC BY-NC. The publisher copy at academic.oup.com is subscription-only."
     }
   }
 }

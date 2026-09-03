@@ -4,7 +4,7 @@
     "S001": {
       "source": "S001",
       "title": "Merck & Moderna — Phase 3 INTerpath-001 met RFS and DMFS endpoints",
-      "checked_on": "2026-09-02",
+      "checked_on": "2026-09-03",
       "state": "UNCHECKABLE",
       "why": "no DOI, PMID, PMCID or PII can be parsed from the URL we hold; nothing is typed from memory, so this source cannot be looked up automatically",
       "amendments": [],
@@ -13,7 +13,7 @@
     "S002": {
       "source": "S002",
       "title": "Merck & Moderna — five-year KEYNOTE-942 data, ASCO 2026",
-      "checked_on": "2026-09-02",
+      "checked_on": "2026-09-03",
       "state": "UNCHECKABLE",
       "why": "no DOI, PMID, PMCID or PII can be parsed from the URL we hold; nothing is typed from memory, so this source cannot be looked up automatically",
       "amendments": [],
@@ -22,7 +22,7 @@
     "S003": {
       "source": "S003",
       "title": "KEYNOTE-942: a randomised, phase 2b study — The Lancet, 2024",
-      "checked_on": "2026-09-02",
+      "checked_on": "2026-09-03",
       "identifier": "PMID 38246194",
       "identifier_from": "the source URL",
       "resolved_title": "Individualised neoantigen therapy mRNA-4157 (V940) plus pembrolizumab versus pembrolizumab monotherapy in resected melanoma (KEYNOTE-942): a randomised, phase 2",
@@ -42,20 +42,21 @@
     },
     "S004": {
       "source": "S004",
-      "title": "Five-year results — Journal of Clinical Oncology, 1 June 2026",
-      "checked_on": "2026-09-02",
+      "title": "Khattak, Carlino, Meniawy et al. — Intismeran Autogene Plus Pembrolizumab Versus Pembrolizumab Alone in High-Risk Resect",
+      "checked_on": "2026-09-03",
       "identifier": "DOI 10.1200/JCO-26-00835",
       "identifier_from": "the source URL",
       "resolved_title": "Intismeran Autogene Plus Pembrolizumab Versus Pembrolizumab Alone in High-Risk Resected Melanoma: 5-Year Update of the Randomized Phase IIb KEYNOTE-942 Study.",
-      "state": "UNCHECKED",
-      "why": "lookup on DOI 10.1200/JCO-26-00835 resolved to a DIFFERENT document: 'Intismeran Autogene Plus Pembrolizumab Versus Pembrolizumab Alone in H' shares nothing distinctive with 'Five-year results — Journal of Clinical Oncology, 1 June 2026'",
+      "identity": "resolved title shares 15 word(s) with ours: alone, autogene, high, intismeran, keynote, melanoma, pembrolizumab, phase, plus",
       "amendments": [],
-      "comments": []
+      "comments": [],
+      "state": "CLEAN",
+      "why": "matched on DOI 10.1200/JCO-26-00835"
     },
     "S005": {
       "source": "S005",
       "title": "Merck & Moderna — first detailed KEYNOTE-942 results",
-      "checked_on": "2026-09-02",
+      "checked_on": "2026-09-03",
       "state": "UNCHECKABLE",
       "why": "no DOI, PMID, PMCID or PII can be parsed from the URL we hold; nothing is typed from memory, so this source cannot be looked up automatically",
       "amendments": [],
@@ -64,7 +65,7 @@
     "S006": {
       "source": "S006",
       "title": "The ASCO Post — INTerpath-001 meets primary and key secondary endpoints",
-      "checked_on": "2026-09-02",
+      "checked_on": "2026-09-03",
       "state": "UNCHECKABLE",
       "why": "no DOI, PMID, PMCID or PII can be parsed from the URL we hold; nothing is typed from memory, so this source cannot be looked up automatically",
       "amendments": [],
@@ -73,18 +74,22 @@
     "S007": {
       "source": "S007",
       "title": "Three-Year Update of a Randomized Phase IIb Study of the Individualized Neoantigen Therapy Intismeran Autogene (mRNA-415",
-      "checked_on": "2026-09-02",
+      "checked_on": "2026-09-03",
       "identifier": "DOI 10.1200/OA-25-00008",
       "identifier_from": "the held document",
-      "state": "UNCHECKED",
-      "why": "Europe PMC has no record for DOI 10.1200/OA-25-00008",
+      "identity": "resolved title shares 18 word(s) with ours: 4157, autogene, individualized, intismeran, melanoma, mrna, neoantigen, pembroli",
+      "resolved_title": "Three-Year Update of a Randomized Phase IIb Study of the Individualized Neoantigen Therapy Intismeran Autogene (mRNA-4157, V940) Plus Pembrolizumab Versus Pembr",
+      "index": "Crossref",
+      "update_policy": null,
       "amendments": [],
-      "comments": []
+      "comments": [],
+      "state": "UNCHECKED",
+      "why": "matched on DOI 10.1200/OA-25-00008 at Crossref; not in Europe PMC, and the publisher registers NO update policy — so Crossref would not know of a correction even if one existed. This is not a pass"
     },
     "S008": {
       "source": "S008",
       "title": "Weber JS, Khattak MA, Carlino MS, et al. Individualized neoantigen therapy mRNA-4157 (V940) plus pembrolizumab in resect",
-      "checked_on": "2026-09-02",
+      "checked_on": "2026-09-03",
       "state": "UNCHECKABLE",
       "why": "no DOI, PMID, PMCID or PII can be parsed from the URL we hold; nothing is typed from memory, so this source cannot be looked up automatically",
       "amendments": [],
@@ -93,7 +98,7 @@
     "S009": {
       "source": "S009",
       "title": "Morning Glory Sciences — INTerpath-001",
-      "checked_on": "2026-09-02",
+      "checked_on": "2026-09-03",
       "state": "UNCHECKABLE",
       "why": "no DOI, PMID, PMCID or PII can be parsed from the URL we hold; nothing is typed from memory, so this source cannot be looked up automatically",
       "amendments": [],
@@ -102,7 +107,7 @@
     "S010": {
       "source": "S010",
       "title": "Pharmacy Times — Phase 3 Trial Marks First Success for Personalized mRNA Cancer Therapy in Resected Melanoma (Ryu Kariya",
-      "checked_on": "2026-09-02",
+      "checked_on": "2026-09-03",
       "state": "UNCHECKABLE",
       "why": "no DOI, PMID, PMCID or PII can be parsed from the URL we hold; nothing is typed from memory, so this source cannot be looked up automatically",
       "amendments": [],
@@ -111,7 +116,7 @@
     "S011": {
       "source": "S011",
       "title": "MLQ News — Moderna and Merck's personalized melanoma therapy meets two Phase 3 endpoints",
-      "checked_on": "2026-09-02",
+      "checked_on": "2026-09-03",
       "state": "UNCHECKABLE",
       "why": "no DOI, PMID, PMCID or PII can be parsed from the URL we hold; nothing is typed from memory, so this source cannot be looked up automatically",
       "amendments": [],
@@ -120,7 +125,7 @@
     "S013": {
       "source": "S013",
       "title": "INTerpath-001 — ClinicalTrials.gov record. NCT05933577.",
-      "checked_on": "2026-09-02",
+      "checked_on": "2026-09-03",
       "state": "NOT_APPLICABLE",
       "why": "type 'registry' is not a journal article; it has versions, not errata, and B11 covers those",
       "amendments": [],
@@ -129,18 +134,22 @@
     "S014": {
       "source": "S014",
       "title": "KEYNOTE-942 five-year update — ASCO 2026 abstract 9500. J Clin Oncol 44 (suppl 16; abstr 9500)",
-      "checked_on": "2026-09-02",
+      "checked_on": "2026-09-03",
       "identifier": "DOI 10.1200/JCO.2026.44.16_suppl.9500",
       "identifier_from": "the source URL",
-      "state": "UNCHECKED",
-      "why": "Europe PMC has no record for DOI 10.1200/JCO.2026.44.16_suppl.9500",
+      "identity": "resolved title shares 3 word(s) with ours: keynote, update, year",
+      "resolved_title": "Individualized neoantigen therapy intismeran autogene (intismeran) plus pembrolizumab (pembro) in resected melanoma: 5-year update of the KEYNOTE-942 study.",
+      "index": "Crossref",
+      "update_policy": "https://doi.org/10.1200/crossmark",
       "amendments": [],
-      "comments": []
+      "comments": [],
+      "state": "CLEAN",
+      "why": "matched on DOI 10.1200/JCO.2026.44.16_suppl.9500 at Crossref; not in Europe PMC. The publisher registers a Crossmark update policy, so a correction would have been deposited here"
     },
     "S015": {
       "source": "S015",
       "title": "The ASCO Post, June 2026 — Vaccine Plus Pembrolizumab Reduces Risk of Recurrence in High-Risk Resected Melanoma",
-      "checked_on": "2026-09-02",
+      "checked_on": "2026-09-03",
       "state": "UNCHECKABLE",
       "why": "no DOI, PMID, PMCID or PII can be parsed from the URL we hold; nothing is typed from memory, so this source cannot be looked up automatically",
       "amendments": [],
@@ -149,7 +158,7 @@
     "S016": {
       "source": "S016",
       "title": "Dermatology Times — Personalized mRNA-Based Melanoma Vaccine Meets Primary Endpoints in Landmark Phase 3 Trial",
-      "checked_on": "2026-09-02",
+      "checked_on": "2026-09-03",
       "state": "UNCHECKABLE",
       "why": "no DOI, PMID, PMCID or PII can be parsed from the URL we hold; nothing is typed from memory, so this source cannot be looked up automatically",
       "amendments": [],
@@ -158,7 +167,7 @@
     "S017": {
       "source": "S017",
       "title": "OncLive — Intismeran Autogene Plus Pembrolizumab Meets RFS, DMFS End Points in Resected Melanoma",
-      "checked_on": "2026-09-02",
+      "checked_on": "2026-09-03",
       "state": "UNCHECKABLE",
       "why": "no DOI, PMID, PMCID or PII can be parsed from the URL we hold; nothing is typed from memory, so this source cannot be looked up automatically",
       "amendments": [],
@@ -167,7 +176,7 @@
     "S018": {
       "source": "S018",
       "title": "Practical Dermatology — Intismeran Plus Pembrolizumab Meets Dual Phase 3 Melanoma Endpoints",
-      "checked_on": "2026-09-02",
+      "checked_on": "2026-09-03",
       "state": "UNCHECKABLE",
       "why": "no DOI, PMID, PMCID or PII can be parsed from the URL we hold; nothing is typed from memory, so this source cannot be looked up automatically",
       "amendments": [],
@@ -176,7 +185,7 @@
     "S019": {
       "source": "S019",
       "title": "KOL Pulse — INTerpath-001 trial profile",
-      "checked_on": "2026-09-02",
+      "checked_on": "2026-09-03",
       "state": "UNCHECKABLE",
       "why": "no DOI, PMID, PMCID or PII can be parsed from the URL we hold; nothing is typed from memory, so this source cannot be looked up automatically",
       "amendments": [],
@@ -185,7 +194,7 @@
     "S020": {
       "source": "S020",
       "title": "KEYNOTE-054 — ClinicalTrials.gov record. NCT02362594.",
-      "checked_on": "2026-09-02",
+      "checked_on": "2026-09-03",
       "state": "NOT_APPLICABLE",
       "why": "type 'registry' is not a journal article; it has versions, not errata, and B11 covers those",
       "amendments": [],
@@ -194,9 +203,90 @@
     "S021": {
       "source": "S021",
       "title": "CheckMate 238 — ClinicalTrials.gov record. NCT02388906.",
-      "checked_on": "2026-09-02",
+      "checked_on": "2026-09-03",
       "state": "NOT_APPLICABLE",
       "why": "type 'registry' is not a journal article; it has versions, not errata, and B11 covers those",
+      "amendments": [],
+      "comments": []
+    },
+    "S022": {
+      "source": "S022",
+      "title": "Greenland, Senn, Rothman, Carlin, Poole, Goodman, Altman — Statistical tests, P values, confidence intervals, and power:",
+      "checked_on": "2026-09-03",
+      "identifier": "PMCID PMC4877414",
+      "identifier_from": "the source URL",
+      "resolved_title": "Statistical tests, P values, confidence intervals, and power: a guide to misinterpretations.",
+      "identity": "resolved title shares 8 word(s) with ours: confidence, guide, intervals, misinterpretations, power, statistical, tests, val",
+      "amendments": [],
+      "comments": [
+        {
+          "id": "27272951",
+          "source": "MED",
+          "reference": "Eur J Epidemiol. 2016 May;31(5):443-4. doi: 10.1007/s10654-016-0158-2.",
+          "type": "Comment in",
+          "orderIn": 1
+        },
+        {
+          "id": "28790078",
+          "source": "MED",
+          "reference": "Am J Health Syst Pharm. 2017 Aug 15;74(16):1262-1266. doi: 10.2146/ajhp160443.",
+          "type": "Comment in",
+          "orderIn": 2
+        }
+      ],
+      "state": "CLEAN",
+      "why": "matched on PMCID PMC4877414"
+    },
+    "S023": {
+      "source": "S023",
+      "title": "Spruance, Reid, Grace, Samore — Hazard Ratio in Clinical Trials. Antimicrob Agents Chemother, 2004",
+      "checked_on": "2026-09-03",
+      "identifier": "PMCID PMC478551",
+      "identifier_from": "the source URL",
+      "resolved_title": "Hazard ratio in clinical trials.",
+      "identity": "resolved title shares 4 word(s) with ours: clinical, hazard, ratio, trials",
+      "amendments": [],
+      "comments": [],
+      "state": "CLEAN",
+      "why": "matched on PMCID PMC478551"
+    },
+    "S024": {
+      "source": "S024",
+      "title": "Survival Analysis — StatPearls, NCBI Bookshelf",
+      "checked_on": "2026-09-03",
+      "state": "UNCHECKABLE",
+      "why": "no DOI, PMID, PMCID or PII can be parsed from the URL we hold; nothing is typed from memory, so this source cannot be looked up automatically",
+      "amendments": [],
+      "comments": []
+    },
+    "S025": {
+      "source": "S025",
+      "title": "Singh, Mukhopadhyay — Survival analysis in clinical trials: Basics and must know areas. Perspect Clin Res, 2011",
+      "checked_on": "2026-09-03",
+      "identifier": "PMCID PMC3227332",
+      "identifier_from": "the source URL",
+      "resolved_title": "Survival analysis in clinical trials: Basics and must know areas.",
+      "identity": "resolved title shares 8 word(s) with ours: analysis, areas, basics, clinical, know, must, survival, trials",
+      "amendments": [],
+      "comments": [],
+      "state": "CLEAN",
+      "why": "matched on PMCID PMC3227332"
+    },
+    "S026": {
+      "source": "S026",
+      "title": "KEYNOTE-716 — ClinicalTrials.gov record. NCT03553836.",
+      "checked_on": "2026-09-03",
+      "state": "NOT_APPLICABLE",
+      "why": "type 'registry' is not a journal article; it has versions, not errata, and B11 covers those",
+      "amendments": [],
+      "comments": []
+    },
+    "S027": {
+      "source": "S027",
+      "title": "Moderna & Merck — five-year KEYNOTE-942 data, January 2026 announcement",
+      "checked_on": "2026-09-03",
+      "state": "UNCHECKABLE",
+      "why": "no DOI, PMID, PMCID or PII can be parsed from the URL we hold; nothing is typed from memory, so this source cannot be looked up automatically",
       "amendments": [],
       "comments": []
     }

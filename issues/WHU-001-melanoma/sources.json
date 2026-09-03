@@ -99,12 +99,13 @@
       "id": "S004",
       "url": "https://ascopubs.org/doi/10.1200/JCO-26-00835",
       "type": "primary",
-      "title": "Five-year results — Journal of Clinical Oncology, 1 June 2026",
+      "title": "Khattak, Carlino, Meniawy et al. — Intismeran Autogene Plus Pembrolizumab Versus Pembrolizumab Alone in High-Risk Resected Melanoma: 5-Year Update of the Randomized Phase IIb KEYNOTE-942 Study. Journal of Clinical Oncology, 1 June 2026",
       "accessed": "2026-08-28",
       "used_for": "The peer-reviewed five-year analysis, published the day it was presented. Median follow-up 60.3 months, data cutoff 15 December 2025, and the statement that the five-year analyses were descriptive.",
       "also_called": [
         "Journal of Clinical Oncology",
-        "the five-year analysis"
+        "the five-year analysis",
+        "Five-year results — Journal of Clinical Oncology, 1 June 2026"
       ],
       "access": {
         "state": "full_text_held",
@@ -121,7 +122,8 @@
           "via": "publisher PDF, downloaded in a browser by the editor on 2026-09-01",
           "substance": "36104 characters, reference list and discussion/introduction present"
         }
-      }
+      },
+      "title_note": "Was 'Five-year results — Journal of Clinical Oncology, 1 June 2026' until 3 September 2026 — a shorthand label of ours, not the paper's title. The errata check compares the title a bibliographic record returns against the title we hold, and this one shared no distinctive word with the real one, so a correct DOI lookup was reported as 'resolved to a DIFFERENT document'. PMID 42223134."
     },
     {
       "id": "S005",

@@ -651,6 +651,30 @@
         ],
         "note": "THIS ENTRY EXISTS BECAUSE OF A FIELD IN A BIBLIOGRAPHIC RECORD. On 2026-09-01 the operator pasted PubMed's MEDLINE record for S003 while asking whether similar and citing articles were worth reviewing. Its EIN field read: Ann Oncol. 2025 Dec;36(12):1556. This page had been printing six figures from a paper that had been formally corrected, and nothing in this repository knew.\n\nAn erratum is the one class of secondary document that can silently falsify a figure already published. It is also mechanically detectable: every MEDLINE record carries EIN and CIN fields. Checking them is free and requires no judgement, and not checking them is how a correction notice sits unread for nine months.\n\nWhat it says is now known and it is narrow. Read in full, the notice corrects one number in one figure of an exploratory endpoint this page does not use. That is a real answer rather than an assumed one: the document was obtained and read, and the claim that it does not affect us rests on the notice itself and not on its title."
       }
+    },
+    {
+      "id": "S026",
+      "url": "https://europepmc.org/article/MED/31407010",
+      "type": "corrigendum",
+      "form": "notice",
+      "title": "Corrigendum to “Updated results from MONALEESA-2, a phase III trial of first-line ribociclib plus letrozole versus placebo plus letrozole in hormone receptor-positive, HER2-negative advanced breast cancer”. Ann Oncol 2019;30(11):1842",
+      "accessed": "2026-09-03",
+      "amends": "S004",
+      "also_called": [
+        "the MONALEESA-2 corrigendum",
+        "PMID 31407010"
+      ],
+      "used_for": "The record that S004 was formally corrected, and that the correction does NOT touch any figure this page prints. The corrigendum's whole content is an addition to the Disclosure section: “CLA reports fees for advisory work with Novartis Pharmaceuticals (specifically participation on a Steering Committee for a clinical trial).” The page prints progression-free survival 25.3 vs 16.0 months and HR 0.568 (95% CI 0.457–0.704) from S004; none of those is amended. It is a conflict-of-interest disclosure added a year after publication.",
+      "note": "Found on 3 September 2026 when the errata sweep was run across every source in the estate. The publisher copy is subscription-only; this is the Europe PMC open-access copy of the same notice, CC BY-NC.",
+      "access": {
+        "state": "full_text_held",
+        "by": "Claude (Opus 5), read in full",
+        "on": "2026-09-03",
+        "sections": [
+          "the whole notice"
+        ],
+        "note": "2,193 characters. Entire content is an addition to the Disclosure section; no figure is amended."
+      }
     }
   ],
   "also_called_note": "The role-nouns the page actually uses for a source. The ledger audit matches sentences to sources by these plus the title's trial and journal names; a reference the page makes that is not listed here is invisible to the audit.",
