@@ -331,6 +331,44 @@ def usage_summary(entries=None):
 
 KNOWN_ERRORS = Path(__file__).resolve().parents[2] / "tests" / "fixtures" / "factcheck_known_errors.json"
 
+# Where a cut-off answer is written so it can be read.
+#
+# On 2026-09-03 the INFERENCE role generated 64,368 output tokens on a draft of
+# 82 sentences that the advocate had just cleared in 7,614. The run blocked, the
+# text was discarded, and $1.42 bought the single word "truncated". Whether the
+# role found two hundred findings or repeated itself for forty minutes are
+# opposite diagnoses with opposite repairs, and nothing on disk could tell them
+# apart. A cap that is hit is evidence about the role or the draft; throwing it
+# away is the one response that guarantees the next run learns nothing.
+#
+# Gitignored: the text is model output that may quote source documents at
+# length, and this repository is public.
+TRUNCATED_DIR = Path(__file__).resolve().parents[2] / "data" / "signal" / "truncated"
+
+
+def _dump_truncated(label: str, text: str, response) -> str:
+    """Write a cut-off answer to disk. Returns the path, or "" if it could not."""
+    try:
+        TRUNCATED_DIR.mkdir(parents=True, exist_ok=True)
+        stamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
+        safe = re.sub(r"[^A-Za-z0-9_.-]+", "-", label or "call").strip("-") or "call"
+        out = TRUNCATED_DIR / f"{stamp}-{safe}.txt"
+        usage = getattr(response, "usage", None)
+        head = [
+            f"# label: {label}",
+            f"# stop_reason: {getattr(response, 'stop_reason', None)}",
+            f"# input_tokens: {getattr(usage, 'input_tokens', None)}",
+            f"# output_tokens: {getattr(usage, 'output_tokens', None)}",
+            f"# text_chars: {len(text)}",
+            "",
+        ]
+        out.write_text("\n".join(head) + text)
+        return str(out)
+    except Exception as exc:
+        print(f"  [WARN] could not save the cut-off answer: {exc}")
+        return ""
+
+
 _client = None
 
 
@@ -662,9 +700,12 @@ def call(system: str, user: str, *, search: bool,
         try:
             parsed = json.loads(text)
             if truncated:
+                where = _dump_truncated(label, text, response)
                 print(f"  [ERROR] {label}: the answer was cut off at max_tokens "
                       f"({max_tokens}). Raise the cap for this role; the draft has "
                       f"outgrown it.")
+                if where:
+                    print(f"          the cut-off answer is at {where}")
                 return None
             return parsed
         except json.JSONDecodeError:
@@ -675,9 +716,12 @@ def call(system: str, user: str, *, search: bool,
                 except json.JSONDecodeError:
                     pass
             if truncated:
+                where = _dump_truncated(label, text, response)
                 print(f"  [ERROR] {label}: the answer was cut off at max_tokens "
                       f"({max_tokens}) and cannot be salvaged. Raise the cap for "
                       f"this role; the draft has outgrown it.")
+                if where:
+                    print(f"          the cut-off answer is at {where}")
                 return None
             if json_attempt < JSON_RETRIES:
                 print(f"  [RETRY] {label}: response was not JSON, {json_attempt + 1}/{JSON_RETRIES}...")

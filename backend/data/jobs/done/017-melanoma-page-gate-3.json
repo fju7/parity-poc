@@ -1,0 +1,10 @@
+{
+  "note": "Issue one, one sentence. accept-gate was tried first and refused, correctly: the page carries a sentence no role has read, and its rule is that a signature settles a finding somebody read and cannot settle a sentence nobody has read. That control exists because issue two once had every finding resolved and 28 unjudged claims added afterwards, where accepting would have recorded a human decision about text no human had seen. So this is the cheap remedy rather than an override — one sentence, the Morning Glory description, reworded after run 015 found that calling it an English translation was an unevidenced claim about a third party's publishing practice. It now asserts only that no other publication cites it. Every other verdict carries forward under --since.",
+  "issue": "melanoma",
+  "cwd": "backend",
+  "script": "scripts/signal/factcheck_draft.py",
+  "args": ["../site/whatholdsup/melanoma.html",
+           "--new-cycle",
+           "--since", "../site/whatholdsup/melanoma.html.gate.json",
+           "--report", "../site/whatholdsup/melanoma.html.gate.json"]
+}

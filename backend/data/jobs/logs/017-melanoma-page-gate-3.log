@@ -1,0 +1,54 @@
+=== 017-melanoma-page-gate-3
+=== queued job:
+{
+  "note": "Issue one, one sentence. accept-gate was tried first and refused, correctly: the page carries a sentence no role has read, and its rule is that a signature settles a finding somebody read and cannot settle a sentence nobody has read. That control exists because issue two once had every finding resolved and 28 unjudged claims added afterwards, where accepting would have recorded a human decision about text no human had seen. So this is the cheap remedy rather than an override — one sentence, the Morning Glory description, reworded after run 015 found that calling it an English translation was an unevidenced claim about a third party's publishing practice. It now asserts only that no other publication cites it. Every other verdict carries forward under --since.",
+  "issue": "melanoma",
+  "cwd": "backend",
+  "script": "scripts/signal/factcheck_draft.py",
+  "args": ["../site/whatholdsup/melanoma.html",
+           "--new-cycle",
+           "--since", "../site/whatholdsup/melanoma.html.gate.json",
+           "--report", "../site/whatholdsup/melanoma.html.gate.json"]
+}
+=== started 2026-09-03T18:45:30Z
+  Model 'claude-sonnet-4-6' is an alias — no dated snapshot is published for it.
+  Judgments can move without a code change; golden_set.py is what catches that.
+  Cycle 5. The run counter is reset.
+
+Fact-checking melanoma.html (44,668 chars of prose) as of 2026-09-03
+
+[1/6] Extracting checkable claims...
+      59 claims extracted
+      registry pre-check: 0 figure(s) and 0 trial fact(s) confirmed at ClinicalTrials.gov
+      24 claim(s) unchanged since d3ca57879dea — verdicts carried, 35 to check
+      7 internal claim(s) recorded, not source-checked
+[2/6] Source audit across 20 attributed source(s)...
+      checking  4 claim(s) against: no source credited in the draft
+      checking  2 claim(s) against: Five-year results — Journal of Clinical Oncology, 1 June 2026
+      checking  1 claim(s) against: Merck & Moderna — Phase 3 INTerpath-001 met RFS and DMFS endpoints
+      checking  2 claim(s) against: Merck & Moderna — Phase 3 INTerpath-001 met RFS and DMFS endpoints, 19
+      checking  1 claim(s) against: The ASCO Post — INTerpath-001 meets primary and key secondary endpoint
+      checking  1 claim(s) against: Dermatology Times
+      checking  1 claim(s) against: Practical Dermatology
+      checking  1 claim(s) against: MLQ News
+      checking  1 claim(s) against: KOL Pulse
+      checking  1 claim(s) against: OncLive
+      checking  2 claim(s) against: The ASCO Post
+      checking  1 claim(s) against: NCT05933577
+      checking  1 claim(s) against: KEYNOTE-054 registry record
+      checking  1 claim(s) against: KEYNOTE-716 registry record
+      checking  1 claim(s) against: CheckMate 238 registry record
+      checking  2 claim(s) against: Three-Year Update — JCO Oncology Advances, 2026
+      checking  2 claim(s) against: Moderna and Merck announcement, 20 January 2026
+      checking  1 claim(s) against: ASCO 2026 abstract number 9500
+      checking  1 claim(s) against: Morning Glory Sciences
+      checking  1 claim(s) against: Pharmacy Times
+[3/6] Recency sweep... carried (0d old, fresh under 7d — the literature does not move because we edited)
+[4/6] Subject's advocate...
+      0 objection(s), 0 serious
+[5/6] Statistical inference...
+  [ERROR] inference: the answer was cut off at max_tokens (64000) and cannot be salvaged. Raise the cap for this role; the draft has outgrown it.
+[6/6] Best coverage elsewhere... carried (0d old, fresh under 14d — other outlets did not republish because we edited)
+
+[BLOCKED] A required check did not run. An unrun check is not a pass.
+=== finished 2026-09-03T19:10:00Z exit=2
