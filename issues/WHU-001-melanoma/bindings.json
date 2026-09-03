@@ -4813,7 +4813,16 @@
       "locator": null,
       "span": "Two-sided P values are designed to test hypotheses that the targeted effect measure equals a specific value (e.g., zero), and is neither above nor below this value. When, however, the test hypothesis of scientific or practical interest is a one-sided (dividing) hypothesis, a one-sided P value is appropriate.",
       "envelope": null,
-      "scope_words": [],
+      "scope_words": [
+        {
+          "word": "only",
+          "why": "Definitional, not documentary. The sentence is saying what a one-sided test IS, and the span it rests on is Greenland et al.'s definition of the same distinction: a two-sided P value tests whether the effect 'is neither above nor below' the null value, while a one-sided P value is appropriate when the hypothesis of interest is 'one-sided (dividing)'. The 'only' is the difference between those two stated in plainer English. No span will ever contain it, because the source states the distinction and the page states its consequence.",
+          "falsifier": "a one-sided test that also rejects the null for an effect in the opposite direction. If one exists, the word 'only' is wrong and this disposition goes with it. Note this is falsifiable by a fact about statistics and NOT by anything in our library, so GAP-001's library-wide search will never reach it — which is why it is signed rather than deferred.",
+          "by": "Fred Ugast",
+          "on": "2026-09-03",
+          "noted": "The signer asked whether the sentence is correct in context before signing. It is. The two figures were re-checked against held bytes: S005 prints 'one-sided p value=0.0266' and S003 prints 'two-sided p=0.053', both with HR 0.56/0.561 and the IDENTICAL interval 0.309-1.017, and 0.0266 x 2 = 0.0532. Same analysis, reported under two conventions.\n\nAN EARLIER VERSION OF THIS NOTE RECORDED A 'LOOSENESS' AND IT WAS WRONG TO. It said a one-sided test asks 'is it better?' only when specified toward benefit, which is true and carries nothing for a reader of this page: in efficacy testing the direction is benefit, the sentence is explaining the trial in front of them, and nobody leaves it worse informed. The note was written because B6 could not settle the word and the disposition form asks what would make the claim wrong — which is good discipline and also pressure to produce a fault where there is none. Recording a non-problem as a problem is its own defect: the next person to read this row would have gone looking for something to fix. The sentence stands unchanged."
+        }
+      ],
       "falsifier": null,
       "verdicts": {
         "locatable": null,
@@ -4837,13 +4846,7 @@
       "confirmed": false,
       "proposed_on": "2026-09-03",
       "why_bound": "Carried from 719177281168499d, the same sentence before inf-4 was acted on. The claim did not change; a qualification was added — the doubling holds when the one-sided test points the way the effect actually went. The premises are unchanged and still name where 0.0266 and 0.053 come from.",
-      "check_flags": [
-        {
-          "check": "B6",
-          "verdict": "unmapped scope word",
-          "why": "only — the sentence says 'only' and the span contains no word carrying that force"
-        }
-      ],
+      "check_flags": [],
       "checked_on": "2026-09-03"
     },
     "83f9eaef8192e810": {
@@ -5010,7 +5013,15 @@
       "locator": null,
       "span": "encouraging trend toward improved OS (HR=0.471; [95% CI, 0.165-1.345]; n=14)",
       "envelope": null,
-      "scope_words": [],
+      "scope_words": [
+        {
+          "word": "only",
+          "by": "claude",
+          "on": "2026-09-03",
+          "why": "About the LABEL, not about the release's contents. The release attaches 'n=14' to the overall-survival analysis and nothing that says fourteen of WHAT. The page says so in its very next sentence and then supplies the answer from the paper — 7 of 107 and 7 of 50 died — so a reader is not left to guess. It is not a claim that the release gives no other figure: it gives HR 0.471 and the interval, and the page prints both two sentences later.",
+          "falsifier": "S002 describing that analysis with anything that says what the fourteen are — deaths, patients, events — at which point the label is not only 'n=14' and this goes."
+        }
+      ],
       "falsifier": null,
       "verdicts": {
         "locatable": null,
@@ -5029,13 +5040,7 @@
       "proposed_by": "human",
       "confirmed": false,
       "proposed_on": "2026-09-03",
-      "check_flags": [
-        {
-          "check": "B6",
-          "verdict": "unmapped scope word",
-          "why": "only — the sentence says 'only' and the span contains no word carrying that force"
-        }
-      ],
+      "check_flags": [],
       "checked_on": "2026-09-03"
     },
     "1502754327b79c60": {
@@ -5049,7 +5054,15 @@
       "locator": null,
       "span": "Among 157 randomly assigned patients",
       "envelope": null,
-      "scope_words": [],
+      "scope_words": [
+        {
+          "word": "no",
+          "by": "claude",
+          "on": "2026-09-03",
+          "why": "A bounded negative about S001, and it has been searched rather than asserted. B14 ran on the sibling row and found that S001 carries exactly one sentence with a hazard ratio, interval or p-value in 93,000 characters, and that sentence names KEYNOTE-942/mRNA-4157-P201 — the earlier trial. So the release states figures and states none describing the size of the effect in the trial it announces. This row rests on two sources, which is why B14 declined to clear it automatically; the evidence is the same evidence.",
+          "falsifier": "any hazard ratio, interval, p-value or percentage in S001 attached to INTerpath-001 rather than to KEYNOTE-942. B14 re-runs on every check and would find it."
+        }
+      ],
       "falsifier": null,
       "verdicts": {
         "locatable": null,
@@ -5087,13 +5100,7 @@
       "proposed_by": "human",
       "confirmed": false,
       "proposed_on": "2026-09-03",
-      "check_flags": [
-        {
-          "check": "B6",
-          "verdict": "unmapped scope word",
-          "why": "no — the sentence says 'no' and the span contains no word carrying that force"
-        }
-      ],
+      "check_flags": [],
       "checked_on": "2026-09-03"
     },
     "cff6a47d15faa0c4": {
@@ -5193,7 +5200,15 @@
       "locator": null,
       "span": "RFS (95% CI), DMFS (95% CI), and OS (95% CI) are shown at 18-, 24-, 36-, and 48-month time points.",
       "envelope": null,
-      "scope_words": [],
+      "scope_words": [
+        {
+          "word": "only",
+          "by": "claude",
+          "on": "2026-09-03",
+          "why": "The span IS the figure legend, and it enumerates: 'RFS (95% CI), DMFS (95% CI), and OS (95% CI) are shown at 18-, 24-, 36-, and 48-month time points.' Four timepoints, the last of them 48 months. 'Only to 48 months' is the end of a list the source prints, which is why the five-year rates on this page come from S014 instead — and the sentence says that too.",
+          "falsifier": "a landmark rate beyond 48 months anywhere in S004."
+        }
+      ],
       "falsifier": null,
       "verdicts": {
         "locatable": null,
@@ -5212,13 +5227,7 @@
       "proposed_by": "human",
       "confirmed": false,
       "proposed_on": "2026-09-03",
-      "check_flags": [
-        {
-          "check": "B6",
-          "verdict": "unmapped scope word",
-          "why": "only — the sentence says 'only' and the span contains no word carrying that force"
-        }
-      ],
+      "check_flags": [],
       "checked_on": "2026-09-03"
     },
     "4721114bb698a332": {
@@ -5232,7 +5241,22 @@
       "locator": null,
       "span": "Exploratory end points included overall survival (OS)",
       "envelope": null,
-      "scope_words": [],
+      "scope_words": [
+        {
+          "word": "only",
+          "by": "claude",
+          "on": "2026-09-03",
+          "why": "S004 lists overall survival under 'Exploratory end points included overall survival (OS)' — not among the primary or the secondary end points, both of which it names separately in the same passage. 'Only as an exploratory analysis' is the paper's own classification.",
+          "falsifier": "S004, or any later analysis of this trial, reporting overall survival as a primary or secondary end point."
+        },
+        {
+          "word": "each",
+          "by": "claude",
+          "on": "2026-09-03",
+          "why": "Two arms, both named in the span with their own counts: '7 of 107 patients (6.5%) in the intismeran plus pembrolizumab arm and 7 of 50 (14.0%) in the pembrolizumab arm died'. Seven in each is the enumeration, not a generalisation over it.",
+          "falsifier": "either arm's death count in S004 being other than seven."
+        }
+      ],
       "falsifier": null,
       "verdicts": {
         "locatable": null,
@@ -5274,18 +5298,7 @@
       "proposed_by": "human",
       "confirmed": false,
       "proposed_on": "2026-09-03",
-      "check_flags": [
-        {
-          "check": "B6",
-          "verdict": "unmapped scope word",
-          "why": "only — the sentence says 'only' and the span contains no word carrying that force"
-        },
-        {
-          "check": "B6",
-          "verdict": "unmapped scope word",
-          "why": "each — the sentence says 'each' and the span contains no word carrying that force"
-        }
-      ],
+      "check_flags": [],
       "checked_on": "2026-09-03"
     },
     "820a543db95a9de4": {
