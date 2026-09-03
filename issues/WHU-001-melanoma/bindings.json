@@ -3547,9 +3547,29 @@
         {
           "source_id": "S018",
           "span": "The companies did not disclose hazard ratios, absolute event rates, P values, or other phase 3 efficacy estimates in the topline announcement."
+        },
+        {
+          "source_id": "S006",
+          "span": "KEYNOTE-942/mRNA-4157-P201 trial, including the 5-year follow-up data presented at the 2026 ASCO Annual Meeting , in which the combination demonstrated a 49% reduction in the risk of recurrence or death"
+        },
+        {
+          "source_id": "S016",
+          "span": "phase 2b KEYNOTE-942/mRNA-4157-P201 trial. Five-year follow-up data presented at the 2026 American Society of Clinical Oncology (ASCO) Annual Meeting showed that intismeran plus pembrolizumab reduced the risk of recurrence or death by 49%"
+        },
+        {
+          "source_id": "S018",
+          "span": "The phase 3 findings follow results from the phase 2b KEYNOTE-942/mRNA-4157-P201 trial. At 5-year follow-up, intismeran plus pembrolizumab was associated with a 49% reduction in the risk of recurrence or death"
+        },
+        {
+          "source_id": "S019",
+          "span": "In a phase 2 trial earlier this year the vaccine with immunotherapy has shown ~49% lower risk of recurrence or death"
+        },
+        {
+          "source_id": "S011",
+          "span": "The Phase 3 result builds on the Phase 2b KEYNOTE-942 study. At five years, intismeran plus Keytruda reduced the risk of recurrence or death by 49% versus Keytruda alone"
         }
       ],
-      "step": "Each outlet we hold attributes the 49% and 59% figures to KEYNOTE-942 rather than to the Phase 3, and several state in their own words that no Phase 3 efficacy estimates were released. The claim is a summary of the held coverage and can be checked against it article by article.",
+      "step": "All five articles we hold are quoted above, and each attributes the 49% and 59% figures to KEYNOTE-942 — four naming the phase 2b trial explicitly and KOL Pulse calling it a phase 2 trial. Two of the five separately state that no Phase 3 efficacy estimates were released. So the claim is a summary of five specific documents and can be checked against them article by article; it says nothing about coverage we do not hold.",
       "left_page": "2026-09-03"
     },
     "180a81052fba84f6": {
