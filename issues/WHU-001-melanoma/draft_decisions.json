@@ -140,6 +140,16 @@
       "decided": "2026-09-03",
       "reason": "The gate is right: the clause asserted what a one-sided 90% interval would show without the arithmetic or a source. It has been removed from the page — the sentence now ends at 'keys on.' The remaining claim is bound to the Lancet's own interval and declared a judgement with its premises and step.",
       "what_would_change_it": "The clause returning to the page without a computed interval or a source for one."
+    },
+    {
+      "draft": "site/whatholdsup/melanoma.html",
+      "role": "OUTSIDE_REVIEW",
+      "finding_id": "OR-4",
+      "quote": "3.35 — Moderate",
+      "decision": "open",
+      "decided": "2026-09-03",
+      "reason": "The reviewer holds that a single composite verdict for a directional claim breaches rule 8, because it merges confidence in direction (a blinded Phase 3 crossed its prespecified threshold) with confidence in magnitude (no effect size released). We think the objection is real and that the answer is the editor's: it decides whether this publication reports one number or two. Four options are set out in the 2026-09-03 adjudication. Nothing on the page changes until it is decided, and this row exists so a later gate run does not read the silence as agreement.",
+      "what_would_change_it": "The editor choosing among the four options."
     }
   ]
 }

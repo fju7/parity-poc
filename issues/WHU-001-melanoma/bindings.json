@@ -633,7 +633,7 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true,
+      "on_page": false,
       "autobind": "2 held documents contain all these anchors (S003, S004) — which one the sentence rests on is not decidable by presence alone",
       "proposed_by": "model",
       "confirmed": false,
@@ -899,7 +899,7 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true,
+      "on_page": false,
       "autobind": "anchors too weak to identify a document: none (strength 0, need 4)",
       "premises": [
         {
@@ -907,7 +907,8 @@
           "span": "The P value is then the probability that the chosen test statistic would have been at least as large as its observed value if every model assumption were correct, including the test hypothesis."
         }
       ],
-      "step": "Greenland et al. define the P value as the probability of a test statistic at least as extreme as the one observed, computed on the assumption that the test hypothesis and the rest of the model are correct. Stated in plain words with the test hypothesis being 'the drug does nothing', that is the frequency with which a result this strong would arise by chance alone."
+      "step": "Greenland et al. define the P value as the probability of a test statistic at least as extreme as the one observed, computed on the assumption that the test hypothesis and the rest of the model are correct. Stated in plain words with the test hypothesis being 'the drug does nothing', that is the frequency with which a result this strong would arise by chance alone.",
+      "left_page": "2026-09-03"
     },
     "a280ba77f0e86253": {
       "sentence": "In this story — and this is the interesting part The April 2023 press release reported KEYNOTE-942 as one-sided p = 0.0266 .",
@@ -1235,12 +1236,13 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true,
+      "on_page": false,
       "autobind": "2 held documents contain all these anchors (S004, S019) — which one the sentence rests on is not decidable by presence alone",
       "proposed_by": "model",
       "confirmed": false,
       "proposed_on": "2026-09-02",
-      "why_bound": "a model proposed this span and B2 confirmed the string is in S004; nobody has yet signed that the sentence is warranted by it"
+      "why_bound": "a model proposed this span and B2 confirmed the string is in S004; nobody has yet signed that the sentence is warranted by it",
+      "left_page": "2026-09-03"
     },
     "113d1ac01b52cc9d": {
       "sentence": "Any-grade immune-related adverse events were similar — 45.2% on the combination versus 44% on pembrolizumab alone — but grade 3 or worse treatment-related events were higher: 25% versus 18%.",
@@ -2071,7 +2073,7 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true,
+      "on_page": false,
       "proposed_by": "model",
       "confirmed": false,
       "proposed_on": "2026-09-01",
@@ -4172,6 +4174,123 @@
         }
       ],
       "step": "The release states the endpoints were met and, as MLQ News records, discloses no hazard ratio, interval, p-value or event count. Our composite is 3.35 because data support scores 1 against the rubric's anchor for a purely qualitative assertion. Both describe the same announcement; only the score carries the fact that the magnitude is missing."
+    },
+    "5f516bdf0edfb970": {
+      "sentence": "The companies say the data \"will be presented at an upcoming international medical meeting and shared with regulatory authorities.\" Announcing topline results ahead of a conference presentation is routine, and this piece is not an accusation that anything improper happened.",
+      "sentence_sha": "5f516bdf0edfb970",
+      "why_empirical": "quoted passage",
+      "bucket": "judgement",
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-09-03",
+      "on_page": true,
+      "premises": [
+        {
+          "source_id": "S001",
+          "span": "These data will be presented at an upcoming international medical meeting and shared with regulatory authorities."
+        },
+        {
+          "source_id": "S011",
+          "span": "The study will continue to assess other key secondary endpoints, including overall survival."
+        },
+        {
+          "source_id": "S018",
+          "span": "According to a news release from Merck, the study will continue according to protocol to evaluate additional secondary endpoints, including overall survival."
+        }
+      ],
+      "step": "The release itself states that the data will be presented at a medical meeting and shared with regulators, and two outlets we hold report the same sequence as the expected one — the study continuing to protocol with fuller results to come. Nothing in any document we hold treats the topline-first order as irregular, and neither do we. The sentence exists because criticism of an information environment reads as an accusation unless the normal practice is named as normal, which is rule 6 of our own standard."
+    },
+    "e1ea2e2f0dd8f9ba": {
+      "sentence": "What time did to the top two bars When KEYNOTE-942 first reported in 2023, its recurrence result was HR 0.561, 95% CI 0.309–1.017 — the interval crossed 1.0, so on a two-sided 5% criterion \"no effect\" could not be ruled out.",
+      "sentence_sha": "e1ea2e2f0dd8f9ba",
+      "why_empirical": "figure",
+      "bucket": "judgement",
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-09-03",
+      "on_page": true,
+      "premises": [
+        {
+          "source_id": "S003",
+          "span": "hazard ratio [HR] for recurrence or death, 0.561 [95% CI 0.309-1.017]; two-sided p=0.053"
+        },
+        {
+          "source_id": "S025",
+          "span": "The hazard ratio is an estimate of the ratio of the hazard rate in the treated versus the control group. For example if there are two groups, group 1 and group 2, HR = 4.5 for treatment means that the risk (of relapse) for group 2 is 4.5 times that of group 1. If HR = 1 then Group 1 h (t) = Group 2 h (t)."
+        }
+      ],
+      "step": "The Lancet reports the interval as 0.309 to 1.017, and a hazard ratio of 1 is the value at which the two groups' hazard rates are equal. 1.0 lies between 0.309 and 1.017, so a two-sided 95% interval does not exclude no difference. The criterion is named because this trial's own prespecified analysis was one-sided at alpha 0.10, under which the same data did clear its threshold — an unqualified 'could not be ruled out' would imply the trial failed a test it never set itself."
+    },
+    "6c01660f095c03e7": {
+      "sentence": "It means: if the no-effect hypothesis and the other assumptions behind the analysis were all correct, a result at least this extreme would turn up about 5% of the time.",
+      "sentence_sha": "6c01660f095c03e7",
+      "why_empirical": "figure",
+      "bucket": "judgement",
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-09-03",
+      "on_page": true,
+      "premises": [
+        {
+          "source_id": "S022",
+          "span": "The P value is then the probability that the chosen test statistic would have been at least as large as its observed value if every model assumption were correct, including the test hypothesis."
+        }
+      ],
+      "step": "Greenland et al. define the P value as the probability of a test statistic at least as extreme as the one observed, computed on the assumption that the test hypothesis AND every other model assumption is correct. The earlier wording here — 'if the drug were useless, you would see a result this good 5% of the time' — conditioned on the test hypothesis alone and dropped the rest of the model, which is the misinterpretation that paper exists to correct. The sentence now carries the whole condition."
+    },
+    "cd0fcd8335332e38": {
+      "sentence": "In the earlier Phase 2b at five years, patients on the combination were recurring or dying at about half the rate (HR 0.510, 0.294–0.887) and reaching distant metastasis or dying at about two-fifths the rate (HR 0.411, 0.200–0.843).",
+      "sentence_sha": "cd0fcd8335332e38",
+      "why_empirical": "figure",
+      "bucket": "context",
+      "source_id": "S004",
+      "document_sha": null,
+      "locator_type": "prose",
+      "locator": null,
+      "span": "Intismeran plus pembrolizumab continued to prolong RFS (hazard ratio [HR], 0.510 [95% CI, 0.294 to 0.887) and DMFS (HR, 0.411 [95% CI, 0.200 to 0.843]), with a favorable trend in overall survival (HR, 0.471 [95% CI, 0.165 to 1.345]) versus pembrolizumab.",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-09-03",
+      "on_page": true
     }
   }
 }
