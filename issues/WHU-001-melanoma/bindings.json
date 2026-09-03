@@ -82,7 +82,7 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true,
+      "on_page": false,
       "autobind": "anchors too weak to identify a document: 1,137 (strength 3, need 4)",
       "proposed_by": "model",
       "confirmed": false,
@@ -103,7 +103,8 @@
           "source_id": "S004",
           "span": "Among 157 randomly assigned patients (intismeran plus pembrolizumab, n 5 107; pembrolizumab, n 5 50)"
         }
-      ]
+      ],
+      "left_page": "2026-09-03"
     },
     "42e607450a6b1ad7": {
       "sentence": "The interval around it runs from a hazard ratio of 0.165 — a rate of death about 84% lower than the comparison group's — to 1.345, about 35% higher.",
@@ -3899,6 +3900,95 @@
           "span": "Accepted September 30, 2025 Published February 12, 2026 JCO Oncology Adv 3:e2500008"
         }
       ]
+    },
+    "93ec09aef5421f53": {
+      "sentence": "So the numbers carried in the coverage — the 49% reduction in the hazard of recurrence or death, the 59% reduction in the hazard of distant metastasis or death, both from the five-year follow-up — describe a different trial : an open-label study of 157 patients, not the blinded study of 1,137 that was announced.",
+      "sentence_sha": "93ec09aef5421f53",
+      "why_empirical": "figure",
+      "bucket": "context",
+      "source_id": "S006",
+      "document_sha": "98e3ada2610c464ec63f0efcdfb9c1ac2ea961f0b3d01d1fc837596e9d22c7f1",
+      "locator_type": "prose",
+      "locator": null,
+      "span": "including the 5-year follow-up data presented at the 2026 ASCO Annual Meeting , in which the combination demonstrated a 49% reduction in t",
+      "envelope": "y secondary endpoint of distant metastasis-free survival. The phase III readout builds on previously reported phase IIb results for intismeran in combination with pembrolizumab from the KEYNOTE-942/mRNA-4157-P201 trial, including the 5-year follow-up data presented at the 2026 ASCO Annual Meeting , in which the combination demonstrated a 49% reduction in the risk of recurrence or death (hazard ratio [HR] = 0.51, 95% confidence interval [CI] = 0.294-0.887) and a 59% reduction in the risk of distant metastasis or death (HR = 0.411, 95% CI = 0.200-0.843) compared to pembroli",
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-09-03",
+      "on_page": true,
+      "proposed_by": "model",
+      "confirmed": false,
+      "proposed_on": "2026-09-03",
+      "why_bound": "a model proposed this span and B2 confirmed the string is in S006; nobody has yet signed that the sentence is warranted by it",
+      "also_rests_on": [
+        {
+          "source_id": "S006",
+          "span": "The trial enrolled 1,137 patients who, following complete surgical resection, were randomly assigned 2:1"
+        },
+        {
+          "source_id": "S004",
+          "span": "Among 157 randomly assigned patients (intismeran plus pembrolizumab, n 5 107; pembrolizumab, n 5 50)"
+        }
+      ]
+    },
+    "b3caced2ed507eda": {
+      "sentence": "Those are KEYNOTE-942 figures, from the five-year release; the Phase 3 announcement gave no adverse-event percentages at all.",
+      "sentence_sha": "b3caced2ed507eda",
+      "why_empirical": "names the Phase 3 announcement",
+      "bucket": null,
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-09-03",
+      "on_page": false,
+      "left_page": "2026-09-03"
+    },
+    "6d0c424dad7031fc": {
+      "sentence": "Those are KEYNOTE-942 figures, from the five-year release; the Phase 3 announcement gave no adverse-event rates for its own 1,137 patients.",
+      "sentence_sha": "6d0c424dad7031fc",
+      "why_empirical": "figure",
+      "bucket": "judgement",
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-09-03",
+      "on_page": true,
+      "premises": [
+        {
+          "source_id": "S002",
+          "span": "fatigue (59.6%), injection site pain (59.6%), and chills (51.0%)"
+        },
+        {
+          "source_id": "S011",
+          "span": "It did not provide a detailed adverse-event table or rates for the 1,137-patient trial."
+        }
+      ],
+      "step": "The three percentages are the five-year KEYNOTE-942 release's, verbatim. MLQ News, reading the Phase 3 announcement, records that it gave no adverse-event table or rates for the 1,137-patient trial. So the percentages in the bullet above belong to the smaller earlier trial, and there is no Phase 3 equivalent to compare them with. The Phase 3 release does carry adverse-event percentages, but they are KEYTRUDA label text about other trials, which is why the sentence says rates for its own 1,137 patients rather than percentages at all."
     }
   }
 }

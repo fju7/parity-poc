@@ -1,0 +1,33 @@
+=== 013-melanoma-page-regate
+=== queued job:
+{
+  "note": "Issue one page gate, third run, after the two writing rules were adopted with no exemption and the whole article was revalidated against them. Since run 012: 62 sentences bound to spans verified against held bytes (was 17); every sentence now declares a bucket (was none); 22 judgements written out with premises and a step apiece; four reference works acquired because the statistics explainer rested on no document at all; two page sentences narrowed from a characterisation to the checkable fact under it; chart, table and scorecard marked as text the page generates about itself and checked against the claim each mark makes. Both writing rules and the furniture check are green. This run is asking whether anything the deterministic checks cannot see is still wrong. --since carries forward every verdict the last run settled.",
+  "issue": "melanoma",
+  "cwd": "backend",
+  "script": "scripts/signal/factcheck_draft.py",
+  "args": ["../site/whatholdsup/melanoma.html",
+           "--since", "../site/whatholdsup/melanoma.html.gate.json",
+           "--decisions", "../issues/WHU-001-melanoma/draft_decisions.json",
+           "--report", "../site/whatholdsup/melanoma.html.gate.json"]
+}
+=== started 2026-09-03T12:21:19Z
+  Model 'claude-sonnet-4-6' is an alias — no dated snapshot is published for it.
+  Judgments can move without a code change; golden_set.py is what catches that.
+
+  STOP. This draft has been gated 2 times in cycle 3, which is the cap.
+
+  The cap is 2 because runs past it stop paying. On issue two, gate runs
+  11 onwards returned phrasing notes and rounding false positives, one run
+  introduced an error into the page, and every finding that mattered after
+  run 10 came from a human reading rather than from another pass.
+
+  What to do instead, in order:
+    1. Adjudicate what the last run found -- all of it, in one pass.
+    2. Make every edit at once. Re-running between edits is the trap.
+    3. Send it to outside review. That is where the findings are.
+    4. After the review: --new-cycle, then one run.
+
+  If you are certain another run is warranted:
+    --past-cap "why this run is different from the last two"
+
+=== finished 2026-09-03T12:21:19Z exit=3

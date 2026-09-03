@@ -40,6 +40,106 @@
       "decided": "2026-09-02",
       "reason": "The objection was that a direct quote is attributed to an outlet absent from the source list and returning no search results. It is S009 in the source list, acquired 2026-09-02, and the quoted sentence is in its bytes: 'Absolute recurrence risk in that group is lower, so the same hazard ratio delivers a smaller absolute benefit.' The outlet not appearing in a search is a fact about the search.",
       "what_would_change_it": "The quotation failing to match S009's bytes, which the quotation check now tests on every run."
+    },
+    {
+      "draft": "site/whatholdsup/melanoma.html",
+      "role": "OBJECTIONS",
+      "finding_id": "o1",
+      "quote": "By the three-year readout at ASCO 2024, since published in full, the interval no longer crossed it: HR 0.510, 95% CI 0.288–0.906",
+      "decision": "reject",
+      "decided": "2026-09-03",
+      "reason": "The gate says the three-year paper reports 0.501 and that we have attached the right interval to the wrong point estimate. We hold that paper. It reads: 'The updated RFS HR improved to 0.510 (80% CI, 0.351 to 0.743; Table 1).' The string 0.501 does not occur in it at all. The page is bound to that span and to the table line carrying 95% CI 0.288 to 0.906.",
+      "what_would_change_it": "0.501 turning up in S007's held bytes, or 0.510 turning out not to be there."
+    },
+    {
+      "draft": "site/whatholdsup/melanoma.html",
+      "role": "COVERAGE",
+      "finding_id": "c23",
+      "quote": "The three-year paper states the trial was designed with approximately 80% power to detect a hazard ratio of 0.5 against a one-sided alpha of 0.10.",
+      "decision": "reject",
+      "decided": "2026-09-03",
+      "reason": "The gate could not open the full text and said so honestly. We hold it: 'The trial was designed with approximately 80% power to detect a hazard ratio (HR) of 0.5 with a one-sided a of 0.10 after 40 RFS events.' An absence observed by something that could not see the document is not an absence.",
+      "what_would_change_it": "That sentence no longer being in the held bytes of S007."
+    },
+    {
+      "draft": "site/whatholdsup/melanoma.html",
+      "role": "COVERAGE",
+      "finding_id": "c29",
+      "quote": "The three-year JCO Oncology Advances paper reports the recurrence hazard ratio with an 80% confidence interval of 0.351–0.743.",
+      "decision": "reject",
+      "decided": "2026-09-03",
+      "reason": "Same shape as c23: 'the full text is paywalled and no accessible source reproduces the specific bounds'. We hold the full text. It reads 'HR 0.510 80% CI 0.351 to 0.743 95% CI 0.288 to 0.906'.",
+      "what_would_change_it": "Those bounds no longer being in the held bytes of S007."
+    },
+    {
+      "draft": "site/whatholdsup/melanoma.html",
+      "role": "COVERAGE",
+      "finding_id": "c31",
+      "quote": "The trial registry record for NCT05933577 gives an estimated primary completion date of 26 October 2029 and carries no posted results as of 2 September 2026.",
+      "decision": "reject",
+      "decided": "2026-09-03",
+      "reason": "The gate could not confirm the exact date. The held registry record carries the field $.protocolSection.statusModule.primaryCompletionDateStruct.date = \"2029-10-26\", and the sentence is bound to that field rather than to prose about it.",
+      "what_would_change_it": "The registry record changing, which re-acquisition would show."
+    },
+    {
+      "draft": "site/whatholdsup/melanoma.html",
+      "role": "COVERAGE",
+      "finding_id": "c48",
+      "quote": "As of 2 September 2026, the trial registry record NCT05933577 carries no posted results.",
+      "decision": "reject",
+      "decided": "2026-09-03",
+      "reason": "The gate could not retrieve the status fields. The held record carries $.hasResults = false, and the sentence is bound to that field.",
+      "what_would_change_it": "hasResults becoming true on re-acquisition, which is a live possibility and the reason this issue is worth re-checking."
+    },
+    {
+      "draft": "site/whatholdsup/melanoma.html",
+      "role": "COVERAGE",
+      "finding_id": "c37",
+      "quote": "MLQ News stated that the companies have not disclosed hazard ratios, confidence intervals, p-values, median follow-up or event counts for the Phase 3 trial.",
+      "decision": "reject",
+      "decided": "2026-09-03",
+      "reason": "The gate says MLQ News lists four items and names neither 'confidence intervals' nor 'event counts'. The held article says, verbatim: 'The companies have not disclosed hazard ratios, confidence intervals, p-values, median follow-up or event counts for the Phase 3 trial.' The page quotes it exactly.",
+      "what_would_change_it": "That sentence not being in the held bytes of S011."
+    },
+    {
+      "draft": "site/whatholdsup/melanoma.html",
+      "role": "COVERAGE",
+      "finding_id": "c38",
+      "quote": "Practical Dermatology stated that the companies did not disclose hazard ratios, absolute event rates, P values, or other phase 3 efficacy estimates in the topline announcement.",
+      "decision": "reject",
+      "decided": "2026-09-03",
+      "reason": "The gate says the outlet's actual language is the brief phrase 'The companies have not yet disclosed phase 3 efficacy estimates'. The held article says, verbatim: 'The companies did not disclose hazard ratios, absolute event rates, P values, or other phase 3 efficacy estimates in the topline announcement.'",
+      "what_would_change_it": "That sentence not being in the held bytes of S018."
+    },
+    {
+      "draft": "site/whatholdsup/melanoma.html",
+      "role": "COVERAGE",
+      "finding_id": "c36",
+      "quote": "Every outlet whose article the publication holds — The ASCO Post, Dermatology Times, Practical Dermatology, KOL Pulse and MLQ News — attributed the KEYNOTE-942 figures correctly.",
+      "decision": "reject",
+      "decided": "2026-09-03",
+      "reason": "The gate calls this unverifiable against a primary source. It is verifiable against our own library, which is what the claim is about — it says 'every outlet whose article we hold'. Checked on 2026-09-03: The ASCO Post, Dermatology Times and Practical Dermatology each attribute the 49% and 59% to the phase 2b KEYNOTE-942 five-year follow-up by name; MLQ News attributes them to 'the Phase 2b KEYNOTE-942 study'; KOL Pulse to 'a phase 2 trial'. Five of five.",
+      "what_would_change_it": "Any held article turning out to attribute those figures to the Phase 3, or a sixth article entering the library unchecked."
+    },
+    {
+      "draft": "site/whatholdsup/melanoma.html",
+      "role": "COVERAGE",
+      "finding_id": "c27",
+      "quote": "The most common side effects attributed to the vaccine were fatigue 59.6%, injection-site pain 59.6%, and chills 51.0%.",
+      "decision": "reject",
+      "decided": "2026-09-03",
+      "reason": "The gate says all three figures are wrong and gives 60.6 / 56.7 / 49.0. The page's three are verbatim in the five-year ASCO 2026 release we hold: 'fatigue (59.6%), injection site pain (59.6%), and chills (51.0%)'. The gate's numbers are a different readout — 60.6 and 55.8 are the April 2023 release, 56.7 and 49.0 the 2024 conference deck. Two readouts, not an error. The gate's second point is sound and has been acted on separately: the bullet did not name which trial the percentages belong to.",
+      "what_would_change_it": "Those percentages not being in the held bytes of S002."
+    },
+    {
+      "draft": "site/whatholdsup/melanoma.html",
+      "role": "INFERENCES",
+      "finding_id": "i13",
+      "quote": "The confidence interval is the tell: 0.309–1.017 crosses 1.0, which is exactly what a two-sided 95% interval keys on — and the same data, read against the one-sided 90% interval the trial actually registered, would not cross it.",
+      "decision": "accept",
+      "decided": "2026-09-03",
+      "reason": "The gate is right: the clause asserted what a one-sided 90% interval would show without the arithmetic or a source. It has been removed from the page — the sentence now ends at 'keys on.' The remaining claim is bound to the Lancet's own interval and declared a judgement with its premises and step.",
+      "what_would_change_it": "The clause returning to the page without a computed interval or a source for one."
     }
   ]
 }
