@@ -3,12 +3,40 @@
   "_the_rule": "An exclusion says 'this figure is not taken from a source', never 'do not check this figure'. If the sentence changes so that the figure IS a claim about a document, the exclusion stops matching and the check comes back.",
   "exclusions": [
     {
+      "figure": "3.94",
+      "in_sentence": "Is the effect real scores 3.94; how large is it scores 1.0.",
+      "why": "The page's own arithmetic over its own scores, not a figure any document reports. Five of the six rubric dimensions measure whether the effect is real; 3.94 is their weighted mean renormalised to those weights. It is checked harder than a quoted figure, by the `computed` mark, which re-derives it from the scores printed beside it.",
+      "by": "claude",
+      "on": "2026-09-03",
+      "falsifier": "furniture.py's `computed` check stops passing on the element that states it — the working must multiply the scores actually shown, the weights must sum to 1, and the result must equal the printed number. If that check fails or the mark is removed, this figure has nothing verifying it and the exclusion must go with it."
+    },
+    {
+      "figure": "3.94",
+      "in_sentence": "“Landmark trial succeeds” and “real: 3.94, size: 1.0” describe the same event",
+      "why": "The same figure, restated in the change log where the split is explained. Same standing: our arithmetic, verified by the `computed` mark.",
+      "by": "claude",
+      "on": "2026-09-03",
+      "falsifier": "furniture.py's `computed` check stops passing on the element that states it — the working must multiply the scores actually shown, the weights must sum to 1, and the result must equal the printed number. If that check fails or the mark is removed, this figure has nothing verifying it and the exclusion must go with it."
+    },
+    {
+      "figure": "3.35",
+      "in_sentence": "the working underneath it comes to 3.35",
+      "why": "The composite this scorecard used to print, kept in the change log because readers saw 3.4 and the arithmetic came to 3.35 — the correction is the point of the sentence. It was never a figure any document reported; it was our own weighted mean, and the `computed` element beside it shows the six scores and the weights it comes from.",
+      "by": "claude",
+      "on": "2026-09-03",
+      "falsifier": "furniture.py's `computed` check stops passing on the element that states it — the working must multiply the scores actually shown, the weights must sum to 1, and the result must equal the printed number. If that check fails or the mark is removed, this figure has nothing verifying it and the exclusion must go with it."
+    }
+  ],
+  "retired": [
+    {
       "figure": "0.05",
       "in_sentence": "below 0.05 is called statistically significant",
       "why": "The conventional significance threshold, being explained to the reader. It is not a figure taken out of any study, and the sentence says so: 'an arbitrary line, but a widely used one.'",
       "by": "claude",
       "on": "2026-09-01",
-      "falsifier": "the sentence is rewritten to attribute 0.05 to a particular trial's prespecified alpha, at which point it is a claim about a document and this exclusion must go"
+      "falsifier": "the sentence is rewritten to attribute 0.05 to a particular trial's prespecified alpha, at which point it is a claim about a document and this exclusion must go",
+      "retired_on": "2026-09-03",
+      "retired_why": "Unnecessary, not wrong. Each of these said 0.05 is the conventional significance threshold being explained to the reader rather than a figure out of a study — true when they were written on 1 September, when nothing we held printed 0.05. We now hold S022 (Greenland et al.), which prints it. The figure traces to a document, so the exclusion has nothing left to excuse, and an exclusion with nothing to excuse is a filter. Each carried its own falsifier and none of them fired; this is the library growing, which is the outcome an exclusion is supposed to be waiting for."
     },
     {
       "figure": "0.05",
@@ -16,7 +44,9 @@
       "why": "The same convention, used in the explanation of what a p-value is and is not. No source is being characterised.",
       "by": "claude",
       "on": "2026-09-01",
-      "falsifier": "the sentence is rewritten to report 0.05 as a value some study obtained"
+      "falsifier": "the sentence is rewritten to report 0.05 as a value some study obtained",
+      "retired_on": "2026-09-03",
+      "retired_why": "Unnecessary, not wrong. Each of these said 0.05 is the conventional significance threshold being explained to the reader rather than a figure out of a study — true when they were written on 1 September, when nothing we held printed 0.05. We now hold S022 (Greenland et al.), which prints it. The figure traces to a document, so the exclusion has nothing left to excuse, and an exclusion with nothing to excuse is a filter. Each carried its own falsifier and none of them fired; this is the library growing, which is the outcome an exclusion is supposed to be waiting for."
     },
     {
       "figure": "0.05",
@@ -24,7 +54,9 @@
       "why": "The conventional 0.05, named in order to say the trial did NOT use it — its prespecified threshold was a one-sided 0.10, which is quoted from two held documents in the same sentence. The figure is the convention, not a value taken from any source.",
       "by": "claude",
       "on": "2026-09-02",
-      "falsifier": "the sentence is rewritten to attribute 0.05 to this trial's protocol or to any document, at which point it is a claim about a source and this exclusion must go"
+      "falsifier": "the sentence is rewritten to attribute 0.05 to this trial's protocol or to any document, at which point it is a claim about a source and this exclusion must go",
+      "retired_on": "2026-09-03",
+      "retired_why": "Unnecessary, not wrong. Each of these said 0.05 is the conventional significance threshold being explained to the reader rather than a figure out of a study — true when they were written on 1 September, when nothing we held printed 0.05. We now hold S022 (Greenland et al.), which prints it. The figure traces to a document, so the exclusion has nothing left to excuse, and an exclusion with nothing to excuse is a filter. Each carried its own falsifier and none of them fired; this is the library growing, which is the outcome an exclusion is supposed to be waiting for."
     }
   ]
 }

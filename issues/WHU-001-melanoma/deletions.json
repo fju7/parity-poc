@@ -10,6 +10,19 @@
       "by": "claude",
       "library_at_the_time": "8 sources, all held. The library has since grown to 15 and the figure is in none of them.",
       "note": "Recorded on 2026-09-02, after two figures removed the same day for ABSENCE turned out to be real. This one is UNSOURCED, which is the claim we can actually support: we cannot show where it came from. If the 20 January topline is produced, the sentence goes back."
+    },
+    {
+      "figure": "3.4",
+      "removed_on": "2026-09-03",
+      "reason": "rewritten",
+      "source_id": "",
+      "why": "TWO removals, eight days apart, and only the second was ever described. Readers saw a composite of 3.4 from 26 August. On 3 September the scorecard was marked `computed`, which obliges it to show its arithmetic and come to the number it prints — and the six scores against the published weights come to 3.35, not 3.4. The printed figure was corrected silently in the same commit that applied the mark (87b8d9d0); no correction notice went with it, which is the thing this file exists to catch. Later the same day the editor ruled that direction and magnitude are scored separately and always, and the composite was abolished for 3.94 and 1.0. The change log now carries both steps. 3.4 was never a figure any document reported — it was our own arithmetic over our own scores, and wrong about that.",
+      "replaced_by": [
+        "3.35",
+        "3.94",
+        "1.0"
+      ],
+      "recorded_by": "Claude (Opus 5), 2026-09-03, from git history: 3.4 in every commit through 3ab4bf51 and on the live page today; 3.35 from 87b8d9d0; 3.94/1.0 from e5d29666."
     }
   ]
 }
