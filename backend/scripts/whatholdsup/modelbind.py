@@ -97,6 +97,94 @@ def figures(t: str) -> set[str]:
     return {m.group(0).replace(",", "") for m in _NUM.finditer(SC._norm(t))}
 
 
+# ---------------------------------------------------------------------------
+# a number is not a quantity
+# ---------------------------------------------------------------------------
+#
+# GAP-005. Every figure check in this repository compared numbers with the unit
+# thrown away, and on 2026-09-03 that produced both halves of the error at once
+# on one page:
+#
+#   * a claim CLEARED by a coincidence. The stat strip's "14 deaths" was
+#     satisfied by S004's "7 of 50 (14.0%)". Fourteen deaths and fourteen per
+#     cent are not the same statement.
+#   * a claim FLAGGED by a coincidence. B12 reported that we had added a
+#     decimal to a p-value of 0.053, having found 0.05 in a statistics
+#     reference — the conventional threshold, with no relation to our number.
+#
+# So a figure carries a DIMENSION, read from the few characters around it. The
+# dimensions are not a vocabulary of nouns we have met — that list would be
+# wrong within a day, as four allow-lists in this repository have been. They
+# are the notations a quantity is written in: a per-cent sign, a ratio's name,
+# a p, an n, a unit of time. Everything else is UNKNOWN, and unknown does not
+# match a known dimension, because a comparison that cannot see what it is
+# comparing does not get to report agreement any more than it gets to report an
+# absence.
+_PCT = re.compile(r"\s*(?:%|per\s?cent\b|percent\b|percentage\b)")
+_TIME_AFTER = re.compile(r"\s*(?:month|year|week|day|hour)s?\b", re.I)
+_DOSE_AFTER = re.compile(r"\s*(?:mg|kg|ml|mcg|g|mm|cm)\b", re.I)
+# A number followed by a word is a count OF that thing: "14 deaths",
+# "1,137 patients". The word itself is not compared -- "deaths" against
+# "patients died" would need a stemmer and would be wrong by Thursday. What is
+# compared is that both are counts of something rather than one being a
+# percentage, which is the distinction that actually failed.
+_WORD_AFTER = re.compile(r"\s+[a-z]{3,}", re.I)
+
+
+def dimension(text: str, start: int, end: int) -> str:
+    """What kind of quantity the number at [start:end) is, from its notation.
+
+    ONLY NOTATION, never a vocabulary of nouns we have met. Four allow-lists in
+    this repository were built from met vocabulary and all four were wrong
+    within a day.
+    """
+    after = text[end:end + 24]
+    if _PCT.match(after):
+        return "percent"
+    if _TIME_AFTER.match(after):
+        return "duration"
+    if _DOSE_AFTER.match(after):
+        return "dose"
+    if _WORD_AFTER.match(after):
+        return "count"
+    return "unknown"
+
+
+def measurements(t: str) -> set[tuple[float, str]]:
+    """(value, dimension) for every number in the text."""
+    norm = SC._norm(t)
+    out = set()
+    for m in _NUM.finditer(norm):
+        try:
+            v = float(m.group(0).replace(",", ""))
+        except ValueError:
+            continue
+        out.add((v, dimension(norm, m.start(), m.end())))
+    return out
+
+
+def same_quantity(a: tuple[float, str], held: set[tuple[float, str]]) -> bool:
+    """Is this measurement among those, as a QUANTITY and not as digits?
+
+    The numbers must be equal. The dimensions must not CONFLICT: two dimensions
+    the notation actually named must agree, and an unknown -- a bare number the
+    notation did not qualify -- matches anything, because flagging every
+    unqualified number would flag most of a page and teach the operator to
+    scroll past this check.
+
+    So it is deliberately weaker than "the units match". It is exactly strong
+    enough for the failure that produced it: "14 deaths" is a count, "(14.0%)"
+    is a percentage, and a page may no longer satisfy the first with the second.
+    """
+    value, dim = a
+    same = [d for v, d in held if v == value]
+    if not same:
+        return False
+    if dim == "unknown":
+        return True
+    return any(d == dim or d == "unknown" for d in same)
+
+
 def _weight(fig: str) -> int:
     digits = fig.replace(".", "").lstrip("0")
     if "." not in fig:

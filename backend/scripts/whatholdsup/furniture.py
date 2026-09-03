@@ -170,8 +170,11 @@ def bound_figures(slug: str) -> set[float]:
                 spans.append((extra["source_id"], extra["span"]))
         for sid, span in spans:
             if SC.b2_present(span, slug, sid)[0] is True:
-                text += " " + SC._norm(span)
-    return B._as_numbers(MB.figures(text))
+                # A SENTINEL, NOT A SPACE. Joining spans with a space lets the
+                # last number of one span take its dimension from the first
+                # word of the next.
+                text += " \u0000 " + SC._norm(span)
+    return MB.measurements(text)
 
 
 # A YEAR IN A CAPTION IS A DATE, NOT A MEASUREMENT.
@@ -204,14 +207,32 @@ def _is_measurement(fig: str) -> bool:
     return not _YEAR.match(fig.replace(",", ""))
 
 
-def check_restates(text: str, held: set[float], names: set[str]) -> str | None:
-    missing = [f for f in B._claim_figures(text, names)
-               if _is_measurement(f) and not B._as_numbers([f]) <= held]
+def check_restates(text: str, held: set[tuple[float, str]],
+                   names: set[str]) -> str | None:
+    """`held` is (value, dimension) pairs — see modelbind.measurements.
+
+    It was bare floats until 2026-09-03, when probing this mark showed the stat
+    strip's "14 deaths" being satisfied by S004's "7 of 50 (14.0%)". Fourteen
+    deaths and fourteen per cent are not the same statement, and a set of
+    numbers with the units thrown away cannot tell them apart. GAP-005.
+    """
+    keep = {f for f in B._claim_figures(text, names) if _is_measurement(f)}
+    missing = sorted({("%g" % v) for v, d in MB.measurements(text)
+                      if any(_same_number(f, v) for f in keep)
+                      and not MB.same_quantity((v, d), held)})
     if missing:
-        return ("introduces %s, which no bound sentence rests on. Furniture may "
-                "restate what the article proved; it may not be where a number "
-                "enters the page." % ", ".join(sorted(missing)[:4]))
+        return ("introduces %s, which no bound sentence rests on as that "
+                "quantity. Furniture may restate what the article proved; it "
+                "may not be where a number enters the page."
+                % ", ".join(missing[:4]))
     return None
+
+
+def _same_number(fig: str, value: float) -> bool:
+    try:
+        return float(fig.replace(",", "")) == value
+    except ValueError:
+        return False
 
 
 def check_scale(text: str, *_ignored) -> str | None:

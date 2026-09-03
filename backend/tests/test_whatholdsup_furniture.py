@@ -40,7 +40,12 @@ def _load(name):
 
 
 F = _load("furniture")
-HELD = {0.51, 0.294, 0.887, 1137.0, 157.0, 107.0, 50.0}
+# (value, dimension) — see modelbind.measurements. It was a set of bare floats
+# until 2026-09-03, when "14 deaths" turned out to be satisfied by a source
+# printing "(14.0%)". GAP-005.
+HELD = F.MB.measurements(
+    "The trial enrolled 1,137 patients; the earlier one 157 patients, "
+    "107 patients and 50 patients. HR 0.51 (0.294 to 0.887).")
 
 
 # --- restates ---------------------------------------------------------------
@@ -87,6 +92,38 @@ def test_restates_sees_a_two_digit_figure_the_article_never_proved():
 def test_restates_sees_a_small_figure_at_the_boundary():
     assert F.check_restates("13 deaths", HELD, set()) is not None
     assert F.check_restates("50 patients", HELD, set()) is None
+
+
+# --- a number is not a quantity (GAP-005) ------------------------------------
+
+PCT = F.MB.measurements("7 of 107 patients (6.5%) and 7 of 50 (14.0%) died.")
+
+
+def test_a_count_is_not_satisfied_by_a_percentage():
+    """The failure that produced this. The stat strip says "14 deaths"; S004
+    says "7 of 50 (14.0%)". Fourteen deaths and fourteen per cent are not the
+    same statement, and a set of numbers with the units thrown away cannot
+    tell them apart."""
+    assert F.check_restates("14 deaths", PCT, set()) is not None
+
+
+def test_a_percentage_is_satisfied_by_the_same_percentage():
+    assert F.check_restates("6.5% of patients", PCT, set()) is None
+
+
+def test_a_count_is_satisfied_by_the_same_count():
+    assert F.check_restates("107 patients", PCT, set()) is None
+
+
+def test_a_bare_number_the_notation_did_not_qualify_still_matches():
+    """Deliberately weaker than "the units match".
+
+    Most numbers on a page carry no notation at all, and flagging every one of
+    them would flag most of the page and teach the operator to scroll past this
+    check — which is how a control stops working.
+    """
+    held = F.MB.measurements("the OS HR (95% CI) was 0.471 (0.165 to 1.345)")
+    assert F.check_restates("0.471", held, set()) is None
 
 
 def test_a_year_in_a_caption_is_a_date_not_a_measurement():

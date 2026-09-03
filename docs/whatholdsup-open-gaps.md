@@ -248,3 +248,31 @@ recovered, say so and flag, rather than matching on digits alone.
 **What would show the gap is closed.** A test asserting that "14 deaths" is NOT
 satisfied by a span reading "7 of 50 (14.0%)", and that it IS satisfied by one
 reading "14 patients died".
+
+### Closed for the furniture marks, 2026-09-03
+
+`modelbind.measurements()` now returns (value, dimension) rather than a bare
+number, and `furniture.check_restates` compares quantities. The dimension is
+read from NOTATION and never from a vocabulary of nouns: a per-cent sign, a
+unit of time, a dose unit, or a following word (which makes the number a count
+OF something). The word itself is not compared — "deaths" against "patients
+died" would need a stemmer and would be wrong by Thursday.
+
+The match rule is deliberately weaker than "the units agree": a bare number the
+notation did not qualify matches anything, because flagging every unqualified
+number would flag most of a page and teach the operator to scroll past the
+check. It is exactly strong enough for the failure that produced it.
+
+Four tests carry it, including the two named above.
+
+**Still open: B12.** It continues to decide that two numbers are the same
+quantity because their digits round to each other. The specific false flag that
+raised this gap is gone for a different reason — B12 now asks every source the
+row names, and one of them prints `two-sided p=0.053` verbatim — so nothing on
+a live page is currently wrong because of it. The defect is still there.
+
+**Still open: the stat strip.** With the fix in place, marking issue one's stat
+strip `restates` BLOCKS, which is the correct answer and was not available
+before: its "14 deaths" is the page adding S004's seven and seven. That is a
+`computed` figure, not a restated one, and it needs either the working shown or
+a different card.
