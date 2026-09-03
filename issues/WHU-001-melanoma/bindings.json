@@ -232,14 +232,9 @@
           "span": "The trial met its primary endpoint of recurrence-free survival (RFS) and a key secondary endpoint of distant metastasis-free survival (DMFS)."
         }
       ],
-      "check_flags": [
-        {
-          "check": "B6",
-          "verdict": "unmapped scope word",
-          "why": "no — the sentence says 'no' and the span contains no word carrying that force"
-        }
-      ],
-      "checked_on": "2026-09-03"
+      "check_flags": [],
+      "checked_on": "2026-09-03",
+      "bounded_negative_searched": "every sentence in S001 carrying a hazard ratio, interval or p-value names a trial other than INTerpath-001, which is what the document is announcing"
     },
     "0a832252c2769c9a": {
       "sentence": "The companies say the data \"will be presented at an upcoming international medical meeting and shared with regulatory authorities.\" Why this is worth a whole article The outlets we reached attributed those figures correctly to KEYNOTE-942 — among them The ASCO Post, Dermatology Times, OncLive and FierceBiotech — and several said plainly that no Phase 3 efficacy numbers had been released.",
@@ -3381,11 +3376,6 @@
         {
           "check": "B6",
           "verdict": "unmapped scope word",
-          "why": "no — the sentence says 'no' and the span contains no word carrying that force"
-        },
-        {
-          "check": "B6",
-          "verdict": "unmapped scope word",
           "why": "any — the sentence says 'any' and the span contains no word carrying that force"
         },
         {
@@ -3394,7 +3384,8 @@
           "why": "all — the sentence says 'all' and the span contains no word carrying that force"
         }
       ],
-      "checked_on": "2026-09-03"
+      "checked_on": "2026-09-03",
+      "bounded_negative_searched": "every sentence in S013 carrying a hazard ratio, interval or p-value names a trial other than INTerpath-001, which is what the document is announcing"
     },
     "075bae729c357078": {
       "sentence": "They do not share a statistical standing: the Phase 2b’s later analyses are, in its own words, descriptive only , against a one-sided alpha of 0.10, while the Phase 3 crossed a prespecified interim threshold.",

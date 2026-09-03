@@ -409,6 +409,77 @@ def enumeration_covered(sent: str, cover: list, slug: str) -> str:
             % (", ".join(sorted(named)), ", ".join(sorted(set(named.values())))))
 
 
+# B14 — A BOUNDED NEGATIVE ABOUT ONE DOCUMENT WE HOLD IN FULL.
+#
+# "Of the 1,137-patient trial it is announcing, the release states that both
+# endpoints were met and gives NO FIGURE for either." B6 said no span carried
+# "no", and no span will: the claim is about what the whole document does not
+# contain, and a span is a thing it does contain.
+#
+# But this negative is BOUNDED — one source, held in full — which makes it the
+# tractable corner of GAP-001. The library-wide version stays open; this one
+# can be searched.
+#
+# WHAT IT DOES NOT DO. It does not decide the sentence is true. It asks one
+# mechanical question: does this document carry a figure of the class the
+# sentence says is absent, in a sentence that is about the document's OWN
+# subject rather than about some other trial? S001 carries exactly one
+# efficacy-figure sentence and it names KEYNOTE-942/Phase 2b — the earlier
+# trial — so the release does state figures and states none for the trial it
+# is announcing, which is what the page says.
+#
+# IT FAILS PROPERLY. A figure sentence naming the source's own subject, or
+# naming no trial at all, is reported with the sentence quoted, for a person to
+# read. And a source with no declared `about` cannot be checked at all: the
+# check reports that rather than clearing, because a subject nobody declared is
+# a subject nobody can be wrong about.
+FIGURE_NEGATIVE = re.compile(
+    r"\bno\s+(?:\w+\s+){0,3}?(?:figure|number|hazard ratio|interval|p-value|"
+    r"percentage|effect size|estimate)s?\b", re.I)
+EFFICACY_NOTATION = re.compile(
+    r"\b(?:HR\s*[=:]|hazard ratio|95%\s*CI|confidence interval|"
+    r"p\s*[=<>]\s*0?\.\d+|one-sided p|two-sided p)", re.I)
+
+
+def bounded_figure_negative(row: dict, cover: list, sent: str,
+                            slug: str) -> tuple[str, str]:
+    """(verdict, why). verdict is "clear", "candidates", or "" for not applicable."""
+    if not FIGURE_NEGATIVE.search(sent):
+        return "", ""
+    sids = {sid for sid, _ in cover}
+    if len(sids) != 1:
+        return "", ""
+    sid = sids.pop()
+    if sid not in store.held(slug):
+        return "", ""
+    src = next((x for x in store.sources(slug) if x.get("id") == sid), {})
+    subject = (src.get("about") or "").strip()
+    if not subject:
+        return "candidates", ("%s declares no `about`, so nothing here knows which "
+                              "trial the document is the announcement OF, and a "
+                              "subject nobody declared is a subject nobody can be "
+                              "wrong about" % sid)
+    import spancheck as SC
+    text = SC._norm(SC._text(slug, sid) or "")
+    subj = re.compile(r"\b%s\b" % re.escape(subject), re.I)
+    others = trial_names(store.sources(slug)) - {subject}
+    bad = []
+    for piece in re.split(r"(?<=[.!?])\s+", text):
+        if not EFFICACY_NOTATION.search(piece):
+            continue
+        names_other = any(re.search(r"\b%s\b" % re.escape(n), piece, re.I)
+                          for n in others)
+        if subj.search(piece) or not names_other:
+            bad.append(piece[:180])
+    if bad:
+        return "candidates", ("%d figure sentence(s) in %s are about its own subject "
+                              "or name no other trial — read them: %s"
+                              % (len(bad), sid, " || ".join(bad[:2])))
+    return "clear", ("every sentence in %s carrying a hazard ratio, interval or "
+                     "p-value names a trial other than %s, which is what the "
+                     "document is announcing" % (sid, subject))
+
+
 def run_checks(slug: str, *, only: str = "") -> dict:
     """Run every span check against the source THE ROW NAMES.
 
@@ -500,6 +571,7 @@ def run_checks(slug: str, *, only: str = "") -> dict:
                     disposed[d["word"]] = d
             by_field = field_negation(row, cover)
             by_count = enumeration_covered(sent, cover, slug)
+            b14, why14 = bounded_figure_negative(row, cover, sent, slug)
             for w, why6 in SC.b6_scope(sent, all_spans):
                 if w in disposed:
                     continue
@@ -507,12 +579,19 @@ def run_checks(slug: str, *, only: str = "") -> dict:
                     continue
                 if by_count and w in ENUMERATING:
                     continue
+                if b14 == "clear" and w in NEGATION_WORDS:
+                    continue
                 found.append({"check": "B6", "verdict": "unmapped scope word",
                               "why": "%s — %s" % (w, why6)})
             if by_field:
                 row["negation_read_from_field"] = by_field
             if by_count:
                 row["enumeration_counted"] = by_count
+            if b14 == "clear":
+                row["bounded_negative_searched"] = why14
+            elif b14 == "candidates":
+                found.append({"check": "B14", "verdict": "bounded negative unsearched",
+                              "why": why14})
             live_words = {w for w, _ in SC.b6_scope(sent, "")}
             for w, d in disposed.items():
                 if w not in live_words:

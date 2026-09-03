@@ -69,6 +69,10 @@ class _Stub:
         return " ".join((text or "").split())
 
     @staticmethod
+    def _text(slug, sid):
+        return HELD.get(sid)
+
+    @staticmethod
     def b2_present(span, slug, sid, **kw):
         doc = HELD.get(sid)
         if doc is None:
@@ -646,4 +650,79 @@ def test_only_the_distributive_quantifiers_are_counted():
     assert B.ENUMERATING == {"each", "every", "both"}
     for w in ("all", "any", "no", "none", "only"):
         assert w not in B.ENUMERATING
+
+
+# --- B14: a bounded negative about one document we hold ----------------------
+
+RELEASE = ("Merck and Moderna announced that the trial met its primary endpoint. "
+           "Today's readout builds on previously reported results from the "
+           "KEYNOTE-942 trial, in which the combination demonstrated a 49% "
+           "reduction in the risk of recurrence (HR=0.51; 95% CI, 0.294-0.887).")
+NEGATIVE = "The release states that both endpoints were met and gives no figure for either."
+
+
+def _srcs(about="INTerpath-001"):
+    return [{"id": "S002", "about": about, "also_called": ["the release"]},
+            {"id": "S009", "also_called": ["KEYNOTE-942"]}]
+
+
+def test_a_bounded_negative_is_searched_and_can_clear(monkeypatch):
+    """Every figure sentence in the document names a DIFFERENT trial, so the
+    document states figures and states none for the trial it is announcing."""
+    HELD["S002"] = RELEASE
+    monkeypatch.setattr(B.store, "sources", lambda slug: _srcs())
+    monkeypatch.setattr(B.store, "held", lambda slug: {"S002": {}})
+    verdict, why = B.bounded_figure_negative(
+        {}, [("S002", "x")], NEGATIVE, SLUG)
+    assert verdict == "clear", why
+
+
+def test_a_figure_about_the_documents_own_subject_is_a_candidate(monkeypatch):
+    """The control has to be able to fail. A hazard ratio in a sentence naming
+    the trial the document is announcing is exactly what the sentence denies."""
+    HELD["S002"] = ("The INTerpath-001 trial met its primary endpoint "
+                    "(HR=0.62; 95% CI, 0.41-0.94).")
+    monkeypatch.setattr(B.store, "sources", lambda slug: _srcs())
+    monkeypatch.setattr(B.store, "held", lambda slug: {"S002": {}})
+    verdict, why = B.bounded_figure_negative({}, [("S002", "x")], NEGATIVE, SLUG)
+    assert verdict == "candidates" and "read them" in why
+
+
+def test_a_figure_naming_no_trial_is_a_candidate(monkeypatch):
+    """Unattributed is not the same as attributed elsewhere."""
+    HELD["S002"] = "The combination reduced recurrence (HR=0.62; 95% CI, 0.41-0.94)."
+    monkeypatch.setattr(B.store, "sources", lambda slug: _srcs())
+    monkeypatch.setattr(B.store, "held", lambda slug: {"S002": {}})
+    verdict, _ = B.bounded_figure_negative({}, [("S002", "x")], NEGATIVE, SLUG)
+    assert verdict == "candidates"
+
+
+def test_a_source_with_no_declared_subject_cannot_be_searched(monkeypatch):
+    """A subject nobody declared is a subject nobody can be wrong about, so
+    this reports rather than clears."""
+    HELD["S002"] = RELEASE
+    monkeypatch.setattr(B.store, "sources", lambda slug: _srcs(about=""))
+    monkeypatch.setattr(B.store, "held", lambda slug: {"S002": {}})
+    verdict, why = B.bounded_figure_negative({}, [("S002", "x")], NEGATIVE, SLUG)
+    assert verdict == "candidates" and "declares no `about`" in why
+
+
+def test_a_negative_over_more_than_one_source_is_not_bounded(monkeypatch):
+    """This is the tractable corner of GAP-001 and not GAP-001. Two sources is
+    a claim about a library, and searching one of them proves nothing."""
+    HELD["S002"] = RELEASE
+    monkeypatch.setattr(B.store, "sources", lambda slug: _srcs())
+    monkeypatch.setattr(B.store, "held", lambda slug: {"S002": {}})
+    verdict, _ = B.bounded_figure_negative(
+        {}, [("S002", "x"), ("S009", "y")], NEGATIVE, SLUG)
+    assert verdict == ""
+
+
+def test_a_sentence_that_denies_no_figure_is_not_this_check(monkeypatch):
+    HELD["S002"] = RELEASE
+    monkeypatch.setattr(B.store, "sources", lambda slug: _srcs())
+    monkeypatch.setattr(B.store, "held", lambda slug: {"S002": {}})
+    verdict, _ = B.bounded_figure_negative(
+        {}, [("S002", "x")], "Only two outlets covered it.", SLUG)
+    assert verdict == ""
 

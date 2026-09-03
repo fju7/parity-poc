@@ -36,7 +36,9 @@
           "bytes": 195653,
           "identified_by": "contains 6 of 6 distinctive title words"
         }
-      }
+      },
+      "about": "INTerpath-001",
+      "about_note": "the trial this document is the report or record OF. Declared so a bounded negative about it can be searched: see bindings.bounded_figure_negative. A source with no `about` is reported as unsearchable rather than cleared."
     },
     {
       "id": "S002",
@@ -64,7 +66,9 @@
           "bytes": 188576,
           "identified_by": "contains 6 of 6 distinctive title words — 89874 characters, abstract present but no reference list or discussion — this is the abstract, not the paper"
         }
-      }
+      },
+      "about": "KEYNOTE-942",
+      "about_note": "the trial this document is the report or record OF. Declared so a bounded negative about it can be searched: see bindings.bounded_figure_negative. A source with no `about` is reported as unsearchable rather than cleared."
     },
     {
       "id": "S003",
@@ -93,7 +97,9 @@
           "bytes": 202260,
           "identified_by": "contains 5 of 5 distinctive title words — 23016 characters, abstract present but no reference list or discussion — this is the abstract, not the paper"
         }
-      }
+      },
+      "about": "KEYNOTE-942",
+      "about_note": "the trial this document is the report or record OF. Declared so a bounded negative about it can be searched: see bindings.bounded_figure_negative. A source with no `about` is reported as unsearchable rather than cleared."
     },
     {
       "id": "S004",
@@ -105,7 +111,11 @@
       "also_called": [
         "Journal of Clinical Oncology",
         "the five-year analysis",
-        "Five-year results — Journal of Clinical Oncology, 1 June 2026"
+        "Five-year results — Journal of Clinical Oncology, 1 June 2026",
+        "KEYNOTE-942",
+        "NCT03897881",
+        "mRNA-4157",
+        "KEYNOTE-942/mRNA-4157-P201"
       ],
       "access": {
         "state": "full_text_held",
@@ -123,7 +133,10 @@
           "substance": "36104 characters, reference list and discussion/introduction present"
         }
       },
-      "title_note": "Was 'Five-year results — Journal of Clinical Oncology, 1 June 2026' until 3 September 2026 — a shorthand label of ours, not the paper's title. The errata check compares the title a bibliographic record returns against the title we hold, and this one shared no distinctive word with the real one, so a correct DOI lookup was reported as 'resolved to a DIFFERENT document'. PMID 42223134."
+      "title_note": "Was 'Five-year results — Journal of Clinical Oncology, 1 June 2026' until 3 September 2026 — a shorthand label of ours, not the paper's title. The errata check compares the title a bibliographic record returns against the title we hold, and this one shared no distinctive word with the real one, so a correct DOI lookup was reported as 'resolved to a DIFFERENT document'. PMID 42223134.",
+      "about": "KEYNOTE-942",
+      "about_note": "the trial this document is the report or record OF. Declared so a bounded negative about it can be searched: see bindings.bounded_figure_negative. A source with no `about` is reported as unsearchable rather than cleared.",
+      "also_called_note": "KEYNOTE-942 was named in no source's also_called until 3 September, though it is the most-cited trial on the page. Nothing that resolves a trial name to a source could see it. The aliases are the paper's own: 'intismeran autogene (intismeran; formerly V940 or mRNA-4157)' and 'KEYNOTE-942 (ClinicalTrials.gov identifier: NCT03897881)'."
     },
     {
       "id": "S005",
@@ -151,7 +164,9 @@
           "bytes": 173432,
           "identified_by": "contains 6 of 6 distinctive title words — 71675 characters, abstract present but no reference list or discussion — this is the abstract, not the paper"
         }
-      }
+      },
+      "about": "KEYNOTE-942",
+      "about_note": "the trial this document is the report or record OF. Declared so a bounded negative about it can be searched: see bindings.bounded_figure_negative. A source with no `about` is reported as unsearchable rather than cleared."
     },
     {
       "id": "S006",
@@ -207,7 +222,9 @@
           "via": "publisher PDF, downloaded in a browser by the editor on 2026-09-01",
           "substance": "42938 characters, reference list and discussion/introduction present"
         }
-      }
+      },
+      "about": "KEYNOTE-942",
+      "about_note": "the trial this document is the report or record OF. Declared so a bounded negative about it can be searched: see bindings.bounded_figure_negative. A source with no `about` is reported as unsearchable rather than cleared."
     },
     {
       "id": "S008",
@@ -323,7 +340,9 @@
           "bytes": 42529,
           "identified_by": "contains its identifier NCT05933577"
         }
-      }
+      },
+      "about": "INTerpath-001",
+      "about_note": "the trial this document is the report or record OF. Declared so a bounded negative about it can be searched: see bindings.bounded_figure_negative. A source with no `about` is reported as unsearchable rather than cleared."
     },
     {
       "id": "S014",
@@ -347,7 +366,9 @@
           "conclusion"
         ],
         "note": "ASCO 2026 abstract 9500, obtained by the editor inside a zip after the scripted route was blocked. 122,844-byte PDF now in the library. Contains the sentence 'No alpha was assigned to this analysis'."
-      }
+      },
+      "about": "KEYNOTE-942",
+      "about_note": "the trial this document is the report or record OF. Declared so a bounded negative about it can be searched: see bindings.bounded_figure_negative. A source with no `about` is reported as unsearchable rather than cleared."
     },
     {
       "id": "S015",
@@ -484,7 +505,9 @@
           "bytes": 98826,
           "identified_by": "contains its identifier NCT02362594"
         }
-      }
+      },
+      "about": "KEYNOTE-054",
+      "about_note": "the trial this document is the report or record OF. Declared so a bounded negative about it can be searched: see bindings.bounded_figure_negative. A source with no `about` is reported as unsearchable rather than cleared."
     },
     {
       "id": "S021",
@@ -509,7 +532,9 @@
           "bytes": 135307,
           "identified_by": "contains its identifier NCT02388906"
         }
-      }
+      },
+      "about": "CheckMate 238",
+      "about_note": "the trial this document is the report or record OF. Declared so a bounded negative about it can be searched: see bindings.bounded_figure_negative. A source with no `about` is reported as unsearchable rather than cleared."
     },
     {
       "id": "S022",
@@ -624,7 +649,9 @@
           "identified_by": "contains its identifier NCT03553836"
         },
         "on": "2026-09-03"
-      }
+      },
+      "about": "KEYNOTE-716",
+      "about_note": "the trial this document is the report or record OF. Declared so a bounded negative about it can be searched: see bindings.bounded_figure_negative. A source with no `about` is reported as unsearchable rather than cleared."
     },
     {
       "id": "S027",
@@ -646,7 +673,9 @@
           "identified_by": "contains 6 of 7 distinctive title words"
         },
         "on": "2026-09-03"
-      }
+      },
+      "about": "KEYNOTE-942",
+      "about_note": "the trial this document is the report or record OF. Declared so a bounded negative about it can be searched: see bindings.bounded_figure_negative. A source with no `about` is reported as unsearchable rather than cleared."
     }
   ],
   "also_called_note": "The role-nouns the page uses for a source. These must identify the DOCUMENT, not its subject: 'KEYNOTE-942' is a trial that three of these sources report on, and listing it as an alias for all three made every sentence about the trial match all three at once -- so the one source marked `blocked` absorbed the blame for claims the read sources actually support. The ledger audit matches sentences to sources by these plus the title's trial and journal names; a reference the page makes that is not listed here is invisible to the audit."
