@@ -151,15 +151,39 @@ So the backlog is the honest number, printed on every run:
 
 | issue | sentences | bound | to revalidate |
 |---|---|---|---|
-| melanoma | 85 | 17 | 68 |
+| melanoma | 76 | 76 | **0** |
 | deskilling | 112 | 3 | 109 |
 | cdk46 | 168 | 27 | 141 |
 
-Zero of the 365 declare whether they are a report or an inference. Nothing
-publishes until its own column reads zero. A sentence leaves that column by
+Melanoma reached zero on 2026-09-02: every sentence on it is bound to the words
+it rests on, or declared a judgement and shown with premises and a step, or
+marked as text the page generates about itself and checked against the claim
+that mark makes. Nothing publishes until its own column reads zero. A sentence leaves that column by
 being bound to the words it rests on, by being declared an inference and shown,
 or by coming off the page — and the third is a legitimate outcome, not a
 failure.
+
+#### Text the page generates about itself
+
+An axis tick, a legend label, a table restating what the article proved, the
+scorecard's composite and its working — these rest on no source and should not.
+They are marked in the HTML with `data-whu`, and **a mark buys an obligation,
+never a pass**. `furniture.py` checks the claim each mark makes:
+
+| mark | what it claims, and what is checked |
+|---|---|
+| `restates` | introduces no figure — every figure in it already appears in a span some bound sentence rests on |
+| `scale` | these figures are a ruler: they ascend in even steps |
+| `computed` | the working multiplies the scores shown beside it, its weights sum to 1, and it comes to the number printed |
+
+A table that introduces a number the article never proved blocks. A measurement
+slipped into an axis breaks the even spacing and blocks. A scorecard that does
+not add up blocks, and donates none of its figures to anything else.
+
+An attribute meaning "skip this" was the alternative, and it would have been
+the grandfathering argument again — worse, because it would sit in the HTML
+where anyone editing the page could extend it to a sentence that was merely
+inconvenient.
 
 ---
 
