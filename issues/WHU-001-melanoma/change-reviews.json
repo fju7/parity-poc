@@ -33,6 +33,56 @@
           "other": ""
         }
       ]
+    },
+    {
+      "sha": "f5f98404d0a6995b",
+      "against": "992f5a6c70",
+      "changed": 19,
+      "at": "2026-09-03T23:43:45+00:00",
+      "findings": [
+        {
+          "sentence": "CheckMate 238, the third record we hold, cannot bear on the question at all, though indirect comparisons have suggested a signal.",
+          "kind": "NEW_AND_UNBOUND",
+          "why": "carries 238 and rests on nothing this system can name",
+          "other": ""
+        },
+        {
+          "sentence": "Readers saw 3.4 ; the working underneath it comes to 3.35 , and that discrepancy is recorded below.",
+          "kind": "FIGURE_IN_NOTHING_HELD",
+          "why": "3.35 is in no document this issue holds, and this sentence is new",
+          "other": ""
+        },
+        {
+          "sentence": "Readers saw 3.4 ; the working underneath it comes to 3.35 , and that discrepancy is recorded below.",
+          "kind": "NEW_AND_UNBOUND",
+          "why": "carries 3.4, 3.35 and rests on nothing this system can name",
+          "other": ""
+        },
+        {
+          "sentence": "For adjuvant PD-1 inhibitors specifically — the comparison arm in this very trial — the two placebo-controlled trials whose registry records we hold — KEYNOTE-054 and KEYNOTE-716 — have between them reported no statistically significant overall survival benefit as a prespecified endpoint in their own populations.",
+          "kind": "CONTRADICTION",
+          "why": "The page states elsewhere that every outlet it holds attributed the figures correctly and the problem is not misattribution, yet this sentence makes a factual claim about KEYNOTE-054 and KEYNOTE-716 reporting no statistically significant OS benefit as a prespecified endpoint — but the registry records cited immediately after show those results are NOT_POSTED, meaning the page has no posted result to confirm or deny statistical significance, contradicting the assertion that they 'have reported' no such benefit.",
+          "other": "KEYNOTE-054 and KEYNOTE-716 are both pembrolizumab against placebo; each lists overall survival as a secondary endpoint, and each registry record marks that result NOT_POSTED with a posting date still ahead of it — November 2026 for KEYNOTE-054, October 2033 for KEYNOTE-716."
+        },
+        {
+          "sentence": "CheckMate 238, the third record we hold, cannot bear on the question at all, though indirect comparisons have suggested a signal.",
+          "kind": "UNSOURCED",
+          "why": "The claim that indirect comparisons have suggested a survival signal for CheckMate 238 is asserted without attribution to any named source on this page.",
+          "other": ""
+        },
+        {
+          "sentence": "Those are different things, and until 3 September this scorecard averaged them into a single number that was wrong about both halves — understating the trial and overstating what is known about the size of what it found.",
+          "kind": "CONTRADICTION",
+          "why": "The page's own scoring section shows the pre-split single number would be computed from the six dimensions together, but the sentence claims it was 'wrong about both halves — understating the trial and overstating what is known about the size,' while the scores shown (Rigor 5, Data support 1) indicate the single average would have overstated size but also overstated the trial's rigor score relative to the magnitude score, not understated it.",
+          "other": "Rigor scores 5 — a double-blind, placebo-controlled, 1,137-patient Phase 3 is as good as trial design gets."
+        },
+        {
+          "sentence": "Readers saw 3.4 ; the working underneath it comes to 3.35 , and that discrepancy is recorded below.",
+          "kind": "CONTRADICTION",
+          "why": "The sentence says the discrepancy between 3.4 and 3.35 is 'recorded below,' but no such record appears anywhere else on the page.",
+          "other": ""
+        }
+      ]
     }
   ]
 }

@@ -4889,7 +4889,7 @@
         "warranted": null
       },
       "first_seen": "2026-09-03",
-      "on_page": true,
+      "on_page": false,
       "premises": [
         {
           "source_id": "S020",
@@ -4900,7 +4900,8 @@
           "span": "\"reportingStatus\":\"NOT_POSTED\""
         }
       ],
-      "step": "Both records are held in full. In each, the overall-survival measure carries reportingStatus NOT_POSTED, so neither trial has reported an OS result at all, let alone a significant one. The claim is bounded to these two by name because they are the placebo-controlled records we hold; it says nothing about trials we have not checked."
+      "step": "Both records are held in full. In each, the overall-survival measure carries reportingStatus NOT_POSTED, so neither trial has reported an OS result at all, let alone a significant one. The claim is bounded to these two by name because they are the placebo-controlled records we hold; it says nothing about trials we have not checked.",
+      "left_page": "2026-09-03"
     },
     "f22080d86bf3682c": {
       "sentence": "CheckMate 238, the third record we hold, cannot bear on the question at all, though indirect comparisons have suggested a signal.",
@@ -4921,14 +4922,15 @@
         "warranted": null
       },
       "first_seen": "2026-09-03",
-      "on_page": true,
+      "on_page": false,
       "premises": [
         {
           "source_id": "S021",
           "span": "Efficacy Study of Nivolumab Compared to Ipilimumab in Prevention of Recurrence of Melanoma After Complete Resection of Stage IIIb/c or Stage IV Melanoma"
         }
       ],
-      "step": "The registry title states both arms: nivolumab against ipilimumab. A trial with no placebo arm cannot report a benefit against placebo, so it is evidence about neither side of the question. An earlier version of this passage listed it among the trials the claim was made about, which the page gate reported as a contradiction with the sentence that followed. It was right."
+      "step": "The registry title states both arms: nivolumab against ipilimumab. A trial with no placebo arm cannot report a benefit against placebo, so it is evidence about neither side of the question. An earlier version of this passage listed it among the trials the claim was made about, which the page gate reported as a contradiction with the sentence that followed. It was right.",
+      "left_page": "2026-09-03"
     },
     "e0064732fac589ce": {
       "sentence": "Morning Glory Sciences — an outlet we can find no other publication citing, so we give the argument on its merits rather than on its authority — the Phase 2b population was stage IIIB–IV, the Phase 3 adds node-negative disease, and “absolute recurrence risk in that group is lower, so the same hazard ratio delivers a smaller absolute benefit.” Pharmacy Times makes the opposite case about the same patients: resected stage IIB or IIC melanoma “can face risks of recurrence and melanoma-specific mortality similar to those observed in stage III disease.” Neither reading reached the general coverage.",
@@ -5808,6 +5810,102 @@
         }
       ],
       "why_bound": "Found by B15 on its first run, as a candidate counterexample to the sentence above it. It is not a counterexample — 0.51 and 0.41 are the Phase 2b's figures — but the page's claim that no hazard ratio for this trial appears in the coverage we hold was true only in substance and false in letter, because one does appear under the trial's name. Saying so is more accurate AND makes the article's own case: this is the misattribution the piece is about, documented, on the day, in a source we already held. The physician is not named on the page; the post is quoted from S019, which logged it and corrected it on the same page. Re-bound after the quotation was split in two: the post joins the ratios with an ampersand, which the page renders and S019 stores escaped, and a one-entity difference would have shown forever as a quotation not matching its source.",
+      "proposed_by": "human",
+      "confirmed": true,
+      "proposed_on": "2026-09-03",
+      "check_flags": [],
+      "checked_on": "2026-09-03"
+    },
+    "2bd1f0817bdf7de3": {
+      "sentence": "For adjuvant PD-1 inhibitors specifically — the comparison arm in this very trial — neither of the two placebo-controlled trials whose registry records we hold — KEYNOTE-054 and KEYNOTE-716 — has posted an overall-survival result at all.",
+      "sentence_sha": "2bd1f0817bdf7de3",
+      "why_empirical": "names KEYNOTE-716",
+      "bucket": "judgement",
+      "source_id": "S020",
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": "\"reportingStatus\":\"NOT_POSTED\"",
+      "envelope": null,
+      "scope_words": [
+        {
+          "word": "all",
+          "by": "claude",
+          "on": "2026-09-03",
+          "why": "'at all' is emphasis on an absence the records state outright, not a quantifier over documents. Both registry records mark the overall-survival measure NOT_POSTED with a posting date still ahead of it; there is no result of any kind to have posted. The sentence names the two trials and the row rests on a span from each.",
+          "falsifier": "either record posting an overall-survival result, or reportingStatus on that measure ceasing to be NOT_POSTED. KEYNOTE-054's anticipated date is November 2026, so this one has a deadline."
+        }
+      ],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-09-03",
+      "on_page": true,
+      "also_rests_on": [
+        {
+          "source_id": "S026",
+          "span": "\"reportingStatus\":\"NOT_POSTED\""
+        }
+      ],
+      "premises": [
+        {
+          "source_id": "S020",
+          "span": "\"reportingStatus\":\"NOT_POSTED\""
+        },
+        {
+          "source_id": "S026",
+          "span": "\"reportingStatus\":\"NOT_POSTED\""
+        },
+        {
+          "source_id": "S020",
+          "span": "\"anticipatedPostingDate\":\"2026-11\""
+        },
+        {
+          "source_id": "S026",
+          "span": "\"anticipatedPostingDate\":\"2033-10\""
+        }
+      ],
+      "step": "Both records mark the overall-survival measure NOT_POSTED with a posting date still ahead of it. So neither trial has posted a result, which is what the sentence now says. It USED to say they had 'reported no statistically significant overall survival benefit' — words that read as a null finding rather than as an absent one, and the change-sentence review caught the contradiction with the very next sentence. That is the MISSING_NUMBER_AS_MISSING_EVIDENCE class this page criticises in others.",
+      "why_bound": "rewritten 2026-09-03 after changecheck flagged it against its own next sentence.",
+      "proposed_by": "human",
+      "confirmed": true,
+      "proposed_on": "2026-09-03",
+      "enumeration_counted": "the sentence names KEYNOTE-054, KEYNOTE-716, and this row rests on a span from every one of them (S020, S026)",
+      "check_flags": [],
+      "checked_on": "2026-09-03"
+    },
+    "dbf4ea5241e72196": {
+      "sentence": "CheckMate 238, the third record we hold, cannot bear on the question at all.",
+      "sentence_sha": "dbf4ea5241e72196",
+      "why_empirical": "names CheckMate 238",
+      "bucket": "context",
+      "source_id": "S021",
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": "Ipilimumab",
+      "envelope": null,
+      "scope_words": [
+        {
+          "word": "all",
+          "by": "claude",
+          "on": "2026-09-03",
+          "why": "the same emphasis. CheckMate 238's comparator is ipilimumab, in its own registry record, so there is no placebo arm and the trial cannot bear on a question about placebo-controlled trials — not partly, not indirectly.",
+          "falsifier": "S021 showing a placebo arm, or the page coming to rest a placebo-controlled claim on it."
+        }
+      ],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-09-03",
+      "on_page": true,
+      "why_bound": "CheckMate 238's comparator is ipilimumab, in its own registry record, so it has no placebo arm and cannot bear on a question about placebo-controlled trials. The clause 'though indirect comparisons have suggested a signal' was removed the same day: changecheck flagged it as unsourced and a search of all 26 held documents found nothing supporting it. The nearest thing is a cross-trial survivorship paper listed in S021's own citations, which we do not hold and have not read.",
       "proposed_by": "human",
       "confirmed": true,
       "proposed_on": "2026-09-03",
