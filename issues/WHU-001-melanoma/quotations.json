@@ -268,6 +268,54 @@
       "verbatim": "These data will be presented at an upcoming international medical meeting and shared with regulatory authorities.",
       "why": "The Phase 3 release's own statement of what happens next. Quoted in full from where its sentence begins, after the page gate reported on 3 September that starting at 'will be presented' clipped the subject and left the quotation less exact than it could be.",
       "attested": "claude, 2026-09-03"
+    },
+    {
+      "id": "Q-24",
+      "quote": "Exciting announcement today from Phase3 INTerpath001",
+      "kind": "quotation",
+      "source_id": "S019",
+      "verbatim": "Exciting announcement today from Phase3 INTerpath001",
+      "why": "A physician's post on announcement day, logged by KOL Pulse. Quoted because it is the misattribution this article is about, documented on the day. The poster is not named on the page.",
+      "attested": {
+        "by": "claude",
+        "on": "2026-09-03"
+      }
+    },
+    {
+      "id": "Q-26",
+      "quote": "Hazard ratios circulating on announcement day are these Phase 2b figures",
+      "kind": "quotation",
+      "source_id": "S019",
+      "verbatim": "Hazard ratios circulating on announcement day are these Phase 2b figures",
+      "why": "KOL Pulse's own warning, on the same page as the post it logged. Quoted so the outlet gets credit for catching what its own roundup carried.",
+      "attested": {
+        "by": "claude",
+        "on": "2026-09-03"
+      }
+    },
+    {
+      "id": "Q-25",
+      "quote": "RFS HR=0.51",
+      "kind": "quotation",
+      "source_id": "S019",
+      "verbatim": "RFS HR=0.51",
+      "why": "From the same announcement-day post. These are KEYNOTE-942's five-year figures, presented under the Phase 3's name. Quoted as two fragments rather than one because the post joins them with an ampersand, which the page renders and the source stores escaped — a difference of one entity that would show up forever as a quotation that does not match its source.",
+      "attested": {
+        "by": "claude",
+        "on": "2026-09-03"
+      }
+    },
+    {
+      "id": "Q-26",
+      "quote": "DMFS HR=0.41",
+      "kind": "quotation",
+      "source_id": "S019",
+      "verbatim": "DMFS HR=0.41",
+      "why": "From the same announcement-day post. These are KEYNOTE-942's five-year figures, presented under the Phase 3's name. Quoted as two fragments rather than one because the post joins them with an ampersand, which the page renders and the source stores escaped — a difference of one entity that would show up forever as a quotation that does not match its source.",
+      "attested": {
+        "by": "claude",
+        "on": "2026-09-03"
+      }
     }
   ]
 }

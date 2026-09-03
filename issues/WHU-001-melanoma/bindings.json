@@ -1345,7 +1345,7 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true,
+      "on_page": false,
       "autobind": "2 held documents contain all these anchors (S002, S004) — which one the sentence rests on is not decidable by presence alone",
       "proposed_by": "model",
       "confirmed": false,
@@ -1415,7 +1415,8 @@
             "on": "2026-09-03"
           }
         ]
-      }
+      },
+      "left_page": "2026-09-03"
     },
     "ee91cf76edff9ccb": {
       "sentence": "\"Intismeran autogene plus pembrolizumab improves recurrence-free survival versus pembrolizumab alone in resected stage IIB–IV melanoma.\" Source quality 3 / 5 Data support 1 / 5 Reproducibility 4 / 5 Consensus 4 / 5 Recency 5 / 5 Rigor 5 / 5 3.4 Moderate (3×.25)+(1×.20)+(4×.15)+(4×.15)+(5×.15)+(5×.10) The two extremes are the whole story.",
@@ -3409,7 +3410,22 @@
       "locator": "$.protocolSection.statusModule.primaryCompletionDateStruct.date",
       "span": "\"date\":\"2029-10-26\"",
       "envelope": null,
-      "scope_words": [],
+      "scope_words": [
+        {
+          "word": "any",
+          "by": "claude",
+          "on": "2026-09-03",
+          "why": "Searched, not asserted, and that is new. B15 read all 4,300 sentences in the 26 documents this issue holds and found 172 carrying a hazard ratio, interval or p-value: 90 in statistics references that report no trial's result, 54 naming another trial, 14 carrying no value, leaving 14 candidates. All fourteen were read and recorded with a reason. Thirteen are KEYNOTE-942's figures. The fourteenth was the one the sentence did not survive in letter, and it is now a paragraph on the page rather than an exception nobody knew about.",
+          "falsifier": "B15 re-runs on every check. Any new document, or any new sentence in one we hold, that reports a hazard ratio, interval or p-value for INTerpath-001 becomes an unread candidate and blocks. This falsifier is watched by a machine rather than by memory, which is the whole point of GAP-001."
+        },
+        {
+          "word": "all",
+          "by": "claude",
+          "on": "2026-09-03",
+          "why": "Searched, not asserted, and that is new. B15 read all 4,300 sentences in the 26 documents this issue holds and found 172 carrying a hazard ratio, interval or p-value: 90 in statistics references that report no trial's result, 54 naming another trial, 14 carrying no value, leaving 14 candidates. All fourteen were read and recorded with a reason. Thirteen are KEYNOTE-942's figures. The fourteenth was the one the sentence did not survive in letter, and it is now a paragraph on the page rather than an exception nobody knew about.",
+          "falsifier": "B15 re-runs on every check. Any new document, or any new sentence in one we hold, that reports a hazard ratio, interval or p-value for INTerpath-001 becomes an unread candidate and blocks. This falsifier is watched by a machine rather than by memory, which is the whole point of GAP-001."
+        }
+      ],
       "falsifier": null,
       "verdicts": {
         "locatable": null,
@@ -3429,25 +3445,9 @@
           "span": "\"hasResults\":false"
         }
       ],
-      "check_flags": [
-        {
-          "check": "B6",
-          "verdict": "unmapped scope word",
-          "why": "any — the sentence says 'any' and the span contains no word carrying that force"
-        },
-        {
-          "check": "B6",
-          "verdict": "unmapped scope word",
-          "why": "all — the sentence says 'all' and the span contains no word carrying that force"
-        }
-      ],
+      "check_flags": [],
       "checked_on": "2026-09-03",
       "bounded_negative_searched": "every sentence in S013 carrying a hazard ratio, interval or p-value names a trial other than INTerpath-001, which is what the document is announcing",
-      "deferred_to": "GAP-001",
-      "deferred_why": "DEFERRED TO GAP-001 by the editor, 2026-09-03. This scope word ranges over the whole programme — both trials, five releases, the papers and four registry records — so no search of one document can settle it and B14 correctly declines. The editor chose not to sign a disposition: it stays flagged and it keeps blocking until the library-wide check exists. THIS FIELD CLEARS NOTHING; it records why the flag is still here.",
-      "deferred_words": "any, all",
-      "deferred_by": "Fred Ugast",
-      "deferred_on": "2026-09-03",
       "negative_over": {
         "class": "efficacy_figure",
         "subject": "INTerpath-001",
@@ -3544,6 +3544,13 @@
             "source_id": "S019",
             "quote": "Primary Analysis (Nov 14, 2022 data cut): events 22.4% (24/107) vs 40.0% (20/50); HR 0.561 (95% CI 0.309-1.017), P=0.0266 (formal hypothesis testing of RFS, overall one-sided alpha=0.10, performed at primary analysis).",
             "why_not": "THE SENTENCE THAT RAISED GAP-001, and it is not a counterexample to THIS sentence. It states KEYNOTE-942's primary analysis and its prespecified one-sided alpha of 0.10. It falsified a different claim — that the framing was never explained to readers — which is why the check exists. Recorded here so the next reader sees it was looked at rather than missed twice.",
+            "by": "claude",
+            "on": "2026-09-03"
+          },
+          {
+            "source_id": "S019",
+            "quote": "https://t.co/IkVQJVCb0O Positive Ahmad Tarhini Exciting announcement today from Phase3 INTerpath001 of #Intismeran &amp; #Pemrolizumab as #AdjuvantTherapy in #Melanoma | RFS HR=0.51 &amp; DMFS HR=0.41",
+            "why_not": "NOT a Phase 3 result — 0.51 and 0.41 are KEYNOTE-942's, and the outlet that logged the post says so on the same page. But it was the one candidate of fourteen that the sentence did not survive in letter: a hazard ratio DOES appear under this trial's name in coverage we hold. Rather than narrow the claim, the page now states it — a new paragraph quotes the post and the outlet's own correction of it. The sentence above is unchanged and now true as read, because the exception is on the page instead of missing from it.",
             "by": "claude",
             "on": "2026-09-03"
           }
@@ -5541,6 +5548,268 @@
       "why_bound": "bound 2026-09-03, after the binder could see bare integers for the first time. 157 patients and the open-label design are both in S004; that a hazard ratio is a rate and not a share of patients is the explainer's own definition, bound elsewhere on this page to S023.",
       "proposed_by": "human",
       "confirmed": false,
+      "proposed_on": "2026-09-03",
+      "check_flags": [],
+      "checked_on": "2026-09-03"
+    },
+    "01edde821c817a6f": {
+      "sentence": "KEYNOTE-942 was open-label : patients and doctors both knew which arm they were in, and the primary endpoint was judged by those same investigators.",
+      "sentence_sha": "01edde821c817a6f",
+      "why_empirical": "names KEYNOTE-942",
+      "bucket": "context",
+      "source_id": "S004",
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": "The phase IIb open-label KEYNOTE-942",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-09-03",
+      "on_page": true,
+      "also_rests_on": [
+        {
+          "source_id": "S004",
+          "span": "The primary end point was RFS by investigator assessment."
+        }
+      ],
+      "why_bound": "both halves in S004: the trial is 'phase IIb open-label', and the primary end point was 'RFS by investigator assessment' — the same investigators who were not blinded.",
+      "proposed_by": "human",
+      "confirmed": true,
+      "proposed_on": "2026-09-03",
+      "check_flags": [],
+      "checked_on": "2026-09-03"
+    },
+    "c70e3d759cec8988": {
+      "sentence": "The trials do not share a population: KEYNOTE-942 enrolled stage IIIB–IV, the Phase 3 enrolled stage IIB–IV , widening it downward — adding IIB, IIC and IIIA below the earlier trial's floor of IIIB.",
+      "sentence_sha": "c70e3d759cec8988",
+      "why_empirical": "names KEYNOTE-942",
+      "bucket": "judgement",
+      "source_id": "S004",
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": "Eligible patients with resected stage IIIB to IV cutaneous melanoma",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-09-03",
+      "on_page": true,
+      "also_rests_on": [
+        {
+          "source_id": "S001",
+          "span": "Distant Metastasis-Free Survival (DMFS) in Patients With Completely Resected Stage IIB-IV Melanoma"
+        }
+      ],
+      "premises": [
+        {
+          "source_id": "S004",
+          "span": "Eligible patients with resected stage IIIB to IV cutaneous melanoma"
+        },
+        {
+          "source_id": "S001",
+          "span": "Distant Metastasis-Free Survival (DMFS) in Patients With Completely Resected Stage IIB-IV Melanoma"
+        }
+      ],
+      "step": "S004 enrolled 'resected stage IIIB to IV'; S001's own headline says 'Completely Resected Stage IIB-IV'. IIB and IIC sit below IIIB, so the Phase 3's floor is lower — the widening the sentence describes, read off the two stage ranges rather than asserted.",
+      "why_bound": "newly visible: 'KEYNOTE-942' entered the ledger's names on 3 September.",
+      "proposed_by": "human",
+      "confirmed": true,
+      "proposed_on": "2026-09-03",
+      "check_flags": [],
+      "checked_on": "2026-09-03"
+    },
+    "69197cf8fd7964d6": {
+      "sentence": "The three-year paper reports a hazard ratio of 0.425 on nine deaths, with an 80% interval of 0.179 to 1.004; the five-year analysis reports 0.471 on fourteen, with a 95% interval of 0.165 to 1.345.",
+      "sentence_sha": "69197cf8fd7964d6",
+      "why_empirical": "figure",
+      "bucket": "judgement",
+      "source_id": "S007",
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": "An early preliminary trend in OS favored combination versus pembrolizumab (3.7% [4/107] v 10.0% [5/50]; HR, 0.425 [80% CI, 0.179 to 1.004]",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-09-03",
+      "on_page": true,
+      "also_rests_on": [
+        {
+          "source_id": "S004",
+          "span": "the OS HR (95% CI) was 0.471 (0.165 to 1.345)"
+        }
+      ],
+      "premises": [
+        {
+          "source_id": "S007",
+          "span": "An early preliminary trend in OS favored combination versus pembrolizumab (3.7% [4/107] v 10.0% [5/50]; HR, 0.425 [80% CI, 0.179 to 1.004]"
+        },
+        {
+          "source_id": "S004",
+          "span": "the OS HR (95% CI) was 0.471 (0.165 to 1.345)"
+        },
+        {
+          "source_id": "S004",
+          "span": "Overall, 7 of 107 patients (6.5%) in the intismeran plus pembrolizumab arm and 7 of 50 (14.0%) in the pembrolizumab arm died"
+        },
+        {
+          "source_id": "S007",
+          "span": "Safety Exploratory End Point Results"
+        },
+        {
+          "source_id": "S004",
+          "span": "Exploratory end points included overall survival (OS)"
+        }
+      ],
+      "step": "Two survival analyses, both printed. S007's three-year paper gives OS HR 0.425 with an 80% interval of 0.179 to 1.004 on 4 of 107 and 5 of 50 — nine deaths, ours by addition. S004's five-year paper gives 0.471 with a 95% interval of 0.165 to 1.345 on 7 and 7 — fourteen, also by addition. Both papers file overall survival under exploratory end points, which is the word the sentence uses. Both intervals contain 1.0, which is what 'a large benefit and a small harm at once' says in plain English.",
+      "why_bound": "Written 2026-09-03 to replace a sentence that said this was the ONLY survival figure in the programme. B15's first run found the second one in S007 — a paper we hold in full and already bind three other sentences to. The corrected sentence is stronger than the one it replaces: two thin analyses make the point better than one.",
+      "proposed_by": "human",
+      "confirmed": true,
+      "proposed_on": "2026-09-03",
+      "check_flags": [],
+      "checked_on": "2026-09-03"
+    },
+    "4124ef647eac11e2": {
+      "sentence": "Primary Merck & Moderna — five-year KEYNOTE-942 data, ASCO 2026 1 June 2026.",
+      "sentence_sha": "4124ef647eac11e2",
+      "why_empirical": "names KEYNOTE-942",
+      "bucket": "context",
+      "source_id": "S002",
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": "Moderna and Merck Present 5-Year Data for Intismeran Autogene",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-09-03",
+      "on_page": true,
+      "why_bound": "a citation line in the Sources section, naming the document and its date. It rests on the document it names.",
+      "proposed_by": "human",
+      "confirmed": true,
+      "proposed_on": "2026-09-03",
+      "check_flags": [],
+      "checked_on": "2026-09-03"
+    },
+    "f63c5cf447e5a74d": {
+      "sentence": "Primary Merck & Moderna — first detailed KEYNOTE-942 results 16 April 2023.",
+      "sentence_sha": "f63c5cf447e5a74d",
+      "why_empirical": "names KEYNOTE-942",
+      "bucket": "context",
+      "source_id": "S005",
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": "reduced the risk of recurrence or death by 44%",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-09-03",
+      "on_page": true,
+      "why_bound": "a citation line for the April 2023 release, the first to give detailed KEYNOTE-942 numbers. It rests on the document it names.",
+      "proposed_by": "human",
+      "confirmed": true,
+      "proposed_on": "2026-09-03",
+      "check_flags": [],
+      "checked_on": "2026-09-03"
+    },
+    "1e44fdd5fb63a052": {
+      "sentence": "On announcement day a melanoma oncologist posted — in a roundup we hold — Exciting announcement today from Phase3 INTerpath001 followed by RFS HR=0.51 & DMFS HR=0.41 .",
+      "sentence_sha": "1e44fdd5fb63a052",
+      "why_empirical": "figure",
+      "bucket": "context",
+      "source_id": "S019",
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": "Exciting announcement today from Phase3 INTerpath001",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-09-03",
+      "on_page": false,
+      "also_rests_on": [
+        {
+          "source_id": "S019",
+          "span": "RFS HR=0.51 &amp; DMFS HR=0.41"
+        },
+        {
+          "source_id": "S019",
+          "span": "Hazard ratios circulating on announcement day are these Phase 2b figures"
+        }
+      ],
+      "why_bound": "Found by B15 on its first run, as a candidate counterexample to the sentence above it. It is not a counterexample — 0.51 and 0.41 are the Phase 2b's figures — but the page's claim that no hazard ratio for this trial appears in the coverage we hold was true only in substance and false in letter, because one does appear under the trial's name. Saying so is more accurate AND makes the article's own case: this is the misattribution the piece is about, documented, on the day, in a source we already held. The physician is not named on the page; the post is quoted from S019, which logged it and corrected it on the same page.",
+      "proposed_by": "human",
+      "confirmed": true,
+      "proposed_on": "2026-09-03",
+      "check_flags": [],
+      "checked_on": "2026-09-03",
+      "left_page": "2026-09-03"
+    },
+    "9d6aa8b765629231": {
+      "sentence": "On announcement day a melanoma oncologist posted — in a roundup we hold — Exciting announcement today from Phase3 INTerpath001 followed by RFS HR=0.51 and DMFS HR=0.41 .",
+      "sentence_sha": "9d6aa8b765629231",
+      "why_empirical": "figure",
+      "bucket": "context",
+      "source_id": "S019",
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": "Exciting announcement today from Phase3 INTerpath001",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-09-03",
+      "on_page": true,
+      "also_rests_on": [
+        {
+          "source_id": "S019",
+          "span": "RFS HR=0.51 &amp; DMFS HR=0.41"
+        },
+        {
+          "source_id": "S019",
+          "span": "Hazard ratios circulating on announcement day are these Phase 2b figures"
+        }
+      ],
+      "why_bound": "Found by B15 on its first run, as a candidate counterexample to the sentence above it. It is not a counterexample — 0.51 and 0.41 are the Phase 2b's figures — but the page's claim that no hazard ratio for this trial appears in the coverage we hold was true only in substance and false in letter, because one does appear under the trial's name. Saying so is more accurate AND makes the article's own case: this is the misattribution the piece is about, documented, on the day, in a source we already held. The physician is not named on the page; the post is quoted from S019, which logged it and corrected it on the same page. Re-bound after the quotation was split in two: the post joins the ratios with an ampersand, which the page renders and S019 stores escaped, and a one-entity difference would have shown forever as a quotation not matching its source.",
+      "proposed_by": "human",
+      "confirmed": true,
       "proposed_on": "2026-09-03",
       "check_flags": [],
       "checked_on": "2026-09-03"
