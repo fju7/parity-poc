@@ -174,9 +174,39 @@ def bound_figures(slug: str) -> set[float]:
     return B._as_numbers(MB.figures(text))
 
 
+# A YEAR IN A CAPTION IS A DATE, NOT A MEASUREMENT.
+_YEAR = re.compile(r"^(19|20)\d\d$")
+
+
+def _is_measurement(fig: str) -> bool:
+    """Does this figure make a claim a bound span has to carry?
+
+    IT IS NOT modelbind._weight, which is what this used to ask.
+
+    _weight scores how much a figure suggests a span and a sentence are about
+    the same thing, and for that a two-digit number is weak evidence — there
+    are only ninety of them and they turn up everywhere. So it returns 0 for
+    every integer under 100, and a caller that reads 0 as "skip" skips them.
+
+    check_restates read it as a gate. The result: the mark could not see any
+    number under 100. Probed on 2026-09-03, the melanoma stat strip passed
+    `restates` with "99 deaths" in it — a fabricated figure in a headline
+    element on a live page — and failed only at "987", because 987 has three
+    digits. The canary that appeared to prove the check worked had picked a
+    visible number by luck.
+
+    That is the recorded class in its purest form: a helper written for RANKING
+    reused as a GATE. Ranking may discount weak evidence. A gate may not, because
+    "14 deaths" is exactly as much a claim as "1,137 patients".
+
+    So every figure counts here except a bare year, which is a date.
+    """
+    return not _YEAR.match(fig.replace(",", ""))
+
+
 def check_restates(text: str, held: set[float], names: set[str]) -> str | None:
     missing = [f for f in B._claim_figures(text, names)
-               if MB._weight(f) and not B._as_numbers([f]) <= held]
+               if _is_measurement(f) and not B._as_numbers([f]) <= held]
     if missing:
         return ("introduces %s, which no bound sentence rests on. Furniture may "
                 "restate what the article proved; it may not be where a number "

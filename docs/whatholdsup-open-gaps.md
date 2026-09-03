@@ -51,6 +51,28 @@ sentences we happen to have met. Four such lists in this repository have been
 wrong. The trigger is a grammatical shape, and the output is a question for a
 human, not a verdict.
 
+**Six live B6 flags on issue one are this gap, 3 September.** Running
+`bindings.py melanoma check` after the last round of bindings — it had not been
+run, so `status` was reporting the previous day's flags — left six flags that
+no span can settle, because each sentence's claim is an absence over documents
+rather than a presence in one:
+
+    "the release ... gives no figure for either"          bounded: S001
+    "The only survival figure in the programme"           unbounded: the library
+    "no hazard ratio ... appears in either company        unbounded: the library
+     release, in any of the ... coverage we hold"
+    "NCT05933577 still carries no posted results"         bounded: S013
+    "A one-sided test asks only 'is it better?'"          definitional, not an absence
+    "each registry record marks that result NOT_POSTED"   enumerated: S020 and S026
+
+The two bounded ones and the enumerated one are checkable today and are not
+checked. The registry pair is the clearest: the row's premises already carry
+`"reportingStatus":"NOT_POSTED"` from BOTH records, so "each" is satisfied by
+evidence the row names and B6 cannot see it, because B6 looks for a WORD and
+the force is carried by there being one span per record. A quantifier over
+named things is mapped when the row rests on every thing the sentence names —
+and that check can fail, which is the point.
+
 
 ---
 
@@ -159,3 +181,70 @@ different exclusions are being served by one function.
 
 **What would show the gap is closed.** A test that plants a misquotation in a
 change-log entry and asserts the quotation check reports it.
+
+
+---
+
+## GAP-004 — the meta description is prose that ships and nothing reads it
+
+**Raised by** fixing the `<title>` leak on 2026-09-03.
+**Fix when** issue one is published.
+
+`page_sentences` now strips `<head>`, because `<title>` was arriving as page
+prose with no full stop and gluing itself to the first thing after it. That is
+right: a title is a label, not a sentence somebody wrote as a claim.
+
+The meta description is not a label. Issue one's reads:
+
+    Merck and Moderna announced a Phase 3 melanoma success and released no
+    Phase 3 numbers. What was actually published, and what it will and will
+    not support.
+
+"released no Phase 3 numbers" is a universal negative about two companies. It
+is the first thing a search result, a link preview, or a social card shows a
+reader — for many readers it is the ONLY sentence of ours they will ever see —
+and it is now, by our own fix, outside every check on this page. Before the fix
+it was outside them too, because it lives in an attribute and tag-stripping
+drops attribute values.
+
+**Shape of the fix.** Extract `<meta name="description">` and the `og:` and
+`twitter:` description content, and put those sentences through the binder like
+any others. They are claims we publish. The count of sentences on the page goes
+up by one or two and that is the honest number.
+
+**What would show the gap is closed.** A test that plants an unsupported figure
+in a page's meta description and asserts rule 1 blocks.
+
+
+---
+
+## GAP-005 — a figure is compared as a bare number, so an unrelated number clears it
+
+**Raised by** probing the `restates` mark on 2026-09-03.
+**Fix when** issue one is published.
+
+Every figure check in this layer compares numbers with the units and the
+quantity thrown away. Two consequences, both seen on the live page today:
+
+**A claim cleared by a coincidence.** The stat strip's "14 deaths" is satisfied
+by S004's `7 of 50 (14.0%)`. Fourteen deaths and fourteen per cent are not the
+same statement, and `_as_numbers` cannot tell them apart. The strip is
+therefore not marked `restates`, because the mark would pass for a reason that
+is not a reason.
+
+**A claim flagged by a coincidence.** B12 reported that we had added a decimal
+to `0.053`, having found `0.05` in Greenland et al. — the conventional
+threshold, in a statistics reference, with no relation to our p-value. That
+particular flag has gone, because B12 now asks every source the row names and
+one of them (the Lancet, in the row's own premises) prints `two-sided p=0.053`
+verbatim. The underlying defect did not go: B12 still decides that two numbers
+are the same quantity because their digits round to each other.
+
+**Shape of the fix.** Carry the token around the figure — the unit, the
+per-cent sign, the word it modifies — and require it to match before treating
+two numbers as the same quantity. Where the surrounding token cannot be
+recovered, say so and flag, rather than matching on digits alone.
+
+**What would show the gap is closed.** A test asserting that "14 deaths" is NOT
+satisfied by a span reading "7 of 50 (14.0%)", and that it IS satisfied by one
+reading "14 patients died".

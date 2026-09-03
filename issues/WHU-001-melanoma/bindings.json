@@ -1024,11 +1024,6 @@
           "check": "B6",
           "verdict": "unmapped scope word",
           "why": "only — the sentence says 'only' and the span contains no word carrying that force"
-        },
-        {
-          "check": "B12",
-          "verdict": "added precision",
-          "why": "the source prints 0.05, not 0.053 — we show 1 decimal place(s) the source does not"
         }
       ],
       "checked_on": "2026-09-03"
@@ -2077,7 +2072,7 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": false,
+      "on_page": true,
       "left_page": "2026-09-01"
     },
     "e128b5bfbdc57d10": {
@@ -2858,7 +2853,7 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true,
+      "on_page": false,
       "autobind": "anchors too weak to identify a document: 1,137 (strength 3, need 4)",
       "proposed_by": "model",
       "confirmed": false,
@@ -3042,18 +3037,7 @@
         }
       ],
       "step": "The three-year paper's 95% interval runs from 0.288 to 0.906. 1.0 is above 0.906, so unlike the first readout's interval this one does not contain the no-difference value.",
-      "check_flags": [
-        {
-          "check": "B6",
-          "verdict": "unmapped scope word",
-          "why": "no — the sentence says 'no' and the span contains no word carrying that force"
-        },
-        {
-          "check": "B6",
-          "verdict": "unmapped scope word",
-          "why": "only — the sentence says 'only' and the span contains no word carrying that force"
-        }
-      ],
+      "check_flags": [],
       "checked_on": "2026-09-03"
     },
     "5685121c9e992b4c": {

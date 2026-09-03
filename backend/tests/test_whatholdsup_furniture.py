@@ -66,6 +66,34 @@ def test_restates_ignores_a_trial_name_that_looks_like_a_figure():
                             {"KEYNOTE-942", "CheckMate 238"}) is None
 
 
+def test_restates_sees_a_two_digit_figure_the_article_never_proved():
+    """The mark could not see any number under 100, and nothing said so.
+
+    check_restates gated on modelbind._weight, which returns 0 for every
+    integer below three digits because a two-digit number is weak evidence
+    that a span and a sentence are ABOUT THE SAME THING. That is a fair
+    ranking weight and a catastrophic gate.
+
+    Probed against the live melanoma page on 2026-09-03, the stat strip
+    passed `restates` carrying "99 deaths" — a fabricated figure in a
+    headline element — and failed only at "987", because 987 has three
+    digits. The canary that seemed to prove the check worked had picked a
+    visible number by luck.
+    """
+    why = F.check_restates("99 deaths", HELD, set())
+    assert why and "99" in why
+
+
+def test_restates_sees_a_small_figure_at_the_boundary():
+    assert F.check_restates("13 deaths", HELD, set()) is not None
+    assert F.check_restates("50 patients", HELD, set()) is None
+
+
+def test_a_year_in_a_caption_is_a_date_not_a_measurement():
+    assert F.check_restates("reported in 2023, updated 2026", HELD, set()) is None
+    assert F.check_restates("2023 deaths", HELD, set()) is None
+
+
 # --- scale ------------------------------------------------------------------
 
 def test_a_real_axis_is_a_ruler():

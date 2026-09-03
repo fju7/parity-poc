@@ -479,3 +479,69 @@ def test_a_quotation_from_an_outlet_is_not_flagged(monkeypatch):
          "on_page": True, "bucket": "context", "source_id": "S100",
          "span": "did not disclose hazard ratios"})
     assert not B.figures_resting_only_on_reporting(SLUG)
+
+
+
+# --- what the checks are allowed to see -------------------------------------
+
+def test_covering_spans_include_also_rests_on():
+    row = {"source_id": "S1", "span": "a", "bucket": "context",
+           "also_rests_on": [{"source_id": "S2", "span": "b"}],
+           "premises": [{"source_id": "S3", "span": "c"}]}
+    assert B.covering_spans(row) == [("S1", "a"), ("S2", "b")]
+
+
+def test_covering_spans_include_premises_for_a_judgement_only():
+    """A judgement's whole claim to rule 2 is that its step runs over them."""
+    row = {"source_id": "S1", "span": "a", "bucket": "judgement",
+           "premises": [{"source_id": "S3", "span": "c"}]}
+    assert ("S3", "c") in B.covering_spans(row)
+
+
+def test_covering_spans_drop_a_premise_nobody_attributed():
+    """Not attributed to the primary source as a kindness.
+
+    A premise with a span and no source is the writer failing to say where it
+    came from. Defaulting it to whatever the row's main source happens to be
+    would have the check attribute a claim on their behalf, which is the one
+    thing this layer exists not to do.
+    """
+    row = {"source_id": "S1", "span": "a", "bucket": "judgement",
+           "premises": [{"span": "c"}, {"source_id": "S4"}]}
+    assert B.covering_spans(row) == [("S1", "a")]
+
+
+def test_a_scope_word_carried_by_a_secondary_span_is_mapped():
+    """B6 was handed row["span"] alone on a row that named three documents.
+
+    It then said "descriptive only" had no span carrying "only", on a row whose
+    also_rests_on is the sentence 'These subsequent analyses are not intended
+    for formal hypothesis testing (ie, are descriptive only).' The check was
+    right about the span it was given, and the span it was given was one of
+    three. Same shape as b12_precision's founding bug, one layer up.
+    """
+    SC = _load("spancheck")
+    sent = ("the paper states plainly that its analyses were descriptive only "
+            "and not intended for formal hypothesis testing")
+    primary = "HR 0.510 95% CI 0.288 to 0.906"
+    secondary = ("These subsequent analyses are not intended for formal "
+                 "hypothesis testing (ie, are descriptive only).")
+    assert any(w == "only" for w, _ in SC.b6_scope(sent, primary))
+    joined = "   ".join([primary, secondary])
+    assert not any(w == "only" for w, _ in SC.b6_scope(sent, joined))
+
+
+def test_the_page_title_is_not_a_sentence_on_the_page():
+    """<title> is a text node with no full stop, so it glued itself to the
+    first thing after it and arrived as
+
+        "The Melanoma Result - What Holds Up 1,137 patients in the Phase 3 trial"
+
+    which B5 then checked against a press release as though someone wrote it.
+    """
+    html = ('<html><head><title>The Melanoma Result</title>'
+            '<meta name="description" content="released no Phase 3 numbers">'
+            '</head><body><div><b>1,137</b><span>patients</span></div>'
+            '</body></html>')
+    assert "The Melanoma Result" not in B.HEAD.sub(" ", html)
+    assert "1,137" in B.HEAD.sub(" ", html)

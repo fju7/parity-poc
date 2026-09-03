@@ -105,11 +105,30 @@ def is_empirical(sent: str, names: set[str]) -> tuple[bool, str]:
 FURNITURE = re.compile(r"<(nav|header|footer|aside)\b[^>]*>.*?</\1>",
                        re.S | re.I)
 
+# THE HEAD IS NOT PROSE.
+#
+# <title> is a text node, so tag-stripping leaves it in the page text, and it
+# carries no full stop — so the splitter glued the document title to the first
+# thing after it and produced this, which B5 then checked against a press
+# release as though somebody had written it:
+#
+#   "The Melanoma Result — What Holds Up 1,137 patients in the Phase 3 trial"
+#
+# That is the heading-fusion defect plain()'s block sentinel was written to
+# stop, arriving from a part of the document plain() never expected to see.
+# Nothing in <head> is prose a reader meets as a sentence.
+#
+# One thing in there IS a claim and is now unchecked either way: the meta
+# description says the companies "released no Phase 3 numbers". It ships, it is
+# read, and no binding covers it. Recorded in docs/whatholdsup-open-gaps.md.
+HEAD = re.compile(r"<head\b[^>]*>.*?</head>", re.S | re.I)
+
 
 def page_sentences(slug: str) -> list[str]:
     html = ledger.page_text(slug) if hasattr(ledger, "page_text") else None
     if html is None:
         html = _page_html(slug)
+    html = HEAD.sub(" ", html)
     html = FURNITURE.sub(" ", html)
     # Text the page generates about itself -- an axis, a scorecard's working, a
     # table restating what the article proved -- is checked by furniture.py
@@ -220,6 +239,32 @@ def scan(slug: str) -> tuple[dict, list[str], list[str]]:
 # running the checks FROM the binding, never from a caller's choice
 # ---------------------------------------------------------------------------
 
+def covering_spans(row: dict) -> list[tuple[str, str]]:
+    """Every (source, span) this row rests on, primary first.
+
+    also_rests_on always counts. premises count for a judgement, whose whole
+    claim to rule 2 is that its step runs over them; for any other bucket a
+    premise is not what the sentence rests on.
+
+    A span with no source, or a source with no span, is not evidence and is
+    dropped rather than defaulting to the primary source — a premise the writer
+    did not attribute is exactly the thing a check should not quietly attribute
+    for them.
+    """
+    sid, span = row.get("source_id") or "", row.get("span") or ""
+    out = [(sid, span)]
+    extra = list(row.get("also_rests_on") or [])
+    if (row.get("bucket") or "") == "judgement":
+        extra += list(row.get("premises") or [])
+    out += [(x.get("source_id") or "", x.get("span") or "") for x in extra]
+    seen, keep = set(), []
+    for a, b in out:
+        if a and b and (a, b) not in seen:
+            seen.add((a, b))
+            keep.append((a, b))
+    return keep
+
+
 def run_checks(slug: str, *, only: str = "") -> dict:
     """Run every span check against the source THE ROW NAMES.
 
@@ -254,6 +299,27 @@ def run_checks(slug: str, *, only: str = "") -> dict:
         sid, span, sent = row["source_id"], row["span"], row["sentence"]
         found = []
         tally["checked"] += 1
+        # EVERY SPAN THE ROW RESTS ON, NOT THE FIRST ONE.
+        #
+        # B6 and B12 were handed row["span"] and row["source_id"] and nothing
+        # else, so a row that named three documents was checked against one.
+        # Both then reported, correctly about the document they were given and
+        # wrongly about the sentence:
+        #
+        #   * B6 said "descriptive only" had no span carrying "only", on a row
+        #     whose also_rests_on is the sentence 'These subsequent analyses are
+        #     not intended for formal hypothesis testing (ie, are descriptive
+        #     only).'
+        #   * B12 said we had added a decimal to 0.053, on a row whose premises
+        #     quote the Lancet printing 'two-sided p=0.053'.
+        #
+        # This is the same shape as b12_precision's own founding bug — a check
+        # pointed at a document rather than at the claim — committed one layer
+        # up, and it is the shape rule_rows already solved with covering(). The
+        # checks are unchanged. They are given what the row says it rests on.
+        cover = covering_spans(row)
+        all_spans = " \u0000 ".join(b for _, b in cover)
+        cover_sids = list(dict.fromkeys(a for a, _ in cover))
 
         present, why = SC.b2_present(span, slug, sid)
         if present is SC.UNDETERMINED:
@@ -288,7 +354,7 @@ def run_checks(slug: str, *, only: str = "") -> dict:
                         (d.get("falsifier") or "").strip() and \
                         (d.get("by") or "").strip():
                     disposed[d["word"]] = d
-            for w, why6 in SC.b6_scope(sent, span):
+            for w, why6 in SC.b6_scope(sent, all_spans):
                 if w in disposed:
                     continue
                 found.append({"check": "B6", "verdict": "unmapped scope word",
@@ -303,10 +369,18 @@ def run_checks(slug: str, *, only: str = "") -> dict:
                                "outlives its word is a filter" % w})
             import autobind as AB
             for a in AB.anchors_of(sent):
-                ok12, why12 = SC.b12_precision(a, slug, sid)
-                if not ok12:
+                # Ask every source the row names. A figure printed as we print
+                # it by ANY of them is not a precision we added; a source that
+                # is not in the library answers nothing and clears nothing.
+                verdicts = [SC.b12_precision(a, slug, x) for x in cover_sids]
+                if any(ok and "as printed" in why for ok, why in verdicts):
+                    continue
+                bad = [why for ok, why in verdicts if not ok]
+                if bad:
+                    where = ("" if len(cover_sids) == 1 else
+                             " (asked %s)" % ", ".join(cover_sids))
                     found.append({"check": "B12", "verdict": "added precision",
-                                  "why": why12})
+                                  "why": bad[0] + where})
         row["check_flags"] = found
         row["checked_on"] = date.today().isoformat()
         tally["flags"] += len(found)
