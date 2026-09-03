@@ -375,3 +375,83 @@ claim about a document, and a claim about a document is settled by opening the
 document. Every one of the nineteen is now recorded with the source and the
 sentence that settled it, and those quotations are checked against the bytes on
 every run.
+
+## 3 September 2026 — a survival figure we said was the only one, and a number that did not match its own working
+
+The version readers have been served differs from the one now published in
+roughly a hundred and seventy sentences. Most of that is elaboration and
+sourcing. Four things are corrections a reader who saw the earlier version
+should know about, and one is an addition that strengthens the piece.
+
+**We said there was one survival figure in the programme. There are two.**
+
+The earlier version read: "The only survival figure in the programme is
+descriptive and rests on fourteen deaths; its interval, 0.165 to 1.345, is too
+wide to separate a large benefit from a small harm."
+
+The three-year KEYNOTE-942 paper — which this assessment cites, and which we
+hold in full — reports a second one: an overall-survival hazard ratio of 0.425
+with an 80% interval of 0.179 to 1.004, on nine deaths, four in the combination
+arm and five on pembrolizumab alone. The five-year figure of 0.471 on fourteen
+deaths is the later analysis of the same endpoint, not the only one there has
+ever been.
+
+The sentence now reads: "Every survival figure in the programme is exploratory
+and rests on a handful of deaths. The three-year paper reports a hazard ratio of
+0.425 on nine deaths, with an 80% interval of 0.179 to 1.004; the five-year
+analysis reports 0.471 on fourteen, with a 95% interval of 0.165 to 1.345. Both
+are wide enough to hold a large benefit and a small harm at once."
+
+Nothing about the conclusion changes. Two thin exploratory analyses support it
+better than one did, and both intervals still contain the no-difference value.
+What was wrong was the word "only", about a paper we had read.
+
+**The scorecard readers saw did not match its own arithmetic.**
+
+The published page scored this assessment 3.4. The six dimension scores and the
+weights the assessment uses come to 3.35. The printed figure carried a decimal
+its own working does not support, for eight days.
+
+It was corrected, and then the composite was removed altogether. An outside
+reviewer found that a single number expressing both confidence in a result's
+direction and confidence in its size breaches this publication's own rule
+against doing exactly that. The page now scores two things separately — 3.94 for
+whether the effect is real, 1.0 for how large it is — and the rubric behind
+both, with all six dimensions, their weights and every 1-to-5 anchor, is
+published at `/the-rubric`.
+
+**We said no hazard ratio for this trial appeared in any coverage we hold. One
+does.**
+
+Not a Phase 3 result: nobody has released one. But on announcement day a
+melanoma oncologist posted, under the heading "Phase3 INTerpath001", the figures
+"RFS HR=0.51" and "DMFS HR=0.41" — which belong to the earlier, smaller trial.
+The roundup that logged the post warned on the same page that the ratios
+circulating that day were the Phase 2b's.
+
+That is this assessment's subject happening in public, on the day, in a source
+we already held and had not read closely enough. It is now a paragraph on the
+page rather than an exception to a sentence we had written too broadly.
+
+**Where our own figures come from was stated too narrowly.**
+
+The checking note said every figure traced to "a company release or a
+peer-reviewed paper". Three figures on this page trace to neither: the
+anticipated overall-survival posting dates for KEYNOTE-054 and KEYNOTE-716, and
+the estimated primary completion date for the Phase 3 itself, all of which come
+from trial registry records. The note now says so, and the email that goes with
+this issue says it in the same words.
+
+**Two smaller corrections.**
+
+We described Morning Glory Sciences as publishing in English translation. No
+source we hold says that; it was an assumption about a third party's publishing
+practice. The page now says only what we checked — that we can find no other
+publication citing it — and gives its argument on the merits.
+
+And a quotation from The ASCO Post describing overall survival as a "key
+secondary endpoint" has been removed. The trial's own registry record lists
+overall survival as a secondary endpoint and does not call it key.
+
+Everything above is set out sentence by sentence in the change log at the foot
+of the assessment.
