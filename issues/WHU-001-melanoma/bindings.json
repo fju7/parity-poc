@@ -3543,7 +3543,7 @@
         "warranted": null
       },
       "first_seen": "2026-09-02",
-      "on_page": true,
+      "on_page": false,
       "autobind": "anchors too weak to identify a document: none (strength 0, need 4)",
       "premises": [
         {
@@ -3783,12 +3783,13 @@
         "warranted": null
       },
       "first_seen": "2026-09-02",
-      "on_page": true,
+      "on_page": false,
       "autobind": "anchors too weak to identify a document: none (strength 0, need 4)",
       "proposed_by": "model",
       "confirmed": false,
       "proposed_on": "2026-09-02",
-      "why_bound": "a model proposed this span and B2 confirmed the string is in S016; nobody has yet signed that the sentence is warranted by it"
+      "why_bound": "a model proposed this span and B2 confirmed the string is in S016; nobody has yet signed that the sentence is warranted by it",
+      "left_page": "2026-09-03"
     },
     "d05f97fc20a30388": {
       "sentence": "That rests on the two registry records: KEYNOTE-054 , which is pembrolizumab against placebo, lists overall survival as a secondary endpoint with no result posted and a time frame running to about eleven years; and CheckMate 238 , whose arms are nivolumab and ipilimumab — there is no placebo arm to report against.",
@@ -4392,6 +4393,111 @@
         }
       ],
       "step": "The release states the endpoints were met and, as MLQ News records, discloses no hazard ratio, interval, p-value or event count. Our two scores read 3.94 for whether the effect is real and 1.0 for how large it is, and both are computed on this page from the six dimension scores shown. The headline and the pair describe the same announcement; only the pair carries the fact that the magnitude is missing, which a single averaged number did not."
+    },
+    "7c5dfc7b6a68ad92": {
+      "sentence": "Why this is worth a whole article Every outlet whose article we hold attributed those figures correctly to KEYNOTE-942 — The ASCO Post, Dermatology Times, Practical Dermatology, KOL Pulse, MLQ News and OncLive — and several said plainly that no Phase 3 efficacy numbers had been released.",
+      "sentence_sha": "7c5dfc7b6a68ad92",
+      "why_empirical": "names MLQ News",
+      "bucket": "judgement",
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-09-03",
+      "on_page": true,
+      "premises": [
+        {
+          "source_id": "S017",
+          "span": "Five-year follow-up data from the phase 2b KEYNOTE-942/mRNA-4157-P201 trial (NCT03897881) presented at the 2026 American Society of Clinical Oncology Annual Meeting showed that the combination reduced the risk of recurrence or death by 49% (HR, 0.51; 95% CI, 0.294-0.887)"
+        },
+        {
+          "source_id": "S011",
+          "span": "The companies have not disclosed hazard ratios, confidence intervals, p-values, median follow-up or event counts for the Phase 3 trial."
+        },
+        {
+          "source_id": "S018",
+          "span": "The companies did not disclose hazard ratios, absolute event rates, P values, or other phase 3 efficacy estimates in the topline announcement."
+        },
+        {
+          "source_id": "S006",
+          "span": "KEYNOTE-942/mRNA-4157-P201 trial, including the 5-year follow-up data presented at the 2026 ASCO Annual Meeting , in which the combination demonstrated a 49% reduction in the risk of recurrence or death"
+        },
+        {
+          "source_id": "S016",
+          "span": "phase 2b KEYNOTE-942/mRNA-4157-P201 trial. Five-year follow-up data presented at the 2026 American Society of Clinical Oncology (ASCO) Annual Meeting showed that intismeran plus pembrolizumab reduced the risk of recurrence or death by 49%"
+        },
+        {
+          "source_id": "S018",
+          "span": "The phase 3 findings follow results from the phase 2b KEYNOTE-942/mRNA-4157-P201 trial. At 5-year follow-up, intismeran plus pembrolizumab was associated with a 49% reduction in the risk of recurrence or death"
+        },
+        {
+          "source_id": "S019",
+          "span": "In a phase 2 trial earlier this year the vaccine with immunotherapy has shown ~49% lower risk of recurrence or death"
+        },
+        {
+          "source_id": "S011",
+          "span": "The Phase 3 result builds on the Phase 2b KEYNOTE-942 study. At five years, intismeran plus Keytruda reduced the risk of recurrence or death by 49% versus Keytruda alone"
+        }
+      ],
+      "step": "All six articles we hold are quoted above, and each attributes the 49% and 59% figures to KEYNOTE-942 — five naming the phase 2b trial explicitly and KOL Pulse calling it a phase 2 trial. Two of the six separately state that no Phase 3 efficacy estimates were released. So the claim is a summary of six specific documents and can be checked against them article by article; it says nothing about coverage we do not hold, and FierceBiotech is an article we still do not hold."
+    },
+    "c21ee21324da8822": {
+      "sentence": "And Dermatology Times : Detailed phase 3 efficacy metrics (e.g., HRs) were not disclosed; OS and other secondary endpoints remain immature (An earlier version of this sentence named OncLive and FierceBiotech when we held neither.",
+      "sentence_sha": "c21ee21324da8822",
+      "why_empirical": "names OncLive",
+      "bucket": "context",
+      "source_id": "S016",
+      "document_sha": null,
+      "locator_type": "prose",
+      "locator": null,
+      "span": "Detailed phase 3 efficacy metrics (e.g., HRs) were not disclosed; OS and other secondary endpoints remain immature, while safety was consistent with prior combination experience.",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-09-03",
+      "on_page": true
+    },
+    "a68b47eb6cccef47": {
+      "sentence": "The OncLive article was obtained on 3 September, attributes the figures to the phase 2b trial like the rest, and is named again.",
+      "sentence_sha": "a68b47eb6cccef47",
+      "why_empirical": "names OncLive",
+      "bucket": "judgement",
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-09-03",
+      "on_page": true,
+      "premises": [
+        {
+          "source_id": "S017",
+          "span": "Five-year follow-up data from the phase 2b KEYNOTE-942/mRNA-4157-P201 trial (NCT03897881) presented at the 2026 American Society of Clinical Oncology Annual Meeting showed that the combination reduced the risk of recurrence or death by 49% (HR, 0.51; 95% CI, 0.294-0.887)"
+        }
+      ],
+      "step": "The article is in the library, acquired 3 September after every automated fetch returned 403, and the span above is its own sentence attributing the figures to the phase 2b trial. Naming an outlet the page had removed for want of the document is only honest if the document is now held and says what we say it says; both are checkable against the library and the span."
     }
   }
 }
