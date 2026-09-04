@@ -90,6 +90,33 @@
       "changed": 4,
       "at": "2026-09-04T00:55:29+00:00",
       "findings": []
+    },
+    {
+      "sha": "dd5c320e8e9c2fe2",
+      "against": "540087e",
+      "changed": 37,
+      "at": "2026-09-04T13:13:57+00:00",
+      "findings": [
+        {
+          "sentence": "The single most useful question to ask of a hazard-ratio interval: does it cross 1.0?",
+          "kind": "NEW_AND_UNBOUND",
+          "why": "carries 1.0 and rests on nothing this system can name",
+          "other": ""
+        },
+        {
+          "sentence": "Because for a hazard ratio, 1.0 means no difference at all.",
+          "kind": "NEW_AND_UNBOUND",
+          "why": "carries 1.0 and rests on nothing this system can name",
+          "other": ""
+        }
+      ]
+    },
+    {
+      "sha": "dd5c320e8e9c2fe2",
+      "against": "540087e",
+      "changed": 37,
+      "at": "2026-09-04T13:14:23+00:00",
+      "findings": []
     }
   ]
 }

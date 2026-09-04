@@ -225,6 +225,13 @@ findings = _sibling("findings")
 # nobody has read -- and corrections are where a third of the errors come from.
 # Three cents a run. See changecheck.py.
 changecheck = _sibling("changecheck")
+# B17: the source list a READER sees, against the sources the bindings name.
+# B9 runs the other way -- every link on the page must be a source we hold --
+# and nothing ran this way, so thirteen of the twenty-two documents issue one
+# rests on were absent from the list, under a sentence telling readers a check
+# refused to publish the page otherwise. There was no such check. See
+# sources_shown.py.
+sources_shown = _sibling("sources_shown")
 
 # The spend ledger. Fourteen of the fifteen scripts in this repo that make
 # priced model calls record nothing about what they cost, and the one that does
@@ -1219,6 +1226,12 @@ def preflight(slug: str, *, for_email: bool,
                     "the check did not run: %s — an unrun check is not a pass"
                     % str(exc)[:120]))
     out.extend(inherited.preflight_rows(slug, _ptext))
+    try:
+        out.extend(sources_shown.preflight_rows(slug, page.read_text(encoding="utf-8")))
+    except BaseException as exc:
+        out.append(("every document the piece rests on is in the list a reader sees",
+                    BAD, "the check did not run: %s — an unrun check is not a pass"
+                    % str(exc)[:120]))
     # Reads the page's own markup, not the flattened text: the extractor strips
     # tags itself and needs the quotation marks as the page sets them.
     out.extend(quotations.preflight_rows(slug, page.read_text(encoding="utf-8"), page))

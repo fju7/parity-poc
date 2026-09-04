@@ -135,8 +135,13 @@ def at(rev: str, path: str) -> str:
 def deterministic(slug: str, new: list[str]) -> list[dict]:
     """The two questions that need no model."""
     doc = B.load(slug)
+    # A JUDGEMENT rests on premises, not on a single span -- that is what the
+    # bucket means. Testing only for `span` reported two correctly-bound
+    # inferences as "resting on nothing this system can name", which is the
+    # check describing an absence it was not equipped to see. Both shapes count
+    # as bound; a row with neither still does not.
     bound = {r["sentence"][:80] for r in (doc.get("bindings") or {}).values()
-             if r.get("span")}
+             if r.get("span") or r.get("premises")}
     out = []
     for s in new:
         figs = [m.group(1).replace(",", "")

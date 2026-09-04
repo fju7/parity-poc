@@ -45,7 +45,7 @@ effect is.
 
 WHAT THE FULL ASSESSMENT ADDS
 
-Every figure above traces to a company release, a peer-reviewed paper or a trial registry record, and none to a news report. Every sentence in the assessment names the words in that document which support it. Since this issue first went out it has been through an independent outside review and four adversarial checks, and each of them found something. What they changed is recorded at the bottom of the page, including where a correction of ours was itself wrong. Before publishing we read the specialist coverage
+Every figure above traces to a company release, a peer-reviewed paper, a conference abstract or a trial registry record. Two do not: the hazard ratios inside the announcement-day post are quoted from the roundup that logged them, because a figure circulating under the wrong trial's name is what that paragraph is about. Every sentence in the assessment names the words in that document which support it. Since this issue first went out it has been through an independent outside review and four adversarial checks, and each of them found something. What they changed is recorded at the bottom of the page, including where a correction of ours was itself wrong. Before publishing we read the specialist coverage
 of the announcement, and it got the attribution right: the 49% and
 59% belong to the earlier trial, and most said plainly that the
 Phase 3 numbers had not been released.

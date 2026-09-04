@@ -451,6 +451,654 @@
       "now": "The Melanoma Result - What Holds Up What Holds Up What this is Issue one Issue two Who pays for this Issue one Evidence review Published 26 August 2026 · Updated 28 August 2026 · event dated 19 August 2026 The Melanoma Result whatholdsup.org Merck and Moderna announced that a large trial of a personalised mRNA cancer therapy succeeded in melanoma.",
       "because": "NAV-001",
       "note": "issue two was published on 28 August and linked from nowhere but its own navigation bar. This page's nav now carries it. A published page was edited and nothing recorded it until the reconciliation refused to pass -- which is the check doing exactly what it is for, on the person who wrote it."
+    },
+    {
+      "at": "2026-09-04T13:13:42+00:00",
+      "by": "claude",
+      "kind": "changed",
+      "was": "This is what was actually released, what was not, and what the numbers underneath it will and will not support. 1,137 patients in the Phase 3 trial 0 Phase 3 efficacy numbers released 14 deaths the whole survival analysis 0.165-1.345 the interval around that trend The short version The Phase 3 announcement reports no numerical Phase 3 results.",
+      "now": "This is what was actually released, what was not, and what the numbers underneath it will and will not support. 1,137 patients in the Phase 3 trial 0 Phase 3 efficacy numbers in the announcement 14 deaths the whole survival analysis 0.165-1.345 the interval around that trend The short version The Phase 3 announcement reports no numerical Phase 3 results.",
+      "because": "OR-0904-2",
+      "note": "The stat card claimed a zero over the world; its own binding recorded that mismatch and we shipped it anyway. Scoped to the announcement, which is what S001 supports."
+    },
+    {
+      "at": "2026-09-04T13:13:42+00:00",
+      "by": "claude",
+      "kind": "changed",
+      "was": "The single most useful question to ask of any interval: does it cross 1.0?",
+      "now": "The single most useful question to ask of a hazard-ratio interval: does it cross 1.0?",
+      "because": "OR-0904-3",
+      "note": "1.0 is the no-difference value for a ratio, not for every interval; a difference between two rates has 0. Narrowed, and the measure-dependence stated."
+    },
+    {
+      "at": "2026-09-04T13:13:42+00:00",
+      "by": "claude",
+      "kind": "changed",
+      "was": "Because 1.0 means no difference at all.",
+      "now": "Because for a hazard ratio, 1.0 means no difference at all.",
+      "because": "OR-0904-3",
+      "note": "1.0 is the no-difference value for a ratio, not for every interval; a difference between two rates has 0. Narrowed, and the measure-dependence stated."
+    },
+    {
+      "at": "2026-09-04T13:13:42+00:00",
+      "by": "claude",
+      "kind": "changed",
+      "was": "If the range includes 1.0, then \"this treatment does nothing\" is still among the possibilities the data cannot rule out.",
+      "now": "(The no-difference value depends on the measure: it is 1.0 for a ratio, and 0 for a difference between two rates.) If the range includes 1.0, then \"this treatment does nothing\" is still among the possibilities the data cannot rule out.",
+      "because": "OR-0904-3",
+      "note": "1.0 is the no-difference value for a ratio, not for every interval; a difference between two rates has 0. Narrowed, and the measure-dependence stated."
+    },
+    {
+      "at": "2026-09-04T13:13:42+00:00",
+      "by": "claude",
+      "kind": "changed",
+      "was": "No p-value was released for this survival analysis at all, which is what a descriptive analysis means: the figures are reported, and nothing is being tested against a threshold registered in advance. p-value p The probability of seeing a result at least this good if the treatment actually did nothing .",
+      "now": "No p-value was released for this survival analysis at all, which is what a descriptive analysis means: the figures are reported, and nothing is being tested against a threshold registered in advance. p-value p How compatible the data are with a model in which the treatment did nothing - and in which every other assumption behind the analysis holds.",
+      "because": "OR-0904-4",
+      "note": "The p-value definition conditioned only on the treatment doing nothing and called a small p a fluke. S022, which we hold and cite, defines it on every model assumption. Rewritten to S022's own compatibility framing."
+    },
+    {
+      "at": "2026-09-04T13:13:42+00:00",
+      "by": "claude",
+      "kind": "changed",
+      "was": "A small p-value means the result would be a surprising fluke.",
+      "now": "By convention, below 0.05 is called statistically significant: an arbitrary line, but a widely used one.",
+      "because": "OR-0904-4",
+      "note": "The p-value definition conditioned only on the treatment doing nothing and called a small p a fluke. S022, which we hold and cite, defines it on every model assumption. Rewritten to S022's own compatibility framing."
+    },
+    {
+      "at": "2026-09-04T13:13:42+00:00",
+      "by": "claude",
+      "kind": "removed",
+      "was": "By convention, below 0.05 is called statistically significant - an arbitrary line, but a widely used one.",
+      "now": "",
+      "because": "OR-0904-4",
+      "note": "The p-value definition conditioned only on the treatment doing nothing and called a small p a fluke. S022, which we hold and cite, defines it on every model assumption. Rewritten to S022's own compatibility framing."
+    },
+    {
+      "at": "2026-09-04T13:13:42+00:00",
+      "by": "claude",
+      "kind": "changed",
+      "was": "That is a claim about PD-1 inhibitors and not about adjuvant checkpoint inhibitors as a class; a CTLA-4 inhibitor is a different drug against a different target, and this page holds no document about one.",
+      "now": "That is a claim about PD-1 inhibitors and not about adjuvant checkpoint inhibitors as a class; a CTLA-4 inhibitor is a different drug against a different target.",
+      "because": "OR-0904-6",
+      "note": "The page holds CheckMate 238's registry record and that trial studies ipilimumab, a CTLA-4 antibody, so the clause was false about our own library. Deleted."
+    },
+    {
+      "at": "2026-09-04T13:13:42+00:00",
+      "by": "claude",
+      "kind": "changed",
+      "was": "Morning Glory Sciences - an outlet we can find no other publication citing, so we give the argument on its merits rather than on its authority - the Phase 2b population was stage IIIB-IV, the Phase 3 adds node-negative disease, and \"absolute recurrence risk in that group is lower, so the same hazard ratio delivers a smaller absolute benefit.\" Pharmacy Times makes the opposite case about the same patients: resected stage IIB or IIC melanoma \"can face risks of recurrence and melanoma-specific mortality similar to those observed in stage III disease.\" Neither reading appears in any of the general coverage we hold.",
+      "now": "Morning Glory Sciences - a specialist outlet, and we give its argument on its merits - the Phase 2b population was stage IIIB-IV, the Phase 3 adds node-negative disease, and \"absolute recurrence risk in that group is lower, so the same hazard ratio delivers a smaller absolute benefit.\" Pharmacy Times makes the opposite case about the same patients: resected stage IIB or IIC melanoma \"can face risks of recurrence and melanoma-specific mortality similar to those observed in stage III disease.\" Neither reading appears in any of the general coverage we hold.",
+      "because": "OR-0904-1",
+      "note": "A universal negative over the whole literature, resting on one search on one day, used to discount a source the paragraph then relies on. We cannot defend it; deleted."
+    },
+    {
+      "at": "2026-09-04T13:13:42+00:00",
+      "by": "claude",
+      "kind": "removed",
+      "was": "Those newly-included patients start at lower risk of recurrence, which leaves less room for absolute benefit, and Pharmacy Times' counter is that their risk may be closer to stage III than the staging suggests.",
+      "now": "",
+      "because": "OR-0904-5",
+      "note": "The paragraph above says the question cannot be settled from anything published, and this sentence settled it. Deleted; the sentence after it already states what the evidence carries."
+    },
+    {
+      "at": "2026-09-04T13:13:42+00:00",
+      "by": "claude",
+      "kind": "changed",
+      "was": "Until it reads out on enough events, the honest sentence is that this therapy reduces recurrence and distant metastasis - and that whether it extends life is an open question rather than a settled no.",
+      "now": "Until it reads out on enough events, the honest sentence is that this therapy reduces recurrence or death, and distant metastasis or death - and that whether it extends life is an open question rather than a settled no.",
+      "because": "OR-0904-7",
+      "note": "Rule 3. The last two places where the composite had lost 'or death'."
+    },
+    {
+      "at": "2026-09-04T13:13:42+00:00",
+      "by": "claude",
+      "kind": "changed",
+      "was": "It is a figure from 157 patients in an open-label study, not the result announced this month - and it describes a rate of recurrence, not a share of patients cured.",
+      "now": "It is a figure from 157 patients in an open-label study, not the result announced this month - and it describes a rate of recurrence or death, not a share of patients cured.",
+      "because": "OR-0904-7",
+      "note": "Rule 3. The last two places where the composite had lost 'or death'."
+    },
+    {
+      "at": "2026-09-04T13:13:42+00:00",
+      "by": "claude",
+      "kind": "changed",
+      "was": "Sources Primary sources first.",
+      "now": "Sources Primary sources first, then the trial registries, then the coverage and the statistical references.",
+      "because": "OR-0904-8",
+      "note": "Thirteen of the twenty-two documents the piece rests on were missing from the list a reader sees, and the sentence introducing it described a check that did not exist. All thirteen added; the claim rewritten to the check that now exists (B17, sources_shown.py)."
+    },
+    {
+      "at": "2026-09-04T13:13:42+00:00",
+      "by": "claude",
+      "kind": "changed",
+      "was": "Every number above traces to one of these, and none to a news report - a check that runs before this page can publish refuses it otherwise.",
+      "now": "This is every document the piece rests on: each sentence carrying a figure, a trial name or a registry id is bound to one of them, at a named passage, and a check refuses to publish the page if any of those bindings is missing or does not match the document's bytes.",
+      "because": "OR-0904-8",
+      "note": "Thirteen of the twenty-two documents the piece rests on were missing from the list a reader sees, and the sentence introducing it described a check that did not exist. All thirteen added; the claim rewritten to the check that now exists (B17, sources_shown.py)."
+    },
+    {
+      "at": "2026-09-04T13:13:42+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "Every effect size we report for either trial comes from a company release, a peer-reviewed paper or a conference abstract.",
+      "because": "OR-0904-8",
+      "note": "Thirteen of the twenty-two documents the piece rests on were missing from the list a reader sees, and the sentence introducing it described a check that did not exist. All thirteen added; the claim rewritten to the check that now exists (B17, sources_shown.py)."
+    },
+    {
+      "at": "2026-09-04T13:13:42+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "The coverage is listed because the piece makes claims about what it said - and, in one case, because a hazard ratio reaches this page only as something quoted inside it, which is the subject of the paragraph that quotes it.",
+      "because": "OR-0904-8",
+      "note": "Thirteen of the twenty-two documents the piece rests on were missing from the list a reader sees, and the sentence introducing it described a check that did not exist. All thirteen added; the claim rewritten to the check that now exists (B17, sources_shown.py)."
+    },
+    {
+      "at": "2026-09-04T13:13:42+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "Primary KEYNOTE-942 five-year update - ASCO 2026 abstract 9500 J Clin Oncol 44 (suppl 16; abstr 9500).",
+      "because": "OR-0904-8",
+      "note": "Thirteen of the twenty-two documents the piece rests on were missing from the list a reader sees, and the sentence introducing it described a check that did not exist. All thirteen added; the claim rewritten to the check that now exists (B17, sources_shown.py)."
+    },
+    {
+      "at": "2026-09-04T13:13:42+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "Source of the five-year landmark rates, 68.8% against 49.1% recurrence-free.",
+      "because": "OR-0904-8",
+      "note": "Thirteen of the twenty-two documents the piece rests on were missing from the list a reader sees, and the sentence introducing it described a check that did not exist. All thirteen added; the claim rewritten to the check that now exists (B17, sources_shown.py)."
+    },
+    {
+      "at": "2026-09-04T13:13:42+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "Also of the five-year survival rates, 92.2% against 71.3%, and the intervals on both.",
+      "because": "OR-0904-8",
+      "note": "Thirteen of the twenty-two documents the piece rests on were missing from the list a reader sees, and the sentence introducing it described a check that did not exist. All thirteen added; the claim rewritten to the check that now exists (B17, sources_shown.py)."
+    },
+    {
+      "at": "2026-09-04T13:13:42+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "The full paper reports its landmark rates only to 48 months, which is why these come from here.",
+      "because": "OR-0904-8",
+      "note": "Thirteen of the twenty-two documents the piece rests on were missing from the list a reader sees, and the sentence introducing it described a check that did not exist. All thirteen added; the claim rewritten to the check that now exists (B17, sources_shown.py)."
+    },
+    {
+      "at": "2026-09-04T13:13:42+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "Registry INTerpath-001 - ClinicalTrials.gov, NCT05933577 Checked 2 September 2026.",
+      "because": "OR-0904-8",
+      "note": "Thirteen of the twenty-two documents the piece rests on were missing from the list a reader sees, and the sentence introducing it described a check that did not exist. All thirteen added; the claim rewritten to the check that now exists (B17, sources_shown.py)."
+    },
+    {
+      "at": "2026-09-04T13:13:42+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "Carries no posted results, gives an estimated primary completion date of 26 October 2029, and records the August readout as a prespecified interim analysis.",
+      "because": "OR-0904-8",
+      "note": "Thirteen of the twenty-two documents the piece rests on were missing from the list a reader sees, and the sentence introducing it described a check that did not exist. All thirteen added; the claim rewritten to the check that now exists (B17, sources_shown.py)."
+    },
+    {
+      "at": "2026-09-04T13:13:42+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "Registry KEYNOTE-054 - ClinicalTrials.gov, NCT02362594 Pembrolizumab against placebo.",
+      "because": "OR-0904-8",
+      "note": "Thirteen of the twenty-two documents the piece rests on were missing from the list a reader sees, and the sentence introducing it described a check that did not exist. All thirteen added; the claim rewritten to the check that now exists (B17, sources_shown.py)."
+    },
+    {
+      "at": "2026-09-04T13:13:42+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "Lists overall survival as a secondary endpoint and marks that result NOT_POSTED, with a posting date of November 2026.",
+      "because": "OR-0904-8",
+      "note": "Thirteen of the twenty-two documents the piece rests on were missing from the list a reader sees, and the sentence introducing it described a check that did not exist. All thirteen added; the claim rewritten to the check that now exists (B17, sources_shown.py)."
+    },
+    {
+      "at": "2026-09-04T13:13:42+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "Registry KEYNOTE-716 - ClinicalTrials.gov, NCT03553836 Pembrolizumab against placebo.",
+      "because": "OR-0904-8",
+      "note": "Thirteen of the twenty-two documents the piece rests on were missing from the list a reader sees, and the sentence introducing it described a check that did not exist. All thirteen added; the claim rewritten to the check that now exists (B17, sources_shown.py)."
+    },
+    {
+      "at": "2026-09-04T13:13:42+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "Overall survival a secondary endpoint, NOT_POSTED, posting date October 2033.",
+      "because": "OR-0904-8",
+      "note": "Thirteen of the twenty-two documents the piece rests on were missing from the list a reader sees, and the sentence introducing it described a check that did not exist. All thirteen added; the claim rewritten to the check that now exists (B17, sources_shown.py)."
+    },
+    {
+      "at": "2026-09-04T13:13:42+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "Registry CheckMate 238 - ClinicalTrials.gov, NCT02388906 Source of the arm labels quoted in the text.",
+      "because": "OR-0904-8",
+      "note": "Thirteen of the twenty-two documents the piece rests on were missing from the list a reader sees, and the sentence introducing it described a check that did not exist. All thirteen added; the claim rewritten to the check that now exists (B17, sources_shown.py)."
+    },
+    {
+      "at": "2026-09-04T13:13:42+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "Both arms receive an active drug, which is why this trial cannot bear on the placebo question.",
+      "because": "OR-0904-8",
+      "note": "Thirteen of the twenty-two documents the piece rests on were missing from the list a reader sees, and the sentence introducing it described a check that did not exist. All thirteen added; the claim rewritten to the check that now exists (B17, sources_shown.py)."
+    },
+    {
+      "at": "2026-09-04T13:13:42+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "Trade MLQ News - personalized melanoma therapy meets two Phase 3 endpoints Quoted for its own statement of what was not disclosed.",
+      "because": "OR-0904-8",
+      "note": "Thirteen of the twenty-two documents the piece rests on were missing from the list a reader sees, and the sentence introducing it described a check that did not exist. All thirteen added; the claim rewritten to the check that now exists (B17, sources_shown.py)."
+    },
+    {
+      "at": "2026-09-04T13:13:42+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "Trade Practical Dermatology - Intismeran plus pembrolizumab meets dual Phase 3 endpoints Quoted for its own statement of what was not disclosed.",
+      "because": "OR-0904-8",
+      "note": "Thirteen of the twenty-two documents the piece rests on were missing from the list a reader sees, and the sentence introducing it described a check that did not exist. All thirteen added; the claim rewritten to the check that now exists (B17, sources_shown.py)."
+    },
+    {
+      "at": "2026-09-04T13:13:42+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "Trade Dermatology Times - mRNA-based melanoma vaccine meets primary endpoints Quoted for its own statement of what was not disclosed.",
+      "because": "OR-0904-8",
+      "note": "Thirteen of the twenty-two documents the piece rests on were missing from the list a reader sees, and the sentence introducing it described a check that did not exist. All thirteen added; the claim rewritten to the check that now exists (B17, sources_shown.py)."
+    },
+    {
+      "at": "2026-09-04T13:13:42+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "Trade OncLive - Intismeran autogene plus pembrolizumab meets RFS, DMFS end points Obtained 3 September 2026.",
+      "because": "OR-0904-8",
+      "note": "Thirteen of the twenty-two documents the piece rests on were missing from the list a reader sees, and the sentence introducing it described a check that did not exist. All thirteen added; the claim rewritten to the check that now exists (B17, sources_shown.py)."
+    },
+    {
+      "at": "2026-09-04T13:13:42+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "Part of the outlet-by-outlet attribution check.",
+      "because": "OR-0904-8",
+      "note": "Thirteen of the twenty-two documents the piece rests on were missing from the list a reader sees, and the sentence introducing it described a check that did not exist. All thirteen added; the claim rewritten to the check that now exists (B17, sources_shown.py)."
+    },
+    {
+      "at": "2026-09-04T13:13:42+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "Trade KOL Pulse - INTerpath-001 trial profile Source of the announcement-day post quoted in the text, and of the same page's warning that the hazard ratios circulating that day are Phase 2b figures.",
+      "because": "OR-0904-8",
+      "note": "Thirteen of the twenty-two documents the piece rests on were missing from the list a reader sees, and the sentence introducing it described a check that did not exist. All thirteen added; the claim rewritten to the check that now exists (B17, sources_shown.py)."
+    },
+    {
+      "at": "2026-09-04T13:13:42+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "Reference Greenland, Senn, Rothman, Carlin, Poole, Goodman, Altman - Statistical tests, P values, confidence intervals, and power Eur J Epidemiol, 2016.",
+      "because": "OR-0904-8",
+      "note": "Thirteen of the twenty-two documents the piece rests on were missing from the list a reader sees, and the sentence introducing it described a check that did not exist. All thirteen added; the claim rewritten to the check that now exists (B17, sources_shown.py)."
+    },
+    {
+      "at": "2026-09-04T13:13:42+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "The source for what a p-value is and is not, including that it is computed on every model assumption and not on the treatment hypothesis alone.",
+      "because": "OR-0904-8",
+      "note": "Thirteen of the twenty-two documents the piece rests on were missing from the list a reader sees, and the sentence introducing it described a check that did not exist. All thirteen added; the claim rewritten to the check that now exists (B17, sources_shown.py)."
+    },
+    {
+      "at": "2026-09-04T13:13:42+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "Reference Singh, Mukhopadhyay - Survival analysis in clinical trials Perspect Clin Res, 2011.",
+      "because": "OR-0904-8",
+      "note": "Thirteen of the twenty-two documents the piece rests on were missing from the list a reader sees, and the sentence introducing it described a check that did not exist. All thirteen added; the claim rewritten to the check that now exists (B17, sources_shown.py)."
+    },
+    {
+      "at": "2026-09-04T13:13:42+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "The source for what a hazard ratio measures and why 1.0 is its no-difference value.",
+      "because": "OR-0904-8",
+      "note": "Thirteen of the twenty-two documents the piece rests on were missing from the list a reader sees, and the sentence introducing it described a check that did not exist. All thirteen added; the claim rewritten to the check that now exists (B17, sources_shown.py)."
+    },
+    {
+      "at": "2026-09-04T13:13:42+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "Reference Survival Analysis - StatPearls, NCBI Bookshelf Source for the direction of a hazard ratio either side of 1.0.",
+      "because": "OR-0904-8",
+      "note": "Thirteen of the twenty-two documents the piece rests on were missing from the list a reader sees, and the sentence introducing it described a check that did not exist. All thirteen added; the claim rewritten to the check that now exists (B17, sources_shown.py)."
+    },
+    {
+      "at": "2026-09-04T13:13:42+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "Updated 4 September 2026 - an outside review, and the two days before it.",
+      "because": "OR-0904-9",
+      "note": "The change log's last heading was 2 September while the header said 4 September and the text beneath described 3 September. A 4 September entry covering the two missing days and this review."
+    },
+    {
+      "at": "2026-09-04T13:13:42+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "The entry above is dated 2 September and the changes below are not in it.",
+      "because": "OR-0904-9",
+      "note": "The change log's last heading was 2 September while the header said 4 September and the text beneath described 3 September. A 4 September entry covering the two missing days and this review."
+    },
+    {
+      "at": "2026-09-04T13:13:42+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "That gap is itself one of the things a reviewer found today, and this entry closes it.",
+      "because": "OR-0904-9",
+      "note": "The change log's last heading was 2 September while the header said 4 September and the text beneath described 3 September. A 4 September entry covering the two missing days and this review."
+    },
+    {
+      "at": "2026-09-04T13:13:42+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "On 3 September.",
+      "because": "OR-0904-9",
+      "note": "The change log's last heading was 2 September while the header said 4 September and the text beneath described 3 September. A 4 September entry covering the two missing days and this review."
+    },
+    {
+      "at": "2026-09-04T13:13:42+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "We had written that the programme contained a single survival figure.",
+      "because": "OR-0904-9",
+      "note": "The change log's last heading was 2 September while the header said 4 September and the text beneath described 3 September. A 4 September entry covering the two missing days and this review."
+    },
+    {
+      "at": "2026-09-04T13:13:42+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "It contains two: the three-year paper reports a hazard ratio of 0.425 on nine deaths, with an 80% interval of 0.179 to 1.004, beside the five-year 0.471 on fourteen.",
+      "because": "OR-0904-9",
+      "note": "The change log's last heading was 2 September while the header said 4 September and the text beneath described 3 September. A 4 September entry covering the two missing days and this review."
+    },
+    {
+      "at": "2026-09-04T13:13:42+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "Both are on the page now, and the sentence that said there was only one is gone - it was found by a check we built that afternoon to look for exactly that kind of claim.",
+      "because": "OR-0904-9",
+      "note": "The change log's last heading was 2 September while the header said 4 September and the text beneath described 3 September. A 4 September entry covering the two missing days and this review."
+    },
+    {
+      "at": "2026-09-04T13:13:42+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "The composite readers saw did not match its own working: the scorecard showed 3.4 where the dimensions underneath it come to 3.35.",
+      "because": "OR-0904-9",
+      "note": "The change log's last heading was 2 September while the header said 4 September and the text beneath described 3 September. A 4 September entry covering the two missing days and this review."
+    },
+    {
+      "at": "2026-09-04T13:13:42+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "The scorecard was split into two numbers, because the study and the evidence released about it are different questions and one number was wrong about both.",
+      "because": "OR-0904-9",
+      "note": "The change log's last heading was 2 September while the header said 4 September and the text beneath described 3 September. A 4 September entry covering the two missing days and this review."
+    },
+    {
+      "at": "2026-09-04T13:13:42+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "And a sentence saying indirect comparisons had suggested a survival signal was removed: no document we hold says it.",
+      "because": "OR-0904-9",
+      "note": "The change log's last heading was 2 September while the header said 4 September and the text beneath described 3 September. A 4 September entry covering the two missing days and this review."
+    },
+    {
+      "at": "2026-09-04T13:13:42+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "On 4 September, before the review.",
+      "because": "OR-0904-9",
+      "note": "The change log's last heading was 2 September while the header said 4 September and the text beneath described 3 September. A 4 September entry covering the two missing days and this review."
+    },
+    {
+      "at": "2026-09-04T13:13:42+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "Three sentences contradicted the care taken elsewhere in the piece and were corrected: a section heading that the section below it retracts, a description of an interval \"crossing\" a threshold two sentences after saying no threshold was crossed, and a claim about general coverage that we had not read.",
+      "because": "OR-0904-9",
+      "note": "The change log's last heading was 2 September while the header said 4 September and the text beneath described 3 September. A 4 September entry covering the two missing days and this review."
+    },
+    {
+      "at": "2026-09-04T13:13:42+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "A paragraph was added quoting the announcement-day post that put the earlier trial's hazard ratios under the Phase 3's name, and the outlet's own warning about it.",
+      "because": "OR-0904-9",
+      "note": "The change log's last heading was 2 September while the header said 4 September and the text beneath described 3 September. A 4 September entry covering the two missing days and this review."
+    },
+    {
+      "at": "2026-09-04T13:13:42+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "What the outside review changed, later on 4 September.",
+      "because": "OR-0904-9",
+      "note": "The change log's last heading was 2 September while the header said 4 September and the text beneath described 3 September. A 4 September entry covering the two missing days and this review."
+    },
+    {
+      "at": "2026-09-04T13:13:42+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "An independent reviewer read the piece cold and returned nine items.",
+      "because": "OR-0904-9",
+      "note": "The change log's last heading was 2 September while the header said 4 September and the text beneath described 3 September. A 4 September entry covering the two missing days and this review."
+    },
+    {
+      "at": "2026-09-04T13:13:42+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "All nine were accepted.",
+      "because": "OR-0904-9",
+      "note": "The change log's last heading was 2 September while the header said 4 September and the text beneath described 3 September. A 4 September entry covering the two missing days and this review."
+    },
+    {
+      "at": "2026-09-04T13:13:42+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "We removed the claim that no other publication cites Morning Glory Sciences - a statement about the whole of the literature that we cannot defend, used to discount a source whose argument we then rely on.",
+      "because": "OR-0904-1",
+      "note": "A universal negative over the whole literature, resting on one search on one day, used to discount a source the paragraph then relies on. We cannot defend it; deleted."
+    },
+    {
+      "at": "2026-09-04T13:13:42+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "We removed a sentence saying the patients the Phase 3 adds start at lower recurrence risk: the paragraph above it says that question cannot be settled from anything published, and then this sentence settled it.",
+      "because": "OR-0904-5",
+      "note": "The paragraph above says the question cannot be settled from anything published, and this sentence settled it. Deleted; the sentence after it already states what the evidence carries."
+    },
+    {
+      "at": "2026-09-04T13:13:42+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "We removed the claim that this page holds no document about a CTLA-4 inhibitor, which the same paragraph disproves - CheckMate 238 studies ipilimumab, and we hold its registry record.",
+      "because": "OR-0904-6",
+      "note": "The page holds CheckMate 238's registry record and that trial studies ipilimumab, a CTLA-4 antibody, so the clause was false about our own library. Deleted."
+    },
+    {
+      "at": "2026-09-04T13:13:42+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "The p-value definition said a small p-value means a surprising fluke and conditioned only on the treatment doing nothing; a p-value is computed on every assumption in the model, which the reference we cite says in those words and which the callout beneath it already said.",
+      "because": "OR-0904-4",
+      "note": "The p-value definition conditioned only on the treatment doing nothing and called a small p a fluke. S022, which we hold and cite, defines it on every model assumption. Rewritten to S022's own compatibility framing."
+    },
+    {
+      "at": "2026-09-04T13:13:42+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "\"The single most useful question to ask of any interval\" is true of ratios, not of every interval, and now says so.",
+      "because": "OR-0904-3",
+      "note": "1.0 is the no-difference value for a ratio, not for every interval; a difference between two rates has 0. Narrowed, and the measure-dependence stated."
+    },
+    {
+      "at": "2026-09-04T13:13:42+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "Two more places had dropped death from a composite endpoint.",
+      "because": "OR-0904-7",
+      "note": "Rule 3. The last two places where the composite had lost 'or death'."
+    },
+    {
+      "at": "2026-09-04T13:13:42+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "The stat card reading \"0 Phase 3 efficacy numbers released\" claimed a zero over the world when what we can show is a zero in the announcement; it now says so.",
+      "because": "OR-0904-2",
+      "note": "The stat card claimed a zero over the world; its own binding recorded that mismatch and we shipped it anyway. Scoped to the announcement, which is what S001 supports."
+    },
+    {
+      "at": "2026-09-04T13:13:42+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "And the source list was not the source list.",
+      "because": "OR-0904-8",
+      "note": "Thirteen of the twenty-two documents the piece rests on were missing from the list a reader sees, and the sentence introducing it described a check that did not exist. All thirteen added; the claim rewritten to the check that now exists (B17, sources_shown.py)."
+    },
+    {
+      "at": "2026-09-04T13:13:42+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "The reviewer found that the five-year landmark rates trace to the ASCO abstract, which was not among the sources shown to readers.",
+      "because": "OR-0904-8",
+      "note": "Thirteen of the twenty-two documents the piece rests on were missing from the list a reader sees, and the sentence introducing it described a check that did not exist. All thirteen added; the claim rewritten to the check that now exists (B17, sources_shown.py)."
+    },
+    {
+      "at": "2026-09-04T13:13:42+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "Checking it properly, thirteen of the twenty-two documents this piece rests on were missing from that list - the three other trial registries, the statistical references, and the coverage quoted for what it said.",
+      "because": "OR-0904-8",
+      "note": "Thirteen of the twenty-two documents the piece rests on were missing from the list a reader sees, and the sentence introducing it described a check that did not exist. All thirteen added; the claim rewritten to the check that now exists (B17, sources_shown.py)."
+    },
+    {
+      "at": "2026-09-04T13:13:42+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "The list above now carries all of them.",
+      "because": "OR-0904-8",
+      "note": "Thirteen of the twenty-two documents the piece rests on were missing from the list a reader sees, and the sentence introducing it described a check that did not exist. All thirteen added; the claim rewritten to the check that now exists (B17, sources_shown.py)."
+    },
+    {
+      "at": "2026-09-04T13:13:42+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "The sentence introducing it claimed that a check refuses to publish the page otherwise.",
+      "because": "OR-0904-8",
+      "note": "Thirteen of the twenty-two documents the piece rests on were missing from the list a reader sees, and the sentence introducing it described a check that did not exist. All thirteen added; the claim rewritten to the check that now exists (B17, sources_shown.py)."
+    },
+    {
+      "at": "2026-09-04T13:13:42+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "No such check existed: the one we had runs the other way, testing that every link on the page is a source we hold, and nothing tested that every source the page rests on is a link the reader can see.",
+      "because": "OR-0904-8",
+      "note": "Thirteen of the twenty-two documents the piece rests on were missing from the list a reader sees, and the sentence introducing it described a check that did not exist. All thirteen added; the claim rewritten to the check that now exists (B17, sources_shown.py)."
+    },
+    {
+      "at": "2026-09-04T13:13:42+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "That check now exists and runs before publication.",
+      "because": "OR-0904-8",
+      "note": "Thirteen of the twenty-two documents the piece rests on were missing from the list a reader sees, and the sentence introducing it described a check that did not exist. All thirteen added; the claim rewritten to the check that now exists (B17, sources_shown.py)."
+    },
+    {
+      "at": "2026-09-04T13:13:42+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "Describing a control we did not have is the more serious half of this, and it sat in the sentence asking readers to trust the list.",
+      "because": "OR-0904-8",
+      "note": "Thirteen of the twenty-two documents the piece rests on were missing from the list a reader sees, and the sentence introducing it described a check that did not exist. All thirteen added; the claim rewritten to the check that now exists (B17, sources_shown.py)."
+    },
+    {
+      "at": "2026-09-04T13:13:42+00:00",
+      "by": "claude",
+      "kind": "changed",
+      "was": "Every figure above traces to a company release, a peer-reviewed paper or a trial registry record, and none to a news report.",
+      "now": "Every figure above traces to a company release, a peer-reviewed paper, a conference abstract or a trial registry record.",
+      "because": "OR-0904-8",
+      "note": "Thirteen of the twenty-two documents the piece rests on were missing from the list a reader sees, and the sentence introducing it described a check that did not exist. All thirteen added; the claim rewritten to the check that now exists (B17, sources_shown.py)."
+    },
+    {
+      "at": "2026-09-04T13:13:42+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "Two do not: the hazard ratios inside the announcement-day post are quoted from the roundup that logged them, because a figure circulating under the wrong trial's name is what that paragraph is about.",
+      "because": "OR-0904-8",
+      "note": "Thirteen of the twenty-two documents the piece rests on were missing from the list a reader sees, and the sentence introducing it described a check that did not exist. All thirteen added; the claim rewritten to the check that now exists (B17, sources_shown.py)."
     }
   ]
 }

@@ -286,7 +286,10 @@
       "kind": "document",
       "kind_why": "form 'record' — 121601 characters held. The article test does not apply to this form",
       "superseded": [],
-      "also_held": []
+      "also_held": [],
+      "access": {
+        "note": "URL normalised 2026-09-04 from https://clinicaltrials.gov/api/v2/studies/NCT03553836 to the record's human page. Same document; the API path was how we fetched it, not an address a reader can follow, and it was the only registry record in this issue not carrying its /study/ URL. Found by B16."
+      }
     },
     "S014": {
       "sha256": "379395649fe30712f01537ab60bd7ec7b24766dda5d40491882d378cdab53131",
