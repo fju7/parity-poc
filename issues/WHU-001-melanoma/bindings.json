@@ -6811,6 +6811,82 @@
         "warranted": null
       },
       "first_seen": "2026-09-04",
+      "on_page": false,
+      "check_flags": [],
+      "checked_on": "2026-09-04",
+      "left_page": "2026-09-04"
+    },
+    "2c471e47a9284d63": {
+      "sentence": "Trade The ASCO Post, June 2026 — Vaccine plus pembrolizumab reduces risk of recurrence Not a source of any figure on this page.",
+      "sentence_sha": "2c471e47a9284d63",
+      "why_empirical": "names The ASCO Post, June 2026",
+      "bucket": "context",
+      "source_id": "S015",
+      "document_sha": null,
+      "locator_type": "prose",
+      "locator": null,
+      "span": "Seven patients died during follow-up in each arm",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-09-04",
+      "on_page": false,
+      "check_flags": [
+        {
+          "check": "B6",
+          "verdict": "unmapped scope word",
+          "why": "any — the sentence says 'any' and the span contains no word carrying that force"
+        }
+      ],
+      "checked_on": "2026-09-04",
+      "left_page": "2026-09-04"
+    },
+    "cef178dfc1753f49": {
+      "sentence": "The rates themselves are taken from the ASCO 2026 abstract listed above, and the hazard ratios from the company release.",
+      "sentence_sha": "cef178dfc1753f49",
+      "why_empirical": "names the company release",
+      "bucket": null,
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-09-04",
+      "on_page": false,
+      "left_page": "2026-09-04"
+    },
+    "782422405b88eb42": {
+      "sentence": "Trade The ASCO Post, June 2026 — Vaccine plus pembrolizumab reduces risk of recurrence Where we first read the five-year landmark rates, before we held the ASCO abstract listed above that now supplies them.",
+      "sentence_sha": "782422405b88eb42",
+      "why_empirical": "names The ASCO Post, June 2026",
+      "bucket": "context",
+      "source_id": "S015",
+      "document_sha": null,
+      "locator_type": "prose",
+      "locator": null,
+      "span": "Seven patients died during follow-up in each arm",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-09-04",
       "on_page": true,
       "check_flags": [],
       "checked_on": "2026-09-04"

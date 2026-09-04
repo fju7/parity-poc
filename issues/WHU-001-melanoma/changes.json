@@ -1306,6 +1306,24 @@
       "now": "The separate claim that its printed 3.4 disagreed with its own working of 3.35 was itself wrong - 3.35 rounds to 3.4 - and that is corrected above.",
       "because": "GATE-0904-o1/o2",
       "note": "3.35 rounds to 3.4, so the printed number was right and the correction notice claiming a 0.05 discrepancy was wrong. Our own gate said so on 3 September and we acted on 4 September. All three passages rewritten; what was actually wrong with the composite was its shape, not its arithmetic."
+    },
+    {
+      "at": "2026-09-04T16:09:25+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "Trade The ASCO Post, June 2026 - Vaccine plus pembrolizumab reduces risk of recurrence Where we first read the five-year landmark rates, before we held the ASCO abstract listed above that now supplies them.",
+      "because": "OR-0904-8",
+      "note": "The change review read three source-list entries mentioning five-year data and could not tell which supplied what. The ASCO Post entry now says what it is: where we first read the landmark rates, and the source of one quoted sentence. A first draft of it said 'not a source of any figure on this page' — a universal negative written into a correction, which B6 and B15 both flagged within a minute. Rewritten positively."
+    },
+    {
+      "at": "2026-09-04T16:09:25+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "Source of the quoted Seven patients died during follow-up in each arm .",
+      "because": "OR-0904-8",
+      "note": "The change review read three source-list entries mentioning five-year data and could not tell which supplied what. The ASCO Post entry now says what it is: where we first read the landmark rates, and the source of one quoted sentence. A first draft of it said 'not a source of any figure on this page' — a universal negative written into a correction, which B6 and B15 both flagged within a minute. Rewritten positively."
     }
   ]
 }

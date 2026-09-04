@@ -149,7 +149,16 @@ def deterministic(slug: str, new: list[str]) -> list[dict]:
                 if not b13._is_year(m.group(1).replace(",", ""))]
         if not figs:
             continue
+        # HONOUR THE EXCLUSIONS, LIKE b13 DOES. A figure the page WORKS OUT for
+        # itself -- a scorecard's arithmetic -- is in no document by definition,
+        # and b13 accepts it against a recorded exclusion with a reason and a
+        # falsifier. This pass did not read that file, so every run reported the
+        # same non-defect about 3.35, which is how a check teaches its operator
+        # to skim past it and take the real finding with it.
+        excluded = {r.get("figure") for r in b13.load_exclusions(slug)}
         for f in figs:
+            if f in excluded:
+                continue
             if not b13.where(f, slug):
                 out.append({"sentence": s, "kind": "FIGURE_IN_NOTHING_HELD",
                             "why": "%s is in no document this issue holds, and "
@@ -181,6 +190,35 @@ def review(slug: str, new: list[str], page: str) -> list[dict]:
     return out
 
 
+def finding_key(f: dict) -> str:
+    """Identity of a finding: what it is about and what kind it is."""
+    import hashlib as _h
+    return _h.sha256(("%s|%s" % (f.get("kind"), " ".join(
+        (f.get("sentence") or "").split()))).encode("utf-8")).hexdigest()[:16]
+
+
+def dispositions(slug: str) -> dict:
+    """Findings a person has decided, keyed by finding_key.
+
+    EVERY OTHER CHECK IN THIS REPOSITORY LETS A FINDING BE REJECTED ON THE
+    RECORD -- draft_decisions.json for the gate, the adjudication files for a
+    review, figure-exclusions.json for b13. This one did not: any finding
+    blocked, and the only way past was to change the text or to waive the row.
+    A check that cannot be answered is answered by waiving, and the habit of
+    waiving takes the findings that mattered with it.
+
+    A disposition names the finding, says why, and says what would change it.
+    It is bound to the finding's identity, not to the page's hash, because a
+    reason for rejecting a reading does not stop being a reason when a comma
+    moves -- but the finding must recur for it to apply at all.
+    """
+    try:
+        rec = json.loads(record_path(slug).read_text(encoding="utf-8"))
+    except Exception:
+        return {}
+    return {d["key"]: d for d in (rec.get("dispositions") or []) if d.get("key")}
+
+
 def preflight_rows(slug: str, findings: list[dict],
                    n_changed: int) -> list[tuple[str, str, str]]:
     if not n_changed:
@@ -188,11 +226,20 @@ def preflight_rows(slug: str, findings: list[dict],
     if not findings:
         return [("changed sentences reviewed", OK,
                  "%d changed sentence(s), nothing found" % n_changed)]
+    decided = dispositions(slug)
+    open_ = [f for f in findings if finding_key(f) not in decided]
+    if not open_:
+        return [("changed sentences reviewed", OK,
+                 "%d changed sentence(s), %d finding(s), all decided on the "
+                 "record in change-reviews.json"
+                 % (n_changed, len(findings)))]
     return [("changed sentences reviewed", BAD,
-             "%d finding(s) in %d changed sentence(s): %s"
-             % (len(findings), n_changed,
+             "%d finding(s) in %d changed sentence(s)%s: %s"
+             % (len(open_), n_changed,
+                " (%d decided)" % (len(findings) - len(open_))
+                if len(open_) != len(findings) else "",
                 " || ".join("%s: %s" % (f.get("kind"), (f.get("why") or "")[:70])
-                            for f in findings[:3])))]
+                            for f in open_[:3])))]
 
 
 
@@ -250,12 +297,25 @@ def gate_rows(slug: str, html: str) -> list[tuple[str, str, str]]:
                  "and nothing has read the new text. It costs about three cents: "
                  "changecheck.py %s --page <page> --before <rev>" % slug)]
     last = mine[-1]
-    open_ = last.get("findings") or []
+    # A DECIDED FINDING IS NOT AN OPEN ONE. This read the raw findings list and
+    # so blocked on a finding a person had already rejected on the record --
+    # the board row and preflight_rows disagreeing about the same run, with the
+    # board winning. Both now read dispositions().
+    decided = dispositions(slug)
+    found = last.get("findings") or []
+    open_ = [f for f in found if finding_key(f) not in decided]
     if open_:
         return [("changed sentences reviewed", BAD,
-                 "%d finding(s) in the %d sentence(s) changed since %s: %s"
+                 "%d finding(s) in the %d sentence(s) changed since %s%s: %s"
                  % (len(open_), last.get("changed", 0), last.get("against", "?"),
+                    " (%d decided)" % (len(found) - len(open_))
+                    if len(open_) != len(found) else "",
                     " || ".join("%s" % f.get("kind") for f in open_[:4])))]
+    if found:
+        return [("changed sentences reviewed", OK,
+                 "%d changed sentence(s), %d finding(s), all decided on the "
+                 "record in change-reviews.json"
+                 % (last.get("changed", 0), len(found)))]
     return [("changed sentences reviewed", OK,
              "%d changed sentence(s) reviewed against the page, nothing found"
              % last.get("changed", 0))]

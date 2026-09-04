@@ -232,6 +232,13 @@ changecheck = _sibling("changecheck")
 # refused to publish the page otherwise. There was no such check. See
 # sources_shown.py.
 sources_shown = _sibling("sources_shown")
+# B18: the change log is claims. bindings.page_sentences strips <footer> before
+# it reads anything, so the correction history -- 154 sentences on issue one,
+# 26 carrying figures -- was invisible to every control on the page. It is the
+# region where we tell readers what we got wrong, and it is where both of the
+# corrections that themselves needed correcting were written. See
+# corrections_check.py.
+corrections_check = _sibling("corrections_check")
 
 # The spend ledger. Fourteen of the fifteen scripts in this repo that make
 # priced model calls record nothing about what they cost, and the one that does
@@ -650,6 +657,33 @@ def _figures_all_confirmed(figure: str, confirmed: set[str]) -> bool:
     return all(("%g" % float(n)) in confirmed for n in nums)
 
 
+# THE AGREED BUDGET, WRITTEN DOWN WHERE IT IS ENFORCED.
+#
+# "A maximum of 3 runs plus one on the email" -- the operator, 4 September
+# 2026, restating a cap set on 3 September. factcheck_draft.RUNS_PER_ISSUE
+# carried the 3 and nothing carried the 1, so the email was quietly on a budget
+# of three as well, and the board would have gone on asking for runs the policy
+# does not allow. A budget that lives in one file and is described in another
+# is not a budget.
+EMAIL_RUNS_PER_ISSUE = 1
+
+
+def gate_runs_left(target: Path) -> int | None:
+    """Runs remaining in this file's gate budget, or None if unknowable.
+
+    Counts every run in every cycle, because a budget counted per cycle is not
+    a budget -- the thing that resets the cycle is a flag. See
+    factcheck_draft.all_runs, which is the same rule on the spending side.
+    """
+    rp = target.with_suffix(target.suffix + ".gate.json")
+    try:
+        st = json.loads((rp.parent / (rp.name + ".runs.json")).read_text(encoding="utf-8"))
+    except Exception:
+        return None
+    cap = EMAIL_RUNS_PER_ISSUE if "/email/" in target.as_posix() else fc.RUNS_PER_ISSUE
+    return cap - len(fc.all_runs(st))
+
+
 def gate_state(target: Path, slug: str | None = None) -> dict:
     """Everything knowable about this file's gate without spending a run."""
     slug = slug or slug_for(target)
@@ -804,16 +838,45 @@ def gate_state(target: Path, slug: str | None = None) -> dict:
             # and kept reading "ok" while the filter looked past it. Narrowing
             # a check to the failure you have in mind is how the other one gets
             # through.
+            # BAD *OR* WARN. Once the gate budget is spent, unjudged.py
+            # downgrades its own row to a warn so the board is not blocked on
+            # an action nobody can take. Collecting only BAD here would have
+            # emptied this list at the same moment -- and accept-gate refuses
+            # on exactly this list. The guard against signing for text nobody
+            # has read would have switched itself off, silently, as a side
+            # effect of a display change one function away.
             for _n, _st, _detail in unjudged.preflight_rows(slug, target):
-                if _st == BAD:
+                if _st in (BAD, WARN) and "never been examined" in _detail:
                     d["unjudged"].append(_detail)
         except Exception as exc:                       # never let this hide the board
             d["notes"].append("could not tell which sentences were judged: %s" % exc)
 
+    # A BUDGET THAT IS SPENT IS A STATE, NOT A BLOCK.
+    #
+    # The gate is capped at RUNS_PER_ISSUE runs an issue, and factcheck_draft
+    # enforces that cap: past it, no run happens. So once the cap is reached,
+    # "re-gate it" stops being an action anybody can take, and a STOP whose only
+    # remedy is unavailable is not a control -- it is a deadlock that gets
+    # cleared by typing --waive, which is how a real control becomes a habit of
+    # waiving. On 4 September this row was reported as the single blocking item
+    # four times in a row while the budget had been spent since the day before.
+    #
+    # While runs remain it BLOCKS, because the remedy exists and is cheap
+    # relative to what it buys. When the budget is gone it WARNS, names how many
+    # sentences no role has read, and says so on the publication record. The
+    # sentences do not become safe; what changes is that the page stops
+    # pretending an unavailable action is the next step.
+    d["runs_left"] = gate_runs_left(target)
+    d["runs_used"] = (fc.RUNS_PER_ISSUE - d["runs_left"]) if d["runs_left"] is not None else -1
     if d["unjudged"]:
-        d["state"] = BAD
+        spent = d["runs_left"] is not None and d["runs_left"] <= 0
+        d["state"] = WARN if spent else BAD
         d["detail"] = ("gated %s on an earlier draft (%s) and the page has changed since: %s"
                        % (d["checked_at"], old, d["unjudged"][0]))
+        if spent:
+            d["detail"] = ("the gate budget for this issue is spent (%d of %d runs "
+                           "used), so this cannot be re-gated. %s"
+                           % (d["runs_used"], fc.RUNS_PER_ISSUE, d["detail"]))
         return d
 
     # A run that judged an earlier draft, every finding of which is now either
@@ -1226,6 +1289,12 @@ def preflight(slug: str, *, for_email: bool,
                     "the check did not run: %s — an unrun check is not a pass"
                     % str(exc)[:120]))
     out.extend(inherited.preflight_rows(slug, _ptext))
+    try:
+        out.extend(corrections_check.preflight_rows(slug))
+    except BaseException as exc:
+        out.append(("the correction history is checked", BAD,
+                    "the check did not run: %s — an unrun check is not a pass"
+                    % str(exc)[:120]))
     try:
         out.extend(sources_shown.preflight_rows(slug, page.read_text(encoding="utf-8")))
     except BaseException as exc:
@@ -3552,6 +3621,27 @@ def cmd_gate_status(args) -> int:
     return 0
 
 
+def unjudged_sentences(target: Path, slug: str) -> list[str]:
+    """The sentences on this file that the gate report never saw.
+
+    Named in an acceptance record so that a decision taken past a spent gate
+    budget says what it covers, rather than leaving a reader to infer that
+    everything was examined.
+    """
+    try:
+        report = json.loads(
+            target.with_suffix(target.suffix + ".gate.json").read_text(encoding="utf-8"))
+        known = set(report.get("sentence_fingerprints") or [])
+        if not known:
+            return []
+        now = unjudged.fingerprints(target.read_text(encoding="utf-8"))
+        new = [t for fp, t in now.items() if fp not in known]
+        return sorted(" ".join(t.split()) for t in new
+                      if unjudged.EMPIRICAL.search(t))
+    except Exception:
+        return []
+
+
 def cmd_accept_gate(args) -> int:
     """Record a decision to proceed on a stale gate whose findings are all gone.
 
@@ -3576,13 +3666,30 @@ def cmd_accept_gate(args) -> int:
     # unjudged claims added afterwards; accepting it would have recorded a
     # human decision about text no human or role had seen, which is worse than
     # no record at all because it looks like diligence.
-    if g.get("unjudged"):
+    # A SIGNATURE CANNOT SETTLE A SENTENCE NOBODY HAS READ -- WHILE READING IT
+    # IS STILL POSSIBLE.
+    #
+    # This refused outright, and was right to: issue two's stale run had every
+    # finding resolved and 28 unjudged claims added afterwards, and accepting
+    # it would have recorded a human decision about text no human or role had
+    # seen. But the refusal assumed re-gating is always available. It is not:
+    # the gate is capped per issue, and past the cap "re-gate it" is advice
+    # nobody can take, so the refusal became a deadlock cleared by --waive --
+    # which records less, not more, than an acceptance would.
+    #
+    # So: while runs remain, refuse. Once the budget is spent, allow it and
+    # make the acceptance carry the sentences themselves, so what was signed
+    # for is legible instead of implied.
+    spent = (g.get("runs_left") is not None and g["runs_left"] <= 0)
+    if g.get("unjudged") and not spent:
         print("\n  This page carries text the gate never saw, so there is nothing here")
         print("  a signature can settle:")
         for u in g["unjudged"]:
             print("    %s" % u[:300])
-        print("\n  Re-gate it. accept-gate is for findings that were read and decided,")
-        print("  not for sentences nobody has read.\n")
+        print("\n  Re-gate it — %d run(s) left in this issue's budget. accept-gate is"
+              % (g.get("runs_left") if g.get("runs_left") is not None else 0))
+        print("  for findings that were read and decided, not for sentences nobody")
+        print("  has read.\n")
         return 2
 
     named = {t.strip() for t in (args.despite or "").split(",") if t.strip()}
@@ -3639,6 +3746,13 @@ def cmd_accept_gate(args) -> int:
         "findings_in_that_run": len(g["blocking"]),
         "verified_gone": len(g["resolved"]),
         "accepted_despite": sorted(named),
+        # What was signed for, spelled out. An acceptance taken past a spent
+        # gate budget covers text no role has read, and the only honest form
+        # of that is to name the text rather than let "accepted" imply it was
+        # examined. Empty whenever the budget still had runs in it.
+        "gate_budget_spent": bool(g.get("runs_left") is not None and g["runs_left"] <= 0),
+        "runs_used": g.get("runs_used"),
+        "text_no_role_has_read": unjudged_sentences(f, args.slug),
     })
     fp.write_text(json.dumps({
         "what_this_is": "Decisions to proceed on a gate run that judged an earlier "

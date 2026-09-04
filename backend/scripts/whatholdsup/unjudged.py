@@ -274,13 +274,30 @@ def preflight_rows(slug: str, page: Path) -> list[tuple[str, str, str]]:
     # The empirical ones, not every new sentence: prose generates no claims and
     # counting it inflated the first estimate to more than a full run.
     note = regate_cost(page, report, len(empirical))
+    # THE SAME RULE AS THE GATE ROW ABOVE IT. While the issue has gate runs
+    # left this blocks, because the remedy exists. Once the budget is spent
+    # there is no remedy, and a STOP with no available remedy is cleared by
+    # waiving -- which trains the operator to waive, and takes the rows that
+    # matter with it. Spent, it warns and says how many sentences no role has
+    # read, on the record, every time.
+    try:
+        import importlib.util as _il
+        _sp = _il.spec_from_file_location(
+            "pub_b", str(Path(__file__).resolve().parent / "publish.py"))
+        _m = _il.module_from_spec(_sp); _sp.loader.exec_module(_m)
+        _left = _m.gate_runs_left(page)
+    except Exception:
+        _left = None
+    _spent = _left is not None and _left <= 0
     rows.append(("empirical sentences never judged",
-                 OK if not empirical else BAD,
+                 OK if not empirical else (WARN if _spent else BAD),
                  "every new sentence is prose, not a claim about the world"
                  if not empirical else
-                 "%d sentence(s) carrying figures, trials or registry ids have never been "
+                 "%s%d sentence(s) carrying figures, trials or registry ids have never been "
                  "examined by any role: %s%s"
-                 % (len(empirical), " || ".join(s[:90] for s in empirical[:3]),
+                 % ("the gate budget for this issue is spent, so this cannot be "
+                    "cleared by re-gating — " if _spent else "",
+                    len(empirical), " || ".join(s[:90] for s in empirical[:3]),
                     ("  —  " + note) if note else "")))
     return rows
 
