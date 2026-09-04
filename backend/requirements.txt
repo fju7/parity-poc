@@ -27,3 +27,8 @@ resend>=2.0.0,<3.0.0
 python-dotenv>=1.0.0,<2.0.0
 python-docx>=1.1.0,<2.0.0
 twilio<10.0.0
+
+# Added 2026-09-04 for backend/scripts/whatholdsup/review_bundle.py, which
+# renders the reviewer's prompt and Appendix C from Markdown into the single
+# HTML file an outside reviewer is sent. Floor is what is installed and working.
+Markdown>=3.10,<4.0

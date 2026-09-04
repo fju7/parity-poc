@@ -115,7 +115,7 @@
       "confirmed": false,
       "autobind": "the only held document containing all 2 anchors (2,000, 27.6), sharing 4 subject word(s) with the sentence: colonoscopies, endoscopists, performed, years",
       "check_flags": [],
-      "checked_on": "2026-09-01"
+      "checked_on": "2026-09-04"
     },
     "94cd79d439867548": {
       "sentence": "The authors list eleven limitations of their own, and the largest is not subtle: the total number of procedures in the second period nearly doubled, from 795 to 1,382 — while the non-AI procedures actually measured fell from 795 to 648 — because Poland suspended its colonoscopy-based screening programme on 1 January 2022 and the centres used the freed capacity to draw patients off the waiting list.",
@@ -275,7 +275,7 @@
       "proposed_on": "2026-09-01",
       "why_bound": "a model proposed this span and B2 confirmed the string is in S039; nobody has yet signed that the sentence is warranted by it",
       "check_flags": [],
-      "checked_on": "2026-09-01"
+      "checked_on": "2026-09-04"
     },
     "120466a97746b3d0": {
       "sentence": "(The scoping review puts the cut at 80–85% and the laboratories at 45 consolidating to 8 — citing, in its body, an NHS Digital annual report and a UK National Screening Committee evidence review, and, in its table, Rebolj and colleagues in Cancer Cytopathology , which we could not reach at the publisher, on PubMed or in PMC.",
@@ -1533,7 +1533,7 @@
       "left_page": "2026-09-01"
     },
     "c2f8c733ea6082f1": {
-      "sentence": "Lancet Gastroenterol Hepatol 2025;10(10):896–903 Source of the 28.4% (226/795) to 22.4% (145/648) fall, the −6.0 percentage-point difference on a 95% confidence interval of −10.5 to −1.6 at P = 0.0089, the nineteen endoscopists with more than 2,000 procedures each and a mean 27.6 years since graduation over a range of 8 to 39, and all eleven limitations including the rise from 795 procedures to 1,382 after the Polish screening programme was suspended on 1 January 2022, the absence of withdrawal-time data, the absence of blinding and the exclusion of the first 100 procedures after AI was introd",
+      "sentence": "Lancet Gastroenterol Hepatol 2025;10(10):896–903 Source of the 28.4% (226/795) to 22.4% (145/648) fall, the −6.0 percentage-point difference on a 95% confidence interval of −10.5 to −1.6 at P = 0.0089, the nineteen endoscopists with more than 2,000 procedures each and a mean 27.6 years since graduation over a range of 8 to 39, and all eleven limitations including the rise from 795 procedures to 1,382 after the Polish screening programme was suspended on 1 January 2022, the absence of withdrawal-time data, the absence of blinding and the exclusion of the first 100 procedures after AI was introduced.",
       "sentence_sha": "c2f8c733ea6082f1",
       "why_empirical": "figure",
       "bucket": null,
@@ -1780,7 +1780,7 @@
       "confirmed": false,
       "autobind": "the only held document containing all 2 anchors (a massive reduction in cytology workload, estimated to be approximately 70%, according to Public Health England, 48 accredited labs to 8 centralised labs as of 2019), sharing 16 subject word(s) with the sentence: according, accredited, approximately, centralised, consolidation, cytology",
       "check_flags": [],
-      "checked_on": "2026-09-01",
+      "checked_on": "2026-09-04",
       "left_page": "2026-09-01"
     },
     "4845354b59c1918e": {

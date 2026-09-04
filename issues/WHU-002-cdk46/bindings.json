@@ -302,7 +302,7 @@
       "proposed_on": "2026-09-01",
       "why_bound": "a model proposed this span and B2 confirmed the string is in S022; nobody has yet signed that the sentence is warranted by it",
       "check_flags": [],
-      "checked_on": "2026-09-01"
+      "checked_on": "2026-09-04"
     },
     "6f3ca3b188f5c808": {
       "sentence": "Across the investigator-assessed progression-free analyses these four trials have published between them — primary, updated and final, eight readouts, all named in the sources below — every hazard ratio falls between 0.52 and 0.58.",
@@ -482,7 +482,7 @@
       "proposed_on": "2026-09-01",
       "why_bound": "a model proposed this span and B2 confirmed the string is in S003; nobody has yet signed that the sentence is warranted by it",
       "check_flags": [],
-      "checked_on": "2026-09-01"
+      "checked_on": "2026-09-04"
     },
     "b34f3930fab654df": {
       "sentence": "MONALEESA-7’s is one-sided : the ASCO 2019 abstract of the same analysis states that “statistical comparison was made by 1-sided stratified log-rank test”.",
@@ -510,7 +510,7 @@
       "proposed_on": "2026-09-01",
       "why_bound": "a model proposed this span and B2 confirmed the string is in S007; nobody has yet signed that the sentence is warranted by it",
       "check_flags": [],
-      "checked_on": "2026-09-01"
+      "checked_on": "2026-09-04"
     },
     "62cbbe9aa42eef41": {
       "sentence": "PALOMA-2 powered for it: its final survival analysis was planned after at least 390 events, with 80% power to detect a hazard ratio of 0.74 or better at a one-sided 0.025.",
@@ -538,7 +538,7 @@
       "proposed_on": "2026-09-01",
       "why_bound": "a model proposed this span and B2 confirmed the string is in S010; nobody has yet signed that the sentence is warranted by it",
       "check_flags": [],
-      "checked_on": "2026-09-01"
+      "checked_on": "2026-09-04"
     },
     "763c5a7266d4fdfa": {
       "sentence": "Abemaciclib MONARCH 3 · HR 0.80 Ribociclib MONALEESA-2 · HR 0.76 Palbociclib PALOMA-2 · HR 0.96 0 0.5 1.0 — no effect 1.5 The distance that separates a category 1 from a category 2A Abemaciclib’s hazard ratio is 0.80 , on an interval running 0.64 to 1.02 .",
@@ -595,7 +595,7 @@
       "proposed_on": "2026-09-01",
       "why_bound": "a model proposed this span and B2 confirmed the string is in S005; nobody has yet signed that the sentence is warranted by it",
       "check_flags": [],
-      "checked_on": "2026-09-01"
+      "checked_on": "2026-09-04"
     },
     "7786ca2c9c63cca8": {
       "sentence": "The intervals overlap along almost their entire length: 97% of ribociclib’s interval lies inside abemaciclib’s .",
@@ -791,7 +791,7 @@
       "proposed_on": "2026-09-01",
       "why_bound": "a model proposed this span and B2 confirmed the string is in S024; nobody has yet signed that the sentence is warranted by it",
       "check_flags": [],
-      "checked_on": "2026-09-01"
+      "checked_on": "2026-09-04"
     },
     "2294f8d5be3c9918": {
       "sentence": "A hazard ratio of 0.96 on an interval from 0.78 to 1.18 is not a near miss.",
@@ -817,7 +817,7 @@
       "confirmed": false,
       "autobind": "the only held document containing all 3 anchors (0.96, 0.78, 1.18), sharing 2 subject word(s) with the sentence: hazard, ratio",
       "check_flags": [],
-      "checked_on": "2026-09-01"
+      "checked_on": "2026-09-04"
     },
     "a08e0b80cab2196d": {
       "sentence": "That is all it established, and it is less than “palbociclib does not work”.",
@@ -860,7 +860,7 @@
       "confirmed": false,
       "autobind": "the only held document containing all 2 anchors (13.3%, 21.2%), sharing 5 subject word(s) with the sentence: between, imbalance, interpretation, survival, unknown",
       "check_flags": [],
-      "checked_on": "2026-09-01"
+      "checked_on": "2026-09-04"
     },
     "821ecac5105e7e36": {
       "sentence": "A sensitivity analysis using recovered data cut the unknowns to 9.2% and 11.7% and moved the hazard ratio from 0.96 to 0.92 (0.76–1.12) .",
@@ -888,7 +888,7 @@
       "proposed_on": "2026-09-01",
       "why_bound": "a model proposed this span and B2 confirmed the string is in S010; nobody has yet signed that the sentence is warranted by it",
       "check_flags": [],
-      "checked_on": "2026-09-01"
+      "checked_on": "2026-09-04"
     },
     "26956c9828feba76": {
       "sentence": "What did not change is the conclusion: the interval still runs through 1.0 and the investigators still reported no survival benefit.",
@@ -996,7 +996,7 @@
       "proposed_on": "2026-09-01",
       "why_bound": "a model proposed this span and B2 confirmed the string is in S003; nobody has yet signed that the sentence is warranted by it",
       "check_flags": [],
-      "checked_on": "2026-09-01"
+      "checked_on": "2026-09-04"
     },
     "ceab8d8a37e320de": {
       "sentence": "These are medians, not lifespans : a median difference of 13.1 months is the gap between the times by which half of each group had died, and no individual is promised anything by it.",
@@ -1024,7 +1024,7 @@
       "proposed_on": "2026-09-01",
       "why_bound": "a model proposed this span and B2 confirmed the string is in S003; nobody has yet signed that the sentence is warranted by it",
       "check_flags": [],
-      "checked_on": "2026-09-01"
+      "checked_on": "2026-09-04"
     },
     "4541e9b4303fcd3b": {
       "sentence": "That is not what this page criticises the guideline for; the guideline grades each trial on its own threshold.",
@@ -1069,7 +1069,7 @@
       "proposed_on": "2026-09-01",
       "why_bound": "a model proposed this span and B2 confirmed the string is in S010; nobody has yet signed that the sentence is warranted by it",
       "check_flags": [],
-      "checked_on": "2026-09-01"
+      "checked_on": "2026-09-04"
     },
     "9f72b2307339aa4a": {
       "sentence": "On the two drugs the guideline grades apart, they do not.",
@@ -1114,7 +1114,7 @@
       "proposed_on": "2026-09-01",
       "why_bound": "a model proposed this span and B2 confirmed the string is in S017; nobody has yet signed that the sentence is warranted by it",
       "check_flags": [],
-      "checked_on": "2026-09-01"
+      "checked_on": "2026-09-04"
     },
     "db49bc98137d6aee": {
       "sentence": "A network meta-analysis ( Scientific Reports, February 2024 ) pooled seven phase III randomised trials, 4,415 patients, at a median follow-up of 73.3 months.",
@@ -1142,7 +1142,7 @@
       "proposed_on": "2026-09-01",
       "why_bound": "a model proposed this span and B2 confirmed the string is in S015; nobody has yet signed that the sentence is warranted by it",
       "check_flags": [],
-      "checked_on": "2026-09-01"
+      "checked_on": "2026-09-04"
     },
     "305047b7d6494a96": {
       "sentence": "Its MONARCH 3 input is the final overall-survival result — HR 0.804 (0.637–1.015), at 97.2 months, the figure given above — not the earlier interim one.",
@@ -1187,7 +1187,7 @@
       "proposed_on": "2026-09-01",
       "why_bound": "a model proposed this span and B2 confirmed the string is in S016; nobody has yet signed that the sentence is warranted by it",
       "check_flags": [],
-      "checked_on": "2026-09-01"
+      "checked_on": "2026-09-04"
     },
     "266f65f37128d432": {
       "sentence": "On overall survival it found nothing anywhere: ribociclib versus palbociclib 0.98 (0.87–1.10, P = 0.75), abemaciclib versus palbociclib 0.95 (0.84–1.08, P = 0.43), abemaciclib versus ribociclib 0.97 (0.82–1.14, P = 0.70).",
@@ -1215,7 +1215,7 @@
       "proposed_on": "2026-09-01",
       "why_bound": "a model proposed this span and B2 confirmed the string is in S016; nobody has yet signed that the sentence is warranted by it",
       "check_flags": [],
-      "checked_on": "2026-09-01"
+      "checked_on": "2026-09-04"
     },
     "7d5cb47acaee2c34": {
       "sentence": "Its arms are very uneven — 6,831 patients on palbociclib, 1,279 on ribociclib, 1,036 on abemaciclib — which is what prescribing actually looked like and is also a limit on what the smaller arms can show.",
@@ -1269,7 +1269,7 @@
       "autobind": "no held document contains all 8 anchors: 0.76, 0.63, 0.92, 0.004, 0.83"
     },
     "f9b9234d5fe1b4be": {
-      "sentence": "The secondary summaries we could reach disagree with each other about which numbers are the survival ones and which are the progression ones; we have not obtained the paper’s full text ourselves — what this page carries from it came through an automated search route, which is weaker than reading it, and every direct route we tried on 31 August was refused by the publisher; and its ClinicalTrials.gov record (NCT06805812, which posts an estimated enrolment of 3,500 and still shows the study recruiting) has no results posted, though the paper itself already reports on 1,982; and a figure we canno",
+      "sentence": "The secondary summaries we could reach disagree with each other about which numbers are the survival ones and which are the progression ones; we have not obtained the paper’s full text ourselves — what this page carries from it came through an automated search route, which is weaker than reading it, and every direct route we tried on 31 August was refused by the publisher; and its ClinicalTrials.gov record (NCT06805812, which posts an estimated enrolment of 3,500 and still shows the study recruiting) has no results posted, though the paper itself already reports on 1,982; and a figure we cannot attribute to a primary source is a figure this page does not carry.",
       "sentence_sha": "f9b9234d5fe1b4be",
       "why_empirical": "registry identifier",
       "bucket": null,
@@ -1531,7 +1531,7 @@
       "confirmed": false,
       "autobind": "the only held document containing all 2 anchors (13.67, 12.69), sharing 4 subject word(s) with the sentence: median, months, palbociclib, ribociclib",
       "check_flags": [],
-      "checked_on": "2026-09-01"
+      "checked_on": "2026-09-04"
     },
     "b463e40d6e615a48": {
       "sentence": "What this trial was built to measure takes some care: its stated primary objectives are to compare the clinical benefit rate (CBR), quality of life and toxicity profiles , while its sample-size calculation says The primary outcome of interest is the overall response rate (ORR) and sizes the arms from response rates of 55% and 25% taken from MONALEESA-2 and PALOMA-3.",
@@ -1710,7 +1710,7 @@
       "confirmed": false,
       "autobind": "the only held document containing all 7 anchors (63.9, 51.4, 0.76, 0.63, 0.93), sharing 8 subject word(s) with the sentence: follow, letrozole, median, months, overall, ribociclib",
       "check_flags": [],
-      "checked_on": "2026-09-01"
+      "checked_on": "2026-09-04"
     },
     "f6aa8b6940557f11": {
       "sentence": "Abemaciclib plus a non-steroidal aromatase inhibitor did not: 66.8 versus 53.7 months, HR 0.80 (0.64–1.02), two-sided P = .0664 against a final-analysis threshold of .034, at 8.1 years of median follow-up.",
@@ -1753,7 +1753,7 @@
       "confirmed": false,
       "autobind": "the only held document containing all 5 anchors (53.9, 51.2, 0.96, 0.78, 1.18), sharing 3 subject word(s) with the sentence: letrozole, months, palbociclib",
       "check_flags": [],
-      "checked_on": "2026-09-01"
+      "checked_on": "2026-09-04"
     },
     "44f6377bbe14d006": {
       "sentence": "A sensitivity analysis recovering missing survival data moved the point estimate to 0.92 (0.76–1.12) and left the conclusion where it was.",
@@ -1935,7 +1935,7 @@
       "confirmed": false,
       "autobind": "the only held document containing all 3 anchors (0.921, 0.755, 1.124), sharing 3 subject word(s) with the sentence: analysis, final, survival",
       "check_flags": [],
-      "checked_on": "2026-09-01"
+      "checked_on": "2026-09-04"
     },
     "91bab06bf8295210": {
       "sentence": "Primary Shaaban MHA, Elbaiomy MA, Eltantawy A, Abdel-Fattah A-HE, Shamaa SSA.",
@@ -1997,7 +1997,7 @@
       "confirmed": false,
       "autobind": "the only held document containing all 3 anchors (58.6%, 13.67, 12.69), sharing 5 subject word(s) with the sentence: median, months, palbociclib, ribociclib, survival",
       "check_flags": [],
-      "checked_on": "2026-09-01"
+      "checked_on": "2026-09-04"
     },
     "27654ffd14a9b1fc": {
       "sentence": "Second line, with fulvestrant — not the first-line aromatase-inhibitor setting the guideline sentence describes.",
@@ -2117,7 +2117,7 @@
       "confirmed": false,
       "autobind": "the only held document containing all 6 anchors (66.8, 53.7, 0.804, 0.637, 1.015), sharing 4 subject word(s) with the sentence: follow, median, months, years",
       "check_flags": [],
-      "checked_on": "2026-09-01",
+      "checked_on": "2026-09-04",
       "left_page": "2026-09-01"
     },
     "79a52368bbf15398": {
@@ -2250,7 +2250,7 @@
       "confirmed": false,
       "autobind": "the only held document containing all 7 anchors (63.9, 51.4, 0.76, 0.63, 0.93), sharing 4 subject word(s) with the sentence: follow, median, months, years",
       "check_flags": [],
-      "checked_on": "2026-09-01",
+      "checked_on": "2026-09-04",
       "left_page": "2026-09-01"
     },
     "87c0675a58d976a7": {
@@ -2401,7 +2401,7 @@
       "confirmed": false,
       "autobind": "the only held document containing all 5 anchors (24.8, 14.5, 0.58, 0.46, 0.72), sharing 3 subject word(s) with the sentence: months, progression, survival",
       "check_flags": [],
-      "checked_on": "2026-09-01",
+      "checked_on": "2026-09-04",
       "left_page": "2026-09-01"
     },
     "9fcd4c9b6e135c6f": {
@@ -2673,7 +2673,7 @@
       "confirmed": false,
       "autobind": "the only held document containing all 3 anchors (73.3, 48.7, 97.2), sharing 3 subject word(s) with the sentence: median, months, range",
       "check_flags": [],
-      "checked_on": "2026-09-01"
+      "checked_on": "2026-09-04"
     },
     "92c173b71c83f7a3": {
       "sentence": "Its results section gives 70.2 months over the same range.",
@@ -2733,7 +2733,7 @@
       "confirmed": false,
       "autobind": "the only held document containing all 12 anchors (0.98, 0.87, 1.10, 0.7531, 0.95), sharing 3 subject word(s) with the sentence: abemaciclib, palbociclib, ribociclib",
       "check_flags": [],
-      "checked_on": "2026-09-01"
+      "checked_on": "2026-09-04"
     },
     "edf6d63d6ff431c8": {
       "sentence": "The study’s own SABCS 2024 poster states: “This study was funded by Pfizer Inc.” Pfizer makes palbociclib.",
@@ -3087,7 +3087,7 @@
       "proposed_on": "2026-09-01",
       "why_bound": "a model proposed this span and B2 confirmed the string is in S005; nobody has yet signed that the sentence is warranted by it",
       "check_flags": [],
-      "checked_on": "2026-09-01"
+      "checked_on": "2026-09-04"
     },
     "a66b25b2dcf48f2f": {
       "sentence": "Its statistical section describes a one-sided stratified log-rank test with a Lan–DeMets (O’Brien–Fleming) boundary for the P value at a one-sided overall significance level of 2.5%, and then states, in its own sentence: A two-sided version of the P value is reported.",

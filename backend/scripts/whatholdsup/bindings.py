@@ -235,8 +235,16 @@ def save(slug: str, doc: dict) -> None:
 
 
 def blank_row(sent: str, why: str) -> dict:
+    # NOT sent[:600]. It was, to keep the JSON readable, and that quietly made
+    # the row's text a DIFFERENT SENTENCE from the one the row is keyed by:
+    # three rows across the three issues -- every sentence on the site longer
+    # than 600 characters -- stored a version cut off mid-clause. The melanoma
+    # one lost "coverage we hold" from the end of a universal negative, and the
+    # outside-review packet, which prints this field, asked a reviewer to judge
+    # a claim the piece does not make. The identity of a row and the text of a
+    # row have to be the same sentence. See test_whatholdsup_packet.py.
     return {
-        "sentence": sent[:600],
+        "sentence": sent,
         "sentence_sha": fingerprint(sent),
         "why_empirical": why,
         "bucket": None,          # declared by whoever writes the sentence

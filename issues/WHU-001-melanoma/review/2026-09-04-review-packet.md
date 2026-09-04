@@ -18,12 +18,12 @@ our findings anchors on them.
 ## What has changed since the last outside review
 
 The last outside review of this piece read a file whose sha256 begins
-`bd101cd121688ead`, on 2026-08-28. Since then **208 changes to the prose** have gone in;
-33 of them reconcile to a written decision and **175 do not**.
+`bd101cd121688ead`, on 2026-08-28. Since then **208 changes to the prose** have gone
+in; 33 of them reconcile to a written decision and **175 do not**.
 
 That number is the reason this is a full review and not a delta review.
 Most of the piece is not the piece that was read. Do not go looking for
-what changed -- read it as a reader would, from the top, as though no
+what changed — read it as a reader would, from the top, as though no
 review had happened.
 
 ---
@@ -324,6 +324,16 @@ time. None failed.
 
 ### J28
 
+**The sentence.** Morning Glory Sciences — an outlet we can find no other publication citing, so we give the argument on its merits rather than on its authority — the Phase 2b population was stage IIIB–IV, the Phase 3 adds node-negative disease, and “absolute recurrence risk in that group is lower, so the same hazard ratio delivers a smaller absolute benefit.” Pharmacy Times makes the opposite case about the same patients: resected stage IIB or IIC melanoma “can face risks of recurrence and melanoma-specific mortality similar to those observed in stage III disease.” Neither reading appears in any of the general coverage we hold.
+
+**Rests on:**
+  - [S009] The Phase 2b population was stage IIIB-IV; the Phase 3 adds stage IIB and IIC - node-negative disease . Absolute recurrence risk in that group is lower, so the same hazard ratio delivers a smaller absolute benefit.
+  - [S010] patients with resected stage IIB or IIC melanoma can face risks of recurrence and melanoma-specific mortality similar to those observed in stage III disease
+
+**The step we take.** The one thing we can show about the outlet is negative and narrow: a search of the open web excluding its own domain on 3 September returned no third party citing it. An earlier version also called it an English translation, which the page gate reported as an unevidenced claim about its publishing practice — we inferred it from the site's URL and strapline and had no source, so it is gone. What remains is the argument, and its premises are checkable: the stage widening is in the Phase 3 release and Pharmacy Times makes the opposing case in its own words.
+
+### J29
+
 **The sentence.** The trials do not share a population: KEYNOTE-942 enrolled stage IIIB–IV, the Phase 3 enrolled stage IIB–IV , widening it downward — adding IIB, IIC and IIIA below the earlier trial's floor of IIIB.
 
 **Rests on:**
@@ -332,7 +342,7 @@ time. None failed.
 
 **The step we take.** S004 enrolled 'resected stage IIIB to IV'; S001's own headline says 'Completely Resected Stage IIB-IV'. IIB and IIC sit below IIIB, so the Phase 3's floor is lower — the widening the sentence describes, read off the two stage ranges rather than asserted.
 
-### J29
+### J30
 
 **The sentence.** And most simply, there is nothing to put beside them: the Phase 3 has released no effect size, so quoting 0.51 next to “met its endpoints” is not a comparison but a substitution — the reader supplies the missing number from the smaller, older, differently-designed trial.
 
@@ -342,7 +352,7 @@ time. None failed.
 
 **The step we take.** No Phase 3 effect size has been released, and the 0.51 in circulation is the five-year Phase 2b figure from a different trial and population. Placing them side by side offers the reader no second quantity to compare, so the Phase 2b number occupies the place where the Phase 3 number would go.
 
-### J30
+### J31
 
 **The sentence.** Those are KEYNOTE-942 figures, from the five-year release; the Phase 3 announcement gave no adverse-event rates for its own 1,137 patients.
 
@@ -352,7 +362,7 @@ time. None failed.
 
 **The step we take.** The three percentages are the five-year KEYNOTE-942 release's, verbatim. MLQ News, reading the Phase 3 announcement, records that it gave no adverse-event table or rates for the 1,137-patient trial. So the percentages in the bullet above belong to the smaller earlier trial, and there is no Phase 3 equivalent to compare them with. The Phase 3 release does carry adverse-event percentages, but they are KEYTRUDA label text about other trials, which is why the sentence says rates for its own 1,137 patients rather than percentages at all.
 
-### J31
+### J32
 
 **The sentence.** The three-year paper reports a hazard ratio of 0.425 on nine deaths, with an 80% interval of 0.179 to 1.004; the five-year analysis reports 0.471 on fourteen, with a 95% interval of 0.165 to 1.345.
 
@@ -365,7 +375,7 @@ time. None failed.
 
 **The step we take.** Two survival analyses, both printed. S007's three-year paper gives OS HR 0.425 with an 80% interval of 0.179 to 1.004 on 4 of 107 and 5 of 50 — nine deaths, ours by addition. S004's five-year paper gives 0.471 with a 95% interval of 0.165 to 1.345 on 7 and 7 — fourteen, also by addition. Both papers file overall survival under exploratory end points, which is the word the sentence uses. Both intervals contain 1.0, which is what 'a large benefit and a small harm at once' says in plain English.
 
-### J32
+### J33
 
 **The sentence.** Is the effect real scores 3.94; how large is it scores 1.0.
 
@@ -375,7 +385,7 @@ time. None failed.
 
 **The step we take.** The two numbers are the published rubric applied by hand to the six dimension scores shown above, and the working for each is printed beside it so a reader can redo the arithmetic. They diverge because the evidence does: the release describes a randomised, double-blind, placebo- and active-comparator-controlled Phase 3, which is what the direction dimensions reward, and discloses no efficacy estimate at all, which is what the magnitude dimension measures. Neither figure is reported by any document; both are ours, computed here.
 
-### J33
+### J34
 
 **The sentence.** Rigor scores 5 — a double-blind, placebo-controlled, 1,137-patient Phase 3 is as good as trial design gets.
 
@@ -385,7 +395,7 @@ time. None failed.
 
 **The step we take.** Our rubric's rigor dimension scores trial design. The release records a randomised, double-blind, placebo- and active-comparator-controlled Phase 3 of 1,137 patients, which carries every design feature the top score names.
 
-### J34
+### J35
 
 **The sentence.** Source quality scores 3 rather than 5 for the same reason: the claim currently rests on a corporate press release, which the rubric ranks as industry analysis, not the peer-reviewed publication it will eventually become.
 
@@ -395,7 +405,7 @@ time. None failed.
 
 **The step we take.** Our rubric scores source quality by what the claim currently rests on. The only account of this result is the companies' own announcement, which as Practical Dermatology records disclosed no efficacy estimates; there is no peer-reviewed publication of the Phase 3 to rest on yet.
 
-### J35
+### J36
 
 **The sentence.** “Landmark trial succeeds” and “real: 3.94, size: 1.0” describe the same event, and only one of them tells you the numbers are still missing.
 
@@ -405,7 +415,7 @@ time. None failed.
 
 **The step we take.** The release states the endpoints were met and, as MLQ News records, discloses no hazard ratio, interval, p-value or event count. Our two scores read 3.94 for whether the effect is real and 1.0 for how large it is, and both are computed on this page from the six dimension scores shown. The headline and the pair describe the same announcement; only the pair carries the fact that the magnitude is missing, which a single averaged number did not.
 
-### J36
+### J37
 
 **The sentence.** If someone quotes "49%" at you, ask which trial.
 
@@ -414,16 +424,6 @@ time. None failed.
   - [S004] Intismeran plus pembrolizumab continued to prolong RFS (hazard ratio [HR], 0.510 [95% CI, 0.294 to 0.887) and DMFS (HR, 0.411 [95% CI, 0.200 to 0.843]), with a favorable trend in overall survival (HR, 0.471 [95% CI, 0.165 to 1.345]) versus pembrolizumab.
 
 **The step we take.** The 49% figure belongs to the Phase 2b five-year analysis, and the Phase 3 announcement carries no effect size at all. So the question that settles which result a quoted 49% describes is which trial it came from.
-
-### J37
-
-**The sentence.** Morning Glory Sciences — an outlet we can find no other publication citing, so we give the argument on its merits rather than on its authority — the Phase 2b population was stage IIIB–IV, the Phase 3 adds node-negative disease, and “absolute recurrence risk in that group is lower, so the same hazard ratio delivers a smaller absolute benefit.” Pharmacy Times makes the opposite case about the same patients: resected stage IIB or IIC melanoma “can face risks of recurrence and melanoma-specific mortality similar to those observed in stage III disease.” Neither reading appears in any of the general
-
-**Rests on:**
-  - [S009] The Phase 2b population was stage IIIB-IV; the Phase 3 adds stage IIB and IIC - node-negative disease . Absolute recurrence risk in that group is lower, so the same hazard ratio delivers a smaller absolute benefit.
-  - [S010] patients with resected stage IIB or IIC melanoma can face risks of recurrence and melanoma-specific mortality similar to those observed in stage III disease
-
-**The step we take.** The one thing we can show about the outlet is negative and narrow: a search of the open web excluding its own domain on 3 September returned no third party citing it. An earlier version also called it an English translation, which the page gate reported as an unevidenced claim about its publishing practice — we inferred it from the site's URL and strapline and had no source, so it is gone. What remains is the argument, and its premises are checkable: the stage widening is in the Phase 3 release and Pharmacy Times makes the opposing case in its own words.
 
 
 ---

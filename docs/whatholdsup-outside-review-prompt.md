@@ -30,8 +30,25 @@ withholding them wastes the review on work we have already done.
 - **Appendix C, the universal negatives**, listed. Each dies to one
   counterexample and no check we own can ever defend one.
 
-`backend/scripts/whatholdsup/` builds the packet; see the melanoma packet dated
-2026-09-03 for the shape.
+- **Appendix D, where our own machinery has not looked** — which sentences no
+  role has read, and the recorded blind spots. A coverage statement, not a
+  findings statement: it tells the reviewer where the absence of a flag from us
+  means nothing at all.
+
+## How to build and send it
+
+    cd backend/scripts/whatholdsup && python3 review_bundle.py
+
+That writes `issues/WHU-00n-<slug>/review/<date>-for-reviewer.html` — ONE
+self-contained file holding the prompt below, the piece with its stylesheet
+inlined, and Appendices A to D. Send that file and nothing else.
+
+Do not send the page on its own. It links `/style.css` by absolute path, so
+opened outside the site it renders unstyled, and this prompt tells the reviewer
+to read it as a reader would. Every review before 2026-09-04 was sent that way.
+
+`review_packet.py` writes the same content as Markdown (`<date>-review-packet.md`)
+for our own record. The bundle is what the reviewer gets.
 
 ---
 
