@@ -326,6 +326,19 @@
       "kind_why": "form 'page' — 278 prose sentence(s) over sixty characters, 10970 words — this reads as the page itself",
       "superseded": [],
       "also_held": []
+    },
+    "S023": {
+      "sha256": "71b44bcac068e0d1a66eb437a1230884fdb840d2b9663f03934093977b53f04f",
+      "file": "docs/71/71b44bcac068e0d1a66eb437a1230884fdb840d2b9663f03934093977b53f04f.pdf",
+      "bytes": 161064,
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC478551/",
+      "held": "2026-09-03",
+      "via": "downloaded by the editor, 3 September 2026, after both scripted routes returned 403",
+      "note": "Publisher PDF, ASM. AAC 2004;48(8):2787-2792.",
+      "kind": "undetermined",
+      "kind_why": "type 'reference' does not settle whether this is a journal article, and the source declares no form — so no substance test applies and none has run",
+      "superseded": [],
+      "also_held": []
     }
   }
 }

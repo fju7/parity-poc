@@ -1,6 +1,13 @@
 {
   "cycle": 5,
-  "runs": [],
+  "runs": [
+    {
+      "at": "2026-09-04T00:41:26+00:00",
+      "sha": "95653c9517b66cf885da2f6bf55a968c86827a72dc7e98b6f82e9a3c9a303b14",
+      "past_cap": "Runs 4-7 were the re-gate-between-edits trap. This is the single batched confirming run, after every other check has been run and settled in one pass. First attempt blocked on a transient extraction failure that a 15-cent diagnostic ruled out.",
+      "cycle": 5
+    }
+  ],
   "reason": "Run history reconstructed 2026-09-03. --new-cycle used to delete the run list, so cycles 1-4 left no record; the spend ledger did, because every run makes exactly one 'extract' call. Seven runs, 2 Sep 12:32 to 3 Sep 18:47. The ledger itself only begins 28 Aug, so this is a floor.",
   "closed": [
     {

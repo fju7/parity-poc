@@ -272,3 +272,4 @@
 {"at": "2026-09-04T00:33:46+00:00", "script": "factcheck_draft.py", "role": "source:Merck & Moderna \u2014 Phase 3 INTe", "issue": "melanoma", "usd": 0.0595, "input": 14689, "output": 360, "web_searches": 1, "note": ""}
 {"at": "2026-09-04T00:37:57+00:00", "script": "factcheck_draft.py", "role": "advocate", "issue": "melanoma", "usd": 0.6322, "input": 124211, "output": 13971, "web_searches": 5, "note": ""}
 {"at": "2026-09-04T00:41:26+00:00", "script": "factcheck_draft.py", "role": "inference", "issue": "melanoma", "usd": 0.6281, "input": 137642, "output": 11012, "web_searches": 5, "note": ""}
+{"at": "2026-09-04T00:55:29+00:00", "script": "factcheck_draft.py", "role": "changecheck", "issue": "melanoma", "usd": 0.0263, "input": 8700, "output": 13, "web_searches": 0, "note": ""}

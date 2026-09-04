@@ -247,6 +247,19 @@
       "kind_why": "form 'notice' — 3248 characters held. The article test does not apply to this form",
       "superseded": [],
       "also_held": []
+    },
+    "S026": {
+      "sha256": "025d49ad9e8db52430a81a93b9925e0f09aa25ae1815aa886e0cc4b897cd034b",
+      "file": "docs/02/025d49ad9e8db52430a81a93b9925e0f09aa25ae1815aa886e0cc4b897cd034b.xml",
+      "bytes": 9829,
+      "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC6927326/fullTextXML",
+      "held": "2026-09-03",
+      "via": "Europe PMC open-access full-text XML, retrieved 3 September 2026 by the errata sweep",
+      "note": "CC BY-NC. The publisher copy at academic.oup.com is subscription-only.",
+      "kind": "document",
+      "kind_why": "form 'notice' — 2193 characters held. The article test does not apply to this form",
+      "superseded": [],
+      "also_held": []
     }
   }
 }
