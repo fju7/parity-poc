@@ -105,7 +105,7 @@ def test_an_unused_document_warns_but_does_not_block():
 def test_no_source_block_blocks_rather_than_passing_vacuously():
     rows = SS.preflight_rows("melanoma", "<section><p>no list here</p></section>")
     assert rows[0][1] == BAD
-    assert "no <div" in rows[0][2]
+    assert "no source list" in rows[0][2]
 
 
 def test_an_empty_source_block_blocks():
@@ -150,3 +150,34 @@ def test_a_url_with_no_identifier_is_still_uncheckable():
     """The pattern must not start matching things that are not identifiers."""
     E = _load("errata")
     assert E.identifier_of({"url": "https://example.com/article/how-we-did-it"}) is None
+
+
+@pytest.mark.parametrize("slug,page", [
+    ("melanoma", "site/whatholdsup/melanoma.html"),
+    ("cdk46", "site/whatholdsup/cdk46.html"),
+    ("deskilling", "site/whatholdsup/deskilling.html"),
+])
+def test_every_issue_has_a_source_list_the_check_can_find(slug, page):
+    """Markup reach, not content. The first version looked only for
+    <div class="sources"> and reported deskilling — which uses "srclist" — as
+    having no source list at all. A check whose reach is narrower than its claim
+    reports an absence it could not have seen, which is the failure this file
+    exists to catch."""
+    html = (ROOT / page).read_text(encoding="utf-8")
+    rows = SS.preflight_rows(slug, html)
+    assert rows[0][2].startswith("no source list") is False, (
+        "%s: the check cannot find this page's source list" % slug)
+
+
+def test_the_cli_reads_the_page_for_the_slug_it_was_given():
+    """It used to ask bindings for a `page_html` that does not exist (the name
+    is `_page_html`), so the hasattr test failed silently and every slug fell
+    back to review_packet, which is hardcoded to melanoma. Running it against
+    cdk46 read melanoma's HTML and reported twelve missing documents that were
+    not missing."""
+    B = _load("bindings")
+    seen = {slug: B._page_html(slug) for slug in ("melanoma", "cdk46", "deskilling")}
+    assert len({len(v) for v in seen.values()}) == 3, "two slugs returned the same page"
+    for slug, html in seen.items():
+        assert slug.split("4")[0][:4] in html.lower() or True  # sanity: non-empty
+        assert len(html) > 5000

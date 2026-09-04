@@ -44,7 +44,16 @@ import bindings as B          # noqa: E402
 import source_store as store  # noqa: E402
 
 OK, BAD, WARN = "ok", "BLOCKED", "warn"
-SOURCES_BLOCK = re.compile(r'<div class="sources">(.*?)\n\s*</div>\s*</section>', re.S)
+# The three issues do not agree on the class name: melanoma and cdk46 use
+# "sources", deskilling uses "srclist". The first version of this looked only
+# for "sources" and reported deskilling as having no source list at all, which
+# is a check whose reach is narrower than its own claim -- the failure this
+# whole file exists to catch, committed inside the fix for it. Both names, and
+# the BLOCK message says which it looked for.
+SOURCES_CLASSES = ("sources", "srclist")
+SOURCES_BLOCK = re.compile(
+    r'<div class="(?:%s)">(.*?)\n\s*</div>\s*</section>' % "|".join(SOURCES_CLASSES),
+    re.S)
 LINK = re.compile(r'<a href="([^"]+)"')
 
 
@@ -76,8 +85,9 @@ def preflight_rows(slug: str, page_html: str) -> list[tuple[str, str, str]]:
     block = SOURCES_BLOCK.search(page_html)
     if not block:
         return [("the source list a reader sees", BAD,
-                 "no <div class=\"sources\"> block on the page — a reader has no "
-                 "list at all, and an unrun check is not a pass")]
+                 "no source list on the page: looked for a <div> of class %s. "
+                 "A reader has no list at all, and an unrun check is not a pass"
+                 % " or ".join(SOURCES_CLASSES))]
 
     seen = shown(page_html)
     by_id = {s["id"]: s for s in store.sources(slug)}
@@ -111,11 +121,14 @@ def preflight_rows(slug: str, page_html: str) -> list[tuple[str, str, str]]:
 
 
 def main() -> int:
+    # THE SLUG MUST PICK THE PAGE. The first version of this asked bindings for
+    # a `page_html` it does not have (the function is `_page_html`), so the
+    # hasattr test failed silently and every slug fell back to review_packet,
+    # which is hardcoded to melanoma. Running it against cdk46 read melanoma's
+    # HTML with cdk46's bindings and reported twelve missing documents that are
+    # not missing. A check pointed at the wrong document is not a check.
     slug = sys.argv[1] if len(sys.argv) > 1 else "melanoma"
-    page = B.page_html(slug) if hasattr(B, "page_html") else None
-    if page is None:
-        import review_packet as RP
-        page = RP.page_html()
+    page = B._page_html(slug)
     bad = 0
     print()
     for name, state, detail in preflight_rows(slug, page):
