@@ -35,6 +35,7 @@ trying to follow a figure back, whatever its title says.
 """
 from __future__ import annotations
 
+import json
 import re
 import sys
 from pathlib import Path
@@ -69,7 +70,18 @@ def shown(page_html: str) -> set[str]:
 
 
 def rested_on(slug: str) -> dict[str, set[str]]:
-    """source_id -> the on-page sentences that rest on it."""
+    """source_id -> the on-page sentences and quotations that rest on it.
+
+    BINDINGS ARE NOT THE ONLY WAY A PAGE RESTS ON A DOCUMENT. The first version
+    of this read only bindings, said all 22 documents were in the list, and was
+    wrong twice: S008 supplies the quoted words "1-sided alpha of 0.1 per
+    protocol", and S015 supplies three quoted passages including the five-year
+    landmark rates -- and neither was in the list a reader sees. A quotation is
+    the strongest possible dependence on a document, because the page puts that
+    document's words inside quotation marks, and it was the one this check
+    could not see. Found the same afternoon the check was written, by the same
+    question asked one layer down.
+    """
     out: dict[str, set[str]] = {}
     for row in B.load(slug).get("bindings", {}).values():
         if not row.get("on_page"):
@@ -78,6 +90,18 @@ def rested_on(slug: str) -> dict[str, set[str]]:
         ids |= {p["source_id"] for p in (row.get("premises") or [])}
         for sid in ids:
             out.setdefault(sid, set()).add(" ".join(row["sentence"].split()))
+    case = store.case_dir(slug)
+    qf = (case / "quotations.json") if case else None
+    if qf and qf.exists():
+        try:
+            rows = json.loads(qf.read_text(encoding="utf-8")).get("quotations", [])
+        except Exception:
+            rows = []
+        for r in rows:
+            sid = r.get("source_id")
+            if sid:
+                out.setdefault(sid, set()).add(
+                    "quoted: %s" % " ".join((r.get("quote") or "").split())[:120])
     return out
 
 

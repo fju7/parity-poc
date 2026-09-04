@@ -20,11 +20,19 @@
     },
     {
       "figure": "3.35",
-      "in_sentence": "the working underneath it comes to 3.35",
-      "why": "The composite this scorecard used to print, kept in the change log because readers saw 3.4 and the arithmetic came to 3.35 — the correction is the point of the sentence. It was never a figure any document reported; it was our own weighted mean, and the `computed` element beside it shows the six scores and the weights it comes from.",
+      "in_sentence": "Readers saw a single 3.4 — correctly rounded from a working of 3.35 , so the arithmetic was right and the shape of the number was wrong.",
+      "why": "The page's own arithmetic over its own scores, not a figure any document reports: 3 x .25 + 1 x .20 + 4 x .20 + 4 x .15 + 5 x .10 + 5 x .10 = 3.35. Updated 4 September: the sentence carrying it used to call 3.4 and 3.35 a discrepancy. 3.35 rounds to 3.4, so there was none, and the sentence now says so.",
       "by": "claude",
-      "on": "2026-09-03",
+      "on": "2026-09-04",
       "falsifier": "furniture.py's `computed` check stops passing on the element that states it — the working must multiply the scores actually shown, the weights must sum to 1, and the result must equal the printed number. If that check fails or the mark is removed, this figure has nothing verifying it and the exclusion must go with it."
+    },
+    {
+      "figure": "3.4",
+      "in_sentence": "Readers saw a single 3.4 — correctly rounded from a working of 3.35 , so the arithmetic was right and the shape of the number was wrong.",
+      "why": "The page's own composite, rounded from its own working. 3.35 to one decimal place is 3.4. Both numbers are the page's, printed beside each other under the computed mark, so a reader redoes the step without leaving the page. No document reports either.",
+      "by": "claude",
+      "on": "2026-09-04",
+      "falsifier": "furniture.py's computed check stops passing on the element that states the scores and weights, or 3 x .25 + 1 x .20 + 4 x .20 + 4 x .15 + 5 x .10 + 5 x .10 stops equalling 3.35."
     }
   ],
   "retired": [

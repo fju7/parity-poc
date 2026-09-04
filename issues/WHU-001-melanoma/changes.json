@@ -1135,6 +1135,177 @@
       "now": "It is set out in full in the corrections record.",
       "because": "OR-0904-1",
       "note": "The counterexample was confirmed from the publisher's own page after the operator supplied the PubMed id: Irish Journal of Medical Science, DOI 10.1007/s11845-026-04315-0, reference 12. The sentence was false on a live page, so the change log now says so and corrections.md carries it as a correction rather than a withdrawal. Source held as S028."
+    },
+    {
+      "at": "2026-09-04T13:59:29+00:00",
+      "by": "claude",
+      "kind": "changed",
+      "was": "Several outlets called it a landmark.",
+      "now": "The trial's principal investigator called it a landmark moment for adjuvant melanoma treatment in the companies' own release, and the coverage carried the phrase.",
+      "because": "GATE-0904-o7",
+      "note": "'Several outlets called it a landmark' attributed to the coverage a word that is the principal investigator's, quoted in S001 and attributed to Long in S016. The piece spends a section on exactly that distinction and its second sentence was on the wrong side of it."
+    },
+    {
+      "at": "2026-09-04T13:59:29+00:00",
+      "by": "claude",
+      "kind": "changed",
+      "was": "(The full paper reports its landmark rates only to 48 months - its figure legend says so - which is why the five-year rates above come from the report of the analysis rather than from the paper.) This is what \"an encouraging trend\" looks like underneath, and it is why the trend is labelled exploratory.",
+      "now": "(The full paper reports its landmark rates only to 48 months - its figure legend says so - which is why the five-year rates above come from the ASCO 2026 abstract of the same analysis rather than from the paper.) This is what \"an encouraging trend\" looks like underneath, and it is why the trend is labelled exploratory.",
+      "because": "GATE-0904-i5",
+      "note": "The five-year rates rest on S014, the ASCO 2026 abstract; the body said 'the report of the analysis', which was vague and, after 3 September, wrong. Named. The abstract's 'no alpha' sentence now carries where it sits in the methods, which is GATE-0904-c31."
+    },
+    {
+      "at": "2026-09-04T13:59:29+00:00",
+      "by": "claude",
+      "kind": "changed",
+      "was": "This trial's own threshold is on the record: the three-year paper says the trial was designed with approximately 80% power to detect a hazard ratio (HR) of 0.5 against a one-sided alpha of 0.10, and the ASCO 2024 deck states the same threshold in its own words - 1-sided alpha of 0.1 per protocol .",
+      "now": "This trial's own threshold is on the record: the three-year paper says the trial was designed with approximately 80% power to detect a hazard ratio (HR) of 0.5 against a one-sided alpha of 0.10, and the ASCO 2024 presentation of the three-year data, which we hold, states the same threshold in its own words - 1-sided alpha of 0.1 per protocol .",
+      "because": "GATE-0904-c23",
+      "note": "A reach failure: the gate could not verify 'the ASCO 2024 deck'. The deck is S008 and we hold it; the string is in it verbatim. The page now names it as a document we hold, and the sentence is bound to both S007 and S008."
+    },
+    {
+      "at": "2026-09-04T13:59:29+00:00",
+      "by": "claude",
+      "kind": "changed",
+      "was": "Readers saw 3.4 ; the working underneath it comes to 3.35 , and that discrepancy is recorded below.",
+      "now": "Readers saw a single 3.4 - correctly rounded from a working of 3.35 , so the arithmetic was right and the shape of the number was wrong.",
+      "because": "GATE-0904-o1/o2",
+      "note": "3.35 rounds to 3.4, so the printed number was right and the correction notice claiming a 0.05 discrepancy was wrong. Our own gate said so on 3 September and we acted on 4 September. All three passages rewritten; what was actually wrong with the composite was its shape, not its arithmetic."
+    },
+    {
+      "at": "2026-09-04T13:59:29+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "Primary KEYNOTE-942 three-year update - ASCO 2024 presentation Weber, Khattak, Carlino et al. - the author list is in the document itself.",
+      "because": "OR-0904-8",
+      "note": "The same failure one layer down. B17 read bindings only, so it could not see that S008 and S015 supply quoted words to the page and were absent from the list a reader sees. A quotation is the strongest dependence on a document. Both added; the check now reads quotations too."
+    },
+    {
+      "at": "2026-09-04T13:59:29+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "Source of the quoted 1-sided alpha of 0.1 per protocol , which is the threshold the trial set for itself, and of the three-year figures HR 0.510, 95% CI 0.288-0.906.",
+      "because": "OR-0904-8",
+      "note": "The same failure one layer down. B17 read bindings only, so it could not see that S008 and S015 supply quoted words to the page and were absent from the list a reader sees. A quotation is the strongest dependence on a document. Both added; the check now reads quotations too."
+    },
+    {
+      "at": "2026-09-04T13:59:29+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "Trade The ASCO Post, June 2026 - Vaccine plus pembrolizumab reduces risk of recurrence Where we first read the five-year landmark rates, and the source of Seven patients died during follow-up in each arm .",
+      "because": "OR-0904-8",
+      "note": "The same failure one layer down. B17 read bindings only, so it could not see that S008 and S015 supply quoted words to the page and were absent from the list a reader sees. A quotation is the strongest dependence on a document. Both added; the check now reads quotations too."
+    },
+    {
+      "at": "2026-09-04T13:59:29+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "The rates themselves are now taken from the ASCO abstract above.",
+      "because": "OR-0904-8",
+      "note": "The same failure one layer down. B17 read bindings only, so it could not see that S008 and S015 supply quoted words to the page and were absent from the list a reader sees. A quotation is the strongest dependence on a document. Both added; the check now reads quotations too."
+    },
+    {
+      "at": "2026-09-04T13:59:29+00:00",
+      "by": "claude",
+      "kind": "changed",
+      "was": "Note the word the companies chose - nominal - which is what a p-value is called when no alpha has been assigned to the analysis that produced it, and the ASCO 2026 abstract for that same five-year readout, number 9500, says exactly that: No alpha was assigned to this analysis .",
+      "now": "Note the word the companies chose - nominal - which is what a p-value is called when no alpha has been assigned to the analysis that produced it, and the ASCO 2026 abstract for that same five-year readout, number 9500, says exactly that in its methods, at the end of the list of endpoints: No alpha was assigned to this analysis .",
+      "because": "GATE-0904-i5",
+      "note": "The five-year rates rest on S014, the ASCO 2026 abstract; the body said 'the report of the analysis', which was vague and, after 3 September, wrong. Named. The abstract's 'no alpha' sentence now carries where it sits in the methods, which is GATE-0904-c31."
+    },
+    {
+      "at": "2026-09-04T13:59:29+00:00",
+      "by": "claude",
+      "kind": "changed",
+      "was": "The composite readers saw did not match its own working.",
+      "now": "We accused ourselves of an arithmetic error we had not made.",
+      "because": "GATE-0904-o1/o2",
+      "note": "3.35 rounds to 3.4, so the printed number was right and the correction notice claiming a 0.05 discrepancy was wrong. Our own gate said so on 3 September and we acted on 4 September. All three passages rewritten; what was actually wrong with the composite was its shape, not its arithmetic."
+    },
+    {
+      "at": "2026-09-04T13:59:29+00:00",
+      "by": "claude",
+      "kind": "changed",
+      "was": "The published page scored this assessment 3.4 .",
+      "now": "On 3 September the scorecard was marked as text the page works out for itself, which obliges it to show its arithmetic and come to the number it prints.",
+      "because": "GATE-0904-o1/o2",
+      "note": "3.35 rounds to 3.4, so the printed number was right and the correction notice claiming a 0.05 discrepancy was wrong. Our own gate said so on 3 September and we acted on 4 September. All three passages rewritten; what was actually wrong with the composite was its shape, not its arithmetic."
+    },
+    {
+      "at": "2026-09-04T13:59:29+00:00",
+      "by": "claude",
+      "kind": "changed",
+      "was": "On 3 September the scorecard was marked as text the page works out for itself, which obliges it to show its arithmetic and to come to the number it prints.",
+      "now": "The six scores and the published weights come to 3.35 ; the page printed 3.4 .",
+      "because": "GATE-0904-o1/o2",
+      "note": "3.35 rounds to 3.4, so the printed number was right and the correction notice claiming a 0.05 discrepancy was wrong. Our own gate said so on 3 September and we acted on 4 September. All three passages rewritten; what was actually wrong with the composite was its shape, not its arithmetic."
+    },
+    {
+      "at": "2026-09-04T13:59:29+00:00",
+      "by": "claude",
+      "kind": "changed",
+      "was": "It did not: the six scores and the published weights come to 3.35 .",
+      "now": "We recorded that as a discrepancy, said the figure had been out by 0.05 for eight days, and \"corrected\" it. 3.35 rounds to 3.4.",
+      "because": "GATE-0904-o1/o2",
+      "note": "3.35 rounds to 3.4, so the printed number was right and the correction notice claiming a 0.05 discrepancy was wrong. Our own gate said so on 3 September and we acted on 4 September. All three passages rewritten; what was actually wrong with the composite was its shape, not its arithmetic."
+    },
+    {
+      "at": "2026-09-04T13:59:29+00:00",
+      "by": "claude",
+      "kind": "changed",
+      "was": "The printed figure was out by 0.05 against its own working, for eight days, and nothing here had asked the question until the mark was applied.",
+      "now": "The printed number was right and the entry saying otherwise was wrong.",
+      "because": "GATE-0904-o1/o2",
+      "note": "3.35 rounds to 3.4, so the printed number was right and the correction notice claiming a 0.05 discrepancy was wrong. Our own gate said so on 3 September and we acted on 4 September. All three passages rewritten; what was actually wrong with the composite was its shape, not its arithmetic."
+    },
+    {
+      "at": "2026-09-04T13:59:29+00:00",
+      "by": "claude",
+      "kind": "changed",
+      "was": "The number was corrected before the composite was abolished, and the correction is recorded here because it happened to a figure readers could see.",
+      "now": "Our own fact-check gate said so on 3 September and we did not act on it until 4 September.",
+      "because": "GATE-0904-o1/o2",
+      "note": "3.35 rounds to 3.4, so the printed number was right and the correction notice claiming a 0.05 discrepancy was wrong. Our own gate said so on 3 September and we acted on 4 September. All three passages rewritten; what was actually wrong with the composite was its shape, not its arithmetic."
+    },
+    {
+      "at": "2026-09-04T13:59:29+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "This is the second time a correction notice on this page has been worse than the thing it corrected, and both times the fault was the same shape: a check reported precisely, and the sentence written around it overstated.",
+      "because": "GATE-0904-o1/o2",
+      "note": "3.35 rounds to 3.4, so the printed number was right and the correction notice claiming a 0.05 discrepancy was wrong. Our own gate said so on 3 September and we acted on 4 September. All three passages rewritten; what was actually wrong with the composite was its shape, not its arithmetic."
+    },
+    {
+      "at": "2026-09-04T13:59:29+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "What was actually wrong with the composite is in the entry below - it averaged two things that do not average, which is a defect in the number's shape, not in its arithmetic.",
+      "because": "GATE-0904-o1/o2",
+      "note": "3.35 rounds to 3.4, so the printed number was right and the correction notice claiming a 0.05 discrepancy was wrong. Our own gate said so on 3 September and we acted on 4 September. All three passages rewritten; what was actually wrong with the composite was its shape, not its arithmetic."
+    },
+    {
+      "at": "2026-09-04T13:59:29+00:00",
+      "by": "claude",
+      "kind": "changed",
+      "was": "The corrected composite read 3.35, from 3 / 5 · 1 / 5 · 4 / 5 · 4 / 5 · 5 / 5 · 5 / 5 and (3×.25 + 1×.20 + 4×.20 + 4×.15 + 5×.10 + 5×.10) - a number below what the trial design deserves and above what the disclosure supports.",
+      "now": "The corrected composite read 3.35 - which rounds to the 3.4 the page printed - from 3 / 5 · 1 / 5 · 4 / 5 · 4 / 5 · 5 / 5 · 5 / 5 and (3×.25 + 1×.20 + 4×.20 + 4×.15 + 5×.10 + 5×.10) - a number below what the trial design deserves and above what the disclosure supports.",
+      "because": "GATE-0904-o1/o2",
+      "note": "3.35 rounds to 3.4, so the printed number was right and the correction notice claiming a 0.05 discrepancy was wrong. Our own gate said so on 3 September and we acted on 4 September. All three passages rewritten; what was actually wrong with the composite was its shape, not its arithmetic."
+    },
+    {
+      "at": "2026-09-04T13:59:29+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "The separate claim that its printed 3.4 disagreed with its own working of 3.35 was itself wrong - 3.35 rounds to 3.4 - and that is corrected above.",
+      "because": "GATE-0904-o1/o2",
+      "note": "3.35 rounds to 3.4, so the printed number was right and the correction notice claiming a 0.05 discrepancy was wrong. Our own gate said so on 3 September and we acted on 4 September. All three passages rewritten; what was actually wrong with the composite was its shape, not its arithmetic."
     }
   ]
 }

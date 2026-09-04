@@ -3202,7 +3202,7 @@
         "warranted": null
       },
       "first_seen": "2026-09-02",
-      "on_page": true,
+      "on_page": false,
       "autobind": "anchors too weak to identify a document: 0.5, 0.10, 0.1 (strength 3, need 4)",
       "proposed_by": "model",
       "confirmed": false,
@@ -3215,7 +3215,8 @@
         }
       ],
       "check_flags": [],
-      "checked_on": "2026-09-04"
+      "checked_on": "2026-09-04",
+      "left_page": "2026-09-04"
     },
     "cca48cac28c58871": {
       "sentence": "So 0.0266 was inside its own prespecified threshold by a wide margin , and 0.053 is a near miss only against a 0.05 line this trial never used.",
@@ -5085,13 +5086,14 @@
         "warranted": null
       },
       "first_seen": "2026-09-03",
-      "on_page": true,
+      "on_page": false,
       "attested_by": "Claude (Opus 5)",
       "attested_in": "the repository's own git history, read on 3 September 2026, and the live page fetched the same day",
       "why_bound": "NOT LOCATABLE BY MACHINE, and not for the usual reason. This sentence is a claim about what THIS PAGE used to say, so the document that settles it is the page's own history rather than anything in the library. No span check can reach a git object. A person read the commits and the live page and is named above; the two figures also carry declared exclusions saying they are the page's own arithmetic, with the `computed` mark as their falsifier.",
       "proposed_by": "human",
       "confirmed": true,
-      "proposed_on": "2026-09-03"
+      "proposed_on": "2026-09-03",
+      "left_page": "2026-09-04"
     },
     "e77772887fc6282b": {
       "sentence": "0 Phase 3 efficacy numbers released",
@@ -5386,7 +5388,7 @@
         "warranted": null
       },
       "first_seen": "2026-09-03",
-      "on_page": true,
+      "on_page": false,
       "also_rests_on": [
         {
           "source_id": "S014",
@@ -5398,7 +5400,8 @@
       "confirmed": false,
       "proposed_on": "2026-09-03",
       "check_flags": [],
-      "checked_on": "2026-09-04"
+      "checked_on": "2026-09-04",
+      "left_page": "2026-09-04"
     },
     "4721114bb698a332": {
       "sentence": "In this programme, overall survival has been reported only as an exploratory analysis in the smaller trial, on an \"n=14\" — fourteen deaths among 157 patients, seven in each arm.",
@@ -6629,6 +6632,176 @@
       "locator_type": "prose",
       "locator": null,
       "span": "5-y rate was 92.2% (95% CI, 84.2%–96.3%) for intismeran + pembro vs 71.3% (95% CI, 35.4%–89.6%) for pembro alone",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-09-04",
+      "on_page": true,
+      "check_flags": [],
+      "checked_on": "2026-09-04"
+    },
+    "a952f6d9e7dcce91": {
+      "sentence": "(The full paper reports its landmark rates only to 48 months — its figure legend says so — which is why the five-year rates above come from the ASCO 2026 abstract of the same analysis rather than from the paper.) This is what \"an encouraging trend\" looks like underneath, and it is why the trend is labelled exploratory.",
+      "sentence_sha": "a952f6d9e7dcce91",
+      "why_empirical": "the bare integer 48 is a quantity",
+      "bucket": "context",
+      "source_id": "S004",
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": "RFS (95% CI), DMFS (95% CI), and OS (95% CI) are shown at 18-, 24-, 36-, and 48-month time points.",
+      "envelope": null,
+      "scope_words": [
+        {
+          "word": "only",
+          "by": "claude",
+          "on": "2026-09-03",
+          "why": "The span IS the figure legend, and it enumerates: 'RFS (95% CI), DMFS (95% CI), and OS (95% CI) are shown at 18-, 24-, 36-, and 48-month time points.' Four timepoints, the last of them 48 months. 'Only to 48 months' is the end of a list the source prints, which is why the five-year rates on this page come from S014 instead — and the sentence says that too.",
+          "falsifier": "a landmark rate beyond 48 months anywhere in S004."
+        }
+      ],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-09-04",
+      "on_page": true,
+      "check_flags": [],
+      "checked_on": "2026-09-04"
+    },
+    "f016058d777f5512": {
+      "sentence": "Readers saw a single 3.4 — correctly rounded from a working of 3.35 , so the arithmetic was right and the shape of the number was wrong.",
+      "sentence_sha": "f016058d777f5512",
+      "why_empirical": "figure",
+      "bucket": "judgement",
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": "prose",
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-09-04",
+      "on_page": true,
+      "premises": [
+        {
+          "source_id": "S001",
+          "span": "randomized, double-blind, placebo- and active-comparator-controlled global Phase 3 trial"
+        },
+        {
+          "source_id": "S018",
+          "span": "The companies did not disclose hazard ratios, absolute event rates, P values, or other phase 3 efficacy estimates in the topline announcement."
+        }
+      ],
+      "step": "Two steps, and only the second is about the world. FIRST, arithmetic over this page's own scores and weights, which are printed beside it: 3 x .25 + 1 x .20 + 4 x .20 + 4 x .15 + 5 x .10 + 5 x .10 = 3.35, and 3.35 to one decimal place is 3.4. So the printed number was right, and the earlier entry calling it a discrepancy was wrong; our own gate said so on 3 September as findings o1 and o2, and we acted on 4 September. SECOND, why the number was the wrong SHAPE rather than the wrong value: the premises are the two facts the composite averaged together. S001 describes a randomised, double-blind, placebo- and active-comparator-controlled Phase 3, which is what the direction dimensions reward; S018 records that no efficacy estimate was disclosed, which is what the magnitude dimension measures. One number cannot report both, which is the finding the outside reviewer made and the reason the scorecard was split."
+    },
+    "d51b39a894da3e90": {
+      "sentence": "This trial's own threshold is on the record: the three-year paper says the trial was designed with approximately 80% power to detect a hazard ratio (HR) of 0.5 against a one-sided alpha of 0.10, and the ASCO 2024 presentation of the three-year data, which we hold, states the same threshold in its own words — 1-sided alpha of 0.1 per protocol .",
+      "sentence_sha": "d51b39a894da3e90",
+      "why_empirical": "figure",
+      "bucket": "judgement",
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-09-04",
+      "on_page": true,
+      "premises": [
+        {
+          "source_id": "S007",
+          "span": "80% power to detect a hazard ratio (HR) of 0.5 with a one-sided a of 0.10 after 40 RFS events."
+        },
+        {
+          "source_id": "S008",
+          "span": "1-sided alpha of 0.1 per protocol"
+        }
+      ],
+      "step": "Two documents state the same threshold independently, which is why the sentence does not rest on one reading: S007, the three-year paper, gives the power and the hazard ratio it was powered for; S008, the ASCO 2024 presentation of the same analysis, states the one-sided alpha in its own words. Our own gate reported (c23) that it could not verify the presentation, which is a reach failure — the presentation is S008 and we hold it."
+    },
+    "3dd21ca26072e3ab": {
+      "sentence": "Primary KEYNOTE-942 three-year update — ASCO 2024 presentation Weber, Khattak, Carlino et al.",
+      "sentence_sha": "3dd21ca26072e3ab",
+      "why_empirical": "names KEYNOTE-942",
+      "bucket": "context",
+      "source_id": "S008",
+      "document_sha": null,
+      "locator_type": "prose",
+      "locator": null,
+      "span": "3-year update from the mRNA-4157-P201 (KEYNOTE-942) trial",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-09-04",
+      "on_page": true,
+      "check_flags": [],
+      "checked_on": "2026-09-04"
+    },
+    "6f612a1948b99e1b": {
+      "sentence": "Source of the quoted 1-sided alpha of 0.1 per protocol , which is the threshold the trial set for itself, and of the three-year figures HR 0.510, 95% CI 0.288–0.906.",
+      "sentence_sha": "6f612a1948b99e1b",
+      "why_empirical": "figure",
+      "bucket": "context",
+      "source_id": "S008",
+      "document_sha": null,
+      "locator_type": "prose",
+      "locator": null,
+      "span": "1-sided alpha of 0.1 per protocol",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-09-04",
+      "on_page": true,
+      "check_flags": [],
+      "checked_on": "2026-09-04",
+      "also_rests_on": [
+        {
+          "source_id": "S008",
+          "span": "0.510 (0.288–0.906)"
+        }
+      ]
+    },
+    "126e469e8ab69aec": {
+      "sentence": "Trade The ASCO Post, June 2026 — Vaccine plus pembrolizumab reduces risk of recurrence Where we first read the five-year landmark rates, and the source of Seven patients died during follow-up in each arm .",
+      "sentence_sha": "126e469e8ab69aec",
+      "why_empirical": "names The ASCO Post",
+      "bucket": "context",
+      "source_id": "S015",
+      "document_sha": null,
+      "locator_type": "prose",
+      "locator": null,
+      "span": "Seven patients died during follow-up in each arm",
       "envelope": null,
       "scope_words": [],
       "falsifier": null,

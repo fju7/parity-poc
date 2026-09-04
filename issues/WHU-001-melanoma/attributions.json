@@ -1,0 +1,30 @@
+{
+  "_what_this_is": "Names this page attributes work to, and the record that somebody opened the author list of the document itself rather than trusting a title we transcribed. Created 2026-09-04, when a source entry added to the list a reader sees carried a byline and lint_claims blocked on it. The check exists because 'Jacot and colleagues' was published from gate output while fixing an attribution gap, and the paper is by Tanguy et al.",
+  "verified": [
+    {
+      "name": "Weber",
+      "as_written": "Weber, Khattak, Carlino et al.",
+      "source_id": "S008",
+      "checked_against": "the author list printed in the held document itself",
+      "author_line": "Jeffrey S. Weber, Muhammad Adnan Khattak, Matteo S. Carlino, Tarek Meniawy, Matthew H. Taylor, George Ansstas, Kevin B. Kim, Meredith McKean, Ryan J. Sullivan, Mark B. Faries, Thuy Tran, C. Lance Cowey, and others",
+      "by": "claude",
+      "on": "2026-09-04"
+    },
+    {
+      "name": "Khattak",
+      "as_written": "Weber, Khattak, Carlino et al.",
+      "source_id": "S008",
+      "checked_against": "the author list printed in the held document itself",
+      "by": "claude",
+      "on": "2026-09-04"
+    },
+    {
+      "name": "Carlino",
+      "as_written": "Weber, Khattak, Carlino et al.",
+      "source_id": "S008",
+      "checked_against": "the author list printed in the held document itself",
+      "by": "claude",
+      "on": "2026-09-04"
+    }
+  ]
+}

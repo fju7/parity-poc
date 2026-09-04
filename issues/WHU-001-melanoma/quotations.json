@@ -340,6 +340,19 @@
         "by": "claude",
         "on": "2026-09-03"
       }
+    },
+    {
+      "id": "Q-29",
+      "quote": "a landmark moment for adjuvant melanoma treatment",
+      "kind": "quotation",
+      "source_id": "S001",
+      "verbatim": "a landmark moment for adjuvant melanoma treatment",
+      "why": "The standfirst used to say 'Several outlets called it a landmark.' Our own fact-check gate reported on 3 September (finding o7) that no held outlet is cited using the word in its own voice. It is right: the phrase occurs in S001, the companies' release, and S016 attributes it to Long, the study's principal investigator. S006, S016 and S017 reproduce it as a quotation. So the word is the investigator's, carried by the coverage — which is the exact distinction this piece spends a section making, and the second sentence of the piece was on the wrong side of it.",
+      "attested": {
+        "by": "claude",
+        "on": "2026-09-04",
+        "where": "S001, and S016 which names the speaker"
+      }
     }
   ]
 }

@@ -285,3 +285,126 @@ itself.
 That is the gap worth naming. Our machinery checks sentences against documents.
 It has no test for a page that argues with itself, and this is the second review
 in a row where self-contradiction was the largest category.
+
+---
+
+# The gate's own open findings, decided the same day
+
+The 3 September page gate left thirteen findings open against text still on the
+page. They were not part of the outside review and are decided here because the
+review made several of them cheap to settle: documents acquired for one finding
+turn out to answer another.
+
+**One of them found the Morning Glory sentence a day before the reviewer did.**
+Finding o4, THIRD_PARTY: *"This is a negative characterisation of a named
+outlet's credibility. The draft's search may simply have been incomplete, or the
+outlet may be new or niche."* That is the same defect the outside reviewer
+reported as their first finding, and our own machinery raised it on 3 September.
+It sat unactioned for a day, and the sentence went to a reviewer inside the
+packet. The check worked; the disposition did not happen. That is now the second
+distinct way this sentence was catchable before it was caught.
+
+## GATE-0904-o7 — "Several outlets called it a landmark" — ACCEPT
+
+The gate is right and the error is in the second sentence of the piece. No held
+outlet uses the word in its own voice. What the documents show is that S001, the
+companies' release, carries *"Today's results represent a landmark moment for
+adjuvant melanoma treatment"*, and S016 attributes it to Long, the study's
+principal investigator; S006, S016 and S017 reproduce it as a quotation.
+
+So the word is the investigator's, carried by the coverage — which is the exact
+distinction this piece spends a section drawing, and the standfirst was on the
+wrong side of it. Rewritten to attribute the phrase where it belongs. Recorded
+as quotation Q-29.
+
+## GATE-0904-o1 / o2 — 3.4 against a working of 3.35 — ACCEPT, both
+
+**3.35 rounds to 3.4.** The printed number was right. We had recorded it as a
+discrepancy, said the figure was *"out by 0.05"* for eight days, and
+"corrected" it — accusing ourselves of an arithmetic error we had not made, in
+the correction history, where a reader goes to check whether we can be trusted
+about our own mistakes.
+
+Three passages carried it and all three are rewritten. What was actually wrong
+with the composite is that it averaged direction-confidence and size-confidence
+into one number, which is a defect in the number's shape, not its arithmetic,
+and that is what the change log now says.
+
+This is the second time a correction notice on this page has been worse than the
+thing it corrected. Both times the shape was identical: a check reported
+precisely, and the sentence written around it overstated. The 2 September entry
+records the first instance in those words, and we did it again eight days later.
+
+## GATE-0904-i5 — the five-year rates' attribution — ACCEPT
+
+The body said the rates come from "the report of the analysis rather than from
+the paper", which was vague and, after 3 September, wrong: they rest on S014,
+the ASCO 2026 abstract. Now named.
+
+## GATE-0904-o3 — "Coverage has been merging them" — RESOLVED, already gone
+
+The offending subheading was replaced on 4 September before the review. What the
+gate still matched is the residue of its quote — "Different sizes, different
+patients, different rigour" — which is a factual comparison of two trials and
+makes no claim about what coverage did.
+
+## Seven reach failures — REJECT, all seven
+
+Each has its own heading below so that a change can cite one decision rather than a group: a label that resolves to seven decisions is the defect this file already records about OR-n.
+
+Seven findings that the gate could not verify because it could not reach the
+document. Each is answered by bytes we hold:
+
+### GATE-0904-c23
+
+"the ASCO 2024 deck states 1-sided alpha of 0.1 per protocol": that
+  deck is **S008**, we hold it, and the string is in it verbatim. The page now
+  names it as a document we hold rather than as "the deck".
+### GATE-0904-c27
+
+HR 0.425, 80% CI 0.179 to 1.004, nine deaths: S007 prints
+  `0.425 [80% CI, 0.179 to 1.004]` and the arm counts 4/107 and 5/50, which is
+  nine.
+### GATE-0904-c28
+
+RFS 80% CI 0.351–0.743: S007 prints `0.510 [80% CI, 0.351 to 0.743]`.
+### GATE-0904-c33
+
+NOT_POSTED with posting dates November 2026 and October 2033: both
+  are field values in S020 and S026, and two sentences are bound to them.
+### GATE-0904-c43
+
+the announcement-day post's HRs are Phase 2b figures: the gate's own
+  text confirms the figures; the finding is about characterisation, and the page
+  says only what S019 says.
+### GATE-0904-c45
+
+"shared with regulatory authorities": S001 contains that clause
+  verbatim, twice.
+### GATE-0904-c47
+
+"not intended for formal hypothesis testing (ie, are descriptive
+  only)": verbatim in S007.
+
+An absence observed by something that could not reach the document is not an
+absence. Seven of the thirteen were that.
+
+**What would change it:** any of these strings failing `spancheck.b2_present`
+against the source named, or the held bytes proving not to be the document.
+
+## GATE-0904-c31 — "no alpha was assigned" — ACCEPT IN PART
+
+The gate says the abstract's *"No alpha was assigned to this analysis"* attaches
+to the exploratory OS analysis, not to the five-year recurrence result the page
+uses it for. Reading S014, the sentence sits at the end of the methods' endpoint
+list — primary RFS, secondary DMFS and safety, exploratory OS — and "this
+analysis" most naturally means the five-year analysis being reported.
+
+We think our reading is right and we are not certain, so the page now says where
+the sentence sits: "in its methods, at the end of the list of endpoints". The
+reader can see what it attaches to and disagree with us. Disclosure rather than
+a silent resolution, because the ambiguity is real and is the gate's.
+
+**What would change it:** the full presentation or protocol showing alpha
+assigned to the five-year RFS analysis, which would make the companies' word
+"nominal" wrong rather than exact.

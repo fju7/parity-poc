@@ -222,7 +222,20 @@ def run(slug: str) -> dict:
             excluded.append((fig, r))
             continue
         missing.append((fig, sent))
-    stale = [r for r in rules if id(r) not in used]
+    # STALE MEANS THE SENTENCE IS GONE, NOT THAT THIS RUN DID NOT CONSULT IT.
+    # An exclusion is skipped whenever the figure ALSO turns up in some held
+    # document -- b13 stops at `present` and never reaches the rule. So a live,
+    # correct exclusion for a figure like 3.4, which occurs in plenty of
+    # documents for unrelated reasons, was reported as an exclusion that had
+    # outlived its sentence. It had not; and rule 1 in publish.py reads the same
+    # file and DOES need it, because the figure is the page's own arithmetic and
+    # is in no span the sentence is bound to. Two checks reading one file with
+    # two notions of "used" is how a correct entry gets deleted as dead.
+    on_page = [sent for _fig, sent in figures_on_page(slug)]
+    stale = [r for r in rules
+             if id(r) not in used
+             and not any((r.get("in_sentence") or "") and r["in_sentence"] in sent
+                         for sent in on_page)]
     return {"checked": present + len(missing) + len(excluded), "present": present,
             "missing": missing, "excluded": excluded, "stale": stale,
             "unheld": unheld(slug), "sources": len(store.sources(slug))}
