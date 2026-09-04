@@ -1324,6 +1324,240 @@
       "now": "Source of the quoted Seven patients died during follow-up in each arm .",
       "because": "OR-0904-8",
       "note": "The change review read three source-list entries mentioning five-year data and could not tell which supplied what. The ASCO Post entry now says what it is: where we first read the landmark rates, and the source of one quoted sentence. A first draft of it said 'not a source of any figure on this page' — a universal negative written into a correction, which B6 and B15 both flagged within a minute. Rewritten positively."
+    },
+    {
+      "at": "2026-09-04T16:50:26+00:00",
+      "by": "claude",
+      "kind": "changed",
+      "was": "Most of the side effects attributed to the vaccine were mild to moderate - fatigue 59.6%, injection-site pain 59.6%, chills 51.0%.",
+      "now": "The release attributes its most common adverse events to the combination , not to one drug: fatigue 59.6%, injection-site pain 59.6%, chills 51.0%.",
+      "because": "READER-0904-1",
+      "note": "A reader asked why one sentence called the therapy a vaccine. The word is ours -- S002 never uses it outside Merck's site navigation -- and the three percentages it carried are attributed by the release to the combination, not to one drug. The sentence also fused that with a separate, narrower statement about intismeran autogene alone. Both now appear as the release states them. The 27 August change-log entry that created the error misquoted the release, and is corrected too."
+    },
+    {
+      "at": "2026-09-04T16:50:26+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "Of the events it attributes to intismeran autogene on its own, most were Grade 1 (31.7%) or Grade 2 (51.9%).",
+      "because": "READER-0904-1",
+      "note": "A reader asked why one sentence called the therapy a vaccine. The word is ours -- S002 never uses it outside Merck's site navigation -- and the three percentages it carried are attributed by the release to the combination, not to one drug. The sentence also fused that with a separate, narrower statement about intismeran autogene alone. Both now appear as the release states them. The 27 August change-log entry that created the error misquoted the release, and is corrected too."
+    },
+    {
+      "at": "2026-09-04T16:50:26+00:00",
+      "by": "claude",
+      "kind": "changed",
+      "was": "We had said the trial's most common side effects were mild to moderate, where the company's release describes the events attributed to the vaccine specifically - the sentence now says that, and the three percentages were re-read off the release and are unchanged.",
+      "now": "We had said the trial's most common side effects were mild to moderate, and narrowed the sentence to the events attributed to the vaccine .",
+      "because": "READER-0904-1",
+      "note": "A reader asked why one sentence called the therapy a vaccine. The word is ours -- S002 never uses it outside Merck's site navigation -- and the three percentages it carried are attributed by the release to the combination, not to one drug. The sentence also fused that with a separate, narrower statement about intismeran autogene alone. Both now appear as the release states them. The 27 August change-log entry that created the error misquoted the release, and is corrected too."
+    },
+    {
+      "at": "2026-09-04T16:50:26+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "That narrowing was wrong, and the entry for 4 September corrects it.",
+      "because": "READER-0904-1",
+      "note": "A reader asked why one sentence called the therapy a vaccine. The word is ours -- S002 never uses it outside Merck's site navigation -- and the three percentages it carried are attributed by the release to the combination, not to one drug. The sentence also fused that with a separate, narrower statement about intismeran autogene alone. Both now appear as the release states them. The 27 August change-log entry that created the error misquoted the release, and is corrected too."
+    },
+    {
+      "at": "2026-09-04T16:50:26+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "The three percentages were re-read off the release and are unchanged.",
+      "because": "READER-0904-1",
+      "note": "A reader asked why one sentence called the therapy a vaccine. The word is ours -- S002 never uses it outside Merck's site navigation -- and the three percentages it carried are attributed by the release to the combination, not to one drug. The sentence also fused that with a separate, narrower statement about intismeran autogene alone. Both now appear as the release states them. The 27 August change-log entry that created the error misquoted the release, and is corrected too."
+    },
+    {
+      "at": "2026-09-04T16:50:26+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "We called it a vaccine, and attributed the combination's side effects to it.",
+      "because": "READER-0904-1",
+      "note": "A reader asked why one sentence called the therapy a vaccine. The word is ours -- S002 never uses it outside Merck's site navigation -- and the three percentages it carried are attributed by the release to the combination, not to one drug. The sentence also fused that with a separate, narrower statement about intismeran autogene alone. Both now appear as the release states them. The 27 August change-log entry that created the error misquoted the release, and is corrected too."
+    },
+    {
+      "at": "2026-09-04T16:50:26+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "A reader asked why the word was there.",
+      "because": "READER-0904-1",
+      "note": "A reader asked why one sentence called the therapy a vaccine. The word is ours -- S002 never uses it outside Merck's site navigation -- and the three percentages it carried are attributed by the release to the combination, not to one drug. The sentence also fused that with a separate, narrower statement about intismeran autogene alone. Both now appear as the release states them. The 27 August change-log entry that created the error misquoted the release, and is corrected too."
+    },
+    {
+      "at": "2026-09-04T16:50:26+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "Two things were wrong.",
+      "because": "READER-0904-1",
+      "note": "A reader asked why one sentence called the therapy a vaccine. The word is ours -- S002 never uses it outside Merck's site navigation -- and the three percentages it carried are attributed by the release to the combination, not to one drug. The sentence also fused that with a separate, narrower statement about intismeran autogene alone. Both now appear as the release states them. The 27 August change-log entry that created the error misquoted the release, and is corrected too."
+    },
+    {
+      "at": "2026-09-04T16:50:26+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "The five-year release attributes its most common adverse events - fatigue 59.6%, injection-site pain 59.6%, chills 51.0% - to intismeran autogene in combination with KEYTRUDA .",
+      "because": "READER-0904-1",
+      "note": "A reader asked why one sentence called the therapy a vaccine. The word is ours -- S002 never uses it outside Merck's site navigation -- and the three percentages it carried are attributed by the release to the combination, not to one drug. The sentence also fused that with a separate, narrower statement about intismeran autogene alone. Both now appear as the release states them. The 27 August change-log entry that created the error misquoted the release, and is corrected too."
+    },
+    {
+      "at": "2026-09-04T16:50:26+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "We attributed them to one of the two drugs.",
+      "because": "READER-0904-1",
+      "note": "A reader asked why one sentence called the therapy a vaccine. The word is ours -- S002 never uses it outside Merck's site navigation -- and the three percentages it carried are attributed by the release to the combination, not to one drug. The sentence also fused that with a separate, narrower statement about intismeran autogene alone. Both now appear as the release states them. The 27 August change-log entry that created the error misquoted the release, and is corrected too."
+    },
+    {
+      "at": "2026-09-04T16:50:26+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "The release makes a separate, narrower statement about the events it attributes to intismeran autogene on its own, that most were Grade 1 (31.7%) or Grade 2 (51.9%), and our sentence fused the two.",
+      "because": "READER-0904-1",
+      "note": "A reader asked why one sentence called the therapy a vaccine. The word is ours -- S002 never uses it outside Merck's site navigation -- and the three percentages it carried are attributed by the release to the combination, not to one drug. The sentence also fused that with a separate, narrower statement about intismeran autogene alone. Both now appear as the release states them. The 27 August change-log entry that created the error misquoted the release, and is corrected too."
+    },
+    {
+      "at": "2026-09-04T16:50:26+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "Both now appear as the release states them.",
+      "because": "READER-0904-1",
+      "note": "A reader asked why one sentence called the therapy a vaccine. The word is ours -- S002 never uses it outside Merck's site navigation -- and the three percentages it carried are attributed by the release to the combination, not to one drug. The sentence also fused that with a separate, narrower statement about intismeran autogene alone. Both now appear as the release states them. The 27 August change-log entry that created the error misquoted the release, and is corrected too."
+    },
+    {
+      "at": "2026-09-04T16:50:26+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "And the word itself was ours.",
+      "because": "READER-0904-1",
+      "note": "A reader asked why one sentence called the therapy a vaccine. The word is ours -- S002 never uses it outside Merck's site navigation -- and the three percentages it carried are attributed by the release to the combination, not to one drug. The sentence also fused that with a separate, narrower statement about intismeran autogene alone. Both now appear as the release states them. The 27 August change-log entry that created the error misquoted the release, and is corrected too."
+    },
+    {
+      "at": "2026-09-04T16:50:26+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "The release does not use it: its own terms are intismeran autogene and individualized neoantigen therapy, and the only occurrences of \"vaccine\" anywhere in the document we hold are in the company's site navigation.",
+      "because": "READER-0904-1",
+      "note": "A reader asked why one sentence called the therapy a vaccine. The word is ours -- S002 never uses it outside Merck's site navigation -- and the three percentages it carried are attributed by the release to the combination, not to one drug. The sentence also fused that with a separate, narrower statement about intismeran autogene alone. Both now appear as the release states them. The 27 August change-log entry that created the error misquoted the release, and is corrected too."
+    },
+    {
+      "at": "2026-09-04T16:50:26+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "The rest of this page calls it a personalised mRNA cancer therapy.",
+      "because": "READER-0904-1",
+      "note": "A reader asked why one sentence called the therapy a vaccine. The word is ours -- S002 never uses it outside Merck's site navigation -- and the three percentages it carried are attributed by the release to the combination, not to one drug. The sentence also fused that with a separate, narrower statement about intismeran autogene alone. Both now appear as the release states them. The 27 August change-log entry that created the error misquoted the release, and is corrected too."
+    },
+    {
+      "at": "2026-09-04T16:50:26+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "One sentence did not, and the word carries weight the sponsor's own naming avoids.",
+      "because": "READER-0904-1",
+      "note": "A reader asked why one sentence called the therapy a vaccine. The word is ours -- S002 never uses it outside Merck's site navigation -- and the three percentages it carried are attributed by the release to the combination, not to one drug. The sentence also fused that with a separate, narrower statement about intismeran autogene alone. Both now appear as the release states them. The 27 August change-log entry that created the error misquoted the release, and is corrected too."
+    },
+    {
+      "at": "2026-09-04T16:50:26+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "The entry above for 27 August is where this came from.",
+      "because": "READER-0904-1",
+      "note": "A reader asked why one sentence called the therapy a vaccine. The word is ours -- S002 never uses it outside Merck's site navigation -- and the three percentages it carried are attributed by the release to the combination, not to one drug. The sentence also fused that with a separate, narrower statement about intismeran autogene alone. Both now appear as the release states them. The 27 August change-log entry that created the error misquoted the release, and is corrected too."
+    },
+    {
+      "at": "2026-09-04T16:50:26+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "It says we narrowed the sentence because the company's release describes the events attributed to the vaccine specifically .",
+      "because": "READER-0904-1",
+      "note": "A reader asked why one sentence called the therapy a vaccine. The word is ours -- S002 never uses it outside Merck's site navigation -- and the three percentages it carried are attributed by the release to the combination, not to one drug. The sentence also fused that with a separate, narrower statement about intismeran autogene alone. Both now appear as the release states them. The 27 August change-log entry that created the error misquoted the release, and is corrected too."
+    },
+    {
+      "at": "2026-09-04T16:50:26+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "The release describes them as attributed to the combination.",
+      "because": "READER-0904-1",
+      "note": "A reader asked why one sentence called the therapy a vaccine. The word is ours -- S002 never uses it outside Merck's site navigation -- and the three percentages it carried are attributed by the release to the combination, not to one drug. The sentence also fused that with a separate, narrower statement about intismeran autogene alone. Both now appear as the release states them. The 27 August change-log entry that created the error misquoted the release, and is corrected too."
+    },
+    {
+      "at": "2026-09-04T16:50:26+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "So a correction introduced the error, and its own note misquoted the source it was correcting against - the third time in this issue that a correction has been the thing needing correcting, and the reason the check added today reads the change log at all.",
+      "because": "READER-0904-1",
+      "note": "A reader asked why one sentence called the therapy a vaccine. The word is ours -- S002 never uses it outside Merck's site navigation -- and the three percentages it carried are attributed by the release to the combination, not to one drug. The sentence also fused that with a separate, narrower statement about intismeran autogene alone. Both now appear as the release states them. The 27 August change-log entry that created the error misquoted the release, and is corrected too."
+    },
+    {
+      "at": "2026-09-04T16:50:26+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "That check tests figures and arithmetic.",
+      "because": "READER-0904-1",
+      "note": "A reader asked why one sentence called the therapy a vaccine. The word is ours -- S002 never uses it outside Merck's site navigation -- and the three percentages it carried are attributed by the release to the combination, not to one drug. The sentence also fused that with a separate, narrower statement about intismeran autogene alone. Both now appear as the release states them. The 27 August change-log entry that created the error misquoted the release, and is corrected too."
+    },
+    {
+      "at": "2026-09-04T16:50:26+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "It does not test whether a sentence calls a drug by a name its maker does not use, and no check we have would have caught this one.",
+      "because": "READER-0904-1",
+      "note": "A reader asked why one sentence called the therapy a vaccine. The word is ours -- S002 never uses it outside Merck's site navigation -- and the three percentages it carried are attributed by the release to the combination, not to one drug. The sentence also fused that with a separate, narrower statement about intismeran autogene alone. Both now appear as the release states them. The 27 August change-log entry that created the error misquoted the release, and is corrected too."
+    },
+    {
+      "at": "2026-09-04T16:50:26+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "A reader did.",
+      "because": "READER-0904-1",
+      "note": "A reader asked why one sentence called the therapy a vaccine. The word is ours -- S002 never uses it outside Merck's site navigation -- and the three percentages it carried are attributed by the release to the combination, not to one drug. The sentence also fused that with a separate, narrower statement about intismeran autogene alone. Both now appear as the release states them. The 27 August change-log entry that created the error misquoted the release, and is corrected too."
+    },
+    {
+      "at": "2026-09-04T16:53:47+00:00",
+      "by": "claude",
+      "kind": "changed",
+      "was": "Most of the side effects attributed to the vaccine were mild to moderate - fatigue 59.6%, injection-site pain 59.6%, chills 51.0%.",
+      "now": "These are KEYNOTE-942 figures, from the five-year release, which attributes its most common adverse events to the combination rather than to one drug: fatigue 59.6%, injection-site pain 59.6%, chills 51.0%.",
+      "because": "READER-0904-1",
+      "note": "Second pass on the same correction: the sentence named 'the release' before identifying it, which the change review read as a contradiction against the next sentence naming it. It now names the five-year release first. Both halves stay bound to the two S002 spans they rest on."
+    },
+    {
+      "at": "2026-09-04T16:53:47+00:00",
+      "by": "claude",
+      "kind": "changed",
+      "was": "Those are KEYNOTE-942 figures, from the five-year release; the Phase 3 announcement gave no adverse-event rates for its own 1,137 patients.",
+      "now": "Of the events that same release attributes to intismeran autogene on its own, most were Grade 1 (31.7%) or Grade 2 (51.9%).",
+      "because": "READER-0904-1",
+      "note": "Second pass on the same correction: the sentence named 'the release' before identifying it, which the change review read as a contradiction against the next sentence naming it. It now names the five-year release first. Both halves stay bound to the two S002 spans they rest on."
+    },
+    {
+      "at": "2026-09-04T16:53:47+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "The Phase 3 announcement gave no adverse-event rates for its own 1,137 patients.",
+      "because": "READER-0904-1",
+      "note": "Second pass on the same correction: the sentence named 'the release' before identifying it, which the change review read as a contradiction against the next sentence naming it. It now names the five-year release first. Both halves stay bound to the two S002 spans they rest on."
     }
   ]
 }

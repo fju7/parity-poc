@@ -1323,12 +1323,13 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true,
+      "on_page": false,
       "proposed_by": "autobind",
       "confirmed": false,
       "autobind": "the only held document containing all 2 anchors (59.6%, 51.0%), sharing 4 subject word(s) with the sentence: attributed, chills, fatigue, injection",
       "check_flags": [],
-      "checked_on": "2026-09-04"
+      "checked_on": "2026-09-04",
+      "left_page": "2026-09-04"
     },
     "3580c200250f4ff8": {
       "sentence": "The only survival figure in the programme is descriptive and rests on fourteen deaths; its interval, 0.165 to 1.345, is too wide to separate a large benefit from a small harm.",
@@ -1610,7 +1611,8 @@
         }
       ],
       "check_flags": [],
-      "checked_on": "2026-09-04"
+      "checked_on": "2026-09-04",
+      "left_page": "2026-09-04"
     },
     "8349d700f3568a14": {
       "sentence": "Primary KEYNOTE-942: a randomised, phase 2b study — The Lancet , 2024 The peer-reviewed publication.",
@@ -4295,7 +4297,7 @@
         "warranted": null
       },
       "first_seen": "2026-09-03",
-      "on_page": true,
+      "on_page": false,
       "premises": [
         {
           "source_id": "S002",
@@ -4306,7 +4308,8 @@
           "span": "It did not provide a detailed adverse-event table or rates for the 1,137-patient trial."
         }
       ],
-      "step": "The three percentages are the five-year KEYNOTE-942 release's, verbatim. MLQ News, reading the Phase 3 announcement, records that it gave no adverse-event table or rates for the 1,137-patient trial. So the percentages in the bullet above belong to the smaller earlier trial, and there is no Phase 3 equivalent to compare them with. The Phase 3 release does carry adverse-event percentages, but they are KEYTRUDA label text about other trials, which is why the sentence says rates for its own 1,137 patients rather than percentages at all."
+      "step": "The three percentages are the five-year KEYNOTE-942 release's, verbatim. MLQ News, reading the Phase 3 announcement, records that it gave no adverse-event table or rates for the 1,137-patient trial. So the percentages in the bullet above belong to the smaller earlier trial, and there is no Phase 3 equivalent to compare them with. The Phase 3 release does carry adverse-event percentages, but they are KEYTRUDA label text about other trials, which is why the sentence says rates for its own 1,137 patients rather than percentages at all.",
+      "left_page": "2026-09-04"
     },
     "412d6285cb70be7a": {
       "sentence": "KEYNOTE-054 and KEYNOTE-716 are both pembrolizumab against placebo; each lists overall survival as a secondary endpoint, and each has posted an overall-survival result that carries no statistical analysis at all — no hazard ratio, no confidence interval, no p-value.",
@@ -6890,6 +6893,162 @@
       "on_page": true,
       "check_flags": [],
       "checked_on": "2026-09-04"
+    },
+    "12b94b39679e3d62": {
+      "sentence": "The release attributes its most common adverse events to the combination , not to one drug: fatigue 59.6%, injection-site pain 59.6%, chills 51.0%.",
+      "sentence_sha": "12b94b39679e3d62",
+      "why_empirical": "figure",
+      "bucket": "context",
+      "source_id": "S002",
+      "document_sha": null,
+      "locator_type": "prose",
+      "locator": null,
+      "span": "The most common adverse events attributed to intismeran autogene in combination with KEYTRUDA were fatigue (59.6%), injection site pain (59.6%), and chills (51.0%).",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-09-04",
+      "on_page": false,
+      "check_flags": [],
+      "checked_on": "2026-09-04",
+      "left_page": "2026-09-04"
+    },
+    "f811ed91c8cae911": {
+      "sentence": "Of the events it attributes to intismeran autogene on its own, most were Grade 1 (31.7%) or Grade 2 (51.9%).",
+      "sentence_sha": "f811ed91c8cae911",
+      "why_empirical": "figure",
+      "bucket": "context",
+      "source_id": "S002",
+      "document_sha": null,
+      "locator_type": "prose",
+      "locator": null,
+      "span": "The majority of the adverse events attributed to intismeran autogene were Grade 1 (31.7%) and Grade 2 (51.9%)",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-09-04",
+      "on_page": false,
+      "check_flags": [],
+      "checked_on": "2026-09-04",
+      "left_page": "2026-09-04"
+    },
+    "673103cf2b9612e5": {
+      "sentence": "These are KEYNOTE-942 figures, from the five-year release, which attributes its most common adverse events to the combination rather than to one drug: fatigue 59.6%, injection-site pain 59.6%, chills 51.0%.",
+      "sentence_sha": "673103cf2b9612e5",
+      "why_empirical": "figure",
+      "bucket": "context",
+      "source_id": "S002",
+      "document_sha": null,
+      "locator_type": "prose",
+      "locator": null,
+      "span": "The most common adverse events attributed to intismeran autogene in combination with KEYTRUDA were fatigue (59.6%), injection site pain (59.6%), and chills (51.0%).",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-09-04",
+      "on_page": true,
+      "check_flags": [],
+      "checked_on": "2026-09-04"
+    },
+    "2e314003c15ed7b2": {
+      "sentence": "Of the events that same release attributes to intismeran autogene on its own, most were Grade 1 (31.7%) or Grade 2 (51.9%).",
+      "sentence_sha": "2e314003c15ed7b2",
+      "why_empirical": "figure",
+      "bucket": "context",
+      "source_id": "S002",
+      "document_sha": null,
+      "locator_type": "prose",
+      "locator": null,
+      "span": "The majority of the adverse events attributed to intismeran autogene were Grade 1 (31.7%) and Grade 2 (51.9%)",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-09-04",
+      "on_page": true,
+      "check_flags": [],
+      "checked_on": "2026-09-04"
+    },
+    "5f773826932feab5": {
+      "sentence": "The Phase 3 announcement gave no adverse-event rates for its own 1,137 patients.",
+      "sentence_sha": "5f773826932feab5",
+      "why_empirical": "figure",
+      "bucket": "judgement",
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-09-04",
+      "on_page": true,
+      "premises": [
+        {
+          "source_id": "S002",
+          "span": "fatigue (59.6%), injection site pain (59.6%), and chills (51.0%)"
+        },
+        {
+          "source_id": "S011",
+          "span": "It did not provide a detailed adverse-event table or rates for the 1,137-patient trial."
+        }
+      ],
+      "step": "The three percentages are the five-year KEYNOTE-942 release's, verbatim. MLQ News, reading the Phase 3 announcement, records that it gave no adverse-event table or rates for the 1,137-patient trial. So the percentages in the bullet above belong to the smaller earlier trial, and there is no Phase 3 equivalent to compare them with. The Phase 3 release does carry adverse-event percentages, but they are KEYTRUDA label text about other trials, which is why the sentence says rates for its own 1,137 patients rather than percentages at all."
+    },
+    "f700870ca0994e42": {
+      "sentence": "Source of HR 0.510 (0.294–0.887), HR 0.411 (0.200–0.843), the exploratory OS figure HR 0.471 (0.165–1.345) reported as \"n=14\", and the adverse-event rates, including the Grade 1 and Grade 2 breakdown it attributes to intismeran autogene alone.",
+      "sentence_sha": "f700870ca0994e42",
+      "why_empirical": "figure",
+      "bucket": "context",
+      "source_id": "S002",
+      "document_sha": null,
+      "locator_type": "prose",
+      "locator": null,
+      "span": "The majority of the adverse events attributed to intismeran autogene were Grade 1 (31.7%) and Grade 2 (51.9%)",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-09-04",
+      "on_page": false,
+      "check_flags": [
+        {
+          "check": "B12",
+          "verdict": "added precision",
+          "why": "the source prints 0.51, not 0.510 — we show 1 decimal place(s) the source does not"
+        }
+      ],
+      "checked_on": "2026-09-04",
+      "left_page": "2026-09-04"
     }
   }
 }

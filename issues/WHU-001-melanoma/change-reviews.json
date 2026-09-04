@@ -171,6 +171,33 @@
           "other": "The label is the release's and it does not say fourteen of what; the paper does, in its own sentence: 7 of 107 patients (6.5%) in the intismeran plus pembrolizumab arm and 7 of 50 (14.0%) in the pembrolizumab arm died ."
         }
       ]
+    },
+    {
+      "sha": "2948e2f165a1e286",
+      "against": "eae2c40",
+      "changed": 2,
+      "at": "2026-09-04T16:50:44+00:00",
+      "findings": [
+        {
+          "sentence": "The release attributes its most common adverse events to the combination , not to one drug: fatigue 59.6%, injection-site pain 59.6%, chills 51.0%.",
+          "kind": "CONTRADICTION",
+          "why": "The page states in its sources section that the adverse-event rates come from the five-year KEYNOTE-942 release, not from the Phase 3 announcement, yet this sentence says 'The release' in a context that could be read as the Phase 3 release; more directly, the 'Established' section immediately preceding this sentence says 'Those are KEYNOTE-942 figures, from the five-year release; the Phase 3 announcement gave no adverse-event rates for its own 1,137 patients,' which contradicts attributing these figures to 'The release' without specifying which release, creating an internal inconsistency about which release is meant.",
+          "other": "Those are KEYNOTE-942 figures, from the five-year release; the Phase 3 announcement gave no adverse-event rates for its own 1,137 patients."
+        },
+        {
+          "sentence": "Of the events it attributes to intismeran autogene on its own, most were Grade 1 (31.7%) or Grade 2 (51.9%).",
+          "kind": "UNSOURCED",
+          "why": "No named source on this page supplies Grade 1 and Grade 2 percentage breakdowns specifically attributed to intismeran autogene alone rather than to the combination; the listed primary sources cover combination adverse events and grade 3+ rates but none is cited for this drug-specific grade breakdown.",
+          "other": ""
+        }
+      ]
+    },
+    {
+      "sha": "f40ab3cc9a708e6c",
+      "against": "eae2c40",
+      "changed": 3,
+      "at": "2026-09-04T16:53:52+00:00",
+      "findings": []
     }
   ],
   "dispositions": [

@@ -154,6 +154,27 @@
       "url": "https://whatholdsup.org/cdk46",
       "note": "issue 2 \u2014 The Category Difference",
       "waived": null
+    },
+    {
+      "issue": "melanoma",
+      "action": "publish",
+      "at": "2026-09-04T16:26:42+00:00",
+      "sha": "9adba39978d0a927a39a4e5f094a61fc5ba5b5f7fcfb260ad24cbdd933106120",
+      "commit": "eae2c40080c3ad69def4e9566c50422408a8a10e",
+      "url": "https://whatholdsup.org/melanoma",
+      "note": "issue 1 \u2014 The Melanoma Result",
+      "waived": null
+    },
+    {
+      "issue": "melanoma",
+      "action": "announce",
+      "at": "2026-09-04T16:27:37+00:00",
+      "sha": "5ef7890a0d09a895bc270469a308d67fb82a4664345ea1536debce6419d5e1bd",
+      "commit": "eae2c40080c3ad69def4e9566c50422408a8a10e",
+      "note": "sent to segment bae12ea6-cbad-4b91-b250-81991bf6b4b5, broadcast 00e58140-98f7-4109-9923-a5491fae73bb",
+      "gate_basis": "gate reconciled rather than re-run: the gate budget for this issue is spent (3 of 3 runs used), so this cannot be re-gated. gated 2026-09-03 on an earlier draft (cdea37d3) and the page has changed since: the gate budget for this issue is spent, so this cannot be cleared by re-gating \u2014 1 sentence(s) carrying figures, trials or registry ids have never been examined by any role: An earlier analysis of the same programme reports 0.425 on nine deaths, with an 80% interv  \u2014  re-gating costs AT LEAST $2.18 \u2014 $0.40 for the roles that must read the whole page, plus 6 claim(s) that cannot carry forward, at $0.30 each. 6 of those were not VERIFIED last run and would re-run whatever the page says. A floor, not an estimate: extraction is a model call and the claims the next run invents are not in this report to be counted. Last full run: $0.99 for 22 claims.",
+      "subject": "The Melanoma Result \u2014 a Phase 3 success with no numbers",
+      "waived": null
     }
   ]
 }

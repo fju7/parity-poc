@@ -408,3 +408,53 @@ a silent resolution, because the ambiguity is real and is the gate's.
 **What would change it:** the full presentation or protocol showing alpha
 assigned to the five-year RFS analysis, which would make the companies' word
 "nominal" wrong rather than exact.
+
+---
+
+## READER-0904-1 — "the vaccine" — ACCEPT, and it is a correction
+
+Raised by the operator an hour after the issue went out: why does one sentence
+call it a vaccine when the rest of the page calls it a personalised mRNA cancer
+therapy?
+
+Two errors in the sentence and a third in the correction that wrote it.
+
+**The attribution.** S002 says the most common adverse events attributed to
+*"intismeran autogene in combination with KEYTRUDA"* were fatigue 59.6%,
+injection site pain 59.6%, chills 51.0%. We attributed them to one of the two
+drugs. S002 makes a separate, narrower statement — that of the events it
+attributes to intismeran autogene alone, most were Grade 1 (31.7%) and Grade 2
+(51.9%) — and our sentence fused the two into a claim matching neither. Both are
+now on the page as the release states them, bound to those two spans.
+
+**The word.** S002 never uses it. Every occurrence of "vaccine" in the document
+we hold is in Merck's site navigation or its boilerplate about other products.
+The sponsors' own terms are "intismeran autogene" and individualized neoantigen
+therapy, and the rest of this page uses "a personalised mRNA cancer therapy".
+The word implies prophylaxis; this is given after resection.
+
+**Where it came from.** The change log entry for 27 August says the sentence was
+narrowed because *"the company's release describes the events attributed to the
+vaccine specifically"*. It does not. That entry misquoted the document it was
+correcting against, and the sentence was then written to match the misquote.
+
+**What this says about the controls.** B18 was built yesterday because the
+change log had none. It tests whether figures in the change log trace to
+documents and whether arithmetic claims of disagreement are true. It passes this
+page and would have passed it on 27 August: the figures were right and no
+arithmetic was asserted. The defect was an *attribution* — which agent a rate
+belongs to — and a *word choice* that imports a frame the source avoids.
+
+Nothing we own tests either. B2 checks that a span is in a document; it does not
+check that the sentence attributes the span's content to the right subject. The
+span here was real and correctly quoted, and the sentence around it was wrong
+about whose events they were.
+
+That is the gap, stated rather than fixed: **a verified span does not verify the
+sentence's subject.** A check for it would compare the grammatical subject a
+sentence attributes a figure to against the subject the span attributes it to,
+which is a real piece of work and not something to write at speed on the day an
+issue ships.
+
+**What would change it:** S002 turning out to attribute the three percentages to
+intismeran autogene alone, or the sponsors adopting "vaccine" as a product term.

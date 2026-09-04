@@ -535,3 +535,44 @@ of the published literature cannot be made safe by any check we own, and should
 not be published at all. We have written two such sentences in two days about
 outlets and coverage. Both were wrong. The rule we are adopting is that a
 sentence discounting another publication's standing does not go on the page.
+
+## 4 September 2026, after publication — we called it a vaccine, and gave it the combination's side effects
+
+A reader asked why one sentence called the therapy a vaccine when the rest of
+the assessment calls it a personalised mRNA cancer therapy. Looking at it
+turned up two errors in the same sentence, and a third in the correction that
+created it.
+
+**The side effects belonged to both drugs, not one.** The five-year release
+says the most common adverse events attributed to "intismeran autogene in
+combination with KEYTRUDA" were fatigue (59.6%), injection site pain (59.6%)
+and chills (51.0%). We wrote that they were attributed to the vaccine. That
+assigns to one agent what the company assigned to the pair. The release makes a
+separate and narrower statement — that of the events it attributes to
+intismeran autogene on its own, most were Grade 1 (31.7%) or Grade 2 (51.9%) —
+and our sentence fused the two into one claim that matched neither. Both are
+now on the page as the release states them.
+
+**The word was ours.** The release never uses it. Its own terms are "intismeran
+autogene" and individualized neoantigen therapy. The only places the word
+"vaccine" appears anywhere in the document we hold are the company's website
+navigation and its boilerplate about other products. "Vaccine" implies
+prevention of a disease you do not have; this is a therapy given to patients
+after their melanoma has been removed, and the sponsor's own naming avoids the
+word. So did the rest of this page. One sentence did not.
+
+**The correction is what put it there.** The change log entry for 27 August
+says we narrowed the sentence because "the company's release describes the
+events attributed to the vaccine specifically". The release describes them as
+attributed to the combination. That entry misquoted the document it was
+correcting against, and the misquote is what the sentence was then written to
+match.
+
+That is the third time in this issue a correction has been the thing that
+needed correcting. Yesterday we built a check that reads the change log, which
+until then had no controls at all — 154 sentences, a fifth of the prose,
+invisible to everything. It tests whether figures trace to documents and
+whether arithmetic claims are true. It would not have caught this. Nothing we
+have tests whether a sentence calls a drug by a name its maker does not use.
+
+A reader caught it, one hour after the issue went out.
