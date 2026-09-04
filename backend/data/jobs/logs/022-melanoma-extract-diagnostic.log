@@ -1,0 +1,29 @@
+=== 022-melanoma-extract-diagnostic
+=== queued job:
+{
+  "note": "Editor chose the diagnostic: about fifteen cents to see what extraction returns before committing the remaining $8.65. Prints the shape before anything interprets it and writes the raw text to disk either way. Settles nothing.",
+  "issue": "melanoma",
+  "cwd": "backend",
+  "script": "scripts/signal/run_extract_only.py",
+  "args": ["melanoma", "../site/whatholdsup/melanoma.html"]
+}
+=== started 2026-09-04T00:24:19Z
+Draft: melanoma.html (46,622 chars of prose)
+Model: claude-sonnet-4-6   Cap: 64,000
+
+
+--- what came back ---
+type: list
+length: 62
+first element type: dict
+{
+ "id": "c1",
+ "figure": "1,137 patients",
+ "claim": "The Phase 3 INTerpath-001 trial enrolled 1,137 patients.",
+ "attributed_to": "Merck & Moderna \u2014 Phase 3 INTerpath-001 met RFS and DMFS endpoints, 19 August 2026",
+ "kind": "figure",
+ "scope": "external"
+}
+
+written to /Users/fredugast/Projects/parity-poc-repo/backend/data/signal/truncated/20260904T002550Z-extract-diagnostic.txt
+=== finished 2026-09-04T00:25:50Z exit=0

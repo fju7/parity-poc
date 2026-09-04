@@ -455,3 +455,38 @@ overall survival as a secondary endpoint and does not call it key.
 
 Everything above is set out sentence by sentence in the change log at the foot
 of the assessment.
+
+## 4 September 2026 — three sentences that argued with themselves
+
+The gate read the assessment again after the previous day's corrections and
+returned three findings that were right, all of them about the piece
+contradicting its own care.
+
+**A section standfirst the body retracts.** "Coverage has been merging them"
+stood above a section whose own finding is that every outlet we hold attributed
+the earlier trial's figures correctly. This is the second time this exact defect
+has been corrected here — a subheading is a claim, and on 2 September another
+one was replaced for the same reason. It now reads "The two are easy to read as
+one", which is the structural point the piece actually makes.
+
+**A word doing two jobs.** The statistics section says the three-year interval
+"stopped including 1.0 rather than a threshold anyone crossed", and then called
+that event "the crossing" two sentences later. A reader quoting the second
+sentence alone would take it to mean a prespecified threshold was passed, which
+the first sentence exists to deny. It now says the interval stopped including
+1.0 at year three.
+
+**A claim about coverage we have not read.** "Neither reading reached the
+general coverage" asserts something about the whole of general coverage. We hold
+a defined set of articles and can speak for those. It now reads "Neither reading
+appears in any of the general coverage we hold."
+
+**And one qualification, for a reason the piece created itself.** The assessment
+says every outlet whose article we hold attributed the figures correctly. That
+remains true of the outlets. But this page now quotes an announcement-day post
+that put the earlier trial's hazard ratios under the Phase 3's name — and that
+post reaches us inside one of those same outlets, which logged it and warned
+about it on the same page. The outlet attributed correctly; someone it quoted
+did not. The sentence now says "in its own voice", so the two are not confused.
+
+No figure, interval, hazard ratio or conclusion changed on 4 September.

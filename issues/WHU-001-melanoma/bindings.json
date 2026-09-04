@@ -132,7 +132,7 @@
       "proposed_on": "2026-09-01",
       "why_bound": "a model proposed this span and B2 confirmed the string is in S004; nobody has yet signed that the sentence is warranted by it",
       "check_flags": [],
-      "checked_on": "2026-09-03"
+      "checked_on": "2026-09-04"
     },
     "dde5cc8e1babb00c": {
       "sentence": "On 19 August 2026, Merck and Moderna announced that INTerpath-001 — a randomised, double-blind, placebo- and active-comparator-controlled Phase 3 trial in 1,137 patients — met its primary endpoint of recurrence-free survival and its key secondary endpoint of distant metastasis-free survival at an interim analysis.",
@@ -160,7 +160,7 @@
       "proposed_on": "2026-09-01",
       "why_bound": "a model proposed this span and B2 confirmed the string is in S001; nobody has yet signed that the sentence is warranted by it",
       "check_flags": [],
-      "checked_on": "2026-09-03"
+      "checked_on": "2026-09-04"
     },
     "26e08f1c59095a38": {
       "sentence": "It does contain hazard ratios — 0.510 for recurrence, 0.411 for distant metastasis — but those are the five-year results of KEYNOTE-942, the 157-patient trial that preceded this one, and the release says so.",
@@ -233,7 +233,7 @@
         }
       ],
       "check_flags": [],
-      "checked_on": "2026-09-03",
+      "checked_on": "2026-09-04",
       "bounded_negative_searched": "every sentence in S001 carrying a hazard ratio, interval or p-value names a trial other than INTerpath-001, which is what the document is announcing"
     },
     "0a832252c2769c9a": {
@@ -331,7 +331,7 @@
       "proposed_on": "2026-09-02",
       "why_bound": "a model proposed this span and B2 confirmed the string is in S025; nobody has yet signed that the sentence is warranted by it",
       "check_flags": [],
-      "checked_on": "2026-09-03"
+      "checked_on": "2026-09-04"
     },
     "aa9a9572654404b7": {
       "sentence": "Below 1.0 means the treatment group is doing better; above 1.0 means worse.",
@@ -359,7 +359,7 @@
       "proposed_on": "2026-09-02",
       "why_bound": "a model proposed this span and B2 confirmed the string is in S024; nobody has yet signed that the sentence is warranted by it",
       "check_flags": [],
-      "checked_on": "2026-09-03"
+      "checked_on": "2026-09-04"
     },
     "d6441ccba943c432": {
       "sentence": "An HR of 0.51 does not mean 49% of patients were saved.",
@@ -420,7 +420,7 @@
       "proposed_on": "2026-09-01",
       "why_bound": "a model proposed this span and B2 confirmed the string is in S004; nobody has yet signed that the sentence is warranted by it",
       "check_flags": [],
-      "checked_on": "2026-09-03",
+      "checked_on": "2026-09-04",
       "left_page": "2026-09-01"
     },
     "30f541e0460fd7b3": {
@@ -449,7 +449,7 @@
       "proposed_on": "2026-09-01",
       "why_bound": "a model proposed this span and B2 confirmed the string is in S002; nobody has yet signed that the sentence is warranted by it",
       "check_flags": [],
-      "checked_on": "2026-09-03"
+      "checked_on": "2026-09-04"
     },
     "3539d41e4e4da4c5": {
       "sentence": "The absolute figures from the same trial, at five years: 68.8% of combination patients were recurrence-free versus 49.1% on pembrolizumab alone.",
@@ -716,7 +716,7 @@
       "proposed_on": "2026-09-01",
       "why_bound": "a model proposed this span and B2 confirmed the string is in S004; nobody has yet signed that the sentence is warranted by it",
       "check_flags": [],
-      "checked_on": "2026-09-03",
+      "checked_on": "2026-09-04",
       "also_rests_on": [
         {
           "source_id": "S007",
@@ -750,7 +750,7 @@
       "proposed_on": "2026-09-01",
       "why_bound": "a model proposed this span and B2 confirmed the string is in S002; nobody has yet signed that the sentence is warranted by it",
       "check_flags": [],
-      "checked_on": "2026-09-03"
+      "checked_on": "2026-09-04"
     },
     "5ca6a9cd32ed495a": {
       "sentence": "What the bottom bar is telling you The overall survival interval runs 0.165 to 1.345 .",
@@ -778,7 +778,7 @@
       "proposed_on": "2026-09-01",
       "why_bound": "a model proposed this span and B2 confirmed the string is in S004; nobody has yet signed that the sentence is warranted by it",
       "check_flags": [],
-      "checked_on": "2026-09-03",
+      "checked_on": "2026-09-04",
       "left_page": "2026-09-01"
     },
     "830a84cf800eb508": {
@@ -853,7 +853,7 @@
       "proposed_on": "2026-09-02",
       "why_bound": "a model proposed this span and B2 confirmed the string is in S022; nobody has yet signed that the sentence is warranted by it",
       "check_flags": [],
-      "checked_on": "2026-09-03"
+      "checked_on": "2026-09-04"
     },
     "e70db7671fac367f": {
       "sentence": "The universal misreading A p-value of 0.05 does not mean a 95% chance the drug works.",
@@ -889,7 +889,7 @@
       ],
       "step": "0.05 is named in the source only as the conventional cut-off. Greenland et al. state that the P value is not a hypothesis probability, so a p of 0.05 cannot be read as a 95% chance that the drug works.",
       "check_flags": [],
-      "checked_on": "2026-09-03"
+      "checked_on": "2026-09-04"
     },
     "add5e46e440fe9d0": {
       "sentence": "It means: if the drug were useless, you would see a result this good about 5% of the time by luck.",
@@ -947,7 +947,7 @@
       "proposed_on": "2026-09-01",
       "why_bound": "a model proposed this span and B2 confirmed the string is in S005; nobody has yet signed that the sentence is warranted by it",
       "check_flags": [],
-      "checked_on": "2026-09-03",
+      "checked_on": "2026-09-04",
       "left_page": "2026-09-01"
     },
     "d1c8e04b1b2ad6d1": {
@@ -976,7 +976,7 @@
       "proposed_on": "2026-09-01",
       "why_bound": "a model proposed this span and B2 confirmed the string is in S003; nobody has yet signed that the sentence is warranted by it",
       "check_flags": [],
-      "checked_on": "2026-09-03"
+      "checked_on": "2026-09-04"
     },
     "719177281168499d": {
       "sentence": "A one-sided test asks only \"is it better?\" A two-sided test asks \"is it different, in either direction?\" For a symmetric test the two-sided p-value is about double the one-sided one, so the same data gives 0.0266 one way and 0.053 the other — identical evidence, measured against a different question.",
@@ -1214,7 +1214,7 @@
       "proposed_on": "2026-09-02",
       "why_bound": "a model proposed this span and B2 confirmed the string is in S001; nobody has yet signed that the sentence is warranted by it",
       "check_flags": [],
-      "checked_on": "2026-09-03"
+      "checked_on": "2026-09-04"
     },
     "1abe12d66c86644a": {
       "sentence": "Morning Glory Sciences: the Phase 2b population was stage IIIB–IV, the Phase 3 adds node-negative disease, and “absolute recurrence risk in that group is lower, so the same hazard ratio delivers a smaller absolute benefit.” Pharmacy Times makes the opposite case about the same patients: resected stage IIB or IIC melanoma “can face risks of recurrence and melanoma-specific mortality similar to those observed in stage III disease.” Which of them is right determines how much of the Phase 3 benefit reaches the patients it newly includes, and neither reading reached the general coverage.",
@@ -1298,7 +1298,7 @@
         }
       ],
       "check_flags": [],
-      "checked_on": "2026-09-03"
+      "checked_on": "2026-09-04"
     },
     "6be71ce586f1b9e5": {
       "sentence": "Most of the side effects attributed to the vaccine were mild to moderate — fatigue 59.6%, injection-site pain 59.6%, chills 51.0%.",
@@ -1324,7 +1324,7 @@
       "confirmed": false,
       "autobind": "the only held document containing all 2 anchors (59.6%, 51.0%), sharing 4 subject word(s) with the sentence: attributed, chills, fatigue, injection",
       "check_flags": [],
-      "checked_on": "2026-09-03"
+      "checked_on": "2026-09-04"
     },
     "3580c200250f4ff8": {
       "sentence": "The only survival figure in the programme is descriptive and rests on fourteen deaths; its interval, 0.165 to 1.345, is too wide to separate a large benefit from a small harm.",
@@ -1606,7 +1606,7 @@
         }
       ],
       "check_flags": [],
-      "checked_on": "2026-09-03"
+      "checked_on": "2026-09-04"
     },
     "8349d700f3568a14": {
       "sentence": "Primary KEYNOTE-942: a randomised, phase 2b study — The Lancet , 2024 The peer-reviewed publication.",
@@ -1635,7 +1635,7 @@
       "proposed_on": "2026-09-02",
       "why_bound": "a model proposed this span and B2 confirmed the string is in S003; nobody has yet signed that the sentence is warranted by it",
       "check_flags": [],
-      "checked_on": "2026-09-03"
+      "checked_on": "2026-09-04"
     },
     "8173b971dc258e03": {
       "sentence": "Source of HR 0.561 (0.309–1.017) with two-sided p = 0.053 , the stage IIIB–IV enrolment, the 107/50 arm sizes, the open-label design, and grade 3+ treatment-related events at 25% versus 18%.",
@@ -1669,7 +1669,7 @@
         }
       ],
       "check_flags": [],
-      "checked_on": "2026-09-03"
+      "checked_on": "2026-09-04"
     },
     "0bd99da75af4bb4d": {
       "sentence": "Primary Five-year results — Journal of Clinical Oncology , 1 June 2026 The peer-reviewed five-year analysis, published the day it was presented.",
@@ -1698,7 +1698,7 @@
       "proposed_on": "2026-09-02",
       "why_bound": "a model proposed this span and B2 confirmed the string is in S004; nobody has yet signed that the sentence is warranted by it",
       "check_flags": [],
-      "checked_on": "2026-09-03"
+      "checked_on": "2026-09-04"
     },
     "cad9c81fc170a16d": {
       "sentence": "Median follow-up 60.3 months, data cutoff 15 December 2025, and the statement that the five-year analyses were descriptive.",
@@ -1726,7 +1726,7 @@
       "proposed_on": "2026-09-01",
       "why_bound": "a model proposed this span and B2 confirmed the string is in S004; nobody has yet signed that the sentence is warranted by it",
       "check_flags": [],
-      "checked_on": "2026-09-03"
+      "checked_on": "2026-09-04"
     },
     "595504aa7d365ad8": {
       "sentence": "The source of the one-sided p = 0.0266, which is a company figure and not a journal one.",
@@ -1778,7 +1778,7 @@
       "proposed_on": "2026-09-02",
       "why_bound": "a model proposed this span and B2 confirmed the string is in S006; nobody has yet signed that the sentence is warranted by it",
       "check_flags": [],
-      "checked_on": "2026-09-03"
+      "checked_on": "2026-09-04"
     },
     "0101b9e00164637e": {
       "sentence": "Pharmacy Times — Phase 3 trial marks first success Specialist coverage.",
@@ -1807,7 +1807,7 @@
       "proposed_on": "2026-09-02",
       "why_bound": "a model proposed this span and B2 confirmed the string is in S010; nobody has yet signed that the sentence is warranted by it",
       "check_flags": [],
-      "checked_on": "2026-09-03"
+      "checked_on": "2026-09-04"
     },
     "7a31eef9a444229b": {
       "sentence": "Primary Three-Year Update of a Randomized Phase IIb Study of Intismeran Autogene Plus Pembrolizumab Versus Pembrolizumab in Resected Melanoma — JCO Oncology Advances , 2026 DOI 10.1200/OA-25-00008.",
@@ -2285,7 +2285,7 @@
       "why_bound": "a model proposed this span and B2 confirmed the string is in S003; nobody has yet signed that the sentence is warranted by it",
       "left_page": "2026-09-03",
       "check_flags": [],
-      "checked_on": "2026-09-03"
+      "checked_on": "2026-09-04"
     },
     "b7ec0d96346893ab": {
       "sentence": "Recurrence-free 5-year · HR 0.510",
@@ -2314,7 +2314,7 @@
       "why_bound": "a model proposed this span and B2 confirmed the string is in S004; nobody has yet signed that the sentence is warranted by it",
       "left_page": "2026-09-03",
       "check_flags": [],
-      "checked_on": "2026-09-03"
+      "checked_on": "2026-09-04"
     },
     "2560dcc038541b47": {
       "sentence": "Distant metastasis-free 5-year · HR 0.411",
@@ -2343,7 +2343,7 @@
       "why_bound": "a model proposed this span and B2 confirmed the string is in S004; nobody has yet signed that the sentence is warranted by it",
       "left_page": "2026-09-03",
       "check_flags": [],
-      "checked_on": "2026-09-03"
+      "checked_on": "2026-09-04"
     },
     "6d8b1ca818cb8d50": {
       "sentence": "Overall survival exploratory · HR 0.471 · \"n=14\"",
@@ -2370,7 +2370,7 @@
       "proposed_on": "2026-09-01",
       "why_bound": "a model proposed this span and B2 confirmed the string is in S004; nobody has yet signed that the sentence is warranted by it",
       "check_flags": [],
-      "checked_on": "2026-09-03",
+      "checked_on": "2026-09-04",
       "left_page": "2026-09-03"
     },
     "ce4dfd12e8ef5751": {
@@ -2830,7 +2830,7 @@
       "proposed_on": "2026-09-01",
       "why_bound": "a model proposed this span and B2 confirmed the string is in S001; nobody has yet signed that the sentence is warranted by it",
       "check_flags": [],
-      "checked_on": "2026-09-03"
+      "checked_on": "2026-09-04"
     },
     "58c4dba68702236f": {
       "sentence": "The absolute figures the paper reports — the five-year update gives its recurrence-free rates at four years — are 72.4% of combination patients recurrence-free (95% CI 62.2–80.2) versus 49.1% on pembrolizumab alone (33.3–63.0).",
@@ -2957,7 +2957,7 @@
       "proposed_on": "2026-09-01",
       "why_bound": "a model proposed this span and B2 confirmed the string is in S001; nobody has yet signed that the sentence is warranted by it",
       "check_flags": [],
-      "checked_on": "2026-09-03"
+      "checked_on": "2026-09-04"
     },
     "63643ad6aacfb654": {
       "sentence": "Why this is worth a whole article The outlets we reached attributed those figures correctly to KEYNOTE-942 — among them The ASCO Post, Dermatology Times, OncLive and FierceBiotech — and several said plainly that no Phase 3 efficacy numbers had been released.",
@@ -3092,7 +3092,7 @@
       ],
       "step": "The three-year paper's 95% interval runs from 0.288 to 0.906. 1.0 is above 0.906, so unlike the first readout's interval this one does not contain the no-difference value.",
       "check_flags": [],
-      "checked_on": "2026-09-03"
+      "checked_on": "2026-09-04"
     },
     "5685121c9e992b4c": {
       "sentence": "Primary Three-Year Update of a Randomized Phase IIb Study of the Individualized Neoantigen Therapy Intismeran Autogene (mRNA-4157, V940) Plus Pembrolizumab Versus Pembrolizumab in Resected Melanoma — JCO Oncology Advances , 2026 DOI 10.1200/OA-25-00008.",
@@ -3126,7 +3126,7 @@
         }
       ],
       "check_flags": [],
-      "checked_on": "2026-09-03"
+      "checked_on": "2026-09-04"
     },
     "60c85b96f39cb5e4": {
       "sentence": "The peer-reviewed publication of the three-year readout, held in full and read since 1 September 2026.",
@@ -3177,7 +3177,7 @@
       "proposed_on": "2026-09-02",
       "why_bound": "a model proposed this span and B2 confirmed the string is in S007; nobody has yet signed that the sentence is warranted by it",
       "check_flags": [],
-      "checked_on": "2026-09-03"
+      "checked_on": "2026-09-04"
     },
     "b2a23d9e1175f003": {
       "sentence": "This trial's own threshold is on the record: the three-year paper says the trial was designed with approximately 80% power to detect a hazard ratio (HR) of 0.5 against a one-sided alpha of 0.10, and the ASCO 2024 deck states the same threshold in its own words — 1-sided alpha of 0.1 per protocol .",
@@ -3211,7 +3211,7 @@
         }
       ],
       "check_flags": [],
-      "checked_on": "2026-09-03"
+      "checked_on": "2026-09-04"
     },
     "cca48cac28c58871": {
       "sentence": "So 0.0266 was inside its own prespecified threshold by a wide margin , and 0.053 is a near miss only against a 0.05 line this trial never used.",
@@ -3313,7 +3313,7 @@
       "proposed_on": "2026-09-02",
       "why_bound": "a model proposed this span and B2 confirmed the string is in S004; nobody has yet signed that the sentence is warranted by it",
       "check_flags": [],
-      "checked_on": "2026-09-03"
+      "checked_on": "2026-09-04"
     },
     "158f4e8d35f55013": {
       "sentence": "INTerpath-001",
@@ -3397,7 +3397,7 @@
       "proposed_on": "2026-09-02",
       "why_bound": "a model proposed this span and B2 confirmed the string is in S009; nobody has yet signed that the sentence is warranted by it",
       "check_flags": [],
-      "checked_on": "2026-09-03"
+      "checked_on": "2026-09-04"
     },
     "e40ceb0952ce74d1": {
       "sentence": "We looked: no hazard ratio, interval or p-value for this trial appears in either company release, in any of the specialist or general coverage we hold, or in the trial’s own registry record, which as of 2 September 2026 carries no posted results at all and gives an estimated primary completion date of 26 October 2029 ( NCT05933577 ).",
@@ -3446,7 +3446,7 @@
         }
       ],
       "check_flags": [],
-      "checked_on": "2026-09-03",
+      "checked_on": "2026-09-04",
       "bounded_negative_searched": "every sentence in S013 carrying a hazard ratio, interval or p-value names a trial other than INTerpath-001, which is what the document is announcing",
       "negative_over": {
         "class": "efficacy_figure",
@@ -3589,7 +3589,7 @@
         }
       ],
       "check_flags": [],
-      "checked_on": "2026-09-03"
+      "checked_on": "2026-09-04"
     },
     "44195c42d6bcb59b": {
       "sentence": "And most simply, there is nothing to put beside them: the Phase 3 has released no effect size, so quoting 0.51 next to “met its endpoints” is not a comparison but a substitution — the reader supplies the missing number from the smaller, older, differently-designed trial.",
@@ -3656,7 +3656,7 @@
         }
       ],
       "check_flags": [],
-      "checked_on": "2026-09-03"
+      "checked_on": "2026-09-04"
     },
     "3060d6a65e7bff8c": {
       "sentence": "Primary Merck & Moderna — Phase 3 INTerpath-001 met RFS and DMFS endpoints 19 August 2026.",
@@ -3684,7 +3684,7 @@
       "proposed_on": "2026-09-02",
       "why_bound": "a model proposed this span and B2 confirmed the string is in S001; nobody has yet signed that the sentence is warranted by it",
       "check_flags": [],
-      "checked_on": "2026-09-03"
+      "checked_on": "2026-09-04"
     },
     "ed441bb66a145bb8": {
       "sentence": "The absolute figures, at five years: 68.8% of combination patients were recurrence-free (95% CI 56.3–78.3) versus 49.1% on pembrolizumab alone (33.3–63.0).",
@@ -3712,7 +3712,7 @@
       "proposed_on": "2026-09-03",
       "why_bound": "a model proposed this span and B2 confirmed the string is in S014; nobody has yet signed that the sentence is warranted by it",
       "check_flags": [],
-      "checked_on": "2026-09-03"
+      "checked_on": "2026-09-04"
     },
     "387ebc8bd86908d9": {
       "sentence": "Reported as survival rates, the same analysis reads 92.2% alive at five years versus 71.3% — 95% CI 84.2–96.3 and 35.4–89.6 .",
@@ -3740,7 +3740,7 @@
       "proposed_on": "2026-09-03",
       "why_bound": "a model proposed this span and B2 confirmed the string is in S014; nobody has yet signed that the sentence is warranted by it",
       "check_flags": [],
-      "checked_on": "2026-09-03"
+      "checked_on": "2026-09-04"
     },
     "8a5c58222fbd7bc0": {
       "sentence": "(The full paper reports its landmark rates only to 48 months, where the same two arms read 92.2% and 85.6%; the five-year figures above are the ones reported from the analysis, and the difference between them is a year of follow-up, not a disagreement.) This is what \"an encouraging trend\" looks like underneath, and it is why the trend is labelled exploratory.",
@@ -3790,7 +3790,7 @@
       "proposed_on": "2026-09-02",
       "why_bound": "the field hasResults in S013 carries this value; relevance is the named field path, not prose overlap",
       "check_flags": [],
-      "checked_on": "2026-09-03",
+      "checked_on": "2026-09-04",
       "negation_read_from_field": "the row names the field $.hasResults, and its value is 'false' — the negation is the value, not a word in the document"
     },
     "706ba49ee7f5bd0a": {
@@ -3873,7 +3873,7 @@
       "proposed_on": "2026-09-02",
       "why_bound": "a model proposed this span and B2 confirmed the string is in S011; nobody has yet signed that the sentence is warranted by it",
       "check_flags": [],
-      "checked_on": "2026-09-03"
+      "checked_on": "2026-09-04"
     },
     "e7d5b14d13996719": {
       "sentence": "Practical Dermatology : The companies did not disclose hazard ratios, absolute event rates, P values, or other phase 3 efficacy estimates in the topline announcement.",
@@ -3901,7 +3901,7 @@
       "proposed_on": "2026-09-02",
       "why_bound": "a model proposed this span and B2 confirmed the string is in S018; nobody has yet signed that the sentence is warranted by it",
       "check_flags": [],
-      "checked_on": "2026-09-03"
+      "checked_on": "2026-09-04"
     },
     "3cb4fe795701a102": {
       "sentence": "And Dermatology Times : Detailed phase 3 efficacy metrics (e.g., HRs) were not disclosed; OS and other secondary endpoints remain immature.",
@@ -4011,7 +4011,7 @@
       "proposed_on": "2026-09-02",
       "why_bound": "a model proposed this span and B2 confirmed the string is in S005; nobody has yet signed that the sentence is warranted by it",
       "check_flags": [],
-      "checked_on": "2026-09-03"
+      "checked_on": "2026-09-04"
     },
     "984d7992fdf5948f": {
       "sentence": "It is the company's figure, and the peer-reviewed Lancet paper prints the two-sided 0.053 instead.",
@@ -4039,7 +4039,7 @@
       "proposed_on": "2026-09-02",
       "why_bound": "a model proposed this span and B2 confirmed the string is in S003; nobody has yet signed that the sentence is warranted by it",
       "check_flags": [],
-      "checked_on": "2026-09-03"
+      "checked_on": "2026-09-04"
     },
     "5a291aed136e394e": {
       "sentence": "And Dermatology Times : Detailed phase 3 efficacy metrics (e.g., HRs) were not disclosed; OS and other secondary endpoints remain immature (An earlier version of this sentence also named OncLive and FierceBiotech.",
@@ -4209,7 +4209,7 @@
         }
       ],
       "check_flags": [],
-      "checked_on": "2026-09-03"
+      "checked_on": "2026-09-04"
     },
     "93ec09aef5421f53": {
       "sentence": "So the numbers carried in the coverage — the 49% reduction in the hazard of recurrence or death, the 59% reduction in the hazard of distant metastasis or death, both from the five-year follow-up — describe a different trial : an open-label study of 157 patients, not the blinded study of 1,137 that was announced.",
@@ -4246,7 +4246,7 @@
         }
       ],
       "check_flags": [],
-      "checked_on": "2026-09-03"
+      "checked_on": "2026-09-04"
     },
     "b3caced2ed507eda": {
       "sentence": "Those are KEYNOTE-942 figures, from the five-year release; the Phase 3 announcement gave no adverse-event percentages at all.",
@@ -4584,7 +4584,7 @@
       "first_seen": "2026-09-03",
       "on_page": true,
       "check_flags": [],
-      "checked_on": "2026-09-03"
+      "checked_on": "2026-09-04"
     },
     "86aabb4b765dae76": {
       "sentence": "Is the effect real scores 3.94; how large is it scores 1.0.",
@@ -4702,7 +4702,7 @@
         "warranted": null
       },
       "first_seen": "2026-09-03",
-      "on_page": true,
+      "on_page": false,
       "premises": [
         {
           "source_id": "S017",
@@ -4737,7 +4737,8 @@
           "span": "The Phase 3 result builds on the Phase 2b KEYNOTE-942 study. At five years, intismeran plus Keytruda reduced the risk of recurrence or death by 49% versus Keytruda alone"
         }
       ],
-      "step": "All six articles we hold are quoted above, and each attributes the 49% and 59% figures to KEYNOTE-942 — five naming the phase 2b trial explicitly and KOL Pulse calling it a phase 2 trial. Two of the six separately state that no Phase 3 efficacy estimates were released. So the claim is a summary of six specific documents and can be checked against them article by article; it says nothing about coverage we do not hold, and FierceBiotech is an article we still do not hold."
+      "step": "All six articles we hold are quoted above, and each attributes the 49% and 59% figures to KEYNOTE-942 — five naming the phase 2b trial explicitly and KOL Pulse calling it a phase 2 trial. Two of the six separately state that no Phase 3 efficacy estimates were released. So the claim is a summary of six specific documents and can be checked against them article by article; it says nothing about coverage we do not hold, and FierceBiotech is an article we still do not hold.",
+      "left_page": "2026-09-04"
     },
     "c21ee21324da8822": {
       "sentence": "And Dermatology Times : Detailed phase 3 efficacy metrics (e.g., HRs) were not disclosed; OS and other secondary endpoints remain immature (An earlier version of this sentence named OncLive and FierceBiotech when we held neither.",
@@ -4760,7 +4761,7 @@
       "first_seen": "2026-09-03",
       "on_page": true,
       "check_flags": [],
-      "checked_on": "2026-09-03"
+      "checked_on": "2026-09-04"
     },
     "a68b47eb6cccef47": {
       "sentence": "The OncLive article was obtained on 3 September, attributes the figures to the phase 2b trial like the rest, and is named again.",
@@ -4867,7 +4868,7 @@
       ],
       "step": "Both records are held in full and were read again on 3 September after this sentence was challenged. In each, the overall-survival measure appears in the posted results section as a DECLARATION with reportingStatus NOT_POSTED and an anticipated posting date — November 2026 for KEYNOTE-054, October 2033 for KEYNOTE-716 — and no measurement classes at all. An earlier version of this sentence said each had posted a result carrying no statistical analysis. That was wrong, and wrong in a way worth recording: it came from reading the trial-level hasResults flag as true and finding the measure listed, without reading the field on the measure itself. The page gate caught it.",
       "check_flags": [],
-      "checked_on": "2026-09-03",
+      "checked_on": "2026-09-04",
       "enumeration_counted": "the sentence names KEYNOTE-054, KEYNOTE-716, and this row rests on a span from every one of them (S020, S026)"
     },
     "546d2d1669387960": {
@@ -4951,7 +4952,7 @@
         "warranted": null
       },
       "first_seen": "2026-09-03",
-      "on_page": true,
+      "on_page": false,
       "premises": [
         {
           "source_id": "S009",
@@ -4962,7 +4963,8 @@
           "span": "patients with resected stage IIB or IIC melanoma can face risks of recurrence and melanoma-specific mortality similar to those observed in stage III disease"
         }
       ],
-      "step": "The one thing we can show about the outlet is negative and narrow: a search of the open web excluding its own domain on 3 September returned no third party citing it. An earlier version also called it an English translation, which the page gate reported as an unevidenced claim about its publishing practice — we inferred it from the site's URL and strapline and had no source, so it is gone. What remains is the argument, and its premises are checkable: the stage widening is in the Phase 3 release and Pharmacy Times makes the opposing case in its own words."
+      "step": "The one thing we can show about the outlet is negative and narrow: a search of the open web excluding its own domain on 3 September returned no third party citing it. An earlier version also called it an English translation, which the page gate reported as an unevidenced claim about its publishing practice — we inferred it from the site's URL and strapline and had no source, so it is gone. What remains is the argument, and its premises are checkable: the stage widening is in the Phase 3 release and Pharmacy Times makes the opposing case in its own words.",
+      "left_page": "2026-09-04"
     },
     "2296db9e54a06b1e": {
       "sentence": "A one-sided test asks only \"is it better?\" A two-sided test asks \"is it different, in either direction?\" For a symmetric test, and when the one-sided test points the way the effect actually went, the two-sided p-value is about double the one-sided one, so the same data gives 0.0266 one way and 0.053 the other — identical evidence, measured against a different question.",
@@ -5009,7 +5011,7 @@
       "proposed_on": "2026-09-03",
       "why_bound": "Carried from 719177281168499d, the same sentence before inf-4 was acted on. The claim did not change; a qualification was added — the doubling holds when the one-sided test points the way the effect actually went. The premises are unchanged and still name where 0.0266 and 0.053 come from.",
       "check_flags": [],
-      "checked_on": "2026-09-03"
+      "checked_on": "2026-09-04"
     },
     "83f9eaef8192e810": {
       "sentence": "The confidence interval is the tell: 0.309–1.017 crosses 1.0, which is exactly what a two-sided 95% interval keys on — the convention journals print, and not the threshold this trial set for itself, which was a one-sided alpha of 0.10 and which 0.0266 was inside.",
@@ -5057,7 +5059,7 @@
       "proposed_on": "2026-09-03",
       "why_bound": "Carried from 213d41f92f5db000 and extended. inf-6 said the sentence contradicted the draft's own account of the prespecified threshold; it did not, but it let a reader take one threshold for the other, so it now names both and rests on the document for each.",
       "check_flags": [],
-      "checked_on": "2026-09-03"
+      "checked_on": "2026-09-04"
     },
     "e3e15ae33a7b24e7": {
       "sentence": "Readers saw 3.4 ; the working underneath it comes to 3.35 , and that discrepancy is recorded below.",
@@ -5128,7 +5130,7 @@
       "confirmed": false,
       "proposed_on": "2026-09-03",
       "check_flags": [],
-      "checked_on": "2026-09-03"
+      "checked_on": "2026-09-04"
     },
     "5f60f52b74a520c6": {
       "sentence": "14 deaths the whole survival analysis",
@@ -5162,7 +5164,7 @@
       "confirmed": false,
       "proposed_on": "2026-09-03",
       "check_flags": [],
-      "checked_on": "2026-09-03"
+      "checked_on": "2026-09-04"
     },
     "27e83c19e098e820": {
       "sentence": "And the one endpoint that would tell you whether anyone lives longer rests, at five years, on an analysis the companies label only \"n=14\" .",
@@ -5203,7 +5205,7 @@
       "confirmed": false,
       "proposed_on": "2026-09-03",
       "check_flags": [],
-      "checked_on": "2026-09-03"
+      "checked_on": "2026-09-04"
     },
     "1502754327b79c60": {
       "sentence": "That sense is drawn from 157 patients in an open-label trial, and the study that could correct it has released no number describing the size of its own effect.",
@@ -5263,7 +5265,7 @@
       "confirmed": false,
       "proposed_on": "2026-09-03",
       "check_flags": [],
-      "checked_on": "2026-09-03"
+      "checked_on": "2026-09-04"
     },
     "cff6a47d15faa0c4": {
       "sentence": "That is a gap of roughly 20 percentage points at the five-year mark — a far more tangible figure than the hazard ratio, and the one that rarely reaches a headline.",
@@ -5297,7 +5299,7 @@
       "confirmed": false,
       "proposed_on": "2026-09-03",
       "check_flags": [],
-      "checked_on": "2026-09-03"
+      "checked_on": "2026-09-04"
     },
     "d3d89f8c2830f3bb": {
       "sentence": "All four intervals are from KEYNOTE-942, the 157-patient Phase 2b.",
@@ -5349,7 +5351,7 @@
       "confirmed": false,
       "proposed_on": "2026-09-03",
       "check_flags": [],
-      "checked_on": "2026-09-03"
+      "checked_on": "2026-09-04"
     },
     "ed05c7bcb78948f8": {
       "sentence": "(The full paper reports its landmark rates only to 48 months — its figure legend says so — which is why the five-year rates above come from the report of the analysis rather than from the paper.) This is what \"an encouraging trend\" looks like underneath, and it is why the trend is labelled exploratory.",
@@ -5390,7 +5392,7 @@
       "confirmed": false,
       "proposed_on": "2026-09-03",
       "check_flags": [],
-      "checked_on": "2026-09-03"
+      "checked_on": "2026-09-04"
     },
     "4721114bb698a332": {
       "sentence": "In this programme, overall survival has been reported only as an exploratory analysis in the smaller trial, on an \"n=14\" — fourteen deaths among 157 patients, seven in each arm.",
@@ -5461,7 +5463,7 @@
       "confirmed": false,
       "proposed_on": "2026-09-03",
       "check_flags": [],
-      "checked_on": "2026-09-03"
+      "checked_on": "2026-09-04"
     },
     "820a543db95a9de4": {
       "sentence": "Data support scores 1 — the rubric's anchor for 1 is purely qualitative assertion with no numeric support , which is what a statement that two endpoints were met, with no figure for either, is.",
@@ -5552,7 +5554,7 @@
       "confirmed": false,
       "proposed_on": "2026-09-03",
       "check_flags": [],
-      "checked_on": "2026-09-03"
+      "checked_on": "2026-09-04"
     },
     "01edde821c817a6f": {
       "sentence": "KEYNOTE-942 was open-label : patients and doctors both knew which arm they were in, and the primary endpoint was judged by those same investigators.",
@@ -5585,7 +5587,7 @@
       "confirmed": true,
       "proposed_on": "2026-09-03",
       "check_flags": [],
-      "checked_on": "2026-09-03"
+      "checked_on": "2026-09-04"
     },
     "c70e3d759cec8988": {
       "sentence": "The trials do not share a population: KEYNOTE-942 enrolled stage IIIB–IV, the Phase 3 enrolled stage IIB–IV , widening it downward — adding IIB, IIC and IIIA below the earlier trial's floor of IIIB.",
@@ -5629,7 +5631,7 @@
       "confirmed": true,
       "proposed_on": "2026-09-03",
       "check_flags": [],
-      "checked_on": "2026-09-03"
+      "checked_on": "2026-09-04"
     },
     "69197cf8fd7964d6": {
       "sentence": "The three-year paper reports a hazard ratio of 0.425 on nine deaths, with an 80% interval of 0.179 to 1.004; the five-year analysis reports 0.471 on fourteen, with a 95% interval of 0.165 to 1.345.",
@@ -5685,7 +5687,7 @@
       "confirmed": true,
       "proposed_on": "2026-09-03",
       "check_flags": [],
-      "checked_on": "2026-09-03"
+      "checked_on": "2026-09-04"
     },
     "4124ef647eac11e2": {
       "sentence": "Primary Merck & Moderna — five-year KEYNOTE-942 data, ASCO 2026 1 June 2026.",
@@ -5712,7 +5714,7 @@
       "confirmed": true,
       "proposed_on": "2026-09-03",
       "check_flags": [],
-      "checked_on": "2026-09-03"
+      "checked_on": "2026-09-04"
     },
     "f63c5cf447e5a74d": {
       "sentence": "Primary Merck & Moderna — first detailed KEYNOTE-942 results 16 April 2023.",
@@ -5739,7 +5741,7 @@
       "confirmed": true,
       "proposed_on": "2026-09-03",
       "check_flags": [],
-      "checked_on": "2026-09-03"
+      "checked_on": "2026-09-04"
     },
     "1e44fdd5fb63a052": {
       "sentence": "On announcement day a melanoma oncologist posted — in a roundup we hold — Exciting announcement today from Phase3 INTerpath001 followed by RFS HR=0.51 & DMFS HR=0.41 .",
@@ -5814,7 +5816,7 @@
       "confirmed": true,
       "proposed_on": "2026-09-03",
       "check_flags": [],
-      "checked_on": "2026-09-03"
+      "checked_on": "2026-09-04"
     },
     "2bd1f0817bdf7de3": {
       "sentence": "For adjuvant PD-1 inhibitors specifically — the comparison arm in this very trial — neither of the two placebo-controlled trials whose registry records we hold — KEYNOTE-054 and KEYNOTE-716 — has posted an overall-survival result at all.",
@@ -5875,7 +5877,7 @@
       "proposed_on": "2026-09-03",
       "enumeration_counted": "the sentence names KEYNOTE-054, KEYNOTE-716, and this row rests on a span from every one of them (S020, S026)",
       "check_flags": [],
-      "checked_on": "2026-09-03"
+      "checked_on": "2026-09-04"
     },
     "dbf4ea5241e72196": {
       "sentence": "CheckMate 238, the third record we hold, cannot bear on the question at all.",
@@ -5910,7 +5912,151 @@
       "confirmed": true,
       "proposed_on": "2026-09-03",
       "check_flags": [],
-      "checked_on": "2026-09-03"
+      "checked_on": "2026-09-04"
+    },
+    "0aa521b118945c0c": {
+      "sentence": "So the interval stopped including 1.0 at year three, not year five, and what the last two years added was two more years of it holding rather than a sharper measurement.",
+      "sentence_sha": "0aa521b118945c0c",
+      "why_empirical": "figure",
+      "bucket": "judgement",
+      "source_id": "S007",
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": "HR 0.510 80% CI 0.351 to 0.743 95% CI 0.288 to 0.906",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-09-04",
+      "on_page": true,
+      "also_rests_on": [
+        {
+          "source_id": "S004",
+          "span": "The HR (95% CI) for RFS was 0.510 (0.294 to 0.887)."
+        }
+      ],
+      "premises": [
+        {
+          "source_id": "S007",
+          "span": "HR 0.510 80% CI 0.351 to 0.743 95% CI 0.288 to 0.906"
+        },
+        {
+          "source_id": "S004",
+          "span": "The HR (95% CI) for RFS was 0.510 (0.294 to 0.887)."
+        },
+        {
+          "source_id": "S003",
+          "span": "hazard ratio [HR] for recurrence or death, 0.561 [95% CI 0.309-1.017]; two-sided p=0.053"
+        }
+      ],
+      "step": "Three intervals, all printed: 0.309 to 1.017 at the primary analysis, 0.288 to 0.906 at three years, 0.294 to 0.887 at five. The first contains 1.0 and the second does not, so the change happened at year three. The sentence used to call that 'the crossing', which inf-1 caught contradicting the page's own denial two sentences earlier that any threshold was crossed — the three-year paper's analyses are descriptive only. It now says what happened rather than naming it.",
+      "why_bound": "rewritten 2026-09-04 after inf-1.",
+      "proposed_by": "human",
+      "confirmed": true,
+      "proposed_on": "2026-09-04",
+      "check_flags": [],
+      "checked_on": "2026-09-04"
+    },
+    "d6a6cd7e717afadc": {
+      "sentence": "Morning Glory Sciences — an outlet we can find no other publication citing, so we give the argument on its merits rather than on its authority — the Phase 2b population was stage IIIB–IV, the Phase 3 adds node-negative disease, and “absolute recurrence risk in that group is lower, so the same hazard ratio delivers a smaller absolute benefit.” Pharmacy Times makes the opposite case about the same patients: resected stage IIB or IIC melanoma “can face risks of recurrence and melanoma-specific mortality similar to those observed in stage III disease.” Neither reading appears in any of the general",
+      "sentence_sha": "d6a6cd7e717afadc",
+      "why_empirical": "quoted passage",
+      "bucket": "judgement",
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-09-04",
+      "on_page": true,
+      "premises": [
+        {
+          "source_id": "S009",
+          "span": "The Phase 2b population was stage IIIB-IV; the Phase 3 adds stage IIB and IIC - node-negative disease . Absolute recurrence risk in that group is lower, so the same hazard ratio delivers a smaller absolute benefit."
+        },
+        {
+          "source_id": "S010",
+          "span": "patients with resected stage IIB or IIC melanoma can face risks of recurrence and melanoma-specific mortality similar to those observed in stage III disease"
+        }
+      ],
+      "step": "The one thing we can show about the outlet is negative and narrow: a search of the open web excluding its own domain on 3 September returned no third party citing it. An earlier version also called it an English translation, which the page gate reported as an unevidenced claim about its publishing practice — we inferred it from the site's URL and strapline and had no source, so it is gone. What remains is the argument, and its premises are checkable: the stage widening is in the Phase 3 release and Pharmacy Times makes the opposing case in its own words.",
+      "why_bound": "Reworded 2026-09-04 after obj-5: 'Neither reading reached the general coverage' is a universal negative over documents we do not hold. It now claims only what our own library can answer.",
+      "proposed_by": "human",
+      "confirmed": true,
+      "proposed_on": "2026-09-04"
+    },
+    "7b17dd9c7aa1e079": {
+      "sentence": "Why this is worth a whole article Every outlet whose article we hold attributed those figures correctly to KEYNOTE-942 in its own voice — The ASCO Post, Dermatology Times, Practical Dermatology, KOL Pulse, MLQ News and OncLive — and several said plainly that no Phase 3 efficacy numbers had been released.",
+      "sentence_sha": "7b17dd9c7aa1e079",
+      "why_empirical": "names OncLive",
+      "bucket": "judgement",
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-09-04",
+      "on_page": true,
+      "premises": [
+        {
+          "source_id": "S017",
+          "span": "Five-year follow-up data from the phase 2b KEYNOTE-942/mRNA-4157-P201 trial (NCT03897881) presented at the 2026 American Society of Clinical Oncology Annual Meeting showed that the combination reduced the risk of recurrence or death by 49% (HR, 0.51; 95% CI, 0.294-0.887)"
+        },
+        {
+          "source_id": "S011",
+          "span": "The companies have not disclosed hazard ratios, confidence intervals, p-values, median follow-up or event counts for the Phase 3 trial."
+        },
+        {
+          "source_id": "S018",
+          "span": "The companies did not disclose hazard ratios, absolute event rates, P values, or other phase 3 efficacy estimates in the topline announcement."
+        },
+        {
+          "source_id": "S006",
+          "span": "KEYNOTE-942/mRNA-4157-P201 trial, including the 5-year follow-up data presented at the 2026 ASCO Annual Meeting , in which the combination demonstrated a 49% reduction in the risk of recurrence or death"
+        },
+        {
+          "source_id": "S016",
+          "span": "phase 2b KEYNOTE-942/mRNA-4157-P201 trial. Five-year follow-up data presented at the 2026 American Society of Clinical Oncology (ASCO) Annual Meeting showed that intismeran plus pembrolizumab reduced the risk of recurrence or death by 49%"
+        },
+        {
+          "source_id": "S018",
+          "span": "The phase 3 findings follow results from the phase 2b KEYNOTE-942/mRNA-4157-P201 trial. At 5-year follow-up, intismeran plus pembrolizumab was associated with a 49% reduction in the risk of recurrence or death"
+        },
+        {
+          "source_id": "S019",
+          "span": "In a phase 2 trial earlier this year the vaccine with immunotherapy has shown ~49% lower risk of recurrence or death"
+        },
+        {
+          "source_id": "S011",
+          "span": "The Phase 3 result builds on the Phase 2b KEYNOTE-942 study. At five years, intismeran plus Keytruda reduced the risk of recurrence or death by 49% versus Keytruda alone"
+        }
+      ],
+      "step": "All six articles we hold are quoted above, and each attributes the 49% and 59% figures to KEYNOTE-942 — five naming the phase 2b trial explicitly and KOL Pulse calling it a phase 2 trial. Two of the six separately state that no Phase 3 efficacy estimates were released. So the claim is a summary of six specific documents and can be checked against them article by article; it says nothing about coverage we do not hold, and FierceBiotech is an article we still do not hold.",
+      "why_bound": "Qualified 'in its own voice' on 2026-09-04 after c55. The gate could not reach two of the six outlets and called the blanket claim unverifiable; we hold all six and checked them one by one, so that half is reach. The qualification is added for the other half: this page now prints an announcement-day post attributing 0.51 and 0.41 to the Phase 3, and it is carried BY one of these outlets, which logged it and corrected it. The outlet attributed correctly; someone it quoted did not.",
+      "proposed_by": "human",
+      "confirmed": true,
+      "proposed_on": "2026-09-04"
     }
   }
 }

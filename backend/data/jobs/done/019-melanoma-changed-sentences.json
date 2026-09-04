@@ -1,0 +1,9 @@
+{
+  "note": "Final check, step one. Read what tonight's edits changed, against the page as the gate last judged it. 992f5a6c is the commit whose melanoma.html hashes to d3ca5787 — the sha in the gate report — found by hashing each revision rather than assumed. About three cents. $9.47 left of melanoma's $40.",
+  "issue": "melanoma",
+  "cwd": "backend",
+  "script": "scripts/whatholdsup/changecheck.py",
+  "args": ["melanoma",
+           "--page", "site/whatholdsup/melanoma.html",
+           "--before", "992f5a6c70"]
+}

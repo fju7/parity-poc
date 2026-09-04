@@ -1,0 +1,7 @@
+{
+  "note": "Final check, step two. Two universal negatives were added since the last hunt and have never been attacked. Run before the gate so anything it finds is fixed in the same pass — re-running the gate between edits is the trap the cap's own comment names. $9.44 left of melanoma's $40 after the three-cent change review.",
+  "issue": "melanoma",
+  "cwd": "backend",
+  "script": "scripts/whatholdsup/counterexample.py",
+  "args": ["run", "melanoma", "--page", "site/whatholdsup/melanoma.html"]
+}

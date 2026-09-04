@@ -253,3 +253,22 @@
 {"at": "2026-09-03T18:55:49+00:00", "script": "factcheck_draft.py", "role": "source:Pharmacy Times", "issue": "melanoma", "usd": 0.0573, "input": 14527, "output": 246, "web_searches": 1, "note": ""}
 {"at": "2026-09-03T18:58:39+00:00", "script": "factcheck_draft.py", "role": "advocate", "issue": "melanoma", "usd": 0.7608, "input": 192190, "output": 7614, "web_searches": 7, "note": ""}
 {"at": "2026-09-03T19:10:00+00:00", "script": "factcheck_draft.py", "role": "inference", "issue": "melanoma", "usd": 1.4211, "input": 135180, "output": 64368, "web_searches": 5, "note": ""}
+{"at": "2026-09-03T23:43:45+00:00", "script": "factcheck_draft.py", "role": "changecheck", "issue": "melanoma", "usd": 0.0371, "input": 9213, "output": 633, "web_searches": 0, "note": ""}
+{"at": "2026-09-03T23:49:35+00:00", "script": "factcheck_draft.py", "role": "counterexample", "issue": "melanoma", "usd": 0.6317, "input": 159899, "output": 4800, "web_searches": 8, "note": ""}
+{"at": "2026-09-04T00:01:17+00:00", "script": "factcheck_draft.py", "role": "extract", "issue": "melanoma", "usd": 0.1505, "input": 12616, "output": 7507, "web_searches": 0, "note": ""}
+{"at": "2026-09-04T00:25:50+00:00", "script": "factcheck_draft.py", "role": "extract-diagnostic", "issue": "melanoma", "usd": 0.1455, "input": 12616, "output": 7177, "web_searches": 0, "note": ""}
+{"at": "2026-09-04T00:27:46+00:00", "script": "factcheck_draft.py", "role": "extract", "issue": "melanoma", "usd": 0.139, "input": 12616, "output": 6743, "web_searches": 0, "note": ""}
+{"at": "2026-09-04T00:28:03+00:00", "script": "factcheck_draft.py", "role": "source:Merck & Moderna \u2014 five-year KE", "issue": "melanoma", "usd": 0.1014, "input": 23114, "output": 805, "web_searches": 2, "note": ""}
+{"at": "2026-09-04T00:28:16+00:00", "script": "factcheck_draft.py", "role": "source:Five-year results \u2014 Journal of", "issue": "melanoma", "usd": 0.0978, "input": 23118, "output": 566, "web_searches": 2, "note": ""}
+{"at": "2026-09-04T00:29:27+00:00", "script": "factcheck_draft.py", "role": "source:ASCO 2024 presentation deck", "issue": "melanoma", "usd": 0.5448, "input": 155147, "output": 1292, "web_searches": 6, "note": ""}
+{"at": "2026-09-04T00:30:38+00:00", "script": "factcheck_draft.py", "role": "source:Three-Year Update \u2014 JCO Oncolo", "issue": "melanoma", "usd": 0.5443, "input": 139245, "output": 3106, "web_searches": 8, "note": ""}
+{"at": "2026-09-04T00:30:55+00:00", "script": "factcheck_draft.py", "role": "source:Moderna and Merck announcement", "issue": "melanoma", "usd": 0.1176, "input": 29738, "output": 559, "web_searches": 2, "note": ""}
+{"at": "2026-09-04T00:31:13+00:00", "script": "factcheck_draft.py", "role": "source:ASCO 2026 abstract number 9500", "issue": "melanoma", "usd": 0.1236, "input": 31310, "output": 646, "web_searches": 2, "note": ""}
+{"at": "2026-09-04T00:31:42+00:00", "script": "factcheck_draft.py", "role": "source:trial registry records for KEY", "issue": "melanoma", "usd": 0.5323, "input": 145398, "output": 1073, "web_searches": 8, "note": ""}
+{"at": "2026-09-04T00:32:07+00:00", "script": "factcheck_draft.py", "role": "source:Practical Dermatology", "issue": "melanoma", "usd": 0.2052, "input": 50109, "output": 989, "web_searches": 4, "note": ""}
+{"at": "2026-09-04T00:33:02+00:00", "script": "factcheck_draft.py", "role": "source:no source credited in the draf", "issue": "melanoma", "usd": 0.5383, "input": 145643, "output": 2093, "web_searches": 7, "note": ""}
+{"at": "2026-09-04T00:33:19+00:00", "script": "factcheck_draft.py", "role": "source:Merck & Moderna \u2014 Phase 3 INTe", "issue": "melanoma", "usd": 0.07, "input": 14890, "output": 1023, "web_searches": 1, "note": ""}
+{"at": "2026-09-04T00:33:37+00:00", "script": "factcheck_draft.py", "role": "source:NCT05933577 trial registry rec", "issue": "melanoma", "usd": 0.1195, "input": 29755, "output": 684, "web_searches": 2, "note": ""}
+{"at": "2026-09-04T00:33:46+00:00", "script": "factcheck_draft.py", "role": "source:Merck & Moderna \u2014 Phase 3 INTe", "issue": "melanoma", "usd": 0.0595, "input": 14689, "output": 360, "web_searches": 1, "note": ""}
+{"at": "2026-09-04T00:37:57+00:00", "script": "factcheck_draft.py", "role": "advocate", "issue": "melanoma", "usd": 0.6322, "input": 124211, "output": 13971, "web_searches": 5, "note": ""}
+{"at": "2026-09-04T00:41:26+00:00", "script": "factcheck_draft.py", "role": "inference", "issue": "melanoma", "usd": 0.6281, "input": 137642, "output": 11012, "web_searches": 5, "note": ""}

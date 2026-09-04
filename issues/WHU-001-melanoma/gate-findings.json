@@ -472,6 +472,66 @@
       "why": "Right, and acted on before this run. The sentence used to say 'the three trials whose registry records we hold ... none has reported'. It now says the two PLACEBO-CONTROLLED trials, names them, and says separately that CheckMate 238 cannot bear on the question because its arms are nivolumab and ipilimumab. The registry record we hold names the comparator.",
       "by": "claude",
       "on": "2026-09-03"
+    },
+    {
+      "id": "obj-5",
+      "kind": "fairness",
+      "gate_verdict": "THIRD_PARTY",
+      "gate_said": "The draft claims 'Neither reading reached the general coverage' without holding or citing any general coverage to support that claim.",
+      "decision": "accepted",
+      "source_id": "S013",
+      "quote": "\"hasResults\":false",
+      "why": "Right, and it is the class this whole night has been about: a universal negative over documents we do not hold. We cannot speak for general coverage we never read. It now says 'Neither reading appears in any of the general coverage we hold', which our own library can answer and B15 now watches.",
+      "by": "claude",
+      "on": "2026-09-04"
+    },
+    {
+      "id": "c28",
+      "kind": "claim",
+      "gate_verdict": "NOT_FOUND",
+      "gate_said": "The RFS 80% CI of 0.351-0.743 does not appear in the conference abstract; the JCO OA paper is paywalled.",
+      "decision": "rejected",
+      "source_id": "S007",
+      "quote": "80% CI, 0.351 to 0.743",
+      "why": "A reach failure against a paper we hold in full. The role says so itself: 'the JCO OA paper is paywalled and could not be read.' It compared instead against the ASCO 2024 conference abstract — a different document about the same trial. The paper prints it twice: 'the combination continued to demonstrate improvement in RFS (hazard ratio [HR], 0.510 [80% CI, 0.351 to 0.743])', and again in Table 1. The paper reports BOTH an 80% and a 95% interval for every measure; the abstract carries only the 95%, which is why the role saw one and not the other.",
+      "by": "claude",
+      "on": "2026-09-04"
+    },
+    {
+      "id": "c47",
+      "kind": "claim",
+      "gate_verdict": "NOT_FOUND",
+      "gate_said": "The quoted sentence is a specific verbatim claim from the paywalled JCO OA paper.",
+      "decision": "rejected",
+      "source_id": "S007",
+      "quote": "These subsequent analyses are not intended for formal hypothesis testing (ie, are descriptive only).",
+      "why": "A reach failure against a paper we hold in full. The role says so itself: 'the JCO OA paper is paywalled and could not be read.' It compared instead against the ASCO 2024 conference abstract — a different document about the same trial. The sentence is in it verbatim, and a binding row has rested on that span since 3 September.",
+      "by": "claude",
+      "on": "2026-09-04"
+    },
+    {
+      "id": "c57",
+      "kind": "claim",
+      "gate_verdict": "NOT_FOUND",
+      "gate_said": "The specific date of 12 February 2026 could not be verified.",
+      "decision": "rejected",
+      "source_id": "S007",
+      "quote": "February 12, 2026",
+      "why": "A reach failure against a paper we hold in full. The role says so itself: 'the JCO OA paper is paywalled and could not be read.' It compared instead against the ASCO 2024 conference abstract — a different document about the same trial. The held PDF prints 'Accepted September 30, 2025 Published February 12, 2026'. Same date, American order. Second run to report it; the first decision carried forward correctly, which is the carry working.",
+      "by": "claude",
+      "on": "2026-09-04"
+    },
+    {
+      "id": "c55",
+      "kind": "claim",
+      "gate_verdict": "WRONG_VALUE",
+      "gate_said": "Practical Dermatology and KOL Pulse could not be independently reached; the blanket 'every outlet' assertion is unverifiable as stated.",
+      "decision": "accepted",
+      "source_id": "S019",
+      "quote": "Hazard ratios circulating on announcement day are these Phase 2b figures",
+      "why": "Half reach, half a real point, and the real half is worth the run on its own. We hold all six outlets and checked them one by one, so 'unverifiable' is about what the role could open. But this page now prints an announcement-day post attributing 0.51 and 0.41 to the Phase 3, and that post is carried BY one of the six — KOL Pulse — which logged it and corrected it in the words quoted here. The outlet attributed correctly; someone it quoted did not. The sentence now says 'in its own voice', which is the distinction that had been doing silent work.",
+      "by": "claude",
+      "on": "2026-09-04"
     }
   ]
 }

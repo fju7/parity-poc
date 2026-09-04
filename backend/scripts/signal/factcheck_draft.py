@@ -1216,7 +1216,18 @@ def extract_claims(draft: str) -> list[dict] | None:
                 out = out[key]
                 break
     if not isinstance(out, list) or not out:
-        print("[ERROR] Extraction returned no claims.")
+        # AN ANSWER THAT PARSES AND IS UNUSABLE IS DISCARDED LIKE ONE THAT DID
+        # NOT PARSE, and that was the same defect as the truncation case fixed
+        # this morning: the run blocks, the text goes on the floor, and the next
+        # run starts from the same nothing. On 2026-09-04 extraction returned
+        # 7,507 tokens, parsed clean, and yielded no claims — and the shape it
+        # actually returned could not be looked at.
+        where = _dump_truncated("extract-unusable", json.dumps(out)[:200000], None)
+        print("[ERROR] Extraction returned no claims. It returned a %s%s."
+              % (type(out).__name__,
+                 " with keys %s" % sorted(out)[:8] if isinstance(out, dict) else ""))
+        if where:
+            print("        what it did return is at %s" % where)
         return None
     for i, c in enumerate(out):
         c.setdefault("id", f"c{i + 1}")

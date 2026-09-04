@@ -1,0 +1,36 @@
+=== 020-melanoma-counterexample
+=== queued job:
+{
+  "note": "Final check, step two. Two universal negatives were added since the last hunt and have never been attacked. Run before the gate so anything it finds is fixed in the same pass — re-running the gate between edits is the trap the cap's own comment names. $9.44 left of melanoma's $40 after the three-cent change review.",
+  "issue": "melanoma",
+  "cwd": "backend",
+  "script": "scripts/whatholdsup/counterexample.py",
+  "args": ["run", "melanoma", "--page", "site/whatholdsup/melanoma.html"]
+}
+=== started 2026-09-03T23:47:46Z
+  attacking 5 claim(s):
+   - CheckMate 238 ’s arms are nivolumab and ipilimumab, so there is no placebo arm to report against
+   - In this programme, overall survival has been reported only as an exploratory analysis in the sma
+   - And one thing almost nobody mentioned Two specialist outlets touched it, and they disagree.
+   - Morning Glory Sciences — an outlet we can find no other publication citing, so we give the argum
+   - Every number above traces to one of these, and none to a news report — a check that runs before 
+
+  [BROKEN  ] CheckMate 238's arms are nivolumab and ipilimumab, so there is no placebo arm to
+             CheckMate 238 used matched double-dummy placebo: each active arm received the other drug's matched placebo, so
+             Adjuvant Nivolumab versus Ipilimumab in Resected Stage III/IV Melanoma: 5-Year Efficacy and Biomarke
+  [BROKEN  ] In this programme, overall survival has been reported only as an exploratory ana
+             Multiple factual errors compound in this sentence. (1) IMMUNED enrolled 167 patients (56 + 59 + 52 across thre
+             IMMUNED final results: Livingstone et al., The Lancet, Vol 400, Issue 10358, 1–7 October 2022. https
+  [NARROWED] And one thing almost nobody mentioned Two specialist outlets touched it, and the
+             No direct counterexample found — this is a coverage claim, not a factual claim about trial data, and cannot be
+             
+  [NARROWED] Morning Glory Sciences — an outlet we can find no other publication citing, so w
+             The Pharmacy Times characterisation is confirmed and accurately sourced: the CheckMate 76K Nature Medicine pap
+             Pharmacy Times FDA approval article: https://www.pharmacytimes.com/view/fda-approves-nivolumab-for-c
+  [NARROWED] Every number above traces to one of these, and none to a news report — a check t
+             No external counterexample is possible: this is an internal editorial process claim about the author's own sou
+             IMMUNED trial registration and primary publication: Zimmer et al., Lancet 2020; 395:1558–68 (167 pat
+
+  5 of 5 claim(s) broken or narrowed
+  adjudicate  issues/WHU-001-melanoma/counterexample/2026-09-03-adjudication.md
+=== finished 2026-09-03T23:49:36Z exit=0

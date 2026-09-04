@@ -1,0 +1,10 @@
+{
+  "note": "THE GATE RUN, second attempt. The diagnostic settled it: the same call on the same page returned 62 well-formed claims for 15 cents, so last night's step-one failure was a transient bad response and not a defect in the page. Past the cap on the record for the same reason as before: runs 4-7 were the re-gate-between-edits trap, and this is the single batched confirming run the policy describes, with every other check run and settled first. $8.50 left of $40; the floor is $5.67.",
+  "issue": "melanoma",
+  "cwd": "backend",
+  "script": "scripts/signal/factcheck_draft.py",
+  "args": ["../site/whatholdsup/melanoma.html",
+           "--past-cap", "Runs 4-7 were the re-gate-between-edits trap. This is the single batched confirming run, after every other check has been run and settled in one pass. First attempt blocked on a transient extraction failure that a 15-cent diagnostic ruled out.",
+           "--since", "../site/whatholdsup/melanoma.html.gate.json",
+           "--report", "../site/whatholdsup/melanoma.html.gate.json"]
+}

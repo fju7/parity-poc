@@ -1,0 +1,16 @@
+=== 018-melanoma-final-checks
+=== queued job:
+{
+  "note": "Final check before the one gate run. Two cheap roles first, in the order the batch-then-gate discipline requires: read what tonight's edits changed, then attack the two universal negatives added since the last hunt. Anything they find gets fixed BEFORE the gate, so the gate reads a page that has stopped moving. Budget: $9.47 left of melanoma's $40. The changed-sentence review is about three cents; the hunt is the unknown.",
+  "issue": "melanoma",
+  "cwd": "backend",
+  "script": "scripts/whatholdsup/changecheck.py",
+  "args": ["melanoma",
+           "--page", "site/whatholdsup/melanoma.html",
+           "--before", "d3ca57879deae3d95e8402c26a4c8517676870ee951bea8a2ae0b137a53010bb"]
+}
+=== started 2026-09-03T23:41:49Z
+
+  could not read site/whatholdsup/melanoma.html at d3ca57879deae3d95e8402c26a4c8517676870ee951bea8a2ae0b137a53010bb
+
+=== finished 2026-09-03T23:41:50Z exit=2

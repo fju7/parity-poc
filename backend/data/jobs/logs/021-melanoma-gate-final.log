@@ -1,0 +1,24 @@
+=== 021-melanoma-gate-final
+=== queued job:
+{
+  "note": "THE GATE RUN. Past the cap on the record, and the reason is the record: melanoma has been gated seven times and the budget is three. Runs 4 through 7 were the re-gate-between-edits trap the cap's own comment names — fix a finding, create unread text, gate again. This is the batched confirming run the policy actually describes. Everything else is done first and in one pass: eleven invisible claims bound, GAP-001 built and its 27 candidates read, two false sentences corrected, the changed-sentence review and the counterexample hunt both run and adjudicated, the corrections entry written. The page has stopped moving. $8.80 left of $40; the floor is $5.67.",
+  "issue": "melanoma",
+  "cwd": "backend",
+  "script": "scripts/signal/factcheck_draft.py",
+  "args": ["../site/whatholdsup/melanoma.html",
+           "--past-cap", "Runs 4-7 were the re-gate-between-edits trap. This is the single batched confirming run the two-runs-then-review-then-one policy describes, after every other check has been run and settled in one pass.",
+           "--since", "../site/whatholdsup/melanoma.html.gate.json",
+           "--report", "../site/whatholdsup/melanoma.html.gate.json"]
+}
+=== started 2026-09-03T23:59:36Z
+  Model 'claude-sonnet-4-6' is an alias — no dated snapshot is published for it.
+  Judgments can move without a code change; golden_set.py is what catches that.
+  Past the cap of 2, on the record: Runs 4-7 were the re-gate-between-edits trap. This is the single batched confirming run the two-runs-then-review-then-one policy describes, after every other check has been run and settled in one pass.
+
+Fact-checking melanoma.html (46,622 chars of prose) as of 2026-09-03
+
+[1/6] Extracting checkable claims...
+[ERROR] Extraction returned no claims.
+
+[BLOCKED] Could not extract claims. Nothing was checked.
+=== finished 2026-09-04T00:01:17Z exit=2

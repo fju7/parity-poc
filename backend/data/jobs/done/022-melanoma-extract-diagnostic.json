@@ -1,0 +1,7 @@
+{
+  "note": "Editor chose the diagnostic: about fifteen cents to see what extraction returns before committing the remaining $8.65. Prints the shape before anything interprets it and writes the raw text to disk either way. Settles nothing.",
+  "issue": "melanoma",
+  "cwd": "backend",
+  "script": "scripts/signal/run_extract_only.py",
+  "args": ["melanoma", "../site/whatholdsup/melanoma.html"]
+}

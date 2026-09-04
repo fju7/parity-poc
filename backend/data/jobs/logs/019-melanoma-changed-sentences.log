@@ -1,0 +1,33 @@
+=== 019-melanoma-changed-sentences
+=== queued job:
+{
+  "note": "Final check, step one. Read what tonight's edits changed, against the page as the gate last judged it. 992f5a6c is the commit whose melanoma.html hashes to d3ca5787 — the sha in the gate report — found by hashing each revision rather than assumed. About three cents. $9.47 left of melanoma's $40.",
+  "issue": "melanoma",
+  "cwd": "backend",
+  "script": "scripts/whatholdsup/changecheck.py",
+  "args": ["melanoma",
+           "--page", "site/whatholdsup/melanoma.html",
+           "--before", "992f5a6c70"]
+}
+=== started 2026-09-03T23:43:20Z
+
+  19 changed sentence(s) since 992f5a6c70
+
+  NEW_AND_UNBOUND          carries 238 and rests on nothing this system can name
+      CheckMate 238, the third record we hold, cannot bear on the question at all, though indirect comparisons have 
+  FIGURE_IN_NOTHING_HELD   3.35 is in no document this issue holds, and this sentence is new
+      Readers saw 3.4 ; the working underneath it comes to 3.35 , and that discrepancy is recorded below.
+  NEW_AND_UNBOUND          carries 3.4, 3.35 and rests on nothing this system can name
+      Readers saw 3.4 ; the working underneath it comes to 3.35 , and that discrepancy is recorded below.
+  CONTRADICTION            The page states elsewhere that every outlet it holds attributed the figures correctly and the pr
+      For adjuvant PD-1 inhibitors specifically — the comparison arm in this very trial — the two placebo-controlled
+      against: KEYNOTE-054 and KEYNOTE-716 are both pembrolizumab against placebo; each lists overall survival as a secondary
+  UNSOURCED                The claim that indirect comparisons have suggested a survival signal for CheckMate 238 is assert
+      CheckMate 238, the third record we hold, cannot bear on the question at all, though indirect comparisons have 
+  CONTRADICTION            The page's own scoring section shows the pre-split single number would be computed from the six 
+      Those are different things, and until 3 September this scorecard averaged them into a single number that was w
+      against: Rigor scores 5 — a double-blind, placebo-controlled, 1,137-patient Phase 3 is as good as trial design gets.
+  CONTRADICTION            The sentence says the discrepancy between 3.4 and 3.35 is 'recorded below,' but no such record a
+      Readers saw 3.4 ; the working underneath it comes to 3.35 , and that discrepancy is recorded below.
+
+=== finished 2026-09-03T23:43:45Z exit=0
