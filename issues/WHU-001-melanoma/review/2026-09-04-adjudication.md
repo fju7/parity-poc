@@ -28,30 +28,50 @@ those checked out.
 **Finding.** A 2026 letter in the Irish Journal of Medical Science cites Morning
 Glory Sciences, so the negative is false.
 
-**What we could verify.** Not that. We searched for the letter five ways —
-Europe PMC's REST API (rate-limited on every attempt), its web search, PubMed
-by phrase, and two targeted web searches. PubMed does not index reference
-lists, so a citation inside one would not surface there in any case. **We could
-not confirm the counterexample, and we are not recording it as confirmed.**
+**CONFIRMED, later the same day.** The operator supplied the PubMed id and we
+read the publisher's own page. Riaz L, Komal W, Qureshi R, Khan M, *FDA Approval
+of daratumumab and hyaluronidase-fihj plus VRd for the frontline treatment of
+newly diagnosed multiple myeloma*, Irish Journal of Medical Science, 2026, DOI
+10.1007/s11845-026-04315-0, PMID 41920444. A Letter to the Editor. Its reference
+12 reads:
 
-**Why the clause goes anyway.** It should not have needed a counterexample. It
-is a universal negative over the whole of the literature resting on one search
-on one day, which is the shape Appendix C of our own packet listed as the most
-exposed claim on the page — and it was doing real work in the paragraph:
-discounting the standing of a source whose argument the paragraph then relies
-on. We cannot defend it, so it goes. Deleting a claim needs no source; that is
-why this is the smallest available fix and the reviewer chose it too.
+> Morning Glory Sciences. Oncology drug approval news flash: Daratumumab and
+> hyaluronidase-fihj plus bortezomib, lenalidomide, and dexamethasone approved
+> for newly diagnosed multiple myeloma in transplant-ineligible adults
+> [Internet]. Morning Glory Sciences (2026) Jan 28
+
+**So the sentence was false, on a live page, and this is a correction rather
+than a withdrawal.** It is recorded in `corrections.md` under 4 September. The
+document is held as **S028** so that the correction rests on a document and not
+on a report of one.
+
+**What we could not do, and it matters.** We searched five ways before the id
+arrived — Europe PMC's REST API (rate-limited on every attempt through our fetch
+proxy), its web search, PubMed by phrase, and two web searches — and found
+nothing. PubMed does not index reference lists, so a citation living in one was
+never going to surface there. **We had no way to run the search our own sentence
+claimed to have run.** A sentence whose truth depends on a search we cannot
+perform should not have been written, and that is the finding underneath the
+finding.
+
+**Why the clause would have gone regardless.** It is a universal negative over
+the whole of the literature resting on one search on one day, and it was doing
+real work in the paragraph: discounting the standing of a source whose argument
+the paragraph then relies on. The counterexample settles it; the shape of the
+claim was already indefensible.
 
 The sentence now reads "Morning Glory Sciences — a specialist outlet, and we
 give its argument on its merits —". The argument is unchanged and its two
 premises are still quoted from S009 and S010.
 
-**Open, and it decides which kind of record this is.** If the IJMS letter
-exists, a false sentence stood on a live page and this belongs in
-`corrections.md` as a correction. If it does not, this is a claim we withdrew
-because we could not stand behind it, and belongs in the change log as a
-change. We have written it as the second and will move it if the URL arrives.
-**Ask the reviewer for the link.**
+**What this says about B15.** On 3 September we recorded exactly this gap — that
+nothing asks whether a universal negative about other people's work is
+contradicted by a document — and built B15 to close it. B15 searches OUR OWN
+LIBRARY. This counterexample was never in our library and could not have been.
+The check we built to catch this class of error is, by construction, unable to
+catch the instance that arrived the next day. That is not an argument against
+B15; it is the boundary of what a library search can do, and the reason a claim
+about the whole literature cannot be defended by one.
 
 **J28** carried the same negative as an inference premise. The premise is
 removed and the step rewritten.

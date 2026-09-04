@@ -677,6 +677,30 @@
       },
       "about": "KEYNOTE-942",
       "about_note": "the trial this document is the report or record OF. Declared so a bounded negative about it can be searched: see bindings.bounded_figure_negative. A source with no `about` is reported as unsearchable rather than cleared."
+    },
+    {
+      "id": "S028",
+      "url": "https://link.springer.com/article/10.1007/s11845-026-04315-0",
+      "type": "reference",
+      "title": "Riaz L, Komal W, Qureshi R, Khan M. FDA Approval of daratumumab and hyaluronidase-fihj plus VRd for the frontline treatment of newly diagnosed multiple myeloma. Irish Journal of Medical Science, 2026",
+      "doi": "10.1007/s11845-026-04315-0",
+      "pubmed": "41920444",
+      "accessed": "2026-09-04",
+      "used_for": "The counterexample to a sentence this page carried live: that Morning Glory Sciences is an outlet we can find no other publication citing. This letter's reference 12 is 'Morning Glory Sciences. Oncology drug approval news flash: Daratumumab and hyaluronidase-fihj plus bortezomib, lenalidomide, and dexamethasone approved for newly diagnosed multiple myeloma in transplant-ineligible adults [Internet]. Morning Glory Sciences (2026) Jan 28'. Held so that the correction rests on a document rather than on a report of one. Nothing else on the page rests on it; the sentence it falsifies is deleted.",
+      "also_called": [
+        "Riaz et al.",
+        "10.1007/s11845-026-04315-0",
+        "41920444"
+      ],
+      "access": {
+        "state": "abstract_held",
+        "by": "claude",
+        "on": "2026-09-04",
+        "sections": [
+          "reference list"
+        ],
+        "note": "Reached through the DOI to the Springer article page and read for its bibliographic record and reference list. The reviewer reported it on 4 September; we could not locate it ourselves (Europe PMC rate-limited on every attempt, and PubMed does not index reference lists) and the operator supplied the PubMed id. Confirmed from the publisher's own page, not from the report of it."
+      }
     }
   ],
   "also_called_note": "The role-nouns the page uses for a source. These must identify the DOCUMENT, not its subject: 'KEYNOTE-942' is a trial that three of these sources report on, and listing it as an alias for all three made every sentence about the trial match all three at once -- so the one source marked `blocked` absorbed the blame for claims the read sources actually support. The ledger audit matches sentences to sources by these plus the title's trial and journal names; a reference the page makes that is not listed here is invisible to the audit."

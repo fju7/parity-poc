@@ -128,3 +128,25 @@ def test_every_registry_record_is_linkable_by_a_reader(sid):
     store = _load("source_store")
     url = next(s.get("url") or "" for s in store.sources("melanoma") if s["id"] == sid)
     assert "/api/" not in url, "%s cites an API endpoint, not a page a reader can read" % sid
+
+
+def test_a_springer_article_url_yields_a_checkable_doi():
+    """S028 — the letter that falsified a live sentence — came in as
+    link.springer.com/article/10.1007/... and the errata check reported it
+    UNCHECKABLE, so the one document that can falsify a figure would never have
+    been checked for its own erratum. The bare DOI in an /article/ path counts."""
+    E = _load("errata")
+    got = E.identifier_of({"url": "https://link.springer.com/article/10.1007/s11845-026-04315-0"})
+    assert got == ("DOI", "10.1007/s11845-026-04315-0"), got
+
+
+def test_the_doi_resolver_form_still_works():
+    E = _load("errata")
+    assert E.identifier_of({"url": "https://doi.org/10.1200/OA-25-00008"}) == (
+        "DOI", "10.1200/OA-25-00008")
+
+
+def test_a_url_with_no_identifier_is_still_uncheckable():
+    """The pattern must not start matching things that are not identifiers."""
+    E = _load("errata")
+    assert E.identifier_of({"url": "https://example.com/article/how-we-did-it"}) is None

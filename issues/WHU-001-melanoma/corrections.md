@@ -490,3 +490,48 @@ about it on the same page. The outlet attributed correctly; someone it quoted
 did not. The sentence now says "in its own voice", so the two are not confused.
 
 No figure, interval, hazard ratio or conclusion changed on 4 September.
+
+## 4 September 2026, later — a sentence about another publication that was not true
+
+An outside reviewer read the assessment cold and returned nine findings. All
+nine were accepted and are set out in the change log at the foot of the page.
+One of them is a correction rather than a change, and it is the one worth
+setting out here.
+
+**We said Morning Glory Sciences was an outlet we could find no other
+publication citing. That was wrong.**
+
+The sentence read: "Morning Glory Sciences — an outlet we can find no other
+publication citing, so we give the argument on its merits rather than on its
+authority". It was on the live page from 3 September, and it did real work: it
+told the reader to discount a source whose argument the same paragraph then
+relied on.
+
+The counterexample is a letter in the *Irish Journal of Medical Science*: Riaz
+L, Komal W, Qureshi R, Khan M, "FDA Approval of daratumumab and hyaluronidase-
+fihj plus VRd for the frontline treatment of newly diagnosed multiple myeloma",
+2026, DOI 10.1007/s11845-026-04315-0. Its reference 12 cites Morning Glory
+Sciences by name. We have read the publisher's own page and hold the record.
+
+The clause is gone. The sentence now says "a specialist outlet, and we give its
+argument on its merits". The argument itself, and the two quoted passages it
+rests on, are unchanged.
+
+**Why we could not have found this ourselves, which is the part that matters.**
+
+After the reviewer reported it we went looking, five ways, and failed: PubMed
+does not index reference lists, so a citation living inside one was never going
+to appear there, and the databases that do index them refused our requests. We
+only confirmed it when the reviewer's own identifier reached us.
+
+So the sentence asserted the result of a search we had no way to run. We had
+already recorded, on 3 September, that nothing in our machinery asks whether a
+universal negative about other people's work is contradicted somewhere — and we
+built a check for it that same day. That check searches our own library. This
+counterexample was never in our library and never could have been.
+
+The lesson is not that the check was wrong. It is that a claim about the whole
+of the published literature cannot be made safe by any check we own, and should
+not be published at all. We have written two such sentences in two days about
+outlets and coverage. Both were wrong. The rule we are adopting is that a
+sentence discounting another publication's standing does not go on the page.

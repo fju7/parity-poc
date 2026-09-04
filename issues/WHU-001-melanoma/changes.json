@@ -1099,6 +1099,42 @@
       "now": "Two do not: the hazard ratios inside the announcement-day post are quoted from the roundup that logged them, because a figure circulating under the wrong trial's name is what that paragraph is about.",
       "because": "OR-0904-8",
       "note": "Thirteen of the twenty-two documents the piece rests on were missing from the list a reader sees, and the sentence introducing it described a check that did not exist. All thirteen added; the claim rewritten to the check that now exists (B17, sources_shown.py)."
+    },
+    {
+      "at": "2026-09-04T13:27:32+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "We removed the claim that no other publication cites Morning Glory Sciences, which was not true : a 2026 letter in the Irish Journal of Medical Science cites it in its reference list (DOI 10.1007/s11845-026-04315-0).",
+      "because": "OR-0904-1",
+      "note": "The counterexample was confirmed from the publisher's own page after the operator supplied the PubMed id: Irish Journal of Medical Science, DOI 10.1007/s11845-026-04315-0, reference 12. The sentence was false on a live page, so the change log now says so and corrections.md carries it as a correction rather than a withdrawal. Source held as S028."
+    },
+    {
+      "at": "2026-09-04T13:27:32+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "It was a claim about the whole of the published literature, and it was doing real work - discounting a source whose argument the same paragraph then relies on.",
+      "because": "OR-0904-1",
+      "note": "The counterexample was confirmed from the publisher's own page after the operator supplied the PubMed id: Irish Journal of Medical Science, DOI 10.1007/s11845-026-04315-0, reference 12. The sentence was false on a live page, so the change log now says so and corrections.md carries it as a correction rather than a withdrawal. Source held as S028."
+    },
+    {
+      "at": "2026-09-04T13:27:32+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "When we went looking for the counterexample ourselves we could not find it: the databases that index reference lists refused our requests and PubMed does not index them at all, so the sentence asserted a search we had no way to run.",
+      "because": "OR-0904-1",
+      "note": "The counterexample was confirmed from the publisher's own page after the operator supplied the PubMed id: Irish Journal of Medical Science, DOI 10.1007/s11845-026-04315-0, reference 12. The sentence was false on a live page, so the change log now says so and corrections.md carries it as a correction rather than a withdrawal. Source held as S028."
+    },
+    {
+      "at": "2026-09-04T13:27:32+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "It is set out in full in the corrections record.",
+      "because": "OR-0904-1",
+      "note": "The counterexample was confirmed from the publisher's own page after the operator supplied the PubMed id: Irish Journal of Medical Science, DOI 10.1007/s11845-026-04315-0, reference 12. The sentence was false on a live page, so the change log now says so and corrections.md carries it as a correction rather than a withdrawal. Source held as S028."
     }
   ]
 }

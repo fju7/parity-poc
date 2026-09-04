@@ -1,7 +1,7 @@
 # Outside review packet — The Melanoma Result
 
 Page under review: `site/whatholdsup/melanoma.html`
-sha256 (first 16): `dd5c320e8e9c2fe2`
+sha256 (first 16): `14109128ca055e5b`
 Built: 2026-09-04
 
 This packet is the piece, plus three things that did not exist at the last
@@ -18,8 +18,8 @@ our findings anchors on them.
 ## What has changed since the last outside review
 
 The last outside review of this piece read a file whose sha256 begins
-`a788f00ab1521235`, on 2026-09-04. Since then **72 changes to the prose** have gone
-in; 72 of them reconcile to a written decision and **0 do not**.
+`a788f00ab1521235`, on 2026-09-04. Since then **75 changes to the prose** have gone
+in; 75 of them reconcile to a written decision and **0 do not**.
 
 That number is the reason this is a full review and not a delta review.
 Most of the piece is not the piece that was read. Do not go looking for
@@ -459,6 +459,7 @@ read. If you can reach any of these, please do.
 | S025 | full_text_held | Singh, Mukhopadhyay — Survival analysis in clinical trials: Basics and must know areas. Perspec |
 | S026 | full_text_held | KEYNOTE-716 — ClinicalTrials.gov record. NCT03553836. |
 | S027 | full_text_held | Moderna & Merck — five-year KEYNOTE-942 data, January 2026 announcement |
+| S028 | abstract_held | Riaz L, Komal W, Qureshi R, Khan M. FDA Approval of daratumumab and hyaluronidase-fihj plus VRd |  <-- WE COULD NOT READ THIS IN FULL
 
 ---
 
@@ -552,7 +553,7 @@ This is a coverage statement, not a findings statement. It says which parts of
 the page our checks have and have not examined, so you know where the absence
 of a flag means nothing at all.
 
-- **sentences the gate has seen** — warn: 71 sentence(s) on the page did not exist in the draft the gate judged (fingerprints recorded by the gate)
+- **sentences the gate has seen** — warn: 74 sentence(s) on the page did not exist in the draft the gate judged (fingerprints recorded by the gate)
 - **empirical sentences never judged** — BLOCKED: 14 sentence(s) carrying figures, trials or registry ids have never been examined by any role: Because for a hazard ratio, 1.0 means no difference at all. || Morning Glory Sciences — a specialist outlet, and we give its argument on its merits — the || It is a figure from 157 patients in an open-label study, not the result announced this mon
 
 The sentences no role has read:
@@ -610,23 +611,26 @@ The sentences no role has read:
   52. A paragraph was added quoting the announcement-day post that put the earlier trial’s hazard ratios under the Phase 3’s name, and the outlet’s own warning about it.
   53. What the outside review changed, later on 4 September.
   54. An independent reviewer read the piece cold and returned nine items.
-  55. We removed the claim that no other publication cites Morning Glory Sciences — a statement about the whole of the literature that we cannot defend, used to discount a source whose argument we then rely on.
-  56. We removed a sentence saying the patients the Phase 3 adds start at lower recurrence risk: the paragraph above it says that question cannot be settled from anything published, and then this sentence settled it.
-  57. We removed the claim that this page holds no document about a CTLA-4 inhibitor, which the same paragraph disproves — CheckMate 238 studies ipilimumab, and we hold its registry record.
-  58. The p-value definition said a small p-value means a surprising fluke and conditioned only on the treatment doing nothing; a p-value is computed on every assumption in the model, which the reference we cite says in those words and which the callout beneath it already said.
-  59. “The single most useful question to ask of any interval” is true of ratios, not of every interval, and now says so.
-  60. Two more places had dropped death from a composite endpoint.
-  61. The stat card reading “0 Phase 3 efficacy numbers released” claimed a zero over the world when what we can show is a zero in the announcement; it now says so.
-  62. And the source list was not the source list.
-  63. The reviewer found that the five-year landmark rates trace to the ASCO abstract, which was not among the sources shown to readers.
-  64. Checking it properly, thirteen of the twenty-two documents this piece rests on were missing from that list — the three other trial registries, the statistical references, and the coverage quoted for what it said.
-  65. The list above now carries all of them.
-  66. The sentence introducing it claimed that a check refuses to publish the page otherwise.
-  67. No such check existed: the one we had runs the other way, testing that every link on the page is a source we hold, and nothing tested that every source the page rests on is a link the reader can see.
-  68. That check now exists and runs before publication.
-  69. Describing a control we did not have is the more serious half of this, and it sat in the sentence asking readers to trust the list.
-  70. Every figure above traces to a company release, a peer-reviewed paper, a conference abstract or a trial registry record.
-  71. Two do not: the hazard ratios inside the announcement-day post are quoted from the roundup that logged them, because a figure circulating under the wrong trial’s name is what that paragraph is about.
+  55. We removed the claim that no other publication cites Morning Glory Sciences, which was not true : a 2026 letter in the Irish Journal of Medical Science cites it in its reference list (DOI 10.1007/s11845-026-04315-0).
+  56. It was a claim about the whole of the published literature, and it was doing real work — discounting a source whose argument the same paragraph then relies on.
+  57. When we went looking for the counterexample ourselves we could not find it: the databases that index reference lists refused our requests and PubMed does not index them at all, so the sentence asserted a search we had no way to run.
+  58. It is set out in full in the corrections record.
+  59. We removed a sentence saying the patients the Phase 3 adds start at lower recurrence risk: the paragraph above it says that question cannot be settled from anything published, and then this sentence settled it.
+  60. We removed the claim that this page holds no document about a CTLA-4 inhibitor, which the same paragraph disproves — CheckMate 238 studies ipilimumab, and we hold its registry record.
+  61. The p-value definition said a small p-value means a surprising fluke and conditioned only on the treatment doing nothing; a p-value is computed on every assumption in the model, which the reference we cite says in those words and which the callout beneath it already said.
+  62. “The single most useful question to ask of any interval” is true of ratios, not of every interval, and now says so.
+  63. Two more places had dropped death from a composite endpoint.
+  64. The stat card reading “0 Phase 3 efficacy numbers released” claimed a zero over the world when what we can show is a zero in the announcement; it now says so.
+  65. And the source list was not the source list.
+  66. The reviewer found that the five-year landmark rates trace to the ASCO abstract, which was not among the sources shown to readers.
+  67. Checking it properly, thirteen of the twenty-two documents this piece rests on were missing from that list — the three other trial registries, the statistical references, and the coverage quoted for what it said.
+  68. The list above now carries all of them.
+  69. The sentence introducing it claimed that a check refuses to publish the page otherwise.
+  70. No such check existed: the one we had runs the other way, testing that every link on the page is a source we hold, and nothing tested that every source the page rests on is a link the reader can see.
+  71. That check now exists and runs before publication.
+  72. Describing a control we did not have is the more serious half of this, and it sat in the sentence asking readers to trust the list.
+  73. Every figure above traces to a company release, a peer-reviewed paper, a conference abstract or a trial registry record.
+  74. Two do not: the hazard ratios inside the announcement-day post are quoted from the roundup that logged them, because a figure circulating under the wrong trial’s name is what that paragraph is about.
 
 The model-based fact-check gate has now run its budgeted number of times for
 this issue. The sentences listed above as unread will not be read by it before
@@ -1342,8 +1346,7 @@ The full page follows as HTML. Read it as a reader would.
   <p><strong>What the outside review changed, later on 4 September.</strong> An
   independent reviewer read the piece cold and returned nine items. All nine were
   accepted. We removed the claim that no other publication cites Morning Glory
-  Sciences &mdash; a statement about the whole of the literature that we cannot
-  defend, used to discount a source whose argument we then rely on. We removed a
+  Sciences, which was <strong>not true</strong>: a 2026 letter in the <em>Irish Journal of Medical Science</em> cites it in its reference list (DOI 10.1007/s11845-026-04315-0). It was a claim about the whole of the published literature, and it was doing real work &mdash; discounting a source whose argument the same paragraph then relies on. When we went looking for the counterexample ourselves we could not find it: the databases that index reference lists refused our requests and PubMed does not index them at all, so the sentence asserted a search we had no way to run. It is set out in full in the corrections record. We removed a
   sentence saying the patients the Phase&nbsp;3 adds start at lower recurrence
   risk: the paragraph above it says that question cannot be settled from anything
   published, and then this sentence settled it. We removed the claim that this

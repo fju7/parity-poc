@@ -108,6 +108,13 @@ def identifier_of(src: dict) -> tuple[str, str] | None:
         (r"(?:^|/)(PMC\d+)", "PMCID", 1),
         (r"pubmed\.ncbi\.nlm\.nih\.gov/(\d{6,9})", "PMID", 1),
         (r"(?:doi\.org/|/doi/(?:full/|pdf/|abs/)?)(10\.\d{4,9}/[^\s?#]+)", "DOI", 1),
+        # Springer, and anyone else who puts the bare DOI in an /article/ path.
+        # Added 2026-09-04: the Irish Journal of Medical Science letter that
+        # falsified a sentence on the live melanoma page came in as
+        # link.springer.com/article/10.1007/... and reported UNCHECKABLE, so the
+        # one document that can falsify a figure would never have been checked
+        # for its own erratum.
+        (r"/article/(10\.\d{4,9}/[^\s?#]+)", "DOI", 1),
     ):
         m = re.search(pat, url, re.I)
         if m:
