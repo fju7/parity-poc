@@ -576,3 +576,31 @@ whether arithmetic claims are true. It would not have caught this. Nothing we
 have tests whether a sentence calls a drug by a name its maker does not use.
 
 A reader caught it, one hour after the issue went out.
+
+## 4 September 2026, after publication — "not fourteen patients" denied the wrong thing
+
+The sentence read: "Fourteen deaths, seven in each arm — not fourteen
+patients." Fourteen patients did die. The paper quoted in the same sentence
+says so: 7 of 107 in the combination arm and 7 of 50 in the monotherapy arm.
+
+What the companies' "n=14" label actually invites is a different misreading —
+that the survival analysis was performed on fourteen people, rather than on 157
+people among whom fourteen died. That is the thing worth denying, and the
+sentence now denies it: "Fourteen deaths among 157 patients, seven in each arm
+— not an analysis of fourteen patients."
+
+The page already had the correct formulation elsewhere. Another sentence reads
+"on an 'n=14' — fourteen deaths among 157 patients, seven in each arm". So the
+piece contradicted itself, and the wrong version was the one a reader met first.
+
+**Why nothing caught it.** The sentence states its quantities as words. Every
+check we have that asks whether a number on this page appears in a document we
+hold looks for digits. Forty-one sentences on this page give their only
+quantities in words, and not one of them is bound to a source or examined by
+those checks.
+
+That is the second reader question today, and the second real error, and the
+second time the answer to "why did no check catch this" was that the check
+could not see the sentence at all. The first was the correction history, which
+had no controls until yesterday. This one is number words. Both were invisible
+for a reason nobody had written down until it cost something.

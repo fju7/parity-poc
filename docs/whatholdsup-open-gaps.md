@@ -316,3 +316,37 @@ strip `restates` BLOCKS, which is the correct answer and was not available
 before: its "14 deaths" is the page adding S004's seven and seven. That is a
 `computed` figure, not a restated one, and it needs either the working shown or
 a different card.
+
+## GAP-006 — a quantity written as a word is invisible to every check
+
+**Found:** 4 September 2026, by a reader question about "not fourteen patients",
+which was false and which nothing had examined.
+
+`bindings.FIGURE` and `BARE_INT` match digits. `is_empirical` therefore never
+classifies a sentence whose only quantities are spelled out, so no binding row
+is created, so rule 1, rule 2, B2, B6 and b13 have nothing to look at. The
+sentence is not checked and passed; it is never seen.
+
+**Measured on the melanoma page:** 41 sentences state their only quantities in
+words. None is bound. Among them:
+
+- "It is that wide because it rests on fourteen deaths, seven in each arm"
+- "on seven deaths in fifty patients it runs from a third of them alive to nine
+  in ten"
+- "the treated group's rate of death would be about a sixth of the control
+  group's; at the other it would be about a third higher"
+
+Each is a checkable quantitative claim.
+
+**Why it is not fixed by adding the words to the pattern.** Most of the 41 are
+prose that should not be bound — "a wide one means it did not", "a comparison of
+how fast something is happening in two groups". A pattern that pulls all 41 into
+the binder demands a source for those, and a check that demands the impossible
+is one people route around. The bare-integer work has the shape of the right
+fix: `counts_as_claim` asks whether the integer is doing quantitative work
+(excluding phase names, dates, years) rather than whether it is an integer. The
+same question has to be asked of number words.
+
+**What closing it looks like:** number words are recognised as quantities when
+they are doing quantitative work, the melanoma page's real cases are bound, and
+the prose cases are not swept in.

@@ -458,3 +458,58 @@ issue ships.
 
 **What would change it:** S002 turning out to attribute the three percentages to
 intismeran autogene alone, or the sponsors adopting "vaccine" as a product term.
+
+## READER-0904-2 — "not fourteen patients" — ACCEPT, and it is a correction
+
+Raised by the operator: why does the page say "not fourteen patients"?
+
+Because it denied the wrong proposition. Fourteen patients did die — the paper
+quoted in the same sentence says 7 of 107 and 7 of 50. The misreading the
+companies' "n=14" label actually invites is that the analysis was *of* fourteen
+people rather than of 157 among whom fourteen died. Corrected to say that, and
+bound as a judgement over two premises: S004 for the deaths, S014 for the
+denominator.
+
+**The page already had it right elsewhere** — "on an 'n=14' — fourteen deaths
+among 157 patients, seven in each arm" — so the piece contradicted itself, and a
+reader met the wrong version first.
+
+**Why nothing caught it, which is the finding.** The sentence spells its
+quantities as words. `bindings.FIGURE` and `BARE_INT` match digits;
+`is_empirical` never classified the sentence as carrying a quantity, so no row
+was ever created for it, so rule 1, rule 2, B2, B6 and b13 all had nothing to
+look at. It was not checked and passed — it was never seen.
+
+Counted: **41 sentences on this page state their only quantities in words, and
+none of them is bound or examined.** Most are prose that should not be bound
+("a wide one means it did not"). Several are not: "it rests on fourteen deaths,
+seven in each arm", "on seven deaths in fifty patients it runs from a third of
+them alive to nine in ten", "the treated group's rate of death would be about a
+sixth of the control group's".
+
+Recorded as GAP-006 rather than fixed here. The fix is not just adding number
+words to the pattern: that would pull all 41 into the binder and demand a source
+for the prose ones, which is how a check becomes something people route around.
+It needs the same treatment the bare-integer work got — a test for whether the
+word is doing quantitative work in the sentence.
+
+**What would change it:** GAP-006 closed, or the count of unbound word-quantity
+sentences reaching zero by other means.
+
+## The pattern across both reader questions today
+
+Two questions, two real errors, and in both cases the answer to "why did no
+check catch this" was that no check could see the sentence.
+
+  READER-0904-1  a verified span does not verify the sentence's SUBJECT.
+                 The span was real and correctly quoted; the sentence was wrong
+                 about whose adverse events they were.
+
+  READER-0904-2  a quantity written as a word is not a quantity to any check
+                 here. The sentence was never classified as empirical.
+
+Neither is a failure of a check that ran. Both are regions the machinery does
+not reach, and both were found by a person reading the page in the hour after
+it shipped. That is worth stating plainly: on this issue, the reader has been a
+more effective instrument than the last four gate runs, and considerably
+cheaper.

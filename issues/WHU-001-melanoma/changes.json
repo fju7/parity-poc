@@ -1558,6 +1558,105 @@
       "now": "The Phase 3 announcement gave no adverse-event rates for its own 1,137 patients.",
       "because": "READER-0904-1",
       "note": "Second pass on the same correction: the sentence named 'the release' before identifying it, which the change review read as a contradiction against the next sentence naming it. It now names the five-year release first. Both halves stay bound to the two S002 spans they rest on."
+    },
+    {
+      "at": "2026-09-04T16:57:58+00:00",
+      "by": "claude",
+      "kind": "changed",
+      "was": "Fourteen deaths, seven in each arm - not fourteen patients.",
+      "now": "Fourteen deaths among 157 patients, seven in each arm - not an analysis of fourteen patients.",
+      "because": "READER-0904-2",
+      "note": "'Not fourteen patients' was false -- fourteen patients died, as the paper quoted in the same sentence says. The misreading worth denying is that the analysis was OF fourteen people rather than of 157 among whom fourteen died, and the sentence now denies that. Nothing caught it because the sentence spells its quantities as words and every figure check here looks for digits: GAP-006."
+    },
+    {
+      "at": "2026-09-04T16:57:58+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "We denied the wrong thing about \"n=14\".",
+      "because": "READER-0904-2",
+      "note": "'Not fourteen patients' was false -- fourteen patients died, as the paper quoted in the same sentence says. The misreading worth denying is that the analysis was OF fourteen people rather than of 157 among whom fourteen died, and the sentence now denies that. Nothing caught it because the sentence spells its quantities as words and every figure check here looks for digits: GAP-006."
+    },
+    {
+      "at": "2026-09-04T16:57:58+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "The sentence read Fourteen deaths, seven in each arm - not fourteen patients.",
+      "because": "READER-0904-2",
+      "note": "'Not fourteen patients' was false -- fourteen patients died, as the paper quoted in the same sentence says. The misreading worth denying is that the analysis was OF fourteen people rather than of 157 among whom fourteen died, and the sentence now denies that. Nothing caught it because the sentence spells its quantities as words and every figure check here looks for digits: GAP-006."
+    },
+    {
+      "at": "2026-09-04T16:57:58+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "Fourteen patients did die: the paper we quote in the same breath says 7 of 107 in one arm and 7 of 50 in the other.",
+      "because": "READER-0904-2",
+      "note": "'Not fourteen patients' was false -- fourteen patients died, as the paper quoted in the same sentence says. The misreading worth denying is that the analysis was OF fourteen people rather than of 157 among whom fourteen died, and the sentence now denies that. Nothing caught it because the sentence spells its quantities as words and every figure check here looks for digits: GAP-006."
+    },
+    {
+      "at": "2026-09-04T16:57:58+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "What the companies' label invites is a different misreading - that the analysis was of fourteen people rather than of 157 among whom fourteen died - and that is what the sentence should have denied.",
+      "because": "READER-0904-2",
+      "note": "'Not fourteen patients' was false -- fourteen patients died, as the paper quoted in the same sentence says. The misreading worth denying is that the analysis was OF fourteen people rather than of 157 among whom fourteen died, and the sentence now denies that. Nothing caught it because the sentence spells its quantities as words and every figure check here looks for digits: GAP-006."
+    },
+    {
+      "at": "2026-09-04T16:57:58+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "It now reads Fourteen deaths among 157 patients, seven in each arm - not an analysis of fourteen patients.",
+      "because": "READER-0904-2",
+      "note": "'Not fourteen patients' was false -- fourteen patients died, as the paper quoted in the same sentence says. The misreading worth denying is that the analysis was OF fourteen people rather than of 157 among whom fourteen died, and the sentence now denies that. Nothing caught it because the sentence spells its quantities as words and every figure check here looks for digits: GAP-006."
+    },
+    {
+      "at": "2026-09-04T16:57:58+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "A reader asked.",
+      "because": "READER-0904-2",
+      "note": "'Not fourteen patients' was false -- fourteen patients died, as the paper quoted in the same sentence says. The misreading worth denying is that the analysis was OF fourteen people rather than of 157 among whom fourteen died, and the sentence now denies that. Nothing caught it because the sentence spells its quantities as words and every figure check here looks for digits: GAP-006."
+    },
+    {
+      "at": "2026-09-04T16:57:58+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "Nothing here could have caught it.",
+      "because": "READER-0904-2",
+      "note": "'Not fourteen patients' was false -- fourteen patients died, as the paper quoted in the same sentence says. The misreading worth denying is that the analysis was OF fourteen people rather than of 157 among whom fourteen died, and the sentence now denies that. Nothing caught it because the sentence spells its quantities as words and every figure check here looks for digits: GAP-006."
+    },
+    {
+      "at": "2026-09-04T16:57:58+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "The sentence spells its quantities as words, and the checks that test whether a number on this page appears in a document we hold look for digits.",
+      "because": "READER-0904-2",
+      "note": "'Not fourteen patients' was false -- fourteen patients died, as the paper quoted in the same sentence says. The misreading worth denying is that the analysis was OF fourteen people rather than of 157 among whom fourteen died, and the sentence now denies that. Nothing caught it because the sentence spells its quantities as words and every figure check here looks for digits: GAP-006."
+    },
+    {
+      "at": "2026-09-04T16:57:58+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "Forty-one sentences on this page state their only quantities in words, and not one of them is bound to a source or read by any of those checks.",
+      "because": "READER-0904-2",
+      "note": "'Not fourteen patients' was false -- fourteen patients died, as the paper quoted in the same sentence says. The misreading worth denying is that the analysis was OF fourteen people rather than of 157 among whom fourteen died, and the sentence now denies that. Nothing caught it because the sentence spells its quantities as words and every figure check here looks for digits: GAP-006."
+    },
+    {
+      "at": "2026-09-04T16:57:58+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "That is now written down as an open gap rather than fixed, because closing it means the binder starts demanding a source for \"a wide one means it did not\" unless the fix is made carefully.",
+      "because": "READER-0904-2",
+      "note": "'Not fourteen patients' was false -- fourteen patients died, as the paper quoted in the same sentence says. The misreading worth denying is that the analysis was OF fourteen people rather than of 157 among whom fourteen died, and the sentence now denies that. Nothing caught it because the sentence spells its quantities as words and every figure check here looks for digits: GAP-006."
     }
   ]
 }

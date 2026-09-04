@@ -7049,6 +7049,38 @@
       ],
       "checked_on": "2026-09-04",
       "left_page": "2026-09-04"
+    },
+    "e779daf9774253bc": {
+      "sentence": "Fourteen deaths among 157 patients, seven in each arm — not an analysis of fourteen patients.",
+      "sentence_sha": "e779daf9774253bc",
+      "why_empirical": "the bare integer 157 is a quantity",
+      "bucket": "judgement",
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": "prose",
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-09-04",
+      "on_page": true,
+      "premises": [
+        {
+          "source_id": "S004",
+          "span": "7 of 107 patients (6.5%) in the intismeran plus pembrolizumab arm and 7 of 50 (14.0%) in the pembrolizumab arm died"
+        },
+        {
+          "source_id": "S014",
+          "span": "157 pts were randomized to intismeran + pembro (n=107) or pembro (n=50)"
+        }
+      ],
+      "step": "Two counts and one addition, both premises quoted. S004 gives the deaths: 7 in the combination arm and 7 in the monotherapy arm, which is fourteen people. S014 gives the denominator: 157 randomised, 107 and 50. So the companies' 'n=14' label counts EVENTS in a 157-patient trial, not patients in a 14-patient one, and that is the misreading this sentence exists to deny. An earlier version denied the wrong thing -- it said 'not fourteen patients', which is false: fourteen patients died. A reader caught it."
     }
   }
 }
