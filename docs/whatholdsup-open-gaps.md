@@ -350,3 +350,22 @@ same question has to be asked of number words.
 **What closing it looks like:** number words are recognised as quantities when
 they are doing quantitative work, the melanoma page's real cases are bound, and
 the prose cases are not swept in.
+
+## GAP-007 — the live site is behind the repository after a correction
+
+**Found:** 5 September 2026, by the independent architecture reviewer, who saw
+two corrected errors still on whatholdsup.org.
+
+Corrections are committed and then wait for a person to run the publish script.
+On 4 September two proposition-level errors were corrected in the repository
+and the site was not republished, so both remained in front of readers while
+the record said they were fixed. `publish.py check` reports "live page DIFFERS
+from the repo — the site is behind" as a WARN, and a warn among twenty-five
+other warns is not a control.
+
+The reviewer's framing is the right one: a correction should be a first-class
+release with its own state, not an edit that waits for someone to remember.
+
+**What closing it looks like:** an uncorrected live page blocks, loudly, with
+the sentences named — or corrections publish themselves once their own checks
+pass.
