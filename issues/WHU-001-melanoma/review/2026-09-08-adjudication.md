@@ -1215,3 +1215,80 @@ Accepted by Fred Ugast, 9 September 2026.
 *Transcribed verbatim into this file by the verifying session, 2026-09-09. The
 wording is the operator's and was not edited. The acceptance is his act; this
 was the clerical half of it.*
+
+---
+
+## RV-10 — reviewer error, and the first one where both offered answers were false
+
+*Added 2026-09-09, after the acceptance above. Appended rather than inserted:
+the acceptance is a dated act and the entries above it are dated records.*
+
+**The question, as it was put.** The homepage says issue two was *published 28
+August 2026*. `published.json`'s first cdk46 row is `2026-08-29T02:22:50Z`. The
+review asked which of two things had happened: (a) the index names a publish for
+which no record was written, or (b) the index carries a date nobody can account
+for. It asked for the git evidence and for one of the two.
+
+**Neither.** They are the same event.
+
+```
+commit 3b011bd  "whatholdsup: publish cdk46 (issue 2)"
+  as recorded         2026-08-28T22:17:36-04:00
+  same instant, UTC   2026-08-29T02:17:36Z
+published.json row    2026-08-29T02:22:50Z          (commit 51478a7d8)
+  same instant, ET    2026-08-28 22:22
+```
+
+Five minutes and fourteen seconds apart, straddling midnight in Greenwich. The
+index's 28 August is the correct editorial-local date of a real publish. The
+record stores the same publish in UTC, where it lands on the 29th. **No record
+is missing and no date was fabricated.** The row was never wrong.
+
+**Why it is the same failure as RV-09.** RV-09 was a search reported as
+exhaustive that had not covered the ground it claimed — a conclusion resting on
+an enumeration built from an incomplete model of what there was to find. This is
+that, in the shape of a question: two branches offered as the whole space, when
+the space also contained "the two statements agree and are expressed in different
+zones". The model behind the enumeration had one clock in it. The world has two.
+
+**And it is the more dangerous form.** A search presented as exhaustive can be
+falsified by finding one thing it missed, and it invites someone to go looking. A
+question posed as a binary invites the reader to *pick a side*, which feels like
+scrutiny and is not: whoever answers has already accepted the frame, and the
+work of asking whether the alternatives are all of them never gets done. It is
+more persuasive than a bad search precisely because it looks like rigour. The
+correct answer to this one was to refuse both options.
+
+**What it cost, and what it nearly cost.** Nothing, because it was caught before
+the index was touched. Had it not been, `index_dates.py` — which took `.date()`
+on a UTC-aware datetime, the same one-clock model — would have "corrected" a true
+28 August to 29 August and stamped a gate's approval on the change. The checker
+carried the same defect as the question, which is why the question was persuasive
+to the person who wrote both.
+
+**The count that was wrong was a count of counting.** I first recorded this as
+"instance eleven of the family", on the operator's designation, while noting that
+the RV series in this file reaches nine. Both numbers were right and they counted
+different things: the RV series is the entries in this file, and the family tally
+was being kept in prose across four separate documents with no register anywhere,
+so at least one occurrence — the 4 September log paragraph in the Morning Glory
+ruling — was narrated without ever receiving an RV number, and the two counts
+drifted apart without either knowing about the other.
+
+Say the obvious thing rather than leave a reader to notice it: **this was a count
+of the times we asserted numbers without measuring them, and it was itself
+asserted without measuring.** It drifted for exactly the reason every other figure
+in this cycle drifted — it was maintained in prose, in more than one file, by
+people reading their own earlier sentences.
+
+Settled 2026-09-09: the RV number is the only number in an RV entry. The family
+lives in one place, the failure catalogue in `docs/whatholdsup-process.md` §12,
+as an explicit list where each occurrence points to its RV entry or to the ruling
+that recorded it. The count is derived from the list rather than remembered,
+which is the principle applied to the homepage the same day.
+
+**Fixed in the same pass.** `index_dates.py` now converts through a named
+`EDITORIAL_TZ = ZoneInfo("America/New_York")` before taking a date, and states in
+the file why it is an IANA zone rather than an offset, why the machine's clock is
+never consulted, and that changing the constant does not recompute dates already
+published. The site now discloses the zone once, in the index footer.

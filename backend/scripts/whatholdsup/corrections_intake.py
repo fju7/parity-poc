@@ -59,8 +59,57 @@ STATES = ("received", "acknowledged", "adjudicated", "closed")
 VERDICTS = ("upheld", "partly_upheld", "declined")
 
 
+# ---------------------------------------------------------------------------
+# THE ZONE. Imported, never restated.
+#
+# index_dates.EDITORIAL_TZ is the single definition of the publication's
+# editorial zone and carries the reasoning. Two copies of a timezone policy is
+# the drift that produced the bug this module was carrying, so this reads the
+# constant rather than declaring a second one.
+# ---------------------------------------------------------------------------
+def _editorial_tz():
+    import importlib.util
+    p = Path(__file__).resolve().parent / "index_dates.py"
+    spec = importlib.util.spec_from_file_location("_index_dates_for_tz", p)
+    m = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(m)
+    return m.EDITORIAL_TZ
+
+
+EDITORIAL_TZ = _editorial_tz()
+
+
 def _now() -> str:
     return datetime.now(timezone.utc).replace(microsecond=0).isoformat()
+
+
+def _editorial_day(iso: str) -> date | None:
+    """The editorial-local calendar day an ISO instant fell on.
+
+    `_now()` writes UTC. `--on` may hand us a bare date or a naive stamp, which
+    is read as UTC to match. Everything downstream compares days, and both ends
+    of a day comparison have to be in one zone.
+    """
+    if re.fullmatch(r"\d{4}-\d{2}-\d{2}", (iso or "").strip()):
+        # A bare day, typed by a person via --on. It is already an editorial
+        # date; reading it as midnight UTC would push it back a day.
+        try:
+            return date.fromisoformat(iso.strip())
+        except Exception:
+            return None
+    try:
+        t = datetime.fromisoformat(iso)
+    except Exception:
+        return None
+    if t.tzinfo is None:
+        t = t.replace(tzinfo=timezone.utc)
+    return t.astimezone(EDITORIAL_TZ).date()
+
+
+def _editorial_today() -> date:
+    """Today in the editorial zone. NOT date.today(), which answers a question
+    about where the machine is; this repository's commits carry four offsets."""
+    return datetime.now(timezone.utc).astimezone(EDITORIAL_TZ).date()
 
 
 def load() -> dict:
@@ -84,13 +133,25 @@ def next_id(items: list[dict]) -> str:
     return f"COR-{n + 1:03d}"
 
 
-def business_days_since(iso: str) -> int:
-    try:
-        d0 = datetime.fromisoformat(iso).date()
-    except Exception:
+def business_days_since(iso: str, today: date | None = None) -> int:
+    """Business days elapsed since `iso`, both ends read in EDITORIAL_TZ.
+
+    THIS MEASURES A PUBLISHED PROMISE. The footer tells readers a correction is
+    acknowledged within 48 hours and resolved or explained within 10 business
+    days. Until 2026-09-09 this took .date() on a UTC-stamped `received` and
+    subtracted a local date.today() -- two clocks, one subtraction. From New
+    York that is off by one for the five hours either side of midnight UTC, and
+    by seven from a machine at -06:00, ALWAYS in the direction of reporting us
+    as more timely than we are: the UTC date of an evening stamp is already
+    tomorrow, so the elapsed count comes out short.
+
+    `today` is injectable so the boundary can be tested rather than asserted.
+    """
+    d0 = _editorial_day(iso)
+    if d0 is None:
         return 0
     d, n = d0, 0
-    today = date.today()
+    today = today or _editorial_today()
     while d < today:
         d += timedelta(days=1)
         if d.weekday() < 5:

@@ -1,0 +1,27 @@
+{
+ "_what_this_is": "Sentences that appear in BOTH the article body and the change log, each investigated and declared with the evidence of which copy came first. B18 subtracts these and reports one that no longer appears in both regions as stale, so this file cannot quietly become a filter.",
+ "_the_rule": "A declaration says 'this overlap was investigated and the log quotes the body', never 'do not check this sentence'. Provenance is the evidence and it must be commits, not assertion. If the body copy is later removed the overlap stops matching, the declaration goes stale, and the check comes back — which is the case that matters, because a log entry still bound to a span that supports nothing on the page is exactly what this hazard produces.",
+ "_the_hazard_this_does_not_fix": "Bindings key on fingerprint(sentence), a hash of the text, so two identical sentences share one key and the log copy is bound by construction whenever it quotes the body verbatim. Declaring an overlap benign does not make the two copies distinguishable to the binder. See docs/whatholdsup-open-gaps.md, 'Bindings cannot tell a sentence from its quotation'.",
+ "overlaps": [
+  {
+   "sentence": "Those are the Phase 2b’s figures.",
+   "body_first_seen": {"commit": "0daab2e", "on": "2026-09-03"},
+   "log_first_seen": {"commit": "853200c", "on": "2026-09-09"},
+   "why": "The change log quotes a sentence already in the body. Six days separate them and the direction is unambiguous: the body copy is older. This is the benign one of the three readings an overlap can have — not a body sentence that migrated out of the log, not a log entry that leaked into the body, and not FURNITURE having stopped stripping <footer id=\"updates\">, which was verified still working (two occurrences in the raw page, one after stripping, and the survivor is the body copy).",
+   "by": "claude",
+   "on": "2026-09-09",
+   "established_by": "git log over every revision of site/whatholdsup/melanoma.html, counting occurrences separately in the text before and after <footer, normalised the way page_sentences normalises",
+   "falsifier": "The body copy is removed or reworded while the log entry keeps quoting it. The overlap then stops matching, this declaration goes stale, and B18 reports it — which is the point: the log sentence would still carry the body sentence's binding and would read as verified while supporting nothing on the page."
+  },
+  {
+   "sentence": "Nobody released a Phase 3 effect size; a Phase 3 effect size circulated anyway.",
+   "body_first_seen": {"commit": "0daab2e", "on": "2026-09-03"},
+   "log_first_seen": {"commit": "853200c", "on": "2026-09-09"},
+   "why": "Same overlap, same provenance, same commits, established in the same pass.",
+   "by": "claude",
+   "on": "2026-09-09",
+   "established_by": "git log over every revision of site/whatholdsup/melanoma.html, counting occurrences separately in the text before and after <footer, normalised the way page_sentences normalises",
+   "falsifier": "As above."
+  }
+ ]
+}

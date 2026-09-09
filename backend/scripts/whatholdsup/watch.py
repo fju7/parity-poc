@@ -61,10 +61,16 @@ import argparse
 import hashlib
 import json
 import re
-from datetime import date, datetime
+from datetime import date, datetime, timezone
 from pathlib import Path
 
 import source_ledger as sl
+from index_dates import EDITORIAL_TZ
+
+
+def _editorial_today() -> date:
+    """Today in the publication's editorial zone, not the machine's."""
+    return datetime.now(timezone.utc).astimezone(EDITORIAL_TZ).date()
 
 ROOT = Path(__file__).resolve().parents[3]
 OK, WARN, BAD = "ok", "warn", "STOP"
@@ -113,7 +119,14 @@ def days_since_check(doc: dict) -> int | None:
     if not c:
         return None
     try:
-        return (date.today() - datetime.strptime(c["on"], "%Y-%m-%d").date()).days
+        # Both ends in one zone. `today` was date.today() -- the machine's
+        # clock -- against a stored day; two clocks, one subtraction, the same
+        # shape as the corrections SLA bug fixed the same day. The stored "on"
+        # is still a bare zone-unlabelled YYYY-MM-DD written by whichever
+        # machine ran the check; that is the deferred record-stamp problem and
+        # is not fixed here.
+        return (_editorial_today()
+                - datetime.strptime(c["on"], "%Y-%m-%d").date()).days
     except Exception:
         return None
 

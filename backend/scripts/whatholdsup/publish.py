@@ -208,6 +208,13 @@ canary = _sibling("canary")
 # stopped three figures reaching a live page, written between two and six days
 # before the paper that settles them was held. See b13.preflight_rows.
 b13 = _sibling("b13")
+# The HOMEPAGE. index.html is in guard_published's STANDING set, so no
+# publication record governs it and until 2026-09-09 nothing read a word on it.
+# It carried "Issue one - updated 28 August 2026" through four melanoma
+# republications. Not slug-scoped: it checks every card on the index on every
+# gate run, because the row that went stale belonged to an issue nobody was
+# publishing that day. See index_dates.EDITORIAL_TZ for the zone rule.
+index_dates = _sibling("index_dates")
 # B14: what a correction TOOK OUT. Every other check asks whether a claim on the
 # page is supported; none asked whether a REMOVAL was, and 35% of the recorded
 # errors on issue two came in with an earlier correction. See deletions.py.
@@ -945,6 +952,46 @@ def header_date(raw: str) -> str:
     return d.group(0) if d else ""
 
 
+def masthead_dates(raw: str) -> tuple[str, str]:
+    """(published, updated) from the masthead kicker. Either may be "".
+
+    WHY THIS EXISTS. header_date() returns the *Updated* date when one is
+    present, because what must not go stale is the statement of when the page
+    last moved. That is right for the check it serves and it meant the
+    PUBLISHED half was never read by anything: melanoma carried "Published
+    26 August 2026" for twelve days under a green gate, and it was found by
+    hand on 2026-09-09, not by a check.
+
+    A green result is only as informative as the scope of the check that
+    produced it. This function exists so the scope is the whole dateline.
+    """
+    m = re.search(r'<span class="meta">(.*?)</span>', raw, re.S)
+    if not m:
+        return "", ""
+    txt = _html.unescape(_TAG.sub(" ", m.group(1)))
+    pub = re.search(r"Published\s+(" + DATELINE.pattern + ")", txt)
+    upd = re.search(r"Updated\s+(" + DATELINE.pattern + ")", txt)
+    if pub or upd:
+        return (pub.group(1) if pub else ""), (upd.group(1) if upd else "")
+    bare = DATELINE.search(txt)
+    return (bare.group(0) if bare else ""), ""
+
+
+def record_begins() -> "date | None":
+    """The earliest instant in published.json, as an editorial date.
+
+    A page can predate the record: publish.py first existed on 2026-08-28 and
+    published.json three hours after that, so a page live before then has no row
+    and never will. A masthead earlier than this is a different fact from a
+    masthead that disagrees with a row, and the two must not be reported alike.
+    """
+    ats = [r.get("at") for r in load_record() if r.get("at")]
+    if not ats:
+        return None
+    return min(datetime.fromisoformat(a.replace("Z", "+00:00"))
+               for a in ats).astimezone(index_dates.EDITORIAL_TZ).date()
+
+
 def as_of_date(raw: str) -> str:
     m = re.search(r"As of\s+([^<.]{4,40})", _html.unescape(_TAG.sub(" ", raw)))
     if not m:
@@ -955,6 +1002,17 @@ def as_of_date(raw: str) -> str:
 
 def pretty(d) -> str:
     return "%d %s %d" % (d.day, MONTHS[d.month - 1], d.year)
+
+
+def editorial_today() -> "date":
+    """Today in the publication's editorial zone.
+
+    NOT datetime.now().date(). That answers a question about where the machine
+    is sitting, and the machines that have run this file recorded commits under
+    four different offsets (-05:00, -04:00, Z, -06:00). The masthead is a
+    reader-facing date and belongs in the one zone the site declares.
+    """
+    return datetime.now(timezone.utc).astimezone(index_dates.EDITORIAL_TZ).date()
 
 
 def corrections_text(slug: str) -> str:
@@ -1371,6 +1429,13 @@ def preflight(slug: str, *, for_email: bool,
         except BaseException as exc:   # SystemExit is not an Exception
             out.append((_name, WARN, "did not run: %s: %s"
                         % (type(exc).__name__, exc)))
+    # Not slug-scoped and deliberately so: the homepage speaks for every issue,
+    # and the stale row is never the one being published today.
+    try:
+        out.extend(index_dates.preflight_rows())
+    except BaseException as exc:
+        out.append(("homepage dates match the record", WARN,
+                    "did not run: %s: %s" % (type(exc).__name__, exc)))
     # A LIVING issue promises a reader it is current. That promise is only
     # honest if somebody has actually looked, and the page has to display the
     # date of the last CHECK rather than the last change. These rows are empty
@@ -1389,28 +1454,28 @@ def preflight(slug: str, *, for_email: bool,
     # The page's own date, against the day it is actually going out. An
     # assessment published on the 28th whose masthead says the 26th is the
     # error this publication exists to point at, printed on itself.
-    # datetime.now() is the clock of whoever runs this, and that is deliberate:
-    # the masthead should say the day the piece went out where it went out from.
-    # But it means two machines in different zones disagree for part of every
-    # day. On 2026-08-29 this check passed at 02:15 UTC and failed on the
-    # publisher's Mac at 19:15 Pacific the evening before, on the same file,
-    # because the date had been typed from the wrong side of midnight. Whoever
-    # sets it should not be typing it at all -- see the `dateline` command --
-    # and when it is off by exactly one day the message says why rather than
-    # leaving somebody to work it out.
-    today = pretty(datetime.now().date())
+    # THE ZONE, settled 2026-09-09. This used datetime.now(), the clock of
+    # whoever ran it. On 2026-08-29 the check passed at 02:15 UTC and failed on
+    # the publisher's Mac at 19:15 Pacific the evening before, on the same file.
+    # The remedy recorded at the time was "set it from the machine that
+    # publishes". That machine has since moved twice, and a remedy that depends
+    # on where a person is sitting is not a remedy -- it is a control described
+    # in words that nothing enforces, which is the class of failure this
+    # publication exists to point at. The masthead is a reader-facing date and
+    # is now read in EDITORIAL_TZ, the same zone the index and the site footer
+    # declare. When it is still off by exactly one day the message says why.
+    today = pretty(editorial_today())
     hd = header_date(ptext if False else page.read_text(encoding="utf-8"))
     detail = f"says {hd or 'nothing'}, and today is {today}"
     if hd != today:
         detail += " — a reader reads that as when it was written"
         try:
             d1 = datetime.strptime(hd, "%d %B %Y").date() if hd else None
-            if d1 and abs((d1 - datetime.now().date()).days) == 1:
-                tz = datetime.now().astimezone().tzname() or "local time"
-                detail += (". Exactly one day out, which is what a dateline set from a "
-                           "machine in another time zone looks like — this one is on %s. "
-                           "Set it from the machine that publishes: publish.py dateline %s"
-                           % (tz, slug))
+            if d1 and abs((d1 - editorial_today()).days) == 1:
+                detail += (". Exactly one day out, which is what a dateline typed from "
+                           "the wrong side of midnight looks like. This check reads %s; "
+                           "do not retype it — publish.py dateline %s"
+                           % (index_dates.EDITORIAL_TZ.key, slug))
         except Exception:
             pass
     # Whether a stale dateline blocks depends on whether anything is actually
@@ -1431,6 +1496,39 @@ def preflight(slug: str, *, for_email: bool,
                     f"nothing is being published, so that is the day it last changed"))
     else:
         out.append(("page dateline", OK if hd == today else BAD, detail))
+
+        # THE OTHER HALF. Until 2026-09-09 nothing read it.
+        pub_half, _ = masthead_dates(page.read_text(encoding="utf-8"))
+        first = index_dates.publication_dates(slug)
+        begins = record_begins()
+        if not pub_half:
+            out.append(("masthead published date", WARN,
+                        "the masthead states no publication date"))
+        elif not first:
+            out.append(("masthead published date", WARN,
+                        "says %s and there is no publication record to check it against"
+                        % pub_half))
+        else:
+            want = index_dates.fmt(first[0])
+            if pub_half == want:
+                out.append(("masthead published date", OK,
+                            "says %s, and the first publication record agrees" % pub_half))
+            else:
+                try:
+                    shown_d = datetime.strptime(pub_half, "%d %B %Y").date()
+                except ValueError:
+                    shown_d = None
+                if shown_d and begins and shown_d < begins:
+                    out.append(("masthead published date", WARN,
+                                "says %s; the publication record begins %s and cannot "
+                                "reach back to it. The page predates the record rather "
+                                "than disagreeing with it — an operator ruling, not a "
+                                "page edit" % (pub_half, index_dates.fmt(begins))))
+                else:
+                    out.append(("masthead published date", BAD,
+                                "says %s, first publication record is %s — a reader "
+                                "reads that as when this was published"
+                                % (pub_half, want)))
     ao = as_of_date(page.read_text(encoding="utf-8"))
     if ao:
         out.append(("evidence 'as of'",
@@ -2013,7 +2111,10 @@ def cmd_update(args) -> int:
     })
     doc = w.load(args.slug)
     doc.setdefault("changelog", []).append({
-        "on": datetime.now(timezone.utc).date().isoformat(),
+        # The editorial date, not the UTC one. This lands in a living issue's
+        # changelog, which a reader sees beside a masthead that is an editorial
+        # date; two zones in one row is how 22:22 on the 28th becomes the 29th.
+        "on": editorial_today().isoformat(),
         "by": "publish.py update",
         "what": args.what, "changed": args.changed, "source": args.source,
         "page_sha": want,
@@ -3634,7 +3735,7 @@ def cmd_dateline(args) -> int:
         return 2
     text = page.read_text(encoding="utf-8")
     was = header_date(text)
-    today = pretty(datetime.now().date())
+    today = pretty(editorial_today())
     if was == today:
         print("\n  Already %s. Nothing to change.\n" % today)
         return 0
@@ -3644,8 +3745,8 @@ def cmd_dateline(args) -> int:
         return 2
     page.write_text(text.replace(was, today, 1), encoding="utf-8")
     print("\n  %s  ->  %s" % (was, today))
-    print("  Set from this machine's clock (%s)."
-          % (datetime.now().astimezone().tzname() or "local time"))
+    print("  Set in %s, the publication's editorial zone — not this machine's clock."
+          % index_dates.EDITORIAL_TZ.key)
     print("  This edit voids any gate acceptance bound to the old bytes, which is")
     print("  correct: re-accept before publishing.\n")
     return 0

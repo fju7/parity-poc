@@ -623,3 +623,215 @@ caption, the EORTC counterexample, the blinding caveat, the scorecard reasoning
 and the change-log entries. They are bound and span-checked — rule 1 and rule 2
 pass on all 131 — but bound is not the same as read by a role looking for what
 the binding cannot see.
+
+---
+
+## Dates: the record stamps are zone-unlabelled, and nothing enforces a policy
+
+**Recorded 2026-09-09, deliberately not fixed.** Three reader-facing date sites
+were repaired the same day (`index_dates`, `corrections_intake.business_days_since`,
+the masthead in `publish.py`), each with a regression test. Roughly thirty others
+were left exactly as they are.
+
+They are the record stamps: `date.today().isoformat()` in `bindings.py` (260,
+312, 651, 761), `source_store.py` (571, 618, 622, 626, 631, 682),
+`source_ledger.py:735`, `errata.py:392`, `deletions.py:209`, `findings.py:208`,
+`premise.py:323`, `modelbind.py:254`, `counterexample.py:403`,
+`source_advocate.py:435`, `sweep_sources.py` (252, 325), `scan_leads.py:219`,
+`review_bundle.py:186`, `review_packet.py:328`, `watch.py` (246, 314, 340), and
+`time.strftime("%Y-%m-%d")` in `find_access.py:215`.
+
+Each writes a bare `YYYY-MM-DD` with no zone, from whichever machine ran the
+command. This repository's commits carry four different offsets — `-05:00`,
+`-04:00`, `Z` and `-06:00` — so "the day this was checked" means a different
+thing depending on where somebody was sitting.
+
+**Why not today.** Thirty edits at the end of a close-out is how the next error
+enters. The same reasoning deferred the KOL Pulse box and the weight binding.
+
+**The eventual fix is not thirty edits.** It is one helper that every stamp calls,
+so the policy lives in one place and can be tested once — the shape the three
+repaired sites now have, where `index_dates.EDITORIAL_TZ` is the single
+definition and the other two import it rather than restating it. Next cycle,
+with a test.
+
+**The residue in the meantime.** `watch.days_since_check()` now reads *today* in
+the editorial zone but subtracts a stored `"on"` that is still one of these
+unlabelled stamps. That is better than two live clocks and it is not correct; it
+is listed here so the improvement is not mistaken for a repair.
+
+---
+
+## `corrections.md` has no generator, and a machine-derived date is grepped against it
+
+The public correction history is written by hand. Its dates are editorial-local
+by convention and enforced by nothing — no code produces them, no check reads
+them for consistency with the record.
+
+`publish.py:1483` then does `logged = today in corrections_text(slug)`, grepping
+a *derived* pretty date against that hand-typed prose to decide whether a change
+has been recorded for readers. Until 2026-09-09 the derived side came off the
+local clock, so the two agreed only while every machine sat in New York; it now
+reads `EDITORIAL_TZ`, which removes the zone half of the problem and leaves the
+other half standing.
+
+**A hand-maintained representation checked by a machine-derived one is the shape
+of this entire day.** The index had it, the family instance count had it, and
+this has it. The check passes when a human happens to have typed the same string
+the machine happens to derive.
+
+---
+
+## `record-live` writes `action: "republish"` for something that is not a republication
+
+The record uses one word for two events. `publish` and `update` are things that
+happened to the argument. `republish` is what `record-live` writes when a person
+has read a diff and signed it as **not** touching the argument — every row
+carrying it in `published.json` is a live-sha reconciliation, distinguishable
+only by the `basis`/`diff`/`supersedes` keys the publication rows do not have.
+
+This is `b13`'s two-notions-of-"used" one layer down: two meanings under one
+name, with the distinction living in a reader rather than in the data.
+
+**The dependency runs both ways and both directions can break silently.**
+
+| consumer | reads `"republish"` as | if the vocabulary is fixed at source |
+|---|---|---|
+| `index_dates.PUBLICATION_ACTIONS` | *a reconciliation* — excluded from reader-facing dates | **breaks silently.** A new action name falls through to neither tuple, and a nav-link reconciliation starts printing "updated" on the homepage |
+| `guard_published.py:129` | *a sign-off exists* | breaks: a new name must be added to `wanted` or the pre-push guard stops recognising a signed page |
+| `publish.py:1833`, `:1955` | *the last signed-off sha* | breaks: `record-live` and `update` would stop finding the row they supersede |
+
+`index_dates` is currently the **only** consumer that needs the two meanings kept
+apart, and it is the only one that would fail without saying so. Whoever splits
+the vocabulary must change it in the same commit.
+
+**Not fixed now, on purpose.** Renaming an action rewrites the meaning of rows
+already written, and `published.json` is the record a publication decision rests
+on. It is a schema change with a migration, not a tidy-up at the end of a cycle.
+
+---
+
+## `store.case_dir()` raises `SystemExit` from library code
+
+**Recorded 2026-09-09, deliberately not changed.**
+
+`source_store.case_dir(slug)` ends with `raise SystemExit("no case directory for %r" % slug)`.
+That is a library function making a terminate-the-process decision that belongs
+to its caller. It is why a correct-looking guard in
+`bindings._declared_exclusions()` caught nothing: the author wrote
+`except Exception`, which is the right instinct and the wrong clause, because
+`SystemExit` derives from `BaseException`.
+
+The guard is fixed — `except (Exception, SystemExit)`, naming what is actually
+thrown rather than reaching for bare `BaseException`, which would also swallow
+`KeyboardInterrupt` and make a hung run uninterruptible through that path.
+
+**The defect underneath is untouched.** `case_dir()` is called from many places;
+changing what it raises is a change to every one of them, and each caller would
+need to be read rather than assumed. The correct shape is a
+`NoCaseDirectory(Exception)` raised by the library and a `SystemExit` chosen by
+the command-line entry points, which are the only layer entitled to end the
+process.
+
+**Why it matters beyond the one call site.** Any future caller that guards this
+function with the obvious `except Exception` gets the same silent nothing. The
+next person will write the same clause, for the same good reason.
+
+---
+
+## Failures that reach a reader are the ones that do not announce themselves
+
+Three instances, all found 2026-09-09, which is what makes it a class rather
+than a coincidence:
+
+1. **The `action: "republish"` consumers.** Five things read that value. Four
+   fail loudly if the vocabulary is fixed at source — a name they do not
+   recognise stops a guard or a lookup and somebody sees it immediately. The
+   fifth, `index_dates.PUBLICATION_ACTIONS`, falls through to neither tuple and
+   starts printing "updated" on the homepage for a nav-link reconciliation.
+   **The one that fails silently is the only reader-facing one.**
+2. **The dateline gate** returned green over the half of the masthead it never
+   read, for twelve days, while a false publication date sat on the live page.
+3. **The guard that caught nothing** left 22 tests red with no signal that
+   anything had changed, because a guard that swallows everything and a guard
+   that catches nothing look identical from outside.
+
+The common shape: **the louder a failure is, the further it is from a reader.**
+Loud failures stop the person who caused them. Silent ones travel. When choosing
+what to harden next, prefer the quiet path over the frequent one.
+
+---
+
+## `or True` in a test, caught by its own author
+
+The first version of `test_a_bare_date_survives` in
+`backend/tests/test_whatholdsup_dates.py` read:
+
+```python
+assert C._editorial_day("2026-09-01") == date(2026, 8, 31) or True
+```
+
+Which passes whatever `_editorial_day` returns. It is the same object as a stop
+wired to a probe that cannot fire, one layer up: a construct whose triggering
+condition was never produced, sitting in the file whose whole purpose is to
+produce triggering conditions.
+
+It was caught and removed before it was committed, by the person who wrote it,
+while checking why it passed. **It is recorded because it was caught rather than
+in spite of it** — the failure mode is not "somebody wrote a bad assertion", it
+is "an assertion that cannot fail is invisible in a passing run", and the only
+reason this one is visible is that its author looked at a green line and asked
+why it was green. It also had a second life: the assertion was hiding a real
+defect, that a bare `--on 2026-09-01` was being read as midnight UTC and shifted
+back a day. Fixing the test found the bug the test was written to cover.
+
+---
+
+## Bindings cannot tell a sentence from its quotation
+
+**Confirmed 2026-09-09. Recorded, deliberately not fixed — next cycle.**
+
+`bindings.fingerprint(sent)` is a hash of the sentence text, and it is the key a
+binding is stored under. **Two identical sentences have one key.** A change-log
+entry that quotes a body sentence verbatim is therefore *bound by construction*:
+the binder cannot distinguish the log copy from the body copy, and neither can
+anything downstream of it.
+
+`corrections_check.py:197` carries the figure-level form — a figure appearing in
+a change-log sentence is exempted from the `b13` "is this figure in a document we
+hold" check **if the same figure appears anywhere in the body**.
+
+### Nothing is wrong today, and that is not reassuring
+
+The two overlapping sentences on the melanoma page were investigated on
+2026-09-09 and the log genuinely quotes the body: body copies `0daab2e`
+(3 September), log copies `853200c` (9 September), six days apart. The
+declarations and their evidence are in
+`issues/WHU-001-melanoma/log-quotations.json`.
+
+**The defect is that the mechanism cannot check what was just checked by hand.**
+It cannot tell a legitimate quotation from an illegitimate one, because it cannot
+tell a quotation from the thing quoted.
+
+### The failure mode, stated so nobody has to re-derive why it matters
+
+> **A change-log entry that quotes a sentence later REMOVED from the body stays
+> bound to a span that no longer supports anything on the page — and reads as
+> verified.** The binding survives because the key is the text, and the text is
+> still there. Only its subject has gone.
+
+The same shape covers a log entry that quotes an **external claim we do not
+endorse** — "an outlet reported X" — where X acquires the body's binding and the
+apparatus reports the page as having a source for a claim it exists to dispute.
+
+The staleness arm of the B18 exemption is the interim control: if a declared
+overlap stops matching, the test fires and names this hazard. It catches the
+melanoma case. It does not catch the general one.
+
+### Why not now
+
+Making bindings region-aware — keying on `(region, fingerprint)` or refusing to
+bind inside `<footer id="updates">` at all — is a change to the core of the
+apparatus, and every existing binding's key changes with it. That is a migration
+of `bindings.json` on three issues, not a close-out edit. The same reasoning has
+deferred the weight binding, the thirty record stamps and the KOL Pulse box.

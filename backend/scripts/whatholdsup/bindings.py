@@ -874,7 +874,19 @@ def _declared_exclusions(slug: str) -> list[dict]:
     try:
         p = store.case_dir(slug) / "figure-exclusions.json"
         return json.loads(p.read_text(encoding="utf-8")).get("exclusions") or []
-    except Exception:
+    except (Exception, SystemExit):
+        # (Exception, SystemExit), not Exception and not BaseException:
+        # store.case_dir() raises SystemExit for a
+        # slug with no case directory, and SystemExit is not an Exception. This
+        # guard was written as `except Exception` when the declared-exclusions
+        # read was added on 2026-09-09 and therefore caught nothing that was
+        # actually thrown -- it took 22 rules tests from green to red, because
+        # they run against a synthetic slug. The same distinction is already
+        # commented in publish.py's preflight loop. Bare BaseException would
+        # also swallow KeyboardInterrupt and make a hung run uninterruptible
+        # through this path; naming both catches what is actually thrown and
+        # says so. The defect underneath is that a library function makes a
+        # terminate-the-process decision at all -- see open-gaps.
         return []
 
 

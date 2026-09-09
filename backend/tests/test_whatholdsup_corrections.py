@@ -143,14 +143,85 @@ def test_the_live_change_log_passes_both_rules():
     assert [st for _n, st, _d in rows] == [OK, OK], rows
 
 
+_OVERLAP_FILE = (Path(__file__).resolve().parents[2] / "issues"
+                 / "WHU-001-melanoma" / "log-quotations.json")
+
+
+def _declared_overlaps(slug):
+    """Investigated body/log overlaps, declared with commit-level provenance.
+
+    Same shape and same discipline as figure-exclusions.json: the file carries
+    the evidence, and a declaration that no longer matches is reported as stale
+    rather than ignored, so it cannot become the mechanism by which this test is
+    silenced.
+    """
+    if not _OVERLAP_FILE.exists():
+        return {}
+    import json as _json
+    doc = _json.loads(_OVERLAP_FILE.read_text(encoding="utf-8"))
+    return {" ".join((r.get("sentence") or "").split()): r
+            for r in doc.get("overlaps") or []}
+
+
 def test_the_change_log_is_outside_the_binder_which_is_why_this_exists():
-    """If page_sentences ever starts covering the footer, this check becomes
-    redundant rather than wrong — but somebody should notice, not discover it."""
+    """A sentence present in BOTH the body and the change log.
+
+    WHAT THIS DETECTS, stated exactly, because the previous message did not.
+    It said an overlap meant `page_sentences` had started reading the footer.
+    That was one possible cause asserted as the only one, and on 2026-09-09 it
+    was the wrong one: FURNITURE still strips <footer id="updates"> correctly,
+    and the overlap was two DISTINCT sentences with identical text, one in each
+    region. The message sent the next reader after a bug that was not there.
+
+    What an overlap actually means is that the same string exists twice, and the
+    set intersection cannot say which region either copy came from. Three
+    readings, only one of them benign:
+
+      * the log QUOTES a body sentence — normal, and what happened here;
+      * a body sentence MIGRATED out of the log, or a log entry LEAKED into the
+        body — a real defect;
+      * FURNITURE has stopped stripping — also a real defect, and the one the
+        old message named.
+
+    The test cannot tell them apart. `git log -S` on the sentence can, and the
+    message says so rather than guessing.
+
+    THE HAZARD EITHER WAY. Bindings are keyed by fingerprint(sentence), which is
+    a hash of the text. Two identical sentences have one key, so a binding
+    recorded for the body copy is indistinguishable from one for the log copy —
+    the log sentence is bound by construction whenever it quotes the body
+    verbatim. corrections_check line 197 has the figure-level form of this: a
+    figure in a log sentence is exempted from b13 if the same figure appears in
+    the body.
+    """
     B = _load("bindings")
     body = {" ".join(s.split()) for s in B.page_sentences("melanoma")}
     log = CC.sentences("melanoma")
     assert log, "no change log found"
-    overlap = [s for s in log if s in body]
-    assert not overlap, (
-        "the binder now reads the change log; B18's premise has changed and its "
-        "docstring should be revisited: %s" % overlap[:2])
+    overlap = [" ".join(s.split()) for s in log if s in body]
+
+    declared = _declared_overlaps("melanoma")
+    undeclared = [s for s in overlap if s not in declared]
+    stale = [s for s in declared if s not in overlap]
+
+    assert not stale, (
+        "%d declared overlap(s) in %s no longer appear in both regions. THIS IS "
+        "THE CASE THAT MATTERS: a body sentence removed or reworded while the "
+        "change log keeps quoting it leaves the log entry carrying the body "
+        "sentence's binding — bindings key on fingerprint(sentence) — so it "
+        "reads as verified while supporting nothing on the page. Re-investigate "
+        "and retire or amend the declaration: %s"
+        % (len(stale), _OVERLAP_FILE.name, stale[:2]))
+
+    assert not undeclared, (
+        "%d sentence(s) appear in both the body and the change log and are not "
+        "declared. This test cannot tell you which copy came first, and the "
+        "cause changes what to do: a log entry quoting a body sentence is "
+        "correct; a body sentence that migrated out of the log, or a log entry "
+        "that leaked into the body, is not; and FURNITURE having stopped "
+        "stripping <footer> is a third cause again. Run `git log -S` on each "
+        "before ruling. Note that bindings key on fingerprint(sentence), so the "
+        "two copies share one binding whichever way it happened. %d overlap(s) "
+        "ARE already declared as investigated in %s — read those first, and add "
+        "to that file only with commit-level provenance. Undeclared: %s"
+        % (len(undeclared), len(declared), _OVERLAP_FILE, undeclared[:2]))

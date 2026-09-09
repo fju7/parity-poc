@@ -465,6 +465,58 @@ Fourteen ways this publication has actually been wrong, and what catches each.
 | 12 | A printed composite not matching its own working | publish check |
 | 13 | Reviewer error — reading one field, not the deciding one | rule 11 |
 | 14 | Verifying a rendering rather than the source of truth — the HTML rather than the store, a field rather than the record, a truncation rather than the paragraph | rule 11; name the artefact you read |
+| 15 | A check that examines part of what its name describes, and reports the unexamined part as passing | scope stated in the check's own docstring |
+| 16 | A protective construct whose triggering condition was never tested — a guard that catches nothing, a stop wired to a probe that cannot fire, a test containing `or True` | the construct must be made to fire once |
+| 17 | A check whose condition is sound and whose message names a cause that is not the cause | read the message as if you did not already know the answer |
+
+**Failure 15 — scope.** `header_date()` returns the *Updated* date when one is
+present, so the gate that compares a masthead to today has only ever compared
+half of the dateline. Melanoma carried "Published 26 August 2026" for twelve
+days under a green result, and it was found by hand on 2026-09-09 rather than by
+anything that runs. **A green result is only as informative as the scope of the
+check that produced it.** This is worse than a missing check: a missing check
+leaves a visible hole, and this one returns green over the thing it does not
+examine. Fixed the same day — `masthead_dates()` reads both halves and the gate
+compares both, and the fixed check was run across every published page rather
+than trusting that hand-checking had found them all.
+
+**Failure 16 — protective constructs that were never made to fire.** Three
+instances, all 2026-09-09, all in work authored here:
+
+- `bindings._declared_exclusions()` guarded with `except Exception` around a call
+  that raises `SystemExit`. `SystemExit` is not an `Exception`, so the guard
+  caught nothing while looking defensive, and 22 rules tests went from green to
+  red unnoticed. The same distinction is commented four hundred lines away in
+  `publish.py`.
+- The first version of the SLA regression test asserted
+  `... == date(2026, 8, 31) or True`, which passes by construction. Caught and
+  removed by its own author before it was committed, which is the only reason it
+  is recorded here rather than found in six months.
+- The historical case this family is named for: a stop wired to a probe that
+  cannot fire.
+
+The tell is identical in all three: **nobody ever made the construct fire once.**
+A guard, a stop and an assertion are all claims about what would happen in a
+condition that has never been produced. Produce it.
+
+**Failure 17 — the message.** Three times on 2026-09-09 a check's condition was
+sound and its message was not: the pre-push guard, the dateline gate, and the
+B18 change-log tripwire, whose failure message named a cause (`page_sentences`
+reading the footer) that was demonstrably not the cause. A failing test that
+names the wrong cause sends the next reader in the wrong direction, and that
+reader trusts it because it fired. **We test what our checks detect and we do
+not test what they say.**
+
+> **Two pointers in the 2026-09-09 ruling do not resolve, and are not invented
+> here.** The ruling directed that failure 16 be filed "beside failure 1d" and
+> that the R2 asymmetry be added to "the failures that present as inaction"
+> entry. Neither exists: this catalogue numbers 1–14 with no letter
+> subdivisions, and no document in `docs/` contains that phrase or the four-day
+> lock incident it cites as a companion instance. They are filed as new entries
+> 15–17 above and in `whatholdsup-open-gaps.md`. This is the second time today a
+> reference maintained in prose has failed to resolve — the first was the family
+> instance count settled in §12a — and it is the same defect both times.
+
 
 **Rule 14 distinguishes two states, and the first version of it did not.** A
 change whose reasoning exists but is not linked is a bookkeeping debt: record the
@@ -532,6 +584,138 @@ asserted that blinding solves the assessment-bias problem, and printed, several
 thousand words away, injection-site pain at 59.6% against a saline placebo, with
 an investigator-assessed primary endpoint. Both halves were ours. Nothing but a
 reader was ever going to join them.
+
+### 12a. Failure 1, as an explicit list
+
+Failure 1 — *a conclusion resting on an enumeration built from an incomplete
+model of what there was to find, presented as complete* — is the family this
+publication keeps producing. It was tallied in prose across four documents until
+2026-09-09, when the prose tally and the RV series were found to disagree. **The
+tally lives here now and nowhere else.** Each occurrence points to its RV entry
+or, where it has none, to the ruling that recorded it. The count is whatever this
+list is long; nobody maintains a number.
+
+| # | Occurrence | Recorded in |
+|---|---|---|
+| 1 | Concluded a trial result was posted from a search that had not covered the registry | RV-01 |
+| 2 | Took an interval computed for one hazard ratio and attached it to another | RV-02 |
+| 3 | Read 400 characters of a 1,013-character paragraph and reported three sentences absent | RV-03 |
+| 4 | Reported a source verified when the store held nothing | RV-04 |
+| 5 | Read a span quoted in Appendix A and concluded an outlet named no trial | RV-05 |
+| 6 | Withdrew a true self-accusation on arithmetic that had not been done | RV-06 |
+| 7 | Quoted a paper's figures without reading the erratum field four lines above them | RV-07 |
+| 8 | A paragraph size asserted seven times across four documents, never measured | RV-08 |
+| 9 | A citation reported as unlocatable from a search that had not tried the record's own identifiers | RV-09 |
+| 10 | The 4 September log paragraph — narrated in the Morning Glory ruling, never given an RV number, and the reason the prose tally and the RV series diverged | `2026-09-09-step3-ruling.md` |
+| 11 | A question posed as a binary — index wrong or record incomplete — when both branches were false and the two statements agreed across the UTC boundary | RV-10 |
+
+Note what the last one adds. Every entry above it is an enumeration asserted in a
+statement. Number 11 is the same defect asked as a question, and it is the more
+dangerous form: an incomplete search invites someone to go looking, whereas a
+forced binary invites the reader to pick a side. Picking a side feels like
+scrutiny, and whoever picks has already accepted the frame. **The work of asking
+whether the alternatives are all of them never gets done.**
+
+### 12a-i. A record has a start date, and the events before it are outside its reach
+
+**"The record does not say so" is not "the record says otherwise."**
+
+The melanoma masthead says the page was published on 26 August.
+`published.json`'s first row is 28 August. That looked like a two-day
+disagreement and was not one: the page went live on the 26th, and the record
+begins on the 28th because `publish.py` and `published.json` were *created* on
+the 28th. There was nothing to write a record with and nothing to write it into.
+The evidence is in `issues/WHU-001-melanoma/provenance.md`.
+
+This publication established the principle on 2 September, pointed outward: **our
+failure to find a document was never evidence it did not exist.** Pointed at our
+own record it reads the same. The error was applying a rule about *disagreement*
+to a case of *non-coverage* — which is the same move as reading an abstract and
+concluding about a paper, one layer in.
+
+**Two things follow, and the second is the transferable one.**
+
+A record does not gain rows for events it did not witness. What is established
+afterwards goes in a note that says **when it was established**, never as a row
+backdated into the record — because the whole value of the record is that its
+rows were written at the time. A backfilled row asserts a witnessing that did not
+happen, in the file every publication decision rests on.
+
+And the check encodes the principle rather than the instance.
+`publish.record_begins()` derives the record's start from the earliest `at` in
+`published.json`, and a masthead earlier than that is reported as *"the page
+predates the record"* rather than as a false date. Nothing in it names melanoma.
+**Every future page that predates its own tooling is handled correctly by
+somebody who has never heard of this one.** That is the difference between
+encoding a principle and patching an instance, and where the two are available
+the first is always the smaller amount of work over time.
+
+### 12b. Every finding records which direction it leans
+
+One clause per finding: does the error, if it had stood, have flattered us or
+embarrassed us?
+
+Four in the cycle ending 2026-09-09 lean the same way — the fabricated 2,116
+character count, which made a fabricated absence look more forgivable; the 80%
+interval printed beside a 95% one, which made an uncertainty look narrower; the
+corrections SLA clock, which reported us as more timely than we are; and,
+arguably, a correction that happened to be true.
+
+**This is not a claim of bias, and it must not be written up as one.** There is a
+mechanism that produces the pattern with nobody intending it: an error that
+flatters is not questioned, so it survives; an error that embarrasses is caught
+quickly and dies young. What remains live to be found is therefore skewed toward
+the flattering ones. Survivorship, not motive.
+
+The clause is cheap and the aggregate is the point. Where a set of findings leans
+one way, that is a signal about where to look next — and it stays invisible for
+as long as each finding is only ever read on its own, which is what happened here
+until somebody counted them.
+
+### 12d. A directive does not cite a location in a document its author has not read
+
+**Standing rule, and it binds the reviewer rather than the repository:**
+
+> A directive names the content and the criterion for where it belongs. It does
+> not cite a location in a document the author has not read. Where a directive
+> must reference an existing entry, the structure is reported first and the
+> reference is written against the report.
+
+**Origin: three unresolvable references in one day, 2026-09-09.**
+
+| reference | what it actually was |
+|---|---|
+| "failure 1d" | a step number in one of the reviewer's own rulings, later cited as a catalogue entry |
+| "the failures that present as inaction entry" | language written in a ruling, never a heading anywhere |
+| "instance eleven of the family" | a tally kept in prose across four documents, running ahead of the RV series that had no register (settled in §12a) |
+
+The mechanism is not carelessness. **The reviewer had been writing directives
+against a document he had never read** — every reference to this file's internal
+structure was a reference to his memory of what he had asked to be put in it,
+which is a partial representation of a document treated as the document. That is
+the base-drift failure of this cycle, relocated out of the artifacts and into the
+directives that govern them.
+
+The correct handling when a pointer does not resolve is the one taken: file the
+content as a new entry under a criterion that can be checked, and **record the
+mismatch** rather than placing it quietly somewhere plausible. The note filed
+with entries 15–17 is the evidence for this rule and stays where it is.
+
+### 12c. The index is a translation, not a copy
+
+**The record's vocabulary and the reader's vocabulary are not the same
+vocabulary.** A word can be correct in the record and misleading on the page.
+`record-live` writes `action: "republish"` for a change a person has signed as
+NOT touching the argument; rendering that as "updated 9 September 2026" on the
+homepage would tell a reader the assessment moved when a nav link was added.
+
+When the two disagree, **the page serves the reader, the record keeps its own
+term, and the translation is declared in the generator** — not resolved by
+rewriting either side. `index_dates.PUBLICATION_ACTIONS` is that declaration, and
+it carries the reasoning beside it. This will recur every time the index gains a
+field.
+
+---
 
 ---
 
