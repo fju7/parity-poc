@@ -270,7 +270,20 @@ def check(ref: str | None = None,
     # So: every top-level page under site/whatholdsup must be either a standing
     # site page or an issue with a publication record. A draft lives in its
     # issue directory until it publishes, and the publish step is what moves it.
-    STANDING = {"index.html", "what-this-is.html", "who-pays-for-this.html"}
+    # the-rubric.html joined this set on 2026-09-09. It is a standing reference
+    # page, not an issue: it has no issue directory, no gate report, no
+    # publication record and no review cycle, and every other page on the site
+    # links to it — all three issues, the index, what-this-is and
+    # who-pays-for-this. It went live on 3 September in the commit that
+    # published the rubric, and has blocked every push since, because the guard
+    # had no category for it.
+    #
+    # NOT record-live: that command takes an issue slug (cdk46, deskilling,
+    # melanoma) and signs off a small change to a page with a publication
+    # record. The rubric has neither a slug nor a record, so record-live cannot
+    # name it and would be the wrong instrument if it could.
+    STANDING = {"index.html", "what-this-is.html", "who-pays-for-this.html",
+                "the-rubric.html"}
     published_pages = {
         Path(cfg["page"]).name
         for slug, cfg in issues.items()
