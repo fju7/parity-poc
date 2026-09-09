@@ -268,12 +268,29 @@ def scan(slug: str) -> tuple[dict, list[str], list[str]]:
     doc = load(slug)
     rows = doc.setdefault("bindings", {})
     names = trial_names(store.sources(slug))
-    live, unbound = set(), []
+    # TWO DIFFERENT QUESTIONS, AND THEY WERE THE SAME SET.
+    #
+    # `live` is "the empirical rule obliges us to bind this". `present` is "this
+    # sentence is on the page". The loop below used `live` for both, so a row
+    # for a sentence the rule does not call empirical -- a judgement someone
+    # chose to show premises for, a comparison carrying no figure of its own --
+    # was stamped on_page False with a left_page date while the sentence sat on
+    # the page. On 2026-09-08 that happened to "The earlier interval is the wider
+    # of the two", and 24 rows across this issue were already carrying the same
+    # false departure, the oldest from 1 September.
+    #
+    # A row saying a sentence left the page when it did not is the failure this
+    # file exists to prevent, committed by the file itself: it is a record of a
+    # correction that never happened, and Appendix A drops the row from the
+    # packet, so the reasoning disappears from the reader's view without anyone
+    # deciding that it should.
+    present, live, unbound = set(), set(), []
     for sent in page_sentences(slug):
+        sha = fingerprint(sent)
+        present.add(sha)
         must, why = is_empirical(sent, names)
         if not must:
             continue
-        sha = fingerprint(sent)
         live.add(sha)
         if sha not in rows:
             rows[sha] = blank_row(sent, why)
@@ -282,10 +299,18 @@ def scan(slug: str) -> tuple[dict, list[str], list[str]]:
             unbound.append(sha)
     stale = []
     for sha, row in rows.items():
-        if sha not in live:
-            row["on_page"] = False
-            row["left_page"] = row.get("left_page") or date.today().isoformat()
-            stale.append(sha)
+        if sha in live:
+            row.pop("left_page", None)
+            continue
+        if sha in present:
+            # On the page, just not a sentence the empirical rule obliges us to
+            # bind. Whatever else is true of it, it has not left.
+            row["on_page"] = True
+            row.pop("left_page", None)
+            continue
+        row["on_page"] = False
+        row["left_page"] = row.get("left_page") or date.today().isoformat()
+        stale.append(sha)
     save(slug, doc)
     return doc, unbound, stale
 
@@ -838,6 +863,21 @@ def figures_resting_only_on_reporting(slug: str) -> list[tuple[str, str]]:
     return out
 
 
+def _declared_exclusions(slug: str) -> list[dict]:
+    """figure-exclusions.json, read without importing b13 (b13 imports this).
+
+    Each entry names a figure, the sentence it belongs to, why it is not a claim
+    about any document, who declared it and what would show it wrong. b13 owns
+    the file and reports one that no longer matches a sentence as stale, so an
+    entry cannot quietly outlive its sentence.
+    """
+    try:
+        p = store.case_dir(slug) / "figure-exclusions.json"
+        return json.loads(p.read_text(encoding="utf-8")).get("exclusions") or []
+    except Exception:
+        return []
+
+
 def rule_rows(slug: str) -> list[tuple[str, str, str]]:
     """The two rules, as blocking rows. Every sentence on the page, no exemptions."""
     import spancheck as SC
@@ -933,7 +973,23 @@ def rule_rows(slug: str) -> list[tuple[str, str, str]]:
                 loose_keys.add(k)
                 continue
             covered += " " + SC._norm(span)
-        held = _as_numbers(MB.figures(covered)) | worked_out
+        # DECLARED EXCLUSIONS COUNT HERE TOO, AS THE `computed` MARK ALREADY DOES.
+        # This check had one exemption channel and the repository has two. A
+        # figure that is not a claim about any document -- the page's own
+        # arithmetic, an HTTP status our own request came back with -- is
+        # declared in figure-exclusions.json by a person, with a reason and a
+        # falsifier, and b13 has honoured that since it was written. Rule 1 did
+        # not, so a figure could be correctly declared there and still reported
+        # here as resting on nothing, which pushes the author toward deleting a
+        # true word to satisfy a check that has already been answered. The
+        # signature is the control; reading only one of the two files was the
+        # gap. Same shape as the b13/corrections_check split of 2026-09-09.
+        declared = set()
+        for r in _declared_exclusions(slug):
+            ins = (r.get("in_sentence") or "").strip()
+            if ins and SC._norm(ins) in SC._norm(v["sentence"]):
+                declared |= _as_numbers([r.get("figure")])
+        held = _as_numbers(MB.figures(covered)) | worked_out | declared
         missing = [f for f in _claim_figures(v["sentence"], known_names)
                    if MB._weight(f) and not _as_numbers([f]) <= held]
         if missing:

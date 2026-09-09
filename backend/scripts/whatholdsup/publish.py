@@ -1122,9 +1122,12 @@ def outside_review(page: Path, slug: str) -> tuple[str, str]:
     ok, bad, _stale = reconcile(slug)
     if ok and not bad:
         cites = ", ".join(sorted({r.get("because", "?") for _k, _w, _n, r in ok}))
+        n_set = sum(1 for _k, _w, _n, r in ok if r.get("set_level"))
+        how = (f"{len(ok) - n_set} traced to a per-change decision and {n_set} to a "
+               f"recorded change set" if n_set else "each traced to a recorded decision")
         return OK, (f"reviewed {latest.get('at', '?')[:10]} by "
                     f"{latest.get('reviewer', 'unnamed')}; {len(ok)} change(s) since, "
-                    f"each traced to a recorded decision ({cites})")
+                    f"{how} ({cites})")
     if bad:
         return BAD, (f"{len(bad)} change(s) since the review of "
                      f"{str(latest.get('sha'))[:8]} have no decision behind them")
@@ -2346,6 +2349,64 @@ def changes_since(old_raw: str, new_raw: str, context: int = 0) -> list[tuple[st
     return out
 
 
+def recorded_change_sets(slug: str) -> list[dict]:
+    """Round-level attributions: a span of the page's history and the documents
+    that decided it.
+
+    WHY THIS EXISTS, AND WHAT IT IS NOT
+    -----------------------------------
+    Rule 14 was written for one state and there are two. A change whose
+    reasoning never existed is unrecoverable, and the log says so rather than
+    reconstructing it -- that is the 175 changes of 28 August to 4 September. A
+    change whose reasoning exists but is not linked is a bookkeeping debt, and
+    writing it out one diff at a time produces a record that looks like 239
+    decisions and represents four. That misrepresents how the work was decided,
+    which is the same objection that stopped the 175 being backfilled.
+
+    So a set names the exact span it covers -- the sha the reviewer read and the
+    sha the page reached -- the documents that decided it, and a label. It is
+    NOT a waiver, and three things stop it becoming one:
+
+      * BOTH shas are pinned. The moment the page changes again the set stops
+        covering, and the round after this one has to record its own. A set
+        cannot cover work that had not happened when it was written.
+      * Every document in `decided_by` must exist on disk. The whole test rule
+        14 applies is that a change traces to something a person can open and
+        read; a set that names a missing file traces to nothing.
+      * `because` must resolve in decision_labels() exactly as a per-change
+        entry's does.
+
+    A set-attributed change is reported as set-attributed and never as though
+    somebody had written down a reason for that particular sentence.
+    """
+    case = case_dir(slug)
+    fp = (case / "changes.json") if case else None
+    if not fp or not fp.exists():
+        return []
+    try:
+        return json.loads(fp.read_text()).get("change_sets", [])
+    except Exception:
+        return []
+
+
+def valid_change_sets(slug: str, from_sha: str, to_sha: str) -> list[dict]:
+    """The sets that cover exactly this span and resolve everything they name."""
+    labels = decision_labels(slug)
+    out = []
+    for s in recorded_change_sets(slug):
+        if not str(from_sha).startswith(str(s.get("from_sha") or "\0")):
+            continue
+        if not str(to_sha).startswith(str(s.get("to_sha") or "\0")):
+            continue
+        docs = [d for d in (s.get("decided_by") or [])]
+        if not docs or not all((ROOT / d).exists() for d in docs):
+            continue
+        if (s.get("because") or "") not in labels:
+            continue
+        out.append(s)
+    return out
+
+
 def recorded_changes(slug: str) -> list[dict]:
     case = case_dir(slug)
     fp = (case / "changes.json") if case else None
@@ -2464,6 +2525,7 @@ def reconcile(slug: str) -> tuple[list[tuple], list[tuple], list[dict]]:
     diff = changes_since(snaps[-1].read_text(encoding="utf-8"),
                          page.read_text(encoding="utf-8"))
     labels = decision_labels(slug)
+    sets = valid_change_sets(slug, latest.get("sha") or "", sha(page))
     ok, bad, used = [], [], []
     for kind, was, now in diff:
         r = explain(kind, was, now, recorded)
@@ -2474,6 +2536,14 @@ def reconcile(slug: str) -> tuple[list[tuple], list[tuple], list[dict]]:
         elif r:
             ok.append((kind, was, now, r))
             used.append(id(r))
+        elif sets:
+            # Covered at round level. Recorded as such, never as a per-sentence
+            # decision somebody wrote.
+            s = sets[-1]
+            ok.append((kind, was, now, {"because": s.get("because"),
+                                        "set_level": True,
+                                        "decided_by": s.get("decided_by") or [],
+                                        "note": s.get("note") or ""}))
         else:
             bad.append((kind, was, now, None))
     return ok, bad, [r for r in recorded if id(r) not in used]

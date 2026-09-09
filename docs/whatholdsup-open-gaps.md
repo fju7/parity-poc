@@ -369,3 +369,257 @@ release with its own state, not an edit that waits for someone to remember.
 **What closing it looks like:** an uncorrected live page blocks, loudly, with
 the sentences named — or corrections publish themselves once their own checks
 pass.
+
+---
+
+## A staleness test evaluated against the same narrowed view that created the staleness
+
+Found 2026-09-09 in `b13.py`. The class: a check asks "is this record still
+live?" and answers it against its own filtered view of the page rather than
+against the page. Anything the filter removed is then reported as dead.
+
+The instance. `b13.figures_on_page()` drops sentences matching `AB.OURS` — the
+page saying it did a sum itself — and `bindings.page_sentences()` strips the
+change log. A declared figure-exclusion for `3.40`, which lives only in a
+change-log sentence about the page's own arithmetic, could therefore never be
+marked `used` here, and the staleness test compared its `in_sentence` against
+that same doubly-narrowed list. It reported the entry as an exclusion that had
+outlived its sentence. `corrections_check.py` reads the change log with no
+`OURS` filter and genuinely needs the entry: deleting it as dead would have
+re-blocked that module on a figure that is the page's own arithmetic.
+
+This is the second instance in the same function. The comment above the code
+records the first — an exclusion skipped because the figure also turned up in
+some held document, so the rule was never reached and was reported as dead. The
+fix then was to stop inferring staleness from `used` alone. The fix now is to
+compare against the whole page, normalised on both sides, because
+`ledger.plain()` leaves a double space wherever it stripped a tag while the
+sentence forms the rules were keyed from have one.
+
+**What makes the repair trustworthy is the regression test, not the green row.**
+Verified after the change: the two live entries register live, a fabricated
+`in_sentence` that is not on the page registers stale, and the retired 3.35
+wording — a genuinely dead entry — still registers stale.
+
+**Where it will recur:** anywhere two checks share a source file and differ on
+scope. The scope difference is invisible from inside either one. `b13` and
+`corrections_check` share `figure-exclusions.json`; `sources_shown` and the
+bindings share `bindings.json` and differ on whether the reader-facing list
+counts, which is the same shape and was mis-described three times before anyone
+read the code.
+
+---
+
+## Structural: the "Why this is worth a whole article" box carries too much before its turn
+
+Recorded 2026-09-09, for the next revision. **Not a factual defect and not to be
+edited now** — restructuring dense prose at the last moment, in a passage already
+misread twice, is how a further error gets in.
+
+Two independent automated readings misread the same box on two consecutive
+`changecheck` runs. The first collapsed the two subjects of "A post logged by KOL
+Pulse identified the figure … ; KOL Pulse's own text names the trial throughout"
+and reported a contradiction between them. The second read the enumeration under
+the kicker as implying the outlets were at fault, against the page's own "The
+problem is not misattribution".
+
+Both readings are wrong and both dispositions stand. But two misreadings by
+independent readers is a signal about the prose rather than only about the
+checkers. The box asks a reader to hold, in order: an enumeration of five
+outlets; a correction about which author omitted a trial name; three block
+quotations; a parenthetical about a source we lost and regained and one we still
+do not hold; and only then the turn — that the attribution was correct and the
+problem is subtler. The resolution arrives after everything it resolves.
+
+**What closing it looks like:** the turn stated near the top, so a reader knows
+what the enumeration is evidence *for* before reading it.
+
+---
+
+## An artefact of measurement mistaken for a fact about the page
+
+Four instances in one cycle, 2026-09-08/09, and they run in **both** directions —
+a live thing reported as a defect, and a defect reported as a pass. That symmetry
+is why this is a class and not four bugs.
+
+| # | the measurement | what it reported | what was true |
+|---|---|---|---|
+| 1 | `b13` staleness tested against its own filtered sentence list | a live figure-exclusion had outlived its sentence | the sentence was in the change log, which that list strips |
+| 2 | `grep -c "Consensus scores 4 because"` on raw HTML | the prose had been removed during a records-only pass | `</strong>` sits between the two halves; the string never existed in raw HTML |
+| 3 | a fixed 2,400-char raw-HTML window, tag-stripped | "the paragraph runs to 2,116 characters" | the paragraph is 1,013; 2,116 was the window |
+| 4 | `_norm(quote) in _norm(draft)` in the adjudication check | a live gate decision quoted a sentence that was gone | stripping `<q>` leaves a space before the comma; the sentence is verbatim on the page |
+
+Also, in the other direction and in the same days: `cmp -s` reporting a **missing**
+file as a **diverged** one, and a correction published saying a clause had been
+removed when it had not — measurement of the wrong artefact, again.
+
+**What they share.** In each case something was measured that was *adjacent* to
+the object of the claim — a filtered view, a raw serialisation, an arbitrary
+window, a normalised string — and the result was reported as a fact about the
+object. It is failure 14 pointed at our own tooling instead of at a source, and
+it is why "the check says so" is not by itself evidence.
+
+**What closing it looks like:** before a check's output is acted on, its false
+negative and its false positive are both stated. A check that has never been made
+to fail on purpose has not been tested, only run. The b13 repair is the model —
+the regression test that proves a genuinely dead entry is still caught is the
+part that matters, not the green row.
+
+---
+
+## The documents that tell us we are wrong are the ones we are least likely to hold
+
+Errata, correction notices, letters to editors, comments. They are short,
+low-value to indexers, frequently paywalled, and almost never deposited to the
+open archives that carry the papers they correct. They are also the only class of
+document that can falsify a figure already published.
+
+Two live instances, both in this issue:
+
+- **S029** — the NEJM paper behind the ipilimumab counterexample was formally
+  corrected in 2018. The notice is subscription-only at NEJM (403 to a script),
+  absent from PubMed Central and Europe PMC (`isOpenAccess N`, `inEPMC N`), and
+  carries no abstract at PubMed or Crossref. We hold its bibliographic record as
+  S030 and cannot read the notice. `corrections not yet read` blocks on it.
+- **S028** — the letter whose reference list falsified a claim on this page.
+  Its own text is unheld and paywalled.
+
+The near-miss worth recording: S028 turned out to be **partly** reachable after
+all. The publisher deposited its reference list to Crossref, so the one fact the
+correction turns on is machine-readable from the DOI, even though the letter is
+not. That was found on 2026-09-09 by looking up an identifier that had been in
+the source record since 4 September and had never been queried.
+
+**What closing it looks like:** when a source is acquired, its `Erratum in`,
+`Comment in` and `Correction of` fields are read at the same time, and the
+identifiers already in the record are actually queried rather than stored. Both
+S028's DOI and S029's erratum were sitting in our own files, unqueried, while the
+page made claims that turned on them.
+
+
+---
+
+## Access-state vocabulary does not describe structured publisher metadata
+
+The store has six access states — `full_text_held`, `human_read`,
+`abstract_held`, `fragment_only`, `blocked`, `not_opened` — and every one of them
+describes how much of a document's **prose** we have. None describes the thing
+S028 actually is: a publisher's Crossref deposit, carrying the full bibliographic
+record, a twelve-item reference list and an author ORCID, with the article's own
+text unread and paywalled.
+
+`abstract_held` is what S028 carries and it is wrong in both directions at once.
+It **understates** what we hold — we have the complete reference list, which is
+the only part the claim turns on, and it is machine-readable and reproducible by
+anyone with the DOI. It **overstates** what we read — we have not read the
+abstract either.
+
+S028 is the first claim on this site resting on structured metadata rather than
+on prose, and it will not be the last: reference lists, `Erratum in` fields,
+ORCID, `Comment in`, registry field paths. The bindings store already has
+`locator_type: field` for the registry case, so half the vocabulary exists on the
+binding side and none of it on the source side.
+
+**Not decided here, deliberately.** Adding a state mid-cycle, to make one source
+look right, is how a taxonomy acquires a category that fits exactly one thing.
+The question is what a state should describe — the artefact, the retrieval, or
+what it licenses us to say — and that is a decision to take with the whole
+vocabulary in view.
+
+---
+
+## The KOL Pulse box — REQUIRED for the next revision
+
+Escalated 2026-09-09 from an optional structural note. **Three automated
+misreadings, three consecutive `changecheck` runs, two different readers, three
+different sentences.** The third was not caused by editing the box at all: an
+unrelated sentence in it got shorter, the segmenter regrouped, and a previously
+disposed finding came back under a new `finding_key`.
+
+Every claim in the box is correct and every disposition stands. That is now
+beside the point. At three independent misreadings, "the claims are correct" is
+not a sufficient answer — the passage is defeating readers, and a page whose
+subject is prose that misleads without being false does not get to have one.
+
+The box asks a reader to hold, in order: an enumeration of five outlets; a
+correction about which author omitted a trial name; three block quotations; a
+parenthetical about a source lost and regained and one still not held; and only
+then the turn — that the attribution was correct and the problem is subtler. The
+resolution arrives after everything it resolves.
+
+**What closing it looks like:** state the turn near the top, so a reader knows
+what the enumeration is evidence *for* before reading it.
+
+---
+
+## Gate budget: an operator decision, not an overrun
+
+Recorded so the next issue starts from a known position rather than rediscovering
+this.
+
+Eight gate runs against a budgeted three. **$36.34 spent of a $40 per-issue cap**
+(measured 2026-09-09; it was $36.29 earlier the same day and moved because of
+this cycle's own `changecheck` runs). The budget's own note says an issue through
+a first run, an outside review, two re-gates and a counterexample hunt "should
+land near $25", and that hitting $40 "means something is wrong with the process,
+not with the budget."
+
+**The operator ruled against overriding the budget.** That ruling is the reason
+43 empirical sentences on the published page have never been examined by any
+role, and it is a defensible trade — but it is a decision with a cost, and the
+cost is these 43 specific sentences. `unjudged.py` degrades to WARN rather than
+BAD once the budget is spent, on the reasoning that a STOP with no available
+remedy trains the operator to waive. So this will never block; it will only ever
+warn. That is why it is written down here.
+
+The 43, as of page sha 2727429064d69721:
+
+   1. Why this is worth a whole article Five outlets whose articles we hold named KEYNOTE-942 when attributing the 49% figure — The
+   2. A single hazard ratio summarising five years assumes the ratio held steady across those five years.
+   3. There is one patient-level reading a hazard ratio does support.
+   4. Take one treated and one untreated patient at random: at a hazard ratio of 0.510 there is about a 66% chance the treated one
+   5. The hazard ratio tells you who is likely to win.
+   6. These are 95% intervals, the convention readers meet elsewhere.
+   7. The trial registered a one-sided alpha of 0.10; its later three-year paper reports both 80% and 95% intervals for the updated
+   8. Amber bars cross the 95% no-effect line; green ones clear it.
+   9. Both bounds came in, the upper from 0.906 to 0.887 and the lower from 0.288 to 0.294, so the interval narrowed slightly.
+   10. This trial's own threshold is on the record: the three-year paper says the trial was designed with approximately 80% power to
+   11. In EORTC 18071, adjuvant ipilimumab versus placebo in resected stage III melanoma reported overall survival as a prespecified
+   12. One caveat the figures on this page raise themselves: intismeran is an intramuscular injection that caused injection-site pai
+   13. Morning Glory Sciences — we give its argument on its merits rather than on its authority — the Phase 2b population was stage
+   14. In the Lancet report, immune-mediated adverse events were similar — 36% in the combination arm and 36% in the monotherapy arm
+   15. At five years the company release puts immune-related events at 45.2% versus 44%, over a longer window than the Lancet’s.
+   16. The three-year paper reports a hazard ratio of 0.425 on nine deaths, 95% CI 0.114 to 1.584; the five-year analysis reports 0.
+   17. Dermatology Times — Personalized mRNA-Based Melanoma Vaccine Meets Primary Endpoints Practical Dermatology — Intismeran Plus
+   18. Primary INTerpath-001 — ClinicalTrials.gov, NCT05933577 Registry record.
+   19. Primary KEYNOTE-054 — ClinicalTrials.gov, NCT02362594 Registry record.
+   20. Primary KEYNOTE-716 — ClinicalTrials.gov, NCT03553836 Registry record.
+   21. Primary CheckMate 238 — ClinicalTrials.gov, NCT02388906 Registry record.
+   22. Primary Spruance, Reid, Grace & Samore — Hazard Ratio in Clinical Trials Antimicrob Agents Chemother 2004;48(8):2787–2792.
+   23. Primary Survival Analysis — StatPearls, NCBI Bookshelf Source for the direction a hazard ratio moves in: risk rises as the va
+   24. Source for what a hazard ratio of 1 means, and for the caution that a hazard ratio is not a proportion of patients benefited.
+   25. The word interim appears nowhere in the NCT05933577 record, and that record has not been updated since 24 September 2025 — el
+   26. The lower moved from 0.288 to 0.294, which is inward on any reading — closer to 1.0, closer to the point estimate, closer to
+   27. We set 45.2% against 44% for any-grade immune-related events, then 25% against 18% for grade 3 or worse, in a single sentence
+   28. The Lancet reports both on the same patients at the same cut — immune-mediated events 36% in each arm, grade 3 or worse treat
+   29. In EORTC 18071, adjuvant ipilimumab against placebo in resected stage III melanoma reported overall survival as a prespecifie
+   30. We wrote that an assessor who does not know the arm cannot favour it, and printed, a few hundred words later, that the therap
+   31. The reviewer also proposed attaching the three-year paper's 80% interval, 0.351–0.743, to the 2023 readout.
+   32. It belongs to the three-year hazard ratio of 0.510, and no 80% interval for the 2023 result exists in any document we hold.
+   33. The hazard-ratio explainer now names the assumption underneath a single hazard ratio — that the ratio held steady across the
+   34. The confidence-interval chart now says that its amber and green split is a convention rather than a verdict, and that this tr
+   35. And the three-year survival interval is now given at 95%, 0.114–1.584, so that it can be read against the five-year 0.165–1.3
+   36. What differed was the working itself: reproducibility and recency were shown at 15% each where the rubric gives them 20% and
+   37. We had credited KOL Pulse with giving the 49% figure as a phase 2 result without naming the trial; the outlet names KEYNOTE-9
+   38. The published page scored this assessment 3.4 , beside a working that gave reproducibility and recency 15% each.
+   39. The rubric gives them 20% and 10% .
+   40. On 2 September we said a “five-year topline of 20 January 2026” reporting a one-sided nominal p = 0.0075 would stay out until
+   41. Our p-value gloss said that if the drug were useless you would see a result this good about 5% of the time, which quietly dro
+   42. And one hazard ratio did circulate under the Phase 3’s name.
+   43. A melanoma oncologist posted, in a roundup we hold, Exciting announcement today from Phase3 INTerpath001 followed by RFS HR=0
+
+Most are the 8 and 9 September additions: the hazard-ratio explainer, the chart
+caption, the EORTC counterexample, the blinding caveat, the scorecard reasoning
+and the change-log entries. They are bound and span-checked — rule 1 and rule 2
+pass on all 131 — but bound is not the same as read by a role looking for what
+the binding cannot see.

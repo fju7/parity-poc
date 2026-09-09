@@ -175,6 +175,16 @@
       "gate_basis": "gate reconciled rather than re-run: the gate budget for this issue is spent (3 of 3 runs used), so this cannot be re-gated. gated 2026-09-03 on an earlier draft (cdea37d3) and the page has changed since: the gate budget for this issue is spent, so this cannot be cleared by re-gating \u2014 1 sentence(s) carrying figures, trials or registry ids have never been examined by any role: An earlier analysis of the same programme reports 0.425 on nine deaths, with an 80% interv  \u2014  re-gating costs AT LEAST $2.18 \u2014 $0.40 for the roles that must read the whole page, plus 6 claim(s) that cannot carry forward, at $0.30 each. 6 of those were not VERIFIED last run and would re-run whatever the page says. A floor, not an estimate: extraction is a model call and the claims the next run invents are not in this report to be counted. Last full run: $0.99 for 22 claims.",
       "subject": "The Melanoma Result \u2014 a Phase 3 success with no numbers",
       "waived": null
+    },
+    {
+      "issue": "melanoma",
+      "action": "publish",
+      "at": "2026-09-09T18:33:15+00:00",
+      "sha": "2727429064d69721ea9185bad11f3c502f328da0a87dcf8acbedc7bc68609686",
+      "commit": "853200cf3d1e37bcb818dc42379e60f6dc652c90",
+      "url": "https://whatholdsup.org/melanoma",
+      "note": "issue 1 \u2014 The Melanoma Result",
+      "waived": "S029 ONLY. The 2018 NEJM erratum (PMID 31442371, DOI 10.1056/NEJMx180040), a single notice covering thirteen articles, applies to Eggermont et al. EORTC 18071. We have not read it and cannot: NEJM returns 403 to a script, Europe PMC records it as neither open access nor in its archive, and neither PubMed nor Crossref carries an abstract. Operator ruling 2026-09-09: publish. Grounds \u2014 (1) the page discloses the gap to the reader in the S029 source note, naming the erratum and saying we have not read it and do not know whether it touches a figure quoted here; (2) the claim that rests on this paper is that one adjuvant checkpoint inhibitor reported an OS benefit against placebo as a prespecified secondary endpoint at a dose and toxicity that kept it from standard care, which survives any decimal-level correction and would fall only to a retraction, and retractions are not issued as one line in a thirteen-paper notice; (3) removing a true, well-sourced counterexample on the strength of an unread notice would restore the impression OR-008 exists to correct. Corroboration, labelled as corroboration and not as closure: every figure quoted from this paper appears in the PubMed record of PMID 27717298 retrieved 2026-09-09, which post-dates the erratum. S029 keeps an open, undispositioned errata item. If the notice is ever obtained and touches a figure on this page, that is a correction and goes in the log. This waive covers S029 and nothing else."
     }
   ]
 }

@@ -160,6 +160,23 @@ own report of the results — and no source was ever produced for the claim. It
 cost real time and nearly forced a correct passage to be rewritten. Hedging the
 assertion ("in some analyses") is not a source.
 
+**State which representation you checked.** A document has more than one form —
+the rendered page and the file it was built from, a registry record and one field
+of it, a paragraph and the first 400 characters of it, a source list and the
+library it describes. Name the one you read, in the finding. An assertion about a
+document, sourced to a rendering of it, is the most common way a sourced finding
+is still wrong: on 2026-09-08 one review produced four errors and all four were
+this. It is failure 14 in the process document's catalogue.
+
+**A finding that rests on a span quoted in Appendix A must be checked against the
+source document, not the span.** Appendix A shows you what a sentence rests on; it
+does not show you what else the document says, and a span chosen to support one
+claim is not evidence about any other. Naming the representation is not enough
+here — a reviewer who wrote "the packet's quoted span" would have been precise and
+still wrong. On 2026-09-08 a finding read a span beginning "In a phase 2 trial
+earlier this year" and concluded the outlet named no trial; the outlet names it
+eleven times and the span was inside a third-party post it was logging.
+
 If you believe something is wrong but cannot source it, say so in a separate
 section titled "Suspicions I could not source", and keep it out of the findings.
 

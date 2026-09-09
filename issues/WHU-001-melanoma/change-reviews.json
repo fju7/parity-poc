@@ -1,222 +1,388 @@
 {
-  "_what_this_is": "Reviews of what changed, bound to the page's content hash. See changecheck.py: between two gate runs every correction is text nobody has read, and 35% of recorded errors came in with one.",
-  "reviews": [
+ "_what_this_is": "Reviews of what changed, bound to the page's content hash. See changecheck.py: between two gate runs every correction is text nobody has read, and 35% of recorded errors came in with one.",
+ "reviews": [
+  {
+   "sha": "8ecb9db083398f26",
+   "against": "0b6442a",
+   "changed": 0,
+   "at": "2026-09-02T17:52:40+00:00",
+   "findings": []
+  },
+  {
+   "sha": "e166e9597e0b6636",
+   "against": "cee46af",
+   "changed": 8,
+   "at": "2026-09-02T17:53:51+00:00",
+   "findings": [
     {
-      "sha": "8ecb9db083398f26",
-      "against": "0b6442a",
-      "changed": 0,
-      "at": "2026-09-02T17:52:40+00:00",
-      "findings": []
+     "sentence": "It is the company's figure, and the peer-reviewed Lancet paper prints the two-sided 0.053 instead.",
+     "kind": "NEW_AND_UNBOUND",
+     "why": "carries 0.053 and rests on nothing this system can name",
+     "other": ""
     },
     {
-      "sha": "e166e9597e0b6636",
-      "against": "cee46af",
-      "changed": 8,
-      "at": "2026-09-02T17:53:51+00:00",
-      "findings": [
-        {
-          "sentence": "It is the company's figure, and the peer-reviewed Lancet paper prints the two-sided 0.053 instead.",
-          "kind": "NEW_AND_UNBOUND",
-          "why": "carries 0.053 and rests on nothing this system can name",
-          "other": ""
-        },
-        {
-          "sentence": "That is what the headlines did.",
-          "kind": "CONTRADICTION",
-          "why": "The page states 'Every outlet whose article we hold attributed those figures correctly to KEYNOTE-942' and several said plainly no Phase 3 numbers had been released, yet this sentence accuses the headlines of substituting the Phase 2b figure for the missing Phase 3 number as though that were a documented error in the held articles.",
-          "other": "Every outlet whose article we hold attributed those figures correctly to KEYNOTE-942 — The ASCO Post, Dermatology Times, Practical Dermatology, KOL Pulse and MLQ News — and several said plainly that no Phase 3 efficacy numbers had been released."
-        },
-        {
-          "sentence": "The confidence interval is the tell: 0.309–1.017 crosses 1.0, which is exactly what a two-sided 95% interval keys on — and the same data, read against the one-sided 90% interval the trial actually registered, would not cross it.",
-          "kind": "OURS",
-          "why": "The claim that the one-sided 90% interval for HR 0.561 would not cross 1.0 is a calculation performed by this page; no source on the page reports or publishes that one-sided 90% interval or states that it clears 1.0.",
-          "other": ""
-        }
-      ]
+     "sentence": "That is what the headlines did.",
+     "kind": "CONTRADICTION",
+     "why": "The page states 'Every outlet whose article we hold attributed those figures correctly to KEYNOTE-942' and several said plainly no Phase 3 numbers had been released, yet this sentence accuses the headlines of substituting the Phase 2b figure for the missing Phase 3 number as though that were a documented error in the held articles.",
+     "other": "Every outlet whose article we hold attributed those figures correctly to KEYNOTE-942 — The ASCO Post, Dermatology Times, Practical Dermatology, KOL Pulse and MLQ News — and several said plainly that no Phase 3 efficacy numbers had been released."
     },
     {
-      "sha": "f5f98404d0a6995b",
-      "against": "992f5a6c70",
-      "changed": 19,
-      "at": "2026-09-03T23:43:45+00:00",
-      "findings": [
-        {
-          "sentence": "CheckMate 238, the third record we hold, cannot bear on the question at all, though indirect comparisons have suggested a signal.",
-          "kind": "NEW_AND_UNBOUND",
-          "why": "carries 238 and rests on nothing this system can name",
-          "other": ""
-        },
-        {
-          "sentence": "Readers saw 3.4 ; the working underneath it comes to 3.35 , and that discrepancy is recorded below.",
-          "kind": "FIGURE_IN_NOTHING_HELD",
-          "why": "3.35 is in no document this issue holds, and this sentence is new",
-          "other": ""
-        },
-        {
-          "sentence": "Readers saw 3.4 ; the working underneath it comes to 3.35 , and that discrepancy is recorded below.",
-          "kind": "NEW_AND_UNBOUND",
-          "why": "carries 3.4, 3.35 and rests on nothing this system can name",
-          "other": ""
-        },
-        {
-          "sentence": "For adjuvant PD-1 inhibitors specifically — the comparison arm in this very trial — the two placebo-controlled trials whose registry records we hold — KEYNOTE-054 and KEYNOTE-716 — have between them reported no statistically significant overall survival benefit as a prespecified endpoint in their own populations.",
-          "kind": "CONTRADICTION",
-          "why": "The page states elsewhere that every outlet it holds attributed the figures correctly and the problem is not misattribution, yet this sentence makes a factual claim about KEYNOTE-054 and KEYNOTE-716 reporting no statistically significant OS benefit as a prespecified endpoint — but the registry records cited immediately after show those results are NOT_POSTED, meaning the page has no posted result to confirm or deny statistical significance, contradicting the assertion that they 'have reported' no such benefit.",
-          "other": "KEYNOTE-054 and KEYNOTE-716 are both pembrolizumab against placebo; each lists overall survival as a secondary endpoint, and each registry record marks that result NOT_POSTED with a posting date still ahead of it — November 2026 for KEYNOTE-054, October 2033 for KEYNOTE-716."
-        },
-        {
-          "sentence": "CheckMate 238, the third record we hold, cannot bear on the question at all, though indirect comparisons have suggested a signal.",
-          "kind": "UNSOURCED",
-          "why": "The claim that indirect comparisons have suggested a survival signal for CheckMate 238 is asserted without attribution to any named source on this page.",
-          "other": ""
-        },
-        {
-          "sentence": "Those are different things, and until 3 September this scorecard averaged them into a single number that was wrong about both halves — understating the trial and overstating what is known about the size of what it found.",
-          "kind": "CONTRADICTION",
-          "why": "The page's own scoring section shows the pre-split single number would be computed from the six dimensions together, but the sentence claims it was 'wrong about both halves — understating the trial and overstating what is known about the size,' while the scores shown (Rigor 5, Data support 1) indicate the single average would have overstated size but also overstated the trial's rigor score relative to the magnitude score, not understated it.",
-          "other": "Rigor scores 5 — a double-blind, placebo-controlled, 1,137-patient Phase 3 is as good as trial design gets."
-        },
-        {
-          "sentence": "Readers saw 3.4 ; the working underneath it comes to 3.35 , and that discrepancy is recorded below.",
-          "kind": "CONTRADICTION",
-          "why": "The sentence says the discrepancy between 3.4 and 3.35 is 'recorded below,' but no such record appears anywhere else on the page.",
-          "other": ""
-        }
-      ]
-    },
-    {
-      "sha": "a788f00ab1521235",
-      "against": "452553b2d6",
-      "changed": 4,
-      "at": "2026-09-04T00:55:29+00:00",
-      "findings": []
-    },
-    {
-      "sha": "dd5c320e8e9c2fe2",
-      "against": "540087e",
-      "changed": 37,
-      "at": "2026-09-04T13:13:57+00:00",
-      "findings": [
-        {
-          "sentence": "The single most useful question to ask of a hazard-ratio interval: does it cross 1.0?",
-          "kind": "NEW_AND_UNBOUND",
-          "why": "carries 1.0 and rests on nothing this system can name",
-          "other": ""
-        },
-        {
-          "sentence": "Because for a hazard ratio, 1.0 means no difference at all.",
-          "kind": "NEW_AND_UNBOUND",
-          "why": "carries 1.0 and rests on nothing this system can name",
-          "other": ""
-        }
-      ]
-    },
-    {
-      "sha": "dd5c320e8e9c2fe2",
-      "against": "540087e",
-      "changed": 37,
-      "at": "2026-09-04T13:14:23+00:00",
-      "findings": []
-    },
-    {
-      "sha": "14109128ca055e5b",
-      "against": "1530f08",
-      "changed": 0,
-      "at": "2026-09-04T13:27:37+00:00",
-      "findings": []
-    },
-    {
-      "sha": "6352bdb2154e319c",
-      "against": "dfde0eb",
-      "changed": 0,
-      "at": "2026-09-04T16:03:23+00:00",
-      "findings": []
-    },
-    {
-      "sha": "6352bdb2154e319c",
-      "against": "1530f08",
-      "changed": 9,
-      "at": "2026-09-04T16:03:42+00:00",
-      "findings": [
-        {
-          "sentence": "Readers saw a single 3.4 — correctly rounded from a working of 3.35 , so the arithmetic was right and the shape of the number was wrong.",
-          "kind": "FIGURE_IN_NOTHING_HELD",
-          "why": "3.35 is in no document this issue holds, and this sentence is new",
-          "other": ""
-        },
-        {
-          "sentence": "Readers saw a single 3.4 — correctly rounded from a working of 3.35 , so the arithmetic was right and the shape of the number was wrong.",
-          "kind": "CONTRADICTION",
-          "why": "The page's scoring table shows the two dimension scores as 3.94 and 1.0; combining them as a single overall score would require a weighting rule, but no such rule is stated, and (3.94+1.0)/2 = 2.47, not 3.35 — so the claimed working of 3.35 is not reproducible from the numbers on the page and contradicts them.",
-          "other": "Is the effect real? 3.94 Moderate ... How large is it? 1.0 Weak"
-        },
-        {
-          "sentence": "Trade The ASCO Post, June 2026 — Vaccine plus pembrolizumab reduces risk of recurrence Where we first read the five-year landmark rates, and the source of Seven patients died during follow-up in each arm . The rates themselves are now taken from the ASCO abstract above.",
-          "kind": "CONTRADICTION",
-          "why": "The page elsewhere lists the Merck & Moderna five-year KEYNOTE-942 data release (ASCO 2026) as the source of the OS figure reported as \"n=14\" and the adverse-event rates, and lists the ASCO 2026 abstract 9500 as the source of the five-year survival rates 92.2% vs 71.3%, yet this note attributes \"Seven patients died during follow-up in each arm\" to The ASCO Post while the primary source note for the same analysis attributes the death counts to the company release — creating a contradictory dual attribution for the same fact.",
-          "other": "Primary Merck & Moderna — five-year KEYNOTE-942 data, ASCO 2026 1 June 2026. Source of HR 0.510 (0.294–0.887), HR 0.411 (0.200–0.843), the exploratory OS figure HR 0.471 (0.165–1.345) reported as \"n=14\", and the adverse-event rates."
-        }
-      ]
-    },
-    {
-      "sha": "9adba39978d0a927",
-      "against": "dfde0eb",
-      "changed": 2,
-      "at": "2026-09-04T16:09:38+00:00",
-      "findings": [
-        {
-          "sentence": "Source of the quoted Seven patients died during follow-up in each arm .",
-          "kind": "CONTRADICTION",
-          "why": "The page states elsewhere that the survival analysis is labelled 'n=14' and that 'The label is the release's and it does not say fourteen of what; the paper does, in its own sentence: 7 of 107 patients (6.5%) in the intismeran plus pembrolizumab arm and 7 of 50 (14.0%) in the pembrolizumab arm died', attributing the seven-per-arm figure to the peer-reviewed paper and the ASCO 2026 data, not to The ASCO Post trade article.",
-          "other": "The label is the release's and it does not say fourteen of what; the paper does, in its own sentence: 7 of 107 patients (6.5%) in the intismeran plus pembrolizumab arm and 7 of 50 (14.0%) in the pembrolizumab arm died ."
-        }
-      ]
-    },
-    {
-      "sha": "2948e2f165a1e286",
-      "against": "eae2c40",
-      "changed": 2,
-      "at": "2026-09-04T16:50:44+00:00",
-      "findings": [
-        {
-          "sentence": "The release attributes its most common adverse events to the combination , not to one drug: fatigue 59.6%, injection-site pain 59.6%, chills 51.0%.",
-          "kind": "CONTRADICTION",
-          "why": "The page states in its sources section that the adverse-event rates come from the five-year KEYNOTE-942 release, not from the Phase 3 announcement, yet this sentence says 'The release' in a context that could be read as the Phase 3 release; more directly, the 'Established' section immediately preceding this sentence says 'Those are KEYNOTE-942 figures, from the five-year release; the Phase 3 announcement gave no adverse-event rates for its own 1,137 patients,' which contradicts attributing these figures to 'The release' without specifying which release, creating an internal inconsistency about which release is meant.",
-          "other": "Those are KEYNOTE-942 figures, from the five-year release; the Phase 3 announcement gave no adverse-event rates for its own 1,137 patients."
-        },
-        {
-          "sentence": "Of the events it attributes to intismeran autogene on its own, most were Grade 1 (31.7%) or Grade 2 (51.9%).",
-          "kind": "UNSOURCED",
-          "why": "No named source on this page supplies Grade 1 and Grade 2 percentage breakdowns specifically attributed to intismeran autogene alone rather than to the combination; the listed primary sources cover combination adverse events and grade 3+ rates but none is cited for this drug-specific grade breakdown.",
-          "other": ""
-        }
-      ]
-    },
-    {
-      "sha": "f40ab3cc9a708e6c",
-      "against": "eae2c40",
-      "changed": 3,
-      "at": "2026-09-04T16:53:52+00:00",
-      "findings": []
-    },
-    {
-      "sha": "e41e606776b2756f",
-      "against": "6db9ef8",
-      "changed": 1,
-      "at": "2026-09-04T16:58:00+00:00",
-      "findings": []
+     "sentence": "The confidence interval is the tell: 0.309–1.017 crosses 1.0, which is exactly what a two-sided 95% interval keys on — and the same data, read against the one-sided 90% interval the trial actually registered, would not cross it.",
+     "kind": "OURS",
+     "why": "The claim that the one-sided 90% interval for HR 0.561 would not cross 1.0 is a calculation performed by this page; no source on the page reports or publishes that one-sided 90% interval or states that it clears 1.0.",
+     "other": ""
     }
-  ],
-  "dispositions": [
+   ]
+  },
+  {
+   "sha": "f5f98404d0a6995b",
+   "against": "992f5a6c70",
+   "changed": 19,
+   "at": "2026-09-03T23:43:45+00:00",
+   "findings": [
     {
-      "key": "e4ba8a992ef090da",
-      "kind": "CONTRADICTION",
-      "sentence": "Source of the quoted Seven patients died during follow-up in each arm .",
-      "decision": "reject",
-      "by": "claude",
-      "on": "2026-09-04",
-      "reason": "Two documents each state the seven-per-arm count in their own words, and the page's body sentence does not claim exclusivity: it says the release's 'n=14' label does not say fourteen of what and that the paper does. It does not say only the paper does. S015's held bytes contain 'Seven patients died during follow-up in each arm' verbatim — checked with spancheck.b2_present, which is why the source-list note is bound to it. A second document stating the same fact is corroboration, not contradiction.",
-      "what_would_change_it": "the string not being in S015's held bytes, or the body sentence being rewritten to claim the paper is the only document that reports it."
+     "sentence": "CheckMate 238, the third record we hold, cannot bear on the question at all, though indirect comparisons have suggested a signal.",
+     "kind": "NEW_AND_UNBOUND",
+     "why": "carries 238 and rests on nothing this system can name",
+     "other": ""
+    },
+    {
+     "sentence": "Readers saw 3.4 ; the working underneath it comes to 3.35 , and that discrepancy is recorded below.",
+     "kind": "FIGURE_IN_NOTHING_HELD",
+     "why": "3.35 is in no document this issue holds, and this sentence is new",
+     "other": ""
+    },
+    {
+     "sentence": "Readers saw 3.4 ; the working underneath it comes to 3.35 , and that discrepancy is recorded below.",
+     "kind": "NEW_AND_UNBOUND",
+     "why": "carries 3.4, 3.35 and rests on nothing this system can name",
+     "other": ""
+    },
+    {
+     "sentence": "For adjuvant PD-1 inhibitors specifically — the comparison arm in this very trial — the two placebo-controlled trials whose registry records we hold — KEYNOTE-054 and KEYNOTE-716 — have between them reported no statistically significant overall survival benefit as a prespecified endpoint in their own populations.",
+     "kind": "CONTRADICTION",
+     "why": "The page states elsewhere that every outlet it holds attributed the figures correctly and the problem is not misattribution, yet this sentence makes a factual claim about KEYNOTE-054 and KEYNOTE-716 reporting no statistically significant OS benefit as a prespecified endpoint — but the registry records cited immediately after show those results are NOT_POSTED, meaning the page has no posted result to confirm or deny statistical significance, contradicting the assertion that they 'have reported' no such benefit.",
+     "other": "KEYNOTE-054 and KEYNOTE-716 are both pembrolizumab against placebo; each lists overall survival as a secondary endpoint, and each registry record marks that result NOT_POSTED with a posting date still ahead of it — November 2026 for KEYNOTE-054, October 2033 for KEYNOTE-716."
+    },
+    {
+     "sentence": "CheckMate 238, the third record we hold, cannot bear on the question at all, though indirect comparisons have suggested a signal.",
+     "kind": "UNSOURCED",
+     "why": "The claim that indirect comparisons have suggested a survival signal for CheckMate 238 is asserted without attribution to any named source on this page.",
+     "other": ""
+    },
+    {
+     "sentence": "Those are different things, and until 3 September this scorecard averaged them into a single number that was wrong about both halves — understating the trial and overstating what is known about the size of what it found.",
+     "kind": "CONTRADICTION",
+     "why": "The page's own scoring section shows the pre-split single number would be computed from the six dimensions together, but the sentence claims it was 'wrong about both halves — understating the trial and overstating what is known about the size,' while the scores shown (Rigor 5, Data support 1) indicate the single average would have overstated size but also overstated the trial's rigor score relative to the magnitude score, not understated it.",
+     "other": "Rigor scores 5 — a double-blind, placebo-controlled, 1,137-patient Phase 3 is as good as trial design gets."
+    },
+    {
+     "sentence": "Readers saw 3.4 ; the working underneath it comes to 3.35 , and that discrepancy is recorded below.",
+     "kind": "CONTRADICTION",
+     "why": "The sentence says the discrepancy between 3.4 and 3.35 is 'recorded below,' but no such record appears anywhere else on the page.",
+     "other": ""
     }
-  ]
+   ]
+  },
+  {
+   "sha": "a788f00ab1521235",
+   "against": "452553b2d6",
+   "changed": 4,
+   "at": "2026-09-04T00:55:29+00:00",
+   "findings": []
+  },
+  {
+   "sha": "dd5c320e8e9c2fe2",
+   "against": "540087e",
+   "changed": 37,
+   "at": "2026-09-04T13:13:57+00:00",
+   "findings": [
+    {
+     "sentence": "The single most useful question to ask of a hazard-ratio interval: does it cross 1.0?",
+     "kind": "NEW_AND_UNBOUND",
+     "why": "carries 1.0 and rests on nothing this system can name",
+     "other": ""
+    },
+    {
+     "sentence": "Because for a hazard ratio, 1.0 means no difference at all.",
+     "kind": "NEW_AND_UNBOUND",
+     "why": "carries 1.0 and rests on nothing this system can name",
+     "other": ""
+    }
+   ]
+  },
+  {
+   "sha": "dd5c320e8e9c2fe2",
+   "against": "540087e",
+   "changed": 37,
+   "at": "2026-09-04T13:14:23+00:00",
+   "findings": []
+  },
+  {
+   "sha": "14109128ca055e5b",
+   "against": "1530f08",
+   "changed": 0,
+   "at": "2026-09-04T13:27:37+00:00",
+   "findings": []
+  },
+  {
+   "sha": "6352bdb2154e319c",
+   "against": "dfde0eb",
+   "changed": 0,
+   "at": "2026-09-04T16:03:23+00:00",
+   "findings": []
+  },
+  {
+   "sha": "6352bdb2154e319c",
+   "against": "1530f08",
+   "changed": 9,
+   "at": "2026-09-04T16:03:42+00:00",
+   "findings": [
+    {
+     "sentence": "Readers saw a single 3.4 — correctly rounded from a working of 3.35 , so the arithmetic was right and the shape of the number was wrong.",
+     "kind": "FIGURE_IN_NOTHING_HELD",
+     "why": "3.35 is in no document this issue holds, and this sentence is new",
+     "other": ""
+    },
+    {
+     "sentence": "Readers saw a single 3.4 — correctly rounded from a working of 3.35 , so the arithmetic was right and the shape of the number was wrong.",
+     "kind": "CONTRADICTION",
+     "why": "The page's scoring table shows the two dimension scores as 3.94 and 1.0; combining them as a single overall score would require a weighting rule, but no such rule is stated, and (3.94+1.0)/2 = 2.47, not 3.35 — so the claimed working of 3.35 is not reproducible from the numbers on the page and contradicts them.",
+     "other": "Is the effect real? 3.94 Moderate ... How large is it? 1.0 Weak"
+    },
+    {
+     "sentence": "Trade The ASCO Post, June 2026 — Vaccine plus pembrolizumab reduces risk of recurrence Where we first read the five-year landmark rates, and the source of Seven patients died during follow-up in each arm . The rates themselves are now taken from the ASCO abstract above.",
+     "kind": "CONTRADICTION",
+     "why": "The page elsewhere lists the Merck & Moderna five-year KEYNOTE-942 data release (ASCO 2026) as the source of the OS figure reported as \"n=14\" and the adverse-event rates, and lists the ASCO 2026 abstract 9500 as the source of the five-year survival rates 92.2% vs 71.3%, yet this note attributes \"Seven patients died during follow-up in each arm\" to The ASCO Post while the primary source note for the same analysis attributes the death counts to the company release — creating a contradictory dual attribution for the same fact.",
+     "other": "Primary Merck & Moderna — five-year KEYNOTE-942 data, ASCO 2026 1 June 2026. Source of HR 0.510 (0.294–0.887), HR 0.411 (0.200–0.843), the exploratory OS figure HR 0.471 (0.165–1.345) reported as \"n=14\", and the adverse-event rates."
+    }
+   ]
+  },
+  {
+   "sha": "9adba39978d0a927",
+   "against": "dfde0eb",
+   "changed": 2,
+   "at": "2026-09-04T16:09:38+00:00",
+   "findings": [
+    {
+     "sentence": "Source of the quoted Seven patients died during follow-up in each arm .",
+     "kind": "CONTRADICTION",
+     "why": "The page states elsewhere that the survival analysis is labelled 'n=14' and that 'The label is the release's and it does not say fourteen of what; the paper does, in its own sentence: 7 of 107 patients (6.5%) in the intismeran plus pembrolizumab arm and 7 of 50 (14.0%) in the pembrolizumab arm died', attributing the seven-per-arm figure to the peer-reviewed paper and the ASCO 2026 data, not to The ASCO Post trade article.",
+     "other": "The label is the release's and it does not say fourteen of what; the paper does, in its own sentence: 7 of 107 patients (6.5%) in the intismeran plus pembrolizumab arm and 7 of 50 (14.0%) in the pembrolizumab arm died ."
+    }
+   ]
+  },
+  {
+   "sha": "2948e2f165a1e286",
+   "against": "eae2c40",
+   "changed": 2,
+   "at": "2026-09-04T16:50:44+00:00",
+   "findings": [
+    {
+     "sentence": "The release attributes its most common adverse events to the combination , not to one drug: fatigue 59.6%, injection-site pain 59.6%, chills 51.0%.",
+     "kind": "CONTRADICTION",
+     "why": "The page states in its sources section that the adverse-event rates come from the five-year KEYNOTE-942 release, not from the Phase 3 announcement, yet this sentence says 'The release' in a context that could be read as the Phase 3 release; more directly, the 'Established' section immediately preceding this sentence says 'Those are KEYNOTE-942 figures, from the five-year release; the Phase 3 announcement gave no adverse-event rates for its own 1,137 patients,' which contradicts attributing these figures to 'The release' without specifying which release, creating an internal inconsistency about which release is meant.",
+     "other": "Those are KEYNOTE-942 figures, from the five-year release; the Phase 3 announcement gave no adverse-event rates for its own 1,137 patients."
+    },
+    {
+     "sentence": "Of the events it attributes to intismeran autogene on its own, most were Grade 1 (31.7%) or Grade 2 (51.9%).",
+     "kind": "UNSOURCED",
+     "why": "No named source on this page supplies Grade 1 and Grade 2 percentage breakdowns specifically attributed to intismeran autogene alone rather than to the combination; the listed primary sources cover combination adverse events and grade 3+ rates but none is cited for this drug-specific grade breakdown.",
+     "other": ""
+    }
+   ]
+  },
+  {
+   "sha": "f40ab3cc9a708e6c",
+   "against": "eae2c40",
+   "changed": 3,
+   "at": "2026-09-04T16:53:52+00:00",
+   "findings": []
+  },
+  {
+   "sha": "e41e606776b2756f",
+   "against": "6db9ef8",
+   "changed": 1,
+   "at": "2026-09-04T16:58:00+00:00",
+   "findings": []
+  },
+  {
+   "sha": "321396fb2e01ca08",
+   "against": "HEAD",
+   "changed": 92,
+   "at": "2026-09-09T15:31:53+00:00",
+   "findings": [
+    {
+     "sentence": "0.165–1.345 the interval around that Phase 2b trend",
+     "kind": "NEW_AND_UNBOUND",
+     "why": "carries 0.165 and rests on nothing this system can name",
+     "other": ""
+    },
+    {
+     "sentence": "Readers saw 3.4 , which was the correct total of the working printed beneath it — but that working weighted two of the six dimensions differently from the rubric, which puts the same six scores at 3.35 .",
+     "kind": "NEW_AND_UNBOUND",
+     "why": "carries 3.4, 3.35 and rests on nothing this system can name",
+     "other": ""
+    },
+    {
+     "sentence": "A post logged by KOL Pulse identified the figure as coming from an earlier phase 2 trial without naming KEYNOTE-942; KOL Pulse's own text names the trial throughout and attributes the circulating hazard ratios to it.",
+     "kind": "CONTRADICTION",
+     "why": "The sentence says the post did not name KEYNOTE-942, but KOL Pulse's own text names the trial throughout — yet the page elsewhere says the KOL Pulse source 'warned on the same page that the Hazard ratios circulating on announcement day are these Phase 2b figures', which is consistent, but the sentence also says KOL Pulse 'attributes the circulating hazard ratios to it [KEYNOTE-942]', while the page's source note for KOL Pulse says it logged 'the one that gave the figure as phase 2 without naming the trial', directly contradicting the claim that KOL Pulse names the trial throughout.",
+     "other": "KOL Pulse — INTerpath-001 trial profile The trial profile that logged the announcement-day posts, including the one this page quotes and the one that gave the figure as phase 2 without naming the trial."
+    },
+    {
+     "sentence": "Both bounds came in, the upper from 0.906 to 0.887 and the lower from 0.288 to 0.294, so the interval narrowed slightly.",
+     "kind": "OURS",
+     "why": "The page computes that both bounds 'came in' and that the interval 'narrowed' by subtracting the three-year interval (0.288–0.906) from the five-year interval (0.294–0.887); no source on the page reports this comparison or characterisation of narrowing.",
+     "other": ""
+    },
+    {
+     "sentence": "The earlier interval is the wider of the two, which is what nine deaths buys you against fourteen.",
+     "kind": "OURS",
+     "why": "The page performs its own comparison of the two intervals (nine-death vs fourteen-death analyses) and draws the inference about width, presenting it as a conclusion rather than something any cited source reported.",
+     "other": ""
+    }
+   ]
+  },
+  {
+   "sha": "7ae5304cf5b7313b",
+   "against": "HEAD",
+   "changed": 95,
+   "at": "2026-09-09T16:25:35+00:00",
+   "findings": [
+    {
+     "sentence": "0.165–1.345 the interval around that Phase 2b trend",
+     "kind": "NEW_AND_UNBOUND",
+     "why": "carries 0.165 and rests on nothing this system can name",
+     "other": ""
+    },
+    {
+     "sentence": "Readers saw 3.4 , which was the correct total of the working printed beneath it — but that working weighted two of the six dimensions differently from the rubric, which puts the same six scores at 3.35 .",
+     "kind": "NEW_AND_UNBOUND",
+     "why": "carries 3.4, 3.35 and rests on nothing this system can name",
+     "other": ""
+    },
+    {
+     "sentence": "Why this is worth a whole article Five outlets whose articles we hold named KEYNOTE-942 when attributing the 49% figure — The ASCO Post, Dermatology Times, Practical Dermatology, MLQ News and OncLive.",
+     "kind": "CONTRADICTION",
+     "why": "The page elsewhere says 'The problem is not misattribution' and that 'Most specialist outlets attributed the earlier trial's figures correctly,' yet this sentence groups all five outlets under a heading implying the attribution was the problem worth a whole article, and more specifically the page states 'Several said plainly that no Phase 3 efficacy numbers had been released' — but the heading 'Why this is worth a whole article' frames the named-KEYNOTE-942 attribution as the core issue, contradicting the page's own conclusion that correct attribution is not the problem.",
+     "other": "The problem is not misattribution. What is left is subtler and harder to fix: the figures are correctly attributed and still doing work they cannot do."
+    }
+   ]
+  },
+  {
+   "sha": "2727429064d69721",
+   "against": "HEAD",
+   "changed": 95,
+   "at": "2026-09-09T18:13:38+00:00",
+   "findings": [
+    {
+     "sentence": "0.165–1.345 the interval around that Phase 2b trend",
+     "kind": "NEW_AND_UNBOUND",
+     "why": "carries 0.165 and rests on nothing this system can name",
+     "other": ""
+    },
+    {
+     "sentence": "Readers saw 3.4 , which was the correct total of the working printed beneath it — but that working weighted two of the six dimensions differently from the rubric, which puts the same six scores at 3.35 .",
+     "kind": "NEW_AND_UNBOUND",
+     "why": "carries 3.4, 3.35 and rests on nothing this system can name",
+     "other": ""
+    },
+    {
+     "sentence": "Five outlets whose articles we hold named KEYNOTE-942 when attributing the 49% figure — The ASCO Post, Dermatology Times, Practical Dermatology, MLQ News and OncLive.",
+     "kind": "CONTRADICTION",
+     "why": "The page elsewhere states \"The problem is not misattribution\" and confirms every outlet attributed the figures correctly to KEYNOTE-942, yet this sentence frames correct attribution as if it were the problem being identified, and more directly, the page says in its correction note that an earlier version named OncLive before the article was obtained, implying OncLive was not originally in the held set — but the sentence presents all five as having been held and checked from the start, contradicting the parenthetical correction on the same page that says 'The OncLive article was obtained on 3 September'.",
+     "other": "(An earlier version of this sentence named OncLive and FierceBiotech when we held neither. The OncLive article was obtained on 3 September, attributes the figures to the phase 2b trial like the rest, and is named again.)"
+    },
+    {
+     "sentence": "A post logged by KOL Pulse identified the figure as coming from an earlier phase 2 trial without naming KEYNOTE-942; KOL Pulse's own text names the trial throughout and attributes the circulating hazard ratios to it.",
+     "kind": "CONTRADICTION",
+     "why": "The sentence says a post identified the figure as from an earlier phase 2 trial \"without naming KEYNOTE-942\", but then says \"KOL Pulse's own text names the trial throughout\" — these two clauses contradict each other about whether KEYNOTE-942 was named.",
+     "other": "KOL Pulse — INTerpath-001 trial profile The trial profile that logged the announcement-day posts, including the one this page quotes and the one that gave the figure as phase 2 without naming the trial."
+    }
+   ]
+  }
+ ],
+ "dispositions": [
+  {
+   "key": "e4ba8a992ef090da",
+   "kind": "CONTRADICTION",
+   "sentence": "Source of the quoted Seven patients died during follow-up in each arm .",
+   "decision": "reject",
+   "by": "claude",
+   "on": "2026-09-04",
+   "reason": "Two documents each state the seven-per-arm count in their own words, and the page's body sentence does not claim exclusivity: it says the release's 'n=14' label does not say fourteen of what and that the paper does. It does not say only the paper does. S015's held bytes contain 'Seven patients died during follow-up in each arm' verbatim — checked with spancheck.b2_present, which is why the source-list note is bound to it. A second document stating the same fact is corroboration, not contradiction.",
+   "what_would_change_it": "the string not being in S015's held bytes, or the body sentence being rewritten to claim the paper is the only document that reports it."
+  },
+  {
+   "key": "1588152a8df00a00",
+   "kind": "NEW_AND_UNBOUND",
+   "sentence": "0.165–1.345 the interval around that Phase 2b trend",
+   "decision": "reject",
+   "by": "Claude (Opus 5)",
+   "on": "2026-09-09",
+   "reason": "This is the summary strip, and the element carries data-whu=\"restates\". That mark is not an exemption: it buys the obligation that the element introduces no figure which is not already in a span some bound sentence rests on, and furniture.py checks it — currently 2 computed, 5 restates, 1 scale, all passing. 0.165 and 1.345 are in the survival bullet, bound to S004's 'the OS HR (95% CI) was 0.471 (0.165 to 1.345)'. The strip restates what the article proved; it is not where the number enters the page. 'Rests on nothing this system can name' is true of the bindings store and false of the page's checks taken together.",
+   "what_would_change_it": "furniture.py stopping passing on that element, the mark being removed, or 0.165–1.345 ceasing to appear in a bound sentence."
+  },
+  {
+   "key": "4d50858086715a9e",
+   "kind": "NEW_AND_UNBOUND",
+   "sentence": "Readers saw 3.4 , which was the correct total of the working printed beneath it — but that working weighted two of the six dimensions differently from the rubric, which puts the same six scores at 3.35 .",
+   "decision": "reject",
+   "by": "Claude (Opus 5)",
+   "on": "2026-09-09",
+   "reason": "Correctly identified as resting on no source span, and it should not rest on one: 3.4, 3.35 and 3.40 are the page's own arithmetic over its own scores and no document reports any of them. All three carry declared figure-exclusions with reasons and falsifiers, and the binding row is bucket=figure with a named attestation — a person, the record of the reading, and the place: commits 2c71b8e through 3ab4bf51 for the printed 3.4 and its working, 87b8d9d for 3.35. That attestation is never counted as a verified span and is reported separately as one of the two rows resting on a human reading.",
+   "what_would_change_it": "the git history not showing what the attestation says it shows, or the sentence becoming a claim about a document rather than about the page's own former arithmetic."
+  },
+  {
+   "key": "7ca9535e80a74ebb",
+   "kind": "CONTRADICTION",
+   "sentence": "A post logged by KOL Pulse identified the figure as coming from an earlier phase 2 trial without naming KEYNOTE-942; KOL Pulse's own text names the trial throughout and attributes the circulating hazard ratios to it.",
+   "decision": "reject",
+   "by": "Claude (Opus 5)",
+   "on": "2026-09-09",
+   "reason": "The two clauses have different subjects and both were checked against S019 read in full. The post: 'In a phase 2 trial earlier this year the vaccine with immunotherapy has shown ~49% lower risk of recurrence or death vs immunotherapy alone' — phase 2, no trial named. The outlet: KEYNOTE-942 appears eleven times in its own editorial text, and 'hazard-ratio figures circulating on announcement day are these KEYNOTE-942 Phase 2b numbers'. Both spans are premises on the binding row, both verified. The sentence exists precisely because the earlier version credited the outlet with the post's omission (RV-05). NOTE FOR A HUMAN: the checker read two subjects in one sentence as one, and a reader might do the same. The claim is accurate; the compression is a fair thing to raise on style, and it is raised in the close-out report.",
+   "what_would_change_it": "S019 ceasing to name KEYNOTE-942 in its own text, or the logged post turning out to name the trial after all, or the sentence being rewritten to attribute the omission to the outlet again."
+  },
+  {
+   "key": "e9a0d91397ceca8c",
+   "kind": "OURS",
+   "sentence": "Both bounds came in, the upper from 0.906 to 0.887 and the lower from 0.288 to 0.294, so the interval narrowed slightly.",
+   "decision": "accept-as-ours",
+   "by": "Claude (Opus 5)",
+   "on": "2026-09-09",
+   "reason": "Correct, and the classification is the point rather than a defect. The comparison is the page's own, over four figures that are all in bound spans: S007's Table 1 row '0.510 80% CI 0.351 to 0.743 95% CI 0.288 to 0.906' and S004's 'The HR (95% CI) for RFS was 0.510 (0.294 to 0.887)'. The row names both. A reader can redo the subtraction without leaving the page. The word 'only' was removed from this sentence on 2026-09-08 for the related reason that no span carried its force.",
+   "what_would_change_it": "either interval changing in a held document, or the widths ceasing to differ in the direction the sentence states."
+  },
+  {
+   "key": "df54ea1661de4550",
+   "kind": "OURS",
+   "sentence": "The earlier interval is the wider of the two, which is what nine deaths buys you against fourteen.",
+   "decision": "accept-as-ours",
+   "by": "Claude (Opus 5)",
+   "on": "2026-09-09",
+   "reason": "Correct and declared. The row is bucket=judgement with premises S007 '0.425 80% CI 0.179 to 1.004 95% CI 0.114 to 1.584' and S004 'the OS HR (95% CI) was 0.471 (0.165 to 1.345)', and a written step saying the comparison and the event counts are ours by addition. Appendix A prints it so a reviewer can attack the step rather than only the conclusion, which is what the judgement bucket is for. This sentence exists because OR-019 found the page comparing an 80% interval with a 95% one.",
+   "what_would_change_it": "either interval changing, or the three-year interval ceasing to be the wider at equal width, or the event counts being other than nine and fourteen."
+  },
+  {
+   "key": "593911f18fa2cabe",
+   "kind": "CONTRADICTION",
+   "sentence": "Why this is worth a whole article Five outlets whose articles we hold named KEYNOTE-942 when attributing the 49% figure — The ASCO Post, Dermatology Times, Practical Dermatology, MLQ News and OncLive.",
+   "decision": "reject",
+   "by": "Claude (Opus 5)",
+   "on": "2026-09-09",
+   "reason": "No contradiction: the box's own closing sentences state the resolution the checker treats as an inconsistency. It reads 'The problem is not misattribution. What is left is subtler and harder to fix: the figures are correctly attributed and still doing work they cannot do.' The enumeration is the premise of that argument, not a charge against the outlets — the five did attribute correctly, which is why the piece is about something harder than misattribution. The count is a factual claim bound to five held documents, each naming KEYNOTE-942 in the same sentence as the 49% figure, every span verified. The kicker 'Why this is worth a whole article' heads the whole box, whose payload is the last two sentences, not the first. NOTE FOR A HUMAN: this is the second automated misreading of this one box in two runs — the first collapsed the two subjects of the KOL Pulse sentence. The box is dense: an enumeration, a correction about authorship, three block quotations, a parenthetical about a source we lost and regained, and then the turn. Each part is accurate and the sequence is hard to hold. Worth an editor's eye on structure, and it is not a factual defect.",
+   "what_would_change_it": "any of the five outlets turning out not to name KEYNOTE-942 alongside the 49% figure, or the closing sentences being removed so the box no longer states its own resolution."
+  },
+  {
+   "key": "64e1d39cab95fdca",
+   "kind": "CONTRADICTION",
+   "sentence": "Five outlets whose articles we hold named KEYNOTE-942 when attributing the 49% figure — The ASCO Post, Dermatology Times, Practical Dermatology, MLQ News and OncLive.",
+   "decision": "reject",
+   "by": "Claude (Opus 5)",
+   "on": "2026-09-09",
+   "reason": "Recurrence of the finding disposed as 593911f18fa2cabe on 2026-09-09, under a new key: finding_key hashes (kind, sentence), and the sentence text shifted when the Morning Glory clause was removed from the same box and the segmenter regrouped the kicker. Same objection, same answer. No contradiction: the box's closing sentences state the resolution the checker treats as an inconsistency — 'The problem is not misattribution. What is left is subtler and harder to fix: the figures are correctly attributed and still doing work they cannot do.' The enumeration is the premise of that argument, not a charge against the outlets, and the count is bound to five held documents each naming KEYNOTE-942 in the same sentence as the 49% figure, every span verified. NOTE FOR A HUMAN, now stronger: this is the THIRD automated misreading of this one box in three runs. Two different readers, three different sentences flagged. The claims are right each time and the structure is what keeps confusing them. It is recorded as a structural item in docs/whatholdsup-open-gaps.md for the next revision, with the fix — state the turn near the top so a reader knows what the enumeration is evidence for before reading it. It was not restructured now because rewriting a thrice-misread passage at the last moment is how a further error gets in.",
+   "what_would_change_it": "any of the five outlets turning out not to name KEYNOTE-942 alongside the 49% figure, or the box's closing sentences being removed so it no longer states its own resolution."
+  }
+ ]
 }

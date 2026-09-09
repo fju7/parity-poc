@@ -342,6 +342,32 @@
       "kind_why": "type 'reference' does not settle whether this is a journal article, and the source declares no form — so no substance test applies and none has run",
       "superseded": [],
       "also_held": []
+    },
+    "S029": {
+      "sha256": "9e6bb75da533a4c995c3928a8d7cc834a5dfebdfa3b06c36e616c20d5c9d6772",
+      "file": "docs/9e/9e6bb75da533a4c995c3928a8d7cc834a5dfebdfa3b06c36e616c20d5c9d6772.html",
+      "bytes": 197863,
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5648545/",
+      "held": "2026-09-08",
+      "via": "fetched from PubMed Central by Claude Code on 2026-09-08, under the remediation order; open-access full text, no paywall route needed",
+      "note": "EORTC 18071 five-year overall survival. Stored representation is the PMC HTML full text.",
+      "kind": "full_text",
+      "kind_why": "50819 characters, reference list and discussion present",
+      "superseded": [],
+      "also_held": []
+    },
+    "S030": {
+      "sha256": "85ecc8c931248add05f331e5ab6242761461d0b6c5910d5b7afe9c8a7c105fc7",
+      "file": "docs/85/85ecc8c931248add05f331e5ab6242761461d0b6c5910d5b7afe9c8a7c105fc7.xml",
+      "bytes": 5364,
+      "url": "https://pubmed.ncbi.nlm.nih.gov/31442371/",
+      "held": "2026-09-09",
+      "via": "NCBI efetch by Claude Code on 2026-09-09 under the erratum ruling; the bibliographic record only, the notice text is paywalled and was not obtained",
+      "note": "PubMed record for the 2018 thirteen-article NEJM erratum. Record held; notice not held.",
+      "kind": "document",
+      "kind_why": "form 'record' — 2158 characters held. The article test does not apply to this form",
+      "superseded": [],
+      "also_held": []
     }
   }
 }

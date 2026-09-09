@@ -207,6 +207,17 @@ search of our own library runs against them on every publish. That search can
 only see documents we hold; it is not evidence about anything outside Appendix
 B, and it has already falsified one sentence on this page once.
 
+One negative was REMOVED from this list on 2026-09-09 because it is FALSIFIED,
+not because it is doubtful: "an outlet we can find no other publication citing",
+about Morning Glory Sciences. We hold the disproof. The publisher's Crossref
+deposit for DOI 10.1007/s11845-026-04315-0 carries a twelve-item reference list
+whose reference 12 cites that outlet by name, and anyone with the DOI can
+reproduce it. A correction saying the clause had been removed was published on
+4 September; the clause was nevertheless still on the page five days later. It is
+gone now, and so is every other characterisation of that outlet — three were
+attempted and none could be supported. A negative that has been falsified does
+not belong on a list of negatives inviting you to falsify them.
+
 **The two most exposed claims are 8 and 9.** Every other negative here is
 scoped to something a reader can check — "we hold", "this page", "the registry
 record". Those two are scoped to the world.
@@ -263,12 +274,7 @@ record". Those two are scoped to the world.
    stage. Also unscoped, and a single company slide, poster or supplementary
    table destroys it.
 
-10. **"an outlet we can find no other publication citing"** (Morning Glory
-    Sciences). A negative about our searching, not about our library. We think
-    the sentence is honest because it says "we can find"; judge whether it
-    reads that way, given the weight the paragraph then puts on the source.
-
-11. **"Melanoma is not one of the topics our pipeline covers, so nothing here
+10. **"Melanoma is not one of the topics our pipeline covers, so nothing here
     was produced by the scoring system that runs the site."** A claim about our
     own process. You cannot check it from outside and we are flagging it for
     that reason: take it as an assertion we are making, not as something this

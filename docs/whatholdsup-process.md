@@ -1,0 +1,613 @@
+# What Holds Up — how an issue gets made
+
+**The Issue Process, version 1.0. Adopted 2026-09-09.**
+
+Scope: everything from choosing a subject to publishing a correction. This is
+the production process. It does not restate the editorial standards — the four
+questions and the eleven rules live in `whatholdsup-outside-review-prompt.md`
+and are binding on every stage below, not only on the review.
+
+Relationship to other documents:
+
+| document | governs | status |
+|---|---|---|
+| `whatholdsup-outside-review-prompt.md` | the four questions, the eleven rules, what counts as a finding, evidence discipline | current, referenced here, not duplicated |
+| Standard version 1.1 | the four questions and the eleven rules | **reconciled 2026-09-09 — it is not a separate document.** See §1.5 |
+| `docs/whatholdsup-open-gaps.md` | known blind spots in the machinery | current |
+| `backend/scripts/whatholdsup/review_packet.py` | builds the outside-review packet | current |
+| this document | the pipeline, the standing rules, the failure catalogue | new |
+
+Every rule below carries the incident that produced it. That is deliberate. A
+rule whose cost you cannot see is a rule people stop following, and every
+standing rule in this document was bought with a specific error in a specific
+issue.
+
+---
+
+## 0. The one-paragraph version
+
+An issue is a claim about somebody else's evidence. Because that is what it is,
+the only thing that makes it publishable is that every sentence in it is either
+bound to words in a document we have opened, or declared a judgement and shown
+with its premises. The machinery checks the first kind. Only a reader checks the
+second kind. So the process is: acquire documents and open them, write sentences
+and bind them, let the machine check what it can, then hand a reader everything
+they need to argue with us — including a list of what we could not read and a
+list of the sentences that assert nothing exists. Then decide, in writing, what
+to do about what they found. Then publish the decision alongside the piece.
+
+---
+
+## 1. The stages
+
+| # | Stage | Output | Gate to the next stage |
+|---|---|---|---|
+| 1 | Selection | subject, and the strongest version of the claim | can we state the claim as its proponents would? |
+| 2 | Research | source store populated, access state per document | is every document we intend to cite **opened**? |
+| 3 | Drafting and binding | draft page, every sentence bound or declared | does `spancheck` pass on every bound span? |
+| 4 | Machine gate | `<page>.gate.json`, gate adjudication | ≤ 2 runs used; every finding adjudicated in writing |
+| 5 | Internal pre-review | `YYYY-MM-DD-internal-pre-review.md` + `-actions.md` | actions taken or recorded as declined |
+| 6 | Outside review | `YYYY-MM-DD-review.md`, saved verbatim | reviewer had the current build |
+| 7 | Adjudication | `YYYY-MM-DD-adjudication.md` | every finding has a disposition and a reason |
+| 8 | Publication | page + dated correction-log entry | log entry describes this round, dated today |
+| 9 | Revision | back to stage 3, with rebase discipline | new SHA recorded; reviewers told which build |
+
+Stages 4 through 8 repeat. Nothing skips stage 7.
+
+---
+
+## 1.5 Standard v1.1, reconciled
+
+**There is no separate Standard document.** Standard v1.1 is the four questions
+plus the eleven rules, and `whatholdsup-outside-review-prompt.md` carries them
+verbatim. Checked 2026-09-09 against every citation of the standard in the cdk46
+files:
+
+| citation | says | prompt text | verdict |
+|---|---|---|---|
+| review, OR-001/002 | "Question 2 (what evidence actually supports it)" | Question 2, *What evidence actually supports it?* | exact |
+| review, OR-003 | "Rule 7's concern with preserving the actual inferential framework" | Rule 7, *State the inferential framework before quoting a p-value* | same rule, paraphrased, correctly applied to a significance boundary |
+| pre-review, OR-001 | "Rule 11 (a claim that a third party missed something must survive…)" | Rule 11, *…must survive somebody having said it* | exact |
+| pre-review actions | "the record of having got it wrong belongs on the page under rule 10" | Rule 10, *Publish the correction history* | exact |
+
+No drift. Nothing to reconcile in the sense of a conflict.
+
+**Why the two sets do not collide.** The eleven rules are editorial — they
+govern what the prose may claim. The twenty-one standing rules below are
+procedural — they govern how the work is done. They are orthogonal, and that is
+the whole relationship. Three connections should still be made explicit, because
+a reader of one document should not have to derive them:
+
+1. **Standing rules 15–18 are the operational content of Rule 10.** "Publish the
+   correction history" is the obligation; dating each round, never retro-editing
+   an entry, keeping the header and the log in agreement, and holding a
+   correction notice to the standard of the piece are how it is discharged. They
+   are not new rules and should not be argued with separately.
+2. **Rule 8 is why the scorecard is two numbers.** "Distinguish confidence in
+   direction from confidence in magnitude. These are separate questions and one
+   verdict cannot express both." The 3 September split was compliance with an
+   existing rule, not a new idea, and OR-006 and OR-018 of the melanoma
+   adjudication are both downstream of it.
+3. **Rule 5 governs the blinding caveat.** "Do not import a design criticism
+   across designs — and the converse: saying blinding 'does not eliminate' a
+   problem without saying what it does address overstates it." The functional-
+   unblinding paragraph added at OR-015 is the exact case Rule 5 is about. As
+   written it complies: it states what the double-blind design does address
+   before adding what reactogenicity may leave open. **It sits close enough to
+   the line that any future edit to it must be checked against Rule 5**, and the
+   adjudication entry should name the rule.
+
+**One forward gap.** The eleven rules are oncology-specific — hazard ratios,
+composite endpoints, adjuvant designs, p-value framing. That is right for issues
+one to three. The first issue that is not about a clinical trial will need either
+a generalised rule set or a domain annex, and discovering that mid-issue is the
+expensive way to find out. Raise it before the subject is chosen, not after.
+
+---
+
+## 2. Selection
+
+Choose a claim, not a topic. "The melanoma result" is a topic; "intismeran plus
+pembrolizumab improves recurrence-free survival in resected stage IIB–IV
+melanoma" is a claim, and it is the thing the rubric scores.
+
+Before research starts, write the claim in the form its own proponents would
+endorse. This is question 1 of the standard and it is easiest to get right
+before you have read the criticism. A piece that starts from the weakest version
+of a claim never recovers, because every later stage checks it against evidence
+rather than against fairness.
+
+---
+
+## 3. Research and the source store
+
+Every document gets an id (`S001`…) and an **access state**:
+
+| state | means |
+|---|---|
+| `full_text_held` | we have opened and read the whole document |
+| `abstract_held` | we have the abstract only |
+| `blocked` | we tried and could not get it |
+| `not_opened` | we have it and have not read it |
+
+**These states are load-bearing and they are published.** Appendix B of the
+review packet prints them, and the rows we could not read in full are flagged to
+the reviewer as the most valuable thing on the list.
+
+**Standing rule 1 — no claim about a document we have not opened.** Not in the
+page, not in a gate output, not in an adjudication.
+*Origin:* the costliest error in cdk46 was a claim that a network meta-analysis
+used stale MONARCH 3 data. It was generated by the gate's recency role and
+repeated across three runs. No further runs could have caught it, because the
+document was never opened.
+
+**Standing rule 2 — an absence in our library is never a fact about the world.**
+Every sentence scoped to what we hold must say so, in the sentence, in words a
+reader can check against Appendix B.
+*Origin:* on 1 September three figures were removed from the melanoma page as
+appearing in no document we held. Two were real and were sitting in a document
+we had acquired and never opened. On 3 September the page's own gate produced a
+third document we had said stayed out "until somebody produces it".
+*Corollary, added 2026-09-09:* a registry record that has not been updated since
+before the event you are citing it about is a stale file, not a live absence.
+Check `lastUpdatePostDate` before treating a registry silence as evidence, and
+publish that date beside the claim.
+
+**Standing rule 3 — `not_opened` is a debt, and the review packet collects it.**
+Anything still `not_opened` or `blocked` at review time is flagged to the
+reviewer with a request to reach it.
+*Origin:* Spruance et al. sat `not_opened` in the melanoma manifest through four
+rounds. It contains the proportional-hazards caveat the piece's central
+explainer needed and a patient-level gloss the piece had told readers did not
+exist.
+
+---
+
+## 4. Drafting and binding
+
+Since 2 September, every sentence in an issue is either:
+
+- **bound** — tied to a span in a document we hold, verifiable byte-for-byte by
+  `spancheck.b2_present(span, issue, source_id)`; or
+- **declared a judgement** — bucket `judgement`, carrying its premises (each a
+  `source_id` + `span`) and the step taken from those words to the claim.
+
+Judgements become Appendix A of the review packet. Bound figures become the
+thing the machine can check.
+
+**Standing rule 4 — the binding coverage rule is wider than "inference".**
+Anything that is not a direct restatement of a span needs a record. That
+includes: a claim about what a document says (as opposed to a quote from it), a
+description of how two figures relate, and a comparison between two numbers.
+*Origin:* three of the six factual errors found in the 9 September melanoma
+review were in sentences with no record among the 37 — a claim about what a
+registry said, a description of which way two interval bounds moved, and a
+contrast between two adverse-event figures. All three are inference-shaped. None
+was recorded. That is not a coincidence; it is where the errors live.
+
+**Standing rule 5 — a structural change sweeps its dependants.** When a score,
+a section or a definition changes, grep for every sentence that describes it.
+*Origin:* the melanoma scorecard was split into two scores on 3 September. The
+sentence predicting how the score would move survived the split by six days,
+describing a single composite that no longer existed.
+
+---
+
+## 5. The machine gate
+
+The gate reads the page in roles — fact-check, source advocate, counterexample
+hunt, recency — and emits `<page>.gate.json`: claims marked VERIFIED /
+NOT_FOUND / WRONG_VALUE, plus objections and inferences.
+
+**Standing rule 6 — `RUNS_PER_CYCLE = 2`. Two runs before review, one after.**
+*Origin:* the cap exists because gate runs are not free ($10.89, 27 API calls
+and 134 web searches for one run of one issue) and because they have diminishing
+returns against a fixed weakness: each role reads the page alone, none audits
+another's output, and none holds two distant paragraphs together. Fourteen gate
+runs on the cdk46 assessment found none of the three findings the outside review
+found.
+
+**Standing rule 7 — every gate run is adjudicated in one pass, and every edit
+made at once.** That is what the cap is for.
+
+**Standing rule 8 — report what a check tests, never what it appears to
+guarantee.** If prose describes a check, the prose must be narrower than the
+check, not wider.
+*Origin:* twice. On 1 September a check reporting "this figure is in nothing we
+hold" — which says in its own output that a miss is not a falsehood — was
+written up as the figures having "come from no document" and one existing
+"nowhere". The 2 September entry named this the failure worth keeping in view.
+On 4 September the Sources block claimed every number traced to a primary
+document "and none to a news report — a check that runs before this page can
+publish refuses it otherwise". The check tests span presence, figure provenance
+against held documents, and source representation. It has no opinion on what
+counts as news. The failure recurred within a week of being named.
+
+**What the gate cannot do, and what to stop expecting of it.** It cannot check a
+step from facts to a conclusion. It cannot find a counterexample to a universal
+negative. It cannot hold two passages several thousand words apart in mind at
+once. It cannot notice what a piece left out. Those four are the outside
+reviewer's job and the reason the review step exists.
+
+---
+
+## 6. Internal pre-review
+
+One reader inside the process, before the packet goes out. Output is a review
+file and an actions file. Its value is that it costs nothing to run and it
+catches the class of error the gate structurally cannot — the cdk46 internal
+pre-review found the same failure the outside review later found in a different
+sentence.
+
+---
+
+## 7. The outside review
+
+Governed by `whatholdsup-outside-review-prompt.md`. Read it; do not summarise it
+from memory. The essentials that belong in *this* document because they are
+process rather than instruction:
+
+**What the reviewer gets:** the current page, plus Appendix A (every inference
+with its premises and its step), Appendix B (what we hold and what we could not
+read), Appendix C (the universal negatives, listed), Appendix D (where our own
+machinery has not looked).
+
+**What the reviewer does not get:** our gate report and our adjudication record.
+A reader shown our findings anchors on them. The cost is that they may raise
+things we have settled; that cost is paid in adjudication, and independence is
+the whole asset.
+
+**Standing rule 9 — the reviewer must be given the current build, and must
+verify it themselves.** The packet header states the page's SHA and build date.
+The reviewer's first action is to check for a newer `for-reviewer` build in the
+output directory, not to trust the attachment.
+*Origin:* twice. The 28 August reviewer read `bd101cd121688ead` while 208 prose
+changes went in behind them. The 8 September reviewer was handed the 3 September
+packet when the 4 September build was live, and four of twenty-two findings were
+already fixed before the review began. The bundle warns about this in its own
+header and it happened anyway.
+
+**Standing rule 10 — the review is saved verbatim and never edited after the
+fact, including by us.** Corrections, rebases and reviewer errors go in
+*separate* dated files beside it.
+
+---
+
+## 8. Adjudication
+
+**This is the step that makes the rest of it real.** A review with no
+adjudication is a document nobody has to answer.
+
+File: `YYYY-MM-DD-adjudication.md`, beside the review. Header carries the
+reviewed content's filename and SHA, and the standard version.
+
+Per finding: **Finding** (the quote plus the breach), **Disposition**
+(ACCEPT / REJECT / PARTIAL / NOT ACTED ON), **Reason**, **Change** (the actual
+new text), **Sources considered**.
+
+Then: **Outstanding after this adjudication** — carried items, new items, and
+anything deliberately not done, "recorded here so that its absence is a decision
+rather than an oversight". Then **What this review demonstrated** — what the
+machinery missed and why, which is how the process learns.
+
+**Standing rule 11 — every source the reviewer cites is opened and read here
+before any change is made.** This is standing rule 1 applied to review findings,
+and it is the rule that most earns its keep: it has twice caught a reviewer
+error before it reached the page.
+*Origin:* the 9 September melanoma reviewer confirmed a claim by reading one
+registry field and not the field that decides it, and separately proposed
+attaching an 80% confidence interval to the wrong hazard ratio. Both would have
+put errors on the page. Both were caught by opening the documents.
+
+**Standing rule 12 — reviewer errors are adjudicated and recorded, as RV-nn.** A
+log that only ever reports the reviewer catching us describes something that did
+not happen.
+
+**Standing rule 13 — the adjudication is verified by someone who did not write
+it, and accepted by someone answerable for it.** Two acts, and they may be two
+different kinds of reader.
+
+*Verification* requires independence from authorship, not humanness. A session
+that never wrote the entries, reading them against the page and the artifacts,
+supplies it. Verification confirms four things: every ACCEPT actually landed on
+the page; each disposition matches what was decided rather than what reads well
+afterwards; nothing was quietly dropped; and the RV entries are honest. Read the
+RV entries hardest — they are where a reviewer assessed their own errors, and a
+reviewer writing up their own mistakes will describe them as narrower than they
+were. An RV entry that reads tidier than what happened is itself a finding, and
+worth more than the entry it corrects. The verification is recorded as it is
+performed: for each entry, the disposition checked, the artifact opened to check
+it, and the verdict. A verification that records only its conclusion is an
+assertion of the same kind as the ones it is checking, and the acceptance
+signature would then attest to something unaudited.
+
+*Acceptance* is the operator's, and it is not a second verification. It attests
+that the verification was done by someone who did not author the work, and that
+its result is accepted. Signing without that having happened records that two
+readers looked when one did, which is the same class of untruth as a log
+paragraph dated before the event it describes.
+
+A verifier does not edit what they are verifying. A discrepancy is reported and
+returned; the correction is a separate act by a separate hand, and is itself
+subject to verification.
+
+The author of the adjudication may supply neither act.
+
+*Origin:* the 9 September melanoma adjudication was drafted by its own reviewer,
+who then made six errors in the same cycle and wrote the six entries assessing
+them. The first version of this rule asked for a second human editor this
+operation does not have, and an unmeetable rule is waived rather than followed —
+so it was rewritten into the two acts it was reaching for. The prohibition on
+self-adjudication is unchanged and is now stated where it belongs, at the end.
+
+**Standing rule 14 — every change to the page reconciles to a written
+decision.** `publish.reconcile(issue)` reports the ratio. A change with no
+decision is not a small bookkeeping matter; it is a change nobody can explain
+later.
+*Origin:* 175 of 208 melanoma prose changes between 28 August and 4 September
+reconcile to no written decision. The adjudication practice began with issue two
+on 29 August; issue one was already published and in revision and was never
+brought under it. Those justifications cannot be recovered.
+**And they will not be reconstructed.** Rationale written after the fact reads as
+more confident than the decision it replaces, because it is written knowing the
+change survived. Where the record is empty, the log says the record is empty.
+
+---
+
+## 9. Publication and the correction log
+
+**Standing rule 15 — every round gets its own dated entry, on the day it
+happened.** The entry describes what changed in *that* round.
+
+**Standing rule 16 — entries are never retro-edited to absorb later events.** A
+superseded entry is kept and marked superseded; new facts go in a new dated
+entry that quotes the old one.
+*Origin:* on the melanoma page, three paragraphs describing 3 September events
+were filed under "Updated 28 August 2026", and a fourth was edited in place
+inside the 2 September entry so that it read "On 3 September our own page gate
+produced it". The log asserted we knew things on dates before we knew them. This
+is the same failure as an undated change, pointed the other way, and it happened
+inside an entry whose own text says superseded entries are kept rather than
+deleted.
+
+**Standing rule 17 — the header date and the log agree.** If the header says the
+page was updated on a date, the log explains that date.
+*Origin:* the melanoma header claimed "Updated 4 September 2026" for five days
+with no 4 September entry in the log.
+
+**Standing rule 18 — a correction notice is held to the standard of the piece.**
+Do not accuse yourself of more than you did, and do not describe a check as
+having said more than it said.
+*Origin:* "Accusing ourselves of inventing figures we had not invented is a
+worse failure than the missing intervals."
+
+---
+
+## 10. Revision rounds
+
+**Standing rule 19 — the page's SHA is the version.** Record it in the packet
+header, in the adjudication header, and in any directive sent to an
+implementer.
+
+**Standing rule 20 — a directive that does not match its base is stopped, not
+partially applied.** The implementer's instruction is: if any required edit span
+does not match, stop and report which one.
+*Origin:* the 8 September melanoma directive was written against a superseded
+packet. Applied mechanically it would have reverted a correct paragraph to an
+earlier wrong one. It was caught because the implementer stopped at the first
+mismatch instead of adapting around it.
+
+**Standing rule 22 — search nearest first.** Before asserting that a document
+cannot be reached, query every identifier the record already holds. A negative
+about the outside world is not established until the inside of our own store has
+been exhausted.
+*Origin:* on 2026-09-09 four searches of the outside world — Europe PMC full
+text, the journal's own listing, the open web, and every file in the operator's
+Downloads folder — were run and declared exhaustive on S028, while the DOI and
+PMID sitting in that source's own record went unqueried. Both resolved
+immediately, and Crossref returned the publisher's deposited reference list
+carrying the exact citation the claim turned on. The instruction issued on the
+strength of that "exhaustive" search would have written a false statement into
+`sources.json` and `corrections.md`. RV-09.
+
+**Standing rule 21 — when a rebase is needed, rebase the directive, do not
+adapt the edits.** Then say in writing which items are withdrawn, which survive,
+and which were wrong.
+
+---
+
+## 11. The standing rules, collected
+
+1. No claim about a document we have not opened.
+2. An absence in our library is never a fact about the world.
+3. `not_opened` is a debt; the packet collects it.
+4. Binding coverage is wider than "inference".
+5. A structural change sweeps its dependants.
+6. Two gate runs before review, one after.
+7. One adjudication pass per gate run; all edits at once.
+8. Report what a check tests, never what it appears to guarantee.
+9. The reviewer gets the current build and verifies it themselves.
+10. The review is saved verbatim, never edited after the fact.
+11. Every source a reviewer cites is opened before any change is made.
+12. Reviewer errors are adjudicated and recorded.
+13. The adjudication is verified by a non-author and accepted by the operator;
+    the author of the adjudication supplies neither.
+14. Every change reconciles to a written decision; empty records stay empty.
+15. Every round gets its own dated log entry. *(Rule 10)*
+16. Log entries are never retro-edited to absorb later events. *(Rule 10)*
+17. The header date and the log agree. *(Rule 10)*
+18. A correction notice is held to the standard of the piece. *(Rule 10)*
+19. The SHA is the version.
+20. A directive that does not match its base is stopped, not partly applied.
+21. Rebase the directive, not the edits.
+22. Search nearest first: query the identifiers we already hold before
+    asserting a document cannot be reached.
+
+---
+
+## 12. The failure catalogue
+
+Fourteen ways this publication has actually been wrong, and what catches each.
+
+| # | Failure | Caught by |
+|---|---|---|
+| 1 | Treating an absence in our library as a fact about the world | rule 2; reviewer |
+| 2 | Prose overstating what a check provides | rule 8; reviewer |
+| 3 | Two correctly sourced figures placed in a contrast neither can bear | reviewer; rule 4 record |
+| 4 | A sentence with no binding record carrying a factual claim | rule 4 |
+| 5 | A change with no written decision | rule 14; `reconcile()` |
+| 6 | Log entries retro-edited or misdated | rules 15–17 |
+| 7 | Reviewing a stale base | rules 9, 19, 20 |
+| 8 | A dependant sentence not swept after a structural change | rule 5 |
+| 9 | The gate generating a false claim and repeating it across runs | rules 1, 6 |
+| 10 | Two distant passages never held together | outside reviewer only |
+| 11 | A scoped claim padding its denominator with a case that cannot answer | outside reviewer; Appendix C |
+| 12 | A printed composite not matching its own working | publish check |
+| 13 | Reviewer error — reading one field, not the deciding one | rule 11 |
+| 14 | Verifying a rendering rather than the source of truth — the HTML rather than the store, a field rather than the record, a truncation rather than the paragraph | rule 11; name the artefact you read |
+
+**Rule 14 distinguishes two states, and the first version of it did not.** A
+change whose reasoning exists but is not linked is a bookkeeping debt: record the
+governing document and move on. A change whose reasoning never existed is
+unrecoverable, and the log says so rather than reconstructing it. The 175 changes
+of 28 August – 4 September are the second kind. The 239 of 8 September are the
+first: they were decided in the adjudication, the publish directive, its
+amendment and the remediation order, and what is missing is machine-readable
+linkage rather than knowledge. Attributing them one diff at a time would produce
+a record that looks like 239 decisions and represents four, which is the same
+objection that stopped the 175 being backfilled.
+
+**A wrong number that looks right propagates further than a wrong argument.**
+An argument invites scrutiny; a plausible figure invites copying. Figures
+asserted about our own artifacts need the same discipline as figures asserted
+about other people's: name what was measured and how.
+*Origin:* "the paragraph runs to 2,116 characters" was the text content of an
+arbitrary 2,400-character window of raw HTML, reported as a measurement of a
+paragraph that is 1,013 characters. 2,116 is an unremarkable size for a
+paragraph, so nobody stopped on it — including the person who invented it, twice,
+in two later documents. Seven occurrences, four documents, two parties, no
+measurement, inside the entries about asserting things without opening them.
+RV-08.
+
+**A stop condition is only as good as the test under it.** Before wiring a halt
+to a check, establish what its false negative looks like — a fragile test with a
+stop attached converts a measurement error into a halted pipeline, and the person
+who wrote the test is the least likely to notice its blind spot. Where an
+instruction says stop, it means stop on the condition the instruction is about,
+not on the literal output of the probe suggested for detecting it.
+*Origin:* the 9 September close-out wired a stop to `grep -c "Consensus scores 4
+because"` against raw HTML, where the string spans a `</strong>` boundary and can
+only ever return 0. Followed literally it would have halted the close-out on a
+false alarm; the paragraph was byte-identical to the base at 1152 characters.
+
+**A caveat is not a check.** Naming an uncertainty protects against the failure
+you imagined and does nothing about the one you did not. Where a ruling turns on
+a historical artifact, open the artifact.
+
+**A check whose own history is a correction should be read before its name is
+trusted.** `sources_shown` was mis-described by three separate readers; its
+earlier version read bindings only and was wrong in exactly the way that omission
+predicts.
+
+Failure 14 was added on 2026-09-08 after one outside review produced five errors
+that were all the same error. The reviewer queried the `analyses` field and
+concluded a result was posted (RV-01); took an interval computed for one hazard
+ratio and attached it to another (RV-02); read 400 characters of a
+1,013-character paragraph and reported three sentences absent (RV-03); and read
+the rendered page's source list and concluded the document was in the library
+when the store held nothing (RV-04); and read a span quoted in Appendix A and
+concluded that the document it came from named no trial, when the document names
+it eleven times and the span was inside a third-party post the outlet was logging
+(RV-05). Five for five. Failure 1 is this failure
+pointed at our own library; failure 13 is the narrow case of it. This is the
+general one, and its detection is procedural rather than automated: **name the
+artefact you actually read in the finding**, so that a mismatch between the
+artefact and the claim is visible before anyone acts on it. All four were caught
+by the implementation reading the base before editing it, which is rule 11 and is
+now five for five on its own account.
+
+Failure 10 has no automated detection and there is no plan to build one. It is
+the argument for the review step. The clearest instance: the melanoma page
+asserted that blinding solves the assessment-bias problem, and printed, several
+thousand words away, injection-site pain at 59.6% against a saline placebo, with
+an investigator-assessed primary endpoint. Both halves were ours. Nothing but a
+reader was ever going to join them.
+
+---
+
+## 13. Artifacts and naming
+
+```
+site/whatholdsup/<issue>.html                 the page
+issues/<ID>-<issue>/draft/<issue>.html        the draft
+<issue>.html.gate[_n].json                    gate output per run
+YYYY-MM-DD-gate-adjudication[_n].md           decisions on gate output
+YYYY-MM-DD-internal-pre-review.md             internal reader
+YYYY-MM-DD-internal-pre-review-actions.md     what was done about it
+YYYY-MM-DD-for-reviewer.html                  the packet sent out
+YYYY-MM-DD-review.md                          the review, verbatim, never edited
+YYYY-MM-DD-adjudication.md                    our decisions
+docs/whatholdsup-open-gaps.md                 known blind spots
+```
+
+One issue, one directory. The SHA of the page reviewed appears in the packet
+header and the adjudication header.
+
+**Within one document, some sections are records and some are state.** A dated
+finding is a record: retro-editing it is falsification, which is rule 16. A live
+status list — an Outstanding section, a board, a set of open items — is state:
+failing to update it is falsification too, and rule 16 has no counterpart saying
+so. Know which you are looking at before deciding whether to touch it.
+*Origin:* the melanoma adjudication's Outstanding section had item 1 updated to
+CLOSED while items 2 and 4 still described work that had been finished, so the
+section read as maintained and was not. The maintainer had a rule against editing
+and none requiring it.
+
+**A duplicate of a superseded document is a trap. A duplicate of a document you
+are about to edit is a backup.** Do not delete the second kind before the edit is
+verified. The 8 September remediation order treated the `_1` download duplicates
+as traps and had them deleted; one of them was, hours later, the only surviving
+copy of `2026-09-04-update-entry.html` after an unanchored index-based edit ate
+three work-list items, a comment close and a paragraph. Had the hygiene item run
+after the edit rather than before, the file would have been unrecoverable.
+
+**Two things with the same name, one stale, is the base-drift failure waiting to
+happen.** A superseded working copy is deleted, not marked — a marked copy still
+answers to a path someone half-remembers. Where deletion is not possible, the
+marker goes in the name, not only in a file inside it.
+
+---
+
+## 14. What we know we cannot see
+
+Carried from `docs/whatholdsup-open-gaps.md` and from Appendix D of the melanoma
+packet:
+
+- The page's meta description ships as prose no check reads.
+- Material inside `<q>` marks is invisible to the test that decides whether a
+  sentence is empirical, so a figure appearing only inside a quotation is not
+  required to have a binding row.
+- Appendix B is the denominator for every "in the coverage we hold" claim, and
+  the melanoma manifest currently skips `S012` with no explanation. The packet
+  generator prints ids verbatim and cannot create a gap, so the absence is in
+  the source store. **Open.**
+- Each gate role reads the page alone. None audits another's output. None holds
+  two distant paragraphs together.
+- Nothing we own can look for a counterexample to a universal negative.
+
+---
+
+## 15. Amending this document
+
+Add a rule when an error happens, not when one is imagined. Write the incident
+into the rule. A rule with no incident attached is a rule nobody can weigh, and
+it will be the first one dropped under time pressure.
+
+Delete a rule only by recording why, in the same place — a rule that quietly
+disappears is indistinguishable from a rule nobody followed.
+
+**Version history.** v1.0, 2026-09-09 — first written, after the melanoma issue's
+fourth revision and its first adjudication. Rules 2, 4, 5, 8, 9, 11–21 are drawn
+from errors made between 26 August and 9 September 2026; rules 1, 6, 7 and 10
+carry over from the cdk46 and deskilling rounds. §1.5 added the same day, after
+reconciling against Standard v1.1; no conflict was found and no rule changed.

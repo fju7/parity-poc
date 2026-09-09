@@ -1056,6 +1056,38 @@
         "cdk46:S026"
       ],
       "note": "CC BY-NC. The publisher copy at academic.oup.com is subscription-only."
+    },
+    "9e6bb75da533a4c995c3928a8d7cc834a5dfebdfa3b06c36e616c20d5c9d6772": {
+      "file": "docs/9e/9e6bb75da533a4c995c3928a8d7cc834a5dfebdfa3b06c36e616c20d5c9d6772.html",
+      "bytes": 197863,
+      "content_type": "text/html",
+      "first_held": "2026-09-08",
+      "urls": [
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC5648545/"
+      ],
+      "titles": [
+        "Eggermont, Chiarion-Sileni, Grob et al. — Prolonged Survival in Stage III Melanoma with Ipilimumab Adjuvant Therapy (EORTC 18071). N Engl J Med, 2016"
+      ],
+      "used_by": [
+        "melanoma:S029"
+      ],
+      "note": "EORTC 18071 five-year overall survival. Stored representation is the PMC HTML full text."
+    },
+    "85ecc8c931248add05f331e5ab6242761461d0b6c5910d5b7afe9c8a7c105fc7": {
+      "file": "docs/85/85ecc8c931248add05f331e5ab6242761461d0b6c5910d5b7afe9c8a7c105fc7.xml",
+      "bytes": 5364,
+      "content_type": "application/xml",
+      "first_held": "2026-09-09",
+      "urls": [
+        "https://pubmed.ncbi.nlm.nih.gov/31442371/"
+      ],
+      "titles": [
+        "PubMed record for the 2018 NEJM erratum, PMID 31442371 — the bibliographic record, NOT the notice text"
+      ],
+      "used_by": [
+        "melanoma:S030"
+      ],
+      "note": "PubMed record for the 2018 thirteen-article NEJM erratum. Record held; notice not held."
     }
   }
 }

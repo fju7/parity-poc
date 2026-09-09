@@ -1,30 +1,60 @@
 {
-  "_what_this_is": "Names this page attributes work to, and the record that somebody opened the author list of the document itself rather than trusting a title we transcribed. Created 2026-09-04, when a source entry added to the list a reader sees carried a byline and lint_claims blocked on it. The check exists because 'Jacot and colleagues' was published from gate output while fixing an attribution gap, and the paper is by Tanguy et al.",
-  "verified": [
-    {
-      "name": "Weber",
-      "as_written": "Weber, Khattak, Carlino et al.",
-      "source_id": "S008",
-      "checked_against": "the author list printed in the held document itself",
-      "author_line": "Jeffrey S. Weber, Muhammad Adnan Khattak, Matteo S. Carlino, Tarek Meniawy, Matthew H. Taylor, George Ansstas, Kevin B. Kim, Meredith McKean, Ryan J. Sullivan, Mark B. Faries, Thuy Tran, C. Lance Cowey, and others",
-      "by": "claude",
-      "on": "2026-09-04"
-    },
-    {
-      "name": "Khattak",
-      "as_written": "Weber, Khattak, Carlino et al.",
-      "source_id": "S008",
-      "checked_against": "the author list printed in the held document itself",
-      "by": "claude",
-      "on": "2026-09-04"
-    },
-    {
-      "name": "Carlino",
-      "as_written": "Weber, Khattak, Carlino et al.",
-      "source_id": "S008",
-      "checked_against": "the author list printed in the held document itself",
-      "by": "claude",
-      "on": "2026-09-04"
-    }
-  ]
+ "_what_this_is": "Names this page attributes work to, and the record that somebody opened the author list of the document itself rather than trusting a title we transcribed. Created 2026-09-04, when a source entry added to the list a reader sees carried a byline and lint_claims blocked on it. The check exists because 'Jacot and colleagues' was published from gate output while fixing an attribution gap, and the paper is by Tanguy et al.",
+ "verified": [
+  {
+   "name": "Weber",
+   "as_written": "Weber, Khattak, Carlino et al.",
+   "source_id": "S008",
+   "checked_against": "the author list printed in the held document itself",
+   "author_line": "Jeffrey S. Weber, Muhammad Adnan Khattak, Matteo S. Carlino, Tarek Meniawy, Matthew H. Taylor, George Ansstas, Kevin B. Kim, Meredith McKean, Ryan J. Sullivan, Mark B. Faries, Thuy Tran, C. Lance Cowey, and others",
+   "by": "claude",
+   "on": "2026-09-04"
+  },
+  {
+   "name": "Khattak",
+   "as_written": "Weber, Khattak, Carlino et al.",
+   "source_id": "S008",
+   "checked_against": "the author list printed in the held document itself",
+   "by": "claude",
+   "on": "2026-09-04"
+  },
+  {
+   "name": "Carlino",
+   "as_written": "Weber, Khattak, Carlino et al.",
+   "source_id": "S008",
+   "checked_against": "the author list printed in the held document itself",
+   "by": "claude",
+   "on": "2026-09-04"
+  },
+  {
+   "name": "Spruance",
+   "as_written": "Spruance, Reid, Grace & Samore  /  Spruance and colleagues",
+   "source_id": "S023",
+   "checked_against": "the author line printed in the held document itself",
+   "author_line": "Spotswood L. Spruance, Julia E. Reid, Michael Grace, and Matthew Samore",
+   "note": "Held document opens: 'Vol. 48, No. 8 MINIREVIEW Hazard Ratio in Clinical Trials Spotswood L. Spruance,1* Julia E. Reid,1† Michael Grace,3 and Matthew Samore1,2'. All four surnames on the page match, in that order. The page's source note also asserts PMID 15273082 and PMCID PMC478551: the PMCID is corroborated by the URL the document was fetched from (pmc.ncbi.nlm.nih.gov/articles/PMC478551/); the PMID string does not appear in the held bytes and is not verified by this reading.",
+   "by": "Claude (Opus 5)",
+   "on": "2026-09-09"
+  },
+  {
+   "name": "Eggermont",
+   "as_written": "Eggermont et al.",
+   "source_id": "S029",
+   "checked_against": "the author list printed in the held document itself",
+   "author_line": "AMM Eggermont, V Chiario-Sileni, J-J Grob, R Dummer, and others",
+   "note": "Held document title block: 'Prolonged Survival in Stage III Melanoma with Ipilimumab Adjuvant Therapy — AMM Eggermont, V Chiario-Sileni, J-J Grob, R Dummer …', with 'PMID: 27717298' and 'PMCID: PMC5648545' in the same block. Eggermont is first author; the page writes 'Eggermont et al.' and that is right. NOTE: the same block says 'This article has been corrected. See N Engl J Med. 2018 Nov 9;379(22):2185' — recorded separately as an open erratum, PMID 31442371.",
+   "by": "Claude (Opus 5)",
+   "on": "2026-09-09"
+  },
+  {
+   "name": "Greenland",
+   "as_written": "Greenland et al.  /  Greenland, Senn, Rothman, Carlin, Poole, Goodman, Altman",
+   "source_id": "S022",
+   "checked_against": "the author list printed in the held document itself",
+   "author_line": "Sander Greenland, Stephen J. Senn, Kenneth J. Rothman, John B. Carlin, Charles Poole, Steven N. Goodman, Douglas G. Altman",
+   "note": "Held document front matter: 'Greenland Sander … Senn Stephen J. … Rothman Kenneth J. Carlin John B. … Poole Charles … Goodman Steven N. … Altman Douglas G.' The page's seven-name list matches exactly, in order, including Altman last.",
+   "by": "Claude (Opus 5)",
+   "on": "2026-09-09"
+  }
+ ]
 }

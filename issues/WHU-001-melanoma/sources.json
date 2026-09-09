@@ -1,707 +1,760 @@
 {
-  "what_this_is": "Every source the melanoma assessment draws on, rebuilt on 2026-08-29 from the page's own sources section rather than from a sweep of its links. The previous version was built by sweeping links, which collected the webfont CDN and the stylesheet host as S001, S002 and S003 -- typed 'press', with empty used_for fields and no titles at all. That bug was found and documented while building issue two's source list, and was never fixed here. It surfaced again when the source ledger reported this page completely clean: with no titles, the audit could not match a single sentence to a single source, and an audit that matches nothing is indistinguishable from an audit that finds nothing.",
-  "types": [
-    "registry",
-    "company",
-    "regulator",
-    "journal",
-    "specialist press",
-    "press",
-    "commentary"
-  ],
-  "sources": [
-    {
-      "id": "S001",
-      "url": "https://www.merck.com/news/merck-and-moderna-announce-phase-3-interpath-001-trial-of-intismeran-autogene-plus-keytruda-met-endpoints-of-recurrence-free-survival-rfs-and-distant-metastasis-free-survival-dmfs-in-patient/",
-      "type": "press_release",
-      "title": "Merck & Moderna — Phase 3 INTerpath-001 met RFS and DMFS endpoints",
-      "accessed": "2026-08-28",
-      "used_for": "19 August 2026. Source of the trial design, enrolment, blinding and randomisation. Contains no efficacy numbers, which is the finding.",
-      "also_called": [
-        "the Phase 3 announcement",
-        "the 19 August release",
-        "the announcement"
-      ],
-      "access": {
-        "state": "full_text_held",
-        "by": "the fact-check gate",
-        "on": "2026-08-29",
-        "sections": [
-          "whatever the search tool returned for this URL"
-        ],
-        "note": "Recorded from evidence rather than memory: this URL appears in the citations of site/whatholdsup/melanoma.html.gate.json, so an automated check reached it. Weaker than 'the full text was read' -- a search tool may return an abstract or a snippet.\n\n2026-09-01: state migrated from `machine_read` to `fragment_only`. machine_read was abolished on issue two the same day: its only evidence was that this URL appeared in the citation list of a gate report, so an automated check reached it. Nothing checked what came back, or whether anything did. It sat in READ_STATES and licensed characterisation and adverse claims; fragment_only licenses neither. Nothing about what we know changed here — only what the ledger admits. Issues one and three kept the abolished state for a day because no check asked whether a state was one the ledger defines. One does now.\n\n2026-09-01: retyped from `primary` to `press_release`. This is a company's announcement about its own trial, not the trial's publication. Typed `primary` it was held to the article test — which refused S001 for not looking like a paper — and it ranked as the CLOSEST possible source to a claim, above The Lancet, on a page whose argument depends on the difference between a company figure and a journal one.",
-        "held": {
-          "file": "docs/8d/8de76c475ddc93fff8b1c372d0eefb60313238c4e44180ed86710d0bc8a0959c.html",
-          "sha256": "8de76c475ddc93fff8b1c372d0eefb60313238c4e44180ed86710d0bc8a0959c",
-          "bytes": 195653,
-          "identified_by": "contains 6 of 6 distinctive title words"
-        }
-      },
-      "about": "INTerpath-001",
-      "about_note": "the trial this document is the report or record OF. Declared so a bounded negative about it can be searched: see bindings.bounded_figure_negative. A source with no `about` is reported as unsearchable rather than cleared."
-    },
-    {
-      "id": "S002",
-      "url": "https://www.merck.com/news/moderna-and-merck-present-5-year-data-for-intismeran-autogene-in-combination-with-keytruda-pembrolizumab-in-patients-with-high-risk-stage-iii-iv-melanoma-following-complete-resection-at-the-20/",
-      "type": "press_release",
-      "title": "Merck & Moderna — five-year KEYNOTE-942 data, ASCO 2026",
-      "accessed": "2026-08-28",
-      "used_for": "1 June 2026. Source of HR 0.510 (0.294–0.887), HR 0.411 (0.200–0.843), the exploratory OS figure HR 0.471 (0.165–1.345) reported as \"n=14\", and the adverse-event rates.",
-      "also_called": [
-        "the five-year data",
-        "the ASCO 2026 presentation",
-        "the five-year release"
-      ],
-      "access": {
-        "state": "abstract_held",
-        "by": "the fact-check gate",
-        "on": "2026-08-29",
-        "sections": [
-          "whatever the search tool returned for this URL"
-        ],
-        "note": "Recorded from evidence rather than memory: this URL appears in the citations of site/whatholdsup/melanoma.html.gate.json, so an automated check reached it. Weaker than 'the full text was read' -- a search tool may return an abstract or a snippet.\n\n2026-09-01: state migrated from `machine_read` to `fragment_only`. machine_read was abolished on issue two the same day: its only evidence was that this URL appeared in the citation list of a gate report, so an automated check reached it. Nothing checked what came back, or whether anything did. It sat in READ_STATES and licensed characterisation and adverse claims; fragment_only licenses neither. Nothing about what we know changed here — only what the ledger admits. Issues one and three kept the abolished state for a day because no check asked whether a state was one the ledger defines. One does now.\n\n2026-09-01: retyped from `primary` to `press_release`. This is a company's announcement about its own trial, not the trial's publication. Typed `primary` it was held to the article test — which refused S001 for not looking like a paper — and it ranked as the CLOSEST possible source to a claim, above The Lancet, on a page whose argument depends on the difference between a company figure and a journal one.",
-        "held": {
-          "file": "docs/b6/b6114c1ec539f707c02447ac82097f8c2c0239bc116c058400b1c02643049590.html",
-          "sha256": "b6114c1ec539f707c02447ac82097f8c2c0239bc116c058400b1c02643049590",
-          "bytes": 188576,
-          "identified_by": "contains 6 of 6 distinctive title words — 89874 characters, abstract present but no reference list or discussion — this is the abstract, not the paper"
-        }
-      },
-      "about": "KEYNOTE-942",
-      "about_note": "the trial this document is the report or record OF. Declared so a bounded negative about it can be searched: see bindings.bounded_figure_negative. A source with no `about` is reported as unsearchable rather than cleared."
-    },
-    {
-      "id": "S003",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/38246194/",
-      "type": "primary",
-      "title": "KEYNOTE-942: a randomised, phase 2b study — The Lancet, 2024",
-      "accessed": "2026-08-28",
-      "used_for": "The peer-reviewed publication. Source of HR 0.561 (0.309–1.017) with two-sided p = 0.053, the stage IIIB–IV enrolment, the 107/50 arm sizes, the open-label design, and grade 3+ treatment-related events at 25% versus 18%.",
-      "also_called": [
-        "The Lancet",
-        "the Lancet paper",
-        "the peer-reviewed publication"
-      ],
-      "access": {
-        "state": "abstract_held",
-        "by": "claude",
-        "on": "2026-08-29",
-        "blocked_by": "paywall",
-        "not_read": [
-          "the full text"
-        ],
-        "note": "No gate run on this issue cited this URL and nothing here has opened it. Recorded as blocked rather than read, because an unread source is not a source that agrees with us. Backfilled on 2026-08-29, after the ledger was built; this issue was drafted before it existed.",
-        "held": {
-          "file": "docs/e8/e895fd4d58b5e506864b535a070c542cd0529370307fb125242cdd1f68db5d61.html",
-          "sha256": "e895fd4d58b5e506864b535a070c542cd0529370307fb125242cdd1f68db5d61",
-          "bytes": 202260,
-          "identified_by": "contains 5 of 5 distinctive title words — 23016 characters, abstract present but no reference list or discussion — this is the abstract, not the paper"
-        }
-      },
-      "about": "KEYNOTE-942",
-      "about_note": "the trial this document is the report or record OF. Declared so a bounded negative about it can be searched: see bindings.bounded_figure_negative. A source with no `about` is reported as unsearchable rather than cleared."
-    },
-    {
-      "id": "S004",
-      "url": "https://ascopubs.org/doi/10.1200/JCO-26-00835",
-      "type": "primary",
-      "title": "Khattak, Carlino, Meniawy et al. — Intismeran Autogene Plus Pembrolizumab Versus Pembrolizumab Alone in High-Risk Resected Melanoma: 5-Year Update of the Randomized Phase IIb KEYNOTE-942 Study. Journal of Clinical Oncology, 1 June 2026",
-      "accessed": "2026-08-28",
-      "used_for": "The peer-reviewed five-year analysis, published the day it was presented. Median follow-up 60.3 months, data cutoff 15 December 2025, and the statement that the five-year analyses were descriptive.",
-      "also_called": [
-        "Journal of Clinical Oncology",
-        "the five-year analysis",
-        "Five-year results — Journal of Clinical Oncology, 1 June 2026",
-        "KEYNOTE-942",
-        "NCT03897881",
-        "mRNA-4157",
-        "KEYNOTE-942/mRNA-4157-P201"
-      ],
-      "access": {
-        "state": "full_text_held",
-        "by": "Fred Ugast, who downloaded the publisher PDF on 2026-09-01",
-        "on": "2026-09-01",
-        "sections": [
-          "the complete published article is held; it has not yet been read against every sentence that cites it"
-        ],
-        "note": "Recorded from evidence rather than memory: this URL appears in the citations of site/whatholdsup/melanoma.html.gate.json, so an automated check reached it. Weaker than 'the full text was read' -- a search tool may return an abstract or a snippet.\n\n2026-09-01: state migrated from `machine_read` to `fragment_only`. machine_read was abolished on issue two the same day: its only evidence was that this URL appeared in the citation list of a gate report, so an automated check reached it. Nothing checked what came back, or whether anything did. It sat in READ_STATES and licensed characterisation and adverse claims; fragment_only licenses neither. Nothing about what we know changed here — only what the ledger admits. Issues one and three kept the abolished state for a day because no check asked whether a state was one the ledger defines. One does now.\n\n2026-09-01: held in full. Until today every direct route to ascopubs.org returned HTTP 403 and this source rested on what a retrieval had returned. Identity confirmed by the article's own DOI in the extracted text; substance confirmed by reference list and discussion.",
-        "held": {
-          "sha256": "4c3e3412224fd1da1e2f9eb5f617c82d44058a1332dfe9a620c00ec6477f8657",
-          "file": "docs/4c/4c3e3412224fd1da1e2f9eb5f617c82d44058a1332dfe9a620c00ec6477f8657.pdf",
-          "bytes": 306380,
-          "via": "publisher PDF, downloaded in a browser by the editor on 2026-09-01",
-          "substance": "36104 characters, reference list and discussion/introduction present"
-        }
-      },
-      "title_note": "Was 'Five-year results — Journal of Clinical Oncology, 1 June 2026' until 3 September 2026 — a shorthand label of ours, not the paper's title. The errata check compares the title a bibliographic record returns against the title we hold, and this one shared no distinctive word with the real one, so a correct DOI lookup was reported as 'resolved to a DIFFERENT document'. PMID 42223134.",
-      "about": "KEYNOTE-942",
-      "about_note": "the trial this document is the report or record OF. Declared so a bounded negative about it can be searched: see bindings.bounded_figure_negative. A source with no `about` is reported as unsearchable rather than cleared.",
-      "also_called_note": "KEYNOTE-942 was named in no source's also_called until 3 September, though it is the most-cited trial on the page. Nothing that resolves a trial name to a source could see it. The aliases are the paper's own: 'intismeran autogene (intismeran; formerly V940 or mRNA-4157)' and 'KEYNOTE-942 (ClinicalTrials.gov identifier: NCT03897881)'."
-    },
-    {
-      "id": "S005",
-      "url": "https://www.merck.com/news/moderna-and-merck-announce-mrna-4157-v940-an-investigational-individualized-neoantigen-therapy-in-combination-with-keytruda-pembrolizumab-demonstrated-superior-recurrence-free-survival-in/",
-      "type": "press_release",
-      "title": "Merck & Moderna — first detailed KEYNOTE-942 results",
-      "accessed": "2026-08-28",
-      "used_for": "16 April 2023. The source of the one-sided p = 0.0266, which is a company figure and not a journal one.",
-      "also_called": [
-        "the 2023 release",
-        "the company release",
-        "the April 2023 release"
-      ],
-      "access": {
-        "state": "abstract_held",
-        "by": "the fact-check gate",
-        "on": "2026-08-29",
-        "sections": [
-          "whatever the search tool returned for this URL"
-        ],
-        "note": "Recorded from evidence rather than memory: this URL appears in the citations of site/whatholdsup/melanoma.html.gate.json, so an automated check reached it. Weaker than 'the full text was read' -- a search tool may return an abstract or a snippet.\n\n2026-09-01: state migrated from `machine_read` to `fragment_only`. machine_read was abolished on issue two the same day: its only evidence was that this URL appeared in the citation list of a gate report, so an automated check reached it. Nothing checked what came back, or whether anything did. It sat in READ_STATES and licensed characterisation and adverse claims; fragment_only licenses neither. Nothing about what we know changed here — only what the ledger admits. Issues one and three kept the abolished state for a day because no check asked whether a state was one the ledger defines. One does now.\n\n2026-09-01: retyped from `primary` to `press_release`. This is a company's announcement about its own trial, not the trial's publication. Typed `primary` it was held to the article test — which refused S001 for not looking like a paper — and it ranked as the CLOSEST possible source to a claim, above The Lancet, on a page whose argument depends on the difference between a company figure and a journal one.",
-        "held": {
-          "file": "docs/ee/ee2aec542a3947dfbf83931773a4a903cbc0e844ed3af71010adc9fd9855eaf5.html",
-          "sha256": "ee2aec542a3947dfbf83931773a4a903cbc0e844ed3af71010adc9fd9855eaf5",
-          "bytes": 173432,
-          "identified_by": "contains 6 of 6 distinctive title words — 71675 characters, abstract present but no reference list or discussion — this is the abstract, not the paper"
-        }
-      },
-      "about": "KEYNOTE-942",
-      "about_note": "the trial this document is the report or record OF. Declared so a bounded negative about it can be searched: see bindings.bounded_figure_negative. A source with no `about` is reported as unsearchable rather than cleared."
-    },
-    {
-      "id": "S006",
-      "url": "https://ascopost.com/news/august-2026/interpath-001-trial-of-mrna-based-individualized-neoantigen-therapy-meets-primary-and-key-secondary-endpoints-in-patients-with-high-risk-resected-melanoma/",
-      "type": "coverage",
-      "title": "The ASCO Post — INTerpath-001 meets primary and key secondary endpoints",
-      "accessed": "2026-08-28",
-      "used_for": "Specialist coverage of the Phase 3 announcement. What it does and does not report about effect sizes.",
-      "also_called": [
-        "The ASCO Post"
-      ],
-      "access": {
-        "state": "full_text_held",
-        "by": "the fact-check gate",
-        "on": "2026-08-29",
-        "sections": [
-          "whatever the search tool returned for this URL"
-        ],
-        "note": "Recorded from evidence rather than memory: this URL appears in the citations of site/whatholdsup/melanoma.html.gate.json, so an automated check reached it. Weaker than 'the full text was read' -- a search tool may return an abstract or a snippet.\n\n2026-09-01: state migrated from `machine_read` to `fragment_only`. machine_read was abolished on issue two the same day: its only evidence was that this URL appeared in the citation list of a gate report, so an automated check reached it. Nothing checked what came back, or whether anything did. It sat in READ_STATES and licensed characterisation and adverse claims; fragment_only licenses neither. Nothing about what we know changed here — only what the ledger admits. Issues one and three kept the abolished state for a day because no check asked whether a state was one the ledger defines. One does now.",
-        "held": {
-          "file": "docs/98/98e3ada2610c464ec63f0efcdfb9c1ac2ea961f0b3d01d1fc837596e9d22c7f1.html",
-          "sha256": "98e3ada2610c464ec63f0efcdfb9c1ac2ea961f0b3d01d1fc837596e9d22c7f1",
-          "bytes": 54745,
-          "identified_by": "contains 7 of 12 distinctive title words"
-        }
-      },
-      "_split_on_2026-09-01": "This entry used to carry Morning Glory Sciences and Pharmacy Times in also_urls, under one id, with one access state reading full_text_held -- and the document the library held for it was The ASCO Post's. Two quotations on the page, one from each of the other two outlets, were therefore attributed to an entry whose held bytes are a third outlet's article, and neither quotation appears in them. Identity is not substance: an entry that holds one of three documents holds one document. They are now S009 and S010, each with its own url and its own access state."
-    },
-    {
-      "id": "S007",
-      "url": "https://ascopubs.org/doi/10.1200/OA-25-00008",
-      "type": "primary",
-      "title": "Three-Year Update of a Randomized Phase IIb Study of the Individualized Neoantigen Therapy Intismeran Autogene (mRNA-4157, V940) Plus Pembrolizumab Versus Pembrolizumab in Resected Melanoma — JCO Oncology Advances, 2026",
-      "accessed": "2026-08-28",
-      "used_for": "DOI 10.1200/OA-25-00008. The peer-reviewed publication of the three-year readout, held in full since 2026-09-01. The three-year figures this page prints — HR 0.510, 95% CI 0.288-0.906 — are in this paper and, independently, in the ASCO 2024 presentation of the same analysis (S008).",
-      "also_called": [
-        "Three-Year Update",
-        "the three-year readout",
-        "the three-year publication"
-      ],
-      "access": {
-        "state": "full_text_held",
-        "by": "Fred Ugast, who downloaded the publisher PDF on 2026-09-01",
-        "on": "2026-09-01",
-        "sections": [
-          "the complete published article is held; it has not yet been read against every sentence that cites it"
-        ],
-        "note": "Recorded from evidence rather than memory: this URL appears in the citations of site/whatholdsup/melanoma.html.gate.json, so an automated check reached it. Weaker than 'the full text was read' -- a search tool may return an abstract or a snippet.\n\n2026-09-01: state migrated from `machine_read` to `fragment_only`. machine_read was abolished on issue two the same day: its only evidence was that this URL appeared in the citation list of a gate report, so an automated check reached it. Nothing checked what came back, or whether anything did. It sat in READ_STATES and licensed characterisation and adverse claims; fragment_only licenses neither. Nothing about what we know changed here — only what the ledger admits. Issues one and three kept the abolished state for a day because no check asked whether a state was one the ledger defines. One does now.\n\n2026-09-01: held in full. Until today every direct route to ascopubs.org returned HTTP 403 and this source rested on what a retrieval had returned. Identity confirmed by the article's own DOI in the extracted text; substance confirmed by reference list and discussion.\n\n2026-09-01: the sentence 'we have verified the citation but not read the full text ourselves' is withdrawn. It was true when written and is not now. The paper is held, and its figures are confirmed against the presentation of the same analysis.",
-        "held": {
-          "sha256": "a20f53ae0482863d106992b7395208832dcba85d2c8e48d66a795d084bfa369e",
-          "file": "docs/a2/a20f53ae0482863d106992b7395208832dcba85d2c8e48d66a795d084bfa369e.pdf",
-          "bytes": 416532,
-          "via": "publisher PDF, downloaded in a browser by the editor on 2026-09-01",
-          "substance": "42938 characters, reference list and discussion/introduction present"
-        }
-      },
-      "about": "KEYNOTE-942",
-      "about_note": "the trial this document is the report or record OF. Declared so a bounded negative about it can be searched: see bindings.bounded_figure_negative. A source with no `about` is reported as unsearchable rather than cleared."
-    },
-    {
-      "id": "S008",
-      "url": "https://meetings.asco.org/abstracts-presentations/230175",
-      "type": "conference",
-      "title": "Weber JS, Khattak MA, Carlino MS, et al. Individualized neoantigen therapy mRNA-4157 (V940) plus pembrolizumab in resected melanoma: 3-year update from the mRNA-4157-P201 (KEYNOTE-942) trial. ASCO 2024, abstract LBA9512",
-      "also_called": [
-        "the ASCO 2024 presentation",
-        "the three-year readout",
-        "LBA9512"
-      ],
-      "accessed": "2026-09-01",
-      "used_for": "The three-year readout this page describes as the point at which the recurrence interval cleared the no-effect line: HR 0.510, 95% CI 0.288-0.906. All three figures are in this deck.",
-      "access": {
-        "state": "full_text_held",
-        "by": "Fred Ugast, who supplied the presentation PDF on 2026-09-01",
-        "on": "2026-09-01",
-        "sections": [
-          "the complete presentation, eleven pages"
-        ],
-        "note": "THIS ENTRY EXISTS BECAUSE THE PAGE ALREADY DEPENDED ON IT AND THE LEDGER DID NOT KNOW. The page names 'the three-year readout at ASCO 2024' and attributes HR 0.510 (0.288-0.906) to it, and S007's own note says the three-year figures 'are taken from the ASCO 2024 presentation of the same analysis'. There was no source row for it. B9 did not catch this one because the page names the presentation without linking it, so a check that reads anchors could not see it -- a limit of B9 worth recording beside the case it did catch.\n\nIt also re-confirms, independently, that 0.510 is the figure the evidence carries to three decimals. The 0.51 that a precision check flagged on 2026-09-01 is only ever the company press release."
-      }
-    },
-    {
-      "id": "S009",
-      "url": "https://www.morningglorysciences.com/en/intismeran-interpath-001-phase3-melanoma-2026-en/",
-      "type": "coverage",
-      "title": "Morning Glory Sciences — INTerpath-001",
-      "accessed": "",
-      "used_for": "Specialist coverage. Source of the quoted argument that absolute recurrence risk is lower in the stage IIB and IIC patients the Phase 3 adds, so the same hazard ratio delivers a smaller absolute benefit.",
-      "also_called": [
-        "Morning Glory Sciences"
-      ],
-      "access": {
-        "state": "full_text_held",
-        "by": "",
-        "on": "",
-        "sections": [],
-        "note": "Split out of S006 on 2026-09-01. It was never held under that entry either -- S006's held document is The ASCO Post's article, and the passage this page quotes from this outlet is not in it. The page quotes this document directly, so it must be acquired or the quotation must go.",
-        "held": {
-          "file": "docs/26/26405b645b78d72e6c84db7f16fb897dd2006a009c19c7a42965473dd4309720.html",
-          "sha256": "26405b645b78d72e6c84db7f16fb897dd2006a009c19c7a42965473dd4309720",
-          "bytes": 192066,
-          "identified_by": "contains 4 of 4 distinctive title words"
-        }
-      }
-    },
-    {
-      "id": "S010",
-      "url": "https://www.pharmacytimes.com/view/phase-3-trial-marks-first-success-for-personalized-mrna-cancer-therapy-in-resected-melanoma",
-      "type": "coverage",
-      "title": "Pharmacy Times — Phase 3 Trial Marks First Success for Personalized mRNA Cancer Therapy in Resected Melanoma (Ryu Kariyawasam-Chavez, 19 August 2026)",
-      "accessed": "2026-09-02",
-      "used_for": "Specialist coverage. Source of the quoted counter-argument that resected stage IIB and IIC patients can face recurrence and mortality risks similar to stage III.",
-      "also_called": [
-        "Pharmacy Times"
-      ],
-      "access": {
-        "state": "full_text_held",
-        "by": "fred (saved from the browser), stored by source_store",
-        "on": "2026-09-02",
-        "sections": [
-          "the whole article as the browser rendered it"
-        ],
-        "note": "Split out of S006 on 2026-09-01. State is `blocked`: we tried, by named routes, and could not get the bytes. It was entered as `not_held`, which is not one of this ledger's states -- caught by undefined_states once that function stopped asking access_of(), which had been laundering unknown states into not_opened before the check could see them. It was never held under that entry either -- S006's held document is The ASCO Post's article, and the passage this page quotes from this outlet is not in it. The page quotes this document directly, so it must be acquired or the quotation must go.\n\n2026-09-01: acquire_sources gets HTTP 403 from pharmacytimes.com, with and without the recorded free routes. A WebFetch of the same URL DID return the page and confirmed the sentence this page quotes, verbatim: \"Notably, patients with resected stage IIB or IIC melanoma can face risks of recurrence and melanoma-specific mortality similar to those observed in stage III disease.\"\n\nTHE STATE IS NOT CHANGED ON THAT EVIDENCE. A fetch that returns a sentence is not the document in the library, and this issue abolished `machine_read` today precisely because a state was being licensed by the fact that something automated had reached a URL. The quotation stays unattested until somebody holds the bytes.\n\n2026-09-02: HELD. Saved from the browser by fred and added to the library; 12 of 12 distinctive title words present, and the page's quotation matches the bytes. Two independent retrievals had already agreed on the sentence and neither was allowed to change the state -- the bytes did."
-      }
-    },
-    {
-      "id": "S011",
-      "url": "https://mlq.ai/news/moderna-mercks-personalized-melanoma-therapy-meets-two-phase-3-endpoints/",
-      "type": "coverage",
-      "title": "MLQ News — Moderna and Merck's personalized melanoma therapy meets two Phase 3 endpoints",
-      "accessed": "",
-      "used_for": "Coverage. The page cites it as the outlet that enumerated what the announcement did not contain: hazard ratios, confidence intervals, p-values, median follow-up, event counts.",
-      "also_called": [
-        "MLQ News"
-      ],
-      "access": {
-        "state": "full_text_held",
-        "by": "",
-        "on": "",
-        "sections": [],
-        "note": "Entered 2026-09-01. The page linked and characterised this document with no source entry at all, which B9 reported; nothing had ever checked what it says.",
-        "held": {
-          "file": "docs/a4/a44ed18d6aac55395d63e348cc2b6b06f9a14e092f11b665fdbfcd67ceef3253.html",
-          "sha256": "a44ed18d6aac55395d63e348cc2b6b06f9a14e092f11b665fdbfcd67ceef3253",
-          "bytes": 82470,
-          "identified_by": "contains 8 of 9 distinctive title words"
-        }
-      }
-    },
-    {
-      "id": "S013",
-      "url": "https://clinicaltrials.gov/study/NCT05933577",
-      "type": "registry",
-      "title": "INTerpath-001 — ClinicalTrials.gov record. NCT05933577.",
-      "accessed": "2026-09-02",
-      "used_for": "The authoritative answer to whether any Phase 3 effect size has been posted. hasResults is false; no results have ever been submitted; the record's own estimated primary completion is 26 October 2029, which is why the 19 August 2026 announcement is a prespecified INTERIM analysis and says so.",
-      "also_called": [
-        "NCT05933577",
-        "INTerpath-001",
-        "the registry"
-      ],
-      "access": {
-        "state": "full_text_held",
-        "by": "",
-        "on": "",
-        "sections": [],
-        "note": "Entered 2026-09-02.",
-        "held": {
-          "file": "docs/57/5723f3666f8353fe4e4ed818be885cd92e8f26ed21fb4c42582ac36f52106b59.json",
-          "sha256": "5723f3666f8353fe4e4ed818be885cd92e8f26ed21fb4c42582ac36f52106b59",
-          "bytes": 42529,
-          "identified_by": "contains its identifier NCT05933577"
-        }
-      },
-      "about": "INTerpath-001",
-      "about_note": "the trial this document is the report or record OF. Declared so a bounded negative about it can be searched: see bindings.bounded_figure_negative. A source with no `about` is reported as unsearchable rather than cleared."
-    },
-    {
-      "id": "S014",
-      "url": "https://ascopubs.org/doi/10.1200/JCO.2026.44.16_suppl.9500",
-      "type": "conference",
-      "title": "KEYNOTE-942 five-year update — ASCO 2026 abstract 9500. J Clin Oncol 44 (suppl 16; abstr 9500)",
-      "accessed": "",
-      "used_for": "The other document from the same readout. The page gate reports that this abstract gives FIVE-YEAR landmark rates — combination RFS 68.8% and pembrolizumab OS 71.3% (35.4-89.6) — where the full JCO paper we hold reports only 18-, 24-, 36- and 48-month rates. If so, the figures this page printed before 1 September were this document's, not nobody's.",
-      "also_called": [
-        "ASCO 2026 abstract 9500",
-        "abstract 9500"
-      ],
-      "access": {
-        "state": "full_text_held",
-        "by": "Fred Ugast",
-        "on": "2026-09-03",
-        "sections": [
-          "abstract",
-          "methods",
-          "results",
-          "conclusion"
-        ],
-        "note": "ASCO 2026 abstract 9500, obtained by the editor inside a zip after the scripted route was blocked. 122,844-byte PDF now in the library. Contains the sentence 'No alpha was assigned to this analysis'."
-      },
-      "about": "KEYNOTE-942",
-      "about_note": "the trial this document is the report or record OF. Declared so a bounded negative about it can be searched: see bindings.bounded_figure_negative. A source with no `about` is reported as unsearchable rather than cleared."
-    },
-    {
-      "id": "S015",
-      "url": "https://ascopost.com/news/june-2026/vaccine-plus-pembrolizumab-reduces-risk-of-recurrence-in-high-risk-resected-melanoma/",
-      "type": "coverage",
-      "title": "The ASCO Post, June 2026 — Vaccine Plus Pembrolizumab Reduces Risk of Recurrence in High-Risk Resected Melanoma",
-      "accessed": "2026-09-02",
-      "used_for": "The five-year landmark rates: recurrence-free 68.8% (56.3-78.3) versus 49.1% (33.3-63.0), survival 92.2% (84.2-96.3) versus 71.3% (35.4-89.6), and 'Seven patients died during follow-up in each arm'. The full JCO paper we hold reports landmark rates only to 48 months, so these five-year figures are in this document and not in that one.",
-      "also_called": [
-        "The ASCO Post, June 2026"
-      ],
-      "access": {
-        "state": "full_text_held",
-        "by": "acquire_sources.py",
-        "on": "2026-09-02",
-        "sections": [
-          "the whole article"
-        ],
-        "note": "Acquired after the page gate reported that the figures removed from this page on 1 September were this document's. They were."
-      }
-    },
-    {
-      "id": "S016",
-      "url": "https://www.dermatologytimes.com/view/personalized-mrna-based-melanoma-vaccine-meets-primary-endpoints-in-landmark-phase-3-trial",
-      "type": "coverage",
-      "title": "Dermatology Times — Personalized mRNA-Based Melanoma Vaccine Meets Primary Endpoints in Landmark Phase 3 Trial",
-      "accessed": "",
-      "used_for": "Named on this page, or named by the page gate as coverage the page characterises. Entered 2026-09-02 so that what this page says about it can be checked against it.",
-      "also_called": [
-        "Dermatology Times"
-      ],
-      "access": {
-        "state": "full_text_held",
-        "by": "",
-        "on": "",
-        "sections": [],
-        "note": "Entered 2026-09-02 to settle gate findings c32, c33 and the coverage contradictions.",
-        "held": {
-          "file": "docs/d3/d3b90dbd87326c35b1bbaa0e28f01a8072980d4be894c7734fd1e7c7aa570e44.html",
-          "sha256": "d3b90dbd87326c35b1bbaa0e28f01a8072980d4be894c7734fd1e7c7aa570e44",
-          "bytes": 634333,
-          "identified_by": "contains 12 of 12 distinctive title words"
-        }
-      }
-    },
-    {
-      "id": "S017",
-      "url": "https://www.onclive.com/view/intismeran-autogene-plus-pembrolizumab-meets-rfs-dmfs-end-points-in-resected-melanoma",
-      "type": "coverage",
-      "title": "OncLive — Intismeran Autogene Plus Pembrolizumab Meets RFS, DMFS End Points in Resected Melanoma",
-      "accessed": "",
-      "used_for": "Named on this page, or named by the page gate as coverage the page characterises. Entered 2026-09-02 so that what this page says about it can be checked against it.",
-      "also_called": [
-        "OncLive"
-      ],
-      "access": {
-        "state": "full_text_held",
-        "by": "Fred Ugast",
-        "on": "2026-09-03",
-        "sections": [
-          "full article"
-        ],
-        "note": "OncLive article, saved to PDF by the editor after the scripted route was blocked. 6,165,710-byte PDF now in the library."
-      }
-    },
-    {
-      "id": "S018",
-      "url": "https://practicaldermatology.com/news/intismeran-plus-pembrolizumab-meets-dual-phase-3-melanoma-endpoints/2488176/",
-      "type": "coverage",
-      "title": "Practical Dermatology — Intismeran Plus Pembrolizumab Meets Dual Phase 3 Melanoma Endpoints",
-      "accessed": "",
-      "used_for": "Named on this page, or named by the page gate as coverage the page characterises. Entered 2026-09-02 so that what this page says about it can be checked against it.",
-      "also_called": [
-        "Practical Dermatology"
-      ],
-      "access": {
-        "state": "full_text_held",
-        "by": "",
-        "on": "",
-        "sections": [],
-        "note": "Entered 2026-09-02 to settle gate findings c32, c33 and the coverage contradictions.",
-        "held": {
-          "file": "docs/6c/6c348ac76bebb92e0ae9f90009cf48a2d6e9cda762f37e422b4acec532e33f02.html",
-          "sha256": "6c348ac76bebb92e0ae9f90009cf48a2d6e9cda762f37e422b4acec532e33f02",
-          "bytes": 97483,
-          "identified_by": "contains 10 of 10 distinctive title words"
-        }
-      }
-    },
-    {
-      "id": "S019",
-      "url": "https://kolpulse.com/kol-pulse-trial-profile-interpath001",
-      "type": "coverage",
-      "title": "KOL Pulse — INTerpath-001 trial profile",
-      "accessed": "",
-      "used_for": "Named on this page, or named by the page gate as coverage the page characterises. Entered 2026-09-02 so that what this page says about it can be checked against it.",
-      "also_called": [
-        "KOL Pulse"
-      ],
-      "access": {
-        "state": "full_text_held",
-        "by": "",
-        "on": "",
-        "sections": [],
-        "note": "Entered 2026-09-02 to settle gate findings c32, c33 and the coverage contradictions.",
-        "held": {
-          "file": "docs/ab/ab730d69d2841765b06fb3fb9e2d38a4941f6aedbc62815476fc289160083cfb.html",
-          "sha256": "ab730d69d2841765b06fb3fb9e2d38a4941f6aedbc62815476fc289160083cfb",
-          "bytes": 98325,
-          "identified_by": "contains 4 of 4 distinctive title words"
-        }
-      }
-    },
-    {
-      "id": "S020",
-      "url": "https://clinicaltrials.gov/study/NCT02362594",
-      "type": "registry",
-      "title": "KEYNOTE-054 — ClinicalTrials.gov record. NCT02362594.",
-      "accessed": "",
-      "used_for": "Evidence for the page's claim about adjuvant PD-1 inhibitors and overall survival, which the page gate flagged as having no citation. What the registry can settle: whether an overall-survival result has been posted, and what the comparator arm is.",
-      "also_called": [
-        "NCT02362594",
-        "KEYNOTE-054"
-      ],
-      "access": {
-        "state": "full_text_held",
-        "by": "",
-        "on": "",
-        "sections": [],
-        "note": "Entered 2026-09-02 to settle gate finding obj-3.",
-        "held": {
-          "file": "docs/78/7872fc78cd5cda1d1bc4e0dbab1d41fd61113a7e5cae6b3d8eb2cc2b71050316.json",
-          "sha256": "7872fc78cd5cda1d1bc4e0dbab1d41fd61113a7e5cae6b3d8eb2cc2b71050316",
-          "bytes": 98826,
-          "identified_by": "contains its identifier NCT02362594"
-        }
-      },
-      "about": "KEYNOTE-054",
-      "about_note": "the trial this document is the report or record OF. Declared so a bounded negative about it can be searched: see bindings.bounded_figure_negative. A source with no `about` is reported as unsearchable rather than cleared."
-    },
-    {
-      "id": "S021",
-      "url": "https://clinicaltrials.gov/study/NCT02388906",
-      "type": "registry",
-      "title": "CheckMate 238 — ClinicalTrials.gov record. NCT02388906.",
-      "accessed": "",
-      "used_for": "Evidence for the page's claim about adjuvant PD-1 inhibitors and overall survival, which the page gate flagged as having no citation. What the registry can settle: whether an overall-survival result has been posted, and what the comparator arm is.",
-      "also_called": [
-        "NCT02388906",
-        "CheckMate 238"
-      ],
-      "access": {
-        "state": "full_text_held",
-        "by": "",
-        "on": "",
-        "sections": [],
-        "note": "Entered 2026-09-02 to settle gate finding obj-3.",
-        "held": {
-          "file": "docs/48/48e7ae4ad1e30328acb2d22e10b6895bbe2370d45583772f343d00b781b627b3.json",
-          "sha256": "48e7ae4ad1e30328acb2d22e10b6895bbe2370d45583772f343d00b781b627b3",
-          "bytes": 135307,
-          "identified_by": "contains its identifier NCT02388906"
-        }
-      },
-      "about": "CheckMate 238",
-      "about_note": "the trial this document is the report or record OF. Declared so a bounded negative about it can be searched: see bindings.bounded_figure_negative. A source with no `about` is reported as unsearchable rather than cleared."
-    },
-    {
-      "id": "S022",
-      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4877414/",
-      "type": "reference",
-      "title": "Greenland, Senn, Rothman, Carlin, Poole, Goodman, Altman — Statistical tests, P values, confidence intervals, and power: a guide to misinterpretations. Eur J Epidemiol, 2016",
-      "accessed": "2026-09-02",
-      "used_for": "The statistics explainer's claims about what a p-value is and is not: that it assumes the test hypothesis is true and is not the probability that hypothesis is true, and what a confidence interval does and does not tell a reader. Acquired 2 September 2026 because these sentences had been on the page since publication resting on no document at all.",
-      "also_called": [
-        "Greenland et al. 2016",
-        "the guide to misinterpretations"
-      ],
-      "access": {
-        "state": "full_text_held",
-        "held": {
-          "file": "docs/bb/bbe9fe2ab77eb22fb65790ed3a9544f68b53a4b9abe17cfbd3eba1f75f8347d4.xml",
-          "sha256": "bbe9fe2ab77eb22fb65790ed3a9544f68b53a4b9abe17cfbd3eba1f75f8347d4",
-          "bytes": 154617,
-          "identified_by": "contains its identifier PMC4877414"
-        },
-        "on": "2026-09-02"
-      },
-      "form": "article"
-    },
-    {
-      "id": "S023",
-      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC478551/",
-      "type": "reference",
-      "title": "Spruance, Reid, Grace, Samore — Hazard Ratio in Clinical Trials. Antimicrob Agents Chemother, 2004",
-      "accessed": "2026-09-02",
-      "used_for": "The explainer's definition of the hazard ratio, what a value of 1 means, what values above and below 1 mean, and the caution that a hazard ratio is not a proportion of patients benefited.",
-      "also_called": [
-        "Spruance et al. 2004"
-      ],
-      "access": {
-        "state": "full_text_held",
-        "by": "Fred Ugast",
-        "on": "2026-09-03",
-        "sections": [
-          "abstract",
-          "introduction",
-          "cox proportional hazards model and hazard ratio",
-          "discussion"
-        ],
-        "note": "Publisher PDF, ASM, Antimicrob Agents Chemother 2004;48(8):2787-2792. Downloaded by the editor after both scripted routes returned 403. Identity test: 11 of 11 distinctive title words present."
-      },
-      "note": "The publisher copy at journals.asm.org returns 403 to a script. This is the same article in PubMed Central, and the identity test decides that, not the hostname.",
-      "form": "article"
-    },
-    {
-      "id": "S024",
-      "url": "https://www.ncbi.nlm.nih.gov/books/NBK560604/",
-      "type": "reference",
-      "title": "Survival Analysis — StatPearls, NCBI Bookshelf",
-      "accessed": "2026-09-02",
-      "used_for": "Backstop for the hazard-ratio definition if the Spruance paper cannot be held: states that risk increases as the value rises above 1 and decreases as it falls below 1.",
-      "also_called": [
-        "StatPearls, Survival Analysis"
-      ],
-      "access": {
-        "state": "full_text_held",
-        "held": {
-          "file": "docs/c4/c42d4b0d06706aa3c710dfa27938ba864b8ee7545342a03dbc9736744c74af38.html",
-          "sha256": "c42d4b0d06706aa3c710dfa27938ba864b8ee7545342a03dbc9736744c74af38",
-          "bytes": 62654,
-          "identified_by": "contains 5 of 5 distinctive title words"
-        },
-        "on": "2026-09-02"
-      },
-      "form": "page",
-      "form_note": "NCBI Bookshelf chapter (StatPearls). A book chapter is not a journal article and has no reference list or discussion of its own, so the article test would fail it for being what it is."
-    },
-    {
-      "id": "S025",
-      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC3227332/",
-      "type": "reference",
-      "title": "Singh, Mukhopadhyay — Survival analysis in clinical trials: Basics and must know areas. Perspect Clin Res, 2011",
-      "accessed": "2026-09-02",
-      "used_for": "Sought for an explicit statement of what a hazard ratio of 1 means, which neither Greenland 2016 nor the StatPearls survival-analysis chapter states in those terms.",
-      "also_called": [
-        "Singh and Mukhopadhyay 2011"
-      ],
-      "access": {
-        "state": "full_text_held",
-        "held": {
-          "file": "docs/58/58a1c65bc6026504274da7da8a18a1d021a473099e1be89642694a4d3744bf36.xml",
-          "sha256": "58a1c65bc6026504274da7da8a18a1d021a473099e1be89642694a4d3744bf36",
-          "bytes": 26370,
-          "identified_by": "contains its identifier PMC3227332"
-        },
-        "on": "2026-09-02"
-      },
-      "form": "article"
-    },
-    {
-      "id": "S026",
-      "url": "https://clinicaltrials.gov/study/NCT03553836",
-      "type": "registry",
-      "title": "KEYNOTE-716 — ClinicalTrials.gov record. NCT03553836.",
-      "accessed": "2026-09-03",
-      "used_for": "The page asserts that no randomised trial against placebo has reported a statistically significant overall survival benefit as a prespecified endpoint in its own population. KEYNOTE-716 is pembrolizumab against placebo in resected stage IIB/IIC melanoma — squarely inside that class and not previously checked. Acquired 3 September 2026 because a universal negative had been asserted over a class of which we held two members, one of which has no placebo arm.",
-      "also_called": [
-        "KEYNOTE-716",
-        "NCT03553836"
-      ],
-      "access": {
-        "state": "full_text_held",
-        "held": {
-          "file": "docs/26/266e8448b1083b0c54a8908ef6ec9a97ff721da8bf2699cd592abb564b4d379a.json",
-          "sha256": "266e8448b1083b0c54a8908ef6ec9a97ff721da8bf2699cd592abb564b4d379a",
-          "bytes": 121630,
-          "identified_by": "contains its identifier NCT03553836"
-        },
-        "on": "2026-09-03",
-        "note": "URL normalised 2026-09-04 from https://clinicaltrials.gov/api/v2/studies/NCT03553836 to the record's human page. Same document; the API path was how we fetched it, not an address a reader can follow, and it was the only registry record in this issue not carrying its /study/ URL. Found by B16."
-      },
-      "about": "KEYNOTE-716",
-      "about_note": "the trial this document is the report or record OF. Declared so a bounded negative about it can be searched: see bindings.bounded_figure_negative. A source with no `about` is reported as unsearchable rather than cleared."
-    },
-    {
-      "id": "S027",
-      "url": "https://www.merck.com/news/moderna-merck-announce-5-year-data-for-intismeran-autogene-in-combination-with-keytruda-pembrolizumab-demonstrated-sustained-improvement-in-the-primary-endpoint-of-recurrence-free-survival-i/",
-      "type": "press_release",
-      "title": "Moderna & Merck — five-year KEYNOTE-942 data, January 2026 announcement",
-      "accessed": "2026-09-03",
-      "used_for": "The page removed a five-year topline of 20 January 2026 carrying a one-sided nominal p = 0.0075, saying the document was in nothing we held and would stay out until somebody produced it. The page gate produced it on 3 September. Acquired to settle whether the figure is real and what the release actually says.",
-      "also_called": [
-        "the January 2026 release",
-        "the five-year topline"
-      ],
-      "access": {
-        "state": "full_text_held",
-        "held": {
-          "file": "docs/fb/fbe0cd755f97173978104a56c7f1ca53e14360b063fbd469d2e1929c3c93ab43.html",
-          "sha256": "fbe0cd755f97173978104a56c7f1ca53e14360b063fbd469d2e1929c3c93ab43",
-          "bytes": 189014,
-          "identified_by": "contains 6 of 7 distinctive title words"
-        },
-        "on": "2026-09-03"
-      },
-      "about": "KEYNOTE-942",
-      "about_note": "the trial this document is the report or record OF. Declared so a bounded negative about it can be searched: see bindings.bounded_figure_negative. A source with no `about` is reported as unsearchable rather than cleared."
-    },
-    {
-      "id": "S028",
-      "url": "https://link.springer.com/article/10.1007/s11845-026-04315-0",
-      "type": "reference",
-      "title": "Riaz L, Komal W, Qureshi R, Khan M. FDA Approval of daratumumab and hyaluronidase-fihj plus VRd for the frontline treatment of newly diagnosed multiple myeloma. Irish Journal of Medical Science, 2026",
-      "doi": "10.1007/s11845-026-04315-0",
-      "pubmed": "41920444",
-      "accessed": "2026-09-04",
-      "used_for": "The counterexample to a sentence this page carried live: that Morning Glory Sciences is an outlet we can find no other publication citing. This letter's reference 12 is 'Morning Glory Sciences. Oncology drug approval news flash: Daratumumab and hyaluronidase-fihj plus bortezomib, lenalidomide, and dexamethasone approved for newly diagnosed multiple myeloma in transplant-ineligible adults [Internet]. Morning Glory Sciences (2026) Jan 28'. Held so that the correction rests on a document rather than on a report of one. Nothing else on the page rests on it; the sentence it falsifies is deleted.",
-      "also_called": [
-        "Riaz et al.",
-        "10.1007/s11845-026-04315-0",
-        "41920444"
-      ],
-      "access": {
-        "state": "abstract_held",
-        "by": "claude",
-        "on": "2026-09-04",
-        "sections": [
-          "reference list"
-        ],
-        "note": "Reached through the DOI to the Springer article page and read for its bibliographic record and reference list. The reviewer reported it on 4 September; we could not locate it ourselves (Europe PMC rate-limited on every attempt, and PubMed does not index reference lists) and the operator supplied the PubMed id. Confirmed from the publisher's own page, not from the report of it."
-      }
+ "what_this_is": "Every source the melanoma assessment draws on, rebuilt on 2026-08-29 from the page's own sources section rather than from a sweep of its links. The previous version was built by sweeping links, which collected the webfont CDN and the stylesheet host as S001, S002 and S003 -- typed 'press', with empty used_for fields and no titles at all. That bug was found and documented while building issue two's source list, and was never fixed here. It surfaced again when the source ledger reported this page completely clean: with no titles, the audit could not match a single sentence to a single source, and an audit that matches nothing is indistinguishable from an audit that finds nothing.",
+ "types": [
+  "registry",
+  "company",
+  "regulator",
+  "journal",
+  "specialist press",
+  "press",
+  "commentary"
+ ],
+ "sources": [
+  {
+   "id": "S001",
+   "url": "https://www.merck.com/news/merck-and-moderna-announce-phase-3-interpath-001-trial-of-intismeran-autogene-plus-keytruda-met-endpoints-of-recurrence-free-survival-rfs-and-distant-metastasis-free-survival-dmfs-in-patient/",
+   "type": "press_release",
+   "title": "Merck & Moderna — Phase 3 INTerpath-001 met RFS and DMFS endpoints",
+   "accessed": "2026-08-28",
+   "used_for": "19 August 2026. Source of the trial design, enrolment, blinding and randomisation. Contains no efficacy numbers, which is the finding.",
+   "also_called": [
+    "the Phase 3 announcement",
+    "the 19 August release",
+    "the announcement"
+   ],
+   "access": {
+    "state": "full_text_held",
+    "by": "the fact-check gate",
+    "on": "2026-08-29",
+    "sections": [
+     "whatever the search tool returned for this URL"
+    ],
+    "note": "Recorded from evidence rather than memory: this URL appears in the citations of site/whatholdsup/melanoma.html.gate.json, so an automated check reached it. Weaker than 'the full text was read' -- a search tool may return an abstract or a snippet.\n\n2026-09-01: state migrated from `machine_read` to `fragment_only`. machine_read was abolished on issue two the same day: its only evidence was that this URL appeared in the citation list of a gate report, so an automated check reached it. Nothing checked what came back, or whether anything did. It sat in READ_STATES and licensed characterisation and adverse claims; fragment_only licenses neither. Nothing about what we know changed here — only what the ledger admits. Issues one and three kept the abolished state for a day because no check asked whether a state was one the ledger defines. One does now.\n\n2026-09-01: retyped from `primary` to `press_release`. This is a company's announcement about its own trial, not the trial's publication. Typed `primary` it was held to the article test — which refused S001 for not looking like a paper — and it ranked as the CLOSEST possible source to a claim, above The Lancet, on a page whose argument depends on the difference between a company figure and a journal one.",
+    "held": {
+     "file": "docs/8d/8de76c475ddc93fff8b1c372d0eefb60313238c4e44180ed86710d0bc8a0959c.html",
+     "sha256": "8de76c475ddc93fff8b1c372d0eefb60313238c4e44180ed86710d0bc8a0959c",
+     "bytes": 195653,
+     "identified_by": "contains 6 of 6 distinctive title words"
     }
-  ],
-  "also_called_note": "The role-nouns the page uses for a source. These must identify the DOCUMENT, not its subject: 'KEYNOTE-942' is a trial that three of these sources report on, and listing it as an alias for all three made every sentence about the trial match all three at once -- so the one source marked `blocked` absorbed the blame for claims the read sources actually support. The ledger audit matches sentences to sources by these plus the title's trial and journal names; a reference the page makes that is not listed here is invisible to the audit."
+   },
+   "about": "INTerpath-001",
+   "about_note": "the trial this document is the report or record OF. Declared so a bounded negative about it can be searched: see bindings.bounded_figure_negative. A source with no `about` is reported as unsearchable rather than cleared."
+  },
+  {
+   "id": "S002",
+   "url": "https://www.merck.com/news/moderna-and-merck-present-5-year-data-for-intismeran-autogene-in-combination-with-keytruda-pembrolizumab-in-patients-with-high-risk-stage-iii-iv-melanoma-following-complete-resection-at-the-20/",
+   "type": "press_release",
+   "title": "Merck & Moderna — five-year KEYNOTE-942 data, ASCO 2026",
+   "accessed": "2026-08-28",
+   "used_for": "1 June 2026. Source of HR 0.510 (0.294–0.887), HR 0.411 (0.200–0.843), the exploratory OS figure HR 0.471 (0.165–1.345) reported as \"n=14\", and the adverse-event rates.",
+   "also_called": [
+    "the five-year data",
+    "the ASCO 2026 presentation",
+    "the five-year release"
+   ],
+   "access": {
+    "state": "abstract_held",
+    "by": "the fact-check gate",
+    "on": "2026-08-29",
+    "sections": [
+     "whatever the search tool returned for this URL"
+    ],
+    "note": "Recorded from evidence rather than memory: this URL appears in the citations of site/whatholdsup/melanoma.html.gate.json, so an automated check reached it. Weaker than 'the full text was read' -- a search tool may return an abstract or a snippet.\n\n2026-09-01: state migrated from `machine_read` to `fragment_only`. machine_read was abolished on issue two the same day: its only evidence was that this URL appeared in the citation list of a gate report, so an automated check reached it. Nothing checked what came back, or whether anything did. It sat in READ_STATES and licensed characterisation and adverse claims; fragment_only licenses neither. Nothing about what we know changed here — only what the ledger admits. Issues one and three kept the abolished state for a day because no check asked whether a state was one the ledger defines. One does now.\n\n2026-09-01: retyped from `primary` to `press_release`. This is a company's announcement about its own trial, not the trial's publication. Typed `primary` it was held to the article test — which refused S001 for not looking like a paper — and it ranked as the CLOSEST possible source to a claim, above The Lancet, on a page whose argument depends on the difference between a company figure and a journal one.",
+    "held": {
+     "file": "docs/b6/b6114c1ec539f707c02447ac82097f8c2c0239bc116c058400b1c02643049590.html",
+     "sha256": "b6114c1ec539f707c02447ac82097f8c2c0239bc116c058400b1c02643049590",
+     "bytes": 188576,
+     "identified_by": "contains 6 of 6 distinctive title words — 89874 characters, abstract present but no reference list or discussion — this is the abstract, not the paper"
+    }
+   },
+   "about": "KEYNOTE-942",
+   "about_note": "the trial this document is the report or record OF. Declared so a bounded negative about it can be searched: see bindings.bounded_figure_negative. A source with no `about` is reported as unsearchable rather than cleared."
+  },
+  {
+   "id": "S003",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/38246194/",
+   "type": "primary",
+   "title": "KEYNOTE-942: a randomised, phase 2b study — The Lancet, 2024",
+   "accessed": "2026-08-28",
+   "used_for": "The peer-reviewed publication. Source of HR 0.561 (0.309–1.017) with two-sided p = 0.053, the stage IIIB–IV enrolment, the 107/50 arm sizes, the open-label design, and grade 3+ treatment-related events at 25% versus 18%.",
+   "also_called": [
+    "The Lancet",
+    "the Lancet paper",
+    "the peer-reviewed publication"
+   ],
+   "access": {
+    "state": "abstract_held",
+    "by": "claude",
+    "on": "2026-08-29",
+    "blocked_by": "paywall",
+    "not_read": [
+     "the full text"
+    ],
+    "note": "No gate run on this issue cited this URL and nothing here has opened it. Recorded as blocked rather than read, because an unread source is not a source that agrees with us. Backfilled on 2026-08-29, after the ledger was built; this issue was drafted before it existed.",
+    "held": {
+     "file": "docs/e8/e895fd4d58b5e506864b535a070c542cd0529370307fb125242cdd1f68db5d61.html",
+     "sha256": "e895fd4d58b5e506864b535a070c542cd0529370307fb125242cdd1f68db5d61",
+     "bytes": 202260,
+     "identified_by": "contains 5 of 5 distinctive title words — 23016 characters, abstract present but no reference list or discussion — this is the abstract, not the paper"
+    }
+   },
+   "about": "KEYNOTE-942",
+   "about_note": "the trial this document is the report or record OF. Declared so a bounded negative about it can be searched: see bindings.bounded_figure_negative. A source with no `about` is reported as unsearchable rather than cleared."
+  },
+  {
+   "id": "S004",
+   "url": "https://ascopubs.org/doi/10.1200/JCO-26-00835",
+   "type": "primary",
+   "title": "Khattak, Carlino, Meniawy et al. — Intismeran Autogene Plus Pembrolizumab Versus Pembrolizumab Alone in High-Risk Resected Melanoma: 5-Year Update of the Randomized Phase IIb KEYNOTE-942 Study. Journal of Clinical Oncology, 1 June 2026",
+   "accessed": "2026-08-28",
+   "used_for": "The peer-reviewed five-year analysis, published the day it was presented. Median follow-up 60.3 months, data cutoff 15 December 2025, and the statement that the five-year analyses were descriptive.",
+   "also_called": [
+    "Journal of Clinical Oncology",
+    "the five-year analysis",
+    "Five-year results — Journal of Clinical Oncology, 1 June 2026",
+    "KEYNOTE-942",
+    "NCT03897881",
+    "mRNA-4157",
+    "KEYNOTE-942/mRNA-4157-P201"
+   ],
+   "access": {
+    "state": "full_text_held",
+    "by": "Fred Ugast, who downloaded the publisher PDF on 2026-09-01",
+    "on": "2026-09-01",
+    "sections": [
+     "the complete published article is held; it has not yet been read against every sentence that cites it"
+    ],
+    "note": "Recorded from evidence rather than memory: this URL appears in the citations of site/whatholdsup/melanoma.html.gate.json, so an automated check reached it. Weaker than 'the full text was read' -- a search tool may return an abstract or a snippet.\n\n2026-09-01: state migrated from `machine_read` to `fragment_only`. machine_read was abolished on issue two the same day: its only evidence was that this URL appeared in the citation list of a gate report, so an automated check reached it. Nothing checked what came back, or whether anything did. It sat in READ_STATES and licensed characterisation and adverse claims; fragment_only licenses neither. Nothing about what we know changed here — only what the ledger admits. Issues one and three kept the abolished state for a day because no check asked whether a state was one the ledger defines. One does now.\n\n2026-09-01: held in full. Until today every direct route to ascopubs.org returned HTTP 403 and this source rested on what a retrieval had returned. Identity confirmed by the article's own DOI in the extracted text; substance confirmed by reference list and discussion.",
+    "held": {
+     "sha256": "4c3e3412224fd1da1e2f9eb5f617c82d44058a1332dfe9a620c00ec6477f8657",
+     "file": "docs/4c/4c3e3412224fd1da1e2f9eb5f617c82d44058a1332dfe9a620c00ec6477f8657.pdf",
+     "bytes": 306380,
+     "via": "publisher PDF, downloaded in a browser by the editor on 2026-09-01",
+     "substance": "36104 characters, reference list and discussion/introduction present"
+    }
+   },
+   "title_note": "Was 'Five-year results — Journal of Clinical Oncology, 1 June 2026' until 3 September 2026 — a shorthand label of ours, not the paper's title. The errata check compares the title a bibliographic record returns against the title we hold, and this one shared no distinctive word with the real one, so a correct DOI lookup was reported as 'resolved to a DIFFERENT document'. PMID 42223134.",
+   "about": "KEYNOTE-942",
+   "about_note": "the trial this document is the report or record OF. Declared so a bounded negative about it can be searched: see bindings.bounded_figure_negative. A source with no `about` is reported as unsearchable rather than cleared.",
+   "also_called_note": "KEYNOTE-942 was named in no source's also_called until 3 September, though it is the most-cited trial on the page. Nothing that resolves a trial name to a source could see it. The aliases are the paper's own: 'intismeran autogene (intismeran; formerly V940 or mRNA-4157)' and 'KEYNOTE-942 (ClinicalTrials.gov identifier: NCT03897881)'."
+  },
+  {
+   "id": "S005",
+   "url": "https://www.merck.com/news/moderna-and-merck-announce-mrna-4157-v940-an-investigational-individualized-neoantigen-therapy-in-combination-with-keytruda-pembrolizumab-demonstrated-superior-recurrence-free-survival-in/",
+   "type": "press_release",
+   "title": "Merck & Moderna — first detailed KEYNOTE-942 results",
+   "accessed": "2026-08-28",
+   "used_for": "16 April 2023. The source of the one-sided p = 0.0266, which is a company figure and not a journal one.",
+   "also_called": [
+    "the 2023 release",
+    "the company release",
+    "the April 2023 release"
+   ],
+   "access": {
+    "state": "abstract_held",
+    "by": "the fact-check gate",
+    "on": "2026-08-29",
+    "sections": [
+     "whatever the search tool returned for this URL"
+    ],
+    "note": "Recorded from evidence rather than memory: this URL appears in the citations of site/whatholdsup/melanoma.html.gate.json, so an automated check reached it. Weaker than 'the full text was read' -- a search tool may return an abstract or a snippet.\n\n2026-09-01: state migrated from `machine_read` to `fragment_only`. machine_read was abolished on issue two the same day: its only evidence was that this URL appeared in the citation list of a gate report, so an automated check reached it. Nothing checked what came back, or whether anything did. It sat in READ_STATES and licensed characterisation and adverse claims; fragment_only licenses neither. Nothing about what we know changed here — only what the ledger admits. Issues one and three kept the abolished state for a day because no check asked whether a state was one the ledger defines. One does now.\n\n2026-09-01: retyped from `primary` to `press_release`. This is a company's announcement about its own trial, not the trial's publication. Typed `primary` it was held to the article test — which refused S001 for not looking like a paper — and it ranked as the CLOSEST possible source to a claim, above The Lancet, on a page whose argument depends on the difference between a company figure and a journal one.",
+    "held": {
+     "file": "docs/ee/ee2aec542a3947dfbf83931773a4a903cbc0e844ed3af71010adc9fd9855eaf5.html",
+     "sha256": "ee2aec542a3947dfbf83931773a4a903cbc0e844ed3af71010adc9fd9855eaf5",
+     "bytes": 173432,
+     "identified_by": "contains 6 of 6 distinctive title words — 71675 characters, abstract present but no reference list or discussion — this is the abstract, not the paper"
+    }
+   },
+   "about": "KEYNOTE-942",
+   "about_note": "the trial this document is the report or record OF. Declared so a bounded negative about it can be searched: see bindings.bounded_figure_negative. A source with no `about` is reported as unsearchable rather than cleared."
+  },
+  {
+   "id": "S006",
+   "url": "https://ascopost.com/news/august-2026/interpath-001-trial-of-mrna-based-individualized-neoantigen-therapy-meets-primary-and-key-secondary-endpoints-in-patients-with-high-risk-resected-melanoma/",
+   "type": "coverage",
+   "title": "The ASCO Post — INTerpath-001 meets primary and key secondary endpoints",
+   "accessed": "2026-08-28",
+   "used_for": "Specialist coverage of the Phase 3 announcement. What it does and does not report about effect sizes.",
+   "also_called": [
+    "The ASCO Post"
+   ],
+   "access": {
+    "state": "full_text_held",
+    "by": "the fact-check gate",
+    "on": "2026-08-29",
+    "sections": [
+     "whatever the search tool returned for this URL"
+    ],
+    "note": "Recorded from evidence rather than memory: this URL appears in the citations of site/whatholdsup/melanoma.html.gate.json, so an automated check reached it. Weaker than 'the full text was read' -- a search tool may return an abstract or a snippet.\n\n2026-09-01: state migrated from `machine_read` to `fragment_only`. machine_read was abolished on issue two the same day: its only evidence was that this URL appeared in the citation list of a gate report, so an automated check reached it. Nothing checked what came back, or whether anything did. It sat in READ_STATES and licensed characterisation and adverse claims; fragment_only licenses neither. Nothing about what we know changed here — only what the ledger admits. Issues one and three kept the abolished state for a day because no check asked whether a state was one the ledger defines. One does now.",
+    "held": {
+     "file": "docs/98/98e3ada2610c464ec63f0efcdfb9c1ac2ea961f0b3d01d1fc837596e9d22c7f1.html",
+     "sha256": "98e3ada2610c464ec63f0efcdfb9c1ac2ea961f0b3d01d1fc837596e9d22c7f1",
+     "bytes": 54745,
+     "identified_by": "contains 7 of 12 distinctive title words"
+    }
+   },
+   "_split_on_2026-09-01": "This entry used to carry Morning Glory Sciences and Pharmacy Times in also_urls, under one id, with one access state reading full_text_held -- and the document the library held for it was The ASCO Post's. Two quotations on the page, one from each of the other two outlets, were therefore attributed to an entry whose held bytes are a third outlet's article, and neither quotation appears in them. Identity is not substance: an entry that holds one of three documents holds one document. They are now S009 and S010, each with its own url and its own access state."
+  },
+  {
+   "id": "S007",
+   "url": "https://ascopubs.org/doi/10.1200/OA-25-00008",
+   "type": "primary",
+   "title": "Three-Year Update of a Randomized Phase IIb Study of the Individualized Neoantigen Therapy Intismeran Autogene (mRNA-4157, V940) Plus Pembrolizumab Versus Pembrolizumab in Resected Melanoma — JCO Oncology Advances, 2026",
+   "accessed": "2026-08-28",
+   "used_for": "DOI 10.1200/OA-25-00008. The peer-reviewed publication of the three-year readout, held in full since 2026-09-01. The three-year figures this page prints — HR 0.510, 95% CI 0.288-0.906 — are in this paper and, independently, in the ASCO 2024 presentation of the same analysis (S008).",
+   "also_called": [
+    "Three-Year Update",
+    "the three-year readout",
+    "the three-year publication"
+   ],
+   "access": {
+    "state": "full_text_held",
+    "by": "Fred Ugast, who downloaded the publisher PDF on 2026-09-01",
+    "on": "2026-09-01",
+    "sections": [
+     "the complete published article is held; it has not yet been read against every sentence that cites it"
+    ],
+    "note": "Recorded from evidence rather than memory: this URL appears in the citations of site/whatholdsup/melanoma.html.gate.json, so an automated check reached it. Weaker than 'the full text was read' -- a search tool may return an abstract or a snippet.\n\n2026-09-01: state migrated from `machine_read` to `fragment_only`. machine_read was abolished on issue two the same day: its only evidence was that this URL appeared in the citation list of a gate report, so an automated check reached it. Nothing checked what came back, or whether anything did. It sat in READ_STATES and licensed characterisation and adverse claims; fragment_only licenses neither. Nothing about what we know changed here — only what the ledger admits. Issues one and three kept the abolished state for a day because no check asked whether a state was one the ledger defines. One does now.\n\n2026-09-01: held in full. Until today every direct route to ascopubs.org returned HTTP 403 and this source rested on what a retrieval had returned. Identity confirmed by the article's own DOI in the extracted text; substance confirmed by reference list and discussion.\n\n2026-09-01: the sentence 'we have verified the citation but not read the full text ourselves' is withdrawn. It was true when written and is not now. The paper is held, and its figures are confirmed against the presentation of the same analysis.",
+    "held": {
+     "sha256": "a20f53ae0482863d106992b7395208832dcba85d2c8e48d66a795d084bfa369e",
+     "file": "docs/a2/a20f53ae0482863d106992b7395208832dcba85d2c8e48d66a795d084bfa369e.pdf",
+     "bytes": 416532,
+     "via": "publisher PDF, downloaded in a browser by the editor on 2026-09-01",
+     "substance": "42938 characters, reference list and discussion/introduction present"
+    }
+   },
+   "about": "KEYNOTE-942",
+   "about_note": "the trial this document is the report or record OF. Declared so a bounded negative about it can be searched: see bindings.bounded_figure_negative. A source with no `about` is reported as unsearchable rather than cleared."
+  },
+  {
+   "id": "S008",
+   "url": "https://meetings.asco.org/abstracts-presentations/230175",
+   "type": "conference",
+   "title": "Weber JS, Khattak MA, Carlino MS, et al. Individualized neoantigen therapy mRNA-4157 (V940) plus pembrolizumab in resected melanoma: 3-year update from the mRNA-4157-P201 (KEYNOTE-942) trial. ASCO 2024, abstract LBA9512",
+   "also_called": [
+    "the ASCO 2024 presentation",
+    "the three-year readout",
+    "LBA9512"
+   ],
+   "accessed": "2026-09-01",
+   "used_for": "The three-year readout this page describes as the point at which the recurrence interval cleared the no-effect line: HR 0.510, 95% CI 0.288-0.906. All three figures are in this deck.",
+   "access": {
+    "state": "full_text_held",
+    "by": "Fred Ugast, who supplied the presentation PDF on 2026-09-01",
+    "on": "2026-09-01",
+    "sections": [
+     "the complete presentation, eleven pages"
+    ],
+    "note": "THIS ENTRY EXISTS BECAUSE THE PAGE ALREADY DEPENDED ON IT AND THE LEDGER DID NOT KNOW. The page names 'the three-year readout at ASCO 2024' and attributes HR 0.510 (0.288-0.906) to it, and S007's own note says the three-year figures 'are taken from the ASCO 2024 presentation of the same analysis'. There was no source row for it. B9 did not catch this one because the page names the presentation without linking it, so a check that reads anchors could not see it -- a limit of B9 worth recording beside the case it did catch.\n\nIt also re-confirms, independently, that 0.510 is the figure the evidence carries to three decimals. The 0.51 that a precision check flagged on 2026-09-01 is only ever the company press release."
+   }
+  },
+  {
+   "id": "S009",
+   "url": "https://www.morningglorysciences.com/en/intismeran-interpath-001-phase3-melanoma-2026-en/",
+   "type": "coverage",
+   "title": "Morning Glory Sciences — INTerpath-001",
+   "accessed": "",
+   "used_for": "Specialist coverage. Source of the quoted argument that absolute recurrence risk is lower in the stage IIB and IIC patients the Phase 3 adds, so the same hazard ratio delivers a smaller absolute benefit.",
+   "also_called": [
+    "Morning Glory Sciences"
+   ],
+   "access": {
+    "state": "full_text_held",
+    "by": "",
+    "on": "",
+    "sections": [],
+    "note": "Split out of S006 on 2026-09-01. It was never held under that entry either -- S006's held document is The ASCO Post's article, and the passage this page quotes from this outlet is not in it. The page quotes this document directly, so it must be acquired or the quotation must go.",
+    "held": {
+     "file": "docs/26/26405b645b78d72e6c84db7f16fb897dd2006a009c19c7a42965473dd4309720.html",
+     "sha256": "26405b645b78d72e6c84db7f16fb897dd2006a009c19c7a42965473dd4309720",
+     "bytes": 192066,
+     "identified_by": "contains 4 of 4 distinctive title words"
+    }
+   }
+  },
+  {
+   "id": "S010",
+   "url": "https://www.pharmacytimes.com/view/phase-3-trial-marks-first-success-for-personalized-mrna-cancer-therapy-in-resected-melanoma",
+   "type": "coverage",
+   "title": "Pharmacy Times — Phase 3 Trial Marks First Success for Personalized mRNA Cancer Therapy in Resected Melanoma (Ryu Kariyawasam-Chavez, 19 August 2026)",
+   "accessed": "2026-09-02",
+   "used_for": "Specialist coverage. Source of the quoted counter-argument that resected stage IIB and IIC patients can face recurrence and mortality risks similar to stage III.",
+   "also_called": [
+    "Pharmacy Times"
+   ],
+   "access": {
+    "state": "full_text_held",
+    "by": "fred (saved from the browser), stored by source_store",
+    "on": "2026-09-02",
+    "sections": [
+     "the whole article as the browser rendered it"
+    ],
+    "note": "Split out of S006 on 2026-09-01. State is `blocked`: we tried, by named routes, and could not get the bytes. It was entered as `not_held`, which is not one of this ledger's states -- caught by undefined_states once that function stopped asking access_of(), which had been laundering unknown states into not_opened before the check could see them. It was never held under that entry either -- S006's held document is The ASCO Post's article, and the passage this page quotes from this outlet is not in it. The page quotes this document directly, so it must be acquired or the quotation must go.\n\n2026-09-01: acquire_sources gets HTTP 403 from pharmacytimes.com, with and without the recorded free routes. A WebFetch of the same URL DID return the page and confirmed the sentence this page quotes, verbatim: \"Notably, patients with resected stage IIB or IIC melanoma can face risks of recurrence and melanoma-specific mortality similar to those observed in stage III disease.\"\n\nTHE STATE IS NOT CHANGED ON THAT EVIDENCE. A fetch that returns a sentence is not the document in the library, and this issue abolished `machine_read` today precisely because a state was being licensed by the fact that something automated had reached a URL. The quotation stays unattested until somebody holds the bytes.\n\n2026-09-02: HELD. Saved from the browser by fred and added to the library; 12 of 12 distinctive title words present, and the page's quotation matches the bytes. Two independent retrievals had already agreed on the sentence and neither was allowed to change the state -- the bytes did."
+   }
+  },
+  {
+   "id": "S011",
+   "url": "https://mlq.ai/news/moderna-mercks-personalized-melanoma-therapy-meets-two-phase-3-endpoints/",
+   "type": "coverage",
+   "title": "MLQ News — Moderna and Merck's personalized melanoma therapy meets two Phase 3 endpoints",
+   "accessed": "",
+   "used_for": "Coverage. The page cites it as the outlet that enumerated what the announcement did not contain: hazard ratios, confidence intervals, p-values, median follow-up, event counts.",
+   "also_called": [
+    "MLQ News"
+   ],
+   "access": {
+    "state": "full_text_held",
+    "by": "",
+    "on": "",
+    "sections": [],
+    "note": "Entered 2026-09-01. The page linked and characterised this document with no source entry at all, which B9 reported; nothing had ever checked what it says.",
+    "held": {
+     "file": "docs/a4/a44ed18d6aac55395d63e348cc2b6b06f9a14e092f11b665fdbfcd67ceef3253.html",
+     "sha256": "a44ed18d6aac55395d63e348cc2b6b06f9a14e092f11b665fdbfcd67ceef3253",
+     "bytes": 82470,
+     "identified_by": "contains 8 of 9 distinctive title words"
+    }
+   }
+  },
+  {
+   "id": "S013",
+   "url": "https://clinicaltrials.gov/study/NCT05933577",
+   "type": "registry",
+   "title": "INTerpath-001 — ClinicalTrials.gov record. NCT05933577.",
+   "accessed": "2026-09-02",
+   "used_for": "The authoritative answer to whether any Phase 3 effect size has been posted. hasResults is false; no results have ever been submitted; the record's own estimated primary completion is 26 October 2029, which is why the 19 August 2026 announcement is a prespecified INTERIM analysis and says so.",
+   "also_called": [
+    "NCT05933577",
+    "INTerpath-001",
+    "the registry"
+   ],
+   "access": {
+    "state": "full_text_held",
+    "by": "",
+    "on": "",
+    "sections": [],
+    "note": "Entered 2026-09-02.",
+    "held": {
+     "file": "docs/57/5723f3666f8353fe4e4ed818be885cd92e8f26ed21fb4c42582ac36f52106b59.json",
+     "sha256": "5723f3666f8353fe4e4ed818be885cd92e8f26ed21fb4c42582ac36f52106b59",
+     "bytes": 42529,
+     "identified_by": "contains its identifier NCT05933577"
+    }
+   },
+   "about": "INTerpath-001",
+   "about_note": "the trial this document is the report or record OF. Declared so a bounded negative about it can be searched: see bindings.bounded_figure_negative. A source with no `about` is reported as unsearchable rather than cleared."
+  },
+  {
+   "id": "S014",
+   "url": "https://ascopubs.org/doi/10.1200/JCO.2026.44.16_suppl.9500",
+   "type": "conference",
+   "title": "KEYNOTE-942 five-year update — ASCO 2026 abstract 9500. J Clin Oncol 44 (suppl 16; abstr 9500)",
+   "accessed": "",
+   "used_for": "The other document from the same readout. The page gate reports that this abstract gives FIVE-YEAR landmark rates — combination RFS 68.8% and pembrolizumab OS 71.3% (35.4-89.6) — where the full JCO paper we hold reports only 18-, 24-, 36- and 48-month rates. If so, the figures this page printed before 1 September were this document's, not nobody's.",
+   "also_called": [
+    "ASCO 2026 abstract 9500",
+    "abstract 9500"
+   ],
+   "access": {
+    "state": "full_text_held",
+    "by": "Fred Ugast",
+    "on": "2026-09-03",
+    "sections": [
+     "abstract",
+     "methods",
+     "results",
+     "conclusion"
+    ],
+    "note": "ASCO 2026 abstract 9500, obtained by the editor inside a zip after the scripted route was blocked. 122,844-byte PDF now in the library. Contains the sentence 'No alpha was assigned to this analysis'."
+   },
+   "about": "KEYNOTE-942",
+   "about_note": "the trial this document is the report or record OF. Declared so a bounded negative about it can be searched: see bindings.bounded_figure_negative. A source with no `about` is reported as unsearchable rather than cleared."
+  },
+  {
+   "id": "S015",
+   "url": "https://ascopost.com/news/june-2026/vaccine-plus-pembrolizumab-reduces-risk-of-recurrence-in-high-risk-resected-melanoma/",
+   "type": "coverage",
+   "title": "The ASCO Post, June 2026 — Vaccine Plus Pembrolizumab Reduces Risk of Recurrence in High-Risk Resected Melanoma",
+   "accessed": "2026-09-02",
+   "used_for": "The five-year landmark rates: recurrence-free 68.8% (56.3-78.3) versus 49.1% (33.3-63.0), survival 92.2% (84.2-96.3) versus 71.3% (35.4-89.6), and 'Seven patients died during follow-up in each arm'. The full JCO paper we hold reports landmark rates only to 48 months, so these five-year figures are in this document and not in that one.",
+   "also_called": [
+    "The ASCO Post, June 2026"
+   ],
+   "access": {
+    "state": "full_text_held",
+    "by": "acquire_sources.py",
+    "on": "2026-09-02",
+    "sections": [
+     "the whole article"
+    ],
+    "note": "Acquired after the page gate reported that the figures removed from this page on 1 September were this document's. They were."
+   }
+  },
+  {
+   "id": "S016",
+   "url": "https://www.dermatologytimes.com/view/personalized-mrna-based-melanoma-vaccine-meets-primary-endpoints-in-landmark-phase-3-trial",
+   "type": "coverage",
+   "title": "Dermatology Times — Personalized mRNA-Based Melanoma Vaccine Meets Primary Endpoints in Landmark Phase 3 Trial",
+   "accessed": "",
+   "used_for": "Named on this page, or named by the page gate as coverage the page characterises. Entered 2026-09-02 so that what this page says about it can be checked against it.",
+   "also_called": [
+    "Dermatology Times"
+   ],
+   "access": {
+    "state": "full_text_held",
+    "by": "",
+    "on": "",
+    "sections": [],
+    "note": "Entered 2026-09-02 to settle gate findings c32, c33 and the coverage contradictions.",
+    "held": {
+     "file": "docs/d3/d3b90dbd87326c35b1bbaa0e28f01a8072980d4be894c7734fd1e7c7aa570e44.html",
+     "sha256": "d3b90dbd87326c35b1bbaa0e28f01a8072980d4be894c7734fd1e7c7aa570e44",
+     "bytes": 634333,
+     "identified_by": "contains 12 of 12 distinctive title words"
+    }
+   }
+  },
+  {
+   "id": "S017",
+   "url": "https://www.onclive.com/view/intismeran-autogene-plus-pembrolizumab-meets-rfs-dmfs-end-points-in-resected-melanoma",
+   "type": "coverage",
+   "title": "OncLive — Intismeran Autogene Plus Pembrolizumab Meets RFS, DMFS End Points in Resected Melanoma",
+   "accessed": "",
+   "used_for": "Named on this page, or named by the page gate as coverage the page characterises. Entered 2026-09-02 so that what this page says about it can be checked against it.",
+   "also_called": [
+    "OncLive"
+   ],
+   "access": {
+    "state": "full_text_held",
+    "by": "Fred Ugast",
+    "on": "2026-09-03",
+    "sections": [
+     "full article"
+    ],
+    "note": "OncLive article, saved to PDF by the editor after the scripted route was blocked. 6,165,710-byte PDF now in the library."
+   }
+  },
+  {
+   "id": "S018",
+   "url": "https://practicaldermatology.com/news/intismeran-plus-pembrolizumab-meets-dual-phase-3-melanoma-endpoints/2488176/",
+   "type": "coverage",
+   "title": "Practical Dermatology — Intismeran Plus Pembrolizumab Meets Dual Phase 3 Melanoma Endpoints",
+   "accessed": "",
+   "used_for": "Named on this page, or named by the page gate as coverage the page characterises. Entered 2026-09-02 so that what this page says about it can be checked against it.",
+   "also_called": [
+    "Practical Dermatology"
+   ],
+   "access": {
+    "state": "full_text_held",
+    "by": "",
+    "on": "",
+    "sections": [],
+    "note": "Entered 2026-09-02 to settle gate findings c32, c33 and the coverage contradictions.",
+    "held": {
+     "file": "docs/6c/6c348ac76bebb92e0ae9f90009cf48a2d6e9cda762f37e422b4acec532e33f02.html",
+     "sha256": "6c348ac76bebb92e0ae9f90009cf48a2d6e9cda762f37e422b4acec532e33f02",
+     "bytes": 97483,
+     "identified_by": "contains 10 of 10 distinctive title words"
+    }
+   }
+  },
+  {
+   "id": "S019",
+   "url": "https://kolpulse.com/kol-pulse-trial-profile-interpath001",
+   "type": "coverage",
+   "title": "KOL Pulse — INTerpath-001 trial profile",
+   "accessed": "",
+   "used_for": "Named on this page, or named by the page gate as coverage the page characterises. Entered 2026-09-02 so that what this page says about it can be checked against it.",
+   "also_called": [
+    "KOL Pulse"
+   ],
+   "access": {
+    "state": "full_text_held",
+    "by": "",
+    "on": "",
+    "sections": [],
+    "note": "Entered 2026-09-02 to settle gate findings c32, c33 and the coverage contradictions.",
+    "held": {
+     "file": "docs/ab/ab730d69d2841765b06fb3fb9e2d38a4941f6aedbc62815476fc289160083cfb.html",
+     "sha256": "ab730d69d2841765b06fb3fb9e2d38a4941f6aedbc62815476fc289160083cfb",
+     "bytes": 98325,
+     "identified_by": "contains 4 of 4 distinctive title words"
+    }
+   }
+  },
+  {
+   "id": "S020",
+   "url": "https://clinicaltrials.gov/study/NCT02362594",
+   "type": "registry",
+   "title": "KEYNOTE-054 — ClinicalTrials.gov record. NCT02362594.",
+   "accessed": "",
+   "used_for": "Evidence for the page's claim about adjuvant PD-1 inhibitors and overall survival, which the page gate flagged as having no citation. What the registry can settle: whether an overall-survival result has been posted, and what the comparator arm is.",
+   "also_called": [
+    "NCT02362594",
+    "KEYNOTE-054"
+   ],
+   "access": {
+    "state": "full_text_held",
+    "by": "",
+    "on": "",
+    "sections": [],
+    "note": "Entered 2026-09-02 to settle gate finding obj-3.",
+    "held": {
+     "file": "docs/78/7872fc78cd5cda1d1bc4e0dbab1d41fd61113a7e5cae6b3d8eb2cc2b71050316.json",
+     "sha256": "7872fc78cd5cda1d1bc4e0dbab1d41fd61113a7e5cae6b3d8eb2cc2b71050316",
+     "bytes": 98826,
+     "identified_by": "contains its identifier NCT02362594"
+    }
+   },
+   "about": "KEYNOTE-054",
+   "about_note": "the trial this document is the report or record OF. Declared so a bounded negative about it can be searched: see bindings.bounded_figure_negative. A source with no `about` is reported as unsearchable rather than cleared."
+  },
+  {
+   "id": "S021",
+   "url": "https://clinicaltrials.gov/study/NCT02388906",
+   "type": "registry",
+   "title": "CheckMate 238 — ClinicalTrials.gov record. NCT02388906.",
+   "accessed": "",
+   "used_for": "Evidence for the page's claim about adjuvant PD-1 inhibitors and overall survival, which the page gate flagged as having no citation. What the registry can settle: whether an overall-survival result has been posted, and what the comparator arm is.",
+   "also_called": [
+    "NCT02388906",
+    "CheckMate 238"
+   ],
+   "access": {
+    "state": "full_text_held",
+    "by": "",
+    "on": "",
+    "sections": [],
+    "note": "Entered 2026-09-02 to settle gate finding obj-3.",
+    "held": {
+     "file": "docs/48/48e7ae4ad1e30328acb2d22e10b6895bbe2370d45583772f343d00b781b627b3.json",
+     "sha256": "48e7ae4ad1e30328acb2d22e10b6895bbe2370d45583772f343d00b781b627b3",
+     "bytes": 135307,
+     "identified_by": "contains its identifier NCT02388906"
+    }
+   },
+   "about": "CheckMate 238",
+   "about_note": "the trial this document is the report or record OF. Declared so a bounded negative about it can be searched: see bindings.bounded_figure_negative. A source with no `about` is reported as unsearchable rather than cleared."
+  },
+  {
+   "id": "S022",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4877414/",
+   "type": "reference",
+   "title": "Greenland, Senn, Rothman, Carlin, Poole, Goodman, Altman — Statistical tests, P values, confidence intervals, and power: a guide to misinterpretations. Eur J Epidemiol, 2016",
+   "accessed": "2026-09-02",
+   "used_for": "The statistics explainer's claims about what a p-value is and is not: that it assumes the test hypothesis is true and is not the probability that hypothesis is true, and what a confidence interval does and does not tell a reader. Acquired 2 September 2026 because these sentences had been on the page since publication resting on no document at all.",
+   "also_called": [
+    "Greenland et al. 2016",
+    "the guide to misinterpretations"
+   ],
+   "access": {
+    "state": "full_text_held",
+    "held": {
+     "file": "docs/bb/bbe9fe2ab77eb22fb65790ed3a9544f68b53a4b9abe17cfbd3eba1f75f8347d4.xml",
+     "sha256": "bbe9fe2ab77eb22fb65790ed3a9544f68b53a4b9abe17cfbd3eba1f75f8347d4",
+     "bytes": 154617,
+     "identified_by": "contains its identifier PMC4877414"
+    },
+    "on": "2026-09-02"
+   },
+   "form": "article"
+  },
+  {
+   "id": "S023",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC478551/",
+   "type": "reference",
+   "title": "Spruance, Reid, Grace, Samore — Hazard Ratio in Clinical Trials. Antimicrob Agents Chemother, 2004",
+   "accessed": "2026-09-02",
+   "used_for": "The explainer's definition of the hazard ratio, what a value of 1 means, what values above and below 1 mean, and the caution that a hazard ratio is not a proportion of patients benefited.",
+   "also_called": [
+    "Spruance et al. 2004"
+   ],
+   "access": {
+    "state": "full_text_held",
+    "by": "Fred Ugast",
+    "on": "2026-09-03",
+    "sections": [
+     "abstract",
+     "introduction",
+     "cox proportional hazards model and hazard ratio",
+     "discussion"
+    ],
+    "note": "Publisher PDF, ASM, Antimicrob Agents Chemother 2004;48(8):2787-2792. Downloaded by the editor after both scripted routes returned 403. Identity test: 11 of 11 distinctive title words present."
+   },
+   "note": "The publisher copy at journals.asm.org returns 403 to a script. This is the same article in PubMed Central, and the identity test decides that, not the hostname.",
+   "form": "article"
+  },
+  {
+   "id": "S024",
+   "url": "https://www.ncbi.nlm.nih.gov/books/NBK560604/",
+   "type": "reference",
+   "title": "Survival Analysis — StatPearls, NCBI Bookshelf",
+   "accessed": "2026-09-02",
+   "used_for": "Backstop for the hazard-ratio definition if the Spruance paper cannot be held: states that risk increases as the value rises above 1 and decreases as it falls below 1.",
+   "also_called": [
+    "StatPearls, Survival Analysis"
+   ],
+   "access": {
+    "state": "full_text_held",
+    "held": {
+     "file": "docs/c4/c42d4b0d06706aa3c710dfa27938ba864b8ee7545342a03dbc9736744c74af38.html",
+     "sha256": "c42d4b0d06706aa3c710dfa27938ba864b8ee7545342a03dbc9736744c74af38",
+     "bytes": 62654,
+     "identified_by": "contains 5 of 5 distinctive title words"
+    },
+    "on": "2026-09-02"
+   },
+   "form": "page",
+   "form_note": "NCBI Bookshelf chapter (StatPearls). A book chapter is not a journal article and has no reference list or discussion of its own, so the article test would fail it for being what it is."
+  },
+  {
+   "id": "S025",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC3227332/",
+   "type": "reference",
+   "title": "Singh, Mukhopadhyay — Survival analysis in clinical trials: Basics and must know areas. Perspect Clin Res, 2011",
+   "accessed": "2026-09-02",
+   "used_for": "Sought for an explicit statement of what a hazard ratio of 1 means, which neither Greenland 2016 nor the StatPearls survival-analysis chapter states in those terms.",
+   "also_called": [
+    "Singh and Mukhopadhyay 2011"
+   ],
+   "access": {
+    "state": "full_text_held",
+    "held": {
+     "file": "docs/58/58a1c65bc6026504274da7da8a18a1d021a473099e1be89642694a4d3744bf36.xml",
+     "sha256": "58a1c65bc6026504274da7da8a18a1d021a473099e1be89642694a4d3744bf36",
+     "bytes": 26370,
+     "identified_by": "contains its identifier PMC3227332"
+    },
+    "on": "2026-09-02"
+   },
+   "form": "article"
+  },
+  {
+   "id": "S026",
+   "url": "https://clinicaltrials.gov/study/NCT03553836",
+   "type": "registry",
+   "title": "KEYNOTE-716 — ClinicalTrials.gov record. NCT03553836.",
+   "accessed": "2026-09-03",
+   "used_for": "The page asserts that no randomised trial against placebo has reported a statistically significant overall survival benefit as a prespecified endpoint in its own population. KEYNOTE-716 is pembrolizumab against placebo in resected stage IIB/IIC melanoma — squarely inside that class and not previously checked. Acquired 3 September 2026 because a universal negative had been asserted over a class of which we held two members, one of which has no placebo arm.",
+   "also_called": [
+    "KEYNOTE-716",
+    "NCT03553836"
+   ],
+   "access": {
+    "state": "full_text_held",
+    "held": {
+     "file": "docs/26/266e8448b1083b0c54a8908ef6ec9a97ff721da8bf2699cd592abb564b4d379a.json",
+     "sha256": "266e8448b1083b0c54a8908ef6ec9a97ff721da8bf2699cd592abb564b4d379a",
+     "bytes": 121630,
+     "identified_by": "contains its identifier NCT03553836"
+    },
+    "on": "2026-09-03",
+    "note": "URL normalised 2026-09-04 from https://clinicaltrials.gov/api/v2/studies/NCT03553836 to the record's human page. Same document; the API path was how we fetched it, not an address a reader can follow, and it was the only registry record in this issue not carrying its /study/ URL. Found by B16."
+   },
+   "about": "KEYNOTE-716",
+   "about_note": "the trial this document is the report or record OF. Declared so a bounded negative about it can be searched: see bindings.bounded_figure_negative. A source with no `about` is reported as unsearchable rather than cleared."
+  },
+  {
+   "id": "S027",
+   "url": "https://www.merck.com/news/moderna-merck-announce-5-year-data-for-intismeran-autogene-in-combination-with-keytruda-pembrolizumab-demonstrated-sustained-improvement-in-the-primary-endpoint-of-recurrence-free-survival-i/",
+   "type": "press_release",
+   "title": "Moderna & Merck — five-year KEYNOTE-942 data, January 2026 announcement",
+   "accessed": "2026-09-03",
+   "used_for": "The page removed a five-year topline of 20 January 2026 carrying a one-sided nominal p = 0.0075, saying the document was in nothing we held and would stay out until somebody produced it. The page gate produced it on 3 September. Acquired to settle whether the figure is real and what the release actually says.",
+   "also_called": [
+    "the January 2026 release",
+    "the five-year topline"
+   ],
+   "access": {
+    "state": "full_text_held",
+    "held": {
+     "file": "docs/fb/fbe0cd755f97173978104a56c7f1ca53e14360b063fbd469d2e1929c3c93ab43.html",
+     "sha256": "fbe0cd755f97173978104a56c7f1ca53e14360b063fbd469d2e1929c3c93ab43",
+     "bytes": 189014,
+     "identified_by": "contains 6 of 7 distinctive title words"
+    },
+    "on": "2026-09-03"
+   },
+   "about": "KEYNOTE-942",
+   "about_note": "the trial this document is the report or record OF. Declared so a bounded negative about it can be searched: see bindings.bounded_figure_negative. A source with no `about` is reported as unsearchable rather than cleared."
+  },
+  {
+   "id": "S028",
+   "url": "https://link.springer.com/article/10.1007/s11845-026-04315-0",
+   "type": "reference",
+   "title": "Riaz L, Komal W, Qureshi R, Khan M. FDA Approval of daratumumab and hyaluronidase-fihj plus VRd for the frontline treatment of newly diagnosed multiple myeloma. Irish Journal of Medical Science, 2026",
+   "doi": "10.1007/s11845-026-04315-0",
+   "pubmed": "41920444",
+   "accessed": "2026-09-04",
+   "used_for": "The counterexample to a sentence this page carried live: that Morning Glory Sciences is an outlet we can find no other publication citing. This letter's reference 12 is 'Morning Glory Sciences. Oncology drug approval news flash: Daratumumab and hyaluronidase-fihj plus bortezomib, lenalidomide, and dexamethasone approved for newly diagnosed multiple myeloma in transplant-ineligible adults [Internet]. Morning Glory Sciences (2026) Jan 28'. Held so that the correction rests on a document rather than on a report of one. Nothing else on the page rests on it; the sentence it falsifies is deleted.",
+   "also_called": [
+    "Riaz et al.",
+    "10.1007/s11845-026-04315-0",
+    "41920444"
+   ],
+   "access": {
+    "state": "abstract_held",
+    "by": "claude",
+    "on": "2026-09-04",
+    "sections": [
+     "reference list"
+    ],
+    "note": "Reached through the DOI to the Springer article page and read for its bibliographic record and reference list. The reviewer reported it on 4 September; we could not locate it ourselves (Europe PMC rate-limited on every attempt, and PubMed does not index reference lists) and the operator supplied the PubMed id. Confirmed from the publisher's own page, not from the report of it."
+   },
+   "verification_note": "VERIFIED 2026-09-09 from the publisher's Crossref deposit. Three precisions, because this source is easy to misread as being about melanoma:\n(a) WHAT THE LETTER IS. An FDA-approval letter on daratumumab and hyaluronidase-fihj plus VRd for newly diagnosed MULTIPLE MYELOMA. Not melanoma, not this trial, not this drug class. It bears on this issue through its reference list and through nothing else.\n(b) WHAT WE HOLD. The publisher's Crossref deposit for DOI 10.1007/s11845-026-04315-0, including the complete twelve-item reference list, plus the PubMed record for PMID 41920444. NOT the letter's text. Anyone with the DOI can reproduce the check; that is what makes the correction it supports checkable rather than reported.\n(c) WHAT REFERENCE 12 IS. 'Morning Glory Sciences. Oncology drug approval news flash: Daratumumab and hyaluronidase-fihj plus bortezomib, lenalidomide, and dexamethasone approved for newly diagnosed multiple myeloma in transplant-ineligible adults', dated 28 January 2026 — a news flash about that same approval, cited as a news source.\nRECORD: Irish J Med Sci 195:1251-1252, April 2026. Riaz L, Komal W, Qureshi R, Khan M. DOI 10.1007/s11845-026-04315-0. PMID 41920444. First author ORCID 0009-0009-6649-3059.\nWHAT THIS DOES NOT SUPPORT. One citation of a news flash about an unrelated disease establishes that the outlet has been cited once. It supports no claim about its standing in either direction, and must not be used to restore one. The page carries no characterisation of the outlet and should not acquire a fourth.\nACCESS STATE stays abstract_held. The reference list is reachable and the article is not; see the open-gaps entry on access-state vocabulary, which is the real problem here."
+  },
+  {
+   "id": "S029",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5648545/",
+   "type": "primary",
+   "title": "Eggermont, Chiarion-Sileni, Grob et al. — Prolonged Survival in Stage III Melanoma with Ipilimumab Adjuvant Therapy (EORTC 18071). N Engl J Med, 2016",
+   "accessed": "2026-09-08",
+   "used_for": "The counterexample paragraph: adjuvant ipilimumab against placebo in resected stage III melanoma, five-year overall survival 65.4% versus 54.4%, HR 0.72 (95.1% CI 0.58-0.88), p=0.001, overall survival a prespecified secondary endpoint; the 10 mg/kg dose and the five immune-related deaths.",
+   "also_called": [
+    "EORTC 18071",
+    "Eggermont et al. 2016",
+    "the ipilimumab adjuvant trial"
+   ],
+   "note": "Cited on the page from 2026-09-08 and NOT held until 2026-09-08. The 8 September log entry's clause 'The paper is now held and cited' and the verification addendum's 'Sources entry carries DOI, PMID and PMCID' were both written while the store held nothing: they were true of the rendered page and false of the library. The page links the PubMed record (PMID 27717298); the representation actually fetched and stored is the open-access PubMed Central full text, PMCID PMC5648545, DOI 10.1056/NEJMoa1611299.",
+   "form": "article",
+   "access": {
+    "state": "full_text_held",
+    "by": "Claude Code",
+    "on": "2026-09-08",
+    "sections": [
+     "abstract",
+     "methods",
+     "results",
+     "discussion"
+    ],
+    "note": "Open-access PMC full text (PMCID PMC5648545) fetched under the 2026-09-08 remediation order. Identity confirmed by the store: contains its identifier PMC5648545; substance classified full_text, 50,819 characters. The page links the PubMed record; the representation held is the PMC HTML."
+   },
+   "erratum_note": "Formally corrected: N Engl J Med 2018 Nov 9;379(22):2185, PMID 31442371, DOI 10.1056/NEJMx180040. NOT HELD and not readable from here — the notice is subscription-only at NEJM (403 to a script), absent from PubMed Central and Europe PMC (isOpenAccess N, inPMC N, inEPMC N), and carries no abstract in PubMed or Crossref. It is a bulk notice covering thirteen NEJM articles at once. CORROBORATION, NOT CLOSURE: every figure this page quotes from S029 — 65.4% vs 54.4% at five years, HR 0.72, 95.1% CI 0.58 to 0.88, P=0.001, the 10 mg/kg dose — appears verbatim in the PubMed abstract of record for PMID 27717298 retrieved 2026-09-09, which is the post-erratum state of that record. That bounds the risk; it does not read the erratum, and a PubMed abstract is not always revised when one is issued. Until somebody opens the notice we do not know whether it touches a figure on this page."
+  },
+  {
+   "id": "S030",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/31442371/",
+   "type": "reference",
+   "title": "PubMed record for the 2018 NEJM erratum, PMID 31442371 — the bibliographic record, NOT the notice text",
+   "accessed": "2026-09-09",
+   "used_for": "The page's statement that a 2018 erratum covering thirteen NEJM articles at once applies to EORTC 18071. Both facts are literally in this record: its title names thirteen articles, and its comment-correction list carries 10.1056/NEJMoa1611299.",
+   "also_called": [
+    "the 2018 NEJM erratum record",
+    "PMID 31442371",
+    "NEJMx180040"
+   ],
+   "note": "WHAT THIS IS AND IS NOT. We hold the PubMed bibliographic record of the erratum in full. We do NOT hold the notice itself: NEJM returns 403 to a script, Europe PMC reports isOpenAccess N and inEPMC N, and neither PubMed nor Crossref carries any abstract or notice text. Nothing on this page may characterise what the notice SAYS on the strength of this source — only which articles it covers and where it was published. S029 keeps a standing errata debt until the notice itself is read.",
+   "form": "record",
+   "access": {
+    "state": "full_text_held",
+    "by": "Claude Code",
+    "on": "2026-09-09",
+    "sections": [
+     "bibliographic record"
+    ],
+    "note": "The PubMed record is held in full. The erratum notice it describes is NOT held: paywalled at NEJM, absent from PMC and Europe PMC, no abstract anywhere. No claim about what the notice says may rest on this source."
+   }
+  }
+ ],
+ "also_called_note": "The role-nouns the page uses for a source. These must identify the DOCUMENT, not its subject: 'KEYNOTE-942' is a trial that three of these sources report on, and listing it as an alias for all three made every sentence about the trial match all three at once -- so the one source marked `blocked` absorbed the blame for claims the read sources actually support. The ledger audit matches sentences to sources by these plus the title's trial and journal names; a reference the page makes that is not listed here is invisible to the audit."
 }

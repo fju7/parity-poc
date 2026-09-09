@@ -231,11 +231,31 @@ def run(slug: str) -> dict:
     # file and DOES need it, because the figure is the page's own arithmetic and
     # is in no span the sentence is bound to. Two checks reading one file with
     # two notions of "used" is how a correct entry gets deleted as dead.
-    on_page = [sent for _fig, sent in figures_on_page(slug)]
+    # AND NOT AGAINST THE FILTERED LIST EITHER. figures_on_page() drops any
+    # sentence matching AB.OURS -- the page saying it did this sum itself -- so
+    # a figure that appears ONLY in such a sentence never reaches the exclusion
+    # machinery here and its rule can never be marked `used`. Comparing
+    # in_sentence against that filtered list then reported a live exclusion as
+    # one that had outlived its sentence. On 2026-09-09 that happened to 3.40,
+    # which corrections_check.py DOES need, because that module reads the change
+    # log without the OURS filter. Same failure as the one recorded above, one
+    # filter further out: the test for "is the sentence gone" must read the
+    # page, not this function's view of it.
+    # AND NOT AGAINST page_sentences() EITHER, WHICH STRIPS THE CHANGE LOG.
+    # An exclusion may legitimately be keyed to a sentence in the footer:
+    # corrections_check.py reads the change log and applies no OURS filter, so
+    # it needs entries this module never consults. Testing "is the sentence
+    # gone" against any narrower view than the page itself reports those as
+    # dead. The whole page, plain, is the only view that answers the question
+    # the line above states.
+    # Normalised on both sides: ledger.plain() leaves a double space wherever it
+    # stripped a tag, so "Readers saw <b>3.4</b> ," comes out with two spaces
+    # while the sentence forms these rules were keyed from have one. Comparing
+    # raw reported every such entry as dead.
+    whole = SC._norm(ledger.plain(B._page_html(slug)))
     stale = [r for r in rules
              if id(r) not in used
-             and not any((r.get("in_sentence") or "") and r["in_sentence"] in sent
-                         for sent in on_page)]
+             and SC._norm(r.get("in_sentence") or "") not in whole]
     return {"checked": present + len(missing) + len(excluded), "present": present,
             "missing": missing, "excluded": excluded, "stale": stale,
             "unheld": unheld(slug), "sources": len(store.sources(slug))}

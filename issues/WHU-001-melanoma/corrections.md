@@ -517,6 +517,38 @@ The clause is gone. The sentence now says "a specialist outlet, and we give its
 argument on its merits". The argument itself, and the two quoted passages it
 rests on, are unchanged.
 
+**Appended 9 September 2026 — the two sentences above were not true when they
+were published, and they stayed untrue for five days.** The clause was not gone.
+It was on the page when this notice went out on 4 September, and it remained on
+the page until 9 September. The replacement wording named here — "a specialist
+outlet, and we give its argument on its merits" — has never been on the page at
+all; a binding row was drafted for it and the edit was never made. The clause is
+removed now, and with it every characterisation of that outlet: three were
+attempted, two were withdrawn as unsupportable, and the third had no better
+support than the two. The sentence now names the outlet, gives its argument, and
+makes no claim about its standing.
+
+**On what the counterexample rests, and when we actually checked.** The citation
+is now verified against the publisher's own Crossref deposit for DOI
+10.1007/s11845-026-04315-0: the record returns *Irish Journal of Medical Science*
+195:1251-1252, April 2026, and the twelve references the publisher deposited, of
+which reference 12 is the Morning Glory Sciences news flash verbatim. Anyone with
+the DOI can reproduce that. What we have never read is the letter's own text, and
+the correction does not need it — it turns on the citation, not the argument.
+
+That verification happened on **9 September**. The correction was published on
+**4 September** on the strength of a reviewer's report and a reading of the
+publisher's web page, and stood for five days without anyone querying the DOI and
+PMID that had been in our own source record the whole time. It was checked only
+because an unrelated defect — the clause it announced as removed turning out to
+be still on the page — forced someone to open the record.
+
+**A correction that turns out to be true is not a verified correction.** This one
+was right. It was not checked, and the distinction is the whole subject of this
+publication: the interval between publishing a claim and having grounds for it is
+not erased by the claim later proving correct. It happened to be five days here.
+Nothing in the process would have made it five weeks instead.
+
 **Why we could not have found this ourselves, which is the part that matters.**
 
 After the reviewer reported it we went looking, five ways, and failed: PubMed
@@ -604,3 +636,45 @@ second time the answer to "why did no check catch this" was that the check
 could not see the sentence at all. The first was the correction history, which
 had no controls until yesterday. This one is number words. Both were invisible
 for a reason nobody had written down until it cost something.
+
+## 9 September 2026 — an outside review, and a self-accusation that overstated what we did
+
+The page readers have been seeing since 4 September has been replaced. An
+outside reviewer read it against the packet we send out and returned twenty-two
+findings; nineteen were acted on. The full account is in the change log at the
+foot of the assessment. Three things in it are corrections to what readers were
+already shown rather than additions, and belong here.
+
+**We told readers we had printed a number that disagreed with its own working.**
+The page said the composite it published was "out by 0.05 against its own
+working", for eight days. That was not what happened. The working printed beside
+3.4 came to 3.40 exactly, and 3.4 is the number it produces; nobody was ever
+shown a figure that disagreed with the arithmetic underneath it, and no rounding
+was involved. What differed from the rubric was the working itself —
+reproducibility and recency were shown at 15% each where the rubric gives 20%
+and 10%, and those two weights are the whole of the 0.05. The commit that
+published the rubric corrected the same working in one change. Accusing
+ourselves of a transcription failure we had not committed is the same class of
+thing as the 2 September entry already recorded, where a correction notice was
+worse than the error it corrected.
+
+**We credited an outlet with a care that belonged to somebody else.** The page
+said KOL Pulse had identified the 49% figure as coming from an earlier phase 2
+trial without naming KEYNOTE-942. It names KEYNOTE-942 eleven times and
+attributes the circulating hazard ratios to it in terms. The wording we praised
+sits inside a third-party post the outlet was logging. The sentence now says
+whose it is.
+
+**A survival interval was given at the wrong width, and the email carried it
+further.** The three-year overall-survival hazard ratio was printed with its 80%
+interval, 0.179 to 1.004, beside the five-year figure's 95% interval. Both
+intervals for that hazard ratio sit in the same table row of the same paper, and
+the 95% pair is 0.114 to 1.584 — wider than the five-year interval, not tighter.
+The page now gives both at 95%, and the subscriber email, which still carried
+the mixed pair, has been brought into line.
+
+**One thing is open and readers should know it.** The New England Journal paper
+behind the ipilimumab counterexample was formally corrected in 2018. We have
+identified the correction and cannot read it: it is behind a subscription and is
+in neither PubMed Central nor Europe PMC. Until somebody reads it we do not know
+whether it touches any figure we quote from that paper.

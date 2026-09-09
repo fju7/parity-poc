@@ -302,6 +302,68 @@
       "comments": [],
       "state": "CLEAN",
       "why": "matched on DOI 10.1007/s11845-026-04315-0"
+    },
+    "S029": {
+      "source": "S029",
+      "title": "Eggermont, Chiarion-Sileni, Grob et al. — Prolonged Survival in Stage III Melanoma with Ipilimumab Adjuvant Therapy (EOR",
+      "checked_on": "2026-09-09",
+      "identifier": "PMCID PMC5648545",
+      "identifier_from": "the source URL",
+      "resolved_title": "Prolonged Survival in Stage III Melanoma with Ipilimumab Adjuvant Therapy.",
+      "identity": "resolved title shares 7 word(s) with ours: adjuvant, ipilimumab, melanoma, prolonged, stage, survival, therapy",
+      "amendments": [
+        {
+          "id": "31442371",
+          "source": "MED",
+          "reference": "N Engl J Med. 2018 Nov 29;379(22):2185. doi: 10.1056/NEJMx180040",
+          "type": "Erratum in",
+          "orderIn": 5
+        }
+      ],
+      "comments": [
+        {
+          "id": "28121506",
+          "source": "MED",
+          "reference": "N Engl J Med. 2017 Jan 26;376(4):399. doi: 10.1056/NEJMc1615564",
+          "type": "Comment in",
+          "orderIn": 1
+        },
+        {
+          "id": "28125193",
+          "source": "MED",
+          "reference": "N Engl J Med. ;376(4):398. doi: 10.1056/NEJMc1615564",
+          "type": "Comment in",
+          "orderIn": 2
+        },
+        {
+          "id": "28125194",
+          "source": "MED",
+          "reference": "N Engl J Med. ;376(4):398-9. doi: 10.1056/NEJMc1615564",
+          "type": "Comment in",
+          "orderIn": 3
+        },
+        {
+          "id": "30943345",
+          "source": "MED",
+          "reference": "N Engl J Med. 2019 Apr 4;380(14):1374-1376. doi: 10.1056/NEJMc1902228",
+          "type": "Comment in",
+          "orderIn": 4
+        }
+      ],
+      "state": "AMENDED",
+      "why": "matched on PMCID PMC5648545"
+    },
+    "S030": {
+      "source": "S030",
+      "title": "PubMed record for the 2018 NEJM erratum, PMID 31442371 — the bibliographic record, NOT the notice text",
+      "checked_on": "2026-09-09",
+      "identifier": "PMID 31442371",
+      "identifier_from": "the source URL",
+      "resolved_title": "Neoadjuvant PD-1 Blockade in Resectable Lung Cancer; Nivolumab and Ipilimumab in Advanced Melanoma; Overall Survival with Combined Nivolumab and Ipilimumab in A",
+      "state": "UNCHECKED",
+      "why": "lookup on PMID 31442371 resolved to a DIFFERENT document: 'Neoadjuvant PD-1 Blockade in Resectable Lung Cancer; Nivolumab and Ipi' shares nothing distinctive with 'PubMed record for the 2018 NEJM erratum, PMID 31442371 — the bibliogra'",
+      "amendments": [],
+      "comments": []
     }
   }
 }

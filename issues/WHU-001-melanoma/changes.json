@@ -1658,5 +1658,27 @@
       "because": "READER-0904-2",
       "note": "'Not fourteen patients' was false -- fourteen patients died, as the paper quoted in the same sentence says. The misreading worth denying is that the analysis was OF fourteen people rather than of 157 among whom fourteen died, and the sentence now denies that. Nothing caught it because the sentence spells its quantities as words and every figure check here looks for digits: GAP-006."
     }
+  ],
+  "what_change_sets_are": "A round-level attribution: the span of page history it covers, the documents that decided the changes in it, and a label that must resolve like any other. Both shas are pinned, so a set stops covering the moment the page changes again. It is not a waiver — see recorded_change_sets() in publish.py for the three things that stop it becoming one.",
+  "change_sets": [
+    {
+      "at": "2026-09-09T13:56:55+00:00",
+      "by": "claude",
+      "from_sha": "a788f00ab152123579a5593d0e2fe0908a4b0c264fbabdb0e5cff944517ee7f9",
+      "to_sha": "2727429064d69721ea9185bad11f3c502f328da0a87dcf8acbedc7bc68609686",
+      "because": "ROUND-2026-09-08",
+      "decided_by": [
+        "issues/WHU-001-melanoma/review/2026-09-08-review.md",
+        "issues/WHU-001-melanoma/review/2026-09-08-rebase-note.md",
+        "issues/WHU-001-melanoma/review/2026-09-08-adjudication.md",
+        "issues/WHU-001-melanoma/review/2026-09-08-stop-and-remediation.md",
+        "issues/WHU-001-melanoma/review/2026-09-09-close-out-directive.md",
+        "issues/WHU-001-melanoma/review/2026-09-09-closing-out.md",
+        "issues/WHU-001-melanoma/review/2026-09-09-rule13-amendment.md",
+        "issues/WHU-001-melanoma/review/2026-09-09-step3-ruling.md",
+        "issues/WHU-001-melanoma/review/2026-09-09-erratum-ruling.md"
+      ],
+      "note": "The 8 September round: the outside review's 22 findings and their adjudication, the publish directive and its amendment, and the eight-item remediation order with the two rulings that followed. Recorded as a set rather than per change because the reasoning exists in those four documents and is a linkage debt, not an unrecorded one. See ROUND-2026-09-08 in the adjudication. Extended 2026-09-09 by the close-out: RV-06 and the rule 13 amendment, and the step-3 ruling on the eight blocked preflight rows — the two email sentences patched to match the page, deletions entries for 0.179 and 1.004, a declared exclusion for 3.40, the S029 errata lookup, the 9 September corrections.md entry, a changecheck run with its five findings disposed, and Spruance, Eggermont and Greenland recorded in attributions.json after opening each source. Those changes are records and the email, not the page; the page's own span is unchanged from the sha pinned above. Extended again by the erratum ruling: the S029 source note now carries the unread-erratum gap on the page itself, the erratum's PubMed record is held as S030 with the notice explicitly not held, RV-07 records the miss, and S029 keeps an open errata item rather than a disposition. Extended 2026-09-09 by the Morning Glory resolution: the standing claim removed from the page entirely with no substitute, Appendix C item 10 withdrawn, both log paragraphs rewritten to what happened, S028 verified from the publisher's Crossref deposit, and two open-gaps entries. Extended 2026-09-09 by the S028 resolution: RV-09 (a search declared exhaustive without querying the DOI and PMID in our own record), standing rule 22 (search nearest first), the corrections.md note that a correction which turns out to be true is not a verified correction, the S028 three-precision note, Appendix C item 10 recorded as FALSIFIED rather than doubtful, and three open-gaps entries — access-state vocabulary, the KOL Pulse box escalated to REQUIRED, and the gate budget recorded as an operator decision with its 43 sentences named. The page is unchanged by this step."
+    }
   ]
 }

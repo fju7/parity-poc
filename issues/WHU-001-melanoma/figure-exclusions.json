@@ -1,70 +1,98 @@
 {
-  "_what_this_is": "Figures on this page that are not claims about any document, each declared by a person with the sentence it belongs to and the reason. B13 counts them in its report and reports one that no longer matches a sentence as stale, so this file cannot quietly become a filter.",
-  "_the_rule": "An exclusion says 'this figure is not taken from a source', never 'do not check this figure'. If the sentence changes so that the figure IS a claim about a document, the exclusion stops matching and the check comes back.",
-  "exclusions": [
-    {
-      "figure": "3.94",
-      "in_sentence": "Is the effect real scores 3.94; how large is it scores 1.0.",
-      "why": "The page's own arithmetic over its own scores, not a figure any document reports. Five of the six rubric dimensions measure whether the effect is real; 3.94 is their weighted mean renormalised to those weights. It is checked harder than a quoted figure, by the `computed` mark, which re-derives it from the scores printed beside it.",
-      "by": "claude",
-      "on": "2026-09-03",
-      "falsifier": "furniture.py's `computed` check stops passing on the element that states it — the working must multiply the scores actually shown, the weights must sum to 1, and the result must equal the printed number. If that check fails or the mark is removed, this figure has nothing verifying it and the exclusion must go with it."
-    },
-    {
-      "figure": "3.94",
-      "in_sentence": "“Landmark trial succeeds” and “real: 3.94, size: 1.0” describe the same event",
-      "why": "The same figure, restated in the change log where the split is explained. Same standing: our arithmetic, verified by the `computed` mark.",
-      "by": "claude",
-      "on": "2026-09-03",
-      "falsifier": "furniture.py's `computed` check stops passing on the element that states it — the working must multiply the scores actually shown, the weights must sum to 1, and the result must equal the printed number. If that check fails or the mark is removed, this figure has nothing verifying it and the exclusion must go with it."
-    },
-    {
-      "figure": "3.35",
-      "in_sentence": "Readers saw a single 3.4 — correctly rounded from a working of 3.35 , so the arithmetic was right and the shape of the number was wrong.",
-      "why": "The page's own arithmetic over its own scores, not a figure any document reports: 3 x .25 + 1 x .20 + 4 x .20 + 4 x .15 + 5 x .10 + 5 x .10 = 3.35. Updated 4 September: the sentence carrying it used to call 3.4 and 3.35 a discrepancy. 3.35 rounds to 3.4, so there was none, and the sentence now says so.",
-      "by": "claude",
-      "on": "2026-09-04",
-      "falsifier": "furniture.py's `computed` check stops passing on the element that states it — the working must multiply the scores actually shown, the weights must sum to 1, and the result must equal the printed number. If that check fails or the mark is removed, this figure has nothing verifying it and the exclusion must go with it."
-    },
-    {
-      "figure": "3.4",
-      "in_sentence": "Readers saw a single 3.4 — correctly rounded from a working of 3.35 , so the arithmetic was right and the shape of the number was wrong.",
-      "why": "The page's own composite, rounded from its own working. 3.35 to one decimal place is 3.4. Both numbers are the page's, printed beside each other under the computed mark, so a reader redoes the step without leaving the page. No document reports either.",
-      "by": "claude",
-      "on": "2026-09-04",
-      "falsifier": "furniture.py's computed check stops passing on the element that states the scores and weights, or 3 x .25 + 1 x .20 + 4 x .20 + 4 x .15 + 5 x .10 + 5 x .10 stops equalling 3.35."
-    }
-  ],
-  "retired": [
-    {
-      "figure": "0.05",
-      "in_sentence": "below 0.05 is called statistically significant",
-      "why": "The conventional significance threshold, being explained to the reader. It is not a figure taken out of any study, and the sentence says so: 'an arbitrary line, but a widely used one.'",
-      "by": "claude",
-      "on": "2026-09-01",
-      "falsifier": "the sentence is rewritten to attribute 0.05 to a particular trial's prespecified alpha, at which point it is a claim about a document and this exclusion must go",
-      "retired_on": "2026-09-03",
-      "retired_why": "Unnecessary, not wrong. Each of these said 0.05 is the conventional significance threshold being explained to the reader rather than a figure out of a study — true when they were written on 1 September, when nothing we held printed 0.05. We now hold S022 (Greenland et al.), which prints it. The figure traces to a document, so the exclusion has nothing left to excuse, and an exclusion with nothing to excuse is a filter. Each carried its own falsifier and none of them fired; this is the library growing, which is the outcome an exclusion is supposed to be waiting for."
-    },
-    {
-      "figure": "0.05",
-      "in_sentence": "A p-value of 0.05 does not mean",
-      "why": "The same convention, used in the explanation of what a p-value is and is not. No source is being characterised.",
-      "by": "claude",
-      "on": "2026-09-01",
-      "falsifier": "the sentence is rewritten to report 0.05 as a value some study obtained",
-      "retired_on": "2026-09-03",
-      "retired_why": "Unnecessary, not wrong. Each of these said 0.05 is the conventional significance threshold being explained to the reader rather than a figure out of a study — true when they were written on 1 September, when nothing we held printed 0.05. We now hold S022 (Greenland et al.), which prints it. The figure traces to a document, so the exclusion has nothing left to excuse, and an exclusion with nothing to excuse is a filter. Each carried its own falsifier and none of them fired; this is the library growing, which is the outcome an exclusion is supposed to be waiting for."
-    },
-    {
-      "figure": "0.05",
-      "in_sentence": "a near miss only against a 0.05 line this trial never used",
-      "why": "The conventional 0.05, named in order to say the trial did NOT use it — its prespecified threshold was a one-sided 0.10, which is quoted from two held documents in the same sentence. The figure is the convention, not a value taken from any source.",
-      "by": "claude",
-      "on": "2026-09-02",
-      "falsifier": "the sentence is rewritten to attribute 0.05 to this trial's protocol or to any document, at which point it is a claim about a source and this exclusion must go",
-      "retired_on": "2026-09-03",
-      "retired_why": "Unnecessary, not wrong. Each of these said 0.05 is the conventional significance threshold being explained to the reader rather than a figure out of a study — true when they were written on 1 September, when nothing we held printed 0.05. We now hold S022 (Greenland et al.), which prints it. The figure traces to a document, so the exclusion has nothing left to excuse, and an exclusion with nothing to excuse is a filter. Each carried its own falsifier and none of them fired; this is the library growing, which is the outcome an exclusion is supposed to be waiting for."
-    }
-  ]
+ "_what_this_is": "Figures on this page that are not claims about any document, each declared by a person with the sentence it belongs to and the reason. B13 counts them in its report and reports one that no longer matches a sentence as stale, so this file cannot quietly become a filter.",
+ "_the_rule": "An exclusion says 'this figure is not taken from a source', never 'do not check this figure'. If the sentence changes so that the figure IS a claim about a document, the exclusion stops matching and the check comes back.",
+ "exclusions": [
+  {
+   "figure": "3.94",
+   "in_sentence": "Is the effect real scores 3.94; how large is it scores 1.0.",
+   "why": "The page's own arithmetic over its own scores, not a figure any document reports. Five of the six rubric dimensions measure whether the effect is real; 3.94 is their weighted mean renormalised to those weights. It is checked harder than a quoted figure, by the `computed` mark, which re-derives it from the scores printed beside it.",
+   "by": "claude",
+   "on": "2026-09-03",
+   "falsifier": "furniture.py's `computed` check stops passing on the element that states it — the working must multiply the scores actually shown, the weights must sum to 1, and the result must equal the printed number. If that check fails or the mark is removed, this figure has nothing verifying it and the exclusion must go with it."
+  },
+  {
+   "figure": "3.94",
+   "in_sentence": "“Landmark trial succeeds” and “real: 3.94, size: 1.0” describe the same event",
+   "why": "The same figure, restated in the change log where the split is explained. Same standing: our arithmetic, verified by the `computed` mark.",
+   "by": "claude",
+   "on": "2026-09-03",
+   "falsifier": "furniture.py's `computed` check stops passing on the element that states it — the working must multiply the scores actually shown, the weights must sum to 1, and the result must equal the printed number. If that check fails or the mark is removed, this figure has nothing verifying it and the exclusion must go with it."
+  },
+  {
+   "figure": "3.35",
+   "in_sentence": "Readers saw 3.4 , which was the correct total of the working printed beneath it",
+   "why": "Not a figure any document reports: it is the six scores under the rubric's own weights, 3 x .25 + 1 x .20 + 4 x .20 + 4 x .15 + 5 x .10 + 5 x .10 = 3.35. RESOLVED 2026-09-08, and the earlier note here was wrong in both directions. The page's August working was (3x.25)+(1x.20)+(4x.15)+(4x.15)+(5x.15)+(5x.10), which comes to 3.40 exactly and matched the 3.4 printed beside it, so no rounding was ever involved and no reader saw a number that disagreed with its own arithmetic. What differed from the rubric were two weights: reproducibility and recency were shown at 15% each where the rubric gives 20% and 10%. Commit 87b8d9d of 3 September publishes the-rubric.html and corrects the same working to 3.35 in one change. The page now says that.",
+   "by": "claude",
+   "on": "2026-09-08",
+   "falsifier": "furniture.py's `computed` check stops passing on the element that states it — the working must multiply the scores actually shown, the weights must sum to 1, and the result must equal the printed number. If that check fails or the mark is removed, this figure has nothing verifying it and the exclusion must go with it.",
+   "retired_wording": {
+    "in_sentence": "Readers saw a single 3.4 — correctly rounded from a working of 3.35 , so the arithmetic was right and the shape of the number was wrong.",
+    "why": "The page's own arithmetic over its own scores, not a figure any document reports: 3 x .25 + 1 x .20 + 4 x .20 + 4 x .15 + 5 x .10 + 5 x .10 = 3.35. Updated 4 September: the sentence carrying it used to call 3.4 and 3.35 a discrepancy. 3.35 rounds to 3.4, so there was none, and the sentence now says so.",
+    "on": "2026-09-04",
+    "note": "The sentence this exclusion was written for was removed by the 9 September revision. Re-keyed 2026-09-08 under the remediation order; the figure and its standing are unchanged, only the sentence carrying it."
+   }
+  },
+  {
+   "figure": "3.4",
+   "in_sentence": "Readers saw 3.4 , which was the correct total of the working printed beneath it",
+   "why": "The page's own composite as printed from 26 August, and the correct total of the working shown beside it. No document reports it. See the 3.35 entry for what actually differed from the rubric: two weights, not a rounding and not a transcription.",
+   "by": "claude",
+   "on": "2026-09-08",
+   "falsifier": "furniture.py's computed check stops passing on the element that states the scores and weights, or 3 x .25 + 1 x .20 + 4 x .20 + 4 x .15 + 5 x .10 + 5 x .10 stops equalling 3.35.",
+   "retired_wording": {
+    "in_sentence": "Readers saw a single 3.4 — correctly rounded from a working of 3.35 , so the arithmetic was right and the shape of the number was wrong.",
+    "why": "The page's own composite, rounded from its own working. 3.35 to one decimal place is 3.4. Both numbers are the page's, printed beside each other under the computed mark, so a reader redoes the step without leaving the page. No document reports either.",
+    "on": "2026-09-04",
+    "note": "The sentence this exclusion was written for was removed by the 9 September revision. Re-keyed 2026-09-08 under the remediation order; the figure and its standing are unchanged, only the sentence carrying it."
+   }
+  },
+  {
+   "figure": "3.40",
+   "in_sentence": "The working printed beside 3.4 came to 3.40 exactly",
+   "why": "The page's own arithmetic over its own scores, not a figure any document reports — the same standing as 3.35 and 3.4 beside it. 3.40 is the total of the weight set the page itself printed from 26 August: 3 x .25 + 1 x .20 + 4 x .15 + 4 x .15 + 5 x .15 + 5 x .10. It is quoted inside the entry that explains that weight set and why it differed from the rubric's. No document reports it and none should.",
+   "by": "claude",
+   "on": "2026-09-09",
+   "falsifier": "The August weight set is not what the page printed — check git history, commits 2c71b8e through 3ab4bf51 — or those six terms stop summing to 3.40, or the sentence stops being about the page's own former arithmetic and becomes a claim about a document."
+  },
+  {
+   "figure": "403",
+   "in_sentence": "NEJM returns 403",
+   "why": "An HTTP status code returned to our own request on 2026-09-09, not a figure any document reports. Same standing as the page's own arithmetic: it is the page describing what happened when we went to look, and no source could carry it. Recorded with the other three retrievals in the S029 source entry and in the binding step for this sentence.",
+   "by": "claude",
+   "on": "2026-09-09",
+   "falsifier": "nejm.org ceasing to refuse the request, which would make the clause false and is the point of stating it; or the sentence changing from a report of our own retrieval into a claim about what some document says."
+  }
+ ],
+ "retired": [
+  {
+   "figure": "0.05",
+   "in_sentence": "below 0.05 is called statistically significant",
+   "why": "The conventional significance threshold, being explained to the reader. It is not a figure taken out of any study, and the sentence says so: 'an arbitrary line, but a widely used one.'",
+   "by": "claude",
+   "on": "2026-09-01",
+   "falsifier": "the sentence is rewritten to attribute 0.05 to a particular trial's prespecified alpha, at which point it is a claim about a document and this exclusion must go",
+   "retired_on": "2026-09-03",
+   "retired_why": "Unnecessary, not wrong. Each of these said 0.05 is the conventional significance threshold being explained to the reader rather than a figure out of a study — true when they were written on 1 September, when nothing we held printed 0.05. We now hold S022 (Greenland et al.), which prints it. The figure traces to a document, so the exclusion has nothing left to excuse, and an exclusion with nothing to excuse is a filter. Each carried its own falsifier and none of them fired; this is the library growing, which is the outcome an exclusion is supposed to be waiting for."
+  },
+  {
+   "figure": "0.05",
+   "in_sentence": "A p-value of 0.05 does not mean",
+   "why": "The same convention, used in the explanation of what a p-value is and is not. No source is being characterised.",
+   "by": "claude",
+   "on": "2026-09-01",
+   "falsifier": "the sentence is rewritten to report 0.05 as a value some study obtained",
+   "retired_on": "2026-09-03",
+   "retired_why": "Unnecessary, not wrong. Each of these said 0.05 is the conventional significance threshold being explained to the reader rather than a figure out of a study — true when they were written on 1 September, when nothing we held printed 0.05. We now hold S022 (Greenland et al.), which prints it. The figure traces to a document, so the exclusion has nothing left to excuse, and an exclusion with nothing to excuse is a filter. Each carried its own falsifier and none of them fired; this is the library growing, which is the outcome an exclusion is supposed to be waiting for."
+  },
+  {
+   "figure": "0.05",
+   "in_sentence": "a near miss only against a 0.05 line this trial never used",
+   "why": "The conventional 0.05, named in order to say the trial did NOT use it — its prespecified threshold was a one-sided 0.10, which is quoted from two held documents in the same sentence. The figure is the convention, not a value taken from any source.",
+   "by": "claude",
+   "on": "2026-09-02",
+   "falsifier": "the sentence is rewritten to attribute 0.05 to this trial's protocol or to any document, at which point it is a claim about a source and this exclusion must go",
+   "retired_on": "2026-09-03",
+   "retired_why": "Unnecessary, not wrong. Each of these said 0.05 is the conventional significance threshold being explained to the reader rather than a figure out of a study — true when they were written on 1 September, when nothing we held printed 0.05. We now hold S022 (Greenland et al.), which prints it. The figure traces to a document, so the exclusion has nothing left to excuse, and an exclusion with nothing to excuse is a filter. Each carried its own falsifier and none of them fired; this is the library growing, which is the outcome an exclusion is supposed to be waiting for."
+  }
+ ]
 }
