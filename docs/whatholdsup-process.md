@@ -507,6 +507,40 @@ and which were wrong.
 
 ---
 
+## 11.5 The remedy list
+
+**A catalogue with only failures in it teaches what to fear and not what to do.**
+This is the other list. It is short on purpose: one remedy has done nearly all
+the work.
+
+### Derive at the point of use, rather than transcribe
+
+**A value that is read from its source each time it is needed cannot drift from
+it.** A value copied into a second place can, will, and will do so silently —
+which is what every entry in the catalogue below has in common.
+
+Five applications as of 10 September 2026, all of them replacing something a person had
+written down:
+
+| what | derived from | what it replaced |
+|---|---|---|
+| `EDITORIAL_TZ` and the index dates | `published.json`, converted at display time | dates typed into the homepage once and never read again |
+| `record_begins()` | the earliest `at` in the record | the assumption that the record reaches back to the page |
+| `jsonio.write()` | the file's own existing indentation | remembering which file uses `indent=1` and which uses `2` |
+| `open_list.py` | the checks' own outputs | an acceptance list assembled from memory |
+| a figure exclusion's `in_sentence` | `corrections_check.sentences()` | prose retyped by hand, which failed on one space |
+
+**The last one is the smallest and the most instructive.** A declaration written
+by hand against prose that a machine normalises is a hand-maintained
+representation of a machine-derived one — and it failed within the hour, on a
+space before a full stop, in the one file whose purpose is to hold a person's
+signature.
+
+**The test of whether a remedy is this one:** could the two copies ever disagree,
+and would anything notice? If yes to the first and no to the second, derive it.
+
+---
+
 ## 12. The failure catalogue
 
 Fourteen ways this publication has actually been wrong, and what catches each.
@@ -592,6 +626,19 @@ The question that separates them is small and can be asked of anything here:
 **what is this check's subject, and is that what it examines?**
 
 ---
+
+**The degenerate case of failure 16, 10 September 2026.** A commit went in over a failing
+test. The mechanism was not carelessness and the remedy is not care: the command
+was `pytest … ; git add … ; git commit …` — three commands in sequence with a
+**semicolon** between them. The test ran, printed its failure, and the commit ran
+anyway, because nothing connected them.
+
+*A stop is only as good as the test under it.* **Here there was no stop at all** —
+only two commands that happened to be adjacent, and adjacency read as dependency.
+The fix is mechanical and it is now installed: `hooks/pre-commit` refuses a commit
+whose staged paths touch whatholdsup while its tests are red, scoped so a commit
+elsewhere is unaffected. Made to fire before being trusted — broken test, refused
+commit, restored test, accepted commit.
 
 **Failure 20 — reasoning from the symptom.** *When a check fires, the question is
 what the data actually is, never what value would silence the check.*

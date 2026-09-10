@@ -1574,3 +1574,60 @@ sign a block that made his signature ceremonial, which produced the current rule
 unsatisfiable. **That is the mechanism working**, and it is recorded that way
 rather than as two embarrassments — a control that has never objected to anything
 has not been tested.
+
+---
+
+## A third kind of figure, with no category: measurements of our own apparatus
+
+**Named 10 September 2026. Nothing built — a category is not added mid-round.**
+
+The binding scheme has two kinds of figure. A figure is **taken from a source**,
+and a span in a held document supports it. Or it is **worked out by the page**,
+and `furniture.py`'s `computed` mark re-derives it from the numbers printed
+beside it.
+
+**131, 343 and 212 are neither.** They are measurements of this repository's own
+machinery — how many sentences the binder can see, how many have a row, how many
+neither rule examined. There is no held document because **there is nothing to
+hold**: the fact did not exist until a function was run, and the function is in
+this repository.
+
+### What happened to them, which is the finding
+
+They were **declared as exclusions.** `figure-exclusions.json` says of itself
+that an exclusion means *"this figure is not taken from a source"*, never *"do
+not check this figure"* — and that is exactly right for the page's own
+arithmetic, which the `computed` mark still verifies. It is not right for these.
+Nothing verifies them. The declaration is the only thing standing behind them.
+
+**This is what happens to a thing with no category: it is suppressed rather than
+classified.** The exclusion file was the nearest available hole and they went
+into it, and the record now says "not from a source" where the true statement is
+"derived by us, from us, at a moment in time, by a named function".
+
+### The class is already larger than three, and growing
+
+- the rules coverage pair — **131 examined, 212 not**
+- the corpus figure — **412 of 1,256 across three issues**
+- the epistemic coverage — **1 of 52**
+- the alias and `document_class` counts — **23 of 26**, **26 of 26**
+- anything Appendix D reports about where the machinery has not looked
+
+**Every one of these is a self-measurement, and self-measurements are exactly
+what this publication has spent the week getting wrong.** The 2,116-character
+paragraph was one. "All 131 sentences" was one. "7 of 228" was one. They are the
+figures with no external document to check them against, which is precisely why
+they need a category with a falsifier attached rather than an exemption.
+
+### What the category would need, when it is built
+
+A figure of this kind should carry **the function that produces it** and be
+**re-derived at check time**, not declared once. That is `computed`'s discipline
+pointed at the apparatus instead of at the page — the mark that says *"here is
+the working, re-do it"*, where the working is a call rather than a multiplication.
+
+The interim exclusion for 131/343/212 already carries a falsifier of that shape:
+*if `rule_rows` stops reporting 131, or `not_examined` stops returning 212, or
+`page_sentences` stops returning 343, the sentence must be re-derived.* **It is
+the right test written in the wrong place** — prose in a file nothing executes,
+where it should be a call in a file that runs every gate.
