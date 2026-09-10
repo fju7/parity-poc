@@ -61,6 +61,30 @@
    "by": "claude",
    "on": "2026-09-09",
    "falsifier": "nejm.org ceasing to refuse the request, which would make the clause false and is the point of stating it; or the sentence changing from a report of our own retrieval into a claim about what some document says."
+  },
+  {
+   "figure": "131",
+   "in_sentence": "Publishing the corrections above meant binding the sentences on this page that carry a figure, a quotation or a named source to the words they rest on — 131 of this page’s 343 sentences.",
+   "why": "Not a figure any document reports: it is this repository measuring itself. 343 is len(bindings.page_sentences('melanoma')) — the body sentences the binder can see, after the head, the navigation and the change log are stripped. 131 is the number with a binding row, and 212 is the difference. The correction this sentence makes is precisely that we previously claimed the first number was the second.",
+   "by": "claude",
+   "on": "2026-09-10",
+   "falsifier": "bindings.rule_rows('melanoma') stops reporting '131' and bindings.not_examined('melanoma') stops returning 212, or page_sentences('melanoma') stops returning 343. Any of those means the page's arithmetic no longer matches the checks it describes, and the sentence must be re-derived rather than the exclusion kept. This is the one figure family on this page that a code change can falsify."
+  },
+  {
+   "figure": "343",
+   "in_sentence": "Publishing the corrections above meant binding the sentences on this page that carry a figure, a quotation or a named source to the words they rest on — 131 of this page’s 343 sentences.",
+   "why": "Not a figure any document reports: it is this repository measuring itself. 343 is len(bindings.page_sentences('melanoma')) — the body sentences the binder can see, after the head, the navigation and the change log are stripped. 131 is the number with a binding row, and 212 is the difference. The correction this sentence makes is precisely that we previously claimed the first number was the second.",
+   "by": "claude",
+   "on": "2026-09-10",
+   "falsifier": "bindings.rule_rows('melanoma') stops reporting '131' and bindings.not_examined('melanoma') stops returning 212, or page_sentences('melanoma') stops returning 343. Any of those means the page's arithmetic no longer matches the checks it describes, and the sentence must be re-derived rather than the exclusion kept. This is the one figure family on this page that a code change can falsify."
+  },
+  {
+   "figure": "212",
+   "in_sentence": "Publishing the corrections above meant binding the sentences on this page that carry a figure, a quotation or a named source to the words they rest on — 131 of this page’s 343 sentences.",
+   "why": "Not a figure any document reports: it is this repository measuring itself. 343 is len(bindings.page_sentences('melanoma')) — the body sentences the binder can see, after the head, the navigation and the change log are stripped. 131 is the number with a binding row, and 212 is the difference. The correction this sentence makes is precisely that we previously claimed the first number was the second.",
+   "by": "claude",
+   "on": "2026-09-10",
+   "falsifier": "bindings.rule_rows('melanoma') stops reporting '131' and bindings.not_examined('melanoma') stops returning 212, or page_sentences('melanoma') stops returning 343. Any of those means the page's arithmetic no longer matches the checks it describes, and the sentence must be re-derived rather than the exclusion kept. This is the one figure family on this page that a code change can falsify."
   }
  ],
  "retired": [
