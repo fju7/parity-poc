@@ -1211,3 +1211,94 @@ read as "the corpus is clean".
 None of those is a defect in the check. **They are the store's own coverage, made
 visible by something that finally asked.** The 88 NOT EVALUATED sentences are the
 passage-reading stage's worklist (§5.5), which is what the check is now for.
+
+---
+
+## "7 of 228" was a statement about locators, and the answer underneath it
+
+**10 September 2026. Answered as a schema fact, because the summary I gave was misleading.**
+
+### What a binding row records
+
+Of cdk46's 228 rows, 169 are currently on the page. Non-empty counts on those 169:
+
+| field | on-page rows | what it is |
+|---|---|---|
+| `sentence`, `sentence_sha`, `why_empirical`, `verdicts` | 169 | every row |
+| `source_id` | **34** | **the source, as a resolvable id** |
+| `document_sha` | 27 | the content hash of the held document |
+| `span` | 27 | the bytes the sentence rests on |
+| `why_bound` | 22 | prose |
+| `locator` | **7** | prose naming where in the document |
+| `bucket` | 7 | deterministic / context / judgement / figure |
+
+**The source IS recoverable by a dedicated field.** `source_id` is that field.
+`quotations.py` reads it directly (`r.get("source_id")`), and `spancheck.py` is a
+pure function over (sentence, span, document bytes) with the caller supplying the
+document. So the span checks identify documents exactly the way the epistemic
+check should.
+
+**"7 of 228" described `locator` only** and I reported it as if it characterised
+the row. That is the third time in two days I have reported a narrow field's
+count as a fact about the whole — after 163/132 and "the five are unenumerated",
+both from reading a truncated line instead of the object. Same family, third
+instance, and this one reached a directive.
+
+### The answer underneath, which is not benign and is not hidden
+
+`bindings.rule_rows("cdk46")` today:
+
+```
+rule 1 — written from a document we hold      BLOCKED  135 of 169 rest on nothing
+rule 2 — every sentence declares its kind     BLOCKED  162 undeclared
+sentences still to revalidate                 warn     162 of 169
+```
+
+So the claim *"every sentence is bound to a verifiable span or declared as a
+judgement"* is **not** mechanically untraceable — it is mechanically **refuted**,
+loudly, by the repository's own gate, and that is why this issue cannot publish.
+
+**It is a backlog, not a regression**, and the row says so: rule 1 was *"adopted
+2026-09-02 with no exemption for what was already written"*, five days after
+cdk46 published. The 162 are the sentences the rule reaches back over. Nothing is
+concealed; the gate has been printing it since 2 September.
+
+### Why binding resolution still cannot help the epistemic check
+
+Not the schema. **The sentences making epistemic claims are among the unbound
+162.** Of the 14 epistemic sentences on the cdk46 page: 9 are inside the binder's
+scope, 5 are in the change log, which the binder correctly strips — and of the
+9 in scope, **1** is recorded in `bindings.json`.
+
+The two systems are not disjoint by design; they are disjoint because the sentences
+that say what we know about a source are mostly in source notes and are mostly
+part of the revalidation backlog.
+
+---
+
+## The cdk46 metadata backfill: it moved coverage from 0% to 5%, and that is the finding
+
+**10 September 2026.** cdk46's 26 sources now all declare `document_class`, and 23 of 26
+carry aliases (up from 11). The backfill was self-testing by design: coverage
+should move off 0%, and if it barely moved, **the metadata was not the binding
+constraint.**
+
+It barely moved. **1 of 20**, up from 0 of 20.
+
+So the constraint is subject resolution, and the metadata work — which was the
+obvious thing to do and would have felt like progress — bought one sentence. Had
+this been run across all 99 sources first, as the tidier instinct wanted, the
+same conclusion would have cost four times as much and arrived no sooner.
+
+**Policy, recorded as a decision rather than an omission:** melanoma's and
+deskilling's sources are filled **when those issues are next opened**, not now.
+The judgement *"is this a document or a record about one"* goes wrong in bulk
+when it is made to clear a number.
+
+**And one classification was corrected rather than kept.** S021 (the PALMARES-2
+registry record) was marked `record_about` on 9 September to suppress a false
+positive. That was reasoning from the symptom: it **is** the registry entry, and
+claims about the registry entry rest on it. It is now `document`, the false
+positive is back, and it is recorded as what it always was — a subject-resolution
+defect, in which a sentence about the *paper* resolves to the *registry record*
+because both are called PALMARES-2.

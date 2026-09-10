@@ -187,6 +187,16 @@ def coverage_md() -> str:
     except Exception as exc:                                # noqa: BLE001
         D = ["- The gate-coverage check COULD NOT BE RUN: %s. Unknown, not clean."
              % exc]
+    # A check that knows its own coverage belongs in the appendix that records
+    # where our machinery has not looked. Added 2026-09-10.
+    try:
+        import epistemic as _E
+        D.append("")
+        D += _E.appendix_d_lines(SLUG)
+    except Exception as exc:                                # noqa: BLE001
+        D.append("")
+        D.append("- The epistemic-claim check COULD NOT BE RUN: %s. Unknown, not clean."
+                 % exc)
     return "\n".join(D)
 
 

@@ -344,20 +344,54 @@ def scan(slug: str) -> dict:
 
 
 def appendix_d_lines(slug: str) -> list[str]:
-    """What this check did NOT examine, for the appendix that records exactly
-    that. A coverage number belongs where the publication already keeps its
-    account of where its machinery has not looked."""
+    """The coverage statement, for the appendix that records where the machinery
+    has not looked.
+
+    THIS WORDING FAILED QUESTION 3 AND WAS REWRITTEN. The first version said
+    "evaluated 1 of 89 sentences", which is true and invites a false reading —
+    that only 1% of this publication's claims are checked. Those sentences WERE
+    checked, by readers, at the time, against documents, several of them by name
+    in adjudications. What is 1 of 89 is a NEW automated subject-resolving
+    cross-check that did not exist the day before.
+
+    A disclosure that is inaccurate in the unflattering direction is still
+    inaccurate, and being modest does not excuse it. So the number carries its
+    own scope.
+
+    Recorded because it is evidence: the passage-reading stage caught a false
+    impression in the very disclosure written to describe that stage's own
+    machinery, on its first use, leaning the direction this cycle has NOT been
+    leaning.
+    """
     r = scan(slug)
-    out = ["The epistemic check evaluated %d of %d sentences making a claim about "
-           "what we hold or have read (%.0f%%). The remainder could not be tied to "
-           "a single source and were not examined by machine; they are the "
-           "passage-reading worklist."
-           % (r["evaluated"], r["epistemic_sentences"], 100 * r["coverage"])]
     a = r["aliases"]
-    out.append("Of %d sources, %d can be named by an alias and %d declare whether "
-               "they are a document or a record about one. A source that is "
-               "neither is not checked, rather than checked and passed."
-               % (a["sources"], a["with_aliases"], a["with_document_class"]))
+    out = [
+        "**A new automated cross-check, and what it can and cannot yet see.** "
+        "Every sentence in which we say what we know about a source — that we "
+        "hold it, have read it, could not reach it — is now read by a check that "
+        "compares the claim against the source store.",
+        "",
+        "It can currently resolve which source is meant in **%d of %d** such "
+        "sentences on this page. The other %d it reports as NOT EVALUATED rather "
+        "than passing them."
+        % (r["evaluated"], r["epistemic_sentences"],
+           r["epistemic_sentences"] - r["evaluated"]),
+        "",
+        "**This measures the check and the store's metadata, not the sentences.** "
+        "Each of them was checked by a reader when it was written. Nothing on "
+        "this page is yet established as sound or stale by machine, in either "
+        "direction, and a low number here is a fact about a three-day-old "
+        "instrument rather than about the page.",
+        "",
+        "Of %d sources, %d can be named by an alias and %d declare whether they "
+        "are a document or a record *about* a document. A source that is neither "
+        "is not checked, rather than checked and passed."
+        % (a["sources"], a["with_aliases"], a["with_document_class"]),
+        "",
+        "The NOT EVALUATED sentences are the passage-reading worklist: a human "
+        "reads them, because no machine here can yet tell which document each "
+        "one is about.",
+    ]
     return out
 
 

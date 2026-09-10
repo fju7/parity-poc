@@ -35,7 +35,9 @@
         "the NCCN breast cancer guideline",
         "NCCN"
       ],
-      "licence_forbids_machine_reading": true
+      "licence_forbids_machine_reading": true,
+      "document_class": "document",
+      "document_class_why": "The document itself: claims about its contents may rest on it. Contrast document_class 'record_about', which is a catalogue or bibliographic record DESCRIBING a document we may not hold."
     },
     {
       "id": "S002",
@@ -52,7 +54,9 @@
           "whatever the search tool returned for this URL"
         ],
         "note": "Recorded from evidence rather than memory: this URL appears in the citations of the gate report at site/whatholdsup/cdk46.html.gate.json, so an automated check reached it. That is weaker than 'the full text was read' -- a search tool may return an abstract or a snippet -- and the distinction is why the advocate is still required to quote a locator.\n\nReclassified 2026-09-01. This entry said machine_read, whose only evidence was that the URL appeared in the citation list of a gate report. Nothing checked what came back, or whether anything did. machine_read sat in READ_STATES and licensed characterisation and adverse claims; fragment_only licenses neither. Nothing about what we know changed — only what the ledger admits."
-      }
+      },
+      "document_class": "document",
+      "document_class_why": "The document itself: claims about its contents may rest on it. Contrast document_class 'record_about', which is a catalogue or bibliographic record DESCRIBING a document we may not hold."
     },
     {
       "id": "S003",
@@ -78,7 +82,9 @@
           "substance": "45190 characters, reference list and discussion/introduction present"
         }
       },
-      "corrected_by": "S025"
+      "corrected_by": "S025",
+      "document_class": "document",
+      "document_class_why": "The document itself: claims about its contents may rest on it. Contrast document_class 'record_about', which is a catalogue or bibliographic record DESCRIBING a document we may not hold."
     },
     {
       "id": "S004",
@@ -105,6 +111,11 @@
       },
       "characterisation_supported_by": [
         "S019"
+      ],
+      "document_class": "document",
+      "document_class_why": "The document itself: claims about its contents may rest on it. Contrast document_class 'record_about', which is a catalogue or bibliographic record DESCRIBING a document we may not hold.",
+      "also_called": [
+        "MONALEESA-2"
       ]
     },
     {
@@ -136,7 +147,9 @@
       ],
       "characterisation_supported_by": [
         "S019"
-      ]
+      ],
+      "document_class": "document",
+      "document_class_why": "The document itself: claims about its contents may rest on it. Contrast document_class 'record_about', which is a catalogue or bibliographic record DESCRIBING a document we may not hold."
     },
     {
       "id": "S006",
@@ -154,7 +167,12 @@
           "the full text"
         ],
         "note": "No automated check in this issue's gate runs cited this URL, and nothing here has opened it. Figures attributed to it came from secondary reporting or an abstract. Recorded as blocked rather than read, because an unread source is not a source that agrees with us."
-      }
+      },
+      "document_class": "document",
+      "document_class_why": "The document itself: claims about its contents may rest on it. Contrast document_class 'record_about', which is a catalogue or bibliographic record DESCRIBING a document we may not hold.",
+      "also_called": [
+        "MONALEESA-7"
+      ]
     },
     {
       "id": "S007",
@@ -179,7 +197,12 @@
           "via": "publisher PDF, downloaded manually in a browser by the editor",
           "substance": "45527 characters, reference list and discussion present"
         }
-      }
+      },
+      "document_class": "document",
+      "document_class_why": "The document itself: claims about its contents may rest on it. Contrast document_class 'record_about', which is a catalogue or bibliographic record DESCRIBING a document we may not hold.",
+      "also_called": [
+        "MONALEESA-7"
+      ]
     },
     {
       "id": "S008",
@@ -196,7 +219,12 @@
           "whatever the search tool returned for this URL"
         ],
         "note": "Recorded from evidence rather than memory: this URL appears in the citations of the gate report at site/whatholdsup/cdk46.html.gate.json, so an automated check reached it. That is weaker than 'the full text was read' -- a search tool may return an abstract or a snippet -- and the distinction is why the advocate is still required to quote a locator.\n\nReclassified 2026-09-01. This entry said machine_read, whose only evidence was that the URL appeared in the citation list of a gate report. Nothing checked what came back, or whether anything did. machine_read sat in READ_STATES and licensed characterisation and adverse claims; fragment_only licenses neither. Nothing about what we know changed — only what the ledger admits."
-      }
+      },
+      "document_class": "document",
+      "document_class_why": "The document itself: claims about its contents may rest on it. Contrast document_class 'record_about', which is a catalogue or bibliographic record DESCRIBING a document we may not hold.",
+      "also_called": [
+        "MONALEESA-7"
+      ]
     },
     {
       "id": "S009",
@@ -223,7 +251,12 @@
         }
       },
       "derives_from": "S001",
-      "derives_note": "For the claim that no randomised head-to-head comparison exists, only. P-VERIFY opens by describing its own purpose as working in the absence of randomised trials that directly compare the three, and this page cited that as confirmation of NCCN's statement. It is the same background assumption, not a second observation. P-VERIFY's own figures are independent and are not affected by this."
+      "derives_note": "For the claim that no randomised head-to-head comparison exists, only. P-VERIFY opens by describing its own purpose as working in the absence of randomised trials that directly compare the three, and this page cited that as confirmation of NCCN's statement. It is the same background assumption, not a second observation. P-VERIFY's own figures are independent and are not affected by this.",
+      "document_class": "document",
+      "document_class_why": "The document itself: claims about its contents may rest on it. Contrast document_class 'record_about', which is a catalogue or bibliographic record DESCRIBING a document we may not hold.",
+      "also_called": [
+        "PALOMA-2"
+      ]
     },
     {
       "id": "S010",
@@ -246,7 +279,12 @@
           "bytes": 62336,
           "identified_by": "contains its identifier PMC10950136 — 29862 characters, reference list and discussion present"
         }
-      }
+      },
+      "document_class": "document",
+      "document_class_why": "The document itself: claims about its contents may rest on it. Contrast document_class 'record_about', which is a catalogue or bibliographic record DESCRIBING a document we may not hold.",
+      "also_called": [
+        "PALOMA-2"
+      ]
     },
     {
       "id": "S011",
@@ -263,7 +301,12 @@
           "whatever the search tool returned for this URL"
         ],
         "note": "Recorded from evidence rather than memory: this URL appears in the citations of the gate report at site/whatholdsup/cdk46.html.gate.json, so an automated check reached it. That is weaker than 'the full text was read' -- a search tool may return an abstract or a snippet -- and the distinction is why the advocate is still required to quote a locator.\n\nReclassified 2026-09-01. This entry said machine_read, whose only evidence was that the URL appeared in the citation list of a gate report. Nothing checked what came back, or whether anything did. machine_read sat in READ_STATES and licensed characterisation and adverse claims; fragment_only licenses neither. Nothing about what we know changed — only what the ledger admits."
-      }
+      },
+      "document_class": "document",
+      "document_class_why": "The document itself: claims about its contents may rest on it. Contrast document_class 'record_about', which is a catalogue or bibliographic record DESCRIBING a document we may not hold.",
+      "also_called": [
+        "PALMARES-2"
+      ]
     },
     {
       "id": "S012",
@@ -287,7 +330,13 @@
           "bytes": 1240458,
           "identified_by": "contains 4 of 4 distinctive title words"
         }
-      }
+      },
+      "document_class": "document",
+      "document_class_why": "The document itself: claims about its contents may rest on it. Contrast document_class 'record_about', which is a catalogue or bibliographic record DESCRIBING a document we may not hold.",
+      "also_called": [
+        "KISQALI",
+        "ribociclib"
+      ]
     },
     {
       "id": "S013",
@@ -311,7 +360,13 @@
           "bytes": 990433,
           "identified_by": "contains 4 of 4 distinctive title words"
         }
-      }
+      },
+      "document_class": "document",
+      "document_class_why": "The document itself: claims about its contents may rest on it. Contrast document_class 'record_about', which is a catalogue or bibliographic record DESCRIBING a document we may not hold.",
+      "also_called": [
+        "VERZENIO",
+        "abemaciclib"
+      ]
     },
     {
       "id": "S014",
@@ -335,7 +390,13 @@
           "bytes": 55248,
           "identified_by": "contains 4 of 4 distinctive title words"
         }
-      }
+      },
+      "document_class": "document",
+      "document_class_why": "The document itself: claims about its contents may rest on it. Contrast document_class 'record_about', which is a catalogue or bibliographic record DESCRIBING a document we may not hold.",
+      "also_called": [
+        "IBRANCE",
+        "palbociclib"
+      ]
     },
     {
       "id": "S015",
@@ -364,7 +425,9 @@
           "bytes": 345413,
           "identified_by": "contains 7 of 7 distinctive title words"
         }
-      }
+      },
+      "document_class": "document",
+      "document_class_why": "The document itself: claims about its contents may rest on it. Contrast document_class 'record_about', which is a catalogue or bibliographic record DESCRIBING a document we may not hold."
     },
     {
       "id": "S016",
@@ -387,7 +450,12 @@
           "bytes": 838359,
           "identified_by": "contains 11 of 11 distinctive title words"
         }
-      }
+      },
+      "document_class": "document",
+      "document_class_why": "The document itself: claims about its contents may rest on it. Contrast document_class 'record_about', which is a catalogue or bibliographic record DESCRIBING a document we may not hold.",
+      "also_called": [
+        "P-VERIFY"
+      ]
     },
     {
       "id": "S017",
@@ -423,7 +491,9 @@
       },
       "registry": "NCT05670054",
       "endpoint_note": "PRIMARY objectives are clinical benefit rate, quality of life and toxicity. Progression-free survival and overall survival are SECONDARY. The sample size was calculated on overall response rate (58 per group at 80% power). The page now says so where it prints the PFS figures.",
-      "ENDPOINT_DISCREPANCY": "The paper names one primary endpoint and powers on another. Its Introduction: “The primary objectives are to compare the clinical benefit rate (CBR), quality of life and toxicity profiles... Secondary objectives were assessment of Progression free survival and Overall survival.” Its Sample size calculation: “The primary outcome of interest is the overall response rate (ORR)”, sized from ORR 55% (MONALEESA-2) against 25% (PALOMA-3), alpha 5%, power 80%. CBR counts stable disease and ORR does not, so these are different endpoints. The page prints both because the source states both. Same shape as the network meta-analysis printing 73.3 and 70.2."
+      "ENDPOINT_DISCREPANCY": "The paper names one primary endpoint and powers on another. Its Introduction: “The primary objectives are to compare the clinical benefit rate (CBR), quality of life and toxicity profiles... Secondary objectives were assessment of Progression free survival and Overall survival.” Its Sample size calculation: “The primary outcome of interest is the overall response rate (ORR)”, sized from ORR 55% (MONALEESA-2) against 25% (PALOMA-3), alpha 5%, power 80%. CBR counts stable disease and ORR does not, so these are different endpoints. The page prints both because the source states both. Same shape as the network meta-analysis printing 73.3 and 70.2.",
+      "document_class": "document",
+      "document_class_why": "The document itself: claims about its contents may rest on it. Contrast document_class 'record_about', which is a catalogue or bibliographic record DESCRIBING a document we may not hold."
     },
     {
       "id": "S018",
@@ -456,7 +526,9 @@
           "bytes": 22116,
           "identified_by": "contains its identifier NCT05207709"
         }
-      }
+      },
+      "document_class": "document",
+      "document_class_why": "The document itself: claims about its contents may rest on it. Contrast document_class 'record_about', which is a catalogue or bibliographic record DESCRIBING a document we may not hold."
     },
     {
       "id": "S019",
@@ -466,7 +538,8 @@
       "accessed": "2026-08-30",
       "also_called": [
         "the MONALEESA-2 registry record",
-        "NCT01958021"
+        "NCT01958021",
+        "MONALEESA-2"
       ],
       "used_for": "The direction and level of the final overall-survival test, which this page twice failed to establish from the journal. Verbatim from the sponsor's posting: the distribution of OS between the arms “was compared using a log-rank test at one-sided cumulative 2.5% level of significance”. The same posting gives HR 0.765 (95% CI 0.628-0.932), p = 0.004, log-rank.",
       "WHY_THIS_MATTERS": "The page said this could not be established and named a paywalled statistical section as the reason. It was posted by the sponsor in a public registry. Third fact on this page declared unfindable and then found in a registry.",
@@ -487,7 +560,9 @@
           "bytes": 210042,
           "identified_by": "contains its identifier NCT01958021"
         }
-      }
+      },
+      "document_class": "document",
+      "document_class_why": "The document itself: claims about its contents may rest on it. Contrast document_class 'record_about', which is a catalogue or bibliographic record DESCRIBING a document we may not hold."
     },
     {
       "id": "S020",
@@ -497,7 +572,8 @@
       "accessed": "2026-08-30",
       "also_called": [
         "the PALOMA-2 registry record",
-        "NCT01740427"
+        "NCT01740427",
+        "PALOMA-2"
       ],
       "used_for": "Independent confirmation that PALOMA-2's log-rank p-values are one-sided — each analysis is annotated “1-sided p-value from the stratified log-rank test”. Also the final overall-survival analysis, HR 0.921 (0.755-1.124), and the primary analysis, HR 0.956 (0.777-1.177).",
       "access": {
@@ -517,7 +593,9 @@
           "bytes": 221560,
           "identified_by": "contains its identifier NCT01740427"
         }
-      }
+      },
+      "document_class": "document",
+      "document_class_why": "The document itself: claims about its contents may rest on it. Contrast document_class 'record_about', which is a catalogue or bibliographic record DESCRIBING a document we may not hold."
     },
     {
       "id": "S021",
@@ -527,7 +605,8 @@
       "accessed": "2026-08-30",
       "also_called": [
         "the PALMARES-2 registry record",
-        "NCT06805812"
+        "NCT06805812",
+        "PALMARES-2"
       ],
       "used_for": "Establishing that the study is registered, observational, still recruiting toward an estimated 3,500 patients, with overall survival as its primary outcome — and that NO RESULTS ARE POSTED. That is why this page still does not print PALMARES-2's survival figures: the paper did not open and the registry has nothing to fall back on.",
       "access": {
@@ -548,8 +627,8 @@
           "identified_by": "contains its identifier NCT06805812"
         }
       },
-      "document_class": "record_about",
-      "document_class_why": "PALMARES-2's ClinicalTrials.gov record. Holding the registry entry is not holding the paper, and the page's sentence about not having the paper's full text is about the paper."
+      "document_class": "document",
+      "document_class_why": "CORRECTED 10 September 2026. Classified record_about on 9 September to suppress a false positive; that was reasoning from the symptom. This IS the PALMARES-2 registry entry and claims about the registry entry rest on it. The false positive — a sentence about the PAPER (S011) resolving to this row — is a subject-resolution defect and is recorded as one."
     },
     {
       "id": "S022",
@@ -572,7 +651,13 @@
           "bytes": 182694,
           "identified_by": "contains its identifier NCT02278120"
         }
-      }
+      },
+      "document_class": "document",
+      "document_class_why": "The document itself: claims about its contents may rest on it. Contrast document_class 'record_about', which is a catalogue or bibliographic record DESCRIBING a document we may not hold.",
+      "also_called": [
+        "MONALEESA-7",
+        "NCT02278120"
+      ]
     },
     {
       "id": "S023",
@@ -581,7 +666,8 @@
       "title": "MONALEESA-7 — overall survival, ASCO 2019 late-breaking abstract LBA1008. J Clin Oncol 37, no. 18_suppl.",
       "accessed": "2026-08-31",
       "also_called": [
-        "the ASCO 2019 abstract"
+        "the ASCO 2019 abstract",
+        "MONALEESA-7"
       ],
       "used_for": "One sentence, quoted on the page: “statistical comparison was made by 1-sided stratified log-rank test”. This entry exists because that quotation was on the page with NO SOURCE ENTRY AT ALL — it was found by the quotation check on 31 August, which asks of every quoted passage which source it came from and whether anyone opened it.",
       "WHY_THIS_MATTERS": "This entry was created on 31 August recording the abstract as BLOCKED, because ascopubs.org returned 403 to this environment. That was wrong, and wrong in the most instructive direction: the gate had already read it on 29 August and recorded the Methods sentence verbatim as claim c73, VERIFIED. One retrieval route failing is not the document being unreachable — the same error the SOURCE role makes when it turns “I could not reach it” into NOT_FOUND, made here by me, about my own pipeline's own report. The fact is separately posted in S022's registry record.",
@@ -596,7 +682,9 @@
           "the full abstract; ascopubs.org returns 403 to direct fetches from this environment, tried 31 August"
         ],
         "note": "Weaker than 'the full text was read': a search route may return a fragment. It is stronger than 'nobody opened it', which is what this entry said for an hour.\n\nReclassified 2026-09-01: a real retrieval, but nobody holds the document, so it cannot be re-read, diffed, or asked what it does NOT contain. fragment_only until it is in the store."
-      }
+      },
+      "document_class": "document",
+      "document_class_why": "The document itself: claims about its contents may rest on it. Contrast document_class 'record_about', which is a catalogue or bibliographic record DESCRIBING a document we may not hold."
     },
     {
       "id": "S024",
@@ -634,7 +722,9 @@
           "bytes": 277558,
           "identified_by": "contains 12 of 12 distinctive title words"
         }
-      }
+      },
+      "document_class": "document",
+      "document_class_why": "The document itself: claims about its contents may rest on it. Contrast document_class 'record_about', which is a catalogue or bibliographic record DESCRIBING a document we may not hold."
     },
     {
       "id": "S025",
@@ -659,7 +749,7 @@
         "PMID 41093689"
       ],
       "document_class": "document",
-      "document_class_why": "The corrigendum notice itself, held as the publisher PDF. Not a record about a document — it IS the document."
+      "document_class_why": "The document itself: claims about its contents may rest on it. Contrast document_class 'record_about', which is a catalogue or bibliographic record DESCRIBING a document we may not hold."
     },
     {
       "id": "S026",
@@ -683,7 +773,9 @@
           "the whole notice"
         ],
         "note": "2,193 characters. Entire content is an addition to the Disclosure section; no figure is amended."
-      }
+      },
+      "document_class": "document",
+      "document_class_why": "The document itself: claims about its contents may rest on it. Contrast document_class 'record_about', which is a catalogue or bibliographic record DESCRIBING a document we may not hold."
     }
   ],
   "also_called_note": "The role-nouns the page actually uses for a source. The ledger audit matches sentences to sources by these plus the title's trial and journal names; a reference the page makes that is not listed here is invisible to the audit.",

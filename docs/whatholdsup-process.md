@@ -533,6 +533,39 @@ Fourteen ways this publication has actually been wrong, and what catches each.
 | 18 | A defect deferred whole, on an estimate of cost made by the person who benefits from the estimate being high | decompose it, then defer the parts that survive |
 | 19 | A test set drawn from known incidents, mistaken for a test of the problem | run the new check against the whole corpus before wiring it anywhere |
 
+### 12e. The reference case: a check whose scope matches its subject
+
+**This catalogue records only failures, so until 10 September 2026 there was no written
+example of the thing being got right.** There is one, and it is worth more as a
+reference than another failure would be.
+
+`backend/scripts/whatholdsup/hooks/pre-push` reads each ref off stdin and skips
+anything that is not the deploy branch:
+
+```sh
+case "$remote_ref" in
+    ...
+    *) continue ;;                     # only the branch that deploys
+esac
+```
+
+**Its subject is deploying and it tests deploying.** Asked on 10 September 2026 to accept a
+push of adjudicated-but-unpublished work to a non-deploying branch, it did the
+right thing with no bypass, no exception and no judgement call — on a case its
+author probably never considered.
+
+**Set it beside two failures in the same file.** The dateline gate read half a
+dateline (failure 15). The pre-push *message* describes a push-scoped consequence
+for a repo-scoped condition. **Same file: one part correctly scoped, two parts
+not.** That is the most useful thing in this entry — the difference is a property
+of individual decisions about what a check's subject is, not of the codebase's
+general quality, and it cannot be fixed by being more careful in general.
+
+The question that separates them is small and can be asked of anything here:
+**what is this check's subject, and is that what it examines?**
+
+---
+
 **Failure 19 — the fixtures are selected by the blind spot that produced the
 incidents.** *A test set drawn from known incidents tests the part of the problem
 the incidents made visible. The part they did not make visible is the part nobody
@@ -919,6 +952,19 @@ The retargeted run makes the same point in a number instead of a sentence — it
 evaluates **1 of 89** epistemic sentences across three issues, and that one is a
 known false positive. **A finding of "nothing" from an instrument with 1%
 coverage is a fact about the instrument.**
+
+**A second counter-instance, 10 September 2026, and it is the strongest evidence yet that
+question 3 does something.** The first draft of the Appendix D coverage
+disclosure said *"evaluated 1 of 89 sentences"* — true, and inviting the reading
+*only 1% of this publication's claims are checked*, which is **false**. Those
+sentences were checked, by readers, at the time, against documents. What is 1 of
+89 is a three-day-old automated cross-check.
+
+**The passage-reading stage caught a false impression in the very disclosure
+written to describe that stage's own machinery, on its first use** — and it
+caught it leaning the direction this cycle has *not* been leaning. A disclosure
+inaccurate in the unflattering direction is still inaccurate, and being modest
+does not excuse it. The wording now carries its own scope.
 
 **THE COUNTER-INSTANCE RULE.** An entry in this column with no counter-instances
 after a reasonable number of observations is reported as **UNSUPPORTED**, not as
