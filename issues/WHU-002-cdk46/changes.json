@@ -2740,6 +2740,60 @@
       "now": "This paragraph said it was still unread for nine days after that, and this page said until 10 September 2026 that it sat behind a paywall.",
       "because": "OR-B",
       "note": "Consequence of the OR-B rewrite: the false 'the first was right', the stale 'still unread' change-log line and the Europe PMC mischaracterisation are replaced by the verified access state, the method, and the mechanism."
+    },
+    {
+      "at": "2026-09-10T15:46:15+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "Whether it is readable, settled with a method.",
+      "because": "OR-B",
+      "note": "Sentence-level fragment of the OR-B passage rewritten on 2026-09-10. The passage decision is recorded above; these are the same edit split differently by the diff. Settled by OR-B, not by analogy to it."
+    },
+    {
+      "at": "2026-09-10T15:46:15+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "All three were assertions.",
+      "because": "OR-B",
+      "note": "Sentence-level fragment of the OR-B passage rewritten on 2026-09-10. The passage decision is recorded above; these are the same edit split differently by the diff. Settled by OR-B, not by analogy to it."
+    },
+    {
+      "at": "2026-09-10T15:46:15+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "The notice's own footer says so.",
+      "because": "OR-B",
+      "note": "Sentence-level fragment of the OR-B passage rewritten on 2026-09-10. The passage decision is recorded above; these are the same edit split differently by the diff. Settled by OR-B, not by analogy to it."
+    },
+    {
+      "at": "2026-09-10T15:46:15+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "And here is how we got it wrong twice.",
+      "because": "OR-B",
+      "note": "Sentence-level fragment of the OR-B passage rewritten on 2026-09-10. The passage decision is recorded above; these are the same edit split differently by the diff. Settled by OR-B, not by analogy to it."
+    },
+    {
+      "at": "2026-09-10T15:46:15+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "A retrieval failure is a fact about our tooling and not about a licence.",
+      "because": "OR-B",
+      "note": "Sentence-level fragment of the OR-B passage rewritten on 2026-09-10. The passage decision is recorded above; these are the same edit split differently by the diff. Settled by OR-B, not by analogy to it."
+    },
+    {
+      "at": "2026-09-10T15:46:15+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "This page said exactly that on 1 September, about a different source, and then failed to apply it here.",
+      "because": "OR-B",
+      "note": "Sentence-level fragment of the OR-B passage rewritten on 2026-09-10. The passage decision is recorded above; these are the same edit split differently by the diff. Settled by OR-B, not by analogy to it."
     }
   ]
 }

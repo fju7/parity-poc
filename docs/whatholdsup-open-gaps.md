@@ -1302,3 +1302,118 @@ claims about the registry entry rest on it. It is now `document`, the false
 positive is back, and it is recorded as what it always was — a subject-resolution
 defect, in which a sentence about the *paper* resolves to the *registry record*
 because both are called PALMARES-2.
+
+---
+
+## cdk46 was published before rule 1 existed and was never migrated to it
+
+**10 September 2026. The precise statement, because the loose one will otherwise be the one
+remembered.**
+
+Rule 1 was **adopted 2 September 2026 with no exemption for what was already
+written.** cdk46 published **28–31 August**. Melanoma, written under the rule,
+passes rules 1 and 2 on **all 131** of its sentences. So this is **a backlog in
+one issue, not a defect in the apparatus** — and the apparatus has been reporting
+it correctly, in the gate, since the day the rule was adopted.
+
+**Eight days unread.** Same class as the pre-push guard's cdk46 warning and the
+four-day lock: a signal that fired correctly, in the right place, and was not
+read. Third instance of that class; it is now four with this one.
+
+### The record's-reach principle does NOT transfer here, and the difference matters
+
+This morning it was established that **a record has a start date, and events
+before it are outside its reach** — which is why no 26 August row was backfilled
+into `published.json`.
+
+**That argument does not apply to a standard, and reaching for it here would be
+motivated.** A record documents the past; **a standard describes a live
+artifact.** cdk46 is on the web right now, and a reader today reads it under
+whatever this publication claims today. When the rule was adopted has no bearing
+on whether a page currently meets it.
+
+Written down because the two cases look alike — both are "the rule is newer than
+the thing" — and only one of them is an argument.
+
+---
+
+## The 135 is not the number. Measured, it is three numbers.
+
+**10 September 2026, before proposing any plan, because an estimate of size is not a
+measurement of size.**
+
+`page_sentences("cdk46")` returns **487** body sentences. `rule_rows` computes
+its verdict over the **169** that have a binding row. **317 have no row at all.**
+
+Triaged — heuristically, and the method is stated below because the
+EMPIRICAL/JUDGEMENT boundary is a judgement call:
+
+| class | all 487 | with a binding row | **with no row at all** |
+|---|---|---|---|
+| EMPIRICAL — carries a figure, quotation, named trial, registry id | 308 | 168 | **140** |
+| JUDGEMENT — interpretive, no figure | 125 | 0 | **125** |
+| FURNITURE — headings, transitions, asserts nothing | 54 | 2 | **52** |
+
+**The hypothesis that most of the 135 are undeclared judgements is wrong.**
+Judgements have no rows at all, so they are not among the 135. The 135 are bound
+rows whose binding rests on nothing — a subset of the 168 rowed empirical
+sentences.
+
+So the work is three piles, not one:
+
+1. **135** — rowed, empirical, resting on nothing. Rule 1 reports these.
+2. **140** — empirical, **no row at all.** Rule 1 does not see these.
+3. **125** — judgements needing premises and a step. Rule 2's concern; also unrowed.
+
+### And a scope claim that the body does not perform
+
+`bindings.rule_rows()` opens: *"The two rules, as blocking rows. **Every sentence
+on the page, no exemptions.**"* Its body reads
+`{k: v for k, v in rows.items() if v.get("on_page")}` — the rows in
+`bindings.json`. `scan()` creates a row only where an anchor is detectable
+(`if not must: continue`), so **a sentence with no figure, quotation or named
+source never enters, and is never examined by either rule.**
+
+That is **failure 15 in the file that defines rule 1**: a check that examines part
+of what its name describes, reporting the unexamined part as nothing at all
+rather than as passing — which is better than a false pass and is still not what
+the docstring says.
+
+**Method, stated so the numbers can be discounted appropriately.** The triage is
+a regex heuristic over the sentence text: a figure, quotation marker, named trial
+or registry identifier makes it EMPIRICAL; six words or fewer with no digit makes
+it FURNITURE; the rest are JUDGEMENT. It is not an adjudication and the
+EMPIRICAL/JUDGEMENT line in particular will be wrong in individual cases. It is
+offered as **the composition of the problem**, which is what was asked for, and
+not as a work list.
+
+---
+
+## Where the binding claim is made, verbatim — and it is scoped
+
+**10 September 2026. Answered from the bytes, not paraphrased.**
+
+**No unscoped, site-wide claim about sentence binding exists.** Every site-wide
+claim is about **figures**:
+
+| where | exact wording | scope |
+|---|---|---|
+| `index.html` | *"Every figure is verified against a company release, a regulatory filing or a peer-reviewed paper."* | site-wide, **figures** |
+| `what-this-is.html` | *"One verifies every figure against its primary source."* | site-wide, **figures**, describing the pre-publication checks |
+| `cdk46.html` | *"Every figure is the trial publication's own and every cell names the analysis it comes from."* / *"Every figure above traces to a named source."* | this issue, **figures** |
+| `email/issue1-melanoma.html` | *"Every sentence in the assessment names the words in that document which support it."* | **the melanoma assessment** |
+| `melanoma.html` | *"Publishing the corrections above meant binding every sentence on this page to the words it rests on."* | **this page**, past tense |
+
+**The sentence-level claim is made twice and both times about melanoma**, which
+passes on all 131. **It is never made about cdk46 and never made site-wide.**
+
+And cdk46's figure claim is supported by a green gate row: *"no sentence carrying
+a figure rests only on coverage — every number on the page reaches a release, a
+paper or a registry record."*
+
+**So there is no live false claim, and this is not urgent in the way it might
+have been.** The site's claim stands. What follows from the ruling is that
+**cdk46 needs its own disclosure** once the composition above is settled — scoped
+so it is true, because *"135 of this issue's sentences rest on nothing"* would be
+inaccurate in the harsh direction when 140 more were never examined and 125 are
+judgements.

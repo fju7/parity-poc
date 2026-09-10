@@ -532,6 +532,7 @@ Fourteen ways this publication has actually been wrong, and what catches each.
 | 17 | A check whose condition is sound and whose message names a cause that is not the cause | read the message as if you did not already know the answer |
 | 18 | A defect deferred whole, on an estimate of cost made by the person who benefits from the estimate being high | decompose it, then defer the parts that survive |
 | 19 | A test set drawn from known incidents, mistaken for a test of the problem | run the new check against the whole corpus before wiring it anywhere |
+| 20 | A datum edited to make a check pass — reasoning from the symptom, in the data layer | ask what the datum IS, never what value would silence the check |
 
 ### 12e. The reference case: a check whose scope matches its subject
 
@@ -565,6 +566,28 @@ The question that separates them is small and can be asked of anything here:
 **what is this check's subject, and is that what it examines?**
 
 ---
+
+**Failure 20 — reasoning from the symptom.** *When a check fires, the question is
+what the data actually is, never what value would silence the check.*
+
+The code-layer version of this is already understood — do not modify a guard to
+get past it. **The data-layer twin is the one that will recur, and it is far
+harder to see**, because a datum edited to make a check pass is
+**indistinguishable from a correct datum**. It defeats the check permanently and
+invisibly, with every test still green and nothing to review.
+
+Worked example, 10 September 2026. `S021` — the PALMARES-2 registry record — was classified
+`document_class: record_about` on 9 September because doing so suppressed a false
+positive. That is not what it is: it **is** the registry entry, and claims about
+the registry entry rest on it. It was reversed to `document` by the same author
+the next day, the false positive returned, and it is now recorded as what it
+always was — a subject-resolution defect in which a sentence about the *paper*
+resolves to the *registry record* because both are called PALMARES-2.
+
+**The tell, and it is available at the moment of the edit:** you are choosing a
+value by reference to a check's output rather than by reference to the thing the
+field describes. Ask what the field means, answer that, and let the check say
+whatever it then says.
 
 **Failure 19 — the fixtures are selected by the blind spot that produced the
 incidents.** *A test set drawn from known incidents tests the part of the problem
@@ -678,6 +701,22 @@ amendment and the remediation order, and what is missing is machine-readable
 linkage rather than knowledge. Attributing them one diff at a time would produce
 a record that looks like 239 decisions and represents four, which is the same
 objection that stopped the 175 being backfilled.
+
+**Third instance, 10 September 2026, and the first to reach a directive.** *"7 of 228 cdk46
+binding rows carry a locator naming a source"* described the `locator` field and
+was reported as if it characterised the row. A binding row carries `source_id` —
+34 of 169 on-page rows — and `quotations.py` reads it directly.
+
+**The path is the part that repeats: report → reviewer → instruction.** The
+number was quoted back in a ruling as possibly the largest finding on the list,
+and a directive was built on it. Nobody derived it at any step, because it
+arrived already written.
+
+**And what prevented a false entry in the record was not care about the number.**
+It was a refusal to reason from it: the ruling declined to conclude and asked for
+the schema instead. Care would not have caught this — the number was accurate
+about the field it described. **Only refusing to reason from a summary caught
+it**, and that is a different discipline from checking arithmetic.
 
 **A wrong number that looks right propagates further than a wrong argument.**
 An argument invites scrutiny; a plausible figure invites copying. Figures
