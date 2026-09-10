@@ -200,6 +200,17 @@
       ],
       "supersedes": "2e644545214e3751eb9b9e0f9a68524e64311e1cf8e82de433b9796216c28829",
       "waived": null
+    },
+    {
+      "issue": "melanoma",
+      "action": "publish",
+      "at": "2026-09-10T17:54:52+00:00",
+      "interpreter": "/Users/fredugast/Projects/parity-poc-repo/backend/venv/bin/python3",
+      "sha": "76703fe9367a21b122e613c31d1e26d80ea5955b99d9df1076904f3a127ddd63",
+      "commit": "1b3f3a4929381622e2f2e0e49b55a2887cd5800b",
+      "url": "https://whatholdsup.org/melanoma",
+      "note": "issue 1 \u2014 The Melanoma Result",
+      "waived": "S029 ONLY. The 2018 NEJM erratum (PMID 31442371, DOI 10.1056/NEJMx180040), a single notice covering thirteen articles, applies to Eggermont et al. EORTC 18071. We have not read it and cannot: NEJM returns 403 to a script, Europe PMC records it as neither open access nor in its archive, and neither PubMed nor Crossref carries an abstract. Operator ruling 2026-09-10, on the same grounds as 2026-09-09 and with the same scope: (1) the page discloses the gap to the reader in the S029 source note, naming the erratum and saying we have not read it and do not know whether it touches a figure quoted here; (2) the claim resting on this paper is that one adjuvant checkpoint inhibitor reported an OS benefit against placebo as a prespecified secondary endpoint, at a dose and toxicity that kept it from standard care, which survives any decimal-level correction and would fall only to a retraction, and retractions are not issued as one line in a thirteen-paper notice; (3) removing a true, well-sourced counterexample on the strength of an unread notice would restore the impression OR-008 exists to correct. Corroboration, labelled as corroboration and not as closure: every figure quoted from this paper appears in the PubMed record of PMID 27717298, which post-dates the erratum. S029 keeps an open, undispositioned errata item. This waive covers S029 and nothing else. This republication carries the change-log correction, which replaces a claim currently false on the live page."
     }
   ]
 }

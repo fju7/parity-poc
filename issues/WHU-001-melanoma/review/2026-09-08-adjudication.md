@@ -1368,6 +1368,30 @@ Recorded as a set rather than per sentence because the reasoning is in those
 documents and is a linkage debt, not an unrecorded one — the same basis as the
 set it extends.
 
+## Four versions, each failing one level down
+
+**Recorded 10 September 2026.** The same paragraph was written four times. Each version was
+more accurate than the last, and each failed by leaving **exactly one level
+unstated** — and the unstated level always ran in the flattering direction.
+
+| version | what it stated | the level it left unstated |
+|---|---|---|
+| 1 | *"binding **every** sentence on this page"* | **that coverage exists at all** — it was not every |
+| 2 | *"131 of this page's 343 sentences"* | **what the coverage is** — 95 bound, 34 declared, 2 attested |
+| 3 | 95 / 34 / 2, and 212 unexamined | **what the coverage is OF** — 343 is the body, not the page |
+| 4 | *"The assessment above — everything before this log"*, and *"This log is not covered by either rule"* | — |
+
+**The generalisation of §12g, and it is sharper than §12g:** a summary does not
+merely lose structure. **It fails at the level immediately below the one it
+states**, and it fails there in the direction that flatters. Correcting it moves
+the failure down one level rather than removing it. That is why three corrections
+produced three errors.
+
+**What ends the sequence is a terminator, not more precision.** Version 4's last
+sentence — *"This log is not covered by either rule"* — states what is **not**
+covered, and there is no level below "not covered". Precision alone would have
+produced a fifth version. **State to the bottom.**
+
 ## The passage-reading stage's first catch, 10 September 2026
 
 **The first correction draft — written by the reviewer, fitted by the executing

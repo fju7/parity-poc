@@ -1684,7 +1684,7 @@
       "at": "2026-09-10T17:21:53+00:00",
       "by": "claude",
       "from_sha": "a788f00ab152123579a5593d0e2fe0908a4b0c264fbabdb0e5cff944517ee7f9",
-      "to_sha": "c20b5725631e1e75da495e3db9872dd0c5252cf048fe7269b9e340d289d0a83e",
+      "to_sha": "76703fe9367a21b122e613c31d1e26d80ea5955b99d9df1076904f3a127ddd63",
       "because": "ROUND-2026-09-10",
       "decided_by": [
         "issues/WHU-001-melanoma/review/2026-09-08-adjudication.md",
@@ -1693,8 +1693,11 @@
         "issues/WHU-001-melanoma/review/2026-09-10-changelog-correction-ruling.md"
       ],
       "note": "Extends ROUND-2026-09-08 to the republication of 2026-09-10. Everything that set covered, plus the change-log correction: the entry claiming every sentence on this page was bound to the words it rests on was false — it was 131 of 343 — and the operator ruled it corrected rather than deleted, because deleting removes a false claim and says nothing. Recorded as a set, not per sentence, because the reasoning is in the four documents named and is a linkage debt rather than an unrecorded one. | to_sha re-pinned 2026-09-10 after publish.py dateline moved the masthead from 9 to 10 September. The set is STATE, not a dated finding: process document §13 — a dated finding must not be retro-edited, a live status list must be kept current, and this is the second kind. The previous value is kept in to_sha_was rather than overwritten silently. The operator's signature is unaffected: it cites the verification record and sha 7ae5304c…, neither of which moves.",
-      "to_sha_updated": "2026-09-10T17:26:58+00:00",
-      "to_sha_was": "f701e6f8dc9bab5d757f5c68287a6b52dc28edcd319396e644a5e76da23702ae"
+      "to_sha_updated": "2026-09-10T17:50:19+00:00",
+      "to_sha_was": "f701e6f8dc9bab5d757f5c68287a6b52dc28edcd319396e644a5e76da23702ae",
+      "to_sha_history": [
+        "c20b5725631e1e75da495e3db9872dd0c5252cf048fe7269b9e340d289d0a83e"
+      ]
     }
   ]
 }

@@ -1917,7 +1917,7 @@ difference being sought. Same for `b13`, `deletions`, `negatives`, `quotations`,
 | `jsonio.announce_interpreter` **(FIXED)** | `Path.resolve()` on interpreter paths | **realised.** A venv `python3` is a symlink to the base interpreter, so resolving both made every interpreter look like the project venv |
 | `reconcile.py:107` | `u.rstrip("/").lower()` on **page URLs** | URL **paths are case-sensitive**. Two distinct links differing only in case would be treated as the same known URL, and one would be silently accepted as accounted-for |
 | `sweep_sources.py:222` | `slug.lower() in d.name.lower()` — **substring** | a slug that is a prefix or substring of another issue's directory name resolves to the wrong issue. Harmless with three issues named `cdk46`, `melanoma`, `deskilling`; a future `melanoma-2` would match `melanoma`'s directory first |
-| `source_store.py:889/903` | `k.lower() in _searchable(data).lower()` | identity of a held document by substring match; two identifiers differing only in case merge |
+| *(`source_store.py:889/903` promoted out of this table — see the entry below)* | | |
 
 ### The opposite failure, in the same week
 
@@ -1989,3 +1989,90 @@ note for the next revision, agreed, not a blocker.
 log should count toward binding coverage at all is a real question, and answering
 it inside a publish sequence is how the fourth version of this sentence gets
 written.
+
+---
+
+## The change log is governed by no rule, and four of today's problems were in it
+
+**10 September 2026. A design decision for the next issue, made deliberately, with evidence.**
+
+`<footer id="updates">` — the reader-facing correction log — is reached by **no
+rule**:
+
+| control | reaches the log? |
+|---|---|
+| rule 1 (written from a document we hold) | **no** — `page_sentences` strips it |
+| rule 2 (every sentence declares its kind) | **no** — same population |
+| `changecheck` (reads new text for meaning) | **no** — `ledger.body_only()` strips it |
+| `b13` / `corrections_check` | **narrowly** — figures, and false-disagreement claims |
+| the epistemic check | reads it, and evaluates 1 of 52 sentences page-wide |
+
+**Four problems today were in that one region:**
+
+1. **The Morning Glory paragraph** — a correction announcing a clause had been
+   replaced when it had not, which stood for five days.
+2. **The self-contradicting corrigendum note** — *"we have now read it"* and, four
+   sentences later, that we could not know what it touched *"because that requires
+   reading it."*
+3. **`changecheck`'s blindness** — it reported *"1 changed sentence reviewed,
+   nothing found"* while seven of eight changed sentences, the entire correction,
+   sat outside its scope.
+4. **The denominator** — three successive versions of one correction, each
+   understating its own coverage, in the log.
+
+**Four instances in one ungoverned space is what ungoverned looks like.** It is
+also the region where a publication records having been wrong: prose written
+under time pressure, by the party that made the error, about their own mistake.
+The controls are absent from exactly the text most likely to need them.
+
+**The question for the next issue is not "fix it" — it is whether the log should
+be bound at all.** Binding a change log means every sentence about a past error
+needs a span in a held document, and many of them rest on this repository's own
+history rather than on any source. The attested route may be the right shape, or a
+fourth bucket may be. **What is not defensible is the current state, which is not
+a decision but an omission** — the log fell outside `page_sentences` because
+`FURNITURE` strips `<footer>`, and nobody chose that for the log specifically.
+
+---
+
+## `source_store` matches document IDENTITY by lowercased substring
+
+**10 September 2026. Promoted out of the normalisation list, because it is a different
+class from the rest of it.**
+
+```python
+if k.lower() in _searchable(data).lower():
+```
+
+Every other site in that survey normalises **typography** while asking about
+**presence** — orthogonal, and `_norm` exists because *The Lancet* prints `0·561`
+with a middle dot. This one asks about **identity**: is the document we are
+holding the document we think we are holding?
+
+**Identity is the foundation of "we hold this document."** Standing rule 1 rests
+on it. Every span check resolves through it. `document_class`, the errata sweep,
+the canary, the coverage numbers — all of them presuppose that an id names one
+document.
+
+**Substring matching for identity is not a normalisation, it is a widening.** A
+lowercased substring test can make **two different documents the same one**: an
+identifier that is a prefix of another, a PMID that appears inside a longer
+number, a DOI suffix contained in a different DOI. Where typography
+normalisation loses a distinction the question does not depend on, this loses the
+distinction the question **is**.
+
+**Nothing has collided.** That is luck rather than design — twenty-nine sources
+on the largest issue, identifiers that happen not to nest. It is not a property of
+the check.
+
+**Not fixed today.** Changing how identity resolves touches every check that
+resolves through it, and doing that inside a publish sequence is the failure-16
+shape. It is first on the next issue's list, ahead of `changecheck`'s scope,
+because a scope gap reports less than it should and an identity collision reports
+the **wrong thing** with full confidence.
+
+**The asymmetry that makes this the worse half, kept as this entry's core:**
+
+> **Normalising too little reports a false difference. Normalising along the
+> question's own axis reports a false sameness, and the second is worse, because
+> a false difference is a red check somebody investigates.**

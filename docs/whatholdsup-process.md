@@ -1316,6 +1316,34 @@ marker goes in the name, not only in a file inside it.
 
 ## 14. What we know we cannot see
 
+**The strongest instance yet, 10 September 2026, and it is not two machines agreeing.**
+
+Rule 1 has three routes: BOUND, DECLARED, ATTESTED. Within one hour, two readers
+looked at the same 131 sentences and each reconstructed the same missing
+category — in opposite directions.
+
+- **The reviewer** assumed two routes and computed rule 1 = **129** (95 + 34).
+- **The executing agent** read bucket and span, found two rows fitting neither
+  known category, and reported them as **unaccounted for** — implying a hole in
+  rule 1.
+
+**Same object. Same absent category. Two readers. Opposite errors.** One dropped
+the two sentences from the count; the other kept them and called them unexplained.
+Neither read the pass logic, which names the third route in a comment eleven lines
+long explaining why it exists.
+
+**This is what §14 warns cross-checking handles poorly, demonstrated.** Two
+independent readers disagreeing looks like a check working. Here the disagreement
+was *produced by the same gap* — both were reasoning from a two-category model, so
+their outputs differed while their error was identical. **Agreement would have
+been no better than disagreement was:** had both dropped the two, the count 129
+would have been confirmed by two readers and been wrong.
+
+The tell is available and it is not "do they agree". It is: **do they agree about
+what the categories are?** Two readers reconstructing a taxonomy from instances
+will reconstruct the same wrong taxonomy, because the instances they can see are
+the same instances.
+
 Carried from `docs/whatholdsup-open-gaps.md` and from Appendix D of the melanoma
 packet:
 
