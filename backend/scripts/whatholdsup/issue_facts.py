@@ -49,6 +49,31 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 import index_dates as I                                   # noqa: E402
 
 
+# Titles are the pages' own. Subjects and questions are editorial, approved
+# 2026-09-10. They live here, in one place, because both the homepage and the
+# issues index need them and a copy in each would drift -- the failure this
+# repository has spent a week on.
+#
+# THE SUBJECT COLUMN WITHHOLDS THE FINDING. A first draft of issue two's read
+# "how a guideline's evidence grades get misread", which asserts the misreading
+# -- the page's own conclusion -- in the line whose job is to let a reader decide
+# whether to care before being told what to think.
+COPY = {
+    "melanoma": ("Issue one", "The Melanoma Result",
+                 "an mRNA cancer vaccine result",
+                 "A large trial was announced as a success. What did it actually "
+                 "release, and what will that support?"),
+    "cdk46": ("Issue two", "The Category Difference",
+              "a guideline that grades one drug above two similar ones",
+              "A guideline grades one of three similar drugs higher. Does that "
+              "mean the drug is better?"),
+    "deskilling": ("Issue three", "What Happens to the Experts First",
+                   "whether AI deskills clinicians",
+                   "Is there real evidence that using AI makes skilled people "
+                   "worse, and who does it happen to?"),
+}
+
+
 def _record():
     try:
         return json.loads(I.RECORD.read_text(encoding="utf-8")).get("published") or []
@@ -138,12 +163,26 @@ def facts(slug: str) -> dict:
             "sources_checked": sources_checked(slug)}
 
 
-def line(slug: str, ordinal: str) -> str | None:
-    """The homepage card's meta line. Four facts, same slots, zeroes included."""
+def line(slug: str, ordinal: str | None = None) -> str | None:
+    """The four facts, as one uniform line.
+
+    A PROVENANCE FOOTER, NOT A HEADLINE. These four sat at the TOP of each card
+    until 2026-09-10, which put the apparatus in front of the argument on the
+    first artifact a reader meets. The diagnosis that produced them was right --
+    a bare `corrected` badge made the scrutinised issues look damaged and the
+    unexamined one look clean -- and the prescription was too much. A reader
+    arriving cold wants to know what the issue says. The record is for the reader
+    who wants to check us, and it belongs where that reader will look for it.
+
+    What did not change: all four facts, every issue, same slots, INCLUDING the
+    zeroes. That completeness was the actual fix and it stays. Only the position
+    and the weight changed.
+    """
     f = facts(slug)
     if not f["published"]:
         return None
-    bits = ["%s &middot; published %s" % (ordinal, I.fmt(f["published"]))]
+    bits = ["%spublished %s" % ("%s &middot; " % ordinal if ordinal else "",
+                                I.fmt(f["published"]))]
     bits.append("revised %s" % I.fmt(f["revised"]) if f["revised"] else "not revised")
     # NO NESTED ANCHOR. The card is itself an <a>, so an <a> inside it is
     # invalid HTML: a browser closes the outer link at the inner one, and every

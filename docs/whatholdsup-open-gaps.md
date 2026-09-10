@@ -2112,3 +2112,70 @@ will**, and the rule will put the most recently worked issue near the bottom: on
 **The rule stands.** The index can carry a "recently revised" cue without
 changing the order, which separates *what changed lately* from *what this
 publication has done*, and only the second should determine sequence.
+
+---
+
+## The apparatus went in front of the argument, and the diagnosis was right
+
+**10 September 2026. Recorded because the correction is more instructive than the fix.**
+
+The homepage's `corrected` badge was a real defect: it made the two scrutinised
+issues look damaged and the unexamined one look clean, and let the **absence** of
+a marker read as a positive signal. The prescription was the same four facts on
+every card, including the zeroes. That part was right and it stands.
+
+**What was wrong was the position.** The four facts went to the **top** of each
+card, ahead of the title — so the first artifact a reader meets opened with
+correction counts, review dates and errata sweeps. **A reader arriving cold wants
+to know what the issue says.**
+
+**And the reason it happened is worth more than the fix.** The apparatus was in
+front of the argument because the apparatus is what had been looked at for two
+days. Coverage numbers, review kinds and sweep dates were the live subject of
+every ruling, so they read as the important thing — to the people who had been
+reading them, and to nobody arriving at the site.
+
+> **The thing you have been staring at looks like the thing that matters.** It is
+> the same mechanism as §12f — a premise that feels settled because it has been
+> repeated — pointed at attention rather than at belief.
+
+**The fix is order, not content.** Title, subject, question, what the assessment
+found, then the four facts as one small uniform footer. Every fact still there,
+still on every card, still including the zeroes. **The record is for the reader
+who wants to check us, and it belongs where that reader will look for it.**
+
+### Two things the reorder broke, both caught
+
+**`index_dates.CARD` matched the first `<span>` in the card**, which after the
+reorder holds only the ordinal. The gate reported every card as missing its dates
+while the dates sat forty lines lower, correct. **A check pinned to a position
+rather than to content fails the first time somebody moves anything.** It now
+matches the whole card and reads the dates wherever they are.
+
+**The subject and question would have been a second copy.** They were written
+into `issues_page.py` and the homepage needed the same strings. Moved to
+`issue_facts.COPY`, one place — because two copies of the same editorial line
+drift, which is the failure this repository has spent a week on.
+
+---
+
+## The issues are not a feed, and the index will have to say so
+
+**10 September 2026. Recorded for the index's design; not acted on.**
+
+Order is by **first publication**, and an update does not move an issue up. That
+stands.
+
+**But recency ordering carries an implication that is true for news and false
+here: that the newest is the most relevant.** An assessment of an August trial is
+as useful in December — the trial has not changed, and if the evidence moves, the
+assessment is corrected in place and the correction is logged. **These are
+evergreen, and a reverse-chronological list tells a reader the opposite.**
+
+With three issues it does not matter. **On the index, at eight or twelve, it
+will**, and **subject order may serve a reader better than date order there** —
+somebody arriving wants *the melanoma one*, not *the most recent one*.
+
+That is a different decision from the categories question and should not be
+folded into it: **categories are about grouping, ordering is about what the
+sequence implies.** A list can be ordered by subject without being categorised.

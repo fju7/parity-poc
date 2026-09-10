@@ -499,3 +499,18 @@ h3.mini { font-family: Bitter, Georgia, serif; font-weight: 500; font-size: 1.12
 @media (max-width: 30rem) {
   .signup input[type="email"], .signup button { width: 100%; flex-basis: 100%; }
 }
+
+
+/* The issue card, 2026-09-10. Order is the argument first, the record last:
+   title, subject, question, what the assessment found, then a provenance
+   footer. The four facts stay complete and uniform on every card, including the
+   zeroes -- that completeness is what stopped a bare `corrected` badge from
+   making the scrutinised issues look damaged and the unexamined one look clean.
+   Only their position and weight changed: they are how a reader checks us, not
+   what a reader reads first. */
+.issue .subject { margin:.1rem 0 .55rem; font-size:.95rem; opacity:.86; }
+.issue .subject em { font-style:normal; opacity:.78; }
+.issue .prov { display:block; margin-top:.75rem; padding-top:.55rem;
+               border-top:1px solid rgba(0,0,0,.09);
+               font-family:"IBM Plex Mono",monospace; font-size:.72rem;
+               line-height:1.55; opacity:.6; }

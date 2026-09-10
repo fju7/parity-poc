@@ -102,8 +102,17 @@ RECORD = ROOT / "backend" / "data" / "whatholdsup" / "published.json"
 INDEX = ROOT / "site" / "whatholdsup" / "index.html"
 
 # "Issue one · published 28 August 2026 · corrected 29 August 2026"
-CARD = re.compile(r'<a class="issue" href="/(?P<slug>[a-z0-9-]+)">\s*'
-                  r'<span class="no">(?P<meta>.*?)</span>', re.S)
+# THE WHOLE CARD, not the first span in it. On 2026-09-10 the four facts moved
+# from a `.no` span at the top of the card to a `.prov` footer at the bottom, so
+# that the argument comes before the apparatus. This regex matched the first
+# span, which now holds only the ordinal -- and the gate reported every card as
+# missing its dates while the dates sat forty lines further down, correct.
+#
+# Matching the card and reading the dates wherever they are in it is the version
+# that survives the next layout change too. A check pinned to a position rather
+# than to content fails the first time somebody moves anything.
+CARD = re.compile(r'<a class="issue" href="/(?P<slug>[a-z0-9-]+)">'
+                  r'(?P<meta>.*?)</a>', re.S)
 # "revised" replaced "updated" on 2026-09-10 when the card gained the four
 # scrutiny facts; both are accepted so the audit does not silently stop matching
 # a card written under the older wording.

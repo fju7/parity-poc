@@ -48,20 +48,10 @@ OUT = I.ROOT / "site" / "whatholdsup" / "issues.html"
 # Titles are the pages' own. Subjects and questions are editorial, approved by
 # the operator on 2026-09-10, and live here rather than in each page because an
 # index that repeats a page's own words is a copy, not an index.
-ISSUES = [
-    ("melanoma", "Issue one", "The Melanoma Result",
-     "an mRNA cancer vaccine result",
-     "A large trial was announced as a success. What did it actually release, "
-     "and what will that support?"),
-    ("cdk46", "Issue two", "The Category Difference",
-     "a guideline that grades one drug above two similar ones",
-     "A guideline grades one of three similar drugs higher. Does that mean the "
-     "drug is better?"),
-    ("deskilling", "Issue three", "What Happens to the Experts First",
-     "whether AI deskills clinicians",
-     "Is there real evidence that using AI makes skilled people worse, and who "
-     "does it happen to?"),
-]
+# The copy lives in issue_facts.COPY, in one place, because the homepage needs
+# the same subjects and questions and two copies would drift.
+ISSUES = [(slug,) + issue_facts.COPY[slug]
+          for slug in ("melanoma", "cdk46", "deskilling")]
 
 NAV = """<nav class="sitenav">
   <a class="brand" href="/">What Holds Up</a>
@@ -105,17 +95,15 @@ def render() -> str:
     rows = []
     for slug, ordinal, title, subject, question in ISSUES:
         rows.append("""  <a class="issue" href="/%s">
-    <span class="no">%s &middot; %s</span>
+    <span class="no">%s</span>
     <h3>%s</h3>
-    <p class="subject"><b>%s</b></p>
+    <p class="subject">%s</p>
     <p>%s</p>
     <span class="more">Read the assessment &rarr;</span>
-  </a>""" % (slug, ordinal, facts_line(slug), html.escape(title),
-             html.escape(subject), html.escape(question)))
+    <span class="prov">%s</span>
+  </a>""" % (slug, ordinal, html.escape(title), html.escape(subject),
+             html.escape(question), facts_line(slug)))
     return """%s
-<style>
-  .issue .subject { margin:.1rem 0 .35rem; opacity:.85; }
-</style>
 </head>
 <body>
 <div class="wrap">
