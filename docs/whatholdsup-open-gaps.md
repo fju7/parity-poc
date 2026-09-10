@@ -2696,3 +2696,61 @@ a mechanical comparison of a quoted string against two files. **Only a check
 changes behaviour**, and Q2 is a check performed by a person with the documents
 in front of them, which is what distinguishes the passage stage from an
 intention.
+
+---
+
+## There is no way to send a correction email. The mechanism assembles and cannot send.
+
+**10 September 2026. Found at the moment of sending, with the email clean and authorised.**
+
+`update_email.py` assembles the body. `sent.json` records what went out.
+**Nothing sends.**
+
+`publish.py announce` is the only sender, and it sends `cfg["email_html"]` — the
+**issue's** email file — to `cfg["audience"]`. There is no configuration for a
+correction and no command that takes an arbitrary body. Running `announce` on
+melanoma today would send **the melanoma issue email again**, not the correction.
+
+| | |
+|---|---|
+| assembles a correction | `update_email.py` ✓ |
+| records what was sent | `sent.json` ✓ |
+| renders Markdown to sendable HTML | **does not exist** |
+| sends a body that is not an issue email | **does not exist** |
+| audience | one Resend audience, `bae12ea6…`, shared by all three issues |
+
+### Why this was not visible until the send
+
+Every step of the design was checked — trigger, content, construction, the
+floor, the covers list, the passage stage — and **none of them is the send.** The
+design was reviewed as a design and each part was right. The part nobody
+specified was the part that touches a reader.
+
+**It is the unread-signature failure in its purest form yet**: a mechanism
+described in three documents, built in two files, reviewed twice, carrying a
+drafted and verified payload — **and no path from it to an inbox.** Everything
+around the act exists; the act does not.
+
+### And the near-miss is the finding
+
+The available shortcut was to run `announce melanoma --yes`, which is a working
+sender with a warm key, and would have sent **the issue email** — the very
+document containing the errors this correction describes — to the audience the
+correction was meant for. **A sender that exists and sends the wrong thing is
+more dangerous than no sender**, because it satisfies the instruction.
+
+### What it needs, and none of it should be built at the end of a step
+
+1. a renderer from the Markdown draft to the email HTML the site already uses;
+2. a send path taking an arbitrary body and subject, with the same preflight
+   `announce` runs;
+3. a dry-run that proves the body and audience before anything leaves;
+4. and a record written **before** the send, not after, so an interrupted send
+   leaves evidence rather than silence.
+
+**Sending is irreversible and this repository says so** — `publish.py` states
+that an email cannot be recalled. Building a mailer and firing it in the same
+breath, at the end of a long step, with no test that it sends the right body to
+the right list, is failure 16 with an outward-facing consequence. **The email is
+verified and waiting. The sender is next issue's first task, and it gets a
+dry-run against a test audience before it ever sees the real one.**

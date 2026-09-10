@@ -83,8 +83,8 @@ from a real floor.
 > with no width stated at all. That one was a 95% interval.
 >
 > **Why.** Both intervals for that hazard ratio sit in the same row of the same
-> table in the same paper: *"HR — 0.425 · 80% CI 0.179 to 1.004 · 95% CI 0.114 to
-> 1.584"*. We printed the narrower of the two, labelled it, and set it beside an
+> table in the same paper. The row reads: *"HR — 0.425 80% CI 0.179 to 1.004 95%
+> CI 0.114 to 1.584"*. We printed the narrower of the two, labelled it, and set it beside an
 > interval we did not label. An 80% interval is narrower than a 95% interval
 > computed from the same data; that is what the numbers mean, not a property of
 > the result. **A reader had no way to see from the email that the two were not
@@ -100,24 +100,38 @@ from a real floor.
 >
 > ---
 >
-> ### We overstated what our own checks do
+> ### We overstated what our own checks do — in both emails, differently
 >
-> **What changed.** Both emails said: *"Every figure above traces to a company
+> **This section quotes and does not summarise.** Every factual claim below is a
+> sentence from the email you were sent or from the page as it stands now.
+>
+> **The email for issue one said:** *"Every figure above traces to a company
 > release, a peer-reviewed paper, a conference abstract or a trial registry
-> record."* Two sentences later, the same paragraph said: *"Two do not."*
+> record."* **Its very next sentence began:** *"Two do not."*
 >
-> **Why.** The first sentence contradicts the third, inside one paragraph, in
-> text you were sent. The claim we can support is narrower: every **numerical
-> trial result** traces to one of those sources. Claims about what an outlet
-> reported trace to the coverage itself, which is not the same thing.
+> **The page now says:** *"Every numerical trial result above traces to a company
+> release, a peer-reviewed paper, a conference abstract or a trial registry
+> record. Claims about what an outlet reported necessarily trace to the named
+> coverage itself."*
 >
-> **What you should now believe that differs.** Our pre-publication checks are
-> narrower than that sentence implied. They test whether a quoted span is really
-> in a document we hold and whether a figure appears in one. **They do not decide
-> whether a source is primary or secondary** — a person does that, and a person
-> can be wrong. If you read "every figure traces to a peer-reviewed paper or a
-> registry record" as a machine guaranteeing the provenance of everything on the
-> page, it is not, and it never was.
+> **The email for issue two said:** *"Every figure above comes from a trial
+> publication or a drug label, each one named on the page with the analysis it
+> belongs to. None comes from a news report, and none from a guideline's summary
+> of a trial."*
+>
+> **Three of the figures above that sentence, in that same email, came from
+> neither a trial publication nor a drug label.** They are, in its own words:
+> *"P-VERIFY puts it at 0.97 on 0.82 to 1.14 for survival. PALMARES-2, the study
+> that did separate palbociclib, puts it at 0.91 on 0.73 to 1.14 for progression.
+> The reconstructed patient-data comparison comes closest, at 0.722 on 0.520 to
+> 1.002, p = 0.051."* Each of those is a comparative study.
+>
+> **The page now says:** *"Every figure above traces to a named source, and each
+> cell of the table names which: a trial publication, a drug label, or a
+> comparative study."*
+>
+> **What you should now believe that differs.** If you took either sentence as a
+> guarantee that every number came from a primary source, neither was one.
 >
 > ---
 >
@@ -157,56 +171,70 @@ from a real floor.
 
 
 
+
 ---
 
-## The passage stage, run on the whole email — 10 September 2026
+## The passage stage, run on the complete email — 10 September 2026, second run
 
-The email changed materially after its last run: a delay paragraph added, the
-"when we found it" paragraph rewritten, an effort claim cut, and two words added
-to the comparability sentence. Re-run on the whole body, not part 3 alone.
+The third section was rebuilt by quotation after Q2 failed on its first version.
+All four questions, re-run on the whole body.
 
-**Q1 — do any two sentences contradict each other?** No — and one pair was
-checked closely, because it was near-contradictory before this revision. *"We
-found both errors quickly and corrected the pages the same day"* and *"neither
-correction reached your inbox until now"* are consistent only because the
-mechanism sentence sits between them; without *"we had no way to send a
-correction"* they read as an admission of twelve days' inaction. The paragraph
-carries its own resolution, which is what Q4 asks of it.
+**Q1 — do any two sentences contradict each other?** No.
+
+Two pairs were checked closely. *"We found both errors quickly and corrected the
+pages the same day"* against *"neither correction reached your inbox until now"*:
+consistent only because the mechanism sentence sits between them, and it does.
+And the third section contains a contradiction on purpose — *"Every figure above
+traces to…"* against *"Two do not"* — but that is **a quoted contradiction in a
+document we sent, presented as the thing being corrected**, not a contradiction
+between two of our own sentences.
 
 **Q2 — does any sentence assert a state another sentence or the store
-contradicts?** No. Every figure and quotation is verified against held bytes or
-against the sent blob, listed in the notes above. The two new factual claims were
-checked for this run:
+contradicts?** No. Every quoted string in the body was checked against its
+source, normalised for typography, with the sources open:
 
-- *"Our own record has said since 29 August that Jacot is not an author"* —
-  `attributions.json`, `checked_against: "the paper's own author list, opened
-  2026-08-29"`.
-- *"the page was corrected that day"* — cdk46's live change log, fetched from
-  served bytes, carries the correction naming Marie-Laure Tanguy.
+| quotation | source | |
+|---|---|---|
+| *"PALOMA-2 and MONALEESA trials have an almost similar power…"* | S024, sha-checked | verbatim |
+| *"might be more attributable to chance…"* | S024 | verbatim |
+| *"HR — 0.425 80% CI 0.179 to 1.004 95% CI 0.114 to 1.584"* | S007, sha-checked | verbatim |
+| *"0.425 on nine deaths, with an 80% interval of 0.179 to 1.004"* | melanoma email blob `5ef7890a` | verbatim |
+| *"the hazard ratio is 0.471 and the interval runs from 0.165 to 1.345"* | same blob | verbatim |
+| *"Every figure above traces to a company release…"* / *"Two do not"* | same blob | verbatim, adjacent |
+| *"Every figure above comes from a trial publication or a drug label…"* | cdk46 email blob `f4fa7164` | verbatim |
+| *"P-VERIFY puts it at 0.97… PALMARES-2… 0.722 on 0.520 to 1.002, p = 0.051"* | same blob | verbatim |
+| *"Every numerical trial result above traces to…"* | melanoma page, served | verbatim |
+| *"Every figure above traces to a named source…"* | cdk46 page, served | verbatim |
+
+**One thing this run caught and fixed.** The S007 row had been rendered as
+*"HR — 0.425 · 80% CI 0.179 to 1.004 · 95% CI 0.114 to 1.584"*, with middle dots
+inserted for readability. The paper prints it without them. **Interpolated
+punctuation inside quotation marks is a characterisation wearing a quotation's
+clothes** — the exact thing the terminating rule for that section forbids, in the
+turn that rule was imposed. Removed; the row now reads as the paper reads it.
 
 **Q3 — could a careful reader leave believing something false that no sentence
-states?** One thing found and **not fixed here, because it is the operator's**:
-the closing paragraph sends readers to both change logs to check the
-corrections. **cdk46's live log does not contain the word "Jacot."** It says *"The
-page named the wrong researcher; the first author of that 2018 npj Breast Cancer
-paper is Marie-Laure Tanguy."* A reader who follows the link to verify *"not
-Jacot"* will find the correction and not the name they were told to check for.
-The email is accurate; the destination is thinner than the email implies.
+states?** One thing found and **left, with the email amended rather than the
+belief**: the closing paragraph sends readers to both change logs, and cdk46's
+does not contain the word "Jacot". The email now says so in parentheses. The
+destination is thinner than a reader might expect; they are told before they go.
 
-The delay paragraph was also read for this: *"we had no way to send a
-correction"* is true and could be heard as an excuse. It is followed immediately
-by *"Both were built this week"*, which converts it into a statement about what
-was missing rather than about why it was acceptable.
+The third section was read for the failure mode of its predecessor — a claim
+about two documents drawn from one. It now makes **no claim about both emails at
+once.** Each email is quoted separately, each defect is stated separately, and
+the two defects are different: issue one's sentence contradicts its own next
+sentence; issue two's is contradicted by three figures above it. **The only
+sentence covering both is part 3**, and it says only *"if you took either
+sentence as a guarantee…, neither was one"* — which is true of both and asserts
+nothing about either.
 
 **Q4 — is a reader asked to hold anything in suspension longer than the passage
-supports?** No. Each of the three paragraphs — the delay, and the two
-corrections — resolves inside itself. The longest suspension is within the
-attribution section, where *"Two things are wrong with that sentence"* opens a
-pair that closes four sentences later; the pair is enumerated and closes in
-order.
+supports?** No. The third section is the longest and it resolves in pairs: sent
+sentence, then page sentence, twice, then one sentence of consequence. A reader
+can stop after either pair and have a complete correction.
 
-**At whole-email scope:** the ordering puts the attribution first, which is the
-error with another person's name on it. That is the right order and it is also
-the flattering one — it is the error least attributable to sloppiness. Recorded
-rather than changed: the alternative, leading with our own interval mistake,
-would bury a named researcher's correction under our own housekeeping.
+**At whole-email scope:** three corrections, ordered attribution, interval,
+sourcing. Per §12i that is order by whose interest is served — the third party
+first — and the sourcing correction, which is the one about our own rigour and
+the least comfortable, is last rather than absent. It was nearly absent: the
+earlier ruling filed it as record-only.
