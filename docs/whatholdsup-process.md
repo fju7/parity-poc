@@ -769,6 +769,33 @@ question's own axis reports a false sameness.** The second is worse: a false
 difference is a red check somebody investigates, a false sameness is a green one
 nobody does.
 
+**Writing a rule down makes its author more likely to CITE it and no more likely
+to FOLLOW it.** Stable across three instances on 10 September 2026, which is enough to
+state as a form.
+
+| the rule | who wrote it | how it was violated |
+|---|---|---|
+| §12d — do not cite a location in a document you have not read | the reviewer, 9 September | cited a file path that does not exist, the next day |
+| failure 18 — decompose before deferring | the reviewer, 9 September | **deferred all 54 falsifiers citing the 2 that need the world, in the same message that invoked failure 18.** Eighteen are checkable from this repository alone |
+| a stop is only as good as the test under it | this repository, long-standing | a commit went in over a red suite, joined to its test by a semicolon |
+
+**The middle one is the sharpest**, because the rule was invoked *by name* in the
+act of breaking it: a single number — 54 — hid a buildable majority behind an
+unbuildable minority, on a pile deferred whole in the breath that created it.
+Citing the rule was not merely compatible with violating it; **citing it supplied
+the confidence to skip the step it prescribes.**
+
+> **Only a check changes behaviour.** A written rule is a statement of intent and
+> a citation is evidence of memory, not of compliance.
+
+**This is the conclusion the $36.29 entry reached from the other direction**, and
+the two were arrived at independently. That one asked why a budget kept being
+exceeded despite everyone knowing the number, and answered: because knowing a
+limit and being stopped at it are different mechanisms. This one asks why rules
+keep being broken by the people who wrote them, and answers the same thing.
+**Two paths, one conclusion, no shared premise** — which is the only kind of
+corroboration worth much here.
+
 **Failure 20 — reasoning from the symptom.** *When a check fires, the question is
 what the data actually is, never what value would silence the check.*
 

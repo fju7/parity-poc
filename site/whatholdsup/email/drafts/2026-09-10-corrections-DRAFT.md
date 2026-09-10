@@ -68,12 +68,17 @@ from a real floor.
 >
 > **What changed.** The email for issue one, *The Melanoma Result*, sent on
 > 4 September, gave an earlier analysis as "0.425 on nine deaths, with an **80%
-> interval** of 0.179 to 1.004" — in a message whose other intervals were 95%.
+> interval** of 0.179 to 1.004". A few lines above, it gave the later analysis
+> as "the hazard ratio is 0.471 and the interval runs from 0.165 to 1.345" —
+> with no width stated at all. That one was a 95% interval.
 >
-> **Why.** Both intervals for that hazard ratio sit in the same table row of the
-> same paper. We printed the narrower one beside 95% figures without saying so.
-> An 80% interval is narrower than a 95% interval computed from the same data;
-> that is what the numbers mean, not a property of the result.
+> **Why.** Both intervals for that hazard ratio sit in the same row of the same
+> table in the same paper: *"HR — 0.425 · 80% CI 0.179 to 1.004 · 95% CI 0.114 to
+> 1.584"*. We printed the narrower of the two, labelled it, and set it beside an
+> interval we did not label. An 80% interval is narrower than a 95% interval
+> computed from the same data; that is what the numbers mean, not a property of
+> the result. **A reader had no way to see that the two were not comparable**,
+> because only one of them carried a width.
 >
 > **What you should now believe that differs.** That result is **less certain
 > than the email made it look**, not more. The 95% interval is **0.114 to
