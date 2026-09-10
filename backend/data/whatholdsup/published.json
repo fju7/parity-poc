@@ -211,6 +211,44 @@
       "url": "https://whatholdsup.org/melanoma",
       "note": "issue 1 \u2014 The Melanoma Result",
       "waived": "S029 ONLY. The 2018 NEJM erratum (PMID 31442371, DOI 10.1056/NEJMx180040), a single notice covering thirteen articles, applies to Eggermont et al. EORTC 18071. We have not read it and cannot: NEJM returns 403 to a script, Europe PMC records it as neither open access nor in its archive, and neither PubMed nor Crossref carries an abstract. Operator ruling 2026-09-10, on the same grounds as 2026-09-09 and with the same scope: (1) the page discloses the gap to the reader in the S029 source note, naming the erratum and saying we have not read it and do not know whether it touches a figure quoted here; (2) the claim resting on this paper is that one adjuvant checkpoint inhibitor reported an OS benefit against placebo as a prespecified secondary endpoint, at a dose and toxicity that kept it from standard care, which survives any decimal-level correction and would fall only to a retraction, and retractions are not issued as one line in a thirteen-paper notice; (3) removing a true, well-sourced counterexample on the strength of an unread notice would restore the impression OR-008 exists to correct. Corroboration, labelled as corroboration and not as closure: every figure quoted from this paper appears in the PubMed record of PMID 27717298, which post-dates the erratum. S029 keeps an open, undispositioned errata item. This waive covers S029 and nothing else. This republication carries the change-log correction, which replaces a claim currently false on the live page."
+    },
+    {
+      "issue": "melanoma",
+      "action": "republish",
+      "at": "2026-09-10T18:18:45+00:00",
+      "interpreter": "/Users/fredugast/Projects/parity-poc-repo/backend/venv/bin/python3",
+      "sha": "97d53bc30843ffd5eaf45f60662d04b65f39c4435559b65ca363b7e783b41e59",
+      "commit": "80c000910e5c3d7dce97e919e8027b9267cb4390",
+      "url": "https://whatholdsup.org/melanoma",
+      "note": "Nav only: the enumerated issue links replaced with a single Issues link, pointing at the new generated index at /issues. No sentence of the assessment changed.",
+      "basis": "NOT a preflight. A person read the diff below and signed it as not touching the argument. 4 changed line(s).",
+      "diff": [
+        "-  <a href=\"/melanoma\" aria-current=\"page\">Issue one</a>",
+        "-  <a href=\"/cdk46\">Issue two</a>",
+        "-  <a href=\"/deskilling\">Issue three</a>",
+        "+  <a href=\"/issues\" aria-current=\"page\">Issues</a>"
+      ],
+      "supersedes": "76703fe9367a21b122e613c31d1e26d80ea5955b99d9df1076904f3a127ddd63",
+      "waived": null
+    },
+    {
+      "issue": "deskilling",
+      "action": "republish",
+      "at": "2026-09-10T18:18:45+00:00",
+      "interpreter": "/Users/fredugast/Projects/parity-poc-repo/backend/venv/bin/python3",
+      "sha": "115fb2d7433f25ca5b1ad1656cf7795432db4696056f55abc8042fa427d6f121",
+      "commit": "80c000910e5c3d7dce97e919e8027b9267cb4390",
+      "url": "https://whatholdsup.org/deskilling",
+      "note": "Nav only: the enumerated issue links replaced with a single Issues link, pointing at the new generated index at /issues. No sentence of the assessment changed.",
+      "basis": "NOT a preflight. A person read the diff below and signed it as not touching the argument. 4 changed line(s).",
+      "diff": [
+        "-  <a href=\"/melanoma\">Issue one</a>",
+        "-  <a href=\"/cdk46\">Issue two</a>",
+        "-  <a href=\"/deskilling\" aria-current=\"page\">Issue three</a>",
+        "+  <a href=\"/issues\" aria-current=\"page\">Issues</a>"
+      ],
+      "supersedes": "5047ede0c69af882488ec1e2e23dbbfc651f1c97e575868bd5d01ff02615e5be",
+      "waived": null
     }
   ]
 }

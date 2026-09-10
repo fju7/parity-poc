@@ -293,8 +293,15 @@ def check(ref: str | None = None,
     # melanoma) and signs off a small change to a page with a publication
     # record. The rubric has neither a slug nor a record, so record-live cannot
     # name it and would be the wrong instrument if it could.
+    # issues.html joined on 2026-09-10, on the same grounds the rubric did and
+    # by the same test: no slug, no issue directory, no gate report, no
+    # publication record and no publication lifecycle -- nothing for `publish`
+    # or `record-live` to name -- and it is linked from the nav of every page on
+    # the site. It is GENERATED, by issues_page.py, from the record: its facts
+    # are derived rather than written, so what would ordinarily be a review of
+    # its contents is instead a check that the generator was re-run.
     STANDING = {"index.html", "what-this-is.html", "who-pays-for-this.html",
-                "the-rubric.html"}
+                "the-rubric.html", "issues.html"}
     published_pages = {
         Path(cfg["page"]).name
         for slug, cfg in issues.items()
