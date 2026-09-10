@@ -24,6 +24,12 @@ from a real floor.
 > We got two things wrong in emails we sent you. Both are corrected on the pages;
 > neither correction reached your inbox until now.
 >
+> **Why you are hearing about a 29 August error on 10 September.** We found both
+> errors quickly and corrected the pages the same day. We did not tell you for
+> twelve days because we had no way to send a correction — no mechanism existed
+> for it, and the record of what we had emailed and when did not exist either.
+> Both were built this week. This is the first thing they have been used for.
+>
 > ---
 >
 > ### We put a finding under the wrong researcher's name
@@ -45,8 +51,11 @@ from a real floor.
 > difference *"might be more attributable to chance than to a truly different
 > drug efficacy."*
 >
-> We found it when a gate run read the email against the page, and the operator
-> obtained the full text after every automated route from here was refused.
+> **When we found it.** The same day it went out. Our own record has said since
+> 29 August that Jacot is not an author of that paper, and the page was corrected
+> that day. What a check found this week was not the wrong name — it was that the
+> email carrying it had never been corrected, and that nothing in this system
+> connected a correction on a page to a message already in an inbox.
 >
 > **What you should now believe that differs.** The argument in that issue stands
 > and it is *ours to defend*, not a finding we can attach to someone else's
@@ -77,7 +86,8 @@ from a real floor.
 > 1.584"*. We printed the narrower of the two, labelled it, and set it beside an
 > interval we did not label. An 80% interval is narrower than a 95% interval
 > computed from the same data; that is what the numbers mean, not a property of
-> the result. **A reader had no way to see that the two were not comparable**,
+> the result. **A reader had no way to see from the email that the two were not
+> comparable**,
 > because only one of them carried a width.
 >
 > **What you should now believe that differs.** That result is **less certain
@@ -123,47 +133,57 @@ from a real floor.
   row; until it exists, `outstanding()` still returns 24.
 
 
+
 ---
 
-## The passage stage, run on part 3 — 10 September 2026
+## The passage stage, run on the whole email — 10 September 2026
 
-Part 3 is the one part of this email no derivation touches, and it is
-hand-written prose about our own error by the party that made it. §5.5's four
-questions, run on both *"what you should now believe"* paragraphs.
+The email changed materially after its last run: a delay paragraph added, the
+"when we found it" paragraph rewritten, an effort claim cut, and two words added
+to the comparability sentence. Re-run on the whole body, not part 3 alone.
 
-**Q1 — do any two sentences here contradict each other?** No. The two paragraphs
-concern different issues and different errors; neither makes a claim the other
-denies.
+**Q1 — do any two sentences contradict each other?** No — and one pair was
+checked closely, because it was near-contradictory before this revision. *"We
+found both errors quickly and corrected the pages the same day"* and *"neither
+correction reached your inbox until now"* are consistent only because the
+mechanism sentence sits between them; without *"we had no way to send a
+correction"* they read as an admission of twelve days' inaction. The paragraph
+carries its own resolution, which is what Q4 asks of it.
 
 **Q2 — does any sentence assert a state another sentence or the store
-contradicts?** No, and each claim is checked against held bytes rather than
-against a summary:
+contradicts?** No. Every figure and quotation is verified against held bytes or
+against the sent blob, listed in the notes above. The two new factual claims were
+checked for this run:
 
-- *"MONARCH-3 has a more limited power"* — verbatim in S024, sha `e49e76bb…`.
-- *"none of the four reaches 70% power unless the gain in median survival exceeds
-  twelve months"* — the paper's own statement, same document.
-- *"might be more attributable to chance than to a truly different drug
-  efficacy"* — verbatim, same document.
-- *"95% CI 0.114 to 1.584"* — on the melanoma page and in its 9 September
-  correction entry.
-- *"an 80% interval of 0.179 to 1.004"* — in the email as sent, `5ef7890a…`,
-  recovered from git by matching the recorded sha.
+- *"Our own record has said since 29 August that Jacot is not an author"* —
+  `attributions.json`, `checked_against: "the paper's own author list, opened
+  2026-08-29"`.
+- *"the page was corrected that day"* — cdk46's live change log, fetched from
+  served bytes, carries the correction naming Marie-Laure Tanguy.
 
 **Q3 — could a careful reader leave believing something false that no sentence
-states?** This is where the wording changed. The first draft said *"What their
-paper does establish is stronger for the piece"* — which tells a reader how to
-feel about our own correction, inside the correction. A reader could come away
-believing the error made the argument **better**, which no evidence supports and
-which is the flattering direction. It now states what Tanguy and colleagues
-established and ends *"Whether that helps or hurts the argument in that issue is
-yours to judge."*
+states?** One thing found and **not fixed here, because it is the operator's**:
+the closing paragraph sends readers to both change logs to check the
+corrections. **cdk46's live log does not contain the word "Jacot."** It says *"The
+page named the wrong researcher; the first author of that 2018 npj Breast Cancer
+paper is Marie-Laure Tanguy."* A reader who follows the link to verify *"not
+Jacot"* will find the correction and not the name they were told to check for.
+The email is accurate; the destination is thinner than the email implies.
 
-One thing checked and left: the interval paragraph says the result *"does not
-establish a survival benefit"*. A reader might take that as *establishes no
-benefit*. The next clause — the interval *"includes 1"* — is what distinguishes
-them, and it stays unsoftened.
+The delay paragraph was also read for this: *"we had no way to send a
+correction"* is true and could be heard as an excuse. It is followed immediately
+by *"Both were built this week"*, which converts it into a statement about what
+was missing rather than about why it was acceptable.
 
 **Q4 — is a reader asked to hold anything in suspension longer than the passage
-supports?** No. Each paragraph resolves inside itself: what we said, what is
-true, what to believe now. Neither asks a reader to carry a premise across the
-other.
+supports?** No. Each of the three paragraphs — the delay, and the two
+corrections — resolves inside itself. The longest suspension is within the
+attribution section, where *"Two things are wrong with that sentence"* opens a
+pair that closes four sentences later; the pair is enumerated and closes in
+order.
+
+**At whole-email scope:** the ordering puts the attribution first, which is the
+error with another person's name on it. That is the right order and it is also
+the flattering one — it is the error least attributable to sloppiness. Recorded
+rather than changed: the alternative, leading with our own interval mistake,
+would bury a named researcher's correction under our own housekeeping.

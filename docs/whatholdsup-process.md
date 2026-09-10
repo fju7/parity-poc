@@ -647,6 +647,43 @@ Fourteen ways this publication has actually been wrong, and what catches each.
 | 19 | A test set drawn from known incidents, mistaken for a test of the problem | run the new check against the whole corpus before wiring it anywhere |
 | 20 | A datum edited to make a check pass — reasoning from the symptom, in the data layer | ask what the datum IS, never what value would silence the check |
 
+### 12h. Category (c): the sentences that join claims are where this publication fails
+
+**10 September 2026. Four false claims in one day, all of them connective prose between
+correct figures.**
+
+| the false sentence | the figures around it |
+|---|---|
+| *"binding **every** sentence on this page"* | correct |
+| *"131 of this page's 343 sentences"* — bound, when 95 were | 131, 343 correct |
+| *"This page has 343 sentences"* — the body has; the page has 656 | 343 correct |
+| *"in a message whose other intervals were 95%"* — the email never labelled it | 0.179, 1.004, 0.114, 1.584 all correct |
+
+**Every figure in all four was verified. Every joining sentence was wrong.**
+
+**Every check in this apparatus reads claims.** `b13` asks whether a figure is in
+a held document. `spancheck` asks whether a span is present. The epistemic check
+asks whether a read-state matches the store. Rule 1 asks whether a sentence names
+the words it rests on. **Nothing reads the sentence that puts two verified claims
+into a relation** — and a relation is not a claim about a document, so no
+document can settle it.
+
+That is the passage-reading stage's whole justification, and it is now
+demonstrated rather than argued: **the stage found the first three, and only
+because somebody ran it.** The fourth was found while classifying every sentence
+by whether it had been verified — which is the same exercise performed by hand.
+
+> **A page can be composed entirely of verified claims and still be false**, and
+> every sentence-scoped control in this repository will pass it. The falsehood
+> lives in the joins, and the joins are not in any document.
+
+**Why they run flattering** is the part worth keeping. A joining sentence is
+written to make two facts land, and the version that lands hardest is the one
+that overstates the relation: *every* rather than *most*, *this page* rather than
+*this page's body*, *95%* rather than *unlabelled*. **The compression that makes
+prose readable is the same operation that loses the qualifier**, and the
+qualifier is nearly always the unflattering half.
+
 ### 12g. A correction that replaces a summary with another summary fails the same way
 
 **10 September 2026, from two errors in one afternoon, both in the same paragraph.**
