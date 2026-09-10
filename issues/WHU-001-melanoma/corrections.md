@@ -7,6 +7,37 @@ histories a reader sees, and mixing them makes it useless to them.
 Each entry: what a reader who saw the earlier version needs to know, and when.
 Not how the process failed; that is in the repository.
 
+
+## 10 September 2026 — we said every sentence on this page was bound to the words it rests on
+
+It was 131 of 343.
+
+The change log entry of 9 September said that publishing the corrections above
+<q>meant binding every sentence on this page to the words it rests on</q>. The
+check behind that claim examined **131** of this page's **343** body sentences.
+The other **212 were never examined by it at all**.
+
+**The reason, and it is ours.** A sentence enters that check only when an anchor
+is detectable in it — a figure, a quotation, a named trial, a registry
+identifier. A claim carrying none of those never enters. The function reporting
+the result opened with the words *"Every sentence on the page, no exemptions"*
+and did not do that; it has been corrected to say what it examines, and it now
+also reports how many sentences it did not.
+
+**Not examined is not unsupported.** Nothing on this page has been shown wrong by
+any of this, and the 212 may be entirely sound. What was false was the claim to
+know, not the sentences themselves. **We did not know which it was, and we said
+that we did.**
+
+**Where it sat is the part worth stating.** The false claim was inside the entry
+headed *"And what the review did not catch"* — a claim of complete verification,
+in the paragraph about what verification had missed. It was missed.
+
+**And the publication's own number, since this is a claim about coverage.**
+Across all three issues, **412 of 1,256 published body sentences** — about a
+third — have been examined by these two rules. A reader told this page's figure
+is owed that one.
+
 ## 28 August 2026 — the page did not say when it last changed
 
 An earlier version of this assessment was readable on the site before 28 August.

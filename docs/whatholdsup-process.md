@@ -534,6 +534,32 @@ Fourteen ways this publication has actually been wrong, and what catches each.
 | 19 | A test set drawn from known incidents, mistaken for a test of the problem | run the new check against the whole corpus before wiring it anywhere |
 | 20 | A datum edited to make a check pass — reasoning from the symptom, in the data layer | ask what the datum IS, never what value would silence the check |
 
+### 12f. Which premises need verifying: the ones that feel settled from repetition
+
+The rule *"verify the premise"* does not say **which** premises, and there are
+too many to check them all. This says which.
+
+> **The premises most in need of verification are the ones that feel settled
+> because they have been repeated, not because they were ever checked.** A fact
+> you have used ten times reads as established; **the repetition is doing the
+> work that evidence should.**
+
+**Worked example, 10 September 2026, and the selection is the finding rather than the
+error.** In a single ruling the reviewer insisted that a page's own claim be
+checked **verbatim, with location, before drafting anything** — and in the same
+message asserted, without checking, that Appendix D is on the published page and
+that fixing it would require a republish. Appendix D is in the review packet.
+`melanoma.html` contains the string "Appendix" zero times, and the number had
+been wired into `coverage_md()` hours earlier.
+
+**The difference was not importance.** It was that he noticed he did not know one
+and did not notice about the other, because *Appendix D* had appeared in a dozen
+of his own rulings and had become furniture in his own reasoning.
+
+**The tell is confidence whose source you cannot name.** Anything referred to
+confidently for days is a candidate, and the question that separates them is:
+*when did I last check this, as opposed to last use it?*
+
 ### 12e. The reference case: a check whose scope matches its subject
 
 **This catalogue records only failures, so until 10 September 2026 there was no written

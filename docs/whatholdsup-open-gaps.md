@@ -1523,6 +1523,42 @@ correction log's access state, the four-commit figure, the locator count, and
 "all 131 sentences". **The open list is one of those, and it is the one a
 publication decision rests on.**
 
+### Why it does not rank, which is the governing reason
+
+**It does not decide which items are fatal, and that is the design rather than an
+omission.** Rule 13's two requirements are knowing what is open and choosing to
+publish anyway. **A list that pre-decides which items are fatal supplies the
+first and quietly removes the second** — the operator is left agreeing with a
+verdict rather than making a decision, which is precisely the objection that
+produced the current rule 13 when he refused to sign a block that made his
+signature ceremonial.
+
+### Information available is not information delivered
+
+Six of the eight items were invisible to the signer on 9 September. **Not
+concealed** — several were printing in gate output at the time. Nobody was
+assembling them. Rule 13 needs the second thing, and until today nothing supplied
+it.
+
+### The two sentences whose support is a person's word
+
+The list names them rather than summarising them, because *"2 of 131 rest on a
+human attestation"* is an assurance and the sentences are a fact:
+
+1. *"Data support scores 1 — the rubric's anchor for 1 is purely qualitative
+   assertion with no numeric support, which is what a statement that two
+   endpoints were met, with no figure for either, is."* — attested by Claude
+   (Opus 5), against this publication's own rubric, read 3 September 2026.
+2. *"Readers saw 3.4, which was the correct total of the working printed beneath
+   it — but that working weighted two of the six dimensions differently from the
+   rubric, which puts the same six scores at 3.35."* — attested against the
+   repository's git history and the live page, read 3 September 2026, re-verified
+   8 September against commit 2c71b8e.
+
+**Naming which two is better than any assurance about them.** A reader of the
+acceptance can go and disagree with a sentence; they cannot disagree with a
+count.
+
 ### What it deliberately does not do
 
 It does not decide whether any item should block. Collapsing *"here is what is
