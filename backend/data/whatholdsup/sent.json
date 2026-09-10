@@ -1,0 +1,39 @@
+{
+  "_what_this_is": "Every email this publication has sent, and which corrections each one carried. Without it, 'the corrections issued since the last send' is a memory rather than a query, and update_email.py would be assembling from somebody's recollection of what readers already know.",
+  "_the_gap": "THIS RECORD BEGINS 2026-09-10. Corrections issued before it were not systematically emailed, and the record cannot say which of them reached a reader. The four sends below are seeded from published.json's announce rows and are marked covers: unknown -- NOT covers: [] -- because an empty list would assert that they carried nothing, and nobody knows what they carried. Deriving coverage from their DATES would be worse still: it would silently treat every correction older than a send as delivered, and at least one class of correction was never sent at all (OR-019's fixes went into the melanoma email FILE and no send followed). This is the 26 August dateline principle applied to sends: the record begins on 10 September, and what came before is outside its reach rather than absent from it.",
+  "_covers": "A list of corrections.md headings, verbatim, or the string 'unknown'. A send that carried nothing records an empty list, which is a different claim from 'unknown'.",
+  "sends": [
+    {
+      "at": "2026-08-28T17:07:29+00:00",
+      "issue": "melanoma",
+      "subject": "The Melanoma Result — a Phase 3 success with no numbers",
+      "sha": "afa29642145d42c4abefa8a7e4c015ca4995ebc2e0f0bb64c2acec5475c7ca2f",
+      "covers": "unknown",
+      "seeded": "2026-09-10, from published.json's announce row. Whether this send carried any correction is not recorded and cannot now be established."
+    },
+    {
+      "at": "2026-08-29T02:26:29+00:00",
+      "issue": "cdk46",
+      "subject": "The Category Difference — what separates a category 1 from a category 2A",
+      "sha": "4639055f6177aeb38d86053550ef96f12cc536c6b38a926843bf8efc6dc223a1",
+      "covers": "unknown",
+      "seeded": "2026-09-10, from published.json's announce row. Whether this send carried any correction is not recorded and cannot now be established."
+    },
+    {
+      "at": "2026-08-29T14:33:42+00:00",
+      "issue": "cdk46",
+      "subject": "The Category Difference — what separates a category 1 from a category 2A",
+      "sha": "f4fa716462ff6cd7140f3c070fdde058979849f9b8f57964cc2c6ee40b933452",
+      "covers": "unknown",
+      "seeded": "2026-09-10, from published.json's announce row. Whether this send carried any correction is not recorded and cannot now be established."
+    },
+    {
+      "at": "2026-09-04T16:27:37+00:00",
+      "issue": "melanoma",
+      "subject": "The Melanoma Result — a Phase 3 success with no numbers",
+      "sha": "5ef7890a0d09a895bc270469a308d67fb82a4664345ea1536debce6419d5e1bd",
+      "covers": "unknown",
+      "seeded": "2026-09-10, from published.json's announce row. Whether this send carried any correction is not recorded and cannot now be established."
+    }
+  ]
+}

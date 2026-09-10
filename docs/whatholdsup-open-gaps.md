@@ -959,6 +959,69 @@ announcement.
 
 ---
 
+## A field no consumer knows exists — a fourth variant, and the worst
+
+**10 September 2026.** The review label case is not the unread-signal case and should not
+be filed with it.
+
+`reviews.json` has always distinguished a pre-publication read from a
+post-publication review. One row's `reviewer` field reads, verbatim:
+*"outside reader (post-publication), run by the operator outside this
+environment"*. **The distinction was in the data from the day it was written.**
+
+No consumer read it. `issue_facts.outside_reviews()` took the dates and dropped
+everything else, so the homepage printed deskilling's pre-publication read — 28
+minutes before it published, 2 findings — in the same slot and the same words as
+melanoma's post-publication review eleven days later with 22.
+
+**The variants, and they are four now:**
+
+| | |
+|---|---|
+| a signal that never fires | a guard that catches nothing |
+| a signal that fires with the wrong message | the dateline gate, the B18 message |
+| a signal that fires correctly and is **not read** | the cdk46 drift warning, unread for ten days |
+| **a field no consumer knows exists** | **this one** |
+
+**The fourth is worse than the third.** A signal that goes unread at least
+reaches a log somebody might scroll; its failure is attention, and attention can
+be redirected. **A field nothing reads produces no output at all** — there is
+nothing to overlook, nothing to scroll past, and no amount of looking harder
+finds it. It is discoverable only by someone asking *what else is in this record?*
+rather than *what does this record tell me?*
+
+### The three steps, which is the strongest derivation case yet
+
+1. **The reviewer asserted** that deskilling had had no outside review, and that
+   its clean look came from nobody having examined it. **False** — it had one, on
+   30 August.
+2. **The agent corrected from the label**: it *does* have an outside review,
+   dated 30 August. **Incomplete** — true, and it concealed that the review
+   preceded publication by 28 minutes, which is most of what the reader needed.
+3. **The derivation settled it**: comparing each review's instant to first
+   publication yields pre or post, per row, for all six.
+
+**Neither party could have been right from the label.** One read it and was
+wrong; the other read it and was incompletely right; the fact was recoverable
+only by computing it from two records. That is the case for deriving stated most
+plainly so far — not "derivation is more accurate", but **the answer was not in
+the field either of them was reading.**
+
+### And the reviewer's intuition being closer than his statement does not rescue it
+
+The underlying instinct — *issue three looks clean because nobody has looked as
+hard* — is largely right: one pre-publication read against melanoma's three
+reviews and twenty-two findings. **But the statement was that it had had no
+outside review, and that was false.**
+
+**A conclusion that turns out true is not a verified conclusion.** This
+publication ruled exactly that on 1 September, about the HARMONIA correction: *a
+true conclusion resting on a false reason is worse than a visible error, because
+nothing downstream of it looks wrong.* Recorded here applied to the reviewer,
+under the same rule, for the same reason.
+
+---
+
 ## A signal that exists and goes unread
 
 **10 September 2026.** The pre-push guard has printed, on every push since 31 August:
@@ -2179,3 +2242,155 @@ somebody arriving wants *the melanoma one*, not *the most recent one*.
 That is a different decision from the categories question and should not be
 folded into it: **categories are about grouping, ordering is about what the
 sequence implies.** A list can be ordered by subject without being categorised.
+
+---
+
+## Nothing in this apparatus checks the MARKUP. Not a region — a dimension.
+
+**10 September 2026. Reported, not built.**
+
+### What exists
+
+**One module parses HTML: `furniture.py`.** It uses `html.parser.HTMLParser`, and
+it keeps a nesting stack — but only to attribute text to elements carrying
+`data-whu` marks. It validates nothing. Asked about a page containing a nested
+anchor it returns `[]`.
+
+**Everything else works downstream of extraction.** Rules 1 and 2, `spancheck`,
+`b13`, `corrections_check`, the epistemic check, `changecheck`, `quotations`,
+`negatives` and the passage-reading stage all receive `ledger.plain(html)` or
+`re.sub(r"<[^>]+>", " ", html)`. Demonstrated:
+
+```
+ledger.plain(page with nested <a>)  ==  ledger.plain(page without)   ->  True
+```
+
+**The extracted text is byte-identical either way.** So every check downstream of
+extraction sees a correct page, correctly, and reports it as correct — and is
+right about the only thing it can see.
+
+**The reviewer verified the same page by fetching its text and was equally
+blind**, by the same mechanism. So was I: I checked the homepage after deploying
+by reading its rendered text, which is the one artefact that survives broken
+markup intact.
+
+### The class, and it is not the change log's class
+
+| | the change log | markup |
+|---|---|---|
+| what it is | a **REGION** nobody governs | a **DIMENSION** nobody measures |
+| the gap | some text is outside every check's scope | *no* check has ever examined this property of *any* text |
+| how you find it | list the regions, see which have no rule | you cannot find it by listing regions at all |
+| the fix | extend a scope | build an instrument that does not exist |
+
+Both are coverage gaps and **they are not the same shape.** A region gap is
+visible from an inventory: enumerate the parts of the page, ask which controls
+reach each. A dimension gap is invisible to that exercise, because every region
+is covered — along the one axis anybody has instrumented. **You cannot enumerate
+your way to a dimension nobody has thought of.**
+
+The nested anchor is the first instance of this class ever measured here, and it
+was measured by accident: a second page reused the same generated line and a
+regex stopped at the wrong place.
+
+### The proposed check, well-defined and testable
+
+**`markup.py` — structural validity of the generated pages.**
+
+- **Scope:** every `.html` under `site/whatholdsup/`.
+- **Method:** `html.parser.HTMLParser` with a tag stack. Report, per page:
+  - **unclosed elements** at EOF, and end tags with no open start tag;
+  - **improper nesting** — an end tag that does not match the top of the stack;
+  - **an `<a>` inside an `<a>`**, which is the instance that motivated it, plus
+    the other content-model rules that are cheap and unambiguous: `<p>` inside
+    `<p>`, interactive elements inside `<button>`, `<form>` inside `<form>`;
+  - **duplicate `id` attributes**, which silently break every `#fragment` link —
+    including `#updates`, which the homepage and the issue cards point at.
+- **Not in scope:** anything requiring a full HTML5 content model. The four
+  above are decidable from a tag stack, and a check that needs a spec appendix
+  to explain a failure will be argued with rather than fixed.
+- **Its test set is in hand:** the nested anchor as served on 2026-09-10 (must
+  FAIL), the same page after the fix (must PASS), and — per failure 19 — the
+  whole corpus before it is wired anywhere, because a fixture set drawn from one
+  known incident tests the part of the problem that incident made visible.
+
+**Not built this turn.** Building an instrument for a dimension nobody has
+measured, at the end of a step, is how a check gets written that passes on the
+one example it was built from.
+
+---
+
+## cdk46's nav is inconsistent with every other page — REVIEW BY 24 September 2026
+
+**Opened 10 September 2026.** Six pages carry the single `Issues` nav link. cdk46
+still carries the enumerated `Issue one | Issue two | Issue three`. The links
+work; the site is inconsistent rather than broken.
+
+**The inconsistency is accepted and the guard was right to refuse the alternative.**
+Reverting six pages to match one would have been the tail wagging the dog, and
+pushing cdk46's nav change to main would have put its round's adjudicated edits in
+front of readers with no publication record.
+
+### Why this carries a date and not "when cdk46 publishes"
+
+*"It ends when cdk46 publishes"* is open-ended, and **cdk46's publish is gated on
+a migration nobody has scoped**: rule 1 BLOCKED with 135 of 169 rowed sentences
+resting on nothing, 140 empirical sentences with no row at all, and 125
+judgements needing premises. That is not a queue position, it is an unbounded
+condition.
+
+**An open-ended condition with no date is how the four-day lock happened** — and
+the cdk46 drift warning that went unread for ten days, and the correction log
+entry that was true when written and false for nine days after. Each was waiting
+on something that would obviously happen soon.
+
+**Review on 24 September 2026.** If cdk46 has not published by then, the inconsistency
+stops being a condition we are waiting out and becomes a decision to be made on
+its own terms — most likely: give cdk46 the nav change through `record-live`,
+which is the instrument for a change that does not touch the argument, and let it
+go out ahead of the round rather than with it.
+
+**Recording the review date is the point, not the remedy.** A dated review turns
+"we are waiting" into something that expires.
+
+---
+
+## The send record begins 10 September 2026, and what came before is outside its reach
+
+**`backend/data/whatholdsup/sent.json`.**
+
+Until today nothing recorded **what was emailed and when**, so "the corrections
+issued since the last send" was a memory rather than a query. `update_email.py`
+now assembles from `corrections.md` entries not carried by any recorded send —
+and it needed a floor that is real.
+
+**Seeded with four historical sends**, from `published.json`'s `announce` rows —
+not two; melanoma and cdk46 each went out twice. **Every one is marked
+`covers: "unknown"`, not `covers: []`.** An empty list asserts that a send
+carried nothing. Nobody knows what those four carried.
+
+**And coverage is not derived from their dates**, which was the tempting shortcut
+and would have been the worse error: it would silently treat every correction
+older than a send as delivered. At least one class was never sent at all —
+OR-019's fixes went into the melanoma email **file** and no send followed.
+
+> **This is the 26 August dateline principle applied to sends.** The record
+> begins on 10 September 2026. What came before is **outside its reach, not absent from
+> it** — and the file says so in its own header, so the next reader meets the
+> limit before they meet the data.
+
+`unknown` contributes nothing to `covered()`. A send whose coverage nobody
+recorded cannot be used to conclude a reader has already been told.
+
+**The consequence, measured:** `outstanding()` returns **24** corrections that no
+send is known to have carried — 11 on cdk46, 13 on melanoma, 0 on deskilling.
+That is why **the first send is deliberately scoped rather than derived**: an
+email carrying 24 corrections is an archive, not a correction. It names two, and
+derivation begins after it from a floor somebody wrote down.
+
+**One part is not generated and will not be.** Part 3 of every notice — *what you
+should now believe that differs from what you believed before* — is a claim about
+a reader's mind. A generator can assemble what changed and why; it cannot write
+the third part, and a notice with the first two and not the third is a changelog.
+It is drafted by a person, in `site/whatholdsup/email/drafts/`, and reviewed
+before it sends.
