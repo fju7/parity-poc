@@ -296,3 +296,35 @@ The page now gives all four:
 And the part that matters most to a reader deciding whether to care:
 **nothing downstream changes either way.** On both readings, no study of any
 design separates abemaciclib from ribociclib.
+
+
+---
+
+## To fix when this issue publishes: the correction names only the right answer
+
+**Found 10 September 2026, verifying the correction email's destinations from served bytes.**
+
+cdk46's live change log says:
+
+> *"Also corrected: an author surname in the section on trial power. The page
+> named the wrong researcher; the first author of that 2018 npj Breast Cancer
+> paper is Marie-Laure Tanguy, and the page now says so."*
+
+**It does not contain the word "Jacot."**
+
+**A correction that names only the RIGHT answer, and not the error, cannot be
+verified by the reader who remembers the error.** Somebody who read "Jacot and
+colleagues" in the 29 August email, and comes to the log to check whether we
+fixed it, finds a correction about *"an author surname"* and a name they have
+never seen. They cannot match the two without taking our word that they are the
+same sentence — which is the one thing a correction log exists to avoid.
+
+**Melanoma's entries name what was wrong.** *"We had printed, at five years,
+68.8% of combination patients recurrence-free against 49.1%"*; *"This page said
+it was behind a paywall"*; *"we said every sentence on this page was bound"*.
+Each quotes the false thing before correcting it. cdk46's does not.
+
+**Fix when this issue publishes:** the entry names "Jacot" as the wrong name it
+replaced. The email going out today carries a parenthesis warning readers that
+the entry does not — which is a patch on the email for a defect in the page, and
+the page is where it belongs.

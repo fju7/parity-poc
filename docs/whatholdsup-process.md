@@ -647,6 +647,37 @@ Fourteen ways this publication has actually been wrong, and what catches each.
 | 19 | A test set drawn from known incidents, mistaken for a test of the problem | run the new check against the whole corpus before wiring it anywhere |
 | 20 | A datum edited to make a check pass — reasoning from the symptom, in the data layer | ask what the datum IS, never what value would silence the check |
 
+### 12i. Order corrections by whose interest is served, not by whose error looks worse
+
+**Written 10 September 2026, while the two orderings agree — which is the only time it can
+be written honestly.**
+
+Today's correction email leads with a misattribution of a finding to a named
+researcher, and puts our own interval mistake second. **That is the right order
+and it is also the flattering one.** The attribution error is the least
+attributable to sloppiness: a name got transposed. The interval error is ours in
+a way that is harder to explain.
+
+So the rule is being set down **now, while nothing turns on it**:
+
+> **Order corrections by whose interest is served, not by whose error looks
+> worse.** A correction naming a third party goes first, because it is the only
+> class where the cost of silence falls on somebody who is not us. Ours go after,
+> in the order a reader needs them, not in the order that flatters.
+
+**Written now because when the two diverge, the argument for the flattering order
+will be available and will sound like editorial judgement.** There will be a day
+when our worst error and the one affecting a third party are the same length,
+the same subject, and in opposite positions on that list — and on that day the
+reasoning will be motivated whichever way it comes out. A rule settled in advance
+is the only one that is not.
+
+**Note what this rule does not say.** It does not say lead with the worst. Order
+by *whose interest*, and the reader's interest usually coincides with severity —
+but where they part, the third party comes first, because a reader can weigh a
+correction they have been given and a person cannot correct a record they do not
+know is wrong.
+
 ### 12h. Category (c): the sentences that join claims are where this publication fails
 
 **10 September 2026. Four false claims in one day, all of them connective prose between

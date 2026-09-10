@@ -12,6 +12,7 @@ from a real floor.
 
 - cdk46 — *1 September 2026 — an observation we put under someone else's name, and a true conclusion with a false reason*
 - melanoma — *9 September 2026 — an outside review, and a self-accusation that overstated what we did*
+- melanoma — *4 September 2026 — three sentences that argued with themselves* (the sourcing sentence, OR-002)
 
 ---
 
@@ -99,10 +100,32 @@ from a real floor.
 >
 > ---
 >
+> ### We overstated what our own checks do
+>
+> **What changed.** Both emails said: *"Every figure above traces to a company
+> release, a peer-reviewed paper, a conference abstract or a trial registry
+> record."* Two sentences later, the same paragraph said: *"Two do not."*
+>
+> **Why.** The first sentence contradicts the third, inside one paragraph, in
+> text you were sent. The claim we can support is narrower: every **numerical
+> trial result** traces to one of those sources. Claims about what an outlet
+> reported trace to the coverage itself, which is not the same thing.
+>
+> **What you should now believe that differs.** Our pre-publication checks are
+> narrower than that sentence implied. They test whether a quoted span is really
+> in a document we hold and whether a figure appears in one. **They do not decide
+> whether a source is primary or secondary** — a person does that, and a person
+> can be wrong. If you read "every figure traces to a peer-reviewed paper or a
+> registry record" as a machine guaranteeing the provenance of everything on the
+> page, it is not, and it never was.
+>
+> ---
+>
 > Both pages carry these corrections in their own change logs, with the dates
 > they were made. If you would rather read the corrections than take our summary
 > of them: whatholdsup.org/melanoma and whatholdsup.org/cdk46, at the bottom of
-> each page.
+> each page. (The cdk46 entry names the correct author; it does not repeat the
+> wrong one.)
 
 ---
 

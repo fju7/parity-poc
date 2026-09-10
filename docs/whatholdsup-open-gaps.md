@@ -2638,3 +2638,61 @@ before.** The answer is cheap — sixteen `git show`s — and it decides whether
 are fixing an instance or a system. Answering it *before* proposing a repair is
 the same discipline as decomposing before deferring: **the shape of the problem
 is a measurement, not an intuition.**
+
+---
+
+## The fifth false join, in the section written to correct the fourth
+
+**10 September 2026. Found by the passage stage's Q2, on its run over the completed email.
+The send is held.**
+
+The section added to correct an overstatement about our own rigour opened:
+
+> *"**Both emails said**: 'Every figure above traces to a company release, a
+> peer-reviewed paper, a conference abstract or a trial registry record.' **Two
+> sentences later**, the same paragraph said: 'Two do not.'"*
+
+**Two false claims in two clauses.**
+
+**"Both emails" — no.** That sentence is in the **melanoma** email only. Checked
+against both sent blobs, matched by recorded sha:
+
+| | contains that sentence |
+|---|---|
+| melanoma, blob `5ef7890a` | **yes**, verbatim |
+| cdk46, blob `f4fa7164` | **no** — not that sentence, and no "Two do not" |
+
+**"Two sentences later" — no.** *"Two do not"* is the **immediately following
+sentence**. There is no gap.
+
+**And the cdk46 email has its own sourcing overstatement**, which the draft would
+have concealed by folding it into a claim about "both":
+
+> *"Every figure above comes from a trial publication or a drug label, each one
+> named on the page with the analysis it belongs to. **None comes from a news
+> report**, and none from a guideline's summary of a trial."*
+
+Different wording, different defect — not a self-contradiction but a claim about
+the table that the table does not bear out — and it was corrected on the page
+separately. **A section written to tell subscribers we overstated our rigour
+would have overstated the extent of the overstatement**, and got a fact about
+one of the two emails wrong while doing it.
+
+### Why this one matters more than the other four
+
+The other four were joins between verified figures. **This one is a join between
+two documents**, asserting that a sentence found in one appears in both — and it
+was written while composing a correction *about* imprecision, by the party that
+had just recorded §12h.
+
+**§12h was written an hour before this sentence and did not prevent it.** That is
+the third instance today of the general form: *writing a rule down makes its
+author more likely to cite it and no more likely to follow it.* The rule was not
+merely available; it had just been authored, and the sentence it describes was
+written anyway.
+
+**What did catch it** was not the rule. It was running Q2 with the blobs open —
+a mechanical comparison of a quoted string against two files. **Only a check
+changes behaviour**, and Q2 is a check performed by a person with the documents
+in front of them, which is what distinguishes the passage stage from an
+intention.
