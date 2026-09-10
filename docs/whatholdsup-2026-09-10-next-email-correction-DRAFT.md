@@ -34,10 +34,20 @@ housekeeping and blunt the two items that matter.
 > And the point we handed them is ours. Tanguy and colleagues did not write
 > about the width of a confidence interval. What they established is different
 > and, for our argument, stronger: they computed how much statistical **power**
-> each of these trials had to reach significance on overall survival at all, and
-> found that MONARCH 3 had less of it than the others — concluding that
-> significance appearing in some trials and not in others "might be more
-> attributable to chance than to a truly different drug efficacy."
+> each of these trials had to reach significance on overall survival at all.
+> Their paper says: *"PALOMA-2 and MONALEESA trials have an almost similar power
+> despite different allocation ratios, while MONARCH-3 has a more limited
+> power."* All four came out under 70% power unless the gain in median survival
+> exceeded twelve months. Their conclusion: if a significant survival
+> improvement appears in some of these trials and not others, the difference
+> *"might be more attributable to chance than to a truly different drug
+> efficacy."*
+>
+> The paper is: Tanguy M-L, Cabel L, Berger F, Pierga J-Y, Savignoni A,
+> Bidard F-C. *Cdk4/6 inhibitors and overall survival: power of first-line
+> trials in metastatic breast cancer.* npj Breast Cancer 2018;4:14.
+> DOI 10.1038/s41523-018-0068-4. PMID 29951582. Jacot is not an author on it in
+> any position.
 >
 > That supports what we argued. It is not what we argued, and the observation
 > about interval width is ours to defend rather than theirs to have made. The
@@ -68,6 +78,17 @@ housekeeping and blunt the two items that matter.
 - **Do not soften "Not Jacot."** The sentence is short because the correction is
   simple, and a subordinate clause is where this kind of thing goes to hide.
 - **Say the interval numbers.** "We corrected an interval" is not a correction.
+- **Do not explain how the wrong name got in.** We do not know. A guess inside a
+  correction notice is a new unsourced claim in the place where that is least
+  acceptable, and it would be the fourth time this cycle that a plausible
+  reconstruction was offered where a measurement belonged.
+- **The MONARCH 3 power claim is verified against the held document**, not
+  against a summary of it: `S024`, sha
+  `e49e76bb82e26f6cd8e86d8a515823e8c2012a50f32cad67cac8dd186b952ce2`, span found
+  at plain character 44,065 of 69,420. Checked 10 September 2026 because the reviewer could
+  confirm the citation and the quoted conclusion from the abstract but not this
+  claim, and a correction about misattributing a finding cannot be loose about
+  what the finding was.
 - **This block does not expire.** It goes on the next send regardless of how
   long that is, because the superseded versions do not un-send themselves.
 - Once sent, record it: the correction has been announced, and the standing

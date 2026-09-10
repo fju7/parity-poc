@@ -715,6 +715,35 @@ has no check behind it should be read as a description of what we mean to do,
 not as a description of what happens — and §12d currently has no check behind
 it.
 
+**A scope figure inherited from a report arrives looking settled, and is
+therefore never re-measured.** Named as a habit on 10 September 2026, on its second
+occurrence in two days.
+
+The directive to run `confirm-review` against cdk46 was wrong twice and both
+errors ran the same way. It asked *"does a review apply across four unrecorded
+changes?"* — which is the question that comes **second**: `reconcile()` tests
+whether every changed sentence traces to a recorded decision before anything
+tests review scope, and 28 did not. And "four commits" was too small: the
+review's base (`3ca22e72`, 29 August) predates the last publication record
+(`4e4bb50b`, 31 August), which predates the live page. Two stacked gaps, not
+one. The figure was carried forward from an earlier report of mine and never
+re-checked by either of us.
+
+Both errors made the situation look smaller and more closeable than it was, so
+both go in the direction column. The mechanism is the same one as the fabricated
+2,116-character paragraph: **a number that arrives already written does not
+invite the scrutiny a number being derived does.** The remedy is not care. It is
+that a scope figure quoted in a directive is re-derived at the point of use, the
+way `record_begins()` and `publication_dates()` are derived rather than
+remembered.
+
+**A counter-instance, recorded because a direction column with only one
+direction in it is not evidence of anything.** In the same report I stated the
+corrigendum corrects an event count "162 → 163". It is **162 → 132**; the page
+says 132 and was right. I had read a truncated `reconcile` line rather than the
+document, and the error made our own page look wrong when it was not. It leans
+against us, which the other five do not.
+
 ### 12c. The index is a translation, not a copy
 
 **The record's vocabulary and the reader's vocabulary are not the same
