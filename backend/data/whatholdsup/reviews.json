@@ -2843,6 +2843,2916 @@
           "now": "Every numerical trial result above traces to a company release, a peer-reviewed paper, a conference abstract or a trial registry record; claims about what an outlet reported trace to the named coverag"
         }
       ]
+    },
+    {
+      "issue": "melanoma",
+      "reviewed_sha": "a788f00ab152123579a5593d0e2fe0908a4b0c264fbabdb0e5cff944517ee7f9",
+      "now_sha": "f701e6f8dc9bab5d757f5c68287a6b52dc28edcd319396e644a5e76da23702ae",
+      "at": "2026-09-10T17:21:58+00:00",
+      "by": "Fred Ugast (operator)",
+      "reason": "all 289 change(s) since the review reconcile to a recorded decision: GATE-0904-i5, GATE-0904-o1/o2, ROUND-2026-09-10",
+      "reconciled": [
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "The Melanoma Result - What Holds Up What Holds Up What this is The rubric Issue one Issue two Issue three Who pays for this Issue one Evidence review Published 26 August 2026 · Updated 4 September 202",
+          "now": "The Melanoma Result - What Holds Up What Holds Up What this is The rubric Issue one Issue two Issue three Who pays for this Issue one Evidence review Published 26 August 2026 · Updated 9 September 202"
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "This is what was actually released, what was not, and what the numbers underneath it will and will not support. 1,137 patients in the Phase 3 trial 0 Phase 3 efficacy numbers released 14 deaths the wh",
+          "now": "This is what was actually released, what was not, and what the numbers underneath it will and will not support. 1,137 patients in the Phase 3 trial 0 Phase 3 efficacy numbers released 14 deaths the wh"
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "Why this is worth a whole article Every outlet whose article we hold attributed those figures correctly to KEYNOTE-942 in its own voice - The ASCO Post, Dermatology Times, Practical Dermatology, KOL P",
+          "now": "Why this is worth a whole article Five outlets whose articles we hold named KEYNOTE-942 when attributing the 49% figure - The ASCO Post, Dermatology Times, Practical Dermatology, MLQ News and OncLive."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "A post logged by KOL Pulse identified the figure as coming from an earlier phase 2 trial without naming KEYNOTE-942; KOL Pulse's own text names the trial throughout and attributes the circulating haza"
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "Several said plainly that no Phase 3 efficacy numbers had been released."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "A single hazard ratio summarising five years assumes the ratio held steady across those five years."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "For a therapy whose effect may build as the immune response develops, that is worth naming - and the figures on this page that drift with follow-up are what a changing ratio looks like from outside."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "There is one patient-level reading a hazard ratio does support."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "Take one treated and one untreated patient at random: at a hazard ratio of 0.510 there is about a 66% chance the treated one goes longer without recurrence, against 50% if the therapy did nothing."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "Spruance and colleagues put the limit of the measure well: it is the difference between the odds of winning a race and the margin of victory."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "The hazard ratio tells you who is likely to win."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "It does not tell you by how much."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "The single most useful question to ask of any interval: does it cross 1.0?",
+          "now": "Two questions do most of the work."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "First, does the range cross 1.0?"
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "Second, and the one readers skip: how wide is it, and what would the far end mean if it were true?"
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "The first question is the convention you will meet everywhere."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "It is also a yes/no line drawn through a continuous quantity, which the statisticians cited at the foot of this page argue is the habit that causes most of the trouble."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "Amber bars cross the no-effect line; green ones clear it.",
+          "now": "These are 95% intervals, the convention readers meet elsewhere."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "The trial registered a one-sided alpha of 0.10; its later three-year paper reports both 80% and 95% intervals for the updated analysis because the trial's own error-control convention differs from the"
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "Amber bars cross the 95% no-effect line; green ones clear it."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "That split is a convention, not a verdict."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "At five years the point estimate was unchanged at 0.510 and the interval read 0.294-0.887 - the upper bound had come in from 0.906, the lower bound had drifted out from 0.288, and the width was close ",
+          "now": "At five years the point estimate was unchanged at 0.510 and the interval read 0.294-0.887 ."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "So the interval stopped including 1.0 at year three, not year five, and what the last two years added was two more years of it holding rather than a sharper measurement.",
+          "now": "Both bounds came in, the upper from 0.906 to 0.887 and the lower from 0.288 to 0.294, so the interval narrowed slightly."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "The crossing was resolved at year three, not year five, and what the last two years added was two more years of it holding rather than a sharper measurement."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "This trial's own threshold is on the record: the three-year paper says the trial was designed with approximately 80% power to detect a hazard ratio (HR) of 0.5 against a one-sided alpha of 0.10, and t",
+          "now": "This trial's own threshold is on the record: the three-year paper says the trial was designed with approximately 80% power to detect a hazard ratio (HR) of 0.5 against a one-sided alpha of 0.10 - a pe"
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "That is a claim about PD-1 inhibitors and not about adjuvant checkpoint inhibitors as a class; a CTLA-4 inhibitor is a different drug against a different target, and this page holds no document about ",
+          "now": "And ipilimumab is not a neutral comparator either: it is the one adjuvant therapy in this disease with a demonstrated survival benefit against placebo, so failing to separate from it is a harder test "
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "That is a claim about PD-1 inhibitors and not about adjuvant checkpoint inhibitors as a class; a CTLA-4 inhibitor is a different drug against a different target."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "One adjuvant checkpoint inhibitor has shown a survival benefit against placebo in this disease."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "In EORTC 18071, adjuvant ipilimumab versus placebo in resected stage III melanoma reported overall survival as a prespecified secondary endpoint: 65.4% versus 54.4% at five years, HR 0.72 (95.1% CI 0."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "It is not standard care because the dose was 10 mg/kg and five patients died of immune-related events - not because it failed on survival."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "So the translation from recurrence to survival is possible in this disease."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "It has not yet been shown for a PD-1 inhibitor."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "The key secondary endpoint, DMFS, is investigator-assessed too."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "One caveat the figures on this page raise themselves: intismeran is an intramuscular injection that caused injection-site pain in 59.6% of patients and chills in 51.0% in the earlier trial; the Phase "
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "Where a therapy is that much more reactogenic than its placebo, patients and their doctors can sometimes infer the arm - and the primary endpoint is investigator-assessed."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "Blinding on paper is not always blinding in the room."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "Central adjudication is the standard answer, and this trial does not use it."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "Morning Glory Sciences - an outlet we can find no other publication citing, so we give the argument on its merits rather than on its authority - the Phase 2b population was stage IIIB-IV, the Phase 3 ",
+          "now": "Morning Glory Sciences - we give its argument on its merits rather than on its authority - the Phase 2b population was stage IIIB-IV, the Phase 3 adds node-negative disease, and \"absolute recurrence r"
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "The August announcement was a prespecified interim look, and the register says so.",
+          "now": "The August announcement was a prespecified interim look - both company releases say so."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "The registry does not: its record has not been updated since 24 September 2025, so it carries nothing about the announcement either way."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "Any-grade immune-related adverse events were similar - 45.2% on the combination versus 44% on pembrolizumab alone - but grade 3 or worse treatment-related events were higher: 25% versus 18%.",
+          "now": "In the Lancet report, immune-mediated adverse events were similar - 36% in the combination arm and 36% in the monotherapy arm - while grade 3 or worse treatment-related events were not: 25% versus 18%"
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "Reading only the first pair would tell you the added therapy costs nothing, and it does.",
+          "now": "At five years the company release puts immune-related events at 45.2% versus 44%, over a longer window than the Lancet's."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "Reading only the first pair would tell you the added therapy costs nothing."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "The second pair says otherwise."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "The three-year paper reports a hazard ratio of 0.425 on nine deaths, with an 80% interval of 0.179 to 1.004; the five-year analysis reports 0.471 on fourteen, with a 95% interval of 0.165 to 1.345.",
+          "now": "The three-year paper reports a hazard ratio of 0.425 on nine deaths, 95% CI 0.114 to 1.584; the five-year analysis reports 0.471 on fourteen, 95% CI 0.165 to 1.345."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "The earlier interval is the wider of the two, which is what nine deaths buys you against fourteen."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "Whether the benefit holds in stage IIB/IIC patients, whom the earlier trial never enrolled.",
+          "now": "Whether the benefit holds in stage IIB, IIC and IIIA patients, whom the earlier trial never enrolled."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "Reproducibility scores 4 because the earlier Phase 2b and the much larger Phase 3 point in the same direction on RFS and DMFS, but no Phase 3 effect size has been released, so the Phase 2b magnitude h"
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "Consensus scores 4 because the held sources agree on the directional Phase 3 result while the missing effect size leaves no numerical magnitude to agree on."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "Recency scores 5 because the central evidence is the August 2026 Phase 3 announcement, supported by 2026 longer-term follow-up of the earlier trial."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "Readers saw 3.4 ; the working underneath it comes to 3.35 , and that discrepancy is recorded below.",
+          "now": "Readers saw 3.4 , which was the correct total of the working printed beneath it - but that working weighted two of the six dimensions differently from the rubric, which puts the same six scores at 3.3"
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "That is recorded below."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "That single release converts this from a directional claim into a measurable one, and would move data support from 1 to 4 or 5 and source quality from 3 to 5.",
+          "now": "That single release moves both scores, and both upward whatever the numbers say, because the rubric is measuring whether the evidence has been shown rather than whether it is good: is it real rises ab"
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "Expect the score to move by roughly a full point when it lands, in whichever direction the numbers point.",
+          "now": "What the numbers actually say will show up in later revisions of rigor and consensus, not in these two."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "The nearest scheduled comparator readout is KEYNOTE-054's overall-survival result, anticipated in its registry record for November 2026; KEYNOTE-716's is anticipated for October 2033."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "Every number above traces to one of these, and none to a news report - a check that runs before this page can publish refuses it otherwise.",
+          "now": "Every numerical trial result above traces to a company release, a peer-reviewed paper, a conference abstract or a trial registry record."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "Claims about what an outlet reported necessarily trace to the named coverage itself."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "The pre-publication checks test whether bound spans match held documents, whether figures appear in held documents and whether bound sources are represented in the reader-facing source set; they do no"
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "MLQ News - Moderna and Merck's personalized melanoma therapy meets two Phase 3 endpoints Coverage."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "The outlet that enumerated what the announcement did not contain, quoted on this page."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "Dermatology Times - Personalized mRNA-Based Melanoma Vaccine Meets Primary Endpoints Practical Dermatology - Intismeran Plus Pembrolizumab Meets Dual Phase 3 Melanoma Endpoints OncLive - Intismeran Au"
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "Held so that what this page says about them can be checked against them."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "The ASCO Post, June 2026 - Vaccine Plus Pembrolizumab Reduces Risk of Recurrence in High-Risk Resected Melanoma The five-year landmark rates as this page first carried them, before they were moved to "
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "KOL Pulse - INTerpath-001 trial profile The trial profile that logged the announcement-day posts, including the one this page quotes and the one that gave the figure as phase 2 without naming the tria"
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "Primary KEYNOTE-942 five-year update - ASCO 2026 meeting abstract 9500 Conference abstract."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "Source of the five-year landmark RFS and OS rates and their confidence intervals; the abstract states that no alpha was assigned to this analysis."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "Primary KEYNOTE-942 three-year update - ASCO 2024 abstract LBA9512 Conference abstract and presentation record."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "Source of the protocol statement that the trial was designed with a one-sided alpha of 0.10."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "Primary INTerpath-001 - ClinicalTrials.gov, NCT05933577 Registry record."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "Source of the Phase 3 population, placebo description and investigator-assessed RFS and DMFS endpoints."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "The record was last updated 24 September 2025 and carries no posted results."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "Primary KEYNOTE-054 - ClinicalTrials.gov, NCT02362594 Registry record."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "Overall survival is NOT_POSTED, with an anticipated posting date of November 2026."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "Primary KEYNOTE-716 - ClinicalTrials.gov, NCT03553836 Registry record."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "Overall survival is NOT_POSTED, with an anticipated posting date of October 2033."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "Primary CheckMate 238 - ClinicalTrials.gov, NCT02388906 Registry record."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "Source of the nivolumab-versus-ipilimumab active-comparator arms."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "Primary Eggermont et al. - EORTC 18071 overall survival, N Engl J Med 2016 DOI 10.1056/NEJMoa1611299; PMID 27717298; PMCID PMC5648545."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "Source of the adjuvant ipilimumab-versus-placebo five-year overall-survival result and immune-related deaths."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "A 2018 erratum covering thirteen NEJM articles at once ( N Engl J Med 2018;379:2185 ) applies to this paper."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "We have not been able to read it: NEJM returns 403, Europe PMC records the notice as neither open access nor in its archive, and neither PubMed nor Crossref carries an abstract for it; so we do not kn"
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "Every figure we quote appears in the current PubMed record of this paper, which post-dates the erratum."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "Primary Greenland et al. - Statistical tests, P values, confidence intervals, and power Eur J Epidemiol 2016;31:337-350."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "Methodological source for the cautions against significance dichotomies and common p-value misreadings."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "Primary Spruance, Reid, Grace & Samore - Hazard Ratio in Clinical Trials Antimicrob Agents Chemother 2004;48(8):2787-2792."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "PMID 15273082; PMCID PMC478551."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "Source for the proportional-hazards assumption, the pairwise-probability interpretation and the race analogy."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "Primary Survival Analysis - StatPearls, NCBI Bookshelf Source for the direction a hazard ratio moves in: risk rises as the value goes above 1 and falls as it goes below."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "Primary Singh & Mukhopadhyay - Survival analysis in clinical trials: basics and must-know areas Perspect Clin Res 2011;2(4):145-148."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "Source for what a hazard ratio of 1 means, and for the caution that a hazard ratio is not a proportion of patients benefited."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "Updated 9 September 2026."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "An outside reviewer read this page against the packet we send out, and found six sentences that were wrong."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "Four were errors of fact, one was a comparison two figures could not bear, and one described our own checks as doing something they do not do."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "All six are corrected below."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "The reviewer also made two errors of their own, and those are recorded here too."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "The registry does not say what we said it says."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "We wrote that the August announcement was a prespecified interim look and the register says so ."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "It does not."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "The word interim appears nowhere in the NCT05933577 record, and that record has not been updated since 24 September 2025 - eleven months before the announcement it was being cited about."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "The interim fact is real and comes from the Merck and Moderna releases, which both use the phrase."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "The sentence now says so."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "The wider problem was ours: we had been using the registry's silence as evidence that no Phase 3 number exists, and a file nobody has touched since last September is a stale record rather than a live "
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "Where the registry still appears as a negative, its last-update date now appears with it."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "An interval moved the wrong way."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "We wrote that at five years the upper bound had come in from 0.906, the lower bound had drifted out from 0.288 ."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "Both bounds came in."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "The lower moved from 0.288 to 0.294, which is inward on any reading - closer to 1.0, closer to the point estimate, closer to the other bound."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "The interval narrowed slightly at both ends and the page now says that."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "Two adverse-event figures that do not belong beside each other."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "We set 45.2% against 44% for any-grade immune-related events, then 25% against 18% for grade 3 or worse, in a single sentence built as one contrast."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "They are different categories, from different documents, at different lengths of follow-up: the first pair is the five-year company release, the second is the Lancet 's two-year cut."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "The Lancet reports both on the same patients at the same cut - immune-mediated events 36% in each arm, grade 3 or worse treatment-related 25% against 18% - and that is the comparison now on the page, "
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "Setting two correctly sourced numbers side by side where they cannot bear the comparison is the subject of this article."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "We did it in our own summary."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "A sentence that outlived the scorecard it described."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "When we split the score in two on 3 September we left standing a line saying the full dataset would move the score by roughly a full point, in whichever direction the numbers point ."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "Neither half survives the split."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "Source quality going to 5 lifts is the effect real by about six-tenths of a point; data support coming off 1 lifts how large is it from 1.0 to 4 or 5."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "And both move upward whatever the numbers say, because the rubric measures whether the evidence has been shown, not whether it is flattering."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "The sentence now says that, which is the more interesting fact about our own rubric and one we had obscured."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "The counterexample we had excluded."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "Our sentence about adjuvant PD-1 inhibitors never reporting a survival benefit against placebo was correct and still stands."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "The paragraph around it was not doing what we thought."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "It opened by saying adjuvant melanoma trials have a history of recurrence benefits that sometimes never did translate into survival, listed three negatives, and closed by noting that this page held no"
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "There is such a trial."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "In EORTC 18071, adjuvant ipilimumab against placebo in resected stage III melanoma reported overall survival as a prespecified secondary endpoint: 65.4% against 54.4% at five years, HR 0.72 (95.1% CI "
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "It is not standard care because the dose was 10 mg/kg and five patients died of immune-related events, not because it failed on survival."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "The paper is now held and cited, and the page says that the translation from recurrence to survival is possible in this disease and has not yet been shown for a PD-1 inhibitor."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "Listing three negatives and omitting the one positive left a reader with something we did not check and could not have defended."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "What our checks actually test."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "We told readers that every number on this page traced to a primary document and none to a news report, and that a check refuses publication otherwise."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "The check does not classify documents that way."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "It tests whether bound spans match the documents we hold, whether figures appear in those documents, and whether bound sources reach the reader in the source list."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "It has no opinion on what counts as news."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "The sentence now describes what the checks do, and the source enumeration now includes conference abstracts, which is what the five-year rates actually rest on."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "This is the second time on this page that a careful check has been described by careless prose."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "The entry below says that is the failure worth keeping in view, and it did not take the first time."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "What the blinding does not cover."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "We wrote that an assessor who does not know the arm cannot favour it, and printed, a few hundred words later, that the therapy caused injection-site pain in 59.6% of patients and chills in 51.0%."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "The Phase 3 comparator is a saline injection."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "Where a therapy is that much more reactogenic than its placebo, patients and their doctors can sometimes infer the arm - and the primary endpoint is investigator-assessed, as is the key secondary."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "Both halves were on the page and we had never put them together."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "The caveat is now in the blinding section."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "The reviewer was wrong twice, and this log should say so."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "Asked to check our claim about overall survival in KEYNOTE-054 and KEYNOTE-716, the reviewer confirmed an earlier version of it - that both trials had posted a survival result carrying no statistical "
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "They have posted nothing."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "Both registry records mark the measure NOT_POSTED , with anticipated posting dates of November 2026 and October 2033; the reviewer had read one field and not the one that mattered."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "We had already corrected this on 4 September, and accepting the confirmation would have put the error back."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "The reviewer also proposed attaching the three-year paper's 80% interval, 0.351-0.743, to the 2023 readout."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "It belongs to the three-year hazard ratio of 0.510, and no 80% interval for the 2023 result exists in any document we hold."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "Neither error reached the page."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "We record them because an outside review is not a one-way audit, and a log that only ever reports the reviewer catching us describes something that did not happen."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "Also changed."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "The nearest scheduled answer to the survival question is now on the page: KEYNOTE-054's overall-survival result is anticipated in its registry record for November 2026, and KEYNOTE-716's for October 2"
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "The hazard-ratio explainer now names the assumption underneath a single hazard ratio - that the ratio held steady across the whole follow-up, which the three-year paper's own methods assume in fitting"
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "The confidence-interval chart now says that its amber and green split is a convention rather than a verdict, and that this trial registered a one-sided alpha of 0.10 rather than the 95% convention the"
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "The Not established list now names stage IIIA alongside IIB and IIC, since the Phase 3 added all three below the earlier trial's floor."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "The two figures in the summary strip that belong to the Phase 2b now say so."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "The three scores we had never explained - reproducibility, consensus and recency, together more than half of is the effect real - now carry their reasoning."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "And the three-year survival interval is now given at 95%, 0.114-1.584, so that it can be read against the five-year 0.165-1.345 rather than beside it at a different width; at equal width the earlier i"
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "We overstated our own error, and readers saw that."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "Since 4 September this page has told readers that the composite it printed was out by 0.05 against its own working ."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "It was not."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "The working printed beside 3.4 came to 3.40 exactly, and 3.4 is the number it produces; no reader was ever shown a figure that disagreed with the arithmetic underneath it, and no rounding was involved"
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "What differed was the working itself: reproducibility and recency were shown at 15% each where the rubric gives them 20% and 10% ."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "That is a real error, it is the one that put the total 0.05 high, and it is recorded in the entry below - but it is not the error we confessed to."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "A page that prints its arithmetic and totals it correctly, from weights that are not the published ones, is not a page whose display disagrees with its own working."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "The distinction matters because the 2 September entry below already records a correction notice that was worse than the error it corrected, and named that as the failure worth keeping in view."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "This is the same failure, in the entry that was supposed to have learned from it."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "The commit history settles it: from 26 August the page printed (3×.25)+(1×.20)+(4×.15)+(4×.15)+(5×.15)+(5×.10) , and on 3 September the commit that published the rubric corrected the same working to t"
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "The page now says less about one outlet than we promised it would."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "The 4 September notice said the Morning Glory Sciences clause had been replaced with a specialist outlet, and we give its argument on its merits ."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "It has not been, and it will not be."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "Three characterisations of that outlet have now been attempted - the English edition of a non-English site, an outlet no other publication cites, and a specialist outlet - and the first two were withd"
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "The third has no better support than they did."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "What the record actually holds on the outlet's standing is one citation: reference 12 of a letter in the Irish Journal of Medical Science , which the publisher deposited to Crossref and which we have "
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "One citation in one reference list establishes that the outlet is cited."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "It establishes nothing about whether it is specialist, authoritative, or anything else."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "So the sentence now carries no characterisation at all."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "It names the outlet, gives its argument, and tells you to weigh the argument."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "Saying less is what we can actually support, and a fourth adjective would be the same mistake with a different word."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "And what the review did not catch."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "Publishing the corrections above meant binding the sentences on this page that carry a figure, a quotation or a named source to the words they rest on - 131 of this page's 343 sentences ."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "This entry first said it meant binding every sentence."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "That was not true."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "The other 212 were never examined by that check: the function reporting the result opened with \"every sentence on the page, no exemptions\" and in fact examined only the sentences in which it could det"
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "Not examined is not the same as unsupported , and nothing on this page has been shown wrong by any of it."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "But we did not know which it was, and we said that we did."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "Binding the 131 found three more things."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "We had credited KOL Pulse with giving the 49% figure as a phase 2 result without naming the trial; the outlet names KEYNOTE-942 throughout and attributes the circulating hazard ratios to it, and the w"
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "That sentence now says whose it is."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "The New England Journal paper behind the ipilimumab counterexample was cited here before it was held: the entry above says the paper is now held and cited , and on the day that was drafted the library"
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "It has been obtained and the sentence is now true."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "And nine documents this page rests on were missing from the list of sources a reader sees - including the coverage the consensus score rests on, which a reader cannot check against a list that does no"
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "All nine are listed."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "Three small figures went the other way: a word we could not support from a document, a comparison we can now state as two numbers rather than one, and an arithmetic step of our own we had printed as t"
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "Updated 4 September 2026."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "Two days of changes, and an admission about this log before them."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "Most of what follows was written at the time and filed under the headings for 28 August and 2 September, which dated our own corrections to before we made them."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "The paragraphs are unchanged; only the date above them is."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "Nothing was removed to make room."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "The composite readers saw was not weighted the way the rubric weights it."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "The published page scored this assessment 3.4 , beside a working that gave reproducibility and recency 15% each."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "The rubric gives them 20% and 10% ."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "So the printed number was the correct total of the arithmetic printed underneath it: no reader was ever shown a figure that disagreed with the working beside it, and no rounding was involved, because "
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "What was wrong was the working."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "Two dimensions carried weights that were not the rubric's, and the two errors did not cancel - they left the total 0.05 high."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "On 3 September the scorecard was marked as text the page works out for itself, which obliges it to show its arithmetic and to come to the number it prints."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "The rubric was published the same day and the weights were corrected to match it, at which point the same six scores came to 3.35 ."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "The composite was abolished shortly afterwards, for a different reason."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "The correction is recorded here because it happened to a figure readers could see."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "The scorecard was one number and is now two."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "An outside reviewer found that a single composite breaches this publication's own rule against expressing confidence in a result's direction and confidence in its size in one verdict."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "The corrected composite read 3.35, from 3 / 5 · 1 / 5 · 4 / 5 · 4 / 5 · 5 / 5 · 5 / 5 and (3×.25 + 1×.20 + 4×.20 + 4×.15 + 5×.10 + 5×.10) - a number below what the trial design deserves and above what"
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "It is now 3.94 for whether the effect is real and 1.0 for how large it is."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "The rubric carries the split and says plainly that only one of the six dimensions measures magnitude at all."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "We had misquoted our own rubric."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "We had scored data support 1 and said the rubric's anchor for 1 was \"no data cited,\" which sat badly with a directional result having been cited."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "On 3 September the rubric was published and the anchor turned out to read purely qualitative assertion with no numeric support ."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "Under what it actually says, a score of 1 is right and needs no explaining away."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "The five-year rates moved to the primary document."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "They had been credited to The ASCO Post , because the ASCO abstract that carries them returned an error to every automated attempt to fetch it."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "It was obtained by hand on 3 September and those figures now rest on it."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "The same abstract states in its own words that No alpha was assigned to this analysis , which is the plainest available support for a point this piece already made from the three-year paper."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "And the third figure came back after all."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "On 2 September we said a \"five-year topline of 20 January 2026\" reporting a one-sided nominal p = 0.0075 would stay out until somebody produced it."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "On 3 September our own page gate produced it."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "Moderna and Merck's announcement of that date is now held, and it reports the five-year recurrence result as reducing the risk of recurrence or death by 49% (HR=0.510; [95% CI, 0.294-0.887]; one-sided"
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "The figure was real."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "Our failure to find it was never evidence that it was not."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "Note the word the companies chose - nominal - which is what a p-value is called when no alpha has been assigned to the analysis that produced it, and the ASCO 2026 abstract for that same five-year rea"
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "So there are now three p-values on this page for one programme: 0.0266 and 0.053 are the 2023 primary analysis read one-sided and two-sided, and 0.0075 is a later analysis with more follow-up that was"
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "What the registry actually says about overall survival."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "We had written that KEYNOTE-054 and KEYNOTE-716 each posted an overall-survival result that carries no statistical analysis at all ."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "They have posted nothing."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "Both records mark the measure NOT_POSTED with a posting date still ahead of it - November 2026 for KEYNOTE-054, October 2033 for KEYNOTE-716."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "A result withheld and a result not yet due are different things, and the first reads as evasion where the second is a schedule."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "The sentence now says which one this is."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "CheckMate 238 was never evidence for what we used it for."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "We had counted it among three trials that had not shown a survival benefit against placebo, and explained in the next breath that it has no placebo arm."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "Counting a trial that cannot answer the question makes a two-trial observation look like a three-trial one."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "The paragraph now sets it aside explicitly, and names its arms - every patient in it received an active treatment."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "Statistical language, again."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "Four fixes, all of them the kind this piece exists to catch in other people."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "Our p-value gloss said that if the drug were useless you would see a result this good about 5% of the time, which quietly drops every other assumption the calculation rests on; the assumptions are now"
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "We had defined distant metastasis-free survival as time until the cancer spreads, omitting death, which is half the endpoint."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "Twice we described patients as recurring where the measure counts recurrence or death."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "And we said the Phase 3 is blinded against the assessment bias the earlier trial carried, when what blinding addresses is the direction that bias can run in - both trials keep investigator assessment."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "What we said about Morning Glory Sciences, and what we did not do about it."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "We had described it as the English edition of a non-English industry site."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "We could not stand that up, and we replaced it with a narrower claim: that it is an outlet we can find no other publication citing."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "That was wrong too."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "A 2026 letter in the Irish Journal of Medical Science cites it in its reference list, and on 4 September we published a correction saying so - a correction which stated that the clause was gone and th"
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "The clause was not gone."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "It was on the page when that correction was published, and it stayed there until 9 September."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "The replacement wording the correction named has never been on this page at all."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "This paragraph, in the version first drafted for this entry, repeated the falsified clause as though it were the correction: it was written on 8 September by the outside reviewer, from a diff of two p"
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "The clause is now removed, and so is every other characterisation of the outlet."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "And one hazard ratio did circulate under the Phase 3's name."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "This article's subject happened in public on announcement day, and the page now shows it."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "A melanoma oncologist posted, in a roundup we hold, Exciting announcement today from Phase3 INTerpath001 followed by RFS HR=0.51 and DMFS HR=0.41."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "Those are the Phase 2b's figures."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "The outlet that logged the post said so itself on the same page."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "Nobody released a Phase 3 effect size; a Phase 3 effect size circulated anyway."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "On 3 September our own page gate produced it.",
+          "now": ""
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "Moderna and Merck's announcement of that date is now held, and it reports the five-year recurrence result as reducing the risk of recurrence or death by 49% (HR=0.510; [95% CI, 0.294-0.887]; one-sided",
+          "now": ""
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "The figure was real.",
+          "now": ""
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "Our failure to find it was never evidence that it was not.",
+          "now": ""
+        },
+        {
+          "because": "GATE-0904-i5",
+          "was": "Note the word the companies chose - nominal - which is what a p-value is called when no alpha has been assigned to the analysis that produced it, and the ASCO 2026 abstract for that same five-year rea",
+          "now": ""
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "So there are now three p-values on this page for one programme: 0.0266 and 0.053 are the 2023 primary analysis read one-sided and two-sided, and 0.0075 is a later analysis with more follow-up that was",
+          "now": ""
+        },
+        {
+          "because": "GATE-0904-o1/o2",
+          "was": "The composite readers saw did not match its own working.",
+          "now": ""
+        },
+        {
+          "because": "GATE-0904-o1/o2",
+          "was": "The published page scored this assessment 3.4 .",
+          "now": ""
+        },
+        {
+          "because": "GATE-0904-o1/o2",
+          "was": "On 3 September the scorecard was marked as text the page works out for itself, which obliges it to show its arithmetic and to come to the number it prints.",
+          "now": ""
+        },
+        {
+          "because": "GATE-0904-o1/o2",
+          "was": "It did not: the six scores and the published weights come to 3.35 .",
+          "now": ""
+        },
+        {
+          "because": "GATE-0904-o1/o2",
+          "was": "The printed figure was out by 0.05 against its own working, for eight days, and nothing here had asked the question until the mark was applied.",
+          "now": ""
+        },
+        {
+          "because": "GATE-0904-o1/o2",
+          "was": "The number was corrected before the composite was abolished, and the correction is recorded here because it happened to a figure readers could see.",
+          "now": ""
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "The scorecard was one number and is now two.",
+          "now": ""
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "An outside reviewer found that a single composite breaches this publication's own rule against expressing confidence in a result's direction and confidence in its size in one verdict.",
+          "now": ""
+        },
+        {
+          "because": "GATE-0904-o1/o2",
+          "was": "The corrected composite read 3.35, from 3 / 5 · 1 / 5 · 4 / 5 · 4 / 5 · 5 / 5 · 5 / 5 and (3×.25 + 1×.20 + 4×.20 + 4×.15 + 5×.10 + 5×.10) - a number below what the trial design deserves and above what",
+          "now": ""
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "It is now 3.94 for whether the effect is real and 1.0 for how large it is.",
+          "now": ""
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "The rubric carries the split and says plainly that only one of the six dimensions measures magnitude at all.",
+          "now": ""
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "The five-year rates moved to the primary document.",
+          "now": ""
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "They had been credited to The ASCO Post , because the ASCO abstract that carries them returned an error to every automated attempt to fetch it.",
+          "now": ""
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "It was obtained by hand on 3 September and those figures now rest on it.",
+          "now": ""
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "The same abstract states in its own words that No alpha was assigned to this analysis , which is the plainest available support for a point this piece already made from the three-year paper.",
+          "now": ""
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "We had scored data support 1 and said the rubric's anchor for 1 was \"no data cited,\" which sat badly with a directional result having been cited.",
+          "now": ""
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "On 3 September the rubric was published and the anchor turned out to read purely qualitative assertion with no numeric support .",
+          "now": ""
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "We had misquoted our own rubric; under what it actually says, a score of 1 is right and needs no explaining away.",
+          "now": ""
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "Every figure above traces to a company release, a peer-reviewed paper or a trial registry record, and none to a news report.",
+          "now": "Every numerical trial result above traces to a company release, a peer-reviewed paper, a conference abstract or a trial registry record; claims about what an outlet reported trace to the named coverag"
+        }
+      ]
+    },
+    {
+      "issue": "melanoma",
+      "reviewed_sha": "a788f00ab152123579a5593d0e2fe0908a4b0c264fbabdb0e5cff944517ee7f9",
+      "now_sha": "c20b5725631e1e75da495e3db9872dd0c5252cf048fe7269b9e340d289d0a83e",
+      "at": "2026-09-10T17:26:59+00:00",
+      "by": "Fred Ugast (operator)",
+      "reason": "all 289 change(s) since the review reconcile to a recorded decision: GATE-0904-i5, GATE-0904-o1/o2, ROUND-2026-09-10",
+      "reconciled": [
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "The Melanoma Result - What Holds Up What Holds Up What this is The rubric Issue one Issue two Issue three Who pays for this Issue one Evidence review Published 26 August 2026 · Updated 4 September 202",
+          "now": "The Melanoma Result - What Holds Up What Holds Up What this is The rubric Issue one Issue two Issue three Who pays for this Issue one Evidence review Published 26 August 2026 · Updated 10 September 20"
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "This is what was actually released, what was not, and what the numbers underneath it will and will not support. 1,137 patients in the Phase 3 trial 0 Phase 3 efficacy numbers released 14 deaths the wh",
+          "now": "This is what was actually released, what was not, and what the numbers underneath it will and will not support. 1,137 patients in the Phase 3 trial 0 Phase 3 efficacy numbers released 14 deaths the wh"
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "Why this is worth a whole article Every outlet whose article we hold attributed those figures correctly to KEYNOTE-942 in its own voice - The ASCO Post, Dermatology Times, Practical Dermatology, KOL P",
+          "now": "Why this is worth a whole article Five outlets whose articles we hold named KEYNOTE-942 when attributing the 49% figure - The ASCO Post, Dermatology Times, Practical Dermatology, MLQ News and OncLive."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "A post logged by KOL Pulse identified the figure as coming from an earlier phase 2 trial without naming KEYNOTE-942; KOL Pulse's own text names the trial throughout and attributes the circulating haza"
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "Several said plainly that no Phase 3 efficacy numbers had been released."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "A single hazard ratio summarising five years assumes the ratio held steady across those five years."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "For a therapy whose effect may build as the immune response develops, that is worth naming - and the figures on this page that drift with follow-up are what a changing ratio looks like from outside."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "There is one patient-level reading a hazard ratio does support."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "Take one treated and one untreated patient at random: at a hazard ratio of 0.510 there is about a 66% chance the treated one goes longer without recurrence, against 50% if the therapy did nothing."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "Spruance and colleagues put the limit of the measure well: it is the difference between the odds of winning a race and the margin of victory."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "The hazard ratio tells you who is likely to win."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "It does not tell you by how much."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "The single most useful question to ask of any interval: does it cross 1.0?",
+          "now": "Two questions do most of the work."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "First, does the range cross 1.0?"
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "Second, and the one readers skip: how wide is it, and what would the far end mean if it were true?"
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "The first question is the convention you will meet everywhere."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "It is also a yes/no line drawn through a continuous quantity, which the statisticians cited at the foot of this page argue is the habit that causes most of the trouble."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "Amber bars cross the no-effect line; green ones clear it.",
+          "now": "These are 95% intervals, the convention readers meet elsewhere."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "The trial registered a one-sided alpha of 0.10; its later three-year paper reports both 80% and 95% intervals for the updated analysis because the trial's own error-control convention differs from the"
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "Amber bars cross the 95% no-effect line; green ones clear it."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "That split is a convention, not a verdict."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "At five years the point estimate was unchanged at 0.510 and the interval read 0.294-0.887 - the upper bound had come in from 0.906, the lower bound had drifted out from 0.288, and the width was close ",
+          "now": "At five years the point estimate was unchanged at 0.510 and the interval read 0.294-0.887 ."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "So the interval stopped including 1.0 at year three, not year five, and what the last two years added was two more years of it holding rather than a sharper measurement.",
+          "now": "Both bounds came in, the upper from 0.906 to 0.887 and the lower from 0.288 to 0.294, so the interval narrowed slightly."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "The crossing was resolved at year three, not year five, and what the last two years added was two more years of it holding rather than a sharper measurement."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "This trial's own threshold is on the record: the three-year paper says the trial was designed with approximately 80% power to detect a hazard ratio (HR) of 0.5 against a one-sided alpha of 0.10, and t",
+          "now": "This trial's own threshold is on the record: the three-year paper says the trial was designed with approximately 80% power to detect a hazard ratio (HR) of 0.5 against a one-sided alpha of 0.10 - a pe"
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "That is a claim about PD-1 inhibitors and not about adjuvant checkpoint inhibitors as a class; a CTLA-4 inhibitor is a different drug against a different target, and this page holds no document about ",
+          "now": "And ipilimumab is not a neutral comparator either: it is the one adjuvant therapy in this disease with a demonstrated survival benefit against placebo, so failing to separate from it is a harder test "
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "That is a claim about PD-1 inhibitors and not about adjuvant checkpoint inhibitors as a class; a CTLA-4 inhibitor is a different drug against a different target."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "One adjuvant checkpoint inhibitor has shown a survival benefit against placebo in this disease."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "In EORTC 18071, adjuvant ipilimumab versus placebo in resected stage III melanoma reported overall survival as a prespecified secondary endpoint: 65.4% versus 54.4% at five years, HR 0.72 (95.1% CI 0."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "It is not standard care because the dose was 10 mg/kg and five patients died of immune-related events - not because it failed on survival."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "So the translation from recurrence to survival is possible in this disease."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "It has not yet been shown for a PD-1 inhibitor."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "The key secondary endpoint, DMFS, is investigator-assessed too."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "One caveat the figures on this page raise themselves: intismeran is an intramuscular injection that caused injection-site pain in 59.6% of patients and chills in 51.0% in the earlier trial; the Phase "
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "Where a therapy is that much more reactogenic than its placebo, patients and their doctors can sometimes infer the arm - and the primary endpoint is investigator-assessed."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "Blinding on paper is not always blinding in the room."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "Central adjudication is the standard answer, and this trial does not use it."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "Morning Glory Sciences - an outlet we can find no other publication citing, so we give the argument on its merits rather than on its authority - the Phase 2b population was stage IIIB-IV, the Phase 3 ",
+          "now": "Morning Glory Sciences - we give its argument on its merits rather than on its authority - the Phase 2b population was stage IIIB-IV, the Phase 3 adds node-negative disease, and \"absolute recurrence r"
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "The August announcement was a prespecified interim look, and the register says so.",
+          "now": "The August announcement was a prespecified interim look - both company releases say so."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "The registry does not: its record has not been updated since 24 September 2025, so it carries nothing about the announcement either way."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "Any-grade immune-related adverse events were similar - 45.2% on the combination versus 44% on pembrolizumab alone - but grade 3 or worse treatment-related events were higher: 25% versus 18%.",
+          "now": "In the Lancet report, immune-mediated adverse events were similar - 36% in the combination arm and 36% in the monotherapy arm - while grade 3 or worse treatment-related events were not: 25% versus 18%"
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "Reading only the first pair would tell you the added therapy costs nothing, and it does.",
+          "now": "At five years the company release puts immune-related events at 45.2% versus 44%, over a longer window than the Lancet's."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "Reading only the first pair would tell you the added therapy costs nothing."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "The second pair says otherwise."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "The three-year paper reports a hazard ratio of 0.425 on nine deaths, with an 80% interval of 0.179 to 1.004; the five-year analysis reports 0.471 on fourteen, with a 95% interval of 0.165 to 1.345.",
+          "now": "The three-year paper reports a hazard ratio of 0.425 on nine deaths, 95% CI 0.114 to 1.584; the five-year analysis reports 0.471 on fourteen, 95% CI 0.165 to 1.345."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "The earlier interval is the wider of the two, which is what nine deaths buys you against fourteen."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "Whether the benefit holds in stage IIB/IIC patients, whom the earlier trial never enrolled.",
+          "now": "Whether the benefit holds in stage IIB, IIC and IIIA patients, whom the earlier trial never enrolled."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "Reproducibility scores 4 because the earlier Phase 2b and the much larger Phase 3 point in the same direction on RFS and DMFS, but no Phase 3 effect size has been released, so the Phase 2b magnitude h"
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "Consensus scores 4 because the held sources agree on the directional Phase 3 result while the missing effect size leaves no numerical magnitude to agree on."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "Recency scores 5 because the central evidence is the August 2026 Phase 3 announcement, supported by 2026 longer-term follow-up of the earlier trial."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "Readers saw 3.4 ; the working underneath it comes to 3.35 , and that discrepancy is recorded below.",
+          "now": "Readers saw 3.4 , which was the correct total of the working printed beneath it - but that working weighted two of the six dimensions differently from the rubric, which puts the same six scores at 3.3"
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "That is recorded below."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "That single release converts this from a directional claim into a measurable one, and would move data support from 1 to 4 or 5 and source quality from 3 to 5.",
+          "now": "That single release moves both scores, and both upward whatever the numbers say, because the rubric is measuring whether the evidence has been shown rather than whether it is good: is it real rises ab"
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "Expect the score to move by roughly a full point when it lands, in whichever direction the numbers point.",
+          "now": "What the numbers actually say will show up in later revisions of rigor and consensus, not in these two."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "The nearest scheduled comparator readout is KEYNOTE-054's overall-survival result, anticipated in its registry record for November 2026; KEYNOTE-716's is anticipated for October 2033."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "Every number above traces to one of these, and none to a news report - a check that runs before this page can publish refuses it otherwise.",
+          "now": "Every numerical trial result above traces to a company release, a peer-reviewed paper, a conference abstract or a trial registry record."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "Claims about what an outlet reported necessarily trace to the named coverage itself."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "The pre-publication checks test whether bound spans match held documents, whether figures appear in held documents and whether bound sources are represented in the reader-facing source set; they do no"
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "MLQ News - Moderna and Merck's personalized melanoma therapy meets two Phase 3 endpoints Coverage."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "The outlet that enumerated what the announcement did not contain, quoted on this page."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "Dermatology Times - Personalized mRNA-Based Melanoma Vaccine Meets Primary Endpoints Practical Dermatology - Intismeran Plus Pembrolizumab Meets Dual Phase 3 Melanoma Endpoints OncLive - Intismeran Au"
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "Held so that what this page says about them can be checked against them."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "The ASCO Post, June 2026 - Vaccine Plus Pembrolizumab Reduces Risk of Recurrence in High-Risk Resected Melanoma The five-year landmark rates as this page first carried them, before they were moved to "
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "KOL Pulse - INTerpath-001 trial profile The trial profile that logged the announcement-day posts, including the one this page quotes and the one that gave the figure as phase 2 without naming the tria"
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "Primary KEYNOTE-942 five-year update - ASCO 2026 meeting abstract 9500 Conference abstract."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "Source of the five-year landmark RFS and OS rates and their confidence intervals; the abstract states that no alpha was assigned to this analysis."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "Primary KEYNOTE-942 three-year update - ASCO 2024 abstract LBA9512 Conference abstract and presentation record."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "Source of the protocol statement that the trial was designed with a one-sided alpha of 0.10."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "Primary INTerpath-001 - ClinicalTrials.gov, NCT05933577 Registry record."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "Source of the Phase 3 population, placebo description and investigator-assessed RFS and DMFS endpoints."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "The record was last updated 24 September 2025 and carries no posted results."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "Primary KEYNOTE-054 - ClinicalTrials.gov, NCT02362594 Registry record."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "Overall survival is NOT_POSTED, with an anticipated posting date of November 2026."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "Primary KEYNOTE-716 - ClinicalTrials.gov, NCT03553836 Registry record."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "Overall survival is NOT_POSTED, with an anticipated posting date of October 2033."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "Primary CheckMate 238 - ClinicalTrials.gov, NCT02388906 Registry record."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "Source of the nivolumab-versus-ipilimumab active-comparator arms."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "Primary Eggermont et al. - EORTC 18071 overall survival, N Engl J Med 2016 DOI 10.1056/NEJMoa1611299; PMID 27717298; PMCID PMC5648545."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "Source of the adjuvant ipilimumab-versus-placebo five-year overall-survival result and immune-related deaths."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "A 2018 erratum covering thirteen NEJM articles at once ( N Engl J Med 2018;379:2185 ) applies to this paper."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "We have not been able to read it: NEJM returns 403, Europe PMC records the notice as neither open access nor in its archive, and neither PubMed nor Crossref carries an abstract for it; so we do not kn"
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "Every figure we quote appears in the current PubMed record of this paper, which post-dates the erratum."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "Primary Greenland et al. - Statistical tests, P values, confidence intervals, and power Eur J Epidemiol 2016;31:337-350."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "Methodological source for the cautions against significance dichotomies and common p-value misreadings."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "Primary Spruance, Reid, Grace & Samore - Hazard Ratio in Clinical Trials Antimicrob Agents Chemother 2004;48(8):2787-2792."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "PMID 15273082; PMCID PMC478551."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "Source for the proportional-hazards assumption, the pairwise-probability interpretation and the race analogy."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "Primary Survival Analysis - StatPearls, NCBI Bookshelf Source for the direction a hazard ratio moves in: risk rises as the value goes above 1 and falls as it goes below."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "Primary Singh & Mukhopadhyay - Survival analysis in clinical trials: basics and must-know areas Perspect Clin Res 2011;2(4):145-148."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "Source for what a hazard ratio of 1 means, and for the caution that a hazard ratio is not a proportion of patients benefited."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "Updated 9 September 2026."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "An outside reviewer read this page against the packet we send out, and found six sentences that were wrong."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "Four were errors of fact, one was a comparison two figures could not bear, and one described our own checks as doing something they do not do."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "All six are corrected below."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "The reviewer also made two errors of their own, and those are recorded here too."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "The registry does not say what we said it says."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "We wrote that the August announcement was a prespecified interim look and the register says so ."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "It does not."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "The word interim appears nowhere in the NCT05933577 record, and that record has not been updated since 24 September 2025 - eleven months before the announcement it was being cited about."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "The interim fact is real and comes from the Merck and Moderna releases, which both use the phrase."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "The sentence now says so."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "The wider problem was ours: we had been using the registry's silence as evidence that no Phase 3 number exists, and a file nobody has touched since last September is a stale record rather than a live "
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "Where the registry still appears as a negative, its last-update date now appears with it."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "An interval moved the wrong way."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "We wrote that at five years the upper bound had come in from 0.906, the lower bound had drifted out from 0.288 ."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "Both bounds came in."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "The lower moved from 0.288 to 0.294, which is inward on any reading - closer to 1.0, closer to the point estimate, closer to the other bound."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "The interval narrowed slightly at both ends and the page now says that."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "Two adverse-event figures that do not belong beside each other."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "We set 45.2% against 44% for any-grade immune-related events, then 25% against 18% for grade 3 or worse, in a single sentence built as one contrast."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "They are different categories, from different documents, at different lengths of follow-up: the first pair is the five-year company release, the second is the Lancet 's two-year cut."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "The Lancet reports both on the same patients at the same cut - immune-mediated events 36% in each arm, grade 3 or worse treatment-related 25% against 18% - and that is the comparison now on the page, "
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "Setting two correctly sourced numbers side by side where they cannot bear the comparison is the subject of this article."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "We did it in our own summary."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "A sentence that outlived the scorecard it described."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "When we split the score in two on 3 September we left standing a line saying the full dataset would move the score by roughly a full point, in whichever direction the numbers point ."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "Neither half survives the split."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "Source quality going to 5 lifts is the effect real by about six-tenths of a point; data support coming off 1 lifts how large is it from 1.0 to 4 or 5."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "And both move upward whatever the numbers say, because the rubric measures whether the evidence has been shown, not whether it is flattering."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "The sentence now says that, which is the more interesting fact about our own rubric and one we had obscured."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "The counterexample we had excluded."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "Our sentence about adjuvant PD-1 inhibitors never reporting a survival benefit against placebo was correct and still stands."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "The paragraph around it was not doing what we thought."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "It opened by saying adjuvant melanoma trials have a history of recurrence benefits that sometimes never did translate into survival, listed three negatives, and closed by noting that this page held no"
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "There is such a trial."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "In EORTC 18071, adjuvant ipilimumab against placebo in resected stage III melanoma reported overall survival as a prespecified secondary endpoint: 65.4% against 54.4% at five years, HR 0.72 (95.1% CI "
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "It is not standard care because the dose was 10 mg/kg and five patients died of immune-related events, not because it failed on survival."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "The paper is now held and cited, and the page says that the translation from recurrence to survival is possible in this disease and has not yet been shown for a PD-1 inhibitor."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "Listing three negatives and omitting the one positive left a reader with something we did not check and could not have defended."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "What our checks actually test."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "We told readers that every number on this page traced to a primary document and none to a news report, and that a check refuses publication otherwise."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "The check does not classify documents that way."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "It tests whether bound spans match the documents we hold, whether figures appear in those documents, and whether bound sources reach the reader in the source list."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "It has no opinion on what counts as news."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "The sentence now describes what the checks do, and the source enumeration now includes conference abstracts, which is what the five-year rates actually rest on."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "This is the second time on this page that a careful check has been described by careless prose."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "The entry below says that is the failure worth keeping in view, and it did not take the first time."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "What the blinding does not cover."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "We wrote that an assessor who does not know the arm cannot favour it, and printed, a few hundred words later, that the therapy caused injection-site pain in 59.6% of patients and chills in 51.0%."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "The Phase 3 comparator is a saline injection."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "Where a therapy is that much more reactogenic than its placebo, patients and their doctors can sometimes infer the arm - and the primary endpoint is investigator-assessed, as is the key secondary."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "Both halves were on the page and we had never put them together."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "The caveat is now in the blinding section."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "The reviewer was wrong twice, and this log should say so."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "Asked to check our claim about overall survival in KEYNOTE-054 and KEYNOTE-716, the reviewer confirmed an earlier version of it - that both trials had posted a survival result carrying no statistical "
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "They have posted nothing."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "Both registry records mark the measure NOT_POSTED , with anticipated posting dates of November 2026 and October 2033; the reviewer had read one field and not the one that mattered."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "We had already corrected this on 4 September, and accepting the confirmation would have put the error back."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "The reviewer also proposed attaching the three-year paper's 80% interval, 0.351-0.743, to the 2023 readout."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "It belongs to the three-year hazard ratio of 0.510, and no 80% interval for the 2023 result exists in any document we hold."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "Neither error reached the page."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "We record them because an outside review is not a one-way audit, and a log that only ever reports the reviewer catching us describes something that did not happen."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "Also changed."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "The nearest scheduled answer to the survival question is now on the page: KEYNOTE-054's overall-survival result is anticipated in its registry record for November 2026, and KEYNOTE-716's for October 2"
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "The hazard-ratio explainer now names the assumption underneath a single hazard ratio - that the ratio held steady across the whole follow-up, which the three-year paper's own methods assume in fitting"
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "The confidence-interval chart now says that its amber and green split is a convention rather than a verdict, and that this trial registered a one-sided alpha of 0.10 rather than the 95% convention the"
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "The Not established list now names stage IIIA alongside IIB and IIC, since the Phase 3 added all three below the earlier trial's floor."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "The two figures in the summary strip that belong to the Phase 2b now say so."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "The three scores we had never explained - reproducibility, consensus and recency, together more than half of is the effect real - now carry their reasoning."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "And the three-year survival interval is now given at 95%, 0.114-1.584, so that it can be read against the five-year 0.165-1.345 rather than beside it at a different width; at equal width the earlier i"
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "We overstated our own error, and readers saw that."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "Since 4 September this page has told readers that the composite it printed was out by 0.05 against its own working ."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "It was not."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "The working printed beside 3.4 came to 3.40 exactly, and 3.4 is the number it produces; no reader was ever shown a figure that disagreed with the arithmetic underneath it, and no rounding was involved"
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "What differed was the working itself: reproducibility and recency were shown at 15% each where the rubric gives them 20% and 10% ."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "That is a real error, it is the one that put the total 0.05 high, and it is recorded in the entry below - but it is not the error we confessed to."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "A page that prints its arithmetic and totals it correctly, from weights that are not the published ones, is not a page whose display disagrees with its own working."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "The distinction matters because the 2 September entry below already records a correction notice that was worse than the error it corrected, and named that as the failure worth keeping in view."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "This is the same failure, in the entry that was supposed to have learned from it."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "The commit history settles it: from 26 August the page printed (3×.25)+(1×.20)+(4×.15)+(4×.15)+(5×.15)+(5×.10) , and on 3 September the commit that published the rubric corrected the same working to t"
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "The page now says less about one outlet than we promised it would."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "The 4 September notice said the Morning Glory Sciences clause had been replaced with a specialist outlet, and we give its argument on its merits ."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "It has not been, and it will not be."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "Three characterisations of that outlet have now been attempted - the English edition of a non-English site, an outlet no other publication cites, and a specialist outlet - and the first two were withd"
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "The third has no better support than they did."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "What the record actually holds on the outlet's standing is one citation: reference 12 of a letter in the Irish Journal of Medical Science , which the publisher deposited to Crossref and which we have "
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "One citation in one reference list establishes that the outlet is cited."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "It establishes nothing about whether it is specialist, authoritative, or anything else."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "So the sentence now carries no characterisation at all."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "It names the outlet, gives its argument, and tells you to weigh the argument."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "Saying less is what we can actually support, and a fourth adjective would be the same mistake with a different word."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "And what the review did not catch."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "Publishing the corrections above meant binding the sentences on this page that carry a figure, a quotation or a named source to the words they rest on - 131 of this page's 343 sentences ."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "This entry first said it meant binding every sentence."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "That was not true."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "The other 212 were never examined by that check: the function reporting the result opened with \"every sentence on the page, no exemptions\" and in fact examined only the sentences in which it could det"
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "Not examined is not the same as unsupported , and nothing on this page has been shown wrong by any of it."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "But we did not know which it was, and we said that we did."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "Binding the 131 found three more things."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "We had credited KOL Pulse with giving the 49% figure as a phase 2 result without naming the trial; the outlet names KEYNOTE-942 throughout and attributes the circulating hazard ratios to it, and the w"
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "That sentence now says whose it is."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "The New England Journal paper behind the ipilimumab counterexample was cited here before it was held: the entry above says the paper is now held and cited , and on the day that was drafted the library"
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "It has been obtained and the sentence is now true."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "And nine documents this page rests on were missing from the list of sources a reader sees - including the coverage the consensus score rests on, which a reader cannot check against a list that does no"
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "All nine are listed."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "Three small figures went the other way: a word we could not support from a document, a comparison we can now state as two numbers rather than one, and an arithmetic step of our own we had printed as t"
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "Updated 4 September 2026."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "Two days of changes, and an admission about this log before them."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "Most of what follows was written at the time and filed under the headings for 28 August and 2 September, which dated our own corrections to before we made them."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "The paragraphs are unchanged; only the date above them is."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "Nothing was removed to make room."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "The composite readers saw was not weighted the way the rubric weights it."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "The published page scored this assessment 3.4 , beside a working that gave reproducibility and recency 15% each."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "The rubric gives them 20% and 10% ."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "So the printed number was the correct total of the arithmetic printed underneath it: no reader was ever shown a figure that disagreed with the working beside it, and no rounding was involved, because "
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "What was wrong was the working."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "Two dimensions carried weights that were not the rubric's, and the two errors did not cancel - they left the total 0.05 high."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "On 3 September the scorecard was marked as text the page works out for itself, which obliges it to show its arithmetic and to come to the number it prints."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "The rubric was published the same day and the weights were corrected to match it, at which point the same six scores came to 3.35 ."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "The composite was abolished shortly afterwards, for a different reason."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "The correction is recorded here because it happened to a figure readers could see."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "The scorecard was one number and is now two."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "An outside reviewer found that a single composite breaches this publication's own rule against expressing confidence in a result's direction and confidence in its size in one verdict."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "The corrected composite read 3.35, from 3 / 5 · 1 / 5 · 4 / 5 · 4 / 5 · 5 / 5 · 5 / 5 and (3×.25 + 1×.20 + 4×.20 + 4×.15 + 5×.10 + 5×.10) - a number below what the trial design deserves and above what"
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "It is now 3.94 for whether the effect is real and 1.0 for how large it is."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "The rubric carries the split and says plainly that only one of the six dimensions measures magnitude at all."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "We had misquoted our own rubric."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "We had scored data support 1 and said the rubric's anchor for 1 was \"no data cited,\" which sat badly with a directional result having been cited."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "On 3 September the rubric was published and the anchor turned out to read purely qualitative assertion with no numeric support ."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "Under what it actually says, a score of 1 is right and needs no explaining away."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "The five-year rates moved to the primary document."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "They had been credited to The ASCO Post , because the ASCO abstract that carries them returned an error to every automated attempt to fetch it."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "It was obtained by hand on 3 September and those figures now rest on it."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "The same abstract states in its own words that No alpha was assigned to this analysis , which is the plainest available support for a point this piece already made from the three-year paper."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "And the third figure came back after all."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "On 2 September we said a \"five-year topline of 20 January 2026\" reporting a one-sided nominal p = 0.0075 would stay out until somebody produced it."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "On 3 September our own page gate produced it."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "Moderna and Merck's announcement of that date is now held, and it reports the five-year recurrence result as reducing the risk of recurrence or death by 49% (HR=0.510; [95% CI, 0.294-0.887]; one-sided"
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "The figure was real."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "Our failure to find it was never evidence that it was not."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "Note the word the companies chose - nominal - which is what a p-value is called when no alpha has been assigned to the analysis that produced it, and the ASCO 2026 abstract for that same five-year rea"
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "So there are now three p-values on this page for one programme: 0.0266 and 0.053 are the 2023 primary analysis read one-sided and two-sided, and 0.0075 is a later analysis with more follow-up that was"
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "What the registry actually says about overall survival."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "We had written that KEYNOTE-054 and KEYNOTE-716 each posted an overall-survival result that carries no statistical analysis at all ."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "They have posted nothing."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "Both records mark the measure NOT_POSTED with a posting date still ahead of it - November 2026 for KEYNOTE-054, October 2033 for KEYNOTE-716."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "A result withheld and a result not yet due are different things, and the first reads as evasion where the second is a schedule."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "The sentence now says which one this is."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "CheckMate 238 was never evidence for what we used it for."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "We had counted it among three trials that had not shown a survival benefit against placebo, and explained in the next breath that it has no placebo arm."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "Counting a trial that cannot answer the question makes a two-trial observation look like a three-trial one."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "The paragraph now sets it aside explicitly, and names its arms - every patient in it received an active treatment."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "Statistical language, again."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "Four fixes, all of them the kind this piece exists to catch in other people."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "Our p-value gloss said that if the drug were useless you would see a result this good about 5% of the time, which quietly drops every other assumption the calculation rests on; the assumptions are now"
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "We had defined distant metastasis-free survival as time until the cancer spreads, omitting death, which is half the endpoint."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "Twice we described patients as recurring where the measure counts recurrence or death."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "And we said the Phase 3 is blinded against the assessment bias the earlier trial carried, when what blinding addresses is the direction that bias can run in - both trials keep investigator assessment."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "What we said about Morning Glory Sciences, and what we did not do about it."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "We had described it as the English edition of a non-English industry site."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "We could not stand that up, and we replaced it with a narrower claim: that it is an outlet we can find no other publication citing."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "That was wrong too."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "A 2026 letter in the Irish Journal of Medical Science cites it in its reference list, and on 4 September we published a correction saying so - a correction which stated that the clause was gone and th"
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "The clause was not gone."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "It was on the page when that correction was published, and it stayed there until 9 September."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "The replacement wording the correction named has never been on this page at all."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "This paragraph, in the version first drafted for this entry, repeated the falsified clause as though it were the correction: it was written on 8 September by the outside reviewer, from a diff of two p"
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "The clause is now removed, and so is every other characterisation of the outlet."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "And one hazard ratio did circulate under the Phase 3's name."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "This article's subject happened in public on announcement day, and the page now shows it."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "A melanoma oncologist posted, in a roundup we hold, Exciting announcement today from Phase3 INTerpath001 followed by RFS HR=0.51 and DMFS HR=0.41."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "Those are the Phase 2b's figures."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "The outlet that logged the post said so itself on the same page."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "",
+          "now": "Nobody released a Phase 3 effect size; a Phase 3 effect size circulated anyway."
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "On 3 September our own page gate produced it.",
+          "now": ""
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "Moderna and Merck's announcement of that date is now held, and it reports the five-year recurrence result as reducing the risk of recurrence or death by 49% (HR=0.510; [95% CI, 0.294-0.887]; one-sided",
+          "now": ""
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "The figure was real.",
+          "now": ""
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "Our failure to find it was never evidence that it was not.",
+          "now": ""
+        },
+        {
+          "because": "GATE-0904-i5",
+          "was": "Note the word the companies chose - nominal - which is what a p-value is called when no alpha has been assigned to the analysis that produced it, and the ASCO 2026 abstract for that same five-year rea",
+          "now": ""
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "So there are now three p-values on this page for one programme: 0.0266 and 0.053 are the 2023 primary analysis read one-sided and two-sided, and 0.0075 is a later analysis with more follow-up that was",
+          "now": ""
+        },
+        {
+          "because": "GATE-0904-o1/o2",
+          "was": "The composite readers saw did not match its own working.",
+          "now": ""
+        },
+        {
+          "because": "GATE-0904-o1/o2",
+          "was": "The published page scored this assessment 3.4 .",
+          "now": ""
+        },
+        {
+          "because": "GATE-0904-o1/o2",
+          "was": "On 3 September the scorecard was marked as text the page works out for itself, which obliges it to show its arithmetic and to come to the number it prints.",
+          "now": ""
+        },
+        {
+          "because": "GATE-0904-o1/o2",
+          "was": "It did not: the six scores and the published weights come to 3.35 .",
+          "now": ""
+        },
+        {
+          "because": "GATE-0904-o1/o2",
+          "was": "The printed figure was out by 0.05 against its own working, for eight days, and nothing here had asked the question until the mark was applied.",
+          "now": ""
+        },
+        {
+          "because": "GATE-0904-o1/o2",
+          "was": "The number was corrected before the composite was abolished, and the correction is recorded here because it happened to a figure readers could see.",
+          "now": ""
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "The scorecard was one number and is now two.",
+          "now": ""
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "An outside reviewer found that a single composite breaches this publication's own rule against expressing confidence in a result's direction and confidence in its size in one verdict.",
+          "now": ""
+        },
+        {
+          "because": "GATE-0904-o1/o2",
+          "was": "The corrected composite read 3.35, from 3 / 5 · 1 / 5 · 4 / 5 · 4 / 5 · 5 / 5 · 5 / 5 and (3×.25 + 1×.20 + 4×.20 + 4×.15 + 5×.10 + 5×.10) - a number below what the trial design deserves and above what",
+          "now": ""
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "It is now 3.94 for whether the effect is real and 1.0 for how large it is.",
+          "now": ""
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "The rubric carries the split and says plainly that only one of the six dimensions measures magnitude at all.",
+          "now": ""
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "The five-year rates moved to the primary document.",
+          "now": ""
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "They had been credited to The ASCO Post , because the ASCO abstract that carries them returned an error to every automated attempt to fetch it.",
+          "now": ""
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "It was obtained by hand on 3 September and those figures now rest on it.",
+          "now": ""
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "The same abstract states in its own words that No alpha was assigned to this analysis , which is the plainest available support for a point this piece already made from the three-year paper.",
+          "now": ""
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "We had scored data support 1 and said the rubric's anchor for 1 was \"no data cited,\" which sat badly with a directional result having been cited.",
+          "now": ""
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "On 3 September the rubric was published and the anchor turned out to read purely qualitative assertion with no numeric support .",
+          "now": ""
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "We had misquoted our own rubric; under what it actually says, a score of 1 is right and needs no explaining away.",
+          "now": ""
+        },
+        {
+          "because": "ROUND-2026-09-10",
+          "was": "Every figure above traces to a company release, a peer-reviewed paper or a trial registry record, and none to a news report.",
+          "now": "Every numerical trial result above traces to a company release, a peer-reviewed paper, a conference abstract or a trial registry record; claims about what an outlet reported trace to the named coverag"
+        }
+      ]
     }
   ]
 }

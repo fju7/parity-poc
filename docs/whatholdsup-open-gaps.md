@@ -1631,3 +1631,59 @@ The interim exclusion for 131/343/212 already carries a falsifier of that shape:
 `page_sentences` stops returning 343, the sentence must be re-derived.* **It is
 the right test written in the wrong place** — prose in a file nothing executes,
 where it should be a call in a file that runs every gate.
+
+---
+
+## changecheck cannot read the change log, which is where corrections are
+
+**10 September 2026. Found while running it, as directed, on the melanoma republication.**
+
+`changecheck` reads `ledger.body_only(html)`. That strips
+`<footer id="updates">` — the reader-facing change log. On the melanoma
+republication:
+
+| | changed sentences |
+|---|---|
+| `publish.changes_since` (whole page) | **8** |
+| `changecheck` scope (`body_only`) | **1** |
+
+The seven it did not see are **the entire correction** — the sentence claiming
+every sentence on the page was bound, and its replacement. `changecheck`
+reported *"1 changed sentence(s) reviewed against the page, nothing found"*, and
+the `changed sentences reviewed` row went green.
+
+**The row is true and the impression is false**, which is failure 15 again: the
+check examined what it examines and said so, and the sentence it produced reads
+as though the page's changes had been read.
+
+**And the class of text it cannot reach is the worst possible one.** The change
+log is where this publication records having been wrong. It is the region where
+new prose is most likely to be written under time pressure, by the person who
+made the error, describing their own mistake — and it is invisible to the only
+check that reads new text for meaning. `corrections_check` (B18) reads the log
+for figures and false-disagreement claims; nothing reads it for sense.
+
+**Not fixed today.** Widening `changecheck`'s scope changes what every future run
+costs and what it reports, and doing that inside a publish sequence is how the
+next defect enters. It is the first thing on the next issue's list, and the fix
+is one call — `body_only` to whole-page — plus a re-baseline of what "nothing
+found" has historically meant.
+
+---
+
+## The venv fallback that silently substituted a different interpreter
+
+**10 September 2026.** Every command this session ran as
+`V=.venv/bin/python3; [ -x "$V" ] || V=python3`. **There is no `.venv` in this
+repository.** The project venv is `backend/venv`. So the fallback fired on every
+single invocation and everything ran on the system interpreter.
+
+It went unnoticed because it did not matter — the whatholdsup modules are
+stdlib-only — until `changecheck` needed `anthropic`, which is installed in
+`backend/venv` and not system-wide, and the run died on `ModuleNotFoundError`.
+
+**The shape:** a fallback that substitutes a different thing and reports nothing.
+It is the same object as a guard that catches nothing and a row that vanishes on
+error — *the working case and the degraded case are indistinguishable from
+outside*. A fallback that cannot say it fired is a silent substitution, and the
+right form is either to fail loudly or to print which interpreter it chose.

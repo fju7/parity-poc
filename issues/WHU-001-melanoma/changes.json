@@ -1679,6 +1679,22 @@
         "issues/WHU-001-melanoma/review/2026-09-09-erratum-ruling.md"
       ],
       "note": "The 8 September round: the outside review's 22 findings and their adjudication, the publish directive and its amendment, and the eight-item remediation order with the two rulings that followed. Recorded as a set rather than per change because the reasoning exists in those four documents and is a linkage debt, not an unrecorded one. See ROUND-2026-09-08 in the adjudication. Extended 2026-09-09 by the close-out: RV-06 and the rule 13 amendment, and the step-3 ruling on the eight blocked preflight rows — the two email sentences patched to match the page, deletions entries for 0.179 and 1.004, a declared exclusion for 3.40, the S029 errata lookup, the 9 September corrections.md entry, a changecheck run with its five findings disposed, and Spruance, Eggermont and Greenland recorded in attributions.json after opening each source. Those changes are records and the email, not the page; the page's own span is unchanged from the sha pinned above. Extended again by the erratum ruling: the S029 source note now carries the unread-erratum gap on the page itself, the erratum's PubMed record is held as S030 with the notice explicitly not held, RV-07 records the miss, and S029 keeps an open errata item rather than a disposition. Extended 2026-09-09 by the Morning Glory resolution: the standing claim removed from the page entirely with no substitute, Appendix C item 10 withdrawn, both log paragraphs rewritten to what happened, S028 verified from the publisher's Crossref deposit, and two open-gaps entries. Extended 2026-09-09 by the S028 resolution: RV-09 (a search declared exhaustive without querying the DOI and PMID in our own record), standing rule 22 (search nearest first), the corrections.md note that a correction which turns out to be true is not a verified correction, the S028 three-precision note, Appendix C item 10 recorded as FALSIFIED rather than doubtful, and three open-gaps entries — access-state vocabulary, the KOL Pulse box escalated to REQUIRED, and the gate budget recorded as an operator decision with its 43 sentences named. The page is unchanged by this step."
+    },
+    {
+      "at": "2026-09-10T17:21:53+00:00",
+      "by": "claude",
+      "from_sha": "a788f00ab152123579a5593d0e2fe0908a4b0c264fbabdb0e5cff944517ee7f9",
+      "to_sha": "c20b5725631e1e75da495e3db9872dd0c5252cf048fe7269b9e340d289d0a83e",
+      "because": "ROUND-2026-09-10",
+      "decided_by": [
+        "issues/WHU-001-melanoma/review/2026-09-08-adjudication.md",
+        "issues/WHU-001-melanoma/review/2026-09-10-the-140-ruling.md",
+        "issues/WHU-001-melanoma/review/2026-09-10-melanoma-coverage-ruling.md",
+        "issues/WHU-001-melanoma/review/2026-09-10-changelog-correction-ruling.md"
+      ],
+      "note": "Extends ROUND-2026-09-08 to the republication of 2026-09-10. Everything that set covered, plus the change-log correction: the entry claiming every sentence on this page was bound to the words it rests on was false — it was 131 of 343 — and the operator ruled it corrected rather than deleted, because deleting removes a false claim and says nothing. Recorded as a set, not per sentence, because the reasoning is in the four documents named and is a linkage debt rather than an unrecorded one. | to_sha re-pinned 2026-09-10 after publish.py dateline moved the masthead from 9 to 10 September. The set is STATE, not a dated finding: process document §13 — a dated finding must not be retro-edited, a live status list must be kept current, and this is the second kind. The previous value is kept in to_sha_was rather than overwritten silently. The operator's signature is unaffected: it cites the verification record and sha 7ae5304c…, neither of which moves.",
+      "to_sha_updated": "2026-09-10T17:26:58+00:00",
+      "to_sha_was": "f701e6f8dc9bab5d757f5c68287a6b52dc28edcd319396e644a5e76da23702ae"
     }
   ]
 }

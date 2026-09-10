@@ -266,6 +266,23 @@ work, and it has been unguarded in its own since issue one.
 **Question 4 is the KOL Pulse question**, written so it can be answered rather
 than argued about.
 
+### What the acceptance stage is for, shown once
+
+On 10 September 2026 the session preparing an acceptance block added, unprompted, a note
+above the signature: **the verification record was performed against sha
+`7ae5304c…`, and the page has moved twice since — yesterday's publication and
+today's correction — so that record does not cover the current bytes;
+`confirm-review` is what carries it forward.**
+
+Nobody asked for it. It is not a check's output and no rule required it. It is
+what a stage staffed by a reader produces and a stage staffed by a checklist does
+not: **noticing that a document's stated basis had quietly stopped matching the
+thing it was about to be used for.**
+
+Recorded as the worked example of why this stage is a reading rather than a
+detector. The four questions below are what to ask; this is what asking them
+looks like when the answer is something nobody thought to ask about.
+
 ### Its worklist comes from the epistemic check
 
 `epistemic.py` does not adjudicate; **it triages.** Every sentence it reports as
@@ -538,6 +555,46 @@ signature.
 
 **The test of whether a remedy is this one:** could the two copies ever disagree,
 and would anything notice? If yes to the first and no to the second, derive it.
+
+---
+
+## 11.6 The publish sequence, and why its order is not a matter of care
+
+**Required order, established 10 September 2026:**
+
+```
+publish.py dateline <slug>      # FIRST — it changes the page bytes
+record / re-pin the change set   # pins from_sha and to_sha
+publish.py confirm-review <slug> # binds to the current bytes
+changecheck.py <slug> --before <last published rev>
+publish.py publish <slug> --yes  # with any waive, named
+```
+
+**The reason is not tidiness, and ordering discipline does not solve it.**
+
+The masthead dateline is derived from `editorial_today()`. **It changes by
+itself.** Any publish sequence that crosses midnight in New York invalidates its
+own `confirm-review` and un-pins its own change set — **regardless of whether
+anyone got the order wrong.** On 10 September 2026 that happened across two days, because
+the acceptance was prepared on one and signed on the next. It will happen to
+somebody working late on a single evening, and they will have done nothing wrong.
+
+> **A time-derived field inside a sha-pinned workflow is unstable by
+> construction.** Ordering discipline narrows the window; it cannot close it.
+
+**The durable fix is that `publish` should set the dateline atomically as part of
+publishing**, rather than as a separate earlier step whose result something else
+has to be pinned against. Not built 10 September 2026 — recorded so that the next person
+who hits this reads a known property rather than diagnoses it again.
+
+**And the change set is state, not a record.** Re-pinning `to_sha` after the
+dateline moved is required, not retro-editing: §13's distinction settles it — a
+dated finding must not be retro-edited, a live status list must be kept current,
+and a change set is the second kind. The previous value is kept in `to_sha_was`
+rather than overwritten silently. **The operator's signature is unaffected**: it
+cites the verification record and the sha that record was performed against,
+neither of which moves, so **no fresh signature is required and none should be
+requested.**
 
 ---
 
