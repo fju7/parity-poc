@@ -1368,6 +1368,38 @@ Recorded as a set rather than per sentence because the reasoning is in those
 documents and is a linkage debt, not an unrecorded one — the same basis as the
 set it extends.
 
+## The passage-reading stage's first catch, 10 September 2026
+
+**The first correction draft — written by the reviewer, fitted by the executing
+agent — overstated binding coverage inside a correction about overstating binding
+coverage.** It said *"binding the sentences… to the words they rest on — 131 of
+this page's 343 sentences."* Ninety-five are bound to a span; 34 are declared
+judgements resting on premises; 2 are attested by a named reader.
+
+**Every figure in it was correct against something.** 131 is `rule_rows`' count,
+343 is `page_sentences`', 212 is `not_examined()`'s. `corrections_check` passed.
+`changecheck` could not see the passage at all — it strips the change log. Rule 1
+said ok, correctly.
+
+**No detector would have found it.** The defect was not in a sentence; it was
+between a sentence and a fact about the apparatus that produced it. That is what
+this stage exists for, and it is why the stage is a reading.
+
+**Two for two.** Its other use today caught a false impression in the Appendix D
+coverage disclosure — *"1 of 89"*, true, and inviting the reading that only 1% of
+this publication's claims are checked. **Both catches were in text written about
+the stage's own subject**: how much of our own work our own machinery has actually
+looked at. That is either the place we are least reliable or the place we are
+looking hardest, and one use apiece is not enough to say which.
+
+**A correction to the first report of this catch.** It said the two attested
+sentences were *"neither judgements nor bound"*, implying rule 1 passes sentences
+satisfying nothing. It does not: `unbound` is 0, and the two pass by the third,
+documented route — a named reader's attestation of a document the NCCN licence
+forbids any automated tool from opening. The error was reading bucket and span and
+not reading the pass logic: a thing fitting neither of two known categories read
+as unaccounted for rather than as a third category.
+
 ## Accepted for publication
 
 Verification: 2026-09-09-verification-record.md, against page sha 7ae5304cf5b7313b3c1c57718a2d234513eb68defed56f03fd5a231d6d102221, performed by a session

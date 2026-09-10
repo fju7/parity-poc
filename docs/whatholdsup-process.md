@@ -625,6 +625,30 @@ Fourteen ways this publication has actually been wrong, and what catches each.
 | 19 | A test set drawn from known incidents, mistaken for a test of the problem | run the new check against the whole corpus before wiring it anywhere |
 | 20 | A datum edited to make a check pass — reasoning from the symptom, in the data layer | ask what the datum IS, never what value would silence the check |
 
+### 12g. A correction that replaces a summary with another summary fails the same way
+
+**10 September 2026, from two errors in one afternoon, both in the same paragraph.**
+
+> **Summarising loses structure, and the loss runs flattering. State the
+> structure and it ends.**
+
+The melanoma change-log entry said the corrections meant binding **every**
+sentence. Corrected, it said **131 of 343** — a cleaner number, and still wrong:
+95 are bound to a span, 34 are declared judgements, 2 are attested. Each summary
+was more accurate than the last and each was a summary, so each had room for the
+same error again.
+
+**The pull toward a clean number is what produced both.** A structure has four
+figures and a shape; a summary has one figure and reads as settled. The second is
+what a writer reaches for and what a reader remembers, and the compression is
+where the flattering direction gets in — *"131 bound"* sounds better than *"95
+bound, 34 declared, 2 attested, 212 unexamined"*, and it was the sentence that
+had to be corrected twice.
+
+**The test:** if the corrected sentence contains a single number where the truth
+has a shape, it will need correcting again. The regress ends when the structure is
+on the page, because a structure has nowhere left to compress to.
+
 ### 12f. Which premises need verifying: the ones that feel settled from repetition
 
 The rule *"verify the premise"* does not say **which** premises, and there are
@@ -696,6 +720,32 @@ The fix is mechanical and it is now installed: `hooks/pre-commit` refuses a comm
 whose staged paths touch whatholdsup while its tests are red, scoped so a commit
 elsewhere is unaffected. Made to fire before being trusted — broken test, refused
 commit, restored test, accepted commit.
+
+**Failure 21 — the normalisation step is where the difference you are looking for
+goes to die.** *10 September 2026.*
+
+`announce_interpreter()` was written to catch a silent substitution of one Python
+for another. It compared `Path(sys.executable).resolve()` against the venv's
+`bin/python3`. **A venv's `python3` is a symlink to the base interpreter**, so
+`.resolve()` — whose entire purpose is to normalise away exactly that kind of
+indirection — made the two paths equal, and the function returned *"this is the
+project venv"* for every interpreter on the machine. **It silently passed a silent
+substitution, for an hour, having been written to catch one.**
+
+File it with `_norm` equality defeated by a stripped tag. The rule:
+
+> **Before normalising, ask whether the property you are testing survives the
+> normalisation.** A normalisation that runs along the same axis as the question
+> destroys the answer and returns "same".
+
+**And it runs both ways.** The same week, a declared figure exclusion went stale
+because `_norm` collapses whitespace runs but does **not** remove a space before a
+full stop — `"343 sentences."` and `"343 sentences ."` are different after `_norm`
+— so a declaration written by hand failed to match the page it described.
+**Normalising too little reports a false difference; normalising along the
+question's own axis reports a false sameness.** The second is worse: a false
+difference is a red check somebody investigates, a false sameness is a green one
+nobody does.
 
 **Failure 20 — reasoning from the symptom.** *When a check fires, the question is
 what the data actually is, never what value would silence the check.*

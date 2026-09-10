@@ -1817,3 +1817,175 @@ silent substitution and, for an hour, silently passed one. It compares
 `sys.prefix` now, which is what actually differs between environments, and it was
 made to fire on the system interpreter and stay quiet on the venv before being
 trusted.
+
+---
+
+## There is no hole in rule 1. There is a third route, and I did not report it.
+
+**10 September 2026. Correcting my own finding of an hour earlier.**
+
+I reported that two `figure`-bucket sentences *"are neither judgements nor bound
+and have no span at all"*, and left the implication that rule 1 passes sentences
+satisfying neither route. **That implication was wrong. Rule 1 has three routes,
+not two, and the third is deliberate, documented, costed and separately
+reported.**
+
+### The mechanism, from the code
+
+```python
+attested = [k for k, v in on_page.items()
+            if (v.get("bucket") or "") == "figure"
+            and (v.get("attested_by") or "").strip()
+            and (v.get("attested_in") or "").strip()
+            and (v.get("locator") or "").strip()]
+unbound  = [k for k, v in on_page.items()
+            if not covering(v) and k not in set(attested)]
+```
+
+A row passes rule 1 by **one of three** routes:
+
+| route | test | melanoma |
+|---|---|---|
+| **BOUND** | its own `span` (or an `also_rests_on` span) is present in a held document | **95** |
+| **DECLARED** | `bucket == "judgement"`, and its `premises` carry spans | **34** |
+| **ATTESTED** | `bucket == "figure"`, with a named person, the record of their reading, and a locator | **2** |
+| | **unbound — fails rule 1** | **0** |
+
+Measured: `covering()` is empty for exactly 2 rows, both attested. **`unbound` is
+0.** Nothing passes by satisfying nothing.
+
+### Why the third route exists, in the file's own words
+
+> *"NCCN's licence forbids putting the guideline through any automated tool, so no
+> check has read it or ever may… A rule 1 that demanded a span from those
+> sentences would make the attested route useless and push us toward pasting
+> licence-bound text into a file to satisfy a check — the worst outcome
+> available."*
+
+And it is **not** merged into the verified counts:
+
+> *"The count is reported SEPARATELY below and never added to the verified ones,
+> because 'a human says this is in a document nothing may read' and 'this string
+> is in these bytes' are different claims and merging them is the oldest error in
+> this repository."*
+
+That separate row is the one already in the acceptance block: *"2 of 131 rest on
+a document no check may read."* **It was in front of me, in the open list I
+generated, while I wrote that they were unaccounted for.**
+
+The two are named in the acceptance block: the rubric's data-support anchor,
+attested against `score_claims.py`; and the 3.4/3.35 working, attested against git
+history and the deployed page.
+
+### What I got wrong, and how
+
+I derived "neither judgements nor bound" from **bucket and span alone** and did
+not read the pass logic. The categories I had were the two I already knew about,
+and a thing that fits neither reads as unaccounted for rather than as a third
+category. **That is the same move as the third kind of figure recorded above** —
+where a self-measurement with no category was suppressed into an exclusion file
+rather than classified.
+
+**The corrected finding is smaller and different.** The passage's *"131 sentences
+bound to the words they rest on"* is still wrong, because 95 are bound. But the
+other 36 are not unaccounted for: 34 are declared and 2 are attested. **The defect
+is a word doing three jobs, not a hole.**
+
+---
+
+## Every comparison that normalises before comparing — the survey
+
+**10 September 2026. Reported; nothing fixed beyond `announce_interpreter`, as ruled.**
+
+The question asked of each site: **does the property being tested survive the
+normalisation?**
+
+### Orthogonal — normalisation removes something the question does not depend on
+
+The large majority. `spancheck._norm` normalises whitespace, dash characters and
+**decimal separators** — it exists because *The Lancet* prints `0·561` with a
+middle dot, and three figures were reported absent from a document that held them
+all day. Every span-presence check runs `_norm(span).lower() in _norm(doc).lower()`.
+The question is *"is this text in this document"*; typography is not the
+difference being sought. Same for `b13`, `deletions`, `negatives`, `quotations`,
+`changecheck`, `reconcile:160`, `modelbind`, `findings`, `canary`.
+
+### Same-axis — the normalisation can erase the thing being tested
+
+| site | what it normalises | the risk |
+|---|---|---|
+| `jsonio.announce_interpreter` **(FIXED)** | `Path.resolve()` on interpreter paths | **realised.** A venv `python3` is a symlink to the base interpreter, so resolving both made every interpreter look like the project venv |
+| `reconcile.py:107` | `u.rstrip("/").lower()` on **page URLs** | URL **paths are case-sensitive**. Two distinct links differing only in case would be treated as the same known URL, and one would be silently accepted as accounted-for |
+| `sweep_sources.py:222` | `slug.lower() in d.name.lower()` — **substring** | a slug that is a prefix or substring of another issue's directory name resolves to the wrong issue. Harmless with three issues named `cdk46`, `melanoma`, `deskilling`; a future `melanoma-2` would match `melanoma`'s directory first |
+| `source_store.py:889/903` | `k.lower() in _searchable(data).lower()` | identity of a held document by substring match; two identifiers differing only in case merge |
+
+### The opposite failure, in the same week
+
+`b13`'s staleness arm normalises **too little**. `_norm` collapses whitespace runs
+but does not remove a space before a full stop, so `"343 sentences."` and
+`"343 sentences ."` differ after normalisation — and a hand-written figure
+exclusion was reported as stale against the page it correctly described.
+
+**Normalising too little reports a false difference. Normalising along the
+question's own axis reports a false sameness.** The second is worse: a false
+difference is a red check somebody investigates; a false sameness is a green one
+nobody does.
+
+**None of the three unrealised risks is fixed today**, per the ruling. They are
+listed so the next person changing any comparison in this apparatus has the
+question in front of them: *does the property I am testing survive this
+normalisation?*
+
+---
+
+## The passage stage, second run on the same passage: Q3 again, on the denominator
+
+**10 September 2026. The rewrite fixed the numerator and left the denominator undeclared.**
+
+**Q1 — contradiction? Clean.** 95 + 34 + 2 = 131; 131 + 212 = 343. The
+*"no exemptions"* quotation is past tense and the phrase is still findable in
+`bindings.py`, in the corrected docstring's own history note.
+
+**Q2 — asserted state against the store? Clean, all six figures verified
+individually:**
+
+| the page says | the store says |
+|---|---|
+| 343 sentences | `page_sentences` → **343** |
+| examined 131 | `rule_rows` population → **131** |
+| 95 point at a span | rows with a span → **95** |
+| 34 judgements on premises | → **34** |
+| 2 attested | → **2** |
+| 212 not examined | `not_examined()` → **212** |
+
+**Q3 — false impression no sentence states? NOT CLEAN.**
+
+> *"This page has 343 sentences."*
+
+**The page does not have 343 sentences.** 343 is `page_sentences` — the body
+*after* the head, the navigation and the change log are stripped. The change log
+alone carries **267** more. The whole document is **656**.
+
+Nothing in the passage says what 343 excludes, and a reader who counted would get
+a different number. **The reader is standing in the change log while reading it** —
+the one region the denominator leaves out.
+
+**And the direction is the familiar one.** 131 of 343 is **38%**. Counting the
+change log the same way gives 131 of 610, or **21%**. The undeclared denominator
+makes our coverage look nearly twice as good.
+
+**This is the third time the same paragraph has understated the same thing** —
+*"every sentence"*, then *"131 of 343 bound"*, now an unstated denominator — and
+each correction fixed the error one level down while leaving a new one at the
+level below. That is §12g's regress, and §12g's own test catches it: **the
+sentence still contains a single number where the truth has a shape.** 343 is a
+scope decision presented as a count.
+
+**Q4 — suspension? Borderline, as before.** 1,966 characters; the correction now
+runs six sentences before the paragraph's original content resumes. Structural
+note for the next revision, agreed, not a blocker.
+
+**Stopped. Not fixed, not proceeded.** The fix is not obvious — whether the change
+log should count toward binding coverage at all is a real question, and answering
+it inside a publish sequence is how the fourth version of this sentence gets
+written.

@@ -1203,13 +1203,34 @@ def preflight_rows(slug: str) -> list[tuple[str, str, str]]:
     on_page = {k: v for k, v in rows.items() if v.get("on_page")}
     bound = [k for k, v in on_page.items() if v.get("span")]
     unbucketed = [k for k, v in on_page.items() if not v.get("bucket")]
-    out = [("empirical sentences bound",
-            OK if len(bound) == len(on_page) else WARN,
-            "all %d empirical sentence(s) name the words they rest on"
-            % len(on_page) if len(bound) == len(on_page) else
-            "%d of %d empirical sentence(s) are bound to a span; %d rest on "
-            "nothing this system can name"
-            % (len(bound), len(on_page), len(on_page) - len(bound)))]
+    # VOCABULARY, RULED 2026-09-10. One word was doing three jobs.
+    #
+    #   BOUND     has a span in a held document.
+    #   DECLARED  a judgement with stated premises and a step.
+    #   ATTESTED  a figure a named person read in a document no check may read.
+    #
+    # Rule 1 is satisfied by any of the three. **"Bound" never means "satisfies
+    # rule 1."** This row used to say "%d of %d are bound to a span; %d rest on
+    # nothing this system can name" -- which called 34 correctly declared
+    # judgements and 2 correctly attested figures "resting on nothing", while
+    # rule 1 passed the same sentences two rows below. Two rows, one file,
+    # opposite characterisations of the same 36 sentences, and the melanoma page
+    # inherited the loose reading and printed it to readers.
+    #
+    # b13's two-notions-of-"used", one layer down.
+    declared = [k for k, v in on_page.items()
+                if not v.get("span") and (v.get("bucket") or "") == "judgement"]
+    attested_n = [k for k, v in on_page.items()
+                  if not v.get("span") and (v.get("bucket") or "") == "figure"
+                  and (v.get("attested_by") or "").strip()]
+    other = len(on_page) - len(bound) - len(declared) - len(attested_n)
+    out = [("empirical sentences bound to a span",
+            OK if not other else WARN,
+            "%d of %d bound to a span, %d declared as judgements resting on stated "
+            "premises, %d attested by a named reader%s. Rule 1 below is satisfied by "
+            "any of the three; BOUND means a span and nothing else."
+            % (len(bound), len(on_page), len(declared), len(attested_n),
+               "" if not other else ", and %d by none of them" % other))]
     out.extend(rule_rows(slug))
     flagged = [k for k, v in on_page.items() if v.get("check_flags")]
     checked = [k for k, v in on_page.items() if v.get("checked_on")]
