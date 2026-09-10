@@ -266,6 +266,18 @@ work, and it has been unguarded in its own since issue one.
 **Question 4 is the KOL Pulse question**, written so it can be answered rather
 than argued about.
 
+### Its worklist comes from the epistemic check
+
+`epistemic.py` does not adjudicate; **it triages.** Every sentence it reports as
+**NOT EVALUATED** — subject not resolvable, or source unclassified — is a
+sentence making a claim about what we hold or have read that no machine could
+check. **That list is this stage's worklist**, and it is the join between the
+mechanical third of the coherence problem and the two thirds that are a reading.
+
+The machine narrows the field; the reader decides. On 10 September 2026 the field is 89
+sentences across three issues, of which 88 are unevaluable — which is a large
+worklist and an honest one.
+
 ### Who performs it
 
 **Every passage-level and whole-level catch in this cycle came from the
@@ -519,6 +531,28 @@ Fourteen ways this publication has actually been wrong, and what catches each.
 | 16 | A protective construct whose triggering condition was never tested — a guard that catches nothing, a stop wired to a probe that cannot fire, a test containing `or True` | the construct must be made to fire once |
 | 17 | A check whose condition is sound and whose message names a cause that is not the cause | read the message as if you did not already know the answer |
 | 18 | A defect deferred whole, on an estimate of cost made by the person who benefits from the estimate being high | decompose it, then defer the parts that survive |
+| 19 | A test set drawn from known incidents, mistaken for a test of the problem | run the new check against the whole corpus before wiring it anywhere |
+
+**Failure 19 — the fixtures are selected by the blind spot that produced the
+incidents.** *A test set drawn from known incidents tests the part of the problem
+the incidents made visible. The part they did not make visible is the part nobody
+has looked at.*
+
+This is not failure 16 restated. Failure 16 says **make the construct fire**.
+This says firing is not enough, and the reason is structural rather than careless.
+
+The worked example is `epistemic.py`, 10 September 2026. Five fixtures, three firing and
+two not, drawn from three real incidents — a set that satisfies failure 16
+exactly. **All five had an unambiguous subject**, because the incidents that
+reached the record were the ones a person could see, and subject ambiguity is
+invisible until a machine tries to resolve it. Run against the corpus the same
+check produced four findings and every one was a false positive, three of them
+from the mechanism the fixtures never exercised.
+
+> **Operational rule: run a new check against the whole corpus before wiring it
+> into anything.** The test set proves it works on the problem you already
+> understood. The corpus tells you what the problem is. It costs one command,
+> and here it cost one command and changed what the check is for.
 
 **Failure 18 — decompose before deferring.** *A defect deferred whole is often
 three defects, and usually at least one of them is cheap. An estimate of cost is
@@ -870,6 +904,21 @@ invite the scrutiny a number being derived does.** The remedy is not care. It is
 that a scope figure quoted in a directive is re-derived at the point of use, the
 way `record_begins()` and `publication_dates()` are derived rather than
 remembered.
+
+**"Zero true findings" is the flattering reading of an inconclusive result.**
+Recorded 10 September 2026, because in six weeks the sentence that will be remembered is
+*"we ran an epistemic check across all three issues and it found nothing"*, and
+that is not what happened.
+
+Four false positives and zero true positives establishes **nothing** about
+whether the corpus contains stale epistemic claims. A check that cannot resolve
+a sentence's subject cannot establish absence any more than presence. What is
+known: the predicate half works. What is open: everything about the corpus.
+
+The retargeted run makes the same point in a number instead of a sentence — it
+evaluates **1 of 89** epistemic sentences across three issues, and that one is a
+known false positive. **A finding of "nothing" from an instrument with 1%
+coverage is a fact about the instrument.**
 
 **THE COUNTER-INSTANCE RULE.** An entry in this column with no counter-instances
 after a reasonable number of observations is reported as **UNSUPPORTED**, not as

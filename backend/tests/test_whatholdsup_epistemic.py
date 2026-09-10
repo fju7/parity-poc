@@ -74,6 +74,7 @@ S028_NOTE = (
 def test_it_fires_on_the_corrigendum_note():
     f = E.check_sentence(CORRIGENDUM_UNREAD, "cdk46")
     assert f, "the corrigendum note must be reported"
+    assert f[0]["verdict"] == E.FAIL, f[0]
     assert f[0]["source"] == "S025"
     assert f[0]["asserted"] == E.UNREAD
     assert "full_text_held" in f[0]["recorded"]
@@ -82,10 +83,10 @@ def test_it_fires_on_the_corrigendum_note():
 def test_it_fires_on_the_corrections_entry():
     f = E.check_sentence(CORRECTIONS_UNREAD, "cdk46")
     assert f, "the 31 August entry must be reported"
-    assert [x["source"] for x in f] == ["S025"], (
+    assert [x.get("source") for x in f] == ["S025"], (
         "it must name the corrigendum and NOT the trial paper it corrects: %s"
-        % [x["source"] for x in f])
-    assert f[0]["asserted"] == E.UNREAD
+        % [x.get("source") for x in f])
+    assert f[0]["verdict"] == E.FAIL and f[0]["asserted"] == E.UNREAD
 
 
 def test_it_fires_on_a_correction_announcing_a_change_never_made():
@@ -101,17 +102,46 @@ def test_it_fires_on_a_correction_announcing_a_change_never_made():
 # it does NOT fire -- the half that makes it a check rather than an alarm
 # ---------------------------------------------------------------------------
 
-def test_it_does_not_fire_on_the_s029_erratum_disclosure():
-    """S030 is held in full. What is held is the PubMed RECORD, not the notice.
-    The store says so in `form: record`; a check that ignores that field calls
-    the most carefully written sentence on the page a contradiction."""
+def test_it_does_not_fail_on_the_s029_erratum_disclosure():
+    """S030 is held in full and what is held is the PubMed RECORD, not the
+    notice. `document_class: record_about` says so. The verdict must never be
+    FAIL — and it must never be a silent PASS either, because a record about a
+    document cannot answer a question about the document."""
     f = E.check_sentence(S029_DISCLOSURE, "melanoma")
-    assert not f, "false positive on a correct disclosure: %r" % (f,)
+    assert all(v["verdict"] != E.FAIL for v in f), \
+        "false positive on a correct disclosure: %r" % (f,)
 
 
-def test_it_does_not_fire_on_a_note_that_states_what_is_held():
+def test_holding_an_abstract_satisfies_we_hold_but_not_we_have_read():
+    """The rule bug from the first corpus run. "The five-year release we hold"
+    is TRUE at abstract_held; the release IS held, as an abstract. Six states,
+    not two."""
+    assert "abstract_held" in E.SATISFIED_BY[E.HOLD]
+    assert "abstract_held" not in E.SATISFIED_BY[E.READ]
+    assert "abstract_held" in E.SATISFIED_BY[E.UNREAD]
     f = E.check_sentence(S028_NOTE, "melanoma")
-    assert not f, "false positive on an accurate abstract-only note: %r" % (f,)
+    assert all(v["verdict"] != E.FAIL for v in f), \
+        "false positive on an accurate abstract-only note: %r" % (f,)
+
+
+def test_an_unresolvable_subject_is_not_evaluated_and_never_passes():
+    """The whole point of the retarget. A sentence naming several sources and
+    predicating about one of them is the normal case in this prose, and the
+    first version reported the wrong subject twice."""
+    s = ("The corrigendum to the MONARCH 3 final overall-survival paper was "
+         "held in full on 1 September 2026 and read.")
+    v = E.check_sentence(s, "cdk46")
+    assert v, "an epistemic sentence must always produce a verdict"
+    assert all(x["verdict"] != E.PASS for x in v), \
+        "an unresolved subject must never be reported as passing: %r" % (v,)
+
+
+def test_an_unclassified_source_is_not_evaluated_rather_than_assumed():
+    """Absent document_class means NOT EVALUATED, never an assumed document."""
+    r = E.scan("deskilling")
+    assert r["aliases"]["with_document_class"] == 0
+    assert r["evaluated"] == 0, "nothing may be evaluated with no source classified"
+    assert r["epistemic_sentences"] > 0, "and the sentences must still be counted"
 
 
 def test_a_correction_whose_change_was_actually_made_does_not_fire():

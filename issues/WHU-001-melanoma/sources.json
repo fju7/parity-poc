@@ -729,7 +729,9 @@
     ],
     "note": "Open-access PMC full text (PMCID PMC5648545) fetched under the 2026-09-08 remediation order. Identity confirmed by the store: contains its identifier PMC5648545; substance classified full_text, 50,819 characters. The page links the PubMed record; the representation held is the PMC HTML."
    },
-   "erratum_note": "Formally corrected: N Engl J Med 2018 Nov 9;379(22):2185, PMID 31442371, DOI 10.1056/NEJMx180040. NOT HELD and not readable from here — the notice is subscription-only at NEJM (403 to a script), absent from PubMed Central and Europe PMC (isOpenAccess N, inPMC N, inEPMC N), and carries no abstract in PubMed or Crossref. It is a bulk notice covering thirteen NEJM articles at once. CORROBORATION, NOT CLOSURE: every figure this page quotes from S029 — 65.4% vs 54.4% at five years, HR 0.72, 95.1% CI 0.58 to 0.88, P=0.001, the 10 mg/kg dose — appears verbatim in the PubMed abstract of record for PMID 27717298 retrieved 2026-09-09, which is the post-erratum state of that record. That bounds the risk; it does not read the erratum, and a PubMed abstract is not always revised when one is issued. Until somebody opens the notice we do not know whether it touches a figure on this page."
+   "erratum_note": "Formally corrected: N Engl J Med 2018 Nov 9;379(22):2185, PMID 31442371, DOI 10.1056/NEJMx180040. NOT HELD and not readable from here — the notice is subscription-only at NEJM (403 to a script), absent from PubMed Central and Europe PMC (isOpenAccess N, inPMC N, inEPMC N), and carries no abstract in PubMed or Crossref. It is a bulk notice covering thirteen NEJM articles at once. CORROBORATION, NOT CLOSURE: every figure this page quotes from S029 — 65.4% vs 54.4% at five years, HR 0.72, 95.1% CI 0.58 to 0.88, P=0.001, the 10 mg/kg dose — appears verbatim in the PubMed abstract of record for PMID 27717298 retrieved 2026-09-09, which is the post-erratum state of that record. That bounds the risk; it does not read the erratum, and a PubMed abstract is not always revised when one is issued. Until somebody opens the notice we do not know whether it touches a figure on this page.",
+   "document_class": "document",
+   "document_class_why": "The EORTC 18071 paper itself, held in full."
   },
   {
    "id": "S030",
@@ -753,8 +755,11 @@
      "bibliographic record"
     ],
     "note": "The PubMed record is held in full. The erratum notice it describes is NOT held: paywalled at NEJM, absent from PMC and Europe PMC, no abstract anywhere. No claim about what the notice says may rest on this source."
-   }
+   },
+   "document_class": "record_about",
+   "document_class_why": "The PubMed bibliographic record for the 2018 NEJM erratum. The notice itself is not held; no claim about what the notice says may rest on this."
   }
  ],
- "also_called_note": "The role-nouns the page uses for a source. These must identify the DOCUMENT, not its subject: 'KEYNOTE-942' is a trial that three of these sources report on, and listing it as an alias for all three made every sentence about the trial match all three at once -- so the one source marked `blocked` absorbed the blame for claims the read sources actually support. The ledger audit matches sentences to sources by these plus the title's trial and journal names; a reference the page makes that is not listed here is invisible to the audit."
+ "also_called_note": "The role-nouns the page uses for a source. These must identify the DOCUMENT, not its subject: 'KEYNOTE-942' is a trial that three of these sources report on, and listing it as an alias for all three made every sentence about the trial match all three at once -- so the one source marked `blocked` absorbed the blame for claims the read sources actually support. The ledger audit matches sentences to sources by these plus the title's trial and journal names; a reference the page makes that is not listed here is invisible to the audit.",
+ "_document_class": "document | record_about. A source can be held in full and still be the wrong thing to ask: S030 is the PubMed RECORD for an erratum whose notice nobody has read, and its access state is full_text_held. Standing rule 1 is 'no claim about a document we have not opened'; without this field that rule cannot be checked, because the store could not tell a document from a record about one. Absent means unclassified, which is NOT EVALUATED, never document."
 }

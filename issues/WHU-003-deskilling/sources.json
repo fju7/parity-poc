@@ -1475,5 +1475,6 @@
     "recorded": "2026-08-30",
     "what_happened": "The retracted meta-analysis's citation count was printed three ways in one day. The page said 'more than 500'. A gate run VERIFIED 500+. The next run said 266. Nature's own article page read 402 at about 17:00 and 399 an hour later. Independent reports give 262, 266 and 270 depending on whether they count the journal's own counter, Springer Nature journals only, or everything.",
     "the_rule": "A live metric is not a fact and should not be printed as one, however carefully it is dated. It moves while you look at it, and a reader who checks will find a different number and conclude we were careless. Page and email now say 'several hundred', which is true on every count and will stay true."
-  }
+  },
+  "_document_class": "document | record_about. A source can be held in full and still be the wrong thing to ask: S030 is the PubMed RECORD for an erratum whose notice nobody has read, and its access state is full_text_held. Standing rule 1 is 'no claim about a document we have not opened'; without this field that rule cannot be checked, because the store could not tell a document from a record about one. Absent means unclassified, which is NOT EVALUATED, never document."
 }

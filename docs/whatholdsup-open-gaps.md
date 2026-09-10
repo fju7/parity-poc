@@ -824,6 +824,15 @@ The same shape covers a log entry that quotes an **external claim we do not
 endorse** — "an outlet reported X" — where X acquires the body's binding and the
 apparatus reports the page as having a source for a claim it exists to dispute.
 
+**A second, independent manifestation, 10 September 2026.** The epistemic check reported
+that a correction announcing the removal of an ASCO Post quotation was false,
+because the phrase *"key secondary endpoint"* is on the page. It is — **four
+times, in our own prose.** The quotation is gone. The check matched a string
+without its attribution, which is the same defect as bindings keying on
+`fingerprint(sentence)`: **the apparatus cannot tell a sentence from its
+quotation.** Two independent manifestations, arrived at by different routes, is
+what makes the case for fixing the root rather than patching either symptom.
+
 The staleness arm of the B18 exemption is the interim control: if a declared
 overlap stops matching, the test fires and names this hazard. It catches the
 melanoma case. It does not catch the general one.
@@ -1137,3 +1146,68 @@ not a vocabulary problem, it is a reference-resolution problem, and I do not
 currently have a test that distinguishes a working resolver from a broken one
 beyond the five hand-built cases.** By failure 16 that means it is not ready,
 and by the rule above it means the next step is more corpus, not more fixtures.
+
+---
+
+## Two piles, not one: waiting on effort, waiting on an idea
+
+**Adopted 10 September 2026.** Every entry in this document was deferred, and they were not
+deferred for the same reason. Sorting them into one pile makes the second kind
+invisible.
+
+> **A defect deferred for cost waits on effort. A defect deferred for want of a
+> test waits on an idea.**
+
+The difference is operational, not philosophical. The first pile is scheduling:
+pick it up when there is time, and it will be there. The second is not — no
+amount of time moves it, because the missing thing is a way to tell a working
+implementation from a broken one, and by failure 16 a protective construct whose
+triggering condition cannot be specified is not a protection.
+
+**When this pile is next re-read**, every entry gets one of the two labels, and
+the re-read is the moment to apply failure 18 as well: a defect deferred whole is
+often three defects, and one of them is usually cheap. The two exercises belong
+together — decompose first, then sort the parts.
+
+Current examples of the second kind, stated so they are not mistaken for
+scheduling: automated contradiction detection, and automated assessment of
+whether a passage leaves a false impression. Neither is expensive. Neither has a
+test.
+
+---
+
+## The epistemic check, retargeted: 1 of 89 sentences evaluated
+
+**10 September 2026, superseding the entry above it.** The check's job changed from
+adjudication to triage, and the number that matters changed with it.
+
+| issue | epistemic sentences | PASS | FAIL | NOT EVALUATED | coverage |
+|---|---|---|---|---|---|
+| cdk46 | 20 | 0 | 0 | 20 | **0%** |
+| deskilling | 17 | 0 | 0 | 17 | **0%** |
+| melanoma | 52 | 0 | 1 | 51 | **2%** |
+
+**1 of 89, and the one FAIL is the known false positive** cross-referenced to the
+fingerprint hazard above. Nothing on any page has been established as either
+sound or stale.
+
+**Three outcomes, never two.** A check that cannot determine a sentence's subject
+reports NOT EVALUATED and never PASS. Silence about what was not examined is the
+difference between a coverage number and a false assurance — and the first
+version of this file produced exactly that false assurance, four false positives
+read as "the corpus is clean".
+
+**What the coverage is gated on**, in order of how much each would move it:
+
+1. **`document_class`** is set on 4 sources of 99. A source without it is NOT
+   EVALUATED rather than assumed to be a document, which is correct and is why
+   deskilling reads 0% with 41 of 44 sources aliased.
+2. **Aliases**: 81 of 99 sources carry them; 18 cannot be named at all.
+3. **Bindings**: 7 of 228 cdk46 rows carry a locator naming a source, so
+   binding-based subject resolution almost never fires and the string half
+   usually decides alone — which is what it was doing when it got three of four
+   wrong.
+
+None of those is a defect in the check. **They are the store's own coverage, made
+visible by something that finally asked.** The 88 NOT EVALUATED sentences are the
+passage-reading stage's worklist (§5.5), which is what the check is now for.

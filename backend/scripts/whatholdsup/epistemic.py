@@ -55,7 +55,34 @@ import source_store as store          # noqa: E402
 
 OK, WARN, BAD = "ok", "warn", "STOP"
 
-READ, UNREAD = "READ", "UNREAD"
+PASS, FAIL, NOT_EVALUATED = "PASS", "FAIL", "NOT EVALUATED"
+
+# THREE OUTCOMES, NEVER TWO.
+#
+# A check that cannot determine a sentence's subject reports NOT EVALUATED. It
+# never reports PASS. Silence about what was not examined is the difference
+# between a coverage number and a false assurance — and the first run of this
+# file produced four findings, all false positives, from which the flattering
+# reading was "the corpus is clean". Four false positives and zero true
+# positives establishes nothing about the corpus. It establishes that the
+# predicate half works.
+
+READ, UNREAD, HOLD, UNREACHED = "READ", "UNREAD", "HOLD", "UNREACHED"
+
+# PREDICATES ARE NOT BINARY, AND THE STORE HAS SIX STATES.
+#
+# "The five-year release we hold" is TRUE at abstract_held — the release is
+# held, as an abstract. The first version of this file called that a
+# contradiction, because it collapsed six states into held/not-held. "We hold"
+# and "we have read" make different claims about the same state and only the
+# second is false at abstract_held.
+SATISFIED_BY = {
+    HOLD:      {"full_text_held", "human_read", "abstract_held", "fragment_only"},
+    READ:      {"full_text_held", "human_read"},
+    UNREAD:    {"blocked", "fragment_only", "abstract_held", "not_opened",
+                "unchecked", ""},
+    UNREACHED: {"blocked", "not_opened", ""},
+}
 
 # A source may be held in full and still be the wrong document to ask. S030 is
 # the PubMed RECORD for an erratum whose notice nobody has read; its state is
@@ -71,10 +98,28 @@ _UNREAD = re.compile(
     r"\b(remains? unread|still unread|have not (?:yet )?read|has not (?:yet )?been read"
     r"|have not been able to read|requires reading it|cannot say .{0,80}reading"
     r"|nobody (?:here )?(?:has|had) (?:ever )?opened|never (?:been )?read"
-    r"|we have never read|unread by us|do not hold|have not obtained)\b", re.I)
+    r"|we have never read|unread by us|have not obtained)\b", re.I)
 _READ = re.compile(
-    r"\b(we have (?:now )?read|read in full|held in full|we hold(?: the)?\b"
-    r"|having read it|read at source|we have opened)\b", re.I)
+    r"\b(we have (?:now )?read|read in full|read it in full|having read it"
+    r"|read at source|we have opened)\b", re.I)
+_HOLD = re.compile(r"\b(we hold|held in full|the .{0,40}we hold|do not hold)\b", re.I)
+_UNREACHED = re.compile(
+    r"\b(could not reach|cannot reach|every retrieval route .{0,40}block"
+    r"|returned a block|we could not open)\b", re.I)
+
+def _asserted(sentence: str):
+    """The claim this sentence makes about our own access. Order matters: the
+    negative forms are checked first because "do not hold" contains "hold"."""
+    if _UNREAD.search(sentence):
+        return UNREAD
+    if _UNREACHED.search(sentence):
+        return UNREACHED
+    if _READ.search(sentence):
+        return READ
+    if _HOLD.search(sentence):
+        return HOLD
+    return None
+
 
 # "the clause has been replaced / removed / now reads" -- a claim about the page.
 _CLAIMED_CHANGE = re.compile(
@@ -142,26 +187,83 @@ def resolve(sentence: str, slug: str) -> list[str]:
     return out
 
 
+def declared_sources(sentence: str, slug: str) -> list[str]:
+    """Source ids the BINDING for this sentence declares.
+
+    Not proof of subject — a sentence can be supported by one document and
+    predicate about another — but far stronger evidence than a title appearing
+    in the string, which is what produced two of the four false positives on the
+    first corpus run.
+    """
+    try:
+        import bindings as B
+        rows = json.loads((store.case_dir(slug) / "bindings.json")
+                          .read_text(encoding="utf-8")).get("bindings") or []
+    except Exception:
+        return []
+    if isinstance(rows, dict):
+        rows = list(rows.values())
+    key = " ".join(sentence.split())
+    for r in rows:
+        if " ".join((r.get("sentence") or "").split()) != key:
+            continue
+        blob = json.dumps(r)
+        return sorted(set(re.findall(r"\bS\d{3}\b", blob)))
+    return []
+
+
 def check_sentence(sentence: str, slug: str) -> list[dict]:
-    """Disagreements between what this sentence asserts and what the store holds."""
-    asserted = UNREAD if _UNREAD.search(sentence) else (
-        READ if _READ.search(sentence) else None)
+    """One verdict per epistemic sentence: PASS, FAIL or NOT EVALUATED.
+
+    NOT EVALUATED is never silence. It is the passage-reading stage's worklist.
+    """
+    asserted = _asserted(sentence)
     if not asserted:
         return []
+
+    by_string = resolve(sentence, slug)
+    by_binding = declared_sources(sentence, slug)
+
+    # Where the binding and the string agree, the subject is resolved. Where
+    # they disagree, or the sentence is unbound, it is not.
+    if by_binding:
+        agreed = [s for s in by_string if s in by_binding]
+        subjects, how = (agreed, "binding and text agree") if agreed else ([], "binding and text disagree")
+    elif len(by_string) == 1:
+        subjects, how = by_string, "one source named, unbound"
+    elif len(by_string) > 1:
+        subjects, how = [], "names %d sources; which one it is about is not decidable" % len(by_string)
+    else:
+        subjects, how = [], "no source resolved"
+
+    if not subjects:
+        return [{"verdict": NOT_EVALUATED, "asserted": asserted, "why": how,
+                 "candidates": by_string or by_binding,
+                 "sentence": " ".join(sentence.split())[:220]}]
+
     out = []
-    for sid in resolve(sentence, slug):
-        # A sentence saying "we have not read the notice" is not contradicted by
-        # holding the RECORD that describes the notice.
-        if asserted == UNREAD and is_record_about(sid, slug):
-            continue
+    for sid in subjects:
         row = next((r for r in _sources(slug) if r.get("id") == sid), {})
-        state = ((row.get("access") or {}).get("state") or "").lower()
-        clash = (asserted == UNREAD and state in HELD_STATES) or \
-                (asserted == READ and state in NOT_HELD_STATES)
-        if clash:
-            out.append({"source": sid, "asserted": asserted,
-                        "recorded": state or "(no access state)",
+        klass = (row.get("document_class") or "").lower()
+        # A record ABOUT a document cannot answer a question about the document.
+        # Unclassified is NOT EVALUATED, never an assumed `document`.
+        if not klass:
+            out.append({"verdict": NOT_EVALUATED, "asserted": asserted,
+                        "source": sid, "why": "document_class not set on this source",
                         "sentence": " ".join(sentence.split())[:220]})
+            continue
+        if klass == "record_about":
+            out.append({"verdict": NOT_EVALUATED, "asserted": asserted,
+                        "source": sid,
+                        "why": "this id holds a record ABOUT a document; the claim is "
+                               "about the document",
+                        "sentence": " ".join(sentence.split())[:220]})
+            continue
+        state = ((row.get("access") or {}).get("state") or "").lower()
+        good = state in SATISFIED_BY.get(asserted, set())
+        out.append({"verdict": PASS if good else FAIL, "asserted": asserted,
+                    "source": sid, "recorded": state or "(no access state)",
+                    "why": how, "sentence": " ".join(sentence.split())[:220]})
     return out
 
 
@@ -195,48 +297,113 @@ def _sentences(text: str) -> list[str]:
     return [" ".join(s.split()) for s in led.sentences(led.plain(text))]
 
 
-def scan(slug: str) -> list[dict]:
-    """Every epistemic disagreement in the page, its log and corrections.md."""
+def alias_coverage(slug: str) -> dict:
+    """How many sources can be named at all.
+
+    A source with no aliases is NOT CHECKED, not checked-and-passed. S025 had
+    none, which made the source at the centre of two of the three incidents
+    invisible to resolution. Reported as a number rather than left silent.
+    """
+    rows = _sources(slug)
+    named = [r for r in rows if (r.get("also_called") or [])]
+    classed = [r for r in rows if r.get("document_class")]
+    return {"sources": len(rows), "with_aliases": len(named),
+            "with_document_class": len(classed)}
+
+
+def scan(slug: str) -> dict:
+    """Every epistemic claim in the page, its log and corrections.md, triaged.
+
+    Returns verdicts and a coverage fraction. The coverage fraction is the
+    point: this file's job is to narrow the field for the passage-reading stage
+    (docs/whatholdsup-process.md §5.5), not to decide.
+    """
     import publish as P
-    found = []
+    verdicts = []
     page = (P.ROOT / P.ISSUES[slug]["page"]).read_text(encoding="utf-8")
     for s in _sentences(page):
         for f in check_sentence(s, slug):
             f["where"] = "page"
-            found.append(f)
-    cd = store.case_dir(slug)
-    cm = cd / "corrections.md"
+            verdicts.append(f)
+    cm = store.case_dir(slug) / "corrections.md"
     if cm.exists():
         body = cm.read_text(encoding="utf-8")
         for s in _sentences(body):
             for f in check_sentence(s, slug):
                 f["where"] = "corrections.md"
-                found.append(f)
-        for s in _sentences(body):
+                verdicts.append(f)
             for f in check_claimed_change(s, page):
+                f["verdict"] = FAIL
                 f["where"] = "corrections.md (claimed change)"
-                found.append(f)
-    return found
+                verdicts.append(f)
+    n = len(verdicts)
+    ev = len([v for v in verdicts if v["verdict"] in (PASS, FAIL)])
+    return {"slug": slug, "verdicts": verdicts, "epistemic_sentences": n,
+            "evaluated": ev, "coverage": (ev / n) if n else 0.0,
+            "aliases": alias_coverage(slug)}
+
+
+def appendix_d_lines(slug: str) -> list[str]:
+    """What this check did NOT examine, for the appendix that records exactly
+    that. A coverage number belongs where the publication already keeps its
+    account of where its machinery has not looked."""
+    r = scan(slug)
+    out = ["The epistemic check evaluated %d of %d sentences making a claim about "
+           "what we hold or have read (%.0f%%). The remainder could not be tied to "
+           "a single source and were not examined by machine; they are the "
+           "passage-reading worklist."
+           % (r["evaluated"], r["epistemic_sentences"], 100 * r["coverage"])]
+    a = r["aliases"]
+    out.append("Of %d sources, %d can be named by an alias and %d declare whether "
+               "they are a document or a record about one. A source that is "
+               "neither is not checked, rather than checked and passed."
+               % (a["sources"], a["with_aliases"], a["with_document_class"]))
+    return out
+
+
+def preflight_rows(slug: str) -> list[tuple[str, str, str]]:
+    """NOT wired into check yet -- see docs/whatholdsup-open-gaps.md. Present so
+    that wiring it in is one line when the coverage fraction justifies it."""
+    r = scan(slug)
+    fails = [v for v in r["verdicts"] if v["verdict"] == FAIL]
+    return [("claims about what we hold",
+             OK if not fails else BAD,
+             "%d of %d epistemic sentence(s) evaluated (%.0f%%); %d disagree with the store"
+             % (r["evaluated"], r["epistemic_sentences"], 100 * r["coverage"], len(fails)))]
 
 
 def main() -> int:
     import publish as P
-    total = 0
+    tot_f = 0
     for slug in sorted(P.ISSUES):
-        rows = scan(slug)
-        total += len(rows)
-        print("\n  %-11s %d disagreement(s)" % (slug, len(rows)))
-        for f in rows:
-            if "asserted" in f:
-                print("   !! [%s] %s: page asserts %s, store records %s"
-                      % (f["where"], f["source"], f["asserted"], f["recorded"]))
-                print("      %s" % f["sentence"])
-            else:
-                print("   !! [%s] a correction says %r was removed; it is on the page"
-                      % (f["where"], f["still_on_page"]))
-                print("      %s" % f["correction"])
-    print("\n  %d total\n" % total)
-    return 1 if total else 0
+        r = scan(slug)
+        f = [v for v in r["verdicts"] if v["verdict"] == FAIL]
+        ne = [v for v in r["verdicts"] if v["verdict"] == NOT_EVALUATED]
+        p = [v for v in r["verdicts"] if v["verdict"] == PASS]
+        tot_f += len(f)
+        print("\n  %-11s %d epistemic sentence(s): %d PASS, %d FAIL, %d NOT EVALUATED"
+              "  — coverage %.0f%%"
+              % (slug, r["epistemic_sentences"], len(p), len(f), len(ne),
+                 100 * r["coverage"]))
+        a = r["aliases"]
+        print("              %d/%d sources aliased, %d/%d classed document|record_about"
+              % (a["with_aliases"], a["sources"], a["with_document_class"], a["sources"]))
+        for v in f:
+            if "still_on_page" in v:
+                print("   FAIL  [%s] a correction says %r was removed; it is on the page"
+                      % (v["where"], v["still_on_page"]))
+                print("         %s" % v.get("correction", "")[:130])
+                continue
+            print("   FAIL  [%s] %s: asserts %s, store records %s"
+                  % (v["where"], v.get("source", "?"), v.get("asserted"), v.get("recorded", "?")))
+            print("         %s" % v.get("sentence", "")[:130])
+        for v in ne[:6]:
+            print("   n/e   [%s] %s — %s" % (v["where"], v.get("source", ""), v["why"]))
+            print("         %s" % v.get("sentence", "")[:130])
+        if len(ne) > 6:
+            print("   n/e   ... %d more, all of them passage-reading worklist" % (len(ne) - 6))
+    print("\n  %d FAIL across all issues. NOT EVALUATED is not a pass.\n" % tot_f)
+    return 1 if tot_f else 0
 
 
 if __name__ == "__main__":
