@@ -586,7 +586,33 @@ resolves to the *registry record* because both are called PALMARES-2.
 
 **The tell, and it is available at the moment of the edit:** you are choosing a
 value by reference to a check's output rather than by reference to the thing the
-field describes. Ask what the field means, answer that, and let the check say
+field describes.
+
+**IT RUNS TWO WAYS, AND THE SECOND IS WORSE.** Reasoning from the symptom can
+edit the **data** to make a check pass, or edit the **page** to make a check
+pass. **The second is worse, because the page is the product.** Fixing a datum
+corrupts a measurement; fixing the page corrupts the thing the measurement was
+about.
+
+This is why the not-examined row added 10 September 2026 is **WARN and not BLOCKED.** An
+unexamined sentence is not a failing sentence. A BLOCKED row against 212 sentences
+would put an author in front of a choice between writing 212 bindings and deleting
+prose, and under time pressure some of that prose would go — true sentences
+removed to clear a number, with every check then green and nothing recording what
+was lost. A check that can be satisfied by deletion must never be blocking unless
+deletion is the correct remedy.
+
+**And the same principle applies to a check's own failure mode.** The first
+version of the not-examined row called `page_sentences()`, which raises for a slug
+with no page; the row simply vanished, and the rules suite went from 89 passing to
+61 without anything saying why. It now reports *"could not be counted … Unknown,
+not zero."* **A row that vanishes on error reintroduces the absence it exists to
+remove** — the check reporting nothing and the check reporting no problem are
+indistinguishable from outside.
+
+Third instance this week of a new call reaching for the real page inside a module
+the tests exercise on a synthetic slug. The pattern: **a function added for
+production data, in a file whose tests run without any.** Ask what the field means, answer that, and let the check say
 whatever it then says.
 
 **Failure 19 — the fixtures are selected by the blind spot that produced the

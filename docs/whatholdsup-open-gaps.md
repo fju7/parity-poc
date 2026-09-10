@@ -1478,3 +1478,63 @@ quotation, a named trial, a registry identifier, a DOI. That is a **reasonable
 way to find sentences worth binding** and a **bad way to define the population of
 a rule that claims to cover the page.** The two uses were never separated, and
 the docstring described the second while the code did the first.
+
+---
+
+## Rule 13 rested on a list nothing produced. It is derived now.
+
+**10 September 2026. `backend/scripts/whatholdsup/open_list.py`.**
+
+Rule 13 makes an acceptance require two things the operator can genuinely
+supply: **knowing what remains open**, and choosing to publish anyway. **Nothing
+in this apparatus produced or checked the first.** It was assembled by hand, from
+memory, by whoever wrote the acceptance block.
+
+### What the difference is, measured
+
+On 9 September the hand-written list said **one thing**: the S029 erratum. Run
+against the same page today, the derived list returns **seven checks not
+returning ok**, plus coverage and the waive:
+
+| what the derived list carries | on the 9 September list? |
+|---|---|
+| S029 erratum, BLOCKED, not read | **yes** — the only item |
+| 212 of 343 body sentences not examined by rules 1 or 2 | no |
+| 2 correction lookups failed — S007, S030 — *"NOT known to be clean"* | no |
+| 15 sources with no resolvable identifier, so no automatic check is possible | no |
+| 10 held documents never round-tripped by the canary | no |
+| 5 documents checked only against a length floor, *"a weaker thing"* | no |
+| 2 of 131 sentences resting on a human attestation no check may read | no |
+| 1 of 52 epistemic sentences evaluated | no |
+
+**Six of the eight were invisible to the person signing.** Not concealed —
+several were printing in gate output at the time — but nobody was assembling
+them, because assembling them was somebody's memory and memory is what the whole
+week has been about.
+
+**The first of rule 13's two requirements was not supplied — not by the operator,
+to him.** That is a fact about the list, not about the decision.
+
+### The generalisation, which is why this is an entry and not a task
+
+Every failure this week has been a hand-maintained representation drifting from
+the thing it represents: the index dates, the family instance count, the
+correction log's access state, the four-commit figure, the locator count, and
+"all 131 sentences". **The open list is one of those, and it is the one a
+publication decision rests on.**
+
+### What it deliberately does not do
+
+It does not decide whether any item should block. Collapsing *"here is what is
+open"* into *"here is what stops you"* would take rule 13's **second**
+requirement away from the operator as well, and the point of the rule is that
+both are his.
+
+### And the acceptance mechanism has now found two defects in itself
+
+Twice exercised, twice a defect surfaced: the first time the operator refused to
+sign a block that made his signature ceremonial, which produced the current rule
+13; the second time the rule's own first requirement turned out to be
+unsatisfiable. **That is the mechanism working**, and it is recorded that way
+rather than as two embarrassments — a control that has never objected to anything
+has not been tested.
