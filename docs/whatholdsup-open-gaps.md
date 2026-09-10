@@ -1417,3 +1417,64 @@ have been.** The site's claim stands. What follows from the ruling is that
 so it is true, because *"135 of this issue's sentences rest on nothing"* would be
 inaccurate in the harsh direction when 140 more were never examined and 125 are
 judgements.
+
+---
+
+## "All 131 sentences" meant all 131 of the 131 that had rows
+
+**10 September 2026. Reported, not concluded from.**
+
+| issue | body sentences (`page_sentences`) | examined by rules 1 and 2 | **not examined** |
+|---|---|---|---|
+| melanoma | **343** | **131** | **212** |
+| cdk46 | 487 | 169 | 317 |
+| deskilling | 426 | 112 | 314 |
+
+**131 is the rowed population, not the page-sentence count.** Melanoma's rule 1
+row reads, verbatim:
+
+> `rule 1 — written from a document we hold   ok   all 131 sentence(s) name the
+> words they rest on, and every figure they carry is in one of those spans`
+
+and the function producing it opened with *"Every sentence on the page, no
+exemptions."* Melanoma published on 9 September on the strength of that pair.
+
+Those are the numbers. **What follows from them is the operator's, and this entry
+does not take it** — the last several times a conclusion was drawn from a summary
+rather than from the object, it was wrong, and this is a summary.
+
+### What was fixed today regardless
+
+**The scope claim.** `rule_rows`' docstring now says what the function examines,
+carries the three counts above, and names the defect: failure 15, in the file
+that defines rule 1, and simultaneously the unread-signature failure — a control
+described in words that nothing performs.
+
+**The third outcome.** `bindings.not_examined(slug)` is the difference between
+the page and the rowed population, and `rule_rows` now emits a row for it:
+
+> `sentences neither rule examined   warn   212 of 343 body sentence(s) … The
+> rows above are computed over the other 131. Not examined is not passed.`
+
+**WARN and not BLOCKED, deliberately.** An unexamined sentence is not a failing
+sentence, and reporting it as one would push somebody to delete prose to clear a
+number — which is failure 20 waiting to happen in the other direction.
+
+**And the row cannot vanish.** Its first version called `page_sentences()`, which
+raises for a slug with no page, and that took the rules suite from 89 passing to
+61. Now a failure to count reports *"could not be counted … Unknown, not zero"*
+— because omitting the row on error would reintroduce exactly the absence the row
+exists to remove. Third time this week a new call has broken on the synthetic
+test slug; the pattern is that a function reaching for the real page is added to
+a module the tests exercise without one.
+
+**Appendix D** carries the examined/not-examined pair beside the epistemic
+coverage, in the packet rather than on the page.
+
+### Why the number is large, and why that is not the same as bad
+
+A binding row is created only where `scan()` detects an anchor — a figure, a
+quotation, a named trial, a registry identifier, a DOI. That is a **reasonable
+way to find sentences worth binding** and a **bad way to define the population of
+a rule that claims to cover the page.** The two uses were never separated, and
+the docstring described the second while the code did the first.

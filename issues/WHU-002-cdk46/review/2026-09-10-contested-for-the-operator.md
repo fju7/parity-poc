@@ -19,6 +19,11 @@ What does the page say about a test direction on which it has now taken five pos
 
 ### The sentences
 
+> **Entirely the operator's.** This is a judgement about what the page should
+> say, not about whether a claim meets a standard, and it carries no annotation
+> beyond what OR-C already settled: whatever is decided, a reader should be able
+> to see the sequence rather than be told a count.
+
 **1. [changed]**
 
 > *replaced:* MONALEESA-2 states a two-sided p of 0.008; what boundary its final analysis was tested against we could not establish, and if it too spent alpha at an interim then its bar also sat below .05.
@@ -81,6 +86,17 @@ When we replace our paraphrase of a standards body with its verbatim text, and a
 
 ### The sentences
 
+> **A defect in HOW the claim is made, independent of what is decided about the
+> guideline's text.** *"We asked, on 3 September 2026, and there is no such
+> sentence"* names a date and nothing else — not which version of the guideline,
+> not which sections, not what string was searched for. **A reader cannot repeat
+> it.** Appendix C exists to list universal negatives *so that a reader can try
+> to falsify them*, and a negative whose scope is unstated cannot be falsified,
+> only believed. That is the Morning Glory class and the RV-09 class in a new
+> instance: a search declared conclusive without its bounds stated. Whatever is
+> ruled about the verbatim text, that sentence needs its scope — which document,
+> which version, which sections, what string.
+
 **1. [changed]**
 
 > *replaced:* Category 1 means high-level evidence and uniform panel consensus.
@@ -120,6 +136,13 @@ When we replace our paraphrase of a standards body with its verbatim text, and a
 Is marking a reading as ours sufficient, or does the page also owe the reader the alternative reading it is declining? The page now says the guideline nowhere defines *directly compared*, and that reading it as meaning a randomised head-to-head trial is ours. It does not say what else it could mean.
 
 ### The sentences
+
+> **Input to the decision, from question 3 of the passage-reading stage:** *could
+> a careful reader leave this passage believing something false that no sentence
+> in it states?* A reader told only that a reading is ours, with no alternative
+> named, has been given a label but not the material to judge it — and will
+> reasonably infer that ours is the only available reading, which is the thing
+> the marking was meant to prevent. **Marking is not disclosing.**
 
 **1. [changed]**
 

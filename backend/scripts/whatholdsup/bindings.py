@@ -890,8 +890,51 @@ def _declared_exclusions(slug: str) -> list[dict]:
         return []
 
 
+def not_examined(slug: str) -> list[str]:
+    """Body sentences neither rule looks at, because no row was ever made.
+
+    `scan()` requires a detectable anchor before it creates a binding row. That
+    is a reasonable way to find sentences worth binding and a bad way to define
+    the population of a rule that claims to cover the page. This function is the
+    difference between the two, so the number can be printed instead of implied.
+    """
+    doc = load(slug)
+    rows = (doc.get("bindings") or {})
+    rowed = {" ".join((v.get("sentence") or "").split())
+             for v in (rows.values() if isinstance(rows, dict) else rows)
+             if isinstance(v, dict) and v.get("on_page")}
+    return [s for s in (" ".join(x.split()) for x in page_sentences(slug))
+            if s not in rowed]
+
+
 def rule_rows(slug: str) -> list[tuple[str, str, str]]:
-    """The two rules, as blocking rows. Every sentence on the page, no exemptions."""
+    """The two rules, as blocking rows, over the sentences that have a binding row.
+
+    SCOPE, CORRECTED 2026-09-10. This docstring said "Every sentence on the page,
+    no exemptions." It does not do that and never did.
+
+    The population is `bindings.json`'s on_page rows. `scan()` creates a row only
+    where an anchor is detectable -- a figure, a quotation, a named trial, a
+    registry identifier, a DOI -- and skips the rest (`if not must: continue`).
+    So a sentence carrying a claim with no detectable anchor never enters, and is
+    examined by neither rule.
+
+    The gap is not small. On 2026-09-10: melanoma 131 rowed of 343 body
+    sentences; cdk46 169 of 487; deskilling 112 of 426. A row reading "all 131
+    sentence(s) name the words they rest on" means all 131 OF THE 131 THAT HAVE
+    ROWS, and the sentence above it said "every sentence on the page".
+
+    That is failure 15 -- a check whose scope is narrower than its name -- in the
+    file that defines this publication's foundational rule, and it is also the
+    unread-signature failure: a control described in words that nothing performs.
+    A docstring overstating what a function examines is how the next person
+    concludes that a green rule 1 means the page is bound.
+
+    THE THIRD OUTCOME. Sentences with no detectable anchor are NOT EXAMINED --
+    reported and counted, never absent. Same principle as the epistemic check:
+    a check that cannot evaluate something says so rather than passing it
+    silently. See `not_examined()` below and Appendix D.
+    """
     import spancheck as SC
     import modelbind as MB
     doc = load(slug)
@@ -1116,6 +1159,34 @@ def rule_rows(slug: str) -> list[tuple[str, str, str]]:
                     "bound to the words it rests on, declared as an inference "
                     "and shown, or off the page."
                     % (len(todo), len(on_page), RULE_ADOPTED)))
+
+    # THE THIRD OUTCOME. Everything above is computed over the rows in
+    # bindings.json. This row is the rest of the page, and it exists because
+    # "all 131 sentence(s) name the words they rest on" was true of the 131 and
+    # was read as true of the page. A check that cannot evaluate something says
+    # so; it never leaves it out. WARN and not BAD deliberately: an unexamined
+    # sentence is not a failing sentence, and reporting it as one would push
+    # somebody to delete prose to clear a number.
+    # A page that cannot be read gives an UNKNOWN coverage, not a silent zero.
+    # Omitting the row when the count fails would reintroduce exactly the
+    # absence this row exists to remove -- and the first version of it did that,
+    # because page_sentences() raises for a slug with no page.
+    try:
+        ne = not_examined(slug)
+    except BaseException as exc:                            # SystemExit included
+        out.append(("sentences neither rule examined", WARN,
+                    "could not be counted: %s: %s. Unknown, not zero."
+                    % (type(exc).__name__, exc)))
+        ne = []
+    if ne:
+        total = len(on_page) + len(ne)
+        out.append(("sentences neither rule examined", WARN,
+                    "%d of %d body sentence(s). A binding row is created only "
+                    "where an anchor is detectable — a figure, a quotation, a "
+                    "named trial, a registry identifier — so a claim with none "
+                    "of those never enters either rule. The rows above are "
+                    "computed over the other %d. Not examined is not passed."
+                    % (len(ne), total, len(on_page))))
     return out
 
 

@@ -187,6 +187,26 @@ def coverage_md() -> str:
     except Exception as exc:                                # noqa: BLE001
         D = ["- The gate-coverage check COULD NOT BE RUN: %s. Unknown, not clean."
              % exc]
+    # Rule 1's own coverage. "All 131 sentence(s) name the words they rest on"
+    # was true of 131 rows and read as true of 343 body sentences. Added
+    # 2026-09-10, beside the epistemic coverage, for the same reason.
+    try:
+        import bindings as _B
+        _ne = _B.not_examined(SLUG)
+        _rowed = len([v for v in (_B.load(SLUG).get("bindings") or {}).values()
+                      if v.get("on_page")])
+        D.append("")
+        D.append("**Rule 1 and rule 2 examined %d sentence(s); %d were not examined.** "
+                 "A binding row is created only where an anchor is detectable — a "
+                 "figure, a quotation, a named trial, a registry identifier — so a "
+                 "claim carrying none of those never enters either rule. Where a rule "
+                 "row says \"all N sentences\", N is the examined population and not "
+                 "the page. Not examined is not passed."
+                 % (_rowed, len(_ne)))
+    except Exception as exc:                                # noqa: BLE001
+        D.append("")
+        D.append("- Rule coverage COULD NOT BE COMPUTED: %s. Unknown, not clean." % exc)
+
     # A check that knows its own coverage belongs in the appendix that records
     # where our machinery has not looked. Added 2026-09-10.
     try:

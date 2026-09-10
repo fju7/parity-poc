@@ -628,6 +628,19 @@ kind of machinery"*. Decomposed on 10 September 2026 it is three defects:
 repository, and was the class that caused the harm.** The deferral sorted by
 apparent cost, and apparent cost was a guess.
 
+**FIRST SUCCESSFUL APPLICATION, 10 September 2026, and it is recorded because an entry with
+only violations under it is a complaint rather than a rule.**
+
+The hypothesis was that most of the 135 unbound cdk46 sentences would be
+judgements lacking a declaration. It was wrong: judgements have **no binding rows
+at all**, so none of them are in the 135. The measurement settled it in one pass.
+
+**Had a plan been directed on the hypothesis, the work would have gone to writing
+declarations while 140 empirical sentences that no rule examines stayed
+unexamined.** The rule that prevented it — decompose and measure before deciding
+— was written the day before, against a violation. This is the first time it was
+followed instead.
+
 **The consequence for the pile.** Every entry in `whatholdsup-open-gaps.md` was
 placed there by the same judgement, which means **the deferred pile is selected
 for looking hard rather than for being hard.** It is worth re-reading with that
