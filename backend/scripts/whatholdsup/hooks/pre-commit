@@ -1,0 +1,47 @@
+#!/bin/sh
+# Refuse a commit that touches whatholdsup while its tests are failing.
+#
+# WHY THIS EXISTS
+# ---------------
+# On 2026-09-10 a commit went in over a failing test, and the mechanism was not
+# carelessness: the command was
+#
+#     pytest ... ; git add ... ; git commit ...
+#
+# Two commands in sequence with a semicolon between them. The test ran, printed
+# its failure, and the commit ran anyway because nothing connected them. The
+# resolution "read the output next time" is not a control -- it is the absence
+# of one, described in words. See the failure catalogue: a stop is only as good
+# as the test under it, and here there was no stop at all.
+#
+# SCOPED, deliberately. It runs only when a staged path touches whatholdsup, so
+# a commit elsewhere in the repository is not slowed by a suite that has nothing
+# to say about it. The check's subject is whatholdsup's tests and it tests
+# whatholdsup's tests -- the same question the pre-push guard gets right about
+# deploying.
+set -e
+ROOT=$(git rev-parse --show-toplevel)
+
+STAGED=$(git diff --cached --name-only --diff-filter=ACM \
+         | grep -E '(whatholdsup|WHU-)' || true)
+[ -n "$STAGED" ] || exit 0
+
+PY="$ROOT/.venv/bin/python3"
+[ -x "$PY" ] || PY=python3
+
+TESTS=$(ls "$ROOT"/backend/tests/test_whatholdsup_*.py 2>/dev/null || true)
+[ -n "$TESTS" ] || exit 0
+
+# shellcheck disable=SC2086
+if ! "$PY" -m pytest $TESTS -q >/tmp/whu-precommit.$$ 2>&1; then
+    echo
+    echo "COMMIT REFUSED — whatholdsup tests are failing."
+    echo
+    tail -20 /tmp/whu-precommit.$$
+    echo
+    echo "  A commit over a red suite records a state nobody has checked."
+    echo "  Fix it, or commit with --no-verify and say in the message that you did."
+    rm -f /tmp/whu-precommit.$$
+    exit 1
+fi
+rm -f /tmp/whu-precommit.$$

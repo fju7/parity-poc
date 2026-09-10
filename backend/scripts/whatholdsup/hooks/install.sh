@@ -1,5 +1,5 @@
 #!/bin/sh
-# Install the pre-push guard into this clone.
+# Install the pre-push guard and the pre-commit test gate into this clone.
 #
 # Hooks live in .git/hooks, which git does not version and does not clone.
 # So the hook is kept in the repo and copied into place by this script, and
@@ -8,19 +8,21 @@
 
 set -e
 ROOT=$(git rev-parse --show-toplevel)
-SRC="$ROOT/backend/scripts/whatholdsup/hooks/pre-push"
-DST="$ROOT/.git/hooks/pre-push"
+for HOOK in pre-push pre-commit; do
+    SRC="$ROOT/backend/scripts/whatholdsup/hooks/$HOOK"
+    DST="$ROOT/.git/hooks/$HOOK"
 
-[ -f "$SRC" ] || { echo "missing: $SRC"; exit 1; }
+    [ -f "$SRC" ] || { echo "missing: $SRC"; exit 1; }
 
-if [ -f "$DST" ] && ! cmp -s "$SRC" "$DST"; then
-    cp "$DST" "$DST.replaced.$(date +%Y%m%d%H%M%S)"
-    echo "  kept your existing hook as $DST.replaced.*"
-fi
+    if [ -f "$DST" ] && ! cmp -s "$SRC" "$DST"; then
+        cp "$DST" "$DST.replaced.$(date +%Y%m%d%H%M%S)"
+        echo "  kept your existing hook as $DST.replaced.*"
+    fi
 
-cp "$SRC" "$DST"
-chmod +x "$DST"
-echo "installed: $DST"
+    cp "$SRC" "$DST"
+    chmod +x "$DST"
+    echo "installed: $DST"
+done
 echo
 echo "Check it works — this should print what is and is not signed off:"
 echo "    python3 backend/scripts/whatholdsup/guard_published.py"
