@@ -1799,6 +1799,9 @@ def cmd_publish(args) -> int:
     append_record({
         "issue": args.slug, "action": "publish",
         "at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+        # The environment that produced this row. A stored result and a
+        # stored-from-somewhere-else result must not look the same.
+        "interpreter": sys.executable,
         "sha": want, "commit": commit, "url": cfg["url"],
         "note": f"issue {cfg['number']} — {cfg['title']}",
         "waived": args.waive or None,
@@ -1988,6 +1991,9 @@ def cmd_record_live(args) -> int:
         "issue": args.slug,
         "action": "republish",
         "at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+        # The environment that produced this row. A stored result and a
+        # stored-from-somewhere-else result must not look the same.
+        "interpreter": sys.executable,
         "sha": now,
         "commit": commit.strip(),
         "url": cfg["url"],
@@ -2101,6 +2107,9 @@ def cmd_update(args) -> int:
     append_record({
         "issue": args.slug, "action": "update",
         "at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+        # The environment that produced this row. A stored result and a
+        # stored-from-somewhere-else result must not look the same.
+        "interpreter": sys.executable,
         "sha": want, "commit": commit.strip(), "url": cfg["url"],
         "note": args.what,
         "changed": args.changed,
@@ -2239,6 +2248,9 @@ def cmd_announce(args) -> int:
     append_record({
         "issue": args.slug, "action": "announce",
         "at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+        # The environment that produced this row. A stored result and a
+        # stored-from-somewhere-else result must not look the same.
+        "interpreter": sys.executable,
         "sha": sha(ehtml), "commit": git("rev-parse", "HEAD")[1],
         "note": "sent to segment %s%s" % (audience, (", broadcast " + bid) if bid else ""),
         "gate_basis": basis or "gate report passed on these exact bytes",
@@ -2369,6 +2381,9 @@ def cmd_review(args) -> int:
     rows.append({
         "issue": args.slug,
         "at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+        # The environment that produced this row. A stored result and a
+        # stored-from-somewhere-else result must not look the same.
+        "interpreter": sys.executable,
         "sha": hashlib.sha256(match[-1].read_bytes()).hexdigest(),
         "sha_after_adjudication": sha(page),
         "reviewed_file": str(match[-1].relative_to(ROOT)),
@@ -2750,6 +2765,9 @@ def cmd_explain_change(args) -> int:
         data = {"changes": []}
     data.setdefault("changes", []).append({
         "at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+        # The environment that produced this row. A stored result and a
+        # stored-from-somewhere-else result must not look the same.
+        "interpreter": sys.executable,
         "by": args.by,
         "kind": "changed" if (args.was and args.now) else ("removed" if args.was else "added"),
         "was": args.was or "",
@@ -2800,6 +2818,9 @@ def cmd_confirm_review(args) -> int:
         "reviewed_sha": latest.get("sha"),
         "now_sha": now,
         "at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+        # The environment that produced this row. A stored result and a
+        # stored-from-somewhere-else result must not look the same.
+        "interpreter": sys.executable,
         "by": args.by,
         "reason": reason,
         "reconciled": [{"because": r.get("because"), "was": w[:200], "now": n[:200]}
@@ -3912,6 +3933,9 @@ def cmd_accept_gate(args) -> int:
         "gate_report_sha": g.get("recorded_sha", ""),
         "gate_checked_at": g.get("checked_at", ""),
         "at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+        # The environment that produced this row. A stored result and a
+        # stored-from-somewhere-else result must not look the same.
+        "interpreter": sys.executable,
         "by": args.by,
         "reason": reason,
         "findings_in_that_run": len(g["blocking"]),

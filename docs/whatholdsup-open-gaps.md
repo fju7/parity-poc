@@ -1687,3 +1687,133 @@ It is the same object as a guard that catches nothing and a row that vanishes on
 error — *the working case and the degraded case are indistinguishable from
 outside*. A fallback that cannot say it fired is a silent substitution, and the
 right form is either to fail loudly or to print which interpreter it chose.
+
+---
+
+## The passage stage's first application, and what it found
+
+**10 September 2026. Run on the corrected melanoma change-log entry, before publishing.**
+
+It was applied to **the passage it was designed for**: text no sentence-scoped
+check can read — `changecheck` strips the change log — written under time
+pressure, by the party that made the error, about their own mistake. That is the
+worst-case input for every other control in this repository, and it is where a
+publication records having been wrong.
+
+**Q1 — do any two sentences contradict each other?** No. The plain-language gloss
+("a figure, a quotation or a named source") and the exact list ("a figure, a
+quotation, a named trial, a registry identifier") differ in wording and agree in
+substance. "Not examined is not the same as unsupported" and "we did not know
+which it was, and we said that we did" are consistent: the first is about the 212,
+the second about our claim.
+
+**Q2 — does any sentence assert a state the store contradicts? YES. This is why
+the publish stopped.**
+
+The passage says *"binding the sentences on this page that carry a figure, a
+quotation or a named source **to the words they rest on** — 131 of this page's
+343 sentences."*
+
+The store says **95**. `bindings.preflight_rows` reports: *"95 of 131 empirical
+sentence(s) are bound to a span; 36 rest on nothing this system can name."* Of
+the 36, 34 are judgements — which satisfy rule 1 through their premises rather
+than a span, legitimately — and **2 are `figure`-bucket sentences that are not
+judgements and have no span at all.**
+
+So the correction, whose entire subject is that we overstated our binding
+coverage, **overstates our binding coverage.** By a smaller factor and in the
+same direction.
+
+**Q3 — could a careful reader leave believing something false that no sentence
+states?** Yes, and it is the same fact from the reader's side: told "we said
+*every* and it was 131", a reader takes 131 as the solid number. It has a further
+split the passage does not mention.
+*At whole-page scope*: the corrected entry now carries the page's only coverage
+caveat, while the source notes and the homepage make unqualified "every figure"
+claims. Those are figure claims and the figure check is green, so no false
+impression is created — but the corrected entry is doing more work than it says.
+
+**Q4 — is a reader asked to hold anything in suspension longer than the passage
+supports?** Borderline, and worth recording rather than acting on. The paragraph
+runs 1,814 characters and now contains a correction about coverage followed by
+five unrelated findings. The correction was inserted into a paragraph written for
+another purpose. That is the KOL Pulse shape at lower severity; it is a structural
+note for the next revision, not a blocker.
+
+### What this establishes about the stage
+
+**A detector would have passed this passage.** Every figure in it is correct
+against something: 131 is `rule_rows`' count, 343 is `page_sentences`', 212 is
+`not_examined()`'s. `corrections_check` passes. `changecheck` cannot see it.
+Rule 1 says ok.
+
+**What fails is the join between a true number and the words around it** — "131
+sentences bound to the words they rest on" versus "131 sentences that satisfy
+rule 1, of which 95 carry a span". No sentence-scoped check compares those,
+because the defect is not in a sentence; it is between a sentence and a fact
+about the apparatus that produced it.
+
+### Consequences, unresolved and going back to the operator
+
+1. **The passage needs a further correction**, and it is the third statement this
+   entry will have made about its own coverage. That needs a ruling, not an edit.
+2. **`empirical sentences bound` calls 34 judgements "resting on nothing this
+   system can name"** while rule 1 correctly counts their premises. Two rows,
+   one file, opposite characterisations of the same 34 sentences. Which is right
+   depends on what "bound" is claimed to mean, and the page inherited the loose
+   reading.
+3. **The 2 `figure`-bucket sentences with no span** are neither judgements nor
+   bound. They need looking at on their own.
+
+---
+
+## Why changecheck's scope is not being widened today
+
+**10 September 2026.** It stays on the next issue's list, unwidened, and the reason is
+worth stating so it does not read as an omission.
+
+Changing a check's scope means re-baselining what every past "nothing found"
+meant. Doing that **at the moment of publish, inside the sequence that check
+guards**, is the failure-16 shape: a protective construct altered while it is
+load-bearing, with no opportunity to establish that the new version fires and the
+old one's history still means something.
+
+And what would be held hostage to it is **the repair of a claim currently false on
+the live page**. A widened check that has never been made to fire is not worth a
+day of a false claim standing.
+
+---
+
+## What the venv fallback means for this session's numbers
+
+**10 September 2026. Stated plainly rather than left as a footnote.**
+
+Every command in this session — including every run of the test suite — used
+`V=.venv/bin/python3; [ -x "$V" ] || V=python3`. **There is no `.venv` in this
+repository.** The project venv is `backend/venv`. The fallback fired on every
+single invocation and announced nothing.
+
+**So "89 tests passing" is a result from an environment that was substituted
+without notice.** It happens to be fine — the whatholdsup modules are
+stdlib-only, and re-running the suite on `backend/venv` gives the same 89. But
+that was **verified after the fact, not before**, and for the length of this
+session a number that looked settled was produced by a path nobody had checked.
+
+Filed with the guard that caught nothing and the row that vanished on error:
+**the working case and the degraded case are indistinguishable from outside.**
+
+### Fixed
+
+`jsonio.announce_interpreter()` prints to stderr when the running interpreter is
+not the project venv, and `publish.py` now records `sys.executable` in every row
+it stores, so a stored result carries the environment that produced it.
+
+**The first version of that function was wrong, and wrong in the family it was
+written to catch.** It compared `Path(sys.executable).resolve()` against the
+venv's `bin/python3` — but a venv's `python3` is a **symlink to the base
+interpreter**, so resolving both makes them equal and the check returned "this is
+the project venv" for every interpreter on the machine. It was written to catch a
+silent substitution and, for an hour, silently passed one. It compares
+`sys.prefix` now, which is what actually differs between environments, and it was
+made to fire on the system interpreter and stay quiet on the venv before being
+trusted.

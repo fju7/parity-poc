@@ -55,3 +55,61 @@ def edit(path: str | Path, fn) -> dict:
     doc = json.loads(p.read_text(encoding="utf-8"))
     out = fn(doc)
     return write(p, doc if out is None else out)
+
+
+# ---------------------------------------------------------------------------
+# WHICH INTERPRETER IS RUNNING THIS
+#
+# On 2026-09-10 every command in a working session ran as
+#   V=.venv/bin/python3; [ -x "$V" ] || V=python3
+# and there is no `.venv` in this repository -- the project venv is
+# `backend/venv`. The fallback fired on every invocation and said nothing. It
+# never mattered, because these modules are stdlib-only, until a check needed
+# `anthropic` and died on ModuleNotFoundError.
+#
+# The shape is the one already in the catalogue twice: a guard that catches
+# nothing, a row that vanishes on error, and now a fallback that substitutes a
+# different interpreter. **The working case and the degraded case are
+# indistinguishable from outside.**
+#
+# So: say which interpreter is running, on stderr, when it is not the project's
+# own -- and record it in anything that gets stored, so a stored result carries
+# the environment that produced it.
+# ---------------------------------------------------------------------------
+
+def project_python() -> Path:
+    return Path(__file__).resolve().parents[2] / "venv" / "bin" / "python3"
+
+
+def interpreter() -> str:
+    """The interpreter actually running, for storage beside any result."""
+    import sys
+    return sys.executable
+
+
+def announce_interpreter(stream=None) -> bool:
+    """Print to stderr when this is not the project venv. Returns True if it was.
+
+    Not an error: running on the system interpreter is fine for stdlib-only
+    work. What is not fine is doing it silently, because then a result and a
+    result-from-somewhere-else look the same.
+    """
+    import sys
+    # sys.prefix, NOT the executable path. A venv's bin/python3 is a symlink to
+    # the base interpreter, so resolving both makes them equal and the check
+    # returns "fine" for every interpreter on the machine -- which is what the
+    # first version of this function did, an hour after it was written to catch
+    # exactly that class of thing. sys.prefix is what actually differs between
+    # environments.
+    want = project_python().parent.parent          # backend/venv
+    if want.exists() and Path(sys.prefix).resolve() == want.resolve():
+        return True
+    out = stream or sys.stderr
+    print("  [interpreter] running %s (prefix %s)"
+          % (sys.executable, sys.prefix), file=out)
+    if want.exists():
+        print("  [interpreter] NOT the project venv at %s -- results stored from "
+              "this run carry the interpreter that produced them" % want, file=out)
+    else:
+        print("  [interpreter] no project venv at %s" % want, file=out)
+    return False
