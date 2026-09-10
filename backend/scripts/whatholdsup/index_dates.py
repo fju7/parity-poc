@@ -104,9 +104,16 @@ INDEX = ROOT / "site" / "whatholdsup" / "index.html"
 # "Issue one · published 28 August 2026 · corrected 29 August 2026"
 CARD = re.compile(r'<a class="issue" href="/(?P<slug>[a-z0-9-]+)">\s*'
                   r'<span class="no">(?P<meta>.*?)</span>', re.S)
-DATE = re.compile(r'(published|updated|corrected)\s+'
+# "revised" replaced "updated" on 2026-09-10 when the card gained the four
+# scrutiny facts; both are accepted so the audit does not silently stop matching
+# a card written under the older wording.
+DATE = re.compile(r'(published|updated|revised|corrected)\s+'
                   r'(\d{1,2}\s+[A-Z][a-z]+\s+\d{4})', re.I)
-MARKER = re.compile(r'\bcorrected\b', re.I)
+# A correction marker is now a COUNT, and "no corrections" is a real answer
+# rather than a missing one. Matching \bcorrected\b alone would read "no
+# corrections" as an absent marker and report a card that says the true thing.
+MARKER = re.compile(r'\b(corrected|\d+\s+corrections?|1\s+correction)\b', re.I)
+NO_CORRECTIONS = re.compile(r'\bno corrections\b', re.I)
 
 BEHIND, UNFOUNDED = "BEHIND", "UNFOUNDED"
 
@@ -217,7 +224,11 @@ def shown(meta_text: str) -> dict:
             out[kind.lower()] = datetime.strptime(when, "%d %B %Y").date()
         except ValueError:
             out[kind.lower()] = when
-    if MARKER.search(meta_text):
+    if "revised" in out and "updated" not in out:
+        out["updated"] = out["revised"]
+    if NO_CORRECTIONS.search(meta_text):
+        out["corrected"] = False
+    elif MARKER.search(meta_text):
         out.setdefault("corrected", True)
     return out
 
@@ -288,7 +299,7 @@ def audit(index_html: str | None = None) -> list[str]:
         # failure this check exists for; its presence with a stale date is not
         # policed here, because corrections.md carries many dates and the index
         # legitimately shows the marker rather than a running list.
-        if exp.get("corrected") and "corrected" not in got:
+        if exp.get("corrected") and not got.get("corrected"):
             problems.append(
                 "%s [%s]: corrections.md has %d entr%s and the index shows no correction marker"
                 % (slug, BEHIND, corrections_count(slug),
@@ -301,18 +312,15 @@ def audit(index_html: str | None = None) -> list[str]:
 
 
 def meta_html(slug: str, ordinal: str) -> str | None:
-    """The card's meta line, derived. Nothing here is typed by hand — that is
-    the point of deriving it, and the reason the 28 August row survived so long
-    is that someone typed it once and nothing ever read it again."""
-    exp = expected(slug)
-    if not exp:
-        return None
-    bits = ["%s &middot; published %s" % (ordinal, fmt(exp["published"]))]
-    if "updated" in exp:
-        bits.append("updated %s" % fmt(exp["updated"]))
-    if exp.get("corrected"):
-        bits.append('<a href="/%s#updates">corrected</a>' % slug)
-    return " &middot; ".join(bits)
+    """The card's meta line, derived. Delegates to issue_facts, which carries the
+    reasoning for showing four facts rather than a verdict word.
+
+    Nothing here is typed by hand -- that is the point of deriving it, and the
+    reason the 28 August row survived so long is that someone typed it once and
+    nothing ever read it again.
+    """
+    import issue_facts
+    return issue_facts.line(slug, ordinal)
 
 
 def preflight_rows(index_html: str | None = None) -> list[tuple[str, str, str]]:

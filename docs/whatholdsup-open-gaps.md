@@ -2076,3 +2076,39 @@ the **wrong thing** with full confidence.
 > **Normalising too little reports a false difference. Normalising along the
 > question's own axis reports a false sameness, and the second is worse, because
 > a false difference is a red check somebody investigates.**
+
+---
+
+## Categories: a decision to be made at eight issues, not a deferral
+
+**10 September 2026.** The homepage and the forthcoming issues index carry no subject
+categories, and that is a decision with a date on it rather than an omission.
+
+**Three items is too few to know what the categories are.** A taxonomy fitted to
+*a melanoma trial result*, *a treatment-guideline grade* and *AI and clinician
+skill* will describe those three and fight the next ten — and the cost of a wrong
+taxonomy is not that it is untidy, it is that every issue afterwards gets bent to
+fit it, and the bending is invisible.
+
+**Same discipline as the weight-drift check waiting for a second weight set:** you
+cannot build a classifier from one example of each class, and building one anyway
+produces something that passes on the examples it was built from.
+
+**Made at eight issues**, from the issues that exist then. The likely axes are
+subject area and question type, and the evidence for choosing between them will be
+in the issues themselves rather than in anybody's model of what this publication
+is going to be about.
+
+### And a note about ordering, recorded rather than fixed
+
+The index orders by **first publication**, and an update does not move an issue
+up. That is deliberate — ordering by recency rewards churn and buries an issue
+nobody has had to correct.
+
+With three issues published within three days it barely matters. **At twelve it
+will**, and the rule will put the most recently worked issue near the bottom: on
+10 September 2026, melanoma has been revised five times and sits last.
+
+**The rule stands.** The index can carry a "recently revised" cue without
+changing the order, which separates *what changed lately* from *what this
+publication has done*, and only the second should determine sequence.
