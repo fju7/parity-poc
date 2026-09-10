@@ -271,12 +271,23 @@ def check(ref: str | None = None,
     # site page or an issue with a publication record. A draft lives in its
     # issue directory until it publishes, and the publish step is what moves it.
     # the-rubric.html joined this set on 2026-09-09. It is a standing reference
-    # page, not an issue: it has no issue directory, no gate report, no
-    # publication record and no review cycle, and every other page on the site
-    # links to it — all three issues, the index, what-this-is and
-    # who-pays-for-this. It went live on 3 September in the commit that
-    # published the rubric, and has blocked every push since, because the guard
-    # had no category for it.
+    # page, not an issue: it has no slug, no issue directory, no gate report, no
+    # publication record and no publication lifecycle — nothing for `publish` or
+    # `record-live` to name — and it is linked from every page on the site,
+    # including both of the other STANDING members. It went live on 3 September
+    # in the commit that published the rubric, and blocked every push from then
+    # until it was classified, because the guard had no category for it.
+    #
+    # CORRECTED 10 September 2026. The original rationale here also called it "the
+    # document all three scorecards cite for their weights". That premise is
+    # false: only melanoma has a scorecard. The classification never rested on
+    # it — the grounds above are each sufficient and none mentions scorecards —
+    # but a rationale carrying a false premise invites the reader to think the
+    # decision turns on it, and the honest repair is to restate the grounds
+    # without it rather than leave a true conclusion standing on a wrong reason.
+    # That is the failure this publication named on 1 September, in the HARMONIA
+    # correction: a true conclusion resting on a false reason is worse than a
+    # visible error, because nothing downstream of it looks wrong.
     #
     # NOT record-live: that command takes an issue slug (cdk46, deskilling,
     # melanoma) and signs off a small change to a page with a publication

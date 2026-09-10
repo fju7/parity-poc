@@ -701,6 +701,20 @@ content as a new entry under a criterion that can be checked, and **record the
 mismatch** rather than placing it quietly somewhere plausible. The note filed
 with entries 15–17 is the evidence for this rule and stays where it is.
 
+**Violated by its author within a day of being written.** The ruling that
+established this rule was delivered on 2026-09-09; the message delivering the
+next one, on 10 September 2026, cited a file path — `2026-09-09-record-ruling.md` — that
+does not exist. The file was `2026-09-09-record-reach-ruling.md`. A path is the
+cheapest possible thing to check and it was not checked.
+
+This is the same evidence as the stale spend figure repeated within an hour of
+RV-08, which was the finding that a wrong number propagates because it looks
+right. **Writing a rule down does not make its author follow it.** A rule is a
+statement of intent; only a check is a control. Every rule in this document that
+has no check behind it should be read as a description of what we mean to do,
+not as a description of what happens — and §12d currently has no check behind
+it.
+
 ### 12c. The index is a translation, not a copy
 
 **The record's vocabulary and the reader's vocabulary are not the same

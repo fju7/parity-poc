@@ -835,3 +835,151 @@ bind inside `<footer id="updates">` at all — is a change to the core of the
 apparatus, and every existing binding's key changes with it. That is a migration
 of `bindings.json` on three issues, not a close-out edit. The same reasoning has
 deferred the weight binding, the thirty record stamps and the KOL Pulse box.
+
+---
+
+## A score is printed without the arithmetic that produced it
+
+**Design recorded 10 September 2026. Nothing built, and the deferral is deliberate.**
+
+The melanoma page prints `3.94` for *is the effect real*. `the-rubric.html`
+prints the six weights that produce it. **Nothing connects them.** The score was
+computed under whatever the weights were on the day it was computed, and the
+page records the result without recording the inputs.
+
+### The mechanism is live today
+
+RV-06 is not a historical error, it is a standing one. Edit the percentages in
+`the-rubric.html` and the published `3.94` silently becomes a number the rubric
+no longer produces. **Every check still passes** — `furniture.py`'s `computed`
+mark re-derives the score from the scores printed beside it and the weights
+printed beside *those*, so it verifies the page against itself and would go on
+passing after the rubric moved underneath it. The figure-exclusion for `3.94`
+names that mark as its falsifier, so the exclusion would keep standing too.
+
+This already happened once in the small: commit `87b8d9d` of 3 September
+corrected a working from 3.40 to 3.35 because two of the six weights had been
+shown at 15% where the rubric gives 20% and 10%. It was found by a person
+reading two documents side by side.
+
+### The design
+
+**(a) Record the weight set in the issue's record at publish time.** A score
+should carry the arithmetic that produced it: the six weights, the six component
+scores, and the rubric version they came from, written into the issue record
+when the page publishes. Not read from `the-rubric.html` at check time — read
+from it *once*, at publish, and frozen. The same discipline as
+`rules_rendered`: what was in force when the thing went out.
+
+**(b) Two checks, and they are not the same check.**
+
+| check | asks | fails when |
+|---|---|---|
+| internal consistency | does the printed score equal the recorded weights applied to the recorded component scores? | the page's own arithmetic is wrong |
+| rubric drift | do the recorded weights equal the rubric's **current** weights? | the rubric moved after publication |
+
+The second is not an error and must not be reported as one. **It is a fact the
+reader is owed:** *this score was computed under a rubric we have since
+changed.* Collapsing the two would either suppress a real arithmetic error or
+raise a false alarm every time the rubric is legitimately revised — and the
+second failure mode trains people to ignore the first.
+
+### Why deferred, and to where
+
+To **the start of the next issue**, not to "later". Building it now means
+building it against one scorecard on one page and testing it against nothing:
+the only way to know the drift check works is to have a second weight set to
+drift from, and the next issue is where that appears. Building an untested
+detector for a failure that has already occurred once is how failure 16 gets a
+fourth instance.
+
+---
+
+## Subscribers hold a superseded version of both emails
+
+**Recorded 10 September 2026.** The pre-push guard prints this as a WARN on every push. A
+warning that scrolls past on a push is not a record, and both of these have been
+true for a week or more.
+
+### Issue two — `email/issue2-cdk46.html`
+
+Sent **2026-08-29T14:33:42Z**, sha `f4fa716462ff6cd7` (commit `5b2775e`). On disk
+now: sha `8d90545235a4319c`. **Nine sentences differ.** The one that matters:
+
+> **As sent:** "…including that the width of abemaciclib's interval is itself a
+> consequence of what that trial was powered to detect — a point **Jacot** and
+> colleagues made formally in *npj Breast Cancer* in 2018…"
+
+Two errors in one clause. The first author of that paper is **Marie-Laure
+Tanguy**, not Jacot. And the point attributed to them is ours: their paper
+computes each trial's statistical *power* to reach significance on survival and
+concludes that significance appearing in some trials and not others "might be
+more attributable to chance than to a truly different drug efficacy". It says
+nothing about the width of a confidence interval.
+
+The other eight: hazard ratios named as such rather than "figures"; the scope of
+the eight-readout claim bounded ("not about every analysis ever run on these
+datasets"); and the sourcing sentence replaced, because "none comes from a news
+report" was not true of the whole table.
+
+### Issue one — `email/issue1-melanoma.html`
+
+Sent **2026-09-04T16:27:37Z**, sha `5ef7890a0d09a895` (commit `1862820`). On disk
+now: sha `74d5a094da86e4a7`. **Seven sentences differ.** The one that matters:
+
+> **As sent:** "…reports 0.425 on nine deaths, with an **80% interval** of 0.179
+> to 1.004…"
+
+An 80% interval printed beside 95% intervals elsewhere in the same email. A
+reader comparing them reads a narrower uncertainty than the data supports. The
+page now prints **95% CI 0.114 to 1.584** — the wider of the two, which is what
+nine deaths actually support.
+
+The rest are sourcing-sentence corrections: "every figure" narrowed to "every
+numerical trial result", with the acknowledgement that claims about what an
+outlet reported trace to the coverage itself, and a plainer statement of what
+the pre-publication checks do and do not test.
+
+### Standing
+
+**Nothing has been sent.** A correction note is drafted for the top of the next
+outgoing email — cdk46's attribution first, because it has a third party's name
+on it, then the melanoma interval. The sourcing-sentence changes go to the
+record only; they correct an overstatement about our own process and need no
+announcement.
+
+---
+
+## A signal that exists and goes unread
+
+**10 September 2026.** The pre-push guard has printed, on every push since 31 August:
+
+```
+WARN  cdk46: site/whatholdsup/cdk46.html has been live at an unrecorded version
+      published 2026-08-31T16:58:05  content 4e4bb50b371fcd3a
+      live now                       content 112e7a397d01481e
+```
+
+**Ten days, unread.** The same drift was then found a second time, from the
+other end — by comparing masthead datelines against the publication record — and
+reported as a discovery.
+
+Two things follow, and the second is the entry.
+
+**It is corroboration.** Two routes, different mechanisms, same finding: a guard
+hashing files against the record, and a check reading prose dates against the
+record. Neither knew about the other. That is the strongest form the evidence
+could take, and it should be recorded as such rather than as an embarrassment.
+
+**It is a third variant of the silent-failure class, and the worst one.** The
+other two are a signal that never fires and a signal that fires with the wrong
+message. This is **a signal that fires correctly, in the right place, and is not
+read** — and it is worse than no signal, because the guard's existence is
+counted as coverage. Nobody was going to build a second check for a thing the
+first check was already reporting. A warning printed into a push's output, in a
+paragraph with two other warnings, on a step whose success is signalled by the
+push completing, is a signal designed to be scrolled past.
+
+The fix is not a louder warning. It is that **a standing condition belongs in a
+standing record**, where its age is visible, and the WARN's job is to point at
+it. That is what the entry above this one does for the emails.
