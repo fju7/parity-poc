@@ -69,9 +69,16 @@ def _rows(slug):
 def derive(slug: str) -> dict:
     """The open list, as data. Nothing here is typed by a person."""
     items, unknown = [], []
+    # Rows already reported under Coverage are not repeated here. A list whose
+    # purpose is accuracy cannot count one item twice, and "212 of 343 not
+    # examined" appearing as a heading AND as one of seven open checks reads as
+    # two findings. Named explicitly rather than matched loosely, so a new row
+    # is never silently swallowed.
+    COVERAGE_ROWS = {"sentences neither rule examined",
+                     "claims about what we hold"}
     for row in _rows(slug):
         src, name, state, detail = row[0], row[1], row[2], row[3]
-        if state == OK:
+        if state == OK or name in COVERAGE_ROWS:
             continue
         item = {"source": src, "check": name, "state": state, "detail": detail}
         (unknown if "Unknown, not clean" in detail else items).append(item)

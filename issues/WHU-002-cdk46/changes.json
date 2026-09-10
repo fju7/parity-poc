@@ -2794,6 +2794,339 @@
       "now": "This page said exactly that on 1 September, about a different source, and then failed to apply it here.",
       "because": "OR-B",
       "note": "Sentence-level fragment of the OR-B passage rewritten on 2026-09-10. The passage decision is recorded above; these are the same edit split differently by the diff. Settled by OR-B, not by analogy to it."
+    },
+    {
+      "at": "2026-09-10T17:12:13+00:00",
+      "by": "claude",
+      "kind": "reworded",
+      "was": "Category 1 means high-level evidence and uniform panel consensus.",
+      "now": "The guideline defines category 1 as based upon high-level evidence (≥1 randomized phase 3 trials or high-quality, robust meta-analyses), there is uniform NCCN consensus (≥85% support of the Panel) that the intervention is appropriate , and category 2A as based upon lower-level evidence, there is uniform NCCN consensus (≥85% support of the Panel) that the intervention is appropriate .",
+      "because": "G2",
+      "note": "Operator ruling 2026-09-10: keep the guideline's verbatim definitions; explain or delete the negative, default to delete. Deleted — it added a date to a claim already made and reported a search with no stated scope. What remains names version 6.2026 and labels the generalisation as ours."
+    },
+    {
+      "at": "2026-09-10T17:12:13+00:00",
+      "by": "claude",
+      "kind": "reworded",
+      "was": "Category 2A means lower-level evidence with uniform consensus.",
+      "now": "The difference between them is the evidence, not the consensus: both require the same ≥85% panel support.",
+      "because": "G2",
+      "note": "Operator ruling 2026-09-10: keep the guideline's verbatim definitions; explain or delete the negative, default to delete. Deleted — it added a date to a claim already made and reported a search with no stated scope. What remains names version 6.2026 and labels the generalisation as ours."
+    },
+    {
+      "at": "2026-09-10T17:12:13+00:00",
+      "by": "claude",
+      "kind": "reworded",
+      "was": "It is a record of which of its trials produced a significant survival result, and the guideline says so plainly.",
+      "now": "It is a record of which of its trials produced a significant survival result.",
+      "because": "G2",
+      "note": "Operator ruling 2026-09-10: keep the guideline's verbatim definitions; explain or delete the negative, default to delete. Deleted — it added a date to a claim already made and reported a search with no stated scope. What remains names version 6.2026 and labels the generalisation as ours."
+    },
+    {
+      "at": "2026-09-10T17:12:13+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "That reading is ours, and this is the whole of what the guideline gives for it: it says ribociclib with an aromatase inhibitor is category 1 due to the clear overall survival benefit, and that ribociclib and abemaciclib with fulvestrant are category 1 since those combinations showed an overall survival benefit in MONALEESA-3 and MONARCH 2.",
+      "because": "G2",
+      "note": "Operator ruling 2026-09-10: keep the guideline's verbatim definitions; explain or delete the negative, default to delete. Deleted — it added a date to a claim already made and reported a search with no stated scope. What remains names version 6.2026 and labels the generalisation as ours."
+    },
+    {
+      "at": "2026-09-10T17:12:13+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "It states the reason for particular assignments.",
+      "because": "G2",
+      "note": "Operator ruling 2026-09-10: keep the guideline's verbatim definitions; explain or delete the negative, default to delete. Deleted — it added a date to a claim already made and reported a search with no stated scope. What remains names version 6.2026 and labels the generalisation as ours."
+    },
+    {
+      "at": "2026-09-10T17:12:13+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "Nowhere in version 6.2026 does it state the general rule we have drawn from them - that the category itself records which trial produced a significant survival result.",
+      "because": "G2",
+      "note": "Operator ruling 2026-09-10: keep the guideline's verbatim definitions; explain or delete the negative, default to delete. Deleted — it added a date to a claim already made and reported a search with no stated scope. What remains names version 6.2026 and labels the generalisation as ours."
+    },
+    {
+      "at": "2026-09-10T17:12:13+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "That generalisation is ours.",
+      "because": "G2",
+      "note": "Operator ruling 2026-09-10: keep the guideline's verbatim definitions; explain or delete the negative, default to delete. Deleted — it added a date to a claim already made and reported a search with no stated scope. What remains names version 6.2026 and labels the generalisation as ours."
+    },
+    {
+      "at": "2026-09-10T17:12:13+00:00",
+      "by": "claude",
+      "kind": "reworded",
+      "was": "MONALEESA-2 states a two-sided p of 0.008; what boundary its final analysis was tested against we could not establish, and if it too spent alpha at an interim then its bar also sat below .05.",
+      "now": "MONALEESA-2's test was one-sided, and the paper says so itself.",
+      "because": "G1",
+      "note": "Operator ruling 2026-09-10: state the current position in the body, move the five-position sequence to the change log, and — because a page that has changed position five times owes the reader a resolution condition rather than a sixth assertion — say why we are confident. The paper states its own test direction and the registry posting independently agrees."
+    },
+    {
+      "at": "2026-09-10T17:12:13+00:00",
+      "by": "claude",
+      "kind": "reworded",
+      "was": "PALOMA-2 states a one-sided p at an alpha of 0.025, which puts the critical value in the same place on the benefit side - a result that clears one clears the other - while differing in what the test was capable of concluding at all: a one-sided test is built to detect benefit and cannot declare harm.",
+      "now": "Its statistical section describes a one-sided stratified log-rank test with a Lan-DeMets (O'Brien-Fleming) boundary for the P value at a one-sided overall significance level of 2.5%, and then states, in its own sentence: A two-sided version of the P value is reported.",
+      "because": "G1",
+      "note": "Operator ruling 2026-09-10: state the current position in the body, move the five-position sequence to the change log, and — because a page that has changed position five times owes the reader a resolution condition rather than a sixth assertion — say why we are confident. The paper states its own test direction and the registry posting independently agrees."
+    },
+    {
+      "at": "2026-09-10T17:12:13+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "So there is one test.",
+      "because": "G1",
+      "note": "Operator ruling 2026-09-10: state the current position in the body, move the five-position sequence to the change log, and — because a page that has changed position five times owes the reader a resolution condition rather than a sixth assertion — say why we are confident. The paper states its own test direction and the registry posting independently agrees."
+    },
+    {
+      "at": "2026-09-10T17:12:13+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "The trial's results posting on ClinicalTrials.gov (NCT01958021) gives that test's one-sided p as p = 0.004 , alongside HR 0.765 (0.628-0.932); NEJM prints the two-sided version of the same p-value, P = 0.008 , alongside HR 0.76 (0.63-0.93).",
+      "because": "G1",
+      "note": "Operator ruling 2026-09-10: state the current position in the body, move the five-position sequence to the change log, and — because a page that has changed position five times owes the reader a resolution condition rather than a sixth assertion — say why we are confident. The paper states its own test direction and the registry posting independently agrees."
+    },
+    {
+      "at": "2026-09-10T17:12:13+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "This page prints the journal's figure, because the journal is what a reader will find, and that figure is two-sided - not a different test from the one-sided one, but the same test's p-value presented the other way round.",
+      "because": "G1",
+      "note": "Operator ruling 2026-09-10: state the current position in the body, move the five-position sequence to the change log, and — because a page that has changed position five times owes the reader a resolution condition rather than a sixth assertion — say why we are confident. The paper states its own test direction and the registry posting independently agrees."
+    },
+    {
+      "at": "2026-09-10T17:12:13+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "We are confident in this, and here is what makes us confident: the paper states its own test direction in its own sentence, which we have read in the published statistical section, and the trial's registry posting independently gives the one-sided form of the same p-value against the same hazard ratio.",
+      "because": "G1",
+      "note": "Operator ruling 2026-09-10: state the current position in the body, move the five-position sequence to the change log, and — because a page that has changed position five times owes the reader a resolution condition rather than a sixth assertion — say why we are confident. The paper states its own test direction and the registry posting independently agrees."
+    },
+    {
+      "at": "2026-09-10T17:12:13+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "Two documents, one from the journal and one from the sponsor, agreeing on a fact neither of them is arguing about.",
+      "because": "G1",
+      "note": "Operator ruling 2026-09-10: state the current position in the body, move the five-position sequence to the change log, and — because a page that has changed position five times owes the reader a resolution condition rather than a sixth assertion — say why we are confident. The paper states its own test direction and the registry posting independently agrees."
+    },
+    {
+      "at": "2026-09-10T17:12:13+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "That is as settled as this page gets.",
+      "because": "G1",
+      "note": "Operator ruling 2026-09-10: state the current position in the body, move the five-position sequence to the change log, and — because a page that has changed position five times owes the reader a resolution condition rather than a sixth assertion — say why we are confident. The paper states its own test direction and the registry posting independently agrees."
+    },
+    {
+      "at": "2026-09-10T17:12:13+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "This page took four earlier positions on this question before reaching it , and each is dated in the change log with what was wrong with it.",
+      "because": "G1",
+      "note": "Operator ruling 2026-09-10: state the current position in the body, move the five-position sequence to the change log, and — because a page that has changed position five times owes the reader a resolution condition rather than a sixth assertion — say why we are confident. The paper states its own test direction and the registry posting independently agrees."
+    },
+    {
+      "at": "2026-09-10T17:12:13+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "PALOMA-2 is one-sided too, at an alpha of 0.025 - its registry record (NCT01740427) annotates each of its three stratified log-rank analyses - progression-free survival, and overall survival at both the primary and the final look - 1-sided p-value from the stratified log-rank test - which puts the critical value in the same place on the benefit side - a result that clears one clears the other - while differing in what the test was capable of concluding at all: a one-sided test is built to detect benefit and cannot declare harm.",
+      "because": "G1",
+      "note": "Operator ruling 2026-09-10: state the current position in the body, move the five-position sequence to the change log, and — because a page that has changed position five times owes the reader a resolution condition rather than a sixth assertion — say why we are confident. The paper states its own test direction and the registry posting independently agrees."
+    },
+    {
+      "at": "2026-09-10T17:12:13+00:00",
+      "by": "claude",
+      "kind": "reworded",
+      "was": "In guideline language, \"directly compared in clinical trials\" means a randomised head-to-head trial, and none exists.",
+      "now": "The guideline's sentence is However, the CDK4/6 inhibitors have not been directly compared in clinical trials.",
+      "because": "G3",
+      "note": "Operator ruling 2026-09-10: marking a reading as ours is not sufficient. The page now gives the alternative reading, what follows from it, where a reader who prefers it diverges from us, and why we chose ours — plus the fact that nothing downstream changes either way."
+    },
+    {
+      "at": "2026-09-10T17:12:13+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "It does not define directly compared anywhere, and the phrase will carry two readings.",
+      "because": "G3",
+      "note": "Operator ruling 2026-09-10: marking a reading as ours is not sufficient. The page now gives the alternative reading, what follows from it, where a reader who prefers it diverges from us, and why we chose ours — plus the fact that nothing downstream changes either way."
+    },
+    {
+      "at": "2026-09-10T17:12:13+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "Ours is the narrow one: a trial that randomises one of these drugs against another.",
+      "because": "G3",
+      "note": "Operator ruling 2026-09-10: marking a reading as ours is not sufficient. The page now gives the alternative reading, what follows from it, where a reader who prefers it diverges from us, and why we chose ours — plus the fact that nothing downstream changes either way."
+    },
+    {
+      "at": "2026-09-10T17:12:13+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "The wider reading is that any study comparing the drugs head to head counts , randomised or not.",
+      "because": "G3",
+      "note": "Operator ruling 2026-09-10: marking a reading as ours is not sufficient. The page now gives the alternative reading, what follows from it, where a reader who prefers it diverges from us, and why we chose ours — plus the fact that nothing downstream changes either way."
+    },
+    {
+      "at": "2026-09-10T17:12:13+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "Where a reader who prefers the wider reading diverges from us: they would say the guideline is out of date rather than accurate, and that the comparison it calls untested has in fact been attempted four times.",
+      "because": "G3",
+      "note": "Operator ruling 2026-09-10: marking a reading as ours is not sufficient. The page now gives the alternative reading, what follows from it, where a reader who prefers it diverges from us, and why we chose ours — plus the fact that nothing downstream changes either way."
+    },
+    {
+      "at": "2026-09-10T17:12:13+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "Why we take the narrow one: a guideline that graded evidence would not describe observational comparisons as absent when it grades observational evidence elsewhere, and the only thing that would make the sentence plainly false is the randomised trial.",
+      "because": "G3",
+      "note": "Operator ruling 2026-09-10: marking a reading as ours is not sufficient. The page now gives the alternative reading, what follows from it, where a reader who prefers it diverges from us, and why we chose ours — plus the fact that nothing downstream changes either way."
+    },
+    {
+      "at": "2026-09-10T17:12:13+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "Note that nothing downstream of this page changes either way : on both readings, no study of any design separates abemaciclib from ribociclib.",
+      "because": "G3",
+      "note": "Operator ruling 2026-09-10: marking a reading as ours is not sufficient. The page now gives the alternative reading, what follows from it, where a reader who prefers it diverges from us, and why we chose ours — plus the fact that nothing downstream changes either way."
+    },
+    {
+      "at": "2026-09-10T17:12:13+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "The test is one-sided: the paper's own statistical section describes a one-sided stratified log-rank test with a Lan-DeMets (O'Brien-Fleming) boundary for the P value at a one-sided 2.5% level, and adds A two-sided version of the P value is reported - which is the 0.008 above.",
+      "because": "G1",
+      "note": "Operator ruling 2026-09-10: state the current position in the body, move the five-position sequence to the change log, and — because a page that has changed position five times owes the reader a resolution condition rather than a sixth assertion — say why we are confident. The paper states its own test direction and the registry posting independently agrees."
+    },
+    {
+      "at": "2026-09-10T17:12:13+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "The trial's results posting on ClinicalTrials.gov (NCT01958021) gives the one-sided form, p = 0.004, with HR 0.765 (0.628-0.932).",
+      "because": "G1",
+      "note": "Operator ruling 2026-09-10: state the current position in the body, move the five-position sequence to the change log, and — because a page that has changed position five times owes the reader a resolution condition rather than a sixth assertion — say why we are confident. The paper states its own test direction and the registry posting independently agrees."
+    },
+    {
+      "at": "2026-09-10T17:12:13+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "Neither states the critical value at the final look if alpha had been spent earlier, so this page does not print one.",
+      "because": "G1",
+      "note": "Operator ruling 2026-09-10: state the current position in the body, move the five-position sequence to the change log, and — because a page that has changed position five times owes the reader a resolution condition rather than a sixth assertion — say why we are confident. The paper states its own test direction and the registry posting independently agrees."
+    },
+    {
+      "at": "2026-09-10T17:12:13+00:00",
+      "by": "claude",
+      "kind": "reworded",
+      "was": "All three are fixed.",
+      "now": "The five positions on one fact, and the day each was on the page.",
+      "because": "G1",
+      "note": "Operator ruling 2026-09-10: state the current position in the body, move the five-position sequence to the change log, and — because a page that has changed position five times owes the reader a resolution condition rather than a sixth assertion — say why we are confident. The paper states its own test direction and the registry posting independently agrees."
+    },
+    {
+      "at": "2026-09-10T17:12:13+00:00",
+      "by": "claude",
+      "kind": "reworded",
+      "was": "Outstanding: not re-gated on this revision, not outside-reviewed, not published.",
+      "now": "This page has said five different things about whether MONALEESA-2's overall-survival p-value was tested one-sided or two-sided.",
+      "because": "G1",
+      "note": "Operator ruling 2026-09-10: state the current position in the body, move the five-position sequence to the change log, and — because a page that has changed position five times owes the reader a resolution condition rather than a sixth assertion — say why we are confident. The paper states its own test direction and the registry posting independently agrees."
+    },
+    {
+      "at": "2026-09-10T17:12:13+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "They are listed here rather than in the body, because a reader wants the answer and an auditor wants the sequence, and only one of them should have to read the other. 28 August - two-sided, with no source at all. 29 August - unknowable, after that unsourced claim was withdrawn; which was a search we had not done rather than a fact about the world. 30 August - one-sided, with the registry's directionality attached to the journal's number: two documents' figures paired as though they were one, found by our own gate on the run that read the correction which introduced it. 31 August - the doubling worked out as arithmetic, because we had not read the paper's statistical section; a derivation standing in for a sentence we could have opened and had not. 1 September - the paper's own account, having read it.",
+      "because": "G1",
+      "note": "Operator ruling 2026-09-10: state the current position in the body, move the five-position sequence to the change log, and — because a page that has changed position five times owes the reader a resolution condition rather than a sixth assertion — say why we are confident. The paper states its own test direction and the registry posting independently agrees."
+    },
+    {
+      "at": "2026-09-10T17:12:13+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "MONALEESA-2's exact critical value at its final look, if alpha had been spent at an interim.",
+      "because": "G1",
+      "note": "Operator ruling 2026-09-10: state the current position in the body, move the five-position sequence to the change log, and — because a page that has changed position five times owes the reader a resolution condition rather than a sixth assertion — say why we are confident. The paper states its own test direction and the registry posting independently agrees."
+    },
+    {
+      "at": "2026-09-10T17:12:13+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "The direction of the test is settled - the paper states it - and its statistical section, which we have now read, names a Lan-DeMets (O'Brien-Fleming) boundary under a five-look group sequential design without printing the value at that look.",
+      "because": "G1",
+      "note": "Operator ruling 2026-09-10: state the current position in the body, move the five-position sequence to the change log, and — because a page that has changed position five times owes the reader a resolution condition rather than a sixth assertion — say why we are confident. The paper states its own test direction and the registry posting independently agrees."
+    },
+    {
+      "at": "2026-09-10T17:12:40+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "On that reading the guideline's sentence is true - none exists in the setting that sentence is about , first line with an aromatase inhibitor.",
+      "because": "G3",
+      "note": "Operator ruling 2026-09-10, G3: the page gives both readings and what follows from each, so a reader can see where they diverge from us."
+    },
+    {
+      "at": "2026-09-10T17:12:40+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "On that reading the guideline's sentence would be false, because the four comparative studies on this page do exactly that - two real-world cohorts of 9,146 and 1,982 patients, a network meta-analysis and a reconstruction from published curves - and three of them report abemaciclib against ribociclib directly.",
+      "because": "G3",
+      "note": "Operator ruling 2026-09-10, G3: the page gives both readings and what follows from each, so a reader can see where they diverge from us."
+    },
+    {
+      "at": "2026-09-10T17:12:40+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "That is the position the page now states, and what makes it different from the other four is that the paper says it in its own sentence and the registry posting agrees.",
+      "because": "G1",
+      "note": "Operator ruling 2026-09-10, G1: the five-position sequence moved to the change log, which closes by naming the position the page now states and what distinguishes it."
+    },
+    {
+      "at": "2026-09-10T17:12:40+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "What the outside review changed.",
+      "because": "G1",
+      "note": "No change to this sentence. It is unchanged from the previous version and appears here only because inserting the five-positions paragraph into the change log re-paired the diff's adjacent sentences. Recorded rather than left undecided: an unexplained row is indistinguishable from an unexplained change."
+    },
+    {
+      "at": "2026-09-10T17:12:40+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "This page had claimed a complete comparative literature it had not surveyed; a fourth study was added, including the one figure on this page that cuts against its own conclusion.",
+      "because": "G1",
+      "note": "No change to this sentence. It is unchanged from the previous version and appears here only because inserting the five-positions paragraph into the change log re-paired the diff's adjacent sentences. Recorded rather than left undecided: an unexplained row is indistinguishable from an unexplained change."
     }
   ]
 }

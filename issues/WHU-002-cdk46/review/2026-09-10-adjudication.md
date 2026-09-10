@@ -227,3 +227,72 @@ definitions replaced with its own wording, the *"directly compared"* reading
 marked as ours, and the `/the-rubric` nav link, which is furniture.
 
 Nothing publishes until those 27 are decided.
+
+
+---
+
+## G1 — the test direction: state the position, move the history, say why we are confident
+
+**Operator ruling, 10 September 2026.** The body states the current position. The
+five-position sequence moves to the change log. And the substantive addition:
+**a page that has changed position five times owes the reader the resolution
+condition, not a sixth assertion** — if we are not confident, say what specific
+thing would settle it; if we are, say so and say what makes us confident.
+
+**We are confident, and the ground is stated on the page:** the paper states its
+own test direction in its own sentence, in a statistical section we have read,
+and the trial's registry posting independently gives the one-sided form of the
+same p-value against the same hazard ratio. Two documents, one from the journal
+and one from the sponsor, agreeing on a fact neither is arguing about.
+
+The body now says that and points at the change log. The change log carries all
+five with the day each was on the page and what was wrong with each — *because a
+reader wants the answer and an auditor wants the sequence, and only one of them
+should have to read the other.*
+
+## G2 — the scoped negative: deleted, and what remains is scoped
+
+**Operator ruling, 10 September 2026: explain or delete, default to delete.** The reader
+test failed at the friendliest possible reader — the operator, who knows this
+material, could not tell what the sentence meant in context.
+
+*"We asked, on 3 September 2026, and there is no such sentence"* is **deleted.**
+It added a date to a claim the previous sentence already made, and the search it
+reported had no stated scope: not which version, not which sections, not what
+string. **A sentence that needs a paragraph of explanation to earn its place
+usually has not earned it.**
+
+The claim it was attached to stays, and is now scoped where it was not:
+*"Nowhere in **version 6.2026** does it state the general rule we have drawn from
+them… **That generalisation is ours.**"* The document and its version are named,
+and the thing being asserted is our own inference rather than an absence a reader
+cannot check.
+
+The verbatim quotation of the guideline's category definitions **stays**, as
+ruled.
+
+## G3 — the alternative reading, given plainly
+
+**Operator ruling, 10 September 2026: marking a reading as ours is not sufficient.** A
+reader needs the other reading in plain terms, what follows from it, and why we
+chose ours — enough to see exactly where they diverge and what changes
+downstream.
+
+The page now gives all four:
+
+- **the narrow reading (ours)** — a trial that randomises one of these drugs
+  against another; on it the guideline's sentence is true;
+- **the wider reading** — any head-to-head comparison counts, randomised or not;
+  on it the guideline's sentence would be **false**, because four comparative
+  studies on this page do exactly that and three report abemaciclib against
+  ribociclib directly;
+- **where a reader who prefers the wider one diverges from us** — they would say
+  the guideline is out of date rather than accurate, and that the comparison it
+  calls untested has been attempted four times;
+- **why we take the narrow one** — a guideline that grades observational evidence
+  elsewhere would not describe observational comparisons as absent, and the
+  randomised trial is the only thing that would make the sentence plainly false.
+
+And the part that matters most to a reader deciding whether to care:
+**nothing downstream changes either way.** On both readings, no study of any
+design separates abemaciclib from ribociclib.
