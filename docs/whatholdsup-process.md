@@ -231,6 +231,56 @@ reviewer's job and the reason the review step exists.
 
 ---
 
+## 5.5 Passage reading
+
+**Added 10 September 2026. It sits after binding and before verification.**
+
+Nine stages, and every one of them operated on a sentence, a figure, a span or a
+document. **Nothing ever looked at a paragraph whole and asked whether it held
+together.** That is why a passage could say *"we have now read it"* and, four
+sentences later, that we could not know what it touched *"because that requires
+reading it"*, with every gate green.
+
+This is a **reading, not a detector**, which is why it exists from today without
+being built or validated. Four questions, per passage:
+
+1. **Do any two sentences here contradict each other?**
+2. **Does any sentence assert a state — what we hold, have read, can reach, have
+   checked — that another sentence or the store contradicts?**
+3. **Could a careful reader leave this passage believing something false that no
+   sentence in it states?**
+4. **Is a reader asked to hold anything in suspension longer than the passage
+   supports?**
+
+Run it **twice**: at passage scope, then at whole-page scope including the
+appendices and the change log. The same four questions have different answers at
+different distances, and an impression can be created by the arrangement of
+passages that no single passage creates.
+
+**Question 3 is the one nothing else asks, and it is the whole of what "fair"
+adds to "accurate".** A page can be true sentence by sentence and leave a false
+impression, and every sentence-scoped check in this apparatus will pass it. That
+gap is the exact thing this publication exists to point at in other people's
+work, and it has been unguarded in its own since issue one.
+
+**Question 4 is the KOL Pulse question**, written so it can be answered rather
+than argued about.
+
+### Who performs it
+
+**Every passage-level and whole-level catch in this cycle came from the
+operator.** *"Is my signature window dressing."* *"The homepage says 28 August."*
+*"We can't paper over this."* None of those is a sentence-level finding and none
+of them could have been. The stage has been staffed by one person who was not
+named in this document as performing it, and naming it does two things: it stops
+the work being invisible, and it makes clear what kind of work it is.
+
+Machine readers may **assist** at this stage. Their agreement is weak evidence
+here — the shared-blind-spot limit at §14 applies, and three of them misread one
+box between them.
+
+---
+
 ## 6. Internal pre-review
 
 One reader inside the process, before the packet goes out. Output is a review
@@ -468,6 +518,39 @@ Fourteen ways this publication has actually been wrong, and what catches each.
 | 15 | A check that examines part of what its name describes, and reports the unexamined part as passing | scope stated in the check's own docstring |
 | 16 | A protective construct whose triggering condition was never tested — a guard that catches nothing, a stop wired to a probe that cannot fire, a test containing `or True` | the construct must be made to fire once |
 | 17 | A check whose condition is sound and whose message names a cause that is not the cause | read the message as if you did not already know the answer |
+| 18 | A defect deferred whole, on an estimate of cost made by the person who benefits from the estimate being high | decompose it, then defer the parts that survive |
+
+**Failure 18 — decompose before deferring.** *A defect deferred whole is often
+three defects, and usually at least one of them is cheap. An estimate of cost is
+not a measurement of cost, and the person making it is the person who benefits
+from it being high.*
+
+The worked example is passage coherence, filed on 2026-09-09 as *"a different
+kind of machinery"*. Decomposed on 10 September 2026 it is three defects:
+
+| class | what it is | remedy |
+|---|---|---|
+| contradiction | two sentences that cannot both be true | §5.5, a reading |
+| **stale predicate** | a sentence asserting a state the system tracks and that has changed | **mechanical — `epistemic.py`** |
+| legibility | nothing false; the passage is hard to parse | §12a-iii, a counting rule |
+
+**The middle one was buildable, had five test instances already sitting in the
+repository, and was the class that caused the harm.** The deferral sorted by
+apparent cost, and apparent cost was a guess.
+
+**The consequence for the pile.** Every entry in `whatholdsup-open-gaps.md` was
+placed there by the same judgement, which means **the deferred pile is selected
+for looking hard rather than for being hard.** It is worth re-reading with that
+in mind, one entry at a time, asking of each: is this one defect or three, and
+is one of the three cheap.
+
+**And the corrected reason for what is still not built.** Automated contradiction
+detection and automated impression assessment are not deferred because they are
+expensive. They are deferred because **no test can currently be stated that
+distinguishes a working one from a broken one** — failure 16. That is a
+different reason from the one given on 2026-09-09, and it is the honest one. The
+difference matters: a defect deferred for cost is waiting on effort, and a defect
+deferred for want of a test is waiting on an idea.
 
 **Failure 15 — scope.** `header_date()` returns the *Updated* date when one is
 present, so the gate that compares a masthead to today has only ever compared
@@ -678,6 +761,28 @@ contain?" is not, and only the second produces a sentence a reader can rely on.
 says what the notice contains *and* that we use nothing from that endpoint —
 because there is a difference between having seen data and not used it, and not
 having seen it, and only the first can be checked by a reader.
+
+### 12a-iii. N misreadings of one passage is a finding about the passage
+
+**Adopted 10 September 2026.** Three independent automated readers misread the KOL Pulse
+box. Each was disposed of as a false positive, one at a time, and the pattern
+was only visible when somebody counted them.
+
+> **Two independent automated misreadings of the same passage is recorded as a
+> legibility finding about the PASSAGE, not as two false positives about the
+> checkers. Three requires revision before that issue's next publish.**
+
+It costs nothing to adopt: the misreadings are already being produced and logged.
+The rule converts a stream of dismissals into a signal, and a dismissal is
+exactly where a signal goes to die — each one is individually correct, and being
+individually correct is what stops anyone adding them up.
+
+**Applied retroactively, the KOL Pulse box is at three and is therefore already a
+required revision item — which it independently is**, by the ruling of
+2026-09-09 that recorded it as REQUIRED for the next revision. **The rule and
+the ruling agree and were arrived at separately**, which is the only kind of
+corroboration worth much: a rule that only ever confirms the decisions of the
+person who wrote it is not a rule, it is a description.
 
 ### 12b. Every finding records which direction it leans
 

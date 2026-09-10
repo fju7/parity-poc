@@ -650,7 +650,12 @@
           "the entire notice, which is one page"
         ],
         "note": "THIS ENTRY EXISTS BECAUSE OF A FIELD IN A BIBLIOGRAPHIC RECORD. On 2026-09-01 the operator pasted PubMed's MEDLINE record for S003 while asking whether similar and citing articles were worth reviewing. Its EIN field read: Ann Oncol. 2025 Dec;36(12):1556. This page had been printing six figures from a paper that had been formally corrected, and nothing in this repository knew.\n\nAn erratum is the one class of secondary document that can silently falsify a figure already published. It is also mechanically detectable: every MEDLINE record carries EIN and CIN fields. Checking them is free and requires no judgement, and not checking them is how a correction notice sits unread for nine months.\n\nWhat it says is now known and it is narrow. Read in full, the notice corrects one number in one figure of an exploratory endpoint this page does not use. That is a real answer rather than an assumed one: the document was obtained and read, and the claim that it does not affect us rests on the notice itself and not on its title."
-      }
+      },
+      "also_called": [
+        "the MONARCH 3 corrigendum",
+        "the corrigendum",
+        "PMID 41093689"
+      ]
     },
     {
       "id": "S026",

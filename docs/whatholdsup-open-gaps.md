@@ -1067,3 +1067,73 @@ and carries the same obligation: it is stated with the evidence that lets a
 reader falsify it, or it is not stated as a number. *"This page has repeatedly
 changed its position on this fact; the log records each change"* asserts nothing
 a reader cannot check.
+
+---
+
+## The epistemic-state check: it passes its test set and fails the corpus, 4/4
+
+**Built 10 September 2026. NOT wired into `check`, and the reason is the finding.**
+
+`backend/scripts/whatholdsup/epistemic.py`, with `test_whatholdsup_epistemic.py`
+written first. Against the five-instance test set it does exactly what was
+asked — three fire, two do not, including the S029 erratum disclosure, which is
+the hard one because S030 *is* held in full and what is held is the PubMed
+record, not the notice.
+
+**Run across all three issues it produced four findings and every one is a false
+positive.** Zero true findings.
+
+| # | issue | what it said | why it is wrong |
+|---|---|---|---|
+| 1 | cdk46 | S021 asserted UNREAD, store says `full_text_held` | the sentence is about the PALMARES-2 **paper**; S021 is the PALMARES-2 **ClinicalTrials.gov record**. Holding the registry record is not holding the paper |
+| 2 | cdk46 | S002 asserted READ, store says `fragment_only` | the sentence is about the **corrigendum**; S002 is the 2017 trial paper, matched because the sentence mentions "MONARCH 3" |
+| 3 | melanoma | S002 asserted READ, store says `abstract_held` | *"the five-year release we hold"* is true — the release **is** held, as an abstract. My rule treated `abstract_held` as not-held for every read-predicate |
+| 4 | melanoma | a correction says a quotation was removed; the phrase is on the page | the phrase *"key secondary endpoint"* is on the page four times, in **our own prose**. The **ASCO Post quotation** of it is gone. The check matched a string without its attribution |
+
+### What this actually establishes
+
+**Three of the four are one problem: resolution.** The check tells READ from
+UNREAD reliably — that half is a vocabulary match and it works. It cannot
+reliably tell **which document a sentence predicates about**, as opposed to
+which documents it mentions. A sentence naming three sources and asserting
+something about one of them is the normal case in this publication's prose, and
+the check has no way to find the subject.
+
+### And the test set was too easy in the one dimension that matters
+
+This is the part worth keeping. All five fixtures had an **unambiguous subject**.
+I satisfied failure 16 — made it fire, made it not fire — on a set that never
+exercised the mechanism that turned out to be load-bearing. **"Make the construct
+fire once" is necessary and it is not sufficient: a test set drawn from known
+incidents tests the part of the problem the incidents made visible, and the part
+they did not make visible is exactly the part nobody has looked at.**
+
+The corpus run is what found this, and it cost one command. **Run a new check
+against the whole corpus before wiring it in, always** — the test set says
+whether it works on what you already understood.
+
+### Two store-level facts it surfaced, which are worth more than the check
+
+**The record-vs-document distinction is carried in three different ways.** S030
+declares `form: record`. S021 carries it only in prose — its title says
+"ClinicalTrials.gov record" and no field says so. S025 carries `type:
+corrigendum`. A check cannot ask the store *"is this a document or a record
+about one?"* and get a reliable answer, because the store answers it in a field,
+in a title, or not at all, depending on who wrote the entry.
+
+**And an alias gap made a source invisible.** S025 had no `also_called` at all,
+so no sentence could resolve to it — the very source at the centre of two of the
+three incidents. Aliases were added. But this means **coverage silently depends
+on how well each source entry was filled in**, and a source with no aliases is
+not checked rather than checked and passed. That is a silent failure of exactly
+the class recorded above it.
+
+### What happens next
+
+Not wired in. It stays runnable by hand (`python3 epistemic.py`) and the test set
+stands as a regression fixture for the three incidents. The subject-resolution
+problem is the next issue's work, and the honest statement of it is: **this is
+not a vocabulary problem, it is a reference-resolution problem, and I do not
+currently have a test that distinguishes a working resolver from a broken one
+beyond the five hand-built cases.** By failure 16 that means it is not ready,
+and by the rule above it means the next step is more corpus, not more fixtures.
