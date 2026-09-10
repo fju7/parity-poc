@@ -2394,3 +2394,103 @@ a reader's mind. A generator can assemble what changed and why; it cannot write
 the third part, and a notice with the first two and not the third is a changelog.
 It is drafted by a person, in `site/whatholdsup/email/drafts/`, and reviewed
 before it sends.
+
+---
+
+## markup.py: built, and its first run found a live defect two days old
+
+**10 September 2026.** The dimension nothing measured, measured.
+
+### The test set, both outcomes
+
+The page **as served** on 2026-09-10 with the nested anchor: **FAILS**. The same
+page fixed: **PASSES**. And the half that makes it a check rather than an alarm —
+void elements, optional end tags (`<li>`, `<td>`) and ordinary nesting must be
+silent, or the file becomes noise and gets ignored.
+
+### The first corpus run found a real defect on the live melanoma page
+
+```html
+<ul><ul>
+  <li><strong>How large the Phase 3 effect is.</strong> …
+</ul>
+```
+
+A **doubled `<ul>`** in the *Not established* list, closed by one `</ul>`, so the
+inner list never closed and the enclosing `</div>` closed over it. Readers met it
+as a double-indented list in the section that says what this page does **not**
+establish.
+
+### The history answers whether it had happened before, and it is precise
+
+Every published sha in `published.json`, sixteen rows:
+
+| | |
+|---|---|
+| melanoma ×3 (28 Aug), cdk46 ×2 (29 Aug), melanoma (29, 30 Aug), deskilling (30 Aug), cdk46 ×2 (31 Aug), melanoma (4 Sep), deskilling ×2 | **clean** |
+| **melanoma `853200cf`, 9 September** | **first appearance** |
+| melanoma `1b3f3a49` and `80c00091`, 10 September | same defect |
+
+**Eleven published versions across three issues are structurally clean.** The
+defect entered on 9 September and was live for two days across three published
+versions.
+
+**That is the question worth asking on discovering an unmeasured dimension** —
+*has this happened before?* — and the record could answer it. The answer is no,
+which is itself information: the site's markup has been sound, and one edit broke
+it. Had the answer been "every version since August", the finding would have been
+about how pages are produced rather than about one edit.
+
+**Fixed and recorded** by `record-live` — four characters, no sentence, figure or
+source touched, which is exactly the change that instrument exists for.
+
+---
+
+## The field audit: what else is in the records
+
+**10 September 2026. Reported; nothing fixed.** The query is the question that found the
+review-label case: *what else is in this record?* — enumerating every field in
+every record file and testing whether any code names it.
+
+**The strongest single result, and it is about the email we are about to send:**
+
+`issues/WHU-002-cdk46/attributions.json` holds a **verified** entry:
+
+```json
+{"name": "Tanguy", "as_printed": "Tanguy and colleagues",
+ "full_author_list": ["Marie-Laure Tanguy", "Luc Cabel", …],
+ "checked_against": "the paper's own author list, opened 2026-08-29",
+ "corrects": "'Jacot and colleagues', published 2026-08-29 and corrected the
+              same day. William Jacot is not an author of this paper."}
+```
+
+**The record has known since 29 August — the day the email went out — that the
+name in that email is wrong.** `attributions.json` is read by `lint_claims.py`
+and `publish.py`, so the file is not orphaned; what does not exist is anything
+that checks a **sent email** against it. The correction reached the page the same
+day and the inbox not at all, and no consumer joins the two.
+
+**Fields no code names at all**, by count:
+
+| field | occurrences | where |
+|---|---|---|
+| `proposed_by`, `proposed_on` | 146, 131 | `bindings.json` — who proposed a binding, and when |
+| `why_bound` | 138 | `bindings.json` — the reasoning behind a binding |
+| `accessed` | 56 | `sources.json` |
+| `what_would_change_it` | 54 | `change-reviews.json`, `draft_decisions.json` — **the falsifier for a decision** |
+| `role`, `finding_id` | 46, 42 | `draft_decisions.json` |
+| `first_author`, `as_printed`, `author_list_read`, `as_written`, `author_line`, `full_author_list` | 37, 21, 18, 6, 4, 2 | `attributions.json` |
+| `document_class_why` | 28 | `sources.json` — written today |
+| `found_via`, `what_it_actually_says`, `what_it_omits` | 18, 6, 2 | `sources.json` |
+| `what_would_settle_it` | 7 | `premise.json` |
+
+**Method and its limits, stated.** The audit greps the whatholdsup source for
+each key as a quoted string or an attribute. It over-reports: source ids used as
+dict keys (`S005`, `S023`) and free-text values promoted to keys
+(`MONALEESA-3`) appear as unread "fields" and are not fields. It under-reports:
+a key read via `.get(var)` or an iteration over `.items()` looks unread. **It is
+a starting list for a person, not a verdict** — which is the only honest claim
+for a mechanical audit of what a codebase means to read.
+
+**`what_would_change_it` is the one I would look at first.** Fifty-four recorded
+falsifiers for decisions, and nothing checks whether any of them has come true.

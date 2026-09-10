@@ -52,10 +52,10 @@ from a real floor.
 > and it is *ours to defend*, not a finding we can attach to someone else's
 > paper. If you took the interval-width point as established by Tanguy and
 > colleagues, it is not — it is our observation, and you should weigh it as one.
-> What their paper does establish is stronger for the piece and different in
-> kind: these trials were mostly too small to detect a survival difference, so
-> the presence or absence of significance across them is weak evidence about the
-> drugs.
+> What their paper establishes is that these trials were mostly too small to
+> detect a survival difference at all: none of the four reaches 70% power unless
+> the gain in median survival exceeds twelve months. Whether that helps or hurts
+> the argument in that issue is yours to judge.
 >
 > The paper: Tanguy M-L, Cabel L, Berger F, Pierga J-Y, Savignoni A, Bidard F-C.
 > *Cdk4/6 inhibitors and overall survival: power of first-line trials in
@@ -101,6 +101,11 @@ from a real floor.
   where this kind of thing goes to hide.
 - **Do not explain how the wrong name got in.** We do not know. A guess inside a
   correction notice is a new unsourced claim in the worst possible place.
+- **PART 3 GOES THROUGH THE PASSAGE STAGE BEFORE ANY SEND.** Hand-written prose
+  about our own error, under time pressure, by the party that made it, is the
+  exact class §5.5 exists for — and it is the one part of this email no
+  derivation touches. The four questions, on both "what you should now believe"
+  paragraphs, recorded like any other run. Done 10 September 2026; see below.
 - **The two "what you should now believe" paragraphs are the correction.**
   Everything above each is what changed and why. If length has to come out, it
   comes out of the first two parts.
@@ -111,3 +116,49 @@ from a real floor.
 - **On sending, record it** in `backend/data/whatholdsup/sent.json` with
   `covers:` naming exactly the two headings above. Derivation begins from that
   row; until it exists, `outstanding()` still returns 24.
+
+
+---
+
+## The passage stage, run on part 3 — 10 September 2026
+
+Part 3 is the one part of this email no derivation touches, and it is
+hand-written prose about our own error by the party that made it. §5.5's four
+questions, run on both *"what you should now believe"* paragraphs.
+
+**Q1 — do any two sentences here contradict each other?** No. The two paragraphs
+concern different issues and different errors; neither makes a claim the other
+denies.
+
+**Q2 — does any sentence assert a state another sentence or the store
+contradicts?** No, and each claim is checked against held bytes rather than
+against a summary:
+
+- *"MONARCH-3 has a more limited power"* — verbatim in S024, sha `e49e76bb…`.
+- *"none of the four reaches 70% power unless the gain in median survival exceeds
+  twelve months"* — the paper's own statement, same document.
+- *"might be more attributable to chance than to a truly different drug
+  efficacy"* — verbatim, same document.
+- *"95% CI 0.114 to 1.584"* — on the melanoma page and in its 9 September
+  correction entry.
+- *"an 80% interval of 0.179 to 1.004"* — in the email as sent, `5ef7890a…`,
+  recovered from git by matching the recorded sha.
+
+**Q3 — could a careful reader leave believing something false that no sentence
+states?** This is where the wording changed. The first draft said *"What their
+paper does establish is stronger for the piece"* — which tells a reader how to
+feel about our own correction, inside the correction. A reader could come away
+believing the error made the argument **better**, which no evidence supports and
+which is the flattering direction. It now states what Tanguy and colleagues
+established and ends *"Whether that helps or hurts the argument in that issue is
+yours to judge."*
+
+One thing checked and left: the interval paragraph says the result *"does not
+establish a survival benefit"*. A reader might take that as *establishes no
+benefit*. The next clause — the interval *"includes 1"* — is what distinguishes
+them, and it stays unsoftened.
+
+**Q4 — is a reader asked to hold anything in suspension longer than the passage
+supports?** No. Each paragraph resolves inside itself: what we said, what is
+true, what to believe now. Neither asks a reader to carry a premise across the
+other.

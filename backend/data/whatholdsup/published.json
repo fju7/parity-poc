@@ -249,6 +249,23 @@
       ],
       "supersedes": "5047ede0c69af882488ec1e2e23dbbfc651f1c97e575868bd5d01ff02615e5be",
       "waived": null
+    },
+    {
+      "issue": "melanoma",
+      "action": "republish",
+      "at": "2026-09-10T18:38:33+00:00",
+      "interpreter": "/Users/fredugast/Projects/parity-poc-repo/backend/venv/bin/python3",
+      "sha": "c8964fdb9b57feb0c0147dd40bb656eade4a710c286cee16fe39463c49318e4a",
+      "commit": "7bf421f0cad7682259146d403941db0bcd818438",
+      "url": "https://whatholdsup.org/melanoma",
+      "note": "Markup only: a doubled <ul><ul> in the 'Not established' list, introduced 9 September, closed by a single </ul> so the inner list never closed and the enclosing </div> closed over it. Found by markup.py on its first run. No sentence, figure or source changed; the fix removes four characters.",
+      "basis": "NOT a preflight. A person read the diff below and signed it as not touching the argument. 2 changed line(s).",
+      "diff": [
+        "-      <ul><ul>",
+        "+      <ul>"
+      ],
+      "supersedes": "97d53bc30843ffd5eaf45f60662d04b65f39c4435559b65ca363b7e783b41e59",
+      "waived": null
     }
   ]
 }

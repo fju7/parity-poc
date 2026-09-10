@@ -283,6 +283,28 @@ Recorded as the worked example of why this stage is a reading rather than a
 detector. The four questions below are what to ask; this is what asking them
 looks like when the answer is something nobody thought to ask about.
 
+### The email can never be fully derived, and the boundary is stated
+
+**10 September 2026.** A correction email has three parts. Two are derivable from the
+record — *what changed* and *why, including how we found it*. The third —
+**what you should now believe that differs from what you believed before** — is
+a claim about a reader's mind. **No record contains it.**
+
+So the email is **part derived, part written, and the boundary is explicit rather
+than hidden.** That matters because a hidden boundary is how a hand-written
+sentence acquires a derived sentence's authority: a reader of a mostly-generated
+document assumes all of it was generated.
+
+> **REQUIRED: part 3 goes through this stage's four questions before any send.**
+
+Hand-written prose about our own error, under time pressure, by the party that
+made it, is the exact class this stage exists for — and it is the one part of
+that email nothing else touches. Its first run, on 10 September 2026, changed a sentence:
+*"What their paper does establish is stronger for the piece"* told a reader how
+to feel about our own correction, inside the correction, in the flattering
+direction. It now states what the paper establishes and says whether that helps
+or hurts is the reader's to judge.
+
 ### Its worklist comes from the epistemic check
 
 `epistemic.py` does not adjudicate; **it triages.** Every sentence it reports as
