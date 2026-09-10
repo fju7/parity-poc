@@ -961,6 +961,45 @@ announcement.
 
 ## A field no consumer knows exists — a fourth variant, and the worst
 
+### Its worst case, and it is the one we are sending an email about
+
+`issues/WHU-002-cdk46/attributions.json` has stated since **29 August 2026 — the
+day that email was sent** — that **William Jacot is not an author of that paper**:
+
+```json
+{"name": "Tanguy",
+ "full_author_list": ["Marie-Laure Tanguy", "Luc Cabel", "Fréderique Berger",
+                      "Jean-Yves Pierga", "Alexia Savignoni",
+                      "François-Clément Bidard"],
+ "checked_against": "the paper's own author list, opened 2026-08-29",
+ "corrects": "'Jacot and colleagues', published 2026-08-29 and corrected the
+              same day. William Jacot is not an author of this paper."}
+```
+
+**Two modules read that file** — `lint_claims.py` and `publish.py` — so it is not
+orphaned, and the fields carrying the correction (`as_printed`,
+`full_author_list`, `corrects`) are named by no code at all.
+
+**Nothing joins it to the sent artifact.** The correction reached the page the
+same day and the inbox not at all, and the evidence sat **machine-readable for
+twelve days** while a named researcher's name stayed wrong in subscribers'
+inboxes.
+
+**This is the fourth variant's worst case** because every other ingredient was
+present: the error was found, checked against the source, recorded in a
+structured field, and corrected where anyone was looking. **The only missing
+piece was a join** — and a join is the cheapest thing in this list.
+
+**The consequence, for when the email mechanism exists:** a check joins
+`attributions.json` to `sent.json`. **A recorded attribution correction with no
+corresponding send is a defect, not a gap.** An attribution error names a real
+person; it is the one class where the cost of not telling readers falls on
+somebody who is not us.
+
+---
+
+## A field no consumer knows exists — the general case
+
 **10 September 2026.** The review label case is not the unread-signal case and should not
 be filed with it.
 
@@ -2494,3 +2533,108 @@ for a mechanical audit of what a codebase means to read.
 
 **`what_would_change_it` is the one I would look at first.** Fifty-four recorded
 falsifiers for decisions, and nothing checks whether any of them has come true.
+
+---
+
+## Fifty-four recorded falsifiers, none of them ever checked
+
+**10 September 2026. Listed in `docs/whatholdsup-falsifiers.md`, generated from the
+records.**
+
+**This publication's method is that a claim states what would change its mind.**
+It has recorded **54** and checked **none**. The `last checked` column reads
+*never* for all fifty-four, and that is the finding rather than a gap in the
+table.
+
+**That is the FORM of falsifiability without the act** — a control described and
+never performed, at scale, in the place the epistemics rests. Every row is a
+decision somebody made with the condition that would overturn it written down at
+the time, and no record anywhere of anyone returning to ask whether the condition
+has come true.
+
+It is the unread-signature failure at the level of the method rather than a
+document: **writing down what would change your mind is not the same as
+changing it**, and the first is auditable while the second is what a reader is
+being promised.
+
+### They are not one kind, and the split changes what is buildable
+
+| | count |
+|---|---|
+| falsifiable **from this repository alone** — a string in held bytes, a mark still passing, a sentence still on the page | **18** |
+| requires **looking at the world** — a registry posting a result, an interval appearing in a held document | **2** |
+| both, or unclear from the wording | **34** |
+
+**The reason given for deferring a checker is true of two of them.** *"A
+falsifier like 'if the Phase 3 releases an effect size' needs someone to look at
+the world"* — and eighteen name a string, a file, a mark or a sentence in this
+repository, and could be evaluated tonight. The 34 in the middle mostly name a
+held document, which is also here.
+
+**A single number hid a buildable majority behind an unbuildable minority.**
+That is failure 18 — decompose before deferring — applied to a pile that was
+deferred whole in the same breath that created it. The world-facing ones stay
+next issue's work; splitting them was the first step and it cost one query.
+
+---
+
+## WebFetch output is a model's answer about a page, never evidence about a page
+
+**10 September 2026.** Twice this session the reviewer said he had *"read the live page"*.
+On 10 September 2026 his fetch returned card text that **is not on the page and never
+was** — not the current format, and not any format the page has been served in —
+and he used it to challenge a report that was correct.
+
+It was not a cache and not a propagation lag. The homepage was served with
+`x-vercel-cache: MISS`, `age: 0`, and bytes **identical to the repo**. The tool
+returns a **summarising model's reconstruction** of a fetched page, with markup
+already stripped, and a plausible reconstruction of a page about issue cards
+looks exactly like an issue card.
+
+**It is 2,116 in a different instrument.** A plausible artefact, produced by a
+process nobody inspected, read as an observation — and then reasoned from.
+
+> **Rule: WebFetch output is a model's answer ABOUT a page. It is never evidence
+> about a page.** Anything that matters is checked against the served bytes, by
+> the agent, with the response headers recorded — which is what settled this one
+> in four lines.
+
+The same caution covers every summarising retrieval in this apparatus, and the
+reason it keeps recurring is that the summary is *usually right*, which is
+precisely what makes it unsafe to reason from.
+
+---
+
+## markup.py found a live defect on each of its first two runs
+
+**10 September 2026.**
+
+**Run one**, its test set: the homepage as served with the nested anchor —
+**FAIL**, which is what it was built for.
+
+**Run two**, the corpus: a doubled `<ul><ul>` in melanoma's *Not established*
+list, live, two days old, on a published page. **A defect nobody was looking
+for, in the first sweep of a dimension nobody had measured.**
+
+Two for two on a check that took an afternoon. That is what an unmeasured
+dimension looks like from the inside: not a suspicion that something might be
+wrong, but a first measurement that immediately returns something.
+
+### The history answer prescribes a different repair from the finding
+
+Sixteen published shas. **Eleven clean; one edit broke it on 9 September.**
+
+> **"This has not happened before" and "production is broken" call for different
+> repairs**, and only the history distinguishes them.
+
+Had every version since August carried defects, the finding would be about **how
+pages are produced** — a generator, a template, a habit — and the repair would be
+upstream of any page. Eleven clean versions say the opposite: the process is
+sound and one hand-edit slipped, so the repair is **the check itself**, standing
+between the next hand-edit and a reader.
+
+**On discovering an unmeasured dimension, ask the record whether it has happened
+before.** The answer is cheap — sixteen `git show`s — and it decides whether you
+are fixing an instance or a system. Answering it *before* proposing a repair is
+the same discipline as decomposing before deferring: **the shape of the problem
+is a measurement, not an intuition.**
