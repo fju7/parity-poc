@@ -57,6 +57,22 @@ corrected itself to say it was open access. The first version was right: Europe
 PMC's record marks it not open access, with a single subscription-only route.
 It remains unread and is still disclosed as unread.
 
+> **Corrected 10 September 2026. Both of this entry's claims are now wrong, and
+> it is a dated record, so it is annotated rather than rewritten.** "It remains
+> unread" was true on 31 August and stopped being true the next day: the
+> corrigendum was held in full on 1 September 2026. The sentence then stood for
+> nine days after the fact it asserts had changed. And the first version
+> was *not* right: the corrigendum is open access under CC BY-NC-ND, established
+> three ways from a session holding no credentials — the notice's own footer,
+> Crossref's licence for the version of record (effective 9 July 2025), and
+> Europe PMC's own `license: cc by-nc-nd` field. What this entry read as a
+> licence was Europe PMC's `isOpenAccess: N`, which reports whether the full
+> text sits in *their* repository and sits two fields away from the licence in
+> the same record. The publisher's HTTP 403 is a block on automated retrieval,
+> not a paywall: 5,849 bytes with no "subscribe", "sign in" or "purchase
+> access" in them. The page's source note now carries the method and the
+> mechanism.
+
 **A source we had only read in part.** The Shaaban trial above was recorded
 here as read from its abstract only. It is open access in full at PMC11700305,
 and nobody had looked. Read in full, it adds that the trial is single-centre,

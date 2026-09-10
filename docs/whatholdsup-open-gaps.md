@@ -983,3 +983,87 @@ push completing, is a signal designed to be scrolled past.
 The fix is not a louder warning. It is that **a standing condition belongs in a
 standing record**, where its age is visible, and the WARN's job is to point at
 it. That is what the entry above this one does for the emails.
+
+---
+
+## Nothing checks whether `corrections.md`'s own claims are still true
+
+**10 September 2026. The correction log has now been wrong twice, in two different ways.**
+
+| when | what it asserted | what was true |
+|---|---|---|
+| 1 September 2026 | a correction had been published; the deletion note explaining it was printed | the change had never been made, and the note explaining it was false |
+| 31 August–10 September 2026 | the MONARCH 3 corrigendum *"remains unread and is still disclosed as unread"*, and *"the first version was right"* — that it sits behind a paywall | it was held in full on 1 September, one day later, and it is open access under CC BY-NC-ND |
+
+The second is the more instructive because **the sentence was true when it was
+written.** It became false the next day and nothing noticed for nine. A dated
+record is allowed to age; what is missing is anything that reports when it has.
+
+### The gap, exactly
+
+`corrections_check` tests corrections **against the page**: does the log say what
+the page shows. Nothing tests a correction's assertions **against the source
+store**. So a correction can assert an access state, a read state, or the
+contents of a document, and no check ever compares that assertion with what
+`sources.json` and the held bytes actually say — even though both are in this
+repository and both are machine-readable.
+
+That is the same shape as the homepage before `index_dates.py`: a reader-facing
+document with no control pointed at it, going stale while every other control
+stayed green.
+
+### The design, recorded, built nothing
+
+Any `corrections.md` entry asserting an access state must agree with
+`source_store`. The store already holds, per source, `access.state`, the date it
+was held, the sha of the bytes and the route; a correction that says "unread",
+"paywalled", "open access" or "held in full" is making a claim about exactly
+those fields. The check is a comparison, not a judgement.
+
+**Deferred for the same reason as the weight drift**: there is one instance to
+test against, and one instance is enough to write a check that passes and not
+enough to know it fires. It goes on the next issue's list, where a second
+correction asserting a second access state gives it something to disagree with.
+
+**The narrower point, worth keeping separate from the design.** The failure here
+is not that the log was wrong. It is that **a dated record has no expiry and no
+freshness signal**, so "true when written" and "true now" are indistinguishable
+to every reader including its author. Any check built for this should report the
+*age of the assertion* alongside the disagreement, because the nine days are the
+finding, not the mismatch.
+
+---
+
+## An unverifiable count of one's own errors is a flattering claim in damaging clothes
+
+**10 September 2026, from the OR-C ruling on cdk46.**
+
+The page says *"This is the fifth position this page has taken on one fact."*
+That reads as damaging and it is not, quite. **It asks for credit for candour and
+cannot be audited** — a reader has no way to check whether the number is five,
+or four, or seven, and the only direction the error can run is the one that makes
+us look more scrupulous than the record supports.
+
+Run through the direction column, it leans toward us. **Self-criticism is a
+flattering form**, and a self-criticism carrying an unverifiable number is the
+flattering part wearing the damaging part's clothes.
+
+**The corroboration is that this has already happened twice, today.** Two counts
+maintained in prose have been found wrong: the failure-family instance tally,
+which ran ahead of the RV series because it lived across four documents with no
+register, and "four commits", which under-described the cdk46 drift and was
+carried into a directive without being re-measured. Neither was maintained
+dishonestly. Both were wrong.
+
+**Resolved on the page rather than removed**, because the enumeration turned out
+to be there already: the sentence names all five positions and the next sentence
+says why each was wrong. What it lacked was dates. Each now carries the day it
+was on the page — 28, 29, 30, 31 August and 1 September — derived from
+`git log -S` over the page's own history rather than from anybody's memory, and
+pointing at the change log so the count can be checked instead of believed.
+
+**The rule this leaves.** A count of our own failures is a claim like any other
+and carries the same obligation: it is stated with the evidence that lets a
+reader falsify it, or it is not stated as a number. *"This page has repeatedly
+changed its position on this fact; the log records each change"* asserts nothing
+a reader cannot check.

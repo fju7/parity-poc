@@ -159,3 +159,71 @@ rides whatever publish eventually follows and does not get its own republish.
 When that publish happens, its record must state that four intermediate states
 existed and were never recorded: a single row spanning eight days and four
 commits reads as one event and was not.
+
+---
+
+## Rulings applied, 10 September 2026
+
+**OR-A — ACCEPTED, and the completeness question answered first.**
+
+The page does **not** invite the impression that MONARCH 3 failed to demonstrate
+benefit. It carries the trial's significant primary result in three places, two
+of them in the body and one in the most prominent structure on the page:
+
+- the comparison table: *MONARCH 3 · abemaciclib · not reached vs 14.7 mo,
+  HR 0.54 (0.41–0.72), primary analysis, JCO 2017*, set beside the survival
+  result in the adjacent column;
+- *"On the endpoint every one of these trials was powered to measure, nothing
+  separates them… the progression-free hazard ratios are 0.54, 0.57 and 0.58"*;
+- under **Established**: *"All three drugs substantially improve progression-free
+  survival against endocrine therapy alone… Every one of them is statistically
+  significant."*
+
+Every "did not" on the page attaches to overall survival and names the boundary
+it was tested against. One sentence actively refuses the misreading: *"abemaciclib
+is a category 1 drug in one setting and a category 2A drug in another — on the
+same evidence standard, consistently applied."* **No completeness problem, and
+the clause was drafted on that basis.**
+
+The source note now states what the notice contains and that we use nothing from
+that endpoint.
+
+**OR-B — ACCEPTED. Two live errors removed from the page and one from the log.**
+
+*"The first was right"* is gone; so is the internally contradictory tail that
+said, four sentences after *"we have now read it"*, that we could not say whether
+the corrigendum touched anything *"because that requires reading it"*. The page
+carries the verified access state, the method, the Europe PMC mechanism and the
+403. `corrections.md`'s 31 August entry is **annotated, not rewritten** — it is a
+dated record.
+
+**OR-C — the count stays, dated. And the premise I gave you was wrong.**
+
+I reported the five as unenumerated. They were enumerated: the sentence names all
+five and the next sentence says why each was wrong. What was missing was dates.
+Each now carries the day it was on the page — **28 August** two-sided unsourced,
+**29 August** unknowable, **30 August** the registry's directionality on the
+journal's number, **31 August** the doubling as arithmetic, **1 September** the
+paper's own account — derived from `git log -S` over this page's history, not
+from memory, and pointing at the change log.
+
+I had read the same truncated `reconcile` line that produced the 163/132 error.
+Two errors, one cause, four hours apart, in a cycle about reading the artifact.
+
+---
+
+## Where the round stands
+
+| | |
+|---|---|
+| reconciled | **217** |
+| **undecided** | **27** |
+| recorded entries not matching the page | 108 |
+
+Twenty-one changes were decided under OR-A, OR-B and OR-C, cited by label and
+resolvable through this file. **27 pre-existing changes still need
+decisions** — the one-sided/two-sided rework, the guideline's category
+definitions replaced with its own wording, the *"directly compared"* reading
+marked as ours, and the `/the-rubric` nav link, which is furniture.
+
+Nothing publishes until those 27 are decided.

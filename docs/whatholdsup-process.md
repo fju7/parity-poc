@@ -650,6 +650,35 @@ somebody who has never heard of this one.** That is the difference between
 encoding a principle and patching an instance, and where the two are available
 the first is always the smaller amount of work over time.
 
+### 12a-ii. Describe the document, not the part of it you went looking for
+
+**A true statement about a document's purpose can be a false impression of its
+contents.**
+
+Two instances, and they are the same instance twice.
+
+**RV-07.** EORTC 18071 was supplied for a counterexample and its abstract's
+figures were quoted from a PubMed response whose `Erratum in` field sat four
+lines above them. The part wanted was read; the field qualifying it was not.
+
+**The MONARCH 3 corrigendum, 10 September 2026.** The page said *"In full, it corrects one
+number in Figure 4."* Every word of that is true: the correction is one number.
+Read end to end, the notice also **republishes Figure 4 entire**, carrying a
+complete chemotherapy-free survival dataset — both arms' patients and events,
+medians of 46.7 against 30.6 months, log-rank P = 0.0010 and HR 0.693
+(0.557–0.863). A reader of our sentence would picture a one-line notice. The
+document is a survival analysis.
+
+The tell in both is a sentence that describes the *answer to the question we
+asked* rather than the object we hold. The question "does this notice touch our
+figures?" is answerable without reading the notice; "what does this notice
+contain?" is not, and only the second produces a sentence a reader can rely on.
+
+**The repair carries the distinction that makes it worth stating.** The page now
+says what the notice contains *and* that we use nothing from that endpoint —
+because there is a difference between having seen data and not used it, and not
+having seen it, and only the first can be checked by a reader.
+
 ### 12b. Every finding records which direction it leans
 
 One clause per finding: does the error, if it had stood, have flattered us or
@@ -736,6 +765,28 @@ invite the scrutiny a number being derived does.** The remedy is not care. It is
 that a scope figure quoted in a directive is re-derived at the point of use, the
 way `record_begins()` and `publication_dates()` are derived rather than
 remembered.
+
+**THE COUNTER-INSTANCE RULE.** An entry in this column with no counter-instances
+after a reasonable number of observations is reported as **UNSUPPORTED**, not as
+strong. A finding that only ever finds itself is not a finding — it is a search
+that stopped when it was satisfied, which is failure 1 wearing a statistic. The
+counter-instances go in the entry body at the same prominence as the
+confirmations, not in a footnote.
+
+**Keep the axes separate.** A single event can be a counter-instance on one axis
+and a confirmation on another, and collapsing them into one narrative loses both.
+The 163/132 error below is the worked example: on DIRECTION it is a
+counter-instance, because it made our own page look wrong when it was right. On
+FAMILY it is a confirmation — a truncated `reconcile` line read instead of the
+document, which is the same failure as reading an abstract and concluding about a
+paper. It is not "an error that cuts both ways". It is two facts about one event,
+on two axes, and each belongs in its own column.
+
+**And it happened twice the same day.** The second: I reported that the count in
+*"the fifth position this page has taken on one fact"* was unenumerated on the
+page. It was enumerated — the sentence names all five and the next sentence says
+why each was wrong. I had read the same truncated `reconcile` line. Two errors,
+one cause, four hours apart, in a cycle whose subject is reading the artifact.
 
 **A counter-instance, recorded because a direction column with only one
 direction in it is not evidence of anything.** In the same report I stated the

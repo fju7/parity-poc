@@ -1,6 +1,6 @@
 {
   "what_this_is": "Every change to the CDK4/6 assessment since the version an outside reviewer read, each tied to the decision that caused it. The reconciliation in publish.py matches these against the actual diff: a change with no entry here, or an entry citing a label that resolves to nothing, is an unexplained change and the board says so.",
-  "because_refers_to": "A heading in issues/WHU-002-cdk46/review/2026-08-29-adjudication.md or issues/WHU-002-cdk46/review/2026-08-29-post-publication.md. OR-* are the outside reviewer's pre-publication findings and suspicion; GATE-* are findings from the single post-review gate run; PUB-* are the post-publication reviewer's findings; PUB-S* are ours, found while fixing PUB-*.",
+  "because_refers_to": "A heading in issues/WHU-002-cdk46/review/2026-08-29-adjudication.md or issues/WHU-002-cdk46/review/2026-08-29-post-publication.md. OR-* are the outside reviewer's pre-publication findings and suspicion; GATE-* are findings from the single post-review gate run; PUB-* are the post-publication reviewer's findings; PUB-S* are ours, found while fixing PUB-*. OR-A, OR-B and OR-C are the three adjudicated items in issues/WHU-002-cdk46/review/2026-09-10-adjudication-round.md.",
   "changes": [
     {
       "at": "2026-08-29T02:12:27+00:00",
@@ -2551,6 +2551,195 @@
       "now": "What that full text adds and the abstract did not: the trial is single-centre, it ran July 2022 to December 2023, its power calculation is on overall response rate while its stated primary objectives are clinical benefit rate, quality of life and toxicity - the paper names one endpoint and powers on another - and progression-free survival is a secondary endpoint .",
       "because": "CORR-19",
       "note": "the Shaaban paper names clinical benefit rate as its primary objective and powers on overall response rate. Both our sentence and the gate's objection were accurate and incomplete; the source disagrees with itself and the page now prints both. See review/2026-09-01-adjudication.md"
+    },
+    {
+      "at": "2026-09-10T14:52:24+00:00",
+      "by": "claude",
+      "kind": "reworded",
+      "was": "The Category Difference - What Holds Up What Holds Up What this is Issue one Issue two Who pays for this Issue two Evidence review Published 28 August 2026 · guideline version 6.2026 The Category Difference whatholdsup.org Three drugs of the same class treat the same disease.",
+      "now": "The Category Difference - What Holds Up What Holds Up What this is The rubric Issue one Issue two Who pays for this Issue two Evidence review Published 28 August 2026 · Updated 1 September 2026 · guideline version 6.2026 The Category Difference whatholdsup.org Three drugs of the same class treat the same disease.",
+      "because": "OR-C",
+      "note": "The count stays because the five are enumerable, and each now carries the day it was on the page — derived from git log -S over this page's own history, not from memory — so a reader can check the number instead of being asked to credit it."
+    },
+    {
+      "at": "2026-09-10T14:52:24+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "This is the fifth position this page has taken on one fact, and here are the five with the day each was on the page - printed so a reader can check the count against the change log rather than take it on trust, which is the whole of what this publication asks of anyone else: 28 August , two-sided, with no source at all; 29 August , unknowable, after that unsourced claim was withdrawn; 30 August , one-sided, with the registry's directionality attached to the journal's number; 31 August , the doubling worked out as arithmetic, because we had not read the paper's statistical section; 1 September , the paper's own account, having read it.",
+      "because": "OR-C",
+      "note": "The count stays because the five are enumerable, and each now carries the day it was on the page — derived from git log -S over this page's own history, not from memory — so a reader can check the number instead of being asked to credit it."
+    },
+    {
+      "at": "2026-09-10T14:52:24+00:00",
+      "by": "claude",
+      "kind": "reworded",
+      "was": "Every retrieval route available to us returned a block, which is a limit of our tooling and not of the licence.",
+      "now": "It also republishes Figure 4 entire , and that figure carries a complete chemotherapy-free survival dataset - patients and events in both arms, medians of 46.7 against 30.6 months, log-rank P = 0.0010, HR 0.693 (95% CI 0.557-0.863) and a full numbers-at-risk table.",
+      "because": "OR-A",
+      "note": "The sentence described the correction and not the document. The notice corrects one number AND republishes Figure 4 entire with a complete chemotherapy-free survival dataset; the page now says both, and says we use nothing from that endpoint — the distinction between having seen data and not used it, and not having seen it."
+    },
+    {
+      "at": "2026-09-10T14:52:24+00:00",
+      "by": "claude",
+      "kind": "reworded",
+      "was": "What we can say is that every MONARCH 3 figure here matches the original article and the SABCS 2023 presentation of the same analysis.",
+      "now": "We use nothing from that endpoint.",
+      "because": "OR-A",
+      "note": "The sentence described the correction and not the document. The notice corrects one number AND republishes Figure 4 entire with a complete chemotherapy-free survival dataset; the page now says both, and says we use nothing from that endpoint — the distinction between having seen data and not used it, and not having seen it."
+    },
+    {
+      "at": "2026-09-10T14:52:24+00:00",
+      "by": "claude",
+      "kind": "reworded",
+      "was": "Anyone who can open it, please do - corrections@whatholdsup.org.",
+      "now": "That sentence is the point of saying any of this: there is a difference between having seen data and not used it, and not having seen it, and only one of the two can be checked by a reader.",
+      "because": "OR-A",
+      "note": "The sentence described the correction and not the document. The notice corrects one number AND republishes Figure 4 entire with a complete chemotherapy-free survival dataset; the page now says both, and says we use nothing from that endpoint — the distinction between having seen data and not used it, and not having seen it."
+    },
+    {
+      "at": "2026-09-10T14:52:24+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "This is the fourth and it is a measurement: the corrigendum is open access under CC BY-NC-ND , checked on 10 September 2026 three ways from a session holding no credentials of any kind.",
+      "because": "OR-B",
+      "note": "\"The first was right\" was false: the corrigendum is open access under CC BY-NC-ND, verified 2026-09-10 three ways from an unauthenticated session. The page now carries the method, the mechanism (Europe PMC's isOpenAccess flag reports its own holdings, not the licence, two fields away) and the 403 (a bot block, not a paywall)."
+    },
+    {
+      "at": "2026-09-10T14:52:24+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "Crossref gives the version of record a licence of creativecommons.org/licenses/by-nc-nd/4.0/ , effective 9 July 2025.",
+      "because": "OR-B",
+      "note": "\"The first was right\" was false: the corrigendum is open access under CC BY-NC-ND, verified 2026-09-10 three ways from an unauthenticated session. The page now carries the method, the mechanism (Europe PMC's isOpenAccess flag reports its own holdings, not the licence, two fields away) and the 403 (a bot block, not a paywall)."
+    },
+    {
+      "at": "2026-09-10T14:52:24+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "Europe PMC's record (PMID 41093689) carries license: cc by-nc-nd .",
+      "because": "OR-B",
+      "note": "\"The first was right\" was false: the corrigendum is open access under CC BY-NC-ND, verified 2026-09-10 three ways from an unauthenticated session. The page now carries the method, the mechanism (Europe PMC's isOpenAccess flag reports its own holdings, not the licence, two fields away) and the 403 (a bot block, not a paywall)."
+    },
+    {
+      "at": "2026-09-10T14:52:24+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "That same Europe PMC record also reads isOpenAccess: N .",
+      "because": "OR-B",
+      "note": "\"The first was right\" was false: the corrigendum is open access under CC BY-NC-ND, verified 2026-09-10 three ways from an unauthenticated session. The page now carries the method, the mechanism (Europe PMC's isOpenAccess flag reports its own holdings, not the licence, two fields away) and the 403 (a bot block, not a paywall)."
+    },
+    {
+      "at": "2026-09-10T14:52:24+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "We read the field that answered the neighbouring question as though it answered ours.",
+      "because": "OR-B",
+      "note": "\"The first was right\" was false: the corrigendum is open access under CC BY-NC-ND, verified 2026-09-10 three ways from an unauthenticated session. The page now carries the method, the mechanism (Europe PMC's isOpenAccess flag reports its own holdings, not the licence, two fields away) and the 403 (a bot block, not a paywall)."
+    },
+    {
+      "at": "2026-09-10T14:52:24+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "The publisher's block is not a paywall either: an unauthenticated request for the article returns HTTP 403 with 5,849 bytes containing no subscribe , no sign in and no purchase access - a block on automated retrieval, not a wall in front of a reader.",
+      "because": "OR-B",
+      "note": "\"The first was right\" was false: the corrigendum is open access under CC BY-NC-ND, verified 2026-09-10 three ways from an unauthenticated session. The page now carries the method, the mechanism (Europe PMC's isOpenAccess flag reports its own holdings, not the licence, two fields away) and the 403 (a bot block, not a paywall)."
+    },
+    {
+      "at": "2026-09-10T14:52:24+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "Read, and the access state corrected.",
+      "because": "OR-B",
+      "note": "\"The first was right\" was false: the corrigendum is open access under CC BY-NC-ND, verified 2026-09-10 three ways from an unauthenticated session. The page now carries the method, the mechanism (Europe PMC's isOpenAccess flag reports its own holdings, not the licence, two fields away) and the 403 (a bot block, not a paywall)."
+    },
+    {
+      "at": "2026-09-10T14:52:24+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "It is open access under CC BY-NC-ND; the source note above records how that was established and how the mistake was made.",
+      "because": "OR-B",
+      "note": "\"The first was right\" was false: the corrigendum is open access under CC BY-NC-ND, verified 2026-09-10 three ways from an unauthenticated session. The page now carries the method, the mechanism (Europe PMC's isOpenAccess flag reports its own holdings, not the licence, two fields away) and the 403 (a bot block, not a paywall)."
+    },
+    {
+      "at": "2026-09-10T14:53:14+00:00",
+      "by": "claude",
+      "kind": "reworded",
+      "was": "A corrigendum to this paper exists - Ann Oncol 2025;36:1556, doi 10.1016/j.annonc.2025.07.002 - and we have not read it .",
+      "now": "A corrigendum to this paper exists - Ann Oncol 2025;36:1556, doi 10.1016/j.annonc.2025.07.002 - and we have read it in full.",
+      "because": "OR-A",
+      "note": "Consequence of the OR-A rewrite: the source note now describes the notice's contents rather than only the correction, and states that we use nothing from the chemotherapy-free endpoint."
+    },
+    {
+      "at": "2026-09-10T14:53:14+00:00",
+      "by": "claude",
+      "kind": "reworded",
+      "was": "It is published open access; an earlier version of this page said it sat behind a paywall, which was wrong.",
+      "now": "It corrects one number: in Figure 4, in the placebo arm of the chemotherapy-free survival analysis, the event count was published as 162 and is 132.",
+      "because": "OR-B",
+      "note": "Consequence of the OR-B rewrite: the false 'the first was right', the stale 'still unread' change-log line and the Europe PMC mischaracterisation are replaced by the verified access state, the method, and the mechanism."
+    },
+    {
+      "at": "2026-09-10T14:53:14+00:00",
+      "by": "claude",
+      "kind": "reworded",
+      "was": "What we cannot say is whether the corrigendum touches any of them, because that requires reading it.",
+      "now": "It appears nowhere on this page, and the overall-survival figures above are untouched by the correction.",
+      "because": "OR-A",
+      "note": "Consequence of the OR-A rewrite: the source note now describes the notice's contents rather than only the correction, and states that we use nothing from the chemotherapy-free endpoint."
+    },
+    {
+      "at": "2026-09-10T14:53:14+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "This page has said three things about that: that the notice sat behind a paywall, then that it did not, then that the first was right.",
+      "because": "OR-B",
+      "note": "Consequence of the OR-B rewrite: the false 'the first was right', the stale 'still unread' change-log line and the Europe PMC mischaracterisation are replaced by the verified access state, the method, and the mechanism."
+    },
+    {
+      "at": "2026-09-10T14:53:14+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "That field answers a different question - whether the full text sits in Europe PMC's own repository, which it does not - and the licence is two fields away in the same record.",
+      "because": "OR-B",
+      "note": "Consequence of the OR-B rewrite: the false 'the first was right', the stale 'still unread' change-log line and the Europe PMC mischaracterisation are replaced by the verified access state, the method, and the mechanism."
+    },
+    {
+      "at": "2026-09-10T14:53:14+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "Every MONARCH 3 figure on this page matches the original article and the SABCS 2023 presentation of the same analysis, and the corrigendum touches none of them.",
+      "because": "OR-A",
+      "note": "Consequence of the OR-A rewrite: the source note now describes the notice's contents rather than only the correction, and states that we use nothing from the chemotherapy-free endpoint."
+    },
+    {
+      "at": "2026-09-10T14:53:14+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "The corrigendum to the MONARCH 3 final overall-survival paper ( Ann Oncol 2025;36:1556, PMID 41093689) was held in full on 1 September 2026 and read.",
+      "because": "OR-A",
+      "note": "Consequence of the OR-A rewrite: the source note now describes the notice's contents rather than only the correction, and states that we use nothing from the chemotherapy-free endpoint."
+    },
+    {
+      "at": "2026-09-10T14:53:14+00:00",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "This paragraph said it was still unread for nine days after that, and this page said until 10 September 2026 that it sat behind a paywall.",
+      "because": "OR-B",
+      "note": "Consequence of the OR-B rewrite: the false 'the first was right', the stale 'still unread' change-log line and the Europe PMC mischaracterisation are replaced by the verified access state, the method, and the mechanism."
     }
   ]
 }
