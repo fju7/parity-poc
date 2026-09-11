@@ -326,9 +326,9 @@ REGISTRY = re.compile(
 NAMED_PLACE = re.compile(
     r"\b(europe ?pmc|pubmed|\bPMC\b|pmc\d+|crossref|unpaywall|openalex|"
     r"google scholar|researchgate|osf|arxiv|medrxiv|biorxiv|"
-    r"the publisher(?:'s|&rsquo;s)? (?:own )?site|publisher(?:'s|&rsquo;s)? site|"
-    r"NHS Digital|the College(?:'s|&rsquo;s)? report|"
-    r"[A-Z][a-z]+(?:'s|&rsquo;s)? (?:own )?(?:annual )?report|"
+    r"the publisher(?:'s|’s|&rsquo;s)? (?:own )?site|publisher(?:'s|’s|&rsquo;s)? site|"
+    r"NHS Digital|the College(?:'s|’s|&rsquo;s)? report|"
+    r"[A-Z][a-z]+(?:'s|’s|&rsquo;s)? (?:own )?(?:annual )?report|"
     r"university repository|institutional repository|WRAP)\b")
 
 
@@ -355,6 +355,81 @@ def unknowability(text: str) -> list[str]:
     return [f"{s[:170]}" for s in sentences(text)
             if UNKNOWABILITY.search(s)
             and not REGISTRY.search(s) and not NAMED_PLACE.search(s)]
+
+
+# THE CORRECTION HISTORY RECOUNTS WHAT WE BELIEVED; IT IS NOT THE PAGE
+# BELIEVING IT NOW.
+#
+# On 2026-09-11 this check flagged, in the change log, "On 31 August a
+# fact-check run objected that the source note's '...' could not be verified
+# -- no source it reached gave a number of blocks" as a live claim naming no
+# registry. That sentence is corrections.md's own wording for what a check
+# said at the time, and the entry goes on to say the number was in the paper.
+# Reading it as a present assertion inverts it -- the same inversion recorded
+# on CHANGE_LOG in source_ledger for four checks.
+#
+# But the log is not exempt wholesale. A correction entry can make a NEW
+# factual claim ("the trial's primary endpoint cannot be determined"), and
+# that claim owes a registry exactly as the article does. So the line is
+# drawn per sentence, on grammar rather than on location:
+#
+#   an ACCOUNT of a past belief  -- the unknowability phrase is inside
+#     quotation marks, or the sentence carries a reporting frame: "this page
+#     said", "an earlier version", "objected that", "we had concluded",
+#     "at the time", "until 1 September", "was written", "had been" ...
+#   a PRESENT ASSERTION           -- everything else. Fires.
+#
+# A sentence that both recounts and asserts ("This page said X could not be
+# established; it still cannot be") is read as an account here and is the
+# known limit of a grammatical test; the sentence after it, if it asserts,
+# fires on its own.
+REPORTED = re.compile(
+    r"\b(this (?:page|entry|paragraph|version) (?:had )?(?:said|says|called|printed|"
+    r"asserted|reported|claimed|stated|read)|"
+    r"an earlier version|the (?:earlier|first|previous|\d+ \w+) (?:version|correction|entry)|"
+    r"(?:we|it|the page|the note|the entry) (?:had )?(?:said|wrote|written|printed|"
+    r"reasoned|concluded|believed|withdrew|asserted|claimed|reported|stated)|"
+    r"objected that|reasoned that|on the (?:finding|strength|basis) that|"
+    r"at the time|until \d{1,2} [A-Z][a-z]+|"
+    r"(?:was|were) (?:written|printed|published|said|reported)|"
+    r"had been|which was (?:not |un)?true|that was wrong|was wrong)\b", re.I)
+
+QUOTED = re.compile("[\u201c\u201d\"\u2018\u2019'](?:(?![\u201c\u201d\"\u2018\u2019']).){8,}[\u201c\u201d\"\u2018\u2019']")
+
+
+def _in_quotes(sent: str, m: re.Match) -> bool:
+    return any(q.start() < m.start() and m.end() < q.end() for q in QUOTED.finditer(sent))
+
+
+def unknowability_in_log(text: str) -> list[str]:
+    """Present assertions of unknowability inside the change log -- the
+    sentences that fire there. Accounts of a past belief do not."""
+    out = []
+    for s in sentences(text):
+        m = UNKNOWABILITY.search(s)
+        if not m or REGISTRY.search(s) or NAMED_PLACE.search(s):
+            continue
+        if REPORTED.search(s) or _in_quotes(s, m):
+            continue
+        out.append(s[:170])
+    return out
+
+
+# A footer that carries the updates anchor ANYWHERE inside it. source_ledger's
+# CHANGE_LOG demands the id on the <footer> tag itself; cdk46 puts it on the
+# first <p>, so body_only() strips nothing there and four checks read its
+# change log as the article. That is reported separately and not changed
+# here; this module finds the log either way.
+LOG_ANY = re.compile(r'<footer[^>]*>(?:(?!</footer>).)*?id=["\']updates["\'].*?</footer>',
+                     re.S | re.I)
+
+
+def split_log(html_text: str) -> tuple[str, str]:
+    """(article html, change-log html)."""
+    m = LOG_ANY.search(html_text)
+    if not m:
+        return html_text, ""
+    return html_text[:m.start()] + " " + html_text[m.end():], m.group(0)
 
 
 def verified_attributions(slug: str | None) -> set[str]:
@@ -458,8 +533,10 @@ def lint(html_text: str, slug: str | None = None) -> list[tuple[str, str, str]]:
                  f"way, from gate output, while fixing an attribution gap; the paper "
                  f"is by Tanguy et al.: " + " || ".join(unchecked[:3])))
 
-    # the BODY, not the change log -- see body_only
-    unk = unknowability(plain(body_only(html_text)))
+    # The article's claims, and the change log's PRESENT assertions -- an
+    # account of a past belief is not a claim. See unknowability_in_log.
+    article, log = split_log(html_text)
+    unk = unknowability(plain(body_only(article))) + unknowability_in_log(plain(log))
     rows.append(("unknowability claims searched the registries",
                  OK if not unk else BAD,
                  "every claim that something could not be established names where it looked"
