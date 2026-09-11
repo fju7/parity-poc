@@ -557,7 +557,19 @@
     },
     "on": "2026-09-02"
    },
-   "form": "article"
+   "form": "article",
+   "identifier": {
+    "kind": "pmid",
+    "value": "27209009",
+    "shape": "PMCID PMC4877414 in the held URL",
+    "resolved_by": "Europe PMC search PMCID:PMC4877414 -> MED/27209009",
+    "identity": "the PMCID is literally in the URL we hold",
+    "resolved_on": "2026-09-11",
+    "resolved_title": "Statistical tests, P values, confidence intervals, and power: a guide to misinterpretations.",
+    "by": "sweep_sources.py resolve --write",
+    "pmcid": "PMC4877414",
+    "doi": "10.1007/s10654-016-0149-3"
+   }
   },
   {
    "id": "S023",
@@ -582,7 +594,19 @@
     "note": "Publisher PDF, ASM, Antimicrob Agents Chemother 2004;48(8):2787-2792. Downloaded by the editor after both scripted routes returned 403. Identity test: 11 of 11 distinctive title words present."
    },
    "note": "The publisher copy at journals.asm.org returns 403 to a script. This is the same article in PubMed Central, and the identity test decides that, not the hostname.",
-   "form": "article"
+   "form": "article",
+   "identifier": {
+    "kind": "pmid",
+    "value": "15273082",
+    "shape": "PMCID PMC478551 in the held URL",
+    "resolved_by": "Europe PMC search PMCID:PMC478551 -> MED/15273082",
+    "identity": "the PMCID is literally in the URL we hold",
+    "resolved_on": "2026-09-11",
+    "resolved_title": "Hazard ratio in clinical trials.",
+    "by": "sweep_sources.py resolve --write",
+    "pmcid": "PMC478551",
+    "doi": "10.1128/aac.48.8.2787-2792.2004"
+   }
   },
   {
    "id": "S024",
@@ -627,7 +651,19 @@
     },
     "on": "2026-09-02"
    },
-   "form": "article"
+   "form": "article",
+   "identifier": {
+    "kind": "pmid",
+    "value": "22145125",
+    "shape": "PMCID PMC3227332 in the held URL",
+    "resolved_by": "Europe PMC search PMCID:PMC3227332 -> MED/22145125",
+    "identity": "the PMCID is literally in the URL we hold",
+    "resolved_on": "2026-09-11",
+    "resolved_title": "Survival analysis in clinical trials: Basics and must know areas.",
+    "by": "sweep_sources.py resolve --write",
+    "pmcid": "PMC3227332",
+    "doi": "10.4103/2229-3485.86872"
+   }
   },
   {
    "id": "S026",
@@ -731,7 +767,19 @@
    },
    "erratum_note": "Formally corrected: N Engl J Med 2018 Nov 9;379(22):2185, PMID 31442371, DOI 10.1056/NEJMx180040. NOT HELD and not readable from here — the notice is subscription-only at NEJM (403 to a script), absent from PubMed Central and Europe PMC (isOpenAccess N, inPMC N, inEPMC N), and carries no abstract in PubMed or Crossref. It is a bulk notice covering thirteen NEJM articles at once. CORROBORATION, NOT CLOSURE: every figure this page quotes from S029 — 65.4% vs 54.4% at five years, HR 0.72, 95.1% CI 0.58 to 0.88, P=0.001, the 10 mg/kg dose — appears verbatim in the PubMed abstract of record for PMID 27717298 retrieved 2026-09-09, which is the post-erratum state of that record. That bounds the risk; it does not read the erratum, and a PubMed abstract is not always revised when one is issued. Until somebody opens the notice we do not know whether it touches a figure on this page.",
    "document_class": "document",
-   "document_class_why": "The EORTC 18071 paper itself, held in full."
+   "document_class_why": "The EORTC 18071 paper itself, held in full.",
+   "identifier": {
+    "kind": "pmid",
+    "value": "27717298",
+    "shape": "PMCID PMC5648545 in the held URL",
+    "resolved_by": "Europe PMC search PMCID:PMC5648545 -> MED/27717298",
+    "identity": "the PMCID is literally in the URL we hold",
+    "resolved_on": "2026-09-11",
+    "resolved_title": "Prolonged Survival in Stage III Melanoma with Ipilimumab Adjuvant Therapy.",
+    "by": "sweep_sources.py resolve --write",
+    "pmcid": "PMC5648545",
+    "doi": "10.1056/nejmoa1611299"
+   }
   },
   {
    "id": "S030",

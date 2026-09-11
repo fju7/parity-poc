@@ -90,7 +90,12 @@ for SRC in "$REPO"/issues/*/sources.json; do
   {
     echo "--------------------------------------------------------------"
     echo "sweep $(date -u +%Y-%m-%dT%H:%M:%SZ)  $SLUG"
-    /usr/bin/python3 -u "$REPO/backend/scripts/whatholdsup/sweep_sources.py" status "$SLUG" --quiet
+    # Confirm any URL shape that implies an identifier (PMCID, PII, nature
+    # slug, Europe PMC path) against the index before sweeping, and record
+    # what confirmed it on the source's ledger entry. Added 2026-09-11, when
+    # 19 of cdk46's 26 sources were reported unsweepable and most of them were
+    # journal articles this step can see. Unconfirmed shapes stay unsweepable.
+    /usr/bin/python3 -u "$REPO/backend/scripts/whatholdsup/sweep_sources.py" resolve "$SLUG" --write
     /usr/bin/python3 -u "$REPO/backend/scripts/whatholdsup/sweep_sources.py" citations "$SLUG"
     echo "exit=$?"
   } >> "$LOG" 2>&1

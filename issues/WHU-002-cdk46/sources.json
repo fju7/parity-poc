@@ -84,7 +84,17 @@
       },
       "corrected_by": "S025",
       "document_class": "document",
-      "document_class_why": "The document itself: claims about its contents may rest on it. Contrast document_class 'record_about', which is a catalogue or bibliographic record DESCRIBING a document we may not hold."
+      "document_class_why": "The document itself: claims about its contents may rest on it. Contrast document_class 'record_about', which is a catalogue or bibliographic record DESCRIBING a document we may not hold.",
+      "identifier": {
+        "kind": "doi",
+        "value": "10.1016/j.annonc.2024.04.013",
+        "shape": "DOI read out of the document we hold",
+        "resolved_by": "Crossref works/10.1016/j.annonc.2024.04.013 exists; registered landing URL https://linkinghub.elsevier.com/retrieve/pii/S092375342400139X",
+        "identity": "resolved title shares 4 word(s) with ours: final, monarch, overall, survival",
+        "resolved_on": "2026-09-11",
+        "resolved_title": "Abemaciclib plus a nonsteroidal aromatase inhibitor as initial therapy for HR+, HER2− advanced breast cancer: final overall survival results of MONARCH 3",
+        "by": "sweep_sources.py resolve --write"
+      }
     },
     {
       "id": "S004",
@@ -172,7 +182,19 @@
       "document_class_why": "The document itself: claims about its contents may rest on it. Contrast document_class 'record_about', which is a catalogue or bibliographic record DESCRIBING a document we may not hold.",
       "also_called": [
         "MONALEESA-7"
-      ]
+      ],
+      "identifier": {
+        "kind": "doi",
+        "value": "10.1016/s1470-2045(18)30292-4",
+        "shape": "publisher PII S1470-2045(18)30292-4 in the held URL",
+        "resolved_by": "Europe PMC search \"S1470-2045(18)30292-4\" -> MED/29804902 whose DOI embeds the PII",
+        "identity": "the PII in the held URL is embedded in the resolved DOI",
+        "resolved_on": "2026-09-11",
+        "resolved_title": "Ribociclib plus endocrine therapy for premenopausal women with hormone-receptor-positive, advanced breast cancer (MONALEESA-7): a randomised phase 3 trial.",
+        "by": "sweep_sources.py resolve --write",
+        "pmid": "29804902",
+        "pmcid": null
+      }
     },
     {
       "id": "S007",
@@ -284,7 +306,19 @@
       "document_class_why": "The document itself: claims about its contents may rest on it. Contrast document_class 'record_about', which is a catalogue or bibliographic record DESCRIBING a document we may not hold.",
       "also_called": [
         "PALOMA-2"
-      ]
+      ],
+      "identifier": {
+        "kind": "pmid",
+        "value": "38252901",
+        "shape": "PMCID PMC10950136 in the held URL",
+        "resolved_by": "Europe PMC search PMCID:PMC10950136 -> MED/38252901",
+        "identity": "the PMCID is literally in the URL we hold",
+        "resolved_on": "2026-09-11",
+        "resolved_title": "Overall Survival With Palbociclib Plus Letrozole in Advanced Breast Cancer.",
+        "by": "sweep_sources.py resolve --write",
+        "pmcid": "PMC10950136",
+        "doi": "10.1200/jco.23.00137"
+      }
     },
     {
       "id": "S011",
@@ -427,7 +461,17 @@
         }
       },
       "document_class": "document",
-      "document_class_why": "The document itself: claims about its contents may rest on it. Contrast document_class 'record_about', which is a catalogue or bibliographic record DESCRIBING a document we may not hold."
+      "document_class_why": "The document itself: claims about its contents may rest on it. Contrast document_class 'record_about', which is a catalogue or bibliographic record DESCRIBING a document we may not hold.",
+      "identifier": {
+        "kind": "doi",
+        "value": "10.1038/s41598-024-53151-8",
+        "shape": "nature.com slug s41598-024-53151-8 in the held URL",
+        "resolved_by": "Crossref works/10.1038/s41598-024-53151-8 exists; registered landing URL https://www.nature.com/articles/s41598-024-53151-8",
+        "identity": "Crossref's landing URL equals the held URL",
+        "resolved_on": "2026-09-11",
+        "resolved_title": "Comparative overall survival of CDK4/6 inhibitors in combination with endocrine therapy in advanced breast cancer",
+        "by": "sweep_sources.py resolve --write"
+      }
     },
     {
       "id": "S016",
@@ -493,7 +537,19 @@
       "endpoint_note": "PRIMARY objectives are clinical benefit rate, quality of life and toxicity. Progression-free survival and overall survival are SECONDARY. The sample size was calculated on overall response rate (58 per group at 80% power). The page now says so where it prints the PFS figures.",
       "ENDPOINT_DISCREPANCY": "The paper names one primary endpoint and powers on another. Its Introduction: “The primary objectives are to compare the clinical benefit rate (CBR), quality of life and toxicity profiles... Secondary objectives were assessment of Progression free survival and Overall survival.” Its Sample size calculation: “The primary outcome of interest is the overall response rate (ORR)”, sized from ORR 55% (MONALEESA-2) against 25% (PALOMA-3), alpha 5%, power 80%. CBR counts stable disease and ORR does not, so these are different endpoints. The page prints both because the source states both. Same shape as the network meta-analysis printing 73.3 and 70.2.",
       "document_class": "document",
-      "document_class_why": "The document itself: claims about its contents may rest on it. Contrast document_class 'record_about', which is a catalogue or bibliographic record DESCRIBING a document we may not hold."
+      "document_class_why": "The document itself: claims about its contents may rest on it. Contrast document_class 'record_about', which is a catalogue or bibliographic record DESCRIBING a document we may not hold.",
+      "identifier": {
+        "kind": "pmid",
+        "value": "39342581",
+        "shape": "PMCID PMC11700305 in the held URL",
+        "resolved_by": "Europe PMC search PMCID:PMC11700305 -> MED/39342581",
+        "identity": "the PMCID is literally in the URL we hold",
+        "resolved_on": "2026-09-11",
+        "resolved_title": "Comparing Ribociclib versus Palbociclib as a Second Line Treatment in Combination with Fulvestrant in Metastatic Breast Cancer: A Randomized Clinical Trial.",
+        "by": "sweep_sources.py resolve --write",
+        "pmcid": "PMC11700305",
+        "doi": "10.31557/apjcp.2024.25.9.3039"
+      }
     },
     {
       "id": "S018",
@@ -724,7 +780,17 @@
         }
       },
       "document_class": "document",
-      "document_class_why": "The document itself: claims about its contents may rest on it. Contrast document_class 'record_about', which is a catalogue or bibliographic record DESCRIBING a document we may not hold."
+      "document_class_why": "The document itself: claims about its contents may rest on it. Contrast document_class 'record_about', which is a catalogue or bibliographic record DESCRIBING a document we may not hold.",
+      "identifier": {
+        "kind": "doi",
+        "value": "10.1038/s41523-018-0068-4",
+        "shape": "nature.com slug s41523-018-0068-4 in the held URL",
+        "resolved_by": "Crossref works/10.1038/s41523-018-0068-4 exists; registered landing URL https://www.nature.com/articles/s41523-018-0068-4",
+        "identity": "Crossref's landing URL equals the held URL",
+        "resolved_on": "2026-09-11",
+        "resolved_title": "Cdk4/6 inhibitors and overall survival: power of first-line trials in metastatic breast cancer",
+        "by": "sweep_sources.py resolve --write"
+      }
     },
     {
       "id": "S025",
@@ -775,7 +841,19 @@
         "note": "2,193 characters. Entire content is an addition to the Disclosure section; no figure is amended."
       },
       "document_class": "document",
-      "document_class_why": "The document itself: claims about its contents may rest on it. Contrast document_class 'record_about', which is a catalogue or bibliographic record DESCRIBING a document we may not hold."
+      "document_class_why": "The document itself: claims about its contents may rest on it. Contrast document_class 'record_about', which is a catalogue or bibliographic record DESCRIBING a document we may not hold.",
+      "identifier": {
+        "kind": "pmid",
+        "value": "31407010",
+        "shape": "Europe PMC MED path in the held URL",
+        "resolved_by": "Europe PMC search EXT_ID:31407010 AND SRC:MED -> MED/31407010",
+        "identity": "the PMID is literally in the URL we hold",
+        "resolved_on": "2026-09-11",
+        "resolved_title": "Updated results from MONALEESA-2, a phase III trial of first-line ribociclib plus letrozole versus placebo plus letrozole in hormone receptor-positive, HER2-neg",
+        "by": "sweep_sources.py resolve --write",
+        "pmcid": "PMC6927326",
+        "doi": "10.1093/annonc/mdz215"
+      }
     }
   ],
   "also_called_note": "The role-nouns the page actually uses for a source. The ledger audit matches sentences to sources by these plus the title's trial and journal names; a reference the page makes that is not listed here is invisible to the audit.",

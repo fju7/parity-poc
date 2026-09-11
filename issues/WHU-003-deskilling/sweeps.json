@@ -8,6 +8,8 @@
         "34423305"
       ],
       "count": 3,
+      "hit_count": 3,
+      "complete": true,
       "swept": "2026-09-11",
       "resolved_as": "MED/33194451"
     },
@@ -283,6 +285,8 @@
         "22639611"
       ],
       "count": 268,
+      "hit_count": 268,
+      "complete": true,
       "swept": "2026-09-11",
       "resolved_as": "MED/21764755"
     },
@@ -420,6 +424,8 @@
         "40816300"
       ],
       "count": 130,
+      "hit_count": 130,
+      "complete": true,
       "swept": "2026-09-11",
       "resolved_as": "MED/40816301"
     },
@@ -440,6 +446,8 @@
         "40626879"
       ],
       "count": 13,
+      "hit_count": 13,
+      "complete": true,
       "swept": "2026-09-11",
       "resolved_as": "MED/40626877"
     },
@@ -664,6 +672,8 @@
         "37129485"
       ],
       "count": 217,
+      "hit_count": 217,
+      "complete": true,
       "swept": "2026-09-11",
       "resolved_as": "MED/37129490"
     },
@@ -725,26 +735,78 @@
         "35511456"
       ],
       "count": 54,
+      "hit_count": 54,
+      "complete": true,
       "swept": "2026-09-11",
       "resolved_as": "MED/35158384"
     },
     "S043": {
       "ids": [],
       "count": 0,
+      "hit_count": 0,
+      "complete": true,
       "swept": "2026-09-11",
       "resolved_as": "MED/42235541"
     },
     "S044": {
       "ids": [],
       "count": 0,
-      "swept": "2026-08-31",
+      "hit_count": 0,
+      "complete": true,
+      "swept": "2026-09-11",
       "resolved_as": "MED/42250888"
     },
     "S045": {
       "ids": [],
       "count": 0,
+      "hit_count": 0,
+      "complete": true,
       "swept": "2026-09-11",
       "resolved_as": "MED/40946709"
+    },
+    "S024": {
+      "ids": [
+        "42308450",
+        "42252495",
+        "41953857",
+        "41809465",
+        "41625762",
+        "41783687",
+        "41572653"
+      ],
+      "count": 7,
+      "hit_count": 7,
+      "complete": true,
+      "swept": "2026-09-11",
+      "resolved_as": "MED/40816300"
+    },
+    "S025": {
+      "ids": [
+        "42608860",
+        "42295838",
+        "42530614",
+        "PPR1273986",
+        "42413045",
+        "42428959",
+        "42320614"
+      ],
+      "count": 7,
+      "hit_count": 7,
+      "complete": true,
+      "swept": "2026-09-11",
+      "resolved_as": "MED/42174254"
+    },
+    "S027": {
+      "ids": [
+        "42656833",
+        "42559642",
+        "42195401"
+      ],
+      "count": 3,
+      "hit_count": 3,
+      "complete": true,
+      "swept": "2026-09-11",
+      "resolved_as": "MED/40913101"
     }
   },
   "status": {
@@ -805,6 +867,21 @@
       ],
       "swept": "2026-09-11",
       "resolved_as": "MED/40946709"
+    },
+    "S024": {
+      "seen": [],
+      "swept": "2026-09-11",
+      "resolved_as": "MED/40816300"
+    },
+    "S025": {
+      "seen": [],
+      "swept": "2026-09-11",
+      "resolved_as": "MED/42174254"
+    },
+    "S027": {
+      "seen": [],
+      "swept": "2026-09-11",
+      "resolved_as": "MED/40913101"
     }
   },
   "runs": [
@@ -1171,6 +1248,137 @@
         "S027",
         "S029",
         "S032",
+        "S033",
+        "S034",
+        "S035",
+        "S036",
+        "S037",
+        "S039",
+        "S040",
+        "S041",
+        "S042"
+      ]
+    },
+    {
+      "on": "2026-09-11",
+      "command": "resolve --write",
+      "resolved": [],
+      "refused": [
+        {
+          "id": "S029",
+          "why": "PII S2949-8201(26)00012-3: no Europe PMC record whose DOI embeds it, and Crossref holds no alternative-id for it. Not resolvable from what we hold."
+        },
+        {
+          "id": "S032",
+          "why": "could not confirm DOI 10.48550/arXiv.2506.08872: not registered at Crossref (a DataCite DOI, e.g. arXiv, would be) and not in Europe PMC. Not written."
+        }
+      ],
+      "failed": [],
+      "unsweepable": [
+        "S012",
+        "S013",
+        "S014",
+        "S015",
+        "S016",
+        "S017",
+        "S023",
+        "S033",
+        "S034",
+        "S035",
+        "S036",
+        "S037",
+        "S039",
+        "S040",
+        "S041",
+        "S042"
+      ]
+    },
+    {
+      "on": "2026-09-11",
+      "command": "status",
+      "sources_queried": 12,
+      "loud": 1,
+      "quiet": 3,
+      "preprint_candidates": 0,
+      "unresolved": [
+        "S001",
+        "S002",
+        "S003",
+        "S004",
+        "S005",
+        "S006",
+        "S007",
+        "S008",
+        "S011",
+        "S018",
+        "S019",
+        "S020",
+        "S026",
+        "S038"
+      ],
+      "candidates_unconfirmed": [
+        "S029",
+        "S032"
+      ],
+      "unsweepable": [
+        "S012",
+        "S013",
+        "S014",
+        "S015",
+        "S016",
+        "S017",
+        "S023",
+        "S033",
+        "S034",
+        "S035",
+        "S036",
+        "S037",
+        "S039",
+        "S040",
+        "S041",
+        "S042"
+      ]
+    },
+    {
+      "on": "2026-09-11",
+      "command": "citations",
+      "sources_queried": 12,
+      "new_citations": 0,
+      "first_sweep": {
+        "S024": 7,
+        "S025": 7,
+        "S027": 3
+      },
+      "rebaselined_from_truncated": [],
+      "incomplete": [],
+      "unresolved": [
+        "S001",
+        "S002",
+        "S003",
+        "S004",
+        "S005",
+        "S006",
+        "S007",
+        "S008",
+        "S011",
+        "S018",
+        "S019",
+        "S020",
+        "S026",
+        "S038"
+      ],
+      "candidates_unconfirmed": [
+        "S029",
+        "S032"
+      ],
+      "unsweepable": [
+        "S012",
+        "S013",
+        "S014",
+        "S015",
+        "S016",
+        "S017",
+        "S023",
         "S033",
         "S034",
         "S035",

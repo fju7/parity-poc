@@ -81,6 +81,16 @@
         "STATUS": "TWO OF FIVE confidently absent (Almohesh, Chan et al. 2024b). THREE UNSETTLED (Ji, Huang, Hsu).",
         "AND_IT_IS_THE_WRONG_TEST_ANYWAY": "A reference list mixes included studies with cited works — Cohen (1992), Anderson & Krathwohl (2001) and Biggs et al. (2022) are all in it. The question 'which 35 studies were included' is answered by the study-characteristics table, not the bibliography. We were about to settle a question with an instrument that cannot answer it.",
         "DECISION": "DOWNGRADED from blocking to optional, and the piece is rewritten not to need it. We do not have to certify Wu et al. as clean. What is true, checkable and sufficient is what the paper says about ITSELF: its publication-bias assessment is a funnel plot judged by eye plus Begg's test and a classic fail-safe N — a method Borenstein (2019) and Van Aert et al. (2019) advise against for this purpose — and it does not state whether its post-tests were taken with ChatGPT available, and reports no delayed or retention measure. That stands on the paper's own account and needs no adjudication of what it included.\n\nOne fact worth keeping: Wu et al. DOES cite Deng et al. (2025), the meta-analysis Weidlich and colleagues audited. Confirmed in the verbatim A-D pass."
+      },
+      "identifier": {
+        "kind": "doi",
+        "value": "10.1057/s41599-026-07019-z",
+        "shape": "nature.com slug s41599-026-07019-z in the held URL",
+        "resolved_by": "Crossref works/10.1057/s41599-026-07019-z exists; registered landing URL https://www.nature.com/articles/s41599-026-07019-z",
+        "identity": "Crossref's landing URL equals the held URL",
+        "resolved_on": "2026-09-11",
+        "resolved_title": "ChatGPT’s impact on student learning outcomes: a meta-analysis of 35 experimental studies",
+        "by": "sweep_sources.py resolve --write"
       }
     },
     {
@@ -104,6 +114,16 @@
           "the full text and its forest plot"
         ],
         "note": "Cited only for what it claimed and that it was withdrawn. Never for a finding.\n\n2026-09-01: state migrated from `machine_read` to `fragment_only`. machine_read was abolished on issue two the same day: its only evidence was that this URL appeared in the citation list of a gate report, so an automated check reached it. Nothing checked what came back, or whether anything did. It sat in READ_STATES and licensed characterisation and adverse claims; fragment_only licenses neither. Nothing about what we know changed here — only what the ledger admits. Issues one and three kept the abolished state for a day because no check asked whether a state was one the ledger defines. One does now."
+      },
+      "identifier": {
+        "kind": "doi",
+        "value": "10.1057/s41599-025-04787-y",
+        "shape": "nature.com slug s41599-025-04787-y in the held URL",
+        "resolved_by": "Crossref works/10.1057/s41599-025-04787-y exists; registered landing URL https://www.nature.com/articles/s41599-025-04787-y",
+        "identity": "Crossref's landing URL equals the held URL",
+        "resolved_on": "2026-09-11",
+        "resolved_title": "RETRACTED ARTICLE: The effect of ChatGPT on students’ learning performance, learning perception, and higher-order thinking: insights from a meta-analysis",
+        "by": "sweep_sources.py resolve --write"
       }
     },
     {
@@ -125,6 +145,16 @@
         ],
         "not_read": [],
         "note": "Primary and authoritative for the retraction date. Note that Plagiarism Today dates the retraction to May 2026; the notice says 22 April. The notice wins.\n\n2026-09-01: state migrated from `machine_read` to `fragment_only`. machine_read was abolished on issue two the same day: its only evidence was that this URL appeared in the citation list of a gate report, so an automated check reached it. Nothing checked what came back, or whether anything did. It sat in READ_STATES and licensed characterisation and adverse claims; fragment_only licenses neither. Nothing about what we know changed here — only what the ledger admits. Issues one and three kept the abolished state for a day because no check asked whether a state was one the ledger defines. One does now."
+      },
+      "identifier": {
+        "kind": "doi",
+        "value": "10.1057/s41599-026-07310-z",
+        "shape": "nature.com slug s41599-026-07310-z in the held URL",
+        "resolved_by": "Crossref works/10.1057/s41599-026-07310-z exists; registered landing URL https://www.nature.com/articles/s41599-026-07310-z",
+        "identity": "Crossref's landing URL equals the held URL",
+        "resolved_on": "2026-09-11",
+        "resolved_title": "Retraction Note: The effect of ChatGPT on students’ learning performance, learning perception, and higher-order thinking: insights from a meta-analysis",
+        "by": "sweep_sources.py resolve --write"
       }
     },
     {
@@ -724,7 +754,19 @@
       "author": "Dr Omer Ahmad, UCL Division of Surgery & Interventional Science. Identified from UCL's own news page, which reposts it as an Opinion but carries only the headline and a link. NOTE FOR FAIRNESS: Ahmad works on AI in endoscopy himself. If the piece quotes him, that interest is stated. CONFIRMED RELEVANT EXPERTISE: Ahmad is himself an eye-tracking-in-endoscopy researcher — Ahmad et al., 'Identifying key mechanisms leading to visual recognition errors for missed colorectal polyps using eye-tracking technology', J Gastroenterol Hepatol 2023. So the Comment on deskilling was written by someone who studies exactly the mechanism Zhou proposes. That makes it more worth reading, and makes his interest worth stating if he is quoted.",
       "what_the_piece_must_say": "If the piece leans on the colonoscopy study — and it does — it states that The Lancet Gastroenterology & Hepatology published a Comment alongside it, by Omer Ahmad of UCL, that we could not read. Not 'there was no dissent'. An unread commentary is not a commentary that agrees with us, which is the same rule as an unrun check not being a pass.",
       "form": "article",
-      "form_decided_by": "The Lancet (host), not held — provisional"
+      "form_decided_by": "The Lancet (host), not held — provisional",
+      "identifier": {
+        "kind": "doi",
+        "value": "10.1016/s2468-1253(25)00164-5",
+        "shape": "publisher PII S2468-1253(25)00164-5 in the held URL",
+        "resolved_by": "Europe PMC search \"S2468-1253(25)00164-5\" -> MED/40816300 whose DOI embeds the PII",
+        "identity": "the PII in the held URL is embedded in the resolved DOI",
+        "resolved_on": "2026-09-11",
+        "resolved_title": "Endoscopist deskilling: an unintended consequence of AI-assisted colonoscopy?",
+        "by": "sweep_sources.py resolve --write",
+        "pmid": "40816300",
+        "pmcid": null
+      }
     },
     {
       "id": "S025",
@@ -753,7 +795,17 @@
       "found_via": "The counterexample hunter's own search trail, listed under what it had reviewed and set aside.",
       "count_correction": "2026-08-30. The page said 'Ke and sixteen colleagues' and its source note said 'Seventeen authors'. The author list is sixteen names, so it is Ke and fifteen colleagues. Recounted against PubMed PMID 42174254, the Nature Medicine article page and three institutional repositories.",
       "form": "article",
-      "form_decided_by": "Nature (host), not held — provisional"
+      "form_decided_by": "Nature (host), not held — provisional",
+      "identifier": {
+        "kind": "doi",
+        "value": "10.1038/s41591-026-04438-y",
+        "shape": "nature.com slug s41591-026-04438-y in the held URL",
+        "resolved_by": "Crossref works/10.1038/s41591-026-04438-y exists; registered landing URL https://www.nature.com/articles/s41591-026-04438-y",
+        "identity": "Crossref's landing URL equals the held URL",
+        "resolved_on": "2026-09-11",
+        "resolved_title": "AI-induced never-skilling in medical education",
+        "by": "sweep_sources.py resolve --write"
+      }
     },
     {
       "id": "S026",
@@ -810,7 +862,17 @@
         "Nature Reviews Gastroenterology & Hepatology",
         "the research highlight",
         "Katrina Ray"
-      ]
+      ],
+      "identifier": {
+        "kind": "doi",
+        "value": "10.1038/s41575-025-01122-3",
+        "shape": "nature.com slug s41575-025-01122-3 in the held URL",
+        "resolved_by": "Crossref works/10.1038/s41575-025-01122-3 exists; registered landing URL https://www.nature.com/articles/s41575-025-01122-3",
+        "identity": "Crossref's landing URL equals the held URL",
+        "resolved_on": "2026-09-11",
+        "resolved_title": "AI-assisted colonoscopy and risk of endoscopist deskilling",
+        "by": "sweep_sources.py resolve --write"
+      }
     },
     {
       "id": "S028",
