@@ -246,13 +246,18 @@ def covers_from(draft: Path) -> list[str]:
 # the record, written BEFORE the send
 # ---------------------------------------------------------------------------
 
-def open_row(subject, covers, html_sha, audience, kind, attestation="") -> dict:
+def open_row(subject, covers, html_sha, audience, kind, attestation="",
+             gate_waived="") -> dict:
     import jsonio
     row = {"at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
            "issue": "corrections", "kind": kind, "subject": subject,
            "sha": html_sha, "audience": audience, "covers": covers,
            "state": "sending",
            **({"attested": attestation} if attestation else {}),
+           # A waived gate is a decision, and a decision that leaves no trace is
+           # not one. send_broadcast.py prints the reason; this keeps it beside
+           # the send it excused, in the record the next assembly reads.
+           **({"gate_waived": gate_waived} if gate_waived else {}),
            "note": "Written BEFORE the send. A send is irreversible and a record "
                    "is not: if the send succeeds and no row exists, the next "
                    "assembly re-sends what readers already have and nothing says "
@@ -322,6 +327,10 @@ def main() -> int:
                     help="a Resend segment containing only test addresses. The "
                          "rehearsal is a BROADCAST to this segment, not an email "
                          "to one address -- see the note below.")
+    ap.add_argument("--gate-waived", metavar="REASON",
+                    help="passed through to send_broadcast.py: send without a "
+                         "passing gate report on these bytes. The reason is "
+                         "printed there and recorded in sent.json beside the row.")
     ap.add_argument("--send", action="store_true", help="actually send")
     a = ap.parse_args()
 
@@ -399,9 +408,12 @@ def main() -> int:
             print("  Broadcast it to a test segment first: --test-segment <id> --send")
             print("  Nothing sent, nothing recorded.\n")
             return 1
-        row = open_row(a.subject, covers, sha, a.audience, "broadcast", attest)
+        row = open_row(a.subject, covers, sha, a.audience, "broadcast", attest,
+                       (a.gate_waived or "").strip())
         cmd = [sys.executable, str(BROADCAST), "--segment", a.audience,
                "--subject", a.subject, "--html", str(hp), "--text", str(tp), "--send"]
+        if (a.gate_waived or "").strip():
+            cmd += ["--gate-waived", a.gate_waived.strip()]
     else:
         print("\n  --send needs either --test-segment or --audience. Nothing sent.\n")
         return 1

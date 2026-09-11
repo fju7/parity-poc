@@ -62,9 +62,10 @@ from a real floor.
 > was that the email carrying them had never been corrected, and that nothing in
 > this system connected a correction on a page to a message already in an inbox.
 >
-> **What you should now believe that differs.** The argument in that issue stands
-> and it is *ours to defend*, not a finding we can attach to someone else's
-> paper. If you took the interval-width point as established by Tanguy and
+> **What you should now believe that differs.** The argument in that issue — that
+> where a confidence interval ends is set by how many patients were enrolled, how
+> many events occurred and how variable they were — stands, and it is *ours to
+> defend*, not a finding we can attach to someone else's paper. If you took the interval-width point as established by Tanguy and
 > colleagues, it is not — it is our observation, and you should weigh it as one.
 > Their paper supports that argument. It does not make it.
 >
@@ -82,7 +83,8 @@ from a real floor.
 > interval** of 0.179 to 1.004". A few lines above, it gave the later analysis
 > as "the hazard ratio is 0.471 and the interval runs from 0.165 to 1.345" —
 > with no width stated at all. That one was a 95% interval, and it belongs to the
-> **five-year analysis**, on fourteen deaths — seven in each arm.
+> **five-year analysis**, on fourteen deaths — seven in each arm. Every survival
+> figure in the programme is exploratory and rests on a handful of deaths.
 >
 > **Why.** Both intervals for the earlier figure, 0.425, sit in the same row of
 > the same table in the same paper — the **three-year paper**, not the five-year
@@ -121,8 +123,14 @@ from a real floor.
 > *"P-VERIFY puts it at 0.97 on 0.82 to 1.14 for survival. PALMARES-2, the study
 > that did separate palbociclib, puts it at 0.91 on 0.73 to 1.14 for progression.
 > The reconstructed patient-data comparison comes closest, at 0.722 on 0.520 to
-> 1.002, p = 0.051 — and still does not reach significance."* Each of those is a
-> comparative study.
+> 1.002, p = 0.051 — and still does not reach significance."* None of the three
+> came from a news report. The page describes each of them: P-VERIFY *"took 9,146
+> patients from US oncology records and weighted them by inverse probability of
+> treatment"*; PALMARES-2 *"(Annals of Oncology, April 2025) followed 1,982
+> patients across eighteen Italian centres and weighted them the same way"*; and
+> the third is what the page calls *"an indirect comparison from reconstructed
+> patient data (Cancers, 2023)"*, which *"rebuilt patient-level survival curves
+> from PALOMA-2, MONALEESA-2 and MONARCH 3 — 1,827 patients"*.
 >
 > **The page's sourcing sentence never carried that error.** It reads: *"Every
 > figure above traces to a named source, and each cell of the table names which:
@@ -132,9 +140,8 @@ from a real floor.
 >
 > **What you should now believe that differs.** If you took that sentence as a
 > guarantee that every number came from a trial publication or a drug label, it
-> was not one. None of the three came from a news report; each came from a
-> published comparative study, which is what the page's own sentence had always
-> said and the email's did not.
+> was not one. None of the three came from a news report. The page's sentence had
+> always allowed for what they are; the email's did not.
 >
 > ---
 >
@@ -309,3 +316,44 @@ corrected on 9 September"* and *"dated 9 September"* (melanoma 9 September entry
 and the served log), *"tightened on 30 August"* (git), *"does not yet carry"*
 (served cdk46 log). No label asserts a history the record does not hold. The
 body contains no remaining "now says", "later said" or "was added".
+
+---
+
+## The passage stage, re-run after the gate's three live findings — 11 September 2026, fifth run
+
+On body `f20fffa9ad669812`. Three clauses in, one characterisation out: the
+interval-width argument stated before "ours to defend" (cdk46 record,
+1 September); *"Every survival figure in the programme is exploratory and rests
+on a handful of deaths"* where the two analyses are first set side by side
+(melanoma record, 3 September); and *"Each of those is a comparative study" /
+"each came from a published comparative study"* replaced by what the page says
+of each study, quoted and attributed to the page — "published" asserted of none.
+
+**Q1.** No. The new clause in section two (*"exploratory… handful of deaths"*)
+was read against *"Both are overall survival, so the comparison is a fair one to
+make"* and against *"does not establish an overall-survival benefit"*: an
+exploratory figure can be compared fairly with another and still establish
+nothing, and the three sentences say those three things. Section three's *"None
+of the three came from a news report"* against the email's own *"None comes
+from a news report"*: agree.
+
+**Q2.** No. Every quotation re-checked with the source open: the two sent blobs
+(`5ef7890a…`, `f4fa7164…`), S024, and the cdk46 page as rendered — the two
+parenthetical page quotations carry inline markup (`<a>`, `<em>`) around the
+journal names, and match the rendered inline text exactly. No quotation that
+was in the fourth run changed. The three added clauses are the record's own
+words (cdk46 corrections.md line 122; melanoma corrections.md line 430) and the
+page's (P-VERIFY, PALMARES-2, Cancers sentences).
+
+**Q3.** No. The one belief the removed sentence could create — that the
+reconstructed comparison is a published study we have read — is no longer
+offered; the reader is told what the page calls it and nothing more. The
+exploratory clause removes the reading I2 named: that the five-year figure is a
+confirmatory result the three-year one falls short of.
+
+**Q4.** No. Section three grew by one sentence of three clauses; each clause is
+one study and resolves in place.
+
+**Q5.** No. The new labels are *"The page describes each of them"* and *"what
+the page calls"* — present tense, about the page as served, checked against its
+bytes. No history asserted.

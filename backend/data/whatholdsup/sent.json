@@ -68,6 +68,24 @@
       "attested": "Operator, 2026-09-11: audience bae12ea6 holds two contacts, both test subscribers, both created 2026-08-27 18:07 UTC, neither unsubscribed (Resend Contacts.list, 11 September). The rehearsal and the send are one act; a prior test broadcast would mail the same two people twice.",
       "note": "Written BEFORE the send. A send is irreversible and a record is not: if the send succeeds and no row exists, the next assembly re-sends what readers already have and nothing says they were sent. Updated to sent or failed below.",
       "result": "segment  : bae12ea6-cbad-4b91-b250-81991bf6b4b5\nsubject  : Three corrections to issues you have already read\nfrom     : What Holds Up <issues@whatholdsup.org>\nhtml     : 2026-09-10-corrections.html (10,546 bytes)\ntext     : 2026-09-10-corrections.txt (7,071 bytes)\ncss      : no variables, flex, grid or style blocks  OK\nunsub    : {{{RESEND_UNSUBSCRIBE_URL}}} present in every part, nothing hardcode"
+    },
+    {
+      "at": "2026-09-11T16:24:42+00:00",
+      "issue": "corrections",
+      "kind": "broadcast",
+      "subject": "Three corrections to issues you have already read",
+      "sha": "f20fffa9ad669812ff32a54d10c9cdc70002c37cd640eaf2c4bcd7f7b55dccea",
+      "audience": "bae12ea6-cbad-4b91-b250-81991bf6b4b5",
+      "covers": [
+        "1 September 2026 — an observation we put under someone else's name, and a true conclusion with a false reason",
+        "9 September 2026 — an outside review, and a self-accusation that overstated what we did",
+        "29 August 2026 — a figure we had defended seven times, and a citation we owed"
+      ],
+      "state": "sent",
+      "attested": "Operator, 2026-09-11: audience bae12ea6 holds two contacts, both test subscribers, both created 2026-08-27 18:07 UTC, neither unsubscribed (Resend Contacts.list, 11 September). The rehearsal and the send are one act; a prior test broadcast would mail the same two people twice.",
+      "gate_waived": "Operator, 2026-09-11: run 3's findings are adjudicated item by item against this body and recorded; every figure and quotation in it is verified against held bytes by a non-author (packet items 4, 7, 8, 11, 12, 13, 16, 17, 20, 21, 22). RUNS_PER_ISSUE is 3 and the rule at the cap says revise the drafting rather than run a fourth gate; the drafting was revised.",
+      "note": "Written BEFORE the send. A send is irreversible and a record is not: if the send succeeds and no row exists, the next assembly re-sends what readers already have and nothing says they were sent. Updated to sent or failed below.",
+      "result": "segment  : bae12ea6-cbad-4b91-b250-81991bf6b4b5\nsubject  : Three corrections to issues you have already read\nfrom     : What Holds Up <issues@whatholdsup.org>\nhtml     : 2026-09-10-corrections.html (11,261 bytes)\ntext     : 2026-09-10-corrections.txt (7,750 bytes)\ncss      : no variables, flex, grid or style blocks  OK\nunsub    : {{{RESEND_UNSUBSCRIBE_URL}}} present in every part, nothing hardcode"
     }
   ]
 }

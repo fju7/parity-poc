@@ -53,6 +53,20 @@ def test_a_sent_row_covers(monkeypatch, tmp_path):
     assert HEADING in U.covered()
 
 
-def test_the_real_record_today_covers_nothing():
-    """The only listed row in the repository's sent.json is the failed one."""
-    assert U.covered() == set()
+def test_the_real_record_only_covers_through_sent_rows():
+    """Against the repository's own sent.json: every covered heading is
+    carried by a row closed as "sent", and no failed or unclosed row
+    contributes. (This test first asserted covered() == set(), which was a
+    snapshot of the record on the morning of 11 September; the first
+    successful send that afternoon turned it red at the pre-commit hook. A
+    test of the world's state on a given day is not a test of the property.)"""
+    rows = json.loads(U.SENT.read_text(encoding="utf-8")).get("sends") or []
+    from_sent = set()
+    for r in rows:
+        if r.get("state") == "sent" and isinstance(r.get("covers"), list):
+            from_sent |= {" ".join(str(x).split()) for x in r["covers"]}
+    assert U.covered() == from_sent
+    for r in rows:
+        if r.get("state") != "sent" and isinstance(r.get("covers"), list):
+            for h in r["covers"]:
+                assert " ".join(str(h).split()) not in U.covered() or " ".join(str(h).split()) in from_sent

@@ -3072,6 +3072,81 @@ CORRECTION owed to readers of the 4 September email or an UPDATE.
 
 ---
 
+## RV-13 — two conclusions inferred from an error message instead of read from the code
+
+*11 September 2026. Recorded as the reviewer's, at the reviewer's instruction.*
+
+Both from the sender's refusal at 15:58 UTC, and both wrong in the same way.
+
+1. *"Had run 3 passed, this email would have been sent on a gate report for a
+   different document."* `require_gate` already compared the report's sha to the
+   body's — after the `passed` check, not before. A stale passing report would
+   have been refused on the sha. The defect was the order and the message (a
+   stale failing report refused for the wrong reason, naming neither sha), not
+   a missing check.
+2. *"Charged to a pseudo-issue that counts toward no cap."* The pseudo-issue
+   `2026-09-10-corrections` has no `per_issue` entry in `caps.json`, so it gets
+   the `default_per_issue` of $40 — its own cap, not none. What is true is that
+   the spend counts toward neither melanoma's nor cdk46's cap.
+
+Both were inferred from what the refusal printed, and the refusal was written
+by the code that would have answered the question. Rule 25's shape again: a
+finding about a control is checked against the control.
+
+---
+
+## RV-14 — a sign-off that checked a sentence exists, not that it holds
+
+*11 September 2026. Recorded as the reviewer's, at the reviewer's instruction.*
+
+The reviewer verified the notice's *"each came from a published comparative
+study"* by confirming the cdk46 page says it, and did not check whether the
+page's saying it is anchored. `issues/WHU-002-cdk46/bindings.json` says it is
+not: for the reconstructed-comparison sentence, *"no held document contains all
+8 anchors"*, locator null since 1 September. Checking that a sentence exists
+rather than that it holds — the fourth instance on 11 September (the matcher
+fragment, "both emails said", the interpolated dots, and this), and the only one
+that reached a sign-off.
+
+The notice now restates what the page says about each study, attributed to the
+page and quoted, and asserts "published" of none of them.
+
+---
+
+## cdk46 — two record items opened 11 September by the correction-email gate, not resolved today
+
+*Neither is fixed today; cdk46 cannot republish. Each carries the criterion
+that closes it.*
+
+**CDK-OPEN-1 — PALMARES-2 is superseded and the record does not say so.** Run 3
+of the correction-email gate (archived, `gate-archive/…run3-947317ce-FAILED.json`,
+recency section) records an updated PALMARES-2 analysis presented at ASCO 2025
+— JCO 2025 43:16_suppl, Abstract 1074; data cutoff 10 January 2025; N=3,598
+across 18 Italian centres — superseding the Annals of Oncology April 2025 paper
+(N=1,982, cutoff 31 January 2024) that the cdk46 page and the 29 August email
+cite for aHR 0.91 (0.73–1.14). Nothing in the cdk46 record carries the update.
+*Resolves when:* the ASCO 2025 abstract is held in the library with its
+access state, the page's PALMARES-2 figures are checked against it, and either
+the page is updated or a recorded decision says the original publication is the
+right citation and why.
+
+**CDK-OPEN-2 — the reconstructed patient-data comparison is unanchored.** The
+cdk46 page asserts it as *"an indirect comparison from reconstructed patient
+data (Cancers, 2023)"* and quotes 0.722 (0.520–1.002), p = 0.051 and 0.933
+(0.753–1.157), p = 0.528 from it. `bindings.json`: *"no held document contains
+all 8 anchors: 0.722, 0.520, 1.002, 0.051, 0.921"*, locator null since
+1 September. The gate could not find the source either (c38 NOT_FOUND; recency
+UNKNOWN, *"source not identified"*). Two figures on the page, cited to a named
+journal and year, rest on no held document.
+The page itself links the citation to PMC10527344 — a locator the page
+carries and the record does not, which is where to start.
+*Resolves when:* the Cancers 2023 paper is located by DOI, held in the library,
+and the four figures are bound to spans in it — or, if it cannot be located, the
+sentences are corrected on the page and the correction recorded in
+corrections.md under the issue's apparatus.
+
+---
+
 ## NEAR-MISS — the sender read a gate report about a different document, and refused for the wrong reason
 
 *11 September 2026, 15:58 UTC. Found because the send was refused; the refusal
