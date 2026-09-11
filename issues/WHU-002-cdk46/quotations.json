@@ -141,15 +141,15 @@
     },
     {
       "id": "Q-12",
-      "quote": "This study was funded by Pfizer Inc.",
+      "quote": "This work was supported by Pfizer Inc (no grant number)",
       "source_id": "S016",
-      "verbatim": "This study was funded by Pfizer Inc. Medical writing support was provided by Diana Avery, PhD, of Oxford PharmaGenesis Inc., Newtown, PA, USA, and was funded by Pfizer Inc., USA.",
+      "verbatim": "FUNDING This work was supported by Pfizer Inc (no grant number).",
       "kind": "",
-      "why": "ALREADY ANSWERED, and not by a person — the gate opened the poster PDF itself and returned the acknowledgments verbatim as claim c41, VERIFIED. This entry said the poster was unreachable. It was reachable; the gate's own report held the answer and the quotation record did not read it. Re-fetched independently on 31 August and the wording matches.",
+      "why": "The paper's own Funding section, in the bytes we hold (S016, sha 0e92606c…). Until 11 September this entry quoted \"This study was funded by Pfizer Inc.\" from the study's SABCS 2024 poster, which is not in the library; the check could not match it to anything we hold. Editor's ruling, 11 September 2026: quote the held wording, attribute to S016, and drop the poster reference rather than hedge it. The held PDF renders the name with an fi-ligature (Pﬁzer); the matcher folds ligatures.",
       "attested": {
-        "by": "the fact-check gate (claim c41, VERIFIED), re-read by claude on 2026-08-31",
-        "on": "2026-08-31",
-        "recorded_in": "the poster PDF's Acknowledgments section, sygkounas.gr/wp-content/uploads/2025/02/P-VERIFY_SABC-POSTER_12-2024.pdf; recorded in cdk46.html.gate.json as verdict c41"
+        "by": "claude, matched against the held S016 PDF (library docs/0e/0e92606c…), on the editor's ruling of 11 September 2026",
+        "on": "2026-09-11",
+        "recorded_in": "S016, FUNDING section, following the Acknowledgements"
       }
     },
     {
