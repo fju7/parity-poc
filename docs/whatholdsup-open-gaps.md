@@ -3072,6 +3072,75 @@ CORRECTION owed to readers of the 4 September email or an UPDATE.
 
 ---
 
+## The first correction email was sent, with the gate waived — 11 September 2026
+
+*Recorded at the operator's instruction, as the send happened.*
+
+**What went out.** Broadcast `8e935bb1-e649-42be-bf9e-76d697e2a35e`, created
+16:24 UTC, subject *"Three corrections to issues you have already read"*, body
+`f20fffa9ad669812` (rendered HTML 11,261 bytes, text 7,750), to audience
+`bae12ea6-cbad-4b91-b250-81991bf6b4b5` — two contacts, both test subscribers,
+attested by the operator on a Resend read. `sent.json` row at
+`2026-09-11T16:24:42+00:00`, written `sending` before the call and closed
+`sent`, carrying the attestation, the waiver, and three `covers:` headings:
+cdk46 1 September (the observation put under someone else's name), melanoma
+9 September (the interval at the wrong width), cdk46 29 August (the email's
+sourcing sentence). `update_email.outstanding()` went from 24 to 21. Commit
+`7a4c460`, pushed.
+
+**The gate was waived, and the reason is on the record.** The operator's
+reason, verbatim in the row's `gate_waived` field:
+
+> Operator, 2026-09-11: run 3's findings are adjudicated item by item against
+> this body and recorded; every figure and quotation in it is verified against
+> held bytes by a non-author (packet items 4, 7, 8, 11, 12, 13, 16, 17, 20, 21,
+> 22). RUNS_PER_ISSUE is 3 and the rule at the cap says revise the drafting
+> rather than run a fourth gate; the drafting was revised.
+
+What that rests on, so a later reader can judge whether it held:
+
+- Three paid runs, $10.05, on bodies `ca9248c8`, `608bf5ce`, `947317ce`. Runs
+  1–2's reports were deleted before run 3; their five SERIOUS findings survive
+  in `backend/tests/fixtures/gate_findings_2026-09-11.json`. Run 3's report is
+  archived byte-identical under `email/gate-archive/`.
+- Every run-3 finding classified against the sent body: 20 refuted by held
+  bytes (S004, S007, S014, S002, S024), 9 resolved by the sentence being
+  removed under rule 31, 4 resolved by the sentence changing, 3 found LIVE and
+  fixed from the record before the send (the interval-width argument stated;
+  the five-year figure flagged exploratory; "each came from a published
+  comparative study" replaced by what the page says of each study). No finding
+  was waived.
+- The gate's one evidence channel is web search. On this email's external
+  claims it had already returned VERIFIED: the Tanguy citation in full
+  (c5–c13), P-VERIFY's 0.97 (c36), PALMARES-2's 0.91 and its nature (c37, c40).
+  The one it could not find — the reconstructed comparison (c38) — is now
+  CDK-OPEN-2, and the notice no longer characterises it.
+- A fourth run would have been stopped by the lifetime cap (`RUNS_PER_ISSUE =
+  3`) and needed `--past-cap`; estimated ~$3, charged to the pseudo-issue
+  `2026-09-10-corrections` under its own $40 default. The operator chose the
+  waiver over the run; either was open.
+
+**What the waiver did not cover, stated plainly.** No gate ran on
+`f20fffa9…`. The body differs from run 3's in roughly forty sentences —
+removals, three added record clauses, the passage-stage fixes — and no
+automated check read the result. What read it: five passage-stage runs
+(Q1–Q5), the advisor's verification of eleven packet items against held bytes,
+and the classification above. A waiver is a decision that the reading was
+enough; it is recorded here so the next person can disagree with it.
+
+**Two things the send exposed, both fixed the same day.** The sender
+consulted what a gate report said before what it was about (near-miss entry
+above; sha comparison now first). And `correction_email.py` had no way to pass
+a waiver through — the flag existed one layer down and the wrapper did not
+expose it; added, and the reason is now recorded beside the row rather than
+only printed.
+
+**Left for the operator, from the sender's own output:** click the
+unsubscribe link Resend substituted, from one of the two inboxes, and confirm
+it works before this path carries a real list.
+
+---
+
 ## RV-13 — two conclusions inferred from an error message instead of read from the code
 
 *11 September 2026. Recorded as the reviewer's, at the reviewer's instruction.*
