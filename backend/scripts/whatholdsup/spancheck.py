@@ -20,10 +20,36 @@ import source_store as store  # noqa: E402
 
 
 def _text(slug: str, sid: str) -> str | None:
+    """The primary held rendition's text, or None."""
     rec = (store.held(slug) or {}).get(sid)
     if not rec:
         return None
-    f = store.LIB / rec.get("file", "")
+    return _text_of_file(store.LIB / rec.get("file", ""))
+
+
+def _texts(slug: str, sid: str) -> list[tuple[str, str]]:
+    """(file, text) for EVERY rendition the library holds of a source.
+
+    A source can be held more than once -- S017 on cdk46 is the publisher's
+    PDF and Europe PMC's full-text XML of the same paper, recorded under
+    `also_held` as a second representation, not a superseded one. The PDF's
+    extracted text carries a running page header inside one sentence; the
+    XML carries the sentence whole. A check that read only the primary file
+    called that quotation interrupted when a clean rendition sat beside it.
+    """
+    rec = (store.held(slug) or {}).get(sid)
+    if not rec:
+        return []
+    out = []
+    for r in [rec] + list(rec.get("also_held") or []):
+        f = store.LIB / (r.get("file") or "")
+        t = _text_of_file(f)
+        if t is not None:
+            out.append((r.get("file") or "", t))
+    return out
+
+
+def _text_of_file(f) -> str | None:
     if not f.exists():
         return None
     ct = {".pdf": "application/pdf", ".json": "application/json",

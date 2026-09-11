@@ -69,7 +69,12 @@ _SMART = {u"‘": "'", u"’": "'", u"“": '"', u"”": '"',
           # space before a full stop -- and the first caught by a check rather
           # than by somebody wondering why a true quotation would not match.
           u"ﬀ": "ff", u"ﬁ": "fi", u"ﬂ": "fl",
-          u"ﬃ": "ffi", u"ﬄ": "ffl", u"ﬅ": "st", u"ﬆ": "st"}
+          u"ﬃ": "ffi", u"ﬄ": "ffl", u"ﬅ": "st", u"ﬆ": "st",
+          # The page prints ≥ and a person typing an answer into a markdown
+          # file writes >=. Same symbol. On 2026-09-11 that one character kept
+          # the NCCN category definitions -- on file since 29 August in the
+          # advocate adjudication, answered by name -- from being found there.
+          u"≥": ">=", u"≤": "<="}
 
 # The states source_ledger.py treats as "somebody opened this". Kept as a
 # literal rather than imported so this module has no load-order dependency on
@@ -330,6 +335,35 @@ def already_recorded(quote: str, on_file: list[dict]) -> dict | None:
     return None
 
 
+# An extracted document is not the document. pdftotext hands back running
+# headers and footers in the middle of sentences that cross a page: S017's
+# "The primary outcome of interest is the overall response rate (ORR)" comes
+# back as "The primary outcome of interest is 3040 Asian Pacific Journal of
+# Cancer Prevention, Vol 25 the overall response rate (ORR)". Every word of
+# the quotation is there, in order; a page header sits inside it. That is a
+# different finding from a quotation whose words are not the source's, and
+# on 2026-09-11 the editor ruled the two must not share a verdict.
+INTERRUPTION_MAX = 160     # characters of foreign text a header or footer can insert
+
+
+def interrupted_by(verbatim: str, body: str) -> str | None:
+    """The foreign run inserted into `verbatim` as it appears in `body`, if
+    the quotation's words all occur in order around exactly one insertion no
+    longer than INTERRUPTION_MAX; else None. Both arguments already norm()ed."""
+    words = verbatim.split()
+    if len(words) < 4:
+        return None
+    for k in range(len(words) - 1, 1, -1):
+        head, tail = " ".join(words[:k]), " ".join(words[k:])
+        i = body.find(head)
+        while i != -1:
+            j = body.find(tail, i + len(head))
+            if j != -1 and 0 < j - (i + len(head)) <= INTERRUPTION_MAX:
+                return body[i + len(head):j].strip()
+            i = body.find(head, i + 1)
+    return None
+
+
 def preflight_rows(slug: str, page_text: str,
                    page: Path | None = None) -> list[tuple[str, str, str]]:
     on_page = extract(page_text)
@@ -347,16 +381,6 @@ def preflight_rows(slug: str, page_text: str,
     recs = _records(d)
     by_key = {norm(r.get("quote", "")): r for r in recs if r.get("quote")}
 
-    unrecorded = [q for q in on_page if norm(q) not in by_key]
-    rows = [("every quotation is recorded",
-             OK if not unrecorded else BAD,
-             "%d quoted passage(s), all recorded" % len(on_page) if not unrecorded
-             else "%d quoted passage(s) with no record of what the source says: %s"
-                  % (len(unrecorded), " || ".join(q[:70] for q in unrecorded[:3])))]
-
-    # A record whose page quote is not what the source says.
-    altered, unattested, rhetorical = [], [], 0
-    srcs = _sources(slug)
     # Before saying nobody has this wording, look. Seven attestations were
     # already on file when this check first ran and it asked for all of them
     # again -- four of them from a document only the operator is licensed to
@@ -365,6 +389,42 @@ def preflight_rows(slug: str, page_text: str,
         on_file = attestations_on_file(slug, page)
     except Exception:
         on_file = []
+
+    # Two kinds of "not in quotations.json", and they are not one finding.
+    # A passage nobody has recorded anywhere is work nobody has done. A
+    # passage whose wording is already in the record -- the NCCN category
+    # definitions sit verbatim in advocate/2026-08-29-adjudication.md, answered
+    # by name -- is a row to be copied, and reporting it as "no record of what
+    # the source says" is false.
+    unrecorded, on_file_unrecorded = [], []
+    for q in on_page:
+        if norm(q) in by_key:
+            continue
+        a = already_recorded(q, on_file)
+        if a:
+            on_file_unrecorded.append("%r — on file at %s, recorded by %s%s"
+                                      % (q[:50], a["where"], a["by"],
+                                         " on %s" % a["on"] if a["on"] else ""))
+        else:
+            unrecorded.append(q)
+    rows = [("every quotation is recorded",
+             OK if not unrecorded else BAD,
+             "%d quoted passage(s), all recorded" % len(on_page) if not unrecorded
+             else "%d quoted passage(s) with no record anywhere of what the source "
+                  "says: %s" % (len(unrecorded), " || ".join(q[:70] for q in unrecorded[:3])))]
+    if on_file_unrecorded:
+        # WARN, by the editor's ruling of 11 September 2026: the wording is
+        # attested on file by a named person, so this is a filing gap, not an
+        # evidence gap. The row stays, and names the file the wording sits in.
+        rows.append(("quotations attested on file but not in quotations.json", WARN,
+                     "%d quoted passage(s) whose wording is already in the record and "
+                     "has no quotations.json row. Copy the attestation in; do not read "
+                     "the source again: %s"
+                     % (len(on_file_unrecorded), " || ".join(on_file_unrecorded[:3]))))
+
+    # A record whose page quote is not what the source says.
+    altered, interrupted, transcription, unattested, rhetorical = [], [], [], [], 0
+    srcs = _sources(slug)
     found_already = []
     for q in on_page:
         r = by_key.get(norm(q))
@@ -406,13 +466,48 @@ def preflight_rows(slug: str, page_text: str,
         import spancheck as _SC
         sid_now = r.get("source_id")
         if sid_now and sid_now in _held_ids(slug):
-            body = norm(_SC._norm(_SC._text(slug, sid_now) or ""))
-            if norm(r.get("verbatim", "")) not in body:
-                altered.append(
-                    "%s: the recorded wording is not in %s as printed — the "
-                    "transcription is wrong, or the source is not what it was"
+            # EVERY RENDITION WE HOLD. S017 is held as a PDF whose extracted
+            # text has a page header inside one sentence, and as Europe PMC's
+            # XML which has the sentence whole. A quotation matches cleanly if
+            # ANY rendition carries it; "interrupted" is claimed only when no
+            # rendition matches whole and one matches across an insertion.
+            bodies = [(f, norm(_SC._norm(t))) for f, t in _SC._texts(slug, sid_now)]
+            if not bodies:
+                bodies = [("", "")]
+            # THE PAGE'S QUOTATION against the bytes. This is the claim a
+            # reader is owed -- that the words inside the quotation marks are
+            # the source's -- so it is tested directly, not through the
+            # typed `verbatim` field.
+            qn = norm(q)
+            if not any(qn in b for _f, b in bodies):
+                gaps = [(f, interrupted_by(qn, b)) for f, b in bodies]
+                gaps = [(f, g) for f, g in gaps if g is not None]
+                if gaps:
+                    f, gap = gaps[0]
+                    interrupted.append(
+                        "%s: every word is in %s, in order, with %r inserted "
+                        "by the extraction of %s; no other held rendition has it whole"
+                        % (r.get("id") or "?", sid_now, gap[:80], f[:16] or "the document"))
+                else:
+                    altered.append(
+                        "%s: the page's quotation is not in %s as printed, in any "
+                        "of %d held rendition(s) — the words are not the source's, "
+                        "or the source is not what it was"
+                        % (r.get("id") or "?", sid_now, len(bodies)))
+                    continue
+            # THE RECORDED CONTEXT against the bytes. `verbatim` is the
+            # source's wording around the quote, typed by a person or a model.
+            # If it is in no rendition either whole or across one
+            # interruption, the transcription dropped or changed something --
+            # Q-21's omitted "(https://www.medcalc.org/)" -- which is a defect
+            # in the record, not in the page, and is reported as that.
+            vn = norm(r.get("verbatim", ""))
+            if not any(vn in b or interrupted_by(vn, b) is not None for _f, b in bodies):
+                transcription.append(
+                    "%s: the page's quotation is in %s but the recorded verbatim "
+                    "context is not, whole or across one interruption — something "
+                    "around the quote was dropped or altered in transcription"
                     % (r.get("id") or "?", sid_now))
-                continue
         sid = r.get("source_id")
         s = srcs.get(sid)
         state = ((s or {}).get("access") or {}).get("state")
@@ -426,9 +521,27 @@ def preflight_rows(slug: str, page_text: str,
     rows.append(("quotations match the source",
                  OK if not altered else BAD,
                  "every recorded quotation appears verbatim in its source"
+                 + (", %d across an extraction interruption (row below)" % len(interrupted)
+                    if interrupted else "")
                  if not altered else
                  "%d quotation(s) differ from the source: %s"
                  % (len(altered), " || ".join(altered[:2]))))
+    if transcription:
+        rows.append(("recorded verbatim context matches the bytes", WARN,
+                     "%d quotation record(s) whose verbatim field is not in the source "
+                     "as printed although the page's quotation is. The page is not "
+                     "wrong; the record is: %s"
+                     % (len(transcription), " || ".join(transcription[:2]))))
+    if interrupted:
+        # Its own row and its own verdict. The words are the source's, in the
+        # source's order; what is unverified is only that the inserted run is
+        # page furniture, and the run is printed so a person can see that in
+        # one glance rather than open the PDF.
+        rows.append(("quotations interrupted by extraction", WARN,
+                     "%d quotation(s) match their source only across a run of "
+                     "foreign text the extractor inserted -- a running header or "
+                     "footer, not a different wording. Verified in order, not "
+                     "byte-exact: %s" % (len(interrupted), " || ".join(interrupted[:2]))))
 
     rows.append(("quotation sources were opened",
                  OK if not (unattested or found_already) else BAD,
