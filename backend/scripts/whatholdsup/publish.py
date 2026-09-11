@@ -1021,6 +1021,123 @@ def corrections_text(slug: str) -> str:
     return fp.read_text(encoding="utf-8") if fp and fp.exists() else ""
 
 
+def corrections_dates(slug: str) -> set[str]:
+    """Every date corrections.md carries an entry for, as YYYY-MM-DD.
+
+    A "## 1 September 2026 — ..." heading is an entry; so is a dated
+    annotation inside one ("**Corrected 10 September 2026."), because the
+    record annotates a dated entry rather than rewriting it.
+    """
+    out = set()
+    for m in re.finditer(r"(?:^##\s+|\*\*Corrected\s+)(\d{1,2})\s+([A-Z][a-z]+)\s+(\d{4})",
+                         corrections_text(slug), re.M):
+        try:
+            out.add(datetime.strptime("%s %s %s" % m.groups(), "%d %B %Y").date().isoformat())
+        except ValueError:
+            continue
+    return out
+
+
+def decision_label_dates(slug: str) -> dict[str, str]:
+    """label -> the date of the adjudication it lives in (from the file name).
+
+    The same files decision_labels() reads. A label's adjudication date is
+    what links a recorded change to the corrections.md entry written from
+    that adjudication.
+    """
+    out: dict[str, str] = {}
+    case = case_dir(slug)
+    if not case:
+        return out
+    adjs = list((case / "review").glob("*-adjudication.md"))
+    for sub in ("advocate", "counterexample"):
+        adjs += [f for f in (case / sub).glob("*-adjudication.md") if "TEST" not in f.name]
+    for adj in adjs:
+        m = re.match(r"(\d{4}-\d{2}-\d{2})", adj.name)
+        if not m:
+            continue
+        day = m.group(1)
+        for line in adj.read_text(encoding="utf-8").splitlines():
+            if line.startswith("### ") or line.startswith("## "):
+                head = line.lstrip("#").strip()
+                first = re.split(r"\s+[\u2014-]\s+|\s+\(", head)[0].strip()
+                for key in (head, first, first.replace(" / ", "/")):
+                    out.setdefault(key, day)
+                mm = re.match(r"([A-Z]+)-(.+)", first)
+                if mm:
+                    for part in re.findall(r"c?\d+", mm.group(2)):
+                        out.setdefault("%s-%s" % (mm.group(1), part), day)
+    return out
+
+
+def correction_recorded_row(slug: str, live_raw: str, page_raw: str) -> tuple[str, str, str]:
+    """Is every sentence that differs from the live page accounted for?
+
+    THE PROMISE, AND THE TEST OF IT. who-pays-for-this promises that every
+    change to a published page is recorded. Until 11 September 2026 this row
+    tested that by asking whether corrections.md carried an entry dated
+    TODAY -- which demanded that a correction be dated the day it is
+    published. The editor ruled that a correction is dated when the corrected
+    document is COMPLETED, and that this legitimately differs from the publish
+    date. So the row now asks what is actually owed: for each sentence that
+    differs from what readers see, is there either
+      (a) a corrections.md entry -- of any date -- that covers it, or
+      (b) a recorded decision classifying it as not a correction?
+    A sentence is covered by (a) when its recorded decision cites a label
+    whose adjudication date has a corrections.md entry, or when the sentence's
+    own prose is quoted in corrections.md. It is (b) when its changes.json row
+    carries "correction": false (explain-change --not-a-correction), or a
+    round-level change set covering this span does. Anything else is
+    UNDETERMINED, and the row says so. There is no fallback to a date test.
+    """
+    diff = changes_since(live_raw, page_raw)
+    if not diff:
+        return ("correction recorded", OK, "no sentence differs from what readers see now")
+    recorded = recorded_changes(slug)
+    dates = corrections_dates(slug)
+    label_dates = decision_label_dates(slug)
+    corr_flat = flatten(corrections_text(slug))
+    sets = valid_change_sets(slug, hashlib.sha256(live_raw.encode()).hexdigest(),
+                             hashlib.sha256(page_raw.encode()).hexdigest())
+    set_not_corr = any(s.get("correction") is False for s in sets)
+    set_dates = {label_dates.get(s.get("because") or "") for s in sets} - {None}
+    covered, not_corr, undetermined = [], [], []
+    for kind, was, now in diff:
+        r = explain(kind, was, now, recorded)
+        text = (now or was)
+        if r is not None:
+            if r.get("correction") is False:
+                not_corr.append(text)
+                continue
+            day = label_dates.get(str(r.get("because") or ""))
+            if day and day in dates:
+                covered.append(text)
+                continue
+        w, n = flatten(was), flatten(now)
+        if (len(n) >= 40 and n in corr_flat) or (len(w) >= 40 and w in corr_flat):
+            covered.append(text)
+            continue
+        if set_not_corr:
+            not_corr.append(text)
+            continue
+        if set_dates & dates:
+            covered.append(text)
+            continue
+        undetermined.append(text)
+    n = len(diff)
+    if not undetermined:
+        return ("correction recorded", OK,
+                f"{n} sentence(s) differ from what readers see now; every one is "
+                f"accounted for — {len(covered)} by a corrections.md entry, "
+                f"{len(not_corr)} recorded as not a correction")
+    return ("correction recorded", BAD,
+            f"{n} sentence(s) differ from what readers see now and {len(undetermined)} "
+            f"have neither a corrections.md entry (any date) nor a recorded decision "
+            f"classifying them as not a correction — cannot determine that the promise "
+            f"on who-pays-for-this is kept for them: "
+            + " || ".join(t[:70] for t in undetermined[:3]))
+
+
 def live_body(url: str, timeout: int = 20) -> str | None:
     try:
         req = urllib.request.Request(url, headers={"User-Agent": "whatholdsup-publish"})
@@ -1552,13 +1669,7 @@ def preflight(slug: str, *, for_email: bool,
         # checked that until an article went out with a masthead two days stale
         # and ten changed sentences behind it.
         if not same:
-            changed = len(changes_since(body, page.read_text(encoding="utf-8")))
-            logged = today in corrections_text(slug)
-            out.append(("correction recorded", OK if logged else BAD,
-                        f"{changed} sentence(s) differ from what readers see now"
-                        + (f", and corrections.md carries a {today} entry" if logged
-                           else f", and corrections.md has no {today} entry — "
-                                "who-pays-for-this promises every change is recorded")))
+            out.append(correction_recorded_row(slug, body, page.read_text(encoding="utf-8")))
 
     if for_update:
         softened = []
@@ -2774,6 +2885,11 @@ def cmd_explain_change(args) -> int:
         "now": args.now or "",
         "because": args.because or "AD-HOC",
         "note": note,
+        # A change that is not a correction -- a nav link, a typo in the
+        # furniture -- is classified as such HERE, by a person, so the
+        # "correction recorded" row can account for it without a
+        # corrections.md entry. Absent, the row treats the change as owed one.
+        **({"correction": False} if getattr(args, "not_a_correction", False) else {}),
     })
     fp.write_text(json.dumps(data, indent=2, ensure_ascii=False), encoding="utf-8")
     ok, bad, _s = reconcile(args.slug)
@@ -4226,6 +4342,10 @@ def main() -> int:
     ec.add_argument("--because", default="AD-HOC")
     ec.add_argument("--note", required=True)
     ec.add_argument("--by", default=os.environ.get("USER") or "operator")
+    ec.add_argument("--not-a-correction", dest="not_a_correction", action="store_true",
+                    help="classify this change as not a correction (a nav link, page "
+                         "furniture); the 'correction recorded' row then needs no "
+                         "corrections.md entry for it")
     ec.set_defaults(fn=cmd_explain_change)
 
     cr = sub.add_parser("confirm-review",
