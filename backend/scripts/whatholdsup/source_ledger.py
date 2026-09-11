@@ -446,15 +446,46 @@ def inaccessibility_claims(page_text: str, srcs: list[dict]) -> list[tuple[str, 
     a ledger entry that overstates what was read. Both are real answers and
     both should be made knowingly.
     """
-    out = []
+    return _inaccessibility(page_text, srcs)[0]
+
+
+# A sentence is not a clause. On 2026-09-11 this check pinned "we have not
+# obtained the paper's full text ourselves" to PALMARES-2's REGISTRY RECORD,
+# because the same sentence went on, three clauses later, to say "its
+# ClinicalTrials.gov record (NCT06805812 ...) has no results posted", and
+# NCT06805812 is that record's alias. The claim was about the paper (S011,
+# fragment_only -- no contradiction); the alias that matched belonged to a
+# document the claim was not about (S021, held -- reported as a
+# contradiction). So the alias is looked for in the CLAUSE that carries the
+# inaccessibility phrase, not anywhere in the sentence. A claim whose own
+# clause names no source by any alias is returned separately, as
+# unattributed, because a check that quietly drops it is a check that
+# passes on a sentence it could not read.
+_CLAUSE_SPLIT = re.compile(r";|\s[\u2014\u2013]\s|\s-{2,}\s|,\s+(?:and|but|while|whereas)\s")
+
+
+def _clauses(sent: str) -> list[str]:
+    return [c.strip() for c in _CLAUSE_SPLIT.split(sent) if c.strip()]
+
+
+def unattributed_inaccessibility_claims(page_text: str, srcs: list[dict]) -> list[str]:
+    """Sentences that say something could not be opened, whose own clause
+    names no source by any alias in the ledger."""
+    return _inaccessibility(page_text, srcs)[1]
+
+
+def _inaccessibility(page_text: str, srcs: list[dict]) -> tuple[list[tuple[str, dict, str]], list[str]]:
+    out, unattributed = [], []
     for sent in sentences(plain(page_text)):
         if not INACCESSIBLE.search(sent):
             continue
+        claim_clauses = [c for c in _clauses(sent) if INACCESSIBLE.search(c)] or [sent]
         for src in srcs:
             names = identifiers(src)
             if not names:
                 continue
-            if not any(re.search(r"\b%s\b" % re.escape(n), sent, re.I) for n in names):
+            if not any(re.search(r"\b%s\b" % re.escape(n), c, re.I)
+                       for c in claim_clauses for n in names):
                 continue
             state = (access_of(src) or {}).get("state")
             # WHOLE DOCUMENT, not READ_STATES.
@@ -476,7 +507,9 @@ def inaccessibility_claims(page_text: str, srcs: list[dict]) -> list[tuple[str, 
             if state in HOLDS_WHOLE_DOCUMENT:
                 out.append((" ".join(sent.split())[:190], src, state))
             break
-    return out
+        else:
+            unattributed.append(" ".join(sent.split())[:190])
+    return out, unattributed
 
 
 def case_dir(slug: str) -> Path:
@@ -679,6 +712,15 @@ def audit(slug: str, page_text: str,
         % (len(walls),
            " | ".join("%s (%s, ledger: %s)" % (s, src["id"], state)
                       for s, src, state in walls[:3]))))
+    loose = unattributed_inaccessibility_claims(page_text, srcs)
+    if loose:
+        rows.append((
+            "inaccessibility claims naming no source", WARN,
+            f"{len(loose)} sentence(s) say something could not be opened without "
+            "naming, in that clause, any source by an alias the ledger carries -- "
+            "so the row above could not compare them to the ledger. Declare the "
+            "alias (also_called) or leave them unchecked knowingly: "
+            + " | ".join(loose[:3])))
 
     rows.append((
         "adverse claims needing the human reader",
