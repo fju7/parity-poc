@@ -212,8 +212,28 @@ BREAK = "\x00"          # block boundary; cannot occur in page text
 # page's ACCOUNT OF ITSELF -- the dateline, self_description, the correction
 # reconciliation -- take the whole document, because that is what they are
 # about.
-CHANGE_LOG = re.compile(r"<footer[^>]*id=[\"']updates[\"'][^>]*>.*?</footer>",
+# THE ONE DEFINITION. The change log is the <footer> carrying id="updates"
+# on the tag itself -- melanoma's markup, the convention corrections_check
+# was written against, and cdk46's from 11 September 2026. Until then this
+# module, corrections_check and quotations each carried their own regex:
+# this one wanted the id on the tag, corrections_check took any <footer>,
+# and cdk46 put the id on a <p> inside a bare <footer>, so body_only()
+# stripped nothing there and four checks read its change log as the
+# article. One helper, called from every check that needs the region.
+CHANGE_LOG = re.compile(r"<footer\b[^>]*\bid=[\"']updates[\"'][^>]*>(.*?)</footer>",
                         re.I | re.S)
+
+
+def change_log(html_text: str) -> str:
+    """The change-log region, tags included; "" when the page has none."""
+    m = CHANGE_LOG.search(html_text)
+    return m.group(0) if m else ""
+
+
+def change_log_inner(html_text: str) -> str:
+    """The change log's inner html; "" when the page has none."""
+    m = CHANGE_LOG.search(html_text)
+    return m.group(1) if m else ""
 
 
 def body_only(html_text: str) -> str:

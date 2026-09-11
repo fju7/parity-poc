@@ -64,8 +64,6 @@ import source_ledger as ledger    # noqa: E402
 
 OK, BAD, WARN = "ok", "BLOCKED", "warn"
 
-CHANGELOG = re.compile(r"<footer\b[^>]*>(.*?)</footer>", re.S | re.I)
-
 # "did not match", "out by", "disagreed with", "discrepancy", "differs from".
 # Only forms that assert a NUMERIC disagreement; "changed from x to y" is a
 # correction describing itself and asserts no mismatch.
@@ -78,8 +76,10 @@ NUM = re.compile(r"(?<![A-Za-z0-9._-])(\d+\.\d+|\d+)(?![0-9]*[%A-Za-z])")
 
 
 def changelog_html(slug: str) -> str:
-    m = CHANGELOG.search(B._page_html(slug))
-    return m.group(1) if m else ""
+    # One definition of the region, owned by source_ledger. This file used to
+    # match any <footer>, which happened to work on cdk46 while body_only()
+    # did not; two regexes for one region is how that went unnoticed.
+    return ledger.change_log_inner(B._page_html(slug))
 
 
 def paragraphs(slug: str) -> list[str]:
@@ -206,7 +206,7 @@ def preflight_rows(slug: str) -> list[tuple[str, str, str]]:
     sents = sentences(slug)
     if not sents:
         return [("the correction history is checked", BAD,
-                 "no <footer> change log found on the page — this check has "
+                 "no <footer id=\"updates\"> change log found on the page — this check has "
                  "nothing to read, and an unrun check is not a pass")]
 
     fm = false_mismatches(slug)

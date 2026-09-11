@@ -342,7 +342,7 @@ def attributions(text: str) -> list[str]:
 
 # body_only moved to source_ledger, where plain() lives and where the
 # reasoning is recorded. Four modules needed it; one should own it.
-from source_ledger import body_only  # noqa: E402
+from source_ledger import body_only, change_log  # noqa: E402
 
 
 def unknowability(text: str) -> list[str]:
@@ -392,7 +392,13 @@ REPORTED = re.compile(
     r"objected that|reasoned that|on the (?:finding|strength|basis) that|"
     r"at the time|until \d{1,2} [A-Z][a-z]+|"
     r"(?:was|were) (?:written|printed|published|said|reported)|"
-    r"had been|which was (?:not |un)?true|that was wrong|was wrong)\b", re.I)
+    r"had been|which was (?:not |un)?true|that was wrong|was wrong|"
+    # past-perfect narration of our own act: "we had dated", "we had skipped"
+    r"we had \w+ed|"
+    # a withdrawal describing itself: "so the sentence no longer claims it"
+    r"(?:the )?(?:sentence|page|claim|figure|entry|note) (?:no longer|now) "
+    r"(?:claims|says|states|reads|carries|asserts)|"
+    r"(?:has been|have been|was|were|is|are) (?:withdrawn|removed|struck|deleted))\b", re.I)
 
 QUOTED = re.compile("[\u201c\u201d\"\u2018\u2019'](?:(?![\u201c\u201d\"\u2018\u2019']).){8,}[\u201c\u201d\"\u2018\u2019']")
 
@@ -413,23 +419,6 @@ def unknowability_in_log(text: str) -> list[str]:
             continue
         out.append(s[:170])
     return out
-
-
-# A footer that carries the updates anchor ANYWHERE inside it. source_ledger's
-# CHANGE_LOG demands the id on the <footer> tag itself; cdk46 puts it on the
-# first <p>, so body_only() strips nothing there and four checks read its
-# change log as the article. That is reported separately and not changed
-# here; this module finds the log either way.
-LOG_ANY = re.compile(r'<footer[^>]*>(?:(?!</footer>).)*?id=["\']updates["\'].*?</footer>',
-                     re.S | re.I)
-
-
-def split_log(html_text: str) -> tuple[str, str]:
-    """(article html, change-log html)."""
-    m = LOG_ANY.search(html_text)
-    if not m:
-        return html_text, ""
-    return html_text[:m.start()] + " " + html_text[m.end():], m.group(0)
 
 
 def verified_attributions(slug: str | None) -> set[str]:
@@ -535,8 +524,8 @@ def lint(html_text: str, slug: str | None = None) -> list[tuple[str, str, str]]:
 
     # The article's claims, and the change log's PRESENT assertions -- an
     # account of a past belief is not a claim. See unknowability_in_log.
-    article, log = split_log(html_text)
-    unk = unknowability(plain(body_only(article))) + unknowability_in_log(plain(log))
+    unk = (unknowability(plain(body_only(html_text)))
+           + unknowability_in_log(plain(change_log(html_text))))
     rows.append(("unknowability claims searched the registries",
                  OK if not unk else BAD,
                  "every claim that something could not be established names where it looked"

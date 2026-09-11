@@ -168,8 +168,11 @@ def extract(page_text: str) -> list[str]:
     # A quotation in the change log is a quotation of THIS PAGE, and the record
     # of what it said is the correction entry around it. Quotations of sources
     # live in the body, which is what this check reads.
-    page_text = re.sub(r"<footer[^>]*id=[\"']updates[\"'][^>]*>.*?</footer>",
-                       " ", page_text, flags=re.I | re.S)
+    # One definition of the region: source_ledger.body_only. Imported here,
+    # not at module load, so this module still has no load-order dependency
+    # on the ledger.
+    from source_ledger import body_only as _body_only
+    page_text = _body_only(page_text)
 
     marked = re.findall(r"<q[^>]*>(.*?)</q>", page_text, re.I | re.S)
     marked += re.findall(r"<blockquote[^>]*>(.*?)</blockquote>", page_text, re.I | re.S)
