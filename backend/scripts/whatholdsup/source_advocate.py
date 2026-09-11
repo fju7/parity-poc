@@ -300,11 +300,35 @@ ANSWERED_BY = re.compile(r"^\s*ANSWERED BY:\s*(\S.*)$", re.M)
 ANSWER = re.compile(r"^\s*ANSWER:\s*(\S.*)$", re.M)
 LOCATOR = re.compile(r"^\s*LOCATOR:\s*(\S.*)$", re.M)
 
+# A WITHDRAWAL IS NOT AN ANSWER, AND IT IS NOT A FAILURE TO ANSWER EITHER.
+# S001-14 was withdrawn by claude on 3 September -- the record already held
+# the fact it asked for -- and until 11 September preflight listed it under
+# "no person has answered", which is false: nobody failed to answer it. The
+# editor's ruling, same principle as the EFFECT ruling: a question closed by
+# withdrawal is closed, provided the withdrawal says WHO withdrew it and WHY,
+# and it is reported in its own row, never among the unanswered.
+WITHDRAWN_BY = re.compile(r"^\s*WITHDRAWN BY:\s*(\S.*)$", re.M)
+WITHDRAWN_WHY = re.compile(r"^\s*WHY:\s*(\S.*)$", re.M)
+
+
+def _withdrawal(chunk: str) -> tuple[str, str] | None:
+    """(who, why) when both are on the record; ("", why) or (who, "") when the
+    withdrawal is attempted but incomplete; None when nothing was withdrawn."""
+    who = WITHDRAWN_BY.search(chunk)
+    why = WITHDRAWN_WHY.search(chunk)
+    if not who and not why:
+        return None
+    return ((who.group(1).strip() if who else ""), (why.group(1).strip() if why else ""))
+
 
 def _closed(chunk: str, mode: str) -> bool:
     """Has a person written the verdict? Presence of the fields decides this;
-    the EFFECT word's spelling does not (see unrecognised_effect)."""
+    the EFFECT word's spelling does not (see unrecognised_effect). A complete
+    withdrawal -- who, and why -- closes a question too (see _withdrawal)."""
     if mode == "questions":
+        w = _withdrawal(chunk)
+        if w is not None:
+            return bool(w[0] and w[1])
         return bool(ANSWERED_BY.search(chunk) and ANSWER.search(chunk)
                     and LOCATOR.search(chunk) and EFFECT_LINE.search(chunk))
     return bool(VERDICT.search(chunk) and EFFECT_LINE.search(chunk))
@@ -336,6 +360,11 @@ def write_template(slug: str, day: str, briefs: list[dict]) -> Path:
              "    LOCATOR:     section, table or page",
              "    EFFECT:      changes | narrows | sharpens | corrects | none",
              "    DID:         what changed", "",
+             "Or, for a QUESTION the record already answers, a withdrawal:", "",
+             "    WITHDRAWN BY: a person's name, or the role that withdrew it",
+             "    ON:           the date",
+             "    WHY:          what on the record already settles it",
+             "    DID:          what was done instead", "",
              "The second form exists because of NCCN v6.2026: one document, readable",
              "by no automated check here, holding the fact that decided the piece.",
              "Everything else on the page could be machine-checked, so the pipeline",
@@ -406,13 +435,34 @@ def _chunks(slug: str):
 
 
 def open_items(slug: str) -> tuple[list[str], list[str]]:
-    """(open objections, open questions for a human). Both block."""
+    """(open objections, open questions for a human). Both block. A question
+    with an incomplete withdrawal is neither: see withdrawals()."""
     objs, qs = [], []
     for fname, head, chunk, mode in _chunks(slug):
         if _closed(chunk, mode):
             continue
+        if mode == "questions" and _withdrawal(chunk) is not None:
+            continue          # reported by withdrawals(), not as unanswered
         (qs if mode == "questions" else objs).append(f"{fname}: {head}")
     return objs, qs
+
+
+def withdrawals(slug: str) -> tuple[list[str], list[str]]:
+    """(complete withdrawals, incomplete ones). A complete one names who and
+    why; an incomplete one is a closure nobody signed."""
+    done, incomplete = [], []
+    for fname, head, chunk, mode in _chunks(slug):
+        if mode != "questions":
+            continue
+        w = _withdrawal(chunk)
+        if w is None:
+            continue
+        who, why = w
+        if who and why:
+            done.append(f"{head} — withdrawn by {who}: {why[:80]}")
+        else:
+            incomplete.append(f"{head} — withdrawal lacks {'WHO' if not who else 'WHY'}")
+    return done, incomplete
 
 
 def vocabulary_problems(slug: str) -> list[str]:
@@ -453,6 +503,15 @@ def preflight_rows(slug: str) -> list[tuple[str, str, str]]:
                  f"{len(qs)} question(s) about a licence- or paywall-restricted source "
                  f"that no person has answered. Nothing here can answer them: "
                  + "; ".join(qs[:3])))
+    done, incomplete = withdrawals(slug)
+    if done:
+        rows.append(("questions withdrawn, with who and why", WARN,
+                     f"{len(done)} question(s) closed by withdrawal rather than by an "
+                     f"answer; each names who withdrew it and why: " + "; ".join(done[:3])))
+    if incomplete:
+        rows.append(("withdrawals name who and why", BAD,
+                     f"{len(incomplete)} withdrawal(s) missing the person or the reason -- "
+                     f"a closure nobody signed is not a closure: " + "; ".join(incomplete[:3])))
     vocab = vocabulary_problems(slug)
     if vocab:
         rows.append(("effect vocabulary recognised", WARN,
