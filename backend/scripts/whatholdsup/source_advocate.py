@@ -47,7 +47,8 @@ hand, and a process that feels rigorous. So every brief must carry a written
 verdict before the issue can publish:
 
     MERIT   yes / partly / no      -- and why, citing what we read
-    EFFECT  changes / narrows / none  -- what it does to the conclusion
+    EFFECT  changes / narrows / sharpens / corrects / none
+                                  -- what it does to the conclusion
     DID     what we actually changed
 
 Recorded whether or not we act. A "no merit" verdict with a bad reason is
@@ -274,7 +275,16 @@ def briefs_path(slug: str, day: str) -> Path:
 
 
 VERDICT = re.compile(r"^\s*MERIT:\s*(yes|partly|no)\b", re.I | re.M)
-EFFECT = re.compile(r"^\s*EFFECT:\s*(changes|narrows|none)\b", re.I | re.M)
+# The EFFECT line is read in two steps, and the split is the point. Whether a
+# person ANSWERED is settled by the fields being present; which WORD they used
+# is a vocabulary question and is reported as one. Until 11 September 2026 the
+# two were one regex, so three questions about the NCCN guideline -- answered
+# by name, quoted, with locators, on 3 September -- were reported for eight
+# days as "no person has answered" because the answers said "sharpens" and
+# "corrects". A complete answer is never reported as unanswered.
+EFFECT_LINE = re.compile(r"^\s*EFFECT:\s*(\S+)", re.I | re.M)
+EFFECT_WORDS = ("changes", "narrows", "sharpens", "corrects", "none")
+EFFECT = re.compile(r"^\s*EFFECT:\s*(%s)\b" % "|".join(EFFECT_WORDS), re.I | re.M)
 
 # A question put to the human reader is only closed when a person has opened the
 # document and written down what it says. Not when someone has read the question
@@ -292,10 +302,21 @@ LOCATOR = re.compile(r"^\s*LOCATOR:\s*(\S.*)$", re.M)
 
 
 def _closed(chunk: str, mode: str) -> bool:
+    """Has a person written the verdict? Presence of the fields decides this;
+    the EFFECT word's spelling does not (see unrecognised_effect)."""
     if mode == "questions":
         return bool(ANSWERED_BY.search(chunk) and ANSWER.search(chunk)
-                    and LOCATOR.search(chunk) and EFFECT.search(chunk))
-    return bool(VERDICT.search(chunk) and EFFECT.search(chunk))
+                    and LOCATOR.search(chunk) and EFFECT_LINE.search(chunk))
+    return bool(VERDICT.search(chunk) and EFFECT_LINE.search(chunk))
+
+
+def unrecognised_effect(chunk: str) -> str | None:
+    """The EFFECT word if it is outside the vocabulary, else None."""
+    m = EFFECT_LINE.search(chunk)
+    if not m:
+        return None
+    word = m.group(1).strip().rstrip(".,;:")
+    return None if word.lower() in EFFECT_WORDS else word
 
 
 def write_template(slug: str, day: str, briefs: list[dict]) -> Path:
@@ -306,14 +327,14 @@ def write_template(slug: str, day: str, briefs: list[dict]) -> Path:
              "reason on the record, does not.", "",
              "For an OBJECTION, from a source a machine could read:", "",
              "    MERIT:  yes | partly | no   — and why, citing what you read",
-             "    EFFECT: changes | narrows | none",
+             "    EFFECT: changes | narrows | sharpens | corrects | none",
              "    DID:    what actually changed, or nothing and why", "",
              "For a QUESTION, from a source only a person is permitted to read:", "",
              "    ANSWERED BY: a person's name. Not \"the team\", not a role.",
              "    ON:          the date they opened the document",
              "    ANSWER:      what it says, quoted",
              "    LOCATOR:     section, table or page",
-             "    EFFECT:      changes | narrows | none",
+             "    EFFECT:      changes | narrows | sharpens | corrects | none",
              "    DID:         what changed", "",
              "The second form exists because of NCCN v6.2026: one document, readable",
              "by no automated check here, holding the fact that decided the piece.",
@@ -368,13 +389,12 @@ def _modes(slug: str) -> dict[str, str]:
     return out
 
 
-def open_items(slug: str) -> tuple[list[str], list[str]]:
-    """(open objections, open questions for a human). Both block."""
+def _chunks(slug: str):
+    """(file name, item heading, chunk text, mode) for every adjudicated item."""
     d = sl.case_dir(slug) / "advocate"
     if not d.exists():
-        return [], []
+        return
     modes = _modes(slug)
-    objs, qs = [], []
     for f in sorted(d.glob("*-adjudication.md")):
         if "TEST" in f.name:
             continue
@@ -382,11 +402,28 @@ def open_items(slug: str) -> tuple[list[str], list[str]]:
         for chunk in re.split(r"(?=^### )", text, flags=re.M)[1:]:
             head = chunk.splitlines()[0][4:].strip()
             sid = head.split("-")[0]
-            mode = modes.get(sid, "objections")
-            if _closed(chunk, mode):
-                continue
-            (qs if mode == "questions" else objs).append(f"{f.name}: {head}")
+            yield f.name, head, chunk, modes.get(sid, "objections")
+
+
+def open_items(slug: str) -> tuple[list[str], list[str]]:
+    """(open objections, open questions for a human). Both block."""
+    objs, qs = [], []
+    for fname, head, chunk, mode in _chunks(slug):
+        if _closed(chunk, mode):
+            continue
+        (qs if mode == "questions" else objs).append(f"{fname}: {head}")
     return objs, qs
+
+
+def vocabulary_problems(slug: str) -> list[str]:
+    """Closed items whose EFFECT word is outside the vocabulary. Reported by
+    word, as a vocabulary problem -- never as an item nobody answered."""
+    out = []
+    for fname, head, chunk, mode in _chunks(slug):
+        w = unrecognised_effect(chunk)
+        if w is not None:
+            out.append(f"{head}: EFFECT \"{w}\"")
+    return out
 
 
 def unadjudicated(slug: str) -> list[str]:
@@ -416,6 +453,12 @@ def preflight_rows(slug: str) -> list[tuple[str, str, str]]:
                  f"{len(qs)} question(s) about a licence- or paywall-restricted source "
                  f"that no person has answered. Nothing here can answer them: "
                  + "; ".join(qs[:3])))
+    vocab = vocabulary_problems(slug)
+    if vocab:
+        rows.append(("effect vocabulary recognised", WARN,
+                     f"{len(vocab)} answered item(s) record an EFFECT word outside "
+                     f"{' / '.join(EFFECT_WORDS)}. The answer stands; the word is "
+                     f"unrecognised: " + "; ".join(vocab[:4])))
     return rows
 
 
