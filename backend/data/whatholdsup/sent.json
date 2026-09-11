@@ -51,6 +51,23 @@
       "attested": "Operator, 2026-09-11: the only subscribers on that list are test subscribers since we do not yet have any other subscribers. Measured 2 contacts (sync_subscribers.py, 2026-09-10). Rehearsal and send are therefore one act; sending twice would mail the same people twice.",
       "note": "Written BEFORE the send. A send is irreversible and a record is not: if the send succeeds and no row exists, the next assembly re-sends what readers already have and nothing says they were sent. Updated to sent or failed below.",
       "result": "segment  : bae12ea6-cbad-4b91-b250-81991bf6b4b5\nsubject  : Three corrections to issues you have already read\nfrom     : What Holds Up <issues@whatholdsup.org>\nhtml     : 2026-09-10-corrections.html (10,364 bytes)\ntext     : 2026-09-10-corrections.txt (6,570 bytes)\ncss      : no variables, flex, grid or style blocks  OK\nunsub    : {{{RESEND_UNSUBSCRIBE_URL}}} present in every part, nothing hardcode"
+    },
+    {
+      "at": "2026-09-11T15:58:34+00:00",
+      "issue": "corrections",
+      "kind": "broadcast",
+      "subject": "Three corrections to issues you have already read",
+      "sha": "071e746339b4bea99dd0cd48e8f556f614a58ee03589926fd5fa6bb0c300d882",
+      "audience": "bae12ea6-cbad-4b91-b250-81991bf6b4b5",
+      "covers": [
+        "1 September 2026 — an observation we put under someone else's name, and a true conclusion with a false reason",
+        "9 September 2026 — an outside review, and a self-accusation that overstated what we did",
+        "29 August 2026 — a figure we had defended seven times, and a citation we owed"
+      ],
+      "state": "failed",
+      "attested": "Operator, 2026-09-11: audience bae12ea6 holds two contacts, both test subscribers, both created 2026-08-27 18:07 UTC, neither unsubscribed (Resend Contacts.list, 11 September). The rehearsal and the send are one act; a prior test broadcast would mail the same two people twice.",
+      "note": "Written BEFORE the send. A send is irreversible and a record is not: if the send succeeds and no row exists, the next assembly re-sends what readers already have and nothing says they were sent. Updated to sent or failed below.",
+      "result": "segment  : bae12ea6-cbad-4b91-b250-81991bf6b4b5\nsubject  : Three corrections to issues you have already read\nfrom     : What Holds Up <issues@whatholdsup.org>\nhtml     : 2026-09-10-corrections.html (10,546 bytes)\ntext     : 2026-09-10-corrections.txt (7,071 bytes)\ncss      : no variables, flex, grid or style blocks  OK\nunsub    : {{{RESEND_UNSUBSCRIBE_URL}}} present in every part, nothing hardcode"
     }
   ]
 }

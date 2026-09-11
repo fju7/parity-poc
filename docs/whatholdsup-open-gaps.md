@@ -3072,6 +3072,56 @@ CORRECTION owed to readers of the 4 September email or an UPDATE.
 
 ---
 
+## NEAR-MISS — the sender read a gate report about a different document, and refused for the wrong reason
+
+*11 September 2026, 15:58 UTC. Found because the send was refused; the refusal
+was right by accident.*
+
+`send_broadcast.require_gate` reads the gate report beside the rendered HTML
+and, in this order, (1) refuses if `passed` is false, (2) refuses if the
+report's `sha256` differs from the sha of the body about to be sent. The report
+beside `2026-09-10-corrections.html` was run 3's — `passed: false`, `sha256:
+947317ce…` — a body that no longer existed; the body about to go was
+`071e7463…`. The sender said *"records a FAILED run. Resolve its findings"* and
+named neither sha. The findings it told the operator to resolve were findings
+about a different document.
+
+**What would have happened had run 3 passed.** The sha check at step (2) would
+have refused — so the send was never one `passed:true` away from going out on a
+stale report, and the advisor's first reading of this was stronger than the
+code. What is true and worse: the sender consulted *what the report says* before
+*what the report is about*, so a stale failing report produced a confident,
+specific, wrong instruction, and a stale passing report would have reached its
+only guard last. The order was the defect.
+
+**The sha, established before touching anything.** The report records
+`sha256` = SHA-256 of the **rendered HTML file's bytes** at gate time
+(`factcheck_draft.py`: `hashlib.sha256(path.read_bytes())` on the file it was
+given). The sender hashes the HTML text it read, re-encoded UTF-8 — the same
+bytes for this file (both `071e7463…` today). So the comparison is against the
+rendered-HTML sha, and it is the right one: the gate ran on the rendered file,
+not on the draft Markdown.
+
+**Fixed.** The sha comparison now runs first, regardless of `passed`, and the
+refusal names both shas and the report's own `passed` and date. A matching
+report that failed still refuses, and now says *"on these exact bytes"*. Four
+cases tested in `backend/tests/test_whatholdsup_send_gate.py`: stale-passing
+refused, stale-failing refused for being stale, matching-passing accepted,
+matching-failing refused.
+
+> **A control that reads an artefact beside its subject must verify the
+> artefact is about that subject before reading what it says.** A report is
+> evidence about the thing it was run on and nothing else. Adjacency on disk is
+> not identity; a file named after its subject can be about an earlier one.
+
+Run 3's report was not deleted. It is at
+`site/whatholdsup/email/gate-archive/2026-09-10-corrections.html.gate.json.run3-947317ce-FAILED.json`
+(byte-identical copy, verified before the original was removed). The runs
+ledger `…gate.json.runs.json` stayed where it was: moving it would have reset
+the lifetime run count and silently lifted the three-run cap.
+
+---
+
 ## RV-12 — the urgency argument rested on a number nobody had counted
 
 *11 September 2026, step 51. Recorded as the reviewer's, at full weight, at the

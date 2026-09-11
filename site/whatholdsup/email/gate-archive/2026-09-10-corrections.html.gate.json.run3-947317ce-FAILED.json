@@ -1,0 +1,992 @@
+{
+  "draft": "site/whatholdsup/email/corrections/2026-09-10-corrections.html",
+  "sha256": "947317ce7871c944fdedb9659c02aa806dd0a2dd86426b991ef4f6e7924b43ea",
+  "sentence_fingerprints": [
+    "031196c54486c3c8",
+    "03e7d36e9b96e6f4",
+    "09d12614fff29330",
+    "0bc8f2ee3708eff4",
+    "0cf6bd45fa082a29",
+    "0f680a8b93fa1c0b",
+    "1c09b69f075c92d6",
+    "1e1b852853758ed3",
+    "1f1b072423603e8a",
+    "1fa476a5286391b4",
+    "215116de3188f775",
+    "27224d75035bff07",
+    "30df650a49eb4767",
+    "332d416b65513263",
+    "39d553443355deeb",
+    "3bf372a81223a693",
+    "40e7a9b11942528b",
+    "45ca66588e31e7df",
+    "4e21c4c9719685f6",
+    "50cc67961297e9e7",
+    "5100f24599ee0430",
+    "54555b30ba1e8836",
+    "55f16031567563a3",
+    "5b2bdbe94dd95f7f",
+    "5b3a92e2da44bf61",
+    "5b5ae283cf98df52",
+    "5d7bd3b12def7468",
+    "661a6c4049a39d40",
+    "687f779f96b8039e",
+    "771b1bd9e12d6c7d",
+    "77642da34bc3b7d7",
+    "783fb36dd4f2194e",
+    "83ed0419ba6e7e1d",
+    "88b8519498d3b0fe",
+    "969723a3507b93c6",
+    "97f49a08cd0cde98",
+    "9e572e1fee4e950c",
+    "a07bf2de099d1a3d",
+    "a4139042f4c55c63",
+    "a7f74585478b523d",
+    "b7d90e4e8d5a9ec4",
+    "ba4b743fe88ed863",
+    "bcb5932b55651dbf",
+    "bdf934767cb8d445",
+    "ceabf5f4e0ca6998",
+    "d1c33ed2cf5cb1d7",
+    "d45d2d9415aa5eb5",
+    "db804626477e9ba6",
+    "ddc59fa663b52df2",
+    "e0a922ba9e4ab46b",
+    "e8ef3eb73b3b4086",
+    "ec9c82cbfed58062",
+    "ed589f21fb8b5b07",
+    "ede2af9e52fdbcb8",
+    "f31847804b023cd2",
+    "f6c487d5870825c0",
+    "f950b044b72f0363"
+  ],
+  "passed": false,
+  "carried": [],
+  "checked_at": "2026-09-11",
+  "model": "claude-sonnet-4-6",
+  "usage": {
+    "total": {
+      "calls": 11,
+      "input": 923695,
+      "output": 26626,
+      "cache_write": 0,
+      "cache_read": 0,
+      "web_searches": 48,
+      "usd": 3.6505,
+      "priced": true
+    },
+    "by_role": {
+      "extract": {
+        "calls": 1,
+        "input": 2424,
+        "output": 3814,
+        "cache_write": 0,
+        "cache_read": 0,
+        "web_searches": 0,
+        "usd": 0.0645,
+        "priced": true
+      },
+      "source:Tanguy M-L et al., npj Breast ": {
+        "calls": 1,
+        "input": 23201,
+        "output": 1742,
+        "cache_write": 0,
+        "cache_read": 0,
+        "web_searches": 2,
+        "usd": 0.1157,
+        "priced": true
+      },
+      "source:no source credited in the draf": {
+        "calls": 1,
+        "input": 168668,
+        "output": 2776,
+        "cache_write": 0,
+        "cache_read": 0,
+        "web_searches": 8,
+        "usd": 0.6276,
+        "priced": true
+      },
+      "source:three-year update, JCO Oncolog": {
+        "calls": 1,
+        "input": 95790,
+        "output": 1763,
+        "cache_write": 0,
+        "cache_read": 0,
+        "web_searches": 5,
+        "usd": 0.3638,
+        "priced": true
+      },
+      "source:five-year analysis, Journal of": {
+        "calls": 1,
+        "input": 128376,
+        "output": 1131,
+        "cache_write": 0,
+        "cache_read": 0,
+        "web_searches": 7,
+        "usd": 0.4721,
+        "priced": true
+      },
+      "source:P-VERIFY": {
+        "calls": 1,
+        "input": 32980,
+        "output": 567,
+        "cache_write": 0,
+        "cache_read": 0,
+        "web_searches": 2,
+        "usd": 0.1274,
+        "priced": true
+      },
+      "source:PALMARES-2": {
+        "calls": 1,
+        "input": 35291,
+        "output": 1044,
+        "cache_write": 0,
+        "cache_read": 0,
+        "web_searches": 2,
+        "usd": 0.1415,
+        "priced": true
+      },
+      "recency": {
+        "calls": 1,
+        "input": 187157,
+        "output": 4531,
+        "cache_write": 0,
+        "cache_read": 0,
+        "web_searches": 8,
+        "usd": 0.7094,
+        "priced": true
+      },
+      "advocate": {
+        "calls": 1,
+        "input": 55817,
+        "output": 3568,
+        "cache_write": 0,
+        "cache_read": 0,
+        "web_searches": 4,
+        "usd": 0.261,
+        "priced": true
+      },
+      "inference": {
+        "calls": 1,
+        "input": 53224,
+        "output": 2872,
+        "cache_write": 0,
+        "cache_read": 0,
+        "web_searches": 3,
+        "usd": 0.2328,
+        "priced": true
+      },
+      "coverage": {
+        "calls": 1,
+        "input": 140767,
+        "output": 2818,
+        "cache_write": 0,
+        "cache_read": 0,
+        "web_searches": 7,
+        "usd": 0.5346,
+        "priced": true
+      }
+    },
+    "models": [
+      "claude-sonnet-4-6"
+    ],
+    "prices_checked": "2026-08-28",
+    "prices_source": "https://platform.claude.com/docs/en/about-claude/pricing"
+  },
+  "claims": [
+    {
+      "id": "c1",
+      "figure": "29 August",
+      "claim": "The email for issue two, The Category Difference, was sent on 29 August.",
+      "attributed_to": null,
+      "kind": "figure",
+      "scope": "internal"
+    },
+    {
+      "id": "c2",
+      "figure": "10 September",
+      "claim": "The correction notice was sent to readers on 10 September.",
+      "attributed_to": null,
+      "kind": "figure",
+      "scope": "internal"
+    },
+    {
+      "id": "c3",
+      "figure": "twelve days",
+      "claim": "Readers were not informed of the error for twelve days after it was made.",
+      "attributed_to": null,
+      "kind": "figure",
+      "scope": "internal"
+    },
+    {
+      "id": "c4",
+      "figure": "Jacot",
+      "claim": "The email for issue two credited a point about confidence-interval width to 'Jacot and colleagues' in npj Breast Cancer, 2018.",
+      "attributed_to": null,
+      "kind": "attribution",
+      "scope": "internal"
+    },
+    {
+      "id": "c5",
+      "figure": "Marie-Laure Tanguy",
+      "claim": "The first author of the npj Breast Cancer 2018 paper is Marie-Laure Tanguy, not Jacot.",
+      "attributed_to": "Tanguy M-L et al., npj Breast Cancer 2018;4:14",
+      "kind": "attribution",
+      "scope": "external"
+    },
+    {
+      "id": "c6",
+      "figure": "Jacot",
+      "claim": "Jacot is not an author on the npj Breast Cancer 2018 paper in any position.",
+      "attributed_to": "Tanguy M-L et al., npj Breast Cancer 2018;4:14",
+      "kind": "attribution",
+      "scope": "external"
+    },
+    {
+      "id": "c7",
+      "figure": "\"PALOMA-2 and MONALEESA trials have an almost similar power despite different allocation ratios, while MONARCH-3 has a more limited power.\"",
+      "claim": "The Tanguy et al. paper states that PALOMA-2 and MONALEESA trials have an almost similar power despite different allocation ratios, while MONARCH-3 has a more limited power.",
+      "attributed_to": "Tanguy M-L et al., npj Breast Cancer 2018;4:14",
+      "kind": "attribution",
+      "scope": "external"
+    },
+    {
+      "id": "c8",
+      "figure": "70%",
+      "claim": "All four trials came out under 70% power unless the gain in median survival exceeded twelve months, according to Tanguy et al.",
+      "attributed_to": "Tanguy M-L et al., npj Breast Cancer 2018;4:14",
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c9",
+      "figure": "twelve months",
+      "claim": "The Tanguy et al. projection found that none of the four trials reaches 70% power unless the gain in median survival exceeds twelve months.",
+      "attributed_to": "Tanguy M-L et al., npj Breast Cancer 2018;4:14",
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c10",
+      "figure": "50-month median survival in the control arms",
+      "claim": "The projection in Tanguy et al. assumed a 50-month median survival in the control arms.",
+      "attributed_to": "Tanguy M-L et al., npj Breast Cancer 2018;4:14",
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c11",
+      "figure": "Freedman's formula",
+      "claim": "The power projection in Tanguy et al. was computed with Freedman's formula from each trial's design.",
+      "attributed_to": "Tanguy M-L et al., npj Breast Cancer 2018;4:14",
+      "kind": "attribution",
+      "scope": "external"
+    },
+    {
+      "id": "c12",
+      "figure": "\"might be more attributable to chance than to a truly different drug efficacy\"",
+      "claim": "Tanguy et al. concluded that if a significant survival improvement appears in some trials and not others, the difference 'might be more attributable to chance than to a truly different drug efficacy.'",
+      "attributed_to": "Tanguy M-L et al., npj Breast Cancer 2018;4:14",
+      "kind": "attribution",
+      "scope": "external"
+    },
+    {
+      "id": "c13",
+      "figure": "npj Breast Cancer 2018;4:14. DOI 10.1038/s41523-018-0068-4. PMID 29951582",
+      "claim": "The Tanguy et al. paper was published in npj Breast Cancer 2018, volume 4, article 14, with DOI 10.1038/s41523-018-0068-4 and PMID 29951582.",
+      "attributed_to": null,
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c14",
+      "figure": "4 September",
+      "claim": "The email for issue one, The Melanoma Result, was sent on 4 September.",
+      "attributed_to": null,
+      "kind": "figure",
+      "scope": "internal"
+    },
+    {
+      "id": "c15",
+      "figure": "0.425",
+      "claim": "The email for issue one gave an earlier analysis hazard ratio of 0.425.",
+      "attributed_to": null,
+      "kind": "figure",
+      "scope": "internal"
+    },
+    {
+      "id": "c16",
+      "figure": "nine deaths",
+      "claim": "The earlier analysis hazard ratio of 0.425 was based on nine deaths.",
+      "attributed_to": null,
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c17",
+      "figure": "80% interval of 0.179 to 1.004",
+      "claim": "The email for issue one gave the earlier analysis as having an 80% confidence interval of 0.179 to 1.004.",
+      "attributed_to": null,
+      "kind": "figure",
+      "scope": "internal"
+    },
+    {
+      "id": "c18",
+      "figure": "0.471",
+      "claim": "The email for issue one gave the later analysis hazard ratio as 0.471.",
+      "attributed_to": null,
+      "kind": "figure",
+      "scope": "internal"
+    },
+    {
+      "id": "c19",
+      "figure": "0.165 to 1.345",
+      "claim": "The later analysis interval runs from 0.165 to 1.345.",
+      "attributed_to": null,
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c20",
+      "figure": "95%",
+      "claim": "The interval of 0.165 to 1.345 for the later analysis is a 95% confidence interval.",
+      "attributed_to": null,
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c21",
+      "figure": "five-year analysis",
+      "claim": "The later analysis with hazard ratio 0.471 and interval 0.165 to 1.345 is the five-year analysis.",
+      "attributed_to": null,
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c22",
+      "figure": "1 June 2026",
+      "claim": "The five-year analysis was reported at ASCO on 1 June 2026.",
+      "attributed_to": null,
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c23",
+      "figure": "1 June 2026",
+      "claim": "The five-year analysis was published in the Journal of Clinical Oncology on 1 June 2026.",
+      "attributed_to": null,
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c24",
+      "figure": "fourteen deaths",
+      "claim": "The five-year analysis was based on fourteen deaths.",
+      "attributed_to": null,
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c25",
+      "figure": "three-year update",
+      "claim": "The earlier analysis with hazard ratio 0.425 is from the three-year update.",
+      "attributed_to": null,
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c26",
+      "figure": "12 February 2026",
+      "claim": "The three-year update was published in JCO Oncology Advances on 12 February 2026.",
+      "attributed_to": null,
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c27",
+      "figure": "3 November 2023",
+      "claim": "The three-year update had a data cutoff of 3 November 2023.",
+      "attributed_to": null,
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c28",
+      "figure": "34.9 months",
+      "claim": "The three-year update had a median follow-up of 34.9 months.",
+      "attributed_to": null,
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c29",
+      "figure": "nine deaths",
+      "claim": "The three-year update was based on nine deaths.",
+      "attributed_to": null,
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c30",
+      "figure": "\"HR \u2014 0.425 80% CI 0.179 to 1.004 95% CI 0.114 to 1.584\"",
+      "claim": "The overall-survival row of the three-year update paper reads: HR 0.425, 80% CI 0.179 to 1.004, 95% CI 0.114 to 1.584.",
+      "attributed_to": "three-year update, JCO Oncology Advances, 12 February 2026",
+      "kind": "attribution",
+      "scope": "external"
+    },
+    {
+      "id": "c31",
+      "figure": "0.114 to 1.584",
+      "claim": "The 95% confidence interval for the three-year analysis hazard ratio is 0.114 to 1.584.",
+      "attributed_to": "three-year update, JCO Oncology Advances, 12 February 2026",
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c32",
+      "figure": "0.165 to 1.345",
+      "claim": "The five-year overall-survival interval is 0.165 to 1.345.",
+      "attributed_to": "five-year analysis, Journal of Clinical Oncology, 1 June 2026",
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c33",
+      "figure": "\"Every figure above traces to a company release, a peer-reviewed paper, a conference abstract or a trial registry record.\"",
+      "claim": "The email for issue one stated: 'Every figure above traces to a company release, a peer-reviewed paper, a conference abstract or a trial registry record.'",
+      "attributed_to": null,
+      "kind": "attribution",
+      "scope": "internal"
+    },
+    {
+      "id": "c34",
+      "figure": "\"Two do not.\"",
+      "claim": "The very next sentence after the sourcing claim in the issue one email began 'Two do not.'",
+      "attributed_to": null,
+      "kind": "attribution",
+      "scope": "internal"
+    },
+    {
+      "id": "c35",
+      "figure": "\"Every figure above comes from a trial publication or a drug label, each one named on the page with the analysis it belongs to. None comes from a news report, and none from a guideline's summary of a trial.\"",
+      "claim": "The email for issue two stated that every figure comes from a trial publication or a drug label, none from a news report, and none from a guideline's summary of a trial.",
+      "attributed_to": null,
+      "kind": "attribution",
+      "scope": "internal"
+    },
+    {
+      "id": "c36",
+      "figure": "0.97 on 0.82 to 1.14",
+      "claim": "P-VERIFY puts the survival hazard ratio at 0.97 with a confidence interval of 0.82 to 1.14.",
+      "attributed_to": "P-VERIFY",
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c37",
+      "figure": "0.91 on 0.73 to 1.14",
+      "claim": "PALMARES-2 puts the progression hazard ratio at 0.91 with a confidence interval of 0.73 to 1.14.",
+      "attributed_to": "PALMARES-2",
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c38",
+      "figure": "0.722 on 0.520 to 1.002, p = 0.051",
+      "claim": "The reconstructed patient-data comparison gives a hazard ratio of 0.722 with a confidence interval of 0.520 to 1.002 and p = 0.051.",
+      "attributed_to": null,
+      "kind": "figure",
+      "scope": "external"
+    },
+    {
+      "id": "c39",
+      "figure": "48 hours",
+      "claim": "The publication acknowledges corrections emails within 48 hours.",
+      "attributed_to": null,
+      "kind": "characterisation",
+      "scope": "internal"
+    },
+    {
+      "id": "c40",
+      "figure": "PALMARES-2",
+      "claim": "PALMARES-2 is described as the study that did separate palbociclib.",
+      "attributed_to": null,
+      "kind": "characterisation",
+      "scope": "external"
+    }
+  ],
+  "verdicts": {
+    "c5": {
+      "id": "c5",
+      "verdict": "VERIFIED",
+      "found_value": "Marie-Laure Tanguy is listed as first author: 'Marie-Laure Tanguy, Luc Cabel, Fr\u00e9derique Berger, Jean-Yves Pierga, Alexia Savignoni, Francois-Clement Bidard'",
+      "actual_source": "PubMed PMID 29951582 and Nature npj Breast Cancer 4:14 (2018)",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/29951582/",
+      "note": null
+    },
+    "c6": {
+      "id": "c6",
+      "verdict": "VERIFIED",
+      "found_value": "Full author list: Marie-Laure Tanguy, Luc Cabel, Fr\u00e9derique Berger, Jean-Yves Pierga, Alexia Savignoni, Francois-Clement Bidard. No author named Jacot appears.",
+      "actual_source": "PubMed PMID 29951582 and PMC6018749",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/29951582/",
+      "note": null
+    },
+    "c7": {
+      "id": "c7",
+      "verdict": "VERIFIED",
+      "found_value": "PMC full text reads verbatim: 'PALOMA-2 and MONALEESA trials have an almost similar power despite different allocation ratios, while MONARCH-3 has a more limited power.'",
+      "actual_source": "Tanguy et al., npj Breast Cancer 2018;4:14, PMC6018749",
+      "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6018749/",
+      "note": null
+    },
+    "c8": {
+      "id": "c8",
+      "verdict": "VERIFIED",
+      "found_value": "PMC full text states: 'the power of the four trials to demonstrate a statistically significant improvement in OS is less than 70% if the prolongation in median OS is \u226412 months, whatever the OS data maturity.'",
+      "actual_source": "Tanguy et al., npj Breast Cancer 2018;4:14, PMC6018749",
+      "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6018749/",
+      "note": null
+    },
+    "c9": {
+      "id": "c9",
+      "verdict": "VERIFIED",
+      "found_value": "PMC full text confirms: 'if the prolongation in median OS is less than 12 months, the four trials have a power less than 70%.'",
+      "actual_source": "Tanguy et al., npj Breast Cancer 2018;4:14, PMC6018749",
+      "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6018749/",
+      "note": null
+    },
+    "c10": {
+      "id": "c10",
+      "verdict": "VERIFIED",
+      "found_value": "The paper states HRs correspond to OS gains 'on the basis of a 50 months median OS in control arms'.",
+      "actual_source": "Tanguy et al., npj Breast Cancer 2018;4:14, PMC6018749 and ResearchGate PDF",
+      "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6018749/",
+      "note": null
+    },
+    "c11": {
+      "id": "c11",
+      "verdict": "VERIFIED",
+      "found_value": "Both PubMed abstract and Nature page state: 'Power was calculated with Freedman's formula.'",
+      "actual_source": "Tanguy et al., npj Breast Cancer 2018;4:14",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/29951582/",
+      "note": null
+    },
+    "c12": {
+      "id": "c12",
+      "verdict": "VERIFIED",
+      "found_value": "PMC full text reads: 'this discrepancy might be more attributable to chance than to a truly different drug efficacy.' The quoted fragment matches exactly.",
+      "actual_source": "Tanguy et al., npj Breast Cancer 2018;4:14, PMC6018749",
+      "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6018749/",
+      "note": null
+    },
+    "c13": {
+      "id": "c13",
+      "verdict": "VERIFIED",
+      "found_value": "npj Breast Cancer 2018 Jun 26;4:14. doi: 10.1038/s41523-018-0068-4. PMID 29951582. Authors: Marie-Laure Tanguy et al.",
+      "actual_source": "PubMed (https://pubmed.ncbi.nlm.nih.gov/29951582/) and Nature (https://www.nature.com/articles/s41523-018-0068-4)",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/29951582/",
+      "note": null
+    },
+    "c16": {
+      "id": "c16",
+      "verdict": "NOT_FOUND",
+      "found_value": null,
+      "actual_source": null,
+      "url": null,
+      "note": "Could not locate any primary source containing a hazard ratio of 0.425 based on nine deaths in any reachable publication; the specific trial and analysis this figure belongs to could not be identified from available search results."
+    },
+    "c19": {
+      "id": "c19",
+      "verdict": "NOT_FOUND",
+      "found_value": null,
+      "actual_source": null,
+      "url": null,
+      "note": "Could not locate any primary source containing a confidence interval of 0.165 to 1.345 in any reachable publication; the specific trial and analysis could not be identified."
+    },
+    "c20": {
+      "id": "c20",
+      "verdict": "NOT_FOUND",
+      "found_value": null,
+      "actual_source": null,
+      "url": null,
+      "note": "Could not locate any primary source confirming that the interval 0.165 to 1.345 is a 95% CI; the underlying trial and analysis could not be identified from available search results."
+    },
+    "c21": {
+      "id": "c21",
+      "verdict": "NOT_FOUND",
+      "found_value": null,
+      "actual_source": null,
+      "url": null,
+      "note": "Could not locate any primary source confirming that HR 0.471 with CI 0.165\u20131.345 belongs to a five-year analysis; the specific trial could not be identified from available search results."
+    },
+    "c22": {
+      "id": "c22",
+      "verdict": "NOT_FOUND",
+      "found_value": null,
+      "actual_source": null,
+      "url": null,
+      "note": "Could not locate any primary source or ASCO 2026 abstract confirming a five-year analysis with HR 0.471 was reported on 1 June 2026; ASCO 2026 ran May 29\u2013June 2 so the date is plausible, but the specific presentation could not be verified."
+    },
+    "c23": {
+      "id": "c23",
+      "verdict": "NOT_FOUND",
+      "found_value": null,
+      "actual_source": null,
+      "url": null,
+      "note": "Could not locate any JCO publication dated 1 June 2026 containing a five-year analysis with HR 0.471; no reachable source confirms this claim."
+    },
+    "c24": {
+      "id": "c24",
+      "verdict": "NOT_FOUND",
+      "found_value": null,
+      "actual_source": null,
+      "url": null,
+      "note": "Could not locate any primary source confirming that the five-year analysis was based on fourteen deaths; the specific trial could not be identified from available search results."
+    },
+    "c25": {
+      "id": "c25",
+      "verdict": "NOT_FOUND",
+      "found_value": null,
+      "actual_source": null,
+      "url": null,
+      "note": "Could not locate any primary source confirming that HR 0.425 belongs to a three-year update of the relevant trial; the specific trial could not be identified from available search results."
+    },
+    "c26": {
+      "id": "c26",
+      "verdict": "NOT_FOUND",
+      "found_value": null,
+      "actual_source": null,
+      "url": null,
+      "note": "Could not locate any JCO Oncology Advances publication dated 12 February 2026 containing a three-year update with HR 0.425; no reachable source confirms this claim."
+    },
+    "c27": {
+      "id": "c27",
+      "verdict": "NOT_FOUND",
+      "found_value": null,
+      "actual_source": null,
+      "url": null,
+      "note": "Could not locate any primary source confirming a data cutoff of 3 November 2023 for the three-year update in question; the specific trial could not be identified from available search results."
+    },
+    "c28": {
+      "id": "c28",
+      "verdict": "NOT_FOUND",
+      "found_value": null,
+      "actual_source": null,
+      "url": null,
+      "note": "Could not locate any primary source confirming a median follow-up of 34.9 months for the three-year update in question; note that 34.9 months appears in PALOMA-3 OS data (NEJM) in a different context entirely."
+    },
+    "c29": {
+      "id": "c29",
+      "verdict": "NOT_FOUND",
+      "found_value": null,
+      "actual_source": null,
+      "url": null,
+      "note": "Could not locate any primary source confirming that the three-year update was based on nine deaths; the specific trial could not be identified from available search results."
+    },
+    "c38": {
+      "id": "c38",
+      "verdict": "NOT_FOUND",
+      "found_value": null,
+      "actual_source": null,
+      "url": null,
+      "note": "Could not locate any primary source containing a reconstructed patient-data comparison yielding HR 0.722, CI 0.520\u20131.002, p = 0.051; the specific analysis could not be identified from available search results."
+    },
+    "c40": {
+      "id": "c40",
+      "verdict": "VERIFIED",
+      "found_value": "PALMARES-2 (NCT06805812) is a large real-world observational study that directly compares palbociclib, ribociclib, and abemaciclib as first-line CDK4/6 inhibitors in HR+/HER2\u2212 advanced breast cancer, and its primary publication in Annals of Oncology reports that abemaciclib and ribociclib outperform palbociclib in rwPFS \u2014 i.e., it does separate out palbociclib.",
+      "actual_source": "Annals of Oncology (https://www.annalsofoncology.org/article/S0923-7534(25)00134-6/fulltext) and PubMed/PMC sub-analyses",
+      "url": "https://www.annalsofoncology.org/article/S0923-7534(25)00134-6/fulltext",
+      "note": null
+    },
+    "c30": {
+      "id": "c30",
+      "verdict": "NOT_FOUND",
+      "found_value": "The ASCO conference abstract (LBA9512) for the same data reports the OS row as HR 0.425 (95% CI 0.114\u20131.584) only; no 80% CI for OS appears in any accessible snippet of the JCO Oncology Advances paper (OA-25-00008). The figure 0.179 does appear in the abstract, but as the lower bound of a 95% CI for an HLA subgroup analysis in the pembrolizumab arm, not the OS row.",
+      "actual_source": null,
+      "url": "https://ascopubs.org/doi/10.1200/OA-25-00008",
+      "note": "The full-text Table 1 of the JCO Oncology Advances paper is behind a paywall; no accessible source confirms the OS row carries an 80% CI of 0.179 to 1.004, and the value 0.179 appears in the ASCO abstract only in a different (HLA subgroup) context \u2014 raising a risk that the 80% CI bounds have been misattributed to the OS row."
+    },
+    "c31": {
+      "id": "c31",
+      "verdict": "VERIFIED",
+      "found_value": "HR 0.425 (95% CI 0.114\u20131.584) for OS in the three-year update",
+      "actual_source": "ASCO 2024 abstract LBA9512 (conference version of the three-year update data, same data cutoff as the JCO Oncology Advances paper OA-25-00008, February 12, 2026)",
+      "url": "https://ascopubs.org/doi/10.1200/JCO.2024.42.17_suppl.LBA9512",
+      "note": null
+    },
+    "c32": {
+      "id": "c32",
+      "verdict": "NOT_FOUND",
+      "found_value": null,
+      "actual_source": null,
+      "url": "https://ascopubs.org/loi/jco",
+      "note": "No source containing the interval 0.165\u20131.345 as a five-year overall-survival confidence interval could be found anywhere; the claim also names no trial, drug, or indication, making it impossible to identify which of the many articles in the JCO June 1, 2026 issue it refers to \u2014 the JCO archive confirms that issue exists, but the specific figure could not be located in any reachable document."
+    },
+    "c36": {
+      "id": "c36",
+      "verdict": "VERIFIED",
+      "found_value": "abemaciclib versus ribociclib: aHR 0.97, 95% CI 0.82\u20131.14, P = 0.6956",
+      "actual_source": "ESMO Open / PubMed Central full text of the P-VERIFY OS publication (Comparative overall survival of CDK4/6 inhibitors plus an aromatase inhibitor in HR+/HER2\u2212 metastatic breast cancer in the US real-world setting)",
+      "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC11758200/",
+      "note": null
+    },
+    "c37": {
+      "id": "c37",
+      "verdict": "VERIFIED",
+      "found_value": "aHR 0.91, 95% CI 0.73\u20131.14, P=0.425 (abemaciclib vs. ribociclib for rwPFS in the whole study cohort)",
+      "actual_source": "Annals of Oncology / ScienceDirect peer-reviewed publication of the PALMARES-2 study (April 2025, n=1982, data cut September 2023)",
+      "url": "https://www.annalsofoncology.org/article/S0923-7534(25)00134-6/fulltext",
+      "note": null
+    },
+    "c1": {
+      "id": "c1",
+      "verdict": "INTERNAL",
+      "note": "Claim about this publication's own records or policy. Verify against your own files."
+    },
+    "c2": {
+      "id": "c2",
+      "verdict": "INTERNAL",
+      "note": "Claim about this publication's own records or policy. Verify against your own files."
+    },
+    "c3": {
+      "id": "c3",
+      "verdict": "INTERNAL",
+      "note": "Claim about this publication's own records or policy. Verify against your own files."
+    },
+    "c4": {
+      "id": "c4",
+      "verdict": "INTERNAL",
+      "note": "Claim about this publication's own records or policy. Verify against your own files."
+    },
+    "c14": {
+      "id": "c14",
+      "verdict": "INTERNAL",
+      "note": "Claim about this publication's own records or policy. Verify against your own files."
+    },
+    "c15": {
+      "id": "c15",
+      "verdict": "INTERNAL",
+      "note": "Claim about this publication's own records or policy. Verify against your own files."
+    },
+    "c17": {
+      "id": "c17",
+      "verdict": "INTERNAL",
+      "note": "Claim about this publication's own records or policy. Verify against your own files."
+    },
+    "c18": {
+      "id": "c18",
+      "verdict": "INTERNAL",
+      "note": "Claim about this publication's own records or policy. Verify against your own files."
+    },
+    "c33": {
+      "id": "c33",
+      "verdict": "INTERNAL",
+      "note": "Claim about this publication's own records or policy. Verify against your own files."
+    },
+    "c34": {
+      "id": "c34",
+      "verdict": "INTERNAL",
+      "note": "Claim about this publication's own records or policy. Verify against your own files."
+    },
+    "c35": {
+      "id": "c35",
+      "verdict": "INTERNAL",
+      "note": "Claim about this publication's own records or policy. Verify against your own files."
+    },
+    "c39": {
+      "id": "c39",
+      "verdict": "INTERNAL",
+      "note": "Claim about this publication's own records or policy. Verify against your own files."
+    }
+  },
+  "recency": {
+    "studies": [
+      {
+        "name": "KEYNOTE-942 three-year update (Carlino et al., JCO Oncology Advances, 12 Feb 2026)",
+        "draft_uses": "OS HR 0.425 (80% CI 0.179\u20131.004; 95% CI 0.114\u20131.584) on 9 deaths; data cutoff 3 Nov 2023; median follow-up 34.9 months",
+        "latest_known": "Five-year update published in Journal of Clinical Oncology on 1 June 2026 (ASCO 2026, Abstract 9500; Khattak et al., JCO 44:2482\u20132489, 2026); data cutoff December 15, 2025; median planned follow-up 60.3 months; 14 deaths; OS described as a trend toward improvement (exploratory, ~53% reduction reported in press); RFS HR 0.51 (95% CI 0.29\u20130.89)",
+        "status": "CURRENT",
+        "url": "https://ascopubs.org/doi/10.1200/JCO-26-00835",
+        "what_changed": "The draft explicitly cites both the three-year and five-year readouts and correctly attributes each set of figures to its own analysis. The three-year figures (HR 0.425, 80% CI 0.179\u20131.004; 95% CI 0.114\u20131.584; 9 deaths) are correctly sourced to the three-year paper. The five-year figures (HR 0.471, 95% CI 0.165\u20131.345; 14 deaths) are correctly attributed to the five-year JCO paper. The draft's central argument is precisely that these two readouts were mixed without labelling \u2014 it does not misattribute either set of numbers to the wrong paper. No figure mismatch detected between what the draft states and what the papers report, though the specific OS HR of 0.471 and CI 0.165\u20131.345 from the five-year paper could not be independently confirmed from publicly available abstract text (full paper is paywalled); the five-year RFS HR of 0.51 (95% CI 0.29\u20130.89) is confirmed by multiple sources."
+      },
+      {
+        "name": "KEYNOTE-942 five-year update (Khattak et al., JCO, 1 June 2026)",
+        "draft_uses": "OS HR 0.471 (95% CI 0.165\u20131.345) on 14 deaths; reported at ASCO 1 June 2026 and simultaneously published in JCO",
+        "latest_known": "This IS the latest readout as of 11 September 2026. Publication confirmed: JCO 44:2482\u20132489 (2026); ASCO Abstract 9500; data cutoff December 15, 2025; median follow-up 60.3 months. RFS HR 0.51 (95% CI 0.29\u20130.89) confirmed by multiple independent sources. The specific OS HR of 0.471 (95% CI 0.165\u20131.345) on 14 deaths is stated in the draft but could not be verified against the full paper text (paywalled); press and secondary sources confirm 14 deaths and a trend toward improved OS (~53% reduction in exploratory analysis). No later readout exists.",
+        "status": "UNKNOWN",
+        "url": "https://ascopubs.org/doi/10.1200/JCO-26-00835",
+        "what_changed": "Cannot positively confirm the exact OS HR of 0.471 and 95% CI of 0.165\u20131.345 from publicly accessible sources. The five-year paper is confirmed published and is the latest readout; the OS figures are described as exploratory and consistent with a trend. The draft's figures are plausible but unverifiable without full-text access. Treat as UNKNOWN until the specific table values are confirmed against the published paper."
+      },
+      {
+        "name": "P-VERIFY (Palbociclib Verifying Evidence of Real-world Impact Study)",
+        "draft_uses": "OS HR 0.97 (95% CI 0.82\u20131.14) \u2014 described as the survival comparison between CDK4/6 inhibitors",
+        "latest_known": "Published in ESMO Open, September 2025. The figure cited in the draft (aHR 0.97, 95% CI 0.82\u20131.14, P=0.6956) is the abemaciclib-vs-ribociclib OS comparison, confirmed in the published paper. No subsequent update identified as of 11 September 2026.",
+        "status": "CURRENT",
+        "url": "https://www.esmoopen.com/article/S2059-7029(24)01874-X/fulltext",
+        "what_changed": "Figures match. The draft's stated HR and CI for P-VERIFY survival are confirmed against the published paper. Note: P-VERIFY's primary endpoint was rwPFS, not OS; the OS figure the draft cites is from the companion OS paper (ESMO Open, Jan 2025). No discrepancy in the numbers themselves."
+      },
+      {
+        "name": "PALMARES-2 (multicenter Italian real-world CDK4/6 inhibitor study)",
+        "draft_uses": "Progression HR 0.91 (95% CI 0.73\u20131.14) \u2014 described as the comparison that 'did separate palbociclib'",
+        "latest_known": "Original publication: Annals of Oncology, April 2025 (data cutoff 31 January 2024; N=1982). An updated analysis was presented at ASCO 2025 (JCO 2025 44:16_suppl, Abstract 1074; data cutoff 10 January 2025; N=3598, expanded to 18 Italian centers). The updated analysis reports a larger cohort with a later cutoff and updated effectiveness figures.",
+        "status": "SUPERSEDED",
+        "url": "https://ascopubs.org/doi/10.1200/JCO.2025.43.16_suppl.1074",
+        "what_changed": "The draft cites the abemaciclib-vs-ribociclib rwPFS aHR of 0.91 (95% CI 0.73\u20131.14, P=0.425) from the original PALMARES-2 publication (Ann Oncol, April 2025; N=1982; cutoff Jan 2024). An updated PALMARES-2 analysis (ASCO 2025 abstract; N=3598; cutoff Jan 2025) has been presented with a substantially larger patient cohort and later data cutoff. The updated figures for the abemaciclib-vs-ribociclib comparison are not fully reproduced in publicly available abstract text, so the specific HR cannot be compared numerically; however, the existence of a larger, later-cutoff update of the same study means the draft is citing a superseded readout of PALMARES-2."
+      },
+      {
+        "name": "Reconstructed patient-level data comparison (HR 0.722, 95% CI 0.520\u20131.002, p=0.051)",
+        "draft_uses": "HR 0.722 (95% CI 0.520\u20131.002, p=0.051) \u2014 described as a 'reconstructed patient-data comparison' for CDK4/6 inhibitor survival",
+        "latest_known": "Source not identified. No publication matching these exact figures (HR 0.722, CI 0.520\u20131.002, p=0.051) was found in search results. Cannot establish whether this is current or superseded.",
+        "status": "UNKNOWN",
+        "url": null,
+        "what_changed": "Cannot verify the source, the readout date, or whether a more recent analysis exists. The specific figures do not match any identified publication in the search results. This study requires independent identification before its currency can be assessed."
+      },
+      {
+        "name": "Tanguy et al. 2018 \u2014 CDK4/6 inhibitors and OS power analysis (npj Breast Cancer 2018;4:14)",
+        "draft_uses": "Power calculations using Freedman's formula for PALOMA-2, MONALEESA-2/7, and MONARCH-3; conclusion that trials were underpowered for OS unless median survival gain exceeded 12 months; quote about chance vs. true drug efficacy difference",
+        "latest_known": "Original publication confirmed: npj Breast Cancer 4:14, 26 June 2018 (PMID 29951582). No follow-up, correction, or update to this paper identified. It is a prospective power analysis conducted before any of the four trials reported OS; its conclusions are methodological and do not require updating as trial OS data mature.",
+        "status": "CURRENT",
+        "url": "https://www.nature.com/articles/s41523-018-0068-4",
+        "what_changed": "No figures changed. The draft uses this paper only for its power calculations and design-based conclusions, not for trial outcome data. The paper has not been retracted or corrected. The draft's description of its content (Freedman's formula, <70% power unless gain >12 months, 50-month median OS assumption in control arms) is consistent with the published abstract and methods."
+      }
+    ]
+  },
+  "objections": [
+    {
+      "objection": "The draft quotes a conclusion from the Tanguy paper verbatim \u2014 'might be more attributable to chance than to a truly different drug efficacy' \u2014 but this quote cannot be verified from the paper's abstract or any indexed source, and if it is inaccurate or paraphrased, it misrepresents a third party's published conclusion.",
+      "quote": "the difference 'might be more attributable to chance than to a truly different drug efficacy.'",
+      "severity": "SERIOUS",
+      "why": "This is presented as a direct quotation from Tanguy et al. The paper's abstract and indexed text do not surface this exact phrasing in any search result. If the wording is a paraphrase rather than a verbatim quote, the quotation marks are wrong and the attributed conclusion may be stronger or different from what the authors wrote. A misquoted conclusion from a named paper is a FACT error that the authors of that paper could dispute.",
+      "fix": "Verify the exact wording against the full text of Tanguy et al. 2018. If it is verbatim, retain it. If it is a paraphrase, remove the quotation marks and write 'concluded, in effect, that...' or similar.",
+      "class": "FACT"
+    },
+    {
+      "objection": "The draft attributes the 50-month median survival assumption to Tanguy et al. as if it were a projection the draft itself is characterising, but then also says the power calculation was 'made before any of the four had reported survival at all' \u2014 a claim about timing that is not sourced and may be wrong.",
+      "quote": "a projection, computed with Freedman's formula from each trial's design and assuming a 50-month median survival in the control arms, and made before any of the four had reported survival at all",
+      "severity": "MINOR",
+      "why": "The 50-month assumption and Freedman's formula are confirmed by the paper. But 'made before any of the four had reported survival at all' is a claim about the state of the literature at the time of the paper's submission or publication (June 2018). PALOMA-2 OS data had not yet reported, but the draft does not cite a source for this timing claim and it is presented as established fact. If any of the four trials had reported interim OS data before June 2018, the claim would be wrong.",
+      "fix": "Either cite the submission/publication date of the paper and confirm no OS data had been reported by that date, or soften to 'published before any of the four had reported final survival data.'",
+      "class": "CALIBRATION"
+    },
+    {
+      "objection": "The draft says the three-year update had 'nine deaths' and the five-year analysis had 'fourteen deaths' for overall survival, but these specific event counts are not verifiable from any publicly indexed source and are presented as established facts without a citation to the specific table.",
+      "quote": "the three-year update, published in JCO Oncology Advances on 12 February 2026, with a data cutoff of 3 November 2023, a median follow-up of 34.9 months and nine deaths",
+      "severity": "SERIOUS",
+      "why": "The death counts (nine and fourteen) and the specific data cutoff date (3 November 2023) are precise figures that determine the entire argument about why the two intervals are not comparable. If either figure is wrong, the correction itself contains an error. These figures are not surfaced in any press release or abstract indexed in search results, meaning they come entirely from the full paper text. The draft should confirm these against the paper before publication, because a wrong death count in a correction email is a compounding error.",
+      "fix": "Before sending, confirm 'nine deaths,' 'fourteen deaths,' and 'data cutoff of 3 November 2023' against the actual table in Carlino et al., JCO Oncology Advances 2026. Add a parenthetical source reference, e.g. '(Table 2, Carlino et al.)' so a reader can check.",
+      "class": "FACT"
+    },
+    {
+      "objection": "The draft states the 80% CI for the three-year OS analysis is '0.179 to 1.004' and the 95% CI from the same row is '0.114 to 1.584,' but these specific interval bounds are not verifiable from any indexed abstract or press release and are the factual core of the correction.",
+      "quote": "HR \u2014 0.425 80% CI 0.179 to 1.004 95% CI 0.114 to 1.584",
+      "severity": "SERIOUS",
+      "why": "These figures are presented as a direct quotation from a table in the three-year paper. They are the entire basis for the correction \u2014 the claim that the original email printed the narrower interval and omitted the wider one. If either bound is transcribed incorrectly, the correction is itself wrong. No press release or abstract surfaces these figures; they exist only in the full paper. A transcription error here would be a FACT error in a correction, which is the worst possible outcome.",
+      "fix": "Before sending, verify all four bounds against the actual table in Carlino et al. and confirm the row is labelled 'overall survival.' Consider reproducing the table row in the email so readers can see the source directly.",
+      "class": "FACT"
+    },
+    {
+      "objection": "The draft says the five-year OS interval 'belongs to the five-year analysis, reported at ASCO on 1 June 2026 and published the same day in the Journal of Clinical Oncology, on fourteen deaths' \u2014 but the Merck press release and the JCO paper do not surface a death count of fourteen for the OS analysis, and the draft presents this as a verified fact.",
+      "quote": "published the same day in the Journal of Clinical Oncology, on fourteen deaths",
+      "severity": "SERIOUS",
+      "why": "Same issue as above but for the five-year paper. 'Fourteen deaths' is a specific event count that determines whether the comparison between the two analyses is fair. It is not in any press release or abstract. If the count is wrong, the correction misstates the evidentiary basis of the five-year OS result.",
+      "fix": "Verify 'fourteen deaths' against the five-year JCO paper (Khattak et al. 2026) before sending. Add a table reference.",
+      "class": "FACT"
+    },
+    {
+      "objection": "The draft says the original email's guarantee sentence was immediately followed by 'Its very next sentence began: \"Two do not.\"' \u2014 this is a self-referential claim about the original email's exact wording that readers cannot verify and that, if wrong, makes the correction inaccurate.",
+      "quote": "Its very next sentence began: \"Two do not.\"",
+      "severity": "MINOR",
+      "why": "This is a claim about what the original email said. Readers no longer have the original email in front of them in corrected form, and the draft does not reproduce the full passage. If the sentence that followed was not literally 'Two do not' but something slightly different, the correction misquotes itself. This is a low-stakes internal consistency issue, but in a piece whose entire purpose is accuracy about what was previously said, it should be confirmed against the sent email record.",
+      "fix": "Confirm the exact wording of the sentence that followed against the sent email log before publishing. If it is verbatim, it is fine. If it is a paraphrase, reproduce the actual sentence.",
+      "class": "CALIBRATION"
+    },
+    {
+      "objection": "The draft says the argument about confidence-interval width 'is ours to defend, not a finding we can attach to someone else's paper' \u2014 but it does not explain what the interval-width argument actually was, leaving readers who did not read the original email unable to evaluate whether the correction changes anything material.",
+      "quote": "The argument in that issue stands and it is ours to defend, not a finding we can attach to someone else's paper.",
+      "severity": "MINOR",
+      "why": "This is a scope issue, not a factual error. The correction tells readers the attribution was wrong but does not tell them what the interval-width argument was. A reader who received the original email and found the Tanguy attribution persuasive now knows the attribution was wrong but does not know whether the underlying argument holds. The correction says 'the argument stands' without restating it, which is an assertion without support in this document.",
+      "fix": "Add one sentence summarising the interval-width argument that was originally attributed to Tanguy, so readers can evaluate it on its own merits. This is already partially done in the 'What you should now believe' paragraph but is not connected to the argument itself.",
+      "class": "CALIBRATION"
+    }
+  ],
+  "inferences": [
+    {
+      "quote": "All four trials came out under 70% power unless the gain in median survival exceeded twelve months \u2014 a projection, computed with Freedman's formula from each trial's design and assuming a 50-month median survival in the control arms, and made before any of the four had reported survival at all.",
+      "problem": "The Tanguy paper's power calculations use four specific hazard ratio values corresponding to 3, 6, 12, and 15 months of absolute OS gain; the 70% threshold is the draft's own characterisation of where the curves cross, not a figure stated in the paper, and the draft presents it as a direct finding of the paper rather than its own reading of the paper's figures.",
+      "severity": "MINOR",
+      "correct_reading": "Tanguy and colleagues computed power as a function of hazard ratio at four specific OS-gain values (3, 6, 12, 15 months) using Freedman's formula and a 50-month assumed control-arm median. Whether any trial crossed 70% power at any of those values is a reading of their figures, not a sentence in their text.",
+      "fix": "Replace 'All four trials came out under 70% power unless the gain in median survival exceeded twelve months' with 'On Tanguy and colleagues' figures, none of the four trials appears to reach 70% power unless the assumed gain in median survival exceeds twelve months \u2014 our reading of their curves, not a threshold they state.'",
+      "class": "CALIBRATION"
+    },
+    {
+      "quote": "the hazard ratio is 0.471 and the interval runs from 0.165 to 1.345 \u2014 with no width stated at all. That one was a 95% interval, and it belongs to the five-year analysis, reported at ASCO on 1 June 2026 and published the same day in the Journal of Clinical Oncology, on fourteen deaths.",
+      "problem": "The five-year KEYNOTE-942 paper published in JCO reports overall survival as a descriptive/exploratory endpoint; the draft does not flag this, leaving the reader to treat the OS interval as a pre-specified or confirmatory result when it is exploratory.",
+      "severity": "MINOR",
+      "correct_reading": "The five-year JCO paper explicitly states that the five-year analyses were descriptive. The OS hazard ratio and interval are from an exploratory endpoint, not a pre-specified efficacy analysis, and should be characterised as such.",
+      "fix": "After 'on fourteen deaths', add: 'Overall survival was an exploratory endpoint in KEYNOTE-942; the five-year analyses were descriptive, and this interval carries no inferential weight from a pre-specified test.'",
+      "class": "CALIBRATION"
+    },
+    {
+      "quote": "That result is less certain than the email made it look, not more. The 95% interval is 0.114 to 1.584 \u2014 wider than the five-year overall-survival interval of 0.165 to 1.345, not tighter, and it includes 1.",
+      "problem": "The sentence correctly notes that the three-year 95% CI (0.114\u20131.584) is wider than the five-year 95% CI (0.165\u20131.345), but the comparison is between two different datasets (nine deaths vs fourteen deaths) on an exploratory endpoint; the draft's framing 'less certain \u2026 not more' is sound directionally, but the sentence implies the five-year interval is the benchmark of certainty, when both intervals are from an exploratory OS endpoint with very few events and neither establishes a benefit.",
+      "severity": "MINOR",
+      "correct_reading": "Both intervals span 1 and are from an exploratory endpoint with very few events. The correct statement is that neither analysis establishes an OS benefit, and the three-year interval is wider still \u2014 not that the five-year interval represents a settled level of certainty against which the three-year one falls short.",
+      "fix": "Replace 'less certain than the email made it look, not more' with 'less certain than the email made it look \u2014 and the five-year interval (0.165 to 1.345) also spans 1 and is from an exploratory endpoint on fourteen deaths, so neither analysis establishes an overall-survival benefit.'",
+      "class": "CALIBRATION"
+    },
+    {
+      "quote": "On nine deaths, that analysis does not establish an overall-survival benefit, and if you came away thinking it pointed to one more firmly than the later data, that was our error and not the paper's.",
+      "problem": "The sentence correctly disclaims the three-year analysis but implicitly positions the five-year data as establishing, or more firmly pointing to, an OS benefit. The five-year OS analysis is also exploratory, also spans 1 (0.165\u20131.345), and also does not establish an OS benefit. The contrast drawn is between 'does not establish' (three-year) and 'the later data' (five-year), which a reader will read as the later data doing what the earlier data did not.",
+      "severity": "SERIOUS",
+      "correct_reading": "Neither the three-year nor the five-year OS analysis establishes an overall-survival benefit: both intervals include 1, both are from an exploratory endpoint, and the five-year analysis rests on fourteen deaths. The sentence should not imply the five-year data resolves what the three-year data left open.",
+      "fix": "Replace 'if you came away thinking it pointed to one more firmly than the later data, that was our error and not the paper's' with 'if you came away thinking it pointed to an overall-survival benefit at all, that was our error and not the paper's \u2014 the five-year OS interval (0.165 to 1.345) also includes 1 and is also from an exploratory endpoint.'",
+      "class": "CONTRADICTION"
+    },
+    {
+      "quote": "The reconstructed patient-data comparison comes closest, at 0.722 on 0.520 to 1.002, p = 0.051.",
+      "problem": "A p-value of 0.051 is quoted without stating whether the pre-specified test was one-sided or two-sided. If the test was one-sided (p \u2248 0.026), the result crosses a conventional threshold; if two-sided, it does not. Quoting 0.051 alone, beside a confidence interval that just touches 1.002, leaves the reader unable to determine the inferential status of the result.",
+      "severity": "MINOR",
+      "correct_reading": "The p-value should be accompanied by the direction and sidedness of the test used, so the reader can assess whether the result crosses any pre-specified threshold.",
+      "fix": "After 'p = 0.051', add the sidedness of the test in parentheses, e.g. '(two-sided)' or '(one-sided)', and note whether this crossed any pre-specified threshold in the source study.",
+      "class": "CALIBRATION"
+    }
+  ],
+  "coverage": {
+    "best_coverage": [
+      {
+        "outlet": "Merck/Moderna press release (merck.com), June 1 2026",
+        "url": "https://www.merck.com/news/moderna-and-merck-present-5-year-data-for-intismeran-autogene-in-combination-with-keytruda-pembrolizumab-patients-high-risk-stage-iii-iv-melanoma-following-complete-resection-at-the-20/",
+        "got_right": "Correctly labelled the five-year OS result as 'an exploratory analysis' and gave the full HR and CI verbatim: HR=0.471; 95% CI 0.165\u20131.345. Also correctly identified RFS as the primary endpoint and DMFS as a secondary endpoint, keeping OS clearly subordinate. The word 'trend' was used, not 'benefit.'",
+        "still_omitted": "No mention that the five-year analyses were explicitly 'descriptive' per the JCO paper's methods section. No comparison to the three-year OS data (HR 0.425, 80% CI 0.179\u20131.004) that would let a reader see how the interval width changed between analyses and why the two are not directly comparable."
+      },
+      {
+        "outlet": "ASCO abstract (ascopubs.org/doi/10.1200/JCO.2026.44.16_suppl.9500)",
+        "url": "https://ascopubs.org/doi/10.1200/JCO.2026.44.16_suppl.9500",
+        "got_right": "Gave the OS HR as 0.47 (95% CI 0.17\u20131.35) and described it as 'a trend for improved OS' \u2014 correctly signalling non-significance and exploratory status. Also reported the death counts (7 vs 7) that make the small-numbers problem visible.",
+        "still_omitted": "Does not state that the five-year analyses are 'descriptive' in the abstract itself (that language appears only in the full JCO paper). Does not reference or compare the three-year OS analysis, so a reader cannot see that the CI widened between analyses."
+      },
+      {
+        "outlet": "JCO full paper (ascopubs.org/doi/10.1200/JCO-26-00835)",
+        "url": "https://ascopubs.org/doi/10.1200/JCO-26-00835",
+        "got_right": "States explicitly that 'Five-year analyses were descriptive,' which is the strongest available caution about inferential weight. Identifies RFS as primary endpoint and DMFS as secondary. Cites the three-year update (Carlino et al., JCO Oncology Advances 2026) in its reference list, allowing a reader to locate the earlier OS data.",
+        "still_omitted": "The full OS table \u2014 including the 80% CI from the three-year analysis \u2014 is in a different paper; the JCO five-year paper does not reproduce or compare the two OS intervals side by side, so a reader cannot see from this paper alone that the two intervals used different widths and different death counts."
+      },
+      {
+        "outlet": "JCO Oncology Advances three-year update (ascopubs.org/doi/10.1200/OA-25-00008)",
+        "url": "https://ascopubs.org/doi/10.1200/OA-25-00008",
+        "got_right": "Is the source paper for the three-year OS data (HR 0.425, 80% CI 0.179\u20131.004, 95% CI 0.114\u20131.584, nine deaths, data cutoff 3 November 2023, median follow-up 34.9 months). First author is Carlino, not Weber \u2014 confirming the draft's implicit point that the two analyses come from distinct papers with distinct author lists.",
+        "still_omitted": "The abstract does not flag that the 80% CI is the narrower of two intervals sitting in the same table row, which is the exact confusion the draft's correction addresses. A reader who only reads the abstract would not know both widths exist."
+      },
+      {
+        "outlet": "PubMed / PMC full text of Tanguy et al. 2018 (ncbi.nlm.nih.gov/pmc/articles/PMC6018749/)",
+        "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6018749/",
+        "got_right": "Confirms first author as Marie-Laure Tanguy (not Jacot). Confirms the paper computed statistical power using Freedman's formula \u2014 not confidence-interval width. Reproduces the exact conclusion the draft quotes: 'if a significant OS improvement is observed in some but not at all trials, this discrepancy might be more attributable to chance than to a truly different drug efficacy.' Confirms the 50-month median OS assumption in control arms and the <70% power threshold for a \u226412-month OS gain.",
+        "still_omitted": "The paper does not address confidence-interval width at all \u2014 confirming the draft's point that the CI-width observation is the newsletter's own, not Tanguy et al.'s. No press outlet appears to have covered this 2018 paper in a way that would have introduced the Jacot misattribution; the error was internal to the newsletter."
+      }
+    ],
+    "contradictions": [],
+    "what_this_piece_can_add": "No external outlet \u2014 including the Merck press release, the ASCO abstract, and the JCO paper itself \u2014 places the five-year OS interval (95% CI, 0.165\u20131.345, fourteen deaths) directly beside the three-year OS interval (80% CI, 0.179\u20131.004, nine deaths) and explains that the two use different widths and different event counts, making them non-comparable as printed. That juxtaposition, and the explicit statement that the narrower-looking three-year interval is an 80% interval while the five-year interval is a 95% interval, is what this correction uniquely supplies. On the CDK4/6 side, no press coverage of Tanguy et al. appears to have introduced the Jacot misattribution; the error was entirely internal, so the correction's value is in clarifying that the CI-width argument belongs to the newsletter alone and is not supported by the Tanguy paper, which addressed power, not interval width."
+  }
+}

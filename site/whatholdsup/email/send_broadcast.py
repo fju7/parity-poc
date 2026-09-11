@@ -162,19 +162,31 @@ def require_gate(content: str, report_path: Path, waived: str | None,
     except Exception as exc:
         sys.exit(f"\n[BLOCKED] Could not read {report_path}: {exc}")
 
-    if not rep.get("passed"):
-        sys.exit(
-            f"\n[BLOCKED] The gate report at {report_path} records a FAILED run.\n"
-            "          Resolve its findings, re-run the gate, then send.")
-
+    # The sha comparison comes FIRST, before passed/failed is even read. On
+    # 2026-09-11 this function refused a send with "records a FAILED run" --
+    # correctly, as it happened -- while reading a report about a body that no
+    # longer existed (report sha 947317ce…, body 071e7463…). The refusal named
+    # the wrong reason and neither sha, and had that stale report happened to
+    # say passed:true the sha check below would have been the only thing
+    # standing. A report is evidence about the bytes it was run on and nothing
+    # else, so whether it is about THIS body is settled before what it says
+    # about that body is consulted.
     if rep.get("sha256") != digest:
         sys.exit(
-            f"\n[BLOCKED] {what} is not the content that was checked.\n"
-            f"          gate report : {str(rep.get('sha256'))[:16]}…\n"
+            f"\n[BLOCKED] The gate report at {report_path} is not about {what}.\n"
+            f"          gate report : {str(rep.get('sha256'))[:16]}…"
+            f"  (passed={bool(rep.get('passed'))}, {rep.get('checked_at', '?')})\n"
             f"          about to send: {digest[:16]}…\n\n"
-            "          Either the file changed after it was gated — re-run the gate —\n"
-            "          or the copy stored at Resend differs from the local file, in\n"
-            "          which case check the draft in the dashboard before trusting it.")
+            "          A report is evidence about the bytes it was run on. Either the\n"
+            "          file changed after it was gated — re-run the gate on the current\n"
+            "          bytes — or the copy stored at Resend differs from the local file,\n"
+            "          in which case check the draft in the dashboard before trusting it.")
+
+    if not rep.get("passed"):
+        sys.exit(
+            f"\n[BLOCKED] The gate report at {report_path} records a FAILED run\n"
+            f"          on these exact bytes ({digest[:16]}…).\n"
+            "          Resolve its findings, re-run the gate, then send.")
 
     print(f"gate     : passed {rep.get('checked_at', '?')}, sha matches  OK")
 
