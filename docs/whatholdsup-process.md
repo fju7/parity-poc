@@ -251,6 +251,21 @@ being built or validated. Four questions, per passage:
    sentence in it states?**
 4. **Is a reader asked to hold anything in suspension longer than the passage
    supports?**
+5. **Do the words introducing each quotation assert a history the record
+   holds?** A quotation is checked against its source; the words introducing it
+   are checked against the record. "The page now says", "it later said", "this
+   was added" assert a history. A label that implies a change the record does
+   not hold is an error even when every quoted character is exact.
+
+   *Added 11 September 2026 as a fifth question rather than a clause of Q2,
+   because Q2 as run tests the quotation and stops: the instance below survived
+   a full run of Q2 with every quoted character verified. A separate question
+   is asked separately. The instance: the correction notice for issue two
+   introduced an exact quotation of the page's sourcing sentence with "The page
+   now says" — a sentence that had named comparative studies in every published
+   version, and whose wording was tightened on 30 August without changing that.
+   The label implied the page had once carried the email's error. Q2 passed it
+   because the quotation was exact; the advisor caught it on the label.*
 
 Run it **twice**: at passage scope, then at whole-page scope including the
 appendices and the change log. The same four questions have different answers at
@@ -543,6 +558,54 @@ and which were wrong.
 21. Rebase the directive, not the edits.
 22. Search nearest first: query the identifiers we already hold before
     asserting a document cannot be reached.
+23. A rehearsal exercises the shipping path. It does not resemble it.
+24. Repairing a guard is maintenance; changing one to get past it is not.
+    The test is whether the edit is worth making when nothing is blocked.
+25. A finding about a document is checked against the document. A checker's
+    inability to reach a source is a fact about the checker.
+26. Provenance is recorded when a figure is taken, never reconstructed by
+    searching for it afterwards.
+27. Decompose before deferring, and price the parts, not the whole.
+28. Record a defect and proceed only where proceeding does not run through it.
+29. Write the new artefact before removing the old, and never through a pipe.
+30. Never cache an empty result, and never trust one.
+31. A notice derived from a verified record may contain exactly three kinds of
+    sentence: (i) quotation of what we published or sent, (ii) restatement of
+    what the record says was changed and why, and (iii) what follows for a
+    reader from (i) and (ii) together. It may not introduce a fact, figure,
+    quotation or argument that appears in neither the record nor the document
+    being corrected. Anything worth asserting that fails this test belongs in
+    an issue, under the issue's apparatus, before it belongs in a notice.
+
+    *Reason, 11 September 2026: this rule was first written in a form that
+    would have deleted the "what you should now believe" section, which is the
+    purpose of a correction notice. A rule that forbids assertion must still
+    permit entailment.*
+
+    Clarifications, 11 September 2026:
+    (a) "The record" means the issue's record files — corrections.md,
+        changes.json, attributions.json, reviews.json and their kin — not
+        corrections.md alone.
+    (b) A notice may state what a technical term means where the correction
+        cannot be understood without it, provided the statement is general —
+        true of any data, not a claim about these data — and provided the
+        meaning is not itself the thing being corrected.
+    (c) A notice may state what a corrected page now says, where the statement
+        has been checked against the published bytes.
+    (d) A notice may state facts about this publication's own operation — why
+        a notice is late, what was built — provided each such sentence has
+        something in the repository behind it. Sentences of this kind are
+        checked against the record like any other; the first two ever written
+        were wrong.
+
+    *Reason for the amendment: the rule was written from a single example and
+    met the whole document only at classification.*
+
+32. A quotation ends where the source ends, or the truncation is marked. A
+    quotation is never closed with punctuation the source does not have.
+    Truncation that removes a qualifier is a misquotation even when every
+    quoted word is correct — and a truncation that makes us look worse is not
+    made safe by being against ourselves.
 
 ---
 
@@ -577,6 +640,46 @@ signature.
 
 **The test of whether a remedy is this one:** could the two copies ever disagree,
 and would anything notice? If yes to the first and no to the second, derive it.
+
+---
+
+### A rehearsal exercises the shipping path, rather than resembling it
+
+*Established 10 September 2026, building the correction sender.*
+
+The first version of the sender rehearsed through `send_test_email.py` and was
+refused. The two senders guard unsubscribe in opposite directions, and
+`send_broadcast.py` says so itself:
+
+> "the guards below are the inverse of the ones in send_test_email.py. There, the
+> check is that an unsubscribe is present in every part. Here, the check is that
+> the RESEND MERGE TAG is present in the HTML."
+
+A broadcast is expanded by Resend at send time, so only Resend can fill the
+per-recipient link and the HTML must carry `{{{RESEND_UNSUBSCRIBE_URL}}}` unfilled.
+A test email names one recipient, so it signs the URL itself and an unfilled merge
+tag is an unusable unsubscribe. One body cannot satisfy both.
+
+**The available workaround was to render two variants, and it is the trap.** The
+general form is worth stating at full weight, because the reasoning that makes it
+attractive is always the same and always sounds like diligence:
+
+> **A rehearsal that differs from the shipping path differs precisely where it can
+> least afford to.** The thing a rehearsal cannot share is the environment-specific
+> element — the credential, the recipient list, the merge tag the platform fills in
+> — and that is exactly the element that breaks in production, because it is the
+> only part that was never exercised. Rendering two unsubscribe variants would have
+> put the difference in the single element most likely to be wrong, and then
+> reported the rehearsal as evidence about the other one.
+
+So the rehearsal is a **broadcast to a segment containing only test addresses**:
+the same API call, the same body, the same merge tag, the same code path, and a
+different list. The list is the only thing a rehearsal is permitted to vary,
+because the list is the only thing a rehearsal is *for*.
+
+**This is failure 15's shape in a new place.** A green result is only as
+informative as the scope of the run that produced it, and a rehearsal of
+different bytes reports on bytes nobody is going to send.
 
 ---
 
@@ -622,7 +725,9 @@ requested.**
 
 ## 12. The failure catalogue
 
-Fourteen ways this publication has actually been wrong, and what catches each.
+The ways this publication has actually been wrong, and what catches each.
+
+*No count appears in this sentence. It said "fourteen" while the table below held twenty — a hand-maintained tally in prose, drifting beside the list it describes, which is RV-10's exact failure sitting inside the failure catalogue. The list is the count.*
 
 | # | Failure | Caught by |
 |---|---|---|
@@ -646,6 +751,323 @@ Fourteen ways this publication has actually been wrong, and what catches each.
 | 18 | A defect deferred whole, on an estimate of cost made by the person who benefits from the estimate being high | decompose it, then defer the parts that survive |
 | 19 | A test set drawn from known incidents, mistaken for a test of the problem | run the new check against the whole corpus before wiring it anywhere |
 | 20 | A datum edited to make a check pass — reasoning from the symptom, in the data layer | ask what the datum IS, never what value would silence the check |
+| 21 | A normalisation step that destroys the very difference the comparison exists to find | compare the raw objects once before normalising |
+| 22 | A rehearsal that resembles the shipping path instead of exercising it | the rehearsal runs the shipping code, on the shipping body, differing only in the list |
+| 23 | Concluding a working guard is broken, from a run performed under the wrong interpreter | run the guard the way the guard runs itself |
+| 24 | Reading a checker's confidence as its accuracy, when the two run opposite | the hedges are the signal; a categorical finding about an unreachable source is a lead |
+| 25 | Sourcing a figure by finding it somewhere, when the same figure appears in two documents for different reasons | provenance is recorded, never inferred from a match |
+| 26 | Recording a defect, then routing the next action through the thing recorded | "record it and proceed" requires that proceeding not depend on it |
+| 27 | Destroying the evidence for the thing you are about to diagnose | write the new artefact before removing the old; a pipe is a deletion too |
+| 28 | A fix scoped to the cases it was written for, meeting the first case it did not anticipate | fix the resolution rule, never the case list |
+| 29 | Caching a negative result, which makes the failure permanent | a cache of "nothing" is not a cache of a value |
+| 30 | Paying to confirm a result already derivable from what is on disk | failure 18 applied to spending: decompose what the spend buys |
+| 31 | Improving a correction indefinitely, while the cost of delay falls on someone else | at the last change the bar becomes "is this false", not "could this be better" |
+| 32 | Trusting a downgrade-only control for its direction, when the direction only guards against false blocks | measure what each downgrade rests on; a pointer to the wrong document is a false reassurance, not a weak finding |
+| 33 | An urgency argument from an unverified number, used to argue for less verification | the number that sets the bar is measured before the bar is set; "who bears the cost" is a count, not a premise |
+| 34 | A self-description in a correction notice, wrong in the flattering direction ("corrected the same day" — the record says 31 August, 1 September, 9 September) | every sentence about our own operation is classified against the record before it goes out; it was caught only that way |
+
+### 12s. A downgrade-only control is safe against false blocks, and against nothing else
+
+*11 September 2026, step 48. The reachability matcher, on the day it was built and
+endorsed.*
+
+The argument for a crude figure-matcher was its direction: it can only mark a
+finding LEAD, never VERIFIED, so a coincidental match costs at most a finding a
+human still reads. Written into the module's docstring, endorsed in review, and
+true — for one of the two ways a control can be wrong.
+
+> A control that can only weaken a finding cannot produce a **false block**. It
+> can still produce a **false reassurance**: "we hold the settling bytes, here is
+> the sentence" — said of bytes we do not hold, about a sentence that is about
+> something else. The direction bounds the first error and says nothing about
+> the second. Once the control downgrades on coincidences, the direction it can
+> move protects nothing, and whatever safety it had was coming from it being
+> right, not from which way it could be wrong.
+
+Measured: of sixteen leads on run 3, two rest only on `34.9` — a token in six
+documents that the matcher, stopping at the first in sort order, resolved to a
+PALOMA paper when the melanoma paper eight entries later held the settling
+sentence. A third rests on `0.051`, in two documents, both coincidences, for a
+figure no held document contains — and that one is the graver kind: not a right
+conclusion through a wrong pointer but a **wrong conclusion**, "we hold this"
+said of a figure `bindings.json` had recorded as not held since 1 September. The
+labeller never read the ledger built to answer its question. Filed separately
+in open-gaps under "Lead 10".
+
+The general form: **asymmetry arguments name the error they bound and are
+silent about the other one.** When a control's safety is argued from its
+direction, ask what the direction does not bound, and measure that.
+
+---
+
+### 12p. A cache of a negative result is a different object from a cache of a positive one
+
+*11 September 2026, in `reachability.py`, on the day it was written.*
+
+`held_text()` cached its extraction so 65 documents would not be re-read every
+run. Its first call arrived with a slug that indexed nothing, extracted nothing,
+and **wrote `{}` to the cache**. Every later call read the `{}` back and reported
+"no held sources" without touching the library again. The bug that would have
+been visible on run two was made invisible by the optimisation.
+
+> **Caching a value says "this is what it is". Caching an empty says "there is
+> nothing", and that is a claim about the world made from one failed attempt.**
+> A cache of a negative result converts a transient failure into a permanent
+> one, and removes the evidence that it was ever transient.
+
+Never write an empty, and never trust one. This is the 1 September principle
+again — *a failure to find is not a fact about what exists* — appearing this time
+inside a cache, which is the last place anyone looks.
+
+Two smaller defects found in the same hour, both by running the thing rather
+than by reading it: it was never called with a resolvable slug, and it printed
+`h["figure"]` on a hit that carried a phrase instead.
+
+---
+
+### 12o. A fix scoped to the cases it was written for fails on the first case it did not anticipate
+
+*11 September 2026. The glob finding, third form.*
+
+`issue_slug_for()` exists because `Path(draft).stem` was not a slug: the email
+`issue2-cdk46.html` resolved to an issue called `issue2-cdk46`, and **every email
+gate run this project had ever done was recorded against it**, so email spend had
+never counted toward the $40 cap. That was found and fixed on 1 September, and
+the docstring records it at length.
+
+The fix resolves a stem against the case directories and **falls back to the stem**
+when nothing matches. A correction email is a document type that fix never saw:
+`2026-09-10-corrections` matches no case, so it falls back — and today's **$10.05
+across three gate runs is charged to a pseudo-issue that counts toward no cap.**
+The same failure, in the same function, by the same mechanism the fix was written
+to stop, one document type later.
+
+> The tell is a fix that enumerates: it names the cases it knows and defaults for
+> the rest. **The default is where the next instance lands**, and a default that
+> silently invents an identifier is a default that hides it.
+
+Recorded, not fixed. The cap is a control and rewiring how spend is attributed
+belongs in its own pass, not at the end of a send.
+
+---
+
+### 12q. The last change: the bar becomes "is this false", not "could this be better"
+
+*11 September 2026, thirteen days after the error it corrects.*
+
+Every change made to this correction notice was defensible on its own. Name the
+endpoint. Name the source and cutoff. Qualify Tanguy in their own terms. Give the
+arm-level counts. Each one genuinely improved it, and each one delayed it.
+
+> **There is always one more improvement, and each is defensible alone.** The
+> asymmetry is that every decision to improve the notice is made by us, while the
+> cost of the delay falls on the person the error was about. A process with no
+> declared last change will keep finding improvements for as long as anyone keeps
+> looking, and will experience each delay as diligence.
+
+So the last change is declared, and after it the question changes:
+
+    before   would this be better?
+    after    is this false as it stands?
+
+Only the second blocks. This is the direction column applied to our own process
+rather than to a finding: an error that flatters survives because nobody
+questions it, and **a delay that looks like care survives for exactly the same
+reason.**
+
+*Amended 11 September 2026 (failure 33, RV-12 in open-gaps). The cost this entry
+rests on — delay falling on a named researcher in "subscribers' inboxes" — was
+asserted for thirteen days on a number nobody had counted. The list held two
+contacts, both internal. The principle stands; the premise it was argued from
+did not, and the argument was used to lower the bar on verification. The number
+that sets the bar is measured before the bar is set.*
+
+---
+
+### 12r. Failure 18 applied to spending
+
+Run 3's report is on disk, and the block decision is a pure function of it. The
+replay therefore answers "would a fourth run block?" exactly, for nothing.
+Running the gate again to *confirm* what the replay already established would
+cost $3.65 and buy no information.
+
+> Before spending, decompose what the spend buys into what is already known and
+> what is not. **Paying to confirm the known is failure 18 with money instead of
+> effort** — an undecomposed estimate, where the part that would actually be
+> informative is priced together with the part that would not.
+
+The gate's own cap says the same thing from the other direction: *"runs past it
+stop paying."*
+
+---
+
+### 12n. Destroying the evidence for the thing you are about to diagnose
+
+*11 September 2026. Twice, same day, same hand, same shape — which is why it is
+one entry and not two.*
+
+- `rm -f …gate.json` cleared the run-2 report before a third run that **refused on
+  the cap and wrote nothing**. The report was the evidence for the residue I was
+  then instructed to adjudicate.
+- The third run was invoked through `| tail -35`, so the captured log holds 37
+  lines. Everything the new labelling printed about why it found nothing went to
+  the pipe, and the diagnosis had to be reconstructed from the report instead.
+
+> **Do not remove the old evidence until the new evidence exists, and do not
+> filter it away either.** A clear-then-regenerate is two steps that look like
+> one, and anything refusing between them leaves nothing. **A pipe is a deletion
+> that does not look like one** — it destroys on the way past, while appearing to
+> be a way of reading.
+
+What limited the damage both times was accidental: the cap ledger lives in a
+separate file and survived, and the findings had already been quoted in full into
+a report. Luck, in the same shape as the `.venv` fallback and the hook that got
+the right answer for the wrong reason.
+
+---
+
+### 12m. "Record it and proceed" is only honest when proceeding does not depend on the thing recorded
+
+*11 September 2026. The reviewer's, and caught by the operator asking why —
+the second time in one day.*
+
+Having established that the fact-check gate cannot reach the library, and that
+five SERIOUS findings were false in consequence, the reviewer wrote: record the
+defect, do not fix it today, and then **run the defective checker again at $3.50**.
+
+Three errors in one paragraph, and they compound:
+
+- **Deferred without decomposing.** Failure 18, third instance in a single day.
+  The defect was treated as one indivisible thing — "give the gate the library" —
+  when it was three: reachability labelling (small, no model calls, built in one
+  pass), passing held source bytes (larger), and subject resolution (genuinely
+  hard, no test set, correctly deferred). Estimating the whole at the cost of its
+  hardest third is how a cheap fix goes unbuilt.
+- **Misapplied failure 16.** Failure 16 is *a protective construct whose
+  triggering condition was never tested*, and its remedy is **make the thing fire
+  once before trusting it** — a prescription about testing what you build, not a
+  reason to decline to build. Cited as a reason for inaction, it inverts into
+  cover for the very state it describes.
+- **Recorded a defect and then routed the next action through it.** This is the
+  one worth naming as a rule, because it feels like diligence:
+
+> **"Record it and proceed" is only honest when proceeding does not depend on
+> the thing recorded.** Where the next action runs through the defect, recording
+> it is not deferral — it is a note that the next result will be untrustworthy,
+> written by someone who then goes and gets that result anyway. Either the defect
+> blocks, or the part that blocks gets fixed first. Filing it and continuing is
+> the option that is not available.
+
+The decomposition took one read of the gate's own code and produced a fix that
+cost nothing to run and was tested against the five findings for free. The
+deferral would have spent $3.50 to get a sixth.
+
+---
+
+### 12l. Some figures cannot be sourced by matching
+
+*11 September 2026. The first articulated limit on figure-checking as a method,
+and it is a limit on the approach rather than on any run of it.*
+
+`92.2% (84.2 to 96.3)` appears in **two** held documents:
+
+- **S004**, the five-year paper, as its **48-month** OS figure;
+- **S014**, the ASCO abstract, as the **5-year** rate: *"5-y rate was 92.2%
+  (95% CI, 84.2%–96.3%) for intismeran + pembro vs 71.3% (95% CI, 35.4%–89.6%)."*
+
+Both are correct. The curve is flat between 48 and 60 months in that arm — no
+death falls in the interval — so the same number is the honest answer to two
+different questions. The 48-month comparator is `85.6% (70.5 to 93.3)`, not
+`71.3%`, which is the only visible tell, and only if you look for it.
+
+> **A figure identical across two documents is indistinguishable from a
+> mis-sourced one by search alone.** Finding a number in a document is not
+> evidence that the number came from it, and the method most people reach for —
+> search the source for the figure — cannot tell the two apart.
+
+Only **recorded provenance** separates them: which document the figure was taken
+from, written down at the time it was taken. That is what the source ledger is
+for, and this is the first case where nothing else would have worked. Anyone
+checking `melanoma.html` by searching S004 for `92.2` finds it, concludes the
+page mis-attributed a five-year rate to a conference report, and is wrong.
+
+---
+
+### 12k. Where a checker hedged it was guessing; where it was categorical it was wrong
+
+*11 September 2026, across two paid runs of the fact-check gate.*
+
+Five SERIOUS findings. Every one refuted by two documents we hold. And both
+genuinely useful things either run produced arrived **inside conditional
+findings** — the ones phrased *"if 0.425 is an RFS or DMFS estimate"*, *"if the
+endpoints differ"*. Those hedges were the gate noticing it could not resolve
+something, and the reason it could not resolve it was that **the email never
+named the endpoint** — a real omission, now fixed.
+
+> **Confidence ran opposite to accuracy.** The categorical findings were false;
+> the hedged findings were where the defects were. Reading any checker, the
+> hedges are the signal — a hedge marks the place the checker could not see, and
+> a place a checker cannot see is a place a reader cannot see either.
+
+This inverts the intuition that a confident finding deserves more attention. It
+is specific to a checker that cannot reach its sources: being unable to see the
+settling document, it reports the mismatch it *can* see, and reports it plainly,
+because from where it stands nothing is ambiguous. The ambiguity it does register
+is the honest part.
+
+---
+
+### 12j. Reporting a working guard as broken — reasoning from the symptom, with the guard as the target
+
+*10 September 2026. Caught before it was reported, which is the only reason it is
+an entry here and not a repair to something that was never wrong.*
+
+While checking the suite before a send, the author ran the pre-commit hook's own
+test command and read back:
+
+```
+no tests ran in 0.00s
+exit=0
+```
+
+The conclusion drawn was that the hook built to stop a commit over a red suite
+collects nothing and reports success — **a broken alarm in the guard built to
+prevent broken alarms**, which is as serious a finding as this catalogue holds.
+It was two keystrokes from the report.
+
+**Both halves were false, and each had its own cause.**
+
+- `pytest $TESTS` was run in **zsh**, which does not word-split unquoted parameter
+  expansions. pytest received one argument containing fourteen newline-separated
+  paths and could not find a file by that name. The hook's shebang is `#!/bin/sh`,
+  where the split happens and the paths arrive as fourteen arguments.
+- `exit=0` was `tail`'s status, read through a pipe. pytest's real exit was 4.
+
+Run as the hook runs it, under `/bin/sh`: **256 passed**.
+
+**Why this is not failure 20, and needs its own entry.** Failure 20 is reasoning
+from the symptom in order to *silence* a check — the motive is to get past it.
+Here the motive was the opposite and the direction is reversed: the author was
+reasoning from a symptom toward *condemning* a check that was working. The damage
+model is different and worse. Had it been reported, the reviewer would have ruled
+on it, and a functioning guard would have been "fixed" — a change made to a
+working stop, on the authority of a finding, with everyone's attention on it. A
+guard weakened by consensus is far harder to recover than one weakened quietly.
+
+**What caught it was performing the check against the object.** Not re-reading the
+output, not thinking harder about the shell — running the hook's line under the
+hook's own interpreter. That is the same instrument that caught failure 21, where
+`announce_interpreter()` compared resolved binaries and reported every interpreter
+as the project venv. **Two instances in one session of a confident false reading
+produced by running something under the wrong interpreter**, which makes it a
+class and not an anecdote.
+
+**The rule it yields:** a finding about a guard is verified by running the guard
+the way the guard runs itself — same shell, same interpreter, same arguments,
+exit code read directly and never through a pipe. A guard is the last thing that
+should be condemned on a reading taken from somewhere else.
+
+---
 
 ### 12i. Order corrections by whose interest is served, not by whose error looks worse
 
@@ -868,7 +1290,23 @@ corroboration worth much here.
 what the data actually is, never what value would silence the check.*
 
 The code-layer version of this is already understood — do not modify a guard to
-get past it. **The data-layer twin is the one that will recur, and it is far
+get past it.
+
+**And that rule is about motive, not about the file, which needs saying because
+reading it as "do not touch guards" cost a real repair on 10 September 2026.**
+Asked to fix a pre-commit hook that named a virtualenv which does not exist, the
+author declined on the grounds that guards are not to be modified, and left a
+guard passing for the wrong reason. That is the prohibition inverted. The two
+acts are opposites:
+
+> **Bypassing** a guard changes it so that it stops objecting to what you are
+> about to do. **Repairing** a guard changes it so that it objects for the right
+> reason. The first is forbidden however small the edit; the second is
+> maintenance, and declining it leaves a guard whose green result is luck.
+>
+> The test is the counterfactual: *would I still make this edit if it did not
+> unblock me?* If yes, it is repair. If the edit is only worth making because
+> something of mine is stuck behind it, stop and report instead. **The data-layer twin is the one that will recur, and it is far
 harder to see**, because a datum edited to make a check pass is
 **indistinguishable from a correct datum**. It defeats the check permanently and
 invisibly, with every test still green and nothing to review.

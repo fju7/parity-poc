@@ -74,16 +74,39 @@ def sends() -> list[dict]:
         return []
 
 
+def delivered(row: dict) -> bool:
+    """Only a row whose state is exactly "sent" reached anyone.
+
+    `correction_email.py` writes the row BEFORE the send with state "sending"
+    and closes it to "sent" or "failed". On 2026-09-11 the first correction
+    broadcast failed, its row carried a three-item `covers` list, and this
+    module read the list without reading the state -- so three corrections
+    nobody had received were dropped from "outstanding". A failed send was
+    counting as having told readers.
+
+    The four seeded rows have no state at all. They were real sends, but their
+    coverage is "unknown", so they contribute nothing either way; a future row
+    with a covers list and no state is a row nobody closed, and the safe
+    reading of that is the same as "sending": not delivered. The asymmetry is
+    the module's own -- the cost of re-telling is an irritated reader, the cost
+    of not telling is a reader who still holds the false belief -- so the
+    predicate is strict equality, matching the sender's own check for a
+    recorded test send.
+    """
+    return row.get("state") == "sent"
+
+
 def covered() -> set[str]:
     """Correction headings a recorded send is known to have carried.
 
     `unknown` contributes NOTHING. A send whose coverage nobody recorded cannot
-    be used to conclude that a reader has already been told.
+    be used to conclude that a reader has already been told. Nor can a send
+    that did not happen: see `delivered`.
     """
     out = set()
     for s in sends():
         c = s.get("covers")
-        if isinstance(c, list):
+        if isinstance(c, list) and delivered(s):
             out |= {" ".join(str(x).split()) for x in c}
     return out
 

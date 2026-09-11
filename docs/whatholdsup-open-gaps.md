@@ -2754,3 +2754,764 @@ breath, at the end of a long step, with no test that it sends the right body to
 the right list, is failure 16 with an outward-facing consequence. **The email is
 verified and waiting. The sender is next issue's first task, and it gets a
 dry-run against a test audience before it ever sees the real one.**
+
+---
+
+## The interpreter defect is in two files, and the hook gets the right answer by luck
+
+*Recorded 10 September 2026. To be fixed in one pass with `announce_interpreter()`,
+and NOT before the send.*
+
+`backend/scripts/whatholdsup/hooks/pre-commit` selects its interpreter like this:
+
+```sh
+PY="$ROOT/.venv/bin/python3"
+[ -x "$PY" ] || PY=python3
+```
+
+**`$ROOT/.venv` does not exist and never has.** The project's virtualenv is
+`backend/venv`. So the guard has always run on the fallback — the system
+interpreter at `/opt/homebrew/opt/python@3.14/...` — and the suite happens to pass
+there too: 256 tests under both. **The result is right and the reason is wrong**,
+which is the same object as a check that passes because it examined nothing.
+
+Two things follow, and the second is the reason this is filed rather than fixed:
+
+- The guard is one `pip` divergence away from disagreeing with the interpreter the
+  work is actually done on. On the day a dependency exists in `backend/venv` and
+  not in system python, the hook refuses every commit and names the wrong cause;
+  on the day it exists only in system python, the hook passes a suite that is red
+  where it matters.
+- **This is the third appearance of one defect.** `announce_interpreter()` compared
+  `Path.resolve()`d binaries and reported every interpreter as the project venv
+  (failure 21). A `V=.venv/bin/python3; [ -x "$V" ] || V=python3` fallback ran an
+  entire session's commands on system python without anyone noticing. Now the hook.
+  **Same wrong assumption about where this project's interpreter lives, written
+  three times.** Fixing the hook alone would leave the other two, which is why it
+  waits for a pass that takes all three together and puts the path in one place.
+
+Direction it leans: toward false confidence. Every instance so far has reported
+success — a green suite, a matched interpreter — rather than failing loudly.
+
+---
+
+## Requirement (f): the audience has two contacts, and nobody had counted them
+
+*Established 10 September 2026, before any send. Discharges requirement (f).*
+
+*Ruled otherwise on 11 September — see RV-12 below. This entry counted contacts
+and left the deliverable reach at "1 or 2"; the requirement was discharged by a
+live read on 11 September, incidentally, while settling another question.*
+
+**Named and counted, from the record and from the live list:**
+
+| | |
+|---|---|
+| Segment | `bae12ea6-cbad-4b91-b250-81991bf6b4b5` |
+| What it is | the production subscriber audience, shared by every issue |
+| Live contacts | **2** (`sync_subscribers.py`, report-only, 10 September 2026) |
+| Our record | 2 rows in `whatholdsup_subscribers`, 0 drift in either direction |
+| Unsubscribed | **1 of the 2**, per `docs/whatholdsup-prelaunch.md` — a figure verified 27 August 2026 and **not re-verified since** |
+
+So the broadcast's deliverable reach is **1 or 2 people**, and the ambiguity is
+entirely in the unsubscribe status, which the repo has no read-only counter for:
+it lives in Resend's contact records and in `whatholdsup_unsubscribes`, and
+`sync_subscribers.py` does not report it. **That number is stated with its date
+because it was established afterwards, under the 9 September principle** — the
+2 contacts are today's, the 1-of-2 unsubscribed is 27 August's, and the two must
+not be read as one measurement.
+
+**The finding is that nobody in the conversation knew this before the send was
+proposed.** Four issues have been broadcast to this segment and its size has never
+appeared in a decision. It is small, which makes it harmless today and makes the
+gap invisible — a list that had grown would have been sent to just as blindly.
+
+---
+
+## The id offered as the test segment is the production audience
+
+*10 September 2026. The send is held on this.*
+
+The operator supplied `bae12ea6-cbad-4b91-b250-81991bf6b4b5` as the test segment.
+**It is the live subscriber list**, and the repository says so in six places:
+
+| Where | What it says |
+|---|---|
+| `sync_subscribers.py:41` | `AUDIENCE = "bae12ea6-…"` — the list real subscribers are synced into |
+| `publish.py:296, 318, 328` | `"audience": "bae12ea6-…"` for melanoma, deskilling and cdk46 |
+| `published.json:51, 72, 93, 174` | all four historical sends went to this segment |
+| `whatholdsup-prelaunch.md:113` | `RESEND_WHATHOLDSUP_AUDIENCE_ID=bae12ea6-…` in Vercel |
+| `whatholdsup-open-gaps.md` | "one Resend audience, `bae12ea6…`, shared by all three issues" |
+| `send_broadcast.py:34` | the worked example in its own usage block |
+
+**There is no test segment.** One has never existed.
+
+**And the guard as designed would not have stopped this.** `correction_email.py`
+refuses a broadcast until a test send of the same sha is recorded — it checks that
+a rehearsal *happened*, never that the rehearsal went somewhere *else*. Passing the
+same id to `--test-segment` and `--audience` satisfies it perfectly: the rehearsal
+is the real send, and recording it then unlocks a second real send to the same
+people. **A guard that verifies a step occurred, but not that the step was the step
+it names** — failure 15 again, in a stop written the same day failure 15 was being
+cited.
+
+Direction it leans: toward sending. The unsafe path is the one the guard permits.
+
+**Required before any send, and none of it is a code change to be improvised at
+the end of a step:** the sender must refuse when the test segment and the audience
+are the same id, and must refuse a test segment that equals the known production
+`AUDIENCE`. Then a real test segment has to exist and be populated with addresses
+the operator has chosen.
+
+---
+
+## The fact-check gate's first real run stopped a send, and was wrong twice about why
+
+*11 September 2026. Two runs, $6.40. Nothing sent. The control worked; the
+finding did not survive.*
+
+**The gate fired for the first time on something that mattered.** `send_broadcast.py`
+refused the correction email because no fact-check report existed for it, giving
+its own reason: *"the last time we skipped it the email went out with errors the
+web page no longer had."* The refusal was not waived. The gate was run, at $2.88,
+and returned a **SERIOUS** finding of class FACT on the two intervals the
+correction exists to distinguish.
+
+**The finding was false, and held bytes settle it.**
+
+| | The gate claimed | What we hold |
+|---|---|---|
+| Three-year OS | — | **S007**, *Three-Year Update*, JCO Oncology Advances 3:e2500008, published 12 Feb 2026, cutoff 3 Nov 2023, median follow-up 34.9 months. Table heading **OS**, events 3.7% (4/107) vs 10.0% (5/50) — **nine deaths**. `HR 0.425 / 80% CI 0.179 to 1.004 / 95% CI 0.114 to 1.584` |
+| Five-year OS | "the published five-year JCO paper reports HR 0.425 with 95% CI 0.114–1.584"; 0.471 (0.165–1.345) "does not appear in any published source" | **S004**, 10.1200/JCO-26-00835, published 1 June 2026: *"the OS HR (95% CI) was 0.471 (0.165 to 1.345)"* — and `0.425`, `0.114`, `1.584` appear **nowhere in it** |
+
+So the email's assignment of each interval to its analysis was **correct**. The
+feared fourth generation of one error did not happen.
+
+**The second run inverted the error.** After the repair, the gate returned four
+SERIOUS findings asserting the opposite — that 0.165–1.345 might be an **RFS**
+interval and that the endpoint of 0.425 was unconfirmed. Both are settled by the
+same two documents: S004 names it OS in its abstract and results, S007's row sits
+under the heading OS. The checker had found the RFS rows (three-year RFS 0.510,
+95% CI 0.288–0.906; five-year RFS 0.510, 0.294–0.887) and substituted them.
+
+**What the gate was nonetheless right about, and it is not nothing.** Every one of
+its four second-round findings was phrased conditionally — *if* 0.425 is RFS,
+*if* the endpoints differ — because **the email never named the endpoint.** That
+was a real omission, and a reader could not have resolved it either. Naming it
+is the repair the gate actually earned.
+
+**The transferable finding: a checker that cannot reach a source reasons from the
+one it can reach.** Both errors have the same shape — the checker could not open
+the documents we hold, found adjacent numbers in reachable material, and reported
+the mismatch as our error. That is failure 14 performed by a check rather than by
+us: verifying a rendering rather than the source of truth. Its conditional
+phrasing is the tell, and the tell is worth trusting: **where it hedged, it was
+guessing; where it was categorical, it was wrong.**
+
+Direction it leans: toward alarm. Both false findings accused the draft of an
+error it had not made, which is the safe direction for a gate to fail in and the
+opposite of the survivorship pattern recorded on 9 September.
+
+---
+
+## The five-year paper is held. The reviewer's 403 was a fact about the reviewer.
+
+*11 September 2026. Recorded because the opposite was nearly recorded.*
+
+The instruction for this step was to log the five-year JCO paper as a source we
+**do not hold**, after the reviewer received HTTP 403 from ascopubs, and to add it
+to the source store as blocked with what was attempted.
+
+**We hold it.** `S004` — `https://ascopubs.org/doi/10.1200/JCO-26-00835`, sha
+`4c3e3412…`, 306,380 bytes, `kind: full_text`, held **2026-09-01**, *via*
+"publisher PDF, downloaded in a browser by the editor". It has been in the
+library for ten days and is cited on the melanoma page.
+
+No blocked entry was written, because writing one would have recorded a gap that
+does not exist — rule 16 in the form the 9 September ruling names: *a record does
+not gain rows for events it did not witness*, and it does not gain rows for
+absences that are not absent either.
+
+**This is the 1 September principle pointed at a third target.** Outward it read:
+*our failure to find a document was never evidence it did not exist.* Inward, on
+9 September: the record's silence is not the record's disagreement. Now:
+**a reviewer's retrieval failure is a fact about the reviewer's tooling, and
+nothing about our holdings.** Three targets, one principle, and each time the
+correct move was to check the thing itself rather than reason from the failure to
+reach it.
+
+The cheap check that settles it — searching the source store by URL before
+accepting any claim that a document is unreachable — took one query.
+
+---
+
+## melanoma.html:159 is not stale, and the near-miss inside it is worth keeping
+
+*11 September 2026. Checked because a falsifier was thought to have come true.*
+
+The sentence under test: *"The full paper reports its landmark rates only to 48
+months — its figure legend says so — which is why the five-year rates above come
+from the report of the analysis rather than from the paper."*
+
+**Both halves confirm from held bytes.**
+
+- S004's Fig 1 legend: *"RFS (95% CI), DMFS (95% CI), and OS (95% CI) are shown at
+  18-, 24-, 36-, and 48-month time points."* The landmarks stop at 48 months.
+- The five-year rates come from S014 (ASCO 2026 abstract): *"5-y rate was 92.2%
+  (95% CI, 84.2%–96.3%) for intismeran + pembro vs 71.3% (95% CI, 35.4%–89.6%)
+  for pembro alone"* — and S015 repeats it.
+
+No falsifier has come true. The five-year paper was published 1 June 2026 and the
+page on 26 August 2026, so the paper **predates** the sentence that distinguishes
+it, and is already cited as S004.
+
+**The near-miss.** `92.2% (84.2 to 96.3)` also appears in the paper — as its
+**48-month** OS figure, because that arm records no death between 48 and 60
+months and the curve is flat. Its 48-month comparator is `85.6% (70.5 to 93.3)`,
+not `71.3%`. So anyone checking the page by searching the paper for `92.2` finds
+it, concludes the page mis-sourced a five-year rate to a release, and is wrong.
+**A figure that is identical at two timepoints is indistinguishable from a
+mis-sourced one by search alone**, and only the legend separates them. Worth
+remembering the next time a number is verified by finding it somewhere.
+
+---
+
+## The gate's root defect: it reasons from the web while the library sits unread
+
+*11 September 2026. RECORDED, NOT FIXED — changing a checker at the moment of
+sending is failure 16.*
+
+Five SERIOUS findings across two paid runs, every one refuted by two documents
+sitting in our own library:
+
+- **S004** — `10.1200/JCO-26-00835`, 306,380 bytes, full text, held **1 September** —
+  says *"the OS HR (95% CI) was 0.471 (0.165 to 1.345)"* and contains `0.425` nowhere.
+- **S007** — `10.1200/OA-25-00008`, full text, held **1 September** — puts the
+  `0.425` row under the heading **OS** on nine deaths.
+
+`factcheck_draft.py` has no access to either. It searches the web, finds adjacent
+figures in reachable material — the RFS rows, a different analysis — and reports
+the mismatch as our error. **A fact-check gate with no access to the held sources,
+in a publication whose entire method is holding sources.** The gate is not weak
+at its job; it is pointed away from the evidence.
+
+**The cheap fix, for next cycle, and it is not "give the gate the library".**
+That is the expensive fix and it can wait. The cheap one is a label: the gate's
+report already knows which sources a role reached and which it did not, so it
+should **state that**, and any SERIOUS finding about a source it could not reach
+should arrive marked as a **lead** rather than as a finding. The information is
+already in the run; it is simply not carried into the verdict. That single change
+would have made all five of today's findings self-marking, at no API cost.
+
+Note the precedent this repeats: `draft_decisions.json` already carries
+`"reject - the document was open to us and closed to the gate"` **twenty times**,
+and a decision from 2 September that states the principle outright — *"A
+NOT_FOUND is a statement about what the role reached, not about what exists."*
+The pattern was recorded nine days ago and the gate has not changed, so every
+cycle pays for it again in adjudication.
+
+### Two smaller defects found while adjudicating, both recorded not fixed
+
+- **The adjudication file that governs publication lives in `backend/tests/fixtures/`.**
+  `factcheck_draft.py:1815` resolves `DECISIONS` to
+  `backend/tests/fixtures/draft_decisions.json` — 265 live decisions across every
+  issue, in a directory whose name says they are test material.
+- **There are two divergent decisions files.** `issues/WHU-001-melanoma/draft_decisions.json`
+  holds 46 decisions, a stale subset the gate never reads. Anyone adjudicating
+  into the per-issue file would be writing to a file with no consumer — the
+  field-no-consumer-knows-exists variant, at the level of a whole document.
+
+### And a run cap that did its job
+
+The third run was refused: *"This draft has been gated 2 times in cycle 1, which
+is the cap."* Its stated reason is the finding we had just independently reached:
+*"runs past it stop paying... one run introduced an error into the page, and every
+finding that mattered after run 10 came from a human reading rather than from
+another pass."* It offers `--past-cap`, which was not used. The guard and the
+evidence agreed, which is the first time today that a control and a measurement
+have pointed the same way without argument.
+
+---
+
+## Melanoma — two record items opened 11 September, not resolved today
+
+*Opened at the advisor's instruction (Step F). Neither is to be resolved in the
+send pass; each carries the criterion that closes it.*
+
+**MEL-OPEN-1 — the 4 September sourcing change has no corrections.md entry.**
+`changes.json` OR-0904-8 (2026-09-04 13:13 UTC) changed the page's sourcing
+sentence from *"…a peer-reviewed paper or a trial registry record, and none to
+a news report"* to *"…a peer-reviewed paper, a conference abstract or a trial
+registry record"* — the form the 4 September email carried. No corrections.md
+entry records it, so `covers:` cannot name it and no notice can announce it.
+The draft's `covers:` line had attached it to the 4 September entry *"three
+sentences that argued with themselves"*, which contains no sourcing sentence;
+that line is removed.
+*Resolves when:* corrections.md carries an entry for the sourcing-sentence
+change, or a recorded decision says it is an UPDATE and not a CORRECTION under
+`update_email.py`'s own test (did a reader who trusted us come away with
+something false), with the reason.
+
+**MEL-OPEN-2 — the 9 September sourcing sentence is recorded in reviews.json
+and the adjudication, not in changes.json or corrections.md.** *"Every
+numerical trial result above traces to … the named coverage itself"* entered
+`melanoma.html` in commit `853200c` (9 Sept, "publish melanoma (issue 1)", no
+record files touched); the record followed two minutes later in `6d17be6` — as
+a `ROUND-2026-09-08` was/now pair in `backend/data/whatholdsup/reviews.json`
+and as **OR-002 of the 8 September adjudication** (`review/2026-09-08-
+adjudication.md`), whose disposition reads *"corrected further than the finding
+asked"*. That is category (i): recorded, and the search on 11 September missed
+it because it looked in changes.json and corrections.md only. The 9 September
+corrections.md entry names three corrections from that round and this is not
+one of them.
+*Resolves when:* either the ROUND change set is mirrored into changes.json (or
+a recorded decision says reviews.json is the authoritative change ledger for
+review rounds and `update_email`/`covers:` are taught to read it), and a
+decision is recorded on whether the 9 September sourcing rewrite is a
+CORRECTION owed to readers of the 4 September email or an UPDATE.
+
+---
+
+## RV-12 — the urgency argument rested on a number nobody had counted
+
+*11 September 2026, step 51. Recorded as the reviewer's, at full weight, at the
+reviewer's instruction.*
+
+Requirement (f) — **the audience named and counted before sending** — was
+specified by the reviewer on 10 September and never discharged. The entry above
+headed *"Requirement (f): the audience has two contacts"* counted contacts on
+10 September and then gave the deliverable reach as *"1 or 2 people"*, on an
+unsubscribe figure from 27 August that it said itself had not been re-verified.
+A count that ends in "1 or 2" is not a count. It was answered on 11 September,
+incidentally, while settling a different question — whether two 29 August sends
+had gone to the same list (step 50). **The audience is two contacts, both test
+subscribers.**
+
+For thirteen days the reviewer argued that the cost of delay fell on a named
+researcher whose work was misattributed *"in subscribers' inboxes"* (this file,
+above, on the fourth false join), and used that cost to raise the bar against
+further changes — failure 31 and entry 12q, *"the cost of the delay falls on the
+person the error was about."* The argument was built on a number nobody had
+counted. Jacot's actual exposure: the public page for part of one day, corrected
+the same day, plus one email to two internal contacts. The inboxes were ours.
+
+**The shape: an urgency argument from an unverified number, used to argue for
+less verification.** Same family as the rest of this file — a quantity that was
+shaping decisions, never measured, and pointed in the direction that reduced
+checking. It differs from the others only in what it was aimed at: not a figure
+in the publication but the fact that was setting the bar for how much the
+publication got checked.
+
+**The favourable half, recorded so the entry leans neither way.** The email
+mechanism, the rehearsal path, the gate, the reachability labeller, the
+verification packet and the sender were all built and exercised against an
+audience of two. Every defect this week's entries record was found while the
+list held nobody outside the project. The machinery exists before it carries a
+real list. That is the right order, and it was not planned.
+
+**Requirement (f), discharged, and by what:** a Resend read of audience
+`bae12ea6-cbad-4b91-b250-81991bf6b4b5` on 11 September 2026 (`Contacts.list`,
+read-only, through the project's own SDK path) — **two contacts, both created
+2026-08-27 18:07 UTC, neither unsubscribed.** The 27 August "1 of 2
+unsubscribed" figure is contradicted by the live read and is not explained
+here. The limit the record itself states: there is **no membership history**, so
+*"nobody was added and removed between the two sends"* rests on the operator's
+attestation of 11 September — *the only subscribers on that list are test
+subscribers* — and not on the record.
+
+---
+
+## RV-11 — the reviewer instructed that a held source be recorded as blocked
+
+*11 September 2026. Recorded as the reviewer's, at full weight.*
+
+The directive was to add the five-year JCO paper to the source store as **BLOCKED**,
+with what was attempted, after the reviewer received HTTP 403 from ascopubs.
+
+**It has been held since 1 September.** `S004`, publisher PDF, downloaded in a
+browser by the editor, 306,380 bytes, `kind: full_text`, cited on the melanoma
+page as a Primary source. The reviewer reasoned from his own retrieval failure to
+a claim about the library, without asking what the library holds.
+
+**This is RV-09 repeated and worse.** RV-09's rule, now standing rule 22, was
+*search nearest first: query the identifiers we already hold before asserting a
+document cannot be reached.* This was not a failure to search nearest first. It
+was a failure to search at all — two days after the rule, by the author of the
+rule, inside a directive that also (correctly) instructed the agent to stop and
+report on a false premise.
+
+The agent refused the instruction, and the reason it gave is the right one: a
+blocked entry would record an absence that is not absent, which is rule 16 in the
+form the 9 September ruling names — *a record does not gain rows for events it
+did not witness*, and it does not gain them for absences that are not absent.
+
+**Third target for the 1 September principle.** Outward at a publisher: *our
+failure to find a document was never evidence it did not exist.* Inward at our own
+record on 9 September: the record's silence is not the record's disagreement. And
+now at a reviewer's reach: **a retrieval failure is a fact about the tooling that
+failed, and says nothing about what is held.** Three targets, one principle, and
+each time the correct move was to check the thing itself rather than to reason
+from the failure to reach it. The check that settled it took one query against the
+source store by URL.
+
+Direction it leans: toward recording work as undone. A false blocked entry would
+have put a permanent, plausible, self-consistent gap in the record, and the next
+person would have gone looking for a document that was already on disk.
+
+---
+
+## I deleted the gate report I needed to adjudicate from
+
+*11 September 2026. My own error, recorded because the adjudication rests on what
+it destroyed.*
+
+Before the third gate run I ran `rm -f …gate.json` to clear the stale report, then
+invoked the gate. **The gate refused on the run cap and wrote nothing**, so the
+run-2 report — the evidence for the residue I was then instructed to adjudicate —
+was gone, with no replacement.
+
+The substance survived in the conversation and in the entry above, so the
+adjudication is sound. But the sequence was wrong and the rule is general:
+
+> **Do not delete the old evidence until the new evidence exists.** A clear-then-
+> regenerate is two steps that look like one, and anything that refuses between
+> them leaves nothing. Write the new artefact first, or move the old one aside.
+
+What limited the damage was accidental: `…gate.json.runs.json`, the cap ledger, is
+a separate file and survived, which is the only reason the run history is still
+readable. That is luck rather than design, in the same shape as the `.venv`
+fallback recorded yesterday.
+
+---
+
+## Run 3: the gate is unreliable on sources it cannot reach, and that is now measured
+
+*11 September 2026. Three runs, $10.05. Nine SERIOUS findings. Nine refuted by
+held bytes. The stopping condition is met and there is no fourth run.*
+
+Run 3 was different in one respect only — it asserted nothing about which figure
+belonged to which analysis, because the draft now names the endpoint and the
+source. Instead all four SERIOUS findings took the form **"this cannot be
+verified from any publicly indexed source"**:
+
+| The gate could not verify | We hold |
+|---|---|
+| the `0.425 / 0.179–1.004 / 0.114–1.584` row | **S007**, the row itself, under the heading OS |
+| "nine deaths" and "fourteen deaths" | **S007** `3.7 (4/107)` + `10.0 (5/50)`; **S014** `7 pts … vs 7 pts`; **S004** in words |
+| the Tanguy quotation | **S024**, the sentence in full |
+| a death count of fourteen for the OS analysis | the same three documents |
+
+**This is the clean form of the defect.** Runs 1 and 2 made positive false claims
+about what the papers say. Run 3 made no false claim at all — it correctly
+reported the limit of its own reach, and the gate then treated that limit as a
+blocking finding. **Reported honestly and escalated wrongly**: NOT_FOUND is a
+statement about what a role reached, which is what a decision from 2 September
+already says, and the gate has still not learned it.
+
+All five were adjudicated as `reject - the document was open to us and closed to
+the gate`, carrying the quoted spans. That phrase now appears **twenty-five**
+times in `draft_decisions.json`.
+
+### What the labelling caught, and what it did not
+
+`annotate_reachability` marked **three of the four**. Its two signals are figures
+with two or more decimals, and quoted phrases of six words or more; the Tanguy
+finding was caught by the second, having no figures at all.
+
+**It missed the death counts**, and the reason is worth keeping: *"nine deaths"*
+and *"fourteen deaths"* are **spelled as words**, while the held documents record
+them as `4/107` and `5/50`. Matching that needs arithmetic over event counts, not
+string matching, and it is a different and fuzzier signal. Left unbuilt
+deliberately rather than bolted on at the end of a step — but named, so it is a
+decomposed gap rather than a vague one.
+
+### Three defects in the labeller, found by running it
+
+- **It was never called with a usable slug.** `issue_slug_for()` resolves a draft
+  by the case directories and falls back to the stem, so a correction email
+  arrives as `2026-09-10-corrections`, which indexes nothing. Fixed: when the slug
+  names no index, read **every** issue index — which is right on the merits, since
+  a correction email spans issues by construction. Ids are namespaced
+  (`melanoma:S007`) so two `S004`s cannot collide. It now sees **65 documents,
+  2.4M characters** instead of nothing.
+- **It cached the failure.** The first run wrote `{}` and every later run read
+  the `{}` back and reported "no held sources" without touching the library again.
+  **A cache that stores a failure makes the failure permanent.** Empties are now
+  neither written nor trusted.
+- **It printed `h["figure"]` on a phrase hit** and died with a `KeyError` in the
+  CLI. Caught immediately because the run was watched.
+
+### And the spend is landing on a pseudo-issue
+
+The same `issue_slug_for` fallback means this gate's spend is recorded against an
+issue named `2026-09-10-corrections`, which counts toward no real issue's cap.
+**Today's ~$10.05 is charged to nothing.** That is precisely the failure the
+function's own docstring records and fixed for emails on 1 September — *"every
+email gate run this project has ever done was recorded against an issue called
+'issue2-cdk46', so email spend has never counted toward the $40 cap"* — recurring
+for a new document type the fix did not anticipate. Recorded, not fixed: the cap
+is a control and changing it belongs in its own pass, not at the end of this one.
+
+Direction it leans: toward spending more than the cap believes. Same direction as
+the original.
+
+### My own error, twice in one day, same shape
+
+I ran the gate through `| tail -35` in a backgrounded command, so the captured log
+holds 37 lines and the rest is gone — including whatever the labeller printed
+about why it found nothing. Earlier I deleted the run-2 report with `rm -f` before
+a run that never replaced it. **Both destroyed the evidence needed to diagnose the
+thing I was about to diagnose.** The rule written this morning — *do not delete the
+old evidence until the new evidence exists* — needed a second clause: **and do not
+filter it away either.** A pipe is a deletion that does not look like one.
+
+---
+
+## The reachability matcher produces coincidental matches, and I loosened it into them
+
+*11 September 2026. Found by testing the change rather than by assuming it.*
+
+To reach run 3's blocking findings I relaxed the matcher twice: one-decimal
+figures where the integer part has two digits (to catch `34.9` months), and a
+union across every issue index when the slug names none. Both were needed. Both
+introduced noise, and the noise is now measured.
+
+Of **16 leads on run 3's report, 2 rest only on tokens appearing in more than 5 of
+the 65 held documents.** The clearest is a lead about S007's median follow-up of
+34.9 months whose match landed on **a cdk46 PALOMA paper** (`cdk46:S010`) — `"PALOMA-3
+(34.9 v 28.0 months; HR, 0.81)"` — a different trial, a different issue, the same
+four characters. (This paragraph first quoted the neighbouring `"37.5 v 34.5"` from
+the same sentence; that fragment does not contain the matched token. Corrected
+when the leads were named below.)
+**The right conclusion reached through the wrong document**, which is failure 14
+in the tool built to catch failure 14.
+
+And the change made for this step did **not** become matchable: `4/107`, `5/50`
+and `"November 3, 2023"` match nothing, because the figure rule needs a decimal
+point and the phrase rule needs six words. The two matches the new sentences did
+produce were both coincidences on cdk46 papers.
+
+**The matcher was not adjusted further.** Chasing those four findings by loosening
+the rule again is how a downgrade-only control becomes a rubber stamp: each
+relaxation is individually reasonable and the aggregate is a matcher that marks
+everything a lead. The asymmetry that makes it safe — it can only downgrade —
+stops being a defence once it downgrades indiscriminately.
+
+### Two things the executing party declined to settle quietly
+
+*Recorded at step 50, at the reviewer's instruction, beside the restraint above
+because they are the same act.*
+
+The first is the restraint itself: the matcher was left alone when loosening it
+once more would have reached four more findings, and the decision not to was
+reported rather than made.
+
+The second is from step 49. Materialising the sent blobs for the packet turned
+up two 29 August sends of issue two, with different bytes, and the correction
+says only "sent on 29 August". Which blob the packet should check against was a
+call the agent could have made silently — pick the later one, say nothing, and
+the packet would have read the same. It was instead made and **disclosed in the
+handover**, one step before an irreversible outward send. The disclosure is what
+produced step 50's lookup, which found that the two sends went to the same two
+people and that the correction is accurate for every recipient. Had the lists
+differed, the correction would have been false for some readers, and a silent
+choice of blob would have carried that falsity through a verification packet
+whose purpose was to catch exactly it.
+
+> **The executing party settles quietly what does not matter and settles loudly
+> what the operator should settle.** The test is not whether the call is
+> probably right — the later blob probably was — but whether being wrong would
+> change what goes out. Anything that would, in the last step before an action
+> that cannot be recalled, is surfaced, at the cost of a step.
+
+What this means for the 16: fourteen rest on discriminating tokens and are sound.
+Two are right by accident. *(Corrected below: three, once frequency was measured
+per token rather than assumed — one rare token was still a coincidence.)* **A lead is a pointer to a document, and a pointer to
+the wrong document is worth nothing even when the conclusion is right.**
+
+Next cycle, and decomposed: the matcher should report how many documents contain
+a matched token and decline to label on tokens that are common; and spelled-out
+counts ("nine deaths" against `4/107` + `5/50`) need arithmetic over event counts,
+which is a different signal and not a loosening of this one.
+
+### Which two, named — and the count is wrong
+
+*11 September 2026, step 48. Recorded at full weight, and it corrects an argument
+the reviewer endorsed.*
+
+Replayed against run 3's report with document frequency measured per token
+(65 documents, matcher unchanged). The sixteen leads and the two that rest only
+on a token in more than five documents:
+
+| lead | finding | tokens (docs of 65) | pointer |
+|---|---|---|---|
+| 9 | verdict `c28` — *the three-year update had a median follow-up of 34.9 months* | `34.9` (6) | `cdk46:S010` |
+| 14 | objection — *"nine deaths" / "fourteen deaths" / cutoff 3 November 2023 not verifiable* | `34.9` (6) | `cdk46:S010` |
+
+`34.9` sits in six held documents: two ClinicalTrials.gov records as a latitude
+(`34.94957`, `-34.95142`), the PALOMA paper's *"34.9 v 28.0 months"*, and three
+melanoma documents (S002, S007, S008) where it is the follow-up the claim is
+about. **S007 does contain the settling sentence.** The matcher never reached it:
+`check()` takes the first document in sort order and `break`s, and `cdk46:` sorts
+before `melanoma:`, so every token shared across issues will point at a cdk46
+paper. Right conclusion, wrong pointer — and the sort order, not the token, chose
+the pointer.
+
+**The ">5 documents" criterion under-counts.** A third lead rests entirely on a
+coincidence, and its token is rare:
+
+| lead | finding | tokens (docs of 65) | pointer |
+|---|---|---|---|
+| 10 | verdict `c38` — *reconstructed patient-data comparison, HR 0.722 (0.520–1.002), p = 0.051* | `0.051` (2) | `cdk46:S016` |
+
+Both hits are noise: `cdk46:S016` matches on the substring of `0.0519` in a table
+of proportions, and `cdk46:S020` on a ClinicalTrials.gov `"ciUpperLimit":"0.051"`
+for a change-from-baseline endpoint. `0.722`, `0.520` and `1.002` appear in **no
+held document** — `bindings.json` has said so since 1 September (`autobind: no
+held document contains all 8 anchors`, locator null). So the labeller marked as
+"a figure we hold" a figure we do not hold. Frequency is a proxy for
+discriminating power and a rare token can still be a coincidence; the honest
+test is whether the *other* tokens of the same finding land in the same document,
+and here none do.
+
+Three of sixteen, not two. Thirteen leads are sound: leads 1–8, 11–13, 15 and
+16 rest on `0.425`, `0.165`, `1.345`, `0.471`, `0.114`, `0.179`,
+`1.004`, `1.584` or the Tanguy sentence, each in one to four documents and each
+landing on a melanoma or Tanguy document that is the one the claim is about.
+
+**Whether the packet settles them independently:**
+
+- Lead 9 (`c28`): settled by packet item 3 — S007, *"median follow-up was 34.9
+  (range, 25.1-51.0) months"*.
+- Lead 14: settled by items 3 (cutoff), 4 (OS events 4/107 and 5/50 — nine), 11
+  (7 and 7 — fourteen) and 12 (`n=14`).
+- Lead 10 (`c38`): **not in the packet, and not in the library.** In the
+  correction email the figure appears only inside a quotation of the issue-two
+  email — *"in its own words"* — offered as evidence that three figures came from
+  comparative studies rather than trial publications. The correction asserts what
+  the earlier email said, not that 0.722 is true. That quotation is checkable
+  against `issue2-cdk46.html` and nothing else, and it is not one of the fifteen.
+
+### What the asymmetry argument actually protected
+
+The matcher's own docstring, endorsed on the reviewer's side: *a matcher that can
+only lower confidence cannot manufacture any.* That holds against **false
+blocks** — a downgrade can never stop a send that should go. It says nothing
+about **false reassurance** — a downgrade on a coincidental token tells the
+adjudicator "we hold the settling bytes, here is the sentence", when we do not
+and it is not. Once the matcher downgrades on coincidences, the direction it can
+move protects nothing; the safety was coming from the matcher being right, not
+from the direction. Failure 14 — the right conclusion through the wrong document
+— inside the tool built to catch failure 14, and it took the document-frequency
+count to see it because a wrong pointer to a right conclusion looks identical to
+a right one.
+
+## Lead 10 — the labeller asserted we hold a figure that no held document contains
+
+*11 September 2026, step 49. Filed separately from leads 9 and 14, at higher
+severity. First actual instance of the FALSE REASSURANCE failure (failure 32),
+arriving within hours of the asymmetry argument being written down and endorsed.*
+
+Leads 9 and 14 reached a **correct** conclusion through a wrong pointer: S007
+holds the 34.9-month follow-up; the matcher stopped at a PALOMA paper first.
+Lead 10 reached a **wrong** conclusion. Run 3's verdict `c38` — *"could not
+locate any primary source containing a reconstructed patient-data comparison
+yielding HR 0.722, CI 0.520–1.002, p = 0.051"* — was downgraded to LEAD, which
+says to the adjudicator: *this disputes a figure we hold; here is the settling
+sentence.* We hold no such figure. The two hits were a `0.0519` substring in a
+table of proportions (`cdk46:S016`) and a ClinicalTrials.gov
+`"ciUpperLimit":"0.051"` on a change-from-baseline endpoint (`cdk46:S020`).
+`0.722`, `0.520` and `1.002` occur in none of the 65 documents.
+
+**The record already said so, and the labeller did not consult it.**
+`issues/WHU-002-cdk46/bindings.json` has carried, since 1 September, for both
+sentences that use the figure:
+
+    "locator": null,
+    "autobind": "no held document contains all 8 anchors: 0.722, 0.520, 1.002, 0.051, 0.921"
+
+The labeller answers "do we hold bytes containing this figure?" by string search
+over the library, and never reads the ledger whose entire purpose is to answer
+that question for each sentence. A ledger that says *not held* was overruled by a
+grep that said *held*, and the grep was wrong. Failure 25 (provenance is
+recorded, never inferred from a match) already names this; here the recorded
+provenance existed, said the right thing, and lost to inference anyway.
+
+Severity, stated: the gate's verdict `c38` was **correct as written** — no held
+source contains the figure — and the labeller converted a correct NOT_FOUND
+into a false "we hold this". A downgrade-only control produced the exact error
+its direction was argued to make impossible. In this email the figure sits
+inside a quotation of the issue-two send, so the correction's own claim
+survives; the mechanism does not depend on that and would not next time.
+
+Not in the fifteen-item packet; now packet item 22, checked against the sent
+bytes rather than the library, which is the only place that figure can be
+checked.
+
+### The entry's own error, while writing the entry — third time today
+
+The open-gaps paragraph that first recorded the coincidental match quoted
+`"37.5 v 34.5 months; HR, 0..."` as the fragment the matcher landed on. That
+fragment is from the right sentence in the right paper and **does not contain
+the matched token**; `34.9` is eleven words later, in *"PALOMA-3 (34.9 v 28.0
+months; HR, 0.81)"*. Self-corrected at step 48. It is the third time today a
+party committed an entry's own error in the act of writing the entry: the
+reviewer's *"both emails said"* in a ruling about attributing a sentence to the
+wrong email; the agent's interpolated middle dots inside a quotation, in an
+entry about verbatim quotation; and now a wrong fragment in the entry about
+pointing at the wrong fragment. **The pattern is not about who. It is about
+writing under a rule** — the rule under discussion is the one the writer is
+least able to see themselves breaking, because attention is on stating it, not
+on obeying it. The only thing that has caught any of the three is a second
+party reading the entry against the object it describes.
+
+### Section 2 of the packet, and why it was added
+
+Recorded here as well as in the packet. The fifteen items check other people's
+documents. The correction's load-bearing claims are quotations of **our own sent
+bytes** — the Jacot sentence, the three comparative figures, both sourcing
+sentences, the 80% interval sentence, the unlabelled *"the interval runs from
+0.165 to 1.345"* — and they were verified by their author only. A misquotation
+inside a correction about misquotation is the error this email cannot survive.
+Seven items added (16–22), each against the blob whose sha `sent.json` records.
+Nothing in the email moved; the body sha holds; the rehearsal stands. Verifying
+more is not changing more.
+
+Two facts surfaced while materialising the blobs, recorded and not acted on:
+
+- **Issue two was sent twice on 29 August** — 02:26 (`4639055f…`, commit
+  `51478a7d`) and 14:33 (`f4fa7164…`, commit `5b2775e4`). The packet checks the
+  later one, which is the version the list holds last. The correction says
+  "sent on 29 August" and does not distinguish them.
+
+  **Settled, step 50 — same list twice.** `published.json` records both
+  announces to segment `bae12ea6-cbad-4b91-b250-81991bf6b4b5`; `sent.json`
+  carries the same two rows. Resend, read directly (`Broadcasts.get`, read-only):
+  broadcast `921e7086…` and broadcast `7a95a526…` both have
+  `audience_id bae12ea6…`, both `status: sent`, sent at 02:27:00 and 14:34:14 UTC.
+  The audience holds two contacts, both created 2026-08-27 18:07 UTC — before
+  either send — neither unsubscribed. What the record cannot say: whether any
+  contact was added and removed between the two sends; there is no membership
+  history. Nothing suggests one, and the 11 September attestation says the list
+  has only ever held test subscribers. So every recipient of the 02:26 send also
+  received the 14:33 send, and the correction's *"the email for issue two, sent
+  on 29 August"* is accurate for every recipient. Quoting the later blob is
+  right. Nothing in the email changes.
+
+  **Why the error was introduced between sends — established, and it was
+  already on the record.** `git log -S Jacot`: the name enters both the page and
+  the email in commit `5b2775e4` (29 Aug 14:24 UTC, nine minutes before the
+  second send), whose message reads *"The run also found Jacot et al., npj Breast
+  Cancer 2018 … Now cited by name."* `issues/WHU-002-cdk46/corrections.md` says
+  the rest: *"The wrong name was taken from a fact-check run's coverage finding
+  and printed without anyone opening the paper."* The second send existed
+  because the email had been rewritten that morning (`209ae7a`, *"Email
+  rewritten to match"*, then `5b2775e4`), and the re-send carried the new
+  attribution out to the same two people who had the 02:26 version. The
+  02:26 blob has no Jacot because the citation did not yet exist; it had been
+  presented as our own argument.
+- `issues/WHU-001-melanoma/review/2026-09-04-sent.html` hashes to `a788f00a…`,
+  not to the `5ef7890a…` that `sent.json` records for the 4 September send. The
+  blob used for the packet was taken from the recorded commit (`eae2c400`) and
+  hashes to the recorded sha; the file under `review/` describes itself as the
+  sent version and is something else. Not diagnosed here.

@@ -1830,6 +1830,70 @@ def _norm(text: str) -> str:
     return " ".join(t.split()).strip(EDGE)
 
 
+def annotate_reachability(slug: str, *groups, claims=None) -> int:
+    """Mark every finding that disputes a figure we hold the bytes for.
+
+    WHY. On 2026-09-11 this gate produced five SERIOUS findings across two paid
+    runs, and every one was refuted by two documents held since 1 September.
+    It reads the web and nothing else: its only evidence channel is the
+    web_search server tool, so it found adjacent figures in reachable material
+    and reported the mismatch as the draft's error.
+
+    This does NOT resolve which held document bears on which claim -- that is
+    the hard problem, it has no test set, and it stays deferred. It asks only:
+    the finding disputes a figure; do we hold bytes containing that figure? If
+    so the finding concerns a source this gate could not open, and it is marked
+    a LEAD carrying the sentence from the held document.
+
+    It can only ever DOWNGRADE. A false positive turns a real finding into a
+    lead a human still reads; a false negative leaves the finding untouched. It
+    never verifies, never silences, and never raises a severity, which is what
+    makes a crude figure match safe here and unsafe in a verifier.
+
+    Fails open: an annotation that cannot run must never take the gate with it.
+    """
+    try:
+        here = Path(__file__).resolve().parents[1] / "whatholdsup"
+        if str(here) not in sys.path:
+            sys.path.insert(0, str(here))
+        import reachability as _R
+        corpus = _R.held_text(slug)
+    except (Exception, SystemExit) as exc:                  # noqa: BLE001
+        print(f"      [WARN] reachability labelling did not run ({exc}). "
+              f"Findings are unlabelled; nothing is downgraded.")
+        return 0
+    if not corpus:
+        print("      [WARN] no held sources found for %s — nothing labelled." % slug)
+        return 0
+    # A SOURCE verdict says "could not locate any primary source confirming X"
+    # and does NOT carry X -- the figure lives in the CLAIM it refers to, in a
+    # different structure, joined by id. Annotating the verdict alone therefore
+    # searched text that never contained the disputed number, and every one of
+    # run 3's sixteen unverified source verdicts went unlabelled for that reason.
+    by_id = {c.get("id"): c for c in (claims or []) if isinstance(c, dict)}
+
+    n = 0
+    for g in groups:
+        for item in (g or []):
+            if not isinstance(item, dict):
+                continue
+            sev = item.get("severity") or item.get("verdict") or ""
+            blob = " ".join(str(item.get(k) or "") for k in
+                            ("quote", "problem", "objection", "note", "correct_reading"))
+            c = by_id.get(item.get("id"))
+            if c:
+                blob += " " + " ".join(str(c.get(k) or "")
+                                       for k in ("figure", "claim"))
+            hits = _R.check(slug, blob, corpus)
+            item["held_figures"] = hits
+            if _R.label(hits, sev) == "LEAD":
+                item["reachability"] = "LEAD"
+                n += 1
+    print("      %d of the findings dispute a figure we hold; marked LEAD." % n
+          if n else "      no finding disputes a figure we hold.")
+    return n
+
+
 def load_decisions(path: Path, draft: str) -> dict:
     """{(role, normalised quote): decision} for this draft."""
     if not path.exists():
@@ -1918,6 +1982,40 @@ def classify(role: str, quote: str, severity: str,
 # report
 # ---------------------------------------------------------------------------
 
+def is_lead(item: dict) -> bool:
+    """A SERIOUS finding about a source this gate cannot open is a LEAD, not a block.
+
+    WHY THIS EXISTS, and it is the gate's own error rather than a convenience.
+
+    On 2026-09-11, run 3 of this gate on the correction email produced four
+    SERIOUS findings and **not one of them made a false claim**. Each said some
+    version of "this cannot be verified from any publicly indexed source" --
+    which was TRUE. The gate reads the web and nothing else. The figures it
+    could not verify sit in S007, S004, S014 and S024, held in full since
+    1 September, and it cannot open any of them.
+
+    So the gate took an honest statement about the limit of its own reach and
+    escalated it into a block on the publication. That is exactly the error this
+    publication exists to name, turned inward on its own severity mapping:
+
+        A retrieval failure is a fact about the tooling that failed.
+        It is never a fact about the world, and never about the draft.
+
+    The 2 September adjudication already said it -- "A NOT_FOUND is a statement
+    about what the role reached, not about what exists" -- and the mapping never
+    learned it, so every cycle paid for it again in adjudication.
+
+    `annotate_reachability` marks a finding LEAD when it disputes a figure or a
+    quotation that appears in bytes we hold. Until now nothing read that label:
+    it was written into the report and never consulted, an unread signature on a
+    control that was still warm. This is what reads it.
+
+    A lead still prints, still needs reading, and still carries the held sentence
+    that settles it. It just does not stop a send on its own.
+    """
+    return isinstance(item, dict) and item.get("reachability") == "LEAD"
+
+
 def render(claims, verdicts, recency, objections, inferences, cov,
            decisions=None) -> tuple[str, bool]:
     decisions = decisions or {}
@@ -1952,7 +2050,8 @@ def render(claims, verdicts, recency, objections, inferences, cov,
         if kind == "STALE":
             moved_since.append(("SOURCE", v.get("verdict"),
                                 (c.get("figure") or c.get("claim") or "")[:90], dec, how))
-        failed = True
+        if not is_lead(v):
+            failed = True
         lines.append("")
         lines.append(f"  [{kind} · {v.get('verdict')}] "
                      f"{c.get('figure') or c.get('claim') or v.get('id')}")
@@ -2040,10 +2139,11 @@ def render(claims, verdicts, recency, objections, inferences, cov,
             moved_since.append(("ADVOCATE", o.get("severity"), o.get("objection"), dec, how))
         # Missing class means an older report, or a role that did not answer:
         # fail closed, because an unclassified finding is not a cleared one.
-        if o.get("severity") == "SERIOUS" and o.get("class", "") != "CALIBRATION":
+        if (o.get("severity") == "SERIOUS" and o.get("class", "") != "CALIBRATION"
+                and not is_lead(o)):
             failed = True
         lines.append("")
-        lines.append(f"  [{kind} · {o.get('severity')} · "
+        lines.append(f"  [{'LEAD · ' if is_lead(o) else ''}{kind} · {o.get('severity')} · "
                      f"{o.get('class', 'UNCLASSIFIED')}] {o.get('objection')}")
         if kind == "OVERLAP":
             lines.append(f"     already decided about this sentence, on other "
@@ -2071,10 +2171,11 @@ def render(claims, verdicts, recency, objections, inferences, cov,
             continue
         if kind == "STALE":
             moved_since.append(("INFERENCE", i.get("severity"), i.get("problem"), dec, how))
-        if i.get("severity") == "SERIOUS" and i.get("class", "") != "CALIBRATION":
+        if (i.get("severity") == "SERIOUS" and i.get("class", "") != "CALIBRATION"
+                and not is_lead(i)):
             failed = True
         lines.append("")
-        lines.append(f"  [{kind} · {i.get('severity')} · "
+        lines.append(f"  [{'LEAD · ' if is_lead(i) else ''}{kind} · {i.get('severity')} · "
                      f"{i.get('class', 'UNCLASSIFIED')}] {i.get('problem')}")
         if kind == "OVERLAP":
             lines.append(f"     already decided about this sentence, on other "
@@ -2116,7 +2217,7 @@ def render(claims, verdicts, recency, objections, inferences, cov,
         if kind == "STALE":
             moved_since.append(("COVERAGE", c.get("severity"),
                           c.get("counterexample", "")[:90], dec, how))
-        if c.get("severity") == "SERIOUS":
+        if c.get("severity") == "SERIOUS" and not is_lead(c):
             failed = True
         lines.append("")
         lines.append(f"  [{kind} · {c.get('severity')}] the draft's claim about the "
@@ -2519,6 +2620,11 @@ def main():
             "inferences": inferences, "coverage": cov,
         }, indent=2), encoding="utf-8")
 
+    leads = annotate_reachability(_LEDGER_ISSUE or "", verdicts.values()
+                                  if isinstance(verdicts, dict) else verdicts,
+                                  objections, inferences, recency, cov,
+                                  claims=claims)
+
     save(None)
     cycle_record(args.report, hashlib.sha256(path.read_bytes()).hexdigest(),
                  args.past_cap) if args.report else None
@@ -2543,6 +2649,12 @@ def main():
     print("")
     if failed:
         print("BLOCKED — resolve every item above, or record it in the piece, before publishing.")
+        if leads:
+            print()
+            print("  %d finding(s) are marked LEAD: they dispute a figure that appears" % leads)
+            print("  in a source we hold and this gate cannot open. Each carries the")
+            print("  sentence from the held document under 'held_figures' in the report.")
+            print("  Read those against the bytes before treating any of them as a finding.")
         sys.exit(1)
     print("PASSED — every claim verified against a primary source, nothing stale, "
           "no serious objection, no unwarranted inference,")

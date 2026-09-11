@@ -34,6 +34,23 @@
       "sha": "5ef7890a0d09a895bc270469a308d67fb82a4664345ea1536debce6419d5e1bd",
       "covers": "unknown",
       "seeded": "2026-09-10, from published.json's announce row. Whether this send carried any correction is not recorded and cannot now be established."
+    },
+    {
+      "at": "2026-09-11T13:34:00+00:00",
+      "issue": "corrections",
+      "kind": "broadcast",
+      "subject": "Three corrections to issues you have already read",
+      "sha": "ca9248c8b7f73b2364013baaa41202186e053a6a43b91f175ffec3dad618da22",
+      "audience": "bae12ea6-cbad-4b91-b250-81991bf6b4b5",
+      "covers": [
+        "1 September 2026 — an observation we put under someone else's name, and a true conclusion with a false reason",
+        "9 September 2026 — an outside review, and a self-accusation that overstated what we did",
+        "4 September 2026 — three sentences that argued with themselves"
+      ],
+      "state": "failed",
+      "attested": "Operator, 2026-09-11: the only subscribers on that list are test subscribers since we do not yet have any other subscribers. Measured 2 contacts (sync_subscribers.py, 2026-09-10). Rehearsal and send are therefore one act; sending twice would mail the same people twice.",
+      "note": "Written BEFORE the send. A send is irreversible and a record is not: if the send succeeds and no row exists, the next assembly re-sends what readers already have and nothing says they were sent. Updated to sent or failed below.",
+      "result": "segment  : bae12ea6-cbad-4b91-b250-81991bf6b4b5\nsubject  : Three corrections to issues you have already read\nfrom     : What Holds Up <issues@whatholdsup.org>\nhtml     : 2026-09-10-corrections.html (10,364 bytes)\ntext     : 2026-09-10-corrections.txt (6,570 bytes)\ncss      : no variables, flex, grid or style blocks  OK\nunsub    : {{{RESEND_UNSUBSCRIBE_URL}}} present in every part, nothing hardcode"
     }
   ]
 }

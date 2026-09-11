@@ -1,0 +1,30 @@
+{
+  "what_this_is": "The five SERIOUS findings the fact-check gate produced on 2026-09-11 across two paid runs of the correction email, transcribed verbatim from the run output. Four are known false and are refuted by S004 and S007, which the gate cannot reach. The fifth is known GOOD and must not be downgraded -- it is the control. The reports themselves were deleted before the third run; this fixture is what survived, and it is why the deletion did not cost the test.",
+  "findings": [
+    {
+      "run": 1, "key": "inferences", "severity": "SERIOUS", "truth": "false",
+      "quote": "The 95% interval is 0.114 to 1.584 - wider than the five-year figure's interval, not tighter, and it includes 1.",
+      "problem": "The draft attributes 0.114-1.584 to the earlier (three-year) OS analysis and 0.165-1.345 to the later (five-year) analysis, but the published five-year JCO paper reports HR 0.425 with 95% CI 0.114-1.584 - the same numbers as the three-year update - not 0.165-1.345; the draft's 'later' figure (HR 0.471, 95% CI 0.165-1.345) does not appear in any published source for KEYNOTE-942 OS."
+    },
+    {
+      "run": 2, "key": "inferences", "severity": "SERIOUS", "truth": "false",
+      "quote": "The row reads: \"HR - 0.425 80% CI 0.179 to 1.004 95% CI 0.114 to 1.584\"",
+      "problem": "The draft states the three-year paper's OS hazard ratio is 0.425, but the five-year JCO paper reports the three-year RFS HR as 0.510 (95% CI 0.288-0.906) and the five-year RFS HR as 0.51 (95% CI 0.294-0.887); the reader cannot tell whether 0.425 is an RFS, DMFS, or OS estimate from the three-year paper."
+    },
+    {
+      "run": 2, "key": "inferences", "severity": "SERIOUS", "truth": "false",
+      "quote": "The 95% interval is 0.114 to 1.584 - wider than the five-year figure's interval of 0.165 to 1.345, not tighter, and it includes 1.",
+      "problem": "The draft compares the three-year OS 95% CI (0.114-1.584, nine deaths) with the five-year RFS 95% CI (0.165-1.345, fourteen deaths) as though they are intervals for the same endpoint."
+    },
+    {
+      "run": 2, "key": "inferences", "severity": "SERIOUS", "truth": "false",
+      "quote": "On nine deaths, that analysis does not establish a survival benefit",
+      "problem": "The draft has not confirmed that the endpoint of the three-year analysis being discussed is overall survival; if HR 0.425 is an RFS or DMFS estimate (as the five-year paper's parallel figures are), calling it a 'survival benefit' conflates recurrence-free or metastasis-free survival with overall survival."
+    },
+    {
+      "run": 2, "key": "objections", "severity": "SERIOUS", "truth": "good",
+      "quote": "An 80% interval is narrower than a 95% interval computed from the same data; that is what the numbers mean, not a property of the result.",
+      "problem": "The draft frames this as an explanation but does not acknowledge that the two intervals are not from the same data - the 80% CI is from the three-year analysis and the 95% CI the reader compared it against was from the five-year analysis."
+    }
+  ]
+}
