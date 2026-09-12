@@ -7,7 +7,7 @@
   "_status_values": ["draft", "gated", "reviewed", "published", "superseded"],
   "standards_version": "1.1",
   "living": true,
-  "_living_note": "The first living issue. The question is standing rather than settled, the literature is active, and the authors of its strongest study explicitly asked for the trial that would change the answer. The page carries a Last reviewed date — the date somebody last LOOKED, not the date something last changed — and watch.json holds seven standing questions with the searches that would answer each.",
+  "_living_note": "The first living issue. The question is standing rather than settled, the literature is active, and the authors of its strongest study explicitly asked for the trial that would change the answer. watch.json holds seven standing questions with the searches that would answer each; the watch is our instrument. The page states the date its evidence was read and makes no claim about the interval since — the 'Last reviewed' date it carried from 30 August was withdrawn on 12 September 2026 under review/2026-09-12-modest-promise-ruling.md.",
   "page": "site/whatholdsup/deskilling.html",
   "url": "https://whatholdsup.org/deskilling",
   "email": {

@@ -69,7 +69,7 @@ from zoneinfo import ZoneInfo
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
-OK, WARN, BAD = "ok", "warn", "STOP"
+OK, BAD, WARN = "ok", "BLOCKED", "warn"   # publish.py's vocabulary; " STOP" is the display mark
 
 # ---------------------------------------------------------------------------
 # EDITORIAL_TZ — the zone every reader-facing date on this site is stated in.
@@ -265,6 +265,7 @@ def audit(index_html: str | None = None) -> list[str]:
         slug, meta = m.group("slug"), _text(m.group("meta"))
         exp, got = expected(slug), shown(meta)
         days = publication_dates(slug)
+        before = len(problems)
         if not exp:
             problems.append("%s [%s]: linked from the index with no publication record"
                             % (slug, UNFOUNDED))
@@ -308,16 +309,75 @@ def audit(index_html: str | None = None) -> list[str]:
         # failure this check exists for; its presence with a stale date is not
         # policed here, because corrections.md carries many dates and the index
         # legitimately shows the marker rather than a running list.
-        if exp.get("corrected") and not got.get("corrected"):
-            problems.append(
-                "%s [%s]: corrections.md has %d entr%s and the index shows no correction marker"
-                % (slug, BEHIND, corrections_count(slug),
-                   "y" if corrections_count(slug) == 1 else "ies"))
-        elif got.get("corrected") and not exp.get("corrected"):
-            problems.append(
-                "%s [%s]: index shows a correction marker and this issue has no corrections log"
-                % (slug, UNFOUNDED))
+        #
+        # 2026-09-12: the marker is a COUNT now, and the count is policed by the
+        # field comparison below (slot 3 of the provenance line) -- which also
+        # catches the case the presence test could not: a marker with the wrong
+        # number behind it. The two marker rows that stood here (no marker /
+        # marker with no log) are subsumed by that slot and are removed rather
+        # than left as a second check on one fact. The reasoning above about a
+        # correction DATE stands: the line carries no correction date, and none
+        # is demanded.
+        problems.extend(field_problems(slug, m.group("meta"),
+                                       dates_reported=len(problems) > before))
     return problems
+
+
+# THE PROVENANCE LINE, FIELD BY FIELD.
+#
+# On 2026-09-12 melanoma's card read "14 corrections · sources checked
+# 9 September 2026" while the record said 15 and 11 September. The date rows
+# above passed it, and the marker row passed it: a marker was present, and only
+# presence was tested. The line is generated (issue_facts.line, via meta_html)
+# and the card was typed by hand from a stale generation -- which is the exact
+# failure the generator exists to prevent, one step downstream of it.
+#
+# So the card's <span class="prov"> is compared to meta_html(slug, None) slot
+# by slot. The date rows above are KEPT: they carry the BEHIND / UNFOUNDED
+# classification and the "behind by n event(s)" explanation, which a string
+# comparison cannot give. To keep one check per fact, the two date slots are
+# reported here only when the date rows found nothing for this card -- a
+# wording mismatch ("updated" for "revised") is the case that reaches here.
+SLOTS = ("published", "revised", "corrections", "outside review", "sources checked")
+PROV = re.compile(r'<span class="prov">(?P<line>.*?)</span>', re.S)
+# The homepage cards carry no ordinal in the line; the ordinal sits in the
+# card's own `.no` span. meta_html(slug, None) is what the cards render.
+CARD_ORDINAL = None
+
+
+def _slots(line: str) -> list[str]:
+    return [s.strip() for s in re.split(r"\s*&middot;\s*", line.strip())]
+
+
+def field_problems(slug: str, card_html: str, expected_line: str | None = None,
+                   dates_reported: bool = False) -> list[str]:
+    """Each slot of the card's provenance line that disagrees with the record:
+    field, what the page says, what the record says."""
+    exp_line = expected_line if expected_line is not None else meta_html(slug, CARD_ORDINAL)
+    if exp_line is None:
+        return []
+    pm = PROV.search(card_html)
+    if not pm:
+        return ["%s [%s]: the card carries no provenance line; the record would show: %s"
+                % (slug, BEHIND, _text(exp_line))]
+    got, exp = _slots(pm.group("line")), _slots(exp_line)
+    out = []
+    if len(got) != len(exp):
+        out.append("%s [%s]: the provenance line has %d slot(s) and the record renders %d "
+                   "-- page: %s -- record: %s"
+                   % (slug, UNFOUNDED, len(got), len(exp), _text(pm.group("line")),
+                      _text(exp_line)))
+        return out
+    for i, (g, e) in enumerate(zip(got, exp)):
+        if g == e:
+            continue
+        if i < 2 and dates_reported:
+            continue   # the date rows already said why, with a classification
+        out.append("%s: %s -- page says %r, record says %r"
+                   % (slug, SLOTS[i], _text(g), _text(e)))
+    return out
+
+
 
 
 def meta_html(slug: str, ordinal: str) -> str | None:
@@ -336,9 +396,10 @@ def preflight_rows(index_html: str | None = None) -> list[tuple[str, str, str]]:
     problems = audit(index_html)
     return [("homepage dates match the record",
              OK if not problems else BAD,
-             "every issue on the index shows the dates published.json records"
+             "every card on the index shows the dates, correction count, review and "
+             "sources-checked date the record derives"
              if not problems else
-             "%d disagreement(s) between the index and published.json: %s"
+             "%d disagreement(s) between the index and the record: %s"
              % (len(problems), " || ".join(problems)))]
 
 

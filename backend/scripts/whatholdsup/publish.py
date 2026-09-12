@@ -1818,6 +1818,15 @@ def show(rows: list[tuple[str, str, str]], waive: str | None = None,
     # check that had nothing to say. Any state this display cannot render is
     # promoted to a STOP naming the module, because a check whose verdict
     # cannot be read has not been run.
+    #
+    # Second instance, 2026-09-12: five modules (epistemic, index_dates,
+    # markup, open_list, watch) defined BAD as "STOP" -- the display mark, not
+    # the state. index_dates and watch feed this display directly, so every
+    # blocking row they produced printed under this fallback instead of its own
+    # message: promoted correctly, reason invisible. All five now use this
+    # file's vocabulary and tests/test_whatholdsup_vocabulary.py enumerates
+    # every module on disk to keep it that way. THIS GUARD STAYS regardless:
+    # it is what caught both instances.
     rows = [(l, st if st in mark else BAD,
              d if st in mark else
              "this check returned the state %r, which is not one of %s -- its "

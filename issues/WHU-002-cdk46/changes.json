@@ -3127,6 +3127,61 @@
       "now": "This page had claimed a complete comparative literature it had not surveyed; a fourth study was added, including the one figure on this page that cuts against its own conclusion.",
       "because": "G1",
       "note": "No change to this sentence. It is unchanged from the previous version and appears here only because inserting the five-positions paragraph into the change log re-paired the diff's adjacent sentences. Recorded rather than left undecided: an unexplained row is indistinguishable from an unexplained change."
+    },
+    {
+      "at": "2026-09-12T22:15:41+00:00",
+      "interpreter": "/opt/homebrew/opt/python@3.14/bin/python3.14",
+      "by": "claude",
+      "kind": "changed",
+      "was": "What is established, and what is not As of this draft.",
+      "now": "What is established, and what is not As of 1 September 2026 - the date the claims in this section were last checked against the record.",
+      "because": "AD-HOC",
+      "note": "Not a correction: states a bound that was always true. The 12 September 2026 modest-promise ruling (issues/WHU-003-deskilling/review/2026-09-12-modest-promise-ruling.md). The as-of date is 1 September 2026, the day this section's claims were last worked against their sources (corrections.md entries of 1 September; changes.json CORR-13..19: HARMONIA, Shaaban, MONALEESA-2), not today's registry baseline, which re-read two registry records and not the trials, labels or guideline the section rests on.",
+      "correction": false
+    },
+    {
+      "at": "2026-09-12T22:15:42+00:00",
+      "interpreter": "/opt/homebrew/opt/python@3.14/bin/python3.14",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "This date moves when we check again, not when we edit the prose.",
+      "because": "AD-HOC",
+      "note": "Not a correction: states a bound that was always true. The 12 September 2026 modest-promise ruling (issues/WHU-003-deskilling/review/2026-09-12-modest-promise-ruling.md). The as-of date is 1 September 2026, the day this section's claims were last worked against their sources (corrections.md entries of 1 September; changes.json CORR-13..19: HARMONIA, Shaaban, MONALEESA-2), not today's registry baseline, which re-read two registry records and not the trials, labels or guideline the section rests on.",
+      "correction": false
+    },
+    {
+      "at": "2026-09-12T22:15:42+00:00",
+      "interpreter": "/opt/homebrew/opt/python@3.14/bin/python3.14",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "This page is not monitored continuously.",
+      "because": "AD-HOC",
+      "note": "Not a correction: states a bound that was always true. The 12 September 2026 modest-promise ruling (issues/WHU-003-deskilling/review/2026-09-12-modest-promise-ruling.md). The as-of date is 1 September 2026, the day this section's claims were last worked against their sources (corrections.md entries of 1 September; changes.json CORR-13..19: HARMONIA, Shaaban, MONALEESA-2), not today's registry baseline, which re-read two registry records and not the trials, labels or guideline the section rests on.",
+      "correction": false
+    },
+    {
+      "at": "2026-09-12T22:15:43+00:00",
+      "interpreter": "/opt/homebrew/opt/python@3.14/bin/python3.14",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "What follows records what we changed and when; it is not a record of everything that has happened since publication.",
+      "because": "AD-HOC",
+      "note": "Not a correction: states a bound that was always true. The 12 September 2026 modest-promise ruling (issues/WHU-003-deskilling/review/2026-09-12-modest-promise-ruling.md). The as-of date is 1 September 2026, the day this section's claims were last worked against their sources (corrections.md entries of 1 September; changes.json CORR-13..19: HARMONIA, Shaaban, MONALEESA-2), not today's registry baseline, which re-read two registry records and not the trials, labels or guideline the section rests on.",
+      "correction": false
+    },
+    {
+      "at": "2026-09-12T22:15:43+00:00",
+      "interpreter": "/opt/homebrew/opt/python@3.14/bin/python3.14",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "Where a claim here depends on the present state of a trial registry, a drug label or a guideline version, the source we link is authoritative and this page is not.",
+      "because": "AD-HOC",
+      "note": "Not a correction: states a bound that was always true. The 12 September 2026 modest-promise ruling (issues/WHU-003-deskilling/review/2026-09-12-modest-promise-ruling.md). The as-of date is 1 September 2026, the day this section's claims were last worked against their sources (corrections.md entries of 1 September; changes.json CORR-13..19: HARMONIA, Shaaban, MONALEESA-2), not today's registry baseline, which re-read two registry records and not the trials, labels or guideline the section rests on.",
+      "correction": false
     }
   ]
 }

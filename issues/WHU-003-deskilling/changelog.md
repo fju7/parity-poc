@@ -13,18 +13,20 @@ version of the page. Every entry is bound to a content hash in `watch.json`,
 for the same reason gate acceptances are: an entry unbound from the content it
 describes is a claim nobody can check.
 
-## The promise this page makes
+## The promise this page makes, and the one it does not
 
-This assessment is **living**. It carries a *Last reviewed* date, and that is
-the date somebody last **looked** — not the date something last **changed**.
+This assessment is **living**: the question is standing, and `watch.json`
+holds the questions we are watching and the searches that would answer each.
 
-That distinction is the whole point. "Last updated 29 August" on a page nobody
-has opened since is a claim of freshness made by silence, and it is exactly the
-kind of thing this publication exists to point at in other people. If the date
-below is old, the honest reading is that nobody has checked recently, and you
-should treat the page accordingly.
-
-A review that finds nothing is still a review, and it is recorded as one.
+The page makes the modest promise — we read these documents and this is what
+they said, as of a stated date — and no other. It states the date its evidence
+was read and claims nothing about the interval since. Until 12 September 2026
+it also carried a *Last reviewed* date and an argument for it; that promise
+was withdrawn by the operator's ruling of that day
+(`review/2026-09-12-modest-promise-ruling.md`), because a review date implies
+the page is kept current and we cannot stand behind that: what we watch is
+narrower than what could change, and nothing obliges anyone to look before a
+reader arrives. The watch runs for us. It is an instrument, not a promise.
 
 ## What is being watched
 

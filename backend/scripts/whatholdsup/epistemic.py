@@ -53,7 +53,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 import source_store as store          # noqa: E402
 
-OK, WARN, BAD = "ok", "warn", "STOP"
+OK, BAD, WARN = "ok", "BLOCKED", "warn"   # publish.py's vocabulary; " STOP" is the display mark
 
 PASS, FAIL, NOT_EVALUATED = "PASS", "FAIL", "NOT EVALUATED"
 

@@ -121,10 +121,11 @@ on whether AI-assisted colonoscopy is good for patients: the randomised
 evidence that AI raises detection during the procedure is not in
 dispute and is not what the assessment examined.
 
-This is our first living assessment. It carries a "last reviewed" date
-- the day somebody last looked, not the day something last changed -
-and a standing list of the findings that would change it. A review that
-turns up nothing is still recorded as a review.
+This is our first living assessment. It carries a standing list of
+the findings that would change it, and the date its evidence was read.
+It does not promise to be current: what we watch is narrower than what
+could change, and the list is our instrument rather than a guarantee
+that anyone has looked since.
 
 Every figure above comes from the study that produced it, read
 directly. Where we could not read something, the assessment says so

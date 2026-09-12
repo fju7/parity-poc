@@ -798,6 +798,196 @@
       "now": "That would be a second instance of the error this page is about, in the same journal as the study - and we are not printing it as a finding, because we could not open the letter to read the sentence ourselves.",
       "because": "POST-02",
       "at": "2026-08-30"
+    },
+    {
+      "at": "2026-09-12T22:30:19+00:00",
+      "interpreter": "/opt/homebrew/opt/python@3.14/bin/python3.14",
+      "by": "claude",
+      "kind": "changed",
+      "was": "What Happens to the Experts First - What Holds Up What Holds Up What this is The rubric Issues Who pays for this Issue three Evidence review Living assessment Published 30 August 2026 · Last reviewed 30 August 2026 · what we are watching What Happens to the Experts First whatholdsup.org There is a widely held sense that using AI is making us worse at thinking, and that there is now real evidence for it.",
+      "now": "What Happens to the Experts First - What Holds Up What Holds Up What this is The rubric Issues Who pays for this Issue three Evidence review Living assessment Published 30 August 2026 · Evidence read 30 August 2026 · what we are watching What Happens to the Experts First whatholdsup.org There is a widely held sense that using AI is making us worse at thinking, and that there is now real evidence for it.",
+      "because": "REVIEW-DATE-001",
+      "note": "Correction: the page promised a review date from 30 August ('Last reviewed', a paragraph defending it, the watch standfirst, the publication history) and the promise is withdrawn -- masthead now 'Evidence read', the argument paragraph says what it used to promise and why it no longer does, a standing note states the bound, a dated entry tells readers. The watch register is untouched. REVIEW-DATE-001 in review/2026-09-12-review-date-adjudication.md; operator ruling review/2026-09-12-modest-promise-ruling.md; corrections.md entry of 12 September 2026."
+    },
+    {
+      "at": "2026-09-12T22:30:19+00:00",
+      "interpreter": "/opt/homebrew/opt/python@3.14/bin/python3.14",
+      "by": "claude",
+      "kind": "changed",
+      "was": "What would settle it, and what we are watching This assessment is living.",
+      "now": "What would settle it, and what we are watching This assessment is living: these are the questions we are watching and what each would change.",
+      "because": "REVIEW-DATE-001",
+      "note": "Correction: the page promised a review date from 30 August ('Last reviewed', a paragraph defending it, the watch standfirst, the publication history) and the promise is withdrawn -- masthead now 'Evidence read', the argument paragraph says what it used to promise and why it no longer does, a standing note states the bound, a dated entry tells readers. The watch register is untouched. REVIEW-DATE-001 in review/2026-09-12-review-date-adjudication.md; operator ruling review/2026-09-12-modest-promise-ruling.md; corrections.md entry of 12 September 2026."
+    },
+    {
+      "at": "2026-09-12T22:30:19+00:00",
+      "interpreter": "/opt/homebrew/opt/python@3.14/bin/python3.14",
+      "by": "claude",
+      "kind": "changed",
+      "was": "These are the questions, and the date above is when somebody last looked.",
+      "now": "The date above is when the evidence was read, not a guarantee that anyone has looked since.",
+      "because": "REVIEW-DATE-001",
+      "note": "Correction: the page promised a review date from 30 August ('Last reviewed', a paragraph defending it, the watch standfirst, the publication history) and the promise is withdrawn -- masthead now 'Evidence read', the argument paragraph says what it used to promise and why it no longer does, a standing note states the bound, a dated entry tells readers. The watch register is untouched. REVIEW-DATE-001 in review/2026-09-12-review-date-adjudication.md; operator ruling review/2026-09-12-modest-promise-ruling.md; corrections.md entry of 12 September 2026."
+    },
+    {
+      "at": "2026-09-12T22:30:19+00:00",
+      "interpreter": "/opt/homebrew/opt/python@3.14/bin/python3.14",
+      "by": "claude",
+      "kind": "changed",
+      "was": "If that date is old, read this page accordingly.",
+      "now": "What we watch is narrower than what could change - we can see a registry record move and a paper cite another paper, and we cannot see most of what happens in a field - and nothing obliges anyone to look before you arrive.",
+      "because": "REVIEW-DATE-001",
+      "note": "Correction: the page promised a review date from 30 August ('Last reviewed', a paragraph defending it, the watch standfirst, the publication history) and the promise is withdrawn -- masthead now 'Evidence read', the argument paragraph says what it used to promise and why it no longer does, a standing note states the bound, a dated entry tells readers. The watch register is untouched. REVIEW-DATE-001 in review/2026-09-12-review-date-adjudication.md; operator ruling review/2026-09-12-modest-promise-ruling.md; corrections.md entry of 12 September 2026."
+    },
+    {
+      "at": "2026-09-12T22:30:19+00:00",
+      "interpreter": "/opt/homebrew/opt/python@3.14/bin/python3.14",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "So this page states the date its evidence was read and claims nothing about the interval since.",
+      "because": "REVIEW-DATE-001",
+      "note": "Correction: the page promised a review date from 30 August ('Last reviewed', a paragraph defending it, the watch standfirst, the publication history) and the promise is withdrawn -- masthead now 'Evidence read', the argument paragraph says what it used to promise and why it no longer does, a standing note states the bound, a dated entry tells readers. The watch register is untouched. REVIEW-DATE-001 in review/2026-09-12-review-date-adjudication.md; operator ruling review/2026-09-12-modest-promise-ruling.md; corrections.md entry of 12 September 2026."
+    },
+    {
+      "at": "2026-09-12T22:30:19+00:00",
+      "interpreter": "/opt/homebrew/opt/python@3.14/bin/python3.14",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "The watch list below is real and it runs; it is our instrument, not a promise to you.",
+      "because": "REVIEW-DATE-001",
+      "note": "Correction: the page promised a review date from 30 August ('Last reviewed', a paragraph defending it, the watch standfirst, the publication history) and the promise is withdrawn -- masthead now 'Evidence read', the argument paragraph says what it used to promise and why it no longer does, a standing note states the bound, a dated entry tells readers. The watch register is untouched. REVIEW-DATE-001 in review/2026-09-12-review-date-adjudication.md; operator ruling review/2026-09-12-modest-promise-ruling.md; corrections.md entry of 12 September 2026."
+    },
+    {
+      "at": "2026-09-12T22:30:20+00:00",
+      "interpreter": "/opt/homebrew/opt/python@3.14/bin/python3.14",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "What follows records what we changed and when; it is not a record of everything that has happened since.",
+      "because": "REVIEW-DATE-001",
+      "note": "Correction: the page promised a review date from 30 August ('Last reviewed', a paragraph defending it, the watch standfirst, the publication history) and the promise is withdrawn -- masthead now 'Evidence read', the argument paragraph says what it used to promise and why it no longer does, a standing note states the bound, a dated entry tells readers. The watch register is untouched. REVIEW-DATE-001 in review/2026-09-12-review-date-adjudication.md; operator ruling review/2026-09-12-modest-promise-ruling.md; corrections.md entry of 12 September 2026."
+    },
+    {
+      "at": "2026-09-12T22:30:20+00:00",
+      "interpreter": "/opt/homebrew/opt/python@3.14/bin/python3.14",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "Where a claim here depends on the present state of a paper or a record, the source we link is authoritative and this page is not.",
+      "because": "REVIEW-DATE-001",
+      "note": "Correction: the page promised a review date from 30 August ('Last reviewed', a paragraph defending it, the watch standfirst, the publication history) and the promise is withdrawn -- masthead now 'Evidence read', the argument paragraph says what it used to promise and why it no longer does, a standing note states the bound, a dated entry tells readers. The watch register is untouched. REVIEW-DATE-001 in review/2026-09-12-review-date-adjudication.md; operator ruling review/2026-09-12-modest-promise-ruling.md; corrections.md entry of 12 September 2026."
+    },
+    {
+      "at": "2026-09-12T22:30:20+00:00",
+      "interpreter": "/opt/homebrew/opt/python@3.14/bin/python3.14",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "Updated 12 September 2026.",
+      "because": "REVIEW-DATE-001",
+      "note": "Correction: the page promised a review date from 30 August ('Last reviewed', a paragraph defending it, the watch standfirst, the publication history) and the promise is withdrawn -- masthead now 'Evidence read', the argument paragraph says what it used to promise and why it no longer does, a standing note states the bound, a dated entry tells readers. The watch register is untouched. REVIEW-DATE-001 in review/2026-09-12-review-date-adjudication.md; operator ruling review/2026-09-12-modest-promise-ruling.md; corrections.md entry of 12 September 2026."
+    },
+    {
+      "at": "2026-09-12T22:30:20+00:00",
+      "interpreter": "/opt/homebrew/opt/python@3.14/bin/python3.14",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "We are withdrawing a promise this page made, and saying so rather than editing it away.",
+      "because": "REVIEW-DATE-001",
+      "note": "Correction: the page promised a review date from 30 August ('Last reviewed', a paragraph defending it, the watch standfirst, the publication history) and the promise is withdrawn -- masthead now 'Evidence read', the argument paragraph says what it used to promise and why it no longer does, a standing note states the bound, a dated entry tells readers. The watch register is untouched. REVIEW-DATE-001 in review/2026-09-12-review-date-adjudication.md; operator ruling review/2026-09-12-modest-promise-ruling.md; corrections.md entry of 12 September 2026."
+    },
+    {
+      "at": "2026-09-12T22:30:20+00:00",
+      "interpreter": "/opt/homebrew/opt/python@3.14/bin/python3.14",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "The \"last reviewed\" date is gone.",
+      "because": "REVIEW-DATE-001",
+      "note": "Correction: the page promised a review date from 30 August ('Last reviewed', a paragraph defending it, the watch standfirst, the publication history) and the promise is withdrawn -- masthead now 'Evidence read', the argument paragraph says what it used to promise and why it no longer does, a standing note states the bound, a dated entry tells readers. The watch register is untouched. REVIEW-DATE-001 in review/2026-09-12-review-date-adjudication.md; operator ruling review/2026-09-12-modest-promise-ruling.md; corrections.md entry of 12 September 2026."
+    },
+    {
+      "at": "2026-09-12T22:30:20+00:00",
+      "interpreter": "/opt/homebrew/opt/python@3.14/bin/python3.14",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "Since 30 August this page has carried a Last reviewed date in its masthead, and a paragraph arguing that when somebody last looked is worth more to you than when something last changed.",
+      "because": "REVIEW-DATE-001",
+      "note": "Correction: the page promised a review date from 30 August ('Last reviewed', a paragraph defending it, the watch standfirst, the publication history) and the promise is withdrawn -- masthead now 'Evidence read', the argument paragraph says what it used to promise and why it no longer does, a standing note states the bound, a dated entry tells readers. The watch register is untouched. REVIEW-DATE-001 in review/2026-09-12-review-date-adjudication.md; operator ruling review/2026-09-12-modest-promise-ruling.md; corrections.md entry of 12 September 2026."
+    },
+    {
+      "at": "2026-09-12T22:30:20+00:00",
+      "interpreter": "/opt/homebrew/opt/python@3.14/bin/python3.14",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "That argument was ours and we still think it is a good one.",
+      "because": "REVIEW-DATE-001",
+      "note": "Correction: the page promised a review date from 30 August ('Last reviewed', a paragraph defending it, the watch standfirst, the publication history) and the promise is withdrawn -- masthead now 'Evidence read', the argument paragraph says what it used to promise and why it no longer does, a standing note states the bound, a dated entry tells readers. The watch register is untouched. REVIEW-DATE-001 in review/2026-09-12-review-date-adjudication.md; operator ruling review/2026-09-12-modest-promise-ruling.md; corrections.md entry of 12 September 2026."
+    },
+    {
+      "at": "2026-09-12T22:30:21+00:00",
+      "interpreter": "/opt/homebrew/opt/python@3.14/bin/python3.14",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "The trouble is what a review date implies: that the page is kept current.",
+      "because": "REVIEW-DATE-001",
+      "note": "Correction: the page promised a review date from 30 August ('Last reviewed', a paragraph defending it, the watch standfirst, the publication history) and the promise is withdrawn -- masthead now 'Evidence read', the argument paragraph says what it used to promise and why it no longer does, a standing note states the bound, a dated entry tells readers. The watch register is untouched. REVIEW-DATE-001 in review/2026-09-12-review-date-adjudication.md; operator ruling review/2026-09-12-modest-promise-ruling.md; corrections.md entry of 12 September 2026."
+    },
+    {
+      "at": "2026-09-12T22:30:21+00:00",
+      "interpreter": "/opt/homebrew/opt/python@3.14/bin/python3.14",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "We cannot stand behind that.",
+      "because": "REVIEW-DATE-001",
+      "note": "Correction: the page promised a review date from 30 August ('Last reviewed', a paragraph defending it, the watch standfirst, the publication history) and the promise is withdrawn -- masthead now 'Evidence read', the argument paragraph says what it used to promise and why it no longer does, a standing note states the bound, a dated entry tells readers. The watch register is untouched. REVIEW-DATE-001 in review/2026-09-12-review-date-adjudication.md; operator ruling review/2026-09-12-modest-promise-ruling.md; corrections.md entry of 12 September 2026."
+    },
+    {
+      "at": "2026-09-12T22:30:21+00:00",
+      "interpreter": "/opt/homebrew/opt/python@3.14/bin/python3.14",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "The masthead now states the date this page's evidence was read, and claims nothing about the interval since.",
+      "because": "REVIEW-DATE-001",
+      "note": "Correction: the page promised a review date from 30 August ('Last reviewed', a paragraph defending it, the watch standfirst, the publication history) and the promise is withdrawn -- masthead now 'Evidence read', the argument paragraph says what it used to promise and why it no longer does, a standing note states the bound, a dated entry tells readers. The watch register is untouched. REVIEW-DATE-001 in review/2026-09-12-review-date-adjudication.md; operator ruling review/2026-09-12-modest-promise-ruling.md; corrections.md entry of 12 September 2026."
+    },
+    {
+      "at": "2026-09-12T22:30:21+00:00",
+      "interpreter": "/opt/homebrew/opt/python@3.14/bin/python3.14",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "The watch list stays, and it runs.",
+      "because": "REVIEW-DATE-001",
+      "note": "Correction: the page promised a review date from 30 August ('Last reviewed', a paragraph defending it, the watch standfirst, the publication history) and the promise is withdrawn -- masthead now 'Evidence read', the argument paragraph says what it used to promise and why it no longer does, a standing note states the bound, a dated entry tells readers. The watch register is untouched. REVIEW-DATE-001 in review/2026-09-12-review-date-adjudication.md; operator ruling review/2026-09-12-modest-promise-ruling.md; corrections.md entry of 12 September 2026."
+    },
+    {
+      "at": "2026-09-12T22:30:21+00:00",
+      "interpreter": "/opt/homebrew/opt/python@3.14/bin/python3.14",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "Nothing about what we are watching has changed: the same seven standing questions, the same searches behind them.",
+      "because": "REVIEW-DATE-001",
+      "note": "Correction: the page promised a review date from 30 August ('Last reviewed', a paragraph defending it, the watch standfirst, the publication history) and the promise is withdrawn -- masthead now 'Evidence read', the argument paragraph says what it used to promise and why it no longer does, a standing note states the bound, a dated entry tells readers. The watch register is untouched. REVIEW-DATE-001 in review/2026-09-12-review-date-adjudication.md; operator ruling review/2026-09-12-modest-promise-ruling.md; corrections.md entry of 12 September 2026."
+    },
+    {
+      "at": "2026-09-12T22:30:21+00:00",
+      "interpreter": "/opt/homebrew/opt/python@3.14/bin/python3.14",
+      "by": "claude",
+      "kind": "changed",
+      "was": "This is the first living assessment on this site: it carries a last-reviewed date, a standing watch list, and a changelog kept separately from the correction history - corrections record where we were wrong, the changelog records where the evidence moved.",
+      "now": "This is the first living assessment on this site: it carries a standing watch list, and a changelog kept separately from the correction history - corrections record where we were wrong, the changelog records where the evidence moved.",
+      "because": "REVIEW-DATE-001",
+      "note": "Correction: the page promised a review date from 30 August ('Last reviewed', a paragraph defending it, the watch standfirst, the publication history) and the promise is withdrawn -- masthead now 'Evidence read', the argument paragraph says what it used to promise and why it no longer does, a standing note states the bound, a dated entry tells readers. The watch register is untouched. REVIEW-DATE-001 in review/2026-09-12-review-date-adjudication.md; operator ruling review/2026-09-12-modest-promise-ruling.md; corrections.md entry of 12 September 2026."
     }
   ]
 }

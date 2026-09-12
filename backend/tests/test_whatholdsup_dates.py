@@ -164,3 +164,73 @@ if __name__ == "__main__":
                 print("  FAIL  %s: %s" % (name, e))
     print("\n%s" % ("all pass" if not fails else "%d failure(s)" % fails))
     raise SystemExit(1 if fails else 0)
+
+
+# ---------------------------------------------------------------------------
+# index_dates — the provenance line, slot by slot (12 September 2026)
+# ---------------------------------------------------------------------------
+#
+# melanoma's card read "14 corrections · sources checked 9 September 2026"
+# while the record said 15 and 11 September. The date rows passed it and the
+# marker-presence row passed it. The line is generated; the card was typed.
+
+def _index_with(old: str, new: str) -> str:
+    html = I.INDEX.read_text(encoding="utf-8")
+    assert html.count(old) == 1, "fixture drift: %r not found exactly once" % old
+    return html.replace(old, new)
+
+
+def _melanoma_line() -> str:
+    m = [c for c in I.CARD.finditer(I.INDEX.read_text(encoding="utf-8")) if c.group("slug") == "melanoma"][0]
+    return I.PROV.search(m.group("meta")).group("line")
+
+
+def test_the_cards_equal_the_generator_exactly():
+    assert I.audit() == []
+    html = I.INDEX.read_text(encoding="utf-8")
+    for m in I.CARD.finditer(html):
+        assert I.PROV.search(m.group("meta")).group("line") == I.meta_html(m.group("slug"), I.CARD_ORDINAL)
+
+
+def test_a_wrong_correction_count_blocks_and_names_the_field_and_both_values():
+    line = _melanoma_line()
+    n = int([s for s in I._slots(line) if s.endswith("corrections")][0].split()[0])
+    bad = I.audit(_index_with("%d corrections" % n, "%d corrections" % (n + 1)))
+    assert len(bad) == 1
+    assert bad[0].startswith("melanoma: corrections -- page says '%d corrections', record says '%d corrections'" % (n + 1, n))
+
+
+def test_a_wrong_sources_checked_date_blocks_and_names_the_field():
+    line = _melanoma_line()
+    slot = [s for s in I._slots(line) if s.startswith("sources checked")][0]
+    bad = I.audit(_index_with(slot, "sources checked 1 January 2026"))
+    assert bad == ["melanoma: sources checked -- page says 'sources checked 1 January 2026', record says %r" % slot]
+
+
+def test_a_missing_marker_is_the_corrections_slot_not_a_second_row():
+    line = _melanoma_line()
+    slot = [s for s in I._slots(line) if s.endswith("corrections")][0]
+    bad = I.audit(_index_with(slot, "no corrections"))
+    assert bad == ["melanoma: corrections -- page says 'no corrections', record says %r" % slot]
+
+
+def test_a_stale_date_is_reported_once_by_the_date_row_with_its_classification():
+    line = _melanoma_line()
+    slot = [s for s in I._slots(line) if s.startswith("revised")][0]
+    bad = I.audit(_index_with(slot, "revised 4 September 2026"))
+    assert len(bad) == 1 and "[BEHIND]" in bad[0] and "behind by" in bad[0]
+
+
+def test_a_wording_mismatch_the_date_rows_accept_is_still_caught():
+    line = _melanoma_line()
+    slot = [s for s in I._slots(line) if s.startswith("revised")][0]
+    bad = I.audit(_index_with(slot, slot.replace("revised", "updated")))
+    assert bad == ["melanoma: revised -- page says %r, record says %r" % (slot.replace("revised", "updated"), slot)]
+
+
+def test_the_preflight_row_blocks_on_a_field_difference():
+    line = _melanoma_line()
+    slot = [s for s in I._slots(line) if s.startswith("sources checked")][0]
+    rows = I.preflight_rows(_index_with(slot, "sources checked 1 January 2026"))
+    assert rows[0][0] == "homepage dates match the record" and rows[0][1] == I.BAD
+    assert "sources checked -- page says" in rows[0][2]

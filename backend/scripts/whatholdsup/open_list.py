@@ -36,7 +36,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
-OK, WARN, BAD = "ok", "warn", "STOP"
+OK, BAD, WARN = "ok", "BLOCKED", "warn"   # publish.py's vocabulary; " STOP" is the display mark
 
 
 def _rows(slug):

@@ -53,7 +53,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
-OK, WARN, BAD = "ok", "warn", "STOP"
+OK, BAD, WARN = "ok", "BLOCKED", "warn"   # publish.py's vocabulary; " STOP" is the display mark
 
 # A void element never closes. The first run of furniture.py's parser reported
 # every <br> as unclosed for this reason; the list is copied from there.

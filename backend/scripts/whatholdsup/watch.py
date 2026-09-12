@@ -77,7 +77,7 @@ def _editorial_today() -> date:
     return datetime.now(timezone.utc).astimezone(EDITORIAL_TZ).date()
 
 ROOT = Path(__file__).resolve().parents[3]
-OK, WARN, BAD = "ok", "warn", "STOP"
+OK, BAD, WARN = "ok", "BLOCKED", "warn"   # publish.py's vocabulary; " STOP" is the display mark
 
 DEFAULT_INTERVAL_DAYS = 30
 
