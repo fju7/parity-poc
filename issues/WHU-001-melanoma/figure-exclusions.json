@@ -55,14 +55,6 @@
    "falsifier": "The August weight set is not what the page printed — check git history, commits 2c71b8e through 3ab4bf51 — or those six terms stop summing to 3.40, or the sentence stops being about the page's own former arithmetic and becomes a claim about a document."
   },
   {
-   "figure": "403",
-   "in_sentence": "NEJM returns 403",
-   "why": "An HTTP status code returned to our own request on 2026-09-09, not a figure any document reports. Same standing as the page's own arithmetic: it is the page describing what happened when we went to look, and no source could carry it. Recorded with the other three retrievals in the S029 source entry and in the binding step for this sentence.",
-   "by": "claude",
-   "on": "2026-09-09",
-   "falsifier": "nejm.org ceasing to refuse the request, which would make the clause false and is the point of stating it; or the sentence changing from a report of our own retrieval into a claim about what some document says."
-  },
-  {
    "figure": "131",
    "in_sentence": "The assessment above — everything before this log — is 343 sentences.",
    "why": "Not a figure any document reports: it is this repository measuring itself. 343 is len(bindings.page_sentences('melanoma')) — the assessment above the log, which the sentence now says explicitly rather than calling it 'this page' — the body sentences the binder can see, after the head, the navigation and the change log are stripped. 131 is the number with a binding row, and 212 is the difference. The correction this sentence makes is precisely that we previously claimed the first number was the second.",

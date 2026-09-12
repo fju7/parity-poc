@@ -765,7 +765,7 @@
     ],
     "note": "Open-access PMC full text (PMCID PMC5648545) fetched under the 2026-09-08 remediation order. Identity confirmed by the store: contains its identifier PMC5648545; substance classified full_text, 50,819 characters. The page links the PubMed record; the representation held is the PMC HTML."
    },
-   "erratum_note": "Formally corrected: N Engl J Med 2018 Nov 9;379(22):2185, PMID 31442371, DOI 10.1056/NEJMx180040. NOT HELD and not readable from here — the notice is subscription-only at NEJM (403 to a script), absent from PubMed Central and Europe PMC (isOpenAccess N, inPMC N, inEPMC N), and carries no abstract in PubMed or Crossref. It is a bulk notice covering thirteen NEJM articles at once. CORROBORATION, NOT CLOSURE: every figure this page quotes from S029 — 65.4% vs 54.4% at five years, HR 0.72, 95.1% CI 0.58 to 0.88, P=0.001, the 10 mg/kg dose — appears verbatim in the PubMed abstract of record for PMID 27717298 retrieved 2026-09-09, which is the post-erratum state of that record. That bounds the risk; it does not read the erratum, and a PubMed abstract is not always revised when one is issued. Until somebody opens the notice we do not know whether it touches a figure on this page.",
+   "erratum_note": "Formally corrected: N Engl J Med 2018 Nov 29;379(22):2185, PMID 31442371, DOI 10.1056/NEJMx180040. THE NOTICE HAS BEEN READ. It is held as S031, obtained 2026-09-11 from nejm.org in a browser. It is a bulk notice covering thirteen NEJM articles; the entry binding it to this paper is \"Prolonged Survival in Stage III Melanoma with Ipilimumab Adjuvant Therapy (Original Article, N Engl J Med 2016;375:1845-1855)\", and after the list its complete operative text is one sentence: \"Dr. Jedd D. Wolchok's disclosures have been updated, and the articles are correct at NEJM.org.\" It updates one author's conflict-of-interest disclosures and asserts the articles are correct at NEJM.org; it changes no result, method or figure; it therefore touches no figure this page quotes (65.4% vs 54.4% at five years, HR 0.72, 95.1% CI 0.58 to 0.88, P=0.001, the 10 mg/kg dose, the five immune-related deaths). The earlier version of this note said the notice was subscription-only; that was an inference from a 403 to a script and it is false — NEJM serves a Cloudflare bot challenge to scripts, and the notice is freely readable in a browser. RESIDUAL: our held representation of S029 is the PMC HTML fetched 2026-09-08, which may carry Wolchok's disclosure as it stood before the update; nothing this page quotes rests on that disclosure.",
    "document_class": "document",
    "document_class_why": "The EORTC 18071 paper itself, held in full.",
    "identifier": {
@@ -793,7 +793,7 @@
     "PMID 31442371",
     "NEJMx180040"
    ],
-   "note": "WHAT THIS IS AND IS NOT. We hold the PubMed bibliographic record of the erratum in full. We do NOT hold the notice itself: NEJM returns 403 to a script, Europe PMC reports isOpenAccess N and inEPMC N, and neither PubMed nor Crossref carries any abstract or notice text. Nothing on this page may characterise what the notice SAYS on the strength of this source — only which articles it covers and where it was published. S029 keeps a standing errata debt until the notice itself is read.",
+   "note": "WHAT THIS IS AND IS NOT. We hold the PubMed bibliographic record of the erratum in full. The notice itself is now ALSO held, as S031, read 2026-09-11; claims about what the notice SAYS rest on S031, not on this record. This record supports only which articles the notice covers and where it was published. The earlier version of this note said the notice was paywalled at NEJM; that was an inference from a 403 to a script and it is false — NEJM serves a Cloudflare bot challenge to scripts, and the notice is freely readable without a subscription. S029's standing errata debt is closed by S031.",
    "form": "record",
    "access": {
     "state": "full_text_held",
@@ -802,12 +802,40 @@
     "sections": [
      "bibliographic record"
     ],
-    "note": "The PubMed record is held in full. The erratum notice it describes is NOT held: paywalled at NEJM, absent from PMC and Europe PMC, no abstract anywhere. No claim about what the notice says may rest on this source."
+    "note": "The PubMed record is held in full. The erratum notice it describes is held separately as S031 (read 2026-09-11); no claim about what the notice says may rest on THIS source, only on S031."
    },
    "document_class": "record_about",
-   "document_class_why": "The PubMed bibliographic record for the 2018 NEJM erratum. The notice itself is not held; no claim about what the notice says may rest on this."
+   "document_class_why": "The PubMed bibliographic record for the 2018 NEJM erratum. The notice itself is held as S031; no claim about what the notice says may rest on this record."
+  },
+  {
+   "id": "S031",
+   "url": "https://www.nejm.org/doi/full/10.1056/NEJMx180040",
+   "type": "corrigendum",
+   "form": "notice",
+   "title": "2018 NEJM erratum NEJMx180040 covering thirteen articles - the notice text itself, N Engl J Med 2018;379:2185",
+   "accessed": "2026-09-11",
+   "amends": "S029",
+   "used_for": "What the 2018 erratum to EORTC 18071 (S029) actually says, read from the notice itself rather than from its bibliographic record (S030). After a list of the thirteen corrected articles, the complete operative text of the notice is one sentence: \"Dr. Jedd D. Wolchok's disclosures have been updated, and the articles are correct at NEJM.org.\" The list entry binding it to S029 is \"Prolonged Survival in Stage III Melanoma with Ipilimumab Adjuvant Therapy (Original Article, N Engl J Med 2016;375:1845-1855)\", hyperlinked to https://doi.org/10.1056/NEJMoa1611299. The notice updates one author's conflict-of-interest disclosures and changes no result, method or figure; it therefore touches no figure this page quotes from S029. Closes the standing errata debt recorded against S029 on 2026-09-09.",
+   "also_called": [
+    "the 2018 NEJM erratum",
+    "the 2018 erratum",
+    "N Engl J Med 2018;379:2185",
+    "10.1056/NEJMx180040"
+   ],
+   "note": "HOW IT WAS OBTAINED, AND WHY A SCRIPT COULD NOT. Obtained 2026-09-11 from nejm.org in a browser (the PDF's own stamp reads \"Downloaded from nejm.org on September 11, 2026\", /ModDate 19:40 -07:00). NEJM returns a Cloudflare bot challenge to scripts. That is NOT a paywall: the notice and its PDF are freely readable without a subscription. The earlier records (S029 erratum_note, S030 note, the page's source list) inferred 'subscription-only' and 'paywalled' from a 403 to a script; that inference was false and is withdrawn.\n\nTHE STORED HASH IDENTIFIES THIS RETRIEVAL, NOT THE DOCUMENT. NEJM stamps every download: /ModDate is written at download time and the page carries a printed 'Downloaded from nejm.org on <date>' line, so two downloads of this notice seconds apart differ in bytes while being the same document. The sha256 the library records for S031 therefore identifies this retrieval and not the notice; a later re-download will hash differently and MUST NOT be treated as a changed or superseded document. Stable identity is by content, verified on ingestion: 1 page; /Subject 'N Engl J Med 2018.379:2185-2185'; /CreationDate beginning D:20181115141649 (the 2018 typesetting date, stable across downloads); folio 2185; exactly thirteen '(N Engl J Med 20..' citations in the correction block; the two verbatim passages quoted in used_for (the PDF sets Wolchok's with a typographic apostrophe); and no correction-of-substance language. Extraction note: the page is two-column and 'pdftotext -layout' interleaves the columns; crop the right column (pdftotext -x 265 -y 0 -W 302 -H 756) and strip soft hyphens (U+00AD) before matching.",
+   "access": {
+    "state": "full_text_held",
+    "by": "Fred Ugast, in a browser; verified by content on ingestion by Claude Code",
+    "on": "2026-09-11",
+    "sections": [
+     "the entire notice, which is one page"
+    ],
+    "note": "Obtained 2026-09-11 from nejm.org in a browser. NEJM returns a Cloudflare bot challenge to scripts, which is NOT a paywall: the notice and its PDF are freely readable without a subscription. Read in full: a list of thirteen corrected articles followed by one sentence updating Dr. Jedd D. Wolchok's disclosures and asserting the articles are correct at NEJM.org. No result, method or figure is amended."
+   },
+   "document_class": "document",
+   "document_class_why": "The notice itself, held in full. Claims about what the erratum SAYS may rest on this. Contrast S030, the PubMed record ABOUT it."
   }
  ],
  "also_called_note": "The role-nouns the page uses for a source. These must identify the DOCUMENT, not its subject: 'KEYNOTE-942' is a trial that three of these sources report on, and listing it as an alias for all three made every sentence about the trial match all three at once -- so the one source marked `blocked` absorbed the blame for claims the read sources actually support. The ledger audit matches sentences to sources by these plus the title's trial and journal names; a reference the page makes that is not listed here is invisible to the audit.",
- "_document_class": "document | record_about. A source can be held in full and still be the wrong thing to ask: S030 is the PubMed RECORD for an erratum whose notice nobody has read, and its access state is full_text_held. Standing rule 1 is 'no claim about a document we have not opened'; without this field that rule cannot be checked, because the store could not tell a document from a record about one. Absent means unclassified, which is NOT EVALUATED, never document."
+ "_document_class": "document | record_about. A source can be held in full and still be the wrong thing to ask: S030 is the PubMed RECORD for an erratum whose notice, when this field was written, nobody had read (the notice was read on 2026-09-11 and is held as S031; the distinction stands), and its access state is full_text_held. Standing rule 1 is 'no claim about a document we have not opened'; without this field that rule cannot be checked, because the store could not tell a document from a record about one. Absent means unclassified, which is NOT EVALUATED, never document."
 }

@@ -1657,6 +1657,66 @@
       "now": "That is now written down as an open gap rather than fixed, because closing it means the binder starts demanding a source for \"a wide one means it did not\" unless the fix is made carefully.",
       "because": "READER-0904-2",
       "note": "'Not fourteen patients' was false -- fourteen patients died, as the paper quoted in the same sentence says. The misreading worth denying is that the analysis was OF fourteen people rather than of 157 among whom fourteen died, and the sentence now denies that. Nothing caught it because the sentence spells its quantities as words and every figure check here looks for digits: GAP-006."
+    },
+    {
+      "at": "2026-09-12T03:01:02+00:00",
+      "interpreter": "/opt/homebrew/opt/python@3.14/bin/python3.14",
+      "by": "claude",
+      "kind": "changed",
+      "was": "We have not been able to read it: NEJM returns 403, Europe PMC records the notice as neither open access nor in its archive, and neither PubMed nor Crossref carries an abstract for it; so we do not know whether it touches a figure on this page.",
+      "now": "We have now read the notice.",
+      "because": "ERRATUM-001",
+      "note": "The 2018 erratum to EORTC 18071 (S029) has been read: obtained 2026-09-11 from nejm.org in a browser, held as S031. In full it updates Dr. Jedd D. Wolchok's disclosures and states the articles are correct at NEJM.org; no result, method or figure changes; nothing on this page is touched. 'Could not read it' is superseded and the paywall inference behind it was false: NEJM serves a bot challenge to scripts, not a paywall. ERRATUM-001 in review/2026-09-11-erratum-read-adjudication.md."
+    },
+    {
+      "at": "2026-09-12T03:01:03+00:00",
+      "interpreter": "/opt/homebrew/opt/python@3.14/bin/python3.14",
+      "by": "claude",
+      "kind": "changed",
+      "was": "Every figure we quote appears in the current PubMed record of this paper, which post-dates the erratum.",
+      "now": "In full, it updates the disclosures of one author, Jedd D.",
+      "because": "ERRATUM-001",
+      "note": "The 2018 erratum to EORTC 18071 (S029) has been read: obtained 2026-09-11 from nejm.org in a browser, held as S031. In full it updates Dr. Jedd D. Wolchok's disclosures and states the articles are correct at NEJM.org; no result, method or figure changes; nothing on this page is touched. 'Could not read it' is superseded and the paywall inference behind it was false: NEJM serves a bot challenge to scripts, not a paywall. ERRATUM-001 in review/2026-09-11-erratum-read-adjudication.md."
+    },
+    {
+      "at": "2026-09-12T03:01:03+00:00",
+      "interpreter": "/opt/homebrew/opt/python@3.14/bin/python3.14",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "Wolchok, and states that the articles are correct at NEJM.org.",
+      "because": "ERRATUM-001",
+      "note": "The 2018 erratum to EORTC 18071 (S029) has been read: obtained 2026-09-11 from nejm.org in a browser, held as S031. In full it updates Dr. Jedd D. Wolchok's disclosures and states the articles are correct at NEJM.org; no result, method or figure changes; nothing on this page is touched. 'Could not read it' is superseded and the paywall inference behind it was false: NEJM serves a bot challenge to scripts, not a paywall. ERRATUM-001 in review/2026-09-11-erratum-read-adjudication.md."
+    },
+    {
+      "at": "2026-09-12T03:01:04+00:00",
+      "interpreter": "/opt/homebrew/opt/python@3.14/bin/python3.14",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "It changes no result, method or figure, and touches nothing on this page.",
+      "because": "ERRATUM-001",
+      "note": "The 2018 erratum to EORTC 18071 (S029) has been read: obtained 2026-09-11 from nejm.org in a browser, held as S031. In full it updates Dr. Jedd D. Wolchok's disclosures and states the articles are correct at NEJM.org; no result, method or figure changes; nothing on this page is touched. 'Could not read it' is superseded and the paywall inference behind it was false: NEJM serves a bot challenge to scripts, not a paywall. ERRATUM-001 in review/2026-09-11-erratum-read-adjudication.md."
+    },
+    {
+      "at": "2026-09-12T03:01:04+00:00",
+      "interpreter": "/opt/homebrew/opt/python@3.14/bin/python3.14",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "Our held copy of the paper is the PubMed Central full text, which may carry the disclosure as it stood before the update.",
+      "because": "ERRATUM-001",
+      "note": "The 2018 erratum to EORTC 18071 (S029) has been read: obtained 2026-09-11 from nejm.org in a browser, held as S031. In full it updates Dr. Jedd D. Wolchok's disclosures and states the articles are correct at NEJM.org; no result, method or figure changes; nothing on this page is touched. 'Could not read it' is superseded and the paywall inference behind it was false: NEJM serves a bot challenge to scripts, not a paywall. ERRATUM-001 in review/2026-09-11-erratum-read-adjudication.md."
+    },
+    {
+      "at": "2026-09-12T03:02:44+00:00",
+      "interpreter": "/opt/homebrew/opt/python@3.14/bin/python3.14",
+      "by": "claude",
+      "kind": "changed",
+      "was": "The Melanoma Result - What Holds Up What Holds Up What this is The rubric Issues Who pays for this Issue one Evidence review Published 26 August 2026 · Updated 10 September 2026 · event dated 19 August 2026 The Melanoma Result whatholdsup.org Merck and Moderna announced that a large trial of a personalised mRNA cancer therapy succeeded in melanoma.",
+      "now": "The Melanoma Result - What Holds Up What Holds Up What this is The rubric Issues Who pays for this Issue one Evidence review Published 26 August 2026 · Updated 11 September 2026 · event dated 19 August 2026 The Melanoma Result whatholdsup.org Merck and Moderna announced that a large trial of a personalised mRNA cancer therapy succeeded in melanoma.",
+      "because": "ERRATUM-001",
+      "note": "Masthead date set 10 -> 11 September 2026 by publish.py dateline melanoma, the day the corrected page was completed; the 11 September corrections.md entry (ERRATUM-001) explains the date, per standing rule 17."
     }
   ],
   "what_change_sets_are": "A round-level attribution: the span of page history it covers, the documents that decided the changes in it, and a label that must resolve like any other. Both shas are pinned, so a set stops covering the moment the page changes again. It is not a waiver — see recorded_change_sets() in publish.py for the three things that stop it becoming one.",

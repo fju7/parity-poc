@@ -364,6 +364,18 @@
       "why": "lookup on PMID 31442371 resolved to a DIFFERENT document: 'Neoadjuvant PD-1 Blockade in Resectable Lung Cancer; Nivolumab and Ipi' shares nothing distinctive with 'PubMed record for the 2018 NEJM erratum, PMID 31442371 — the bibliogra'",
       "amendments": [],
       "comments": []
+    },
+    "S031": {
+      "source": "S031",
+      "title": "2018 NEJM erratum NEJMx180040 covering thirteen articles - the notice text itself, N Engl J Med 2018;379:2185",
+      "checked_on": "2026-09-11",
+      "identifier": "DOI 10.1056/NEJMx180040",
+      "identifier_from": "the source URL",
+      "resolved_title": "Neoadjuvant PD-1 Blockade in Resectable Lung Cancer; Nivolumab and Ipilimumab in Advanced Melanoma; Overall Survival with Combined Nivolumab and Ipilimumab in A",
+      "state": "UNCHECKED",
+      "why": "lookup on DOI 10.1056/NEJMx180040 resolved to a DIFFERENT document: 'Neoadjuvant PD-1 Blockade in Resectable Lung Cancer; Nivolumab and Ipi' shares nothing distinctive with '2018 NEJM erratum NEJMx180040 covering thirteen articles - the notice '",
+      "amendments": [],
+      "comments": []
     }
   }
 }

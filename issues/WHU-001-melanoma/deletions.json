@@ -1,54 +1,64 @@
 {
- "_what_this_is": "Figures a correction removed from this page, and what each removal was argued from. See deletions.py: a removal is the least-checked text here and 35% of recorded errors came in with one.",
- "deletions": [
-  {
-   "figure": "0.0075",
-   "removed_on": "2026-09-01",
-   "reason": "unsourced",
-   "source_id": "",
-   "searched": "Both company releases (S001, S002, S005), every piece of coverage held (S006, S009, S010, S011, S015), the JCO paper (S004), the three-year paper (S007), the ASCO 2024 deck (S008), The Lancet abstract (S003) and the registry record (S013). Also a web search on 2026-09-02 for any presentation of INTerpath-001 figures. No document this page cites is dated 20 January 2026, and no source list on this page has ever carried one.",
-   "by": "claude",
-   "library_at_the_time": "8 sources, all held. The library has since grown to 15 and the figure is in none of them.",
-   "note": "Recorded on 2026-09-02, after two figures removed the same day for ABSENCE turned out to be real. This one is UNSOURCED, which is the claim we can actually support: we cannot show where it came from. If the 20 January topline is produced, the sentence goes back."
-  },
-  {
-   "figure": "3.4",
-   "removed_on": "2026-09-03",
-   "reason": "rewritten",
-   "source_id": "",
-   "why": "TWO removals, eight days apart, and only the second was ever described. Readers saw a composite of 3.4 from 26 August. On 3 September the scorecard was marked `computed`, which obliges it to show its arithmetic and come to the number it prints — and the six scores against the published weights come to 3.35, not 3.4. The printed figure was corrected silently in the same commit that applied the mark (87b8d9d0); no correction notice went with it, which is the thing this file exists to catch. Later the same day the editor ruled that direction and magnitude are scored separately and always, and the composite was abolished for 3.94 and 1.0. The change log now carries both steps. 3.4 was never a figure any document reported — it was our own arithmetic over our own scores, and wrong about that.",
-   "replaced_by": [
-    "3.35",
-    "3.94",
-    "1.0"
-   ],
-   "recorded_by": "Claude (Opus 5), 2026-09-03, from git history: 3.4 in every commit through 3ab4bf51 and on the live page today; 3.35 from 87b8d9d0; 3.94/1.0 from e5d29666.",
-   "corrected_on": "2026-09-09",
-   "correction": "The `why` above says the printed figure 'was corrected silently'. RV-06: the printed 3.4 was the correct total of the working printed beside it, which came to 3.4000 exactly on the weights the page then showed — reproducibility and recency at .15 each. What differed from the rubric was the working, not the display, and no rounding was involved. Commit 87b8d9d corrected the weights and published the rubric in one change. The clause 'the six scores against the published weights come to 3.35, not 3.4' is right; 'the printed figure was corrected' is not."
-  },
-  {
-   "figure": "0.179",
-   "removed_on": "2026-09-08",
-   "reason": "rewritten",
-   "source_id": "S007",
-   "replaced_by": [
-    "0.114",
-    "1.584"
-   ],
-   "why": "The 80% bound 0.179 of the three-year overall-survival hazard ratio. Not an absence and not a correction of a wrong number: S007's Table 1 prints both intervals for the same hazard ratio in the same row — 0.425, 80% CI 0.179 to 1.004, 95% CI 0.114 to 1.584 — and the page now gives the 95% pair so that it can be read against the five-year 0.165 to 1.345 at the same width rather than beside it at a different one. Setting an 80% interval next to a 95% interval makes the sparser analysis look tidier than it is, which is the subject of this article. OR-019. The other bound of the same pair, 1.004, was removed in the same edit.",
-   "recorded_by": "Claude (Opus 5), 2026-09-08, from S007 Table 1 read in the held document"
-  },
-  {
-   "figure": "1.004",
-   "removed_on": "2026-09-08",
-   "reason": "rewritten",
-   "source_id": "S007",
-   "replaced_by": [
-    "0.114",
-    "1.584"
-   ],
-   "why": "The 80% bound 1.004 of the three-year overall-survival hazard ratio. Not an absence and not a correction of a wrong number: S007's Table 1 prints both intervals for the same hazard ratio in the same row — 0.425, 80% CI 0.179 to 1.004, 95% CI 0.114 to 1.584 — and the page now gives the 95% pair so that it can be read against the five-year 0.165 to 1.345 at the same width rather than beside it at a different one. Setting an 80% interval next to a 95% interval makes the sparser analysis look tidier than it is, which is the subject of this article. OR-019. The other bound of the same pair, 0.179, was removed in the same edit.",
-   "recorded_by": "Claude (Opus 5), 2026-09-08, from S007 Table 1 read in the held document"
-  }
- ]
+  "_what_this_is": "Figures a correction removed from this page, and what each removal was argued from. See deletions.py: a removal is the least-checked text here and 35% of recorded errors came in with one.",
+  "deletions": [
+    {
+      "figure": "0.0075",
+      "removed_on": "2026-09-01",
+      "reason": "unsourced",
+      "source_id": "",
+      "searched": "Both company releases (S001, S002, S005), every piece of coverage held (S006, S009, S010, S011, S015), the JCO paper (S004), the three-year paper (S007), the ASCO 2024 deck (S008), The Lancet abstract (S003) and the registry record (S013). Also a web search on 2026-09-02 for any presentation of INTerpath-001 figures. No document this page cites is dated 20 January 2026, and no source list on this page has ever carried one.",
+      "by": "claude",
+      "library_at_the_time": "8 sources, all held. The library has since grown to 15 and the figure is in none of them.",
+      "note": "Recorded on 2026-09-02, after two figures removed the same day for ABSENCE turned out to be real. This one is UNSOURCED, which is the claim we can actually support: we cannot show where it came from. If the 20 January topline is produced, the sentence goes back."
+    },
+    {
+      "figure": "3.4",
+      "removed_on": "2026-09-03",
+      "reason": "rewritten",
+      "source_id": "",
+      "why": "TWO removals, eight days apart, and only the second was ever described. Readers saw a composite of 3.4 from 26 August. On 3 September the scorecard was marked `computed`, which obliges it to show its arithmetic and come to the number it prints — and the six scores against the published weights come to 3.35, not 3.4. The printed figure was corrected silently in the same commit that applied the mark (87b8d9d0); no correction notice went with it, which is the thing this file exists to catch. Later the same day the editor ruled that direction and magnitude are scored separately and always, and the composite was abolished for 3.94 and 1.0. The change log now carries both steps. 3.4 was never a figure any document reported — it was our own arithmetic over our own scores, and wrong about that.",
+      "replaced_by": [
+        "3.35",
+        "3.94",
+        "1.0"
+      ],
+      "recorded_by": "Claude (Opus 5), 2026-09-03, from git history: 3.4 in every commit through 3ab4bf51 and on the live page today; 3.35 from 87b8d9d0; 3.94/1.0 from e5d29666.",
+      "corrected_on": "2026-09-09",
+      "correction": "The `why` above says the printed figure 'was corrected silently'. RV-06: the printed 3.4 was the correct total of the working printed beside it, which came to 3.4000 exactly on the weights the page then showed — reproducibility and recency at .15 each. What differed from the rubric was the working, not the display, and no rounding was involved. Commit 87b8d9d corrected the weights and published the rubric in one change. The clause 'the six scores against the published weights come to 3.35, not 3.4' is right; 'the printed figure was corrected' is not."
+    },
+    {
+      "figure": "0.179",
+      "removed_on": "2026-09-08",
+      "reason": "rewritten",
+      "source_id": "S007",
+      "replaced_by": [
+        "0.114",
+        "1.584"
+      ],
+      "why": "The 80% bound 0.179 of the three-year overall-survival hazard ratio. Not an absence and not a correction of a wrong number: S007's Table 1 prints both intervals for the same hazard ratio in the same row — 0.425, 80% CI 0.179 to 1.004, 95% CI 0.114 to 1.584 — and the page now gives the 95% pair so that it can be read against the five-year 0.165 to 1.345 at the same width rather than beside it at a different one. Setting an 80% interval next to a 95% interval makes the sparser analysis look tidier than it is, which is the subject of this article. OR-019. The other bound of the same pair, 1.004, was removed in the same edit.",
+      "recorded_by": "Claude (Opus 5), 2026-09-08, from S007 Table 1 read in the held document"
+    },
+    {
+      "figure": "1.004",
+      "removed_on": "2026-09-08",
+      "reason": "rewritten",
+      "source_id": "S007",
+      "replaced_by": [
+        "0.114",
+        "1.584"
+      ],
+      "why": "The 80% bound 1.004 of the three-year overall-survival hazard ratio. Not an absence and not a correction of a wrong number: S007's Table 1 prints both intervals for the same hazard ratio in the same row — 0.425, 80% CI 0.179 to 1.004, 95% CI 0.114 to 1.584 — and the page now gives the 95% pair so that it can be read against the five-year 0.165 to 1.345 at the same width rather than beside it at a different one. Setting an 80% interval next to a 95% interval makes the sparser analysis look tidier than it is, which is the subject of this article. OR-019. The other bound of the same pair, 0.179, was removed in the same edit.",
+      "recorded_by": "Claude (Opus 5), 2026-09-08, from S007 Table 1 read in the held document"
+    },
+    {
+      "figure": "403",
+      "removed_on": "2026-09-11",
+      "reason": "superseded",
+      "source_id": "S031",
+      "by": "claude",
+      "library_at_the_time": "1 source(s) are unheld (S028), so this library cannot answer whether a figure is anywhere",
+      "why": "Not a figure any document reports: the HTTP status nejm.org returned to our own script on 2026-09-09, stated on the page as the reason we had not read the 2018 erratum to S029. The sentence carrying it was replaced on 2026-09-11 because the notice has now been read — obtained in a browser and held as S031. The 403 was true of a script and still is (NEJM serves a Cloudflare bot challenge to scripts); what it was made to imply, that the notice was unreadable, was false. The replacement sentences say what the notice says. The matching figure-exclusion for 403 is retired in the same change.",
+      "recorded_by": "Claude Code, 2026-09-11, from the diff of the live page against the draft."
+    }
+  ]
 }

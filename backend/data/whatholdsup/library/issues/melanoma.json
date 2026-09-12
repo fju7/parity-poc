@@ -368,6 +368,19 @@
       "kind_why": "form 'record' — 2158 characters held. The article test does not apply to this form",
       "superseded": [],
       "also_held": []
+    },
+    "S031": {
+      "sha256": "7b36634cd3d78aaddf9ebb5ce539adbf91b64bbcf19bcdeaaab6a7c53694a4e7",
+      "file": "docs/7b/7b36634cd3d78aaddf9ebb5ce539adbf91b64bbcf19bcdeaaab6a7c53694a4e7.pdf",
+      "bytes": 64104,
+      "url": "https://www.nejm.org/doi/full/10.1056/NEJMx180040",
+      "held": "2026-09-11",
+      "via": "Obtained 2026-09-11 from nejm.org in a browser by Fred Ugast (the PDF's own stamp: 'Downloaded from nejm.org on September 11, 2026'); NEJM returns a Cloudflare bot challenge to scripts, which is NOT a paywall — the notice is freely readable without a subscription. Verified by content on ingestion, not by hash: 1 page, /Subject 'N Engl J Med 2018.379:2185-2185', /CreationDate D:20181115141649, folio 2185, thirteen '(N Engl J Med 20..' citations, both verbatim passages, no correction-of-substance language. NEJM STAMPS EVERY DOWNLOAD (/ModDate and a printed 'Downloaded from nejm.org on <date>' line), so the sha256 recorded here identifies THIS retrieval and not the document: a later re-download will hash differently and must not be treated as a changed or superseded document.",
+      "note": "The notice itself, one page, read in full. Thirteen corrected articles listed, then one sentence: Dr. Jedd D. Wolchok's disclosures have been updated, and the articles are correct at NEJM.org. No result, method or figure amended. sha256 identifies this retrieval only: the publisher stamps each download.",
+      "kind": "document",
+      "kind_why": "form 'notice' — 5440 characters held. The article test does not apply to this form",
+      "superseded": [],
+      "also_held": []
     }
   }
 }

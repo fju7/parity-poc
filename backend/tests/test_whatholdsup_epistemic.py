@@ -56,12 +56,25 @@ CORRECTIONS_UNREAD = (
     "The MONARCH 3 corrigendum. This page said it was behind a paywall, then "
     "corrected itself to say it was open access. It remains unread and is still "
     "disclosed as unread.")
-S029_DISCLOSURE = (
+# The page's erratum disclosure as it stood from 9 to 11 September 2026, while
+# the notice was unread. On 11 September the notice was obtained and held as
+# S031, so this sentence became a stale predicate -- the class this file exists
+# to catch -- and the test that once required it NOT to fail now requires it to.
+S029_DISCLOSURE_SUPERSEDED = (
     "A 2018 erratum covering thirteen NEJM articles at once (N Engl J Med "
     "2018;379:2185) applies to this paper. We have not been able to read it: "
     "NEJM returns 403, Europe PMC records the notice as neither open access nor "
     "in its archive, and neither PubMed nor Crossref carries an abstract for it; "
     "so we do not know whether it touches a figure on this page.")
+# The disclosure as the page carries it from 11 September 2026.
+S029_DISCLOSURE = (
+    "A 2018 erratum covering thirteen NEJM articles at once (N Engl J Med "
+    "2018;379:2185) applies to this paper. We have now read the notice. In "
+    "full, it updates the disclosures of one author, Jedd D. Wolchok, and "
+    "states that the articles are correct at NEJM.org. It changes no result, "
+    "method or figure, and touches nothing on this page. Our held copy of the "
+    "paper is the PubMed Central full text, which may carry the disclosure as "
+    "it stood before the update.")
 S028_NOTE = (
     "Riaz and colleagues, read from its abstract only — the abstract is held and "
     "the full text is not, and nothing here rests on anything past the abstract.")
@@ -103,13 +116,25 @@ def test_it_fires_on_a_correction_announcing_a_change_never_made():
 # ---------------------------------------------------------------------------
 
 def test_it_does_not_fail_on_the_s029_erratum_disclosure():
-    """S030 is held in full and what is held is the PubMed RECORD, not the
-    notice. `document_class: record_about` says so. The verdict must never be
-    FAIL — and it must never be a silent PASS either, because a record about a
-    document cannot answer a question about the document."""
+    """The notice is held as S031 (full_text_held) since 11 September 2026, and
+    the page says it has been read. Until then S030 -- the PubMed RECORD, not
+    the notice, `document_class: record_about` -- was all we held, and the
+    disclosure said so; that version is the superseded fixture below."""
     f = E.check_sentence(S029_DISCLOSURE, "melanoma")
     assert all(v["verdict"] != E.FAIL for v in f), \
         "false positive on a correct disclosure: %r" % (f,)
+
+
+def test_it_fires_on_the_superseded_s029_erratum_disclosure():
+    """The 9 September sentence asserted the notice was unread. It was true
+    then and is false now, which is exactly the class the corrections.md
+    "remains unread" entry taught: a sentence about ourselves that the store
+    has since overtaken. It must FAIL, naming the notice we now hold."""
+    f = E.check_sentence(S029_DISCLOSURE_SUPERSEDED, "melanoma")
+    assert f, "the superseded disclosure must be reported"
+    assert any(v["verdict"] == E.FAIL and v.get("asserted") == E.UNREAD
+               and v.get("source") == "S031" for v in f), (
+        "it must fail as UNREAD against S031, the notice itself: %r" % (f,))
 
 
 def test_holding_an_abstract_satisfies_we_hold_but_not_we_have_read():

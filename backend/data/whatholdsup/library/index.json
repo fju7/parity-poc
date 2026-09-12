@@ -1088,6 +1088,22 @@
         "melanoma:S030"
       ],
       "note": "PubMed record for the 2018 thirteen-article NEJM erratum. Record held; notice not held."
+    },
+    "7b36634cd3d78aaddf9ebb5ce539adbf91b64bbcf19bcdeaaab6a7c53694a4e7": {
+      "file": "docs/7b/7b36634cd3d78aaddf9ebb5ce539adbf91b64bbcf19bcdeaaab6a7c53694a4e7.pdf",
+      "bytes": 64104,
+      "content_type": "application/pdf",
+      "first_held": "2026-09-11",
+      "urls": [
+        "https://www.nejm.org/doi/full/10.1056/NEJMx180040"
+      ],
+      "titles": [
+        "2018 NEJM erratum NEJMx180040 covering thirteen articles - the notice text itself, N Engl J Med 2018;379:2185"
+      ],
+      "used_by": [
+        "melanoma:S031"
+      ],
+      "note": "The notice itself, one page, read in full. Thirteen corrected articles listed, then one sentence: Dr. Jedd D. Wolchok's disclosures have been updated, and the articles are correct at NEJM.org. No result, method or figure amended. sha256 identifies this retrieval only: the publisher stamps each download."
     }
   }
 }

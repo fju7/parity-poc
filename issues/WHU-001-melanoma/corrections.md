@@ -8,6 +8,40 @@ Each entry: what a reader who saw the earlier version needs to know, and when.
 Not how the process failed; that is in the repository.
 
 
+## 11 September 2026 — the erratum we said we could not read
+
+Since 9 September the source list on this page has said, of the New England
+Journal paper behind the ipilimumab counterexample (Eggermont et al., EORTC
+18071): <q>We have not been able to read it: NEJM returns 403, Europe PMC
+records the notice as neither open access nor in its archive, and neither
+PubMed nor Crossref carries an abstract for it; so we do not know whether it
+touches a figure on this page.</q> The 9 September entry below said the notice
+<q>is behind a subscription</q>.
+
+**We have now read it.** The notice (<em>N Engl J Med</em> 2018;379:2185, now
+linked from the source list) covers thirteen NEJM articles. After listing them
+— ours as "Prolonged Survival in Stage III Melanoma with Ipilimumab Adjuvant
+Therapy (N Engl J Med 2016;375:1845-1855)" — its complete operative text is one
+sentence: <q>Dr. Jedd D. Wolchok's disclosures have been updated, and the
+articles are correct at NEJM.org.</q> It updates one author's
+conflict-of-interest disclosures. It changes no result, method or figure, and it
+touches nothing on this page. The source list now says: "We have now read the
+notice. In full, it updates the disclosures of one author, Jedd D. Wolchok, and
+states that the articles are correct at NEJM.org. It changes no result, method
+or figure, and touches nothing on this page. Our held copy of the paper is the
+PubMed Central full text, which may carry the disclosure as it stood before the
+update."
+
+**"Behind a subscription" was wrong, and the error was ours.** NEJM answers a
+script with a bot challenge; it answers a browser with the notice, free, with no
+subscription. We inferred a paywall from a 403 and printed the inference. The
+notice was obtained on 11 September in a browser, checked against its own
+contents to confirm it is the document, and is held.
+
+**What is still open.** The copy of the paper we hold is the PubMed Central
+full text fetched on 8 September, which may carry Dr. Wolchok's disclosure as it
+stood before the update. Nothing this page quotes rests on that disclosure.
+
 ## 10 September 2026 — we said every sentence on this page was bound to the words it rests on
 
 It was 131 of 343.
