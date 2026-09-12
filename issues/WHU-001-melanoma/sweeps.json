@@ -4124,6 +4124,298 @@
         "S026",
         "S027"
       ]
+    },
+    {
+      "on": "2026-09-12",
+      "command": "registry",
+      "sources_queried": 4,
+      "first_capture": [
+        "S013",
+        "S020",
+        "S021",
+        "S026"
+      ],
+      "changes": {},
+      "alarms": [
+        "S020 NCT02362594: anticipated posting date 2026-11 is within 60 days — outcome 'Distant Metastases-free Survival (DMFS) in All Participants'",
+        "S020 NCT02362594: anticipated posting date 2026-11 is within 60 days — outcome 'Distant Metastases-free Survival (DMFS) for Participants Wit'",
+        "S020 NCT02362594: anticipated posting date 2026-11 is within 60 days — outcome 'Overall Survival (OS) for All Participants'",
+        "S020 NCT02362594: anticipated posting date 2026-11 is within 60 days — outcome 'Overall Survival (OS) for Participants With PD-L1-positive T'"
+      ],
+      "titles_disagree": [],
+      "unresolved": [],
+      "unsweepable": []
+    },
+    {
+      "on": "2026-09-12",
+      "command": "registry",
+      "sources_queried": 4,
+      "first_capture": [],
+      "changes": {},
+      "alarms": [
+        "S020 NCT02362594: anticipated posting date 2026-11 is within 60 days — outcome 'Distant Metastases-free Survival (DMFS) in All Participants'",
+        "S020 NCT02362594: anticipated posting date 2026-11 is within 60 days — outcome 'Distant Metastases-free Survival (DMFS) for Participants Wit'",
+        "S020 NCT02362594: anticipated posting date 2026-11 is within 60 days — outcome 'Overall Survival (OS) for All Participants'",
+        "S020 NCT02362594: anticipated posting date 2026-11 is within 60 days — outcome 'Overall Survival (OS) for Participants With PD-L1-positive T'"
+      ],
+      "titles_disagree": [],
+      "unresolved": [],
+      "unsweepable": []
     }
-  ]
+  ],
+  "registry": {
+    "S013": {
+      "nct": "NCT05933577",
+      "identity": {
+        "identity": "the NCT is literally in the URL we hold",
+        "titles_agree": true,
+        "why": "resolved title shares 1 word(s) with ours: interpath"
+      },
+      "state": {
+        "briefTitle": "A Clinical Study of Intismeran Autogene (V940) Plus Pembrolizumab in People With High-Risk Melanoma (V940-001)",
+        "officialTitle": "A Phase 3, Randomized, Double-Blind, Placebo- and Active-Comparator-Controlled Clinical Study of Adjuvant V940 (mRNA-4157) Plus Pembrolizumab Versus Adjuvant Placebo Plus Pembrolizumab in Participants With High-Risk Stage II-IV Melanoma (INTerpath-001)",
+        "overallStatus": "ACTIVE_NOT_RECRUITING",
+        "statusVerifiedDate": "2025-09",
+        "lastUpdatePostDate": "2025-09-24",
+        "primaryCompletionDate": "2029-10-26",
+        "primaryCompletionDateType": "ESTIMATED",
+        "completionDate": "2030-09-26",
+        "completionDateType": "ESTIMATED",
+        "resultsFirstPostDate": null,
+        "hasResults": false,
+        "versionHolder": "2026-09-11",
+        "outcomes": []
+      },
+      "swept": "2026-09-12",
+      "baselined": "2026-09-12"
+    },
+    "S020": {
+      "nct": "NCT02362594",
+      "identity": {
+        "identity": "the NCT is literally in the URL we hold",
+        "titles_agree": true,
+        "why": "resolved title shares 1 word(s) with ours: keynote"
+      },
+      "state": {
+        "briefTitle": "Study of Pembrolizumab (MK-3475) Versus Placebo After Complete Resection of High-Risk Stage III Melanoma (MK-3475-054/1325-MG/KEYNOTE-054)",
+        "officialTitle": "Adjuvant Immunotherapy With Anti-PD-1 Monoclonal Antibody Pembrolizumab (MK-3475) Versus Placebo After Complete Resection of High-risk Stage III Melanoma: A Randomized, Double- Blind Phase 3 Trial of the EORTC Melanoma Group",
+        "overallStatus": "ACTIVE_NOT_RECRUITING",
+        "statusVerifiedDate": "2026-02",
+        "lastUpdatePostDate": "2026-03-05",
+        "primaryCompletionDate": "2018-01-08",
+        "primaryCompletionDateType": "ACTUAL",
+        "completionDate": "2026-11-01",
+        "completionDateType": "ESTIMATED",
+        "resultsFirstPostDate": "2019-01-04",
+        "hasResults": true,
+        "versionHolder": "2026-09-11",
+        "outcomes": [
+          {
+            "title": "Part 1: Percentage of Participants With Recurrence-Free Survival (RFS) At 6 Months Among All Participants",
+            "type": "PRIMARY",
+            "reportingStatus": "POSTED",
+            "anticipatedPostingDate": null
+          },
+          {
+            "title": "Part 1: Percentage of Participants With Recurrence-Free Survival (RFS) At 6 Months Among Participants With PD-L1-positive Tumor Expression",
+            "type": "PRIMARY",
+            "reportingStatus": "POSTED",
+            "anticipatedPostingDate": null
+          },
+          {
+            "title": "Distant Metastases-free Survival (DMFS) in All Participants",
+            "type": "SECONDARY",
+            "reportingStatus": "NOT_POSTED",
+            "anticipatedPostingDate": "2026-11"
+          },
+          {
+            "title": "Distant Metastases-free Survival (DMFS) for Participants With PD-L1-positive Tumor Expression",
+            "type": "SECONDARY",
+            "reportingStatus": "NOT_POSTED",
+            "anticipatedPostingDate": "2026-11"
+          },
+          {
+            "title": "Overall Survival (OS) for All Participants",
+            "type": "SECONDARY",
+            "reportingStatus": "NOT_POSTED",
+            "anticipatedPostingDate": "2026-11"
+          },
+          {
+            "title": "Overall Survival (OS) for Participants With PD-L1-positive Tumor Expression",
+            "type": "SECONDARY",
+            "reportingStatus": "NOT_POSTED",
+            "anticipatedPostingDate": "2026-11"
+          },
+          {
+            "title": "Number of Participants Who Experienced At Least 1 Adverse Event (AE)",
+            "type": "SECONDARY",
+            "reportingStatus": "POSTED",
+            "anticipatedPostingDate": null
+          },
+          {
+            "title": "Number of Participants Who Discontinued Study Treatment Due to an Adverse Event (AE)",
+            "type": "SECONDARY",
+            "reportingStatus": "POSTED",
+            "anticipatedPostingDate": null
+          },
+          {
+            "title": "Clearance (CL) of Pembrolizumab",
+            "type": "SECONDARY",
+            "reportingStatus": "POSTED",
+            "anticipatedPostingDate": null
+          },
+          {
+            "title": "Volume of Distribution (V) of Pembrolizumab",
+            "type": "SECONDARY",
+            "reportingStatus": "POSTED",
+            "anticipatedPostingDate": null
+          },
+          {
+            "title": "Number of Participants Positive for Anti-Drug Antibodies (ADA) After Pembrolizumab Treatment",
+            "type": "SECONDARY",
+            "reportingStatus": "POSTED",
+            "anticipatedPostingDate": null
+          }
+        ]
+      },
+      "swept": "2026-09-12",
+      "baselined": "2026-09-12"
+    },
+    "S021": {
+      "nct": "NCT02388906",
+      "identity": {
+        "identity": "the NCT is literally in the URL we hold",
+        "titles_agree": true,
+        "why": "resolved title shares 1 word(s) with ours: checkmate"
+      },
+      "state": {
+        "briefTitle": "Efficacy Study of Nivolumab Compared to Ipilimumab in Prevention of Recurrence of Melanoma After Complete Resection of Stage IIIb/c or Stage IV Melanoma",
+        "officialTitle": "A Phase 3, Randomized, Double-blind Study of Adjuvant Immunotherapy With Nivolumab Versus Ipilimumab After Complete Resection of Stage IIIb/c or Stage IV Melanoma in Subjects Who Are at High Risk for Recurrence (CheckMate 238: CHECKpoint Pathway and nivoluMAb Clinical Trial Evaluation 238)",
+        "overallStatus": "COMPLETED",
+        "statusVerifiedDate": "2025-04",
+        "lastUpdatePostDate": "2025-04-24",
+        "primaryCompletionDate": "2018-11-26",
+        "primaryCompletionDateType": "ACTUAL",
+        "completionDate": "2024-10-16",
+        "completionDateType": "ACTUAL",
+        "resultsFirstPostDate": "2021-06-15",
+        "hasResults": true,
+        "versionHolder": "2026-09-11",
+        "outcomes": [
+          {
+            "title": "Recurrence-free Survival (RFS)",
+            "type": "PRIMARY",
+            "reportingStatus": "POSTED",
+            "anticipatedPostingDate": null
+          },
+          {
+            "title": "Overall Survival (OS)",
+            "type": "SECONDARY",
+            "reportingStatus": "POSTED",
+            "anticipatedPostingDate": null
+          },
+          {
+            "title": "The Safety and Tolerability of Nivolumab and Ipilimumab Measured by the Incidence of Adverse Events",
+            "type": "SECONDARY",
+            "reportingStatus": "POSTED",
+            "anticipatedPostingDate": null
+          },
+          {
+            "title": "The Safety and Tolerability of Nivolumab and Ipilimumab Measured by the Incidence of Serious Adverse Events",
+            "type": "SECONDARY",
+            "reportingStatus": "POSTED",
+            "anticipatedPostingDate": null
+          },
+          {
+            "title": "the Safety and Tolerability of Nivolumab and Ipilimumab Measured by the Incidence of Deaths",
+            "type": "SECONDARY",
+            "reportingStatus": "POSTED",
+            "anticipatedPostingDate": null
+          },
+          {
+            "title": "The Safety and Tolerability of Nivolumab and Ipilimumab Measured by the Incidence of Laboratory Abnormalities",
+            "type": "SECONDARY",
+            "reportingStatus": "POSTED",
+            "anticipatedPostingDate": null
+          },
+          {
+            "title": "Recurrence-free Survival by PD-L1 Expression",
+            "type": "SECONDARY",
+            "reportingStatus": "POSTED",
+            "anticipatedPostingDate": null
+          },
+          {
+            "title": "Health Related Quality of Life (HRQoL) Evaluation",
+            "type": "SECONDARY",
+            "reportingStatus": "POSTED",
+            "anticipatedPostingDate": null
+          },
+          {
+            "title": "Recurrence-free Survival (RFS)",
+            "type": "POST_HOC",
+            "reportingStatus": "POSTED",
+            "anticipatedPostingDate": null
+          }
+        ]
+      },
+      "swept": "2026-09-12",
+      "baselined": "2026-09-12"
+    },
+    "S026": {
+      "nct": "NCT03553836",
+      "identity": {
+        "identity": "the NCT is literally in the URL we hold",
+        "titles_agree": true,
+        "why": "resolved title shares 1 word(s) with ours: keynote"
+      },
+      "state": {
+        "briefTitle": "Safety and Efficacy of Pembrolizumab Compared to Placebo in Resected High-risk Stage II Melanoma (MK-3475-716/KEYNOTE-716)",
+        "officialTitle": "Adjuvant Therapy With Pembrolizumab Versus Placebo in Resected High-risk Stage II Melanoma: A Randomized, Double-blind Phase 3 Study (KEYNOTE-716)",
+        "overallStatus": "ACTIVE_NOT_RECRUITING",
+        "statusVerifiedDate": "2024-11",
+        "lastUpdatePostDate": "2024-11-29",
+        "primaryCompletionDate": "2021-06-21",
+        "primaryCompletionDateType": "ACTUAL",
+        "completionDate": "2033-10-12",
+        "completionDateType": "ESTIMATED",
+        "resultsFirstPostDate": "2022-06-24",
+        "hasResults": true,
+        "versionHolder": "2026-09-11",
+        "outcomes": [
+          {
+            "title": "Recurrence-free Survival (RFS)",
+            "type": "PRIMARY",
+            "reportingStatus": "POSTED",
+            "anticipatedPostingDate": null
+          },
+          {
+            "title": "Distant Metastasis-free Survival (DMFS)",
+            "type": "SECONDARY",
+            "reportingStatus": "NOT_POSTED",
+            "anticipatedPostingDate": "2033-10"
+          },
+          {
+            "title": "Overall Survival (OS)",
+            "type": "SECONDARY",
+            "reportingStatus": "NOT_POSTED",
+            "anticipatedPostingDate": "2033-10"
+          },
+          {
+            "title": "Number of Participants Who Experienced at Least One Adverse Event (AE)",
+            "type": "SECONDARY",
+            "reportingStatus": "POSTED",
+            "anticipatedPostingDate": null
+          },
+          {
+            "title": "Number of Participants Who Discontinued Study Treatment Due to an AE",
+            "type": "SECONDARY",
+            "reportingStatus": "POSTED",
+            "anticipatedPostingDate": null
+          }
+        ]
+      },
+      "swept": "2026-09-12",
+      "baselined": "2026-09-12"
+    }
+  }
 }

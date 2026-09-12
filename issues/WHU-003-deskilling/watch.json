@@ -2,7 +2,7 @@
   "what_this_is": "The standing watch on a LIVING issue. These are the findings that would change or kill the piece, carried forward past publication instead of being tested once and forgotten. A kill condition that fires after publication is the process working.",
   "living": true,
   "review_interval_days": 30,
-  "the_promise": "The page displays the date of the LAST CHECK, not the last change. 'Last reviewed <date>; nothing has changed' is the honest line and the only one that cannot be told by a page nobody has opened.",
+  "the_promise": "The page makes the modest promise: it states the date its evidence was read and claims nothing about the interval since. The questions below are what we watch for, on our own account, with no promise to the reader that we have looked recently; what a check finds is recorded here, and on the page only when the page changes because of it. Operator ruling of 12 September 2026: review/2026-09-12-modest-promise-ruling.md.",
   "questions": [
     {
       "id": "W1",

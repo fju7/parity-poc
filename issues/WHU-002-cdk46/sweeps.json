@@ -7572,6 +7572,380 @@
         "S021",
         "S022"
       ]
+    },
+    {
+      "on": "2026-09-12",
+      "command": "registry",
+      "sources_queried": 5,
+      "first_capture": [
+        "S018",
+        "S019",
+        "S020",
+        "S021",
+        "S022"
+      ],
+      "changes": {},
+      "alarms": [],
+      "titles_disagree": [
+        "S019",
+        "S022"
+      ],
+      "unresolved": [],
+      "unsweepable": []
+    },
+    {
+      "on": "2026-09-12",
+      "command": "registry",
+      "sources_queried": 5,
+      "first_capture": [],
+      "changes": {},
+      "alarms": [],
+      "titles_disagree": [],
+      "titles_inconclusive": [
+        "S019",
+        "S022"
+      ],
+      "unresolved": [],
+      "unsweepable": []
     }
-  ]
+  ],
+  "registry": {
+    "S018": {
+      "nct": "NCT05207709",
+      "identity": {
+        "identity": "the NCT is literally in the URL we hold",
+        "titles": "agree",
+        "titles_agree": true,
+        "why": "resolved title shares 18 word(s) with ours: advanced, breast, cancer, enriched, harmonia, her2, hormone, label, multicenter,"
+      },
+      "state": {
+        "briefTitle": "Ribociclib vs. Palbociclib in Patients With Advanced Breast Cancer Within the HER2-Enriched Intrinsic Subtype",
+        "officialTitle": "A Phase III, Multicenter, Open-label Study of Ribociclib vs. Palbociclib in Patients With Advanced Hormone Receptor-positive/HER2-negative/HER2-Enriched Breast Cancer - HARMONIA Trial",
+        "overallStatus": "TERMINATED",
+        "statusVerifiedDate": "2025-04",
+        "lastUpdatePostDate": "2026-06-25",
+        "primaryCompletionDate": "2026-03-26",
+        "primaryCompletionDateType": "ACTUAL",
+        "completionDate": "2026-03-26",
+        "completionDateType": "ACTUAL",
+        "resultsFirstPostDate": null,
+        "hasResults": false,
+        "versionHolder": "2026-09-11",
+        "outcomes": []
+      },
+      "swept": "2026-09-12",
+      "baselined": "2026-09-12"
+    },
+    "S019": {
+      "nct": "NCT01958021",
+      "identity": {
+        "identity": "the NCT is literally in the URL we hold",
+        "titles": "inconclusive",
+        "titles_agree": false,
+        "why": "identity established by the NCT; title comparison inconclusive -- the registry titles this record 'Study of Efficacy and Safety of LEE011 in Postmenopausal Women With Ad', which carries neither our trial name nor another's"
+      },
+      "state": {
+        "briefTitle": "Study of Efficacy and Safety of LEE011 in Postmenopausal Women With Advanced Breast Cancer",
+        "officialTitle": "A Randomized Double-blind, Placebo-controlled Study of LEE011 in Combination With Letrozole for the Treatment of Postmenopausal Women With Hormone Receptor Positive, HER2 Negative, Advanced Breast Cancer Who Received no Prior Therapy for Advanced Disease",
+        "overallStatus": "COMPLETED",
+        "statusVerifiedDate": "2025-02",
+        "lastUpdatePostDate": "2025-03-07",
+        "primaryCompletionDate": "2016-01-29",
+        "primaryCompletionDateType": "ACTUAL",
+        "completionDate": "2023-03-16",
+        "completionDateType": "ACTUAL",
+        "resultsFirstPostDate": "2017-05-12",
+        "hasResults": true,
+        "versionHolder": "2026-09-11",
+        "outcomes": [
+          {
+            "title": "Progression Free Survival (PFS) by Investigator Assessment",
+            "type": "PRIMARY",
+            "reportingStatus": "POSTED",
+            "anticipatedPostingDate": null
+          },
+          {
+            "title": "Overall Survival (OS)",
+            "type": "SECONDARY",
+            "reportingStatus": "POSTED",
+            "anticipatedPostingDate": null
+          },
+          {
+            "title": "Overall Response Rate (ORR) by Investigator Assessment",
+            "type": "SECONDARY",
+            "reportingStatus": "POSTED",
+            "anticipatedPostingDate": null
+          },
+          {
+            "title": "Clinical Benefit Rate (CBR) by Investigator Assessment",
+            "type": "SECONDARY",
+            "reportingStatus": "POSTED",
+            "anticipatedPostingDate": null
+          },
+          {
+            "title": "Time to Definitive Deterioration of Eastern Cooperative Oncology Group Performance Status (ECOG PS) by at Least One Category of the Score",
+            "type": "SECONDARY",
+            "reportingStatus": "POSTED",
+            "anticipatedPostingDate": null
+          },
+          {
+            "title": "Time to Definitive 10% Deterioration in the Global Health Status/Quality of Life (GHS/QoL) Scale Score of the European Organization for Research and Treatment of Cancer's Core Quality of Life Questionnaire (EORTC QLQ-C30)",
+            "type": "SECONDARY",
+            "reportingStatus": "POSTED",
+            "anticipatedPostingDate": null
+          },
+          {
+            "title": "Change From Baseline in the GHS/QoL Scale Score of the EORTC QLQ-C30",
+            "type": "SECONDARY",
+            "reportingStatus": "POSTED",
+            "anticipatedPostingDate": null
+          },
+          {
+            "title": "All Collected Deaths",
+            "type": "POST_HOC",
+            "reportingStatus": "POSTED",
+            "anticipatedPostingDate": null
+          }
+        ]
+      },
+      "swept": "2026-09-12",
+      "baselined": "2026-09-12"
+    },
+    "S020": {
+      "nct": "NCT01740427",
+      "identity": {
+        "identity": "the NCT is literally in the URL we hold",
+        "titles": "agree",
+        "titles_agree": true,
+        "why": "resolved title shares 1 word(s) with ours: paloma"
+      },
+      "state": {
+        "briefTitle": "A Study of Palbociclib (PD-0332991) + Letrozole vs. Letrozole For 1st Line Treatment Of Postmenopausal Women With ER+/HER2- Advanced Breast Cancer (PALOMA-2)",
+        "officialTitle": "A RANDOMIZED, MULTICENTER, DOUBLE-BLIND PHASE 3 STUDY OF PD-0332991 (ORAL CDK 4/6 INHIBITOR) PLUS LETROZOLE VERSUS PLACEBO PLUS LETROZOLE FOR THE TREATMENT OF POSTMENOPAUSAL WOMEN WITH ER (+), HER2 (-) BREAST CANCER WHO HAVE NOT RECEIVED ANY PRIOR SYSTEMIC ANTI CANCER TREATMENT FOR ADVANCED DISEASE",
+        "overallStatus": "COMPLETED",
+        "statusVerifiedDate": "2024-10",
+        "lastUpdatePostDate": "2024-11-14",
+        "primaryCompletionDate": "2016-02-26",
+        "primaryCompletionDateType": "ACTUAL",
+        "completionDate": "2023-11-09",
+        "completionDateType": "ACTUAL",
+        "resultsFirstPostDate": "2017-04-26",
+        "hasResults": true,
+        "versionHolder": "2026-09-11",
+        "outcomes": [
+          {
+            "title": "Progression-Free Survival (PFS) as Assessed by the Investigator",
+            "type": "PRIMARY",
+            "reportingStatus": "POSTED",
+            "anticipatedPostingDate": null
+          },
+          {
+            "title": "Objective Response as Assessed by the Investigator",
+            "type": "SECONDARY",
+            "reportingStatus": "POSTED",
+            "anticipatedPostingDate": null
+          },
+          {
+            "title": "Objective Response: Participants With Measurable Disease at Baseline as Assessed by the Investigator",
+            "type": "SECONDARY",
+            "reportingStatus": "POSTED",
+            "anticipatedPostingDate": null
+          },
+          {
+            "title": "Duration of Response (DR)",
+            "type": "SECONDARY",
+            "reportingStatus": "POSTED",
+            "anticipatedPostingDate": null
+          },
+          {
+            "title": "Disease Control (DC)/Clinical Benefit Response (CBR)",
+            "type": "SECONDARY",
+            "reportingStatus": "POSTED",
+            "anticipatedPostingDate": null
+          },
+          {
+            "title": "PFS by Tumor Tissue Biomarkers Status, Including Genes (eg, Copy Numbers of CCND1, CDKN2A), Proteins (eg, Ki67, pRb), and RNA Expression (eg, cdk4, cdk6)",
+            "type": "SECONDARY",
+            "reportingStatus": "POSTED",
+            "anticipatedPostingDate": null
+          },
+          {
+            "title": "Corrected QT Interval (QTc) Time-Matched Change From Baseline on Cycle 1 Day 14",
+            "type": "SECONDARY",
+            "reportingStatus": "POSTED",
+            "anticipatedPostingDate": null
+          },
+          {
+            "title": "Percentage of Participants With Corrected QT Interval (QTc)",
+            "type": "SECONDARY",
+            "reportingStatus": "POSTED",
+            "anticipatedPostingDate": null
+          },
+          {
+            "title": "Observed Plasma Trough Concentration (Ctrough) at Steady-State",
+            "type": "SECONDARY",
+            "reportingStatus": "POSTED",
+            "anticipatedPostingDate": null
+          },
+          {
+            "title": "Change From Baseline Between Treatment Comparison in Euro Quality of Life (EQ-5D) Index",
+            "type": "SECONDARY",
+            "reportingStatus": "POSTED",
+            "anticipatedPostingDate": null
+          },
+          {
+            "title": "Change From Baseline Between Treatment Comparison in Functional Assessment of Cancer Therapy-Breast (FACT-B)",
+            "type": "SECONDARY",
+            "reportingStatus": "POSTED",
+            "anticipatedPostingDate": null
+          },
+          {
+            "title": "Percentage of Participants With Treatment-Emergent Adverse Events (TEAEs): All Causalities",
+            "type": "SECONDARY",
+            "reportingStatus": "POSTED",
+            "anticipatedPostingDate": null
+          },
+          {
+            "title": "Overall Survival (OS): Primary Analysis",
+            "type": "SECONDARY",
+            "reportingStatus": "POSTED",
+            "anticipatedPostingDate": null
+          },
+          {
+            "title": "Overall Survival (OS): Final Analysis",
+            "type": "SECONDARY",
+            "reportingStatus": "POSTED",
+            "anticipatedPostingDate": null
+          },
+          {
+            "title": "Survival Probability at 1 Year, 2 Year and 3 Year",
+            "type": "SECONDARY",
+            "reportingStatus": "POSTED",
+            "anticipatedPostingDate": null
+          },
+          {
+            "title": "Number of Participants With Laboratory Abnormalities by Maximum Common Terminology Criteria for Adverse Events (CTCAE) Grade",
+            "type": "SECONDARY",
+            "reportingStatus": "POSTED",
+            "anticipatedPostingDate": null
+          }
+        ]
+      },
+      "swept": "2026-09-12",
+      "baselined": "2026-09-12"
+    },
+    "S021": {
+      "nct": "NCT06805812",
+      "identity": {
+        "identity": "the NCT is literally in the URL we hold",
+        "titles": "agree",
+        "titles_agree": true,
+        "why": "resolved title shares 1 word(s) with ours: palmares"
+      },
+      "state": {
+        "briefTitle": "Predicting clinicAL outcoMes During First-line CDK4/6 Inhibitors Plus Endocrine Therapy in Patients With Advanced Hormone REceptor-poSitive HER2-negative Breast Cancer: the Retrospective-prospective Multicenter Italian PALMARES-2 Study",
+        "officialTitle": "Predictive Impact of Peripheral Blood Lymphocytes on clinicAL outcoMes During First-line CDK4/6 Inhibitors Plus Endocrine Therapy in Patients With Advanced Hormone REceptor-poSitive HER2-negative Breast Cancer: the Retrospective-prospective Multicenter Italian PALMARES-2 Study",
+        "overallStatus": "RECRUITING",
+        "statusVerifiedDate": "2024-12",
+        "lastUpdatePostDate": "2025-02-03",
+        "primaryCompletionDate": "2030-12-31",
+        "primaryCompletionDateType": "ESTIMATED",
+        "completionDate": "2040-12-31",
+        "completionDateType": "ESTIMATED",
+        "resultsFirstPostDate": null,
+        "hasResults": false,
+        "versionHolder": "2026-09-11",
+        "outcomes": []
+      },
+      "swept": "2026-09-12",
+      "baselined": "2026-09-12"
+    },
+    "S022": {
+      "nct": "NCT02278120",
+      "identity": {
+        "identity": "the NCT is literally in the URL we hold",
+        "titles": "inconclusive",
+        "titles_agree": false,
+        "why": "identity established by the NCT; title comparison inconclusive -- the registry titles this record 'Study of Efficacy and Safety in Premenopausal Women With Hormone Recep', which carries neither our trial name nor another's"
+      },
+      "state": {
+        "briefTitle": "Study of Efficacy and Safety in Premenopausal Women With Hormone Receptor Positive, HER2-negative Advanced Breast Cancer",
+        "officialTitle": "A Phase III Randomized, Double-blind, Placebo-controlled Study of LEE011 or Placebo in Combination With Tamoxifen and Goserelin or a Non-steroidal Aromatase Inhibitor (NSAI) and Goserelin for the Treatment of Premenopausal Women With Hormone Receptor Positive, HER2-negative, Advanced Breast Cancer",
+        "overallStatus": "COMPLETED",
+        "statusVerifiedDate": "2024-02",
+        "lastUpdatePostDate": "2024-03-12",
+        "primaryCompletionDate": "2017-08-21",
+        "primaryCompletionDateType": "ACTUAL",
+        "completionDate": "2023-04-20",
+        "completionDateType": "ACTUAL",
+        "resultsFirstPostDate": "2019-02-26",
+        "hasResults": true,
+        "versionHolder": "2026-09-11",
+        "outcomes": [
+          {
+            "title": "Progression Free Survival (PFS) by Investigator Assessment",
+            "type": "PRIMARY",
+            "reportingStatus": "POSTED",
+            "anticipatedPostingDate": null
+          },
+          {
+            "title": "Overall Survival (OS)",
+            "type": "SECONDARY",
+            "reportingStatus": "POSTED",
+            "anticipatedPostingDate": null
+          },
+          {
+            "title": "Overall Response Rate (ORR) by Investigator Assessment",
+            "type": "SECONDARY",
+            "reportingStatus": "POSTED",
+            "anticipatedPostingDate": null
+          },
+          {
+            "title": "Clinical Benefit Rate (CBR) by Investigator Assessment",
+            "type": "SECONDARY",
+            "reportingStatus": "POSTED",
+            "anticipatedPostingDate": null
+          },
+          {
+            "title": "Time to Response (TTR) by Investigator Assessment",
+            "type": "SECONDARY",
+            "reportingStatus": "POSTED",
+            "anticipatedPostingDate": null
+          },
+          {
+            "title": "Duration of Response (DOR) by Investigator Assessment",
+            "type": "SECONDARY",
+            "reportingStatus": "POSTED",
+            "anticipatedPostingDate": null
+          },
+          {
+            "title": "Time to Definitive Deterioration of Eastern Cooperative Oncology Group Performance Status (ECOG PS) by at Least One Category of the Score",
+            "type": "SECONDARY",
+            "reportingStatus": "POSTED",
+            "anticipatedPostingDate": null
+          },
+          {
+            "title": "Time to Definitive 10% Deterioration in the Global Health Status/Quality of Life (GHS/QoL) Scale Score of the European Organization for Research and Treatment of Cancer's Core Quality of Life Questionnaire (EORTC QLQ-C30)",
+            "type": "SECONDARY",
+            "reportingStatus": "POSTED",
+            "anticipatedPostingDate": null
+          },
+          {
+            "title": "Change From Baseline in the GHS/QoL Scale Score of the EORTC QLQ-C30",
+            "type": "SECONDARY",
+            "reportingStatus": "POSTED",
+            "anticipatedPostingDate": null
+          },
+          {
+            "title": "All Collected Deaths",
+            "type": "POST_HOC",
+            "reportingStatus": "POSTED",
+            "anticipatedPostingDate": null
+          }
+        ]
+      },
+      "swept": "2026-09-12",
+      "baselined": "2026-09-12"
+    }
+  }
 }

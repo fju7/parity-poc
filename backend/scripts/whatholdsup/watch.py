@@ -10,23 +10,27 @@ authors of its strongest study explicitly called for the randomised crossover
 trial that would change the answer. A piece like that is wrong within months
 unless somebody keeps looking.
 
-THE DANGER IT INTRODUCES, WHICH IS THE WHOLE POINT OF THIS FILE
----------------------------------------------------------------
-A dated page makes a modest promise. "Checked as of 28 August 2026" tells a
-reader exactly what they have. A page with a changelog makes a much stronger
-one: it implies THIS IS CURRENT. If the watch does not actually run, we have
-published a stale page that claims freshness — an unrun check reported as a
-pass, in public, on a page a reader trusts MORE because of the very feature
-that failed.
+THE WATCH IS INTERNAL; THE PAGE PROMISES NOTHING
+------------------------------------------------
+The watch exists so that somebody looks, and so that what they find is
+recorded: in watch.json's `checks`, and in the changelog when the page changes
+because of it. That is the whole of its job.
 
-So the rule this module enforces is:
+The page makes the modest promise — we read these documents and this is what
+they said, as of a stated date — and carries no review date. It does not
+promise currency, because we cannot be sure that promise is true.
 
-    THE PAGE DISPLAYS THE DATE OF THE LAST CHECK, NOT THE LAST CHANGE.
+Until 12 September 2026 this module enforced the opposite: a blocking row
+required the page to say "Last reviewed <date>" and required that date to
+match the last recorded check. The danger it guarded against was real — a
+page with a changelog reads as current, and a stale page that reads as current
+is an unrun check reported as a pass, in public. But a check that the page's
+date matches the register's date verifies that two of our records agree with
+each other, not that anybody looked at the world. That danger is now handled
+by not making the claim at all rather than by making it checkable. What blocks
+is contradiction, never age: see `registry claims match the registry`.
 
-"Last reviewed 12 September; nothing has changed" is honest and only survives
-if somebody looked. "Last updated 29 August" on a page nobody has opened since
-is a lie told by omission, and it is the kind this publication exists to point
-at in other people.
+Ruling: issues/WHU-003-deskilling/review/2026-09-12-modest-promise-ruling.md.
 
 TWO HISTORIES, NEVER MERGED
 ---------------------------
@@ -132,36 +136,21 @@ def days_since_check(doc: dict) -> int | None:
 
 
 # ---------------------------------------------------------------------------
-# the page's own claim about when it was last looked at
-# ---------------------------------------------------------------------------
-
-REVIEWED_RE = re.compile(
-    r"last\s+reviewed\s*:?\s*(\d{1,2}\s+[A-Z][a-z]+\s+\d{4})", re.I)
-
-
-def reviewed_date_on_page(html: str) -> str | None:
-    """What the page tells a reader about when it was last checked.
-
-    Deliberately looks for 'last reviewed' and NOT for 'last updated'. A page
-    that says when it last CHANGED tells a reader nothing about whether anyone
-    has looked since, which is the exact misreading this module exists to
-    prevent. If the page says 'updated', this returns None and the check fails,
-    which is correct: the wrong word is the wrong promise.
-    """
-    m = REVIEWED_RE.search(html)
-    return m.group(1) if m else None
-
-
-# ---------------------------------------------------------------------------
 # preflight
 # ---------------------------------------------------------------------------
 
-def preflight_rows(slug: str, page_html: str) -> list[tuple[str, str, str]]:
+def preflight_rows(slug: str, page_html: str = "") -> list[tuple[str, str, str]]:
     """Rows for publish.py. Empty when the issue is not declared living.
 
     An issue is living only if somebody wrote watch.json. Silence is not a
     living issue, and this must never invent one: a page without a changelog
     makes the modest promise, which is always safe.
+
+    `page_html` is retained for call-site compatibility (publish.py passes it
+    positionally) and is deliberately unused. Until 12 September 2026 it was
+    scanned for a "Last reviewed <date>" line; that rule is withdrawn by
+    2026-09-12-modest-promise-ruling.md, and nothing here reads the page now.
+    Every row below is about the register's own integrity.
     """
     doc = load(slug)
     if doc is None:
@@ -177,30 +166,24 @@ def preflight_rows(slug: str, page_html: str) -> list[tuple[str, str, str]]:
                 "open question is a settled issue wearing a changelog; either "
                 "open a question or delete watch.json."))
 
+    # WARN, never BAD, past the interval -- the one judgement call in the
+    # 2026-09-12 modest-promise ruling, recorded there so the operator can
+    # reverse it. With the page making no currency claim, "nobody has looked
+    # lately" makes nothing on the page false: it is Class 3 -- nothing has
+    # checked this yet -- and Class 3 does not block. The row keeps its text,
+    # its day count and its interval, and stays counted, so it cannot become
+    # invisible. What blocks is contradiction: `registry claims match the
+    # registry`. Ruling: 2026-09-12-modest-promise-ruling.md.
     n = days_since_check(doc)
     if n is None:
-        out.append(("watch has been run", BAD,
-                    "no check recorded. The page is about to promise a reader "
-                    "it is current, and nobody has looked."))
+        out.append(("watch has been run", WARN,
+                    "no check recorded. No check has ever been recorded for this "
+                    "watch, and nobody has looked."))
     else:
-        st = OK if n <= interval else (WARN if n <= 2 * interval else BAD)
+        st = OK if n <= interval else WARN
         out.append(("watch has been run", st,
                     "last checked %d day(s) ago, against a %d-day interval"
                     % (n, interval)))
-
-    shown = reviewed_date_on_page(page_html)
-    c = last_check(doc)
-    want = pretty(datetime.strptime(c["on"], "%Y-%m-%d").date()) if c else None
-    if shown is None:
-        out.append(("page says when it was last reviewed", BAD,
-                    "no 'Last reviewed <date>' on the page. A changelog without "
-                    "it tells a reader when we last CHANGED something, which is "
-                    "not the same as when we last LOOKED."))
-    elif want and shown != want:
-        out.append(("page says when it was last reviewed", BAD,
-                    "page says %s; the last recorded check was %s" % (shown, want)))
-    else:
-        out.append(("page says when it was last reviewed", OK, "says %s" % shown))
 
     # Every changelog entry binds to the sha it was written against, for the
     # same reason acceptances and announces do: an entry unbound from the
@@ -270,9 +253,11 @@ def cmd_init(args) -> int:
         "living": True,
         "review_interval_days": DEFAULT_INTERVAL_DAYS,
         "the_promise":
-            "The page displays the date of the LAST CHECK, not the last change. "
-            "'Last reviewed <date>; nothing has changed' is the honest line and "
-            "the only one that cannot be told by a page nobody has opened.",
+            "The page makes the modest promise: it states the date its evidence "
+            "was read and claims nothing about the interval since. This register "
+            "is what we watch for, on our own account, with no promise to the "
+            "reader that we have looked recently. Ruling: "
+            "review/2026-09-12-modest-promise-ruling.md.",
         "questions": seeded,
         "checks": [],
         "changelog": [],
@@ -333,7 +318,8 @@ def cmd_check(args) -> int:
         "found": args.found,
     })
     save(args.slug, doc)
-    print("\n  Recorded. The page must now say: Last reviewed %s\n"
+    print("\n  Recorded %s in the register. The page carries no review date: "
+          "the watch is internal (2026-09-12-modest-promise-ruling.md).\n"
           % pretty(date.today()))
     return 0
 

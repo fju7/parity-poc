@@ -164,6 +164,17 @@ registry_figures = _sibling("registry_figures")
 # you thought was covered is covered for one data type and silent for the rest.
 registry_facts = _sibling("registry_facts")
 
+# Added 2026-09-12. registry_figures and registry_facts CONFIRM what a page
+# says against the live registry and never contradict. Neither watches the
+# record afterwards, and the melanoma page cites registry fields directly --
+# "has not been updated since 24 September 2025", "Overall survival is
+# NOT_POSTED, anticipated November 2026" -- that will one day be false. The
+# sweep captures those fields per record; this row blocks when a printed
+# claim contradicts the last capture. It never blocks on the capture's age:
+# 2026-09-12-modest-promise-ruling.md, and "nothing has checked this yet" is
+# Class 3, which does not block.
+sweep_registry = _sibling("sweep_registry")
+
 # The document store. Added 2026-09-01, when the ledger for issue two read: 24
 # sources, 3 opened by a person, 8 resting on nothing but "whatever the search
 # tool returned for this URL". We had never acquired the sources -- every role
@@ -1000,6 +1011,82 @@ def as_of_date(raw: str) -> str:
     return d.group(0) if d else ""
 
 
+def newest_evidence_check(slug: str):
+    """The date of the latest recorded evidence check for this issue -- the
+    newest run in the issue's sweeps.json (citations, status, registry,
+    resolve) -- or None when nothing has ever been recorded."""
+    case = case_dir(slug)
+    fp = (case / "sweeps.json") if case else None
+    if not fp or not fp.exists():
+        return None
+    try:
+        runs = json.loads(fp.read_text(encoding="utf-8")).get("runs") or []
+    except Exception:
+        return None
+    days = []
+    for r in runs:
+        try:
+            days.append(datetime.strptime(str(r.get("on")), "%Y-%m-%d").date())
+        except (TypeError, ValueError):
+            continue
+    return max(days) if days else None
+
+
+def as_of_row(ao: str, newest_check, today) -> tuple[str, str, str]:
+    """The `evidence 'as of'` row. NEVER compares the as-of date to today.
+
+    THE MODEST PROMISE, 12 September 2026 (operator ruling,
+    issues/WHU-003-deskilling/review/2026-09-12-modest-promise-ruling.md).
+    Until that day this row was green only when the as-of date equalled
+    TODAY, so every publish day it nudged the evidence date forward whether
+    or not anyone had re-read anything. That is a currency claim -- "the
+    evidence is current as of the day you are reading this" -- and the
+    publication does not make it, because it cannot be sure it is true. The
+    one promise it does make is the modest one: we read these documents and
+    this is what they said, as of a stated date. So:
+
+      no as-of date on the page          BAD   the modest promise is the one
+                                               promise we make; a page making
+                                               none is worse, not better
+      as-of date in the future           BAD   a claim to have read something
+                                               on a day that has not happened
+      as-of date older than the newest   WARN  the evidence has been looked at
+      recorded evidence check                  since this date and the page has
+      (sweeps.json's latest run)               not been updated to say so
+      otherwise                          OK    regardless of how old
+
+    Do not restore the today comparison as an obvious fix. It was the rule
+    withdrawn, and the date's age is not a defect: the date moves when we
+    check again, not when the calendar does.
+    """
+    if not ao:
+        return ("evidence 'as of'", BAD,
+                "the page states no evidence 'as of' date. The modest promise -- we "
+                "read these documents and this is what they said, as of a stated "
+                "date -- is the one promise this publication makes, and a page "
+                "making none is worse, not better")
+    try:
+        ao_d = datetime.strptime(ao, "%d %B %Y").date()
+    except ValueError:
+        return ("evidence 'as of'", BAD, f"says {ao!r}, which is not a date this check can read")
+    if ao_d > today:
+        return ("evidence 'as of'", BAD,
+                f"says {ao}, which is in the future -- today is {pretty(today)}; a "
+                f"page cannot have read its evidence on a day that has not happened")
+    if newest_check and newest_check > ao_d:
+        return ("evidence 'as of'", WARN,
+                f"says {ao}; the evidence has been looked at since this date -- the "
+                f"newest recorded check is {pretty(newest_check)} -- and the page has "
+                f"not been updated to say so. The date moves when we check, not when "
+                f"we edit; if that check changed nothing the page can say so and carry "
+                f"the new date")
+    return ("evidence 'as of'", OK,
+            f"says {ao}" + (f"; the newest recorded evidence check is {pretty(newest_check)}, "
+                            f"not later" if newest_check else
+                            "; no evidence check is recorded for this issue, so nothing "
+                            "post-dates it") + " -- the date is not compared to today")
+
+
 def pretty(d) -> str:
     return "%d %s %d" % (d.day, MONTHS[d.month - 1], d.year)
 
@@ -1498,6 +1585,12 @@ def preflight(slug: str, *, for_email: bool,
         out.extend(registry_facts.preflight_rows(slug, page.read_text(encoding="utf-8")))
     except SystemExit as e:
         out.append(("registry figures", BAD, str(e)))
+    # Contradiction only, never age: see sweep_registry.preflight_rows.
+    try:
+        out.extend(sweep_registry.preflight_rows(slug, page.read_text(encoding="utf-8")))
+    except BaseException as exc:
+        out.append(("registry claims match the registry", WARN,
+                    "did not run: %s: %s" % (type(exc).__name__, exc)))
     try:
         _live = live_body(cfg["url"])
         out.extend(ledger.audit(
@@ -1646,14 +1739,10 @@ def preflight(slug: str, *, for_email: bool,
                                 "says %s, first publication record is %s — a reader "
                                 "reads that as when this was published"
                                 % (pub_half, want)))
-    ao = as_of_date(page.read_text(encoding="utf-8"))
-    if ao:
-        out.append(("evidence 'as of'",
-                    OK if (ao == today or _nothing_to_publish) else WARN,
-                    f"says {ao}" + ("" if ao == today else
-                                    (", and nothing is being published"
-                                     if _nothing_to_publish
-                                     else f", and today is {today}"))))
+    # The as-of date is a bound, not a currency claim, and is never compared
+    # to today: 2026-09-12-modest-promise-ruling.md. See as_of_row.
+    out.append(as_of_row(as_of_date(page.read_text(encoding="utf-8")),
+                         newest_evidence_check(slug), editorial_today()))
 
     body = _live_now
     if body is None:
@@ -2137,9 +2226,11 @@ def cmd_update(args) -> int:
     What an update must still earn is everything about what it ADDS: the claim
     lint, the source ledger on any new source, a counterexample run on any new
     universal negative, inherited-claims attribution, and the living-issue rows
-    -- including that the page's 'Last reviewed' date matches a check that
-    actually ran. See UPDATE_SOFTENS for what it does not have to re-earn, and
-    why each one is on that list.
+    on the watch register's own integrity. (Until 12 September 2026 those rows
+    also required the page's 'Last reviewed' date to match a recorded check;
+    that rule is withdrawn by 2026-09-12-modest-promise-ruling.md -- the page
+    carries no review date.) See UPDATE_SOFTENS for what it does not have to
+    re-earn, and why each one is on that list.
     """
     cfg = ISSUES[args.slug]
     page = ROOT / cfg["page"]

@@ -1717,6 +1717,262 @@
       "now": "The Melanoma Result - What Holds Up What Holds Up What this is The rubric Issues Who pays for this Issue one Evidence review Published 26 August 2026 · Updated 11 September 2026 · event dated 19 August 2026 The Melanoma Result whatholdsup.org Merck and Moderna announced that a large trial of a personalised mRNA cancer therapy succeeded in melanoma.",
       "because": "ERRATUM-001",
       "note": "Masthead date set 10 -> 11 September 2026 by publish.py dateline melanoma, the day the corrected page was completed; the 11 September corrections.md entry (ERRATUM-001) explains the date, per standing rule 17."
+    },
+    {
+      "at": "2026-09-12T13:19:50+00:00",
+      "interpreter": "/opt/homebrew/opt/python@3.14/bin/python3.14",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "Updated 11 September 2026.",
+      "because": "ERRATUM-001",
+      "note": "The 11 September change-log entry on the page (footer#updates) telling readers the 2018 erratum to EORTC 18071 has now been read, what it says, why we had said it could not be read, and what remains open. Same correction as the source-list change of 11 September; the reader-facing account of it. ERRATUM-001 in review/2026-09-11-erratum-read-adjudication.md; corrections.md entry of 11 September 2026."
+    },
+    {
+      "at": "2026-09-12T13:19:51+00:00",
+      "interpreter": "/opt/homebrew/opt/python@3.14/bin/python3.14",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "We told you we could not read a correction notice that applies to one of this page's sources.",
+      "because": "ERRATUM-001",
+      "note": "The 11 September change-log entry on the page (footer#updates) telling readers the 2018 erratum to EORTC 18071 has now been read, what it says, why we had said it could not be read, and what remains open. Same correction as the source-list change of 11 September; the reader-facing account of it. ERRATUM-001 in review/2026-09-11-erratum-read-adjudication.md; corrections.md entry of 11 September 2026."
+    },
+    {
+      "at": "2026-09-12T13:19:51+00:00",
+      "interpreter": "/opt/homebrew/opt/python@3.14/bin/python3.14",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "We could.",
+      "because": "ERRATUM-001",
+      "note": "The 11 September change-log entry on the page (footer#updates) telling readers the 2018 erratum to EORTC 18071 has now been read, what it says, why we had said it could not be read, and what remains open. Same correction as the source-list change of 11 September; the reader-facing account of it. ERRATUM-001 in review/2026-09-11-erratum-read-adjudication.md; corrections.md entry of 11 September 2026."
+    },
+    {
+      "at": "2026-09-12T13:19:52+00:00",
+      "interpreter": "/opt/homebrew/opt/python@3.14/bin/python3.14",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "The notice changes nothing here, but the reason we gave was wrong, and it was our error rather than the journal's.",
+      "because": "ERRATUM-001",
+      "note": "The 11 September change-log entry on the page (footer#updates) telling readers the 2018 erratum to EORTC 18071 has now been read, what it says, why we had said it could not be read, and what remains open. Same correction as the source-list change of 11 September; the reader-facing account of it. ERRATUM-001 in review/2026-09-11-erratum-read-adjudication.md; corrections.md entry of 11 September 2026."
+    },
+    {
+      "at": "2026-09-12T13:19:53+00:00",
+      "interpreter": "/opt/homebrew/opt/python@3.14/bin/python3.14",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "The erratum we said was out of reach.",
+      "because": "ERRATUM-001",
+      "note": "The 11 September change-log entry on the page (footer#updates) telling readers the 2018 erratum to EORTC 18071 has now been read, what it says, why we had said it could not be read, and what remains open. Same correction as the source-list change of 11 September; the reader-facing account of it. ERRATUM-001 in review/2026-09-11-erratum-read-adjudication.md; corrections.md entry of 11 September 2026."
+    },
+    {
+      "at": "2026-09-12T13:19:53+00:00",
+      "interpreter": "/opt/homebrew/opt/python@3.14/bin/python3.14",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "Since 9 September the source list has said, of the New England Journal paper behind the ipilimumab counterexample (Eggermont et al., EORTC 18071), that a 2018 erratum applies to it and that we have not been able to read it: NEJM returns 403, Europe PMC records the notice as neither open access nor in its archive, and neither PubMed nor Crossref carries an abstract for it; so we do not know whether it touches a figure on this page.",
+      "because": "ERRATUM-001",
+      "note": "The 11 September change-log entry on the page (footer#updates) telling readers the 2018 erratum to EORTC 18071 has now been read, what it says, why we had said it could not be read, and what remains open. Same correction as the source-list change of 11 September; the reader-facing account of it. ERRATUM-001 in review/2026-09-11-erratum-read-adjudication.md; corrections.md entry of 11 September 2026."
+    },
+    {
+      "at": "2026-09-12T13:19:54+00:00",
+      "interpreter": "/opt/homebrew/opt/python@3.14/bin/python3.14",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "We have now read it.",
+      "because": "ERRATUM-001",
+      "note": "The 11 September change-log entry on the page (footer#updates) telling readers the 2018 erratum to EORTC 18071 has now been read, what it says, why we had said it could not be read, and what remains open. Same correction as the source-list change of 11 September; the reader-facing account of it. ERRATUM-001 in review/2026-09-11-erratum-read-adjudication.md; corrections.md entry of 11 September 2026."
+    },
+    {
+      "at": "2026-09-12T13:19:54+00:00",
+      "interpreter": "/opt/homebrew/opt/python@3.14/bin/python3.14",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "It covers thirteen NEJM articles at once, and after listing them its complete operative text is a single sentence: Dr.",
+      "because": "ERRATUM-001",
+      "note": "The 11 September change-log entry on the page (footer#updates) telling readers the 2018 erratum to EORTC 18071 has now been read, what it says, why we had said it could not be read, and what remains open. Same correction as the source-list change of 11 September; the reader-facing account of it. ERRATUM-001 in review/2026-09-11-erratum-read-adjudication.md; corrections.md entry of 11 September 2026."
+    },
+    {
+      "at": "2026-09-12T13:19:55+00:00",
+      "interpreter": "/opt/homebrew/opt/python@3.14/bin/python3.14",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "Jedd D.",
+      "because": "ERRATUM-001",
+      "note": "The 11 September change-log entry on the page (footer#updates) telling readers the 2018 erratum to EORTC 18071 has now been read, what it says, why we had said it could not be read, and what remains open. Same correction as the source-list change of 11 September; the reader-facing account of it. ERRATUM-001 in review/2026-09-11-erratum-read-adjudication.md; corrections.md entry of 11 September 2026."
+    },
+    {
+      "at": "2026-09-12T13:19:55+00:00",
+      "interpreter": "/opt/homebrew/opt/python@3.14/bin/python3.14",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "It amends no result, method or figure, and it touches nothing on this page.",
+      "because": "ERRATUM-001",
+      "note": "The 11 September change-log entry on the page (footer#updates) telling readers the 2018 erratum to EORTC 18071 has now been read, what it says, why we had said it could not be read, and what remains open. Same correction as the source-list change of 11 September; the reader-facing account of it. ERRATUM-001 in review/2026-09-11-erratum-read-adjudication.md; corrections.md entry of 11 September 2026."
+    },
+    {
+      "at": "2026-09-12T13:19:56+00:00",
+      "interpreter": "/opt/homebrew/opt/python@3.14/bin/python3.14",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "The source list now says so, and links the notice itself rather than its catalogue record.",
+      "because": "ERRATUM-001",
+      "note": "The 11 September change-log entry on the page (footer#updates) telling readers the 2018 erratum to EORTC 18071 has now been read, what it says, why we had said it could not be read, and what remains open. Same correction as the source-list change of 11 September; the reader-facing account of it. ERRATUM-001 in review/2026-09-11-erratum-read-adjudication.md; corrections.md entry of 11 September 2026."
+    },
+    {
+      "at": "2026-09-12T13:19:56+00:00",
+      "interpreter": "/opt/homebrew/opt/python@3.14/bin/python3.14",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "Why we said we could not read it.",
+      "because": "ERRATUM-001",
+      "note": "The 11 September change-log entry on the page (footer#updates) telling readers the 2018 erratum to EORTC 18071 has now been read, what it says, why we had said it could not be read, and what remains open. Same correction as the source-list change of 11 September; the reader-facing account of it. ERRATUM-001 in review/2026-09-11-erratum-read-adjudication.md; corrections.md entry of 11 September 2026."
+    },
+    {
+      "at": "2026-09-12T13:19:57+00:00",
+      "interpreter": "/opt/homebrew/opt/python@3.14/bin/python3.14",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "A script asking nejm.org for the notice gets an error back.",
+      "because": "ERRATUM-001",
+      "note": "The 11 September change-log entry on the page (footer#updates) telling readers the 2018 erratum to EORTC 18071 has now been read, what it says, why we had said it could not be read, and what remains open. Same correction as the source-list change of 11 September; the reader-facing account of it. ERRATUM-001 in review/2026-09-11-erratum-read-adjudication.md; corrections.md entry of 11 September 2026."
+    },
+    {
+      "at": "2026-09-12T13:19:57+00:00",
+      "interpreter": "/opt/homebrew/opt/python@3.14/bin/python3.14",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "We took that for a subscription wall and printed it as one.",
+      "because": "ERRATUM-001",
+      "note": "The 11 September change-log entry on the page (footer#updates) telling readers the 2018 erratum to EORTC 18071 has now been read, what it says, why we had said it could not be read, and what remains open. Same correction as the source-list change of 11 September; the reader-facing account of it. ERRATUM-001 in review/2026-09-11-erratum-read-adjudication.md; corrections.md entry of 11 September 2026."
+    },
+    {
+      "at": "2026-09-12T13:19:58+00:00",
+      "interpreter": "/opt/homebrew/opt/python@3.14/bin/python3.14",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "It is not: the journal answers a script with a bot challenge and answers a browser with the notice, free.",
+      "because": "ERRATUM-001",
+      "note": "The 11 September change-log entry on the page (footer#updates) telling readers the 2018 erratum to EORTC 18071 has now been read, what it says, why we had said it could not be read, and what remains open. Same correction as the source-list change of 11 September; the reader-facing account of it. ERRATUM-001 in review/2026-09-11-erratum-read-adjudication.md; corrections.md entry of 11 September 2026."
+    },
+    {
+      "at": "2026-09-12T13:19:58+00:00",
+      "interpreter": "/opt/homebrew/opt/python@3.14/bin/python3.14",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "We inferred a mechanism from an error message instead of checking it, and the inference reached readers.",
+      "because": "ERRATUM-001",
+      "note": "The 11 September change-log entry on the page (footer#updates) telling readers the 2018 erratum to EORTC 18071 has now been read, what it says, why we had said it could not be read, and what remains open. Same correction as the source-list change of 11 September; the reader-facing account of it. ERRATUM-001 in review/2026-09-11-erratum-read-adjudication.md; corrections.md entry of 11 September 2026."
+    },
+    {
+      "at": "2026-09-12T13:19:59+00:00",
+      "interpreter": "/opt/homebrew/opt/python@3.14/bin/python3.14",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "The notice was obtained on 11 September in a browser, and is held.",
+      "because": "ERRATUM-001",
+      "note": "The 11 September change-log entry on the page (footer#updates) telling readers the 2018 erratum to EORTC 18071 has now been read, what it says, why we had said it could not be read, and what remains open. Same correction as the source-list change of 11 September; the reader-facing account of it. ERRATUM-001 in review/2026-09-11-erratum-read-adjudication.md; corrections.md entry of 11 September 2026."
+    },
+    {
+      "at": "2026-09-12T13:20:00+00:00",
+      "interpreter": "/opt/homebrew/opt/python@3.14/bin/python3.14",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "What is still open.",
+      "because": "ERRATUM-001",
+      "note": "The 11 September change-log entry on the page (footer#updates) telling readers the 2018 erratum to EORTC 18071 has now been read, what it says, why we had said it could not be read, and what remains open. Same correction as the source-list change of 11 September; the reader-facing account of it. ERRATUM-001 in review/2026-09-11-erratum-read-adjudication.md; corrections.md entry of 11 September 2026."
+    },
+    {
+      "at": "2026-09-12T13:20:00+00:00",
+      "interpreter": "/opt/homebrew/opt/python@3.14/bin/python3.14",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "The copy of the Eggermont paper we hold is the PubMed Central full text, fetched on 8 September, which may carry Dr.",
+      "because": "ERRATUM-001",
+      "note": "The 11 September change-log entry on the page (footer#updates) telling readers the 2018 erratum to EORTC 18071 has now been read, what it says, why we had said it could not be read, and what remains open. Same correction as the source-list change of 11 September; the reader-facing account of it. ERRATUM-001 in review/2026-09-11-erratum-read-adjudication.md; corrections.md entry of 11 September 2026."
+    },
+    {
+      "at": "2026-09-12T14:33:18+00:00",
+      "interpreter": "/opt/homebrew/opt/python@3.14/bin/python3.14",
+      "by": "claude",
+      "kind": "changed",
+      "was": "What is established, and what is not As of 2 September 2026.",
+      "now": "What is established, and what is not As of 2 September 2026 - the date the claims in this section were last checked against the record.",
+      "because": "AD-HOC",
+      "note": "Not a correction: states a bound that was always true. The 12 September 2026 modest-promise ruling (issues/WHU-003-deskilling/review/2026-09-12-modest-promise-ruling.md): the evidence 'as of' date is the date the claims were last checked against the record and moves when we check, not when we edit; the page is not monitored continuously and the linked record is authoritative. 'carries' -> 'carried' because the sentence is about a stated past date.",
+      "correction": false
+    },
+    {
+      "at": "2026-09-12T14:33:19+00:00",
+      "interpreter": "/opt/homebrew/opt/python@3.14/bin/python3.14",
+      "by": "claude",
+      "kind": "changed",
+      "was": "The registry was checked that day: NCT05933577 still carries no posted results.",
+      "now": "The registry was checked that day: NCT05933577 still carried no posted results.",
+      "because": "AD-HOC",
+      "note": "Not a correction: states a bound that was always true. The 12 September 2026 modest-promise ruling (issues/WHU-003-deskilling/review/2026-09-12-modest-promise-ruling.md): the evidence 'as of' date is the date the claims were last checked against the record and moves when we check, not when we edit; the page is not monitored continuously and the linked record is authoritative. 'carries' -> 'carried' because the sentence is about a stated past date.",
+      "correction": false
+    },
+    {
+      "at": "2026-09-12T14:33:20+00:00",
+      "interpreter": "/opt/homebrew/opt/python@3.14/bin/python3.14",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "This date moves when we check again, not when we edit the prose; sources acquired since are noted in the source list and the change log below.",
+      "because": "AD-HOC",
+      "note": "Not a correction: states a bound that was always true. The 12 September 2026 modest-promise ruling (issues/WHU-003-deskilling/review/2026-09-12-modest-promise-ruling.md): the evidence 'as of' date is the date the claims were last checked against the record and moves when we check, not when we edit; the page is not monitored continuously and the linked record is authoritative. 'carries' -> 'carried' because the sentence is about a stated past date.",
+      "correction": false
+    },
+    {
+      "at": "2026-09-12T14:33:20+00:00",
+      "interpreter": "/opt/homebrew/opt/python@3.14/bin/python3.14",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "This page is not monitored continuously.",
+      "because": "AD-HOC",
+      "note": "Not a correction: states a bound that was always true. The 12 September 2026 modest-promise ruling (issues/WHU-003-deskilling/review/2026-09-12-modest-promise-ruling.md): the evidence 'as of' date is the date the claims were last checked against the record and moves when we check, not when we edit; the page is not monitored continuously and the linked record is authoritative. 'carries' -> 'carried' because the sentence is about a stated past date.",
+      "correction": false
+    },
+    {
+      "at": "2026-09-12T14:33:21+00:00",
+      "interpreter": "/opt/homebrew/opt/python@3.14/bin/python3.14",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "What follows records what we changed and when; it is not a record of everything that has happened since publication.",
+      "because": "AD-HOC",
+      "note": "Not a correction: states a bound that was always true. The 12 September 2026 modest-promise ruling (issues/WHU-003-deskilling/review/2026-09-12-modest-promise-ruling.md): the evidence 'as of' date is the date the claims were last checked against the record and moves when we check, not when we edit; the page is not monitored continuously and the linked record is authoritative. 'carries' -> 'carried' because the sentence is about a stated past date.",
+      "correction": false
+    },
+    {
+      "at": "2026-09-12T14:33:21+00:00",
+      "interpreter": "/opt/homebrew/opt/python@3.14/bin/python3.14",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "Where a claim here depends on the present state of a trial registry or a journal record, the linked record is authoritative and this page is not.",
+      "because": "AD-HOC",
+      "note": "Not a correction: states a bound that was always true. The 12 September 2026 modest-promise ruling (issues/WHU-003-deskilling/review/2026-09-12-modest-promise-ruling.md): the evidence 'as of' date is the date the claims were last checked against the record and moves when we check, not when we edit; the page is not monitored continuously and the linked record is authoritative. 'carries' -> 'carried' because the sentence is about a stated past date.",
+      "correction": false
     }
   ],
   "what_change_sets_are": "A round-level attribution: the span of page history it covers, the documents that decided the changes in it, and a label that must resolve like any other. Both shas are pinned, so a set stops covering the moment the page changes again. It is not a waiver — see recorded_change_sets() in publish.py for the three things that stop it becoming one.",

@@ -98,6 +98,13 @@ for SRC in "$REPO"/issues/*/sources.json; do
     /usr/bin/python3 -u "$REPO/backend/scripts/whatholdsup/sweep_sources.py" resolve "$SLUG" --write
     /usr/bin/python3 -u "$REPO/backend/scripts/whatholdsup/sweep_sources.py" citations "$SLUG"
     echo "exit=$?"
+    # The registry sweep. Added 2026-09-12: the citation sweep cannot see a
+    # trial record change, and registry records are where melanoma's central
+    # claim will be falsified. One free GET per NCT id held in a source URL;
+    # captures status, dates, hasResults and every outcome's reportingStatus;
+    # alarms at the top of its output. Same sweeps.json, command "registry".
+    /usr/bin/python3 -u "$REPO/backend/scripts/whatholdsup/sweep_registry.py" registry "$SLUG"
+    echo "exit=$?"
   } >> "$LOG" 2>&1
 done
 
