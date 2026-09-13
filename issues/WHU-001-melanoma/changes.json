@@ -1973,6 +1973,16 @@
       "because": "AD-HOC",
       "note": "Not a correction: states a bound that was always true. The 12 September 2026 modest-promise ruling (issues/WHU-003-deskilling/review/2026-09-12-modest-promise-ruling.md): the evidence 'as of' date is the date the claims were last checked against the record and moves when we check, not when we edit; the page is not monitored continuously and the linked record is authoritative. 'carries' -> 'carried' because the sentence is about a stated past date.",
       "correction": false
+    },
+    {
+      "at": "2026-09-13T15:43:48+00:00",
+      "interpreter": "/Users/fredugast/Projects/parity-poc-repo/backend/venv/bin/python3",
+      "by": "claude",
+      "kind": "changed",
+      "was": "The Melanoma Result - What Holds Up What Holds Up What this is The rubric Issues Who pays for this Issue one Evidence review Published 26 August 2026 · Updated 10 September 2026 · event dated 19 August 2026 The Melanoma Result whatholdsup.org Merck and Moderna announced that a large trial of a personalised mRNA cancer therapy succeeded in melanoma.",
+      "now": "The Melanoma Result - What Holds Up What Holds Up What this is The rubric Issues Who pays for this Issue one Evidence review Published 26 August 2026 · Updated 13 September 2026 · event dated 19 August 2026 The Melanoma Result whatholdsup.org Merck and Moderna announced that a large trial of a personalised mRNA cancer therapy succeeded in melanoma.",
+      "because": "ERRATUM-001",
+      "note": "Masthead date set 11 -> 13 September 2026 by publish.py dateline melanoma on the advisor's directive of 13 September, the day the page carrying the ERRATUM-001 correction (completed 11 September, never yet live: readers still see 'Updated 10 September') and the 12 September modest-promise changes is to be published. The page's prose last changed 12 September (4be9e11); the tool stamps the publish day, as its own rule says. Not a correction of substance; the masthead is reader-facing text and this row is its account."
     }
   ],
   "what_change_sets_are": "A round-level attribution: the span of page history it covers, the documents that decided the changes in it, and a label that must resolve like any other. Both shas are pinned, so a set stops covering the moment the page changes again. It is not a waiver — see recorded_change_sets() in publish.py for the three things that stop it becoming one.",
