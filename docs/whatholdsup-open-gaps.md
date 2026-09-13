@@ -390,6 +390,11 @@ publish — the shape of GAP-007, one file over.
 in the working tree only; the row was committed separately as the next
 commit, on the advisor's directive, with a message supplied for the purpose.
 
+**Consequence, in deploy terms.** A publish deploys, then generates a record
+whose commit invalidates an already-live page, so completing a publish takes
+two deploys and the tool performs one: `aa4c91e` was the second deploy of
+`e666318`, and the commit hook was the only thing that surfaced it.
+
 **Not fixed here.** The fix is an ordering change — write the row, then
 commit it with the pages, and treat a push that succeeds without the record
 as a failed publish — but the row records the deploy's outcome (the live
