@@ -1,0 +1,70 @@
+{
+  "_what_this_is": "Figures on this page that are not claims about any document, each declared by a person with the sentence it belongs to and the reason. B13 counts them in its report and reports one that no longer matches a sentence as stale, so this file cannot quietly become a filter.",
+  "_the_rule": "An exclusion says 'this figure is not taken from a source', never 'do not check this figure'. If the sentence changes so that the figure IS a claim about a document, the exclusion stops matching and the check comes back.",
+  "exclusions": [
+    {
+      "figure": "0.75",
+      "in_sentence": "On overall survival it found nothing anywhere: ribociclib versus palbociclib 0.98 (0.87–1.10, P = 0.75), abemaciclib versus palbociclib 0.95 (0.84–1.08, P = 0.43), abemaciclib versus ribociclib 0.97 (0.82–1.14, P = 0.70).",
+      "why": "The page's two-place rounding of P = 0.7531 (ribociclib versus palbociclib, overall survival), as S016 prints it. The page carries BOTH forms, and which governs where is a convention, not an error: the comparative prose (the P-VERIFY paragraph, and the summary list 'P-VERIFY, on overall survival: 0.97, on 0.82 to 1.14, P = 0.70') rounds P values it is not testing against any boundary to two places; the P-VERIFY source-list note prints the paper's four places (0.7531, 0.4292, 0.6956). Every P on the page that is compared to a threshold (.0664 against .034; .00973 against .01018) is printed at the source's precision. Do not 'correct' one form into the other: the rounded form is the prose convention, the unrounded form is the note's, and both rest on the same span of S016, which is bound and verified. The excluded figure is the rounding, not the value.",
+      "by": "Fred Ugast, operator, 12 September 2026: 'do what you need to do to remove any more blocks unless those blocks are substantive reasons to not publish.' Arithmetic verified before declaring: S016 prints 0.7531 / 0.4292 / 0.6956; two places gives 0.75 / 0.43 / 0.70.",
+      "on": "2026-09-12",
+      "falsifier": "S016 ceasing to print the four-place value for this comparison (a corrected paper, a re-analysis); or this sentence changing so that the rounded P is compared against a boundary, at which point the precision is a claim and the exclusion stops matching; or the P-VERIFY source note ceasing to carry the unrounded value, which would leave the page with only the rounding."
+    },
+    {
+      "figure": "0.43",
+      "in_sentence": "On overall survival it found nothing anywhere: ribociclib versus palbociclib 0.98 (0.87–1.10, P = 0.75), abemaciclib versus palbociclib 0.95 (0.84–1.08, P = 0.43), abemaciclib versus ribociclib 0.97 (0.82–1.14, P = 0.70).",
+      "why": "The page's two-place rounding of P = 0.4292 (abemaciclib versus palbociclib, overall survival), as S016 prints it. The page carries BOTH forms, and which governs where is a convention, not an error: the comparative prose (the P-VERIFY paragraph, and the summary list 'P-VERIFY, on overall survival: 0.97, on 0.82 to 1.14, P = 0.70') rounds P values it is not testing against any boundary to two places; the P-VERIFY source-list note prints the paper's four places (0.7531, 0.4292, 0.6956). Every P on the page that is compared to a threshold (.0664 against .034; .00973 against .01018) is printed at the source's precision. Do not 'correct' one form into the other: the rounded form is the prose convention, the unrounded form is the note's, and both rest on the same span of S016, which is bound and verified. The excluded figure is the rounding, not the value.",
+      "by": "Fred Ugast, operator, 12 September 2026: 'do what you need to do to remove any more blocks unless those blocks are substantive reasons to not publish.' Arithmetic verified before declaring: S016 prints 0.7531 / 0.4292 / 0.6956; two places gives 0.75 / 0.43 / 0.70.",
+      "on": "2026-09-12",
+      "falsifier": "S016 ceasing to print the four-place value for this comparison (a corrected paper, a re-analysis); or this sentence changing so that the rounded P is compared against a boundary, at which point the precision is a claim and the exclusion stops matching; or the P-VERIFY source note ceasing to carry the unrounded value, which would leave the page with only the rounding."
+    },
+    {
+      "figure": "0.70",
+      "in_sentence": "On overall survival it found nothing anywhere: ribociclib versus palbociclib 0.98 (0.87–1.10, P = 0.75), abemaciclib versus palbociclib 0.95 (0.84–1.08, P = 0.43), abemaciclib versus ribociclib 0.97 (0.82–1.14, P = 0.70).",
+      "why": "The page's two-place rounding of P = 0.6956 (abemaciclib versus ribociclib, overall survival), as S016 prints it -- rounded UP across the tenth, which is correct to two places and the case a reader is likeliest to query. The page carries BOTH forms, and which governs where is a convention, not an error: the comparative prose (the P-VERIFY paragraph, and the summary list 'P-VERIFY, on overall survival: 0.97, on 0.82 to 1.14, P = 0.70') rounds P values it is not testing against any boundary to two places; the P-VERIFY source-list note prints the paper's four places (0.7531, 0.4292, 0.6956). Every P on the page that is compared to a threshold (.0664 against .034; .00973 against .01018) is printed at the source's precision. Do not 'correct' one form into the other: the rounded form is the prose convention, the unrounded form is the note's, and both rest on the same span of S016, which is bound and verified. The excluded figure is the rounding, not the value.",
+      "by": "Fred Ugast, operator, 12 September 2026: 'do what you need to do to remove any more blocks unless those blocks are substantive reasons to not publish.' Arithmetic verified before declaring: S016 prints 0.7531 / 0.4292 / 0.6956; two places gives 0.75 / 0.43 / 0.70.",
+      "on": "2026-09-12",
+      "falsifier": "S016 ceasing to print the four-place value for this comparison (a corrected paper, a re-analysis); or this sentence changing so that the rounded P is compared against a boundary, at which point the precision is a claim and the exclusion stops matching; or the P-VERIFY source note ceasing to carry the unrounded value, which would leave the page with only the rounding."
+    },
+    {
+      "figure": "1.0",
+      "in_sentence": "The interval still runs through 1.0, and the conclusion does not change.",
+      "why": "1.0 is the no-effect value of a hazard ratio, not a figure taken from any document. The sentence says S010's interval (0.76 to 1.12, bound on the row's premises) contains it, which is arithmetic: 0.76 < 1.0 < 1.12.",
+      "by": "Claude Code, applying the advisor's directive of 13 September 2026 (inf-16), which supplied the sentence verbatim.",
+      "on": "2026-09-13",
+      "falsifier": "The sentence changing so that 1.0 is a value attributed to a document; or S010's interval ceasing to contain 1.0, at which point the sentence is false rather than unsourced."
+    },
+    {
+      "figure": "403",
+      "in_sentence": "Script-level attempts returned HTTP 403 and no browser was connected to attempt the rest.",
+      "why": "An HTTP status our own requests came back with (annalsofoncology.org, script-level, 31 August and 13 September 2026) — a measurement of our own apparatus, not a figure any document reports. Stated on the page as what happened to us.",
+      "by": "Claude Code, applying the advisor's directive of 13 September 2026 (PALM-FIG-001), which asked for this statement in the note.",
+      "on": "2026-09-13",
+      "falsifier": "The sentence changing so that 403 is attributed to a document; or a held document being cited for it."
+    },
+    {
+      "figure": "403",
+      "in_sentence": "the 2025 publication we could not obtain — every script-level route returned 403 and no browser was connected to attempt the rest — so whether it reports one this page cannot say.",
+      "why": "An HTTP status our own requests came back with (annalsofoncology.org, script-level, 31 August and 13 September 2026) — a measurement of our own apparatus, not a figure any document reports. Stated on the page as what happened to us.",
+      "by": "Claude Code, applying the advisor's directive of 13 September 2026 (PALM-FIG-001), which asked for this statement in the note.",
+      "on": "2026-09-13",
+      "falsifier": "The sentence changing so that 403 is attributed to a document; or a held document being cited for it."
+    },
+    {
+      "figure": "0.08",
+      "in_sentence": "The smaller one finds palbociclib behind on real-world progression-free survival, on intervals that exclude the no-effect line — abemaciclib’s by 0.08 and ribociclib’s by 0.05, which is significant but not comfortably so.",
+      "why": "The page's own arithmetic on a held figure: 1.00 − 0.92 (the upper bound of S027's 0.63–0.92 for abemaciclib vs palbociclib). The distance of the interval's upper bound from the no-effect line; no document reports it.",
+      "by": "Claude Code, 13 September 2026, while binding the sentence under PALM-END-001; arithmetic verified before declaring.",
+      "on": "2026-09-13",
+      "falsifier": "S027's interval bounds changing; or the sentence changing so that the figure is attributed to a document."
+    },
+    {
+      "figure": "0.05",
+      "in_sentence": "The smaller one finds palbociclib behind on real-world progression-free survival, on intervals that exclude the no-effect line — abemaciclib’s by 0.08 and ribociclib’s by 0.05, which is significant but not comfortably so.",
+      "why": "The page's own arithmetic on a held figure: 1.00 − 0.95 (the upper bound of S027's 0.73–0.95 for ribociclib vs palbociclib). The distance of the interval's upper bound from the no-effect line; no document reports it.",
+      "by": "Claude Code, 13 September 2026, while binding the sentence under PALM-END-001; arithmetic verified before declaring.",
+      "on": "2026-09-13",
+      "falsifier": "S027's interval bounds changing; or the sentence changing so that the figure is attributed to a document."
+    }
+  ]
+}

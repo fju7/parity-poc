@@ -430,3 +430,70 @@ def test_an_absence_against_an_unreadable_document_is_not_an_absence():
     # the figure IS in the document, written the publisher's way
     assert spancheck._norm("0·561") == "0.561"
     assert "0.561" in spancheck._norm(doc)
+
+
+# --- an explicit second representation (--also-held, 13 September 2026) -----
+#
+# Nature serves an article's Table 1 as its own page. Both the article and the
+# table are .html, so the extension rule -- the only thing put() had to tell a
+# second representation from a corrected paper -- would have recorded S015's
+# article as superseded by its own table. The caller can now say what the
+# bytes are; when it says nothing, the extension rule is untouched.
+
+def test_an_explicit_also_held_records_a_representation_whatever_the_extension(issue):
+    store.put("t", "S002", b"<html>" + b"a" * 3000 + b"Palbociclib letrozole PALOMA</html>",
+              url="u1", via="v", content_type="text/html")
+    first = store.held("t")["S002"]["sha256"]
+    store.put("t", "S002", b"<html>" + b"b" * 3000 + b"Table 1 PALOMA</html>",
+              url="u1/tables/1", via="v", content_type="text/html",
+              also_held="Table 1 of the same article, served as a separate page")
+    row = store.held("t")["S002"]
+    # THE PRIMARY SLOT IS UNTOUCHED: the article stays the rendition every span
+    # check reads; the table goes under also_held with the reason. (The first
+    # cut of this made the table primary and every S015 span unfindable.)
+    assert row["sha256"] == first
+    assert row["superseded"] == []
+    assert len(row["also_held"]) == 1 and row["also_held"][0]["sha256"] != first
+    assert row["also_held"][0]["also_held_reason"] == \
+        "Table 1 of the same article, served as a separate page"
+    assert row["also_held"][0]["also_held_added"]
+    assert "replaced" not in json.dumps(row)
+    assert (store.LIB / row["also_held"][0]["file"]).exists()
+
+
+def test_without_the_flag_the_same_extension_is_still_superseded(issue):
+    """The counterfactual that makes the flag a guard and not a loophole: a
+    genuinely corrected paper ingested the ordinary way must still record as
+    superseded, with a replaced date. Delete the `also_held is None` branch
+    and this fails."""
+    store.put("t", "S002", b"<html>" + b"a" * 3000 + b"Palbociclib letrozole PALOMA</html>",
+              url="u", via="v", content_type="text/html")
+    first = store.held("t")["S002"]["sha256"]
+    store.put("t", "S002", b"<html>" + b"b" * 3000 + b"Palbociclib letrozole PALOMA</html>",
+              url="u", via="v", content_type="text/html")
+    row = store.held("t")["S002"]
+    assert [v["sha256"] for v in row["superseded"]] == [first]
+    assert row["superseded"][0]["replaced"]
+    assert row["also_held"] == []
+
+
+def test_without_the_flag_a_different_extension_is_still_also_held(issue):
+    """The Shaaban XML-vs-PDF case, unchanged by the flag."""
+    store.put("t", "S002", b"<xml>" + b"x" * 3000 + b"Palbociclib letrozole PALOMA</xml>",
+              url="u1", via="v", content_type="text/xml")
+    store.put("t", "S002", b"%PDF-1.4" + b"x" * 3000, url="u2", via="v",
+              content_type="application/pdf")
+    row = store.held("t")["S002"]
+    assert len(row["also_held"]) == 1 and row["superseded"] == []
+    assert "also_held_reason" not in row["also_held"][0]
+
+
+def test_an_empty_also_held_reason_is_refused_and_nothing_is_written(issue, monkeypatch, capsys):
+    f = issue / "table.html"
+    f.write_bytes(b"<html>" + b"b" * 3000 + b"Palbociclib letrozole PALOMA</html>")
+    monkeypatch.setattr(sys, "argv", ["source_store.py", "t", "add", "S002", str(f),
+                                      "--url", "u", "--via", "v", "--also-held", "   "])
+    assert store.main() == 2
+    assert "REFUSED" in capsys.readouterr().out
+    assert store.held("t") == {} or "S002" not in store.held("t")
+    assert not (store.LIB / "docs").exists()

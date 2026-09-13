@@ -118,9 +118,28 @@ def preflight_rows(slug: str, page_html: str) -> list[tuple[str, str, str]]:
     url_of = {sid: _norm(s.get("url") or "") for sid, s in by_id.items()}
     used = rested_on(slug)
 
-    unshown = sorted(sid for sid in used
-                     if url_of.get(sid) and url_of[sid] not in seen)
-    shown_ids = {sid for sid, u in url_of.items() if u and u in seen}
+    # ONE DOCUMENT, TWO IDENTIFIERS. The reader's list links the Shaaban paper
+    # by its APJCP DOI; the ledger holds it at its PMC address. Matching URLs
+    # alone reported the paper absent from a list it is in (cdk46, 12 September
+    # 2026), and acting on that row would have listed the same paper twice.
+    # reconcile.py already resolves a page link to a source by any identifier
+    # the ledger carries (url, pubmed, doi, nct); the same parser is used here,
+    # so a listed link that names the source's DOI or PMID counts as shown.
+    import reconcile as RC
+    ids_of = {sid: RC.identifiers_in(" ".join(str(v) for v in
+                                                (s.get("url"), s.get("pubmed"),
+                                                 s.get("doi"), s.get("nct")) if v))
+              for sid, s in by_id.items()}
+    seen_ids = set()
+    for u in seen:
+        seen_ids |= RC.identifiers_in(u)
+
+    def is_shown(sid: str) -> bool:
+        return (bool(url_of.get(sid)) and url_of[sid] in seen) \
+            or bool(ids_of.get(sid) and ids_of[sid] & seen_ids)
+
+    unshown = sorted(sid for sid in used if not is_shown(sid))
+    shown_ids = {sid for sid in by_id if is_shown(sid)}
     unused = sorted(shown_ids - set(used))
 
     rows = [("every document the piece rests on is in the list a reader sees",

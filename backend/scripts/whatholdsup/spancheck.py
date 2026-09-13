@@ -11,12 +11,35 @@ nothing under it in the span. What that MEANS is a person's to decide.
 """
 from __future__ import annotations
 
+import html as _html
 import re
 import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import source_store as store  # noqa: E402
+
+
+def defective_renditions(slug: str, sid: str) -> tuple[bool, str]:
+    """(every rendition we hold is declared text_layer: defective, reason).
+
+    DECLARATIVE, NEVER INFERRED. A person renders the page, reads the glyphs,
+    and writes `text_layer: {"state": "defective", "reason": ...}` on the
+    rendition's record in the library index. S003 (cdk46): the PDF's text
+    layer maps the dash in 'Lan-DeMets' and 'O'Brien-Fleming' to the letter
+    'e', so a span carrying that dash can never be found -- and reporting it
+    absent would be the checker describing its own blindness as a fact about
+    the paper. Under the 11 September ruling a check that cannot evaluate says
+    so and does not block. Only when EVERY rendition is defective: a second
+    rendition with a sound layer lifts it."""
+    rec = (store.held(slug) or {}).get(sid)
+    if not rec:
+        return False, ""
+    rends = [rec] + list(rec.get("also_held") or [])
+    bad = [r for r in rends if (r.get("text_layer") or {}).get("state") == "defective"]
+    if bad and len(bad) == len(rends):
+        return True, (bad[0]["text_layer"].get("reason") or "declared defective, no reason recorded")
+    return False, ""
 
 
 def _text(slug: str, sid: str) -> str | None:
@@ -64,6 +87,15 @@ def _text_of_file(f) -> str | None:
         txt = re.sub(r"<(script|style)[^>]*>.*?</\1>", " ", txt,
                      flags=re.S | re.I)
         txt = re.sub(r"<[^>]+>", " ", txt)
+        # ENTITIES ARE NOT THE DOCUMENT'S WORDS. A page saved from a browser
+        # writes "p < 0.01018" as "p &lt; 0.01018", and Europe PMC's XML writes
+        # an en dash as &#x2013;. On 2026-09-13 the ASCO abstract's methods
+        # sentence, recorded verbatim from the held bytes, could not be found
+        # in the held bytes by this reader for the one character '<'. The page
+        # side has always been unescaped (quotations.py, source_ledger.plain);
+        # the document side now is too. Unescape AFTER stripping tags so a
+        # literal "&lt;script&gt;" in prose is never read as markup.
+        txt = _html.unescape(txt)
     return " ".join(txt.split())
 
 
@@ -123,6 +155,22 @@ def b2_present(span: str, slug: str, sid: str,
                               "checked either way" % sid)
     if _norm(span).lower() in _norm(doc).lower():
         return True, "searched the held bytes of %s" % sid
+    # EVERY RENDITION, NOT ONLY THE PRIMARY. A source can be held in more than
+    # one representation (S017's XML and PDF; S015's article and its Table 1,
+    # which Nature serves as a separate page). The quotation checks already read
+    # them all (_texts); this did not, so a span sitting in the second
+    # rendition was reported absent. 2026-09-13.
+    for f, other in _texts(slug, sid)[1:]:
+        if _norm(span).lower() in _norm(other).lower():
+            return True, "searched the held bytes of %s (rendition %s)" % (sid, f[:12])
+    # A span that is FOUND in a defective layer is really there (a broken
+    # layer loses characters; it does not invent them). A span NOT found may
+    # be the layer's loss, so absence cannot be evaluated.
+    defective, why = defective_renditions(slug, sid)
+    if defective:
+        return UNDETERMINED, ("cannot evaluate -- the only rendition of %s we hold has a "
+                              "defective text layer, declared on its record: %s"
+                              % (sid, why))
     if trust_canary:
         try:
             import canary as _canary
@@ -174,6 +222,13 @@ def b5_complete(span: str, slug: str, sid: str) -> tuple[bool, str]:
         return False, "%s is not in the library" % sid
     d, s = _norm(doc), _norm(span)
     i = d.lower().find(s.lower())
+    if i < 0:
+        # the rendition that carries it, if another does (see b2_present)
+        for _f, other in _texts(slug, sid)[1:]:
+            d = _norm(other)
+            i = d.lower().find(s.lower())
+            if i >= 0:
+                break
     if i < 0:
         return False, "the span is not in %s at all (B2)" % sid
     tail = d[i + len(s):]

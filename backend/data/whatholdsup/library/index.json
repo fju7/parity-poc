@@ -1104,6 +1104,86 @@
         "melanoma:S031"
       ],
       "note": "The notice itself, one page, read in full. Thirteen corrected articles listed, then one sentence: Dr. Jedd D. Wolchok's disclosures have been updated, and the articles are correct at NEJM.org. No result, method or figure amended. sha256 identifies this retrieval only: the publisher stamps each download."
+    },
+    "4ade4e8dbefd6d3b456d0f6d5119193bc9919c5eff2b1afe3de43ab94cfb0190": {
+      "file": "docs/4a/4ade4e8dbefd6d3b456d0f6d5119193bc9919c5eff2b1afe3de43ab94cfb0190.xml",
+      "bytes": 92421,
+      "content_type": "application/xml",
+      "first_held": "2026-09-12",
+      "urls": [
+        "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC12424423/fullTextXML"
+      ],
+      "titles": [
+        "Real-world progression-free survival of first-line CDK4/6 inhibitors plus an aromatase inhibitor — the second P-VERIFY paper. ESMO Open 2025;10"
+      ],
+      "used_by": [
+        "cdk46:S027"
+      ],
+      "note": ""
+    },
+    "440475cd9a52636ed17543e55c66dfcf904e7b526fd12555826d660da7aa8bc9": {
+      "file": "docs/44/440475cd9a52636ed17543e55c66dfcf904e7b526fd12555826d660da7aa8bc9.xml",
+      "bytes": 94031,
+      "content_type": "application/xml",
+      "first_held": "2026-09-12",
+      "urls": [
+        "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC10527344/fullTextXML"
+      ],
+      "titles": [
+        "Indirect treatment comparison of first-line CDK4/6 inhibitors from reconstructed patient-level data — PALOMA-2, MONALEESA-2 and MONARCH 3. Cancers 2023;15(18):4558"
+      ],
+      "used_by": [
+        "cdk46:S028"
+      ],
+      "note": ""
+    },
+    "8a06183561b379b95ba18edb076ae9090e42b07d34bca56e68dc354c8af93633": {
+      "file": "docs/8a/8a06183561b379b95ba18edb076ae9090e42b07d34bca56e68dc354c8af93633.html",
+      "bytes": 162481,
+      "content_type": "text/html; charset=utf-8",
+      "first_held": "2026-09-12",
+      "urls": [
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC6438948/"
+      ],
+      "titles": [
+        "Palbociclib plus letrozole as first-line therapy in ER+/HER2− advanced breast cancer — PALOMA-2 extended follow-up. Breast Cancer Res Treat 2019"
+      ],
+      "used_by": [
+        "cdk46:S029"
+      ],
+      "note": ""
+    },
+    "528959634228c53ec8f8e402c17e6799aca7623c41db452620b6237a9ac638b8": {
+      "file": "docs/52/528959634228c53ec8f8e402c17e6799aca7623c41db452620b6237a9ac638b8.html",
+      "bytes": 252515,
+      "content_type": "text/html",
+      "first_held": "2026-09-12",
+      "urls": [
+        "https://ascopubs.org/doi/abs/10.1200/JCO.2019.37.18_suppl.LBA1008"
+      ],
+      "titles": [
+        "MONALEESA-7 — overall survival, ASCO 2019 late-breaking abstract LBA1008. J Clin Oncol 37, no. 18_suppl."
+      ],
+      "used_by": [
+        "cdk46:S023"
+      ],
+      "note": "The ASCO 2019 late-breaking abstract LBA1008 (MONALEESA-7 overall survival). The abstract body is present verbatim and is the whole document -- the page states it does not include a full text component. The bibliographic header (the free-access label and the 'J Clin Oncol 37, LBA1008' volume/page line) is rendered client-side by JavaScript and is NOT in the held bytes; the advisor read it on screen."
+    },
+    "cc067c8043107af147af28fc430661464711722f6640edd92d7c6063c53cbe7c": {
+      "file": "docs/cc/cc067c8043107af147af28fc430661464711722f6640edd92d7c6063c53cbe7c.html",
+      "bytes": 166730,
+      "content_type": "text/html",
+      "first_held": "2026-09-13",
+      "urls": [
+        "https://www.nature.com/articles/s41598-024-53151-8/tables/1"
+      ],
+      "titles": [
+        "Network meta-analysis of CDK4/6 inhibitors. Scientific Reports, February 2024"
+      ],
+      "used_by": [
+        "cdk46:S015"
+      ],
+      "note": ""
     }
   }
 }

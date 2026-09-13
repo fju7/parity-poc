@@ -1,0 +1,260 @@
+{
+  "_what_this_is": "Every blocking finding a gate run made, and the DOCUMENT that settled it. See findings.py: a finding is not evidence, and the quotation below is checked against the bytes.",
+  "findings": [
+    {
+      "id": "c4",
+      "kind": "claim",
+      "gate_verdict": "WRONG_VALUE",
+      "gate_said": "Ribociclib + fulvestrant is category 1; abemaciclib + fulvestrant is category 1; palbociclib + fulvestrant is NOT category 1 — this part is correct. However, the claim as written is verified for the fulvestrant combinations. The complication is that the attributed source is v6.2026, which I cannot access directly; the most recent verifiable version is v4.2026 (JNCCN July 2026), which confirms ribo",
+      "decision": "attested",
+      "source_id": "S001",
+      "quote": "",
+      "why": "Re-recorded 2026-09-12 as attested (was a judgement an hour earlier): the operator's answer S001-03 (2026-08-29) reads, verbatim: \"Both fulvestrant combinations are category 1, and the guideline states: 'Since ribociclib and abemaciclib in combination with fulvestrant have shown OS benefit (in MONARCH 2 and MONALEESA-3 trials), these two regimens are listed as category 1 options.'\" The gate's own text conceded the fulvestrant facts and objected only that it could not access the guideline, which no gate may.",
+      "by": "claude, recording what was done on 31 August / 1 September 2026 (operator authorisation of 12 September: remove blocks that are not substantive reasons not to publish)",
+      "on": "2026-09-12",
+      "_fill_in": "decision: accepted, rejected, judgement. accepted/rejected need source_id AND a quote that is in that document.",
+      "attested_by": "issues/WHU-002-cdk46/advocate/2026-08-29-adjudication.md:S001-03"
+    },
+    {
+      "id": "c82",
+      "kind": "claim",
+      "gate_verdict": "WRONG_VALUE",
+      "gate_said": "Primary analysis (NEJM 2016): HR 0.556, 95% CI 0.429–0.720. Updated analysis (Ann Oncol 2018): HR 0.568, 95% CI 0.457–0.704. NEJM OS paper (2022) rounds the updated PFS HR to 0.57, 95% CI 0.46–0.70. No source gives HR 0.56 with CI 0.45–0.70.",
+      "decision": "attested",
+      "source_id": "S001",
+      "quote": "",
+      "why": "CLOSED BY RE-TEST against the record, 2026-09-12: the operator answered this as S001-07 on 2026-08-29, two days BEFORE the 31 August gate run that raised it. ANSWER (Fred Ugast, 2026-08-29, verbatim): \"The guideline lists MONALEESA-2 at HR 0.56 (0.45-0.70), MONARCH 3 at 0.54 (0.41-0.72), PALOMA-2 at 0.58 (0.46-0.72). The figure 0.57 does not appear in the guideline.\" The gate's WRONG_VALUE was not wrong about the publications -- NEJM 2016 prints 0.556 (0.429-0.720), Ann Oncol 2018 prints 0.568 (0.457-0.704), NEJM 2022 rounds to 0.57 (0.46-0.70) -- and was wrong about the guideline, which prints its own rounding, a third value. It could not have known: the licence forbids any automated reader opening S001, so the gate tested the page's claim about the guideline against everything except the guideline. The durable state that lets a check consult the operator's answer is findings.attestation_for, added the same day.",
+      "by": "findings.attestation_for",
+      "on": "2026-09-12",
+      "_fill_in": "decision: accepted, rejected, judgement. accepted/rejected need source_id AND a quote that is in that document.",
+      "attested_by": "issues/WHU-002-cdk46/advocate/2026-08-29-adjudication.md:S001-07"
+    },
+    {
+      "id": "c95",
+      "kind": "claim",
+      "gate_verdict": "WRONG_VALUE",
+      "gate_said": "The paper states: 'The cumulative type I error rate within each population was maintained using the Lan–DeMets spending function with O'Brien–Fleming boundary.' The spending function is Lan–DeMets; O'Brien–Fleming describes the boundary shape used within that function. The total two-sided type I error of 0.05 was split between ITT (0.04) and sVD (0.01) via a graphical approach, not simply 'divided",
+      "decision": "accepted",
+      "source_id": "S003",
+      "quote": "The cumulative type I error rate within each population was maintained using the Lan–DeMets spending function with O’Brien–Fleming boundary",
+      "why": "ACCEPTED 2026-09-13 (C95-001). Both page sentences called O’Brien–Fleming the spending function; the paper names Lan–DeMets as the spending function and O’Brien–Fleming as the boundary. The quote is what the RENDERED page 2 prints (pdftoppm, F1); the PDF's text layer renders it 'Lane DeMets spending function with O’BrieneFleming boundary', declared text_layer: defective on S003's record (F3), so the quotation check reports cannot-evaluate against this rendition rather than pass or fail. F2 (a sound rendition) was attempted and refused: Europe PMC inEPMC N; annalsofoncology.org and sciencedirect.com 403 to a script.",
+      "by": "the advisor's directive of 13 September; applied by Claude Code",
+      "on": "2026-09-13",
+      "attested_by": "",
+      "retest": {
+        "on": "2026-09-12",
+        "outcome": "operator",
+        "why": "kind 'claim' / verdict 'WRONG_VALUE' is not a string test"
+      }
+    },
+    {
+      "id": "c25",
+      "kind": "claim",
+      "gate_verdict": "NOT_FOUND",
+      "gate_said": "",
+      "decision": "rejected",
+      "source_id": "S020",
+      "quote": "1-sided p-value from the stratified log-rank test",
+      "why": "The gate could not reach ClinicalTrials.gov; the held posting (S020) annotates each stratified log-rank analysis with this string, and registry_facts/registry_figures confirm it. Rewritten 31 August to name the record. A gate's inability to reach a registry is a fact about the gate. Recorded 2026-09-12.",
+      "by": "claude, recording what was done on 31 August / 1 September 2026 (operator authorisation of 12 September: remove blocks that are not substantive reasons not to publish)",
+      "on": "2026-09-12",
+      "_fill_in": "decision: accepted, rejected, judgement. accepted/rejected need source_id AND a quote that is in that document."
+    },
+    {
+      "id": "c29",
+      "kind": "claim",
+      "gate_verdict": "NOT_FOUND",
+      "gate_said": "HR 0.804 (0.637–1.015) is confirmed as the correct final OS figure for MONARCH 3 itself (Annals of Oncology 2024; PMC full text of the Scientific Reports paper does not display the per-trial HR table in the snippets retrieved)",
+      "decision": "rejected",
+      "source_id": "S015",
+      "quote": "Reported HR for OS 0.956 0.76 0.76 0.804 0.814 0.73 0.757",
+      "why": "CLOSED BY RE-TEST 2026-09-13 against the held bytes of S015 -- its Table 1, held since today as a second representation (Nature serves the table as its own page, so the article HTML held since 1 September never contained it). The table, verbatim: study row \"Study characteristics CDK4/6i with AI or tamoxifen CDK4/6i with fulvestrant PAL-2 MONALEESA-2 MONALEESA-7 MONARCH-3 PALOMA-3 MOLANEESA-3 MONARCH 2\"; \"Reported HR for OS 0.956 0.76 0.76 0.804 0.814 0.73 0.757\"; \"Reported 95% CI for HR of OS 0.777–1.177 0.63–0.93 0.61–0.96 0.637–1.015\"; \"Year of updated data 2022 2022 2022 2023\". MONARCH-3 is the fourth column by the study row, so its reported HR for OS is 0.804 with 95% CI 0.637–1.015 and its year of updated data is 2023 -- exactly what the page says. The gate's NOT_FOUND was a fact about what it could reach (it said so: 'the PMC full text ... does not display the per-trial HR table in the snippets retrieved'). Dates: S015 accepted 29 January 2024, published 7 February 2024; it cites MONARCH 3's final OS via SABCS abstract GS01-12 (December 2023); S003 published the same figure online 8 May 2024.",
+      "by": "findings.retest, applied by Claude Code",
+      "on": "2026-09-13",
+      "_fill_in": "decision: accepted, rejected, judgement. accepted/rejected need source_id AND a quote that is in that document.",
+      "retest": {
+        "on": "2026-09-12",
+        "outcome": "closed by re-test 2026-09-13 (table held)",
+        "tested": "the held bytes of S015 (Nature HTML, docs/66/66a5b3d6...) for the Table 1 row and the reference list; the held bytes of S003 for the figure and its date",
+        "table": "NOT IN THE HELD BYTES. Nature serves Table 1 as a separate 'Full size table' page; the held article HTML carries only 'Table 1 Characteristics of included studies. Full size table'. The page's sentence about what Table 1 lists (HR 0.804 (0.637-1.015); 'Year of updated data' 2023) cannot be tested from what we hold.",
+        "reference_list_verbatim": "Goetz, P. M. et al . Abstract GS01-12: MONARCH 3: Final overall survival results of abemaciclib plus a nonsteroidal aromatase inhibitor as first-line therapy for HR+, HER2- advanced breast cancer. in San Antonio Breast Cancer Conference 2023",
+        "dates": {
+          "S015": "Received 10 July 2023; Accepted 29 January 2024; Published 07 February 2024 (Sci Rep 14:3129)",
+          "S003": "Available online 8 May 2024 (Ann Oncol 35(8), 2024); prints 'hazard ratio, 0.804; 95% confidence interval 0.637-1.015; P = 0.0664'",
+          "SABCS": "GS01-12, December 2023 -- the final OS result presented before S015 was accepted, and cited by S015"
+        },
+        "reading": "The date objection does not hold: the NMA (accepted 29 Jan 2024) could and did use the final OS result via the SABCS December 2023 abstract it cites, which S003 later published with the same figure. What remains untested is the Table 1 row itself. Next step is an acquisition, not a decision: the table page (nature.com/articles/s41598-024-53151-8/tables/1) as an also_held rendition of S015; not fetched here because this re-test was to open held bytes, not retrieve."
+      }
+    },
+    {
+      "id": "c68",
+      "kind": "claim",
+      "gate_verdict": "NOT_FOUND",
+      "gate_said": "",
+      "decision": "judgement",
+      "source_id": "",
+      "quote": "",
+      "why": "CLOSED BY RE-TEST 2026-09-13 against the Europe PMC REST result for EXT_ID:41093689 AND SRC:MED, quoted as returned: \"pmid\": \"41093689\", \"isOpenAccess\": \"N\", \"inEPMC\": \"N\", \"license\": \"cc by-nc-nd\". The page says exactly that the record carries an isOpenAccess field reading N beside a licence field, and says it is a reading of a live index, not a quotation from a held document (S025.retrieval_claims). A judgement rather than a document-settled decision because the record is not held; the gate's NOT_FOUND was NOT_REACHED.",
+      "by": "Claude Code, from the Europe PMC response of 2026-09-13",
+      "on": "2026-09-13",
+      "_fill_in": "decision: accepted, rejected, judgement. accepted/rejected need source_id AND a quote that is in that document.",
+      "retest": {
+        "on": "2026-09-13",
+        "outcome": "closed by re-test (judgement; record not held)",
+        "fields": {
+          "pmid": "41093689",
+          "isOpenAccess": "N",
+          "inEPMC": "N",
+          "inPMC": "N",
+          "license": "cc by-nc-nd",
+          "title": "Corrigendum to \"Abemaciclib plus a nonsteroidal aromatase inhibitor as initial therapy for HR+, HER2- advanced breast cancer: final overall survival results of MONARCH 3\": [Ann Oncol 2024; 35: 718-727].",
+          "pubYear": "2025",
+          "doi": "10.1016/j.annonc.2025.07.002"
+        }
+      }
+    },
+    {
+      "id": "obj-1",
+      "kind": "fairness",
+      "gate_verdict": "FACT",
+      "gate_said": "The draft says HARMONIA does not contradict the guideline sentence because it is 'not first line with an aromatase inhibitor,' but HARMONIA enrolled both first- and second-line patients and allowed letrozole as the endocrine therapy partner.",
+      "decision": "accepted",
+      "source_id": "S018",
+      "quote": "\"description\":\"Ribociclib + Fulvestrant or Letrozole\"",
+      "why": "Acted on 1 September 2026 (CORR-15): the page's reason -- 'neither is first line with an aromatase inhibitor' -- was withdrawn; HARMONIA's registry record lists letrozole as an allowed partner and enrolled first-line patients. The conclusion now rests on the trial's title restriction to the HER2-enriched intrinsic subtype. Recorded 2026-09-12 to match what was done.",
+      "by": "claude, recording what was done on 31 August / 1 September 2026 (operator authorisation of 12 September: remove blocks that are not substantive reasons not to publish)",
+      "on": "2026-09-12",
+      "_fill_in": "decision: accepted, rejected, judgement. accepted/rejected need source_id AND a quote that is in that document."
+    },
+    {
+      "id": "obj-2",
+      "kind": "fairness",
+      "gate_verdict": "FACT",
+      "gate_said": "The draft says the Shaaban trial was 'powered on response rate' in both the body and the sources section, but the paper's stated primary endpoint is clinical benefit rate (CBR), not objective response rate.",
+      "decision": "accepted",
+      "source_id": "S017",
+      "quote": "primary objectives are to compare the clinical benefit rate (CBR), quality of life and toxicity profiles",
+      "why": "Acted on 1 September 2026 (CORR-19): 'powered on response rate' was replaced; the page now quotes the paper's stated primary objectives (CBR, quality of life, toxicity) and its sample-size calculation on ORR, and says the paper names one endpoint and powers on another. Recorded 2026-09-12.",
+      "by": "claude, recording what was done on 31 August / 1 September 2026 (operator authorisation of 12 September: remove blocks that are not substantive reasons not to publish)",
+      "on": "2026-09-12",
+      "_fill_in": "decision: accepted, rejected, judgement. accepted/rejected need source_id AND a quote that is in that document."
+    },
+    {
+      "id": "obj-3",
+      "kind": "fairness",
+      "gate_verdict": "FACT",
+      "gate_said": "The sources section repeats the same 'response rate' error for the Shaaban trial's power calculation.",
+      "decision": "accepted",
+      "source_id": "S017",
+      "quote": "primary objectives are to compare the clinical benefit rate (CBR), quality of life and toxicity profiles",
+      "why": "The source-list twin of obj-2, corrected the same day under CORR-19 (Q-19 and Q-21 record both quotations). Recorded 2026-09-12.",
+      "by": "claude, recording what was done on 31 August / 1 September 2026 (operator authorisation of 12 September: remove blocks that are not substantive reasons not to publish)",
+      "on": "2026-09-12",
+      "_fill_in": "decision: accepted, rejected, judgement. accepted/rejected need source_id AND a quote that is in that document."
+    },
+    {
+      "id": "inf-1",
+      "kind": "inference",
+      "gate_verdict": "FACT",
+      "gate_said": "The draft describes overall survival as an 'exploratory endpoint' in PALMARES-2, but the study's own registry record and the 2025 ASCO updated abstract (NCT06805812 / Provenzano et al., JCO 2025 suppl.) state that overall survival is the primary endpoint of the PALMARES-2 study, with rwPFS as a secondary endpoint. The published Annals of Oncology paper designates rwPFS as the primary endpoint of '",
+      "decision": "accepted",
+      "source_id": "S021",
+      "quote": "\"primaryOutcomes\":[{\"measure\":\"Overall Survival (OS)\"",
+      "why": "Acted on 1 September 2026 (CORR-16): the body no longer calls PALMARES-2's overall survival exploratory; the registry lists it as the primary outcome. The source-list note was missed by that correction and is brought into line on 2026-09-12 under the same label. Recorded 2026-09-12.",
+      "by": "claude, recording what was done on 31 August / 1 September 2026 (operator authorisation of 12 September: remove blocks that are not substantive reasons not to publish)",
+      "on": "2026-09-12",
+      "_fill_in": "decision: accepted, rejected, judgement. accepted/rejected need source_id AND a quote that is in that document."
+    },
+    {
+      "id": "inf-3",
+      "kind": "inference",
+      "gate_verdict": "CONTRADICTION",
+      "gate_said": "The draft later corrects itself by noting that PALOMA-2 was powered for overall survival and MONARCH 3 was not — but this sentence, which will be read and quoted on its own, implies all four trials were powered only for progression-free survival. That is false for PALOMA-2. The sentence contradicts the draft's own later correction.",
+      "decision": "judgement",
+      "source_id": "",
+      "quote": "",
+      "why": "CLARIFIED 2026-09-13, not a correction. The sentence asserted nothing false; the clause 'every one of these trials was powered to measure' was restrictive, not exhaustive; naming the endpoint removes the ambiguity the gate read into it. Now reads: 'On progression-free survival, the endpoint all four trials were powered to measure, nothing separates them.' Bound to the four trials' primary-endpoint records (S005/S019, S003, S009/S020, S007/S022). No claim added about what PALOMA-2 was or was not additionally powered for.",
+      "by": "the advisor, directive of 13 September 2026; applied by Claude Code",
+      "on": "2026-09-13",
+      "retest": {
+        "on": "2026-09-12",
+        "outcome": "live",
+        "tested": "is the attacked sentence still on the page",
+        "result": "yes; whether the two sentences still conflict is a reading, not a string test"
+      }
+    },
+    {
+      "id": "inf-8",
+      "kind": "inference",
+      "gate_verdict": "CONTRADICTION",
+      "gate_said": "The draft's own correction note (31 August) records that the paper gives its pooled median follow-up as 73.3 months in the abstract and 70.2 months in the results section, and states 'we cannot say which is correct.' The body text still prints only 73.3 months without the disclosed discrepancy, even though the correction section at the bottom of the same document flags it. A reader who reads only ",
+      "decision": "accepted",
+      "source_id": "S015",
+      "quote": "The median follow-up was 70.2 months (range: 48.7–97.2 months)",
+      "why": "ACCEPTED 2026-09-13 (INF8-001). The body printed 73.3 months alone after the 31 August corrections entry had disclosed that the paper prints 73.3 (abstract) and 70.2 (results). Body and the S015 note's opening now carry both figures and the statement that this page cannot determine which is correct; the note's parenthetical deferral is removed.",
+      "by": "the advisor, directive of 13 September 2026 (amended); applied by Claude Code",
+      "on": "2026-09-13",
+      "retest": {
+        "on": "2026-09-12",
+        "outcome": "live",
+        "tested": "is the attacked sentence still on the page",
+        "result": "yes; whether the two sentences still conflict is a reading, not a string test"
+      }
+    },
+    {
+      "id": "inf-9",
+      "kind": "inference",
+      "gate_verdict": "CONTRADICTION",
+      "gate_said": "The draft later establishes — and records as a correction — that two randomised head-to-head trials do exist (Shaaban et al. and HARMONIA), both of ribociclib against palbociclib, and that the guideline sentence is accurate only within its scope of first-line aromatase-inhibitor combinations. This sentence in the body, appearing before the scoping discussion, presents the guideline's statement as ",
+      "decision": "judgement",
+      "source_id": "",
+      "quote": "",
+      "why": "CLARIFIED 2026-09-13, not a correction. The sentence was accurate and attributed; the defect was placement — it appeared before the scoping discussion. The fix appends 'a statement the section below qualifies' and adds no claim about the source: nothing here characterises the guideline's scope, because that is a claim about S001 and no tool may read S001.",
+      "by": "the advisor, directive of 13 September 2026; applied by Claude Code",
+      "on": "2026-09-13",
+      "retest": {
+        "on": "2026-09-12",
+        "outcome": "live",
+        "tested": "is the attacked sentence still on the page",
+        "result": "yes; whether the two sentences still conflict is a reading, not a string test"
+      }
+    },
+    {
+      "id": "inf-10",
+      "kind": "inference",
+      "gate_verdict": "CONTRADICTION",
+      "gate_said": "The statement 'neither separated them' is accurate for Shaaban et al. but is not established for HARMONIA, which terminated at 61 patients and never reported efficacy results. Saying HARMONIA 'did not separate them' implies a null efficacy result, when the correct statement is that HARMONIA produced no efficacy result at all. The draft elsewhere correctly says HARMONIA 'establishes that the compar",
+      "decision": "judgement",
+      "source_id": "",
+      "quote": "",
+      "why": "DISMISSED BY RE-TEST 2026-09-13. The attacked wording ('…and neither separated them') is no longer on the page. The sentence as published now reads, in full: \"Two randomised trials have tested one of these drugs against another — both ribociclib against palbociclib, neither in the population the guideline sentence describes. One found no significant difference between them; the other stopped at 61 patients and never reported, so it establishes nothing either way. None has tested abemaciclib against either of the others, which is the pair the category difference turns on.\" It already says HARMONIA established nothing either way, which is what the gate's correct_reading asked for. The 12 September re-test recorded this finding as 'live' on a partial string match (the first 80 characters of the attacked sentence survived the revision); that outcome was wrong in kind, and the re-test now reports 'partly' for that case and requires a disposition naming the current sentence, which this is.",
+      "by": "the advisor, directive of 13 September 2026; applied by Claude Code",
+      "on": "2026-09-13",
+      "retest": {
+        "on": "2026-09-12",
+        "outcome": "live",
+        "tested": "is the attacked sentence still on the page",
+        "result": "yes; whether the two sentences still conflict is a reading, not a string test"
+      },
+      "current_sentence": "Two randomised trials have tested one of these drugs against another — both ribociclib against palbociclib, neither in the population the guideline sentence describes. One found no significant difference between them; the other stopped at 61 patients and never reported, so it establishes nothing either way. None has tested abemaciclib against either of the others, which is the pair the category difference turns on."
+    },
+    {
+      "id": "inf-16",
+      "kind": "inference",
+      "gate_verdict": "CONTRADICTION",
+      "gate_said": "The sentence 'it will not now call that no movement' implies the 0.04 shift in the hazard ratio (0.96 to 0.92) is meaningful in the same way the 0.04 difference between MONARCH 3 and MONALEESA-2 point estimates is meaningful. But the two contexts are different: the 0.04 between trial point estimates is used to argue the drugs are similar; the 0.04 shift in the sensitivity analysis is used to argue",
+      "decision": "judgement",
+      "source_id": "",
+      "quote": "",
+      "why": "CLARIFIED 2026-09-13, not a correction. The gate read an inconsistency in using 0.04 for two purposes; the page now says why the same magnitude carries different weight here: not because four hundredths is large, but because it moves one trial's own estimate further from the no-effect line under a better handling of its own missing data, with the interval still through 1.0 and the conclusion unchanged. The sensitivity figures (0.92, 0.76-1.12, 9.2%, 11.7%) are bound to S010; the rest is arithmetic on figures the page already carries.",
+      "by": "the advisor, directive of 13 September 2026; applied by Claude Code",
+      "on": "2026-09-13",
+      "retest": {
+        "on": "2026-09-12",
+        "outcome": "live",
+        "tested": "is the attacked sentence still on the page",
+        "result": "yes; whether the two sentences still conflict is a reading, not a string test"
+      }
+    }
+  ]
+}

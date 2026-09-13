@@ -319,6 +319,48 @@ def _key(text: str) -> str:
     return " ".join(text.split())[:60]
 
 
+def unanswered_breaks(slug: str) -> list[str]:
+    """Counterexamples a hunt FOUND that nobody has answered.
+
+    A hunt writes <day>-briefs.json, one row per universal negative, with the
+    role's verdict; write_template() then numbers those rows CE-01.. in
+    <day>-adjudication.md, where a person writes VERDICT and BASIS. A row the
+    role called BROKEN or NARROWED whose CE-nn section carries no VERDICT --
+    or whose day has no adjudication file at all -- is an attack that landed
+    and was never answered. That is the thing that blocks: not "never
+    attacked", which is a backlog, but "attacked, hit, and left".
+    """
+    d = case_dir(slug) / "counterexample"
+    if not d.exists():
+        return []
+    out = []
+    for bf in sorted(d.glob("*-briefs.json")):
+        if "TEST" in bf.name:
+            continue
+        try:
+            rows = json.loads(bf.read_text(encoding="utf-8"))
+        except Exception:
+            continue
+        adj = bf.with_name(bf.name.replace("-briefs.json", "-adjudication.md"))
+        chunks = {}
+        if adj.exists():
+            for chunk in re.split(r"(?=^### )", adj.read_text(encoding="utf-8"), flags=re.M)[1:]:
+                m = re.match(r"### (CE-\d+)", chunk)
+                if m:
+                    chunks[m.group(1)] = chunk
+        for n, r in enumerate(rows, 1):
+            if str(r.get("verdict", "")).upper() not in ("BROKEN", "NARROWED"):
+                continue
+            key = "CE-%02d" % n
+            chunk = chunks.get(key)
+            if chunk is None or not VERDICT.search(chunk):
+                out.append("%s %s (role says %s, %s): %s"
+                           % (bf.name[:10], key, r.get("verdict"),
+                              "no adjudication file" if chunk is None else "no VERDICT written",
+                              str(r.get("claim", ""))[:60]))
+    return out
+
+
 def preflight_rows(slug: str, page_text: str) -> list[tuple[str, str, str]]:
     claims = universal_negatives(page_text)
     d = case_dir(slug) / "counterexample"
@@ -326,12 +368,21 @@ def preflight_rows(slug: str, page_text: str) -> list[tuple[str, str, str]]:
             if "TEST" not in f.name]
     if not claims:
         return [("counterexample hunt", OK, "no universal negatives on the page")]
+    # "NEVER ATTACKED" IS NOT "ATTACKED AND FAILED". Until 12 September 2026
+    # this row blocked on either. A universal negative nobody has tried to
+    # break is nothing-has-checked-this: printed, counted, WARN, and the
+    # 'no randomised trial has compared these drugs' history stays in the
+    # message so nobody reads the warn as harmless. What BLOCKS is a hunt that
+    # RAN and found a counterexample nobody has answered -- unanswered_breaks()
+    # -- because that names a specific sentence and a specific document that
+    # contradicts it. 11 September ruling.
+    hit = unanswered_breaks(slug)
     if not runs:
-        return [("counterexample hunt", BAD,
+        return [("counterexample hunt", WARN,
                  f"{len(claims)} universal negative(s) on the page and nobody has "
-                 f"tried to break any of them. This is how 'no randomised trial has "
-                 f"compared these drugs' published, twice, with two such trials in "
-                 f"the registry")]
+                 f"tried to break any of them. Unattacked is unexamined, not "
+                 f"passed: this is how 'no randomised trial has compared these "
+                 f"drugs' published, twice, with two such trials in the registry")]
     try:
         rows_ = json.loads(runs[-1].read_text(encoding="utf-8"))
     except Exception:
@@ -348,12 +399,20 @@ def preflight_rows(slug: str, page_text: str) -> list[tuple[str, str, str]]:
             if v:
                 done.add(_key(v))
     missed = [c for c in claims if _key(c) not in done]
-    rows = [("counterexample hunt", OK if not missed else BAD,
-             f"{len(runs)} run(s), latest {runs[-1].name[:10]}, covering "
-             f"{len(claims) - len(missed)} of {len(claims)} universal negative(s)"
-             if not missed else
-             f"{len(missed)} universal negative(s) added since the last hunt and "
-             f"never attacked: " + " || ".join(c[:70] for c in missed[:2]))]
+    if hit:
+        rows = [("counterexample hunt", BAD,
+                 f"{len(hit)} counterexample(s) a hunt found and nobody has answered: "
+                 + " || ".join(hit[:3])
+                 + (f" -- and {len(missed)} negative(s) added since, never attacked"
+                    if missed else ""))]
+    else:
+        rows = [("counterexample hunt", OK if not missed else WARN,
+                 f"{len(runs)} run(s), latest {runs[-1].name[:10]}, covering "
+                 f"{len(claims) - len(missed)} of {len(claims)} universal negative(s)"
+                 if not missed else
+                 f"{len(missed)} universal negative(s) added since the last hunt and "
+                 f"never attacked -- unexamined, not passed: "
+                 + " || ".join(c[:70] for c in missed[:2]))]
     still = withdrawn_but_still_claimed(slug, claims)
     rows.append(("withdrawn items are really gone", OK if not still else BAD,
                  "no item marked WITHDRAWN is still a universal negative on the "

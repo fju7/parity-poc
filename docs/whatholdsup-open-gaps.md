@@ -351,6 +351,19 @@ same question has to be asked of number words.
 they are doing quantitative work, the melanoma page's real cases are bound, and
 the prose cases are not swept in.
 
+**Second instance, cdk46, 13 September 2026.** The email gate's c40 (NOT_FOUND,
+31 August) attacked "approximately eleven thousand patients … across the four
+comparative studies", suspecting P-VERIFY's cohort counted twice. The page's
+current sentence — "Eleven thousand patients across two cohorts, two endpoints,
+and a disagreement between them about a third drug" — is arithmetic on two held
+figures, 9,146 (S016) + 1,982 (S027) = 11,128, P-VERIFY once. No check can say
+so: `is_empirical` returns False for the sentence, it has no binding row, no
+exclusion matches it, rule 1 reports it in neither the bound nor the loose
+count. The figure is asserted and unverifiable by any tool in this repository;
+the arithmetic above was done by a person on 13 September and recorded in the
+c40 disposition (draft_decisions.json), which is where the verification lives
+until the binder can see number words. Not built in that block, by direction.
+
 ## GAP-007 — the live site is behind the repository after a correction
 
 **Found:** 5 September 2026, by the independent architecture reviewer, who saw

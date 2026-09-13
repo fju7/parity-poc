@@ -46,6 +46,55 @@ three times in other places: the bytes must contain something that IDENTIFIES
 the document -- a distinctive run of its title, its DOI, its PMID, its NCT
 number. A page that cannot show it is the document is not stored as one, whether
 or not it looks like a wall.
+
+ONE DOCUMENT, SEVERAL FACES -- the identity problem as it has actually shown up
+-------------------------------------------------------------------------------
+Ledgered 2026-09-13, on the advisor's instruction. Each face was met in a real
+ingest; none was designed for. Recorded so the next one is recognised as the
+fifth and not the first.
+
+  1. A sha256 identifies a RETRIEVAL, not a document. NEJM stamps every
+     download ("Downloaded from nejm.org on <date>"), so the same notice
+     fetched twice has two hashes. Identity is confirmed by content -- DOI,
+     folio, verbatim passages -- and the hash names the copy.
+
+  2. A document has REPRESENTATIONS. Shaaban is held as Europe PMC XML and as
+     the operator's PDF: same paper, two byte-sets, and neither supersedes the
+     other. put() keeps the second under also_held.
+
+  3. The store told representations apart BY FILE EXTENSION. That proxy held
+     only because XML and PDF differ; Nature serves an article and its Table 1
+     as two .html pages, and the rule would have recorded the paper as
+     superseded by its own table. The --also-held flag (2026-09-13) lets the
+     caller say what the bytes are; the extension guess is not consulted then.
+
+  4. NEWEST-BYTES-AS-PRIMARY. The first ingest of the table page, before the
+     flag existed, made the TABLE the primary rendition of S015 (kind: landing)
+     and demoted the article to also_held: put() treated whatever arrived last
+     as the document. Every S015 span then went unfindable, because the span
+     checks read the primary. Fixed in put() for the explicit second-
+     representation case (the prior stays primary); the general assumption --
+     that later bytes are the better bytes -- is still the store's default
+     wherever nobody says otherwise, and it is wrong for a part, a table, a
+     supplement or a corrigendum arriving after the paper.
+
+  5. THE SAME FAMILY, ONE FILE OVER: a string test standing in for a
+     judgement about meaning. findings.retest asked "is the attacked sentence
+     still on the page" by matching its first 80 characters, and reported
+     "live" when the opening survived a revision that had already answered
+     the finding (inf-10, 12-13 September). A prefix is not the sentence, as
+     a hash is not the document and an extension is not the representation.
+     The re-test now reports "partly" for that case, records no decision,
+     and requires a disposition naming the current sentence.
+
+  Reported, NOT fixed (2026-09-13): substance() refused the Table 1 page as
+  "a page ABOUT the document, not the document" and it had to be stored with
+  --force. The test discriminates a paper from its landing page or abstract by
+  length and section markers; it has no way to tell a page that is PART OF a
+  document (a table served on its own URL) from a page ABOUT it. Both are
+  short, both lack a reference list. Until it can, every part-of ingest will
+  need --force and a reason, and the "landing" kind on S015's also_held entry
+  is the test's verdict, not the document's nature.
 """
 from __future__ import annotations
 
@@ -554,7 +603,15 @@ def identifies(data: bytes, src: dict, content_type: str = "") -> tuple[bool, st
 # ---------------------------------------------------------------------------
 
 def put(slug: str, sid: str, data: bytes, *, url: str, via: str,
-        content_type: str = "", title: str = "", note: str = "") -> dict:
+        content_type: str = "", title: str = "", note: str = "",
+        also_held: str | None = None) -> dict:
+    """`also_held`: an explicit statement that these bytes are ANOTHER
+    REPRESENTATION of a document already held, with the reason verbatim.
+    Added 2026-09-13: the extension rule below cannot tell a Nature article
+    page from the same article's Table 1 served as its own page -- both are
+    .html -- and would have recorded the paper as superseded. When the caller
+    says what the bytes are, that statement is recorded and the extension
+    guess is not consulted. When the caller says nothing, nothing changes."""
     digest = sha(data)
     ext = EXT.get((content_type or "").split(";")[0].strip()) or (
         ".pdf" if data[:5] == b"%PDF-" else
@@ -594,6 +651,27 @@ def put(slug: str, sid: str, data: bytes, *, url: str, via: str,
     prior = (iix.get("sources") or {}).get(sid) or {}
     versions = list(prior.get("superseded") or [])
     alsos = list(prior.get("also_held") or [])
+    if also_held is not None and prior.get("sha256") and prior["sha256"] != digest:
+        # AN EXPLICIT SECOND REPRESENTATION DOES NOT TAKE THE PRIMARY SLOT.
+        # The primary rendition is the one every span check reads
+        # (spancheck._text); a table page or a supplement is a partial of
+        # the document, not a replacement for it. So the NEW bytes go under
+        # also_held with the caller's reason, and the prior stays primary --
+        # the opposite of the superseded path, where the newest bytes are the
+        # document and the old ones are history. 2026-09-13: the first
+        # ingest of S015's Table 1 made the table the primary and the article
+        # the also_held, and every S015 span went unfindable.
+        alsos.append({"sha256": digest, "file": row["file"], "bytes": len(data),
+                      "url": url, "held": date.today().isoformat(), "via": via,
+                      "note": note, "also_held_reason": also_held,
+                      "also_held_added": date.today().isoformat(),
+                      "kind": kind, "kind_why": kind_why})
+        prior["also_held"] = alsos
+        iix.setdefault("sources", {})[sid] = prior
+        save_issue_index(slug, iix)
+        return {"sha256": digest, "file": row["file"], "bytes": len(data),
+                "retrieved": date.today().isoformat(), "url": url,
+                "kind": kind, "kind_why": kind_why, "also_held_of": prior["sha256"]}
     if prior.get("sha256") and prior["sha256"] != digest:
         # SUPERSEDED AND ALSO_HELD ARE DIFFERENT THINGS, and conflating them
         # destroys the reason for keeping old bytes at all.
@@ -633,10 +711,10 @@ def put(slug: str, sid: str, data: bytes, *, url: str, via: str,
 
 
 def put_file(slug: str, sid: str, path: Path, *, url: str, via: str,
-             title: str = "", note: str = "") -> dict:
+             title: str = "", note: str = "", also_held: str | None = None) -> dict:
     ct, _ = mimetypes.guess_type(str(path))
     return put(slug, sid, Path(path).read_bytes(), url=url, via=via,
-               content_type=ct or "", title=title, note=note)
+               content_type=ct or "", title=title, note=note, also_held=also_held)
 
 
 def held(slug: str) -> dict:
@@ -927,6 +1005,10 @@ def main() -> int:
     a.add_argument("--note", default="")
     a.add_argument("--force", action="store_true",
                    help="store even if the bytes do not identify themselves")
+    a.add_argument("--also-held", metavar="WHY", default=None,
+                   help="these bytes are another REPRESENTATION of the document already "
+                        "held for this source (e.g. a table served as its own page); the "
+                        "reason is recorded verbatim and the extension guess is not used")
     g = sub.add_parser("gaps", help="regenerate the list of documents we do not hold")
     g.add_argument("--write", action="store_true",
                    help="write it into the issue directory instead of printing it")
@@ -943,7 +1025,20 @@ def main() -> int:
 
     if args.cmd == "add":
         src = next((s for s in sources(args.slug) if s.get("id") == args.sid), {})
+        if args.also_held is not None and not args.also_held.strip():
+            print("\n  REFUSED: --also-held needs a reason that says what the file is; "
+                  "an empty one records nothing a reader can check.\n")
+            return 2
         data = Path(args.path).read_bytes()
+        if args.also_held is not None:
+            prior = (held(args.slug) or {}).get(args.sid)
+            if not prior:
+                print("\n  NOTE: --also-held given but nothing is held yet for %s; the flag "
+                      "is a no-op and the file is stored as the first representation.\n"
+                      % args.sid)
+            elif prior.get("sha256") == sha(data):
+                print("\n  NOTE: --also-held given but these bytes are already the held "
+                      "representation of %s; nothing to add.\n" % args.sid)
         ok, why = identifies(data, src)
         if not ok and not args.force:
             print("\n  REFUSED: %s\n  Use --force only if you have looked at the file "
@@ -957,7 +1052,8 @@ def main() -> int:
                   "yourself and disagree.\n" % kind_why)
             return 2
         row = put_file(args.slug, args.sid, Path(args.path), url=args.url, via=args.via,
-                       title=src.get("title", ""), note=args.note)
+                       title=src.get("title", ""), note=args.note,
+                       also_held=(args.also_held.strip() if args.also_held is not None else None))
         print("\n  held %s -> %s  (%d bytes, sha %s)\n  identity:  %s\n  substance: %s — %s\n"
               % (args.sid, row["file"], row["bytes"], row["sha256"][:16],
                  why if ok else "stored with --force, identity NOT confirmed",

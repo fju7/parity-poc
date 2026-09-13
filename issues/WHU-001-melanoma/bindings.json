@@ -5772,7 +5772,7 @@
       "also_rests_on": [
         {
           "source_id": "S019",
-          "span": "RFS HR=0.51 &amp; DMFS HR=0.41"
+          "span": "RFS HR=0.51 & DMFS HR=0.41"
         },
         {
           "source_id": "S019",
@@ -5784,7 +5784,11 @@
       "confirmed": true,
       "proposed_on": "2026-09-03",
       "check_flags": [],
-      "checked_on": "2026-09-11"
+      "checked_on": "2026-09-11",
+      "span_repaired": {
+        "on": "2026-09-13",
+        "why": "the span had been recorded with HTML entities (&amp;, &nbsp;) copied from the raw file rather than the document's words; the document reader now unescapes entities after stripping tags (spancheck._text_of_file), so the record carries the words as the document sets them"
+      }
     },
     "2bd1f0817bdf7de3": {
       "sentence": "For adjuvant PD-1 inhibitors specifically — the comparison arm in this very trial — neither of the two placebo-controlled trials whose registry records we hold — KEYNOTE-054 and KEYNOTE-716 — has posted an overall-survival result at all.",

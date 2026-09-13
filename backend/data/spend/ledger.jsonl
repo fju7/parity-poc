@@ -315,3 +315,13 @@
 {"at": "2026-09-11T14:29:14+00:00", "script": "factcheck_draft.py", "role": "advocate", "issue": "2026-09-10-corrections", "usd": 0.261, "input": 55817, "output": 3568, "web_searches": 4, "note": ""}
 {"at": "2026-09-11T14:30:19+00:00", "script": "factcheck_draft.py", "role": "inference", "issue": "2026-09-10-corrections", "usd": 0.2328, "input": 53224, "output": 2872, "web_searches": 3, "note": ""}
 {"at": "2026-09-11T14:31:48+00:00", "script": "factcheck_draft.py", "role": "coverage", "issue": "2026-09-10-corrections", "usd": 0.5346, "input": 140767, "output": 2818, "web_searches": 7, "note": ""}
+{"at": "2026-09-13T02:12:37+00:00", "script": "factcheck_draft.py", "role": "changecheck", "issue": "cdk46", "usd": 0.0675, "input": 21464, "output": 207, "web_searches": 0, "note": ""}
+{"at": "2026-09-13T02:24:01+00:00", "script": "factcheck_draft.py", "role": "changecheck", "issue": "cdk46", "usd": 0.0708, "input": 21689, "output": 383, "web_searches": 0, "note": ""}
+{"at": "2026-09-13T02:30:24+00:00", "script": "factcheck_draft.py", "role": "changecheck", "issue": "cdk46", "usd": 0.0676, "input": 21464, "output": 213, "web_searches": 0, "note": ""}
+{"at": "2026-09-13T12:59:53+00:00", "script": "factcheck_draft.py", "role": "changecheck", "issue": "cdk46", "usd": 0.0703, "input": 21689, "output": 347, "web_searches": 0, "note": ""}
+{"at": "2026-09-13T13:00:31+00:00", "script": "factcheck_draft.py", "role": "changecheck", "issue": "cdk46", "usd": 0.0704, "input": 21689, "output": 354, "web_searches": 0, "note": ""}
+{"at": "2026-09-13T13:21:30+00:00", "script": "factcheck_draft.py", "role": "changecheck", "issue": "cdk46", "usd": 0.069, "input": 21689, "output": 264, "web_searches": 0, "note": ""}
+{"at": "2026-09-13T14:02:30+00:00", "script": "factcheck_draft.py", "role": "changecheck", "issue": "cdk46", "usd": 0.0755, "input": 22050, "output": 621, "web_searches": 0, "note": ""}
+{"at": "2026-09-13T14:07:32+00:00", "script": "factcheck_draft.py", "role": "changecheck", "issue": "cdk46", "usd": 0.0718, "input": 22050, "output": 376, "web_searches": 0, "note": ""}
+{"at": "2026-09-13T14:34:33+00:00", "script": "factcheck_draft.py", "role": "changecheck", "issue": "cdk46", "usd": 0.0714, "input": 23103, "output": 141, "web_searches": 0, "note": ""}
+{"at": "2026-09-13T14:51:01+00:00", "script": "factcheck_draft.py", "role": "changecheck", "issue": "cdk46", "usd": 0.0734, "input": 23795, "output": 136, "web_searches": 0, "note": ""}

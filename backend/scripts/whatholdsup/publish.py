@@ -2245,12 +2245,18 @@ def cmd_update(args) -> int:
     page = ROOT / cfg["page"]
     w = _sibling("watch")
 
-    if w.load(args.slug) is None:
-        print("\n  %s is not a living issue — no watch.json." % args.slug)
-        print("  Use `publish` for a rewrite, or `record-live` for a change too")
-        print("  small to touch the argument. `update` exists for the event in")
-        print("  between, and only a living issue has those.\n")
-        return 2
+    # NO LIVING-ISSUE PRECONDITION. Until 12 September 2026 this refused any
+    # issue with no watch.json: "only a living issue has those". Under the
+    # 12 September modest-promise ruling (issues/WHU-003-deskilling/review/
+    # 2026-09-12-modest-promise-ruling.md) watch.json is an internal register
+    # of what we watch for; it says nothing about the shape of a change. An
+    # amendment -- a new study appeared and two paragraphs changed -- is the
+    # same event on any issue, and the lane is judged on what it ADDS, by the
+    # rows below and UPDATE_SOFTENS, not by whether a register exists. Do not
+    # restore the precondition as an obvious fix: the register was never what
+    # made an update safe. What watch.json still governs is the changelog
+    # entry written after the push, which needs the register to write into.
+    living = w.load(args.slug) is not None
 
     rec = [r for r in load_record() if r["issue"] == args.slug
            and r["action"] in ("publish", "republish", "update")]
@@ -2283,8 +2289,10 @@ def cmd_update(args) -> int:
     for f in ("page", "email_html", "email_txt"):
         git("add", cfg[f])
     git("add", "site/whatholdsup")
-    git("add", str((ledger.case_dir(args.slug) / "watch.json").relative_to(ROOT)))
-    git("add", str((ledger.case_dir(args.slug) / "changelog.md").relative_to(ROOT)))
+    for name in ("watch.json", "changelog.md"):
+        fp = ledger.case_dir(args.slug) / name
+        if fp.exists():
+            git("add", str(fp.relative_to(ROOT)))
     code, out = git("commit", "-m", "whatholdsup: update %s — %s"
                     % (args.slug, args.what[:60]))
     if code != 0 and not any(x in out for x in
@@ -2329,6 +2337,11 @@ def cmd_update(args) -> int:
                  "are listed in the preflight output above and in UPDATE_SOFTENS.",
         "waived": args.waive,
     })
+    if not living:
+        print("\n  Recorded in published.json as an update. %s has no watch register, "
+              "so no watch.json changelog entry is written; the reader-facing "
+              "account belongs in the page's own change log.\n" % args.slug)
+        return 0
     doc = w.load(args.slug)
     doc.setdefault("changelog", []).append({
         # The editorial date, not the UTC one. This lands in a living issue's
@@ -2994,6 +3007,24 @@ def cmd_explain_change(args) -> int:
     fp.write_text(json.dumps(data, indent=2, ensure_ascii=False), encoding="utf-8")
     ok, bad, _s = reconcile(args.slug)
     print("\n  Recorded. %d change(s) accounted for, %d still not.\n" % (len(ok), len(bad)))
+    return 0
+
+
+def cmd_retest_findings(args) -> int:
+    """A finding whose sentence changed is re-tested, never closed on "moved".
+    See findings.retest. Runs every time it is asked; the record it writes is
+    what stops the queue rebuilding itself on the next round."""
+    cfg = ISSUES[args.slug]
+    rp = ROOT / (cfg["page"] + ".gate.json")
+    if not rp.exists():
+        print("\n  no gate report at %s\n" % rp.relative_to(ROOT))
+        return 2
+    report = json.loads(rp.read_text(encoding="utf-8"))
+    out = findings.retest(args.slug, report)
+    print("\n  Re-test of open gate findings for %s:" % args.slug)
+    for k in ("closed", "attested", "live", "partly", "moot", "operator"):
+        print("    %-9s %d  %s" % (k, len(out[k]), ", ".join(out[k])))
+    print()
     return 0
 
 
@@ -4447,6 +4478,12 @@ def main() -> int:
                          "furniture); the 'correction recorded' row then needs no "
                          "corrections.md entry for it")
     ec.set_defaults(fn=cmd_explain_change)
+
+    rt = sub.add_parser("retest-findings",
+                        help="re-run each open gate finding's own test against the current "
+                             "page and the held documents; record the outcome")
+    rt.add_argument("slug", choices=sorted(ISSUES))
+    rt.set_defaults(fn=cmd_retest_findings)
 
     cr = sub.add_parser("confirm-review",
                         help="record that the changes since a review were the ones it asked for")

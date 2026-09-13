@@ -175,9 +175,15 @@ if __name__ == "__main__":
 # marker-presence row passed it. The line is generated; the card was typed.
 
 def _index_with(old: str, new: str) -> str:
+    """Substitute inside the MELANOMA card only. Until 13 September 2026 this
+    substituted across the whole index and asserted the string was unique;
+    the day cdk46's count reached 15 it equalled melanoma's, and two tests
+    failed on a coincidence of two correct cards."""
     html = I.INDEX.read_text(encoding="utf-8")
-    assert html.count(old) == 1, "fixture drift: %r not found exactly once" % old
-    return html.replace(old, new)
+    m = [c for c in I.CARD.finditer(html) if c.group("slug") == "melanoma"][0]
+    card = m.group(0)
+    assert card.count(old) == 1, "fixture drift: %r not found exactly once in the melanoma card" % old
+    return html[:m.start()] + card.replace(old, new) + html[m.end():]
 
 
 def _melanoma_line() -> str:

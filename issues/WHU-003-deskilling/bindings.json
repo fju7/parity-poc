@@ -100,7 +100,7 @@
       "document_sha": "d34349d5c41a5563b984103e970ae8f9247ccf781f4e0c257051dd5816b609b6",
       "locator_type": "prose",
       "locator": null,
-      "span": "AI exposure linked with declining adenoma detection rate Between September 2021 and March 2022, a total of 1,443 non-AI-assisted colonoscopies were analyzed: 795 before AI implementation and 648 after.&nbsp; These were performed by 19 experienced endoscopists, each with more than 2,000 lifetime colonoscopies under their belt and an average of 27.6 years of experience.",
+      "span": "AI exposure linked with declining adenoma detection rate Between September 2021 and March 2022, a total of 1,443 non-AI-assisted colonoscopies were analyzed: 795 before AI implementation and 648 after.  These were performed by 19 experienced endoscopists, each with more than 2,000 lifetime colonoscopies under their belt and an average of 27.6 years of experience.",
       "envelope": "ion to control for potential confounders such as patient age, sex, sedation, bowel prep, and endoscopist characteristics.&nbsp; Stratified analyses by patient age and sex were also performed to explore subgroup effects. AI exposure linked with declining adenoma detection rate Between September 2021 and March 2022, a total of 1,443 non-AI-assisted colonoscopies were analyzed: 795 before AI implementation and 648 after.&nbsp; These were performed by 19 experienced endoscopists, each with more than 2,000 lifetime colonoscopies under their belt and an average of 27.6 years of experience. Interestingly, the adenoma detection rate (ADR) in non-AI-assisted colonoscopies dropped significantly after the introduction of AI, from 28.4% before exposure to 22.4% after - a 6.0% absolute decline.&nbsp; This decrea",
       "scope_words": [],
       "falsifier": null,
@@ -115,7 +115,11 @@
       "confirmed": false,
       "autobind": "the only held document containing all 2 anchors (2,000, 27.6), sharing 4 subject word(s) with the sentence: colonoscopies, endoscopists, performed, years",
       "check_flags": [],
-      "checked_on": "2026-09-04"
+      "checked_on": "2026-09-04",
+      "span_repaired": {
+        "on": "2026-09-13",
+        "why": "the span had been recorded with HTML entities (&amp;, &nbsp;) copied from the raw file rather than the document's words; the document reader now unescapes entities after stripping tags (spancheck._text_of_file), so the record carries the words as the document sets them"
+      }
     },
     "94cd79d439867548": {
       "sentence": "The authors list eleven limitations of their own, and the largest is not subtle: the total number of procedures in the second period nearly doubled, from 795 to 1,382 — while the non-AI procedures actually measured fell from 795 to 648 — because Poland suspended its colonoscopy-based screening programme on 1 January 2022 and the centres used the freed capacity to draw patients off the waiting list.",

@@ -1,6 +1,10 @@
 """The announce path must never record a send that did not happen.
 
-Run:  python3 backend/tests/whatholdsup/announce_test.py
+Run:  python3 backend/tests/whatholdsup/announce_check.py
+
+Named *_check, not *_test: this is a script that runs its cases at import and
+exits, and under pytest's collection pattern that exit killed every full-suite
+run (13 September 2026). It is not a pytest module and is not collected as one.
 
 WHY THIS EXISTS
 On 2026-08-28 cmd_announce appended an "announce" row to published.json and
@@ -18,6 +22,8 @@ from argparse import Namespace
 
 HERE = pathlib.Path(__file__).resolve()
 ROOT = HERE.parents[3]
+# publish.py's siblings import each other by bare name (lint_claims -> source_ledger)
+sys.path.insert(0, str(ROOT / "backend" / "scripts" / "whatholdsup"))
 spec = importlib.util.spec_from_file_location(
     "pub", ROOT / "backend" / "scripts" / "whatholdsup" / "publish.py")
 m = importlib.util.module_from_spec(spec)

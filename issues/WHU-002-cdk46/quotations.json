@@ -80,13 +80,13 @@
       "id": "Q-07",
       "quote": "statistical comparison was made by 1-sided stratified log-rank test",
       "source_id": "S023",
-      "verbatim": "OS was evaluated by Kaplan-Meier methods, and statistical comparison was made by 1-sided stratified log-rank test, with a protocol-defined Lan-DeMets (O'Brien-Fleming) stopping boundary",
+      "verbatim": "OS was evaluated by Kaplan-Meier methods, and statistical comparison was made by 1-sided stratified log-rank test, with a protocol-defined Lan-DeMets (O’Brien-Fleming) stopping boundary of p < 0.01018 for superior efficacy.",
       "kind": "",
-      "why": "ALREADY ANSWERED, by the gate. Claim c41's neighbour c73 is VERIFIED against “ASCO 2019 Abstract LBA1008, Hurvitz et al., J Clin Oncol 37, LBA1008 (2019), Methods section” and returns the sentence above, of which the page quotes the middle clause. My own fetch of ascopubs.org on 31 August returned 403; the gate's search route reached it. That difference is why this is recorded as read BY THE GATE and not by a person. The fact the quotation supports is independently posted in S022, MONALEESA-7's registry record, which was read directly.",
+      "why": "ALREADY ANSWERED, by the gate. Claim c41's neighbour c73 is VERIFIED against “ASCO 2019 Abstract LBA1008, Hurvitz et al., J Clin Oncol 37, LBA1008 (2019), Methods section” and returns the sentence above, of which the page quotes the middle clause. My own fetch of ascopubs.org on 31 August returned 403; the gate's search route reached it. That difference is why this is recorded as read BY THE GATE and not by a person. The fact the quotation supports is independently posted in S022, MONALEESA-7's registry record, which was read directly. Completed 2026-09-13 from the held document (S023, saved from the rendered page in a browser): the earlier verbatim was truncated at 'stopping boundary' and wrote O'Brien with a straight apostrophe where the document sets a typographic one; the full sentence is now recorded as the document sets it.",
       "attested": {
-        "by": "the fact-check gate (claim c73, VERIFIED)",
-        "on": "2026-08-29",
-        "recorded_in": "site/whatholdsup/cdk46.html.gate.json, verdict c73"
+        "by": "the operator, who saved the page in a browser on 2026-09-13; matched by Claude Code against the held bytes",
+        "on": "2026-09-13",
+        "recorded_in": "the held document, docs/52/528959634228c5...html; issues/WHU-002-cdk46/sources.json S023. Earlier attestation: the fact-check gate (claim c73, VERIFIED), 2026-08-29, site/whatholdsup/cdk46.html.gate.json"
       }
     },
     {
@@ -262,6 +262,71 @@
         "by": "Fred Ugast, who supplied the full PDF on 2026-09-01; matched by claude against the file",
         "on": "2026-09-01",
         "recorded_in": "the paper's Methods, pp. 3040 (Sample size calculation; Methods of randomization) and its Introduction (primary objectives)"
+      }
+    },
+    {
+      "id": "Q-22",
+      "quote": "if a significant OS improvement is observed in some but not at all trials, this discrepancy might be more attributable to chance than to a truly different drug efficacy",
+      "source_id": "S024",
+      "verbatim": "Conversely, if a significant OS improvement is observed in some but not at all trials, this discrepancy might be more attributable to chance than to a truly different drug efficacy.",
+      "kind": "",
+      "why": "The paper's concluding sentence, quoted in the new source-list entry for Tanguy et al. added 2026-09-12 (the page had rested on this paper since 1 September without listing it). Q-18 quotes the clause after 'trials'; this entry quotes the whole conditional. The source's own 'some but not at all trials' is reproduced because that is what it says. Matched verbatim against the held full text (spancheck B2 True).",
+      "attested": {
+        "by": "Claude Code, matched against the held full text S024 on 2026-09-12",
+        "on": "2026-09-12",
+        "recorded_in": "issues/WHU-002-cdk46/quotations.json; the held text at docs/e4/e49e76bb..."
+      }
+    },
+    {
+      "id": "Q-23",
+      "quote": "a one-sided stratified log-rank test with a Lan–DeMets (O’Brien–Fleming) boundary for the P value",
+      "source_id": "S005",
+      "verbatim": "at a one-sided overall significance level of 2.5% with a one-sided stratified log-rank test with a Lan–DeMets (O’Brien–Fleming) boundary for the P value. A two-sided version of the P value is reported.",
+      "kind": "",
+      "why": "MONALEESA-2's overall-survival paper (NEJM 2022), Statistical Analysis: the direction and boundary of its survival test. Quoted twice on the page -- in the body warn-box and in the source-list note -- with the NEJM text's en dashes and typographic apostrophe, which the ASCO abstract (S023, Q-07) sets with plain hyphens; each page quotation matches the document it quotes. Recorded 2026-09-13; the page had carried it since 31 August with no record.",
+      "attested": {
+        "by": "the editor, who downloaded the publisher PDF in a browser on 2026-09-01 (library docs/df/df9a1310...pdf); matched by Claude Code against those held bytes on 2026-09-13 with pdftotext, right-column crop, soft hyphens stripped",
+        "on": "2026-09-13",
+        "recorded_in": "the held document S005; issues/WHU-002-cdk46/quotations.json"
+      }
+    },
+    {
+      "id": "Q-24",
+      "quote": "A two-sided version of the P value is reported.",
+      "source_id": "S005",
+      "verbatim": "at a one-sided overall significance level of 2.5% with a one-sided stratified log-rank test with a Lan–DeMets (O’Brien–Fleming) boundary for the P value. A two-sided version of the P value is reported.",
+      "kind": "",
+      "why": "Same sentence, next clause: the paper states that the P value it prints is the two-sided version of a one-sided test. Quoted twice on the page (body warn-box with the full stop, source-list note without); both are substrings of the sentence. Recorded 2026-09-13.",
+      "attested": {
+        "by": "the editor, who downloaded the publisher PDF in a browser on 2026-09-01 (library docs/df/df9a1310...pdf); matched by Claude Code against those held bytes on 2026-09-13 with pdftotext, right-column crop, soft hyphens stripped",
+        "on": "2026-09-13",
+        "recorded_in": "the held document S005; issues/WHU-002-cdk46/quotations.json"
+      }
+    },
+    {
+      "id": "Q-25",
+      "quote": "A two-sided version of the P value is reported",
+      "source_id": "S005",
+      "verbatim": "at a one-sided overall significance level of 2.5% with a one-sided stratified log-rank test with a Lan–DeMets (O’Brien–Fleming) boundary for the P value. A two-sided version of the P value is reported.",
+      "kind": "",
+      "why": "The source-list occurrence of Q-24's clause, quoted without the full stop; the check matches quoted wording exactly, so the two spellings need two rows. Same sentence, same held bytes.",
+      "attested": {
+        "by": "the editor, who downloaded the publisher PDF in a browser on 2026-09-01 (library docs/df/df9a1310...pdf); matched by Claude Code against those held bytes on 2026-09-13 with pdftotext, right-column crop, soft hyphens stripped",
+        "on": "2026-09-13",
+        "recorded_in": "the held document S005; issues/WHU-002-cdk46/quotations.json"
+      }
+    },
+    {
+      "id": "Q-26",
+      "quote": "The one-sided stratified log-rank P value was 0.00973, which crossed the prespecified stopping boundary (P = 0.01018)",
+      "source_id": "S007",
+      "verbatim": "The one-sided stratified log-rank P value was 0.00973, which crossed the prespecified stopping boundary (P = 0.01018) to claim superior efficacy of ribociclib.",
+      "kind": "",
+      "why": "S007-WALL-001, 13 September 2026: the paper's own statement of its test direction, quoted in the S007 source note in place of the earlier 'behind a wall' sentence. Matched verbatim against the held PDF (Fred's download of 1 September).",
+      "attested": {
+        "by": "Claude Code, matched against the held S007 PDF on the advisor's directive of 13 September 2026",
+        "on": "2026-09-13",
+        "recorded_in": "S007, Results, overall survival paragraph"
       }
     }
   ]

@@ -226,7 +226,15 @@ def preflight_rows(slug: str, findings: list[dict],
     if not findings:
         return [("changed sentences reviewed", OK,
                  "%d changed sentence(s), nothing found" % n_changed)]
-    decided = dispositions(slug)
+    # AN ACCEPTED FINDING DOES NOT STAY CLOSED. A disposition of `reject` says
+    # the reading was wrong and stays wrong however often it recurs. A
+    # disposition of `accept` says the finding was RIGHT and the page was
+    # changed -- so if the same finding recurs, the defect is back and the old
+    # acceptance is the last thing that should silence it. Found 2026-09-12
+    # when the counterfactual "revert the PALMARES-2 note" would have been
+    # swallowed by the acceptance recorded for fixing it.
+    decided = {k: d for k, d in dispositions(slug).items()
+               if (d.get("decision") or "").lower() != "accept"}
     open_ = [f for f in findings if finding_key(f) not in decided]
     if not open_:
         return [("changed sentences reviewed", OK,

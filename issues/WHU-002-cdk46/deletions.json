@@ -1,0 +1,55 @@
+{
+  "_what_this_is": "Figures a correction removed from this page, and what each removal was argued from. See deletions.py: a removal is the least-checked text here and 35% of recorded errors came in with one.",
+  "deletions": [
+    {
+      "figure": "464",
+      "removed_on": "2026-09-13",
+      "reason": "unsourced",
+      "source_id": "",
+      "searched": "Every held document of this issue (24 of 29 sources; unheld: S001 licence-barred, S002, S006, S008 paywalled, S011 -- PALMARES-2 itself -- 403 to scripts, no browser connected), searched 13 September 2026 by regular expression for each figure as a standalone number. S027, the one held document that reports PALMARES-2's results, carries N = 1982 and the three adjusted hazard ratios and none of these five. S016 records the 2024 presentation as reporting no comparative OS. Coincidental hits in other documents are unrelated quantities (e.g. 464 in S020 is a PALOMA-2 registry count; 45.7 in S003/S016/S028 are other trials' figures) and are not this figure.",
+      "by": "claude",
+      "library_at_the_time": "24 of 29 sources held on 13 September 2026; the document the page took these figures from (S011, PALMARES-2, Ann Oncol 2025) is not among them and never was -- the figures came through an automated search route on 28-29 August.",
+      "note": "PALM-FIG-001 (corrections.md 13 September 2026): the PALMARES-2 overall-survival event count, printed from a paper we do not hold. UNSOURCED, not ABSENT: we cannot show where it came from, and the document it was attributed to is not in the library to be searched. If PALMARES-2 is obtained and carries it, the figure can go back, attributed."
+    },
+    {
+      "figure": "31.3",
+      "removed_on": "2026-09-13",
+      "reason": "unsourced",
+      "source_id": "",
+      "searched": "Every held document of this issue (24 of 29 sources; unheld: S001 licence-barred, S002, S006, S008 paywalled, S011 -- PALMARES-2 itself -- 403 to scripts, no browser connected), searched 13 September 2026 by regular expression for each figure as a standalone number. S027, the one held document that reports PALMARES-2's results, carries N = 1982 and the three adjusted hazard ratios and none of these five. S016 records the 2024 presentation as reporting no comparative OS. Coincidental hits in other documents are unrelated quantities (e.g. 464 in S020 is a PALOMA-2 registry count; 45.7 in S003/S016/S028 are other trials' figures) and are not this figure.",
+      "by": "claude",
+      "library_at_the_time": "24 of 29 sources held on 13 September 2026; the document the page took these figures from (S011, PALMARES-2, Ann Oncol 2025) is not among them and never was -- the figures came through an automated search route on 28-29 August.",
+      "note": "PALM-FIG-001 (corrections.md 13 September 2026): PALMARES-2's median follow-up in months, printed from a paper we do not hold. UNSOURCED, not ABSENT: we cannot show where it came from, and the document it was attributed to is not in the library to be searched. If PALMARES-2 is obtained and carries it, the figure can go back, attributed."
+    },
+    {
+      "figure": "45.7",
+      "removed_on": "2026-09-13",
+      "reason": "unsourced",
+      "source_id": "",
+      "searched": "Every held document of this issue (24 of 29 sources; unheld: S001 licence-barred, S002, S006, S008 paywalled, S011 -- PALMARES-2 itself -- 403 to scripts, no browser connected), searched 13 September 2026 by regular expression for each figure as a standalone number. S027, the one held document that reports PALMARES-2's results, carries N = 1982 and the three adjusted hazard ratios and none of these five. S016 records the 2024 presentation as reporting no comparative OS. Coincidental hits in other documents are unrelated quantities (e.g. 464 in S020 is a PALOMA-2 registry count; 45.7 in S003/S016/S028 are other trials' figures) and are not this figure.",
+      "by": "claude",
+      "library_at_the_time": "24 of 29 sources held on 13 September 2026; the document the page took these figures from (S011, PALMARES-2, Ann Oncol 2025) is not among them and never was -- the figures came through an automated search route on 28-29 August.",
+      "note": "PALM-FIG-001 (corrections.md 13 September 2026): PALMARES-2's palbociclib-arm follow-up in months, printed from a paper we do not hold. UNSOURCED, not ABSENT: we cannot show where it came from, and the document it was attributed to is not in the library to be searched. If PALMARES-2 is obtained and carries it, the figure can go back, attributed."
+    },
+    {
+      "figure": "25.2",
+      "removed_on": "2026-09-13",
+      "reason": "unsourced",
+      "source_id": "",
+      "searched": "Every held document of this issue (24 of 29 sources; unheld: S001 licence-barred, S002, S006, S008 paywalled, S011 -- PALMARES-2 itself -- 403 to scripts, no browser connected), searched 13 September 2026 by regular expression for each figure as a standalone number. S027, the one held document that reports PALMARES-2's results, carries N = 1982 and the three adjusted hazard ratios and none of these five. S016 records the 2024 presentation as reporting no comparative OS. Coincidental hits in other documents are unrelated quantities (e.g. 464 in S020 is a PALOMA-2 registry count; 45.7 in S003/S016/S028 are other trials' figures) and are not this figure.",
+      "by": "claude",
+      "library_at_the_time": "24 of 29 sources held on 13 September 2026; the document the page took these figures from (S011, PALMARES-2, Ann Oncol 2025) is not among them and never was -- the figures came through an automated search route on 28-29 August.",
+      "note": "PALM-FIG-001 (corrections.md 13 September 2026): PALMARES-2's ribociclib-arm follow-up in months, printed from a paper we do not hold. UNSOURCED, not ABSENT: we cannot show where it came from, and the document it was attributed to is not in the library to be searched. If PALMARES-2 is obtained and carries it, the figure can go back, attributed."
+    },
+    {
+      "figure": "22.4",
+      "removed_on": "2026-09-13",
+      "reason": "unsourced",
+      "source_id": "",
+      "searched": "Every held document of this issue (24 of 29 sources; unheld: S001 licence-barred, S002, S006, S008 paywalled, S011 -- PALMARES-2 itself -- 403 to scripts, no browser connected), searched 13 September 2026 by regular expression for each figure as a standalone number. S027, the one held document that reports PALMARES-2's results, carries N = 1982 and the three adjusted hazard ratios and none of these five. S016 records the 2024 presentation as reporting no comparative OS. Coincidental hits in other documents are unrelated quantities (e.g. 464 in S020 is a PALOMA-2 registry count; 45.7 in S003/S016/S028 are other trials' figures) and are not this figure.",
+      "by": "claude",
+      "library_at_the_time": "24 of 29 sources held on 13 September 2026; the document the page took these figures from (S011, PALMARES-2, Ann Oncol 2025) is not among them and never was -- the figures came through an automated search route on 28-29 August.",
+      "note": "PALM-FIG-001 (corrections.md 13 September 2026): PALMARES-2's abemaciclib-arm follow-up in months, printed from a paper we do not hold. UNSOURCED, not ABSENT: we cannot show where it came from, and the document it was attributed to is not in the library to be searched. If PALMARES-2 is obtained and carries it, the figure can go back, attributed."
+    }
+  ]
+}

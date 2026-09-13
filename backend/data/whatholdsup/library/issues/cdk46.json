@@ -50,7 +50,22 @@
       "note": "",
       "superseded": [],
       "kind": "full_text",
-      "kind_why": "32880 characters, reference list and discussion/introduction present"
+      "kind_why": "32880 characters, reference list and discussion/introduction present",
+      "also_held": [
+        {
+          "sha256": "cc067c8043107af147af28fc430661464711722f6640edd92d7c6063c53cbe7c",
+          "file": "docs/cc/cc067c8043107af147af28fc430661464711722f6640edd92d7c6063c53cbe7c.html",
+          "bytes": 166730,
+          "url": "https://www.nature.com/articles/s41598-024-53151-8/tables/1",
+          "held": "2026-09-13",
+          "via": "Fetched 2026-09-13 by Claude Code with urllib (Nature answered the script; it redirected to ?error=cookies_not_supported and served the table). Verified by content: caption 'Table 1 Characteristics of included studies'; the study row PAL-2, MONALEESA-2, MONALEESA-7, MONARCH-3, PALOMA-3, MOLANEESA-3 (sic), MONARCH 2; 'Reported HR for OS 0.956 0.76 0.76 0.804 0.814 0.73 0.757'; 'Reported 95% CI for HR of OS 0.777-1.177 0.63-0.93 0.61-0.96 0.637-1.015 ...'; MONARCH-3 identified as the fourth column by the study row, not by position alone. Stored with --force because the article-substance test reads a lone table page as 'a page about the document'; as a second representation that is what it is, and the file was opened and read before storing.",
+          "note": "",
+          "kind": "landing",
+          "kind_why": "3800 characters and 2 section markers — this is a page ABOUT the document, not the document",
+          "also_held_reason": "Table 1 of the same article, served as a separate page; the article body is also held as HTML",
+          "also_held_added": "2026-09-13"
+        }
+      ]
     },
     "S017": {
       "sha256": "7033f3727af4725fef07d6c5f8cf24c692aa986aa00cef61376b392c3ac7b9f4",
@@ -233,7 +248,21 @@
       "kind": "full_text",
       "kind_why": "45190 characters, reference list and discussion/introduction present",
       "superseded": [],
-      "also_held": []
+      "also_held": [],
+      "text_layer": {
+        "state": "defective",
+        "declared_by": "Claude Code, after rendering page 2 with pdftoppm -r 200 and reading the glyphs; F1 of the 13 September directive",
+        "on": "2026-09-13",
+        "reason": "The PDF's text layer maps the dash glyph in 'Lan–DeMets' and 'O’Brien–Fleming' to the letter 'e', so string checks against this rendition cannot find any span that contains that dash; a presence test on such a span is not evidence of absence.",
+        "evidence": {
+          "pdftotext_page_2_to_3": "opulation was maintained using the Lane DeMets spending function with O’BrieneFleming boundary https",
+          "rendered_page_2_reads": "The cumulative type I error rate within each population was maintained using the Lan—DeMets spending function with O’Brien—Fleming boundary",
+          "rendered_page_3_continues": "used to control multiplicity for all the interim and final analyses.",
+          "dash_forms": "on the rendered page both dashes are long (em-width) rules with no spacing, 'Lan—DeMets' and 'O’Brien—Fleming'; the apostrophe is typographic (U+2019); the text layer yields 'Lane DeMets' and 'O’BrieneFleming'"
+        },
+        "scope": "this rendition only; a second rendition with a sound text layer (publisher HTML/XML) would lift it. Tried 2026-09-13: Europe PMC inEPMC N; annalsofoncology.org and sciencedirect.com return 403 to a script (bot challenge; licence cc by-nc-nd); browser pane not connected.",
+        "declarative": "set by hand from the rendered page; nothing sets this field automatically"
+      }
     },
     "S025": {
       "sha256": "95b628897f5287210544071a7f1a17495f51d01f21d2aa80edb6298dd0a1ffda",
@@ -258,6 +287,58 @@
       "note": "CC BY-NC. The publisher copy at academic.oup.com is subscription-only.",
       "kind": "document",
       "kind_why": "form 'notice' — 2193 characters held. The article test does not apply to this form",
+      "superseded": [],
+      "also_held": []
+    },
+    "S027": {
+      "sha256": "4ade4e8dbefd6d3b456d0f6d5119193bc9919c5eff2b1afe3de43ab94cfb0190",
+      "file": "docs/4a/4ade4e8dbefd6d3b456d0f6d5119193bc9919c5eff2b1afe3de43ab94cfb0190.xml",
+      "bytes": 92421,
+      "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC12424423/fullTextXML",
+      "held": "2026-09-12",
+      "via": "acquire_sources.py on the operator's machine",
+      "note": "",
+      "kind": "full_text",
+      "kind_why": "41411 characters, reference list and discussion/introduction present",
+      "superseded": [],
+      "also_held": []
+    },
+    "S028": {
+      "sha256": "440475cd9a52636ed17543e55c66dfcf904e7b526fd12555826d660da7aa8bc9",
+      "file": "docs/44/440475cd9a52636ed17543e55c66dfcf904e7b526fd12555826d660da7aa8bc9.xml",
+      "bytes": 94031,
+      "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC10527344/fullTextXML",
+      "held": "2026-09-12",
+      "via": "acquire_sources.py on the operator's machine",
+      "note": "",
+      "kind": "full_text",
+      "kind_why": "38990 characters, reference list and discussion/introduction present",
+      "superseded": [],
+      "also_held": []
+    },
+    "S029": {
+      "sha256": "8a06183561b379b95ba18edb076ae9090e42b07d34bca56e68dc354c8af93633",
+      "file": "docs/8a/8a06183561b379b95ba18edb076ae9090e42b07d34bca56e68dc354c8af93633.html",
+      "bytes": 162481,
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6438948/",
+      "held": "2026-09-12",
+      "via": "acquire_sources.py on the operator's machine",
+      "note": "",
+      "kind": "full_text",
+      "kind_why": "41424 characters, reference list and discussion/introduction present",
+      "superseded": [],
+      "also_held": []
+    },
+    "S023": {
+      "sha256": "528959634228c53ec8f8e402c17e6799aca7623c41db452620b6237a9ac638b8",
+      "file": "docs/52/528959634228c53ec8f8e402c17e6799aca7623c41db452620b6237a9ac638b8.html",
+      "bytes": 252515,
+      "url": "https://ascopubs.org/doi/abs/10.1200/JCO.2019.37.18_suppl.LBA1008",
+      "held": "2026-09-12",
+      "via": "Saved from the rendered page in a browser on 2026-09-13 as 'Webpage, Complete' by the operator (the advisor drove the browser pane); the companion _files/ directory was not taken. ascopubs.org answers a script with a Cloudflare bot challenge (HTTP 403 'Just a moment...'), which is NOT a paywall: the page is free to read. Verified by content on ingestion: DOI, NCT02278120, both first-listed authors, 'does not include a full text component', the methods sentence and the background sentence verbatim, and the OS result HR 0.712 [0.54-0.95], p = 0.00973.",
+      "note": "The ASCO 2019 late-breaking abstract LBA1008 (MONALEESA-7 overall survival). The abstract body is present verbatim and is the whole document -- the page states it does not include a full text component. The bibliographic header (the free-access label and the 'J Clin Oncol 37, LBA1008' volume/page line) is rendered client-side by JavaScript and is NOT in the held bytes; the advisor read it on screen.",
+      "kind": "document",
+      "kind_why": "form 'page' — 41 prose sentence(s) over sixty characters, 1946 words — this reads as the page itself",
       "superseded": [],
       "also_held": []
     }

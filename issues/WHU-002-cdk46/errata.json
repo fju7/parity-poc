@@ -349,6 +349,45 @@
       "why": "no DOI, PMID, PMCID or PII can be parsed from the URL we hold; nothing is typed from memory, so this source cannot be looked up automatically",
       "amendments": [],
       "comments": []
+    },
+    "S027": {
+      "source": "S027",
+      "title": "Real-world progression-free survival of first-line CDK4/6 inhibitors plus an aromatase inhibitor — the second P-VERIFY p",
+      "checked_on": "2026-09-12",
+      "identifier": "PMCID PMC12424423",
+      "identifier_from": "the source URL",
+      "resolved_title": "Real-world progression-free survival of CDK4/6 inhibitors plus an aromatase inhibitor in HR-positive/HER2-negative metastatic breast cancer in United States rou",
+      "identity": "resolved title shares 10 word(s) with ours: aromatase, cdk4, free, inhibitor, inhibitors, plus, progression, real, survival,",
+      "amendments": [],
+      "comments": [],
+      "state": "CLEAN",
+      "why": "matched on PMCID PMC12424423"
+    },
+    "S028": {
+      "source": "S028",
+      "title": "Indirect treatment comparison of first-line CDK4/6 inhibitors from reconstructed patient-level data — PALOMA-2, MONALEES",
+      "checked_on": "2026-09-12",
+      "identifier": "PMCID PMC10527344",
+      "identifier_from": "the source URL",
+      "resolved_title": "Indirect Treatment Comparison of First-Line CDK4/6-Inhibitors in Post-Menopausal Patients with HR+/HER2- Metastatic Breast Cancer.",
+      "identity": "resolved title shares 7 word(s) with ours: cdk4, comparison, first, indirect, inhibitors, line, treatment",
+      "amendments": [],
+      "comments": [],
+      "state": "CLEAN",
+      "why": "matched on PMCID PMC10527344"
+    },
+    "S029": {
+      "source": "S029",
+      "title": "Palbociclib plus letrozole as first-line therapy in ER+/HER2− advanced breast cancer — PALOMA-2 extended follow-up. Brea",
+      "checked_on": "2026-09-12",
+      "identifier": "PMCID PMC6438948",
+      "identifier_from": "the source URL",
+      "resolved_title": "Palbociclib plus letrozole as first-line therapy in estrogen receptor-positive/human epidermal growth factor receptor 2-negative advanced breast cancer with ext",
+      "identity": "resolved title shares 11 word(s) with ours: advanced, breast, cancer, extended, first, follow, letrozole, line, palbociclib,",
+      "amendments": [],
+      "comments": [],
+      "state": "CLEAN",
+      "why": "matched on PMCID PMC6438948"
     }
   }
 }

@@ -107,14 +107,21 @@ def verdicts():
 
 
 R1 = "rule 1 — written from a document we hold"
+# 12 September 2026: rule 1 is two rows. R1 blocks when a BOUND sentence rests
+# on something that is not there; R1_BACKLOG warns -- printed, counted, never
+# blocking -- for rows nobody has bound yet. Rule 2 blocks on a problem and
+# warns on an undeclared backlog. See the 11 September ruling in bindings.py.
+R1_BACKLOG = "rule 1 — sentences not yet bound"
 R2 = ("rule 2 — every sentence declares its kind, judgements show "
       "their work")
 BOUND = {"source_id": "S002", "span": "still alive at five years"}
 
 
-def test_a_sentence_resting_on_nothing_blocks():
+def test_a_sentence_resting_on_nothing_is_a_counted_warn_not_a_block():
     put({})
-    assert verdicts()[R1] == B.BAD
+    v = verdicts()
+    assert v[R1_BACKLOG] == B.WARN and v[R1] == B.OK
+    assert "1 of 1 rest on nothing yet" in [w for n, _, w in B.rule_rows(SLUG) if n == R1_BACKLOG][0]
 
 
 def test_a_bound_and_declared_sentence_passes():
@@ -123,9 +130,10 @@ def test_a_bound_and_declared_sentence_passes():
     assert v[R1] == B.OK and v[R2] == B.OK
 
 
-def test_a_sentence_that_does_not_say_what_kind_it_is_blocks():
+def test_a_sentence_that_does_not_say_what_kind_it_is_warns_and_is_counted():
     put(dict(BOUND))                       # bound, but bucket is None
-    assert verdicts()[R2] == B.BAD
+    assert verdicts()[R2] == B.WARN
+    assert "1 undeclared, 0 problem(s)" in [w for n, _, w in B.rule_rows(SLUG) if n == R2][0]
 
 
 def test_judgement_without_premises_blocks():
@@ -165,9 +173,19 @@ def test_a_sound_judgement_passes():
 
 
 def test_one_bad_sentence_blocks_a_page_of_good_ones():
-    """No proportion of compliance buys a pass for the rest."""
+    """No proportion of compliance buys a pass for the rest: one bound sentence
+    whose figure is in no span it is bound to blocks forty good ones."""
+    put(*([dict(BOUND, bucket="deterministic")] * 40
+          + [dict(BOUND, sentence="Alive at five years: 71% of patients, and 60.3 months median.",
+                  bucket="deterministic")]))
+    assert verdicts()[R1] == B.BAD, "60.3 is in no span the sentence is bound to"
+
+
+def test_one_unbound_sentence_is_counted_beside_forty_good_ones():
     put(*([dict(BOUND, bucket="deterministic")] * 40 + [{}]))
-    assert verdicts()[R1] == B.BAD
+    v = verdicts()
+    assert v[R1] == B.OK and v[R1_BACKLOG] == B.WARN
+    assert "1 of 41" in [w for n, _, w in B.rule_rows(SLUG) if n == R1_BACKLOG][0]
 
 
 def test_the_backlog_count_is_printed_and_falls_only_by_doing_the_work():
@@ -189,13 +207,13 @@ def test_no_field_exempts_a_sentence_from_rule_one():
     put({"predates_the_rule": "2026-09-02", "grandfathered": True,
          "exempt": True, "first_seen": "2020-01-01", "waived_by": "the editor",
          "reason": "written before the rule"})
-    assert verdicts()[R1] == B.BAD
+    assert verdicts()[R1_BACKLOG] == B.WARN, "still counted as not yet bound"
 
 
 def test_no_field_exempts_a_sentence_from_rule_two():
     put(dict(BOUND, predates_the_rule="2026-09-02", grandfathered=True,
              exempt=True, waived_by="the editor"))
-    assert verdicts()[R2] == B.BAD
+    assert verdicts()[R2] == B.WARN, "still counted as undeclared"
 
 
 def test_the_grandfathering_machinery_is_gone():
@@ -353,8 +371,8 @@ def test_declaring_a_judgement_is_not_a_way_out_of_rule_one():
     put({"sentence": "So the two figures are the same result.", "on_page": True,
          "bucket": "judgement"})
     v = verdicts()
-    assert v[R1] == B.BAD, "no premises means nothing it rests on"
-    assert v[R2] == B.BAD, "and no step written out"
+    assert v[R1_BACKLOG] == B.WARN, "no premises means nothing it rests on -- unbound"
+    assert v[R2] == B.BAD, "a judgement with no premises and no step is a defect by name"
 
 
 def test_a_judgements_figures_must_be_in_its_premises():
@@ -368,7 +386,7 @@ def test_a_judgements_figures_must_be_in_its_premises():
 def test_a_report_still_needs_its_own_span():
     put({"sentence": "The trial enrolled 1,137 patients.", "on_page": True,
          "bucket": "deterministic"})
-    assert verdicts()[R1] == B.BAD
+    assert verdicts()[R1_BACKLOG] == B.WARN and verdicts()[R1] == B.OK
 
 
 def test_a_figure_is_covered_by_the_same_number_spelled_differently():
@@ -431,8 +449,8 @@ def test_an_incomplete_attestation_satisfies_neither():
         row = dict(ATTESTED, sentence="The guideline assigns ribociclib category 1.")
         row[missing] = ""
         put(row)
-        assert verdicts()[R1] == B.BAD, "missing %s" % missing
-        assert verdicts()[R2] == B.BAD, "missing %s" % missing
+        assert verdicts()[R1_BACKLOG] == B.WARN, "missing %s: not attested, so unbound" % missing
+        assert verdicts()[R2] == B.BAD, "missing %s is a defect by name" % missing
 
 
 def test_an_attestation_is_reported_apart_from_verified_spans():
@@ -725,4 +743,5 @@ def test_a_sentence_that_denies_no_figure_is_not_this_check(monkeypatch):
     verdict, _ = B.bounded_figure_negative(
         {}, [("S002", "x")], "Only two outlets covered it.", SLUG)
     assert verdict == ""
+
 

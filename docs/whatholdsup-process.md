@@ -472,6 +472,31 @@ change survived. Where the record is empty, the log says the record is empty.
 
 ## 9. Publication and the correction log
 
+**The classification rule — what a changed sentence is.** Every sentence that
+differs from what readers see is one of two things, and `correction recorded`
+demands the classification be written down (`explain-change`, with or without
+`--not-a-correction`):
+
+- **APPARATUS** — the change alters no claim about the world: a source note's
+  reading log, ledger prose, provenance, our own process, markup a reader does
+  not see rendered differently. Recorded with `--not-a-correction` and a reason.
+  A reader who saw the earlier version is owed nothing.
+- **SUBSTANTIVE** — the change alters what a reader would conclude about a
+  trial, a figure, a source or a person: a value, an attribution, a quotation, a
+  characterisation of what a document says or of who did what. Recorded against
+  a corrections.md entry, dated the day the corrected page was completed.
+
+The test is the reader's conclusion, not the location on the page: a sentence
+in a source note that changes which document a quotation came from is
+substantive; a sentence in the body that names the person who read a document
+is apparatus. A sentence that does both is substantive — the correction carries
+the apparatus, never the reverse. A sentence about our own operation (rule 31(d))
+is apparatus unless it corrects an earlier account of our operation that
+readers were given, in which case it is a correction of that account.
+
+*Established 12 September 2026, when five of thirty-seven changed sentences on
+cdk46 were "uncertain" because no rule existed to apply.*
+
 **Standing rule 15 — every round gets its own dated entry, on the day it
 happened.** The entry describes what changed in *that* round.
 
@@ -516,7 +541,8 @@ mismatch instead of adapting around it.
 **Standing rule 22 — search nearest first.** Before asserting that a document
 cannot be reached, query every identifier the record already holds. A negative
 about the outside world is not established until the inside of our own store has
-been exhausted.
+been exhausted. (Rule 33 is the same discipline at the next moment: 22 governs
+asserting a negative about the world, 33 governs delegating work to the operator.)
 *Origin:* on 2026-09-09 four searches of the outside world — Europe PMC full
 text, the journal's own listing, the open web, and every file in the operator's
 Downloads folder — were run and declared exhaustive on S028, while the DOI and
@@ -531,6 +557,55 @@ adapt the edits.** Then say in writing which items are withdrawn, which survive,
 and which were wrong.
 
 ---
+
+**Standing rule 33 — nothing is routed to the operator until it has failed
+three tests, in order.** A check's output is not a work queue. Before any item
+is put in front of the operator, establish in writing:
+
+  1. IS IT ALREADY ANSWERED? Search the record for an answer that predates the
+     ask — advocate and review adjudications, corrections.md, changes.json,
+     draft_decisions, the source's own ledger entry. An answer given once is
+     not owed again. Cite it and close.
+  2. CAN WE DO IT? If it needs a document, is that document HELD? If it needs a
+     retrieval, can we retrieve it? "The check could not confirm it" means the
+     check's inputs were short, not that the work is the operator's. Open the
+     held bytes before asking anyone for anything.
+  3. IS IT ONLY HIS? What survives is the residue: a licence that bars every
+     automated reader, a judgement about what this publication asserts, or an
+     action only an operator may take. Name which of the three, per item.
+
+An item that fails to survive all three tests is OURS and is done, not asked.
+And where test 3 lands on a licence bar or an operator attestation already
+given, that attestation MUST be given a durable state a check can consult — or
+the same question returns on every run and the operator becomes the collector
+of last resort. (The state: `findings.attestation_for`, § 11.5.)
+
+THE COUNT IS ITSELF THE SIGNAL. A close-out that routes more than a handful of
+items to the operator is reporting a defect in the apparatus, not diligence in
+the work. Say so, and fix the apparatus.
+
+Rule 22 and this rule are one discipline at two moments: 22 governs asserting
+a negative about the world ("we could not reach it"); 33 governs delegating
+work ("this needs you"). Both fail the same way — the inside of our own record
+was never searched — and both are met by searching it first.
+
+*Origin:* on 2026-09-12 the advisor put seventeen items in front of the operator
+to close cdk46. Almost none survived the three tests. Twenty-five of
+thirty-seven "unclassified" sentences were corrections already made on
+1 September with no `changes.json` row linking them — a missing link, not a
+decision. Eleven of fifteen gate findings attacked sentences that had since been
+rewritten, and were never re-tested against the current page. c29 was reported
+as needing a document read while S015 sat `full_text_held` in the library. c82
+was reported as needing the operator to read the NCCN guideline when he had
+answered it as S001-07 on 29 August, two days before the gate that raised it —
+the gate could not see the answer because the licence forbids it reading S001 at
+all, and no durable attested state existed for it to consult. And the advisor
+asked the operator to download the MONALEESA-2 NEJM paper that had been held as
+S005 since 1 September; ingesting it would have recorded the 2022 paper as
+`superseded`, asserting a change that never happened. The operator's reply is
+the rule: "there cannot really be 17 decisions needed from me. The whole point
+of this app is to automate this process." The record:
+`issues/WHU-002-cdk46/review/2026-09-12-decision-sheet.md`.
 
 ## 11. The standing rules, collected
 
@@ -606,6 +681,10 @@ and which were wrong.
     Truncation that removes a qualifier is a misquotation even when every
     quoted word is correct — and a truncation that makes us look worse is not
     made safe by being against ourselves.
+33. Nothing is routed to the operator until it has failed three tests, in
+    order: is it already answered; can we do it; is it only his. The count of
+    what survives is itself the signal. *(Rule 22's twin: 22 governs asserting
+    a negative, 33 governs delegating work.)*
 
 ---
 
@@ -640,6 +719,31 @@ signature.
 
 **The test of whether a remedy is this one:** could the two copies ever disagree,
 and would anything notice? If yes to the first and no to the second, derive it.
+
+---
+
+### Give an operator attestation a state a check can consult
+
+*Established 12 September 2026, closing c82 — the durable half of rule 33.*
+
+A source that no automated reader may open (`licence_forbids_machine_reading`,
+access `human_read`: NCCN, S001 on cdk46) is answered for by a person, once, in
+an advocate adjudication — structured, dated, attributed, with the answer and a
+locator. Until this remedy nothing read that record: every gate run re-raised
+findings about the guideline that the operator had already answered, because
+the gate is forbidden to see the guideline and had no other place to look. c82
+was raised on 31 August by a gate testing the page's claim about the guideline
+against everything except the guideline; the answer had been on file since
+29 August as S001-07.
+
+`findings.attestation_for` reads the adjudication files as the record they are
+— no new file format — and closes a finding as `attested`, durably, citing the
+answer, when three things hold: the finding's `attributed_to` resolves to a
+licence-barred source; an answer for THAT source exists; the answer carries
+every figure the finding disputes. The middle condition is the safety property:
+an answer the operator read in S001 closes nothing about S015, however many
+figures the two happen to share. A finding against S001 that no answer covers
+still goes to him — that is what the state is for, not a way around him.
 
 ---
 

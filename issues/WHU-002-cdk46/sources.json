@@ -471,7 +471,8 @@
         "resolved_on": "2026-09-11",
         "resolved_title": "Comparative overall survival of CDK4/6 inhibitors in combination with endocrine therapy in advanced breast cancer",
         "by": "sweep_sources.py resolve --write"
-      }
+      },
+      "representations_note": "HELD IN TWO REPRESENTATIONS since 2026-09-13. The article HTML (held 2026-09-01) is the primary rendition; Nature serves each table as its own page, so the article bytes never contained Table 1, and 'not in the held bytes' was a fact about the representation and not about the paper. Table 1 (nature.com/articles/s41598-024-53151-8/tables/1) was ingested as a second representation on 2026-09-13 to test the page's sentence about MONARCH 3's row; the study row identifies the column, and the row reads 'Reported HR for OS 0.956 0.76 0.76 0.804 0.814 0.73 0.757'. The store's extension rule could not distinguish a second .html representation from a corrected .html paper -- it would have recorded the article as superseded by its own table -- so the reason was recorded explicitly (--also-held: 'Table 1 of the same article, served as a separate page; the article body is also held as HTML') and the extension guess was not consulted. AN ERROR OF THE ADVISOR'S, RECORDED HERE BECAUSE IT WAS ABOUT THIS SOURCE: on 2026-09-12 the advisor reasoned that a paper published 7 February 2024 could not carry MONARCH 3's final overall-survival result, published in Annals of Oncology in May 2024, and asked for c29 to be treated as a probable error on the page. The inference was wrong. This paper's own reference list cites 'Goetz, P. M. et al. Abstract GS01-12: MONARCH 3: Final overall survival results ... in San Antonio Breast Cancer Conference 2023' -- the final OS result was presented in December 2023, before this paper was accepted (29 January 2024), and Annals printed the same figure (0.804, 0.637-1.015) in May. It was caught by opening the held reference list rather than reasoning from publication dates: rule 22 and rule 33, search the inside first."
     },
     {
       "id": "S016",
@@ -820,7 +821,7 @@
         "what": "The page's sentence that an unauthenticated request for the corrigendum returns HTTP 403 with 5,849 bytes containing no 'subscribe', no 'sign in' and no 'purchase access'.",
         "rests_on": "our own retrieval on 2026-09-10, from a session holding no credentials. The 403 body was not kept; nothing in the library holds it.",
         "verifiable_from_a_held_document": false,
-        "note": "Recorded 2026-09-12 so no reader mistakes 5,849 for a checked figure. It is a fact about our tooling on that day, which is how the page frames it; a later request may return a different body. The three strings are mentions (things searched for and reported absent), set on the page as “…” and not as <q>, because a <q> is a quotation and there is nothing to quote."
+        "note": "Recorded 2026-09-12 so no reader mistakes 5,849 for a checked figure. It is a fact about our tooling on that day, which is how the page frames it; a later request may return a different body. The three strings are mentions (things searched for and reported absent), set on the page as “…” and not as <q>, because a <q> is a quotation and there is nothing to quote. Markup note, 2026-09-12 (commit 665e01c): the three mentions were <q> and are now &ldquo;...&rdquo;; a reader's rendering is byte-identical, but the repository's text extraction (source_ledger.plain) strips <q> tags and keeps entity quotes as characters, so it reads the two as different sentences. Reported, not fixed."
       }
     },
     {

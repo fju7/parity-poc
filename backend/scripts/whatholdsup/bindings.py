@@ -792,6 +792,33 @@ def _as_numbers(figs) -> set[float]:
     return out
 
 
+def _bare_integer_in(fig: str, covered: str) -> bool:
+    """Does the span write this figure as a bare integer -- "4415" for the
+    page's "4,415"?
+
+    modelbind._NUM admits an integer only in up-to-three-digit or comma-grouped
+    form, and deliberately: widen it to bare four-digit runs and every year in
+    every document becomes a figure. So the page's "4,415" reaches this check
+    as a claim figure, and a span writing "4415" (Scientific Reports) or
+    "Of 9146 eligible patients" (ESMO Open) could never confirm it -- rule 1
+    blocked cdk46 on two figures the documents plainly state, 12 September
+    2026.
+
+    This normalises the thousands separator on BOTH sides for ONE figure the
+    page already claims, and admits no new token: it is asked only about a
+    figure `_claim_figures` produced, so a year in a document is never read as
+    a figure here, and a year on the page never enters `_claim_figures` in
+    the first place (a bare four-digit run does not match _NUM). The document
+    side is searched as a whole-number token, so 4415 does not match 44150 or
+    4415.2.
+    """
+    digits = fig.replace(",", "")
+    if not digits.isdigit() or len(digits) < 4:
+        return False
+    text = re.sub(r"(?<=\d),(?=\d{3}(?!\d))", "", covered)
+    return re.search(r"(?<![\d.])%s(?![\d.])" % re.escape(digits), text) is not None
+
+
 def _claim_figures(text: str, names: set[str] | None = None) -> set[str]:
     """The figures a sentence CLAIMS, which is not every digit string in it.
 
@@ -1013,7 +1040,7 @@ def rule_rows(slug: str) -> list[tuple[str, str, str]]:
     # the other question, which is the shape of every failure in this file's
     # history. So: every figure the sentence carries must appear in a span the
     # sentence is actually bound to.
-    loose, loose_keys = [], set()
+    loose, loose_keys, unevaluable = [], set(), []
     for k, v in on_page.items():
         if k in set(attested):
             continue          # nothing here may read the document it rests on
@@ -1023,6 +1050,14 @@ def rule_rows(slug: str) -> list[tuple[str, str, str]]:
         covered = ""
         for sid, span in spans:
             present, why = SC.b2_present(span, slug, sid)
+            if present is SC.UNDETERMINED:
+                # the checker cannot read this rendition (declared on the
+                # record); the span is neither confirmed nor refuted, and the
+                # figures it would cover count as covered on the binder's
+                # word -- reported separately below, never as verified
+                unevaluable.append("%s: %s" % (k[:8], why[:120]))
+                covered += " " + SC._norm(span)
+                continue
             if present is not True:
                 loose.append("%s: a span it names is not in %s" % (k[:8], sid))
                 loose_keys.add(k)
@@ -1046,33 +1081,63 @@ def rule_rows(slug: str) -> list[tuple[str, str, str]]:
                 declared |= _as_numbers([r.get("figure")])
         held = _as_numbers(MB.figures(covered)) | worked_out | declared
         missing = [f for f in _claim_figures(v["sentence"], known_names)
-                   if MB._weight(f) and not _as_numbers([f]) <= held]
+                   if MB._weight(f) and not _as_numbers([f]) <= held
+                   and not _bare_integer_in(f, covered)]
         if missing:
             loose.append("%s: %s in no span it is bound to (%s)"
                          % (k[:8], ", ".join(sorted(missing)[:4]),
                             v["sentence"][:40]))
             loose_keys.add(k)
 
+    out_extra = []
+    if unevaluable:
+        out_extra.append(("spans this check cannot evaluate", WARN,
+                          "%d span(s) name a source whose only held rendition has a "
+                          "defective text layer, declared on its record; neither "
+                          "confirmed nor refuted, and not counted as verified: %s"
+                          % (len(unevaluable), " || ".join(unevaluable[:3]))))
     if attested:
-        out_extra = [("sentences resting on a human attestation", WARN,
-                      "%d of %d rest on a document no check may read: a named "
-                      "person read it, the record of that reading is named, and "
-                      "the place in the document is named. This is not a "
-                      "verified span and is never counted as one."
-                      % (len(attested), len(on_page)))]
-    else:
-        out_extra = []
+        out_extra.append(("sentences resting on a human attestation", WARN,
+                          "%d of %d rest on a document no check may read: a named "
+                          "person read it, the record of that reading is named, and "
+                          "the place in the document is named. This is not a "
+                          "verified span and is never counted as one."
+                          % (len(attested), len(on_page))))
 
+    # TWO STATEMENTS, TWO ROWS. Until 12 September 2026 rule 1 was one row
+    # saying "135 of 169 rest on nothing, 7 carry a figure no bound span
+    # contains", and the row blocked on either. Those are different claims:
+    #
+    #   `loose`   a sentence IS bound and its evidence is not there -- a span
+    #             the row names is not in the document, or a figure the
+    #             sentence carries is in no span it is bound to. Something is
+    #             FALSE OR UNSUPPORTED, by name. Blocks.
+    #   `unbound` a row exists (an anchor was detected) and nobody has bound
+    #             it. NOTHING HAS CHECKED THIS. Printed, counted, WARN.
+    #
+    # The 11 September ruling: a check blocks only when it can name a specific
+    # thing that is false or unsupported; a check that cannot evaluate
+    # something says so and does not block; every demoted row stays printed
+    # and counted. Not a demotion of rule 1 -- the blocking half keeps its
+    # label -- but a split, so the block names the defect and the backlog is
+    # the backlog.
+    bound_n = len(on_page) - len(unbound) - len(attested)
     out = [("rule 1 — written from a document we hold",
-            OK if not (unbound or loose) else BAD,
-            "all %d sentence(s) name the words they rest on, and every figure "
-            "they carry is in one of those spans" % len(on_page)
-            if not (unbound or loose) else
-            "%d of %d rest on nothing, %d carry a figure no bound span "
-            "contains: %s"
-            % (len(unbound), len(on_page), len(loose),
-               " || ".join(([on_page[k]["sentence"][:50] for k in unbound[:2]]
-                            + loose)[:3])))]
+            OK if not loose else BAD,
+            "every figure in the %d bound sentence(s) is in a span the sentence "
+            "is bound to, and every such span is in its document" % bound_n
+            if not loose else
+            "%d bound sentence(s) rest on something that is not there -- a "
+            "figure no bound span contains, or a span not in its document: %s"
+            % (len(loose), " || ".join(loose[:3]))),
+           ("rule 1 — sentences not yet bound",
+            OK if not unbound else WARN,
+            "every one of the %d sentence(s) with a binding row is bound"
+            % len(on_page) if not unbound else
+            "%d of %d rest on nothing yet: no span, no premises. Nothing has "
+            "checked these -- not passed, not failed. %s"
+            % (len(unbound), len(on_page),
+               " || ".join(on_page[k]["sentence"][:50] for k in unbound[:2])))]
 
     # RULE 2, IN THE SPEC'S VOCABULARY AND NOT A NEW ONE
     #
@@ -1127,16 +1192,26 @@ def rule_rows(slug: str) -> list[tuple[str, str, str]]:
                     bad.append("%s: a figure-based sentence with no %s"
                                % (k[:8], what))
 
+    # BLOCK ON A PROBLEM, WARN ON A BACKLOG. Until 12 September 2026 this row
+    # blocked on "162 undeclared, 0 problem(s)" -- blocking while saying it
+    # had found nothing. An undeclared bucket is nothing-has-checked-this; a
+    # judgement with no premises, a premise whose span is not in its document,
+    # a bucket outside the vocabulary, a figure-based sentence with no named
+    # reader is a defect by name. So: problems > 0 blocks; problems == 0 warns
+    # however many are undeclared, and the undeclared count stays in the
+    # message. 11 September ruling; nothing here is exempted, only classified.
     out.append(("rule 2 — every sentence declares its kind, judgements show "
                 "their work",
-                OK if not (unbucketed or bad) else BAD,
+                OK if not (unbucketed or bad) else (BAD if bad else WARN),
                 "all %d sentence(s) declare a bucket, and every judgement "
                 "shows its premises and its step" % len(on_page)
                 if not (unbucketed or bad) else
                 "%d undeclared, %d problem(s): %s"
                 % (len(unbucketed), len(bad),
                    " || ".join((bad + [on_page[k]["sentence"][:50]
-                                       for k in unbucketed])[:3]))))
+                                       for k in unbucketed])[:3]))
+                + ("" if bad else " -- the undeclared are unexamined, not wrong; "
+                                  "nothing blocks until a declared sentence fails")))
 
     out.extend(out_extra)
     onlyreporting = figures_resting_only_on_reporting(slug)

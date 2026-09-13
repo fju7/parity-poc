@@ -68,6 +68,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import re
 import sys
 from datetime import date
 from pathlib import Path
@@ -79,7 +80,115 @@ import spancheck as SC          # noqa: E402
 import quotations as Q          # noqa: E402
 
 OK, BAD, WARN = "ok", "BLOCKED", "warn"
-DECISIONS = ("accepted", "rejected", "judgement")
+DECISIONS = ("accepted", "rejected", "judgement", "attested", "moot")
+# Two decisions added 2026-09-12, each with its own evidence requirement:
+#   attested   the finding is about a source no automated reader may open, and
+#              an operator's recorded answer in an advocate adjudication covers
+#              the figure or claim. Needs `attested_by` -- "<file>:<question id>"
+#              -- that resolves to an answer for THAT source (see attestations()).
+#   moot       the sentence the finding attacked is gone from the page and the
+#              finding was never answered. Needs `vanished` (the sentence) and
+#              is recorded, not closed: the same distinction as the withdrawal
+#              ruling -- a withdrawal is not an answer.
+
+
+# ---------------------------------------------------------------------------
+# operator attestations -- the durable state for a licence-barred source
+# ---------------------------------------------------------------------------
+#
+# S001 (NCCN) is human_read under a licence that forbids any automated tool
+# from ever reading it. Every gate run therefore re-raises findings about it
+# that the operator has already answered -- c82 was raised on 31 August by a
+# gate that could not see the answer given as S001-07 on 29 August -- and
+# every close-out routed them back to him. The advocate adjudication files are
+# already structured, dated and attributed; this reads them as the record they
+# are. No new file format.
+#
+# THE CONSTRAINT THAT MAKES THIS SAFE: an attestation closes a finding only
+# when the finding's attributed_to IS the licence-barred source whose
+# adjudication carries the answer. An answer the operator read in S001 closes
+# nothing about S015, however many figures they share.
+
+_ANS = re.compile(r"^### (?P<qid>(?P<sid>S\d{3})-\d{2})\b.*?$(?P<body>.*?)(?=^### |^## |\Z)",
+                  re.M | re.S)
+_FIELD = re.compile(r"^(ANSWERED BY|ON|ANSWER|LOCATOR|EFFECT):\s*(.*)$", re.M)
+
+
+def attestations(slug: str) -> list[dict]:
+    """Every answered question in the issue's advocate adjudications:
+    {qid, sid, file, by, on, answer, locator}. Unanswered or withdrawn
+    questions are not attestations."""
+    out = []
+    d = store.case_dir(slug) / "advocate"
+    if not d.exists():
+        return out
+    for f in sorted(d.glob("*-adjudication.md")):
+        if "TEST" in f.name:
+            continue
+        text = f.read_text(encoding="utf-8")
+        for m in _ANS.finditer(text):
+            fields = {k: v.strip() for k, v in _FIELD.findall(m.group("body"))}
+            if not fields.get("ANSWER") or not fields.get("ANSWERED BY"):
+                continue
+            out.append({"qid": m.group("qid"), "sid": m.group("sid"),
+                        "file": str(f.relative_to(store.ROOT)), "by": fields["ANSWERED BY"],
+                        "on": fields.get("ON", ""), "answer": fields["ANSWER"],
+                        "locator": fields.get("LOCATOR", "")})
+    return out
+
+
+def barred_sources(slug: str) -> dict[str, dict]:
+    """Sources no automated reader may open: licence-barred AND human_read."""
+    return {s["id"]: s for s in store.sources(slug)
+            if s.get("licence_forbids_machine_reading")
+            and (s.get("access") or {}).get("state") == "human_read"}
+
+
+def source_for_attribution(slug: str, attributed_to: str) -> str | None:
+    """The source id a gate claim's `attributed_to` names, by exact title or
+    a distinctive alias. None when it names nothing we can identify."""
+    at = " ".join((attributed_to or "").split()).lower()
+    if not at:
+        return None
+    for s in store.sources(slug):
+        if " ".join((s.get("title") or "").split()).lower() == at:
+            return s["id"]
+    for s in store.sources(slug):
+        for a in s.get("also_called") or []:
+            if len(a) >= 6 and re.search(r"[\d-]", a) and a.lower() in at:
+                return s["id"]
+    return None
+
+
+def _figure_tokens(figure: str) -> list[str]:
+    return re.findall(r"\d+(?:\.\d+)?", figure or "")
+
+
+def _norm_dash(s: str) -> str:
+    return s.replace("\u2013", "-").replace("\u2014", "-").replace("\u2019", "'")
+
+
+def attestation_for(slug: str, claim: dict) -> dict | None:
+    """The operator's answer that covers this claim, if the claim is about a
+    licence-barred source and an answer for THAT source carries every figure
+    token the claim does (or, for a figure-less claim, a distinctive phrase).
+    Returns None -- to the operator -- otherwise."""
+    sid = source_for_attribution(slug, claim.get("attributed_to") or "")
+    if not sid or sid not in barred_sources(slug):
+        return None
+    toks = _figure_tokens(claim.get("figure") or "")
+    for a in attestations(slug):
+        if a["sid"] != sid:
+            continue                       # the constraint: never another source
+        ans = _norm_dash(a["answer"])
+        if toks:
+            if all(re.search(r"(?<![\d.])%s(?![\d.])" % re.escape(x), ans) for x in toks):
+                return a
+        else:
+            fig = _norm_dash(claim.get("figure") or "")
+            if fig and fig.lower() in ans.lower():
+                return a
+    return None
 SETTLED_BY_QUOTE = ("accepted", "rejected")
 
 
@@ -135,9 +244,15 @@ def open_findings(report: dict) -> list[dict]:
 def quote_is_in_source(slug: str, sid: str, quote: str) -> tuple[bool, str]:
     if sid not in store.held(slug):
         return False, "%s is not in the library" % sid
-    text = SC._text(slug, sid) or ""
-    if Q.norm(quote) in Q.norm(SC._norm(text)):
-        return True, "found in %s" % sid
+    # every rendition the library holds of the source, primary first (S015's
+    # Table 1 is a second rendition; the article HTML does not contain it)
+    for f, text in SC._texts(slug, sid):
+        if Q.norm(quote) in Q.norm(SC._norm(text)):
+            return True, "found in %s (%s)" % (sid, f[:12])
+    defective, why = SC.defective_renditions(slug, sid)
+    if defective:
+        return SC.UNDETERMINED, ("cannot evaluate -- rendition text layer defective, see the "
+                                 "record for %s: %s" % (sid, why))
     return False, "not in %s as printed" % sid
 
 
@@ -147,14 +262,43 @@ def check(slug: str, report: dict) -> list[tuple[str, str, str]]:
         return [("gate findings settled", OK, "the last run left nothing open")]
     doc = load(slug)
     have = {f.get("id"): f for f in (doc.get("findings") or [])}
-    missing, unsettled, unverified, judged = [], [], [], []
+    claims = {c.get("id"): c for c in (report.get("claims") or [])}
+    missing, unsettled, unverified, judged, unevaluable, partly = [], [], [], [], [], []
     for f in opens:
         r = have.get(f["id"])
+        if not r or r.get("decision") not in DECISIONS:
+            # AUTO-CLOSE BY ATTESTATION, DURABLY. A finding about a licence-
+            # barred source that an operator answer already covers is closed
+            # here, written to the record with the answer's id, so the next
+            # gate run does not route it back to him. Only for the barred
+            # source itself (attestation_for enforces that); everything else
+            # is missing and stays missing.
+            a = attestation_for(slug, claims.get(f["id"], {}))
+            if a:
+                rec = r or {"id": f["id"], "kind": f["kind"], "gate_verdict": f["verdict"],
+                            "gate_said": f["what"]}
+                rec.update({"decision": "attested", "source_id": a["sid"], "quote": "",
+                            "attested_by": "%s:%s" % (a["file"], a["qid"]),
+                            "why": "Closed automatically 2026-09-12 or later by the operator's "
+                                   "recorded answer %s (%s, %s), which carries the figure this "
+                                   "finding disputes. The gate could not see it: the licence "
+                                   "forbids any automated reader opening %s. ANSWER: %s"
+                                   % (a["qid"], a["by"], a["on"], a["sid"], a["answer"]),
+                            "by": "findings.attestation_for", "on": date.today().isoformat()})
+                if not r:
+                    doc.setdefault("findings", []).append(rec)
+                save(slug, doc)
+                continue
         if not r:
             missing.append("%s (%s)" % (f["id"], f["kind"]))
             continue
         d = r.get("decision")
         if d not in DECISIONS:
+            if ((r.get("retest") or {}).get("outcome") == "partly"):
+                # Revised wording, undecided claim: not a STOP. It is a
+                # question for a person, and the row below asks it by name.
+                partly.append("%s: %s" % (f["id"], (r.get("retest") or {}).get("result", "")))
+                continue
             unsettled.append("%s: decision %r is not one of %s"
                              % (f["id"], d, ", ".join(DECISIONS)))
             continue
@@ -164,13 +308,32 @@ def check(slug: str, report: dict) -> list[tuple[str, str, str]]:
                 unsettled.append("%s: a judgement needs a reason and a name"
                                  % f["id"])
             continue
+        if d == "attested":
+            # The durable state for a licence-barred source: the answer must
+            # exist, be about the source the finding is about, and be the
+            # answer named. Anything less is a judgement wearing a better name.
+            qid = (r.get("attested_by") or "").strip()
+            claim = claims.get(f["id"], {})
+            a = attestation_for(slug, claim)
+            if not qid or not a or a["qid"] != qid.split(":")[-1]:
+                unsettled.append("%s: 'attested' names %r and no answer for the "
+                                 "source this finding is about carries its figure"
+                                 % (f["id"], qid))
+            continue
+        if d == "moot":
+            if not (r.get("vanished") or "").strip():
+                unsettled.append("%s: 'moot' must record the sentence that vanished"
+                                 % f["id"])
+            continue
         sid, quote = r.get("source_id"), r.get("quote") or ""
         if not sid or not quote:
             unsettled.append("%s: %r must name a source AND quote the sentence "
                              "in it that settles this" % (f["id"], d))
             continue
         ok, why = quote_is_in_source(slug, sid, quote)
-        if not ok:
+        if ok is SC.UNDETERMINED:
+            unevaluable.append("%s: %s" % (f["id"], why))
+        elif not ok:
             unverified.append("%s: %s" % (f["id"], why))
     rows = [("gate findings settled", OK if not missing else BAD,
              "%d open finding(s), each with a decision" % len(opens)
@@ -187,6 +350,16 @@ def check(slug: str, report: dict) -> list[tuple[str, str, str]]:
                  "named" if not unverified else
                  "%d quotation(s) are not: %s"
                  % (len(unverified), " || ".join(unverified[:3]))))
+    if partly:
+        rows.append(("findings partly still in the text", WARN,
+                     "%d finding(s) whose attacked sentence was revised: the opening survives, "
+                     "the rest does not. Neither live nor settled -- a disposition naming the "
+                     "current sentence is required: %s" % (len(partly), " || ".join(partly[:3]))))
+    if unevaluable:
+        rows.append(("quotations this check cannot evaluate", WARN,
+                     "%d quotation(s) settle a finding against a source whose only held "
+                     "rendition has a defective text layer, declared on its record; "
+                     "not verified and not failed: %s" % (len(unevaluable), " || ".join(unevaluable[:3]))))
     if judged:
         rows.append(("findings closed as judgement", WARN,
                      "%d of %d closed without a document, by name: %s — the "
@@ -211,6 +384,170 @@ def scan(slug: str, report: dict) -> dict:
         })
     save(slug, doc)
     return doc
+
+
+# ---------------------------------------------------------------------------
+# re-test: a finding whose sentence changed is re-tested, not closed on "moved"
+# ---------------------------------------------------------------------------
+#
+# On 2026-09-12 eleven of cdk46's fifteen open findings attacked a sentence
+# that had been rewritten since the gate ran, and had been queued for the
+# operator as though the rewrite were the answer. It is not: a reworded
+# sentence can carry the same defect, and closing on "the text moved" is how a
+# real objection is dropped quietly. So each finding's OWN test is re-run
+# against the current page and the held documents:
+#
+#   NOT_FOUND / WRONG_VALUE / WRONG_SOURCE   is the figure in the source the
+#                                            claim is attributed to, now?
+#                                            (held bytes; or the operator's
+#                                            attestation for a barred source)
+#   CONTRADICTION (inference)                is the attacked sentence still on
+#                                            the page? gone -> MOOT; present ->
+#                                            LIVE, and only a person can say
+#                                            whether the two still conflict
+#   fairness / judgement kinds               not auto-testable; to the operator
+#
+# Outcomes: closed by re-test (recorded as `rejected`, with the source and the
+# quote that carries the figure); attested; LIVE (reported, not decided);
+# MOOT (the sentence is gone and the finding was never answered -- recorded,
+# not closed, the withdrawal ruling's distinction); to the operator.
+
+TESTABLE = ("NOT_FOUND", "WRONG_VALUE", "WRONG_SOURCE")
+
+
+def _page_plain(slug: str) -> str:
+    import bindings as B
+    import html as _html
+    raw = B._page_html(slug)
+    return " ".join(_html.unescape(re.sub(r"<[^>]+>", " ", raw)).split())
+
+
+def _figure_in_source(slug: str, sid: str, figure: str) -> tuple[bool, str]:
+    """Every figure token of `figure` in the held text of `sid`, and the
+    shortest stretch of that text that carries them all."""
+    text = SC._text(slug, sid)
+    if text is None:
+        return False, "%s is not in the library" % sid
+    norm = SC._norm(text)
+    toks = _figure_tokens(figure)
+    if not toks:
+        return False, "the finding names no figure to test"
+    where = [re.search(r"(?<![\d.])%s(?![\d.])" % re.escape(x), norm) for x in toks]
+    if not all(where):
+        return False, "%s not in %s" % (", ".join(x for x, w in zip(toks, where) if not w), sid)
+    lo, hi = min(m.start() for m in where), max(m.end() for m in where)
+    if hi - lo > 400:
+        return False, ("the figures are in %s but %d characters apart, not one "
+                       "statement" % (sid, hi - lo))
+    return True, norm[max(0, lo - 60):hi + 40]
+
+
+def _attacked_sentence_state(quote: str, page: str) -> str:
+    """'live' (the whole attacked sentence is on the page), 'gone' (not even
+    its opening is), or 'partly' (its opening is and the rest is not). Three
+    answers because the middle one was being reported as the first: a prefix
+    match is not the sentence, and a revised sentence is exactly the case a
+    finding's re-test exists to notice."""
+    q = " ".join((quote or "").split())
+    if not q:
+        return "live"
+    if q in page:
+        return "live"
+    if q[:80] in page:
+        return "partly"
+    return "gone"
+
+
+def retest(slug: str, report: dict, write: bool = True) -> dict:
+    """Re-test every open finding whose decision is not yet recorded.
+    Returns {closed, attested, live, partly, moot, operator} lists of ids."""
+    doc = load(slug)
+    have = {f.get("id"): f for f in (doc.get("findings") or [])}
+    claims = {c.get("id"): c for c in (report.get("claims") or [])}
+    verd = report.get("verdicts") or {}
+    page = _page_plain(slug)
+    out = {"closed": [], "attested": [], "live": [], "partly": [], "moot": [], "operator": []}
+    today = date.today().isoformat()
+    for f in open_findings(report):
+        rec = have.get(f["id"])
+        if rec and rec.get("decision") in DECISIONS:
+            continue
+        if rec is None:
+            rec = {"id": f["id"], "kind": f["kind"], "gate_verdict": f["verdict"],
+                   "gate_said": f["what"], "decision": "", "source_id": "",
+                   "quote": "", "why": "", "by": "", "on": today}
+            doc.setdefault("findings", []).append(rec)
+        c = claims.get(f["id"], {})
+        v = verd.get(f["id"], {})
+        if f["kind"] == "claim" and f["verdict"] in TESTABLE \
+                and (c.get("kind") or "") in ("figure", "attribution"):
+            # Only a FIGURE or an ATTRIBUTION is a string test. A
+            # `characterisation` claim ("spent under an O'Brien-Fleming spending
+            # function") carries a stray numeral or two, and the first run of
+            # this closed c95 on finding "0.05" in S003 -- a token, not the
+            # dispute. Characterisations go to the operator.
+            a = attestation_for(slug, c)
+            if a:
+                rec.update({"decision": "attested", "source_id": a["sid"],
+                            "attested_by": "%s:%s" % (a["file"], a["qid"]),
+                            "why": "Re-test %s: the claim is about a licence-barred source and the "
+                                   "operator's answer %s (%s) carries its figure. ANSWER: %s"
+                                   % (today, a["qid"], a["on"], a["answer"]),
+                            "by": "findings.retest", "on": today})
+                out["attested"].append(f["id"]); continue
+            sid = source_for_attribution(slug, c.get("attributed_to") or "")
+            if not sid:
+                rec.update({"retest": {"on": today, "outcome": "operator",
+                                       "why": "the claim's attributed_to names no source the ledger can identify"}})
+                out["operator"].append(f["id"]); continue
+            ok, why = _figure_in_source(slug, sid, c.get("figure") or "")
+            if ok:
+                rec.update({"decision": "rejected", "source_id": sid, "quote": why.strip(),
+                            "why": "CLOSED BY RE-TEST %s: the gate said %s; the figure %r is in the held "
+                                   "bytes of %s, which the gate could not reach. Tested: every figure token "
+                                   "of the claim against the held text of the source the claim is attributed to."
+                                   % (today, f["verdict"], c.get("figure"), sid),
+                            "by": "findings.retest", "on": today})
+                out["closed"].append(f["id"]); continue
+            rec.update({"retest": {"on": today, "outcome": "live", "tested": "figure %r against %s" % (c.get("figure"), sid), "result": why}})
+            out["live"].append(f["id"]); continue
+        if f["kind"] == "inference":
+            quote = " ".join(((report.get("inferences") or [])[int(f["id"].split("-")[1]) - 1].get("quote") or "").split())
+            outcome = _attacked_sentence_state(quote, page)
+            if outcome == "gone":
+                rec.update({"decision": "moot", "vanished": quote,
+                            "why": "MOOT %s: the sentence the finding attacked is no longer on the page. "
+                                   "The finding was never answered; recorded, not closed -- a withdrawal is not an answer."
+                                   % today, "by": "findings.retest", "on": today})
+                out["moot"].append(f["id"]); continue
+            if outcome == "partly":
+                # A STRING TEST STANDING IN FOR A JUDGEMENT ABOUT MEANING. The
+                # opening of the attacked sentence survived and the rest did
+                # not: the wording was revised. Whether the attacked CLAIM
+                # survived under different words is not a string question, so
+                # this is neither live nor settled. It does not block; it
+                # requires a disposition that names the current sentence.
+                # 13 September 2026: inf-10 sat as "live" on an 80-character
+                # prefix while the page already said what the gate asked for.
+                rec.update({"retest": {"on": today, "outcome": "partly",
+                                       "tested": "is the attacked sentence still on the page",
+                                       "result": "partly still in the text -- the attacked wording may have been "
+                                                 "revised; a disposition naming the current sentence is required"}})
+                out["partly"].append(f["id"]); continue
+            rec.update({"retest": {"on": today, "outcome": "live", "tested": "is the attacked sentence still on the page", "result": "yes; whether the two sentences still conflict is a reading, not a string test"}})
+            out["live"].append(f["id"]); continue
+        if f["kind"] == "fairness":
+            quote = " ".join(((report.get("objections") or [])[int(f["id"].split("-")[1]) - 1].get("quote") or "").split())
+            if quote and quote[:60] not in page:
+                rec.update({"decision": "moot", "vanished": quote,
+                            "why": "MOOT %s: the quoted sentence is gone; the objection was never answered on the record." % today,
+                            "by": "findings.retest", "on": today})
+                out["moot"].append(f["id"]); continue
+        rec.update({"retest": {"on": today, "outcome": "operator", "why": "kind %r / verdict %r is not a string test" % (f["kind"], f["verdict"])}})
+        out["operator"].append(f["id"])
+    if write:
+        save(slug, doc)
+    return out
 
 
 def preflight_rows(slug: str, report_path: Path) -> list[tuple[str, str, str]]:

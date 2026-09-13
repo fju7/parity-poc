@@ -7,6 +7,209 @@ histories a reader sees, and mixing them makes it useless to them.
 Each entry: what a reader who saw the earlier version needs to know, and when.
 Not how the process failed; that is in the repository.
 
+## 13 September 2026 — the source list did not show three more documents this page rests on
+
+On 12 September this page said its source list had been made to show two
+documents it rested on without listing. Three more were in the same state
+and were not caught then: the PALMARES-2 registry record, which the page
+cites for the study's primary outcome and for the absence of posted results;
+the corrigendum to MONARCH 3's final overall-survival paper, which the page
+discusses at length inside another entry but never listed on its own; and
+the second P-VERIFY paper, linked from the body since publication. Each now
+has an entry. Nothing quoted or asserted changes; three documents a reader
+could already find in the prose can now be found where the page promises
+every source is.
+
+## 13 September 2026 — we told readers a paper was behind a wall while we held it
+
+The source entry for MONALEESA-7's overall-survival paper (N Engl J Med,
+2019) said, from 30 August, that <q>the journal paper is behind a wall we
+could not open</q>, and rested the direction of the trial's survival test on
+a conference abstract and the trial's registry record instead. On 1 September
+the operator obtained the publisher's PDF and it entered our library, identity
+confirmed. The entry was not re-read against it, and went on telling readers
+for twelve days that the paper was out of our reach. It was not; the paper
+states the direction of its own test — <q>The one-sided stratified log-rank
+P value was 0.00973, which crossed the prespecified stopping boundary
+(P = 0.01018)</q> — and every figure the entry prints from it is in it. The
+entry now says so, and says what the abstract was for: how the direction was
+confirmed while the paper stood unread here. No figure changes.
+
+It was found on 13 September when a check that reads changed sentences
+reported the entry's figures as resting on nothing this system could name,
+and the ledger was opened before the report was believed.
+
+## 13 September 2026 — PALMARES-2's endpoint was described as the wrong endpoint
+
+In three places — the body, the source-list note and the summary of what the
+four comparative studies agree on — this page described PALMARES-2's
+hazard ratios as being on <q>progression-free survival</q>. They are not.
+PALMARES-2 is a registry cohort, and the document we hold that reports its
+figures gives them as adjusted hazard ratios for <em>real-world</em>
+progression-free survival — progression as recorded in routine care, not
+progression assessed by investigators under a trial protocol. The distinction
+matters in the middle of a piece comparing trial endpoints: every trial figure
+on this page comes from investigator-assessed progression-free survival, and
+these do not, and the two are not the same measurement. The page used the
+correct term elsewhere — for the study's registry record — and dropped it
+exactly where it printed the figures. All three places now say real-world
+progression-free survival, and the summary names the statistic, an adjusted
+hazard ratio, where 0.91 previously stood bare.
+
+## 13 September 2026 — the page printed what it could not source
+
+This page said that PALMARES-2 <q>also reports overall survival, pointing the
+same way</q>, called it <q>the study that did separate palbociclib, on both
+endpoints</q>, said the two real-world programmes contradict each other
+<q>on both endpoints</q>, and printed from the paper an event count (464), a
+median follow-up (31.3 months), per-arm follow-up figures (45.7, 25.2 and
+22.4 months) and a count of centres (eighteen). None of that is in any
+document this page holds. We do not hold the PALMARES-2 paper: every
+script-level request for it returned 403, and no browser was connected to try
+the rest. What we hold is another paper's account of it — the second
+P-VERIFY paper, which reports the 1,982 patients and the three adjusted
+hazard ratios, and which is now named as where those figures come from — and
+the first P-VERIFY paper's account of the study's 2024 presentation, which
+records comparative overall survival as <em>not reported</em>. Whether the
+2025 publication reports one we could not check.
+
+So the page reported an overall-survival result it cannot source, while a
+document it holds says the presentation reported none. The survival sentence
+and both "on both endpoints" constructions are deleted; the summary now says
+what the held evidence supports — separation on real-world progression-free
+survival, nothing more; the follow-up figures and the count of centres are
+gone; a note-only sentence citing an abstract figure (0.91, 0.70–1.19) we
+also do not hold is gone. The survival claim stood from 28 August, was
+recorded as corrected on 1 September in the wrong direction (from
+"exploratory" to "primary", on the registry, without asking whether we held a
+result at all), and came down on 13 September.
+
+## 13 September 2026 — a figure the body kept printing after this page had already questioned it
+
+On 31 August this page recorded, in its corrections, that the network
+meta-analysis (Scientific Reports, February 2024) gives its pooled median
+follow-up as 73.3 months in its abstract and 70.2 months in its results
+section, over the same range, and that we cannot say which is correct. The
+body went on printing <q>at a median follow-up of 73.3 months</q> alone. A
+reader of the body — which is most readers — saw a figure this page had
+already questioned, and nothing in the sentence told them so. The body now
+carries both figures and says the page cannot determine which is correct.
+
+The source-list note carried the same asymmetry: it opened with <q>73.3
+months median follow-up</q> and disclosed the second figure only in a
+parenthetical several sentences on, which also said we had "used the
+abstract's". It is fixed in the same pass: both figures, their shared range
+and the statement that we cannot determine which is correct now travel
+together at first use, and the parenthetical is gone. Nothing else in either
+passage changes.
+
+## 13 September 2026 — we called the boundary the spending function, twice
+
+On MONARCH 3's statistical design this page said, in the body, that the
+cumulative type I error was <q>spent across interim and final analyses under
+an O'Brien-Fleming spending function</q>, and, in the source list, that the
+trial maintained it <q>by the Lan-DeMets method with an O'Brien-Fleming
+spending function</q>. Both conflate two things the paper keeps apart. The
+paper's statistical section reads: <q>The cumulative type I error rate within
+each population was maintained using the Lan–DeMets spending function with
+O'Brien–Fleming boundary</q>. Lan–DeMets is the spending function — the rule
+for how much alpha may be spent at each look; O'Brien–Fleming is the shape of
+the boundary that spending traces. Both sentences now say so.
+
+No figure changes: the alpha split, the final-look threshold of .034 and the
+result (P = .0664, not significant) are as they were. What changes is the name
+of the method, which a reader checking us against the paper would have found
+wrong.
+
+The fact-check gate raised this on 31 August (c95) and it sat unanswered until
+13 September. Settling it required reading the paper's page as printed: the
+text layer of the PDF we hold renders the dash in both names as the letter "e"
+("Lane DeMets", "O'BrieneFleming"), so no check that reads that text layer
+could confirm or refute the wording. That defect is now declared on the
+document's record, and the checks that read it say "cannot evaluate" rather
+than pass or fail.
+
+## 13 September 2026 — a funding statement quoted from a poster we do not hold
+
+The P-VERIFY source entry, and the body sentence that leans on it, said the
+study's SABCS 2024 poster states <q>This study was funded by Pfizer Inc.</q>
+We do not hold that poster and never did. The published paper, which we hold,
+states in its funding section: <q>This work was supported by Pfizer Inc (no
+grant number)</q>. Since 11 September the page has quoted the paper, named it
+as the source, and said the plain thing the quotation is there to say: Pfizer
+makes palbociclib. The conclusion a reader draws — that P-VERIFY was
+industry-funded by the maker of one of the three drugs — does not change; the
+document the quotation came from does, and the wording with it ("funded by"
+was the poster's; "supported by" is the paper's). The wording changed on 11
+September on the editor's ruling; this entry, which readers were owed then, is
+recorded on 13 September.
+
+The announcement email of 29 August carries the earlier wording ("it was
+funded by Pfizer, which makes palbociclib"). A correction email is owed for
+that and for the Tanguy attribution (1 September); it has not been sent.
+
+## 12 September 2026 — three field values in quotation marks, one of them with a word missing
+
+In the source-list note on the MONARCH 3 corrigendum, the paragraph that
+settles whether the notice is readable put three catalogue readings in
+quotation marks: Crossref's licence for the version of record, and Europe
+PMC's <q>license</q> and <q>isOpenAccess</q> fields. The first was not a
+quotation. Crossref returns <code>http://creativecommons.org/licenses/by-nc-nd/4.0/</code>;
+the page printed it without the scheme, inside <q>&nbsp;</q> marks. An elision
+inside quotation marks is the error this page corrected on 31 August under
+"A quotation that was not one" — the words <q>year of updated data 2023</q>
+in quotation marks where no source said them — and this is the same class:
+the marks claimed a quotation where we meant a reading.
+
+**What the page says now.** The three readings are stated as readings, without
+quotation marks and with the scheme restored, under the existing "checked on
+10 September 2026" date: the notice's own footer, which we hold in full, is
+the evidence; Crossref's record and Europe PMC's record corroborate it as read
+that day; and Europe PMC's <em>isOpenAccess</em> field reads N beside a licence
+field reading cc by-nc-nd — two fields of one record that appear to disagree,
+which is the paragraph's own reason for preferring a measurement to an
+assertion. No figure, source or conclusion changes. The corrigendum was and is
+open access under CC BY-NC-ND.
+
+**Why not hold the catalogue records and quote them.** The corrigendum's licence
+rests on the notice's own footer, which we hold. The Crossref and Europe PMC
+field values are corroboration, not the evidence, and two catalogue-record
+sources to license three field values is more apparatus than the claim needs.
+Operator ruling, 13 September 2026.
+
+**A near-miss in verifying this, recorded because it is the rule working.** The
+first fetch to check Crossref's value guessed the corrigendum's DOI and came
+back with a different paper's CC-BY licence. It was discarded. The second fetch
+used the DOI our own errata record holds for the notice —
+10.1016/j.annonc.2025.07.002 — and returned the licence printed above. Use the
+identifier the record holds, never one typed from memory: that rule is why the
+second fetch was right, and this page has recorded the same rule before.
+
+## 12 September 2026 — the source list did not show two documents this page rests on
+
+This page's premise is that every figure traces to a named source in the list
+at the foot of the assessment. Since 1 September the assessment has rested on
+two documents that were not in that list. Tanguy and colleagues (<em>npj Breast
+Cancer</em> 2018), whose statistical-power calculation the page quotes, was
+cited in the body and appeared nowhere in the source list. The Shaaban trial —
+the only randomised head-to-head trial on this page that reported a result —
+was in the list, but its entry did not say that, and did not say that the full
+text we hold came from the operator after every automated route was refused.
+
+Both are now listed as a reader would expect: Tanguy as a methods paper with
+the sentence the page quotes from it, and Shaaban's entry with the two facts
+above. Nothing quoted from either document changes; what changes is that a
+reader can now see where nine sentences of this page come from without opening
+the repository.
+
+Three further documents the page had linked since publication — the second
+P-VERIFY paper (<em>ESMO Open</em> 2025), the reconstructed patient-data
+comparison (<em>Cancers</em> 2023) and the PALOMA-2 extended follow-up
+(<em>Breast Cancer Res Treat</em> 2019) — had no entry in our source ledger,
+though two of the three were already visible to readers. All three are now
+held in full and recorded. That is a repair to our own record and changes
+nothing a reader sees.
+
 ## 31 August 2026 — two randomised trials had compared these drugs, and we said none had
 
 This assessment said, in four places, that no randomised trial had ever
@@ -158,6 +361,15 @@ trials "neither separated them". HARMONIA reported nothing. Two other instances
 were corrected on 31 August; this one was missed because the wording differed.
 
 Two of these four errors were introduced by earlier corrections on this page.
+
+**Added 13 September 2026.** The correction above ("And a third time on
+HARMONIA") reached the summary and the source list and missed the
+"Established" list, which still said the two head-to-head trials "neither
+separated them". It now reads: "Ribociclib and palbociclib have been compared
+head to head twice — Shaaban and colleagues in the second line with
+fulvestrant, and HARMONIA, which terminated at 61 patients — and the one that
+reported did not separate them; HARMONIA reported nothing." Same correction,
+third place.
 
 ## 31 August 2026 — three found by our own checks, after publication
 

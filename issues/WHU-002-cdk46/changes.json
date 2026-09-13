@@ -3182,6 +3182,1146 @@
       "because": "AD-HOC",
       "note": "Not a correction: states a bound that was always true. The 12 September 2026 modest-promise ruling (issues/WHU-003-deskilling/review/2026-09-12-modest-promise-ruling.md). The as-of date is 1 September 2026, the day this section's claims were last worked against their sources (corrections.md entries of 1 September; changes.json CORR-13..19: HARMONIA, Shaaban, MONALEESA-2), not today's registry baseline, which re-read two registry records and not the trials, labels or guideline the section rests on.",
       "correction": false
+    },
+    {
+      "at": "2026-09-13T00:48:49+00:00",
+      "interpreter": "/opt/homebrew/opt/python@3.14/bin/python3.14",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "This is the only randomised head-to-head trial on this page that reported a result ; the other, HARMONIA below, terminated at 61 patients.",
+      "because": "SRC-LIST-001",
+      "note": "Correction: the reader-facing source list did not show two documents the page rests on (S017 listed without saying it is the only reported head-to-head or that the full text came from the operator; S024 absent). SRC-LIST-001 in review/2026-09-12-source-list-adjudication.md; corrections.md entry of 12 September 2026."
+    },
+    {
+      "at": "2026-09-13T00:48:49+00:00",
+      "interpreter": "/opt/homebrew/opt/python@3.14/bin/python3.14",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "The full text we hold came from the operator, who supplied the published PDF on 1 September 2026 after every automated route from our environment was refused or rate-limited; the open-access copy is PMC11700305.",
+      "because": "SRC-LIST-001",
+      "note": "Correction: the reader-facing source list did not show two documents the page rests on (S017 listed without saying it is the only reported head-to-head or that the full text came from the operator; S024 absent). SRC-LIST-001 in review/2026-09-12-source-list-adjudication.md; corrections.md entry of 12 September 2026."
+    },
+    {
+      "at": "2026-09-13T00:48:50+00:00",
+      "interpreter": "/opt/homebrew/opt/python@3.14/bin/python3.14",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "Methods Tanguy M-L, Cabel L, Berger F, Pierga J-Y, Savignoni A, Bidard F-C.",
+      "because": "SRC-LIST-001",
+      "note": "Correction: the reader-facing source list did not show two documents the page rests on (S017 listed without saying it is the only reported head-to-head or that the full text came from the operator; S024 absent). SRC-LIST-001 in review/2026-09-12-source-list-adjudication.md; corrections.md entry of 12 September 2026."
+    },
+    {
+      "at": "2026-09-13T00:48:50+00:00",
+      "interpreter": "/opt/homebrew/opt/python@3.14/bin/python3.14",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "Source also of the record that MONARCH 3's main survival analysis was planned as part of a pooled analysis with MONARCH 2.",
+      "because": "SRC-LIST-001",
+      "note": "Correction: the reader-facing source list did not show two documents the page rests on (S017 listed without saying it is the only reported head-to-head or that the full text came from the operator; S024 absent). SRC-LIST-001 in review/2026-09-12-source-list-adjudication.md; corrections.md entry of 12 September 2026."
+    },
+    {
+      "at": "2026-09-13T00:48:51+00:00",
+      "interpreter": "/opt/homebrew/opt/python@3.14/bin/python3.14",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "Read in full; the full text came from the operator on 1 September 2026 after automated routes were rate-limited.",
+      "because": "SRC-LIST-001",
+      "note": "Correction: the reader-facing source list did not show two documents the page rests on (S017 listed without saying it is the only reported head-to-head or that the full text came from the operator; S024 absent). SRC-LIST-001 in review/2026-09-12-source-list-adjudication.md; corrections.md entry of 12 September 2026."
+    },
+    {
+      "at": "2026-09-13T00:48:51+00:00",
+      "interpreter": "/opt/homebrew/opt/python@3.14/bin/python3.14",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "An earlier version of this page put an observation of ours under these authors' names; see the correction of 1 September.",
+      "because": "SRC-LIST-001",
+      "note": "Correction: the reader-facing source list did not show two documents the page rests on (S017 listed without saying it is the only reported head-to-head or that the full text came from the operator; S024 absent). SRC-LIST-001 in review/2026-09-12-source-list-adjudication.md; corrections.md entry of 12 September 2026."
+    },
+    {
+      "at": "2026-09-13T00:49:03+00:00",
+      "interpreter": "/opt/homebrew/opt/python@3.14/bin/python3.14",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "Cdk4/6 inhibitors and overall survival: power of first-line trials in metastatic breast cancer. npj Breast Cancer 2018;4:14 The statistical power of PALOMA-2, MONALEESA-2, MONALEESA-7 and MONARCH 3 to reach significance on overall survival, computed before any of them had mature survival data: all four under 70% unless the median gain exceeds twelve months, and if a significant OS improvement is observed in some but not at all trials, this discrepancy might be more attributable to chance than to a truly different drug efficacy .",
+      "because": "SRC-LIST-001",
+      "note": "Correction: the reader-facing source list did not show two documents the page rests on (S017 listed without saying it is the only reported head-to-head or that the full text came from the operator; S024 absent). SRC-LIST-001 in review/2026-09-12-source-list-adjudication.md; corrections.md entry of 12 September 2026."
+    },
+    {
+      "at": "2026-09-13T01:34:24+00:00",
+      "interpreter": "/opt/homebrew/opt/python@3.14/bin/python3.14",
+      "by": "claude",
+      "kind": "changed",
+      "was": "The notice's own footer says so.",
+      "now": "The notice's own footer says so, and the notice is the evidence we hold.",
+      "because": "LIC-Q-001",
+      "note": "Correction: three catalogue field values were in quotation marks in the S003 corrigendum note and the Crossref URL had lost its scheme inside the marks. Rewritten as unquoted readings with the scheme restored. LIC-Q-001 in review/2026-09-12-licence-quotation-adjudication.md; corrections.md entry of 12 September 2026."
+    },
+    {
+      "at": "2026-09-13T01:34:24+00:00",
+      "interpreter": "/opt/homebrew/opt/python@3.14/bin/python3.14",
+      "by": "claude",
+      "kind": "changed",
+      "was": "Crossref gives the version of record a licence of creativecommons.org/licenses/by-nc-nd/4.0/ , effective 9 July 2025.",
+      "now": "The catalogues corroborate it, as read on that date: Crossref's work record gives the version of record a licence of http://creativecommons.org/licenses/by-nc-nd/4.0/, effective 9 July 2025, and Europe PMC's record (PMID 41093689) carries a license field reading cc by-nc-nd.",
+      "because": "LIC-Q-001",
+      "note": "Correction: three catalogue field values were in quotation marks in the S003 corrigendum note and the Crossref URL had lost its scheme inside the marks. Rewritten as unquoted readings with the scheme restored. LIC-Q-001 in review/2026-09-12-licence-quotation-adjudication.md; corrections.md entry of 12 September 2026."
+    },
+    {
+      "at": "2026-09-13T01:34:25+00:00",
+      "interpreter": "/opt/homebrew/opt/python@3.14/bin/python3.14",
+      "by": "claude",
+      "kind": "changed",
+      "was": "Europe PMC's record (PMID 41093689) carries license: cc by-nc-nd .",
+      "now": "Those are readings taken from live indexes on 10 September 2026, not quotations from a document we hold.",
+      "because": "LIC-Q-001",
+      "note": "Correction: three catalogue field values were in quotation marks in the S003 corrigendum note and the Crossref URL had lost its scheme inside the marks. Rewritten as unquoted readings with the scheme restored. LIC-Q-001 in review/2026-09-12-licence-quotation-adjudication.md; corrections.md entry of 12 September 2026."
+    },
+    {
+      "at": "2026-09-13T01:34:25+00:00",
+      "interpreter": "/opt/homebrew/opt/python@3.14/bin/python3.14",
+      "by": "claude",
+      "kind": "changed",
+      "was": "That same Europe PMC record also reads isOpenAccess: N .",
+      "now": "That same Europe PMC record, read the same day, carries an isOpenAccess field reading N beside that licence - two fields of one record that appear to disagree, which is the reason a measurement is worth more here than an assertion.",
+      "because": "LIC-Q-001",
+      "note": "Correction: three catalogue field values were in quotation marks in the S003 corrigendum note and the Crossref URL had lost its scheme inside the marks. Rewritten as unquoted readings with the scheme restored. LIC-Q-001 in review/2026-09-12-licence-quotation-adjudication.md; corrections.md entry of 12 September 2026."
+    },
+    {
+      "at": "2026-09-13T01:58:33+00:00",
+      "interpreter": "/opt/homebrew/opt/python@3.14/bin/python3.14",
+      "by": "claude",
+      "kind": "changed",
+      "was": "The publisher's block is not a paywall either: an unauthenticated request for the article returns HTTP 403 with 5,849 bytes containing no subscribe , no sign in and no purchase access - a block on automated retrieval, not a wall in front of a reader.",
+      "now": "The publisher's block is not a paywall either: an unauthenticated request for the article returns HTTP 403 with 5,849 bytes containing no \"subscribe\", no \"sign in\" and no \"purchase access\" - a block on automated retrieval, not a wall in front of a reader.",
+      "because": "AD-HOC",
+      "note": "Not a correction: markup repair, commit 665e01c. <q> replaced with &ldquo;...&rdquo; for three MENTIONS -- 'subscribe', 'sign in', 'purchase access', strings the page searched a 403 body for and reports absent -- that were never quotations. Rendering proven byte-identical: no `q` rule in style.css, lang=\"en\", none of the three nested, rendered text 78,185 characters identical before and after. The sentence checkers see a change because source_ledger.plain strips <q> tags and keeps &ldquo;/&rdquo; as characters -- the extraction treats the two as different text -- not because a reader does. Reported, not fixed.",
+      "correction": false
+    },
+    {
+      "at": "2026-09-13T02:10:57+00:00",
+      "interpreter": "/opt/homebrew/opt/python@3.14/bin/python3.14",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "Corrected 1 September 2026.",
+      "because": "CORR-14",
+      "note": "The page's own 'Corrected 1 September 2026' change-log entry, sentence by sentence: the reader-facing account of a correction already recorded in corrections.md (1 September) and adjudicated under this label in review/2026-09-01-adjudication.md. Row added 2026-09-12 because the rows recorded on 1 September carried the body sentences and not the log's; the reconciliation matches on prose. Decision sheet of 12 September, group (b′). The entry's opening sentences belong to all of CORR-14..19; CORR-14 carries them."
+    },
+    {
+      "at": "2026-09-13T02:10:57+00:00",
+      "interpreter": "/opt/homebrew/opt/python@3.14/bin/python3.14",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "Four things a reader saw were wrong, and two of them were introduced by earlier corrections on this page.",
+      "because": "CORR-14",
+      "note": "The page's own 'Corrected 1 September 2026' change-log entry, sentence by sentence: the reader-facing account of a correction already recorded in corrections.md (1 September) and adjudicated under this label in review/2026-09-01-adjudication.md. Row added 2026-09-12 because the rows recorded on 1 September carried the body sentences and not the log's; the reconciliation matches on prose. Decision sheet of 12 September, group (b′). The entry's opening sentences belong to all of CORR-14..19; CORR-14 carries them."
+    },
+    {
+      "at": "2026-09-13T02:10:57+00:00",
+      "interpreter": "/opt/homebrew/opt/python@3.14/bin/python3.14",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "An observation we put under someone else's name.",
+      "because": "CORR-14",
+      "note": "The page's own 'Corrected 1 September 2026' change-log entry, sentence by sentence: the reader-facing account of a correction already recorded in corrections.md (1 September) and adjudicated under this label in review/2026-09-01-adjudication.md. Row added 2026-09-12 because the rows recorded on 1 September carried the body sentences and not the log's; the reconciliation matches on prose. Decision sheet of 12 September, group (b′)."
+    },
+    {
+      "at": "2026-09-13T02:10:58+00:00",
+      "interpreter": "/opt/homebrew/opt/python@3.14/bin/python3.14",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "Of the point that where a confidence interval ends is set by how many patients were enrolled, how many events occurred and how variable they were, this page said \"Nor is this observation ours\" and handed it to Tanguy and colleagues in npj Breast Cancer , 2018.",
+      "because": "CORR-14",
+      "note": "The page's own 'Corrected 1 September 2026' change-log entry, sentence by sentence: the reader-facing account of a correction already recorded in corrections.md (1 September) and adjudicated under this label in review/2026-09-01-adjudication.md. Row added 2026-09-12 because the rows recorded on 1 September carried the body sentences and not the log's; the reconciliation matches on prose. Decision sheet of 12 September, group (b′)."
+    },
+    {
+      "at": "2026-09-13T02:10:59+00:00",
+      "interpreter": "/opt/homebrew/opt/python@3.14/bin/python3.14",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "That supports our argument.",
+      "because": "CORR-14",
+      "note": "The page's own 'Corrected 1 September 2026' change-log entry, sentence by sentence: the reader-facing account of a correction already recorded in corrections.md (1 September) and adjudicated under this label in review/2026-09-01-adjudication.md. Row added 2026-09-12 because the rows recorded on 1 September carried the body sentences and not the log's; the reconciliation matches on prose. Decision sheet of 12 September, group (b′)."
+    },
+    {
+      "at": "2026-09-13T02:10:59+00:00",
+      "interpreter": "/opt/homebrew/opt/python@3.14/bin/python3.14",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "It is not our argument, and the observation is ours to defend, which the page now says.",
+      "because": "CORR-14",
+      "note": "The page's own 'Corrected 1 September 2026' change-log entry, sentence by sentence: the reader-facing account of a correction already recorded in corrections.md (1 September) and adjudicated under this label in review/2026-09-01-adjudication.md. Row added 2026-09-12 because the rows recorded on 1 September carried the body sentences and not the log's; the reconciliation matches on prose. Decision sheet of 12 September, group (b′)."
+    },
+    {
+      "at": "2026-09-13T02:10:59+00:00",
+      "interpreter": "/opt/homebrew/opt/python@3.14/bin/python3.14",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "A true conclusion with a false reason.",
+      "because": "CORR-15",
+      "note": "The page's own 'Corrected 1 September 2026' change-log entry, sentence by sentence: the reader-facing account of a correction already recorded in corrections.md (1 September) and adjudicated under this label in review/2026-09-01-adjudication.md. Row added 2026-09-12 because the rows recorded on 1 September carried the body sentences and not the log's; the reconciliation matches on prose. Decision sheet of 12 September, group (b′)."
+    },
+    {
+      "at": "2026-09-13T02:11:00+00:00",
+      "interpreter": "/opt/homebrew/opt/python@3.14/bin/python3.14",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "Of the two head-to-head trials this page said: \"Neither is first line with an aromatase inhibitor, which is why neither contradicts the guideline sentence.\" HARMONIA's registry record lists both arms as ribociclib or palbociclib plus letrozole or fulvestrant, and it enrolled first-line patients; letrozole is an aromatase inhibitor.",
+      "because": "CORR-15",
+      "note": "The page's own 'Corrected 1 September 2026' change-log entry, sentence by sentence: the reader-facing account of a correction already recorded in corrections.md (1 September) and adjudicated under this label in review/2026-09-01-adjudication.md. Row added 2026-09-12 because the rows recorded on 1 September carried the body sentences and not the log's; the reconciliation matches on prose. Decision sheet of 12 September, group (b′)."
+    },
+    {
+      "at": "2026-09-13T02:11:00+00:00",
+      "interpreter": "/opt/homebrew/opt/python@3.14/bin/python3.14",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "The conclusion holds for the reason in the trial's own title: it was restricted to the HER2-enriched intrinsic subtype, not the unselected population the guideline describes.",
+      "because": "CORR-15",
+      "note": "The page's own 'Corrected 1 September 2026' change-log entry, sentence by sentence: the reader-facing account of a correction already recorded in corrections.md (1 September) and adjudicated under this label in review/2026-09-01-adjudication.md. Row added 2026-09-12 because the rows recorded on 1 September carried the body sentences and not the log's; the reconciliation matches on prose. Decision sheet of 12 September, group (b′)."
+    },
+    {
+      "at": "2026-09-13T02:11:01+00:00",
+      "interpreter": "/opt/homebrew/opt/python@3.14/bin/python3.14",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "What a reader keeps is the conclusion; what changes is why.",
+      "because": "CORR-15",
+      "note": "The page's own 'Corrected 1 September 2026' change-log entry, sentence by sentence: the reader-facing account of a correction already recorded in corrections.md (1 September) and adjudicated under this label in review/2026-09-01-adjudication.md. Row added 2026-09-12 because the rows recorded on 1 September carried the body sentences and not the log's; the reconciliation matches on prose. Decision sheet of 12 September, group (b′)."
+    },
+    {
+      "at": "2026-09-13T02:11:01+00:00",
+      "interpreter": "/opt/homebrew/opt/python@3.14/bin/python3.14",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "An endpoint downgraded.",
+      "because": "CORR-16",
+      "note": "The page's own 'Corrected 1 September 2026' change-log entry, sentence by sentence: the reader-facing account of a correction already recorded in corrections.md (1 September) and adjudicated under this label in review/2026-09-01-adjudication.md. Row added 2026-09-12 because the rows recorded on 1 September carried the body sentences and not the log's; the reconciliation matches on prose. Decision sheet of 12 September, group (b′)."
+    },
+    {
+      "at": "2026-09-13T02:11:02+00:00",
+      "interpreter": "/opt/homebrew/opt/python@3.14/bin/python3.14",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "Of PALMARES-2 this page said: \"It also reports overall survival, as an exploratory endpoint, pointing the same way.\" The study's registry record lists overall survival as its primary outcome.",
+      "because": "CORR-16",
+      "note": "The page's own 'Corrected 1 September 2026' change-log entry, sentence by sentence: the reader-facing account of a correction already recorded in corrections.md (1 September) and adjudicated under this label in review/2026-09-01-adjudication.md. Row added 2026-09-12 because the rows recorded on 1 September carried the body sentences and not the log's; the reconciliation matches on prose. Decision sheet of 12 September, group (b′)."
+    },
+    {
+      "at": "2026-09-13T02:11:02+00:00",
+      "interpreter": "/opt/homebrew/opt/python@3.14/bin/python3.14",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "The survival figures are still not printed here, for the reasons given above; the endpoint they belong to is the study's primary one.",
+      "because": "CORR-16",
+      "note": "The page's own 'Corrected 1 September 2026' change-log entry, sentence by sentence: the reader-facing account of a correction already recorded in corrections.md (1 September) and adjudicated under this label in review/2026-09-01-adjudication.md. Row added 2026-09-12 because the rows recorded on 1 September carried the body sentences and not the log's; the reconciliation matches on prose. Decision sheet of 12 September, group (b′)."
+    },
+    {
+      "at": "2026-09-13T02:11:03+00:00",
+      "interpreter": "/opt/homebrew/opt/python@3.14/bin/python3.14",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "And a third time on HARMONIA.",
+      "because": "CORR-17",
+      "note": "The page's own 'Corrected 1 September 2026' change-log entry, sentence by sentence: the reader-facing account of a correction already recorded in corrections.md (1 September) and adjudicated under this label in review/2026-09-01-adjudication.md. Row added 2026-09-12 because the rows recorded on 1 September carried the body sentences and not the log's; the reconciliation matches on prose. Decision sheet of 12 September, group (b′)."
+    },
+    {
+      "at": "2026-09-13T02:11:03+00:00",
+      "interpreter": "/opt/homebrew/opt/python@3.14/bin/python3.14",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "The summary above still said of the two trials that \"neither separated them\".",
+      "because": "CORR-17",
+      "note": "The page's own 'Corrected 1 September 2026' change-log entry, sentence by sentence: the reader-facing account of a correction already recorded in corrections.md (1 September) and adjudicated under this label in review/2026-09-01-adjudication.md. Row added 2026-09-12 because the rows recorded on 1 September carried the body sentences and not the log's; the reconciliation matches on prose. Decision sheet of 12 September, group (b′)."
+    },
+    {
+      "at": "2026-09-13T02:11:04+00:00",
+      "interpreter": "/opt/homebrew/opt/python@3.14/bin/python3.14",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "HARMONIA reported nothing.",
+      "because": "CORR-17",
+      "note": "The page's own 'Corrected 1 September 2026' change-log entry, sentence by sentence: the reader-facing account of a correction already recorded in corrections.md (1 September) and adjudicated under this label in review/2026-09-01-adjudication.md. Row added 2026-09-12 because the rows recorded on 1 September carried the body sentences and not the log's; the reconciliation matches on prose. Decision sheet of 12 September, group (b′)."
+    },
+    {
+      "at": "2026-09-13T02:11:04+00:00",
+      "interpreter": "/opt/homebrew/opt/python@3.14/bin/python3.14",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "One randomised trial of ribociclib against palbociclib has reported, and it found no difference; the other establishes nothing either way.",
+      "because": "CORR-17",
+      "note": "The page's own 'Corrected 1 September 2026' change-log entry, sentence by sentence: the reader-facing account of a correction already recorded in corrections.md (1 September) and adjudicated under this label in review/2026-09-01-adjudication.md. Row added 2026-09-12 because the rows recorded on 1 September carried the body sentences and not the log's; the reconciliation matches on prose. Decision sheet of 12 September, group (b′)."
+    },
+    {
+      "at": "2026-09-13T02:11:05+00:00",
+      "interpreter": "/opt/homebrew/opt/python@3.14/bin/python3.14",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "A number we withdrew that the paper had stated.",
+      "because": "CORR-18",
+      "note": "The page's own 'Corrected 1 September 2026' change-log entry, sentence by sentence: the reader-facing account of a correction already recorded in corrections.md (1 September) and adjudicated under this label in review/2026-09-01-adjudication.md. Row added 2026-09-12 because the rows recorded on 1 September carried the body sentences and not the log's; the reconciliation matches on prose. Decision sheet of 12 September, group (b′)."
+    },
+    {
+      "at": "2026-09-13T02:11:05+00:00",
+      "interpreter": "/opt/homebrew/opt/python@3.14/bin/python3.14",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "On 31 August a fact-check run objected that the source note's \"randomisation in 29 blocks of four by opaque sealed envelope\" could not be verified - no source it reached gave a number of blocks.",
+      "because": "CORR-18",
+      "note": "The page's own 'Corrected 1 September 2026' change-log entry, sentence by sentence: the reader-facing account of a correction already recorded in corrections.md (1 September) and adjudicated under this label in review/2026-09-01-adjudication.md. Row added 2026-09-12 because the rows recorded on 1 September carried the body sentences and not the log's; the reconciliation matches on prose. Decision sheet of 12 September, group (b′)."
+    },
+    {
+      "at": "2026-09-13T02:11:06+00:00",
+      "interpreter": "/opt/homebrew/opt/python@3.14/bin/python3.14",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "We noticed that 29 is 116 divided by four, concluded the figure was our own arithmetic, withdrew it, and wrote a note saying so.",
+      "because": "CORR-18",
+      "note": "The page's own 'Corrected 1 September 2026' change-log entry, sentence by sentence: the reader-facing account of a correction already recorded in corrections.md (1 September) and adjudicated under this label in review/2026-09-01-adjudication.md. Row added 2026-09-12 because the rows recorded on 1 September carried the body sentences and not the log's; the reconciliation matches on prose. Decision sheet of 12 September, group (b′)."
+    },
+    {
+      "at": "2026-09-13T02:11:06+00:00",
+      "interpreter": "/opt/homebrew/opt/python@3.14/bin/python3.14",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "The paper's Methods say the patients were randomised using 29 blocks with block size of four .",
+      "because": "CORR-18",
+      "note": "The page's own 'Corrected 1 September 2026' change-log entry, sentence by sentence: the reader-facing account of a correction already recorded in corrections.md (1 September) and adjudicated under this label in review/2026-09-01-adjudication.md. Row added 2026-09-12 because the rows recorded on 1 September carried the body sentences and not the log's; the reconciliation matches on prose. Decision sheet of 12 September, group (b′)."
+    },
+    {
+      "at": "2026-09-13T02:11:07+00:00",
+      "interpreter": "/opt/homebrew/opt/python@3.14/bin/python3.14",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "The number was theirs; the correction deleted a true statement and the note explaining the deletion was false.",
+      "because": "CORR-18",
+      "note": "The page's own 'Corrected 1 September 2026' change-log entry, sentence by sentence: the reader-facing account of a correction already recorded in corrections.md (1 September) and adjudicated under this label in review/2026-09-01-adjudication.md. Row added 2026-09-12 because the rows recorded on 1 September carried the body sentences and not the log's; the reconciliation matches on prose. Decision sheet of 12 September, group (b′)."
+    },
+    {
+      "at": "2026-09-13T02:11:07+00:00",
+      "interpreter": "/opt/homebrew/opt/python@3.14/bin/python3.14",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "Nobody here had opened the paper, and the correction was written from the finding rather than from the source.",
+      "because": "CORR-18",
+      "note": "The page's own 'Corrected 1 September 2026' change-log entry, sentence by sentence: the reader-facing account of a correction already recorded in corrections.md (1 September) and adjudicated under this label in review/2026-09-01-adjudication.md. Row added 2026-09-12 because the rows recorded on 1 September carried the body sentences and not the log's; the reconciliation matches on prose. Decision sheet of 12 September, group (b′)."
+    },
+    {
+      "at": "2026-09-13T02:11:08+00:00",
+      "interpreter": "/opt/homebrew/opt/python@3.14/bin/python3.14",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "It is restored, and quoted.",
+      "because": "CORR-18",
+      "note": "The page's own 'Corrected 1 September 2026' change-log entry, sentence by sentence: the reader-facing account of a correction already recorded in corrections.md (1 September) and adjudicated under this label in review/2026-09-01-adjudication.md. Row added 2026-09-12 because the rows recorded on 1 September carried the body sentences and not the log's; the reconciliation matches on prose. Decision sheet of 12 September, group (b′)."
+    },
+    {
+      "at": "2026-09-13T02:11:08+00:00",
+      "interpreter": "/opt/homebrew/opt/python@3.14/bin/python3.14",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "The same paper names one primary endpoint and powers on another.",
+      "because": "CORR-19",
+      "note": "The page's own 'Corrected 1 September 2026' change-log entry, sentence by sentence: the reader-facing account of a correction already recorded in corrections.md (1 September) and adjudicated under this label in review/2026-09-01-adjudication.md. Row added 2026-09-12 because the rows recorded on 1 September carried the body sentences and not the log's; the reconciliation matches on prose. Decision sheet of 12 September, group (b′)."
+    },
+    {
+      "at": "2026-09-13T02:18:53+00:00",
+      "interpreter": "/opt/homebrew/opt/python@3.14/bin/python3.14",
+      "by": "claude",
+      "kind": "changed",
+      "was": "Read directly by a human: the licence forbids putting the document through an AI tool, so no automated check on this page has seen it.",
+      "now": "Read directly by Fred Ugast, on 28 and 29 August 2026, and by nobody and nothing else.",
+      "because": "AD-HOC",
+      "note": "Not a correction: the S001 source note names the person who read the licence-bound guideline and the dates, where it had said 'a human'. A fact about our own reading, recorded in the advocate adjudication of 2026-09-03; nothing asserted about the guideline's contents. Operator authorisation of 12 September 2026.",
+      "correction": false
+    },
+    {
+      "at": "2026-09-13T02:18:54+00:00",
+      "interpreter": "/opt/homebrew/opt/python@3.14/bin/python3.14",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "Sections read: the first-line HR+/HER2- therapy tables, postmenopausal and premenopausal-with-suppression; the Categories of Preference tables and definitions; the Categories of Evidence and Consensus definitions and narrative; the fulvestrant combination table and discussion; the Principles of Systemic Therapy.",
+      "because": "AD-HOC",
+      "note": "Not a correction: a reading log in the S001 source note -- which parts of the guideline the named reader opened. Apparatus; it asserts nothing about what those sections say. Operator authorisation of 12 September 2026.",
+      "correction": false
+    },
+    {
+      "at": "2026-09-13T02:18:54+00:00",
+      "interpreter": "/opt/homebrew/opt/python@3.14/bin/python3.14",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "Not read: everything outside the HR+/HER2- advanced breast cancer section.",
+      "because": "AD-HOC",
+      "note": "Not a correction: the complement of the reading log above. Apparatus. Operator authorisation of 12 September 2026.",
+      "correction": false
+    },
+    {
+      "at": "2026-09-13T02:20:05+00:00",
+      "interpreter": "/opt/homebrew/opt/python@3.14/bin/python3.14",
+      "by": "claude",
+      "kind": "changed",
+      "was": "Overall survival is reported as an exploratory endpoint and its figures are not used on this page : the summaries we could reach disagree about which hazard ratios belong to survival and which to progression, and the paper is not open to us.",
+      "now": "Overall survival is the study's primary outcome in its registry record and secondary to this data cut in the paper - this note called it an exploratory endpoint until 12 September, after the body had been corrected on 1 September - and its figures are not used on this page : the summaries we could reach disagree about which hazard ratios belong to survival and which to progression, and the paper is not open to us.",
+      "because": "CORR-16",
+      "note": "CORR-16 completed. The 1 September correction (PALMARES-2's overall survival is the registry's primary outcome, not an exploratory endpoint) reached the body and missed the source-list note, which still read 'Overall survival is reported as an exploratory endpoint'. The note is brought into line with the body on 2026-09-12 under the existing label; the ruling is already on the record (corrections.md, 1 September, 'An endpoint downgraded'). Found by changecheck as a CONTRADICTION between body and note. Operator authorisation of 12 September 2026."
+    },
+    {
+      "at": "2026-09-13T02:20:06+00:00",
+      "interpreter": "/opt/homebrew/opt/python@3.14/bin/python3.14",
+      "by": "claude",
+      "kind": "changed",
+      "was": "The authors describe the survival data as immature - 464 events at a median 31.3 months - with follow-up of 45.7 months on palbociclib against 25.2 on ribociclib and 22.4 on abemaciclib.",
+      "now": "What is exploratory is the maturity of this look at it: the authors describe the survival data as immature - 464 events at a median 31.3 months - with follow-up of 45.7 months on palbociclib against 25.2 on ribociclib and 22.4 on abemaciclib.",
+      "because": "CORR-16",
+      "note": "CORR-16 completed. The 1 September correction (PALMARES-2's overall survival is the registry's primary outcome, not an exploratory endpoint) reached the body and missed the source-list note, which still read 'Overall survival is reported as an exploratory endpoint'. The note is brought into line with the body on 2026-09-12 under the existing label; the ruling is already on the record (corrections.md, 1 September, 'An endpoint downgraded'). Found by changecheck as a CONTRADICTION between body and note. Operator authorisation of 12 September 2026."
+    },
+    {
+      "at": "2026-09-13T13:11:24+00:00",
+      "interpreter": "/Users/fredugast/Projects/parity-poc-repo/backend/venv/bin/python3",
+      "by": "claude",
+      "kind": "changed",
+      "was": "Its full name is the Palbociclib Verifying Evidence of Real-world Impact study, and its own poster states that it was funded by Pfizer Inc. , which makes palbociclib.",
+      "now": "Its full name is the Palbociclib Verifying Evidence of Real-world Impact study, and its published paper states that it was supported by Pfizer Inc. , which makes palbociclib.",
+      "because": "FUND-Q-001",
+      "note": "Body sentence: the funding quotation now comes from the published paper we hold (S016, Q-12), not the SABCS poster we do not; editor's ruling 1 of 11 September; entered in corrections.md 13 September under FUND-Q-001."
+    },
+    {
+      "at": "2026-09-13T13:11:24+00:00",
+      "interpreter": "/Users/fredugast/Projects/parity-poc-repo/backend/venv/bin/python3",
+      "by": "claude",
+      "kind": "changed",
+      "was": "Ribociclib and palbociclib have been compared head to head twice - Shaaban and colleagues in the second line with fulvestrant, and HARMONIA, which terminated at 61 patients - and neither separated them.",
+      "now": "Ribociclib and palbociclib have been compared head to head twice - Shaaban and colleagues in the second line with fulvestrant, and HARMONIA, which terminated at 61 patients - and the one that reported did not separate them; HARMONIA reported nothing.",
+      "because": "CORR-17",
+      "note": "The 'Established' list was the third place the HARMONIA flattening lived; corrected 1 September under CORR-17 (an addendum of 13 September to that corrections.md entry names this sentence)."
+    },
+    {
+      "at": "2026-09-13T13:11:25+00:00",
+      "interpreter": "/Users/fredugast/Projects/parity-poc-repo/backend/venv/bin/python3",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "NCCN's licence forbids putting the document through any automated tool, so no fact-check run, gate or script on this page has read it, and none ever can; every claim here about what the guideline says rests on that one person's reading, and on the thirteen questions put to him about it and answered by name, with locators, in the record that produces this page.",
+      "because": "AD-HOC",
+      "note": "S001 note: describes our own reading of the guideline under NCCN's licence — who read it and that nothing automated ever can; process statement, adds no assertion about the world; decision sheet 12 September group (a), cited to the 2026-09-01 adjudication.",
+      "correction": false
+    },
+    {
+      "at": "2026-09-13T13:11:25+00:00",
+      "interpreter": "/Users/fredugast/Projects/parity-poc-repo/backend/venv/bin/python3",
+      "by": "claude",
+      "kind": "changed",
+      "was": "The study's own SABCS 2024 poster states: \"This study was funded by Pfizer Inc.\" Pfizer makes palbociclib.",
+      "now": "The paper's funding statement reads: \"This work was supported by Pfizer Inc (no grant number)\".",
+      "because": "FUND-Q-001",
+      "note": "Source-list P-VERIFY note: the quotation is now the paper's funding statement (S016, Q-12) in place of the poster's; FUND-Q-001, corrections.md 13 September."
+    },
+    {
+      "at": "2026-09-13T13:11:26+00:00",
+      "interpreter": "/Users/fredugast/Projects/parity-poc-repo/backend/venv/bin/python3",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "Pfizer makes palbociclib.",
+      "because": "FUND-Q-001",
+      "note": "'Pfizer makes palbociclib.' stands beside the funding quotation and exists to change what a reader concludes about P-VERIFY's funding; substantive under process § 9; carried by FUND-Q-001."
+    },
+    {
+      "at": "2026-09-13T13:11:26+00:00",
+      "interpreter": "/Users/fredugast/Projects/parity-poc-repo/backend/venv/bin/python3",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "It computes each trial's statistical power to reach significance on survival, and concludes that if significance appears in some trials and not others the difference might be more attributable to chance than to a truly different drug efficacy .",
+      "because": "CORR-14",
+      "note": "Sentence of the 1 September log entry characterising what Tanguy's paper does (power, not interval width); the log's account of CORR-14."
+    },
+    {
+      "at": "2026-09-13T13:11:26+00:00",
+      "interpreter": "/Users/fredugast/Projects/parity-poc-repo/backend/venv/bin/python3",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "The same sentence went out in the announcement email in a barer form; it was found when a gate run read the email, and settled when the operator obtained the full text.",
+      "because": "CORR-14",
+      "note": "Sentence of the 1 September log entry disclosing that the same sentence went out in the announcement email; the log's account of CORR-14 (the email itself is a corrections-email matter, still owed)."
+    },
+    {
+      "at": "2026-09-13T13:11:27+00:00",
+      "interpreter": "/Users/fredugast/Projects/parity-poc-repo/backend/venv/bin/python3",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "That reason came in with the 30 August correction above.",
+      "because": "CORR-15",
+      "note": "Cross-reference inside the 1 September log entry ('That reason came in with the 30 August correction above'); a sentence of the reader-facing account of CORR-15."
+    },
+    {
+      "at": "2026-09-13T13:11:27+00:00",
+      "interpreter": "/Users/fredugast/Projects/parity-poc-repo/backend/venv/bin/python3",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "Its stated primary objectives are the clinical benefit rate (CBR), quality of life and toxicity profiles , while its sample-size calculation says The primary outcome of interest is the overall response rate (ORR) .",
+      "because": "CORR-19",
+      "note": "Sentence of the 1 September log entry quoting Shaaban's stated primary objectives (Q-19) and its sample-size sentence (Q-21); the log's account of CORR-19."
+    },
+    {
+      "at": "2026-09-13T13:21:01+00:00",
+      "interpreter": "/Users/fredugast/Projects/parity-poc-repo/backend/venv/bin/python3",
+      "by": "claude",
+      "kind": "changed",
+      "was": "The Category Difference - What Holds Up What Holds Up What this is The rubric Issue one Issue two Who pays for this Issue two Evidence review Published 28 August 2026 · Updated 1 September 2026 · guideline version 6.2026 The Category Difference whatholdsup.org Three drugs of the same class treat the same disease.",
+      "now": "The Category Difference - What Holds Up What Holds Up What this is The rubric Issue one Issue two Who pays for this Issue two Evidence review Published 28 August 2026 · Updated 13 September 2026 · guideline version 6.2026 The Category Difference whatholdsup.org Three drugs of the same class treat the same disease.",
+      "because": "PREFLIGHT-01",
+      "note": "Dateline reset by publish.py dateline in the editorial zone (America/New_York), 13 September 2026, as the preflight requires; the masthead date is furniture set from the clock, not a claim, and PREFLIGHT-01 is the label every prior reset cites."
+    },
+    {
+      "at": "2026-09-13T13:46:47+00:00",
+      "interpreter": "/Users/fredugast/Projects/parity-poc-repo/backend/venv/bin/python3",
+      "by": "claude",
+      "kind": "changed",
+      "was": "MONARCH 3's is two-sided and was judged against .034, not .05: its cumulative two-sided type I error of 0.05 was divided between the intention-to-treat population and a visceral-disease subgroup, and spent across interim and final analyses under an O'Brien-Fleming spending function.",
+      "now": "MONARCH 3's is two-sided and was judged against .034, not .05: its cumulative two-sided type I error of 0.05 was divided between the intention-to-treat population and a visceral-disease subgroup, and spent across interim and final analyses under a Lan-DeMets spending function with an O'Brien-Fleming boundary.",
+      "because": "C95-001",
+      "note": "c95: the body called O'Brien-Fleming the spending function; the paper (S003, rendered page) names Lan-DeMets as the spending function and O'Brien-Fleming as the boundary. C95-001, corrections.md 13 September."
+    },
+    {
+      "at": "2026-09-13T13:46:48+00:00",
+      "interpreter": "/Users/fredugast/Projects/parity-poc-repo/backend/venv/bin/python3",
+      "by": "claude",
+      "kind": "changed",
+      "was": "The trial maintained a cumulative two-sided type I error of 0.05 by the Lan-DeMets method with an O'Brien-Fleming spending function, with alpha divided between the intention-to-treat population and a visceral-disease subgroup by a prespecified graphical testing procedure.",
+      "now": "The trial maintained a cumulative two-sided type I error of 0.05 by a Lan-DeMets spending function with an O'Brien-Fleming boundary, with alpha divided between the intention-to-treat population and a visceral-disease subgroup by a prespecified graphical testing procedure.",
+      "because": "C95-001",
+      "note": "c95: the source note called O'Brien-Fleming the spending function and Lan-DeMets the method; the paper names Lan-DeMets as the spending function and O'Brien-Fleming as the boundary. C95-001, corrections.md 13 September."
+    },
+    {
+      "at": "2026-09-13T13:51:35+00:00",
+      "interpreter": "/Users/fredugast/Projects/parity-poc-repo/backend/venv/bin/python3",
+      "by": "claude",
+      "kind": "changed",
+      "was": "On the endpoint every one of these trials was powered to measure, nothing separates them.",
+      "now": "On progression-free survival, the endpoint all four trials were powered to measure, nothing separates them.",
+      "because": "AD-HOC",
+      "note": "inf-3 clarification (advisor, 13 September): the sentence asserted nothing false; the clause was restrictive, not exhaustive; naming the endpoint removes the ambiguity the gate read into it. Bound to the four trials' primary-endpoint records.",
+      "correction": false
+    },
+    {
+      "at": "2026-09-13T13:52:23+00:00",
+      "interpreter": "/Users/fredugast/Projects/parity-poc-repo/backend/venv/bin/python3",
+      "by": "claude",
+      "kind": "changed",
+      "was": "The guideline also records that the three drugs have not been directly compared in clinical trials.",
+      "now": "The guideline also records that the three drugs have not been directly compared in clinical trials - a statement the section below qualifies.",
+      "because": "AD-HOC",
+      "note": "inf-9 clarification (advisor, 13 September): the sentence was accurate and attributed; the defect was placement; the fix adds no claim about the source (S001 is licence-barred to every tool).",
+      "correction": false
+    },
+    {
+      "at": "2026-09-13T13:54:43+00:00",
+      "interpreter": "/Users/fredugast/Projects/parity-poc-repo/backend/venv/bin/python3",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "Not because four hundredths is large - it is the same magnitude this piece has just called too small to separate two drugs - but because here it moves one trial's own estimate further from the no-effect line under a better handling of its own missing data. The interval still runs through 1.0, and the conclusion does not change.",
+      "because": "AD-HOC",
+      "note": "inf-16 clarification (advisor, 13 September): explains why the same magnitude carries different weight in the two contexts; arithmetic on figures the page already carries (S010: 0.96 -> 0.92, interval 0.76-1.12). Sensitivity figures bound to S010.",
+      "correction": false
+    },
+    {
+      "at": "2026-09-13T14:06:45+00:00",
+      "interpreter": "/Users/fredugast/Projects/parity-poc-repo/backend/venv/bin/python3",
+      "by": "claude",
+      "kind": "changed",
+      "was": "MONARCH 3's is two-sided and was judged against .034 , not .05: its cumulative two-sided type I error of 0.05 was divided between the intention-to-treat population and a visceral-disease subgroup, and spent across interim and final analyses under an O'Brien-Fleming spending function.",
+      "now": "MONARCH 3's is two-sided and was judged against .034 , not .05: its cumulative two-sided type I error of 0.05 was divided between the intention-to-treat population and a visceral-disease subgroup, and spent across interim and final analyses under a Lan-DeMets spending function with an O'Brien-Fleming boundary.",
+      "because": "C95-001",
+      "note": "c95: the body called O'Brien-Fleming the spending function; the paper (S003, rendered page) names Lan-DeMets as the spending function and O'Brien-Fleming as the boundary. C95-001, corrections.md 13 September. (Row re-recorded with the sentence text as the diff produces it; the earlier row's typed text did not match.)"
+    },
+    {
+      "at": "2026-09-13T14:06:45+00:00",
+      "interpreter": "/Users/fredugast/Projects/parity-poc-repo/backend/venv/bin/python3",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "Not because four hundredths is large - it is the same magnitude this piece has just called too small to separate two drugs - but because here it moves one trial's own estimate further from the no-effect line under a better handling of its own missing data.",
+      "because": "AD-HOC",
+      "note": "inf-16 clarification (advisor, 13 September): why the same magnitude carries different weight here; arithmetic on figures the page already carries (S010). Re-recorded with the diff's text.",
+      "correction": false
+    },
+    {
+      "at": "2026-09-13T14:06:46+00:00",
+      "interpreter": "/Users/fredugast/Projects/parity-poc-repo/backend/venv/bin/python3",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "The interval still runs through 1.0, and the conclusion does not change.",
+      "because": "AD-HOC",
+      "note": "inf-16 clarification (advisor, 13 September), second sentence of the addition: the interval (S010, 0.76-1.12) still runs through 1.0; the conclusion does not change. Not a correction.",
+      "correction": false
+    },
+    {
+      "at": "2026-09-13T14:28:12+00:00",
+      "interpreter": "/Users/fredugast/Projects/parity-poc-repo/backend/venv/bin/python3",
+      "by": "claude",
+      "kind": "changed",
+      "was": "A network meta-analysis ( Scientific Reports, February 2024 ) pooled seven phase III randomised trials, 4,415 patients, at a median follow-up of 73.3 months.",
+      "now": "A network meta-analysis ( Scientific Reports, February 2024 ) pooled seven phase III randomised trials, 4,415 patients, at a median follow-up the paper reports as 73.3 months in its abstract and 70.2 months in its results section; this page cannot determine which is correct.",
+      "because": "INF8-001",
+      "note": "inf-8 (INF8-001): the body printed 73.3 months alone after the 31 August entry had disclosed the paper's two figures; both figures and the inability to choose now travel together."
+    },
+    {
+      "at": "2026-09-13T14:28:12+00:00",
+      "interpreter": "/Users/fredugast/Projects/parity-poc-repo/backend/venv/bin/python3",
+      "by": "claude",
+      "kind": "changed",
+      "was": "Seven phase III trials, 4,415 patients, 73.3 months median follow-up.",
+      "now": "Seven phase III trials, 4,415 patients, at a median follow-up the paper reports as 73.3 months in its abstract and 70.2 months in its results section, both over a range of 48.7 to 97.2 months; this page cannot determine which is correct.",
+      "because": "INF8-001",
+      "note": "inf-8 (INF8-001), the S015 note's opening: same asymmetry, same fix; the parenthetical deferral later in the note is removed."
+    },
+    {
+      "at": "2026-09-13T14:28:21+00:00",
+      "interpreter": "/Users/fredugast/Projects/parity-poc-repo/backend/venv/bin/python3",
+      "by": "claude",
+      "kind": "changed",
+      "was": "A network meta-analysis ( Scientific Reports, February 2024 ) pooled seven phase III randomised trials, 4,415 patients, at a median follow-up of 73.3 months.",
+      "now": "A network meta-analysis ( Scientific Reports, February 2024 ) pooled seven phase III randomised trials, 4,415 patients, at a median follow-up the paper reports as 73.3 months in its abstract and 70.2 months in its results section; this page cannot determine which is correct.",
+      "because": "INF8-001",
+      "note": "inf-8 (INF8-001): the body printed 73.3 months alone after the 31 August entry had disclosed the paper's two figures; both figures and the inability to choose now travel together."
+    },
+    {
+      "at": "2026-09-13T14:28:22+00:00",
+      "interpreter": "/Users/fredugast/Projects/parity-poc-repo/backend/venv/bin/python3",
+      "by": "claude",
+      "kind": "changed",
+      "was": "Seven phase III trials, 4,415 patients, 73.3 months median follow-up.",
+      "now": "Seven phase III trials, 4,415 patients, at a median follow-up the paper reports as 73.3 months in its abstract and 70.2 months in its results section, both over a range of 48.7 to 97.2 months; this page cannot determine which is correct.",
+      "because": "INF8-001",
+      "note": "inf-8 (INF8-001), the S015 note's opening: same asymmetry, same fix; the parenthetical deferral later in the note is removed."
+    },
+    {
+      "at": "2026-09-13T14:29:26+00:00",
+      "interpreter": "/Users/fredugast/Projects/parity-poc-repo/backend/venv/bin/python3",
+      "by": "claude",
+      "kind": "changed",
+      "was": "The direction of the test is stated in the ASCO 2019 abstract of the same analysis - statistical comparison was made by 1-sided stratified log-rank test - and confirmed independently in the trial's ClinicalTrials.gov results posting (NCT02278120), whose overall-survival analysis is posted with p = 0.00973 and the annotation One-sided stratified log-rank test. The journal paper is behind a wall we could not open; the registry is not.",
+      "now": "The paper states the direction of its test itself - The one-sided stratified log-rank P value was 0.00973, which crossed the prespecified stopping boundary (P = 0.01018) - and the trial's ClinicalTrials.gov results posting (NCT02278120) posts the same analysis with p = 0.00973 and the annotation One-sided stratified log-rank test. The ASCO 2019 abstract of the same analysis is how this page confirmed the direction while the paper stood unread here; the paper now states it itself. Until 13 September 2026 this entry said the paper was behind a wall we could not open and rested the direction of the test on the abstract and the registry instead; the operator had obtained the publisher's PDF on 1 September and the page was not re-read against it.",
+      "because": "S007-WALL-001",
+      "note": "S007-WALL-001: the note claimed a wall over a paper the library has held since 1 September; the paper states its own test direction; the ASCO abstract kept as how the direction was confirmed while the paper stood unread."
+    },
+    {
+      "at": "2026-09-13T14:33:02+00:00",
+      "interpreter": "/Users/fredugast/Projects/parity-poc-repo/backend/venv/bin/python3",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "Read for what the study's registration says it is - observational, still recruiting toward an estimated 3,500 patients, overall survival its primary outcome - and for what it does not have: no results are posted.",
+      "because": "SRC-LIST-002",
+      "note": "SRC-LIST-002: a document the page rested on, now in the list a reader sees (entry added 13 September)."
+    },
+    {
+      "at": "2026-09-13T14:33:03+00:00",
+      "interpreter": "/Users/fredugast/Projects/parity-poc-repo/backend/venv/bin/python3",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "The formal correction to the paper above, held in full since 1 September 2026 and read.",
+      "because": "SRC-LIST-002",
+      "note": "SRC-LIST-002: a document the page rested on, now in the list a reader sees (entry added 13 September)."
+    },
+    {
+      "at": "2026-09-13T14:33:03+00:00",
+      "interpreter": "/Users/fredugast/Projects/parity-poc-repo/backend/venv/bin/python3",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "The second paper from the same Flatiron cohort, on progression rather than survival: ribociclib and abemaciclib each against palbociclib, no significant difference found.",
+      "because": "SRC-LIST-002",
+      "note": "SRC-LIST-002: a document the page rested on, now in the list a reader sees (entry added 13 September)."
+    },
+    {
+      "at": "2026-09-13T14:33:33+00:00",
+      "interpreter": "/Users/fredugast/Projects/parity-poc-repo/backend/venv/bin/python3",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "Comparison P-VERIFY - real-world progression-free survival of first-line CDK4/6 inhibitors plus an aromatase inhibitor.",
+      "because": "SRC-LIST-002",
+      "note": "SRC-LIST-002: a sentence of one of the three source-list entries added 13 September (row keyed to the diff's own sentence)."
+    },
+    {
+      "at": "2026-09-13T14:33:34+00:00",
+      "interpreter": "/Users/fredugast/Projects/parity-poc-repo/backend/venv/bin/python3",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "ESMO Open 2025 The second paper from the same Flatiron cohort, on progression rather than survival: ribociclib and abemaciclib each against palbociclib, no significant difference found.",
+      "because": "SRC-LIST-002",
+      "note": "SRC-LIST-002: a sentence of one of the three source-list entries added 13 September (row keyed to the diff's own sentence)."
+    },
+    {
+      "at": "2026-09-13T14:33:35+00:00",
+      "interpreter": "/Users/fredugast/Projects/parity-poc-repo/backend/venv/bin/python3",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "The body links it by its PubMed record (PMID 40896879); the document we hold is the PMC full text.",
+      "because": "SRC-LIST-002",
+      "note": "SRC-LIST-002: a sentence of one of the three source-list entries added 13 September (row keyed to the diff's own sentence)."
+    },
+    {
+      "at": "2026-09-13T14:33:35+00:00",
+      "interpreter": "/Users/fredugast/Projects/parity-poc-repo/backend/venv/bin/python3",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "Same cohort, same funding statement as the paper above.",
+      "because": "SRC-LIST-002",
+      "note": "SRC-LIST-002: a sentence of one of the three source-list entries added 13 September (row keyed to the diff's own sentence)."
+    },
+    {
+      "at": "2026-09-13T14:33:36+00:00",
+      "interpreter": "/Users/fredugast/Projects/parity-poc-repo/backend/venv/bin/python3",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "Registry PALMARES-2 - ClinicalTrials.gov record.",
+      "because": "SRC-LIST-002",
+      "note": "SRC-LIST-002: a sentence of one of the three source-list entries added 13 September (row keyed to the diff's own sentence)."
+    },
+    {
+      "at": "2026-09-13T14:33:36+00:00",
+      "interpreter": "/Users/fredugast/Projects/parity-poc-repo/backend/venv/bin/python3",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "NCT06805812 Read for what the study's registration says it is - observational, still recruiting toward an estimated 3,500 patients, overall survival its primary outcome - and for what it does not have: no results are posted.",
+      "because": "SRC-LIST-002",
+      "note": "SRC-LIST-002: a sentence of one of the three source-list entries added 13 September (row keyed to the diff's own sentence)."
+    },
+    {
+      "at": "2026-09-13T14:33:37+00:00",
+      "interpreter": "/Users/fredugast/Projects/parity-poc-repo/backend/venv/bin/python3",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "That absence is why this page does not print PALMARES-2's survival figures; the paper's full text did not open to us and the registry has nothing to fall back on.",
+      "because": "SRC-LIST-002",
+      "note": "SRC-LIST-002: a sentence of one of the three source-list entries added 13 September (row keyed to the diff's own sentence)."
+    },
+    {
+      "at": "2026-09-13T14:33:37+00:00",
+      "interpreter": "/Users/fredugast/Projects/parity-poc-repo/backend/venv/bin/python3",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "Read from the record itself on 30 August 2026; held as the v2 API protocol section.",
+      "because": "SRC-LIST-002",
+      "note": "SRC-LIST-002: a sentence of one of the three source-list entries added 13 September (row keyed to the diff's own sentence)."
+    },
+    {
+      "at": "2026-09-13T14:33:38+00:00",
+      "interpreter": "/Users/fredugast/Projects/parity-poc-repo/backend/venv/bin/python3",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "Corrigendum Corrigendum to MONARCH 3 - final overall survival.",
+      "because": "SRC-LIST-002",
+      "note": "SRC-LIST-002: a sentence of one of the three source-list entries added 13 September (row keyed to the diff's own sentence)."
+    },
+    {
+      "at": "2026-09-13T14:33:38+00:00",
+      "interpreter": "/Users/fredugast/Projects/parity-poc-repo/backend/venv/bin/python3",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "Ann Oncol 2025;36:1556 The formal correction to the paper above, held in full since 1 September 2026 and read.",
+      "because": "SRC-LIST-002",
+      "note": "SRC-LIST-002: a sentence of one of the three source-list entries added 13 September (row keyed to the diff's own sentence)."
+    },
+    {
+      "at": "2026-09-13T14:33:39+00:00",
+      "interpreter": "/Users/fredugast/Projects/parity-poc-repo/backend/venv/bin/python3",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "It corrects one number - the placebo-arm event count in the chemotherapy-free survival analysis of Figure 4, 162 to 132 - and republishes the figure.",
+      "because": "SRC-LIST-002",
+      "note": "SRC-LIST-002: a sentence of one of the three source-list entries added 13 September (row keyed to the diff's own sentence)."
+    },
+    {
+      "at": "2026-09-13T14:33:39+00:00",
+      "interpreter": "/Users/fredugast/Projects/parity-poc-repo/backend/venv/bin/python3",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "This page uses nothing from that endpoint; the overall-survival figures above are untouched.",
+      "because": "SRC-LIST-002",
+      "note": "SRC-LIST-002: a sentence of one of the three source-list entries added 13 September (row keyed to the diff's own sentence)."
+    },
+    {
+      "at": "2026-09-13T14:33:40+00:00",
+      "interpreter": "/Users/fredugast/Projects/parity-poc-repo/backend/venv/bin/python3",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "Its access state and licence are settled in the entry above, which this entry does not repeat.",
+      "because": "SRC-LIST-002",
+      "note": "SRC-LIST-002: a sentence of one of the three source-list entries added 13 September (row keyed to the diff's own sentence)."
+    },
+    {
+      "at": "2026-09-13T14:33:40+00:00",
+      "interpreter": "/Users/fredugast/Projects/parity-poc-repo/backend/venv/bin/python3",
+      "by": "claude",
+      "kind": "changed",
+      "was": "The direction of the test is stated in the ASCO 2019 abstract of the same analysis - \"statistical comparison was made by 1-sided stratified log-rank test\" - and confirmed independently in the trial's ClinicalTrials.gov results posting ( NCT02278120 ), whose overall-survival analysis is posted with p = 0.00973 and the annotation One-sided stratified log-rank test .",
+      "now": "The paper states the direction of its test itself - The one-sided stratified log-rank P value was 0.00973, which crossed the prespecified stopping boundary (P = 0.01018) - and the trial's ClinicalTrials.gov results posting ( NCT02278120 ) posts the same analysis with p = 0.00973 and the annotation One-sided stratified log-rank test .",
+      "because": "S007-WALL-001",
+      "note": "S007-WALL-001: a sentence of the rewritten S007 note (row keyed to the diff's own sentence)."
+    },
+    {
+      "at": "2026-09-13T14:33:41+00:00",
+      "interpreter": "/Users/fredugast/Projects/parity-poc-repo/backend/venv/bin/python3",
+      "by": "claude",
+      "kind": "changed",
+      "was": "The journal paper is behind a wall we could not open; the registry is not.",
+      "now": "The ASCO 2019 abstract of the same analysis - \"statistical comparison was made by 1-sided stratified log-rank test\" - is how this page confirmed the direction while the paper stood unread here; the paper now states it itself.",
+      "because": "S007-WALL-001",
+      "note": "S007-WALL-001: a sentence of the rewritten S007 note (row keyed to the diff's own sentence)."
+    },
+    {
+      "at": "2026-09-13T14:33:41+00:00",
+      "interpreter": "/Users/fredugast/Projects/parity-poc-repo/backend/venv/bin/python3",
+      "by": "claude",
+      "kind": "changed",
+      "was": "The paper prints 0.71; the more precise 0.712 is the Cox hazard ratio in that same registry posting (95% CI 0.535-0.948), and does not appear in the publication this page cites.",
+      "now": "The paper prints 0.71; the more precise 0.712 is the Cox hazard ratio in the registry posting (95% CI 0.535-0.948), and does not appear in the paper.",
+      "because": "S007-WALL-001",
+      "note": "S007-WALL-001: a sentence of the rewritten S007 note (row keyed to the diff's own sentence)."
+    },
+    {
+      "at": "2026-09-13T14:33:42+00:00",
+      "interpreter": "/Users/fredugast/Projects/parity-poc-repo/backend/venv/bin/python3",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "Until 13 September 2026 this entry said the paper was behind a wall we could not open and rested the direction of the test on the abstract and the registry instead; the operator had obtained the publisher's PDF on 1 September and the page was not re-read against it.",
+      "because": "S007-WALL-001",
+      "note": "S007-WALL-001: a sentence of the rewritten S007 note (row keyed to the diff's own sentence)."
+    },
+    {
+      "at": "2026-09-13T14:33:42+00:00",
+      "interpreter": "/Users/fredugast/Projects/parity-poc-repo/backend/venv/bin/python3",
+      "by": "claude",
+      "kind": "changed",
+      "was": "(The 73.3 months above is the pooled median across the seven trials, over a range of 48.7 to 97.2 months - the figure its abstract gives.",
+      "now": "An earlier version of this page stated the opposite, on the strength of our own automated check rather than the paper; an outside reviewer opened the table and corrected us.",
+      "because": "INF8-001",
+      "note": "INF8-001: the S015 note's parenthetical deferral removed; both figures now travel together at first use (row keyed to the diff's own sentence)."
+    },
+    {
+      "at": "2026-09-13T14:33:43+00:00",
+      "interpreter": "/Users/fredugast/Projects/parity-poc-repo/backend/venv/bin/python3",
+      "by": "claude",
+      "kind": "removed",
+      "was": "Its results section gives 70.2 months over the same range.",
+      "now": "",
+      "because": "INF8-001",
+      "note": "INF8-001: the S015 note's parenthetical deferral removed; both figures now travel together at first use (row keyed to the diff's own sentence)."
+    },
+    {
+      "at": "2026-09-13T14:49:56+00:00",
+      "interpreter": "/Users/fredugast/Projects/parity-poc-repo/backend/venv/bin/python3",
+      "by": "claude",
+      "kind": "changed",
+      "was": "PALMARES-2 ( Annals of Oncology, April 2025 ) followed 1,982 patients across eighteen Italian centres and weighted them the same way.",
+      "now": "PALMARES-2 ( Annals of Oncology, April 2025 ) followed 1,982 patients in a multicentre Italian cohort and weighted them the same way.",
+      "because": "PALM-FIG-001",
+      "note": "PALM-FIG-001: an overall-survival result and figures no held document carries, withdrawn; the figures kept are attributed to S027's account."
+    },
+    {
+      "at": "2026-09-13T14:49:57+00:00",
+      "interpreter": "/Users/fredugast/Projects/parity-poc-repo/backend/venv/bin/python3",
+      "by": "claude",
+      "kind": "changed",
+      "was": "On progression-free survival it found abemaciclib ahead of palbociclib at an adjusted hazard ratio of 0.76 (0.63-0.92), p = 0.004 , and ribociclib ahead of palbociclib at 0.83 (0.73-0.95), p = 0.007 .",
+      "now": "On real-world progression-free survival it found abemaciclib ahead of palbociclib at an adjusted hazard ratio of 0.76 (0.63-0.92), p = 0.004 , and ribociclib ahead of palbociclib at 0.83 (0.73-0.95), p = 0.007 - figures this page takes from the second P-VERIFY paper's account of PALMARES-2 ( ESMO Open 2025), which we hold; the PALMARES-2 paper itself we do not.",
+      "because": "PALM-END-001",
+      "note": "PALM-END-001: real-world progression-free survival / adjusted hazard ratio, as S027 states it."
+    },
+    {
+      "at": "2026-09-13T14:49:58+00:00",
+      "interpreter": "/Users/fredugast/Projects/parity-poc-repo/backend/venv/bin/python3",
+      "by": "claude",
+      "kind": "changed",
+      "was": "It also reports overall survival, pointing the same way.",
+      "now": "The study's registry record lists overall survival as its primary outcome , with real-world progression-free survival secondary.",
+      "because": "PALM-END-001",
+      "note": "PALM-END-001: real-world progression-free survival / adjusted hazard ratio, as S027 states it."
+    },
+    {
+      "at": "2026-09-13T14:49:58+00:00",
+      "interpreter": "/Users/fredugast/Projects/parity-poc-repo/backend/venv/bin/python3",
+      "by": "claude",
+      "kind": "changed",
+      "was": "This page called that an exploratory endpoint until 1 September, which was wrong twice over: the paper treats it as secondary to that data cut, and the study's registry record lists overall survival as its primary outcome , with real-world progression-free survival secondary.",
+      "now": "This page prints no survival result for it.",
+      "because": "PALM-FIG-001",
+      "note": "PALM-FIG-001: an overall-survival result and figures no held document carries, withdrawn; the figures kept are attributed to S027's account."
+    },
+    {
+      "at": "2026-09-13T14:49:59+00:00",
+      "interpreter": "/Users/fredugast/Projects/parity-poc-repo/backend/venv/bin/python3",
+      "by": "claude",
+      "kind": "changed",
+      "was": "The endpoint is the one the study exists to measure; what is exploratory is the maturity of this particular look at it.",
+      "now": "Until 13 September it did: it said the study reported overall survival pointing the same way, a claim no document we hold carries.",
+      "because": "PALM-FIG-001",
+      "note": "PALM-FIG-001: an overall-survival result and figures no held document carries, withdrawn; the figures kept are attributed to S027's account."
+    },
+    {
+      "at": "2026-09-13T14:49:59+00:00",
+      "interpreter": "/Users/fredugast/Projects/parity-poc-repo/backend/venv/bin/python3",
+      "by": "claude",
+      "kind": "changed",
+      "was": "This page does not print those survival figures.",
+      "now": "The one held account of the study's 2024 presentation, in the P-VERIFY survival paper, records comparative overall survival as not reported; the 2025 publication we could not obtain - every script-level route returned 403 and no browser was connected to attempt the rest - so whether it reports one this page cannot say.",
+      "because": "PALM-FIG-001",
+      "note": "PALM-FIG-001: an overall-survival result and figures no held document carries, withdrawn; the figures kept are attributed to S027's account."
+    },
+    {
+      "at": "2026-09-13T14:50:00+00:00",
+      "interpreter": "/Users/fredugast/Projects/parity-poc-repo/backend/venv/bin/python3",
+      "by": "claude",
+      "kind": "changed",
+      "was": "The secondary summaries we could reach disagree with each other about which numbers are the survival ones and which are the progression ones; we have not obtained the paper's full text ourselves - what this page carries from it came through an automated search route, which is weaker than reading it, and every direct route we tried on 31 August was refused by the publisher; and its ClinicalTrials.gov record (NCT06805812, which posts an estimated enrolment of 3,500 and still shows the study recruiting) has no results posted, though the paper itself already reports on 1,982; and a figure we cannot attribute to a primary source is a figure this page does not carry.",
+      "now": "Its ClinicalTrials.gov record (NCT06805812, which posts an estimated enrolment of 3,500 and still shows the study recruiting) has no results posted, though the paper itself already reports on 1,982; and a figure we cannot attribute to a document we hold is a figure this page does not carry.",
+      "because": "PALM-FIG-001",
+      "note": "PALM-FIG-001: an overall-survival result and figures no held document carries, withdrawn; the figures kept are attributed to S027's account."
+    },
+    {
+      "at": "2026-09-13T14:50:01+00:00",
+      "interpreter": "/Users/fredugast/Projects/parity-poc-repo/backend/venv/bin/python3",
+      "by": "claude",
+      "kind": "removed",
+      "was": "What the authors do say about that endpoint is that the data are immature - 464 events at a median 31.3 months - and that follow-up is badly uneven between the arms: 45.7 months on palbociclib against 25.2 on ribociclib and 22.4 on abemaciclib.",
+      "now": "",
+      "because": "PALM-FIG-001",
+      "note": "PALM-FIG-001: an overall-survival result and figures no held document carries, withdrawn; the figures kept are attributed to S027's account."
+    },
+    {
+      "at": "2026-09-13T14:50:01+00:00",
+      "interpreter": "/Users/fredugast/Projects/parity-poc-repo/backend/venv/bin/python3",
+      "by": "claude",
+      "kind": "removed",
+      "was": "That imbalance cuts against their own finding, and it is their caveat, not ours.",
+      "now": "",
+      "because": "PALM-FIG-001",
+      "note": "PALM-FIG-001: an overall-survival result and figures no held document carries, withdrawn; the figures kept are attributed to S027's account."
+    },
+    {
+      "at": "2026-09-13T14:50:02+00:00",
+      "interpreter": "/Users/fredugast/Projects/parity-poc-repo/backend/venv/bin/python3",
+      "by": "claude",
+      "kind": "changed",
+      "was": "The smaller one finds palbociclib behind on progression, on intervals that exclude the no-effect line - abemaciclib's by 0.08 and ribociclib's by 0.05, which is significant but not comfortably so, and reports an exploratory survival result pointing the same way on data its own authors call immature.",
+      "now": "The smaller one finds palbociclib behind on real-world progression-free survival, on intervals that exclude the no-effect line - abemaciclib's by 0.08 and ribociclib's by 0.05, which is significant but not comfortably so.",
+      "because": "PALM-FIG-001",
+      "note": "PALM-FIG-001: an overall-survival result and figures no held document carries, withdrawn; the figures kept are attributed to S027's account."
+    },
+    {
+      "at": "2026-09-13T14:50:02+00:00",
+      "interpreter": "/Users/fredugast/Projects/parity-poc-repo/backend/venv/bin/python3",
+      "by": "claude",
+      "kind": "changed",
+      "was": "An earlier version of this page reconciled them by saying they had measured different endpoints.",
+      "now": "An earlier version of this page reconciled them by saying they had measured different endpoints, then withdrew that on 1 September and said both programmes reported both endpoints.",
+      "because": "PALM-FIG-001",
+      "note": "PALM-FIG-001: an overall-survival result and figures no held document carries, withdrawn; the figures kept are attributed to S027's account."
+    },
+    {
+      "at": "2026-09-13T14:50:03+00:00",
+      "interpreter": "/Users/fredugast/Projects/parity-poc-repo/backend/venv/bin/python3",
+      "by": "claude",
+      "kind": "changed",
+      "was": "That was wrong - both programmes reported both endpoints - and it was the tidier story rather than the true one.",
+      "now": "This page can source the second claim no better than the first: the one held account of PALMARES-2's 2024 presentation records no comparative survival result, and the 2025 paper we could not obtain.",
+      "because": "PALM-FIG-001",
+      "note": "PALM-FIG-001: an overall-survival result and figures no held document carries, withdrawn; the figures kept are attributed to S027's account."
+    },
+    {
+      "at": "2026-09-13T14:50:04+00:00",
+      "interpreter": "/Users/fredugast/Projects/parity-poc-repo/backend/venv/bin/python3",
+      "by": "claude",
+      "kind": "changed",
+      "was": "And PALMARES-2 - the study that did separate palbociclib, on both endpoints - puts this pairing, on progression-free survival, at 0.91, on 0.73 to 1.14 , p = 0.425.",
+      "now": "And PALMARES-2 - the study that did separate palbociclib, on real-world progression-free survival - puts this pairing, on real-world progression-free survival, at an adjusted hazard ratio of 0.91, on 0.73 to 1.14 , p = 0.425.",
+      "because": "PALM-FIG-001",
+      "note": "PALM-FIG-001: an overall-survival result and figures no held document carries, withdrawn; the figures kept are attributed to S027's account."
+    },
+    {
+      "at": "2026-09-13T14:50:04+00:00",
+      "interpreter": "/Users/fredugast/Projects/parity-poc-repo/backend/venv/bin/python3",
+      "by": "claude",
+      "kind": "changed",
+      "was": "PALMARES-2 publishes no abemaciclib-versus-ribociclib survival figure, so on that pairing the survival evidence is P-VERIFY's and the meta-analysis's.",
+      "now": "No PALMARES-2 survival figure for this pairing is in any document we hold, so on that pairing the survival evidence here is P-VERIFY's and the meta-analysis's.",
+      "because": "PALM-FIG-001",
+      "note": "PALM-FIG-001: an overall-survival result and figures no held document carries, withdrawn; the figures kept are attributed to S027's account."
+    },
+    {
+      "at": "2026-09-13T14:50:05+00:00",
+      "interpreter": "/Users/fredugast/Projects/parity-poc-repo/backend/venv/bin/python3",
+      "by": "claude",
+      "kind": "changed",
+      "was": "The two real-world programmes contradict each other on exactly this, on both endpoints, and this page does not resolve it.",
+      "now": "The two real-world programmes contradict each other on exactly this, on real-world progression-free survival, and this page does not resolve it.",
+      "because": "PALM-FIG-001",
+      "note": "PALM-FIG-001: an overall-survival result and figures no held document carries, withdrawn; the figures kept are attributed to S027's account."
+    },
+    {
+      "at": "2026-09-13T14:50:05+00:00",
+      "interpreter": "/Users/fredugast/Projects/parity-poc-repo/backend/venv/bin/python3",
+      "by": "claude",
+      "kind": "changed",
+      "was": "PALMARES-2's survival data are immature and its arms unevenly followed; P-VERIFY is larger and is funded by palbociclib's manufacturer.",
+      "now": "What PALMARES-2 reports on survival this page cannot say from any document it holds; P-VERIFY is larger and is funded by palbociclib's manufacturer.",
+      "because": "PALM-FIG-001",
+      "note": "PALM-FIG-001: an overall-survival result and figures no held document carries, withdrawn; the figures kept are attributed to S027's account."
+    },
+    {
+      "at": "2026-09-13T14:50:06+00:00",
+      "interpreter": "/Users/fredugast/Projects/parity-poc-repo/backend/venv/bin/python3",
+      "by": "claude",
+      "kind": "changed",
+      "was": "Ann Oncol , April 2025 1,982 patients, eighteen Italian centres, inverse-probability weighting.",
+      "now": "Ann Oncol , April 2025 1,982 patients, a multicentre Italian real-world cohort, inverse-probability weighting.",
+      "because": "PALM-FIG-001",
+      "note": "PALM-FIG-001: an overall-survival result and figures no held document carries, withdrawn; the figures kept are attributed to S027's account."
+    },
+    {
+      "at": "2026-09-13T14:50:07+00:00",
+      "interpreter": "/Users/fredugast/Projects/parity-poc-repo/backend/venv/bin/python3",
+      "by": "claude",
+      "kind": "changed",
+      "was": "Progression-free survival: abemaciclib vs palbociclib aHR 0.76 (0.63-0.92), p = 0.004; ribociclib vs palbociclib 0.83 (0.73-0.95), p = 0.007; abemaciclib vs ribociclib 0.91 (0.73-1.14), p = 0.425 .",
+      "now": "Real-world progression-free survival, adjusted hazard ratios: abemaciclib vs palbociclib 0.76 (0.63-0.92), p = 0.004; ribociclib vs palbociclib 0.83 (0.73-0.95), p = 0.007; abemaciclib vs ribociclib 0.91 (0.73-1.14), p = 0.425 .",
+      "because": "PALM-END-001",
+      "note": "PALM-END-001: real-world progression-free survival / adjusted hazard ratio, as S027 states it."
+    },
+    {
+      "at": "2026-09-13T14:50:07+00:00",
+      "interpreter": "/Users/fredugast/Projects/parity-poc-repo/backend/venv/bin/python3",
+      "by": "claude",
+      "kind": "changed",
+      "was": "Overall survival is reported as an exploratory endpoint and its figures are not used on this page : the summaries we could reach disagree about which hazard ratios belong to survival and which to progression, and the paper is not open to us.",
+      "now": "We could not obtain PALMARES-2 itself.",
+      "because": "PALM-FIG-001",
+      "note": "PALM-FIG-001: an overall-survival result and figures no held document carries, withdrawn; the figures kept are attributed to S027's account."
+    },
+    {
+      "at": "2026-09-13T14:50:08+00:00",
+      "interpreter": "/Users/fredugast/Projects/parity-poc-repo/backend/venv/bin/python3",
+      "by": "claude",
+      "kind": "changed",
+      "was": "The authors describe the survival data as immature - 464 events at a median 31.3 months - with follow-up of 45.7 months on palbociclib against 25.2 on ribociclib and 22.4 on abemaciclib.",
+      "now": "Script-level attempts returned HTTP 403 and no browser was connected to attempt the rest.",
+      "because": "PALM-FIG-001",
+      "note": "PALM-FIG-001: an overall-survival result and figures no held document carries, withdrawn; the figures kept are attributed to S027's account."
+    },
+    {
+      "at": "2026-09-13T14:50:08+00:00",
+      "interpreter": "/Users/fredugast/Projects/parity-poc-repo/backend/venv/bin/python3",
+      "by": "claude",
+      "kind": "changed",
+      "was": "This is the study that separates palbociclib from the other two, on both endpoints.",
+      "now": "What we have is the second P-VERIFY paper's account of it ( ESMO Open 2025, held in full), which is where the figures above are read from.",
+      "because": "PALM-FIG-001",
+      "note": "PALM-FIG-001: an overall-survival result and figures no held document carries, withdrawn; the figures kept are attributed to S027's account."
+    },
+    {
+      "at": "2026-09-13T14:50:09+00:00",
+      "interpreter": "/Users/fredugast/Projects/parity-poc-repo/backend/venv/bin/python3",
+      "by": "claude",
+      "kind": "changed",
+      "was": "Note for anyone checking: the ASCO 2024 conference presentation of the same study gave 0.91 (0.70-1.19) for abemaciclib versus ribociclib; the figures above are the published paper's.",
+      "now": "Presented at ASCO 2024 ( J Clin Oncol 2024;42(suppl 16):1014) and published in Annals of Oncology 2025;36(7):762-774, both as cited in documents we hold.",
+      "because": "PALM-FIG-001",
+      "note": "PALM-FIG-001: an overall-survival result and figures no held document carries, withdrawn; the figures kept are attributed to S027's account."
+    },
+    {
+      "at": "2026-09-13T14:50:10+00:00",
+      "interpreter": "/Users/fredugast/Projects/parity-poc-repo/backend/venv/bin/python3",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "Overall survival is the study's primary outcome in its registry record; this note called it an exploratory endpoint until 12 September, and until 13 September this page said the study reported a survival result pointing the same way as its progression result.",
+      "because": "PALM-FIG-001",
+      "note": "PALM-FIG-001: an overall-survival result and figures no held document carries, withdrawn; the figures kept are attributed to S027's account."
+    },
+    {
+      "at": "2026-09-13T14:50:10+00:00",
+      "interpreter": "/Users/fredugast/Projects/parity-poc-repo/backend/venv/bin/python3",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "The one held account of the 2024 presentation, the P-VERIFY survival paper, records comparative overall survival as not reported; whether the 2025 publication reports one we could not check.",
+      "because": "PALM-FIG-001",
+      "note": "PALM-FIG-001: an overall-survival result and figures no held document carries, withdrawn; the figures kept are attributed to S027's account."
+    },
+    {
+      "at": "2026-09-13T14:50:11+00:00",
+      "interpreter": "/Users/fredugast/Projects/parity-poc-repo/backend/venv/bin/python3",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "This page prints no PALMARES-2 survival figure.",
+      "because": "PALM-FIG-001",
+      "note": "PALM-FIG-001: an overall-survival result and figures no held document carries, withdrawn; the figures kept are attributed to S027's account."
+    },
+    {
+      "at": "2026-09-13T14:50:11+00:00",
+      "interpreter": "/Users/fredugast/Projects/parity-poc-repo/backend/venv/bin/python3",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "This is the study that separates palbociclib from the other two, on real-world progression-free survival.",
+      "because": "PALM-FIG-001",
+      "note": "PALM-FIG-001: an overall-survival result and figures no held document carries, withdrawn; the figures kept are attributed to S027's account."
     }
   ]
 }
