@@ -1,0 +1,24 @@
+{
+  "cycle": 1,
+  "runs": [
+    {
+      "at": "2026-09-11T13:44:51+00:00",
+      "sha": "ca9248c8b7f73b2364013baaa41202186e053a6a43b91f175ffec3dad618da22",
+      "past_cap": null,
+      "cycle": 1
+    },
+    {
+      "at": "2026-09-11T14:06:24+00:00",
+      "sha": "608bf5ce6e24f53bb09a31f53c70748bc72d288a37d8fc3715c9ce01056536a9",
+      "past_cap": null,
+      "cycle": 1
+    },
+    {
+      "at": "2026-09-11T14:31:48+00:00",
+      "sha": "947317ce7871c944fdedb9659c02aa806dd0a2dd86426b991ef4f6e7924b43ea",
+      "past_cap": "Runs 1 and 2 produced five SERIOUS findings, all refuted by S004 and S007, which this gate cannot open. It is now a different program: annotate_reachability marks any finding disputing a figure we hold as a LEAD and attaches the settling sentence. This run tests whether the labelling fires on the real corpus; the draft has also changed (947317ce), with the endpoint named throughout.",
+      "cycle": 1
+    }
+  ],
+  "reason": null
+}
