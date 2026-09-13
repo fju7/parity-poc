@@ -266,6 +266,20 @@
       ],
       "supersedes": "97d53bc30843ffd5eaf45f60662d04b65f39c4435559b65ca363b7e783b41e59",
       "waived": null
+    },
+    {
+      "issue": "cdk46",
+      "action": "update",
+      "at": "2026-09-13T15:51:09+00:00",
+      "interpreter": "/Users/fredugast/Projects/parity-poc-repo/backend/venv/bin/python3",
+      "sha": "fec7a9a2e0eebd41bebaa9b6eb98cede17b46c81b2fbe4cba3a1d1b7c551b105",
+      "commit": "e6663185913a982805972ee587569156180d9615",
+      "url": "https://whatholdsup.org/cdk46",
+      "note": "Nothing new in the world: what moved is our library. Documents we now hold were read against the page: MONALEESA-7's survival paper, the second P-VERIFY paper's account of PALMARES-2, and MONARCH 3's statistical section as printed.",
+      "changed": "Seven corrections and three clarifications, all recorded 13 September: the spending function and the boundary un-conflated; both follow-up figures in the body; MONALEESA-7's paper held, not walled; PALMARES-2's endpoint named as real-world progression-free survival and its unsourced survival claim and figures withdrawn; three more documents in the source list.",
+      "source": null,
+      "basis": "living issue update \u2014 judged on what it adds. Softened checks are listed in the preflight output above and in UPDATE_SOFTENS.",
+      "waived": null
     }
   ]
 }

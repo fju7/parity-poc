@@ -364,6 +364,41 @@ the arithmetic above was done by a person on 13 September and recorded in the
 c40 disposition (draft_decisions.json), which is where the verification lives
 until the binder can see number words. Not built in that block, by direction.
 
+## `update --yes` writes published.json after its own commit, so the record of every publish is left uncommitted by the publish that made it
+
+**13 September 2026, on the first use of the update lane (cdk46).** `cmd_update`
+stages `site/whatholdsup` and the issue's `watch.json` / `changelog.md`, commits,
+pushes, polls the live page, and only then calls `append_record(...)` — which
+writes `backend/data/whatholdsup/published.json`. The row that says the
+publish happened is therefore written into a working tree the publish has
+already committed and pushed past. `git status` after a successful `update
+--yes` shows exactly one modified file: the publication record. `cmd_publish`
+has the same ordering (push at its line 1964, `append_record` at 2008).
+`cmd_announce` and `cmd_record_live` append the record and make no commit at
+all, which leaves it uncommitted by a different route: nothing in the tool
+ever commits `published.json`; a person does, afterwards, or nobody does.
+
+**Why it matters.** `published.json` is what `status`, `log`, the homepage
+cards (`index_dates.expected`) and the `masthead published date` row read.
+Left uncommitted on the publishing machine, it is invisible to any other
+clone and to the hold branch; a second machine, or a fresh checkout, sees a
+site that is live and a record that says it is not. The correction-date and
+as-of checks then reason from a record that is behind the site by one
+publish — the shape of GAP-007, one file over.
+
+**Instance.** `e666318` (the cdk46 update) went live at 15:51Z with its row
+in the working tree only; the row was committed separately as the next
+commit, on the advisor's directive, with a message supplied for the purpose.
+
+**Not fixed here.** The fix is an ordering change — write the row, then
+commit it with the pages, and treat a push that succeeds without the record
+as a failed publish — but the row records the deploy's outcome (the live
+sha, the wait), which does not exist before the push. So either the record
+is written in two steps (intent before the push, outcome after, both
+committed), or the post-push write is followed by a second commit and push
+the tool makes itself. Either is a change to what `--yes` does and is not made
+inside a publish sequence. Logged; not built in that block, by direction.
+
 ## GAP-007 — the live site is behind the repository after a correction
 
 **Found:** 5 September 2026, by the independent architecture reviewer, who saw
