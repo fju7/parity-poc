@@ -549,7 +549,9 @@
         "by": "sweep_sources.py resolve --write",
         "pmcid": "PMC11700305",
         "doi": "10.31557/apjcp.2024.25.9.3039"
-      }
+      },
+      "doi": "10.31557/APJCP.2024.25.9.3039",
+      "note": "The reader-facing source list links this paper by its publisher DOI (10.31557/APJCP.2024.25.9.3039); the ledger holds it at its PMC address and the library holds the operator's PDF. One document, two identifiers -- recorded here on 2026-09-12 so the list-a-reader-sees check can match the entry by identifier rather than report the paper absent from a list it is in."
     },
     {
       "id": "S018",
@@ -728,19 +730,17 @@
       "used_for": "One sentence, quoted on the page: “statistical comparison was made by 1-sided stratified log-rank test”. This entry exists because that quotation was on the page with NO SOURCE ENTRY AT ALL — it was found by the quotation check on 31 August, which asks of every quoted passage which source it came from and whether anyone opened it.",
       "WHY_THIS_MATTERS": "This entry was created on 31 August recording the abstract as BLOCKED, because ascopubs.org returned 403 to this environment. That was wrong, and wrong in the most instructive direction: the gate had already read it on 29 August and recorded the Methods sentence verbatim as claim c73, VERIFIED. One retrieval route failing is not the document being unreachable — the same error the SOURCE role makes when it turns “I could not reach it” into NOT_FOUND, made here by me, about my own pipeline's own report. The fact is separately posted in S022's registry record.",
       "access": {
-        "state": "fragment_only",
-        "by": "the fact-check gate",
-        "on": "2026-08-29",
+        "state": "full_text_held",
+        "by": "the operator, in a browser, 2026-09-13; verified by content on ingestion by Claude Code",
+        "on": "2026-09-13",
         "sections": [
-          "the Methods section, as returned by the gate's search route and recorded in cdk46.html.gate.json under verdict c73"
+          "the entire abstract, which is the whole document: Background, Methods, Results, Conclusions, clinical trial information"
         ],
-        "not_read": [
-          "the full abstract; ascopubs.org returns 403 to direct fetches from this environment, tried 31 August"
-        ],
-        "note": "Weaker than 'the full text was read': a search route may return a fragment. It is stronger than 'nobody opened it', which is what this entry said for an hour.\n\nReclassified 2026-09-01: a real retrieval, but nobody holds the document, so it cannot be re-read, diffed, or asked what it does NOT contain. fragment_only until it is in the store."
+        "note": "Obtained 2026-09-13 from ascopubs.org in a browser, saved as 'Webpage, Complete'; the companion _files/ directory was not taken. The abstract body is present verbatim and is the complete document -- the page states it 'does not include a full text component', so there is no fuller version to be short of and the state is full_text_held, not abstract_held. The bibliographic header (the free-access label and the 'J Clin Oncol 37, LBA1008' volume/page line) is rendered client-side and is NOT in the held bytes; the advisor read it on screen. WHAT THE EARLIER STATE MEANT. This entry stood at fragment_only 'by the fact-check gate' from 29 August, and was read since as a document we could only glimpse. The state came from an HTTP 403 to a script: ascopubs.org answers a script with a Cloudflare bot challenge, which is NOT a paywall -- the page is free to read. That is the same inference this record has already withdrawn twice, for NEJMx180040 ('subscription-only', melanoma S031) and for the JCO paper ('the journal blocked us'); this is the third instance. Earlier access block, kept for the record: state fragment_only, by the fact-check gate, on 2026-08-29, sections ['the Methods section, as returned by the gate's search route and recorded in cdk46.html.gate.json under verdict c73']."
       },
       "document_class": "document",
-      "document_class_why": "The document itself: claims about its contents may rest on it. Contrast document_class 'record_about', which is a catalogue or bibliographic record DESCRIBING a document we may not hold."
+      "document_class_why": "The document itself: claims about its contents may rest on it. Contrast document_class 'record_about', which is a catalogue or bibliographic record DESCRIBING a document we may not hold.",
+      "form": "page"
     },
     {
       "id": "S024",
@@ -815,7 +815,13 @@
         "PMID 41093689"
       ],
       "document_class": "document",
-      "document_class_why": "The document itself: claims about its contents may rest on it. Contrast document_class 'record_about', which is a catalogue or bibliographic record DESCRIBING a document we may not hold."
+      "document_class_why": "The document itself: claims about its contents may rest on it. Contrast document_class 'record_about', which is a catalogue or bibliographic record DESCRIBING a document we may not hold.",
+      "retrieval_claims": {
+        "what": "The page's sentence that an unauthenticated request for the corrigendum returns HTTP 403 with 5,849 bytes containing no 'subscribe', no 'sign in' and no 'purchase access'.",
+        "rests_on": "our own retrieval on 2026-09-10, from a session holding no credentials. The 403 body was not kept; nothing in the library holds it.",
+        "verifiable_from_a_held_document": false,
+        "note": "Recorded 2026-09-12 so no reader mistakes 5,849 for a checked figure. It is a fact about our tooling on that day, which is how the page frames it; a later request may return a different body. The three strings are mentions (things searched for and reported absent), set on the page as “…” and not as <q>, because a <q> is a quotation and there is nothing to quote."
+      }
     },
     {
       "id": "S026",
@@ -854,6 +860,108 @@
         "pmcid": "PMC6927326",
         "doi": "10.1093/annonc/mdz215"
       }
+    },
+    {
+      "id": "S027",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12424423/",
+      "type": "comparison",
+      "form": "article",
+      "title": "Real-world progression-free survival of first-line CDK4/6 inhibitors plus an aromatase inhibitor — the second P-VERIFY paper. ESMO Open 2025;10",
+      "pubmed": "40896879",
+      "doi": "10.1016/j.esmoop.2025.105570",
+      "accessed": "2026-09-12",
+      "used_for": "The page's sentence that 'a second paper from the same cohort found nothing on progression either' (P-VERIFY, Flatiron cohort): real-world progression-free survival, ribociclib and abemaciclib each against palbociclib. Linked on the page by its PubMed record (PMID 40896879); the document held is the PMC full text (PMC12424423).",
+      "also_called": [
+        "the second P-VERIFY paper",
+        "the P-VERIFY progression paper",
+        "PMID 40896879"
+      ],
+      "note": "Added 2026-09-12: the page had linked this document since publication and the ledger did not know it (preflight: documents the page links that the ledger does not know). Identity is the PMCID literally in the URL we hold; the PubMed link on the page is the same document's record.",
+      "access": {
+        "state": "full_text_held",
+        "by": "acquire_sources.py, 2026-09-12; content verified by Claude Code",
+        "on": "2026-09-12",
+        "sections": [
+          "full text"
+        ],
+        "note": "Europe PMC full-text XML of PMC12424423, fetched 2026-09-12 by acquire_sources.py. Verified by content on ingestion: contains its PMCID, the ESMO Open DOI, and the real-world progression-free survival results for ribociclib and abemaciclib against palbociclib; 41,411 characters, reference list and discussion present.",
+        "held": {
+          "file": "docs/4a/4ade4e8dbefd6d3b456d0f6d5119193bc9919c5eff2b1afe3de43ab94cfb0190.xml",
+          "sha256": "4ade4e8dbefd6d3b456d0f6d5119193bc9919c5eff2b1afe3de43ab94cfb0190",
+          "bytes": 92421,
+          "identified_by": "contains its identifier PMC12424423 — 41411 characters, reference list and discussion/introduction present"
+        }
+      },
+      "document_class": "document",
+      "document_class_why": "The document itself: claims about its contents may rest on it. Contrast document_class 'record_about', which is a catalogue or bibliographic record DESCRIBING a document we may not hold."
+    },
+    {
+      "id": "S028",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10527344/",
+      "type": "comparison",
+      "form": "article",
+      "title": "Indirect treatment comparison of first-line CDK4/6 inhibitors from reconstructed patient-level data — PALOMA-2, MONALEESA-2 and MONARCH 3. Cancers 2023;15(18):4558",
+      "pubmed": "37760527",
+      "doi": "10.3390/cancers15184558",
+      "accessed": "2026-09-12",
+      "used_for": "The 'fourth' comparative study on the page: patient-level survival curves rebuilt from PALOMA-2, MONALEESA-2 and MONARCH 3 (1,827 patients), every pair estimated directly. Overall survival abemaciclib vs ribociclib 0.933 (0.753–1.157), p = 0.528; progression-free survival one-stage 0.722 (0.520–1.002), p = 0.051, two-stage 0.921 (0.597–1.420), p = 0.710; ribociclib vs palbociclib 0.903 (0.746–1.094). The page's source list already carried an entry for it; the ledger did not.",
+      "also_called": [
+        "the reconstructed patient-data comparison",
+        "the indirect comparison from reconstructed patient data",
+        "Cancers 2023"
+      ],
+      "note": "Added 2026-09-12: the page had linked and listed this document since publication and the ledger did not know it. Identity is the PMCID literally in the URL we hold.",
+      "access": {
+        "state": "full_text_held",
+        "by": "acquire_sources.py, 2026-09-12; content verified by Claude Code",
+        "on": "2026-09-12",
+        "sections": [
+          "full text"
+        ],
+        "note": "Europe PMC full-text XML of PMC10527344, fetched 2026-09-12 by acquire_sources.py. Verified by content on ingestion: contains its PMCID and every figure the page quotes from it (0.933, 0.722, 0.921, 0.903, 1,827 patients); 38,990 characters, reference list and discussion present.",
+        "held": {
+          "file": "docs/44/440475cd9a52636ed17543e55c66dfcf904e7b526fd12555826d660da7aa8bc9.xml",
+          "sha256": "440475cd9a52636ed17543e55c66dfcf904e7b526fd12555826d660da7aa8bc9",
+          "bytes": 94031,
+          "identified_by": "contains its identifier PMC10527344 — 38990 characters, reference list and discussion/introduction present"
+        }
+      },
+      "document_class": "document",
+      "document_class_why": "The document itself: claims about its contents may rest on it. Contrast document_class 'record_about', which is a catalogue or bibliographic record DESCRIBING a document we may not hold."
+    },
+    {
+      "id": "S029",
+      "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6438948/",
+      "type": "primary",
+      "form": "article",
+      "title": "Palbociclib plus letrozole as first-line therapy in ER+/HER2− advanced breast cancer — PALOMA-2 extended follow-up. Breast Cancer Res Treat 2019",
+      "pubmed": "30632023",
+      "doi": "10.1007/s10549-018-05125-4",
+      "accessed": "2026-09-12",
+      "used_for": "The unrounded PALOMA-2 primary hazard ratio, 0.576 (0.463–0.718), which the page's PALOMA-2 source note says 'appears in the 2019 extended-follow-up paper (Breast Cancer Res Treat), which restates the primary analysis — not in NEJM 2016'.",
+      "also_called": [
+        "the 2019 extended-follow-up paper",
+        "PALOMA-2 extended follow-up",
+        "Breast Cancer Res Treat"
+      ],
+      "note": "Added 2026-09-12: the page had linked this document since publication and the ledger did not know it. Identity is the PMCID literally in the URL we hold.",
+      "access": {
+        "state": "full_text_held",
+        "by": "acquire_sources.py, 2026-09-12; content verified by Claude Code",
+        "on": "2026-09-12",
+        "sections": [
+          "full text"
+        ],
+        "note": "Europe PMC full-text XML of PMC6438948, fetched 2026-09-12 by acquire_sources.py. Verified by content on ingestion: contains its PMCID and the unrounded primary hazard ratio 0.576 (0.463–0.718) the page cites it for; 41,424 characters, reference list and discussion present.",
+        "held": {
+          "file": "docs/8a/8a06183561b379b95ba18edb076ae9090e42b07d34bca56e68dc354c8af93633.html",
+          "sha256": "8a06183561b379b95ba18edb076ae9090e42b07d34bca56e68dc354c8af93633",
+          "bytes": 162481,
+          "identified_by": "contains its identifier PMC6438948 — 41424 characters, reference list and discussion/introduction present"
+        }
+      },
+      "document_class": "document",
+      "document_class_why": "The document itself: claims about its contents may rest on it. Contrast document_class 'record_about', which is a catalogue or bibliographic record DESCRIBING a document we may not hold."
     }
   ],
   "also_called_note": "The role-nouns the page actually uses for a source. The ledger audit matches sentences to sources by these plus the title's trial and journal names; a reference the page makes that is not listed here is invisible to the audit.",
