@@ -74,21 +74,23 @@ COPY = {
 }
 
 
-def _record():
-    try:
-        return json.loads(I.RECORD.read_text(encoding="utf-8")).get("published") or []
-    except Exception:
-        return []
-
-
 def corrections(slug: str) -> int:
     return I.corrections_count(slug)
 
 
 def _first_publication_instant(slug: str):
+    """The instant of the first "publish" row.
+
+    Read through index_dates._rows, which raises UnknownAction if the record
+    holds a row outside publish.KNOWN_ACTIONS. Until 2026-09-14 this read the
+    file itself with its own allow-list, and a row it did not recognise would
+    have shifted every review from "pre" to "post" -- or the reverse --
+    silently. A fact derived from a file this code cannot fully read is not a
+    fact, and this generator writes the homepage.
+    """
     from datetime import datetime
-    for r in _record():
-        if r.get("issue") == slug and r.get("action") == "publish" and r.get("at"):
+    for r in I._rows(slug):
+        if r.get("action") == "publish" and r.get("at"):
             return datetime.fromisoformat(str(r["at"]).replace("Z", "+00:00"))
     return None
 

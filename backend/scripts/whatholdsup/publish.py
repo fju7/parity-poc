@@ -1234,6 +1234,109 @@ def live_body(url: str, timeout: int = 20) -> str | None:
         return None
 
 
+# THE VOCABULARY OF THE RECORD.
+#
+# Every value "action" has ever held in published.json, and every value the
+# code writes. On 2026-09-14 the record held five and the code wrote four:
+# "announce_void" was typed by hand in 81bc48e, when an announce row that had
+# recorded a send that never happened was voided rather than deleted. The two
+# lists must be reconciled here, by a person, whenever a new action is added.
+#
+# WHY A CLOSED SET. Every consumer of the record filtered rows with an
+# allow-list -- `r["action"] in ("publish", "republish")` -- and an allow-list
+# drops what it does not name. A row carrying a value nobody had taught the
+# consumers about would vanish from the homepage, the masthead check, the
+# board and the pre-push guard without a word, and the record would look more
+# resolved than the site. So the set is closed, it is defined once, in this
+# literal (guard_published.py and index_dates.py read it out of this file's
+# source, because neither may import this module), and a row outside it is an
+# error at the point of use, never an absence.
+KNOWN_ACTIONS = ("publish", "republish", "update", "announce", "announce_void")
+
+
+class UnknownAction(ValueError):
+    """A published.json row whose action is not in KNOWN_ACTIONS.
+
+    Raised by rows_by_action at the point of use. Not caught anywhere in this
+    file on purpose: the consumers that want a blocking row instead of a
+    traceback (the homepage audit, the pre-push guard) build one themselves.
+    """
+
+
+def unknown_actions(rows: list[dict]) -> list[dict]:
+    """The rows this vocabulary cannot classify. A missing key counts."""
+    return [r for r in rows if r.get("action") not in KNOWN_ACTIONS]
+
+
+def describe_unknown(r: dict) -> str:
+    return "action %r on issue %r at %s" % (r.get("action"), r.get("issue"),
+                                            r.get("at", "?"))
+
+
+def rows_by_action(rows: list[dict], slug: str | None, *wanted: str) -> list[dict]:
+    """The rows for `slug` whose action is one of `wanted`, in record order.
+
+    Refuses -- raises UnknownAction -- if ANY row in `rows` carries an action
+    outside KNOWN_ACTIONS, not only rows for this slug: the question every
+    caller is asking ("what was signed off", "when was this published") is
+    only answerable by a reader that understands every row in the file.
+    `slug=None` means every issue.
+    """
+    unknown = [w for w in wanted if w not in KNOWN_ACTIONS]
+    if unknown:
+        raise UnknownAction("asked for %r, which is not in KNOWN_ACTIONS %r"
+                            % (unknown, KNOWN_ACTIONS))
+    bad = unknown_actions(rows)
+    if bad:
+        raise UnknownAction(
+            "published.json holds %d row(s) this code cannot classify: %s. "
+            "KNOWN_ACTIONS is %r. Nothing is dropped; teach every consumer the "
+            "new value or fix the row."
+            % (len(bad), "; ".join(describe_unknown(r) for r in bad), KNOWN_ACTIONS))
+    return [r for r in rows
+            if (slug is None or r.get("issue") == slug) and r.get("action") in wanted]
+
+
+def live_sha(url: str, timeout: int = 20) -> tuple[str | None, str | None]:
+    """(sha256 of the bytes the site serves right now, None) or (None, why not).
+
+    The only honest source for "what do readers have" is the site. Until
+    2026-09-14 next_action() and the board answered that question from
+    published.json -- the newest "publish" row's sha -- and on that day the
+    answer was wrong for all three issues: melanoma's row said 76703fe9 and
+    readers had 58c28929; deskilling's said 2e644545 (30 August) and readers
+    had d72bb438; cdk46's said 4e4bb50b and readers had fec7a9a2. A row
+    records what somebody signed off, from the working tree, at a moment; it
+    was never a statement about the deploy, and the two had drifted for two
+    weeks on one issue without a line on the board changing.
+
+    Hashes the bytes exactly as served, not a decoded-and-re-encoded copy.
+    Returns a reason instead of raising so a caller can print "not checked"
+    and carry on; it never returns anything from the record.
+    """
+    try:
+        req = urllib.request.Request(url, headers={"User-Agent": "whatholdsup-publish"})
+        with urllib.request.urlopen(req, timeout=timeout) as r:
+            if r.status != 200:
+                return None, "HTTP %s" % r.status
+            return hashlib.sha256(r.read()).hexdigest(), None
+    except Exception as e:                      # timeout, DNS, TLS, HTTPError
+        return None, "%s: %s" % (type(e).__name__, str(e)[:120] or "no detail")
+
+
+def readers_line(url: str) -> tuple[str | None, str]:
+    """(live sha or None, the one phrase a person should read about readers).
+
+    Two outcomes and no third: what the site serves, or "not checked" with
+    the reason. Never a sha from published.json, and no staleness heuristic
+    over the record standing in for a fetch.
+    """
+    h, why = live_sha(url)
+    if h is None:
+        return None, "readers: not checked (fetch failed: %s)" % why
+    return h, "readers are on %s (fetched just now)" % h[:8]
+
+
 def load_record() -> list[dict]:
     if not RECORD.exists():
         return []
@@ -1609,8 +1712,7 @@ def preflight(slug: str, *, for_email: bool,
                     "did not run: %s: %s" % (type(exc).__name__, exc)))
     out.extend(advocate.preflight_rows(slug))
     out.extend(premise.preflight_rows(
-        slug, already_published=any(r["issue"] == slug and r["action"] == "publish"
-                                    for r in load_record())))
+        slug, already_published=bool(rows_by_action(load_record(), slug, "publish"))))
     out.extend(intake.preflight_rows(slug))
     out.extend(queued_jobs_rows())
     try:
@@ -1885,7 +1987,7 @@ def cmd_status(_args) -> int:
             live = "current"
         else:
             live = "BEHIND"
-        sent = [r for r in rec if r["issue"] == slug and r["action"] == "announce"]
+        sent = rows_by_action(rec, slug, "announce")
         print(f"{slug:12} {('gated' if pg == OK else 'ungated'):10} "
               f"{live:10} {('gated' if eg == OK else 'ungated'):10} "
               f"{(sent[-1]['at'][:10] if sent else 'never'):12}")
@@ -1909,10 +2011,25 @@ def cmd_log(_args) -> int:
         print("\nNo publications recorded.\n")
         return 0
     print()
+    # Every row prints, whatever its action: this is the one reader of the
+    # record that filters nothing, so it must never LOOK complete while
+    # carrying a row the rest of the code cannot classify. Such a row is
+    # flagged on its own line and named again at the end, and the exit code
+    # says so -- a listing is not production, so it lists rather than raises.
+    bad = unknown_actions(rec)
     for r in rec:
-        print(f"  {r['at'][:19]}  {r['action']:9} {r['issue']:12} {r.get('note', '')}")
-        print(f"{'':21}  content {r.get('sha', '?')[:16]}  commit {r.get('commit', '-')[:9]}")
+        flag = "??" if r in bad else "  "
+        print(f"{flag}{str(r.get('at', '?'))[:19]}  {str(r.get('action')):9} "
+              f"{str(r.get('issue', '?')):12} {r.get('note', '')}")
+        print(f"{'':21}  content {str(r.get('sha', '?'))[:16]}  commit {str(r.get('commit', '-'))[:9]}")
     print()
+    if bad:
+        print("  ?? %d row(s) carry an action outside KNOWN_ACTIONS %r and every other "
+              "consumer of this file will refuse to read it:" % (len(bad), KNOWN_ACTIONS))
+        for r in bad:
+            print("     " + describe_unknown(r))
+        print()
+        return 1
     return 0
 
 
@@ -2125,8 +2242,7 @@ def cmd_record_live(args) -> int:
     """
     cfg = ISSUES[args.slug]
     page = ROOT / cfg["page"]
-    rec = [r for r in load_record() if r["issue"] == args.slug
-           and r["action"] in ("publish", "republish")]
+    rec = rows_by_action(load_record(), args.slug, "publish", "republish")
     if not rec:
         print("\n%s has never been published. Use `publish`, not this.\n" % args.slug)
         return 2
@@ -2258,8 +2374,7 @@ def cmd_update(args) -> int:
     # entry written after the push, which needs the register to write into.
     living = w.load(args.slug) is not None
 
-    rec = [r for r in load_record() if r["issue"] == args.slug
-           and r["action"] in ("publish", "republish", "update")]
+    rec = rows_by_action(load_record(), args.slug, "publish", "republish", "update")
     if not rec:
         print("\n  %s has never been published.\n" % args.slug)
         return 2
@@ -3174,8 +3289,8 @@ def next_action(slug: str) -> tuple[str, str]:
         return ("resolve: %s" % ", ".join(blocked),
                 "python scripts/whatholdsup/publish.py check %s" % slug)
 
-    rec = [r for r in load_record() if r["issue"] == slug]
-    pub = [r for r in rec if r["action"] == "publish"]
+    rec = load_record()
+    pub = rows_by_action(rec, slug, "publish")
     # Published is about content, not history. A record from an hour ago says
     # nothing about the file as it stands, and this line said ANNOUNCE while
     # the board next to it said the repo had moved past what readers can see.
@@ -3183,11 +3298,15 @@ def next_action(slug: str) -> tuple[str, str]:
         return ("PUBLISH — everything upstream is clear. This one is yours.",
                 "python scripts/whatholdsup/publish.py publish %s --yes" % slug)
     if pub[-1].get("sha") != sha(page):
+        # What readers have comes from the site, never from the row: see
+        # live_sha. The row says what was signed off; the working tree says
+        # what the repo holds; neither says what is being served.
+        _h, readers = readers_line(cfg["url"])
         return ("REPUBLISH — the page has changed since it was last published. "
-                "Readers are on %s, the repo is on %s."
-                % (str(pub[-1].get("sha"))[:8], sha(page)[:8]),
+                "Last publish recorded %s, the repo is on %s; %s."
+                % (str(pub[-1].get("sha"))[:8], sha(page)[:8], readers),
                 "python scripts/whatholdsup/publish.py publish %s --yes" % slug)
-    if not any(r["action"] == "announce" for r in rec):
+    if not rows_by_action(rec, slug, "announce"):
         return ("ANNOUNCE — the site is live and recorded. This one is yours, and it "
                 "cannot be taken back.",
                 "python scripts/whatholdsup/publish.py announce %s --yes" % slug)
@@ -3423,7 +3542,7 @@ STEPS = [
 def _step_states(slug: str) -> list[dict]:
     cfg = ISSUES[slug]
     page, ehtml = ROOT / cfg["page"], ROOT / cfg["email_html"]
-    rec = [r for r in load_record() if r["issue"] == slug]
+    rec = load_record()
     out = []
 
     def add(name, why, state, detail, cmd="", finds=None, action=None, chip=""):
@@ -3511,16 +3630,19 @@ def _step_states(slug: str) -> list[dict]:
     # from an hour ago says nothing about the file as it stands now, and a
     # board that reads green while the repo has moved past what readers can
     # see is the exact failure this whole thing was built to stop.
-    pub = [r for r in rec if r["action"] == "publish"]
+    pub = rows_by_action(rec, slug, "publish")
     current = bool(pub) and pub[-1].get("sha") == sha(page)
     if not pub:
         pdetail, pstate = "not published", "pending"
     elif current:
         pdetail, pstate = "published %s, and this is that version" % pub[-1]["at"][:10], "done"
     else:
-        pdetail = ("last published %s, but the page has changed since — readers are on "
-                   "%s, the repo is on %s"
-                   % (pub[-1]["at"][:10], str(pub[-1].get("sha"))[:8], sha(page)[:8]))
+        # Reader state from the site, never from the row: see live_sha.
+        _h, readers = readers_line(cfg["url"])
+        pdetail = ("last published %s, but the page has changed since — that publish "
+                   "recorded %s, the repo is on %s; %s"
+                   % (pub[-1]["at"][:10], str(pub[-1].get("sha"))[:8], sha(page)[:8],
+                      readers))
         pstate = "blocked"
     add(*STEPS[5], pstate, pdetail,
         "python scripts/whatholdsup/publish.py publish %s --yes" % slug,
@@ -3539,8 +3661,8 @@ def _step_states(slug: str) -> list[dict]:
     # corrected the same day; the corrected email was rewritten, re-gated and
     # committed, and the board offered no way to send it, while reporting the
     # step "done" on the strength of a send of different text hours earlier.
-    ann = [r for r in rec if r["action"] == "announce"]
-    void = [r for r in rec if r["action"] == "announce_void"]
+    ann = rows_by_action(rec, slug, "announce")
+    void = rows_by_action(rec, slug, "announce_void")
     esha = sha(ehtml) if ehtml.exists() else None
     sent_this = bool(ann) and ann[-1].get("sha") == esha
 
@@ -3754,9 +3876,9 @@ def _dashboard_html(interactive: bool = False) -> str:
         # them — but folded, because what a finished issue owes the board is one
         # line saying it is finished and when.
         if done == len(steps):
-            rec2 = [r for r in load_record() if r["issue"] == slug]
-            pub = [r for r in rec2 if r["action"] == "publish"]
-            ann = [r for r in rec2 if r["action"] == "announce"]
+            rec2 = load_record()
+            pub = rows_by_action(rec2, slug, "publish")
+            ann = rows_by_action(rec2, slug, "announce")
             line = " &middot; ".join(filter(None, [
                 ("published %s" % pub[-1]["at"][:10]) if pub else "",
                 ("announced %s" % ann[-1]["at"][:10]) if ann else "",

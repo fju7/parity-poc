@@ -69,8 +69,8 @@ def _git(*args: str) -> tuple[int, str]:
     return p.returncode, p.stdout
 
 
-def _issues() -> dict:
-    """The issue table, read from publish.py without importing it.
+def _publish_literal(name: str):
+    """A module-level literal, read from publish.py without importing it.
 
     publish.py imports seven sibling modules and touches the network on
     import in some paths. A pre-push hook must be fast and must not fail
@@ -83,9 +83,31 @@ def _issues() -> dict:
     for node in ast.walk(tree):
         if isinstance(node, ast.Assign):
             for t in node.targets:
-                if isinstance(t, ast.Name) and t.id == "ISSUES":
+                if isinstance(t, ast.Name) and t.id == name:
                     return ast.literal_eval(node.value)
-    raise SystemExit("could not find ISSUES in publish.py")
+    raise SystemExit("could not find %s in publish.py" % name)
+
+
+def _issues() -> dict:
+    """The issue table. See _publish_literal."""
+    return _publish_literal("ISSUES")
+
+
+def _known_actions() -> tuple:
+    """publish.KNOWN_ACTIONS -- the closed vocabulary of the record.
+
+    A row outside it is a BLOCK, never a row to look past. Until 2026-09-14
+    _last() filtered with an allow-list, so a row carrying a value this file
+    had not been taught would have been dropped, and the guard would have
+    measured the branch against whatever older row survived the filter -- a
+    sign-off check that quietly ignores part of the sign-off record.
+    """
+    return tuple(_publish_literal("KNOWN_ACTIONS"))
+
+
+def _unknown_rows(rows: list[dict]) -> list[dict]:
+    known = _known_actions()
+    return [r for r in rows if r.get("action") not in known]
 
 
 def _blob(ref: str | None, rel: str) -> bytes | None:
@@ -183,6 +205,23 @@ def check(ref: str | None = None,
     issues, rows = _issues(), _record(ref)
     blocking: list[str] = []
     warnings: list[str] = []
+
+    # The record must be readable in full before any of it is used. A row this
+    # guard cannot classify blocks the push and names itself: value, issue,
+    # instant. Nothing below runs on a partly-readable record, because every
+    # verdict below is "the last sign-off says X", and "last" is meaningless
+    # over rows that were skipped.
+    bad = _unknown_rows(rows)
+    if bad:
+        blocking.append(
+            "published.json holds %d row(s) with an action outside KNOWN_ACTIONS %r, "
+            "so no page can be checked against it:\n        %s\n        Teach "
+            "publish.KNOWN_ACTIONS and every consumer the new value, or fix the row."
+            % (len(bad), _known_actions(),
+               "\n        ".join("action %r on issue %r at %s"
+                                  % (r.get("action"), r.get("issue"), r.get("at", "?"))
+                                  for r in bad)))
+        return blocking, warnings
 
     for slug, cfg in issues.items():
         pub = _last(rows, slug, "publish")

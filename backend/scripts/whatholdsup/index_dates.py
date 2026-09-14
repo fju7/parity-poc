@@ -143,21 +143,71 @@ BEHIND, UNFOUNDED = "BEHIND", "UNFOUNDED"
 # moved. It did not. This is the same distinction the docstring makes between an
 # update and a correction, one step further down: a reconciliation is not an
 # update either, and the record's own vocabulary does not draw the line.
-PUBLICATION_ACTIONS = (None, "publish", "update")
+PUBLICATION_ACTIONS = ("publish", "update")
 RECONCILIATION_ACTIONS = ("republish",)
 
 
-def reconciliations(slug: str) -> list[datetime]:
-    """record-live rows. Real events, deliberately not reader-facing dates."""
+def _publish_literal(name: str):
+    """A module-level literal read out of publish.py's SOURCE.
+
+    publish.py loads this module at import, so importing publish.py from here
+    would be circular; and guard_published.py, which must not import publish.py
+    at all, reads ISSUES the same way. One definition, in one file, read by the
+    parser rather than copied.
+    """
+    import ast
+    src = (Path(__file__).resolve().parent / "publish.py").read_text(encoding="utf-8")
+    for node in ast.walk(ast.parse(src)):
+        if isinstance(node, ast.Assign):
+            for t in node.targets:
+                if isinstance(t, ast.Name) and t.id == name:
+                    return ast.literal_eval(node.value)
+    raise SystemExit("could not find %s in publish.py" % name)
+
+
+# THE CLOSED SET, from publish.py. Until 2026-09-14 the two tuples above were
+# the only vocabulary this file had, and a row carrying anything else -- or no
+# action at all, which PUBLICATION_ACTIONS used to accept as a publication --
+# fell through both filters and off the homepage without a word. See
+# publish.KNOWN_ACTIONS for why the set is closed.
+KNOWN_ACTIONS = tuple(_publish_literal("KNOWN_ACTIONS"))
+
+
+class UnknownAction(ValueError):
+    """A record row whose action is outside publish.KNOWN_ACTIONS."""
+
+
+def _unknown(rows: list[dict]) -> list[dict]:
+    return [r for r in rows if r.get("action") not in KNOWN_ACTIONS]
+
+
+def _describe(r: dict) -> str:
+    return "action %r on issue %r at %s" % (r.get("action"), r.get("issue"),
+                                            r.get("at", "?"))
+
+
+def _rows(slug: str) -> list[dict]:
+    """Every record row for `slug`, or UnknownAction if ANY row in the file
+    carries an action this vocabulary does not know. Not only this slug's rows:
+    a date derived from a file this code cannot fully read is not a date."""
     try:
         raw = json.loads(RECORD.read_text(encoding="utf-8"))
     except Exception:
         return []
     rows = raw.get("published") or raw.get("publications") or (raw if isinstance(raw, list) else [])
+    bad = _unknown(rows)
+    if bad:
+        raise UnknownAction(
+            "published.json holds %d row(s) outside KNOWN_ACTIONS %r: %s"
+            % (len(bad), KNOWN_ACTIONS, "; ".join(_describe(r) for r in bad)))
+    return [r for r in rows if r.get("issue") == slug]
+
+
+def reconciliations(slug: str) -> list[datetime]:
+    """record-live rows. Real events, deliberately not reader-facing dates."""
     return sorted(datetime.fromisoformat(r["at"].replace("Z", "+00:00"))
-                  for r in rows
-                  if r.get("issue") == slug
-                  and r.get("action") in RECONCILIATION_ACTIONS
+                  for r in _rows(slug)
+                  if r.get("action") in RECONCILIATION_ACTIONS
                   and r.get("at"))
 
 
@@ -181,15 +231,8 @@ def editorial_date(dt: datetime) -> date:
 
 
 def publications(slug: str) -> list[datetime]:
-    try:
-        raw = json.loads(RECORD.read_text(encoding="utf-8"))
-    except Exception:
-        return []
-    rows = raw.get("published") or raw.get("publications") or (raw if isinstance(raw, list) else [])
     out = []
-    for r in rows:
-        if r.get("issue") != slug:
-            continue
+    for r in _rows(slug):
         if r.get("action") not in PUBLICATION_ACTIONS:
             continue
         at = r.get("at")
@@ -263,8 +306,17 @@ def audit(index_html: str | None = None) -> list[str]:
     problems = []
     for m in CARD.finditer(text):
         slug, meta = m.group("slug"), _text(m.group("meta"))
-        exp, got = expected(slug), shown(meta)
-        days = publication_dates(slug)
+        # A row this file cannot classify is a BLOCKING disagreement, not a
+        # row to look past: the homepage cannot be checked against a record
+        # that is only partly readable. Named -- value, issue, instant -- so
+        # the person reading the preflight knows which row, and reported once
+        # per card because every card's dates rest on the same file.
+        try:
+            exp, got = expected(slug), shown(meta)
+            days = publication_dates(slug)
+        except UnknownAction as e:
+            problems.append("%s [%s]: %s" % (slug, UNFOUNDED, e))
+            continue
         before = len(problems)
         if not exp:
             problems.append("%s [%s]: linked from the index with no publication record"
