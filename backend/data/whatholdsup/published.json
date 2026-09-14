@@ -280,6 +280,19 @@
       "source": null,
       "basis": "living issue update \u2014 judged on what it adds. Softened checks are listed in the preflight output above and in UPDATE_SOFTENS.",
       "waived": null
+    },
+    {
+      "issue": "melanoma",
+      "action": "publish",
+      "at": "2026-09-14T23:34:25+00:00",
+      "interpreter": "/Users/fredugast/Projects/parity-poc-repo/backend/venv/bin/python3",
+      "sha": "58c289298ee966143705c40d816b86800a73d447c65968dadc43064e0d8f5a46",
+      "commit": "710a39a2a79a1562aca4c33e56156d8770c9513e",
+      "url": "https://whatholdsup.org/melanoma",
+      "note": "issue 1 \u2014 The Melanoma Result",
+      "waived": null,
+      "page_changed_at": "2026-09-13T15:51:05+00:00",
+      "page_changed_at_source": "operator-supplied: the production deployment of e6663185913a982805972ee587569156180d9615 (dpl_EC9SGpWNr6x9xV9mC1Gyrqj6H92k) was assigned the whatholdsup.org alias at 2026-09-13T15:51:05.773Z, the first instant the public name served these bytes; the deployment reported READY 248ms earlier at 15:51:05.525Z"
     }
   ]
 }
