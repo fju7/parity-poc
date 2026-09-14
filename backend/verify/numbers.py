@@ -31,10 +31,11 @@ _WORD = set(UNITS) | set(TENS) | set(SCALES) | {"and", "a"}
 
 # digits: optional sign, thousands groups or plain, decimal point OR middle dot
 # Thousands groups may be separated by a comma, a thin space (U+2009), a
-# narrow no-break space (U+202F) or a plain space: Annals writes "657 461
+# narrow no-break space (U+202F), a no-break space (U+00A0 -- what Europe PMC
+# actually serves for Annals' "657 461 children") or a plain space: Annals writes "657 461
 # children" and "5 025 754 person-years". A space-separated group counts only
 # when every following group is exactly three digits.
-_SEP = r"[,\u2009\u202f ]"
+_SEP = r"[,\u00a0\u2009\u202f ]"    # comma, no-break space, thin space, narrow no-break space, space
 _DIGIT = re.compile(r"(?<![\w.])[−\-]?(?:\d{1,3}(?:" + _SEP + r"\d{3})+|\d+)(?:[.·]\d+)?(?![\w])")
 _WORDS = re.compile(r"\b(?:" + "|".join(sorted(_WORD | {"per", "cent", "percent"}, key=len, reverse=True))
                     + r")(?:[\s\-]+(?:" + "|".join(sorted(_WORD | {"half", "quarter", "third"}, key=len, reverse=True))

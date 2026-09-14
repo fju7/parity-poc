@@ -165,4 +165,5 @@ def test_space_separated_thousands_as_annals_writes_them():
     assert canonical_numbers("Participants 657 461 children born in Denmark") == {"657461"}
     assert canonical_numbers("During 5 025 754 person-years, 6517 children; 129.7 per 100 000") >= {"5025754", "6517", "129.7", "100000"}
     assert canonical_numbers("657\u2009461") == {"657461"}
+    assert canonical_numbers("Participants 657\u00a0461 children") == {"657461"}   # the bytes Europe PMC serves
     assert canonical_numbers("in 2010 and 12 children") == {"2010", "12"}
