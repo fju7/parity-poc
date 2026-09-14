@@ -26,9 +26,17 @@ name: Verification gates
 
 on:
   schedule:
-    # First Monday-ish of the month, 11:00 UTC: after the eCFR's first-of-month
-    # point-in-time text is available and before the Signal checks at 12:30.
+    # Monthly live-registry diff: first Monday-ish, 11:00 UTC -- after the
+    # eCFR's first-of-month text exists, before the Signal checks at 12:30.
     - cron: "0 11 1-7 * 1"
+    # Weekly status re-check of every published topic (the fifth check):
+    # Mondays 12:00 UTC. Retraction is the rarest, highest-impact event;
+    # registries propagate within days; one metadata call per source.
+    - cron: "0 12 * * 1"
+    # Monthly binding re-check: re-fetch and re-bind every recorded binding.
+    # The floor under the weekly check; every-week re-fetch of every PDF is
+    # how a check becomes noise. Same first-Monday slot, an hour later.
+    - cron: "0 13 1-7 * 1"
   push:
     branches: [main]
     paths:
@@ -42,6 +50,10 @@ on:
     inputs:
       only:
         description: "Live run: one registry only (literature | law); blank = both"
+        required: false
+        type: string
+      recheck:
+        description: "Re-check published topics now: status | bindings; blank = neither"
         required: false
         type: string
 
@@ -106,3 +118,61 @@ jobs:
             fi
             echo ""; echo '```'; tail -60 /tmp/live.log; echo '```'
           } >> "$GITHUB_STEP_SUMMARY"
+
+  # ---------------------------------------------------------------------------
+  # Published topics against their frozen records (Phase 3 §2, §3). Weekly the
+  # status check; monthly the full binding re-check. Any binding_lost or
+  # status_changed fails the job -- the run is the report -- and the same flags
+  # are written to topic_rechecks, which is what the page renders markers from.
+  # A re-check never edits the record and never flips status.
+  # ---------------------------------------------------------------------------
+  recheck-status:
+    if: (github.event_name == 'schedule' && github.event.schedule == '0 12 * * 1') || (github.event_name == 'workflow_dispatch' && inputs.recheck == 'status')
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install -r backend/requirements.txt
+      - name: Status re-check, every published topic
+        working-directory: backend
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: python scripts/recheck_topic.py --all --kind status 2>&1 | tee /tmp/recheck-status.log
+      - if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: recheck-status
+          path: |
+            /tmp/recheck-status.log
+            backend/data/verify/rechecks/
+          retention-days: 400
+
+  recheck-bindings:
+    if: (github.event_name == 'schedule' && github.event.schedule == '0 13 1-7 * 1') || (github.event_name == 'workflow_dispatch' && inputs.recheck == 'bindings')
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: sudo apt-get update -q && sudo apt-get install -y -q poppler-utils
+      - run: pip install -r backend/requirements.txt
+      - name: Binding re-check, every published topic
+        working-directory: backend
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: python scripts/recheck_topic.py --all --kind bindings 2>&1 | tee /tmp/recheck-bindings.log
+      - if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: recheck-bindings
+          path: |
+            /tmp/recheck-bindings.log
+            backend/data/verify/rechecks/
+          retention-days: 400

@@ -8,7 +8,7 @@ import time
 from fastapi import APIRouter, HTTPException, Query
 from fastapi.responses import JSONResponse
 
-from signal_reader import signal_reader
+from signal_reader import signal_reader, published_claim_ids
 
 router = APIRouter(prefix="/api/signal", tags=["signal"])
 
@@ -103,6 +103,10 @@ async def score_with_profile(
     # Fetch all claims for this issue
     claims_res = sb.table("signal_claims").select("id, claim_text, category").eq("issue_id", issue_id).execute()
     claims = claims_res.data or []
+    # Only what the frozen publication record supports (Phase 3).
+    slug_row = sb.table("signal_issues").select("slug").eq("id", issue_id).single().execute().data
+    supported = published_claim_ids(slug_row["slug"]) if slug_row else None
+    claims = [c for c in claims if supported and c["id"] in supported]
     if not claims:
         return JSONResponse(content={"profile": profile, "scores": [], "divergences": []})
 

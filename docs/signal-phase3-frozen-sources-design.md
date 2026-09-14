@@ -234,3 +234,17 @@ scripts produce records and markers; they never change what a reader sees
 except by adding a marker. A retraction marks the claim; it does not remove
 it — that is what "changes are deliberate" means, and it is why every marker
 carries both dates.
+
+## 8. Built 2026-09-14 — status
+
+| piece | where | state |
+|---|---|---|
+| status check (§3) | `verify/status.py` | built; Wakefield 1998 → `retracted` (Crossref reverse `filter=updates`, Europe PMC); the 2010 notice → `retraction_notice`; Cochrane pub4 → `superseded` |
+| publish record (§1) | `verify/publish.py`, `scripts/publish_topic.py` | built; refuses a dirty gate tree; `--flip` required to touch status |
+| mmr-vaccine-autism run (§5) | `data/verify/published/mmr-vaccine-autism/` | frozen at gate `782ad56`: 17/35 sources survive; 35 FIGURE_BOUND / 24 IDENTITY_ONLY (18.8%) / 69 UNSUPPORTED; **not flipped** |
+| re-check (§2) | `verify/recheck.py`, `scripts/recheck_topic.py` | built; first status run 17 unchanged; first bindings run 17 unchanged / 59 claims unchanged / 0 flags after adding retry-with-backoff (a throttled Europe PMC had read as 15 unreachable — an access fact, and one 429 is not link rot) |
+| storage (§6) | `migrations/080_topic_publications.sql` | file; awaiting the operator (repo-rooted session, `apply_migration`) |
+| page (§4) | `frontend/src/components/signal/RecordMarkers.jsx`; `SignalApp` filters claims and sources by the record; `IssueDashboard`, `ClaimCard` | built; no record ⇒ *Not yet published*; `retracted` is a red-bordered block, the rest amber, `unreachable` grey |
+| consumers | `signal_intelligence`, `signal_qa`, `signal_profiles`, `signal_metrics` | filter claims (and Q&A sources) by the record via `signal_reader.published_claim_ids` / `latest_publication`; no record ⇒ no claims |
+| jobs | `.github/workflows/verify-gates.yml` | weekly `recheck-status` (Mon 12:00 UTC), monthly `recheck-bindings` (first Mon 13:00 UTC), both on dispatch |
+| not built | a generic-URL adapter (agency, court and payer documents are `UNVERIFIABLE` today); `topic_rechecks` writes need 080 |

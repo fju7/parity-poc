@@ -11,6 +11,7 @@ import { trackEvent } from "../../lib/signalAnalytics";
 import { setPageMeta, resetPageMeta } from "../../lib/pageMeta";
 import { API_BASE } from "../../lib/apiBase";
 import NotYetPublished from "./NotYetPublished";
+import { TopicLine, ClaimMarkers, SourceMarkers } from "./RecordMarkers";
 
 /** Format a snake_case category key into a display name. */
 function displayName(key) {
@@ -758,6 +759,8 @@ export default function IssueDashboard({
   claims,
   consensus,
   sources,
+  publication,
+  recheck,
   dimensionScores,
   loading,
   error,
@@ -1129,6 +1132,7 @@ export default function IssueDashboard({
     <div className="max-w-3xl mx-auto px-4 py-6 font-[Arial,sans-serif]">
       {/* Issue header */}
       <div className="mb-4">
+        <TopicLine publication={publication} recheck={recheck} />
         <div className="flex items-center gap-2 mb-1">
           <span className="text-xs font-semibold text-[#0D7377] bg-teal-50 px-2.5 py-0.5 rounded-full uppercase tracking-wide">
             Evidence Review
@@ -1456,6 +1460,7 @@ export default function IssueDashboard({
               composite={compositeMap.get(claim.id)}
               customScore={customWeights ? computeCustomComposite(claim.id, customWeights, dimensionScores) : undefined}
               divergent={divergentClaimIds.has(claim.id)}
+              markers={<ClaimMarkers claimId={claim.id} publication={publication} recheck={recheck} />}
             />
           ))}
 
@@ -1648,6 +1653,7 @@ export default function IssueDashboard({
                     </span>
                   )}
                 </div>
+                <SourceMarkers sourceId={src.id} publication={publication} recheck={recheck} />
               </div>
             ))}
 

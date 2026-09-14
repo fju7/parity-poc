@@ -32,11 +32,13 @@ def main() -> int:
     print("\nSOURCES  total %d  survived %d  withheld %s" % (s["sources"]["total"], s["sources"]["survived"], s["sources"]["withheld_by_reason"]))
     print("         status of survivors:", s["sources"]["status_of_survivors"])
     print("CLAIMS   total %d  %s  identity_only_rate %.1f%%" % (s["claims"]["total"], s["claims"]["by_support"], 100 * s["claims"]["identity_only_rate"]))
-    print("RECORD  ", PUBLISHED / a.slug / (rec["publish_id"] + ".json"))
+    print("RECORD  ", PUBLISHED / a.slug / (rec["publish_id"] + ".json"), "|", rec.pop("_stored", ""))
     if a.flip:
+        from verify.publish import store_publication
         sb.table("signal_issues").update({"status": "published"}).eq("id", rec["topic"]["issue_id"]).execute()
         rec["flipped"] = True
         (PUBLISHED / a.slug / "latest.json").write_text(json.dumps(rec, indent=1, ensure_ascii=False))
+        print("        ", store_publication(sb, rec))
         print("FLIPPED  signal_issues.status = 'published' for", a.slug, "-- record it in docs/signal-corpus-freeze.md")
     else:
         print("NOT FLIPPED (no --flip): status is", rec["topic"]["status_before"])

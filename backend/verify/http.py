@@ -34,21 +34,31 @@ def get(url: str, timeout: int = 45) -> tuple[int, bytes, dict]:
             meta = dict(line.split("\t", 1) for line in m.read_text().splitlines() if "\t" in line) if m.exists() else {}
             return int(meta.get("status", "200")), p.read_bytes(), meta
     status, body, headers = 0, b"", {}
-    try:
-        with urllib.request.urlopen(urllib.request.Request(url, headers=UA), timeout=timeout) as r:
-            body = r.read()
-            if r.headers.get("Content-Encoding") == "gzip":
-                body = gzip.decompress(body)
-            status = r.status
-            headers = {"content-type": r.headers.get("Content-Type", ""), "final_url": r.geturl()}
-    except urllib.error.HTTPError as e:
-        status = e.code
+    # Retry on throttling and transient failure. On 2026-09-14 a re-check
+    # minutes after a publish saw 15 of 17 sources "unreachable" because
+    # Europe PMC throttled ~60 calls in a minute; one 429 is not link rot.
+    for attempt, wait in enumerate((0, 3, 8, 20)):
+        if wait:
+            time.sleep(wait)
         try:
-            body = e.read()
-        except Exception:
-            body = b""
-    except Exception as e:  # noqa: BLE001
-        headers = {"error": f"{type(e).__name__}: {e}"}
+            with urllib.request.urlopen(urllib.request.Request(url, headers=UA), timeout=timeout) as r:
+                body = r.read()
+                if r.headers.get("Content-Encoding") == "gzip":
+                    body = gzip.decompress(body)
+                status = r.status
+                headers = {"content-type": r.headers.get("Content-Type", ""), "final_url": r.geturl()}
+        except urllib.error.HTTPError as e:
+            status = e.code
+            try:
+                body = e.read()
+            except Exception:
+                body = b""
+        except Exception as e:  # noqa: BLE001
+            status, headers = 0, {"error": f"{type(e).__name__}: {e}"}
+        if status in (0, 408, 425, 429, 500, 502, 503, 504):
+            headers["retries"] = str(attempt)
+            continue
+        break
     time.sleep(PAUSE)
     if CACHE_DIR:
         CACHE_DIR.mkdir(parents=True, exist_ok=True)

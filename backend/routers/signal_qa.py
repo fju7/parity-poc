@@ -9,7 +9,7 @@ import os
 from fastapi import APIRouter, Request, HTTPException
 from pydantic import BaseModel
 
-from signal_reader import signal_reader
+from signal_reader import signal_reader, published_claim_ids, latest_publication
 
 router = APIRouter(prefix="/api/signal", tags=["signal-qa"])
 
@@ -182,6 +182,12 @@ def _build_context(issue_id: str) -> str:
         "id, claim_text, category, signal_claim_composites(composite_score, evidence_category)"
     ).eq("issue_id", issue_id).execute()
     claims = claims_res.data or []
+    # Only what the frozen publication record supports (Phase 3).
+    slug_row = sb.table("signal_issues").select("slug").eq("id", issue_id).single().execute().data
+    supported = published_claim_ids(slug_row["slug"]) if slug_row else None
+    claims = [c for c in claims if supported and c["id"] in supported]
+    pub = latest_publication(slug_row["slug"]) if slug_row else None
+    surviving = set(pub["surviving_source_ids"]) if pub else set()
 
     # Get consensus
     consensus_res = sb.table("signal_consensus").select(
@@ -191,9 +197,9 @@ def _build_context(issue_id: str) -> str:
 
     # Get sources
     sources_res = sb.table("signal_sources").select(
-        "title, source_type, publication_date"
+        "id, title, source_type, publication_date"
     ).eq("issue_id", issue_id).execute()
-    sources = sources_res.data or []
+    sources = [x for x in (sources_res.data or []) if x["id"] in surviving]
 
     # Build context
     parts = [

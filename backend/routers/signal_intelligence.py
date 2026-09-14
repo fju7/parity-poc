@@ -11,7 +11,7 @@ import logging
 from fastapi import APIRouter, Header, HTTPException, Query, Request
 from fastapi.responses import JSONResponse
 
-from signal_reader import signal_reader
+from signal_reader import signal_reader, published_claim_ids
 
 logger = logging.getLogger(__name__)
 
@@ -116,6 +116,10 @@ async def evidence_for_code(
             .execute()
         )
         claims = claims_res.data or []
+        # Only claims the frozen publication record supports (Phase 3). No
+        # record means no supported claim, whatever status says.
+        supported = published_claim_ids(issue["slug"])
+        claims = [c for c in claims if supported and c["id"] in supported]
 
         # Fetch composites
         claim_ids = [c["id"] for c in claims]
@@ -296,6 +300,10 @@ async def denial_intelligence(
             .execute()
         )
         claims = claims_res.data or []
+        # Only claims the frozen publication record supports (Phase 3). No
+        # record means no supported claim, whatever status says.
+        supported = published_claim_ids(issue["slug"])
+        claims = [c for c in claims if supported and c["id"] in supported]
 
         # Fetch composites
         claim_ids = [c["id"] for c in claims]

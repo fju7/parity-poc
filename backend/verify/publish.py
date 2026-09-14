@@ -209,4 +209,26 @@ def publish(sb, slug: str, argv: list[str]) -> dict:
     out_dir = PUBLISHED / slug; out_dir.mkdir(parents=True, exist_ok=True)
     (out_dir / f"{publish_id}.json").write_text(json.dumps(record, indent=1, ensure_ascii=False))
     (out_dir / "latest.json").write_text(json.dumps(record, indent=1, ensure_ascii=False))
+    record["_stored"] = store_publication(sb, record)
     return record
+
+
+def publication_row(record: dict) -> dict:
+    """The topic_publications row: the record plus the two arrays the page filters by."""
+    return {
+        "slug": record["topic"]["slug"], "publish_id": record["publish_id"],
+        "published_at": record["published_at"], "published_by": record["published_by"],
+        "gate_version": record["gate_version"], "record": record,
+        "supported_claim_ids": [c["claim_id"] for c in record["claims"] if c["support"] != "UNSUPPORTED"],
+        "surviving_source_ids": [s["source_id"] for s in record["sources"] if s["survives"]],
+        "flipped": record.get("flipped", False),
+    }
+
+
+def store_publication(sb, record: dict) -> str:
+    """Upsert the row the site reads. The file is the record of record; this is its mirror."""
+    try:
+        sb.table("topic_publications").upsert(publication_row(record), on_conflict="slug,publish_id").execute()
+        return "stored in topic_publications"
+    except Exception as e:  # noqa: BLE001
+        return f"NOT stored ({type(e).__name__}: {str(e)[:80]}) -- is migration 080 applied?"

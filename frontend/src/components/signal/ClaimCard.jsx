@@ -74,7 +74,7 @@ function ConsensusTypeIcon({ consensusType }) {
   );
 }
 
-export default function ClaimCard({ claim, composite, customScore, divergent }) {
+export default function ClaimCard({ claim, composite, customScore, divergent, markers }) {
   const [expanded, setExpanded] = useState(false);
 
   const score = customScore != null ? customScore : composite?.composite_score;
@@ -114,6 +114,8 @@ export default function ClaimCard({ claim, composite, customScore, divergent }) 
               {claim.plain_summary}
             </p>
           )}
+          {/* What the frozen record and the re-checks say about this claim (Phase 3). */}
+          {markers}
           <div className="flex items-center gap-2 mt-1.5 flex-wrap">
             <EvidenceBadge category={evCat} />
             {claim.claim_type && <ClaimTypeBadge claimType={claim.claim_type} />}

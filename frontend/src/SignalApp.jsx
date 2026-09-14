@@ -50,6 +50,8 @@ function LazyDashboard({ slug, session, userTier, tierData }) {
       claims={state.claims}
       consensus={state.consensus}
       sources={state.sources}
+      publication={state.publication}
+      recheck={state.recheck}
       dimensionScores={state.dimensionScores}
       loading={state.loading}
       error={state.error}
@@ -114,7 +116,46 @@ async function loadIssueData(slug) {
           .eq("issue_id", issueId),
       ]);
 
-    const rawClaims = claimsRes.data || [];
+    // The frozen publication record (Phase 3): status = 'published' opened
+    // the door; the record says what stands inside it. No record, nothing
+    // shown -- the page reads as not yet published.
+    const { data: pubRows } = await supabase
+      .from("topic_publications")
+      .select("publish_id, published_at, gate_version, record, supported_claim_ids, surviving_source_ids")
+      .eq("slug", slug)
+      .order("published_at", { ascending: false })
+      .limit(1);
+    const pubRow = pubRows?.[0];
+    if (!pubRow) {
+      return { issue: null, summary: null, claims: null, consensus: null, sources: null,
+               dimensionScores: null, loading: false, error: null, notPublished: true };
+    }
+    const supportedIds = new Set(pubRow.supported_claim_ids || []);
+    const survivingIds = new Set(pubRow.surviving_source_ids || []);
+    const publication = {
+      publish_id: pubRow.publish_id,
+      published_at: pubRow.published_at,
+      gate_version: pubRow.gate_version,
+      summary: pubRow.record?.summary,
+      supported_claim_ids: pubRow.supported_claim_ids || [],
+      surviving_source_ids: pubRow.surviving_source_ids || [],
+      support: Object.fromEntries((pubRow.record?.claims || []).map((c) => [c.claim_id, c.support])),
+      status: Object.fromEntries((pubRow.record?.sources || []).filter((x) => x.status).map((x) => [x.source_id, x.status])),
+    };
+    const { data: recheckRows } = await supabase
+      .from("topic_rechecks")
+      .select("run_id, run_at, kind, flags, exit_ok")
+      .eq("slug", slug)
+      .order("run_at", { ascending: false })
+      .limit(2);
+    // The latest run of each kind; flags from both are shown.
+    const latestByKind = {};
+    for (const r of recheckRows || []) if (!latestByKind[r.kind]) latestByKind[r.kind] = r;
+    const recheck = Object.keys(latestByKind).length
+      ? { run_at: (recheckRows || [])[0].run_at, flags: Object.values(latestByKind).flatMap((r) => r.flags || []) }
+      : null;
+
+    const rawClaims = (claimsRes.data || []).filter((c) => supportedIds.has(c.id));
     const rawClaimIds = rawClaims.map((c) => c.id);
 
     // Citation counts per claim.
@@ -167,7 +208,9 @@ async function loadIssueData(slug) {
       summary: summaryRes.data || null,
       claims,
       consensus: consensusRes.data || [],
-      sources: sourcesRes.data || [],
+      sources: (sourcesRes.data || []).filter((x) => survivingIds.has(x.id)),
+      publication,
+      recheck,
       dimensionScores,
       loading: false,
       error: null,

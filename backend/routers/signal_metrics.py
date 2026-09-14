@@ -9,7 +9,7 @@ import time
 from fastapi import APIRouter
 from fastapi.responses import JSONResponse
 
-from signal_reader import signal_reader
+from signal_reader import signal_reader, latest_publication
 
 router = APIRouter(prefix="/api/signal", tags=["signal"])
 
@@ -250,6 +250,13 @@ async def get_topics():
 
         issue_ids = [i["id"] for i in issues]
         counts = _topic_counts(issue_ids)
+        # A published topic's counts are the record's, not the corpus's:
+        # claims the gates supported, sources that survived (Phase 3).
+        for iss in issues:
+            pub = latest_publication(iss["slug"])
+            if pub:
+                counts[iss["id"]] = {"claim_count": len(pub["supported_claim_ids"]), "scored_count": None,
+                                     "source_count": len(pub["surviving_source_ids"])}
 
         # Fetch latest summary per issue (order by version desc)
         summaries_res = (

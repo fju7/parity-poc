@@ -61,3 +61,30 @@ def signal_reader():
                      "Authorization": "Bearer " + SUPABASE_ANON_KEY},
         )
     return _reader
+
+
+# ---------------------------------------------------------------------------
+# The frozen publication record (Phase 3). status = 'published' opens the
+# door; the record says what stands inside it. Every consumer that shows a
+# claim filters by it, so a claim the gates did not support is never served
+# even from a published topic.
+# ---------------------------------------------------------------------------
+CORPUS_TABLES = CORPUS_TABLES | {"topic_publications", "topic_rechecks"}
+
+
+def latest_publication(slug: str) -> dict | None:
+    """The newest topic_publications row for a slug, or None (also None before 080)."""
+    try:
+        rows = (signal_reader().table("topic_publications")
+                .select("slug,publish_id,published_at,gate_version,supported_claim_ids,surviving_source_ids,flipped")
+                .eq("slug", slug).order("published_at", desc=True).limit(1).execute().data)
+        return rows[0] if rows else None
+    except Exception:
+        return None
+
+
+def published_claim_ids(slug: str) -> set | None:
+    """Claim ids the record supports, or None when there is no record --
+    in which case a consumer must serve NO claims: no record, no support."""
+    pub = latest_publication(slug)
+    return set(pub["supported_claim_ids"]) if pub else None
