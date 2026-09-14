@@ -1,0 +1,4 @@
+status	200
+url	https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=DOI%3A10.1200/jco.2017.75.6155&format=json&pageSize=1&resultType=core
+content-type	application/json;charset=UTF-8
+final_url	https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=DOI%3A10.1200/jco.2017.75.6155&format=json&pageSize=1&resultType=core

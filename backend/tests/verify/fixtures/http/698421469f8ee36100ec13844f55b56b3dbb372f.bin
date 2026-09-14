@@ -1,0 +1,918 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+	<head><script async src="https://www.googletagmanager.com/gtag/js?id=G-E4HLMDVMKH"></script> <script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag("js", new Date()); gtag("config", "G-E4HLMDVMKH");</script> <script type="text/javascript"> window._monsido = window._monsido || { token: "87hVpSXvcXqeefK5MDn5QA", statistics: { enabled: true, documentTracking: { enabled: true, documentCls: "monsido_download", documentIgnoreCls: "monsido_ignore_download", documentExt: [], }, }, pageCorrect: { enabled: true, }, pageAssistV2: { enabled: true, theme: "light", mainColor: "#11466e", textColor: "#ffffff", linkColor: "#11466e", buttonHoverColor: "#11466e", mainDarkColor: "#052942", textDarkColor: "#ffffff", linkColorDark: "#FFCF4B", buttonHoverDarkColor: "#FFCF4B", greeting: "Discover your personalization options", direction: "leftbottom", coordinates: "unset unset 3 20", iconShape: "circle", title: "Personalization Options", titleText: "Welcome to PageAssist™ toolbar! Adjust the options below to cater the website to your accessibility needs.", iconPictureUrl: "logo", logoPictureUrl: "", logoPictureBase64: "", languages: [""], defaultLanguage: "", skipTo: false, alwaysOnTop: false, }, }; </script> <script type="text/javascript" async src="https://app-script.monsido.com/v2/monsido-script.js"></script><script type="text/javascript" async src="https://app-script.monsido.com/v2/monsido-script.js"></script><script>window.addEventListener('mon-pageassist-open', function() {console.log('open pa');gtag('event', 'page_assist',{'event_category': 'open'});}); </script><script>window["adrum-app-key"]="AD-AAB-ABP-PTJ";window["adrum-start-time"]=new Date().getTime();</script><script type="text/javascript" src="//cdn.appdynamics.com/adrum/adrum-latest.js"></script>
+
+
+		<title>Rule 3901-1-54 - Ohio Administrative Code | Ohio Laws</title>
+
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+
+		<link href="/images/global/favicons/apple-touch-icon.png" rel="apple-touch-icon" sizes="180x180">
+		<link href="/images/global/favicons/favicon-32x32.png" type="image/png" rel="icon" sizes="32x32">
+		<link href="/images/global/favicons/favicon-16x16.png" type="image/png" rel="icon" sizes="16x16">
+		<link href="/images/global/favicons/site.webmanifest" rel="manifest">
+		<link href="/images/global/favicons/safari-pinned-tab.svg" rel="mask-icon" color="#5bbad5">
+		<meta name="msapplication-TileColor" content="#da532c">
+		<meta name="theme-color" content="#ffffff">
+
+		<link href="/css/master.css" type="text/css" rel="stylesheet" />
+
+		<link href="/js/libraries/tooltipster/tooltipster.bundle.min.css" type="text/css" rel="stylesheet" />
+		<link href="/js/libraries/tooltipster/tooltipster-sidetip-site-tip.min.css" type="text/css" rel="stylesheet" />
+		<link href="/js/libraries/timepicker/jquery.timepicker.css" type="text/css" rel="stylesheet" />
+		<link href="/js/libraries/jqueryui/css/site/jquery-ui-1.10.2.custom.min.css" type="text/css" rel="stylesheet" />
+
+		<script src="/js/libraries/jquery/jquery-3.3.1.min.js"></script>
+		<script src="/js/libraries/jquery/jquery-migrate-3.3.0.min.js"></script>
+		<script src="/js/libraries/jqueryui/js/jquery-ui-1.10.2.custom.min.js"></script>
+
+		<script src="/js/libraries/are-you-sure/jquery.are-you-sure.js"></script>
+		<script src="/js/libraries/inputmask/jquery.inputmask.min.js"></script>
+		<script src="/js/libraries/tooltipster/tooltipster.bundle.min.js"></script>
+		<script src="/js/libraries/timepicker/jquery.timepicker.min.js"></script>
+
+		<script src="/js/application/global.js"></script>
+		<script src="/js/application/main-menu.js"></script>
+		<script src="/js/application/mobile-menu.js"></script>
+		<script src="/js/application/ui-config.js"></script>
+		<script src="/js/application/utilities.js"></script>
+		<script src="/js/application/sortable.js"></script>
+
+	</head>
+
+	<body>
+
+		<a class="skip-to-main" href="#main">Skip to main content</a>
+		
+
+	<button id="mobile-navigation-button" class="mobile-navigation-button" aria-label="Mobile Menu Button">
+		<span></span>
+		<span></span>
+		<span></span>
+		<span></span>
+	</button>
+
+	<nav aria-label="Main Menu" id="mobile-menu" class="mobile-menu">
+
+		<div class="mobile-menu-top">&nbsp;</div>
+
+		<div class="mobile-menu-bottom">
+
+			
+
+				<div class="mobile-search-form-container">
+
+					
+					
+					
+
+					
+
+						<form action="/ohio-administrative-code/submit-search" class="default-form" method="post">
+
+							<div class="search-bar">
+
+								<div class="search-bar-input">
+									<label for="mobile-administrative-code-keywords" class="screen-reader">Administrative Code Keywords</label>
+									<input id="mobile-administrative-code-keywords" name="administrative-code-keywords" type="text" maxlength="100"
+											placeholder="Keyword Search" autocomplete="off" />
+								</div>
+
+								<div class="search-bar-button">
+									<button aria-label="Search" type="submit">&nbsp;</button>
+								</div>
+
+							</div>
+
+						</form>
+
+						<form action="/ohio-administrative-code/submit-number-search" class="default-form" method="post">
+
+							<div class="search-bar search-bar-number-search">
+
+								<div class="search-bar-input">
+									<label for="mobile-administrative-code-number" class="screen-reader">Rule Number</label>
+									<input id="mobile-administrative-code-number" name="administrative-code-number" class="short-control" type="text" maxlength="25"
+											placeholder="101-1-01" autocomplete="off" />
+								</div>
+
+								<div class="search-bar-button">
+									<button aria-label="Go To Rule" type="submit">Go To Rule</button>
+								</div>
+
+							</div>
+
+						</form>
+
+					
+
+					<div class="clear">&nbsp;</div>
+
+				</div>
+
+			
+
+			<ul>
+
+				<li id="laws-menu">
+
+					<button class="menu-header">
+						Laws
+						<span class="indicator">
+							<span class="arrow">&nbsp;</span>
+						</span>
+					</button>
+
+					<ul class="menu-body" aria-hidden="true" aria-expanded="false">
+						<li><a href="/ohio-constitution">Ohio Constitution</a></li>
+						<li><a href="/ohio-revised-code">Ohio Revised Code</a></li>
+						<li><a href="/ohio-administrative-code">Ohio Administrative Code</a></li>
+					</ul>
+
+				</li>
+
+				<li id="about-menu">
+
+					<button class="menu-header">
+						About
+						<span class="indicator">
+							<span class="arrow">&nbsp;</span>
+						</span>
+					</button>
+
+					<ul class="menu-body" aria-hidden="true" aria-expanded="false">
+						<li><a href="/about">About</a></li>
+					</ul>
+
+				</li>
+
+				<li id="contact-menu">
+
+					<button class="menu-header">
+						Contact
+						<span class="indicator">
+							<span class="arrow">&nbsp;</span>
+						</span>
+					</button>
+
+					<ul class="menu-body" aria-hidden="true" aria-expanded="false">
+						<li><a href="/contact">Contact</a></li>
+					</ul>
+
+				</li>
+
+				<li id="related-sites-menu">
+
+					<button class="menu-header">
+						Related Sites
+						<span class="indicator">
+							<span class="arrow">&nbsp;</span>
+						</span>
+					</button>
+
+					<ul class="menu-body" aria-hidden="true" aria-expanded="false">
+						<li><a href="/related-sites">Related Sites</a></li>
+					</ul>
+
+				</li>
+
+			</ul>
+
+		</div>
+
+	</nav>
+
+
+		
+
+	<button type="button" id="back-to-top" class="back-to-top no-select" onclick="goToTop()">
+		<span class="screen-reader">Back To Top</span>
+		Top
+		<img src="/images/global/icons/back-to-top.png" alt="Back To Top">
+	</button>
+
+	<script>
+
+		let backToTopButton = document.getElementById("back-to-top");
+		let distanceToShowButton = 20;
+
+		window.onscroll = function ()
+		{
+			scrollFunction()
+		};
+
+		function scrollFunction()
+		{
+			if (document.body.scrollTop > distanceToShowButton || document.documentElement.scrollTop > distanceToShowButton)
+				backToTopButton.style.display = "block";
+			else
+				backToTopButton.style.display = "none";
+		}
+
+		const goToTop = () =>
+		{
+			const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+
+			if (scrollTop > 0)
+			{
+				window.requestAnimationFrame(goToTop);
+				window.scrollTo(0, scrollTop - scrollTop / 5);
+			}
+		};
+	</script>
+
+
+
+		<header>
+
+			<div class="header-top">
+
+				<div class="content-frame-medium">
+
+					<div class="header-top-frame">
+
+						<a href="/">
+							<div class="home-button">
+								<img class="home-logo-large" src="/images/global/logos/home-logo-large.png" alt="Home Button" />
+								<img class="home-logo-medium" src="/images/global/logos/home-logo-medium.png" alt="Home Button" />
+								<img class="home-logo-small" src="/images/global/logos/home-logo-small.png" alt="Home Button" />
+							</div>
+						</a>
+
+					</div>
+
+				</div>
+
+			</div>
+
+			<div class="header-bottom no-print">
+
+				<div class="content-frame-large">
+
+					<div class="header-bottom-frame">
+
+						
+
+	<nav aria-label="Main Menu" class="main-menu">
+
+		<ul>
+
+			<li id="home-menu">
+
+				<a class="menu-header" href="/">
+					Home
+				</a>
+
+			</li>
+
+			<li id="laws-menu">
+
+				<a class="menu-header active" href="/ohio-constitution" aria-haspopup="true">
+					Laws
+				</a>
+
+				<ul class="menu-body" aria-hidden="true" aria-expanded="false">
+					<li><a href="/ohio-constitution">Ohio Constitution</a></li>
+					<li><a href="/ohio-revised-code">Ohio Revised Code</a></li>
+					<li><a href="/ohio-administrative-code">Ohio Administrative Code</a></li>
+				</ul>
+
+			</li>
+
+			<li id="about-menu">
+				<a class="menu-header" href="/about">
+					About
+				</a>
+			</li>
+
+			<li id="contact-menu">
+				<a class="menu-header" href="/contact">
+					Contact
+				</a>
+			</li>
+
+			<li id="related-sites-menu">
+				<a class="menu-header menu-header-condensed" href="/related-sites">
+					Related Sites
+				</a>
+			</li>
+
+		</ul>
+
+		
+
+		
+
+		
+
+			<div class="inline-search">
+
+				<form action="/ohio-administrative-code/submit-number-search" class="default-form" method="post">
+
+					<div class="search-bar search-bar-number-search">
+
+						<div class="inline-label">
+							Go To
+						</div>
+
+						<div class="search-bar-input">
+							<label for="administrative-code-number" class="screen-reader">Administrative Code Number</label>
+							<input id="administrative-code-number" name="administrative-code-number" type="text" maxlength="25" placeholder="101-1-01" autocomplete="off" />
+						</div>
+
+						<div class="search-bar-button">
+							<button aria-label="Go to section" type="submit">Go</button>
+						</div>
+
+					</div>
+
+				</form>
+
+				<form action="/ohio-administrative-code/submit-search" class="default-form" method="post">
+
+					<div class="search-bar">
+
+						<div class="search-bar-input">
+							<label for="administrative-code-keywords" class="screen-reader">Administrative Code Keywords</label>
+							<input id="administrative-code-keywords" name="administrative-code-keywords" type="text" maxlength="100" placeholder="Keyword Search" autocomplete="off" />
+						</div>
+
+						<div class="search-bar-button">
+							<button aria-label="Search" type="submit">&nbsp;</button>
+						</div>
+
+					</div>
+
+				</form>
+
+			</div>
+
+		
+		
+	</nav>
+
+
+
+					</div>
+
+				</div>
+
+			</div>
+
+		</header>
+
+		<main id="main" tabindex="-1">
+			<div class="body-middle">
+				
+
+	<div class="content-layout">
+
+		<div class="content-layout-body">
+
+			<div class="content-frame-medium">
+
+				
+
+	
+
+	<div class="section-banner no-print">
+		This website publishes administrative rules on their effective dates, as designated by the adopting state agencies, colleges, and
+		universities.
+	</div>
+
+
+
+	<section class="laws-header laws-section-header">
+
+		<h1>Rule 3901-1-54 <span class='codes-separator'>|</span> Unfair property/casualty claims settlement practices.</h1>
+
+		<div class="breadcrumbs">
+
+			<div class="breadcrumbs-node">
+				<a href="/ohio-administrative-code">Ohio Administrative Code</a>
+			</div>
+
+			<div class="breadcrumbs-separator">/</div>
+
+			<div class="breadcrumbs-node">
+				<a href="/ohio-administrative-code/3901">3901 </a>
+			</div>
+
+			<div class="breadcrumbs-separator">/</div>
+
+			<div class="breadcrumbs-node">
+				<a href="/ohio-administrative-code/chapter-3901-1">Chapter 3901-1 | General Provisions</a>
+			</div>
+
+		</div>
+
+		
+
+			<div class="profile-navigator no-print">
+
+				<div class="previous">
+					<a href="/ohio-administrative-code/rule-3901-1-52">
+						<img src="/images/global/profile-pager/previous.png" alt="Previous">
+					</a>
+				</div>
+
+				<div class="next">
+					<a href="/ohio-administrative-code/rule-3901-1-55">
+						<img src="/images/global/profile-pager/next.png" alt="Next">
+					</a>
+				</div>
+
+			</div>
+
+		
+
+	</section>
+
+	<div class="clear">&nbsp;</div>
+
+	
+
+    
+
+    
+
+    
+
+    
+
+    
+
+ <div>
+    
+
+    <div>
+
+        <div class="laws-section-info">
+
+            <div class="laws-section-info-module">
+                <div class="label">Effective:</div>
+                <div class="value">February 14, 2022</div>
+            </div>
+
+            <div class="laws-section-info-module">
+                <div class="label">Promulgated Under:</div>
+                <div class="value"><a class='section-link' href='/ohio-revised-code/section-119.03'>119.03</a></div>
+            </div>
+
+            <div class="laws-section-info-module no-print">
+                <div class="label">PDF:</div>
+                <div class="value"><a target="_blank" href="/assets/laws/administrative-code/authenticated/3901/0/1/3901-1-54_20220214.pdf">Download Authenticated PDF</a></div>
+            </div>
+            &nbsp;
+        </div>
+
+        <section class="laws-body">
+
+            
+                <span><p class='first-paragraph level-1'>(A) Purpose</p><p>The purpose of this rule is to set forth uniform
+		  minimum standards for the investigation and disposition of property and
+		  casualty claims arising under insurance contracts or certificates issued to
+		  residents of Ohio. It is not intended to cover claims involving workers'
+		  compensation, or fidelity, suretyship, and boiler and machinery insurance. The
+		  provisions of this rule are intended to define procedures and practices which
+		  constitute unfair claims practices. Nothing in this rule shall be construed to
+		  create or imply a private cause of action for violation of this rule.</p><p class='first-paragraph level-1'>(B) Authority</p><p>This rule is promulgated pursuant to the
+		  authority vested in the superintendent under sections <a class='section-link' href='/ohio-revised-code/section-3901.041'>3901.041</a> and <a class='section-link' href='/ohio-revised-code/section-3901.19'>3901.19</a> to
+		  <a class='section-link' href='/ohio-revised-code/section-3901.26'>3901.26</a> of the Revised Code.</p><p class='first-paragraph level-1'>(C) Definitions</p><p>As used in this rule:</p><p class='first-paragraph level-2'>(1) "Agent"
+			 means any individual, corporation, association, partnership or other legal
+			 entity authorized to represent an insurer with respect to a claim.</p><p class='first-paragraph level-2'>(2) "Claim
+			 file" means any retrievable electronic file, paper file, combination of
+			 both, or any other media.</p><p class='first-paragraph level-2'>(3) "Claimant"
+			 means a first party claimant, a third party claimant.</p><p class='first-paragraph level-2'>(4) "Contract"
+			 means any insurance policy or document containing the terms of the agreement
+			 wherein one party, the insurer, assumes certain obligations including financial
+			 obligations that arise as a result of a loss sustained by another party, the
+			 insured, or to any other party that has rights under the
+			 agreement.</p><p class='first-paragraph level-2'>(5) "Days"
+			 means calendar days. However, when the last day of a time limit stated in this
+			 rule falls on a Saturday, Sunday, or holiday, the time limit is extended to the
+			 next immediate following day that is not a Saturday, Sunday, or
+			 holiday.</p><p class='first-paragraph level-2'>(6) "Department" means the Ohio department of
+			 insurance.</p><p class='first-paragraph level-2'>(7) "Documentation" includes, but is not limited to,
+			 all communications, transactions, notes, work papers, claim forms, bills and
+			 explanation of benefits forms pertaining to the claim.</p><p class='first-paragraph level-2'>(8) "First party
+			 claimant" means any individual, corporation, association, partnership or
+			 other legal entity asserting a right to payment under an insurance policy or
+			 insurance contract arising out of the occurrence of the contingency or loss
+			 covered by the policy or contract.</p><p class='first-paragraph level-2'>(9) "Insurer"
+			 shall be defined as set forth in division (F) of section <a class='section-link' href='/ohio-revised-code/section-3901.32'>3901.32</a> of the Revised
+			 Code.</p><p class='first-paragraph level-2'>(10) "Investigation" means all activities of an insurer
+			 directly or indirectly related to the determination of liability under an
+			 insurance contract which is in effect or alleged to be in effect.</p><p class='first-paragraph level-2'>(11) "Like kind and
+			 quality part" means a salvage motor vehicle part equal to or better than
+			 the replaced part that is acquired from a licensed salvage motor
+			 dealer.</p><p class='first-paragraph level-2'>(12) "Notification
+			 of claim" means any notification, under the terms of an insurance
+			 contract, to an insurer or its agent, by a claimant, which reasonably apprises
+			 the insurer of the facts pertinent to a claim.</p><p class='first-paragraph level-2'>(13) "Person"
+			 shall be defined as set forth in section <a class='section-link' href='/ohio-revised-code/section-3901.19'>3901.19</a> of the Revised
+			 Code.</p><p class='first-paragraph level-2'>(14) "Practice"
+			 means a type of activity or conduct engaged in by an insurer with such
+			 frequency as to constitute a customary procedure or policy routinely followed
+			 in the settlement of insurance claims. A single act is not a business practice.
+			 However, an act that is malicious, deliberate, conscious and knowing may be the
+			 basis for corrective action ordered only by the superintendent without a
+			 showing that the conduct is a practice.</p><p class='first-paragraph level-2'>(15) "Superintendent" means the
+			 superintendent of insurance.</p><p class='first-paragraph level-2'>(16) "Third party claimant"
+			 means any individual, corporation, association, partnership or other legal
+			 entity asserting a claim against any other individual, corporation,
+			 association, partnership or legal entity.</p><p class='first-paragraph level-2'>(17) "Proof of loss" means a
+			 document from the claimant that provides sufficient information from which the
+			 insurer can determine the existence and the amount of the claim.</p><p class='first-paragraph level-1'>(D) File and record
+		  documentation</p><p>An insurer's claim files are subject to
+		  examination by the superintendent of insurance or by the superintendent's
+		  duly appointed designees. To aid in such examination:</p><p class='first-paragraph level-2'>(1) An insurer shall
+			 maintain claim data that is accessible and retrievable for examination. Such
+			 data shall include number, line of coverage, date of loss and date of payment
+			 or date of denial or date when claim is closed without payment. The data for
+			 closed claims shall be kept for no less than three years or until the
+			 completion of the next financial examination conducted by the state of
+			 domicile, whichever is greater. Data for claims where the claims payment is
+			 less than one thousand dollars, or for towing, labor, glass or rental
+			 reimbursement may be kept in summary form.</p><p class='first-paragraph level-2'>(2) An insurer must be
+			 able to reconstruct its activities in regard to any claim, by documentation
+			 appropriate for the type and size of the claim. If the claim is closed, the
+			 time period for retention is set forth in paragraph (D)(1) of this
+			 rule.</p><p class='first-paragraph level-2'>(3) If an insurer does
+			 not maintain hard copy files, claim files shall be accessible and be capable of
+			 duplication to hard copy.</p><p class='first-paragraph level-1'>(E) Misrepresentation of policy
+		  provisions</p><p class='first-paragraph level-2'>(1) An insurer shall
+			 fully disclose to first party claimants all pertinent benefits, coverages or
+			 other provisions of an insurance contract under which a claim is
+			 presented.</p><p class='first-paragraph level-2'>(2) No agent shall
+			 willfully conceal from first party claimants benefits, coverages or other
+			 provisions of any insurance contract when such benefits, coverages or other
+			 provisions are pertinent to a claim.</p><p class='first-paragraph level-2'>(3) No insurer shall deny
+			 a claim based on the first party claimant's failure to make available for
+			 inspection the property which is the subject of the claim unless there is
+			 documentation of breach of the policy provisions in the claim
+			 file.</p><p class='first-paragraph level-2'>(4) No insurer shall deny
+			 a claim based upon the failure of a first party claimant to give written notice
+			 of loss within a specified time limit unless the notice is required by a policy
+			 condition, or a first party claimant's failure to give written notice
+			 after being requested to do so by the insurer is so unreasonable as to
+			 constitute a breach of the claimant's duty to cooperate with the
+			 insurer.</p><p class='first-paragraph level-2'>(5) No insurer shall
+			 indicate to a first party claimant on a payment draft, check or in any
+			 accompanying letter that the payment is final or a release of any claim unless
+			 the policy limit has been paid or the first party claimant and the insurer have
+			 agreed to a compromise settlement regarding coverage and the amount payable
+			 under the insurance contract.</p><p class='first-paragraph level-2'>(6) No insurer shall
+			 issue checks or drafts in partial settlement of a loss or claim under a
+			 specific coverage that contains language purporting to release the insurer or
+			 its insured from total liability.</p><p class='first-paragraph level-1'>(F) Response to acknowledge receipt of
+		  pertinent communications</p><p class='first-paragraph level-2'>(1) Notification of a
+			 claim given to an agent of an insurer shall be notification to the
+			 insurer.</p><p class='first-paragraph level-2'>(2) An insurer shall
+			 acknowledge the receipt of a claim within fifteen days of receiving such
+			 notification. An insurer may satisfy this requirement by making payment within
+			 this fifteen day period. An insurer may also satisfy this requirement by
+			 providing necessary claim forms and complete instructions to the claimant
+			 within this fifteen day period.</p><p class='first-paragraph level-2'>(3) An insurer shall
+			 respond within fifteen days to any communication from a claimant, when that
+			 communication suggests a response is appropriate. In the event that a complaint
+			 has been filed by a claimant in any court, an insurer is not obligated to
+			 respond within this time period and any communication between the claimant and
+			 the insurer will be subject to the appropriate rule of procedure for the court
+			 in which the lawsuit was filed.</p><p class='first-paragraph level-2'>(4) An insurer shall,
+			 within twenty-one days of receipt of an inquiry from the department regarding a
+			 claim, furnish the department with a reasonable response to the
+			 inquiry.</p><p class='first-paragraph level-1'>(G) General standards for settlement of
+		  claims</p><p class='first-paragraph level-2'>(1) An insurer shall
+			 within twenty-one days of the receipt of properly executed proof(s) of loss
+			 decide whether to accept or deny such claim(s). If more time is needed to
+			 investigate the claim than the twenty-one days allow, the insurer shall notify
+			 the claimant within the twenty-one day period, and provide an explanation of
+			 the need for more time. If an extension of time is needed, the insurer has a
+			 continuing obligation to notify the claimant in writing, at least every
+			 forty-five days, of the status of the investigation and the continued time for
+			 the investigation.</p><p>If the form and execution of a proof of loss is
+			 material to an insurer, the insurer shall immediately provide the claimant with
+			 the specific documents and specific instructions so the claimant can submit the
+			 claim. An insurer shall not otherwise deny a claim solely on the basis the
+			 proof of loss is not on the insurer's usual form.</p><p>If an insurer reasonably believes, based upon
+			 information obtained and documented within the claim file, that a claimant has
+			 fraudulently caused or contributed to the loss as represented by a properly
+			 executed and documented proof of loss, such information shall be presented to
+			 the fraud division of the department within sixty days of receipt of the proof
+			 of loss. Any person making such report shall be afforded such immunity and the
+			 information submitted will be confidential as provided by sections <a class='section-link' href='/ohio-revised-code/section-3901.44'>3901.44</a> and
+			 <a class='section-link' href='/ohio-revised-code/section-3999.31'>3999.31</a> of the Revised Code.</p><p class='first-paragraph level-2'>(2) No insurer shall deny
+			 a claim on the grounds of a specific policy provision, condition or exclusion
+			 unless reference to such provision, condition, or exclusion is included in the
+			 denial. The claim file of the insurer shall contain documentation of the denial
+			 in accordance with paragraph (D) of this rule.</p><p class='first-paragraph level-2'>(3) Except as otherwise
+			 provided by policy provisions, an insurer shall settle first party claims upon
+			 request by the insured with no consideration given to whether the
+			 responsibility for payment should be assumed by others.</p><p class='first-paragraph level-2'>(4) No insurer shall
+			 require an insured to submit to a polygraph examination unless authorized under
+			 the applicable insurance contract.</p><p class='first-paragraph level-2'>(5) Notice shall be given
+			 to claimants at least sixty days before the expiration of any statute of
+			 limitation or contractual limit, where the insurer has not been advised that
+			 the claimant is represented by legal counsel.</p><p class='first-paragraph level-2'>(6) An insurer shall
+			 tender payment to a first party claimant no later than ten days after
+			 acceptance of a claim if the amount of the claim is determined and is not in
+			 dispute, unless the settlement involves a structured settlement, action by a
+			 probate court, or other extraordinary circumstances as documented in the claim
+			 file.</p><p class='first-paragraph level-2'>(7) If a claim involves a
+			 non-negligent party's property loss and multiple liability insurers, the
+			 multiple liability insurers shall adjust the property loss within a reasonable
+			 time and pay the non-negligent party's loss in equal shares. After
+			 payment, the multiple liability insurers may then pursue available remedies to
+			 resolve the question of responsibility for the non-negligent party's
+			 loss.</p><p class='first-paragraph level-2'>(8) If a claim involves
+			 multiple coverages under any policy, no insurer shall withhold payment under
+			 any such coverage when the payment is known, the payment is not in dispute, and
+			 the payment would extinguish the insurer's liability under that coverage.
+			 No insurer shall withhold such payment for the purpose of forcing settlement on
+			 all other coverage to effect a single payment.</p><p class='first-paragraph level-2'>(9) An insurer must
+			 document the application of comparative negligence to any claim settlement.
+			 Such information shall be fully disclosed to the claimant upon the
+			 claimant's written request. An insurer shall not use pattern settlements
+			 as set forth in division (P) of section <a class='section-link' href='/ohio-revised-code/section-3901.21'>3901.21</a> of the Revised
+			 Code.</p><p class='first-paragraph level-2'>(10) An insurer shall not
+			 use settlement practices that result in compelling first party claimants to
+			 litigate by offering substantially less than the amounts claimed compared to
+			 the amount ultimately recovered in actions brought by such
+			 claimants.</p><p class='first-paragraph level-1'>(H) Standards for prompt, fair and
+		  equitable settlements of automobile insurance claims</p><p class='first-paragraph level-2'>(1) When partial losses
+			 will be settled on the basis of a written estimate prepared by or for an
+			 insurer, the insurer shall supply the claimant a copy of the estimate upon
+			 which the proposed settlement is based. If the claimant subsequently claims
+			 that necessary repairs will exceed the written estimate, the insurer shall pay
+			 the difference between the written estimate and a higher estimate obtained by
+			 the claimant or promptly provide the claimant with the name of at least one
+			 repair shop that will make the repairs for the amount of the written estimate.
+			 If the insurer provides the name of only one repair shop, it shall ensure that
+			 the repairs are performed in a workmanlike manner. The insurer shall maintain
+			 documentation of all communications with the claimant pursuant to this
+			 paragraph.</p><p class='first-paragraph level-2'>(2) If an insurer reduces
+			 a claim amount because of betterment, depreciation or comparative negligence,
+			 it shall maintain all information pertaining to the reduction in the claim
+			 file. Such deductions shall be itemized and specified on the written estimate
+			 as to dollar amount and shall be appropriate for the amount of
+			 deductions.</p><p class='first-paragraph level-2'>(3) An insurer may reduce
+			 a claim amount because of betterment deductions only if the deductions reflect
+			 a measurable decrease in market value due to the poorer condition of, or prior
+			 damage to, the vehicle; or reflect the general overall condition of the
+			 vehicle, considering its age, for the wear and tear or rust, and/or missing
+			 parts, limited to no more of a deduction than the replacement costs of part or
+			 parts.</p><p class='first-paragraph level-2'>(4) When partial losses
+			 will be settled on the basis of a written estimate prepared by or for an
+			 insurer, the estimate must clearly indicate the use of the parts in compliance
+			 with section <a class='section-link' href='/ohio-revised-code/section-1345.81'>1345.81</a> of the Revised Code. When like kind and quality parts are
+			 expected to be used in the repair, the estimate shall clearly indicate the
+			 location of the licensed salvage dealer where the like kind and quality parts
+			 are to be obtained.</p><p class='first-paragraph level-2'>(5) An insurer which
+			 elects to repair and designates a specific repair shop for automobile repairs
+			 shall cause the damaged automobile to be restored to its condition prior to the
+			 loss. The insurer shall assess no additional cost against the claimant other
+			 than as stated in the policy, and the repairs should be effected within a
+			 reasonable period of time.</p><p class='first-paragraph level-2'>(6) In settlement of
+			 claimants' automobile total losses on the basis of actual cash value or
+			 replacement of the automobile with another vehicle of like kind and quality, an
+			 insurer which elects to offer a replacement automobile shall:</p><p class='first-paragraph level-3'>(a) Provide an automobile by the same manufacturer, of the same
+				or newer year, of similar body style, with similar options and mileage as the
+				claimant's vehicle and in as good or better overall condition than the
+				first party automobile prior to loss;</p><p class='first-paragraph level-3'>(b) Ensure that the automobile is available for inspection within
+				a reasonable distance of the claimant's residence;</p><p class='first-paragraph level-3'>(c) Pay all applicable taxes, license fees, and other fees
+				incident to transfer of evidence of ownership of the automobile at no cost to
+				claimant other than any deductible provided in the policy; and</p><p class='first-paragraph level-3'>(d) Document the offer of the replacement automobile and any
+				rejection of the offer in the claim file.</p><p class='first-paragraph level-2'>(7) In settlement of
+			 claimants' automobile total losses on the basis of actual cash value or
+			 replacement of the automobile with another of like kind and quality, an insurer
+			 which elects to offer a cash settlement to claimant shall base the offer upon
+			 the actual cost to purchase a comparable automobile less any applicable
+			 deductible amount contained in the policy, and/or deduction for betterment as
+			 contained in paragraph (H)(2) of this rule. The settlement value may be derived
+			 from:</p><p class='first-paragraph level-3'>(a) The average cost of two or more comparable automobiles in the
+				local market area if comparable automobiles are or were available to consumers
+				within the last ninety days; or</p><p class='first-paragraph level-3'>(b) The average cost of two or more comparable automobiles in
+				areas proximate to the local market area, including the closest in-state or
+				out-of-state major metropolitan areas, that are or were available to consumers
+				within the last ninety days if comparable automobiles are not available
+				pursuant to paragraph (H)(7)(a) of this rule; or</p><p class='first-paragraph level-3'>(c) The average of two or more quotations obtained by the insurer
+				from two or more licensed dealers located within the local market area if
+				comparable automobiles are not available pursuant to paragraphs (H)(7)(a) and
+				(H)(7)(b) of this rule; or</p><p class='first-paragraph level-3'>(d) The cost as determined from a generally recognized used motor
+				vehicle industry source such as: </p><p class='first-paragraph level-4'>(i) An electronic
+				  database if the pertinent portions of the valuation documents generated by the
+				  database are provided by the insurer to the claimant upon request;
+				  or</p><p class='first-paragraph level-4'>(ii) A guidebook that is
+				  generally available to the general public if the insurer identifies the
+				  guidebook used as the basis for the cost to the claimant upon request, and to
+				  which appropriate adjustments for condition, mileage and major options are made
+				  and documented in the claim file.</p><p class='first-paragraph level-3'>(e) Any method or source chosen as specified in paragraph
+				(H)(7)(d) of this rule shall be used consistently over a period of time by the
+				insurer.</p><p class='first-paragraph level-3'>(f) If within thirty days of receipt by the claimant of a cash
+				settlement for the total loss of an automobile, the claimant purchases a
+				replacement automobile, the insurer shall reimburse the claimant for the
+				applicable sales taxes incurred on account of the claimant's purchase of
+				the automobile, but not to exceed the amount that would have been payable by
+				the claimant for sales taxes on the purchase of an automobile with a market
+				value equal to the amount of the cash settlement. If the claimant purchases an
+				automobile with a market value less than the amount of the cash settlement, the
+				insurer shall reimburse only the actual amount of the applicable sales taxes on
+				the purchased automobile. If the claimant cannot substantiate such purchase and
+				the payment of such sales taxes by submission to the insurer of appropriate
+				documentation within thirty-three days after receipt of the cash settlement,
+				the insurer shall not be required to reimburse the claimant for such sales
+				taxes. In lieu of reimbursement, the insurer may pay directly the applicable
+				sales taxes to the claimant at the time of the cash settlement.</p><p>An insurer that settles a total loss on a
+				cash settlement basis must maintain in the claim file the documentation used to
+				determine the loss. Such information shall be provided to the first party
+				claimant upon request. An insurer shall notify the first party claimant of any
+				rights to renegotiate the settlement if a comparable vehicle is not available
+				for purchase within thirty-five days of receipt of the settlement.</p><p>When an insurer elects to offer a replacement
+				vehicle available to the claimant, the insurer shall provide all the details
+				where such vehicle is available including the vehicle identification
+				number.</p><p class='first-paragraph level-3'>(g) An insurer that settles a total loss claim shall provide
+				written notice to the claimant of the right to reimbursement of applicable
+				sales tax as specified in paragraph (H)(7)(f) of this rule. The notice shall be
+				issued to the claimant simultaneously with the conveyance of the settlement
+				check to the claimant. If an insurer elects to pay the applicable sales taxes
+				directly to the claimant at the time of the cash settlement in lieu of
+				reimbursement as provided in paragraph (H)(7)(f) of this rule, the insurer is
+				not required to provide written notice of the claimant's right to sales
+				tax reimbursement.</p><p class='first-paragraph level-2'>(8) An insurer shall not
+			 require a claimant to travel an unreasonable distance to inspect a replacement
+			 automobile, to obtain a repair estimate, or to have the automobile repaired at
+			 a specific repair shop.</p><p class='first-paragraph level-2'>(9) An insurer shall
+			 provide notice to a claimant prior to termination of payment for automobile
+			 storage charges. The insurer shall document all actions taken pursuant to this
+			 paragraph in accordance with paragraph (D) of this rule.</p><p class='first-paragraph level-2'>(10) An insurer shall
+			 include the first party claimant's deductible, if any, in subrogation
+			 demands. The insurer shall share any subrogation recovery received on a
+			 proportionate basis with the first party claimant, unless the first party
+			 claimant's deductible has been paid in advance or recovered. The insurer
+			 shall not deduct expenses from this amount except that an outside attorney or
+			 collection agency retained to collect such recovery may be paid a pro rata
+			 share of his expenses for collecting this amount.</p><p class='first-paragraph level-1'>(I) Standards for prompt, fair and
+		  equitable settlement of claims under fire and extended coverage insurance
+		  policies</p><p class='first-paragraph level-2'>(1) If a fire and
+			 extended coverage insurance policy provides for the adjustment and settlement
+			 of first party losses based on replacement cost, the following shall
+			 apply:</p><p class='first-paragraph level-3'>(a) When a loss requires replacement of an item or part, any
+				consequential physical damages incurred in making such repair or replacement
+				not otherwise excluded by the policy, shall be included in the
+				loss.</p><p class='first-paragraph level-3'>(b) When an interior or exterior loss requires replacement of an
+				item and the replaced item does not match the quality, color or size of the
+				item suffering the loss, the insurer shall replace as much of the item as to
+				result in a reasonably comparable appearance.</p><p class='first-paragraph level-3'>(c) When an insurer settles a loss that results in the insured
+				paying a portion of the repair or replacement as betterment, the insurer shall
+				maintain documentation of the basis for computing the betterment charge, and
+				the insured's agreement to such charge prior to incurring the expense of
+				the repair or replacement.</p><p class='first-paragraph level-2'>(2) If a fire and
+			 extended coverage insurance policy provides for the adjustment and settlement
+			 of losses on an actual cash value basis, the following shall
+			 apply:</p><p class='first-paragraph level-3'>(a) The insurer shall determine actual cash value by determining
+				the replacement cost of property at the time of loss, including sales tax, less
+				any depreciation. Upon the insured's request, the insurer shall provide
+				documentation detailing all depreciation deductions.</p><p class='first-paragraph level-3'>(b) If the insured's interest is limited because his
+				property has nominal or no economic value, or a value disproportionate to
+				replacement cost less depreciation, the insurer is not required to comply with
+				paragraph (I)(2)(a) of this rule regarding the determination of actual cash
+				value. However, the insurer shall provide upon the insured's request, a
+				written explanation of the basis for limiting the amount of recovery along with
+				the amount payable under the policy.</p><p class='first-paragraph level-1'>(J) Applicability of rule <a class='rule-link' href='/ohio-administrative-code/rule-3901-1-07'>3901-1-07</a> of the Administrative
+		  Code</p><p>If any provisions of any section of this rule
+		  conflicts with any of the provisions contained in rule <a class='rule-link' href='/ohio-administrative-code/rule-3901-1-07'>3901-1-07</a> of the
+		  Administrative Code, the provisions of this rule will apply.</p><p class='first-paragraph level-1'>(K) Imposition of fine</p><p>Pursuant to section <a class='section-link' href='/ohio-revised-code/section-3901.22'>3901.22</a> of the Revised Code
+		  and a consent agreement with the insurer, the superintendent may recover the
+		  cost of an investigation under this rule and/or a penalty from the
+		  insurer.</p><p class='first-paragraph level-1'>(L) Severability</p><p>If any paragraph, term or provision of this rule
+		  is adjudged invalid for any reason, the judgment shall not affect, impair or
+		  invalidate any other paragraph, term or provision of this rule, but the
+		  remaining paragraphs, terms and provisions shall be and continue in full force
+		  and effect.</p></span>
+            
+
+            
+
+            
+
+            
+
+                <div class="laws-notice">
+
+                    
+                        <p>Last updated February 14, 2022 at 8:55 AM</p>
+                    
+
+                </div>
+
+            
+
+        </section>
+
+        <section class="laws-history">
+
+            <h2>Supplemental Information</h2>
+
+            <div class="laws-additional-information">
+
+                <strong>Authorized By:</strong>
+                <span><a class='section-link' href='/ohio-revised-code/section-3901.041'>3901.041</a></span>
+                <br>
+
+                <strong>Amplifies:</strong>
+                <span><a class='section-link' href='/ohio-revised-code/section-3901.19'>3901.19</a> to <a class='section-link' href='/ohio-revised-code/section-3901.26'>3901.26</a></span>
+                <br>
+
+                <!--			<strong>Current Five Year Review Date:</strong>-->
+                <!--			<span th:utext="*{mostRecentFiveYearReviewDate.slashesDateFormat}"></span>-->
+                <!--			<br>-->
+
+				
+					<strong>Five Year Review Date:</strong>
+					<span>2/27/2027</span>
+					<br>
+				
+
+                
+                    <strong>Prior Effective Dates:</strong>
+                    <span>9/1/1993, 11/12/2004, 4/5/2007, 11/3/2016</span>
+                    <br>
+                
+
+            </div>
+
+        </section>
+    </div>
+ </div>
+
+
+	
+
+		<div class="profile-navigator no-print">
+
+			<div class="previous">
+				<a href="/ohio-administrative-code/rule-3901-1-52">
+					<img src="/images/global/profile-pager/previous.png" alt="Previous">
+				</a>
+			</div>
+
+			<div class="next">
+				<a href="/ohio-administrative-code/rule-3901-1-55">
+					<img src="/images/global/profile-pager/next.png" alt="Next">
+				</a>
+			</div>
+
+		</div>
+
+	
+
+
+
+			</div>
+
+			<div class="clear">&nbsp;</div>
+
+		</div>
+
+	</div>
+
+
+			</div>
+		</main>
+
+		<footer>
+
+			<div class="footer-top">&nbsp;</div>
+
+			<div class="footer-bottom">
+
+				<div class="content-frame-medium">
+
+					<div class="footer-section">
+
+						<p class=" no-print">
+							<a href="/legal/disclaimer">Disclaimer</a>
+							<a href="/contact">Contact</a>
+							<a href="/about">About</a>
+						</p>
+
+<!--						<p>-->
+<!--							<span th:text="${'&copy; ' + copyrightYear + ' Legislative Service Commission.'}">&nbsp;</span><br/>-->
+<!--							All Rights Reserved.-->
+<!--						</p>-->
+
+					</div>
+
+				</div>
+
+			</div>
+
+		</footer>
+
+	</body>
+
+</html>

@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+	<head><script async src="https://www.googletagmanager.com/gtag/js?id=G-E4HLMDVMKH"></script> <script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag("js", new Date()); gtag("config", "G-E4HLMDVMKH");</script> <script type="text/javascript"> window._monsido = window._monsido || { token: "87hVpSXvcXqeefK5MDn5QA", statistics: { enabled: true, documentTracking: { enabled: true, documentCls: "monsido_download", documentIgnoreCls: "monsido_ignore_download", documentExt: [], }, }, pageCorrect: { enabled: true, }, pageAssistV2: { enabled: true, theme: "light", mainColor: "#11466e", textColor: "#ffffff", linkColor: "#11466e", buttonHoverColor: "#11466e", mainDarkColor: "#052942", textDarkColor: "#ffffff", linkColorDark: "#FFCF4B", buttonHoverDarkColor: "#FFCF4B", greeting: "Discover your personalization options", direction: "leftbottom", coordinates: "unset unset 3 20", iconShape: "circle", title: "Personalization Options", titleText: "Welcome to PageAssist™ toolbar! Adjust the options below to cater the website to your accessibility needs.", iconPictureUrl: "logo", logoPictureUrl: "", logoPictureBase64: "", languages: [""], defaultLanguage: "", skipTo: false, alwaysOnTop: false, }, }; </script> <script type="text/javascript" async src="https://app-script.monsido.com/v2/monsido-script.js"></script><script type="text/javascript" async src="https://app-script.monsido.com/v2/monsido-script.js"></script><script>window.addEventListener('mon-pageassist-open', function() {console.log('open pa');gtag('event', 'page_assist',{'event_category': 'open'});}); </script><script>window["adrum-app-key"]="AD-AAB-ABP-PTJ";window["adrum-start-time"]=new Date().getTime();</script><script type="text/javascript" src="//cdn.appdynamics.com/adrum/adrum-latest.js"></script>
+
+
+		<title>Section 3922.01 - Ohio Revised Code | Ohio Laws</title>
+
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+
+		<link href="/images/global/favicons/apple-touch-icon.png" rel="apple-touch-icon" sizes="180x180">
+		<link href="/images/global/favicons/favicon-32x32.png" type="image/png" rel="icon" sizes="32x32">
+		<link href="/images/global/favicons/favicon-16x16.png" type="image/png" rel="icon" sizes="16x16">
+		<link href="/images/global/favicons/site.webmanifest" rel="manifest">
+		<link href="/images/global/favicons/safari-pinned-tab.svg" rel="mask-icon" color="#5bbad5">
+		<meta name="msapplication-TileColor" content="#da532c">
+		<meta name="theme-color" content="#ffffff">
+
+		<link href="/css/master.css" type="text/css" rel="stylesheet" />
+
+		<link href="/js/libraries/tooltipster/tooltipster.bundle.min.css" type="text/css" rel="stylesheet" />
+		<link href="/js/libraries/tooltipster/tooltipster-sidetip-site-tip.min.css" type="text/css" rel="stylesheet" />
+		<link href="/js/libraries/timepicker/jquery.timepicker.css" type="text/css" rel="stylesheet" />
+		<link href="/js/libraries/jqueryui/css/site/jquery-ui-1.10.2.custom.min.css" type="text/css" rel="stylesheet" />
+
+		<script src="/js/libraries/jquery/jquery-3.3.1.min.js"></script>
+		<script src="/js/libraries/jquery/jquery-migrate-3.3.0.min.js"></script>
+		<script src="/js/libraries/jqueryui/js/jquery-ui-1.10.2.custom.min.js"></script>
+
+		<script src="/js/libraries/are-you-sure/jquery.are-you-sure.js"></script>
+		<script src="/js/libraries/inputmask/jquery.inputmask.min.js"></script>
+		<script src="/js/libraries/tooltipster/tooltipster.bundle.min.js"></script>
+		<script src="/js/libraries/timepicker/jquery.timepicker.min.js"></script>
+
+		<script src="/js/application/global.js"></script>
+		<script src="/js/application/main-menu.js"></script>
+		<script src="/js/application/mobile-menu.js"></script>
+		<script src="/js/application/ui-config.js"></script>
+		<script src="/js/application/utilities.js"></script>
+		<script src="/js/application/sortable.js"></script>
+
+	</head>
+
+	<body>
+
+		<a class="skip-to-main" href="#main">Skip to main content</a>
+		
+
+	<button id="mobile-navigation-button" class="mobile-navigation-button" aria-label="Mobile Menu Button">
+		<span></span>
+		<span></span>
+		<span></span>
+		<span></span>
+	</button>
+
+	<nav aria-label="Main Menu" id="mobile-menu" class="mobile-menu">
+
+		<div class="mobile-menu-top">&nbsp;</div>
+
+		<div class="mobile-menu-bottom">
+
+			
+
+				<div class="mobile-search-form-container">
+
+					
+					
+					
+
+						<form action="/ohio-revised-code/submit-search" class="default-form" method="post">
+
+							<div class="search-bar">
+
+								<div class="search-bar-input">
+									<label for="mobile-revised-code-keywords" class="screen-reader">Revised Code Keywords</label>
+									<input id="mobile-revised-code-keywords" name="revised-code-keywords" type="text" maxlength="100"
+											placeholder="Keyword Search" autocomplete="off" />
+								</div>
+
+								<div class="search-bar-button">
+									<button aria-label="Search" type="submit">&nbsp;</button>
+								</div>
+
+							</div>
+
+						</form>
+
+						<form action="/ohio-revised-code/submit-number-search" class="default-form" method="post">
+
+							<div class="search-bar search-bar-number-search">
+
+								<div class="search-bar-input">
+									<label for="mobile-revised-code-number" class="screen-reader">Section Number</label>
+									<input id="mobile-revised-code-number" name="revised-code-number" class="short-control" type="text" maxlength="10"
+											placeholder="101.01" autocomplete="off" />
+								</div>
+
+								<div class="search-bar-button">
+									<button aria-label="Go To Section" type="submit">Go To Section</button>
+								</div>
+
+							</div>
+
+						</form>
+
+					
+
+					
+
+					<div class="clear">&nbsp;</div>
+
+				</div>
+
+			
+
+			<ul>
+
+				<li id="laws-menu">
+
+					<button class="menu-header">
+						Laws
+						<span class="indicator">
+							<span class="arrow">&nbsp;</span>
+						</span>
+					</button>
+
+					<ul class="menu-body" aria-hidden="true" aria-expanded="false">
+						<li><a href="/ohio-constitution">Ohio Constitution</a></li>
+						<li><a href="/ohio-revised-code">Ohio Revised Code</a></li>
+						<li><a href="/ohio-administrative-code">Ohio Administrative Code</a></li>
+					</ul>
+
+				</li>
+
+				<li id="about-menu">
+
+					<button class="menu-header">
+						About
+						<span class="indicator">
+							<span class="arrow">&nbsp;</span>
+						</span>
+					</button>
+
+					<ul class="menu-body" aria-hidden="true" aria-expanded="false">
+						<li><a href="/about">About</a></li>
+					</ul>
+
+				</li>
+
+				<li id="contact-menu">
+
+					<button class="menu-header">
+						Contact
+						<span class="indicator">
+							<span class="arrow">&nbsp;</span>
+						</span>
+					</button>
+
+					<ul class="menu-body" aria-hidden="true" aria-expanded="false">
+						<li><a href="/contact">Contact</a></li>
+					</ul>
+
+				</li>
+
+				<li id="related-sites-menu">
+
+					<button class="menu-header">
+						Related Sites
+						<span class="indicator">
+							<span class="arrow">&nbsp;</span>
+						</span>
+					</button>
+
+					<ul class="menu-body" aria-hidden="true" aria-expanded="false">
+						<li><a href="/related-sites">Related Sites</a></li>
+					</ul>
+
+				</li>
+
+			</ul>
+
+		</div>
+
+	</nav>
+
+
+		
+
+	<button type="button" id="back-to-top" class="back-to-top no-select" onclick="goToTop()">
+		<span class="screen-reader">Back To Top</span>
+		Top
+		<img src="/images/global/icons/back-to-top.png" alt="Back To Top">
+	</button>
+
+	<script>
+
+		let backToTopButton = document.getElementById("back-to-top");
+		let distanceToShowButton = 20;
+
+		window.onscroll = function ()
+		{
+			scrollFunction()
+		};
+
+		function scrollFunction()
+		{
+			if (document.body.scrollTop > distanceToShowButton || document.documentElement.scrollTop > distanceToShowButton)
+				backToTopButton.style.display = "block";
+			else
+				backToTopButton.style.display = "none";
+		}
+
+		const goToTop = () =>
+		{
+			const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+
+			if (scrollTop > 0)
+			{
+				window.requestAnimationFrame(goToTop);
+				window.scrollTo(0, scrollTop - scrollTop / 5);
+			}
+		};
+	</script>
+
+
+
+		<header>
+
+			<div class="header-top">
+
+				<div class="content-frame-medium">
+
+					<div class="header-top-frame">
+
+						<a href="/">
+							<div class="home-button">
+								<img class="home-logo-large" src="/images/global/logos/home-logo-large.png" alt="Home Button" />
+								<img class="home-logo-medium" src="/images/global/logos/home-logo-medium.png" alt="Home Button" />
+								<img class="home-logo-small" src="/images/global/logos/home-logo-small.png" alt="Home Button" />
+							</div>
+						</a>
+
+					</div>
+
+				</div>
+
+			</div>
+
+			<div class="header-bottom no-print">
+
+				<div class="content-frame-large">
+
+					<div class="header-bottom-frame">
+
+						
+
+	<nav aria-label="Main Menu" class="main-menu">
+
+		<ul>
+
+			<li id="home-menu">
+
+				<a class="menu-header" href="/">
+					Home
+				</a>
+
+			</li>
+
+			<li id="laws-menu">
+
+				<a class="menu-header active" href="/ohio-constitution" aria-haspopup="true">
+					Laws
+				</a>
+
+				<ul class="menu-body" aria-hidden="true" aria-expanded="false">
+					<li><a href="/ohio-constitution">Ohio Constitution</a></li>
+					<li><a href="/ohio-revised-code">Ohio Revised Code</a></li>
+					<li><a href="/ohio-administrative-code">Ohio Administrative Code</a></li>
+				</ul>
+
+			</li>
+
+			<li id="about-menu">
+				<a class="menu-header" href="/about">
+					About
+				</a>
+			</li>
+
+			<li id="contact-menu">
+				<a class="menu-header" href="/contact">
+					Contact
+				</a>
+			</li>
+
+			<li id="related-sites-menu">
+				<a class="menu-header menu-header-condensed" href="/related-sites">
+					Related Sites
+				</a>
+			</li>
+
+		</ul>
+
+		
+
+		
+
+			<div class="inline-search">
+
+				<form action="/ohio-revised-code/submit-number-search" class="default-form" method="post">
+
+					<div class="search-bar search-bar-number-search">
+
+						<div class="inline-label">
+							Go To
+						</div>
+
+						<div class="search-bar-input">
+							<label for="revised-code-number" class="screen-reader">Revised Code Number</label>
+							<input id="revised-code-number" name="revised-code-number" type="text" maxlength="10" placeholder="101.01" autocomplete="off" />
+						</div>
+
+						<div class="search-bar-button">
+							<button aria-label="Go to section" type="submit">Go</button>
+						</div>
+
+					</div>
+
+				</form>
+
+				<form action="/ohio-revised-code/submit-search" class="default-form" method="post">
+
+					<div class="search-bar">
+
+						<div class="search-bar-input">
+							<label for="revised-code-keywords" class="screen-reader">Revised Code Keywords</label>
+							<input id="revised-code-keywords" name="revised-code-keywords" type="text" maxlength="100" placeholder="Keyword Search" autocomplete="off" />
+						</div>
+
+						<div class="search-bar-button">
+							<button aria-label="Search" type="submit">&nbsp;</button>
+						</div>
+
+					</div>
+
+				</form>
+
+			</div>
+
+		
+
+		
+		
+	</nav>
+
+
+
+					</div>
+
+				</div>
+
+			</div>
+
+		</header>
+
+		<main id="main" tabindex="-1">
+			<div class="body-middle">
+				
+
+	<div class="content-layout">
+
+		<div class="content-layout-body">
+
+			<div class="content-frame-medium">
+
+				
+
+	
+
+	<div class="section-banner no-print">
+		The Legislative Service Commission staff updates the Revised Code on an ongoing basis, as it completes its act review of enacted legislation.
+		Updates may be slower during some times of the year, depending on the volume of enacted legislation.
+	</div>
+
+
+
+	<section class="laws-header laws-section-header">
+
+		<h1>Section 3922.01 <span class='codes-separator'>|</span> Definitions.</h1>
+
+		<div class="breadcrumbs">
+
+			<div class="breadcrumbs-node">
+				<a href="/ohio-revised-code">Ohio Revised Code</a>
+			</div>
+
+			<div class="breadcrumbs-separator">/</div>
+
+			<div class="breadcrumbs-node">
+				<a href="/ohio-revised-code/title-39">Title 39 Insurance</a>
+			</div>
+
+			<div class="breadcrumbs-separator">/</div>
+
+			<div class="breadcrumbs-node">
+				<a href="/ohio-revised-code/chapter-3922">Chapter 3922 External Review</a>
+			</div>
+
+		</div>
+
+		
+
+			<div class="profile-navigator no-print">
+
+				<div class="previous">
+					<a href="/ohio-revised-code/section-3922.23">
+						<img src="/images/global/profile-pager/previous.png" alt="Previous">
+					</a>
+				</div>
+
+				<div class="next">
+					<a href="/ohio-revised-code/section-3922.02">
+						<img src="/images/global/profile-pager/next.png" alt="Next">
+					</a>
+				</div>
+
+			</div>
+
+		
+
+	</section>
+
+	<div class="clear">&nbsp;</div>
+
+	
+
+	<div>
+
+		
+
+		
+
+	</div>
+
+	<div class="laws-section-info">
+
+		<div class="laws-section-info-module">
+			<div class="label">Effective:</div>
+			<div class="value">September 6, 2012</div>
+		</div>
+
+		
+
+		
+
+		<div class="laws-section-info-module">
+			<div class="label">Latest Legislation: </div>
+			<div class="value">House Bill 341 - 129th General Assembly</div>
+		</div>
+
+		<div class="laws-section-info-module no-print">
+			<div class="label">PDF:</div>
+			<div class="value"><a target="_blank" href="/assets/laws/revised-code/authenticated/39/3922/3922.01/9-6-2012/3922.01-9-6-2012.pdf">Download Authenticated PDF</a></div>
+		</div>
+		&nbsp;
+	</div>
+
+	<section class="laws-body">
+
+		<span><p>As used in this chapter: </p><p>(A) "Adverse benefit determination" means a decision by a  health plan issuer:</p><p>(1) To deny, reduce, or terminate a requested health care  service or payment in whole or in part, including all of the  following:</p><p>(a) A determination that the health care service does not  meet the health plan issuer's requirements for medical necessity,  appropriateness, health care setting, level of care, or  effectiveness, including experimental or investigational  treatments;</p><p>(b) A determination of an individual's eligibility for  individual health insurance coverage, including coverage offered  to individuals through a nonemployer group, to participate in a  plan or health insurance coverage;</p><p>(c) A determination that a health care service is not a  covered benefit;</p><p>(d) The imposition of an exclusion, including exclusions for  pre-existing conditions, source of injury, network, or any other  limitation on benefits that would otherwise be covered.</p><p>(2) Not to issue individual health insurance coverage to an  applicant, including coverage offered to individuals through a  nonemployer group;</p><p>(3) To rescind coverage on a health benefit plan.</p><p>(B) "Ambulatory review" has the same meaning as in section  <a class='section-link' href='/ohio-revised-code/section-1751.77'>1751.77</a> of the Revised Code.</p><p>(C) "Authorized representative" means an individual who  represents a covered person in an internal appeal or external  review process of an adverse benefit determination who is any of  the following:</p><p>(1) A person to whom a covered individual has given express,  written consent to represent that individual in an internal  appeals process or external review process of an adverse benefit  determination;</p><p>(2) A person authorized by law to provide substituted consent  for a covered individual;</p><p>(3) A family member or a treating health care professional,  but only when the covered person is unable to provide consent.</p><p>(D) "Best evidence" means evidence based on all of the  following sources, listed according to priority, as they are  available:</p><p>(1) Randomized clinical trials;</p><p>(2) Cohort studies or case-control studies;</p><p>(3) Case series;</p><p>(4) Expert opinion.</p><p>(E) "Covered person" means a policyholder, subscriber,  enrollee, member, or individual covered by a health benefit plan.  "Covered person" does include the covered person's authorized  representative with regard to an internal appeal or external  review in accordance with division (C) of this section. "Covered  person" does not include the covered person's representative in  any other context.</p><p>(F) "Covered benefits" or "benefits" means those health care  services to which a covered person is entitled under the terms of  a health benefit plan.</p><p>(G) "Emergency medical condition" has the same meaning as in  section <a class='section-link' href='/ohio-revised-code/section-1753.28'>1753.28</a> of the Revised Code.</p><p>(H) "Emergency services" has the same meaning as in section  <a class='section-link' href='/ohio-revised-code/section-1753.28'>1753.28</a> of the Revised Code.</p><p>(I) "Evidence-based standard" means the conscientious,  explicit, and judicious use of the current best evidence, based on  a systematic review of the relevant research, in making decisions  about the care of individuals.</p><p>(J) "Facility" means an institution providing health care  services, or a health care setting, including hospitals and other  licensed inpatient centers, ambulatory, surgical, treatment,  skilled nursing, residential treatment, diagnostic, laboratory,  and imaging centers, and rehabilitation and other therapeutic  health settings.</p><p>(K) "Final adverse benefit determination" means an adverse  benefit determination that is upheld at the completion of a health  plan issuer's internal appeals process.</p><p>(L) "Health benefit plan" means a policy, contract,  certificate, or agreement offered by a health plan issuer to  provide, deliver, arrange for, pay for, or reimburse any of the  costs of health care services, including benefit plans marketed in  the individual or group market by all associations, whether bona  fide or non-bona fide. "Health benefit plan" also means a limited  benefit plan, except as follows. "Health benefit plan" does not  mean any of the following types of coverage: a policy, contract,  certificate, or agreement that covers only a specified accident,  accident only, credit, dental, disability income, long-term care,  hospital indemnity, supplemental coverage, as described in section  <a class='section-link' href='/ohio-revised-code/section-3923.37'>3923.37</a> of the Revised Code, specified disease, or vision care;  coverage issued as a supplement to liability insurance; insurance  arising out of workers' compensation or similar law; automobile  medical payment insurance; or insurance under which benefits are  payable with or without regard to fault and which is statutorily  required to be contained in any liability insurance policy or  equivalent self-insurance; a medicare supplement policy of  insurance, as defined by the superintendent of insurance by rule,  coverage under a plan through medicare, medicaid, or the federal  employees benefit program; any coverage issued under Chapter 55 of  Title 10 of the United States Code and any coverage issued as a  supplement to that coverage.</p><p>(M) "Health care professional" means a physician,  psychologist, nurse practitioner, or other health care  practitioner licensed, accredited, or certified to perform health  care services consistent with state law.</p><p>(N) "Health care provider" or "provider" means a health care  professional or facility.</p><p>(O) "Health care services" means services for the diagnosis,  prevention, treatment, cure, or relief of a health condition,  illness, injury, or disease.</p><p>(P) "Health plan issuer" means an entity subject to the  insurance laws and rules of this state, or subject to the  jurisdiction of the superintendent of insurance, that contracts,  or offers to contract to provide, deliver, arrange for, pay for,  or reimburse any of the costs of health care services under a  health benefit plan, including a sickness and accident insurance  company, a health insuring corporation, a fraternal benefit  society, a self-funded multiple employer welfare arrangement, or a  nonfederal, government health plan. "Health plan issuer" includes  a third party administrator licensed under Chapter 3959. of the  Revised Code to the extent that the benefits that such an entity  is contracted to administer under a health benefit plan are  subject to the insurance laws and rules of this state or subject  to the jurisdiction of the superintendent.</p><p>(Q) "Health information" means information or data, whether  oral or recorded in any form or medium, and personal facts or  information about events or relationships that relates to all of  the following:</p><p>(1) The past, present, or future physical, mental, or  behavioral health or condition of a covered person or a member of  the covered person's family;</p><p>(2) The provision of health care services or health-related  benefits to a covered person;</p><p>(3) Payment for the provision of health care services to or  for a covered person.</p><p>(R) "Independent review organization" means an entity that is  accredited to conduct independent external reviews of adverse  benefit determinations pursuant to section <a class='section-link' href='/ohio-revised-code/section-3922.13'>3922.13</a> of the Revised  Code.</p><p>(S) "Medical or scientific evidence" means evidence found in  any of the following sources:</p><p>(1) Peer-reviewed scientific studies published in, or  accepted for publication by, medical journals that meet nationally  recognized requirements for scientific manuscripts and that submit  most of their published articles for review by experts who are not  part of the editorial staff;</p><p>(2) Peer-reviewed medical literature, including literature  relating to therapies reviewed and approved by a qualified  institutional review board, biomedical compendia and other medical  literature that meet the criteria of the national institutes of  health's library of medicine for indexing in index medicus and  elsevier science ltd. for indexing in excerpta medicus;</p><p>(3) Medical journals recognized by the secretary of health  and human services under section 1861(t)(2) of the federal social  security act;</p><p>(4) The following standard reference compendia:</p><p>(a) The American hospital formulary service drug information;</p><p>(b) Drug facts and comparisons;</p><p>(c) The American dental association accepted dental  therapeutics;</p><p>(d) The United States pharmacopoeia drug information.</p><p>(5) Findings, studies or research conducted by or under the  auspices of a federal government agency or nationally recognized  federal research institute, including any of the following:</p><p>(a) The federal agency for health care research and quality;</p><p>(b) The national institutes of health;</p><p>(c) The national cancer institute;</p><p>(d) The national academy of sciences;</p><p>(e) The centers for medicare and medicaid services;</p><p>(f) The federal food and drug administration;</p><p>(g) Any national board recognized by the national institutes  of health for the purpose of evaluating the medical value of  health care services.</p><p>(6) Any other medical or scientific evidence that is  comparable.</p><p>(T) "Person" has the same meaning as in section <a class='section-link' href='/ohio-revised-code/section-3901.19'>3901.19</a> of  the Revised Code.</p><p>(U) "Protected health information" means health information  related to the identity of an individual, or information that  could reasonably be used to determine the identity of an  individual.</p><p>(V) "Rescind" means to retroactively cancel or discontinue  coverage. "Rescind" does not include canceling or discontinuing  coverage that only has a prospective effect or canceling or  discontinuing coverage that is effective retroactively to the  extent it is attributable to a failure to timely pay required  premiums or contributions towards the cost of coverage.</p><p>(W) "Retrospective review" means a review conducted after  services have been provided to a covered person.</p><p>(X) "Superintendent" means the superintendent of insurance.</p><p>(Y) "Utilization review" has the same meaning as in section  <a class='section-link' href='/ohio-revised-code/section-1751.77'>1751.77</a> of the Revised Code.</p><p>(Z) "Utilization review organization" has the same meaning as  in section <a class='section-link' href='/ohio-revised-code/section-1751.77'>1751.77</a> of the Revised Code.</p></span>
+
+		
+
+	</section>
+
+	
+
+		<section class="laws-history">
+
+			<h2>Available Versions of this Section</h2>
+
+			<ul>
+
+				<li>
+					<span>September 6, 2012 &ndash; House Bill 341 - 129th General Assembly</span>
+					<span class="no-print">
+						[ <a href="/ohio-revised-code/section-3922.01">View September 6, 2012 Version</a> ]
+					</span>
+				</li>
+
+			</ul>
+
+		</section>
+
+	
+
+
+
+	
+
+		<div class="profile-navigator no-print">
+
+			<div class="previous">
+				<a href="/ohio-revised-code/section-3922.23">
+					<img src="/images/global/profile-pager/previous.png" alt="Previous">
+				</a>
+			</div>
+
+			<div class="next">
+				<a href="/ohio-revised-code/section-3922.02">
+					<img src="/images/global/profile-pager/next.png" alt="Next">
+				</a>
+			</div>
+
+		</div>
+
+	
+
+
+
+			</div>
+
+			<div class="clear">&nbsp;</div>
+
+		</div>
+
+	</div>
+
+
+			</div>
+		</main>
+
+		<footer>
+
+			<div class="footer-top">&nbsp;</div>
+
+			<div class="footer-bottom">
+
+				<div class="content-frame-medium">
+
+					<div class="footer-section">
+
+						<p class=" no-print">
+							<a href="/legal/disclaimer">Disclaimer</a>
+							<a href="/contact">Contact</a>
+							<a href="/about">About</a>
+						</p>
+
+<!--						<p>-->
+<!--							<span th:text="${'&copy; ' + copyrightYear + ' Legislative Service Commission.'}">&nbsp;</span><br/>-->
+<!--							All Rights Reserved.-->
+<!--						</p>-->
+
+					</div>
+
+				</div>
+
+			</div>
+
+		</footer>
+
+	</body>
+
+</html>

@@ -1,0 +1,4 @@
+status	200
+url	https://clinicaltrials.gov/api/v2/studies/NCT01740427?fields=protocolSection.identificationModule,protocolSection.statusModule,protocolSection.designModule,resultsSection
+content-type	application/json
+final_url	https://clinicaltrials.gov/api/v2/studies/NCT01740427?fields=protocolSection.identificationModule,protocolSection.statusModule,protocolSection.designModule,resultsSection

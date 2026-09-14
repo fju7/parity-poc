@@ -1,0 +1,4 @@
+status	200
+url	https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=TITLE%3A%22Overall%20Survival%20with%20Ribociclib%20plus%20Endocrine%20Therapy%20in%20Breast%20Cancer%22&format=json&pageSize=3&resultType=lite
+content-type	application/json;charset=UTF-8
+final_url	https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=TITLE%3A%22Overall%20Survival%20with%20Ribociclib%20plus%20Endocrine%20Therapy%20in%20Breast%20Cancer%22&format=json&pageSize=3&resultType=lite

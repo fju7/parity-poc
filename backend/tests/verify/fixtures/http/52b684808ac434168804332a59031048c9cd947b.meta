@@ -1,0 +1,4 @@
+status	200
+url	https://www.ebi.ac.uk/europepmc/webservices/rest/PMC7787219/fullTextXML
+content-type	application/xml
+final_url	https://www.ebi.ac.uk/europepmc/webservices/rest/PMC7787219/fullTextXML

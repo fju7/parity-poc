@@ -1,6 +1,6 @@
 # Phase 1 — resolve / fetch / bind, for both registries
 
-**Status: APPROVED 2026-09-14 with four amendments (§§ 4a, 5a, 5b, 8), now being built — literature adapter first, law second.** Phase 0 (`f0bb63e`) removed every
+**Status: APPROVED 2026-09-14 with four amendments (§§ 4a, 5a, 5b, 8). BUILT the same day: `backend/verify/` — see §11 for what was built and what the golden sets said.** Phase 0 (`f0bb63e`) removed every
 clinical and legal assertion the system could not support. Phase 1 is the
 mechanism by which an assertion becomes supportable, so that Phase 2 can
 invert `utils/citation_gate.py` from a blocklist to an allow-list and Phase 3
@@ -281,3 +281,50 @@ found in use is added to the set, not tuned away.
 3. Invert `citation_gate` to allow-list mode with an empty list; behaviour
    unchanged; then the curated candidate table for Ohio × 7 denial codes.
 4. `publish_topic.py` and the corpus rebuild, one topic, with the gate.
+
+## 11. Built 2026-09-14 — `backend/verify/`
+
+| file | what |
+|---|---|
+| `types.py` | `Identifier`, `Resolution`, `Document`, `Binding`, `Context`, the enums |
+| `numbers.py` | FIGURE normalisation (§4a): digits, thousands, middle-dot decimals, percent, ranges, unicode minus, word-numbers with hundred/thousand composition and fractions; adjectival forms ("two-sided") excluded; an ASCII hyphen before a number kept as a dash too (the manual's modifier "-25") |
+| `text.py` | `agreement()` — the distinctive-word HEADING test with a literature boilerplate list and a law one |
+| `bind.py` | the four kinds; `bind_all()` |
+| `literature.py` | `identify / resolve / fetch` for DOI (Handle → CrossRef), PMID/PMCID (Europe PMC), NCT (ClinicalTrials.gov v2, three titles); fetch = Europe PMC full-text XML where held, else the abstract, else the trial record |
+| `law.py` | `identify / resolve / fetch` for CFR (eCFR versioner API, paragraph-sliced), ORC/OAC (codes.ohio.gov, section + chapter heading), CMS IOM chapters and the NCCI manual (PDF, `pdftotext`, section-sliced) |
+| `http.py` | one getter, record/replay cache; the golden sets replay from `tests/verify/fixtures/http` (90 responses recorded live 2026-09-14) |
+| `__main__.py` | `python -m verify "<cite or id>" --assert "…"` — prints what each gate found, for a person to read |
+
+**Acceptance, both directions, as amended (§9):**
+
+* Literature — negatives: all 59 FABRICATED_IDENTIFIER and all 33 WRONG_DOCUMENT
+  of the 381 reproduce source for source, **and seven more** are refused that
+  the 2026-09-14 run passed on the word "cancer" (pinned by id in
+  `test_golden_literature.py`; each read and each a different document,
+  including the EPIC-alcohol → lipid-nanoparticle case from
+  `verify_sources.py`'s own docstring). Positives: 12 real sources (4 DOI,
+  3 PMID, 1 PMCID, 4 NCT; 5 open-access full texts fetched, 2 abstract-only,
+  4 trial records) — **false-negative rate 0/12**. One negative control sits
+  beside them: `pmid:31562796`, typed from memory while assembling the set,
+  resolved to a lung-cancer trial and passed HEADING until "advanced" and
+  "cancer" stopped counting as distinctive. The set caught its own author.
+* Law — negatives: the 12 wrong citations each fail on the named kind
+  (3901.38 passes HEADING, fails FIGURE; 3901-1-54 passes HEADING, fails
+  APPLICABILITY; 424.5(a)(6) passes HEADING on its paragraph, fails
+  APPLICABILITY; the unnumbered one fails at resolve). Positives: 8 —
+  **false-negative rate 0/8**, including "thirty days" / "forty-five days"
+  (3901.381) and "eighteen per cent" (3901.389) through word-number
+  normalisation. Two context negatives: the right manual section against a
+  commercial payer, the right Ohio section for a Texas practice — both
+  refused on APPLICABILITY.
+
+Three calibrations made by the sets, recorded so they are not mistaken for
+tuning: oncology-generic words added to the literature boilerplate; for law,
+a paragraph citation's own words and the Ohio chapter title count as heading
+candidates ("Basic conditions" and "Definitions" identify nothing alone);
+an ASCII hyphen before a number is a dash as well as a sign.
+
+**Not built, by ruling:** nothing under `scripts/whatholdsup/` imports this
+package (a test enforces it); the curated candidate table and the
+allow-list inversion of `citation_gate` are Phase 2; `publish_topic.py` and
+the corpus rebuild are Phase 3.

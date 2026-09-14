@@ -1,0 +1,4 @@
+status	200
+url	https://www.ecfr.gov/api/versioner/v1/full/2026-09-01/title-42.xml?section=424.5
+content-type	text/xml
+final_url	https://www.ecfr.gov/api/versioner/v1/full/2026-09-01/title-42.xml?section=424.5

@@ -1,0 +1,4 @@
+status	200
+url	https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=EXT_ID%3A31166679%20AND%20SRC%3AMED&format=json&pageSize=1&resultType=core
+content-type	application/json;charset=UTF-8
+final_url	https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=EXT_ID%3A31166679%20AND%20SRC%3AMED&format=json&pageSize=1&resultType=core

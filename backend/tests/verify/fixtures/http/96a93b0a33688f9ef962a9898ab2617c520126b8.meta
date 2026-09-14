@@ -1,0 +1,4 @@
+status	200
+url	https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=PMCID%3APMC7723445&format=json&pageSize=1&resultType=core
+content-type	application/json;charset=UTF-8
+final_url	https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=PMCID%3APMC7723445&format=json&pageSize=1&resultType=core

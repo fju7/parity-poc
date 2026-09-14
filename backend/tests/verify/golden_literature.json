@@ -1,0 +1,87 @@
+{
+  "_note": "Positive controls for the literature adapter (design doc §9). Each `ours` is the shorthand a Signal/WHU source list would carry; `assertion` carries a figure the document must contain. Registry headings were read by a person against these on 2026-09-14 before the set became a control (see recorded headings in the test output).",
+  "known_good": [
+    {
+      "id": "doi:10.1056/nejmoa2034577",
+      "ours": "Safety and efficacy of the BNT162b2 mRNA Covid-19 vaccine (Polack 2020)",
+      "assertion": "BNT162b2 was 95% effective in preventing Covid-19",
+      "expect_kind": "full_text"
+    },
+    {
+      "id": "doi:10.1056/nejmoa1607303",
+      "ours": "PALOMA-2 — palbociclib and letrozole in advanced breast cancer",
+      "assertion": "median progression-free survival was 24.8 months with palbociclib-letrozole versus 14.5 months with placebo-letrozole",
+      "expect_kind": "abstract"
+    },
+    {
+      "id": "doi:10.1200/jco.2017.75.6155",
+      "ours": "MONARCH 3: abemaciclib as initial therapy for HR+, HER2- advanced breast cancer",
+      "assertion": "hazard ratio 0.54 for progression-free survival",
+      "expect_kind": "abstract"
+    },
+    {
+      "id": "doi:10.1371/journal.pmed.1000097",
+      "ours": "PRISMA statement for reporting systematic reviews and meta-analyses",
+      "assertion": "a 27-item checklist",
+      "expect_kind": "full_text"
+    },
+    {
+      "id": "pmid:32109013",
+      "ours": "Clinical characteristics of coronavirus disease 2019 in China (Guan 2020)",
+      "assertion": "data from 1,099 patients",
+      "expect_kind": "full_text"
+    },
+    {
+      "id": "pmid:31166679",
+      "ours": "MONALEESA-7 — overall survival with ribociclib in premenopausal advanced breast cancer",
+      "assertion": "estimated overall survival at 42 months was 70.2% with ribociclib",
+      "expect_kind": "abstract",
+      "_provenance": "SEARCHED by exact title on Europe PMC 2026-09-14, read back: Im SA et al, NEJM 2019, doi 10.1056/nejmoa1903765"
+    },
+    {
+      "id": "pmid:33378609",
+      "ours": "Efficacy and safety of the mRNA-1273 SARS-CoV-2 vaccine (Baden 2021)",
+      "assertion": "vaccine efficacy of 94.1%",
+      "expect_kind": "full_text"
+    },
+    {
+      "id": "pmcid:PMC7723445",
+      "ours": "Oxford–AstraZeneca ChAdOx1 nCoV-19 vaccine interim efficacy analysis (Voysey 2021)",
+      "assertion": "overall vaccine efficacy 70.4%",
+      "expect_kind": "full_text"
+    },
+    {
+      "id": "nct:NCT04368728",
+      "ours": "BNT162b2 phase 3 (Pfizer-BioNTech COVID-19 vaccine)",
+      "assertion": "",
+      "expect_kind": "record"
+    },
+    {
+      "id": "nct:NCT02246621",
+      "ours": "MONARCH 3",
+      "assertion": "",
+      "expect_kind": "record"
+    },
+    {
+      "id": "nct:NCT01740427",
+      "ours": "PALOMA-2",
+      "assertion": "",
+      "expect_kind": "record"
+    },
+    {
+      "id": "nct:NCT03036488",
+      "ours": "KEYNOTE-522",
+      "assertion": "",
+      "expect_kind": "record"
+    }
+  ],
+  "known_bad": [
+    {
+      "id": "pmid:31562796",
+      "ours": "MONALEESA-7 — overall survival with ribociclib in premenopausal advanced breast cancer",
+      "assertion": "estimated overall survival at 42 months was 70.2% with ribociclib",
+      "_why": "A PMID typed from memory on 2026-09-14 while assembling this very set. It resolves to 'Nivolumab plus Ipilimumab in Advanced Non-Small-Cell Lung Cancer'. With 'advanced' and 'cancer' counted as distinctive, HEADING passed; only FIGURE refused it. Kept as the negative control that set the oncology boilerplate.",
+      "expect_fail_kind": "HEADING"
+    }
+  ]
+}

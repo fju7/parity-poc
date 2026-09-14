@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+	<head><script async src="https://www.googletagmanager.com/gtag/js?id=G-E4HLMDVMKH"></script> <script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag("js", new Date()); gtag("config", "G-E4HLMDVMKH");</script> <script type="text/javascript"> window._monsido = window._monsido || { token: "87hVpSXvcXqeefK5MDn5QA", statistics: { enabled: true, documentTracking: { enabled: true, documentCls: "monsido_download", documentIgnoreCls: "monsido_ignore_download", documentExt: [], }, }, pageCorrect: { enabled: true, }, pageAssistV2: { enabled: true, theme: "light", mainColor: "#11466e", textColor: "#ffffff", linkColor: "#11466e", buttonHoverColor: "#11466e", mainDarkColor: "#052942", textDarkColor: "#ffffff", linkColorDark: "#FFCF4B", buttonHoverDarkColor: "#FFCF4B", greeting: "Discover your personalization options", direction: "leftbottom", coordinates: "unset unset 3 20", iconShape: "circle", title: "Personalization Options", titleText: "Welcome to PageAssist™ toolbar! Adjust the options below to cater the website to your accessibility needs.", iconPictureUrl: "logo", logoPictureUrl: "", logoPictureBase64: "", languages: [""], defaultLanguage: "", skipTo: false, alwaysOnTop: false, }, }; </script> <script type="text/javascript" async src="https://app-script.monsido.com/v2/monsido-script.js"></script><script type="text/javascript" async src="https://app-script.monsido.com/v2/monsido-script.js"></script><script>window.addEventListener('mon-pageassist-open', function() {console.log('open pa');gtag('event', 'page_assist',{'event_category': 'open'});}); </script><script>window["adrum-app-key"]="AD-AAB-ABP-PTJ";window["adrum-start-time"]=new Date().getTime();</script><script type="text/javascript" src="//cdn.appdynamics.com/adrum/adrum-latest.js"></script>
+
+
+		<title>Section 3902.13 - Ohio Revised Code | Ohio Laws</title>
+
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+
+		<link href="/images/global/favicons/apple-touch-icon.png" rel="apple-touch-icon" sizes="180x180">
+		<link href="/images/global/favicons/favicon-32x32.png" type="image/png" rel="icon" sizes="32x32">
+		<link href="/images/global/favicons/favicon-16x16.png" type="image/png" rel="icon" sizes="16x16">
+		<link href="/images/global/favicons/site.webmanifest" rel="manifest">
+		<link href="/images/global/favicons/safari-pinned-tab.svg" rel="mask-icon" color="#5bbad5">
+		<meta name="msapplication-TileColor" content="#da532c">
+		<meta name="theme-color" content="#ffffff">
+
+		<link href="/css/master.css" type="text/css" rel="stylesheet" />
+
+		<link href="/js/libraries/tooltipster/tooltipster.bundle.min.css" type="text/css" rel="stylesheet" />
+		<link href="/js/libraries/tooltipster/tooltipster-sidetip-site-tip.min.css" type="text/css" rel="stylesheet" />
+		<link href="/js/libraries/timepicker/jquery.timepicker.css" type="text/css" rel="stylesheet" />
+		<link href="/js/libraries/jqueryui/css/site/jquery-ui-1.10.2.custom.min.css" type="text/css" rel="stylesheet" />
+
+		<script src="/js/libraries/jquery/jquery-3.3.1.min.js"></script>
+		<script src="/js/libraries/jquery/jquery-migrate-3.3.0.min.js"></script>
+		<script src="/js/libraries/jqueryui/js/jquery-ui-1.10.2.custom.min.js"></script>
+
+		<script src="/js/libraries/are-you-sure/jquery.are-you-sure.js"></script>
+		<script src="/js/libraries/inputmask/jquery.inputmask.min.js"></script>
+		<script src="/js/libraries/tooltipster/tooltipster.bundle.min.js"></script>
+		<script src="/js/libraries/timepicker/jquery.timepicker.min.js"></script>
+
+		<script src="/js/application/global.js"></script>
+		<script src="/js/application/main-menu.js"></script>
+		<script src="/js/application/mobile-menu.js"></script>
+		<script src="/js/application/ui-config.js"></script>
+		<script src="/js/application/utilities.js"></script>
+		<script src="/js/application/sortable.js"></script>
+
+	</head>
+
+	<body>
+
+		<a class="skip-to-main" href="#main">Skip to main content</a>
+		
+
+	<button id="mobile-navigation-button" class="mobile-navigation-button" aria-label="Mobile Menu Button">
+		<span></span>
+		<span></span>
+		<span></span>
+		<span></span>
+	</button>
+
+	<nav aria-label="Main Menu" id="mobile-menu" class="mobile-menu">
+
+		<div class="mobile-menu-top">&nbsp;</div>
+
+		<div class="mobile-menu-bottom">
+
+			
+
+				<div class="mobile-search-form-container">
+
+					
+					
+					
+
+						<form action="/ohio-revised-code/submit-search" class="default-form" method="post">
+
+							<div class="search-bar">
+
+								<div class="search-bar-input">
+									<label for="mobile-revised-code-keywords" class="screen-reader">Revised Code Keywords</label>
+									<input id="mobile-revised-code-keywords" name="revised-code-keywords" type="text" maxlength="100"
+											placeholder="Keyword Search" autocomplete="off" />
+								</div>
+
+								<div class="search-bar-button">
+									<button aria-label="Search" type="submit">&nbsp;</button>
+								</div>
+
+							</div>
+
+						</form>
+
+						<form action="/ohio-revised-code/submit-number-search" class="default-form" method="post">
+
+							<div class="search-bar search-bar-number-search">
+
+								<div class="search-bar-input">
+									<label for="mobile-revised-code-number" class="screen-reader">Section Number</label>
+									<input id="mobile-revised-code-number" name="revised-code-number" class="short-control" type="text" maxlength="10"
+											placeholder="101.01" autocomplete="off" />
+								</div>
+
+								<div class="search-bar-button">
+									<button aria-label="Go To Section" type="submit">Go To Section</button>
+								</div>
+
+							</div>
+
+						</form>
+
+					
+
+					
+
+					<div class="clear">&nbsp;</div>
+
+				</div>
+
+			
+
+			<ul>
+
+				<li id="laws-menu">
+
+					<button class="menu-header">
+						Laws
+						<span class="indicator">
+							<span class="arrow">&nbsp;</span>
+						</span>
+					</button>
+
+					<ul class="menu-body" aria-hidden="true" aria-expanded="false">
+						<li><a href="/ohio-constitution">Ohio Constitution</a></li>
+						<li><a href="/ohio-revised-code">Ohio Revised Code</a></li>
+						<li><a href="/ohio-administrative-code">Ohio Administrative Code</a></li>
+					</ul>
+
+				</li>
+
+				<li id="about-menu">
+
+					<button class="menu-header">
+						About
+						<span class="indicator">
+							<span class="arrow">&nbsp;</span>
+						</span>
+					</button>
+
+					<ul class="menu-body" aria-hidden="true" aria-expanded="false">
+						<li><a href="/about">About</a></li>
+					</ul>
+
+				</li>
+
+				<li id="contact-menu">
+
+					<button class="menu-header">
+						Contact
+						<span class="indicator">
+							<span class="arrow">&nbsp;</span>
+						</span>
+					</button>
+
+					<ul class="menu-body" aria-hidden="true" aria-expanded="false">
+						<li><a href="/contact">Contact</a></li>
+					</ul>
+
+				</li>
+
+				<li id="related-sites-menu">
+
+					<button class="menu-header">
+						Related Sites
+						<span class="indicator">
+							<span class="arrow">&nbsp;</span>
+						</span>
+					</button>
+
+					<ul class="menu-body" aria-hidden="true" aria-expanded="false">
+						<li><a href="/related-sites">Related Sites</a></li>
+					</ul>
+
+				</li>
+
+			</ul>
+
+		</div>
+
+	</nav>
+
+
+		
+
+	<button type="button" id="back-to-top" class="back-to-top no-select" onclick="goToTop()">
+		<span class="screen-reader">Back To Top</span>
+		Top
+		<img src="/images/global/icons/back-to-top.png" alt="Back To Top">
+	</button>
+
+	<script>
+
+		let backToTopButton = document.getElementById("back-to-top");
+		let distanceToShowButton = 20;
+
+		window.onscroll = function ()
+		{
+			scrollFunction()
+		};
+
+		function scrollFunction()
+		{
+			if (document.body.scrollTop > distanceToShowButton || document.documentElement.scrollTop > distanceToShowButton)
+				backToTopButton.style.display = "block";
+			else
+				backToTopButton.style.display = "none";
+		}
+
+		const goToTop = () =>
+		{
+			const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+
+			if (scrollTop > 0)
+			{
+				window.requestAnimationFrame(goToTop);
+				window.scrollTo(0, scrollTop - scrollTop / 5);
+			}
+		};
+	</script>
+
+
+
+		<header>
+
+			<div class="header-top">
+
+				<div class="content-frame-medium">
+
+					<div class="header-top-frame">
+
+						<a href="/">
+							<div class="home-button">
+								<img class="home-logo-large" src="/images/global/logos/home-logo-large.png" alt="Home Button" />
+								<img class="home-logo-medium" src="/images/global/logos/home-logo-medium.png" alt="Home Button" />
+								<img class="home-logo-small" src="/images/global/logos/home-logo-small.png" alt="Home Button" />
+							</div>
+						</a>
+
+					</div>
+
+				</div>
+
+			</div>
+
+			<div class="header-bottom no-print">
+
+				<div class="content-frame-large">
+
+					<div class="header-bottom-frame">
+
+						
+
+	<nav aria-label="Main Menu" class="main-menu">
+
+		<ul>
+
+			<li id="home-menu">
+
+				<a class="menu-header" href="/">
+					Home
+				</a>
+
+			</li>
+
+			<li id="laws-menu">
+
+				<a class="menu-header active" href="/ohio-constitution" aria-haspopup="true">
+					Laws
+				</a>
+
+				<ul class="menu-body" aria-hidden="true" aria-expanded="false">
+					<li><a href="/ohio-constitution">Ohio Constitution</a></li>
+					<li><a href="/ohio-revised-code">Ohio Revised Code</a></li>
+					<li><a href="/ohio-administrative-code">Ohio Administrative Code</a></li>
+				</ul>
+
+			</li>
+
+			<li id="about-menu">
+				<a class="menu-header" href="/about">
+					About
+				</a>
+			</li>
+
+			<li id="contact-menu">
+				<a class="menu-header" href="/contact">
+					Contact
+				</a>
+			</li>
+
+			<li id="related-sites-menu">
+				<a class="menu-header menu-header-condensed" href="/related-sites">
+					Related Sites
+				</a>
+			</li>
+
+		</ul>
+
+		
+
+		
+
+			<div class="inline-search">
+
+				<form action="/ohio-revised-code/submit-number-search" class="default-form" method="post">
+
+					<div class="search-bar search-bar-number-search">
+
+						<div class="inline-label">
+							Go To
+						</div>
+
+						<div class="search-bar-input">
+							<label for="revised-code-number" class="screen-reader">Revised Code Number</label>
+							<input id="revised-code-number" name="revised-code-number" type="text" maxlength="10" placeholder="101.01" autocomplete="off" />
+						</div>
+
+						<div class="search-bar-button">
+							<button aria-label="Go to section" type="submit">Go</button>
+						</div>
+
+					</div>
+
+				</form>
+
+				<form action="/ohio-revised-code/submit-search" class="default-form" method="post">
+
+					<div class="search-bar">
+
+						<div class="search-bar-input">
+							<label for="revised-code-keywords" class="screen-reader">Revised Code Keywords</label>
+							<input id="revised-code-keywords" name="revised-code-keywords" type="text" maxlength="100" placeholder="Keyword Search" autocomplete="off" />
+						</div>
+
+						<div class="search-bar-button">
+							<button aria-label="Search" type="submit">&nbsp;</button>
+						</div>
+
+					</div>
+
+				</form>
+
+			</div>
+
+		
+
+		
+		
+	</nav>
+
+
+
+					</div>
+
+				</div>
+
+			</div>
+
+		</header>
+
+		<main id="main" tabindex="-1">
+			<div class="body-middle">
+				
+
+	<div class="content-layout">
+
+		<div class="content-layout-body">
+
+			<div class="content-frame-medium">
+
+				
+
+	
+
+	<div class="section-banner no-print">
+		The Legislative Service Commission staff updates the Revised Code on an ongoing basis, as it completes its act review of enacted legislation.
+		Updates may be slower during some times of the year, depending on the volume of enacted legislation.
+	</div>
+
+
+
+	<section class="laws-header laws-section-header">
+
+		<h1>Section 3902.13 <span class='codes-separator'>|</span> Order of benefits for health coverage plan.</h1>
+
+		<div class="breadcrumbs">
+
+			<div class="breadcrumbs-node">
+				<a href="/ohio-revised-code">Ohio Revised Code</a>
+			</div>
+
+			<div class="breadcrumbs-separator">/</div>
+
+			<div class="breadcrumbs-node">
+				<a href="/ohio-revised-code/title-39">Title 39 Insurance</a>
+			</div>
+
+			<div class="breadcrumbs-separator">/</div>
+
+			<div class="breadcrumbs-node">
+				<a href="/ohio-revised-code/chapter-3902">Chapter 3902 Insurance Policies And Contracts</a>
+			</div>
+
+		</div>
+
+		
+
+			<div class="profile-navigator no-print">
+
+				<div class="previous">
+					<a href="/ohio-revised-code/section-3902.12">
+						<img src="/images/global/profile-pager/previous.png" alt="Previous">
+					</a>
+				</div>
+
+				<div class="next">
+					<a href="/ohio-revised-code/section-3902.14">
+						<img src="/images/global/profile-pager/next.png" alt="Next">
+					</a>
+				</div>
+
+			</div>
+
+		
+
+	</section>
+
+	<div class="clear">&nbsp;</div>
+
+	
+
+	<div>
+
+		
+
+		
+
+	</div>
+
+	<div class="laws-section-info">
+
+		<div class="laws-section-info-module">
+			<div class="label">Effective:</div>
+			<div class="value">June 4, 1997</div>
+		</div>
+
+		
+
+		
+
+		<div class="laws-section-info-module">
+			<div class="label">Latest Legislation: </div>
+			<div class="value">Senate Bill 67 - 122nd General Assembly</div>
+		</div>
+
+		<div class="laws-section-info-module no-print">
+			<div class="label">PDF:</div>
+			<div class="value"><a target="_blank" href="/assets/laws/revised-code/authenticated/39/3902/3902.13/6-4-1997/3902.13-6-4-1997.pdf">Download Authenticated PDF</a></div>
+		</div>
+		&nbsp;
+	</div>
+
+	<section class="laws-body">
+
+		<span><p>(A) A plan of health coverage determines its order of benefits using the first of the following that applies:</p><p>(1) A plan that does not coordinate with other plans is always the primary plan.</p><p>(2) The benefits of the plan that covers a person as an employee, member, insured, or subscriber, other than a dependent, is the primary plan. The plan that covers the person as a dependent is the secondary plan.</p><p>(3) When more than one plan covers the same child as a dependent of different parents who are not divorced or separated, the primary plan is the plan of the parent whose birthday falls earlier in the year. The secondary plan is the plan of the parent whose birthday falls later in the year. If both parents have the same birthday, the benefits of the plan that covered the parent the longer is the primary plan. The plan that covered the parent the shorter time is the secondary plan. If the other plan's provision for coordination of benefits does not include the rule contained in this division because it is not subject to regulation under this division, but instead has a rule based on the gender of the parent, and if, as a result, the plans do not agree on the order of benefits, the rule of the other plan will determine the order of benefits.</p><p>(4)(a) Except as provided in division (A)(4)(b) of this section, if more than one plan covers a person as a dependent child of divorced or separated parents, benefits for the child are determined in the following order:</p><p>(i) The plan of the parent who is the residential parent and legal custodian of the child;</p><p>(ii) The plan of the spouse of the parent who is the residential parent and legal custodian of the child;</p><p>(iii) The plan of the parent who is not the residential parent and legal custodian of the child.</p><p>(b) If the specific terms of a court decree state that one parent is responsible for the health care expenses of the child, the plan of that parent is the primary plan. A parent responsible for the health care pursuant to a court decree must notify the insurer or health insuring corporation of the terms of the decree.</p><p>(5) The primary plan is the plan that covers a person as an employee who is neither laid off or retired, or that employee's dependent. The secondary plan is the plan that covers that person as a laid-off or retired employee, or that employee's dependent.</p><p>(6) If none of the rules in divisions (A)(1), (2), (3), (4), and (5) of this section determines the order of benefits, the primary plan is the plan that covered an employee, member, insured, or subscriber longer. The secondary plan is the plan that covered that person the shorter time.</p><p>(B) When a plan of health coverage is determined to be a secondary plan it acts to provide benefits in excess of those provided by the primary plan.</p><p>(C) The secondary plan shall not be required to make payment in an amount which exceeds the amount it would have paid if it were the primary plan, but in no event, when combined with the amount paid by the primary plan, shall payments by the secondary plan exceed one hundred per cent of expenses allowable under the provisions of the applicable policies and contracts.</p><p>(D) A third-party payer may require a beneficiary to file a claim with the primary plan before it determines the amount of its payment obligation, if any, with regard to that claim.</p><p>(E) Nothing in this section shall be construed to require a plan to make a payment until it determines whether it is the primary plan or the secondary plan and what benefits are payable under the primary plan.</p><p>(F) A plan may obtain any facts and information necessary to apply the provisions of this section, or supply this information to any other third-party payer or provider, or any agent of such third-party payer or provider, without the consent of the beneficiary. Each person claiming benefits under the plan shall provide any information necessary to apply the provisions of this section.</p><p>(G) If the amount of payments made by any plan is more than should have been paid, the plan may recover the excess from whichever party received the excess payment.</p><p>(H) No third-party payer shall administer a plan of health coverage delivered, issued for delivery, or renewed on or after June 29, 1988, unless such plan complies with this section.</p><p>(I)(1) A third-party payer that is subject to this section and has reason to believe payment has been made by another third-party payer for the same service may request from that third-party payer, and shall be provided by the third-party payer, such data as necessary to determine whether duplicate payment has been made.</p><p>(2) A third-party payer that meets the criteria of a secondary payer in accordance with this section may seek repayment of any duplicate payment that may have been made from the person to whom it made payment. If the person who received the duplicate payment is a provider, absent a finding of a court of competent jurisdiction that the provider has engaged in civil or criminal fraudulent activities, the request for the return of any duplicate payment shall be made within three years after the close of the provider's fiscal year in which the duplicate payment has been made.</p><p>(J) Nothing in this section shall be construed to affect the prohibition of section <a class='section-link' href='/ohio-revised-code/section-3923.37'>3923.37</a> of the Revised Code.</p><p>(K)(1) No third-party payer shall knowingly fail to comply with the order of benefits as set forth in division (A) of this section.</p><p>(2) No primary plan shall direct or encourage an insured to use the benefits of a secondary plan that results in a reduction of payment by such primary plan.</p><p>(L) Whoever violates division (K) of this section is deemed to have engaged in an unfair and deceptive insurance act or practice under sections <a class='section-link' href='/ohio-revised-code/section-3901.19'>3901.19</a> to <a class='section-link' href='/ohio-revised-code/section-3901.26'>3901.26</a> of the Revised Code, and is subject to proceedings pursuant to those sections.</p></span>
+
+		
+
+	</section>
+
+	
+
+		<section class="laws-history">
+
+			<h2>Available Versions of this Section</h2>
+
+			<ul>
+
+				<li>
+					<span>June 4, 1997 &ndash; Senate Bill 67 - 122nd General Assembly</span>
+					<span class="no-print">
+						[ <a href="/ohio-revised-code/section-3902.13">View June 4, 1997 Version</a> ]
+					</span>
+				</li>
+
+			</ul>
+
+		</section>
+
+	
+
+
+
+	
+
+		<div class="profile-navigator no-print">
+
+			<div class="previous">
+				<a href="/ohio-revised-code/section-3902.12">
+					<img src="/images/global/profile-pager/previous.png" alt="Previous">
+				</a>
+			</div>
+
+			<div class="next">
+				<a href="/ohio-revised-code/section-3902.14">
+					<img src="/images/global/profile-pager/next.png" alt="Next">
+				</a>
+			</div>
+
+		</div>
+
+	
+
+
+
+			</div>
+
+			<div class="clear">&nbsp;</div>
+
+		</div>
+
+	</div>
+
+
+			</div>
+		</main>
+
+		<footer>
+
+			<div class="footer-top">&nbsp;</div>
+
+			<div class="footer-bottom">
+
+				<div class="content-frame-medium">
+
+					<div class="footer-section">
+
+						<p class=" no-print">
+							<a href="/legal/disclaimer">Disclaimer</a>
+							<a href="/contact">Contact</a>
+							<a href="/about">About</a>
+						</p>
+
+<!--						<p>-->
+<!--							<span th:text="${'&copy; ' + copyrightYear + ' Legislative Service Commission.'}">&nbsp;</span><br/>-->
+<!--							All Rights Reserved.-->
+<!--						</p>-->
+
+					</div>
+
+				</div>
+
+			</div>
+
+		</footer>
+
+	</body>
+
+</html>
