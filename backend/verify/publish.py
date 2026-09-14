@@ -80,8 +80,16 @@ def _frozen_status_fields(res) -> dict:
     return {}
 
 
+_run_cache: dict[str, tuple] = {}   # identifier -> (resolution, document, status): one fetch per identifier per run
+
+
 def gate_source(row: dict) -> dict:
-    """One signal_sources row through identify -> resolve -> fetch -> HEADING -> status."""
+    """One signal_sources row through identify -> resolve -> fetch -> HEADING -> status.
+
+    Two rows with the same identifier (mmr stores several papers twice under
+    different source types) share one resolve/fetch/status within a run, so a
+    transient on the second call cannot make the same document survive on one
+    row and fail on the other."""
     out = {"source_id": row["id"], "url": row.get("url"), "title": row.get("title"),
            "source_type": row.get("source_type"), "identifier": None, "resolution": None,
            "document": None, "bindings": [], "status": None, "survives": False, "withheld_reason": None}
@@ -93,7 +101,11 @@ def gate_source(row: dict) -> dict:
         return out
     out["identifier"] = {"system": ident.system, "value": ident.value, "provenance": ident.provenance.value}
     mod = {"literature": literature, "law": law, "generic": generic}[ident.registry]
-    res = mod.resolve(ident)
+    key = ident.system + ":" + ident.value
+    if key in _run_cache:
+        res, doc, st_cached = _run_cache[key]
+    else:
+        res, doc, st_cached = mod.resolve(ident), None, None
     out["resolution"] = {"exists": res.exists.value, "heading": res.heading, "canonical": res.canonical,
                          "registry": res.registry, "registry_id": res.registry_id, "checked_at": res.checked_at,
                          "generic_fetch": res.registry == "generic_fetch"}
@@ -108,7 +120,7 @@ def gate_source(row: dict) -> dict:
     if not head.ok and not head.abstained:
         out["withheld_reason"] = "HEADING: " + head.reason
         return out
-    doc = mod.fetch(res)
+    doc = doc if doc is not None else mod.fetch(res)
     if doc is None and ident.registry == "literature" and res.canonical:
         # No registry text (a notice, a feature article, a report): one more
         # attempt through the generic adapter at the publisher, via doi.org.
@@ -125,6 +137,7 @@ def gate_source(row: dict) -> dict:
         fb = out["resolution"].get("fallback") or {}
         out["withheld_reason"] = "fetch: nothing retrieved" + (f" (publisher: HTTP {fb.get('http')} {fb.get('reason') or ''})".rstrip() if fb else "")
         return out
+    _run_cache[key] = (res, doc, st_cached)
     out["document"] = {"sha256": doc.sha256, "route": doc.route, "kind": doc.kind, "retrieved_at": doc.retrieved_at,
                        "chars": len(doc.text), "text_layer": doc.text_layer, "path": store_document(doc),
                        "final_url": doc.final_url}
@@ -136,7 +149,8 @@ def gate_source(row: dict) -> dict:
                          "detail": "no status registry for a generic URL; watched by the binding re-check only",
                          "checked_at": _now(), "events": [], "frozen": {}}
     else:
-        st = status_check(ident)
+        st = st_cached or status_check(ident)
+        _run_cache[key] = (res, doc, st)
         out["status"] = {"verdict": st.verdict, "registry": st.registry, "detail": st.detail,
                          "checked_at": st.checked_at, "events": st.events, "frozen": _frozen_status_fields(res)}
     out["survives"] = True
