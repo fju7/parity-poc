@@ -1,45 +1,48 @@
-# mmr-vaccine-autism — survival read, 2026-09-14
+# mmr-vaccine-autism — survival read, 2026-09-14 (second freeze)
 
-Record `20260914T225743+0000-2b84a4a`, gate `2b84a4a`, **not flipped** (ruling: stays draft).
-
-This is the read the ruling asked for: what a filter kept, what it dropped, and whether what remains still carries the topic's central finding with its strongest evidence. Nothing here is rewritten.
+Record `20260914T232834+0000-b8d47ee`, gate `b8d47ee`, **not flipped**. Supersedes the read at gate 2b84a4a after: the two identifier corrections (migration 081), FIGURE at stated precision, the generic-URL adapter with publisher fallback, one fetch per identifier per run, and the apostrophe fix to SPAN.
 
 ## Totals
 
-Sources: 35 in, 23 survive. Withheld: {'HEADING': 2, 'resolve': 2, 'fetch': 8}. Status of survivors: {'retracted': 2, 'unchanged': 13, 'superseded': 2, 'no_registry': 6}.
+Sources: 35 in, **29 survive** (was 17, then 23). Withheld: {'fetch': 6} — the FDA BLA page and the Omnibus decision URLs return 404; the 2010 Lancet retraction notice reaches the publisher and gets a shell; Deer 2011 gets a 403 from the BMJ; UnitedHealthcare is a JavaScript shell; Anthem timed out. Status of survivors: {'retracted': 2, 'unchanged': 17, 'superseded': 2, 'no_registry': 6, 'corrected': 2} (Wakefield ×2 retracted; Cochrane ×2 superseded by pub5; Jain 2015 ×2 carries a JAMA correction per Europe PMC).
 
-Claims: 128 in — {'IDENTITY_ONLY': 38, 'UNSUPPORTED': 53, 'FIGURE_BOUND': 37}; IDENTITY_ONLY rate 29.7% (a metric to trend down).
+Claims: 128 in — **48 FIGURE_BOUND, 44 IDENTITY_ONLY, 36 UNSUPPORTED** (was 35 / 24 / 69). IDENTITY_ONLY rate 34.4% — rising as agency documents come in, since their claims carry no figures; the metric to trend down by rewriting.
 
-## The question that matters: does the surviving set still carry the central finding with its strongest evidence?
+## What changed since the first read
 
-**Yes for the epidemiology; no for the institutional record; and two of the strongest primary studies are lost — both to bad identifiers in the corpus, not to the gate.**
+* **Honda 2005 and Jain 2015 are back.** Both corrected identifiers resolve, fetch and bind; 11 claims recovered by the corrections alone — the Japan withdrawal natural experiment (9) and the US sibling cohort (HR 0.80 among children with an older sibling with ASD).
+* **FIGURE at stated precision recovered 3** of the 22 figure-only refusals (the Cochrane "over 23 million" claims). **19 remain refused, and each is the claim's fault or a genuinely unfetchable source, not the rule's:**
+  * 7 are *truncations that do not round*: "650,000" for Hviid's 657,461 (rounds to 660,000) ×4, "530,000" for Madsen's 537,303 (rounds to 540,000) ×2, "1.2 million" for Taylor's 1,256,407 (rounds to 1.3 million). The rule as stated — bind if the source figure rounds to the stated one — refuses these; a truncation tolerance would be a rule change.
+  * 7 cite numbers the *abstract* does not state: Madsen's 96,648 unvaccinated (the abstract gives 440,655 vaccinated of 537,303), an RR CI bound of 1.26 (the abstract says 1.24) ×2, Taylor 1999's birth-year range ×2, a "2-year period", and VAERS schedule ages 12/18 months.
+  * 4 are accountability claims mis-linked to the 1998 paper — the February 2010 retraction, the May 2010 striking-off, the £435,643, the 10 of 13 co-authors' withdrawal — which rest on documents the corpus never linked (the notice, Deer, the GMC) and which could not be fetched in any case.
+  * 1 was a SPAN false positive from an apostrophe pair, fixed.
 
-The topic's central finding — no association between MMR vaccination and autism — survives with its strongest evidence intact:
+## The question that matters
 
-| study | what it is | status |
-|---|---|---|
-| Madsen 2002, NEJM | Danish cohort, 537,303 children | **survives**, 11 claims (FIGURE_BOUND on 537,303; RR 0.92) |
-| Hviid 2019, Annals | Danish cohort, 657,461 children; sibling and high-risk subgroups | **survives**, 10 claims (FIGURE_BOUND on HR 0.93, 0.85–1.02) |
-| Taylor 2014, Vaccine | meta-analysis, 1,256,407 children in cohorts + 9,920 in case-control | **survives**, 12 claims (FIGURE_BOUND on OR 0.99, 0.84) |
-| Cochrane 2020 (CD004407.pub4) | 138 studies, 23,480,668 participants | **survives**, but `superseded` (pub5, 2021) — and the "23 million" claims are withheld because the record's number is 23,480,668, not 23 million |
-| Taylor 1999, Lancet; Taylor 2002, BMJ; Smeeth 2004, Lancet; Fombonne 2006, Pediatrics | UK and Canadian cohorts / case-control | **all survive** |
-| **Honda 2005**, Dev Med Child Neurol | the Japan MMR-withdrawal natural experiment — the one study that tests the hypothesis by removing the exposure | **LOST** — both stored DOIs (`…tb01095.x`, `…tb01215.x`) resolve to a gastrostomy paper and a botulinum-toxin paper. 9 claims withheld. The paper is real; the corpus's identifiers for it are not. |
-| **Jain 2015**, JAMA | US cohort of 95,727 children, the largest sibling-risk analysis | **LOST** — stored DOI `10.1001/jama.2015.1534` does not exist (the paper is `10.1001/jama.2015.3077`). 8 claims withheld, including the HR 0.80 sibling finding. |
+**The surviving epidemiology now carries the central finding with its strongest evidence, complete.** Madsen 2002 (537,303), Hviid 2019 (657,461; HR 0.93), Jain 2015 (95,727; sibling HR 0.80), Honda 2005 (the withdrawal natural experiment), Taylor 2014 (1.26 million) and Cochrane 2020 all survive and bind on their figures; Taylor 1999, Taylor 2002, Smeeth 2004 and Fombonne 2006 survive beneath them. Nothing in the strongest tier is missing.
 
-So the surviving epidemiology is the two Danish cohorts, the meta-analysis, Cochrane and the four smaller UK/Canadian studies. What is missing from the *strongest* tier is Honda and Jain — disproportionately important (a natural experiment and the largest US cohort), and both lost for the same reason the whole corpus was frozen: identifiers written from memory. Neither loss is the filter's judgement; both are recoverable by correcting two identifiers, which is a corpus change and therefore not this phase's to make.
+**The accountability record does not.** The retraction notice, Deer's BMJ investigation and the GMC determination cannot be retrieved by machine today (publisher shell, 403, and no source row at all for the GMC — no URL is on file, and one will not be invented). What survives on that side: Wakefield 1998 itself, retracted from day one on the page; the IOM 2004 review, the ACIP MMWR, the FDA statement, the EMA EPAR, VAERS and Aetna, all IDENTITY_ONLY; and two GMC-finding claims resting on the retracted paper's own record. The Omnibus Autism Proceeding is a dead URL.
 
-The institutional and regulatory record fares worse, even after the generic adapter: the **Omnibus Autism Proceeding** (Cedillo) is lost — the stored uscfc.uscourts.gov URL returns 404 — and with it the four claims about what the special masters found; the FDA BLA page URL is 404; **Deer's 2011 BMJ series** ("How the case against the MMR vaccine was fixed") has no registry abstract to fetch, so the £435,643 and data-manipulation claims rest on nothing fetched; the **2010 Lancet retraction notice** likewise. The retraction-and-fraud category keeps 2 of 10 claims. The generic adapter did recover the IOM 2004 review (NCBI Books), the ACIP MMWR, the FDA thimerosal statement, the EMA EPAR, the VAERS guide and the Aetna policy — 12 institutional claims now stand, all IDENTITY_ONLY.
-
-**What a human read should decide before any flip:** whether a page that states the epidemiological consensus with its two best cohorts but without Honda, Jain, the Omnibus decision or the Deer investigation "still says what the topic means." My reading: the science half does; the accountability half — retraction, fraud, the court — is reduced to the retracted paper's own record and two GMC-finding claims that are IDENTITY_ONLY, which is thin for a topic whose public meaning is as much about the fraud as the epidemiology. That is a judgement, not a gate result, and it is the reviewer's.
+**Recommendation for the human read** (a judgement, not a gate result): scope the page explicitly to the epidemiology, stated on the page — e.g. *"This page covers the epidemiological evidence on MMR vaccination and autism. The retraction of Wakefield 1998, the General Medical Council findings and the Omnibus Autism Proceeding are matters of record that this page cites but does not itself document; see the sources marked retracted."* — rather than leave the fraud-and-court half as a silent gap. With that statement, what verified still says what the topic means. Without it, it does not.
 
 ## The surviving claims, grouped by what they assert
 
-### large_scale_epidemiological_evidence (53)
+### large_scale_epidemiological_evidence (66)
 
+- **[FIGURE_BOUND]** A Cochrane systematic review analyzed 138 studies involving over 23 million children and found no credible evidence of a link between MMR vaccination and autism spectrum disorder.  
+  ← Vaccines for measles, mumps, rubella, and varicell
 - **[IDENTITY_ONLY]** The Cochrane systematic review on MMR vaccine safety found no credible evidence linking MMR vaccination to Crohn's disease.  
   ← Vaccines for measles, mumps, rubella, and varicell
+- **[IDENTITY_ONLY]** The Institute of Medicine's review of the MMR–autism hypothesis was based on epidemiological studies covering millions of children across multiple countries.  
+  ← Immunization Safety Review: Vaccines and Autism
+- **[FIGURE_BOUND]** A US cohort study of 95,727 children found no association between MMR vaccination and autism, including among children with older siblings with autism spectrum disorder.  
+  ← Autism Occurrence by MMR Vaccine Status Among US C
 - **[IDENTITY_ONLY]** The EMA's EPAR notes that the original Wakefield hypothesis was not substantiated by subsequent large-scale epidemiological studies conducted in Europe, including the Danish cohort study by Madsen et al.  
   ← European Medicines Agency: M-M-RvaxPro — European 
+- **[FIGURE_BOUND]** The Jain 2015 study specifically examined MMR vaccine safety in a high-risk population defined by having an older sibling with autism, a group considered at higher genetic risk for ASD.  
+  ← Autism Occurrence by MMR Vaccine Status Among US C
+- **[FIGURE_BOUND]** The Jain 2015 cohort study found no elevated autism risk from MMR vaccination in genetically predisposed child populations, directly addressing concerns of vaccine-hesitant parents of high-risk children.  
+  ← Autism Occurrence by MMR Vaccine Status Among US C
 - **[FIGURE_BOUND]** A UK population-based study examined 278 children with autism to assess whether MMR vaccination was associated with developmental regression or bowel problems.  
   ← Measles, mumps, and rubella vaccination and bowel 
 - **[FIGURE_BOUND]** The Taylor et al. (2002) study found no association between MMR vaccination and developmental regression in children with autism.  
@@ -48,6 +51,10 @@ The institutional and regulatory record fares worse, even after the generic adap
   ← Measles, Mumps, Rubella Vaccination and Autism: A 
 - **[IDENTITY_ONLY]** The Danish cohort study found no increased risk of autism associated with MMR vaccination in children with siblings with autism, preterm birth, or low birth weight.  
   ← Measles, Mumps, Rubella Vaccination and Autism: A 
+- **[FIGURE_BOUND]** A Cochrane systematic review synthesized evidence from 138 studies including over 23 million children on the safety and efficacy of MMR and MMRV vaccines.  
+  ← Vaccines for measles, mumps, rubella, and varicell
+- **[FIGURE_BOUND]** The Cochrane systematic review found no credible evidence of an association between MMR vaccination and autism across 138 studies and 23 million children.  
+  ← Vaccines for measles, mumps, rubella, and varicell
 - **[IDENTITY_ONLY]** The Cochrane systematic review found no credible evidence of an association between MMR vaccination and inflammatory bowel disease.  
   ← Vaccines for measles, mumps, rubella, and varicell
 - **[FIGURE_BOUND]** One dose of the MMR vaccine reduced measles risk by 95% and two doses reduced measles risk by 96%.  
@@ -74,6 +81,8 @@ The institutional and regulatory record fares worse, even after the generic adap
   ← A Population-Based Study of Measles, Mumps, and Ru
 - **[FIGURE_BOUND]** The Madsen 2002 Danish cohort study found no dose-response relationship between MMR vaccination and autism.  
   ← A Population-Based Study of Measles, Mumps, and Ru
+- **[FIGURE_BOUND]** The Honda et al. (2005) study examined autism rates in Yokohama across the period 1988 to 1996, spanning the withdrawal of MMR vaccination in Japan.  
+  ← No effect of MMR withdrawal on the incidence of au
 - **[FIGURE_BOUND]** A Canadian study examined 27,749 children born between 1987 and 1998 in Montreal, Quebec to analyze the relationship between MMR vaccination coverage and autism prevalence across birth cohorts.  
   ← Pervasive Developmental Disorders in Montreal, Que
 - **[FIGURE_BOUND]** In the Montreal birth cohort study, autism prevalence increased over time while MMR vaccination coverage also increased, but the association between the two trends was not statistically significant after adjustment.  
@@ -118,6 +127,16 @@ The institutional and regulatory record fares worse, even after the generic adap
   ← A Population-Based Study of Measles, Mumps, and Ru
 - **[IDENTITY_ONLY]** The Madsen et al. Danish cohort study was published in the New England Journal of Medicine.  
   ← A Population-Based Study of Measles, Mumps, and Ru
+- **[FIGURE_BOUND]** Japan withdrew the MMR vaccine in 1993, creating a natural experiment to test whether MMR vaccination causes autism.  
+  ← No effect of MMR withdrawal on the incidence of au
+- **[FIGURE_BOUND]** After MMR vaccination was discontinued in Japan in 1993, autism rates in Yokohama continued to rise rather than decline.  
+  ← No effect of MMR withdrawal on the incidence of au
+- **[FIGURE_BOUND]** A JAMA study examined 95,727 children with older siblings to test whether MMR vaccination increased autism risk.  
+  ← Autism Occurrence by MMR Vaccine Status Among US C
+- **[FIGURE_BOUND]** The Jain et al. (2015) JAMA study found no association between MMR vaccination and autism in a cohort of 95,727 children, including those with autistic older siblings.  
+  ← Autism Occurrence by MMR Vaccine Status Among US C
+- **[IDENTITY_ONLY]** Children with an older autistic sibling showed no increased autism risk from MMR vaccination, refuting concerns about genetically susceptible subgroups.  
+  ← Autism Occurrence by MMR Vaccine Status Among US C
 - **[IDENTITY_ONLY]** The Danish cohort study found no clustering of autism diagnoses at any time interval following MMR vaccination.  
   ← Measles, Mumps, Rubella Vaccination and Autism: A 
 - **[IDENTITY_ONLY]** The Danish cohort study found no association between MMR vaccination and autism in subgroup analyses of children with older autistic siblings or other autism risk factors.  
@@ -143,7 +162,7 @@ The institutional and regulatory record fares worse, even after the generic adap
 - **[FIGURE_BOUND]** The Hviid 2019 Danish cohort study found no evidence supporting a causal link between MMR vaccination and autism under any analytical approach tested.  
   ← Measles, Mumps, Rubella Vaccination and Autism: A 
 
-### institutional_regulatory_response (12)
+### institutional_regulatory_response (13)
 
 - **[FIGURE_BOUND]** The FDA initiated a review of thimerosal in childhood vaccines in 1999 under the FDA Modernization Act, found no evidence of harm from thimerosal-containing vaccines, but supported precautionary removal of thimerosal from childhood vaccines as a public health measure.  
   ← FDA Statement Regarding the MMR Vaccine and Thimer
@@ -156,9 +175,11 @@ The institutional and regulatory record fares worse, even after the generic adap
 - **[IDENTITY_ONLY]** ACIP recommendations carry regulatory weight as they inform the Vaccines for Children program and state immunization mandates.  
   ← Advisory Committee on Immunization Practices (ACIP
 - **[IDENTITY_ONLY]** The Institute of Medicine's Immunization Safety Review Committee concluded that the body of epidemiological evidence favors rejection of a causal relationship between the MMR vaccine and autism, and recommended that future vaccine safety research resources not be directed toward the MMR-autism hypothesis but instead focus on identifying actual causes of autism.  
-  ← Immunization Safety Review: Vaccines and Autism — 
+  ← Immunization Safety Review: Vaccines and Autism; Immunization Safety Review: Vaccines and Autism — 
 - **[IDENTITY_ONLY]** The Institute of Medicine convened an independent Immunization Safety Review Committee that conducted a comprehensive review of all available epidemiological and biological evidence on the MMR–autism and thimerosal–autism hypotheses, and is described as the most authoritative U.S. government-commissioned scientific review of the MMR-autism controversy.  
-  ← Immunization Safety Review: Vaccines and Autism — 
+  ← Immunization Safety Review: Vaccines and Autism; Immunization Safety Review: Vaccines and Autism — 
+- **[IDENTITY_ONLY]** The Institute of Medicine concluded that the epidemiological evidence favors rejection of a causal relationship between thimerosal-containing vaccines and autism.  
+  ← Immunization Safety Review: Vaccines and Autism
 - **[IDENTITY_ONLY]** The European Medicines Agency's CHMP concluded that autism is not listed as a causally associated adverse reaction in the approved product information for M-M-RvaxPro, that the benefit-risk balance is favorable, and found no signal supporting a causal association between MMR vaccination and autism in post-marketing pharmacovigilance data from multiple European countries.  
   ← European Medicines Agency: M-M-RvaxPro — European 
 - **[IDENTITY_ONLY]** The European Medicines Agency granted marketing authorization for M-M-RvaxPro and published a European Public Assessment Report (EPAR) representing the EMA's formal regulatory position on the MMR-autism question.  
@@ -170,18 +191,31 @@ The institutional and regulatory record fares worse, even after the generic adap
 - **[IDENTITY_ONLY]** Andrew Wakefield was struck off the UK medical register following the General Medical Council findings.  
   ← Ileal-lymphoid-nodular hyperplasia, non-specific c
 
-### biological_mechanisms (5)
+### biological_mechanisms (7)
 
 - **[IDENTITY_ONLY]** M-M-R II has never contained thimerosal as a preservative; the vaccine uses a live attenuated formulation incompatible with preservative use.  
   ← FDA Statement Regarding the MMR Vaccine and Thimer
+- **[IDENTITY_ONLY]** The continued rise in autism incidence in Yokohama after MMR withdrawal constituted a natural experiment directly disproving the hypothesis that MMR causes autism.  
+  ← No effect of MMR withdrawal on the incidence of au
 - **[FIGURE_BOUND]** The Smeeth 2004 case-control study found no evidence of a new-onset syndrome following MMR vaccination.  
   ← MMR vaccination and pervasive developmental disord
 - **[FIGURE_BOUND]** The Taylor et al. (2002) study directly tested the specific biological mechanism proposed in Wakefield's retracted study and found no supporting evidence.  
   ← Measles, mumps, and rubella vaccination and bowel 
+- **[IDENTITY_ONLY]** The biological mechanisms proposed by Wakefield — including measles virus persistence in gut tissue and 'leaky gut' leading to neurological damage — were not supported by credible scientific evidence, according to the Institute of Medicine's Immunization Safety Review Committee.  
+  ← Immunization Safety Review: Vaccines and Autism; Immunization Safety Review: Vaccines and Autism — 
 - **[IDENTITY_ONLY]** Serious adverse events such as encephalitis and febrile seizures following MMR vaccination are rare, and the benefit-risk balance strongly favors vaccination.  
   ← Vaccines for measles, mumps, rubella, and varicell
 - **[IDENTITY_ONLY]** The Danish cohort study found no clustering of autism diagnoses at any specific time interval following MMR vaccination, contradicting the proposed biological mechanism linking the vaccine to autism.  
   ← A Population-Based Study of Measles, Mumps, and Ru
+
+### public_health_impact (3)
+
+- **[IDENTITY_ONLY]** Anti-vaccine advocates conflated concerns about thimerosal with the separate MMR-autism hypothesis advanced by Wakefield.  
+  ← FDA Statement Regarding the MMR Vaccine and Thimer
+- **[IDENTITY_ONLY]** The authors of the Taylor et al. meta-analysis concluded that continued promotion of vaccine safety concerns related to autism may be harmful to public health.  
+  ← Vaccines are not associated with autism: An eviden
+- **[IDENTITY_ONLY]** Vaccination rates were lower among younger siblings of autistic children, reflecting parental vaccine hesitancy, yet autism rates were not lower in the unvaccinated children.  
+  ← Autism Occurrence by MMR Vaccine Status Among US C
 
 ### retraction_and_fraud_investigation (2)
 
@@ -190,13 +224,6 @@ The institutional and regulatory record fares worse, even after the generic adap
 - **[IDENTITY_ONLY]** The Wakefield et al. study was found to have involved data manipulation, undisclosed conflicts of interest, and ethical violations in subject recruitment.  
   ← Ileal-lymphoid-nodular hyperplasia, non-specific c
 
-### public_health_impact (2)
-
-- **[IDENTITY_ONLY]** Anti-vaccine advocates conflated concerns about thimerosal with the separate MMR-autism hypothesis advanced by Wakefield.  
-  ← FDA Statement Regarding the MMR Vaccine and Thimer
-- **[IDENTITY_ONLY]** The authors of the Taylor et al. meta-analysis concluded that continued promotion of vaccine safety concerns related to autism may be harmful to public health.  
-  ← Vaccines are not associated with autism: An eviden
-
 ### original_wakefield_research (1)
 
 - **[FIGURE_BOUND]** The Wakefield et al. case series enrolled only 12 children — a sample size statistically insufficient to establish any causal association between MMR vaccination and developmental disorder — and claimed to identify a novel syndrome linking MMR vaccination to autism and gastrointestinal pathology.  
@@ -204,32 +231,18 @@ The institutional and regulatory record fares worse, even after the generic adap
 
 ## The withheld claims, each with why
 
-### large_scale_epidemiological_evidence (32)
+### large_scale_epidemiological_evidence (19)
 
 - The Omnibus Autism Proceeding ruling rejected both the 'MMR plus thimerosal' causation theory and the standalone MMR-autism theory, finding that epidemiological evidence overwhelmingly contradicted both hypotheses.  
   WHY: Omnibus Autism Proceeding: Special Masters' D — fetch: HTTP 404
-- A Cochrane systematic review analyzed 138 studies involving over 23 million children and found no credible evidence of a link between MMR vaccination and autism spectrum disorder.  
-  WHY: Vaccines for measles, mumps, rubella, and var — not in the document: 23, 23000000
-- The Institute of Medicine's review of the MMR–autism hypothesis was based on epidemiological studies covering millions of children across multiple countries.  
-  WHY: Immunization Safety Review: Vaccines and Auti — fetch: nothing retrieved
 - The Honda et al. Japan study is considered one of the strongest natural experiments disproving a causal link between MMR vaccine and autism.  
-  WHY: No effect of MMR withdrawal on the incidence  — HEADING: shares no distinctive word with the registry headin
-- A US cohort study of 95,727 children found no association between MMR vaccination and autism, including among children with older siblings with autism spectrum disorder.  
-  WHY: Autism Occurrence by MMR Vaccine Status Among — resolve: NONEXISTENT
+  WHY: No effect of MMR withdrawal on the incidence  — not in the document: 1
 - Among children with an older sibling with ASD, MMR vaccination was not associated with increased autism risk, with a hazard ratio of 0.80 (95% CI 0.55–1.16).  
-  WHY: Autism Occurrence by MMR Vaccine Status Among — resolve: NONEXISTENT
-- The Jain 2015 study specifically examined MMR vaccine safety in a high-risk population defined by having an older sibling with autism, a group considered at higher genetic risk for ASD.  
-  WHY: Autism Occurrence by MMR Vaccine Status Among — resolve: NONEXISTENT
-- The Jain 2015 cohort study found no elevated autism risk from MMR vaccination in genetically predisposed child populations, directly addressing concerns of vaccine-hesitant parents of high-risk children.  
-  WHY: Autism Occurrence by MMR Vaccine Status Among — resolve: NONEXISTENT
+  WHY: Autism Occurrence by MMR Vaccine Status Among — not in the document: 0.55, 0.8, 1.16, 95
 - A Danish cohort study examined 650,000 children born between 1999 and 2010 for an association between MMR vaccination and autism.  
   WHY: Measles, Mumps, Rubella Vaccination and Autis — not in the document: 650000
 - The Danish cohort study found no temporal clustering of autism diagnoses in the 2-year period following MMR vaccination.  
   WHY: Measles, Mumps, Rubella Vaccination and Autis — not in the document: 2
-- A Cochrane systematic review synthesized evidence from 138 studies including over 23 million children on the safety and efficacy of MMR and MMRV vaccines.  
-  WHY: Vaccines for measles, mumps, rubella, and var — not in the document: 23, 23000000
-- The Cochrane systematic review found no credible evidence of an association between MMR vaccination and autism across 138 studies and 23 million children.  
-  WHY: Vaccines for measles, mumps, rubella, and var — not in the document: 23, 23000000
 - A UK cohort study examined 498 children with autism spectrum disorder born between 1979 and 1998 in the North Thames region.  
   WHY: Autism and measles, mumps, and rubella vaccin — not in the document: 1998
 - A Danish cohort study followed 530,000 children born between 1991 and 1998, comparing autism rates between 440,655 MMR-vaccinated and 96,648 unvaccinated children using national registry data.  
@@ -237,27 +250,15 @@ The institutional and regulatory record fares worse, even after the generic adap
 - The relative risk of autism in MMR-vaccinated children compared to unvaccinated children was 0.92 (95% CI, 0.68–1.26), indicating no increased risk of autism from MMR vaccination.  
   WHY: A Population-Based Study of Measles, Mumps, a — not in the document: 1.26
 - Among children born in Yokohama between 1992 and 1996, the cumulative incidence of autism by age 7 rose from 48.4 to 117.2 per 10,000, despite zero MMR vaccination.  
-  WHY: No effect of MMR withdrawal on the incidence  — HEADING: shares no distinctive word with the registry headin
+  WHY: No effect of MMR withdrawal on the incidence  — not in the document: 0, 10000, 117.2, 48.4
 - Autism prevalence in Yokohama continued to rise after MMR vaccination rates dropped to zero following the 1993 withdrawal of the vaccine in Japan.  
-  WHY: No effect of MMR withdrawal on the incidence  — HEADING: shares no distinctive word with the registry headin
-- The Honda et al. (2005) study examined autism rates in Yokohama across the period 1988 to 1996, spanning the withdrawal of MMR vaccination in Japan.  
-  WHY: No effect of MMR withdrawal on the incidence  — HEADING: shares no distinctive word with the registry headin
+  WHY: No effect of MMR withdrawal on the incidence  — not in the document: 0
 - A meta-analysis by Taylor et al. pooled data from 1.2 million children across five cohort studies and five case-control studies.  
   WHY: Vaccines are not associated with autism: An e — not in the document: 1200000
 - MMR-vaccinated children showed no increased risk of autism compared to unvaccinated children in a cohort of 650,000 Danish children.  
   WHY: Measles, Mumps, Rubella Vaccination and Autis — not in the document: 650000
-- Japan withdrew the MMR vaccine in 1993, creating a natural experiment to test whether MMR vaccination causes autism.  
-  WHY: No effect of MMR withdrawal on the incidence  — HEADING: shares no distinctive word with the registry headin
-- After MMR vaccination was discontinued in Japan in 1993, autism rates in Yokohama continued to rise rather than decline.  
-  WHY: No effect of MMR withdrawal on the incidence  — HEADING: shares no distinctive word with the registry headin
 - The cumulative incidence of autism spectrum disorders in Yokohama rose from 47.6 per 10,000 in the 1988 birth cohort to 117.2 per 10,000 in the 1996 birth cohort, entirely during the post-MMR period.  
-  WHY: No effect of MMR withdrawal on the incidence  — HEADING: shares no distinctive word with the registry headin
-- A JAMA study examined 95,727 children with older siblings to test whether MMR vaccination increased autism risk.  
-  WHY: Autism Occurrence by MMR Vaccine Status Among — resolve: NONEXISTENT
-- The Jain et al. (2015) JAMA study found no association between MMR vaccination and autism in a cohort of 95,727 children, including those with autistic older siblings.  
-  WHY: Autism Occurrence by MMR Vaccine Status Among — resolve: NONEXISTENT
-- Children with an older autistic sibling showed no increased autism risk from MMR vaccination, refuting concerns about genetically susceptible subgroups.  
-  WHY: Autism Occurrence by MMR Vaccine Status Among — resolve: NONEXISTENT
+  WHY: No effect of MMR withdrawal on the incidence  — not in the document: 10000, 117.2, 47.6
 - A Danish cohort study followed 650,000 children born between 1999 and 2010 to examine the relationship between MMR vaccination and autism.  
   WHY: Measles, Mumps, Rubella Vaccination and Autis — not in the document: 650000
 - The Danish cohort study followed 530,000 children born between 1991 and 1998, comparing autism rates between MMR-vaccinated and unvaccinated children.  
@@ -274,56 +275,45 @@ The institutional and regulatory record fares worse, even after the generic adap
 ### retraction_and_fraud_investigation (8)
 
 - The Lancet issued a full retraction of the Wakefield et al. MMR-autism paper in February 2010.  
-  WHY: Ileal-lymphoid-nodular hyperplasia, non-speci — not in the document: 2010 | Retraction—Ileal-lymphoid-nodular hyperplasia — fetch: nothing retrieved | Ileal-lymphoid-nodular hyperplasia, non-speci — not in the document: 2010
+  WHY: Ileal-lymphoid-nodular hyperplasia, non-speci — not in the document: 2010 | Retraction—Ileal-lymphoid-nodular hyperplasia — fetch: nothing retrieved (publisher: HTTP 200 a shell, a wall or too l | Ileal-lymphoid-nodular hyperplasia, non-speci — not in the document: 2010
 - Andrew Wakefield was struck off the UK medical register in May 2010.  
-  WHY: Ileal-lymphoid-nodular hyperplasia, non-speci — not in the document: 2010 | Retraction—Ileal-lymphoid-nodular hyperplasia — fetch: nothing retrieved
+  WHY: Ileal-lymphoid-nodular hyperplasia, non-speci — not in the document: 2010 | Retraction—Ileal-lymphoid-nodular hyperplasia — fetch: nothing retrieved (publisher: HTTP 200 a shell, a wall or too l
 - Wakefield received £435,643 plus expenses from lawyers seeking to build a case against MMR vaccine manufacturers prior to publication of the 1998 Lancet study, a conflict of interest that was never disclosed to The Lancet.  
-  WHY: Ileal-lymphoid-nodular hyperplasia, non-speci — not in the document: 435643 | How the Case Against the MMR Vaccine Was Fixe — fetch: nothing retrieved
+  WHY: Ileal-lymphoid-nodular hyperplasia, non-speci — not in the document: 435643 | How the Case Against the MMR Vaccine Was Fixe — fetch: nothing retrieved (publisher: HTTP 403 )
 - Special Master Hastings characterized the scientific evidence presented by petitioners — including testimony based on Wakefield's research — as 'weak, contradictory, and unpersuasive' with respect to a causal link between MMR vaccine and autism.  
   WHY: Omnibus Autism Proceeding: Special Masters' D — fetch: HTTP 404
 - The retraction of the Wakefield et al. paper removed the primary published basis for the MMR-autism hypothesis.  
-  WHY: Retraction—Ileal-lymphoid-nodular hyperplasia — fetch: nothing retrieved
+  WHY: Retraction—Ileal-lymphoid-nodular hyperplasia — fetch: nothing retrieved (publisher: HTTP 200 a shell, a wall or too l
 - Ten of the thirteen co-authors of the Wakefield et al. paper formally withdrew their names from the paper's interpretation in 2004.  
   WHY: Ileal-lymphoid-nodular hyperplasia, non-speci — not in the document: 13, 2004
 - Brian Deer's BMJ investigation found that Wakefield altered clinical data from all 12 children in the 1998 Lancet paper, with every case where records could be checked showing discrepancies between documented medical histories and published findings.  
-  WHY: How the Case Against the MMR Vaccine Was Fixe — fetch: nothing retrieved
+  WHY: How the Case Against the MMR Vaccine Was Fixe — fetch: nothing retrieved (publisher: HTTP 403 )
 - The BMJ formally characterized the 1998 Lancet paper by Wakefield as 'an elaborate fraud' in an editorial by editor Fiona Godlee, marking the first time a major medical journal had used such language about a published study.  
-  WHY: How the Case Against the MMR Vaccine Was Fixe — fetch: nothing retrieved
+  WHY: How the Case Against the MMR Vaccine Was Fixe — fetch: nothing retrieved (publisher: HTTP 403 )
 
-### institutional_regulatory_response (7)
+### institutional_regulatory_response (6)
 
 - Japan withdrew the MMR vaccine in 1993, resulting in MMR vaccination rates dropping to zero after that year.  
-  WHY: No effect of MMR withdrawal on the incidence  — HEADING: shares no distinctive word with the registry headin
+  WHY: No effect of MMR withdrawal on the incidence  — not in the document: 0
 - M-M-R II (BLA 103166), manufactured by Merck & Co., has maintained FDA licensure continuously since 1978 with periodic label updates.  
   WHY: Biologics License Application (BLA) 103166: M — fetch: HTTP 404
 - FDA product labeling for M-M-R II lists known adverse reactions including fever, rash, and rare febrile seizures, but does not list autism spectrum disorder as a causally associated adverse event; subsequent label revisions have never added autism as a causally associated adverse event.  
   WHY: Biologics License Application (BLA) 103166: M — fetch: HTTP 404
 - Post-marketing safety update reviews of M-M-R II conducted by FDA's Center for Biologics Evaluation and Research (CBER) have not identified a causal signal between MMR vaccination and autism.  
   WHY: Biologics License Application (BLA) 103166: M — fetch: HTTP 404
-- The Institute of Medicine concluded that the epidemiological evidence favors rejection of a causal relationship between thimerosal-containing vaccines and autism.  
-  WHY: Immunization Safety Review: Vaccines and Auti — fetch: nothing retrieved
 - The Omnibus Autism Proceeding involved approximately 5,500 claims filed in the Vaccine Injury Compensation Program alleging that MMR vaccination caused autism; all three test cases were decided against petitioners, the Federal Circuit Court of Appeals upheld the decisions, and the U.S. Supreme Court declined to review the cases.  
   WHY: Omnibus Autism Proceeding: Special Masters' D — fetch: HTTP 404
 - Special Master George Hastings ruled that petitioners had not demonstrated by a preponderance of evidence that MMR vaccine caused autism in the test case claimant Michelle Cedillo.  
   WHY: Omnibus Autism Proceeding: Special Masters' D — fetch: HTTP 404
 
-### biological_mechanisms (3)
-
-- The continued rise in autism incidence in Yokohama after MMR withdrawal constituted a natural experiment directly disproving the hypothesis that MMR causes autism.  
-  WHY: No effect of MMR withdrawal on the incidence  — HEADING: shares no distinctive word with the registry headin
-- The biological mechanisms proposed by Wakefield — including measles virus persistence in gut tissue and 'leaky gut' leading to neurological damage — were not supported by credible scientific evidence, according to the Institute of Medicine's Immunization Safety Review Committee.  
-  WHY: Immunization Safety Review: Vaccines and Auti — not in the document: ' leading to neurological damage — were | Immunization Safety Review: Vaccines and Auti — fetch: nothing retrieved | Immunization Safety Review: Vaccines and Auti — fetch: nothing retrieved
-- The temporal clustering of autism diagnoses with MMR vaccination timing reflects the coincidence of the 12–18 month vaccination window with the typical age of autism symptom recognition, not a causal relationship.  
-  WHY: Vaccine Adverse Event Reporting System (VAERS — not in the document: 12, 18
-
 ### original_wakefield_research (2)
 
 - Andrew Wakefield had been paid by lawyers seeking evidence against vaccine manufacturers at the time of the original 1998 research.  
-  WHY: Retraction—Ileal-lymphoid-nodular hyperplasia — fetch: nothing retrieved
+  WHY: Retraction—Ileal-lymphoid-nodular hyperplasia — fetch: nothing retrieved (publisher: HTTP 200 a shell, a wall or too l
 - Wakefield's data alterations in the 1998 Lancet paper included changing documented diagnoses and onset timelines across all 12 cases to fit the hypothesis of a link between MMR vaccination and autism.  
-  WHY: How the Case Against the MMR Vaccine Was Fixe — fetch: nothing retrieved
+  WHY: How the Case Against the MMR Vaccine Was Fixe — fetch: nothing retrieved (publisher: HTTP 403 )
 
-### public_health_impact (1)
+### biological_mechanisms (1)
 
-- Vaccination rates were lower among younger siblings of autistic children, reflecting parental vaccine hesitancy, yet autism rates were not lower in the unvaccinated children.  
-  WHY: Autism Occurrence by MMR Vaccine Status Among — resolve: NONEXISTENT
+- The temporal clustering of autism diagnoses with MMR vaccination timing reflects the coincidence of the 12–18 month vaccination window with the typical age of autism symptom recognition, not a causal relationship.  
+  WHY: Vaccine Adverse Event Reporting System (VAERS — not in the document: 12, 18

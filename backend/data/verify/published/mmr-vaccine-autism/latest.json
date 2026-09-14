@@ -5,8 +5,8 @@
   "issue_id": "bbb9b064-8cb4-4922-b69b-121150ee8e21",
   "status_before": "draft"
  },
- "publish_id": "20260914T225743+0000-2b84a4a",
- "published_at": "2026-09-14T22:57:43+00:00",
+ "publish_id": "20260914T232834+0000-b8d47ee",
+ "published_at": "2026-09-14T23:28:34+00:00",
  "published_by": {
   "login": "fredugast",
   "host": "Freds-MacBook-Pro.local",
@@ -17,8 +17,8 @@
  },
  "gate_version": {
   "package": "1.1.0",
-  "verify_sha": "2b84a4a",
-  "tree_sha": "2b84a4a"
+  "verify_sha": "b8d47ee",
+  "tree_sha": "b8d47ee"
  },
  "rate_limits_rps": {
   "www.ebi.ac.uk": 3.0,
@@ -48,14 +48,14 @@
     "canonical": "https://doi.org/10.1016/s0140-6736(97)11096-0",
     "registry": "crossref",
     "registry_id": "10.1016/s0140-6736(97)11096-0",
-    "checked_at": "2026-09-14T22:53:07+00:00",
+    "checked_at": "2026-09-14T23:21:22+00:00",
     "generic_fetch": false
    },
    "document": {
     "sha256": "4c8be4d2c62edf3089f001d2a4ac1d06cc32a4729a03b47e415883b7f4681a18",
     "route": "europepmc_abstract",
     "kind": "abstract",
-    "retrieved_at": "2026-09-14T22:53:08+00:00",
+    "retrieved_at": "2026-09-14T23:21:23+00:00",
     "chars": 1984,
     "text_layer": "DECLARED_SOUND",
     "path": "data/verify/docs/4c/4c8be4d2c62edf3089f001d2a4ac1d06cc32a4729a03b47e415883b7f4681a18.txt.gz",
@@ -74,7 +74,7 @@
     "verdict": "retracted",
     "registry": "crossref+europepmc",
     "detail": "2 update/relation event(s)",
-    "checked_at": "2026-09-14T22:53:08+00:00",
+    "checked_at": "2026-09-14T23:21:23+00:00",
     "events": [
      {
       "type": "correction",
@@ -293,14 +293,14 @@
     "canonical": "https://doi.org/10.1016/s0140-6736(99)01239-8",
     "registry": "crossref",
     "registry_id": "10.1016/s0140-6736(99)01239-8",
-    "checked_at": "2026-09-14T22:53:09+00:00",
+    "checked_at": "2026-09-14T23:21:25+00:00",
     "generic_fetch": false
    },
    "document": {
     "sha256": "1820cf125b0e5616cd720e3bcadc1b32baab6854abdd22794c4c45c4703fe5e5",
     "route": "europepmc_abstract",
     "kind": "abstract",
-    "retrieved_at": "2026-09-14T22:53:10+00:00",
+    "retrieved_at": "2026-09-14T23:21:26+00:00",
     "chars": 2311,
     "text_layer": "DECLARED_SOUND",
     "path": "data/verify/docs/18/1820cf125b0e5616cd720e3bcadc1b32baab6854abdd22794c4c45c4703fe5e5.txt.gz",
@@ -319,7 +319,7 @@
     "verdict": "unchanged",
     "registry": "crossref+europepmc",
     "detail": "no update-to, relation, or updating work",
-    "checked_at": "2026-09-14T22:53:10+00:00",
+    "checked_at": "2026-09-14T23:21:26+00:00",
     "events": [
      {
       "type": "comment in",
@@ -380,14 +380,14 @@
     "canonical": "https://doi.org/10.1056/nejmoa021134",
     "registry": "crossref",
     "registry_id": "10.1056/nejmoa021134",
-    "checked_at": "2026-09-14T22:53:12+00:00",
+    "checked_at": "2026-09-14T23:21:29+00:00",
     "generic_fetch": false
    },
    "document": {
     "sha256": "cf62e4e025b70be9e7f6140bb594850f73db0258711906392827ce9e89e73c86",
     "route": "europepmc_abstract",
     "kind": "abstract",
-    "retrieved_at": "2026-09-14T22:53:13+00:00",
+    "retrieved_at": "2026-09-14T23:21:31+00:00",
     "chars": 1829,
     "text_layer": "DECLARED_SOUND",
     "path": "data/verify/docs/cf/cf62e4e025b70be9e7f6140bb594850f73db0258711906392827ce9e89e73c86.txt.gz",
@@ -406,7 +406,7 @@
     "verdict": "unchanged",
     "registry": "crossref+europepmc",
     "detail": "no update-to, relation, or updating work",
-    "checked_at": "2026-09-14T22:53:13+00:00",
+    "checked_at": "2026-09-14T23:21:31+00:00",
     "events": [
      {
       "type": "comment in",
@@ -452,39 +452,6 @@
    "registry_text": "A Population-Based Study of Measles, Mumps, and Rubella Vaccination and Autism 2002"
   },
   {
-   "source_id": "dd13e679-2b06-4fa3-83a4-df2aa1eea9a9",
-   "url": "https://doi.org/10.1111/j.1469-8749.2005.tb01095.x",
-   "title": "No effect of MMR withdrawal on the incidence of autism: a total population study",
-   "source_type": "clinical_trial",
-   "identifier": {
-    "system": "doi",
-    "value": "10.1111/j.1469-8749.2005.tb01095.x",
-    "provenance": "RESOLVED_FROM_HELD"
-   },
-   "resolution": {
-    "exists": "EXISTS",
-    "heading": "Gastrostomy tube feeding in children with cerebral palsy: a prospective, longitudinal study",
-    "canonical": "https://doi.org/10.1111/j.1469-8749.2005.tb01095.x",
-    "registry": "crossref",
-    "registry_id": "10.1111/j.1469-8749.2005.tb01095.x",
-    "checked_at": "2026-09-14T22:53:13+00:00",
-    "generic_fetch": false
-   },
-   "document": null,
-   "bindings": [
-    {
-     "kind": "HEADING",
-     "ok": false,
-     "abstained": false,
-     "evidence": "Gastrostomy tube feeding in children with cerebral palsy: a prospective, longitudinal study",
-     "reason": "shares no distinctive word with the registry heading"
-    }
-   ],
-   "status": null,
-   "survives": false,
-   "withheld_reason": "HEADING: shares no distinctive word with the registry heading"
-  },
-  {
    "source_id": "d89cc78b-ae50-4910-b14a-adf0c57985cb",
    "url": "https://doi.org/10.1542/peds.2005-2993",
    "title": "Pervasive Developmental Disorders in Montreal, Quebec, Canada: Prevalence and Links With Immunizations",
@@ -500,14 +467,14 @@
     "canonical": "https://doi.org/10.1542/peds.2005-2993",
     "registry": "crossref",
     "registry_id": "10.1542/peds.2005-2993",
-    "checked_at": "2026-09-14T22:53:14+00:00",
+    "checked_at": "2026-09-14T23:21:35+00:00",
     "generic_fetch": false
    },
    "document": {
     "sha256": "e0a814dcfa846acc967b48d244b36df68b67dbeb7029c24e550e012cadb8d36d",
     "route": "europepmc_abstract",
     "kind": "abstract",
-    "retrieved_at": "2026-09-14T22:53:14+00:00",
+    "retrieved_at": "2026-09-14T23:21:40+00:00",
     "chars": 4590,
     "text_layer": "DECLARED_SOUND",
     "path": "data/verify/docs/e0/e0a814dcfa846acc967b48d244b36df68b67dbeb7029c24e550e012cadb8d36d.txt.gz",
@@ -526,7 +493,7 @@
     "verdict": "unchanged",
     "registry": "crossref+europepmc",
     "detail": "no update-to, relation, or updating work",
-    "checked_at": "2026-09-14T22:53:14+00:00",
+    "checked_at": "2026-09-14T23:21:40+00:00",
     "events": [],
     "frozen": {}
    },
@@ -550,14 +517,14 @@
     "canonical": "https://doi.org/10.1016/s0140-6736(04)17020-7",
     "registry": "crossref",
     "registry_id": "10.1016/s0140-6736(04)17020-7",
-    "checked_at": "2026-09-14T22:53:15+00:00",
+    "checked_at": "2026-09-14T23:21:44+00:00",
     "generic_fetch": false
    },
    "document": {
     "sha256": "baff1cb1d7216b3109f6e886eca267275d513095d3c17701953012af45430683",
     "route": "europepmc_abstract",
     "kind": "abstract",
-    "retrieved_at": "2026-09-14T22:53:16+00:00",
+    "retrieved_at": "2026-09-14T23:21:47+00:00",
     "chars": 1389,
     "text_layer": "DECLARED_SOUND",
     "path": "data/verify/docs/ba/baff1cb1d7216b3109f6e886eca267275d513095d3c17701953012af45430683.txt.gz",
@@ -576,38 +543,13 @@
     "verdict": "unchanged",
     "registry": "crossref+europepmc",
     "detail": "no update-to, relation, or updating work",
-    "checked_at": "2026-09-14T22:53:16+00:00",
+    "checked_at": "2026-09-14T23:21:47+00:00",
     "events": [],
     "frozen": {}
    },
    "survives": true,
    "withheld_reason": null,
    "registry_text": "MMR vaccination and pervasive developmental disorders: a case-control study 2004"
-  },
-  {
-   "source_id": "fe4e0fb8-757f-446c-ab11-fa3edee3c57d",
-   "url": "https://doi.org/10.1001/jama.2015.1534",
-   "title": "Autism Occurrence by MMR Vaccine Status Among US Children With Older Siblings With and Without Autism",
-   "source_type": "clinical_trial",
-   "identifier": {
-    "system": "doi",
-    "value": "10.1001/jama.2015.1534",
-    "provenance": "RESOLVED_FROM_HELD"
-   },
-   "resolution": {
-    "exists": "NONEXISTENT",
-    "heading": null,
-    "canonical": null,
-    "registry": "handle",
-    "registry_id": null,
-    "checked_at": "2026-09-14T22:53:17+00:00",
-    "generic_fetch": false
-   },
-   "document": null,
-   "bindings": [],
-   "status": null,
-   "survives": false,
-   "withheld_reason": "resolve: NONEXISTENT"
   },
   {
    "source_id": "c17ba46d-70c4-4f1c-bb1e-a3ff554c1401",
@@ -625,14 +567,14 @@
     "canonical": "https://doi.org/10.1136/bmj.324.7334.393",
     "registry": "crossref",
     "registry_id": "10.1136/bmj.324.7334.393",
-    "checked_at": "2026-09-14T22:53:17+00:00",
+    "checked_at": "2026-09-14T23:21:48+00:00",
     "generic_fetch": false
    },
    "document": {
     "sha256": "00b87bbf34e769d1ee560f46d2ab7e7e988316becab88690ba226042b06bd60c",
     "route": "europepmc_abstract",
     "kind": "abstract",
-    "retrieved_at": "2026-09-14T22:53:19+00:00",
+    "retrieved_at": "2026-09-14T23:21:51+00:00",
     "chars": 1903,
     "text_layer": "DECLARED_SOUND",
     "path": "data/verify/docs/00/00b87bbf34e769d1ee560f46d2ab7e7e988316becab88690ba226042b06bd60c.txt.gz",
@@ -651,7 +593,7 @@
     "verdict": "unchanged",
     "registry": "crossref+europepmc",
     "detail": "no update-to, relation, or updating work",
-    "checked_at": "2026-09-14T22:53:19+00:00",
+    "checked_at": "2026-09-14T23:21:51+00:00",
     "events": [
      {
       "type": "comment in",
@@ -665,6 +607,56 @@
    "survives": true,
    "withheld_reason": null,
    "registry_text": "Measles, mumps, and rubella vaccination and bowel problems or developmental regression in children with autism: population study 2002"
+  },
+  {
+   "source_id": "dd13e679-2b06-4fa3-83a4-df2aa1eea9a9",
+   "url": "https://doi.org/10.1111/j.1469-7610.2005.01425.x",
+   "title": "No effect of MMR withdrawal on the incidence of autism: a total population study",
+   "source_type": "clinical_trial",
+   "identifier": {
+    "system": "doi",
+    "value": "10.1111/j.1469-7610.2005.01425.x",
+    "provenance": "RESOLVED_FROM_HELD"
+   },
+   "resolution": {
+    "exists": "EXISTS",
+    "heading": "No effect of MMR withdrawal on the incidence of autism: a total population study",
+    "canonical": "https://doi.org/10.1111/j.1469-7610.2005.01425.x",
+    "registry": "crossref",
+    "registry_id": "10.1111/j.1469-7610.2005.01425.x",
+    "checked_at": "2026-09-14T23:21:54+00:00",
+    "generic_fetch": false
+   },
+   "document": {
+    "sha256": "743e0691c4a3c4d6cdbbb34cf3feb9b417016f4ac9244ec389ffd4db9747835d",
+    "route": "europepmc_abstract",
+    "kind": "abstract",
+    "retrieved_at": "2026-09-14T23:21:55+00:00",
+    "chars": 1566,
+    "text_layer": "DECLARED_SOUND",
+    "path": "data/verify/docs/74/743e0691c4a3c4d6cdbbb34cf3feb9b417016f4ac9244ec389ffd4db9747835d.txt.gz",
+    "final_url": "https://doi.org/10.1111/j.1469-7610.2005.01425.x"
+   },
+   "bindings": [
+    {
+     "kind": "HEADING",
+     "ok": true,
+     "abstained": false,
+     "evidence": "containment: autism, incidence, mmr, population, total, withdrawal",
+     "reason": ""
+    }
+   ],
+   "status": {
+    "verdict": "unchanged",
+    "registry": "crossref+europepmc",
+    "detail": "no update-to, relation, or updating work",
+    "checked_at": "2026-09-14T23:21:55+00:00",
+    "events": [],
+    "frozen": {}
+   },
+   "survives": true,
+   "withheld_reason": null,
+   "registry_text": "No effect of MMR withdrawal on the incidence of autism: a total population study 2005"
   },
   {
    "source_id": "2e5297e3-c0a1-4846-939d-0a793e295c9f",
@@ -682,14 +674,14 @@
     "canonical": "https://doi.org/10.7326/m18-2101",
     "registry": "crossref",
     "registry_id": "10.7326/m18-2101",
-    "checked_at": "2026-09-14T22:53:21+00:00",
+    "checked_at": "2026-09-14T23:22:03+00:00",
     "generic_fetch": false
    },
    "document": {
     "sha256": "26d79efdf5364011190cc9f663ebdd9d2a4c4c6fe4614c1020bb6284bd9124fb",
     "route": "europepmc_abstract",
     "kind": "abstract",
-    "retrieved_at": "2026-09-14T22:53:22+00:00",
+    "retrieved_at": "2026-09-14T23:22:17+00:00",
     "chars": 2161,
     "text_layer": "DECLARED_SOUND",
     "path": "data/verify/docs/26/26d79efdf5364011190cc9f663ebdd9d2a4c4c6fe4614c1020bb6284bd9124fb.txt.gz",
@@ -708,7 +700,7 @@
     "verdict": "unchanged",
     "registry": "crossref+europepmc",
     "detail": "no update-to, relation, or updating work",
-    "checked_at": "2026-09-14T22:53:22+00:00",
+    "checked_at": "2026-09-14T23:22:17+00:00",
     "events": [
      {
       "type": "comment in",
@@ -763,14 +755,14 @@
     "canonical": "https://doi.org/10.1002/14651858.cd004407.pub4",
     "registry": "crossref",
     "registry_id": "10.1002/14651858.cd004407.pub4",
-    "checked_at": "2026-09-14T22:53:23+00:00",
+    "checked_at": "2026-09-14T23:22:33+00:00",
     "generic_fetch": false
    },
    "document": {
     "sha256": "cdcf92f7b5477d860e432f10033af0ae53df0912999140336604d7f6d738d96f",
     "route": "europepmc_abstract",
     "kind": "abstract",
-    "retrieved_at": "2026-09-14T22:53:24+00:00",
+    "retrieved_at": "2026-09-14T23:22:45+00:00",
     "chars": 6715,
     "text_layer": "DECLARED_SOUND",
     "path": "data/verify/docs/cd/cdcf92f7b5477d860e432f10033af0ae53df0912999140336604d7f6d738d96f.txt.gz",
@@ -789,7 +781,7 @@
     "verdict": "superseded",
     "registry": "crossref+europepmc",
     "detail": "2 update/relation event(s)",
-    "checked_at": "2026-09-14T22:53:24+00:00",
+    "checked_at": "2026-09-14T23:22:45+00:00",
     "events": [
      {
       "type": "new_version",
@@ -841,14 +833,14 @@
     "canonical": "https://doi.org/10.1016/j.vaccine.2014.04.085",
     "registry": "crossref",
     "registry_id": "10.1016/j.vaccine.2014.04.085",
-    "checked_at": "2026-09-14T22:53:25+00:00",
+    "checked_at": "2026-09-14T23:23:20+00:00",
     "generic_fetch": false
    },
    "document": {
     "sha256": "fdddd466b1abad1b03561461c6eb75b27534184f6a77636bd23ed716403d157a",
     "route": "europepmc_abstract",
     "kind": "abstract",
-    "retrieved_at": "2026-09-14T22:53:27+00:00",
+    "retrieved_at": "2026-09-14T23:23:30+00:00",
     "chars": 1945,
     "text_layer": "DECLARED_SOUND",
     "path": "data/verify/docs/fd/fdddd466b1abad1b03561461c6eb75b27534184f6a77636bd23ed716403d157a.txt.gz",
@@ -867,7 +859,7 @@
     "verdict": "unchanged",
     "registry": "crossref+europepmc",
     "detail": "no update-to, relation, or updating work",
-    "checked_at": "2026-09-14T22:53:27+00:00",
+    "checked_at": "2026-09-14T23:23:30+00:00",
     "events": [
      {
       "type": "comment in",
@@ -910,7 +902,7 @@
     "canonical": "https://www.fda.gov/vaccines-blood-biologics/vaccines/mmr-ii",
     "registry": "generic_fetch",
     "registry_id": null,
-    "checked_at": "2026-09-14T22:53:28+00:00",
+    "checked_at": "2026-09-14T23:23:38+00:00",
     "generic_fetch": true
    },
    "document": null,
@@ -935,14 +927,14 @@
     "canonical": "https://www.fda.gov/vaccines-blood-biologics/safety-availability-biologics/thimerosal-and-vaccines",
     "registry": "generic_fetch",
     "registry_id": null,
-    "checked_at": "2026-09-14T22:53:28+00:00",
+    "checked_at": "2026-09-14T23:23:38+00:00",
     "generic_fetch": true
    },
    "document": {
     "sha256": "fdf73b80bb4c92200b5289678acba4e3f0161991913db7b0db75c05751469c7f",
     "route": "generic_fetch_html",
     "kind": "full_text",
-    "retrieved_at": "2026-09-14T22:53:28+00:00",
+    "retrieved_at": "2026-09-14T23:23:39+00:00",
     "chars": 24008,
     "text_layer": "DECLARED_SOUND",
     "path": "data/verify/docs/fd/fdf73b80bb4c92200b5289678acba4e3f0161991913db7b0db75c05751469c7f.txt.gz",
@@ -961,7 +953,7 @@
     "verdict": "no_registry",
     "registry": "generic_fetch",
     "detail": "no status registry for a generic URL; watched by the binding re-check only",
-    "checked_at": "2026-09-14T22:53:28+00:00",
+    "checked_at": "2026-09-14T23:23:39+00:00",
     "events": [],
     "frozen": {}
    },
@@ -985,14 +977,14 @@
     "canonical": "https://www.cdc.gov/mmwr/preview/mmwrhtml/rr6204a1.htm",
     "registry": "generic_fetch",
     "registry_id": null,
-    "checked_at": "2026-09-14T22:53:28+00:00",
+    "checked_at": "2026-09-14T23:23:39+00:00",
     "generic_fetch": true
    },
    "document": {
     "sha256": "6e1a91caa227a9d81a6c2e6350f421ae9d0a3c53adb6ec0f1d2043eafcb06a4e",
     "route": "generic_fetch_html",
     "kind": "full_text",
-    "retrieved_at": "2026-09-14T22:53:28+00:00",
+    "retrieved_at": "2026-09-14T23:23:41+00:00",
     "chars": 184486,
     "text_layer": "DECLARED_SOUND",
     "path": "data/verify/docs/6e/6e1a91caa227a9d81a6c2e6350f421ae9d0a3c53adb6ec0f1d2043eafcb06a4e.txt.gz",
@@ -1011,7 +1003,7 @@
     "verdict": "no_registry",
     "registry": "generic_fetch",
     "detail": "no status registry for a generic URL; watched by the binding re-check only",
-    "checked_at": "2026-09-14T22:53:28+00:00",
+    "checked_at": "2026-09-14T23:23:41+00:00",
     "events": [],
     "frozen": {}
    },
@@ -1035,14 +1027,14 @@
     "canonical": "https://www.ncbi.nlm.nih.gov/books/NBK25344/",
     "registry": "generic_fetch",
     "registry_id": null,
-    "checked_at": "2026-09-14T22:53:28+00:00",
+    "checked_at": "2026-09-14T23:23:41+00:00",
     "generic_fetch": true
    },
    "document": {
     "sha256": "351d2d9182251c1608d91009cfa38a6b611f33b9c2fe32b67231d825bcc11848",
     "route": "generic_fetch_html",
     "kind": "full_text",
-    "retrieved_at": "2026-09-14T22:53:29+00:00",
+    "retrieved_at": "2026-09-14T23:23:41+00:00",
     "chars": 8164,
     "text_layer": "DECLARED_SOUND",
     "path": "data/verify/docs/35/351d2d9182251c1608d91009cfa38a6b611f33b9c2fe32b67231d825bcc11848.txt.gz",
@@ -1061,7 +1053,7 @@
     "verdict": "no_registry",
     "registry": "generic_fetch",
     "detail": "no status registry for a generic URL; watched by the binding re-check only",
-    "checked_at": "2026-09-14T22:53:29+00:00",
+    "checked_at": "2026-09-14T23:23:41+00:00",
     "events": [],
     "frozen": {}
    },
@@ -1085,14 +1077,14 @@
     "canonical": "https://www.ema.europa.eu/en/medicines/human/EPAR/m-m-rvaxpro",
     "registry": "generic_fetch",
     "registry_id": null,
-    "checked_at": "2026-09-14T22:53:29+00:00",
+    "checked_at": "2026-09-14T23:23:41+00:00",
     "generic_fetch": true
    },
    "document": {
     "sha256": "93fa09abdadf9fb8b305c475521496553106ba53283de6ad9dcf983df4a1ae45",
     "route": "generic_fetch_html",
     "kind": "full_text",
-    "retrieved_at": "2026-09-14T22:53:29+00:00",
+    "retrieved_at": "2026-09-14T23:23:42+00:00",
     "chars": 19274,
     "text_layer": "DECLARED_SOUND",
     "path": "data/verify/docs/93/93fa09abdadf9fb8b305c475521496553106ba53283de6ad9dcf983df4a1ae45.txt.gz",
@@ -1111,7 +1103,7 @@
     "verdict": "no_registry",
     "registry": "generic_fetch",
     "detail": "no status registry for a generic URL; watched by the binding re-check only",
-    "checked_at": "2026-09-14T22:53:29+00:00",
+    "checked_at": "2026-09-14T23:23:42+00:00",
     "events": [],
     "frozen": {}
    },
@@ -1135,14 +1127,14 @@
     "canonical": "https://vaers.hhs.gov/data/dataguide.html",
     "registry": "generic_fetch",
     "registry_id": null,
-    "checked_at": "2026-09-14T22:53:29+00:00",
+    "checked_at": "2026-09-14T23:23:42+00:00",
     "generic_fetch": true
    },
    "document": {
     "sha256": "be81d504895e85208fab699a0116535c84534675f896b2d878f66db27acd30a1",
     "route": "generic_fetch_html",
     "kind": "full_text",
-    "retrieved_at": "2026-09-14T22:53:30+00:00",
+    "retrieved_at": "2026-09-14T23:23:42+00:00",
     "chars": 4958,
     "text_layer": "DECLARED_SOUND",
     "path": "data/verify/docs/be/be81d504895e85208fab699a0116535c84534675f896b2d878f66db27acd30a1.txt.gz",
@@ -1161,7 +1153,7 @@
     "verdict": "no_registry",
     "registry": "generic_fetch",
     "detail": "no status registry for a generic URL; watched by the binding re-check only",
-    "checked_at": "2026-09-14T22:53:30+00:00",
+    "checked_at": "2026-09-14T23:23:42+00:00",
     "events": [],
     "frozen": {}
    },
@@ -1185,7 +1177,7 @@
     "canonical": "https://www.uscfc.uscourts.gov/sites/default/files/Hastings.Cedillo.02-0031V.pdf",
     "registry": "generic_fetch",
     "registry_id": null,
-    "checked_at": "2026-09-14T22:53:30+00:00",
+    "checked_at": "2026-09-14T23:23:42+00:00",
     "generic_fetch": true
    },
    "document": null,
@@ -1210,14 +1202,14 @@
     "canonical": "https://doi.org/10.1002/14651858.cd004407.pub4",
     "registry": "crossref",
     "registry_id": "10.1002/14651858.cd004407.pub4",
-    "checked_at": "2026-09-14T22:53:30+00:00",
+    "checked_at": "2026-09-14T23:22:33+00:00",
     "generic_fetch": false
    },
    "document": {
     "sha256": "cdcf92f7b5477d860e432f10033af0ae53df0912999140336604d7f6d738d96f",
     "route": "europepmc_abstract",
     "kind": "abstract",
-    "retrieved_at": "2026-09-14T22:53:31+00:00",
+    "retrieved_at": "2026-09-14T23:22:45+00:00",
     "chars": 6715,
     "text_layer": "DECLARED_SOUND",
     "path": "data/verify/docs/cd/cdcf92f7b5477d860e432f10033af0ae53df0912999140336604d7f6d738d96f.txt.gz",
@@ -1236,7 +1228,7 @@
     "verdict": "superseded",
     "registry": "crossref+europepmc",
     "detail": "2 update/relation event(s)",
-    "checked_at": "2026-09-14T22:53:31+00:00",
+    "checked_at": "2026-09-14T23:22:45+00:00",
     "events": [
      {
       "type": "new_version",
@@ -1288,14 +1280,14 @@
     "canonical": "https://doi.org/10.1016/j.vaccine.2014.04.085",
     "registry": "crossref",
     "registry_id": "10.1016/j.vaccine.2014.04.085",
-    "checked_at": "2026-09-14T22:53:33+00:00",
+    "checked_at": "2026-09-14T23:23:20+00:00",
     "generic_fetch": false
    },
    "document": {
     "sha256": "fdddd466b1abad1b03561461c6eb75b27534184f6a77636bd23ed716403d157a",
     "route": "europepmc_abstract",
     "kind": "abstract",
-    "retrieved_at": "2026-09-14T22:53:34+00:00",
+    "retrieved_at": "2026-09-14T23:23:30+00:00",
     "chars": 1945,
     "text_layer": "DECLARED_SOUND",
     "path": "data/verify/docs/fd/fdddd466b1abad1b03561461c6eb75b27534184f6a77636bd23ed716403d157a.txt.gz",
@@ -1314,7 +1306,7 @@
     "verdict": "unchanged",
     "registry": "crossref+europepmc",
     "detail": "no update-to, relation, or updating work",
-    "checked_at": "2026-09-14T22:53:34+00:00",
+    "checked_at": "2026-09-14T23:23:30+00:00",
     "events": [
      {
       "type": "comment in",
@@ -1357,14 +1349,14 @@
     "canonical": "https://doi.org/10.1056/nejmoa021134",
     "registry": "crossref",
     "registry_id": "10.1056/nejmoa021134",
-    "checked_at": "2026-09-14T22:53:35+00:00",
+    "checked_at": "2026-09-14T23:21:29+00:00",
     "generic_fetch": false
    },
    "document": {
     "sha256": "cf62e4e025b70be9e7f6140bb594850f73db0258711906392827ce9e89e73c86",
     "route": "europepmc_abstract",
     "kind": "abstract",
-    "retrieved_at": "2026-09-14T22:53:36+00:00",
+    "retrieved_at": "2026-09-14T23:21:31+00:00",
     "chars": 1829,
     "text_layer": "DECLARED_SOUND",
     "path": "data/verify/docs/cf/cf62e4e025b70be9e7f6140bb594850f73db0258711906392827ce9e89e73c86.txt.gz",
@@ -1383,7 +1375,7 @@
     "verdict": "unchanged",
     "registry": "crossref+europepmc",
     "detail": "no update-to, relation, or updating work",
-    "checked_at": "2026-09-14T22:53:36+00:00",
+    "checked_at": "2026-09-14T23:21:31+00:00",
     "events": [
      {
       "type": "comment in",
@@ -1429,64 +1421,6 @@
    "registry_text": "A Population-Based Study of Measles, Mumps, and Rubella Vaccination and Autism 2002"
   },
   {
-   "source_id": "6f6527c4-636f-46e3-8c47-09a755af6e93",
-   "url": "https://doi.org/10.1111/j.1469-8749.2005.tb01215.x",
-   "title": "No effect of MMR withdrawal on the incidence of autism: a total population study",
-   "source_type": "systematic_review",
-   "identifier": {
-    "system": "doi",
-    "value": "10.1111/j.1469-8749.2005.tb01215.x",
-    "provenance": "RESOLVED_FROM_HELD"
-   },
-   "resolution": {
-    "exists": "EXISTS",
-    "heading": "Comparing botulinum toxin A with casting for treatment of dynamic equinus in children with cerebral palsy",
-    "canonical": "https://doi.org/10.1111/j.1469-8749.2005.tb01215.x",
-    "registry": "crossref",
-    "registry_id": "10.1111/j.1469-8749.2005.tb01215.x",
-    "checked_at": "2026-09-14T22:53:37+00:00",
-    "generic_fetch": false
-   },
-   "document": null,
-   "bindings": [
-    {
-     "kind": "HEADING",
-     "ok": false,
-     "abstained": false,
-     "evidence": "Comparing botulinum toxin A with casting for treatment of dynamic equinus in children with cerebral palsy",
-     "reason": "shares no distinctive word with the registry heading"
-    }
-   ],
-   "status": null,
-   "survives": false,
-   "withheld_reason": "HEADING: shares no distinctive word with the registry heading"
-  },
-  {
-   "source_id": "5c082496-8835-4a87-93a3-bc3faf585401",
-   "url": "https://doi.org/10.1001/jama.2015.1534",
-   "title": "Autism Occurrence by MMR Vaccine Status Among US Children With Older Siblings With and Without Autism",
-   "source_type": "systematic_review",
-   "identifier": {
-    "system": "doi",
-    "value": "10.1001/jama.2015.1534",
-    "provenance": "RESOLVED_FROM_HELD"
-   },
-   "resolution": {
-    "exists": "NONEXISTENT",
-    "heading": null,
-    "canonical": null,
-    "registry": "handle",
-    "registry_id": null,
-    "checked_at": "2026-09-14T22:53:37+00:00",
-    "generic_fetch": false
-   },
-   "document": null,
-   "bindings": [],
-   "status": null,
-   "survives": false,
-   "withheld_reason": "resolve: NONEXISTENT"
-  },
-  {
    "source_id": "159f0385-b395-4866-9b85-30d9fd7f4b5f",
    "url": "https://doi.org/10.17226/10997",
    "title": "Immunization Safety Review: Vaccines and Autism",
@@ -1502,10 +1436,23 @@
     "canonical": "https://doi.org/10.17226/10997",
     "registry": "crossref",
     "registry_id": "10.17226/10997",
-    "checked_at": "2026-09-14T22:53:37+00:00",
-    "generic_fetch": false
+    "checked_at": "2026-09-14T23:23:42+00:00",
+    "generic_fetch": false,
+    "fallback": {
+     "route": "generic_fetch via doi.org",
+     "final_url": "https://www.nationalacademies.org/publications/10997"
+    }
    },
-   "document": null,
+   "document": {
+    "sha256": "17facd836acba9d452aebbc251291e9d50d8e2b36c64c646a60776442cc74a57",
+    "route": "generic_fetch_html",
+    "kind": "full_text",
+    "retrieved_at": "2026-09-14T23:23:57+00:00",
+    "chars": 36333,
+    "text_layer": "DECLARED_SOUND",
+    "path": "data/verify/docs/17/17facd836acba9d452aebbc251291e9d50d8e2b36c64c646a60776442cc74a57.txt.gz",
+    "final_url": "https://www.nationalacademies.org/publications/10997"
+   },
    "bindings": [
     {
      "kind": "HEADING",
@@ -1515,9 +1462,17 @@
      "reason": ""
     }
    ],
-   "status": null,
-   "survives": false,
-   "withheld_reason": "fetch: nothing retrieved"
+   "status": {
+    "verdict": "unchanged",
+    "registry": "crossref",
+    "detail": "no update-to, relation, or updating work",
+    "checked_at": "2026-09-14T23:23:57+00:00",
+    "events": [],
+    "frozen": {}
+   },
+   "survives": true,
+   "withheld_reason": null,
+   "registry_text": "Immunization Safety Review 2004"
   },
   {
    "source_id": "fd363c9a-4ca2-4a4b-9140-d59c55245292",
@@ -1535,14 +1490,14 @@
     "canonical": "https://doi.org/10.7326/m18-2101",
     "registry": "crossref",
     "registry_id": "10.7326/m18-2101",
-    "checked_at": "2026-09-14T22:53:38+00:00",
+    "checked_at": "2026-09-14T23:22:03+00:00",
     "generic_fetch": false
    },
    "document": {
     "sha256": "26d79efdf5364011190cc9f663ebdd9d2a4c4c6fe4614c1020bb6284bd9124fb",
     "route": "europepmc_abstract",
     "kind": "abstract",
-    "retrieved_at": "2026-09-14T22:53:39+00:00",
+    "retrieved_at": "2026-09-14T23:22:17+00:00",
     "chars": 2161,
     "text_layer": "DECLARED_SOUND",
     "path": "data/verify/docs/26/26d79efdf5364011190cc9f663ebdd9d2a4c4c6fe4614c1020bb6284bd9124fb.txt.gz",
@@ -1561,7 +1516,7 @@
     "verdict": "unchanged",
     "registry": "crossref+europepmc",
     "detail": "no update-to, relation, or updating work",
-    "checked_at": "2026-09-14T22:53:39+00:00",
+    "checked_at": "2026-09-14T23:22:17+00:00",
     "events": [
      {
       "type": "comment in",
@@ -1616,8 +1571,13 @@
     "canonical": "https://doi.org/10.1016/s0140-6736(10)60175-4",
     "registry": "crossref",
     "registry_id": "10.1016/s0140-6736(10)60175-4",
-    "checked_at": "2026-09-14T22:53:40+00:00",
-    "generic_fetch": false
+    "checked_at": "2026-09-14T23:24:22+00:00",
+    "generic_fetch": false,
+    "fallback": {
+     "route": "generic_fetch via doi.org",
+     "http": 200,
+     "reason": "a shell, a wall or too little text to be the document"
+    }
    },
    "document": null,
    "bindings": [
@@ -1631,7 +1591,7 @@
    ],
    "status": null,
    "survives": false,
-   "withheld_reason": "fetch: nothing retrieved"
+   "withheld_reason": "fetch: nothing retrieved (publisher: HTTP 200 a shell, a wall or too little text to be the document)"
   },
   {
    "source_id": "d28cab99-41e4-40a1-8d85-551cb937f8dd",
@@ -1649,14 +1609,14 @@
     "canonical": "https://doi.org/10.1056/nejmoa021134",
     "registry": "crossref",
     "registry_id": "10.1056/nejmoa021134",
-    "checked_at": "2026-09-14T22:53:41+00:00",
+    "checked_at": "2026-09-14T23:21:29+00:00",
     "generic_fetch": false
    },
    "document": {
     "sha256": "cf62e4e025b70be9e7f6140bb594850f73db0258711906392827ce9e89e73c86",
     "route": "europepmc_abstract",
     "kind": "abstract",
-    "retrieved_at": "2026-09-14T22:53:42+00:00",
+    "retrieved_at": "2026-09-14T23:21:31+00:00",
     "chars": 1829,
     "text_layer": "DECLARED_SOUND",
     "path": "data/verify/docs/cf/cf62e4e025b70be9e7f6140bb594850f73db0258711906392827ce9e89e73c86.txt.gz",
@@ -1675,7 +1635,7 @@
     "verdict": "unchanged",
     "registry": "crossref+europepmc",
     "detail": "no update-to, relation, or updating work",
-    "checked_at": "2026-09-14T22:53:42+00:00",
+    "checked_at": "2026-09-14T23:21:31+00:00",
     "events": [
      {
       "type": "comment in",
@@ -1736,14 +1696,14 @@
     "canonical": "https://doi.org/10.1016/s0140-6736(99)01239-8",
     "registry": "crossref",
     "registry_id": "10.1016/s0140-6736(99)01239-8",
-    "checked_at": "2026-09-14T22:53:44+00:00",
+    "checked_at": "2026-09-14T23:21:25+00:00",
     "generic_fetch": false
    },
    "document": {
     "sha256": "1820cf125b0e5616cd720e3bcadc1b32baab6854abdd22794c4c45c4703fe5e5",
     "route": "europepmc_abstract",
     "kind": "abstract",
-    "retrieved_at": "2026-09-14T22:53:45+00:00",
+    "retrieved_at": "2026-09-14T23:21:26+00:00",
     "chars": 2311,
     "text_layer": "DECLARED_SOUND",
     "path": "data/verify/docs/18/1820cf125b0e5616cd720e3bcadc1b32baab6854abdd22794c4c45c4703fe5e5.txt.gz",
@@ -1762,7 +1722,7 @@
     "verdict": "unchanged",
     "registry": "crossref+europepmc",
     "detail": "no update-to, relation, or updating work",
-    "checked_at": "2026-09-14T22:53:45+00:00",
+    "checked_at": "2026-09-14T23:21:26+00:00",
     "events": [
      {
       "type": "comment in",
@@ -1823,14 +1783,14 @@
     "canonical": "https://doi.org/10.7326/m18-2101",
     "registry": "crossref",
     "registry_id": "10.7326/m18-2101",
-    "checked_at": "2026-09-14T22:53:46+00:00",
+    "checked_at": "2026-09-14T23:22:03+00:00",
     "generic_fetch": false
    },
    "document": {
     "sha256": "26d79efdf5364011190cc9f663ebdd9d2a4c4c6fe4614c1020bb6284bd9124fb",
     "route": "europepmc_abstract",
     "kind": "abstract",
-    "retrieved_at": "2026-09-14T22:53:47+00:00",
+    "retrieved_at": "2026-09-14T23:22:17+00:00",
     "chars": 2161,
     "text_layer": "DECLARED_SOUND",
     "path": "data/verify/docs/26/26d79efdf5364011190cc9f663ebdd9d2a4c4c6fe4614c1020bb6284bd9124fb.txt.gz",
@@ -1849,7 +1809,7 @@
     "verdict": "unchanged",
     "registry": "crossref+europepmc",
     "detail": "no update-to, relation, or updating work",
-    "checked_at": "2026-09-14T22:53:47+00:00",
+    "checked_at": "2026-09-14T23:22:17+00:00",
     "events": [
      {
       "type": "comment in",
@@ -1904,14 +1864,14 @@
     "canonical": "https://doi.org/10.1016/s0140-6736(97)11096-0",
     "registry": "crossref",
     "registry_id": "10.1016/s0140-6736(97)11096-0",
-    "checked_at": "2026-09-14T22:53:48+00:00",
+    "checked_at": "2026-09-14T23:21:22+00:00",
     "generic_fetch": false
    },
    "document": {
     "sha256": "4c8be4d2c62edf3089f001d2a4ac1d06cc32a4729a03b47e415883b7f4681a18",
     "route": "europepmc_abstract",
     "kind": "abstract",
-    "retrieved_at": "2026-09-14T22:53:48+00:00",
+    "retrieved_at": "2026-09-14T23:21:23+00:00",
     "chars": 1984,
     "text_layer": "DECLARED_SOUND",
     "path": "data/verify/docs/4c/4c8be4d2c62edf3089f001d2a4ac1d06cc32a4729a03b47e415883b7f4681a18.txt.gz",
@@ -1930,7 +1890,7 @@
     "verdict": "retracted",
     "registry": "crossref+europepmc",
     "detail": "2 update/relation event(s)",
-    "checked_at": "2026-09-14T22:53:48+00:00",
+    "checked_at": "2026-09-14T23:21:23+00:00",
     "events": [
      {
       "type": "correction",
@@ -2149,8 +2109,13 @@
     "canonical": "https://doi.org/10.1136/bmj.c5347",
     "registry": "crossref",
     "registry_id": "10.1136/bmj.c5347",
-    "checked_at": "2026-09-14T22:53:49+00:00",
-    "generic_fetch": false
+    "checked_at": "2026-09-14T23:24:31+00:00",
+    "generic_fetch": false,
+    "fallback": {
+     "route": "generic_fetch via doi.org",
+     "http": 403,
+     "reason": null
+    }
    },
    "document": null,
    "bindings": [
@@ -2164,7 +2129,7 @@
    ],
    "status": null,
    "survives": false,
-   "withheld_reason": "fetch: nothing retrieved"
+   "withheld_reason": "fetch: nothing retrieved (publisher: HTTP 403 )"
   },
   {
    "source_id": "0d7243cc-5b16-46ca-8750-8a2bcf57195f",
@@ -2182,10 +2147,19 @@
     "canonical": "https://doi.org/10.17226/10997",
     "registry": "crossref",
     "registry_id": "10.17226/10997",
-    "checked_at": "2026-09-14T22:53:50+00:00",
+    "checked_at": "2026-09-14T23:23:42+00:00",
     "generic_fetch": false
    },
-   "document": null,
+   "document": {
+    "sha256": "17facd836acba9d452aebbc251291e9d50d8e2b36c64c646a60776442cc74a57",
+    "route": "generic_fetch_html",
+    "kind": "full_text",
+    "retrieved_at": "2026-09-14T23:23:57+00:00",
+    "chars": 36333,
+    "text_layer": "DECLARED_SOUND",
+    "path": "data/verify/docs/17/17facd836acba9d452aebbc251291e9d50d8e2b36c64c646a60776442cc74a57.txt.gz",
+    "final_url": "https://www.nationalacademies.org/publications/10997"
+   },
    "bindings": [
     {
      "kind": "HEADING",
@@ -2195,9 +2169,17 @@
      "reason": ""
     }
    ],
-   "status": null,
-   "survives": false,
-   "withheld_reason": "fetch: nothing retrieved"
+   "status": {
+    "verdict": "unchanged",
+    "registry": "crossref",
+    "detail": "no update-to, relation, or updating work",
+    "checked_at": "2026-09-14T23:23:57+00:00",
+    "events": [],
+    "frozen": {}
+   },
+   "survives": true,
+   "withheld_reason": null,
+   "registry_text": "Immunization Safety Review 2004"
   },
   {
    "source_id": "ad407e43-6a00-46b1-9185-d423ea7bc2e8",
@@ -2215,7 +2197,7 @@
     "canonical": "https://www.uhcprovider.com/content/dam/provider/docs/public/policies/comm-medical-drug/childhood-immunizations.pdf",
     "registry": "generic_fetch",
     "registry_id": null,
-    "checked_at": "2026-09-14T22:53:51+00:00",
+    "checked_at": "2026-09-14T23:24:36+00:00",
     "generic_fetch": true
    },
    "document": null,
@@ -2240,14 +2222,14 @@
     "canonical": "https://www.aetna.com/cpb/medical/data/1_99/0070.html",
     "registry": "generic_fetch",
     "registry_id": null,
-    "checked_at": "2026-09-14T22:53:51+00:00",
+    "checked_at": "2026-09-14T23:24:36+00:00",
     "generic_fetch": true
    },
    "document": {
     "sha256": "fa060886dfebefa5c53ebce93406b7534a2a2890e9aa7191dd85a929b51f1969",
     "route": "generic_fetch_html",
     "kind": "full_text",
-    "retrieved_at": "2026-09-14T22:53:51+00:00",
+    "retrieved_at": "2026-09-14T23:24:37+00:00",
     "chars": 256479,
     "text_layer": "DECLARED_SOUND",
     "path": "data/verify/docs/fa/fa060886dfebefa5c53ebce93406b7534a2a2890e9aa7191dd85a929b51f1969.txt.gz",
@@ -2266,7 +2248,7 @@
     "verdict": "no_registry",
     "registry": "generic_fetch",
     "detail": "no status registry for a generic URL; watched by the binding re-check only",
-    "checked_at": "2026-09-14T22:53:51+00:00",
+    "checked_at": "2026-09-14T23:24:37+00:00",
     "events": [],
     "frozen": {}
    },
@@ -2290,14 +2272,214 @@
     "canonical": "https://www.anthem.com/preventive-care",
     "registry": "generic_fetch",
     "registry_id": null,
-    "checked_at": "2026-09-14T22:53:51+00:00",
+    "checked_at": "2026-09-14T23:24:37+00:00",
     "generic_fetch": true
    },
    "document": null,
    "bindings": [],
    "status": null,
    "survives": false,
-   "withheld_reason": "fetch: HTTP 0 TimeoutError: [Errno 60] Operation timed out"
+   "withheld_reason": "fetch: HTTP 0 TimeoutError: The read operation timed out"
+  },
+  {
+   "source_id": "fe4e0fb8-757f-446c-ab11-fa3edee3c57d",
+   "url": "https://doi.org/10.1001/jama.2015.3077",
+   "title": "Autism Occurrence by MMR Vaccine Status Among US Children With Older Siblings With and Without Autism",
+   "source_type": "clinical_trial",
+   "identifier": {
+    "system": "doi",
+    "value": "10.1001/jama.2015.3077",
+    "provenance": "RESOLVED_FROM_HELD"
+   },
+   "resolution": {
+    "exists": "EXISTS",
+    "heading": "Autism Occurrence by MMR Vaccine Status Among US Children With Older Siblings With and Without Autism",
+    "canonical": "https://doi.org/10.1001/jama.2015.3077",
+    "registry": "crossref",
+    "registry_id": "10.1001/jama.2015.3077",
+    "checked_at": "2026-09-14T23:28:32+00:00",
+    "generic_fetch": false
+   },
+   "document": {
+    "sha256": "808431798f8fe2257a7a973cf003621a7d331f70abfa94a6d1dcf5e46b2f4421",
+    "route": "europepmc_abstract",
+    "kind": "abstract",
+    "retrieved_at": "2026-09-14T23:28:33+00:00",
+    "chars": 1915,
+    "text_layer": "DECLARED_SOUND",
+    "path": "data/verify/docs/80/808431798f8fe2257a7a973cf003621a7d331f70abfa94a6d1dcf5e46b2f4421.txt.gz",
+    "final_url": "https://doi.org/10.1001/jama.2015.3077"
+   },
+   "bindings": [
+    {
+     "kind": "HEADING",
+     "ok": true,
+     "abstained": false,
+     "evidence": "containment: among, autism, children, mmr, occurrence, older, siblings, status, vaccine, without",
+     "reason": ""
+    }
+   ],
+   "status": {
+    "verdict": "corrected",
+    "registry": "crossref+europepmc",
+    "detail": "no update-to, relation, or updating work",
+    "checked_at": "2026-09-14T23:28:33+00:00",
+    "events": [
+     {
+      "type": "comment in",
+      "date": null,
+      "id": "25898047",
+      "source": "europepmc commentCorrectionList"
+     },
+     {
+      "type": "comment in",
+      "date": null,
+      "id": "26757474",
+      "source": "europepmc commentCorrectionList"
+     },
+     {
+      "type": "erratum in",
+      "date": null,
+      "id": "26757477",
+      "source": "europepmc commentCorrectionList"
+     },
+     {
+      "type": "comment in",
+      "date": null,
+      "id": "28102282",
+      "source": "europepmc commentCorrectionList"
+     }
+    ],
+    "frozen": {}
+   },
+   "survives": true,
+   "withheld_reason": null,
+   "registry_text": "Autism Occurrence by MMR Vaccine Status Among US Children With Older Siblings With and Without Autism 2015"
+  },
+  {
+   "source_id": "5c082496-8835-4a87-93a3-bc3faf585401",
+   "url": "https://doi.org/10.1001/jama.2015.3077",
+   "title": "Autism Occurrence by MMR Vaccine Status Among US Children With Older Siblings With and Without Autism",
+   "source_type": "systematic_review",
+   "identifier": {
+    "system": "doi",
+    "value": "10.1001/jama.2015.3077",
+    "provenance": "RESOLVED_FROM_HELD"
+   },
+   "resolution": {
+    "exists": "EXISTS",
+    "heading": "Autism Occurrence by MMR Vaccine Status Among US Children With Older Siblings With and Without Autism",
+    "canonical": "https://doi.org/10.1001/jama.2015.3077",
+    "registry": "crossref",
+    "registry_id": "10.1001/jama.2015.3077",
+    "checked_at": "2026-09-14T23:28:32+00:00",
+    "generic_fetch": false
+   },
+   "document": {
+    "sha256": "808431798f8fe2257a7a973cf003621a7d331f70abfa94a6d1dcf5e46b2f4421",
+    "route": "europepmc_abstract",
+    "kind": "abstract",
+    "retrieved_at": "2026-09-14T23:28:33+00:00",
+    "chars": 1915,
+    "text_layer": "DECLARED_SOUND",
+    "path": "data/verify/docs/80/808431798f8fe2257a7a973cf003621a7d331f70abfa94a6d1dcf5e46b2f4421.txt.gz",
+    "final_url": "https://doi.org/10.1001/jama.2015.3077"
+   },
+   "bindings": [
+    {
+     "kind": "HEADING",
+     "ok": true,
+     "abstained": false,
+     "evidence": "containment: among, autism, children, mmr, occurrence, older, siblings, status, vaccine, without",
+     "reason": ""
+    }
+   ],
+   "status": {
+    "verdict": "corrected",
+    "registry": "crossref+europepmc",
+    "detail": "no update-to, relation, or updating work",
+    "checked_at": "2026-09-14T23:28:33+00:00",
+    "events": [
+     {
+      "type": "comment in",
+      "date": null,
+      "id": "25898047",
+      "source": "europepmc commentCorrectionList"
+     },
+     {
+      "type": "comment in",
+      "date": null,
+      "id": "26757474",
+      "source": "europepmc commentCorrectionList"
+     },
+     {
+      "type": "erratum in",
+      "date": null,
+      "id": "26757477",
+      "source": "europepmc commentCorrectionList"
+     },
+     {
+      "type": "comment in",
+      "date": null,
+      "id": "28102282",
+      "source": "europepmc commentCorrectionList"
+     }
+    ],
+    "frozen": {}
+   },
+   "survives": true,
+   "withheld_reason": null,
+   "registry_text": "Autism Occurrence by MMR Vaccine Status Among US Children With Older Siblings With and Without Autism 2015"
+  },
+  {
+   "source_id": "6f6527c4-636f-46e3-8c47-09a755af6e93",
+   "url": "https://doi.org/10.1111/j.1469-7610.2005.01425.x",
+   "title": "No effect of MMR withdrawal on the incidence of autism: a total population study",
+   "source_type": "systematic_review",
+   "identifier": {
+    "system": "doi",
+    "value": "10.1111/j.1469-7610.2005.01425.x",
+    "provenance": "RESOLVED_FROM_HELD"
+   },
+   "resolution": {
+    "exists": "EXISTS",
+    "heading": "No effect of MMR withdrawal on the incidence of autism: a total population study",
+    "canonical": "https://doi.org/10.1111/j.1469-7610.2005.01425.x",
+    "registry": "crossref",
+    "registry_id": "10.1111/j.1469-7610.2005.01425.x",
+    "checked_at": "2026-09-14T23:21:54+00:00",
+    "generic_fetch": false
+   },
+   "document": {
+    "sha256": "743e0691c4a3c4d6cdbbb34cf3feb9b417016f4ac9244ec389ffd4db9747835d",
+    "route": "europepmc_abstract",
+    "kind": "abstract",
+    "retrieved_at": "2026-09-14T23:21:55+00:00",
+    "chars": 1566,
+    "text_layer": "DECLARED_SOUND",
+    "path": "data/verify/docs/74/743e0691c4a3c4d6cdbbb34cf3feb9b417016f4ac9244ec389ffd4db9747835d.txt.gz",
+    "final_url": "https://doi.org/10.1111/j.1469-7610.2005.01425.x"
+   },
+   "bindings": [
+    {
+     "kind": "HEADING",
+     "ok": true,
+     "abstained": false,
+     "evidence": "containment: autism, incidence, mmr, population, total, withdrawal",
+     "reason": ""
+    }
+   ],
+   "status": {
+    "verdict": "unchanged",
+    "registry": "crossref+europepmc",
+    "detail": "no update-to, relation, or updating work",
+    "checked_at": "2026-09-14T23:21:55+00:00",
+    "events": [],
+    "frozen": {}
+   },
+   "survives": true,
+   "withheld_reason": null,
+   "registry_text": "No effect of MMR withdrawal on the incidence of autism: a total population study 2005"
   }
  ],
  "claims": [
@@ -2325,7 +2507,7 @@
    "claim_text": "The Omnibus Autism Proceeding ruling rejected both the 'MMR plus thimerosal' causation theory and the standalone MMR-autism theory, finding that epidemiological evidence overwhelmingly contradicted both hypotheses.",
    "category": "large_scale_epidemiological_evidence",
    "figures": [],
-   "quotation": true,
+   "quotation": false,
    "per_source": [
     {
      "source_id": "9c4c60a5-f884-4ae0-8338-b53de9b30b2e",
@@ -2350,7 +2532,6 @@
    "category": "large_scale_epidemiological_evidence",
    "figures": [
     "138",
-    "23",
     "23000000"
    ],
    "quotation": false,
@@ -2361,17 +2542,19 @@
      "bindings": [
       {
        "kind": "FIGURE",
-       "ok": false,
+       "ok": true,
        "abstained": false,
-       "evidence": "138",
-       "reason": "not in the document: 23, 23000000"
+       "evidence": "138, 23000000≈23480668",
+       "reason": ""
       }
      ],
-     "level": "UNSUPPORTED"
+     "level": "FIGURE_BOUND"
     }
    ],
-   "support": "UNSUPPORTED",
-   "supported_by": []
+   "support": "FIGURE_BOUND",
+   "supported_by": [
+    "bf1f520d-1281-4fb5-b9b5-af9bf34d6834"
+   ]
   },
   {
    "claim_id": "a7d1a0da-a95e-494d-a935-95ba2b06f310",
@@ -2401,20 +2584,15 @@
    "per_source": [
     {
      "source_id": "0d7243cc-5b16-46ca-8750-8a2bcf57195f",
-     "source_survives": false,
-     "bindings": [
-      {
-       "kind": "SOURCE",
-       "ok": false,
-       "abstained": false,
-       "evidence": "",
-       "reason": "fetch: nothing retrieved"
-      }
-     ]
+     "source_survives": true,
+     "bindings": [],
+     "level": "IDENTITY_ONLY"
     }
    ],
-   "support": "UNSUPPORTED",
-   "supported_by": []
+   "support": "IDENTITY_ONLY",
+   "supported_by": [
+    "0d7243cc-5b16-46ca-8750-8a2bcf57195f"
+   ]
   },
   {
    "claim_id": "3cf9e687-9915-4dc4-b3f5-fa0323aa6b60",
@@ -2427,16 +2605,17 @@
    "per_source": [
     {
      "source_id": "6f6527c4-636f-46e3-8c47-09a755af6e93",
-     "source_survives": false,
+     "source_survives": true,
      "bindings": [
       {
-       "kind": "SOURCE",
+       "kind": "FIGURE",
        "ok": false,
        "abstained": false,
        "evidence": "",
-       "reason": "HEADING: shares no distinctive word with the registry heading"
+       "reason": "not in the document: 1"
       }
-     ]
+     ],
+     "level": "UNSUPPORTED"
     }
    ],
    "support": "UNSUPPORTED",
@@ -2453,20 +2632,23 @@
    "per_source": [
     {
      "source_id": "fe4e0fb8-757f-446c-ab11-fa3edee3c57d",
-     "source_survives": false,
+     "source_survives": true,
      "bindings": [
       {
-       "kind": "SOURCE",
-       "ok": false,
+       "kind": "FIGURE",
+       "ok": true,
        "abstained": false,
-       "evidence": "",
-       "reason": "resolve: NONEXISTENT"
+       "evidence": "95727",
+       "reason": ""
       }
-     ]
+     ],
+     "level": "FIGURE_BOUND"
     }
    ],
-   "support": "UNSUPPORTED",
-   "supported_by": []
+   "support": "FIGURE_BOUND",
+   "supported_by": [
+    "fe4e0fb8-757f-446c-ab11-fa3edee3c57d"
+   ]
   },
   {
    "claim_id": "9532c08f-8f30-4b39-b580-bad80dd8ed52",
@@ -2477,20 +2659,15 @@
    "per_source": [
     {
      "source_id": "dd13e679-2b06-4fa3-83a4-df2aa1eea9a9",
-     "source_survives": false,
-     "bindings": [
-      {
-       "kind": "SOURCE",
-       "ok": false,
-       "abstained": false,
-       "evidence": "",
-       "reason": "HEADING: shares no distinctive word with the registry heading"
-      }
-     ]
+     "source_survives": true,
+     "bindings": [],
+     "level": "IDENTITY_ONLY"
     }
    ],
-   "support": "UNSUPPORTED",
-   "supported_by": []
+   "support": "IDENTITY_ONLY",
+   "supported_by": [
+    "dd13e679-2b06-4fa3-83a4-df2aa1eea9a9"
+   ]
   },
   {
    "claim_id": "216e71ba-0d17-46ab-9da4-a108a05eca76",
@@ -2554,16 +2731,17 @@
    "per_source": [
     {
      "source_id": "fe4e0fb8-757f-446c-ab11-fa3edee3c57d",
-     "source_survives": false,
+     "source_survives": true,
      "bindings": [
       {
-       "kind": "SOURCE",
+       "kind": "FIGURE",
        "ok": false,
        "abstained": false,
        "evidence": "",
-       "reason": "resolve: NONEXISTENT"
+       "reason": "not in the document: 0.55, 0.8, 1.16, 95"
       }
-     ]
+     ],
+     "level": "UNSUPPORTED"
     }
    ],
    "support": "UNSUPPORTED",
@@ -2580,20 +2758,23 @@
    "per_source": [
     {
      "source_id": "fe4e0fb8-757f-446c-ab11-fa3edee3c57d",
-     "source_survives": false,
+     "source_survives": true,
      "bindings": [
       {
-       "kind": "SOURCE",
-       "ok": false,
+       "kind": "FIGURE",
+       "ok": true,
        "abstained": false,
-       "evidence": "",
-       "reason": "resolve: NONEXISTENT"
+       "evidence": "2015",
+       "reason": ""
       }
-     ]
+     ],
+     "level": "FIGURE_BOUND"
     }
    ],
-   "support": "UNSUPPORTED",
-   "supported_by": []
+   "support": "FIGURE_BOUND",
+   "supported_by": [
+    "fe4e0fb8-757f-446c-ab11-fa3edee3c57d"
+   ]
   },
   {
    "claim_id": "8f480a5f-5bd7-42bd-b976-4584bf071e36",
@@ -2606,20 +2787,23 @@
    "per_source": [
     {
      "source_id": "fe4e0fb8-757f-446c-ab11-fa3edee3c57d",
-     "source_survives": false,
+     "source_survives": true,
      "bindings": [
       {
-       "kind": "SOURCE",
-       "ok": false,
+       "kind": "FIGURE",
+       "ok": true,
        "abstained": false,
-       "evidence": "",
-       "reason": "resolve: NONEXISTENT"
+       "evidence": "2015",
+       "reason": ""
       }
-     ]
+     ],
+     "level": "FIGURE_BOUND"
     }
    ],
-   "support": "UNSUPPORTED",
-   "supported_by": []
+   "support": "FIGURE_BOUND",
+   "supported_by": [
+    "fe4e0fb8-757f-446c-ab11-fa3edee3c57d"
+   ]
   },
   {
    "claim_id": "fbac1eba-1ca3-4f46-937b-7c301cb01bb0",
@@ -2821,7 +3005,6 @@
    "category": "large_scale_epidemiological_evidence",
    "figures": [
     "138",
-    "23",
     "23000000"
    ],
    "quotation": false,
@@ -2832,17 +3015,19 @@
      "bindings": [
       {
        "kind": "FIGURE",
-       "ok": false,
+       "ok": true,
        "abstained": false,
-       "evidence": "138",
-       "reason": "not in the document: 23, 23000000"
+       "evidence": "138, 23000000≈23480668",
+       "reason": ""
       }
      ],
-     "level": "UNSUPPORTED"
+     "level": "FIGURE_BOUND"
     }
    ],
-   "support": "UNSUPPORTED",
-   "supported_by": []
+   "support": "FIGURE_BOUND",
+   "supported_by": [
+    "84138759-9546-463f-a48a-8708af419157"
+   ]
   },
   {
    "claim_id": "e48189ac-12d3-4e53-9364-b5577f043211",
@@ -2850,7 +3035,6 @@
    "category": "large_scale_epidemiological_evidence",
    "figures": [
     "138",
-    "23",
     "23000000"
    ],
    "quotation": false,
@@ -2861,17 +3045,19 @@
      "bindings": [
       {
        "kind": "FIGURE",
-       "ok": false,
+       "ok": true,
        "abstained": false,
-       "evidence": "138",
-       "reason": "not in the document: 23, 23000000"
+       "evidence": "138, 23000000≈23480668",
+       "reason": ""
       }
      ],
-     "level": "UNSUPPORTED"
+     "level": "FIGURE_BOUND"
     }
    ],
-   "support": "UNSUPPORTED",
-   "supported_by": []
+   "support": "FIGURE_BOUND",
+   "supported_by": [
+    "84138759-9546-463f-a48a-8708af419157"
+   ]
   },
   {
    "claim_id": "1f3b5312-ff88-4693-afda-1136d6270636",
@@ -3383,16 +3569,17 @@
    "per_source": [
     {
      "source_id": "dd13e679-2b06-4fa3-83a4-df2aa1eea9a9",
-     "source_survives": false,
+     "source_survives": true,
      "bindings": [
       {
-       "kind": "SOURCE",
+       "kind": "FIGURE",
        "ok": false,
        "abstained": false,
-       "evidence": "",
-       "reason": "HEADING: shares no distinctive word with the registry heading"
+       "evidence": "1992, 1996, 7",
+       "reason": "not in the document: 0, 10000, 117.2, 48.4"
       }
-     ]
+     ],
+     "level": "UNSUPPORTED"
     }
    ],
    "support": "UNSUPPORTED",
@@ -3410,16 +3597,17 @@
    "per_source": [
     {
      "source_id": "dd13e679-2b06-4fa3-83a4-df2aa1eea9a9",
-     "source_survives": false,
+     "source_survives": true,
      "bindings": [
       {
-       "kind": "SOURCE",
+       "kind": "FIGURE",
        "ok": false,
        "abstained": false,
-       "evidence": "",
-       "reason": "HEADING: shares no distinctive word with the registry heading"
+       "evidence": "1993",
+       "reason": "not in the document: 0"
       }
-     ]
+     ],
+     "level": "UNSUPPORTED"
     }
    ],
    "support": "UNSUPPORTED",
@@ -3438,20 +3626,23 @@
    "per_source": [
     {
      "source_id": "dd13e679-2b06-4fa3-83a4-df2aa1eea9a9",
-     "source_survives": false,
+     "source_survives": true,
      "bindings": [
       {
-       "kind": "SOURCE",
-       "ok": false,
+       "kind": "FIGURE",
+       "ok": true,
        "abstained": false,
-       "evidence": "",
-       "reason": "HEADING: shares no distinctive word with the registry heading"
+       "evidence": "1988, 1996, 2005",
+       "reason": ""
       }
-     ]
+     ],
+     "level": "FIGURE_BOUND"
     }
    ],
-   "support": "UNSUPPORTED",
-   "supported_by": []
+   "support": "FIGURE_BOUND",
+   "supported_by": [
+    "dd13e679-2b06-4fa3-83a4-df2aa1eea9a9"
+   ]
   },
   {
    "claim_id": "b8b28a72-6caa-4f09-a45c-1b299a44ad5a",
@@ -3638,7 +3829,7 @@
        "ok": false,
        "abstained": false,
        "evidence": "",
-       "reason": "fetch: nothing retrieved"
+       "reason": "fetch: nothing retrieved (publisher: HTTP 200 a shell, a wall or too little text to be the document)"
       }
      ]
     }
@@ -3680,7 +3871,6 @@
    "claim_text": "A meta-analysis by Taylor et al. pooled data from 1.2 million children across five cohort studies and five case-control studies.",
    "category": "large_scale_epidemiological_evidence",
    "figures": [
-    "1.2",
     "1200000",
     "5"
    ],
@@ -3694,7 +3884,7 @@
        "kind": "FIGURE",
        "ok": false,
        "abstained": false,
-       "evidence": "1.2, 5",
+       "evidence": "5",
        "reason": "not in the document: 1200000"
       }
      ],
@@ -3851,7 +4041,7 @@
        "ok": false,
        "abstained": false,
        "evidence": "",
-       "reason": "fetch: nothing retrieved"
+       "reason": "fetch: nothing retrieved (publisher: HTTP 403 )"
       }
      ]
     }
@@ -4109,20 +4299,23 @@
    "per_source": [
     {
      "source_id": "6f6527c4-636f-46e3-8c47-09a755af6e93",
-     "source_survives": false,
+     "source_survives": true,
      "bindings": [
       {
-       "kind": "SOURCE",
-       "ok": false,
+       "kind": "FIGURE",
+       "ok": true,
        "abstained": false,
-       "evidence": "",
-       "reason": "HEADING: shares no distinctive word with the registry heading"
+       "evidence": "1993",
+       "reason": ""
       }
-     ]
+     ],
+     "level": "FIGURE_BOUND"
     }
    ],
-   "support": "UNSUPPORTED",
-   "supported_by": []
+   "support": "FIGURE_BOUND",
+   "supported_by": [
+    "6f6527c4-636f-46e3-8c47-09a755af6e93"
+   ]
   },
   {
    "claim_id": "a2593e16-c342-4154-a744-3c27328537f8",
@@ -4135,20 +4328,23 @@
    "per_source": [
     {
      "source_id": "6f6527c4-636f-46e3-8c47-09a755af6e93",
-     "source_survives": false,
+     "source_survives": true,
      "bindings": [
       {
-       "kind": "SOURCE",
-       "ok": false,
+       "kind": "FIGURE",
+       "ok": true,
        "abstained": false,
-       "evidence": "",
-       "reason": "HEADING: shares no distinctive word with the registry heading"
+       "evidence": "1993",
+       "reason": ""
       }
-     ]
+     ],
+     "level": "FIGURE_BOUND"
     }
    ],
-   "support": "UNSUPPORTED",
-   "supported_by": []
+   "support": "FIGURE_BOUND",
+   "supported_by": [
+    "6f6527c4-636f-46e3-8c47-09a755af6e93"
+   ]
   },
   {
    "claim_id": "6042d30b-8872-4429-82d1-9edfd66c599a",
@@ -4165,16 +4361,17 @@
    "per_source": [
     {
      "source_id": "6f6527c4-636f-46e3-8c47-09a755af6e93",
-     "source_survives": false,
+     "source_survives": true,
      "bindings": [
       {
-       "kind": "SOURCE",
+       "kind": "FIGURE",
        "ok": false,
        "abstained": false,
-       "evidence": "",
-       "reason": "HEADING: shares no distinctive word with the registry heading"
+       "evidence": "1988, 1996",
+       "reason": "not in the document: 10000, 117.2, 47.6"
       }
-     ]
+     ],
+     "level": "UNSUPPORTED"
     }
    ],
    "support": "UNSUPPORTED",
@@ -4191,20 +4388,23 @@
    "per_source": [
     {
      "source_id": "5c082496-8835-4a87-93a3-bc3faf585401",
-     "source_survives": false,
+     "source_survives": true,
      "bindings": [
       {
-       "kind": "SOURCE",
-       "ok": false,
+       "kind": "FIGURE",
+       "ok": true,
        "abstained": false,
-       "evidence": "",
-       "reason": "resolve: NONEXISTENT"
+       "evidence": "95727",
+       "reason": ""
       }
-     ]
+     ],
+     "level": "FIGURE_BOUND"
     }
    ],
-   "support": "UNSUPPORTED",
-   "supported_by": []
+   "support": "FIGURE_BOUND",
+   "supported_by": [
+    "5c082496-8835-4a87-93a3-bc3faf585401"
+   ]
   },
   {
    "claim_id": "55677223-dc8f-4f80-aa59-48647cb5b12b",
@@ -4218,20 +4418,23 @@
    "per_source": [
     {
      "source_id": "5c082496-8835-4a87-93a3-bc3faf585401",
-     "source_survives": false,
+     "source_survives": true,
      "bindings": [
       {
-       "kind": "SOURCE",
-       "ok": false,
+       "kind": "FIGURE",
+       "ok": true,
        "abstained": false,
-       "evidence": "",
-       "reason": "resolve: NONEXISTENT"
+       "evidence": "2015, 95727",
+       "reason": ""
       }
-     ]
+     ],
+     "level": "FIGURE_BOUND"
     }
    ],
-   "support": "UNSUPPORTED",
-   "supported_by": []
+   "support": "FIGURE_BOUND",
+   "supported_by": [
+    "5c082496-8835-4a87-93a3-bc3faf585401"
+   ]
   },
   {
    "claim_id": "3d2534ff-9b50-4e23-b497-d95711bd0622",
@@ -4242,20 +4445,15 @@
    "per_source": [
     {
      "source_id": "5c082496-8835-4a87-93a3-bc3faf585401",
-     "source_survives": false,
-     "bindings": [
-      {
-       "kind": "SOURCE",
-       "ok": false,
-       "abstained": false,
-       "evidence": "",
-       "reason": "resolve: NONEXISTENT"
-      }
-     ]
+     "source_survives": true,
+     "bindings": [],
+     "level": "IDENTITY_ONLY"
     }
    ],
-   "support": "UNSUPPORTED",
-   "supported_by": []
+   "support": "IDENTITY_ONLY",
+   "supported_by": [
+    "5c082496-8835-4a87-93a3-bc3faf585401"
+   ]
   },
   {
    "claim_id": "36c5e766-4651-49d4-a8c7-d26733de3dbe",
@@ -4752,51 +4950,33 @@
    "claim_text": "The biological mechanisms proposed by Wakefield — including measles virus persistence in gut tissue and 'leaky gut' leading to neurological damage — were not supported by credible scientific evidence, according to the Institute of Medicine's Immunization Safety Review Committee.",
    "category": "biological_mechanisms",
    "figures": [],
-   "quotation": true,
+   "quotation": false,
    "per_source": [
     {
      "source_id": "76f4aee8-9759-4f8e-bfbf-85aae31e267d",
      "source_survives": true,
-     "bindings": [
-      {
-       "kind": "SPAN",
-       "ok": false,
-       "abstained": false,
-       "evidence": "",
-       "reason": "not in the document: ' leading to neurological damage — were not supported by credible scientific evid'"
-      }
-     ],
-     "level": "UNSUPPORTED"
+     "bindings": [],
+     "level": "IDENTITY_ONLY"
     },
     {
      "source_id": "159f0385-b395-4866-9b85-30d9fd7f4b5f",
-     "source_survives": false,
-     "bindings": [
-      {
-       "kind": "SOURCE",
-       "ok": false,
-       "abstained": false,
-       "evidence": "",
-       "reason": "fetch: nothing retrieved"
-      }
-     ]
+     "source_survives": true,
+     "bindings": [],
+     "level": "IDENTITY_ONLY"
     },
     {
      "source_id": "0d7243cc-5b16-46ca-8750-8a2bcf57195f",
-     "source_survives": false,
-     "bindings": [
-      {
-       "kind": "SOURCE",
-       "ok": false,
-       "abstained": false,
-       "evidence": "",
-       "reason": "fetch: nothing retrieved"
-      }
-     ]
+     "source_survives": true,
+     "bindings": [],
+     "level": "IDENTITY_ONLY"
     }
    ],
-   "support": "UNSUPPORTED",
-   "supported_by": []
+   "support": "IDENTITY_ONLY",
+   "supported_by": [
+    "76f4aee8-9759-4f8e-bfbf-85aae31e267d",
+    "159f0385-b395-4866-9b85-30d9fd7f4b5f",
+    "0d7243cc-5b16-46ca-8750-8a2bcf57195f"
+   ]
   },
   {
    "claim_id": "803dbf12-4f7f-4a83-84c3-7578b0bf7416",
@@ -4876,16 +5056,17 @@
    "per_source": [
     {
      "source_id": "dd13e679-2b06-4fa3-83a4-df2aa1eea9a9",
-     "source_survives": false,
+     "source_survives": true,
      "bindings": [
       {
-       "kind": "SOURCE",
+       "kind": "FIGURE",
        "ok": false,
        "abstained": false,
-       "evidence": "",
-       "reason": "HEADING: shares no distinctive word with the registry heading"
+       "evidence": "1993",
+       "reason": "not in the document: 0"
       }
-     ]
+     ],
+     "level": "UNSUPPORTED"
     }
    ],
    "support": "UNSUPPORTED",
@@ -5101,34 +5282,22 @@
     },
     {
      "source_id": "159f0385-b395-4866-9b85-30d9fd7f4b5f",
-     "source_survives": false,
-     "bindings": [
-      {
-       "kind": "SOURCE",
-       "ok": false,
-       "abstained": false,
-       "evidence": "",
-       "reason": "fetch: nothing retrieved"
-      }
-     ]
+     "source_survives": true,
+     "bindings": [],
+     "level": "IDENTITY_ONLY"
     },
     {
      "source_id": "0d7243cc-5b16-46ca-8750-8a2bcf57195f",
-     "source_survives": false,
-     "bindings": [
-      {
-       "kind": "SOURCE",
-       "ok": false,
-       "abstained": false,
-       "evidence": "",
-       "reason": "fetch: nothing retrieved"
-      }
-     ]
+     "source_survives": true,
+     "bindings": [],
+     "level": "IDENTITY_ONLY"
     }
    ],
    "support": "IDENTITY_ONLY",
    "supported_by": [
-    "76f4aee8-9759-4f8e-bfbf-85aae31e267d"
+    "76f4aee8-9759-4f8e-bfbf-85aae31e267d",
+    "159f0385-b395-4866-9b85-30d9fd7f4b5f",
+    "0d7243cc-5b16-46ca-8750-8a2bcf57195f"
    ]
   },
   {
@@ -5146,21 +5315,15 @@
     },
     {
      "source_id": "0d7243cc-5b16-46ca-8750-8a2bcf57195f",
-     "source_survives": false,
-     "bindings": [
-      {
-       "kind": "SOURCE",
-       "ok": false,
-       "abstained": false,
-       "evidence": "",
-       "reason": "fetch: nothing retrieved"
-      }
-     ]
+     "source_survives": true,
+     "bindings": [],
+     "level": "IDENTITY_ONLY"
     }
    ],
    "support": "IDENTITY_ONLY",
    "supported_by": [
-    "76f4aee8-9759-4f8e-bfbf-85aae31e267d"
+    "76f4aee8-9759-4f8e-bfbf-85aae31e267d",
+    "0d7243cc-5b16-46ca-8750-8a2bcf57195f"
    ]
   },
   {
@@ -5172,20 +5335,15 @@
    "per_source": [
     {
      "source_id": "159f0385-b395-4866-9b85-30d9fd7f4b5f",
-     "source_survives": false,
-     "bindings": [
-      {
-       "kind": "SOURCE",
-       "ok": false,
-       "abstained": false,
-       "evidence": "",
-       "reason": "fetch: nothing retrieved"
-      }
-     ]
+     "source_survives": true,
+     "bindings": [],
+     "level": "IDENTITY_ONLY"
     }
    ],
-   "support": "UNSUPPORTED",
-   "supported_by": []
+   "support": "IDENTITY_ONLY",
+   "supported_by": [
+    "159f0385-b395-4866-9b85-30d9fd7f4b5f"
+   ]
   },
   {
    "claim_id": "6a72dc1e-4906-4e91-b075-3db1f95f422a",
@@ -5365,7 +5523,7 @@
        "ok": false,
        "abstained": false,
        "evidence": "",
-       "reason": "fetch: nothing retrieved"
+       "reason": "fetch: nothing retrieved (publisher: HTTP 200 a shell, a wall or too little text to be the document)"
       }
      ]
     },
@@ -5409,7 +5567,7 @@
        "ok": false,
        "abstained": false,
        "evidence": "",
-       "reason": "fetch: nothing retrieved"
+       "reason": "fetch: nothing retrieved (publisher: HTTP 200 a shell, a wall or too little text to be the document)"
       }
      ]
     },
@@ -5458,7 +5616,7 @@
        "ok": false,
        "abstained": false,
        "evidence": "",
-       "reason": "fetch: nothing retrieved"
+       "reason": "fetch: nothing retrieved (publisher: HTTP 200 a shell, a wall or too little text to be the document)"
       }
      ]
     }
@@ -5499,7 +5657,7 @@
        "ok": false,
        "abstained": false,
        "evidence": "",
-       "reason": "fetch: nothing retrieved"
+       "reason": "fetch: nothing retrieved (publisher: HTTP 403 )"
       }
      ]
     }
@@ -5538,7 +5696,7 @@
    "claim_text": "Special Master Hastings characterized the scientific evidence presented by petitioners — including testimony based on Wakefield's research — as 'weak, contradictory, and unpersuasive' with respect to a causal link between MMR vaccine and autism.",
    "category": "retraction_and_fraud_investigation",
    "figures": [],
-   "quotation": true,
+   "quotation": false,
    "per_source": [
     {
      "source_id": "9c4c60a5-f884-4ae0-8338-b53de9b30b2e",
@@ -5573,7 +5731,7 @@
        "ok": false,
        "abstained": false,
        "evidence": "",
-       "reason": "fetch: nothing retrieved"
+       "reason": "fetch: nothing retrieved (publisher: HTTP 200 a shell, a wall or too little text to be the document)"
       }
      ]
     }
@@ -5629,7 +5787,7 @@
        "ok": false,
        "abstained": false,
        "evidence": "",
-       "reason": "fetch: nothing retrieved"
+       "reason": "fetch: nothing retrieved (publisher: HTTP 403 )"
       }
      ]
     }
@@ -5644,7 +5802,7 @@
    "figures": [
     "1998"
    ],
-   "quotation": true,
+   "quotation": false,
    "per_source": [
     {
      "source_id": "6ef0773d-65cb-443b-a92e-c33af266f3f8",
@@ -5655,7 +5813,7 @@
        "ok": false,
        "abstained": false,
        "evidence": "",
-       "reason": "fetch: nothing retrieved"
+       "reason": "fetch: nothing retrieved (publisher: HTTP 403 )"
       }
      ]
     }
@@ -5710,46 +5868,40 @@
    "per_source": [
     {
      "source_id": "5c082496-8835-4a87-93a3-bc3faf585401",
-     "source_survives": false,
-     "bindings": [
-      {
-       "kind": "SOURCE",
-       "ok": false,
-       "abstained": false,
-       "evidence": "",
-       "reason": "resolve: NONEXISTENT"
-      }
-     ]
+     "source_survives": true,
+     "bindings": [],
+     "level": "IDENTITY_ONLY"
     }
    ],
-   "support": "UNSUPPORTED",
-   "supported_by": []
+   "support": "IDENTITY_ONLY",
+   "supported_by": [
+    "5c082496-8835-4a87-93a3-bc3faf585401"
+   ]
   }
  ],
  "summary": {
   "sources": {
    "total": 35,
-   "survived": 23,
+   "survived": 29,
    "withheld_by_reason": {
-    "HEADING": 2,
-    "resolve": 2,
-    "fetch": 8
+    "fetch": 6
    },
    "status_of_survivors": {
     "retracted": 2,
-    "unchanged": 13,
+    "unchanged": 17,
     "superseded": 2,
-    "no_registry": 6
+    "no_registry": 6,
+    "corrected": 2
    }
   },
   "claims": {
    "total": 128,
    "by_support": {
-    "IDENTITY_ONLY": 38,
-    "UNSUPPORTED": 53,
-    "FIGURE_BOUND": 37
+    "IDENTITY_ONLY": 44,
+    "UNSUPPORTED": 36,
+    "FIGURE_BOUND": 48
    },
-   "identity_only_rate": 0.297
+   "identity_only_rate": 0.344
   }
  },
  "flipped": false
