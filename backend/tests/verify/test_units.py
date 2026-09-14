@@ -125,8 +125,9 @@ def test_digit_scale_and_registry_year_from_the_mmr_run():
     from verify.bind import bind_figure
     from verify.types import Document, Identifier
     doc = Document(Identifier("doi", "10.1/x"), "s", "no year appears in this abstract; 12 children")
-    assert not bind_figure("Smeeth 2004 studied 12 children", doc).ok
-    assert bind_figure("Smeeth 2004 studied 12 children", doc, registry_text="Some title 2004").ok
+    # A year is a date, and dates are CHRONOLOGY's business (2026-09-14): FIGURE no longer requires it.
+    assert bind_figure("Smeeth 2004 studied 12 children", doc).ok
+    assert not bind_figure("Smeeth 2004 studied 13 children", doc).ok
 
 
 # ---------------------------------------------------------------------------
@@ -167,3 +168,18 @@ def test_space_separated_thousands_as_annals_writes_them():
     assert canonical_numbers("657\u2009461") == {"657461"}
     assert canonical_numbers("Participants 657\u00a0461 children") == {"657461"}   # the bytes Europe PMC serves
     assert canonical_numbers("in 2010 and 12 children") == {"2010", "12"}
+
+
+def test_claim_dates_and_the_chronology_kind():
+    from verify.chronology import claim_dates, bind_chronology
+    from verify.types import Resolution, Identifier, Exists
+    assert [(d.year, p) for d, p in claim_dates("Since 2002, and in February 2010, and on 24 May 2010; 1,961 adults")] == [(2002, "year"), (2010, "month"), (2010, "day")]
+    wake = Resolution(Identifier("doi", "10.1016/s0140-6736(97)11096-0"), Exists.EXISTS, extra={"published": [1998, 2, 28]})
+    assert not bind_chronology("Andrew Wakefield was struck off the UK medical register in May 2010.", wake).ok
+    assert not bind_chronology("Andrew Wakefield was struck off following the General Medical Council findings.", wake).ok
+    assert bind_chronology("The Wakefield et al. case series enrolled only 12 children.", wake).ok
+    assert not bind_chronology("The Lancet retracted the paper.", wake, [{"type": "retraction", "date": "2010-2-6"}]).ok
+    hviid = Resolution(Identifier("doi", "10.7326/m18-2101"), Exists.EXISTS, extra={"published": [2019, 4, 16]})
+    assert bind_chronology("children born from 1999 through 2010", hviid).ok
+    law = Resolution(Identifier("orc", "3901.381"), Exists.EXISTS, extra={"effective": "October 17, 2019"})
+    assert bind_chronology("In 1995 the statute required payment within thirty days", law).ok   # law is not judged

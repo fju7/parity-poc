@@ -67,6 +67,10 @@ def bind_figure(assertion: str, document: Document, registry_text: str = "") -> 
     publication year -- which is part of what the document IS. An abstract does
     not contain its own year; "Smeeth 2004" must not fail on that."""
     want = figures(assertion)
+    # Dates are CHRONOLOGY's business, not FIGURE's: "in 2004", "February 2010"
+    # are references to when, not quantities the document must state.
+    from .chronology import claim_dates
+    want -= {str(d.year) for d, _ in claim_dates(assertion)}
     if not want:
         return Binding(Kind.FIGURE, True, evidence="no figure in assertion")
     if document.text_layer != "DECLARED_SOUND":
@@ -156,6 +160,10 @@ def bind(assertion: str, resolution: Resolution, document: Document | None,
     out = [head]
     if resolution.identifier.registry == "law":
         out.append(bind_applicability(resolution, context))
+    from .chronology import bind_chronology
+    chrono = bind_chronology(assertion, resolution, (resolution.extra or {}).get("status_events"))
+    if not chrono.ok or "cannot be judged" not in chrono.evidence:
+        out.append(chrono)
     has_figure = bool(figures(assertion))
     has_quote = bool(quoted or _QUOTE.search(assertion))
     if has_figure:

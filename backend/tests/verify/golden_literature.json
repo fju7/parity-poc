@@ -73,6 +73,13 @@
       "ours": "KEYNOTE-522",
       "assertion": "",
       "expect_kind": "record"
+    },
+    {
+      "id": "doi:10.7326/m18-2101",
+      "ours": "Measles, Mumps, Rubella Vaccination and Autism: A Nationwide Cohort Study (Hviid 2019)",
+      "assertion": "657,461 children born in Denmark from 1999 through 2010 were followed",
+      "expect_kind": "abstract",
+      "_provenance": "exact-title search on Europe PMC 2026-09-14: PMID 30831578, Ann Intern Med 2019; CHRONOLOGY positive control: the claim's dates precede the 2019 publication"
     }
   ],
   "known_bad": [
@@ -82,6 +89,20 @@
       "assertion": "estimated overall survival at 42 months was 70.2% with ribociclib",
       "_why": "A PMID typed from memory on 2026-09-14 while assembling this very set. It resolves to 'Nivolumab plus Ipilimumab in Advanced Non-Small-Cell Lung Cancer'. With 'advanced' and 'cancer' counted as distinctive, HEADING passed; only FIGURE refused it. Kept as the negative control that set the oncology boilerplate.",
       "expect_fail_kind": "HEADING"
+    },
+    {
+      "id": "doi:10.1016/s0140-6736(97)11096-0",
+      "ours": "Ileal-lymphoid-nodular hyperplasia, non-specific colitis, and pervasive developmental disorder in children (Wakefield 1998)",
+      "assertion": "Andrew Wakefield was struck off the UK medical register in May 2010.",
+      "_why": "The CHRONOLOGY reference negative (ruling of 2026-09-14): a true claim about a 2010 event, linked to the 1998 paper, which cannot contain it. HEADING passes (it is the paper); CHRONOLOGY must refuse on the explicit date.",
+      "expect_fail_kind": "CHRONOLOGY"
+    },
+    {
+      "id": "doi:10.1016/s0140-6736(97)11096-0",
+      "ours": "Ileal-lymphoid-nodular hyperplasia, non-specific colitis, and pervasive developmental disorder in children (Wakefield 1998)",
+      "assertion": "Andrew Wakefield was struck off the UK medical register following the General Medical Council findings.",
+      "_why": "The same claim with no explicit date: the named event (the GMC determination, 28 Jan 2010; erasure 24 May 2010) comes from data/verify/events.json. CHRONOLOGY must refuse on the named event.",
+      "expect_fail_kind": "CHRONOLOGY"
     }
   ]
 }

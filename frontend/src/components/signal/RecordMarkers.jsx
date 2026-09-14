@@ -22,12 +22,19 @@ export function TopicLine({ publication, recheck }) {
   const idOnly = (s.claims?.by_support || {}).IDENTITY_ONLY || 0;
   const shown = (publication.supported_claim_ids || []).length;
   const survived = (publication.surviving_source_ids || []).length;
-  const flagged = new Set((recheck?.flags || []).filter((f) => f.scope === "source" && (f.outcome !== "unreachable" || f.reader_marker)).map((f) => f.source_id)).size;
+  // Two facts, stated separately, so the header never contradicts a marker
+  // below it: what was already known at publication (a source retracted
+  // before we published) and what the re-checks have found since.
+  const retractedAtPublication = new Set(
+    Object.entries(publication.status || {}).filter(([, st]) => st?.verdict === "retracted").map(([sid]) => sid)
+  ).size;
+  const newlyFlagged = new Set((recheck?.flags || []).filter((f) => f.scope === "source" && (f.outcome !== "unreachable" || f.reader_marker)).map((f) => f.source_id)).size;
   return (
     <p className="text-xs text-gray-500 mt-1">
       Sources checked and frozen on {fmt(publication.published_at)}
-      {recheck?.run_at ? <> · re-checked {fmt(recheck.run_at)}</> : null}
-      {" · "}{flagged} of {survived} sources flagged
+      {" · "}{retractedAtPublication} source{retractedAtPublication === 1 ? "" : "s"} retracted before publication
+      {" · "}{newlyFlagged} source{newlyFlagged === 1 ? "" : "s"} newly flagged since {fmt(publication.published_at)}
+      {recheck?.run_at ? <> (last re-check {fmt(recheck.run_at)})</> : null}
       {" · "}{idOnly} of {shown} claims source-confirmed only (wording not machine-checked)
       {" — see markers below. "}
       <a href="/methodology" className="text-[#0D7377] hover:underline">What this means →</a>

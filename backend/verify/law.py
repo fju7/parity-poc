@@ -168,6 +168,8 @@ def _ohio(ident: Identifier) -> tuple[Resolution, Document | None]:
     if c:
         res.heading += " || " + _strip(c.group(1))
     res.registry_id = f"{'ORC' if ident.system == 'orc' else 'OAC'} {ident.value}"
+    eff = re.search(r"Effective:\s*(?:</?[^>]*>\s*)*([A-Za-z]+ \d{1,2}, \d{4})", page)
+    res.extra = {"effective": eff.group(1) if eff else None}
     main = page[page.find("<main"):]
     main = main[: main.find("</main>")] if "</main>" in main else main
     text = _strip(main)

@@ -1,0 +1,4 @@
+status	200
+url	https://api.crossref.org/works/10.7326/m18-2101
+content-type	application/json
+final_url	https://api.crossref.org/works/10.7326/m18-2101

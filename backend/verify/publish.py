@@ -24,6 +24,7 @@ from pathlib import Path
 
 from . import __version__, literature, law, generic
 from .bind import bind_figure, bind_heading, bind_span, _QUOTE
+from .chronology import bind_chronology
 from .numbers import figures
 from .status import check as status_check
 from .types import Document, Exists, Provenance
@@ -108,7 +109,10 @@ def gate_source(row: dict) -> dict:
         res, doc, st_cached = mod.resolve(ident), None, None
     out["resolution"] = {"exists": res.exists.value, "heading": res.heading, "canonical": res.canonical,
                          "registry": res.registry, "registry_id": res.registry_id, "checked_at": res.checked_at,
-                         "generic_fetch": res.registry == "generic_fetch"}
+                         "generic_fetch": res.registry == "generic_fetch",
+                         "published": (res.extra or {}).get("published") or ((res.extra or {}).get("year") and [(res.extra or {}).get("year")]),
+                         "effective": (res.extra or {}).get("effective")}
+    out["_res"] = res
     if res.exists != Exists.EXISTS:
         out["withheld_reason"] = (f"fetch: HTTP {res.extra.get('http')} {res.extra.get('reason') or res.extra.get('error') or ''}".strip()
                                   if res.registry == "generic_fetch" else f"resolve: {res.exists.value}")
@@ -176,6 +180,12 @@ def gate_claim(claim: dict, links: list[dict], sources: dict[str, dict]) -> dict
             out["per_source"].append(entry); continue
         doc = src["_doc"]
         level = "IDENTITY_ONLY"
+        chrono = bind_chronology(text, src["_res"], (src.get("status") or {}).get("events"))
+        entry["bindings"].append(_b(chrono))
+        if not chrono.ok:
+            entry["level"] = "UNSUPPORTED"
+            out["per_source"].append(entry)
+            continue
         if figs:
             fb = bind_figure(text, doc, src.get("registry_text", "")); entry["bindings"].append(_b(fb))
             level = "FIGURE_BOUND" if fb.ok else "UNSUPPORTED"
@@ -235,7 +245,7 @@ def publish(sb, slug: str, argv: list[str]) -> dict:
         "published_by": {"login": getpass.getuser(), "host": platform.node(), "argv": argv},
         "gate_version": gv,
         "rate_limits_rps": __import__("verify.http", fromlist=["rate_limits_in_force"]).rate_limits_in_force(),
-        "sources": [{k: v for k, v in g.items() if k != "_doc"} for g in gated.values()],
+        "sources": [{k: v for k, v in g.items() if k not in ("_doc", "_res")} for g in gated.values()],
         "claims": claim_recs,
         "summary": {"sources": {"total": len(sources), "survived": src_summary.get("survived", 0),
                                 "withheld_by_reason": {k: v for k, v in src_summary.items() if k != "survived"},

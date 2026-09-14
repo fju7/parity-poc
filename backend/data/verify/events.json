@@ -1,0 +1,97 @@
+{
+  "_schema": "Named events with dates, for CHRONOLOGY (verify/chronology.py). A claim that names one of these references its date. Curated, not learned; each row says where the date comes from and who added it.",
+  "events": [
+    {
+      "label": "General Medical Council fitness-to-practise determination on Wakefield, Walker-Smith and Murch",
+      "date": "2010-01-28",
+      "precision": "day",
+      "phrases": [
+        "General Medical Council",
+        "GMC finding",
+        "GMC found",
+        "GMC's finding",
+        "GMC panel",
+        "GMC determination",
+        "GMC ruling",
+        "undisclosed financial conflicts",
+        "undisclosed conflicts of interest",
+        "ethical violations",
+        "data manipulation",
+        "fitness to practise",
+        "dishonest"
+      ],
+      "source": "GMC Fitness to Practise Panel determination, 28 January 2010 (facts); sanction 24 May 2010; the determination's findings were of dishonesty, undisclosed conflicts of interest and ethical breaches in subject recruitment -- phrases that name the same event",
+      "curator": "Claude Opus 5 on the operator's direction",
+      "curated_on": "2026-09-14"
+    },
+    {
+      "label": "Wakefield erased from the UK medical register",
+      "date": "2010-05-24",
+      "precision": "day",
+      "phrases": [
+        "struck off",
+        "erased from the medical register",
+        "erased from the register",
+        "removed from the medical register"
+      ],
+      "source": "GMC sanction, 24 May 2010",
+      "curator": "Claude Opus 5 on the operator's direction",
+      "curated_on": "2026-09-14"
+    },
+    {
+      "label": "The Lancet's full retraction of Wakefield et al. 1998",
+      "date": "2010-02-06",
+      "precision": "day",
+      "phrases": [
+        "Lancet issued a full retraction",
+        "Lancet retracted",
+        "fully retracted by The Lancet",
+        "full retraction of the Wakefield"
+      ],
+      "source": "Lancet 2010;375:445, doi 10.1016/S0140-6736(10)60175-4 (Crossref update-to, retraction)",
+      "curator": "Claude Opus 5 on the operator's direction",
+      "curated_on": "2026-09-14"
+    },
+    {
+      "label": "Partial retraction (retraction of an interpretation) by ten of the thirteen co-authors",
+      "date": "2004-03-06",
+      "precision": "day",
+      "phrases": [
+        "retraction of an interpretation",
+        "ten of the thirteen co-authors",
+        "10 of the 13 co-authors",
+        "co-authors formally withdrew"
+      ],
+      "source": "Lancet 2004;363:750, doi 10.1016/S0140-6736(04)15715-2 (Crossref update-to, correction)",
+      "curator": "Claude Opus 5 on the operator's direction",
+      "curated_on": "2026-09-14"
+    },
+    {
+      "label": "Brian Deer's BMJ series on the Wakefield case",
+      "date": "2011-01-05",
+      "precision": "day",
+      "phrases": [
+        "Deer's investigation",
+        "BMJ investigation",
+        "How the case against the MMR vaccine was fixed",
+        "Brian Deer"
+      ],
+      "source": "BMJ 2011;342:c5347 (5 Jan 2011), c5258, c7001",
+      "curator": "Claude Opus 5 on the operator's direction",
+      "curated_on": "2026-09-14"
+    },
+    {
+      "label": "Omnibus Autism Proceeding, first test-case decisions (Cedillo, Hazlehurst, Snyder)",
+      "date": "2009-02-12",
+      "precision": "day",
+      "phrases": [
+        "Omnibus Autism Proceeding",
+        "special masters",
+        "Cedillo"
+      ],
+      "source": "U.S. Court of Federal Claims, Office of Special Masters, 12 February 2009",
+      "curator": "Claude Opus 5 on the operator's direction",
+      "curated_on": "2026-09-14"
+    }
+  ]
+}

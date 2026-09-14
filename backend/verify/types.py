@@ -22,6 +22,7 @@ class Kind(str, Enum):
     FIGURE = "FIGURE"
     SPAN = "SPAN"
     APPLICABILITY = "APPLICABILITY"
+    CHRONOLOGY = "CHRONOLOGY"   # a source cannot support a claim about an event that postdates it
 
 
 LITERATURE = ("doi", "pmid", "pmcid", "nct")
