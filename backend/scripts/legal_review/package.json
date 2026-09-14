@@ -1,0 +1,6 @@
+{
+  "name": "legal-review-packet",
+  "private": true,
+  "description": "Builds CivicScale-Legal-Review-Request.docx from provisions.json (see build_provisions.py).",
+  "dependencies": { "docx": "^9.0.0" }
+}

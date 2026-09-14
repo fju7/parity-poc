@@ -170,7 +170,15 @@ def _ohio(ident: Identifier) -> tuple[Resolution, Document | None]:
     res.registry_id = f"{'ORC' if ident.system == 'orc' else 'OAC'} {ident.value}"
     main = page[page.find("<main"):]
     main = main[: main.find("</main>")] if "</main>" in main else main
-    return res, _doc(ident, _strip(main), "codes_ohio_gov", url, "section", "text/html")
+    text = _strip(main)
+    # The section body only: codes.ohio.gov puts the heading, breadcrumbs,
+    # effective date and a PDF link before it and version links after it.
+    # Those are recorded on the Resolution; they are not the provision.
+    m = re.search(r"Download Authenticated PDF\s*", text)
+    if m:
+        text = text[m.end():]
+    text = re.split(r"\s*Available Versions of this (?:Section|Rule)\b", text)[0].strip()
+    return res, _doc(ident, text, "codes_ohio_gov", url, "section", "text/html")
 
 
 # ---------------------------------------------------------------------------

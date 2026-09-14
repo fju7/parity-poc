@@ -145,7 +145,11 @@ def check_letter(letter_text: str, allowed=None) -> list[Citation]:
         if a is None:
             out.append(c); continue
         sentence = _sentence_around(letter_text, c.start, c.end)
-        fig = bind_figure(sentence, a.document)
+        # The section number is not a figure the sentence commits to about the
+        # world; strip every citation string from the sentence before FIGURE.
+        for other in found:
+            sentence = sentence.replace(other.text, " ")
+        fig = bind_figure(sentence, a.document, a.resolution.heading or "")
         if not fig.ok:
             out.append(Citation(c.family, f"{c.text} [{fig.reason}]", c.start, c.end))
     return out
