@@ -66,7 +66,16 @@ export const SITE_META = {
   },
 };
 
-/** Hosts that should serve each product. Staging hosts are marked noindex. */
+/**
+ * Hosts that should serve each product. Staging hosts are marked noindex.
+ *
+ * signal.civicscale.ai is noindex on purpose, staging or not (2026-09-14):
+ * the Signal corpus is frozen with 92 of 381 sources failing
+ * scripts/signal/verify_sources.py -- identifiers that resolve to nothing or
+ * to a different paper -- and every topic is status='draft'. This line is
+ * what stamps the static robots meta tag and robots.txt (Disallow: /) at
+ * build time. Flip it back to true when topics are republished.
+ */
 export const HOST_MAP = {
   "civicscale.ai": { key: "main", index: true },
   "www.civicscale.ai": { key: "main", index: true },
@@ -75,7 +84,7 @@ export const HOST_MAP = {
   "broker.civicscale.ai": { key: "broker", index: true },
   "provider.civicscale.ai": { key: "provider", index: true },
   "billing.civicscale.ai": { key: "billing", index: true },
-  "signal.civicscale.ai": { key: "signal", index: true },
+  "signal.civicscale.ai": { key: "signal", index: false },
   "staging-health.civicscale.ai": { key: "health", index: false },
   "staging-employer.civicscale.ai": { key: "employer", index: false },
   "staging-broker.civicscale.ai": { key: "broker", index: false },
