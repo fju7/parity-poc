@@ -45,6 +45,10 @@ def _digits(text: str) -> set[str]:
     out = set()
     for m in _DIGIT.finditer(text):
         raw = m.group(0)
+        # "23 million": the digits belong to the composed figure (_digit_scales),
+        # not to a figure of 23 on their own.
+        if re.match(r"\s*(hundred|thousand|million|billion)\b", text[m.end():], re.I):
+            continue
         s = raw.replace(",", "").replace("·", ".").replace("−", "-")
         try:
             v = Decimal(s)
@@ -136,3 +140,91 @@ def canonical_numbers(text: str) -> set[str]:
 def figures(assertion: str) -> set[str]:
     """The numbers an assertion commits to. Same extraction; named for intent."""
     return canonical_numbers(assertion)
+
+
+# ---------------------------------------------------------------------------
+# FIGURES AT STATED PRECISION (added 2026-09-14). "23 million" against a
+# document that says 23,480,668 is not a false claim; it is the same figure
+# at the precision the sentence chose. 26% of the claims withheld on the first
+# mmr freeze were of this shape. So a figure carries the precision it was
+# stated at, and a qualifier if it had one, and binds when a document figure
+# ROUNDS to it (or clears it, for "over" / "under"):
+#   "23 million"       vs 23,480,668  -> binds    (rounds to 23 at the million)
+#   "24 million"       vs 23,480,668  -> refuses
+#   "over 20 million"  vs 23,480,668  -> binds    (floor cleared)
+#   "650,000"          vs 657,461     -> refuses  (rounds to 660,000 at the 10,000)
+#   "0.93"             vs 0.926       -> binds
+#   "12 children"      vs 13          -> refuses  (an unqualified integer is exact)
+# Deterministic; no model.
+# ---------------------------------------------------------------------------
+_QUAL_FLOOR = {"over", "more than", "at least", "exceeding", "exceeds", "above", "greater than", "in excess of", "upwards of"}
+_QUAL_CEIL = {"under", "fewer than", "less than", "below", "at most", "up to", "no more than"}
+_QUAL_ABOUT = {"about", "approximately", "roughly", "nearly", "almost", "around", "some", "an estimated", "estimated", "~", "circa"}
+_QUALS = sorted(_QUAL_FLOOR | _QUAL_CEIL | _QUAL_ABOUT, key=len, reverse=True)
+_FIG = re.compile(
+    r"(?P<q>(?:" + "|".join(re.escape(q) for q in _QUALS) + r")\s+)?"
+    r"(?P<num>(?<![\w.])[−\-]?(?:\d{1,3}(?:,\d{3})+|\d+)(?:[.·]\d+)?)"
+    r"(?:\s*(?P<scale>hundred|thousand|million|billion)\b)?"
+    r"(?P<pct>\s*(?:%|per\s?cent|percent))?", re.I)
+
+
+def _precision_of(numtxt: str, scale: str | None) -> Decimal:
+    """The unit the figure was stated in: 10^-decimals; the scale word; or, for a
+    large round integer, its trailing zeros (650,000 -> 10,000). An unqualified
+    small integer is exact."""
+    s = numtxt.replace(",", "").replace("·", ".").replace("−", "-").lstrip("-")
+    if scale:
+        base = Decimal(SCALES[scale.lower()])
+        if "." in s:
+            return base / (Decimal(10) ** len(s.split(".")[1]))
+        return base
+    if "." in s:
+        return Decimal(1) / (Decimal(10) ** len(s.split(".")[1]))
+    stripped = s.rstrip("0")
+    zeros = len(s) - len(stripped)
+    if zeros >= 2 and Decimal(s) >= 10_000:
+        return Decimal(10) ** zeros
+    return Decimal(1)
+
+
+def stated_figures(text: str) -> list[dict]:
+    """Every digit-form figure in an assertion with its value, stated precision and
+    qualifier. Word-form figures ('thirty days') keep exact matching via figures()."""
+    out = []
+    for m in _FIG.finditer(text or ""):
+        raw = m.group("num")
+        if _ADJECTIVE_TAIL.match(text, m.end("num")):
+            continue
+        try:
+            v = Decimal(raw.replace(",", "").replace("·", ".").replace("−", "-"))
+        except InvalidOperation:
+            continue
+        scale = m.group("scale")
+        if scale:
+            v = v * SCALES[scale.lower()]
+        q = (m.group("q") or "").strip().lower()
+        kind = "floor" if q in _QUAL_FLOOR else "ceiling" if q in _QUAL_CEIL else "about" if q in _QUAL_ABOUT else "exact"
+        out.append({"value": v, "precision": _precision_of(raw, scale), "qualifier": kind, "text": m.group(0).strip()})
+    return out
+
+
+def figure_matches(stated: dict, doc_values: set[str]) -> str | None:
+    """The document value that satisfies a stated figure, or None."""
+    v, p, q = stated["value"], stated["precision"], stated["qualifier"]
+    canon_v = _canon(v)
+    if canon_v in doc_values:
+        return canon_v
+    for dv in doc_values:
+        try:
+            d = Decimal(dv)
+        except InvalidOperation:
+            continue
+        if q == "floor" and d >= v and d < v * 10:
+            return dv
+        if q == "ceiling" and d <= v and d > v / 10:
+            return dv
+        if p != 1 or q == "about":
+            unit = p if p != 1 else Decimal(1)
+            if (d / unit).quantize(Decimal(1), rounding="ROUND_HALF_UP") * unit == v:
+                return dv
+    return None

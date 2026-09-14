@@ -120,10 +120,36 @@ def test_containment_is_decisive_whatever_the_count():
 
 def test_digit_scale_and_registry_year_from_the_mmr_run():
     """Two false refusals the first end-to-end run produced, 2026-09-14."""
-    assert canonical_numbers("over 23 million children") == {"23", "23000000"}
+    assert canonical_numbers("over 23 million children") == {"23000000"}
     assert "1200000000" in canonical_numbers("1.2 billion")
     from verify.bind import bind_figure
     from verify.types import Document, Identifier
     doc = Document(Identifier("doi", "10.1/x"), "s", "no year appears in this abstract; 12 children")
     assert not bind_figure("Smeeth 2004 studied 12 children", doc).ok
     assert bind_figure("Smeeth 2004 studied 12 children", doc, registry_text="Some title 2004").ok
+
+
+# ---------------------------------------------------------------------------
+# FIGURE at stated precision (ruling of 2026-09-14): the four cases, verbatim.
+# ---------------------------------------------------------------------------
+from verify.bind import bind_figure as _bf  # noqa: E402
+from verify.types import Document as _D, Identifier as _I  # noqa: E402
+
+
+def _docn(text):
+    return _D(_I("doi", "10.1/x"), "s", text)
+
+
+def test_figure_binds_at_stated_precision_and_refuses_otherwise():
+    cochrane = _docn("138 studies (23,480,668 participants) were included")
+    assert _bf("over 23 million children", cochrane).ok
+    assert _bf("23 million children", cochrane).ok
+    assert not _bf("24 million children", cochrane).ok
+    assert _bf("over 20 million children", cochrane).ok
+    hviid = _docn("657,461 children born in Denmark")
+    assert not _bf("650,000 children", hviid).ok            # rounds to 660,000, not 650,000
+    assert _bf("660,000 children", hviid).ok
+    assert _bf("about 650,000 children", hviid).ok is False  # 'about' rounds at the stated unit too: 660,000
+    assert _bf("HR 0.93", _docn("hazard ratio 0.926 (95% CI 0.85 to 1.02)")).ok
+    assert not _bf("12 children", _docn("13 children were enrolled")).ok
+    assert _bf("thirty days", _docn("not later than 30 days")).ok      # word-form still exact

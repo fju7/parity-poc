@@ -10,7 +10,7 @@ from __future__ import annotations
 
 import re
 
-from .numbers import figures, canonical_numbers
+from .numbers import figures, canonical_numbers, stated_figures, figure_matches, _canon as _canon_value
 from .text import agreement, content_tokens, normalise, LITERATURE_BOILERPLATE, LAW_BOILERPLATE, GENERIC_BOILERPLATE
 from .types import Binding, Context, Document, Kind, Resolution, LAW
 
@@ -74,10 +74,23 @@ def bind_figure(assertion: str, document: Document, registry_text: str = "") -> 
                        "absence cannot be judged")
     have = canonical_numbers(document.text) | canonical_numbers(registry_text or "")
     missing = sorted(want - have)
-    if missing:
-        return Binding(Kind.FIGURE, False, evidence=", ".join(sorted(want & have)),
-                       reason="not in the document: " + ", ".join(missing))
-    return Binding(Kind.FIGURE, True, evidence=", ".join(sorted(want)))
+    if not missing:
+        return Binding(Kind.FIGURE, True, evidence=", ".join(sorted(want)))
+    # Not found exactly: a figure binds at the precision it was stated
+    # ("23 million" vs 23,480,668; "over 20 million"; "0.93" vs 0.926).
+    resolved, still = [], []
+    stated = {_canon_value(f["value"]): f for f in stated_figures(assertion)}
+    for m in missing:
+        f = stated.get(m)
+        hit = figure_matches(f, have) if f else None
+        if hit:
+            resolved.append(f"{m}≈{hit}")
+        else:
+            still.append(m)
+    if still:
+        return Binding(Kind.FIGURE, False, evidence=", ".join(sorted(want & have) + resolved),
+                       reason="not in the document: " + ", ".join(still))
+    return Binding(Kind.FIGURE, True, evidence=", ".join(sorted(want & have) + resolved))
 
 
 _QUOTE = re.compile(r"[\"“”']([^\"“”']{12,})[\"“”']")

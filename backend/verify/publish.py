@@ -109,8 +109,21 @@ def gate_source(row: dict) -> dict:
         out["withheld_reason"] = "HEADING: " + head.reason
         return out
     doc = mod.fetch(res)
+    if doc is None and ident.registry == "literature" and res.canonical:
+        # No registry text (a notice, a feature article, a report): one more
+        # attempt through the generic adapter at the publisher, via doi.org.
+        # The record says which route got the bytes.
+        g = generic.resolve(generic.identify(res.canonical))
+        gdoc = generic.fetch(g)
+        if gdoc is not None:
+            doc = gdoc
+            out["resolution"]["fallback"] = {"route": "generic_fetch via doi.org", "final_url": g.extra.get("final_url")}
+        else:
+            out["resolution"]["fallback"] = {"route": "generic_fetch via doi.org", "http": g.extra.get("http"),
+                                             "reason": g.extra.get("reason") or g.extra.get("error")}
     if doc is None:
-        out["withheld_reason"] = "fetch: nothing retrieved"
+        fb = out["resolution"].get("fallback") or {}
+        out["withheld_reason"] = "fetch: nothing retrieved" + (f" (publisher: HTTP {fb.get('http')} {fb.get('reason') or ''})".rstrip() if fb else "")
         return out
     out["document"] = {"sha256": doc.sha256, "route": doc.route, "kind": doc.kind, "retrieved_at": doc.retrieved_at,
                        "chars": len(doc.text), "text_layer": doc.text_layer, "path": store_document(doc),
