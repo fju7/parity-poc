@@ -98,6 +98,13 @@ def gate_source(row: dict) -> dict:
     if res.exists != Exists.EXISTS:
         out["withheld_reason"] = f"resolve: {res.exists.value}"
         return out
+    # HEADING before fetch: a DOI that names a different paper is withheld as
+    # WRONG_DOCUMENT, not as a fetch failure of the wrong paper.
+    head = bind_heading(row.get("title") or "", res)
+    out["bindings"].append(_b(head))
+    if not head.ok and not head.abstained:
+        out["withheld_reason"] = "HEADING: " + head.reason
+        return out
     doc = mod.fetch(res)
     if doc is None:
         out["withheld_reason"] = "fetch: nothing retrieved"
@@ -105,11 +112,7 @@ def gate_source(row: dict) -> dict:
     out["document"] = {"sha256": doc.sha256, "route": doc.route, "kind": doc.kind, "retrieved_at": doc.retrieved_at,
                        "chars": len(doc.text), "text_layer": doc.text_layer, "path": store_document(doc),
                        "final_url": doc.final_url}
-    head = bind_heading(row.get("title") or "", res)
-    out["bindings"].append(_b(head))
-    if not head.ok and not head.abstained:
-        out["withheld_reason"] = "HEADING: " + head.reason
-        return out
+    out["registry_text"] = " ".join(str(x) for x in ((res.heading or ""), res.extra.get("year") or "") if x)
     st = status_check(ident)
     out["status"] = {"verdict": st.verdict, "registry": st.registry, "detail": st.detail,
                      "checked_at": st.checked_at, "events": st.events, "frozen": _frozen_status_fields(res)}
@@ -137,7 +140,7 @@ def gate_claim(claim: dict, links: list[dict], sources: dict[str, dict]) -> dict
         doc = src["_doc"]
         level = "IDENTITY_ONLY"
         if figs:
-            fb = bind_figure(text, doc); entry["bindings"].append(_b(fb))
+            fb = bind_figure(text, doc, src.get("registry_text", "")); entry["bindings"].append(_b(fb))
             level = "FIGURE_BOUND" if fb.ok else "UNSUPPORTED"
         if quoted:
             sb = bind_span(text, doc); entry["bindings"].append(_b(sb))

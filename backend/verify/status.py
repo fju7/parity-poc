@@ -41,8 +41,8 @@ class Status:
 
     @property
     def alerts(self) -> bool:
-        return self.verdict in ("retracted", "withdrawn", "concern", "corrected", "trial_status_changed",
-                                "amended", "reissued")
+        return self.verdict in ("retracted", "withdrawn", "concern", "corrected", "superseded",
+                                "trial_status_changed", "amended", "reissued")
 
 
 def _json(body: bytes):
@@ -52,13 +52,18 @@ def _json(body: bytes):
         return None
 
 
+VERSION_TYPES = {"new_version", "new_edition", "updated"}
+
+
 def _classify(types: set[str]) -> str:
     if types & RETRACTION_TYPES:
         return "retracted"
     if types & CONCERN_TYPES:
         return "concern"
-    if types & CORRECTION_TYPES:
+    if types & (CORRECTION_TYPES - VERSION_TYPES):
         return "corrected"
+    if types & VERSION_TYPES:
+        return "superseded"     # a newer version of this work exists (a Cochrane pub5 over the pub4 we cite)
     return "unchanged"
 
 
@@ -145,7 +150,7 @@ def _europepmc(ident: Identifier, st: Status) -> Status:
         if pt.lower() in ("retracted publication", "retraction of publication"):
             types.add("retracted"); st.events.append({"type": pt, "source": "europepmc pubType"})
     v = _classify(types)
-    order = ["unchanged", "corrected", "concern", "retracted"]
+    order = ["unchanged", "superseded", "corrected", "concern", "retracted"]
     if order.index(v) > order.index(st.verdict if st.verdict in order else "unchanged"):
         st.verdict = v
     st.registry = (st.registry + "+" if st.registry else "") + "europepmc"

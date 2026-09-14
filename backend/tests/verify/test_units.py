@@ -116,3 +116,14 @@ def test_containment_is_decisive_whatever_the_count():
     res = Resolution(ident, Exists.EXISTS, heading="A Phase 3 Study of X || MONARCH 3")
     b = bind_heading("MONARCH 3", res)
     assert b.ok and not b.abstained
+
+
+def test_digit_scale_and_registry_year_from_the_mmr_run():
+    """Two false refusals the first end-to-end run produced, 2026-09-14."""
+    assert "23000000" in canonical_numbers("over 23 million children") and "23" in canonical_numbers("23 million")
+    assert "1200000000" in canonical_numbers("1.2 billion")
+    from verify.bind import bind_figure
+    from verify.types import Document, Identifier
+    doc = Document(Identifier("doi", "10.1/x"), "s", "no year appears in this abstract; 12 children")
+    assert not bind_figure("Smeeth 2004 studied 12 children", doc).ok
+    assert bind_figure("Smeeth 2004 studied 12 children", doc, registry_text="Some title 2004").ok

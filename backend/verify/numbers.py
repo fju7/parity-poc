@@ -108,10 +108,25 @@ def _words(text: str) -> set[str]:
     return out
 
 
+_DIGIT_SCALE = re.compile(r"(?<![\w.])(\d+(?:[.,]\d+)?)\s*(hundred|thousand|million|billion)\b", re.I)
+
+
+def _digit_scales(text: str) -> set[str]:
+    """'23 million' -> 23000000; '1.2 billion' -> 1200000000. The digits alone
+    are still emitted by _digits (a document that says '23 million' contains 23)."""
+    out = set()
+    for m in _DIGIT_SCALE.finditer(text):
+        try:
+            out.add(_canon(Decimal(m.group(1).replace(",", "")) * SCALES[m.group(2).lower()]))
+        except InvalidOperation:
+            pass
+    return out
+
+
 def canonical_numbers(text: str) -> set[str]:
     """Every number in `text`, digits or words, as canonical strings."""
     text = text or ""
-    return _digits(text) | _words(text)
+    return _digits(text) | _words(text) | _digit_scales(text)
 
 
 def figures(assertion: str) -> set[str]:

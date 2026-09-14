@@ -60,15 +60,19 @@ def bind_heading(characterisation: str, resolution: Resolution) -> Binding:
     return Binding(Kind.HEADING, True, evidence=", ".join(sorted(shared)))
 
 
-def bind_figure(assertion: str, document: Document) -> Binding:
-    """Is every number the assertion commits to present in the document?"""
+def bind_figure(assertion: str, document: Document, registry_text: str = "") -> Binding:
+    """Is every number the assertion commits to present in the document?
+
+    `registry_text`: what the registry says about the document -- its title and
+    publication year -- which is part of what the document IS. An abstract does
+    not contain its own year; "Smeeth 2004" must not fail on that."""
     want = figures(assertion)
     if not want:
         return Binding(Kind.FIGURE, True, evidence="no figure in assertion")
     if document.text_layer != "DECLARED_SOUND":
         return Binding(Kind.FIGURE, False, reason=f"document text layer is {document.text_layer}; "
                        "absence cannot be judged")
-    have = canonical_numbers(document.text)
+    have = canonical_numbers(document.text) | canonical_numbers(registry_text or "")
     missing = sorted(want - have)
     if missing:
         return Binding(Kind.FIGURE, False, evidence=", ".join(sorted(want & have)),

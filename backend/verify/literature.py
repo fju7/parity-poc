@@ -69,9 +69,10 @@ def resolve(ident: Identifier) -> Resolution:
             msg = cr.get("message", {})
             res.registry = "crossref"; res.registry_id = msg.get("DOI")
             res.heading = (msg.get("title") or [None])[0]
+            parts = (msg.get("published") or msg.get("issued") or {}).get("date-parts", [[None]])[0]
             res.extra = {"container": (msg.get("container-title") or [None])[0],
                          "type": msg.get("type"),
-                         "published": (msg.get("published") or msg.get("issued") or {}).get("date-parts", [[None]])[0],
+                         "published": parts, "year": parts[0] if parts else None,
                          "abstract": re.sub(r"<[^>]+>", "", msg.get("abstract") or "") or None}
         return res
 
