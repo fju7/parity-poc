@@ -87,25 +87,18 @@ LETTER STRUCTURE:
    - Only appealable if applied incorrectly
    - State: "Review of the patient's Explanation of Benefits indicates the deductible has been [satisfied as of date / incorrectly applied to this service]. The attached EOB documentation demonstrates the error in deductible calculation."
 
-4. SUPPORTING CLINICAL EVIDENCE — include when signal_evidence is provided:
-   - Add a section titled "Supporting Clinical Evidence from Signal Intelligence"
-   - Cite each evidence claim with its score (e.g., "Evidence score: 4.2/5.0")
-   - Frame the evidence as supporting the medical necessity and clinical appropriateness of the service
-   - Use language like: "Peer-reviewed evidence, independently scored and verified by Signal Intelligence, demonstrates..."
-   - This section strengthens the appeal by grounding it in scored clinical evidence, not just regulatory citations
-
-5. CONTRACTUAL OBLIGATIONS SECTION — include when contracted_rate_info is provided:
+4. CONTRACTUAL OBLIGATIONS SECTION — include when contracted_rate_info is provided:
    - State the specific dollar variance between billed/contracted and paid amounts
    - Reference "our current executed provider agreement" as a binding contract (do NOT use a specific date or bracket placeholder for the contract date)
    - State: "Systematic underpayment below contracted rates constitutes a material breach of our provider participation agreement. We reserve the right to audit additional claims for similar variances and to pursue corrective action including interest on underpaid amounts as provided under our agreement."
 
-6. PROFESSIONAL CLOSING — must include:
+5. PROFESSIONAL CLOSING — must include:
    - "We demand reprocessing and payment of ${billed_amount} within 30 calendar days, consistent with applicable state prompt pay statutes and the payment terms specified in our provider participation agreement."
    - "Failure to respond within this timeframe will necessitate escalation to the state Department of Insurance and/or initiation of the dispute resolution process outlined in our provider agreement."
    - "Please direct all correspondence regarding this appeal to {practice_name} at {practice_address}."
    - Sign with billing_contact name and practice_name.
 
-7. TONE: Professional, firm, and authoritative throughout. Write as experienced legal counsel — not adversarial, but leaving no doubt that the practice knows its rights and will pursue them.
+6. TONE: Professional, firm, and authoritative throughout. Write as experienced legal counsel — not adversarial, but leaving no doubt that the practice knows its rights and will pursue them.
 
 Return ONLY valid JSON:
 {
@@ -231,89 +224,27 @@ def _lookup_contracted_rates(ctx: dict, payer_name: str, cpt_codes: str) -> str:
     return ". ".join(info_parts) + "." if info_parts else ""
 
 
-def _fetch_signal_evidence(denial_code: str, cpt_code: str, payer: str = None) -> dict | None:
-    """Fetch Signal Intelligence evidence for a denial, if available.
-
-    Returns dict with payer_analytical_path, challenging_evidence,
-    recommended_claims, appeal_strength, or None if no coverage.
-    """
-    try:
-        sb = _get_supabase()
-        # Look up first CPT code (may be comma-separated list)
-        first_cpt = cpt_code.split(",")[0].strip() if cpt_code else ""
-        if not first_cpt:
-            return None
-
-        mappings = (
-            sb.table("signal_cpt_mappings")
-            .select("topic_slug, relevance_score")
-            .eq("cpt_code", first_cpt)
-            .order("relevance_score", desc=True)
-            .limit(1)
-            .execute()
-        )
-        if not mappings.data:
-            return None
-
-        topic_slug = mappings.data[0]["topic_slug"]
-
-        # Get topic and claims
-        issue_res = sb.table("signal_issues").select("id, title").eq("slug", topic_slug).execute()
-        if not issue_res.data:
-            return None
-        issue = issue_res.data[0]
-
-        claims_res = (
-            sb.table("signal_claims")
-            .select("id, claim_text, claim_type, consensus_type")
-            .eq("issue_id", issue["id"])
-            .execute()
-        )
-        claims = claims_res.data or []
-        claim_ids = [c["id"] for c in claims]
-
-        # Get composites
-        composites = {}
-        chunk_size = 50
-        for i in range(0, len(claim_ids), chunk_size):
-            chunk = claim_ids[i:i + chunk_size]
-            comp_res = (
-                sb.table("signal_claim_composites")
-                .select("claim_id, composite_score, evidence_category")
-                .in_("claim_id", chunk)
-                .execute()
-            )
-            for c in (comp_res.data or []):
-                composites[c["claim_id"]] = c
-
-        # Build challenging evidence (high-score consensus claims)
-        challenging = []
-        for c in claims:
-            comp = composites.get(c["id"])
-            if not comp or not comp.get("composite_score"):
-                continue
-            score = float(comp["composite_score"])
-            if score >= 3.5 and c.get("consensus_type") == "strong_consensus":
-                challenging.append({
-                    "claim_text": c["claim_text"],
-                    "score": score,
-                    "claim_type": c.get("claim_type"),
-                })
-        challenging.sort(key=lambda x: x["score"], reverse=True)
-
-        return {
-            "topic_slug": topic_slug,
-            "topic_title": issue["title"],
-            "challenging_evidence": challenging[:5],
-            "appeal_strength": "strong" if len([e for e in challenging if e["score"] >= 4.0]) >= 3 else "moderate" if len(challenging) >= 2 else "weak",
-        }
-    except Exception as exc:
-        print(f"[Appeal] Signal Intelligence lookup failed (non-fatal): {exc}")
-        return None
+# There is deliberately no Signal evidence in an appeal letter.
+#
+# Until 2026-09-14 the letter carried a section titled "Supporting Clinical
+# Evidence from Signal Intelligence": the top-scored claims of whichever
+# Signal topic signal_cpt_mappings tied to the first CPT code, introduced as
+# "peer-reviewed evidence, independently scored and verified". Two things
+# were wrong with that. verify_sources.py had established that the claims
+# were extracted from model-written summaries, with 92 of 381 source
+# identifiers resolving to nothing or to a different paper -- so "verified"
+# was false. And the mapping put GLP-1 trial figures into every office-visit
+# appeal (99213-99215 -> glp1-drugs), whatever the visit was for. A payer
+# letter is the wrong place for either. The letter now rests on the claim
+# facts, the denial reason and the regulatory citations, which is what the
+# rest of the prompt has always been about.
+#
+# The eight letters generated before this change were the operator's own
+# test accounts; none was sent.
 
 
 def _build_prompt_data(denial: dict, ctx: dict) -> str:
-    """Build the JSON prompt data for Claude, merging denial data with provider context and Signal evidence."""
+    """Build the JSON prompt data for Claude, merging denial data with provider context."""
     practice_name = denial.get("practice_name") or ctx["practice_name"]
     npi = denial.get("npi") or ctx["npi"]
     practice_address = denial.get("practice_address") or ctx["practice_address"]
@@ -322,20 +253,6 @@ def _build_prompt_data(denial: dict, ctx: dict) -> str:
     contracted_rate_info = _lookup_contracted_rates(
         ctx, denial.get("payer_name", ""), denial.get("cpt_code", "")
     )
-
-    # Fetch Signal Intelligence evidence
-    signal_evidence = _fetch_signal_evidence(
-        denial.get("denial_code", ""),
-        denial.get("cpt_code", ""),
-        denial.get("payer_name", ""),
-    )
-
-    signal_evidence_text = None
-    if signal_evidence and signal_evidence.get("challenging_evidence"):
-        parts = [f"Signal Intelligence — {signal_evidence['topic_title']} (appeal strength: {signal_evidence['appeal_strength']}):"]
-        for i, ev in enumerate(signal_evidence["challenging_evidence"][:3], 1):
-            parts.append(f"  {i}. [{ev['claim_type']}] (score {ev['score']}/5.0) {ev['claim_text']}")
-        signal_evidence_text = "\n".join(parts)
 
     return json.dumps({
         "claim_id": denial.get("claim_id", ""),
@@ -350,7 +267,6 @@ def _build_prompt_data(denial: dict, ctx: dict) -> str:
         "npi": npi,
         "patient_name": denial.get("patient_name", ""),
         "contracted_rate_info": contracted_rate_info or None,
-        "signal_evidence": signal_evidence_text,
     })
 
 
@@ -435,11 +351,6 @@ async def generate_appeal(req: GenerateAppealRequest, request: Request):
     except Exception as exc:
         print(f"[GenerateAppeal] Failed to persist letter: {exc}")
 
-    # Fetch Signal evidence for the response (same lookup the prompt used)
-    signal_evidence = _fetch_signal_evidence(
-        req.denial_code or "", req.cpt_code or "", req.payer_name or "",
-    )
-
     return {
         "appeal_id": appeal_id,
         "letter_html": result.get("letter_html", ""),
@@ -450,7 +361,6 @@ async def generate_appeal(req: GenerateAppealRequest, request: Request):
         "appeal_strength_reason": result.get("appeal_strength_reason", ""),
         "escalation_path": result.get("escalation_path", ""),
         "attach_documentation": result.get("attach_documentation", ""),
-        "signal_evidence": signal_evidence,
     }
 
 

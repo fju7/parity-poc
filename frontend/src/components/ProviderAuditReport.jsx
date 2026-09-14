@@ -343,42 +343,6 @@ export default function ProviderAuditReport({ analysisResults, practiceInfo, onC
               </div>
             )}
 
-            {/* Signal Intelligence evidence */}
-            {(() => {
-              try {
-                const se = appealModal?.signal_evidence;
-                if (!se || typeof se !== "object") return null;
-                const evidence = Array.isArray(se?.challenging_evidence) ? se.challenging_evidence : [];
-                if (evidence.length === 0) return null;
-                const topicTitle = String(se?.topic_title || "");
-                const strength = String(se?.appeal_strength || "");
-                return (
-                  <div style={{ marginBottom: 16, padding: 12, background: "#EEF2FF", borderRadius: 8, fontSize: 12, borderLeft: "3px solid #6366F1" }}>
-                    <strong style={{ color: "#1B3A5C" }}>Signal Intelligence{topicTitle ? ` — ${topicTitle}` : ""}</strong>
-                    <p style={{ margin: "6px 0 4px", color: "#475569", fontSize: 12, lineHeight: 1.5 }}>
-                      The following peer-reviewed clinical evidence supports the medical necessity of this service:
-                    </p>
-                    {strength && (
-                      <span style={{
-                        marginLeft: 8, padding: "2px 8px", borderRadius: 12, fontSize: 10, fontWeight: 600,
-                        background: strength === "strong" ? "#ECFDF5" : strength === "moderate" ? "#FFFBEB" : "#F3F4F6",
-                        color: strength === "strong" ? "#059669" : strength === "moderate" ? "#D97706" : "#64748B",
-                      }}>
-                        {strength} evidence
-                      </span>
-                    )}
-                    <ul style={{ margin: "8px 0 0 16px", padding: 0 }}>
-                      {evidence.slice(0, 3).map((ev, i) => (
-                        <li key={i} style={{ color: "#475569", marginBottom: 4 }}>
-                          <span style={{ fontWeight: 600 }}>{Number(ev?.score) || 0}/5.0</span> — {String(ev?.claim_text || "")}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                );
-              } catch { return null; }
-            })()}
-
             {/* Editable letter text */}
             <textarea
               value={appealModal.editText}
@@ -413,7 +377,6 @@ export default function ProviderAuditReport({ analysisResults, practiceInfo, onC
                   onClick={async () => {
                     setAppealModal(prev => ({ ...prev, tracking: true }));
                     try {
-                      const se = appealModal.signal_evidence;
                       const res = await fetch(`${API_BASE}/api/platform/cases`, {
                         method: "POST",
                         headers: { "Content-Type": "application/json" },
@@ -424,8 +387,6 @@ export default function ProviderAuditReport({ analysisResults, practiceInfo, onC
                           cpt_code: appealModal.cpt_code || null,
                           denial_code: appealModal.denial_code || null,
                           payer: appealModal.payer_name || null,
-                          signal_topic_slug: se?.topic_slug || null,
-                          signal_score: se?.appeal_strength === "strong" ? 4.0 : se?.appeal_strength === "moderate" ? 3.0 : null,
                           description: `Appeal for ${appealModal.denial_code || "denial"} — ${appealModal.payer_name || "payer"}`,
                         }),
                       });
@@ -519,7 +480,6 @@ export default function ProviderAuditReport({ analysisResults, practiceInfo, onC
                 <button
                   onClick={async () => {
                     try {
-                      const se = appealModal.signal_evidence;
                       await fetch(`${API_BASE}/api/platform/cases`, {
                         method: "POST",
                         headers: { "Content-Type": "application/json" },
@@ -529,8 +489,6 @@ export default function ProviderAuditReport({ analysisResults, practiceInfo, onC
                           cpt_code: appealModal.denial_code ? (appealModal.cpt_code || "") : "",
                           denial_code: appealModal.denial_code || "",
                           payer: appealModal.payer_name || "",
-                          signal_topic_slug: se?.topic_slug || null,
-                          signal_score: se?.appeal_strength === "strong" ? 4.0 : se?.appeal_strength === "moderate" ? 3.5 : null,
                           description: `Appeal for ${appealModal.denial_code} — ${appealModal.payer_name}`,
                         }),
                       });
