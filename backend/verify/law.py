@@ -32,8 +32,11 @@ _NOW = lambda: dt.datetime.now(dt.timezone.utc).replace(microsecond=0).isoformat
 # identify: a citation string -> Identifier, or None when nothing resolvable
 # ---------------------------------------------------------------------------
 _CFR = re.compile(r"\b(\d{1,2})\s*C\.?\s?F\.?\s?R\.?\s*(?:§+\s*)?(?:Part\s*)?(\d+\.\d+)((?:\([a-z0-9]+\))*)", re.I)
-_ORC = re.compile(r"\b(?:Ohio\s+Revised\s+Code|Ohio\s+Rev\.?\s+Code|R\.C\.|O\.R\.C\.)\s*(?:§+\s*)?(\d{4}\.\d+)", re.I)
-_OAC = re.compile(r"\b(?:Ohio\s+Administrative\s+Code|Ohio\s+Adm\.?\s+Code|O\.A\.C\.|OAC)\s*(?:§+\s*|[Rr]ule\s*)?(\d{4}(?:-\d+){1,3})", re.I)
+# "Revised Code" without the state is accepted as Ohio's: the citation gate
+# hands over the string it found, which starts at "Revised Code"; Washington's
+# is cited as RCW and would not match the four-digit dotted section shape.
+_ORC = re.compile(r"\b(?:(?:Ohio\s+)?Revised\s+Code|Ohio\s+Rev\.?\s+Code|R\.C\.|O\.R\.C\.)\s*(?:§+\s*)?(\d{4}\.\d+)", re.I)
+_OAC = re.compile(r"\b(?:(?:Ohio\s+)?Administrative\s+Code|Ohio\s+Adm\.?\s+Code|O\.A\.C\.|OAC)\s*(?:§+\s*|[Rr]ule\s*)?(\d{4}(?:-\d+){1,3})", re.I)
 _IOM = re.compile(r"\b(?:Pub(?:lication|\.)?\s*)?(100-0\d)\b[^.\n]{0,60}?\b[Cc]hapter\s+(\d+)(?:[^.\n]{0,20}?\b[Ss]ection\s+(\d+(?:\.\d+)*))?")
 _NCCI = re.compile(r"\bNCCI\b[^.\n]{0,50}?\b[Cc]hapter\s+([IVX]+|\d+)(?:[^.\n]{0,20}?\b[Ss]ection\s+([A-Z]))?")
 _ROMAN = {"I": 1, "II": 2, "III": 3, "IV": 4, "V": 5, "VI": 6, "VII": 7, "VIII": 8, "IX": 9, "X": 10,

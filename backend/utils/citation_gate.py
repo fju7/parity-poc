@@ -38,11 +38,16 @@ other two safe to skip:
               the obligation the letter asserts. Only a provision that passed
               all three may appear, quoted.
 
-TODAY THIS IS A BLOCKLIST. Phase 2 INVERTS it to an allow-list with the same
-fail-closed default: a citation is refused unless it is on the list, and the
-list is empty until something has been resolved, fetched and bound. The
-refusal is what holds when the list is empty, which today it is; the
-allow-list is an optimisation on top of the refusal, never a replacement.
+SINCE PHASE 2 THIS IS AN ALLOW-LIST, with the same fail-closed default. A
+citation is refused unless it is on the list handed to check_letter(), and
+the list is empty until something has been resolved, fetched and bound
+(verify/allowlist.py, from the curated candidate table -- reviewed rows
+only). On the list, a citation must still earn its sentence: every number in
+the sentence that cites it must FIGURE-bind to the provision's fetched text.
+With an empty list -- today, and for any state without reviewed rows -- the
+behaviour is exactly the blocklist's: every citation is a violation. The
+refusal is what holds when the list is empty; the list is an optimisation on
+top of it, never a replacement.
 
 WHAT COUNTS AS A CITATION
 -------------------------
@@ -110,9 +115,40 @@ def find_citations(text: str) -> list[Citation]:
     return out
 
 
-def check_letter(letter_text: str) -> list[Citation]:
-    """The citations that make this letter unsendable. Empty means it may go."""
-    return find_citations(letter_text)
+_SENTENCE_END = re.compile(r"(?<=[.;:])\s+|\n+")
+
+
+def _sentence_around(text: str, start: int, end: int) -> str:
+    """The sentence (or line) that contains [start, end)."""
+    left = max((m.end() for m in _SENTENCE_END.finditer(text, 0, start)), default=0)
+    m = _SENTENCE_END.search(text, end)
+    return text[left: m.start() if m else len(text)]
+
+
+def check_letter(letter_text: str, allowed=None) -> list[Citation]:
+    """The citations that make this letter unsendable. Empty means it may go.
+
+    `allowed`: the verify.allowlist.Allowed entries for this letter, or None /
+    empty. A citation is a violation unless it resolves to an allowed
+    provision AND every number in its sentence is in that provision's text.
+    """
+    found = find_citations(letter_text)
+    if not allowed:
+        return found
+    from verify import law
+    from verify.bind import bind_figure
+    by_ident = {(a.identifier.system, a.identifier.value): a for a in allowed}
+    out = []
+    for c in found:
+        ident = law.identify(c.text)
+        a = by_ident.get((ident.system, ident.value)) if ident else None
+        if a is None:
+            out.append(c); continue
+        sentence = _sentence_around(letter_text, c.start, c.end)
+        fig = bind_figure(sentence, a.document)
+        if not fig.ok:
+            out.append(Citation(c.family, f"{c.text} [{fig.reason}]", c.start, c.end))
+    return out
 
 
 def violations_note(cites: list[Citation]) -> str:

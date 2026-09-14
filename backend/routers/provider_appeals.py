@@ -5,10 +5,12 @@ from __future__ import annotations
 import base64
 import io
 import json
+import re
 
 from fastapi import APIRouter, HTTPException, Request
 
 from utils.citation_gate import check_letter, violations_note
+from verify.allowlist import build as build_allowlist, prompt_block
 from routers.provider_shared import (
     _get_supabase, _get_authenticated_user, _verify_admin,
     _call_claude,
@@ -62,9 +64,12 @@ LETTER STRUCTURE:
      "under the coding conventions for this modifier"
      "under the applicable external-review process"
 
-   CITATION RULE — ABSOLUTE. The letter must NOT cite any statute section, code
-   section, CFR section, USC section, administrative-code rule, manual chapter or
-   section number, or policy number. No "42 CFR § …", no "Ohio Revised Code § …",
+   CITATION RULE — ABSOLUTE, with one exception. The letter must NOT cite any
+   statute section, code section, CFR section, USC section, administrative-code
+   rule, manual chapter or section number, or policy number — UNLESS the user
+   message carries a "PERMITTED CITATIONS" block, in which case you may cite
+   exactly those provisions, by the exact citation string given, for exactly
+   what each excerpt supports, and nothing else. No "42 CFR § …", no "Ohio Revised Code § …",
    no "Publication 100-04, Chapter …", no "NCCI Policy Manual, Chapter …", no
    "Section 80.3.1", no "R.C. …", no "OAC …". Do not name a specific act or
    manual by its formal title either. Every such reference the system has
@@ -247,31 +252,48 @@ def _lookup_contracted_rates(ctx: dict, payer_name: str, cpt_codes: str) -> str:
 # test accounts; none was sent.
 
 
-def _gated_letter(prompt_data: str) -> dict | None:
-    """Generate the letter and refuse it if it cites primary law.
+_STATE = re.compile(r"\b([A-Z]{2})\s+\d{5}(?:-\d{4})?\b")
 
-    The prompt forbids section numbers; utils/citation_gate.py is what makes
-    that a control rather than a request. One regeneration is allowed, with
-    the offending citations named. If that draft cites too, no letter is
-    returned: fail closed to no citation, never to an unverified one. On
-    2026-09-14, before the gate, 12 of 19 provisions cited across ten
-    letters did not say what the letter claimed.
+
+def _letter_context(denial: dict, ctx: dict) -> tuple[str | None, str]:
+    """(state, payer_type) for the allow-list: the practice's state from its
+    address; Medicare/Medicaid from the payer's name, commercial otherwise."""
+    addr = denial.get("practice_address") or ctx.get("practice_address") or ""
+    m = _STATE.search(addr)
+    payer = (denial.get("payer_name") or "").lower()
+    payer_type = "medicare" if "medicare" in payer else "medicaid" if "medicaid" in payer else "commercial"
+    return (m.group(1) if m else None), payer_type
+
+
+def _gated_letter(prompt_data: str, allowed=None) -> dict | None:
+    """Generate the letter and refuse it if it cites law it may not.
+
+    The prompt forbids section numbers unless an allow-list is handed to it;
+    utils/citation_gate.py is what makes either a control rather than a
+    request. `allowed` comes from verify/allowlist.py -- the curated rows for
+    this state, payer and denial code that a reviewer has signed and that
+    resolved, fetched and bound just now. It is empty today. One
+    regeneration is allowed, with the offending citations named. If that
+    draft cites too, no letter is returned: fail closed to no citation,
+    never to an unverified one. On 2026-09-14, before the gate, 12 of 19
+    provisions cited across ten letters did not say what the letter claimed.
     """
-    result = _call_claude(system_prompt=APPEAL_SYSTEM_PROMPT, user_content=prompt_data, max_tokens=8192)
+    user = prompt_data + ("\n\n" + prompt_block(allowed) if allowed else "")
+    result = _call_claude(system_prompt=APPEAL_SYSTEM_PROMPT, user_content=user, max_tokens=8192)
     if not result:
         return None
-    cites = check_letter(result.get("letter_text", "") + "\n" + result.get("letter_html", ""))
+    cites = check_letter(result.get("letter_text", "") + "\n" + result.get("letter_html", ""), allowed)
     if not cites:
         return result
-    print(f"[GenerateAppeal] draft cited primary law ({len(cites)}); regenerating once: "
+    print(f"[GenerateAppeal] draft cited law it may not ({len(cites)}); regenerating once: "
           + "; ".join(sorted({c.text for c in cites})[:8]))
     retry = _call_claude(system_prompt=APPEAL_SYSTEM_PROMPT,
-                         user_content=prompt_data + "\n\n" + violations_note(cites), max_tokens=8192)
+                         user_content=user + "\n\n" + violations_note(cites), max_tokens=8192)
     if not retry:
         return None
-    cites = check_letter(retry.get("letter_text", "") + "\n" + retry.get("letter_html", ""))
+    cites = check_letter(retry.get("letter_text", "") + "\n" + retry.get("letter_html", ""), allowed)
     if cites:
-        print(f"[GenerateAppeal] REFUSED: second draft still cites primary law: "
+        print(f"[GenerateAppeal] REFUSED: second draft still cites law it may not: "
               + "; ".join(sorted({c.text for c in cites})[:8]))
         return None
     return retry
@@ -328,7 +350,12 @@ async def generate_appeal(req: GenerateAppealRequest, request: Request):
 
     practice_name = req.practice_name or ctx["practice_name"]
 
-    result = _gated_letter(prompt_data)
+    # The allow-list for this letter: reviewed candidate rows for the
+    # practice's state, the payer type and the denial code, resolved and
+    # bound now. Empty today; a state with no reviewed rows cites nothing.
+    state, payer_type = _letter_context(denial_data, ctx)
+    allowed, _rejected = build_allowlist(state, payer_type, req.denial_code or "")
+    result = _gated_letter(prompt_data, allowed)
 
     if not result:
         raise HTTPException(
@@ -441,7 +468,9 @@ async def generate_appeal_batch(req: GenerateAppealBatchRequest, request: Reques
     for denial in req.denials:
         prompt_data = _build_prompt_data(denial, ctx)
 
-        result = _gated_letter(prompt_data)
+        state, payer_type = _letter_context(denial, ctx)
+        allowed, _rejected = build_allowlist(state, payer_type, denial.get("denial_code") or "")
+        result = _gated_letter(prompt_data, allowed)
 
         if not result:
             results.append({"error": True, "claim_id": denial.get("claim_id", ""),

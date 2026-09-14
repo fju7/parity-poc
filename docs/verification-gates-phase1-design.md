@@ -374,7 +374,37 @@ cache bypassed, failing on any divergence between live and recorded — a
 changed heading, a changed document, an identifier that stopped resolving,
 a flipped binding.
 
+## 12. Phase 2, built 2026-09-14 — the candidate table and the inverted gate
+
+* `backend/data/verify/candidates.json` — the curated table, with the §5a
+  columns (`curator`, `curated_on`, `rationale`, `reviewed_by`,
+  `reviewed_on`). Twelve rows for Ohio: nine commercial across all seven
+  denial codes (3901.381 for every code — the pay-or-deny clock is the only
+  Ohio obligation most of them can state; 3901.389 interest for CO-45;
+  3922.01 external review and 3901.20 for CO-50), three Medicare (IOM ch.1
+  § 80.3.2 for CO-16, NCCI ch.I § D for CO-97, IOM ch.12 § 30.6.6 for CO-4).
+  **Every row is a draft** (`curator: "Claude Opus 5 (draft)"`, `reviewed_by:
+  null`). A test proves each would bind if reviewed; nothing else about them
+  is checked — the rationale column is the apposite-ness judgement, and it
+  needs a reviewer's name before it counts.
+* `backend/verify/allowlist.py` — `build(state, payer_type, denial_code)`:
+  reviewed rows only → resolve → fetch → bind(HEADING, APPLICABILITY) with
+  the row's own characterisation and `may_assert`; failures are kept with
+  their reason. `prompt_block()` is what the model is handed when the list
+  is not empty — citation string, registry heading, what may be asserted,
+  a 900-character excerpt.
+* `utils/citation_gate.check_letter(text, allowed)` — inverted: a citation
+  is a violation unless it resolves to an allowed provision **and** every
+  number in the sentence that cites it FIGURE-binds to that provision's
+  fetched text. `provider_appeals._gated_letter` builds the list per letter
+  from the practice's state (parsed from its address) and the payer type
+  (Medicare/Medicaid from the payer name, commercial otherwise). With an
+  empty list the behaviour is the blocklist's, exactly.
+* **Production today:** every allow-list is empty (all rows drafts), every
+  letter cites nothing, the prompt's absolute rule applies. The first
+  reviewed row is the first citation any letter may carry, and it carries
+  it only with numbers the statute contains.
+
 **Not built, by ruling:** nothing under `scripts/whatholdsup/` imports this
-package (a test enforces it); the curated candidate table and the
-allow-list inversion of `citation_gate` are Phase 2; `publish_topic.py` and
-the corpus rebuild are Phase 3.
+package (a test enforces it); `publish_topic.py` and the corpus rebuild are
+Phase 3.
