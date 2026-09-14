@@ -1359,6 +1359,18 @@
       "on": "2026-09-13",
       "reason": "Real, and fixed under PALM-FIG-001: 464, 31.3, 45.7, 25.2 and 22.4 came from a paper we do not hold and are withdrawn from the page. The sentence no longer exists.",
       "what_would_change_it": "Any of those figures returning to the page without a held document behind them."
+    },
+    {
+      "key": "5944c543283d5424",
+      "kind": "CONTRADICTION",
+      "sentence": "It is a record of which of its trials produced a significant survival result.",
+      "decision": "reject",
+      "by": "unknown",
+      "by_means": "who recorded this disposition is not established; the mechanism that wrote it identifies no actor and none is inferred. The decision is the operator's (Fred Ugast), by directive of 14 September 2026.",
+      "decided_by": "operator (Fred Ugast), directive of 2026-09-14",
+      "on": "2026-09-14",
+      "reason": "Not a contradiction. The attribution is the immediately following sentence: 'It is a record of which of its trials produced a significant survival result. That reading is ours, and this is the whole of what the guideline gives for it…'. The page attributes the inference in place, and again later ('Nowhere in version 6.2026 does it state the general rule we have drawn from them — that generalisation is ours'). The finding was produced by examining the sentence in isolation and asserting something about how a reader encounters it; the gate's unit is the sentence, while attribution in this publication lives at the paragraph.",
+      "what_would_change_it": "any reading on which 'That reading is ours' does not govern the preceding sentence, or evidence that the page states the generalisation as the guideline's elsewhere without attribution."
     }
   ]
 }
