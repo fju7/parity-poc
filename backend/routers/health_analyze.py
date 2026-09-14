@@ -32,7 +32,6 @@ from pydantic import BaseModel
 from utils.evidence_retrieval import retrieve_evidence
 from routers.health_auth import get_health_user
 
-from signal_reader import signal_reader
 
 router = APIRouter()
 
@@ -676,7 +675,6 @@ APPEAL_SYSTEM_PROMPT = """You are a medical billing advocate writing a formal in
 - For the letterhead date, output the exact literal token __LETTER_DATE__ (our system substitutes the correct date). Use __LETTER_DATE__ exactly once, only as the letterhead date. Never write any other calendar date to mean "today"; dates that refer to the denial (e.g. the denial date) should be written normally.
 - Refer to the ordering provider using ONLY the title/credential stated in the denial analysis (the provider_title field), if any. If a title is provided, use it (for example "Dr. Smith", "Smith, NP", or "Smith, PA" as appropriate to the credential). If NO title is provided (provider_title is null or absent), refer to the provider neutrally as "the ordering provider, <Name>" and do NOT use "Dr." or any other credential you were not given. Never assume the provider is a physician.
 - The denial analysis uses placeholder tokens for the patient's identifying details: __PATIENT_NAME__ for the patient's name, __MEMBER_ID__ for the member ID, __CLAIM_NUMBER__ for the claim number, and __PATIENT_ADDRESS__ for the patient's address. Write these tokens verbatim wherever that information belongs in the letter (letterhead, the RE/subject block, the signature). Do NOT invent or guess a real name, ID, claim number, or address. Our system substitutes the real values after the letter is written.
-- If clinical evidence from Parity Signal is provided, incorporate the key evidence points as specific citations supporting the appeal. This strengthens the letter with scientific backing.
 - Do NOT assert any external regulatory status, approval, clearance, designation (including Breakthrough Device designation, Priority Review, or any similar program), endorsement, coverage determination, or clinical guideline position from any agency or body (for example the FDA, CMS, NCCN, ASCO, ESMO, or NICE) unless that specific fact is supported by a provided bracketed [number] citation, and then only as far as that cited item's stated indication supports. Do NOT characterize what such a status, designation, or program means or implies, and do NOT claim that any body has endorsed, incorporated, approved, cleared, or recommended the service, unless a provided [number] citation states it. Do NOT state or imply that the ordering provider will supply, identify, or submit guideline or regulatory references; the ordering provider decides independently what to submit, and the letter must not assume it.
 - Describe or rely on each cited source ONLY as far as that source's title and stated indication actually establish. Do NOT assert that a source addresses a topic, method, or finding that its stated title or indication does not establish (for example, do NOT claim a treatment guideline addresses MRD or ctDNA monitoring unless the source's own stated title or indication says so). If a cited source's stated indication does not match this patient's diagnosis or disease stage (for example, a source about metastatic disease, or about a different cancer type, when this patient's cancer is non-metastatic or a different type), do NOT present that source as directly supporting this patient's specific situation. You may still cite such a source for the general class of test or method it describes, but you must state that its applicability to this patient's specific diagnosis and stage is for the ordering provider to establish. When you are not certain that a source supports a claim, do NOT make the claim.
 - State the patient's appeal rights using ONLY the rights and external-review options named in the denial analysis (the appeal_rights field), in the denial's own words, adding nothing. Do NOT add appeal rights, statutes, programs, or agencies that are not listed there, and do NOT assert that a particular right applies unless the denial stated it. Do not characterize which rights apply based on the patient's plan type. Then include exactly ONE general reservation sentence, to preserve the patient's remaining rights WITHOUT listing them: "The patient reserves all other appeal and external-review rights available under applicable federal and state law." If appeal_rights is empty, do not invent rights (no specific statutes, programs, or agencies); simply state that the patient is exercising their right to appeal this determination, followed by that same single general reservation sentence.
@@ -1431,63 +1429,16 @@ def _generate_appeal_result(req: AppealGenerateRequest) -> dict:
     da_model, token_map = _deidentify_for_model(da)
     context_parts = [f"Denial analysis:\n{json.dumps(da_model, indent=2)}"]
 
-    # -- PH-1-D: Signal playbook enrichment (now reachable — cpt_codes is populated) --
-    # Read through the anon-key reader: under migration 078's RLS a playbook
-    # row exists for a reader only when its topic is published, so a draft
-    # topic's claims cannot reach a consumer's letter.
-    try:
-        sb = signal_reader()
-        if sb:
-            playbook_code = (
-                da.get("carc_rarc_code")
-                or da.get("denial_reason_code")
-                or da.get("payer_guideline_id")
-                or ""
-            )
-            if playbook_code and cpt_codes:
-                playbook_res = (
-                    sb.table("signal_denial_playbook")
-                    .select("*")
-                    .eq("denial_code", playbook_code)
-                    .in_("cpt_code", cpt_codes)
-                    .limit(3)
-                    .execute()
-                )
-                if playbook_res.data:
-                    pb = playbook_res.data[0]
-                    signal_context = "\n\nClinical Evidence from Parity Signal:\n"
-                    signal_context += f"Appeal strength: {pb['appeal_strength']}\n"
-                    if pb.get("payer_analytical_path"):
-                        signal_context += f"Payer reasoning: {pb['payer_analytical_path']}\n"
-                    if pb.get("challenging_evidence_summary"):
-                        signal_context += f"Challenging evidence: {pb['challenging_evidence_summary']}\n"
-                    if pb.get("recommended_claims"):
-                        claims = pb["recommended_claims"]
-                        if isinstance(claims, str):
-                            claims = json.loads(claims)
-                        if claims:
-                            signal_context += "Key evidence points:\n"
-                            for claim in claims[:3]:
-                                signal_context += f"- {claim.get('claim_text', '')}\n"
-                    context_parts.append(signal_context)
-                    print(
-                        f"[health/generate-appeal] Signal playbook hit "
-                        f"(denial_code={playbook_code}, cpt_codes={cpt_codes})"
-                    )
-                else:
-                    print(
-                        f"[health/generate-appeal] no playbook entry found "
-                        f"(denial_code={playbook_code}, cpt_codes={cpt_codes})"
-                    )
-            else:
-                print(
-                    f"[health/generate-appeal] Signal playbook lookup skipped "
-                    f"(denial_code={playbook_code!r}, cpt_codes={cpt_codes})"
-                )
-        else:
-            print("[health/generate-appeal] Supabase unavailable; skipping Signal playbook lookup")
-    except Exception as e:
-        print(f"[warn] Health Signal playbook lookup failed: {e}")
+    # There is deliberately no Signal material in a consumer's appeal letter.
+    # Until 2026-09-14 this block (PH-1-D) fetched a signal_denial_playbook row
+    # for the denial code and CPT and fed the model "Clinical Evidence from
+    # Parity Signal" with claim text. Those claims were extracted from
+    # model-written summaries of sources that were never fetched, 92 of 381
+    # of whose identifiers resolve to nothing or to a different paper
+    # (scripts/signal/verify_sources.py). A patient's letter to their insurer
+    # is the wrong place for that, gated or not. Cut outright, the same
+    # treatment as the provider letter (13ca102). The [E#] evidence below is
+    # a different mechanism -- the health evidence cache -- and is untouched.
 
     # -- PH-4a.3: feed the model the IDENTIFIER-FREE evidence view (no PMID/PMA/
     # DOI/URL to copy). Full identifiers live only in the code-built References

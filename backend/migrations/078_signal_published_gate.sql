@@ -112,7 +112,11 @@ CREATE POLICY "Published read signal_claim_composites"
 -- tables keyed by topic slug: the CPT bridge into the billing products
 -- ---------------------------------------------------------------------------
 -- signal_cpt_mappings (045) never had RLS: it was open to every role.
+-- (From the anon key it reads as EMPTY today, not as permission denied, so
+-- RLS was switched on later with no policy; the GRANT below is belt and
+-- braces so the new policy has a privilege to filter.)
 ALTER TABLE signal_cpt_mappings ENABLE ROW LEVEL SECURITY;
+GRANT SELECT ON signal_cpt_mappings TO anon, authenticated;
 DROP POLICY IF EXISTS "Published read signal_cpt_mappings" ON signal_cpt_mappings;
 CREATE POLICY "Published read signal_cpt_mappings"
   ON signal_cpt_mappings FOR SELECT TO anon, authenticated

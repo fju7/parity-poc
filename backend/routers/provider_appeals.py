@@ -8,6 +8,7 @@ import json
 
 from fastapi import APIRouter, HTTPException, Request
 
+from utils.citation_gate import check_letter, violations_note
 from routers.provider_shared import (
     _get_supabase, _get_authenticated_user, _verify_admin,
     _call_claude,
@@ -52,40 +53,43 @@ LETTER STRUCTURE:
 2. OPENING PARAGRAPH — state the claim precisely:
    "This letter constitutes a formal first-level appeal of {payer_name}'s denial of Claim {claim_id} under denial code {denial_code}, issued on the remittance advice referenced above. The denial is without contractual or regulatory basis for the reasons set forth below."
 
-3. REGULATORY AUTHORITY — cite specific regulatory support based on the denial code:
+3. BASIS FOR THE APPEAL — argue from the denial code, the claim facts and the
+   documentation. Describe the payer's obligations GENERICALLY. Examples of the
+   register to use:
+     "under the applicable state prompt-pay requirements"
+     "under the plan's own medical-necessity standard and the clinical record"
+     "under standard correct-coding conventions for separately identifiable services"
+     "under the coding conventions for this modifier"
+     "under the applicable external-review process"
 
-   CO-16 (missing information):
-   - CMS Internet-Only Manual (IOM) Publication 100-04, Chapter 1, Section 80.3.2
-   - 42 CFR § 424.5(a)(6) — required claim information
-   - State: "Administrative deficiencies in claim submission do not constitute grounds for denial of a medically necessary, properly rendered service. The documentation accompanying this claim fully satisfies the requirements of 42 CFR § 424.5(a)(6)."
+   CITATION RULE — ABSOLUTE. The letter must NOT cite any statute section, code
+   section, CFR section, USC section, administrative-code rule, manual chapter or
+   section number, or policy number. No "42 CFR § …", no "Ohio Revised Code § …",
+   no "Publication 100-04, Chapter …", no "NCCI Policy Manual, Chapter …", no
+   "Section 80.3.1", no "R.C. …", no "OAC …". Do not name a specific act or
+   manual by its formal title either. Every such reference the system has
+   produced has been checked against the primary source and most were wrong; a
+   wrong section number in a letter to a payer is worse than none. If you feel
+   the need for a citation, write the obligation in plain words instead.
 
-   CO-45 (charge exceeds fee schedule):
-   - Reference the specific contracted rate from contracted_rate_info if provided
-   - CMS Physician Fee Schedule (cite the specific PFS year and locality if Medicare)
-   - State: "Pursuant to our current executed provider agreement, the contracted rate for CPT {cpt_code} is ${rate from contracted_rate_info}. Payment of ${paid} represents a variance of ${difference} from the contractually obligated amount."
-
-   CO-97 (already adjudicated / bundled):
-   - CMS National Correct Coding Initiative (NCCI) Policy Manual, Chapter 1, current edition
-   - CMS Medically Unlikely Edits (MUE) tables
-   - State: "The services rendered on {date_of_service} are clinically distinct and separately identifiable. NCCI bundling edits do not apply because [provide specific reason — different anatomical site, separate encounter, distinct medical necessity, or appropriate modifier usage]."
-
-   CO-4 (modifier inconsistent with procedure code):
-   - AMA CPT Assistant guidelines for the specific modifier used
-   - CMS Claims Processing Manual, Chapter 12
-   - State: "Modifier [XX] was applied in accordance with AMA CPT coding guidelines and CMS Claims Processing Manual Chapter 12. The operative documentation supports the distinct procedural circumstances that necessitate this modifier."
-
-   CO-50 (non-covered service / medical necessity):
-   - 42 CFR § 410.32(a) — medical necessity standard
-   - Reference applicable Local Coverage Determination (LCD) or National Coverage Determination (NCD) if relevant to this CPT code
-   - State: "The service meets the definition of medical necessity under 42 CFR § 410.32(a). The clinical record demonstrates [cite specific clinical indicators from the claim data — diagnosis, symptoms, or clinical findings that justify the service]."
-
-   OA-18 (exact duplicate claim):
-   - CMS Claims Processing Manual, Chapter 1, Section 80.3.1
-   - State: "The claims identified as duplicates represent clinically distinct services as evidenced by [different date of service, different modifier, different anatomical site, or distinct clinical circumstance]. Documentation is attached to support the separate medical necessity of each service."
-
-   PR-1 (deductible amount):
-   - Only appealable if applied incorrectly
-   - State: "Review of the patient's Explanation of Benefits indicates the deductible has been [satisfied as of date / incorrectly applied to this service]. The attached EOB documentation demonstrates the error in deductible calculation."
+   Per denial code, the argument (no section numbers):
+   CO-16 (missing information): the claim as submitted, with the attached
+     documentation, contains the information needed to adjudicate it; an
+     administrative deficiency that has been cured is not grounds for denial.
+   CO-45 (charge exceeds fee schedule): the contracted rate from
+     contracted_rate_info if provided; the variance between contracted and paid.
+   CO-97 (already adjudicated / bundled): the services are clinically distinct
+     and separately identifiable — different site, separate encounter, distinct
+     medical necessity, or the modifier that reports it.
+   CO-4 (modifier inconsistent with procedure): the modifier reports the actual
+     procedural circumstance, supported by the operative documentation.
+   CO-50 (non-covered / medical necessity): the clinical indicators in the record
+     — diagnosis, symptoms, findings — that make the service necessary; demand the
+     specific written policy or criteria the denial relied on.
+   OA-18 (exact duplicate): the two claims are distinct — different date, modifier,
+     anatomical site, or clinical circumstance — with documentation attached.
+   PR-1 (deductible): appealable only if applied incorrectly; the EOB shows the
+     deductible satisfied or misapplied.
 
 4. CONTRACTUAL OBLIGATIONS SECTION — include when contracted_rate_info is provided:
    - State the specific dollar variance between billed/contracted and paid amounts
@@ -104,10 +108,10 @@ Return ONLY valid JSON:
 {
   "letter_html": "<full HTML-formatted appeal letter with proper paragraphs, headings, and formatting>",
   "letter_text": "plain text version of the letter",
-  "cms_references": ["list of every specific CMS/CFR/guideline reference cited in the letter"],
+  "cms_references": [],
   "appeal_strength": "high|medium|low",
   "appeal_strength_reason": "Assessment including: (1) strength of legal/regulatory basis, (2) estimated resolution timeline (30/60/90 days), (3) one sentence on key documentation the practice should attach",
-  "escalation_path": "Specific next steps if this first-level appeal is denied — e.g., external review, state DOI complaint, arbitration under provider agreement, or CMS administrative appeal for Medicare claims",
+  "escalation_path": "Specific next steps if this first-level appeal is denied — e.g., external review, a complaint to the state insurance regulator, arbitration under the provider agreement, or the Medicare administrative appeal process — described generically, with no section numbers",
   "attach_documentation": "Specific list of documents the practice should attach — e.g., operative notes, signed orders, EOB showing deductible status, prior authorization approval, modifier documentation, fee schedule excerpt"
 }"""
 
@@ -243,6 +247,36 @@ def _lookup_contracted_rates(ctx: dict, payer_name: str, cpt_codes: str) -> str:
 # test accounts; none was sent.
 
 
+def _gated_letter(prompt_data: str) -> dict | None:
+    """Generate the letter and refuse it if it cites primary law.
+
+    The prompt forbids section numbers; utils/citation_gate.py is what makes
+    that a control rather than a request. One regeneration is allowed, with
+    the offending citations named. If that draft cites too, no letter is
+    returned: fail closed to no citation, never to an unverified one. On
+    2026-09-14, before the gate, 12 of 19 provisions cited across ten
+    letters did not say what the letter claimed.
+    """
+    result = _call_claude(system_prompt=APPEAL_SYSTEM_PROMPT, user_content=prompt_data, max_tokens=8192)
+    if not result:
+        return None
+    cites = check_letter(result.get("letter_text", "") + "\n" + result.get("letter_html", ""))
+    if not cites:
+        return result
+    print(f"[GenerateAppeal] draft cited primary law ({len(cites)}); regenerating once: "
+          + "; ".join(sorted({c.text for c in cites})[:8]))
+    retry = _call_claude(system_prompt=APPEAL_SYSTEM_PROMPT,
+                         user_content=prompt_data + "\n\n" + violations_note(cites), max_tokens=8192)
+    if not retry:
+        return None
+    cites = check_letter(retry.get("letter_text", "") + "\n" + retry.get("letter_html", ""))
+    if cites:
+        print(f"[GenerateAppeal] REFUSED: second draft still cites primary law: "
+              + "; ".join(sorted({c.text for c in cites})[:8]))
+        return None
+    return retry
+
+
 def _build_prompt_data(denial: dict, ctx: dict) -> str:
     """Build the JSON prompt data for Claude, merging denial data with provider context."""
     practice_name = denial.get("practice_name") or ctx["practice_name"]
@@ -294,14 +328,14 @@ async def generate_appeal(req: GenerateAppealRequest, request: Request):
 
     practice_name = req.practice_name or ctx["practice_name"]
 
-    result = _call_claude(
-        system_prompt=APPEAL_SYSTEM_PROMPT,
-        user_content=prompt_data,
-        max_tokens=8192,
-    )
+    result = _gated_letter(prompt_data)
 
     if not result:
-        raise HTTPException(status_code=500, detail="Failed to generate appeal letter")
+        raise HTTPException(
+            status_code=502,
+            detail="Could not produce a letter that does not cite unverified law. "
+                   "No letter was generated; please try again.",
+        )
 
     # Generate PDF
     pdf_bytes = _generate_appeal_pdf(
@@ -407,14 +441,11 @@ async def generate_appeal_batch(req: GenerateAppealBatchRequest, request: Reques
     for denial in req.denials:
         prompt_data = _build_prompt_data(denial, ctx)
 
-        result = _call_claude(
-            system_prompt=APPEAL_SYSTEM_PROMPT,
-            user_content=prompt_data,
-            max_tokens=8192,
-        )
+        result = _gated_letter(prompt_data)
 
         if not result:
-            results.append({"error": True, "claim_id": denial.get("claim_id", ""), "detail": "Generation failed"})
+            results.append({"error": True, "claim_id": denial.get("claim_id", ""),
+                            "detail": "No letter: could not produce one that does not cite unverified law"})
             continue
 
         # Generate PDF

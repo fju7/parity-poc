@@ -425,7 +425,12 @@ function FlaggedItemDetail({ item }) {
           {signal && (
             <div className="bg-indigo-50 border border-indigo-200 rounded-lg p-3">
               <p className="text-indigo-800 text-sm">
-                <span className="font-semibold">Clinical note:</span> Signal Intelligence rates the evidence for this service at <strong>{signal.score}/5.0</strong> — if you were denied coverage, that denial may be worth challenging.
+                {/* No recommendation here. Until 2026-09-14 this sentence went on
+                    "— if you were denied coverage, that denial may be worth
+                    challenging": advice to a patient, resting on a score whose
+                    sources were never verified. Whether the score itself stays
+                    is for the copy pass. */}
+                <span className="font-semibold">Clinical note:</span> Signal Intelligence rates the evidence for this service at <strong>{signal.score}/5.0</strong>.
               </p>
               <a href={`/signal/${signal.topic_slug}`} target="_blank" rel="noopener noreferrer" className="text-indigo-600 text-xs hover:underline">
                 View evidence →
