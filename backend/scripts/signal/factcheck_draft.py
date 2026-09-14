@@ -289,11 +289,16 @@ def _ledger_now(entry):
         # tripping the cap on the first API response of every run. One place
         # that knows how to turn tokens into dollars, and this is not it.
         u = usage_summary([entry])["total"]
+        # An unpriced entry is written as usd NULL -- not established -- never
+        # as 0.0. call() stops the run right after this line in that case.
         _spend.record(script="factcheck_draft.py", role=entry["label"],
-                      issue=_LEDGER_ISSUE or "", usd=u.get("usd") or 0.0,
+                      issue=_LEDGER_ISSUE or "",
+                      usd=u.get("usd") if u.get("priced") else None,
                       input_tokens=entry["input"], output_tokens=entry["output"],
                       web_searches=entry["web_searches"],
-                      note="" if u.get("priced") else "model not in the price table")
+                      note="" if u.get("priced") else
+                           "UNPRICED: model %r is not in the price table; spend NOT "
+                           "ESTABLISHED" % entry["model"])
     except Exception:
         pass
 
@@ -640,6 +645,17 @@ def call(system: str, user: str, *, search: bool,
             "factcheck_draft.enter_issue(<slug>) before any model call, so the "
             "spend lands against that issue's cap. An unattributed call is an "
             "uncapped call.")
+    # BEFORE SPENDING: an unpriced model is refused, not priced at zero. Until
+    # 2026-09-14 a model absent from PRICES produced ledger lines at usd 0.0
+    # with a note nobody reads, spent() summed zero, and every cap stopped
+    # working -- silently, the moment signal_model.MODEL moved. Unknown cost
+    # is NOT ESTABLISHED, which is the opposite of nothing.
+    if SIGNAL_MODEL not in PRICES:
+        raise SystemExit(
+            "refusing to spend: model %r is not in the price table (PRICES), so its "
+            "cost cannot be established and no cap can be enforced over it. Add its "
+            "price (here and in spend_ledger.PRICES; the tests hold them equal) before "
+            "any call." % SIGNAL_MODEL)
     if _spend is not None:
         # A per-call estimate. Deliberately not free: the point is that a run
         # near the cap stops before the call that would cross it.
@@ -675,7 +691,20 @@ def call(system: str, user: str, *, search: bool,
                 else:
                     response = client.messages.create(**params)
                 _record_usage(label, response)
+                # AFTER SPENDING: the response names the model that actually
+                # answered. If that is not in PRICES the line above was written
+                # with usd null (see _ledger_now) and this run stops here: the
+                # money is spent, the cost is not established, and continuing
+                # would run under a cap that can no longer be computed.
+                _resolved = getattr(response, "model", SIGNAL_MODEL)
+                if _resolved not in PRICES:
+                    raise SystemExit(
+                        "%s: the response came back under model %r, which is not in the "
+                        "price table. Recorded with no established cost; nothing further "
+                        "runs until it is priced." % (label or "call", _resolved))
                 break
+            except SystemExit:
+                raise                       # the unpriced-model stop above is not an API error
             except Exception as exc:
                 err = str(exc)
                 if "529" in err and attempt < len(BACKOFF_DELAYS):

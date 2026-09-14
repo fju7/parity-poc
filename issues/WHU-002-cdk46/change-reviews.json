@@ -1008,6 +1008,95 @@
           "other": "Nowhere in version 6.2026 does it state the general rule we have drawn from them — that the category itself records which trial produced a significant survival result."
         }
       ]
+    },
+    {
+      "sha": "fec7a9a2e0eebd41",
+      "against": "aca7b4b8",
+      "changed": 151,
+      "changed_total": 151,
+      "withheld": [],
+      "withheld_note": "every changed sentence was reviewed",
+      "at": "2026-09-14T22:00:19+00:00",
+      "findings": [
+        {
+          "sentence": "The Category Difference — What Holds Up What Holds Up What this is The rubric Issue one Issue two Who pays for this Issue two Evidence review Published 28 August 2026 · Updated 13 September 2026 · guideline version 6.2026",
+          "kind": "FIGURE_IN_NOTHING_HELD",
+          "why": "6.2026 is in no document this issue holds, and this sentence is new",
+          "other": ""
+        },
+        {
+          "sentence": "The Category Difference — What Holds Up What Holds Up What this is The rubric Issue one Issue two Who pays for this Issue two Evidence review Published 28 August 2026 · Updated 13 September 2026 · guideline version 6.2026",
+          "kind": "NEW_AND_UNBOUND",
+          "why": "carries 6.2026 and rests on nothing this system can name",
+          "other": ""
+        },
+        {
+          "sentence": "Nowhere in version 6.2026 does it state the general rule we have drawn from them — that the category itself records which trial produced a significant survival result.",
+          "kind": "FIGURE_IN_NOTHING_HELD",
+          "why": "6.2026 is in no document this issue holds, and this sentence is new",
+          "other": ""
+        },
+        {
+          "sentence": "Nowhere in version 6.2026 does it state the general rule we have drawn from them — that the category itself records which trial produced a significant survival result.",
+          "kind": "NEW_AND_UNBOUND",
+          "why": "carries 6.2026 and rests on nothing this system can name",
+          "other": ""
+        },
+        {
+          "sentence": "Shaaban and colleagues randomised 116 patients — 58 to each arm, in 29 blocks of four by opaque sealed envelope, at a single centre in Egypt — to palbociclib plus fulvestrant or ribociclib plus fulvestrant in the second line.",
+          "kind": "NEW_AND_UNBOUND",
+          "why": "carries 116 and rests on nothing this system can name",
+          "other": ""
+        },
+        {
+          "sentence": "Source of the 116 patients and the 58 per arm, and of the randomisation using 29 blocks with block size of four by opaque sealed envelope.",
+          "kind": "NEW_AND_UNBOUND",
+          "why": "carries 116 and rests on nothing this system can name",
+          "other": ""
+        },
+        {
+          "sentence": "On 31 August this page withdrew the number 29 , on a fact-check finding that no reachable source stated a block count, reasoning that 29 was only 116 divided by four.",
+          "kind": "NEW_AND_UNBOUND",
+          "why": "carries 116 and rests on nothing this system can name",
+          "other": ""
+        },
+        {
+          "sentence": "The catalogues corroborate it, as read on that date: Crossref’s work record gives the version of record a licence of http://creativecommons.org/licenses/by-nc-nd/4.0/, effective 9 July 2025, and Europe PMC’s record (PMID 41093689) carries a license field reading cc by-nc-nd.",
+          "kind": "FIGURE_IN_NOTHING_HELD",
+          "why": "41093689 is in no document this issue holds, and this sentence is new",
+          "other": ""
+        },
+        {
+          "sentence": "The catalogues corroborate it, as read on that date: Crossref’s work record gives the version of record a licence of http://creativecommons.org/licenses/by-nc-nd/4.0/, effective 9 July 2025, and Europe PMC’s record (PMID 41093689) carries a license field reading cc by-nc-nd.",
+          "kind": "NEW_AND_UNBOUND",
+          "why": "carries 4.0, 41093689 and rests on nothing this system can name",
+          "other": ""
+        },
+        {
+          "sentence": "The publisher’s block is not a paywall either: an unauthenticated request for the article returns HTTP 403 with 5,849 bytes containing no “subscribe”, no “sign in” and no “purchase access” — a block on automated retrieval, not a wall in front of a reader.",
+          "kind": "FIGURE_IN_NOTHING_HELD",
+          "why": "5849 is in no document this issue holds, and this sentence is new",
+          "other": ""
+        },
+        {
+          "sentence": "The publisher’s block is not a paywall either: an unauthenticated request for the article returns HTTP 403 with 5,849 bytes containing no “subscribe”, no “sign in” and no “purchase access” — a block on automated retrieval, not a wall in front of a reader.",
+          "kind": "NEW_AND_UNBOUND",
+          "why": "carries 403, 5849 and rests on nothing this system can name",
+          "other": ""
+        },
+        {
+          "sentence": "Script-level attempts returned HTTP 403 and no browser was connected to attempt the rest.",
+          "kind": "NEW_AND_UNBOUND",
+          "why": "carries 403 and rests on nothing this system can name",
+          "other": ""
+        },
+        {
+          "sentence": "It is a record of which of its trials produced a significant survival result.",
+          "kind": "CONTRADICTION",
+          "why": "The page elsewhere explicitly states 'That reading is ours' and 'Nowhere in version 6.2026 does it state the general rule we have drawn from them — that the category itself records which trial produced a significant survival result. That generalisation is ours.' — yet this sentence presents that generalisation as a plain fact rather than the page's own inference.",
+          "other": "Nowhere in version 6.2026 does it state the general rule we have drawn from them — that the category itself records which trial produced a significant survival result. That generalisation is ours."
+        }
+      ]
     }
   ],
   "dispositions": [

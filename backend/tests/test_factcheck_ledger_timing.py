@@ -93,10 +93,14 @@ def test_nothing_is_recorded_twice(ledger):
 
 
 def test_an_unpriced_model_records_the_call_and_says_so(ledger):
+    """Until 2026-09-14 this asserted usd == 0.0 -- which pinned the defect:
+    an unknown price was recorded as nothing spent, spent() summed zero, and
+    every cap silently stopped working under an unpriced model. The cost is
+    NOT ESTABLISHED, and the line says so with a null, never a zero."""
     fc._record_usage("extract", _response(model="claude-something-unreleased"))
     r = rows(ledger)[0]
-    assert r["usd"] == 0.0
-    assert "not in the price table" in r["note"]
+    assert r["usd"] is None
+    assert "not in the price table" in r["note"] and "NOT ESTABLISHED" in r["note"]
     assert r["input"] == 100_000            # the tokens are still on the record
 
 

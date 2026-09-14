@@ -118,13 +118,42 @@ def sentences_of(html: str) -> list[str]:
             for s in ledger.sentences(ledger.plain(ledger.body_only(html)))]
 
 
-def changed(before: str, after: str) -> list[str]:
+# THE FLOOR. A changed sentence of 40 characters or fewer is not sent. The
+# line was written on 2026-09-02 with no comment and no commit-message
+# rationale; the plausible intent is to drop sentence-splitter fragments,
+# because source_ledger.SENTENCE splits on every ". " and turns "Dr. Jedd D.
+# Wolchok" into "Dr." and "Jedd D.". Measured on 2026-09-14 over the last 40
+# revisions of melanoma: of 26 sentences it withheld, 2 were fragments and
+# 24 were real sentences -- among them "We have now read the notice.", the
+# sentence stating a correction's central claim, withheld from the run that
+# cleared that page's STOP. LIFTED to zero by the operator's directive of
+# 14 September 2026: every changed sentence is sent. The withheld machinery
+# stays for any future filter, and the verdict below is ok ONLY when nothing
+# was withheld. The real fix for fragments is an abbreviation-aware splitter.
+SHORT_FLOOR = 0
+
+
+def changed(before: str, after: str) -> tuple[list[str], list[dict]]:
+    """(sentences that will be sent, sentences withheld and why).
+
+    Until 2026-09-14 this returned the first list only and the second did not
+    exist: a changed sentence under the floor vanished, and the review row
+    then read "changed: N, nothing found" as if N were all of them. The
+    knowledge of what was NOT reviewed is now returned to every caller, so a
+    caller that discards it does so on purpose.
+    """
     a, b = sentences_of(before), sentences_of(after)
-    out = []
+    send, withheld = [], []
     for tag, i1, i2, j1, j2 in difflib.SequenceMatcher(None, a, b).get_opcodes():
         if tag in ("replace", "insert"):
-            out.extend(x for x in b[j1:j2] if len(x) > 40)
-    return out
+            for x in b[j1:j2]:
+                if len(x) > SHORT_FLOOR:
+                    send.append(x)
+                else:
+                    withheld.append({"sentence": x,
+                                     "reason": "under the %d-character floor (%d chars)"
+                                               % (SHORT_FLOOR, len(x))})
+    return send, withheld
 
 
 def at(rev: str, path: str) -> str:
@@ -219,10 +248,31 @@ def dispositions(slug: str) -> dict:
     return {d["key"]: d for d in (rec.get("dispositions") or []) if d.get("key")}
 
 
+def _withheld_row(withheld) -> tuple[str, str, str] | None:
+    """The verdict when a changed sentence was NOT reviewed. A row named
+    "changed sentences reviewed" may read ok only when withheld == []: a row
+    written before withheld sentences were recorded (floor 40, no field) is
+    NOT ESTABLISHED, which is not ok either."""
+    if withheld is None:
+        return ("changed sentences reviewed", BAD,
+                "the last review was written before withheld sentences were recorded "
+                "(the floor was 40 characters then), so it is not established that every "
+                "changed sentence was reviewed. Re-run changecheck.py to find out.")
+    if withheld:
+        return ("changed sentences reviewed", BAD,
+                "%d changed sentence(s) were NOT reviewed: %s"
+                % (len(withheld), " || ".join("%r (%s)" % (w.get("sentence", "")[:80], w.get("reason", "?"))
+                                              for w in withheld[:3])))
+    return None
+
+
 def preflight_rows(slug: str, findings: list[dict],
-                   n_changed: int) -> list[tuple[str, str, str]]:
-    if not n_changed:
+                   n_changed: int, withheld: list[dict] | None = None) -> list[tuple[str, str, str]]:
+    if not n_changed and not withheld:
         return [("changed sentences reviewed", OK, "nothing has changed")]
+    bad = _withheld_row(withheld if withheld is not None else [])
+    if bad:
+        return [bad]
     if not findings:
         return [("changed sentences reviewed", OK,
                  "%d changed sentence(s), nothing found" % n_changed)]
@@ -283,11 +333,28 @@ def load_reviews(slug: str) -> dict:
 
 
 def save_review(slug: str, html: str, before: str, n: int,
-                findings: list[dict]) -> None:
+                findings: list[dict], withheld: list[dict] | None = None) -> None:
+    """Append one review row.
+
+    `changed` keeps its meaning -- the number of sentences that were
+    REVIEWED -- because every row before 2026-09-14 uses it that way, and
+    silently changing a field's meaning is the defect this fix is about.
+    Three fields sit beside it: `changed_total` (reviewed + withheld),
+    `withheld` (each sentence VERBATIM, with why), and `withheld_note`. A
+    row without them was written before the floor was recorded, and its
+    `changed` may therefore be short of the truth by an unknown amount.
+    """
     from datetime import datetime, timezone
     doc = load_reviews(slug)
+    withheld = list(withheld or [])
     doc["reviews"].append({
         "sha": page_sha(html), "against": before, "changed": n,
+        "changed_total": n + len(withheld),
+        "withheld": withheld,
+        "withheld_note": ("%d changed sentence(s) were NOT reviewed: each is listed "
+                          "verbatim above with the reason. `changed` counts only what "
+                          "was reviewed." % len(withheld)) if withheld else
+                         "every changed sentence was reviewed",
         "at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
         "findings": findings,
     })
@@ -305,6 +372,12 @@ def gate_rows(slug: str, html: str) -> list[tuple[str, str, str]]:
                  "and nothing has read the new text. It costs about three cents: "
                  "changecheck.py %s --page <page> --before <rev>" % slug)]
     last = mine[-1]
+    # NOTHING WITHHELD, OR NOT OK. Checked before the findings: a run whose
+    # findings are all decided is still not a review of the page if a changed
+    # sentence never reached it.
+    bad = _withheld_row(last.get("withheld"))
+    if bad:
+        return [bad]
     # A DECIDED FINDING IS NOT AN OPEN ONE. This read the raw findings list and
     # so blocked on a finding a person had already rejected on the record --
     # the board row and preflight_rows disagreeing about the same run, with the
@@ -348,8 +421,14 @@ def main() -> int:
     if not before:
         print("\n  could not read %s at %s\n" % (a.page, a.before))
         return 2
-    new = changed(before, after)
-    print("\n  %d changed sentence(s) since %s\n" % (len(new), a.before))
+    new, withheld = changed(before, after)
+    print("\n  %d changed sentence(s) since %s%s\n"
+          % (len(new) + len(withheld), a.before,
+             ", %d reviewed and %d WITHHELD" % (len(new), len(withheld)) if withheld else ""))
+    for w in withheld:
+        print("  WITHHELD (%s): %r" % (w["reason"], w["sentence"]))
+    if withheld:
+        print()
     found = deterministic(a.slug, new)
     if not a.no_model and new:
         found += review(a.slug, new, after)
@@ -358,7 +437,7 @@ def main() -> int:
         print("      %s" % (f.get("sentence") or "")[:110])
         if f.get("other"):
             print("      against: %s" % f["other"][:110])
-    save_review(a.slug, after, a.before, len(new), found)
+    save_review(a.slug, after, a.before, len(new), found, withheld)
     if not found:
         print("  nothing found")
     print()

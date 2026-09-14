@@ -56,10 +56,29 @@ def _now() -> str:
     return datetime.now(timezone.utc).isoformat(timespec="seconds")
 
 
-def record(*, script: str, role: str = "", issue: str = "", usd: float = 0.0,
+class UnpricedModel(RuntimeError):
+    """A model call whose cost cannot be established.
+
+    An unknown price is NOT a zero. Until 2026-09-14 both meters wrote
+    `usd: 0.0` with a note when the model was absent from PRICES, so spent()
+    summed zero and every cap in the system silently stopped working the
+    moment signal_model.MODEL resolved to a model nobody had priced. Now:
+    the call refuses BEFORE spending when the requested model is unpriced;
+    if the RESPONSE names an unpriced model (an alias resolving somewhere
+    new), the line is written with `usd: null` -- the truth, which is that
+    the spend is not established -- and the caller raises this; and
+    check_cap refuses while any such line exists in its scope, because a
+    cap that cannot be computed is not a cap.
+    """
+
+
+def record(*, script: str, role: str = "", issue: str = "", usd: float | None = 0.0,
            input_tokens: int = 0, output_tokens: int = 0, web_searches: int = 0,
            note: str = "", at: str | None = None) -> None:
     """Append one priced call. Never raises: accounting must not break a run.
+
+    `usd=None` means NOT ESTABLISHED and is written as JSON null, never as
+    0.0. See UnpricedModel.
 
     `at` exists for backfill only. The first backfill stamped four gate runs
     from 28 and 30 August with the moment they were imported, and the by-day
@@ -72,7 +91,7 @@ def record(*, script: str, role: str = "", issue: str = "", usd: float = 0.0,
         with LEDGER.open("a", encoding="utf-8") as fh:
             fh.write(json.dumps({
                 "at": at or _now(), "script": script, "role": role, "issue": issue,
-                "usd": round(float(usd or 0), 6),
+                "usd": None if usd is None else round(float(usd), 6),
                 "input": int(input_tokens or 0), "output": int(output_tokens or 0),
                 "web_searches": int(web_searches or 0), "note": note,
             }) + "\n")
@@ -119,6 +138,19 @@ def spent(issue: str | None = None, since: str | None = None,
     return round(total, 4)
 
 
+def unpriced(issue: str | None = None, since: str | None = None) -> list[dict]:
+    """Ledger lines whose cost is not established (`usd` is null)."""
+    out = []
+    for e in entries():
+        if issue is not None and (e.get("issue") or "") != issue:
+            continue
+        if since and (e.get("at") or "") < since:
+            continue
+        if e.get("usd") is None:
+            out.append(e)
+    return out
+
+
 def caps() -> dict:
     if not CAPS.exists():
         return {}
@@ -146,6 +178,12 @@ def check_day_cap(about_to_spend: float = 0.0) -> None:
     if not limit:
         return
     today = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+    bad = [e for e in unpriced() if (e.get("at") or "").startswith(today)]
+    if bad:
+        raise UnpricedModel(
+            "the daily cap cannot be computed: %d ledger line(s) today have no established "
+            "cost (usd null). Price the model in PRICES and reconcile those lines before "
+            "spending again. First: %s" % (len(bad), bad[0]))
     spent_today = round(sum(e.get("usd") or 0 for e in entries()
                             if (e.get("at") or "").startswith(today)), 4)
     if spent_today + about_to_spend <= float(limit):
@@ -177,6 +215,13 @@ def check_cap(issue: str, about_to_spend: float = 0.0) -> None:
     limit = (c.get("per_issue") or {}).get(issue, c.get("default_per_issue"))
     if not limit:
         return
+    bad = unpriced(issue=issue)
+    if bad:
+        raise UnpricedModel(
+            "the cap for %r cannot be computed: %d ledger line(s) have no established "
+            "cost (usd null). A cap summed over an unknown is not a cap. Price the model "
+            "in PRICES and reconcile those lines before spending again. First: %s"
+            % (issue, len(bad), bad[0]))
     already = spent(issue=issue)
     if already + about_to_spend <= float(limit):
         return
@@ -278,17 +323,34 @@ class _MeteredMessages:
         self._inner, self._script, self._issue, self._role = inner, script, issue, role
 
     def create(self, *a, **kw):
+        # BEFORE spending: a model nobody has priced is refused outright.
+        requested = (kw.get("model") or "").strip()
+        if requested and requested not in PRICES:
+            raise UnpricedModel(
+                "refusing to spend: model %r is not in spend_ledger.PRICES, so its cost "
+                "could not be established. Price it (and check the gate's copy) first."
+                % requested)
         r = self._inner.create(*a, **kw)
+        resolved = getattr(r, "model", "") or requested
+        usd, counts = price(resolved, getattr(r, "usage", None))
         try:
-            usd, counts = price(getattr(r, "model", "") or kw.get("model", ""),
-                                getattr(r, "usage", None))
             record(script=self._script, role=self._role, issue=self._issue,
-                   usd=usd or 0.0, input_tokens=counts["input"],
+                   usd=usd, input_tokens=counts["input"],
                    output_tokens=counts["output"],
                    web_searches=counts["web_searches"],
-                   note="" if usd is not None else "model not in the price table")
+                   note="" if usd is not None else
+                        "UNPRICED: response model %r is not in the price table; "
+                        "spend NOT ESTABLISHED" % resolved)
         except Exception:
             pass
+        if usd is None:
+            # AFTER spending: the money is gone and the line says so honestly.
+            # Stop here rather than carry on under a cap that can no longer
+            # be computed.
+            raise UnpricedModel(
+                "the response came back under model %r, which is not in PRICES. The "
+                "call was made and recorded with no established cost; nothing further "
+                "runs until it is priced." % resolved)
         return r
 
     def __getattr__(self, k):

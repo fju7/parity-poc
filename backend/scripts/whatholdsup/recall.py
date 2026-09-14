@@ -472,7 +472,7 @@ def run_case(c: dict) -> tuple[str, str]:
         before, after = at("cee46af"), at("da9e6c0")
         if not before or not after:
             return MISSED, "could not recover the two versions from git"
-        new = CC.changed(before, after)
+        new, _withheld = CC.changed(before, after)
         if not new:
             return MISSED, "no changed sentences recovered"
         det = CC.deterministic(c["slug"], new)

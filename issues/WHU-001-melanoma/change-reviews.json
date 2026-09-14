@@ -322,6 +322,38 @@
       "changed": 8,
       "at": "2026-09-14T19:08:04+00:00",
       "findings": []
+    },
+    {
+      "sha": "58c289298ee96614",
+      "against": "1b3f3a4",
+      "changed": 8,
+      "changed_total": 9,
+      "withheld": [
+        {
+          "sentence": "We have now read the notice.",
+          "reason": "under the 40-character floor (28 chars)"
+        }
+      ],
+      "withheld_note": "1 changed sentence(s) were NOT reviewed: each is listed verbatim above with the reason. `changed` counts only what was reviewed.",
+      "at": "2026-09-14T20:13:10+00:00",
+      "findings": [
+        {
+          "sentence": "Our held copy of the paper is the PubMed Central full text, which may carry the disclosure as it stood before the update.",
+          "kind": "CONTRADICTION",
+          "why": "The page states the erratum 'states that the articles are correct at NEJM.org' and 'changes no result, method or figure, and touches nothing on this page,' but then implies the held PMC copy may carry an outdated (incorrect) disclosure — contradicting the erratum notice's statement that the articles are correct.",
+          "other": "In full, it updates the disclosures of one author, Jedd D. Wolchok, and states that the articles are correct at NEJM.org."
+        }
+      ]
+    },
+    {
+      "sha": "58c289298ee96614",
+      "against": "1b3f3a4",
+      "changed": 9,
+      "changed_total": 9,
+      "withheld": [],
+      "withheld_note": "every changed sentence was reviewed",
+      "at": "2026-09-14T21:57:33+00:00",
+      "findings": []
     }
   ],
   "dispositions": [
@@ -404,6 +436,18 @@
       "on": "2026-09-09",
       "reason": "Recurrence of the finding disposed as 593911f18fa2cabe on 2026-09-09, under a new key: finding_key hashes (kind, sentence), and the sentence text shifted when the Morning Glory clause was removed from the same box and the segmenter regrouped the kicker. Same objection, same answer. No contradiction: the box's closing sentences state the resolution the checker treats as an inconsistency — 'The problem is not misattribution. What is left is subtler and harder to fix: the figures are correctly attributed and still doing work they cannot do.' The enumeration is the premise of that argument, not a charge against the outlets, and the count is bound to five held documents each naming KEYNOTE-942 in the same sentence as the 49% figure, every span verified. NOTE FOR A HUMAN, now stronger: this is the THIRD automated misreading of this one box in three runs. Two different readers, three different sentences flagged. The claims are right each time and the structure is what keeps confusing them. It is recorded as a structural item in docs/whatholdsup-open-gaps.md for the next revision, with the fix — state the turn near the top so a reader knows what the enumeration is evidence for before reading it. It was not restructured now because rewriting a thrice-misread passage at the last moment is how a further error gets in.",
       "what_would_change_it": "any of the five outlets turning out not to name KEYNOTE-942 alongside the 49% figure, or the box's closing sentences being removed so it no longer states its own resolution."
+    },
+    {
+      "key": "a96d80174c0e7047",
+      "kind": "CONTRADICTION",
+      "sentence": "Our held copy of the paper is the PubMed Central full text, which may carry the disclosure as it stood before the update.",
+      "decision": "reject",
+      "by": "unknown",
+      "by_means": "who recorded this disposition is not established; the mechanism that wrote it identifies no actor and none is inferred. The decision is the operator's (Fred Ugast), by directive of 14 September 2026.",
+      "decided_by": "operator (Fred Ugast), directive of 2026-09-14",
+      "on": "2026-09-14",
+      "reason": "Not a contradiction. The erratum's claim is scoped — the articles are correct AT NEJM.ORG — and the held copy is the PubMed Central full text, a different rendition of the same document. The page is drawing the ONE DOCUMENT, SEVERAL FACES distinction correctly and saying which face it holds. The finding was produced by reading the scoped claim as an unscoped one and objecting to the scope it had removed. The page also disposes of the concern explicitly four paragraphs later: 'Nothing this page quotes rests on that disclosure.'",
+      "what_would_change_it": "any evidence the erratum's claim is unscoped, or that a figure quoted on this page depends on the disclosure."
     }
   ]
 }
