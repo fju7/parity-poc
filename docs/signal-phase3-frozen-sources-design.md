@@ -227,6 +227,51 @@ then filter claims and sources by the latest publication's arrays and
 overlay the latest re-check's flags. `status = 'published'` opens the door;
 the record says what stands inside it.
 
+## 6a. The publishability gate — verification is necessary and not sufficient
+
+> **A topic is publishable when what verified still says what the topic means.**
+
+The gates decide what *can* be shown. They do not decide whether what
+remains is still the topic — a filter can keep 59 of 128 claims and drop the
+two strongest studies on the way, and every surviving claim will be true to
+its source while the page no longer says what the topic means. So before
+any flip:
+
+1. `publish_topic.py` writes the record (as now, no flip).
+2. A **survival read** is produced from the record: the surviving claims
+   grouped by what they assert; the withheld claims each with why; the
+   named studies lost and what tier of evidence they were; and the answer
+   to the one question — does the surviving set still carry the central
+   finding with its strongest evidence? (First instance:
+   `docs/mmr-vaccine-autism-survival-read-2026-09-14.md`.)
+3. **One person reads it** and rules. The ruling and the reader's name are
+   recorded in the freeze register beside the flip. No flip without both.
+
+This is a Phase 3 gate for every topic, not a one-off for mmr. It is the
+generalisation of the ruling of 2026-09-14: "59 of 128 claims survived —
+that is not a verified version of the topic, it is a different analysis that
+a filter selected and no person reviewed. The gates are not in question; the
+coherence of what remains is."
+
+## 6b. The generic-URL adapter and per-registry rate limits (built 2026-09-14)
+
+* `verify/generic.py`: a document with no registry identifier is fetched
+  and HEADING-bound against its `<title>` / `<h1>` / `og:title` (a PDF's
+  first lines), same abstention rule, same four kinds downstream.
+  `registry = "generic_fetch"` on the Resolution and on the record's
+  `resolution.generic_fetch = true`, so a reader and the record can tell a
+  generic fetch from a registry resolution; the status check returns
+  `no_registry` for it — nothing can report a bare URL retracted, and the
+  monthly binding re-check is its only watch. On mmr it recovered six of
+  the ten institutional sources; two stored URLs are 404 (the Omnibus
+  decision, the FDA BLA page), one is a JavaScript shell (UnitedHealthcare),
+  one timed out (Anthem).
+* `verify/http.py`: per-host requests-per-second limits (Europe PMC 3, Crossref
+  and doi.org 5, ClinicalTrials.gov 0.8, eCFR and codes.ohio.gov 2, cms.gov
+  1, anything else 2), enforced before every call including retries, and
+  **recorded on every publication and re-check record** as `rate_limits_rps`
+  — so a divergence report can be read against the call rate that produced it.
+
 ## 7. What is deliberately not automatic
 
 Publishing, un-publishing, and acting on a flag are all a person's. The
