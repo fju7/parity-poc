@@ -98,6 +98,10 @@ def _words(text: str) -> set[str]:
     for m in _WORDS.finditer(text):
         if _ADJECTIVE_TAIL.match(text, m.end()):
             continue
+        # "23 million": the scale word belongs to the digits before it
+        # (_digit_scales); alone it is not a figure of one million.
+        if re.match(r"(hundred|thousand|million|billion)\b", m.group(0), re.I) and re.search(r"\d\s*$", text[:m.start()]):
+            continue
         toks = [t for t in re.split(r"[\s\-]+", m.group(0)) if t]
         toks = [t for t in toks if t.lower() not in ("per", "cent", "percent")]
         if not toks:

@@ -120,7 +120,7 @@ def test_containment_is_decisive_whatever_the_count():
 
 def test_digit_scale_and_registry_year_from_the_mmr_run():
     """Two false refusals the first end-to-end run produced, 2026-09-14."""
-    assert "23000000" in canonical_numbers("over 23 million children") and "23" in canonical_numbers("23 million")
+    assert canonical_numbers("over 23 million children") == {"23", "23000000"}
     assert "1200000000" in canonical_numbers("1.2 billion")
     from verify.bind import bind_figure
     from verify.types import Document, Identifier
