@@ -1,6 +1,6 @@
 # Phase 1 — resolve / fetch / bind, for both registries
 
-**Status: DESIGN. Nothing here is built.** Phase 0 (`f0bb63e`) removed every
+**Status: APPROVED 2026-09-14 with four amendments (§§ 4a, 5a, 5b, 8), now being built — literature adapter first, law second.** Phase 0 (`f0bb63e`) removed every
 clinical and legal assertion the system could not support. Phase 1 is the
 mechanism by which an assertion becomes supportable, so that Phase 2 can
 invert `utils/citation_gate.py` from a blocklist to an allow-list and Phase 3
@@ -100,6 +100,28 @@ no paywall, and a section either has a heading or it does not.
 | SPAN | a quoted passage is in the text verbatim, widened to sentence boundaries with an envelope, so "8%" is never bound to a document that says "8% to 20%" | altered quotations; a quote attributed to the wrong document | `spancheck.py` B2, `autobind.py` |
 | APPLICABILITY (law only) | a rule table, not a lookup: 42 CFR parts 400–498, the IOM manuals and NCCI bind only to a Medicare/Medicaid payer; a state code binds only to the practice's state; a definitions section (heading contains "definitions") binds only to a definition | 42 CFR 424.5(a)(6) in a letter to Anthem commercial; an Ohio statute in a Texas letter | new; small |
 
+### 4a. FIGURE normalisation — where true citations would wrongly fail
+
+Law and papers write the same number many ways, and a gate that misses one
+refuses a true citation: "thirty days" / "30 days" / "30 calendar days" /
+"thirty (30) days"; "18%" / "18 per cent" / "eighteen per cent" / "eighteen
+percent"; "0·561" (Lancet middle dot) / "0.561"; "0.72–0.90" (en dash) /
+"0.72-0.90"; "P<0.001" / "P < 0·001"; "1,961" / "1961". So FIGURE compares
+**canonical numeric values**, not strings: both the assertion and the document
+are reduced to the set of numbers they contain, where a number may be written
+in digits (with thousands separators, decimals in point or middle dot,
+percent signs, unicode minus, ranges split into their bounds) **or in words**
+(cardinals one … ninety-nine, hundred / thousand / million composition,
+"eighteen per cent", "thirty-nine", "two and a half" → 2.5), and hyphenated
+day/percent forms ("30-day", "18-percent"). A figure in the assertion is
+found when its canonical value is in the document's set. Units are not
+compared — "30 days" and "30 per cent" both canonicalise to 30 — because
+the failure this guards against is a number that is not there at all, and a
+unit mismatch with the number present is a defect of a different, rarer
+kind. The word-number parser is deliberately small and tested on the exact
+forms above; a form it does not parse is a false refusal, which is the safe
+direction, and is added to the parser when met.
+
 A binding is `ok` only if every kind that applies is `ok`. HEADING applies
 always; FIGURE whenever the assertion carries a number; SPAN whenever it
 quotes; APPLICABILITY for law. R1 from the WHU bindings spec governs: a
@@ -122,6 +144,29 @@ request (denial_code, state, payer_type)
       every number attached to a citation: bind(FIGURE) against that provision's text, else refuse
   → one regeneration with the violations named; then no letter (502)
 ```
+### 5a. What these gates do and do not deliver — the residual
+
+The gates verify that a cited provision **says what the letter claims** and
+**applies** to the payer and state at hand. They do **not** verify that it is
+the **right provision to cite for that denial** — that it is apposite, that
+counsel would reach for it, that a better one does not exist. That judgement
+lives in the human-curated candidate table and nothing checks it. So the
+table carries, per row: `curator` (who chose it), `curated_on` (date),
+`rationale` (why this provision for this denial code, in a sentence), and
+`reviewed_by` / `reviewed_on` when a second person has looked. Downstream,
+"verified" means *resolved, fetched and bound*; it never means *apposite*,
+and no surface may say otherwise.
+
+### 5b. Graceful geographic degradation is a product property
+
+An unsupported state — no adapter, or an adapter with an empty candidate
+table — yields an empty allow-list and therefore a letter that cites nothing
+and states obligations in plain words: exactly what Phase 0 produces today.
+The product works everywhere on day one and strengthens state by state as
+adapters and curated rows are added. This is the intended behaviour, not a
+gap; a letter that cites nothing is complete, and a letter that cites the
+wrong state's law is not.
+
 When the allow-list is empty — today, and for any state without an adapter —
 the letter cites nothing and says obligations in plain words, which is what
 Phase 0 already produces. The gate's default never changes; only the list grows.
@@ -182,25 +227,50 @@ record's own DOI string, so a wrong DOI fetched via doi.org returns the wrong
 paper *containing that DOI* and passes identity; the defence is downstream at
 B1/B2.
 
-Closure: a shared `resolve`/`bind(HEADING)` module that WHU consumed would
-enter WHU's dependency closure, on which the ai-research-reliability baseline
-is scoped. What the closure would gain: nothing WHU does not already call
-(Handle, CrossRef, Europe PMC, ClinicalTrials.gov) — only a package boundary,
-and a blocking verdict where today there is a warning. Whether WHU consumes it
-or keeps its own copy is a separate ruling; Phase 1 does not require it.
+Closure — **ruled 2026-09-14: package boundary YES, verdict severity NO.**
+Extracting resolve / fetch / identity / FIGURE / SPAN behind the shared
+interface adds nothing to WHU's dependency closure that WHU does not already
+call (Handle, CrossRef, Europe PMC, ClinicalTrials.gov). But turning
+`errata.resolves_to_us` from WARN to BLOCKING would change what WHU
+publishes, and WHU is the reliability baseline — that is altering the
+apparatus mid-study. So: the boundary is built; WHU's own modules and every
+one of its verdict severities stay exactly as they are until the operator's
+reviewer signs off on the severity change. The shared package must not be
+imported by anything under `scripts/whatholdsup/` before that sign-off.
 
 ## 9. Acceptance — how to know it works, before it is trusted
 
-Golden sets, both already in hand:
+Reproducing the errors already found is necessary and **not sufficient**: a
+gate that refuses everything reproduces every one of them. Acceptance
+requires both directions, and each failure on the kind it should fail on.
 
-* law: the 19 provisions from the 2026-09-14 inventory with their known
-  verdicts (12 wrong, 7 right) — every wrong one must fail `bind`, every right
-  one pass, and ORC 3901.38 must fail on FIGURE after passing HEADING.
-* literature: the 381-source `verify_sources_2026-09-14.json` snapshot — the
-  59 FABRICATED_IDENTIFIER and 33 WRONG_DOCUMENT verdicts must reproduce
-  exactly under the new `resolve`/`bind(HEADING)`.
+* law — **negative controls**: the 12 wrong provisions from the 2026-09-14
+  inventory, each asserted to fail on a named kind: ORC 3901.38 *passes*
+  HEADING and *fails* FIGURE ("thirty days" is not in the definitions
+  section); OAC 3901-1-54 passes HEADING and fails APPLICABILITY (property /
+  casualty scope); ORC 3902.11 / .13 / .14 / .01 and 3923.021 fail HEADING;
+  42 CFR 410.32(a) and 424.5(a)(6) fail APPLICABILITY against a commercial
+  payer; 45 CFR 147.130 fails HEADING; IOM 100-04 ch.1 § 80.3.1 fails HEADING
+  ("Incomplete or Invalid Claims Processing Terminology" is not duplicates);
+  "Ohio Department of Insurance claims processing regulations" fails
+  `resolve` (no identifier). **Positive controls**: ORC 3901.20, ORC 3922.01,
+  45 CFR 147.200, IOM ch.1 § 80.3.2 and ch.12 § 30.6.6 and NCCI ch.I § D
+  (against a Medicare payer), plus the two provisions the letters *should*
+  have cited — ORC 3901.381 ("thirty days" / "forty-five days") and ORC
+  3901.389 ("eighteen per cent") — must pass every applicable kind. The last
+  two are what test word-number normalisation.
+* literature — **negative controls**: the 381-source
+  `verify_sources_2026-09-14.json` snapshot; the 59 FABRICATED_IDENTIFIER and
+  33 WRONG_DOCUMENT verdicts must reproduce exactly. **Positive controls**:
+  the snapshot has none — all 381 fail — so a hand-verified known-good set of
+  ~12 real sources (mixed DOI / NCT / PMID, at least one open-access with full
+  text fetched and at least one abstract-only) that the gate must admit,
+  checked by a person against the registry before it is used as a control.
 
-A gate that cannot reproduce the errors already found is not measuring them.
+Report the **false-negative rate on both** (known-good refused) alongside
+the reproduction, and treat the two sets as the calibration set for the
+boilerplate lists and thresholds — they are small, and a new false negative
+found in use is added to the set, not tuned away.
 
 ## 10. Build order (Phase 2 onward; nothing in Phase 1)
 
