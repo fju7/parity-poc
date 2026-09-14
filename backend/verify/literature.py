@@ -143,7 +143,10 @@ def fetch(res: Resolution) -> Document | None:
     # A DOI/PMID/PMCID: ask Europe PMC for the record, then full text if it holds it.
     pmcid = res.extra.get("pmcid")
     if ident.system == "doi" or not pmcid:
-        q = f"DOI:{ident.value}" if ident.system == "doi" else (
+        # The DOI is quoted: an Elsevier PII DOI's parentheses otherwise break
+        # the query and the search returns nothing -- which on 2026-09-14 read
+        # as "fetch: nothing retrieved" for Wakefield 1998 and nine others.
+        q = f'DOI:"{ident.value}"' if ident.system == "doi" else (
             f"EXT_ID:{ident.value} AND SRC:MED" if ident.system == "pmid" else f"PMCID:{ident.value}")
         st, body, _ = http.get("https://www.ebi.ac.uk/europepmc/webservices/rest/search?query="
                                + urllib.parse.quote(q) + "&format=json&pageSize=1&resultType=core")

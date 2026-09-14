@@ -88,9 +88,16 @@ def _crossref(ident: Identifier, st: Status) -> Status:
     # notice. Report it as such, and never as an alert on itself.
     targets = {(u.get("DOI") or "").lower() for u in msg.get("update-to") or []}
     if targets and ident.value.lower() not in targets:
-        st.verdict = "retraction_notice" if types & RETRACTION_TYPES else "correction_notice"
-        st.detail = "this DOI is a notice about " + ", ".join(sorted(targets))
-        return st
+        if types & RETRACTION_TYPES:
+            st.verdict = "retraction_notice"
+            st.detail = "this DOI is a retraction notice about " + ", ".join(sorted(targets)); return st
+        if types & CORRECTION_TYPES - {"new_edition", "new_version"}:
+            st.verdict = "correction_notice"
+            st.detail = "this DOI is a correction notice about " + ", ".join(sorted(targets)); return st
+        # A Cochrane review's pub4 "updates" pub3: this record is the newer
+        # version of itself, not a notice about another paper.
+        st.detail = "this DOI is a newer version of " + ", ".join(sorted(targets)) + "; "
+        types = set()
     # THE PAPER'S OWN RECORD DOES NOT CARRY ITS RETRACTION. Wakefield 1998
     # (10.1016/S0140-6736(97)11096-0, retracted 2010) has no update-to and no
     # is-retracted-by on its record; the notice points at it, not the other
