@@ -187,9 +187,35 @@ def _acknowledged(slug: str) -> dict:
             if r.get("issue") == slug and r.get("content")}
 
 
+def _observed(rows: list[dict], slug: str, content: str) -> dict | None:
+    """The newest record-deployed row for `slug`, if its sha is `content`.
+
+    A record-deployed row says the live site was SEEN serving these bytes at
+    an instant. It is a fact about what happened, not a sign-off and not an
+    acceptance -- which is why it is kept apart from known_divergences.json:
+    that file records that somebody looked at a divergence and decided to
+    leave it; this records only that one occurred. Routing one through the
+    other would assert acceptance from the existence of a record.
+    """
+    obs = [r for r in rows if r.get("issue") == slug
+           and r.get("action") == "record-deployed"]
+    if obs and obs[-1].get("sha") == content:
+        return obs[-1]
+    return None
+
+
 def check(ref: str | None = None,
-          against: str | None = None) -> tuple[list[str], list[str]]:
+          against: str | None = None,
+          publishing: str | None = None) -> tuple[list[str], list[str]]:
     """(blocking problems, warnings).
+
+    `publishing` is the ONE slug publish.py is pushing a record for. That
+    page is exempt -- its record is written after the deploy, so at push time
+    it must differ -- and every other page is checked exactly as usual.
+    Until 2026-09-14 publish.py disabled the whole guard for its push, and a
+    slug-scoped command disabling a repository-scoped guard is how melanoma
+    and deskilling reached readers unsigned on 13 September, behind cdk46's
+    update. See main() for how the slug arrives.
 
     `against` is what the remote already has. It matters because the guard's
     job is to stop unreviewed content reaching a reader, and content that is
@@ -224,6 +250,8 @@ def check(ref: str | None = None,
         return blocking, warnings
 
     for slug, cfg in issues.items():
+        if slug == publishing:
+            continue                       # this push creates its record; see docstring
         pub = _last(rows, slug, "publish")
         if not pub:
             continue                       # never published; drafts may change freely
@@ -244,26 +272,45 @@ def check(ref: str | None = None,
                 prev = _blob(against, rel)
                 if prev is not None:
                     already = hashlib.sha256(prev).hexdigest()
-            if already == now and now in _acknowledged(slug):
-                ack = _acknowledged(slug)[now]
-                warnings.append(
-                    "%s: %s is live at a version recorded as KNOWN AND UNPUBLISHED "
-                    "on %s.\n        reason: %s\n        This is an acknowledgement, "
-                    "not a publication. It is bound to content\n        %s and returns "
-                    "the moment that content changes."
-                    % (slug, rel, ack.get("on", "?"), ack.get("reason", "")[:150],
-                       now[:16]))
-            elif already == now:
-                warnings.append(
-                    "%s: %s has been live at an unrecorded version since before this "
-                    "push.\n        published %s  content %s\n        live now"
-                    "                       content %s\n        This push does not "
-                    "change it, so it is not blocked here. It is still\n        "
-                    "outstanding: run `publish.py publish %s --yes`, or\n        "
-                    "`publish.py record-live %s --reason \"...\"` if the change is "
-                    "small enough."
-                    % (slug, rel, pub.get("at", "?")[:19], was[:16], now[:16],
-                       slug, slug))
+            if already == now:
+                # INHERITED, not created. Three facts can be on file about the
+                # inherited content, and each prints on its own: an
+                # ACKNOWLEDGEMENT (known_divergences.json: somebody decided to
+                # leave it), an OBSERVATION (a record-deployed row: the site
+                # was seen serving it), or neither. Acknowledgement and
+                # observation are different claims and neither implies the
+                # other, so both print when both hold, and nothing is routed
+                # through the other file.
+                ack = _acknowledged(slug).get(now)
+                obs = _observed(rows, slug, now)
+                if ack:
+                    warnings.append(
+                        "%s: %s is live at a version recorded as KNOWN AND UNPUBLISHED "
+                        "on %s.\n        reason: %s\n        This is an acknowledgement, "
+                        "not a publication. It is bound to content\n        %s and returns "
+                        "the moment that content changes."
+                        % (slug, rel, ack.get("on", "?"), ack.get("reason", "")[:150],
+                           now[:16]))
+                if obs:
+                    warnings.append(
+                        "%s: %s is live at content %s, recorded as observed on %s; "
+                        "not signed off.\n        last sign-off %s  content %s\n        "
+                        "This push does not change it. The observation is a fact, not "
+                        "an acceptance:\n        it clears when a sign-off covers %s or "
+                        "the site returns to signed-off bytes."
+                        % (slug, rel, now[:16], str(obs.get("at", "?"))[:10],
+                           pub.get("at", "?")[:19], was[:16], now[:16]))
+                if not ack and not obs:
+                    warnings.append(
+                        "%s: %s has been live at an unrecorded version since before this "
+                        "push.\n        published %s  content %s\n        live now"
+                        "                       content %s\n        This push does not "
+                        "change it, so it is not blocked here. It is still\n        "
+                        "outstanding: run `publish.py publish %s --yes`, or\n        "
+                        "`publish.py record-live %s --reason \"...\"` if the change is "
+                        "small enough."
+                        % (slug, rel, pub.get("at", "?")[:19], was[:16], now[:16],
+                           slug, slug))
             else:
                 # A divergence this push CREATES. Never reachable from the
                 # acknowledgement branches above, which is the point: an
@@ -344,7 +391,7 @@ def check(ref: str | None = None,
     published_pages = {
         Path(cfg["page"]).name
         for slug, cfg in issues.items()
-        if cfg.get("page") and _last(rows, slug, "publish")
+        if cfg.get("page") and (_last(rows, slug, "publish") or slug == publishing)
     }
     _c, listing = _git("ls-tree", "--name-only",
                        (ref or "HEAD"), "site/whatholdsup/")
@@ -375,13 +422,22 @@ def main(argv: list[str] | None = None) -> int:
                     help="print nothing when there is nothing to say")
     args = ap.parse_args(argv)
 
-    if os.environ.get("WHATHOLDSUP_PUBLISHING") == "1":
-        if not args.quiet:
-            print("guard: publish.py is doing this push; standing aside.")
-        return 0
+    # publish.py names the ONE slug it is publishing. The guard stands aside
+    # for that page and no other. Any other value -- including the "1" every
+    # version before 2026-09-14 set, which meant "stand aside entirely" --
+    # exempts nothing, and says so: a marker the guard cannot bind to a page
+    # must not become a repository-wide bypass again.
+    publishing = os.environ.get("WHATHOLDSUP_PUBLISHING")
+    if publishing is not None and publishing not in _issues():
+        print("guard: WHATHOLDSUP_PUBLISHING=%r names no issue; nothing is exempt."
+              % publishing, file=sys.stderr)
+        publishing = None
+    if publishing and not args.quiet:
+        print("guard: publish.py is publishing %s; standing aside for that page only."
+              % publishing)
 
     try:
-        blocking, warnings = check(args.ref, args.against)
+        blocking, warnings = check(args.ref, args.against, publishing)
     except Exception as e:                  # never wedge a push on our own bug
         print("guard: could not check (%s). Not blocking, but this is worth fixing."
               % e, file=sys.stderr)

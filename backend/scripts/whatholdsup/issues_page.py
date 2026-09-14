@@ -141,7 +141,15 @@ def render() -> str:
 
 
 def main() -> int:
-    OUT.write_text(render(), encoding="utf-8")
+    # render() derives every card through issue_facts.facts(), which raises
+    # Unreconciled for a slug observed live at bytes no sign-off covers. Then
+    # nothing is written: a page that is half true is served whole.
+    try:
+        html_out = render()
+    except I.Unreconciled as e:
+        print("\nREFUSED -- %s not written.\n\n  %s\n" % (OUT, e))
+        return 1
+    OUT.write_text(html_out, encoding="utf-8")
     print("wrote %s (%d bytes)" % (OUT.relative_to(I.ROOT), OUT.stat().st_size))
     return 0
 

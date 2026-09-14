@@ -1251,7 +1251,14 @@ def live_body(url: str, timeout: int = 20) -> str | None:
 # literal (guard_published.py and index_dates.py read it out of this file's
 # source, because neither may import this module), and a row outside it is an
 # error at the point of use, never an absence.
-KNOWN_ACTIONS = ("publish", "republish", "update", "announce", "announce_void")
+# "record-deployed" was added 2026-09-14 BEFORE the command that writes it
+# exists, so that every consumer is taught the value first. It is an
+# OBSERVATION of bytes on the live site, never a sign-off: SIGNOFF_ACTIONS
+# below is the closed list of what counts as one, and record-deployed is not
+# on it. A consumer that wants sign-offs asks for SIGNOFF_ACTIONS by name.
+KNOWN_ACTIONS = ("publish", "republish", "update", "announce", "announce_void",
+                 "record-deployed")
+SIGNOFF_ACTIONS = ("publish", "republish", "update")
 
 
 class UnknownAction(ValueError):
@@ -1335,6 +1342,53 @@ def readers_line(url: str) -> tuple[str | None, str]:
     if h is None:
         return None, "readers: not checked (fetch failed: %s)" % why
     return h, "readers are on %s (fetched just now)" % h[:8]
+
+
+# WHEN THE PAGE CHANGED FOR READERS, as distinct from when the row was written.
+#
+# The operator's rule: the published date is the date we actually publish; the
+# last-update date is the date we last changed the text. Neither is the date
+# somebody ran a command. Until 2026-09-14 the homepage derived both from
+# `at`, the row-writing timestamp -- which happens to be within seconds of the
+# deploy for every publish/update row written by this file, and is nowhere
+# near it for a row written about bytes that were already live. So a row may
+# carry `page_changed_at`, the moment the page changed for readers, with
+# `page_changed_at_source` saying how that moment was established. `at`
+# keeps meaning what it always meant. index_dates.publications() prefers
+# page_changed_at and falls back to `at`.
+POLL_SECONDS = 15
+
+
+def page_changed_fields(args, confirmed_at: "datetime", attempt: int) -> dict:
+    """The two fields, from the deploy poll or from the operator.
+
+    `confirmed_at` is the instant the poll first saw the live page serving the
+    new sha, `attempt` how many polls that took. The change reached readers at
+    or before that instant -- bounded below by one poll interval -- and the
+    source says so rather than claiming precision the poll does not have.
+
+    --page-changed-at is for the case where the page changed BEFORE the row
+    is written: it wins, and the source records that it was operator-supplied
+    and what evidence was cited. It is never derived from a commit date --
+    commit date is not deploy date; the 12 September commits reached readers
+    on 13 September.
+    """
+    supplied = getattr(args, "page_changed_at", None)
+    if supplied:
+        when = datetime.fromisoformat(supplied)
+        if when.tzinfo is None:
+            raise SystemExit("--page-changed-at must carry a timezone (e.g. 2026-09-13T15:51:05+00:00)")
+        evidence = (getattr(args, "page_changed_at_evidence", None) or "").strip()
+        if not evidence:
+            raise SystemExit("--page-changed-at needs --page-changed-at-evidence \"...\": what "
+                             "established that instant. A time with no source is a guess.")
+        return {"page_changed_at": when.astimezone(timezone.utc).isoformat(timespec="seconds"),
+                "page_changed_at_source": "operator-supplied: %s" % evidence}
+    return {"page_changed_at": confirmed_at.astimezone(timezone.utc).isoformat(timespec="seconds"),
+            "page_changed_at_source": ("deploy-poll: the live page first served this sha at "
+                                       "this instant, on poll %d at %ds intervals; the change "
+                                       "reached readers at or before it, not later"
+                                       % (attempt, POLL_SECONDS))}
 
 
 def load_record() -> list[dict]:
@@ -2099,8 +2153,12 @@ def cmd_publish(args) -> int:
 
     # The pre-push guard refuses any push that would change a published
     # page without a record. This push is the one that creates the record,
-    # so it would block itself. Say who is knocking.
-    os.environ["WHATHOLDSUP_PUBLISHING"] = "1"
+    # so it would block itself. Say who is knocking -- and WHICH page. Until
+    # 2026-09-14 this set "1", and the guard stood aside for the whole
+    # repository: on 13 September cdk46's update carried unsigned melanoma
+    # and deskilling changes to readers behind it. The guard now stands
+    # aside for this slug's page only and checks every other page as usual.
+    os.environ["WHATHOLDSUP_PUBLISHING"] = args.slug
     try:
         code, out = git("push", "origin", "HEAD")
     finally:
@@ -2114,9 +2172,10 @@ def cmd_publish(args) -> int:
     for attempt in range(40):
         body = live_body(cfg["url"])
         if body and hashlib.sha256(body.encode()).hexdigest() == want:
-            print(f"  live matches the repo after {attempt * 15}s")
+            confirmed_at = datetime.now(timezone.utc)
+            print(f"  live matches the repo after {attempt * POLL_SECONDS}s")
             break
-        time.sleep(15)
+        time.sleep(POLL_SECONDS)
     else:
         print("  the live page still differs after 10 minutes. Not recorded as published.")
         return 3
@@ -2131,6 +2190,7 @@ def cmd_publish(args) -> int:
         "sha": want, "commit": commit, "url": cfg["url"],
         "note": f"issue {cfg['number']} — {cfg['title']}",
         "waived": args.waive or None,
+        **page_changed_fields(args, confirmed_at, attempt),
     })
     print(f"\nPublished and recorded. {cfg['url']}")
     return 0
@@ -2242,6 +2302,11 @@ def cmd_record_live(args) -> int:
     """
     cfg = ISSUES[args.slug]
     page = ROOT / cfg["page"]
+    # Sign-offs only. A "record-deployed" row is an observation of the live
+    # site and is excluded here on purpose: it never counts as a sign-off.
+    # (Known defect, reported 2026-09-14 and not fixed here: "update" rows
+    # are excluded too, so cdk46's base is its 31 August publish rather than
+    # its 13 September update.)
     rec = rows_by_action(load_record(), args.slug, "publish", "republish")
     if not rec:
         print("\n%s has never been published. Use `publish`, not this.\n" % args.slug)
@@ -2374,7 +2439,8 @@ def cmd_update(args) -> int:
     # entry written after the push, which needs the register to write into.
     living = w.load(args.slug) is not None
 
-    rec = rows_by_action(load_record(), args.slug, "publish", "republish", "update")
+    # SIGNOFF_ACTIONS by name: a "record-deployed" observation is not one.
+    rec = rows_by_action(load_record(), args.slug, *SIGNOFF_ACTIONS)
     if not rec:
         print("\n  %s has never been published.\n" % args.slug)
         return 2
@@ -2416,7 +2482,8 @@ def cmd_update(args) -> int:
         print("\ncommit failed: %s" % out)
         return 2
 
-    os.environ["WHATHOLDSUP_PUBLISHING"] = "1"
+    # This slug only; every other published page is checked. See cmd_publish.
+    os.environ["WHATHOLDSUP_PUBLISHING"] = args.slug
     try:
         code, out = git("push", "origin", "HEAD")
     finally:
@@ -2430,9 +2497,10 @@ def cmd_update(args) -> int:
     for attempt in range(40):
         body = live_body(cfg["url"])
         if body and hashlib.sha256(body.encode()).hexdigest() == want:
-            print("  live matches the repo after %ds" % (attempt * 15))
+            confirmed_at = datetime.now(timezone.utc)
+            print("  live matches the repo after %ds" % (attempt * POLL_SECONDS))
             break
-        time.sleep(15)
+        time.sleep(POLL_SECONDS)
     else:
         print("  the live page still differs after 10 minutes. Not recorded.")
         return 3
@@ -2451,6 +2519,7 @@ def cmd_update(args) -> int:
         "basis": "living issue update — judged on what it adds. Softened checks "
                  "are listed in the preflight output above and in UPDATE_SOFTENS.",
         "waived": args.waive,
+        **page_changed_fields(args, confirmed_at, attempt),
     })
     if not living:
         print("\n  Recorded in published.json as an update. %s has no watch register, "
@@ -4507,6 +4576,17 @@ def cmd_board(args) -> int:
     return 0
 
 
+def _page_changed_flags(p) -> None:
+    """--page-changed-at / --page-changed-at-evidence. See page_changed_fields."""
+    p.add_argument("--page-changed-at", metavar="ISO",
+                   help="the UTC instant the page changed for readers, when that happened "
+                        "BEFORE this row is written (the bytes are already live). Wins over "
+                        "the deploy poll. Requires --page-changed-at-evidence. Never a commit date.")
+    p.add_argument("--page-changed-at-evidence", metavar="TEXT",
+                   help="what established that instant -- a deployment record, a fetch log, "
+                        "a reflog entry. Recorded verbatim in page_changed_at_source.")
+
+
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__,
                                  formatter_class=argparse.RawDescriptionHelpFormatter)
@@ -4559,6 +4639,8 @@ def main() -> int:
                             "which is written into the publication record beside what was "
                             "waived. Use it when a check has stopped buying anything, not "
                             "when it is inconvenient.")
+        if name == "publish":
+            _page_changed_flags(p)
         p.set_defaults(fn=fn)
     up = sub.add_parser("update",
                         help="record a substantive change to a LIVING issue")
@@ -4569,6 +4651,7 @@ def main() -> int:
     up.add_argument("--yes", action="store_true", help="actually do it")
     up.add_argument("--waive", metavar="REASON",
                     help="update despite a blocking item. Recorded, with the reason.")
+    _page_changed_flags(up)
     up.set_defaults(fn=cmd_update)
     rl = sub.add_parser("record-live",
                         help="sign off a small change to an already-published page")

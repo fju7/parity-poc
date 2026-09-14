@@ -37,7 +37,9 @@ import issue_facts as F        # noqa: E402
 import guard_published as G    # noqa: E402
 
 REAL = ROOT / "backend" / "data" / "whatholdsup" / "published.json"
-FOREIGN = {"issue": "melanoma", "action": "record-deployed",
+# A value nobody has taught the code. NOT "record-deployed": that one was added
+# to KNOWN_ACTIONS on 2026-09-14 ahead of its writer, and is tested elsewhere.
+FOREIGN = {"issue": "melanoma", "action": "retracted",
            "at": "2026-09-14T17:00:00+00:00", "sha": "0" * 64}
 
 
@@ -63,8 +65,11 @@ def test_known_actions_is_exactly_the_record_plus_the_writers():
     in_record = {r.get("action") for r in _real_rows()}
     written = {"publish", "republish", "update", "announce"}   # cmd_publish, cmd_record_live, cmd_update, cmd_announce
     hand_typed = {"announce_void"}                             # 81bc48e, by hand
-    assert set(P.KNOWN_ACTIONS) == in_record | written | hand_typed
+    declared_ahead = {"record-deployed"}                       # consumers taught first; writer not yet built
+    assert set(P.KNOWN_ACTIONS) == in_record | written | hand_typed | declared_ahead
     assert in_record <= set(P.KNOWN_ACTIONS)
+    assert set(P.SIGNOFF_ACTIONS) == {"publish", "republish", "update"}
+    assert "record-deployed" not in P.SIGNOFF_ACTIONS
 
 
 def test_the_three_readers_agree_on_the_set():
@@ -76,14 +81,14 @@ def test_the_three_readers_agree_on_the_set():
 
 def test_rows_by_action_refuses_unknown_wanted():
     with pytest.raises(P.UnknownAction):
-        P.rows_by_action([], "melanoma", "record-deployed")
+        P.rows_by_action([], "melanoma", "retracted")
 
 
 def test_rows_by_action_names_value_issue_and_at(tainted):
     with pytest.raises(P.UnknownAction) as e:
         P.rows_by_action(tainted, "cdk46", "publish")     # another slug: still refuses
     msg = str(e.value)
-    assert "'record-deployed'" in msg and "'melanoma'" in msg and FOREIGN["at"] in msg
+    assert "'retracted'" in msg and "'melanoma'" in msg and FOREIGN["at"] in msg
 
 
 def test_a_row_with_no_action_key_is_unknown():
@@ -160,7 +165,7 @@ def test_cmd_log_flags_the_row_and_exits_nonzero(tainted):
         rc = P.cmd_log(None)
     out = buf.getvalue()
     assert rc == 1
-    assert "record-deployed" in out and "?? " in out
+    assert "retracted" in out and "?? " in out
     assert out.count("\n  2026-") == len(tainted) - 1          # every known row still listed
 
 
@@ -180,7 +185,7 @@ def test_index_dates_audit_emits_a_blocking_row(tainted):
     index_html = (ROOT / "site" / "whatholdsup" / "index.html").read_text(encoding="utf-8")
     problems = I.audit(index_html)
     assert problems, "an unreadable record must be a disagreement, not silence"
-    assert all("record-deployed" in p and "melanoma" in p and FOREIGN["at"] in p
+    assert all("retracted" in p and "melanoma" in p and FOREIGN["at"] in p
                for p in problems)
     rows = I.preflight_rows(index_html)
     assert rows[0][1] == I.BAD
@@ -201,7 +206,7 @@ def test_guard_blocks_before_checking_any_page(monkeypatch):
     calls = []
     monkeypatch.setattr(G, "_blob", lambda ref, rel: calls.append(rel) or b"")
     blocking, warnings = G.check(None, None)
-    assert len(blocking) == 1 and "record-deployed" in blocking[0] \
+    assert len(blocking) == 1 and "retracted" in blocking[0] \
         and "melanoma" in blocking[0] and FOREIGN["at"] in blocking[0]
     assert calls == [], "no page was hashed against a partly-readable record"
 

@@ -2024,6 +2024,24 @@
       "to_sha_history": [
         "c20b5725631e1e75da495e3db9872dd0c5252cf048fe7269b9e340d289d0a83e"
       ]
+    },
+    {
+      "at": "2026-09-14T19:18:47+00:00",
+      "by": "unknown",
+      "by_means": "who recorded this row is not established. The row was appended by a script run in an assistant session on the operator's instruction of 14 September 2026; the mechanism that performed the write does not identify an actor, and no actor is inferred from it. The decider is in decided_by.",
+      "from_sha": "a788f00ab152123579a5593d0e2fe0908a4b0c264fbabdb0e5cff944517ee7f9",
+      "to_sha": "58c289298ee966143705c40d816b86800a73d447c65968dadc43064e0d8f5a46",
+      "because": "ROUND-2026-09-14",
+      "decided_by": [
+        "issues/WHU-001-melanoma/review/2026-09-14-adjudication.md",
+        "issues/WHU-001-melanoma/review/2026-09-08-adjudication.md",
+        "issues/WHU-001-melanoma/review/2026-09-10-the-140-ruling.md",
+        "issues/WHU-001-melanoma/review/2026-09-10-melanoma-coverage-ruling.md",
+        "issues/WHU-001-melanoma/review/2026-09-10-changelog-correction-ruling.md",
+        "issues/WHU-001-melanoma/review/2026-09-11-erratum-read-adjudication.md",
+        "issues/WHU-003-deskilling/review/2026-09-12-modest-promise-ruling.md"
+      ],
+      "note": "Extends ROUND-2026-09-10 to the bytes readers have held since 2026-09-13T15:51:05Z (production deployment of e666318). Everything that set covered, plus the 11 September erratum entry (ERRATUM-001), the 12 September modest-promise wording (six AD-HOC entries citing the ruling), and the masthead date set to 13 September by publish.py dateline. Recorded as a set because the reasoning exists in the documents named and this is a linkage debt, not an unrecorded decision. See ROUND-2026-09-14 for the partition of the 287 and what would overturn it. Signed Fred Ugast, 14 September 2026."
     }
   ]
 }

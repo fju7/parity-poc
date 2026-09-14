@@ -124,7 +124,7 @@ DATE = re.compile(r'(published|updated|revised|corrected)\s+'
 MARKER = re.compile(r'\b(corrected|\d+\s+corrections?|1\s+correction)\b', re.I)
 NO_CORRECTIONS = re.compile(r'\bno corrections\b', re.I)
 
-BEHIND, UNFOUNDED = "BEHIND", "UNFOUNDED"
+BEHIND, UNFOUNDED, UNRECONCILED = "BEHIND", "UNFOUNDED", "UNRECONCILED"
 
 # WHICH RECORD ROWS ARE A DATE A READER SHOULD SEE.
 #
@@ -171,10 +171,20 @@ def _publish_literal(name: str):
 # fell through both filters and off the homepage without a word. See
 # publish.KNOWN_ACTIONS for why the set is closed.
 KNOWN_ACTIONS = tuple(_publish_literal("KNOWN_ACTIONS"))
+# What counts as a sign-off, from publish.py. "record-deployed" is deliberately
+# NOT in it: that row is an OBSERVATION of bytes on the live site. It never
+# moves a publication date by itself -- see unreconciled_state for what it
+# does instead.
+SIGNOFF_ACTIONS = tuple(_publish_literal("SIGNOFF_ACTIONS"))
+OBSERVATION_ACTIONS = ("record-deployed",)
 
 
 class UnknownAction(ValueError):
     """A record row whose action is outside publish.KNOWN_ACTIONS."""
+
+
+class Unreconciled(ValueError):
+    """A slug is observed live at bytes no sign-off covers. See unreconciled_state."""
 
 
 def _unknown(rows: list[dict]) -> list[dict]:
@@ -186,10 +196,10 @@ def _describe(r: dict) -> str:
                                             r.get("at", "?"))
 
 
-def _rows(slug: str) -> list[dict]:
-    """Every record row for `slug`, or UnknownAction if ANY row in the file
-    carries an action this vocabulary does not know. Not only this slug's rows:
-    a date derived from a file this code cannot fully read is not a date."""
+def _all_rows() -> list[dict]:
+    """Every record row, or UnknownAction if ANY row carries an action this
+    vocabulary does not know. A date derived from a file this code cannot
+    fully read is not a date."""
     try:
         raw = json.loads(RECORD.read_text(encoding="utf-8"))
     except Exception:
@@ -200,7 +210,56 @@ def _rows(slug: str) -> list[dict]:
         raise UnknownAction(
             "published.json holds %d row(s) outside KNOWN_ACTIONS %r: %s"
             % (len(bad), KNOWN_ACTIONS, "; ".join(_describe(r) for r in bad)))
-    return [r for r in rows if r.get("issue") == slug]
+    return rows
+
+
+def _rows(slug: str) -> list[dict]:
+    """Every record row for `slug`; see _all_rows for the refusal."""
+    return [r for r in _all_rows() if r.get("issue") == slug]
+
+
+# UNRECONCILED. The rule, once:
+#
+#   a record-deployed row is an OBSERVATION. It never moves a publication
+#   date by itself. But an observation that no sign-off covers is an
+#   UNRECONCILED state, and while one exists the homepage may not be derived
+#   at all -- because the alternative is emitting "not revised" about a page
+#   that demonstrably changed.
+#
+# The state is a QUERY over the record, not a judgement: the newest
+# record-deployed row's sha differs from the newest sign-off row's sha, where
+# sign-off actions are exactly SIGNOFF_ACTIONS. "Newest" is record order --
+# the file is append-only and every other consumer reads it that way. An
+# observation with no sign-off row at all is unreconciled too: nothing covers
+# it. An observation whose sha EQUALS the newest sign-off is reconciled --
+# the site was seen serving what was signed off -- and contributes nothing.
+def unreconciled_state(rows: list[dict], slug: str) -> dict | None:
+    mine = [r for r in rows if r.get("issue") == slug]
+    observed = [r for r in mine if r.get("action") in OBSERVATION_ACTIONS]
+    if not observed:
+        return None
+    signed = [r for r in mine if r.get("action") in SIGNOFF_ACTIONS]
+    o, s = observed[-1], (signed[-1] if signed else None)
+    if s is not None and s.get("sha") == o.get("sha"):
+        return None
+    return {"slug": slug,
+            "observed_sha": o.get("sha"), "observed_at": o.get("at"),
+            "signoff_sha": s.get("sha") if s else None,
+            "signoff_at": s.get("at") if s else None,
+            "signoff_action": s.get("action") if s else None}
+
+
+def unreconciled(slug: str) -> dict | None:
+    """unreconciled_state over the record on disk."""
+    return unreconciled_state(_all_rows(), slug)
+
+
+def describe_unreconciled(u: dict) -> str:
+    return ("%s is UNRECONCILED: observed live at %s on %s; the newest sign-off is %s"
+            % (u["slug"], str(u["observed_sha"])[:8], str(u["observed_at"])[:19],
+               ("%s (%s %s)" % (str(u["signoff_sha"])[:8], u["signoff_action"],
+                                str(u["signoff_at"])[:19]))
+               if u["signoff_sha"] else "-- there is none"))
 
 
 def reconciliations(slug: str) -> list[datetime]:
@@ -230,12 +289,24 @@ def editorial_date(dt: datetime) -> date:
     return dt.astimezone(EDITORIAL_TZ).date()
 
 
+def publication_instant(r: dict) -> str | None:
+    """The instant this row dates the page from: page_changed_at, the moment
+    the page changed for readers, when the row carries it; otherwise `at`,
+    the moment the row was written. The fallback is what every row before
+    2026-09-14 has, and it was checked against the deployment record that
+    day: every publish/update row was written within seconds of its deploy
+    (one, cdk46 on 29 August, within 83 seconds), so `at` dates those rows
+    correctly. A row written about bytes already live must carry
+    page_changed_at, or its date is the date somebody ran a command."""
+    return r.get("page_changed_at") or r.get("at")
+
+
 def publications(slug: str) -> list[datetime]:
     out = []
     for r in _rows(slug):
         if r.get("action") not in PUBLICATION_ACTIONS:
             continue
-        at = r.get("at")
+        at = publication_instant(r)
         if not at:
             continue
         out.append(datetime.fromisoformat(at.replace("Z", "+00:00")))
@@ -314,8 +385,19 @@ def audit(index_html: str | None = None) -> list[str]:
         try:
             exp, got = expected(slug), shown(meta)
             days = publication_dates(slug)
+            u = unreconciled(slug)
         except UnknownAction as e:
             problems.append("%s [%s]: %s" % (slug, UNFOUNDED, e))
+            continue
+        # An observation no sign-off covers. The dates below may each be
+        # true and the card still lies: it says nothing about bytes readers
+        # demonstrably have. Blocking, named with both shas and the instant
+        # of the observation, and the card's other checks are SKIPPED: they
+        # compare the card against facts issue_facts refuses to derive.
+        if u:
+            problems.append("%s [%s]: %s. No card can be derived until a sign-off "
+                            "covers the observed bytes or the site returns to "
+                            "signed-off bytes." % (slug, UNRECONCILED, describe_unreconciled(u)))
             continue
         before = len(problems)
         if not exp:
