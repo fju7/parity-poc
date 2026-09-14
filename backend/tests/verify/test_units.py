@@ -153,3 +153,9 @@ def test_figure_binds_at_stated_precision_and_refuses_otherwise():
     assert _bf("HR 0.93", _docn("hazard ratio 0.926 (95% CI 0.85 to 1.02)")).ok
     assert not _bf("12 children", _docn("13 children were enrolled")).ok
     assert _bf("thirty days", _docn("not later than 30 days")).ok      # word-form still exact
+
+
+def test_apostrophes_are_not_quotation_marks():
+    from verify.bind import _QUOTE
+    assert not _QUOTE.search("Wakefield's hypothesis and the children's records were reviewed")
+    assert _QUOTE.search('the paper said "no causal association was found" in its abstract')

@@ -93,7 +93,10 @@ def bind_figure(assertion: str, document: Document, registry_text: str = "") -> 
     return Binding(Kind.FIGURE, True, evidence=", ".join(sorted(want & have) + resolved))
 
 
-_QUOTE = re.compile(r"[\"“”']([^\"“”']{12,})[\"“”']")
+# Double quotes only. A straight apostrophe pair ("Wakefield's ... children's")
+# is not a quotation, and on 2026-09-14 it produced a SPAN check against a
+# possessive phrase that could never be in the document.
+_QUOTE = re.compile(r"[\"“”]([^\"“”]{12,})[\"“”]")
 
 
 def bind_span(assertion: str, document: Document, quoted: str | None = None) -> Binding:
