@@ -11,24 +11,53 @@ from __future__ import annotations
 import re
 
 from .numbers import figures, canonical_numbers
-from .text import agreement, normalise, LITERATURE_BOILERPLATE, LAW_BOILERPLATE
+from .text import agreement, content_tokens, normalise, LITERATURE_BOILERPLATE, LAW_BOILERPLATE
 from .types import Binding, Context, Document, Kind, Resolution, LAW
 
 # Zero shared distinctive words means a different document. The threshold is
 # deliberately at zero: a check that cries wolf gets switched off.
 HEADING_DIFFERENT_DOCUMENT = 0.0
 
+# HEADING ABSTAINS when there is too little to compare. Every boilerplate
+# addition (oncology on 2026-09-14; cardiology and diabetes will follow)
+# weakens HEADING by leaving fewer distinctive words, and nothing noticed.
+# So when fewer than HEADING_MIN_DISTINCTIVE remain on either side after
+# boilerplate removal, HEADING returns cannot_discriminate -- not ok -- and
+# FIGURE or SPAN becomes MANDATORY for that source (see bind()).
+#
+# N = 2, chosen from the golden sets on 2026-09-14: the positive with the
+# fewest distinctive words and no figure or quotation to fall back on is
+# 45 CFR 147.200, "summary of benefits and coverage" -> {summary, benefits},
+# exactly two. At N = 3 it would abstain and, with nothing mandatory to
+# check, be refused: a false negative. At N = 2 every positive still binds
+# and four law negatives route through abstention (headings "Rules",
+# "Purpose of sections", "Coverage of preventive health services",
+# "Incomplete or Invalid Claims Processing Terminology" against
+# characterisations with one distinctive word). Containment -- "MONARCH 3"
+# inside the registry's acronym field -- is decisive whatever the count.
+HEADING_MIN_DISTINCTIVE = 2
+
 
 def bind_heading(characterisation: str, resolution: Resolution) -> Binding:
-    """Does our characterisation share distinctive words with the registry's heading?"""
+    """Does our characterisation share distinctive words with the registry's heading?
+
+    Three outcomes: ok, a refusal (zero shared), or cannot_discriminate."""
     if not resolution.heading:
         return Binding(Kind.HEADING, False, reason="registry returned no heading; cannot compare")
     bp = LAW_BOILERPLATE if resolution.identifier.registry == "law" else LITERATURE_BOILERPLATE
     ratio, shared = agreement(characterisation, resolution.heading, bp)
+    if ratio == 1.0 and shared:                      # containment: decisive
+        return Binding(Kind.HEADING, True, evidence="containment: " + ", ".join(sorted(shared)))
+    ours = len(content_tokens(characterisation, bp))
+    theirs = max((len(content_tokens(c, bp)) for c in resolution.heading.split(" || ")), default=0)
+    if min(ours, theirs) < HEADING_MIN_DISTINCTIVE:
+        return Binding(Kind.HEADING, False, abstained=True, evidence=resolution.heading[:160],
+                       reason=f"cannot_discriminate: {ours} distinctive word(s) on our side, "
+                              f"{theirs} in the registry heading; FIGURE or SPAN is mandatory")
     if ratio <= HEADING_DIFFERENT_DOCUMENT:
         return Binding(Kind.HEADING, False, evidence=resolution.heading[:160],
                        reason="shares no distinctive word with the registry heading")
-    return Binding(Kind.HEADING, True, evidence=", ".join(sorted(shared)) or "containment")
+    return Binding(Kind.HEADING, True, evidence=", ".join(sorted(shared)))
 
 
 def bind_figure(assertion: str, document: Document) -> Binding:
@@ -103,19 +132,33 @@ def bind(assertion: str, resolution: Resolution, document: Document | None,
          context: Context = Context(), quoted: str | None = None,
          characterisation: str | None = None) -> list[Binding]:
     """Every kind that applies, in order. `characterisation` defaults to the assertion."""
-    out = [bind_heading(characterisation or assertion, resolution)]
+    head = bind_heading(characterisation or assertion, resolution)
+    out = [head]
     if resolution.identifier.registry == "law":
         out.append(bind_applicability(resolution, context))
-    if figures(assertion):
+    has_figure = bool(figures(assertion))
+    has_quote = bool(quoted or _QUOTE.search(assertion))
+    if has_figure:
         out.append(bind_figure(assertion, document) if document else
                    Binding(Kind.FIGURE, False, reason="no document fetched; a figure cannot be checked"))
-    if quoted or _QUOTE.search(assertion):
+    if has_quote:
         out.append(bind_span(assertion, document, quoted) if document else
                    Binding(Kind.SPAN, False, reason="no document fetched; a span cannot be checked"))
+    if head.abstained and not (has_figure or has_quote):
+        # Abstention converts HEADING's weakness into a statement: with nothing
+        # mandatory to check, this source cannot be bound at all.
+        out[0] = Binding(Kind.HEADING, False, abstained=True, evidence=head.evidence,
+                         reason=head.reason + "; the assertion carries neither, so it cannot be bound")
     return out
 
 
 def bind_all(*args, **kwargs) -> tuple[bool, list[Binding]]:
-    """(ok, bindings): ok only if every kind that applies is ok."""
+    """(ok, bindings). ok when every kind that applies is ok, EXCEPT that an
+    abstaining HEADING is satisfied by a passing mandatory FIGURE or SPAN."""
     bs = bind(*args, **kwargs)
+    head = bs[0]
+    others = bs[1:]
+    if head.abstained:
+        mandatory = [b for b in others if b.kind in (Kind.FIGURE, Kind.SPAN)]
+        return bool(mandatory) and all(b.ok for b in others), bs
     return all(b.ok for b in bs), bs

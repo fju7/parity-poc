@@ -68,3 +68,51 @@ def test_nothing_under_whatholdsup_imports_the_shared_package():
         if "from verify" in src or "import verify" in src or '"verify"' in src and "spec_from_file_location" in src:
             offenders.append(p.name)
     assert not offenders, offenders
+
+
+# ---------------------------------------------------------------------------
+# HEADING abstention (added 2026-09-14): a third outcome that makes FIGURE or
+# SPAN mandatory instead of letting a weakened HEADING pass on its own.
+# ---------------------------------------------------------------------------
+from verify.bind import bind_all, bind_heading, HEADING_MIN_DISTINCTIVE  # noqa: E402
+from verify.types import Document, Exists, Identifier, Resolution, Context  # noqa: E402
+
+
+def _law(heading, text):
+    ident = Identifier("orc", "0000.00")
+    return Resolution(ident, Exists.EXISTS, heading=heading), Document(ident, "x", text)
+
+
+def test_n_is_two_and_recorded():
+    assert HEADING_MIN_DISTINCTIVE == 2
+
+
+def test_heading_abstains_when_too_little_remains():
+    res, _ = _law("Rules", "the superintendent may adopt rules")
+    b = bind_heading("Ohio prompt pay statutes", res)
+    assert b.abstained and not b.ok and "cannot_discriminate" in b.reason
+
+
+def test_abstention_with_a_passing_figure_binds():
+    res, doc = _law("Rules", "a claim shall be paid within thirty days of receipt")
+    ok, bs = bind_all("clean claims paid within 30 days", res, doc, Context(state="OH"), characterisation="prompt pay")
+    assert bs[0].abstained and ok
+
+
+def test_abstention_with_a_failing_figure_refuses():
+    res, doc = _law("Rules", "the superintendent may adopt rules")
+    ok, bs = bind_all("clean claims paid within 30 days", res, doc, Context(state="OH"), characterisation="prompt pay")
+    assert bs[0].abstained and not ok
+
+
+def test_abstention_with_nothing_mandatory_refuses():
+    res, doc = _law("Rules", "the superintendent may adopt rules")
+    ok, bs = bind_all("applicable state prompt pay statutes", res, doc, Context(state="OH"), characterisation="prompt pay")
+    assert bs[0].abstained and not ok and "cannot be bound" in bs[0].reason
+
+
+def test_containment_is_decisive_whatever_the_count():
+    ident = Identifier("nct", "NCT00000000")
+    res = Resolution(ident, Exists.EXISTS, heading="A Phase 3 Study of X || MONARCH 3")
+    b = bind_heading("MONARCH 3", res)
+    assert b.ok and not b.abstained

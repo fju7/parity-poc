@@ -80,3 +80,4 @@ class Binding:
     ok: bool
     evidence: str = ""
     reason: str = ""
+    abstained: bool = False   # HEADING only: cannot_discriminate -- neither ok nor a refusal on its own

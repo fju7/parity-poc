@@ -58,7 +58,9 @@ def normalise(s: str | None) -> str:
 
 
 def content_tokens(s: str, boilerplate: set[str]) -> set[str]:
-    return {w for w in normalise(s).split() if w not in boilerplate and len(w) > 2}
+    """Distinctive words: not boilerplate, longer than two letters, not a bare number
+    ("Chapter 3902", "Phase 3", "2019" identify nothing on their own)."""
+    return {w for w in normalise(s).split() if w not in boilerplate and len(w) > 2 and not w.isdigit()}
 
 
 def agreement(ours: str, theirs: str, boilerplate: set[str]) -> tuple[float, set[str]]:

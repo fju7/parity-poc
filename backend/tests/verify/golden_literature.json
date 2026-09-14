@@ -1,5 +1,5 @@
 {
-  "_note": "Positive controls for the literature adapter (design doc §9). Each `ours` is the shorthand a Signal/WHU source list would carry; `assertion` carries a figure the document must contain. Registry headings were read by a person against these on 2026-09-14 before the set became a control (see recorded headings in the test output).",
+  "_note": "Positive controls for the literature adapter (design doc §9). Each `ours` is the shorthand a Signal/WHU source list would carry; `assertion` carries a figure the document must contain. HOW THEY WERE CONFIRMED: the identifiers were typed from memory on 2026-09-14 and first admitted by reading the registry heading the gate's own resolve() printed -- a human read, but of the gate's output, and the admission criterion was the gate's ok; that process admitted pmid:31562796 (wrong) until FIGURE removed it. So every one of the twelve was then RE-VERIFIED INDEPENDENTLY, outside the package, in the title->identifier direction: an exact-title (or intervention/condition) search on Europe PMC or ClinicalTrials.gov v2 returned the identifier in this set, and the returned title was read. All 12 matched. A control is admitted only after both.",
   "known_good": [
     {
       "id": "doi:10.1056/nejmoa2034577",

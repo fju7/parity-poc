@@ -122,7 +122,31 @@ kind. The word-number parser is deliberately small and tested on the exact
 forms above; a form it does not parse is a false refusal, which is the safe
 direction, and is added to the parser when met.
 
-A binding is `ok` only if every kind that applies is `ok`. HEADING applies
+### 4b. HEADING abstains (added 2026-09-14)
+
+HEADING has a third outcome. After boilerplate removal, if fewer than **N = 2**
+distinctive words remain on either side, HEADING returns `cannot_discriminate`
+— not ok — and FIGURE or SPAN becomes **mandatory** for that source: an
+abstaining HEADING with a passing mandatory kind binds; with a failing one, or
+with nothing mandatory in the assertion, it refuses. Containment ("MONARCH 3"
+inside the registry's acronym field) is decisive whatever the count.
+
+Why: every boilerplate addition (oncology today; cardiology and diabetes
+tomorrow) weakens HEADING by leaving fewer words to compare, and nothing
+noticed. Abstention converts the weakening into a statement about what the
+check could not determine.
+
+How N was chosen: from the golden sets. The positive with the fewest
+distinctive words and no figure or quotation to fall back on is 45 CFR
+147.200 — "summary of benefits and coverage" → {summary, benefits}, exactly
+two. At N = 3 it would abstain and, with nothing mandatory, be refused: a
+false negative. At N = 2 every positive still binds (0/12, 0/8) and four
+law negatives route through abstention (headings "Rules", "Purpose of
+sections", "Coverage of preventive health services", "Incomplete or Invalid
+Claims Processing Terminology") — all still refused, on HEADING with the
+reason "cannot_discriminate … cannot be bound". No positive abstains.
+
+A binding is `ok` only if every kind that applies is `ok` (with the abstention rule above). HEADING applies
 always; FIGURE whenever the assertion carries a number; SPAN whenever it
 quotes; APPLICABILITY for law. R1 from the WHU bindings spec governs: a
 binding asserts presence or absence of text, never that the sentence is *true*.
@@ -267,6 +291,23 @@ requires both directions, and each failure on the kind it should fail on.
   text fetched and at least one abstract-only) that the gate must admit,
   checked by a person against the registry before it is used as a control.
 
+**How the positive controls were confirmed — the record.** Law: all eight
+were checked against the primary source *before the gate existed*, during the
+2026-09-14 citation audit, with a different tool (WebFetch of codes.ohio.gov
+and the eCFR; `pdftotext` on the CMS and NCCI PDFs) and read by a person —
+independent of anything the package returns. Literature: the twelve
+identifiers were typed from memory and first admitted by reading the
+heading the gate's own `resolve()` printed — a human read, but of the gate's
+output, with the gate's `ok` as the criterion; that process admitted the
+wrong MONALEESA-7 PMID until FIGURE removed it, so it could not be trusted
+for the other eleven either. Every one was therefore re-verified outside the
+package in the title→identifier direction (exact-title or
+intervention/condition search on Europe PMC and ClinicalTrials.gov v2
+returning the identifier in the set, title read back). All twelve matched;
+the note in `golden_literature.json` records this. The rule going forward:
+a control is admitted only after a title→identifier lookup a person has
+read, never on the gate's own ok.
+
 Report the **false-negative rate on both** (known-good refused) alongside
 the reproduction, and treat the two sets as the calibration set for the
 boilerplate lists and thresholds — they are small, and a new false negative
@@ -323,6 +364,15 @@ tuning: oncology-generic words added to the literature boilerplate; for law,
 a paragraph citation's own words and the Ohio chapter title count as heading
 candidates ("Basic conditions" and "Definitions" identify nothing alone);
 an ASCII hyphen before a number is a dash as well as a sign.
+
+**Kept honest over time:** `.github/workflows/verify-gates.yml` runs the
+golden sets against the recording on every push to the package (with
+`poppler-utils` installed so the manual adapters run rather than skip, and a
+step that fails if any entry skipped), and monthly runs
+`scripts/verify_live_registries.py` against the live registries with the
+cache bypassed, failing on any divergence between live and recorded — a
+changed heading, a changed document, an identifier that stopped resolving,
+a flipped binding.
 
 **Not built, by ruling:** nothing under `scripts/whatholdsup/` imports this
 package (a test enforces it); the curated candidate table and the

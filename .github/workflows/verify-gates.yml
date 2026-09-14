@@ -1,0 +1,108 @@
+# The verification gates: resolve / fetch / bind, both registries.
+#
+# TWO JOBS, TWO QUESTIONS
+# -----------------------
+# `offline` asks whether the CODE still does what the golden sets say, replaying
+# the 90 registry responses recorded 2026-09-14. It installs poppler-utils so
+# the CMS manual and NCCI adapters are exercised, not skipped: a skip that
+# always fires is an untested adapter.
+#
+# `live` asks whether the WORLD still agrees with the recording. Fixtures
+# freeze; the eCFR revises, Ohio amends, CMS reissues its manuals annually,
+# Europe PMC adds full texts. Monthly, the same golden sets run against the
+# live registries with the cache bypassed, and any divergence between live and
+# recorded fails the job. The run is the report; GitHub tells the operator.
+#
+# WHY GITHUB ACTIONS AND NOT A RENDER CRON
+# ----------------------------------------
+# This repository's scheduled checks live here (signal-golden-set.yml,
+# signal-source-verification.yml) for the reason their headers give: a
+# regression test belongs where tests live, needs no results table, and fails
+# where a person is already told. The script is a plain CLI; if a Render cron
+# is wanted instead, `python backend/scripts/verify_live_registries.py` is the
+# whole start command.
+
+name: Verification gates
+
+on:
+  schedule:
+    # First Monday-ish of the month, 11:00 UTC: after the eCFR's first-of-month
+    # point-in-time text is available and before the Signal checks at 12:30.
+    - cron: "0 11 1-7 * 1"
+  push:
+    branches: [main]
+    paths:
+      - "backend/verify/**"
+      - "backend/tests/verify/**"
+      - "backend/utils/citation_gate.py"
+      - "backend/tests/test_citation_gate.py"
+      - "backend/scripts/verify_live_registries.py"
+      - ".github/workflows/verify-gates.yml"
+  workflow_dispatch:
+    inputs:
+      only:
+        description: "Live run: one registry only (literature | law); blank = both"
+        required: false
+        type: string
+
+concurrency:
+  group: verify-gates-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  offline:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: pdftotext, so the manual adapters run rather than skip
+        run: sudo apt-get update -q && sudo apt-get install -y -q poppler-utils && pdftotext -v 2>&1 | head -1
+      - run: pip install -r backend/requirements.txt pytest
+      - name: Golden sets against the recording
+        working-directory: backend
+        run: python -m pytest tests/verify tests/test_citation_gate.py -q -s -rs 2>&1 | tee /tmp/offline.log
+      - name: No manual entry may have been skipped
+        working-directory: backend
+        run: |
+          if grep -q "SKIPPED" /tmp/offline.log; then
+            echo "::error::a golden-set entry was skipped; the adapter it exercises is untested"; exit 1
+          fi
+
+  live:
+    # Monthly and on demand only: a push should not hit five registries.
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: sudo apt-get update -q && sudo apt-get install -y -q poppler-utils
+      - run: pip install -r backend/requirements.txt
+      - name: Live registries vs the 2026-09-14 recording
+        id: live
+        working-directory: backend
+        run: |
+          set -o pipefail
+          ARGS=""
+          [ -n "${{ inputs.only }}" ] && ARGS="--only ${{ inputs.only }}"
+          python scripts/verify_live_registries.py $ARGS 2>&1 | tee /tmp/live.log
+      - name: Report to the run summary
+        if: always()
+        run: |
+          {
+            echo "## Verification gates — live registries vs recording"
+            echo ""
+            if [ "${{ steps.live.outcome }}" = "success" ]; then
+              echo "Every golden-set entry resolves, fetches and binds live exactly as recorded."
+            else
+              echo "**Live registries have diverged from the recording.** Not necessarily an error —"
+              echo "the eCFR revises, Ohio amends, CMS reissues — but the fixtures no longer hold the"
+              echo "world. Read the divergence, re-record, and re-read the heading before trusting it."
+            fi
+            echo ""; echo '```'; tail -60 /tmp/live.log; echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
