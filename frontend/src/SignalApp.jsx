@@ -53,6 +53,8 @@ function LazyDashboard({ slug, session, userTier, tierData }) {
       dimensionScores={state.dimensionScores}
       loading={state.loading}
       error={state.error}
+      notPublished={state.notPublished}
+      slug={slug}
       session={session}
       userTier={userTier}
       tierData={tierData}
@@ -70,6 +72,9 @@ async function loadIssueData(slug) {
       .single();
 
     if (issueErr || !issue) {
+      // No row. Under migration 078's RLS that means "not published" whether
+      // the slug is a draft or was never a topic; the page says so, and it
+      // is not an error.
       return {
         issue: null,
         summary: null,
@@ -78,7 +83,8 @@ async function loadIssueData(slug) {
         sources: null,
         dimensionScores: null,
         loading: false,
-        error: issueErr?.message || "Topic not found",
+        error: null,
+        notPublished: true,
       };
     }
 

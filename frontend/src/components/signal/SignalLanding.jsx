@@ -203,8 +203,8 @@ export default function SignalLanding({ session, userTier, tierData }) {
         </div>
       ) : (
         <div className="text-center py-8">
-          <p className="text-gray-300 text-sm">
-            No topics available yet. Check back soon.
+          <p className="text-gray-400 text-sm">
+            No topics are published yet. Each one goes live when its sources verify.
           </p>
         </div>
       )}

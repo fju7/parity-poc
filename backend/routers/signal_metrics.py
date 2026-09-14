@@ -9,6 +9,8 @@ import time
 from fastapi import APIRouter
 from fastapi.responses import JSONResponse
 
+from signal_reader import signal_reader
+
 router = APIRouter(prefix="/api/signal", tags=["signal"])
 
 _sb = None
@@ -39,12 +41,22 @@ CACHE_TTL = 300  # 5 minutes
 # ---------------------------------------------------------------------------
 
 
-def _approved_issues(sb):
+def _approved_issues(client=None):
     """Issues that are visible on the public site.
+
+    Two gates, both required. quality_review_status = 'approved' is the
+    editorial review; status = 'published' is enforced by migration 078's
+    RLS, which the anon-key reader is bound by -- a draft is not in the
+    result whatever this function asks for.
 
     Falls back to all issues when quality_review_status is not yet in
     PostgREST's schema cache, matching the previous behaviour.
     """
+    if client is not None:
+        # corpus read via service role: a test-injected stub client
+        sb = client
+    else:
+        sb = signal_reader()
     try:
         res = (
             sb.table("signal_issues")
@@ -77,8 +89,11 @@ def _exact_count(sb, table, column=None, value=None):
         return 0
 
 
-def _topic_counts(sb, issue_ids):
+def _topic_counts(issue_ids, *, include_drafts=False, client=None):
     """Return {issue_id: {claim_count, scored_count, source_count}}.
+
+    include_drafts is for the admin review board only: the public reader
+    is RLS-bound (migration 078) and reports nothing for a draft topic.
 
     Prefers the signal_topic_counts view (migration 070). If the view is not
     present yet, falls back to per-issue exact counts so the endpoint stays
@@ -87,6 +102,14 @@ def _topic_counts(sb, issue_ids):
     """
     if not issue_ids:
         return {}
+    if client is not None:
+        # corpus read via service role: a test-injected stub client
+        sb = client
+    elif include_drafts:
+        # corpus read via service role: the admin review board counts drafts
+        sb = _get_sb()
+    else:
+        sb = signal_reader()
 
     try:
         res = (
@@ -138,14 +161,14 @@ async def get_metrics():
         "updates_this_month": 0,
     }
 
-    sb = _get_sb()
+    sb = signal_reader()
     if not sb:
         return empty
 
     try:
-        issues = _approved_issues(sb)
+        issues = _approved_issues()
         issue_ids = [i["id"] for i in issues]
-        counts = _topic_counts(sb, issue_ids)
+        counts = _topic_counts(issue_ids)
 
         claims_total = sum(c["claim_count"] for c in counts.values())
         sources_monitored = sum(c["source_count"] for c in counts.values())
@@ -195,7 +218,7 @@ async def get_metrics():
 @router.get("/stats")
 async def get_stats():
     """Return total evidence claims and sources counts (public, no auth)."""
-    sb = _get_sb()
+    sb = signal_reader()
     if not sb:
         return {"evidence_claims": 0, "evidence_sources": 0}
 
@@ -213,12 +236,12 @@ async def get_topics():
     if _topics_cache["data"] and now < _topics_cache["expires"]:
         return JSONResponse(content=_topics_cache["data"])
 
-    sb = _get_sb()
+    sb = signal_reader()
     if not sb:
         return JSONResponse(content=[])
 
     try:
-        issues = _approved_issues(sb)
+        issues = _approved_issues()
 
         if not issues:
             _topics_cache["data"] = []
@@ -226,7 +249,7 @@ async def get_topics():
             return JSONResponse(content=[])
 
         issue_ids = [i["id"] for i in issues]
-        counts = _topic_counts(sb, issue_ids)
+        counts = _topic_counts(issue_ids)
 
         # Fetch latest summary per issue (order by version desc)
         summaries_res = (
@@ -292,7 +315,7 @@ async def get_topic_changelog(slug: str, limit: int = 200):
     produces many rows sharing a detected_at, and a reader cares about "what
     changed on this date", not about individual writes.
     """
-    sb = _get_sb()
+    sb = signal_reader()
     if not sb:
         return JSONResponse(content={"slug": slug, "revisions": []})
 
@@ -397,7 +420,7 @@ async def get_review_topics():
         issues = issues_res.data or []
 
         issue_ids = [i["id"] for i in issues]
-        counts = _topic_counts(sb, issue_ids)
+        counts = _topic_counts(issue_ids, include_drafts=True)
 
         result = []
         for issue in issues:

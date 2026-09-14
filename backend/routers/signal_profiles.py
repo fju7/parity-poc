@@ -8,6 +8,8 @@ import time
 from fastapi import APIRouter, HTTPException, Query
 from fastapi.responses import JSONResponse
 
+from signal_reader import signal_reader
+
 router = APIRouter(prefix="/api/signal", tags=["signal"])
 
 _sb = None
@@ -88,9 +90,7 @@ async def score_with_profile(
     Returns per-claim composite scores, evidence categories, and divergence
     from the default (Balanced) scoring.
     """
-    sb = _get_sb()
-    if not sb:
-        raise HTTPException(status_code=500, detail="Database unavailable")
+    sb = signal_reader()  # published topics' claims only (migration 078)
 
     # Fetch profile
     profile_res = sb.table("signal_analytical_profiles").select("*").eq("id", profile_id).execute()

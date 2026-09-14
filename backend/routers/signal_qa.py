@@ -9,6 +9,8 @@ import os
 from fastapi import APIRouter, Request, HTTPException
 from pydantic import BaseModel
 
+from signal_reader import signal_reader
+
 router = APIRouter(prefix="/api/signal", tags=["signal-qa"])
 
 _sb = None
@@ -163,8 +165,12 @@ Informative, neutral, transparent. Like a research librarian — helpful but nev
 
 
 def _build_context(issue_id: str) -> str:
-    """Build the evidence context string for Claude from DB data."""
-    sb = _get_sb()
+    """Build the evidence context string for Claude from DB data.
+
+    Read through the anon-key reader: a draft topic is not there to answer
+    questions about (migration 078).
+    """
+    sb = signal_reader()
 
     # Get issue
     issue = sb.table("signal_issues").select("title, description").eq(

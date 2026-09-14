@@ -11,6 +11,8 @@ import logging
 from fastapi import APIRouter, Header, HTTPException, Query, Request
 from fastapi.responses import JSONResponse
 
+from signal_reader import signal_reader
+
 logger = logging.getLogger(__name__)
 
 router = APIRouter(prefix="/api/signal", tags=["signal-intelligence"])
@@ -53,9 +55,9 @@ async def evidence_for_code(
     evidence summary including score, verdict, key claims, and
     analytical paths.
     """
-    sb = _get_sb()
-    if not sb:
-        return JSONResponse(content={"error": "DB not available"}, status_code=500)
+    # Published topics only: the anon-key client is bound by migration 078's
+    # RLS, so a draft topic's mapping, issue and claims are simply absent.
+    sb = signal_reader()
 
     try:
         # Find mappings for this CPT code
@@ -232,9 +234,7 @@ async def denial_intelligence(
     Identifies the analytical path a payer likely followed to deny,
     then returns evidence that challenges that reasoning.
     """
-    sb = _get_sb()
-    if not sb:
-        return JSONResponse(content={"error": "DB not available"}, status_code=500)
+    sb = signal_reader()  # published topics only (migration 078)
 
     try:
         # Find Signal topic for this CPT code
@@ -374,12 +374,16 @@ async def populate_denial_playbook() -> int:
     Signal topic mapping, fetches the top claims and upserts a playbook row.
     Returns the number of rows upserted.
     """
+    # This BUILDS the playbook from every topic, drafts included, so that a
+    # topic published later already has its rows; readers of the playbook
+    # are gated by RLS on the topic slug, not by what is in the table.
     sb = _get_sb()
     if not sb:
         raise RuntimeError("DB not available")
 
     # Fetch all CPT → topic mappings
     mappings_res = (
+        # corpus read via service role: playbook builder (admin-only route) needs drafts
         sb.table("signal_cpt_mappings")
         .select("cpt_code, topic_slug")
         .order("relevance_score", desc=True)
@@ -392,6 +396,7 @@ async def populate_denial_playbook() -> int:
     # Resolve topic slugs → issue IDs
     slugs = list({m["topic_slug"] for m in mappings})
     issues_res = (
+        # corpus read via service role: playbook builder (admin-only route) needs drafts
         sb.table("signal_issues")
         .select("id, slug")
         .in_("slug", slugs)
@@ -403,6 +408,7 @@ async def populate_denial_playbook() -> int:
     issue_claims: dict[str, list] = {}
     for issue_id in slug_to_issue.values():
         claims_res = (
+            # corpus read via service role: playbook builder (admin-only route) needs drafts
             sb.table("signal_claims")
             .select("claim_text, plain_summary, consensus_type, claim_type, specificity")
             .eq("issue_id", issue_id)
@@ -457,6 +463,7 @@ async def populate_denial_playbook() -> int:
                 "signal_topic_slug": topic_slug,
                 "signal_issue_id": issue_id,
             }
+            # corpus read via service role: playbook builder (admin-only route) needs drafts
             sb.table("signal_denial_playbook").upsert(
                 row, on_conflict="denial_code,cpt_code"
             ).execute()
@@ -539,6 +546,7 @@ async def aggregate_denial_patterns(denied_lines: list, payer_name: str) -> None
 
                 # Check if playbook has coverage for this combo
                 playbook_res = (
+                    # corpus read via service role: background aggregation, not a reader surface
                     sb.table("signal_denial_playbook")
                     .select("id")
                     .eq("denial_code", denial_code)

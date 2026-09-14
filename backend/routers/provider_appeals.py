@@ -526,6 +526,8 @@ async def update_appeal_status(req: UpdateAppealStatusRequest, request: Request)
                 first_cpt = (a.get("cpt_code") or "").split(",")[0].strip()
                 if first_cpt:
                     try:
+                        # corpus read via service role: outcome analytics keep the
+                        # topic tag whether or not the topic is published yet
                         m = sb.table("signal_cpt_mappings").select("topic_slug").eq(
                             "cpt_code", first_cpt
                         ).limit(1).execute()

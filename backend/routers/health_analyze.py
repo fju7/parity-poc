@@ -32,6 +32,8 @@ from pydantic import BaseModel
 from utils.evidence_retrieval import retrieve_evidence
 from routers.health_auth import get_health_user
 
+from signal_reader import signal_reader
+
 router = APIRouter()
 
 # Anthropic client — lazy-initialized (same pattern as ai_parse.py)
@@ -1430,8 +1432,11 @@ def _generate_appeal_result(req: AppealGenerateRequest) -> dict:
     context_parts = [f"Denial analysis:\n{json.dumps(da_model, indent=2)}"]
 
     # -- PH-1-D: Signal playbook enrichment (now reachable — cpt_codes is populated) --
+    # Read through the anon-key reader: under migration 078's RLS a playbook
+    # row exists for a reader only when its topic is published, so a draft
+    # topic's claims cannot reach a consumer's letter.
     try:
-        sb = _get_supabase()
+        sb = signal_reader()
         if sb:
             playbook_code = (
                 da.get("carc_rarc_code")

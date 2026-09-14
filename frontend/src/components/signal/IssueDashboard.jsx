@@ -10,6 +10,7 @@ import ProfileSelector from "./ProfileSelector";
 import { trackEvent } from "../../lib/signalAnalytics";
 import { setPageMeta, resetPageMeta } from "../../lib/pageMeta";
 import { API_BASE } from "../../lib/apiBase";
+import NotYetPublished from "./NotYetPublished";
 
 /** Format a snake_case category key into a display name. */
 function displayName(key) {
@@ -760,6 +761,8 @@ export default function IssueDashboard({
   dimensionScores,
   loading,
   error,
+  notPublished,
+  slug,
   session,
   userTier,
   tierData,
@@ -1107,6 +1110,8 @@ export default function IssueDashboard({
 
   if (loading) return <LoadingSkeleton />;
 
+  if (notPublished) return <NotYetPublished slug={slug} />;
+
   if (error) {
     return (
       <div className="py-12 text-center font-[Arial,sans-serif]">
@@ -1118,13 +1123,7 @@ export default function IssueDashboard({
     );
   }
 
-  if (!issue) {
-    return (
-      <div className="py-12 text-center font-[Arial,sans-serif]">
-        <div className="text-gray-400 text-lg">Topic not found</div>
-      </div>
-    );
-  }
+  if (!issue) return <NotYetPublished slug={slug} />;
 
   return (
     <div className="max-w-3xl mx-auto px-4 py-6 font-[Arial,sans-serif]">

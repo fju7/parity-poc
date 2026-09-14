@@ -32,6 +32,8 @@ from routers.provider_shared import (
 from routers.benchmark import resolve_locality, lookup_rate, get_all_pfs_rates_for_locality
 from utils.parse_835 import parse_835
 
+from signal_reader import signal_reader
+
 router = APIRouter(tags=["provider"])
 
 
@@ -1518,9 +1520,11 @@ async def analyze_denials(req: AnalyzeDenialsRequest, request: Request):
             "error": True,
         }
 
-    # Enrich result with Signal playbook evidence (batch lookup)
+    # Enrich result with Signal playbook evidence (batch lookup). Read through
+    # the anon-key reader: a playbook row for a draft topic is absent under
+    # migration 078's RLS, so no draft's claims can reach this response.
     try:
-        sb = _get_supabase()
+        sb = signal_reader()
         cpt_codes = list({line.cpt_code for line in req.denied_lines if line.cpt_code})
         denial_codes = []
         for line in req.denied_lines:

@@ -145,7 +145,7 @@ def test_counts_from_view_are_not_truncated():
     tables["signal_topic_counts"] = _view_rows(PER_TOPIC)
     sb = StubClient(tables)
 
-    counts = _topic_counts(sb, list(PER_TOPIC))
+    counts = _topic_counts(list(PER_TOPIC), client=sb)
 
     assert sum(c["claim_count"] for c in counts.values()) == TOTAL_CLAIMS
     for iid, (claims, scored, sources) in PER_TOPIC.items():
@@ -160,7 +160,7 @@ def test_counts_fall_back_to_exact_counts_when_view_is_missing():
     """A backend deployed ahead of migration 070 must still count correctly."""
     sb = StubClient(_corpus(PER_TOPIC), missing={"signal_topic_counts"})
 
-    counts = _topic_counts(sb, list(PER_TOPIC))
+    counts = _topic_counts(list(PER_TOPIC), client=sb)
 
     assert sum(c["claim_count"] for c in counts.values()) == TOTAL_CLAIMS
     for iid, (claims, _scored, sources) in PER_TOPIC.items():
@@ -175,7 +175,7 @@ def test_fallback_never_issues_an_uncapped_row_select():
     """The regression itself: counting must not read rows back."""
     sb = StubClient(_corpus(PER_TOPIC), missing={"signal_topic_counts"})
 
-    _topic_counts(sb, list(PER_TOPIC))
+    _topic_counts(list(PER_TOPIC), client=sb)
 
     counting = [q for q in sb.queries if q.table != "signal_topic_counts"]
     assert counting, "expected fallback queries"
@@ -217,7 +217,7 @@ def test_approved_issues_filters_to_approved():
     )
     sb = StubClient(tables)
 
-    approved = _approved_issues(sb)
+    approved = _approved_issues(client=sb)
 
     assert len(approved) == len(PER_TOPIC)
     assert "draft-topic" not in {i["id"] for i in approved}
@@ -231,7 +231,7 @@ def test_approved_issues_falls_back_when_column_is_not_in_schema_cache():
             return super().respond(q)
 
     sb = NoColumnClient(_corpus(PER_TOPIC))
-    assert len(_approved_issues(sb)) == len(PER_TOPIC)
+    assert len(_approved_issues(client=sb)) == len(PER_TOPIC)
 
 
 if __name__ == "__main__":
