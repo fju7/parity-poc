@@ -37,6 +37,8 @@ class Identifier:
 
     @property
     def registry(self) -> str:
+        if self.system == "url":
+            return "generic"        # no registry: the page answers for itself (verify/generic.py)
         return "literature" if self.system in LITERATURE else "law"
 
 

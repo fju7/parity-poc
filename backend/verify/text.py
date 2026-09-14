@@ -87,3 +87,11 @@ def agreement(ours: str, theirs: str, boilerplate: set[str]) -> tuple[float, set
             if r > best:
                 best, best_shared = r, shared
     return round(best, 3), best_shared
+
+# A web page's <title> carries the site's name and furniture. Stripped only
+# for the generic adapter, on top of the literature list.
+GENERIC_BOILERPLATE = {
+    "home", "page", "pages", "site", "official", "website", "www", "com", "gov", "org", "html", "pdf",
+    "news", "press", "release", "statement", "document", "documents", "report", "reports", "public",
+    "information", "resources", "about", "search", "menu", "skip", "content", "main", "login",
+}

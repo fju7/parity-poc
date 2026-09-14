@@ -11,7 +11,7 @@ from __future__ import annotations
 import re
 
 from .numbers import figures, canonical_numbers
-from .text import agreement, content_tokens, normalise, LITERATURE_BOILERPLATE, LAW_BOILERPLATE
+from .text import agreement, content_tokens, normalise, LITERATURE_BOILERPLATE, LAW_BOILERPLATE, GENERIC_BOILERPLATE
 from .types import Binding, Context, Document, Kind, Resolution, LAW
 
 # Zero shared distinctive words means a different document. The threshold is
@@ -44,7 +44,7 @@ def bind_heading(characterisation: str, resolution: Resolution) -> Binding:
     Three outcomes: ok, a refusal (zero shared), or cannot_discriminate."""
     if not resolution.heading:
         return Binding(Kind.HEADING, False, reason="registry returned no heading; cannot compare")
-    bp = LAW_BOILERPLATE if resolution.identifier.registry == "law" else LITERATURE_BOILERPLATE
+    bp = LAW_BOILERPLATE if resolution.identifier.registry == "law" else (LITERATURE_BOILERPLATE | GENERIC_BOILERPLATE)
     ratio, shared = agreement(characterisation, resolution.heading, bp)
     if ratio == 1.0 and shared:                      # containment: decisive
         return Binding(Kind.HEADING, True, evidence="containment: " + ", ".join(sorted(shared)))

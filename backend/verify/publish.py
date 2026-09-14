@@ -22,7 +22,7 @@ import sys
 from dataclasses import asdict
 from pathlib import Path
 
-from . import __version__, literature, law
+from . import __version__, literature, law, generic
 from .bind import bind_figure, bind_heading, bind_span, _QUOTE
 from .numbers import figures
 from .status import check as status_check
@@ -86,17 +86,20 @@ def gate_source(row: dict) -> dict:
            "source_type": row.get("source_type"), "identifier": None, "resolution": None,
            "document": None, "bindings": [], "status": None, "survives": False, "withheld_reason": None}
     ident = literature.identify(row.get("url") or "", Provenance.RESOLVED_FROM_HELD) or \
-        law.identify(row.get("url") or "", Provenance.RESOLVED_FROM_HELD)
+        law.identify(row.get("url") or "", Provenance.RESOLVED_FROM_HELD) or \
+        generic.identify(row.get("url") or "", Provenance.RESOLVED_FROM_HELD)
     if ident is None:
-        out["withheld_reason"] = "UNVERIFIABLE: no DOI, PMID, PMCID, NCT or law citation in the stored URL"
+        out["withheld_reason"] = "UNVERIFIABLE: no identifier and no fetchable URL"
         return out
     out["identifier"] = {"system": ident.system, "value": ident.value, "provenance": ident.provenance.value}
-    mod = literature if ident.registry == "literature" else law
+    mod = {"literature": literature, "law": law, "generic": generic}[ident.registry]
     res = mod.resolve(ident)
     out["resolution"] = {"exists": res.exists.value, "heading": res.heading, "canonical": res.canonical,
-                         "registry": res.registry, "registry_id": res.registry_id, "checked_at": res.checked_at}
+                         "registry": res.registry, "registry_id": res.registry_id, "checked_at": res.checked_at,
+                         "generic_fetch": res.registry == "generic_fetch"}
     if res.exists != Exists.EXISTS:
-        out["withheld_reason"] = f"resolve: {res.exists.value}"
+        out["withheld_reason"] = (f"fetch: HTTP {res.extra.get('http')} {res.extra.get('reason') or res.extra.get('error') or ''}".strip()
+                                  if res.registry == "generic_fetch" else f"resolve: {res.exists.value}")
         return out
     # HEADING before fetch: a DOI that names a different paper is withheld as
     # WRONG_DOCUMENT, not as a fetch failure of the wrong paper.
@@ -113,9 +116,16 @@ def gate_source(row: dict) -> dict:
                        "chars": len(doc.text), "text_layer": doc.text_layer, "path": store_document(doc),
                        "final_url": doc.final_url}
     out["registry_text"] = " ".join(str(x) for x in ((res.heading or ""), res.extra.get("year") or "") if x)
-    st = status_check(ident)
-    out["status"] = {"verdict": st.verdict, "registry": st.registry, "detail": st.detail,
-                     "checked_at": st.checked_at, "events": st.events, "frozen": _frozen_status_fields(res)}
+    if ident.registry == "generic":
+        # No registry can report a retraction or amendment for a bare URL;
+        # the monthly re-check is the only watch it has, and the record says so.
+        out["status"] = {"verdict": "no_registry", "registry": "generic_fetch",
+                         "detail": "no status registry for a generic URL; watched by the binding re-check only",
+                         "checked_at": _now(), "events": [], "frozen": {}}
+    else:
+        st = status_check(ident)
+        out["status"] = {"verdict": st.verdict, "registry": st.registry, "detail": st.detail,
+                         "checked_at": st.checked_at, "events": st.events, "frozen": _frozen_status_fields(res)}
     out["survives"] = True
     out["_doc"] = doc
     return out
@@ -197,6 +207,7 @@ def publish(sb, slug: str, argv: list[str]) -> dict:
         "publish_id": publish_id, "published_at": _now(),
         "published_by": {"login": getpass.getuser(), "host": platform.node(), "argv": argv},
         "gate_version": gv,
+        "rate_limits_rps": __import__("verify.http", fromlist=["rate_limits_in_force"]).rate_limits_in_force(),
         "sources": [{k: v for k, v in g.items() if k != "_doc"} for g in gated.values()],
         "claims": claim_recs,
         "summary": {"sources": {"total": len(sources), "survived": src_summary.get("survived", 0),

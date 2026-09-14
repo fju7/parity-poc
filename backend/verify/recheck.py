@@ -25,7 +25,7 @@ import gzip
 import json
 from pathlib import Path
 
-from . import __version__, literature, law
+from . import __version__, literature, law, generic
 from .bind import bind_figure, bind_heading, bind_span
 from .status import check as status_check
 from .types import Document, Exists, Identifier, Provenance
@@ -81,8 +81,10 @@ def recheck(slug: str, kind: str = "bindings") -> dict:
         for s in prev[-1].get("sources", []):
             last_miss[s["source_id"]] = s.get("outcome") == "unreachable"
     run_id = _now().replace(":", "").replace("-", "")
+    from . import http
     out = {"slug": slug, "kind": kind, "run_id": run_id, "run_at": _now(), "publish_id": rec["publish_id"],
-           "gate_version": {"package": __version__}, "sources": [], "claims": [], "flags": []}
+           "gate_version": {"package": __version__}, "rate_limits_rps": http.rate_limits_in_force(),
+           "sources": [], "claims": [], "flags": []}
     survivors = {s["source_id"]: s for s in rec["sources"] if s.get("survives")}
     live_docs: dict[str, Document | None] = {}
     registry_text: dict[str, str] = {}
@@ -92,7 +94,11 @@ def recheck(slug: str, kind: str = "bindings") -> dict:
         entry = {"source_id": sid, "title": src.get("title"), "outcome": "unchanged", "detail": "", "status": None}
         # ---- status (both kinds run it: it is cheap and it is the fifth check)
         frozen_status = (src.get("status") or {})
-        st = status_check(ident, frozen_status.get("frozen") or {})
+        if ident.registry == "generic":
+            from .status import Status
+            st = Status(ident, "no_registry", _now(), "generic_fetch", "no status registry for a generic URL")
+        else:
+            st = status_check(ident, frozen_status.get("frozen") or {})
         entry["status"] = {"verdict": st.verdict, "detail": st.detail, "registry": st.registry,
                            "events": st.events, "frozen_verdict": frozen_status.get("verdict")}
         if st.verdict == "unknown":
@@ -106,7 +112,7 @@ def recheck(slug: str, kind: str = "bindings") -> dict:
             out["sources"].append(entry); continue
 
         # ---- bindings: re-resolve, re-fetch, re-run
-        mod = literature if ident.registry == "literature" else law
+        mod = {"literature": literature, "law": law, "generic": generic}[ident.registry]
         res = mod.resolve(ident)
         if res.exists != Exists.EXISTS:
             entry["outcome"] = "unreachable" if res.exists == Exists.UNCHECKED else "binding_lost"

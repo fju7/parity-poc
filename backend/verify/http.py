@@ -12,6 +12,7 @@ import gzip
 import hashlib
 import os
 import time
+import urllib.parse
 import urllib.request
 from pathlib import Path
 
@@ -19,6 +20,41 @@ UA = {"User-Agent": "civicscale-verify (resolve/fetch/bind; contact fred.ugast@u
       "Accept-Encoding": "gzip"}
 CACHE_DIR: Path | None = Path(os.environ["VERIFY_CACHE_DIR"]) if os.environ.get("VERIFY_CACHE_DIR") else None
 PAUSE = 0.15
+
+# PER-REGISTRY RATE LIMITS, requests per second, keyed by host. Retry on 429
+# fixed one topic; the first-Monday bindings pass over ten topics is the same
+# burst, larger, and a check whose own call rate manufactures the divergence
+# it reports is the noise failure in a new costume. Values are the published
+# or de-facto polite rates: Europe PMC and Crossref ask for well under 10/s
+# (Crossref's polite pool is 50/s with a mailto; we stay far below), the eCFR
+# and codes.ohio.gov have no stated limit and get 2/s, ClinicalTrials.gov v2
+# documents ~50/min. The limit in force is recorded on every re-check record.
+RATE_LIMITS = {
+    "www.ebi.ac.uk": 3.0,          # Europe PMC
+    "api.crossref.org": 5.0,
+    "doi.org": 5.0,
+    "clinicaltrials.gov": 0.8,     # ~50/min documented
+    "www.ecfr.gov": 2.0,
+    "codes.ohio.gov": 2.0,
+    "www.cms.gov": 1.0,            # PDFs
+    "api.unpaywall.org": 5.0,
+    "*": 2.0,                      # generic fetch: any other host
+}
+_last_call: dict[str, float] = {}
+
+
+def _throttle(url: str) -> None:
+    host = urllib.parse.urlsplit(url).hostname or "*"
+    rate = RATE_LIMITS.get(host, RATE_LIMITS["*"])
+    gap = 1.0 / rate
+    wait = _last_call.get(host, 0.0) + gap - time.monotonic()
+    if wait > 0:
+        time.sleep(wait)
+    _last_call[host] = time.monotonic()
+
+
+def rate_limits_in_force() -> dict:
+    return dict(RATE_LIMITS)
 
 
 def _key(url: str) -> str:
@@ -40,6 +76,7 @@ def get(url: str, timeout: int = 45) -> tuple[int, bytes, dict]:
     for attempt, wait in enumerate((0, 3, 8, 20)):
         if wait:
             time.sleep(wait)
+        _throttle(url)
         try:
             with urllib.request.urlopen(urllib.request.Request(url, headers=UA), timeout=timeout) as r:
                 body = r.read()
@@ -59,7 +96,6 @@ def get(url: str, timeout: int = 45) -> tuple[int, bytes, dict]:
             headers["retries"] = str(attempt)
             continue
         break
-    time.sleep(PAUSE)
     if CACHE_DIR:
         CACHE_DIR.mkdir(parents=True, exist_ok=True)
         (CACHE_DIR / (_key(url) + ".bin")).write_bytes(body)

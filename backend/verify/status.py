@@ -274,5 +274,8 @@ def check(ident: Identifier, frozen: dict | None = None) -> Status:
         return _iom(ident, st, frozen)
     if ident.system == "ncci":
         return _ncci(ident, st, frozen)
+    if ident.system == "url":
+        st.verdict = "no_registry"; st.registry = "generic_fetch"
+        st.detail = "no status registry for a generic URL; watched by the binding re-check only"; return st
     st.verdict = "unknown"; st.detail = "no status adapter for this system"
     return st
