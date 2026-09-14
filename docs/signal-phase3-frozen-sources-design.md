@@ -1,6 +1,6 @@
 # Phase 3 — frozen sources and the scheduled re-check
 
-**Status: DESIGN, 2026-09-14. Nothing built.** Ruling: a published topic
+**Status: APPROVED 2026-09-14 with amendments (IDENTITY_ONLY published with marker and counted as a quality metric; binding_lost wording; retracted visually distinct; cadence accepted; end-to-end topic = mmr-vaccine-autism). Being built.** Ruling: a published topic
 freezes a reproducible record of what every claim rested on; a scheduled
 re-check compares *bindings*, not bytes; retraction and amendment are a fifth
 check with their own verdict; divergence surfaces to readers on the page,
@@ -32,7 +32,7 @@ refuses at the first that fails:
    |---|---|---|
    | `FIGURE_BOUND` | the claim carries figures and every one is in a surviving source's text | yes |
    | `SPAN_BOUND` | a quoted passage is in a surviving source verbatim | yes |
-   | `IDENTITY_ONLY` | no figure and no quotation; the source is the named document, the wording is unchecked (R1) | yes, **marked** — see §4 |
+   | `IDENTITY_ONLY` | no figure and no quotation; the source is the named document, the wording is unchecked (R1) | yes, **marked** — see §4 — and **counted on the topic line** beside the flagged count. Recorded as a **quality metric expected to trend down**, not a permanent category: a claim with no figure and no quotable span is usually a claim that needs rewriting, not a source that cannot be checked. |
    | `UNSUPPORTED` | every linked source failed a gate, or a figure is in none of them | **no** — withheld at publication, listed in the record |
    Withholding at publication is not "silently dropping": the record lists
    every withheld claim with the binding that failed, and the page states
@@ -161,15 +161,15 @@ topic page. Nothing is removed; nothing is re-scored. Dates are the
 re-check's, in the reader's locale; "we" is Parity Signal.
 
 **Topic line (always, once published):**
-> Sources checked and frozen on 14 Sep 2026 · re-checked 6 Oct 2026 · 2 of 27 sources flagged — see markers below. *What this means →*
+> Sources checked and frozen on 14 Sep 2026 · re-checked 6 Oct 2026 · 2 of 27 sources flagged · 41 of 96 claims source-confirmed only (wording not machine-checked) — see markers below. *What this means →*
 
 **Support marker — `IDENTITY_ONLY` (at publication):**
 > Source confirmed; wording not machine-checked. We verified that the cited document is the one named and fetched its text. This claim carries no figure or quotation we could match against it, so its wording rests on the extraction, not on a check.
 
-**`binding_lost`:**
-> Re-checked 6 Oct 2026: the cited source no longer contains the figure we matched when this claim was published on 14 Sep 2026 (HR 0.80; 95% CI 0.72–0.90). The claim is shown as it was published. Treat the figure as unconfirmed until we have re-read the source.
+**`binding_lost`** (we observed only that our matcher no longer finds the figure; we do not know why):
+> Re-checked 6 Oct 2026: we could no longer match the figure this claim was published on (HR 0.80; 95% CI 0.72–0.90) in the cited source. The claim is shown as it was published. That may mean the source changed, or that our reading of it did — either way, treat the figure as unconfirmed until we have re-read the source ourselves.
 
-**`status_changed` — retracted:**
+**`status_changed` — retracted** (visually distinct from every other marker: a solid red-bordered block with a "RETRACTED" caption, not the amber note the others use — "we could not confirm this" and "the source was withdrawn" are different in kind):
 > Retracted. Crossref records a retraction of this source dated 30 Sep 2026. This claim rested on it when published on 14 Sep 2026. We have not removed the claim; we have marked it, and it should not be relied on until we have reviewed the retraction.
 
 **`status_changed` — corrected (erratum), bindings still hold:**
@@ -198,15 +198,15 @@ Cheapest to redo, by sources × claims from the 2026-09-14 snapshot:
 | mmr-vaccine-autism | 35 | 2 / 2 | 128 |
 | mrna-vaccine-myocarditis | 32 | 1 / 4 | 130 |
 
-Proposed: **health-impacts-of-climate-change** — fewest sources and fewest
-claims. Many of its sources are agency reports (IPCC, WHO, Lancet Countdown)
-reached by bare URL rather than DOI; those yield no identifier and will be
-`UNVERIFIABLE`, which is the large reduction the ruling expects and the
-honest one. `mmr-vaccine-autism` is the alternative if a literature-shaped
-topic is preferred for the first run. The run reports: sources in / survived
-/ by verdict; claims in / by support level; what the page would show; and
-the record and documents it froze. The operator flips nothing until the
-report is read.
+**Ruled: mmr-vaccine-autism**, not climate — climate would publish almost
+nothing, which proves the gate refuses and nothing about whether it admits.
+mmr's source set holds Wakefield 1998 (Lancet, retracted 2010) — twice, under
+two source types — and the 2010 retraction notice itself as a third source:
+a real retraction for `status_check.py` to exercise on its first run. The run
+reports: sources in / survived / by verdict; claims in / by support level;
+what the status check says about Wakefield specifically; what the page would
+show; and the record and documents it froze. **The run does not flip
+`status`**; the operator decides that after reading what survives.
 
 ## 6. Storage — outside the freeze
 
