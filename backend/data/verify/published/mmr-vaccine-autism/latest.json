@@ -1,0 +1,5512 @@
+{
+ "topic": {
+  "slug": "mmr-vaccine-autism",
+  "title": "MMR Vaccine and Autism",
+  "issue_id": "bbb9b064-8cb4-4922-b69b-121150ee8e21",
+  "status_before": "draft"
+ },
+ "publish_id": "20260914T221650+0000-782ad56",
+ "published_at": "2026-09-14T22:16:50+00:00",
+ "published_by": {
+  "login": "fredugast",
+  "host": "Freds-MacBook-Pro.local",
+  "argv": [
+   "scripts/publish_topic.py",
+   "mmr-vaccine-autism"
+  ]
+ },
+ "gate_version": {
+  "package": "1.1.0",
+  "verify_sha": "782ad56",
+  "tree_sha": "782ad56"
+ },
+ "sources": [
+  {
+   "source_id": "e4cdce12-5006-479f-b074-60d147dccd5b",
+   "url": "https://doi.org/10.1016/S0140-6736(97)11096-0",
+   "title": "Ileal-lymphoid-nodular hyperplasia, non-specific colitis, and pervasive developmental disorder in children",
+   "source_type": "clinical_trial",
+   "identifier": {
+    "system": "doi",
+    "value": "10.1016/s0140-6736(97)11096-0",
+    "provenance": "RESOLVED_FROM_HELD"
+   },
+   "resolution": {
+    "exists": "EXISTS",
+    "heading": "RETRACTED: Ileal-lymphoid-nodular hyperplasia, non-specific colitis, and pervasive developmental disorder in children",
+    "canonical": "https://doi.org/10.1016/s0140-6736(97)11096-0",
+    "registry": "crossref",
+    "registry_id": "10.1016/s0140-6736(97)11096-0",
+    "checked_at": "2026-09-14T22:15:42+00:00"
+   },
+   "document": {
+    "sha256": "4c8be4d2c62edf3089f001d2a4ac1d06cc32a4729a03b47e415883b7f4681a18",
+    "route": "europepmc_abstract",
+    "kind": "abstract",
+    "retrieved_at": "2026-09-14T22:15:44+00:00",
+    "chars": 1984,
+    "text_layer": "DECLARED_SOUND",
+    "path": "data/verify/docs/4c/4c8be4d2c62edf3089f001d2a4ac1d06cc32a4729a03b47e415883b7f4681a18.txt.gz",
+    "final_url": "https://doi.org/10.1016/s0140-6736(97)11096-0"
+   },
+   "bindings": [
+    {
+     "kind": "HEADING",
+     "ok": true,
+     "abstained": false,
+     "evidence": "containment: children, colitis, developmental, disorder, hyperplasia, ileal, lymphoid, nodular, non, pervasive, specific",
+     "reason": ""
+    }
+   ],
+   "status": {
+    "verdict": "retracted",
+    "registry": "crossref+europepmc",
+    "detail": "2 update/relation event(s)",
+    "checked_at": "2026-09-14T22:15:44+00:00",
+    "events": [
+     {
+      "type": "correction",
+      "date": "2004-3-6",
+      "doi": "10.1016/s0140-6736(04)15715-2",
+      "source": "crossref filter=updates",
+      "label": "Correction",
+      "title": "Retraction of an interpretation"
+     },
+     {
+      "type": "retraction",
+      "date": "2010-2-6",
+      "doi": "10.1016/s0140-6736(10)60175-4",
+      "source": "crossref filter=updates",
+      "label": "Retraction",
+      "title": "Retraction—Ileal-lymphoid-nodular hyperplasia, non-specific colitis, and pervasive developmental disorder in children"
+     },
+     {
+      "type": "comment in",
+      "date": null,
+      "id": "9500313",
+      "source": "europepmc commentCorrectionList"
+     },
+     {
+      "type": "comment in",
+      "date": null,
+      "id": "9525390",
+      "source": "europepmc commentCorrectionList"
+     },
+     {
+      "type": "comment in",
+      "date": null,
+      "id": "9525391",
+      "source": "europepmc commentCorrectionList"
+     },
+     {
+      "type": "comment in",
+      "date": null,
+      "id": "9525392",
+      "source": "europepmc commentCorrectionList"
+     },
+     {
+      "type": "comment in",
+      "date": null,
+      "id": "9525393",
+      "source": "europepmc commentCorrectionList"
+     },
+     {
+      "type": "comment in",
+      "date": null,
+      "id": "9525394",
+      "source": "europepmc commentCorrectionList"
+     },
+     {
+      "type": "comment in",
+      "date": null,
+      "id": "9525395",
+      "source": "europepmc commentCorrectionList"
+     },
+     {
+      "type": "comment in",
+      "date": null,
+      "id": "9525396",
+      "source": "europepmc commentCorrectionList"
+     },
+     {
+      "type": "comment in",
+      "date": null,
+      "id": "9643815",
+      "source": "europepmc commentCorrectionList"
+     },
+     {
+      "type": "comment in",
+      "date": null,
+      "id": "9643816",
+      "source": "europepmc commentCorrectionList"
+     },
+     {
+      "type": "comment in",
+      "date": null,
+      "id": "9643817",
+      "source": "europepmc commentCorrectionList"
+     },
+     {
+      "type": "comment in",
+      "date": null,
+      "id": "9643818",
+      "source": "europepmc commentCorrectionList"
+     },
+     {
+      "type": "comment in",
+      "date": null,
+      "id": "9643820",
+      "source": "europepmc commentCorrectionList"
+     },
+     {
+      "type": "comment in",
+      "date": null,
+      "id": "9643821",
+      "source": "europepmc commentCorrectionList"
+     },
+     {
+      "type": "comment in",
+      "date": null,
+      "id": "9643822",
+      "source": "europepmc commentCorrectionList"
+     },
+     {
+      "type": "comment in",
+      "date": null,
+      "id": "9643823",
+      "source": "europepmc commentCorrectionList"
+     },
+     {
+      "type": "comment in",
+      "date": null,
+      "id": "9683237",
+      "source": "europepmc commentCorrectionList"
+     },
+     {
+      "type": "comment in",
+      "date": null,
+      "id": "10963264",
+      "source": "europepmc commentCorrectionList"
+     },
+     {
+      "type": "comment in",
+      "date": null,
+      "id": "10963266",
+      "source": "europepmc commentCorrectionList"
+     },
+     {
+      "type": "comment in",
+      "date": null,
+      "id": "10963267",
+      "source": "europepmc commentCorrectionList"
+     },
+     {
+      "type": "comment in",
+      "date": null,
+      "id": "12086756",
+      "source": "europepmc commentCorrectionList"
+     },
+     {
+      "type": "comment in",
+      "date": null,
+      "id": "15016482",
+      "source": "europepmc commentCorrectionList"
+     },
+     {
+      "type": "retraction in",
+      "date": null,
+      "id": "15016483",
+      "source": "europepmc commentCorrectionList"
+     },
+     {
+      "type": "comment in",
+      "date": null,
+      "id": "15022645",
+      "source": "europepmc commentCorrectionList"
+     },
+     {
+      "type": "comment in",
+      "date": null,
+      "id": "15022648",
+      "source": "europepmc commentCorrectionList"
+     },
+     {
+      "type": "comment in",
+      "date": null,
+      "id": "15022649",
+      "source": "europepmc commentCorrectionList"
+     },
+     {
+      "type": "comment in",
+      "date": null,
+      "id": "15022650",
+      "source": "europepmc commentCorrectionList"
+     },
+     {
+      "type": "retraction in",
+      "date": null,
+      "id": "20137807",
+      "source": "europepmc commentCorrectionList"
+     },
+     {
+      "type": "expression of concern in",
+      "date": null,
+      "id": "21971344",
+      "source": "europepmc commentCorrectionList"
+     },
+     {
+      "type": "Retracted Publication",
+      "source": "europepmc pubType"
+     }
+    ],
+    "frozen": {}
+   },
+   "survives": true,
+   "withheld_reason": null,
+   "registry_text": "RETRACTED: Ileal-lymphoid-nodular hyperplasia, non-specific colitis, and pervasive developmental disorder in children 1998"
+  },
+  {
+   "source_id": "c47f0199-fc95-4f7d-9c86-91c9e791f20e",
+   "url": "https://doi.org/10.1016/S0140-6736(99)01239-8",
+   "title": "Autism and measles, mumps, and rubella vaccine: no epidemiological evidence for a causal association",
+   "source_type": "clinical_trial",
+   "identifier": {
+    "system": "doi",
+    "value": "10.1016/s0140-6736(99)01239-8",
+    "provenance": "RESOLVED_FROM_HELD"
+   },
+   "resolution": {
+    "exists": "EXISTS",
+    "heading": "Autism and measles, mumps, and rubella vaccine: no epidemiological evidence for a causal association",
+    "canonical": "https://doi.org/10.1016/s0140-6736(99)01239-8",
+    "registry": "crossref",
+    "registry_id": "10.1016/s0140-6736(99)01239-8",
+    "checked_at": "2026-09-14T22:15:46+00:00"
+   },
+   "document": {
+    "sha256": "1820cf125b0e5616cd720e3bcadc1b32baab6854abdd22794c4c45c4703fe5e5",
+    "route": "europepmc_abstract",
+    "kind": "abstract",
+    "retrieved_at": "2026-09-14T22:15:47+00:00",
+    "chars": 2311,
+    "text_layer": "DECLARED_SOUND",
+    "path": "data/verify/docs/18/1820cf125b0e5616cd720e3bcadc1b32baab6854abdd22794c4c45c4703fe5e5.txt.gz",
+    "final_url": "https://doi.org/10.1016/s0140-6736(99)01239-8"
+   },
+   "bindings": [
+    {
+     "kind": "HEADING",
+     "ok": true,
+     "abstained": false,
+     "evidence": "containment: association, autism, causal, epidemiological, evidence, measles, mumps, rubella, vaccine",
+     "reason": ""
+    }
+   ],
+   "status": {
+    "verdict": "unchanged",
+    "registry": "crossref+europepmc",
+    "detail": "no update-to, relation, or updating work",
+    "checked_at": "2026-09-14T22:15:47+00:00",
+    "events": [
+     {
+      "type": "comment in",
+      "date": null,
+      "id": "10376608",
+      "source": "europepmc commentCorrectionList"
+     },
+     {
+      "type": "comment in",
+      "date": null,
+      "id": "10489978",
+      "source": "europepmc commentCorrectionList"
+     },
+     {
+      "type": "comment in",
+      "date": null,
+      "id": "10489979",
+      "source": "europepmc commentCorrectionList"
+     },
+     {
+      "type": "comment in",
+      "date": null,
+      "id": "10665582",
+      "source": "europepmc commentCorrectionList"
+     },
+     {
+      "type": "comment in",
+      "date": null,
+      "id": "10963264",
+      "source": "europepmc commentCorrectionList"
+     },
+     {
+      "type": "comment in",
+      "date": null,
+      "id": "10963267",
+      "source": "europepmc commentCorrectionList"
+     }
+    ],
+    "frozen": {}
+   },
+   "survives": true,
+   "withheld_reason": null,
+   "registry_text": "Autism and measles, mumps, and rubella vaccine: no epidemiological evidence for a causal association 1999"
+  },
+  {
+   "source_id": "4360eb36-7ed3-493a-b59a-c84a008fecb1",
+   "url": "https://doi.org/10.1056/NEJMoa021134",
+   "title": "A Population-Based Study of Measles, Mumps, and Rubella Vaccination and Autism",
+   "source_type": "clinical_trial",
+   "identifier": {
+    "system": "doi",
+    "value": "10.1056/nejmoa021134",
+    "provenance": "RESOLVED_FROM_HELD"
+   },
+   "resolution": {
+    "exists": "EXISTS",
+    "heading": "A Population-Based Study of Measles, Mumps, and Rubella Vaccination and Autism",
+    "canonical": "https://doi.org/10.1056/nejmoa021134",
+    "registry": "crossref",
+    "registry_id": "10.1056/nejmoa021134",
+    "checked_at": "2026-09-14T22:15:50+00:00"
+   },
+   "document": {
+    "sha256": "cf62e4e025b70be9e7f6140bb594850f73db0258711906392827ce9e89e73c86",
+    "route": "europepmc_abstract",
+    "kind": "abstract",
+    "retrieved_at": "2026-09-14T22:15:51+00:00",
+    "chars": 1829,
+    "text_layer": "DECLARED_SOUND",
+    "path": "data/verify/docs/cf/cf62e4e025b70be9e7f6140bb594850f73db0258711906392827ce9e89e73c86.txt.gz",
+    "final_url": "https://doi.org/10.1056/nejmoa021134"
+   },
+   "bindings": [
+    {
+     "kind": "HEADING",
+     "ok": true,
+     "abstained": false,
+     "evidence": "containment: autism, based, measles, mumps, population, rubella, vaccination",
+     "reason": ""
+    }
+   ],
+   "status": {
+    "verdict": "unchanged",
+    "registry": "crossref+europepmc",
+    "detail": "no update-to, relation, or updating work",
+    "checked_at": "2026-09-14T22:15:51+00:00",
+    "events": [
+     {
+      "type": "comment in",
+      "date": null,
+      "id": "12421888",
+      "source": "europepmc commentCorrectionList"
+     },
+     {
+      "type": "comment in",
+      "date": null,
+      "id": "12622119",
+      "source": "europepmc commentCorrectionList"
+     },
+     {
+      "type": "comment in",
+      "date": null,
+      "id": "12622122",
+      "source": "europepmc commentCorrectionList"
+     },
+     {
+      "type": "comment in",
+      "date": null,
+      "id": "12622124",
+      "source": "europepmc commentCorrectionList"
+     },
+     {
+      "type": "comment in",
+      "date": null,
+      "id": "12719369",
+      "source": "europepmc commentCorrectionList"
+     },
+     {
+      "type": "comment in",
+      "date": null,
+      "id": "12882202",
+      "source": "europepmc commentCorrectionList"
+     }
+    ],
+    "frozen": {}
+   },
+   "survives": true,
+   "withheld_reason": null,
+   "registry_text": "A Population-Based Study of Measles, Mumps, and Rubella Vaccination and Autism 2002"
+  },
+  {
+   "source_id": "dd13e679-2b06-4fa3-83a4-df2aa1eea9a9",
+   "url": "https://doi.org/10.1111/j.1469-8749.2005.tb01095.x",
+   "title": "No effect of MMR withdrawal on the incidence of autism: a total population study",
+   "source_type": "clinical_trial",
+   "identifier": {
+    "system": "doi",
+    "value": "10.1111/j.1469-8749.2005.tb01095.x",
+    "provenance": "RESOLVED_FROM_HELD"
+   },
+   "resolution": {
+    "exists": "EXISTS",
+    "heading": "Gastrostomy tube feeding in children with cerebral palsy: a prospective, longitudinal study",
+    "canonical": "https://doi.org/10.1111/j.1469-8749.2005.tb01095.x",
+    "registry": "crossref",
+    "registry_id": "10.1111/j.1469-8749.2005.tb01095.x",
+    "checked_at": "2026-09-14T22:15:54+00:00"
+   },
+   "document": null,
+   "bindings": [
+    {
+     "kind": "HEADING",
+     "ok": false,
+     "abstained": false,
+     "evidence": "Gastrostomy tube feeding in children with cerebral palsy: a prospective, longitudinal study",
+     "reason": "shares no distinctive word with the registry heading"
+    }
+   ],
+   "status": null,
+   "survives": false,
+   "withheld_reason": "HEADING: shares no distinctive word with the registry heading"
+  },
+  {
+   "source_id": "d89cc78b-ae50-4910-b14a-adf0c57985cb",
+   "url": "https://doi.org/10.1542/peds.2005-2993",
+   "title": "Pervasive Developmental Disorders in Montreal, Quebec, Canada: Prevalence and Links With Immunizations",
+   "source_type": "clinical_trial",
+   "identifier": {
+    "system": "doi",
+    "value": "10.1542/peds.2005-2993",
+    "provenance": "RESOLVED_FROM_HELD"
+   },
+   "resolution": {
+    "exists": "EXISTS",
+    "heading": "Pervasive Developmental Disorders in Montreal, Quebec, Canada: Prevalence and Links With Immunizations",
+    "canonical": "https://doi.org/10.1542/peds.2005-2993",
+    "registry": "crossref",
+    "registry_id": "10.1542/peds.2005-2993",
+    "checked_at": "2026-09-14T22:15:54+00:00"
+   },
+   "document": {
+    "sha256": "e0a814dcfa846acc967b48d244b36df68b67dbeb7029c24e550e012cadb8d36d",
+    "route": "europepmc_abstract",
+    "kind": "abstract",
+    "retrieved_at": "2026-09-14T22:15:55+00:00",
+    "chars": 4590,
+    "text_layer": "DECLARED_SOUND",
+    "path": "data/verify/docs/e0/e0a814dcfa846acc967b48d244b36df68b67dbeb7029c24e550e012cadb8d36d.txt.gz",
+    "final_url": "https://doi.org/10.1542/peds.2005-2993"
+   },
+   "bindings": [
+    {
+     "kind": "HEADING",
+     "ok": true,
+     "abstained": false,
+     "evidence": "containment: canada, developmental, disorders, immunizations, links, montreal, pervasive, prevalence, quebec",
+     "reason": ""
+    }
+   ],
+   "status": {
+    "verdict": "unchanged",
+    "registry": "crossref+europepmc",
+    "detail": "no update-to, relation, or updating work",
+    "checked_at": "2026-09-14T22:15:55+00:00",
+    "events": [],
+    "frozen": {}
+   },
+   "survives": true,
+   "withheld_reason": null,
+   "registry_text": "Pervasive Developmental Disorders in Montreal, Quebec, Canada: Prevalence and Links With Immunizations 2006"
+  },
+  {
+   "source_id": "d2960292-6c77-4edc-9565-3baecf5f1b25",
+   "url": "https://doi.org/10.1016/S0140-6736(04)17020-7",
+   "title": "MMR vaccination and pervasive developmental disorders: a case-control study",
+   "source_type": "clinical_trial",
+   "identifier": {
+    "system": "doi",
+    "value": "10.1016/s0140-6736(04)17020-7",
+    "provenance": "RESOLVED_FROM_HELD"
+   },
+   "resolution": {
+    "exists": "EXISTS",
+    "heading": "MMR vaccination and pervasive developmental disorders: a case-control study",
+    "canonical": "https://doi.org/10.1016/s0140-6736(04)17020-7",
+    "registry": "crossref",
+    "registry_id": "10.1016/s0140-6736(04)17020-7",
+    "checked_at": "2026-09-14T22:15:57+00:00"
+   },
+   "document": {
+    "sha256": "baff1cb1d7216b3109f6e886eca267275d513095d3c17701953012af45430683",
+    "route": "europepmc_abstract",
+    "kind": "abstract",
+    "retrieved_at": "2026-09-14T22:15:58+00:00",
+    "chars": 1389,
+    "text_layer": "DECLARED_SOUND",
+    "path": "data/verify/docs/ba/baff1cb1d7216b3109f6e886eca267275d513095d3c17701953012af45430683.txt.gz",
+    "final_url": "https://doi.org/10.1016/s0140-6736(04)17020-7"
+   },
+   "bindings": [
+    {
+     "kind": "HEADING",
+     "ok": true,
+     "abstained": false,
+     "evidence": "containment: case, control, developmental, disorders, mmr, pervasive, vaccination",
+     "reason": ""
+    }
+   ],
+   "status": {
+    "verdict": "unchanged",
+    "registry": "crossref+europepmc",
+    "detail": "no update-to, relation, or updating work",
+    "checked_at": "2026-09-14T22:15:58+00:00",
+    "events": [],
+    "frozen": {}
+   },
+   "survives": true,
+   "withheld_reason": null,
+   "registry_text": "MMR vaccination and pervasive developmental disorders: a case-control study 2004"
+  },
+  {
+   "source_id": "fe4e0fb8-757f-446c-ab11-fa3edee3c57d",
+   "url": "https://doi.org/10.1001/jama.2015.1534",
+   "title": "Autism Occurrence by MMR Vaccine Status Among US Children With Older Siblings With and Without Autism",
+   "source_type": "clinical_trial",
+   "identifier": {
+    "system": "doi",
+    "value": "10.1001/jama.2015.1534",
+    "provenance": "RESOLVED_FROM_HELD"
+   },
+   "resolution": {
+    "exists": "NONEXISTENT",
+    "heading": null,
+    "canonical": null,
+    "registry": "handle",
+    "registry_id": null,
+    "checked_at": "2026-09-14T22:16:00+00:00"
+   },
+   "document": null,
+   "bindings": [],
+   "status": null,
+   "survives": false,
+   "withheld_reason": "resolve: NONEXISTENT"
+  },
+  {
+   "source_id": "c17ba46d-70c4-4f1c-bb1e-a3ff554c1401",
+   "url": "https://doi.org/10.1136/bmj.324.7334.393",
+   "title": "Measles, mumps, and rubella vaccination and bowel problems or developmental regression in children with autism: population study",
+   "source_type": "clinical_trial",
+   "identifier": {
+    "system": "doi",
+    "value": "10.1136/bmj.324.7334.393",
+    "provenance": "RESOLVED_FROM_HELD"
+   },
+   "resolution": {
+    "exists": "EXISTS",
+    "heading": "Measles, mumps, and rubella vaccination and bowel problems or developmental regression in children with autism: population study",
+    "canonical": "https://doi.org/10.1136/bmj.324.7334.393",
+    "registry": "crossref",
+    "registry_id": "10.1136/bmj.324.7334.393",
+    "checked_at": "2026-09-14T22:16:00+00:00"
+   },
+   "document": {
+    "sha256": "00b87bbf34e769d1ee560f46d2ab7e7e988316becab88690ba226042b06bd60c",
+    "route": "europepmc_abstract",
+    "kind": "abstract",
+    "retrieved_at": "2026-09-14T22:16:04+00:00",
+    "chars": 1903,
+    "text_layer": "DECLARED_SOUND",
+    "path": "data/verify/docs/00/00b87bbf34e769d1ee560f46d2ab7e7e988316becab88690ba226042b06bd60c.txt.gz",
+    "final_url": "https://doi.org/10.1136/bmj.324.7334.393"
+   },
+   "bindings": [
+    {
+     "kind": "HEADING",
+     "ok": true,
+     "abstained": false,
+     "evidence": "containment: autism, bowel, children, developmental, measles, mumps, population, problems, regression, rubella, vaccination",
+     "reason": ""
+    }
+   ],
+   "status": {
+    "verdict": "unchanged",
+    "registry": "crossref+europepmc",
+    "detail": "no update-to, relation, or updating work",
+    "checked_at": "2026-09-14T22:16:04+00:00",
+    "events": [
+     {
+      "type": "comment in",
+      "date": null,
+      "id": "12610643",
+      "source": "europepmc commentCorrectionList"
+     }
+    ],
+    "frozen": {}
+   },
+   "survives": true,
+   "withheld_reason": null,
+   "registry_text": "Measles, mumps, and rubella vaccination and bowel problems or developmental regression in children with autism: population study 2002"
+  },
+  {
+   "source_id": "2e5297e3-c0a1-4846-939d-0a793e295c9f",
+   "url": "https://doi.org/10.7326/M18-2101",
+   "title": "Measles, Mumps, Rubella Vaccination and Autism: A Nationwide Cohort Study",
+   "source_type": "clinical_trial",
+   "identifier": {
+    "system": "doi",
+    "value": "10.7326/m18-2101",
+    "provenance": "RESOLVED_FROM_HELD"
+   },
+   "resolution": {
+    "exists": "EXISTS",
+    "heading": "Measles, Mumps, Rubella Vaccination and Autism",
+    "canonical": "https://doi.org/10.7326/m18-2101",
+    "registry": "crossref",
+    "registry_id": "10.7326/m18-2101",
+    "checked_at": "2026-09-14T22:16:06+00:00"
+   },
+   "document": {
+    "sha256": "26d79efdf5364011190cc9f663ebdd9d2a4c4c6fe4614c1020bb6284bd9124fb",
+    "route": "europepmc_abstract",
+    "kind": "abstract",
+    "retrieved_at": "2026-09-14T22:16:07+00:00",
+    "chars": 2161,
+    "text_layer": "DECLARED_SOUND",
+    "path": "data/verify/docs/26/26d79efdf5364011190cc9f663ebdd9d2a4c4c6fe4614c1020bb6284bd9124fb.txt.gz",
+    "final_url": "https://doi.org/10.7326/m18-2101"
+   },
+   "bindings": [
+    {
+     "kind": "HEADING",
+     "ok": true,
+     "abstained": false,
+     "evidence": "containment: autism, cohort, measles, mumps, nationwide, rubella, vaccination",
+     "reason": ""
+    }
+   ],
+   "status": {
+    "verdict": "unchanged",
+    "registry": "crossref+europepmc",
+    "detail": "no update-to, relation, or updating work",
+    "checked_at": "2026-09-14T22:16:07+00:00",
+    "events": [
+     {
+      "type": "comment in",
+      "date": null,
+      "id": "30831577",
+      "source": "europepmc commentCorrectionList"
+     },
+     {
+      "type": "comment in",
+      "date": null,
+      "id": "31217233",
+      "source": "europepmc commentCorrectionList"
+     },
+     {
+      "type": "comment in",
+      "date": null,
+      "id": "31476223",
+      "source": "europepmc commentCorrectionList"
+     },
+     {
+      "type": "comment in",
+      "date": null,
+      "id": "31476224",
+      "source": "europepmc commentCorrectionList"
+     },
+     {
+      "type": "comment in",
+      "date": null,
+      "id": "31476225",
+      "source": "europepmc commentCorrectionList"
+     }
+    ],
+    "frozen": {}
+   },
+   "survives": true,
+   "withheld_reason": null,
+   "registry_text": "Measles, Mumps, Rubella Vaccination and Autism 2019"
+  },
+  {
+   "source_id": "84138759-9546-463f-a48a-8708af419157",
+   "url": "https://doi.org/10.1002/14651858.CD004407.pub4",
+   "title": "Vaccines for measles, mumps, rubella, and varicella in children",
+   "source_type": "clinical_trial",
+   "identifier": {
+    "system": "doi",
+    "value": "10.1002/14651858.cd004407.pub4",
+    "provenance": "RESOLVED_FROM_HELD"
+   },
+   "resolution": {
+    "exists": "EXISTS",
+    "heading": "Vaccines for measles, mumps, rubella, and varicella in children",
+    "canonical": "https://doi.org/10.1002/14651858.cd004407.pub4",
+    "registry": "crossref",
+    "registry_id": "10.1002/14651858.cd004407.pub4",
+    "checked_at": "2026-09-14T22:16:10+00:00"
+   },
+   "document": {
+    "sha256": "cdcf92f7b5477d860e432f10033af0ae53df0912999140336604d7f6d738d96f",
+    "route": "europepmc_abstract",
+    "kind": "abstract",
+    "retrieved_at": "2026-09-14T22:16:12+00:00",
+    "chars": 6715,
+    "text_layer": "DECLARED_SOUND",
+    "path": "data/verify/docs/cd/cdcf92f7b5477d860e432f10033af0ae53df0912999140336604d7f6d738d96f.txt.gz",
+    "final_url": "https://doi.org/10.1002/14651858.cd004407.pub4"
+   },
+   "bindings": [
+    {
+     "kind": "HEADING",
+     "ok": true,
+     "abstained": false,
+     "evidence": "containment: children, measles, mumps, rubella, vaccines, varicella",
+     "reason": ""
+    }
+   ],
+   "status": {
+    "verdict": "superseded",
+    "registry": "crossref+europepmc",
+    "detail": "2 update/relation event(s)",
+    "checked_at": "2026-09-14T22:16:12+00:00",
+    "events": [
+     {
+      "type": "new_version",
+      "date": "2020-4-20",
+      "doi": "10.1002/14651858.cd004407.pub3",
+      "source": "crossref update-to",
+      "label": "New version"
+     },
+     {
+      "type": "new_version",
+      "date": "2021-11-22",
+      "doi": "10.1002/14651858.cd004407.pub5",
+      "source": "crossref filter=updates",
+      "label": "New version",
+      "title": "Vaccines for measles, mumps, rubella, and varicella in children"
+     },
+     {
+      "type": "update of",
+      "date": null,
+      "id": "22336803",
+      "source": "europepmc commentCorrectionList"
+     },
+     {
+      "type": "update in",
+      "date": null,
+      "id": "34806766",
+      "source": "europepmc commentCorrectionList"
+     }
+    ],
+    "frozen": {}
+   },
+   "survives": true,
+   "withheld_reason": null,
+   "registry_text": "Vaccines for measles, mumps, rubella, and varicella in children 2020"
+  },
+  {
+   "source_id": "6a24317a-1e5c-4fc1-a51f-997e01df6231",
+   "url": "https://doi.org/10.1016/j.vaccine.2014.04.085",
+   "title": "Vaccines are not associated with autism: An evidence-based meta-analysis of case-control and cohort studies",
+   "source_type": "clinical_trial",
+   "identifier": {
+    "system": "doi",
+    "value": "10.1016/j.vaccine.2014.04.085",
+    "provenance": "RESOLVED_FROM_HELD"
+   },
+   "resolution": {
+    "exists": "EXISTS",
+    "heading": "Vaccines are not associated with autism: An evidence-based meta-analysis of case-control and cohort studies",
+    "canonical": "https://doi.org/10.1016/j.vaccine.2014.04.085",
+    "registry": "crossref",
+    "registry_id": "10.1016/j.vaccine.2014.04.085",
+    "checked_at": "2026-09-14T22:16:14+00:00"
+   },
+   "document": {
+    "sha256": "fdddd466b1abad1b03561461c6eb75b27534184f6a77636bd23ed716403d157a",
+    "route": "europepmc_abstract",
+    "kind": "abstract",
+    "retrieved_at": "2026-09-14T22:16:15+00:00",
+    "chars": 1945,
+    "text_layer": "DECLARED_SOUND",
+    "path": "data/verify/docs/fd/fdddd466b1abad1b03561461c6eb75b27534184f6a77636bd23ed716403d157a.txt.gz",
+    "final_url": "https://doi.org/10.1016/j.vaccine.2014.04.085"
+   },
+   "bindings": [
+    {
+     "kind": "HEADING",
+     "ok": true,
+     "abstained": false,
+     "evidence": "containment: are, associated, autism, based, case, cohort, control, evidence, meta, not, studies, vaccines",
+     "reason": ""
+    }
+   ],
+   "status": {
+    "verdict": "unchanged",
+    "registry": "crossref+europepmc",
+    "detail": "no update-to, relation, or updating work",
+    "checked_at": "2026-09-14T22:16:15+00:00",
+    "events": [
+     {
+      "type": "comment in",
+      "date": null,
+      "id": "25724821",
+      "source": "europepmc commentCorrectionList"
+     },
+     {
+      "type": "comment in",
+      "date": null,
+      "id": "26192352",
+      "source": "europepmc commentCorrectionList"
+     },
+     {
+      "type": "comment in",
+      "date": null,
+      "id": "27288998",
+      "source": "europepmc commentCorrectionList"
+     }
+    ],
+    "frozen": {}
+   },
+   "survives": true,
+   "withheld_reason": null,
+   "registry_text": "Vaccines are not associated with autism: An evidence-based meta-analysis of case-control and cohort studies 2014"
+  },
+  {
+   "source_id": "e800dd15-8aaf-482b-b1b8-485484a363e1",
+   "url": "https://www.fda.gov/vaccines-blood-biologics/vaccines/mmr-ii",
+   "title": "Biologics License Application (BLA) 103166: M-M-R II (Measles, Mumps, and Rubella Virus Vaccine Live) — FDA Product Approval Information",
+   "source_type": "fda",
+   "identifier": null,
+   "resolution": null,
+   "document": null,
+   "bindings": [],
+   "status": null,
+   "survives": false,
+   "withheld_reason": "UNVERIFIABLE: no DOI, PMID, PMCID, NCT or law citation in the stored URL"
+  },
+  {
+   "source_id": "2dd1f179-ff6f-4b84-a1b9-cfcc817d9382",
+   "url": "https://www.fda.gov/vaccines-blood-biologics/safety-availability-biologics/thimerosal-and-vaccines",
+   "title": "FDA Statement Regarding the MMR Vaccine and Thimerosal",
+   "source_type": "fda",
+   "identifier": null,
+   "resolution": null,
+   "document": null,
+   "bindings": [],
+   "status": null,
+   "survives": false,
+   "withheld_reason": "UNVERIFIABLE: no DOI, PMID, PMCID, NCT or law citation in the stored URL"
+  },
+  {
+   "source_id": "621c07ec-dacd-4c81-a541-b45c430ae3cb",
+   "url": "https://www.cdc.gov/mmwr/preview/mmwrhtml/rr6204a1.htm",
+   "title": "Advisory Committee on Immunization Practices (ACIP): Prevention of Measles, Rubella, Congenital Rubella Syndrome, and Mumps — Updated Recommendations",
+   "source_type": "regulatory",
+   "identifier": null,
+   "resolution": null,
+   "document": null,
+   "bindings": [],
+   "status": null,
+   "survives": false,
+   "withheld_reason": "UNVERIFIABLE: no DOI, PMID, PMCID, NCT or law citation in the stored URL"
+  },
+  {
+   "source_id": "76f4aee8-9759-4f8e-bfbf-85aae31e267d",
+   "url": "https://www.ncbi.nlm.nih.gov/books/NBK25344/",
+   "title": "Immunization Safety Review: Vaccines and Autism — Institute of Medicine Report",
+   "source_type": "regulatory",
+   "identifier": null,
+   "resolution": null,
+   "document": null,
+   "bindings": [],
+   "status": null,
+   "survives": false,
+   "withheld_reason": "UNVERIFIABLE: no DOI, PMID, PMCID, NCT or law citation in the stored URL"
+  },
+  {
+   "source_id": "f01d7631-8929-4030-9ff6-1f25f52d293b",
+   "url": "https://www.ema.europa.eu/en/medicines/human/EPAR/m-m-rvaxpro",
+   "title": "European Medicines Agency: M-M-RvaxPro — European Public Assessment Report (EPAR)",
+   "source_type": "regulatory",
+   "identifier": null,
+   "resolution": null,
+   "document": null,
+   "bindings": [],
+   "status": null,
+   "survives": false,
+   "withheld_reason": "UNVERIFIABLE: no DOI, PMID, PMCID, NCT or law citation in the stored URL"
+  },
+  {
+   "source_id": "7797297c-d62d-4120-aace-d50e095293be",
+   "url": "https://vaers.hhs.gov/data/dataguide.html",
+   "title": "Vaccine Adverse Event Reporting System (VAERS): Review of Autism-Related Reports Following MMR Vaccination — FDA/CDC Joint Safety Assessment",
+   "source_type": "fda",
+   "identifier": null,
+   "resolution": null,
+   "document": null,
+   "bindings": [],
+   "status": null,
+   "survives": false,
+   "withheld_reason": "UNVERIFIABLE: no DOI, PMID, PMCID, NCT or law citation in the stored URL"
+  },
+  {
+   "source_id": "9c4c60a5-f884-4ae0-8338-b53de9b30b2e",
+   "url": "https://www.uscfc.uscourts.gov/sites/default/files/Hastings.Cedillo.02-0031V.pdf",
+   "title": "Omnibus Autism Proceeding: Special Masters' Decision in Cedillo v. Secretary of Health and Human Services — U.S. Court of Federal Claims (Vaccine Injury Compensation Program)",
+   "source_type": "regulatory",
+   "identifier": null,
+   "resolution": null,
+   "document": null,
+   "bindings": [],
+   "status": null,
+   "survives": false,
+   "withheld_reason": "UNVERIFIABLE: no DOI, PMID, PMCID, NCT or law citation in the stored URL"
+  },
+  {
+   "source_id": "bf1f520d-1281-4fb5-b9b5-af9bf34d6834",
+   "url": "https://doi.org/10.1002/14651858.CD004407.pub4",
+   "title": "Vaccines for measles, mumps, rubella, and varicella in children",
+   "source_type": "systematic_review",
+   "identifier": {
+    "system": "doi",
+    "value": "10.1002/14651858.cd004407.pub4",
+    "provenance": "RESOLVED_FROM_HELD"
+   },
+   "resolution": {
+    "exists": "EXISTS",
+    "heading": "Vaccines for measles, mumps, rubella, and varicella in children",
+    "canonical": "https://doi.org/10.1002/14651858.cd004407.pub4",
+    "registry": "crossref",
+    "registry_id": "10.1002/14651858.cd004407.pub4",
+    "checked_at": "2026-09-14T22:16:17+00:00"
+   },
+   "document": {
+    "sha256": "cdcf92f7b5477d860e432f10033af0ae53df0912999140336604d7f6d738d96f",
+    "route": "europepmc_abstract",
+    "kind": "abstract",
+    "retrieved_at": "2026-09-14T22:16:19+00:00",
+    "chars": 6715,
+    "text_layer": "DECLARED_SOUND",
+    "path": "data/verify/docs/cd/cdcf92f7b5477d860e432f10033af0ae53df0912999140336604d7f6d738d96f.txt.gz",
+    "final_url": "https://doi.org/10.1002/14651858.cd004407.pub4"
+   },
+   "bindings": [
+    {
+     "kind": "HEADING",
+     "ok": true,
+     "abstained": false,
+     "evidence": "containment: children, measles, mumps, rubella, vaccines, varicella",
+     "reason": ""
+    }
+   ],
+   "status": {
+    "verdict": "superseded",
+    "registry": "crossref+europepmc",
+    "detail": "2 update/relation event(s)",
+    "checked_at": "2026-09-14T22:16:19+00:00",
+    "events": [
+     {
+      "type": "new_version",
+      "date": "2020-4-20",
+      "doi": "10.1002/14651858.cd004407.pub3",
+      "source": "crossref update-to",
+      "label": "New version"
+     },
+     {
+      "type": "new_version",
+      "date": "2021-11-22",
+      "doi": "10.1002/14651858.cd004407.pub5",
+      "source": "crossref filter=updates",
+      "label": "New version",
+      "title": "Vaccines for measles, mumps, rubella, and varicella in children"
+     },
+     {
+      "type": "update of",
+      "date": null,
+      "id": "22336803",
+      "source": "europepmc commentCorrectionList"
+     },
+     {
+      "type": "update in",
+      "date": null,
+      "id": "34806766",
+      "source": "europepmc commentCorrectionList"
+     }
+    ],
+    "frozen": {}
+   },
+   "survives": true,
+   "withheld_reason": null,
+   "registry_text": "Vaccines for measles, mumps, rubella, and varicella in children 2020"
+  },
+  {
+   "source_id": "9d3f1a29-70f8-4d36-b782-531c9e68bf73",
+   "url": "https://doi.org/10.1016/j.vaccine.2014.04.085",
+   "title": "Vaccines are not associated with autism: An evidence-based meta-analysis of case-control and cohort studies",
+   "source_type": "meta_analysis",
+   "identifier": {
+    "system": "doi",
+    "value": "10.1016/j.vaccine.2014.04.085",
+    "provenance": "RESOLVED_FROM_HELD"
+   },
+   "resolution": {
+    "exists": "EXISTS",
+    "heading": "Vaccines are not associated with autism: An evidence-based meta-analysis of case-control and cohort studies",
+    "canonical": "https://doi.org/10.1016/j.vaccine.2014.04.085",
+    "registry": "crossref",
+    "registry_id": "10.1016/j.vaccine.2014.04.085",
+    "checked_at": "2026-09-14T22:16:21+00:00"
+   },
+   "document": {
+    "sha256": "fdddd466b1abad1b03561461c6eb75b27534184f6a77636bd23ed716403d157a",
+    "route": "europepmc_abstract",
+    "kind": "abstract",
+    "retrieved_at": "2026-09-14T22:16:22+00:00",
+    "chars": 1945,
+    "text_layer": "DECLARED_SOUND",
+    "path": "data/verify/docs/fd/fdddd466b1abad1b03561461c6eb75b27534184f6a77636bd23ed716403d157a.txt.gz",
+    "final_url": "https://doi.org/10.1016/j.vaccine.2014.04.085"
+   },
+   "bindings": [
+    {
+     "kind": "HEADING",
+     "ok": true,
+     "abstained": false,
+     "evidence": "containment: are, associated, autism, based, case, cohort, control, evidence, meta, not, studies, vaccines",
+     "reason": ""
+    }
+   ],
+   "status": {
+    "verdict": "unchanged",
+    "registry": "crossref+europepmc",
+    "detail": "no update-to, relation, or updating work",
+    "checked_at": "2026-09-14T22:16:22+00:00",
+    "events": [
+     {
+      "type": "comment in",
+      "date": null,
+      "id": "25724821",
+      "source": "europepmc commentCorrectionList"
+     },
+     {
+      "type": "comment in",
+      "date": null,
+      "id": "26192352",
+      "source": "europepmc commentCorrectionList"
+     },
+     {
+      "type": "comment in",
+      "date": null,
+      "id": "27288998",
+      "source": "europepmc commentCorrectionList"
+     }
+    ],
+    "frozen": {}
+   },
+   "survives": true,
+   "withheld_reason": null,
+   "registry_text": "Vaccines are not associated with autism: An evidence-based meta-analysis of case-control and cohort studies 2014"
+  },
+  {
+   "source_id": "c42fc694-8840-47cc-8775-a36c74a4fa84",
+   "url": "https://doi.org/10.1056/NEJMoa021134",
+   "title": "A Population-Based Study of Measles, Mumps, and Rubella Vaccination and Autism",
+   "source_type": "systematic_review",
+   "identifier": {
+    "system": "doi",
+    "value": "10.1056/nejmoa021134",
+    "provenance": "RESOLVED_FROM_HELD"
+   },
+   "resolution": {
+    "exists": "EXISTS",
+    "heading": "A Population-Based Study of Measles, Mumps, and Rubella Vaccination and Autism",
+    "canonical": "https://doi.org/10.1056/nejmoa021134",
+    "registry": "crossref",
+    "registry_id": "10.1056/nejmoa021134",
+    "checked_at": "2026-09-14T22:16:24+00:00"
+   },
+   "document": {
+    "sha256": "cf62e4e025b70be9e7f6140bb594850f73db0258711906392827ce9e89e73c86",
+    "route": "europepmc_abstract",
+    "kind": "abstract",
+    "retrieved_at": "2026-09-14T22:16:25+00:00",
+    "chars": 1829,
+    "text_layer": "DECLARED_SOUND",
+    "path": "data/verify/docs/cf/cf62e4e025b70be9e7f6140bb594850f73db0258711906392827ce9e89e73c86.txt.gz",
+    "final_url": "https://doi.org/10.1056/nejmoa021134"
+   },
+   "bindings": [
+    {
+     "kind": "HEADING",
+     "ok": true,
+     "abstained": false,
+     "evidence": "containment: autism, based, measles, mumps, population, rubella, vaccination",
+     "reason": ""
+    }
+   ],
+   "status": {
+    "verdict": "unchanged",
+    "registry": "crossref+europepmc",
+    "detail": "no update-to, relation, or updating work",
+    "checked_at": "2026-09-14T22:16:25+00:00",
+    "events": [
+     {
+      "type": "comment in",
+      "date": null,
+      "id": "12421888",
+      "source": "europepmc commentCorrectionList"
+     },
+     {
+      "type": "comment in",
+      "date": null,
+      "id": "12622119",
+      "source": "europepmc commentCorrectionList"
+     },
+     {
+      "type": "comment in",
+      "date": null,
+      "id": "12622122",
+      "source": "europepmc commentCorrectionList"
+     },
+     {
+      "type": "comment in",
+      "date": null,
+      "id": "12622124",
+      "source": "europepmc commentCorrectionList"
+     },
+     {
+      "type": "comment in",
+      "date": null,
+      "id": "12719369",
+      "source": "europepmc commentCorrectionList"
+     },
+     {
+      "type": "comment in",
+      "date": null,
+      "id": "12882202",
+      "source": "europepmc commentCorrectionList"
+     }
+    ],
+    "frozen": {}
+   },
+   "survives": true,
+   "withheld_reason": null,
+   "registry_text": "A Population-Based Study of Measles, Mumps, and Rubella Vaccination and Autism 2002"
+  },
+  {
+   "source_id": "6f6527c4-636f-46e3-8c47-09a755af6e93",
+   "url": "https://doi.org/10.1111/j.1469-8749.2005.tb01215.x",
+   "title": "No effect of MMR withdrawal on the incidence of autism: a total population study",
+   "source_type": "systematic_review",
+   "identifier": {
+    "system": "doi",
+    "value": "10.1111/j.1469-8749.2005.tb01215.x",
+    "provenance": "RESOLVED_FROM_HELD"
+   },
+   "resolution": {
+    "exists": "EXISTS",
+    "heading": "Comparing botulinum toxin A with casting for treatment of dynamic equinus in children with cerebral palsy",
+    "canonical": "https://doi.org/10.1111/j.1469-8749.2005.tb01215.x",
+    "registry": "crossref",
+    "registry_id": "10.1111/j.1469-8749.2005.tb01215.x",
+    "checked_at": "2026-09-14T22:16:29+00:00"
+   },
+   "document": null,
+   "bindings": [
+    {
+     "kind": "HEADING",
+     "ok": false,
+     "abstained": false,
+     "evidence": "Comparing botulinum toxin A with casting for treatment of dynamic equinus in children with cerebral palsy",
+     "reason": "shares no distinctive word with the registry heading"
+    }
+   ],
+   "status": null,
+   "survives": false,
+   "withheld_reason": "HEADING: shares no distinctive word with the registry heading"
+  },
+  {
+   "source_id": "5c082496-8835-4a87-93a3-bc3faf585401",
+   "url": "https://doi.org/10.1001/jama.2015.1534",
+   "title": "Autism Occurrence by MMR Vaccine Status Among US Children With Older Siblings With and Without Autism",
+   "source_type": "systematic_review",
+   "identifier": {
+    "system": "doi",
+    "value": "10.1001/jama.2015.1534",
+    "provenance": "RESOLVED_FROM_HELD"
+   },
+   "resolution": {
+    "exists": "NONEXISTENT",
+    "heading": null,
+    "canonical": null,
+    "registry": "handle",
+    "registry_id": null,
+    "checked_at": "2026-09-14T22:16:29+00:00"
+   },
+   "document": null,
+   "bindings": [],
+   "status": null,
+   "survives": false,
+   "withheld_reason": "resolve: NONEXISTENT"
+  },
+  {
+   "source_id": "159f0385-b395-4866-9b85-30d9fd7f4b5f",
+   "url": "https://doi.org/10.17226/10997",
+   "title": "Immunization Safety Review: Vaccines and Autism",
+   "source_type": "systematic_review",
+   "identifier": {
+    "system": "doi",
+    "value": "10.17226/10997",
+    "provenance": "RESOLVED_FROM_HELD"
+   },
+   "resolution": {
+    "exists": "EXISTS",
+    "heading": "Immunization Safety Review",
+    "canonical": "https://doi.org/10.17226/10997",
+    "registry": "crossref",
+    "registry_id": "10.17226/10997",
+    "checked_at": "2026-09-14T22:16:29+00:00"
+   },
+   "document": null,
+   "bindings": [
+    {
+     "kind": "HEADING",
+     "ok": true,
+     "abstained": false,
+     "evidence": "containment: autism, immunization, vaccines",
+     "reason": ""
+    }
+   ],
+   "status": null,
+   "survives": false,
+   "withheld_reason": "fetch: nothing retrieved"
+  },
+  {
+   "source_id": "fd363c9a-4ca2-4a4b-9140-d59c55245292",
+   "url": "https://doi.org/10.7326/M18-2101",
+   "title": "Measles, Mumps, Rubella Vaccination and Autism: A Nationwide Cohort Study",
+   "source_type": "systematic_review",
+   "identifier": {
+    "system": "doi",
+    "value": "10.7326/m18-2101",
+    "provenance": "RESOLVED_FROM_HELD"
+   },
+   "resolution": {
+    "exists": "EXISTS",
+    "heading": "Measles, Mumps, Rubella Vaccination and Autism",
+    "canonical": "https://doi.org/10.7326/m18-2101",
+    "registry": "crossref",
+    "registry_id": "10.7326/m18-2101",
+    "checked_at": "2026-09-14T22:16:31+00:00"
+   },
+   "document": {
+    "sha256": "26d79efdf5364011190cc9f663ebdd9d2a4c4c6fe4614c1020bb6284bd9124fb",
+    "route": "europepmc_abstract",
+    "kind": "abstract",
+    "retrieved_at": "2026-09-14T22:16:32+00:00",
+    "chars": 2161,
+    "text_layer": "DECLARED_SOUND",
+    "path": "data/verify/docs/26/26d79efdf5364011190cc9f663ebdd9d2a4c4c6fe4614c1020bb6284bd9124fb.txt.gz",
+    "final_url": "https://doi.org/10.7326/m18-2101"
+   },
+   "bindings": [
+    {
+     "kind": "HEADING",
+     "ok": true,
+     "abstained": false,
+     "evidence": "containment: autism, cohort, measles, mumps, nationwide, rubella, vaccination",
+     "reason": ""
+    }
+   ],
+   "status": {
+    "verdict": "unchanged",
+    "registry": "crossref+europepmc",
+    "detail": "no update-to, relation, or updating work",
+    "checked_at": "2026-09-14T22:16:32+00:00",
+    "events": [
+     {
+      "type": "comment in",
+      "date": null,
+      "id": "30831577",
+      "source": "europepmc commentCorrectionList"
+     },
+     {
+      "type": "comment in",
+      "date": null,
+      "id": "31217233",
+      "source": "europepmc commentCorrectionList"
+     },
+     {
+      "type": "comment in",
+      "date": null,
+      "id": "31476223",
+      "source": "europepmc commentCorrectionList"
+     },
+     {
+      "type": "comment in",
+      "date": null,
+      "id": "31476224",
+      "source": "europepmc commentCorrectionList"
+     },
+     {
+      "type": "comment in",
+      "date": null,
+      "id": "31476225",
+      "source": "europepmc commentCorrectionList"
+     }
+    ],
+    "frozen": {}
+   },
+   "survives": true,
+   "withheld_reason": null,
+   "registry_text": "Measles, Mumps, Rubella Vaccination and Autism 2019"
+  },
+  {
+   "source_id": "196e03ba-4b2c-43f3-bdca-e28ddecfeb97",
+   "url": "https://doi.org/10.1016/S0140-6736(10)60175-4",
+   "title": "Retraction—Ileal-lymphoid-nodular hyperplasia, non-specific colitis, and pervasive developmental disorder in children",
+   "source_type": "journal",
+   "identifier": {
+    "system": "doi",
+    "value": "10.1016/s0140-6736(10)60175-4",
+    "provenance": "RESOLVED_FROM_HELD"
+   },
+   "resolution": {
+    "exists": "EXISTS",
+    "heading": "Retraction—Ileal-lymphoid-nodular hyperplasia, non-specific colitis, and pervasive developmental disorder in children",
+    "canonical": "https://doi.org/10.1016/s0140-6736(10)60175-4",
+    "registry": "crossref",
+    "registry_id": "10.1016/s0140-6736(10)60175-4",
+    "checked_at": "2026-09-14T22:16:33+00:00"
+   },
+   "document": null,
+   "bindings": [
+    {
+     "kind": "HEADING",
+     "ok": true,
+     "abstained": false,
+     "evidence": "containment: children, colitis, developmental, disorder, hyperplasia, ileal, lymphoid, nodular, non, pervasive, retraction, specific",
+     "reason": ""
+    }
+   ],
+   "status": null,
+   "survives": false,
+   "withheld_reason": "fetch: nothing retrieved"
+  },
+  {
+   "source_id": "d28cab99-41e4-40a1-8d85-551cb937f8dd",
+   "url": "https://doi.org/10.1056/NEJMoa021134",
+   "title": "A Population-Based Study of Measles, Mumps, and Rubella Vaccination and Autism",
+   "source_type": "observational",
+   "identifier": {
+    "system": "doi",
+    "value": "10.1056/nejmoa021134",
+    "provenance": "RESOLVED_FROM_HELD"
+   },
+   "resolution": {
+    "exists": "EXISTS",
+    "heading": "A Population-Based Study of Measles, Mumps, and Rubella Vaccination and Autism",
+    "canonical": "https://doi.org/10.1056/nejmoa021134",
+    "registry": "crossref",
+    "registry_id": "10.1056/nejmoa021134",
+    "checked_at": "2026-09-14T22:16:34+00:00"
+   },
+   "document": {
+    "sha256": "cf62e4e025b70be9e7f6140bb594850f73db0258711906392827ce9e89e73c86",
+    "route": "europepmc_abstract",
+    "kind": "abstract",
+    "retrieved_at": "2026-09-14T22:16:36+00:00",
+    "chars": 1829,
+    "text_layer": "DECLARED_SOUND",
+    "path": "data/verify/docs/cf/cf62e4e025b70be9e7f6140bb594850f73db0258711906392827ce9e89e73c86.txt.gz",
+    "final_url": "https://doi.org/10.1056/nejmoa021134"
+   },
+   "bindings": [
+    {
+     "kind": "HEADING",
+     "ok": true,
+     "abstained": false,
+     "evidence": "containment: autism, based, measles, mumps, population, rubella, vaccination",
+     "reason": ""
+    }
+   ],
+   "status": {
+    "verdict": "unchanged",
+    "registry": "crossref+europepmc",
+    "detail": "no update-to, relation, or updating work",
+    "checked_at": "2026-09-14T22:16:36+00:00",
+    "events": [
+     {
+      "type": "comment in",
+      "date": null,
+      "id": "12421888",
+      "source": "europepmc commentCorrectionList"
+     },
+     {
+      "type": "comment in",
+      "date": null,
+      "id": "12622119",
+      "source": "europepmc commentCorrectionList"
+     },
+     {
+      "type": "comment in",
+      "date": null,
+      "id": "12622122",
+      "source": "europepmc commentCorrectionList"
+     },
+     {
+      "type": "comment in",
+      "date": null,
+      "id": "12622124",
+      "source": "europepmc commentCorrectionList"
+     },
+     {
+      "type": "comment in",
+      "date": null,
+      "id": "12719369",
+      "source": "europepmc commentCorrectionList"
+     },
+     {
+      "type": "comment in",
+      "date": null,
+      "id": "12882202",
+      "source": "europepmc commentCorrectionList"
+     }
+    ],
+    "frozen": {}
+   },
+   "survives": true,
+   "withheld_reason": null,
+   "registry_text": "A Population-Based Study of Measles, Mumps, and Rubella Vaccination and Autism 2002"
+  },
+  {
+   "source_id": "bc636e18-0da9-4ebb-a9a6-80acd9622a9f",
+   "url": "https://doi.org/10.1016/S0140-6736(99)01239-8",
+   "title": "Autism and Measles, Mumps, and Rubella Vaccine: No Epidemiological Evidence for a Causal Association",
+   "source_type": "observational",
+   "identifier": {
+    "system": "doi",
+    "value": "10.1016/s0140-6736(99)01239-8",
+    "provenance": "RESOLVED_FROM_HELD"
+   },
+   "resolution": {
+    "exists": "EXISTS",
+    "heading": "Autism and measles, mumps, and rubella vaccine: no epidemiological evidence for a causal association",
+    "canonical": "https://doi.org/10.1016/s0140-6736(99)01239-8",
+    "registry": "crossref",
+    "registry_id": "10.1016/s0140-6736(99)01239-8",
+    "checked_at": "2026-09-14T22:16:38+00:00"
+   },
+   "document": {
+    "sha256": "1820cf125b0e5616cd720e3bcadc1b32baab6854abdd22794c4c45c4703fe5e5",
+    "route": "europepmc_abstract",
+    "kind": "abstract",
+    "retrieved_at": "2026-09-14T22:16:39+00:00",
+    "chars": 2311,
+    "text_layer": "DECLARED_SOUND",
+    "path": "data/verify/docs/18/1820cf125b0e5616cd720e3bcadc1b32baab6854abdd22794c4c45c4703fe5e5.txt.gz",
+    "final_url": "https://doi.org/10.1016/s0140-6736(99)01239-8"
+   },
+   "bindings": [
+    {
+     "kind": "HEADING",
+     "ok": true,
+     "abstained": false,
+     "evidence": "containment: association, autism, causal, epidemiological, evidence, measles, mumps, rubella, vaccine",
+     "reason": ""
+    }
+   ],
+   "status": {
+    "verdict": "unchanged",
+    "registry": "crossref+europepmc",
+    "detail": "no update-to, relation, or updating work",
+    "checked_at": "2026-09-14T22:16:39+00:00",
+    "events": [
+     {
+      "type": "comment in",
+      "date": null,
+      "id": "10376608",
+      "source": "europepmc commentCorrectionList"
+     },
+     {
+      "type": "comment in",
+      "date": null,
+      "id": "10489978",
+      "source": "europepmc commentCorrectionList"
+     },
+     {
+      "type": "comment in",
+      "date": null,
+      "id": "10489979",
+      "source": "europepmc commentCorrectionList"
+     },
+     {
+      "type": "comment in",
+      "date": null,
+      "id": "10665582",
+      "source": "europepmc commentCorrectionList"
+     },
+     {
+      "type": "comment in",
+      "date": null,
+      "id": "10963264",
+      "source": "europepmc commentCorrectionList"
+     },
+     {
+      "type": "comment in",
+      "date": null,
+      "id": "10963267",
+      "source": "europepmc commentCorrectionList"
+     }
+    ],
+    "frozen": {}
+   },
+   "survives": true,
+   "withheld_reason": null,
+   "registry_text": "Autism and measles, mumps, and rubella vaccine: no epidemiological evidence for a causal association 1999"
+  },
+  {
+   "source_id": "d34415ae-8532-4b4a-8c9f-ab83e4d36cc6",
+   "url": "https://doi.org/10.7326/M18-2101",
+   "title": "Measles, Mumps, Rubella Vaccination and Autism: A Nationwide Cohort Study",
+   "source_type": "observational",
+   "identifier": {
+    "system": "doi",
+    "value": "10.7326/m18-2101",
+    "provenance": "RESOLVED_FROM_HELD"
+   },
+   "resolution": {
+    "exists": "EXISTS",
+    "heading": "Measles, Mumps, Rubella Vaccination and Autism",
+    "canonical": "https://doi.org/10.7326/m18-2101",
+    "registry": "crossref",
+    "registry_id": "10.7326/m18-2101",
+    "checked_at": "2026-09-14T22:16:42+00:00"
+   },
+   "document": {
+    "sha256": "26d79efdf5364011190cc9f663ebdd9d2a4c4c6fe4614c1020bb6284bd9124fb",
+    "route": "europepmc_abstract",
+    "kind": "abstract",
+    "retrieved_at": "2026-09-14T22:16:43+00:00",
+    "chars": 2161,
+    "text_layer": "DECLARED_SOUND",
+    "path": "data/verify/docs/26/26d79efdf5364011190cc9f663ebdd9d2a4c4c6fe4614c1020bb6284bd9124fb.txt.gz",
+    "final_url": "https://doi.org/10.7326/m18-2101"
+   },
+   "bindings": [
+    {
+     "kind": "HEADING",
+     "ok": true,
+     "abstained": false,
+     "evidence": "containment: autism, cohort, measles, mumps, nationwide, rubella, vaccination",
+     "reason": ""
+    }
+   ],
+   "status": {
+    "verdict": "unchanged",
+    "registry": "crossref+europepmc",
+    "detail": "no update-to, relation, or updating work",
+    "checked_at": "2026-09-14T22:16:43+00:00",
+    "events": [
+     {
+      "type": "comment in",
+      "date": null,
+      "id": "30831577",
+      "source": "europepmc commentCorrectionList"
+     },
+     {
+      "type": "comment in",
+      "date": null,
+      "id": "31217233",
+      "source": "europepmc commentCorrectionList"
+     },
+     {
+      "type": "comment in",
+      "date": null,
+      "id": "31476223",
+      "source": "europepmc commentCorrectionList"
+     },
+     {
+      "type": "comment in",
+      "date": null,
+      "id": "31476224",
+      "source": "europepmc commentCorrectionList"
+     },
+     {
+      "type": "comment in",
+      "date": null,
+      "id": "31476225",
+      "source": "europepmc commentCorrectionList"
+     }
+    ],
+    "frozen": {}
+   },
+   "survives": true,
+   "withheld_reason": null,
+   "registry_text": "Measles, Mumps, Rubella Vaccination and Autism 2019"
+  },
+  {
+   "source_id": "91b4a886-ac99-4607-a5ea-7afe7331ece8",
+   "url": "https://doi.org/10.1016/S0140-6736(97)11096-0",
+   "title": "Ileal-lymphoid-nodular hyperplasia, non-specific colitis, and pervasive developmental disorder in children [RETRACTED]",
+   "source_type": "observational",
+   "identifier": {
+    "system": "doi",
+    "value": "10.1016/s0140-6736(97)11096-0",
+    "provenance": "RESOLVED_FROM_HELD"
+   },
+   "resolution": {
+    "exists": "EXISTS",
+    "heading": "RETRACTED: Ileal-lymphoid-nodular hyperplasia, non-specific colitis, and pervasive developmental disorder in children",
+    "canonical": "https://doi.org/10.1016/s0140-6736(97)11096-0",
+    "registry": "crossref",
+    "registry_id": "10.1016/s0140-6736(97)11096-0",
+    "checked_at": "2026-09-14T22:16:45+00:00"
+   },
+   "document": {
+    "sha256": "4c8be4d2c62edf3089f001d2a4ac1d06cc32a4729a03b47e415883b7f4681a18",
+    "route": "europepmc_abstract",
+    "kind": "abstract",
+    "retrieved_at": "2026-09-14T22:16:46+00:00",
+    "chars": 1984,
+    "text_layer": "DECLARED_SOUND",
+    "path": "data/verify/docs/4c/4c8be4d2c62edf3089f001d2a4ac1d06cc32a4729a03b47e415883b7f4681a18.txt.gz",
+    "final_url": "https://doi.org/10.1016/s0140-6736(97)11096-0"
+   },
+   "bindings": [
+    {
+     "kind": "HEADING",
+     "ok": true,
+     "abstained": false,
+     "evidence": "containment: children, colitis, developmental, disorder, hyperplasia, ileal, lymphoid, nodular, non, pervasive, retracted, specific",
+     "reason": ""
+    }
+   ],
+   "status": {
+    "verdict": "retracted",
+    "registry": "crossref+europepmc",
+    "detail": "2 update/relation event(s)",
+    "checked_at": "2026-09-14T22:16:46+00:00",
+    "events": [
+     {
+      "type": "correction",
+      "date": "2004-3-6",
+      "doi": "10.1016/s0140-6736(04)15715-2",
+      "source": "crossref filter=updates",
+      "label": "Correction",
+      "title": "Retraction of an interpretation"
+     },
+     {
+      "type": "retraction",
+      "date": "2010-2-6",
+      "doi": "10.1016/s0140-6736(10)60175-4",
+      "source": "crossref filter=updates",
+      "label": "Retraction",
+      "title": "Retraction—Ileal-lymphoid-nodular hyperplasia, non-specific colitis, and pervasive developmental disorder in children"
+     },
+     {
+      "type": "comment in",
+      "date": null,
+      "id": "9500313",
+      "source": "europepmc commentCorrectionList"
+     },
+     {
+      "type": "comment in",
+      "date": null,
+      "id": "9525390",
+      "source": "europepmc commentCorrectionList"
+     },
+     {
+      "type": "comment in",
+      "date": null,
+      "id": "9525391",
+      "source": "europepmc commentCorrectionList"
+     },
+     {
+      "type": "comment in",
+      "date": null,
+      "id": "9525392",
+      "source": "europepmc commentCorrectionList"
+     },
+     {
+      "type": "comment in",
+      "date": null,
+      "id": "9525393",
+      "source": "europepmc commentCorrectionList"
+     },
+     {
+      "type": "comment in",
+      "date": null,
+      "id": "9525394",
+      "source": "europepmc commentCorrectionList"
+     },
+     {
+      "type": "comment in",
+      "date": null,
+      "id": "9525395",
+      "source": "europepmc commentCorrectionList"
+     },
+     {
+      "type": "comment in",
+      "date": null,
+      "id": "9525396",
+      "source": "europepmc commentCorrectionList"
+     },
+     {
+      "type": "comment in",
+      "date": null,
+      "id": "9643815",
+      "source": "europepmc commentCorrectionList"
+     },
+     {
+      "type": "comment in",
+      "date": null,
+      "id": "9643816",
+      "source": "europepmc commentCorrectionList"
+     },
+     {
+      "type": "comment in",
+      "date": null,
+      "id": "9643817",
+      "source": "europepmc commentCorrectionList"
+     },
+     {
+      "type": "comment in",
+      "date": null,
+      "id": "9643818",
+      "source": "europepmc commentCorrectionList"
+     },
+     {
+      "type": "comment in",
+      "date": null,
+      "id": "9643820",
+      "source": "europepmc commentCorrectionList"
+     },
+     {
+      "type": "comment in",
+      "date": null,
+      "id": "9643821",
+      "source": "europepmc commentCorrectionList"
+     },
+     {
+      "type": "comment in",
+      "date": null,
+      "id": "9643822",
+      "source": "europepmc commentCorrectionList"
+     },
+     {
+      "type": "comment in",
+      "date": null,
+      "id": "9643823",
+      "source": "europepmc commentCorrectionList"
+     },
+     {
+      "type": "comment in",
+      "date": null,
+      "id": "9683237",
+      "source": "europepmc commentCorrectionList"
+     },
+     {
+      "type": "comment in",
+      "date": null,
+      "id": "10963264",
+      "source": "europepmc commentCorrectionList"
+     },
+     {
+      "type": "comment in",
+      "date": null,
+      "id": "10963266",
+      "source": "europepmc commentCorrectionList"
+     },
+     {
+      "type": "comment in",
+      "date": null,
+      "id": "10963267",
+      "source": "europepmc commentCorrectionList"
+     },
+     {
+      "type": "comment in",
+      "date": null,
+      "id": "12086756",
+      "source": "europepmc commentCorrectionList"
+     },
+     {
+      "type": "comment in",
+      "date": null,
+      "id": "15016482",
+      "source": "europepmc commentCorrectionList"
+     },
+     {
+      "type": "retraction in",
+      "date": null,
+      "id": "15016483",
+      "source": "europepmc commentCorrectionList"
+     },
+     {
+      "type": "comment in",
+      "date": null,
+      "id": "15022645",
+      "source": "europepmc commentCorrectionList"
+     },
+     {
+      "type": "comment in",
+      "date": null,
+      "id": "15022648",
+      "source": "europepmc commentCorrectionList"
+     },
+     {
+      "type": "comment in",
+      "date": null,
+      "id": "15022649",
+      "source": "europepmc commentCorrectionList"
+     },
+     {
+      "type": "comment in",
+      "date": null,
+      "id": "15022650",
+      "source": "europepmc commentCorrectionList"
+     },
+     {
+      "type": "retraction in",
+      "date": null,
+      "id": "20137807",
+      "source": "europepmc commentCorrectionList"
+     },
+     {
+      "type": "expression of concern in",
+      "date": null,
+      "id": "21971344",
+      "source": "europepmc commentCorrectionList"
+     },
+     {
+      "type": "Retracted Publication",
+      "source": "europepmc pubType"
+     }
+    ],
+    "frozen": {}
+   },
+   "survives": true,
+   "withheld_reason": null,
+   "registry_text": "RETRACTED: Ileal-lymphoid-nodular hyperplasia, non-specific colitis, and pervasive developmental disorder in children 1998"
+  },
+  {
+   "source_id": "6ef0773d-65cb-443b-a92e-c33af266f3f8",
+   "url": "https://doi.org/10.1136/bmj.c5347",
+   "title": "How the Case Against the MMR Vaccine Was Fixed",
+   "source_type": "observational",
+   "identifier": {
+    "system": "doi",
+    "value": "10.1136/bmj.c5347",
+    "provenance": "RESOLVED_FROM_HELD"
+   },
+   "resolution": {
+    "exists": "EXISTS",
+    "heading": "How the case against the MMR vaccine was fixed",
+    "canonical": "https://doi.org/10.1136/bmj.c5347",
+    "registry": "crossref",
+    "registry_id": "10.1136/bmj.c5347",
+    "checked_at": "2026-09-14T22:16:47+00:00"
+   },
+   "document": null,
+   "bindings": [
+    {
+     "kind": "HEADING",
+     "ok": true,
+     "abstained": false,
+     "evidence": "containment: against, case, fixed, how, mmr, vaccine, was",
+     "reason": ""
+    }
+   ],
+   "status": null,
+   "survives": false,
+   "withheld_reason": "fetch: nothing retrieved"
+  },
+  {
+   "source_id": "0d7243cc-5b16-46ca-8750-8a2bcf57195f",
+   "url": "https://doi.org/10.17226/10997",
+   "title": "Immunization Safety Review: Vaccines and Autism",
+   "source_type": "policy",
+   "identifier": {
+    "system": "doi",
+    "value": "10.17226/10997",
+    "provenance": "RESOLVED_FROM_HELD"
+   },
+   "resolution": {
+    "exists": "EXISTS",
+    "heading": "Immunization Safety Review",
+    "canonical": "https://doi.org/10.17226/10997",
+    "registry": "crossref",
+    "registry_id": "10.17226/10997",
+    "checked_at": "2026-09-14T22:16:49+00:00"
+   },
+   "document": null,
+   "bindings": [
+    {
+     "kind": "HEADING",
+     "ok": true,
+     "abstained": false,
+     "evidence": "containment: autism, immunization, vaccines",
+     "reason": ""
+    }
+   ],
+   "status": null,
+   "survives": false,
+   "withheld_reason": "fetch: nothing retrieved"
+  },
+  {
+   "source_id": "ad407e43-6a00-46b1-9185-d423ea7bc2e8",
+   "url": "https://www.uhcprovider.com/content/dam/provider/docs/public/policies/comm-medical-drug/childhood-immunizations.pdf",
+   "title": "UnitedHealthcare Coverage Policy: Childhood Immunizations",
+   "source_type": "payer_coverage_policy",
+   "identifier": null,
+   "resolution": null,
+   "document": null,
+   "bindings": [],
+   "status": null,
+   "survives": false,
+   "withheld_reason": "UNVERIFIABLE: no DOI, PMID, PMCID, NCT or law citation in the stored URL"
+  },
+  {
+   "source_id": "cbe263ca-1f34-4cfa-9f66-8085a8ebdaed",
+   "url": "https://www.aetna.com/cpb/medical/data/1_99/0070.html",
+   "title": "Aetna Clinical Policy Bulletin: Vaccines and Toxoids",
+   "source_type": "payer_coverage_policy",
+   "identifier": null,
+   "resolution": null,
+   "document": null,
+   "bindings": [],
+   "status": null,
+   "survives": false,
+   "withheld_reason": "UNVERIFIABLE: no DOI, PMID, PMCID, NCT or law citation in the stored URL"
+  },
+  {
+   "source_id": "d0374b71-1e64-4ef6-bfeb-05d26825bbc7",
+   "url": "https://www.anthem.com/preventive-care",
+   "title": "Anthem Blue Cross: Preventive Care and Immunization Coverage",
+   "source_type": "payer_coverage_policy",
+   "identifier": null,
+   "resolution": null,
+   "document": null,
+   "bindings": [],
+   "status": null,
+   "survives": false,
+   "withheld_reason": "UNVERIFIABLE: no DOI, PMID, PMCID, NCT or law citation in the stored URL"
+  }
+ ],
+ "claims": [
+  {
+   "claim_id": "b992da57-2130-44b5-b989-f269a2c3c024",
+   "claim_text": "M-M-R II has never contained thimerosal as a preservative; the vaccine uses a live attenuated formulation incompatible with preservative use.",
+   "category": "biological_mechanisms",
+   "figures": [],
+   "quotation": false,
+   "per_source": [
+    {
+     "source_id": "2dd1f179-ff6f-4b84-a1b9-cfcc817d9382",
+     "source_survives": false,
+     "bindings": [
+      {
+       "kind": "SOURCE",
+       "ok": false,
+       "abstained": false,
+       "evidence": "",
+       "reason": "UNVERIFIABLE: no DOI, PMID, PMCID, NCT or law citation in the stored URL"
+      }
+     ]
+    }
+   ],
+   "support": "UNSUPPORTED",
+   "supported_by": []
+  },
+  {
+   "claim_id": "53021b09-69a8-4f7e-8adb-b8562717da7f",
+   "claim_text": "The Omnibus Autism Proceeding ruling rejected both the 'MMR plus thimerosal' causation theory and the standalone MMR-autism theory, finding that epidemiological evidence overwhelmingly contradicted both hypotheses.",
+   "category": "large_scale_epidemiological_evidence",
+   "figures": [],
+   "quotation": true,
+   "per_source": [
+    {
+     "source_id": "9c4c60a5-f884-4ae0-8338-b53de9b30b2e",
+     "source_survives": false,
+     "bindings": [
+      {
+       "kind": "SOURCE",
+       "ok": false,
+       "abstained": false,
+       "evidence": "",
+       "reason": "UNVERIFIABLE: no DOI, PMID, PMCID, NCT or law citation in the stored URL"
+      }
+     ]
+    }
+   ],
+   "support": "UNSUPPORTED",
+   "supported_by": []
+  },
+  {
+   "claim_id": "19fbcace-0456-4715-a68a-f4a8c3461b5c",
+   "claim_text": "A Cochrane systematic review analyzed 138 studies involving over 23 million children and found no credible evidence of a link between MMR vaccination and autism spectrum disorder.",
+   "category": "large_scale_epidemiological_evidence",
+   "figures": [
+    "138",
+    "23",
+    "23000000"
+   ],
+   "quotation": false,
+   "per_source": [
+    {
+     "source_id": "bf1f520d-1281-4fb5-b9b5-af9bf34d6834",
+     "source_survives": true,
+     "bindings": [
+      {
+       "kind": "FIGURE",
+       "ok": false,
+       "abstained": false,
+       "evidence": "138",
+       "reason": "not in the document: 23, 23000000"
+      }
+     ],
+     "level": "UNSUPPORTED"
+    }
+   ],
+   "support": "UNSUPPORTED",
+   "supported_by": []
+  },
+  {
+   "claim_id": "a7d1a0da-a95e-494d-a935-95ba2b06f310",
+   "claim_text": "The Cochrane systematic review on MMR vaccine safety found no credible evidence linking MMR vaccination to Crohn's disease.",
+   "category": "large_scale_epidemiological_evidence",
+   "figures": [],
+   "quotation": false,
+   "per_source": [
+    {
+     "source_id": "bf1f520d-1281-4fb5-b9b5-af9bf34d6834",
+     "source_survives": true,
+     "bindings": [],
+     "level": "IDENTITY_ONLY"
+    }
+   ],
+   "support": "IDENTITY_ONLY",
+   "supported_by": [
+    "bf1f520d-1281-4fb5-b9b5-af9bf34d6834"
+   ]
+  },
+  {
+   "claim_id": "20583d9a-dd0e-404d-8177-b4c66c8cb69f",
+   "claim_text": "The Institute of Medicine's review of the MMR–autism hypothesis was based on epidemiological studies covering millions of children across multiple countries.",
+   "category": "large_scale_epidemiological_evidence",
+   "figures": [],
+   "quotation": false,
+   "per_source": [
+    {
+     "source_id": "0d7243cc-5b16-46ca-8750-8a2bcf57195f",
+     "source_survives": false,
+     "bindings": [
+      {
+       "kind": "SOURCE",
+       "ok": false,
+       "abstained": false,
+       "evidence": "",
+       "reason": "fetch: nothing retrieved"
+      }
+     ]
+    }
+   ],
+   "support": "UNSUPPORTED",
+   "supported_by": []
+  },
+  {
+   "claim_id": "3cf9e687-9915-4dc4-b3f5-fa0323aa6b60",
+   "claim_text": "The Honda et al. Japan study is considered one of the strongest natural experiments disproving a causal link between MMR vaccine and autism.",
+   "category": "large_scale_epidemiological_evidence",
+   "figures": [
+    "1"
+   ],
+   "quotation": false,
+   "per_source": [
+    {
+     "source_id": "6f6527c4-636f-46e3-8c47-09a755af6e93",
+     "source_survives": false,
+     "bindings": [
+      {
+       "kind": "SOURCE",
+       "ok": false,
+       "abstained": false,
+       "evidence": "",
+       "reason": "HEADING: shares no distinctive word with the registry heading"
+      }
+     ]
+    }
+   ],
+   "support": "UNSUPPORTED",
+   "supported_by": []
+  },
+  {
+   "claim_id": "0e0ac65e-4ca5-48db-847d-3fbac6c514c4",
+   "claim_text": "A US cohort study of 95,727 children found no association between MMR vaccination and autism, including among children with older siblings with autism spectrum disorder.",
+   "category": "large_scale_epidemiological_evidence",
+   "figures": [
+    "95727"
+   ],
+   "quotation": false,
+   "per_source": [
+    {
+     "source_id": "fe4e0fb8-757f-446c-ab11-fa3edee3c57d",
+     "source_survives": false,
+     "bindings": [
+      {
+       "kind": "SOURCE",
+       "ok": false,
+       "abstained": false,
+       "evidence": "",
+       "reason": "resolve: NONEXISTENT"
+      }
+     ]
+    }
+   ],
+   "support": "UNSUPPORTED",
+   "supported_by": []
+  },
+  {
+   "claim_id": "9532c08f-8f30-4b39-b580-bad80dd8ed52",
+   "claim_text": "The continued rise in autism incidence in Yokohama after MMR withdrawal constituted a natural experiment directly disproving the hypothesis that MMR causes autism.",
+   "category": "biological_mechanisms",
+   "figures": [],
+   "quotation": false,
+   "per_source": [
+    {
+     "source_id": "dd13e679-2b06-4fa3-83a4-df2aa1eea9a9",
+     "source_survives": false,
+     "bindings": [
+      {
+       "kind": "SOURCE",
+       "ok": false,
+       "abstained": false,
+       "evidence": "",
+       "reason": "HEADING: shares no distinctive word with the registry heading"
+      }
+     ]
+    }
+   ],
+   "support": "UNSUPPORTED",
+   "supported_by": []
+  },
+  {
+   "claim_id": "216e71ba-0d17-46ab-9da4-a108a05eca76",
+   "claim_text": "The Smeeth 2004 case-control study found no evidence of a new-onset syndrome following MMR vaccination.",
+   "category": "biological_mechanisms",
+   "figures": [
+    "2004"
+   ],
+   "quotation": false,
+   "per_source": [
+    {
+     "source_id": "d2960292-6c77-4edc-9565-3baecf5f1b25",
+     "source_survives": true,
+     "bindings": [
+      {
+       "kind": "FIGURE",
+       "ok": true,
+       "abstained": false,
+       "evidence": "2004",
+       "reason": ""
+      }
+     ],
+     "level": "FIGURE_BOUND"
+    }
+   ],
+   "support": "FIGURE_BOUND",
+   "supported_by": [
+    "d2960292-6c77-4edc-9565-3baecf5f1b25"
+   ]
+  },
+  {
+   "claim_id": "fedabab9-b615-43dc-9f60-b4a189e6ab11",
+   "claim_text": "The EMA's EPAR notes that the original Wakefield hypothesis was not substantiated by subsequent large-scale epidemiological studies conducted in Europe, including the Danish cohort study by Madsen et al.",
+   "category": "large_scale_epidemiological_evidence",
+   "figures": [],
+   "quotation": false,
+   "per_source": [
+    {
+     "source_id": "f01d7631-8929-4030-9ff6-1f25f52d293b",
+     "source_survives": false,
+     "bindings": [
+      {
+       "kind": "SOURCE",
+       "ok": false,
+       "abstained": false,
+       "evidence": "",
+       "reason": "UNVERIFIABLE: no DOI, PMID, PMCID, NCT or law citation in the stored URL"
+      }
+     ]
+    }
+   ],
+   "support": "UNSUPPORTED",
+   "supported_by": []
+  },
+  {
+   "claim_id": "16b84823-307a-41e7-9a0a-7b47150040bd",
+   "claim_text": "Among children with an older sibling with ASD, MMR vaccination was not associated with increased autism risk, with a hazard ratio of 0.80 (95% CI 0.55–1.16).",
+   "category": "large_scale_epidemiological_evidence",
+   "figures": [
+    "0.55",
+    "0.8",
+    "1.16",
+    "95"
+   ],
+   "quotation": false,
+   "per_source": [
+    {
+     "source_id": "fe4e0fb8-757f-446c-ab11-fa3edee3c57d",
+     "source_survives": false,
+     "bindings": [
+      {
+       "kind": "SOURCE",
+       "ok": false,
+       "abstained": false,
+       "evidence": "",
+       "reason": "resolve: NONEXISTENT"
+      }
+     ]
+    }
+   ],
+   "support": "UNSUPPORTED",
+   "supported_by": []
+  },
+  {
+   "claim_id": "c8fea1e2-d399-4ab3-8cf3-ad02fc415608",
+   "claim_text": "The Jain 2015 study specifically examined MMR vaccine safety in a high-risk population defined by having an older sibling with autism, a group considered at higher genetic risk for ASD.",
+   "category": "large_scale_epidemiological_evidence",
+   "figures": [
+    "2015"
+   ],
+   "quotation": false,
+   "per_source": [
+    {
+     "source_id": "fe4e0fb8-757f-446c-ab11-fa3edee3c57d",
+     "source_survives": false,
+     "bindings": [
+      {
+       "kind": "SOURCE",
+       "ok": false,
+       "abstained": false,
+       "evidence": "",
+       "reason": "resolve: NONEXISTENT"
+      }
+     ]
+    }
+   ],
+   "support": "UNSUPPORTED",
+   "supported_by": []
+  },
+  {
+   "claim_id": "8f480a5f-5bd7-42bd-b976-4584bf071e36",
+   "claim_text": "The Jain 2015 cohort study found no elevated autism risk from MMR vaccination in genetically predisposed child populations, directly addressing concerns of vaccine-hesitant parents of high-risk children.",
+   "category": "large_scale_epidemiological_evidence",
+   "figures": [
+    "2015"
+   ],
+   "quotation": false,
+   "per_source": [
+    {
+     "source_id": "fe4e0fb8-757f-446c-ab11-fa3edee3c57d",
+     "source_survives": false,
+     "bindings": [
+      {
+       "kind": "SOURCE",
+       "ok": false,
+       "abstained": false,
+       "evidence": "",
+       "reason": "resolve: NONEXISTENT"
+      }
+     ]
+    }
+   ],
+   "support": "UNSUPPORTED",
+   "supported_by": []
+  },
+  {
+   "claim_id": "fbac1eba-1ca3-4f46-937b-7c301cb01bb0",
+   "claim_text": "A UK population-based study examined 278 children with autism to assess whether MMR vaccination was associated with developmental regression or bowel problems.",
+   "category": "large_scale_epidemiological_evidence",
+   "figures": [
+    "278"
+   ],
+   "quotation": false,
+   "per_source": [
+    {
+     "source_id": "c17ba46d-70c4-4f1c-bb1e-a3ff554c1401",
+     "source_survives": true,
+     "bindings": [
+      {
+       "kind": "FIGURE",
+       "ok": true,
+       "abstained": false,
+       "evidence": "278",
+       "reason": ""
+      }
+     ],
+     "level": "FIGURE_BOUND"
+    }
+   ],
+   "support": "FIGURE_BOUND",
+   "supported_by": [
+    "c17ba46d-70c4-4f1c-bb1e-a3ff554c1401"
+   ]
+  },
+  {
+   "claim_id": "6aeea974-c453-4b82-904e-ed18338d2098",
+   "claim_text": "The Taylor et al. (2002) study found no association between MMR vaccination and developmental regression in children with autism.",
+   "category": "large_scale_epidemiological_evidence",
+   "figures": [
+    "2002"
+   ],
+   "quotation": false,
+   "per_source": [
+    {
+     "source_id": "c17ba46d-70c4-4f1c-bb1e-a3ff554c1401",
+     "source_survives": true,
+     "bindings": [
+      {
+       "kind": "FIGURE",
+       "ok": true,
+       "abstained": false,
+       "evidence": "2002",
+       "reason": ""
+      }
+     ],
+     "level": "FIGURE_BOUND"
+    }
+   ],
+   "support": "FIGURE_BOUND",
+   "supported_by": [
+    "c17ba46d-70c4-4f1c-bb1e-a3ff554c1401"
+   ]
+  },
+  {
+   "claim_id": "8d51fc98-f5bd-4fb3-b92d-d0e3512bb413",
+   "claim_text": "The Taylor et al. (2002) study directly tested the specific biological mechanism proposed in Wakefield's retracted study and found no supporting evidence.",
+   "category": "biological_mechanisms",
+   "figures": [
+    "2002"
+   ],
+   "quotation": false,
+   "per_source": [
+    {
+     "source_id": "c17ba46d-70c4-4f1c-bb1e-a3ff554c1401",
+     "source_survives": true,
+     "bindings": [
+      {
+       "kind": "FIGURE",
+       "ok": true,
+       "abstained": false,
+       "evidence": "2002",
+       "reason": ""
+      }
+     ],
+     "level": "FIGURE_BOUND"
+    }
+   ],
+   "support": "FIGURE_BOUND",
+   "supported_by": [
+    "c17ba46d-70c4-4f1c-bb1e-a3ff554c1401"
+   ]
+  },
+  {
+   "claim_id": "ca508e86-9c7c-4b70-8bfe-a39ab77d7caf",
+   "claim_text": "A Danish cohort study examined 650,000 children born between 1999 and 2010 for an association between MMR vaccination and autism.",
+   "category": "large_scale_epidemiological_evidence",
+   "figures": [
+    "1999",
+    "2010",
+    "650000"
+   ],
+   "quotation": false,
+   "per_source": [
+    {
+     "source_id": "2e5297e3-c0a1-4846-939d-0a793e295c9f",
+     "source_survives": true,
+     "bindings": [
+      {
+       "kind": "FIGURE",
+       "ok": false,
+       "abstained": false,
+       "evidence": "1999, 2010",
+       "reason": "not in the document: 650000"
+      }
+     ],
+     "level": "UNSUPPORTED"
+    }
+   ],
+   "support": "UNSUPPORTED",
+   "supported_by": []
+  },
+  {
+   "claim_id": "506c7602-481e-48c9-b3c1-ae4ebc9b044a",
+   "claim_text": "The adjusted hazard ratio for autism in MMR-vaccinated children compared to unvaccinated children was 0.93 (95% CI 0.85–1.02), indicating no increased risk.",
+   "category": "large_scale_epidemiological_evidence",
+   "figures": [
+    "0.85",
+    "0.93",
+    "1.02",
+    "95"
+   ],
+   "quotation": false,
+   "per_source": [
+    {
+     "source_id": "2e5297e3-c0a1-4846-939d-0a793e295c9f",
+     "source_survives": true,
+     "bindings": [
+      {
+       "kind": "FIGURE",
+       "ok": true,
+       "abstained": false,
+       "evidence": "0.85, 0.93, 1.02, 95",
+       "reason": ""
+      }
+     ],
+     "level": "FIGURE_BOUND"
+    }
+   ],
+   "support": "FIGURE_BOUND",
+   "supported_by": [
+    "2e5297e3-c0a1-4846-939d-0a793e295c9f"
+   ]
+  },
+  {
+   "claim_id": "95c50743-e1f9-4334-a1c1-8ad35c85a7b1",
+   "claim_text": "The Danish cohort study found no increased risk of autism associated with MMR vaccination in children with siblings with autism, preterm birth, or low birth weight.",
+   "category": "large_scale_epidemiological_evidence",
+   "figures": [],
+   "quotation": false,
+   "per_source": [
+    {
+     "source_id": "2e5297e3-c0a1-4846-939d-0a793e295c9f",
+     "source_survives": true,
+     "bindings": [],
+     "level": "IDENTITY_ONLY"
+    }
+   ],
+   "support": "IDENTITY_ONLY",
+   "supported_by": [
+    "2e5297e3-c0a1-4846-939d-0a793e295c9f"
+   ]
+  },
+  {
+   "claim_id": "449635b1-a697-4dec-8a4b-2c56d9e9e36c",
+   "claim_text": "The Danish cohort study found no temporal clustering of autism diagnoses in the 2-year period following MMR vaccination.",
+   "category": "large_scale_epidemiological_evidence",
+   "figures": [
+    "2"
+   ],
+   "quotation": false,
+   "per_source": [
+    {
+     "source_id": "2e5297e3-c0a1-4846-939d-0a793e295c9f",
+     "source_survives": true,
+     "bindings": [
+      {
+       "kind": "FIGURE",
+       "ok": false,
+       "abstained": false,
+       "evidence": "",
+       "reason": "not in the document: 2"
+      }
+     ],
+     "level": "UNSUPPORTED"
+    }
+   ],
+   "support": "UNSUPPORTED",
+   "supported_by": []
+  },
+  {
+   "claim_id": "18db5d54-63c5-4809-a319-f0d8c001f4b6",
+   "claim_text": "A Cochrane systematic review synthesized evidence from 138 studies including over 23 million children on the safety and efficacy of MMR and MMRV vaccines.",
+   "category": "large_scale_epidemiological_evidence",
+   "figures": [
+    "138",
+    "23",
+    "23000000"
+   ],
+   "quotation": false,
+   "per_source": [
+    {
+     "source_id": "84138759-9546-463f-a48a-8708af419157",
+     "source_survives": true,
+     "bindings": [
+      {
+       "kind": "FIGURE",
+       "ok": false,
+       "abstained": false,
+       "evidence": "138",
+       "reason": "not in the document: 23, 23000000"
+      }
+     ],
+     "level": "UNSUPPORTED"
+    }
+   ],
+   "support": "UNSUPPORTED",
+   "supported_by": []
+  },
+  {
+   "claim_id": "e48189ac-12d3-4e53-9364-b5577f043211",
+   "claim_text": "The Cochrane systematic review found no credible evidence of an association between MMR vaccination and autism across 138 studies and 23 million children.",
+   "category": "large_scale_epidemiological_evidence",
+   "figures": [
+    "138",
+    "23",
+    "23000000"
+   ],
+   "quotation": false,
+   "per_source": [
+    {
+     "source_id": "84138759-9546-463f-a48a-8708af419157",
+     "source_survives": true,
+     "bindings": [
+      {
+       "kind": "FIGURE",
+       "ok": false,
+       "abstained": false,
+       "evidence": "138",
+       "reason": "not in the document: 23, 23000000"
+      }
+     ],
+     "level": "UNSUPPORTED"
+    }
+   ],
+   "support": "UNSUPPORTED",
+   "supported_by": []
+  },
+  {
+   "claim_id": "1f3b5312-ff88-4693-afda-1136d6270636",
+   "claim_text": "The Cochrane systematic review found no credible evidence of an association between MMR vaccination and inflammatory bowel disease.",
+   "category": "large_scale_epidemiological_evidence",
+   "figures": [],
+   "quotation": false,
+   "per_source": [
+    {
+     "source_id": "84138759-9546-463f-a48a-8708af419157",
+     "source_survives": true,
+     "bindings": [],
+     "level": "IDENTITY_ONLY"
+    }
+   ],
+   "support": "IDENTITY_ONLY",
+   "supported_by": [
+    "84138759-9546-463f-a48a-8708af419157"
+   ]
+  },
+  {
+   "claim_id": "849abdf2-06fd-4de1-8f9f-328b710e0f07",
+   "claim_text": "One dose of the MMR vaccine reduced measles risk by 95% and two doses reduced measles risk by 96%.",
+   "category": "large_scale_epidemiological_evidence",
+   "figures": [
+    "1",
+    "2",
+    "95",
+    "96"
+   ],
+   "quotation": false,
+   "per_source": [
+    {
+     "source_id": "84138759-9546-463f-a48a-8708af419157",
+     "source_survives": true,
+     "bindings": [
+      {
+       "kind": "FIGURE",
+       "ok": true,
+       "abstained": false,
+       "evidence": "1, 2, 95, 96",
+       "reason": ""
+      }
+     ],
+     "level": "FIGURE_BOUND"
+    }
+   ],
+   "support": "FIGURE_BOUND",
+   "supported_by": [
+    "84138759-9546-463f-a48a-8708af419157"
+   ]
+  },
+  {
+   "claim_id": "ff5420b1-1f0f-48c8-b298-0d99ec2cb8a3",
+   "claim_text": "A meta-analysis by Taylor et al. synthesized data from five cohort studies involving 1,256,407 children to examine the relationship between vaccines and autism.",
+   "category": "large_scale_epidemiological_evidence",
+   "figures": [
+    "1256407",
+    "5"
+   ],
+   "quotation": false,
+   "per_source": [
+    {
+     "source_id": "6a24317a-1e5c-4fc1-a51f-997e01df6231",
+     "source_survives": true,
+     "bindings": [
+      {
+       "kind": "FIGURE",
+       "ok": true,
+       "abstained": false,
+       "evidence": "1256407, 5",
+       "reason": ""
+      }
+     ],
+     "level": "FIGURE_BOUND"
+    }
+   ],
+   "support": "FIGURE_BOUND",
+   "supported_by": [
+    "6a24317a-1e5c-4fc1-a51f-997e01df6231"
+   ]
+  },
+  {
+   "claim_id": "8759b335-67c6-4a2f-81c1-3dd38a29aa92",
+   "claim_text": "A meta-analysis by Taylor et al. synthesized data from five case-control studies involving 9,920 children to examine the relationship between vaccines and autism.",
+   "category": "large_scale_epidemiological_evidence",
+   "figures": [
+    "5",
+    "9920"
+   ],
+   "quotation": false,
+   "per_source": [
+    {
+     "source_id": "6a24317a-1e5c-4fc1-a51f-997e01df6231",
+     "source_survives": true,
+     "bindings": [
+      {
+       "kind": "FIGURE",
+       "ok": true,
+       "abstained": false,
+       "evidence": "5, 9920",
+       "reason": ""
+      }
+     ],
+     "level": "FIGURE_BOUND"
+    }
+   ],
+   "support": "FIGURE_BOUND",
+   "supported_by": [
+    "6a24317a-1e5c-4fc1-a51f-997e01df6231"
+   ]
+  },
+  {
+   "claim_id": "87a88d55-e7b5-4aae-b44a-b6920c5821c9",
+   "claim_text": "The pooled odds ratio for the association between vaccination and autism was 0.99 (95% CI 0.92–1.06), indicating no association.",
+   "category": "large_scale_epidemiological_evidence",
+   "figures": [
+    "0.92",
+    "0.99",
+    "1.06",
+    "95"
+   ],
+   "quotation": false,
+   "per_source": [
+    {
+     "source_id": "6a24317a-1e5c-4fc1-a51f-997e01df6231",
+     "source_survives": true,
+     "bindings": [
+      {
+       "kind": "FIGURE",
+       "ok": true,
+       "abstained": false,
+       "evidence": "0.92, 0.99, 1.06, 95",
+       "reason": ""
+      }
+     ],
+     "level": "FIGURE_BOUND"
+    }
+   ],
+   "support": "FIGURE_BOUND",
+   "supported_by": [
+    "6a24317a-1e5c-4fc1-a51f-997e01df6231"
+   ]
+  },
+  {
+   "claim_id": "b499a055-6204-4687-ae71-4463243517dc",
+   "claim_text": "The pooled odds ratio for the association between MMR vaccination specifically and autism was 0.84 (95% CI 0.70–1.01), showing no statistically significant association.",
+   "category": "large_scale_epidemiological_evidence",
+   "figures": [
+    "0.7",
+    "0.84",
+    "1.01",
+    "95"
+   ],
+   "quotation": false,
+   "per_source": [
+    {
+     "source_id": "6a24317a-1e5c-4fc1-a51f-997e01df6231",
+     "source_survives": true,
+     "bindings": [
+      {
+       "kind": "FIGURE",
+       "ok": true,
+       "abstained": false,
+       "evidence": "0.7, 0.84, 1.01, 95",
+       "reason": ""
+      }
+     ],
+     "level": "FIGURE_BOUND"
+    }
+   ],
+   "support": "FIGURE_BOUND",
+   "supported_by": [
+    "6a24317a-1e5c-4fc1-a51f-997e01df6231"
+   ]
+  },
+  {
+   "claim_id": "4c49af2a-159a-4b65-a069-b8d9f9f942d0",
+   "claim_text": "The Taylor et al. meta-analysis found no relationship between thimerosal or mercury-containing vaccines and autism.",
+   "category": "large_scale_epidemiological_evidence",
+   "figures": [],
+   "quotation": false,
+   "per_source": [
+    {
+     "source_id": "6a24317a-1e5c-4fc1-a51f-997e01df6231",
+     "source_survives": true,
+     "bindings": [],
+     "level": "IDENTITY_ONLY"
+    }
+   ],
+   "support": "IDENTITY_ONLY",
+   "supported_by": [
+    "6a24317a-1e5c-4fc1-a51f-997e01df6231"
+   ]
+  },
+  {
+   "claim_id": "94f30391-0edd-47e5-8887-3d31e29918eb",
+   "claim_text": "The Wakefield et al. case series enrolled only 12 children — a sample size statistically insufficient to establish any causal association between MMR vaccination and developmental disorder — and claimed to identify a novel syndrome linking MMR vaccination to autism and gastrointestinal pathology.",
+   "category": "original_wakefield_research",
+   "figures": [
+    "12"
+   ],
+   "quotation": false,
+   "per_source": [
+    {
+     "source_id": "e4cdce12-5006-479f-b074-60d147dccd5b",
+     "source_survives": true,
+     "bindings": [
+      {
+       "kind": "FIGURE",
+       "ok": true,
+       "abstained": false,
+       "evidence": "12",
+       "reason": ""
+      }
+     ],
+     "level": "FIGURE_BOUND"
+    },
+    {
+     "source_id": "91b4a886-ac99-4607-a5ea-7afe7331ece8",
+     "source_survives": true,
+     "bindings": [
+      {
+       "kind": "FIGURE",
+       "ok": true,
+       "abstained": false,
+       "evidence": "12",
+       "reason": ""
+      }
+     ],
+     "level": "FIGURE_BOUND"
+    }
+   ],
+   "support": "FIGURE_BOUND",
+   "supported_by": [
+    "e4cdce12-5006-479f-b074-60d147dccd5b",
+    "91b4a886-ac99-4607-a5ea-7afe7331ece8"
+   ]
+  },
+  {
+   "claim_id": "595f4979-481e-4a04-a99b-ed06a36e924e",
+   "claim_text": "A UK cohort study examined 498 children with autism spectrum disorder born between 1979 and 1998 in the North Thames region.",
+   "category": "large_scale_epidemiological_evidence",
+   "figures": [
+    "1979",
+    "1998",
+    "498"
+   ],
+   "quotation": false,
+   "per_source": [
+    {
+     "source_id": "c47f0199-fc95-4f7d-9c86-91c9e791f20e",
+     "source_survives": true,
+     "bindings": [
+      {
+       "kind": "FIGURE",
+       "ok": false,
+       "abstained": false,
+       "evidence": "1979, 498",
+       "reason": "not in the document: 1998"
+      }
+     ],
+     "level": "UNSUPPORTED"
+    }
+   ],
+   "support": "UNSUPPORTED",
+   "supported_by": []
+  },
+  {
+   "claim_id": "b7333092-d328-477e-b85e-643234f96d3b",
+   "claim_text": "No change in the trend of increasing autism diagnoses was detected following MMR vaccine introduction in the UK in 1988.",
+   "category": "large_scale_epidemiological_evidence",
+   "figures": [
+    "1988"
+   ],
+   "quotation": false,
+   "per_source": [
+    {
+     "source_id": "c47f0199-fc95-4f7d-9c86-91c9e791f20e",
+     "source_survives": true,
+     "bindings": [
+      {
+       "kind": "FIGURE",
+       "ok": true,
+       "abstained": false,
+       "evidence": "1988",
+       "reason": ""
+      }
+     ],
+     "level": "FIGURE_BOUND"
+    }
+   ],
+   "support": "FIGURE_BOUND",
+   "supported_by": [
+    "c47f0199-fc95-4f7d-9c86-91c9e791f20e"
+   ]
+  },
+  {
+   "claim_id": "36acd46d-e511-4737-90f2-42f9274c1754",
+   "claim_text": "No temporal clustering of autism onset was detected within 2 or 6 months of MMR vaccination.",
+   "category": "large_scale_epidemiological_evidence",
+   "figures": [
+    "2",
+    "6"
+   ],
+   "quotation": false,
+   "per_source": [
+    {
+     "source_id": "c47f0199-fc95-4f7d-9c86-91c9e791f20e",
+     "source_survives": true,
+     "bindings": [
+      {
+       "kind": "FIGURE",
+       "ok": true,
+       "abstained": false,
+       "evidence": "2, 6",
+       "reason": ""
+      }
+     ],
+     "level": "FIGURE_BOUND"
+    }
+   ],
+   "support": "FIGURE_BOUND",
+   "supported_by": [
+    "c47f0199-fc95-4f7d-9c86-91c9e791f20e"
+   ]
+  },
+  {
+   "claim_id": "01fd9d8b-754a-45ca-848a-4d60d8999a51",
+   "claim_text": "No difference in age at autism diagnosis was found between MMR-vaccinated and unvaccinated children.",
+   "category": "large_scale_epidemiological_evidence",
+   "figures": [],
+   "quotation": false,
+   "per_source": [
+    {
+     "source_id": "c47f0199-fc95-4f7d-9c86-91c9e791f20e",
+     "source_survives": true,
+     "bindings": [],
+     "level": "IDENTITY_ONLY"
+    }
+   ],
+   "support": "IDENTITY_ONLY",
+   "supported_by": [
+    "c47f0199-fc95-4f7d-9c86-91c9e791f20e"
+   ]
+  },
+  {
+   "claim_id": "0170f364-2eac-4fd2-a46c-0a4d257164a1",
+   "claim_text": "The rate of autism increase was consistent before and after MMR introduction in 1988, ruling out the vaccine as a cause of the observed rise in autism diagnoses.",
+   "category": "large_scale_epidemiological_evidence",
+   "figures": [
+    "1988"
+   ],
+   "quotation": false,
+   "per_source": [
+    {
+     "source_id": "c47f0199-fc95-4f7d-9c86-91c9e791f20e",
+     "source_survives": true,
+     "bindings": [
+      {
+       "kind": "FIGURE",
+       "ok": true,
+       "abstained": false,
+       "evidence": "1988",
+       "reason": ""
+      }
+     ],
+     "level": "FIGURE_BOUND"
+    }
+   ],
+   "support": "FIGURE_BOUND",
+   "supported_by": [
+    "c47f0199-fc95-4f7d-9c86-91c9e791f20e"
+   ]
+  },
+  {
+   "claim_id": "65012622-9f24-4c21-a32b-eec0bf5da472",
+   "claim_text": "A Danish cohort study followed 530,000 children born between 1991 and 1998, comparing autism rates between 440,655 MMR-vaccinated and 96,648 unvaccinated children using national registry data.",
+   "category": "large_scale_epidemiological_evidence",
+   "figures": [
+    "1991",
+    "1998",
+    "440655",
+    "530000",
+    "96648"
+   ],
+   "quotation": false,
+   "per_source": [
+    {
+     "source_id": "4360eb36-7ed3-493a-b59a-c84a008fecb1",
+     "source_survives": true,
+     "bindings": [
+      {
+       "kind": "FIGURE",
+       "ok": false,
+       "abstained": false,
+       "evidence": "1991, 1998, 440655",
+       "reason": "not in the document: 530000, 96648"
+      }
+     ],
+     "level": "UNSUPPORTED"
+    }
+   ],
+   "support": "UNSUPPORTED",
+   "supported_by": []
+  },
+  {
+   "claim_id": "43dc8f6d-84bb-472d-97a0-4c0dd0f8cd2d",
+   "claim_text": "The relative risk of autism in MMR-vaccinated children compared to unvaccinated children was 0.92 (95% CI, 0.68–1.26), indicating no increased risk of autism from MMR vaccination.",
+   "category": "large_scale_epidemiological_evidence",
+   "figures": [
+    "0.68",
+    "0.92",
+    "1.26",
+    "95"
+   ],
+   "quotation": false,
+   "per_source": [
+    {
+     "source_id": "4360eb36-7ed3-493a-b59a-c84a008fecb1",
+     "source_survives": true,
+     "bindings": [
+      {
+       "kind": "FIGURE",
+       "ok": false,
+       "abstained": false,
+       "evidence": "0.68, 0.92, 95",
+       "reason": "not in the document: 1.26"
+      }
+     ],
+     "level": "UNSUPPORTED"
+    }
+   ],
+   "support": "UNSUPPORTED",
+   "supported_by": []
+  },
+  {
+   "claim_id": "2ec535ac-4168-40ad-b615-340f05837fb1",
+   "claim_text": "The Madsen 2002 Danish cohort study found no association between age at MMR vaccination, time since vaccination, or date of vaccination and the development of autism.",
+   "category": "large_scale_epidemiological_evidence",
+   "figures": [
+    "2002"
+   ],
+   "quotation": false,
+   "per_source": [
+    {
+     "source_id": "4360eb36-7ed3-493a-b59a-c84a008fecb1",
+     "source_survives": true,
+     "bindings": [
+      {
+       "kind": "FIGURE",
+       "ok": true,
+       "abstained": false,
+       "evidence": "2002",
+       "reason": ""
+      }
+     ],
+     "level": "FIGURE_BOUND"
+    }
+   ],
+   "support": "FIGURE_BOUND",
+   "supported_by": [
+    "4360eb36-7ed3-493a-b59a-c84a008fecb1"
+   ]
+  },
+  {
+   "claim_id": "b8b27c3b-c497-477e-aed9-7ce9305b9f9b",
+   "claim_text": "The Madsen 2002 Danish cohort study found no dose-response relationship between MMR vaccination and autism.",
+   "category": "large_scale_epidemiological_evidence",
+   "figures": [
+    "2002"
+   ],
+   "quotation": false,
+   "per_source": [
+    {
+     "source_id": "4360eb36-7ed3-493a-b59a-c84a008fecb1",
+     "source_survives": true,
+     "bindings": [
+      {
+       "kind": "FIGURE",
+       "ok": true,
+       "abstained": false,
+       "evidence": "2002",
+       "reason": ""
+      }
+     ],
+     "level": "FIGURE_BOUND"
+    }
+   ],
+   "support": "FIGURE_BOUND",
+   "supported_by": [
+    "4360eb36-7ed3-493a-b59a-c84a008fecb1"
+   ]
+  },
+  {
+   "claim_id": "105c1199-1d3e-4238-b0e0-d08749eff6f7",
+   "claim_text": "Among children born in Yokohama between 1992 and 1996, the cumulative incidence of autism by age 7 rose from 48.4 to 117.2 per 10,000, despite zero MMR vaccination.",
+   "category": "large_scale_epidemiological_evidence",
+   "figures": [
+    "0",
+    "10000",
+    "117.2",
+    "1992",
+    "1996",
+    "48.4",
+    "7"
+   ],
+   "quotation": false,
+   "per_source": [
+    {
+     "source_id": "dd13e679-2b06-4fa3-83a4-df2aa1eea9a9",
+     "source_survives": false,
+     "bindings": [
+      {
+       "kind": "SOURCE",
+       "ok": false,
+       "abstained": false,
+       "evidence": "",
+       "reason": "HEADING: shares no distinctive word with the registry heading"
+      }
+     ]
+    }
+   ],
+   "support": "UNSUPPORTED",
+   "supported_by": []
+  },
+  {
+   "claim_id": "1c7e50c0-02c1-468d-8dba-bd69111ab2da",
+   "claim_text": "Autism prevalence in Yokohama continued to rise after MMR vaccination rates dropped to zero following the 1993 withdrawal of the vaccine in Japan.",
+   "category": "large_scale_epidemiological_evidence",
+   "figures": [
+    "0",
+    "1993"
+   ],
+   "quotation": false,
+   "per_source": [
+    {
+     "source_id": "dd13e679-2b06-4fa3-83a4-df2aa1eea9a9",
+     "source_survives": false,
+     "bindings": [
+      {
+       "kind": "SOURCE",
+       "ok": false,
+       "abstained": false,
+       "evidence": "",
+       "reason": "HEADING: shares no distinctive word with the registry heading"
+      }
+     ]
+    }
+   ],
+   "support": "UNSUPPORTED",
+   "supported_by": []
+  },
+  {
+   "claim_id": "3e72a540-bd26-4524-bef0-19d011674118",
+   "claim_text": "The Honda et al. (2005) study examined autism rates in Yokohama across the period 1988 to 1996, spanning the withdrawal of MMR vaccination in Japan.",
+   "category": "large_scale_epidemiological_evidence",
+   "figures": [
+    "1988",
+    "1996",
+    "2005"
+   ],
+   "quotation": false,
+   "per_source": [
+    {
+     "source_id": "dd13e679-2b06-4fa3-83a4-df2aa1eea9a9",
+     "source_survives": false,
+     "bindings": [
+      {
+       "kind": "SOURCE",
+       "ok": false,
+       "abstained": false,
+       "evidence": "",
+       "reason": "HEADING: shares no distinctive word with the registry heading"
+      }
+     ]
+    }
+   ],
+   "support": "UNSUPPORTED",
+   "supported_by": []
+  },
+  {
+   "claim_id": "b8b28a72-6caa-4f09-a45c-1b299a44ad5a",
+   "claim_text": "A Canadian study examined 27,749 children born between 1987 and 1998 in Montreal, Quebec to analyze the relationship between MMR vaccination coverage and autism prevalence across birth cohorts.",
+   "category": "large_scale_epidemiological_evidence",
+   "figures": [
+    "1987",
+    "1998",
+    "27749"
+   ],
+   "quotation": false,
+   "per_source": [
+    {
+     "source_id": "d89cc78b-ae50-4910-b14a-adf0c57985cb",
+     "source_survives": true,
+     "bindings": [
+      {
+       "kind": "FIGURE",
+       "ok": true,
+       "abstained": false,
+       "evidence": "1987, 1998, 27749",
+       "reason": ""
+      }
+     ],
+     "level": "FIGURE_BOUND"
+    }
+   ],
+   "support": "FIGURE_BOUND",
+   "supported_by": [
+    "d89cc78b-ae50-4910-b14a-adf0c57985cb"
+   ]
+  },
+  {
+   "claim_id": "ab86477d-d538-4e1c-9df9-fd6694b6b5b5",
+   "claim_text": "In the Montreal birth cohort study, autism prevalence increased over time while MMR vaccination coverage also increased, but the association between the two trends was not statistically significant after adjustment.",
+   "category": "large_scale_epidemiological_evidence",
+   "figures": [
+    "2"
+   ],
+   "quotation": false,
+   "per_source": [
+    {
+     "source_id": "d89cc78b-ae50-4910-b14a-adf0c57985cb",
+     "source_survives": true,
+     "bindings": [
+      {
+       "kind": "FIGURE",
+       "ok": true,
+       "abstained": false,
+       "evidence": "2",
+       "reason": ""
+      }
+     ],
+     "level": "FIGURE_BOUND"
+    }
+   ],
+   "support": "FIGURE_BOUND",
+   "supported_by": [
+    "d89cc78b-ae50-4910-b14a-adf0c57985cb"
+   ]
+  },
+  {
+   "claim_id": "d201c60b-1e69-4917-973f-e114f5164bbc",
+   "claim_text": "The Fombonne 2006 Montreal study found no causal relationship between MMR vaccination rates and autism prevalence across birth cohorts.",
+   "category": "large_scale_epidemiological_evidence",
+   "figures": [
+    "2006"
+   ],
+   "quotation": false,
+   "per_source": [
+    {
+     "source_id": "d89cc78b-ae50-4910-b14a-adf0c57985cb",
+     "source_survives": true,
+     "bindings": [
+      {
+       "kind": "FIGURE",
+       "ok": true,
+       "abstained": false,
+       "evidence": "2006",
+       "reason": ""
+      }
+     ],
+     "level": "FIGURE_BOUND"
+    }
+   ],
+   "support": "FIGURE_BOUND",
+   "supported_by": [
+    "d89cc78b-ae50-4910-b14a-adf0c57985cb"
+   ]
+  },
+  {
+   "claim_id": "88dca600-318d-41ce-b77f-618d443e6452",
+   "claim_text": "The Fombonne 2006 Montreal study ruled out both thimerosal exposure and MMR vaccination as contributors to the observed increase in autism diagnoses.",
+   "category": "large_scale_epidemiological_evidence",
+   "figures": [
+    "2006"
+   ],
+   "quotation": false,
+   "per_source": [
+    {
+     "source_id": "d89cc78b-ae50-4910-b14a-adf0c57985cb",
+     "source_survives": true,
+     "bindings": [
+      {
+       "kind": "FIGURE",
+       "ok": true,
+       "abstained": false,
+       "evidence": "2006",
+       "reason": ""
+      }
+     ],
+     "level": "FIGURE_BOUND"
+    }
+   ],
+   "support": "FIGURE_BOUND",
+   "supported_by": [
+    "d89cc78b-ae50-4910-b14a-adf0c57985cb"
+   ]
+  },
+  {
+   "claim_id": "66080522-fb42-4be7-b808-09814805ef10",
+   "claim_text": "A UK case-control study using the General Practice Research Database compared 1,294 cases of pervasive developmental disorder (PDD) with 4,469 matched controls to examine MMR vaccination history.",
+   "category": "large_scale_epidemiological_evidence",
+   "figures": [
+    "1294",
+    "4469"
+   ],
+   "quotation": false,
+   "per_source": [
+    {
+     "source_id": "d2960292-6c77-4edc-9565-3baecf5f1b25",
+     "source_survives": true,
+     "bindings": [
+      {
+       "kind": "FIGURE",
+       "ok": true,
+       "abstained": false,
+       "evidence": "1294, 4469",
+       "reason": ""
+      }
+     ],
+     "level": "FIGURE_BOUND"
+    }
+   ],
+   "support": "FIGURE_BOUND",
+   "supported_by": [
+    "d2960292-6c77-4edc-9565-3baecf5f1b25"
+   ]
+  },
+  {
+   "claim_id": "042e091c-ae7e-484d-ac17-48de4cbcb485",
+   "claim_text": "Multiple large-scale epidemiological studies reviewed by ACIP found no association between MMR vaccination and autism spectrum disorder.",
+   "category": "large_scale_epidemiological_evidence",
+   "figures": [],
+   "quotation": false,
+   "per_source": [
+    {
+     "source_id": "621c07ec-dacd-4c81-a541-b45c430ae3cb",
+     "source_survives": false,
+     "bindings": [
+      {
+       "kind": "SOURCE",
+       "ok": false,
+       "abstained": false,
+       "evidence": "",
+       "reason": "UNVERIFIABLE: no DOI, PMID, PMCID, NCT or law citation in the stored URL"
+      }
+     ]
+    }
+   ],
+   "support": "UNSUPPORTED",
+   "supported_by": []
+  },
+  {
+   "claim_id": "19214753-d0ad-45e6-87f3-6bda40817662",
+   "claim_text": "Andrew Wakefield had been paid by lawyers seeking evidence against vaccine manufacturers at the time of the original 1998 research.",
+   "category": "original_wakefield_research",
+   "figures": [
+    "1998"
+   ],
+   "quotation": false,
+   "per_source": [
+    {
+     "source_id": "196e03ba-4b2c-43f3-bdca-e28ddecfeb97",
+     "source_survives": false,
+     "bindings": [
+      {
+       "kind": "SOURCE",
+       "ok": false,
+       "abstained": false,
+       "evidence": "",
+       "reason": "fetch: nothing retrieved"
+      }
+     ]
+    }
+   ],
+   "support": "UNSUPPORTED",
+   "supported_by": []
+  },
+  {
+   "claim_id": "ef208605-7409-4c70-9b19-e27c6ed80079",
+   "claim_text": "The Taylor et al. (2002) study found no association between MMR vaccination and bowel problems in children with autism.",
+   "category": "large_scale_epidemiological_evidence",
+   "figures": [
+    "2002"
+   ],
+   "quotation": false,
+   "per_source": [
+    {
+     "source_id": "c17ba46d-70c4-4f1c-bb1e-a3ff554c1401",
+     "source_survives": true,
+     "bindings": [
+      {
+       "kind": "FIGURE",
+       "ok": true,
+       "abstained": false,
+       "evidence": "2002",
+       "reason": ""
+      }
+     ],
+     "level": "FIGURE_BOUND"
+    }
+   ],
+   "support": "FIGURE_BOUND",
+   "supported_by": [
+    "c17ba46d-70c4-4f1c-bb1e-a3ff554c1401"
+   ]
+  },
+  {
+   "claim_id": "f24515e1-65ec-442b-bb5e-53adc4efe6dd",
+   "claim_text": "A meta-analysis by Taylor et al. pooled data from 1.2 million children across five cohort studies and five case-control studies.",
+   "category": "large_scale_epidemiological_evidence",
+   "figures": [
+    "1.2",
+    "1200000",
+    "5"
+   ],
+   "quotation": false,
+   "per_source": [
+    {
+     "source_id": "9d3f1a29-70f8-4d36-b782-531c9e68bf73",
+     "source_survives": true,
+     "bindings": [
+      {
+       "kind": "FIGURE",
+       "ok": false,
+       "abstained": false,
+       "evidence": "1.2, 5",
+       "reason": "not in the document: 1200000"
+      }
+     ],
+     "level": "UNSUPPORTED"
+    }
+   ],
+   "support": "UNSUPPORTED",
+   "supported_by": []
+  },
+  {
+   "claim_id": "28347241-9f97-4366-8f06-332471096b84",
+   "claim_text": "The Taylor et al. meta-analysis found no relationship between vaccination and autism or autism spectrum disorder.",
+   "category": "large_scale_epidemiological_evidence",
+   "figures": [],
+   "quotation": false,
+   "per_source": [
+    {
+     "source_id": "9d3f1a29-70f8-4d36-b782-531c9e68bf73",
+     "source_survives": true,
+     "bindings": [],
+     "level": "IDENTITY_ONLY"
+    }
+   ],
+   "support": "IDENTITY_ONLY",
+   "supported_by": [
+    "9d3f1a29-70f8-4d36-b782-531c9e68bf73"
+   ]
+  },
+  {
+   "claim_id": "8b84dcfd-00ac-4205-b926-6fab4ded379b",
+   "claim_text": "The odds ratio for the association between MMR vaccination and pervasive developmental disorder was 0.86 (95% CI 0.68–1.09), indicating no increased risk.",
+   "category": "large_scale_epidemiological_evidence",
+   "figures": [
+    "0.68",
+    "0.86",
+    "1.09",
+    "95"
+   ],
+   "quotation": false,
+   "per_source": [
+    {
+     "source_id": "d2960292-6c77-4edc-9565-3baecf5f1b25",
+     "source_survives": true,
+     "bindings": [
+      {
+       "kind": "FIGURE",
+       "ok": true,
+       "abstained": false,
+       "evidence": "0.68, 0.86, 1.09, 95",
+       "reason": ""
+      }
+     ],
+     "level": "FIGURE_BOUND"
+    }
+   ],
+   "support": "FIGURE_BOUND",
+   "supported_by": [
+    "d2960292-6c77-4edc-9565-3baecf5f1b25"
+   ]
+  },
+  {
+   "claim_id": "995d7604-f1db-403c-a8b2-53479ed27650",
+   "claim_text": "The Cochrane MMR review concluded that the benefits of MMR vaccination substantially outweigh its risks.",
+   "category": "large_scale_epidemiological_evidence",
+   "figures": [],
+   "quotation": false,
+   "per_source": [
+    {
+     "source_id": "bf1f520d-1281-4fb5-b9b5-af9bf34d6834",
+     "source_survives": true,
+     "bindings": [],
+     "level": "IDENTITY_ONLY"
+    }
+   ],
+   "support": "IDENTITY_ONLY",
+   "supported_by": [
+    "bf1f520d-1281-4fb5-b9b5-af9bf34d6834"
+   ]
+  },
+  {
+   "claim_id": "c67e60c9-84ea-4923-aedd-97a46abc8fda",
+   "claim_text": "A Danish population-based cohort study followed 537,303 children born between 1991 and 1998 to investigate the association between MMR vaccination and autism.",
+   "category": "large_scale_epidemiological_evidence",
+   "figures": [
+    "1991",
+    "1998",
+    "537303"
+   ],
+   "quotation": false,
+   "per_source": [
+    {
+     "source_id": "c42fc694-8840-47cc-8775-a36c74a4fa84",
+     "source_survives": true,
+     "bindings": [
+      {
+       "kind": "FIGURE",
+       "ok": true,
+       "abstained": false,
+       "evidence": "1991, 1998, 537303",
+       "reason": ""
+      }
+     ],
+     "level": "FIGURE_BOUND"
+    }
+   ],
+   "support": "FIGURE_BOUND",
+   "supported_by": [
+    "c42fc694-8840-47cc-8775-a36c74a4fa84"
+   ]
+  },
+  {
+   "claim_id": "295dd47e-4878-4603-80ec-991836ff85f1",
+   "claim_text": "MMR-vaccinated children showed no increased risk of autism compared to unvaccinated children in a cohort of 650,000 Danish children.",
+   "category": "large_scale_epidemiological_evidence",
+   "figures": [
+    "650000"
+   ],
+   "quotation": false,
+   "per_source": [
+    {
+     "source_id": "fd363c9a-4ca2-4a4b-9140-d59c55245292",
+     "source_survives": true,
+     "bindings": [
+      {
+       "kind": "FIGURE",
+       "ok": false,
+       "abstained": false,
+       "evidence": "",
+       "reason": "not in the document: 650000"
+      }
+     ],
+     "level": "UNSUPPORTED"
+    }
+   ],
+   "support": "UNSUPPORTED",
+   "supported_by": []
+  },
+  {
+   "claim_id": "9b7a3312-8ac5-485b-8dd4-13e5ae5c4bd4",
+   "claim_text": "Wakefield's data alterations in the 1998 Lancet paper included changing documented diagnoses and onset timelines across all 12 cases to fit the hypothesis of a link between MMR vaccination and autism.",
+   "category": "original_wakefield_research",
+   "figures": [
+    "12",
+    "1998"
+   ],
+   "quotation": false,
+   "per_source": [
+    {
+     "source_id": "6ef0773d-65cb-443b-a92e-c33af266f3f8",
+     "source_survives": false,
+     "bindings": [
+      {
+       "kind": "SOURCE",
+       "ok": false,
+       "abstained": false,
+       "evidence": "",
+       "reason": "fetch: nothing retrieved"
+      }
+     ]
+    }
+   ],
+   "support": "UNSUPPORTED",
+   "supported_by": []
+  },
+  {
+   "claim_id": "f0b091fa-86cf-42e2-8a5c-36189da5fba6",
+   "claim_text": "The Smeeth 2004 case-control study found no evidence of temporal clustering of pervasive developmental disorder diagnoses following MMR vaccination.",
+   "category": "large_scale_epidemiological_evidence",
+   "figures": [
+    "2004"
+   ],
+   "quotation": false,
+   "per_source": [
+    {
+     "source_id": "d2960292-6c77-4edc-9565-3baecf5f1b25",
+     "source_survives": true,
+     "bindings": [
+      {
+       "kind": "FIGURE",
+       "ok": true,
+       "abstained": false,
+       "evidence": "2004",
+       "reason": ""
+      }
+     ],
+     "level": "FIGURE_BOUND"
+    }
+   ],
+   "support": "FIGURE_BOUND",
+   "supported_by": [
+    "d2960292-6c77-4edc-9565-3baecf5f1b25"
+   ]
+  },
+  {
+   "claim_id": "01b6ab93-0061-482d-9393-9067cf1174f1",
+   "claim_text": "The finding of no association between MMR vaccination and pervasive developmental disorder in the Smeeth 2004 study was consistent across multiple sensitivity analyses and subgroup analyses.",
+   "category": "large_scale_epidemiological_evidence",
+   "figures": [
+    "2004"
+   ],
+   "quotation": false,
+   "per_source": [
+    {
+     "source_id": "d2960292-6c77-4edc-9565-3baecf5f1b25",
+     "source_survives": true,
+     "bindings": [
+      {
+       "kind": "FIGURE",
+       "ok": true,
+       "abstained": false,
+       "evidence": "2004",
+       "reason": ""
+      }
+     ],
+     "level": "FIGURE_BOUND"
+    }
+   ],
+   "support": "FIGURE_BOUND",
+   "supported_by": [
+    "d2960292-6c77-4edc-9565-3baecf5f1b25"
+   ]
+  },
+  {
+   "claim_id": "2c3d2bbb-d727-41d4-a4fb-b6db8c308b1c",
+   "claim_text": "The Institute of Medicine's Immunization Safety Review Committee concluded that the epidemiological evidence consistently and convincingly favors rejection of a causal relationship between MMR vaccine and autism.",
+   "category": "large_scale_epidemiological_evidence",
+   "figures": [],
+   "quotation": false,
+   "per_source": [
+    {
+     "source_id": "76f4aee8-9759-4f8e-bfbf-85aae31e267d",
+     "source_survives": false,
+     "bindings": [
+      {
+       "kind": "SOURCE",
+       "ok": false,
+       "abstained": false,
+       "evidence": "",
+       "reason": "UNVERIFIABLE: no DOI, PMID, PMCID, NCT or law citation in the stored URL"
+      }
+     ]
+    }
+   ],
+   "support": "UNSUPPORTED",
+   "supported_by": []
+  },
+  {
+   "claim_id": "62c10907-ca94-4b32-9699-d69dc7be31fd",
+   "claim_text": "The Cochrane systematic review on MMR vaccine safety, published in 2020, is described as the most comprehensive systematic review on MMR vaccine safety to date.",
+   "category": "large_scale_epidemiological_evidence",
+   "figures": [
+    "2020"
+   ],
+   "quotation": false,
+   "per_source": [
+    {
+     "source_id": "bf1f520d-1281-4fb5-b9b5-af9bf34d6834",
+     "source_survives": true,
+     "bindings": [
+      {
+       "kind": "FIGURE",
+       "ok": true,
+       "abstained": false,
+       "evidence": "2020",
+       "reason": ""
+      }
+     ],
+     "level": "FIGURE_BOUND"
+    }
+   ],
+   "support": "FIGURE_BOUND",
+   "supported_by": [
+    "bf1f520d-1281-4fb5-b9b5-af9bf34d6834"
+   ]
+  },
+  {
+   "claim_id": "711d05f4-a603-4e2e-b0d4-96cfa56caebd",
+   "claim_text": "The Taylor et al. meta-analysis found no association between MMR vaccine and autism outcomes.",
+   "category": "large_scale_epidemiological_evidence",
+   "figures": [],
+   "quotation": false,
+   "per_source": [
+    {
+     "source_id": "9d3f1a29-70f8-4d36-b782-531c9e68bf73",
+     "source_survives": true,
+     "bindings": [],
+     "level": "IDENTITY_ONLY"
+    }
+   ],
+   "support": "IDENTITY_ONLY",
+   "supported_by": [
+    "9d3f1a29-70f8-4d36-b782-531c9e68bf73"
+   ]
+  },
+  {
+   "claim_id": "d88524c7-004f-4f39-b3ec-cbe38111f59e",
+   "claim_text": "The Taylor et al. meta-analysis found no association between thimerosal or mercury-containing vaccines and autism outcomes.",
+   "category": "large_scale_epidemiological_evidence",
+   "figures": [],
+   "quotation": false,
+   "per_source": [
+    {
+     "source_id": "9d3f1a29-70f8-4d36-b782-531c9e68bf73",
+     "source_survives": true,
+     "bindings": [],
+     "level": "IDENTITY_ONLY"
+    }
+   ],
+   "support": "IDENTITY_ONLY",
+   "supported_by": [
+    "9d3f1a29-70f8-4d36-b782-531c9e68bf73"
+   ]
+  },
+  {
+   "claim_id": "86dabf3e-2d1f-4098-bf1f-da044d5c72b8",
+   "claim_text": "The null finding in the Taylor et al. meta-analysis was consistent across both cohort and case-control study designs.",
+   "category": "large_scale_epidemiological_evidence",
+   "figures": [],
+   "quotation": false,
+   "per_source": [
+    {
+     "source_id": "9d3f1a29-70f8-4d36-b782-531c9e68bf73",
+     "source_survives": true,
+     "bindings": [],
+     "level": "IDENTITY_ONLY"
+    }
+   ],
+   "support": "IDENTITY_ONLY",
+   "supported_by": [
+    "9d3f1a29-70f8-4d36-b782-531c9e68bf73"
+   ]
+  },
+  {
+   "claim_id": "90a415a7-9afa-4122-8d4f-84d8a5935d7c",
+   "claim_text": "The Madsen et al. Danish cohort study found no association between MMR vaccination and autism regardless of age at vaccination, time since vaccination, or vaccination status.",
+   "category": "large_scale_epidemiological_evidence",
+   "figures": [],
+   "quotation": false,
+   "per_source": [
+    {
+     "source_id": "c42fc694-8840-47cc-8775-a36c74a4fa84",
+     "source_survives": true,
+     "bindings": [],
+     "level": "IDENTITY_ONLY"
+    }
+   ],
+   "support": "IDENTITY_ONLY",
+   "supported_by": [
+    "c42fc694-8840-47cc-8775-a36c74a4fa84"
+   ]
+  },
+  {
+   "claim_id": "07d07fc9-1677-44bb-a7c1-000a283167db",
+   "claim_text": "In the Madsen et al. Danish cohort study, vaccinated children had no higher risk of autism than unvaccinated children.",
+   "category": "large_scale_epidemiological_evidence",
+   "figures": [],
+   "quotation": false,
+   "per_source": [
+    {
+     "source_id": "c42fc694-8840-47cc-8775-a36c74a4fa84",
+     "source_survives": true,
+     "bindings": [],
+     "level": "IDENTITY_ONLY"
+    }
+   ],
+   "support": "IDENTITY_ONLY",
+   "supported_by": [
+    "c42fc694-8840-47cc-8775-a36c74a4fa84"
+   ]
+  },
+  {
+   "claim_id": "ae3190bc-0ec1-4d94-97da-e919e5253212",
+   "claim_text": "The Madsen et al. Danish cohort study results held after adjustment for potential confounders including sex, birth weight, gestational age, and socioeconomic status.",
+   "category": "large_scale_epidemiological_evidence",
+   "figures": [],
+   "quotation": false,
+   "per_source": [
+    {
+     "source_id": "c42fc694-8840-47cc-8775-a36c74a4fa84",
+     "source_survives": true,
+     "bindings": [],
+     "level": "IDENTITY_ONLY"
+    }
+   ],
+   "support": "IDENTITY_ONLY",
+   "supported_by": [
+    "c42fc694-8840-47cc-8775-a36c74a4fa84"
+   ]
+  },
+  {
+   "claim_id": "e7fa292d-13d9-41da-a237-042e56dd9697",
+   "claim_text": "The Madsen et al. Danish cohort study was published in the New England Journal of Medicine.",
+   "category": "large_scale_epidemiological_evidence",
+   "figures": [],
+   "quotation": false,
+   "per_source": [
+    {
+     "source_id": "c42fc694-8840-47cc-8775-a36c74a4fa84",
+     "source_survives": true,
+     "bindings": [],
+     "level": "IDENTITY_ONLY"
+    }
+   ],
+   "support": "IDENTITY_ONLY",
+   "supported_by": [
+    "c42fc694-8840-47cc-8775-a36c74a4fa84"
+   ]
+  },
+  {
+   "claim_id": "b9e60a41-270a-4c9e-bc39-0d2502562bb4",
+   "claim_text": "Japan withdrew the MMR vaccine in 1993, creating a natural experiment to test whether MMR vaccination causes autism.",
+   "category": "large_scale_epidemiological_evidence",
+   "figures": [
+    "1993"
+   ],
+   "quotation": false,
+   "per_source": [
+    {
+     "source_id": "6f6527c4-636f-46e3-8c47-09a755af6e93",
+     "source_survives": false,
+     "bindings": [
+      {
+       "kind": "SOURCE",
+       "ok": false,
+       "abstained": false,
+       "evidence": "",
+       "reason": "HEADING: shares no distinctive word with the registry heading"
+      }
+     ]
+    }
+   ],
+   "support": "UNSUPPORTED",
+   "supported_by": []
+  },
+  {
+   "claim_id": "a2593e16-c342-4154-a744-3c27328537f8",
+   "claim_text": "After MMR vaccination was discontinued in Japan in 1993, autism rates in Yokohama continued to rise rather than decline.",
+   "category": "large_scale_epidemiological_evidence",
+   "figures": [
+    "1993"
+   ],
+   "quotation": false,
+   "per_source": [
+    {
+     "source_id": "6f6527c4-636f-46e3-8c47-09a755af6e93",
+     "source_survives": false,
+     "bindings": [
+      {
+       "kind": "SOURCE",
+       "ok": false,
+       "abstained": false,
+       "evidence": "",
+       "reason": "HEADING: shares no distinctive word with the registry heading"
+      }
+     ]
+    }
+   ],
+   "support": "UNSUPPORTED",
+   "supported_by": []
+  },
+  {
+   "claim_id": "6042d30b-8872-4429-82d1-9edfd66c599a",
+   "claim_text": "The cumulative incidence of autism spectrum disorders in Yokohama rose from 47.6 per 10,000 in the 1988 birth cohort to 117.2 per 10,000 in the 1996 birth cohort, entirely during the post-MMR period.",
+   "category": "large_scale_epidemiological_evidence",
+   "figures": [
+    "10000",
+    "117.2",
+    "1988",
+    "1996",
+    "47.6"
+   ],
+   "quotation": false,
+   "per_source": [
+    {
+     "source_id": "6f6527c4-636f-46e3-8c47-09a755af6e93",
+     "source_survives": false,
+     "bindings": [
+      {
+       "kind": "SOURCE",
+       "ok": false,
+       "abstained": false,
+       "evidence": "",
+       "reason": "HEADING: shares no distinctive word with the registry heading"
+      }
+     ]
+    }
+   ],
+   "support": "UNSUPPORTED",
+   "supported_by": []
+  },
+  {
+   "claim_id": "3874334d-1ead-41d9-bfa5-0a63dd70427a",
+   "claim_text": "A JAMA study examined 95,727 children with older siblings to test whether MMR vaccination increased autism risk.",
+   "category": "large_scale_epidemiological_evidence",
+   "figures": [
+    "95727"
+   ],
+   "quotation": false,
+   "per_source": [
+    {
+     "source_id": "5c082496-8835-4a87-93a3-bc3faf585401",
+     "source_survives": false,
+     "bindings": [
+      {
+       "kind": "SOURCE",
+       "ok": false,
+       "abstained": false,
+       "evidence": "",
+       "reason": "resolve: NONEXISTENT"
+      }
+     ]
+    }
+   ],
+   "support": "UNSUPPORTED",
+   "supported_by": []
+  },
+  {
+   "claim_id": "55677223-dc8f-4f80-aa59-48647cb5b12b",
+   "claim_text": "The Jain et al. (2015) JAMA study found no association between MMR vaccination and autism in a cohort of 95,727 children, including those with autistic older siblings.",
+   "category": "large_scale_epidemiological_evidence",
+   "figures": [
+    "2015",
+    "95727"
+   ],
+   "quotation": false,
+   "per_source": [
+    {
+     "source_id": "5c082496-8835-4a87-93a3-bc3faf585401",
+     "source_survives": false,
+     "bindings": [
+      {
+       "kind": "SOURCE",
+       "ok": false,
+       "abstained": false,
+       "evidence": "",
+       "reason": "resolve: NONEXISTENT"
+      }
+     ]
+    }
+   ],
+   "support": "UNSUPPORTED",
+   "supported_by": []
+  },
+  {
+   "claim_id": "3d2534ff-9b50-4e23-b497-d95711bd0622",
+   "claim_text": "Children with an older autistic sibling showed no increased autism risk from MMR vaccination, refuting concerns about genetically susceptible subgroups.",
+   "category": "large_scale_epidemiological_evidence",
+   "figures": [],
+   "quotation": false,
+   "per_source": [
+    {
+     "source_id": "5c082496-8835-4a87-93a3-bc3faf585401",
+     "source_survives": false,
+     "bindings": [
+      {
+       "kind": "SOURCE",
+       "ok": false,
+       "abstained": false,
+       "evidence": "",
+       "reason": "resolve: NONEXISTENT"
+      }
+     ]
+    }
+   ],
+   "support": "UNSUPPORTED",
+   "supported_by": []
+  },
+  {
+   "claim_id": "36c5e766-4651-49d4-a8c7-d26733de3dbe",
+   "claim_text": "A Danish cohort study followed 650,000 children born between 1999 and 2010 to examine the relationship between MMR vaccination and autism.",
+   "category": "large_scale_epidemiological_evidence",
+   "figures": [
+    "1999",
+    "2010",
+    "650000"
+   ],
+   "quotation": false,
+   "per_source": [
+    {
+     "source_id": "fd363c9a-4ca2-4a4b-9140-d59c55245292",
+     "source_survives": true,
+     "bindings": [
+      {
+       "kind": "FIGURE",
+       "ok": false,
+       "abstained": false,
+       "evidence": "1999, 2010",
+       "reason": "not in the document: 650000"
+      }
+     ],
+     "level": "UNSUPPORTED"
+    }
+   ],
+   "support": "UNSUPPORTED",
+   "supported_by": []
+  },
+  {
+   "claim_id": "5f45d713-4d90-494e-b7ca-396d962a9dda",
+   "claim_text": "The Danish cohort study found no clustering of autism diagnoses at any time interval following MMR vaccination.",
+   "category": "large_scale_epidemiological_evidence",
+   "figures": [],
+   "quotation": false,
+   "per_source": [
+    {
+     "source_id": "fd363c9a-4ca2-4a4b-9140-d59c55245292",
+     "source_survives": true,
+     "bindings": [],
+     "level": "IDENTITY_ONLY"
+    }
+   ],
+   "support": "IDENTITY_ONLY",
+   "supported_by": [
+    "fd363c9a-4ca2-4a4b-9140-d59c55245292"
+   ]
+  },
+  {
+   "claim_id": "32c0d876-ffe1-4a44-a70a-31ec72ed4515",
+   "claim_text": "The Danish cohort study found no association between MMR vaccination and autism in subgroup analyses of children with older autistic siblings or other autism risk factors.",
+   "category": "large_scale_epidemiological_evidence",
+   "figures": [],
+   "quotation": false,
+   "per_source": [
+    {
+     "source_id": "fd363c9a-4ca2-4a4b-9140-d59c55245292",
+     "source_survives": true,
+     "bindings": [],
+     "level": "IDENTITY_ONLY"
+    }
+   ],
+   "support": "IDENTITY_ONLY",
+   "supported_by": [
+    "fd363c9a-4ca2-4a4b-9140-d59c55245292"
+   ]
+  },
+  {
+   "claim_id": "fb49fb4c-cf7b-4863-99d6-c435a72bfd9a",
+   "claim_text": "The Danish cohort study on MMR vaccination and autism was published in Annals of Internal Medicine.",
+   "category": "large_scale_epidemiological_evidence",
+   "figures": [],
+   "quotation": false,
+   "per_source": [
+    {
+     "source_id": "fd363c9a-4ca2-4a4b-9140-d59c55245292",
+     "source_survives": true,
+     "bindings": [],
+     "level": "IDENTITY_ONLY"
+    }
+   ],
+   "support": "IDENTITY_ONLY",
+   "supported_by": [
+    "fd363c9a-4ca2-4a4b-9140-d59c55245292"
+   ]
+  },
+  {
+   "claim_id": "74060ece-eab1-426a-9db6-9fb9c81a550c",
+   "claim_text": "The Danish cohort study followed 530,000 children born between 1991 and 1998, comparing autism rates between MMR-vaccinated and unvaccinated children.",
+   "category": "large_scale_epidemiological_evidence",
+   "figures": [
+    "1991",
+    "1998",
+    "530000"
+   ],
+   "quotation": false,
+   "per_source": [
+    {
+     "source_id": "d28cab99-41e4-40a1-8d85-551cb937f8dd",
+     "source_survives": true,
+     "bindings": [
+      {
+       "kind": "FIGURE",
+       "ok": false,
+       "abstained": false,
+       "evidence": "1991, 1998",
+       "reason": "not in the document: 530000"
+      }
+     ],
+     "level": "UNSUPPORTED"
+    }
+   ],
+   "support": "UNSUPPORTED",
+   "supported_by": []
+  },
+  {
+   "claim_id": "9b7597c3-34f8-473c-b34f-a43ebf65abe9",
+   "claim_text": "The relative risk of autistic disorder in MMR-vaccinated children compared to unvaccinated children was 0.92 (95% CI, 0.68–1.26), indicating no statistically significant increased risk.",
+   "category": "large_scale_epidemiological_evidence",
+   "figures": [
+    "0.68",
+    "0.92",
+    "1.26",
+    "95"
+   ],
+   "quotation": false,
+   "per_source": [
+    {
+     "source_id": "d28cab99-41e4-40a1-8d85-551cb937f8dd",
+     "source_survives": true,
+     "bindings": [
+      {
+       "kind": "FIGURE",
+       "ok": false,
+       "abstained": false,
+       "evidence": "0.68, 0.92, 95",
+       "reason": "not in the document: 1.26"
+      }
+     ],
+     "level": "UNSUPPORTED"
+    }
+   ],
+   "support": "UNSUPPORTED",
+   "supported_by": []
+  },
+  {
+   "claim_id": "2324d202-5c08-4a79-9377-8401135440b0",
+   "claim_text": "The Danish cohort study included 440,655 MMR-vaccinated children and 96,648 unvaccinated children, finding no statistically significant difference in autism incidence between the two groups.",
+   "category": "large_scale_epidemiological_evidence",
+   "figures": [
+    "2",
+    "440655",
+    "96648"
+   ],
+   "quotation": false,
+   "per_source": [
+    {
+     "source_id": "d28cab99-41e4-40a1-8d85-551cb937f8dd",
+     "source_survives": true,
+     "bindings": [
+      {
+       "kind": "FIGURE",
+       "ok": false,
+       "abstained": false,
+       "evidence": "440655",
+       "reason": "not in the document: 2, 96648"
+      }
+     ],
+     "level": "UNSUPPORTED"
+    }
+   ],
+   "support": "UNSUPPORTED",
+   "supported_by": []
+  },
+  {
+   "claim_id": "5d1d39c8-838e-42f3-aea4-599044ed6956",
+   "claim_text": "The Danish cohort study found no association between age at MMR vaccination, time since vaccination, or date of vaccination and the development of autism.",
+   "category": "large_scale_epidemiological_evidence",
+   "figures": [],
+   "quotation": false,
+   "per_source": [
+    {
+     "source_id": "d28cab99-41e4-40a1-8d85-551cb937f8dd",
+     "source_survives": true,
+     "bindings": [],
+     "level": "IDENTITY_ONLY"
+    }
+   ],
+   "support": "IDENTITY_ONLY",
+   "supported_by": [
+    "d28cab99-41e4-40a1-8d85-551cb937f8dd"
+   ]
+  },
+  {
+   "claim_id": "8c172816-d945-43ae-bca6-2c1b42f0878c",
+   "claim_text": "A UK-based cohort study examined 498 children with autism or atypical autism born between 1979 and 1992 in the North Thames region to analyze the temporal relationship between MMR vaccination and autism onset.",
+   "category": "large_scale_epidemiological_evidence",
+   "figures": [
+    "1979",
+    "1992",
+    "498"
+   ],
+   "quotation": false,
+   "per_source": [
+    {
+     "source_id": "bc636e18-0da9-4ebb-a9a6-80acd9622a9f",
+     "source_survives": true,
+     "bindings": [
+      {
+       "kind": "FIGURE",
+       "ok": false,
+       "abstained": false,
+       "evidence": "1979, 498",
+       "reason": "not in the document: 1992"
+      }
+     ],
+     "level": "UNSUPPORTED"
+    }
+   ],
+   "support": "UNSUPPORTED",
+   "supported_by": []
+  },
+  {
+   "claim_id": "915edb22-c823-40b2-9b6b-9fc9a87d77a1",
+   "claim_text": "The Taylor 1999 UK cohort study found no sudden increase in autism diagnoses following the introduction of the MMR vaccine in the United Kingdom in 1988.",
+   "category": "large_scale_epidemiological_evidence",
+   "figures": [
+    "1988",
+    "1999"
+   ],
+   "quotation": false,
+   "per_source": [
+    {
+     "source_id": "bc636e18-0da9-4ebb-a9a6-80acd9622a9f",
+     "source_survives": true,
+     "bindings": [
+      {
+       "kind": "FIGURE",
+       "ok": true,
+       "abstained": false,
+       "evidence": "1988, 1999",
+       "reason": ""
+      }
+     ],
+     "level": "FIGURE_BOUND"
+    }
+   ],
+   "support": "FIGURE_BOUND",
+   "supported_by": [
+    "bc636e18-0da9-4ebb-a9a6-80acd9622a9f"
+   ]
+  },
+  {
+   "claim_id": "da6a23d0-8fb4-4a7f-9c01-3ed611455801",
+   "claim_text": "The Taylor 1999 UK cohort study found no statistically significant difference in age at autism diagnosis between children who received the MMR vaccine and those who did not.",
+   "category": "large_scale_epidemiological_evidence",
+   "figures": [
+    "1999"
+   ],
+   "quotation": false,
+   "per_source": [
+    {
+     "source_id": "bc636e18-0da9-4ebb-a9a6-80acd9622a9f",
+     "source_survives": true,
+     "bindings": [
+      {
+       "kind": "FIGURE",
+       "ok": true,
+       "abstained": false,
+       "evidence": "1999",
+       "reason": ""
+      }
+     ],
+     "level": "FIGURE_BOUND"
+    }
+   ],
+   "support": "FIGURE_BOUND",
+   "supported_by": [
+    "bc636e18-0da9-4ebb-a9a6-80acd9622a9f"
+   ]
+  },
+  {
+   "claim_id": "7462eae0-dea6-4af0-a10b-c23d9e713481",
+   "claim_text": "The Taylor 1999 UK cohort study found no temporal clustering of autism diagnoses within either 2 or 6 months of MMR vaccination.",
+   "category": "large_scale_epidemiological_evidence",
+   "figures": [
+    "1999",
+    "2",
+    "6"
+   ],
+   "quotation": false,
+   "per_source": [
+    {
+     "source_id": "bc636e18-0da9-4ebb-a9a6-80acd9622a9f",
+     "source_survives": true,
+     "bindings": [
+      {
+       "kind": "FIGURE",
+       "ok": true,
+       "abstained": false,
+       "evidence": "1999, 2, 6",
+       "reason": ""
+      }
+     ],
+     "level": "FIGURE_BOUND"
+    }
+   ],
+   "support": "FIGURE_BOUND",
+   "supported_by": [
+    "bc636e18-0da9-4ebb-a9a6-80acd9622a9f"
+   ]
+  },
+  {
+   "claim_id": "80141825-7e01-4d77-ad4e-f3f7ee6b3c82",
+   "claim_text": "The findings of the Taylor 1999 UK cohort study directly contradicted the Wakefield hypothesis linking MMR vaccination to autism.",
+   "category": "large_scale_epidemiological_evidence",
+   "figures": [
+    "1999"
+   ],
+   "quotation": false,
+   "per_source": [
+    {
+     "source_id": "bc636e18-0da9-4ebb-a9a6-80acd9622a9f",
+     "source_survives": true,
+     "bindings": [
+      {
+       "kind": "FIGURE",
+       "ok": true,
+       "abstained": false,
+       "evidence": "1999",
+       "reason": ""
+      }
+     ],
+     "level": "FIGURE_BOUND"
+    }
+   ],
+   "support": "FIGURE_BOUND",
+   "supported_by": [
+    "bc636e18-0da9-4ebb-a9a6-80acd9622a9f"
+   ]
+  },
+  {
+   "claim_id": "a586782f-1dbd-4ee2-8851-a2454b6aef5e",
+   "claim_text": "A Danish registry study followed 650,000 children born in Denmark between 1999 and 2010 to examine the relationship between MMR vaccination and autism.",
+   "category": "large_scale_epidemiological_evidence",
+   "figures": [
+    "1999",
+    "2010",
+    "650000"
+   ],
+   "quotation": false,
+   "per_source": [
+    {
+     "source_id": "d34415ae-8532-4b4a-8c9f-ab83e4d36cc6",
+     "source_survives": true,
+     "bindings": [
+      {
+       "kind": "FIGURE",
+       "ok": false,
+       "abstained": false,
+       "evidence": "1999, 2010",
+       "reason": "not in the document: 650000"
+      }
+     ],
+     "level": "UNSUPPORTED"
+    }
+   ],
+   "support": "UNSUPPORTED",
+   "supported_by": []
+  },
+  {
+   "claim_id": "06b38373-0c8a-4d2b-93ed-8c6b17e58015",
+   "claim_text": "The adjusted hazard ratio for autism in MMR-vaccinated versus unvaccinated children in the Hviid 2019 Danish cohort study was 0.93 (95% CI, 0.85–1.02).",
+   "category": "large_scale_epidemiological_evidence",
+   "figures": [
+    "0.85",
+    "0.93",
+    "1.02",
+    "2019",
+    "95"
+   ],
+   "quotation": false,
+   "per_source": [
+    {
+     "source_id": "d34415ae-8532-4b4a-8c9f-ab83e4d36cc6",
+     "source_survives": true,
+     "bindings": [
+      {
+       "kind": "FIGURE",
+       "ok": true,
+       "abstained": false,
+       "evidence": "0.85, 0.93, 1.02, 2019, 95",
+       "reason": ""
+      }
+     ],
+     "level": "FIGURE_BOUND"
+    }
+   ],
+   "support": "FIGURE_BOUND",
+   "supported_by": [
+    "d34415ae-8532-4b4a-8c9f-ab83e4d36cc6"
+   ]
+  },
+  {
+   "claim_id": "2ed49113-7870-4d74-92fb-e176eded45ba",
+   "claim_text": "The Hviid 2019 Danish cohort study found no increased autism risk in children with a sibling diagnosed with autism spectrum disorder who received the MMR vaccine.",
+   "category": "large_scale_epidemiological_evidence",
+   "figures": [
+    "2019"
+   ],
+   "quotation": false,
+   "per_source": [
+    {
+     "source_id": "d34415ae-8532-4b4a-8c9f-ab83e4d36cc6",
+     "source_survives": true,
+     "bindings": [
+      {
+       "kind": "FIGURE",
+       "ok": true,
+       "abstained": false,
+       "evidence": "2019",
+       "reason": ""
+      }
+     ],
+     "level": "FIGURE_BOUND"
+    }
+   ],
+   "support": "FIGURE_BOUND",
+   "supported_by": [
+    "d34415ae-8532-4b4a-8c9f-ab83e4d36cc6"
+   ]
+  },
+  {
+   "claim_id": "6bbf8769-8079-411f-995e-63314469fc7e",
+   "claim_text": "The Hviid 2019 Danish cohort study found no increased autism risk in high-risk subgroups including children with preterm birth or low birth weight who received the MMR vaccine.",
+   "category": "large_scale_epidemiological_evidence",
+   "figures": [
+    "2019"
+   ],
+   "quotation": false,
+   "per_source": [
+    {
+     "source_id": "d34415ae-8532-4b4a-8c9f-ab83e4d36cc6",
+     "source_survives": true,
+     "bindings": [
+      {
+       "kind": "FIGURE",
+       "ok": true,
+       "abstained": false,
+       "evidence": "2019",
+       "reason": ""
+      }
+     ],
+     "level": "FIGURE_BOUND"
+    }
+   ],
+   "support": "FIGURE_BOUND",
+   "supported_by": [
+    "d34415ae-8532-4b4a-8c9f-ab83e4d36cc6"
+   ]
+  },
+  {
+   "claim_id": "e7b737bb-9652-43d3-bf7f-a35a61e844b5",
+   "claim_text": "The Hviid 2019 Danish cohort study found no evidence supporting a causal link between MMR vaccination and autism under any analytical approach tested.",
+   "category": "large_scale_epidemiological_evidence",
+   "figures": [
+    "2019"
+   ],
+   "quotation": false,
+   "per_source": [
+    {
+     "source_id": "d34415ae-8532-4b4a-8c9f-ab83e4d36cc6",
+     "source_survives": true,
+     "bindings": [
+      {
+       "kind": "FIGURE",
+       "ok": true,
+       "abstained": false,
+       "evidence": "2019",
+       "reason": ""
+      }
+     ],
+     "level": "FIGURE_BOUND"
+    }
+   ],
+   "support": "FIGURE_BOUND",
+   "supported_by": [
+    "d34415ae-8532-4b4a-8c9f-ab83e4d36cc6"
+   ]
+  },
+  {
+   "claim_id": "04be7e2e-ef16-4a0d-b19d-018231a12404",
+   "claim_text": "The biological mechanisms proposed by Wakefield — including measles virus persistence in gut tissue and 'leaky gut' leading to neurological damage — were not supported by credible scientific evidence, according to the Institute of Medicine's Immunization Safety Review Committee.",
+   "category": "biological_mechanisms",
+   "figures": [],
+   "quotation": true,
+   "per_source": [
+    {
+     "source_id": "76f4aee8-9759-4f8e-bfbf-85aae31e267d",
+     "source_survives": false,
+     "bindings": [
+      {
+       "kind": "SOURCE",
+       "ok": false,
+       "abstained": false,
+       "evidence": "",
+       "reason": "UNVERIFIABLE: no DOI, PMID, PMCID, NCT or law citation in the stored URL"
+      }
+     ]
+    },
+    {
+     "source_id": "159f0385-b395-4866-9b85-30d9fd7f4b5f",
+     "source_survives": false,
+     "bindings": [
+      {
+       "kind": "SOURCE",
+       "ok": false,
+       "abstained": false,
+       "evidence": "",
+       "reason": "fetch: nothing retrieved"
+      }
+     ]
+    },
+    {
+     "source_id": "0d7243cc-5b16-46ca-8750-8a2bcf57195f",
+     "source_survives": false,
+     "bindings": [
+      {
+       "kind": "SOURCE",
+       "ok": false,
+       "abstained": false,
+       "evidence": "",
+       "reason": "fetch: nothing retrieved"
+      }
+     ]
+    }
+   ],
+   "support": "UNSUPPORTED",
+   "supported_by": []
+  },
+  {
+   "claim_id": "803dbf12-4f7f-4a83-84c3-7578b0bf7416",
+   "claim_text": "The temporal clustering of autism diagnoses with MMR vaccination timing reflects the coincidence of the 12–18 month vaccination window with the typical age of autism symptom recognition, not a causal relationship.",
+   "category": "biological_mechanisms",
+   "figures": [
+    "12",
+    "18"
+   ],
+   "quotation": false,
+   "per_source": [
+    {
+     "source_id": "7797297c-d62d-4120-aace-d50e095293be",
+     "source_survives": false,
+     "bindings": [
+      {
+       "kind": "SOURCE",
+       "ok": false,
+       "abstained": false,
+       "evidence": "",
+       "reason": "UNVERIFIABLE: no DOI, PMID, PMCID, NCT or law citation in the stored URL"
+      }
+     ]
+    }
+   ],
+   "support": "UNSUPPORTED",
+   "supported_by": []
+  },
+  {
+   "claim_id": "454f6774-9fc4-464e-9e46-04609586bfc5",
+   "claim_text": "Serious adverse events such as encephalitis and febrile seizures following MMR vaccination are rare, and the benefit-risk balance strongly favors vaccination.",
+   "category": "biological_mechanisms",
+   "figures": [],
+   "quotation": false,
+   "per_source": [
+    {
+     "source_id": "bf1f520d-1281-4fb5-b9b5-af9bf34d6834",
+     "source_survives": true,
+     "bindings": [],
+     "level": "IDENTITY_ONLY"
+    }
+   ],
+   "support": "IDENTITY_ONLY",
+   "supported_by": [
+    "bf1f520d-1281-4fb5-b9b5-af9bf34d6834"
+   ]
+  },
+  {
+   "claim_id": "86bd0eb8-b199-4e73-8a19-619c1491f7b2",
+   "claim_text": "The Danish cohort study found no clustering of autism diagnoses at any specific time interval following MMR vaccination, contradicting the proposed biological mechanism linking the vaccine to autism.",
+   "category": "biological_mechanisms",
+   "figures": [],
+   "quotation": false,
+   "per_source": [
+    {
+     "source_id": "d28cab99-41e4-40a1-8d85-551cb937f8dd",
+     "source_survives": true,
+     "bindings": [],
+     "level": "IDENTITY_ONLY"
+    }
+   ],
+   "support": "IDENTITY_ONLY",
+   "supported_by": [
+    "d28cab99-41e4-40a1-8d85-551cb937f8dd"
+   ]
+  },
+  {
+   "claim_id": "593b269a-6d49-4e62-8d8c-6083c2a6b31a",
+   "claim_text": "Japan withdrew the MMR vaccine in 1993, resulting in MMR vaccination rates dropping to zero after that year.",
+   "category": "institutional_regulatory_response",
+   "figures": [
+    "0",
+    "1993"
+   ],
+   "quotation": false,
+   "per_source": [
+    {
+     "source_id": "dd13e679-2b06-4fa3-83a4-df2aa1eea9a9",
+     "source_survives": false,
+     "bindings": [
+      {
+       "kind": "SOURCE",
+       "ok": false,
+       "abstained": false,
+       "evidence": "",
+       "reason": "HEADING: shares no distinctive word with the registry heading"
+      }
+     ]
+    }
+   ],
+   "support": "UNSUPPORTED",
+   "supported_by": []
+  },
+  {
+   "claim_id": "4ee0d2cc-0641-4047-89eb-b6caedf83360",
+   "claim_text": "M-M-R II (BLA 103166), manufactured by Merck & Co., has maintained FDA licensure continuously since 1978 with periodic label updates.",
+   "category": "institutional_regulatory_response",
+   "figures": [
+    "103166",
+    "1978"
+   ],
+   "quotation": false,
+   "per_source": [
+    {
+     "source_id": "e800dd15-8aaf-482b-b1b8-485484a363e1",
+     "source_survives": false,
+     "bindings": [
+      {
+       "kind": "SOURCE",
+       "ok": false,
+       "abstained": false,
+       "evidence": "",
+       "reason": "UNVERIFIABLE: no DOI, PMID, PMCID, NCT or law citation in the stored URL"
+      }
+     ]
+    }
+   ],
+   "support": "UNSUPPORTED",
+   "supported_by": []
+  },
+  {
+   "claim_id": "77ad8922-0a16-4bde-b105-a127fc8e783c",
+   "claim_text": "FDA product labeling for M-M-R II lists known adverse reactions including fever, rash, and rare febrile seizures, but does not list autism spectrum disorder as a causally associated adverse event; subsequent label revisions have never added autism as a causally associated adverse event.",
+   "category": "institutional_regulatory_response",
+   "figures": [],
+   "quotation": false,
+   "per_source": [
+    {
+     "source_id": "e800dd15-8aaf-482b-b1b8-485484a363e1",
+     "source_survives": false,
+     "bindings": [
+      {
+       "kind": "SOURCE",
+       "ok": false,
+       "abstained": false,
+       "evidence": "",
+       "reason": "UNVERIFIABLE: no DOI, PMID, PMCID, NCT or law citation in the stored URL"
+      }
+     ]
+    }
+   ],
+   "support": "UNSUPPORTED",
+   "supported_by": []
+  },
+  {
+   "claim_id": "e954f422-bcca-4bcd-b201-b1c24d0b30b4",
+   "claim_text": "Post-marketing safety update reviews of M-M-R II conducted by FDA's Center for Biologics Evaluation and Research (CBER) have not identified a causal signal between MMR vaccination and autism.",
+   "category": "institutional_regulatory_response",
+   "figures": [],
+   "quotation": false,
+   "per_source": [
+    {
+     "source_id": "e800dd15-8aaf-482b-b1b8-485484a363e1",
+     "source_survives": false,
+     "bindings": [
+      {
+       "kind": "SOURCE",
+       "ok": false,
+       "abstained": false,
+       "evidence": "",
+       "reason": "UNVERIFIABLE: no DOI, PMID, PMCID, NCT or law citation in the stored URL"
+      }
+     ]
+    }
+   ],
+   "support": "UNSUPPORTED",
+   "supported_by": []
+  },
+  {
+   "claim_id": "a6fe5a34-6a41-408e-916e-1f0b9564cb6f",
+   "claim_text": "The FDA initiated a review of thimerosal in childhood vaccines in 1999 under the FDA Modernization Act, found no evidence of harm from thimerosal-containing vaccines, but supported precautionary removal of thimerosal from childhood vaccines as a public health measure.",
+   "category": "institutional_regulatory_response",
+   "figures": [
+    "1999"
+   ],
+   "quotation": false,
+   "per_source": [
+    {
+     "source_id": "2dd1f179-ff6f-4b84-a1b9-cfcc817d9382",
+     "source_survives": false,
+     "bindings": [
+      {
+       "kind": "SOURCE",
+       "ok": false,
+       "abstained": false,
+       "evidence": "",
+       "reason": "UNVERIFIABLE: no DOI, PMID, PMCID, NCT or law citation in the stored URL"
+      }
+     ]
+    }
+   ],
+   "support": "UNSUPPORTED",
+   "supported_by": []
+  },
+  {
+   "claim_id": "d250ec86-5ea9-48ae-bbfa-54e90e2aaa4f",
+   "claim_text": "The CDC's Advisory Committee on Immunization Practices (ACIP) concluded that evidence favors rejection of a causal relationship between MMR vaccine and autism spectrum disorder, citing large epidemiological studies and IOM reviews.",
+   "category": "institutional_regulatory_response",
+   "figures": [],
+   "quotation": false,
+   "per_source": [
+    {
+     "source_id": "621c07ec-dacd-4c81-a541-b45c430ae3cb",
+     "source_survives": false,
+     "bindings": [
+      {
+       "kind": "SOURCE",
+       "ok": false,
+       "abstained": false,
+       "evidence": "",
+       "reason": "UNVERIFIABLE: no DOI, PMID, PMCID, NCT or law citation in the stored URL"
+      }
+     ]
+    }
+   ],
+   "support": "UNSUPPORTED",
+   "supported_by": []
+  },
+  {
+   "claim_id": "c1a9a5df-790e-41bd-8405-40f5f55d2139",
+   "claim_text": "ACIP's 2013 recommendations reaffirm a two-dose MMR schedule administered at 12–15 months and 4–6 years of age as safe and effective.",
+   "category": "institutional_regulatory_response",
+   "figures": [
+    "12",
+    "15",
+    "2",
+    "2013",
+    "4",
+    "6"
+   ],
+   "quotation": false,
+   "per_source": [
+    {
+     "source_id": "621c07ec-dacd-4c81-a541-b45c430ae3cb",
+     "source_survives": false,
+     "bindings": [
+      {
+       "kind": "SOURCE",
+       "ok": false,
+       "abstained": false,
+       "evidence": "",
+       "reason": "UNVERIFIABLE: no DOI, PMID, PMCID, NCT or law citation in the stored URL"
+      }
+     ]
+    }
+   ],
+   "support": "UNSUPPORTED",
+   "supported_by": []
+  },
+  {
+   "claim_id": "cb7fa4ee-7af8-49a8-b0f4-04b48653fb2f",
+   "claim_text": "ACIP reviewed and rejected proposed contraindications to MMR vaccination based on family history of autism, finding no scientific basis for such precautions.",
+   "category": "institutional_regulatory_response",
+   "figures": [],
+   "quotation": false,
+   "per_source": [
+    {
+     "source_id": "621c07ec-dacd-4c81-a541-b45c430ae3cb",
+     "source_survives": false,
+     "bindings": [
+      {
+       "kind": "SOURCE",
+       "ok": false,
+       "abstained": false,
+       "evidence": "",
+       "reason": "UNVERIFIABLE: no DOI, PMID, PMCID, NCT or law citation in the stored URL"
+      }
+     ]
+    }
+   ],
+   "support": "UNSUPPORTED",
+   "supported_by": []
+  },
+  {
+   "claim_id": "9dcfb152-c771-42b1-be1c-868073e1a242",
+   "claim_text": "ACIP recommendations carry regulatory weight as they inform the Vaccines for Children program and state immunization mandates.",
+   "category": "institutional_regulatory_response",
+   "figures": [],
+   "quotation": false,
+   "per_source": [
+    {
+     "source_id": "621c07ec-dacd-4c81-a541-b45c430ae3cb",
+     "source_survives": false,
+     "bindings": [
+      {
+       "kind": "SOURCE",
+       "ok": false,
+       "abstained": false,
+       "evidence": "",
+       "reason": "UNVERIFIABLE: no DOI, PMID, PMCID, NCT or law citation in the stored URL"
+      }
+     ]
+    }
+   ],
+   "support": "UNSUPPORTED",
+   "supported_by": []
+  },
+  {
+   "claim_id": "7011e1a5-7e02-4d9d-908f-3ee546f6af61",
+   "claim_text": "The Institute of Medicine's Immunization Safety Review Committee concluded that the body of epidemiological evidence favors rejection of a causal relationship between the MMR vaccine and autism, and recommended that future vaccine safety research resources not be directed toward the MMR-autism hypothesis but instead focus on identifying actual causes of autism.",
+   "category": "institutional_regulatory_response",
+   "figures": [],
+   "quotation": false,
+   "per_source": [
+    {
+     "source_id": "76f4aee8-9759-4f8e-bfbf-85aae31e267d",
+     "source_survives": false,
+     "bindings": [
+      {
+       "kind": "SOURCE",
+       "ok": false,
+       "abstained": false,
+       "evidence": "",
+       "reason": "UNVERIFIABLE: no DOI, PMID, PMCID, NCT or law citation in the stored URL"
+      }
+     ]
+    },
+    {
+     "source_id": "159f0385-b395-4866-9b85-30d9fd7f4b5f",
+     "source_survives": false,
+     "bindings": [
+      {
+       "kind": "SOURCE",
+       "ok": false,
+       "abstained": false,
+       "evidence": "",
+       "reason": "fetch: nothing retrieved"
+      }
+     ]
+    },
+    {
+     "source_id": "0d7243cc-5b16-46ca-8750-8a2bcf57195f",
+     "source_survives": false,
+     "bindings": [
+      {
+       "kind": "SOURCE",
+       "ok": false,
+       "abstained": false,
+       "evidence": "",
+       "reason": "fetch: nothing retrieved"
+      }
+     ]
+    }
+   ],
+   "support": "UNSUPPORTED",
+   "supported_by": []
+  },
+  {
+   "claim_id": "8814b8f7-4e59-4ecb-9e09-e3ec2206cdfb",
+   "claim_text": "The Institute of Medicine convened an independent Immunization Safety Review Committee that conducted a comprehensive review of all available epidemiological and biological evidence on the MMR–autism and thimerosal–autism hypotheses, and is described as the most authoritative U.S. government-commissioned scientific review of the MMR-autism controversy.",
+   "category": "institutional_regulatory_response",
+   "figures": [],
+   "quotation": false,
+   "per_source": [
+    {
+     "source_id": "76f4aee8-9759-4f8e-bfbf-85aae31e267d",
+     "source_survives": false,
+     "bindings": [
+      {
+       "kind": "SOURCE",
+       "ok": false,
+       "abstained": false,
+       "evidence": "",
+       "reason": "UNVERIFIABLE: no DOI, PMID, PMCID, NCT or law citation in the stored URL"
+      }
+     ]
+    },
+    {
+     "source_id": "0d7243cc-5b16-46ca-8750-8a2bcf57195f",
+     "source_survives": false,
+     "bindings": [
+      {
+       "kind": "SOURCE",
+       "ok": false,
+       "abstained": false,
+       "evidence": "",
+       "reason": "fetch: nothing retrieved"
+      }
+     ]
+    }
+   ],
+   "support": "UNSUPPORTED",
+   "supported_by": []
+  },
+  {
+   "claim_id": "b95a0388-596d-4fa4-b466-9cdd9de98b19",
+   "claim_text": "The Institute of Medicine concluded that the epidemiological evidence favors rejection of a causal relationship between thimerosal-containing vaccines and autism.",
+   "category": "institutional_regulatory_response",
+   "figures": [],
+   "quotation": false,
+   "per_source": [
+    {
+     "source_id": "159f0385-b395-4866-9b85-30d9fd7f4b5f",
+     "source_survives": false,
+     "bindings": [
+      {
+       "kind": "SOURCE",
+       "ok": false,
+       "abstained": false,
+       "evidence": "",
+       "reason": "fetch: nothing retrieved"
+      }
+     ]
+    }
+   ],
+   "support": "UNSUPPORTED",
+   "supported_by": []
+  },
+  {
+   "claim_id": "6a72dc1e-4906-4e91-b075-3db1f95f422a",
+   "claim_text": "The European Medicines Agency's CHMP concluded that autism is not listed as a causally associated adverse reaction in the approved product information for M-M-RvaxPro, that the benefit-risk balance is favorable, and found no signal supporting a causal association between MMR vaccination and autism in post-marketing pharmacovigilance data from multiple European countries.",
+   "category": "institutional_regulatory_response",
+   "figures": [],
+   "quotation": false,
+   "per_source": [
+    {
+     "source_id": "f01d7631-8929-4030-9ff6-1f25f52d293b",
+     "source_survives": false,
+     "bindings": [
+      {
+       "kind": "SOURCE",
+       "ok": false,
+       "abstained": false,
+       "evidence": "",
+       "reason": "UNVERIFIABLE: no DOI, PMID, PMCID, NCT or law citation in the stored URL"
+      }
+     ]
+    }
+   ],
+   "support": "UNSUPPORTED",
+   "supported_by": []
+  },
+  {
+   "claim_id": "346d2aae-107a-4794-a38b-44d9b22a2b7a",
+   "claim_text": "The European Medicines Agency granted marketing authorization for M-M-RvaxPro and published a European Public Assessment Report (EPAR) representing the EMA's formal regulatory position on the MMR-autism question.",
+   "category": "institutional_regulatory_response",
+   "figures": [],
+   "quotation": false,
+   "per_source": [
+    {
+     "source_id": "f01d7631-8929-4030-9ff6-1f25f52d293b",
+     "source_survives": false,
+     "bindings": [
+      {
+       "kind": "SOURCE",
+       "ok": false,
+       "abstained": false,
+       "evidence": "",
+       "reason": "UNVERIFIABLE: no DOI, PMID, PMCID, NCT or law citation in the stored URL"
+      }
+     ]
+    }
+   ],
+   "support": "UNSUPPORTED",
+   "supported_by": []
+  },
+  {
+   "claim_id": "625b22e6-7d17-44a5-a1c8-d8d6949c3d27",
+   "claim_text": "FDA and CDC conducted a joint review of VAERS reports coded for autism or autism spectrum disorder following MMR vaccination, applying proportional reporting ratios and empirical Bayesian data mining, and found no disproportionate reporting ratio for autism following MMR vaccination; the FDA concluded that VAERS data provided no causal evidence linking MMR vaccination to autism.",
+   "category": "institutional_regulatory_response",
+   "figures": [],
+   "quotation": false,
+   "per_source": [
+    {
+     "source_id": "7797297c-d62d-4120-aace-d50e095293be",
+     "source_survives": false,
+     "bindings": [
+      {
+       "kind": "SOURCE",
+       "ok": false,
+       "abstained": false,
+       "evidence": "",
+       "reason": "UNVERIFIABLE: no DOI, PMID, PMCID, NCT or law citation in the stored URL"
+      }
+     ]
+    }
+   ],
+   "support": "UNSUPPORTED",
+   "supported_by": []
+  },
+  {
+   "claim_id": "56abcc68-eb1d-4218-a3db-354b1a91533f",
+   "claim_text": "The VAERS passive surveillance system is not designed to establish causality between vaccines and adverse events.",
+   "category": "institutional_regulatory_response",
+   "figures": [],
+   "quotation": false,
+   "per_source": [
+    {
+     "source_id": "7797297c-d62d-4120-aace-d50e095293be",
+     "source_survives": false,
+     "bindings": [
+      {
+       "kind": "SOURCE",
+       "ok": false,
+       "abstained": false,
+       "evidence": "",
+       "reason": "UNVERIFIABLE: no DOI, PMID, PMCID, NCT or law citation in the stored URL"
+      }
+     ]
+    }
+   ],
+   "support": "UNSUPPORTED",
+   "supported_by": []
+  },
+  {
+   "claim_id": "aa2874b5-5e56-4fa2-b398-7f96879d9f4a",
+   "claim_text": "The Omnibus Autism Proceeding involved approximately 5,500 claims filed in the Vaccine Injury Compensation Program alleging that MMR vaccination caused autism; all three test cases were decided against petitioners, the Federal Circuit Court of Appeals upheld the decisions, and the U.S. Supreme Court declined to review the cases.",
+   "category": "institutional_regulatory_response",
+   "figures": [
+    "3",
+    "5500"
+   ],
+   "quotation": false,
+   "per_source": [
+    {
+     "source_id": "9c4c60a5-f884-4ae0-8338-b53de9b30b2e",
+     "source_survives": false,
+     "bindings": [
+      {
+       "kind": "SOURCE",
+       "ok": false,
+       "abstained": false,
+       "evidence": "",
+       "reason": "UNVERIFIABLE: no DOI, PMID, PMCID, NCT or law citation in the stored URL"
+      }
+     ]
+    }
+   ],
+   "support": "UNSUPPORTED",
+   "supported_by": []
+  },
+  {
+   "claim_id": "aafd4c0c-ee73-4ada-91ec-7b4b44a081db",
+   "claim_text": "Special Master George Hastings ruled that petitioners had not demonstrated by a preponderance of evidence that MMR vaccine caused autism in the test case claimant Michelle Cedillo.",
+   "category": "institutional_regulatory_response",
+   "figures": [],
+   "quotation": false,
+   "per_source": [
+    {
+     "source_id": "9c4c60a5-f884-4ae0-8338-b53de9b30b2e",
+     "source_survives": false,
+     "bindings": [
+      {
+       "kind": "SOURCE",
+       "ok": false,
+       "abstained": false,
+       "evidence": "",
+       "reason": "UNVERIFIABLE: no DOI, PMID, PMCID, NCT or law citation in the stored URL"
+      }
+     ]
+    }
+   ],
+   "support": "UNSUPPORTED",
+   "supported_by": []
+  },
+  {
+   "claim_id": "fb149d23-3313-45fc-9f59-6881a67030ed",
+   "claim_text": "Andrew Wakefield was struck off the UK medical register following the General Medical Council findings.",
+   "category": "institutional_regulatory_response",
+   "figures": [],
+   "quotation": false,
+   "per_source": [
+    {
+     "source_id": "91b4a886-ac99-4607-a5ea-7afe7331ece8",
+     "source_survives": true,
+     "bindings": [],
+     "level": "IDENTITY_ONLY"
+    }
+   ],
+   "support": "IDENTITY_ONLY",
+   "supported_by": [
+    "91b4a886-ac99-4607-a5ea-7afe7331ece8"
+   ]
+  },
+  {
+   "claim_id": "77c65493-f853-471b-bfe2-69d4c6b6e8a2",
+   "claim_text": "The Lancet issued a full retraction of the Wakefield et al. MMR-autism paper in February 2010.",
+   "category": "retraction_and_fraud_investigation",
+   "figures": [
+    "2010"
+   ],
+   "quotation": false,
+   "per_source": [
+    {
+     "source_id": "e4cdce12-5006-479f-b074-60d147dccd5b",
+     "source_survives": true,
+     "bindings": [
+      {
+       "kind": "FIGURE",
+       "ok": false,
+       "abstained": false,
+       "evidence": "",
+       "reason": "not in the document: 2010"
+      }
+     ],
+     "level": "UNSUPPORTED"
+    },
+    {
+     "source_id": "196e03ba-4b2c-43f3-bdca-e28ddecfeb97",
+     "source_survives": false,
+     "bindings": [
+      {
+       "kind": "SOURCE",
+       "ok": false,
+       "abstained": false,
+       "evidence": "",
+       "reason": "fetch: nothing retrieved"
+      }
+     ]
+    },
+    {
+     "source_id": "91b4a886-ac99-4607-a5ea-7afe7331ece8",
+     "source_survives": true,
+     "bindings": [
+      {
+       "kind": "FIGURE",
+       "ok": false,
+       "abstained": false,
+       "evidence": "",
+       "reason": "not in the document: 2010"
+      }
+     ],
+     "level": "UNSUPPORTED"
+    }
+   ],
+   "support": "UNSUPPORTED",
+   "supported_by": []
+  },
+  {
+   "claim_id": "721f53f7-3201-4c06-9e77-5bb7fafb8645",
+   "claim_text": "The UK General Medical Council found that the Wakefield et al. research involved undisclosed financial conflicts of interest, ethical violations in the treatment of child subjects (including invasive procedures without ethical approval), data manipulation, and dishonesty — constituting serious professional misconduct.",
+   "category": "retraction_and_fraud_investigation",
+   "figures": [],
+   "quotation": false,
+   "per_source": [
+    {
+     "source_id": "e4cdce12-5006-479f-b074-60d147dccd5b",
+     "source_survives": true,
+     "bindings": [],
+     "level": "IDENTITY_ONLY"
+    },
+    {
+     "source_id": "196e03ba-4b2c-43f3-bdca-e28ddecfeb97",
+     "source_survives": false,
+     "bindings": [
+      {
+       "kind": "SOURCE",
+       "ok": false,
+       "abstained": false,
+       "evidence": "",
+       "reason": "fetch: nothing retrieved"
+      }
+     ]
+    },
+    {
+     "source_id": "91b4a886-ac99-4607-a5ea-7afe7331ece8",
+     "source_survives": true,
+     "bindings": [],
+     "level": "IDENTITY_ONLY"
+    }
+   ],
+   "support": "IDENTITY_ONLY",
+   "supported_by": [
+    "e4cdce12-5006-479f-b074-60d147dccd5b",
+    "91b4a886-ac99-4607-a5ea-7afe7331ece8"
+   ]
+  },
+  {
+   "claim_id": "05143523-6112-41bd-a26c-097f1ecb798e",
+   "claim_text": "Andrew Wakefield was struck off the UK medical register in May 2010.",
+   "category": "retraction_and_fraud_investigation",
+   "figures": [
+    "2010"
+   ],
+   "quotation": false,
+   "per_source": [
+    {
+     "source_id": "e4cdce12-5006-479f-b074-60d147dccd5b",
+     "source_survives": true,
+     "bindings": [
+      {
+       "kind": "FIGURE",
+       "ok": false,
+       "abstained": false,
+       "evidence": "",
+       "reason": "not in the document: 2010"
+      }
+     ],
+     "level": "UNSUPPORTED"
+    },
+    {
+     "source_id": "196e03ba-4b2c-43f3-bdca-e28ddecfeb97",
+     "source_survives": false,
+     "bindings": [
+      {
+       "kind": "SOURCE",
+       "ok": false,
+       "abstained": false,
+       "evidence": "",
+       "reason": "fetch: nothing retrieved"
+      }
+     ]
+    }
+   ],
+   "support": "UNSUPPORTED",
+   "supported_by": []
+  },
+  {
+   "claim_id": "58b05989-bab4-4f86-8a18-92278eec623c",
+   "claim_text": "Wakefield received £435,643 plus expenses from lawyers seeking to build a case against MMR vaccine manufacturers prior to publication of the 1998 Lancet study, a conflict of interest that was never disclosed to The Lancet.",
+   "category": "retraction_and_fraud_investigation",
+   "figures": [
+    "1998",
+    "435643"
+   ],
+   "quotation": false,
+   "per_source": [
+    {
+     "source_id": "e4cdce12-5006-479f-b074-60d147dccd5b",
+     "source_survives": true,
+     "bindings": [
+      {
+       "kind": "FIGURE",
+       "ok": false,
+       "abstained": false,
+       "evidence": "1998",
+       "reason": "not in the document: 435643"
+      }
+     ],
+     "level": "UNSUPPORTED"
+    },
+    {
+     "source_id": "6ef0773d-65cb-443b-a92e-c33af266f3f8",
+     "source_survives": false,
+     "bindings": [
+      {
+       "kind": "SOURCE",
+       "ok": false,
+       "abstained": false,
+       "evidence": "",
+       "reason": "fetch: nothing retrieved"
+      }
+     ]
+    }
+   ],
+   "support": "UNSUPPORTED",
+   "supported_by": []
+  },
+  {
+   "claim_id": "08ba751e-c629-497b-8095-845849de4abc",
+   "claim_text": "The Wakefield et al. study was found to have involved data manipulation, undisclosed conflicts of interest, and ethical violations in subject recruitment.",
+   "category": "retraction_and_fraud_investigation",
+   "figures": [],
+   "quotation": false,
+   "per_source": [
+    {
+     "source_id": "e4cdce12-5006-479f-b074-60d147dccd5b",
+     "source_survives": true,
+     "bindings": [],
+     "level": "IDENTITY_ONLY"
+    },
+    {
+     "source_id": "91b4a886-ac99-4607-a5ea-7afe7331ece8",
+     "source_survives": true,
+     "bindings": [],
+     "level": "IDENTITY_ONLY"
+    }
+   ],
+   "support": "IDENTITY_ONLY",
+   "supported_by": [
+    "e4cdce12-5006-479f-b074-60d147dccd5b",
+    "91b4a886-ac99-4607-a5ea-7afe7331ece8"
+   ]
+  },
+  {
+   "claim_id": "1df8563b-2eb8-4978-b1ae-635184d9d174",
+   "claim_text": "Special Master Hastings characterized the scientific evidence presented by petitioners — including testimony based on Wakefield's research — as 'weak, contradictory, and unpersuasive' with respect to a causal link between MMR vaccine and autism.",
+   "category": "retraction_and_fraud_investigation",
+   "figures": [],
+   "quotation": true,
+   "per_source": [
+    {
+     "source_id": "9c4c60a5-f884-4ae0-8338-b53de9b30b2e",
+     "source_survives": false,
+     "bindings": [
+      {
+       "kind": "SOURCE",
+       "ok": false,
+       "abstained": false,
+       "evidence": "",
+       "reason": "UNVERIFIABLE: no DOI, PMID, PMCID, NCT or law citation in the stored URL"
+      }
+     ]
+    }
+   ],
+   "support": "UNSUPPORTED",
+   "supported_by": []
+  },
+  {
+   "claim_id": "129d0533-83e5-4e8d-80ce-0b6a13e61162",
+   "claim_text": "The retraction of the Wakefield et al. paper removed the primary published basis for the MMR-autism hypothesis.",
+   "category": "retraction_and_fraud_investigation",
+   "figures": [],
+   "quotation": false,
+   "per_source": [
+    {
+     "source_id": "196e03ba-4b2c-43f3-bdca-e28ddecfeb97",
+     "source_survives": false,
+     "bindings": [
+      {
+       "kind": "SOURCE",
+       "ok": false,
+       "abstained": false,
+       "evidence": "",
+       "reason": "fetch: nothing retrieved"
+      }
+     ]
+    }
+   ],
+   "support": "UNSUPPORTED",
+   "supported_by": []
+  },
+  {
+   "claim_id": "5b3bff25-5a8c-4689-967d-04273804dc3f",
+   "claim_text": "Ten of the thirteen co-authors of the Wakefield et al. paper formally withdrew their names from the paper's interpretation in 2004.",
+   "category": "retraction_and_fraud_investigation",
+   "figures": [
+    "10",
+    "13",
+    "2004"
+   ],
+   "quotation": false,
+   "per_source": [
+    {
+     "source_id": "91b4a886-ac99-4607-a5ea-7afe7331ece8",
+     "source_survives": true,
+     "bindings": [
+      {
+       "kind": "FIGURE",
+       "ok": false,
+       "abstained": false,
+       "evidence": "10",
+       "reason": "not in the document: 13, 2004"
+      }
+     ],
+     "level": "UNSUPPORTED"
+    }
+   ],
+   "support": "UNSUPPORTED",
+   "supported_by": []
+  },
+  {
+   "claim_id": "1f6b6c20-75b1-4776-8e42-ad8210359f7c",
+   "claim_text": "Brian Deer's BMJ investigation found that Wakefield altered clinical data from all 12 children in the 1998 Lancet paper, with every case where records could be checked showing discrepancies between documented medical histories and published findings.",
+   "category": "retraction_and_fraud_investigation",
+   "figures": [
+    "12",
+    "1998"
+   ],
+   "quotation": false,
+   "per_source": [
+    {
+     "source_id": "6ef0773d-65cb-443b-a92e-c33af266f3f8",
+     "source_survives": false,
+     "bindings": [
+      {
+       "kind": "SOURCE",
+       "ok": false,
+       "abstained": false,
+       "evidence": "",
+       "reason": "fetch: nothing retrieved"
+      }
+     ]
+    }
+   ],
+   "support": "UNSUPPORTED",
+   "supported_by": []
+  },
+  {
+   "claim_id": "0eda21d2-b057-45ba-84c1-6ec9c7c384d5",
+   "claim_text": "The BMJ formally characterized the 1998 Lancet paper by Wakefield as 'an elaborate fraud' in an editorial by editor Fiona Godlee, marking the first time a major medical journal had used such language about a published study.",
+   "category": "retraction_and_fraud_investigation",
+   "figures": [
+    "1998"
+   ],
+   "quotation": true,
+   "per_source": [
+    {
+     "source_id": "6ef0773d-65cb-443b-a92e-c33af266f3f8",
+     "source_survives": false,
+     "bindings": [
+      {
+       "kind": "SOURCE",
+       "ok": false,
+       "abstained": false,
+       "evidence": "",
+       "reason": "fetch: nothing retrieved"
+      }
+     ]
+    }
+   ],
+   "support": "UNSUPPORTED",
+   "supported_by": []
+  },
+  {
+   "claim_id": "fc382781-0558-48f3-9761-c65b3f05aae3",
+   "claim_text": "Anti-vaccine advocates conflated concerns about thimerosal with the separate MMR-autism hypothesis advanced by Wakefield.",
+   "category": "public_health_impact",
+   "figures": [],
+   "quotation": false,
+   "per_source": [
+    {
+     "source_id": "2dd1f179-ff6f-4b84-a1b9-cfcc817d9382",
+     "source_survives": false,
+     "bindings": [
+      {
+       "kind": "SOURCE",
+       "ok": false,
+       "abstained": false,
+       "evidence": "",
+       "reason": "UNVERIFIABLE: no DOI, PMID, PMCID, NCT or law citation in the stored URL"
+      }
+     ]
+    }
+   ],
+   "support": "UNSUPPORTED",
+   "supported_by": []
+  },
+  {
+   "claim_id": "3131e8e9-aacb-453a-801d-fbe058364601",
+   "claim_text": "The authors of the Taylor et al. meta-analysis concluded that continued promotion of vaccine safety concerns related to autism may be harmful to public health.",
+   "category": "public_health_impact",
+   "figures": [],
+   "quotation": false,
+   "per_source": [
+    {
+     "source_id": "9d3f1a29-70f8-4d36-b782-531c9e68bf73",
+     "source_survives": true,
+     "bindings": [],
+     "level": "IDENTITY_ONLY"
+    }
+   ],
+   "support": "IDENTITY_ONLY",
+   "supported_by": [
+    "9d3f1a29-70f8-4d36-b782-531c9e68bf73"
+   ]
+  },
+  {
+   "claim_id": "73976bc8-c804-49b7-b236-f807b50019d0",
+   "claim_text": "Vaccination rates were lower among younger siblings of autistic children, reflecting parental vaccine hesitancy, yet autism rates were not lower in the unvaccinated children.",
+   "category": "public_health_impact",
+   "figures": [],
+   "quotation": false,
+   "per_source": [
+    {
+     "source_id": "5c082496-8835-4a87-93a3-bc3faf585401",
+     "source_survives": false,
+     "bindings": [
+      {
+       "kind": "SOURCE",
+       "ok": false,
+       "abstained": false,
+       "evidence": "",
+       "reason": "resolve: NONEXISTENT"
+      }
+     ]
+    }
+   ],
+   "support": "UNSUPPORTED",
+   "supported_by": []
+  }
+ ],
+ "summary": {
+  "sources": {
+   "total": 35,
+   "survived": 17,
+   "withheld_by_reason": {
+    "HEADING": 2,
+    "resolve": 2,
+    "UNVERIFIABLE": 10,
+    "fetch": 4
+   },
+   "status_of_survivors": {
+    "retracted": 2,
+    "unchanged": 13,
+    "superseded": 2
+   }
+  },
+  "claims": {
+   "total": 128,
+   "by_support": {
+    "UNSUPPORTED": 69,
+    "IDENTITY_ONLY": 24,
+    "FIGURE_BOUND": 35
+   },
+   "identity_only_rate": 0.188
+  }
+ },
+ "flipped": false
+}
