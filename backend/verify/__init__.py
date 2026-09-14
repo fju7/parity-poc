@@ -8,6 +8,8 @@ THE BOUNDARY: nothing under scripts/whatholdsup/ imports this package. WHU is
 the reliability baseline; its verdict severities stay as they are until the
 operator's reviewer signs off (design doc §8).
 """
+__version__ = "1.1.0"   # 1.0 Phase 1-2; 1.1 adds the status check and the publish record (Phase 3)
+
 from .types import (Identifier, Resolution, Document, Binding, Kind, Exists, Provenance,
                     Context)
 from .bind import bind, bind_all

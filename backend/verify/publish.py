@@ -1,0 +1,209 @@
+"""publish_topic: gate every source and every claim of a Signal topic and
+freeze a reproducible record of what each claim rested on.
+
+Phase 3 design §1. The record, not the date, is the freeze: a person can
+answer "what did claim N rest on, on the day it was published" from the
+record and the content-addressed documents it names, offline, later.
+
+This module never flips signal_issues.status. The CLI does, only with
+--flip, only after the record is written, and only if the operator says so.
+"""
+from __future__ import annotations
+
+import datetime as dt
+import getpass
+import gzip
+import json
+import os
+import platform
+import re
+import subprocess
+import sys
+from dataclasses import asdict
+from pathlib import Path
+
+from . import __version__, literature, law
+from .bind import bind_figure, bind_heading, bind_span, _QUOTE
+from .numbers import figures
+from .status import check as status_check
+from .types import Document, Exists, Provenance
+
+BACKEND = Path(__file__).resolve().parents[1]
+PUBLISHED = BACKEND / "data" / "verify" / "published"
+DOCS = BACKEND / "data" / "verify" / "docs"
+
+SUPPORT_ORDER = ["UNSUPPORTED", "IDENTITY_ONLY", "SPAN_BOUND", "FIGURE_BOUND"]
+
+
+def _now() -> str:
+    return dt.datetime.now(dt.timezone.utc).replace(microsecond=0).isoformat()
+
+
+def gate_version() -> dict:
+    """The package version and the committed sha of backend/verify. Refuses a dirty tree:
+    the record must name a gate that exists in the repository."""
+    root = BACKEND.parent
+    sha = subprocess.run(["git", "log", "-1", "--format=%h", "--", "backend/verify"], cwd=root,
+                         capture_output=True, text=True).stdout.strip()
+    dirty = subprocess.run(["git", "status", "--porcelain", "--", "backend/verify"], cwd=root,
+                           capture_output=True, text=True).stdout.strip()
+    if not sha or dirty:
+        raise SystemExit("backend/verify has uncommitted changes (or no commit); the record must name a "
+                         "committed gate. Commit first.")
+    tree = subprocess.run(["git", "rev-parse", "--short", "HEAD"], cwd=root, capture_output=True, text=True).stdout.strip()
+    return {"package": __version__, "verify_sha": sha, "tree_sha": tree}
+
+
+def store_document(doc: Document) -> str:
+    DOCS.mkdir(parents=True, exist_ok=True)
+    sub = DOCS / doc.sha256[:2]; sub.mkdir(exist_ok=True)
+    p = sub / (doc.sha256 + ".txt.gz")
+    if not p.exists():
+        with gzip.open(p, "wt", encoding="utf-8") as f:
+            f.write(doc.text)
+    return str(p.relative_to(BACKEND))
+
+
+def _b(binding) -> dict:
+    return {"kind": binding.kind.value, "ok": binding.ok, "abstained": binding.abstained,
+            "evidence": binding.evidence, "reason": binding.reason}
+
+
+def _frozen_status_fields(res) -> dict:
+    ident = res.identifier
+    if ident.system == "nct":
+        sm = (res.extra.get("status") or {})
+        return {"overallStatus": sm.get("overallStatus"),
+                "lastUpdatePostDate": (sm.get("lastUpdatePostDateStruct") or {}).get("date")}
+    if ident.system == "cfr":
+        return {"as_of": res.extra.get("as_of")}
+    return {}
+
+
+def gate_source(row: dict) -> dict:
+    """One signal_sources row through identify -> resolve -> fetch -> HEADING -> status."""
+    out = {"source_id": row["id"], "url": row.get("url"), "title": row.get("title"),
+           "source_type": row.get("source_type"), "identifier": None, "resolution": None,
+           "document": None, "bindings": [], "status": None, "survives": False, "withheld_reason": None}
+    ident = literature.identify(row.get("url") or "", Provenance.RESOLVED_FROM_HELD) or \
+        law.identify(row.get("url") or "", Provenance.RESOLVED_FROM_HELD)
+    if ident is None:
+        out["withheld_reason"] = "UNVERIFIABLE: no DOI, PMID, PMCID, NCT or law citation in the stored URL"
+        return out
+    out["identifier"] = {"system": ident.system, "value": ident.value, "provenance": ident.provenance.value}
+    mod = literature if ident.registry == "literature" else law
+    res = mod.resolve(ident)
+    out["resolution"] = {"exists": res.exists.value, "heading": res.heading, "canonical": res.canonical,
+                         "registry": res.registry, "registry_id": res.registry_id, "checked_at": res.checked_at}
+    if res.exists != Exists.EXISTS:
+        out["withheld_reason"] = f"resolve: {res.exists.value}"
+        return out
+    doc = mod.fetch(res)
+    if doc is None:
+        out["withheld_reason"] = "fetch: nothing retrieved"
+        return out
+    out["document"] = {"sha256": doc.sha256, "route": doc.route, "kind": doc.kind, "retrieved_at": doc.retrieved_at,
+                       "chars": len(doc.text), "text_layer": doc.text_layer, "path": store_document(doc),
+                       "final_url": doc.final_url}
+    head = bind_heading(row.get("title") or "", res)
+    out["bindings"].append(_b(head))
+    if not head.ok and not head.abstained:
+        out["withheld_reason"] = "HEADING: " + head.reason
+        return out
+    st = status_check(ident)
+    out["status"] = {"verdict": st.verdict, "registry": st.registry, "detail": st.detail,
+                     "checked_at": st.checked_at, "events": st.events, "frozen": _frozen_status_fields(res)}
+    out["survives"] = True
+    out["_doc"] = doc
+    return out
+
+
+def gate_claim(claim: dict, links: list[dict], sources: dict[str, dict]) -> dict:
+    """One signal_claims row against each of its surviving sources."""
+    text = claim.get("claim_text") or ""
+    figs = sorted(figures(text))
+    quoted = bool(_QUOTE.search(text))
+    out = {"claim_id": claim["id"], "claim_text": text, "category": claim.get("category"),
+           "figures": figs, "quotation": quoted, "per_source": [], "support": "UNSUPPORTED", "supported_by": []}
+    for link in links:
+        src = sources.get(link["source_id"])
+        if not src:
+            continue
+        entry = {"source_id": link["source_id"], "source_survives": bool(src.get("survives")), "bindings": []}
+        if not src.get("survives"):
+            entry["bindings"].append({"kind": "SOURCE", "ok": False, "abstained": False, "evidence": "",
+                                      "reason": src.get("withheld_reason") or "source did not survive"})
+            out["per_source"].append(entry); continue
+        doc = src["_doc"]
+        level = "IDENTITY_ONLY"
+        if figs:
+            fb = bind_figure(text, doc); entry["bindings"].append(_b(fb))
+            level = "FIGURE_BOUND" if fb.ok else "UNSUPPORTED"
+        if quoted:
+            sb = bind_span(text, doc); entry["bindings"].append(_b(sb))
+            if sb.ok and level != "UNSUPPORTED":
+                level = "SPAN_BOUND" if level == "IDENTITY_ONLY" else level
+            elif not sb.ok:
+                level = "UNSUPPORTED"
+        entry["level"] = level
+        out["per_source"].append(entry)
+        if SUPPORT_ORDER.index(level) > SUPPORT_ORDER.index(out["support"]):
+            out["support"] = level
+        if level != "UNSUPPORTED":
+            out["supported_by"].append(link["source_id"])
+    return out
+
+
+def publish(sb, slug: str, argv: list[str]) -> dict:
+    gv = gate_version()
+    issue = sb.table("signal_issues").select("id,slug,title,status").eq("slug", slug).single().execute().data
+    iid = issue["id"]
+    sources = sb.table("signal_sources").select("id,title,url,source_type,publication_date").eq("issue_id", iid).execute().data
+    claims = []
+    off = 0
+    while True:
+        page = sb.table("signal_claims").select("id,claim_text,category,claim_type").eq("issue_id", iid).range(off, off + 999).execute().data
+        claims += page
+        if len(page) < 1000: break
+        off += 1000
+    cids = [c["id"] for c in claims]
+    links = []
+    for i in range(0, len(cids), 100):
+        links += sb.table("signal_claim_sources").select("claim_id,source_id,source_context").in_("claim_id", cids[i:i+100]).execute().data
+    by_claim: dict[str, list] = {}
+    for l in links:
+        by_claim.setdefault(l["claim_id"], []).append(l)
+
+    print(f"{slug}: {len(sources)} sources, {len(claims)} claims, {len(links)} claim-source links")
+    gated = {}
+    for i, row in enumerate(sources, 1):
+        g = gate_source(row); gated[row["id"]] = g
+        tag = "SURVIVES" if g["survives"] else "withheld"
+        st = (g.get("status") or {}).get("verdict") or ""
+        print(f"  [{i:2}/{len(sources)}] {tag:9} {(g['identifier'] or {}).get('system','-'):5} {str(row['title'])[:60]:60} "
+              f"{g['withheld_reason'] or ((g['document'] or {}).get('kind','') + ' ' + st)}")
+    claim_recs = [gate_claim(c, by_claim.get(c["id"], []), gated) for c in claims]
+
+    from collections import Counter
+    src_summary = Counter("survived" if g["survives"] else (g["withheld_reason"] or "").split(":")[0] for g in gated.values())
+    claim_summary = Counter(c["support"] for c in claim_recs)
+    status_summary = Counter((g.get("status") or {}).get("verdict") for g in gated.values() if g["survives"])
+    publish_id = _now().replace(":", "").replace("-", "") + "-" + gv["tree_sha"]
+    record = {
+        "topic": {"slug": slug, "title": issue["title"], "issue_id": iid, "status_before": issue["status"]},
+        "publish_id": publish_id, "published_at": _now(),
+        "published_by": {"login": getpass.getuser(), "host": platform.node(), "argv": argv},
+        "gate_version": gv,
+        "sources": [{k: v for k, v in g.items() if k != "_doc"} for g in gated.values()],
+        "claims": claim_recs,
+        "summary": {"sources": {"total": len(sources), "survived": src_summary.get("survived", 0),
+                                "withheld_by_reason": {k: v for k, v in src_summary.items() if k != "survived"},
+                                "status_of_survivors": dict(status_summary)},
+                    "claims": {"total": len(claims), "by_support": dict(claim_summary),
+                               "identity_only_rate": round(claim_summary.get("IDENTITY_ONLY", 0) / max(len(claims), 1), 3)}},
+        "flipped": False,
+    }
+    out_dir = PUBLISHED / slug; out_dir.mkdir(parents=True, exist_ok=True)
+    (out_dir / f"{publish_id}.json").write_text(json.dumps(record, indent=1, ensure_ascii=False))
+    (out_dir / "latest.json").write_text(json.dumps(record, indent=1, ensure_ascii=False))
+    return record
