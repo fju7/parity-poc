@@ -30,7 +30,12 @@ FRACTIONS = {"half": Decimal("0.5"), "quarter": Decimal("0.25"), "third": Decima
 _WORD = set(UNITS) | set(TENS) | set(SCALES) | {"and", "a"}
 
 # digits: optional sign, thousands groups or plain, decimal point OR middle dot
-_DIGIT = re.compile(r"(?<![\w.])[−\-]?(?:\d{1,3}(?:,\d{3})+|\d+)(?:[.·]\d+)?(?![\w])")
+# Thousands groups may be separated by a comma, a thin space (U+2009), a
+# narrow no-break space (U+202F) or a plain space: Annals writes "657 461
+# children" and "5 025 754 person-years". A space-separated group counts only
+# when every following group is exactly three digits.
+_SEP = r"[,\u2009\u202f ]"
+_DIGIT = re.compile(r"(?<![\w.])[−\-]?(?:\d{1,3}(?:" + _SEP + r"\d{3})+|\d+)(?:[.·]\d+)?(?![\w])")
 _WORDS = re.compile(r"\b(?:" + "|".join(sorted(_WORD | {"per", "cent", "percent"}, key=len, reverse=True))
                     + r")(?:[\s\-]+(?:" + "|".join(sorted(_WORD | {"half", "quarter", "third"}, key=len, reverse=True))
                     + r"))*\b", re.I)
@@ -49,7 +54,7 @@ def _digits(text: str) -> set[str]:
         # not to a figure of 23 on their own.
         if re.match(r"\s*(hundred|thousand|million|billion)\b", text[m.end():], re.I):
             continue
-        s = raw.replace(",", "").replace("·", ".").replace("−", "-")
+        s = re.sub(_SEP, "", raw).replace("·", ".").replace("−", "-")
         try:
             v = Decimal(s)
         except InvalidOperation:
@@ -125,7 +130,7 @@ def _digit_scales(text: str) -> set[str]:
     out = set()
     for m in _DIGIT_SCALE.finditer(text):
         try:
-            out.add(_canon(Decimal(m.group(1).replace(",", "")) * SCALES[m.group(2).lower()]))
+            out.add(_canon(Decimal(re.sub(_SEP, "", m.group(1))) * SCALES[m.group(2).lower()]))
         except InvalidOperation:
             pass
     return out
@@ -163,7 +168,7 @@ _QUAL_ABOUT = {"about", "approximately", "roughly", "nearly", "almost", "around"
 _QUALS = sorted(_QUAL_FLOOR | _QUAL_CEIL | _QUAL_ABOUT, key=len, reverse=True)
 _FIG = re.compile(
     r"(?P<q>(?:" + "|".join(re.escape(q) for q in _QUALS) + r")\s+)?"
-    r"(?P<num>(?<![\w.])[−\-]?(?:\d{1,3}(?:,\d{3})+|\d+)(?:[.·]\d+)?)"
+    r"(?P<num>(?<![\w.])[−\-]?(?:\d{1,3}(?:" + _SEP + r"\d{3})+|\d+)(?:[.·]\d+)?)"
     r"(?:\s*(?P<scale>hundred|thousand|million|billion)\b)?"
     r"(?P<pct>\s*(?:%|per\s?cent|percent))?", re.I)
 
@@ -172,7 +177,7 @@ def _precision_of(numtxt: str, scale: str | None) -> Decimal:
     """The unit the figure was stated in: 10^-decimals; the scale word; or, for a
     large round integer, its trailing zeros (650,000 -> 10,000). An unqualified
     small integer is exact."""
-    s = numtxt.replace(",", "").replace("·", ".").replace("−", "-").lstrip("-")
+    s = re.sub(_SEP, "", numtxt).replace("·", ".").replace("−", "-").lstrip("-")
     if scale:
         base = Decimal(SCALES[scale.lower()])
         if "." in s:
@@ -196,7 +201,7 @@ def stated_figures(text: str) -> list[dict]:
         if _ADJECTIVE_TAIL.match(text, m.end("num")):
             continue
         try:
-            v = Decimal(raw.replace(",", "").replace("·", ".").replace("−", "-"))
+            v = Decimal(re.sub(_SEP, "", raw).replace("·", ".").replace("−", "-"))
         except InvalidOperation:
             continue
         scale = m.group("scale")

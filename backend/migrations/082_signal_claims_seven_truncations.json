@@ -1,0 +1,37 @@
+[
+ {
+  "claim_id": "ca508e86-9c7c-4b70-8bfe-a39ab77d7caf",
+  "old": "A Danish cohort study examined 650,000 children born between 1999 and 2010 for an association between MMR vaccination and autism.",
+  "new": "A Danish cohort study examined 657,461 children born between 1999 and 2010 for an association between MMR vaccination and autism."
+ },
+ {
+  "claim_id": "295dd47e-4878-4603-80ec-991836ff85f1",
+  "old": "MMR-vaccinated children showed no increased risk of autism compared to unvaccinated children in a cohort of 650,000 Danish children.",
+  "new": "MMR-vaccinated children showed no increased risk of autism compared to unvaccinated children in a cohort of 657,461 Danish children."
+ },
+ {
+  "claim_id": "36c5e766-4651-49d4-a8c7-d26733de3dbe",
+  "old": "A Danish cohort study followed 650,000 children born between 1999 and 2010 to examine the relationship between MMR vaccination and autism.",
+  "new": "A Danish cohort study followed 657,461 children born between 1999 and 2010 to examine the relationship between MMR vaccination and autism."
+ },
+ {
+  "claim_id": "a586782f-1dbd-4ee2-8851-a2454b6aef5e",
+  "old": "A Danish registry study followed 650,000 children born in Denmark between 1999 and 2010 to examine the relationship between MMR vaccination and autism.",
+  "new": "A Danish registry study followed 657,461 children born in Denmark between 1999 and 2010 to examine the relationship between MMR vaccination and autism."
+ },
+ {
+  "claim_id": "65012622-9f24-4c21-a32b-eec0bf5da472",
+  "old": "A Danish cohort study followed 530,000 children born between 1991 and 1998, comparing autism rates between 440,655 MMR-vaccinated and 96,648 unvaccinated children using national registry data.",
+  "new": "A Danish cohort study followed 537,303 children born between 1991 and 1998, comparing autism rates between 440,655 MMR-vaccinated and 96,648 unvaccinated children using national registry data."
+ },
+ {
+  "claim_id": "74060ece-eab1-426a-9db6-9fb9c81a550c",
+  "old": "The Danish cohort study followed 530,000 children born between 1991 and 1998, comparing autism rates between MMR-vaccinated and unvaccinated children.",
+  "new": "The Danish cohort study followed 537,303 children born between 1991 and 1998, comparing autism rates between MMR-vaccinated and unvaccinated children."
+ },
+ {
+  "claim_id": "f24515e1-65ec-442b-bb5e-53adc4efe6dd",
+  "old": "A meta-analysis by Taylor et al. pooled data from 1.2 million children across five cohort studies and five case-control studies.",
+  "new": "A meta-analysis by Taylor et al. pooled data from 1,256,407 children across five cohort studies and five case-control studies."
+ }
+]
