@@ -4322,6 +4322,89 @@
       "now": "This is the study that separates palbociclib from the other two, on real-world progression-free survival.",
       "because": "PALM-FIG-001",
       "note": "PALM-FIG-001: an overall-survival result and figures no held document carries, withdrawn; the figures kept are attributed to S027's account."
+    },
+    {
+      "at": "2026-09-14T22:54:14+00:00",
+      "by": "unknown",
+      "by_means": "who recorded this entry is not established: the mechanism performing the write does not identify an actor and none is inferred from it. The decider is in `because`.",
+      "kind": "added",
+      "was": "",
+      "now": "Their paper contains nothing about the width of a confidence interval.",
+      "because": "CORR-14",
+      "note": "Correction-log prose from the 1 September round, recorded per change on 14 September 2026 under the operator's directive; the sentence carried no entry until now."
+    },
+    {
+      "at": "2026-09-14T22:54:14+00:00",
+      "by": "unknown",
+      "by_means": "who recorded this entry is not established: the mechanism performing the write does not identify an actor and none is inferred from it. The decider is in `because`.",
+      "kind": "added",
+      "was": "",
+      "now": "The published paper treats progression-free survival as primary for that particular data cut, and we collapsed the two - in the direction that made the survival signal easier to set aside.",
+      "because": "CORR-16",
+      "note": "Correction-log prose from the 1 September round, recorded per change on 14 September 2026 under the operator's directive; the sentence carried no entry until now."
+    },
+    {
+      "at": "2026-09-14T22:54:14+00:00",
+      "by": "unknown",
+      "by_means": "who recorded this entry is not established: the mechanism performing the write does not identify an actor and none is inferred from it. The decider is in `because`.",
+      "kind": "added",
+      "was": "",
+      "now": "Two other instances were corrected on 31 August; this one was missed because the wording differed.",
+      "because": "CORR-17",
+      "note": "Correction-log prose from the 1 September round, recorded per change on 14 September 2026 under the operator's directive; the sentence carried no entry until now."
+    },
+    {
+      "at": "2026-09-14T22:54:14+00:00",
+      "by": "unknown",
+      "by_means": "who recorded this entry is not established: the mechanism performing the write does not identify an actor and none is inferred from it. The decider is in `because`.",
+      "kind": "added",
+      "was": "",
+      "now": "Clinical benefit counts stable disease; response does not.",
+      "because": "CORR-19",
+      "note": "Correction-log prose from the 1 September round, recorded per change on 14 September 2026 under the operator's directive; the sentence carried no entry until now."
+    },
+    {
+      "at": "2026-09-14T22:54:14+00:00",
+      "by": "unknown",
+      "by_means": "who recorded this entry is not established: the mechanism performing the write does not identify an actor and none is inferred from it. The decider is in `because`.",
+      "kind": "added",
+      "was": "",
+      "now": "This page said the trial was powered on response rate, which is what the sample-size calculation says, and did not mention that the paper names a different endpoint as its objective.",
+      "because": "CORR-19",
+      "note": "Correction-log prose from the 1 September round, recorded per change on 14 September 2026 under the operator's directive; the sentence carried no entry until now."
+    },
+    {
+      "at": "2026-09-14T22:54:14+00:00",
+      "by": "unknown",
+      "by_means": "who recorded this entry is not established: the mechanism performing the write does not identify an actor and none is inferred from it. The decider is in `because`.",
+      "kind": "added",
+      "was": "",
+      "now": "Both now appear, because the source states both.",
+      "because": "CORR-19",
+      "note": "Correction-log prose from the 1 September round, recorded per change on 14 September 2026 under the operator's directive; the sentence carried no entry until now."
+    }
+  ],
+  "what_change_sets_are": "A round-level attribution: the span of page history it covers, the documents that decided the changes in it, and a label that must resolve like any other. Both shas are pinned, so a set stops covering the moment the page changes again. It is not a waiver — see recorded_change_sets() in publish.py for the three things that stop it becoming one.",
+  "change_sets": [
+    {
+      "at": "2026-09-14T23:14:09+00:00",
+      "by": "unknown",
+      "by_means": "who recorded this set is not established: the mechanism performing the write does not identify an actor and none is inferred from it. The decider is in `because` and `decided_by`.",
+      "from_sha": "3ca22e72fe461feaba6c0c94c667cd3ee0e2264b5064de1d6e0f6d41cc2ce979",
+      "to_sha": "fec7a9a2e0eebd41bebaa9b6eb98cede17b46c81b2fbe4cba3a1d1b7c551b105",
+      "because": "ROUND-2026-09-14",
+      "decided_by": [
+        "issues/WHU-002-cdk46/review/2026-09-14-adjudication.md",
+        "issues/WHU-002-cdk46/review/2026-08-29-adjudication.md",
+        "issues/WHU-002-cdk46/review/2026-08-29-post-publication-adjudication.md",
+        "issues/WHU-002-cdk46/review/2026-09-01-adjudication.md",
+        "issues/WHU-002-cdk46/review/2026-09-10-adjudication.md",
+        "issues/WHU-002-cdk46/review/2026-09-12-licence-quotation-adjudication.md",
+        "issues/WHU-002-cdk46/review/2026-09-13-c95-adjudication.md",
+        "issues/WHU-002-cdk46/review/2026-09-13-palmares-adjudication.md",
+        "issues/WHU-002-cdk46/review/2026-09-13-s007-wall-adjudication.md"
+      ],
+      "note": "This set covers 28 changes whose recorded entries the reconciler cannot match after later re-grouping of sentences, per ROUND-2026-09-14."
     }
   ]
 }

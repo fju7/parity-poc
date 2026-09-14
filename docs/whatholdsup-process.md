@@ -456,6 +456,34 @@ operation does not have, and an unmeetable rule is waived rather than followed �
 so it was rewritten into the two acts it was reaching for. The prohibition on
 self-adjudication is unchanged and is now stated where it belongs, at the end.
 
+### What a signature is, and what it covers
+
+Two rules, added 14 September 2026.
+
+**An operator signature in this publication is his acceptance stated in
+session.** There is no manuscript signature. A document is signed when he says
+it is, and the document records that he did — a line of the form *Accepted by
+Fred Ugast, operator, <date>, stated in session*, never a blank that could be
+read as the absence of acceptance.
+*Origin:* the cdk46 adjudication of 14 September 2026 was drafted with a
+template line, `Signed: ______ Fred Ugast, operator Date: ______`, and filed on
+the operator's word that it was signed while its own last line still showed
+blanks. The typeset name is not a signature; the blank was; and a reader of the
+file alone could not tell which. The line now states the acceptance.
+
+**A signature covers the text it was given.** An assistant may correct an error
+in a document awaiting acceptance, but must return it for acceptance rather
+than file the corrected version. Filing a corrected sentence under an existing
+acceptance is the failure this rule exists to prevent; so is filing a document
+as accepted while its own text shows no acceptance.
+*Origin:* the melanoma adjudication of 14 September 2026 (ROUND-2026-09-14) was
+approved by the operator, then corrected in one sentence by the assistant — the
+correction was right — and filed under his signature. The signature had been
+obtained on the unamended text. It was restructured the same day so that the
+signed section is the text as approved and the correction sits outside it,
+proposed, until accepted; the operator then accepted it. The second clause was
+learned the same afternoon on cdk46, above.
+
 **Standing rule 14 — every change to the page reconciles to a written
 decision.** `publish.reconcile(issue)` reports the ratio. A change with no
 decision is not a small bookkeeping matter; it is a change nobody can explain
@@ -2030,7 +2058,9 @@ Delete a rule only by recording why, in the same place — a rule that quietly
 disappears is indistinguishable from a rule nobody followed.
 
 **Version history.** v1.0, 2026-09-09 — first written, after the melanoma issue's
-fourth revision and its first adjudication. Rules 2, 4, 5, 8, 9, 11–21 are drawn
+fourth revision and its first adjudication. 2026-09-14 — §8 gains "What a
+signature is, and what it covers": acceptance stated in session is the
+signature, and a signature covers the text it was given. Rules 2, 4, 5, 8, 9, 11–21 are drawn
 from errors made between 26 August and 9 September 2026; rules 1, 6, 7 and 10
 carry over from the cdk46 and deskilling rounds. §1.5 added the same day, after
 reconciling against Standard v1.1; no conflict was found and no rule changed.
