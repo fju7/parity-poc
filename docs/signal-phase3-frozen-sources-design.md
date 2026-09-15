@@ -160,8 +160,8 @@ on the source entry in the Sources panel; plus one line at the top of the
 topic page. Nothing is removed; nothing is re-scored. Dates are the
 re-check's, in the reader's locale; "we" is Parity Signal.
 
-**Topic line (always, once published):**
-> Sources checked and frozen on 14 Sep 2026 · re-checked 6 Oct 2026 · 2 of 27 sources flagged · 41 of 96 claims source-confirmed only (wording not machine-checked) — see markers below. *What this means →*
+**Topic line (always, once published)** — two facts stated separately, so the header never contradicts a marker beneath it ("0 of 29 sources flagged" above a RETRACTED block read as a contradiction):
+> Sources checked and frozen on 14 Sep 2026 · 1 source retracted before publication · 0 sources newly flagged since 14 Sep 2026 (last re-check 6 Oct 2026) · 41 of 97 claims source-confirmed only (wording not machine-checked) — see markers below. *What this means →*
 
 **Support marker — `IDENTITY_ONLY` (at publication):**
 > Source confirmed; wording not machine-checked. We verified that the cited document is the one named and fetched its text. This claim carries no figure or quotation we could match against it, so its wording rests on the extraction, not on a check.
@@ -169,7 +169,17 @@ re-check's, in the reader's locale; "we" is Parity Signal.
 **`binding_lost`** (we observed only that our matcher no longer finds the figure; we do not know why):
 > Re-checked 6 Oct 2026: we could no longer match the figure this claim was published on (HR 0.80; 95% CI 0.72–0.90) in the cited source. The claim is shown as it was published. That may mean the source changed, or that our reading of it did — either way, treat the figure as unconfirmed until we have re-read the source ourselves.
 
-**`status_changed` — retracted** (visually distinct from every other marker: a solid red-bordered block with a "RETRACTED" caption, not the amber note the others use — "we could not confirm this" and "the source was withdrawn" are different in kind):
+**Retracted — two meanings, two markers (ruling of 2026-09-14; drafts, awaiting approval).** A retracted work can be the *subject* of a claim ("the Wakefield case series enrolled 12 children") or the claimed *support* for one. They cannot render identically: the subject case is information, the support case is doubt. Which applies is decided deterministically per claim-source link: the claim names the source (its first author's surname or a distinctive title word appears in the claim text) → subject; otherwise → support.
+
+*Subject — a grey information note, the same weight as the IDENTITY_ONLY note:*
+> **About a retracted paper.** The study this claim describes — Wakefield et al., *The Lancet*, 1998 — was retracted by the journal on 6 Feb 2010 (Crossref). The claim reports what that paper did or said; its retraction is part of the record, not a doubt about this claim.
+
+*Support — the red-bordered warning block, distinct from every amber note:*
+> **Retracted source.** This claim rests on a paper the journal retracted on 6 Feb 2010 (Crossref). The claim is shown as published and marked; it should not be relied on until we have reviewed the retraction.
+
+On the mmr record after CHRONOLOGY, no surviving claim rests on Wakefield as support — the one surviving Wakefield-linked claim is the subject case. Rendered side by side: `docs/mmr-vaccine-autism-markers-side-by-side-2026-09-14.png`.
+
+**`status_changed` — retracted, observed by a re-check after publication** (the support wording above, with the observation date; visually the red block):
 > Retracted. Crossref records a retraction of this source dated 30 Sep 2026. This claim rested on it when published on 14 Sep 2026. We have not removed the claim; we have marked it, and it should not be relied on until we have reviewed the retraction.
 
 **`status_changed` — corrected (erratum), bindings still hold:**

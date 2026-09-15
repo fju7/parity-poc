@@ -122,6 +122,24 @@ kind. The word-number parser is deliberately small and tested on the exact
 forms above; a form it does not parse is a false refusal, which is the safe
 direction, and is added to the parser when met.
 
+### 4c. CHRONOLOGY — the fifth binding kind (added 2026-09-14)
+
+A source cannot support a claim about an event that postdates it. The
+existence → ordering mechanism from this document's own taxonomy, made a
+binding kind: the dates a claim references — an explicit date in the text,
+the registry's own dated events for the source (a paper cannot support a
+claim about its own retraction), or a named event from the curated table
+`backend/data/verify/events.json` (phrase, date, source, curator) — are
+compared with the source's publication date from the registry, and a claim
+that postdates its source is **IMPOSSIBLE**: the link is refused whatever
+HEADING and FIGURE say, and IDENTITY_ONLY is not available to it. Reference
+negative: the three GMC / struck-off claims on the mmr record, true statements
+the 1998 paper cannot contain. Dates leave FIGURE's remit — "in 2004" is a
+when, not a quantity the document must state. **Law is not judged:** the
+registries expose the current version's effective date and a partial version
+list, not enactment, so "before it existed" cannot be shown and the check
+says cannot-be-judged rather than refuse.
+
 ### 4b. HEADING abstains (added 2026-09-14)
 
 HEADING has a third outcome. After boilerplate removal, if fewer than **N = 2**
