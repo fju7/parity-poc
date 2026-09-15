@@ -320,26 +320,30 @@ def _gated_letter(prompt_data: str, allowed=None) -> dict | None:
     return retry
 
 
-_VERIFICATION_COLUMN_READY = None   # resolved on first use: migration 085 adds provider_appeals.verification
-
-
 def _attach_verification_column(record: dict, result: dict) -> None:
-    """Store the verification record beside the letter once migration 085
-    (provider_appeals.verification jsonb) is applied. Until then the record
-    travels in the API response only, and this says so once per process
-    rather than failing the insert or dropping it silently."""
-    global _VERIFICATION_COLUMN_READY
-    if _VERIFICATION_COLUMN_READY is None:
-        try:
-            sb = _get_supabase()
-            sb.table("provider_appeals").select("verification").limit(1).execute()
-            _VERIFICATION_COLUMN_READY = True
-        except Exception:
-            _VERIFICATION_COLUMN_READY = False
-            print("[GenerateAppeal] provider_appeals.verification column absent (migration 085 not applied); "
-                  "verification record returned in the API response only")
-    if _VERIFICATION_COLUMN_READY:
-        record["verification"] = result.get("verification")
+    """The verdict is stored beside the letter (provider_appeals.verification,
+    migration 085, applied 2026-09-15). It is always written. Until 2026-09-15
+    this function probed for the column and silently omitted the key when it
+    was absent -- which is how a deploy that lands before its migration loses
+    UNCHECKED's consumer with a single print. Now the insert carries the key
+    and a missing column fails the insert, and _save_appeal_record makes that
+    failure the caller's problem rather than a log line."""
+    record["verification"] = result.get("verification")
+
+
+class AppealRecordError(RuntimeError):
+    """The letter was generated but its record -- and with it the verification
+    verdict -- could not be stored. Raised, never printed-and-forgotten."""
+
+
+def _save_appeal_record(sb, appeal_record: dict) -> str | None:
+    try:
+        ins = sb.table("provider_appeals").insert(appeal_record).execute()
+    except Exception as exc:
+        raise AppealRecordError(f"provider_appeals insert failed: {exc}") from exc
+    if not ins.data:
+        raise AppealRecordError("provider_appeals insert returned no row")
+    return ins.data[0]["id"]
 
 
 def _strings(obj):
@@ -443,13 +447,13 @@ async def generate_appeal(req: GenerateAppealRequest, request: Request):
     }
     _attach_verification_column(appeal_record, result)
 
-    appeal_id = None
+    # Fail closed: a letter whose record (and verdict) cannot be stored is not
+    # returned as if it had been. Until 2026-09-15 this printed and carried on.
     try:
-        ins = sb.table("provider_appeals").insert(appeal_record).execute()
-        if ins.data and len(ins.data) > 0:
-            appeal_id = ins.data[0]["id"]
-    except Exception as exc:
-        print(f"[GenerateAppeal] Failed to save appeal record: {exc}")
+        appeal_id = _save_appeal_record(sb, appeal_record)
+    except AppealRecordError as exc:
+        print(f"[GenerateAppeal] REFUSED: {exc}")
+        raise HTTPException(status_code=500, detail="The letter was generated but could not be recorded; it was not returned. " + str(exc)[:200])
 
     # Persist letter for reuse
     try:
@@ -563,13 +567,13 @@ async def generate_appeal_batch(req: GenerateAppealBatchRequest, request: Reques
         }
         _attach_verification_column(appeal_record, result)
 
-        appeal_id = None
         try:
-            ins = sb.table("provider_appeals").insert(appeal_record).execute()
-            if ins.data and len(ins.data) > 0:
-                appeal_id = ins.data[0]["id"]
-        except Exception:
-            pass
+            appeal_id = _save_appeal_record(sb, appeal_record)
+        except AppealRecordError as exc:
+            print(f"[GenerateAppealBatch] REFUSED {denial.get('claim_id', '')}: {exc}")
+            results.append({"error": True, "claim_id": denial.get("claim_id", ""),
+                            "detail": "Letter generated but could not be recorded; not returned. " + str(exc)[:200]})
+            continue
 
         results.append({
             "appeal_id": appeal_id,

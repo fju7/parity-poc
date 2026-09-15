@@ -210,3 +210,30 @@ def test_qa_answer_citing_an_unheld_doi_is_withheld(monkeypatch):
     with pytest.raises(HTTPException) as exc:
         asyncio.run(qa.ask_question(body, request=None))
     assert exc.value.status_code == 502 and "withheld" in exc.value.detail
+
+
+# ---------------------------------------------------------------------------
+# P1 storage: a letter whose record (and verdict) cannot be stored is not returned
+# ---------------------------------------------------------------------------
+def test_provider_letter_is_not_returned_when_its_record_cannot_be_stored(monkeypatch):
+    import routers.provider_appeals as pa
+    monkeypatch.setattr(pa, "_get_authenticated_user", lambda request: type("U", (), {"id": "u1"})())
+    monkeypatch.setattr(pa, "_fetch_provider_context", lambda uid: {"practice_name": "P", "npi": "1", "practice_address": "1 Main St", "billing_contact": "B", "contracts": {}})
+    monkeypatch.setattr(pa, "build_allowlist", lambda *a, **k: ([], []))
+    monkeypatch.setattr(pa, "_call_claude", lambda **kw: {"letter_text": "Dear Payer, pay $120.00 within 30 calendar days.", "letter_html": "<p>x</p>",
+                                                          "escalation_path": "external review", "appeal_strength": "high",
+                                                          "appeal_strength_reason": "high", "attach_documentation": "notes", "cms_references": []})
+    class _Ins:
+        def insert(self, rec):
+            assert "verification" in rec and rec["verification"]["surface"] == "routers.provider_appeals::_gated_letter"
+            class E:
+                def execute(self_inner): raise RuntimeError("PGRST204 column missing")
+            return E()
+    class _SB:
+        def table(self, name): return _Ins()
+    monkeypatch.setattr(pa, "_get_supabase", lambda: _SB())
+    req = pa.GenerateAppealRequest(claim_id="C1", denial_code="CO-16", cpt_code="99213", billed_amount=120.0,
+                                   payer_name="Aetna", date_of_service="2025-01-05")
+    with pytest.raises(HTTPException) as exc:
+        asyncio.run(pa.generate_appeal(req, request=None))
+    assert exc.value.status_code == 500 and "could not be recorded" in exc.value.detail

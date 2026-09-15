@@ -1490,7 +1490,7 @@ async def analyze_denials(req: AnalyzeDenialsRequest, request: Request):
     _get_authenticated_user(request)
 
     if not req.denied_lines:
-        return {"denial_types": [], "pattern_summary": "", "total_recoverable_value": 0}
+        return {"denial_types": [], "pattern_summary": "", "total_denied_value": 0}
 
     # Build input for Claude
     lines_data = []
@@ -1520,7 +1520,6 @@ async def analyze_denials(req: AnalyzeDenialsRequest, request: Request):
         return {
             "denial_types": [],
             "pattern_summary": "AI analysis is temporarily unavailable. Please try again.",
-            "total_recoverable_value": totals["total_denied_value"],
             "total_denied_value": totals["total_denied_value"],
             "error": True,
         }
@@ -2006,7 +2005,7 @@ async def generate_audit_report(req: AuditReportRequest):
         pr.get("summary", {}).get("total_underpayment", 0) for pr in payer_results
     )
     total_denied_value = sum(
-        pr.get("denial_intel", {}).get("total_recoverable_value", 0)
+        (pr.get("denial_intel") or {}).get("total_denied_value", 0)   # code-computed; legacy model field not read
         for pr in payer_results if pr.get("denial_intel")
     )
     monthly = total_underpayment
@@ -2015,7 +2014,7 @@ async def generate_audit_report(req: AuditReportRequest):
     gap_data = [
         ["Category", "Identified Amount", "Annualized (\u00d712)"],
         ["Underpayments", f"${total_underpayment:,.2f}", f"${annualized:,.2f}"],
-        ["Estimated Denial Recovery", f"${total_denied_value:,.2f}", f"${total_denied_value * 12:,.2f}"],
+        ["Denied Value (billed)", f"${total_denied_value:,.2f}", f"${total_denied_value * 12:,.2f}"],
         ["Total Revenue Gap", f"${total_underpayment + total_denied_value:,.2f}",
          f"${(total_underpayment + total_denied_value) * 12:,.2f}"],
     ]

@@ -119,7 +119,7 @@ export default function ProviderAuditReport({ analysisResults, practiceInfo, onC
     (s, r) => s + (r.result?.summary?.total_underpayment || 0), 0
   );
   const totalDeniedValue = analysisResults.reduce(
-    (s, r) => s + (r.denial_intel?.total_recoverable_value || 0), 0
+    (s, r) => s + (r.denial_intel?.total_denied_value || 0), 0   // code-computed (2026-09-15); the model-era total_recoverable_value is not read
   );
   const totalLineItems = analysisResults.reduce(
     (s, r) => s + (r.result?.summary?.line_count || 0), 0
@@ -562,7 +562,7 @@ export default function ProviderAuditReport({ analysisResults, practiceInfo, onC
             <> Total identified underpayment: <strong style={{ color: RED }}>${totalUnderpayment.toLocaleString("en-US", { minimumFractionDigits: 2 })}</strong>.</>
           )}
           {totalDeniedValue > 0 && (
-            <> Estimated denial recovery opportunity: <strong>${totalDeniedValue.toLocaleString("en-US", { minimumFractionDigits: 2 })}</strong>.</>
+            <> Denied value (billed): <strong>${totalDeniedValue.toLocaleString("en-US", { minimumFractionDigits: 2 })}</strong>.</>
           )}
           {" "}The full AI-generated executive summary and recommended actions are included in the downloadable PDF report.
         </p>
@@ -630,7 +630,7 @@ export default function ProviderAuditReport({ analysisResults, practiceInfo, onC
               </div>
             </div>
             <div>
-              <div style={{ fontSize: 12, opacity: 0.7, marginBottom: 4 }}>Denial Recovery</div>
+              <div style={{ fontSize: 12, opacity: 0.7, marginBottom: 4 }}>Denied Value (billed)</div>
               <div style={{ fontSize: 24, fontWeight: 700 }}>
                 ${totalDeniedValue.toLocaleString("en-US", { minimumFractionDigits: 2 })}
               </div>

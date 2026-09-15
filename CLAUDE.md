@@ -1280,8 +1280,9 @@ signal_issues.status = 'published') APPLIED 2026-09-15. 080 had shipped both
 tables with USING (true); probed as anon, a DRAFT topic's publication record was
 readable. Verified after 084: anon 0 / service_role 1 with mmr-vaccine-autism
 at draft.
-Migration 085 (provider_appeals.verification jsonb) AUTHORED and staged — NOT applied.
-Next migration number: 086
+Migration 085 (provider_appeals.verification jsonb) APPLIED 2026-09-15 via apply_migration; verified.
+Migration 086 (service-role-only policies on 14 tables) AUTHORED — NOT applied. Tier-1 review required.
+Next migration number: 087
 
 ## Session P0-Signal — Data Integrity + Crawlable Metadata (Complete)
 Phase 0 of the Signal review. Fixes wrong published numbers and unshareable
@@ -2125,8 +2126,7 @@ tiers, the three answered questions, what was built). PHI: docs/phi-model-exposu
   with no text layer, shown by frontend/src/lib/verificationNote.js), employer
   benchmark narrative, Signal Q&A. 31 GATE surfaces are declared but unwired
   (`policy.unwired_gates()`, pinned in the discovery test so the set only shrinks).
-- Migration 085 (provider_appeals.verification jsonb) AUTHORED, NOT APPLIED.
-  Until applied the provider letter's verdict is in the API response only.
+- Migration 085 applied 2026-09-15 (see below); the provider letter's verdict is stored.
 - A.5 removals (6ed1bd9): CAA citations gone from prompt/template/two pages
   (29 U.S.C. § 1185i is the provider-directory section, verified);
   DENIAL_SYSTEM_PROMPT no longer drafts a letter or adds up money
@@ -2134,10 +2134,38 @@ tiers, the three answered questions, what was built). PHI: docs/phi-model-exposu
   ._call_claude RAISES ClaudeCallError (never None, never HTML-as-letter);
   billing_contracts positional-arg bug (broken since 1c99291, 2026-03-26) fixed
   with success-path tests.
-- RULE: a prompt must not NAME what it forbids. A gate that binds output to the
-  prompt is defeated by "do not cite EBSA Field Assistance Bulletin"; write the
-  prohibition generically. The Health letter keeps its prompt OUT of held
-  material for this reason.
+- TWO RULES about prohibitions in prompts -- different hazards, record both,
+  because fixing only the first reintroduces the second:
+  (i) TOOLING: a gate that scans or binds to the prompt text false-positives on
+      the prohibition itself -- "do not cite X" contains X, so X in the output
+      binds to the prompt and passes. Write prohibitions generically ("no
+      agency bulletin"), or keep the prompt out of held material (Health does).
+  (ii) MODEL: naming a forbidden string in a prompt puts it in the model's
+      context and makes it MORE likely to appear -- the ordinary negation
+      failure, true with no gate at all. "No 42 CFR § 410.32" is a suggestion.
+      The old provider prompt listed seven citation shapes it forbade.
+- DEPLOY ORDERING: parity-poc-api (srv-d6eh8c95pdvs73cuphug) is branch=main,
+  autoDeploy=yes -- a push to main IS a backend deploy (~90 s). Vercel likewise.
+  A migration the code depends on goes in BEFORE the merge, never after; a
+  column the deployed code writes to must exist when the deploy goes live.
+  (085 was pushed unapplied on 2026-09-15; nothing was lost only because no
+  appeal was generated in the 8 minutes before it was applied.)
+- 2026-09-15 later: 085 APPLIED and probed (column present; one generated
+  letter stored its verdict, then the probe row was removed). The provider
+  appeal record insert now FAILS CLOSED (AppealRecordError -> 500) instead of
+  print-and-continue; the column-probe/omit path is gone.
+  total_recoverable_value RENAMED to total_denied_value (backend, PDF,
+  ProviderApp tile, ProviderAuditReport); the legacy model-computed field is
+  not read from historical result_json.
+- SECURITY FINDING from the 085 grant check (pre-existing, not caused by 085):
+  14 tables carry a policy named "Service role full access" written FOR ALL
+  TO public USING (true), with anon/authenticated holding full DML grants --
+  provider_appeals, provider_analyses, provider_audits, provider_contracts,
+  provider_profiles, provider_subscriptions, health_users,
+  health_subscriptions, employer_accounts, employer_users,
+  employer_contributions, mue_limits, ncci_edits, pharmacy_asp. Probed: anon
+  reads all 6 provider_appeals rows (HTTP 206, 0-0/6). Migration 086 AUTHORED
+  to fix it -- NOT APPLIED, awaiting Tier-1 review.
 
 ## Standing instructions for every session
 1. Read this file at the start of every session

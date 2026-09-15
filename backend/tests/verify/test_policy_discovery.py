@@ -193,7 +193,16 @@ def test_a_file_that_cannot_be_parsed_is_accounted_for(found):
 
 def test_unwired_gates_are_declared_and_only_shrink():
     """A GATE with wired=False is a declared, unenforced tier. The set is
-    pinned here so it can only shrink deliberately."""
+    pinned here so it can only shrink deliberately.
+
+    Drain plan (docs/shared-assertion-policy-phase-a-inventory.md, 2026-09-15):
+      batch 1 by 2026-09-17: generate_plain_summary, analyze_denial,
+                             broker_claims_upload, broker_scorecard_upload,
+                             generate_notification_text            (-> 26 left)
+      batch 2 by 2026-09-22: H1 x5, E3-E8                          (-> 14 left)
+      batch 3 by 2026-09-29: P3, P4 x2, P5, P6 x2, P7, P8           (-> 6 left)
+      batch 4 by 2026-10-06: the Signal pipeline writers            (-> 0 left)
+    Remove entries from `expected` as they are wired; never add."""
     expected = {
         "routers.broker::broker_claims_upload", "routers.broker::broker_scorecard_upload",
         "routers.employer_claims::employer_claims_check", "routers.employer_claims::employer_contract_parse",

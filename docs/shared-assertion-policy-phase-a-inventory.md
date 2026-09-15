@@ -537,3 +537,25 @@ pipeline writers. Each has a tier and a test-visible entry; attaching
   explicit "unavailable" fallback in the PDF; not silent, but the same shape).
 - `employer_shared._call_claude` still returns None on failure.
 - PHI: `docs/phi-model-exposure-2026-09-15.md`, for counsel; no flow changed.
+
+## Drain plan for the 31 unwired GATE surfaces (set 2026-09-15)
+
+Ranked by exposure. "Third party" = the output leaves the customer's hands
+(a carrier, a public reader, an employer reading a broker's shared report).
+"User" = rendered or emailed to the account holder. Nothing in the 31 is
+"stored only"; every one reaches someone. Each wiring is one `check()` call
+with the right `Held` plus a test in `test_policy_wiring.py`; the pinned set in
+`test_unwired_gates_are_declared_and_only_shrink` is updated per batch.
+
+| batch | by | surfaces | exposure | count |
+|---|---|---|---|---|
+| **1 — committed** | **2026-09-17** | `signal_metrics::generate_plain_summary` (writes onto published rows → public readers); `health_analyze::analyze_denial` (the appeal_rights relabelling source; every verbatim field SPAN/FIGURE-binds to the denial text); `broker::broker_claims_upload`, `broker::broker_scorecard_upload` (shared read-only reports reach the employer — cross-party); `generate_notifications::generate_notification_text` (subscriber email) | third party | **5** |
+| 2 | 2026-09-22 | H1 ×4 (`analyze_text`, `analyze_image`, `ai_parse.parse_with_ai`, `eob_parse.parse_eob`, `parse_eob_text`) + `analyze_sbc` — consumer bill numbers rendered as the report; E3 `employer_claims_check`, E4 `employer_contract_parse`, E5 `employer_rbp_calculate`, E6 `employer_pharmacy_analyze`, E7 `employer_scorecard`, E8 `employer_trends` | user (consumer / employer) | 12 |
+| 3 | 2026-09-29 | P3 `analyze_contract`, P4 `_run_coding_analysis_from_835` + `analyze_coding`, P5 `parse_837`, P6 `analyze_denials` + `_run_analysis_for_payer` (coded descriptors need a held CARC table — ship the table with the batch), P7 `generate_audit_report` (PDF), P8 `provider_trends` (email) | user (provider) | 8 |
+| 4 | 2026-10-06 | `00_discover_sources::discover_sources` (identifiers from registry search only), `extract_claims::extract_from_source`, `score_claims::generate_summaries`, `map_consensus::map_category`, `generate_summary::generate_narrative` + `generate_glossary` — and extend `verify.publish` to summaries/consensus, which is the real gate for these | third party at publish | 6 |
+
+Batch 1 is the commitment: five wired properly by 2026-09-17, tested against
+their class's known-bad. Batches 2–4 are targets; if a batch slips, the pinned
+test still refuses regression and the table still says which tier applies.
+Expected counts: 8 wired today → 13 (09-17) → 25 (09-22) → 33 (09-29) → 39
+(10-06), i.e. zero unwired GATE surfaces by 2026-10-06.

@@ -484,9 +484,10 @@ def denial_totals(denied_lines: list) -> dict:
 def attach_denial_totals(result: dict | None, denied_lines: list) -> dict | None:
     """Merge denial_totals() into a model result: per-type count / total_value /
     affected_cpts / sample_date_of_service from code, plus total_denied_value.
-    `total_recoverable_value` is kept as an alias of total_denied_value so the
-    three existing consumers keep working; it is the billed value of the denied
-    lines, not an estimate of what an appeal would recover."""
+    The field is `total_denied_value`: the billed value of the denied lines.
+    The model-era field `total_recoverable_value` is NOT emitted -- a name
+    that asserts a relation the content does not have is the defect this
+    module exists to remove (renamed 2026-09-15; the three consumers moved)."""
     if not result or not isinstance(result, dict):
         return result
     totals = denial_totals(denied_lines)
@@ -498,7 +499,7 @@ def attach_denial_totals(result: dict | None, denied_lines: list) -> dict | None
             dt.setdefault("count", 0); dt.setdefault("total_value", 0.0); dt.setdefault("affected_cpts", [])
         dt.pop("appeal_letter_template", None)
     result["total_denied_value"] = totals["total_denied_value"]
-    result["total_recoverable_value"] = totals["total_denied_value"]
+    result.pop("total_recoverable_value", None)
     result.pop("preventable_denial_rate", None)
     return result
 
