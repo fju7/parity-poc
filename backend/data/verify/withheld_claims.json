@@ -40,6 +40,13 @@
    "withheld_by": "Claude Opus 5 on the operator's direction",
    "withheld_on": "2026-09-15",
    "ruled_by": "Fred Ugast, 2026-09-15: 'Withhold three; do not re-cite them' + f0b091fa after the Taylor check"
+  },
+  "721f53f7-3201-4c06-9e77-5bb7fafb8645": {
+   "reason": "asserts findings its supporting source does not contain: the Lancet retraction notice (the claim's only passing binding, CHRONOLOGY) says that following the GMC panel's judgment of 28 Jan 2010 several elements of the 1998 paper are incorrect, and that 'consecutively referred' and ethics-committee 'approved' have been proven false. It says nothing about financial conflicts of interest, data manipulation, dishonesty, misconduct or invasive procedures. The claim's other two links (Wakefield 1998 x2) fail CHRONOLOGY. The GMC determination itself is not in the corpus.",
+   "checked_against": "doi:10.1016/s0140-6736(10)60175-4, operator-supplied full text sha256 b70a220048dc7ce64cb24fc78cf354cbf0670a2f9630dfeb0c23e5fa446c642f (3,612 chars), read in full by the operator and grepped by the curator: financial / conflict / manipulat / dishonest / misconduct / invasive absent; 'consecutively referred', 'approved', 'proven to be false' present",
+   "withheld_by": "Claude Opus 5 on the operator's direction",
+   "withheld_on": "2026-09-15",
+   "ruled_by": "Fred Ugast, §6a read of the live page, 2026-09-15: 'WITHHOLD claim 721f53f7 ... the missing GMC source matters to me only if there is a chance the statements we make about it are untrue or unfair; the curator checked, and one of them was'"
   }
  }
 }
