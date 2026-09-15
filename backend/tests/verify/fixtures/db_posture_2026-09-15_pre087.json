@@ -1,0 +1,3830 @@
+{
+ "_note": "Posture of the Parity public schema captured 2026-09-15 after 086, BEFORE 087. Known-bad fixture for verify/db_posture.py: the classifier must FAIL the tables 087 fixes.",
+ "captured_at": "2026-09-15T15:00:00Z",
+ "tables": [
+  {
+   "grants": {
+    "anon": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ],
+    "service_role": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ],
+    "authenticated": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ]
+   },
+   "policies": [
+    {
+     "cmd": "ALL",
+     "name": "analyst_assignments_service_role",
+     "qual": "(auth.role() = 'service_role'::text)",
+     "roles": [
+      "public"
+     ],
+     "permissive": "PERMISSIVE",
+     "with_check": "(auth.role() = 'service_role'::text)"
+    }
+   ],
+   "rls_forced": false,
+   "table_name": "analyst_practice_assignments",
+   "rls_enabled": true
+  },
+  {
+   "grants": {
+    "anon": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ],
+    "service_role": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ],
+    "authenticated": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ]
+   },
+   "policies": [
+    {
+     "cmd": "INSERT",
+     "name": "service_insert",
+     "qual": null,
+     "roles": [
+      "service_role"
+     ],
+     "permissive": "PERMISSIVE",
+     "with_check": "true"
+    }
+   ],
+   "rls_forced": false,
+   "table_name": "benchmark_observations",
+   "rls_enabled": true
+  },
+  {
+   "grants": {
+    "anon": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ],
+    "service_role": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ],
+    "authenticated": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ]
+   },
+   "policies": [
+    {
+     "cmd": "INSERT",
+     "name": "Users can insert own bill line items",
+     "qual": null,
+     "roles": [
+      "public"
+     ],
+     "permissive": "PERMISSIVE",
+     "with_check": "(EXISTS ( SELECT 1\n   FROM bills\n  WHERE ((bills.id = bill_line_items.bill_id) AND (bills.user_id = auth.uid()))))"
+    },
+    {
+     "cmd": "SELECT",
+     "name": "Users can read own bill line items",
+     "qual": "(EXISTS ( SELECT 1\n   FROM bills\n  WHERE ((bills.id = bill_line_items.bill_id) AND (bills.user_id = auth.uid()))))",
+     "roles": [
+      "public"
+     ],
+     "permissive": "PERMISSIVE",
+     "with_check": null
+    }
+   ],
+   "rls_forced": false,
+   "table_name": "bill_line_items",
+   "rls_enabled": true
+  },
+  {
+   "grants": {
+    "anon": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ],
+    "service_role": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ],
+    "authenticated": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ]
+   },
+   "policies": [
+    {
+     "cmd": "ALL",
+     "name": "billing_835_jobs_service_role",
+     "qual": "(auth.role() = 'service_role'::text)",
+     "roles": [
+      "public"
+     ],
+     "permissive": "PERMISSIVE",
+     "with_check": "(auth.role() = 'service_role'::text)"
+    }
+   ],
+   "rls_forced": false,
+   "table_name": "billing_835_jobs",
+   "rls_enabled": true
+  },
+  {
+   "grants": {
+    "anon": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ],
+    "service_role": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ],
+    "authenticated": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ]
+   },
+   "policies": [
+    {
+     "cmd": "ALL",
+     "name": "billing_claim_lines_service_role",
+     "qual": "(auth.role() = 'service_role'::text)",
+     "roles": [
+      "public"
+     ],
+     "permissive": "PERMISSIVE",
+     "with_check": "(auth.role() = 'service_role'::text)"
+    }
+   ],
+   "rls_forced": false,
+   "table_name": "billing_claim_lines",
+   "rls_enabled": true
+  },
+  {
+   "grants": {
+    "anon": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ],
+    "service_role": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ],
+    "authenticated": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ]
+   },
+   "policies": [
+    {
+     "cmd": "ALL",
+     "name": "billing_companies_service_role",
+     "qual": "(auth.role() = 'service_role'::text)",
+     "roles": [
+      "public"
+     ],
+     "permissive": "PERMISSIVE",
+     "with_check": "(auth.role() = 'service_role'::text)"
+    }
+   ],
+   "rls_forced": false,
+   "table_name": "billing_companies",
+   "rls_enabled": true
+  },
+  {
+   "grants": {
+    "anon": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ],
+    "service_role": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ],
+    "authenticated": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ]
+   },
+   "policies": [
+    {
+     "cmd": "ALL",
+     "name": "billing_company_practices_service_role",
+     "qual": "(auth.role() = 'service_role'::text)",
+     "roles": [
+      "public"
+     ],
+     "permissive": "PERMISSIVE",
+     "with_check": "(auth.role() = 'service_role'::text)"
+    }
+   ],
+   "rls_forced": false,
+   "table_name": "billing_company_practices",
+   "rls_enabled": true
+  },
+  {
+   "grants": {
+    "anon": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ],
+    "service_role": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ],
+    "authenticated": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ]
+   },
+   "policies": [
+    {
+     "cmd": "ALL",
+     "name": "billing_company_subscriptions_service_role",
+     "qual": "(auth.role() = 'service_role'::text)",
+     "roles": [
+      "public"
+     ],
+     "permissive": "PERMISSIVE",
+     "with_check": "(auth.role() = 'service_role'::text)"
+    }
+   ],
+   "rls_forced": false,
+   "table_name": "billing_company_subscriptions",
+   "rls_enabled": true
+  },
+  {
+   "grants": {
+    "anon": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ],
+    "service_role": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ],
+    "authenticated": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ]
+   },
+   "policies": [
+    {
+     "cmd": "ALL",
+     "name": "billing_company_users_service_role",
+     "qual": "(auth.role() = 'service_role'::text)",
+     "roles": [
+      "public"
+     ],
+     "permissive": "PERMISSIVE",
+     "with_check": "(auth.role() = 'service_role'::text)"
+    }
+   ],
+   "rls_forced": false,
+   "table_name": "billing_company_users",
+   "rls_enabled": true
+  },
+  {
+   "grants": {
+    "anon": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ],
+    "service_role": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ],
+    "authenticated": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ]
+   },
+   "policies": [
+    {
+     "cmd": "ALL",
+     "name": "billing_contracts_service_role",
+     "qual": "(auth.role() = 'service_role'::text)",
+     "roles": [
+      "public"
+     ],
+     "permissive": "PERMISSIVE",
+     "with_check": "(auth.role() = 'service_role'::text)"
+    }
+   ],
+   "rls_forced": false,
+   "table_name": "billing_contracts",
+   "rls_enabled": true
+  },
+  {
+   "grants": {
+    "anon": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ],
+    "service_role": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ],
+    "authenticated": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ]
+   },
+   "policies": [
+    {
+     "cmd": "ALL",
+     "name": "billing_escalation_practices_service_role",
+     "qual": "(auth.role() = 'service_role'::text)",
+     "roles": [
+      "public"
+     ],
+     "permissive": "PERMISSIVE",
+     "with_check": "(auth.role() = 'service_role'::text)"
+    }
+   ],
+   "rls_forced": false,
+   "table_name": "billing_escalation_practices",
+   "rls_enabled": true
+  },
+  {
+   "grants": {
+    "anon": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ],
+    "service_role": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ],
+    "authenticated": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ]
+   },
+   "policies": [
+    {
+     "cmd": "ALL",
+     "name": "billing_escalations_service_role",
+     "qual": "(auth.role() = 'service_role'::text)",
+     "roles": [
+      "public"
+     ],
+     "permissive": "PERMISSIVE",
+     "with_check": "(auth.role() = 'service_role'::text)"
+    }
+   ],
+   "rls_forced": false,
+   "table_name": "billing_escalations",
+   "rls_enabled": true
+  },
+  {
+   "grants": {
+    "anon": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ],
+    "service_role": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ],
+    "authenticated": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ]
+   },
+   "policies": [
+    {
+     "cmd": "INSERT",
+     "name": "Users can insert own bills",
+     "qual": null,
+     "roles": [
+      "public"
+     ],
+     "permissive": "PERMISSIVE",
+     "with_check": "(auth.uid() = user_id)"
+    },
+    {
+     "cmd": "SELECT",
+     "name": "Users can read own bills",
+     "qual": "(auth.uid() = user_id)",
+     "roles": [
+      "public"
+     ],
+     "permissive": "PERMISSIVE",
+     "with_check": null
+    }
+   ],
+   "rls_forced": false,
+   "table_name": "bills",
+   "rls_enabled": true
+  },
+  {
+   "grants": {
+    "anon": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ],
+    "service_role": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ],
+    "authenticated": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ]
+   },
+   "policies": [
+    {
+     "cmd": "ALL",
+     "name": "Service role full access on broker_accounts",
+     "qual": "(auth.role() = 'service_role'::text)",
+     "roles": [
+      "public"
+     ],
+     "permissive": "PERMISSIVE",
+     "with_check": "(auth.role() = 'service_role'::text)"
+    }
+   ],
+   "rls_forced": false,
+   "table_name": "broker_accounts",
+   "rls_enabled": true
+  },
+  {
+   "grants": {
+    "anon": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ],
+    "service_role": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ],
+    "authenticated": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ]
+   },
+   "policies": [
+    {
+     "cmd": "SELECT",
+     "name": "public read by share token",
+     "qual": "true",
+     "roles": [
+      "anon"
+     ],
+     "permissive": "PERMISSIVE",
+     "with_check": null
+    },
+    {
+     "cmd": "ALL",
+     "name": "service role full access",
+     "qual": "true",
+     "roles": [
+      "service_role"
+     ],
+     "permissive": "PERMISSIVE",
+     "with_check": "true"
+    }
+   ],
+   "rls_forced": false,
+   "table_name": "broker_client_benchmarks",
+   "rls_enabled": true
+  },
+  {
+   "grants": {
+    "anon": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ],
+    "service_role": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ],
+    "authenticated": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ]
+   },
+   "policies": [
+    {
+     "cmd": "ALL",
+     "name": "Service role full access on broker_commissions",
+     "qual": "(auth.role() = 'service_role'::text)",
+     "roles": [
+      "public"
+     ],
+     "permissive": "PERMISSIVE",
+     "with_check": "(auth.role() = 'service_role'::text)"
+    }
+   ],
+   "rls_forced": false,
+   "table_name": "broker_commissions",
+   "rls_enabled": true
+  },
+  {
+   "grants": {
+    "anon": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ],
+    "service_role": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ],
+    "authenticated": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ]
+   },
+   "policies": [
+    {
+     "cmd": "ALL",
+     "name": "Service role full access on broker_employer_links",
+     "qual": "(auth.role() = 'service_role'::text)",
+     "roles": [
+      "public"
+     ],
+     "permissive": "PERMISSIVE",
+     "with_check": "(auth.role() = 'service_role'::text)"
+    }
+   ],
+   "rls_forced": false,
+   "table_name": "broker_employer_links",
+   "rls_enabled": true
+  },
+  {
+   "grants": {
+    "anon": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ],
+    "service_role": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ],
+    "authenticated": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ]
+   },
+   "policies": [],
+   "rls_forced": false,
+   "table_name": "broker_prospect_benchmarks",
+   "rls_enabled": true
+  },
+  {
+   "grants": {
+    "anon": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ],
+    "service_role": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ],
+    "authenticated": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ]
+   },
+   "policies": [],
+   "rls_forced": false,
+   "table_name": "broker_referral_credits",
+   "rls_enabled": true
+  },
+  {
+   "grants": {
+    "anon": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ],
+    "service_role": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ],
+    "authenticated": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ]
+   },
+   "policies": [
+    {
+     "cmd": "ALL",
+     "name": "Service role full access on broker_referrals",
+     "qual": "(auth.role() = 'service_role'::text)",
+     "roles": [
+      "public"
+     ],
+     "permissive": "PERMISSIVE",
+     "with_check": "(auth.role() = 'service_role'::text)"
+    }
+   ],
+   "rls_forced": false,
+   "table_name": "broker_referrals",
+   "rls_enabled": true
+  },
+  {
+   "grants": {
+    "anon": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ],
+    "service_role": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ],
+    "authenticated": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ]
+   },
+   "policies": [
+    {
+     "cmd": "SELECT",
+     "name": "Public read clfs rates historical",
+     "qual": "true",
+     "roles": [
+      "public"
+     ],
+     "permissive": "PERMISSIVE",
+     "with_check": null
+    },
+    {
+     "cmd": "ALL",
+     "name": "Service role full access on clfs rates historical",
+     "qual": "true",
+     "roles": [
+      "service_role"
+     ],
+     "permissive": "PERMISSIVE",
+     "with_check": "true"
+    }
+   ],
+   "rls_forced": false,
+   "table_name": "clfs_rates_historical",
+   "rls_enabled": true
+  },
+  {
+   "grants": {
+    "anon": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ],
+    "service_role": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ],
+    "authenticated": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ]
+   },
+   "policies": [],
+   "rls_forced": false,
+   "table_name": "companies",
+   "rls_enabled": true
+  },
+  {
+   "grants": {
+    "anon": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ],
+    "service_role": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ],
+    "authenticated": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ]
+   },
+   "policies": [
+    {
+     "cmd": "ALL",
+     "name": "Service role only",
+     "qual": "(auth.role() = 'service_role'::text)",
+     "roles": [
+      "public"
+     ],
+     "permissive": "PERMISSIVE",
+     "with_check": null
+    }
+   ],
+   "rls_forced": false,
+   "table_name": "company_invitations",
+   "rls_enabled": true
+  },
+  {
+   "grants": {
+    "anon": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ],
+    "service_role": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ],
+    "authenticated": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ]
+   },
+   "policies": [],
+   "rls_forced": false,
+   "table_name": "company_users",
+   "rls_enabled": true
+  },
+  {
+   "grants": {
+    "anon": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ],
+    "service_role": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ],
+    "authenticated": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ]
+   },
+   "policies": [],
+   "rls_forced": false,
+   "table_name": "data_versions",
+   "rls_enabled": true
+  },
+  {
+   "grants": {
+    "anon": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ],
+    "service_role": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ],
+    "authenticated": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ]
+   },
+   "policies": [],
+   "rls_forced": false,
+   "table_name": "deletion_requests",
+   "rls_enabled": true
+  },
+  {
+   "grants": {
+    "service_role": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ]
+   },
+   "policies": [
+    {
+     "cmd": "ALL",
+     "name": "Service role full access",
+     "qual": "true",
+     "roles": [
+      "service_role"
+     ],
+     "permissive": "PERMISSIVE",
+     "with_check": "true"
+    }
+   ],
+   "rls_forced": false,
+   "table_name": "employer_accounts",
+   "rls_enabled": true
+  },
+  {
+   "grants": {
+    "anon": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ],
+    "service_role": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ],
+    "authenticated": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ]
+   },
+   "policies": [
+    {
+     "cmd": "INSERT",
+     "name": "Allow anonymous inserts on employer_benchmark_sessions",
+     "qual": null,
+     "roles": [
+      "public"
+     ],
+     "permissive": "PERMISSIVE",
+     "with_check": "true"
+    },
+    {
+     "cmd": "ALL",
+     "name": "Service role full access on employer_benchmark_sessions",
+     "qual": "(auth.role() = 'service_role'::text)",
+     "roles": [
+      "public"
+     ],
+     "permissive": "PERMISSIVE",
+     "with_check": null
+    }
+   ],
+   "rls_forced": false,
+   "table_name": "employer_benchmark_sessions",
+   "rls_enabled": true
+  },
+  {
+   "grants": {
+    "anon": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ],
+    "service_role": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ],
+    "authenticated": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ]
+   },
+   "policies": [
+    {
+     "cmd": "INSERT",
+     "name": "Allow anonymous inserts on employer_claims_uploads",
+     "qual": null,
+     "roles": [
+      "public"
+     ],
+     "permissive": "PERMISSIVE",
+     "with_check": "true"
+    },
+    {
+     "cmd": "ALL",
+     "name": "Service role full access on employer_claims_uploads",
+     "qual": "(auth.role() = 'service_role'::text)",
+     "roles": [
+      "public"
+     ],
+     "permissive": "PERMISSIVE",
+     "with_check": null
+    }
+   ],
+   "rls_forced": false,
+   "table_name": "employer_claims_uploads",
+   "rls_enabled": true
+  },
+  {
+   "grants": {
+    "service_role": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ]
+   },
+   "policies": [
+    {
+     "cmd": "ALL",
+     "name": "Service role full access",
+     "qual": "true",
+     "roles": [
+      "service_role"
+     ],
+     "permissive": "PERMISSIVE",
+     "with_check": "true"
+    }
+   ],
+   "rls_forced": false,
+   "table_name": "employer_contributions",
+   "rls_enabled": true
+  },
+  {
+   "grants": {
+    "anon": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ],
+    "service_role": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ],
+    "authenticated": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ]
+   },
+   "policies": [
+    {
+     "cmd": "INSERT",
+     "name": "Allow anonymous inserts on employer_scorecard_sessions",
+     "qual": null,
+     "roles": [
+      "public"
+     ],
+     "permissive": "PERMISSIVE",
+     "with_check": "true"
+    },
+    {
+     "cmd": "ALL",
+     "name": "Service role full access on employer_scorecard_sessions",
+     "qual": "(auth.role() = 'service_role'::text)",
+     "roles": [
+      "public"
+     ],
+     "permissive": "PERMISSIVE",
+     "with_check": null
+    }
+   ],
+   "rls_forced": false,
+   "table_name": "employer_scorecard_sessions",
+   "rls_enabled": true
+  },
+  {
+   "grants": {
+    "anon": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ],
+    "service_role": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ],
+    "authenticated": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ]
+   },
+   "policies": [
+    {
+     "cmd": "ALL",
+     "name": "Service role full access on employer_subscriptions",
+     "qual": "(auth.role() = 'service_role'::text)",
+     "roles": [
+      "public"
+     ],
+     "permissive": "PERMISSIVE",
+     "with_check": null
+    }
+   ],
+   "rls_forced": false,
+   "table_name": "employer_subscriptions",
+   "rls_enabled": true
+  },
+  {
+   "grants": {
+    "anon": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ],
+    "service_role": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ],
+    "authenticated": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ]
+   },
+   "policies": [
+    {
+     "cmd": "ALL",
+     "name": "service role full access",
+     "qual": "true",
+     "roles": [
+      "service_role"
+     ],
+     "permissive": "PERMISSIVE",
+     "with_check": "true"
+    }
+   ],
+   "rls_forced": false,
+   "table_name": "employer_trends_cache",
+   "rls_enabled": true
+  },
+  {
+   "grants": {
+    "service_role": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ]
+   },
+   "policies": [
+    {
+     "cmd": "ALL",
+     "name": "Service role full access",
+     "qual": "true",
+     "roles": [
+      "service_role"
+     ],
+     "permissive": "PERMISSIVE",
+     "with_check": "true"
+    }
+   ],
+   "rls_forced": false,
+   "table_name": "employer_users",
+   "rls_enabled": true
+  },
+  {
+   "grants": {
+    "service_role": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ]
+   },
+   "policies": [],
+   "rls_forced": false,
+   "table_name": "evidence_item",
+   "rls_enabled": true
+  },
+  {
+   "grants": {
+    "service_role": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ]
+   },
+   "policies": [],
+   "rls_forced": false,
+   "table_name": "evidence_query",
+   "rls_enabled": true
+  },
+  {
+   "grants": {
+    "anon": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ],
+    "service_role": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ],
+    "authenticated": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ]
+   },
+   "policies": [
+    {
+     "cmd": "ALL",
+     "name": "service_role_all",
+     "qual": "(auth.role() = 'service_role'::text)",
+     "roles": [
+      "public"
+     ],
+     "permissive": "PERMISSIVE",
+     "with_check": "(auth.role() = 'service_role'::text)"
+    }
+   ],
+   "rls_forced": false,
+   "table_name": "health_sbc_uploads",
+   "rls_enabled": true
+  },
+  {
+   "grants": {
+    "service_role": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ]
+   },
+   "policies": [
+    {
+     "cmd": "ALL",
+     "name": "Service role full access",
+     "qual": "true",
+     "roles": [
+      "service_role"
+     ],
+     "permissive": "PERMISSIVE",
+     "with_check": "true"
+    }
+   ],
+   "rls_forced": false,
+   "table_name": "health_subscriptions",
+   "rls_enabled": true
+  },
+  {
+   "grants": {
+    "service_role": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ]
+   },
+   "policies": [
+    {
+     "cmd": "ALL",
+     "name": "Service role full access",
+     "qual": "true",
+     "roles": [
+      "service_role"
+     ],
+     "permissive": "PERMISSIVE",
+     "with_check": "true"
+    }
+   ],
+   "rls_forced": false,
+   "table_name": "health_users",
+   "rls_enabled": true
+  },
+  {
+   "grants": {
+    "anon": [
+     "SELECT"
+    ],
+    "service_role": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ],
+    "authenticated": [
+     "SELECT"
+    ]
+   },
+   "policies": [
+    {
+     "cmd": "SELECT",
+     "name": "Public read",
+     "qual": "true",
+     "roles": [
+      "anon",
+      "authenticated"
+     ],
+     "permissive": "PERMISSIVE",
+     "with_check": null
+    },
+    {
+     "cmd": "ALL",
+     "name": "Service role full access",
+     "qual": "true",
+     "roles": [
+      "service_role"
+     ],
+     "permissive": "PERMISSIVE",
+     "with_check": "true"
+    }
+   ],
+   "rls_forced": false,
+   "table_name": "mue_limits",
+   "rls_enabled": true
+  },
+  {
+   "grants": {
+    "anon": [
+     "SELECT"
+    ],
+    "service_role": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ],
+    "authenticated": [
+     "SELECT"
+    ]
+   },
+   "policies": [
+    {
+     "cmd": "SELECT",
+     "name": "Public read",
+     "qual": "true",
+     "roles": [
+      "anon",
+      "authenticated"
+     ],
+     "permissive": "PERMISSIVE",
+     "with_check": null
+    },
+    {
+     "cmd": "ALL",
+     "name": "Service role full access",
+     "qual": "true",
+     "roles": [
+      "service_role"
+     ],
+     "permissive": "PERMISSIVE",
+     "with_check": "true"
+    }
+   ],
+   "rls_forced": false,
+   "table_name": "ncci_edits",
+   "rls_enabled": true
+  },
+  {
+   "grants": {
+    "anon": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ],
+    "service_role": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ],
+    "authenticated": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ]
+   },
+   "policies": [
+    {
+     "cmd": "SELECT",
+     "name": "Public read opps rates historical",
+     "qual": "true",
+     "roles": [
+      "public"
+     ],
+     "permissive": "PERMISSIVE",
+     "with_check": null
+    },
+    {
+     "cmd": "ALL",
+     "name": "Service role full access on opps rates historical",
+     "qual": "true",
+     "roles": [
+      "service_role"
+     ],
+     "permissive": "PERMISSIVE",
+     "with_check": "true"
+    }
+   ],
+   "rls_forced": false,
+   "table_name": "opps_rates_historical",
+   "rls_enabled": true
+  },
+  {
+   "grants": {
+    "anon": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ],
+    "service_role": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ],
+    "authenticated": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ]
+   },
+   "policies": [
+    {
+     "cmd": "ALL",
+     "name": "Service role full access on otp_codes",
+     "qual": "(auth.role() = 'service_role'::text)",
+     "roles": [
+      "public"
+     ],
+     "permissive": "PERMISSIVE",
+     "with_check": "(auth.role() = 'service_role'::text)"
+    }
+   ],
+   "rls_forced": false,
+   "table_name": "otp_codes",
+   "rls_enabled": true
+  },
+  {
+   "grants": {
+    "anon": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ],
+    "service_role": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ],
+    "authenticated": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ]
+   },
+   "policies": [],
+   "rls_forced": false,
+   "table_name": "payer_performance_history",
+   "rls_enabled": true
+  },
+  {
+   "grants": {
+    "anon": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ],
+    "service_role": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ],
+    "authenticated": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ]
+   },
+   "policies": [
+    {
+     "cmd": "SELECT",
+     "name": "Public read pfs rates historical",
+     "qual": "true",
+     "roles": [
+      "public"
+     ],
+     "permissive": "PERMISSIVE",
+     "with_check": null
+    },
+    {
+     "cmd": "ALL",
+     "name": "Service role full access on pfs rates historical",
+     "qual": "true",
+     "roles": [
+      "service_role"
+     ],
+     "permissive": "PERMISSIVE",
+     "with_check": "true"
+    }
+   ],
+   "rls_forced": false,
+   "table_name": "pfs_rates_historical",
+   "rls_enabled": true
+  },
+  {
+   "grants": {
+    "anon": [
+     "SELECT"
+    ],
+    "service_role": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ],
+    "authenticated": [
+     "SELECT"
+    ]
+   },
+   "policies": [
+    {
+     "cmd": "SELECT",
+     "name": "Public read",
+     "qual": "true",
+     "roles": [
+      "anon",
+      "authenticated"
+     ],
+     "permissive": "PERMISSIVE",
+     "with_check": null
+    },
+    {
+     "cmd": "ALL",
+     "name": "Service role full access",
+     "qual": "true",
+     "roles": [
+      "service_role"
+     ],
+     "permissive": "PERMISSIVE",
+     "with_check": "true"
+    }
+   ],
+   "rls_forced": false,
+   "table_name": "pharmacy_asp",
+   "rls_enabled": true
+  },
+  {
+   "grants": {
+    "anon": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ],
+    "service_role": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ],
+    "authenticated": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ]
+   },
+   "policies": [],
+   "rls_forced": false,
+   "table_name": "pharmacy_benchmarks",
+   "rls_enabled": true
+  },
+  {
+   "grants": {
+    "anon": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ],
+    "service_role": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ],
+    "authenticated": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ]
+   },
+   "policies": [],
+   "rls_forced": false,
+   "table_name": "pharmacy_nadac",
+   "rls_enabled": true
+  },
+  {
+   "grants": {
+    "anon": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ],
+    "service_role": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ],
+    "authenticated": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ]
+   },
+   "policies": [],
+   "rls_forced": false,
+   "table_name": "platform_cases",
+   "rls_enabled": true
+  },
+  {
+   "grants": {
+    "anon": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ],
+    "service_role": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ],
+    "authenticated": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ]
+   },
+   "policies": [
+    {
+     "cmd": "ALL",
+     "name": "practice_portal_settings_service_role",
+     "qual": "(auth.role() = 'service_role'::text)",
+     "roles": [
+      "public"
+     ],
+     "permissive": "PERMISSIVE",
+     "with_check": "(auth.role() = 'service_role'::text)"
+    }
+   ],
+   "rls_forced": false,
+   "table_name": "practice_portal_settings",
+   "rls_enabled": true
+  },
+  {
+   "grants": {
+    "anon": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ],
+    "service_role": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ],
+    "authenticated": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ]
+   },
+   "policies": [
+    {
+     "cmd": "INSERT",
+     "name": "Users can insert own profile",
+     "qual": null,
+     "roles": [
+      "public"
+     ],
+     "permissive": "PERMISSIVE",
+     "with_check": "(auth.uid() = id)"
+    },
+    {
+     "cmd": "SELECT",
+     "name": "Users can read own profile",
+     "qual": "(auth.uid() = id)",
+     "roles": [
+      "public"
+     ],
+     "permissive": "PERMISSIVE",
+     "with_check": null
+    },
+    {
+     "cmd": "UPDATE",
+     "name": "Users can update own profile",
+     "qual": "(auth.uid() = id)",
+     "roles": [
+      "public"
+     ],
+     "permissive": "PERMISSIVE",
+     "with_check": null
+    }
+   ],
+   "rls_forced": false,
+   "table_name": "profiles",
+   "rls_enabled": true
+  },
+  {
+   "grants": {
+    "service_role": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ]
+   },
+   "policies": [
+    {
+     "cmd": "ALL",
+     "name": "Service role full access",
+     "qual": "true",
+     "roles": [
+      "service_role"
+     ],
+     "permissive": "PERMISSIVE",
+     "with_check": "true"
+    }
+   ],
+   "rls_forced": false,
+   "table_name": "provider_analyses",
+   "rls_enabled": true
+  },
+  {
+   "grants": {
+    "anon": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ],
+    "service_role": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ],
+    "authenticated": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ]
+   },
+   "policies": [],
+   "rls_forced": false,
+   "table_name": "provider_appeal_letters",
+   "rls_enabled": true
+  },
+  {
+   "grants": {
+    "anon": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ],
+    "service_role": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ],
+    "authenticated": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ]
+   },
+   "policies": [],
+   "rls_forced": false,
+   "table_name": "provider_appeal_outcomes",
+   "rls_enabled": true
+  },
+  {
+   "grants": {
+    "service_role": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ]
+   },
+   "policies": [
+    {
+     "cmd": "ALL",
+     "name": "Service role full access",
+     "qual": "true",
+     "roles": [
+      "service_role"
+     ],
+     "permissive": "PERMISSIVE",
+     "with_check": "true"
+    }
+   ],
+   "rls_forced": false,
+   "table_name": "provider_appeals",
+   "rls_enabled": true
+  },
+  {
+   "grants": {
+    "service_role": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ]
+   },
+   "policies": [
+    {
+     "cmd": "ALL",
+     "name": "Service role full access",
+     "qual": "true",
+     "roles": [
+      "service_role"
+     ],
+     "permissive": "PERMISSIVE",
+     "with_check": "true"
+    }
+   ],
+   "rls_forced": false,
+   "table_name": "provider_audits",
+   "rls_enabled": true
+  },
+  {
+   "grants": {
+    "anon": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ],
+    "service_role": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ],
+    "authenticated": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ]
+   },
+   "policies": [],
+   "rls_forced": false,
+   "table_name": "provider_benchmark_observations",
+   "rls_enabled": true
+  },
+  {
+   "grants": {
+    "service_role": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ]
+   },
+   "policies": [
+    {
+     "cmd": "ALL",
+     "name": "Service role full access",
+     "qual": "true",
+     "roles": [
+      "service_role"
+     ],
+     "permissive": "PERMISSIVE",
+     "with_check": "true"
+    }
+   ],
+   "rls_forced": false,
+   "table_name": "provider_contracts",
+   "rls_enabled": true
+  },
+  {
+   "grants": {
+    "anon": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ],
+    "service_role": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ],
+    "authenticated": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ]
+   },
+   "policies": [
+    {
+     "cmd": "ALL",
+     "name": "service_role_full_access",
+     "qual": "true",
+     "roles": [
+      "service_role"
+     ],
+     "permissive": "PERMISSIVE",
+     "with_check": "true"
+    }
+   ],
+   "rls_forced": false,
+   "table_name": "provider_denial_patterns",
+   "rls_enabled": true
+  },
+  {
+   "grants": {
+    "service_role": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ]
+   },
+   "policies": [
+    {
+     "cmd": "ALL",
+     "name": "Service role full access",
+     "qual": "true",
+     "roles": [
+      "service_role"
+     ],
+     "permissive": "PERMISSIVE",
+     "with_check": "true"
+    }
+   ],
+   "rls_forced": false,
+   "table_name": "provider_profiles",
+   "rls_enabled": true
+  },
+  {
+   "grants": {
+    "service_role": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ]
+   },
+   "policies": [
+    {
+     "cmd": "ALL",
+     "name": "Service role full access",
+     "qual": "true",
+     "roles": [
+      "service_role"
+     ],
+     "permissive": "PERMISSIVE",
+     "with_check": "true"
+    }
+   ],
+   "rls_forced": false,
+   "table_name": "provider_subscriptions",
+   "rls_enabled": true
+  },
+  {
+   "grants": {
+    "anon": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ],
+    "service_role": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ],
+    "authenticated": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ]
+   },
+   "policies": [
+    {
+     "cmd": "SELECT",
+     "name": "Public read rate schedule versions",
+     "qual": "true",
+     "roles": [
+      "public"
+     ],
+     "permissive": "PERMISSIVE",
+     "with_check": null
+    },
+    {
+     "cmd": "ALL",
+     "name": "Service role full access on rate schedule versions",
+     "qual": "true",
+     "roles": [
+      "service_role"
+     ],
+     "permissive": "PERMISSIVE",
+     "with_check": "true"
+    }
+   ],
+   "rls_forced": false,
+   "table_name": "rate_schedule_versions",
+   "rls_enabled": true
+  },
+  {
+   "grants": {
+    "anon": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ],
+    "service_role": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ],
+    "authenticated": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ]
+   },
+   "policies": [],
+   "rls_forced": false,
+   "table_name": "sessions",
+   "rls_enabled": true
+  },
+  {
+   "grants": {
+    "anon": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ],
+    "service_role": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ],
+    "authenticated": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ]
+   },
+   "policies": [
+    {
+     "cmd": "SELECT",
+     "name": "Public read analytical profiles",
+     "qual": "true",
+     "roles": [
+      "public"
+     ],
+     "permissive": "PERMISSIVE",
+     "with_check": null
+    },
+    {
+     "cmd": "ALL",
+     "name": "Service role full access on analytical profiles",
+     "qual": "true",
+     "roles": [
+      "service_role"
+     ],
+     "permissive": "PERMISSIVE",
+     "with_check": "true"
+    }
+   ],
+   "rls_forced": false,
+   "table_name": "signal_analytical_profiles",
+   "rls_enabled": true
+  },
+  {
+   "grants": {
+    "anon": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ],
+    "service_role": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ],
+    "authenticated": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ]
+   },
+   "policies": [
+    {
+     "cmd": "SELECT",
+     "name": "Published read signal_claim_composites",
+     "qual": "(EXISTS ( SELECT 1\n   FROM (signal_claims c\n     JOIN signal_issues i ON ((i.id = c.issue_id)))\n  WHERE ((c.id = signal_claim_composites.claim_id) AND (i.status = 'published'::text))))",
+     "roles": [
+      "anon",
+      "authenticated"
+     ],
+     "permissive": "PERMISSIVE",
+     "with_check": null
+    }
+   ],
+   "rls_forced": false,
+   "table_name": "signal_claim_composites",
+   "rls_enabled": true
+  },
+  {
+   "grants": {
+    "anon": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ],
+    "service_role": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ],
+    "authenticated": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ]
+   },
+   "policies": [
+    {
+     "cmd": "SELECT",
+     "name": "Published read signal_claim_scores",
+     "qual": "(EXISTS ( SELECT 1\n   FROM (signal_claims c\n     JOIN signal_issues i ON ((i.id = c.issue_id)))\n  WHERE ((c.id = signal_claim_scores.claim_id) AND (i.status = 'published'::text))))",
+     "roles": [
+      "anon",
+      "authenticated"
+     ],
+     "permissive": "PERMISSIVE",
+     "with_check": null
+    }
+   ],
+   "rls_forced": false,
+   "table_name": "signal_claim_scores",
+   "rls_enabled": true
+  },
+  {
+   "grants": {
+    "anon": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ],
+    "service_role": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ],
+    "authenticated": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ]
+   },
+   "policies": [
+    {
+     "cmd": "SELECT",
+     "name": "Published read signal_claim_sources",
+     "qual": "(EXISTS ( SELECT 1\n   FROM (signal_claims c\n     JOIN signal_issues i ON ((i.id = c.issue_id)))\n  WHERE ((c.id = signal_claim_sources.claim_id) AND (i.status = 'published'::text))))",
+     "roles": [
+      "anon",
+      "authenticated"
+     ],
+     "permissive": "PERMISSIVE",
+     "with_check": null
+    }
+   ],
+   "rls_forced": false,
+   "table_name": "signal_claim_sources",
+   "rls_enabled": true
+  },
+  {
+   "grants": {
+    "anon": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ],
+    "service_role": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ],
+    "authenticated": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ]
+   },
+   "policies": [
+    {
+     "cmd": "SELECT",
+     "name": "Published read signal_claims",
+     "qual": "(EXISTS ( SELECT 1\n   FROM signal_issues i\n  WHERE ((i.id = signal_claims.issue_id) AND (i.status = 'published'::text))))",
+     "roles": [
+      "anon",
+      "authenticated"
+     ],
+     "permissive": "PERMISSIVE",
+     "with_check": null
+    }
+   ],
+   "rls_forced": false,
+   "table_name": "signal_claims",
+   "rls_enabled": true
+  },
+  {
+   "grants": {
+    "anon": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ],
+    "service_role": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ],
+    "authenticated": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ]
+   },
+   "policies": [
+    {
+     "cmd": "SELECT",
+     "name": "Published read signal_consensus",
+     "qual": "(EXISTS ( SELECT 1\n   FROM signal_issues i\n  WHERE ((i.id = signal_consensus.issue_id) AND (i.status = 'published'::text))))",
+     "roles": [
+      "anon",
+      "authenticated"
+     ],
+     "permissive": "PERMISSIVE",
+     "with_check": null
+    }
+   ],
+   "rls_forced": false,
+   "table_name": "signal_consensus",
+   "rls_enabled": true
+  },
+  {
+   "grants": {
+    "service_role": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ]
+   },
+   "policies": [],
+   "rls_forced": false,
+   "table_name": "signal_consensus_backup_20260825",
+   "rls_enabled": true
+  },
+  {
+   "grants": {
+    "anon": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ],
+    "service_role": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ],
+    "authenticated": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ]
+   },
+   "policies": [
+    {
+     "cmd": "SELECT",
+     "name": "Published read signal_cpt_mappings",
+     "qual": "(EXISTS ( SELECT 1\n   FROM signal_issues i\n  WHERE ((i.slug = signal_cpt_mappings.topic_slug) AND (i.status = 'published'::text))))",
+     "roles": [
+      "anon",
+      "authenticated"
+     ],
+     "permissive": "PERMISSIVE",
+     "with_check": null
+    },
+    {
+     "cmd": "ALL",
+     "name": "Service role full access on signal_cpt_mappings",
+     "qual": "true",
+     "roles": [
+      "service_role"
+     ],
+     "permissive": "PERMISSIVE",
+     "with_check": "true"
+    }
+   ],
+   "rls_forced": false,
+   "table_name": "signal_cpt_mappings",
+   "rls_enabled": true
+  },
+  {
+   "grants": {
+    "anon": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ],
+    "service_role": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ],
+    "authenticated": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ]
+   },
+   "policies": [
+    {
+     "cmd": "SELECT",
+     "name": "Published read signal_denial_playbook",
+     "qual": "(EXISTS ( SELECT 1\n   FROM signal_issues i\n  WHERE ((i.slug = signal_denial_playbook.signal_topic_slug) AND (i.status = 'published'::text))))",
+     "roles": [
+      "anon",
+      "authenticated"
+     ],
+     "permissive": "PERMISSIVE",
+     "with_check": null
+    },
+    {
+     "cmd": "ALL",
+     "name": "service_role_full_access",
+     "qual": "true",
+     "roles": [
+      "service_role"
+     ],
+     "permissive": "PERMISSIVE",
+     "with_check": "true"
+    }
+   ],
+   "rls_forced": false,
+   "table_name": "signal_denial_playbook",
+   "rls_enabled": true
+  },
+  {
+   "grants": {
+    "anon": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ],
+    "service_role": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ],
+    "authenticated": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ]
+   },
+   "policies": [
+    {
+     "cmd": "INSERT",
+     "name": "Authenticated users can insert events",
+     "qual": null,
+     "roles": [
+      "authenticated"
+     ],
+     "permissive": "PERMISSIVE",
+     "with_check": "true"
+    },
+    {
+     "cmd": "ALL",
+     "name": "Service role full access on events",
+     "qual": "true",
+     "roles": [
+      "service_role"
+     ],
+     "permissive": "PERMISSIVE",
+     "with_check": "true"
+    }
+   ],
+   "rls_forced": false,
+   "table_name": "signal_events",
+   "rls_enabled": true
+  },
+  {
+   "grants": {
+    "anon": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ],
+    "service_role": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ],
+    "authenticated": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ]
+   },
+   "policies": [
+    {
+     "cmd": "SELECT",
+     "name": "Published read signal_evidence_updates",
+     "qual": "(EXISTS ( SELECT 1\n   FROM signal_issues i\n  WHERE ((i.id = signal_evidence_updates.issue_id) AND (i.status = 'published'::text))))",
+     "roles": [
+      "anon",
+      "authenticated"
+     ],
+     "permissive": "PERMISSIVE",
+     "with_check": null
+    },
+    {
+     "cmd": "ALL",
+     "name": "Service role full access on evidence updates",
+     "qual": "true",
+     "roles": [
+      "service_role"
+     ],
+     "permissive": "PERMISSIVE",
+     "with_check": "true"
+    }
+   ],
+   "rls_forced": false,
+   "table_name": "signal_evidence_updates",
+   "rls_enabled": true
+  },
+  {
+   "grants": {
+    "anon": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ],
+    "service_role": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ],
+    "authenticated": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ]
+   },
+   "policies": [
+    {
+     "cmd": "SELECT",
+     "name": "Published read signal_issues",
+     "qual": "(status = 'published'::text)",
+     "roles": [
+      "anon",
+      "authenticated"
+     ],
+     "permissive": "PERMISSIVE",
+     "with_check": null
+    }
+   ],
+   "rls_forced": false,
+   "table_name": "signal_issues",
+   "rls_enabled": true
+  },
+  {
+   "grants": {
+    "anon": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ],
+    "service_role": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ],
+    "authenticated": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ]
+   },
+   "policies": [
+    {
+     "cmd": "ALL",
+     "name": "Service role full access on notification preferences",
+     "qual": "true",
+     "roles": [
+      "service_role"
+     ],
+     "permissive": "PERMISSIVE",
+     "with_check": "true"
+    },
+    {
+     "cmd": "INSERT",
+     "name": "Users can insert own notification preferences",
+     "qual": null,
+     "roles": [
+      "public"
+     ],
+     "permissive": "PERMISSIVE",
+     "with_check": "(auth.uid() = user_id)"
+    },
+    {
+     "cmd": "SELECT",
+     "name": "Users can read own notification preferences",
+     "qual": "(auth.uid() = user_id)",
+     "roles": [
+      "public"
+     ],
+     "permissive": "PERMISSIVE",
+     "with_check": null
+    },
+    {
+     "cmd": "UPDATE",
+     "name": "Users can update own notification preferences",
+     "qual": "(auth.uid() = user_id)",
+     "roles": [
+      "public"
+     ],
+     "permissive": "PERMISSIVE",
+     "with_check": null
+    }
+   ],
+   "rls_forced": false,
+   "table_name": "signal_notification_preferences",
+   "rls_enabled": true
+  },
+  {
+   "grants": {
+    "anon": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ],
+    "service_role": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ],
+    "authenticated": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ]
+   },
+   "policies": [
+    {
+     "cmd": "ALL",
+     "name": "Service role full access on notifications",
+     "qual": "true",
+     "roles": [
+      "service_role"
+     ],
+     "permissive": "PERMISSIVE",
+     "with_check": "true"
+    },
+    {
+     "cmd": "SELECT",
+     "name": "Users can read own notifications",
+     "qual": "(auth.uid() = user_id)",
+     "roles": [
+      "public"
+     ],
+     "permissive": "PERMISSIVE",
+     "with_check": null
+    },
+    {
+     "cmd": "UPDATE",
+     "name": "Users can update own notifications",
+     "qual": "(auth.uid() = user_id)",
+     "roles": [
+      "public"
+     ],
+     "permissive": "PERMISSIVE",
+     "with_check": null
+    }
+   ],
+   "rls_forced": false,
+   "table_name": "signal_notifications",
+   "rls_enabled": true
+  },
+  {
+   "grants": {
+    "service_role": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ]
+   },
+   "policies": [],
+   "rls_forced": false,
+   "table_name": "signal_pipeline_snapshots",
+   "rls_enabled": true
+  },
+  {
+   "grants": {
+    "anon": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ],
+    "service_role": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ],
+    "authenticated": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ]
+   },
+   "policies": [
+    {
+     "cmd": "SELECT",
+     "name": "Public read platform metrics",
+     "qual": "true",
+     "roles": [
+      "public"
+     ],
+     "permissive": "PERMISSIVE",
+     "with_check": null
+    },
+    {
+     "cmd": "ALL",
+     "name": "Service role full access on platform metrics",
+     "qual": "true",
+     "roles": [
+      "service_role"
+     ],
+     "permissive": "PERMISSIVE",
+     "with_check": "true"
+    }
+   ],
+   "rls_forced": false,
+   "table_name": "signal_platform_metrics",
+   "rls_enabled": true
+  },
+  {
+   "grants": {
+    "anon": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ],
+    "service_role": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ],
+    "authenticated": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ]
+   },
+   "policies": [
+    {
+     "cmd": "SELECT",
+     "name": "Published read signal_sources",
+     "qual": "(EXISTS ( SELECT 1\n   FROM signal_issues i\n  WHERE ((i.id = signal_sources.issue_id) AND (i.status = 'published'::text))))",
+     "roles": [
+      "anon",
+      "authenticated"
+     ],
+     "permissive": "PERMISSIVE",
+     "with_check": null
+    }
+   ],
+   "rls_forced": false,
+   "table_name": "signal_sources",
+   "rls_enabled": true
+  },
+  {
+   "grants": {
+    "anon": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ],
+    "service_role": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ],
+    "authenticated": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ]
+   },
+   "policies": [
+    {
+     "cmd": "ALL",
+     "name": "Service role full access on subscriptions",
+     "qual": "true",
+     "roles": [
+      "service_role"
+     ],
+     "permissive": "PERMISSIVE",
+     "with_check": "true"
+    },
+    {
+     "cmd": "SELECT",
+     "name": "Users can read own subscription",
+     "qual": "(auth.uid() = user_id)",
+     "roles": [
+      "public"
+     ],
+     "permissive": "PERMISSIVE",
+     "with_check": null
+    }
+   ],
+   "rls_forced": false,
+   "table_name": "signal_subscriptions",
+   "rls_enabled": true
+  },
+  {
+   "grants": {
+    "anon": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ],
+    "service_role": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ],
+    "authenticated": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ]
+   },
+   "policies": [
+    {
+     "cmd": "SELECT",
+     "name": "Published read signal_summaries",
+     "qual": "(EXISTS ( SELECT 1\n   FROM signal_issues i\n  WHERE ((i.id = signal_summaries.issue_id) AND (i.status = 'published'::text))))",
+     "roles": [
+      "anon",
+      "authenticated"
+     ],
+     "permissive": "PERMISSIVE",
+     "with_check": null
+    }
+   ],
+   "rls_forced": false,
+   "table_name": "signal_summaries",
+   "rls_enabled": true
+  },
+  {
+   "grants": {
+    "anon": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ],
+    "service_role": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ],
+    "authenticated": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ]
+   },
+   "policies": [
+    {
+     "cmd": "INSERT",
+     "name": "Users can insert own requests",
+     "qual": null,
+     "roles": [
+      "public"
+     ],
+     "permissive": "PERMISSIVE",
+     "with_check": "(auth.uid() = user_id)"
+    },
+    {
+     "cmd": "SELECT",
+     "name": "Users can read own requests",
+     "qual": "(auth.uid() = user_id)",
+     "roles": [
+      "public"
+     ],
+     "permissive": "PERMISSIVE",
+     "with_check": null
+    }
+   ],
+   "rls_forced": false,
+   "table_name": "signal_topic_requests",
+   "rls_enabled": true
+  },
+  {
+   "grants": {
+    "anon": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ],
+    "service_role": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ],
+    "authenticated": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ]
+   },
+   "policies": [
+    {
+     "cmd": "ALL",
+     "name": "Service role full access on topic subscriptions",
+     "qual": "true",
+     "roles": [
+      "service_role"
+     ],
+     "permissive": "PERMISSIVE",
+     "with_check": "true"
+    },
+    {
+     "cmd": "INSERT",
+     "name": "Users can insert own topic subscriptions",
+     "qual": null,
+     "roles": [
+      "public"
+     ],
+     "permissive": "PERMISSIVE",
+     "with_check": "(auth.uid() = user_id)"
+    },
+    {
+     "cmd": "SELECT",
+     "name": "Users can read own topic subscriptions",
+     "qual": "(auth.uid() = user_id)",
+     "roles": [
+      "public"
+     ],
+     "permissive": "PERMISSIVE",
+     "with_check": null
+    },
+    {
+     "cmd": "UPDATE",
+     "name": "Users can update own topic subscriptions",
+     "qual": "(auth.uid() = user_id)",
+     "roles": [
+      "public"
+     ],
+     "permissive": "PERMISSIVE",
+     "with_check": null
+    }
+   ],
+   "rls_forced": false,
+   "table_name": "signal_topic_subscriptions",
+   "rls_enabled": true
+  },
+  {
+   "grants": {
+    "anon": [
+     "SELECT"
+    ],
+    "service_role": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ],
+    "authenticated": [
+     "SELECT"
+    ]
+   },
+   "policies": [
+    {
+     "cmd": "SELECT",
+     "name": "Published read topic_publications",
+     "qual": "(EXISTS ( SELECT 1\n   FROM signal_issues i\n  WHERE ((i.slug = topic_publications.slug) AND (i.status = 'published'::text))))",
+     "roles": [
+      "anon",
+      "authenticated"
+     ],
+     "permissive": "PERMISSIVE",
+     "with_check": null
+    }
+   ],
+   "rls_forced": false,
+   "table_name": "topic_publications",
+   "rls_enabled": true
+  },
+  {
+   "grants": {
+    "anon": [
+     "SELECT"
+    ],
+    "service_role": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ],
+    "authenticated": [
+     "SELECT"
+    ]
+   },
+   "policies": [
+    {
+     "cmd": "SELECT",
+     "name": "Published read topic_rechecks",
+     "qual": "(EXISTS ( SELECT 1\n   FROM signal_issues i\n  WHERE ((i.slug = topic_rechecks.slug) AND (i.status = 'published'::text))))",
+     "roles": [
+      "anon",
+      "authenticated"
+     ],
+     "permissive": "PERMISSIVE",
+     "with_check": null
+    }
+   ],
+   "rls_forced": false,
+   "table_name": "topic_rechecks",
+   "rls_enabled": true
+  },
+  {
+   "grants": {
+    "anon": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ],
+    "service_role": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ],
+    "authenticated": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ]
+   },
+   "policies": [],
+   "rls_forced": false,
+   "table_name": "whatholdsup_subscribers",
+   "rls_enabled": true
+  },
+  {
+   "grants": {
+    "anon": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ],
+    "service_role": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ],
+    "authenticated": [
+     "DELETE",
+     "INSERT",
+     "REFERENCES",
+     "SELECT",
+     "TRIGGER",
+     "TRUNCATE",
+     "UPDATE"
+    ]
+   },
+   "policies": [],
+   "rls_forced": false,
+   "table_name": "whatholdsup_unsubscribes",
+   "rls_enabled": true
+  }
+ ]
+}

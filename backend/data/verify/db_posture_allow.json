@@ -1,0 +1,14 @@
+{
+  "_note": "Tables a person has decided may be READ by the public anon key (SELECT USING (true), SELECT grant only). Every entry carries the reason. Anything else that admits anon or authenticated unconditionally fails tests/verify/test_db_posture.py.",
+  "public_read": [
+    {"table": "clfs_rates_historical", "reason": "CMS Clinical Laboratory Fee Schedule, prior years: public reference data."},
+    {"table": "opps_rates_historical", "reason": "CMS OPPS rates, prior years: public reference data."},
+    {"table": "pfs_rates_historical", "reason": "CMS Physician Fee Schedule, prior years: public reference data."},
+    {"table": "rate_schedule_versions", "reason": "Which CMS schedule version is loaded: metadata about public reference data."},
+    {"table": "mue_limits", "reason": "CMS Medically Unlikely Edits: public reference data (read-only to clients since 086)."},
+    {"table": "ncci_edits", "reason": "CMS NCCI edit pairs: public reference data (read-only to clients since 086)."},
+    {"table": "pharmacy_asp", "reason": "CMS ASP drug pricing: public reference data (read-only to clients since 086)."},
+    {"table": "signal_analytical_profiles", "reason": "The four scoring-profile definitions (Balanced/Regulatory/Clinical/Patient) the public Signal UI renders in ProfileSelector; configuration, no user or corpus data."},
+    {"table": "signal_platform_metrics", "reason": "Landing-page counters (metric_key, metric_value, visible); published by design, read anonymously by the frontend."}
+  ]
+}

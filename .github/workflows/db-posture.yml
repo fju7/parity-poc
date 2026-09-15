@@ -1,0 +1,56 @@
+# Every table in the Parity public schema lands in a named bucket, or this fails.
+#
+# WHY
+# ---
+# 2026-09-15: fourteen tables carried a policy named "Service role full
+# access" written FOR ALL TO public USING (true); anyone with the anon key
+# could read, write and delete every provider appeal letter. A fifteenth,
+# provider_appeal_letters, had NO policy at all and was invisible to the
+# query that found the fourteen. The check that catches both enumerates
+# TABLES from pg_class (backend/verify/db_posture.py), through a
+# service-role-only function in the database (migration 087), and fails on
+# any table outside service_role_only / public_read / gated_read /
+# user_scoped -- including a policy whose NAME claims a condition its qual
+# does not implement, and any client grant no policy could use (TRUNCATE is
+# not subject to RLS).
+#
+# WHEN
+# ----
+# On every push to main (a migration lands with a push), and daily, because
+# a policy can also change from the dashboard with no commit at all.
+
+name: Database posture
+
+on:
+  schedule:
+    - cron: "30 13 * * *"     # daily 13:30 UTC
+  push:
+    branches: [main]
+    paths:
+      - "backend/migrations/**"
+      - "backend/verify/db_posture.py"
+      - "backend/data/verify/db_posture_allow.json"
+      - "backend/tests/verify/test_db_posture.py"
+      - ".github/workflows/db-posture.yml"
+  workflow_dispatch:
+
+jobs:
+  posture:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install (what production installs)
+        run: pip install -r backend/requirements.txt pytest
+      - name: Posture check against the live project
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        working-directory: backend
+        run: |
+          test -n "$SUPABASE_URL" -a -n "$SUPABASE_SERVICE_KEY" || { echo "credentials absent: a check that cannot see must not report success"; exit 1; }
+          python -m pytest tests/verify/test_db_posture.py -q -rs
+          python -m verify.db_posture
