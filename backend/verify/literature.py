@@ -174,9 +174,15 @@ def fetch(res: Resolution) -> Document | None:
         # as "fetch: nothing retrieved" for Wakefield 1998 and nine others.
         q = f'DOI:"{ident.value}"' if ident.system == "doi" else (
             f"EXT_ID:{ident.value} AND SRC:MED" if ident.system == "pmid" else f"PMCID:{ident.value}")
-        st, body, _ = http.get("https://www.ebi.ac.uk/europepmc/webservices/rest/search?query="
-                               + urllib.parse.quote(q) + "&format=json&pageSize=1&resultType=core")
+        st, body, headers = http.get("https://www.ebi.ac.uk/europepmc/webservices/rest/search?query="
+                                     + urllib.parse.quote(q) + "&format=json&pageSize=1&resultType=core")
         d = _json(body) if st == 200 else None
+        if not isinstance(d, dict):
+            # Europe PMC did not answer. The abstract it would have given is
+            # not "not there"; it is unfetched. Say so on the resolution, so
+            # publish records REGISTRY_UNAVAILABLE rather than "nothing
+            # retrieved" (2026-09-15: three abstracts lost that way mid-run).
+            res.extra.setdefault("fetch_unavailable", {})["europepmc"] = _unavailable_note(st, headers)
         hits = ((d or {}).get("resultList") or {}).get("result") or []
         r0 = hits[0] if hits else {}
         pmcid = r0.get("pmcid") or pmcid

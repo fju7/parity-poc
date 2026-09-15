@@ -233,3 +233,26 @@ def test_unchecked_at_gate_source_withholds_and_is_never_a_pass(monkeypatch):
     assert row["survives"] is False and row["withheld_reason"] == "resolve: UNCHECKED"
     assert row["resolution"]["exists"] == "UNCHECKED" and row["document"] is None and fetched == []   # nothing downstream ran
     publish._run_cache.clear()
+
+
+# --- the fetch path: an abstract Europe PMC did not serve is unfetched, not absent --
+
+def test_fetch_records_europepmc_unavailable_and_publish_says_so(monkeypatch):
+    """2026-09-15 re-freeze b902246: Europe PMC stopped answering mid-run and
+    three abstracts that had bound at 0b7359b were withheld as "nothing
+    retrieved (publisher: a shell ...)". The record must say the registry did
+    not answer."""
+    from verify import publish
+    from verify.types import Resolution
+    publish._run_cache.clear()
+    res = Resolution(identify("10.1056/nejmoa021134"), Exists.EXISTS, heading="A population-based study", canonical="https://doi.org/10.1056/nejmoa021134", registry="crossref", checked_at="t", extra={})
+    monkeypatch.setattr(literature, "resolve", lambda ident: res)
+    _inject(monkeypatch, literature, {"ebi.ac.uk": (429, b"", {"retries": "3"})})
+    from verify import generic
+    monkeypatch.setattr(generic, "fetch", lambda g: None)
+    monkeypatch.setattr(generic, "resolve", lambda i: Resolution(i, Exists.UNCHECKED, extra={"http": 403}))
+    row = publish.gate_source({"id": "s4", "title": "Madsen 2002", "url": "https://doi.org/10.1056/nejmoa021134", "source_type": "journal"})
+    assert row["survives"] is False
+    assert row["withheld_reason"].startswith("fetch: REGISTRY_UNAVAILABLE europepmc: HTTP 429 after 4 attempts")
+    assert row["resolution"]["fetch_unavailable"] == {"europepmc": "HTTP 429 after 4 attempts"}
+    publish._run_cache.clear()

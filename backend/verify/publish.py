@@ -149,7 +149,15 @@ def gate_source(row: dict) -> dict:
                                              "reason": g.extra.get("reason") or g.extra.get("error")}
     if doc is None:
         fb = out["resolution"].get("fallback") or {}
-        out["withheld_reason"] = "fetch: nothing retrieved" + (f" (publisher: HTTP {fb.get('http')} {fb.get('reason') or ''})".rstrip() if fb else "")
+        unavailable = (res.extra or {}).get("fetch_unavailable")
+        if unavailable:
+            # the registry that serves the text did not answer: a fact about
+            # the network, recorded apart from "the publisher served nothing"
+            out["resolution"]["fetch_unavailable"] = unavailable
+            out["withheld_reason"] = "fetch: REGISTRY_UNAVAILABLE " + "; ".join(f"{k}: {v}" for k, v in unavailable.items()) \
+                + (f" (publisher: HTTP {fb.get('http')} {fb.get('reason') or ''})".rstrip() if fb else "")
+        else:
+            out["withheld_reason"] = "fetch: nothing retrieved" + (f" (publisher: HTTP {fb.get('http')} {fb.get('reason') or ''})".rstrip() if fb else "")
         return out
     _run_cache[key] = (res, doc, st_cached)
     out["document"] = {"sha256": doc.sha256, "route": doc.route, "kind": doc.kind, "retrieved_at": doc.retrieved_at,
