@@ -25,6 +25,7 @@ from pathlib import Path
 
 from . import __version__, literature, law, generic, supplied
 from .bind import bind_figure, bind_heading, bind_span, _QUOTE
+from .subject import bind_subject
 from .chronology import bind_chronology
 from .numbers import figures, canonical_numbers
 from .status import check as status_check
@@ -34,7 +35,12 @@ BACKEND = Path(__file__).resolve().parents[1]
 PUBLISHED = BACKEND / "data" / "verify" / "published"
 DOCS = BACKEND / "data" / "verify" / "docs"
 
-SUPPORT_ORDER = ["UNSUPPORTED", "IDENTITY_ONLY", "SPAN_BOUND", "FIGURE_BOUND"]
+SUPPORT_ORDER = ["UNSUPPORTED", "IDENTITY_ONLY", "SUBJECT_BOUND", "SPAN_BOUND", "FIGURE_BOUND"]
+# What the page shows. IDENTITY_ONLY -- the source is the one named and its
+# text is held, but nothing in the claim matched that text -- is not a shown
+# state (2026-09-15: the operator's read of the live page found a claim shown
+# on a notice that says nothing of what it asserts, and 19 more like it).
+SHOWN = {"FIGURE_BOUND", "SPAN_BOUND", "SUBJECT_BOUND"}
 
 
 def _now() -> str:
@@ -302,7 +308,39 @@ def operator_withheld(claim_id: str) -> dict | None:
         return None
 
 
-def gate_claim(claim: dict, links: list[dict], sources: dict[str, dict]) -> dict:
+def subject_context(claims: list[dict], sources: dict[str, dict], topic_title: str) -> dict:
+    """What SUBJECT needs once per topic: how many claims each word occurs in,
+    how many held documents each stem occurs in, the topic's frequent
+    vocabulary (exempt from the content count) and its subject words (the
+    title's, which a supporting document must mention)."""
+    from .subject import document_frequency
+    from .text import normalise
+    freq: dict[str, int] = {}
+    for c in claims:
+        for w in set(normalise(c.get("claim_text") or "").split()):
+            freq[w] = freq.get(w, 0) + 1
+    n = max(len(claims), 1)
+    names = {normalise(t) for c in claims for t in re.findall(r"\b[A-Z][a-z]+\b", c.get("claim_text") or "")}
+    from .text import LITERATURE_BOILERPLATE
+    topic = {w for w, k in freq.items() if k >= 0.2 * n and len(w) > 3 and w not in LITERATURE_BOILERPLATE and w not in names}
+    subject = {w for w in normalise(topic_title).split() if len(w) > 3}
+    texts = [s["_doc"].text for s in sources.values() if s.get("survives") and s.get("_doc") is not None]
+    return {"claim_frequency": freq, "doc_frequency": document_frequency(texts), "topic_terms": topic | subject, "subject_terms": subject}
+
+
+def _source_words(src: dict) -> set[str]:
+    from .text import content_tokens, normalise, LITERATURE_BOILERPLATE
+    r = src.get("resolution") or {}
+    ws = set(content_tokens(src.get("title") or "", LITERATURE_BOILERPLATE))
+    for k in ("first_author", "container"):
+        if r.get(k):
+            ws |= set(normalise(str(r[k])).split())
+    if r.get("heading"):
+        ws |= set(content_tokens(r["heading"], LITERATURE_BOILERPLATE))
+    return ws
+
+
+def gate_claim(claim: dict, links: list[dict], sources: dict[str, dict], subject_ctx: dict | None = None) -> dict:
     """One signal_claims row against each of its surviving sources."""
     text = claim.get("claim_text") or ""
     held = operator_withheld(claim["id"])
@@ -385,11 +423,22 @@ def gate_claim(claim: dict, links: list[dict], sources: dict[str, dict]) -> dict
                 level = "SPAN_BOUND" if level == "IDENTITY_ONLY" else level
             elif not sb.ok:
                 level = "UNSUPPORTED"
+        # SUBJECT on every surviving link, levelling only a claim that has
+        # nothing else to bind on: a figure or a quotation found in the text is
+        # the stronger match and stands on its own.
+        ctx = subject_ctx or {}
+        r = src.get("resolution") or {}
+        registry_text = " ".join(str(x) for x in (src.get("registry_text", ""), r.get("container") or "", r.get("first_author") or "") if x)
+        subj = bind_subject(text, doc, _source_words(src), ctx.get("topic_terms", set()), registry_text,
+                            ctx.get("claim_frequency"), ctx.get("doc_frequency"), ctx.get("subject_terms"))
+        entry["bindings"].append(_b(subj))
+        if level == "IDENTITY_ONLY" and subj.ok:
+            level = "SUBJECT_BOUND"
         entry["level"] = level
         out["per_source"].append(entry)
         if SUPPORT_ORDER.index(level) > SUPPORT_ORDER.index(out["support"]):
             out["support"] = level
-        if level != "UNSUPPORTED":
+        if level in SHOWN:
             out["supported_by"].append(link["source_id"])
     return out
 
@@ -422,7 +471,8 @@ def publish(sb, slug: str, argv: list[str]) -> dict:
         st = (g.get("status") or {}).get("verdict") or ""
         print(f"  [{i:2}/{len(sources)}] {tag:9} {(g['identifier'] or {}).get('system','-'):5} {str(row['title'])[:60]:60} "
               f"{g['withheld_reason'] or ((g['document'] or {}).get('kind','') + ' ' + st)}")
-    claim_recs = [gate_claim(c, by_claim.get(c["id"], []), gated) for c in claims]
+    ctx = subject_context(claims, gated, issue["title"])
+    claim_recs = [gate_claim(c, by_claim.get(c["id"], []), gated, ctx) for c in claims]
 
     from collections import Counter
     src_summary = Counter("survived" if g["survives"] else (g["withheld_reason"] or "").split(":")[0] for g in gated.values())
@@ -433,7 +483,7 @@ def publish(sb, slug: str, argv: list[str]) -> dict:
         "topic": {"slug": slug, "title": issue["title"], "issue_id": iid, "status_before": issue["status"]},
         "publish_id": publish_id, "published_at": _now(),
         "published_by": {"login": getpass.getuser(), "host": platform.node(), "argv": argv},
-        "gate_version": gv,
+        "gate_version": {**gv, "bindings": ["HEADING", "CHRONOLOGY", "FIGURE", "SPAN", "SUBJECT"], "shown": sorted(SHOWN)},
         "rate_limits_rps": __import__("verify.http", fromlist=["rate_limits_in_force"]).rate_limits_in_force(),
         "sources": [{k: v for k, v in g.items() if k not in ("_doc", "_res")} for g in gated.values()],
         "claims": claim_recs,
@@ -463,7 +513,7 @@ def publication_row(record: dict) -> dict:
         "slug": record["topic"]["slug"], "publish_id": record["publish_id"],
         "published_at": record["published_at"], "published_by": record["published_by"],
         "gate_version": record["gate_version"], "record": record,
-        "supported_claim_ids": [c["claim_id"] for c in record["claims"] if c["support"] != "UNSUPPORTED"],
+        "supported_claim_ids": [c["claim_id"] for c in record["claims"] if c["support"] in SHOWN],
         "surviving_source_ids": [s["source_id"] for s in record["sources"] if s["survives"]],
         "flipped": record.get("flipped", False),
     }

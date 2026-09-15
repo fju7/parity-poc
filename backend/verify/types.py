@@ -26,6 +26,7 @@ class Kind(str, Enum):
     SPAN = "SPAN"
     APPLICABILITY = "APPLICABILITY"
     CHRONOLOGY = "CHRONOLOGY"   # a source cannot support a claim about an event that postdates it
+    SUBJECT = "SUBJECT"         # the claim's distinguishing terms occur in the document's held text (verify/subject.py)
 
 
 LITERATURE = ("doi", "pmid", "pmcid", "nct")
