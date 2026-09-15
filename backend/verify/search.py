@@ -70,12 +70,28 @@ class Found:
     checked_at: str = ""
 
 
+# TWO DIFFERENT FACTS. "The registry answered and holds no such title" is a
+# fact about the source; "the registry did not answer" is a fact about the
+# network. Both refuse -- neither is ever a pass, and neither retries beyond
+# http.get's four bounded attempts -- but the record must say which, because
+# only the first is evidence against the proposal. Before 2026-09-15 a 429, a
+# 5xx, a timeout and an unparseable 200 all read "no registry title matched".
+NOT_FOUND = "NOT_FOUND"                      # every registry consulted answered; none matched
+REGISTRY_UNAVAILABLE = "REGISTRY_UNAVAILABLE"  # at least one registry consulted did not answer
+
+
 @dataclass
 class Unresolved:
     title: str
     reason: str
     candidates: list = field(default_factory=list)   # (registry, heading) of near-misses, for a reviewer
     checked_at: str = ""
+    status: str = NOT_FOUND                          # NOT_FOUND | REGISTRY_UNAVAILABLE
+    registries: dict = field(default_factory=dict)   # name -> {"answered": bool, "http": status, "note": ...}
+
+    def to_dict(self) -> dict:
+        return {"reason": self.reason, "status": self.status, "registries": self.registries,
+                "candidates": self.candidates, "checked_at": self.checked_at}
 
 
 def _json(body: bytes):
@@ -84,6 +100,22 @@ def _json(body: bytes):
         return json.loads(body.decode("utf-8", "replace"))
     except Exception:
         return None
+
+
+def _answer(registries: dict, name: str, st: int, headers: dict, d) -> bool:
+    """Record whether a registry ANSWERED: HTTP 200 with a JSON object. Anything
+    else -- 429, 5xx, status 0 (no connection), an HTML or empty 200 -- is
+    recorded as not answered with the reason, and the caller treats it as
+    unavailable, never as "nothing found"."""
+    if st == 200 and isinstance(d, dict):
+        registries[name] = {"answered": True, "http": st}
+        return True
+    note = ("no response: " + str(headers.get("error") or "no connection")) if st == 0 else \
+           (f"HTTP {st}" if st != 200 else "HTTP 200 with no parseable JSON body")
+    if headers.get("retries"):
+        note += f" after {int(headers['retries']) + 1} attempts"
+    registries[name] = {"answered": False, "http": st, "note": note}
+    return False
 
 
 def _title_matches(proposed: str, candidate: str) -> tuple[bool, float, set]:
@@ -143,12 +175,14 @@ def _year_ok(proposed: int | None, found: int | None) -> bool:
     return abs(int(proposed) - int(found)) <= 1           # epub vs print year
 
 
-def _epmc(title: str, first_author: str | None, year: int | None, near: list) -> Found | None:
+def _epmc(title: str, first_author: str | None, year: int | None, near: list, registries: dict) -> Found | None:
     q = f'TITLE:"{title}"'
-    st, body, _ = http.get("https://www.ebi.ac.uk/europepmc/webservices/rest/search?query="
-                           + urllib.parse.quote(q) + "&format=json&pageSize=5&resultType=lite")
+    st, body, headers = http.get("https://www.ebi.ac.uk/europepmc/webservices/rest/search?query="
+                                 + urllib.parse.quote(q) + "&format=json&pageSize=5&resultType=lite")
     d = _json(body) if st == 200 else None
-    for r in ((d or {}).get("resultList") or {}).get("result") or []:
+    if not _answer(registries, "europepmc", st, headers, d):
+        return None
+    for r in (d.get("resultList") or {}).get("result") or []:
         ok, ratio, shared = _title_matches(title, r.get("title") or "")
         fa = (r.get("authorString") or "").split(",")[0].strip() or None   # 'Di Pietrantonj C', whole
         yr = int(r["pubYear"]) if str(r.get("pubYear") or "").isdigit() else None
@@ -167,10 +201,12 @@ def _epmc(title: str, first_author: str | None, year: int | None, near: list) ->
     return None
 
 
-def _crossref(title: str, first_author: str | None, year: int | None, near: list) -> Found | None:
-    st, body, _ = http.get("https://api.crossref.org/works?rows=5&query.bibliographic=" + urllib.parse.quote(title))
+def _crossref(title: str, first_author: str | None, year: int | None, near: list, registries: dict) -> Found | None:
+    st, body, headers = http.get("https://api.crossref.org/works?rows=5&query.bibliographic=" + urllib.parse.quote(title))
     d = _json(body) if st == 200 else None
-    for m in ((d or {}).get("message") or {}).get("items") or []:
+    if not _answer(registries, "crossref", st, headers, d):
+        return None
+    for m in (d.get("message") or {}).get("items") or []:
         cand = (m.get("title") or [""])[0]
         ok, ratio, shared = _title_matches(title, cand)
         authors = m.get("author") or []
@@ -186,11 +222,13 @@ def _crossref(title: str, first_author: str | None, year: int | None, near: list
     return None
 
 
-def _ctgov(title: str, year: int | None, near: list) -> Found | None:
-    st, body, _ = http.get("https://clinicaltrials.gov/api/v2/studies?pageSize=5&fields=protocolSection.identificationModule"
-                           "&query.term=" + urllib.parse.quote(title))
+def _ctgov(title: str, year: int | None, near: list, registries: dict) -> Found | None:
+    st, body, headers = http.get("https://clinicaltrials.gov/api/v2/studies?pageSize=5&fields=protocolSection.identificationModule"
+                                 "&query.term=" + urllib.parse.quote(title))
     d = _json(body) if st == 200 else None
-    for s in (d or {}).get("studies") or []:
+    if not _answer(registries, "clinicaltrials.gov", st, headers, d):
+        return None
+    for s in d.get("studies") or []:
         idm = (s.get("protocolSection") or {}).get("identificationModule") or {}
         for cand in (idm.get("officialTitle"), idm.get("briefTitle"), idm.get("acronym")):
             if not cand:
@@ -213,15 +251,22 @@ def search(title: str, first_author: str | None = None, year: int | None = None,
     if len(content_tokens(title, LITERATURE_BOILERPLATE)) < 2:
         return Unresolved(title, "title has fewer than two distinctive words; nothing to search on", [], _NOW())
     near: list = []
+    registries: dict = {}
     # ClinicalTrials.gov is consulted only for a proposal the caller says is a
     # registered trial; it is never a fallback for an article.
-    order = [_ctgov, _epmc, _crossref] if kind == "trial" else [_epmc, _crossref]
-    for fn in order:
+    order = [("clinicaltrials.gov", _ctgov), ("europepmc", _epmc), ("crossref", _crossref)] if kind == "trial" \
+        else [("europepmc", _epmc), ("crossref", _crossref)]
+    for name, fn in order:
         try:
-            found = fn(title, first_author, year, near) if fn is not _ctgov else fn(title, year, near)
+            found = fn(title, year, near, registries) if name == "clinicaltrials.gov" else fn(title, first_author, year, near, registries)
         except Exception as exc:                          # a registry outage is "unresolved", never a guess
-            near.append((fn.__name__.strip("_"), f"error: {exc}"))
+            registries[name] = {"answered": False, "http": None, "note": f"error: {type(exc).__name__}: {exc}"}
             continue
         if found:
             return found
-    return Unresolved(title, "no registry title matched the proposed title (author/year checked where given)", near[:6], _NOW())
+    silent = [n for n, r in registries.items() if not r.get("answered")]
+    if silent:
+        return Unresolved(title, "registry did not answer: " + "; ".join(f"{n} ({registries[n]['note']})" for n in silent)
+                          + " -- not evidence about the source; retry later", near[:6], _NOW(), REGISTRY_UNAVAILABLE, registries)
+    return Unresolved(title, "no registry title matched the proposed title (author/year checked where given)",
+                      near[:6], _NOW(), NOT_FOUND, registries)

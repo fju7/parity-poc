@@ -116,8 +116,16 @@ def gate_source(row: dict) -> dict:
                          "container": (res.extra or {}).get("container") or (res.extra or {}).get("journal")}
     out["_res"] = res
     if res.exists != Exists.EXISTS:
+        # UNCHECKED with a registry_unavailable note is "the registry did not
+        # answer" -- a fact about the network, kept apart from NONEXISTENT,
+        # which is the registry's answer about the source.
+        unavailable = (res.extra or {}).get("registry_unavailable")
         out["withheld_reason"] = (f"fetch: HTTP {res.extra.get('http')} {res.extra.get('reason') or res.extra.get('error') or ''}".strip()
-                                  if res.registry == "generic_fetch" else f"resolve: {res.exists.value}")
+                                  if res.registry == "generic_fetch" else
+                                  ("resolve: REGISTRY_UNAVAILABLE " + "; ".join(f"{k}: {v}" for k, v in unavailable.items())) if unavailable
+                                  else f"resolve: {res.exists.value}")
+        if unavailable:
+            out["resolution"]["registry_unavailable"] = unavailable
         return out
     # HEADING before fetch: a DOI that names a different paper is withheld as
     # WRONG_DOCUMENT, not as a fetch failure of the wrong paper.

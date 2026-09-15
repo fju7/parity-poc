@@ -2326,6 +2326,24 @@ is done. Items 2-4 touch no page and no corpus, so they were done now.
   an opaque serial where the template has one; the other 10 wear a
   neighbouring journal's template (WRONG_DOCUMENT leaking into FABRICATED).
   Shape cannot separate a fabricated DOI from a real one; resolution can.
+- THE TEN NEIGHBOURING-TEMPLATE DOIs RESOLVE TO NOTHING (checked live,
+  read-only, 2026-09-15): Handle 404 + responseCode 100, ten of ten.
+  FABRICATED is correct; the 288/59/33/1 split stands; the earlier
+  "WRONG_DOCUMENT leaking into FABRICATED" sentence is withdrawn in the doc.
+- REGISTRY UNAVAILABILITY IS A FIRST-CLASS FAILURE MODE (measured by
+  injection, then fixed, tests/verify/test_registry_unavailable.py, 24
+  tests): verify.search had collapsed 429 / 5xx / timeout / HTML-200 /
+  empty-200 into "no registry title matched"; now Unresolved.status is
+  REGISTRY_UNAVAILABLE (per-registry answered/http/note, "not evidence about
+  the source") vs NOT_FOUND (every registry consulted answered), and
+  discovery writes the whole record. literature.resolve had reported a
+  Handle 429 / 503 / HTML 200 as EXISTS (a pass on a registry failure);
+  existence is now decided only on a parsed Handle answer, else UNCHECKED
+  with extra.registry_unavailable, and publish.gate_source writes
+  "resolve: REGISTRY_UNAVAILABLE handle: HTTP 429 after 4 attempts" apart
+  from "resolve: NONEXISTENT". http.get: four attempts, never raises, reports
+  the count. verify/status.py already said "unknown" + HTTP code (not
+  "unchanged") on a non-answer -- unchanged.
 
 ## Standing instructions for every session
 1. Read this file at the start of every session

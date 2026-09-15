@@ -352,7 +352,7 @@ def _resolve_proposal(src: dict) -> dict:
             out["fetch_strategy"] = "doi_metadata" if r.identifier.system == "doi" else out.get("fetch_strategy", "metadata_only")
         else:
             out["url"] = None
-            out["unresolved"] = {"reason": r.reason, "candidates": r.candidates, "checked_at": r.checked_at}
+            out["unresolved"] = r.to_dict()                # reason, status (NOT_FOUND | REGISTRY_UNAVAILABLE), registries, candidates
             out["fetch_strategy"] = "unresolved"
         return out
 

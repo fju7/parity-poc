@@ -49,22 +49,42 @@ def _json(body: bytes):
         return None
 
 
+def _unavailable_note(st: int, headers: dict) -> str:
+    """Why a registry did not answer, for the record: 'HTTP 429 after 4
+    attempts', 'no response: TimeoutError', 'HTTP 200 with no parseable JSON'."""
+    note = ("no response: " + str(headers.get("error") or "no connection")) if st == 0 else \
+           (f"HTTP {st}" if st != 200 else "HTTP 200 with no parseable JSON body")
+    if headers.get("retries"):
+        note += f" after {int(headers['retries']) + 1} attempts"
+    return note
+
+
 def resolve(ident: Identifier) -> Resolution:
     res = Resolution(ident, Exists.UNCHECKED, checked_at=_NOW())
     if ident.system == "doi":
         # The Handle System covers every registration agency, not just
         # CrossRef -- checked before trusting a 404, so a DataCite DOI is never
         # reported as fabricated.
-        st, body, _ = http.get("https://doi.org/api/handles/" + urllib.parse.quote(ident.value))
+        st, body, headers = http.get("https://doi.org/api/handles/" + urllib.parse.quote(ident.value))
         h = _json(body)
-        if st == 0:
+        # Only a parsed Handle answer decides existence. The API returns
+        # {"responseCode": 1} for a live handle and 404 + {"responseCode": 100}
+        # for none. Before 2026-09-15 a 429, a 5xx and an HTML 200 all fell
+        # through to EXISTS; now they stay UNCHECKED with the reason on the
+        # record, and UNCHECKED is never a pass.
+        if not isinstance(h, dict) or "responseCode" not in h:
+            res.extra = {"registry_unavailable": {"handle": _unavailable_note(st, headers)}}
             return res
-        if st == 404 or (h and h.get("responseCode") != 1):
+        if h.get("responseCode") != 1:
             res.exists = Exists.NONEXISTENT; res.registry = "handle"; return res
         res.exists = Exists.EXISTS; res.registry = "handle"
         res.canonical = "https://doi.org/" + ident.value
-        st, body, _ = http.get("https://api.crossref.org/works/" + urllib.parse.quote(ident.value))
+        st, body, headers = http.get("https://api.crossref.org/works/" + urllib.parse.quote(ident.value))
         cr = _json(body) if st == 200 else None
+        if not isinstance(cr, dict):
+            # the handle exists but Crossref gave no metadata: no heading, so
+            # HEADING will refuse; say why on the record
+            res.extra = {"registry_unavailable": {"crossref": _unavailable_note(st, headers)}} if st != 404 else {"crossref": "no record (not a Crossref DOI)"}
         if cr:
             msg = cr.get("message", {})
             res.registry = "crossref"; res.registry_id = msg.get("DOI")
@@ -80,10 +100,11 @@ def resolve(ident: Identifier) -> Resolution:
 
     if ident.system in ("pmid", "pmcid"):
         q = f"EXT_ID:{ident.value} AND SRC:MED" if ident.system == "pmid" else f"PMCID:{ident.value}"
-        st, body, _ = http.get("https://www.ebi.ac.uk/europepmc/webservices/rest/search?query="
-                               + urllib.parse.quote(q) + "&format=json&pageSize=1&resultType=core")
+        st, body, headers = http.get("https://www.ebi.ac.uk/europepmc/webservices/rest/search?query="
+                                     + urllib.parse.quote(q) + "&format=json&pageSize=1&resultType=core")
         d = _json(body) if st == 200 else None
-        if d is None:
+        if not isinstance(d, dict):
+            res.extra = {"registry_unavailable": {"europepmc": _unavailable_note(st, headers)}}
             return res
         hits = (d.get("resultList") or {}).get("result") or []
         res.registry = "europepmc"
@@ -100,14 +121,15 @@ def resolve(ident: Identifier) -> Resolution:
         return res
 
     if ident.system == "nct":
-        st, body, _ = http.get(f"https://clinicaltrials.gov/api/v2/studies/{ident.value}"
-                               "?fields=protocolSection.identificationModule,protocolSection.statusModule,"
-                               "protocolSection.designModule,resultsSection")
+        st, body, headers = http.get(f"https://clinicaltrials.gov/api/v2/studies/{ident.value}"
+                                     "?fields=protocolSection.identificationModule,protocolSection.statusModule,"
+                                     "protocolSection.designModule,resultsSection")
         res.registry = "clinicaltrials.gov"
         if st == 404:
             res.exists = Exists.NONEXISTENT; return res
         d = _json(body) if st == 200 else None
-        if d is None:
+        if not isinstance(d, dict):
+            res.extra = {"registry_unavailable": {"clinicaltrials.gov": _unavailable_note(st, headers)}}
             return res
         idm = (d.get("protocolSection") or {}).get("identificationModule") or {}
         cands = [idm.get("officialTitle"), idm.get("briefTitle"), idm.get("acronym")]

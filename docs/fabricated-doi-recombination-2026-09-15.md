@@ -82,17 +82,25 @@ Two corollaries for the workstream:
    recombination flag (`doi_recombination`) catches the 10, and it will also
    flag real JAMA/BMJ/MDPI DOIs, which is why it is a flag and never a
    refusal. Nothing short of the registry decides.
-2. **The ten template mismatches are a second failure type.** In nine the
-   DOI belongs to a different journal than the citation names — `blood.` for
-   a JCO paper, `s10549-` (Breast Cancer Res Treat) for an Asian Pac J Cancer
-   Prev paper and for a Nutr Rev paper, `jamacardio.` for a paper cited as
-   JAMA, `EDE.` (Epidemiology) for Environ Health Perspect. The tenth cites
-   "Lancet. 2019;392:2555-2564. Updated 2023." against an Annals of Oncology
-   DOI. These look like the template of a *neighbouring* paper on the same
-   subject: the model had a real DOI of a nearby paper in reach and put a
-   different citation on it. That is the WRONG_DOCUMENT mechanism (33 in the
-   snapshot) leaking into FABRICATED, and a title-vs-registry test would
-   separate the two only after resolution.
+2. **The ten template mismatches are a mechanism note, not a
+   reclassification.** In nine the DOI is shaped for a different journal
+   than the citation names — `blood.` for a JCO paper, `s10549-` (Breast
+   Cancer Res Treat) for an Asian Pac J Cancer Prev paper and for a Nutr Rev
+   paper, `jamacardio.` for a paper cited as JAMA, `EDE.` (Epidemiology) for
+   Environ Health Perspect. The tenth cites "Lancet. 2019;392:2555-2564.
+   Updated 2023." against an Annals of Oncology DOI.
+
+   **Checked, not inferred (2026-09-15, read-only, live):** all ten were put
+   through `literature.resolve` again. Every one returns Handle HTTP 404 with
+   a parsed `responseCode` ≠ 1 — **NONEXISTENT, ten of ten**, agreeing with
+   the snapshot. None resolves to any document, so none is a wrong document
+   wearing the wrong citation; FABRICATED_IDENTIFIER is the correct verdict
+   for all ten and **the 288 / 59 / 33 / 1 split stands as published.** The
+   template confusion says something about how the fabrication was
+   generated (the model reached for a neighbouring journal's template) and
+   nothing about the source's existence. An earlier draft of this note
+   called the group "WRONG_DOCUMENT leaking into FABRICATED"; that sentence
+   is withdrawn.
 
 ## Per-row table
 
@@ -160,6 +168,23 @@ publisher's. Traceable = which citation numbers the suffix repeats.
 | social-media-teen-mental-health | `10.1016/j.jadohealth.2022.07.025` | J Adolesc Health. 2022;71(6):696-705. | yes | year 2022 |
 | social-media-teen-mental-health | `10.1111/jcom.12352` | Updated review: J Commun. 2020;70(4):555-577. | yes | — |
 | social-media-teen-mental-health | `10.1177/0963721419877526` | Rev Gen Psychol. 2020;24(1):60-74. | yes | — |
+
+## What the finding forces on the resolver
+
+If shape cannot distinguish a fabricated DOI from a real one, the registry
+round-trip is the only test in the literature path, and the registries'
+failure behaviour is the system's. Measured on 2026-09-15 with each failure
+injected: `verify.search` reported a 429, a 5xx, a timeout and an
+unparseable 200 all as "no registry title matched" — a refusal, but one that
+misstated the fact; and `literature.resolve` reported a Handle 429, 503 or
+HTML 200 as **EXISTS**. Both fixed the same day: `search` now returns
+`REGISTRY_UNAVAILABLE` (with each registry's answered/not and the HTTP
+reason) apart from `NOT_FOUND`; `resolve` decides existence only on a parsed
+Handle answer and otherwise stays `UNCHECKED` with `registry_unavailable` on
+the record, which the publication record carries as
+`resolve: REGISTRY_UNAVAILABLE handle: HTTP 429 after 4 attempts` apart from
+`resolve: NONEXISTENT`. `http.get` retries at most four times. Every case is
+a test with the failure injected: `tests/verify/test_registry_unavailable.py`.
 
 ## Not done, deliberately
 
