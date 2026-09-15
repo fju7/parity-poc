@@ -1281,7 +1281,7 @@ tables with USING (true); probed as anon, a DRAFT topic's publication record was
 readable. Verified after 084: anon 0 / service_role 1 with mmr-vaccine-autism
 at draft.
 Migration 085 (provider_appeals.verification jsonb) APPLIED 2026-09-15 via apply_migration; verified.
-Migration 086 (service-role-only policies on 14 tables) AUTHORED — NOT applied. Tier-1 review required.
+Migration 086 (service-role-only policies on 14 tables) APPLIED 2026-09-15 after review; verified by anon-key probes.
 Next migration number: 087
 
 ## Session P0-Signal — Data Integrity + Crawlable Metadata (Complete)
@@ -2164,8 +2164,30 @@ tiers, the three answered questions, what was built). PHI: docs/phi-model-exposu
   provider_profiles, provider_subscriptions, health_users,
   health_subscriptions, employer_accounts, employer_users,
   employer_contributions, mue_limits, ncci_edits, pharmacy_asp. Probed: anon
-  reads all 6 provider_appeals rows (HTTP 206, 0-0/6). Migration 086 AUTHORED
-  to fix it -- NOT APPLIED, awaiting Tier-1 review.
+  reads all 6 provider_appeals rows (HTTP 206, 0-0/6). Migration 086 reviewed
+  by the operator (four fixes: DROP "Public read" before CREATE; explicit
+  ENABLE RLS; identity sequences deptype 'i'; widened post-check) and APPLIED
+  2026-09-15 ~14:53Z from the file. Probed: anon GET/INSERT/DELETE on
+  provider_appeals -> 401 permission denied; ncci_edits still anon-readable
+  (206, 0-0/2210396), anon DELETE refused; a service-key letter stored with
+  its verdict. Window: 032 (2026-03-12) dropped 018's correct
+  `USING (auth.role() = 'service_role')` and rewrote it as USING (true).
+  Logs (90 days, from 2026-06-17) show no non-service access; earlier is
+  unknowable. Counsel note: docs/phi-model-exposure-2026-09-15.md §5.
+  REVOKING `authenticated` COMMITS THE ELEVEN ACCOUNT TABLES TO
+  BACKEND-MEDIATED ACCESS PERMANENTLY -- intended, not an oversight.
+- STILL OPEN from the widened check (for 087, review first): broker_client_benchmarks
+  "public read by share token" is FOR SELECT TO anon USING (true) -- the token
+  is not in the qual, so anon reads every broker's client benchmarks; and
+  "Allow anonymous inserts" WITH CHECK (true) on employer_benchmark_sessions,
+  employer_claims_uploads, employer_scorecard_sessions, which the backend
+  (service key) does not need.
+- THE WIDENED CHECK, run after EVERY migration from now on: every policy whose
+  roles include public/anon/authenticated with qual or with_check = 'true'
+  (any cmd), against the allow-list of read-only reference/config tables
+  (clfs/opps/pfs_rates_historical, rate_schedule_versions,
+  signal_analytical_profiles, signal_platform_metrics, mue_limits, ncci_edits,
+  pharmacy_asp). Cover the class, not the instance.
 
 ## Standing instructions for every session
 1. Read this file at the start of every session

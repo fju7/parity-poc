@@ -65,7 +65,81 @@ descriptor"). The licensing question survives the removal:
   the practice's or CivicScale's AMA CPT licence, and does the answer differ between the
   three sources? Until answered, the letters carry the code only.
 
-## 5. What was deliberately not done
+## 5. A second fact for the same pass: the letters were readable and writable with the public key
+
+Found 2026-09-15 by the grant check the migration policy requires after every
+migration (run on `provider_appeals` after migration 085), and closed the same day
+by migration 086 — the operator reviewed the SQL before it was applied.
+
+**What was exposed.** Fourteen tables carried a row-level-security policy named
+"Service role full access" that was written `FOR ALL USING (true) WITH CHECK (true)`
+with no `TO` clause — so it applied to every role — while the `anon` and
+`authenticated` roles held the full INSERT / SELECT / UPDATE / DELETE grants
+PostgreSQL gives them at table creation. The `anon` key is embedded in the
+frontend bundle and is therefore in every visitor's browser. Probed with it before
+the fix: `GET /rest/v1/provider_appeals` → HTTP 206, `content-range: 0-0/6` — all six
+provider appeal letters, each with the patient's name in `letter_text`, readable;
+and by the same policy insertable, updatable and deletable. The tables:
+
+| table | personal data in it | rows on 2026-09-15 |
+|---|---|---|
+| `provider_appeals` | patient name inside `letter_text`; claim id; payer | 6 |
+| `provider_analyses`, `provider_audits`, `provider_contracts` | practice-level claim and contract data | 58 / 10 / 11 |
+| `provider_profiles`, `provider_subscriptions` | NPI, practice address, Stripe customer id | 4 / 5 |
+| `health_users`, `health_subscriptions` | consumer email, full name, Stripe customer id | 3 / 2 |
+| `employer_accounts`, `employer_users`, `employer_contributions` | employer user emails, contribution data | 1 / 4 / 150 |
+| `mue_limits`, `ncci_edits`, `pharmacy_asp` | none (CMS reference data — writable by anyone was the defect) | 15,098 / 2,210,396 / 531 |
+
+**The window.** For the provider tables the policy text was introduced by
+migration 032 (`provider_tables_company_id`, committed 2026-03-12), which dropped
+the correct `USING (auth.role() = 'service_role')` policy that migration 018 had
+written six days earlier and recreated it as `USING (true)`; `provider_profiles`
+got the same text from migration 031 the same day; `pharmacy_asp` from 039
+(2026-03-14). For `health_*`, `employer_*`, `mue_limits` and `ncci_edits` no
+migration file in the repository creates the table or the policy, and Supabase's
+own migration history begins at 069 — so their policy's creation date is not
+recoverable; the earliest row in `employer_accounts` is 2026-02-25 and in
+`health_users` 2026-03-12. **Window: 2026-03-12 (provider, health), possibly as
+early as 2026-02-25 (employer), until 2026-09-15 ~14:53 UTC.**
+
+**What the logs show.** Supabase edge logs retain 90 days (earliest entry
+2026-06-17 15:44 UTC). Every day from then to 2026-09-15 was queried for any
+request to any of the fourteen tables whose JWT role was not `service_role`.
+There is exactly one: the operator's own anon-key probe on `provider_appeals` at
+2026-09-15 14:14:47 UTC. Every other request in the window came from the backend
+with the service key. **Before 2026-06-17 the logs do not exist, so whether the
+public key was used against these tables between 2026-03-12 and 2026-06-17 is
+unknowable.** Table statistics offer weak corroboration only: `provider_appeals`
+shows 7 inserts and 1 delete since the counters last reset, which is exactly the
+six real letters plus the operator's 2026-09-15 probe.
+
+**Who the affected people are.** Every row in the tables above belongs to the
+operator's own test accounts — the six appeal letters are the operator's
+(`provider_appeals.company_id` is the operator's provider company), the three
+health users and the one employer account likewise. The counts are small enough
+to enumerate, and were.
+
+**Reconciling "eight letters".** The plan of record's "eight letters generated
+before this change" is the count of `provider_appeal_letters` (8 rows,
+2026-03-19 → 03-25, the reuse cache written on every generation); the six is
+`provider_appeals` (created by migration 018 on 2026-03-06 but first written
+2026-03-23, so the three 2026-03-19 letters predate it). 8 − 6 = the three
+earliest letters, which exist only in the cache table. No row is missing.
+
+**Closed by.** Migration 086: the eleven account/PHI tables are now
+service-role-only (policy `TO service_role`; every privilege revoked from
+`PUBLIC`, `anon`, `authenticated`); the three reference tables are read-only to
+the public key. Probed after: anon GET / INSERT / DELETE on `provider_appeals` all
+return HTTP 401 `permission denied`; a letter generated through the backend with
+the service key still stores, with its verification record.
+
+**Question for counsel.** Given (a) the data belongs to the operator's own test
+accounts, (b) no non-service access is recorded in the retained logs, and (c) the
+first three months of the window have no logs at all, does anything in the
+operator's HIPAA / state-law posture require a notification or a record beyond
+this document?
+
+## 6. What was deliberately not done
 
 No product's data flow was changed by the assertion-policy work. The Provider letter still
 sends `patient_name`; the Employer/Broker mapping still sends five rows. Changing either is a
