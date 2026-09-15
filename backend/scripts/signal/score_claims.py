@@ -564,11 +564,23 @@ def generate_summaries(batch: list[dict], category: str, total_in_category: int)
     return summaries
 
 
-def store_summaries(sb, summaries: list[dict]) -> int:
+_GATE_VERDICTS: list[dict] = []   # accumulated across batches; written once per run
+
+
+def store_summaries(sb, summaries: list[dict], batch: list[dict] | None = None, issue_slug: str | None = None) -> int:
     """Update signal_claims.plain_summary for each claim.
 
-    Returns count of rows updated.
+    Shared assertion policy (2026-09-15): when `batch` is given, every summary
+    is checked at this boundary by scripts/signal/prose_gate.py -- its figures
+    and named sources must be in the claim or the claim's sources -- and a
+    summary that fails is NOT stored; the claim renders without one. The
+    verdicts are written to data/signal/verification/<slug>/ at the end of
+    the run. Returns count of rows updated.
     """
+    if batch is not None:
+        from prose_gate import gate_plain_summaries
+        summaries, verdicts = gate_plain_summaries(sb, batch, summaries)
+        _GATE_VERDICTS.extend(verdicts)
     rows_updated = 0
     for item in summaries:
         claim_id = item.get("claim_id")
@@ -808,7 +820,7 @@ def main():
 
                 summaries = generate_summaries(batch, cat, len(group))
                 if summaries:
-                    stored = store_summaries(sb, summaries)
+                    stored = store_summaries(sb, summaries, batch, issue_slug)
                     total_summaries += stored
                     print(f"OK ({stored} stored)")
                 else:
@@ -877,7 +889,7 @@ def main():
                     print(f"  → summaries...", end=" ", flush=True)
                     summaries = generate_summaries(batch, cat, total_in_cat)
                     if summaries:
-                        stored = store_summaries(sb, summaries)
+                        stored = store_summaries(sb, summaries, batch, issue_slug)
                         print(f"OK ({stored} stored)")
                     else:
                         print("FAILED (non-fatal)")
@@ -911,7 +923,7 @@ def main():
                     print(f"  → summaries...", end=" ", flush=True)
                     summaries = generate_summaries(batch, cat, total_in_cat)
                     if summaries:
-                        stored = store_summaries(sb, summaries)
+                        stored = store_summaries(sb, summaries, batch, issue_slug)
                         print(f"OK ({stored} stored)")
                     else:
                         print("FAILED (non-fatal)")
@@ -993,6 +1005,13 @@ def main():
         scores = cat_composites[cat]
         avg = sum(scores) / len(scores) if scores else 0
         print(f"  {cat:>16}: {avg:.2f} ({len(scores)} claims)")
+
+    if _GATE_VERDICTS:
+        from prose_gate import write_run_record
+        refused = sum(1 for v in _GATE_VERDICTS if not v["ok"])
+        p = write_run_record(issue_slug, "score_claims-summaries", _GATE_VERDICTS)
+        print(f"\nPlain-summary gate: {len(_GATE_VERDICTS)} checked, {refused} refused, "
+              f"{sum(len(v['flags']) for v in _GATE_VERDICTS)} flagged -> {p}")
 
 
 if __name__ == "__main__":

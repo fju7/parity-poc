@@ -443,7 +443,22 @@ def map_category(category: str, claims: list[dict], consensus_prompt: str) -> di
 
     _validate_side_claim_ids(result, category, claims)
 
+    # Shared assertion policy (2026-09-15): the prose about the category --
+    # summary_text, arguments_for, arguments_against -- must bind to the
+    # claims it was handed: no identifier, no named body or statute the claims
+    # do not name, no digit figure they do not contain. A refused category is
+    # not stored; the retry-and-abort logic in main() treats it like a failed
+    # call, which is what it is. Verdicts accumulate for the run record.
+    from prose_gate import gate_consensus
+    verdict = gate_consensus(result, category, claims)
+    _GATE_VERDICTS.append(verdict)
+    if not verdict["ok"]:
+        return None
+
     return result
+
+
+_GATE_VERDICTS: list[dict] = []
 
 
 def _validate_side_claim_ids(result: dict, category: str, claims: list[dict]) -> None:
@@ -898,6 +913,12 @@ def main():
             print(f"    AGAINST: {cons.get('arguments_against', '')}")
 
     print(f"\nDistribution: {dict(status_counts)}")
+
+    if _GATE_VERDICTS:
+        from prose_gate import write_run_record
+        refused = sum(1 for v in _GATE_VERDICTS if not v["ok"])
+        p = write_run_record(issue_slug, "map_consensus", _GATE_VERDICTS)
+        print(f"\nConsensus prose gate: {len(_GATE_VERDICTS)} checked, {refused} refused -> {p}")
 
 
 if __name__ == "__main__":

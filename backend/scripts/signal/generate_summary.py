@@ -432,7 +432,22 @@ def generate_narrative(stats: dict, sections: list[dict], topic: dict) -> dict |
     """
     narrative_prompt = _build_narrative_system_prompt(topic)
     user_text = _build_narrative_user_content(stats, sections, topic)
-    return _call_claude(narrative_prompt, user_text, max_tokens=8192)
+    result = _call_claude(narrative_prompt, user_text, max_tokens=8192)
+    if result is None:
+        return None
+    # Shared assertion policy (2026-09-15): the overall summary and every
+    # takeaway must bind to the stats and sections handed over -- which carry
+    # the claims -- for figures and named sources, and must carry no
+    # identifier. Refused -> None -> main() exits non-zero; nothing stored.
+    from prose_gate import gate_narrative
+    verdict = gate_narrative(result, user_text)
+    _GATE_VERDICTS.append(dict(verdict, surface="narrative"))
+    if not verdict["ok"]:
+        return None
+    return result
+
+
+_GATE_VERDICTS: list[dict] = []
 
 
 def generate_glossary(summary_text: str, category_takeaways: dict) -> dict | None:
@@ -446,7 +461,18 @@ def generate_glossary(summary_text: str, category_takeaways: dict) -> dict | Non
 
     system_prompt = _build_glossary_system_prompt()
     user_content = f"Extract a glossary of technical terms from this summary text:\n\n{all_text}"
-    return _call_claude(system_prompt, user_content, max_tokens=4096)
+    result = _call_claude(system_prompt, user_content, max_tokens=4096)
+    if result is None:
+        return None
+    # Same policy: a definition may not introduce a figure or a body the
+    # summary text does not carry. Refused -> None -> "continuing without
+    # glossary" in main(), which is the honest fallback.
+    from prose_gate import gate_glossary
+    verdict = gate_glossary(result, all_text)
+    _GATE_VERDICTS.append(dict(verdict, surface="glossary"))
+    if not verdict["ok"]:
+        return None
+    return result
 
 
 # ---------------------------------------------------------------------------
@@ -537,7 +563,9 @@ def main():
     narrative = generate_narrative(stats, sections, topic)
 
     if narrative is None:
-        print("ERROR: Failed to generate narrative from Claude.")
+        from prose_gate import write_run_record
+        write_run_record(issue_slug, "generate_summary", _GATE_VERDICTS)
+        print("ERROR: Failed to generate narrative from Claude (or it was refused by the prose gate; see data/signal/verification/).")
         sys.exit(1)
 
     overall_summary = narrative.get("overall_summary", "")
@@ -574,6 +602,12 @@ def main():
     # --- Store ---
     print(f"Storing summary (version {next_version})...")
     success = store_summary(sb, data["issue_id"], next_version, summary_json, summary_text)
+    if _GATE_VERDICTS:
+        from prose_gate import write_run_record
+        p = write_run_record(issue_slug, "generate_summary", _GATE_VERDICTS)
+        print(f"Prose gate: {len(_GATE_VERDICTS)} surface(s) checked, "
+              f"{sum(1 for v in _GATE_VERDICTS if not v['ok'])} refused, "
+              f"{sum(len(v['flags']) for v in _GATE_VERDICTS)} flagged -> {p}")
 
     if not success:
         print("ERROR: Failed to store summary.")

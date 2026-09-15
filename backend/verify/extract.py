@@ -103,6 +103,7 @@ NAMED_SOURCE_LEXICON = {
     "uspstf": r"\bUSPSTF\b",
     "aha_acc": r"\bAHA/ACC\b|\bAmerican Heart Association\b|\bAmerican College of Cardiology\b",
     "ama": r"\bAMA\b|\bAmerican Medical Association\b",
+    "jama": r"\bJAMA\b|\bJournal of the American Medical Association\b",   # longer than 'ama'; wins the span
     "who": r"\bWHO\b|\bWorld Health Organization\b",
     "cdc": r"\bCDC\b|\bCenters for Disease Control\b",
     # statute and programme names (without numbers)

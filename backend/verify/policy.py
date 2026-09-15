@@ -65,6 +65,13 @@ class SurfacePolicy:
     # ("description": "Office visit, level 3") are not assertions about the
     # source in the way the code and the rate are.
     ignore_fields: tuple = ()
+    # Word-form counting numbers ("two theories", "six years before") in a
+    # PARAPHRASE are the model counting or doing arithmetic over what it was
+    # handed, not quantities the source must state. "flag" reports them without
+    # refusing; "refuse" (the default, right for letters and extraction) does
+    # not. Measured on mmr-vaccine-autism 2026-09-15: 22 of 26 unbound figures
+    # in 118 plain summaries were counting words; the other 4 were added facts.
+    word_figures: str = "refuse"          # "refuse" | "flag"  (word-form values <= 12 only)
     # Whether check() is actually attached at this surface's response boundary
     # today. A GATE entry with wired=False is a declared, unenforced tier;
     # tests/verify/test_policy_discovery.py lists them so the set only shrinks.
@@ -86,7 +93,10 @@ class Held:
     def corpus_text(self) -> str:
         parts = [d.text for d in self.documents if d.text_layer == "DECLARED_SOUND"]
         if self.inputs:
-            parts.append(json.dumps(self.inputs, default=str))
+            # ensure_ascii=False: json.dumps would turn "£435,643" into
+            # "\u00a3435,643", and a digit behind a word character is not a
+            # figure to the extractor. Found on mmr-vaccine-autism 2026-09-15.
+            parts.append(json.dumps(self.inputs, default=str, ensure_ascii=False))
         return "\n".join(parts)
 
     def has_unreadable_document(self) -> bool:
@@ -234,7 +244,7 @@ def _bind_named(field_name: str, text: str, held: Held) -> list[Finding]:
     for c in extract(AssertionClass.NAMED_SOURCE, text):
         if c.kind in held.named_ok:
             out.append(Finding(AssertionClass.NAMED_SOURCE, field_name, c.text, True, "bound", "permitted for this surface", kind=c.kind))
-        elif normalise(c.text) in corpus:
+        elif normalise(c.text) in corpus or _named_alias_present(c.kind, held):
             out.append(Finding(AssertionClass.NAMED_SOURCE, field_name, c.text, True, "bound", "named in the material handed over", kind=c.kind))
         else:
             out.append(Finding(AssertionClass.NAMED_SOURCE, field_name, c.text, False, "bound",
@@ -242,7 +252,15 @@ def _bind_named(field_name: str, text: str, held: Held) -> list[Finding]:
     return out
 
 
-def _bind_figures(field_name: str, text: str, held: Held, other: list[Candidate]) -> list[Finding]:
+def _named_alias_present(term: str, held: Held) -> bool:
+    """'Centers for Disease Control' binds to 'CDC' in the held material: the
+    lexicon term, not the surface spelling, is what must be present."""
+    from .extract import _NAMED_RX
+    rx = _NAMED_RX.get(term)
+    return bool(rx and rx.search(held.corpus_text()))
+
+
+def _bind_figures(field_name: str, text: str, held: Held, other: list[Candidate], policy: "SurfacePolicy | None" = None) -> list[Finding]:
     out = []
     blanked = _blank(text, other)
     # Dates are CHRONOLOGY's business, not FIGURE's: "September 15, 2026" is
@@ -271,9 +289,13 @@ def _bind_figures(field_name: str, text: str, held: Held, other: list[Candidate]
             # A number RESTATED from our own computed inputs may be rounded to the
             # unit ("$512" for 512.4, "71st" for 71.2). Documents get no such
             # tolerance: what a source says is what it says.
-            hit = _rounds_to(f["value"], canonical_numbers(json.dumps(held.inputs, default=str)))
+            hit = _rounds_to(f["value"], canonical_numbers(json.dumps(held.inputs, default=str, ensure_ascii=False)))
         if hit:
             out.append(Finding(AssertionClass.FIGURE, field_name, c.text, True, "bound", f"matches {hit} at stated precision", kind=c.kind))
+        elif policy is not None and policy.word_figures == "flag" and c.kind == "words" and _small(c.value):
+            out.append(Finding(AssertionClass.FIGURE, field_name, c.text, False, "bound",
+                               "counting word not in the held material; a paraphrase count, reported not refused",
+                               severity="flag", kind=c.kind))
         else:
             out.append(Finding(AssertionClass.FIGURE, field_name, c.text, False, "bound", "not in the held material", kind=c.kind))
     if held.has_unreadable_document():
@@ -283,6 +305,13 @@ def _bind_figures(field_name: str, text: str, held: Held, other: list[Candidate]
             if f.ok is False:
                 f.ok, f.severity, f.reason = None, "unchecked", "not in the readable text; part of the source has no text layer"
     return out
+
+
+def _small(value: str) -> bool:
+    try:
+        return 0 <= float(value) <= 12
+    except ValueError:
+        return False
 
 
 def _rounds_to(value, have: set[str]) -> str | None:
@@ -361,7 +390,7 @@ def check(surface: str, output: Any, held: Held | None = None, *, policy_table: 
             elif cls is AssertionClass.NAMED_SOURCE:
                 verdict.findings.extend(_bind_named(field_name, text, held))
             elif cls is AssertionClass.FIGURE:
-                verdict.findings.extend(_bind_figures(field_name, text, held, other))
+                verdict.findings.extend(_bind_figures(field_name, text, held, other, pol))
             elif cls is AssertionClass.CODED_DESCRIPTOR:
                 verdict.findings.extend(_bind_coded(field_name, text, held))
     return verdict
@@ -397,6 +426,7 @@ L, I, N, F, C = (AssertionClass.LEGAL_PROVISION, AssertionClass.IDENTIFIER, Asse
 W, G, X = Tier.WITHHOLD, Tier.GATE, Tier.EXEMPT
 
 _NARRATIVE = {L: W, I: W, N: W, F: G, C: W}      # handed computed numbers, nothing else
+_PROSE = {L: W, I: G, N: G, F: G, C: X}          # Signal prose about bound claims
 _EXTRACTION = {L: X, I: X, N: X, F: G, C: X}     # reads numbers out of an upload
 _EXTRACTION_IGNORE = ("description", "notes", "plan_name", "payer_name", "drug_name", "generic_name", "therapeutic_class", "provider_name", "insurance_name", "network_type", "date_range")
 _MAPPING = {L: X, I: X, N: X, F: X, C: X}        # emits no assertion class
@@ -459,10 +489,10 @@ POLICY: dict[str, SurfacePolicy] = {
     "scripts.signal.extract_claims::deduplicate_category": SurfacePolicy(_MAPPING, "signal", note="S5 dedupe"),
     "scripts.signal.classify_claims::classify_batch": SurfacePolicy(_MAPPING, "signal", note="S5 labels"),
     "scripts.signal.score_claims::score_batch": SurfacePolicy(_MAPPING, "signal", note="S5 scores"),
-    "scripts.signal.score_claims::generate_summaries": SurfacePolicy({L: W, I: G, N: G, F: G, C: X}, "signal", note="S5 summaries: NOT covered by publish"),
-    "scripts.signal.map_consensus::map_category": SurfacePolicy({L: W, I: G, N: G, F: G, C: X}, "signal", note="S5 consensus prose: NOT covered by publish"),
-    "scripts.signal.generate_summary::generate_narrative": SurfacePolicy({L: W, I: G, N: G, F: G, C: X}, "signal", note="S5 narrative"),
-    "scripts.signal.generate_summary::generate_glossary": SurfacePolicy({L: W, I: G, N: G, F: G, C: X}, "signal", note="S5 glossary"),
+    "scripts.signal.score_claims::generate_summaries": SurfacePolicy(_PROSE, "signal", note="S5 summaries: NOT covered by publish", word_figures="flag", wired=True),
+    "scripts.signal.map_consensus::map_category": SurfacePolicy(_PROSE, "signal", note="S5 consensus prose: NOT covered by publish", word_figures="flag", wired=True),
+    "scripts.signal.generate_summary::generate_narrative": SurfacePolicy(_PROSE, "signal", note="S5 narrative", word_figures="flag", wired=True),
+    "scripts.signal.generate_summary::generate_glossary": SurfacePolicy(_PROSE, "signal", note="S5 glossary", word_figures="flag", wired=True),
     "scripts.signal.generate_notifications::generate_notification_text": SurfacePolicy({L: W, I: G, N: G, F: G, C: X}, "signal", note="S6 subscriber email"),
     "scripts.signal.golden_set::verify": SurfacePolicy(_MAPPING, "signal", note="S7 tooling"),
     # ---- WHU (observed, never gated: plan of record) -------------------------

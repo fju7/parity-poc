@@ -202,6 +202,7 @@ def test_unwired_gates_are_declared_and_only_shrink():
       batch 2 by 2026-09-22: H1 x5, E3-E8                          (-> 14 left)
       batch 3 by 2026-09-29: P3, P4 x2, P5, P6 x2, P7, P8           (-> 6 left)
       batch 4 by 2026-10-06: the Signal pipeline writers            (-> 0 left)
+      2026-09-15: the four prose surfaces wired ahead of schedule (pre-flip)
     Remove entries from `expected` as they are wired; never add."""
     expected = {
         "routers.broker::broker_claims_upload", "routers.broker::broker_scorecard_upload",
@@ -217,8 +218,6 @@ def test_unwired_gates_are_declared_and_only_shrink():
         "routers.provider_audit::generate_audit_report", "routers.provider_trends::_generate_trend_narrative",
         "routers.signal_metrics::generate_plain_summary",
         "scripts.signal.00_discover_sources::discover_sources", "scripts.signal.extract_claims::extract_from_source",
-        "scripts.signal.score_claims::generate_summaries", "scripts.signal.map_consensus::map_category",
-        "scripts.signal.generate_summary::generate_narrative", "scripts.signal.generate_summary::generate_glossary",
         "scripts.signal.generate_notifications::generate_notification_text",
     }
     actual = set(policy.unwired_gates())
