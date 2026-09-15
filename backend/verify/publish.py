@@ -13,6 +13,7 @@ from __future__ import annotations
 import datetime as dt
 import getpass
 import gzip
+import hashlib
 import json
 import os
 import platform
@@ -442,6 +443,12 @@ def publish(sb, slug: str, argv: list[str]) -> dict:
                     "claims": {"total": len(claims), "by_support": dict(claim_summary),
                                "identity_only_rate": round(claim_summary.get("IDENTITY_ONLY", 0) / max(len(claims), 1), 3)}},
         "flipped": False,
+        # The operator's ratified scope statement, frozen with the record it
+        # describes (data/verify/scope/<slug>.md). Load-bearing: the §6a read
+        # of 2026-09-14 said the topic does not pass without it, and on
+        # 2026-09-15 the page went live for two hours with it in the read
+        # only. The page renders the record's copy, never the file.
+        "scope_statement": scope_statement(slug),
     }
     out_dir = PUBLISHED / slug; out_dir.mkdir(parents=True, exist_ok=True)
     (out_dir / f"{publish_id}.json").write_text(json.dumps(record, indent=1, ensure_ascii=False))
@@ -460,6 +467,17 @@ def publication_row(record: dict) -> dict:
         "surviving_source_ids": [s["source_id"] for s in record["sources"] if s["survives"]],
         "flipped": record.get("flipped", False),
     }
+
+
+SCOPE = BACKEND / "data" / "verify" / "scope"
+
+
+def scope_statement(slug: str) -> dict | None:
+    p = SCOPE / f"{slug}.md"
+    if not p.exists():
+        return None
+    text = " ".join(p.read_text(encoding="utf-8").split())
+    return {"text": text, "sha256": hashlib.sha256(text.encode("utf-8")).hexdigest(), "source": str(p.relative_to(BACKEND))}
 
 
 def store_publication(sb, record: dict) -> str:

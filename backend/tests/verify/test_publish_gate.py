@@ -127,3 +127,17 @@ def test_every_row_of_the_live_withhold_register_is_a_real_mmr_claim_with_a_reas
     for cid, row in reg["claims"].items():
         assert cid in ids, cid
         assert row["reason"] and row["checked_against"] and row["withheld_by"] and row["withheld_on"] and row["ruled_by"]
+
+
+def test_the_scope_statement_is_frozen_into_the_record_from_the_operators_file():
+    """The page renders the record's copy of the operator's ratified scope
+    statement, never the file: the statement a reader sees is the one frozen
+    with the record it describes. A topic without a file gets None."""
+    from verify import publish
+    r = publish.scope_statement("mmr-vaccine-autism")
+    assert r and r["source"] == "data/verify/scope/mmr-vaccine-autism.md"
+    assert r["text"].startswith("This page covers the epidemiological evidence on MMR vaccination and autism")
+    assert "quashing the GMC's findings against Professor Walker-Smith" in r["text"]
+    assert "competing-interests correction to its editorial" in r["text"]
+    assert r["sha256"] == __import__("hashlib").sha256(r["text"].encode()).hexdigest()
+    assert publish.scope_statement("no-such-topic") is None

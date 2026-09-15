@@ -1146,6 +1146,14 @@ export default function IssueDashboard({
         <h1 className="text-xl sm:text-2xl font-bold text-white mb-2">
           {issue.title}
         </h1>
+        {/* The scope statement: what this page documents and what it only
+            cites. The operator's ratified wording, read from the frozen
+            publication record -- it is the condition the survival read passed on. */}
+        {publication?.scope_statement && (
+          <p data-testid="scope-statement" className="text-sm text-gray-300 leading-relaxed border-l-2 border-[#0D7377] pl-3 mt-3 mb-1">
+            {publication.scope_statement}
+          </p>
+        )}
       </div>
 
       {/* ── A1: the lede — what is contested, before the narrative ── */}

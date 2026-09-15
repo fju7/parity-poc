@@ -137,6 +137,8 @@ async function loadIssueData(slug) {
       published_at: pubRow.published_at,
       gate_version: pubRow.gate_version,
       summary: pubRow.record?.summary,
+      // the operator's ratified scope statement, frozen with this record (publish.scope_statement)
+      scope_statement: pubRow.record?.scope_statement?.text || null,
       supported_claim_ids: pubRow.supported_claim_ids || [],
       surviving_source_ids: pubRow.surviving_source_ids || [],
       support: Object.fromEntries((pubRow.record?.claims || []).map((c) => [c.claim_id, c.support])),
