@@ -1,0 +1,4 @@
+status	200
+url	https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=TITLE%3A%22Vaccines%20are%20not%20associated%20with%20autism%3A%20An%20evidence-based%20meta-analysis%20of%20case-control%20and%20cohort%20studies%22&format=json&pageSize=5&resultType=lite
+content-type	application/json;charset=UTF-8
+final_url	https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=TITLE%3A%22Vaccines%20are%20not%20associated%20with%20autism%3A%20An%20evidence-based%20meta-analysis%20of%20case-control%20and%20cohort%20studies%22&format=json&pageSize=5&resultType=lite

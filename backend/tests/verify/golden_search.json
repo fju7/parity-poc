@@ -1,0 +1,197 @@
+{
+ "_note": "verify.search golden set, recorded live 2026-09-15 and replayed from fixtures/http. known_good: the 15 proposals of the mmr-vaccine-autism scratch discovery run that the registries resolved (identifier from the registry, never the model). known_bad: the PriorixTetra near-miss -- a Cochrane review title word-matching a GSK MMRV trial at ratio 0.8 -- in every form the model produced it. The trial-registry rule (search.TRIAL_MATCH_RATIO / TRIAL_MATCH_MIN) is pinned here so it cannot loosen quietly; the near-miss title pair and its ratio are recorded so a change to the tokeniser that moves the ratio is visible too.",
+ "trial_rule": {
+  "TRIAL_MATCH_RATIO": 0.9,
+  "TRIAL_MATCH_MIN": 4,
+  "ctgov_consulted_for": "kind == 'trial' only; never a fallback for an article"
+ },
+ "near_miss_pairs": [
+  {
+   "proposed": "Vaccines for measles, mumps and rubella in children",
+   "registry_title": "Immunogenicity and Safety Study of GlaxoSmithKline Biological's Live Attenuated Measles Mumps Rubella Varicella Vaccine (PriorixTetra™) When Co-administered With Conjugated Meningococcal C Vaccine (Meningitec®, Nuron Biotechs' Vaccine) in Healthy Children",
+   "ratio_on_2026_09_15": 0.8,
+   "shared_on_2026_09_15": [
+    "children",
+    "measles",
+    "mumps",
+    "rubella"
+   ]
+  },
+  {
+   "proposed": "Vaccines for measles, mumps, rubella, and varicella in children",
+   "registry_title": "Immunogenicity and Safety Study of GlaxoSmithKline Biological's Live Attenuated Measles Mumps Rubella Varicella Vaccine (PriorixTetra™) When Co-administered With Conjugated Meningococcal C Vaccine (Meningitec®, Nuron Biotechs' Vaccine) in Healthy Children",
+   "ratio_on_2026_09_15": 0.833,
+   "shared_on_2026_09_15": [
+    "children",
+    "measles",
+    "mumps",
+    "rubella",
+    "varicella"
+   ]
+  }
+ ],
+ "known_good": [
+  {
+   "title": "Ileal-lymphoid-nodular hyperplasia, non-specific colitis, and pervasive developmental disorder in children",
+   "first_author": "Wakefield",
+   "year": 1998,
+   "kind": null,
+   "expect": "doi:10.1016/s0140-6736(97)11096-0",
+   "registry": "europepmc"
+  },
+  {
+   "title": "Autism and measles, mumps, and rubella vaccine: no epidemiological evidence for a causal association",
+   "first_author": "Taylor",
+   "year": 1999,
+   "kind": null,
+   "expect": "doi:10.1016/s0140-6736(99)01239-8",
+   "registry": "europepmc"
+  },
+  {
+   "title": "A Population-Based Study of Measles, Mumps, and Rubella Vaccination and Autism",
+   "first_author": "Madsen",
+   "year": 2002,
+   "kind": null,
+   "expect": "doi:10.1056/nejmoa021134",
+   "registry": "europepmc"
+  },
+  {
+   "title": "No effect of MMR withdrawal on the incidence of autism: a total population study",
+   "first_author": "Honda",
+   "year": 2005,
+   "kind": null,
+   "expect": "doi:10.1111/j.1469-7610.2005.01425.x",
+   "registry": "europepmc"
+  },
+  {
+   "title": "Pervasive Developmental Disorders in Montreal, Quebec, Canada: Prevalence and Links With Immunizations",
+   "first_author": "Fombonne",
+   "year": 2006,
+   "kind": null,
+   "expect": "doi:10.1542/peds.2005-2993",
+   "registry": "europepmc"
+  },
+  {
+   "title": "MMR vaccination and pervasive developmental disorders: a case-control study",
+   "first_author": "Smeeth",
+   "year": 2004,
+   "kind": null,
+   "expect": "doi:10.1016/s0140-6736(04)17020-7",
+   "registry": "europepmc"
+  },
+  {
+   "title": "Autism Occurrence by MMR Vaccine Status Among US Children With Older Siblings With and Without Autism",
+   "first_author": "Jain",
+   "year": 2015,
+   "kind": null,
+   "expect": "doi:10.1001/jama.2015.3077",
+   "registry": "europepmc"
+  },
+  {
+   "title": "Measles, Mumps, Rubella Vaccination and Autism: A Nationwide Cohort Study",
+   "first_author": "Hviid",
+   "year": 2019,
+   "kind": null,
+   "expect": "doi:10.7326/m18-2101",
+   "registry": "europepmc"
+  },
+  {
+   "title": "Vaccines are not associated with autism: An evidence-based meta-analysis of case-control and cohort studies",
+   "first_author": "Taylor",
+   "year": 2014,
+   "kind": null,
+   "expect": "doi:10.1016/j.vaccine.2014.04.085",
+   "registry": "europepmc"
+  },
+  {
+   "title": "Vaccines for measles, mumps and rubella in children",
+   "first_author": "Demicheli",
+   "year": 2012,
+   "kind": null,
+   "expect": "doi:10.1002/14651858.cd004407.pub3",
+   "registry": "europepmc"
+  },
+  {
+   "title": "Adverse Effects of Vaccines: Evidence and Causality",
+   "first_author": "Stratton",
+   "year": 2011,
+   "kind": null,
+   "expect": "doi:10.17226/13164",
+   "registry": "crossref"
+  },
+  {
+   "title": "Vaccines and Autism Revisited — The Hannah Poling Case",
+   "first_author": "Offit",
+   "year": 2008,
+   "kind": null,
+   "expect": "doi:10.1056/nejmp0802904",
+   "registry": "europepmc"
+  },
+  {
+   "title": "Retraction—Ileal-lymphoid-nodular hyperplasia, non-specific colitis, and pervasive developmental disorder in children",
+   "first_author": "Editors of The Lancet",
+   "year": 2010,
+   "kind": null,
+   "expect": "doi:10.1016/s0140-6736(10)60175-4",
+   "registry": "europepmc"
+  },
+  {
+   "title": "Wakefield's article linking MMR vaccine and autism was fraudulent",
+   "first_author": "Godlee",
+   "year": 2011,
+   "kind": null,
+   "expect": "doi:10.1136/bmj.c7452",
+   "registry": "europepmc"
+  },
+  {
+   "title": "How the case against the MMR vaccine was fixed",
+   "first_author": "Deer",
+   "year": 2011,
+   "kind": null,
+   "expect": "doi:10.1136/bmj.c5347",
+   "registry": "europepmc"
+  }
+ ],
+ "known_bad": [
+  {
+   "title": "Vaccines for measles, mumps and rubella in children",
+   "first_author": "Taylor",
+   "year": 2014,
+   "kind": null,
+   "forbid": "nct:NCT01506193",
+   "near_miss": "nct:NCT01506193",
+   "near_miss_ratio": 0.8,
+   "_why": "Scratch run 1, 2026-09-15: the model proposed the 2012 Cochrane review under the wrong author and year; Europe PMC and Crossref refused it on the author, and ClinicalTrials.gov -- then a fallback for every source type -- matched the PriorixTetra trial on 4 of 5 distinctive words and minted NCT01506193 for a systematic review."
+  },
+  {
+   "title": "Vaccines for measles, mumps, rubella, and varicella in children",
+   "first_author": "Zimmerman",
+   "year": 2020,
+   "kind": null,
+   "forbid": "nct:NCT01506193",
+   "near_miss": "nct:NCT01506193",
+   "near_miss_ratio": 0.833,
+   "_why": "Same run, the 2020 Cochrane update under the wrong author (Di Pietrantonj is first); minted the same trial."
+  },
+  {
+   "title": "Vaccines for measles, mumps and rubella in children",
+   "first_author": "Demicheli",
+   "year": 2012,
+   "kind": "trial",
+   "forbid": "nct:NCT01506193",
+   "near_miss": "nct:NCT01506193",
+   "near_miss_ratio": 0.8,
+   "_why": "The worst case: a model declares the review a registered trial, so ClinicalTrials.gov is consulted FIRST. The trial rule must refuse the 0.8 match and fall through to Europe PMC, which resolves the review's real DOI."
+  },
+  {
+   "title": "Vaccines for measles, mumps, rubella, and varicella in children",
+   "first_author": "Di Pietrantonj",
+   "year": 2020,
+   "kind": "trial",
+   "forbid": "nct:NCT01506193",
+   "near_miss": "nct:NCT01506193",
+   "near_miss_ratio": 0.833,
+   "_why": "As above for the 2020 update, correct author, declared a trial."
+  }
+ ]
+}

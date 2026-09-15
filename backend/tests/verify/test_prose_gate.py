@@ -97,3 +97,17 @@ def test_glossary_definition_may_not_add_a_figure():
     assert ok["ok"]
     bad = pg.gate_glossary({"case-control study": "a design used in about 40% of vaccine safety research"}, text)
     assert not bad["ok"] and any("40" in f["text"] for f in bad["refused"])
+
+
+def test_a_word_form_interval_the_model_computed_is_refused_not_flagged():
+    """Migration 089 (2026-09-15): "six years before" was 2010 - 2004, and the
+    2010 was never handed to the summariser. A counting word is a flag; a
+    word-form figure followed by a unit is a figure, and must be in the held
+    material."""
+    batch = [{"id": "c4", "claim_text": "The Lancet issued a partial retraction of the interpretation in 2004."}]
+    summaries = [{"claim_id": "c4", "plain_summary": "The journal partly withdrew the paper's interpretation in 2004, six years before it retracted the paper entirely."}]
+    kept, verdicts = pg.gate_plain_summaries(_SB(), batch, summaries)
+    assert kept == [] and any(f["text"] in ("six", "6") for f in verdicts[0]["refused"]), verdicts[0]
+    # the bare counting word is still only a flag
+    kept2, verdicts2 = pg.gate_plain_summaries(_SB(), batch, [{"claim_id": "c4", "plain_summary": "The journal partly withdrew the interpretation in 2004; six of the authors' claims were affected."}])
+    assert kept2 and any(f["kind"] == "words" for f in verdicts2[0]["flags"])

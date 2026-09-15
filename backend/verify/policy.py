@@ -292,7 +292,8 @@ def _bind_figures(field_name: str, text: str, held: Held, other: list[Candidate]
             hit = _rounds_to(f["value"], canonical_numbers(json.dumps(held.inputs, default=str, ensure_ascii=False)))
         if hit:
             out.append(Finding(AssertionClass.FIGURE, field_name, c.text, True, "bound", f"matches {hit} at stated precision", kind=c.kind))
-        elif policy is not None and policy.word_figures == "flag" and c.kind == "words" and _small(c.value):
+        elif policy is not None and policy.word_figures == "flag" and c.kind == "words" and _small(c.value) \
+                and not _has_unit(blanked, c):
             out.append(Finding(AssertionClass.FIGURE, field_name, c.text, False, "bound",
                                "counting word not in the held material; a paraphrase count, reported not refused",
                                severity="flag", kind=c.kind))
@@ -305,6 +306,27 @@ def _bind_figures(field_name: str, text: str, held: Held, other: list[Candidate]
             if f.ok is False:
                 f.ok, f.severity, f.reason = None, "unchecked", "not in the readable text; part of the source has no text layer"
     return out
+
+
+# A counting word followed by a unit is a quantity, not a count: "six years
+# before the retraction" (2004 -> 2010, the 2010 from the model's memory) is
+# arithmetic yielding a figure nothing handed over contains. Found on
+# mmr-vaccine-autism claim 5b3bff25, 2026-09-15.
+_UNIT_AFTER = re.compile(r"^\s*(?:years?|months?|weeks?|days?|decades?|hours?|percent|per\s?cent|%|times|fold|"
+                         r"million|billion|thousand|hundred|patients?|children|participants?|cases?|studies|trials?)\b", re.I)
+
+
+def _has_unit(text: str, c: Candidate) -> bool:
+    """Is the word-form figure followed by a unit or a counted noun in the text?"""
+    m = re.search(r"\b(?:" + "|".join(re.escape(w) for w in _WORD_FORMS.get(c.value, ())) + r")\b\s*(?:\(\d+\))?", text, re.I) if _WORD_FORMS.get(c.value) else None
+    if not m:
+        return False
+    return bool(_UNIT_AFTER.match(text[m.end():]))
+
+
+_WORD_FORMS = {str(v): (k,) for k, v in {"one": 1, "two": 2, "three": 3, "four": 4, "five": 5, "six": 6, "seven": 7,
+                                          "eight": 8, "nine": 9, "ten": 10, "eleven": 11, "twelve": 12}.items()}
+_WORD_FORMS["0.5"] = ("half",)
 
 
 def _small(value: str) -> bool:

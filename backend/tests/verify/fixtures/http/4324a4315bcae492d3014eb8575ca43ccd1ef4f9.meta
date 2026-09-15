@@ -1,0 +1,4 @@
+status	200
+url	https://api.crossref.org/works?rows=5&query.bibliographic=Vaccines%20for%20measles%2C%20mumps%20and%20rubella%20in%20children
+content-type	application/json
+final_url	https://api.crossref.org/works?rows=5&query.bibliographic=Vaccines%20for%20measles%2C%20mumps%20and%20rubella%20in%20children

@@ -45,6 +45,13 @@ from .types import Identifier, Provenance
 
 MATCH_RATIO = 0.6
 MATCH_MIN = 3
+# A trial registry match must be near-exact. Trial titles are generic:
+# "Vaccines for measles, mumps and rubella in children" word-matched
+# "Immunogenicity and Safety Study of ... Measles Mumps Rubella Varicella
+# Vaccine (PriorixTetra)" at 0.8 on 2026-09-15 and minted NCT01506193 for a
+# Cochrane review. Pinned by tests/verify/golden_search.json known_bad.
+TRIAL_MATCH_RATIO = 0.9
+TRIAL_MATCH_MIN = 4
 _NOW = lambda: dt.datetime.now(dt.timezone.utc).replace(microsecond=0).isoformat()  # noqa: E731
 
 
@@ -153,10 +160,7 @@ def _ctgov(title: str, year: int | None, near: list) -> Found | None:
             if not cand:
                 continue
             ok, ratio, shared = _title_matches(title, cand)
-            # Trial titles are generic ("Vaccines for measles, mumps and
-            # rubella in children" word-matched a PriorixTetra trial at 0.8 on
-            # 2026-09-15). A trial registry match must be near-exact.
-            ok = ok and (ratio >= 0.9 and len(shared) >= 4 or ratio == 1.0)
+            ok = ok and (ratio >= TRIAL_MATCH_RATIO and len(shared) >= TRIAL_MATCH_MIN or ratio == 1.0)
             if ok and idm.get("nctId"):
                 nct = idm["nctId"]
                 return Found(Identifier("nct", nct, nct, Provenance.SEARCHED), "clinicaltrials.gov", cand,

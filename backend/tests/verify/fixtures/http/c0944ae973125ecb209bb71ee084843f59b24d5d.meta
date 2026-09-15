@@ -1,0 +1,4 @@
+status	200
+url	https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=TITLE%3A%22Autism%20and%20measles%2C%20mumps%2C%20and%20rubella%20vaccine%3A%20no%20epidemiological%20evidence%20for%20a%20causal%20association%22&format=json&pageSize=5&resultType=lite
+content-type	application/json;charset=UTF-8
+final_url	https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=TITLE%3A%22Autism%20and%20measles%2C%20mumps%2C%20and%20rubella%20vaccine%3A%20no%20epidemiological%20evidence%20for%20a%20causal%20association%22&format=json&pageSize=5&resultType=lite

@@ -1283,7 +1283,9 @@ at draft.
 Migration 085 (provider_appeals.verification jsonb) APPLIED 2026-09-15 via apply_migration; verified.
 Migration 086 (service-role-only policies on 14 tables) APPLIED 2026-09-15 after review; verified by anon-key probes.
 Migration 087 (db_posture() + four open policies + grant floor on all 88 tables) APPLIED 2026-09-15; live posture FAIL 0.
-Next migration number: 088
+Migrations 088 and 089 APPLIED 2026-09-15 (six mmr plain_summary values -> NULL; see
+docs/signal-corpus-freeze.md).
+Next migration number: 090
 
 ## Session P0-Signal — Data Integrity + Crawlable Metadata (Complete)
 Phase 0 of the Signal review. Fixes wrong published numbers and unshareable
@@ -2260,6 +2262,40 @@ tiers, the three answered questions, what was built). PHI: docs/phi-model-exposu
   true in frontend/src/lib/siteMeta.js; that alone regenerates the robots meta
   and robots.txt. Then probe the live page for both and confirm a draft topic
   still reads "Not yet published" to the anon key.
+
+## Session SAP-Signal-2 — one re-run, one removal, three checks (2026-09-15)
+- RE-RUN of the frozen mmr record through the current binder, into scratch:
+  FIGURE_BOUND 56 / IDENTITY_ONLY 40 / UNSUPPORTED 32 -- identical, 0 verdict
+  changes, 0 bound -> unbound. The Held fixes live in verify/policy.py, which
+  publish.py does not call. Operator read stands.
+- MIGRATIONS 088 + 089 APPLIED (six plain_summary -> NULL on mmr via the
+  refusal path, no rewrite; 112 of 128 claims keep one). Recorded in
+  docs/signal-corpus-freeze.md. Rendered page probed headlessly after each.
+- "six years before" (5b3bff25): 2010 - 2004, computed by the model; the 2010
+  was never handed to the summariser. Rule: a word-form figure FOLLOWED BY A
+  UNIT is a figure, not a counting word (policy._has_unit). Test in
+  tests/verify/test_prose_gate.py.
+- PRIORIXTETRA NEGATIVE CONTROL: tests/verify/golden_search.json +
+  test_golden_search.py (24 tests, replayed from fixtures/http, recorded live
+  2026-09-15). Pins search.TRIAL_MATCH_RATIO=0.9 / TRIAL_MATCH_MIN=4 by
+  value, pins both near-miss pairs' ratios (0.8 with 4 shared words; 0.833
+  with FIVE shared words -- the ratio refuses it, the word floor would not),
+  asserts ctgov is never called for an article, and re-resolves the 15
+  registry identifiers of the scratch run (15/15 under the tightened rule).
+  The recorded ctgov reply really contains NCT01506193: the control is live.
+  Observed, not fixed: a two-word surname ("Di Pietrantonj") fails
+  search._author_ok against Europe PMC's authorString -> UNRESOLVED, never a
+  guess. Safe direction; fix when it costs a real source.
+- JAIN DOI, by query: the research snapshot (verify_sources_2026-09-14.json,
+  unchanged since 9c135c9) holds doi:10.1001/jama.2015.1534 on both Jain rows
+  (fe4e0fb8, 5c082496) among its 59 FABRICATED_IDENTIFIER; the live
+  signal_sources rows hold ...2015.3077 (migration 081) and the mmr record
+  resolves both EXISTS. Of the 59 fabricated ids only those 2 are in the mmr
+  topic; none of the 12 DOIs rendered in the Sources panel matches any of the
+  59; "2015.1534" appears in no text and no href on the rendered page.
+  (metadata.citation still reads "JAMA. 2015;313(15):1534-1540" -- that is
+  the real page range; the model had turned the first page into a DOI.)
+- STEP 4 (noindex flip) STILL WAITS ON THE FLIP. siteMeta.js untouched.
 
 ## Standing instructions for every session
 1. Read this file at the start of every session

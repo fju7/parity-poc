@@ -1,0 +1,4 @@
+status	200
+url	https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=TITLE%3A%22Pervasive%20Developmental%20Disorders%20in%20Montreal%2C%20Quebec%2C%20Canada%3A%20Prevalence%20and%20Links%20With%20Immunizations%22&format=json&pageSize=5&resultType=lite
+content-type	application/json;charset=UTF-8
+final_url	https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=TITLE%3A%22Pervasive%20Developmental%20Disorders%20in%20Montreal%2C%20Quebec%2C%20Canada%3A%20Prevalence%20and%20Links%20With%20Immunizations%22&format=json&pageSize=5&resultType=lite

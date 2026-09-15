@@ -1,0 +1,4 @@
+status	200
+url	https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=TITLE%3A%22No%20effect%20of%20MMR%20withdrawal%20on%20the%20incidence%20of%20autism%3A%20a%20total%20population%20study%22&format=json&pageSize=5&resultType=lite
+content-type	application/json;charset=UTF-8
+final_url	https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=TITLE%3A%22No%20effect%20of%20MMR%20withdrawal%20on%20the%20incidence%20of%20autism%3A%20a%20total%20population%20study%22&format=json&pageSize=5&resultType=lite

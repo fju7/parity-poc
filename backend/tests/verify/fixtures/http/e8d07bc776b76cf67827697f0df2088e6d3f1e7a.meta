@@ -1,0 +1,4 @@
+status	200
+url	https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=TITLE%3A%22How%20the%20case%20against%20the%20MMR%20vaccine%20was%20fixed%22&format=json&pageSize=5&resultType=lite
+content-type	application/json;charset=UTF-8
+final_url	https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=TITLE%3A%22How%20the%20case%20against%20the%20MMR%20vaccine%20was%20fixed%22&format=json&pageSize=5&resultType=lite

@@ -1,0 +1,4 @@
+status	200
+url	https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=TITLE%3A%22Measles%2C%20Mumps%2C%20Rubella%20Vaccination%20and%20Autism%3A%20A%20Nationwide%20Cohort%20Study%22&format=json&pageSize=5&resultType=lite
+content-type	application/json;charset=UTF-8
+final_url	https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=TITLE%3A%22Measles%2C%20Mumps%2C%20Rubella%20Vaccination%20and%20Autism%3A%20A%20Nationwide%20Cohort%20Study%22&format=json&pageSize=5&resultType=lite

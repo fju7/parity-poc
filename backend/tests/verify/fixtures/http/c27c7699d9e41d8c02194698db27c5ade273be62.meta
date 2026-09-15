@@ -1,0 +1,4 @@
+status	200
+url	https://api.crossref.org/works?rows=5&query.bibliographic=Adverse%20Effects%20of%20Vaccines%3A%20Evidence%20and%20Causality
+content-type	application/json
+final_url	https://api.crossref.org/works?rows=5&query.bibliographic=Adverse%20Effects%20of%20Vaccines%3A%20Evidence%20and%20Causality

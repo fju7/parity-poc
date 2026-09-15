@@ -1,0 +1,4 @@
+status	200
+url	https://clinicaltrials.gov/api/v2/studies?pageSize=5&fields=protocolSection.identificationModule&query.term=Vaccines%20for%20measles%2C%20mumps%20and%20rubella%20in%20children
+content-type	application/json
+final_url	https://clinicaltrials.gov/api/v2/studies?pageSize=5&fields=protocolSection.identificationModule&query.term=Vaccines%20for%20measles%2C%20mumps%20and%20rubella%20in%20children

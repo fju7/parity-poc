@@ -1,0 +1,4 @@
+status	200
+url	https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=TITLE%3A%22Retraction%E2%80%94Ileal-lymphoid-nodular%20hyperplasia%2C%20non-specific%20colitis%2C%20and%20pervasive%20developmental%20disorder%20in%20children%22&format=json&pageSize=5&resultType=lite
+content-type	application/json;charset=UTF-8
+final_url	https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=TITLE%3A%22Retraction%E2%80%94Ileal-lymphoid-nodular%20hyperplasia%2C%20non-specific%20colitis%2C%20and%20pervasive%20developmental%20disorder%20in%20children%22&format=json&pageSize=5&resultType=lite

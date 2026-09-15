@@ -1,0 +1,4 @@
+status	200
+url	https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=TITLE%3A%22Wakefield%27s%20article%20linking%20MMR%20vaccine%20and%20autism%20was%20fraudulent%22&format=json&pageSize=5&resultType=lite
+content-type	application/json;charset=UTF-8
+final_url	https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=TITLE%3A%22Wakefield%27s%20article%20linking%20MMR%20vaccine%20and%20autism%20was%20fraudulent%22&format=json&pageSize=5&resultType=lite
