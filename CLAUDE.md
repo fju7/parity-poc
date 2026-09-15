@@ -2493,7 +2493,39 @@ is done. Items 2-4 touch no page and no corpus, so they were done now.
   primary document enters only on BOTH an independently resolved citing
   source (issuer, date, parties matching the file's header) AND a named
   reviewed_by. Twin of the no-status-registry gap; same design
-  (docs/legal-sources-have-no-status-registry-2026-09-15.md).
+  (docs/source-status-no-registry-watches-2026-09-15.md).
+- STILL: no --flip, siteMeta.js untouched.
+
+## Session SAP-Signal-8 — the date-only blocker; the 29 swept; 091 applied; 092 for review (2026-09-15)
+- BLOCKER FIXED: publish.gate_claim strips CHRONOLOGY's years from the
+  claim's figures before levelling; a year-only claim is IDENTITY_ONLY, never
+  FIGURE_BOUND (test in test_publish_gate). Re-freeze a42989d: 33 of 37;
+  FIGURE_BOUND 34 / SPAN_BOUND 1 / IDENTITY_ONLY 72 / UNSUPPORTED 21 (from
+  64 / - / 43 / 21); 30 level changes, 0 shown<->withheld. THE 30-POINT DROP
+  IN FIGURE_BOUND IS THE FIX WORKING, NOT A REGRESSION -- the read and the
+  register say so in those words.
+- THE 29 SWEPT (does the source's fetched text support anything beyond the
+  year?): 24 yes; 5 no -- 19214753 (lawyers; FALSE BIND on the notice;
+  re-cited to Deer by MIGRATION 091, approved + applied), f0b091fa (Smeeth
+  "temporal clustering" -- Taylor 1999's finding), b8b27c3b (Madsen
+  "dose-response" -- not in the abstract), 6bbf8769 (Hviid "preterm / low
+  birth weight" -- not in the abstract), 62c10907 (Cochrane "described as the
+  most comprehensive", "2020" for pub5). The four render source-confirmed;
+  re-cite or cut is the operator's call, not yet made.
+- MIGRATION 092 AUTHORED, NOT APPLIED (the operator asked for "091"; 091 was
+  taken by the approved re-cite so the re-freeze could follow it): bmj.d1678
+  as a source titled "Correction -- ..." with metadata.corrects, and
+  metadata.corrected_by on c7452; no claim linked. The page saying it needs
+  a code path: read a hand-curated corrected_by as a status event -> the
+  "corrected" marker on the editorial (0eda21d2 is a SUBJECT link, so marked,
+  not refused). Not built; described in the migration header.
+- SCOPE STATEMENT: all three changes kept, Walker-Smith kept, fourth sentence
+  (the BMJ correction) added -- marked "do not ratify before 092" in the read.
+- PHASE 5 NOTE WIDENED and renamed docs/source-status-no-registry-watches-
+  2026-09-15.md: three instances (a court quashing a determination; legal
+  sources with no registry; a journal correction Crossref does not surface);
+  the re-check interval belongs to EVERY source, set by how much of its
+  status the machine can see.
 - STILL: no --flip, siteMeta.js untouched.
 
 ## Standing instructions for every session

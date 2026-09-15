@@ -1,4 +1,35 @@
-# Legal and regulatory sources have no status registry — a Phase 5 gap
+# Sources whose status no registry watches — a Phase 5 gap
+
+*Widened 2026-09-15 (evening): first written as "legal and regulatory sources
+have no status registry"; the same day showed the gap is not specific to
+legal documents. Three instances now, listed first.*
+
+## Three instances, one gap
+
+1. **A court quashed part of a determination a cited source rests on.**
+   *Walker-Smith v GMC* [2012] EWHC 503 (Admin) quashed the GMC panel's
+   findings against one of the three doctors; the Lancet's retraction notice
+   rests on that panel's judgment; no registry connects the two.
+2. **Legal sources have no status registry at all.** `verify/status.py`
+   records a judgment, a determination, an agency filing as `no_registry`;
+   the binding re-check can see the text change, never its authority.
+3. **A journal's own correction the registry does not surface.** The BMJ
+   published a competing-interests correction (bmj.d1678, 15 March 2011) to
+   Godlee's editorial (bmj.c7452); Crossref reports c7452 `unchanged` — no
+   update-to, no relation, no updating work — and the weekly status re-check
+   would have said the same for as long as the page stood. This is the
+   paper-status registry, the one the design trusts, missing a published
+   correction to a paper we cite.
+
+The gap, stated once: **the system's belief that a source's status is
+"unchanged" is only as good as the registry that answers, and for some
+sources no registry answers, while for others the registry that answers is
+incomplete.** Both look identical on the record. The design's remedy — a
+recorded human re-check interval — is therefore not a legal-sources feature;
+it is a property every source needs, with the interval set by how much of
+its status the machine can actually see.
+
+## The legal case, as first written
 
 Written 2026-09-15 for the verification plan's Phase 5. Not built. The worked
 example is a document Fred fetched by hand the same day.
@@ -56,17 +87,27 @@ no way to know that part of what it rests on was quashed.
 
 ## What Phase 5 needs
 
+0. **The re-check interval belongs to every source, not to legal ones.** A
+   paper with a Crossref record gets a long interval (the registry watches
+   most of its status); a legal document with no registry gets a short one;
+   the interval and the last human check are on the record and on the page.
+   Instance 3 says the long interval is not infinite: Crossref missed d1678.
 1. **A recorded human re-check interval on every legal source**, stored on
    the source (`metadata.status_registry = none`, `metadata.recheck_interval`,
    `metadata.last_human_check`, `checked_by`), surfaced by the weekly job as a
    due-date, and marked on the page as "status last confirmed by a person on
    <date>" — the honest equivalent of the registry line a paper gets. Overdue
    is a marker, like a retraction.
-2. **A hand-curated events table for legal status**, under the same
+2. **A hand-curated events table for source status**, under the same
    candidate-table discipline as `events.json` (primary URL verified by fetch,
    `reviewed_by`): `{source, event: quashed | reversed | superseded |
-   appealed | withdrawn, date, by, url}`. CHRONOLOGY and STATUS_AT_PUBLISH
-   already know how to consume events; they need a source for legal ones.
+   appealed | withdrawn | corrected | retracted, date, by, url}`. CHRONOLOGY
+   and STATUS_AT_PUBLISH already know how to consume events; they need a
+   source for the ones no registry emits — the legal ones, and the
+   corrections a registry missed. Migration 092 (authored) puts the first
+   such correction on the editorial's row as `metadata.corrected_by`; the
+   gate should read it as a status event, so the editorial carries the
+   "corrected" marker exactly as a Crossref update-to would.
 3. **Derivative reliance.** A source that rests on a legal determination (the
    notice on the GMC) inherits the determination's re-check, or the page says
    the dependence is unwatched. This is the harder half and may be out of
