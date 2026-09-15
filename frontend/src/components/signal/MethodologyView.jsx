@@ -1,122 +1,107 @@
 import { Link } from "react-router-dom";
 
-const DIMENSIONS = [
+// Every process claim on this page names the code that performs it, in the
+// `where` fields below and in docs/signal-methodology-claims-2026-09-15.md.
+// A sentence with no code behind it does not belong here. Rewritten
+// 2026-09-15 (Phase 4 of the verification plan, methodology page only): the
+// previous page described a scoring rubric as if it were the method, carried
+// weights that did not match score_claims.py, and did not mention the gates
+// that decide what is shown at all.
+
+// Weights and thresholds are copied from backend/scripts/signal/score_claims.py
+// (DEFAULT_WEIGHTS, EVIDENCE_CATEGORIES). If they drift, the test in
+// frontend/src/__tests__ that compares them fails.
+export const WEIGHTS = {
+  source_quality: 0.25,
+  data_support: 0.2,
+  reproducibility: 0.2,
+  consensus: 0.15,
+  recency: 0.1,
+  rigor: 0.1,
+};
+
+export const CATEGORY_THRESHOLDS = [
+  ["Strong", 4.0],
+  ["Moderate", 3.0],
+  ["Mixed", 2.0],
+  ["Weak", 0.0],
+];
+
+const GATES = [
   {
-    name: "Source Quality",
-    key: "source_quality",
-    weight: "25%",
-    description:
-      "Evaluates the credibility and tier of the underlying source. Peer-reviewed Phase III trials and FDA regulatory filings score highest. News articles and opinion pieces score lowest.",
-    scale: [
-      "1 — Blog post or unverified claim",
-      "2 — News reporting without primary source",
-      "3 — Government report or industry analysis",
-      "4 — Peer-reviewed observational study",
-      "5 — Peer-reviewed RCT or FDA filing",
-    ],
+    name: "Every source is resolved and fetched",
+    where: "backend/verify/literature.py, verify/generic.py, verify/publish.py",
+    text:
+      "Before a topic is published, each source's identifier (DOI, PubMed ID, trial number, or URL) is looked up in the registry that issues it — Crossref, Europe PMC, ClinicalTrials.gov — and the document itself is retrieved. A source whose identifier resolves to nothing, or to a different paper, or whose text cannot be retrieved, is withheld from the page, and the publication record notes it with the reason.",
   },
   {
-    name: "Data Support",
-    key: "data_support",
-    weight: "20%",
+    name: "Every figure in a claim is found in its source",
+    where: "backend/verify/bind.py (FIGURE, SPAN, HEADING, CHRONOLOGY), verify/publish.py",
+    text:
+      "A claim that states a number must have that number present in the fetched text of a source it cites; a claim that quotes must quote verbatim; and a source cannot support a claim about something that happened after it was published. Claims that fail are withheld from the page. Claims whose sources resolved but which state no figure are shown and marked as identity-only: the source is real, the specific figure was not checked because there was none to check.",
+  },
+  {
+    name: "Retractions and corrections are checked",
+    where: "backend/verify/status.py; backend/scripts/recheck_topic.py; .github/workflows/verify-gates.yml",
+    text:
+      "At publication, and every week afterwards, each source's registry record is checked for a retraction, correction or expression of concern. Monthly, every source is fetched again and every binding re-run. A change marks the page; it never silently un-publishes it.",
+  },
+  {
+    name: "The record is frozen and shown",
+    where: "backend/verify/publish.py (the publication record); frontend/src/components/signal/RecordMarkers.jsx",
+    text:
+      "What each claim rested on at the moment of publication — which source, which binding, what the registry said — is written to a record that is stored and displayed. The markers on the topic page (\"withheld\", \"identity-only\", \"retracted before publication\") come from that record, not from a model.",
+  },
+  {
+    name: "The prose is checked against the claims",
+    where: "backend/scripts/signal/prose_gate.py; backend/verify/policy.py",
+    text:
+      "The plain-language summary under each claim, the consensus text for each category, the overall narrative and the glossary are written by a model. Before any of it is stored, its figures and the bodies it names are checked against the claims and sources it was given. A summary that adds a number or an authority the claims do not contain is not shown; the claim is shown without it.",
+  },
+];
+
+const DIMENSIONS = [
+  {
+    name: "Source quality",
+    key: "source_quality",
     description:
-      "Measures whether the claim is backed by quantitative data — sample sizes, effect sizes, confidence intervals, or measurable outcomes.",
-    scale: [
-      "1 — No data cited",
-      "2 — Anecdotal evidence only",
-      "3 — Limited quantitative data",
-      "4 — Robust data with statistical measures",
-      "5 — Large-scale data with strong statistical significance",
-    ],
+      "How authoritative the model judges the claim's sources to be, on a 1–5 scale (5: regulatory label or major peer-reviewed trial; 1: opinion or unreviewed preprint). This is scored from the source's title, type label and publication date. The type label was itself written by a model when the source was gathered; it is not derived from the fetched document. Treat this dimension as the model's reading, not a verified property of the source.",
+  },
+  {
+    name: "Data support",
+    key: "data_support",
+    description:
+      "Whether the claim rests on quantitative results (5: specific statistics with intervals; 1: a purely qualitative assertion).",
   },
   {
     name: "Reproducibility",
     key: "reproducibility",
-    weight: "15%",
     description:
-      "Assesses whether findings have been replicated across independent studies, populations, or geographies.",
-    scale: [
-      "1 — Single unreplicated finding",
-      "2 — Single study with no replication attempt",
-      "3 — Replicated in limited settings",
-      "4 — Replicated across multiple independent studies",
-      "5 — Widely replicated with consistent results",
-    ],
+      "Whether the finding has been confirmed by independent sources (5: multiple independent trials; 1: preliminary or contested).",
   },
   {
     name: "Consensus",
     key: "consensus",
-    weight: "15%",
     description:
-      "Reflects the degree of expert and institutional agreement on the claim. Unanimous FDA approval signals strong consensus; active scientific debate signals lower consensus.",
-    scale: [
-      "1 — Actively disputed by experts",
-      "2 — Significant disagreement",
-      "3 — Emerging agreement with caveats",
-      "4 — Broad agreement among experts",
-      "5 — Unanimous institutional consensus",
-    ],
+      "What proportion of the credible sources in the topic agree with the claim (5: universal; 1: a minority position).",
   },
   {
     name: "Recency",
     key: "recency",
-    weight: "15%",
     description:
-      "Weights more recent evidence higher. In fast-moving fields like GLP-1 research, a 2024 study is more relevant than a 2019 study, even if the older study is well-designed.",
-    scale: [
-      "1 — Over 5 years old",
-      "2 — 3-5 years old",
-      "3 — 1-3 years old",
-      "4 — Within the last year",
-      "5 — Within the last 6 months",
-    ],
+      "How recent the evidence is, from the publication date (5: within the last year; 1: more than six years old).",
   },
   {
     name: "Rigor",
     key: "rigor",
-    weight: "10%",
     description:
-      "Evaluates methodological quality — study design, control groups, blinding, bias mitigation, and appropriate statistical methods.",
-    scale: [
-      "1 — No discernible methodology",
-      "2 — Weak methodology or high bias risk",
-      "3 — Acceptable methodology with limitations",
-      "4 — Strong methodology with minor gaps",
-      "5 — Gold-standard methodology (double-blind RCT, pre-registered)",
-    ],
+      "Methodological quality as the model reads it (5: large pre-registered trial; 1: anecdotal or flawed).",
   },
 ];
 
-const EVIDENCE_CATEGORIES = [
-  {
-    name: "Strong",
-    range: "4.0 — 5.0",
-    color: "bg-emerald-100 text-emerald-700",
-    description:
-      "Claim is well-supported by high-quality, recent, replicated evidence with broad expert consensus.",
-  },
-  {
-    name: "Moderate",
-    range: "3.0 — 3.9",
-    color: "bg-blue-100 text-blue-700",
-    description:
-      "Claim has meaningful support but may lack replication, have mixed data quality, or be relatively recent with limited follow-up.",
-  },
-  {
-    name: "Mixed",
-    range: "2.0 — 2.9",
-    color: "bg-amber-100 text-amber-700",
-    description:
-      "Evidence is conflicting, limited, or from lower-quality sources. The claim may be plausible but is not yet well-established.",
-  },
-  {
-    name: "Weak",
-    range: "1.0 — 1.9",
-    color: "bg-red-100 text-red-700",
-    description:
-      "Minimal or no credible evidence supports this claim. May be speculative, anecdotal, or contradicted by stronger evidence.",
-  },
-];
+function pct(w) {
+  return `${Math.round(w * 100)}%`;
+}
 
 export default function MethodologyView() {
   return (
@@ -128,144 +113,121 @@ export default function MethodologyView() {
         &larr; Back to Signal
       </Link>
 
-      <h1 className="text-2xl font-bold text-white mb-2">
-        Scoring Methodology
-      </h1>
+      <h1 className="text-2xl font-bold text-white mb-2">How a topic is built</h1>
       <p className="text-gray-300 text-sm leading-relaxed mb-8">
-        Parity Signal evaluates medical evidence claims across six dimensions.
-        Each claim receives a score of 1-5 on every dimension. The composite
-        score is a weighted average that determines the overall evidence
-        strength.
+        Two different things happen to every claim on Parity Signal, and they
+        should not be confused. Some things are <strong className="text-white">checked</strong> — by
+        code, against a registry and a fetched document, and a claim that fails is
+        not shown. Other things are <strong className="text-white">scored</strong> — by a
+        language model, on a 1–5 scale, and the score is a reading, not a
+        verification. This page says which is which.
       </p>
 
-      {/* Composite formula */}
-      <div className="bg-gray-50 border border-gray-200 rounded-xl p-5 mb-8">
-        <h2 className="text-sm font-bold text-[#1B3A5C] mb-2">
-          Composite Score Formula
-        </h2>
-        <p className="text-sm text-gray-600 leading-relaxed mb-3">
-          The composite score is a weighted average of six dimension scores:
-        </p>
-        <div className="bg-white rounded-lg p-3 font-mono text-xs text-[#1B3A5C] leading-loose border border-gray-100 overflow-x-auto">
-          <div className="min-w-0">
-            composite =<br />
-            &nbsp;&nbsp;(source_quality × 0.25)<br />
-            &nbsp;&nbsp;+ (data_support × 0.20)<br />
-            &nbsp;&nbsp;+ (reproducibility × 0.15)<br />
-            &nbsp;&nbsp;+ (consensus × 0.15)<br />
-            &nbsp;&nbsp;+ (recency × 0.15)<br />
-            &nbsp;&nbsp;+ (rigor × 0.10)
-          </div>
-        </div>
-      </div>
-
-      {/* Dimensions */}
-      <h2 className="text-lg font-bold text-white mb-4">
-        Scoring Dimensions
-      </h2>
-      <div className="space-y-5 mb-10">
-        {DIMENSIONS.map((dim) => (
-          <div
-            key={dim.key}
-            className="border border-white/[0.1] rounded-xl p-4"
-          >
-            <div className="flex items-center justify-between mb-1">
-              <h3 className="font-bold text-[#f1f5f9] text-sm">{dim.name}</h3>
-              <span className="text-xs font-semibold text-[#0D7377] bg-[#0D7377]/10 px-2 py-0.5 rounded-full">
-                Weight: {dim.weight}
-              </span>
-            </div>
-            <p className="text-sm text-gray-300 leading-relaxed mb-3">
-              {dim.description}
-            </p>
-            <div className="space-y-1">
-              {dim.scale.map((level, i) => (
-                <div key={i} className="text-xs text-gray-400 leading-relaxed">
-                  {level}
-                </div>
-              ))}
-            </div>
+      {/* Gates */}
+      <h2 className="text-lg font-bold text-white mb-1">What is checked</h2>
+      <p className="text-sm text-gray-400 leading-relaxed mb-4">
+        No model takes part in any of these. Each is a comparison of strings
+        against a document the system retrieved.
+      </p>
+      <div className="space-y-4 mb-10">
+        {GATES.map((g) => (
+          <div key={g.name} className="border border-white/[0.1] rounded-xl p-4">
+            <h3 className="font-bold text-[#f1f5f9] text-sm mb-1">{g.name}</h3>
+            <p className="text-sm text-gray-300 leading-relaxed">{g.text}</p>
           </div>
         ))}
       </div>
 
-      {/* Evidence categories */}
-      <h2 className="text-lg font-bold text-white mb-4">
-        Evidence Categories
-      </h2>
-      <p className="text-sm text-gray-300 leading-relaxed mb-4">
-        The composite score maps to an evidence category:
+      {/* Scores */}
+      <h2 className="text-lg font-bold text-white mb-1">What is scored</h2>
+      <p className="text-sm text-gray-400 leading-relaxed mb-4">
+        A language model reads each claim with its sources and assigns six
+        integer scores from 1 to 5. The composite is computed in code as a
+        weighted average and mapped to a category. The scores decide how a
+        claim is <em>ranked and labelled</em>; they never decide whether it is
+        shown — that is the checks above.
       </p>
-      <div className="space-y-3 mb-10">
-        {EVIDENCE_CATEGORIES.map((cat) => (
-          <div
-            key={cat.name}
-            className="flex items-start gap-3 border border-white/[0.1] rounded-lg p-3"
-          >
-            <span
-              className={`${cat.color} text-xs font-semibold px-2.5 py-0.5 rounded-full shrink-0 mt-0.5`}
-            >
-              {cat.name}
-            </span>
-            <div>
-              <span className="text-xs font-semibold text-gray-400">
-                {cat.range}
+      <div className="bg-gray-50 border border-gray-200 rounded-xl p-5 mb-6">
+        <h3 className="text-sm font-bold text-[#1B3A5C] mb-2">Composite</h3>
+        <div className="bg-white rounded-lg p-3 font-mono text-xs text-[#1B3A5C] leading-loose border border-gray-100 overflow-x-auto">
+          <div className="min-w-0">
+            composite =<br />
+            {Object.entries(WEIGHTS).map(([k, w], i) => (
+              <span key={k}>
+                &nbsp;&nbsp;{i === 0 ? "" : "+ "}({k} × {w.toFixed(2)})<br />
               </span>
-              <p className="text-sm text-gray-300 leading-relaxed mt-0.5">
-                {cat.description}
-              </p>
+            ))}
+          </div>
+        </div>
+        <p className="text-xs text-gray-500 mt-3">
+          {CATEGORY_THRESHOLDS.map(([name, t], i) => (
+            <span key={name}>
+              {i > 0 ? " · " : ""}
+              <strong>{name}</strong> ≥ {t.toFixed(1)}
+            </span>
+          ))}
+        </p>
+      </div>
+      <div className="space-y-4 mb-10">
+        {DIMENSIONS.map((dim) => (
+          <div key={dim.key} className="border border-white/[0.1] rounded-xl p-4">
+            <div className="flex items-center justify-between mb-1">
+              <h3 className="font-bold text-[#f1f5f9] text-sm">{dim.name}</h3>
+              <span className="text-xs font-semibold text-[#0D7377] bg-[#0D7377]/10 px-2 py-0.5 rounded-full">
+                Weight: {pct(WEIGHTS[dim.key])}
+              </span>
             </div>
+            <p className="text-sm text-gray-300 leading-relaxed">{dim.description}</p>
           </div>
         ))}
       </div>
 
       {/* Consensus mapping */}
-      <h2 className="text-lg font-bold text-white mb-4">
-        Consensus Mapping
-      </h2>
+      <h2 className="text-lg font-bold text-white mb-1">How a category's consensus is read</h2>
       <p className="text-sm text-gray-300 leading-relaxed mb-4">
-        Claims are grouped by category (e.g., efficacy, safety, pricing) and an
-        AI model assesses the overall consensus status for each category:
+        Claims are grouped by category. For each category a model reads all of
+        the category's claims and assigns one status, using a written decision
+        order: conflicting credible evidence is <em>debated</em>; thin evidence
+        is <em>uncertain</em>; undisputed evidence is <em>consensus</em>. This
+        reading is not reproducible run to run, and the same claims have been
+        read differently on different days. The pipeline can therefore run the
+        reading several times and store the status the runs agree on with the
+        agreement rate; the first published topic was read once, and its record
+        says so. A model reading of consensus is a reading, not a count.
       </p>
       <div className="space-y-2 mb-10">
         {[
-          {
-            status: "Consensus",
-            dot: "bg-emerald-400",
-            desc: "Evidence overwhelmingly supports a single position within the category.",
-          },
-          {
-            status: "Debated",
-            dot: "bg-amber-400",
-            desc: "Credible evidence exists on multiple sides. Key arguments for and against are presented.",
-          },
-          {
-            status: "Uncertain",
-            dot: "bg-gray-400",
-            desc: "Insufficient or too early-stage evidence to determine a clear direction.",
-          },
+          { status: "Consensus", dot: "bg-emerald-400", desc: "The category's claims do not dispute one another." },
+          { status: "Debated", dot: "bg-amber-400", desc: "Credible claims conflict. The arguments on each side are shown, with the claims they rest on where the model attributed them." },
+          { status: "Uncertain", dot: "bg-gray-400", desc: "Too little evidence to read a direction." },
         ].map((s) => (
           <div key={s.status} className="flex items-start gap-2.5 py-2">
             <span className={`w-2.5 h-2.5 rounded-full ${s.dot} shrink-0 mt-1`} />
             <div>
-              <span className="text-sm font-bold text-[#f1f5f9]">
-                {s.status}
-              </span>
+              <span className="text-sm font-bold text-[#f1f5f9]">{s.status}</span>
               <p className="text-sm text-gray-300">{s.desc}</p>
             </div>
           </div>
         ))}
       </div>
 
-      {/* Disclaimer */}
+      {/* What this is not */}
+      <h2 className="text-lg font-bold text-white mb-1">What this does not do</h2>
+      <p className="text-sm text-gray-300 leading-relaxed mb-10">
+        The checks establish that a source exists, that it was retrieved, and
+        that it contains what a claim says it contains. They do not establish
+        that the right sources were chosen, that contested findings were fairly
+        weighted, or that a claim is true. A score is a model's judgement about
+        the evidence as presented to it. Nothing here is a clinical
+        recommendation.
+      </p>
+
       <div className="bg-gray-50 border border-gray-200 rounded-xl p-4 text-xs text-gray-500 leading-relaxed">
         <strong className="text-gray-700">Disclaimer:</strong> Parity Signal
-        provides automated evidence assessments based on publicly available
-        research. Scores are generated by AI models and reflect the quality and
-        quantity of available evidence — not clinical recommendations. Always
-        consult healthcare professionals for medical decisions. Source data is
-        updated periodically; individual scores may change as new evidence
-        becomes available.
+        summarises published research. Scores are generated by language models
+        and reflect the evidence as read, not clinical recommendations. Always
+        consult healthcare professionals for medical decisions. Sources are
+        re-checked on a schedule; a page marks changes rather than hiding them.
       </div>
     </div>
   );
