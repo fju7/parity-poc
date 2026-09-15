@@ -1,0 +1,26 @@
+{
+ "doi:10.1016/s0140-6736(10)60175-4": {
+  "path": "data/verify/docs/b7/b70a220048dc7ce64cb24fc78cf354cbf0670a2f9630dfeb0c23e5fa446c642f.txt.gz",
+  "record": "data/verify/supplied/b70a220048dc7ce64cb24fc78cf354cbf0670a2f9630dfeb0c23e5fa446c642f.json",
+  "retrieved_at": "2026-09-15T19:01:08+00:00",
+  "sha256": "b70a220048dc7ce64cb24fc78cf354cbf0670a2f9630dfeb0c23e5fa446c642f",
+  "source_url": "https://www.thelancet.com/journals/lancet/article/PIIS0140-6736(10)60175-4/fulltext",
+  "supplied_by": "Fred Ugast"
+ },
+ "doi:10.1136/bmj.c5347": {
+  "path": "data/verify/docs/79/79373a9f7f1f81ae5bd6dc8a5d5663990f542a4ceb25e9b40c2ea9431444fb55.txt.gz",
+  "record": "data/verify/supplied/79373a9f7f1f81ae5bd6dc8a5d5663990f542a4ceb25e9b40c2ea9431444fb55.json",
+  "retrieved_at": "2026-09-15T19:00:12+00:00",
+  "sha256": "79373a9f7f1f81ae5bd6dc8a5d5663990f542a4ceb25e9b40c2ea9431444fb55",
+  "source_url": "https://www.bmj.com/content/342/bmj.c5347",
+  "supplied_by": "Fred Ugast"
+ },
+ "doi:10.1136/bmj.c7452": {
+  "path": "data/verify/docs/f5/f58bdbdd4b9b0cbd4e38976fbd9ee813a96b19bcd92e251fcd3c91371afb6084.txt.gz",
+  "record": "data/verify/supplied/f58bdbdd4b9b0cbd4e38976fbd9ee813a96b19bcd92e251fcd3c91371afb6084.json",
+  "retrieved_at": "2026-09-15T19:00:11+00:00",
+  "sha256": "f58bdbdd4b9b0cbd4e38976fbd9ee813a96b19bcd92e251fcd3c91371afb6084",
+  "source_url": "https://www.bmj.com/content/342/bmj.c7452",
+  "supplied_by": "Fred Ugast"
+ }
+}

@@ -183,3 +183,13 @@ def test_claim_dates_and_the_chronology_kind():
     assert bind_chronology("children born from 1999 through 2010", hviid).ok
     law = Resolution(Identifier("orc", "3901.381"), Exists.EXISTS, extra={"effective": "October 17, 2019"})
     assert bind_chronology("In 1995 the statute required payment within thirty days", law).ok   # law is not judged
+
+
+def test_a_middle_dot_decimal_before_a_scale_word_keeps_its_integer_part():
+    """The Lancet writes 14·7 million; before 2026-09-15 the scale composer
+    read it as 7 million and the claim's 14,700,000 could never bind."""
+    from verify.numbers import canonical_numbers, stated_figures
+    assert canonical_numbers("14·7 million children") == {"14700000"}
+    assert canonical_numbers("1·2 billion") == {"1200000000"}
+    assert {str(f["value"]) for f in stated_figures("14·7 million")} == {"14700000.0"}
+    assert canonical_numbers("0·92 (95% CI 0·68–1·24)") == {"0.68", "0.92", "1.24", "95"}

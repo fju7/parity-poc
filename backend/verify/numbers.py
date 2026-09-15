@@ -145,7 +145,11 @@ def _words(text: str, commit: bool = False) -> set[str]:
     return out
 
 
-_DIGIT_SCALE = re.compile(r"(?<![\w.])(\d+(?:[.,]\d+)?)\s*(hundred|thousand|million|billion)\b", re.I)
+# The Lancet writes its decimal point as a middle dot: "14·7 million" is
+# 14,700,000, not "7 million" (2026-09-15, found on the hand-fetched
+# retraction notice's neighbours). _DIGIT already accepts "·"; the scale
+# composer must too, or the digits before the dot are dropped.
+_DIGIT_SCALE = re.compile(r"(?<![\w.·])(\d+(?:[.,·]\d+)?)\s*(hundred|thousand|million|billion)\b", re.I)
 
 
 def _digit_scales(text: str) -> set[str]:
@@ -154,7 +158,7 @@ def _digit_scales(text: str) -> set[str]:
     out = set()
     for m in _DIGIT_SCALE.finditer(text):
         try:
-            out.add(_canon(Decimal(re.sub(_SEP, "", m.group(1))) * SCALES[m.group(2).lower()]))
+            out.add(_canon(Decimal(re.sub(_SEP, "", m.group(1)).replace("·", ".")) * SCALES[m.group(2).lower()]))
         except InvalidOperation:
             pass
     return out

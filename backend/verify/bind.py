@@ -97,15 +97,18 @@ def bind_figure(assertion: str, document: Document, registry_text: str = "") -> 
     return Binding(Kind.FIGURE, True, evidence=", ".join(sorted(want & have) + resolved))
 
 
-# Double quotes only. A straight apostrophe pair ("Wakefield's ... children's")
-# is not a quotation, and on 2026-09-14 it produced a SPAN check against a
-# possessive phrase that could never be in the document.
-_QUOTE = re.compile(r"[\"“”]([^\"“”]{12,})[\"“”]")
+# Double quotes, or a single-quoted span whose quote marks are NOT attached to
+# letters. A straight apostrophe pair ("Wakefield's ... children's") is not a
+# quotation, and on 2026-09-14 it produced a SPAN check against a possessive
+# phrase that could never be in the document; "as 'an elaborate fraud' in an
+# editorial" is one, and on 2026-09-15 it was the quotation that could bind
+# the claim to Godlee's editorial.
+_QUOTE = re.compile(r"[\"“”]([^\"“”]{12,})[\"“”]|(?<![A-Za-z0-9])['‘]([^'‘’]{12,})['’](?![A-Za-z0-9])")
 
 
 def bind_span(assertion: str, document: Document, quoted: str | None = None) -> Binding:
     """Is the quoted passage in the document verbatim (whitespace/case/typography-insensitive)?"""
-    spans = [quoted] if quoted else [m.group(1) for m in _QUOTE.finditer(assertion)]
+    spans = [quoted] if quoted else [m.group(1) or m.group(2) for m in _QUOTE.finditer(assertion)]
     if not spans:
         return Binding(Kind.SPAN, True, evidence="no quotation in assertion")
     if document.text_layer != "DECLARED_SOUND":

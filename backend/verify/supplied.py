@@ -61,14 +61,14 @@ _NOW = lambda: dt.datetime.now(dt.timezone.utc).replace(microsecond=0).isoformat
 
 # The registry's title must match the supplied document's OWN TITLE LINES
 # (the first lines of a PDF, <title>/<h1>/citation_title of a page) at this
-# ratio with this many words shared, or be contained whole in the first
+# ratio with this many words shared, or be contained WHOLE in the first
 # HEAD_CHARS of the text. Only the short title lines get the ratio rule: a
 # same-topic abstract shares most of a title's words ("measles, mumps,
 # rubella, vaccination, autism, cohort"), and on 2026-09-15 a 4,000-character
 # head let Madsen 2002 pass as Hviid 2019 at 0.86. Stricter than
 # bind_heading (0.6 / 3 on a machine fetch): a pass here ADMITS bytes a
 # person chose.
-HEAD_CHARS = 200
+HEAD_CHARS = 400
 TITLE_RATIO = 0.8
 TITLE_MIN = 4
 
@@ -86,18 +86,27 @@ class Supply:
     record: dict = field(default_factory=dict)
 
 
-# A title sits in the first few lines and is short. The first THREE non-empty
-# lines of at most 200 characters are the document's title candidates; an
-# abstract line is neither near the top nor short, and must not get the
-# ratio rule (a wrapped abstract line carrying "measles, mumps, rubella,
-# vaccination, autism, cohort" would).
-TITLE_LINES = 3
+# A title sits in the first few lines, is short, and is not a sentence. The
+# candidates are the short lines among the first TITLE_LINES that contain no
+# sentence boundary (". "), singly and joined with the next such line, since
+# a title wraps ("Retraction—Ileal-lymphoid-nodular hyperplasia, non-specific
+# colitis," / "and pervasive developmental disorder in children") and a
+# browser print puts page chrome above it. An abstract line is a sentence
+# and never a candidate: joined to its neighbour it would carry "measles,
+# mumps, rubella, vaccination, autism, cohort" and admit Madsen 2002 as
+# Hviid 2019.
+TITLE_LINES = 8
 TITLE_LINE_MAX = 200
 
 
 def _title_lines(text: str) -> list[str]:
-    lines = [ln.strip() for ln in text.splitlines() if ln.strip()]
-    return [ln for ln in lines[:TITLE_LINES] if len(ln) <= TITLE_LINE_MAX]
+    lines = [ln.strip() for ln in text.splitlines() if ln.strip()][:TITLE_LINES]
+    ok = [ln if (len(ln) <= TITLE_LINE_MAX and ". " not in ln) else None for ln in lines]
+    out = [ln for ln in ok if ln]
+    for a, b in zip(ok, ok[1:]):
+        if a and b and not a.rstrip().endswith((".", "?", "!")):
+            out.append(a + " " + b)
+    return out
 
 
 def _text_layer(data: bytes, content_type: str) -> tuple[str, str, list[str]]:
@@ -115,6 +124,30 @@ def _text_layer(data: bytes, content_type: str) -> tuple[str, str, list[str]]:
     if re.search(r"<(html|body|title|h1)\b", page, re.I):
         return generic._strip(page), "DECLARED_SOUND", generic._titles(page)
     return " ".join(page.split()), "DECLARED_SOUND", _title_lines(page)
+
+
+# A document that prints its own DOI in its head must print the one it is
+# offered for, FIRST. BMJ's correction notice d1678 carries the SAME title as
+# the editorial it corrects (c7452), so a title check alone admits it as the
+# editorial (2026-09-15); its head says "doi: 10.1136/bmj.d1678" and then,
+# under "See original article", c7452.
+SELF_ID_CHARS = 1500
+
+
+def _self_identifier_agrees(ident: Identifier, text: str) -> Binding | None:
+    """A refusal when the FIRST identifier of our system in the document's
+    head is not ours; None when it is, or when the head names none. The
+    first is the document's own: a correction notice prints its own DOI and
+    then, lower, the DOI of the article it corrects, so "ours is somewhere
+    in the head" would still admit d1678 as c7452."""
+    from .extract import AssertionClass, extract
+    head = text[:SELF_ID_CHARS]
+    found = [c.value.lower().rstrip(".,;)") for c in sorted(extract(AssertionClass.IDENTIFIER, head), key=lambda c: c.start)
+             if c.kind == ident.system]
+    if found and found[0] != ident.value.lower():
+        return Binding(Kind.HEADING, False, evidence=", ".join(found),
+                       reason=f"the supplied document names a different {ident.system.upper()} as its own: {found[0]}; offered as {ident.value}")
+    return None
 
 
 def _registry_title_in_document(registry_heading: str, titles: list[str], text: str) -> Binding:
@@ -177,7 +210,7 @@ def supply(path: str | Path, source_url: str, supplied_by: str, identifier: str,
             _store(doc, rec)
         return Supply(False, "UNCHECKED_NO_TEXT_LAYER", "the file has no text layer (a scanned image); it is recorded as supplied and UNCHECKED -- never a pass",
                       sha, ident, res, doc, None, rec)
-    head = _registry_title_in_document(res.heading or "", titles, text)
+    head = _self_identifier_agrees(ident, text) or _registry_title_in_document(res.heading or "", titles, text)
     rec = {**base, "text_layer": layer, "chars": len(text), "document_titles": titles[:3],
            "heading": {"kind": "HEADING", "ok": head.ok, "evidence": head.evidence, "reason": head.reason}}
     if not head.ok:

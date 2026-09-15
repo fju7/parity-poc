@@ -1,0 +1,25 @@
+{
+ "sha256": "b70a220048dc7ce64cb24fc78cf354cbf0670a2f9630dfeb0c23e5fa446c642f",
+ "retrieved_at": "2026-09-15T19:01:08+00:00",
+ "supplied_by": "Fred Ugast",
+ "source_url": "https://www.thelancet.com/journals/lancet/article/PIIS0140-6736(10)60175-4/fulltext",
+ "provenance": "OPERATOR_SUPPLIED",
+ "identifier": "doi:10.1016/s0140-6736(10)60175-4",
+ "registry": "crossref",
+ "registry_heading": "Retraction—Ileal-lymphoid-nodular hyperplasia, non-specific colitis, and pervasive developmental disorder in children",
+ "bytes": 217307,
+ "text_layer": "DECLARED_SOUND",
+ "chars": 3612,
+ "document_titles": [
+  " LeapSpace ",
+  "      Search for...",
+  "COMMENT ∙ Volume 375, Issue 9713, P445, February 06, 2010"
+ ],
+ "heading": {
+  "kind": "HEADING",
+  "ok": true,
+  "evidence": "registry title matches the document's title line (ratio 1.00): children, colitis, developmental, disorder, hyperplasia, ileal, lymphoid, nodular, non, pervasive, retraction, specific",
+  "reason": ""
+ },
+ "status": "ADMITTED"
+}

@@ -1,0 +1,25 @@
+{
+ "sha256": "79373a9f7f1f81ae5bd6dc8a5d5663990f542a4ceb25e9b40c2ea9431444fb55",
+ "retrieved_at": "2026-09-15T19:00:12+00:00",
+ "supplied_by": "Fred Ugast",
+ "source_url": "https://www.bmj.com/content/342/bmj.c5347",
+ "provenance": "OPERATOR_SUPPLIED",
+ "identifier": "doi:10.1136/bmj.c5347",
+ "registry": "crossref",
+ "registry_heading": "How the case against the MMR vaccine was fixed",
+ "bytes": 471899,
+ "text_layer": "DECLARED_SOUND",
+ "chars": 61007,
+ "document_titles": [
+  "9/15/26, 2:25 PM                                       How the case against the MMR vaccine was fixed | The BMJ",
+  "Intended for healthcare professionals",
+  "Feature Secrets of the MMR scare"
+ ],
+ "heading": {
+  "kind": "HEADING",
+  "ok": true,
+  "evidence": "registry title matches the document's title line (ratio 1.00): against, case, fixed, how, mmr, vaccine, was",
+  "reason": ""
+ },
+ "status": "ADMITTED"
+}
