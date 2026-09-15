@@ -1271,7 +1271,16 @@ show postgres and service_role only — anon and authenticated absent.
   would make it a database guarantee.
 Migration 073 (signal_consensus provenance: model_id, prompt_version) AUTHORED
 and staged — NOT applied. Awaiting Tier-1 review per the migration policy above.
-Next migration number: 074
+Migrations 079–083 recorded in the Supabase migration history 2026-09-15 via
+apply_migration (079/081/082/083 had already been applied through the service
+client and were no-ops on re-apply; 080 created topic_publications and
+topic_rechecks).
+Migration 084 (topic_publications / topic_rechecks gated on
+signal_issues.status = 'published') APPLIED 2026-09-15. 080 had shipped both
+tables with USING (true); probed as anon, a DRAFT topic's publication record was
+readable. Verified after 084: anon 0 / service_role 1 with mmr-vaccine-autism
+at draft.
+Next migration number: 085
 
 ## Session P0-Signal — Data Integrity + Crawlable Metadata (Complete)
 Phase 0 of the Signal review. Fixes wrong published numbers and unshareable
