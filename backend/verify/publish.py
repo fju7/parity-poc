@@ -25,7 +25,7 @@ from pathlib import Path
 from . import __version__, literature, law, generic
 from .bind import bind_figure, bind_heading, bind_span, _QUOTE
 from .chronology import bind_chronology
-from .numbers import figures
+from .numbers import figures, canonical_numbers
 from .status import check as status_check
 from .types import Document, Exists, Provenance
 
@@ -195,6 +195,69 @@ def link_role(claim_text: str, src: dict) -> tuple[str, dict]:
     return "support", {"matched": None, "kind": "no_name_in_claim"}
 
 
+_erratum_cache: dict[str, list] = {}
+
+
+def erratum_texts(src: dict) -> list[dict]:
+    """The erratum notices the registry lists for this source, with their text
+    when it can be read: [{doi, pmid, title, date, text | None, route}]."""
+    key = src["id"]
+    if key in _erratum_cache:
+        return _erratum_cache[key]
+    out = []
+    for ev in (src.get("status") or {}).get("events") or []:
+        t = (ev.get("type") or "").lower()
+        if not (t.startswith("erratum") or t.startswith("correction")):
+            continue
+        raw = ev.get("doi") or ev.get("id")
+        if not raw:
+            continue
+        ident = literature.identify(raw)
+        if ident is None:
+            continue
+        res = literature.resolve(ident)
+        doc = literature.fetch(res) if res.exists == Exists.EXISTS else None
+        route = doc.route if doc else None
+        if doc is None and res.exists == Exists.EXISTS and res.canonical:
+            g = generic.resolve(generic.identify(res.canonical)); gdoc = generic.fetch(g)
+            if gdoc:
+                doc, route = gdoc, "generic_fetch via doi.org"
+            else:
+                route = f"unretrievable (publisher HTTP {g.extra.get('http')})"
+        out.append({"doi": (res.extra or {}).get("doi") or (ident.value if ident.system == "doi" else None),
+                    "pmid": (res.extra or {}).get("pmid") or (ident.value if ident.system == "pmid" else None),
+                    "title": res.heading, "date": ev.get("date") or (res.extra or {}).get("year"),
+                    "text": doc.text if doc else None, "route": route})
+    _erratum_cache[key] = out
+    return out
+
+
+def erratum_check(figs: list[str], src: dict) -> dict:
+    """Does the erratum touch a figure the claim asserts? A binding-shaped record."""
+    errata = erratum_texts(src)
+    if not errata:
+        return {"kind": "ERRATUM", "ok": False, "abstained": False, "evidence": "",
+                "reason": "the registry reports a correction but names no erratum record to read"}
+    unread = [e for e in errata if not e["text"]]
+    if unread:
+        return {"kind": "ERRATUM", "ok": False, "abstained": False,
+                "evidence": "; ".join(f"{e['title']} ({e['doi'] or e['pmid']})" for e in unread),
+                "reason": "erratum text could not be read (" + "; ".join(e["route"] or "no route" for e in unread)
+                          + "); it cannot be said not to touch the asserted figure",
+                "erratum": errata}
+    touched = []
+    for e in errata:
+        have = canonical_numbers(e["text"])
+        touched += [f for f in figs if f in have]
+    if touched:
+        return {"kind": "ERRATUM", "ok": False, "abstained": False, "evidence": ", ".join(sorted(set(touched))),
+                "reason": "the erratum mentions a figure this claim asserts: " + ", ".join(sorted(set(touched))),
+                "erratum": errata}
+    return {"kind": "ERRATUM", "ok": True, "abstained": False,
+            "evidence": "; ".join(f"{e['title']} ({e['doi'] or e['pmid']}, {e['date']})" for e in errata),
+            "reason": "the erratum does not mention any figure this claim asserts", "erratum": errata}
+
+
 def gate_claim(claim: dict, links: list[dict], sources: dict[str, dict]) -> dict:
     """One signal_claims row against each of its surviving sources."""
     text = claim.get("claim_text") or ""
@@ -222,9 +285,24 @@ def gate_claim(claim: dict, links: list[dict], sources: dict[str, dict]) -> dict
             out["per_source"].append(entry)
             continue
         verdict = (src.get("status") or {}).get("verdict")
-        if role == "support" and verdict in REFUSING_STATUS_AT_PUBLISH:
-            # A support link to a source already retracted, corrected, superseded
-            # or amended is refused at publish, not published with a warning.
+        if role == "support" and verdict == "corrected":
+            # AN ERRATUM CORRECTS SOMETHING INSIDE A WORK THAT OTHERWISE STANDS
+            # (ruling of 2026-09-15). Fetch the erratum and ask whether any
+            # figure the claim asserts appears in what it corrects: touched ->
+            # UNSUPPORTED; untouched -> publish with an information marker
+            # naming the erratum. An erratum that cannot be read cannot be
+            # said not to touch the figure: fail closed, and say why.
+            er = erratum_check(figs, src)
+            entry["bindings"].append(er)
+            if not er["ok"]:
+                entry["level"] = "UNSUPPORTED"
+                out["per_source"].append(entry)
+                continue
+            entry["erratum"] = er.get("erratum")
+        elif role == "support" and verdict in REFUSING_STATUS_AT_PUBLISH:
+            # Retraction, withdrawal, concern, superseded, amended: about the
+            # work as a whole. A support link is refused at publish, not
+            # published with a warning.
             entry["bindings"].append({"kind": "STATUS_AT_PUBLISH", "ok": False, "abstained": False, "evidence": verdict,
                                       "reason": f"support link to a source whose status was {verdict} before publication"})
             entry["level"] = "UNSUPPORTED"

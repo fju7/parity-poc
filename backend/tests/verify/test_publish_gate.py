@@ -62,3 +62,18 @@ def test_title_word_rule_and_its_record():
     src = _wakefield_source()
     role, rule = link_role("The ileal-lymphoid-nodular hyperplasia paper described 12 children.", src)
     assert role == "subject" and rule["kind"] == "title_word" and rule["matched"] in ("lymphoid", "hyperplasia", "nodular", "developmental")
+
+
+def test_erratum_precision_touched_untouched_and_unreadable():
+    """An erratum corrects something inside a work that otherwise stands (2026-09-15)."""
+    from verify.publish import erratum_check, _erratum_cache
+    src = {"id": "src-e", "status": {"verdict": "corrected", "events": [{"type": "erratum in", "id": "26757477"}]}}
+    _erratum_cache["src-e"] = [{"doi": "10.1001/jama.2015.17754", "pmid": "26757477", "title": "Incorrect Variable Description.",
+                                "date": 2016, "text": "In the table, the hazard ratio 0.80 was mislabelled as 0.85.", "route": "test"}]
+    assert not erratum_check(["0.8"], src)["ok"]              # touched
+    assert erratum_check(["95727"], src)["ok"]                # untouched -> publish with marker
+    _erratum_cache["src-e"] = [{"doi": "10.1001/jama.2015.17754", "pmid": "26757477", "title": "Incorrect Variable Description.",
+                                "date": 2016, "text": None, "route": "unretrievable (publisher HTTP 403)"}]
+    r = erratum_check(["95727"], src)
+    assert not r["ok"] and "could not be read" in r["reason"]  # fail closed
+    _erratum_cache.pop("src-e")
