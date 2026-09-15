@@ -1,13 +1,18 @@
-# mmr-vaccine-autism — operator read, 2026-09-15 (final)
+# mmr-vaccine-autism — operator read, 2026-09-15 (final, revised for gate 7338993)
 
-One page, for the human read the design requires (§6a) before any flip. Record `20260915T004620+0000-6f73b65`, gate `6f73b65`. This is the build finished: CHRONOLOGY, the publish gate on already-changed sources, the erratum precision check, the two retracted markers, and the corpus corrections 081–083.
+One page, for the human read the design requires (§6a) before any flip. The figures below are the frozen record `20260915T010228+0000-0b7359b` re-run through gate `7338993` into scratch (corpus untouched, no re-freeze yet — see the box). This is the build finished: CHRONOLOGY, the publish gate on already-changed sources, the erratum precision check, the two retracted markers, the corpus corrections 081–083, the six refused plain summaries (088–089), and the word-form figure rule.
 
-**29 of 35 sources survive · 56 claims figure-bound · 40 source-confirmed only (31%) · 32 withheld.** Status of survivors at freeze: Wakefield 1998 ×2 retracted (subject-only on the page), Jain 2015 ×2 corrected (JAMA erratum), 6 agency/payer documents with no status registry, 19 unchanged — Cochrane is now cited at its current version, pub5.
+**29 of 35 sources survive · 58 claims figure-bound · 41 source-confirmed only (32%) · 29 withheld.** Status of survivors at freeze: Wakefield 1998 ×2 retracted (subject-only on the page), Jain 2015 ×2 corrected (JAMA erratum), 6 agency/payer documents with no status registry, 19 unchanged — Cochrane is now cited at its current version, pub5.
+
+> **Before this read is ratified the record must be re-frozen at gate 7338993** (`python scripts/publish_topic.py mmr-vaccine-autism`, no `--flip`) so the page carries these figures; the page today still serves record `0b7359b` (56 / 40 / 32). The re-freeze re-resolves every source live under the fixed resolver: a registry that does not answer now withholds the source as REGISTRY_UNAVAILABLE rather than passing it, so the source count is re-confirmed at the same time. If it comes back other than 29 of 35, this read is wrong and is rewritten before signing.
 
 **Sign-off:** the freeze register has a pending row. Reader name, date and ruling go there either way.
 
 ## What changed since the 14 Sep read
 
+* **A bare "one" or "zero" in a claim is no longer a figure** (gate 7338993). "one of the strongest natural experiments" is an article; "vaccination rates dropping to zero" asserts absence. Three claims recover: the Honda "strongest natural experiments" claim (source-confirmed only), and the two Yokohama "dropped to zero after the 1993 withdrawal" claims (figure-bound). The fourth, "…rose from 48.4 to 117.2 per 10,000, despite zero MMR vaccination", stays withheld — for the right reason now: 48.4, 117.2 and 10,000 are not in the abstract. No bound claim became unbound. "one dose", "zero cases" and every other counting word are unchanged.
+* **Two withholdings re-described** (section 3): the RR 0.92 claims say the upper bound is 1.26; Madsen 2002's abstract says 1.24. That is not a retrieval limit — the claim's figure disagrees with the source's — and it is the gate's best result on this record.
+* **Six plain summaries removed** (088, 089): four added a fact the claim and source do not carry, one computed an interval the summariser was never handed, one sat on a withheld claim. The claims render without them.
 * **Cochrane cited at pub5** (migration 083; DOI from Crossref's own update-to, not typed). All nine claims re-bind against the current review — 5 figure-bound (138 studies; 23,480,668 participants; 95% and 96% measles risk reduction), 4 source-confirmed. None was refused, so the refusal on pub4 was a citation problem and nothing more. One wording defect no gate can catch: the sentence "The Cochrane systematic review … published in 2020" now cites the 2021 version; it should say 2021 or drop the date.
 * **Erratum precision** (support links only): the erratum is fetched and asked whether it mentions a figure the claim asserts. For Jain 2015 the erratum — *"Incorrect Variable Description"*, JAMA 2016, `10.1001/jama.2015.17754` — is behind JAMA's Cloudflare wall and Europe PMC holds no text, so it **cannot be read, and the check fails closed**: the two support-link claims (the sibling HR 0.80 findings) stay withheld with that reason. Six Jain claims that name the study are subject links and pass. Its title suggests a variable-description fix, not a figure — but a title is not the text, and the rule does not guess. A reviewer who can open the erratum can settle it in a minute.
 * **CHRONOLOGY:** the three GMC / struck-off claims are withheld — true, but the 1998 paper cannot contain the GMC's 2010 findings.
@@ -17,8 +22,10 @@ One page, for the human read the design requires (§6a) before any flip. Record 
 
 > This page covers the epidemiological evidence on MMR vaccination and autism. The retraction of Wakefield 1998, the General Medical Council findings and the Omnibus Autism Proceeding are matters of record that this page cites but does not itself document; see the sources marked retracted.
 
-## 2. Ten IDENTITY_ONLY claims, weakest first — each will carry *"Source confirmed; wording not machine-checked"*
+## 2. Eleven IDENTITY_ONLY claims, weakest first (of 41) — each will carry *"Source confirmed; wording not machine-checked"*
 
+- The Honda et al. Japan study is considered one of the strongest natural experiments disproving a causal link between MMR vaccine and autism.  
+  ← No effect of MMR withdrawal on the incidence of autism: a total population study  *(recovered at gate 7338993; "one of" was read as a figure)*
 - The Madsen et al. Danish cohort study was published in the New England Journal of Medicine.  
   ← A Population-Based Study of Measles, Mumps, and 
 - The Danish cohort study on MMR vaccination and autism was published in Annals of Internal Medicine.  
@@ -40,14 +47,12 @@ One page, for the human read the design requires (§6a) before any flip. Record 
 - The biological mechanisms proposed by Wakefield — including measles virus persistence in gut tissue and 'leaky gut' leading to neurological damage — were not supported by credible scientific evidence, according to the Institute of Medicine's Immunization Safety Review Committee.  
   ← Immunization Safety Review: Vaccines and Autism; Immunization Safety Review: Vaccines and Autism 
 
-Trivia ("was published in…"), editorial framing ("anti-vaccine advocates conflated…", "carry regulatory weight"), and agency prose the fetch confirms exists but nothing anchors. 31%; should trend down by rewriting.
+Trivia ("was published in…"), editorial framing ("anti-vaccine advocates conflated…", "carry regulatory weight", "one of the strongest"), and agency prose the fetch confirms exists but nothing anchors. 32%; should trend down by rewriting.
 
-## 3. All 32 withheld claims, one line each
+## 3. All 29 withheld claims, one line each
 
 - The Omnibus Autism Proceeding ruling rejected both the 'MMR plus thimerosal' causation theory and the standalone MMR-autism theory, finding that epide…  
   WHY: source unretrievable: Omnibus Autism Proceeding: Special M (fetch: HTTP 404)
-- The Honda et al. Japan study is considered one of the strongest natural experiments disproving a causal link between MMR vaccine and autism.  
-  WHY: figure not in abstract: 1
 - Among children with an older sibling with ASD, MMR vaccination was not associated with increased autism risk, with a hazard ratio of 0.80 (95% CI 0.55…  
   WHY: ERRATUM unreadable: erratum text could not be read (unretrievable (publisher HTTP 203)); it cannot be said not
 - The Danish cohort study found no temporal clustering of autism diagnoses in the 2-year period following MMR vaccination.  
@@ -55,11 +60,9 @@ Trivia ("was published in…"), editorial framing ("anti-vaccine advocates confl
 - A Danish cohort study followed 537,303 children born between 1991 and 1998, comparing autism rates between 440,655 MMR-vaccinated and 96,648 unvaccina…  
   WHY: figure not in abstract: 96648
 - The relative risk of autism in MMR-vaccinated children compared to unvaccinated children was 0.92 (95% CI, 0.68–1.26), indicating no increased risk of…  
-  WHY: figure not in abstract: 1.26
+  WHY: **the source states a different value** — Madsen 2002 (NEJM) abstract: 0.92 (95% CI, 0.68 to **1.24**); the claim says **1.26**. The claim's figure disagrees with the source's and the gate refused it correctly; it stays withheld until the sentence is corrected.
 - Among children born in Yokohama between 1992 and 1996, the cumulative incidence of autism by age 7 rose from 48.4 to 117.2 per 10,000, despite zero MM…  
-  WHY: figure not in abstract: 0, 10000, 117.2, 48.4
-- Autism prevalence in Yokohama continued to rise after MMR vaccination rates dropped to zero following the 1993 withdrawal of the vaccine in Japan.  
-  WHY: figure not in abstract: 0
+  WHY: figure not in abstract: 10000, 117.2, 48.4 *(the "zero" is no longer demanded; the three figures still are)*
 - Andrew Wakefield had been paid by lawyers seeking evidence against vaccine manufacturers at the time of the original 1998 research.  
   WHY: source unretrievable: Retraction—Ileal-lymphoid-nodular hy (publisher: HTTP 200 a shell, a wall or too little text to be the document)
 - Wakefield's data alterations in the 1998 Lancet paper included changing documented diagnoses and onset timelines across all 12 cases to fit the hypoth…  
@@ -69,13 +72,11 @@ Trivia ("was published in…"), editorial framing ("anti-vaccine advocates confl
 - Children with an older autistic sibling showed no increased autism risk from MMR vaccination, refuting concerns about genetically susceptible subgroup…  
   WHY: ERRATUM unreadable: erratum text could not be read (unretrievable (publisher HTTP 203)); it cannot be said not
 - The relative risk of autistic disorder in MMR-vaccinated children compared to unvaccinated children was 0.92 (95% CI, 0.68–1.26), indicating no statis…  
-  WHY: figure not in abstract: 1.26
+  WHY: **the source states a different value** — Madsen 2002 (NEJM) abstract: 0.92 (95% CI, 0.68 to **1.24**); the claim says **1.26**. Same disagreement as above, second sentence; stays withheld.
 - The Danish cohort study included 440,655 MMR-vaccinated children and 96,648 unvaccinated children, finding no statistically significant difference in …  
   WHY: figure not in abstract: 2, 96648
 - The temporal clustering of autism diagnoses with MMR vaccination timing reflects the coincidence of the 12–18 month vaccination window with the typica…  
   WHY: figure not in abstract: 12, 18
-- Japan withdrew the MMR vaccine in 1993, resulting in MMR vaccination rates dropping to zero after that year.  
-  WHY: figure not in abstract: 0
 - M-M-R II (BLA 103166), manufactured by Merck & Co., has maintained FDA licensure continuously since 1978 with periodic label updates.  
   WHY: source unretrievable: Biologics License Application (BLA)  (fetch: HTTP 404)
 - FDA product labeling for M-M-R II lists known adverse reactions including fever, rash, and rare febrile seizures, but does not list autism spectrum di…  

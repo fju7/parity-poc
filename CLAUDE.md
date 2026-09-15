@@ -2345,6 +2345,45 @@ is done. Items 2-4 touch no page and no corpus, so they were done now.
   the count. verify/status.py already said "unknown" + HTTP code (not
   "unchanged") on a non-answer -- unchanged.
 
+## Session SAP-Signal-4 — pre-flip: word-form figures in the claim binder; the record's source audit (2026-09-15)
+- numbers.figures(): a bare "one"/"zero" with no unit or counted noun after
+  it is not a figure (article / absence). Scratch re-run of the frozen mmr
+  record at gate 7338993: FIGURE_BOUND 56 -> 58, IDENTITY_ONLY 40 -> 41,
+  UNSUPPORTED 32 -> 29; three of the four withheld claims recover (3cf9e687
+  -> IDENTITY_ONLY; 1c7e50c0, 593b269a -> FIGURE_BOUND); 105c1199 stays
+  withheld on 48.4 / 117.2 / 10,000, not on "zero"; 0 bound -> unbound.
+  Observation, not changed: a claim whose only figure is a year is levelled
+  FIGURE_BOUND (publish computes figs before CHRONOLOGY strips the date);
+  pre-existing, consistent across the record.
+- The operator read (docs/mmr-vaccine-autism-operator-read-2026-09-14.md)
+  regenerated for gate 7338993 and the two RR 1.26 withholdings re-described:
+  Madsen 2002's abstract says 1.24 -- the claim disagrees with the source; the
+  gate's best result on the record. THE RE-FREEZE (publish_topic, no --flip)
+  WAS NOT RUN: the auto-mode classifier refused it; Fred runs it, and the
+  read says the page still serves 0b7359b until then.
+- SOURCE AUDIT of the frozen record (35): every survivor's existence rests
+  on a PARSED answer -- 23 with a Crossref works record (heading +
+  registry_id), 6 agency pages fetched HTTP 200 carrying the title; the 6
+  withheld are 404 x2, timeout, shell page, 403, and a wall. None fell
+  through the old any-non-404-is-EXISTS predicate (that path leaves
+  registry = "handle" with no heading; no such row). 29 of 35 stands.
+- PROCESS NOTE -- A REPLAY HARNESS CANNOT FIND A BUG IN FAILURE HANDLING,
+  BECAUSE IT NEVER FAILS. The recorded registry responses that accepted
+  phase 1 all parse by construction, so resolve() returning EXISTS on a 429
+  survived every golden set. The four golden sets -- law
+  (golden_law.json), literature (golden_literature.json), search
+  (golden_search.json), and the recorded-registry replay
+  (tests/verify/fixtures/http with the monthly live-vs-recording diff in
+  verify-gates.yml) -- prove behaviour on ANSWERS and say nothing about
+  non-answers unless a failure is injected deliberately. Injected today
+  (tests/verify/test_registry_unavailable.py): search (Europe PMC, Crossref,
+  ClinicalTrials.gov), literature.resolve (Handle, Crossref, Europe PMC,
+  ClinicalTrials.gov), law._cfr (eCFR), publish.gate_source, http.get. NOT
+  yet injected: law's codes.ohio.gov / CMS IOM / NCCI branches (they read
+  UNCHECKED on non-200 by inspection), generic.resolve, status.check.
+  Rule: every resolver gets a non-answer test before its golden set is
+  trusted.
+
 ## Standing instructions for every session
 1. Read this file at the start of every session
 2. Verify all file paths before issuing commands
