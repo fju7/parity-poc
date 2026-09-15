@@ -1,15 +1,18 @@
-# mmr-vaccine-autism — operator read, 2026-09-15 (final, record 0e25a32)
+# mmr-vaccine-autism — operator read, 2026-09-15 (final, record 4fefcb5)
 
-One page, for the human read the design requires (§6a) before any flip. Record `20260915T190740+0000-0e25a32`, gate `7338993` (tree `0e25a32`), stored in `topic_publications` and served to the draft page. This is the build finished: CHRONOLOGY, the publish gate on already-changed sources, the erratum precision check, the two retracted markers, the corpus corrections 081–083, the six refused plain summaries (088–089), the word-form figure rule, and two hand-fetched documents admitted under `OPERATOR_SUPPLIED`.
+One page, for the human read the design requires (§6a) before any flip. Record `20260915T194233+0000-4fefcb5`, gate `7338993` (tree `4fefcb5`), stored in `topic_publications` and served to the draft page. This is the build finished: CHRONOLOGY, the publish gate on already-changed sources, the erratum precision check, the two retracted markers, the corpus corrections 081–083 and 090, the six refused plain summaries (088–089), the word-form figure rule, and three hand-fetched documents admitted under `OPERATOR_SUPPLIED`.
 
-**31 of 35 sources survive · 63 claims figure-bound · 43 source-confirmed only (34%) · 22 withheld.** Status of survivors at freeze: Wakefield 1998 ×2 retracted (subject-only on the page), Jain 2015 ×2 corrected (JAMA erratum), the Lancet retraction notice (a `retraction_notice` about Wakefield 1998), 6 agency/payer documents with no status registry, 20 unchanged — Cochrane is now cited at its current version, pub5. **Two survivors were fetched by a person, not the machine**, and the record says so on each: the Lancet retraction notice (sha256 `b70a2200…`) and Deer's BMJ investigation (`79373a9f…`), both supplied by Fred Ugast on 2026-09-15 after the registry's title was found in the file. Seven claims moved on them; none moved the other way.
+**33 of 37 sources survive · 64 claims figure-bound · 43 source-confirmed only (34%) · 21 withheld.** Status of survivors at freeze: Wakefield 1998 ×2 retracted (subject-only on the page), Jain 2015 ×2 corrected (JAMA erratum), the Lancet retraction notice (a `retraction_notice` about Wakefield 1998), 7 documents with no status registry (6 agency/payer pages and the Walker-Smith judgment), 21 unchanged. **Three survivors were fetched by a person, not the machine**, and the record says so on each: the Lancet retraction notice (sha256 `b70a2200…`), Deer's BMJ investigation (`79373a9f…`) and Godlee's BMJ editorial (`f58bdbdd…`), all supplied by Fred Ugast on 2026-09-15 after the registry's title was found in the file.
 
-> The two records before this one: `22387c7` (29 of 35, 58/41/29 — the word-form fix, no supplied documents) and `b902246` (26 of 35 — Europe PMC stopped answering mid-run; kept, not signed). Still pending: migration 090 (Godlee's editorial as a source, the 'elaborate fraud' claim re-cited to it; Walker-Smith v GMC as a source) — after it, one more re-freeze and this page changes again.
+**One caveat on "64 figure-bound", for the reader to weigh:** 29 of the 64 are bound on a *date alone* — "the Smeeth 2004 study found…", "Jain 2015", "Taylor 1999" — where CHRONOLOGY confirmed the year against the source's publication date and the claim states no other figure. The label is the gate's, applied consistently since the first freeze, but those 29 are closer to source-confirmed than to figure-checked. One of them matters here: `19214753` "Wakefield had been paid by lawyers … at the time of the original 1998 research" is labelled figure-bound on the retraction notice, **which says nothing about lawyers or payment** (Deer's feature does). Recommended before the flip: level a date-only claim as source-confirmed, and re-cite 19214753 to Deer. Not changed on this record; the operator decides.
+
+> Records before this one today: `0e25a32` (31 of 35, 63/43/22 — the notice and Deer admitted), `22387c7` (29 of 35, 58/41/29 — the word-form fix), `b902246` (26 of 35 — Europe PMC stopped answering mid-run; kept, not signed).
 
 **Sign-off:** the freeze register has a pending row. Reader name, date and ruling go there either way.
 
 ## What changed since the 14 Sep read
 
+* **Migration 090 (applied 2026-09-15):** Godlee's BMJ editorial (bmj.c7452) is a source; the 'an elaborate fraud' claim is re-cited from Deer's feature, which does not contain the phrase, to the editorial the claim names. **Observed, not expected:** SPAN found `an elaborate fraud` in the stored text of the editorial, once, at character 2043 — *"to show that the paper was in fact an elaborate fraud"* — and bound; the claim is now shown. Walker-Smith v General Medical Council [2012] EWHC 503 (Admin) is a source (fetched by machine from The National Archives, 223k characters, `no_registry` status), linked to no claim: which claims it qualifies is the operator's wording decision (section 1a).
 * **Two documents the machine could not get were fetched by hand and admitted** (`verify/supplied.py`): the Lancet retraction notice (Elsevier serves the machine a shell) and Deer's BMJ investigation (403). Admission required the registry's title to be found in the file; binding then ran unchanged. The notice recovers "paid by lawyers … 1998" (figure-bound on the date), "full retraction … in February 2010" (month precision; "struck off in May 2010" stays withheld — the notice predates it), and two identity-only claims (the GMC findings; "removed the primary published basis"). Deer recovers the £435,643, the "all 12 children" data-alteration claims. The notice says "incorrect" and "proven to be false", not fraud; nothing on the page makes it say more. 'an elaborate fraud' is Godlee's editorial, not Deer's feature: SPAN refused it against Deer and it waits on migration 090.
 * **A bare "one" or "zero" in a claim is no longer a figure** (gate 7338993). "one of the strongest natural experiments" is an article; "vaccination rates dropping to zero" asserts absence. Three claims recover: the Honda "strongest natural experiments" claim (source-confirmed only), and the two Yokohama "dropped to zero after the 1993 withdrawal" claims (figure-bound). The fourth, "…rose from 48.4 to 117.2 per 10,000, despite zero MMR vaccination", stays withheld — for the right reason now: 48.4, 117.2 and 10,000 are not in the abstract. No bound claim became unbound. "one dose", "zero cases" and every other counting word are unchanged.
 * **Two withholdings re-described** (section 3): the RR 0.92 claims say the upper bound is 1.26; Madsen 2002's abstract says 1.24. That is not a retrieval limit — the claim's figure disagrees with the source's — and it is the gate's best result on this record.
@@ -19,9 +22,25 @@ One page, for the human read the design requires (§6a) before any flip. Record 
 * **CHRONOLOGY:** the three GMC / struck-off claims are withheld — true, but the 1998 paper cannot contain the GMC's 2010 findings.
 * The red RETRACTED marker now only ever means "changed after we froze it"; at freeze a retracted paper appears only as the subject of a claim, with a grey information note.
 
-## 1. The scope statement, exactly as it will appear under the title
+## 1. The scope statement — proposed for the page, checked against this record
 
-> This page covers the epidemiological evidence on MMR vaccination and autism. The retraction of Wakefield 1998, the General Medical Council findings and the Omnibus Autism Proceeding are matters of record that this page cites but does not itself document; see the sources marked retracted.
+The statement is not yet rendered anywhere; it appears only here until the operator settles the wording. Checked against record `4fefcb5`, the operator's proposed text with three adjustments (marked):
+
+> This page covers the epidemiological evidence on MMR vaccination and autism, and the retraction of Wakefield 1998, documented here from The Lancet's own retraction notice and from the BMJ's investigation **and editorial**. The General Medical Council's findings and the Omnibus Autism Proceeding are matters of record that this page cites but does not itself document: the GMC determination and the Special Master's decision are not machine-retrievable, and **what appears here about the GMC is what The Lancet's notice says of the panel's judgment of 28 January 2010**. **The High Court's 2012 judgment quashing the GMC's findings against Professor Walker-Smith is on record here.**
+
+What was checked, and what changed:
+- *"documented here from The Lancet's own retraction notice"* — true: the notice is admitted (`b70a2200…`), the retraction claim (`77c65493`, "February 2010") is bound on it at month precision, and "struck off in May 2010" is refused against it.
+- *"and the BMJ's investigation"* — true for Deer's findings: 12 children altered (`9b7a3312`, `1f6b6c20`) and £435,643 (`58b05989`) are figure-bound on Deer's text. **Added "and editorial"**: the fraud characterisation (`0eda21d2`, 'an elaborate fraud') is Godlee's editorial, SPAN-bound on it since 090, not Deer's feature.
+- *"nothing verifiable stands in for them"* — **no longer accurate in one direction**: the notice's sentence about the GMC panel's judgment is verifiable and admitted, and `721f53f7` (the GMC found …) now renders on it, source-confirmed only. The replacement says exactly what stands in and how far it goes.
+- *"cites but does not itself document"* the GMC — still true: the 143-page determination is on Fred's disk with no URL and no registry; it is not a source.
+- **Added the Walker-Smith sentence** because the corpus now holds the judgment; without it the page would carry GMC findings on ethics approval while silently holding the judgment that quashed them for one of the three doctors. The operator decides whether it stays.
+- Not in the statement and not documented: the Omnibus/Cedillo claims (4, all withheld); the FDA BLA claims (3, withheld).
+
+### 1a. Claims that need qualifying against Walker-Smith v GMC (the operator's wording call)
+
+- `721f53f7` — "The UK General Medical Council found that the **Wakefield et al.** research involved … ethical violations in the treatment of child subjects (including invasive procedures without ethical approval), data manipulation, and dishonesty" — renders, source-confirmed, on the notice. The ethics-approval and treatment findings were principally against Walker-Smith and were quashed in 2012; "dishonesty" was found against Wakefield alone.
+- `08ba751e` — "The **Wakefield et al.** study was found to have involved data manipulation, undisclosed conflicts of interest, and ethical violations in subject recruitment" — withheld (CHRONOLOGY against Wakefield 1998); same shape if it is ever re-cited.
+- Wakefield-only, no qualification: `fb149d23`, `05143523`, `5b3bff25`.
 
 ## 2. Thirteen IDENTITY_ONLY claims, weakest first (of 43) — each will carry *"Source confirmed; wording not machine-checked"*
 
@@ -54,7 +73,7 @@ One page, for the human read the design requires (§6a) before any flip. Record 
 
 Trivia ("was published in…"), editorial framing ("anti-vaccine advocates conflated…", "carry regulatory weight", "one of the strongest"), and agency prose the fetch confirms exists but nothing anchors. 34%; should trend down by rewriting.
 
-## 3. All 22 withheld claims, one line each
+## 3. All 21 withheld claims, one line each
 
 - The Omnibus Autism Proceeding ruling rejected both the 'MMR plus thimerosal' causation theory and the standalone MMR-autism theory, finding that epid…  
   WHY: source unretrievable: Omnibus Autism Proceeding: Special M (fetch: HTTP 404); SOURCE: fetch: HTTP 404
@@ -98,8 +117,6 @@ Trivia ("was published in…"), editorial framing ("anti-vaccine advocates confl
   WHY: CHRONOLOGY: General Medical Council fitness-to-practise determination on Wakefield, Walker-S
 - Special Master Hastings characterized the scientific evidence presented by petitioners — including testimony based on Wakefield's research — as 'weak…  
   WHY: source unretrievable: Omnibus Autism Proceeding: Special M (fetch: HTTP 404); SOURCE: fetch: HTTP 404
-- The BMJ formally characterized the 1998 Lancet paper by Wakefield as 'an elaborate fraud' in an editorial by editor Fiona Godlee, marking the first t…  
-  WHY: SPAN: not in the document: 'an elaborate fraud'
 
 ## 4. The two retracted markers, in page context
 

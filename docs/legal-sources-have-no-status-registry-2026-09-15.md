@@ -77,3 +77,39 @@ no way to know that part of what it rests on was quashed.
 
 Until then: any legal source on a published page is a source whose status the
 system cannot learn changed, and the operator read should say so on each.
+
+## The twin gap: the citing-source anchor (write-up only, not built)
+
+The same class of document — court judgments, regulatory determinations,
+agency filings — has no registry to answer for its **identity** either.
+`OPERATOR_SUPPLIED` refuses them at the door for that reason (the GMC
+determination of 28 January 2010 and the 2002 Autism General Order were both
+refused on 2026-09-15: nothing can say what the file for that identifier IS).
+That is correct today and it leaves the GMC determination permanently outside
+the corpus while a retraction notice that rests on it is inside.
+
+The path such a document may one day take, and the only one: **both** of
+
+1. **An independently resolved source that cites it**, with issuer, date and
+   parties matching the file's own header. The Lancet notice (resolved through
+   Crossref, admitted on its title) cites "the UK General Medical Council's
+   Fitness to Practise Panel on Jan 28, 2010"; the hand-fetched determination's
+   header reads "FITNESS TO PRACTISE PANEL HEARING 28 JANUARY 2010" and names
+   Wakefield, Walker-Smith and Murch. The citing source stands in for the
+   registry: it says what the document should be, the file has to match, and
+   HEADING runs against that description exactly as it runs against a
+   registry title. A citation that gives only a name and a year is not enough;
+   issuer, date and parties, all three.
+2. **A named human in `reviewed_by`**, who has read the file against the
+   citation and signed the row — the `events.json` discipline, applied to a
+   document rather than a date.
+
+Both, never either. A citing source without a reviewer admits whatever file
+happens to carry the right header; a reviewer without a citing source is the
+operator asserting identity, which is the conclusion the design forbids the
+operator to supply.
+
+This is the twin of the no-status-registry gap above and belongs in the same
+design: the class of document that no registry can vouch for at entry is the
+class no registry can watch afterwards. A document admitted by anchor needs
+the human re-check interval from the moment it enters.

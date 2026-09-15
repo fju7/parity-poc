@@ -2452,6 +2452,50 @@ is done. Items 2-4 touch no page and no corpus, so they were done now.
   worked example.
 - STILL: no --flip, siteMeta.js untouched.
 
+## Session SAP-Signal-7 — 090 applied; re-freeze 4fefcb5; the scope statement checked (2026-09-15)
+- 090 APPLIED after the operator's approval (project check 11 / draft first):
+  37 sources; Godlee c7452 and Walker-Smith v GMC inserted with content_text
+  NULL; claim 0eda21d2 re-cited to c7452. Register row written.
+- RE-FREEZE 4fefcb5 (no flip): 33 of 37; FIGURE_BOUND 64 / IDENTITY_ONLY 43
+  / UNSUPPORTED 21; one claim moved, 0 bound -> unbound. SPAN OBSERVED:
+  "an elaborate fraud" once in the stored Godlee text at char 2043, the
+  claim's quotation identical -- SPAN ok=True. Walker-Smith fetched by
+  machine, no_registry, linked to nothing.
+- FOUND ON THE RECORD, NOT CHANGED (operator decides before the flip): 29 of
+  the 64 FIGURE_BOUND claims are bound on a DATE ALONE ("the Smeeth 2004
+  study found...") -- publish computes figs before CHRONOLOGY strips the
+  year, so a year-only claim is levelled FIGURE_BOUND with FIGURE "no figure
+  in assertion". Consistent since the first freeze, but the label overstates
+  29 claims, and one is wrong in substance: 19214753 "paid by lawyers ...
+  1998" is FIGURE_BOUND on the retraction notice, which says nothing about
+  lawyers (Deer does). Recommended: level date-only claims IDENTITY_ONLY;
+  re-cite 19214753 to Deer. Also: Crossref says c7452 "unchanged" though the
+  BMJ published a competing-interests correction (d1678) -- the paper-status
+  registry misses it.
+- SCOPE STATEMENT checked against the record: "and editorial" added (the
+  fraud characterisation is Godlee's, not Deer's); "nothing verifiable stands
+  in for them" replaced -- the notice's sentence on the GMC judgment does
+  stand in for 721f53f7; a Walker-Smith sentence added for the operator to
+  keep or cut. Not rendered anywhere yet; lives in the operator read.
+- FOUR DIGIT-FORMATTING DEFECTS IN ONE DAY, in order found: (1) "£435,643"
+  json-escaped to "\u00a3435,643" (a refusal); (2) word-form "one"/"zero"
+  read as figures (a refusal); (3) space thousands separators -- "537 303",
+  NBSP, thin space (handled; would have been a refusal); (4) the Lancet's
+  middle-dot decimal before a scale word: "14·7 million" read as 7,000,000 --
+  A WRONG VALUE. RULE: A SEPARATOR BUG IN FIGURE IS VALUE CORRUPTION, NOT A
+  MATCHING FAILURE. The first three failed closed by luck of construction --
+  the corrupted value happened not to be in the document. The fourth would
+  have passed a claim of "7 million" against a document that says 14·7
+  million. The direction of a separator bug's failure is luck; every
+  separator the corpus's publishers use gets a value-level test
+  (tests/verify/test_units.py), not a matching test.
+- PHASE 5 (write-up only): the citing-source anchor -- a registry-less
+  primary document enters only on BOTH an independently resolved citing
+  source (issuer, date, parties matching the file's header) AND a named
+  reviewed_by. Twin of the no-status-registry gap; same design
+  (docs/legal-sources-have-no-status-registry-2026-09-15.md).
+- STILL: no --flip, siteMeta.js untouched.
+
 ## Standing instructions for every session
 1. Read this file at the start of every session
 2. Verify all file paths before issuing commands
