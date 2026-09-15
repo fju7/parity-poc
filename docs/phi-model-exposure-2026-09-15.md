@@ -113,11 +113,16 @@ unknowable.** Table statistics offer weak corroboration only: `provider_appeals`
 shows 7 inserts and 1 delete since the counters last reset, which is exactly the
 six real letters plus the operator's 2026-09-15 probe.
 
-**Who the affected people are.** Every row in the tables above belongs to the
-operator's own test accounts — the six appeal letters are the operator's
-(`provider_appeals.company_id` is the operator's provider company), the three
-health users and the one employer account likewise. The counts are small enough
-to enumerate, and were.
+**Who the affected people are.** Enumerated on 2026-09-15 (the counts are small
+enough), and NOT all the operator's own: the six appeal letters and the four
+provider profiles are the operator's test practices (`provider_appeals.company_id`
+is the operator's provider company); but `health_users` holds **one email address
+that is not the operator's** (of three), and `employer_users` holds **two that are
+not the operator's** (of four; the fourth is an `example.com` placeholder). Those
+three people's email addresses (and, for the health user, full name and
+subscription status) were readable and writable with the public key for the
+window above. The operator holds the list; it is deliberately not reproduced
+here.
 
 **Reconciling "eight letters".** The plan of record's "eight letters generated
 before this change" is the count of `provider_appeal_letters` (8 rows,
@@ -133,11 +138,12 @@ the public key. Probed after: anon GET / INSERT / DELETE on `provider_appeals` a
 return HTTP 401 `permission denied`; a letter generated through the backend with
 the service key still stores, with its verification record.
 
-**Question for counsel.** Given (a) the data belongs to the operator's own test
-accounts, (b) no non-service access is recorded in the retained logs, and (c) the
-first three months of the window have no logs at all, does anything in the
-operator's HIPAA / state-law posture require a notification or a record beyond
-this document?
+**Question for counsel.** Given (a) three real people's account records (email;
+one full name; subscription status — no clinical data) were exposed alongside the
+operator's own test data, (b) no non-service access is recorded in the retained
+logs, and (c) the first three months of the window have no logs at all, does
+anything in the operator's HIPAA / state-law posture require a notification to
+those three people, or a record beyond this document?
 
 ## 6. What was deliberately not done
 
