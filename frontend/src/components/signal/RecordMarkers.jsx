@@ -21,7 +21,6 @@ export function TopicLine({ publication, recheck }) {
   const s = publication.summary || {};
   const idOnly = (s.claims?.by_support || {}).IDENTITY_ONLY || 0;
   const shown = (publication.supported_claim_ids || []).length;
-  const survived = (publication.surviving_source_ids || []).length;
   // Two facts, stated separately, so the header never contradicts a marker
   // below it: what was already known at publication (a source retracted
   // before we published) and what the re-checks have found since.

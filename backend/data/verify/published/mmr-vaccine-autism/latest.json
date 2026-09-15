@@ -5,8 +5,8 @@
   "issue_id": "bbb9b064-8cb4-4922-b69b-121150ee8e21",
   "status_before": "draft"
  },
- "publish_id": "20260914T234750+0000-c9b4fdd",
- "published_at": "2026-09-14T23:47:50+00:00",
+ "publish_id": "20260915T000659+0000-c7c9be4",
+ "published_at": "2026-09-15T00:06:59+00:00",
  "published_by": {
   "login": "fredugast",
   "host": "Freds-MacBook-Pro.local",
@@ -17,8 +17,8 @@
  },
  "gate_version": {
   "package": "1.1.0",
-  "verify_sha": "c9b4fdd",
-  "tree_sha": "c9b4fdd"
+  "verify_sha": "c7c9be4",
+  "tree_sha": "c7c9be4"
  },
  "rate_limits_rps": {
   "www.ebi.ac.uk": 3.0,
@@ -48,14 +48,19 @@
     "canonical": "https://doi.org/10.1016/s0140-6736(97)11096-0",
     "registry": "crossref",
     "registry_id": "10.1016/s0140-6736(97)11096-0",
-    "checked_at": "2026-09-14T23:43:23+00:00",
-    "generic_fetch": false
+    "checked_at": "2026-09-14T23:59:31+00:00",
+    "generic_fetch": false,
+    "published": [
+     1998,
+     2
+    ],
+    "effective": null
    },
    "document": {
     "sha256": "4c8be4d2c62edf3089f001d2a4ac1d06cc32a4729a03b47e415883b7f4681a18",
     "route": "europepmc_abstract",
     "kind": "abstract",
-    "retrieved_at": "2026-09-14T23:43:23+00:00",
+    "retrieved_at": "2026-09-14T23:59:32+00:00",
     "chars": 1984,
     "text_layer": "DECLARED_SOUND",
     "path": "data/verify/docs/4c/4c8be4d2c62edf3089f001d2a4ac1d06cc32a4729a03b47e415883b7f4681a18.txt.gz",
@@ -74,7 +79,7 @@
     "verdict": "retracted",
     "registry": "crossref+europepmc",
     "detail": "2 update/relation event(s)",
-    "checked_at": "2026-09-14T23:43:23+00:00",
+    "checked_at": "2026-09-14T23:59:32+00:00",
     "events": [
      {
       "type": "correction",
@@ -293,14 +298,19 @@
     "canonical": "https://doi.org/10.1016/s0140-6736(99)01239-8",
     "registry": "crossref",
     "registry_id": "10.1016/s0140-6736(99)01239-8",
-    "checked_at": "2026-09-14T23:43:26+00:00",
-    "generic_fetch": false
+    "checked_at": "2026-09-14T23:59:41+00:00",
+    "generic_fetch": false,
+    "published": [
+     1999,
+     6
+    ],
+    "effective": null
    },
    "document": {
     "sha256": "1820cf125b0e5616cd720e3bcadc1b32baab6854abdd22794c4c45c4703fe5e5",
     "route": "europepmc_abstract",
     "kind": "abstract",
-    "retrieved_at": "2026-09-14T23:43:26+00:00",
+    "retrieved_at": "2026-09-15T00:00:01+00:00",
     "chars": 2311,
     "text_layer": "DECLARED_SOUND",
     "path": "data/verify/docs/18/1820cf125b0e5616cd720e3bcadc1b32baab6854abdd22794c4c45c4703fe5e5.txt.gz",
@@ -319,7 +329,7 @@
     "verdict": "unchanged",
     "registry": "crossref+europepmc",
     "detail": "no update-to, relation, or updating work",
-    "checked_at": "2026-09-14T23:43:26+00:00",
+    "checked_at": "2026-09-15T00:00:01+00:00",
     "events": [
      {
       "type": "comment in",
@@ -380,14 +390,20 @@
     "canonical": "https://doi.org/10.1056/nejmoa021134",
     "registry": "crossref",
     "registry_id": "10.1056/nejmoa021134",
-    "checked_at": "2026-09-14T23:43:28+00:00",
-    "generic_fetch": false
+    "checked_at": "2026-09-15T00:00:30+00:00",
+    "generic_fetch": false,
+    "published": [
+     2002,
+     11,
+     7
+    ],
+    "effective": null
    },
    "document": {
     "sha256": "cf62e4e025b70be9e7f6140bb594850f73db0258711906392827ce9e89e73c86",
     "route": "europepmc_abstract",
     "kind": "abstract",
-    "retrieved_at": "2026-09-14T23:43:28+00:00",
+    "retrieved_at": "2026-09-15T00:00:35+00:00",
     "chars": 1829,
     "text_layer": "DECLARED_SOUND",
     "path": "data/verify/docs/cf/cf62e4e025b70be9e7f6140bb594850f73db0258711906392827ce9e89e73c86.txt.gz",
@@ -406,7 +422,7 @@
     "verdict": "unchanged",
     "registry": "crossref+europepmc",
     "detail": "no update-to, relation, or updating work",
-    "checked_at": "2026-09-14T23:43:28+00:00",
+    "checked_at": "2026-09-15T00:00:35+00:00",
     "events": [
      {
       "type": "comment in",
@@ -467,14 +483,20 @@
     "canonical": "https://doi.org/10.1542/peds.2005-2993",
     "registry": "crossref",
     "registry_id": "10.1542/peds.2005-2993",
-    "checked_at": "2026-09-14T23:43:29+00:00",
-    "generic_fetch": false
+    "checked_at": "2026-09-15T00:00:42+00:00",
+    "generic_fetch": false,
+    "published": [
+     2006,
+     7,
+     1
+    ],
+    "effective": null
    },
    "document": {
     "sha256": "e0a814dcfa846acc967b48d244b36df68b67dbeb7029c24e550e012cadb8d36d",
     "route": "europepmc_abstract",
     "kind": "abstract",
-    "retrieved_at": "2026-09-14T23:43:30+00:00",
+    "retrieved_at": "2026-09-15T00:00:51+00:00",
     "chars": 4590,
     "text_layer": "DECLARED_SOUND",
     "path": "data/verify/docs/e0/e0a814dcfa846acc967b48d244b36df68b67dbeb7029c24e550e012cadb8d36d.txt.gz",
@@ -493,7 +515,7 @@
     "verdict": "unchanged",
     "registry": "crossref+europepmc",
     "detail": "no update-to, relation, or updating work",
-    "checked_at": "2026-09-14T23:43:30+00:00",
+    "checked_at": "2026-09-15T00:00:51+00:00",
     "events": [],
     "frozen": {}
    },
@@ -517,14 +539,19 @@
     "canonical": "https://doi.org/10.1016/s0140-6736(04)17020-7",
     "registry": "crossref",
     "registry_id": "10.1016/s0140-6736(04)17020-7",
-    "checked_at": "2026-09-14T23:43:32+00:00",
-    "generic_fetch": false
+    "checked_at": "2026-09-15T00:01:00+00:00",
+    "generic_fetch": false,
+    "published": [
+     2004,
+     9
+    ],
+    "effective": null
    },
    "document": {
     "sha256": "baff1cb1d7216b3109f6e886eca267275d513095d3c17701953012af45430683",
     "route": "europepmc_abstract",
     "kind": "abstract",
-    "retrieved_at": "2026-09-14T23:43:32+00:00",
+    "retrieved_at": "2026-09-15T00:01:15+00:00",
     "chars": 1389,
     "text_layer": "DECLARED_SOUND",
     "path": "data/verify/docs/ba/baff1cb1d7216b3109f6e886eca267275d513095d3c17701953012af45430683.txt.gz",
@@ -543,7 +570,7 @@
     "verdict": "unchanged",
     "registry": "crossref+europepmc",
     "detail": "no update-to, relation, or updating work",
-    "checked_at": "2026-09-14T23:43:32+00:00",
+    "checked_at": "2026-09-15T00:01:15+00:00",
     "events": [],
     "frozen": {}
    },
@@ -567,14 +594,20 @@
     "canonical": "https://doi.org/10.1136/bmj.324.7334.393",
     "registry": "crossref",
     "registry_id": "10.1136/bmj.324.7334.393",
-    "checked_at": "2026-09-14T23:43:33+00:00",
-    "generic_fetch": false
+    "checked_at": "2026-09-15T00:01:17+00:00",
+    "generic_fetch": false,
+    "published": [
+     2002,
+     2,
+     16
+    ],
+    "effective": null
    },
    "document": {
     "sha256": "00b87bbf34e769d1ee560f46d2ab7e7e988316becab88690ba226042b06bd60c",
     "route": "europepmc_abstract",
     "kind": "abstract",
-    "retrieved_at": "2026-09-14T23:43:35+00:00",
+    "retrieved_at": "2026-09-15T00:01:18+00:00",
     "chars": 1903,
     "text_layer": "DECLARED_SOUND",
     "path": "data/verify/docs/00/00b87bbf34e769d1ee560f46d2ab7e7e988316becab88690ba226042b06bd60c.txt.gz",
@@ -593,7 +626,7 @@
     "verdict": "unchanged",
     "registry": "crossref+europepmc",
     "detail": "no update-to, relation, or updating work",
-    "checked_at": "2026-09-14T23:43:35+00:00",
+    "checked_at": "2026-09-15T00:01:18+00:00",
     "events": [
      {
       "type": "comment in",
@@ -624,14 +657,20 @@
     "canonical": "https://doi.org/10.1111/j.1469-7610.2005.01425.x",
     "registry": "crossref",
     "registry_id": "10.1111/j.1469-7610.2005.01425.x",
-    "checked_at": "2026-09-14T23:43:36+00:00",
-    "generic_fetch": false
+    "checked_at": "2026-09-15T00:01:27+00:00",
+    "generic_fetch": false,
+    "published": [
+     2005,
+     2,
+     18
+    ],
+    "effective": null
    },
    "document": {
     "sha256": "743e0691c4a3c4d6cdbbb34cf3feb9b417016f4ac9244ec389ffd4db9747835d",
     "route": "europepmc_abstract",
     "kind": "abstract",
-    "retrieved_at": "2026-09-14T23:43:37+00:00",
+    "retrieved_at": "2026-09-15T00:01:28+00:00",
     "chars": 1566,
     "text_layer": "DECLARED_SOUND",
     "path": "data/verify/docs/74/743e0691c4a3c4d6cdbbb34cf3feb9b417016f4ac9244ec389ffd4db9747835d.txt.gz",
@@ -650,7 +689,7 @@
     "verdict": "unchanged",
     "registry": "crossref+europepmc",
     "detail": "no update-to, relation, or updating work",
-    "checked_at": "2026-09-14T23:43:37+00:00",
+    "checked_at": "2026-09-15T00:01:28+00:00",
     "events": [],
     "frozen": {}
    },
@@ -674,14 +713,20 @@
     "canonical": "https://doi.org/10.7326/m18-2101",
     "registry": "crossref",
     "registry_id": "10.7326/m18-2101",
-    "checked_at": "2026-09-14T23:43:37+00:00",
-    "generic_fetch": false
+    "checked_at": "2026-09-15T00:01:29+00:00",
+    "generic_fetch": false,
+    "published": [
+     2019,
+     4,
+     16
+    ],
+    "effective": null
    },
    "document": {
     "sha256": "26d79efdf5364011190cc9f663ebdd9d2a4c4c6fe4614c1020bb6284bd9124fb",
     "route": "europepmc_abstract",
     "kind": "abstract",
-    "retrieved_at": "2026-09-14T23:43:38+00:00",
+    "retrieved_at": "2026-09-15T00:01:30+00:00",
     "chars": 2161,
     "text_layer": "DECLARED_SOUND",
     "path": "data/verify/docs/26/26d79efdf5364011190cc9f663ebdd9d2a4c4c6fe4614c1020bb6284bd9124fb.txt.gz",
@@ -700,7 +745,7 @@
     "verdict": "unchanged",
     "registry": "crossref+europepmc",
     "detail": "no update-to, relation, or updating work",
-    "checked_at": "2026-09-14T23:43:38+00:00",
+    "checked_at": "2026-09-15T00:01:30+00:00",
     "events": [
      {
       "type": "comment in",
@@ -755,14 +800,20 @@
     "canonical": "https://doi.org/10.1002/14651858.cd004407.pub4",
     "registry": "crossref",
     "registry_id": "10.1002/14651858.cd004407.pub4",
-    "checked_at": "2026-09-14T23:43:39+00:00",
-    "generic_fetch": false
+    "checked_at": "2026-09-15T00:01:32+00:00",
+    "generic_fetch": false,
+    "published": [
+     2020,
+     4,
+     20
+    ],
+    "effective": null
    },
    "document": {
     "sha256": "cdcf92f7b5477d860e432f10033af0ae53df0912999140336604d7f6d738d96f",
     "route": "europepmc_abstract",
     "kind": "abstract",
-    "retrieved_at": "2026-09-14T23:43:40+00:00",
+    "retrieved_at": "2026-09-15T00:01:35+00:00",
     "chars": 6715,
     "text_layer": "DECLARED_SOUND",
     "path": "data/verify/docs/cd/cdcf92f7b5477d860e432f10033af0ae53df0912999140336604d7f6d738d96f.txt.gz",
@@ -781,7 +832,7 @@
     "verdict": "superseded",
     "registry": "crossref+europepmc",
     "detail": "2 update/relation event(s)",
-    "checked_at": "2026-09-14T23:43:40+00:00",
+    "checked_at": "2026-09-15T00:01:35+00:00",
     "events": [
      {
       "type": "new_version",
@@ -833,14 +884,19 @@
     "canonical": "https://doi.org/10.1016/j.vaccine.2014.04.085",
     "registry": "crossref",
     "registry_id": "10.1016/j.vaccine.2014.04.085",
-    "checked_at": "2026-09-14T23:43:42+00:00",
-    "generic_fetch": false
+    "checked_at": "2026-09-15T00:02:03+00:00",
+    "generic_fetch": false,
+    "published": [
+     2014,
+     6
+    ],
+    "effective": null
    },
    "document": {
     "sha256": "fdddd466b1abad1b03561461c6eb75b27534184f6a77636bd23ed716403d157a",
     "route": "europepmc_abstract",
     "kind": "abstract",
-    "retrieved_at": "2026-09-14T23:43:43+00:00",
+    "retrieved_at": "2026-09-15T00:02:22+00:00",
     "chars": 1945,
     "text_layer": "DECLARED_SOUND",
     "path": "data/verify/docs/fd/fdddd466b1abad1b03561461c6eb75b27534184f6a77636bd23ed716403d157a.txt.gz",
@@ -859,7 +915,7 @@
     "verdict": "unchanged",
     "registry": "crossref+europepmc",
     "detail": "no update-to, relation, or updating work",
-    "checked_at": "2026-09-14T23:43:43+00:00",
+    "checked_at": "2026-09-15T00:02:22+00:00",
     "events": [
      {
       "type": "comment in",
@@ -902,8 +958,10 @@
     "canonical": "https://www.fda.gov/vaccines-blood-biologics/vaccines/mmr-ii",
     "registry": "generic_fetch",
     "registry_id": null,
-    "checked_at": "2026-09-14T23:43:44+00:00",
-    "generic_fetch": true
+    "checked_at": "2026-09-15T00:02:38+00:00",
+    "generic_fetch": true,
+    "published": null,
+    "effective": null
    },
    "document": null,
    "bindings": [],
@@ -927,14 +985,16 @@
     "canonical": "https://www.fda.gov/vaccines-blood-biologics/safety-availability-biologics/thimerosal-and-vaccines",
     "registry": "generic_fetch",
     "registry_id": null,
-    "checked_at": "2026-09-14T23:43:44+00:00",
-    "generic_fetch": true
+    "checked_at": "2026-09-15T00:02:39+00:00",
+    "generic_fetch": true,
+    "published": null,
+    "effective": null
    },
    "document": {
     "sha256": "fdf73b80bb4c92200b5289678acba4e3f0161991913db7b0db75c05751469c7f",
     "route": "generic_fetch_html",
     "kind": "full_text",
-    "retrieved_at": "2026-09-14T23:43:45+00:00",
+    "retrieved_at": "2026-09-15T00:02:39+00:00",
     "chars": 24008,
     "text_layer": "DECLARED_SOUND",
     "path": "data/verify/docs/fd/fdf73b80bb4c92200b5289678acba4e3f0161991913db7b0db75c05751469c7f.txt.gz",
@@ -953,7 +1013,7 @@
     "verdict": "no_registry",
     "registry": "generic_fetch",
     "detail": "no status registry for a generic URL; watched by the binding re-check only",
-    "checked_at": "2026-09-14T23:43:45+00:00",
+    "checked_at": "2026-09-15T00:02:39+00:00",
     "events": [],
     "frozen": {}
    },
@@ -977,14 +1037,16 @@
     "canonical": "https://www.cdc.gov/mmwr/preview/mmwrhtml/rr6204a1.htm",
     "registry": "generic_fetch",
     "registry_id": null,
-    "checked_at": "2026-09-14T23:43:45+00:00",
-    "generic_fetch": true
+    "checked_at": "2026-09-15T00:02:39+00:00",
+    "generic_fetch": true,
+    "published": null,
+    "effective": null
    },
    "document": {
     "sha256": "6e1a91caa227a9d81a6c2e6350f421ae9d0a3c53adb6ec0f1d2043eafcb06a4e",
     "route": "generic_fetch_html",
     "kind": "full_text",
-    "retrieved_at": "2026-09-14T23:43:45+00:00",
+    "retrieved_at": "2026-09-15T00:02:39+00:00",
     "chars": 184486,
     "text_layer": "DECLARED_SOUND",
     "path": "data/verify/docs/6e/6e1a91caa227a9d81a6c2e6350f421ae9d0a3c53adb6ec0f1d2043eafcb06a4e.txt.gz",
@@ -1003,7 +1065,7 @@
     "verdict": "no_registry",
     "registry": "generic_fetch",
     "detail": "no status registry for a generic URL; watched by the binding re-check only",
-    "checked_at": "2026-09-14T23:43:45+00:00",
+    "checked_at": "2026-09-15T00:02:39+00:00",
     "events": [],
     "frozen": {}
    },
@@ -1027,14 +1089,16 @@
     "canonical": "https://www.ncbi.nlm.nih.gov/books/NBK25344/",
     "registry": "generic_fetch",
     "registry_id": null,
-    "checked_at": "2026-09-14T23:43:45+00:00",
-    "generic_fetch": true
+    "checked_at": "2026-09-15T00:02:39+00:00",
+    "generic_fetch": true,
+    "published": null,
+    "effective": null
    },
    "document": {
     "sha256": "351d2d9182251c1608d91009cfa38a6b611f33b9c2fe32b67231d825bcc11848",
     "route": "generic_fetch_html",
     "kind": "full_text",
-    "retrieved_at": "2026-09-14T23:43:46+00:00",
+    "retrieved_at": "2026-09-15T00:02:40+00:00",
     "chars": 8164,
     "text_layer": "DECLARED_SOUND",
     "path": "data/verify/docs/35/351d2d9182251c1608d91009cfa38a6b611f33b9c2fe32b67231d825bcc11848.txt.gz",
@@ -1053,7 +1117,7 @@
     "verdict": "no_registry",
     "registry": "generic_fetch",
     "detail": "no status registry for a generic URL; watched by the binding re-check only",
-    "checked_at": "2026-09-14T23:43:46+00:00",
+    "checked_at": "2026-09-15T00:02:40+00:00",
     "events": [],
     "frozen": {}
    },
@@ -1077,14 +1141,16 @@
     "canonical": "https://www.ema.europa.eu/en/medicines/human/EPAR/m-m-rvaxpro",
     "registry": "generic_fetch",
     "registry_id": null,
-    "checked_at": "2026-09-14T23:43:46+00:00",
-    "generic_fetch": true
+    "checked_at": "2026-09-15T00:02:40+00:00",
+    "generic_fetch": true,
+    "published": null,
+    "effective": null
    },
    "document": {
     "sha256": "93fa09abdadf9fb8b305c475521496553106ba53283de6ad9dcf983df4a1ae45",
     "route": "generic_fetch_html",
     "kind": "full_text",
-    "retrieved_at": "2026-09-14T23:43:46+00:00",
+    "retrieved_at": "2026-09-15T00:02:41+00:00",
     "chars": 19274,
     "text_layer": "DECLARED_SOUND",
     "path": "data/verify/docs/93/93fa09abdadf9fb8b305c475521496553106ba53283de6ad9dcf983df4a1ae45.txt.gz",
@@ -1103,7 +1169,7 @@
     "verdict": "no_registry",
     "registry": "generic_fetch",
     "detail": "no status registry for a generic URL; watched by the binding re-check only",
-    "checked_at": "2026-09-14T23:43:46+00:00",
+    "checked_at": "2026-09-15T00:02:41+00:00",
     "events": [],
     "frozen": {}
    },
@@ -1127,14 +1193,16 @@
     "canonical": "https://vaers.hhs.gov/data/dataguide.html",
     "registry": "generic_fetch",
     "registry_id": null,
-    "checked_at": "2026-09-14T23:43:46+00:00",
-    "generic_fetch": true
+    "checked_at": "2026-09-15T00:02:41+00:00",
+    "generic_fetch": true,
+    "published": null,
+    "effective": null
    },
    "document": {
     "sha256": "be81d504895e85208fab699a0116535c84534675f896b2d878f66db27acd30a1",
     "route": "generic_fetch_html",
     "kind": "full_text",
-    "retrieved_at": "2026-09-14T23:43:47+00:00",
+    "retrieved_at": "2026-09-15T00:02:41+00:00",
     "chars": 4958,
     "text_layer": "DECLARED_SOUND",
     "path": "data/verify/docs/be/be81d504895e85208fab699a0116535c84534675f896b2d878f66db27acd30a1.txt.gz",
@@ -1153,7 +1221,7 @@
     "verdict": "no_registry",
     "registry": "generic_fetch",
     "detail": "no status registry for a generic URL; watched by the binding re-check only",
-    "checked_at": "2026-09-14T23:43:47+00:00",
+    "checked_at": "2026-09-15T00:02:41+00:00",
     "events": [],
     "frozen": {}
    },
@@ -1177,8 +1245,10 @@
     "canonical": "https://www.uscfc.uscourts.gov/sites/default/files/Hastings.Cedillo.02-0031V.pdf",
     "registry": "generic_fetch",
     "registry_id": null,
-    "checked_at": "2026-09-14T23:43:47+00:00",
-    "generic_fetch": true
+    "checked_at": "2026-09-15T00:02:41+00:00",
+    "generic_fetch": true,
+    "published": null,
+    "effective": null
    },
    "document": null,
    "bindings": [],
@@ -1202,14 +1272,20 @@
     "canonical": "https://doi.org/10.1002/14651858.cd004407.pub4",
     "registry": "crossref",
     "registry_id": "10.1002/14651858.cd004407.pub4",
-    "checked_at": "2026-09-14T23:43:39+00:00",
-    "generic_fetch": false
+    "checked_at": "2026-09-15T00:01:32+00:00",
+    "generic_fetch": false,
+    "published": [
+     2020,
+     4,
+     20
+    ],
+    "effective": null
    },
    "document": {
     "sha256": "cdcf92f7b5477d860e432f10033af0ae53df0912999140336604d7f6d738d96f",
     "route": "europepmc_abstract",
     "kind": "abstract",
-    "retrieved_at": "2026-09-14T23:43:40+00:00",
+    "retrieved_at": "2026-09-15T00:01:35+00:00",
     "chars": 6715,
     "text_layer": "DECLARED_SOUND",
     "path": "data/verify/docs/cd/cdcf92f7b5477d860e432f10033af0ae53df0912999140336604d7f6d738d96f.txt.gz",
@@ -1228,7 +1304,7 @@
     "verdict": "superseded",
     "registry": "crossref+europepmc",
     "detail": "2 update/relation event(s)",
-    "checked_at": "2026-09-14T23:43:40+00:00",
+    "checked_at": "2026-09-15T00:01:35+00:00",
     "events": [
      {
       "type": "new_version",
@@ -1280,14 +1356,19 @@
     "canonical": "https://doi.org/10.1016/j.vaccine.2014.04.085",
     "registry": "crossref",
     "registry_id": "10.1016/j.vaccine.2014.04.085",
-    "checked_at": "2026-09-14T23:43:42+00:00",
-    "generic_fetch": false
+    "checked_at": "2026-09-15T00:02:03+00:00",
+    "generic_fetch": false,
+    "published": [
+     2014,
+     6
+    ],
+    "effective": null
    },
    "document": {
     "sha256": "fdddd466b1abad1b03561461c6eb75b27534184f6a77636bd23ed716403d157a",
     "route": "europepmc_abstract",
     "kind": "abstract",
-    "retrieved_at": "2026-09-14T23:43:43+00:00",
+    "retrieved_at": "2026-09-15T00:02:22+00:00",
     "chars": 1945,
     "text_layer": "DECLARED_SOUND",
     "path": "data/verify/docs/fd/fdddd466b1abad1b03561461c6eb75b27534184f6a77636bd23ed716403d157a.txt.gz",
@@ -1306,7 +1387,7 @@
     "verdict": "unchanged",
     "registry": "crossref+europepmc",
     "detail": "no update-to, relation, or updating work",
-    "checked_at": "2026-09-14T23:43:43+00:00",
+    "checked_at": "2026-09-15T00:02:22+00:00",
     "events": [
      {
       "type": "comment in",
@@ -1349,14 +1430,20 @@
     "canonical": "https://doi.org/10.1056/nejmoa021134",
     "registry": "crossref",
     "registry_id": "10.1056/nejmoa021134",
-    "checked_at": "2026-09-14T23:43:28+00:00",
-    "generic_fetch": false
+    "checked_at": "2026-09-15T00:00:30+00:00",
+    "generic_fetch": false,
+    "published": [
+     2002,
+     11,
+     7
+    ],
+    "effective": null
    },
    "document": {
     "sha256": "cf62e4e025b70be9e7f6140bb594850f73db0258711906392827ce9e89e73c86",
     "route": "europepmc_abstract",
     "kind": "abstract",
-    "retrieved_at": "2026-09-14T23:43:28+00:00",
+    "retrieved_at": "2026-09-15T00:00:35+00:00",
     "chars": 1829,
     "text_layer": "DECLARED_SOUND",
     "path": "data/verify/docs/cf/cf62e4e025b70be9e7f6140bb594850f73db0258711906392827ce9e89e73c86.txt.gz",
@@ -1375,7 +1462,7 @@
     "verdict": "unchanged",
     "registry": "crossref+europepmc",
     "detail": "no update-to, relation, or updating work",
-    "checked_at": "2026-09-14T23:43:28+00:00",
+    "checked_at": "2026-09-15T00:00:35+00:00",
     "events": [
      {
       "type": "comment in",
@@ -1436,21 +1523,27 @@
     "canonical": "https://doi.org/10.17226/10997",
     "registry": "crossref",
     "registry_id": "10.17226/10997",
-    "checked_at": "2026-09-14T23:43:47+00:00",
+    "checked_at": "2026-09-15T00:02:41+00:00",
     "generic_fetch": false,
+    "published": [
+     2004,
+     8,
+     30
+    ],
+    "effective": null,
     "fallback": {
      "route": "generic_fetch via doi.org",
      "final_url": "https://www.nationalacademies.org/publications/10997"
     }
    },
    "document": {
-    "sha256": "17facd836acba9d452aebbc251291e9d50d8e2b36c64c646a60776442cc74a57",
+    "sha256": "7113eca355a24c6f94e95ebfd08ad5713ad0a161a55ded19b11d4f0912c6874a",
     "route": "generic_fetch_html",
     "kind": "full_text",
-    "retrieved_at": "2026-09-14T23:43:48+00:00",
+    "retrieved_at": "2026-09-15T00:02:52+00:00",
     "chars": 36333,
     "text_layer": "DECLARED_SOUND",
-    "path": "data/verify/docs/17/17facd836acba9d452aebbc251291e9d50d8e2b36c64c646a60776442cc74a57.txt.gz",
+    "path": "data/verify/docs/71/7113eca355a24c6f94e95ebfd08ad5713ad0a161a55ded19b11d4f0912c6874a.txt.gz",
     "final_url": "https://www.nationalacademies.org/publications/10997"
    },
    "bindings": [
@@ -1466,7 +1559,7 @@
     "verdict": "unchanged",
     "registry": "crossref",
     "detail": "no update-to, relation, or updating work",
-    "checked_at": "2026-09-14T23:43:48+00:00",
+    "checked_at": "2026-09-15T00:02:52+00:00",
     "events": [],
     "frozen": {}
    },
@@ -1490,14 +1583,20 @@
     "canonical": "https://doi.org/10.7326/m18-2101",
     "registry": "crossref",
     "registry_id": "10.7326/m18-2101",
-    "checked_at": "2026-09-14T23:43:37+00:00",
-    "generic_fetch": false
+    "checked_at": "2026-09-15T00:01:29+00:00",
+    "generic_fetch": false,
+    "published": [
+     2019,
+     4,
+     16
+    ],
+    "effective": null
    },
    "document": {
     "sha256": "26d79efdf5364011190cc9f663ebdd9d2a4c4c6fe4614c1020bb6284bd9124fb",
     "route": "europepmc_abstract",
     "kind": "abstract",
-    "retrieved_at": "2026-09-14T23:43:38+00:00",
+    "retrieved_at": "2026-09-15T00:01:30+00:00",
     "chars": 2161,
     "text_layer": "DECLARED_SOUND",
     "path": "data/verify/docs/26/26d79efdf5364011190cc9f663ebdd9d2a4c4c6fe4614c1020bb6284bd9124fb.txt.gz",
@@ -1516,7 +1615,7 @@
     "verdict": "unchanged",
     "registry": "crossref+europepmc",
     "detail": "no update-to, relation, or updating work",
-    "checked_at": "2026-09-14T23:43:38+00:00",
+    "checked_at": "2026-09-15T00:01:30+00:00",
     "events": [
      {
       "type": "comment in",
@@ -1571,8 +1670,13 @@
     "canonical": "https://doi.org/10.1016/s0140-6736(10)60175-4",
     "registry": "crossref",
     "registry_id": "10.1016/s0140-6736(10)60175-4",
-    "checked_at": "2026-09-14T23:43:49+00:00",
+    "checked_at": "2026-09-15T00:02:59+00:00",
     "generic_fetch": false,
+    "published": [
+     2010,
+     2
+    ],
+    "effective": null,
     "fallback": {
      "route": "generic_fetch via doi.org",
      "http": 200,
@@ -1609,14 +1713,20 @@
     "canonical": "https://doi.org/10.1056/nejmoa021134",
     "registry": "crossref",
     "registry_id": "10.1056/nejmoa021134",
-    "checked_at": "2026-09-14T23:43:28+00:00",
-    "generic_fetch": false
+    "checked_at": "2026-09-15T00:00:30+00:00",
+    "generic_fetch": false,
+    "published": [
+     2002,
+     11,
+     7
+    ],
+    "effective": null
    },
    "document": {
     "sha256": "cf62e4e025b70be9e7f6140bb594850f73db0258711906392827ce9e89e73c86",
     "route": "europepmc_abstract",
     "kind": "abstract",
-    "retrieved_at": "2026-09-14T23:43:28+00:00",
+    "retrieved_at": "2026-09-15T00:00:35+00:00",
     "chars": 1829,
     "text_layer": "DECLARED_SOUND",
     "path": "data/verify/docs/cf/cf62e4e025b70be9e7f6140bb594850f73db0258711906392827ce9e89e73c86.txt.gz",
@@ -1635,7 +1745,7 @@
     "verdict": "unchanged",
     "registry": "crossref+europepmc",
     "detail": "no update-to, relation, or updating work",
-    "checked_at": "2026-09-14T23:43:28+00:00",
+    "checked_at": "2026-09-15T00:00:35+00:00",
     "events": [
      {
       "type": "comment in",
@@ -1696,14 +1806,19 @@
     "canonical": "https://doi.org/10.1016/s0140-6736(99)01239-8",
     "registry": "crossref",
     "registry_id": "10.1016/s0140-6736(99)01239-8",
-    "checked_at": "2026-09-14T23:43:26+00:00",
-    "generic_fetch": false
+    "checked_at": "2026-09-14T23:59:41+00:00",
+    "generic_fetch": false,
+    "published": [
+     1999,
+     6
+    ],
+    "effective": null
    },
    "document": {
     "sha256": "1820cf125b0e5616cd720e3bcadc1b32baab6854abdd22794c4c45c4703fe5e5",
     "route": "europepmc_abstract",
     "kind": "abstract",
-    "retrieved_at": "2026-09-14T23:43:26+00:00",
+    "retrieved_at": "2026-09-15T00:00:01+00:00",
     "chars": 2311,
     "text_layer": "DECLARED_SOUND",
     "path": "data/verify/docs/18/1820cf125b0e5616cd720e3bcadc1b32baab6854abdd22794c4c45c4703fe5e5.txt.gz",
@@ -1722,7 +1837,7 @@
     "verdict": "unchanged",
     "registry": "crossref+europepmc",
     "detail": "no update-to, relation, or updating work",
-    "checked_at": "2026-09-14T23:43:26+00:00",
+    "checked_at": "2026-09-15T00:00:01+00:00",
     "events": [
      {
       "type": "comment in",
@@ -1783,14 +1898,20 @@
     "canonical": "https://doi.org/10.7326/m18-2101",
     "registry": "crossref",
     "registry_id": "10.7326/m18-2101",
-    "checked_at": "2026-09-14T23:43:37+00:00",
-    "generic_fetch": false
+    "checked_at": "2026-09-15T00:01:29+00:00",
+    "generic_fetch": false,
+    "published": [
+     2019,
+     4,
+     16
+    ],
+    "effective": null
    },
    "document": {
     "sha256": "26d79efdf5364011190cc9f663ebdd9d2a4c4c6fe4614c1020bb6284bd9124fb",
     "route": "europepmc_abstract",
     "kind": "abstract",
-    "retrieved_at": "2026-09-14T23:43:38+00:00",
+    "retrieved_at": "2026-09-15T00:01:30+00:00",
     "chars": 2161,
     "text_layer": "DECLARED_SOUND",
     "path": "data/verify/docs/26/26d79efdf5364011190cc9f663ebdd9d2a4c4c6fe4614c1020bb6284bd9124fb.txt.gz",
@@ -1809,7 +1930,7 @@
     "verdict": "unchanged",
     "registry": "crossref+europepmc",
     "detail": "no update-to, relation, or updating work",
-    "checked_at": "2026-09-14T23:43:38+00:00",
+    "checked_at": "2026-09-15T00:01:30+00:00",
     "events": [
      {
       "type": "comment in",
@@ -1864,14 +1985,19 @@
     "canonical": "https://doi.org/10.1016/s0140-6736(97)11096-0",
     "registry": "crossref",
     "registry_id": "10.1016/s0140-6736(97)11096-0",
-    "checked_at": "2026-09-14T23:43:23+00:00",
-    "generic_fetch": false
+    "checked_at": "2026-09-14T23:59:31+00:00",
+    "generic_fetch": false,
+    "published": [
+     1998,
+     2
+    ],
+    "effective": null
    },
    "document": {
     "sha256": "4c8be4d2c62edf3089f001d2a4ac1d06cc32a4729a03b47e415883b7f4681a18",
     "route": "europepmc_abstract",
     "kind": "abstract",
-    "retrieved_at": "2026-09-14T23:43:23+00:00",
+    "retrieved_at": "2026-09-14T23:59:32+00:00",
     "chars": 1984,
     "text_layer": "DECLARED_SOUND",
     "path": "data/verify/docs/4c/4c8be4d2c62edf3089f001d2a4ac1d06cc32a4729a03b47e415883b7f4681a18.txt.gz",
@@ -1890,7 +2016,7 @@
     "verdict": "retracted",
     "registry": "crossref+europepmc",
     "detail": "2 update/relation event(s)",
-    "checked_at": "2026-09-14T23:43:23+00:00",
+    "checked_at": "2026-09-14T23:59:32+00:00",
     "events": [
      {
       "type": "correction",
@@ -2109,8 +2235,14 @@
     "canonical": "https://doi.org/10.1136/bmj.c5347",
     "registry": "crossref",
     "registry_id": "10.1136/bmj.c5347",
-    "checked_at": "2026-09-14T23:43:51+00:00",
+    "checked_at": "2026-09-15T00:03:01+00:00",
     "generic_fetch": false,
+    "published": [
+     2011,
+     1,
+     5
+    ],
+    "effective": null,
     "fallback": {
      "route": "generic_fetch via doi.org",
      "http": 403,
@@ -2147,17 +2279,23 @@
     "canonical": "https://doi.org/10.17226/10997",
     "registry": "crossref",
     "registry_id": "10.17226/10997",
-    "checked_at": "2026-09-14T23:43:47+00:00",
-    "generic_fetch": false
+    "checked_at": "2026-09-15T00:02:41+00:00",
+    "generic_fetch": false,
+    "published": [
+     2004,
+     8,
+     30
+    ],
+    "effective": null
    },
    "document": {
-    "sha256": "17facd836acba9d452aebbc251291e9d50d8e2b36c64c646a60776442cc74a57",
+    "sha256": "7113eca355a24c6f94e95ebfd08ad5713ad0a161a55ded19b11d4f0912c6874a",
     "route": "generic_fetch_html",
     "kind": "full_text",
-    "retrieved_at": "2026-09-14T23:43:48+00:00",
+    "retrieved_at": "2026-09-15T00:02:52+00:00",
     "chars": 36333,
     "text_layer": "DECLARED_SOUND",
-    "path": "data/verify/docs/17/17facd836acba9d452aebbc251291e9d50d8e2b36c64c646a60776442cc74a57.txt.gz",
+    "path": "data/verify/docs/71/7113eca355a24c6f94e95ebfd08ad5713ad0a161a55ded19b11d4f0912c6874a.txt.gz",
     "final_url": "https://www.nationalacademies.org/publications/10997"
    },
    "bindings": [
@@ -2173,7 +2311,7 @@
     "verdict": "unchanged",
     "registry": "crossref",
     "detail": "no update-to, relation, or updating work",
-    "checked_at": "2026-09-14T23:43:48+00:00",
+    "checked_at": "2026-09-15T00:02:52+00:00",
     "events": [],
     "frozen": {}
    },
@@ -2197,8 +2335,10 @@
     "canonical": "https://www.uhcprovider.com/content/dam/provider/docs/public/policies/comm-medical-drug/childhood-immunizations.pdf",
     "registry": "generic_fetch",
     "registry_id": null,
-    "checked_at": "2026-09-14T23:43:51+00:00",
-    "generic_fetch": true
+    "checked_at": "2026-09-15T00:03:02+00:00",
+    "generic_fetch": true,
+    "published": null,
+    "effective": null
    },
    "document": null,
    "bindings": [],
@@ -2222,14 +2362,16 @@
     "canonical": "https://www.aetna.com/cpb/medical/data/1_99/0070.html",
     "registry": "generic_fetch",
     "registry_id": null,
-    "checked_at": "2026-09-14T23:43:52+00:00",
-    "generic_fetch": true
+    "checked_at": "2026-09-15T00:03:02+00:00",
+    "generic_fetch": true,
+    "published": null,
+    "effective": null
    },
    "document": {
     "sha256": "fa060886dfebefa5c53ebce93406b7534a2a2890e9aa7191dd85a929b51f1969",
     "route": "generic_fetch_html",
     "kind": "full_text",
-    "retrieved_at": "2026-09-14T23:43:52+00:00",
+    "retrieved_at": "2026-09-15T00:03:03+00:00",
     "chars": 256479,
     "text_layer": "DECLARED_SOUND",
     "path": "data/verify/docs/fa/fa060886dfebefa5c53ebce93406b7534a2a2890e9aa7191dd85a929b51f1969.txt.gz",
@@ -2248,7 +2390,7 @@
     "verdict": "no_registry",
     "registry": "generic_fetch",
     "detail": "no status registry for a generic URL; watched by the binding re-check only",
-    "checked_at": "2026-09-14T23:43:52+00:00",
+    "checked_at": "2026-09-15T00:03:03+00:00",
     "events": [],
     "frozen": {}
    },
@@ -2272,8 +2414,10 @@
     "canonical": "https://www.anthem.com/preventive-care",
     "registry": "generic_fetch",
     "registry_id": null,
-    "checked_at": "2026-09-14T23:43:52+00:00",
-    "generic_fetch": true
+    "checked_at": "2026-09-15T00:03:03+00:00",
+    "generic_fetch": true,
+    "published": null,
+    "effective": null
    },
    "document": null,
    "bindings": [],
@@ -2297,14 +2441,20 @@
     "canonical": "https://doi.org/10.1001/jama.2015.3077",
     "registry": "crossref",
     "registry_id": "10.1001/jama.2015.3077",
-    "checked_at": "2026-09-14T23:47:47+00:00",
-    "generic_fetch": false
+    "checked_at": "2026-09-15T00:06:19+00:00",
+    "generic_fetch": false,
+    "published": [
+     2015,
+     4,
+     21
+    ],
+    "effective": null
    },
    "document": {
     "sha256": "808431798f8fe2257a7a973cf003621a7d331f70abfa94a6d1dcf5e46b2f4421",
     "route": "europepmc_abstract",
     "kind": "abstract",
-    "retrieved_at": "2026-09-14T23:47:48+00:00",
+    "retrieved_at": "2026-09-15T00:06:56+00:00",
     "chars": 1915,
     "text_layer": "DECLARED_SOUND",
     "path": "data/verify/docs/80/808431798f8fe2257a7a973cf003621a7d331f70abfa94a6d1dcf5e46b2f4421.txt.gz",
@@ -2323,7 +2473,7 @@
     "verdict": "corrected",
     "registry": "crossref+europepmc",
     "detail": "no update-to, relation, or updating work",
-    "checked_at": "2026-09-14T23:47:48+00:00",
+    "checked_at": "2026-09-15T00:06:56+00:00",
     "events": [
      {
       "type": "comment in",
@@ -2372,14 +2522,20 @@
     "canonical": "https://doi.org/10.1001/jama.2015.3077",
     "registry": "crossref",
     "registry_id": "10.1001/jama.2015.3077",
-    "checked_at": "2026-09-14T23:47:47+00:00",
-    "generic_fetch": false
+    "checked_at": "2026-09-15T00:06:19+00:00",
+    "generic_fetch": false,
+    "published": [
+     2015,
+     4,
+     21
+    ],
+    "effective": null
    },
    "document": {
     "sha256": "808431798f8fe2257a7a973cf003621a7d331f70abfa94a6d1dcf5e46b2f4421",
     "route": "europepmc_abstract",
     "kind": "abstract",
-    "retrieved_at": "2026-09-14T23:47:48+00:00",
+    "retrieved_at": "2026-09-15T00:06:56+00:00",
     "chars": 1915,
     "text_layer": "DECLARED_SOUND",
     "path": "data/verify/docs/80/808431798f8fe2257a7a973cf003621a7d331f70abfa94a6d1dcf5e46b2f4421.txt.gz",
@@ -2398,7 +2554,7 @@
     "verdict": "corrected",
     "registry": "crossref+europepmc",
     "detail": "no update-to, relation, or updating work",
-    "checked_at": "2026-09-14T23:47:48+00:00",
+    "checked_at": "2026-09-15T00:06:56+00:00",
     "events": [
      {
       "type": "comment in",
@@ -2447,14 +2603,20 @@
     "canonical": "https://doi.org/10.1111/j.1469-7610.2005.01425.x",
     "registry": "crossref",
     "registry_id": "10.1111/j.1469-7610.2005.01425.x",
-    "checked_at": "2026-09-14T23:43:36+00:00",
-    "generic_fetch": false
+    "checked_at": "2026-09-15T00:01:27+00:00",
+    "generic_fetch": false,
+    "published": [
+     2005,
+     2,
+     18
+    ],
+    "effective": null
    },
    "document": {
     "sha256": "743e0691c4a3c4d6cdbbb34cf3feb9b417016f4ac9244ec389ffd4db9747835d",
     "route": "europepmc_abstract",
     "kind": "abstract",
-    "retrieved_at": "2026-09-14T23:43:37+00:00",
+    "retrieved_at": "2026-09-15T00:01:28+00:00",
     "chars": 1566,
     "text_layer": "DECLARED_SOUND",
     "path": "data/verify/docs/74/743e0691c4a3c4d6cdbbb34cf3feb9b417016f4ac9244ec389ffd4db9747835d.txt.gz",
@@ -2473,7 +2635,7 @@
     "verdict": "unchanged",
     "registry": "crossref+europepmc",
     "detail": "no update-to, relation, or updating work",
-    "checked_at": "2026-09-14T23:43:37+00:00",
+    "checked_at": "2026-09-15T00:01:28+00:00",
     "events": [],
     "frozen": {}
    },
@@ -2493,7 +2655,15 @@
     {
      "source_id": "2dd1f179-ff6f-4b84-a1b9-cfcc817d9382",
      "source_survives": true,
-     "bindings": [],
+     "bindings": [
+      {
+       "kind": "CHRONOLOGY",
+       "ok": true,
+       "abstained": false,
+       "evidence": "no date or dated event in the claim; cannot be judged",
+       "reason": ""
+      }
+     ],
      "level": "IDENTITY_ONLY"
     }
    ],
@@ -2541,6 +2711,13 @@
      "source_survives": true,
      "bindings": [
       {
+       "kind": "CHRONOLOGY",
+       "ok": true,
+       "abstained": false,
+       "evidence": "no date or dated event in the claim; cannot be judged",
+       "reason": ""
+      },
+      {
        "kind": "FIGURE",
        "ok": true,
        "abstained": false,
@@ -2566,7 +2743,15 @@
     {
      "source_id": "bf1f520d-1281-4fb5-b9b5-af9bf34d6834",
      "source_survives": true,
-     "bindings": [],
+     "bindings": [
+      {
+       "kind": "CHRONOLOGY",
+       "ok": true,
+       "abstained": false,
+       "evidence": "no date or dated event in the claim; cannot be judged",
+       "reason": ""
+      }
+     ],
      "level": "IDENTITY_ONLY"
     }
    ],
@@ -2585,7 +2770,15 @@
     {
      "source_id": "0d7243cc-5b16-46ca-8750-8a2bcf57195f",
      "source_survives": true,
-     "bindings": [],
+     "bindings": [
+      {
+       "kind": "CHRONOLOGY",
+       "ok": true,
+       "abstained": false,
+       "evidence": "no date or dated event in the claim; cannot be judged",
+       "reason": ""
+      }
+     ],
      "level": "IDENTITY_ONLY"
     }
    ],
@@ -2607,6 +2800,13 @@
      "source_id": "6f6527c4-636f-46e3-8c47-09a755af6e93",
      "source_survives": true,
      "bindings": [
+      {
+       "kind": "CHRONOLOGY",
+       "ok": true,
+       "abstained": false,
+       "evidence": "no date or dated event in the claim; cannot be judged",
+       "reason": ""
+      },
       {
        "kind": "FIGURE",
        "ok": false,
@@ -2635,6 +2835,13 @@
      "source_survives": true,
      "bindings": [
       {
+       "kind": "CHRONOLOGY",
+       "ok": true,
+       "abstained": false,
+       "evidence": "no date or dated event in the claim; cannot be judged",
+       "reason": ""
+      },
+      {
        "kind": "FIGURE",
        "ok": true,
        "abstained": false,
@@ -2660,7 +2867,15 @@
     {
      "source_id": "dd13e679-2b06-4fa3-83a4-df2aa1eea9a9",
      "source_survives": true,
-     "bindings": [],
+     "bindings": [
+      {
+       "kind": "CHRONOLOGY",
+       "ok": true,
+       "abstained": false,
+       "evidence": "no date or dated event in the claim; cannot be judged",
+       "reason": ""
+      }
+     ],
      "level": "IDENTITY_ONLY"
     }
    ],
@@ -2683,10 +2898,17 @@
      "source_survives": true,
      "bindings": [
       {
+       "kind": "CHRONOLOGY",
+       "ok": true,
+       "abstained": false,
+       "evidence": "source 2004; explicit date 2004",
+       "reason": ""
+      },
+      {
        "kind": "FIGURE",
        "ok": true,
        "abstained": false,
-       "evidence": "2004",
+       "evidence": "no figure in assertion",
        "reason": ""
       }
      ],
@@ -2708,7 +2930,15 @@
     {
      "source_id": "f01d7631-8929-4030-9ff6-1f25f52d293b",
      "source_survives": true,
-     "bindings": [],
+     "bindings": [
+      {
+       "kind": "CHRONOLOGY",
+       "ok": true,
+       "abstained": false,
+       "evidence": "no date or dated event in the claim; cannot be judged",
+       "reason": ""
+      }
+     ],
      "level": "IDENTITY_ONLY"
     }
    ],
@@ -2733,6 +2963,13 @@
      "source_id": "fe4e0fb8-757f-446c-ab11-fa3edee3c57d",
      "source_survives": true,
      "bindings": [
+      {
+       "kind": "CHRONOLOGY",
+       "ok": true,
+       "abstained": false,
+       "evidence": "no date or dated event in the claim; cannot be judged",
+       "reason": ""
+      },
       {
        "kind": "FIGURE",
        "ok": false,
@@ -2761,10 +2998,17 @@
      "source_survives": true,
      "bindings": [
       {
+       "kind": "CHRONOLOGY",
+       "ok": true,
+       "abstained": false,
+       "evidence": "source 2015; explicit date 2015",
+       "reason": ""
+      },
+      {
        "kind": "FIGURE",
        "ok": true,
        "abstained": false,
-       "evidence": "2015",
+       "evidence": "no figure in assertion",
        "reason": ""
       }
      ],
@@ -2790,10 +3034,17 @@
      "source_survives": true,
      "bindings": [
       {
+       "kind": "CHRONOLOGY",
+       "ok": true,
+       "abstained": false,
+       "evidence": "source 2015; explicit date 2015",
+       "reason": ""
+      },
+      {
        "kind": "FIGURE",
        "ok": true,
        "abstained": false,
-       "evidence": "2015",
+       "evidence": "no figure in assertion",
        "reason": ""
       }
      ],
@@ -2818,6 +3069,13 @@
      "source_id": "c17ba46d-70c4-4f1c-bb1e-a3ff554c1401",
      "source_survives": true,
      "bindings": [
+      {
+       "kind": "CHRONOLOGY",
+       "ok": true,
+       "abstained": false,
+       "evidence": "no date or dated event in the claim; cannot be judged",
+       "reason": ""
+      },
       {
        "kind": "FIGURE",
        "ok": true,
@@ -2848,10 +3106,17 @@
      "source_survives": true,
      "bindings": [
       {
+       "kind": "CHRONOLOGY",
+       "ok": true,
+       "abstained": false,
+       "evidence": "source 2002; explicit date 2002",
+       "reason": ""
+      },
+      {
        "kind": "FIGURE",
        "ok": true,
        "abstained": false,
-       "evidence": "2002",
+       "evidence": "no figure in assertion",
        "reason": ""
       }
      ],
@@ -2877,10 +3142,17 @@
      "source_survives": true,
      "bindings": [
       {
+       "kind": "CHRONOLOGY",
+       "ok": true,
+       "abstained": false,
+       "evidence": "source 2002; explicit date 2002",
+       "reason": ""
+      },
+      {
        "kind": "FIGURE",
        "ok": true,
        "abstained": false,
-       "evidence": "2002",
+       "evidence": "no figure in assertion",
        "reason": ""
       }
      ],
@@ -2909,6 +3181,13 @@
      "source_survives": true,
      "bindings": [
       {
+       "kind": "CHRONOLOGY",
+       "ok": true,
+       "abstained": false,
+       "evidence": "no date or dated event in the claim; cannot be judged",
+       "reason": ""
+      },
+      {
        "kind": "FIGURE",
        "ok": true,
        "abstained": false,
@@ -2934,7 +3213,15 @@
     {
      "source_id": "2e5297e3-c0a1-4846-939d-0a793e295c9f",
      "source_survives": true,
-     "bindings": [],
+     "bindings": [
+      {
+       "kind": "CHRONOLOGY",
+       "ok": true,
+       "abstained": false,
+       "evidence": "no date or dated event in the claim; cannot be judged",
+       "reason": ""
+      }
+     ],
      "level": "IDENTITY_ONLY"
     }
    ],
@@ -2956,6 +3243,13 @@
      "source_id": "2e5297e3-c0a1-4846-939d-0a793e295c9f",
      "source_survives": true,
      "bindings": [
+      {
+       "kind": "CHRONOLOGY",
+       "ok": true,
+       "abstained": false,
+       "evidence": "no date or dated event in the claim; cannot be judged",
+       "reason": ""
+      },
       {
        "kind": "FIGURE",
        "ok": false,
@@ -2986,10 +3280,17 @@
      "source_survives": true,
      "bindings": [
       {
+       "kind": "CHRONOLOGY",
+       "ok": true,
+       "abstained": false,
+       "evidence": "source 2019; explicit date 1999; explicit date 2010",
+       "reason": ""
+      },
+      {
        "kind": "FIGURE",
        "ok": true,
        "abstained": false,
-       "evidence": "1999, 2010, 657461",
+       "evidence": "657461",
        "reason": ""
       }
      ],
@@ -3015,6 +3316,13 @@
      "source_id": "84138759-9546-463f-a48a-8708af419157",
      "source_survives": true,
      "bindings": [
+      {
+       "kind": "CHRONOLOGY",
+       "ok": true,
+       "abstained": false,
+       "evidence": "no date or dated event in the claim; cannot be judged",
+       "reason": ""
+      },
       {
        "kind": "FIGURE",
        "ok": true,
@@ -3046,6 +3354,13 @@
      "source_survives": true,
      "bindings": [
       {
+       "kind": "CHRONOLOGY",
+       "ok": true,
+       "abstained": false,
+       "evidence": "no date or dated event in the claim; cannot be judged",
+       "reason": ""
+      },
+      {
        "kind": "FIGURE",
        "ok": true,
        "abstained": false,
@@ -3071,7 +3386,15 @@
     {
      "source_id": "84138759-9546-463f-a48a-8708af419157",
      "source_survives": true,
-     "bindings": [],
+     "bindings": [
+      {
+       "kind": "CHRONOLOGY",
+       "ok": true,
+       "abstained": false,
+       "evidence": "no date or dated event in the claim; cannot be judged",
+       "reason": ""
+      }
+     ],
      "level": "IDENTITY_ONLY"
     }
    ],
@@ -3096,6 +3419,13 @@
      "source_id": "84138759-9546-463f-a48a-8708af419157",
      "source_survives": true,
      "bindings": [
+      {
+       "kind": "CHRONOLOGY",
+       "ok": true,
+       "abstained": false,
+       "evidence": "no date or dated event in the claim; cannot be judged",
+       "reason": ""
+      },
       {
        "kind": "FIGURE",
        "ok": true,
@@ -3127,6 +3457,13 @@
      "source_survives": true,
      "bindings": [
       {
+       "kind": "CHRONOLOGY",
+       "ok": true,
+       "abstained": false,
+       "evidence": "no date or dated event in the claim; cannot be judged",
+       "reason": ""
+      },
+      {
        "kind": "FIGURE",
        "ok": true,
        "abstained": false,
@@ -3156,6 +3493,13 @@
      "source_id": "6a24317a-1e5c-4fc1-a51f-997e01df6231",
      "source_survives": true,
      "bindings": [
+      {
+       "kind": "CHRONOLOGY",
+       "ok": true,
+       "abstained": false,
+       "evidence": "no date or dated event in the claim; cannot be judged",
+       "reason": ""
+      },
       {
        "kind": "FIGURE",
        "ok": true,
@@ -3189,6 +3533,13 @@
      "source_survives": true,
      "bindings": [
       {
+       "kind": "CHRONOLOGY",
+       "ok": true,
+       "abstained": false,
+       "evidence": "no date or dated event in the claim; cannot be judged",
+       "reason": ""
+      },
+      {
        "kind": "FIGURE",
        "ok": true,
        "abstained": false,
@@ -3221,6 +3572,13 @@
      "source_survives": true,
      "bindings": [
       {
+       "kind": "CHRONOLOGY",
+       "ok": true,
+       "abstained": false,
+       "evidence": "no date or dated event in the claim; cannot be judged",
+       "reason": ""
+      },
+      {
        "kind": "FIGURE",
        "ok": true,
        "abstained": false,
@@ -3246,7 +3604,15 @@
     {
      "source_id": "6a24317a-1e5c-4fc1-a51f-997e01df6231",
      "source_survives": true,
-     "bindings": [],
+     "bindings": [
+      {
+       "kind": "CHRONOLOGY",
+       "ok": true,
+       "abstained": false,
+       "evidence": "no date or dated event in the claim; cannot be judged",
+       "reason": ""
+      }
+     ],
      "level": "IDENTITY_ONLY"
     }
    ],
@@ -3269,6 +3635,13 @@
      "source_survives": true,
      "bindings": [
       {
+       "kind": "CHRONOLOGY",
+       "ok": true,
+       "abstained": false,
+       "evidence": "no date or dated event in the claim; cannot be judged",
+       "reason": ""
+      },
+      {
        "kind": "FIGURE",
        "ok": true,
        "abstained": false,
@@ -3282,6 +3655,13 @@
      "source_id": "91b4a886-ac99-4607-a5ea-7afe7331ece8",
      "source_survives": true,
      "bindings": [
+      {
+       "kind": "CHRONOLOGY",
+       "ok": true,
+       "abstained": false,
+       "evidence": "no date or dated event in the claim; cannot be judged",
+       "reason": ""
+      },
       {
        "kind": "FIGURE",
        "ok": true,
@@ -3315,18 +3695,27 @@
      "source_survives": true,
      "bindings": [
       {
-       "kind": "FIGURE",
-       "ok": false,
+       "kind": "CHRONOLOGY",
+       "ok": true,
        "abstained": false,
-       "evidence": "1979, 498",
-       "reason": "not in the document: 1998"
+       "evidence": "source 1999; explicit date 1979; explicit date 1998",
+       "reason": ""
+      },
+      {
+       "kind": "FIGURE",
+       "ok": true,
+       "abstained": false,
+       "evidence": "498",
+       "reason": ""
       }
      ],
-     "level": "UNSUPPORTED"
+     "level": "FIGURE_BOUND"
     }
    ],
-   "support": "UNSUPPORTED",
-   "supported_by": []
+   "support": "FIGURE_BOUND",
+   "supported_by": [
+    "c47f0199-fc95-4f7d-9c86-91c9e791f20e"
+   ]
   },
   {
    "claim_id": "b7333092-d328-477e-b85e-643234f96d3b",
@@ -3342,10 +3731,17 @@
      "source_survives": true,
      "bindings": [
       {
+       "kind": "CHRONOLOGY",
+       "ok": true,
+       "abstained": false,
+       "evidence": "source 1999; explicit date 1988",
+       "reason": ""
+      },
+      {
        "kind": "FIGURE",
        "ok": true,
        "abstained": false,
-       "evidence": "1988",
+       "evidence": "no figure in assertion",
        "reason": ""
       }
      ],
@@ -3372,6 +3768,13 @@
      "source_survives": true,
      "bindings": [
       {
+       "kind": "CHRONOLOGY",
+       "ok": true,
+       "abstained": false,
+       "evidence": "no date or dated event in the claim; cannot be judged",
+       "reason": ""
+      },
+      {
        "kind": "FIGURE",
        "ok": true,
        "abstained": false,
@@ -3397,7 +3800,15 @@
     {
      "source_id": "c47f0199-fc95-4f7d-9c86-91c9e791f20e",
      "source_survives": true,
-     "bindings": [],
+     "bindings": [
+      {
+       "kind": "CHRONOLOGY",
+       "ok": true,
+       "abstained": false,
+       "evidence": "no date or dated event in the claim; cannot be judged",
+       "reason": ""
+      }
+     ],
      "level": "IDENTITY_ONLY"
     }
    ],
@@ -3420,10 +3831,17 @@
      "source_survives": true,
      "bindings": [
       {
+       "kind": "CHRONOLOGY",
+       "ok": true,
+       "abstained": false,
+       "evidence": "source 1999; explicit date 1988",
+       "reason": ""
+      },
+      {
        "kind": "FIGURE",
        "ok": true,
        "abstained": false,
-       "evidence": "1988",
+       "evidence": "no figure in assertion",
        "reason": ""
       }
      ],
@@ -3453,10 +3871,17 @@
      "source_survives": true,
      "bindings": [
       {
+       "kind": "CHRONOLOGY",
+       "ok": true,
+       "abstained": false,
+       "evidence": "source 2002; explicit date 1991; explicit date 1998",
+       "reason": ""
+      },
+      {
        "kind": "FIGURE",
        "ok": false,
        "abstained": false,
-       "evidence": "1991, 1998, 440655, 537303",
+       "evidence": "440655, 537303",
        "reason": "not in the document: 96648"
       }
      ],
@@ -3482,6 +3907,13 @@
      "source_id": "4360eb36-7ed3-493a-b59a-c84a008fecb1",
      "source_survives": true,
      "bindings": [
+      {
+       "kind": "CHRONOLOGY",
+       "ok": true,
+       "abstained": false,
+       "evidence": "no date or dated event in the claim; cannot be judged",
+       "reason": ""
+      },
       {
        "kind": "FIGURE",
        "ok": false,
@@ -3510,10 +3942,17 @@
      "source_survives": true,
      "bindings": [
       {
+       "kind": "CHRONOLOGY",
+       "ok": true,
+       "abstained": false,
+       "evidence": "source 2002; explicit date 2002",
+       "reason": ""
+      },
+      {
        "kind": "FIGURE",
        "ok": true,
        "abstained": false,
-       "evidence": "2002",
+       "evidence": "no figure in assertion",
        "reason": ""
       }
      ],
@@ -3539,10 +3978,17 @@
      "source_survives": true,
      "bindings": [
       {
+       "kind": "CHRONOLOGY",
+       "ok": true,
+       "abstained": false,
+       "evidence": "source 2002; explicit date 2002",
+       "reason": ""
+      },
+      {
        "kind": "FIGURE",
        "ok": true,
        "abstained": false,
-       "evidence": "2002",
+       "evidence": "no figure in assertion",
        "reason": ""
       }
      ],
@@ -3574,10 +4020,17 @@
      "source_survives": true,
      "bindings": [
       {
+       "kind": "CHRONOLOGY",
+       "ok": true,
+       "abstained": false,
+       "evidence": "source 2005; explicit date 1992; explicit date 1996",
+       "reason": ""
+      },
+      {
        "kind": "FIGURE",
        "ok": false,
        "abstained": false,
-       "evidence": "1992, 1996, 7",
+       "evidence": "7",
        "reason": "not in the document: 0, 10000, 117.2, 48.4"
       }
      ],
@@ -3602,10 +4055,17 @@
      "source_survives": true,
      "bindings": [
       {
+       "kind": "CHRONOLOGY",
+       "ok": true,
+       "abstained": false,
+       "evidence": "source 2005; explicit date 1993",
+       "reason": ""
+      },
+      {
        "kind": "FIGURE",
        "ok": false,
        "abstained": false,
-       "evidence": "1993",
+       "evidence": "",
        "reason": "not in the document: 0"
       }
      ],
@@ -3631,10 +4091,17 @@
      "source_survives": true,
      "bindings": [
       {
+       "kind": "CHRONOLOGY",
+       "ok": true,
+       "abstained": false,
+       "evidence": "source 2005; explicit date 2005; explicit date 1988; explicit date 1996",
+       "reason": ""
+      },
+      {
        "kind": "FIGURE",
        "ok": true,
        "abstained": false,
-       "evidence": "1988, 1996, 2005",
+       "evidence": "no figure in assertion",
        "reason": ""
       }
      ],
@@ -3662,10 +4129,17 @@
      "source_survives": true,
      "bindings": [
       {
+       "kind": "CHRONOLOGY",
+       "ok": true,
+       "abstained": false,
+       "evidence": "source 2006; explicit date 1987; explicit date 1998",
+       "reason": ""
+      },
+      {
        "kind": "FIGURE",
        "ok": true,
        "abstained": false,
-       "evidence": "1987, 1998, 27749",
+       "evidence": "27749",
        "reason": ""
       }
      ],
@@ -3690,6 +4164,13 @@
      "source_id": "d89cc78b-ae50-4910-b14a-adf0c57985cb",
      "source_survives": true,
      "bindings": [
+      {
+       "kind": "CHRONOLOGY",
+       "ok": true,
+       "abstained": false,
+       "evidence": "no date or dated event in the claim; cannot be judged",
+       "reason": ""
+      },
       {
        "kind": "FIGURE",
        "ok": true,
@@ -3720,10 +4201,17 @@
      "source_survives": true,
      "bindings": [
       {
+       "kind": "CHRONOLOGY",
+       "ok": true,
+       "abstained": false,
+       "evidence": "source 2006; explicit date 2006",
+       "reason": ""
+      },
+      {
        "kind": "FIGURE",
        "ok": true,
        "abstained": false,
-       "evidence": "2006",
+       "evidence": "no figure in assertion",
        "reason": ""
       }
      ],
@@ -3749,10 +4237,17 @@
      "source_survives": true,
      "bindings": [
       {
+       "kind": "CHRONOLOGY",
+       "ok": true,
+       "abstained": false,
+       "evidence": "source 2006; explicit date 2006",
+       "reason": ""
+      },
+      {
        "kind": "FIGURE",
        "ok": true,
        "abstained": false,
-       "evidence": "2006",
+       "evidence": "no figure in assertion",
        "reason": ""
       }
      ],
@@ -3779,6 +4274,13 @@
      "source_survives": true,
      "bindings": [
       {
+       "kind": "CHRONOLOGY",
+       "ok": true,
+       "abstained": false,
+       "evidence": "no date or dated event in the claim; cannot be judged",
+       "reason": ""
+      },
+      {
        "kind": "FIGURE",
        "ok": true,
        "abstained": false,
@@ -3804,7 +4306,15 @@
     {
      "source_id": "621c07ec-dacd-4c81-a541-b45c430ae3cb",
      "source_survives": true,
-     "bindings": [],
+     "bindings": [
+      {
+       "kind": "CHRONOLOGY",
+       "ok": true,
+       "abstained": false,
+       "evidence": "no date or dated event in the claim; cannot be judged",
+       "reason": ""
+      }
+     ],
      "level": "IDENTITY_ONLY"
     }
    ],
@@ -3853,10 +4363,17 @@
      "source_survives": true,
      "bindings": [
       {
+       "kind": "CHRONOLOGY",
+       "ok": true,
+       "abstained": false,
+       "evidence": "source 2002; explicit date 2002",
+       "reason": ""
+      },
+      {
        "kind": "FIGURE",
        "ok": true,
        "abstained": false,
-       "evidence": "2002",
+       "evidence": "no figure in assertion",
        "reason": ""
       }
      ],
@@ -3878,7 +4395,15 @@
     {
      "source_id": "9d3f1a29-70f8-4d36-b782-531c9e68bf73",
      "source_survives": true,
-     "bindings": [],
+     "bindings": [
+      {
+       "kind": "CHRONOLOGY",
+       "ok": true,
+       "abstained": false,
+       "evidence": "no date or dated event in the claim; cannot be judged",
+       "reason": ""
+      }
+     ],
      "level": "IDENTITY_ONLY"
     }
    ],
@@ -3903,6 +4428,13 @@
      "source_id": "d2960292-6c77-4edc-9565-3baecf5f1b25",
      "source_survives": true,
      "bindings": [
+      {
+       "kind": "CHRONOLOGY",
+       "ok": true,
+       "abstained": false,
+       "evidence": "no date or dated event in the claim; cannot be judged",
+       "reason": ""
+      },
       {
        "kind": "FIGURE",
        "ok": true,
@@ -3929,7 +4461,15 @@
     {
      "source_id": "bf1f520d-1281-4fb5-b9b5-af9bf34d6834",
      "source_survives": true,
-     "bindings": [],
+     "bindings": [
+      {
+       "kind": "CHRONOLOGY",
+       "ok": true,
+       "abstained": false,
+       "evidence": "no date or dated event in the claim; cannot be judged",
+       "reason": ""
+      }
+     ],
      "level": "IDENTITY_ONLY"
     }
    ],
@@ -3954,10 +4494,17 @@
      "source_survives": true,
      "bindings": [
       {
+       "kind": "CHRONOLOGY",
+       "ok": true,
+       "abstained": false,
+       "evidence": "source 2002; explicit date 1991; explicit date 1998",
+       "reason": ""
+      },
+      {
        "kind": "FIGURE",
        "ok": true,
        "abstained": false,
-       "evidence": "1991, 1998, 537303",
+       "evidence": "537303",
        "reason": ""
       }
      ],
@@ -4010,10 +4557,17 @@
      "source_survives": true,
      "bindings": [
       {
+       "kind": "CHRONOLOGY",
+       "ok": true,
+       "abstained": false,
+       "evidence": "source 2004; explicit date 2004",
+       "reason": ""
+      },
+      {
        "kind": "FIGURE",
        "ok": true,
        "abstained": false,
-       "evidence": "2004",
+       "evidence": "no figure in assertion",
        "reason": ""
       }
      ],
@@ -4039,10 +4593,17 @@
      "source_survives": true,
      "bindings": [
       {
+       "kind": "CHRONOLOGY",
+       "ok": true,
+       "abstained": false,
+       "evidence": "source 2004; explicit date 2004",
+       "reason": ""
+      },
+      {
        "kind": "FIGURE",
        "ok": true,
        "abstained": false,
-       "evidence": "2004",
+       "evidence": "no figure in assertion",
        "reason": ""
       }
      ],
@@ -4064,7 +4625,15 @@
     {
      "source_id": "76f4aee8-9759-4f8e-bfbf-85aae31e267d",
      "source_survives": true,
-     "bindings": [],
+     "bindings": [
+      {
+       "kind": "CHRONOLOGY",
+       "ok": true,
+       "abstained": false,
+       "evidence": "no date or dated event in the claim; cannot be judged",
+       "reason": ""
+      }
+     ],
      "level": "IDENTITY_ONLY"
     }
    ],
@@ -4087,10 +4656,17 @@
      "source_survives": true,
      "bindings": [
       {
+       "kind": "CHRONOLOGY",
+       "ok": true,
+       "abstained": false,
+       "evidence": "source 2020; explicit date 2020",
+       "reason": ""
+      },
+      {
        "kind": "FIGURE",
        "ok": true,
        "abstained": false,
-       "evidence": "2020",
+       "evidence": "no figure in assertion",
        "reason": ""
       }
      ],
@@ -4112,7 +4688,15 @@
     {
      "source_id": "9d3f1a29-70f8-4d36-b782-531c9e68bf73",
      "source_survives": true,
-     "bindings": [],
+     "bindings": [
+      {
+       "kind": "CHRONOLOGY",
+       "ok": true,
+       "abstained": false,
+       "evidence": "no date or dated event in the claim; cannot be judged",
+       "reason": ""
+      }
+     ],
      "level": "IDENTITY_ONLY"
     }
    ],
@@ -4131,7 +4715,15 @@
     {
      "source_id": "9d3f1a29-70f8-4d36-b782-531c9e68bf73",
      "source_survives": true,
-     "bindings": [],
+     "bindings": [
+      {
+       "kind": "CHRONOLOGY",
+       "ok": true,
+       "abstained": false,
+       "evidence": "no date or dated event in the claim; cannot be judged",
+       "reason": ""
+      }
+     ],
      "level": "IDENTITY_ONLY"
     }
    ],
@@ -4150,7 +4742,15 @@
     {
      "source_id": "9d3f1a29-70f8-4d36-b782-531c9e68bf73",
      "source_survives": true,
-     "bindings": [],
+     "bindings": [
+      {
+       "kind": "CHRONOLOGY",
+       "ok": true,
+       "abstained": false,
+       "evidence": "no date or dated event in the claim; cannot be judged",
+       "reason": ""
+      }
+     ],
      "level": "IDENTITY_ONLY"
     }
    ],
@@ -4169,7 +4769,15 @@
     {
      "source_id": "c42fc694-8840-47cc-8775-a36c74a4fa84",
      "source_survives": true,
-     "bindings": [],
+     "bindings": [
+      {
+       "kind": "CHRONOLOGY",
+       "ok": true,
+       "abstained": false,
+       "evidence": "no date or dated event in the claim; cannot be judged",
+       "reason": ""
+      }
+     ],
      "level": "IDENTITY_ONLY"
     }
    ],
@@ -4188,7 +4796,15 @@
     {
      "source_id": "c42fc694-8840-47cc-8775-a36c74a4fa84",
      "source_survives": true,
-     "bindings": [],
+     "bindings": [
+      {
+       "kind": "CHRONOLOGY",
+       "ok": true,
+       "abstained": false,
+       "evidence": "no date or dated event in the claim; cannot be judged",
+       "reason": ""
+      }
+     ],
      "level": "IDENTITY_ONLY"
     }
    ],
@@ -4207,7 +4823,15 @@
     {
      "source_id": "c42fc694-8840-47cc-8775-a36c74a4fa84",
      "source_survives": true,
-     "bindings": [],
+     "bindings": [
+      {
+       "kind": "CHRONOLOGY",
+       "ok": true,
+       "abstained": false,
+       "evidence": "no date or dated event in the claim; cannot be judged",
+       "reason": ""
+      }
+     ],
      "level": "IDENTITY_ONLY"
     }
    ],
@@ -4226,7 +4850,15 @@
     {
      "source_id": "c42fc694-8840-47cc-8775-a36c74a4fa84",
      "source_survives": true,
-     "bindings": [],
+     "bindings": [
+      {
+       "kind": "CHRONOLOGY",
+       "ok": true,
+       "abstained": false,
+       "evidence": "no date or dated event in the claim; cannot be judged",
+       "reason": ""
+      }
+     ],
      "level": "IDENTITY_ONLY"
     }
    ],
@@ -4249,10 +4881,17 @@
      "source_survives": true,
      "bindings": [
       {
+       "kind": "CHRONOLOGY",
+       "ok": true,
+       "abstained": false,
+       "evidence": "source 2005; explicit date 1993",
+       "reason": ""
+      },
+      {
        "kind": "FIGURE",
        "ok": true,
        "abstained": false,
-       "evidence": "1993",
+       "evidence": "no figure in assertion",
        "reason": ""
       }
      ],
@@ -4278,10 +4917,17 @@
      "source_survives": true,
      "bindings": [
       {
+       "kind": "CHRONOLOGY",
+       "ok": true,
+       "abstained": false,
+       "evidence": "source 2005; explicit date 1993",
+       "reason": ""
+      },
+      {
        "kind": "FIGURE",
        "ok": true,
        "abstained": false,
-       "evidence": "1993",
+       "evidence": "no figure in assertion",
        "reason": ""
       }
      ],
@@ -4311,10 +4957,17 @@
      "source_survives": true,
      "bindings": [
       {
+       "kind": "CHRONOLOGY",
+       "ok": true,
+       "abstained": false,
+       "evidence": "source 2005; explicit date 1988; explicit date 1996",
+       "reason": ""
+      },
+      {
        "kind": "FIGURE",
        "ok": false,
        "abstained": false,
-       "evidence": "1988, 1996",
+       "evidence": "",
        "reason": "not in the document: 10000, 117.2, 47.6"
       }
      ],
@@ -4337,6 +4990,13 @@
      "source_id": "5c082496-8835-4a87-93a3-bc3faf585401",
      "source_survives": true,
      "bindings": [
+      {
+       "kind": "CHRONOLOGY",
+       "ok": true,
+       "abstained": false,
+       "evidence": "no date or dated event in the claim; cannot be judged",
+       "reason": ""
+      },
       {
        "kind": "FIGURE",
        "ok": true,
@@ -4368,10 +5028,17 @@
      "source_survives": true,
      "bindings": [
       {
+       "kind": "CHRONOLOGY",
+       "ok": true,
+       "abstained": false,
+       "evidence": "source 2015; explicit date 2015",
+       "reason": ""
+      },
+      {
        "kind": "FIGURE",
        "ok": true,
        "abstained": false,
-       "evidence": "2015, 95727",
+       "evidence": "95727",
        "reason": ""
       }
      ],
@@ -4393,7 +5060,15 @@
     {
      "source_id": "5c082496-8835-4a87-93a3-bc3faf585401",
      "source_survives": true,
-     "bindings": [],
+     "bindings": [
+      {
+       "kind": "CHRONOLOGY",
+       "ok": true,
+       "abstained": false,
+       "evidence": "no date or dated event in the claim; cannot be judged",
+       "reason": ""
+      }
+     ],
      "level": "IDENTITY_ONLY"
     }
    ],
@@ -4412,7 +5087,15 @@
     {
      "source_id": "fd363c9a-4ca2-4a4b-9140-d59c55245292",
      "source_survives": true,
-     "bindings": [],
+     "bindings": [
+      {
+       "kind": "CHRONOLOGY",
+       "ok": true,
+       "abstained": false,
+       "evidence": "no date or dated event in the claim; cannot be judged",
+       "reason": ""
+      }
+     ],
      "level": "IDENTITY_ONLY"
     }
    ],
@@ -4431,7 +5114,15 @@
     {
      "source_id": "fd363c9a-4ca2-4a4b-9140-d59c55245292",
      "source_survives": true,
-     "bindings": [],
+     "bindings": [
+      {
+       "kind": "CHRONOLOGY",
+       "ok": true,
+       "abstained": false,
+       "evidence": "no date or dated event in the claim; cannot be judged",
+       "reason": ""
+      }
+     ],
      "level": "IDENTITY_ONLY"
     }
    ],
@@ -4450,7 +5141,15 @@
     {
      "source_id": "fd363c9a-4ca2-4a4b-9140-d59c55245292",
      "source_survives": true,
-     "bindings": [],
+     "bindings": [
+      {
+       "kind": "CHRONOLOGY",
+       "ok": true,
+       "abstained": false,
+       "evidence": "no date or dated event in the claim; cannot be judged",
+       "reason": ""
+      }
+     ],
      "level": "IDENTITY_ONLY"
     }
    ],
@@ -4475,6 +5174,13 @@
      "source_id": "d28cab99-41e4-40a1-8d85-551cb937f8dd",
      "source_survives": true,
      "bindings": [
+      {
+       "kind": "CHRONOLOGY",
+       "ok": true,
+       "abstained": false,
+       "evidence": "no date or dated event in the claim; cannot be judged",
+       "reason": ""
+      },
       {
        "kind": "FIGURE",
        "ok": false,
@@ -4505,6 +5211,13 @@
      "source_survives": true,
      "bindings": [
       {
+       "kind": "CHRONOLOGY",
+       "ok": true,
+       "abstained": false,
+       "evidence": "no date or dated event in the claim; cannot be judged",
+       "reason": ""
+      },
+      {
        "kind": "FIGURE",
        "ok": false,
        "abstained": false,
@@ -4528,7 +5241,15 @@
     {
      "source_id": "d28cab99-41e4-40a1-8d85-551cb937f8dd",
      "source_survives": true,
-     "bindings": [],
+     "bindings": [
+      {
+       "kind": "CHRONOLOGY",
+       "ok": true,
+       "abstained": false,
+       "evidence": "no date or dated event in the claim; cannot be judged",
+       "reason": ""
+      }
+     ],
      "level": "IDENTITY_ONLY"
     }
    ],
@@ -4553,10 +5274,17 @@
      "source_survives": true,
      "bindings": [
       {
+       "kind": "CHRONOLOGY",
+       "ok": true,
+       "abstained": false,
+       "evidence": "source 2002; explicit date 1991; explicit date 1998",
+       "reason": ""
+      },
+      {
        "kind": "FIGURE",
        "ok": true,
        "abstained": false,
-       "evidence": "1991, 1998, 537303",
+       "evidence": "537303",
        "reason": ""
       }
      ],
@@ -4584,18 +5312,27 @@
      "source_survives": true,
      "bindings": [
       {
-       "kind": "FIGURE",
-       "ok": false,
+       "kind": "CHRONOLOGY",
+       "ok": true,
        "abstained": false,
-       "evidence": "1979, 498",
-       "reason": "not in the document: 1992"
+       "evidence": "source 1999; explicit date 1979; explicit date 1992",
+       "reason": ""
+      },
+      {
+       "kind": "FIGURE",
+       "ok": true,
+       "abstained": false,
+       "evidence": "498",
+       "reason": ""
       }
      ],
-     "level": "UNSUPPORTED"
+     "level": "FIGURE_BOUND"
     }
    ],
-   "support": "UNSUPPORTED",
-   "supported_by": []
+   "support": "FIGURE_BOUND",
+   "supported_by": [
+    "bc636e18-0da9-4ebb-a9a6-80acd9622a9f"
+   ]
   },
   {
    "claim_id": "915edb22-c823-40b2-9b6b-9fc9a87d77a1",
@@ -4612,10 +5349,17 @@
      "source_survives": true,
      "bindings": [
       {
+       "kind": "CHRONOLOGY",
+       "ok": true,
+       "abstained": false,
+       "evidence": "source 1999; explicit date 1999; explicit date 1988",
+       "reason": ""
+      },
+      {
        "kind": "FIGURE",
        "ok": true,
        "abstained": false,
-       "evidence": "1988, 1999",
+       "evidence": "no figure in assertion",
        "reason": ""
       }
      ],
@@ -4641,10 +5385,17 @@
      "source_survives": true,
      "bindings": [
       {
+       "kind": "CHRONOLOGY",
+       "ok": true,
+       "abstained": false,
+       "evidence": "source 1999; explicit date 1999",
+       "reason": ""
+      },
+      {
        "kind": "FIGURE",
        "ok": true,
        "abstained": false,
-       "evidence": "1999",
+       "evidence": "no figure in assertion",
        "reason": ""
       }
      ],
@@ -4672,10 +5423,17 @@
      "source_survives": true,
      "bindings": [
       {
+       "kind": "CHRONOLOGY",
+       "ok": true,
+       "abstained": false,
+       "evidence": "source 1999; explicit date 1999",
+       "reason": ""
+      },
+      {
        "kind": "FIGURE",
        "ok": true,
        "abstained": false,
-       "evidence": "1999, 2, 6",
+       "evidence": "2, 6",
        "reason": ""
       }
      ],
@@ -4701,10 +5459,17 @@
      "source_survives": true,
      "bindings": [
       {
+       "kind": "CHRONOLOGY",
+       "ok": true,
+       "abstained": false,
+       "evidence": "source 1999; explicit date 1999",
+       "reason": ""
+      },
+      {
        "kind": "FIGURE",
        "ok": true,
        "abstained": false,
-       "evidence": "1999",
+       "evidence": "no figure in assertion",
        "reason": ""
       }
      ],
@@ -4734,10 +5499,17 @@
      "source_survives": true,
      "bindings": [
       {
+       "kind": "CHRONOLOGY",
+       "ok": true,
+       "abstained": false,
+       "evidence": "source 2019; explicit date 2019",
+       "reason": ""
+      },
+      {
        "kind": "FIGURE",
        "ok": true,
        "abstained": false,
-       "evidence": "0.85, 0.93, 1.02, 2019, 95",
+       "evidence": "0.85, 0.93, 1.02, 95",
        "reason": ""
       }
      ],
@@ -4763,10 +5535,17 @@
      "source_survives": true,
      "bindings": [
       {
+       "kind": "CHRONOLOGY",
+       "ok": true,
+       "abstained": false,
+       "evidence": "source 2019; explicit date 2019",
+       "reason": ""
+      },
+      {
        "kind": "FIGURE",
        "ok": true,
        "abstained": false,
-       "evidence": "2019",
+       "evidence": "no figure in assertion",
        "reason": ""
       }
      ],
@@ -4792,10 +5571,17 @@
      "source_survives": true,
      "bindings": [
       {
+       "kind": "CHRONOLOGY",
+       "ok": true,
+       "abstained": false,
+       "evidence": "source 2019; explicit date 2019",
+       "reason": ""
+      },
+      {
        "kind": "FIGURE",
        "ok": true,
        "abstained": false,
-       "evidence": "2019",
+       "evidence": "no figure in assertion",
        "reason": ""
       }
      ],
@@ -4821,10 +5607,17 @@
      "source_survives": true,
      "bindings": [
       {
+       "kind": "CHRONOLOGY",
+       "ok": true,
+       "abstained": false,
+       "evidence": "source 2019; explicit date 2019",
+       "reason": ""
+      },
+      {
        "kind": "FIGURE",
        "ok": true,
        "abstained": false,
-       "evidence": "2019",
+       "evidence": "no figure in assertion",
        "reason": ""
       }
      ],
@@ -4846,19 +5639,43 @@
     {
      "source_id": "76f4aee8-9759-4f8e-bfbf-85aae31e267d",
      "source_survives": true,
-     "bindings": [],
+     "bindings": [
+      {
+       "kind": "CHRONOLOGY",
+       "ok": true,
+       "abstained": false,
+       "evidence": "no date or dated event in the claim; cannot be judged",
+       "reason": ""
+      }
+     ],
      "level": "IDENTITY_ONLY"
     },
     {
      "source_id": "159f0385-b395-4866-9b85-30d9fd7f4b5f",
      "source_survives": true,
-     "bindings": [],
+     "bindings": [
+      {
+       "kind": "CHRONOLOGY",
+       "ok": true,
+       "abstained": false,
+       "evidence": "no date or dated event in the claim; cannot be judged",
+       "reason": ""
+      }
+     ],
      "level": "IDENTITY_ONLY"
     },
     {
      "source_id": "0d7243cc-5b16-46ca-8750-8a2bcf57195f",
      "source_survives": true,
-     "bindings": [],
+     "bindings": [
+      {
+       "kind": "CHRONOLOGY",
+       "ok": true,
+       "abstained": false,
+       "evidence": "no date or dated event in the claim; cannot be judged",
+       "reason": ""
+      }
+     ],
      "level": "IDENTITY_ONLY"
     }
    ],
@@ -4884,6 +5701,13 @@
      "source_survives": true,
      "bindings": [
       {
+       "kind": "CHRONOLOGY",
+       "ok": true,
+       "abstained": false,
+       "evidence": "no date or dated event in the claim; cannot be judged",
+       "reason": ""
+      },
+      {
        "kind": "FIGURE",
        "ok": false,
        "abstained": false,
@@ -4907,7 +5731,15 @@
     {
      "source_id": "bf1f520d-1281-4fb5-b9b5-af9bf34d6834",
      "source_survives": true,
-     "bindings": [],
+     "bindings": [
+      {
+       "kind": "CHRONOLOGY",
+       "ok": true,
+       "abstained": false,
+       "evidence": "no date or dated event in the claim; cannot be judged",
+       "reason": ""
+      }
+     ],
      "level": "IDENTITY_ONLY"
     }
    ],
@@ -4926,7 +5758,15 @@
     {
      "source_id": "d28cab99-41e4-40a1-8d85-551cb937f8dd",
      "source_survives": true,
-     "bindings": [],
+     "bindings": [
+      {
+       "kind": "CHRONOLOGY",
+       "ok": true,
+       "abstained": false,
+       "evidence": "no date or dated event in the claim; cannot be judged",
+       "reason": ""
+      }
+     ],
      "level": "IDENTITY_ONLY"
     }
    ],
@@ -4950,10 +5790,17 @@
      "source_survives": true,
      "bindings": [
       {
+       "kind": "CHRONOLOGY",
+       "ok": true,
+       "abstained": false,
+       "evidence": "source 2005; explicit date 1993",
+       "reason": ""
+      },
+      {
        "kind": "FIGURE",
        "ok": false,
        "abstained": false,
-       "evidence": "1993",
+       "evidence": "",
        "reason": "not in the document: 0"
       }
      ],
@@ -5052,10 +5899,17 @@
      "source_survives": true,
      "bindings": [
       {
+       "kind": "CHRONOLOGY",
+       "ok": true,
+       "abstained": false,
+       "evidence": "source has no date; cannot be judged",
+       "reason": ""
+      },
+      {
        "kind": "FIGURE",
        "ok": true,
        "abstained": false,
-       "evidence": "1999",
+       "evidence": "no figure in assertion",
        "reason": ""
       }
      ],
@@ -5077,7 +5931,15 @@
     {
      "source_id": "621c07ec-dacd-4c81-a541-b45c430ae3cb",
      "source_survives": true,
-     "bindings": [],
+     "bindings": [
+      {
+       "kind": "CHRONOLOGY",
+       "ok": true,
+       "abstained": false,
+       "evidence": "no date or dated event in the claim; cannot be judged",
+       "reason": ""
+      }
+     ],
      "level": "IDENTITY_ONLY"
     }
    ],
@@ -5105,10 +5967,17 @@
      "source_survives": true,
      "bindings": [
       {
+       "kind": "CHRONOLOGY",
+       "ok": true,
+       "abstained": false,
+       "evidence": "source has no date; cannot be judged",
+       "reason": ""
+      },
+      {
        "kind": "FIGURE",
        "ok": true,
        "abstained": false,
-       "evidence": "12, 15, 2, 2013, 4, 6",
+       "evidence": "12, 15, 2, 4, 6",
        "reason": ""
       }
      ],
@@ -5130,7 +5999,15 @@
     {
      "source_id": "621c07ec-dacd-4c81-a541-b45c430ae3cb",
      "source_survives": true,
-     "bindings": [],
+     "bindings": [
+      {
+       "kind": "CHRONOLOGY",
+       "ok": true,
+       "abstained": false,
+       "evidence": "no date or dated event in the claim; cannot be judged",
+       "reason": ""
+      }
+     ],
      "level": "IDENTITY_ONLY"
     }
    ],
@@ -5149,7 +6026,15 @@
     {
      "source_id": "621c07ec-dacd-4c81-a541-b45c430ae3cb",
      "source_survives": true,
-     "bindings": [],
+     "bindings": [
+      {
+       "kind": "CHRONOLOGY",
+       "ok": true,
+       "abstained": false,
+       "evidence": "no date or dated event in the claim; cannot be judged",
+       "reason": ""
+      }
+     ],
      "level": "IDENTITY_ONLY"
     }
    ],
@@ -5168,19 +6053,43 @@
     {
      "source_id": "76f4aee8-9759-4f8e-bfbf-85aae31e267d",
      "source_survives": true,
-     "bindings": [],
+     "bindings": [
+      {
+       "kind": "CHRONOLOGY",
+       "ok": true,
+       "abstained": false,
+       "evidence": "no date or dated event in the claim; cannot be judged",
+       "reason": ""
+      }
+     ],
      "level": "IDENTITY_ONLY"
     },
     {
      "source_id": "159f0385-b395-4866-9b85-30d9fd7f4b5f",
      "source_survives": true,
-     "bindings": [],
+     "bindings": [
+      {
+       "kind": "CHRONOLOGY",
+       "ok": true,
+       "abstained": false,
+       "evidence": "no date or dated event in the claim; cannot be judged",
+       "reason": ""
+      }
+     ],
      "level": "IDENTITY_ONLY"
     },
     {
      "source_id": "0d7243cc-5b16-46ca-8750-8a2bcf57195f",
      "source_survives": true,
-     "bindings": [],
+     "bindings": [
+      {
+       "kind": "CHRONOLOGY",
+       "ok": true,
+       "abstained": false,
+       "evidence": "no date or dated event in the claim; cannot be judged",
+       "reason": ""
+      }
+     ],
      "level": "IDENTITY_ONLY"
     }
    ],
@@ -5201,13 +6110,29 @@
     {
      "source_id": "76f4aee8-9759-4f8e-bfbf-85aae31e267d",
      "source_survives": true,
-     "bindings": [],
+     "bindings": [
+      {
+       "kind": "CHRONOLOGY",
+       "ok": true,
+       "abstained": false,
+       "evidence": "no date or dated event in the claim; cannot be judged",
+       "reason": ""
+      }
+     ],
      "level": "IDENTITY_ONLY"
     },
     {
      "source_id": "0d7243cc-5b16-46ca-8750-8a2bcf57195f",
      "source_survives": true,
-     "bindings": [],
+     "bindings": [
+      {
+       "kind": "CHRONOLOGY",
+       "ok": true,
+       "abstained": false,
+       "evidence": "no date or dated event in the claim; cannot be judged",
+       "reason": ""
+      }
+     ],
      "level": "IDENTITY_ONLY"
     }
    ],
@@ -5227,7 +6152,15 @@
     {
      "source_id": "159f0385-b395-4866-9b85-30d9fd7f4b5f",
      "source_survives": true,
-     "bindings": [],
+     "bindings": [
+      {
+       "kind": "CHRONOLOGY",
+       "ok": true,
+       "abstained": false,
+       "evidence": "no date or dated event in the claim; cannot be judged",
+       "reason": ""
+      }
+     ],
      "level": "IDENTITY_ONLY"
     }
    ],
@@ -5246,7 +6179,15 @@
     {
      "source_id": "f01d7631-8929-4030-9ff6-1f25f52d293b",
      "source_survives": true,
-     "bindings": [],
+     "bindings": [
+      {
+       "kind": "CHRONOLOGY",
+       "ok": true,
+       "abstained": false,
+       "evidence": "no date or dated event in the claim; cannot be judged",
+       "reason": ""
+      }
+     ],
      "level": "IDENTITY_ONLY"
     }
    ],
@@ -5265,7 +6206,15 @@
     {
      "source_id": "f01d7631-8929-4030-9ff6-1f25f52d293b",
      "source_survives": true,
-     "bindings": [],
+     "bindings": [
+      {
+       "kind": "CHRONOLOGY",
+       "ok": true,
+       "abstained": false,
+       "evidence": "no date or dated event in the claim; cannot be judged",
+       "reason": ""
+      }
+     ],
      "level": "IDENTITY_ONLY"
     }
    ],
@@ -5284,7 +6233,15 @@
     {
      "source_id": "7797297c-d62d-4120-aace-d50e095293be",
      "source_survives": true,
-     "bindings": [],
+     "bindings": [
+      {
+       "kind": "CHRONOLOGY",
+       "ok": true,
+       "abstained": false,
+       "evidence": "no date or dated event in the claim; cannot be judged",
+       "reason": ""
+      }
+     ],
      "level": "IDENTITY_ONLY"
     }
    ],
@@ -5303,7 +6260,15 @@
     {
      "source_id": "7797297c-d62d-4120-aace-d50e095293be",
      "source_survives": true,
-     "bindings": [],
+     "bindings": [
+      {
+       "kind": "CHRONOLOGY",
+       "ok": true,
+       "abstained": false,
+       "evidence": "no date or dated event in the claim; cannot be judged",
+       "reason": ""
+      }
+     ],
      "level": "IDENTITY_ONLY"
     }
    ],
@@ -5373,14 +6338,20 @@
     {
      "source_id": "91b4a886-ac99-4607-a5ea-7afe7331ece8",
      "source_survives": true,
-     "bindings": [],
-     "level": "IDENTITY_ONLY"
+     "bindings": [
+      {
+       "kind": "CHRONOLOGY",
+       "ok": false,
+       "abstained": false,
+       "evidence": "General Medical Council fitness-to-practise determination on Wakefield, Walker-Smith and Murch",
+       "reason": "IMPOSSIBLE: the claim references General Medical Council fitness-to-practise determination on Wakefield, Walker-Smith and Murch, after the source's publication (1998)"
+      }
+     ],
+     "level": "UNSUPPORTED"
     }
    ],
-   "support": "IDENTITY_ONLY",
-   "supported_by": [
-    "91b4a886-ac99-4607-a5ea-7afe7331ece8"
-   ]
+   "support": "UNSUPPORTED",
+   "supported_by": []
   },
   {
    "claim_id": "77c65493-f853-471b-bfe2-69d4c6b6e8a2",
@@ -5396,11 +6367,11 @@
      "source_survives": true,
      "bindings": [
       {
-       "kind": "FIGURE",
+       "kind": "CHRONOLOGY",
        "ok": false,
        "abstained": false,
-       "evidence": "",
-       "reason": "not in the document: 2010"
+       "evidence": "explicit date 2010-02",
+       "reason": "IMPOSSIBLE: the claim references explicit date 2010-02, after the source's publication (1998)"
       }
      ],
      "level": "UNSUPPORTED"
@@ -5423,11 +6394,11 @@
      "source_survives": true,
      "bindings": [
       {
-       "kind": "FIGURE",
+       "kind": "CHRONOLOGY",
        "ok": false,
        "abstained": false,
-       "evidence": "",
-       "reason": "not in the document: 2010"
+       "evidence": "explicit date 2010-02",
+       "reason": "IMPOSSIBLE: the claim references explicit date 2010-02, after the source's publication (1998)"
       }
      ],
      "level": "UNSUPPORTED"
@@ -5446,8 +6417,16 @@
     {
      "source_id": "e4cdce12-5006-479f-b074-60d147dccd5b",
      "source_survives": true,
-     "bindings": [],
-     "level": "IDENTITY_ONLY"
+     "bindings": [
+      {
+       "kind": "CHRONOLOGY",
+       "ok": false,
+       "abstained": false,
+       "evidence": "General Medical Council fitness-to-practise determination on Wakefield, Walker-Smith and Murch",
+       "reason": "IMPOSSIBLE: the claim references General Medical Council fitness-to-practise determination on Wakefield, Walker-Smith and Murch, after the source's publication (1998)"
+      }
+     ],
+     "level": "UNSUPPORTED"
     },
     {
      "source_id": "196e03ba-4b2c-43f3-bdca-e28ddecfeb97",
@@ -5465,15 +6444,20 @@
     {
      "source_id": "91b4a886-ac99-4607-a5ea-7afe7331ece8",
      "source_survives": true,
-     "bindings": [],
-     "level": "IDENTITY_ONLY"
+     "bindings": [
+      {
+       "kind": "CHRONOLOGY",
+       "ok": false,
+       "abstained": false,
+       "evidence": "General Medical Council fitness-to-practise determination on Wakefield, Walker-Smith and Murch",
+       "reason": "IMPOSSIBLE: the claim references General Medical Council fitness-to-practise determination on Wakefield, Walker-Smith and Murch, after the source's publication (1998)"
+      }
+     ],
+     "level": "UNSUPPORTED"
     }
    ],
-   "support": "IDENTITY_ONLY",
-   "supported_by": [
-    "e4cdce12-5006-479f-b074-60d147dccd5b",
-    "91b4a886-ac99-4607-a5ea-7afe7331ece8"
-   ]
+   "support": "UNSUPPORTED",
+   "supported_by": []
   },
   {
    "claim_id": "05143523-6112-41bd-a26c-097f1ecb798e",
@@ -5489,11 +6473,11 @@
      "source_survives": true,
      "bindings": [
       {
-       "kind": "FIGURE",
+       "kind": "CHRONOLOGY",
        "ok": false,
        "abstained": false,
-       "evidence": "",
-       "reason": "not in the document: 2010"
+       "evidence": "explicit date 2010-05",
+       "reason": "IMPOSSIBLE: the claim references explicit date 2010-05, after the source's publication (1998)"
       }
      ],
      "level": "UNSUPPORTED"
@@ -5530,10 +6514,17 @@
      "source_survives": true,
      "bindings": [
       {
+       "kind": "CHRONOLOGY",
+       "ok": true,
+       "abstained": false,
+       "evidence": "source 1998; explicit date 1998",
+       "reason": ""
+      },
+      {
        "kind": "FIGURE",
        "ok": false,
        "abstained": false,
-       "evidence": "1998",
+       "evidence": "",
        "reason": "not in the document: 435643"
       }
      ],
@@ -5566,21 +6557,34 @@
     {
      "source_id": "e4cdce12-5006-479f-b074-60d147dccd5b",
      "source_survives": true,
-     "bindings": [],
-     "level": "IDENTITY_ONLY"
+     "bindings": [
+      {
+       "kind": "CHRONOLOGY",
+       "ok": false,
+       "abstained": false,
+       "evidence": "General Medical Council fitness-to-practise determination on Wakefield, Walker-Smith and Murch",
+       "reason": "IMPOSSIBLE: the claim references General Medical Council fitness-to-practise determination on Wakefield, Walker-Smith and Murch, after the source's publication (1998)"
+      }
+     ],
+     "level": "UNSUPPORTED"
     },
     {
      "source_id": "91b4a886-ac99-4607-a5ea-7afe7331ece8",
      "source_survives": true,
-     "bindings": [],
-     "level": "IDENTITY_ONLY"
+     "bindings": [
+      {
+       "kind": "CHRONOLOGY",
+       "ok": false,
+       "abstained": false,
+       "evidence": "General Medical Council fitness-to-practise determination on Wakefield, Walker-Smith and Murch",
+       "reason": "IMPOSSIBLE: the claim references General Medical Council fitness-to-practise determination on Wakefield, Walker-Smith and Murch, after the source's publication (1998)"
+      }
+     ],
+     "level": "UNSUPPORTED"
     }
    ],
-   "support": "IDENTITY_ONLY",
-   "supported_by": [
-    "e4cdce12-5006-479f-b074-60d147dccd5b",
-    "91b4a886-ac99-4607-a5ea-7afe7331ece8"
-   ]
+   "support": "UNSUPPORTED",
+   "supported_by": []
   },
   {
    "claim_id": "1df8563b-2eb8-4978-b1ae-635184d9d174",
@@ -5646,11 +6650,11 @@
      "source_survives": true,
      "bindings": [
       {
-       "kind": "FIGURE",
+       "kind": "CHRONOLOGY",
        "ok": false,
        "abstained": false,
-       "evidence": "10",
-       "reason": "not in the document: 13, 2004"
+       "evidence": "explicit date 2004",
+       "reason": "IMPOSSIBLE: the claim references explicit date 2004, after the source's publication (1998)"
       }
      ],
      "level": "UNSUPPORTED"
@@ -5722,7 +6726,15 @@
     {
      "source_id": "2dd1f179-ff6f-4b84-a1b9-cfcc817d9382",
      "source_survives": true,
-     "bindings": [],
+     "bindings": [
+      {
+       "kind": "CHRONOLOGY",
+       "ok": true,
+       "abstained": false,
+       "evidence": "no date or dated event in the claim; cannot be judged",
+       "reason": ""
+      }
+     ],
      "level": "IDENTITY_ONLY"
     }
    ],
@@ -5741,7 +6753,15 @@
     {
      "source_id": "9d3f1a29-70f8-4d36-b782-531c9e68bf73",
      "source_survives": true,
-     "bindings": [],
+     "bindings": [
+      {
+       "kind": "CHRONOLOGY",
+       "ok": true,
+       "abstained": false,
+       "evidence": "no date or dated event in the claim; cannot be judged",
+       "reason": ""
+      }
+     ],
      "level": "IDENTITY_ONLY"
     }
    ],
@@ -5760,7 +6780,15 @@
     {
      "source_id": "5c082496-8835-4a87-93a3-bc3faf585401",
      "source_survives": true,
-     "bindings": [],
+     "bindings": [
+      {
+       "kind": "CHRONOLOGY",
+       "ok": true,
+       "abstained": false,
+       "evidence": "no date or dated event in the claim; cannot be judged",
+       "reason": ""
+      }
+     ],
      "level": "IDENTITY_ONLY"
     }
    ],
@@ -5782,6 +6810,13 @@
      "source_id": "fd363c9a-4ca2-4a4b-9140-d59c55245292",
      "source_survives": true,
      "bindings": [
+      {
+       "kind": "CHRONOLOGY",
+       "ok": true,
+       "abstained": false,
+       "evidence": "no date or dated event in the claim; cannot be judged",
+       "reason": ""
+      },
       {
        "kind": "FIGURE",
        "ok": true,
@@ -5814,10 +6849,17 @@
      "source_survives": true,
      "bindings": [
       {
+       "kind": "CHRONOLOGY",
+       "ok": true,
+       "abstained": false,
+       "evidence": "source 2019; explicit date 1999; explicit date 2010",
+       "reason": ""
+      },
+      {
        "kind": "FIGURE",
        "ok": true,
        "abstained": false,
-       "evidence": "1999, 2010, 657461",
+       "evidence": "657461",
        "reason": ""
       }
      ],
@@ -5845,10 +6887,17 @@
      "source_survives": true,
      "bindings": [
       {
+       "kind": "CHRONOLOGY",
+       "ok": true,
+       "abstained": false,
+       "evidence": "source 2019; explicit date 1999; explicit date 2010",
+       "reason": ""
+      },
+      {
        "kind": "FIGURE",
        "ok": true,
        "abstained": false,
-       "evidence": "1999, 2010, 657461",
+       "evidence": "657461",
        "reason": ""
       }
      ],
@@ -5874,6 +6923,13 @@
      "source_id": "9d3f1a29-70f8-4d36-b782-531c9e68bf73",
      "source_survives": true,
      "bindings": [
+      {
+       "kind": "CHRONOLOGY",
+       "ok": true,
+       "abstained": false,
+       "evidence": "no date or dated event in the claim; cannot be judged",
+       "reason": ""
+      },
       {
        "kind": "FIGURE",
        "ok": true,
@@ -5909,11 +6965,11 @@
   "claims": {
    "total": 128,
    "by_support": {
-    "IDENTITY_ONLY": 44,
-    "UNSUPPORTED": 30,
-    "FIGURE_BOUND": 54
+    "IDENTITY_ONLY": 41,
+    "UNSUPPORTED": 31,
+    "FIGURE_BOUND": 56
    },
-   "identity_only_rate": 0.344
+   "identity_only_rate": 0.32
   }
  },
  "flipped": false
