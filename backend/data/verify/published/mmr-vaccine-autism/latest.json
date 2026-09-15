@@ -5,8 +5,8 @@
   "issue_id": "bbb9b064-8cb4-4922-b69b-121150ee8e21",
   "status_before": "draft"
  },
- "publish_id": "20260915T000659+0000-c7c9be4",
- "published_at": "2026-09-15T00:06:59+00:00",
+ "publish_id": "20260915T002253+0000-3a3a32c",
+ "published_at": "2026-09-15T00:22:53+00:00",
  "published_by": {
   "login": "fredugast",
   "host": "Freds-MacBook-Pro.local",
@@ -17,8 +17,8 @@
  },
  "gate_version": {
   "package": "1.1.0",
-  "verify_sha": "c7c9be4",
-  "tree_sha": "c7c9be4"
+  "verify_sha": "3a3a32c",
+  "tree_sha": "3a3a32c"
  },
  "rate_limits_rps": {
   "www.ebi.ac.uk": 3.0,
@@ -48,19 +48,21 @@
     "canonical": "https://doi.org/10.1016/s0140-6736(97)11096-0",
     "registry": "crossref",
     "registry_id": "10.1016/s0140-6736(97)11096-0",
-    "checked_at": "2026-09-14T23:59:31+00:00",
+    "checked_at": "2026-09-15T00:17:33+00:00",
     "generic_fetch": false,
     "published": [
      1998,
      2
     ],
-    "effective": null
+    "effective": null,
+    "first_author": "Wakefield",
+    "container": "The Lancet"
    },
    "document": {
     "sha256": "4c8be4d2c62edf3089f001d2a4ac1d06cc32a4729a03b47e415883b7f4681a18",
     "route": "europepmc_abstract",
     "kind": "abstract",
-    "retrieved_at": "2026-09-14T23:59:32+00:00",
+    "retrieved_at": "2026-09-15T00:17:37+00:00",
     "chars": 1984,
     "text_layer": "DECLARED_SOUND",
     "path": "data/verify/docs/4c/4c8be4d2c62edf3089f001d2a4ac1d06cc32a4729a03b47e415883b7f4681a18.txt.gz",
@@ -79,7 +81,7 @@
     "verdict": "retracted",
     "registry": "crossref+europepmc",
     "detail": "2 update/relation event(s)",
-    "checked_at": "2026-09-14T23:59:32+00:00",
+    "checked_at": "2026-09-15T00:17:37+00:00",
     "events": [
      {
       "type": "correction",
@@ -298,19 +300,21 @@
     "canonical": "https://doi.org/10.1016/s0140-6736(99)01239-8",
     "registry": "crossref",
     "registry_id": "10.1016/s0140-6736(99)01239-8",
-    "checked_at": "2026-09-14T23:59:41+00:00",
+    "checked_at": "2026-09-15T00:17:51+00:00",
     "generic_fetch": false,
     "published": [
      1999,
      6
     ],
-    "effective": null
+    "effective": null,
+    "first_author": "Taylor",
+    "container": "The Lancet"
    },
    "document": {
     "sha256": "1820cf125b0e5616cd720e3bcadc1b32baab6854abdd22794c4c45c4703fe5e5",
     "route": "europepmc_abstract",
     "kind": "abstract",
-    "retrieved_at": "2026-09-15T00:00:01+00:00",
+    "retrieved_at": "2026-09-15T00:17:52+00:00",
     "chars": 2311,
     "text_layer": "DECLARED_SOUND",
     "path": "data/verify/docs/18/1820cf125b0e5616cd720e3bcadc1b32baab6854abdd22794c4c45c4703fe5e5.txt.gz",
@@ -329,7 +333,7 @@
     "verdict": "unchanged",
     "registry": "crossref+europepmc",
     "detail": "no update-to, relation, or updating work",
-    "checked_at": "2026-09-15T00:00:01+00:00",
+    "checked_at": "2026-09-15T00:17:52+00:00",
     "events": [
      {
       "type": "comment in",
@@ -390,20 +394,22 @@
     "canonical": "https://doi.org/10.1056/nejmoa021134",
     "registry": "crossref",
     "registry_id": "10.1056/nejmoa021134",
-    "checked_at": "2026-09-15T00:00:30+00:00",
+    "checked_at": "2026-09-15T00:17:56+00:00",
     "generic_fetch": false,
     "published": [
      2002,
      11,
      7
     ],
-    "effective": null
+    "effective": null,
+    "first_author": "Madsen",
+    "container": "New England Journal of Medicine"
    },
    "document": {
     "sha256": "cf62e4e025b70be9e7f6140bb594850f73db0258711906392827ce9e89e73c86",
     "route": "europepmc_abstract",
     "kind": "abstract",
-    "retrieved_at": "2026-09-15T00:00:35+00:00",
+    "retrieved_at": "2026-09-15T00:18:00+00:00",
     "chars": 1829,
     "text_layer": "DECLARED_SOUND",
     "path": "data/verify/docs/cf/cf62e4e025b70be9e7f6140bb594850f73db0258711906392827ce9e89e73c86.txt.gz",
@@ -422,7 +428,7 @@
     "verdict": "unchanged",
     "registry": "crossref+europepmc",
     "detail": "no update-to, relation, or updating work",
-    "checked_at": "2026-09-15T00:00:35+00:00",
+    "checked_at": "2026-09-15T00:18:00+00:00",
     "events": [
      {
       "type": "comment in",
@@ -483,20 +489,22 @@
     "canonical": "https://doi.org/10.1542/peds.2005-2993",
     "registry": "crossref",
     "registry_id": "10.1542/peds.2005-2993",
-    "checked_at": "2026-09-15T00:00:42+00:00",
+    "checked_at": "2026-09-15T00:18:06+00:00",
     "generic_fetch": false,
     "published": [
      2006,
      7,
      1
     ],
-    "effective": null
+    "effective": null,
+    "first_author": "Fombonne",
+    "container": "Pediatrics"
    },
    "document": {
     "sha256": "e0a814dcfa846acc967b48d244b36df68b67dbeb7029c24e550e012cadb8d36d",
     "route": "europepmc_abstract",
     "kind": "abstract",
-    "retrieved_at": "2026-09-15T00:00:51+00:00",
+    "retrieved_at": "2026-09-15T00:18:07+00:00",
     "chars": 4590,
     "text_layer": "DECLARED_SOUND",
     "path": "data/verify/docs/e0/e0a814dcfa846acc967b48d244b36df68b67dbeb7029c24e550e012cadb8d36d.txt.gz",
@@ -515,7 +523,7 @@
     "verdict": "unchanged",
     "registry": "crossref+europepmc",
     "detail": "no update-to, relation, or updating work",
-    "checked_at": "2026-09-15T00:00:51+00:00",
+    "checked_at": "2026-09-15T00:18:07+00:00",
     "events": [],
     "frozen": {}
    },
@@ -539,19 +547,21 @@
     "canonical": "https://doi.org/10.1016/s0140-6736(04)17020-7",
     "registry": "crossref",
     "registry_id": "10.1016/s0140-6736(04)17020-7",
-    "checked_at": "2026-09-15T00:01:00+00:00",
+    "checked_at": "2026-09-15T00:18:08+00:00",
     "generic_fetch": false,
     "published": [
      2004,
      9
     ],
-    "effective": null
+    "effective": null,
+    "first_author": "Smeeth",
+    "container": "The Lancet"
    },
    "document": {
     "sha256": "baff1cb1d7216b3109f6e886eca267275d513095d3c17701953012af45430683",
     "route": "europepmc_abstract",
     "kind": "abstract",
-    "retrieved_at": "2026-09-15T00:01:15+00:00",
+    "retrieved_at": "2026-09-15T00:18:14+00:00",
     "chars": 1389,
     "text_layer": "DECLARED_SOUND",
     "path": "data/verify/docs/ba/baff1cb1d7216b3109f6e886eca267275d513095d3c17701953012af45430683.txt.gz",
@@ -570,7 +580,7 @@
     "verdict": "unchanged",
     "registry": "crossref+europepmc",
     "detail": "no update-to, relation, or updating work",
-    "checked_at": "2026-09-15T00:01:15+00:00",
+    "checked_at": "2026-09-15T00:18:14+00:00",
     "events": [],
     "frozen": {}
    },
@@ -594,20 +604,22 @@
     "canonical": "https://doi.org/10.1136/bmj.324.7334.393",
     "registry": "crossref",
     "registry_id": "10.1136/bmj.324.7334.393",
-    "checked_at": "2026-09-15T00:01:17+00:00",
+    "checked_at": "2026-09-15T00:18:15+00:00",
     "generic_fetch": false,
     "published": [
      2002,
      2,
      16
     ],
-    "effective": null
+    "effective": null,
+    "first_author": "Taylor",
+    "container": "BMJ"
    },
    "document": {
     "sha256": "00b87bbf34e769d1ee560f46d2ab7e7e988316becab88690ba226042b06bd60c",
     "route": "europepmc_abstract",
     "kind": "abstract",
-    "retrieved_at": "2026-09-15T00:01:18+00:00",
+    "retrieved_at": "2026-09-15T00:18:17+00:00",
     "chars": 1903,
     "text_layer": "DECLARED_SOUND",
     "path": "data/verify/docs/00/00b87bbf34e769d1ee560f46d2ab7e7e988316becab88690ba226042b06bd60c.txt.gz",
@@ -626,7 +638,7 @@
     "verdict": "unchanged",
     "registry": "crossref+europepmc",
     "detail": "no update-to, relation, or updating work",
-    "checked_at": "2026-09-15T00:01:18+00:00",
+    "checked_at": "2026-09-15T00:18:17+00:00",
     "events": [
      {
       "type": "comment in",
@@ -657,20 +669,22 @@
     "canonical": "https://doi.org/10.1111/j.1469-7610.2005.01425.x",
     "registry": "crossref",
     "registry_id": "10.1111/j.1469-7610.2005.01425.x",
-    "checked_at": "2026-09-15T00:01:27+00:00",
+    "checked_at": "2026-09-15T00:18:23+00:00",
     "generic_fetch": false,
     "published": [
      2005,
      2,
      18
     ],
-    "effective": null
+    "effective": null,
+    "first_author": "Honda",
+    "container": "Journal of Child Psychology and Psychiatry"
    },
    "document": {
     "sha256": "743e0691c4a3c4d6cdbbb34cf3feb9b417016f4ac9244ec389ffd4db9747835d",
     "route": "europepmc_abstract",
     "kind": "abstract",
-    "retrieved_at": "2026-09-15T00:01:28+00:00",
+    "retrieved_at": "2026-09-15T00:18:24+00:00",
     "chars": 1566,
     "text_layer": "DECLARED_SOUND",
     "path": "data/verify/docs/74/743e0691c4a3c4d6cdbbb34cf3feb9b417016f4ac9244ec389ffd4db9747835d.txt.gz",
@@ -689,7 +703,7 @@
     "verdict": "unchanged",
     "registry": "crossref+europepmc",
     "detail": "no update-to, relation, or updating work",
-    "checked_at": "2026-09-15T00:01:28+00:00",
+    "checked_at": "2026-09-15T00:18:24+00:00",
     "events": [],
     "frozen": {}
    },
@@ -713,20 +727,22 @@
     "canonical": "https://doi.org/10.7326/m18-2101",
     "registry": "crossref",
     "registry_id": "10.7326/m18-2101",
-    "checked_at": "2026-09-15T00:01:29+00:00",
+    "checked_at": "2026-09-15T00:18:25+00:00",
     "generic_fetch": false,
     "published": [
      2019,
      4,
      16
     ],
-    "effective": null
+    "effective": null,
+    "first_author": "Hviid",
+    "container": "Annals of Internal Medicine"
    },
    "document": {
     "sha256": "26d79efdf5364011190cc9f663ebdd9d2a4c4c6fe4614c1020bb6284bd9124fb",
     "route": "europepmc_abstract",
     "kind": "abstract",
-    "retrieved_at": "2026-09-15T00:01:30+00:00",
+    "retrieved_at": "2026-09-15T00:18:26+00:00",
     "chars": 2161,
     "text_layer": "DECLARED_SOUND",
     "path": "data/verify/docs/26/26d79efdf5364011190cc9f663ebdd9d2a4c4c6fe4614c1020bb6284bd9124fb.txt.gz",
@@ -745,7 +761,7 @@
     "verdict": "unchanged",
     "registry": "crossref+europepmc",
     "detail": "no update-to, relation, or updating work",
-    "checked_at": "2026-09-15T00:01:30+00:00",
+    "checked_at": "2026-09-15T00:18:26+00:00",
     "events": [
      {
       "type": "comment in",
@@ -800,20 +816,22 @@
     "canonical": "https://doi.org/10.1002/14651858.cd004407.pub4",
     "registry": "crossref",
     "registry_id": "10.1002/14651858.cd004407.pub4",
-    "checked_at": "2026-09-15T00:01:32+00:00",
+    "checked_at": "2026-09-15T00:18:27+00:00",
     "generic_fetch": false,
     "published": [
      2020,
      4,
      20
     ],
-    "effective": null
+    "effective": null,
+    "first_author": "Di Pietrantonj",
+    "container": "Cochrane Database of Systematic Reviews"
    },
    "document": {
     "sha256": "cdcf92f7b5477d860e432f10033af0ae53df0912999140336604d7f6d738d96f",
     "route": "europepmc_abstract",
     "kind": "abstract",
-    "retrieved_at": "2026-09-15T00:01:35+00:00",
+    "retrieved_at": "2026-09-15T00:18:32+00:00",
     "chars": 6715,
     "text_layer": "DECLARED_SOUND",
     "path": "data/verify/docs/cd/cdcf92f7b5477d860e432f10033af0ae53df0912999140336604d7f6d738d96f.txt.gz",
@@ -832,7 +850,7 @@
     "verdict": "superseded",
     "registry": "crossref+europepmc",
     "detail": "2 update/relation event(s)",
-    "checked_at": "2026-09-15T00:01:35+00:00",
+    "checked_at": "2026-09-15T00:18:32+00:00",
     "events": [
      {
       "type": "new_version",
@@ -884,19 +902,21 @@
     "canonical": "https://doi.org/10.1016/j.vaccine.2014.04.085",
     "registry": "crossref",
     "registry_id": "10.1016/j.vaccine.2014.04.085",
-    "checked_at": "2026-09-15T00:02:03+00:00",
+    "checked_at": "2026-09-15T00:18:41+00:00",
     "generic_fetch": false,
     "published": [
      2014,
      6
     ],
-    "effective": null
+    "effective": null,
+    "first_author": "Taylor",
+    "container": "Vaccine"
    },
    "document": {
     "sha256": "fdddd466b1abad1b03561461c6eb75b27534184f6a77636bd23ed716403d157a",
     "route": "europepmc_abstract",
     "kind": "abstract",
-    "retrieved_at": "2026-09-15T00:02:22+00:00",
+    "retrieved_at": "2026-09-15T00:18:41+00:00",
     "chars": 1945,
     "text_layer": "DECLARED_SOUND",
     "path": "data/verify/docs/fd/fdddd466b1abad1b03561461c6eb75b27534184f6a77636bd23ed716403d157a.txt.gz",
@@ -915,7 +935,7 @@
     "verdict": "unchanged",
     "registry": "crossref+europepmc",
     "detail": "no update-to, relation, or updating work",
-    "checked_at": "2026-09-15T00:02:22+00:00",
+    "checked_at": "2026-09-15T00:18:41+00:00",
     "events": [
      {
       "type": "comment in",
@@ -958,10 +978,12 @@
     "canonical": "https://www.fda.gov/vaccines-blood-biologics/vaccines/mmr-ii",
     "registry": "generic_fetch",
     "registry_id": null,
-    "checked_at": "2026-09-15T00:02:38+00:00",
+    "checked_at": "2026-09-15T00:18:43+00:00",
     "generic_fetch": true,
     "published": null,
-    "effective": null
+    "effective": null,
+    "first_author": null,
+    "container": null
    },
    "document": null,
    "bindings": [],
@@ -985,16 +1007,18 @@
     "canonical": "https://www.fda.gov/vaccines-blood-biologics/safety-availability-biologics/thimerosal-and-vaccines",
     "registry": "generic_fetch",
     "registry_id": null,
-    "checked_at": "2026-09-15T00:02:39+00:00",
+    "checked_at": "2026-09-15T00:18:43+00:00",
     "generic_fetch": true,
     "published": null,
-    "effective": null
+    "effective": null,
+    "first_author": null,
+    "container": null
    },
    "document": {
     "sha256": "fdf73b80bb4c92200b5289678acba4e3f0161991913db7b0db75c05751469c7f",
     "route": "generic_fetch_html",
     "kind": "full_text",
-    "retrieved_at": "2026-09-15T00:02:39+00:00",
+    "retrieved_at": "2026-09-15T00:18:43+00:00",
     "chars": 24008,
     "text_layer": "DECLARED_SOUND",
     "path": "data/verify/docs/fd/fdf73b80bb4c92200b5289678acba4e3f0161991913db7b0db75c05751469c7f.txt.gz",
@@ -1013,7 +1037,7 @@
     "verdict": "no_registry",
     "registry": "generic_fetch",
     "detail": "no status registry for a generic URL; watched by the binding re-check only",
-    "checked_at": "2026-09-15T00:02:39+00:00",
+    "checked_at": "2026-09-15T00:18:43+00:00",
     "events": [],
     "frozen": {}
    },
@@ -1037,16 +1061,18 @@
     "canonical": "https://www.cdc.gov/mmwr/preview/mmwrhtml/rr6204a1.htm",
     "registry": "generic_fetch",
     "registry_id": null,
-    "checked_at": "2026-09-15T00:02:39+00:00",
+    "checked_at": "2026-09-15T00:18:43+00:00",
     "generic_fetch": true,
     "published": null,
-    "effective": null
+    "effective": null,
+    "first_author": null,
+    "container": null
    },
    "document": {
     "sha256": "6e1a91caa227a9d81a6c2e6350f421ae9d0a3c53adb6ec0f1d2043eafcb06a4e",
     "route": "generic_fetch_html",
     "kind": "full_text",
-    "retrieved_at": "2026-09-15T00:02:39+00:00",
+    "retrieved_at": "2026-09-15T00:18:44+00:00",
     "chars": 184486,
     "text_layer": "DECLARED_SOUND",
     "path": "data/verify/docs/6e/6e1a91caa227a9d81a6c2e6350f421ae9d0a3c53adb6ec0f1d2043eafcb06a4e.txt.gz",
@@ -1065,7 +1091,7 @@
     "verdict": "no_registry",
     "registry": "generic_fetch",
     "detail": "no status registry for a generic URL; watched by the binding re-check only",
-    "checked_at": "2026-09-15T00:02:39+00:00",
+    "checked_at": "2026-09-15T00:18:44+00:00",
     "events": [],
     "frozen": {}
    },
@@ -1089,16 +1115,18 @@
     "canonical": "https://www.ncbi.nlm.nih.gov/books/NBK25344/",
     "registry": "generic_fetch",
     "registry_id": null,
-    "checked_at": "2026-09-15T00:02:39+00:00",
+    "checked_at": "2026-09-15T00:18:44+00:00",
     "generic_fetch": true,
     "published": null,
-    "effective": null
+    "effective": null,
+    "first_author": null,
+    "container": null
    },
    "document": {
     "sha256": "351d2d9182251c1608d91009cfa38a6b611f33b9c2fe32b67231d825bcc11848",
     "route": "generic_fetch_html",
     "kind": "full_text",
-    "retrieved_at": "2026-09-15T00:02:40+00:00",
+    "retrieved_at": "2026-09-15T00:18:45+00:00",
     "chars": 8164,
     "text_layer": "DECLARED_SOUND",
     "path": "data/verify/docs/35/351d2d9182251c1608d91009cfa38a6b611f33b9c2fe32b67231d825bcc11848.txt.gz",
@@ -1117,7 +1145,7 @@
     "verdict": "no_registry",
     "registry": "generic_fetch",
     "detail": "no status registry for a generic URL; watched by the binding re-check only",
-    "checked_at": "2026-09-15T00:02:40+00:00",
+    "checked_at": "2026-09-15T00:18:45+00:00",
     "events": [],
     "frozen": {}
    },
@@ -1141,16 +1169,18 @@
     "canonical": "https://www.ema.europa.eu/en/medicines/human/EPAR/m-m-rvaxpro",
     "registry": "generic_fetch",
     "registry_id": null,
-    "checked_at": "2026-09-15T00:02:40+00:00",
+    "checked_at": "2026-09-15T00:18:45+00:00",
     "generic_fetch": true,
     "published": null,
-    "effective": null
+    "effective": null,
+    "first_author": null,
+    "container": null
    },
    "document": {
     "sha256": "93fa09abdadf9fb8b305c475521496553106ba53283de6ad9dcf983df4a1ae45",
     "route": "generic_fetch_html",
     "kind": "full_text",
-    "retrieved_at": "2026-09-15T00:02:41+00:00",
+    "retrieved_at": "2026-09-15T00:18:46+00:00",
     "chars": 19274,
     "text_layer": "DECLARED_SOUND",
     "path": "data/verify/docs/93/93fa09abdadf9fb8b305c475521496553106ba53283de6ad9dcf983df4a1ae45.txt.gz",
@@ -1169,7 +1199,7 @@
     "verdict": "no_registry",
     "registry": "generic_fetch",
     "detail": "no status registry for a generic URL; watched by the binding re-check only",
-    "checked_at": "2026-09-15T00:02:41+00:00",
+    "checked_at": "2026-09-15T00:18:46+00:00",
     "events": [],
     "frozen": {}
    },
@@ -1193,16 +1223,18 @@
     "canonical": "https://vaers.hhs.gov/data/dataguide.html",
     "registry": "generic_fetch",
     "registry_id": null,
-    "checked_at": "2026-09-15T00:02:41+00:00",
+    "checked_at": "2026-09-15T00:18:46+00:00",
     "generic_fetch": true,
     "published": null,
-    "effective": null
+    "effective": null,
+    "first_author": null,
+    "container": null
    },
    "document": {
     "sha256": "be81d504895e85208fab699a0116535c84534675f896b2d878f66db27acd30a1",
     "route": "generic_fetch_html",
     "kind": "full_text",
-    "retrieved_at": "2026-09-15T00:02:41+00:00",
+    "retrieved_at": "2026-09-15T00:18:46+00:00",
     "chars": 4958,
     "text_layer": "DECLARED_SOUND",
     "path": "data/verify/docs/be/be81d504895e85208fab699a0116535c84534675f896b2d878f66db27acd30a1.txt.gz",
@@ -1221,7 +1253,7 @@
     "verdict": "no_registry",
     "registry": "generic_fetch",
     "detail": "no status registry for a generic URL; watched by the binding re-check only",
-    "checked_at": "2026-09-15T00:02:41+00:00",
+    "checked_at": "2026-09-15T00:18:46+00:00",
     "events": [],
     "frozen": {}
    },
@@ -1245,10 +1277,12 @@
     "canonical": "https://www.uscfc.uscourts.gov/sites/default/files/Hastings.Cedillo.02-0031V.pdf",
     "registry": "generic_fetch",
     "registry_id": null,
-    "checked_at": "2026-09-15T00:02:41+00:00",
+    "checked_at": "2026-09-15T00:18:46+00:00",
     "generic_fetch": true,
     "published": null,
-    "effective": null
+    "effective": null,
+    "first_author": null,
+    "container": null
    },
    "document": null,
    "bindings": [],
@@ -1272,20 +1306,22 @@
     "canonical": "https://doi.org/10.1002/14651858.cd004407.pub4",
     "registry": "crossref",
     "registry_id": "10.1002/14651858.cd004407.pub4",
-    "checked_at": "2026-09-15T00:01:32+00:00",
+    "checked_at": "2026-09-15T00:18:27+00:00",
     "generic_fetch": false,
     "published": [
      2020,
      4,
      20
     ],
-    "effective": null
+    "effective": null,
+    "first_author": "Di Pietrantonj",
+    "container": "Cochrane Database of Systematic Reviews"
    },
    "document": {
     "sha256": "cdcf92f7b5477d860e432f10033af0ae53df0912999140336604d7f6d738d96f",
     "route": "europepmc_abstract",
     "kind": "abstract",
-    "retrieved_at": "2026-09-15T00:01:35+00:00",
+    "retrieved_at": "2026-09-15T00:18:32+00:00",
     "chars": 6715,
     "text_layer": "DECLARED_SOUND",
     "path": "data/verify/docs/cd/cdcf92f7b5477d860e432f10033af0ae53df0912999140336604d7f6d738d96f.txt.gz",
@@ -1304,7 +1340,7 @@
     "verdict": "superseded",
     "registry": "crossref+europepmc",
     "detail": "2 update/relation event(s)",
-    "checked_at": "2026-09-15T00:01:35+00:00",
+    "checked_at": "2026-09-15T00:18:32+00:00",
     "events": [
      {
       "type": "new_version",
@@ -1356,19 +1392,21 @@
     "canonical": "https://doi.org/10.1016/j.vaccine.2014.04.085",
     "registry": "crossref",
     "registry_id": "10.1016/j.vaccine.2014.04.085",
-    "checked_at": "2026-09-15T00:02:03+00:00",
+    "checked_at": "2026-09-15T00:18:41+00:00",
     "generic_fetch": false,
     "published": [
      2014,
      6
     ],
-    "effective": null
+    "effective": null,
+    "first_author": "Taylor",
+    "container": "Vaccine"
    },
    "document": {
     "sha256": "fdddd466b1abad1b03561461c6eb75b27534184f6a77636bd23ed716403d157a",
     "route": "europepmc_abstract",
     "kind": "abstract",
-    "retrieved_at": "2026-09-15T00:02:22+00:00",
+    "retrieved_at": "2026-09-15T00:18:41+00:00",
     "chars": 1945,
     "text_layer": "DECLARED_SOUND",
     "path": "data/verify/docs/fd/fdddd466b1abad1b03561461c6eb75b27534184f6a77636bd23ed716403d157a.txt.gz",
@@ -1387,7 +1425,7 @@
     "verdict": "unchanged",
     "registry": "crossref+europepmc",
     "detail": "no update-to, relation, or updating work",
-    "checked_at": "2026-09-15T00:02:22+00:00",
+    "checked_at": "2026-09-15T00:18:41+00:00",
     "events": [
      {
       "type": "comment in",
@@ -1430,20 +1468,22 @@
     "canonical": "https://doi.org/10.1056/nejmoa021134",
     "registry": "crossref",
     "registry_id": "10.1056/nejmoa021134",
-    "checked_at": "2026-09-15T00:00:30+00:00",
+    "checked_at": "2026-09-15T00:17:56+00:00",
     "generic_fetch": false,
     "published": [
      2002,
      11,
      7
     ],
-    "effective": null
+    "effective": null,
+    "first_author": "Madsen",
+    "container": "New England Journal of Medicine"
    },
    "document": {
     "sha256": "cf62e4e025b70be9e7f6140bb594850f73db0258711906392827ce9e89e73c86",
     "route": "europepmc_abstract",
     "kind": "abstract",
-    "retrieved_at": "2026-09-15T00:00:35+00:00",
+    "retrieved_at": "2026-09-15T00:18:00+00:00",
     "chars": 1829,
     "text_layer": "DECLARED_SOUND",
     "path": "data/verify/docs/cf/cf62e4e025b70be9e7f6140bb594850f73db0258711906392827ce9e89e73c86.txt.gz",
@@ -1462,7 +1502,7 @@
     "verdict": "unchanged",
     "registry": "crossref+europepmc",
     "detail": "no update-to, relation, or updating work",
-    "checked_at": "2026-09-15T00:00:35+00:00",
+    "checked_at": "2026-09-15T00:18:00+00:00",
     "events": [
      {
       "type": "comment in",
@@ -1523,7 +1563,7 @@
     "canonical": "https://doi.org/10.17226/10997",
     "registry": "crossref",
     "registry_id": "10.17226/10997",
-    "checked_at": "2026-09-15T00:02:41+00:00",
+    "checked_at": "2026-09-15T00:18:46+00:00",
     "generic_fetch": false,
     "published": [
      2004,
@@ -1531,19 +1571,21 @@
      30
     ],
     "effective": null,
+    "first_author": null,
+    "container": null,
     "fallback": {
      "route": "generic_fetch via doi.org",
      "final_url": "https://www.nationalacademies.org/publications/10997"
     }
    },
    "document": {
-    "sha256": "7113eca355a24c6f94e95ebfd08ad5713ad0a161a55ded19b11d4f0912c6874a",
+    "sha256": "ec5b547a3280a5b7c9f6dcb454bc68a603a90767f7f0801a6cb1aab6af9f9373",
     "route": "generic_fetch_html",
     "kind": "full_text",
-    "retrieved_at": "2026-09-15T00:02:52+00:00",
+    "retrieved_at": "2026-09-15T00:18:48+00:00",
     "chars": 36333,
     "text_layer": "DECLARED_SOUND",
-    "path": "data/verify/docs/71/7113eca355a24c6f94e95ebfd08ad5713ad0a161a55ded19b11d4f0912c6874a.txt.gz",
+    "path": "data/verify/docs/ec/ec5b547a3280a5b7c9f6dcb454bc68a603a90767f7f0801a6cb1aab6af9f9373.txt.gz",
     "final_url": "https://www.nationalacademies.org/publications/10997"
    },
    "bindings": [
@@ -1559,7 +1601,7 @@
     "verdict": "unchanged",
     "registry": "crossref",
     "detail": "no update-to, relation, or updating work",
-    "checked_at": "2026-09-15T00:02:52+00:00",
+    "checked_at": "2026-09-15T00:18:48+00:00",
     "events": [],
     "frozen": {}
    },
@@ -1583,20 +1625,22 @@
     "canonical": "https://doi.org/10.7326/m18-2101",
     "registry": "crossref",
     "registry_id": "10.7326/m18-2101",
-    "checked_at": "2026-09-15T00:01:29+00:00",
+    "checked_at": "2026-09-15T00:18:25+00:00",
     "generic_fetch": false,
     "published": [
      2019,
      4,
      16
     ],
-    "effective": null
+    "effective": null,
+    "first_author": "Hviid",
+    "container": "Annals of Internal Medicine"
    },
    "document": {
     "sha256": "26d79efdf5364011190cc9f663ebdd9d2a4c4c6fe4614c1020bb6284bd9124fb",
     "route": "europepmc_abstract",
     "kind": "abstract",
-    "retrieved_at": "2026-09-15T00:01:30+00:00",
+    "retrieved_at": "2026-09-15T00:18:26+00:00",
     "chars": 2161,
     "text_layer": "DECLARED_SOUND",
     "path": "data/verify/docs/26/26d79efdf5364011190cc9f663ebdd9d2a4c4c6fe4614c1020bb6284bd9124fb.txt.gz",
@@ -1615,7 +1659,7 @@
     "verdict": "unchanged",
     "registry": "crossref+europepmc",
     "detail": "no update-to, relation, or updating work",
-    "checked_at": "2026-09-15T00:01:30+00:00",
+    "checked_at": "2026-09-15T00:18:26+00:00",
     "events": [
      {
       "type": "comment in",
@@ -1670,13 +1714,15 @@
     "canonical": "https://doi.org/10.1016/s0140-6736(10)60175-4",
     "registry": "crossref",
     "registry_id": "10.1016/s0140-6736(10)60175-4",
-    "checked_at": "2026-09-15T00:02:59+00:00",
+    "checked_at": "2026-09-15T00:18:54+00:00",
     "generic_fetch": false,
     "published": [
      2010,
      2
     ],
     "effective": null,
+    "first_author": "The Editors of The Lancet",
+    "container": "The Lancet",
     "fallback": {
      "route": "generic_fetch via doi.org",
      "http": 200,
@@ -1713,20 +1759,22 @@
     "canonical": "https://doi.org/10.1056/nejmoa021134",
     "registry": "crossref",
     "registry_id": "10.1056/nejmoa021134",
-    "checked_at": "2026-09-15T00:00:30+00:00",
+    "checked_at": "2026-09-15T00:17:56+00:00",
     "generic_fetch": false,
     "published": [
      2002,
      11,
      7
     ],
-    "effective": null
+    "effective": null,
+    "first_author": "Madsen",
+    "container": "New England Journal of Medicine"
    },
    "document": {
     "sha256": "cf62e4e025b70be9e7f6140bb594850f73db0258711906392827ce9e89e73c86",
     "route": "europepmc_abstract",
     "kind": "abstract",
-    "retrieved_at": "2026-09-15T00:00:35+00:00",
+    "retrieved_at": "2026-09-15T00:18:00+00:00",
     "chars": 1829,
     "text_layer": "DECLARED_SOUND",
     "path": "data/verify/docs/cf/cf62e4e025b70be9e7f6140bb594850f73db0258711906392827ce9e89e73c86.txt.gz",
@@ -1745,7 +1793,7 @@
     "verdict": "unchanged",
     "registry": "crossref+europepmc",
     "detail": "no update-to, relation, or updating work",
-    "checked_at": "2026-09-15T00:00:35+00:00",
+    "checked_at": "2026-09-15T00:18:00+00:00",
     "events": [
      {
       "type": "comment in",
@@ -1806,19 +1854,21 @@
     "canonical": "https://doi.org/10.1016/s0140-6736(99)01239-8",
     "registry": "crossref",
     "registry_id": "10.1016/s0140-6736(99)01239-8",
-    "checked_at": "2026-09-14T23:59:41+00:00",
+    "checked_at": "2026-09-15T00:17:51+00:00",
     "generic_fetch": false,
     "published": [
      1999,
      6
     ],
-    "effective": null
+    "effective": null,
+    "first_author": "Taylor",
+    "container": "The Lancet"
    },
    "document": {
     "sha256": "1820cf125b0e5616cd720e3bcadc1b32baab6854abdd22794c4c45c4703fe5e5",
     "route": "europepmc_abstract",
     "kind": "abstract",
-    "retrieved_at": "2026-09-15T00:00:01+00:00",
+    "retrieved_at": "2026-09-15T00:17:52+00:00",
     "chars": 2311,
     "text_layer": "DECLARED_SOUND",
     "path": "data/verify/docs/18/1820cf125b0e5616cd720e3bcadc1b32baab6854abdd22794c4c45c4703fe5e5.txt.gz",
@@ -1837,7 +1887,7 @@
     "verdict": "unchanged",
     "registry": "crossref+europepmc",
     "detail": "no update-to, relation, or updating work",
-    "checked_at": "2026-09-15T00:00:01+00:00",
+    "checked_at": "2026-09-15T00:17:52+00:00",
     "events": [
      {
       "type": "comment in",
@@ -1898,20 +1948,22 @@
     "canonical": "https://doi.org/10.7326/m18-2101",
     "registry": "crossref",
     "registry_id": "10.7326/m18-2101",
-    "checked_at": "2026-09-15T00:01:29+00:00",
+    "checked_at": "2026-09-15T00:18:25+00:00",
     "generic_fetch": false,
     "published": [
      2019,
      4,
      16
     ],
-    "effective": null
+    "effective": null,
+    "first_author": "Hviid",
+    "container": "Annals of Internal Medicine"
    },
    "document": {
     "sha256": "26d79efdf5364011190cc9f663ebdd9d2a4c4c6fe4614c1020bb6284bd9124fb",
     "route": "europepmc_abstract",
     "kind": "abstract",
-    "retrieved_at": "2026-09-15T00:01:30+00:00",
+    "retrieved_at": "2026-09-15T00:18:26+00:00",
     "chars": 2161,
     "text_layer": "DECLARED_SOUND",
     "path": "data/verify/docs/26/26d79efdf5364011190cc9f663ebdd9d2a4c4c6fe4614c1020bb6284bd9124fb.txt.gz",
@@ -1930,7 +1982,7 @@
     "verdict": "unchanged",
     "registry": "crossref+europepmc",
     "detail": "no update-to, relation, or updating work",
-    "checked_at": "2026-09-15T00:01:30+00:00",
+    "checked_at": "2026-09-15T00:18:26+00:00",
     "events": [
      {
       "type": "comment in",
@@ -1985,19 +2037,21 @@
     "canonical": "https://doi.org/10.1016/s0140-6736(97)11096-0",
     "registry": "crossref",
     "registry_id": "10.1016/s0140-6736(97)11096-0",
-    "checked_at": "2026-09-14T23:59:31+00:00",
+    "checked_at": "2026-09-15T00:17:33+00:00",
     "generic_fetch": false,
     "published": [
      1998,
      2
     ],
-    "effective": null
+    "effective": null,
+    "first_author": "Wakefield",
+    "container": "The Lancet"
    },
    "document": {
     "sha256": "4c8be4d2c62edf3089f001d2a4ac1d06cc32a4729a03b47e415883b7f4681a18",
     "route": "europepmc_abstract",
     "kind": "abstract",
-    "retrieved_at": "2026-09-14T23:59:32+00:00",
+    "retrieved_at": "2026-09-15T00:17:37+00:00",
     "chars": 1984,
     "text_layer": "DECLARED_SOUND",
     "path": "data/verify/docs/4c/4c8be4d2c62edf3089f001d2a4ac1d06cc32a4729a03b47e415883b7f4681a18.txt.gz",
@@ -2016,7 +2070,7 @@
     "verdict": "retracted",
     "registry": "crossref+europepmc",
     "detail": "2 update/relation event(s)",
-    "checked_at": "2026-09-14T23:59:32+00:00",
+    "checked_at": "2026-09-15T00:17:37+00:00",
     "events": [
      {
       "type": "correction",
@@ -2235,7 +2289,7 @@
     "canonical": "https://doi.org/10.1136/bmj.c5347",
     "registry": "crossref",
     "registry_id": "10.1136/bmj.c5347",
-    "checked_at": "2026-09-15T00:03:01+00:00",
+    "checked_at": "2026-09-15T00:18:55+00:00",
     "generic_fetch": false,
     "published": [
      2011,
@@ -2243,6 +2297,8 @@
      5
     ],
     "effective": null,
+    "first_author": "Deer",
+    "container": "BMJ",
     "fallback": {
      "route": "generic_fetch via doi.org",
      "http": 403,
@@ -2279,23 +2335,25 @@
     "canonical": "https://doi.org/10.17226/10997",
     "registry": "crossref",
     "registry_id": "10.17226/10997",
-    "checked_at": "2026-09-15T00:02:41+00:00",
+    "checked_at": "2026-09-15T00:18:46+00:00",
     "generic_fetch": false,
     "published": [
      2004,
      8,
      30
     ],
-    "effective": null
+    "effective": null,
+    "first_author": null,
+    "container": null
    },
    "document": {
-    "sha256": "7113eca355a24c6f94e95ebfd08ad5713ad0a161a55ded19b11d4f0912c6874a",
+    "sha256": "ec5b547a3280a5b7c9f6dcb454bc68a603a90767f7f0801a6cb1aab6af9f9373",
     "route": "generic_fetch_html",
     "kind": "full_text",
-    "retrieved_at": "2026-09-15T00:02:52+00:00",
+    "retrieved_at": "2026-09-15T00:18:48+00:00",
     "chars": 36333,
     "text_layer": "DECLARED_SOUND",
-    "path": "data/verify/docs/71/7113eca355a24c6f94e95ebfd08ad5713ad0a161a55ded19b11d4f0912c6874a.txt.gz",
+    "path": "data/verify/docs/ec/ec5b547a3280a5b7c9f6dcb454bc68a603a90767f7f0801a6cb1aab6af9f9373.txt.gz",
     "final_url": "https://www.nationalacademies.org/publications/10997"
    },
    "bindings": [
@@ -2311,7 +2369,7 @@
     "verdict": "unchanged",
     "registry": "crossref",
     "detail": "no update-to, relation, or updating work",
-    "checked_at": "2026-09-15T00:02:52+00:00",
+    "checked_at": "2026-09-15T00:18:48+00:00",
     "events": [],
     "frozen": {}
    },
@@ -2335,10 +2393,12 @@
     "canonical": "https://www.uhcprovider.com/content/dam/provider/docs/public/policies/comm-medical-drug/childhood-immunizations.pdf",
     "registry": "generic_fetch",
     "registry_id": null,
-    "checked_at": "2026-09-15T00:03:02+00:00",
+    "checked_at": "2026-09-15T00:18:56+00:00",
     "generic_fetch": true,
     "published": null,
-    "effective": null
+    "effective": null,
+    "first_author": null,
+    "container": null
    },
    "document": null,
    "bindings": [],
@@ -2362,16 +2422,18 @@
     "canonical": "https://www.aetna.com/cpb/medical/data/1_99/0070.html",
     "registry": "generic_fetch",
     "registry_id": null,
-    "checked_at": "2026-09-15T00:03:02+00:00",
+    "checked_at": "2026-09-15T00:18:56+00:00",
     "generic_fetch": true,
     "published": null,
-    "effective": null
+    "effective": null,
+    "first_author": null,
+    "container": null
    },
    "document": {
     "sha256": "fa060886dfebefa5c53ebce93406b7534a2a2890e9aa7191dd85a929b51f1969",
     "route": "generic_fetch_html",
     "kind": "full_text",
-    "retrieved_at": "2026-09-15T00:03:03+00:00",
+    "retrieved_at": "2026-09-15T00:18:57+00:00",
     "chars": 256479,
     "text_layer": "DECLARED_SOUND",
     "path": "data/verify/docs/fa/fa060886dfebefa5c53ebce93406b7534a2a2890e9aa7191dd85a929b51f1969.txt.gz",
@@ -2390,7 +2452,7 @@
     "verdict": "no_registry",
     "registry": "generic_fetch",
     "detail": "no status registry for a generic URL; watched by the binding re-check only",
-    "checked_at": "2026-09-15T00:03:03+00:00",
+    "checked_at": "2026-09-15T00:18:57+00:00",
     "events": [],
     "frozen": {}
    },
@@ -2414,10 +2476,12 @@
     "canonical": "https://www.anthem.com/preventive-care",
     "registry": "generic_fetch",
     "registry_id": null,
-    "checked_at": "2026-09-15T00:03:03+00:00",
+    "checked_at": "2026-09-15T00:18:57+00:00",
     "generic_fetch": true,
     "published": null,
-    "effective": null
+    "effective": null,
+    "first_author": null,
+    "container": null
    },
    "document": null,
    "bindings": [],
@@ -2441,20 +2505,22 @@
     "canonical": "https://doi.org/10.1001/jama.2015.3077",
     "registry": "crossref",
     "registry_id": "10.1001/jama.2015.3077",
-    "checked_at": "2026-09-15T00:06:19+00:00",
+    "checked_at": "2026-09-15T00:22:51+00:00",
     "generic_fetch": false,
     "published": [
      2015,
      4,
      21
     ],
-    "effective": null
+    "effective": null,
+    "first_author": "Jain",
+    "container": "JAMA"
    },
    "document": {
     "sha256": "808431798f8fe2257a7a973cf003621a7d331f70abfa94a6d1dcf5e46b2f4421",
     "route": "europepmc_abstract",
     "kind": "abstract",
-    "retrieved_at": "2026-09-15T00:06:56+00:00",
+    "retrieved_at": "2026-09-15T00:22:51+00:00",
     "chars": 1915,
     "text_layer": "DECLARED_SOUND",
     "path": "data/verify/docs/80/808431798f8fe2257a7a973cf003621a7d331f70abfa94a6d1dcf5e46b2f4421.txt.gz",
@@ -2473,7 +2539,7 @@
     "verdict": "corrected",
     "registry": "crossref+europepmc",
     "detail": "no update-to, relation, or updating work",
-    "checked_at": "2026-09-15T00:06:56+00:00",
+    "checked_at": "2026-09-15T00:22:51+00:00",
     "events": [
      {
       "type": "comment in",
@@ -2522,20 +2588,22 @@
     "canonical": "https://doi.org/10.1001/jama.2015.3077",
     "registry": "crossref",
     "registry_id": "10.1001/jama.2015.3077",
-    "checked_at": "2026-09-15T00:06:19+00:00",
+    "checked_at": "2026-09-15T00:22:51+00:00",
     "generic_fetch": false,
     "published": [
      2015,
      4,
      21
     ],
-    "effective": null
+    "effective": null,
+    "first_author": "Jain",
+    "container": "JAMA"
    },
    "document": {
     "sha256": "808431798f8fe2257a7a973cf003621a7d331f70abfa94a6d1dcf5e46b2f4421",
     "route": "europepmc_abstract",
     "kind": "abstract",
-    "retrieved_at": "2026-09-15T00:06:56+00:00",
+    "retrieved_at": "2026-09-15T00:22:51+00:00",
     "chars": 1915,
     "text_layer": "DECLARED_SOUND",
     "path": "data/verify/docs/80/808431798f8fe2257a7a973cf003621a7d331f70abfa94a6d1dcf5e46b2f4421.txt.gz",
@@ -2554,7 +2622,7 @@
     "verdict": "corrected",
     "registry": "crossref+europepmc",
     "detail": "no update-to, relation, or updating work",
-    "checked_at": "2026-09-15T00:06:56+00:00",
+    "checked_at": "2026-09-15T00:22:51+00:00",
     "events": [
      {
       "type": "comment in",
@@ -2603,20 +2671,22 @@
     "canonical": "https://doi.org/10.1111/j.1469-7610.2005.01425.x",
     "registry": "crossref",
     "registry_id": "10.1111/j.1469-7610.2005.01425.x",
-    "checked_at": "2026-09-15T00:01:27+00:00",
+    "checked_at": "2026-09-15T00:18:23+00:00",
     "generic_fetch": false,
     "published": [
      2005,
      2,
      18
     ],
-    "effective": null
+    "effective": null,
+    "first_author": "Honda",
+    "container": "Journal of Child Psychology and Psychiatry"
    },
    "document": {
     "sha256": "743e0691c4a3c4d6cdbbb34cf3feb9b417016f4ac9244ec389ffd4db9747835d",
     "route": "europepmc_abstract",
     "kind": "abstract",
-    "retrieved_at": "2026-09-15T00:01:28+00:00",
+    "retrieved_at": "2026-09-15T00:18:24+00:00",
     "chars": 1566,
     "text_layer": "DECLARED_SOUND",
     "path": "data/verify/docs/74/743e0691c4a3c4d6cdbbb34cf3feb9b417016f4ac9244ec389ffd4db9747835d.txt.gz",
@@ -2635,7 +2705,7 @@
     "verdict": "unchanged",
     "registry": "crossref+europepmc",
     "detail": "no update-to, relation, or updating work",
-    "checked_at": "2026-09-15T00:01:28+00:00",
+    "checked_at": "2026-09-15T00:18:24+00:00",
     "events": [],
     "frozen": {}
    },
@@ -2664,6 +2734,11 @@
        "reason": ""
       }
      ],
+     "role": "subject",
+     "role_rule": {
+      "matched": "thimerosal",
+      "kind": "title_word"
+     },
      "level": "IDENTITY_ONLY"
     }
    ],
@@ -2718,20 +2793,23 @@
        "reason": ""
       },
       {
-       "kind": "FIGURE",
-       "ok": true,
+       "kind": "STATUS_AT_PUBLISH",
+       "ok": false,
        "abstained": false,
-       "evidence": "138, 23000000≈23480668",
-       "reason": ""
+       "evidence": "superseded",
+       "reason": "support link to a source whose status was superseded before publication"
       }
      ],
-     "level": "FIGURE_BOUND"
+     "role": "support",
+     "role_rule": {
+      "matched": null,
+      "kind": "no_name_in_claim"
+     },
+     "level": "UNSUPPORTED"
     }
    ],
-   "support": "FIGURE_BOUND",
-   "supported_by": [
-    "bf1f520d-1281-4fb5-b9b5-af9bf34d6834"
-   ]
+   "support": "UNSUPPORTED",
+   "supported_by": []
   },
   {
    "claim_id": "a7d1a0da-a95e-494d-a935-95ba2b06f310",
@@ -2750,15 +2828,25 @@
        "abstained": false,
        "evidence": "no date or dated event in the claim; cannot be judged",
        "reason": ""
+      },
+      {
+       "kind": "STATUS_AT_PUBLISH",
+       "ok": false,
+       "abstained": false,
+       "evidence": "superseded",
+       "reason": "support link to a source whose status was superseded before publication"
       }
      ],
-     "level": "IDENTITY_ONLY"
+     "role": "support",
+     "role_rule": {
+      "matched": null,
+      "kind": "no_name_in_claim"
+     },
+     "level": "UNSUPPORTED"
     }
    ],
-   "support": "IDENTITY_ONLY",
-   "supported_by": [
-    "bf1f520d-1281-4fb5-b9b5-af9bf34d6834"
-   ]
+   "support": "UNSUPPORTED",
+   "supported_by": []
   },
   {
    "claim_id": "20583d9a-dd0e-404d-8177-b4c66c8cb69f",
@@ -2779,6 +2867,11 @@
        "reason": ""
       }
      ],
+     "role": "support",
+     "role_rule": {
+      "matched": null,
+      "kind": "no_name_in_claim"
+     },
      "level": "IDENTITY_ONLY"
     }
    ],
@@ -2815,6 +2908,11 @@
        "reason": "not in the document: 1"
       }
      ],
+     "role": "subject",
+     "role_rule": {
+      "matched": "Honda",
+      "kind": "first_author"
+     },
      "level": "UNSUPPORTED"
     }
    ],
@@ -2842,6 +2940,13 @@
        "reason": ""
       },
       {
+       "kind": "STATUS_AT_PUBLISH",
+       "ok": true,
+       "abstained": false,
+       "evidence": "corrected",
+       "reason": "subject link: the claim is about a source whose status was corrected; publishable, marked as information"
+      },
+      {
        "kind": "FIGURE",
        "ok": true,
        "abstained": false,
@@ -2849,6 +2954,11 @@
        "reason": ""
       }
      ],
+     "role": "subject",
+     "role_rule": {
+      "matched": "siblings",
+      "kind": "title_word"
+     },
      "level": "FIGURE_BOUND"
     }
    ],
@@ -2876,6 +2986,11 @@
        "reason": ""
       }
      ],
+     "role": "subject",
+     "role_rule": {
+      "matched": "withdrawal",
+      "kind": "title_word"
+     },
      "level": "IDENTITY_ONLY"
     }
    ],
@@ -2912,6 +3027,11 @@
        "reason": ""
       }
      ],
+     "role": "subject",
+     "role_rule": {
+      "matched": "Smeeth",
+      "kind": "first_author"
+     },
      "level": "FIGURE_BOUND"
     }
    ],
@@ -2939,6 +3059,11 @@
        "reason": ""
       }
      ],
+     "role": "support",
+     "role_rule": {
+      "matched": null,
+      "kind": "no_name_in_claim"
+     },
      "level": "IDENTITY_ONLY"
     }
    ],
@@ -2971,13 +3096,18 @@
        "reason": ""
       },
       {
-       "kind": "FIGURE",
+       "kind": "STATUS_AT_PUBLISH",
        "ok": false,
        "abstained": false,
-       "evidence": "",
-       "reason": "not in the document: 0.55, 0.8, 1.16, 95"
+       "evidence": "corrected",
+       "reason": "support link to a source whose status was corrected before publication"
       }
      ],
+     "role": "support",
+     "role_rule": {
+      "matched": null,
+      "kind": "no_name_in_claim"
+     },
      "level": "UNSUPPORTED"
     }
    ],
@@ -3005,6 +3135,13 @@
        "reason": ""
       },
       {
+       "kind": "STATUS_AT_PUBLISH",
+       "ok": true,
+       "abstained": false,
+       "evidence": "corrected",
+       "reason": "subject link: the claim is about a source whose status was corrected; publishable, marked as information"
+      },
+      {
        "kind": "FIGURE",
        "ok": true,
        "abstained": false,
@@ -3012,6 +3149,11 @@
        "reason": ""
       }
      ],
+     "role": "subject",
+     "role_rule": {
+      "matched": "Jain",
+      "kind": "first_author"
+     },
      "level": "FIGURE_BOUND"
     }
    ],
@@ -3041,6 +3183,13 @@
        "reason": ""
       },
       {
+       "kind": "STATUS_AT_PUBLISH",
+       "ok": true,
+       "abstained": false,
+       "evidence": "corrected",
+       "reason": "subject link: the claim is about a source whose status was corrected; publishable, marked as information"
+      },
+      {
        "kind": "FIGURE",
        "ok": true,
        "abstained": false,
@@ -3048,6 +3197,11 @@
        "reason": ""
       }
      ],
+     "role": "subject",
+     "role_rule": {
+      "matched": "Jain",
+      "kind": "first_author"
+     },
      "level": "FIGURE_BOUND"
     }
    ],
@@ -3084,6 +3238,11 @@
        "reason": ""
       }
      ],
+     "role": "subject",
+     "role_rule": {
+      "matched": "regression",
+      "kind": "title_word"
+     },
      "level": "FIGURE_BOUND"
     }
    ],
@@ -3120,6 +3279,11 @@
        "reason": ""
       }
      ],
+     "role": "subject",
+     "role_rule": {
+      "matched": "Taylor",
+      "kind": "first_author"
+     },
      "level": "FIGURE_BOUND"
     }
    ],
@@ -3156,6 +3320,11 @@
        "reason": ""
       }
      ],
+     "role": "subject",
+     "role_rule": {
+      "matched": "Taylor",
+      "kind": "first_author"
+     },
      "level": "FIGURE_BOUND"
     }
    ],
@@ -3195,6 +3364,11 @@
        "reason": ""
       }
      ],
+     "role": "support",
+     "role_rule": {
+      "matched": null,
+      "kind": "no_name_in_claim"
+     },
      "level": "FIGURE_BOUND"
     }
    ],
@@ -3222,6 +3396,11 @@
        "reason": ""
       }
      ],
+     "role": "support",
+     "role_rule": {
+      "matched": null,
+      "kind": "no_name_in_claim"
+     },
      "level": "IDENTITY_ONLY"
     }
    ],
@@ -3258,6 +3437,11 @@
        "reason": "not in the document: 2"
       }
      ],
+     "role": "support",
+     "role_rule": {
+      "matched": null,
+      "kind": "no_name_in_claim"
+     },
      "level": "UNSUPPORTED"
     }
    ],
@@ -3294,6 +3478,11 @@
        "reason": ""
       }
      ],
+     "role": "support",
+     "role_rule": {
+      "matched": null,
+      "kind": "no_name_in_claim"
+     },
      "level": "FIGURE_BOUND"
     }
    ],
@@ -3324,20 +3513,23 @@
        "reason": ""
       },
       {
-       "kind": "FIGURE",
-       "ok": true,
+       "kind": "STATUS_AT_PUBLISH",
+       "ok": false,
        "abstained": false,
-       "evidence": "138, 23000000≈23480668",
-       "reason": ""
+       "evidence": "superseded",
+       "reason": "support link to a source whose status was superseded before publication"
       }
      ],
-     "level": "FIGURE_BOUND"
+     "role": "support",
+     "role_rule": {
+      "matched": null,
+      "kind": "no_name_in_claim"
+     },
+     "level": "UNSUPPORTED"
     }
    ],
-   "support": "FIGURE_BOUND",
-   "supported_by": [
-    "84138759-9546-463f-a48a-8708af419157"
-   ]
+   "support": "UNSUPPORTED",
+   "supported_by": []
   },
   {
    "claim_id": "e48189ac-12d3-4e53-9364-b5577f043211",
@@ -3361,20 +3553,23 @@
        "reason": ""
       },
       {
-       "kind": "FIGURE",
-       "ok": true,
+       "kind": "STATUS_AT_PUBLISH",
+       "ok": false,
        "abstained": false,
-       "evidence": "138, 23000000≈23480668",
-       "reason": ""
+       "evidence": "superseded",
+       "reason": "support link to a source whose status was superseded before publication"
       }
      ],
-     "level": "FIGURE_BOUND"
+     "role": "support",
+     "role_rule": {
+      "matched": null,
+      "kind": "no_name_in_claim"
+     },
+     "level": "UNSUPPORTED"
     }
    ],
-   "support": "FIGURE_BOUND",
-   "supported_by": [
-    "84138759-9546-463f-a48a-8708af419157"
-   ]
+   "support": "UNSUPPORTED",
+   "supported_by": []
   },
   {
    "claim_id": "1f3b5312-ff88-4693-afda-1136d6270636",
@@ -3393,15 +3588,25 @@
        "abstained": false,
        "evidence": "no date or dated event in the claim; cannot be judged",
        "reason": ""
+      },
+      {
+       "kind": "STATUS_AT_PUBLISH",
+       "ok": false,
+       "abstained": false,
+       "evidence": "superseded",
+       "reason": "support link to a source whose status was superseded before publication"
       }
      ],
-     "level": "IDENTITY_ONLY"
+     "role": "support",
+     "role_rule": {
+      "matched": null,
+      "kind": "no_name_in_claim"
+     },
+     "level": "UNSUPPORTED"
     }
    ],
-   "support": "IDENTITY_ONLY",
-   "supported_by": [
-    "84138759-9546-463f-a48a-8708af419157"
-   ]
+   "support": "UNSUPPORTED",
+   "supported_by": []
   },
   {
    "claim_id": "849abdf2-06fd-4de1-8f9f-328b710e0f07",
@@ -3427,20 +3632,23 @@
        "reason": ""
       },
       {
-       "kind": "FIGURE",
-       "ok": true,
+       "kind": "STATUS_AT_PUBLISH",
+       "ok": false,
        "abstained": false,
-       "evidence": "1, 2, 95, 96",
-       "reason": ""
+       "evidence": "superseded",
+       "reason": "support link to a source whose status was superseded before publication"
       }
      ],
-     "level": "FIGURE_BOUND"
+     "role": "support",
+     "role_rule": {
+      "matched": null,
+      "kind": "no_name_in_claim"
+     },
+     "level": "UNSUPPORTED"
     }
    ],
-   "support": "FIGURE_BOUND",
-   "supported_by": [
-    "84138759-9546-463f-a48a-8708af419157"
-   ]
+   "support": "UNSUPPORTED",
+   "supported_by": []
   },
   {
    "claim_id": "ff5420b1-1f0f-48c8-b298-0d99ec2cb8a3",
@@ -3471,6 +3679,11 @@
        "reason": ""
       }
      ],
+     "role": "subject",
+     "role_rule": {
+      "matched": "Taylor",
+      "kind": "first_author"
+     },
      "level": "FIGURE_BOUND"
     }
    ],
@@ -3508,6 +3721,11 @@
        "reason": ""
       }
      ],
+     "role": "subject",
+     "role_rule": {
+      "matched": "Taylor",
+      "kind": "first_author"
+     },
      "level": "FIGURE_BOUND"
     }
    ],
@@ -3547,6 +3765,11 @@
        "reason": ""
       }
      ],
+     "role": "support",
+     "role_rule": {
+      "matched": null,
+      "kind": "no_name_in_claim"
+     },
      "level": "FIGURE_BOUND"
     }
    ],
@@ -3586,6 +3809,11 @@
        "reason": ""
       }
      ],
+     "role": "support",
+     "role_rule": {
+      "matched": null,
+      "kind": "no_name_in_claim"
+     },
      "level": "FIGURE_BOUND"
     }
    ],
@@ -3613,6 +3841,11 @@
        "reason": ""
       }
      ],
+     "role": "subject",
+     "role_rule": {
+      "matched": "Taylor",
+      "kind": "first_author"
+     },
      "level": "IDENTITY_ONLY"
     }
    ],
@@ -3642,6 +3875,13 @@
        "reason": ""
       },
       {
+       "kind": "STATUS_AT_PUBLISH",
+       "ok": true,
+       "abstained": false,
+       "evidence": "retracted",
+       "reason": "subject link: the claim is about a source whose status was retracted; publishable, marked as information"
+      },
+      {
        "kind": "FIGURE",
        "ok": true,
        "abstained": false,
@@ -3649,6 +3889,11 @@
        "reason": ""
       }
      ],
+     "role": "subject",
+     "role_rule": {
+      "matched": "Wakefield",
+      "kind": "first_author"
+     },
      "level": "FIGURE_BOUND"
     },
     {
@@ -3663,6 +3908,13 @@
        "reason": ""
       },
       {
+       "kind": "STATUS_AT_PUBLISH",
+       "ok": true,
+       "abstained": false,
+       "evidence": "retracted",
+       "reason": "subject link: the claim is about a source whose status was retracted; publishable, marked as information"
+      },
+      {
        "kind": "FIGURE",
        "ok": true,
        "abstained": false,
@@ -3670,6 +3922,11 @@
        "reason": ""
       }
      ],
+     "role": "subject",
+     "role_rule": {
+      "matched": "Wakefield",
+      "kind": "first_author"
+     },
      "level": "FIGURE_BOUND"
     }
    ],
@@ -3709,6 +3966,11 @@
        "reason": ""
       }
      ],
+     "role": "support",
+     "role_rule": {
+      "matched": null,
+      "kind": "no_name_in_claim"
+     },
      "level": "FIGURE_BOUND"
     }
    ],
@@ -3745,6 +4007,11 @@
        "reason": ""
       }
      ],
+     "role": "support",
+     "role_rule": {
+      "matched": null,
+      "kind": "no_name_in_claim"
+     },
      "level": "FIGURE_BOUND"
     }
    ],
@@ -3782,6 +4049,11 @@
        "reason": ""
       }
      ],
+     "role": "support",
+     "role_rule": {
+      "matched": null,
+      "kind": "no_name_in_claim"
+     },
      "level": "FIGURE_BOUND"
     }
    ],
@@ -3809,6 +4081,11 @@
        "reason": ""
       }
      ],
+     "role": "support",
+     "role_rule": {
+      "matched": null,
+      "kind": "no_name_in_claim"
+     },
      "level": "IDENTITY_ONLY"
     }
    ],
@@ -3845,6 +4122,11 @@
        "reason": ""
       }
      ],
+     "role": "support",
+     "role_rule": {
+      "matched": null,
+      "kind": "no_name_in_claim"
+     },
      "level": "FIGURE_BOUND"
     }
    ],
@@ -3885,6 +4167,11 @@
        "reason": "not in the document: 96648"
       }
      ],
+     "role": "support",
+     "role_rule": {
+      "matched": null,
+      "kind": "no_name_in_claim"
+     },
      "level": "UNSUPPORTED"
     }
    ],
@@ -3922,6 +4209,11 @@
        "reason": "not in the document: 1.26"
       }
      ],
+     "role": "support",
+     "role_rule": {
+      "matched": null,
+      "kind": "no_name_in_claim"
+     },
      "level": "UNSUPPORTED"
     }
    ],
@@ -3956,6 +4248,11 @@
        "reason": ""
       }
      ],
+     "role": "subject",
+     "role_rule": {
+      "matched": "Madsen",
+      "kind": "first_author"
+     },
      "level": "FIGURE_BOUND"
     }
    ],
@@ -3992,6 +4289,11 @@
        "reason": ""
       }
      ],
+     "role": "subject",
+     "role_rule": {
+      "matched": "Madsen",
+      "kind": "first_author"
+     },
      "level": "FIGURE_BOUND"
     }
    ],
@@ -4034,6 +4336,11 @@
        "reason": "not in the document: 0, 10000, 117.2, 48.4"
       }
      ],
+     "role": "support",
+     "role_rule": {
+      "matched": null,
+      "kind": "no_name_in_claim"
+     },
      "level": "UNSUPPORTED"
     }
    ],
@@ -4069,6 +4376,11 @@
        "reason": "not in the document: 0"
       }
      ],
+     "role": "subject",
+     "role_rule": {
+      "matched": "withdrawal",
+      "kind": "title_word"
+     },
      "level": "UNSUPPORTED"
     }
    ],
@@ -4105,6 +4417,11 @@
        "reason": ""
       }
      ],
+     "role": "subject",
+     "role_rule": {
+      "matched": "Honda",
+      "kind": "first_author"
+     },
      "level": "FIGURE_BOUND"
     }
    ],
@@ -4143,6 +4460,11 @@
        "reason": ""
       }
      ],
+     "role": "subject",
+     "role_rule": {
+      "matched": "montreal",
+      "kind": "title_word"
+     },
      "level": "FIGURE_BOUND"
     }
    ],
@@ -4179,6 +4501,11 @@
        "reason": ""
       }
      ],
+     "role": "subject",
+     "role_rule": {
+      "matched": "montreal",
+      "kind": "title_word"
+     },
      "level": "FIGURE_BOUND"
     }
    ],
@@ -4215,6 +4542,11 @@
        "reason": ""
       }
      ],
+     "role": "subject",
+     "role_rule": {
+      "matched": "Fombonne",
+      "kind": "first_author"
+     },
      "level": "FIGURE_BOUND"
     }
    ],
@@ -4251,6 +4583,11 @@
        "reason": ""
       }
      ],
+     "role": "subject",
+     "role_rule": {
+      "matched": "Fombonne",
+      "kind": "first_author"
+     },
      "level": "FIGURE_BOUND"
     }
    ],
@@ -4288,6 +4625,11 @@
        "reason": ""
       }
      ],
+     "role": "subject",
+     "role_rule": {
+      "matched": "pervasive",
+      "kind": "title_word"
+     },
      "level": "FIGURE_BOUND"
     }
    ],
@@ -4315,6 +4657,11 @@
        "reason": ""
       }
      ],
+     "role": "support",
+     "role_rule": {
+      "matched": null,
+      "kind": "no_name_in_claim"
+     },
      "level": "IDENTITY_ONLY"
     }
    ],
@@ -4377,6 +4724,11 @@
        "reason": ""
       }
      ],
+     "role": "subject",
+     "role_rule": {
+      "matched": "Taylor",
+      "kind": "first_author"
+     },
      "level": "FIGURE_BOUND"
     }
    ],
@@ -4404,6 +4756,11 @@
        "reason": ""
       }
      ],
+     "role": "subject",
+     "role_rule": {
+      "matched": "Taylor",
+      "kind": "first_author"
+     },
      "level": "IDENTITY_ONLY"
     }
    ],
@@ -4443,6 +4800,11 @@
        "reason": ""
       }
      ],
+     "role": "subject",
+     "role_rule": {
+      "matched": "pervasive",
+      "kind": "title_word"
+     },
      "level": "FIGURE_BOUND"
     }
    ],
@@ -4468,15 +4830,25 @@
        "abstained": false,
        "evidence": "no date or dated event in the claim; cannot be judged",
        "reason": ""
+      },
+      {
+       "kind": "STATUS_AT_PUBLISH",
+       "ok": false,
+       "abstained": false,
+       "evidence": "superseded",
+       "reason": "support link to a source whose status was superseded before publication"
       }
      ],
-     "level": "IDENTITY_ONLY"
+     "role": "support",
+     "role_rule": {
+      "matched": null,
+      "kind": "no_name_in_claim"
+     },
+     "level": "UNSUPPORTED"
     }
    ],
-   "support": "IDENTITY_ONLY",
-   "supported_by": [
-    "bf1f520d-1281-4fb5-b9b5-af9bf34d6834"
-   ]
+   "support": "UNSUPPORTED",
+   "supported_by": []
   },
   {
    "claim_id": "c67e60c9-84ea-4923-aedd-97a46abc8fda",
@@ -4508,6 +4880,11 @@
        "reason": ""
       }
      ],
+     "role": "support",
+     "role_rule": {
+      "matched": null,
+      "kind": "no_name_in_claim"
+     },
      "level": "FIGURE_BOUND"
     }
    ],
@@ -4571,6 +4948,11 @@
        "reason": ""
       }
      ],
+     "role": "subject",
+     "role_rule": {
+      "matched": "Smeeth",
+      "kind": "first_author"
+     },
      "level": "FIGURE_BOUND"
     }
    ],
@@ -4607,6 +4989,11 @@
        "reason": ""
       }
      ],
+     "role": "subject",
+     "role_rule": {
+      "matched": "Smeeth",
+      "kind": "first_author"
+     },
      "level": "FIGURE_BOUND"
     }
    ],
@@ -4634,6 +5021,11 @@
        "reason": ""
       }
      ],
+     "role": "support",
+     "role_rule": {
+      "matched": null,
+      "kind": "no_name_in_claim"
+     },
      "level": "IDENTITY_ONLY"
     }
    ],
@@ -4663,20 +5055,23 @@
        "reason": ""
       },
       {
-       "kind": "FIGURE",
-       "ok": true,
+       "kind": "STATUS_AT_PUBLISH",
+       "ok": false,
        "abstained": false,
-       "evidence": "no figure in assertion",
-       "reason": ""
+       "evidence": "superseded",
+       "reason": "support link to a source whose status was superseded before publication"
       }
      ],
-     "level": "FIGURE_BOUND"
+     "role": "support",
+     "role_rule": {
+      "matched": null,
+      "kind": "no_name_in_claim"
+     },
+     "level": "UNSUPPORTED"
     }
    ],
-   "support": "FIGURE_BOUND",
-   "supported_by": [
-    "bf1f520d-1281-4fb5-b9b5-af9bf34d6834"
-   ]
+   "support": "UNSUPPORTED",
+   "supported_by": []
   },
   {
    "claim_id": "711d05f4-a603-4e2e-b0d4-96cfa56caebd",
@@ -4697,6 +5092,11 @@
        "reason": ""
       }
      ],
+     "role": "subject",
+     "role_rule": {
+      "matched": "Taylor",
+      "kind": "first_author"
+     },
      "level": "IDENTITY_ONLY"
     }
    ],
@@ -4724,6 +5124,11 @@
        "reason": ""
       }
      ],
+     "role": "subject",
+     "role_rule": {
+      "matched": "Taylor",
+      "kind": "first_author"
+     },
      "level": "IDENTITY_ONLY"
     }
    ],
@@ -4751,6 +5156,11 @@
        "reason": ""
       }
      ],
+     "role": "subject",
+     "role_rule": {
+      "matched": "Taylor",
+      "kind": "first_author"
+     },
      "level": "IDENTITY_ONLY"
     }
    ],
@@ -4778,6 +5188,11 @@
        "reason": ""
       }
      ],
+     "role": "subject",
+     "role_rule": {
+      "matched": "Madsen",
+      "kind": "first_author"
+     },
      "level": "IDENTITY_ONLY"
     }
    ],
@@ -4805,6 +5220,11 @@
        "reason": ""
       }
      ],
+     "role": "subject",
+     "role_rule": {
+      "matched": "Madsen",
+      "kind": "first_author"
+     },
      "level": "IDENTITY_ONLY"
     }
    ],
@@ -4832,6 +5252,11 @@
        "reason": ""
       }
      ],
+     "role": "subject",
+     "role_rule": {
+      "matched": "Madsen",
+      "kind": "first_author"
+     },
      "level": "IDENTITY_ONLY"
     }
    ],
@@ -4859,6 +5284,11 @@
        "reason": ""
       }
      ],
+     "role": "subject",
+     "role_rule": {
+      "matched": "Madsen",
+      "kind": "first_author"
+     },
      "level": "IDENTITY_ONLY"
     }
    ],
@@ -4895,6 +5325,11 @@
        "reason": ""
       }
      ],
+     "role": "support",
+     "role_rule": {
+      "matched": null,
+      "kind": "no_name_in_claim"
+     },
      "level": "FIGURE_BOUND"
     }
    ],
@@ -4931,6 +5366,11 @@
        "reason": ""
       }
      ],
+     "role": "support",
+     "role_rule": {
+      "matched": null,
+      "kind": "no_name_in_claim"
+     },
      "level": "FIGURE_BOUND"
     }
    ],
@@ -4971,6 +5411,11 @@
        "reason": "not in the document: 10000, 117.2, 47.6"
       }
      ],
+     "role": "support",
+     "role_rule": {
+      "matched": null,
+      "kind": "no_name_in_claim"
+     },
      "level": "UNSUPPORTED"
     }
    ],
@@ -4998,6 +5443,13 @@
        "reason": ""
       },
       {
+       "kind": "STATUS_AT_PUBLISH",
+       "ok": true,
+       "abstained": false,
+       "evidence": "corrected",
+       "reason": "subject link: the claim is about a source whose status was corrected; publishable, marked as information"
+      },
+      {
        "kind": "FIGURE",
        "ok": true,
        "abstained": false,
@@ -5005,6 +5457,11 @@
        "reason": ""
       }
      ],
+     "role": "subject",
+     "role_rule": {
+      "matched": "siblings",
+      "kind": "title_word"
+     },
      "level": "FIGURE_BOUND"
     }
    ],
@@ -5035,6 +5492,13 @@
        "reason": ""
       },
       {
+       "kind": "STATUS_AT_PUBLISH",
+       "ok": true,
+       "abstained": false,
+       "evidence": "corrected",
+       "reason": "subject link: the claim is about a source whose status was corrected; publishable, marked as information"
+      },
+      {
        "kind": "FIGURE",
        "ok": true,
        "abstained": false,
@@ -5042,6 +5506,11 @@
        "reason": ""
       }
      ],
+     "role": "subject",
+     "role_rule": {
+      "matched": "Jain",
+      "kind": "first_author"
+     },
      "level": "FIGURE_BOUND"
     }
    ],
@@ -5067,15 +5536,25 @@
        "abstained": false,
        "evidence": "no date or dated event in the claim; cannot be judged",
        "reason": ""
+      },
+      {
+       "kind": "STATUS_AT_PUBLISH",
+       "ok": false,
+       "abstained": false,
+       "evidence": "corrected",
+       "reason": "support link to a source whose status was corrected before publication"
       }
      ],
-     "level": "IDENTITY_ONLY"
+     "role": "support",
+     "role_rule": {
+      "matched": null,
+      "kind": "no_name_in_claim"
+     },
+     "level": "UNSUPPORTED"
     }
    ],
-   "support": "IDENTITY_ONLY",
-   "supported_by": [
-    "5c082496-8835-4a87-93a3-bc3faf585401"
-   ]
+   "support": "UNSUPPORTED",
+   "supported_by": []
   },
   {
    "claim_id": "5f45d713-4d90-494e-b7ca-396d962a9dda",
@@ -5096,6 +5575,11 @@
        "reason": ""
       }
      ],
+     "role": "support",
+     "role_rule": {
+      "matched": null,
+      "kind": "no_name_in_claim"
+     },
      "level": "IDENTITY_ONLY"
     }
    ],
@@ -5123,6 +5607,11 @@
        "reason": ""
       }
      ],
+     "role": "support",
+     "role_rule": {
+      "matched": null,
+      "kind": "no_name_in_claim"
+     },
      "level": "IDENTITY_ONLY"
     }
    ],
@@ -5150,6 +5639,11 @@
        "reason": ""
       }
      ],
+     "role": "support",
+     "role_rule": {
+      "matched": null,
+      "kind": "no_name_in_claim"
+     },
      "level": "IDENTITY_ONLY"
     }
    ],
@@ -5189,6 +5683,11 @@
        "reason": "not in the document: 1.26"
       }
      ],
+     "role": "support",
+     "role_rule": {
+      "matched": null,
+      "kind": "no_name_in_claim"
+     },
      "level": "UNSUPPORTED"
     }
    ],
@@ -5225,6 +5724,11 @@
        "reason": "not in the document: 2, 96648"
       }
      ],
+     "role": "support",
+     "role_rule": {
+      "matched": null,
+      "kind": "no_name_in_claim"
+     },
      "level": "UNSUPPORTED"
     }
    ],
@@ -5250,6 +5754,11 @@
        "reason": ""
       }
      ],
+     "role": "support",
+     "role_rule": {
+      "matched": null,
+      "kind": "no_name_in_claim"
+     },
      "level": "IDENTITY_ONLY"
     }
    ],
@@ -5288,6 +5797,11 @@
        "reason": ""
       }
      ],
+     "role": "support",
+     "role_rule": {
+      "matched": null,
+      "kind": "no_name_in_claim"
+     },
      "level": "FIGURE_BOUND"
     }
    ],
@@ -5326,6 +5840,11 @@
        "reason": ""
       }
      ],
+     "role": "support",
+     "role_rule": {
+      "matched": null,
+      "kind": "no_name_in_claim"
+     },
      "level": "FIGURE_BOUND"
     }
    ],
@@ -5363,6 +5882,11 @@
        "reason": ""
       }
      ],
+     "role": "subject",
+     "role_rule": {
+      "matched": "Taylor",
+      "kind": "first_author"
+     },
      "level": "FIGURE_BOUND"
     }
    ],
@@ -5399,6 +5923,11 @@
        "reason": ""
       }
      ],
+     "role": "subject",
+     "role_rule": {
+      "matched": "Taylor",
+      "kind": "first_author"
+     },
      "level": "FIGURE_BOUND"
     }
    ],
@@ -5437,6 +5966,11 @@
        "reason": ""
       }
      ],
+     "role": "subject",
+     "role_rule": {
+      "matched": "Taylor",
+      "kind": "first_author"
+     },
      "level": "FIGURE_BOUND"
     }
    ],
@@ -5473,6 +6007,11 @@
        "reason": ""
       }
      ],
+     "role": "subject",
+     "role_rule": {
+      "matched": "Taylor",
+      "kind": "first_author"
+     },
      "level": "FIGURE_BOUND"
     }
    ],
@@ -5513,6 +6052,11 @@
        "reason": ""
       }
      ],
+     "role": "subject",
+     "role_rule": {
+      "matched": "Hviid",
+      "kind": "first_author"
+     },
      "level": "FIGURE_BOUND"
     }
    ],
@@ -5549,6 +6093,11 @@
        "reason": ""
       }
      ],
+     "role": "subject",
+     "role_rule": {
+      "matched": "Hviid",
+      "kind": "first_author"
+     },
      "level": "FIGURE_BOUND"
     }
    ],
@@ -5585,6 +6134,11 @@
        "reason": ""
       }
      ],
+     "role": "subject",
+     "role_rule": {
+      "matched": "Hviid",
+      "kind": "first_author"
+     },
      "level": "FIGURE_BOUND"
     }
    ],
@@ -5621,6 +6175,11 @@
        "reason": ""
       }
      ],
+     "role": "subject",
+     "role_rule": {
+      "matched": "Hviid",
+      "kind": "first_author"
+     },
      "level": "FIGURE_BOUND"
     }
    ],
@@ -5648,6 +6207,11 @@
        "reason": ""
       }
      ],
+     "role": "support",
+     "role_rule": {
+      "matched": null,
+      "kind": "no_name_in_claim"
+     },
      "level": "IDENTITY_ONLY"
     },
     {
@@ -5662,6 +6226,11 @@
        "reason": ""
       }
      ],
+     "role": "support",
+     "role_rule": {
+      "matched": null,
+      "kind": "no_name_in_claim"
+     },
      "level": "IDENTITY_ONLY"
     },
     {
@@ -5676,6 +6245,11 @@
        "reason": ""
       }
      ],
+     "role": "support",
+     "role_rule": {
+      "matched": null,
+      "kind": "no_name_in_claim"
+     },
      "level": "IDENTITY_ONLY"
     }
    ],
@@ -5715,6 +6289,11 @@
        "reason": "not in the document: 12, 18"
       }
      ],
+     "role": "support",
+     "role_rule": {
+      "matched": null,
+      "kind": "no_name_in_claim"
+     },
      "level": "UNSUPPORTED"
     }
    ],
@@ -5738,15 +6317,25 @@
        "abstained": false,
        "evidence": "no date or dated event in the claim; cannot be judged",
        "reason": ""
+      },
+      {
+       "kind": "STATUS_AT_PUBLISH",
+       "ok": false,
+       "abstained": false,
+       "evidence": "superseded",
+       "reason": "support link to a source whose status was superseded before publication"
       }
      ],
-     "level": "IDENTITY_ONLY"
+     "role": "support",
+     "role_rule": {
+      "matched": null,
+      "kind": "no_name_in_claim"
+     },
+     "level": "UNSUPPORTED"
     }
    ],
-   "support": "IDENTITY_ONLY",
-   "supported_by": [
-    "bf1f520d-1281-4fb5-b9b5-af9bf34d6834"
-   ]
+   "support": "UNSUPPORTED",
+   "supported_by": []
   },
   {
    "claim_id": "86bd0eb8-b199-4e73-8a19-619c1491f7b2",
@@ -5767,6 +6356,11 @@
        "reason": ""
       }
      ],
+     "role": "support",
+     "role_rule": {
+      "matched": null,
+      "kind": "no_name_in_claim"
+     },
      "level": "IDENTITY_ONLY"
     }
    ],
@@ -5804,6 +6398,11 @@
        "reason": "not in the document: 0"
       }
      ],
+     "role": "support",
+     "role_rule": {
+      "matched": null,
+      "kind": "no_name_in_claim"
+     },
      "level": "UNSUPPORTED"
     }
    ],
@@ -5913,6 +6512,11 @@
        "reason": ""
       }
      ],
+     "role": "subject",
+     "role_rule": {
+      "matched": "thimerosal",
+      "kind": "title_word"
+     },
      "level": "FIGURE_BOUND"
     }
    ],
@@ -5940,6 +6544,11 @@
        "reason": ""
       }
      ],
+     "role": "support",
+     "role_rule": {
+      "matched": null,
+      "kind": "no_name_in_claim"
+     },
      "level": "IDENTITY_ONLY"
     }
    ],
@@ -5981,6 +6590,11 @@
        "reason": ""
       }
      ],
+     "role": "support",
+     "role_rule": {
+      "matched": null,
+      "kind": "no_name_in_claim"
+     },
      "level": "FIGURE_BOUND"
     }
    ],
@@ -6008,6 +6622,11 @@
        "reason": ""
       }
      ],
+     "role": "support",
+     "role_rule": {
+      "matched": null,
+      "kind": "no_name_in_claim"
+     },
      "level": "IDENTITY_ONLY"
     }
    ],
@@ -6035,6 +6654,11 @@
        "reason": ""
       }
      ],
+     "role": "support",
+     "role_rule": {
+      "matched": null,
+      "kind": "no_name_in_claim"
+     },
      "level": "IDENTITY_ONLY"
     }
    ],
@@ -6062,6 +6686,11 @@
        "reason": ""
       }
      ],
+     "role": "support",
+     "role_rule": {
+      "matched": null,
+      "kind": "no_name_in_claim"
+     },
      "level": "IDENTITY_ONLY"
     },
     {
@@ -6076,6 +6705,11 @@
        "reason": ""
       }
      ],
+     "role": "support",
+     "role_rule": {
+      "matched": null,
+      "kind": "no_name_in_claim"
+     },
      "level": "IDENTITY_ONLY"
     },
     {
@@ -6090,6 +6724,11 @@
        "reason": ""
       }
      ],
+     "role": "support",
+     "role_rule": {
+      "matched": null,
+      "kind": "no_name_in_claim"
+     },
      "level": "IDENTITY_ONLY"
     }
    ],
@@ -6119,6 +6758,11 @@
        "reason": ""
       }
      ],
+     "role": "support",
+     "role_rule": {
+      "matched": null,
+      "kind": "no_name_in_claim"
+     },
      "level": "IDENTITY_ONLY"
     },
     {
@@ -6133,6 +6777,11 @@
        "reason": ""
       }
      ],
+     "role": "support",
+     "role_rule": {
+      "matched": null,
+      "kind": "no_name_in_claim"
+     },
      "level": "IDENTITY_ONLY"
     }
    ],
@@ -6161,6 +6810,11 @@
        "reason": ""
       }
      ],
+     "role": "support",
+     "role_rule": {
+      "matched": null,
+      "kind": "no_name_in_claim"
+     },
      "level": "IDENTITY_ONLY"
     }
    ],
@@ -6188,6 +6842,11 @@
        "reason": ""
       }
      ],
+     "role": "subject",
+     "role_rule": {
+      "matched": "medicines",
+      "kind": "title_word"
+     },
      "level": "IDENTITY_ONLY"
     }
    ],
@@ -6215,6 +6874,11 @@
        "reason": ""
       }
      ],
+     "role": "subject",
+     "role_rule": {
+      "matched": "medicines",
+      "kind": "title_word"
+     },
      "level": "IDENTITY_ONLY"
     }
    ],
@@ -6242,6 +6906,11 @@
        "reason": ""
       }
      ],
+     "role": "support",
+     "role_rule": {
+      "matched": null,
+      "kind": "no_name_in_claim"
+     },
      "level": "IDENTITY_ONLY"
     }
    ],
@@ -6269,6 +6938,11 @@
        "reason": ""
       }
      ],
+     "role": "support",
+     "role_rule": {
+      "matched": null,
+      "kind": "no_name_in_claim"
+     },
      "level": "IDENTITY_ONLY"
     }
    ],
@@ -6343,10 +7017,15 @@
        "kind": "CHRONOLOGY",
        "ok": false,
        "abstained": false,
-       "evidence": "General Medical Council fitness-to-practise determination on Wakefield, Walker-Smith and Murch",
-       "reason": "IMPOSSIBLE: the claim references General Medical Council fitness-to-practise determination on Wakefield, Walker-Smith and Murch, after the source's publication (1998)"
+       "evidence": "General Medical Council fitness-to-practise determination on Wakefield, Walker-Smith and Murch (findings of fact)",
+       "reason": "IMPOSSIBLE: the claim references General Medical Council fitness-to-practise determination on Wakefield, Walker-Smith and Murch (findings of fact), after the source's publication (1998)"
       }
      ],
+     "role": "subject",
+     "role_rule": {
+      "matched": "Wakefield",
+      "kind": "first_author"
+     },
      "level": "UNSUPPORTED"
     }
    ],
@@ -6374,6 +7053,11 @@
        "reason": "IMPOSSIBLE: the claim references explicit date 2010-02, after the source's publication (1998)"
       }
      ],
+     "role": "subject",
+     "role_rule": {
+      "matched": "Wakefield",
+      "kind": "first_author"
+     },
      "level": "UNSUPPORTED"
     },
     {
@@ -6401,6 +7085,11 @@
        "reason": "IMPOSSIBLE: the claim references explicit date 2010-02, after the source's publication (1998)"
       }
      ],
+     "role": "subject",
+     "role_rule": {
+      "matched": "Wakefield",
+      "kind": "first_author"
+     },
      "level": "UNSUPPORTED"
     }
    ],
@@ -6422,10 +7111,15 @@
        "kind": "CHRONOLOGY",
        "ok": false,
        "abstained": false,
-       "evidence": "General Medical Council fitness-to-practise determination on Wakefield, Walker-Smith and Murch",
-       "reason": "IMPOSSIBLE: the claim references General Medical Council fitness-to-practise determination on Wakefield, Walker-Smith and Murch, after the source's publication (1998)"
+       "evidence": "General Medical Council fitness-to-practise determination on Wakefield, Walker-Smith and Murch (findings of fact)",
+       "reason": "IMPOSSIBLE: the claim references General Medical Council fitness-to-practise determination on Wakefield, Walker-Smith and Murch (findings of fact), after the source's publication (1998)"
       }
      ],
+     "role": "subject",
+     "role_rule": {
+      "matched": "Wakefield",
+      "kind": "first_author"
+     },
      "level": "UNSUPPORTED"
     },
     {
@@ -6449,10 +7143,15 @@
        "kind": "CHRONOLOGY",
        "ok": false,
        "abstained": false,
-       "evidence": "General Medical Council fitness-to-practise determination on Wakefield, Walker-Smith and Murch",
-       "reason": "IMPOSSIBLE: the claim references General Medical Council fitness-to-practise determination on Wakefield, Walker-Smith and Murch, after the source's publication (1998)"
+       "evidence": "General Medical Council fitness-to-practise determination on Wakefield, Walker-Smith and Murch (findings of fact)",
+       "reason": "IMPOSSIBLE: the claim references General Medical Council fitness-to-practise determination on Wakefield, Walker-Smith and Murch (findings of fact), after the source's publication (1998)"
       }
      ],
+     "role": "subject",
+     "role_rule": {
+      "matched": "Wakefield",
+      "kind": "first_author"
+     },
      "level": "UNSUPPORTED"
     }
    ],
@@ -6480,6 +7179,11 @@
        "reason": "IMPOSSIBLE: the claim references explicit date 2010-05, after the source's publication (1998)"
       }
      ],
+     "role": "subject",
+     "role_rule": {
+      "matched": "Wakefield",
+      "kind": "first_author"
+     },
      "level": "UNSUPPORTED"
     },
     {
@@ -6521,6 +7225,13 @@
        "reason": ""
       },
       {
+       "kind": "STATUS_AT_PUBLISH",
+       "ok": true,
+       "abstained": false,
+       "evidence": "retracted",
+       "reason": "subject link: the claim is about a source whose status was retracted; publishable, marked as information"
+      },
+      {
        "kind": "FIGURE",
        "ok": false,
        "abstained": false,
@@ -6528,6 +7239,11 @@
        "reason": "not in the document: 435643"
       }
      ],
+     "role": "subject",
+     "role_rule": {
+      "matched": "Wakefield",
+      "kind": "first_author"
+     },
      "level": "UNSUPPORTED"
     },
     {
@@ -6562,10 +7278,15 @@
        "kind": "CHRONOLOGY",
        "ok": false,
        "abstained": false,
-       "evidence": "General Medical Council fitness-to-practise determination on Wakefield, Walker-Smith and Murch",
-       "reason": "IMPOSSIBLE: the claim references General Medical Council fitness-to-practise determination on Wakefield, Walker-Smith and Murch, after the source's publication (1998)"
+       "evidence": "General Medical Council fitness-to-practise determination on Wakefield, Walker-Smith and Murch (findings of fact)",
+       "reason": "IMPOSSIBLE: the claim references General Medical Council fitness-to-practise determination on Wakefield, Walker-Smith and Murch (findings of fact), after the source's publication (1998)"
       }
      ],
+     "role": "subject",
+     "role_rule": {
+      "matched": "Wakefield",
+      "kind": "first_author"
+     },
      "level": "UNSUPPORTED"
     },
     {
@@ -6576,10 +7297,15 @@
        "kind": "CHRONOLOGY",
        "ok": false,
        "abstained": false,
-       "evidence": "General Medical Council fitness-to-practise determination on Wakefield, Walker-Smith and Murch",
-       "reason": "IMPOSSIBLE: the claim references General Medical Council fitness-to-practise determination on Wakefield, Walker-Smith and Murch, after the source's publication (1998)"
+       "evidence": "General Medical Council fitness-to-practise determination on Wakefield, Walker-Smith and Murch (findings of fact)",
+       "reason": "IMPOSSIBLE: the claim references General Medical Council fitness-to-practise determination on Wakefield, Walker-Smith and Murch (findings of fact), after the source's publication (1998)"
       }
      ],
+     "role": "subject",
+     "role_rule": {
+      "matched": "Wakefield",
+      "kind": "first_author"
+     },
      "level": "UNSUPPORTED"
     }
    ],
@@ -6657,6 +7383,11 @@
        "reason": "IMPOSSIBLE: the claim references explicit date 2004, after the source's publication (1998)"
       }
      ],
+     "role": "subject",
+     "role_rule": {
+      "matched": "Wakefield",
+      "kind": "first_author"
+     },
      "level": "UNSUPPORTED"
     }
    ],
@@ -6735,6 +7466,11 @@
        "reason": ""
       }
      ],
+     "role": "subject",
+     "role_rule": {
+      "matched": "thimerosal",
+      "kind": "title_word"
+     },
      "level": "IDENTITY_ONLY"
     }
    ],
@@ -6762,6 +7498,11 @@
        "reason": ""
       }
      ],
+     "role": "subject",
+     "role_rule": {
+      "matched": "Taylor",
+      "kind": "first_author"
+     },
      "level": "IDENTITY_ONLY"
     }
    ],
@@ -6787,8 +7528,20 @@
        "abstained": false,
        "evidence": "no date or dated event in the claim; cannot be judged",
        "reason": ""
+      },
+      {
+       "kind": "STATUS_AT_PUBLISH",
+       "ok": true,
+       "abstained": false,
+       "evidence": "corrected",
+       "reason": "subject link: the claim is about a source whose status was corrected; publishable, marked as information"
       }
      ],
+     "role": "subject",
+     "role_rule": {
+      "matched": "siblings",
+      "kind": "title_word"
+     },
      "level": "IDENTITY_ONLY"
     }
    ],
@@ -6825,6 +7578,11 @@
        "reason": ""
       }
      ],
+     "role": "support",
+     "role_rule": {
+      "matched": null,
+      "kind": "no_name_in_claim"
+     },
      "level": "FIGURE_BOUND"
     }
    ],
@@ -6863,6 +7621,11 @@
        "reason": ""
       }
      ],
+     "role": "support",
+     "role_rule": {
+      "matched": null,
+      "kind": "no_name_in_claim"
+     },
      "level": "FIGURE_BOUND"
     }
    ],
@@ -6901,6 +7664,11 @@
        "reason": ""
       }
      ],
+     "role": "support",
+     "role_rule": {
+      "matched": null,
+      "kind": "no_name_in_claim"
+     },
      "level": "FIGURE_BOUND"
     }
    ],
@@ -6938,6 +7706,11 @@
        "reason": ""
       }
      ],
+     "role": "subject",
+     "role_rule": {
+      "matched": "Taylor",
+      "kind": "first_author"
+     },
      "level": "FIGURE_BOUND"
     }
    ],
@@ -6965,11 +7738,11 @@
   "claims": {
    "total": 128,
    "by_support": {
-    "IDENTITY_ONLY": 41,
-    "UNSUPPORTED": 31,
-    "FIGURE_BOUND": 56
+    "IDENTITY_ONLY": 36,
+    "UNSUPPORTED": 41,
+    "FIGURE_BOUND": 51
    },
-   "identity_only_rate": 0.32
+   "identity_only_rate": 0.281
   }
  },
  "flipped": false
