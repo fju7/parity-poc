@@ -22,5 +22,13 @@
   "sha256": "f58bdbdd4b9b0cbd4e38976fbd9ee813a96b19bcd92e251fcd3c91371afb6084",
   "source_url": "https://www.bmj.com/content/342/bmj.c7452",
   "supplied_by": "Fred Ugast"
+ },
+ "doi:10.1136/bmj.d1678": {
+  "path": "data/verify/docs/95/953b3c5010ca76c541f5b76c5fab69e90b7f30f6853094e4dc6859309e8d6534.txt.gz",
+  "record": "data/verify/supplied/953b3c5010ca76c541f5b76c5fab69e90b7f30f6853094e4dc6859309e8d6534.json",
+  "retrieved_at": "2026-09-15T21:16:13+00:00",
+  "sha256": "953b3c5010ca76c541f5b76c5fab69e90b7f30f6853094e4dc6859309e8d6534",
+  "source_url": "https://www.bmj.com/content/342/bmj.d1678",
+  "supplied_by": "Fred Ugast"
  }
 }

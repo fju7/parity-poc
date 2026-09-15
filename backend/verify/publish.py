@@ -288,9 +288,33 @@ def erratum_check(figs: list[str], src: dict) -> dict:
             "reason": "the erratum does not mention any figure this claim asserts", "erratum": errata}
 
 
+WITHHELD_CLAIMS = BACKEND / "data" / "verify" / "withheld_claims.json"
+
+
+def operator_withheld(claim_id: str) -> dict | None:
+    """The operator's withhold for a claim, or None. Refuse-only: this register
+    can withhold a claim whose content is not in its source; it can never admit
+    one (data/verify/withheld_claims.json, rule in its _schema)."""
+    try:
+        return (json.loads(WITHHELD_CLAIMS.read_text(encoding="utf-8")).get("claims") or {}).get(str(claim_id))
+    except FileNotFoundError:
+        return None
+
+
 def gate_claim(claim: dict, links: list[dict], sources: dict[str, dict]) -> dict:
     """One signal_claims row against each of its surviving sources."""
     text = claim.get("claim_text") or ""
+    held = operator_withheld(claim["id"])
+    if held:
+        # No binding runs: the operator has read the source and the content is
+        # not there. The record says who, when, and what was looked for.
+        return {"claim_id": claim["id"], "claim_text": text, "category": claim.get("category"),
+                "figures": [], "years": [], "quotation": False, "support": "UNSUPPORTED", "supported_by": [],
+                "withheld_reason": "OPERATOR_WITHHELD: " + held["reason"],
+                "operator_withheld": {k: held.get(k) for k in ("reason", "checked_against", "withheld_by", "withheld_on", "ruled_by")},
+                "per_source": [{"source_id": l["source_id"], "level": "UNSUPPORTED", "role": None, "role_rule": None,
+                                "bindings": [{"kind": "OPERATOR_WITHHELD", "ok": False, "abstained": False, "evidence": held.get("checked_against", ""),
+                                              "reason": held["reason"]}]} for l in links]}
     # The figures a claim commits to, LESS the years CHRONOLOGY owns. Before
     # 2026-09-15 "the Smeeth 2004 study found no ..." counted 2004 as a figure,
     # FIGURE then said "no figure in assertion" once the date was stripped, and

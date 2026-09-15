@@ -1,0 +1,25 @@
+{
+ "sha256": "953b3c5010ca76c541f5b76c5fab69e90b7f30f6853094e4dc6859309e8d6534",
+ "retrieved_at": "2026-09-15T21:16:13+00:00",
+ "supplied_by": "Fred Ugast",
+ "source_url": "https://www.bmj.com/content/342/bmj.d1678",
+ "provenance": "OPERATOR_SUPPLIED",
+ "identifier": "doi:10.1136/bmj.d1678",
+ "registry": "crossref",
+ "registry_heading": "Wakefield’s article linking MMR vaccine and autism was fraudulent",
+ "bytes": 238114,
+ "text_layer": "DECLARED_SOUND",
+ "chars": 2651,
+ "document_titles": [
+  "Intended for healthcare professionals",
+  "Corrections",
+  "Wakefield’s article linking MMR vaccine and                                    Post"
+ ],
+ "heading": {
+  "kind": "HEADING",
+  "ok": true,
+  "evidence": "registry title matches the document's title line (ratio 0.83): article, linking, mmr, vaccine, wakefield",
+  "reason": ""
+ },
+ "status": "ADMITTED"
+}

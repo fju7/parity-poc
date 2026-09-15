@@ -1,7 +1,8 @@
 -- Migration 092: the BMJ's competing-interests correction to Godlee's editorial
 -- enters the corpus as a source, and the editorial's row records it.
 --
--- AUTHORED 2026-09-15, NOT APPLIED. Tier-1 review required (Fred). Idempotent.
+-- AUTHORED 2026-09-15; APPROVED by the operator the same day with one change
+-- (corrected_by cites the admitted d1678 document, not a curator's note). Idempotent.
 -- (The operator asked for this as "091"; 091 became the approved re-cite of
 -- claim 19214753 so that the re-freeze could follow it -- numbering is order
 -- of application.)
@@ -57,7 +58,12 @@ UPDATE signal_sources s
          'corrected_by', jsonb_build_object('doi', '10.1136/bmj.d1678', 'date', '2011-03-15',
                                             'kind', 'competing_interests',
                                             'summary', 'undeclared Merck and GSK advertising and sponsorship revenue',
-                                            'source', 'hand-curated 2026-09-15; not in Crossref'))
+                                            -- the relation's evidence is the admitted document, not a curator's note
+                                            'evidence', jsonb_build_object('provenance', 'OPERATOR_SUPPLIED',
+                                                                           'sha256', '953b3c5010ca76c541f5b76c5fab69e90b7f30f6853094e4dc6859309e8d6534',
+                                                                           'supplied_by', 'Fred Ugast', 'supplied_on', '2026-09-15',
+                                                                           'record', 'backend/data/verify/supplied/953b3c5010ca76c541f5b76c5fab69e90b7f30f6853094e4dc6859309e8d6534.json',
+                                                                           'heading_ratio', 0.83)))
   FROM signal_issues i
  WHERE i.id = s.issue_id AND i.slug = 'mmr-vaccine-autism'
    AND s.url = 'https://doi.org/10.1136/bmj.c7452'

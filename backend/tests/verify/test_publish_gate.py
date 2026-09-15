@@ -8,6 +8,7 @@ link-role rule and its audit record: which rule fired and what matched.
 
 Wakefield 1998 is the reference case, replayed from fixtures.
 """
+import json
 import os, sys
 from pathlib import Path
 BACKEND = Path(__file__).resolve().parents[2]; sys.path.insert(0, str(BACKEND))
@@ -95,3 +96,34 @@ def test_a_claim_whose_only_figure_is_a_year_is_source_confirmed_not_figure_boun
     with_figure = {"id": "c4", "claim_text": "The Wakefield 1998 case series enrolled only 12 children.", "category": "x"}
     out2 = gate_claim(with_figure, [{"claim_id": "c4", "source_id": "src-wake"}], {"src-wake": src})
     assert out2["figures"] == ["12"] and out2["support"] == "FIGURE_BOUND"
+
+
+def test_an_operator_withheld_claim_is_unsupported_with_the_reason_and_no_binding_runs(monkeypatch, tmp_path):
+    """data/verify/withheld_claims.json is refuse-only: it can withhold a claim
+    whose content the operator found absent from its source; nothing in it can
+    admit one. The record carries who, when and what was checked."""
+    from verify import publish
+    reg = tmp_path / "withheld_claims.json"
+    reg.write_text(json.dumps({"claims": {"c9": {"reason": "asserts a finding the study did not make: 'no dose-response'",
+                                                   "checked_against": "the abstract", "withheld_by": "test", "withheld_on": "2026-09-15", "ruled_by": "the operator"}}}))
+    monkeypatch.setattr(publish, "WITHHELD_CLAIMS", reg)
+    src = _wakefield_source()
+    out = gate_claim({"id": "c9", "claim_text": "The Wakefield 1998 case series enrolled only 12 children.", "category": "x"},
+                     [{"claim_id": "c9", "source_id": "src-wake"}], {"src-wake": src})
+    assert out["support"] == "UNSUPPORTED" and out["withheld_reason"].startswith("OPERATOR_WITHHELD: asserts a finding")
+    assert out["operator_withheld"]["withheld_by"] == "test" and out["per_source"][0]["bindings"][0]["kind"] == "OPERATOR_WITHHELD"
+    assert not any(b["kind"] in ("FIGURE", "CHRONOLOGY", "SPAN") for b in out["per_source"][0]["bindings"])   # nothing else ran
+    # an unlisted claim is untouched: the register cannot admit, only withhold
+    out2 = gate_claim({"id": "c10", "claim_text": "The Wakefield 1998 case series enrolled only 12 children.", "category": "x"},
+                      [{"claim_id": "c10", "source_id": "src-wake"}], {"src-wake": src})
+    assert out2["support"] == "FIGURE_BOUND"
+
+
+def test_every_row_of_the_live_withhold_register_is_a_real_mmr_claim_with_a_reason():
+    from verify import publish
+    reg = json.loads(publish.WITHHELD_CLAIMS.read_text())
+    rec = json.loads((Path(publish.PUBLISHED) / "mmr-vaccine-autism" / "latest.json").read_text())
+    ids = {c["claim_id"] for c in rec["claims"]}
+    for cid, row in reg["claims"].items():
+        assert cid in ids, cid
+        assert row["reason"] and row["checked_against"] and row["withheld_by"] and row["withheld_on"] and row["ruled_by"]

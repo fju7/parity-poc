@@ -1,0 +1,45 @@
+{
+ "_schema": {
+  "what": "Claims withheld by the operator because their content is not in their source. Consumed by verify/publish.gate_claim: a listed claim is UNSUPPORTED with withheld_reason OPERATOR_WITHHELD and no binding runs. The direction is refuse-only -- this file can withhold, it can never admit.",
+  "rule": "When a claim's content is not in its source, the default is to WITHHOLD THE CLAIM, not to find a source that supports it. Searching for evidence that fits a sentence a model wrote is the fabrication defect running backwards. A re-cite is legitimate only when the finding demonstrably exists and was attributed to the wrong document -- and the sentence itself does not name the wrong study.",
+  "columns": {
+   "claim_id": "signal_claims.id",
+   "reason": "what the source does not say",
+   "checked_against": "the source and the text that was read",
+   "withheld_by": "who",
+   "withheld_on": "date",
+   "ruled_by": "the operator's instruction"
+  },
+  "register": "every row has a line in docs/signal-corpus-freeze.md"
+ },
+ "claims": {
+  "b8b27c3b-c497-477e-aed9-7ce9305b9f9b": {
+   "reason": "asserts a finding the study did not make: 'no dose-response relationship' -- Madsen 2002 compared vaccinated with unvaccinated children; the fetched abstract contains no dose analysis (the word 'dose' does not appear)",
+   "checked_against": "doi:10.1056/nejmoa021134, Europe PMC abstract, 1,829 chars",
+   "withheld_by": "Claude Opus 5 on the operator's direction",
+   "withheld_on": "2026-09-15",
+   "ruled_by": "Fred Ugast, 2026-09-15: 'Withhold three; do not re-cite them' + f0b091fa after the Taylor check"
+  },
+  "6bbf8769-8079-411f-995e-63314469fc7e": {
+   "reason": "asserts a finding the study did not make: 'high-risk subgroups including children with preterm birth or low birth weight' -- Hviid 2019's fetched abstract defines subgroups by sibling history and 'autism risk factors (based on a disease risk score)'; neither 'preterm' nor 'birth weight' appears",
+   "checked_against": "doi:10.7326/m18-2101, Europe PMC abstract, 2,161 chars",
+   "withheld_by": "Claude Opus 5 on the operator's direction",
+   "withheld_on": "2026-09-15",
+   "ruled_by": "Fred Ugast, 2026-09-15: 'Withhold three; do not re-cite them' + f0b091fa after the Taylor check"
+  },
+  "62c10907-ca94-4b32-9699-d69dc7be31fd": {
+   "reason": "asserts a description the source does not carry: 'published in 2020, is described as the most comprehensive systematic review on MMR vaccine safety to date' -- the cited version is pub5 (22 Nov 2021); 'comprehensive' does not appear; 'described as' by no one in the text",
+   "checked_against": "doi:10.1002/14651858.cd004407.pub5, Cochrane abstract, 6,786 chars",
+   "withheld_by": "Claude Opus 5 on the operator's direction",
+   "withheld_on": "2026-09-15",
+   "ruled_by": "Fred Ugast, 2026-09-15: 'Withhold three; do not re-cite them' + f0b091fa after the Taylor check"
+  },
+  "f0b091fa-86cf-42e2-8a5c-36189da5fba6": {
+   "reason": "attributes to Smeeth 2004 a finding that is Taylor 1999's ('no temporal association between onset of autism within 1 or 2 years after vaccination'; 'no significant temporal clustering for age at onset of parental concern ... with the exception of a single interval within 6 months'). The finding exists, but the claim names the wrong study IN ITS OWN WORDS, so a re-cite would put a 'Smeeth 2004' sentence under a Taylor 1999 citation; and Taylor's finding carries an exception the claim does not. Withheld; the wording is the operator's to change.",
+   "checked_against": "Smeeth doi:10.1016/s0140-6736(04)17020-7 (no clustering analysis in the fetched abstract) and Taylor 1999 doi:10.1016/s0140-6736(99)01239-8 (sentences quoted)",
+   "withheld_by": "Claude Opus 5 on the operator's direction",
+   "withheld_on": "2026-09-15",
+   "ruled_by": "Fred Ugast, 2026-09-15: 'Withhold three; do not re-cite them' + f0b091fa after the Taylor check"
+  }
+ }
+}
