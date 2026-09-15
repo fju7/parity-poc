@@ -50,7 +50,7 @@ export function TopicLine({ publication, recheck }) {
       {" · "}{retractedAtPublication} source{retractedAtPublication === 1 ? "" : "s"} retracted before publication
       {" · "}{newlyFlagged} source{newlyFlagged === 1 ? "" : "s"} newly flagged since {fmt(publication.published_at)}
       {recheck?.run_at ? <> (last re-check {fmt(recheck.run_at)})</> : null}
-      {" · "}{idOnly} of {shown} claims source-confirmed only (wording not machine-checked)
+      {" · "}{idOnly} of {shown} claims could not be matched against their sources
       {" — see markers below. "}
       <a href="/methodology" className="text-[#0D7377] hover:underline">What this means →</a>
     </p>
@@ -84,9 +84,10 @@ export function ClaimMarkers({ claimId, publication, recheck }) {
       })}
       {support === "IDENTITY_ONLY" && (
         <div className={NOTE}>
-          <span className="font-semibold">Source confirmed; wording not machine-checked. </span>
-          We verified that the cited document is the one named and fetched its text. This claim carries no figure
-          or quotation we could match against it, so its wording rests on the extraction, not on a check.
+          <span className="font-semibold">Source identified; not checked against it. </span>
+          We confirmed the cited document is the one named and we hold its full text. This claim states no figure
+          and quotes no phrase, so there was nothing in it a machine could match against that text — we have not
+          checked that the document says this.
         </div>
       )}
       {flags.map((f, i) => {

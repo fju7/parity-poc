@@ -21,7 +21,7 @@ const GATES = [
     name: "Every figure in a claim is found in its source",
     where: "backend/verify/bind.py (FIGURE, SPAN, HEADING, CHRONOLOGY), verify/publish.py",
     text:
-      "A claim that states a number must have that number present in the fetched text of a source it cites; a claim that quotes must quote verbatim; and a source cannot support a claim about something that happened after it was published. Claims that fail are withheld from the page. Claims whose sources resolved but which state no figure are shown and marked as identity-only: the source is real, the specific figure was not checked because there was none to check.",
+      "A claim that states a number must have that number present in the fetched text of a source it cites; a claim that quotes must quote verbatim; and a source cannot support a claim about something that happened after it was published. Claims that fail are withheld from the page. Claims whose sources resolved but which state no figure and quote no phrase are shown and marked \"Source identified; not checked against it\": the cited document is the one named and its text is held, but nothing in the claim could be matched against that text, so the page has not checked that the document says what the claim says. The topic header counts these as claims that could not be matched against their sources.",
   },
   {
     name: "Retractions and corrections are checked",
@@ -33,7 +33,7 @@ const GATES = [
     name: "The record is frozen and shown",
     where: "backend/verify/publish.py (the publication record); frontend/src/components/signal/RecordMarkers.jsx",
     text:
-      "What each claim rested on at the moment of publication — which source, which binding, what the registry said — is written to a record that is stored and displayed. The markers on the topic page (\"withheld\", \"identity-only\", \"retracted before publication\") come from that record, not from a model.",
+      "What each claim rested on at the moment of publication — which source, which binding, what the registry said — is written to a record that is stored and displayed. The markers on the topic page (\"withheld\", \"Source identified; not checked against it\", \"retracted before publication\") come from that record, not from a model.",
   },
   {
     name: "The prose is checked against the claims",

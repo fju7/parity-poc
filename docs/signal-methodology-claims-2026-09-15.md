@@ -25,7 +25,7 @@ Rendered at `signal.civicscale.ai/methodology`.
 | A quotation must be verbatim | `verify/bind.py bind_span`; `SPAN_BOUND` |
 | A source cannot support a claim about an event after its date | `verify/chronology.py bind_chronology`; applied in `verify/publish.py` |
 | Claims that fail are withheld from the page | `frontend/src/SignalApp.jsx` filters claims to `topic_publications.supported_claim_ids` |
-| Claims with no figure are shown, marked identity-only | `verify/publish.py` `IDENTITY_ONLY`; `RecordMarkers.jsx` (`support === "IDENTITY_ONLY"`) |
+| Claims with no figure and no quotation are shown, marked "Source identified; not checked against it"; the header counts them as claims that could not be matched against their sources (wording changed 2026-09-15 evening after the operator's read: "source confirmed" implied a check that did not happen) | `verify/publish.py` `IDENTITY_ONLY`; `RecordMarkers.jsx` (`support === "IDENTITY_ONLY"`, `TopicLine`) |
 | Retraction / correction / expression of concern checked at publication | `verify/status.py check`, called from `verify/publish.py` |
 | …and every week; monthly re-fetch and re-bind | `backend/scripts/recheck_topic.py --kind status` / `--kind bindings`; `.github/workflows/verify-gates.yml` (cron `0 12 * * 1` weekly, `0 11 1-7 * 1` monthly) |
 | A change marks the page, never un-publishes it | `recheck_topic.py` docstring ("never edits the record, never flips status"); `RecordMarkers.jsx TopicLine` renders re-check flags |
