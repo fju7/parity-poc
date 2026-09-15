@@ -2416,6 +2416,42 @@ is done. Items 2-4 touch no page and no corpus, so they were done now.
   gets a row in docs/signal-corpus-freeze.md (table added) before re-freeze.
   Fred starts with the Lancet retraction notice and Deer's BMJ article.
 
+## Session SAP-Signal-6 — six hand-fetched documents; the corpus's first supplied sources (2026-09-15)
+- IDENTITY, by pdftotext, before use: Lancet notice (6 pp, 375(9713):445, 6 Feb
+  2010, Editors of The Lancet; no "fraud"); Godlee c7452 (5 pp, 6 Jan 2011,
+  "elaborate fraud" once); "…fraudulent The BMJ.pdf" without the underscore
+  is bmj.d1678, the 15 Mar 2011 competing-interests CORRECTION, same title;
+  Walker-Smith.pdf = [2012] EWHC 503 (Admin), 76 pp, 7 Mar 2012; Warner v HHS
+  20-225V fees decision 23 Jan 2024 (unrelated); omnibus_autism_20021122_0
+  27 pp / 27 chars, no text layer, the 2002 Autism General Order; and
+  gmc-charge-sheet.pdf is in fact the 143-page 28 Jan 2010 determination.
+- ADMITTED (data/verify/supplied/): the Lancet notice, Deer c5347, Godlee
+  c7452. Re-freeze 0e25a32: 31 of 35, 63 / 43 / 22; seven claims moved, 0
+  bound -> unbound. "May 2010" stays withheld against the notice
+  (CHRONOLOGY); 'an elaborate fraud' refused on SPAN against Deer -- it is
+  Godlee's sentence and waits on MIGRATION 090 (AUTHORED, NOT APPLIED: Godlee
+  as a source + claim 0eda21d2 re-cited to it; Walker-Smith v GMC as a URL
+  source from caselaw.nationalarchives.gov.uk, linked to no claim).
+- Three tightenings forced by the real files: (1) the document's OWN DOI is
+  the FIRST DOI in its head and must be the offered one (d1678 admitted as
+  c7452 otherwise -- same title); (2) title candidates are non-sentence short
+  lines among the first eight, singly and joined with the next (browser
+  chrome above a wrapped title refused the Lancet notice at 0.75); the head
+  window is 400 chars, containment only; (3) SPAN accepts a single-quoted
+  span whose quotes are not attached to letters ('an elaborate fraud'),
+  possessives still excluded. numbers: "14·7 million" is 14,700,000 (the
+  Lancet's middle-dot decimal) -- was read as 7 million.
+- NEGATIVE CONTROLS in tests/verify/fixtures/supplied/: Warner (REFUSED_HEADING
+  under any DOI, REFUSED_REGISTRY as itself), d1678 (REFUSED on own-DOI).
+- events.json: the 2010-01-28 GMC date now carries two-source corroboration
+  (the notice's text; the GMC document's header); reviewed_by still null.
+- PHASE 5 GAP written up, not built: docs/legal-sources-have-no-status-
+  registry-2026-09-15.md -- no registry surfaces that a court quashed a
+  determination; "stable" is false for anything subject to appeal; every
+  legal source needs a recorded human re-check interval. Walker-Smith is the
+  worked example.
+- STILL: no --flip, siteMeta.js untouched.
+
 ## Standing instructions for every session
 1. Read this file at the start of every session
 2. Verify all file paths before issuing commands

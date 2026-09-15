@@ -1,15 +1,16 @@
-# mmr-vaccine-autism — operator read, 2026-09-15 (final, record 22387c7)
+# mmr-vaccine-autism — operator read, 2026-09-15 (final, record 0e25a32)
 
-One page, for the human read the design requires (§6a) before any flip. Record `20260915T184633+0000-22387c7`, gate `7338993` (tree `22387c7`), stored in `topic_publications` and served to the draft page. This is the build finished: CHRONOLOGY, the publish gate on already-changed sources, the erratum precision check, the two retracted markers, the corpus corrections 081–083, the six refused plain summaries (088–089), and the word-form figure rule.
+One page, for the human read the design requires (§6a) before any flip. Record `20260915T190740+0000-0e25a32`, gate `7338993` (tree `0e25a32`), stored in `topic_publications` and served to the draft page. This is the build finished: CHRONOLOGY, the publish gate on already-changed sources, the erratum precision check, the two retracted markers, the corpus corrections 081–083, the six refused plain summaries (088–089), the word-form figure rule, and two hand-fetched documents admitted under `OPERATOR_SUPPLIED`.
 
-**29 of 35 sources survive · 58 claims figure-bound · 41 source-confirmed only (32%) · 29 withheld.** Status of survivors at freeze: Wakefield 1998 ×2 retracted (subject-only on the page), Jain 2015 ×2 corrected (JAMA erratum), 6 agency/payer documents with no status registry, 19 unchanged — Cochrane is now cited at its current version, pub5. These are the figures the scratch re-run predicted, source for source and claim for claim.
+**31 of 35 sources survive · 63 claims figure-bound · 43 source-confirmed only (34%) · 22 withheld.** Status of survivors at freeze: Wakefield 1998 ×2 retracted (subject-only on the page), Jain 2015 ×2 corrected (JAMA erratum), the Lancet retraction notice (a `retraction_notice` about Wakefield 1998), 6 agency/payer documents with no status registry, 20 unchanged — Cochrane is now cited at its current version, pub5. **Two survivors were fetched by a person, not the machine**, and the record says so on each: the Lancet retraction notice (sha256 `b70a2200…`) and Deer's BMJ investigation (`79373a9f…`), both supplied by Fred Ugast on 2026-09-15 after the registry's title was found in the file. Seven claims moved on them; none moved the other way.
 
-> One re-freeze before this one, `20260915T184013+0000-b902246`, came back 26 of 35: Europe PMC stopped answering for four calls mid-run and three abstracts that had bound (Wakefield 1998, Taylor 1999, Madsen 2002) were withheld as "nothing retrieved". That record is kept in the history and was never the page for longer than six minutes. Its lesson is in the code: the fetch path now records `fetch: REGISTRY_UNAVAILABLE europepmc: HTTP 429 …` apart from "nothing retrieved", and a run that says so is a run to repeat when the registry answers, not one to sign.
+> The two records before this one: `22387c7` (29 of 35, 58/41/29 — the word-form fix, no supplied documents) and `b902246` (26 of 35 — Europe PMC stopped answering mid-run; kept, not signed). Still pending: migration 090 (Godlee's editorial as a source, the 'elaborate fraud' claim re-cited to it; Walker-Smith v GMC as a source) — after it, one more re-freeze and this page changes again.
 
 **Sign-off:** the freeze register has a pending row. Reader name, date and ruling go there either way.
 
 ## What changed since the 14 Sep read
 
+* **Two documents the machine could not get were fetched by hand and admitted** (`verify/supplied.py`): the Lancet retraction notice (Elsevier serves the machine a shell) and Deer's BMJ investigation (403). Admission required the registry's title to be found in the file; binding then ran unchanged. The notice recovers "paid by lawyers … 1998" (figure-bound on the date), "full retraction … in February 2010" (month precision; "struck off in May 2010" stays withheld — the notice predates it), and two identity-only claims (the GMC findings; "removed the primary published basis"). Deer recovers the £435,643, the "all 12 children" data-alteration claims. The notice says "incorrect" and "proven to be false", not fraud; nothing on the page makes it say more. 'an elaborate fraud' is Godlee's editorial, not Deer's feature: SPAN refused it against Deer and it waits on migration 090.
 * **A bare "one" or "zero" in a claim is no longer a figure** (gate 7338993). "one of the strongest natural experiments" is an article; "vaccination rates dropping to zero" asserts absence. Three claims recover: the Honda "strongest natural experiments" claim (source-confirmed only), and the two Yokohama "dropped to zero after the 1993 withdrawal" claims (figure-bound). The fourth, "…rose from 48.4 to 117.2 per 10,000, despite zero MMR vaccination", stays withheld — for the right reason now: 48.4, 117.2 and 10,000 are not in the abstract. No bound claim became unbound. "one dose", "zero cases" and every other counting word are unchanged.
 * **Two withholdings re-described** (section 3): the RR 0.92 claims say the upper bound is 1.26; Madsen 2002's abstract says 1.24. That is not a retrieval limit — the claim's figure disagrees with the source's — and it is the gate's best result on this record.
 * **Six plain summaries removed** (088, 089): four added a fact the claim and source do not carry, one computed an interval the summariser was never handed, one sat on a withheld claim. The claims render without them.
@@ -22,8 +23,12 @@ One page, for the human read the design requires (§6a) before any flip. Record 
 
 > This page covers the epidemiological evidence on MMR vaccination and autism. The retraction of Wakefield 1998, the General Medical Council findings and the Omnibus Autism Proceeding are matters of record that this page cites but does not itself document; see the sources marked retracted.
 
-## 2. Eleven IDENTITY_ONLY claims, weakest first (of 41) — each will carry *"Source confirmed; wording not machine-checked"*
+## 2. Thirteen IDENTITY_ONLY claims, weakest first (of 43) — each will carry *"Source confirmed; wording not machine-checked"*
 
+- The UK General Medical Council found that the Wakefield et al. research involved undisclosed financial conflicts of interest, ethical violations in the treatment of child subjects (including invasive procedures without ethical approval), data manipulation, and dishonesty — constituting serious professional misconduct.  
+  ← Retraction—Ileal-lymphoid-nodular hyperplasia… (The Lancet, 2010)  *(recovered on the hand-fetched notice; the notice says "incorrect" and "proven to be false" about consecutive referral and ethics approval — it does not say "data manipulation" or "dishonesty", and the GMC findings on ethics approval were quashed for Walker-Smith in 2012: see the wording list)*
+- The retraction of the Wakefield et al. paper removed the primary published basis for the MMR-autism hypothesis.  
+  ← Retraction—Ileal-lymphoid-nodular hyperplasia… (The Lancet, 2010)  *(recovered; editorial framing — the notice retracts, it does not say what the paper was the basis of)*
 - The Honda et al. Japan study is considered one of the strongest natural experiments disproving a causal link between MMR vaccine and autism.  
   ← No effect of MMR withdrawal on the incidence of autism: a total population study  *(recovered at gate 7338993; "one of" was read as a figure)*
 - The Madsen et al. Danish cohort study was published in the New England Journal of Medicine.  
@@ -47,68 +52,54 @@ One page, for the human read the design requires (§6a) before any flip. Record 
 - The biological mechanisms proposed by Wakefield — including measles virus persistence in gut tissue and 'leaky gut' leading to neurological damage — were not supported by credible scientific evidence, according to the Institute of Medicine's Immunization Safety Review Committee.  
   ← Immunization Safety Review: Vaccines and Autism; Immunization Safety Review: Vaccines and Autism 
 
-Trivia ("was published in…"), editorial framing ("anti-vaccine advocates conflated…", "carry regulatory weight", "one of the strongest"), and agency prose the fetch confirms exists but nothing anchors. 32%; should trend down by rewriting.
+Trivia ("was published in…"), editorial framing ("anti-vaccine advocates conflated…", "carry regulatory weight", "one of the strongest"), and agency prose the fetch confirms exists but nothing anchors. 34%; should trend down by rewriting.
 
-## 3. All 29 withheld claims, one line each
+## 3. All 22 withheld claims, one line each
 
-- The Omnibus Autism Proceeding ruling rejected both the 'MMR plus thimerosal' causation theory and the standalone MMR-autism theory, finding that epide…  
-  WHY: source unretrievable: Omnibus Autism Proceeding: Special M (fetch: HTTP 404)
-- Among children with an older sibling with ASD, MMR vaccination was not associated with increased autism risk, with a hazard ratio of 0.80 (95% CI 0.55…  
-  WHY: ERRATUM unreadable: erratum text could not be read (unretrievable (publisher HTTP 203)); it cannot be said not
+- The Omnibus Autism Proceeding ruling rejected both the 'MMR plus thimerosal' causation theory and the standalone MMR-autism theory, finding that epid…  
+  WHY: source unretrievable: Omnibus Autism Proceeding: Special M (fetch: HTTP 404); SOURCE: fetch: HTTP 404
+- Among children with an older sibling with ASD, MMR vaccination was not associated with increased autism risk, with a hazard ratio of 0.80 (95% CI 0.5…  
+  WHY: ERRATUM unreadable: erratum text could not be read (unretrievable (publisher HTTP 203)); it cannot b
 - The Danish cohort study found no temporal clustering of autism diagnoses in the 2-year period following MMR vaccination.  
   WHY: figure not in abstract: 2
-- A Danish cohort study followed 537,303 children born between 1991 and 1998, comparing autism rates between 440,655 MMR-vaccinated and 96,648 unvaccina…  
+- A Danish cohort study followed 537,303 children born between 1991 and 1998, comparing autism rates between 440,655 MMR-vaccinated and 96,648 unvaccin…  
   WHY: figure not in abstract: 96648
-- The relative risk of autism in MMR-vaccinated children compared to unvaccinated children was 0.92 (95% CI, 0.68–1.26), indicating no increased risk of…  
+- Among children born in Yokohama between 1992 and 1996, the cumulative incidence of autism by age 7 rose from 48.4 to 117.2 per 10,000, despite zero M…  
+  WHY: figure not in abstract: 10000, 117.2, 48.4
+- The relative risk of autism in MMR-vaccinated children compared to unvaccinated children was 0.92 (95% CI, 0.68–1.26), indicating no increased risk o…  
   WHY: **the source states a different value** — Madsen 2002 (NEJM) abstract: 0.92 (95% CI, 0.68 to **1.24**); the claim says **1.26**. The claim's figure disagrees with the source's and the gate refused it correctly; it stays withheld until the sentence is corrected.
-- Among children born in Yokohama between 1992 and 1996, the cumulative incidence of autism by age 7 rose from 48.4 to 117.2 per 10,000, despite zero MM…  
-  WHY: figure not in abstract: 10000, 117.2, 48.4 *(the "zero" is no longer demanded; the three figures still are)*
-- Andrew Wakefield had been paid by lawyers seeking evidence against vaccine manufacturers at the time of the original 1998 research.  
-  WHY: source unretrievable: Retraction—Ileal-lymphoid-nodular hy (publisher: HTTP 200 a shell, a wall or too little text to be the document)
-- Wakefield's data alterations in the 1998 Lancet paper included changing documented diagnoses and onset timelines across all 12 cases to fit the hypoth…  
-  WHY: source unretrievable: How the Case Against the MMR Vaccine (publisher: HTTP 403 )
-- The cumulative incidence of autism spectrum disorders in Yokohama rose from 47.6 per 10,000 in the 1988 birth cohort to 117.2 per 10,000 in the 1996 b…  
+- FDA product labeling for M-M-R II lists known adverse reactions including fever, rash, and rare febrile seizures, but does not list autism spectrum d…  
+  WHY: source unretrievable: Biologics License Application (BLA)  (fetch: HTTP 404); SOURCE: fetch: HTTP 404
+- The cumulative incidence of autism spectrum disorders in Yokohama rose from 47.6 per 10,000 in the 1988 birth cohort to 117.2 per 10,000 in the 1996 …  
   WHY: figure not in abstract: 10000, 117.2, 47.6
-- Children with an older autistic sibling showed no increased autism risk from MMR vaccination, refuting concerns about genetically susceptible subgroup…  
-  WHY: ERRATUM unreadable: erratum text could not be read (unretrievable (publisher HTTP 203)); it cannot be said not
-- The relative risk of autistic disorder in MMR-vaccinated children compared to unvaccinated children was 0.92 (95% CI, 0.68–1.26), indicating no statis…  
-  WHY: **the source states a different value** — Madsen 2002 (NEJM) abstract: 0.92 (95% CI, 0.68 to **1.24**); the claim says **1.26**. Same disagreement as above, second sentence; stays withheld.
-- The Danish cohort study included 440,655 MMR-vaccinated children and 96,648 unvaccinated children, finding no statistically significant difference in …  
-  WHY: figure not in abstract: 2, 96648
-- The temporal clustering of autism diagnoses with MMR vaccination timing reflects the coincidence of the 12–18 month vaccination window with the typica…  
-  WHY: figure not in abstract: 12, 18
-- M-M-R II (BLA 103166), manufactured by Merck & Co., has maintained FDA licensure continuously since 1978 with periodic label updates.  
-  WHY: source unretrievable: Biologics License Application (BLA)  (fetch: HTTP 404)
-- FDA product labeling for M-M-R II lists known adverse reactions including fever, rash, and rare febrile seizures, but does not list autism spectrum di…  
-  WHY: source unretrievable: Biologics License Application (BLA)  (fetch: HTTP 404)
-- Post-marketing safety update reviews of M-M-R II conducted by FDA's Center for Biologics Evaluation and Research (CBER) have not identified a causal s…  
-  WHY: source unretrievable: Biologics License Application (BLA)  (fetch: HTTP 404)
-- The Omnibus Autism Proceeding involved approximately 5,500 claims filed in the Vaccine Injury Compensation Program alleging that MMR vaccination cause…  
-  WHY: source unretrievable: Omnibus Autism Proceeding: Special M (fetch: HTTP 404)
-- Special Master George Hastings ruled that petitioners had not demonstrated by a preponderance of evidence that MMR vaccine caused autism in the test c…  
-  WHY: source unretrievable: Omnibus Autism Proceeding: Special M (fetch: HTTP 404)
-- Andrew Wakefield was struck off the UK medical register following the General Medical Council findings.  
-  WHY: CHRONOLOGY: General Medical Council fitness-to-practise determination on Wakefield, Walker-Smith and Murch (findings of fact)
-- The Lancet issued a full retraction of the Wakefield et al. MMR-autism paper in February 2010.  
-  WHY: CHRONOLOGY: explicit date 2010-02; source unretrievable: Retraction—Ileal-lymphoid-nodular hy (publisher: HTTP 200 a shell, a wall or too little text to be the document)
-- The UK General Medical Council found that the Wakefield et al. research involved undisclosed financial conflicts of interest, ethical violations in th…  
-  WHY: CHRONOLOGY: General Medical Council fitness-to-practise determination on Wakefield, Walker-Smith and Murch (findings of fact); source unretrievable: Retraction—Ileal-lymphoid-nodular hy (publisher: HTTP 200 a shell, a wall or too little tex
-- Andrew Wakefield was struck off the UK medical register in May 2010.  
-  WHY: CHRONOLOGY: explicit date 2010-05; source unretrievable: Retraction—Ileal-lymphoid-nodular hy (publisher: HTTP 200 a shell, a wall or too little text to be the document)
-- Wakefield received £435,643 plus expenses from lawyers seeking to build a case against MMR vaccine manufacturers prior to publication of the 1998 Lanc…  
-  WHY: figure not in abstract: 435643; source unretrievable: How the Case Against the MMR Vaccine (publisher: HTTP 403 )
-- The Wakefield et al. study was found to have involved data manipulation, undisclosed conflicts of interest, and ethical violations in subject recruitm…  
-  WHY: CHRONOLOGY: General Medical Council fitness-to-practise determination on Wakefield, Walker-Smith and Murch (findings of fact)
-- Special Master Hastings characterized the scientific evidence presented by petitioners — including testimony based on Wakefield's research — as 'weak,…  
-  WHY: source unretrievable: Omnibus Autism Proceeding: Special M (fetch: HTTP 404)
-- The retraction of the Wakefield et al. paper removed the primary published basis for the MMR-autism hypothesis.  
-  WHY: source unretrievable: Retraction—Ileal-lymphoid-nodular hy (publisher: HTTP 200 a shell, a wall or too little text to be the document)
 - Ten of the thirteen co-authors of the Wakefield et al. paper formally withdrew their names from the paper's interpretation in 2004.  
   WHY: CHRONOLOGY: explicit date 2004
-- Brian Deer's BMJ investigation found that Wakefield altered clinical data from all 12 children in the 1998 Lancet paper, with every case where records…  
-  WHY: source unretrievable: How the Case Against the MMR Vaccine (publisher: HTTP 403 )
-- The BMJ formally characterized the 1998 Lancet paper by Wakefield as 'an elaborate fraud' in an editorial by editor Fiona Godlee, marking the first ti…  
-  WHY: source unretrievable: How the Case Against the MMR Vaccine (publisher: HTTP 403 )
+- Children with an older autistic sibling showed no increased autism risk from MMR vaccination, refuting concerns about genetically susceptible subgrou…  
+  WHY: ERRATUM unreadable: erratum text could not be read (unretrievable (publisher HTTP 203)); it cannot b
+- The relative risk of autistic disorder in MMR-vaccinated children compared to unvaccinated children was 0.92 (95% CI, 0.68–1.26), indicating no stati…  
+  WHY: **the source states a different value** — Madsen 2002 (NEJM) abstract: 0.92 (95% CI, 0.68 to **1.24**); the claim says **1.26**. The claim's figure disagrees with the source's and the gate refused it correctly; it stays withheld until the sentence is corrected.
+- The Danish cohort study included 440,655 MMR-vaccinated children and 96,648 unvaccinated children, finding no statistically significant difference in…  
+  WHY: figure not in abstract: 2, 96648
+- The temporal clustering of autism diagnoses with MMR vaccination timing reflects the coincidence of the 12–18 month vaccination window with the typic…  
+  WHY: figure not in abstract: 12, 18
+- M-M-R II (BLA 103166), manufactured by Merck & Co., has maintained FDA licensure continuously since 1978 with periodic label updates.  
+  WHY: source unretrievable: Biologics License Application (BLA)  (fetch: HTTP 404); SOURCE: fetch: HTTP 404
+- Post-marketing safety update reviews of M-M-R II conducted by FDA's Center for Biologics Evaluation and Research (CBER) have not identified a causal …  
+  WHY: source unretrievable: Biologics License Application (BLA)  (fetch: HTTP 404); SOURCE: fetch: HTTP 404
+- The Omnibus Autism Proceeding involved approximately 5,500 claims filed in the Vaccine Injury Compensation Program alleging that MMR vaccination caus…  
+  WHY: source unretrievable: Omnibus Autism Proceeding: Special M (fetch: HTTP 404); SOURCE: fetch: HTTP 404
+- Special Master George Hastings ruled that petitioners had not demonstrated by a preponderance of evidence that MMR vaccine caused autism in the test …  
+  WHY: source unretrievable: Omnibus Autism Proceeding: Special M (fetch: HTTP 404); SOURCE: fetch: HTTP 404
+- Andrew Wakefield was struck off the UK medical register following the General Medical Council findings.  
+  WHY: CHRONOLOGY: General Medical Council fitness-to-practise determination on Wakefield, Walker-S
+- Andrew Wakefield was struck off the UK medical register in May 2010.  
+  WHY: CHRONOLOGY: explicit date 2010-05
+- The Wakefield et al. study was found to have involved data manipulation, undisclosed conflicts of interest, and ethical violations in subject recruit…  
+  WHY: CHRONOLOGY: General Medical Council fitness-to-practise determination on Wakefield, Walker-S
+- Special Master Hastings characterized the scientific evidence presented by petitioners — including testimony based on Wakefield's research — as 'weak…  
+  WHY: source unretrievable: Omnibus Autism Proceeding: Special M (fetch: HTTP 404); SOURCE: fetch: HTTP 404
+- The BMJ formally characterized the 1998 Lancet paper by Wakefield as 'an elaborate fraud' in an editorial by editor Fiona Godlee, marking the first t…  
+  WHY: SPAN: not in the document: 'an elaborate fraud'
 
 ## 4. The two retracted markers, in page context
 

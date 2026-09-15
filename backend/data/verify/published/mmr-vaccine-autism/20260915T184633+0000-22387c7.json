@@ -5,8 +5,8 @@
   "issue_id": "bbb9b064-8cb4-4922-b69b-121150ee8e21",
   "status_before": "draft"
  },
- "publish_id": "20260915T190740+0000-0e25a32",
- "published_at": "2026-09-15T19:07:40+00:00",
+ "publish_id": "20260915T184633+0000-22387c7",
+ "published_at": "2026-09-15T18:46:33+00:00",
  "published_by": {
   "login": "fredugast",
   "host": "Freds-MacBook-Pro.local",
@@ -17,8 +17,8 @@
  },
  "gate_version": {
   "package": "1.1.0",
-  "verify_sha": "0e25a32",
-  "tree_sha": "0e25a32"
+  "verify_sha": "22387c7",
+  "tree_sha": "22387c7"
  },
  "rate_limits_rps": {
   "www.ebi.ac.uk": 3.0,
@@ -48,7 +48,7 @@
     "canonical": "https://doi.org/10.1016/s0140-6736(97)11096-0",
     "registry": "crossref",
     "registry_id": "10.1016/s0140-6736(97)11096-0",
-    "checked_at": "2026-09-15T19:03:13+00:00",
+    "checked_at": "2026-09-15T18:42:03+00:00",
     "generic_fetch": false,
     "published": [
      1998,
@@ -62,13 +62,11 @@
     "sha256": "4c8be4d2c62edf3089f001d2a4ac1d06cc32a4729a03b47e415883b7f4681a18",
     "route": "europepmc_abstract",
     "kind": "abstract",
-    "retrieved_at": "2026-09-15T19:03:13+00:00",
+    "retrieved_at": "2026-09-15T18:42:04+00:00",
     "chars": 1984,
     "text_layer": "DECLARED_SOUND",
     "path": "data/verify/docs/4c/4c8be4d2c62edf3089f001d2a4ac1d06cc32a4729a03b47e415883b7f4681a18.txt.gz",
-    "final_url": "https://doi.org/10.1016/s0140-6736(97)11096-0",
-    "provenance": "MACHINE_FETCH",
-    "supplied_by": null
+    "final_url": "https://doi.org/10.1016/s0140-6736(97)11096-0"
    },
    "bindings": [
     {
@@ -83,7 +81,7 @@
     "verdict": "retracted",
     "registry": "crossref+europepmc",
     "detail": "2 update/relation event(s)",
-    "checked_at": "2026-09-15T19:03:13+00:00",
+    "checked_at": "2026-09-15T18:42:04+00:00",
     "events": [
      {
       "type": "correction",
@@ -302,7 +300,7 @@
     "canonical": "https://doi.org/10.1016/s0140-6736(99)01239-8",
     "registry": "crossref",
     "registry_id": "10.1016/s0140-6736(99)01239-8",
-    "checked_at": "2026-09-15T19:03:15+00:00",
+    "checked_at": "2026-09-15T18:42:06+00:00",
     "generic_fetch": false,
     "published": [
      1999,
@@ -316,13 +314,11 @@
     "sha256": "1820cf125b0e5616cd720e3bcadc1b32baab6854abdd22794c4c45c4703fe5e5",
     "route": "europepmc_abstract",
     "kind": "abstract",
-    "retrieved_at": "2026-09-15T19:03:16+00:00",
+    "retrieved_at": "2026-09-15T18:42:06+00:00",
     "chars": 2311,
     "text_layer": "DECLARED_SOUND",
     "path": "data/verify/docs/18/1820cf125b0e5616cd720e3bcadc1b32baab6854abdd22794c4c45c4703fe5e5.txt.gz",
-    "final_url": "https://doi.org/10.1016/s0140-6736(99)01239-8",
-    "provenance": "MACHINE_FETCH",
-    "supplied_by": null
+    "final_url": "https://doi.org/10.1016/s0140-6736(99)01239-8"
    },
    "bindings": [
     {
@@ -337,7 +333,7 @@
     "verdict": "unchanged",
     "registry": "crossref+europepmc",
     "detail": "no update-to, relation, or updating work",
-    "checked_at": "2026-09-15T19:03:16+00:00",
+    "checked_at": "2026-09-15T18:42:06+00:00",
     "events": [
      {
       "type": "comment in",
@@ -398,7 +394,7 @@
     "canonical": "https://doi.org/10.1056/nejmoa021134",
     "registry": "crossref",
     "registry_id": "10.1056/nejmoa021134",
-    "checked_at": "2026-09-15T19:03:17+00:00",
+    "checked_at": "2026-09-15T18:42:08+00:00",
     "generic_fetch": false,
     "published": [
      2002,
@@ -413,13 +409,11 @@
     "sha256": "cf62e4e025b70be9e7f6140bb594850f73db0258711906392827ce9e89e73c86",
     "route": "europepmc_abstract",
     "kind": "abstract",
-    "retrieved_at": "2026-09-15T19:03:18+00:00",
+    "retrieved_at": "2026-09-15T18:42:09+00:00",
     "chars": 1829,
     "text_layer": "DECLARED_SOUND",
     "path": "data/verify/docs/cf/cf62e4e025b70be9e7f6140bb594850f73db0258711906392827ce9e89e73c86.txt.gz",
-    "final_url": "https://doi.org/10.1056/nejmoa021134",
-    "provenance": "MACHINE_FETCH",
-    "supplied_by": null
+    "final_url": "https://doi.org/10.1056/nejmoa021134"
    },
    "bindings": [
     {
@@ -434,7 +428,7 @@
     "verdict": "unchanged",
     "registry": "crossref+europepmc",
     "detail": "no update-to, relation, or updating work",
-    "checked_at": "2026-09-15T19:03:18+00:00",
+    "checked_at": "2026-09-15T18:42:09+00:00",
     "events": [
      {
       "type": "comment in",
@@ -495,7 +489,7 @@
     "canonical": "https://doi.org/10.1542/peds.2005-2993",
     "registry": "crossref",
     "registry_id": "10.1542/peds.2005-2993",
-    "checked_at": "2026-09-15T19:03:20+00:00",
+    "checked_at": "2026-09-15T18:42:10+00:00",
     "generic_fetch": false,
     "published": [
      2006,
@@ -510,13 +504,11 @@
     "sha256": "e0a814dcfa846acc967b48d244b36df68b67dbeb7029c24e550e012cadb8d36d",
     "route": "europepmc_abstract",
     "kind": "abstract",
-    "retrieved_at": "2026-09-15T19:03:20+00:00",
+    "retrieved_at": "2026-09-15T18:42:11+00:00",
     "chars": 4590,
     "text_layer": "DECLARED_SOUND",
     "path": "data/verify/docs/e0/e0a814dcfa846acc967b48d244b36df68b67dbeb7029c24e550e012cadb8d36d.txt.gz",
-    "final_url": "https://doi.org/10.1542/peds.2005-2993",
-    "provenance": "MACHINE_FETCH",
-    "supplied_by": null
+    "final_url": "https://doi.org/10.1542/peds.2005-2993"
    },
    "bindings": [
     {
@@ -531,7 +523,7 @@
     "verdict": "unchanged",
     "registry": "crossref+europepmc",
     "detail": "no update-to, relation, or updating work",
-    "checked_at": "2026-09-15T19:03:20+00:00",
+    "checked_at": "2026-09-15T18:42:11+00:00",
     "events": [],
     "frozen": {}
    },
@@ -555,7 +547,7 @@
     "canonical": "https://doi.org/10.1016/s0140-6736(04)17020-7",
     "registry": "crossref",
     "registry_id": "10.1016/s0140-6736(04)17020-7",
-    "checked_at": "2026-09-15T19:03:21+00:00",
+    "checked_at": "2026-09-15T18:42:13+00:00",
     "generic_fetch": false,
     "published": [
      2004,
@@ -569,13 +561,11 @@
     "sha256": "baff1cb1d7216b3109f6e886eca267275d513095d3c17701953012af45430683",
     "route": "europepmc_abstract",
     "kind": "abstract",
-    "retrieved_at": "2026-09-15T19:03:22+00:00",
+    "retrieved_at": "2026-09-15T18:42:14+00:00",
     "chars": 1389,
     "text_layer": "DECLARED_SOUND",
     "path": "data/verify/docs/ba/baff1cb1d7216b3109f6e886eca267275d513095d3c17701953012af45430683.txt.gz",
-    "final_url": "https://doi.org/10.1016/s0140-6736(04)17020-7",
-    "provenance": "MACHINE_FETCH",
-    "supplied_by": null
+    "final_url": "https://doi.org/10.1016/s0140-6736(04)17020-7"
    },
    "bindings": [
     {
@@ -590,7 +580,7 @@
     "verdict": "unchanged",
     "registry": "crossref+europepmc",
     "detail": "no update-to, relation, or updating work",
-    "checked_at": "2026-09-15T19:03:22+00:00",
+    "checked_at": "2026-09-15T18:42:14+00:00",
     "events": [],
     "frozen": {}
    },
@@ -614,7 +604,7 @@
     "canonical": "https://doi.org/10.1136/bmj.324.7334.393",
     "registry": "crossref",
     "registry_id": "10.1136/bmj.324.7334.393",
-    "checked_at": "2026-09-15T19:03:24+00:00",
+    "checked_at": "2026-09-15T18:42:15+00:00",
     "generic_fetch": false,
     "published": [
      2002,
@@ -629,13 +619,11 @@
     "sha256": "00b87bbf34e769d1ee560f46d2ab7e7e988316becab88690ba226042b06bd60c",
     "route": "europepmc_abstract",
     "kind": "abstract",
-    "retrieved_at": "2026-09-15T19:03:25+00:00",
+    "retrieved_at": "2026-09-15T18:42:16+00:00",
     "chars": 1903,
     "text_layer": "DECLARED_SOUND",
     "path": "data/verify/docs/00/00b87bbf34e769d1ee560f46d2ab7e7e988316becab88690ba226042b06bd60c.txt.gz",
-    "final_url": "https://doi.org/10.1136/bmj.324.7334.393",
-    "provenance": "MACHINE_FETCH",
-    "supplied_by": null
+    "final_url": "https://doi.org/10.1136/bmj.324.7334.393"
    },
    "bindings": [
     {
@@ -650,7 +638,7 @@
     "verdict": "unchanged",
     "registry": "crossref+europepmc",
     "detail": "no update-to, relation, or updating work",
-    "checked_at": "2026-09-15T19:03:25+00:00",
+    "checked_at": "2026-09-15T18:42:16+00:00",
     "events": [
      {
       "type": "comment in",
@@ -681,7 +669,7 @@
     "canonical": "https://doi.org/10.1111/j.1469-7610.2005.01425.x",
     "registry": "crossref",
     "registry_id": "10.1111/j.1469-7610.2005.01425.x",
-    "checked_at": "2026-09-15T19:03:26+00:00",
+    "checked_at": "2026-09-15T18:42:18+00:00",
     "generic_fetch": false,
     "published": [
      2005,
@@ -696,13 +684,11 @@
     "sha256": "743e0691c4a3c4d6cdbbb34cf3feb9b417016f4ac9244ec389ffd4db9747835d",
     "route": "europepmc_abstract",
     "kind": "abstract",
-    "retrieved_at": "2026-09-15T19:03:27+00:00",
+    "retrieved_at": "2026-09-15T18:42:18+00:00",
     "chars": 1566,
     "text_layer": "DECLARED_SOUND",
     "path": "data/verify/docs/74/743e0691c4a3c4d6cdbbb34cf3feb9b417016f4ac9244ec389ffd4db9747835d.txt.gz",
-    "final_url": "https://doi.org/10.1111/j.1469-7610.2005.01425.x",
-    "provenance": "MACHINE_FETCH",
-    "supplied_by": null
+    "final_url": "https://doi.org/10.1111/j.1469-7610.2005.01425.x"
    },
    "bindings": [
     {
@@ -717,7 +703,7 @@
     "verdict": "unchanged",
     "registry": "crossref+europepmc",
     "detail": "no update-to, relation, or updating work",
-    "checked_at": "2026-09-15T19:03:27+00:00",
+    "checked_at": "2026-09-15T18:42:18+00:00",
     "events": [],
     "frozen": {}
    },
@@ -741,7 +727,7 @@
     "canonical": "https://doi.org/10.7326/m18-2101",
     "registry": "crossref",
     "registry_id": "10.7326/m18-2101",
-    "checked_at": "2026-09-15T19:03:28+00:00",
+    "checked_at": "2026-09-15T18:42:20+00:00",
     "generic_fetch": false,
     "published": [
      2019,
@@ -756,13 +742,11 @@
     "sha256": "26d79efdf5364011190cc9f663ebdd9d2a4c4c6fe4614c1020bb6284bd9124fb",
     "route": "europepmc_abstract",
     "kind": "abstract",
-    "retrieved_at": "2026-09-15T19:03:29+00:00",
+    "retrieved_at": "2026-09-15T18:42:20+00:00",
     "chars": 2161,
     "text_layer": "DECLARED_SOUND",
     "path": "data/verify/docs/26/26d79efdf5364011190cc9f663ebdd9d2a4c4c6fe4614c1020bb6284bd9124fb.txt.gz",
-    "final_url": "https://doi.org/10.7326/m18-2101",
-    "provenance": "MACHINE_FETCH",
-    "supplied_by": null
+    "final_url": "https://doi.org/10.7326/m18-2101"
    },
    "bindings": [
     {
@@ -777,7 +761,7 @@
     "verdict": "unchanged",
     "registry": "crossref+europepmc",
     "detail": "no update-to, relation, or updating work",
-    "checked_at": "2026-09-15T19:03:29+00:00",
+    "checked_at": "2026-09-15T18:42:20+00:00",
     "events": [
      {
       "type": "comment in",
@@ -832,7 +816,7 @@
     "canonical": "https://doi.org/10.1016/j.vaccine.2014.04.085",
     "registry": "crossref",
     "registry_id": "10.1016/j.vaccine.2014.04.085",
-    "checked_at": "2026-09-15T19:03:30+00:00",
+    "checked_at": "2026-09-15T18:42:22+00:00",
     "generic_fetch": false,
     "published": [
      2014,
@@ -846,13 +830,11 @@
     "sha256": "fdddd466b1abad1b03561461c6eb75b27534184f6a77636bd23ed716403d157a",
     "route": "europepmc_abstract",
     "kind": "abstract",
-    "retrieved_at": "2026-09-15T19:03:31+00:00",
+    "retrieved_at": "2026-09-15T18:42:22+00:00",
     "chars": 1945,
     "text_layer": "DECLARED_SOUND",
     "path": "data/verify/docs/fd/fdddd466b1abad1b03561461c6eb75b27534184f6a77636bd23ed716403d157a.txt.gz",
-    "final_url": "https://doi.org/10.1016/j.vaccine.2014.04.085",
-    "provenance": "MACHINE_FETCH",
-    "supplied_by": null
+    "final_url": "https://doi.org/10.1016/j.vaccine.2014.04.085"
    },
    "bindings": [
     {
@@ -867,7 +849,7 @@
     "verdict": "unchanged",
     "registry": "crossref+europepmc",
     "detail": "no update-to, relation, or updating work",
-    "checked_at": "2026-09-15T19:03:31+00:00",
+    "checked_at": "2026-09-15T18:42:22+00:00",
     "events": [
      {
       "type": "comment in",
@@ -910,7 +892,7 @@
     "canonical": "https://www.fda.gov/vaccines-blood-biologics/vaccines/mmr-ii",
     "registry": "generic_fetch",
     "registry_id": null,
-    "checked_at": "2026-09-15T19:03:32+00:00",
+    "checked_at": "2026-09-15T18:42:24+00:00",
     "generic_fetch": true,
     "published": null,
     "effective": null,
@@ -939,7 +921,7 @@
     "canonical": "https://www.fda.gov/vaccines-blood-biologics/safety-availability-biologics/thimerosal-and-vaccines",
     "registry": "generic_fetch",
     "registry_id": null,
-    "checked_at": "2026-09-15T19:03:32+00:00",
+    "checked_at": "2026-09-15T18:42:24+00:00",
     "generic_fetch": true,
     "published": null,
     "effective": null,
@@ -950,13 +932,11 @@
     "sha256": "fdf73b80bb4c92200b5289678acba4e3f0161991913db7b0db75c05751469c7f",
     "route": "generic_fetch_html",
     "kind": "full_text",
-    "retrieved_at": "2026-09-15T19:03:33+00:00",
+    "retrieved_at": "2026-09-15T18:42:24+00:00",
     "chars": 24008,
     "text_layer": "DECLARED_SOUND",
     "path": "data/verify/docs/fd/fdf73b80bb4c92200b5289678acba4e3f0161991913db7b0db75c05751469c7f.txt.gz",
-    "final_url": "https://www.fda.gov/vaccines-blood-biologics/safety-availability-biologics/thimerosal-and-vaccines",
-    "provenance": "MACHINE_FETCH",
-    "supplied_by": null
+    "final_url": "https://www.fda.gov/vaccines-blood-biologics/safety-availability-biologics/thimerosal-and-vaccines"
    },
    "bindings": [
     {
@@ -971,7 +951,7 @@
     "verdict": "no_registry",
     "registry": "generic_fetch",
     "detail": "no status registry for a generic URL; watched by the binding re-check only",
-    "checked_at": "2026-09-15T19:03:33+00:00",
+    "checked_at": "2026-09-15T18:42:24+00:00",
     "events": [],
     "frozen": {}
    },
@@ -995,7 +975,7 @@
     "canonical": "https://www.cdc.gov/mmwr/preview/mmwrhtml/rr6204a1.htm",
     "registry": "generic_fetch",
     "registry_id": null,
-    "checked_at": "2026-09-15T19:03:33+00:00",
+    "checked_at": "2026-09-15T18:42:24+00:00",
     "generic_fetch": true,
     "published": null,
     "effective": null,
@@ -1006,13 +986,11 @@
     "sha256": "6e1a91caa227a9d81a6c2e6350f421ae9d0a3c53adb6ec0f1d2043eafcb06a4e",
     "route": "generic_fetch_html",
     "kind": "full_text",
-    "retrieved_at": "2026-09-15T19:03:33+00:00",
+    "retrieved_at": "2026-09-15T18:42:24+00:00",
     "chars": 184486,
     "text_layer": "DECLARED_SOUND",
     "path": "data/verify/docs/6e/6e1a91caa227a9d81a6c2e6350f421ae9d0a3c53adb6ec0f1d2043eafcb06a4e.txt.gz",
-    "final_url": "https://www.cdc.gov/mmwr/preview/mmwrhtml/rr6204a1.htm",
-    "provenance": "MACHINE_FETCH",
-    "supplied_by": null
+    "final_url": "https://www.cdc.gov/mmwr/preview/mmwrhtml/rr6204a1.htm"
    },
    "bindings": [
     {
@@ -1027,7 +1005,7 @@
     "verdict": "no_registry",
     "registry": "generic_fetch",
     "detail": "no status registry for a generic URL; watched by the binding re-check only",
-    "checked_at": "2026-09-15T19:03:33+00:00",
+    "checked_at": "2026-09-15T18:42:24+00:00",
     "events": [],
     "frozen": {}
    },
@@ -1051,7 +1029,7 @@
     "canonical": "https://www.ncbi.nlm.nih.gov/books/NBK25344/",
     "registry": "generic_fetch",
     "registry_id": null,
-    "checked_at": "2026-09-15T19:03:33+00:00",
+    "checked_at": "2026-09-15T18:42:24+00:00",
     "generic_fetch": true,
     "published": null,
     "effective": null,
@@ -1062,13 +1040,11 @@
     "sha256": "351d2d9182251c1608d91009cfa38a6b611f33b9c2fe32b67231d825bcc11848",
     "route": "generic_fetch_html",
     "kind": "full_text",
-    "retrieved_at": "2026-09-15T19:03:34+00:00",
+    "retrieved_at": "2026-09-15T18:42:25+00:00",
     "chars": 8164,
     "text_layer": "DECLARED_SOUND",
     "path": "data/verify/docs/35/351d2d9182251c1608d91009cfa38a6b611f33b9c2fe32b67231d825bcc11848.txt.gz",
-    "final_url": "https://www.ncbi.nlm.nih.gov/books/NBK25344/",
-    "provenance": "MACHINE_FETCH",
-    "supplied_by": null
+    "final_url": "https://www.ncbi.nlm.nih.gov/books/NBK25344/"
    },
    "bindings": [
     {
@@ -1083,7 +1059,7 @@
     "verdict": "no_registry",
     "registry": "generic_fetch",
     "detail": "no status registry for a generic URL; watched by the binding re-check only",
-    "checked_at": "2026-09-15T19:03:34+00:00",
+    "checked_at": "2026-09-15T18:42:25+00:00",
     "events": [],
     "frozen": {}
    },
@@ -1107,7 +1083,7 @@
     "canonical": "https://www.ema.europa.eu/en/medicines/human/EPAR/m-m-rvaxpro",
     "registry": "generic_fetch",
     "registry_id": null,
-    "checked_at": "2026-09-15T19:03:34+00:00",
+    "checked_at": "2026-09-15T18:42:25+00:00",
     "generic_fetch": true,
     "published": null,
     "effective": null,
@@ -1118,13 +1094,11 @@
     "sha256": "93fa09abdadf9fb8b305c475521496553106ba53283de6ad9dcf983df4a1ae45",
     "route": "generic_fetch_html",
     "kind": "full_text",
-    "retrieved_at": "2026-09-15T19:03:34+00:00",
+    "retrieved_at": "2026-09-15T18:42:26+00:00",
     "chars": 19274,
     "text_layer": "DECLARED_SOUND",
     "path": "data/verify/docs/93/93fa09abdadf9fb8b305c475521496553106ba53283de6ad9dcf983df4a1ae45.txt.gz",
-    "final_url": "https://www.ema.europa.eu/en/medicines/human/EPAR/m-m-rvaxpro",
-    "provenance": "MACHINE_FETCH",
-    "supplied_by": null
+    "final_url": "https://www.ema.europa.eu/en/medicines/human/EPAR/m-m-rvaxpro"
    },
    "bindings": [
     {
@@ -1139,7 +1113,7 @@
     "verdict": "no_registry",
     "registry": "generic_fetch",
     "detail": "no status registry for a generic URL; watched by the binding re-check only",
-    "checked_at": "2026-09-15T19:03:34+00:00",
+    "checked_at": "2026-09-15T18:42:26+00:00",
     "events": [],
     "frozen": {}
    },
@@ -1163,7 +1137,7 @@
     "canonical": "https://vaers.hhs.gov/data/dataguide.html",
     "registry": "generic_fetch",
     "registry_id": null,
-    "checked_at": "2026-09-15T19:03:34+00:00",
+    "checked_at": "2026-09-15T18:42:26+00:00",
     "generic_fetch": true,
     "published": null,
     "effective": null,
@@ -1174,13 +1148,11 @@
     "sha256": "be81d504895e85208fab699a0116535c84534675f896b2d878f66db27acd30a1",
     "route": "generic_fetch_html",
     "kind": "full_text",
-    "retrieved_at": "2026-09-15T19:03:34+00:00",
+    "retrieved_at": "2026-09-15T18:42:26+00:00",
     "chars": 4958,
     "text_layer": "DECLARED_SOUND",
     "path": "data/verify/docs/be/be81d504895e85208fab699a0116535c84534675f896b2d878f66db27acd30a1.txt.gz",
-    "final_url": "https://vaers.hhs.gov/data/dataguide.html",
-    "provenance": "MACHINE_FETCH",
-    "supplied_by": null
+    "final_url": "https://vaers.hhs.gov/data/dataguide.html"
    },
    "bindings": [
     {
@@ -1195,7 +1167,7 @@
     "verdict": "no_registry",
     "registry": "generic_fetch",
     "detail": "no status registry for a generic URL; watched by the binding re-check only",
-    "checked_at": "2026-09-15T19:03:34+00:00",
+    "checked_at": "2026-09-15T18:42:26+00:00",
     "events": [],
     "frozen": {}
    },
@@ -1219,7 +1191,7 @@
     "canonical": "https://www.uscfc.uscourts.gov/sites/default/files/Hastings.Cedillo.02-0031V.pdf",
     "registry": "generic_fetch",
     "registry_id": null,
-    "checked_at": "2026-09-15T19:03:34+00:00",
+    "checked_at": "2026-09-15T18:42:26+00:00",
     "generic_fetch": true,
     "published": null,
     "effective": null,
@@ -1248,7 +1220,7 @@
     "canonical": "https://doi.org/10.1016/j.vaccine.2014.04.085",
     "registry": "crossref",
     "registry_id": "10.1016/j.vaccine.2014.04.085",
-    "checked_at": "2026-09-15T19:03:30+00:00",
+    "checked_at": "2026-09-15T18:42:22+00:00",
     "generic_fetch": false,
     "published": [
      2014,
@@ -1262,13 +1234,11 @@
     "sha256": "fdddd466b1abad1b03561461c6eb75b27534184f6a77636bd23ed716403d157a",
     "route": "europepmc_abstract",
     "kind": "abstract",
-    "retrieved_at": "2026-09-15T19:03:31+00:00",
+    "retrieved_at": "2026-09-15T18:42:22+00:00",
     "chars": 1945,
     "text_layer": "DECLARED_SOUND",
     "path": "data/verify/docs/fd/fdddd466b1abad1b03561461c6eb75b27534184f6a77636bd23ed716403d157a.txt.gz",
-    "final_url": "https://doi.org/10.1016/j.vaccine.2014.04.085",
-    "provenance": "MACHINE_FETCH",
-    "supplied_by": null
+    "final_url": "https://doi.org/10.1016/j.vaccine.2014.04.085"
    },
    "bindings": [
     {
@@ -1283,7 +1253,7 @@
     "verdict": "unchanged",
     "registry": "crossref+europepmc",
     "detail": "no update-to, relation, or updating work",
-    "checked_at": "2026-09-15T19:03:31+00:00",
+    "checked_at": "2026-09-15T18:42:22+00:00",
     "events": [
      {
       "type": "comment in",
@@ -1326,7 +1296,7 @@
     "canonical": "https://doi.org/10.1056/nejmoa021134",
     "registry": "crossref",
     "registry_id": "10.1056/nejmoa021134",
-    "checked_at": "2026-09-15T19:03:17+00:00",
+    "checked_at": "2026-09-15T18:42:08+00:00",
     "generic_fetch": false,
     "published": [
      2002,
@@ -1341,13 +1311,11 @@
     "sha256": "cf62e4e025b70be9e7f6140bb594850f73db0258711906392827ce9e89e73c86",
     "route": "europepmc_abstract",
     "kind": "abstract",
-    "retrieved_at": "2026-09-15T19:03:18+00:00",
+    "retrieved_at": "2026-09-15T18:42:09+00:00",
     "chars": 1829,
     "text_layer": "DECLARED_SOUND",
     "path": "data/verify/docs/cf/cf62e4e025b70be9e7f6140bb594850f73db0258711906392827ce9e89e73c86.txt.gz",
-    "final_url": "https://doi.org/10.1056/nejmoa021134",
-    "provenance": "MACHINE_FETCH",
-    "supplied_by": null
+    "final_url": "https://doi.org/10.1056/nejmoa021134"
    },
    "bindings": [
     {
@@ -1362,7 +1330,7 @@
     "verdict": "unchanged",
     "registry": "crossref+europepmc",
     "detail": "no update-to, relation, or updating work",
-    "checked_at": "2026-09-15T19:03:18+00:00",
+    "checked_at": "2026-09-15T18:42:09+00:00",
     "events": [
      {
       "type": "comment in",
@@ -1423,7 +1391,7 @@
     "canonical": "https://doi.org/10.1002/14651858.cd004407.pub5",
     "registry": "crossref",
     "registry_id": "10.1002/14651858.cd004407.pub5",
-    "checked_at": "2026-09-15T19:03:35+00:00",
+    "checked_at": "2026-09-15T18:42:26+00:00",
     "generic_fetch": false,
     "published": [
      2021,
@@ -1438,13 +1406,11 @@
     "sha256": "7edc138643348c4e942bb2d6808287f01deeb8a988c9205afa9a54a953917fe6",
     "route": "europepmc_abstract",
     "kind": "abstract",
-    "retrieved_at": "2026-09-15T19:03:36+00:00",
+    "retrieved_at": "2026-09-15T18:42:27+00:00",
     "chars": 6786,
     "text_layer": "DECLARED_SOUND",
     "path": "data/verify/docs/7e/7edc138643348c4e942bb2d6808287f01deeb8a988c9205afa9a54a953917fe6.txt.gz",
-    "final_url": "https://doi.org/10.1002/14651858.cd004407.pub5",
-    "provenance": "MACHINE_FETCH",
-    "supplied_by": null
+    "final_url": "https://doi.org/10.1002/14651858.cd004407.pub5"
    },
    "bindings": [
     {
@@ -1459,7 +1425,7 @@
     "verdict": "unchanged",
     "registry": "crossref+europepmc",
     "detail": "1 update/relation event(s)",
-    "checked_at": "2026-09-15T19:03:36+00:00",
+    "checked_at": "2026-09-15T18:42:27+00:00",
     "events": [
      {
       "type": "new_version",
@@ -1497,7 +1463,7 @@
     "canonical": "https://doi.org/10.17226/10997",
     "registry": "crossref",
     "registry_id": "10.17226/10997",
-    "checked_at": "2026-09-15T19:03:37+00:00",
+    "checked_at": "2026-09-15T18:42:29+00:00",
     "generic_fetch": false,
     "published": [
      2004,
@@ -1513,16 +1479,14 @@
     }
    },
    "document": {
-    "sha256": "33ec686bb83e1d642af5e9764f5cd88d840d54029db12ea32ecdfc2bd0988128",
+    "sha256": "54a4fe91548b14a75f69524a227d8ebfab00852757d5fa54836a490503e10fcd",
     "route": "generic_fetch_html",
     "kind": "full_text",
-    "retrieved_at": "2026-09-15T19:03:38+00:00",
-    "chars": 36397,
+    "retrieved_at": "2026-09-15T18:42:31+00:00",
+    "chars": 36395,
     "text_layer": "DECLARED_SOUND",
-    "path": "data/verify/docs/33/33ec686bb83e1d642af5e9764f5cd88d840d54029db12ea32ecdfc2bd0988128.txt.gz",
-    "final_url": "https://www.nationalacademies.org/publications/10997",
-    "provenance": "MACHINE_FETCH",
-    "supplied_by": null
+    "path": "data/verify/docs/54/54a4fe91548b14a75f69524a227d8ebfab00852757d5fa54836a490503e10fcd.txt.gz",
+    "final_url": "https://www.nationalacademies.org/publications/10997"
    },
    "bindings": [
     {
@@ -1537,7 +1501,7 @@
     "verdict": "unchanged",
     "registry": "crossref",
     "detail": "no update-to, relation, or updating work",
-    "checked_at": "2026-09-15T19:03:38+00:00",
+    "checked_at": "2026-09-15T18:42:31+00:00",
     "events": [],
     "frozen": {}
    },
@@ -1561,7 +1525,7 @@
     "canonical": "https://doi.org/10.7326/m18-2101",
     "registry": "crossref",
     "registry_id": "10.7326/m18-2101",
-    "checked_at": "2026-09-15T19:03:28+00:00",
+    "checked_at": "2026-09-15T18:42:20+00:00",
     "generic_fetch": false,
     "published": [
      2019,
@@ -1576,13 +1540,11 @@
     "sha256": "26d79efdf5364011190cc9f663ebdd9d2a4c4c6fe4614c1020bb6284bd9124fb",
     "route": "europepmc_abstract",
     "kind": "abstract",
-    "retrieved_at": "2026-09-15T19:03:29+00:00",
+    "retrieved_at": "2026-09-15T18:42:20+00:00",
     "chars": 2161,
     "text_layer": "DECLARED_SOUND",
     "path": "data/verify/docs/26/26d79efdf5364011190cc9f663ebdd9d2a4c4c6fe4614c1020bb6284bd9124fb.txt.gz",
-    "final_url": "https://doi.org/10.7326/m18-2101",
-    "provenance": "MACHINE_FETCH",
-    "supplied_by": null
+    "final_url": "https://doi.org/10.7326/m18-2101"
    },
    "bindings": [
     {
@@ -1597,7 +1559,7 @@
     "verdict": "unchanged",
     "registry": "crossref+europepmc",
     "detail": "no update-to, relation, or updating work",
-    "checked_at": "2026-09-15T19:03:29+00:00",
+    "checked_at": "2026-09-15T18:42:20+00:00",
     "events": [
      {
       "type": "comment in",
@@ -1652,7 +1614,7 @@
     "canonical": "https://doi.org/10.1016/s0140-6736(10)60175-4",
     "registry": "crossref",
     "registry_id": "10.1016/s0140-6736(10)60175-4",
-    "checked_at": "2026-09-15T19:03:40+00:00",
+    "checked_at": "2026-09-15T18:42:32+00:00",
     "generic_fetch": false,
     "published": [
      2010,
@@ -1662,26 +1624,12 @@
     "first_author": "The Editors of The Lancet",
     "container": "The Lancet",
     "fallback": {
-     "route": "operator_supplied",
-     "sha256": "b70a220048dc7ce64cb24fc78cf354cbf0670a2f9630dfeb0c23e5fa446c642f",
-     "supplied_by": "Fred Ugast",
-     "source_url": "https://www.thelancet.com/journals/lancet/article/PIIS0140-6736(10)60175-4/fulltext",
-     "retrieved_at": "2026-09-15T19:01:08+00:00",
-     "record": "data/verify/supplied/b70a220048dc7ce64cb24fc78cf354cbf0670a2f9630dfeb0c23e5fa446c642f.json"
+     "route": "generic_fetch via doi.org",
+     "http": 200,
+     "reason": "a shell, a wall or too little text to be the document"
     }
    },
-   "document": {
-    "sha256": "b70a220048dc7ce64cb24fc78cf354cbf0670a2f9630dfeb0c23e5fa446c642f",
-    "route": "operator_supplied",
-    "kind": "full_text",
-    "retrieved_at": "2026-09-15T19:01:08+00:00",
-    "chars": 3612,
-    "text_layer": "DECLARED_SOUND",
-    "path": "data/verify/docs/b7/b70a220048dc7ce64cb24fc78cf354cbf0670a2f9630dfeb0c23e5fa446c642f.txt.gz",
-    "final_url": "https://www.thelancet.com/journals/lancet/article/PIIS0140-6736(10)60175-4/fulltext",
-    "provenance": "OPERATOR_SUPPLIED",
-    "supplied_by": "Fred Ugast"
-   },
+   "document": null,
    "bindings": [
     {
      "kind": "HEADING",
@@ -1691,31 +1639,9 @@
      "reason": ""
     }
    ],
-   "status": {
-    "verdict": "retraction_notice",
-    "registry": "crossref+europepmc",
-    "detail": "this DOI is a retraction notice about 10.1016/s0140-6736(97)11096-0",
-    "checked_at": "2026-09-15T19:03:41+00:00",
-    "events": [
-     {
-      "type": "retraction",
-      "date": "2010-2-6",
-      "doi": "10.1016/s0140-6736(97)11096-0",
-      "source": "crossref update-to",
-      "label": "Retraction"
-     },
-     {
-      "type": "retraction of",
-      "date": null,
-      "id": "9500320",
-      "source": "europepmc commentCorrectionList"
-     }
-    ],
-    "frozen": {}
-   },
-   "survives": true,
-   "withheld_reason": null,
-   "registry_text": "Retraction—Ileal-lymphoid-nodular hyperplasia, non-specific colitis, and pervasive developmental disorder in children 2010"
+   "status": null,
+   "survives": false,
+   "withheld_reason": "fetch: nothing retrieved (publisher: HTTP 200 a shell, a wall or too little text to be the document)"
   },
   {
    "source_id": "d28cab99-41e4-40a1-8d85-551cb937f8dd",
@@ -1733,7 +1659,7 @@
     "canonical": "https://doi.org/10.1056/nejmoa021134",
     "registry": "crossref",
     "registry_id": "10.1056/nejmoa021134",
-    "checked_at": "2026-09-15T19:03:17+00:00",
+    "checked_at": "2026-09-15T18:42:08+00:00",
     "generic_fetch": false,
     "published": [
      2002,
@@ -1748,13 +1674,11 @@
     "sha256": "cf62e4e025b70be9e7f6140bb594850f73db0258711906392827ce9e89e73c86",
     "route": "europepmc_abstract",
     "kind": "abstract",
-    "retrieved_at": "2026-09-15T19:03:18+00:00",
+    "retrieved_at": "2026-09-15T18:42:09+00:00",
     "chars": 1829,
     "text_layer": "DECLARED_SOUND",
     "path": "data/verify/docs/cf/cf62e4e025b70be9e7f6140bb594850f73db0258711906392827ce9e89e73c86.txt.gz",
-    "final_url": "https://doi.org/10.1056/nejmoa021134",
-    "provenance": "MACHINE_FETCH",
-    "supplied_by": null
+    "final_url": "https://doi.org/10.1056/nejmoa021134"
    },
    "bindings": [
     {
@@ -1769,7 +1693,7 @@
     "verdict": "unchanged",
     "registry": "crossref+europepmc",
     "detail": "no update-to, relation, or updating work",
-    "checked_at": "2026-09-15T19:03:18+00:00",
+    "checked_at": "2026-09-15T18:42:09+00:00",
     "events": [
      {
       "type": "comment in",
@@ -1830,7 +1754,7 @@
     "canonical": "https://doi.org/10.1016/s0140-6736(99)01239-8",
     "registry": "crossref",
     "registry_id": "10.1016/s0140-6736(99)01239-8",
-    "checked_at": "2026-09-15T19:03:15+00:00",
+    "checked_at": "2026-09-15T18:42:06+00:00",
     "generic_fetch": false,
     "published": [
      1999,
@@ -1844,13 +1768,11 @@
     "sha256": "1820cf125b0e5616cd720e3bcadc1b32baab6854abdd22794c4c45c4703fe5e5",
     "route": "europepmc_abstract",
     "kind": "abstract",
-    "retrieved_at": "2026-09-15T19:03:16+00:00",
+    "retrieved_at": "2026-09-15T18:42:06+00:00",
     "chars": 2311,
     "text_layer": "DECLARED_SOUND",
     "path": "data/verify/docs/18/1820cf125b0e5616cd720e3bcadc1b32baab6854abdd22794c4c45c4703fe5e5.txt.gz",
-    "final_url": "https://doi.org/10.1016/s0140-6736(99)01239-8",
-    "provenance": "MACHINE_FETCH",
-    "supplied_by": null
+    "final_url": "https://doi.org/10.1016/s0140-6736(99)01239-8"
    },
    "bindings": [
     {
@@ -1865,7 +1787,7 @@
     "verdict": "unchanged",
     "registry": "crossref+europepmc",
     "detail": "no update-to, relation, or updating work",
-    "checked_at": "2026-09-15T19:03:16+00:00",
+    "checked_at": "2026-09-15T18:42:06+00:00",
     "events": [
      {
       "type": "comment in",
@@ -1926,7 +1848,7 @@
     "canonical": "https://doi.org/10.7326/m18-2101",
     "registry": "crossref",
     "registry_id": "10.7326/m18-2101",
-    "checked_at": "2026-09-15T19:03:28+00:00",
+    "checked_at": "2026-09-15T18:42:20+00:00",
     "generic_fetch": false,
     "published": [
      2019,
@@ -1941,13 +1863,11 @@
     "sha256": "26d79efdf5364011190cc9f663ebdd9d2a4c4c6fe4614c1020bb6284bd9124fb",
     "route": "europepmc_abstract",
     "kind": "abstract",
-    "retrieved_at": "2026-09-15T19:03:29+00:00",
+    "retrieved_at": "2026-09-15T18:42:20+00:00",
     "chars": 2161,
     "text_layer": "DECLARED_SOUND",
     "path": "data/verify/docs/26/26d79efdf5364011190cc9f663ebdd9d2a4c4c6fe4614c1020bb6284bd9124fb.txt.gz",
-    "final_url": "https://doi.org/10.7326/m18-2101",
-    "provenance": "MACHINE_FETCH",
-    "supplied_by": null
+    "final_url": "https://doi.org/10.7326/m18-2101"
    },
    "bindings": [
     {
@@ -1962,7 +1882,7 @@
     "verdict": "unchanged",
     "registry": "crossref+europepmc",
     "detail": "no update-to, relation, or updating work",
-    "checked_at": "2026-09-15T19:03:29+00:00",
+    "checked_at": "2026-09-15T18:42:20+00:00",
     "events": [
      {
       "type": "comment in",
@@ -2017,7 +1937,7 @@
     "canonical": "https://doi.org/10.1016/s0140-6736(97)11096-0",
     "registry": "crossref",
     "registry_id": "10.1016/s0140-6736(97)11096-0",
-    "checked_at": "2026-09-15T19:03:13+00:00",
+    "checked_at": "2026-09-15T18:42:03+00:00",
     "generic_fetch": false,
     "published": [
      1998,
@@ -2031,13 +1951,11 @@
     "sha256": "4c8be4d2c62edf3089f001d2a4ac1d06cc32a4729a03b47e415883b7f4681a18",
     "route": "europepmc_abstract",
     "kind": "abstract",
-    "retrieved_at": "2026-09-15T19:03:13+00:00",
+    "retrieved_at": "2026-09-15T18:42:04+00:00",
     "chars": 1984,
     "text_layer": "DECLARED_SOUND",
     "path": "data/verify/docs/4c/4c8be4d2c62edf3089f001d2a4ac1d06cc32a4729a03b47e415883b7f4681a18.txt.gz",
-    "final_url": "https://doi.org/10.1016/s0140-6736(97)11096-0",
-    "provenance": "MACHINE_FETCH",
-    "supplied_by": null
+    "final_url": "https://doi.org/10.1016/s0140-6736(97)11096-0"
    },
    "bindings": [
     {
@@ -2052,7 +1970,7 @@
     "verdict": "retracted",
     "registry": "crossref+europepmc",
     "detail": "2 update/relation event(s)",
-    "checked_at": "2026-09-15T19:03:13+00:00",
+    "checked_at": "2026-09-15T18:42:04+00:00",
     "events": [
      {
       "type": "correction",
@@ -2271,7 +2189,7 @@
     "canonical": "https://doi.org/10.1136/bmj.c5347",
     "registry": "crossref",
     "registry_id": "10.1136/bmj.c5347",
-    "checked_at": "2026-09-15T19:03:41+00:00",
+    "checked_at": "2026-09-15T18:42:33+00:00",
     "generic_fetch": false,
     "published": [
      2011,
@@ -2282,26 +2200,12 @@
     "first_author": "Deer",
     "container": "BMJ",
     "fallback": {
-     "route": "operator_supplied",
-     "sha256": "79373a9f7f1f81ae5bd6dc8a5d5663990f542a4ceb25e9b40c2ea9431444fb55",
-     "supplied_by": "Fred Ugast",
-     "source_url": "https://www.bmj.com/content/342/bmj.c5347",
-     "retrieved_at": "2026-09-15T19:00:12+00:00",
-     "record": "data/verify/supplied/79373a9f7f1f81ae5bd6dc8a5d5663990f542a4ceb25e9b40c2ea9431444fb55.json"
+     "route": "generic_fetch via doi.org",
+     "http": 403,
+     "reason": null
     }
    },
-   "document": {
-    "sha256": "79373a9f7f1f81ae5bd6dc8a5d5663990f542a4ceb25e9b40c2ea9431444fb55",
-    "route": "operator_supplied",
-    "kind": "full_text",
-    "retrieved_at": "2026-09-15T19:00:12+00:00",
-    "chars": 61007,
-    "text_layer": "DECLARED_SOUND",
-    "path": "data/verify/docs/79/79373a9f7f1f81ae5bd6dc8a5d5663990f542a4ceb25e9b40c2ea9431444fb55.txt.gz",
-    "final_url": "https://www.bmj.com/content/342/bmj.c5347",
-    "provenance": "OPERATOR_SUPPLIED",
-    "supplied_by": "Fred Ugast"
-   },
+   "document": null,
    "bindings": [
     {
      "kind": "HEADING",
@@ -2311,42 +2215,9 @@
      "reason": ""
     }
    ],
-   "status": {
-    "verdict": "unchanged",
-    "registry": "crossref+europepmc",
-    "detail": "no update-to, relation, or updating work",
-    "checked_at": "2026-09-15T19:03:42+00:00",
-    "events": [
-     {
-      "type": "comment in",
-      "date": null,
-      "id": "21209060",
-      "source": "europepmc commentCorrectionList"
-     },
-     {
-      "type": "comment in",
-      "date": null,
-      "id": "21245120",
-      "source": "europepmc commentCorrectionList"
-     },
-     {
-      "type": "comment in",
-      "date": null,
-      "id": "21303894",
-      "source": "europepmc commentCorrectionList"
-     },
-     {
-      "type": "comment in",
-      "date": null,
-      "id": "30054163",
-      "source": "europepmc commentCorrectionList"
-     }
-    ],
-    "frozen": {}
-   },
-   "survives": true,
-   "withheld_reason": null,
-   "registry_text": "How the case against the MMR vaccine was fixed 2011"
+   "status": null,
+   "survives": false,
+   "withheld_reason": "fetch: nothing retrieved (publisher: HTTP 403 )"
   },
   {
    "source_id": "0d7243cc-5b16-46ca-8750-8a2bcf57195f",
@@ -2364,7 +2235,7 @@
     "canonical": "https://doi.org/10.17226/10997",
     "registry": "crossref",
     "registry_id": "10.17226/10997",
-    "checked_at": "2026-09-15T19:03:37+00:00",
+    "checked_at": "2026-09-15T18:42:29+00:00",
     "generic_fetch": false,
     "published": [
      2004,
@@ -2376,16 +2247,14 @@
     "container": null
    },
    "document": {
-    "sha256": "33ec686bb83e1d642af5e9764f5cd88d840d54029db12ea32ecdfc2bd0988128",
+    "sha256": "54a4fe91548b14a75f69524a227d8ebfab00852757d5fa54836a490503e10fcd",
     "route": "generic_fetch_html",
     "kind": "full_text",
-    "retrieved_at": "2026-09-15T19:03:38+00:00",
-    "chars": 36397,
+    "retrieved_at": "2026-09-15T18:42:31+00:00",
+    "chars": 36395,
     "text_layer": "DECLARED_SOUND",
-    "path": "data/verify/docs/33/33ec686bb83e1d642af5e9764f5cd88d840d54029db12ea32ecdfc2bd0988128.txt.gz",
-    "final_url": "https://www.nationalacademies.org/publications/10997",
-    "provenance": "MACHINE_FETCH",
-    "supplied_by": null
+    "path": "data/verify/docs/54/54a4fe91548b14a75f69524a227d8ebfab00852757d5fa54836a490503e10fcd.txt.gz",
+    "final_url": "https://www.nationalacademies.org/publications/10997"
    },
    "bindings": [
     {
@@ -2400,7 +2269,7 @@
     "verdict": "unchanged",
     "registry": "crossref",
     "detail": "no update-to, relation, or updating work",
-    "checked_at": "2026-09-15T19:03:38+00:00",
+    "checked_at": "2026-09-15T18:42:31+00:00",
     "events": [],
     "frozen": {}
    },
@@ -2424,7 +2293,7 @@
     "canonical": "https://doi.org/10.1002/14651858.cd004407.pub5",
     "registry": "crossref",
     "registry_id": "10.1002/14651858.cd004407.pub5",
-    "checked_at": "2026-09-15T19:03:35+00:00",
+    "checked_at": "2026-09-15T18:42:26+00:00",
     "generic_fetch": false,
     "published": [
      2021,
@@ -2439,13 +2308,11 @@
     "sha256": "7edc138643348c4e942bb2d6808287f01deeb8a988c9205afa9a54a953917fe6",
     "route": "europepmc_abstract",
     "kind": "abstract",
-    "retrieved_at": "2026-09-15T19:03:36+00:00",
+    "retrieved_at": "2026-09-15T18:42:27+00:00",
     "chars": 6786,
     "text_layer": "DECLARED_SOUND",
     "path": "data/verify/docs/7e/7edc138643348c4e942bb2d6808287f01deeb8a988c9205afa9a54a953917fe6.txt.gz",
-    "final_url": "https://doi.org/10.1002/14651858.cd004407.pub5",
-    "provenance": "MACHINE_FETCH",
-    "supplied_by": null
+    "final_url": "https://doi.org/10.1002/14651858.cd004407.pub5"
    },
    "bindings": [
     {
@@ -2460,7 +2327,7 @@
     "verdict": "unchanged",
     "registry": "crossref+europepmc",
     "detail": "1 update/relation event(s)",
-    "checked_at": "2026-09-15T19:03:36+00:00",
+    "checked_at": "2026-09-15T18:42:27+00:00",
     "events": [
      {
       "type": "new_version",
@@ -2498,7 +2365,7 @@
     "canonical": "https://www.uhcprovider.com/content/dam/provider/docs/public/policies/comm-medical-drug/childhood-immunizations.pdf",
     "registry": "generic_fetch",
     "registry_id": null,
-    "checked_at": "2026-09-15T19:03:44+00:00",
+    "checked_at": "2026-09-15T18:42:34+00:00",
     "generic_fetch": true,
     "published": null,
     "effective": null,
@@ -2527,7 +2394,7 @@
     "canonical": "https://www.aetna.com/cpb/medical/data/1_99/0070.html",
     "registry": "generic_fetch",
     "registry_id": null,
-    "checked_at": "2026-09-15T19:03:44+00:00",
+    "checked_at": "2026-09-15T18:42:34+00:00",
     "generic_fetch": true,
     "published": null,
     "effective": null,
@@ -2538,13 +2405,11 @@
     "sha256": "fa060886dfebefa5c53ebce93406b7534a2a2890e9aa7191dd85a929b51f1969",
     "route": "generic_fetch_html",
     "kind": "full_text",
-    "retrieved_at": "2026-09-15T19:03:44+00:00",
+    "retrieved_at": "2026-09-15T18:42:35+00:00",
     "chars": 256479,
     "text_layer": "DECLARED_SOUND",
     "path": "data/verify/docs/fa/fa060886dfebefa5c53ebce93406b7534a2a2890e9aa7191dd85a929b51f1969.txt.gz",
-    "final_url": "https://www.aetna.com/cpb/medical/data/1_99/0070.html",
-    "provenance": "MACHINE_FETCH",
-    "supplied_by": null
+    "final_url": "https://www.aetna.com/cpb/medical/data/1_99/0070.html"
    },
    "bindings": [
     {
@@ -2559,7 +2424,7 @@
     "verdict": "no_registry",
     "registry": "generic_fetch",
     "detail": "no status registry for a generic URL; watched by the binding re-check only",
-    "checked_at": "2026-09-15T19:03:44+00:00",
+    "checked_at": "2026-09-15T18:42:35+00:00",
     "events": [],
     "frozen": {}
    },
@@ -2583,7 +2448,7 @@
     "canonical": "https://www.anthem.com/preventive-care",
     "registry": "generic_fetch",
     "registry_id": null,
-    "checked_at": "2026-09-15T19:03:44+00:00",
+    "checked_at": "2026-09-15T18:42:35+00:00",
     "generic_fetch": true,
     "published": null,
     "effective": null,
@@ -2612,7 +2477,7 @@
     "canonical": "https://doi.org/10.1001/jama.2015.3077",
     "registry": "crossref",
     "registry_id": "10.1001/jama.2015.3077",
-    "checked_at": "2026-09-15T19:07:35+00:00",
+    "checked_at": "2026-09-15T18:46:29+00:00",
     "generic_fetch": false,
     "published": [
      2015,
@@ -2627,13 +2492,11 @@
     "sha256": "808431798f8fe2257a7a973cf003621a7d331f70abfa94a6d1dcf5e46b2f4421",
     "route": "europepmc_abstract",
     "kind": "abstract",
-    "retrieved_at": "2026-09-15T19:07:36+00:00",
+    "retrieved_at": "2026-09-15T18:46:30+00:00",
     "chars": 1915,
     "text_layer": "DECLARED_SOUND",
     "path": "data/verify/docs/80/808431798f8fe2257a7a973cf003621a7d331f70abfa94a6d1dcf5e46b2f4421.txt.gz",
-    "final_url": "https://doi.org/10.1001/jama.2015.3077",
-    "provenance": "MACHINE_FETCH",
-    "supplied_by": null
+    "final_url": "https://doi.org/10.1001/jama.2015.3077"
    },
    "bindings": [
     {
@@ -2648,7 +2511,7 @@
     "verdict": "corrected",
     "registry": "crossref+europepmc",
     "detail": "no update-to, relation, or updating work",
-    "checked_at": "2026-09-15T19:07:36+00:00",
+    "checked_at": "2026-09-15T18:46:30+00:00",
     "events": [
      {
       "type": "comment in",
@@ -2697,7 +2560,7 @@
     "canonical": "https://doi.org/10.1001/jama.2015.3077",
     "registry": "crossref",
     "registry_id": "10.1001/jama.2015.3077",
-    "checked_at": "2026-09-15T19:07:35+00:00",
+    "checked_at": "2026-09-15T18:46:29+00:00",
     "generic_fetch": false,
     "published": [
      2015,
@@ -2712,13 +2575,11 @@
     "sha256": "808431798f8fe2257a7a973cf003621a7d331f70abfa94a6d1dcf5e46b2f4421",
     "route": "europepmc_abstract",
     "kind": "abstract",
-    "retrieved_at": "2026-09-15T19:07:36+00:00",
+    "retrieved_at": "2026-09-15T18:46:30+00:00",
     "chars": 1915,
     "text_layer": "DECLARED_SOUND",
     "path": "data/verify/docs/80/808431798f8fe2257a7a973cf003621a7d331f70abfa94a6d1dcf5e46b2f4421.txt.gz",
-    "final_url": "https://doi.org/10.1001/jama.2015.3077",
-    "provenance": "MACHINE_FETCH",
-    "supplied_by": null
+    "final_url": "https://doi.org/10.1001/jama.2015.3077"
    },
    "bindings": [
     {
@@ -2733,7 +2594,7 @@
     "verdict": "corrected",
     "registry": "crossref+europepmc",
     "detail": "no update-to, relation, or updating work",
-    "checked_at": "2026-09-15T19:07:36+00:00",
+    "checked_at": "2026-09-15T18:46:30+00:00",
     "events": [
      {
       "type": "comment in",
@@ -2782,7 +2643,7 @@
     "canonical": "https://doi.org/10.1111/j.1469-7610.2005.01425.x",
     "registry": "crossref",
     "registry_id": "10.1111/j.1469-7610.2005.01425.x",
-    "checked_at": "2026-09-15T19:03:26+00:00",
+    "checked_at": "2026-09-15T18:42:18+00:00",
     "generic_fetch": false,
     "published": [
      2005,
@@ -2797,13 +2658,11 @@
     "sha256": "743e0691c4a3c4d6cdbbb34cf3feb9b417016f4ac9244ec389ffd4db9747835d",
     "route": "europepmc_abstract",
     "kind": "abstract",
-    "retrieved_at": "2026-09-15T19:03:27+00:00",
+    "retrieved_at": "2026-09-15T18:42:18+00:00",
     "chars": 1566,
     "text_layer": "DECLARED_SOUND",
     "path": "data/verify/docs/74/743e0691c4a3c4d6cdbbb34cf3feb9b417016f4ac9244ec389ffd4db9747835d.txt.gz",
-    "final_url": "https://doi.org/10.1111/j.1469-7610.2005.01425.x",
-    "provenance": "MACHINE_FETCH",
-    "supplied_by": null
+    "final_url": "https://doi.org/10.1111/j.1469-7610.2005.01425.x"
    },
    "bindings": [
     {
@@ -2818,7 +2677,7 @@
     "verdict": "unchanged",
     "registry": "crossref+europepmc",
     "detail": "no update-to, relation, or updating work",
-    "checked_at": "2026-09-15T19:03:27+00:00",
+    "checked_at": "2026-09-15T18:42:18+00:00",
     "events": [],
     "frozen": {}
    },
@@ -2865,7 +2724,7 @@
    "claim_text": "The Omnibus Autism Proceeding ruling rejected both the 'MMR plus thimerosal' causation theory and the standalone MMR-autism theory, finding that epidemiological evidence overwhelmingly contradicted both hypotheses.",
    "category": "large_scale_epidemiological_evidence",
    "figures": [],
-   "quotation": true,
+   "quotation": false,
    "per_source": [
     {
      "source_id": "9c4c60a5-f884-4ae0-8338-b53de9b30b2e",
@@ -4797,35 +4656,20 @@
    "per_source": [
     {
      "source_id": "196e03ba-4b2c-43f3-bdca-e28ddecfeb97",
-     "source_survives": true,
+     "source_survives": false,
      "bindings": [
       {
-       "kind": "CHRONOLOGY",
-       "ok": true,
+       "kind": "SOURCE",
+       "ok": false,
        "abstained": false,
-       "evidence": "source 2010; explicit date 1998",
-       "reason": ""
-      },
-      {
-       "kind": "FIGURE",
-       "ok": true,
-       "abstained": false,
-       "evidence": "no figure in assertion",
-       "reason": ""
+       "evidence": "",
+       "reason": "fetch: nothing retrieved (publisher: HTTP 200 a shell, a wall or too little text to be the document)"
       }
-     ],
-     "role": "support",
-     "role_rule": {
-      "matched": null,
-      "kind": "no_name_in_claim"
-     },
-     "level": "FIGURE_BOUND"
+     ]
     }
    ],
-   "support": "FIGURE_BOUND",
-   "supported_by": [
-    "196e03ba-4b2c-43f3-bdca-e28ddecfeb97"
-   ]
+   "support": "UNSUPPORTED",
+   "supported_by": []
   },
   {
    "claim_id": "ef208605-7409-4c70-9b19-e27c6ed80079",
@@ -5029,35 +4873,20 @@
    "per_source": [
     {
      "source_id": "6ef0773d-65cb-443b-a92e-c33af266f3f8",
-     "source_survives": true,
+     "source_survives": false,
      "bindings": [
       {
-       "kind": "CHRONOLOGY",
-       "ok": true,
+       "kind": "SOURCE",
+       "ok": false,
        "abstained": false,
-       "evidence": "source 2011; explicit date 1998",
-       "reason": ""
-      },
-      {
-       "kind": "FIGURE",
-       "ok": true,
-       "abstained": false,
-       "evidence": "12",
-       "reason": ""
+       "evidence": "",
+       "reason": "fetch: nothing retrieved (publisher: HTTP 403 )"
       }
-     ],
-     "role": "support",
-     "role_rule": {
-      "matched": null,
-      "kind": "no_name_in_claim"
-     },
-     "level": "FIGURE_BOUND"
+     ]
     }
    ],
-   "support": "FIGURE_BOUND",
-   "supported_by": [
-    "6ef0773d-65cb-443b-a92e-c33af266f3f8"
-   ]
+   "support": "UNSUPPORTED",
+   "supported_by": []
   },
   {
    "claim_id": "f0b091fa-86cf-42e2-8a5c-36189da5fba6",
@@ -5145,35 +4974,20 @@
     },
     {
      "source_id": "6ef0773d-65cb-443b-a92e-c33af266f3f8",
-     "source_survives": true,
+     "source_survives": false,
      "bindings": [
       {
-       "kind": "CHRONOLOGY",
-       "ok": true,
+       "kind": "SOURCE",
+       "ok": false,
        "abstained": false,
-       "evidence": "source 2011; explicit date 1998",
-       "reason": ""
-      },
-      {
-       "kind": "FIGURE",
-       "ok": true,
-       "abstained": false,
-       "evidence": "435643",
-       "reason": ""
+       "evidence": "",
+       "reason": "fetch: nothing retrieved (publisher: HTTP 403 )"
       }
-     ],
-     "role": "support",
-     "role_rule": {
-      "matched": null,
-      "kind": "no_name_in_claim"
-     },
-     "level": "FIGURE_BOUND"
+     ]
     }
    ],
-   "support": "FIGURE_BOUND",
-   "supported_by": [
-    "6ef0773d-65cb-443b-a92e-c33af266f3f8"
-   ]
+   "support": "UNSUPPORTED",
+   "supported_by": []
   },
   {
    "claim_id": "01b6ab93-0061-482d-9393-9067cf1174f1",
@@ -7318,29 +7132,16 @@
     },
     {
      "source_id": "196e03ba-4b2c-43f3-bdca-e28ddecfeb97",
-     "source_survives": true,
+     "source_survives": false,
      "bindings": [
       {
-       "kind": "CHRONOLOGY",
-       "ok": true,
+       "kind": "SOURCE",
+       "ok": false,
        "abstained": false,
-       "evidence": "source 2010; explicit date 2010-02; registry retraction of this source",
-       "reason": ""
-      },
-      {
-       "kind": "FIGURE",
-       "ok": true,
-       "abstained": false,
-       "evidence": "no figure in assertion",
-       "reason": ""
+       "evidence": "",
+       "reason": "fetch: nothing retrieved (publisher: HTTP 200 a shell, a wall or too little text to be the document)"
       }
-     ],
-     "role": "subject",
-     "role_rule": {
-      "matched": "retraction",
-      "kind": "title_word"
-     },
-     "level": "FIGURE_BOUND"
+     ]
     },
     {
      "source_id": "91b4a886-ac99-4607-a5ea-7afe7331ece8",
@@ -7362,10 +7163,8 @@
      "level": "UNSUPPORTED"
     }
    ],
-   "support": "FIGURE_BOUND",
-   "supported_by": [
-    "196e03ba-4b2c-43f3-bdca-e28ddecfeb97"
-   ]
+   "support": "UNSUPPORTED",
+   "supported_by": []
   },
   {
    "claim_id": "721f53f7-3201-4c06-9e77-5bb7fafb8645",
@@ -7395,22 +7194,16 @@
     },
     {
      "source_id": "196e03ba-4b2c-43f3-bdca-e28ddecfeb97",
-     "source_survives": true,
+     "source_survives": false,
      "bindings": [
       {
-       "kind": "CHRONOLOGY",
-       "ok": true,
+       "kind": "SOURCE",
+       "ok": false,
        "abstained": false,
-       "evidence": "source 2010; General Medical Council fitness-to-practise determination on Wakefield, Walker-Smith and Murch (findings of fact)",
-       "reason": ""
+       "evidence": "",
+       "reason": "fetch: nothing retrieved (publisher: HTTP 200 a shell, a wall or too little text to be the document)"
       }
-     ],
-     "role": "support",
-     "role_rule": {
-      "matched": null,
-      "kind": "no_name_in_claim"
-     },
-     "level": "IDENTITY_ONLY"
+     ]
     },
     {
      "source_id": "91b4a886-ac99-4607-a5ea-7afe7331ece8",
@@ -7432,10 +7225,8 @@
      "level": "UNSUPPORTED"
     }
    ],
-   "support": "IDENTITY_ONLY",
-   "supported_by": [
-    "196e03ba-4b2c-43f3-bdca-e28ddecfeb97"
-   ]
+   "support": "UNSUPPORTED",
+   "supported_by": []
   },
   {
    "claim_id": "05143523-6112-41bd-a26c-097f1ecb798e",
@@ -7467,22 +7258,16 @@
     },
     {
      "source_id": "196e03ba-4b2c-43f3-bdca-e28ddecfeb97",
-     "source_survives": true,
+     "source_survives": false,
      "bindings": [
       {
-       "kind": "CHRONOLOGY",
+       "kind": "SOURCE",
        "ok": false,
        "abstained": false,
-       "evidence": "explicit date 2010-05",
-       "reason": "IMPOSSIBLE: the claim references explicit date 2010-05, after the source's publication (2010)"
+       "evidence": "",
+       "reason": "fetch: nothing retrieved (publisher: HTTP 200 a shell, a wall or too little text to be the document)"
       }
-     ],
-     "role": "support",
-     "role_rule": {
-      "matched": null,
-      "kind": "no_name_in_claim"
-     },
-     "level": "UNSUPPORTED"
+     ]
     }
    ],
    "support": "UNSUPPORTED",
@@ -7542,7 +7327,7 @@
    "claim_text": "Special Master Hastings characterized the scientific evidence presented by petitioners — including testimony based on Wakefield's research — as 'weak, contradictory, and unpersuasive' with respect to a causal link between MMR vaccine and autism.",
    "category": "retraction_and_fraud_investigation",
    "figures": [],
-   "quotation": true,
+   "quotation": false,
    "per_source": [
     {
      "source_id": "9c4c60a5-f884-4ae0-8338-b53de9b30b2e",
@@ -7570,28 +7355,20 @@
    "per_source": [
     {
      "source_id": "196e03ba-4b2c-43f3-bdca-e28ddecfeb97",
-     "source_survives": true,
+     "source_survives": false,
      "bindings": [
       {
-       "kind": "CHRONOLOGY",
-       "ok": true,
+       "kind": "SOURCE",
+       "ok": false,
        "abstained": false,
-       "evidence": "source 2010; registry retraction of this source",
-       "reason": ""
+       "evidence": "",
+       "reason": "fetch: nothing retrieved (publisher: HTTP 200 a shell, a wall or too little text to be the document)"
       }
-     ],
-     "role": "subject",
-     "role_rule": {
-      "matched": "retraction",
-      "kind": "title_word"
-     },
-     "level": "IDENTITY_ONLY"
+     ]
     }
    ],
-   "support": "IDENTITY_ONLY",
-   "supported_by": [
-    "196e03ba-4b2c-43f3-bdca-e28ddecfeb97"
-   ]
+   "support": "UNSUPPORTED",
+   "supported_by": []
   },
   {
    "claim_id": "1f6b6c20-75b1-4776-8e42-ad8210359f7c",
@@ -7605,35 +7382,20 @@
    "per_source": [
     {
      "source_id": "6ef0773d-65cb-443b-a92e-c33af266f3f8",
-     "source_survives": true,
+     "source_survives": false,
      "bindings": [
       {
-       "kind": "CHRONOLOGY",
-       "ok": true,
+       "kind": "SOURCE",
+       "ok": false,
        "abstained": false,
-       "evidence": "source 2011; explicit date 1998; Brian Deer's BMJ series on the Wakefield case",
-       "reason": ""
-      },
-      {
-       "kind": "FIGURE",
-       "ok": true,
-       "abstained": false,
-       "evidence": "12",
-       "reason": ""
+       "evidence": "",
+       "reason": "fetch: nothing retrieved (publisher: HTTP 403 )"
       }
-     ],
-     "role": "subject",
-     "role_rule": {
-      "matched": "Deer",
-      "kind": "first_author"
-     },
-     "level": "FIGURE_BOUND"
+     ]
     }
    ],
-   "support": "FIGURE_BOUND",
-   "supported_by": [
-    "6ef0773d-65cb-443b-a92e-c33af266f3f8"
-   ]
+   "support": "UNSUPPORTED",
+   "supported_by": []
   },
   {
    "claim_id": "0eda21d2-b057-45ba-84c1-6ec9c7c384d5",
@@ -7642,40 +7404,20 @@
    "figures": [
     "1998"
    ],
-   "quotation": true,
+   "quotation": false,
    "per_source": [
     {
      "source_id": "6ef0773d-65cb-443b-a92e-c33af266f3f8",
-     "source_survives": true,
+     "source_survives": false,
      "bindings": [
       {
-       "kind": "CHRONOLOGY",
-       "ok": true,
-       "abstained": false,
-       "evidence": "source 2011; explicit date 1998",
-       "reason": ""
-      },
-      {
-       "kind": "FIGURE",
-       "ok": true,
-       "abstained": false,
-       "evidence": "no figure in assertion",
-       "reason": ""
-      },
-      {
-       "kind": "SPAN",
+       "kind": "SOURCE",
        "ok": false,
        "abstained": false,
        "evidence": "",
-       "reason": "not in the document: 'an elaborate fraud'"
+       "reason": "fetch: nothing retrieved (publisher: HTTP 403 )"
       }
-     ],
-     "role": "support",
-     "role_rule": {
-      "matched": null,
-      "kind": "no_name_in_claim"
-     },
-     "level": "UNSUPPORTED"
+     ]
     }
    ],
    "support": "UNSUPPORTED",
@@ -7957,26 +7699,25 @@
  "summary": {
   "sources": {
    "total": 35,
-   "survived": 31,
+   "survived": 29,
    "withheld_by_reason": {
-    "fetch": 4
+    "fetch": 6
    },
    "status_of_survivors": {
     "retracted": 2,
-    "unchanged": 20,
+    "unchanged": 19,
     "no_registry": 6,
-    "retraction_notice": 1,
     "corrected": 2
    }
   },
   "claims": {
    "total": 128,
    "by_support": {
-    "IDENTITY_ONLY": 43,
-    "UNSUPPORTED": 22,
-    "FIGURE_BOUND": 63
+    "IDENTITY_ONLY": 41,
+    "UNSUPPORTED": 29,
+    "FIGURE_BOUND": 58
    },
-   "identity_only_rate": 0.336
+   "identity_only_rate": 0.32
   }
  },
  "flipped": false
