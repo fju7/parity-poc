@@ -110,15 +110,23 @@ def _cfr(ident: Identifier) -> tuple[Resolution, Document | None]:
     url = f"https://www.ecfr.gov/api/versioner/v1/full/{date}/title-{title}.xml?section={section}"
     res = Resolution(ident, Exists.UNCHECKED, registry="ecfr", checked_at=_NOW(),
                      canonical=f"https://www.ecfr.gov/current/title-{title}/section-{section}")
-    st, body, _ = http.get(url)
+    st, body, headers = http.get(url)
     if st == 404:
         res.exists = Exists.NONEXISTENT; return res, None
-    if st != 200 or not body:
-        return res, None
-    xml = body.decode("utf-8", "replace")
+    xml = body.decode("utf-8", "replace") if body else ""
     m = re.search(r"<HEAD>\s*§\s*[\d.]+\s*(.*?)</HEAD>", xml, re.S)
+    if st != 200 or not m:
+        # Only a section document decides existence. A 429, a 5xx, no
+        # connection, or a 200 that is not the section's XML (a maintenance
+        # page) leaves the section UNCHECKED, with the reason on the record.
+        note = ("no response: " + str(headers.get("error") or "no connection")) if st == 0 else \
+               (f"HTTP {st}" if st != 200 else "HTTP 200 without the section's XML heading")
+        if headers.get("retries"):
+            note += f" after {int(headers['retries']) + 1} attempts"
+        res.extra = {"registry_unavailable": {"ecfr": note}}
+        return res, None
     res.exists = Exists.EXISTS
-    res.heading = _strip(m.group(1)) if m else None
+    res.heading = _strip(m.group(1))
     res.registry_id = f"{title} CFR {section}"; res.extra = {"as_of": date}
     text = _strip(xml)
     # The cited unit: narrow to the paragraph when the citation names one,

@@ -103,10 +103,33 @@ def _words_value(tokens: list[str]) -> Decimal | None:
 _ADJECTIVE_TAIL = re.compile(r"[\s\-]+(sided|tailed|fold|way|arm|thirds|fifths)\b", re.I)
 
 
-def _words(text: str) -> set[str]:
+# A unit or a counted noun after a number word: "one dose", "zero cases",
+# "six years". Shared with the prose gate (policy._has_unit).
+UNIT_AFTER = re.compile(r"^\s*(?:years?|months?|weeks?|days?|decades?|hours?|percent|per\s?cent|%|times|fold|"
+                        r"million|billion|thousand|hundred|patients?|children|participants?|cases?|studies|trials?)\b", re.I)
+# The claim binder's wider list: a bare "one"/"zero" before any of these is a
+# count the document must state ("one dose", "zero deaths"). Wider than the
+# prose gate's on purpose -- the prose gate flags a bare count and must not
+# start refusing "one group than another" because "group" joined this list.
+_COUNTED_AFTER = re.compile(UNIT_AFTER.pattern[:-len(r")\b")] + r"|doses?|deaths?|infections?|sources?|countries|states|sites?|groups?|arms?|events?)\b", re.I)
+
+# "one of the strongest natural experiments", "rates dropping to zero",
+# "despite zero MMR vaccination": here "one" is an article and "zero" asserts
+# absence. Neither is a quantity the document must state in digits, and on
+# the frozen mmr record (2026-09-15) four claims were withheld on exactly
+# that. A bare "one" or "zero" counts as a figure only when a unit or a
+# counted noun follows it ("one dose", "zero cases"). Compound word numbers
+# ("one hundred", "thirty-nine") and every other counting word are unchanged.
+_ARTICLE_OR_ABSENCE = {"one", "zero", "a"}
+
+
+def _words(text: str, commit: bool = False) -> set[str]:
+    """`commit`: the text is an assertion, so apply the article/absence rule."""
     out = set()
     for m in _WORDS.finditer(text):
         if _ADJECTIVE_TAIL.match(text, m.end()):
+            continue
+        if commit and m.group(0).strip().lower() in _ARTICLE_OR_ABSENCE and not _COUNTED_AFTER.match(text[m.end():]):
             continue
         # "23 million": the scale word belongs to the digits before it
         # (_digit_scales); alone it is not a figure of one million.
@@ -144,8 +167,10 @@ def canonical_numbers(text: str) -> set[str]:
 
 
 def figures(assertion: str) -> set[str]:
-    """The numbers an assertion commits to. Same extraction; named for intent."""
-    return canonical_numbers(assertion)
+    """The numbers an assertion commits to: the same extraction as
+    canonical_numbers, minus a bare "one" / "zero" with no unit after it."""
+    text = assertion or ""
+    return _digits(text) | _words(text, commit=True) | _digit_scales(text)
 
 
 # ---------------------------------------------------------------------------

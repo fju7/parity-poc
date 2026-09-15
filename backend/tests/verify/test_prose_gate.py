@@ -111,3 +111,40 @@ def test_a_word_form_interval_the_model_computed_is_refused_not_flagged():
     # the bare counting word is still only a flag
     kept2, verdicts2 = pg.gate_plain_summaries(_SB(), batch, [{"claim_id": "c4", "plain_summary": "The journal partly withdrew the interpretation in 2004; six of the authors' claims were affected."}])
     assert kept2 and any(f["kind"] == "words" for f in verdicts2[0]["flags"])
+
+
+# --- the claim-level FIGURE binder, same distinction -------------------------
+# Four mmr claims were withheld on 2026-09-15 because a bare "one" or "zero"
+# was read as a figure the abstract had to state in digits. "one of the
+# strongest" is an article; "dropping to zero" asserts absence.
+import pytest  # noqa: E402
+
+from verify.bind import bind_figure  # noqa: E402
+from verify.types import Document, Identifier  # noqa: E402
+
+_ABSTRACT = Document(Identifier("doi", "10.1111/j.1469-7610.2005.01425.x"), "", (
+    "The MMR vaccination programme was terminated in Japan in 1993. The cumulative incidence of ASD up to age seven "
+    "rose steadily and there was no decline after MMR was withdrawn; incidence continued to rise in cohorts born after 1993."),
+    kind="abstract", text_layer="DECLARED_SOUND")
+
+
+@pytest.mark.parametrize("claim", [
+    "The Japanese MMR withdrawal is considered one of the strongest natural experiments on the MMR-autism question.",
+    "The incidence of autism spectrum disorder in Yokohama continued to rise despite MMR vaccination rates dropping to zero.",
+    "Cohorts born after 1993 showed autism incidence continuing to rise despite zero MMR vaccination.",
+    "Autism incidence in Yokohama rose while MMR vaccination rates dropped to zero following the 1993 withdrawal.",
+])
+def test_a_bare_one_or_zero_in_a_claim_is_not_a_figure_the_abstract_must_state(claim):
+    b = bind_figure(claim, _ABSTRACT)
+    assert b.ok, b.reason
+
+
+@pytest.mark.parametrize("claim,figure", [
+    ("One dose of MMR reduced measles incidence by 95%.", "1"),          # a counted dose is a figure
+    ("Zero cases of autism were attributed to MMR in the cohort.", "0"), # a counted zero is a figure
+    ("One hundred children were followed.", "100"),                      # compound word numbers unchanged
+    ("Ten of the thirteen co-authors withdrew their names.", "13"),      # other counting words unchanged
+])
+def test_a_counted_one_or_zero_and_every_other_word_number_still_bind(claim, figure):
+    b = bind_figure(claim, _ABSTRACT)
+    assert not b.ok and figure in b.reason, b

@@ -312,8 +312,7 @@ def _bind_figures(field_name: str, text: str, held: Held, other: list[Candidate]
 # before the retraction" (2004 -> 2010, the 2010 from the model's memory) is
 # arithmetic yielding a figure nothing handed over contains. Found on
 # mmr-vaccine-autism claim 5b3bff25, 2026-09-15.
-_UNIT_AFTER = re.compile(r"^\s*(?:years?|months?|weeks?|days?|decades?|hours?|percent|per\s?cent|%|times|fold|"
-                         r"million|billion|thousand|hundred|patients?|children|participants?|cases?|studies|trials?)\b", re.I)
+from .numbers import UNIT_AFTER as _UNIT_AFTER   # one definition, shared with the claim binder
 
 
 def _has_unit(text: str, c: Candidate) -> bool:

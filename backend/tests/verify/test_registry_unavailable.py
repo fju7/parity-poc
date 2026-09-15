@@ -194,3 +194,42 @@ def test_http_get_never_raises_on_a_dead_connection(monkeypatch):
     monkeypatch.setattr(http, "CACHE_DIR", None)
     st, body, headers = http.get("https://www.ebi.ac.uk/europepmc/x")
     assert st == 0 and headers["error"].startswith("TimeoutError") and headers["retries"] == "3"
+
+
+# --- law: the eCFR resolver ---------------------------------------------------
+
+@pytest.mark.parametrize("case,mapping,note", [
+    ("ecfr 429", {"ecfr.gov": (429, b"", {"retries": "3"})}, "HTTP 429 after 4 attempts"),
+    ("ecfr timeout", {"ecfr.gov": (0, b"", {"error": "TimeoutError", "retries": "3"})}, "no response: TimeoutError"),
+    ("ecfr html 200 (maintenance page)", {"ecfr.gov": (200, b"<html><body>Down for maintenance</body></html>", {})}, "HTTP 200 without the section"),
+])
+def test_law_ecfr_stays_unchecked_when_the_registry_does_not_answer(monkeypatch, case, mapping, note):
+    from verify import law
+    _inject(monkeypatch, law, mapping)
+    res, _ = law._cfr(law.identify("42 CFR § 410.32"))
+    assert res.exists == Exists.UNCHECKED and note in res.extra["registry_unavailable"]["ecfr"]
+
+
+def test_law_ecfr_nonexistent_only_on_a_404(monkeypatch):
+    from verify import law
+    _inject(monkeypatch, law, {"ecfr.gov": (404, b"", {})})
+    res, _ = law._cfr(law.identify("42 CFR § 410.32"))
+    assert res.exists == Exists.NONEXISTENT
+
+
+# --- UNCHECKED at the publish gate is a withholding, never a pass ---------------
+
+def test_unchecked_at_gate_source_withholds_and_is_never_a_pass(monkeypatch):
+    """Asserted, not implied: whatever produced UNCHECKED -- a registry that
+    did not answer, or nothing at all -- the source does not survive and the
+    record says resolve: UNCHECKED."""
+    from verify import publish
+    from verify.types import Resolution
+    publish._run_cache.clear()
+    monkeypatch.setattr(literature, "resolve", lambda ident: Resolution(ident, Exists.UNCHECKED, checked_at="t"))
+    fetched = []
+    monkeypatch.setattr(literature, "fetch", lambda res: fetched.append(res) or None)
+    row = publish.gate_source({"id": "s3", "title": "Any paper", "url": "https://doi.org/10.1056/nejmoa021134", "source_type": "journal"})
+    assert row["survives"] is False and row["withheld_reason"] == "resolve: UNCHECKED"
+    assert row["resolution"]["exists"] == "UNCHECKED" and row["document"] is None and fetched == []   # nothing downstream ran
+    publish._run_cache.clear()
