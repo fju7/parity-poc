@@ -3877,3 +3877,28 @@ for whether the class needs an instrument beyond (d).
 **Resolution:** melanoma's single row, not yet done. Nothing readers see is
 false; the page and its masthead are correct. Until the record exists,
 melanoma cannot publish or update.
+
+## D1d — reconcile() does not read the publication record, so every record-live sign-off reads as an unrecorded departure
+
+*Found 2026-09-15, tracing melanoma's single blocking row.*
+
+`record-live` writes an operator's signed diff into `published.json` — with
+the changed lines, a basis naming the person who read them, and a note.
+`reconcile()` reads `changes.json` alone. So a change the operator personally
+read and signed is reported by the board as text that left the page with
+nothing recording it. Melanoma's block was two such changes at once: the
+dateline set by the publication of 10 September, and the nav collapse signed
+the same day. Deskilling's masthead, one of its four unaccounted deletions, is
+the same commit and the same instant.
+
+**Fires when:** any issue with a record-live row or a dateline-bearing publish
+in the span since its last outside review. Live on deskilling now.
+
+**Owner:** Advisor Claude, to design.
+
+**Resolution:** not yet specified. The obvious limb — "the text appears in the
+diff of a record-live row" — is NOT sound as stated: record-live diffs hold
+line fragments while condition (d) tests whole flattened sentences, so the
+test would be containment, and a row bundling a signed nav change with an
+unsigned later edit would be rescued on the signed fragment. It needs a design
+and its own counterfactual test, not a fourth limb appended.

@@ -1983,6 +1983,26 @@
       "now": "The Melanoma Result - What Holds Up What Holds Up What this is The rubric Issues Who pays for this Issue one Evidence review Published 26 August 2026 · Updated 13 September 2026 · event dated 19 August 2026 The Melanoma Result whatholdsup.org Merck and Moderna announced that a large trial of a personalised mRNA cancer therapy succeeded in melanoma.",
       "because": "ERRATUM-001",
       "note": "Masthead date set 11 -> 13 September 2026 by publish.py dateline melanoma on the advisor's directive of 13 September, the day the page carrying the ERRATUM-001 correction (completed 11 September, never yet live: readers still see 'Updated 10 September') and the 12 September modest-promise changes is to be published. The page's prose last changed 12 September (4be9e11); the tool stamps the publish day, as its own rule says. Not a correction of substance; the masthead is reader-facing text and this row is its account."
+    },
+    {
+      "at": "2026-09-15T01:20:24+00:00",
+      "by": "unknown",
+      "by_means": "the actor is not established because the mechanism performing the write does not identify one; the decider is named in the note and in `because`",
+      "kind": "changed",
+      "was": "The Melanoma Result - What Holds Up What Holds Up What this is The rubric Issue one Issue two Issue three Who pays for this Issue one Evidence review Published 26 August 2026 · Updated 4 September 2026 · event dated 19 August 2026 The Melanoma Result whatholdsup.org Merck and Moderna announced that a large trial of a personalised mRNA cancer therapy succeeded in melanoma.",
+      "now": "The Melanoma Result - What Holds Up What Holds Up What this is The rubric Issue one Issue two Issue three Who pays for this Issue one Evidence review Published 26 August 2026 · Updated 10 September 2026 · event dated 19 August 2026 The Melanoma Result whatholdsup.org Merck and Moderna announced that a large trial of a personalised mRNA cancer therapy succeeded in melanoma.",
+      "because": "MASTHEAD-001",
+      "note": "the dateline moved with the publication of 10 September; the decision is that publication, recorded in published.json as the publish row of 2026-09-10T17:54:52+00:00, sha 76703fe9. Adjudication: review/2026-09-15-masthead-adjudication.md"
+    },
+    {
+      "at": "2026-09-15T01:20:24+00:00",
+      "by": "unknown",
+      "by_means": "the actor is not established because the mechanism performing the write does not identify one; the decider is named in the note and in `because`",
+      "kind": "changed",
+      "was": "The Melanoma Result - What Holds Up What Holds Up What this is The rubric Issue one Issue two Issue three Who pays for this Issue one Evidence review Published 26 August 2026 · Updated 10 September 2026 · event dated 19 August 2026 The Melanoma Result whatholdsup.org Merck and Moderna announced that a large trial of a personalised mRNA cancer therapy succeeded in melanoma.",
+      "now": "The Melanoma Result - What Holds Up What Holds Up What this is The rubric Issues Who pays for this Issue one Evidence review Published 26 August 2026 · Updated 10 September 2026 · event dated 19 August 2026 The Melanoma Result whatholdsup.org Merck and Moderna announced that a large trial of a personalised mRNA cancer therapy succeeded in melanoma.",
+      "because": "NAV-002",
+      "note": "the enumerated issue links replaced by a single Issues link in commit eead63c; the operator read and signed the diff, recorded in published.json as the record-live republish of 2026-09-10T18:18:45+00:00, sha 97d53bc3 superseding 76703fe9. Adjudication: review/2026-09-15-masthead-adjudication.md"
     }
   ],
   "what_change_sets_are": "A round-level attribution: the span of page history it covers, the documents that decided the changes in it, and a label that must resolve like any other. Both shas are pinned, so a set stops covering the moment the page changes again. It is not a waiver — see recorded_change_sets() in publish.py for the three things that stop it becoming one.",
