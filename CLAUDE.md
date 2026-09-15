@@ -2528,6 +2528,40 @@ is done. Items 2-4 touch no page and no corpus, so they were done now.
   status the machine can see.
 - STILL: no --flip, siteMeta.js untouched.
 
+## Session SAP-Signal-9 — the four claims; 092 applied; record ec9ac08 (2026-09-15)
+- RULE: WHEN A CLAIM'S CONTENT IS NOT IN ITS SOURCE, THE DEFAULT IS TO
+  WITHHOLD THE CLAIM, NOT TO FIND A SOURCE THAT SUPPORTS IT. Searching for
+  evidence that fits a sentence a model wrote is the fabrication defect
+  running backwards -- fabricating a claim's provenance instead of its
+  citation. A re-cite is legitimate only when the finding demonstrably
+  exists AND was attributed to the wrong document AND the sentence does not
+  itself name the wrong study (f0b091fa names "Smeeth 2004" for Taylor
+  1999's finding: withheld, not re-cited; 19214753 named no study and Deer
+  reports the payment: re-cited, 091).
+- THE OPERATOR WITHHOLD REGISTER: data/verify/withheld_claims.json, consumed
+  by publish.gate_claim -> UNSUPPORTED, withheld_reason OPERATOR_WITHHELD,
+  operator_withheld {reason, checked_against, withheld_by, withheld_on,
+  ruled_by} on the record; no binding runs. REFUSE-ONLY: it can withhold,
+  never admit (tested). Four mmr rows. No corpus row changed for it.
+- d1678 ADMITTED for its own DOI (sha 953b3c50..., HEADING 0.83 on the
+  wrapped title; Crossref's title for it is identical to the editorial's --
+  the own-DOI check is what tells them apart). 092 APPLIED after the
+  operator's approval with one change: corrected_by cites the admitted
+  document (provenance, sha, supplier, record path), not a curator's note;
+  not_surfaced_by: crossref kept verbatim. Probed: both rows, titles
+  distinct, d1678 linked to no claim.
+- RE-FREEZE ec9ac08 (no flip): 34 of 38; FIGURE_BOUND 34 / SPAN_BOUND 1 /
+  IDENTITY_ONLY 68 / UNSUPPORTED 25 -- exactly the four operator withholds
+  moved shown -> withheld; nothing else changed level. Operator read
+  regenerated; "do not ratify before 092" marker removed.
+- NOT BUILT (Phase 5 requirement recorded in docs/source-status-no-registry-
+  watches-2026-09-15.md): a status marker from hand-curated metadata must be
+  visibly distinguishable from a registry's -- a "corrected" badge a reader
+  cannot tell from a Crossref event is provenance collapse, the shape of a
+  model summary stored as content_text.
+- STILL: no --flip, siteMeta.js untouched. Next: Fred ratifies, Fred flips,
+  then step 4 (noindex) with the live probes.
+
 ## Standing instructions for every session
 1. Read this file at the start of every session
 2. Verify all file paths before issuing commands

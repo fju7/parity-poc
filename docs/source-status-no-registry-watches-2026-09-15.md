@@ -119,6 +119,18 @@ no way to know that part of what it rests on was quashed.
 Until then: any legal source on a published page is a source whose status the
 system cannot learn changed, and the operator read should say so on each.
 
+## The requirement that makes a curated status marker safe (not built)
+
+A status marker sourced from hand-curated metadata (`corrected_by` on
+Godlee's editorial, migration 092) must be **visibly distinguishable** from
+one a registry supplied. A "corrected" badge a reader cannot tell apart from a
+Crossref update-to is provenance collapse — the same shape as a model summary
+stored as `content_text`: two things of different standing wearing one label.
+Tonight the scope statement carries the correction in words and nothing is
+built. When the marker is built it says where it came from ("recorded by the
+publisher's registry" / "recorded by hand from the correction itself, sha …"),
+in the badge, not in a tooltip.
+
 ## The twin gap: the citing-source anchor (write-up only, not built)
 
 The same class of document — court judgments, regulatory determinations,
