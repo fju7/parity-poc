@@ -331,9 +331,17 @@ async def analyze_contract(contract_id: str, authorization: str = Header(None)):
     except ClaudeCallError as exc:
         raise HTTPException(status_code=502, detail=f"Rate extraction failed; nothing stored. ({exc})")
 
+    # Shared assertion policy (B1): each rate must be in the PDF's text layer.
+    # The verdict is stored inside analysis_result and returned, so a PDF with
+    # no text layer is recorded as UNCHECKED rather than as verified rates.
+    from verify.policy import gate_extraction, source_document, Held
+    result = gate_extraction("routers.billing_contracts::analyze_contract", result,
+                             Held(documents=[source_document(pdf_bytes=base64.b64decode(file_b64), label=c.get("storage_path") or "contract.pdf")]))
+
     # Enrich with contract metadata
     analysis = {
         "extraction": result,
+        "verification": result.get("verification"),
         "payer_name": c["payer_name"],
         "effective_date": str(c.get("effective_date") or ""),
         "expiry_date": str(c.get("expiry_date") or ""),
@@ -402,9 +410,13 @@ async def analyze_all_contracts(authorization: str = Header(None)):
                 user_content=_pdf_blocks(file_b64),
                 max_tokens=8192,
             )
+            from verify.policy import gate_extraction, source_document, Held
+            result = gate_extraction("routers.billing_contracts::analyze_all_contracts", result,
+                                     Held(documents=[source_document(pdf_bytes=base64.b64decode(file_b64), label=c.get("storage_path") or "contract.pdf")]))
 
             analysis = {
                 "extraction": result,
+                "verification": result.get("verification"),
                 "rates_extracted": len(result.get("rates", [])) if isinstance(result, dict) else 0,
             }
 

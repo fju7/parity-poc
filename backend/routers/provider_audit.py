@@ -502,7 +502,11 @@ async def extract_fee_schedule_pdf(file: UploadFile = File(...)):
     except ClaudeCallError as exc:
         raise HTTPException(status_code=502, detail="Could not extract rates from PDF. The document may not contain a recognizable fee schedule. ({exc})".format(exc=exc))
 
-    return result
+    # Shared assertion policy (P2): every extracted rate must be in the PDF's
+    # text layer; a PDF with none yields UNCHECKED, carried in "verification".
+    from verify.policy import gate_extraction, source_document, Held
+    return gate_extraction("routers.provider_audit::extract_fee_schedule_pdf", result,
+                           Held(documents=[source_document(pdf_bytes=content, label=file.filename or "upload.pdf")]))
 
 
 # ---------------------------------------------------------------------------
@@ -527,7 +531,9 @@ async def extract_fee_schedule_text(req: ExtractFeeScheduleTextRequest):
     except ClaudeCallError as exc:
         raise HTTPException(status_code=502, detail="Could not extract rates from text. Please check that the text contains CPT codes and dollar amounts. ({exc})".format(exc=exc))
 
-    return result
+    from verify.policy import gate_extraction, source_document, Held
+    return gate_extraction("routers.provider_audit::extract_fee_schedule_text", result,
+                           Held(documents=[source_document(text=req.text, label="pasted text")]))
 
 
 # ---------------------------------------------------------------------------
@@ -581,7 +587,11 @@ async def extract_fee_schedule_image(file: UploadFile = File(...)):
     except ClaudeCallError as exc:
         raise HTTPException(status_code=502, detail="Could not extract rates from image. Please ensure the image clearly shows CPT codes and rates. ({exc})".format(exc=exc))
 
-    return result
+    # An image has no text layer: every rate is UNCHECKED. The verdict says so
+    # in the response, and the UI shows it; it is never reported as verified.
+    from verify.policy import gate_extraction, source_document, Held
+    return gate_extraction("routers.provider_audit::extract_fee_schedule_image", result,
+                           Held(documents=[source_document(image=True, label=file.filename or "upload image")]))
 
 
 # ---------------------------------------------------------------------------

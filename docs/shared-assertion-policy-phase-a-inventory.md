@@ -433,3 +433,107 @@ but is code.
 - MONALEESA-7 PMID: `backend/tests/verify/golden_literature.json` → `known_bad[0]` (`pmid:31562796`, resolves to a nivolumab NSCLC paper; HEADING passed, FIGURE refused).
 - New, from this pass: **29 U.S.C. § 1185i** cited as CAA §204 — a live production negative for the `usc` system and the K3 surface, resolved against the primary source today.
 - Not yet frozen: a named-source negative (an `appeal_rights` item relabelled "ACA independent external review"), and a coded-descriptor negative (a plausible descriptor on the wrong CPT). Both are needed before the two new classes can claim a discovering test.
+
+---
+
+# Phase A.5 and Phase B — BUILT 2026-09-15
+
+Tiers approved with four amendments (lint covers every string literal in
+backend/ and frontend/; the AST-discovered surface set is reconciled against
+the table both ways; UNCHECKED has a consumer; PHI lifted out). Commits: A.5
+`6ed1bd9`; Phase B follows it on main.
+
+## The three questions answered before any code
+
+1. **Has any broker CAA letter reached a real carrier?** Not through the system,
+   and the system cannot know beyond that. There is no send path: the endpoint
+   returns `{"letter"}` and the UI copies it to the clipboard; nothing stores or
+   emails a generated letter. One broker account exists (the operator's, "Acme
+   Benefits Corp", 2026-03-09) with five links, all to test/pending clients with
+   no carrier set. Render's 30-day request log (2026-08-17 → 2026-09-15) holds
+   zero `/caa-letter` requests; earlier is unretrievable. **But the wrong
+   citation was public**: `broker.civicscale.ai/demo` rendered the demo letter
+   with "29 U.S.C. § 1185i" and "EBSA FAB 2021-04", and the production bundle
+   (`index-C47sVXWZ.js`) carried both strings, until A.5(a). Only the operator
+   can say whether a copied letter was ever pasted into an email.
+2. **Since when has billing_contracts been broken?** Since the file was born:
+   commit `1c99291`, 2026-03-26 13:13 -0400 ("Session BL-10"), 173 days. The
+   call never had the keyword form. `billing_contracts` holds 2 rows, both
+   analysed 2026-03-26 17:31–17:33 UTC, both `{"extraction": null,
+   "rates_extracted": 0}`, both the operator's. 2 of 2 — 100% of the feature's
+   recorded successes were failures.
+3. **Does any frontend read `appeal_letter_template` or `total_recoverable_value`?**
+   `appeal_letter_template`: nothing, anywhere (frontend, routers, scripts, e2e).
+   `total_recoverable_value`: **yes — the Phase A report was wrong to say it was
+   unrendered.** Three consumers: `ProviderApp.jsx:4947` (the "Estimated
+   Recoverable Value" tile), `ProviderAuditReport.jsx:122` (summed into
+   `totalDeniedValue`), `provider_audit.py:2004` (summed into the audit PDF's
+   Revenue Gap Estimate). All three presented model arithmetic as a dollar figure.
+   Now computed in code from the line items and labelled "Denied Value (billed)".
+
+## A.5 — removals (commit 6ed1bd9)
+
+(a) CAA citations stripped from the prompt, the code template, and both pages;
+letter cites nothing; response carries `source: model|template`. Probe: gate
+finds 0 citations in all four locations, in a fresh model letter and in the
+template. Side finding: the model's JSON reply usually fails to parse (a letter
+contains quotation marks), so the template has been what brokers received.
+(b) `DENIAL_SYSTEM_PROMPT` no longer drafts a letter or does arithmetic;
+`denial_totals()` / `attach_denial_totals()` compute counts and values.
+(c) "[full AMA CPT description]" removed. (d) `provider_shared._call_claude`
+raises `ClaudeCallError`; never returns None; never wraps HTML as a letter.
+(e) `billing_contracts` fixed; `tests/test_billing_contracts_analyze.py`
+covers the success path, the old positional call (now refused before any
+network call), and the error path raising.
+
+## Phase B — what was built
+
+- `verify/extract.py` — five extractors (LEGAL via the unchanged citation gate;
+  IDENTIFIER; NAMED_SOURCE lexicon; FIGURE via `verify.numbers`; CODED_DESCRIPTOR).
+- `verify/policy.py` — `POLICY[surface][class] → Tier`, `Held`, `check()`,
+  `check_prompt_payload()`, `gate_extraction()`, `source_document()`,
+  `held_for_prompt()`, `WRAPPERS`, `NOT_A_MODEL`, `APPROVED_ANTHROPIC_IMPORTERS`.
+  `citation_gate.check_letter` / `allowlist.build` are called, not absorbed.
+- `verify/lint_literals.py` + `data/verify/lint_allow.json` — every string
+  literal in backend/ (AST) and every source file in frontend/src (full text).
+  First run: 232 hard hits → 4 fabricated-looking citations in
+  `ProviderDemoPage.jsx` demo letters removed (NCCI ch.1 §E, Claims Processing
+  Manual ch.12 §20.4.2, 42 USC §300gg-13, "Maryland Insurance Code §15-836");
+  the rest allow-listed with reasons (test fixtures, the detector's own
+  patterns, WHU's held ids, design-doc "§5b" references). 0 hard failures.
+- Wired at the response boundary: **P1** (all six fields), **K3** (model and
+  template), **H4** (needs_revision now marks the JSON — `sendable: false`,
+  `withheld_reasons` — and the PDF endpoint answers 422; UI shows the reasons),
+  **P2** ×3 and **B1** ×2 (`gate_extraction`: a rate not in the source text is
+  removed; an image or text-layer-less PDF is UNCHECKED), **E1** (a narrative
+  with a figure not in the inputs is dropped, the numbers stand), **S1** (an
+  answer citing an identifier not in the context is withheld, 502).
+- UNCHECKED's consumers: `verification` in every wired response; stored in
+  `billing_contracts.analysis_result.verification`; `provider_appeals.verification`
+  once migration 085 is applied (staged, not applied); rendered by
+  `frontend/src/lib/verificationNote.js` on the Billing contract panel and the
+  Provider rate preview.
+- Tests: `tests/verify/test_policy_discovery.py` (reconciliation both ways,
+  approved importers, wrappers exist, not-a-model exclusions still true,
+  unparseable files accounted for, **seen failing** on a planted surface then
+  passing once tiered), `test_policy_check.py` (12 Ohio negatives + 1185i on
+  three letter surfaces, 59 DOIs on Q&A and Health, MONALEESA-7, the
+  appeal_rights relabelling, restated/extracted figures, UNCHECKED image,
+  coded descriptors), `test_policy_wiring.py` (each wired endpoint with a
+  stubbed model), `test_lint_literals.py` (seen failing on a planted citation).
+  1,024 offline tests pass.
+
+## Deliberately unwired (declared GATE, `wired=False`, pinned so it only shrinks)
+
+31 surfaces — the remaining narratives, extractions, Signal's plain summary and
+pipeline writers. Each has a tier and a test-visible entry; attaching
+`check()` is one call per surface with the right `Held`. Listed in
+`test_unwired_gates_are_declared_and_only_shrink`.
+
+## Not done, on purpose
+
+- No USC adapter in `verify.law`; the broker letter therefore cites nothing.
+- `_call_claude_text` still returns None on failure (its three callers show an
+  explicit "unavailable" fallback in the PDF; not silent, but the same shape).
+- `employer_shared._call_claude` still returns None on failure.
+- PHI: `docs/phi-model-exposure-2026-09-15.md`, for counsel; no flow changed.

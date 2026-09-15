@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback, useRef } from "react";
+import { verificationSummary, VERIFICATION_STYLES } from "./lib/verificationNote";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "./context/AuthContext";
 import { API_BASE as API } from "./lib/apiBase";
@@ -2564,6 +2565,16 @@ function ContractsPanel({ token, practices, billingRole }) {
                   {analysisView?.id === c.id && analysisView.data && (
                     <tr><td colSpan={8} style={{ padding: "16px 20px", background: "rgba(13,148,136,0.03)" }}>
                       <div style={{ fontSize: 12, fontWeight: 600, color: "#94a3b8", marginBottom: 8 }}>Analysis Result</div>
+                      {(() => {
+                        const vs = verificationSummary(analysisView.data.verification || analysisView.data.extraction?.verification);
+                        return vs ? (
+                          <p style={{ ...VERIFICATION_STYLES[vs.tone], fontSize: 12, padding: "8px 10px", borderRadius: 6, margin: "0 0 10px" }}>{vs.text}</p>
+                        ) : (
+                          <p style={{ ...VERIFICATION_STYLES.unchecked, fontSize: 12, padding: "8px 10px", borderRadius: 6, margin: "0 0 10px" }}>
+                            This analysis predates verification (2026-09-15); its rates were never checked against the document.
+                          </p>
+                        );
+                      })()}
                       {analysisView.data.extraction?.rates?.length > 0 ? (
                         <>
                           <p style={{ fontSize: 13, color: "#5eead4", margin: "0 0 8px" }}>

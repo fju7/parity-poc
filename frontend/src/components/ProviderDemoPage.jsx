@@ -52,7 +52,7 @@ This denial incorrectly bundles CPT 99215 with a separately identifiable service
 2. Moderate-to-high complexity MDM with multiple chronic conditions assessed
 3. 40+ minutes of total physician time documented
 
-Per CMS NCCI Policy Manual, Chapter 1, Section E: "E/M services on the same date as a procedure are separately reportable when the E/M service is significant and separately identifiable." Modifier 25 was appropriately appended.
+Under standard correct-coding conventions, an E/M service on the same date as a procedure is separately reportable when it is significant and separately identifiable. Modifier 25 was appropriately appended.
 
 SUPPORTING DOCUMENTATION ENCLOSED
 
@@ -93,7 +93,7 @@ CORRECTIVE ACTION
 2. The encounter note documents a distinct chief complaint, separate from any procedure performed
 3. Medical decision-making of moderate complexity is supported by the clinical documentation
 
-Per the AMA CPT Guidelines and CMS Claims Processing Manual (Chapter 12, Section 20.4.2), modifier 25 should be appended when "the physician may need to indicate that on the day a procedure or service was performed, the patient's condition required a significant, separately identifiable E/M service."
+Under the coding conventions for this modifier, modifier 25 is appended when the patient's condition on the day of a procedure required a significant, separately identifiable E/M service.
 
 DOCUMENTATION ENCLOSED
 
@@ -130,13 +130,13 @@ This denial states that the MMR vaccine is not covered. However, MMR vaccination
 
 1. The patient's immunization records indicated an incomplete vaccination series
 2. The patient is in a high-risk category per CDC/ACIP guidelines
-3. Under the ACA, ACIP-recommended vaccines must be covered without cost-sharing for in-network providers (42 USC §300gg-13)
+3. Under the plan's preventive-services coverage terms, recommended vaccines are covered without cost-sharing for in-network providers
 
 REGULATORY CITATIONS
 
 - Section 2713 of the Public Health Service Act requires coverage of immunizations recommended by ACIP with an "A" or "B" rating
 - The ACIP recommends MMR vaccination for adults born after 1957 without evidence of immunity
-- Maryland Insurance Code §15-836 requires coverage of immunizations
+- Applicable state coverage requirements for immunizations
 
 DOCUMENTATION ENCLOSED
 

@@ -72,10 +72,11 @@ LETTER STRUCTURE:
    rule, manual chapter or section number, or policy number — UNLESS the user
    message carries a "PERMITTED CITATIONS" block, in which case you may cite
    exactly those provisions, by the exact citation string given, for exactly
-   what each excerpt supports, and nothing else. No "42 CFR § …", no "Ohio Revised Code § …",
-   no "Publication 100-04, Chapter …", no "NCCI Policy Manual, Chapter …", no
-   "Section 80.3.1", no "R.C. …", no "OAC …". Do not name a specific act or
-   manual by its formal title either. Every such reference the system has
+   what each excerpt supports, and nothing else. No federal regulation
+   section, no state code section, no manual publication or chapter number, no
+   coding-manual chapter, no dotted section number, no abbreviated code
+   citation of any kind. Do not name a specific act, rule or manual by its
+   formal title either. Every such reference the system has
    produced has been checked against the primary source and most were wrong; a
    wrong section number in a letter to a payer is worse than none. If you feel
    the need for a citation, write the obligation in plain words instead.
@@ -268,38 +269,82 @@ def _letter_context(denial: dict, ctx: dict) -> tuple[str | None, str]:
     return (m.group(1) if m else None), payer_type
 
 
+SURFACE = "routers.provider_appeals::_gated_letter"
+
+
 def _gated_letter(prompt_data: str, allowed=None) -> dict | None:
-    """Generate the letter and refuse it if it cites law it may not.
+    """Generate the letter and refuse it if it asserts what it may not.
 
     The prompt forbids section numbers unless an allow-list is handed to it;
-    utils/citation_gate.py is what makes either a control rather than a
-    request. `allowed` comes from verify/allowlist.py -- the curated rows for
-    this state, payer and denial code that a reviewer has signed and that
-    resolved, fetched and bound just now. It is empty today. One
-    regeneration is allowed, with the offending citations named. If that
-    draft cites too, no letter is returned: fail closed to no citation,
-    never to an unverified one. On 2026-09-14, before the gate, 12 of 19
-    provisions cited across ten letters did not say what the letter claimed.
+    verify.policy.check is what makes either a control rather than a
+    request. It runs over EVERY string field of the model's reply -- until
+    2026-09-15 only letter_text and letter_html were checked, and
+    escalation_path, appeal_strength_reason, cms_references and
+    attach_documentation reached the caller unexamined. `allowed` comes from
+    verify/allowlist.py -- the curated rows for this state, payer and denial
+    code that a reviewer has signed and that resolved, fetched and bound just
+    now. It is empty today. One regeneration is allowed, with the offending
+    assertions named. If that draft still fails, no letter is returned: fail
+    closed to no citation, never to an unverified one. On 2026-09-14, before
+    the gate, 12 of 19 provisions cited across ten letters did not say what
+    the letter claimed.
+
+    Returns the result dict with a "verification" record (verify.policy
+    Verdict.to_dict) attached, or None.
     """
+    from verify.policy import check, held_for_prompt
     user = prompt_data + ("\n\n" + prompt_block(allowed) if allowed else "")
+    held = held_for_prompt(APPEAL_SYSTEM_PROMPT, json.loads(prompt_data))
+    held.allowed = list(allowed or [])
     result = _call_claude(system_prompt=APPEAL_SYSTEM_PROMPT, user_content=user, max_tokens=8192)
     if not result:
         return None
-    cites = check_letter(result.get("letter_text", "") + "\n" + result.get("letter_html", ""), allowed)
-    if not cites:
+    verdict = check(SURFACE, result, held)
+    if verdict.ok:
+        result["verification"] = verdict.to_dict()
         return result
-    print(f"[GenerateAppeal] draft cited law it may not ({len(cites)}); regenerating once: "
-          + "; ".join(sorted({c.text for c in cites})[:8]))
-    retry = _call_claude(system_prompt=APPEAL_SYSTEM_PROMPT,
-                         user_content=user + "\n\n" + violations_note(cites), max_tokens=8192)
+    print(f"[GenerateAppeal] draft refused ({len(verdict.refusals)}); regenerating once: " + verdict.note()[:400])
+    legal = [c for c in check_letter(" ".join(t for _, t in _strings(result)), allowed)]
+    note = violations_note(legal) if legal else (
+        "The previous draft asserted the following, which is not permitted because it is not in the "
+        "claim data you were given. Rewrite the letter without them:\n  - "
+        + "\n  - ".join(sorted({f.text for f in verdict.refusals})[:12]))
+    retry = _call_claude(system_prompt=APPEAL_SYSTEM_PROMPT, user_content=user + "\n\n" + note, max_tokens=8192)
     if not retry:
         return None
-    cites = check_letter(retry.get("letter_text", "") + "\n" + retry.get("letter_html", ""), allowed)
-    if cites:
-        print(f"[GenerateAppeal] REFUSED: second draft still cites law it may not: "
-              + "; ".join(sorted({c.text for c in cites})[:8]))
+    verdict = check(SURFACE, retry, held)
+    if not verdict.ok:
+        print(f"[GenerateAppeal] REFUSED: second draft still fails: " + verdict.note()[:400])
         return None
+    retry["verification"] = verdict.to_dict()
     return retry
+
+
+_VERIFICATION_COLUMN_READY = None   # resolved on first use: migration 085 adds provider_appeals.verification
+
+
+def _attach_verification_column(record: dict, result: dict) -> None:
+    """Store the verification record beside the letter once migration 085
+    (provider_appeals.verification jsonb) is applied. Until then the record
+    travels in the API response only, and this says so once per process
+    rather than failing the insert or dropping it silently."""
+    global _VERIFICATION_COLUMN_READY
+    if _VERIFICATION_COLUMN_READY is None:
+        try:
+            sb = _get_supabase()
+            sb.table("provider_appeals").select("verification").limit(1).execute()
+            _VERIFICATION_COLUMN_READY = True
+        except Exception:
+            _VERIFICATION_COLUMN_READY = False
+            print("[GenerateAppeal] provider_appeals.verification column absent (migration 085 not applied); "
+                  "verification record returned in the API response only")
+    if _VERIFICATION_COLUMN_READY:
+        record["verification"] = result.get("verification")
+
+
+def _strings(obj):
+    from verify.policy import walk_strings
+    return walk_strings(obj)
 
 
 def _build_prompt_data(denial: dict, ctx: dict) -> str:
@@ -396,6 +441,7 @@ async def generate_appeal(req: GenerateAppealRequest, request: Request):
         "appeal_strength": result.get("appeal_strength", ""),
         "cms_references": result.get("cms_references", []),
     }
+    _attach_verification_column(appeal_record, result)
 
     appeal_id = None
     try:
@@ -428,6 +474,7 @@ async def generate_appeal(req: GenerateAppealRequest, request: Request):
         "appeal_strength_reason": result.get("appeal_strength_reason", ""),
         "escalation_path": result.get("escalation_path", ""),
         "attach_documentation": result.get("attach_documentation", ""),
+        "verification": result.get("verification"),
     }
 
 
@@ -514,6 +561,7 @@ async def generate_appeal_batch(req: GenerateAppealBatchRequest, request: Reques
             "appeal_strength": result.get("appeal_strength", ""),
             "cms_references": result.get("cms_references", []),
         }
+        _attach_verification_column(appeal_record, result)
 
         appeal_id = None
         try:
@@ -534,6 +582,7 @@ async def generate_appeal_batch(req: GenerateAppealBatchRequest, request: Reques
             "appeal_strength": result.get("appeal_strength", ""),
             "escalation_path": result.get("escalation_path", ""),
             "attach_documentation": result.get("attach_documentation", ""),
+            "verification": result.get("verification"),
         })
 
     return {"appeals": results, "count": len(results)}

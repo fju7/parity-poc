@@ -2416,7 +2416,7 @@ CAA_LETTER_SYSTEM_PROMPT = """You are a healthcare benefits consultant drafting 
 Write a professional data request letter. The letter must:
 
 1. State its basis GENERICALLY: the plan sponsor's right to its own plan's claims and cost data under the transparency provisions of the Consolidated Appropriations Act, 2021, and the plan fiduciaries' general duty to obtain the information needed to oversee the plan prudently.
-   CITATION RULE -- ABSOLUTE. Do NOT cite any statute section, U.S.C. section, CFR section, ERISA section number, DOL or EBSA bulletin, advisory opinion, rule number, or any other numbered legal reference. No "Section ...", no "U.S.C. § ...", no "ERISA § ...", no "Field Assistance Bulletin ...". Do not name a specific guidance document by title or date. Every such reference this system has produced was checked against the primary source and found wrong; a wrong citation in a letter to a carrier is worse than none. State the obligation in plain words instead.
+   CITATION RULE -- ABSOLUTE. Do NOT cite any statute section, code section, regulation section, agency bulletin, advisory opinion, rule number, or any other numbered legal reference, and do NOT name any statute, agency, department, or guidance document other than the Consolidated Appropriations Act, 2021 itself. No section symbols, no title-and-section numbers, no bulletin numbers, no dated guidance. Every such reference this system has produced was checked against the primary source and found wrong; a wrong citation in a letter to a carrier is worse than none. State the obligation in plain words instead.
 2. Request the following specific data:
    (a) Complete 835 EDI remittance files for the current and prior plan year
    (b) Pharmacy claims data including NDC codes and any rebate credits applied
@@ -2432,6 +2432,48 @@ Return ONLY valid JSON with a single key:
 {"letter": "<the full letter text with newlines as \\n>"}
 
 No preamble, no commentary, no markdown formatting outside the JSON."""
+
+
+def _caa_template(carrier, company_name, approx_employees, plan_year, state, broker_name, firm_name) -> str:
+    """The code-written letter served when the model path fails. Cites nothing
+    (see CAA_LETTER_SYSTEM_PROMPT) and is gated on the response like the
+    model's letter."""
+    return f"""[DATE]
+
+{carrier or "[Carrier Name]"}
+Claims Data Department
+[Carrier Address]
+
+RE: Request for Plan Claims Data and Cost Information under the Consolidated Appropriations Act, 2021
+Plan Sponsor: {company_name}
+Approximate Covered Lives: {approx_employees}
+Plan Year: {plan_year}
+
+Dear Claims Department:
+
+This letter constitutes a formal request for plan-level claims data and cost information under the transparency provisions of the Consolidated Appropriations Act, 2021, and in support of the plan fiduciaries' duty to obtain the information needed to oversee the plan prudently.
+
+As the broker of record for {company_name}, I am acting on behalf of the plan fiduciaries, who require this information to assess the reasonableness of the plan's costs and of the services provided to it.
+
+We hereby request the following data for the current and prior plan year:
+
+1. Complete 835 EDI electronic remittance files for all medical claims
+2. Pharmacy claims data including NDC codes, quantities, days supply, and any rebate credits or retained rebates
+3. Monthly per-employee-per-month (PEPM) cost breakdown by medical claims, pharmacy claims, and administrative fees
+4. Stop-loss premiums, specific and aggregate attachment points, and any claims exceeding attachment points
+5. Network access fees, clinical program fees, and any other fees not included in the base PEPM
+
+Please provide this data within 30 business days of receipt of this letter.
+
+This information is essential to the plan sponsor's oversight of its plan. The plan sponsor will follow up on any data not received.
+
+Please direct all data deliverables and correspondence to the undersigned.
+
+Sincerely,
+
+{broker_name or "[Broker Name]"}
+{firm_name or "[Firm Name]"}
+Broker of Record — {company_name}"""
 
 
 @router.post("/clients/{employer_email}/caa-letter")
@@ -2509,46 +2551,29 @@ async def generate_caa_letter(employer_email: str, authorization: str = Header(N
 
     # Fallback to static template
     if not letter_text:
-        letter_text = f"""[DATE]
+        letter_text = _caa_template(carrier, company_name, approx_employees, plan_year, state, broker_name, firm_name)
 
-{carrier or "[Carrier Name]"}
-Claims Data Department
-[Carrier Address]
-
-RE: Request for Plan Claims Data and Cost Information under the Consolidated Appropriations Act, 2021
-Plan Sponsor: {company_name}
-Approximate Covered Lives: {approx_employees}
-Plan Year: {plan_year}
-
-Dear Claims Department:
-
-This letter constitutes a formal request for plan-level claims data and cost information under the transparency provisions of the Consolidated Appropriations Act, 2021, and in support of the plan fiduciaries' duty to obtain the information needed to oversee the plan prudently.
-
-As the broker of record for {company_name}, I am acting on behalf of the plan fiduciaries, who require this information to assess the reasonableness of the plan's costs and of the services provided to it.
-
-We hereby request the following data for the current and prior plan year:
-
-1. Complete 835 EDI electronic remittance files for all medical claims
-2. Pharmacy claims data including NDC codes, quantities, days supply, and any rebate credits or retained rebates
-3. Monthly per-employee-per-month (PEPM) cost breakdown by medical claims, pharmacy claims, and administrative fees
-4. Stop-loss premiums, specific and aggregate attachment points, and any claims exceeding attachment points
-5. Network access fees, clinical program fees, and any other fees not included in the base PEPM
-
-Please provide this data within 30 business days of receipt of this letter.
-
-This information is essential to the plan sponsor's oversight of its plan. The plan sponsor will follow up on any data not received.
-
-Please direct all data deliverables and correspondence to the undersigned.
-
-Sincerely,
-
-{broker_name or "[Broker Name]"}
-{firm_name or "[Firm Name]"}
-Broker of Record — {company_name}"""
+    # Response-boundary gate (verify.policy, surface K3). Runs on whichever
+    # path produced the letter -- the model OR the code template -- because
+    # the template is exactly where the wrong citation sat for six months.
+    # A model letter that fails falls back to the template; a template that
+    # fails is a bug in this file and is refused outright.
+    from verify.policy import check, held_for_prompt
+    held = held_for_prompt(CAA_LETTER_SYSTEM_PROMPT, json.loads(prompt_data), named_ok={"caa"})
+    verdict = check("routers.broker::generate_caa_letter", {"letter": letter_text}, held)
+    if not verdict.ok and source == "model":
+        print("[Broker CAA] model letter refused; serving the code template: " + verdict.note()[:300])
+        letter_text = _caa_template(carrier, company_name, approx_employees, plan_year, state, broker_name, firm_name)
+        source = "template"
+        verdict = check("routers.broker::generate_caa_letter", {"letter": letter_text}, held)
+    if not verdict.ok:
+        print("[Broker CAA] REFUSED: template letter fails the gate: " + verdict.note()[:300])
+        raise HTTPException(status_code=502, detail="No letter: the draft asserted what it may not. " + verdict.note()[:200])
 
     return {
         "letter": letter_text,
         "source": source,
+        "verification": verdict.to_dict(),
         "client_name": company_name,
         "carrier": carrier,
         "generated_at": datetime.now(timezone.utc).isoformat(),

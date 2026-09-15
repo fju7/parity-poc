@@ -1280,7 +1280,8 @@ signal_issues.status = 'published') APPLIED 2026-09-15. 080 had shipped both
 tables with USING (true); probed as anon, a DRAFT topic's publication record was
 readable. Verified after 084: anon 0 / service_role 1 with mmr-vaccine-autism
 at draft.
-Next migration number: 085
+Migration 085 (provider_appeals.verification jsonb) AUTHORED and staged — NOT applied.
+Next migration number: 086
 
 ## Session P0-Signal — Data Integrity + Crawlable Metadata (Complete)
 Phase 0 of the Signal review. Fixes wrong published numbers and unshareable
@@ -2097,6 +2098,46 @@ fiscal impact). They were STUDY DESCRIPTIONS — "a study examined N children" �
 which state a design without stating a finding, so they support and oppose
 nothing substantive. Correct behaviour on the substantive propositions, and
 precisely the miss described above on the meta-proposition.
+
+## Session SAP — Shared Assertion Policy (Phase A inventory, A.5 removals, B build) — 2026-09-15
+Design and record: docs/shared-assertion-policy-phase-a-inventory.md (inventory,
+tiers, the three answered questions, what was built). PHI: docs/phi-model-exposure-2026-09-15.md.
+
+- backend/verify/extract.py — five per-class extractors (LEGAL via citation_gate,
+  IDENTIFIER, NAMED_SOURCE lexicon, FIGURE, CODED_DESCRIPTOR).
+- backend/verify/policy.py — POLICY[surface][class] -> WITHHOLD | GATE | EXEMPT;
+  check(surface, output_dict, Held) runs at the RESPONSE BOUNDARY and walks every
+  string/number in the dict; gate_extraction(); held_for_prompt(); WRAPPERS,
+  NOT_A_MODEL (auth.py's Twilio .messages.create), APPROVED_ANTHROPIC_IMPORTERS.
+  citation_gate/allowlist are CALLED, not absorbed (golden-set equivalence test
+  is the precondition for ever delegating the other way).
+- tests/verify/test_policy_discovery.py — AST walk with import resolution,
+  reconciled against POLICY both ways; fails on an untiered surface, a stale
+  entry, a rogue `import anthropic`, an unparseable file. Adding a model call
+  anywhere in backend/ without a POLICY entry fails the build.
+- backend/verify/lint_literals.py + data/verify/lint_allow.json — LEGAL and
+  IDENTIFIER shapes in every backend string literal and every frontend/src file
+  are hard failures unless allow-listed with a reason (tests/verify/test_lint_literals.py).
+  `python -m verify.lint_literals` from backend/.
+- Wired: provider letter (all six fields), broker CAA letter (model AND code
+  template), Health letter (needs_revision => sendable:false + PDF 422),
+  fee-schedule extraction x3, billing contracts x2 (UNCHECKED for images / PDFs
+  with no text layer, shown by frontend/src/lib/verificationNote.js), employer
+  benchmark narrative, Signal Q&A. 31 GATE surfaces are declared but unwired
+  (`policy.unwired_gates()`, pinned in the discovery test so the set only shrinks).
+- Migration 085 (provider_appeals.verification jsonb) AUTHORED, NOT APPLIED.
+  Until applied the provider letter's verdict is in the API response only.
+- A.5 removals (6ed1bd9): CAA citations gone from prompt/template/two pages
+  (29 U.S.C. § 1185i is the provider-directory section, verified);
+  DENIAL_SYSTEM_PROMPT no longer drafts a letter or adds up money
+  (denial_totals in code); no "[full AMA CPT description]"; provider_shared
+  ._call_claude RAISES ClaudeCallError (never None, never HTML-as-letter);
+  billing_contracts positional-arg bug (broken since 1c99291, 2026-03-26) fixed
+  with success-path tests.
+- RULE: a prompt must not NAME what it forbids. A gate that binds output to the
+  prompt is defeated by "do not cite EBSA Field Assistance Bulletin"; write the
+  prohibition generically. The Health letter keeps its prompt OUT of held
+  material for this reason.
 
 ## Standing instructions for every session
 1. Read this file at the start of every session

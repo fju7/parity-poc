@@ -116,6 +116,7 @@ async def employer_benchmark(req: BenchmarkRequest, request: Request):
     # --- AI narrative + talking points ---
     narrative = None
     talking_points = None
+    bench_prompt = ""
     try:
         bench_prompt = (
             f"Industry: {req.industry}. State: {req.state}. Company size: {req.company_size}.\n"
@@ -148,8 +149,25 @@ async def employer_benchmark(req: BenchmarkRequest, request: Request):
     except Exception as exc:
         print(f"[Employer Benchmark] AI narrative non-fatal: {exc}")
 
+    # Shared assertion policy (E1): the narrative restates numbers we computed
+    # and may cite nothing. A figure not in the prompt or the result, or any
+    # citation / named body, and the narrative is dropped -- the numbers on
+    # the page are the computed ones, and a sentence that contradicts them is
+    # worse than no sentence. The verdict travels with the result.
+    verification = None
+    if narrative or talking_points:
+        from verify.policy import check, held_for_prompt
+        held = held_for_prompt(bench_prompt, {k: v for k, v in result.items() if k not in ("narrative", "talking_points")})
+        verdict = check("routers.employer_benchmark::employer_benchmark",
+                        {"narrative": narrative or "", "talking_points": talking_points or []}, held)
+        verification = verdict.to_dict()
+        if not verdict.ok:
+            print("[Employer Benchmark] narrative refused: " + verdict.note()[:300])
+            narrative, talking_points = None, None
+
     result["narrative"] = narrative
     result["talking_points"] = talking_points
+    result["verification"] = verification
 
     # --- Persist to Supabase ---
     try:

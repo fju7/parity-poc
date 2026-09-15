@@ -169,7 +169,8 @@ _QUAL_ABOUT = {"about", "approximately", "roughly", "nearly", "almost", "around"
 _QUALS = sorted(_QUAL_FLOOR | _QUAL_CEIL | _QUAL_ABOUT, key=len, reverse=True)
 _FIG = re.compile(
     r"(?P<q>(?:" + "|".join(re.escape(q) for q in _QUALS) + r")\s+)?"
-    r"(?P<num>(?<![\w.])[−\-]?(?:\d{1,3}(?:" + _SEP + r"\d{3})+|\d+)(?:[.·]\d+)?)"
+    r"[$€£]?"   # "about $512": a currency sign between qualifier and number (added 2026-09-15; a false refusal otherwise)
+    r"(?P<num>(?<![\w.])[−\-]?(?:\d{1,3}(?:" + _SEP + r"\d{3})+|\d+)(?:[.·]\d+)?)(?:st|nd|rd|th)?(?![A-Za-z_\d])"   # "0340U" is a code, not a figure; "71st" is (2026-09-15)
     r"(?:\s*(?P<scale>hundred|thousand|million|billion)\b)?"
     r"(?P<pct>\s*(?:%|per\s?cent|percent))?", re.I)
 

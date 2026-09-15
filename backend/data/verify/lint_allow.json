@@ -1,0 +1,45 @@
+{
+  "_note": "Allow-list for verify/lint_literals.py. Every entry names a path prefix and a reason a reviewer would sign. A hard hit (LEGAL_PROVISION or IDENTIFIER) not covered here fails tests/verify/test_lint_literals.py. Allowing is the exception; removing the literal is the rule (Phase 0, A.5, and ProviderDemoPage on 2026-09-15).",
+  "allow": [
+    {
+      "path": "backend/tests/",
+      "reason": "test fixtures: the golden negatives (12 wrong Ohio provisions, MONALEESA-7), held registry ids in WHU/registry tests. They are SUPPOSED to be there."
+    },
+    {
+      "path": "backend/verify/",
+      "classes": [
+        "legal_provision"
+      ],
+      "pattern": "^§\\s?\\d{1,2}[a-z]?[.)-]*$|^§[A-Z]",
+      "reason": "design-document section references in module docstrings (\"design doc §5b\"), not citations to law"
+    },
+    {
+      "path": "backend/verify/lint_literals.py",
+      "reason": "this module's own docstring names the broker citation it exists because of"
+    },
+    {
+      "path": "backend/utils/citation_gate.py",
+      "reason": "the detector: its docstring records the 2026-09-14 wrong provisions and its patterns are citation shapes by construction"
+    },
+    {
+      "path": "backend/scripts/whatholdsup/",
+      "reason": "What Holds Up is out of scope by the plan of record (its identifiers are held registry ids in its own ledgers; 'Rule 13/14/30' are WHU editorial-standard rule numbers, a false positive of the rule family). Observed, never gated."
+    },
+    {
+      "path": "frontend/src/components/signal/RecordMarkers.jsx",
+      "classes": [
+        "legal_provision"
+      ],
+      "pattern": "^§\\d",
+      "reason": "design-document section reference in a code comment"
+    },
+    {
+      "path": "frontend/src/components/EmployerProductPage.jsx",
+      "classes": [
+        "legal_provision"
+      ],
+      "pattern": "Rule 2020",
+      "reason": "'CMS Transparency in Coverage Rule 2020' is a rule NAME with a year on a stat's source line, not a section number; false positive of the rule family. The named-source class reports it."
+    }
+  ]
+}

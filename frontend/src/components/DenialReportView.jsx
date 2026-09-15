@@ -35,6 +35,9 @@ export default function DenialReportView({ analysis, originalText, onReset, onBa
   // `reviewed` is a client-side UX gate that resets to false on each new draft.
   const [reviewChecklist, setReviewChecklist] = useState(null);
   const [needsRevision, setNeedsRevision] = useState(false);
+  // What the automated check refused (verify.policy). When non-empty the letter
+  // is marked, not sendable, and the PDF endpoint answers 422.
+  const [withheldReasons, setWithheldReasons] = useState([]);
   const [reviewed, setReviewed] = useState(false);
 
   const typeConfig = DENIAL_TYPE_COLORS[analysis.denial_type] || DENIAL_TYPE_COLORS.other;
@@ -87,6 +90,7 @@ export default function DenialReportView({ analysis, originalText, onReset, onBa
       // (or regenerated) draft always starts UNREVIEWED, so reset the gate here.
       setReviewChecklist(data.reviewer_checklist || null);
       setNeedsRevision(!!data.needs_revision);
+      setWithheldReasons(Array.isArray(data.withheld_reasons) ? data.withheld_reasons : []);
       setReviewed(false);
     } catch (err) {
       setLetterError(err.message);
@@ -138,6 +142,9 @@ export default function DenialReportView({ analysis, originalText, onReset, onBa
 
       if (res.status === 401) {
         throw new Error("Your session has expired. Please sign in again to download the PDF.");
+      }
+      if (res.status === 422) {
+        throw new Error("This draft is not sendable: the automated check found an assertion it could not verify. Revise the letter (see the flagged items) and generate it again.");
       }
       if (!res.ok) {
         throw new Error("Failed to generate the appeal PDF. Please try again.");
@@ -598,10 +605,17 @@ export default function DenialReportView({ analysis, originalText, onReset, onBa
               <div className="bg-amber-50 border border-amber-200 rounded-xl p-5">
                 <h4 className="font-semibold text-amber-800 text-sm mb-2">Review before sending</h4>
                 {needsRevision && (
-                  <p className="text-sm text-red-700 mb-3">
-                    An automated check flagged a possible citation issue. Review the letter and the
-                    notes below carefully before relying on it.
-                  </p>
+                  <div className="mb-3">
+                    <p className="text-sm text-red-700 font-semibold">
+                      This draft is not sendable. An automated check found something the letter asserts
+                      that is not in your denial or the verified evidence. The PDF is withheld until it is revised.
+                    </p>
+                    {withheldReasons.length > 0 && (
+                      <ul className="mt-2 space-y-1 text-xs text-red-700 list-disc pl-5">
+                        {withheldReasons.slice(0, 8).map((r, i) => <li key={i}>{r}</li>)}
+                      </ul>
+                    )}
+                  </div>
                 )}
                 {reviewItems.length === 0 ? (
                   <p className="text-sm text-amber-700">

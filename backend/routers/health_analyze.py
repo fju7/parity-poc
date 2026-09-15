@@ -1493,6 +1493,28 @@ def _generate_appeal_result(req: AppealGenerateRequest) -> dict:
         print(f"[health/generate-appeal] EVIDENCE GUARD hard failures: "
               f"{json.dumps(evidence_validation['hard_failures'])}")
 
+    # -- Shared assertion policy (2026-09-15), surface H4, on the BODY before the
+    # code-built References are appended (the References carry PMIDs by design).
+    # LEGAL: check_letter with an empty allow-list -- the prompt has always
+    # forbidden statutes; nothing enforced it. NAMED_SOURCE: every agency,
+    # guideline body, statute name or regulatory-status word must appear in the
+    # de-identified denial analysis or the evidence block handed to the model --
+    # the appeal_rights relabelling failure, in code. FIGURE: every number must
+    # be in the same material. The system prompt is deliberately NOT held
+    # material here: it names FDA/NCCN/ASCO as things not to assert, and a gate
+    # that binds to a prohibition is defeated by it. No PHI is logged: the
+    # verdict carries the offending strings, which are citations/names/figures,
+    # and the body has the identifier tokens, not the values. --
+    from verify.policy import check as _policy_check, held_for_prompt as _held
+    from verify.types import Document as _VDoc, Identifier as _VId
+    _verdict = _policy_check(
+        "routers.health_analyze::_generate_appeal_result",
+        {"letter_text": body},
+        _held(None, da_model, documents=[_VDoc(_VId("url", "evidence_block"), "", evidence["model_block"], kind="record")]),
+    )
+    if not _verdict.ok:
+        print("[health/generate-appeal] POLICY refusals: " + json.dumps([f.to_dict() for f in _verdict.refusals])[:800])
+
     # -- PH: presentation — keep ONLY the references the body actually cites, renumber
     # them sequentially, and remap BOTH the body and the References list to the new [n]
     # so inline numbers and the list stay perfectly in sync. Reuses the guard's
@@ -1508,14 +1530,22 @@ def _generate_appeal_result(req: AppealGenerateRequest) -> dict:
     reviewer_checklist = _build_reviewer_checklist(
         evidence, evidence_validation, [evidence_note] if evidence_note else []
     )
-    needs_revision = not evidence_validation["citations_ok"]
+    needs_revision = (not evidence_validation["citations_ok"]) or (not _verdict.ok)
 
+    # A needs_revision verdict MARKS the letter and WITHHOLDS the sendable
+    # artifact: the PDF endpoint refuses (422) when sendable is False, and the
+    # JSON response carries the reasons. Until 2026-09-15 the letter came back
+    # unchanged under needs_revision -- an instrument with no authority.
     return {
         "letter_text": final_letter,
         "validation_log": validated["validation_log"],
         "evidence_validation": evidence_validation,
+        "verification": _verdict.to_dict(),
         "reviewer_checklist": reviewer_checklist,
         "needs_revision": needs_revision,
+        "sendable": not needs_revision,
+        "withheld_reasons": (evidence_validation["hard_failures"]
+                             + [f"{f.text}: {f.reason}" for f in _verdict.refusals]) if needs_revision else [],
         "status": "needs_revision" if needs_revision else "draft — human review required before sending",
     }
 
@@ -1624,6 +1654,14 @@ def generate_appeal_pdf(req: AppealGenerateRequest, authorization: str = Header(
     generate-appeal; the letter is produced by the shared _generate_appeal_result."""
     get_health_user(authorization, _get_supabase())
     result = _generate_appeal_result(req)
+    if not result.get("sendable", True):
+        # The sendable artifact is withheld; the JSON endpoint carries the
+        # marked letter and the reasons for the reviewer.
+        raise HTTPException(status_code=422, detail={
+            "error": "letter_needs_revision",
+            "message": "The draft asserted something the system could not verify; no PDF is produced until it is revised.",
+            "withheld_reasons": result.get("withheld_reasons", []),
+        })
     pdf_bytes = _render_appeal_letter_pdf(result["letter_text"])
     return StreamingResponse(
         io.BytesIO(pdf_bytes),

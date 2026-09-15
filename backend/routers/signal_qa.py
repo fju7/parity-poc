@@ -6,6 +6,7 @@ Stateless — no conversation history persistence.
 """
 
 import os
+import re
 from fastapi import APIRouter, Request, HTTPException
 from pydantic import BaseModel
 
@@ -295,13 +296,32 @@ async def ask_question(body: QARequest, request: Request):
             if hasattr(block, "text"):
                 answer += block.text
 
+        # Shared assertion policy (S1): an answer may cite only identifiers that
+        # were in the context handed to the model, name only bodies the context
+        # named, and state only figures the context contains. What does not
+        # bind is not an answer about this topic's evidence; it is withheld.
+        from verify.policy import check, held_for_prompt
+        from verify.literature import identify as _lit_identify
+        ids = set()
+        for tok in re.findall(r"https?://\S+|\b10\.\d{4,9}/\S+|\bNCT\d{8}\b|\bPMC\d{6,9}\b|\bPMID:?\s*\d{6,9}\b", context):
+            ident = _lit_identify(tok)
+            if ident:
+                ids.add(ident.value)
+        held = held_for_prompt(context, {}, identifiers=ids)
+        verdict = check("routers.signal_qa::ask_question", {"answer": answer}, held)
+        if not verdict.ok:
+            print("[QA] answer refused: " + verdict.note()[:300])
+            raise HTTPException(status_code=502, detail="The answer referred to sources, bodies or figures that are not in this topic's evidence, and was withheld. Please rephrase the question.")
+
         # Increment Q&A counter after successful answer
         try:
             _increment_qa_counter(str(user.id))
         except Exception as exc:
             print(f"[QA] Failed to increment counter for {str(user.id)[:8]}: {exc}")
 
-        return {"answer": answer.strip()}
+        return {"answer": answer.strip(), "verification": verdict.to_dict()}
 
+    except HTTPException:
+        raise
     except Exception as exc:
         raise HTTPException(status_code=502, detail=f"AI service error: {exc}")

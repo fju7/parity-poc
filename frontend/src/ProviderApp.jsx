@@ -13,6 +13,7 @@ import "./components/CivicScaleHomepage.css";
 
 import { API_BASE } from "./lib/apiBase";
 import toTitleCase from "./lib/toTitleCase";
+import { verificationSummary, VERIFICATION_STYLES } from "./lib/verificationNote";
 const SPECIALTIES = [
   "Internal Medicine",
   "Family Medicine",
@@ -52,6 +53,7 @@ function ProviderAppInner() {
   const [contractStep, setContractStep] = useState("upload-rates");
   const [contractError, setContractError] = useState("");
   const [parsedRates, setParsedRates] = useState(null); // { payers, rows }
+  const [ratesVerification, setRatesVerification] = useState(null); // verify.policy verdict summary for the extracted rates
   const [savingRates, setSavingRates] = useState(false);
   const [saveSuccess, setSaveSuccess] = useState("");
   const [savedContractRates, setSavedContractRates] = useState({}); // {cpt: rate}
@@ -347,6 +349,7 @@ function ProviderAppInner() {
           return;
         }
 
+        setRatesVerification(null);   // parsed locally, no model involved
         setParsedRates({ payers: payers.map(p => p.name), rows });
         setContractStep("preview-rates");
       } catch (err) {
@@ -368,6 +371,10 @@ function ProviderAppInner() {
       setContractError("No CPT codes with rates were found. Please try a different input method.");
       return;
     }
+    // The verdict from verify.policy travels with the rates: what was verified
+    // against the document's text, what was removed as not in it, and what
+    // could not be checked (an image has no text layer). Shown on the preview.
+    setRatesVerification(verificationSummary(data.verification));
     setParsedRates({ payers: [payerName], rows });
     setContractStep("preview-rates");
   }
@@ -1292,6 +1299,7 @@ function ProviderAppInner() {
             step={contractStep}
             error={contractError}
             parsedRates={parsedRates}
+            ratesVerification={ratesVerification}
             savingRates={savingRates}
             saveSuccess={saveSuccess}
             parsedRemittance={parsedRemittance}
@@ -1610,7 +1618,7 @@ function CodingIntelligenceSection({ coding, onGoToCoding }) {
 // ═══════════════════════════════════════════════════════════════════
 
 function ContractIntegrityTab({
-  step, error, parsedRates, savingRates, saveSuccess, parsedRemittance, parsedRemittances, uploadProgress, analysisResult,
+  step, error, parsedRates, ratesVerification, savingRates, saveSuccess, parsedRemittance, parsedRemittances, uploadProgress, analysisResult,
   denialIntel, denialLoading,
   sortField, sortDir,
   ratesMethod, extractingRates, zipCode, profile,
@@ -2164,6 +2172,11 @@ function ContractIntegrityTab({
             }}>
               Found <strong>{rows.length}</strong> CPT codes across <strong>{payers.length}</strong> payer{payers.length !== 1 ? "s" : ""}: {payers.join(", ")}
             </div>
+            {ratesVerification && (
+              <div style={{ ...VERIFICATION_STYLES[ratesVerification.tone], padding: 10, borderRadius: 8, marginBottom: 20, fontSize: 13 }}>
+                {ratesVerification.text}
+              </div>
+            )}
 
             <div style={{ overflowX: "auto", marginBottom: 20 }}>
               <table style={tableStyle}>
