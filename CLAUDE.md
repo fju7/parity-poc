@@ -2222,6 +2222,45 @@ tiers, the three answered questions, what was built). PHI: docs/phi-model-exposu
   still work; anon rpc db_posture -> 401. Live posture: FAIL 0 / public_read 9
   / gated_read 13 / user_scoped 8 / service_role_only 58.
 
+## Session SAP-Signal — pre-flip items for topic one (2026-09-15)
+- FOUR PROSE SURFACES WIRED (31 unwired GATE -> 27 -> 26 with S4):
+  scripts/signal/prose_gate.py gates plain summaries (score_claims.store_summaries),
+  consensus prose (map_consensus.map_category), narrative + glossary
+  (generate_summary); verdicts to data/signal/verification/<slug>/ (gitignored).
+  Measured on frozen mmr, read-only: narrative/consensus/glossary bind fully;
+  plain summaries 5 of 118 refused (2 on surviving claims: 8b84dcfd "1.0",
+  6bbf8769 "37 weeks" -- model-added facts), 27 counting-word flags. THE CORPUS
+  WAS NOT TOUCHED; nulling those two plain_summary values is the operator's
+  call under the freeze register.
+  Binder fixes forced by the measurement: Held.corpus_text() must serialise
+  with ensure_ascii=False (json.dumps turned "£435,643" into "\u00a3435,643"
+  and lost the figure); named sources bind by lexicon TERM ("CDC" binds
+  "Centers for Disease Control"); word_figures="flag" on paraphrase surfaces.
+- METHODOLOGY PAGE rewritten (MethodologyView.jsx): what is CHECKED vs what is
+  SCORED; weights render from frontend/src/lib/signalScoring.js, which
+  frontend/src/__tests__/methodology.test.js compares to score_claims.py --
+  the old page published reproducibility 15% / recency 15% against code
+  saying 20% / 10%. Every sentence's code: docs/signal-methodology-claims-2026-09-15.md.
+  Source quality is described as a model reading of a model-written label,
+  not bound; the corpus cannot be re-scored under the freeze.
+- S4 -> WITHHOLD: verify/search.py (Europe PMC, Crossref; ClinicalTrials.gov
+  only for a declared trial, near-exact match). 00_discover_sources proposes
+  title/author/container/year; identifiers come only from the registry;
+  UNRESOLVED proposals are kept, marked, and refused by collect_sources.
+  Scratch probe on mmr (corpus untouched): 28 distinct proposals -> 18
+  resolved (15 registry ids + 3 fetched agency pages), 10 unresolved, 0
+  minted. First run minted a wrong NCT from a generic title at ratio 0.8;
+  rule tightened. Jain 2015 resolves to 10.1001/jama.2015.3077 (the corpus
+  holds the fabricated ...2015.1534).
+- events.json (reviewed_by null, GMC/court urls null): NOTHING from it renders
+  -- labels appear only in binding evidence strings the page never reads.
+  It DOES withhold 3 mmr claims via CHRONOLOGY (fb149d23, 721f53f7, 08ba751e).
+  Post-flip review item.
+- STEP 4 (post-flip, not done): flip HOST_MAP["signal.civicscale.ai"].index to
+  true in frontend/src/lib/siteMeta.js; that alone regenerates the robots meta
+  and robots.txt. Then probe the live page for both and confirm a draft topic
+  still reads "Not yet published" to the anon key.
+
 ## Standing instructions for every session
 1. Read this file at the start of every session
 2. Verify all file paths before issuing commands
