@@ -201,7 +201,7 @@ _erratum_cache: dict[str, list] = {}
 def erratum_texts(src: dict) -> list[dict]:
     """The erratum notices the registry lists for this source, with their text
     when it can be read: [{doi, pmid, title, date, text | None, route}]."""
-    key = src["id"]
+    key = src.get("id") or src.get("source_id")
     if key in _erratum_cache:
         return _erratum_cache[key]
     out = []
