@@ -7,6 +7,10 @@ how this project's errors have been made, and did not want to lose.
 Each entry names the error that revealed it, so that a later reader can judge
 whether the gap is still real.
 
+Entries from 15 September 2026 carry an Owner. The roughly ninety entries
+before that date do not, and their silence is not an assignment: an unowned
+entry here is a thing somebody noticed, not a thing somebody is resolving.
+
 ---
 
 ## GAP-001 — nothing checks a universal negative against our own library
@@ -3762,3 +3766,87 @@ Two facts surfaced while materialising the blobs, recorded and not acted on:
   blob used for the packet was taken from the recorded commit (`eae2c400`) and
   hashes to the recorded sha; the file under `review/` describes itself as the
   sent version and is something else. Not diagnosed here.
+
+## D1 — reconcile() cannot attribute a re-grouped sentence
+
+*15 September 2026. Fired on cdk46 on 14 September; specified, accepted, not
+implemented.*
+
+`explain()` matches on both `was` and `now`; `changes_since()` pairs sentences
+positionally inside a difflib `replace` opcode, so regrouping produces pairings
+no person made, and decided changes report as undecided.
+
+**Fires when:** any round where editing regroups sentences between the review
+snapshot and publication. Fired on cdk46, 14 September 2026: 28 of 34 changes
+reported as having no decision behind them were decided.
+
+**Owner:** Advisor Claude (specification, accepted 15 September 2026); Claude
+Code (implementation).
+
+**Resolution:** the now-only pass, specified at
+`docs/whatholdsup-D1-now-only-pass-specification.md`. Not implemented.
+
+## D1b — explain()'s containment loop can double-consume
+
+*15 September 2026. Found while specifying D1; live today, magnitude
+unmeasured.*
+
+The second loop can return a recorded entry already returned for an earlier
+diff row, because `explain()` cannot see consumption. This inflates the
+"traced to a per-change decision" count by an unknown amount.
+
+**Fires when:** two diff rows have `was` text where one contains the other.
+Live today; magnitude unmeasured.
+
+**Owner:** Advisor Claude, to rule on.
+
+**Resolution:** not yet specified.
+
+## D1c — correction_recorded_row() carries the D1 defect and is not fixed by it
+
+*15 September 2026. Quiet today only because live cdk46 equals disk.*
+
+`publish.py:1160` calls `explain()` over the live→disk span with no notion of
+consumption, so the same mispairing produces false negatives there. Replayed
+with the 29 August snapshot as the live body: 79 undetermined — 27 from
+pairing (a 28th mispaired row is rescued by corrections.md prose containment),
+52 more from label dates that are not corrections.md dates, which is a separate
+coverage question.
+
+**Fires when:** the live page differs from the page on disk. Quiet today only
+because live cdk46 equals disk. It will fire the next time a page changes
+before it is published.
+
+**Owner:** Advisor Claude, to rule on whether the now-only pass can be adapted
+to a span with no consumption semantics, or whether that row needs a different
+instrument.
+
+**Resolution:** not yet specified.
+
+## D2 — four rows of cdk46's changes.json are two duplicated pairs
+
+*15 September 2026. Deliberately not deleted: a duplicated row is evidence of
+how the record was written.*
+
+Indices 433/435 and 434/436, each pair sharing `was`/`now`/`because`
+(INF8-001), written 9–10 seconds apart on 13 September 2026. Any count taken
+from the file is inflated by two.
+
+**Fires when:** any count is taken from `changes.json`. Live now.
+
+**Owner:** Fred Ugast, operator — the question is whether the writer that
+produced them can produce them again, which is an operator judgement about the
+tooling, not a cleanup.
+
+## D3 — changes.json and changes_since() use different `kind` vocabularies
+
+*15 September 2026. Nothing reads `kind` today, which is why it will still be
+true when something does.*
+
+The record carries `reworded` (15 rows); the differ emits only `added`,
+`changed`, `removed`.
+
+**Fires when:** the first check that consumes the field.
+
+**Owner:** Advisor Claude, to rule on which vocabulary is authoritative, BEFORE
+any check consumes the field.
