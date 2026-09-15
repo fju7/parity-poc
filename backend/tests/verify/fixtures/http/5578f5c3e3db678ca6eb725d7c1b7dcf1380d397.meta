@@ -1,0 +1,4 @@
+status	200
+url	https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=TITLE%3A%22A%20life%20course%20approach%20to%20chronic%20disease%20epidemiology%3A%20conceptual%20models%2C%20empirical%20challenges%20and%20interdisciplinary%20perspectives%22&format=json&pageSize=5&resultType=lite
+content-type	application/json;charset=UTF-8
+final_url	https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=TITLE%3A%22A%20life%20course%20approach%20to%20chronic%20disease%20epidemiology%3A%20conceptual%20models%2C%20empirical%20challenges%20and%20interdisciplinary%20perspectives%22&format=json&pageSize=5&resultType=lite

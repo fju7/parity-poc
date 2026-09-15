@@ -91,4 +91,20 @@ def test_the_near_miss_is_never_minted(entry):
 def test_all_fifteen_resolve_under_the_tightened_rule():
     n = sum(1 for e in GOLDEN["known_good"]
             if _ident(vs.search(e["title"], e["first_author"], e["year"], e["kind"])) == e["expect"])
-    assert n == len(GOLDEN["known_good"]) == 15
+    assert n == len(GOLDEN["known_good"]) == 19
+    assert sum(1 for e in GOLDEN["known_good"] if "_class" not in e) == 15   # the mmr scratch run's fifteen
+
+
+@pytest.mark.parametrize("proposed,found,agree", [
+    ("Di Pietrantonj", "Di Pietrantonj C", True), ("Pietrantonj", "Di Pietrantonj C", True),
+    ("van der Berg", "van der Berg J", True), ("De La Cruz", "de la Cruz M", True), ("Del Rio", "del Rio C", True),
+    ("Ben-Shlomo", "Ben-Shlomo Y", True), ("Ben Shlomo", "Ben-Shlomo Y", True), ("O'Brien", "O'Brien K", True),
+    ("O’Brien", "OBrien K", True), ("García-Márquez", "Garcia Marquez G", True), ("Al-Jabri", "Al Jabri A", True),
+    ("A. Hviid", "Hviid A", True), ("Jain", "Jain A", True), ("Madsen", "Madsen KM", True), ("Le", "Le T", True),
+    ("Jain", "Hviid A", False), ("Hviid", "Di Pietrantonj C", False), ("Le", "Lee T", False), ("Taylor", "Demicheli V", False),
+])
+def test_surname_agreement_is_a_class_not_a_list_of_names(proposed, found, agree):
+    """Particled, hyphenated and apostrophised surnames are one surname. The
+    old rule took the first token of 'Di Pietrantonj C' as the family name and
+    under-resolved every European, Hispanic and Arabic compound name."""
+    assert vs._author_ok(proposed, found) is agree

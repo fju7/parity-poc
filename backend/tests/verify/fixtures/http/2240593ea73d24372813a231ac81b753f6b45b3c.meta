@@ -1,0 +1,4 @@
+status	200
+url	https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=TITLE%3A%22COVID-19%E2%80%94New%20Insights%20on%20a%20Rapidly%20Changing%20Epidemic%22&format=json&pageSize=5&resultType=lite
+content-type	application/json;charset=UTF-8
+final_url	https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=TITLE%3A%22COVID-19%E2%80%94New%20Insights%20on%20a%20Rapidly%20Changing%20Epidemic%22&format=json&pageSize=5&resultType=lite

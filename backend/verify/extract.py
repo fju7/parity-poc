@@ -66,17 +66,100 @@ _ID_PATTERNS = {
 }
 
 
+# THE RECOMBINATION SHAPE. Jain 2015 was stored as 10.1001/jama.2015.1534:
+# correct registrant, correct journal code, correct year -- and the real FIRST
+# PAGE (JAMA 2015;313(15):1534-1540) recombined into the DOI suffix. It
+# resolved to nothing, and nothing short of the registry round-trip caught it,
+# because every part of it was plausible. A DOI whose suffix repeats a page,
+# volume or issue number of the citation it sits in is FLAGGED, never refused:
+# some publishers mint exactly that shape (10.1093/ije/31.2.285 is volume 31,
+# issue 2, page 285, and real). A year in the suffix is not a flag on its own
+# -- JAMA and NEJM put the year in every DOI.
+_CITE_VOL_ISSUE = re.compile(r"\b(\d{1,4})\s*\((\d{1,4})\)\s*:")           # 313(15):
+_CITE_VOL_COLON = re.compile(r"\b(\d{1,4})\s*:\s*(?:[A-Za-z]{0,6}\d)")         # 313:1534, 372:m4570
+_CITE_PAGES = re.compile(r"(?:(?<=[:\s])|\bp{1,2}\.?\s*)(e?\d{1,6})(?:\s*[-\u2013\u2014]\s*(e?\d{1,6}))?(?=[\s.,;)]|$)")
+_CITE_ELOC = re.compile(r":\s*([A-Za-z]{1,6}\d{3,}[A-Za-z0-9]*|\d{2,}[A-Za-z]{2,}[A-Za-z0-9]*)")   # :m4570 :CD015687 :EVIDra2300029 :110native
+
+
+def citation_numbers(citation: str, doi: str = "") -> dict:
+    """{'volume', 'issue', 'page', 'year', 'article'}: the numbers a citation
+    states, with the DOI itself blanked so it cannot vouch for itself.
+    'article' holds alphanumeric elocation ids (m4570, CD015687, e424)."""
+    c = (citation or "")
+    if doi:
+        c = c.replace(doi, " ")
+    c = re.sub(r"\b10\.\d{4,9}/\S+", " ", c)
+    out = {"volume": set(), "issue": set(), "page": set(), "article": set(),
+           "year": set(re.findall(r"\b(?:19\d{2}|20[0-2]\d)\b", c))}     # a page number 2030 is not a year
+    for m in _CITE_VOL_ISSUE.finditer(c):
+        out["volume"].add(m.group(1)); out["issue"].add(m.group(2))
+    for m in _CITE_VOL_COLON.finditer(c):
+        out["volume"].add(m.group(1))
+    for m in _CITE_PAGES.finditer(c):
+        for g in (m.group(1), m.group(2)):
+            if g and g not in out["year"] and g not in out["volume"] and g not in out["issue"]:
+                out["page"].add(g.lstrip("e"))
+    for m in _CITE_ELOC.finditer(c):
+        out["article"].add(m.group(1))
+    return out
+
+
+def doi_recombination(doi: str, citation: str) -> str | None:
+    """A note when the DOI's suffix repeats a page / volume / issue / article
+    number the citation states, or the volume, issue and page run together
+    (MDPI's nu12061190 is volume 12, issue 06, article 1190); None otherwise.
+    Pure numbers are compared as whole digit runs (1534 in ...2015.1534, not
+    15 inside 2015); elocation ids as case-insensitive substrings."""
+    if not doi or "/" not in doi:
+        return None
+    suffix = doi.split("/", 1)[1]
+    runs = set(re.findall(r"\d+", suffix))
+    nums = citation_numbers(citation, doi)
+    hits = []
+    for label in ("page", "volume", "issue"):
+        for n in sorted(nums[label] & runs, key=len, reverse=True):
+            if len(n) >= 2:
+                hits.append(f"{label} {n}")
+    for a in sorted(nums["article"]):
+        if len(a) >= 4 and a.lower() in suffix.lower():
+            hits.append(f"article {a}")
+    for v in nums["volume"]:
+        for i in nums["issue"] or {""}:
+            for pg in nums["page"] | nums["article"]:
+                for ii in {i, i.zfill(2)} if i else {""}:
+                    cat = f"{v}{ii}{pg}".lower()
+                    if len(cat) >= 6 and cat in suffix.lower():
+                        hits.append(f"volume {v}" + (f", issue {i}" if i else "") + f" and {pg} run together")
+    seen, uniq = set(), []
+    for h in hits:
+        if h not in seen:
+            seen.add(h); uniq.append(h)
+    return ("DOI suffix repeats the citation's " + ", ".join(uniq)) if uniq else None
+
+
+def _citation_window(text: str, start: int, end: int, span: int = 300) -> str:
+    """The citation the identifier sits in: the same line, capped at `span`
+    characters each side. Citations use '. ' between their parts, so a
+    sentence bound would cut the page range off from the DOI."""
+    lo = max(text.rfind("\n", 0, start), start - span)
+    hi = text.find("\n", end)
+    hi = min(hi if hi != -1 else len(text), end + span)
+    return text[lo + 1:hi]
+
+
 def extract_identifiers(text: str) -> list[Candidate]:
     out = []
     for kind, rx in _ID_PATTERNS.items():
         for m in rx.finditer(text or ""):
             raw = m.group(0)
             val = raw
+            extra = ""
             if kind == "doi":
                 val = raw.rstrip(".,;)").lower()
+                extra = doi_recombination(val, _citation_window(text, m.start(), m.end())) or ""
             elif kind == "pmid":
                 val = re.sub(r"\D", "", raw)
-            out.append(Candidate(AssertionClass.IDENTIFIER, raw, m.start(), m.end(), kind, val))
+            out.append(Candidate(AssertionClass.IDENTIFIER, raw, m.start(), m.end(), kind, val, extra))
     return _dedupe(out)
 
 

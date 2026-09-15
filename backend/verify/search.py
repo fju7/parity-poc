@@ -36,6 +36,7 @@ from __future__ import annotations
 
 import datetime as dt
 import re
+import unicodedata
 import urllib.parse
 from dataclasses import dataclass, field
 
@@ -94,12 +95,46 @@ def _title_matches(proposed: str, candidate: str) -> tuple[bool, float, set]:
     return (ratio >= MATCH_RATIO and len(shared) >= MATCH_MIN), ratio, shared
 
 
+_INITIALS = re.compile(r"^(?:[A-Z]\.?){1,3}$")
+
+
+def surname_tokens(name: str) -> list[str]:
+    """The family-name tokens of an author string, lower-cased, diacritics
+    stripped, hyphens and apostrophes split, initials removed from either end.
+    'Di Pietrantonj C' -> ['di', 'pietrantonj']; 'van der Berg, J.' -> ['van',
+    'der', 'berg']; "O'Brien" -> ['o', 'brien']; 'Ben-Shlomo Y' -> ['ben',
+    'shlomo']; 'A. Hviid' -> ['hviid']."""
+    head = (name or "").split(",")[0].strip()
+    head = unicodedata.normalize("NFKD", head).encode("ascii", "ignore").decode()
+    raw = [t for t in re.split(r"[\s\-'\u2019.]+", head) if t]
+    while raw and _INITIALS.match(raw[0]):
+        raw.pop(0)
+    while raw and _INITIALS.match(raw[-1]):
+        raw.pop()
+    return [re.sub(r"[^a-z]", "", t.lower()) for t in raw if re.sub(r"[^a-z]", "", t.lower())]
+
+
 def _author_ok(proposed: str | None, found: str | None) -> bool:
+    """Surnames agree when their token lists match, or when the proposed
+    surname's tokens are a contiguous run of the found one's (a proposal that
+    drops a particle, 'Pietrantonj' for 'Di Pietrantonj', still agrees), or
+    when the joined forms coincide ('Benshlomo' for 'Ben-Shlomo'). A
+    particled, hyphenated or apostrophised surname is one surname, not a
+    given name and a surname: before 2026-09-15 the first token of Europe
+    PMC's 'Di Pietrantonj C' was read as the family name and every such
+    author was UNRESOLVED."""
     if not proposed or not found:
         return True                                      # nothing to compare: not a refusal
-    p = re.sub(r"[^a-z]", "", proposed.split(",")[0].split(" ")[-1].lower())
-    f = re.sub(r"[^a-z]", "", found.lower())
-    return bool(p and f and (p == f or p in f or f in p))
+    p, f = surname_tokens(proposed), surname_tokens(found)
+    if not p or not f:
+        return True
+    if p == f:
+        return True
+    pj, fj = "".join(p), "".join(f)
+    if pj == fj or (len(pj) >= 4 and (pj in fj or fj in pj)):
+        return True
+    n = len(p)
+    return any(f[i:i + n] == p for i in range(len(f) - n + 1)) or any(p[i:i + len(f)] == f for i in range(n - len(f) + 1))
 
 
 def _year_ok(proposed: int | None, found: int | None) -> bool:
@@ -115,7 +150,7 @@ def _epmc(title: str, first_author: str | None, year: int | None, near: list) ->
     d = _json(body) if st == 200 else None
     for r in ((d or {}).get("resultList") or {}).get("result") or []:
         ok, ratio, shared = _title_matches(title, r.get("title") or "")
-        fa = (r.get("authorString") or "").split(",")[0].split(" ")[0] or None
+        fa = (r.get("authorString") or "").split(",")[0].strip() or None   # 'Di Pietrantonj C', whole
         yr = int(r["pubYear"]) if str(r.get("pubYear") or "").isdigit() else None
         if ok and _author_ok(first_author, fa) and _year_ok(year, yr):
             if r.get("doi"):
@@ -139,7 +174,8 @@ def _crossref(title: str, first_author: str | None, year: int | None, near: list
         cand = (m.get("title") or [""])[0]
         ok, ratio, shared = _title_matches(title, cand)
         authors = m.get("author") or []
-        fa = authors[0].get("family") if authors else None
+        first = next((a for a in authors if a.get("sequence") == "first"), authors[0] if authors else {})
+        fa = first.get("family") or None
         parts = (m.get("published") or m.get("issued") or {}).get("date-parts", [[None]])[0]
         yr = parts[0] if parts and parts[0] else None
         if ok and _author_ok(first_author, fa) and _year_ok(year, yr) and m.get("DOI"):

@@ -2297,6 +2297,36 @@ tiers, the three answered questions, what was built). PHI: docs/phi-model-exposu
   the real page range; the model had turned the first page into a DOI.)
 - STEP 4 (noindex flip) STILL WAITS ON THE FLIP. siteMeta.js untouched.
 
+## Session SAP-Signal-3 — post-flip queue, items 2-4 done ahead (2026-09-15)
+Item 1 (siteMeta.js index flip + live probes) WAITS for Fred to say the flip
+is done. Items 2-4 touch no page and no corpus, so they were done now.
+- DOI RECOMBINATION FLAG (verify/extract.py doi_recombination /
+  citation_numbers, tests/verify/test_doi_recombination.py): a DOI whose
+  suffix repeats the page, volume, issue or article id of the citation it
+  sits in (same line, +-300 chars) carries a note; policy appends it to the
+  identifier's refusal/flag reason. FLAG, never refuse -- 10.1093/ije/31.2.285
+  and 10.1136/bmj.m4570 are real and have exactly that shape. A year alone is
+  not a note. A handed-over identifier binds with no note: the registry
+  vouched, not the shape.
+- COMPOUND SURNAMES (verify/search.py surname_tokens / _author_ok): family
+  name = the author string minus leading/trailing initials, NFKD-stripped,
+  split on space/hyphen/apostrophe; agreement = token lists equal, or the
+  proposed tokens a contiguous run of the found ones, or joined forms
+  coincide. Europe PMC's first author is now the whole pre-comma string
+  ('Di Pietrantonj C'), Crossref's the sequence="first" author. Golden set
+  +4 compound-surname controls (Di, del, van der, Ben-) and a 19-case class
+  test. mmr proposal-set yield: 18 -> 18 -- the two compound-name papers the
+  model proposed were under the WRONG single-word author (Demicheli /
+  Zimmerman for Di Pietrantonj), which the author check refuses correctly.
+- RECOMBINATION ACROSS THE 59 (docs/fabricated-doi-recombination-2026-09-15.md,
+  read-only, for the research-reliability workstream): strict hypothesis
+  holds for 10 of 59; year in 20; nothing traceable in 33. The finding one
+  level up: 49 of 59 follow the CITED JOURNAL'S PUBLISHER DOI TEMPLATE and
+  fill its free slots from the citation (year, page, article id) or invent
+  an opaque serial where the template has one; the other 10 wear a
+  neighbouring journal's template (WRONG_DOCUMENT leaking into FABRICATED).
+  Shape cannot separate a fabricated DOI from a real one; resolution can.
+
 ## Standing instructions for every session
 1. Read this file at the start of every session
 2. Verify all file paths before issuing commands

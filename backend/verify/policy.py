@@ -231,10 +231,10 @@ def _bind_identifiers(field_name: str, text: str, held: Held, policy: SurfacePol
             out.append(Finding(AssertionClass.IDENTIFIER, field_name, c.text, True, "bound", "identifier was handed to the model", kind=c.kind))
         elif strict:
             out.append(Finding(AssertionClass.IDENTIFIER, field_name, c.text, False, "bound",
-                               "identifier not among those the system handed over", kind=c.kind))
+                               "identifier not among those the system handed over" + (f"; {c.extra}" if c.extra else ""), kind=c.kind))
         else:
             out.append(Finding(AssertionClass.IDENTIFIER, field_name, c.text, False, "bound",
-                               "identifier-shaped; review", severity="flag", kind=c.kind))
+                               "identifier-shaped; review" + (f"; {c.extra}" if c.extra else ""), severity="flag", kind=c.kind))
     return out
 
 

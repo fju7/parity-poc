@@ -1,5 +1,5 @@
 {
- "_note": "verify.search golden set, recorded live 2026-09-15 and replayed from fixtures/http. known_good: the 15 proposals of the mmr-vaccine-autism scratch discovery run that the registries resolved (identifier from the registry, never the model). known_bad: the PriorixTetra near-miss -- a Cochrane review title word-matching a GSK MMRV trial at ratio 0.8 -- in every form the model produced it. The trial-registry rule (search.TRIAL_MATCH_RATIO / TRIAL_MATCH_MIN) is pinned here so it cannot loosen quietly; the near-miss title pair and its ratio are recorded so a change to the tokeniser that moves the ratio is visible too.",
+ "_note": "verify.search golden set, recorded live 2026-09-15 and replayed from fixtures/http. known_good: the 15 proposals of the mmr-vaccine-autism scratch discovery run that the registries resolved (identifier from the registry, never the model). known_bad: the PriorixTetra near-miss -- a Cochrane review title word-matching a GSK MMRV trial at ratio 0.8 -- in every form the model produced it. The trial-registry rule (search.TRIAL_MATCH_RATIO / TRIAL_MATCH_MIN) is pinned here so it cannot loosen quietly; the near-miss title pair and its ratio are recorded so a change to the tokeniser that moves the ratio is visible too. known_good also carries four compound-surname controls (particled, two-particle, hyphenated, lower-case particle): before 2026-09-15 the first token of Europe PMC's author string was read as the family name and every such author was UNRESOLVED; the mmr scratch set lost none to this because the model had attributed those papers to the wrong single-word author, which the check refuses correctly.",
  "trial_rule": {
   "TRIAL_MATCH_RATIO": 0.9,
   "TRIAL_MATCH_MIN": 4,
@@ -150,6 +150,42 @@
    "kind": null,
    "expect": "doi:10.1136/bmj.c5347",
    "registry": "europepmc"
+  },
+  {
+   "title": "Vaccines for measles, mumps, rubella, and varicella in children",
+   "first_author": "Di Pietrantonj",
+   "year": 2020,
+   "kind": null,
+   "expect": "doi:10.1002/14651858.cd004407.pub5",
+   "registry": "europepmc",
+   "_class": "particled surname (Di)"
+  },
+  {
+   "title": "A life course approach to chronic disease epidemiology: conceptual models, empirical challenges and interdisciplinary perspectives",
+   "first_author": "Ben-Shlomo",
+   "year": 2002,
+   "kind": null,
+   "expect": "doi:10.1093/intjepid/31.2.285",
+   "registry": "europepmc",
+   "_class": "hyphenated surname"
+  },
+  {
+   "title": "COVID-19—New Insights on a Rapidly Changing Epidemic",
+   "first_author": "del Rio",
+   "year": 2020,
+   "kind": null,
+   "expect": "doi:10.1001/jama.2020.3072",
+   "registry": "europepmc",
+   "_class": "particled surname (del), lower-case"
+  },
+  {
+   "title": "Inoculating the Public against Misinformation about Climate Change",
+   "first_author": "van der Linden",
+   "year": 2017,
+   "kind": null,
+   "expect": "doi:10.1002/gch2.201600008",
+   "registry": "europepmc",
+   "_class": "two-particle surname (van der)"
   }
  ],
  "known_bad": [
