@@ -2593,6 +2593,32 @@ is done. Items 2-4 touch no page and no corpus, so they were done now.
   a non-zero diff means the page is not what was ratified until a person
   has read the difference.
 
+## Session SAP-Signal-11 — the operator's read of the live page (2026-09-15, late)
+- 721f53f7 WITHHELD via the register (fifth row) on Fred's read of the notice's
+  full text; record d60a1c9, 103/25 -> 102/26, live-verified. THE SHAPE: an
+  IDENTITY_ONLY claim whose only passing binding is CHRONOLOGY against a
+  document that never mentions the claim's subject. Audit of the other 67
+  (report only, nothing withheld): 8 fail the same way -- 95c50743 (Hviid
+  "preterm / low birth weight", the twin of withheld 6bbf8769), fedabab9 /
+  6a72dc1e / 346d2aae (the EMA M-M-RVaxPro page contains ZERO occurrences of
+  "autism" or "Wakefield"), 625b22e6 (FDA/CDC VAERS review with PRR and
+  Bayesian mining -- not in the VAERS data guide), fc382781 ("anti-vaccine
+  advocates conflated" -- not in the FDA thimerosal statement), 216e71ba
+  (Smeeth "new-onset syndrome" -- Taylor 2002's finding), 3131e8e9 (Taylor
+  2014 "harmful to public health" -- not in the abstract). ~10 more are
+  partial (subject present, a specific attribution absent). Awaiting the
+  operator's ruling; nothing withheld in this step.
+- IDENTITY_ONLY WORDING: "source confirmed" removed everywhere. Per-claim:
+  "Source identified; not checked against it. ... we have not checked that
+  the document says this." Header: "N of M claims could not be matched
+  against their sources". Methodology page matched. Amber kept.
+- SCOPE STATEMENT reordered (evidence first, retraction second); the GMC
+  sentence says the page does not document the determination and claims
+  resting on it were withheld. Record ae2d953 (0/0 vs d60a1c9); five
+  sentences DOM-verified live at build ae2d953.
+- The §6a row (docs/signal-corpus-freeze.md line 42) was NOT touched; Fred
+  is writing it.
+
 ## Standing instructions for every session
 1. Read this file at the start of every session
 2. Verify all file paths before issuing commands
