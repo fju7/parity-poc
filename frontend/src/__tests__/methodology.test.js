@@ -5,7 +5,10 @@
 import { describe, it, expect } from "vitest";
 import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
-import { WEIGHTS, CATEGORY_THRESHOLDS } from "../components/signal/MethodologyView.jsx";
+import { WEIGHTS, CATEGORY_THRESHOLDS } from "../lib/signalScoring.js";
+import { fileURLToPath } from "node:url";
+import { dirname } from "node:path";
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 const src = readFileSync(resolve(__dirname, "../../../backend/scripts/signal/score_claims.py"), "utf8");
 

@@ -8,24 +8,7 @@ import { Link } from "react-router-dom";
 // weights that did not match score_claims.py, and did not mention the gates
 // that decide what is shown at all.
 
-// Weights and thresholds are copied from backend/scripts/signal/score_claims.py
-// (DEFAULT_WEIGHTS, EVIDENCE_CATEGORIES). If they drift, the test in
-// frontend/src/__tests__ that compares them fails.
-export const WEIGHTS = {
-  source_quality: 0.25,
-  data_support: 0.2,
-  reproducibility: 0.2,
-  consensus: 0.15,
-  recency: 0.1,
-  rigor: 0.1,
-};
-
-export const CATEGORY_THRESHOLDS = [
-  ["Strong", 4.0],
-  ["Moderate", 3.0],
-  ["Mixed", 2.0],
-  ["Weak", 0.0],
-];
+import { WEIGHTS, CATEGORY_THRESHOLDS } from "../../lib/signalScoring";
 
 const GATES = [
   {
