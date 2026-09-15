@@ -69,12 +69,16 @@ export const SITE_META = {
 /**
  * Hosts that should serve each product. Staging hosts are marked noindex.
  *
- * signal.civicscale.ai is noindex on purpose, staging or not (2026-09-14):
- * the Signal corpus is frozen with 92 of 381 sources failing
+ * signal.civicscale.ai was noindex from 2026-09-14 to 2026-09-15: the Signal
+ * corpus was frozen with 92 of 381 sources failing
  * scripts/signal/verify_sources.py -- identifiers that resolve to nothing or
- * to a different paper -- and every topic is status='draft'. This line is
- * what stamps the static robots meta tag and robots.txt (Disallow: /) at
- * build time. Flip it back to true when topics are republished.
+ * to a different paper -- and every topic was status='draft'. Indexing was
+ * restored on 2026-09-15 21:40 UTC when mmr-vaccine-autism was published
+ * through the verification gate (docs/signal-corpus-freeze.md, the flip row).
+ * Draft topics stay invisible through migration 078's status='published'
+ * gate, not through robots: a crawler that reaches a draft topic's URL gets
+ * "Not yet published", the same as any anon reader. This line is what stamps
+ * the static robots meta tag and robots.txt at build time.
  */
 export const HOST_MAP = {
   "civicscale.ai": { key: "main", index: true },
@@ -84,7 +88,7 @@ export const HOST_MAP = {
   "broker.civicscale.ai": { key: "broker", index: true },
   "provider.civicscale.ai": { key: "provider", index: true },
   "billing.civicscale.ai": { key: "billing", index: true },
-  "signal.civicscale.ai": { key: "signal", index: false },
+  "signal.civicscale.ai": { key: "signal", index: true },
   "staging-health.civicscale.ai": { key: "health", index: false },
   "staging-employer.civicscale.ai": { key: "employer", index: false },
   "staging-broker.civicscale.ai": { key: "broker", index: false },
