@@ -107,14 +107,33 @@ def _get_claude():
     return _anthropic_client
 
 
+class ClaudeCallError(RuntimeError):
+    """The model call did not produce a usable JSON result: API error after
+    retries, empty reply, or a reply that is not JSON. Raised, never returned.
+
+    Until 2026-09-15 _call_claude returned None on every failure and, when the
+    reply was HTML, wrapped it as {"letter_html", "letter_text"} -- so a
+    non-letter reply could enter the appeal pipeline as a letter, and a caller
+    that mis-passed its arguments (billing_contracts, from 2026-03-26) stored
+    "extraction": None for 173 days while reporting success. A failed
+    instrument must say so."""
+
+
 def _call_claude(system_prompt: str, user_content, max_tokens: int = 4096) -> dict:
     """Call Claude API with retry on 529, return parsed JSON.
 
     user_content can be a string or a list of content blocks (for multimodal).
+    Raises ClaudeCallError on any failure; never returns None and never
+    reinterprets a non-JSON reply. Callers for whom the result is optional
+    catch ClaudeCallError explicitly.
     """
+    if not isinstance(max_tokens, int):
+        raise ClaudeCallError(f"max_tokens must be an int, got {type(max_tokens).__name__}: "
+                              "check the argument order (system_prompt, user_content, max_tokens)")
     client = _get_claude()
     backoff_delays = [2, 5, 10]
     response = None
+    last_exc = None
 
     for attempt in range(len(backoff_delays) + 1):
         try:
@@ -127,6 +146,7 @@ def _call_claude(system_prompt: str, user_content, max_tokens: int = 4096) -> di
             )
             break
         except Exception as exc:
+            last_exc = exc
             err_str = str(exc)
             if "529" in err_str and attempt < len(backoff_delays):
                 delay = backoff_delays[attempt]
@@ -134,12 +154,10 @@ def _call_claude(system_prompt: str, user_content, max_tokens: int = 4096) -> di
                 time.sleep(delay)
                 continue
             print(f"[Provider AI] API error: {exc}")
-            if "529" in err_str:
-                return None  # Non-fatal — caller handles gracefully
-            return None
+            raise ClaudeCallError(f"API error: {exc}") from exc
 
     if response is None:
-        return None
+        raise ClaudeCallError(f"no response after retries: {last_exc}")
 
     raw_text = ""
     for block in response.content:
@@ -154,14 +172,9 @@ def _call_claude(system_prompt: str, user_content, max_tokens: int = 4096) -> di
 
     try:
         return json.loads(raw_text)
-    except json.JSONDecodeError:
-        # If Claude returned HTML directly (common for appeal letters), wrap it in expected JSON structure
-        stripped = raw_text.strip()
-        if stripped.startswith("<!DOCTYPE") or stripped.startswith("<html") or stripped.startswith("<div"):
-            print(f"[Provider AI] Claude returned HTML directly — wrapping in JSON structure")
-            return {"letter_html": stripped, "letter_text": stripped}
+    except json.JSONDecodeError as exc:
         print(f"[Provider AI] Invalid JSON: {raw_text[:500]}")
-        return None
+        raise ClaudeCallError(f"model reply was not JSON ({exc})") from exc
 
 
 def _call_claude_text(system_prompt: str, user_content, max_tokens: int = 4096) -> Optional[str]:
@@ -406,19 +419,19 @@ Rules:
 - If no CPT codes or rates are found, return an empty rates array"""
 
 
-DENIAL_SYSTEM_PROMPT = """You are a medical billing expert. You will receive a list of denied claims from an 835 remittance file. For each denial reason code present, explain the reason in plain language, assess whether an appeal is likely to succeed, estimate the value of attempting an appeal, and if appealable, draft a brief appeal letter template. Also identify patterns across the full denial set.
+# 2026-09-15 (shared assertion policy, Phase A.5 Tier 1 removals). Until today
+# this prompt also asked the model for an `appeal_letter_template` per denial
+# type -- a letter, never rendered by any UI, stored in provider_analyses and
+# returned by the API, and never seen by the citation gate -- and for
+# `total_recoverable_value`, `count`, `total_value` and `preventable_denial_rate`,
+# arithmetic over the line items it was handed, which three consumers rendered
+# as "Estimated Recoverable Value". Both tasks are removed rather than gated:
+# the letter lives in provider_appeals behind check_letter, and the totals are
+# computed in code by denial_totals() below. The model explains and advises;
+# it does not draft letters here and it does not add up money.
+DENIAL_SYSTEM_PROMPT = """You are a medical billing expert. You will receive a list of denied claims from an 835 remittance file, already grouped by adjustment code with counts and dollar totals computed. For each adjustment code present, explain the reason in plain language, assess whether an appeal is likely to succeed, and recommend a specific next action. Also identify patterns across the full denial set.
 
-IMPORTANT for appeal_letter_template: Use these EXACT bracket placeholders so the frontend can substitute real values:
-- [Payer Name] — the insurance payer
-- [Practice Name] — the provider practice name
-- [NPI] — the practice NPI number
-- [Practice Address] — the practice mailing address
-- [Provider Name] — the billing contact person
-- [Date] — today's date
-- [CPT Code] — the affected CPT code(s)
-- [Date of Service] — the service date
-- [Amount] — the dollar amount at issue
-Do NOT use any other placeholder format (no {curly braces}, no [INSERT ...], no [YOUR ...]).
+Do NOT draft an appeal letter. Do NOT cite any statute, regulation, CFR section, manual chapter, policy number or section number of any kind; describe payer obligations in plain words. Do NOT compute or restate counts or dollar totals -- they are supplied and will be attached by the system.
 
 Return ONLY valid JSON matching this exact structure, with no other text:
 {
@@ -428,23 +441,66 @@ Return ONLY valid JSON matching this exact structure, with no other text:
       "plain_language": "explanation of what this code means",
       "is_actionable": true,
       "appeal_worthiness": "high",
-      "recommended_action": "specific action to take",
-      "appeal_letter_template": "Dear [Payer Name],\\n\\nOn behalf of [Practice Name] (NPI: [NPI]), we are writing to formally appeal the denial of CPT [CPT Code] for date of service [Date of Service] in the amount of [Amount]...\\n\\nSincerely,\\n[Provider Name]\\n[Practice Name]\\n[Practice Address]",
-      "count": 3,
-      "total_value": 450.00,
-      "affected_cpts": ["99213", "99214"],
-      "sample_date_of_service": "2024-12-15"
+      "recommended_action": "specific action to take"
     }
   ],
-  "pattern_summary": "summary of patterns across all denials",
-  "total_recoverable_value": 1240.00,
-  "preventable_denial_rate": 0.67
+  "pattern_summary": "summary of patterns across all denials"
 }
 
 appeal_worthiness must be one of: "high", "medium", "low".
-Group denials by adjustment code. Include count and total_value per group.
-affected_cpts: list the top CPT codes (up to 5) affected by this denial type.
-sample_date_of_service: include one representative date of service from the denied claims."""
+Return one denial_types entry per adjustment code you were given, using the exact adjustment_code string supplied."""
+
+
+def denial_totals(denied_lines: list) -> dict:
+    """Group denied lines by adjustment code, in code. Each line is a dict with
+    cpt_code, billed_amount, adjustment_codes (comma-separated string) and
+    optionally service_date / claim_id.
+
+    Returns {"by_code": {code: {count, total_value, affected_cpts,
+    sample_date_of_service}}, "total_denied_value": float}. A line carrying
+    several adjustment codes counts once towards each code's count and value;
+    total_denied_value counts every line once. This replaces arithmetic the
+    model used to do and report as "total_recoverable_value"."""
+    by_code: dict = {}
+    total = 0.0
+    for line in denied_lines or []:
+        amt = float(line.get("billed_amount") or 0)
+        total += amt
+        codes = [c.strip() for c in str(line.get("adjustment_codes") or "").split(",") if c.strip()]
+        for code in codes or ["UNSPECIFIED"]:
+            g = by_code.setdefault(code, {"count": 0, "total_value": 0.0, "_cpts": {}, "sample_date_of_service": None})
+            g["count"] += 1
+            g["total_value"] = round(g["total_value"] + amt, 2)
+            cpt = line.get("cpt_code")
+            if cpt:
+                g["_cpts"][cpt] = g["_cpts"].get(cpt, 0) + 1
+            if not g["sample_date_of_service"] and line.get("service_date"):
+                g["sample_date_of_service"] = line["service_date"]
+    for g in by_code.values():
+        g["affected_cpts"] = [c for c, _ in sorted(g.pop("_cpts").items(), key=lambda kv: -kv[1])[:5]]
+    return {"by_code": by_code, "total_denied_value": round(total, 2)}
+
+
+def attach_denial_totals(result: dict | None, denied_lines: list) -> dict | None:
+    """Merge denial_totals() into a model result: per-type count / total_value /
+    affected_cpts / sample_date_of_service from code, plus total_denied_value.
+    `total_recoverable_value` is kept as an alias of total_denied_value so the
+    three existing consumers keep working; it is the billed value of the denied
+    lines, not an estimate of what an appeal would recover."""
+    if not result or not isinstance(result, dict):
+        return result
+    totals = denial_totals(denied_lines)
+    for dt in result.get("denial_types") or []:
+        g = totals["by_code"].get(dt.get("adjustment_code", ""))
+        if g:
+            dt.update({k: g[k] for k in ("count", "total_value", "affected_cpts", "sample_date_of_service")})
+        else:
+            dt.setdefault("count", 0); dt.setdefault("total_value", 0.0); dt.setdefault("affected_cpts", [])
+        dt.pop("appeal_letter_template", None)
+    result["total_denied_value"] = totals["total_denied_value"]
+    result["total_recoverable_value"] = totals["total_denied_value"]
+    result.pop("preventable_denial_rate", None)
+    return result
 
 
 # E&M code families for distribution analysis
@@ -1025,14 +1081,20 @@ def _run_analysis_for_payer(
     if denied_lines_data:
         denial_input = json.dumps({
             "payer_name": payer_name,
-            "denied_lines": denied_lines_data,
+            "denials_by_code": denial_totals(denied_lines_data)["by_code"],
             "total_denied_count": len(denied_lines_data),
         })
-        denial_intel = _call_claude(
-            system_prompt=DENIAL_SYSTEM_PROMPT,
-            user_content=denial_input,
-            max_tokens=4096,
-        )
+        try:
+            denial_intel = attach_denial_totals(_call_claude(
+                system_prompt=DENIAL_SYSTEM_PROMPT,
+                user_content=denial_input,
+                max_tokens=4096,
+            ), denied_lines_data)
+        except ClaudeCallError as exc:
+            # Denial intelligence is optional for a monthly run; the failure is
+            # recorded in the stored result rather than disappearing.
+            print(f"[RunAnalysis] denial intelligence failed for {payer_name}: {exc}")
+            denial_intel = {"error": True, "detail": str(exc), "denial_types": [], "pattern_summary": ""}
 
     top_underpaid = sorted(
         [

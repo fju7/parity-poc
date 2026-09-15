@@ -74,7 +74,7 @@ Re: Request for Claims Data Under the Consolidated Appropriations Act
 
 Dear Claims Data Department,
 
-Pursuant to Section 204 of Division BB of the Consolidated Appropriations Act of 2021 (CAA), and on behalf of our client ${client.name}, we are requesting the following claims data for the current and prior plan year:
+Under the transparency provisions of the Consolidated Appropriations Act, 2021 (CAA), and on behalf of our client ${client.name}, we are requesting the following claims data for the current and prior plan year:
 
 1. MEDICAL CLAIMS DATA
    — Complete 835 Electronic Remittance Advice files for all processed claims
@@ -92,9 +92,9 @@ Pursuant to Section 204 of Division BB of the Consolidated Appropriations Act of
    — Stop-loss premiums and any pooling charges
    — Network access fees and other plan-level charges
 
-This request is made pursuant to the fiduciary obligations established under ERISA §404(a)(1) and the transparency requirements of CAA §204. As the broker of record for ${client.name}, we are authorized to receive this information on behalf of the plan sponsor.
+This request supports the plan fiduciaries' duty to obtain the information needed to oversee the plan prudently. As the broker of record for ${client.name}, we are authorized to receive this information on behalf of the plan sponsor.
 
-Please provide the requested data in electronic format (835 EDI preferred for medical claims, CSV acceptable for pharmacy) within 30 business days as required by applicable regulations.
+Please provide the requested data in electronic format (835 EDI preferred for medical claims, CSV acceptable for pharmacy) within 30 business days.
 
 If you have questions regarding this request, please contact me directly at the information below.
 

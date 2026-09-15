@@ -4949,7 +4949,7 @@ function DenialIntelligenceSection({ intel, profile, payerName, onGoToAppeals })
           padding: 16, borderRadius: 8, background: "#ecfdf5",
           border: "1px solid #6ee7b7", marginBottom: 16,
         }}>
-          <div style={{ fontSize: 13, color: "#065f46", marginBottom: 4 }}>Estimated Recoverable Value</div>
+          <div style={{ fontSize: 13, color: "#065f46", marginBottom: 4 }}>Denied Value (billed)</div>
           <div style={{ fontSize: 24, fontWeight: 700, color: "#059669" }}>
             ${intel.total_recoverable_value.toLocaleString("en-US", { minimumFractionDigits: 2 })}
           </div>

@@ -13,7 +13,7 @@ from utils.citation_gate import check_letter, violations_note
 from verify.allowlist import build as build_allowlist, prompt_block
 from routers.provider_shared import (
     _get_supabase, _get_authenticated_user, _verify_admin,
-    _call_claude,
+    _call_claude, ClaudeCallError,
     GenerateAppealRequest, GenerateAppealBatchRequest, UpdateAppealStatusRequest,
 )
 
@@ -24,6 +24,9 @@ router = APIRouter(tags=["provider"])
 # Appeal Letter Generation
 # ---------------------------------------------------------------------------
 
+# 2026-09-15: the header line no longer asks for "[full AMA CPT description of
+# this code]". A descriptor recited from memory is a coded-vocabulary assertion
+# nothing checks; descriptors come from tables the repo holds or are omitted.
 APPEAL_SYSTEM_PROMPT = """You are a senior healthcare billing attorney and compliance officer with 20+ years of experience in payer appeals and reimbursement disputes. Generate a formal appeal letter that reads as if drafted by experienced legal counsel — precise, authoritative, and grounded in specific regulatory citations.
 
 CRITICAL INSTRUCTION: Use the following provider details to complete the letter — do not use placeholder brackets for any field that has been provided. Only use a placeholder if the value is genuinely unknown (i.e. the field is empty or null in the data below). Never output [INSERT ...], [CONTRACT EFFECTIVE DATE], [CONTRACT DATE], or similar bracket placeholders when the information exists in the provided data.
@@ -48,7 +51,7 @@ LETTER STRUCTURE:
    RE: Formal Appeal of {denial_code} — Claim {claim_id}
    Patient: {patient_name}
    Date of Service: {date_of_service}
-   CPT Code: {cpt_code} — [full AMA CPT description of this code]
+   CPT Code: {cpt_code}
    Billed Amount: ${billed_amount}
    Payer Reference Number: {claim_id}
 
@@ -355,7 +358,10 @@ async def generate_appeal(req: GenerateAppealRequest, request: Request):
     # bound now. Empty today; a state with no reviewed rows cites nothing.
     state, payer_type = _letter_context(denial_data, ctx)
     allowed, _rejected = build_allowlist(state, payer_type, req.denial_code or "")
-    result = _gated_letter(prompt_data, allowed)
+    try:
+        result = _gated_letter(prompt_data, allowed)
+    except ClaudeCallError as exc:
+        raise HTTPException(status_code=502, detail=f"The model call failed; no letter was generated. ({exc})")
 
     if not result:
         raise HTTPException(
@@ -470,7 +476,12 @@ async def generate_appeal_batch(req: GenerateAppealBatchRequest, request: Reques
 
         state, payer_type = _letter_context(denial, ctx)
         allowed, _rejected = build_allowlist(state, payer_type, denial.get("denial_code") or "")
-        result = _gated_letter(prompt_data, allowed)
+        try:
+            result = _gated_letter(prompt_data, allowed)
+        except ClaudeCallError as exc:
+            results.append({"error": True, "claim_id": denial.get("claim_id", ""),
+                            "detail": f"No letter: the model call failed ({exc})"})
+            continue
 
         if not result:
             results.append({"error": True, "claim_id": denial.get("claim_id", ""),

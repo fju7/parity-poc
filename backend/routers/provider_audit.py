@@ -20,7 +20,8 @@ from routers.provider_shared import (
     _call_claude, _call_claude_text,
     _run_analysis_for_payer, _aggregate_underpayments,
     _email_wrapper, _send_submission_confirmation, _send_delivery_email, _send_followup_email,
-    STATIC_DIR, FEE_SCHEDULE_EXTRACTION_PROMPT, DENIAL_SYSTEM_PROMPT,
+    STATIC_DIR, FEE_SCHEDULE_EXTRACTION_PROMPT, DENIAL_SYSTEM_PROMPT, denial_totals, attach_denial_totals,
+    ClaudeCallError,
     EM_CODES, EM_BENCHMARKS, CPT_DENIAL_BENCHMARKS, DENIAL_BENCHMARK_DATA_NOTE,
     SaveRatesRequest, AnalyzeRequest, CodingAnalyzeRequest, AnalyzeDenialsRequest,
     ExtractFeeScheduleTextRequest, CalculateMedicarePercentageRequest,
@@ -492,17 +493,14 @@ async def extract_fee_schedule_pdf(file: UploadFile = File(...)):
         },
     ]
 
-    result = _call_claude(
-        system_prompt=FEE_SCHEDULE_EXTRACTION_PROMPT,
-        user_content=content_blocks,
-        max_tokens=8192,
-    )
-
-    if result is None:
-        raise HTTPException(
-            status_code=502,
-            detail="Could not extract rates from PDF. The document may not contain a recognizable fee schedule.",
+    try:
+        result = _call_claude(
+            system_prompt=FEE_SCHEDULE_EXTRACTION_PROMPT,
+            user_content=content_blocks,
+            max_tokens=8192,
         )
+    except ClaudeCallError as exc:
+        raise HTTPException(status_code=502, detail="Could not extract rates from PDF. The document may not contain a recognizable fee schedule. ({exc})".format(exc=exc))
 
     return result
 
@@ -520,17 +518,14 @@ async def extract_fee_schedule_text(req: ExtractFeeScheduleTextRequest):
     if len(req.text) > 50000:
         raise HTTPException(status_code=400, detail="Text too long (max 50,000 characters)")
 
-    result = _call_claude(
-        system_prompt=FEE_SCHEDULE_EXTRACTION_PROMPT,
-        user_content=f"Extract all CPT/HCPCS codes and rates from this fee schedule text:\n\n{req.text}",
-        max_tokens=8192,
-    )
-
-    if result is None:
-        raise HTTPException(
-            status_code=502,
-            detail="Could not extract rates from text. Please check that the text contains CPT codes and dollar amounts.",
+    try:
+        result = _call_claude(
+            system_prompt=FEE_SCHEDULE_EXTRACTION_PROMPT,
+            user_content=f"Extract all CPT/HCPCS codes and rates from this fee schedule text:\n\n{req.text}",
+            max_tokens=8192,
         )
+    except ClaudeCallError as exc:
+        raise HTTPException(status_code=502, detail="Could not extract rates from text. Please check that the text contains CPT codes and dollar amounts. ({exc})".format(exc=exc))
 
     return result
 
@@ -577,17 +572,14 @@ async def extract_fee_schedule_image(file: UploadFile = File(...)):
         },
     ]
 
-    result = _call_claude(
-        system_prompt=FEE_SCHEDULE_EXTRACTION_PROMPT,
-        user_content=content_blocks,
-        max_tokens=8192,
-    )
-
-    if result is None:
-        raise HTTPException(
-            status_code=502,
-            detail="Could not extract rates from image. Please ensure the image clearly shows CPT codes and rates.",
+    try:
+        result = _call_claude(
+            system_prompt=FEE_SCHEDULE_EXTRACTION_PROMPT,
+            user_content=content_blocks,
+            max_tokens=8192,
         )
+    except ClaudeCallError as exc:
+        raise HTTPException(status_code=502, detail="Could not extract rates from image. Please ensure the image clearly shows CPT codes and rates. ({exc})".format(exc=exc))
 
     return result
 
@@ -1484,7 +1476,7 @@ async def parse_837(file: UploadFile = File(...)):
 
 @router.post("/analyze-denials")
 async def analyze_denials(req: AnalyzeDenialsRequest, request: Request):
-    """AI-powered denial interpretation with appeal letter templates."""
+    """AI-powered denial interpretation. Totals are computed in code (denial_totals); no letter is drafted here."""
     _get_authenticated_user(request)
 
     if not req.denied_lines:
@@ -1500,23 +1492,26 @@ async def analyze_denials(req: AnalyzeDenialsRequest, request: Request):
             "claim_id": line.claim_id,
         })
 
+    totals = denial_totals(lines_data)
     user_content = json.dumps({
         "payer_name": req.payer_name,
-        "denied_lines": lines_data,
+        "denials_by_code": totals["by_code"],
         "total_denied_count": len(lines_data),
     })
 
-    result = _call_claude(
-        system_prompt=DENIAL_SYSTEM_PROMPT,
-        user_content=user_content,
-        max_tokens=4096,
-    )
-
-    if result is None:
+    try:
+        result = attach_denial_totals(_call_claude(
+            system_prompt=DENIAL_SYSTEM_PROMPT,
+            user_content=user_content,
+            max_tokens=4096,
+        ), lines_data)
+    except ClaudeCallError as exc:
+        print(f"[AnalyzeDenials] model call failed: {exc}")
         return {
             "denial_types": [],
             "pattern_summary": "AI analysis is temporarily unavailable. Please try again.",
-            "total_recoverable_value": 0,
+            "total_recoverable_value": totals["total_denied_value"],
+            "total_denied_value": totals["total_denied_value"],
             "error": True,
         }
 

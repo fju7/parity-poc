@@ -290,7 +290,7 @@ function StepReport({ onNext, onBack }) {
                 <li>Your CBC lab costs are 5&times; Medicare rates — request a lab carve-out or reference-lab option</li>
                 <li>Office visit E&M codes are 82% above Medicare — negotiate a fee schedule cap at 175% Medicare</li>
                 <li>Pharmacy rebates: Request itemized rebate pass-through accounting from your PBM</li>
-                <li>Under CAA Section 204, you have a legal right to all claims data — we're requesting it this week</li>
+                <li>Under the CAA's transparency provisions, the plan sponsor is entitled to its own claims data — we're requesting it this week</li>
               </ol>
             </div>
 
@@ -340,9 +340,9 @@ Re: Request for Claims Data Under the Consolidated Appropriations Act
 
 Dear Claims Data Department,
 
-Pursuant to Section 204 of Division BB of the Consolidated Appropriations Act of 2021 (CAA 2021), codified at 29 U.S.C. \u00A7 1185i, and in fulfillment of the fiduciary obligations established under ERISA \u00A7 404(a)(1), I am writing on behalf of our client, Midwest Manufacturing Co., to formally request the following claims data for the current and prior plan year.
+Under the transparency provisions of the Consolidated Appropriations Act, 2021 (CAA), and in support of the plan fiduciaries' duty to obtain the information needed to oversee the plan prudently, I am writing on behalf of our client, Midwest Manufacturing Co., to formally request the following claims data for the current and prior plan year.
 
-As referenced in DOL guidance from November 2021 and EBSA Field Assistance Bulletin 2021-04, plan fiduciaries have an obligation to obtain and evaluate plan cost information. This request supports that obligation.
+Plan fiduciaries require this information to assess the reasonableness of the plan's costs and of the services provided to it. This request supports that oversight.
 
 1. MEDICAL CLAIMS DATA
    \u2014 Complete 835 Electronic Remittance Advice files for current and prior plan year
@@ -359,7 +359,7 @@ As referenced in DOL guidance from November 2021 and EBSA Field Assistance Bulle
    \u2014 Stop-loss premiums and attachment points
    \u2014 Network access fees and other plan-level charges
 
-Please provide the requested data in electronic format (835 EDI preferred for medical claims, CSV acceptable for pharmacy) within 30 business days, consistent with the carrier's contractual obligations under the service agreement.
+Please provide the requested data in electronic format (835 EDI preferred for medical claims, CSV acceptable for pharmacy) within 30 business days.
 
 As the broker of record for Midwest Manufacturing Co., I am authorized to receive this information on behalf of the plan sponsor. If you have questions regarding this request, please contact me directly at the information below.
 

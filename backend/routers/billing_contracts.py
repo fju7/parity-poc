@@ -48,6 +48,16 @@ def _require_billing_contracts(authorization: str):
 # POST /api/billing/contracts/upload
 # ---------------------------------------------------------------------------
 
+
+
+def _pdf_blocks(file_b64: str) -> list:
+    """Content blocks for a base64 PDF plus the extraction instruction — the
+    same shape provider_audit.extract_fee_schedule_pdf sends."""
+    return [
+        {"type": "document", "source": {"type": "base64", "media_type": "application/pdf", "data": file_b64}},
+        {"type": "text", "text": "Extract all CPT/HCPCS codes and their contracted reimbursement rates from this fee schedule document."},
+    ]
+
 @router.post("/upload")
 async def upload_contract(
     practice_id: str = Form(...),
@@ -307,16 +317,19 @@ async def analyze_contract(contract_id: str, authorization: str = Header(None)):
         raise HTTPException(status_code=400, detail="No file content stored for this contract.")
 
     # Use Claude vision to extract rates from the contract PDF
-    from routers.provider_shared import _call_claude, FEE_SCHEDULE_EXTRACTION_PROMPT
+    from routers.provider_shared import _call_claude, ClaudeCallError, FEE_SCHEDULE_EXTRACTION_PROMPT
 
+    # 2026-03-26 to 2026-09-15 this passed (file_b64, "application/pdf", PROMPT)
+    # positionally into (system_prompt, user_content, max_tokens); the wrapper
+    # swallowed the API error and {"extraction": None} was stored as a result.
     try:
         result = _call_claude(
-            file_b64,
-            "application/pdf",
-            FEE_SCHEDULE_EXTRACTION_PROMPT,
+            system_prompt=FEE_SCHEDULE_EXTRACTION_PROMPT,
+            user_content=_pdf_blocks(file_b64),
+            max_tokens=8192,
         )
-    except Exception as exc:
-        raise HTTPException(status_code=500, detail=f"Analysis failed: {exc}")
+    except ClaudeCallError as exc:
+        raise HTTPException(status_code=502, detail=f"Rate extraction failed; nothing stored. ({exc})")
 
     # Enrich with contract metadata
     analysis = {
@@ -385,9 +398,9 @@ async def analyze_all_contracts(authorization: str = Header(None)):
 
         try:
             result = _call_claude(
-                file_b64,
-                "application/pdf",
-                FEE_SCHEDULE_EXTRACTION_PROMPT,
+                system_prompt=FEE_SCHEDULE_EXTRACTION_PROMPT,
+                user_content=_pdf_blocks(file_b64),
+                max_tokens=8192,
             )
 
             analysis = {

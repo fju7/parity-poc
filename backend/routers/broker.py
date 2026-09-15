@@ -2399,23 +2399,34 @@ async def broker_scorecard_upload(
 # POST /api/broker/clients/{employer_email}/caa-letter — AI-generated CAA letter
 # ---------------------------------------------------------------------------
 
-CAA_LETTER_SYSTEM_PROMPT = """You are a healthcare benefits compliance attorney drafting a formal data request letter under the Consolidated Appropriations Act (CAA) of 2021.
+# CITATION RULE (2026-09-15, shared assertion policy Phase A.5). Until
+# 2026-09-15 this prompt instructed the model to cite "Section 204 of Division
+# BB of the CAA 2021, codified at 29 U.S.C. § 1185i", "ERISA § 404(a)(1)" and
+# "EBSA Field Assistance Bulletin 2021-04". 29 U.S.C. § 1185i, resolved against
+# the primary source, is "Protecting patients and improving the accuracy of
+# provider directory information" -- not the pharmacy-benefit reporting section.
+# The same failure as the provider appeal prompt on 2026-09-14: a plausible
+# citation, hardcoded, never checked. The letter now cites NO section, rule,
+# bulletin or U.S.C. number and names its authority in plain words. A specific
+# citation may return only through verify/allowlist.py once verify.law has a
+# U.S.C. adapter and a reviewed candidate row -- never by typing the "right"
+# section here from memory, which is the defect being removed.
+CAA_LETTER_SYSTEM_PROMPT = """You are a healthcare benefits consultant drafting a formal claims-data request letter on behalf of a plan sponsor, under the transparency provisions of the Consolidated Appropriations Act, 2021 (CAA).
 
-Write a professional, attorney-quality CAA Section 204 data request letter. The letter must:
+Write a professional data request letter. The letter must:
 
-1. Use the exact statutory citation: Section 204 of Division BB of the Consolidated Appropriations Act, 2021 (CAA 2021), codified at 29 U.S.C. § 1185i
-2. Reference ERISA § 404(a)(1) fiduciary duty obligations
-3. Reference DOL guidance from November 2021 and EBSA Field Assistance Bulletin 2021-04
-4. Request the following specific data:
+1. State its basis GENERICALLY: the plan sponsor's right to its own plan's claims and cost data under the transparency provisions of the Consolidated Appropriations Act, 2021, and the plan fiduciaries' general duty to obtain the information needed to oversee the plan prudently.
+   CITATION RULE -- ABSOLUTE. Do NOT cite any statute section, U.S.C. section, CFR section, ERISA section number, DOL or EBSA bulletin, advisory opinion, rule number, or any other numbered legal reference. No "Section ...", no "U.S.C. § ...", no "ERISA § ...", no "Field Assistance Bulletin ...". Do not name a specific guidance document by title or date. Every such reference this system has produced was checked against the primary source and found wrong; a wrong citation in a letter to a carrier is worse than none. State the obligation in plain words instead.
+2. Request the following specific data:
    (a) Complete 835 EDI remittance files for the current and prior plan year
    (b) Pharmacy claims data including NDC codes and any rebate credits applied
    (c) Monthly per-employee-per-month (PEPM) cost breakdown by medical, pharmacy, and administrative components
    (d) Stop-loss premiums and specific/aggregate attachment points
    (e) Network access fees and any other fees not included in the PEPM breakdown
-5. Include a 30-business-day response deadline citing the carrier's contractual obligation
-6. Include a firm but professional closing that references the broker's status as broker of record
-7. Use [DATE] as the date placeholder
-8. Fill in all provided data: broker name, firm name, company name, carrier name, state, approximate employee count, plan year
+3. Ask for the data within 30 business days of receipt. This is the requester's timeframe; do NOT describe it as a legal or contractual deadline and do NOT assert what any contract or law requires.
+4. Include a firm but professional closing that references the broker's status as broker of record, and states that the plan sponsor will follow up on any data not received.
+5. Use [DATE] as the date placeholder
+6. Fill in all provided data: broker name, firm name, company name, carrier name, state, approximate employee count, plan year
 
 Return ONLY valid JSON with a single key:
 {"letter": "<the full letter text with newlines as \\n>"}
@@ -2425,7 +2436,7 @@ No preamble, no commentary, no markdown formatting outside the JSON."""
 
 @router.post("/clients/{employer_email}/caa-letter")
 async def generate_caa_letter(employer_email: str, authorization: str = Header(None)):
-    """Generate an AI-powered CAA Section 204 data request letter for a client."""
+    """Generate an AI-drafted CAA claims-data request letter for a client. Cites nothing (see CAA_LETTER_SYSTEM_PROMPT)."""
     user, sb = _require_broker(authorization)
     broker_email = user["email"]
     e_email = employer_email.strip().lower()
@@ -2476,8 +2487,12 @@ async def generate_caa_letter(employer_email: str, authorization: str = Header(N
         "plan_year": plan_year,
     })
 
-    # Try AI generation
+    # Try AI generation. `source` in the response records which path produced
+    # the letter: the model's JSON reply is frequently unparseable (a letter
+    # contains quotation marks), in which case the code template below serves.
+    # Until 2026-09-15 that substitution was invisible to the caller.
     letter_text = None
+    source = "template"
     try:
         ai_result = _call_claude(
             system_prompt=CAA_LETTER_SYSTEM_PROMPT,
@@ -2486,8 +2501,11 @@ async def generate_caa_letter(employer_email: str, authorization: str = Header(N
         )
         if ai_result and isinstance(ai_result, dict) and ai_result.get("letter"):
             letter_text = ai_result["letter"]
+            source = "model"
+        else:
+            print("[Broker CAA] model reply unusable; serving the code template")
     except Exception as exc:
-        print(f"[Broker CAA] AI generation failed: {exc}")
+        print(f"[Broker CAA] AI generation failed; serving the code template: {exc}")
 
     # Fallback to static template
     if not letter_text:
@@ -2497,16 +2515,16 @@ async def generate_caa_letter(employer_email: str, authorization: str = Header(N
 Claims Data Department
 [Carrier Address]
 
-RE: Request for Claims Data and Cost Information Pursuant to CAA Section 204
+RE: Request for Plan Claims Data and Cost Information under the Consolidated Appropriations Act, 2021
 Plan Sponsor: {company_name}
 Approximate Covered Lives: {approx_employees}
 Plan Year: {plan_year}
 
 Dear Claims Department:
 
-This letter constitutes a formal request for plan-level claims data and cost information pursuant to Section 204 of Division BB of the Consolidated Appropriations Act, 2021 (CAA 2021), codified at 29 U.S.C. § 1185i, and consistent with the fiduciary obligations under ERISA § 404(a)(1).
+This letter constitutes a formal request for plan-level claims data and cost information under the transparency provisions of the Consolidated Appropriations Act, 2021, and in support of the plan fiduciaries' duty to obtain the information needed to oversee the plan prudently.
 
-As the broker of record for {company_name}, I am acting on behalf of the plan fiduciaries to fulfill their statutory obligation to obtain and review this information. The Department of Labor's November 2021 guidance and EBSA Field Assistance Bulletin 2021-04 make clear that plan fiduciaries must obtain sufficient information to assess the reasonableness of compensation and services provided.
+As the broker of record for {company_name}, I am acting on behalf of the plan fiduciaries, who require this information to assess the reasonableness of the plan's costs and of the services provided to it.
 
 We hereby request the following data for the current and prior plan year:
 
@@ -2516,9 +2534,9 @@ We hereby request the following data for the current and prior plan year:
 4. Stop-loss premiums, specific and aggregate attachment points, and any claims exceeding attachment points
 5. Network access fees, clinical program fees, and any other fees not included in the base PEPM
 
-Please provide this data within 30 business days of receipt of this letter, consistent with your contractual obligations and the requirements of applicable{' ' + state if state else ''} law.
+Please provide this data within 30 business days of receipt of this letter.
 
-This information is essential for the plan fiduciary to fulfill its duty of prudence under ERISA and to comply with the transparency requirements of the CAA. Failure to provide this data in a timely manner may constitute a breach of your administrative services agreement.
+This information is essential to the plan sponsor's oversight of its plan. The plan sponsor will follow up on any data not received.
 
 Please direct all data deliverables and correspondence to the undersigned.
 
@@ -2530,6 +2548,7 @@ Broker of Record — {company_name}"""
 
     return {
         "letter": letter_text,
+        "source": source,
         "client_name": company_name,
         "carrier": carrier,
         "generated_at": datetime.now(timezone.utc).isoformat(),
