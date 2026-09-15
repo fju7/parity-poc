@@ -82,6 +82,14 @@ export function ClaimMarkers({ claimId, publication, recheck }) {
           </div>
         );
       })}
+      {support === "SUBJECT_BOUND" && (
+        <div className={NOTE}>
+          <span className="font-semibold">Checked against the source's subject, not its wording. </span>
+          We confirmed the cited document is the one named, hold its full text, and found the things this claim is
+          about in it. This claim states no figure and quotes no phrase, so we have not checked that the document puts
+          it this way.
+        </div>
+      )}
       {support === "IDENTITY_ONLY" && (
         <div className={NOTE}>
           <span className="font-semibold">Source identified; not checked against it. </span>

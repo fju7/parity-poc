@@ -37,8 +37,20 @@ from __future__ import annotations
 
 import re
 
-from .text import LITERATURE_BOILERPLATE, content_tokens, normalise
+import unicodedata
+
+from .text import LITERATURE_BOILERPLATE, content_tokens
 from .types import Binding, Document, Kind
+
+
+def normalise(s: str | None) -> str:
+    """text.normalise without its HTML-tag strip. The held text is text
+    already, and on 2026-09-15 a stray "<" in a 184k-character ACIP page
+    swallowed 62k characters -- "favors rejection", present in the raw text,
+    read as absent. Lower-case, NFKD, non-alphanumerics to spaces."""
+    s = unicodedata.normalize("NFKD", s or "")
+    s = re.sub(r"[^a-z0-9 ]", " ", s.lower())
+    return re.sub(r"\s+", " ", s).strip()
 
 # Words any claim on any topic may use to describe a study without saying
 # anything distinctive about THIS study. Kept short and general on purpose:
@@ -78,6 +90,49 @@ GENERIC = {
     "representing", "informed", "inform", "involved", "formally", "specifically", "directly", "consistently",
     "convincingly", "strongly", "substantially",
 }
+# (c) THE REPORTING / PARAPHRASE CLASS -- words that describe the act of
+# studying, reporting or presenting rather than what was studied. Derived: a
+# base list of verb stems x their inflections, plus adjectives of assessment
+# and nouns of presentation. A word in this class counts as neither content
+# nor distinguishing; the check asks about the subject, not the verb the
+# summariser chose.
+_REPORTING_STEMS = [
+    "analy", "synthesi", "indicat", "show", "involv", "reaffirm", "examin", "conduct", "conclud", "report", "note",
+    "describ", "represent", "assess", "investigat", "evaluat", "compar", "review", "demonstrat", "suggest", "find",
+    "found", "observ", "identif", "confirm", "establish", "determin", "estimat", "measur", "calculat", "test", "stud",
+    "address", "highlight", "emphasi", "argu", "claim", "state", "propos", "present", "publish", "cit", "document",
+    "discuss", "consider", "characteri", "defin", "includ", "cover", "span", "follow", "track", "monitor", "revisit",
+    "updat", "reiterat", "recommend", "advis", "urg", "call", "detect", "rule", "initiat", "reject", "carry", "creat",
+    "design", "provid", "apply", "appli", "direct", "focus", "grant", "conven", "attribut", "remov", "constitut",
+    "contradict", "disprov", "substantiat", "inform", "involv", "reflect", "enrol", "recruit", "surve", "sampl",
+    "pool", "adjust", "control", "match", "link", "record", "collect", "obtain", "select", "restrict", "stratif",
+    "sugges", "explain", "account", "reveal", "assert", "affirm", "deny", "dispute", "question", "challeng", "support",
+    "contain", "hold", "regard", "restat", "reword", "summari", "interpret", "read", "mean", "imply", "infer",
+]
+_INFLECTIONS = ["", "e", "s", "es", "ed", "ing", "ings", "ation", "ations", "er", "ers", "ment", "ments", "ive", "ively", "ingly", "edly", "y", "ies", "ied", "d", "ze", "zed", "zes", "zing", "se", "sed", "ses", "sing", "sis", "ses", "tic", "tical", "tically"]
+_ASSESSMENT = {"credible", "robust", "rigorous", "notable", "clear", "clearly", "consistent", "consistently", "convincing",
+               "convincingly", "compelling", "strong", "strongly", "weak", "weakly", "reliable", "definitive", "authoritative",
+               "comprehensive", "thorough", "landmark", "seminal", "influential", "widely", "broadly", "generally", "largely",
+               "directly", "specifically", "explicitly", "formally", "actual", "actually", "novel", "sudden", "null", "similar",
+               "similarly", "elevated", "higher", "lower", "greater", "smaller", "increased", "decreased", "reduced", "either",
+               "both", "any", "various", "different", "same", "certain", "particular", "possible", "likely", "unlikely", "true",
+               "false", "correct", "incorrect", "valid", "invalid"}
+_PRESENTATION_NOUNS = {"timeline", "timelines", "narrative", "narratives", "account", "accounts", "description", "descriptions",
+                       "summary", "summaries", "wording", "phrasing", "language", "terms", "version", "versions", "history",
+                       "histories", "record", "records", "finding", "findings", "result", "results", "conclusion", "conclusions",
+                       "evidence", "data", "analysis", "analyses", "approach", "approaches", "method", "methods", "design", "designs"}
+
+
+def _reporting_class() -> set[str]:
+    out = set(_ASSESSMENT) | set(_PRESENTATION_NOUNS)
+    for stem in _REPORTING_STEMS:
+        for inf in _INFLECTIONS:
+            out.add(stem + inf)
+    return out
+
+
+REPORTING = _reporting_class()
+
 # Prose quantities and intensifiers that characterise a claim without a digit.
 QUANTITY = {
     "millions", "million", "thousands", "thousand", "hundreds", "hundred", "dozens", "billions",
@@ -88,6 +143,48 @@ QUANTITY = {
 NAME_BOILERPLATE = {"MMR", "ASD", "PDD", "UK", "US", "USA", "EU", "DOI", "CI", "HR", "RR", "OR", "The", "This", "These",
                     "In", "It", "Its", "No", "A", "An", "After", "Among", "When", "Following", "Because", "Both", "Multiple",
                     "Serious", "Anti", "Danish", "Denmark", "Japanese", "Japan", "British", "English", "European", "American"}
+# (b) Statistical vocabulary: abbreviation <-> expansion, a table like the
+# institutional aliases -- no inference. Applied by EXPANDING the abbreviation
+# in both the claim and the document before matching (case-sensitive on the
+# raw text, so "or" the conjunction is untouched and "OR" the statistic is).
+STAT_ABBREVIATIONS = {
+    "OR": "odds ratio", "aOR": "adjusted odds ratio", "RR": "relative risk", "aRR": "adjusted relative risk",
+    "HR": "hazard ratio", "aHR": "adjusted hazard ratio", "CI": "confidence interval", "IRR": "incidence rate ratio",
+    "PRR": "proportional reporting ratio", "SMR": "standardized mortality ratio", "RCT": "randomised controlled trial",
+    "RCTs": "randomised controlled trials", "SCCS": "self-controlled case series", "ITS": "interrupted time series",
+    "PDD": "pervasive developmental disorder", "ASD": "autism spectrum disorder", "MDE": "major depressive episode",
+    "NNT": "number needed to treat", "SD": "standard deviation", "SE": "standard error", "PY": "person-years",
+}
+_STAT_RX = re.compile(r"(?<![\w-])(" + "|".join(sorted(map(re.escape, STAT_ABBREVIATIONS), key=len, reverse=True)) + r")(?![\w-])")
+
+
+def expand_abbreviations(text: str) -> str:
+    """'OR 0.92 (95% CI ...)' -> 'OR odds ratio 0.92 (95% CI confidence interval ...)': the
+    abbreviation is kept and its expansion added, so either form matches."""
+    return _STAT_RX.sub(lambda m: m.group(1) + " " + STAT_ABBREVIATIONS[m.group(1)], text or "")
+
+
+# (a) Number-word equivalence: a scale word in the claim ("million") is
+# satisfied by a digit string of that magnitude in the document, grouped by
+# space, thin space or comma ("23 480 668", "23,480,668"), with the same
+# tolerance the figure binder applies -- it is the figure binder that decides
+# whether 23 million is 23,480,668; here the question is only whether the
+# document counts in millions at all.
+SCALE_WORDS = {"thousand": 10 ** 3, "thousands": 10 ** 3, "million": 10 ** 6, "millions": 10 ** 6, "billion": 10 ** 9, "billions": 10 ** 9}
+
+
+def _scale_satisfied(word: str, raw_text: str) -> bool:
+    from .numbers import canonical_numbers
+    floor = SCALE_WORDS[word]
+    for n in canonical_numbers(raw_text):
+        try:
+            if abs(float(n)) >= floor:
+                return True
+        except ValueError:
+            continue
+    return False
+
+
 SUBJECT_MIN_PRESENT = 0.5      # share of content terms that must be present
 SUBJECT_MAX_ABSENT = 3         # and at most this many absent
 # A distinguishing term is one that occurs in at most this many of the topic's
@@ -182,8 +279,8 @@ def extract_terms(assertion: str, source_words: set[str], topic_terms: set[str],
     words = normalise(assertion).split()
     quantity = [w for w in words if w in QUANTITY and w not in ("no", "all", "none", "every", "many", "most")]   # negation/quantifier words too common to be evidence
     content = []
-    for w in content_tokens(assertion, LITERATURE_BOILERPLATE):
-        if w in GENERIC or w in QUANTITY or w.isdigit() or len(w) <= 3:
+    for w in content_tokens(expand_abbreviations(assertion), LITERATURE_BOILERPLATE):
+        if w in GENERIC or w in QUANTITY or w in REPORTING or w.isdigit() or len(w) <= 3:
             continue
         if w in topic or _stem(w) in topic:
             continue
@@ -232,7 +329,8 @@ def bind_subject(assertion: str, document: Document, source_words: set[str], top
     if document is None or document.text_layer != "DECLARED_SOUND":
         return Binding(Kind.SUBJECT, False, reason="no held text to check the claim's subject against")
     terms = extract_terms(assertion, source_words, topic_terms, claim_frequency, doc_frequency)
-    text = normalise(document.text + " " + (registry_text or ""))
+    raw = (document.text or "") + " " + (registry_text or "")
+    text = normalise(expand_abbreviations(raw))
     # The topic's own vocabulary is exempt from the content count because every
     # claim uses it -- but a document that never mentions it at all cannot
     # support a claim about it (the EMA's M-M-RVaxPro page, 19k characters,
@@ -241,7 +339,8 @@ def bind_subject(assertion: str, document: Document, source_words: set[str], top
     missing_topic = sorted(w for w in (subject_terms or set()) if normalise(w) in claim_words and len(normalise(w)) > 3
                            and not _present(normalise(w), text))
     missing_named = [n for n in terms["named"] if not _present(n, text)]
-    missing_qty = [q for q in terms["quantity"] if not _present(q, text)]
+    missing_qty = [q for q in terms["quantity"]
+                   if not _present(q, text) and not (q in SCALE_WORDS and _scale_satisfied(q, raw))]
     present = [w for w in terms["content"] if _present(w, text)]
     absent = [w for w in terms["content"] if w not in present]
     missing_dist = [w for w in terms["distinguishing"] if w in absent]
