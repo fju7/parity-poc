@@ -47,6 +47,226 @@
    "withheld_by": "Claude Opus 5 on the operator's direction",
    "withheld_on": "2026-09-15",
    "ruled_by": "Fred Ugast, §6a read of the live page, 2026-09-15: 'WITHHOLD claim 721f53f7 ... the missing GMC source matters to me only if there is a chance the statements we make about it are untrue or unfair; the curator checked, and one of them was'"
+  },
+  "b992da57-2130-44b5-b989-f269a2c3c024": {
+   "reason": "distinguishing assertion not present in the supporting document's held text",
+   "terms_checked": [
+    "M-M-R II",
+    "never contained",
+    "incompatible"
+   ],
+   "checked_against": "FDA Statement Regarding the MMR Vaccine and Thimer (doc sha256 fdf73b80bb4c92200b5289678acba4e3f0161991913db7b0db75c05751469c7f, 24008 chars): absent ['M-M-R II', 'never contained', 'incompatible']; present []",
+   "withheld_by": "Claude Opus 5 on the operator's direction",
+   "withheld_on": "2026-09-15",
+   "ruled_by": "ruled by the §6a read audit, 2026-09-15 (Fred Ugast: all 19 withheld -- the 8 failures and the 11 partials; one defect at two magnitudes)"
+  },
+  "a7d1a0da-a95e-494d-a935-95ba2b06f310": {
+   "reason": "distinguishing assertion not present in the supporting document's held text",
+   "terms_checked": [
+    "Crohn"
+   ],
+   "checked_against": "Vaccines for measles, mumps, rubella, and varicell (doc sha256 7edc138643348c4e942bb2d6808287f01deeb8a988c9205afa9a54a953917fe6, 6786 chars): absent ['Crohn']; present []",
+   "withheld_by": "Claude Opus 5 on the operator's direction",
+   "withheld_on": "2026-09-15",
+   "ruled_by": "ruled by the §6a read audit, 2026-09-15 (Fred Ugast: all 19 withheld -- the 8 failures and the 11 partials; one defect at two magnitudes)"
+  },
+  "20583d9a-dd0e-404d-8177-b4c66c8cb69f": {
+   "reason": "distinguishing assertion not present in the supporting document's held text",
+   "terms_checked": [
+    "millions",
+    "multiple countries"
+   ],
+   "checked_against": "Immunization Safety Review: Vaccines and Autism (doc sha256 68989928e1590024917d4595c6156d89bf5d3e7edf9240e49501c999b068838f, 36395 chars): absent ['millions', 'multiple countries']; present []",
+   "withheld_by": "Claude Opus 5 on the operator's direction",
+   "withheld_on": "2026-09-15",
+   "ruled_by": "ruled by the §6a read audit, 2026-09-15 (Fred Ugast: all 19 withheld -- the 8 failures and the 11 partials; one defect at two magnitudes)"
+  },
+  "3cf9e687-9915-4dc4-b3f5-fa0323aa6b60": {
+   "reason": "distinguishing assertion not present in the supporting document's held text",
+   "terms_checked": [
+    "strongest natural experiments",
+    "natural experiment"
+   ],
+   "checked_against": "No effect of MMR withdrawal on the incidence of au (doc sha256 743e0691c4a3c4d6cdbbb34cf3feb9b417016f4ac9244ec389ffd4db9747835d, 1566 chars): absent ['strongest natural experiments', 'natural experiment']; present []",
+   "withheld_by": "Claude Opus 5 on the operator's direction",
+   "withheld_on": "2026-09-15",
+   "ruled_by": "ruled by the §6a read audit, 2026-09-15 (Fred Ugast: all 19 withheld -- the 8 failures and the 11 partials; one defect at two magnitudes)"
+  },
+  "9532c08f-8f30-4b39-b580-bad80dd8ed52": {
+   "reason": "distinguishing assertion not present in the supporting document's held text",
+   "terms_checked": [
+    "natural experiment",
+    "directly disproving"
+   ],
+   "checked_against": "No effect of MMR withdrawal on the incidence of au (doc sha256 743e0691c4a3c4d6cdbbb34cf3feb9b417016f4ac9244ec389ffd4db9747835d, 1566 chars): absent ['natural experiment', 'directly disproving']; present []",
+   "withheld_by": "Claude Opus 5 on the operator's direction",
+   "withheld_on": "2026-09-15",
+   "ruled_by": "ruled by the §6a read audit, 2026-09-15 (Fred Ugast: all 19 withheld -- the 8 failures and the 11 partials; one defect at two magnitudes)"
+  },
+  "216e71ba-0d17-46ab-9da4-a108a05eca76": {
+   "reason": "distinguishing assertion not present in the supporting document's held text",
+   "terms_checked": [
+    "syndrome",
+    "new-onset",
+    "new variant"
+   ],
+   "checked_against": "MMR vaccination and pervasive developmental disord (doc sha256 baff1cb1d7216b3109f6e886eca267275d513095d3c17701953012af45430683, 1389 chars): absent ['syndrome', 'new-onset', 'new variant']; present []",
+   "withheld_by": "Claude Opus 5 on the operator's direction",
+   "withheld_on": "2026-09-15",
+   "ruled_by": "ruled by the §6a read audit, 2026-09-15 (Fred Ugast: all 19 withheld -- the 8 failures and the 11 partials; one defect at two magnitudes)"
+  },
+  "fedabab9-b615-43dc-9f60-b4a189e6ab11": {
+   "reason": "distinguishing assertion not present in the supporting document's held text",
+   "terms_checked": [
+    "autism",
+    "Wakefield",
+    "Madsen",
+    "epidemiological"
+   ],
+   "checked_against": "European Medicines Agency: M-M-RvaxPro — European  (doc sha256 93fa09abdadf9fb8b305c475521496553106ba53283de6ad9dcf983df4a1ae45, 19274 chars): absent ['autism', 'Wakefield', 'Madsen', 'epidemiological']; present []",
+   "withheld_by": "Claude Opus 5 on the operator's direction",
+   "withheld_on": "2026-09-15",
+   "ruled_by": "ruled by the §6a read audit, 2026-09-15 (Fred Ugast: all 19 withheld -- the 8 failures and the 11 partials; one defect at two magnitudes)"
+  },
+  "95c50743-e1f9-4334-a1c1-8ad35c85a7b1": {
+   "reason": "distinguishing assertion not present in the supporting document's held text",
+   "terms_checked": [
+    "preterm",
+    "birth weight"
+   ],
+   "checked_against": "Measles, Mumps, Rubella Vaccination and Autism: A  (doc sha256 26d79efdf5364011190cc9f663ebdd9d2a4c4c6fe4614c1020bb6284bd9124fb, 2161 chars): absent ['preterm', 'birth weight']; present []",
+   "withheld_by": "Claude Opus 5 on the operator's direction",
+   "withheld_on": "2026-09-15",
+   "ruled_by": "ruled by the §6a read audit, 2026-09-15 (Fred Ugast: all 19 withheld -- the 8 failures and the 11 partials; one defect at two magnitudes)"
+  },
+  "995d7604-f1db-403c-a8b2-53479ed27650": {
+   "reason": "distinguishing assertion not present in the supporting document's held text",
+   "terms_checked": [
+    "outweigh",
+    "benefits"
+   ],
+   "checked_against": "Vaccines for measles, mumps, rubella, and varicell (doc sha256 7edc138643348c4e942bb2d6808287f01deeb8a988c9205afa9a54a953917fe6, 6786 chars): absent ['outweigh', 'benefits']; present []",
+   "withheld_by": "Claude Opus 5 on the operator's direction",
+   "withheld_on": "2026-09-15",
+   "ruled_by": "ruled by the §6a read audit, 2026-09-15 (Fred Ugast: all 19 withheld -- the 8 failures and the 11 partials; one defect at two magnitudes)"
+  },
+  "ae3190bc-0ec1-4d94-97da-e919e5253212": {
+   "reason": "distinguishing assertion not present in the supporting document's held text",
+   "terms_checked": [
+    "birth weight",
+    "gestational age",
+    "socioeconomic"
+   ],
+   "checked_against": "A Population-Based Study of Measles, Mumps, and Ru (doc sha256 cf62e4e025b70be9e7f6140bb594850f73db0258711906392827ce9e89e73c86, 1829 chars): absent ['birth weight', 'gestational age', 'socioeconomic']; present []",
+   "withheld_by": "Claude Opus 5 on the operator's direction",
+   "withheld_on": "2026-09-15",
+   "ruled_by": "ruled by the §6a read audit, 2026-09-15 (Fred Ugast: all 19 withheld -- the 8 failures and the 11 partials; one defect at two magnitudes)"
+  },
+  "80141825-7e01-4d77-ad4e-f3f7ee6b3c82": {
+   "reason": "distinguishing assertion not present in the supporting document's held text",
+   "terms_checked": [
+    "Wakefield",
+    "contradicted"
+   ],
+   "checked_against": "Autism and Measles, Mumps, and Rubella Vaccine: No (doc sha256 1820cf125b0e5616cd720e3bcadc1b32baab6854abdd22794c4c45c4703fe5e5, 2311 chars): absent ['Wakefield', 'contradicted']; present []",
+   "withheld_by": "Claude Opus 5 on the operator's direction",
+   "withheld_on": "2026-09-15",
+   "ruled_by": "ruled by the §6a read audit, 2026-09-15 (Fred Ugast: all 19 withheld -- the 8 failures and the 11 partials; one defect at two magnitudes)"
+  },
+  "04be7e2e-ef16-4a0d-b19d-018231a12404": {
+   "reason": "distinguishing assertion not present in the supporting document's held text",
+   "terms_checked": [
+    "Wakefield",
+    "leaky gut",
+    "measles virus persistence",
+    "not supported"
+   ],
+   "checked_against": "Immunization Safety Review: Vaccines and Autism —  (doc sha256 351d2d9182251c1608d91009cfa38a6b611f33b9c2fe32b67231d825bcc11848, 8164 chars): absent ['Wakefield', 'leaky gut', 'measles virus persistence', 'not supported']; present [] | Immunization Safety Review: Vaccines and Autism (doc sha256 68989928e1590024917d4595c6156d89bf5d3e7edf9240e49501c999b068838f, 36395 chars): absent ['Wakefield', 'leaky gut', 'measles virus persistence', 'not supported']; present [] | Immunization Safety Review: Vaccines and Autism (doc sha256 68989928e1590024917d4595c6156d89bf5d3e7edf9240e49501c999b068838f, 36395 chars): absent ['Wakefield', 'leaky gut', 'measles virus persistence', 'not supported']; present []",
+   "withheld_by": "Claude Opus 5 on the operator's direction",
+   "withheld_on": "2026-09-15",
+   "ruled_by": "ruled by the §6a read audit, 2026-09-15 (Fred Ugast: all 19 withheld -- the 8 failures and the 11 partials; one defect at two magnitudes)"
+  },
+  "8814b8f7-4e59-4ecb-9e09-e3ec2206cdfb": {
+   "reason": "distinguishing assertion not present in the supporting document's held text",
+   "terms_checked": [
+    "most authoritative",
+    "comprehensive review"
+   ],
+   "checked_against": "Immunization Safety Review: Vaccines and Autism —  (doc sha256 351d2d9182251c1608d91009cfa38a6b611f33b9c2fe32b67231d825bcc11848, 8164 chars): absent ['most authoritative', 'comprehensive review']; present [] | Immunization Safety Review: Vaccines and Autism (doc sha256 68989928e1590024917d4595c6156d89bf5d3e7edf9240e49501c999b068838f, 36395 chars): absent ['most authoritative', 'comprehensive review']; present []",
+   "withheld_by": "Claude Opus 5 on the operator's direction",
+   "withheld_on": "2026-09-15",
+   "ruled_by": "ruled by the §6a read audit, 2026-09-15 (Fred Ugast: all 19 withheld -- the 8 failures and the 11 partials; one defect at two magnitudes)"
+  },
+  "6a72dc1e-4906-4e91-b075-3db1f95f422a": {
+   "reason": "distinguishing assertion not present in the supporting document's held text",
+   "terms_checked": [
+    "autism",
+    "benefit-risk",
+    "pharmacovigilance",
+    "signal"
+   ],
+   "checked_against": "European Medicines Agency: M-M-RvaxPro — European  (doc sha256 93fa09abdadf9fb8b305c475521496553106ba53283de6ad9dcf983df4a1ae45, 19274 chars): absent ['autism', 'benefit-risk', 'pharmacovigilance', 'signal']; present []",
+   "withheld_by": "Claude Opus 5 on the operator's direction",
+   "withheld_on": "2026-09-15",
+   "ruled_by": "ruled by the §6a read audit, 2026-09-15 (Fred Ugast: all 19 withheld -- the 8 failures and the 11 partials; one defect at two magnitudes)"
+  },
+  "346d2aae-107a-4794-a38b-44d9b22a2b7a": {
+   "reason": "distinguishing assertion not present in the supporting document's held text",
+   "terms_checked": [
+    "autism"
+   ],
+   "checked_against": "European Medicines Agency: M-M-RvaxPro — European  (doc sha256 93fa09abdadf9fb8b305c475521496553106ba53283de6ad9dcf983df4a1ae45, 19274 chars): absent ['autism']; present []",
+   "withheld_by": "Claude Opus 5 on the operator's direction",
+   "withheld_on": "2026-09-15",
+   "ruled_by": "ruled by the §6a read audit, 2026-09-15 (Fred Ugast: all 19 withheld -- the 8 failures and the 11 partials; one defect at two magnitudes)"
+  },
+  "625b22e6-7d17-44a5-a1c8-d8d6949c3d27": {
+   "reason": "distinguishing assertion not present in the supporting document's held text",
+   "terms_checked": [
+    "proportional reporting",
+    "Bayesian",
+    "data mining",
+    "joint review"
+   ],
+   "checked_against": "Vaccine Adverse Event Reporting System (VAERS): Re (doc sha256 be81d504895e85208fab699a0116535c84534675f896b2d878f66db27acd30a1, 4958 chars): absent ['proportional reporting', 'Bayesian', 'data mining', 'joint review']; present []",
+   "withheld_by": "Claude Opus 5 on the operator's direction",
+   "withheld_on": "2026-09-15",
+   "ruled_by": "ruled by the §6a read audit, 2026-09-15 (Fred Ugast: all 19 withheld -- the 8 failures and the 11 partials; one defect at two magnitudes)"
+  },
+  "129d0533-83e5-4e8d-80ce-0b6a13e61162": {
+   "reason": "distinguishing assertion not present in the supporting document's held text",
+   "terms_checked": [
+    "primary published basis",
+    "basis"
+   ],
+   "checked_against": "Retraction—Ileal-lymphoid-nodular hyperplasia, non (doc sha256 b70a220048dc7ce64cb24fc78cf354cbf0670a2f9630dfeb0c23e5fa446c642f, 3612 chars): absent ['primary published basis', 'basis']; present []",
+   "withheld_by": "Claude Opus 5 on the operator's direction",
+   "withheld_on": "2026-09-15",
+   "ruled_by": "ruled by the §6a read audit, 2026-09-15 (Fred Ugast: all 19 withheld -- the 8 failures and the 11 partials; one defect at two magnitudes)"
+  },
+  "fc382781-0558-48f3-9761-c65b3f05aae3": {
+   "reason": "distinguishing assertion not present in the supporting document's held text",
+   "terms_checked": [
+    "Wakefield",
+    "advocates",
+    "conflated"
+   ],
+   "checked_against": "FDA Statement Regarding the MMR Vaccine and Thimer (doc sha256 fdf73b80bb4c92200b5289678acba4e3f0161991913db7b0db75c05751469c7f, 24008 chars): absent ['Wakefield', 'advocates', 'conflated']; present []",
+   "withheld_by": "Claude Opus 5 on the operator's direction",
+   "withheld_on": "2026-09-15",
+   "ruled_by": "ruled by the §6a read audit, 2026-09-15 (Fred Ugast: all 19 withheld -- the 8 failures and the 11 partials; one defect at two magnitudes)"
+  },
+  "3131e8e9-aacb-453a-801d-fbe058364601": {
+   "reason": "distinguishing assertion not present in the supporting document's held text",
+   "terms_checked": [
+    "harmful",
+    "promotion",
+    "public health concerns"
+   ],
+   "checked_against": "Vaccines are not associated with autism: An eviden (doc sha256 fdddd466b1abad1b03561461c6eb75b27534184f6a77636bd23ed716403d157a, 1945 chars): absent ['harmful', 'promotion', 'public health concerns']; present []",
+   "withheld_by": "Claude Opus 5 on the operator's direction",
+   "withheld_on": "2026-09-15",
+   "ruled_by": "ruled by the §6a read audit, 2026-09-15 (Fred Ugast: all 19 withheld -- the 8 failures and the 11 partials; one defect at two magnitudes)"
   }
  }
 }
