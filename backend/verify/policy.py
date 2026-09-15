@@ -483,7 +483,7 @@ POLICY: dict[str, SurfacePolicy] = {
     "routers.signal_metrics::generate_plain_summary": SurfacePolicy({L: W, I: G, N: G, F: G, C: X}, "signal", note="S2"),
     "routers.signal_topic_request::_parse_topic_request": SurfacePolicy(_MAPPING, "signal", note="S3 exempt: title/slug"),
     # ---- Signal (pipeline scripts -> draft rows; verify.publish gates publication) ----
-    "scripts.signal.00_discover_sources::discover_sources": SurfacePolicy({L: X, I: G, N: X, F: X, C: X}, "signal", note="S4: identifiers must come from a registry search; gated at publish today"),
+    "scripts.signal.00_discover_sources::discover_sources": SurfacePolicy({L: X, I: W, N: X, F: X, C: X}, "signal", note="S4: the model proposes title/author/container/year; identifiers come only from verify.search (registry) and a proposal that resolves to nothing is marked UNRESOLVED, never guessed (2026-09-15)", wired=True),
     "scripts.signal.00_discover_sources::discover_categories": SurfacePolicy(_MAPPING, "signal", note="S4 categories"),
     "scripts.signal.extract_claims::extract_from_source": SurfacePolicy({L: X, I: G, N: X, F: G, C: X}, "signal", note="S5: gated at publish (FIGURE vs fetched text)"),
     "scripts.signal.extract_claims::deduplicate_category": SurfacePolicy(_MAPPING, "signal", note="S5 dedupe"),

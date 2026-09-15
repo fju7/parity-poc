@@ -340,6 +340,14 @@ def load_sources(
             skipped += 1
             continue
 
+        # 2026-09-15: a proposal the registries could not resolve carries no
+        # identifier and no url. It is never loaded -- a source row without a
+        # real identifier is exactly what the frozen corpus's 59 were.
+        if source.get("unresolved") or not source.get("url"):
+            print(f"{prefix} [UNRESOLVED] not loaded: {slug} -- {(source.get('unresolved') or {}).get('reason', 'no url')}")
+            skipped += 1
+            continue
+
         content = None
         if do_fetch and source.get("fetchable"):
             print(f"{prefix} Fetching content for: {slug} ({source.get('fetch_strategy')})...")

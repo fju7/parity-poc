@@ -217,7 +217,7 @@ def test_unwired_gates_are_declared_and_only_shrink():
         "routers.provider_audit::analyze_denials", "routers.provider_shared::_run_analysis_for_payer",
         "routers.provider_audit::generate_audit_report", "routers.provider_trends::_generate_trend_narrative",
         "routers.signal_metrics::generate_plain_summary",
-        "scripts.signal.00_discover_sources::discover_sources", "scripts.signal.extract_claims::extract_from_source",
+        "scripts.signal.extract_claims::extract_from_source",
         "scripts.signal.generate_notifications::generate_notification_text",
     }
     actual = set(policy.unwired_gates())
