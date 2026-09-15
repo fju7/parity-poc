@@ -9,6 +9,9 @@ class Provenance(str, Enum):
     RESOLVED_FROM_HELD = "RESOLVED_FROM_HELD"   # parsed from a URL or document we already hold
     TYPED = "TYPED"                             # written by a person or a model, from memory
     SEARCHED = "SEARCHED"                       # returned by a lookup on a title or phrase
+    OPERATOR_SUPPLIED = "OPERATOR_SUPPLIED"     # the DOCUMENT was fetched by a person; the identifier and
+                                                # the registry's title for it are the machine's, and the file
+                                                # had to match that title to be admitted (verify/supplied.py)
 
 
 class Exists(str, Enum):

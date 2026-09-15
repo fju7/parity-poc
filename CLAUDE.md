@@ -2384,6 +2384,38 @@ is done. Items 2-4 touch no page and no corpus, so they were done now.
   Rule: every resolver gets a non-answer test before its golden set is
   trusted.
 
+## Session SAP-Signal-5 — pre-flip re-run finished; Provenance.OPERATOR_SUPPLIED built (2026-09-15)
+- RE-FREEZE at gate 7338993: record 20260915T184633+0000-22387c7, 29 of 35,
+  58 / 41 / 29 -- exactly the scratch prediction; operator read points at it.
+  The run before it (b902246) came back 26 of 35 because Europe PMC stopped
+  answering for four calls mid-run; three bound abstracts were withheld as
+  "nothing retrieved". Fixed: the fetch path records
+  "fetch: REGISTRY_UNAVAILABLE europepmc: HTTP 429 after 4 attempts" apart
+  from "nothing retrieved" (test injected). A run that says so is a run to
+  repeat when the registry answers, not one to sign.
+- OPERATOR_SUPPLIED (verify/supplied.py, scripts/supply_document.py,
+  tests/verify/test_supplied.py -- 11 tests, refusals first). THE OPERATOR
+  SUPPLIES THE DOCUMENT, NEVER THE CONCLUSION. supply(file, url, who, id):
+  the id must be one a registry answers for (DOI/PMID/PMCID/NCT); resolve
+  must be EXISTS with a heading (UNCHECKED -> REFUSED_REGISTRY, retry later;
+  NONEXISTENT -> refused); HEADING is mandatory and never abstains: the
+  registry's title against the file's own TITLE LINES (first three short
+  lines / <title>/<h1>/citation_title) at 0.8 with 4 shared, or contained
+  whole in the first 200 chars of text -- title lines only, because a
+  same-topic abstract shares most title words (Madsen 2002 passed as Hviid
+  2019 at 0.86 against a 4,000-char head before that was tightened). A PDF
+  with no text layer is UNCHECKED_NO_TEXT_LAYER: recorded as supplied, never
+  as evidence. Admitted bytes go content-addressed into data/verify/docs and
+  data/verify/supplied/index.json + <sha>.json (sha256, retrieved_at,
+  supplied_by, source_url, registry heading, HEADING evidence).
+  publish.gate_source uses a supplied document LAST (after the registry text
+  and the publisher fallback), writes document.provenance = OPERATOR_SUPPLIED
+  / MACHINE_FETCH, supplied_by, and resolution.fallback.route =
+  operator_supplied with the hash; bind is unchanged, so a hand-fetched
+  document that lacks the claim's figure still withholds it. Every admission
+  gets a row in docs/signal-corpus-freeze.md (table added) before re-freeze.
+  Fred starts with the Lancet retraction notice and Deer's BMJ article.
+
 ## Standing instructions for every session
 1. Read this file at the start of every session
 2. Verify all file paths before issuing commands

@@ -37,6 +37,22 @@ Every one of the 11 `signal_issues` rows has `status = 'draft'`.
 | 2026-09-15 | Re-run of the frozen mmr record through the current binder, into scratch (not the corpus): FIGURE_BOUND 56 / IDENTITY_ONLY 40 / UNSUPPORTED 32, 0 verdict changes, 0 per-source level changes, 0 bound → unbound. The operator read stands unchanged. | 0 | 0 | no | scratch only |
 | *pending* | **Human read of mmr-vaccine-autism** (design §6a) against `docs/mmr-vaccine-autism-operator-read-2026-09-14.md`. Reader: ________ · Date: ________ · Ruling: ________ | — | — | — | the flip, if any, is recorded on the row below this one |
 
+## Operator-supplied documents (Provenance.OPERATOR_SUPPLIED) — one row each
+
+A document a person fetched by hand enters the corpus only through
+`scripts/supply_document.py` (`backend/verify/supplied.py`): the registry must
+name the identifier, the file must carry the registry's title (HEADING,
+mandatory, never abstains), and every other binding runs unchanged. The
+operator supplies the document, never the conclusion. Each admission is a
+post-freeze change and gets a row here before the topic is re-frozen. The
+publication record marks the source `provenance: OPERATOR_SUPPLIED` with the
+hash and the supplier, so a reader can tell which sources a human went and
+got. None yet (2026-09-15).
+
+| date | identifier | sha256 of the bytes | fetched from | supplied by | admitted / refused (HEADING evidence) | claims moved (id: old → new) |
+|---|---|---|---|---|---|---|
+| — | — | — | — | — | — | — |
+
 ## The named-events table (CHRONOLOGY) — every row, so a wrong date is traceable
 
 `backend/data/verify/events.json`, load-bearing on whether a claim publishes since 2026-09-14. Dates a registry can answer are not here (the Lancet 2010 retraction and the 2004 partial retraction of Wakefield 1998 resolve from Crossref/Europe PMC on the source itself).

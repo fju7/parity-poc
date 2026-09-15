@@ -22,7 +22,7 @@ import sys
 from dataclasses import asdict
 from pathlib import Path
 
-from . import __version__, literature, law, generic
+from . import __version__, literature, law, generic, supplied
 from .bind import bind_figure, bind_heading, bind_span, _QUOTE
 from .chronology import bind_chronology
 from .numbers import figures, canonical_numbers
@@ -147,6 +147,17 @@ def gate_source(row: dict) -> dict:
         else:
             out["resolution"]["fallback"] = {"route": "generic_fetch via doi.org", "http": g.extra.get("http"),
                                              "reason": g.extra.get("reason") or g.extra.get("error")}
+    supplied_entry = None
+    if doc is None and ident.registry == "literature":
+        # A document a person fetched by hand (verify/supplied.py), admitted
+        # only after its title matched the registry's. Used last, and the
+        # record says so: provenance, hash, who, and where from.
+        got = supplied.lookup(ident)
+        if got is not None:
+            doc, supplied_entry = got
+            out["resolution"]["fallback"] = {"route": "operator_supplied", "sha256": supplied_entry["sha256"],
+                                             "supplied_by": supplied_entry["supplied_by"], "source_url": supplied_entry["source_url"],
+                                             "retrieved_at": supplied_entry["retrieved_at"], "record": supplied_entry["record"]}
     if doc is None:
         fb = out["resolution"].get("fallback") or {}
         unavailable = (res.extra or {}).get("fetch_unavailable")
@@ -162,7 +173,10 @@ def gate_source(row: dict) -> dict:
     _run_cache[key] = (res, doc, st_cached)
     out["document"] = {"sha256": doc.sha256, "route": doc.route, "kind": doc.kind, "retrieved_at": doc.retrieved_at,
                        "chars": len(doc.text), "text_layer": doc.text_layer, "path": store_document(doc),
-                       "final_url": doc.final_url}
+                       "final_url": doc.final_url,
+                       # who got the bytes: the machine, or a named person (Provenance.OPERATOR_SUPPLIED)
+                       "provenance": "OPERATOR_SUPPLIED" if supplied_entry else "MACHINE_FETCH",
+                       "supplied_by": supplied_entry["supplied_by"] if supplied_entry else None}
     out["registry_text"] = " ".join(str(x) for x in ((res.heading or ""), res.extra.get("year") or "") if x)
     if ident.registry == "generic":
         # No registry can report a retraction or amendment for a bare URL;
