@@ -291,10 +291,20 @@ def erratum_check(figs: list[str], src: dict) -> dict:
 def gate_claim(claim: dict, links: list[dict], sources: dict[str, dict]) -> dict:
     """One signal_claims row against each of its surviving sources."""
     text = claim.get("claim_text") or ""
-    figs = sorted(figures(text))
+    # The figures a claim commits to, LESS the years CHRONOLOGY owns. Before
+    # 2026-09-15 "the Smeeth 2004 study found no ..." counted 2004 as a figure,
+    # FIGURE then said "no figure in assertion" once the date was stripped, and
+    # the claim was levelled FIGURE_BOUND -- the page's strongest label -- on a
+    # year alone: 29 of 64 on the mmr record, one of them a false bind (a
+    # payment-by-lawyers claim on a notice that never mentions lawyers, which
+    # happened to contain 1998). A claim whose only figure is a year is
+    # source-confirmed (IDENTITY_ONLY), never figure-bound.
+    from .chronology import claim_dates
+    years = {str(d.year) for d, _ in claim_dates(text)}
+    figs = sorted(figures(text) - years)
     quoted = bool(_QUOTE.search(text))
     out = {"claim_id": claim["id"], "claim_text": text, "category": claim.get("category"),
-           "figures": figs, "quotation": quoted, "per_source": [], "support": "UNSUPPORTED", "supported_by": []}
+           "figures": figs, "years": sorted(years), "quotation": quoted, "per_source": [], "support": "UNSUPPORTED", "supported_by": []}
     for link in links:
         src = sources.get(link["source_id"])
         if not src:

@@ -77,3 +77,21 @@ def test_erratum_precision_touched_untouched_and_unreadable():
     r = erratum_check(["95727"], src)
     assert not r["ok"] and "could not be read" in r["reason"]  # fail closed
     _erratum_cache.pop("src-e")
+
+
+def test_a_claim_whose_only_figure_is_a_year_is_source_confirmed_not_figure_bound():
+    """2026-09-15: 29 of 64 FIGURE_BOUND claims on the mmr record were bound on
+    a year alone -- "the Wakefield 1998 study ..." -- because gate_claim
+    counted the year as a figure and FIGURE then had nothing to check. The
+    year is CHRONOLOGY's; a year-only claim is IDENTITY_ONLY. A claim that
+    also states a figure is still FIGURE_BOUND on the figure."""
+    src = _wakefield_source()
+    year_only = {"id": "c3", "claim_text": "The Wakefield 1998 case series was published in The Lancet.", "category": "x"}
+    out = gate_claim(year_only, [{"claim_id": "c3", "source_id": "src-wake"}], {"src-wake": src})
+    assert out["figures"] == [] and out["years"] == ["1998"]
+    assert out["support"] == "IDENTITY_ONLY", out["per_source"][0]["bindings"]
+    assert not any(b["kind"] == "FIGURE" for b in out["per_source"][0]["bindings"])   # nothing to check, so no FIGURE binding
+    assert any(b["kind"] == "CHRONOLOGY" and b["ok"] for b in out["per_source"][0]["bindings"])
+    with_figure = {"id": "c4", "claim_text": "The Wakefield 1998 case series enrolled only 12 children.", "category": "x"}
+    out2 = gate_claim(with_figure, [{"claim_id": "c4", "source_id": "src-wake"}], {"src-wake": src})
+    assert out2["figures"] == ["12"] and out2["support"] == "FIGURE_BOUND"
