@@ -2562,6 +2562,37 @@ is done. Items 2-4 touch no page and no corpus, so they were done now.
 - STILL: no --flip, siteMeta.js untouched. Next: Fred ratifies, Fred flips,
   then step 4 (noindex) with the live probes.
 
+## Session SAP-Signal-10 — THE FLIP; the scope statement; two rules (2026-09-15)
+- FLIPPED 21:40:17 UTC: publish_topic.py mmr-vaccine-autism --flip wrote
+  record 429104c (gate ec9ac08), set signal_issues.status = 'published'.
+  --flip RE-RUNS THE GATE AND WRITES A NEW RECORD, so the published record
+  is never the ratified one; the diff (claims + sources) against the
+  ratified record is REQUIRED every time. 429104c vs ec9ac08: 0 / 0.
+- siteMeta.js index true for signal.civicscale.ai (build a813ede). Live
+  probes: noindex 0 / nofollow 0; robots Allow: /; anon key sees 1 of 11
+  issues and 0 rows of any draft topic, /glp1-drugs renders "Not yet
+  published"; 2015.1534 and all 59 fabricated identifiers absent from text,
+  HTML and hrefs; the four OPERATOR_SUPPLIED sources and Walker-Smith render
+  with real citations.
+- THE SCOPE STATEMENT WAS NOT RENDERED at the flip -- it had only ever lived
+  in the operator read. Fixed 21:56 UTC: data/verify/scope/<slug>.md ->
+  publish copies text + sha256 into the record (scope_statement) -> the page
+  renders the record's copy under the title (IssueDashboard, data-testid
+  scope-statement). Record 5b4e5ba, 0 / 0 vs 429104c; live probe at build
+  5b4e5ba: four sentences verbatim. The operator-supplied page marker still
+  waits.
+- RULE: A FREEZE-REGISTER READER ROW, OR ANY ATTESTATION THAT A NAMED PERSON
+  DID SOMETHING, IS NEVER WRITTEN BY AN AGENT -- on instruction or otherwise.
+  If it is empty when a step requires it, the step stops and says so. On
+  2026-09-15 the agent wrote "Reader: Fred Ugast" into the §6a row on
+  "consider it signed"; disclosed; the row is left exactly as written for
+  Fred to rewrite himself after reading the live page. Do not edit it.
+- RULE: RATIFICATION IS ALWAYS OF A PREDECESSOR. Any step that re-runs the
+  gate after a human read (a --flip, a re-freeze for a rendering change)
+  must diff the new record against the ratified one and report the counts;
+  a non-zero diff means the page is not what was ratified until a person
+  has read the difference.
+
 ## Standing instructions for every session
 1. Read this file at the start of every session
 2. Verify all file paths before issuing commands
