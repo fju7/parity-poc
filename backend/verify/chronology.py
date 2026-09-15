@@ -69,7 +69,12 @@ def named_events(text: str, registry_events: list[dict] | None = None) -> list[t
         if any(p.lower() in t for p in e["phrases"]):
             out.append((dt.date.fromisoformat(e["date"]), e.get("precision", "day"), e["label"]))
     # the registry's own events for THIS source: a paper cannot support a claim about its own retraction
-    if registry_events and re.search(r"\bretract|withdrawn by the journal|expression of concern|erratum|correction to\b", t):
+    # A claim that names this source's own retraction, correction or concern
+    # references the registry's date for it -- Crossref update-to / Europe PMC
+    # -- never a typed one. "Ten of the thirteen co-authors withdrew" is the
+    # 2004 partial retraction, which Crossref records as a correction.
+    if registry_events and re.search(r"\bretract|withdrawn by the journal|expression of concern|erratum|correction to|"
+                                     r"co-authors\b.{0,40}\bwithdrew|withdrew their names|retraction of an interpretation", t):
         for ev in registry_events:
             if ev.get("type") in ("retraction", "correction", "expression_of_concern", "erratum") and ev.get("date"):
                 parts = [int(x) for x in re.findall(r"\d+", str(ev["date"]))]

@@ -70,8 +70,10 @@ def resolve(ident: Identifier) -> Resolution:
             res.registry = "crossref"; res.registry_id = msg.get("DOI")
             res.heading = (msg.get("title") or [None])[0]
             parts = (msg.get("published") or msg.get("issued") or {}).get("date-parts", [[None]])[0]
+            authors = msg.get("author") or []
             res.extra = {"container": (msg.get("container-title") or [None])[0],
                          "type": msg.get("type"),
+                         "first_author": (authors[0].get("family") if authors else None),
                          "published": parts, "year": parts[0] if parts else None,
                          "abstract": re.sub(r"<[^>]+>", "", msg.get("abstract") or "") or None}
         return res
@@ -91,6 +93,7 @@ def resolve(ident: Identifier) -> Resolution:
         res.exists = Exists.EXISTS; res.heading = r0.get("title"); res.registry_id = r0.get("id")
         res.canonical = ("https://pubmed.ncbi.nlm.nih.gov/" + r0["pmid"] + "/") if r0.get("pmid") else None
         res.extra = {"pmid": r0.get("pmid"), "pmcid": r0.get("pmcid"), "doi": r0.get("doi"),
+                     "first_author": ((r0.get("authorString") or "").split(",")[0].split(" ")[0] or None),
                      "inEPMC": r0.get("inEPMC"), "isOpenAccess": r0.get("isOpenAccess"),
                      "journal": r0.get("journalTitle"), "year": r0.get("pubYear"),
                      "abstract": r0.get("abstractText")}

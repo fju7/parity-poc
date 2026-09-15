@@ -33,6 +33,17 @@ Every one of the 11 `signal_issues` rows has `status = 'draft'`.
 | 2026-09-14 | Migration 082: seven `signal_claims.claim_text` values corrected, fixing forward — "650,000" → "657,461" (Hviid) ×4, "530,000" → "537,303" (Madsen) ×2, "1.2 million" → "1,256,407" (Taylor 2014). Truncations of the source's figure; FIGURE was not loosened. Old text preserved in `082_signal_claims_seven_truncations.json`. Curator: Claude Opus 5 on the operator's direction. | **7 updated** (claim_text) | 0 | no | `backend/migrations/082_signal_claims_seven_truncations.sql` |
 | *pending* | **Human read of mmr-vaccine-autism** (design §6a) against `docs/mmr-vaccine-autism-operator-read-2026-09-14.md`. Reader: ________ · Date: ________ · Ruling: ________ | — | — | — | the flip, if any, is recorded on the row below this one |
 
+## The named-events table (CHRONOLOGY) — every row, so a wrong date is traceable
+
+`backend/data/verify/events.json`, load-bearing on whether a claim publishes since 2026-09-14. Dates a registry can answer are not here (the Lancet 2010 retraction and the 2004 partial retraction of Wakefield 1998 resolve from Crossref/Europe PMC on the source itself).
+
+| label | date | primary URL | reviewed_by |
+|---|---|---|---|
+| GMC fitness-to-practise determination (findings of fact) | 2010-01-28 | *not verified* — reviewer to supply | null |
+| Wakefield erased from the UK medical register (GMC sanction) | 2010-05-24 | *not verified* — reviewer to supply | null |
+| Brian Deer's BMJ series | 2011-01-05 | https://doi.org/10.1136/bmj.c5347 (resolves at Crossref; page 403s) | null |
+| Omnibus Autism Proceeding test-case decisions | 2009-02-12 | *not verified* — corpus URL and two court paths 404 | null |
+
 Not on this register because they touch no `signal_*` table: the noindex of
 signal.civicscale.ai (`d75c178`), the removal of the appeal letter's Signal
 section (`13ca102`), and the backend's move to an anon-key reader

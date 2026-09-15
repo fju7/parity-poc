@@ -95,3 +95,18 @@ GENERIC_BOILERPLATE = {
     "news", "press", "release", "statement", "document", "documents", "report", "reports", "public",
     "information", "resources", "about", "search", "menu", "skip", "content", "main", "login",
 }
+
+# Words long enough to pass the title-word test that are nonetheless the
+# vocabulary of a whole topic rather than the name of one paper. Used only by
+# publish.link_role (subject | support); a match on one of these is not a
+# claim naming its source. Explicit, so a misclassification is traceable.
+TITLE_COMMON = {
+    "children", "adolescents", "adolescent", "patients", "participants", "population", "populations",
+    "vaccination", "vaccinations", "vaccinated", "vaccine", "vaccines", "immunization", "immunisation",
+    "association", "associations", "associated", "developmental", "disorder", "disorders", "syndrome",
+    "epidemiological", "epidemiologic", "epidemiology", "nationwide", "prospective", "retrospective",
+    "randomized", "randomised", "controlled", "systematic", "evidence", "outcomes", "incidence", "prevalence",
+    "treatment", "therapy", "therapies", "diagnosis", "diagnoses", "clinical", "national", "american",
+    "european", "international", "guideline", "guidelines", "statement", "recommendations", "committee",
+    "measles", "rubella", "autism", "autistic", "cancer", "breast", "vaccine-preventable",
+}

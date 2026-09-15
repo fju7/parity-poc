@@ -13,7 +13,23 @@ const fmt = (iso) =>
 
 const NOTE = "rounded-lg border border-amber-200 bg-amber-50 px-3 py-2 text-xs text-amber-900 leading-snug mt-2";
 const ACCESS = "rounded-lg border border-gray-300 bg-gray-50 px-3 py-2 text-xs text-gray-700 leading-snug mt-2";
+const INFO = "rounded-lg border border-slate-300 bg-slate-50 px-3 py-2 text-xs text-slate-700 leading-snug mt-2";
 const RETRACTED = "rounded-lg border-2 border-red-600 bg-red-50 px-3 py-2 text-xs text-red-900 leading-snug mt-2";
+
+/** The registry's retraction date for a source, from the status events frozen at publication. */
+const retractionDate = (st) => {
+  const ev = (st?.events || []).find((e) => e.type === "retraction" && e.date);
+  if (!ev) return null;
+  const [y, m, d] = String(ev.date).split("-").map(Number);
+  return fmt(new Date(y, (m || 1) - 1, d || 1).toISOString());
+};
+
+/** "Wakefield et al., The Lancet, 1998" from what the registry told us. */
+const cite = (src) => {
+  const au = src?.first_author ? `${src.first_author} et al.` : null;
+  const yr = src?.published?.[0] || null;
+  return [au, src?.container, yr].filter(Boolean).join(", ");
+};
 
 /** The line under the topic title. */
 export function TopicLine({ publication, recheck }) {
@@ -47,8 +63,25 @@ export function ClaimMarkers({ claimId, publication, recheck }) {
   const support = publication.support?.[claimId];
   const flags = (recheck?.flags || []).filter((f) => f.scope === "claim" && f.claim_id === claimId);
   const pub = fmt(publication.published_at);
+  // Subject links to a source retracted before publication: information, not doubt.
+  // (A SUPPORT link to such a source is refused at publish and never reaches here.)
+  const subjectOfRetracted = (publication.links?.[claimId] || []).filter(
+    (l) => l.role === "subject" && publication.status?.[l.source_id]?.verdict === "retracted"
+  );
   return (
     <>
+      {subjectOfRetracted.map((l, i) => {
+        const src = publication.sourceMeta?.[l.source_id] || {};
+        const when = retractionDate(publication.status?.[l.source_id]);
+        return (
+          <div key={"subj" + i} className={INFO}>
+            <span className="font-semibold">About a retracted paper. </span>
+            The study this claim describes{cite(src) ? <> — {cite(src)} —</> : null} was retracted by the journal
+            {when ? ` on ${when}` : ""} (Crossref). The claim reports what that paper did or said; its retraction is
+            part of the record, not a doubt about this claim.
+          </div>
+        );
+      })}
       {support === "IDENTITY_ONLY" && (
         <div className={NOTE}>
           <span className="font-semibold">Source confirmed; wording not machine-checked. </span>
@@ -72,10 +105,9 @@ export function ClaimMarkers({ claimId, publication, recheck }) {
         if (f.outcome === "status_changed" && f.verdict === "retracted") {
           return (
             <div key={i} className={RETRACTED}>
-              <span className="font-bold uppercase tracking-wide">Retracted. </span>
-              The registry records a retraction of a source this claim rests on, observed {when}. This claim rested
-              on it when published on {pub}. We have not removed the claim; we have marked it, and it should not be
-              relied on until we have reviewed the retraction.
+              <span className="font-bold uppercase tracking-wide">Retracted source. </span>
+              This claim rests on a paper the journal retracted after we published on {pub} (Crossref, observed {when}).
+              The claim is shown as published and marked; it should not be relied on until we have reviewed the retraction.
             </div>
           );
         }
@@ -102,12 +134,15 @@ export function SourceMarkers({ sourceId, publication, recheck }) {
   const pub = fmt(publication.published_at);
   const out = [];
   if (st?.verdict === "retracted") {
-    const ev = (st.events || []).find((e) => e.type === "retraction" && e.date);
+    // Already retracted at publication. Only claims ABOUT it can be on the page
+    // (support links were refused at publish), so this is information, not warning.
+    const when = retractionDate(st);
     out.push(
-      <div key="ret" className={RETRACTED}>
-        <span className="font-bold uppercase tracking-wide">Retracted. </span>
-        Crossref records a retraction of this source{ev?.date ? ` dated ${ev.date}` : ""}. It was already retracted
-        when this page was published on {pub}. It is listed because claims on this page rest on it; those claims are marked.
+      <div key="ret" className={INFO}>
+        <span className="font-semibold">Retracted paper. </span>
+        Crossref records a retraction of this source{when ? ` dated ${when}` : ""}. It was already retracted when this
+        page was published on {pub}. It is listed because a claim on this page describes it; nothing on this page
+        rests on it as evidence.
       </div>
     );
   } else if (st?.verdict === "superseded") {

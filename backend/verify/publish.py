@@ -111,7 +111,9 @@ def gate_source(row: dict) -> dict:
                          "registry": res.registry, "registry_id": res.registry_id, "checked_at": res.checked_at,
                          "generic_fetch": res.registry == "generic_fetch",
                          "published": (res.extra or {}).get("published") or ((res.extra or {}).get("year") and [(res.extra or {}).get("year")]),
-                         "effective": (res.extra or {}).get("effective")}
+                         "effective": (res.extra or {}).get("effective"),
+                         "first_author": (res.extra or {}).get("first_author"),
+                         "container": (res.extra or {}).get("container") or (res.extra or {}).get("journal")}
     out["_res"] = res
     if res.exists != Exists.EXISTS:
         out["withheld_reason"] = (f"fetch: HTTP {res.extra.get('http')} {res.extra.get('reason') or res.extra.get('error') or ''}".strip()
@@ -162,6 +164,37 @@ def gate_source(row: dict) -> dict:
     return out
 
 
+# Statuses that, found at publication on a SUPPORT link, refuse the link. The
+# red marker then only ever means "this changed after we froze it".
+REFUSING_STATUS_AT_PUBLISH = {"retracted", "withdrawn", "concern", "corrected", "superseded",
+                              "trial_status_changed", "amended", "reissued"}
+
+
+def link_role(claim_text: str, src: dict) -> tuple[str, dict]:
+    """subject | support, and the rule that decided it, recorded for audit.
+
+    A claim is ABOUT the source when it names it: the first author's surname
+    (from the registry) or a distinctive word of the registry heading appears
+    in the claim text. Otherwise the source is claimed as support. The
+    heuristic will misclassify eventually; the record says what matched."""
+    from .text import content_tokens, normalise, LITERATURE_BOILERPLATE
+    text = normalise(claim_text)
+    res = src.get("_res")
+    fa = ((res.extra or {}).get("first_author") if res else None) or ""
+    if fa and re.search(r"\b" + re.escape(normalise(fa)) + r"\b", text):
+        return "subject", {"matched": fa, "kind": "first_author"}
+    heading = (res.heading if res else None) or src.get("title") or ""
+    from .text import TITLE_COMMON
+    for w in sorted(content_tokens(heading.split(" || ")[0], LITERATURE_BOILERPLATE), key=len, reverse=True):
+        # A title word names the source only if it is not the topic's own
+        # vocabulary: "children" and "vaccination" are in every heading here;
+        # "hyperplasia" is in one. The list is explicit so a misclassification
+        # is traceable to a word, and the record says which word fired.
+        if len(w) >= 8 and w not in TITLE_COMMON and re.search(r"\b" + re.escape(w) + r"\b", text):
+            return "subject", {"matched": w, "kind": "title_word"}
+    return "support", {"matched": None, "kind": "no_name_in_claim"}
+
+
 def gate_claim(claim: dict, links: list[dict], sources: dict[str, dict]) -> dict:
     """One signal_claims row against each of its surviving sources."""
     text = claim.get("claim_text") or ""
@@ -180,12 +213,26 @@ def gate_claim(claim: dict, links: list[dict], sources: dict[str, dict]) -> dict
             out["per_source"].append(entry); continue
         doc = src["_doc"]
         level = "IDENTITY_ONLY"
+        role, rule = link_role(text, src)
+        entry["role"] = role; entry["role_rule"] = rule
         chrono = bind_chronology(text, src["_res"], (src.get("status") or {}).get("events"))
         entry["bindings"].append(_b(chrono))
         if not chrono.ok:
             entry["level"] = "UNSUPPORTED"
             out["per_source"].append(entry)
             continue
+        verdict = (src.get("status") or {}).get("verdict")
+        if role == "support" and verdict in REFUSING_STATUS_AT_PUBLISH:
+            # A support link to a source already retracted, corrected, superseded
+            # or amended is refused at publish, not published with a warning.
+            entry["bindings"].append({"kind": "STATUS_AT_PUBLISH", "ok": False, "abstained": False, "evidence": verdict,
+                                      "reason": f"support link to a source whose status was {verdict} before publication"})
+            entry["level"] = "UNSUPPORTED"
+            out["per_source"].append(entry)
+            continue
+        if role == "subject" and verdict in REFUSING_STATUS_AT_PUBLISH:
+            entry["bindings"].append({"kind": "STATUS_AT_PUBLISH", "ok": True, "abstained": False, "evidence": verdict,
+                                      "reason": f"subject link: the claim is about a source whose status was {verdict}; publishable, marked as information"})
         if figs:
             fb = bind_figure(text, doc, src.get("registry_text", "")); entry["bindings"].append(_b(fb))
             level = "FIGURE_BOUND" if fb.ok else "UNSUPPORTED"

@@ -141,6 +141,14 @@ async function loadIssueData(slug) {
       surviving_source_ids: pubRow.surviving_source_ids || [],
       support: Object.fromEntries((pubRow.record?.claims || []).map((c) => [c.claim_id, c.support])),
       status: Object.fromEntries((pubRow.record?.sources || []).filter((x) => x.status).map((x) => [x.source_id, x.status])),
+      // per claim: the surviving links and the role each source plays (subject | support), as recorded
+      links: Object.fromEntries((pubRow.record?.claims || []).map((c) => [
+        c.claim_id,
+        (c.per_source || []).filter((p) => p.level && p.level !== "UNSUPPORTED").map((p) => ({ source_id: p.source_id, role: p.role, rule: p.role_rule })),
+      ])),
+      sourceMeta: Object.fromEntries((pubRow.record?.sources || []).map((x) => [x.source_id, {
+        first_author: x.resolution?.first_author, published: x.resolution?.published, container: x.resolution?.container,
+      }])),
     };
     const { data: recheckRows } = await supabase
       .from("topic_rechecks")
