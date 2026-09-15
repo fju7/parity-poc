@@ -1488,6 +1488,54 @@ def queued_jobs_rows() -> list[tuple[str, str, str]]:
                 "The runner has claimed a job before, so it is not the install."))]
 
 
+def _cites(rows: list[dict]) -> str:
+    return ", ".join(sorted({str(r.get("because", "?")) for r in rows}))
+
+
+def attribution_sentence(ok: list[tuple]) -> str:
+    """How the explained changes were explained, one counter per strength.
+
+    Three strengths, never merged: a two-sided match (a person wrote down this
+    sentence and what it replaced), a now-only match (a person wrote down this
+    sentence; the differ paired it against a different old sentence), and a
+    round-level change set. A now-only match is never described as "traced to
+    a per-change decision". Each counter carries the labels ITS rows cite --
+    one list at the end read as the change set's decided_by, which it was not.
+    A counter at zero is left out rather than printed as "0 to ...".
+    """
+    two = [r for _k, _w, _n, r in ok if not r.get("set_level") and not r.get("now_only")]
+    now_only = [r for _k, _w, _n, r in ok if r.get("now_only")]
+    sets = [r for _k, _w, _n, r in ok if r.get("set_level")]
+    if not now_only and not sets:
+        return f"{len(ok)} change(s) since, each traced to a per-change decision ({_cites(two)})"
+    parts = []
+    if two:
+        parts.append(f"{len(two)} traced to a per-change decision ({_cites(two)})")
+    if now_only:
+        parts.append(f"{len(now_only)} to a recorded decision matched on the new text "
+                     f"alone (the diff paired them against a different old sentence; "
+                     f"{_cites(now_only)})")
+    if sets:
+        parts.append(f"{len(sets)} to a recorded change set ({_cites(sets)})")
+    if not two:
+        parts[0] = parts[0].replace(" to a ", " traced to a ", 1)
+    joined = parts[0] if len(parts) == 1 else (
+        " and ".join(parts) if len(parts) == 2 else ", ".join(parts[:-1]) + ", and " + parts[-1])
+    return f"{len(ok)} change(s) since, {joined}"
+
+
+def unaccounted_summary(bad: list[tuple]) -> str:
+    """The unexplained changes grouped by why, in the words why_unaccounted()
+    uses, so "cited a label that does not resolve" is never reported as "no
+    decision behind it" -- a different and false statement."""
+    counts: dict[str, int] = {}
+    for _k, _w, _n, r in bad:
+        why = why_unaccounted(r)
+        counts[why] = counts.get(why, 0) + 1
+    return "; ".join(f"{n} with {why}" if why == "no recorded decision" else f"{n} where {why}"
+                     for why, n in sorted(counts.items(), key=lambda kv: -kv[1]))
+
+
 def outside_review(page: Path, slug: str) -> tuple[str, str]:
     """Has an independent reviewer read THIS version of the assessment?
 
@@ -1540,16 +1588,12 @@ def outside_review(page: Path, slug: str) -> tuple[str, str]:
     # change traced to a recorded decision that resolves to something readable.
     ok, bad, _stale = reconcile(slug)
     if ok and not bad:
-        cites = ", ".join(sorted({r.get("because", "?") for _k, _w, _n, r in ok}))
-        n_set = sum(1 for _k, _w, _n, r in ok if r.get("set_level"))
-        how = (f"{len(ok) - n_set} traced to a per-change decision and {n_set} to a "
-               f"recorded change set" if n_set else "each traced to a recorded decision")
         return OK, (f"reviewed {latest.get('at', '?')[:10]} by "
-                    f"{latest.get('reviewer', 'unnamed')}; {len(ok)} change(s) since, "
-                    f"{how} ({cites})")
+                    f"{latest.get('reviewer', 'unnamed')}; {attribution_sentence(ok)}")
     if bad:
         return BAD, (f"{len(bad)} change(s) since the review of "
-                     f"{str(latest.get('sha'))[:8]} have no decision behind them")
+                     f"{str(latest.get('sha'))[:8]} are not accounted for: "
+                     f"{unaccounted_summary(bad)}")
     return WARN, (f"the last review read a different version "
                   f"({latest.get('at', '?')[:10]}, sha {str(latest.get('sha'))[:8]}), "
                   f"and no change to the prose was recorded")
@@ -2949,6 +2993,16 @@ def explain(kind: str, was: str, now: str, recorded: list[dict]) -> dict | None:
     matches anything in the diff has been superseded; a diff entry with no
     recorded change went in without a decision, and that is the only thing here
     worth a human's attention.
+
+    The two-sided match is a PROXY for the rule -- "a person wrote down that
+    THIS sentence went in, and named a reason that resolves". A matching `was`
+    confirms the differ paired the sentences the writer had in mind; when
+    changes_since() pairs them differently the proxy fails and the decision is
+    still real. reconcile() carries a third pass for that case (phase 2,
+    now-only). It cannot live here: condition (b) of that pass needs to know
+    what other rows have consumed, and this function is stateless. The OTHER
+    caller, correction_recorded_row() (~line 1160), has no such pass and no
+    notion of consumption -- filed as D1c in docs/whatholdsup-open-gaps.md.
     """
     w, n = flatten(was), flatten(now)
     for r in recorded:
@@ -3023,12 +3077,134 @@ def decision_labels(slug: str) -> set[str]:
     return {x for x in out if x}
 
 
+def why_unaccounted(r: dict | None) -> str:
+    """One sentence on why a row is not accounted for. The board and the
+    narrative a person reads both use this, so they cannot disagree."""
+    if not r:
+        return "no recorded decision"
+    if r.get("ambiguous"):
+        return ("the record cannot say which decision this came from: %d recorded "
+                "entries carry this new text (%s)"
+                % (r["ambiguous"], ", ".join(r.get("candidates") or [])))
+    if r.get("unaccounted_deletion"):
+        return "the sentence it replaced is in no record and is no longer on the page"
+    if r.get("unresolved"):
+        return "decision cited a label that does not resolve: %s" % r.get("because")
+    return "no recorded decision"
+
+
+def reconcile_rows(diff: list[tuple[str, str, str]], recorded: list[dict],
+                   labels: set[str], page_flat: str, sets: list[dict]
+                   ) -> tuple[list[tuple], list[tuple], set[int]]:
+    """(explained, unexplained, ids of recorded entries consumed) -- the phases.
+
+    THE RULE. A change is explained when a person wrote down that THIS
+    sentence went in, and named a reason that resolves. What the sentence
+    displaced is bookkeeping about the diff, not about the decision.
+
+    Four phases, each finished before the next starts. The order is
+    load-bearing: a row that can match two-sided must get its entry ahead of a
+    row that can only match on one side, and a row with its own recorded
+    decision must be reported as having one before any round-level set is
+    consulted.
+
+      PHASE 1  two-sided, via explain(). Unchanged. An entry whose label does
+               not resolve is held UNRESOLVED and not consumed.
+      PHASE 2  now-only, over the rows phase 1 left UNMATCHED. All four hold:
+        (a) flatten(now) is non-empty. A `removed` row has no `now`; matching
+            on empty would rescue every deletion on the page.
+        (b) among entries not yet consumed, EXACTLY ONE has the same
+            flattened `now`. Equality, never containment. Zero is no evidence;
+            two or more means the record cannot say which decision this came
+            from, and changes.json is known to hold duplicate rows (D2).
+            A rescue consumes its entry, so a later row with the same text
+            finds zero, not one: two identical sentences on one written-down
+            decision is the ambiguous case again, and it fails closed.
+        (c) that entry's `because` resolves in the label set.
+        (d) if `was` is non-empty, its flattened text is still on the page or
+            is some recorded entry's flattened `was`. Why: a mispaired
+            `changed` row can conceal a deletion -- in a replace opcode with
+            more old sentences than new, a sentence that died is consumed into
+            a pairing instead of surfacing as its own `removed` row -- and the
+            two-sided rule was silently keeping that row blocking. This keeps
+            it blocking. It is a disjunction, so it can only fail closed.
+        A rescued row is marked now_only and is never reported as a two-sided
+        match. A sole candidate failing (c) or (d) is bad with that reason;
+        anything else stays UNMATCHED.
+      PHASE 3  set-level, unchanged, over what is still UNMATCHED.
+      PHASE 4  whatever remains, plus every UNRESOLVED, is bad.
+    """
+    consumed: set[int] = set()
+    ok, bad, unresolved, unmatched = [], [], [], []
+    # PHASE 1 -- two-sided
+    for i, (kind, was, now) in enumerate(diff):
+        r = explain(kind, was, now, recorded)
+        if r and r.get("because") not in labels:
+            r = dict(r)
+            r["unresolved"] = True
+            unresolved.append((i, kind, was, now, r))
+        elif r:
+            ok.append((i, kind, was, now, r))
+            consumed.add(id(r))
+        else:
+            unmatched.append((i, kind, was, now))
+    # PHASE 2 -- now-only, after phase 1 has finished consuming
+    recorded_was = {flatten(e.get("was") or "") for e in recorded} - {""}
+    still = []
+    for i, kind, was, now in unmatched:
+        n = flatten(now)
+        if not n:                                                        # (a)
+            still.append((i, kind, was, now, None))
+            continue
+        cands = [e for e in recorded
+                 if id(e) not in consumed and flatten(e.get("now") or "") == n]
+        if len(cands) != 1:                                              # (b)
+            why = ({"ambiguous": len(cands),
+                    "candidates": sorted({str(c.get("because")) for c in cands})}
+                   if len(cands) > 1 else None)
+            still.append((i, kind, was, now, why))
+            continue
+        e = cands[0]
+        if e.get("because") not in labels:                               # (c)
+            r = dict(e)
+            r.update(now_only=True, unresolved=True)
+            bad.append((i, kind, was, now, r))
+            continue
+        w = flatten(was)
+        if w and w not in page_flat and w not in recorded_was:           # (d)
+            r = dict(e)
+            r.update(now_only=True, unaccounted_deletion=True)
+            bad.append((i, kind, was, now, r))
+            continue
+        r = dict(e)
+        r["now_only"] = True
+        ok.append((i, kind, was, now, r))
+        consumed.add(id(e))
+    # PHASE 3 -- set-level, over what is still unmatched
+    remaining = []
+    for i, kind, was, now, why in still:
+        if sets:
+            # Covered at round level. Recorded as such, never as a per-sentence
+            # decision somebody wrote.
+            st = sets[-1]
+            ok.append((i, kind, was, now, {"because": st.get("because"),
+                                            "set_level": True,
+                                            "decided_by": st.get("decided_by") or [],
+                                            "note": st.get("note") or ""}))
+        else:
+            remaining.append((i, kind, was, now, why))
+    # PHASE 4 -- what remains, plus every unresolved, is bad
+    bad = sorted(bad + unresolved + remaining)
+    return ([row[1:] for row in sorted(ok)], [row[1:] for row in bad], consumed)
+
+
 def reconcile(slug: str) -> tuple[list[tuple], list[tuple], list[dict]]:
     """(explained, unexplained, unused recorded entries).
 
     A change counts as explained only if a recorded entry matches its prose AND
     that entry cites a label that resolves. Both halves matter: the first says
     somebody wrote down why, the second says the why points somewhere real.
+    The matching itself is reconcile_rows(); this loads what it needs.
     """
     cfg = ISSUES[slug]
     page = ROOT / cfg["page"]
@@ -3046,31 +3222,12 @@ def reconcile(slug: str) -> tuple[list[tuple], list[tuple], list[dict]]:
     if not snaps:
         return [], [], []
     recorded = recorded_changes(slug)
-    diff = changes_since(snaps[-1].read_text(encoding="utf-8"),
-                         page.read_text(encoding="utf-8"))
+    page_raw = page.read_text(encoding="utf-8")
+    diff = changes_since(snaps[-1].read_text(encoding="utf-8"), page_raw)
     labels = decision_labels(slug)
     sets = valid_change_sets(slug, latest.get("sha") or "", sha(page))
-    ok, bad, used = [], [], []
-    for kind, was, now in diff:
-        r = explain(kind, was, now, recorded)
-        if r and r.get("because") not in labels:
-            r = dict(r)
-            r["unresolved"] = True
-            bad.append((kind, was, now, r))
-        elif r:
-            ok.append((kind, was, now, r))
-            used.append(id(r))
-        elif sets:
-            # Covered at round level. Recorded as such, never as a per-sentence
-            # decision somebody wrote.
-            s = sets[-1]
-            ok.append((kind, was, now, {"because": s.get("because"),
-                                        "set_level": True,
-                                        "decided_by": s.get("decided_by") or [],
-                                        "note": s.get("note") or ""}))
-        else:
-            bad.append((kind, was, now, None))
-    return ok, bad, [r for r in recorded if id(r) not in used]
+    ok, bad, consumed = reconcile_rows(diff, recorded, labels, flatten(page_raw), sets)
+    return ok, bad, [r for r in recorded if id(r) not in consumed]
 
 
 def review_diff_text(slug: str) -> tuple[bool, str]:
@@ -3101,17 +3258,25 @@ def review_diff_text(slug: str) -> tuple[bool, str]:
 
     ok, bad, stale = reconcile(slug)
     total = len(ok) + len(bad)
+    # The board and the narrative a person actually reads must say the same
+    # thing about the strength of a link, or neither should. So the three
+    # strengths outside_review() counts are the three this text marks, row by
+    # row, and a now-only match is never printed as though it were two-sided.
+    n_two = sum(1 for _k, _w, _n, r in ok if not r.get("set_level") and not r.get("now_only"))
+    n_now = sum(1 for _k, _w, _n, r in ok if r.get("now_only"))
+    n_set = sum(1 for _k, _w, _n, r in ok if r.get("set_level"))
     lines = ["The reviewer read  %s  (%s)" % (snap.name, str(latest.get("sha"))[:12]),
              "The file now is    %s  (%s)" % (page.name, now[:12]),
              "",
-             "%d change(s) to the prose since. %d accounted for, %d not."
-             % (total, len(ok), len(bad)),
+             "%d change(s) to the prose since. %d accounted for (%d matched on both "
+             "sentences, %d on the new text alone, %d by a change set), %d not."
+             % (total, len(ok), n_two, n_now, n_set, len(bad)),
              ""]
     if bad:
-        lines.append("NOT ACCOUNTED FOR — these went in without a recorded decision:")
+        lines.append("NOT ACCOUNTED FOR — each says why:")
         lines.append("")
-        for i, (kind, was, nowtxt, _r) in enumerate(bad, 1):
-            lines.append(" !! %d. %s" % (i, kind.upper()))
+        for i, (kind, was, nowtxt, r) in enumerate(bad, 1):
+            lines.append(" !! %d. %s — %s" % (i, kind.upper(), why_unaccounted(r)))
             if was:
                 lines.append("       was:  %s" % was)
             if nowtxt:
@@ -3121,10 +3286,13 @@ def review_diff_text(slug: str) -> tuple[bool, str]:
                      "is for a reader of this board to attest to — it is work that has "
                      "not been done.")
         lines.append("")
-    lines.append("Accounted for:")
+    lines.append("Accounted for (BOTH = matched on both sentences; NEW TEXT = matched on "
+                 "the new text alone, the diff paired it against a different old "
+                 "sentence; SET = covered by a round-level change set):")
     lines.append("")
     for i, (kind, was, nowtxt, r) in enumerate(ok, 1):
-        lines.append("%2d. %-14s %s" % (i, r.get("because", "?"), r.get("note", "")))
+        strength = "SET" if r.get("set_level") else ("NEW TEXT" if r.get("now_only") else "BOTH")
+        lines.append("%2d. %-8s %-14s %s" % (i, strength, r.get("because", "?"), r.get("note", "")))
         if was:
             lines.append("    was:  %s" % was[:150])
         if nowtxt:

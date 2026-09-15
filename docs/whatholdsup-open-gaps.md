@@ -3850,3 +3850,30 @@ The record carries `reworded` (15 rows); the differ emits only `added`,
 
 **Owner:** Advisor Claude, to rule on which vocabulary is authoritative, BEFORE
 any check consumes the field.
+
+## Text can leave a page with nothing recording where it went, and a change set conceals it
+
+*Found 2026-09-15, when the D1 now-only pass first ran.*
+
+Condition (d) asks whether the text a change replaced is accounted for —
+still on the page, or written down as some recorded entry's `was`. Measured
+across the spans since each issue's last outside review: melanoma, 46 rows
+carrying a non-empty `was`, of which 18 are still on the page, 15 are
+recorded, and 13 are recorded nowhere at all; deskilling, 45 rows, 0 / 41 / 4.
+Two independent computations agree on deskilling's 4. Widening the test to
+accept the text as some entry's `now` rescues none of them, so this is not a
+bookkeeping convention: these are sentences that left the page unrecorded.
+Before this pass existed a change set absorbed them, which is why the class
+was never visible.
+
+**Fires when:** any span whose reconciliation is carried by a change set. Live
+now on melanoma, BLOCKED on one such row — the masthead's 4 September form,
+replaced with nothing recording it.
+
+**Owner:** Fred Ugast, operator, for melanoma's record — establish what
+replaced that text and record it under a label that resolves. Advisor Claude,
+for whether the class needs an instrument beyond (d).
+
+**Resolution:** melanoma's single row, not yet done. Nothing readers see is
+false; the page and its masthead are correct. Until the record exists,
+melanoma cannot publish or update.

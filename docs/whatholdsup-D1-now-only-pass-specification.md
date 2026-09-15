@@ -47,10 +47,15 @@ it must be reported as such and never as a two-sided match.
 **What the proxy was also silently buying, and must be bought back.** A
 mispaired `changed` row can conceal a deletion: in a `replace` opcode with more
 old sentences than new, an old sentence that vanished entirely can be consumed
-into a pairing rather than surfacing as its own `removed` row. Under the
-two-sided rule that row goes to `bad` and a person looks at it. A naive
-`now`-only pass would rescue it and the deletion would never be examined. So the
-pass carries an explicit condition (2d below) that keeps such a row blocking.
+into a pairing rather than surfacing as its own `removed` row. Under the two-sided rule that row goes to `bad` ONLY when no change set
+covers the span; with a set, phase 3 swallowed it. That is a correction to
+this specification, found on 15 September when the pass first ran: a change
+set was attesting "these changes were decided" and, silently, "and nothing
+vanished unrecorded" — a second claim nobody asked it to make and nobody
+checked. A naive `now`-only pass would rescue such a row and the deletion
+would never be examined. So the pass carries an explicit condition (2d below)
+that keeps it blocking, and phase 2 runs before phase 3 so that a set cannot
+absorb it.
 
 A row qualifies for `now`-only attribution when **all** of:
 
@@ -210,9 +215,11 @@ that motivated it, without the set that was needed to work around its absence.
 **T10 — the counterfactual proper.** Same frozen fixture as T9, with one
 additional genuinely undecided sentence inserted — new text appearing in no
 recorded entry at all. Assert: exactly **1 bad**, naming that sentence, and the
-other 350 unaffected. If any weakening in T2–T6 is applied, this test must also
-go red; it is the whole-system version of the standard, and the one to run first
-when someone proposes a simplification.
+other 350 unaffected. Measured on 15 September: T10 goes red under (b) relaxed to containment, and
+stays GREEN under deletion of (a), (b)'s uniqueness, (c) and (d) entire —
+because none of those bites on cdk46's data. The unit tests carry those four.
+This corrects the drafter's claim that T10 must go red under any weakening in
+T2–T6; it was asserted without being run.
 
 ## 6. What this deliberately does not do
 
@@ -255,6 +262,8 @@ alone" rather than anything stronger.
 
 ---
 
-Accepted by ________________________, operator, ____________, stated in session.
-Send back instead if any of §2's four conditions is wrong, or if T6 or T10 does
-not test what it claims to.
+Accepted by Fred Ugast, operator, 15 September 2026, stated in session. Condition
+(d) was sent back on 15 September and amended before acceptance; §2 records that.
+This publication takes the operator's stated acceptance as his signature — no
+manuscript signature is produced, and this line records the acceptance rather
+than leaving a blank that could be read as its absence.
