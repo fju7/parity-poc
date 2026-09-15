@@ -31,23 +31,44 @@ LIVE = "feedfacefeedfacefeedfacefeedfacefeedfacefeedfacefeedfacefeedface"
 
 
 def _rows():
-    return json.loads(REAL.read_text(encoding="utf-8"))["published"]
+    """The rows of whichever record is installed: the real file by default,
+    the fixture's copy once stale_record has pointed P.RECORD at it."""
+    return json.loads(P.RECORD.read_text(encoding="utf-8"))["published"]
 
 
 def _newest_publish(slug):
     return [r for r in _rows() if r["issue"] == slug and r["action"] == "publish"][-1]
 
 
+def _stale_sha(slug):
+    # Not a digest. P.sha() returns a sha256 hexdigest -- 64 hex characters --
+    # and this is neither hex nor 64 long, so no page can ever hash to it.
+    return "stale-by-construction:%s" % slug
+
+
+def _install_stale(rows, tmp_path, monkeypatch):
+    """Write `rows` as the record, with every issue's newest publish sha
+    replaced by _stale_sha(slug), and point P.RECORD at it."""
+    rows = [dict(r) for r in rows]
+    for slug in P.ISSUES:
+        pubs = [r for r in rows if r["issue"] == slug and r["action"] == "publish"]
+        pubs[-1]["sha"] = _stale_sha(slug)
+    rec = tmp_path / "published.json"
+    rec.write_text(json.dumps({"what_this_is": "test", "published": rows}))
+    monkeypatch.setattr(P, "RECORD", rec)
+    return rec
+
+
 @pytest.fixture
 def stale_record(tmp_path, monkeypatch):
-    """The real record, whose newest publish row for every issue differs from
-    the page on disk AND from whatever the stubbed site serves."""
-    rec = tmp_path / "published.json"
-    rec.write_text(json.dumps({"what_this_is": "test", "published": _rows()}))
-    monkeypatch.setattr(P, "RECORD", rec)
+    """The real record's rows with every issue's newest publish sha replaced by
+    a value no page can hash to, so that staleness against the page on disk is
+    constructed here rather than observed: the previous version asserted it
+    against the live record and was falsified the day the record became
+    correct (2e92fb2, melanoma's real publication)."""
+    rec = _install_stale(_rows(), tmp_path, monkeypatch)
     for slug in P.ISSUES:
-        assert _newest_publish(slug)["sha"] != P.sha(ROOT / P.ISSUES[slug]["page"]), \
-            "fixture premise: the newest publish row is stale against the repo"
+        assert _newest_publish(slug)["sha"] != P.sha(ROOT / P.ISSUES[slug]["page"])
     return rec
 
 
@@ -132,3 +153,22 @@ def test_readers_line_has_exactly_two_shapes(monkeypatch):
     assert P.readers_line("u") == (LIVE, "readers are on %s (fetched just now)" % LIVE[:8])
     monkeypatch.setattr(P, "live_sha", lambda url, timeout=20: (None, "HTTP 502"))
     assert P.readers_line("u") == (None, "readers: not checked (fetch failed: HTTP 502)")
+
+
+# --- the fixture's own counterfactual ----------------------------------------
+
+def test_stale_record_is_stale_even_when_the_record_is_not(tmp_path, monkeypatch):
+    """CATCHES: any future edit that returns stale_record to borrowing its
+    staleness from backend/data/whatholdsup/published.json. Feed the fixture's
+    constructor a record in which EVERY row's sha equals the page it names --
+    nothing in it is stale -- and the installed record must still be stale
+    for every issue, on the board as well as in the rows."""
+    current = [dict(r, sha=P.sha(ROOT / P.ISSUES[r["issue"]]["page"]))
+               for r in json.loads(REAL.read_text(encoding="utf-8"))["published"]]
+    assert all(r["sha"] == P.sha(ROOT / P.ISSUES[r["issue"]]["page"]) for r in current)
+    _install_stale(current, tmp_path, monkeypatch)
+    monkeypatch.setattr(P, "live_sha", lambda url, timeout=20: (LIVE, None))
+    for slug in P.ISSUES:
+        recorded = _newest_publish(slug)["sha"]
+        assert recorded != P.sha(ROOT / P.ISSUES[slug]["page"])
+        assert "recorded %s" % recorded[:8] in _publish_step(slug)
