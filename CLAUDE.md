@@ -2619,6 +2619,37 @@ is done. Items 2-4 touch no page and no corpus, so they were done now.
 - The §6a row (docs/signal-corpus-freeze.md line 42) was NOT touched; Fred
   is writing it.
 
+## Session SAP-Signal-12 — SUBJECT_BOUND built, calibrated, shipped (2026-09-15/16)
+- THE OPERATOR'S RULING ON THE AUDIT: all 19 withheld ("one defect at two
+  magnitudes"); republished 2c8603a, 83/45.
+- SUBJECT (verify/subject.py): named phrases (+ institutional/geographic
+  aliases), prose quantities (scale words satisfied by a digit string of that
+  magnitude), content words minus GENERIC minus the DERIVED REPORTING CLASS
+  (verb stems x inflections + assessment adjectives + presentation nouns),
+  distinguishing = rare in claims (<=2) AND rare across held docs (<=2), the
+  topic's subject words must appear (aliases ASD / pervasive developmental
+  disorder), statistical abbreviations expanded on both sides (table, no
+  inference), share judged BEYOND the source's own title words, small
+  denominators all-or-nothing. THE LADDER (ruled): FIGURE/SPAN are the
+  stronger form of the same axis as SUBJECT -- SUBJECT levels only where they
+  bound nothing. SHOWN = {FIGURE_BOUND, SPAN_BOUND, SUBJECT_BOUND}.
+- CALIBRATION IS AGAINST THE OPERATOR'S HAND RULINGS, REGISTER OFF: 30 of 30
+  refused unaided (permanent test). Re-level offline before any republish
+  (verify/relevel.py). data/verify/subject_refusals.json keeps what the check
+  still refuses (with nearest sentence) and what each fix moved.
+- text.normalise STRIPS <TAGS>; on document-length text a stray "<" deletes to
+  the next ">" (62k of the ACIP page). THREE sites, not one; the curator said
+  one. normalise_text for document-length inputs; tests/verify/
+  test_normalise_sites.py enumerates every call site by AST and rules on its
+  input length, both ways. Measured direction at both fixed sites:
+  conservative (present read as absent) AND permissive possible (deleting
+  "<...>" joins fragments: "C<b>DC" -> "cdc"; "no <x> evidence" -> "no
+  evidence"). Neither can happen now.
+- REPUBLISHED dd732d6 (no flip): 34 / 1 / 42 / 51, shown 77; header and
+  SUBJECT_BOUND marker verbatim as ruled; methodology page names the ladder
+  and the check's blind spot. Fred writes the §6a row himself (line 42
+  untouched).
+
 ## Standing instructions for every session
 1. Read this file at the start of every session
 2. Verify all file paths before issuing commands
