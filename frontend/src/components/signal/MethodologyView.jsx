@@ -18,10 +18,22 @@ const GATES = [
       "Before a topic is published, each source's identifier (DOI, PubMed ID, trial number, or URL) is looked up in the registry that issues it — Crossref, Europe PMC, ClinicalTrials.gov — and the document itself is retrieved. A source whose identifier resolves to nothing, or to a different paper, or whose text cannot be retrieved, is withheld from the page, and the publication record notes it with the reason.",
   },
   {
-    name: "Every figure in a claim is found in its source",
+    name: "Every figure or quotation in a claim is found in its source",
     where: "backend/verify/bind.py (FIGURE, SPAN, HEADING, CHRONOLOGY), verify/publish.py",
     text:
-      "A claim that states a number must have that number present in the fetched text of a source it cites; a claim that quotes must quote verbatim; and a source cannot support a claim about something that happened after it was published. Claims that fail are withheld from the page. Claims whose sources resolved but which state no figure and quote no phrase are shown and marked \"Source identified; not checked against it\": the cited document is the one named and its text is held, but nothing in the claim could be matched against that text, so the page has not checked that the document says what the claim says. The topic header counts these as claims that could not be matched against their sources.",
+      "A claim that states a number must have that number present in the fetched text of a source it cites; a claim that quotes must quote verbatim; and a source cannot support a claim about something that happened after it was published. Claims that fail are withheld from the page. A claim that passes is shown as figure-bound or quotation-bound: the strongest match the page makes.",
+  },
+  {
+    name: "A claim with no figure and no quotation is checked against its source's subject",
+    where: "backend/verify/subject.py (SUBJECT), verify/publish.py",
+    text:
+      "For a claim that states no number and quotes nothing, the page extracts the things the claim is about — the bodies and people it names, prose quantities like 'millions', and the words that distinguish it from every other claim on the topic — and looks for each in the source's held text. A claim whose distinguishing terms are found is shown, marked 'Checked against the source's subject, not its wording': the document is about what the claim is about, but nobody has checked that it puts it this way. A claim whose terms are not found is withheld. This check is word-level. Its measured blind spot: it cannot see that an enumeration ('restricted to children with a diagnosis of autism, to those vaccinated before the third birthday, or to the period before media coverage') satisfies a plurality word ('multiple'), and it refuses a fair synonym it does not know. It refuses conservatively; it does not admit on a guess.",
+  },
+  {
+    name: "Nothing is shown on the document's identity alone",
+    where: "backend/verify/publish.py (SHOWN)",
+    text:
+      "Before 15 September 2026, a claim whose source resolved and whose text was held was shown even when nothing in the claim could be matched against that text. It is not any more: a claim for which only the document's identity and date could be confirmed is withheld, and the record says why.",
   },
   {
     name: "Retractions and corrections are checked",
@@ -33,7 +45,7 @@ const GATES = [
     name: "The record is frozen and shown",
     where: "backend/verify/publish.py (the publication record); frontend/src/components/signal/RecordMarkers.jsx",
     text:
-      "What each claim rested on at the moment of publication — which source, which binding, what the registry said — is written to a record that is stored and displayed. The markers on the topic page (\"withheld\", \"Source identified; not checked against it\", \"retracted before publication\") come from that record, not from a model.",
+      "What each claim rested on at the moment of publication — which source, which binding, what the registry said — is written to a record that is stored and displayed. The markers on the topic page (\"withheld\", \"Checked against the source's subject, not its wording\", \"retracted before publication\") come from that record, not from a model.",
   },
   {
     name: "The prose is checked against the claims",

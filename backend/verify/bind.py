@@ -11,7 +11,7 @@ from __future__ import annotations
 import re
 
 from .numbers import figures, canonical_numbers, stated_figures, figure_matches, _canon as _canon_value
-from .text import agreement, content_tokens, normalise, LITERATURE_BOILERPLATE, LAW_BOILERPLATE, GENERIC_BOILERPLATE
+from .text import agreement, content_tokens, normalise, normalise_text, LITERATURE_BOILERPLATE, LAW_BOILERPLATE, GENERIC_BOILERPLATE
 from .types import Binding, Context, Document, Kind, Resolution, LAW
 
 # Zero shared distinctive words means a different document. The threshold is
@@ -113,9 +113,9 @@ def bind_span(assertion: str, document: Document, quoted: str | None = None) -> 
         return Binding(Kind.SPAN, True, evidence="no quotation in assertion")
     if document.text_layer != "DECLARED_SOUND":
         return Binding(Kind.SPAN, False, reason=f"document text layer is {document.text_layer}")
-    hay = normalise(document.text)
+    hay = normalise_text(document.text)          # document-length: no tag strip (2026-09-15)
     for s in spans:
-        if normalise(s) not in hay:
+        if normalise_text(s) not in hay:
             return Binding(Kind.SPAN, False, reason=f"not in the document: {s[:80]!r}")
     return Binding(Kind.SPAN, True, evidence=f"{len(spans)} span(s) present")
 

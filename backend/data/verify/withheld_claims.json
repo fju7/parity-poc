@@ -267,6 +267,71 @@
    "withheld_by": "Claude Opus 5 on the operator's direction",
    "withheld_on": "2026-09-15",
    "ruled_by": "ruled by the §6a read audit, 2026-09-15 (Fred Ugast: all 19 withheld -- the 8 failures and the 11 partials; one defect at two magnitudes)"
+  },
+  "8d51fc98-f5bd-4fb3-b92d-d0e3512bb413": {
+   "reason": "Taylor 2002 never names Wakefield; attribution the document does not carry.",
+   "terms_checked": [
+    "Wakefield"
+   ],
+   "checked_against": "SUBJECT refusal on the frozen record 2c8603a (data/verify/subject_refusals.json carries the nearest held-text sentence)",
+   "withheld_by": "Claude Opus 5 on the operator's direction",
+   "withheld_on": "2026-09-15",
+   "ruled_by": "Fred Ugast, ruling on the six SUBJECT survivors, 2026-09-15"
+  },
+  "454f6774-9fc4-464e-9e46-04609586bfc5": {
+   "reason": "Cochrane never states a benefit-risk balance; the weighing is ours.",
+   "terms_checked": [
+    "strongly",
+    "balance"
+   ],
+   "checked_against": "SUBJECT refusal on the frozen record 2c8603a (data/verify/subject_refusals.json carries the nearest held-text sentence)",
+   "withheld_by": "Claude Opus 5 on the operator's direction",
+   "withheld_on": "2026-09-15",
+   "ruled_by": "Fred Ugast, ruling on the six SUBJECT survivors, 2026-09-15"
+  },
+  "b9e60a41-270a-4c9e-bc39-0d2502562bb4": {
+   "reason": "Honda says 'an opportunity for comparison', not a natural experiment, and states no purpose.",
+   "terms_checked": [
+    "experiment"
+   ],
+   "checked_against": "SUBJECT refusal on the frozen record 2c8603a (data/verify/subject_refusals.json carries the nearest held-text sentence)",
+   "withheld_by": "Claude Opus 5 on the operator's direction",
+   "withheld_on": "2026-09-15",
+   "ruled_by": "Fred Ugast, ruling on the six SUBJECT survivors, 2026-09-15"
+  },
+  "8f480a5f-5bd7-42bd-b976-4584bf071e36": {
+   "reason": "Jain's risk marker is an affected older sibling, not genetic predisposition; 'directly addressing concerns of' is our framing.",
+   "terms_checked": [
+    "genetically",
+    "hesitant",
+    "predisposed"
+   ],
+   "checked_against": "SUBJECT refusal on the frozen record 2c8603a (data/verify/subject_refusals.json carries the nearest held-text sentence)",
+   "withheld_by": "Claude Opus 5 on the operator's direction",
+   "withheld_on": "2026-09-15",
+   "ruled_by": "Fred Ugast, ruling on the six SUBJECT survivors, 2026-09-15"
+  },
+  "73976bc8-c804-49b7-b236-f807b50019d0": {
+   "reason": "'hesitancy' IS a fair synonym for Jain's 'wary', so the refusal reason is wrong, but Jain hedges ('may be especially wary') and the claim asserts that the lower rates 'reflect' hesitancy: a hedge converted to a causal attribution.",
+   "terms_checked": [
+    "hesitancy"
+   ],
+   "checked_against": "SUBJECT refusal on the frozen record 2c8603a (data/verify/subject_refusals.json carries the nearest held-text sentence)",
+   "withheld_by": "Claude Opus 5 on the operator's direction",
+   "withheld_on": "2026-09-15",
+   "ruled_by": "Fred Ugast, ruling on the six SUBJECT survivors, 2026-09-15",
+   "note": "THE CHECK REFUSED FOR THE WRONG REASON AND WAS RIGHT ANYWAY: SUBJECT refused on the word 'hesitancy' (a fair synonym of the document's 'wary'); the defect is the hedge-to-cause conversion, which a word check cannot see."
+  },
+  "01b6ab93-0061-482d-9393-9067cf1174f1": {
+   "reason": "Accurate summary of Smeeth's three enumerated restrictions ('similar when restricted to children with a diagnosis of autism, to those vaccinated before the third birthday, or to the period before media coverage'); refused only on 'multiple'.",
+   "terms_checked": [
+    "multiple"
+   ],
+   "checked_against": "SUBJECT refusal on the frozen record 2c8603a (data/verify/subject_refusals.json carries the nearest held-text sentence)",
+   "withheld_by": "Claude Opus 5 on the operator's direction",
+   "withheld_on": "2026-09-15",
+   "ruled_by": "Fred Ugast, ruling on the six SUBJECT survivors, 2026-09-15",
+   "note": "THE CHECK'S MEASURED BLIND SPOT: it cannot see that an enumeration satisfies a plurality word. Recorded, not fixed -- do NOT build a list-counting heuristic; one example is not a mandate."
   }
  }
 }

@@ -35,7 +35,10 @@ const cite = (src) => {
 export function TopicLine({ publication, recheck }) {
   if (!publication) return null;
   const s = publication.summary || {};
-  const idOnly = (s.claims?.by_support || {}).IDENTITY_ONLY || 0;
+  // Since the SUBJECT gate (2026-09-15) IDENTITY_ONLY is withheld, not shown;
+  // the tier the header counts is SUBJECT_BOUND -- shown on the subject
+  // check alone, wording unchecked.
+  const subjectOnly = (s.claims?.by_support || {}).SUBJECT_BOUND || 0;
   const shown = (publication.supported_claim_ids || []).length;
   // Two facts, stated separately, so the header never contradicts a marker
   // below it: what was already known at publication (a source retracted
@@ -50,7 +53,7 @@ export function TopicLine({ publication, recheck }) {
       {" · "}{retractedAtPublication} source{retractedAtPublication === 1 ? "" : "s"} retracted before publication
       {" · "}{newlyFlagged} source{newlyFlagged === 1 ? "" : "s"} newly flagged since {fmt(publication.published_at)}
       {recheck?.run_at ? <> (last re-check {fmt(recheck.run_at)})</> : null}
-      {" · "}{idOnly} of {shown} claims could not be matched against their sources
+      {" · "}{subjectOnly} of {shown} claims checked against their source's subject but not its wording
       {" — see markers below. "}
       <a href="/methodology" className="text-[#0D7377] hover:underline">What this means →</a>
     </p>

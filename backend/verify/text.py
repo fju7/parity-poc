@@ -51,8 +51,21 @@ LAW_BOILERPLATE = {
 
 
 def normalise(s: str | None) -> str:
+    """For SHORT strings that may carry HTML -- a registry heading, a page
+    title, a claim. Strips <tags>. NEVER for document-length text: a stray "<"
+    followed anywhere by a ">" deletes everything between (2026-09-15: 62k of
+    a 184k-character ACIP page). tests/verify/test_normalise_sites.py
+    enumerates every call site and holds the line."""
     s = unicodedata.normalize("NFKD", s or "")
     s = re.sub(r"<[^>]+>", "", s)
+    s = re.sub(r"[^a-z0-9 ]", " ", s.lower())
+    return re.sub(r"\s+", " ", s).strip()
+
+
+def normalise_text(s: str | None) -> str:
+    """For document-length text: the same fold with no tag strip. The held
+    text is text already; "<" and ">" are just characters in it."""
+    s = unicodedata.normalize("NFKD", s or "")
     s = re.sub(r"[^a-z0-9 ]", " ", s.lower())
     return re.sub(r"\s+", " ", s).strip()
 

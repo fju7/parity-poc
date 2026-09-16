@@ -38,7 +38,7 @@ from typing import Any, Iterator
 
 from .extract import AssertionClass, Candidate, extract
 from .numbers import canonical_numbers, stated_figures, figure_matches, _canon
-from .text import agreement, normalise, GENERIC_BOILERPLATE
+from .text import agreement, normalise, normalise_text, GENERIC_BOILERPLATE
 from .types import Document, Identifier, Provenance
 
 
@@ -240,11 +240,11 @@ def _bind_identifiers(field_name: str, text: str, held: Held, policy: SurfacePol
 
 def _bind_named(field_name: str, text: str, held: Held) -> list[Finding]:
     out = []
-    corpus = normalise(held.corpus_text())
+    corpus = normalise_text(held.corpus_text())   # document-length: no tag strip (2026-09-15)
     for c in extract(AssertionClass.NAMED_SOURCE, text):
         if c.kind in held.named_ok:
             out.append(Finding(AssertionClass.NAMED_SOURCE, field_name, c.text, True, "bound", "permitted for this surface", kind=c.kind))
-        elif normalise(c.text) in corpus or _named_alias_present(c.kind, held):
+        elif normalise_text(c.text) in corpus or _named_alias_present(c.kind, held):
             out.append(Finding(AssertionClass.NAMED_SOURCE, field_name, c.text, True, "bound", "named in the material handed over", kind=c.kind))
         else:
             out.append(Finding(AssertionClass.NAMED_SOURCE, field_name, c.text, False, "bound",

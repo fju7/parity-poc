@@ -37,20 +37,8 @@ from __future__ import annotations
 
 import re
 
-import unicodedata
-
-from .text import LITERATURE_BOILERPLATE, content_tokens
+from .text import LITERATURE_BOILERPLATE, content_tokens, normalise_text as normalise
 from .types import Binding, Document, Kind
-
-
-def normalise(s: str | None) -> str:
-    """text.normalise without its HTML-tag strip. The held text is text
-    already, and on 2026-09-15 a stray "<" in a 184k-character ACIP page
-    swallowed 62k characters -- "favors rejection", present in the raw text,
-    read as absent. Lower-case, NFKD, non-alphanumerics to spaces."""
-    s = unicodedata.normalize("NFKD", s or "")
-    s = re.sub(r"[^a-z0-9 ]", " ", s.lower())
-    return re.sub(r"\s+", " ", s).strip()
 
 # Words any claim on any topic may use to describe a study without saying
 # anything distinctive about THIS study. Kept short and general on purpose:
