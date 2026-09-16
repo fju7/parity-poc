@@ -2730,6 +2730,24 @@ literature is not established by any check in this system.
 - The normalise-sites test caught four new call sites in work_key /
   works_index (all titles/headings) -- ruled in. That is the test working.
 
+## Session SAP-Signal-16 — two rulings on the open items; events.json signed (2026-09-16)
+- events.json + freeze register committed as signed by Fred (0cf7649) after the
+  backend suite ran from the venv (1096 passed + whatholdsup 88); the
+  WhatHoldsUp working-tree changes were NOT committed (Fred: only those two).
+- S1 f0b091fa: NO CHANGE, ruling + second-retrieval confirmation recorded in
+  withheld_claims.json (`ruled_by_2026_09_16`); Phase 5 observation: withheld
+  Smeeth claims assert what the study RULED OUT, survivors what it MEASURED.
+- S2: scope sentence four -> "…the General Medical Council's findings against
+  Professor Walker-Smith is on record here. It decided his appeal alone, and
+  records that Dr Wakefield abandoned his." Record a75957d, 0/0 vs 294a4d1
+  (IOM page re-fetched +90 chars, bindings identical); live probe: whole
+  statement verbatim. NOTE: the operator's quoted "I quash the decision of the
+  panel … restored to the medical register" is NOT in the held HTML judgment
+  (it says "I therefore quash it … both quashed"); the sentence's clauses are
+  supported by the held text; the record was not edited to fit the quote.
+- The scope file is committed BEFORE publish so the record's sha names the
+  tree that carries the sentence (a75957d); the register row commits after.
+
 ## Standing instructions for every session
 1. Read this file at the start of every session
 2. Verify all file paths before issuing commands
