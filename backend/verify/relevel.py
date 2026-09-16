@@ -55,11 +55,46 @@ def relevel(rec: dict, without_register: bool = False) -> list[dict]:
             P.WITHHELD_CLAIMS = saved
 
 
+def _stored_erratum(rec: dict):
+    """The ERRATUM binding as the record stored it, so the offline re-level does
+    not fetch an erratum live (the network answer varies run to run and would
+    read as a level change that is nothing of the kind)."""
+    stored = {}
+    for c in rec["claims"]:
+        for p in c["per_source"]:
+            for b in p.get("bindings", []):
+                if b["kind"] == "ERRATUM":
+                    stored[(c["claim_id"], p["source_id"])] = b
+    return stored
+
+
 def _relevel(rec: dict, gated: dict) -> list[dict]:
+    stored = _stored_erratum(rec)
+    real = P.erratum_check
+    current = {"claim": None}
+
+    def offline_erratum(figs, src):
+        b = stored.get((current["claim"], src["source_id"]))
+        return dict(b) if b else real(figs, src)
+    P.erratum_check = offline_erratum
+    try:
+        return _relevel_inner(rec, gated, current)
+    finally:
+        P.erratum_check = real
+
+
+def _relevel_inner(rec: dict, gated: dict, current: dict) -> list[dict]:
     claims = [{"id": c["claim_id"], "claim_text": c["claim_text"], "category": c.get("category")} for c in rec["claims"]]
     links = {c["claim_id"]: [{"claim_id": c["claim_id"], "source_id": p["source_id"], "source_context": None} for p in c["per_source"]] for c in rec["claims"]}
     ctx = P.subject_context(claims, gated, rec["topic"]["title"])
-    return [P.gate_claim(c, links[c["id"]], gated, ctx) for c in claims]
+    out = []
+    for c in claims:
+        current["claim"] = c["id"]
+        out.append(P.gate_claim(c, links[c["id"]], gated, ctx))
+    work_of = {sid: k for k, w in P.works_index(list(gated.values())).items() for sid in w["entries"]}
+    for c in out:
+        c["works"] = sorted({work_of[sid] for sid in c.get("supported_by", []) if sid in work_of}); c["work_count"] = len(c["works"])
+    return out
 
 
 def compare(rec: dict, new: list[dict]) -> dict:

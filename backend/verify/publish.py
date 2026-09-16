@@ -475,6 +475,11 @@ def publish(sb, slug: str, argv: list[str]) -> dict:
     claim_recs = [gate_claim(c, by_claim.get(c["id"], []), gated, ctx) for c in claims]
 
     from collections import Counter
+    works = works_index(list(gated.values()))          # sets work_key on every row
+    work_of = {sid: k for k, w in works.items() for sid in w["entries"]}
+    for c in claim_recs:
+        c["works"] = sorted({work_of[sid] for sid in c.get("supported_by", []) if sid in work_of})
+        c["work_count"] = len(c["works"])
     src_summary = Counter("survived" if g["survives"] else (g["withheld_reason"] or "").split(":")[0] for g in gated.values())
     claim_summary = Counter(c["support"] for c in claim_recs)
     status_summary = Counter((g.get("status") or {}).get("verdict") for g in gated.values() if g["survives"])
@@ -487,7 +492,13 @@ def publish(sb, slug: str, argv: list[str]) -> dict:
         "rate_limits_rps": __import__("verify.http", fromlist=["rate_limits_in_force"]).rate_limits_in_force(),
         "sources": [{k: v for k, v in g.items() if k not in ("_doc", "_res")} for g in gated.values()],
         "claims": claim_recs,
+        "works": works,
+        # BOTH numbers, always: entries (rows, each a retrieval that was
+        # levelled) and works (distinct publications). A summary that reports
+        # only one of them is the defect (38 rows read as 38 sources).
         "summary": {"sources": {"total": len(sources), "survived": src_summary.get("survived", 0),
+                                "entries": {"total": len(sources), "survived": src_summary.get("survived", 0)},
+                                "works": {"total": len(works), "survived": sum(1 for w in works.values() if w["surviving_entries"])},
                                 "withheld_by_reason": {k: v for k, v in src_summary.items() if k != "survived"},
                                 "status_of_survivors": dict(status_summary)},
                     "claims": {"total": len(claims), "by_support": dict(claim_summary),
@@ -505,6 +516,59 @@ def publish(sb, slug: str, argv: list[str]) -> dict:
     (out_dir / "latest.json").write_text(json.dumps(record, indent=1, ensure_ascii=False))
     record["_stored"] = store_publication(sb, record)
     return record
+
+
+def work_key(src: dict) -> str:
+    """The WORK a source row is a retrieval of: its resolved identifier, else
+    the registry's id, else its normalised title. Three rows of the 2004 IOM
+    report (two DOI rows and its NCBI Bookshelf page, held texts of 8,164 and
+    36,395 characters) are one work and three documents: every retrieval stays
+    in the verification path; only COUNTS are by work (operator's ruling,
+    2026-09-16 -- a pill that said "3 sources" for one report was an assertion
+    of corroboration nothing had examined)."""
+    from .text import normalise
+    idd = src.get("identifier") or {}
+    if idd.get("system") in ("doi", "pmid", "pmcid", "nct") and idd.get("value"):
+        return f"{idd['system']}:{str(idd['value']).lower()}"
+    r = src.get("resolution") or {}
+    if r.get("registry_id") and r.get("registry") not in (None, "generic_fetch"):
+        return f"{r.get('registry')}:{str(r['registry_id']).lower()}"
+    return "title:" + normalise(src.get("title") or "")[:80]
+
+
+def works_index(sources: list[dict]) -> dict:
+    """work_key -> {title, identifier, entries, surviving_entries}; the record's
+    account of which rows are the same publication. A title-keyed row (a URL
+    retrieval with no identifier) is folded into an identifier-keyed work
+    when the work's title is contained in the row's title or in the heading
+    of the page it fetched: the IOM report's NCBI Bookshelf page is the same
+    work as its DOI. Sets work_key on every row so the record and the page
+    agree."""
+    from .text import content_tokens, normalise, LITERATURE_BOILERPLATE
+    for s in sources:
+        s["work_key"] = s.get("work_key") or work_key(s)
+    ident_works = {}
+    for s in sources:
+        if not s["work_key"].startswith("title:"):
+            ident_works.setdefault(s["work_key"], s)
+    for s in sources:
+        if not s["work_key"].startswith("title:"):
+            continue
+        mine = normalise(s.get("title") or "") + " || " + normalise(((s.get("resolution") or {}).get("heading") or ""))
+        for k, w in ident_works.items():
+            theirs = normalise(w.get("title") or "")
+            if len(content_tokens(theirs, LITERATURE_BOILERPLATE)) >= 3 and theirs and theirs in mine:
+                s["work_key"] = k
+                s["work_key_by"] = "title contained in this row's title or fetched heading"
+                break
+    out: dict = {}
+    for s in sources:
+        k = s["work_key"]
+        w = out.setdefault(k, {"title": s.get("title"), "identifier": s.get("identifier"), "entries": [], "surviving_entries": []})
+        w["entries"].append(s["source_id"])
+        if s.get("survives"):
+            w["surviving_entries"].append(s["source_id"])
+    return out
 
 
 def publication_row(record: dict) -> dict:

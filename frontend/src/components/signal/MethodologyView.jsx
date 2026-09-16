@@ -214,13 +214,24 @@ export default function MethodologyView() {
 
       {/* What this is not */}
       <h2 className="text-lg font-bold text-white mb-1">What this does not do</h2>
-      <p className="text-sm text-gray-300 leading-relaxed mb-10">
+      <p className="text-sm text-gray-300 leading-relaxed mb-4">
         The checks establish that a source exists, that it was retrieved, and
         that it contains what a claim says it contains. They do not establish
         that the right sources were chosen, that contested findings were fairly
         weighted, or that a claim is true. A score is a model's judgement about
         the evidence as presented to it. Nothing here is a clinical
         recommendation.
+      </p>
+      {/* Scoped by name to the one published topic: both numbers are true of
+          MMR vaccine and autism only. DESIGN ITEM, not built: when a second
+          topic publishes, this becomes a per-topic block generated from that
+          topic's record (works, entries, hand-fetched count, cross-document
+          support) rather than prose on a shared page -- flagged 2026-09-16 so
+          nobody has to notice later that the numbers went stale. */}
+      <p data-testid="corpus-assembly" className="text-sm text-gray-300 leading-relaxed mb-10">
+        <strong className="text-white">On the topic “MMR Vaccine and Autism”:</strong>{" "}
+        The sources on this topic were not found by a search: they are a list a language model produced when asked for credible sources on the subject — 26 separate documents, several of them entered more than once — plus two documents a person fetched by hand. So the checks on this page tell you whether each document says what a claim says, and nothing about which documents were never considered.{" "}
+        No claim on this page rests on two independent documents. Where a claim shows more than one source, those entries are repeat listings of the same work.
       </p>
 
       <div className="bg-gray-50 border border-gray-200 rounded-xl p-4 text-xs text-gray-500 leading-relaxed">

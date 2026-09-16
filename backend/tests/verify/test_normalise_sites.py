@@ -38,6 +38,10 @@ SITES = {
     ("publish.py", "subject_context", "t"): False,                    # a capitalised token
     ("publish.py", "subject_context", "topic_title"): False,
     ("publish.py", "_source_words", "str(r[k])"): False,              # author / container
+    ("publish.py", "work_key", 'src.get("title") or ""'): False,      # a source title (the work fallback key)
+    ("publish.py", "works_index", 's.get("title") or ""'): False,     # a source title
+    ("publish.py", "works_index", 'w.get("title") or ""'): False,     # a source title
+    ("publish.py", "works_index", '(s.get("resolution") or {}).get("heading") or ""'): False,   # a registry / page heading
     ("subject.py", "_present", "term"): False,
     ("subject.py", "extract_terms", "w"): False,
     ("subject.py", "extract_terms", "n"): False,

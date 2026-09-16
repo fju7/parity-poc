@@ -137,6 +137,14 @@ async function loadIssueData(slug) {
       published_at: pubRow.published_at,
       gate_version: pubRow.gate_version,
       summary: pubRow.record?.summary,
+      // WORKS, not rows. Each source row is one retrieval of a publication;
+      // three rows of the 2004 IOM report are one work. Counts shown anywhere
+      // are by work (operator's ruling, 2026-09-16: a pill that said
+      // "3 sources" for one report asserted corroboration nothing had
+      // examined). works_of_claim comes from the record; older records (no
+      // `works`) fall back to counting supporting rows.
+      works: pubRow.record?.works || null,
+      work_count: Object.fromEntries((pubRow.record?.claims || []).filter((c) => c.work_count != null).map((c) => [c.claim_id, c.work_count])),
       // the operator's ratified scope statement, frozen with this record (publish.scope_statement)
       scope_statement: pubRow.record?.scope_statement?.text || null,
       supported_claim_ids: pubRow.supported_claim_ids || [],
@@ -188,10 +196,12 @@ async function loadIssueData(slug) {
       }
     }
 
-    // Attach citation counts to claims
+    // Attach source counts to claims: distinct WORKS among the claim's
+    // supporting links when the record carries them; the raw link count only
+    // for a record that predates the work/document split.
     const claims = rawClaims.map((claim) => ({
       ...claim,
-      _sourceCount: sourceCountMap.get(claim.id) || 0,
+      _sourceCount: publication.work_count[claim.id] != null ? publication.work_count[claim.id] : (sourceCountMap.get(claim.id) || 0),
     }));
 
     // 3. Fetch dimension scores for all claims (for Analytical Paths weight adjustment)

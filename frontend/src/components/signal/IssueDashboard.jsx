@@ -662,8 +662,11 @@ function DebateItem({ item, glossary, claimsById, compositeMap }) {
   );
 }
 
-function StatsBar({ sources, claims, composites }) {
-  const sourceCount = sources?.length || 0;
+function StatsBar({ sources, claims, composites, publication }) {
+  // Distinct WORKS, not rows (the record's works index); rows only for a
+  // record that predates the split.
+  const worksSurvived = publication?.summary?.sources?.works?.survived;
+  const sourceCount = worksSurvived != null ? worksSurvived : (sources?.length || 0);
   const claimCount = claims?.length || 0;
   const scoredCount = composites?.size || 0;
 
@@ -1411,7 +1414,7 @@ export default function IssueDashboard({
       {/* ── Panel: Overview ── */}
       {activePanel === "overview" && (
         <div className="space-y-4">
-          <StatsBar sources={sources} claims={claims} composites={compositeMap} />
+          <StatsBar sources={sources} claims={claims} composites={compositeMap} publication={publication} />
 
           {/* Q&A */}
           {issue && (

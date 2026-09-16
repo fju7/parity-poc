@@ -172,3 +172,54 @@ def test_the_stored_record_was_produced_by_the_subject_gate():
             if p.get("level") not in (None, "UNSUPPORTED"):
                 assert any(b["kind"] == "SUBJECT" for b in p["bindings"]), (c["claim_id"], p["source_id"])
         assert c["support"] != "IDENTITY_ONLY" or c["claim_id"] not in set(P.publication_row(rec)["supported_claim_ids"])
+
+
+# ------------------------------------------------ works vs entries (34c)
+# A source row is one retrieval of a publication; three rows of the IOM report
+# are one work and three documents. Counts are by work; every retrieval stays
+# in the verification path.
+
+def test_no_displayed_source_count_exceeds_the_distinct_works_among_supporting_links(relevelled):
+    rec, new = relevelled
+    gated = R.rebuild_sources(rec)
+    works = P.works_index(list(gated.values()))
+    work_of = {sid: k for k, w in works.items() for sid in w["entries"]}
+    seen = 0
+    for c in new:                                            # every claim, both ways: none skipped, none extra
+        distinct = {work_of[sid] for sid in c["supported_by"]}
+        assert c["work_count"] == len(distinct) == len(c["works"]), c["claim_id"]
+        assert c["work_count"] <= len(c["supported_by"])
+        seen += 1
+    assert seen == len(rec["claims"]) == 128
+    # the two the operator named
+    by = {c["claim_id"][:8]: c for c in new}
+    assert len(by["94f30391"]["supported_by"]) == 2 and by["94f30391"]["work_count"] == 1
+    assert len(by["7011e1a5"]["supported_by"]) == 3 and by["7011e1a5"]["work_count"] == 1
+    # and on this record, no shown claim rests on two works
+    assert max(c["work_count"] for c in new if c["support"] in P.SHOWN) == 1
+
+
+def test_the_work_split_drops_no_retrieval_and_moves_no_level(relevelled):
+    rec, new = relevelled
+    before = {(c["claim_id"], p["source_id"]) for c in rec["claims"] for p in c["per_source"] if p.get("level") is not None}
+    after = {(c["claim_id"], p["source_id"]) for c in new for p in c["per_source"] if p.get("level") is not None}
+    assert before == after                                   # same set of held documents levelled
+    docs_before = {(s["document"] or {}).get("sha256") for s in rec["sources"] if s.get("document")}
+    gated = R.rebuild_sources(rec)
+    docs_after = {g["_doc"].sha256 for g in gated.values() if g.get("_doc") is not None}
+    assert docs_before == docs_after
+    old = {c["claim_id"]: c["support"] for c in rec["claims"]}
+    assert all(old[c["claim_id"]] == c["support"] for c in new)
+
+
+def test_the_summary_carries_both_numbers(relevelled):
+    rec, new = relevelled
+    gated = R.rebuild_sources(rec)
+    works = P.works_index(list(gated.values()))
+    assert len(works) == 26 and sum(1 for w in works.values() if w["surviving_entries"]) == 22
+    assert len(gated) == 38 and sum(1 for g in gated.values() if g["survives"]) == 34
+    iom = works["doi:10.17226/10997"]
+    assert len(iom["entries"]) == 3 and len({(gated[e]["document"] or {}).get("sha256") for e in iom["entries"]}) == 2   # two DOI rows share a text; the Bookshelf page differs
+    if rec.get("works"):                                     # the stored record, once republished under the split
+        assert rec["summary"]["sources"]["works"] == {"total": 26, "survived": 22}
+        assert rec["summary"]["sources"]["entries"] == {"total": 38, "survived": 34}
