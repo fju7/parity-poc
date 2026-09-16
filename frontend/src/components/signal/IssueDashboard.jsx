@@ -1392,7 +1392,8 @@ export default function IssueDashboard({
             { id: "paths", label: "Analytical Paths" },
             { id: "debates", label: "Key Debates" },
             { id: "roadmap", label: "Evidence Roadmap" },
-            { id: "sources", label: `Sources (${sources?.length || 0})` },
+            // by WORK when the record carries the split (34 surviving rows are 22 publications)
+            { id: "sources", label: `Sources (${publication?.summary?.sources?.works?.survived ?? (sources?.length || 0)})` },
             { id: "changelog", label: "Changelog" },
             { id: "methodology", label: "Methodology" },
           ].map((tab) => (
