@@ -39,7 +39,14 @@
    "checked_against": "Smeeth doi:10.1016/s0140-6736(04)17020-7 (no clustering analysis in the fetched abstract) and Taylor 1999 doi:10.1016/s0140-6736(99)01239-8 (sentences quoted)",
    "withheld_by": "Claude Opus 5 on the operator's direction",
    "withheld_on": "2026-09-15",
-   "ruled_by": "Fred Ugast, 2026-09-15: 'Withhold three; do not re-cite them' + f0b091fa after the Taylor check"
+   "ruled_by": "Fred Ugast, 2026-09-15: 'Withhold three; do not re-cite them' + f0b091fa after the Taylor check",
+   "ruled_by_2026_09_16": {
+    "ruling": "NO CHANGE. Stays withheld, not rewritten.",
+    "reason": "Smeeth 2004's actual findings are already on the page at FIGURE_BOUND -- 8b84dcfd (OR 0.86, 95% CI 0.68-1.09) and 66080522 (1,294 cases / 4,469 matched controls, UK GPRD). Rewriting f0b091fa to say what Smeeth found would duplicate them; rewriting it to name Taylor 1999 would author a claim to preserve a sentence. The page loses nothing.",
+    "ruled_by": "Fred Ugast via advisor, 2026-09-16 (transcribed)",
+    "independent_confirmation": "Europe PMC EXT_ID:15364187 full abstractText fetched 2026-09-16 contains no 'temporal', 'cluster' or 'clustering' -- CC's original check reproduces from a second retrieval (the operator's fetch). A third fetch by Claude Opus 5 on 2026-09-16 (search?query=EXT_ID:15364187&resultType=core, 1,341 chars) agrees.",
+    "phase5_observation": "Observation, not an action: all three withheld Smeeth claims (216e71ba, f0b091fa, 01b6ab93) assert what the study RULED OUT; the two that survive (8b84dcfd, 66080522) assert what it MEASURED. Worth checking whether the pattern holds across the corpus -- a generator reaching for reassuring negatives that are not in the text."
+   }
   },
   "721f53f7-3201-4c06-9e77-5bb7fafb8645": {
    "reason": "asserts findings its supporting source does not contain: the Lancet retraction notice (the claim's only passing binding, CHRONOLOGY) says that following the GMC panel's judgment of 28 Jan 2010 several elements of the 1998 paper are incorrect, and that 'consecutively referred' and ethics-committee 'approved' have been proven false. It says nothing about financial conflicts of interest, data manipulation, dishonesty, misconduct or invasive procedures. The claim's other two links (Wakefield 1998 x2) fail CHRONOLOGY. The GMC determination itself is not in the corpus.",
