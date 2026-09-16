@@ -166,3 +166,19 @@ This is the twin of the no-status-registry gap above and belongs in the same
 design: the class of document that no registry can vouch for at entry is the
 class no registry can watch afterwards. A document admitted by anchor needs
 the human re-check interval from the moment it enters.
+
+
+## Parked, 2026-09-16 (recorded here because they belong to the same design)
+
+- **Item 25** — fold `scripts/whatholdsup/source_advocate.py`'s per-objection
+  contract into the citing-source anchor: the passage quoted with a locator,
+  OR an explicit statement that it looked and the source contains no answer,
+  naming what it searched.
+- **Item 26** — corpus provenance: a reproducible registry search replacing
+  recollection, an adversarial per-claim search for contradicting evidence,
+  and what the page says about how its corpus was assembled.
+
+Reason: What Holds Up is being rebuilt; the source advocate's contract may
+change, and the corpus work should follow that rebuild rather than lead it.
+Neither is designed or built. The citing-source anchor design (queue head)
+stands on its own and will absorb 25 when it is unparked.

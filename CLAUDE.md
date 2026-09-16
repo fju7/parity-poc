@@ -2582,8 +2582,10 @@ is done. Items 2-4 touch no page and no corpus, so they were done now.
   5b4e5ba: four sentences verbatim. The operator-supplied page marker still
   waits.
 - RULE: A FREEZE-REGISTER READER ROW, OR ANY ATTESTATION THAT A NAMED PERSON
-  DID SOMETHING, IS NEVER WRITTEN BY AN AGENT -- on instruction or otherwise.
-  If it is empty when a step requires it, the step stops and says so. On
+  DID SOMETHING, IS NEVER AUTHORED BY AN AGENT -- no summary, no verdict word,
+  no ruling the person did not give. If it is empty when a step requires it,
+  the step stops and says so. (Transcribing the person's own sentences at
+  their instruction, marked as transcribed, is permitted -- SAP-Signal-14.) On
   2026-09-15 the agent wrote "Reader: Fred Ugast" into the §6a row on
   "consider it signed"; disclosed; the row is left exactly as written for
   Fred to rewrite himself after reading the live page. Do not edit it.
@@ -2664,6 +2666,48 @@ is done. Items 2-4 touch no page and no corpus, so they were done now.
 - PHASE 5 QUEUE HEAD (ruled): the citing-source anchor -- show the passage
   the claim rests on instead of asserting about it. Design first, including
   the poor-match case; not built.
+
+## WHAT THE INSTRUMENT IS — standing statement (the operator's wording, 2026-09-16)
+This platform does not and cannot certify that a claim is true. It establishes
+that every published claim is traceable to a document held on file, that the
+document is the one named and not withdrawn, and that the document contains
+what the claim attributes to it. It puts the passage in the reader's hand. It
+is a floor under the evidentiary chain, not a verdict on the substance, and no
+page may imply otherwise. Whether the corpus is a fair sample of the
+literature is not established by any check in this system.
+
+## Session SAP-Signal-14 — the §6a rows, the format finding, parked items, the duplicate finding (2026-09-16)
+- §6a READER ROWS WRITTEN AS TRANSCRIPTION, at the reader's instruction: every
+  word attributed to him is his own sentence, marked "transcribed", with the
+  typographical corrections named; no verdict word supplied or inferred; the
+  curator's consequences recorded separately as the curator's. The rule
+  stands and is sharpened: an agent never AUTHORS an attestation that a named
+  person did something and never supplies a verdict word; TRANSCRIBING the
+  person's own words at their instruction, marked as such, is not that. The
+  curator-written row of 2026-09-15 21:3x UTC is superseded and said so.
+- DESIGN FINDING AGAINST §6a: the row asked for a "Ruling" -- a verdict-shaped
+  answer. A reader does not have a verdict; a reader has reactions ("I don't
+  know what to write in the row"), and the reactions found an inverted
+  header, a marker that alarms without informing, and a ladder answering a
+  question the reader was not asking. The format nearly discarded all of it.
+  §6a now asks specific questions and records the answers verbatim, no
+  verdict field; consequences are the curator's, recorded separately.
+- PARKED (What Holds Up is being rebuilt; the source advocate's contract may
+  change; the corpus work follows that rebuild): item 25 (fold the source
+  advocate's per-objection contract -- passage with locator OR "looked, found
+  no answer, searched X" -- into the citing-source anchor) and item 26
+  (corpus provenance: reproducible registry search, adversarial per-claim
+  search for contradicting evidence, what the page says about assembly).
+  Recorded in docs/signal-corpus-freeze.md open findings and the Phase 5 doc.
+- DUPLICATE ROWS ARE COUNTED AS SOURCES: record 12e4e8b's 38 rows are 26
+  documents (34 surviving rows = 22); two shown claims (94f30391, 7011e1a5)
+  look corroborated by 2 and 3 sources and rest on one document each; NO
+  shown claim rests on two different documents; the per-claim pill counts
+  rows. Open finding; fix (dedupe by document at the record; count documents
+  on the pill) awaits the operator. Established by identifier, not title.
+- CORRECTION: of the four OPERATOR_SUPPLIED documents, two were already in
+  the manifest (the notice, Deer) and two were additions (Godlee, d1678) --
+  by identifier; a title search had failed on a dash and returned three.
 
 ## Standing instructions for every session
 1. Read this file at the start of every session
