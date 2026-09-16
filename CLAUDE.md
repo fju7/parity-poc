@@ -2730,6 +2730,22 @@ literature is not established by any check in this system.
 - The normalise-sites test caught four new call sites in work_key /
   works_index (all titles/headings) -- ruled in. That is the test working.
 
+## RULE — A FETCH TOOL'S ANSWER IS A MODEL'S READING, NOT THE DOCUMENT (2026-09-16)
+A fetch tool that answers a prompt about a document returns a MODEL'S READING of
+that document, not the document. Its output is never a quotation and never enters
+a record as one. It is fine for existence, identity, structure and link discovery.
+Text that will be stored as what a source says must come from held text with an
+offset (data/verify/docs/<sha2>/<sha>.txt.gz, sha256 + char count recorded).
+Reference case: 2026-09-16, the Walker-Smith quotation — "I quash the decision of
+the panel … restored to the medical register" was supplied as verbatim and is not
+in the held judgment (which says "I therefore quash it … both quashed"); caught by
+CC against the held document. The same tool's output had already been written
+into four events.json `says` rows the day before, in a file the reviewer signed;
+corrected under V1 (every `says` now a held-text extract with offset, or null with
+quotation_provenance=not_established). The dates were never in doubt — each is
+corroborated independently and the Crossref rows are structured data — and the
+reviewer's signature was not re-opened.
+
 ## Session SAP-Signal-16 — two rulings on the open items; events.json signed (2026-09-16)
 - events.json + freeze register committed as signed by Fred (0cf7649) after the
   backend suite ran from the venv (1096 passed + whatholdsup 88); the
@@ -2747,6 +2763,15 @@ literature is not established by any check in this system.
   supported by the held text; the record was not edited to fit the quote.
 - The scope file is committed BEFORE publish so the record's sha names the
   tree that carries the sentence (a75957d); the register row commits after.
+- V1 (later the same day): the advisor's `says` values in events.json were a
+  fetch tool's renderings. Every corroboration entry now carries held_text
+  {sha256, chars, path} + `says` extracted at a recorded offset, or `says`=null
+  with quotation_provenance=not_established (the operator's hand copy, not
+  held; the CIRCARE copy of the Jan-2010 determination, on which pdftotext
+  SIGSEGVs). Mismatches recorded, not smoothed: 'also', 'they have', 'E-Filed:',
+  'Accordingly', typographic apostrophes. Dates/URLs/signature unchanged.
+  tests/verify/test_publish_gate.py pinned the OLD scope wording and was not
+  run before S2 shipped — fixed; run tests/verify after any scope edit.
 
 ## Standing instructions for every session
 1. Read this file at the start of every session

@@ -12,10 +12,12 @@
    "curator": "who added it",
    "curated_on": "date",
    "reviewed_by": "second person or null",
-   "reviewed_on": "date or null"
+   "reviewed_on": "date or null",
+   "corroboration": "entries: document | held_text {sha256, chars, path, retrieved_on, route} | says (an extract FROM THE HELD TEXT, verbatim) | offset (character offset of `says` in the held text) | quotation_provenance: held_text | not_established (the document was not retrieved into held text; `says` is null) | note"
   },
   "register": "Every row is listed in docs/signal-corpus-freeze.md so a wrong date is traceable.",
-  "reviewed": "All four rows reviewed 2026-09-16 by Fred Ugast. URLs supplied by Claude Opus 5, each verified by fetch on that date and quoted in the row's corroboration; the reviewer signed against the documents, not against a list of links."
+  "reviewed": "All four rows reviewed 2026-09-16 by Fred Ugast. URLs supplied by Claude Opus 5, each verified by fetch on that date and quoted in the row's corroboration; the reviewer signed against the documents, not against a list of links. CORRECTION 2026-09-16 (V1, curator Claude Opus 5 on the advisor's direction): the quotations the advisor supplied on 2026-09-16 were a fetch tool's model renderings; each corroboration entry now carries either a held-text extract with sha256 and offset, or an explicit not_established. Dates, URLs and the reviewer's signature are unchanged.",
+  "quotation_rule": "A `says` value is text copied from held text at a recorded offset, never a summary. A fetch tool that answers a prompt about a document returns a model's reading, not the document; its output never enters this table as a quotation (V1, 2026-09-16). Where a document cannot be held, `says` is null and quotation_provenance is not_established."
  },
  "events": [
   {
@@ -46,22 +48,46 @@
    "corroboration": [
     {
      "document": "Retraction—Ileal-lymphoid-nodular hyperplasia... The Lancet 375(9713):445, 6 Feb 2010, doi 10.1016/S0140-6736(10)60175-4 (OPERATOR_SUPPLIED, sha256 b70a220048dc7ce64cb24fc78cf354cbf0670a2f9630dfeb0c23e5fa446c642f)",
-     "says": "Following the judgment of the UK General Medical Council's Fitness to Practise Panel on Jan 28, 2010"
+     "held_text": {
+      "sha256": "b70a220048dc7ce64cb24fc78cf354cbf0670a2f9630dfeb0c23e5fa446c642f",
+      "chars": 3612,
+      "path": "data/verify/docs/b7/b70a220048dc7ce64cb24fc78cf354cbf0670a2f9630dfeb0c23e5fa446c642f.txt.gz",
+      "retrieved_on": "2026-09-15",
+      "route": "OPERATOR_SUPPLIED (supply_document.py)"
+     },
+     "says": "Following the judgment of the UK General Medical Council's Fitness to Practise Panel on Jan 28, 2010, it has become clear that several elements of the 1998 paper by Wakefield et al 1 are incorrect, contrary to the findings of an earlier investigation.",
+     "offset": 475,
+     "quotation_provenance": "held_text",
+     "note": "The earlier value was the first clause of this sentence; the sentence is now given whole. Held since 2026-09-15 (operator-supplied)."
     },
     {
      "document": "GMC Fitness to Practise Panel hearing, 28 January 2010, Wakefield / Walker-Smith / Murch (Fred's hand-fetched copy, 143 pp, sha256 3a5d06c85e1542b4..., no URL on file; not admitted -- no registry answers for it)",
-     "says": "FITNESS TO PRACTISE PANEL HEARING 28 JANUARY 2010"
+     "says": null,
+     "quotation_provenance": "not_established",
+     "note": "NOT RETRIEVED INTO HELD TEXT: the operator's hand-fetched copy (sha256 3a5d06c85e1542b4…) is not stored in data/verify/docs and has no URL on file; the quotation the advisor wrote here on 2026-09-16 ('FITNESS TO PRACTISE PANEL HEARING 28 JANUARY 2010') was a fetch tool's rendering and is not established against this copy. The same heading IS established against the FactCheck.org copy below. 2026-09-16 V1: the earlier `says` value was a fetch tool's model reading of the page (the advisor's tool answers a prompt about a converted page); replaced by an extract from held text with its offset."
     },
     {
      "document": "FactCheck.org (Annenberg Public Policy Center) hosted copy, https://cdn.factcheck.org/UploadedFiles/gmc-charge-sheet.pdf, fetched 2026-09-16",
-     "says": "FITNESS TO PRACTISE PANEL HEARING / 28 JANUARY 2010 / Dr Andrew Jeremy Wakefield, Professor John Angus Walker-Smith, Professor Simon Harry Murch"
+     "held_text": {
+      "sha256": "db68f440352937d1695f6307468ee6a57c2af624110bfd73f4be91f795a3ad7d",
+      "chars": 293845,
+      "path": "data/verify/docs/db/db68f440352937d1695f6307468ee6a57c2af624110bfd73f4be91f795a3ad7d.txt.gz",
+      "retrieved_on": "2026-09-16",
+      "route": "event_corroboration_fetch"
+     },
+     "says": "FITNESS TO PRACTISE PANEL HEARING 28 JANUARY 2010 On 16 July 2007 a Fitness to Practise Panel considered the case of: A. Dr Andrew Jeremy WAKEFIELD GMC reference number: 2733564 B. Professor John Angus WALKER-SMITH GMC reference number: 1700583 C. Professor Simon Harry MURCH GMC reference number: 25",
+     "offset": 0,
+     "quotation_provenance": "held_text",
+     "note": "Held text opens with this (offset 0; 293,845 chars of extracted text — a text layer, so the page count is still not measured from it). The advisor's rendering had the three names in title case with slashes; the held text has surnames in capitals with GMC reference numbers. 2026-09-16 V1: the earlier `says` value was a fetch tool's model reading of the page (the advisor's tool answers a prompt about a converted page); replaced by an extract from held text with its offset."
     },
     {
      "document": "CIRCARE hosted copy, http://www.circare.org/autism/gmcfpphearing_20100128.pdf, fetched 2026-09-16",
-     "says": "FITNESS TO PRACTISE PANEL HEARING / 28 JANUARY 2010 / same three doctors"
+     "says": null,
+     "quotation_provenance": "not_established",
+     "note": "NOT RETRIEVED INTO HELD TEXT: the PDF downloads (HTTP 200, 518,744 bytes) but pdftotext 26.x exits with SIGSEGV (rc −11) on it, reproducibly, on 2026-09-16; no text layer could be extracted, so nothing this copy says is established here. The advisor's 'FITNESS TO PRACTISE PANEL HEARING / 28 JANUARY 2010 / same three doctors' was a fetch tool's rendering. The date still has three established sources (the Lancet notice, the FactCheck.org copy, and the operator's copy by his own reading). 2026-09-16 V1: the earlier `says` value was a fetch tool's model reading of the page (the advisor's tool answers a prompt about a converted page); replaced by an extract from held text with its offset."
     }
    ],
-   "corroboration_note": "Four-way agreement on the date: the Lancet retraction notice, the operator's hand-fetched copy, and two independently hosted copies fetched 2026-09-16. UNRESOLVED AND RULED IMMATERIAL BY THE REVIEWER: the operator's copy is 143 pp; the page length of the hosted copies could not be measured (the fetch converts to text and truncates, so no page count from it is a measurement). The reviewer ruled on 2026-09-16 that the discrepancy is immaterial to the conclusion, which is the date, and that the date is well enough supported by the documents in hand. The hosted filename 'gmc-charge-sheet.pdf' matches the operator's filename, which suggests but does not establish common provenance."
+   "corroboration_note": "Date established from held text in two documents (the Lancet retraction notice, offset 475; the FactCheck.org copy of the determination, offset 0) and from the operator's own reading of his hand-fetched copy; the CIRCARE copy could not be extracted (pdftotext SIGSEGV) and the operator's copy is not held, so neither quotes anything here. UNRESOLVED AND RULED IMMATERIAL BY THE REVIEWER (2026-09-16): the operator's copy is 143 pp; the hosted copies' page length is not measured by a text extraction. The hosted filename 'gmc-charge-sheet.pdf' matches the operator's filename, which suggests but does not establish common provenance. CORRECTION 2026-09-16 (V1): the four `says` values written on 2026-09-16 were a fetch tool's model renderings, not extracts; two are now held-text extracts with offsets and two are marked not_established. The date and the reviewer's signature are unchanged."
   },
   {
    "label": "General Medical Council Fitness to Practise Panel determination on sanction: Wakefield's name to be erased from the medical register",
@@ -81,15 +107,51 @@
    "reviewed_on": "2026-09-16",
    "corroboration": [
     {
-     "document": "GMC determination on serious professional misconduct and sanction, 24 May 2010 (CIRCARE hosted copy, fetched 2026-09-16)",
-     "says": "the Panel has determined that Dr Wakefield's name should be erased from the medical register"
+     "document": "GMC Fitness to Practise Panel, 'Determination on Serious Professional Misconduct (SPM) and sanction', 24 May 2010 — CIRCARE hosted copy, https://www.circare.org/autism/Wakefield_SPM_and_SANCTION_32595267.pdf, fetched 2026-09-16",
+     "held_text": {
+      "sha256": "602cd20dc1ca5b304966ca0bced8652d94f7e8ca9fc5c5010cce3bcb338a6e7b",
+      "chars": 26285,
+      "path": "data/verify/docs/60/602cd20dc1ca5b304966ca0bced8652d94f7e8ca9fc5c5010cce3bcb338a6e7b.txt.gz",
+      "retrieved_on": "2026-09-16",
+      "route": "event_corroboration_fetch"
+     },
+     "says": "Accordingly the Panel has determined that Dr Wakefield’s name should be erased from the medical register.",
+     "offset": 25238,
+     "quotation_provenance": "held_text",
+     "also_says": [
+      {
+       "offset": 192,
+       "text": "Date: 24 May 2010"
+      },
+      {
+       "offset": 25672,
+       "text": "unless Dr Wakefield exercises his right of appeal, his name will be erased from the Medical Register 28 days from when formal notice has been deemed to be served upon him by letter to his registered address."
+      }
+     ],
+     "note": "The advisor's rendering matched this sentence except for the leading 'Accordingly' and a straight apostrophe where the document has a typographic one; given here as held. The 28-days clause (offset 25672) is the basis of the 2026-09-16 relabelling. 2026-09-16 V1: the earlier `says` value was a fetch tool's model reading of the page (the advisor's tool answers a prompt about a converted page); replaced by an extract from held text with its offset."
     },
     {
-     "document": "Kmietowicz Z, BMJ 2011 [sic: 2010];340:c2803, doi 10.1136/bmj.c2803 - Crossref issued [2010,5,24], created 2010-05-24T14:57:47Z, verified 2026-09-16",
-     "says": "Wakefield is struck off for the 'serious and wide-ranging findings against him'"
+     "document": "Kmietowicz Z, BMJ 2010;340:c2803, doi 10.1136/bmj.c2803 — Crossref API record, https://api.crossref.org/works/10.1136/bmj.c2803, fetched 2026-09-16 (structured registry data, held as the JSON text)",
+     "held_text": {
+      "sha256": "322dda786d710cafcc391fb1f43bda5a6953fbe301a26e7e3d4903342674ac30",
+      "chars": 1856,
+      "path": "data/verify/docs/32/322dda786d710cafcc391fb1f43bda5a6953fbe301a26e7e3d4903342674ac30.txt.gz",
+      "retrieved_on": "2026-09-16",
+      "route": "crossref_api_json"
+     },
+     "says": "\"title\":[\"Wakefield is struck off for the \\\"serious and wide-ranging findings against him\\\"\"]",
+     "offset": 620,
+     "quotation_provenance": "held_text",
+     "also_says": [
+      {
+       "offset": 1425,
+       "text": "\"issued\":{\"date-parts\":[[2010,5,24]]}"
+      }
+     ],
+     "note": "The registry record's title field and issued date, as the JSON text holds them. The advisor's `says` was the title without its field; the earlier document string said 'BMJ 2011 [sic: 2010]' — the record says volume 340, issued 2010-05-24. 2026-09-16 V1: the earlier `says` value was a fetch tool's model reading of the page (the advisor's tool answers a prompt about a converted page); replaced by an extract from held text with its offset."
     }
    ],
-   "corroboration_note": "Two independent confirmations of 2010-05-24, one of them registry-backed (Crossref). This is the only row of the four whose date is machine-retrievable from a registry."
+   "corroboration_note": "Two independent confirmations of 2010-05-24, both now from held text: the determination itself ('Date: 24 May 2010', offset 192) and the Crossref record for c2803 (issued [2010,5,24], offset 1425). CORRECTION 2026-09-16 (V1): both `says` values were re-extracted from held text with offsets; the sanction quotation the advisor wrote is in the document (offset 25238) modulo 'Accordingly' and an apostrophe. Date and signature unchanged."
   },
   {
    "label": "Brian Deer's BMJ series on the Wakefield case",
@@ -109,10 +171,35 @@
    "reviewed_on": "2026-09-16",
    "corroboration": [
     {
-     "document": "Crossref API record for 10.1136/bmj.c5347, fetched 2026-09-16",
-     "says": "issued date-parts [[2011,1,5]]; created 2011-01-05; 'How the case against the MMR vaccine was fixed'; B. Deer"
+     "document": "Crossref API record for 10.1136/bmj.c5347, https://api.crossref.org/works/10.1136/bmj.c5347, fetched 2026-09-16 (structured registry data, held as the JSON text)",
+     "held_text": {
+      "sha256": "240e6c5452506dd12a2380c1925209d982ab451c7509cef839a7c612baef14f8",
+      "chars": 1974,
+      "path": "data/verify/docs/24/240e6c5452506dd12a2380c1925209d982ab451c7509cef839a7c612baef14f8.txt.gz",
+      "retrieved_on": "2026-09-16",
+      "route": "crossref_api_json"
+     },
+     "says": "\"issued\":{\"date-parts\":[[2011,1,5]]}",
+     "offset": 1381,
+     "quotation_provenance": "held_text",
+     "also_says": [
+      {
+       "offset": 449,
+       "text": "\"created\":{\"date-parts\":[[2011,1,5]]"
+      },
+      {
+       "offset": 618,
+       "text": "\"title\":[\"How the case against the MMR vaccine was fixed\"]"
+      },
+      {
+       "offset": 735,
+       "text": "\"family\":\"Deer\""
+      }
+     ],
+     "note": "Registry fields as the JSON text holds them; the advisor's paraphrase ('issued date-parts [[2011,1,5]]; created 2011-01-05; …') agreed with them. 2026-09-16 V1: the earlier `says` value was a fetch tool's model reading of the page (the advisor's tool answers a prompt about a converted page); replaced by an extract from held text with its offset."
     }
-   ]
+   ],
+   "corroboration_note": "Registry-sourced date, held as the Crossref JSON text with offsets (V1 correction 2026-09-16)."
   },
   {
    "label": "Omnibus Autism Proceeding, first test-case decisions (Cedillo, Hazlehurst, Snyder)",
@@ -131,19 +218,67 @@
    "reviewed_on": "2026-09-16",
    "corroboration": [
     {
-     "document": "Cedillo v. Secretary of HHS, No. 98-916V, Special Master Hastings - https://www.uscfc.uscourts.gov/sites/cfc/files/hastings_cedillo_decision.pdf (fetched 2026-09-16)",
-     "says": "Filed February 12, 2009; 'the petitioners have failed to demonstrate that her vaccinations played any role at all in causing those problems'"
+     "document": "Cedillo v. Secretary of HHS, No. 98-916V, Special Master Hastings — https://www.uscfc.uscourts.gov/sites/cfc/files/hastings_cedillo_decision.pdf (fetched 2026-09-16, 1,011,798 bytes)",
+     "held_text": {
+      "sha256": "afd1786929d374abd361b2460bd07aacad3d7e6cc7fa27b9c86e8b85532727a3",
+      "chars": 569937,
+      "path": "data/verify/docs/af/afd1786929d374abd361b2460bd07aacad3d7e6cc7fa27b9c86e8b85532727a3.txt.gz",
+      "retrieved_on": "2026-09-16",
+      "route": "event_corroboration_fetch"
+     },
+     "says": "No. 98-916V (Filed: February 12, 2009)",
+     "offset": 71,
+     "quotation_provenance": "held_text",
+     "also_says": [
+      {
+       "offset": 3031,
+       "text": "the petitioners have also failed to demonstrate that her vaccinations played any role at all in causing those problems."
+      }
+     ],
+     "note": "The advisor's rendering omitted 'also' and the colon in 'Filed:'; given here as held. 2026-09-16 V1: the earlier `says` value was a fetch tool's model reading of the page (the advisor's tool answers a prompt about a converted page); replaced by an extract from held text with its offset."
     },
     {
-     "document": "Hazlehurst v. Secretary of HHS, No. 03-654V, Special Master Campbell-Smith - https://www.uscfc.uscourts.gov/sites/cfc/files/campbell_smith_hazlehurst_decision.pdf (fetched 2026-09-16)",
-     "says": "Filed February 12, 2009; 'petitioners are not entitled to Program compensation on either the proposed general theory of causation or the specific theory of causation proposed in this case'"
+     "document": "Hazlehurst v. Secretary of HHS, No. 03-654V, Special Master Campbell-Smith — https://www.uscfc.uscourts.gov/sites/cfc/files/campbell_smith_hazlehurst_decision.pdf (fetched 2026-09-16, 1,235,658 bytes)",
+     "held_text": {
+      "sha256": "1a068aa6d69d82d50d054c9936b059e77ddd49f84a564737174a3c3091528fe8",
+      "chars": 661484,
+      "path": "data/verify/docs/1a/1a068aa6d69d82d50d054c9936b059e77ddd49f84a564737174a3c3091528fe8.txt.gz",
+      "retrieved_on": "2026-09-16",
+      "route": "event_corroboration_fetch"
+     },
+     "says": "E-Filed: February 12, 2009 No. 03-654V",
+     "offset": 71,
+     "quotation_provenance": "held_text",
+     "also_says": [
+      {
+       "offset": 5104,
+       "text": "petitioners are not entitled to Program compensation on either the proposed general theory of causation or the specific theory of causation proposed in this case."
+      }
+     ],
+     "note": "The advisor's rendering of the conclusion matched the held text; the filing line reads 'E-Filed:' (the advisor wrote 'Filed'). 2026-09-16 V1: the earlier `says` value was a fetch tool's model reading of the page (the advisor's tool answers a prompt about a converted page); replaced by an extract from held text with its offset."
     },
     {
-     "document": "Snyder v. Secretary of HHS, No. 01-162V, Special Master Vowell - https://www.uscfc.uscourts.gov/sites/cfc/files/vowell_snyder_decision.pdf (fetched 2026-09-16)",
-     "says": "Filed February 12, 2009; 'failed to demonstrate vaccine causation of Colten's condition by a preponderance of the evidence'"
+     "document": "Snyder v. Secretary of HHS, No. 01-162V, Special Master Vowell — https://www.uscfc.uscourts.gov/sites/cfc/files/vowell_snyder_decision.pdf (fetched 2026-09-16, 1,525,294 bytes)",
+     "held_text": {
+      "sha256": "fa184382b36522fa02ee185bf013abf70875f7eb1070d2874e21b437975952de",
+      "chars": 895795,
+      "path": "data/verify/docs/fa/fa184382b36522fa02ee185bf013abf70875f7eb1070d2874e21b437975952de.txt.gz",
+      "retrieved_on": "2026-09-16",
+      "route": "event_corroboration_fetch"
+     },
+     "says": "No. 01-162V Filed: February 12, 2009",
+     "offset": 71,
+     "quotation_provenance": "held_text",
+     "also_says": [
+      {
+       "offset": 5953,
+       "text": "they have failed to demonstrate vaccine causation of Colten’s condition by a preponderance of the evidence."
+      }
+     ],
+     "note": "The advisor's rendering omitted 'they have' and used a straight apostrophe; given here as held. 2026-09-16 V1: the earlier `says` value was a fetch tool's model reading of the page (the advisor's tool answers a prompt about a converted page); replaced by an extract from held text with its offset."
     }
    ],
-   "corroboration_note": "Primary sources from the issuing court; all three decisions read, not just their landing page."
+   "corroboration_note": "Primary sources from the issuing court, now held as extracted text (569,937 / 661,484 / 895,795 chars) with each filing line and conclusion quoted at its offset. CORRECTION 2026-09-16 (V1): the three `says` values written on 2026-09-16 were a fetch tool's renderings; two differed from the held text in small words ('also'; 'they have'; 'E-Filed:'). Date and signature unchanged."
   }
  ]
 }

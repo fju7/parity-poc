@@ -137,7 +137,10 @@ def test_the_scope_statement_is_frozen_into_the_record_from_the_operators_file()
     r = publish.scope_statement("mmr-vaccine-autism")
     assert r and r["source"] == "data/verify/scope/mmr-vaccine-autism.md"
     assert r["text"].startswith("This page covers the epidemiological evidence on MMR vaccination and autism")
-    assert "quashing the GMC's findings against Professor Walker-Smith" in r["text"]
+    # S2 (ruled 2026-09-16): sentence four names the General Medical Council and records that
+    # the judgment decided Walker-Smith's appeal alone.
+    assert "quashing the General Medical Council's findings against Professor Walker-Smith" in r["text"]
+    assert "It decided his appeal alone, and records that Dr Wakefield abandoned his." in r["text"]
     assert "competing-interests correction to its editorial" in r["text"]
     assert r["sha256"] == __import__("hashlib").sha256(r["text"].encode()).hexdigest()
     assert publish.scope_statement("no-such-topic") is None
