@@ -34,12 +34,13 @@ const cite = (src) => {
 /** The line under the topic title. */
 export function TopicLine({ publication, recheck }) {
   if (!publication) return null;
-  const s = publication.summary || {};
-  // Since the SUBJECT gate (2026-09-15) IDENTITY_ONLY is withheld, not shown;
-  // the tier the header counts is SUBJECT_BOUND -- shown on the subject
-  // check alone, wording unchecked.
-  const subjectOnly = (s.claims?.by_support || {}).SUBJECT_BOUND || 0;
-  const shown = (publication.supported_claim_ids || []).length;
+  // NO PAGE-LEVEL AGGREGATE OF SUPPORT LEVELS. Support is a per-claim fact;
+  // aggregated into a headline it is read as a verdict on the page, and it
+  // misled the only non-expert reader the page has had in both directions
+  // (2026-09-15: "68 of 103 source-confirmed" read as unverified; 2026-09-16:
+  // "42 of 77 checked against their source's subject" read as 35 unchecked --
+  // the 35 being the figure- and quotation-bound claims, the strongest on the
+  // page). The header points at the per-claim markers instead.
   // Two facts, stated separately, so the header never contradicts a marker
   // below it: what was already known at publication (a source retracted
   // before we published) and what the re-checks have found since.
@@ -53,8 +54,7 @@ export function TopicLine({ publication, recheck }) {
       {" · "}{retractedAtPublication} source{retractedAtPublication === 1 ? "" : "s"} retracted before publication
       {" · "}{newlyFlagged} source{newlyFlagged === 1 ? "" : "s"} newly flagged since {fmt(publication.published_at)}
       {recheck?.run_at ? <> (last re-check {fmt(recheck.run_at)})</> : null}
-      {" · "}{subjectOnly} of {shown} claims checked against their source's subject but not its wording
-      {" — see markers below. "}
+      {" · Every claim shown says what was checked against its source. "}
       <a href="/methodology" className="text-[#0D7377] hover:underline">What this means →</a>
     </p>
   );

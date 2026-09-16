@@ -2650,6 +2650,21 @@ is done. Items 2-4 touch no page and no corpus, so they were done now.
   and the check's blind spot. Fred writes the §6a row himself (line 42
   untouched).
 
+## Session SAP-Signal-13 — the support aggregate leaves the header (2026-09-16)
+- RULE: A PAGE-LEVEL AGGREGATE OF SUPPORT LEVELS IS NOT PUBLISHED. Support is
+  a per-claim fact; aggregated into a headline it is read as a verdict on the
+  page and has misled in both directions (2026-09-15: "68 of 103
+  source-confirmed" read as unverified; 2026-09-16: "42 of 77 checked against
+  their source's subject" read as 35 unchecked -- the 35 being FIGURE/SPAN,
+  the strongest tier). TopicLine keeps the freeze date, retracted-before-
+  publication, newly-flagged-since and the re-check date, and points:
+  "Every claim shown says what was checked against its source." The
+  methodology page may state the distribution in prose. Per-claim markers
+  unchanged.
+- PHASE 5 QUEUE HEAD (ruled): the citing-source anchor -- show the passage
+  the claim rests on instead of asserting about it. Design first, including
+  the poor-match case; not built.
+
 ## Standing instructions for every session
 1. Read this file at the start of every session
 2. Verify all file paths before issuing commands

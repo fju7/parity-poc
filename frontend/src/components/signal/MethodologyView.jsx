@@ -30,6 +30,12 @@ const GATES = [
       "For a claim that states no number and quotes nothing, the page extracts the things the claim is about — the bodies and people it names, prose quantities like 'millions', and the words that distinguish it from every other claim on the topic — and looks for each in the source's held text. A claim whose distinguishing terms are found is shown, marked 'Checked against the source's subject, not its wording': the document is about what the claim is about, but nobody has checked that it puts it this way. A claim whose terms are not found is withheld. This check is word-level. Its measured blind spot: it cannot see that an enumeration ('restricted to children with a diagnosis of autism, to those vaccinated before the third birthday, or to the period before media coverage') satisfies a plurality word ('multiple'), and it refuses a fair synonym it does not know. It refuses conservatively; it does not admit on a guess.",
   },
   {
+    name: "No page-level score",
+    where: "frontend/src/components/signal/RecordMarkers.jsx (TopicLine)",
+    text:
+      "Support is a fact about one claim and one document. The page does not add those facts up into a headline — a count like 'N of M claims checked' was read by its first non-expert reader once as 'the rest are unverified' and once as 'only N were checked', when the rest were the most tightly bound claims on the page. The line under the title therefore names what was frozen and when, and points to the per-claim markers, each of which says exactly what was checked for that claim. On the current MMR page the distribution is: 34 claims bound on a figure found in the source, 1 on a quoted passage, 42 on the source's subject with wording unchecked, and 51 withheld — but that sentence belongs here, where there is room to say what each of those means, not under the title.",
+  },
+  {
     name: "Nothing is shown on the document's identity alone",
     where: "backend/verify/publish.py (SHOWN)",
     text:
