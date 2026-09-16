@@ -14,7 +14,8 @@
    "reviewed_by": "second person or null",
    "reviewed_on": "date or null"
   },
-  "register": "Every row is listed in docs/signal-corpus-freeze.md so a wrong date is traceable."
+  "register": "Every row is listed in docs/signal-corpus-freeze.md so a wrong date is traceable.",
+  "reviewed": "All four rows reviewed 2026-09-16 by Fred Ugast. URLs supplied by Claude Opus 5, each verified by fetch on that date and quoted in the row's corroboration; the reviewer signed against the documents, not against a list of links."
  },
  "events": [
   {
@@ -36,12 +37,12 @@
     "fitness to practise",
     "dishonest"
    ],
-   "url": null,
-   "source": "GMC Fitness to Practise Panel, determination on facts, 28 January 2010. Primary URL not verified: the two GMC document paths tried on 2026-09-14 return 404; reviewer to supply.",
+   "url": "https://cdn.factcheck.org/UploadedFiles/gmc-charge-sheet.pdf",
+   "source": "GMC Fitness to Practise Panel, determination on facts, 28 January 2010. URL verified by fetch 2026-09-16: the document returns heading 'FITNESS TO PRACTISE PANEL HEARING', date '28 JANUARY 2010', and all three doctors (Wakefield, Walker-Smith, Murch). NO OFFICIAL OR ARCHIVED-OFFICIAL COPY LOCATED: searched gmc-uk.org and the UK National Archives on 2026-09-16 and found none; the determination survives only on third-party hosts. Second copy: http://www.circare.org/autism/gmcfpphearing_20100128.pdf (http only).",
    "curator": "Claude Opus 5 on the operator's direction",
    "curated_on": "2026-09-14",
-   "reviewed_by": null,
-   "reviewed_on": null,
+   "reviewed_by": "Fred Ugast",
+   "reviewed_on": "2026-09-16",
    "corroboration": [
     {
      "document": "Retraction—Ileal-lymphoid-nodular hyperplasia... The Lancet 375(9713):445, 6 Feb 2010, doi 10.1016/S0140-6736(10)60175-4 (OPERATOR_SUPPLIED, sha256 b70a220048dc7ce64cb24fc78cf354cbf0670a2f9630dfeb0c23e5fa446c642f)",
@@ -50,12 +51,20 @@
     {
      "document": "GMC Fitness to Practise Panel hearing, 28 January 2010, Wakefield / Walker-Smith / Murch (Fred's hand-fetched copy, 143 pp, sha256 3a5d06c85e1542b4..., no URL on file; not admitted -- no registry answers for it)",
      "says": "FITNESS TO PRACTISE PANEL HEARING 28 JANUARY 2010"
+    },
+    {
+     "document": "FactCheck.org (Annenberg Public Policy Center) hosted copy, https://cdn.factcheck.org/UploadedFiles/gmc-charge-sheet.pdf, fetched 2026-09-16",
+     "says": "FITNESS TO PRACTISE PANEL HEARING / 28 JANUARY 2010 / Dr Andrew Jeremy Wakefield, Professor John Angus Walker-Smith, Professor Simon Harry Murch"
+    },
+    {
+     "document": "CIRCARE hosted copy, http://www.circare.org/autism/gmcfpphearing_20100128.pdf, fetched 2026-09-16",
+     "says": "FITNESS TO PRACTISE PANEL HEARING / 28 JANUARY 2010 / same three doctors"
     }
    ],
-   "corroboration_note": "two-source agreement on the date, recorded 2026-09-15; reviewed_by stays null until a person checks the row"
+   "corroboration_note": "Four-way agreement on the date: the Lancet retraction notice, the operator's hand-fetched copy, and two independently hosted copies fetched 2026-09-16. UNRESOLVED AND RULED IMMATERIAL BY THE REVIEWER: the operator's copy is 143 pp; the page length of the hosted copies could not be measured (the fetch converts to text and truncates, so no page count from it is a measurement). The reviewer ruled on 2026-09-16 that the discrepancy is immaterial to the conclusion, which is the date, and that the date is well enough supported by the documents in hand. The hosted filename 'gmc-charge-sheet.pdf' matches the operator's filename, which suggests but does not establish common provenance."
   },
   {
-   "label": "Wakefield erased from the UK medical register (GMC sanction)",
+   "label": "General Medical Council Fitness to Practise Panel determination on sanction: Wakefield's name to be erased from the medical register",
    "date": "2010-05-24",
    "precision": "day",
    "phrases": [
@@ -64,12 +73,23 @@
     "erased from the register",
     "removed from the medical register"
    ],
-   "url": null,
-   "source": "GMC Fitness to Practise Panel, sanction, 24 May 2010. Primary URL not verified; reviewer to supply.",
+   "url": "https://www.circare.org/autism/Wakefield_SPM_and_SANCTION_32595267.pdf",
+   "source": "GMC Fitness to Practise Panel, 'Determination on Serious Professional Misconduct and sanction', 24 May 2010. URL verified by fetch 2026-09-16. PRECISION: 24 May 2010 is the date the Panel DIRECTED erasure, not the date erasure took effect - the determination states erasure follows 28 days from formal notice absent appeal, and the document on file does not give that later date. The label was corrected on 2026-09-16 to say what the document says. A claim asserting erasure ON 2010-05-24 asserts more than this source supports.",
    "curator": "Claude Opus 5 on the operator's direction",
    "curated_on": "2026-09-14",
-   "reviewed_by": null,
-   "reviewed_on": null
+   "reviewed_by": "Fred Ugast",
+   "reviewed_on": "2026-09-16",
+   "corroboration": [
+    {
+     "document": "GMC determination on serious professional misconduct and sanction, 24 May 2010 (CIRCARE hosted copy, fetched 2026-09-16)",
+     "says": "the Panel has determined that Dr Wakefield's name should be erased from the medical register"
+    },
+    {
+     "document": "Kmietowicz Z, BMJ 2011 [sic: 2010];340:c2803, doi 10.1136/bmj.c2803 - Crossref issued [2010,5,24], created 2010-05-24T14:57:47Z, verified 2026-09-16",
+     "says": "Wakefield is struck off for the 'serious and wide-ranging findings against him'"
+    }
+   ],
+   "corroboration_note": "Two independent confirmations of 2010-05-24, one of them registry-backed (Crossref). This is the only row of the four whose date is machine-retrievable from a registry."
   },
   {
    "label": "Brian Deer's BMJ series on the Wakefield case",
@@ -82,11 +102,17 @@
     "Brian Deer"
    ],
    "url": "https://doi.org/10.1136/bmj.c5347",
-   "source": "BMJ 2011;342:c5347, published 5 January 2011; the DOI resolves at Crossref (the BMJ page itself returns 403 to a fetch).",
+   "source": "BMJ 2011;342:c5347, published 5 January 2011. Verified against Crossref 2026-09-16: issued [2011,1,5], created 2011-01-05, title 'How the case against the MMR vaccine was fixed', author B. Deer. The DOI resolves; the BMJ page itself returns 403 to a fetch.",
    "curator": "Claude Opus 5 on the operator's direction",
    "curated_on": "2026-09-14",
-   "reviewed_by": null,
-   "reviewed_on": null
+   "reviewed_by": "Fred Ugast",
+   "reviewed_on": "2026-09-16",
+   "corroboration": [
+    {
+     "document": "Crossref API record for 10.1136/bmj.c5347, fetched 2026-09-16",
+     "says": "issued date-parts [[2011,1,5]]; created 2011-01-05; 'How the case against the MMR vaccine was fixed'; B. Deer"
+    }
+   ]
   },
   {
    "label": "Omnibus Autism Proceeding, first test-case decisions (Cedillo, Hazlehurst, Snyder)",
@@ -97,12 +123,27 @@
     "special masters",
     "Cedillo"
    ],
-   "url": null,
-   "source": "U.S. Court of Federal Claims, Office of Special Masters, decisions of 12 February 2009. The corpus's stored URL and two court paths tried on 2026-09-14 return 404; reviewer to supply.",
+   "url": "https://www.uscfc.uscourts.gov/sites/cfc/files/hastings_cedillo_decision.pdf",
+   "source": "U.S. Court of Federal Claims, Office of Special Masters: the three Theory 1 test-case decisions, each showing 'Filed February 12, 2009'. All three URLs verified by fetch 2026-09-16 from the issuing court's own site, replacing the corpus's stored URL and the two paths that 404'd on 2026-09-14. Index: https://www.uscfc.uscourts.gov/autism-decisions-and-background-information",
    "curator": "Claude Opus 5 on the operator's direction",
    "curated_on": "2026-09-14",
-   "reviewed_by": null,
-   "reviewed_on": null
+   "reviewed_by": "Fred Ugast",
+   "reviewed_on": "2026-09-16",
+   "corroboration": [
+    {
+     "document": "Cedillo v. Secretary of HHS, No. 98-916V, Special Master Hastings - https://www.uscfc.uscourts.gov/sites/cfc/files/hastings_cedillo_decision.pdf (fetched 2026-09-16)",
+     "says": "Filed February 12, 2009; 'the petitioners have failed to demonstrate that her vaccinations played any role at all in causing those problems'"
+    },
+    {
+     "document": "Hazlehurst v. Secretary of HHS, No. 03-654V, Special Master Campbell-Smith - https://www.uscfc.uscourts.gov/sites/cfc/files/campbell_smith_hazlehurst_decision.pdf (fetched 2026-09-16)",
+     "says": "Filed February 12, 2009; 'petitioners are not entitled to Program compensation on either the proposed general theory of causation or the specific theory of causation proposed in this case'"
+    },
+    {
+     "document": "Snyder v. Secretary of HHS, No. 01-162V, Special Master Vowell - https://www.uscfc.uscourts.gov/sites/cfc/files/vowell_snyder_decision.pdf (fetched 2026-09-16)",
+     "says": "Filed February 12, 2009; 'failed to demonstrate vaccine causation of Colten's condition by a preponderance of the evidence'"
+    }
+   ],
+   "corroboration_note": "Primary sources from the issuing court; all three decisions read, not just their landing page."
   }
  ]
 }
