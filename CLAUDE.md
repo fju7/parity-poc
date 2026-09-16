@@ -2709,6 +2709,27 @@ literature is not established by any check in this system.
   the manifest (the notice, Deer) and two were additions (Godlee, d1678) --
   by identifier; a title search had failed on a dash and returned three.
 
+## Session SAP-Signal-15 — works vs entries; the methodology sentences (2026-09-16)
+- RULE (ruled): a WORK is the publication (resolved identifier, else registry
+  id, else normalised title; a URL retrieval folds into an identifier-keyed
+  work when the work's title is contained in its title/heading); a DOCUMENT
+  is one retrieval (sha256). Dedupe COUNTS by work; never discard a retrieval
+  -- their held texts differ (IOM: 8,164 vs 36,395 chars) and each keeps
+  being levelled. Every count shown or stored is by work; the summary carries
+  BOTH numbers (works and entries); reporting only one is the defect.
+- record 294a4d1: 26 works / 38 entries, 22 / 34 surviving; pills 94f30391
+  and 7011e1a5 now "1 source"; rail "Sources (22)"; no level moved; tests in
+  test_subject.py (pill <= distinct works both ways; no retrieval dropped;
+  both numbers). relevel.py now replays the stored ERRATUM binding so the
+  offline re-level is deterministic (the live erratum fetch varied run to
+  run and read as a level change).
+- Methodology page carries the two approved sentences, scoped by name to
+  "MMR Vaccine and Autism". DESIGN ITEM, not built: when a second topic
+  publishes, that paragraph becomes a per-topic block generated from the
+  record (works, entries, hand-fetched count, cross-document support).
+- The normalise-sites test caught four new call sites in work_key /
+  works_index (all titles/headings) -- ruled in. That is the test working.
+
 ## Standing instructions for every session
 1. Read this file at the start of every session
 2. Verify all file paths before issuing commands
