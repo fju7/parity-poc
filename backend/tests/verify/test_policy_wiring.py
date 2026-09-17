@@ -42,21 +42,24 @@ def test_provider_letter_refuses_a_citation_hidden_in_escalation_path(monkeypatc
                        "payer_name": "Aetna", "date_of_service": "2025-01-05", "practice_name": "P",
                        "practice_address": "1 Main St, Columbus, OH 43215", "billing_contact": "B", "npi": "1234567890",
                        "patient_name": "X", "contracted_rate_info": None})
-    assert pa._gated_letter(data, None) is None          # both drafts refused -> no letter
+    assert pa._gated_letter(data) is None          # both drafts refused -> no letter
     assert len(calls) == 2 and "3901-1-54" in calls[1]   # the regeneration named the violation
 
 
 def test_provider_letter_passes_and_carries_a_verification_record(monkeypatch):
     import routers.provider_appeals as pa
     monkeypatch.setattr(pa, "_call_claude", lambda **kw: {
-        "letter_text": "Dear Payer, we demand reprocessing of $120.00 within 30 calendar days under the applicable state prompt-pay requirements.",
-        "letter_html": "<p>x</p>", "escalation_path": "external review, then the state Department of Insurance",
-        "appeal_strength_reason": "high; 30/60/90 days", "attach_documentation": "operative notes", "cms_references": []})
+        # APPEALS-3: the passing fixture argues on the record and asks; the old fixture
+        # ("we demand ... prompt-pay ... Department of Insurance") is now a refusal by design.
+        "letter_text": "Dear Payer, this is a first-level appeal of Claim C1 under CO-16. The information the denial "
+                       "lists as missing is attached, and the claim can be adjudicated with it. We ask that the claim be "
+                       "reprocessed and $120.00 paid, and that you send the written criteria you applied. Please respond by 30 calendar days from the date of this letter.",
+        "letter_html": "<p>x</p>", "appeal_strength": "medium", "attach_documentation": "operative notes", "cms_references": []})
     data = json.dumps({"claim_id": "C1", "denial_code": "CO-16", "cpt_code": "99213", "billed_amount": 120.0,
                        "payer_name": "Aetna", "date_of_service": "2025-01-05", "practice_name": "P",
                        "practice_address": "1 Main St", "billing_contact": "B", "npi": "1234567890",
                        "patient_name": "X", "contracted_rate_info": None})
-    out = pa._gated_letter(data, None)
+    out = pa._gated_letter(data)
     assert out and out["verification"]["ok"] and out["verification"]["surface"] == "routers.provider_appeals::_gated_letter"
 
 
@@ -219,10 +222,8 @@ def test_provider_letter_is_not_returned_when_its_record_cannot_be_stored(monkey
     import routers.provider_appeals as pa
     monkeypatch.setattr(pa, "_get_authenticated_user", lambda request: type("U", (), {"id": "u1"})())
     monkeypatch.setattr(pa, "_fetch_provider_context", lambda uid: {"practice_name": "P", "npi": "1", "practice_address": "1 Main St", "billing_contact": "B", "contracts": {}})
-    monkeypatch.setattr(pa, "build_allowlist", lambda *a, **k: ([], []))
     monkeypatch.setattr(pa, "_call_claude", lambda **kw: {"letter_text": "Dear Payer, pay $120.00 within 30 calendar days.", "letter_html": "<p>x</p>",
-                                                          "escalation_path": "external review", "appeal_strength": "high",
-                                                          "appeal_strength_reason": "high", "attach_documentation": "notes", "cms_references": []})
+                                                          "appeal_strength": "high", "attach_documentation": "notes", "cms_references": []})
     class _Ins:
         def insert(self, rec):
             assert "verification" in rec and rec["verification"]["surface"] == "routers.provider_appeals::_gated_letter"

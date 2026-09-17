@@ -4,9 +4,11 @@
 freezes a reproducible record of what every claim rested on; a scheduled
 re-check compares *bindings*, not bytes; retraction and amendment are a fifth
 check with their own verdict; divergence surfaces to readers on the page,
-not only to the operator. The letter half of Phase 3 is blocked on the
+not only to the operator. The letter half of Phase 3 was blocked on the
 attorney review of the 12 candidate rows
-(`docs/appeal-citation-candidates-review-2026-09.md`).
+(`docs/appeal-citation-candidates-review-2026-09.md`) — **closed 2026-09-17 by Fred's
+ruling (letters are evidence-and-argument only; no citations); the letter half is re-scoped,
+not blocked. See `docs/legal-review/README.md`.**
 
 Builds on `docs/verification-gates-phase1-design.md` (the gates) and
 migration 078 (`status = 'published'` is the only thing that shows a topic).

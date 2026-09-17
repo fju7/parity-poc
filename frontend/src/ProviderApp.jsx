@@ -1844,11 +1844,14 @@ function ContractIntegrityTab({
                 background: "#fef2f2", border: "1px solid #fecaca",
                 fontSize: 14, color: "#991b1b", lineHeight: 1.6,
               }}>
-                <strong>Slow-Pay Alert:</strong> This payer averages <strong>{s.avg_days_to_pay} days</strong> from
-                date of service to adjudication, exceeding the 30-day prompt-pay benchmark.
+                {/* APPEALS-3 (2026-09-17): a factual observation only. The earlier text asserted a
+                    possible violation of state prompt-pay laws and suggested a complaint to the state
+                    insurance commissioner -- a legal characterisation the data does not support. */}
+                <strong>Slow payment:</strong> This payer averages <strong>{s.avg_days_to_pay} days</strong> from
+                date of service to adjudication in the claims analyzed, against the 30-day benchmark this report uses.
                 {s.avg_days_to_pay > 45
-                  ? " This may violate state prompt-pay laws — consider filing a complaint with your state insurance commissioner."
-                  : " Monitor this trend and document patterns for potential prompt-pay complaints."}
+                  ? " That is more than 15 days over the benchmark. Compare it with the payment timeframe stated in your provider agreement with this payer."
+                  : " Track this figure over the coming months and compare it with the payment timeframe in your provider agreement."}
               </div>
             )}
             {sc.narrative && (

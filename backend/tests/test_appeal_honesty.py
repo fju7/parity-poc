@@ -60,6 +60,8 @@ def test_prompt_honest_enclosure_language():
 # -- Task 3: appeal-rights faithful to the denial, no plan-type logic --
 def test_prompt_appeal_rights_faithful():
     p = APPEAL_SYSTEM_PROMPT
-    assert "State the patient's appeal rights using ONLY the rights and external-review options named in the denial analysis" in p
-    assert "do not invent rights" in p
-    assert "Do not characterize which rights apply based on the patient's plan type." in p
+    # APPEALS-3 (2026-09-17): options are stated only as the denial names them, as facts about
+    # the denial letter; no rights are asserted or reserved.
+    assert "Refer to the appeal and external-review options ONLY as the denial itself names them" in p
+    assert "Do NOT add options, statutes, programs, or agencies that are not listed there" in p
+    assert "Do not characterize which options apply based on the patient's plan type." in p

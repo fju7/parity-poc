@@ -76,6 +76,10 @@ class SurfacePolicy:
     # today. A GATE entry with wired=False is a declared, unenforced tier;
     # tests/verify/test_policy_discovery.py lists them so the set only shrinks.
     wired: bool = False
+    # APPEALS-3: letters VERIFY literature identifiers by registry lookup + title match
+    # (verify/evidence.py) instead of withholding or merely matching them to what was
+    # handed over. Off for extraction/narrative surfaces, where an identifier is data.
+    verify_citations: bool = False
 
 
 # ---------------------------------------------------------------------------
@@ -89,6 +93,7 @@ class Held:
     inputs: dict = field(default_factory=dict)           # JSON the system computed and handed over
     tables: dict = field(default_factory=dict)           # {"CPT": {"99213": "Office visit..."}, "CARC": {...}}
     named_ok: set = field(default_factory=set)           # lexicon terms this surface may name (e.g. {"caa"})
+    resolutions: dict = field(default_factory=dict)      # "pmid:123": verify.types.Resolution already made for the pack
 
     def corpus_text(self) -> str:
         parts = [d.text for d in self.documents if d.text_layer == "DECLARED_SOUND"]
@@ -145,6 +150,13 @@ class Verdict:
     @property
     def verified(self) -> bool:
         return self.ok and not self.unchecked
+
+    @property
+    def evidence_verified(self) -> bool:
+        """APPEALS-3: no refusal, and every literature IDENTIFIER the output carries was
+        verified at its registry. Other UNCHECKED classes (a CARC descriptor with no held
+        table) do not block a letter; an unverifiable citation does."""
+        return self.ok and not any(f.cls is AssertionClass.IDENTIFIER for f in self.unchecked)
 
     def to_dict(self) -> dict:
         """The record that travels with the output: stored beside it and
@@ -223,7 +235,46 @@ def _bind_legal(field_name: str, text: str, held: Held) -> list[Finding]:
     return out
 
 
+def _bind_register(field_name: str, text: str, held: Held | None = None) -> list[Finding]:
+    from .extract import _NAMED_RX
+    """LEGAL_REGISTER: every hit is a refusal; nothing binds it (APPEALS-3). One carve-out:
+    an "under ... Act" phrase naming a source the surface is permitted to name
+    (Held.named_ok -- the broker's data request is made under the CAA, advisor ruling
+    item 5) is what the request is made under, not a claim about what the Act requires."""
+    out = []
+    for c in extract(AssertionClass.LEGAL_REGISTER, text):
+        if c.kind == "under_law" and held and any(_NAMED_RX[t].search(c.text) for t in held.named_ok if t in _NAMED_RX):
+            continue
+        out.append(Finding(AssertionClass.LEGAL_REGISTER, field_name, c.text, False, "absent",
+                           "legal register: a letter argues on evidence and the payer's own words, not as counsel", kind=c.kind))
+    return out
+
+
+def _verify_identifiers(field_name: str, text: str, held: Held, policy: SurfacePolicy) -> list[Finding]:
+    """APPEALS-3: each RESOLVABLE literature identifier (DOI, PMID, PMCID, NCT) must resolve
+    and its record's title must match the citation it sits in. Registry silence is
+    UNCHECKED (ok=None), never a pass. Shapes that cannot be looked up keep the surface's
+    old rule: strict kinds (an author-year citation, a volume:page) are refused -- a reader
+    cannot check them -- and a bare 7-8 digit number (a claim id as often as a PMID) is a flag."""
+    from .evidence import RESOLVABLE, verify_citation
+    out = []
+    for c in extract(AssertionClass.IDENTIFIER, text):
+        if c.kind in RESOLVABLE:
+            ok, reason, _heading = verify_citation(c, text, held.resolutions)
+            out.append(Finding(AssertionClass.IDENTIFIER, field_name, c.text, ok, "bound", reason,
+                               severity="unchecked" if ok is None else "refuse", kind=c.kind))
+        elif c.kind in policy.strict_identifier_kinds:
+            out.append(Finding(AssertionClass.IDENTIFIER, field_name, c.text, False, "bound",
+                               "citation without a resolvable identifier (DOI, PMID, PMCID or NCT): a reader cannot look it up", kind=c.kind))
+        else:
+            out.append(Finding(AssertionClass.IDENTIFIER, field_name, c.text, False, "bound",
+                               "identifier-shaped; review" + (f"; {c.extra}" if c.extra else ""), severity="flag", kind=c.kind))
+    return out
+
+
 def _bind_identifiers(field_name: str, text: str, held: Held, policy: SurfacePolicy) -> list[Finding]:
+    if policy.verify_citations:
+        return _verify_identifiers(field_name, text, held, policy)
     out = []
     for c in extract(AssertionClass.IDENTIFIER, text):
         strict = c.kind in policy.strict_identifier_kinds
@@ -260,6 +311,14 @@ def _named_alias_present(term: str, held: Held) -> bool:
     return bool(rx and rx.search(held.corpus_text()))
 
 
+_ISO_DATE = re.compile(r"\b\d{4}-\d{2}-\d{2}\b")
+# hyphenated alphanumeric identifiers -- "CO-97", "TEST-2026-000417", "K12345-A" -- are names,
+# not quantities; without this the year-blanking left "-000417" to be read as a negative number
+# Starts with a letter (so "95,727-child" keeps its 95,727) and carries a digit somewhere;
+# plus digit runs joined to a >=5-digit tail ("2026-000417"), which no date or range has.
+_HYPHEN_ID = re.compile(r"(?<![\w,.])(?=[A-Za-z0-9-]*\d)[A-Za-z][A-Za-z0-9]*(?:-[A-Za-z0-9]+)+\b|(?<![\w,.])\d{2,}-\d{5,}\b")
+
+
 def _bind_figures(field_name: str, text: str, held: Held, other: list[Candidate], policy: "SurfacePolicy | None" = None) -> list[Finding]:
     out = []
     blanked = _blank(text, other)
@@ -267,6 +326,12 @@ def _bind_figures(field_name: str, text: str, held: Held, other: list[Candidate]
     # not a quantity the held material must state (the letterhead date is
     # stamped by code after generation). Blank every explicit date span.
     from .chronology import _DATE
+    # ISO dates first: chronology's _DATE takes the year and leaves "-01-05", which the
+    # figure extractor then reads as the negative number -1. A letter that cites the
+    # record by date ("the operative note of 2025-01-05", APPEALS-3 evidence class 3) was
+    # refused on that fragment. Found 2026-09-17 by the register regression corpus.
+    blanked = _HYPHEN_ID.sub(lambda m: " " * len(m.group(0)), blanked)
+    blanked = _ISO_DATE.sub(lambda m: " " * len(m.group(0)), blanked)
     blanked = _DATE.sub(lambda m: " " * len(m.group(0)), blanked)
     cands = extract(AssertionClass.FIGURE, blanked)
     if not cands:
@@ -379,6 +444,21 @@ def _absent(cls: AssertionClass, field_name: str, text: str, policy: SurfacePoli
 # ---------------------------------------------------------------------------
 # check
 # ---------------------------------------------------------------------------
+_LOOKS_HTML = re.compile(r"\s*(?:<!DOCTYPE|<html|<body|<div|<p[\s>])", re.I)
+_HTML_DROP = re.compile(r"<(style|script|head)\b.*?</\1\s*>", re.I | re.S)
+_HTML_TAG = re.compile(r"<[^>]+>")
+
+
+def _html_to_text(html_text: str) -> str:
+    """The reader-visible text of an HTML letter: no <style>/<script>/<head>, no tags,
+    entities decoded, whitespace collapsed at tag boundaries."""
+    import html as _html
+    t = _HTML_DROP.sub(" ", html_text)
+    t = re.sub(r"<br\s*/?>|</p>|</div>|</li>|</h[1-6]>|</tr>", "\n", t, flags=re.I)
+    t = _HTML_TAG.sub(" ", t)
+    return _html.unescape(t)
+
+
 def check(surface: str, output: Any, held: Held | None = None, *, policy_table: dict | None = None) -> Verdict:
     """Run the surface's policy over every string in `output`.
 
@@ -396,10 +476,21 @@ def check(surface: str, output: Any, held: Held | None = None, *, policy_table: 
     for field_name, text in walk_strings(output, ignore=pol.ignore_fields):
         if not text or not text.strip():
             continue
+        # An HTML rendering of the letter is checked as the TEXT a reader sees: style
+        # blocks, tags and attributes carry CSS numbers ("line-height: 1.6", "#555",
+        # "margin: 0") that are not assertions. Found 2026-09-17: every provider draft
+        # was refused on its stylesheet, never on its prose.
+        if field_name.endswith("_html") or _LOOKS_HTML.match(text):
+            text = _html_to_text(text)
+            if not text.strip():
+                continue
         other = (extract(AssertionClass.LEGAL_PROVISION, text) + extract(AssertionClass.IDENTIFIER, text)
                  + extract(AssertionClass.CODED_DESCRIPTOR, text))
         for cls, tier in pol.tiers.items():
             if tier is Tier.EXEMPT:
+                continue
+            if cls is AssertionClass.LEGAL_REGISTER:
+                verdict.findings.extend(_bind_register(field_name, text, held))   # GATE and WITHHOLD alike: refuse
                 continue
             if tier is Tier.WITHHOLD:
                 verdict.findings.extend(_absent(cls, field_name, text, pol, other))
@@ -444,6 +535,7 @@ def check_prompt_payload(surface: str, payload: Any, *, policy_table: dict | Non
 # ---------------------------------------------------------------------------
 L, I, N, F, C = (AssertionClass.LEGAL_PROVISION, AssertionClass.IDENTIFIER, AssertionClass.NAMED_SOURCE,
                  AssertionClass.FIGURE, AssertionClass.CODED_DESCRIPTOR)
+R = AssertionClass.LEGAL_REGISTER     # APPEALS-3: gated on every letter a user sends to a payer
 W, G, X = Tier.WITHHOLD, Tier.GATE, Tier.EXEMPT
 
 _NARRATIVE = {L: W, I: W, N: W, F: G, C: W}      # handed computed numbers, nothing else
@@ -455,8 +547,9 @@ _MAPPING = {L: X, I: X, N: X, F: X, C: X}        # emits no assertion class
 POLICY: dict[str, SurfacePolicy] = {
     # ---- Provider ----------------------------------------------------------
     "routers.provider_appeals::_gated_letter": SurfacePolicy(
-        {L: G, I: W, N: G, F: G, C: G}, "provider", fields=("letter_text", "letter_html", "cms_references", "appeal_strength_reason", "escalation_path", "attach_documentation"),
-        note="reference implementation; LEGAL via check_letter + allow-list; all six fields walked; NAMED/FIGURE bind to the prompt + prompt_data (prompt-typed material is TYPED and reviewed by the literal lint); CODED is UNCHECKED until a CPT table is held", wired=True),
+        {R: G, L: G, I: G, N: G, F: G, C: G}, "provider", fields=("letter_text", "letter_html", "cms_references", "attach_documentation"),
+        verify_citations=True,
+        note="APPEALS-3: LEGAL_REGISTER refused; LEGAL (section numbers) refused with the allow-list gone; IDENTIFIER verified by registry lookup + title match, UNCHECKED when a registry is silent; NAMED/FIGURE bind to the prompt + prompt_data; CODED is UNCHECKED until a CPT table is held. escalation_path / appeal_strength_reason no longer produced.", wired=True),
     "routers.provider_audit::extract_fee_schedule_pdf": SurfacePolicy(_EXTRACTION, "provider", note="P2", ignore_fields=_EXTRACTION_IGNORE, wired=True),
     "routers.provider_audit::extract_fee_schedule_text": SurfacePolicy(_EXTRACTION, "provider", note="P2", ignore_fields=_EXTRACTION_IGNORE, wired=True),
     "routers.provider_audit::extract_fee_schedule_image": SurfacePolicy(_EXTRACTION, "provider", note="P2; image -> UNCHECKED", ignore_fields=_EXTRACTION_IGNORE, wired=True),
@@ -483,7 +576,7 @@ POLICY: dict[str, SurfacePolicy] = {
     "routers.broker::broker_claims_upload": SurfacePolicy(_NARRATIVE, "broker", note="K1"),
     "routers.broker::broker_scorecard_upload": SurfacePolicy(_EXTRACTION, "broker", note="K2", ignore_fields=_EXTRACTION_IGNORE),
     "routers.broker::generate_caa_letter": SurfacePolicy(
-        {L: G, I: W, N: G, F: G, C: W}, "broker", fields=("letter",),
+        {R: G, L: G, I: W, N: G, F: G, C: W}, "broker", fields=("letter",),
         note="K3; allow-list empty until verify.law has a USC adapter; checked on the response so the template is gated too", wired=True),
     # ---- Health ------------------------------------------------------------
     "routers.health_analyze::analyze_text": SurfacePolicy(_EXTRACTION, "health", note="H1", ignore_fields=_EXTRACTION_IGNORE),
@@ -494,9 +587,10 @@ POLICY: dict[str, SurfacePolicy] = {
     "routers.health_analyze::analyze_sbc": SurfacePolicy(_EXTRACTION, "health", note="H2", ignore_fields=_EXTRACTION_IGNORE),
     "routers.health_analyze::analyze_denial": SurfacePolicy({L: G, I: G, N: G, F: G, C: X}, "health", note="H3: every verbatim field binds to the denial text"),
     "routers.health_analyze::_generate_appeal_result": SurfacePolicy(
-        {L: G, I: W, N: G, F: G, C: W}, "health", fields=("letter_text",),
+        {R: G, L: G, I: G, N: G, F: G, C: W}, "health", fields=("letter_text",),
         strict_identifier_kinds=frozenset({"doi", "pmid", "pmcid", "nct", "fda_pma", "journal_cite", "bare_pmid", "et_al"}),
-        note="H4: identifiers withheld (PH-4a.3); LEGAL gated with an empty allow-list; needs_revision withholds the PDF", wired=True),
+        verify_citations=True,
+        note="H4 + APPEALS-3: LEGAL_REGISTER refused; identifiers VERIFIED by lookup + title match (the body cites [n] keys and the code-built References carry the PMIDs; _validate_evidence_claims still refuses bare PMIDs the pack did not hand over); needs_revision withholds the PDF", wired=True),
     "routers.health_analyze::classify_document": SurfacePolicy(_MAPPING, "health", note="H5 exempt: document type only"),
     "routers.health_analyze::classify_text": SurfacePolicy(_MAPPING, "health", note="H5 exempt"),
     # ---- Signal (live) -----------------------------------------------------
@@ -528,6 +622,11 @@ POLICY: dict[str, SurfacePolicy] = {
 # Generic wrappers: they contain the SDK call but are not surfaces. A function
 # that calls one of these IS a surface. Adding a wrapper here is a policy
 # decision -- test_policy_discovery fails on an anthropic import anywhere else.
+# APPEALS-3: LEGAL_REGISTER is gated on the three letter surfaces above and exempt
+# everywhere else (extraction, narratives, Signal prose are not letters to a payer).
+for _p in POLICY.values():
+    _p.tiers.setdefault(R, X)
+
 WRAPPERS = {
     "routers.provider_shared::_call_claude",
     "routers.provider_shared::_call_claude_text",

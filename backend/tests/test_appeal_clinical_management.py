@@ -63,7 +63,10 @@ def test_evidence_block_indication_discipline_unchanged():
 # -- Task 3.1: preserved honesty rules still present (representative checks) --
 def test_preserved_honesty_rules_intact():
     p = APPEAL_SYSTEM_PROMPT
-    assert "The patient reserves all other appeal and external-review rights available under applicable federal and state law." in p
+    # APPEALS-3 (2026-09-17): the reservation-of-rights sentence is gone; the rights bullet
+    # now forbids it. tests/test_appeal_rights_deadlines.py carries the positive assertions.
+    assert "reserves all other appeal and external-review rights" not in p
+    assert "Do NOT add any reservation-of-rights sentence" in p
     assert "Never assume the provider is a physician." in p
     assert 'never turn "72 hours" into "3 days"' in p
     assert "Use __LETTER_DATE__ exactly once" in p

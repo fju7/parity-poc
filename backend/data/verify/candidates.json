@@ -1,5 +1,6 @@
 {
   "_schema": {
+    "status": "CLOSED 2026-09-17 (APPEALS-3, Fred's ruling): appeal letters cite evidence, never law. No letter path reads this table any more (verify/allowlist.py's prompt injection was removed); the twelve rows stay as the historical record of a review that was never commissioned. reviewed_by stays null on every row by design. See docs/legal-review/README.md.",
     "what": "The human-curated candidate table (design doc §5, §5a). One row = one provision counsel would actually reach for, for one denial code, in one state, for one payer type. The gates verify that a provision SAYS what the row claims and APPLIES; nothing verifies it is the RIGHT provision -- that is what curator, rationale and reviewed_by are for.",
     "rule": "A row enters a letter's allow-list ONLY when reviewed_by is set. Draft rows (reviewed_by null) are proposals: visible here, invisible to the gate. On 2026-09-14 every row is a draft, so every allow-list is empty and every letter cites nothing -- by design (§5b).",
     "columns": {

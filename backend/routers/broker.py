@@ -2407,16 +2407,21 @@ async def broker_scorecard_upload(
 # provider directory information" -- not the pharmacy-benefit reporting section.
 # The same failure as the provider appeal prompt on 2026-09-14: a plausible
 # citation, hardcoded, never checked. The letter now cites NO section, rule,
-# bulletin or U.S.C. number and names its authority in plain words. A specific
-# citation may return only through verify/allowlist.py once verify.law has a
-# U.S.C. adapter and a reviewed candidate row -- never by typing the "right"
-# section here from memory, which is the defect being removed.
-CAA_LETTER_SYSTEM_PROMPT = """You are a healthcare benefits consultant drafting a formal claims-data request letter on behalf of a plan sponsor, under the transparency provisions of the Consolidated Appropriations Act, 2021 (CAA).
+# bulletin or U.S.C. number and names its authority in plain words.
+#
+# APPEALS-3 (advisor ruling 2026-09-17, flagged for Fred to overturn): this is a DATA
+# REQUEST, not an appeal. The Consolidated Appropriations Act, 2021 may be NAMED as what
+# the request is made under; the letter no longer characterises duties ("the plan
+# sponsor's right to...", "the plan fiduciaries' duty to...") and no longer "constitutes a
+# formal request". The legal register is refused by the gate (verify.extract.LEGAL_REGISTER)
+# on this surface too. verify/allowlist.py is closed; no citation returns through it.
+CAA_LETTER_SYSTEM_PROMPT = """You are a healthcare benefits consultant drafting a claims-data request letter on behalf of a plan sponsor, made under the transparency provisions of the Consolidated Appropriations Act, 2021 (CAA).
 
 Write a professional data request letter. The letter must:
 
-1. State its basis GENERICALLY: the plan sponsor's right to its own plan's claims and cost data under the transparency provisions of the Consolidated Appropriations Act, 2021, and the plan fiduciaries' general duty to obtain the information needed to oversee the plan prudently.
-   CITATION RULE -- ABSOLUTE. Do NOT cite any statute section, code section, regulation section, agency bulletin, advisory opinion, rule number, or any other numbered legal reference, and do NOT name any statute, agency, department, or guidance document other than the Consolidated Appropriations Act, 2021 itself. No section symbols, no title-and-section numbers, no bulletin numbers, no dated guidance. Every such reference this system has produced was checked against the primary source and found wrong; a wrong citation in a letter to a carrier is worse than none. State the obligation in plain words instead.
+1. Say what the request is made under -- the transparency provisions of the Consolidated Appropriations Act, 2021 -- and what the plan sponsor needs the data for: to review the plan's costs and the services provided to it. Name the Act only as the basis of the request; do NOT characterise anyone's rights, duties, or obligations, and do NOT say what the Act or any law requires of the carrier.
+   CITATION RULE -- ABSOLUTE. Do NOT cite any statute section, code section, regulation section, agency bulletin, advisory opinion, rule number, or any other numbered legal reference, and do NOT name any statute, agency, department, or guidance document other than the Consolidated Appropriations Act, 2021 itself. No section symbols, no title-and-section numbers, no bulletin numbers, no dated guidance. Every such reference this system has produced was checked against the primary source and found wrong; a wrong citation in a letter to a carrier is worse than none.
+   Words not to use: "right", "duty", "fiduciary", "required", "obligated", "constitutes a formal", "demand", "legal", "regulation", "statute".
 2. Request the following specific data:
    (a) Complete 835 EDI remittance files for the current and prior plan year
    (b) Pharmacy claims data including NDC codes and any rebate credits applied
@@ -2451,9 +2456,9 @@ Plan Year: {plan_year}
 
 Dear Claims Department:
 
-This letter constitutes a formal request for plan-level claims data and cost information under the transparency provisions of the Consolidated Appropriations Act, 2021, and in support of the plan fiduciaries' duty to obtain the information needed to oversee the plan prudently.
+This letter requests plan-level claims data and cost information under the transparency provisions of the Consolidated Appropriations Act, 2021.
 
-As the broker of record for {company_name}, I am acting on behalf of the plan fiduciaries, who require this information to assess the reasonableness of the plan's costs and of the services provided to it.
+As the broker of record for {company_name}, I am writing on behalf of the plan sponsor, which needs this information to review the plan's costs and the services provided to it.
 
 We hereby request the following data for the current and prior plan year:
 

@@ -35,6 +35,7 @@ class AssertionClass(str, Enum):
     NAMED_SOURCE = "named_source"
     FIGURE = "figure"
     CODED_DESCRIPTOR = "coded_descriptor"
+    LEGAL_REGISTER = "legal_register"     # APPEALS-3: the register of counsel, not a citation
 
 
 @dataclass(frozen=True)
@@ -284,7 +285,65 @@ def extract_coded_descriptors(text: str) -> list[Candidate]:
 
 
 # ---------------------------------------------------------------------------
+# ---------------------------------------------------------------------------
+# LEGAL_REGISTER -- APPEALS-3 (Fred's ruling 2026-09-17). A letter argues on
+# evidence; it does not speak as counsel. The citation gate catches section
+# numbers and named statutes; it never caught "material breach", "we demand",
+# "reserves the right", "without regulatory basis" -- the register that made
+# ten letters read as if drafted by a lawyer while citing nothing. This is a
+# phrase lexicon, reviewed, small. Every entry is a refusal wherever the class
+# is gated; there is no binding that can rescue it. The regression corpus is
+# the exact strings quoted in the APPEALS-1 audit (tests/verify/test_legal_register.py).
+# Deliberately NOT here: "appeal", "external review", "appeal rights", "medical
+# policy", "criteria" -- a letter may repeat what the payer's own letter says.
+# ---------------------------------------------------------------------------
+LEGAL_REGISTER_LEXICON = {
+    # law as such
+    "statute":            r"\bstatut(?:e|es|ory|orily)\b",
+    "regulation":         r"\bregulat(?:ion|ions|ory)\b",
+    "case_law":           r"\bcase law\b|\bprecedent\b",
+    "under_applicable":   r"\bunder the applicable\b|\bapplicable (?:state|federal)\b",
+    # "under denial code CO-97" / "under the CPT code" are claim facts, not law: the nouns
+    # here are law-nouns only; code SECTIONS are the citation gate's business.
+    "under_law":          r"\b(?:under|pursuant to|in accordance with|as required by|consistent with)\b[^.\n]{0,60}\b(?:law|laws|statute|statutes|regulation|regulations|rule|rules|act)\b",
+    "fed_state_law":      r"\b(?:federal|state)(?: and (?:federal|state))? law\b",
+    "legal_word":         r"\blegal(?:ly)?\b|\bunlawful(?:ly)?\b|\blegislat\w*",
+    "counsel":            r"\battorney(?:s|-grade)?\b|\blegal counsel\b|\bcounsel\b|\blawyer\b|\blitigat\w*|\blawsuit\b",
+    # obligation / breach / threat
+    # an obligation laid on the payer ("the plan is required to", "you are obligated to"),
+    # not "the note is required to include" -- a documentation statement
+    "required_to":        r"\b(?:payer|plan|insurer|carrier|you|they|health plan|[A-Z][A-Za-z]+ Health Plan)\s+(?:is|are|was|were)\s+(?:legally\s+)?(?:required|obligated|obliged|bound)\s+to\b|\brequires? (?:payment|the payer|the plan|the insurer)\b",
+    "violat":             r"\bviolat(?:e|es|ed|ing|ion|ions)\b|\bnon-?compliance\b|\bnoncompliant\b",
+    "breach":             r"\bbreach(?:es|ed)?\b",
+    "reserve_rights":     r"\breserv(?:e|es|ed|ing)\s+(?:all|the|its|our|their|any|every)?\s*(?:other\s+)?[^.\n]{0,40}\brights?\b",
+    "demand":             r"\bdemand(?:s|ed|ing)?\b",
+    "no_basis":           r"\bwithout (?:contractual|regulatory|legal|statutory)(?: or (?:contractual|regulatory|legal|statutory))? basis\b",
+    "prompt_pay":         r"\bprompt[- ]pay(?:ment)?\b",
+    "formal_constitutes": r"\bconstitutes? a formal\b",
+    "corrective_action":  r"\bpursue (?:corrective|legal|further) action\b|\bcorrective action\b",
+    "necessitate":        r"\bnecessitate\b",
+    "grounds":            r"\b(?:not|no|without) (?:valid )?grounds\b|\bgrounds for denial\b",
+    "rights_assert":      r"\b(?:exercis\w+|assert\w*|knows?|know) (?:its|their|our|his|her) rights?\b|\bright to appeal\b|\bentitled to\b",
+    "regulator":          r"\bregulator\b|\binsurance commissioner\b|\bdepartment of insurance\b|\bstate insurance department\b",
+    "complaint":          r"\b(?:file|filing|lodge|lodging) a complaint\b|\bcomplaint (?:to|with) (?:the )?(?:state|insurance|regulator)",
+    "arbitration":        r"\barbitrat\w*",
+    "fiduciary":          r"\bfiduciar(?:y|ies)\b|\bduty to\b|\bduties\b",
+    "legal_basis":        r"\blegal/regulatory basis\b|\b(?:legal|regulatory|statutory) basis\b",
+    "dispute_resolution": r"\bdispute resolution process\b",
+}
+_REGISTER_RX = {k: re.compile(v, re.I) for k, v in LEGAL_REGISTER_LEXICON.items()}
+
+
+def extract_legal_register(text: str) -> list[Candidate]:
+    out = []
+    for term, rx in _REGISTER_RX.items():
+        for m in rx.finditer(text or ""):
+            out.append(Candidate(AssertionClass.LEGAL_REGISTER, m.group(0), m.start(), m.end(), term, term))
+    return _dedupe(out)
+
+
 EXTRACTORS = {
+    AssertionClass.LEGAL_REGISTER: extract_legal_register,
     AssertionClass.LEGAL_PROVISION: extract_legal,
     AssertionClass.IDENTIFIER: extract_identifiers,
     AssertionClass.NAMED_SOURCE: extract_named_sources,

@@ -63,11 +63,14 @@ def test_a_reviewed_row_admits_its_provision_and_only_for_true_numbers():
     assert [c.text for c in check_letter(LETTER_CITING_38, allowed)] == ["Revised Code § 3901.38"]
 
 
-def test_prompt_block_is_empty_when_the_list_is():
-    assert allowlist.prompt_block([]) == ""
-    allowed, _ = allowlist.build("OH", "commercial", "CO-45", include_drafts=True)
-    block = allowlist.prompt_block(allowed)
-    assert "PERMITTED CITATIONS" in block and "3901.389" in block and "eighteen per cent" in block.lower()
+def test_prompt_injection_path_is_gone():
+    """APPEALS-3 (2026-09-17): no statutory text reaches a model from the allow-list, and no
+    letter surface imports the module."""
+    assert not hasattr(allowlist, "prompt_block")
+    import routers.provider_appeals as pa
+    assert not hasattr(pa, "build_allowlist") and not hasattr(pa, "prompt_block")
+    src = open(pa.__file__, encoding="utf-8").read()
+    assert "PERMITTED CITATIONS" not in src
 
 
 def test_an_unsupported_state_gets_nothing():

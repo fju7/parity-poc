@@ -55,24 +55,29 @@ def test_letter_prompt_deadline_literal_wording_no_conversion():
     assert "do NOT invent a timeframe the denial did not state" in p
 
 
-# -- Task 3: letter states only denial-named rights + ONE general reservation clause --
-def test_letter_prompt_rights_and_single_reservation_clause():
+# -- Task 3, rewritten under APPEALS-3 (Fred's ruling 2026-09-17): the letter names appeal /
+# external-review options ONLY as the denial states them, and carries NO reservation-of-rights
+# sentence and NO "right to appeal" phrasing. The legal register is refused by the gate. --
+def test_letter_prompt_rights_only_as_denial_states_them_no_reservation():
     p = APPEAL_SYSTEM_PROMPT
-    assert "in the denial's own words, adding nothing" in p
-    assert "Do NOT add appeal rights, statutes, programs, or agencies that are not listed there" in p
-    reservation = ("The patient reserves all other appeal and external-review rights "
-                   "available under applicable federal and state law.")
-    assert reservation in p
-    assert "exactly ONE general reservation sentence" in p
-    # empty appeal_rights -> generic appeal + the SAME single reservation sentence, no invented rights
-    assert "do not invent rights (no specific statutes, programs, or agencies)" in p
-    assert "followed by that same single general reservation sentence" in p
+    assert "in the denial's own words, as facts about what the denial letter says" in p
+    assert "Do NOT add options, statutes, programs, or agencies that are not listed there" in p
+    assert "Do NOT add any reservation-of-rights sentence" in p
+    assert "do NOT describe the appeal as the exercise of a right" in p
+    # the old sentence and the old phrasing are gone from the prompt
+    assert "reserves all other appeal and external-review rights" not in p
+    assert "under applicable federal and state law" not in p
+    assert "exercising their right to appeal" not in p
+    # the sentence the letter is told to write when the denial names no options clears the register gate
+    from verify.extract import extract_legal_register
+    assert extract_legal_register("The patient is appealing this determination and asks for it to be reconsidered.") == []
+    # and the old sentence does not
+    assert extract_legal_register("The patient reserves all other appeal and external-review rights "
+                                  "available under applicable federal and state law.") != []
 
 
-# -- Task 3.2: reservation wording flagged in a code comment for attorney review --
-def test_reservation_clause_flagged_for_legal_review():
+# -- Task 3.2, rewritten: no attorney review is pending; the code says so --
+def test_no_legal_review_pending():
     src = open(health_analyze.__file__, encoding="utf-8").read()
-    assert "LEGAL REVIEW PENDING" in src
-    # the flag names the reservation clause and marks the wording as a pending placeholder
-    assert "reservation-of-rights clause" in src
-    assert "pending attorney review" in src
+    assert "LEGAL REVIEW PENDING" not in src
+    assert "No attorney review is pending" in src

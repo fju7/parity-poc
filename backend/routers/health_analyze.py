@@ -650,13 +650,12 @@ def analyze_denial(req: DenialAnalyzeRequest):
 # POST /api/health/generate-appeal
 # ---------------------------------------------------------------------------
 
-# LEGAL REVIEW PENDING -- reservation-of-rights clause: the appeal-rights bullet below
-# instructs the letter to add ONE general reservation sentence. Interim default wording:
-#   "The patient reserves all other appeal and external-review rights available under
-#    applicable federal and state law."
-# This exact wording is a placeholder pending attorney review. When finalized, update it
-# both here and in the appeal-rights bullet inside APPEAL_SYSTEM_PROMPT below.
-APPEAL_SYSTEM_PROMPT = """You are a medical billing advocate writing a formal insurance appeal letter on behalf of a patient. Using the denial analysis provided, write a professional, assertive appeal letter that:
+# APPEALS-3 (Fred's ruling 2026-09-17): the letter rests on evidence and argument only. The
+# reservation-of-rights sentence that lived here from PH ("...rights available under
+# applicable federal and state law") and the "exercising their right to appeal" phrasing
+# were removed; the legal register is now refused by the gate (verify.extract.LEGAL_REGISTER),
+# so a draft that re-introduces it is not returned. No attorney review is pending.
+APPEAL_SYSTEM_PROMPT = """You are a medical billing advocate writing a formal insurance appeal letter on behalf of a patient. Using the denial analysis provided, write a professional, clear appeal letter that:
 - Opens with the specific claim/denial reference
 - States clearly that the patient is appealing the denial
 - Directly addresses the specific criterion the carrier cited
@@ -677,7 +676,8 @@ APPEAL_SYSTEM_PROMPT = """You are a medical billing advocate writing a formal in
 - The denial analysis uses placeholder tokens for the patient's identifying details: __PATIENT_NAME__ for the patient's name, __MEMBER_ID__ for the member ID, __CLAIM_NUMBER__ for the claim number, and __PATIENT_ADDRESS__ for the patient's address. Write these tokens verbatim wherever that information belongs in the letter (letterhead, the RE/subject block, the signature). Do NOT invent or guess a real name, ID, claim number, or address. Our system substitutes the real values after the letter is written.
 - Do NOT assert any external regulatory status, approval, clearance, designation (including Breakthrough Device designation, Priority Review, or any similar program), endorsement, coverage determination, or clinical guideline position from any agency or body (for example the FDA, CMS, NCCN, ASCO, ESMO, or NICE) unless that specific fact is supported by a provided bracketed [number] citation, and then only as far as that cited item's stated indication supports. Do NOT characterize what such a status, designation, or program means or implies, and do NOT claim that any body has endorsed, incorporated, approved, cleared, or recommended the service, unless a provided [number] citation states it. Do NOT state or imply that the ordering provider will supply, identify, or submit guideline or regulatory references; the ordering provider decides independently what to submit, and the letter must not assume it.
 - Describe or rely on each cited source ONLY as far as that source's title and stated indication actually establish. Do NOT assert that a source addresses a topic, method, or finding that its stated title or indication does not establish (for example, do NOT claim a treatment guideline addresses MRD or ctDNA monitoring unless the source's own stated title or indication says so). If a cited source's stated indication does not match this patient's diagnosis or disease stage (for example, a source about metastatic disease, or about a different cancer type, when this patient's cancer is non-metastatic or a different type), do NOT present that source as directly supporting this patient's specific situation. You may still cite such a source for the general class of test or method it describes, but you must state that its applicability to this patient's specific diagnosis and stage is for the ordering provider to establish. When you are not certain that a source supports a claim, do NOT make the claim.
-- State the patient's appeal rights using ONLY the rights and external-review options named in the denial analysis (the appeal_rights field), in the denial's own words, adding nothing. Do NOT add appeal rights, statutes, programs, or agencies that are not listed there, and do NOT assert that a particular right applies unless the denial stated it. Do not characterize which rights apply based on the patient's plan type. Then include exactly ONE general reservation sentence, to preserve the patient's remaining rights WITHOUT listing them: "The patient reserves all other appeal and external-review rights available under applicable federal and state law." If appeal_rights is empty, do not invent rights (no specific statutes, programs, or agencies); simply state that the patient is exercising their right to appeal this determination, followed by that same single general reservation sentence.
+- Refer to the appeal and external-review options ONLY as the denial itself names them (the appeal_rights field), in the denial's own words, as facts about what the denial letter says. Do NOT add options, statutes, programs, or agencies that are not listed there, and do NOT assert that any option applies unless the denial stated it. Do not characterize which options apply based on the patient's plan type. Do NOT add any reservation-of-rights sentence, and do NOT describe the appeal as the exercise of a right. If appeal_rights is empty, say nothing about rights or options: simply state that the patient is appealing this determination and asks for it to be reconsidered.
+- Write NOTHING in the register of a lawyer. Do not use: "demand", "reserves the right", "breach", "violate", "statute", "regulation", "legal", "under applicable law", "required to", "grounds", "regulator", "complaint", "attorney". The letter argues from the denial's own words, the clinical facts you were given, and the cited evidence; it makes no claim about what any law requires.
 
 Punctuation rule: Do not use em-dashes (—) or en-dashes (–) anywhere in the letter. Write in complete, direct sentences. Where you would use a dash, use a period, comma, colon, or parentheses as appropriate.
 
@@ -686,7 +686,7 @@ Writing style:
 - Do not open sentences with throat-clearing like "We respectfully request", "We draw the reviewer's attention to", or "It is important to note". State the point directly.
 - Avoid summary constructions that cram three or more items into a single sentence set off by dashes or colons (for example, "Taken together, this body of evidence, A, B, C, and D, demonstrates..."). If you must summarize, use a short plain sentence.
 - Prefer concrete statements over abstract ones. Instead of "does not reflect the current state of the evidence", say specifically what the evidence shows.
-- Keep all clinical and regulatory terminology. The reader is a physician reviewer; precision is persuasive. Do not simplify medical or legal terms.
+- Keep clinical terminology precise. The reader is a physician reviewer; precision is persuasive. Do not simplify medical terms.
 - Maintain a professional, respectful, firm tone. Confident, not aggressive. Never overstate what the evidence proves; stay within each item's stated indication.
 
 Return only the letter text, no explanation or commentary."""
@@ -1507,9 +1507,18 @@ def _generate_appeal_result(req: AppealGenerateRequest) -> dict:
     # and the body has the identifier tokens, not the values. --
     from verify.policy import check as _policy_check, held_for_prompt as _held
     from verify.types import Document as _VDoc, Identifier as _VId
+    # The gate sees the DE-IDENTIFIED body: the four patient identifiers were substituted
+    # back in by _validate_letter, and a street number ("1 Test Street") or an id's digits
+    # are not figures the model asserted -- they are values the model was never given.
+    # Found 2026-09-17 on the APPEALS-3 test letter: two refusals on the house number.
+    _body_for_gate = body
+    for _field, _token in IDENTIFIER_TOKENS.items():
+        _real = da.get(_field)
+        if _real and str(_real).strip():
+            _body_for_gate = _body_for_gate.replace(str(_real).strip(), _token)
     _verdict = _policy_check(
         "routers.health_analyze::_generate_appeal_result",
-        {"letter_text": body},
+        {"letter_text": _body_for_gate},
         _held(None, da_model, documents=[_VDoc(_VId("url", "evidence_block"), "", evidence["model_block"], kind="record")]),
     )
     if not _verdict.ok:
@@ -1527,10 +1536,33 @@ def _generate_appeal_result(req: AppealGenerateRequest) -> dict:
     if references_render:
         final_letter = body_render.rstrip() + "\n\nReferences\n" + references_render
 
+    # -- APPEALS-3 (2026-09-17): every literature identifier the letter CARRIES -- the
+    # code-built References -- is verified by registry lookup and the record's title must
+    # match the reference line it sits in (verify/evidence.py). A fabricated or
+    # mis-attached reference discredits the whole appeal, so it is a refusal; a registry
+    # that does not answer leaves the reference UNVERIFIED (ok=None), which withholds the
+    # sendable artifact the same way -- silence is never a pass. Run on the References
+    # text alone so the FIGURE class is not re-bound against lines the model never saw. --
+    from verify.extract import AssertionClass as _AC
+    if references_render:
+        from verify.evidence import verify_all as _verify_all
+        from verify.policy import Finding as _Finding
+        from verify.evidence import RESOLVABLE as _RESOLVABLE
+        for _c, _ok, _reason in _verify_all(references_render):
+            if _c.kind not in _RESOLVABLE:
+                continue      # "et al." and volume:page shapes sit beside the PMID; the PMID is what is verified
+            _verdict.findings.append(_Finding(_AC.IDENTIFIER, "references", _c.text, _ok, "bound", _reason,
+                                              severity="unchecked" if _ok is None else "refuse", kind=_c.kind))
+        if _verdict.unchecked:
+            print("[health/generate-appeal] EVIDENCE UNVERIFIED (registry silent): "
+                  + json.dumps([f.to_dict() for f in _verdict.unchecked])[:600])
+
     reviewer_checklist = _build_reviewer_checklist(
         evidence, evidence_validation, [evidence_note] if evidence_note else []
     )
-    needs_revision = (not evidence_validation["citations_ok"]) or (not _verdict.ok)
+    # not `_verdict.ok`: an UNVERIFIED reference is not sendable either (APPEALS-3 item 8);
+    # other UNCHECKED classes do not withhold the letter
+    needs_revision = (not evidence_validation["citations_ok"]) or (not _verdict.evidence_verified)
 
     # A needs_revision verdict MARKS the letter and WITHHOLDS the sendable
     # artifact: the PDF endpoint refuses (422) when sendable is False, and the
@@ -1545,7 +1577,8 @@ def _generate_appeal_result(req: AppealGenerateRequest) -> dict:
         "needs_revision": needs_revision,
         "sendable": not needs_revision,
         "withheld_reasons": (evidence_validation["hard_failures"]
-                             + [f"{f.text}: {f.reason}" for f in _verdict.refusals]) if needs_revision else [],
+                             + [f"{f.text}: {f.reason}" for f in _verdict.refusals]
+                             + [f"{f.text}: UNVERIFIED — {f.reason}" for f in _verdict.unchecked if f.cls is _AC.IDENTIFIER]) if needs_revision else [],
         "status": "needs_revision" if needs_revision else "draft — human review required before sending",
     }
 

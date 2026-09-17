@@ -106,10 +106,17 @@ def test_qa_answer_binds_a_doi_it_was_handed():
 
 
 @pytest.mark.parametrize("doi", FABRICATED_DOIS[:5])
-def test_health_letter_withholds_identifiers_a_doi_in_the_body_is_refused(doi):
+def test_health_letter_verifies_identifiers_a_fabricated_doi_in_the_body_is_refused_or_unverified(doi):
+    """APPEALS-3: identifiers are VERIFIED by lookup, not withheld. A fabricated DOI is
+    refused when the Handle registry answers; when it does not, the citation is UNVERIFIED
+    and the letter is not `verified` either -- silence is never a pass."""
     v = check("routers.health_analyze::_generate_appeal_result",
               {"letter_text": f"Published evidence (doi:{doi}) supports this test."}, Held())
-    assert not v.ok and any(f.cls is A.IDENTIFIER and f.mode == "absent" for f in v.refusals)
+    assert not v.verified
+    idf = [f for f in v.findings if f.cls is A.IDENTIFIER and f.kind == "doi"]
+    assert idf and idf[0].mode == "bound" and idf[0].ok in (False, None)
+    if idf[0].ok is False:
+        assert "does not exist" in idf[0].reason
 
 
 def test_health_letter_refuses_the_monaleesa_pmid_and_a_bare_one():
@@ -125,7 +132,9 @@ def test_provider_letter_flags_but_does_not_refuse_a_bare_8_digit_claim_id():
 
 
 def test_prompt_payload_check_catches_an_identifier_handed_to_a_withheld_surface():
-    fs = check_prompt_payload("routers.health_analyze::_generate_appeal_result",
+    # APPEALS-3 moved the health letter's IDENTIFIER tier to GATE (verified by lookup); the
+    # denial-analysis narrative still withholds identifiers, so it carries this check now.
+    fs = check_prompt_payload("routers.provider_audit::analyze_denials",
                               {"evidence": "[E1] Peer-reviewed study: MRD detection (2023). PMID 31562796."})
     assert fs and fs[0].reason.startswith("withheld class present in the PROMPT PAYLOAD")
 

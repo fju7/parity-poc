@@ -1,13 +1,18 @@
-"""The allow-list: which provisions THIS letter may cite, and their fetched text.
+"""The allow-list -- CLOSED 2026-09-17 (APPEALS-3, Fred's ruling): appeal letters cite
+EVIDENCE, never LAW. No letter path calls this module any more; the prompt-injection
+half (prompt_block) is gone, so no statutory text can be handed to the model from here.
 
-Design doc §5. Built per request from the curated candidate table
-(backend/data/verify/candidates.json): rows for the practice's state, the
-payer type and the denial code, **only where reviewed_by is set**, each
-resolved, fetched and bound (HEADING, APPLICABILITY) with the row's own
-characterisation. A row that fails is not in the list, with the reason kept.
+What remains is the read side over the curated candidate table
+(backend/data/verify/candidates.json) -- twelve Ohio rows drafted 2026-09-14, all
+`reviewed_by: null`, kept as a historical record with the review that was never
+commissioned (docs/legal-review/README.md). build() still resolves/fetches/binds a row so
+the record can be re-checked; nothing downstream consumes the result. Evidence citations
+(PMID/DOI/NCT, the payer's own documents, the patient's record) never flowed through
+here; they are verified in verify/evidence.py.
 
-An empty list is the normal case today and the intended case for any state
-without reviewed rows (§5b): the letter cites nothing. The list only grows.
+Design doc §5 described the original intent: rows for the practice's state, the payer
+type and the denial code, only where reviewed_by is set, each resolved, fetched and
+bound (HEADING, APPLICABILITY) with the row's own characterisation.
 """
 from __future__ import annotations
 
@@ -71,17 +76,3 @@ def build(state: str | None, payer_type: str, denial_code: str, *, include_draft
             rejected.append(Rejected(row, "; ".join(f"{b.kind.value}: {b.reason}" for b in bs if not b.ok))); continue
         allowed.append(Allowed(row, ident, res, doc, doc.text[:excerpt_chars]))
     return allowed, rejected
-
-
-def prompt_block(allowed: list[Allowed]) -> str:
-    """The text handed to the model when the list is not empty. Absent otherwise."""
-    if not allowed:
-        return ""
-    parts = ["PERMITTED CITATIONS. You may cite ONLY the provisions below, by the exact citation "
-             "string given, and only for what the excerpt supports. Any other statute, rule, CFR, "
-             "manual or section number is forbidden; the letter will be refused if one appears."]
-    for a in allowed:
-        parts.append(f"\n[{a.row['cite']}] — {a.resolution.heading}\n"
-                     f"You may assert: {a.row['may_assert']}\n"
-                     f"Excerpt: {a.excerpt}")
-    return "\n".join(parts)

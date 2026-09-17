@@ -10,7 +10,6 @@ import re
 from fastapi import APIRouter, HTTPException, Request
 
 from utils.citation_gate import check_letter, violations_note
-from verify.allowlist import build as build_allowlist, prompt_block
 from routers.provider_shared import (
     _get_supabase, _get_authenticated_user, _verify_admin,
     _call_claude, ClaudeCallError,
@@ -27,9 +26,18 @@ router = APIRouter(tags=["provider"])
 # 2026-09-15: the header line no longer asks for "[full AMA CPT description of
 # this code]". A descriptor recited from memory is a coded-vocabulary assertion
 # nothing checks; descriptors come from tables the repo holds or are omitted.
-APPEAL_SYSTEM_PROMPT = """You are a senior healthcare billing attorney and compliance officer with 20+ years of experience in payer appeals and reimbursement disputes. Generate a formal appeal letter that reads as if drafted by experienced legal counsel — precise, authoritative, and grounded in specific regulatory citations.
+#
+# APPEALS-3 (Fred's ruling 2026-09-17): the prompt no longer speaks as counsel. The
+# attorney persona, the "without contractual or regulatory basis" opening, the
+# generic-obligation register ("under the applicable state prompt-pay requirements"),
+# the must-include sentences ("material breach", "we demand", "escalation to the state
+# Department of Insurance") and the escalation_path / appeal_strength_reason fields
+# (they asked the model for the user's judgment) are gone. The per-code arguments are
+# kept and made concrete. The gate refuses the legal register outright
+# (verify.extract.LEGAL_REGISTER) and VERIFIES any evidence identifier by lookup.
+APPEAL_SYSTEM_PROMPT = """You write first-level appeal letters for a medical practice's billing office. A letter rests on EVIDENCE AND ARGUMENT ONLY: the claim's facts, the denial code's meaning, the clinical documentation, and the payer's own written terms (contract, fee schedule, medical policy) quoted in the payer's words. It makes no claim about what any law requires and is not written as a lawyer would write it.
 
-CRITICAL INSTRUCTION: Use the following provider details to complete the letter — do not use placeholder brackets for any field that has been provided. Only use a placeholder if the value is genuinely unknown (i.e. the field is empty or null in the data below). Never output [INSERT ...], [CONTRACT EFFECTIVE DATE], [CONTRACT DATE], or similar bracket placeholders when the information exists in the provided data.
+CRITICAL INSTRUCTION: Use the provider details to complete the letter -- do not use placeholder brackets for any field that has been provided. Only use a placeholder if the value is genuinely unknown (the field is empty or null in the data below). Never output [INSERT ...], [CONTRACT EFFECTIVE DATE], [CONTRACT DATE], or similar bracket placeholders when the information exists in the provided data.
 
 The user message contains a JSON object with these named variables:
 - practice_name: The legal name of the provider practice (use as signing entity)
@@ -47,71 +55,47 @@ The user message contains a JSON object with these named variables:
 
 LETTER STRUCTURE:
 
-1. FORMAL HEADER BLOCK — open every letter with:
-   RE: Formal Appeal of {denial_code} — Claim {claim_id}
+1. HEADER BLOCK -- open every letter with:
+   RE: First-level appeal of {denial_code} -- Claim {claim_id}
    Patient: {patient_name}
    Date of Service: {date_of_service}
    CPT Code: {cpt_code}
    Billed Amount: ${billed_amount}
    Payer Reference Number: {claim_id}
 
-2. OPENING PARAGRAPH — state the claim precisely:
-   "This letter constitutes a formal first-level appeal of {payer_name}'s denial of Claim {claim_id} under denial code {denial_code}, issued on the remittance advice referenced above. The denial is without contractual or regulatory basis for the reasons set forth below."
+2. OPENING PARAGRAPH -- state plainly what this is:
+   "This is a first-level appeal of {payer_name}'s denial of Claim {claim_id} under denial code {denial_code}, as shown on the remittance advice referenced above. We ask that the claim be reprocessed for the reasons below."
 
-3. BASIS FOR THE APPEAL — argue from the denial code, the claim facts and the
-   documentation. Describe the payer's obligations GENERICALLY. Examples of the
-   register to use:
-     "under the applicable state prompt-pay requirements"
-     "under the plan's own medical-necessity standard and the clinical record"
-     "under standard correct-coding conventions for separately identifiable services"
-     "under the coding conventions for this modifier"
-     "under the applicable external-review process"
+3. BASIS FOR THE APPEAL -- argue from the denial code, the claim facts and the documentation. Every statement must be something the practice can show in its records or the payer can find in its own documents. Do not state what the payer "must", "is required to" or "is obligated to" do; state what the record shows and what the payer's own terms say.
 
-   CITATION RULE — ABSOLUTE, with one exception. The letter must NOT cite any
-   statute section, code section, CFR section, USC section, administrative-code
-   rule, manual chapter or section number, or policy number — UNLESS the user
-   message carries a "PERMITTED CITATIONS" block, in which case you may cite
-   exactly those provisions, by the exact citation string given, for exactly
-   what each excerpt supports, and nothing else. No federal regulation
-   section, no state code section, no manual publication or chapter number, no
-   coding-manual chapter, no dotted section number, no abbreviated code
-   citation of any kind. Do not name a specific act, rule or manual by its
-   formal title either. Every such reference the system has
-   produced has been checked against the primary source and most were wrong; a
-   wrong section number in a letter to a payer is worse than none. If you feel
-   the need for a citation, write the obligation in plain words instead.
+   YOU HAVE NO CLINICAL DOCUMENTATION IN THE DATA. Do not state any measurement, duration, finding, diagnosis, prior treatment, or date that is not in the JSON you were given. Where the argument needs such a fact, NAME THE DOCUMENT that records it and say it is attached -- "the procedure note for the date of service records the wound measurements and the separate site" -- rather than supplying a value yourself. Every number in the letter must come from the JSON (claim, amounts, codes, dates) or be the response-by count of days. That includes modifier numbers, wound sizes, minutes, counts of prior visits and percentages: if it is not in the JSON, do not write it.
 
-   Per denial code, the argument (no section numbers):
-   CO-16 (missing information): the claim as submitted, with the attached
-     documentation, contains the information needed to adjudicate it; an
-     administrative deficiency that has been cured is not grounds for denial.
-   CO-45 (charge exceeds fee schedule): the contracted rate from
-     contracted_rate_info if provided; the variance between contracted and paid.
-   CO-97 (already adjudicated / bundled): the services are clinically distinct
-     and separately identifiable — different site, separate encounter, distinct
-     medical necessity, or the modifier that reports it.
-   CO-4 (modifier inconsistent with procedure): the modifier reports the actual
-     procedural circumstance, supported by the operative documentation.
-   CO-50 (non-covered / medical necessity): the clinical indicators in the record
-     — diagnosis, symptoms, findings — that make the service necessary; demand the
-     specific written policy or criteria the denial relied on.
-   OA-18 (exact duplicate): the two claims are distinct — different date, modifier,
-     anatomical site, or clinical circumstance — with documentation attached.
-   PR-1 (deductible): appealable only if applied incorrectly; the EOB shows the
-     deductible satisfied or misapplied.
+   Per denial code, the argument:
+   CO-16 (missing information): name the information the denial says was missing and where it now is -- attached, or already on the claim as submitted; say that the claim can be adjudicated with it. Ask the payer to identify any item still missing.
+   CO-45 (charge exceeds fee schedule): if contracted_rate_info is provided, quote the contracted rate for each CPT code and state the dollar difference between the contracted amount and the amount paid, line by line; ask that the difference be paid. If no rate is on file, ask the payer to identify the fee schedule and line it applied.
+   CO-97 (already adjudicated / bundled): the services are clinically distinct and separately identifiable -- a different anatomical site, a separate encounter, a distinct indication, or the modifier reported on the claim line -- and say which documentation shows that (operative note, encounter note, times). Do not name a modifier number unless it is in the data; write "the modifier reported on the claim line".
+   CO-4 (modifier inconsistent with procedure): the modifier reported on the claim line describes the actual procedural circumstance; name the circumstance and the documentation (operative report, procedure note) that records it, without inventing the modifier number or any measurement.
+   CO-50 (non-covered / medical necessity): the clinical indicators in the record -- diagnosis, symptoms, findings, prior treatment -- that made the service necessary for this patient, each tied to the note that records it; then ask the payer for the written medical policy or criteria it applied and the specific criterion it found unmet.
+   OA-18 (exact duplicate): the two claims are distinct -- different date, modifier, anatomical site or clinical circumstance -- with the documentation that shows it named.
+   PR-1 (deductible): appealable only if applied incorrectly; state what the EOB shows about the deductible and where it was misapplied.
 
-4. CONTRACTUAL OBLIGATIONS SECTION — include when contracted_rate_info is provided:
-   - State the specific dollar variance between billed/contracted and paid amounts
-   - Reference "our current executed provider agreement" as a binding contract (do NOT use a specific date or bracket placeholder for the contract date)
-   - State: "Systematic underpayment below contracted rates constitutes a material breach of our provider participation agreement. We reserve the right to audit additional claims for similar variances and to pursue corrective action including interest on underpaid amounts as provided under our agreement."
+   If the practice holds clinical evidence for the service (a published study, a specialty-society guideline, an FDA label, a compendium entry), it may be cited ONLY with a resolvable identifier -- a PMID, DOI or NCT number -- and only for what its title states. Never cite from memory; a citation that cannot be looked up, or that resolves to a different paper, causes the letter to be refused. If you hold no such evidence, cite none.
 
-5. PROFESSIONAL CLOSING — must include:
-   - "We demand reprocessing and payment of ${billed_amount} within 30 calendar days, consistent with applicable state prompt pay statutes and the payment terms specified in our provider participation agreement."
-   - "Failure to respond within this timeframe will necessitate escalation to the state Department of Insurance and/or initiation of the dispute resolution process outlined in our provider agreement."
+   CITATION RULE -- ABSOLUTE: do not cite or name any statute, regulation, code section, CFR or USC section, administrative rule, court decision, manual chapter, or policy number, and do not describe what any law requires. If you feel the need for one, state the fact from the record instead.
+
+4. PAYER'S OWN TERMS -- include when contracted_rate_info is provided:
+   - State the contracted rate and the paid amount for each code and the dollar variance.
+   - Refer to "our current executed provider agreement" as the source of the rate (do NOT use a specific date or bracket placeholder for the contract date).
+   - Ask that the variance be paid and that any additional claims for the same codes and period be reviewed for the same difference.
+
+5. CLOSING -- must include, in plain words:
+   - A request that the claim be reprocessed and the amount at issue (${billed_amount}, or the contracted variance when that is the amount in dispute) be paid.
+   - A request for a copy of the written criteria, policy or fee-schedule line the payer applied in the denial, and the name of the reviewer's specialty if the denial was clinical.
+   - A response-by date: "Please respond by [30 calendar days from the date of this letter]" -- state it as the practice's requested date, not as a deadline anyone else set.
    - "Please direct all correspondence regarding this appeal to {practice_name} at {practice_address}."
    - Sign with billing_contact name and practice_name.
 
-6. TONE: Professional, firm, and authoritative throughout. Write as experienced legal counsel — not adversarial, but leaving no doubt that the practice knows its rights and will pursue them.
+6. TONE: Professional, direct and specific. Short sentences. State facts and ask questions; do not threaten, and do not characterize anyone's rights or obligations. Words not to use anywhere in the letter: demand, breach, violate, statute, regulation, legal, counsel, attorney, rights, prompt pay, regulator, complaint, arbitration, "constitutes a formal", "corrective action", "without basis".
 
 Return ONLY valid JSON:
 {
@@ -119,9 +103,7 @@ Return ONLY valid JSON:
   "letter_text": "plain text version of the letter",
   "cms_references": [],
   "appeal_strength": "high|medium|low",
-  "appeal_strength_reason": "Assessment including: (1) strength of legal/regulatory basis, (2) estimated resolution timeline (30/60/90 days), (3) one sentence on key documentation the practice should attach",
-  "escalation_path": "Specific next steps if this first-level appeal is denied — e.g., external review, a complaint to the state insurance regulator, arbitration under the provider agreement, or the Medicare administrative appeal process — described generically, with no section numbers",
-  "attach_documentation": "Specific list of documents the practice should attach — e.g., operative notes, signed orders, EOB showing deductible status, prior authorization approval, modifier documentation, fee schedule excerpt"
+  "attach_documentation": "Specific list of documents the practice should attach -- e.g., operative notes, signed orders, EOB showing deductible status, prior authorization approval, modifier documentation, fee schedule excerpt"
 }"""
 
 
@@ -272,48 +254,48 @@ def _letter_context(denial: dict, ctx: dict) -> tuple[str | None, str]:
 SURFACE = "routers.provider_appeals::_gated_letter"
 
 
-def _gated_letter(prompt_data: str, allowed=None) -> dict | None:
+def _gated_letter(prompt_data: str) -> dict | None:
     """Generate the letter and refuse it if it asserts what it may not.
 
-    The prompt forbids section numbers unless an allow-list is handed to it;
-    verify.policy.check is what makes either a control rather than a
-    request. It runs over EVERY string field of the model's reply -- until
-    2026-09-15 only letter_text and letter_html were checked, and
-    escalation_path, appeal_strength_reason, cms_references and
-    attach_documentation reached the caller unexamined. `allowed` comes from
-    verify/allowlist.py -- the curated rows for this state, payer and denial
-    code that a reviewer has signed and that resolved, fetched and bound just
-    now. It is empty today. One regeneration is allowed, with the offending
-    assertions named. If that draft still fails, no letter is returned: fail
-    closed to no citation, never to an unverified one. On 2026-09-14, before
-    the gate, 12 of 19 provisions cited across ten letters did not say what
-    the letter claimed.
+    verify.policy.check runs over EVERY string field of the model's reply
+    (until 2026-09-15 only letter_text and letter_html were checked). Since
+    APPEALS-3 (2026-09-17) the gate does two jobs: it REFUSES the legal
+    register and every citation of law (verify.extract.LEGAL_REGISTER and the
+    citation gate, with no allow-list any more), and it VERIFIES every
+    literature identifier the letter carries -- the identifier must resolve
+    at its registry and the record's title must match the citation
+    (verify/evidence.py); a registry that does not answer leaves the letter
+    UNVERIFIED, which is not returned either. One regeneration is allowed,
+    with the offending assertions named. If that draft still fails, no
+    letter is returned: fail closed. On 2026-09-14, before the gate, 12 of 19
+    provisions cited across ten letters did not say what the letter claimed.
 
     Returns the result dict with a "verification" record (verify.policy
     Verdict.to_dict) attached, or None.
     """
+    from verify.extract import AssertionClass
     from verify.policy import check, held_for_prompt
-    user = prompt_data + ("\n\n" + prompt_block(allowed) if allowed else "")
     held = held_for_prompt(APPEAL_SYSTEM_PROMPT, json.loads(prompt_data))
-    held.allowed = list(allowed or [])
-    result = _call_claude(system_prompt=APPEAL_SYSTEM_PROMPT, user_content=user, max_tokens=8192)
+    result = _call_claude(system_prompt=APPEAL_SYSTEM_PROMPT, user_content=prompt_data, max_tokens=8192)
     if not result:
         return None
     verdict = check(SURFACE, result, held)
-    if verdict.ok:
+    if verdict.evidence_verified:
         result["verification"] = verdict.to_dict()
         return result
-    print(f"[GenerateAppeal] draft refused ({len(verdict.refusals)}); regenerating once: " + verdict.note()[:400])
-    legal = [c for c in check_letter(" ".join(t for _, t in _strings(result)), allowed)]
-    note = violations_note(legal) if legal else (
-        "The previous draft asserted the following, which is not permitted because it is not in the "
-        "claim data you were given. Rewrite the letter without them:\n  - "
-        + "\n  - ".join(sorted({f.text for f in verdict.refusals})[:12]))
-    retry = _call_claude(system_prompt=APPEAL_SYSTEM_PROMPT, user_content=user + "\n\n" + note, max_tokens=8192)
+    print(f"[GenerateAppeal] draft refused ({len(verdict.refusals)} refused, {len(verdict.unchecked)} unverified); regenerating once: " + verdict.note()[:400])
+    legal = [c for c in check_letter(" ".join(t for _, t in _strings(result)), [])]
+    problems = sorted({f.text for f in verdict.refusals} | {f.text for f in verdict.unchecked if f.cls is AssertionClass.IDENTIFIER})
+    note = (violations_note(legal) + "\n\n" if legal else "") + (
+        "The previous draft contained the following, which is not permitted: legal or regulatory "
+        "language, or a citation that could not be verified at its registry. Rewrite the letter "
+        "without them, arguing only from the claim facts, the documentation and the payer's own "
+        "terms:\n  - " + "\n  - ".join(problems[:12]))
+    retry = _call_claude(system_prompt=APPEAL_SYSTEM_PROMPT, user_content=prompt_data + "\n\n" + note, max_tokens=8192)
     if not retry:
         return None
     verdict = check(SURFACE, retry, held)
-    if not verdict.ok:
+    if not verdict.evidence_verified:
         print(f"[GenerateAppeal] REFUSED: second draft still fails: " + verdict.note()[:400])
         return None
     retry["verification"] = verdict.to_dict()
@@ -402,13 +384,10 @@ async def generate_appeal(req: GenerateAppealRequest, request: Request):
 
     practice_name = req.practice_name or ctx["practice_name"]
 
-    # The allow-list for this letter: reviewed candidate rows for the
-    # practice's state, the payer type and the denial code, resolved and
-    # bound now. Empty today; a state with no reviewed rows cites nothing.
-    state, payer_type = _letter_context(denial_data, ctx)
-    allowed, _rejected = build_allowlist(state, payer_type, req.denial_code or "")
+    # APPEALS-3: no statutory allow-list. The letter cites no law; evidence it cites
+    # is verified by lookup inside the gate.
     try:
-        result = _gated_letter(prompt_data, allowed)
+        result = _gated_letter(prompt_data)
     except ClaudeCallError as exc:
         raise HTTPException(status_code=502, detail=f"The model call failed; no letter was generated. ({exc})")
 
@@ -475,8 +454,8 @@ async def generate_appeal(req: GenerateAppealRequest, request: Request):
         "pdf_base64": pdf_base64,
         "cms_references": result.get("cms_references", []),
         "appeal_strength": result.get("appeal_strength", ""),
-        "appeal_strength_reason": result.get("appeal_strength_reason", ""),
-        "escalation_path": result.get("escalation_path", ""),
+        # APPEALS-3: appeal_strength_reason and escalation_path are no longer produced (they
+        # asked the model for the user's judgment); the columns stay, existing rows stay.
         "attach_documentation": result.get("attach_documentation", ""),
         "verification": result.get("verification"),
     }
@@ -525,10 +504,8 @@ async def generate_appeal_batch(req: GenerateAppealBatchRequest, request: Reques
     for denial in req.denials:
         prompt_data = _build_prompt_data(denial, ctx)
 
-        state, payer_type = _letter_context(denial, ctx)
-        allowed, _rejected = build_allowlist(state, payer_type, denial.get("denial_code") or "")
         try:
-            result = _gated_letter(prompt_data, allowed)
+            result = _gated_letter(prompt_data)
         except ClaudeCallError as exc:
             results.append({"error": True, "claim_id": denial.get("claim_id", ""),
                             "detail": f"No letter: the model call failed ({exc})"})
@@ -584,7 +561,6 @@ async def generate_appeal_batch(req: GenerateAppealBatchRequest, request: Reques
             "letter_text": result.get("letter_text", ""),
             "pdf_base64": pdf_base64,
             "appeal_strength": result.get("appeal_strength", ""),
-            "escalation_path": result.get("escalation_path", ""),
             "attach_documentation": result.get("attach_documentation", ""),
             "verification": result.get("verification"),
         })

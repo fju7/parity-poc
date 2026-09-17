@@ -1,5 +1,12 @@
 # Appeal-letter citation candidates — review packet, September 2026
 
+> **CLOSED 2026-09-17 — not sent, review withdrawn.** Fred's ruling, 2026-09-17: appeal letters
+> rest on evidence and argument only — no legal language, no statutory or regulatory citation,
+> no assertion about what a law requires. The twelve rows below will not be cited by the
+> product, so no attorney signature is sought. Kept as a historical record; see
+> `docs/legal-review/README.md`. Escalation to an attorney is the user's judgment; the product
+> may surface the facts that bear on it, never the judgment itself.
+
 **For:** the reviewing attorney. **From:** Parity (Fred Ugast). **Why you are
 reading this:** the provider appeal letter cites no law today, by design.
 Before it may cite a single provision, a person qualified to judge it must

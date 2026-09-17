@@ -88,6 +88,12 @@ def get(url: str, timeout: int = 45) -> tuple[int, bytes, dict]:
             status = e.code
             try:
                 body = e.read()
+                # The Handle API answers a nonexistent DOI with 404 + gzip JSON
+                # {"responseCode":100}. Until 2026-09-17 the error body was never
+                # decompressed, so every fabricated DOI came back UNCHECKED ("HTTP 404",
+                # unparseable) instead of NONEXISTENT. Found by the APPEALS-3 gate tests.
+                if e.headers.get("Content-Encoding") == "gzip" or body[:2] == b"\x1f\x8b":
+                    body = gzip.decompress(body)
             except Exception:
                 body = b""
         except Exception as e:  # noqa: BLE001
