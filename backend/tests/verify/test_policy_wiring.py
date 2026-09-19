@@ -52,7 +52,7 @@ def test_provider_letter_passes_and_carries_a_verification_record(monkeypatch):
         # APPEALS-3: the passing fixture argues on the record and asks; the old fixture
         # ("we demand ... prompt-pay ... Department of Insurance") is now a refusal by design.
         "letter_text": "Dear Payer, this is a first-level appeal of Claim C1 under CO-16. The information the denial "
-                       "lists as missing is attached, and the claim can be adjudicated with it. We ask that the claim be "
+                       "lists as missing is on the corrected claim as submitted, and the claim can be adjudicated with it. We ask that the claim be "
                        "reprocessed and $120.00 paid, and that you send the written criteria you applied. Please respond by 30 calendar days from the date of this letter.",
         "letter_html": "<p>x</p>", "appeal_strength": "medium", "attach_documentation": "operative notes", "cms_references": []})
     data = json.dumps({"claim_id": "C1", "denial_code": "CO-16", "cpt_code": "99213", "billed_amount": 120.0,

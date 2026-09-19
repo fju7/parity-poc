@@ -250,6 +250,15 @@ def _bind_register(field_name: str, text: str, held: Held | None = None) -> list
     return out
 
 
+def _bind_enclosure(field_name: str, text: str) -> list[Finding]:
+    """ENCLOSURE (APPEALS-4): every hit is a refusal; nothing binds it. The pipeline
+    holds no document it could enclose, so the letter may not say it does."""
+    return [Finding(AssertionClass.ENCLOSURE, field_name, c.text, False, "absent",
+                    "enclosure claim: the pipeline holds and transmits no document; name it as "
+                    "on file, in the record, or to be submitted separately", kind=c.kind)
+            for c in extract(AssertionClass.ENCLOSURE, text)]
+
+
 def _verify_identifiers(field_name: str, text: str, held: Held, policy: SurfacePolicy) -> list[Finding]:
     """APPEALS-3: each RESOLVABLE literature identifier (DOI, PMID, PMCID, NCT) must resolve
     and its record's title must match the citation it sits in. Registry silence is
@@ -492,6 +501,9 @@ def check(surface: str, output: Any, held: Held | None = None, *, policy_table: 
             if cls is AssertionClass.LEGAL_REGISTER:
                 verdict.findings.extend(_bind_register(field_name, text, held))   # GATE and WITHHOLD alike: refuse
                 continue
+            if cls is AssertionClass.ENCLOSURE:
+                verdict.findings.extend(_bind_enclosure(field_name, text))         # APPEALS-4: refuse
+                continue
             if tier is Tier.WITHHOLD:
                 verdict.findings.extend(_absent(cls, field_name, text, pol, other))
                 continue
@@ -536,6 +548,7 @@ def check_prompt_payload(surface: str, payload: Any, *, policy_table: dict | Non
 L, I, N, F, C = (AssertionClass.LEGAL_PROVISION, AssertionClass.IDENTIFIER, AssertionClass.NAMED_SOURCE,
                  AssertionClass.FIGURE, AssertionClass.CODED_DESCRIPTOR)
 R = AssertionClass.LEGAL_REGISTER     # APPEALS-3: gated on every letter a user sends to a payer
+E = AssertionClass.ENCLOSURE          # APPEALS-4: a letter may not claim an enclosure the pipeline does not produce
 W, G, X = Tier.WITHHOLD, Tier.GATE, Tier.EXEMPT
 
 _NARRATIVE = {L: W, I: W, N: W, F: G, C: W}      # handed computed numbers, nothing else
@@ -547,7 +560,7 @@ _MAPPING = {L: X, I: X, N: X, F: X, C: X}        # emits no assertion class
 POLICY: dict[str, SurfacePolicy] = {
     # ---- Provider ----------------------------------------------------------
     "routers.provider_appeals::_gated_letter": SurfacePolicy(
-        {R: G, L: G, I: G, N: G, F: G, C: G}, "provider", fields=("letter_text", "letter_html", "cms_references", "attach_documentation"),
+        {R: G, E: G, L: G, I: G, N: G, F: G, C: G}, "provider", fields=("letter_text", "letter_html", "cms_references", "attach_documentation"),
         verify_citations=True,
         note="APPEALS-3: LEGAL_REGISTER refused; LEGAL (section numbers) refused with the allow-list gone; IDENTIFIER verified by registry lookup + title match, UNCHECKED when a registry is silent; NAMED/FIGURE bind to the prompt + prompt_data; CODED is UNCHECKED until a CPT table is held. escalation_path / appeal_strength_reason no longer produced.", wired=True),
     "routers.provider_audit::extract_fee_schedule_pdf": SurfacePolicy(_EXTRACTION, "provider", note="P2", ignore_fields=_EXTRACTION_IGNORE, wired=True),
@@ -587,7 +600,7 @@ POLICY: dict[str, SurfacePolicy] = {
     "routers.health_analyze::analyze_sbc": SurfacePolicy(_EXTRACTION, "health", note="H2", ignore_fields=_EXTRACTION_IGNORE),
     "routers.health_analyze::analyze_denial": SurfacePolicy({L: G, I: G, N: G, F: G, C: X}, "health", note="H3: every verbatim field binds to the denial text"),
     "routers.health_analyze::_generate_appeal_result": SurfacePolicy(
-        {R: G, L: G, I: G, N: G, F: G, C: W}, "health", fields=("letter_text",),
+        {R: G, E: G, L: G, I: G, N: G, F: G, C: W}, "health", fields=("letter_text",),
         strict_identifier_kinds=frozenset({"doi", "pmid", "pmcid", "nct", "fda_pma", "journal_cite", "bare_pmid", "et_al"}),
         verify_citations=True,
         note="H4 + APPEALS-3: LEGAL_REGISTER refused; identifiers VERIFIED by lookup + title match (the body cites [n] keys and the code-built References carry the PMIDs; _validate_evidence_claims still refuses bare PMIDs the pack did not hand over); needs_revision withholds the PDF", wired=True),
@@ -626,6 +639,7 @@ POLICY: dict[str, SurfacePolicy] = {
 # everywhere else (extraction, narratives, Signal prose are not letters to a payer).
 for _p in POLICY.values():
     _p.tiers.setdefault(R, X)
+    _p.tiers.setdefault(E, X)   # APPEALS-4: ENCLOSURE gated on the two appeal-letter surfaces only
 
 WRAPPERS = {
     "routers.provider_shared::_call_claude",

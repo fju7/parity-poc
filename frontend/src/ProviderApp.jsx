@@ -3050,7 +3050,6 @@ function AppealsTab({ appeals, loading, onLoad, onUpdateStatus, outcomeModal, on
               <th style={{ padding: "10px 12px", textAlign: "left" }}>Denial Code</th>
               <th style={{ padding: "10px 12px", textAlign: "left" }}>CPT</th>
               <th style={{ padding: "10px 12px", textAlign: "right" }}>Amount</th>
-              <th style={{ padding: "10px 12px", textAlign: "center" }}>Strength</th>
               <th style={{ padding: "10px 12px", textAlign: "center" }}>Status</th>
               <th style={{ padding: "10px 12px", textAlign: "center" }}>Actions</th>
             </tr>
@@ -3064,16 +3063,6 @@ function AppealsTab({ appeals, loading, onLoad, onUpdateStatus, outcomeModal, on
                   <td style={{ padding: "10px 12px" }}>{a.denial_code}</td>
                   <td style={{ padding: "10px 12px" }}>{a.cpt_code || "—"}</td>
                   <td style={{ padding: "10px 12px", textAlign: "right" }}>${(a.amount || 0).toLocaleString("en-US", { minimumFractionDigits: 2 })}</td>
-                  <td style={{ padding: "10px 12px", textAlign: "center" }}>
-                    {a.appeal_strength && (
-                      <span style={{
-                        padding: "2px 8px", borderRadius: 4, fontSize: 11, fontWeight: 600,
-                        color: a.appeal_strength === "high" ? "#059669" : a.appeal_strength === "medium" ? "#D97706" : "#6B7280",
-                      }}>
-                        {a.appeal_strength}
-                      </span>
-                    )}
-                  </td>
                   <td style={{ padding: "10px 12px", textAlign: "center" }}>
                     <select
                       value={a.status}

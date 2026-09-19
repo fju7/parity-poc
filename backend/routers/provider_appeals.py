@@ -56,22 +56,25 @@ The user message contains a JSON object with these named variables:
 LETTER STRUCTURE:
 
 1. HEADER BLOCK -- open every letter with:
+   Date: __LETTER_DATE__
    RE: First-level appeal of {denial_code} -- Claim {claim_id}
    Patient: {patient_name}
    Date of Service: {date_of_service}
    CPT Code: {cpt_code}
    Billed Amount: ${billed_amount}
    Payer Reference Number: {claim_id}
+   The letterhead date is the literal token __LETTER_DATE__, written exactly once, in the HTML and the plain text alike; our system replaces it with the date the letter is produced. Never write the date of service, or any other date, as the letter's date.
+   Write every code by its number alone -- "CPT {cpt_code}", "{denial_code}" -- never followed by what the code means, stands for or describes: no descriptor of any CPT, HCPCS, CARC, RARC or ICD code is in your data, and a descriptor from memory is refused.
 
 2. OPENING PARAGRAPH -- state plainly what this is:
    "This is a first-level appeal of {payer_name}'s denial of Claim {claim_id} under denial code {denial_code}, as shown on the remittance advice referenced above. We ask that the claim be reprocessed for the reasons below."
 
 3. BASIS FOR THE APPEAL -- argue from the denial code, the claim facts and the documentation. Every statement must be something the practice can show in its records or the payer can find in its own documents. Do not state what the payer "must", "is required to" or "is obligated to" do; state what the record shows and what the payer's own terms say.
 
-   YOU HAVE NO CLINICAL DOCUMENTATION IN THE DATA. Do not state any measurement, duration, finding, diagnosis, prior treatment, or date that is not in the JSON you were given. Where the argument needs such a fact, NAME THE DOCUMENT that records it and say it is attached -- "the procedure note for the date of service records the wound measurements and the separate site" -- rather than supplying a value yourself. Every number in the letter must come from the JSON (claim, amounts, codes, dates) or be the response-by count of days. That includes modifier numbers, wound sizes, minutes, counts of prior visits and percentages: if it is not in the JSON, do not write it.
+   YOU HAVE NO CLINICAL DOCUMENTATION IN THE DATA. Do not state any measurement, duration, finding, diagnosis, prior treatment, or date that is not in the JSON you were given. Where the argument needs such a fact, NAME THE DOCUMENT that records it -- "the procedure note for the date of service records the wound measurements and the separate site" -- rather than supplying a value yourself, and list that document in attach_documentation for the practice to gather. This letter is produced without any document: never write that a document is enclosed, attached, submitted herewith or accompanying; the practice adds its own enclosure list when it assembles the submission. A document may be described as in the practice's record, as on the claim as submitted, or as being submitted separately. Every number in the letter must come from the JSON (claim, amounts, codes, dates) or be the response-by count of days. That includes modifier numbers, wound sizes, minutes, counts of prior visits and percentages: if it is not in the JSON, do not write it.
 
    Per denial code, the argument:
-   CO-16 (missing information): name the information the denial says was missing and where it now is -- attached, or already on the claim as submitted; say that the claim can be adjudicated with it. Ask the payer to identify any item still missing.
+   CO-16 (missing information): name the information the denial says was missing and where it is recorded -- the document that holds it (listed in attach_documentation), or the claim as submitted; say that the claim can be adjudicated with it. Ask the payer to identify any item still missing.
    CO-45 (charge exceeds fee schedule): if contracted_rate_info is provided, quote the contracted rate for each CPT code and state the dollar difference between the contracted amount and the amount paid, line by line; ask that the difference be paid. If no rate is on file, ask the payer to identify the fee schedule and line it applied.
    CO-97 (already adjudicated / bundled): the services are clinically distinct and separately identifiable -- a different anatomical site, a separate encounter, a distinct indication, or the modifier reported on the claim line -- and say which documentation shows that (operative note, encounter note, times). Do not name a modifier number unless it is in the data; write "the modifier reported on the claim line".
    CO-4 (modifier inconsistent with procedure): the modifier reported on the claim line describes the actual procedural circumstance; name the circumstance and the documentation (operative report, procedure note) that records it, without inventing the modifier number or any measurement.
@@ -102,19 +105,63 @@ Return ONLY valid JSON:
   "letter_html": "<full HTML-formatted appeal letter with proper paragraphs, headings, and formatting>",
   "letter_text": "plain text version of the letter",
   "cms_references": [],
-  "appeal_strength": "high|medium|low",
   "attach_documentation": "Specific list of documents the practice should attach -- e.g., operative notes, signed orders, EOB showing deductible status, prior authorization approval, modifier documentation, fee schedule excerpt"
 }"""
 
 
-def _generate_appeal_pdf(letter_text: str, practice_name: str, payer_name: str, claim_id: str) -> bytes:
-    """Generate a formatted PDF appeal letter using ReportLab."""
+# APPEALS-4 ITEM 3 (2026-09-19). The letter's date is the date the letter is
+# produced, from ONE source, in the body and the PDF alike. Until now the body
+# carried whatever date the model wrote (it used date_of_service as the
+# letterhead date) and the PDF header printed datetime.now() -- the server's
+# clock, UTC on the host, so after 19:00 Central the PDF was dated tomorrow.
+_LETTER_DATE_TOKEN = "__LETTER_DATE__"
+
+
+def _today_local() -> str:
+    """Today's date in America/Chicago, 'July 1, 2026' -- the same clock the
+    patient letter is stamped from (health_analyze._today_local)."""
+    from datetime import datetime
+    from zoneinfo import ZoneInfo
+    now = datetime.now(ZoneInfo("America/Chicago"))
+    return f"{now.strftime('%B')} {now.day}, {now.year}"
+
+
+def _stamp_letter_date(result: dict) -> str:
+    """Replace the __LETTER_DATE__ token in letter_text and letter_html with
+    today's local date; record it on the result as letter_date so the PDF and
+    the stored record carry the same value. Returns the date. If the model
+    omitted the token nothing is invented in the body; the PDF header still
+    carries the date, and the omission is logged."""
+    today = _today_local()
+    for k in ("letter_text", "letter_html"):
+        v = result.get(k) or ""
+        if _LETTER_DATE_TOKEN in v:
+            result[k] = v.replace(_LETTER_DATE_TOKEN, today)
+        else:
+            print(f"[GenerateAppeal] {k}: no {_LETTER_DATE_TOKEN} token; body carries no stamped date")
+    result["letter_date"] = today
+    return today
+
+
+def _descriptors_verified(verdict) -> bool:
+    """APPEALS-4 ITEM 4: a coded descriptor the model supplied (CPT/HCPCS/CARC/...
+    followed by words) that binds to nothing held is UNCHECKED in the verdict.
+    UNCHECKED is not a pass: the descriptor may sit in the verification record
+    as a candidate, never in a returned letter as an assertion. The provider
+    surface holds no descriptor table (held_for_prompt is called without
+    tables=), so today every such descriptor is unbound."""
+    from verify.extract import AssertionClass
+    return not any(f.cls is AssertionClass.CODED_DESCRIPTOR for f in verdict.unchecked)
+
+
+def _generate_appeal_pdf(letter_text: str, practice_name: str, payer_name: str, claim_id: str, letter_date: str) -> bytes:
+    """Generate a formatted PDF appeal letter using ReportLab. `letter_date` is
+    the stamped date from _stamp_letter_date -- the PDF never reads a clock."""
     from reportlab.lib import colors
     from reportlab.lib.pagesizes import letter
     from reportlab.lib.styles import ParagraphStyle, getSampleStyleSheet
     from reportlab.lib.units import inch
     from reportlab.platypus import Paragraph, SimpleDocTemplate, Spacer, HRFlowable
-    from datetime import datetime
 
     TEAL = colors.HexColor("#0D9488")
     NAVY = colors.HexColor("#1E293B")
@@ -136,7 +183,7 @@ def _generate_appeal_pdf(letter_text: str, practice_name: str, payer_name: str, 
     # Letterhead
     story.append(Paragraph(practice_name, ParagraphStyle("PracticeName", parent=s_body, fontSize=14, textColor=NAVY, fontName="Helvetica-Bold")))
     story.append(Paragraph(f"Re: Appeal — Claim {claim_id}", s_header))
-    story.append(Paragraph(f"Date: {datetime.now().strftime('%B %d, %Y')}", s_header))
+    story.append(Paragraph(f"Date: {letter_date}", s_header))
     story.append(HRFlowable(width="100%", thickness=1, color=TEAL, spaceAfter=16, spaceBefore=8))
 
     # Letter body
@@ -280,22 +327,25 @@ def _gated_letter(prompt_data: str) -> dict | None:
     if not result:
         return None
     verdict = check(SURFACE, result, held)
-    if verdict.evidence_verified:
+    if verdict.evidence_verified and _descriptors_verified(verdict):
         result["verification"] = verdict.to_dict()
         return result
     print(f"[GenerateAppeal] draft refused ({len(verdict.refusals)} refused, {len(verdict.unchecked)} unverified); regenerating once: " + verdict.note()[:400])
     legal = [c for c in check_letter(" ".join(t for _, t in _strings(result)), [])]
-    problems = sorted({f.text for f in verdict.refusals} | {f.text for f in verdict.unchecked if f.cls is AssertionClass.IDENTIFIER})
+    problems = sorted({f.text for f in verdict.refusals}
+                      | {f.text for f in verdict.unchecked if f.cls in (AssertionClass.IDENTIFIER, AssertionClass.CODED_DESCRIPTOR)})
     note = (violations_note(legal) + "\n\n" if legal else "") + (
         "The previous draft contained the following, which is not permitted: legal or regulatory "
-        "language, or a citation that could not be verified at its registry. Rewrite the letter "
-        "without them, arguing only from the claim facts, the documentation and the payer's own "
+        "language, a claim that a document is enclosed or attached, a code followed by a description "
+        "of what it means, or a citation that could not be verified at its registry. Rewrite the letter "
+        "without them -- codes by number alone, documents named as in the record or on the claim -- "
+        "arguing only from the claim facts, the documentation and the payer's own "
         "terms:\n  - " + "\n  - ".join(problems[:12]))
     retry = _call_claude(system_prompt=APPEAL_SYSTEM_PROMPT, user_content=prompt_data + "\n\n" + note, max_tokens=8192)
     if not retry:
         return None
     verdict = check(SURFACE, retry, held)
-    if not verdict.evidence_verified:
+    if not (verdict.evidence_verified and _descriptors_verified(verdict)):
         print(f"[GenerateAppeal] REFUSED: second draft still fails: " + verdict.note()[:400])
         return None
     retry["verification"] = verdict.to_dict()
@@ -398,12 +448,15 @@ async def generate_appeal(req: GenerateAppealRequest, request: Request):
                    "No letter was generated; please try again.",
         )
 
+    letter_date = _stamp_letter_date(result)
+
     # Generate PDF
     pdf_bytes = _generate_appeal_pdf(
         letter_text=result.get("letter_text", ""),
         practice_name=practice_name or "Practice",
         payer_name=req.payer_name or "Payer",
         claim_id=req.claim_id or "N/A",
+        letter_date=letter_date,
     )
     pdf_base64 = base64.b64encode(pdf_bytes).decode("utf-8")
 
@@ -421,7 +474,7 @@ async def generate_appeal(req: GenerateAppealRequest, request: Request):
         "status": "drafted",
         "letter_text": result.get("letter_text", ""),
         "letter_html": result.get("letter_html", ""),
-        "appeal_strength": result.get("appeal_strength", ""),
+        # APPEALS-4: appeal_strength is no longer produced or stored (the column stays; existing rows stay).
         "cms_references": result.get("cms_references", []),
     }
     _attach_verification_column(appeal_record, result)
@@ -453,10 +506,10 @@ async def generate_appeal(req: GenerateAppealRequest, request: Request):
         "letter_text": result.get("letter_text", ""),
         "pdf_base64": pdf_base64,
         "cms_references": result.get("cms_references", []),
-        "appeal_strength": result.get("appeal_strength", ""),
-        # APPEALS-3: appeal_strength_reason and escalation_path are no longer produced (they
-        # asked the model for the user's judgment); the columns stay, existing rows stay.
+        # APPEALS-3/4: appeal_strength, appeal_strength_reason and escalation_path are no
+        # longer produced (they asked the model for the user's judgment); columns and rows stay.
         "attach_documentation": result.get("attach_documentation", ""),
+        "letter_date": letter_date,
         "verification": result.get("verification"),
     }
 
@@ -516,12 +569,15 @@ async def generate_appeal_batch(req: GenerateAppealBatchRequest, request: Reques
                             "detail": "No letter: could not produce one that does not cite unverified law"})
             continue
 
+        letter_date = _stamp_letter_date(result)
+
         # Generate PDF
         pdf_bytes = _generate_appeal_pdf(
             letter_text=result.get("letter_text", ""),
             practice_name=denial.get("practice_name") or practice_name or "Practice",
             payer_name=denial.get("payer_name", "Payer"),
             claim_id=denial.get("claim_id", "N/A"),
+            letter_date=letter_date,
         )
         pdf_base64 = base64.b64encode(pdf_bytes).decode("utf-8")
 
@@ -539,7 +595,6 @@ async def generate_appeal_batch(req: GenerateAppealBatchRequest, request: Reques
             "status": "drafted",
             "letter_text": result.get("letter_text", ""),
             "letter_html": result.get("letter_html", ""),
-            "appeal_strength": result.get("appeal_strength", ""),
             "cms_references": result.get("cms_references", []),
         }
         _attach_verification_column(appeal_record, result)
@@ -560,8 +615,8 @@ async def generate_appeal_batch(req: GenerateAppealBatchRequest, request: Reques
             "letter_html": result.get("letter_html", ""),
             "letter_text": result.get("letter_text", ""),
             "pdf_base64": pdf_base64,
-            "appeal_strength": result.get("appeal_strength", ""),
             "attach_documentation": result.get("attach_documentation", ""),
+            "letter_date": letter_date,
             "verification": result.get("verification"),
         })
 

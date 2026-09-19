@@ -36,6 +36,7 @@ class AssertionClass(str, Enum):
     FIGURE = "figure"
     CODED_DESCRIPTOR = "coded_descriptor"
     LEGAL_REGISTER = "legal_register"     # APPEALS-3: the register of counsel, not a citation
+    ENCLOSURE = "enclosure"               # APPEALS-4: "enclosed / attached / herewith" -- a document the pipeline does not hold
 
 
 @dataclass(frozen=True)
@@ -342,8 +343,38 @@ def extract_legal_register(text: str) -> list[Candidate]:
     return _dedupe(out)
 
 
+# ---------------------------------------------------------------------------
+# ENCLOSURE -- APPEALS-4 (2026-09-19). A letter must not assert an enclosure the
+# pipeline does not produce. The provider pipeline returns a PDF of the letter
+# and a list of documents for the PRACTICE to gather (attach_documentation); it
+# holds and transmits none of them. The patient pipeline appends a code-built
+# References list and nothing else. So "enclosed", "attached", "herewith",
+# "accompanying" and "find included" are claims neither pipeline can satisfy,
+# and every hit is refused. Referring to a document that is "on file with the
+# payer", "in the practice's records" or "being submitted separately" is not an
+# enclosure claim and does not match.
+# ---------------------------------------------------------------------------
+ENCLOSURE_LEXICON = {
+    "enclosed":     r"\benclos(?:e|es|ed|ure|ures|ing)\b",
+    "attached":     r"\battach(?:ed|ment|ments)\b(?! point)",
+    "herewith":     r"\b(?:submitted|provided|included|sent|forwarded)\s+herewith\b|\bherewith\b",
+    "accompanying": r"\baccompan(?:ies|ying|ied)\s+this\s+(?:letter|appeal|request)\b|\bthe\s+accompanying\s+(?:\w+\s+){0,3}(?:note|notes|record|records|report|reports|documentation|documents)\b",
+    "find_included": r"\b(?:please\s+)?find\s+(?:included|enclosed|attached)\b|\bincluded\s+with\s+this\s+(?:letter|appeal|submission)\b|\b(?:is|are)\s+included\s+(?:below|herein|with)\b",
+}
+_ENCLOSURE_RX = {k: re.compile(v, re.I) for k, v in ENCLOSURE_LEXICON.items()}
+
+
+def extract_enclosure(text: str) -> list[Candidate]:
+    out = []
+    for term, rx in _ENCLOSURE_RX.items():
+        for m in rx.finditer(text or ""):
+            out.append(Candidate(AssertionClass.ENCLOSURE, m.group(0), m.start(), m.end(), term, term))
+    return _dedupe(out)
+
+
 EXTRACTORS = {
     AssertionClass.LEGAL_REGISTER: extract_legal_register,
+    AssertionClass.ENCLOSURE: extract_enclosure,
     AssertionClass.LEGAL_PROVISION: extract_legal,
     AssertionClass.IDENTIFIER: extract_identifiers,
     AssertionClass.NAMED_SOURCE: extract_named_sources,

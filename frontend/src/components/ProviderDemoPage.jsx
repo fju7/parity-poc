@@ -54,7 +54,7 @@ This denial incorrectly bundles CPT 99215 with a separately identifiable service
 
 Under standard correct-coding conventions, an E/M service on the same date as a procedure is separately reportable when it is significant and separately identifiable. Modifier 25 was appropriately appended.
 
-SUPPORTING DOCUMENTATION ENCLOSED
+SUPPORTING DOCUMENTATION TO SUBMIT WITH THIS APPEAL
 
 1. Complete progress note documenting the distinct E/M service
 2. Procedure note (if applicable) showing the separate service
@@ -95,7 +95,7 @@ CORRECTIVE ACTION
 
 Under the coding conventions for this modifier, modifier 25 is appended when the patient's condition on the day of a procedure required a significant, separately identifiable E/M service.
 
-DOCUMENTATION ENCLOSED
+DOCUMENTATION TO SUBMIT WITH THIS APPEAL
 
 - Corrected CMS-1500 with appropriate modifier
 - Complete progress note for 06/18/2024
@@ -138,7 +138,7 @@ REGULATORY CITATIONS
 - The ACIP recommends MMR vaccination for adults born after 1957 without evidence of immunity
 - Applicable state coverage requirements for immunizations
 
-DOCUMENTATION ENCLOSED
+DOCUMENTATION TO SUBMIT WITH THIS APPEAL
 
 1. Patient immunization history showing need for MMR
 2. CDC/ACIP recommendation applicable to this patient

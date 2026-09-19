@@ -64,7 +64,7 @@ function flagColor(flag) {
 export default function ProviderAuditReport({ analysisResults, practiceInfo, onClose, trendData }) {
   const { token } = useAuth();
   const [downloading, setDownloading] = useState(false);
-  const [appealModal, setAppealModal] = useState(null); // {loading, letter_html, letter_text, pdf_base64, appeal_strength, appeal_strength_reason, cms_references, editText}
+  const [appealModal, setAppealModal] = useState(null); // {loading, letter_html, letter_text, pdf_base64, cms_references, editText}
   const [appealGenerating, setAppealGenerating] = useState(null); // key of denial being generated
   const [signalScores, setSignalScores] = useState({}); // {cpt_code: {score, topic_title, topic_slug, coverage}}
 
@@ -315,21 +315,6 @@ export default function ProviderAuditReport({ analysisResults, practiceInfo, onC
               </div>
             )}
 
-            {/* Appeal strength badge */}
-            {appealModal.appeal_strength && (
-              <div style={{ marginBottom: 16, display: "flex", alignItems: "center", gap: 8 }}>
-                <span style={{
-                  padding: "4px 12px", borderRadius: 6, fontSize: 12, fontWeight: 600,
-                  background: appealModal.appeal_strength === "high" ? "#ECFDF5" : appealModal.appeal_strength === "medium" ? "#FFFBEB" : "#FEF2F2",
-                  color: appealModal.appeal_strength === "high" ? GREEN : appealModal.appeal_strength === "medium" ? AMBER : RED,
-                }}>
-                  Appeal Strength: {appealModal.appeal_strength}
-                </span>
-                {appealModal.appeal_strength_reason && (
-                  <span style={{ fontSize: 13, color: SLATE }}>{appealModal.appeal_strength_reason}</span>
-                )}
-              </div>
-            )}
 
             {/* CMS references */}
             {appealModal.cms_references?.length > 0 && (

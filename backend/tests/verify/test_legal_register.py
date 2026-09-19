@@ -66,12 +66,13 @@ ALLOWED_BY_RULING = [
 
 # The per-code arguments of the rewritten provider prompt, as a letter would state them.
 CLINICAL_ARGUMENTS = [
-    "The information the denial lists as missing -- the referring provider's NPI -- is on the attached corrected claim form, and the claim can be adjudicated with it.",
+    # APPEALS-4: "attached" is an enclosure claim the pipeline cannot satisfy; the record names where the fact is.
+    "The information the denial lists as missing -- the referring provider's NPI -- is on the corrected claim as submitted, and the claim can be adjudicated with it.",
     "Our current executed provider agreement sets the rate for CPT 99214 at $142.00; the remittance shows $98.50 paid. The difference is $43.50 per line.",
     "The two services were performed at different anatomical sites in the same session, as the operative note of 2025-01-05 records; modifier 59 reports that circumstance.",
     "Modifier 22 reports the additional operative time documented in the procedure note: 190 minutes against the 95 minutes typical for this procedure.",
     "The clinical indicators recorded in the encounter note -- persistent symptoms after eight weeks of first-line therapy, and the imaging findings of 2025-01-02 -- are the basis for the service. Please send the written criteria applied in this denial and the specific criterion found unmet.",
-    "The two claims are for different dates of service, 2025-01-05 and 2025-01-12, each with its own encounter note attached.",
+    "The two claims are for different dates of service, 2025-01-05 and 2025-01-12, each recorded in its own encounter note in the practice's record.",
     "The EOB shows the annual deductible was met on 2024-11-30; this claim's date of service is 2025-01-05 and the deductible was applied again.",
     "Please respond by 30 calendar days from the date of this letter. Please direct all correspondence regarding this appeal to Main Street Family Practice at 1 Main St, Columbus OH 43215.",
 ]
