@@ -60,20 +60,79 @@ verified a fabricated DOI. `VERIFY_CACHE_DIR` was unset, no request log exists, 
 no record. The defect was found by the APPEALS-3 gate tests during development; that is the only
 evidence such runs happened.
 
-## Retired and renamed fields (APPEALS-4 / APPEALS-5)
+## Retired and renamed fields
 
-- `provider_appeals.appeal_strength` (migration 018): the model-authored letter grade high|medium|low.
-  **RETIRED** as of `e679913`; no writer, reader or renderer; rows are historical and must not be read;
-  not dropped. `COMMENT ON COLUMN` in **`backend/migrations/094_…` — written, LEFT UNAPPLIED.**
-- `signal_denial_playbook.appeal_strength` (migration 053): NOT the letter grade; a band of how many
-  Signal claims map to the CPT's topic (≥3 / 1–2 / 0). **Renamed `signal_claim_count_band`** with values
-  `3_plus_claims` / `1_2_claims` / `0_claims` — `backend/migrations/093_…` — written, LEFT UNAPPLIED;
-  apply BEFORE deploying the code that reads the new name. The `/api/signal/denial-intelligence`
-  response likewise now carries `challenging_claim_count` and `high_score_challenging_count` (the counts it
-  computes) instead of a strong/moderate/weak grade; no caller of that endpoint exists in the repo, and no
-  frontend reads `signal_evidence` from the audit response, so neither value reaches a rendered surface.
+The register is **`docs/schema-retired-fields.md`** (one row per column: date, commit, why, whether the
+data still exists, the migration that says so in the database). Both APPEALS-4/5 columns are its first
+two rows.
 
-There is no document in this repo that tracks retired fields. Proposed home, not created here: a
-`docs/schema-retired-fields.md` with one row per column (table, column, retired-at commit, why, migration
-that comments it), maintained beside the migrations — or a section in `backend/migrations/README` if one
-is started. Until then this file is the record.
+## The rename reached no user (APPEALS-6 ITEM 3)
+
+The `signal_denial_playbook.appeal_strength` ruling **rests on record integrity, not on user exposure.**
+Established 2026-09-19 by reading every consumer: the column's only reader (`provider_audit.py`
+~1552) copies it into the audit response's `denial_types[].signal_evidence`, and **no frontend file
+reads `signal_evidence`**; the `/api/signal/denial-intelligence` endpoint that computed its own grade
+has **no caller anywhere in the repo**. **No user was shown a misleading grade.** The field was misnamed
+in the database and in two API payloads nobody rendered; that, and nothing more, is what was corrected.
+
+## Three procedures, one vocabulary (APPEALS-6 ITEM 4)
+
+This is a distinct finding from the one ruled on. "Appeal strength" as strong/moderate/weak (or
+high/medium/low) was computed by **three unrelated procedures** in this codebase, none of which
+examined appeal outcome:
+
+1. the retired letter grade — the model's own high/medium/low for a provider letter (`provider_appeals`,
+   migration 018; retired `e679913`);
+2. the playbook column — a band of how many Signal claims map to the CPT's topic
+   (`signal_intelligence.py populate_denial_playbook`, migration 053; renamed `032a629`);
+3. the endpoint's rule — `signal_intelligence.py:349-356,367` in `/denial-intelligence`: "strong" if
+   ≥3 challenging claims scored ≥4.0, "moderate" if ≥2 challenging, else "weak" — a third computation,
+   under the same three words, that agreed with neither of the others (replaced by the two counts it
+   actually computes, `032a629`).
+
+**What made the recurrence likely:** the three were written months apart for three subsystems (letters,
+the Signal playbook, the Signal API) by whoever was asked for "how strong is the appeal?"; the words
+are the natural answer to that question, and nothing — no schema convention, no lint, no shared
+definition — required the name to state the procedure. The same vocabulary already lives a fourth,
+legitimate life as Signal's *consensus* categories (`signal_profiles.py:42-47`, strong/moderate/mixed/
+weak about evidence consensus), which is not an appeal grade and is not touched — the hazard is the
+**name** `appeal_strength`, not the adjectives.
+
+**What now prevents a fourth:** `backend/tests/test_appeals5.py::test_no_code_file_uses_the_name_appeal_strength`
+scans every non-comment line of backend and frontend code and fails on the name outside the migrations
+and the retired-fields register. It prevents the *name* returning anywhere in code. It does not prevent
+a new field named, say, `appeal_score` computed from something unrelated — that needs the discipline the
+ruling states (name the procedure, not the conclusion) and review; no mechanical guard can check that a
+name is honest.
+
+## Provider letter date — the count stays UNESTABLISHED (APPEALS-6 ITEM 5)
+
+The instrument is `provider_appeals.created_at` and the SQL is above. **No number exists yet;** the
+window length (196 d 20.5 h) is not a count and must not be read as one. It stays unestablished until
+Fred, or a session with a connection to this project's database, runs the query.
+
+## Exposure of the unapplied-migration dependency (APPEALS-6 ITEM 1, measured 2026-09-19 ~23:05Z)
+
+`032a629` is **live in production** — Render `parity-poc-api` (`srv-d6eh8c95pdvs73cuphug`, `autoDeploy: yes`,
+branch `main`) deploy `dep-danh4najnfac738t7ra0`, status `live` since 2026-09-19T22:54:38Z — while
+migration 093 is unapplied, so the served code reads `signal_claim_count_band` from a table whose column
+is still `appeal_strength`. Measured exposure:
+
+- **Writer:** `POST /api/signal/admin/populate-denial-playbook` (cron-secret admin auth). **No scheduled
+  caller exists** — not in `backend/render.yaml` (one web service, one unrelated cron `parity-opps-clfs-loader`),
+  not in any `.github/workflows/*.yml` (five workflows, none call it), not in any script. Only a manual
+  admin call would hit it; it would fail on the INSERT (unknown column) and write nothing.
+- **Reader:** `provider_audit.py` ~1530-1560 — the playbook enrichment runs inside `try: … except Exception
+  as e: print("[warn] Signal playbook lookup failed …")`. The `select("*")` returns rows without the new
+  key, `pb["signal_claim_count_band"]` raises `KeyError` while the dict literal is being built, before
+  any `signal_evidence` is assigned; the exception is caught and printed. **The audit completes without
+  `signal_evidence` (degrades; no 500, no partial state).** Nothing renders `signal_evidence`, so the
+  degradation is invisible to users and visible only as a `[warn]` line in Render logs.
+- **Observed:** Render request logs for `/api/provider/*` and `/api/signal/*` since the deploy: none; app
+  logs matching the warning text: none. As of the measurement nothing had exercised either path.
+
+Decision recorded 2026-09-19: **apply 093 promptly under Fred's review** rather than add a
+both-names shim. A shim would re-admit the retired name to `provider_audit.py` (the guard test would need
+an exemption for it), and shims that linger are a defect of their own; the exposure it would remove is a
+logged degradation of an unrendered field. Until 093 is applied: the audit's Signal enrichment is
+off (logged), and the admin populate endpoint must not be called.

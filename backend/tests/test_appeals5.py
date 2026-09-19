@@ -76,3 +76,24 @@ def test_health_generate_appeal_result_refuses_an_enclosure_claim(monkeypatch):
     out = h._generate_appeal_result(_req(h))
     assert out["needs_revision"] and out["sendable"] is False
     assert "find_included" in {f["kind"] for f in out["verification"]["refused"]}
+
+
+def test_no_code_file_uses_the_name_appeal_strength():
+    """APPEALS-6 ITEM 4: the NAME must not return anywhere in code. Migrations (history) and the
+    retired-fields register are the only places it may appear. Comments are stripped;
+    `appeal_strength_reason` (also retired) is caught as well."""
+    import re
+    rx = re.compile(r"\bappeal_strength\b")
+    roots = [BACKEND / "routers", BACKEND / "verify", BACKEND / "scripts", BACKEND / "utils", ROOT / "frontend" / "src"]
+    hits = []
+    for root in roots:
+        if not root.exists():
+            continue
+        for f in root.rglob("*"):
+            if f.suffix not in (".py", ".js", ".jsx", ".ts", ".tsx") or "node_modules" in f.parts or "venv" in f.parts:
+                continue
+            for n, line in enumerate(f.read_text(errors="replace").splitlines(), 1):
+                code = line.split("#", 1)[0] if f.suffix == ".py" else line.split("//", 1)[0]
+                if rx.search(code):
+                    hits.append(f"{f.relative_to(ROOT)}:{n}")
+    assert not hits, "the retired name is back in code: " + ", ".join(hits)
