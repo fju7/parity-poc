@@ -1549,7 +1549,10 @@ async def analyze_denials(req: AnalyzeDenialsRequest, request: Request):
                         if key in playbook_rows:
                             pb = playbook_rows[key]
                             denial_type["signal_evidence"] = {
-                                "appeal_strength": pb["appeal_strength"],
+                                # APPEALS-5: a count band (0 / 1-2 / 3+ Signal claims), not a strength.
+                                # No frontend reads signal_evidence (verified 2026-09-19); it reaches the
+                                # audit response only.
+                                "signal_claim_count_band": pb["signal_claim_count_band"],
                                 "payer_analytical_path": pb["payer_analytical_path"],
                                 "challenging_evidence_summary": pb["challenging_evidence_summary"],
                                 "recommended_claims": pb["recommended_claims"],

@@ -258,7 +258,8 @@ async def denial_intelligence(
                 "payer_analytical_path": None,
                 "challenging_evidence": [],
                 "recommended_claims": [],
-                "appeal_strength": "weak",
+                "challenging_claim_count": 0,
+                "high_score_challenging_count": 0,
                 "message": f"No Signal evidence coverage for CPT {cpt_code}.",
             })
 
@@ -278,7 +279,8 @@ async def denial_intelligence(
                 "payer_analytical_path": None,
                 "challenging_evidence": [],
                 "recommended_claims": [],
-                "appeal_strength": "weak",
+                "challenging_claim_count": 0,
+                "high_score_challenging_count": 0,
                 "message": f"Topic '{topic_slug}' not found.",
             })
 
@@ -346,14 +348,12 @@ async def denial_intelligence(
         challenging.sort(key=lambda x: x["composite_score"], reverse=True)
         recommended.sort(key=lambda x: x["composite_score"], reverse=True)
 
-        # Appeal strength
-        strong_count = len([e for e in challenging if e["composite_score"] >= 4.0])
-        if strong_count >= 3:
-            appeal_strength = "strong"
-        elif len(challenging) >= 2:
-            appeal_strength = "moderate"
-        else:
-            appeal_strength = "weak"
+        # APPEALS-5 (ruled 2026-09-19): the response carries the COUNTS this endpoint actually
+        # computes — how many challenging claims, and how many of them score >= 4.0 — not a
+        # strong/moderate/weak grade derived from them, which asserted an outcome relation
+        # nothing here examined. No caller of this endpoint exists in the repo.
+        high_score_challenging_count = len([e for e in challenging if e["composite_score"] >= 4.0])
+        challenging_claim_count = len(challenging)
 
         return JSONResponse(content={
             "denial_code": denial_code,
@@ -364,7 +364,8 @@ async def denial_intelligence(
             "payer_analytical_path": payer_path,
             "challenging_evidence": challenging[:10],
             "recommended_claims": recommended[:5],
-            "appeal_strength": appeal_strength,
+            "challenging_claim_count": challenging_claim_count,
+            "high_score_challenging_count": high_score_challenging_count,
         })
 
     except Exception as e:
@@ -451,20 +452,23 @@ async def populate_denial_playbook() -> int:
             for c in claims[:3]
         ]
 
-        # Determine appeal strength based on claim count
+        # APPEALS-5 (ruled 2026-09-19): this is a COUNT BAND of the Signal claims mapped to the
+        # CPT's topic — 0 / 1-2 / 3+ — and nothing more. Its old name asserted a relation to
+        # appeal outcome the procedure never examined. Named for what it measures; the bands
+        # are stated as counts so the value cannot read as a prediction.
         if len(claims) >= 3:
-            appeal_strength = "strong"
+            signal_claim_count_band = "3_plus_claims"
         elif len(claims) >= 1:
-            appeal_strength = "moderate"
+            signal_claim_count_band = "1_2_claims"
         else:
-            appeal_strength = "weak"
+            signal_claim_count_band = "0_claims"
 
         # Upsert one row per (denial_code, cpt_code) for each denial code
         for denial_code, payer_path in DENIAL_PATH_MAP.items():
             row = {
                 "denial_code": denial_code,
                 "cpt_code": cpt_code,
-                "appeal_strength": appeal_strength,
+                "signal_claim_count_band": signal_claim_count_band,
                 "payer_analytical_path": payer_path,
                 "challenging_evidence_summary": evidence_summary,
                 "recommended_claims": json.dumps(recommended),
