@@ -97,3 +97,37 @@ def test_no_code_file_uses_the_name_appeal_strength():
                 if rx.search(code):
                     hits.append(f"{f.relative_to(ROOT)}:{n}")
     assert not hits, "the retired name is back in code: " + ", ".join(hits)
+
+
+def test_playbook_enrichment_failure_logs_the_missing_key_and_does_not_raise(caplog):
+    """APPEALS-6: a playbook row lacking the served column name (the unapplied-093 shape)
+    must be logged at ERROR naming the key, and must not propagate."""
+    import logging
+    from routers import provider_audit as PA
+
+    result = {"denial_types": [{"adjustment_code": "CO-97", "affected_cpts": ["99213"]}]}
+    rows = {("CO-97", "99213"): {"appeal_strength": "strong", "payer_analytical_path": "x",
+                                 "challenging_evidence_summary": "y", "recommended_claims": "[]",
+                                 "signal_topic_slug": "t"}}
+    caplog.set_level(logging.ERROR, logger="routers.provider_audit")
+    try:
+        PA._attach_signal_evidence(result, rows)
+    except Exception as e:  # the caller's catch, reproduced
+        PA._log_playbook_failure(e)
+    else:
+        raise AssertionError("expected the malformed row to raise")
+    assert "signal_evidence" not in result["denial_types"][0]
+    errors = [r for r in caplog.records if r.levelno == logging.ERROR]
+    assert errors, "no ERROR record logged"
+    msg = errors[-1].getMessage()
+    assert "KeyError" in msg and "'signal_claim_count_band'" in msg
+
+
+def test_playbook_enrichment_attaches_when_the_row_has_the_column():
+    from routers import provider_audit as PA
+    result = {"denial_types": [{"adjustment_code": "CO-97", "affected_cpts": ["99213"]}]}
+    rows = {("CO-97", "99213"): {"signal_claim_count_band": "3_plus_claims", "payer_analytical_path": "x",
+                                 "challenging_evidence_summary": "y", "recommended_claims": "[]",
+                                 "signal_topic_slug": "t"}}
+    PA._attach_signal_evidence(result, rows)
+    assert result["denial_types"][0]["signal_evidence"]["signal_claim_count_band"] == "3_plus_claims"

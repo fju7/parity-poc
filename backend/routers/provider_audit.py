@@ -5,6 +5,7 @@ from __future__ import annotations
 import base64
 import io
 import json
+import logging
 import os
 import zipfile
 from collections import Counter
@@ -34,6 +35,8 @@ from routers.benchmark import resolve_locality, lookup_rate, get_all_pfs_rates_f
 from utils.parse_835 import parse_835
 
 from signal_reader import signal_reader
+
+logger = logging.getLogger(__name__)
 
 router = APIRouter(tags=["provider"])
 
@@ -1484,6 +1487,47 @@ async def parse_837(file: UploadFile = File(...)):
 # POST /analyze-denials  (Capability 1 — AI-powered)
 # ---------------------------------------------------------------------------
 
+def _attach_signal_evidence(result, playbook_rows) -> None:
+    """Attach the Signal playbook row to each denial type it matches. Raises on a
+    malformed row (e.g. a column the served code expects but the database does not
+    have — the unapplied-migration case of 2026-09-19/20); the caller logs and the
+    audit continues without the enrichment."""
+    if not (playbook_rows and result and "denial_types" in result):
+        return
+    for denial_type in result["denial_types"]:
+        code = denial_type.get("adjustment_code", "")
+        affected = denial_type.get("affected_cpts", [])
+        for cpt in affected:
+            key = (code, cpt)
+            if key in playbook_rows:
+                pb = playbook_rows[key]
+                denial_type["signal_evidence"] = {
+                    # APPEALS-5: a count band (0 / 1-2 / 3+ Signal claims), not a strength.
+                    # No frontend reads signal_evidence (verified 2026-09-19); it reaches the
+                    # audit response only.
+                    "signal_claim_count_band": pb["signal_claim_count_band"],
+                    "payer_analytical_path": pb["payer_analytical_path"],
+                    "challenging_evidence_summary": pb["challenging_evidence_summary"],
+                    "recommended_claims": pb["recommended_claims"],
+                    "topic_slug": pb["signal_topic_slug"],
+                }
+                break
+
+
+def _log_playbook_failure(exc: BaseException) -> None:
+    """APPEALS-6 (2026-09-20): the enrichment failure used to be a print('[warn] ...') that
+    named neither the exception type nor, for a KeyError, the key — so a served column
+    name the database did not have (093 unapplied) was invisible in the logs for a day.
+    Logged at ERROR with the type; for a KeyError, the missing key by name. Never
+    re-raised: a missing enrichment must not 500 a provider audit."""
+    if isinstance(exc, KeyError):
+        missing = exc.args[0] if exc.args else "?"
+        logger.error("Signal playbook enrichment failed: KeyError — playbook row has no key %r "
+                     "(served code and database column names disagree; check migrations)", missing)
+    else:
+        logger.error("Signal playbook enrichment failed: %s: %s", type(exc).__name__, exc)
+
+
 @router.post("/analyze-denials")
 async def analyze_denials(req: AnalyzeDenialsRequest, request: Request):
     """AI-powered denial interpretation. Totals are computed in code (denial_totals); no letter is drafted here."""
@@ -1540,27 +1584,9 @@ async def analyze_denials(req: AnalyzeDenialsRequest, request: Request):
             playbook_res = sb.table("signal_denial_playbook").select("*").in_("cpt_code", cpt_codes).in_("denial_code", denial_codes).execute()
             playbook_rows = {(r["denial_code"], r["cpt_code"]): r for r in (playbook_res.data or [])}
 
-            if playbook_rows and result and "denial_types" in result:
-                for denial_type in result["denial_types"]:
-                    code = denial_type.get("adjustment_code", "")
-                    affected = denial_type.get("affected_cpts", [])
-                    for cpt in affected:
-                        key = (code, cpt)
-                        if key in playbook_rows:
-                            pb = playbook_rows[key]
-                            denial_type["signal_evidence"] = {
-                                # APPEALS-5: a count band (0 / 1-2 / 3+ Signal claims), not a strength.
-                                # No frontend reads signal_evidence (verified 2026-09-19); it reaches the
-                                # audit response only.
-                                "signal_claim_count_band": pb["signal_claim_count_band"],
-                                "payer_analytical_path": pb["payer_analytical_path"],
-                                "challenging_evidence_summary": pb["challenging_evidence_summary"],
-                                "recommended_claims": pb["recommended_claims"],
-                                "topic_slug": pb["signal_topic_slug"],
-                            }
-                            break
+            _attach_signal_evidence(result, playbook_rows)
     except Exception as e:
-        print(f"[warn] Signal playbook lookup failed: {e}")
+        _log_playbook_failure(e)
 
     # Aggregate denial patterns in background (silent)
     import asyncio
