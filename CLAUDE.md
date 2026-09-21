@@ -1285,7 +1285,16 @@ Migration 086 (service-role-only policies on 14 tables) APPLIED 2026-09-15 after
 Migration 087 (db_posture() + four open policies + grant floor on all 88 tables) APPLIED 2026-09-15; live posture FAIL 0.
 Migrations 088 and 089 APPLIED 2026-09-15 (six mmr plain_summary values -> NULL; see
 docs/signal-corpus-freeze.md).
-Next migration number: 090
+Migrations 090, 091, 092 APPLIED 2026-09-15 (mmr sources: Godlee editorial + Walker-Smith;
+19214753 re-cited to Deer; bmj.d1678 correction source — see SAP-Signal-7/8/9).
+Migrations 093 and 094 APPLIED 2026-09-21 via apply_migration (versions 20260921123941 and
+20260921123944): signal_denial_playbook.appeal_strength -> signal_claim_count_band with
+CHECK + default; COMMENT marking provider_appeals.appeal_strength RETIRED. See APPEALS-6-APPLY.
+NOTE: those two rows were registered WITHOUT the numeric prefix in schema_migrations.name
+(signal_denial_playbook_claim_count_band / provider_appeals_appeal_strength_retired_comment);
+every earlier row is '0NN_...'. Look them up by version, or pass the file's full stem as the
+apply_migration name in future so the history stays greppable by number.
+Next migration number: 095
 
 ## Session P0-Signal — Data Integrity + Crawlable Metadata (Complete)
 Phase 0 of the Signal review. Fixes wrong published numbers and unshareable
@@ -2772,6 +2781,59 @@ reviewer's signature was not re-opened.
   'Accordingly', typographic apostrophes. Dates/URLs/signature unchanged.
   tests/verify/test_publish_gate.py pinned the OLD scope wording and was not
   run before S2 shipped — fixed; run tests/verify after any scope edit.
+
+## Session APPEALS-6-APPLY — migrations 093 + 094 applied; the KeyError path closed (2026-09-21)
+- Binding check first: get_project_url -> kfxxpscdwoemtzylhhhb. Pre-state read from the DB
+  (appeal_strength present, default 'weak', 252 rows all 'strong', no CHECK, no comment).
+- 093 applied -> version 20260921123941; 094 -> 20260921123944. Verified from the DB:
+  appeal_strength gone, 252 of 252 rows 3_plus_claims, CHECK signal_claim_count_band_values
+  present, default '0_claims', 094's comment via col_description. Posture unchanged (RLS on;
+  anon/authenticated SELECT is 078's status='published' gated read; service_role full).
+- LIVE PATH: the playbook is read through signal_reader() (anon key), so only a PUBLISHED
+  topic's rows are visible — the only usable pair is on mmr-vaccine-autism (used CO-50, 90707).
+  The endpoint's query + _attach_signal_evidence against the live reader now populates
+  signal_evidence; before 093 that exact call raised KeyError('signal_claim_count_band').
+- FOUND: the 30-day Render logs held ZERO /api/provider/analyze-denials requests and ZERO
+  "playbook" lines before or after the apply. APPEALS-6's "live since 22:54Z" exposure was
+  reasoned from code, never observed — and could not have been (see APPEALS-7).
+- To call the endpoint I signed in as Fred's Sunshine Medical provider account via the normal
+  OTP flow (code read from otp_codes, session logged out and confirmed gone). SIDE EFFECT:
+  verify-otp fires a "trial ends in 5 days" reminder email. Prefer the DB-facing path + the
+  test suite over signing in as Fred (APPEALS-7 was run that way by instruction).
+- docs/schema-retired-fields.md: both rows now carry the apply date + registered version.
+
+## Session APPEALS-7 — the enrichment had never run; reachability fixed and proved (2026-09-21)
+- CAUSE: provider_audit.py analyze_denials did denial_codes.extend(line.adjustment_codes) on
+  a STRING, so PostgREST was asked for denial_code IN ('C','O','-','5','0'). No playbook row
+  had matched since the lookup was wired in f9dc071 (2026-03-23). 093 was correct and
+  necessary; it was not sufficient.
+- FORMAT ESTABLISHED BEFORE FIXING (rule: do not guess a field's format — find every
+  producer): DenialLine.adjustment_codes is str; ProviderApp.jsx:626 builds it as
+  (item.adjustments||[]).map(a=>a.code).join(", ") over parse_835's "{group}-{reason}";
+  :665/:743 send it unchanged; server-side producer provider_audit.py:3119 also joins ", ".
+  Production provider_analyses line_items: 59 of 224 carry two codes ("CO-45, CO-50").
+  denial_totals (provider_shared.py:469) and provider_trends.py:57 already parse the field
+  with split(",") + strip(). Fix = the same parse, one line. Deployed d3cbcb9 (13:03:46Z).
+- TEST AT THE RIGHT LEVEL: tests/test_appeals7_enrichment_reachable.py goes through
+  POST /api/provider/analyze-denials with the frontend's exact payload and a fake reader that
+  HONOURS .in_() values. It failed on the old code with the filter ['0','C','5','-','O'] and
+  passes after. The APPEALS-5 unit tests passed for six months because they hand
+  _attach_signal_evidence already-matched rows. RULE: a fake that returns whatever rows the
+  test wants cannot detect a broken filter; make the fake apply the filter.
+- OUTPUT CHECKED AGAINST ITS SOURCE: for (CO-50, 90707) all five signal_evidence fields are
+  byte-identical to playbook row 863388a3 via the anon reader; payer_analytical_path equals
+  DENIAL_PATH_MAP["CO-50"]. Observed, not changed: row dated 2026-03-23 (pre-freeze);
+  challenging_evidence_summary is four summaries joined with ", " ("...question., A 2015...");
+  recommended_claims is a JSON STRING, not a parsed list.
+- OPEN ITEMS (docs/appeals-record-2026-09.md, recorded not fixed):
+  OI-PARITY-1: signal_intelligence.py:632-637 INSERT into signal_topic_requests omits
+    topic_name (NOT NULL, no default) -> 23502 on every background aggregate_denial_patterns
+    run; handler is logger.exception("...failed silently") so the traceback IS logged at
+    ERROR. Measured: 0 auto-generated topic requests exist, yet 2 of 32
+    provider_denial_patterns have topic_request_created = true (flags with no request).
+  OI-PARITY-2: no frontend reads signal_evidence (only grep hit is a comment about
+    signal_evidence_updates). The fix changes a response body and nothing on a page.
+- Suite: 1242 passed, 2 skipped (340 deselected = eval/integration markers per pytest.ini).
 
 ## Standing instructions for every session
 1. Read this file at the start of every session
