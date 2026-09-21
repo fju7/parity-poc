@@ -136,3 +136,46 @@ both-names shim. A shim would re-admit the retired name to `provider_audit.py` (
 an exemption for it), and shims that linger are a defect of their own; the exposure it would remove is a
 logged degradation of an unrendered field. Until 093 is applied: the audit's Signal enrichment is
 off (logged), and the admin populate endpoint must not be called.
+
+## The enrichment had never run (APPEALS-7, 2026-09-21)
+
+093 was applied 2026-09-21 (`20260921123941`) and verified from the database. Exercising the live
+endpoint afterwards as the frontend calls it — `(CO-50, 90707)`, `adjustment_codes: "CO-50"` — returned
+200 with **no `signal_evidence`**. Cause: `provider_audit.py` built its playbook filter with
+`denial_codes.extend(line.adjustment_codes)` on a **string**, so PostgREST was asked for
+`denial_code IN ('C','O','-','5','0')`. Nothing had matched since the lookup was wired in `f9dc071`
+(2026-03-23). The KeyError that 093 closed was therefore never reachable through the endpoint either —
+consistent with the 30-day logs, which hold no "playbook" line before or after the apply.
+
+Format established before fixing (not guessed): `DenialLine.adjustment_codes: str`;
+`ProviderApp.jsx:626` builds it as `(item.adjustments || []).map(a => a.code).join(", ")` over
+`parse_835`'s `f"{group_code}-{reason_code}"`; `:665` and `:743` send it unchanged; the server-side
+producer (`provider_audit.py:3119`) also joins with `", "`. Production `provider_analyses.result_json`
+line_items: 59 of 224 carry two codes (`"CO-45, CO-97"`, `"CO-45, CO-50"`). `denial_totals`
+(`provider_shared.py:469`) and `provider_trends.py:57` already parse the field with `split(",")` +
+`strip()`. Fix: the same parse, one line. Test: `tests/test_appeals7_enrichment_reachable.py` goes
+through `POST /api/provider/analyze-denials` with the frontend's payload and a fake reader that
+honours `.in_()` values; it failed against the old code with the filter `['0','C','5','-','O']` and
+passes after. The unit tests in `test_appeals5.py` had passed throughout because they hand
+`_attach_signal_evidence` already-matched rows.
+
+Output checked against its source: for `(CO-50, 90707)` all five `signal_evidence` fields are
+byte-identical to playbook row `863388a3-bb30-40e8-9658-5c5c030a91df` read through the anon reader;
+`payer_analytical_path` equals `DENIAL_PATH_MAP["CO-50"]`. Observed, not changed: the row is dated
+2026-03-23 (pre-freeze); `challenging_evidence_summary` is four summaries joined with `", "` (reads
+"…question., A 2015…"); `recommended_claims` is a JSON string, not a parsed list.
+
+### Open items (recorded, not fixed)
+
+- **OI-PARITY-1** — `signal_intelligence.py:632-637`, background `aggregate_denial_patterns`: the
+  INSERT into `signal_topic_requests` sends `parsed_title`, `parsed_description`, `raw_request`,
+  `status` and omits `topic_name`, which is `NOT NULL` with no default → `23502` on every attempt
+  (seen in Render logs 2026-09-21T12:43:45Z for a real pending pattern, "CO-45, CO-97 on CPT 99214").
+  The handler at `:644` is `logger.exception("aggregate_denial_patterns failed silently")` — the
+  traceback is logged at ERROR, so the wording overstates the silence. Measured 2026-09-21: zero rows
+  in `signal_topic_requests` with the auto-generated text, yet 2 of 32 `provider_denial_patterns` rows
+  have `topic_request_created = true` — two flags with no request behind them, origin not established.
+- **OI-PARITY-2** — no frontend reads `signal_evidence` (the only `grep` hit in `frontend/src` is a
+  comment about `signal_evidence_updates`, a different table). The enrichment now populates the audit
+  response and reaches no user. Wiring a consumer is a product decision; until it is made, the
+  APPEALS-7 fix changes a response body and nothing on a page.

@@ -1574,10 +1574,13 @@ async def analyze_denials(req: AnalyzeDenialsRequest, request: Request):
     try:
         sb = signal_reader()
         cpt_codes = list({line.cpt_code for line in req.denied_lines if line.cpt_code})
+        # adjustment_codes is a comma-joined STRING ("CO-45, CO-50" -- ProviderApp.jsx:626
+        # joins parse_835 codes with ", "; 59 of 224 production lines carry two). Parsed the
+        # way denial_totals parses the same field. Until APPEALS-7 (2026-09-21) this did
+        # list.extend(<str>), filtering the playbook on single characters: no match, ever.
         denial_codes = []
         for line in req.denied_lines:
-            if line.adjustment_codes:
-                denial_codes.extend(line.adjustment_codes)
+            denial_codes.extend(c.strip() for c in (line.adjustment_codes or "").split(",") if c.strip())
         denial_codes = list(set(denial_codes))
 
         if cpt_codes and denial_codes:
