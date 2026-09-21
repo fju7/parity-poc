@@ -2835,6 +2835,27 @@ reviewer's signature was not re-opened.
     signal_evidence_updates). The fix changes a response body and nothing on a page.
 - Suite: 1242 passed, 2 skipped (340 deselected = eval/integration markers per pytest.ini).
 
+## Session APPEALS-8 — OI-PARITY-1 fixed: the auto topic-request insert (2026-09-21)
+- CAUSE, from history not inference: f03dc65 (2026-03-23) inserted topic_name + description and
+  worked (that run set the two orphan topic_request_created flags; their request rows were later
+  deleted). af25379 the next morning, "use correct column names", REPLACED them with parsed_* and
+  dropped topic_name, which is NOT NULL with no default since migration 005 -> 23502 on every
+  threshold-crossing pattern since. RULE: a commit titled "use correct column names" is a claim
+  about the schema; check it against information_schema, not the other insert sites.
+- FIX: "topic_name": parsed_title added to the insert (the human path's convention; readers take
+  parsed_title first, topic_name as fallback). Test tests/test_appeals8_topic_request_insert.py:
+  a fake client that ENFORCES the NOT NULL and records writes in order; failed on the old code
+  with the production error text, passes after. The exact payload was INSERTed into the live
+  table inside BEGIN…ROLLBACK and accepted; 0 rows left.
+- ON DEPLOY: two BC BS of MD patterns (count 5) are past threshold and unflagged, so the first
+  analyze-denials call creates two admin topic requests with compound-code titles
+  ("CO-45, CO-97 on CPT 99214"). No email is sent; they appear in AdminRequestsDashboard.
+- OI-PARITY-3 (recorded, not fixed): aggregate_denial_patterns treats the comma-joined
+  adjustment_codes string as ONE code, so provider_denial_patterns.denial_code holds
+  "CO-45, CO-97" and the playbook coverage .eq() can never match a two-code line. Splitting
+  changes the aggregation key for 32 existing rows — decide the key first.
+- Suite: 1244 passed, 2 skipped.
+
 ## Standing instructions for every session
 1. Read this file at the start of every session
 2. Verify all file paths before issuing commands

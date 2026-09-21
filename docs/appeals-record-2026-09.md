@@ -167,15 +167,30 @@ byte-identical to playbook row `863388a3-bb30-40e8-9658-5c5c030a91df` read throu
 
 ### Open items (recorded, not fixed)
 
-- **OI-PARITY-1** — `signal_intelligence.py:632-637`, background `aggregate_denial_patterns`: the
-  INSERT into `signal_topic_requests` sends `parsed_title`, `parsed_description`, `raw_request`,
-  `status` and omits `topic_name`, which is `NOT NULL` with no default → `23502` on every attempt
-  (seen in Render logs 2026-09-21T12:43:45Z for a real pending pattern, "CO-45, CO-97 on CPT 99214").
-  The handler at `:644` is `logger.exception("aggregate_denial_patterns failed silently")` — the
-  traceback is logged at ERROR, so the wording overstates the silence. Measured 2026-09-21: zero rows
-  in `signal_topic_requests` with the auto-generated text, yet 2 of 32 `provider_denial_patterns` rows
-  have `topic_request_created = true` — two flags with no request behind them, origin not established.
+- **OI-PARITY-1 — FIXED (APPEALS-8, 2026-09-21).** `signal_intelligence.py` `aggregate_denial_patterns`:
+  the INSERT into `signal_topic_requests` omitted `topic_name` (`NOT NULL`, no default since migration
+  005) → `23502` on every threshold-crossing pattern. Origin established from history, not inferred:
+  `f03dc65` (2026-03-23) wrote `topic_name` + `description` and worked — that run flagged the two
+  `provider_denial_patterns` rows that carry `topic_request_created = true` with no request behind them
+  (their two request rows were later deleted; all 8 surviving requests have a `user_id`); `af25379`
+  the next morning ("use correct column names") replaced those two columns with `parsed_*` and broke
+  every insert since. Fix: `topic_name: parsed_title`, the human path's own convention
+  (`signal_topic_request.py:286/304/324`); readers take `parsed_title` first and fall back to
+  `topic_name`. Test `tests/test_appeals8_topic_request_insert.py` (fake client enforcing the NOT NULL,
+  writes recorded in order) failed on the old code with the production error text and passes after;
+  the exact payload was INSERTed into the live table inside a rolled-back transaction and accepted.
+  The handler's "failed silently" wording stands as a misnomer (it is `logger.exception`, ERROR level).
+  CONSEQUENCE ON DEPLOY: two BC BS of MD patterns (`0e14744f`, `aae38972`, count 5) are past threshold
+  and unflagged; the first `analyze-denials` call after deploy creates two admin requests titled
+  "Denial pattern: CO-45, CO-97 on CPT 99214" and "…CO-45, CO-4 on CPT 99213". No email is sent.
 - **OI-PARITY-2** — no frontend reads `signal_evidence` (the only `grep` hit in `frontend/src` is a
   comment about `signal_evidence_updates`, a different table). The enrichment now populates the audit
   response and reaches no user. Wiring a consumer is a product decision; until it is made, the
   APPEALS-7 fix changes a response body and nothing on a page.
+- **OI-PARITY-3** (found in APPEALS-8, not fixed) — `aggregate_denial_patterns` treats the comma-joined
+  `adjustment_codes` string as ONE code (`if isinstance(adj_codes, str): adj_codes = [adj_codes]`,
+  `signal_intelligence.py:551-553`), so `provider_denial_patterns.denial_code` holds `"CO-45, CO-97"`
+  for two-code lines and the playbook coverage check (`.eq("denial_code", …)`) can never match them.
+  Same family as APPEALS-7, a different site. Not changed here because splitting alters the aggregation
+  key: the 32 existing pattern rows keyed on compound strings would not merge with rows keyed per code,
+  and the two requests about to be auto-created carry compound titles. Decide the key first.

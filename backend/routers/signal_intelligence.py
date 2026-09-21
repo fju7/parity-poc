@@ -629,7 +629,12 @@ async def aggregate_denial_patterns(denied_lines: list, payer_name: str) -> None
                 f"Source: denial_pattern"
             )
 
+            # topic_name is NOT NULL with no default (migration 005). af25379 (2026-03-24)
+            # dropped it for the parsed_* columns and every insert since raised 23502
+            # (OI-PARITY-1, fixed APPEALS-8 2026-09-21). Same convention as the human
+            # path in signal_topic_request.py: topic_name mirrors parsed_title.
             sb.table("signal_topic_requests").insert({
+                "topic_name": parsed_title,
                 "parsed_title": parsed_title,
                 "parsed_description": parsed_description,
                 "raw_request": raw_request,
