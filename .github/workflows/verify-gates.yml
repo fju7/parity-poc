@@ -75,6 +75,9 @@ jobs:
       - run: pip install -r backend/requirements.txt pytest
       - name: Golden sets against the recording
         working-directory: backend
+        env:
+           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+           SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
         run: python -m pytest tests/verify tests/test_citation_gate.py -q -s -rs 2>&1 | tee /tmp/offline.log
       - name: No manual entry may have been skipped
         working-directory: backend
