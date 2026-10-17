@@ -513,6 +513,272 @@ def bounded_figure_negative(row: dict, cover: list, sent: str,
                      "document is announcing" % (sid, subject))
 
 
+# ---------------------------------------------------------------------------
+# B19, B20, B21 — a sentence may not be surer than what it rests on
+# ---------------------------------------------------------------------------
+#
+# A three-judge read of all 80 judgement sentences in the four WHU test issues
+# (2026-10) found that every confirmed reasoning error leaned the same way:
+# toward more certainty than the cited source allows.
+#
+#   "The evidence does not support choosing between those three on the basis
+#    of age or sex."  Its premise says the moderators "should be interpreted
+#    cautiously". The caution became a verdict.
+#   "Confidence in direction is high ..."  The premise it cites says the Task
+#    Force concludes "with moderate certainty".
+#
+# B6 asks whether a hedge in the SENTENCE maps to the span. Nothing asked the
+# converse -- whether a hedge in the SPAN survives into the sentence -- and
+# B6's flags are read by negatives.py as its own worklist, so these are numbered
+# rather than filed under B6.
+#
+# R1 still governs. B19 reports a dropped word, not a false sentence; B20
+# compares two stated grades, not the evidence; B21 routes a sentence to the
+# store and lets epistemic.py answer. Each says what it saw and stops.
+
+EVIDENCE_HEDGES = (
+    "may", "might", "could", "possibly", "probably", "likely", "suggest",
+    "suggests", "suggestive", "appear", "appears", "appeared", "cautious",
+    "cautiously", "preliminary", "tentative", "uncertain", "uncertainty",
+    "exploratory", "hypothesis", "hypothesis-generating", "limited",
+    "low certainty", "very low", "low quality", "not statistically significant",
+    "trend")
+SENTENCE_HEDGES = EVIDENCE_HEDGES + (
+    "modest", "unclear", "not a finding", "cannot", "does not show", "too few",
+    "low", "weak")
+# A sentence that NEGATES what the evidence hedges has turned "we cannot tell"
+# into "it is not so". That is the T01 failure exactly, so these count as no
+# hedge at all, whatever else the sentence carries.
+NEGATING = ("does not support", "no evidence")
+
+
+def _words(words) -> re.Pattern:
+    alts = sorted(words, key=len, reverse=True)
+    return re.compile(r"\b(?:%s)\b" % "|".join(
+        r"\s+".join(re.escape(p) for p in w.split()) for w in alts), re.I)
+
+
+_EVIDENCE_HEDGE = _words(EVIDENCE_HEDGES)
+_SENTENCE_HEDGE = _words(SENTENCE_HEDGES)
+_NEGATING = _words(NEGATING)
+
+
+def evidence_spans(row: dict) -> list[tuple[str, str]]:
+    """What a sentence's certainty is measured against.
+
+    A judgement: its premises, which are what its step runs over. Anything
+    else: its span and its also_rests_on. Not covering_spans(), which also
+    counts a judgement's primary span -- the brief for these checks names the
+    premises, and a judgement here carries none.
+    """
+    if (row.get("bucket") or "") == "judgement":
+        extra = list(row.get("premises") or [])
+        out = []
+    else:
+        extra = list(row.get("also_rests_on") or [])
+        out = [(row.get("source_id") or "", row.get("span") or "")]
+    out += [(x.get("source_id") or "", x.get("span") or "") for x in extra]
+    return [(a, b) for a, b in out if b]
+
+
+def sentence_hedges(sent: str) -> list[str]:
+    if _NEGATING.search(sent):
+        return []
+    return [" ".join(m.group(0).lower().split()) for m in _SENTENCE_HEDGE.finditer(sent)]
+
+
+def b19_hedge_dropped(row: dict) -> list[dict]:
+    """The evidence hedges and the sentence does not. WARN, never a block."""
+    sent = row.get("sentence") or ""
+    hits = []
+    for sid, span in evidence_spans(row):
+        for m in _EVIDENCE_HEDGE.finditer(span):
+            w = " ".join(m.group(0).lower().split())
+            if (w, sid) not in hits:
+                hits.append((w, sid))
+    if not hits or sentence_hedges(sent):
+        return []
+    why = "the evidence says %s; the sentence carries no hedge" % ", ".join(
+        "%r (%s)" % (w, sid) for w, sid in hits[:4])
+    if _NEGATING.search(sent):
+        why += (" -- it negates (%r), which turns the evidence's caution into "
+                "a verdict" % _NEGATING.search(sent).group(0))
+    return [{"check": "B19", "verdict": "evidence hedge dropped",
+             "hedge": hits[0][0], "why": why}]
+
+
+# B20. The ladder is the brief's. "moderate to good" and "reasonably high" sit
+# between moderate and high: above anything a source grades moderate, below a
+# source's "high".
+WHU_LEVELS = {"very low": 0, "low": 1, "moderate": 2, "moderate to good": 3,
+              "moderate-to-good": 3, "reasonably high": 3, "high": 4}
+GRADE_RANK = {"very low": 0, "low": 1, "moderate": 2, "high": 4}
+GRADE_ANCHORS = {"certainty", "quality", "confidence", "grade", "cinema"}
+CONFIDENCE_SENTENCE = re.compile(r"^\W*confidence\b(?:\s+(?:in|that)\b|.*?\bis\b)",
+                                 re.I | re.S)
+_WHU_LEVEL = _words(WHU_LEVELS)
+
+
+def whu_level(sent: str) -> str:
+    """The level a 'Confidence ...' sentence states, or "". "" for a sentence
+    that is not one."""
+    m = CONFIDENCE_SENTENCE.match(sent)
+    if not m:
+        return ""
+    after = sent[m.end():]
+    if not re.search(r"\bis\b", sent[:m.end()], re.I):
+        is_ = re.search(r"\bis\b", after, re.I)
+        if is_:
+            after = after[is_.end():]
+    lv = _WHU_LEVEL.search(after)
+    return " ".join(lv.group(0).lower().split()) if lv else "?"
+
+
+def stated_grades(span: str) -> list[str]:
+    """Every certainty grade the span states: very low, low, moderate or high
+    within six words of certainty, quality, confidence, GRADE or CINeMA."""
+    toks = re.findall(r"[A-Za-z]+", span)
+    low = [t.lower() for t in toks]
+    out = []
+    for i, t in enumerate(low):
+        if t not in ("low", "moderate", "high"):
+            continue
+        g = "very low" if t == "low" and i and low[i - 1] == "very" else t
+        near = low[max(0, i - 6):i] + low[i + 1:i + 7]
+        if GRADE_ANCHORS & set(near):
+            out.append(g)
+    return out
+
+
+def b20_confidence_ceiling(row: dict) -> list[dict]:
+    """WHU's stated confidence against the highest grade its evidence states.
+
+    STOP when the sentence is surer than every grade it cites, unless the row
+    carries `grade_departure`: a person's written reason for going above it.
+    WARN when no premise states a grade at all -- the comparison cannot be
+    made, which is not the same as passing it.
+    """
+    sent = row.get("sentence") or ""
+    level = whu_level(sent)
+    if not level:
+        return []
+    if level == "?":
+        return [{"check": "B20", "verdict": "confidence level unreadable",
+                 "why": "a 'Confidence ...' sentence whose level is none of %s"
+                        % ", ".join(WHU_LEVELS)}]
+    grades = [(g, sid) for sid, span in evidence_spans(row)
+              for g in stated_grades(span)]
+    if not grades:
+        return [{"check": "B20", "verdict": "confidence stated without a cited grade",
+                 "level": level,
+                 "why": "states %r; no premise states a certainty grade, so the "
+                        "ceiling cannot be read -- not passed, not failed" % level}]
+    top = max(GRADE_RANK[g] for g, _ in grades)
+    if WHU_LEVELS[level] <= top:
+        return []
+    cited = ", ".join("%s (%s)" % (g, sid) for g, sid in grades)
+    if (row.get("grade_departure") or "").strip():
+        return []
+    return [{"check": "B20", "verdict": "confidence above its cited grade",
+             "level": level,
+             "why": "states %r; the highest grade its evidence states is %s. "
+                    "A departure needs grade_departure on the row" % (level, cited)}]
+
+
+# B21. A sentence about OUR holdings -- what we hold, opened, obtained, searched
+# -- is true or false according to the source store, not according to any
+# document. Citing one makes it look as though a document supports it, and
+# outside judges split on exactly these (14 of 80 judgements in the test
+# issues). epistemic.py already adjudicates the class against the store.
+#
+# Subject, not phrase. "the reviews we hold agree on the direction" carries
+# "we hold" and is a claim about the world; the sentences here make OUR
+# holdings or actions the subject, or end on a clause saying we have not
+# opened what the sentence names.
+HOLDINGS = re.compile(
+    r"^\W*(?:we\s+(?:hold|have\s+not\s+(?:yet\s+)?(?:opened|read|checked|obtained)"
+    r"|did\s+not\s+(?:obtain|open|read|check)|could\s+not\s+(?:obtain|open|reach))\b"
+    r"|our\s+search\b)"
+    r"|,\s*which\s+we\s+have\s+not\s+(?:yet\s+)?(?:opened|read|checked|obtained)\b",
+    re.I)
+
+
+def is_holdings(sent: str) -> bool:
+    return bool(HOLDINGS.search(sent or ""))
+
+
+def support_ids(row: dict) -> list[str]:
+    ids = [row.get("source_id")]
+    ids += [x.get("source_id") for x in (row.get("also_rests_on") or [])]
+    ids += [x.get("source_id") for x in (row.get("premises") or [])]
+    return list(dict.fromkeys(i for i in ids if i))
+
+
+def b21_holdings(row: dict, slug: str) -> list[dict]:
+    """Route a holdings sentence to the store, and refuse a document as its support.
+
+    `rests_on_store` lists the source ids whose STORE RECORD the sentence is
+    about. It is the subject, not support: epistemic.declared_sources reads the
+    ids off the row to know which record to ask.
+    """
+    sent = row.get("sentence") or ""
+    declared = row.get("rests_on_store") or []
+    if not is_holdings(sent):
+        if declared:
+            return [{"check": "B21", "verdict": "declared to the store, not a holdings sentence",
+                     "why": "rests_on_store is set and the sentence is not about "
+                            "what we hold; a person decides which is wrong"}]
+        return []
+    out = []
+    cited = support_ids(row)
+    if cited:
+        out.append({"check": "B21", "verdict": "holdings sentence cites a document",
+                    "why": "a sentence about what we hold is settled by the store, "
+                           "and this one cites %s as support" % ", ".join(cited)})
+    elif not declared:
+        out.append({"check": "B21", "verdict": "holdings sentence not declared to the store",
+                    "why": "no rests_on_store on the row, so the store check cannot "
+                           "be told which record the sentence is about"})
+    import epistemic as E
+    try:
+        verdicts = E.check_sentence(sent, slug)
+    except (Exception, SystemExit) as exc:
+        verdicts = [{"verdict": E.NOT_EVALUATED, "why": "%s: %s" % (type(exc).__name__, exc)}]
+    if not verdicts:
+        out.append({"check": "B21", "verdict": "store check not evaluated",
+                    "why": "epistemic.check_sentence reads no claim about our access "
+                           "in this sentence; nothing has checked it against the store"})
+    for v in verdicts:
+        if v["verdict"] == E.FAIL:
+            out.append({"check": "B21", "verdict": "store disagrees",
+                        "why": "%s: asserts %s, store records %s"
+                               % (v.get("source"), v.get("asserted"), v.get("recorded"))})
+        elif v["verdict"] == E.NOT_EVALUATED:
+            out.append({"check": "B21", "verdict": "store check not evaluated",
+                        "why": v.get("why") or ""})
+    return out
+
+
+CALIBRATION_SEVERITY = {
+    "evidence hedge dropped": WARN,
+    "confidence above its cited grade": BAD,
+    "confidence stated without a cited grade": WARN,
+    "confidence level unreadable": WARN,
+    "holdings sentence cites a document": BAD,
+    "store disagrees": BAD,
+    "holdings sentence not declared to the store": WARN,
+    "store check not evaluated": WARN,
+    "declared to the store, not a holdings sentence": WARN,
+}
+CALIBRATION_CHECKS = {"B19", "B20", "B21"}
+
+
+def calibration_findings(row: dict, slug: str) -> list[dict]:
+    """B19, B20 and B21 over one row. Reads the row, and the store for B21.
+    Writes nothing: run_checks puts what it returns in check_flags."""
+    return b19_hedge_dropped(row) + b20_confidence_ceiling(row) + b21_holdings(row, slug)
+
+
 def run_checks(slug: str, *, only: str = "") -> dict:
     """Run every span check against the source THE ROW NAMES.
 
@@ -538,11 +804,25 @@ def run_checks(slug: str, *, only: str = "") -> dict:
     import spancheck as SC
     doc = load(slug)
     rows = doc.get("bindings") or {}
-    tally = {"checked": 0, "flags": 0, "undetermined": 0}
+    tally = {"checked": 0, "flags": 0, "undetermined": 0,
+             "calibration_stop": 0, "calibration_warn": 0}
     for sha, row in rows.items():
         if only and sha != only:
             continue
-        if not row.get("on_page") or not row.get("span") or not row.get("source_id"):
+        if not row.get("on_page"):
+            continue
+        # B19-B21 READ EVERY ROW, NOT ONLY THE BOUND ONES. A judgement carries
+        # no span, so the loop below has always skipped it -- and the
+        # judgements are where the over-certainty was found.
+        calib = calibration_findings(row, slug)
+        for f in calib:
+            sev = CALIBRATION_SEVERITY.get(f["verdict"], WARN)
+            tally["calibration_stop" if sev == BAD else "calibration_warn"] += 1
+        if not row.get("span") or not row.get("source_id"):
+            row["check_flags"] = calib
+            if calib:
+                row["checked_on"] = date.today().isoformat()
+            tally["flags"] += len(calib)
             continue
         sid, span, sent = row["source_id"], row["span"], row["sentence"]
         found = []
@@ -647,6 +927,7 @@ def run_checks(slug: str, *, only: str = "") -> dict:
                              " (asked %s)" % ", ".join(cover_sids))
                     found.append({"check": "B12", "verdict": "added precision",
                                   "why": bad[0] + where})
+        found += calib
         row["check_flags"] = found
         row["checked_on"] = date.today().isoformat()
         tally["flags"] += len(found)
@@ -1028,8 +1309,14 @@ def rule_rows(slug: str) -> list[tuple[str, str, str]]:
                 and (v.get("attested_by") or "").strip()
                 and (v.get("attested_in") or "").strip()
                 and (v.get("locator") or "").strip()]
+    # A HOLDINGS SENTENCE RESTS ON THE STORE, AND SATISFIES RULE 1 THAT WAY.
+    # Same shape as the attestation above: not a span, never counted as a
+    # verified one, reported on its own row. B21 is what asks the store.
+    stored = [k for k, v in on_page.items()
+              if (v.get("rests_on_store") or []) and is_holdings(v.get("sentence"))
+              and not support_ids(v)]
     unbound = [k for k, v in on_page.items()
-               if not covering(v) and k not in set(attested)]
+               if not covering(v) and k not in set(attested) and k not in set(stored)]
 
     # A SENTENCE IS NOT BOUND BECAUSE ONE OF ITS FIGURES IS.
     #
@@ -1096,6 +1383,12 @@ def rule_rows(slug: str) -> list[tuple[str, str, str]]:
                           "defective text layer, declared on its record; neither "
                           "confirmed nor refuted, and not counted as verified: %s"
                           % (len(unevaluable), " || ".join(unevaluable[:3]))))
+    if stored:
+        out_extra.append(("sentences resting on the source store", WARN,
+                          "%d of %d say what we hold or did, and rest on the store's "
+                          "record rather than on a document; B21 asks the store. "
+                          "Not a verified span and never counted as one."
+                          % (len(stored), len(on_page))))
     if attested:
         out_extra.append(("sentences resting on a human attestation", WARN,
                           "%d of %d rest on a document no check may read: a named "
@@ -1121,7 +1414,7 @@ def rule_rows(slug: str) -> list[tuple[str, str, str]]:
     # and counted. Not a demotion of rule 1 -- the blocking half keeps its
     # label -- but a split, so the block names the defect and the backlog is
     # the backlog.
-    bound_n = len(on_page) - len(unbound) - len(attested)
+    bound_n = len(on_page) - len(unbound) - len(attested) - len(stored)
     out = [("rule 1 — written from a document we hold",
             OK if not loose else BAD,
             "every figure in the %d bound sentence(s) is in a span the sentence "
@@ -1298,17 +1591,26 @@ def preflight_rows(slug: str) -> list[tuple[str, str, str]]:
     attested_n = [k for k, v in on_page.items()
                   if not v.get("span") and (v.get("bucket") or "") == "figure"
                   and (v.get("attested_by") or "").strip()]
-    other = len(on_page) - len(bound) - len(declared) - len(attested_n)
+    stored_n = [k for k, v in on_page.items()
+                if not v.get("span") and (v.get("rests_on_store") or [])
+                and k not in declared and k not in attested_n]
+    other = (len(on_page) - len(bound) - len(declared) - len(attested_n)
+             - len(stored_n))
     out = [("empirical sentences bound to a span",
             OK if not other else WARN,
             "%d of %d bound to a span, %d declared as judgements resting on stated "
-            "premises, %d attested by a named reader%s. Rule 1 below is satisfied by "
-            "any of the three; BOUND means a span and nothing else."
+            "premises, %d attested by a named reader, %d resting on the source "
+            "store%s. Rule 1 below is satisfied by any of the four; BOUND means a "
+            "span and nothing else."
             % (len(bound), len(on_page), len(declared), len(attested_n),
-               "" if not other else ", and %d by none of them" % other))]
+               len(stored_n), "" if not other else ", and %d by none of them" % other))]
     out.extend(rule_rows(slug))
-    flagged = [k for k, v in on_page.items() if v.get("check_flags")]
-    checked = [k for k, v in on_page.items() if v.get("checked_on")]
+    def _span_flags(v):
+        return [f for f in (v.get("check_flags") or [])
+                if f.get("check") not in CALIBRATION_CHECKS]
+    flagged = [k for k, v in on_page.items() if _span_flags(v)]
+    checked = [k for k, v in on_page.items()
+               if v.get("checked_on") and v.get("span")]
     if checked:
         out.append(("bound sentences the span checks flagged",
                     OK if not flagged else BAD,
@@ -1318,7 +1620,18 @@ def preflight_rows(slug: str) -> list[tuple[str, str, str]]:
                     % (len(flagged), len(checked),
                        " || ".join("%s %s" % (f["check"], f["verdict"])
                                    for k in flagged[:4]
-                                   for f in on_page[k]["check_flags"][:1]))))
+                                   for f in _span_flags(on_page[k])[:1]))))
+    calib = [(k, f) for k, v in on_page.items() for f in (v.get("check_flags") or [])
+             if f.get("check") in CALIBRATION_CHECKS]
+    if calib:
+        stops = [(k, f) for k, f in calib
+                 if CALIBRATION_SEVERITY.get(f["verdict"]) == BAD]
+        out.append(("sentences surer than their sources (B19-B21)",
+                    BAD if stops else WARN,
+                    "%d STOP, %d warn: %s"
+                    % (len(stops), len(calib) - len(stops),
+                       " || ".join("%s %s" % (f["check"], f["verdict"])
+                                   for k, f in (stops or calib)[:4]))))
     if unbucketed:
         out.append(("sentences with no declared bucket", WARN,
                     "%d of %d — a sentence whose kind nobody declared cannot be "
@@ -1343,7 +1656,9 @@ def main() -> int:
         t = run_checks(args.slug)
         print("\n  %d bound sentence(s) checked against the source each row "
               "names" % t["checked"])
-        print("  %d flag(s), %d undetermined\n" % (t["flags"], t["undetermined"]))
+        print("  %d flag(s), %d undetermined" % (t["flags"], t["undetermined"]))
+        print("  calibration (B19-B21): %d STOP, %d warn\n"
+              % (t["calibration_stop"], t["calibration_warn"]))
         doc = load(args.slug)
         for sha, row in (doc.get("bindings") or {}).items():
             # ONLY WHAT IS STILL ON THE PAGE. A row whose sentence has been
@@ -1352,11 +1667,17 @@ def main() -> int:
             if not row.get("on_page"):
                 continue
             for f in (row.get("check_flags") or []):
-                print("  %-7s %-20s %s" % (f["check"], f["verdict"],
+                mark = ""
+                if f.get("check") in CALIBRATION_CHECKS:
+                    mark = (" STOP" if CALIBRATION_SEVERITY.get(f["verdict"]) == BAD
+                            else " warn")
+                print("  %-7s %-20s %s" % (f["check"] + mark, f["verdict"],
                                            row["sentence"][:78]))
-                print("          %s" % f["why"][:130])
+                print("          [%s] %s" % (sha[:8], f["why"][:130]))
         print()
-        return 0
+        # A STOP from B20 or B21 fails the command. The older checks keep
+        # their old exit status; changing it is not this change's to make.
+        return 1 if t["calibration_stop"] else 0
 
     if args.cmd == "scan":
         doc, unbound, stale = scan(args.slug)
