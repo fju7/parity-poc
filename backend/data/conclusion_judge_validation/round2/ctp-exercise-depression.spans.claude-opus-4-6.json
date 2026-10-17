@@ -1,0 +1,140 @@
+{
+ "17f49046347f6d44": {
+  "label": "NOT_IN_EVIDENCE",
+  "reason": "The conclusion states the review was 'updated in 2026 by Clegg and colleagues,' but the evidence only says 'This review updates one first published in 2008 and last updated in 2013' — no year 2026 or author named Clegg is mentioned in the passages. The direction ('same direction by a different route') is loosely consistent with the finding that exercise may reduce depression, but the specific attribution to 2026 and Clegg is not in evidence.",
+  "model": "claude-opus-4-6",
+  "mode": "spans"
+ },
+ "8e0ec2e7e4776042": {
+  "label": "SUPPORTED",
+  "reason": "The conclusion states the range is 'roughly -0.4 and -0.95,' which matches the evidence: S006 gives -0.43, S003 gives -0.67, and S004 gives -0.946. The conclusion also says 'the spread tracks what each one counted as a comparison and as acceptable quality,' which is supported by S004 noting they compared exercise with non-exercising controls only, and S001 noting they present effect sizes as improvements beyond active control conditions—different comparison choices that would affect effect sizes. Four groups are claimed; three distinct effect sizes are in evidence (S006, S003, S004), and the surrounding text mentions Singh's overview (-0.43) and dance (-0.96), consistent with the range stated.",
+  "model": "claude-opus-4-6",
+  "mode": "spans"
+ },
+ "6c22c581e90afa2c": {
+  "label": "SUPPORTED",
+  "reason": "The conclusion states the NNT of 2 'is computed from the largest of the pooled estimates' and that 'the same review gives 2.8 once the analysis is limited to low-risk-of-bias studies.' The evidence confirms: the NNT=2 comes from the overall pooled SMD=-0.946 (the largest effect), and the low-risk-of-bias restriction yields NNT=2.8 with a smaller SMD=-0.666. Both figures and the characterization match the passages.",
+  "model": "claude-opus-4-6",
+  "mode": "spans"
+ },
+ "d9e456a12e1d7347": {
+  "label": "SUPPORTED",
+  "reason": "Both S001 and S003 agree that exercise reduces depression symptoms (direction consistent). S003 notes the effect is 'moderately' effective and the pooled SMD shrinks with stricter trial criteria, while S001 calls exercise 'effective' without quantifying precisely—this supports the conclusion's claim that reviews 'agree on the direction... much more firmly than on its size.' The causal language ('reduces') is matched by S001's 'effective treatment for depression' and S003's 'more effective than a control intervention for reducing symptoms.'",
+  "model": "claude-opus-4-6",
+  "mode": "spans"
+ },
+ "1aaf411195bee124": {
+  "label": "SUPPORTED",
+  "reason": "The conclusion states trials are 'small' (supported by S001: 'median number of walking or jogging arms was 17'), 'could not be blinded' (supported by S003: 'we judged all studies to be at high risk of performance bias'), and that evidence cannot tell 'how large the benefit is for a particular person' (supported by S001: moderators 'were at the study level rather than individual level'). All three elements are directly grounded in the passages.",
+  "model": "claude-opus-4-6",
+  "mode": "spans"
+ },
+ "2a3892697f5de517": {
+  "label": "SUPPORTED",
+  "reason": "The conclusion states that the press summary ('exercise as strong as therapy') is a fair summary of what the paper argued. S008 confirms WebMD used the line 'Many common forms of exercise are as strong as therapy in treating depression,' and S001 from the paper itself states 'the effect sizes seem comparable' to cognitive behavioural therapy, supporting that the press report fairly reflected the paper's argument.",
+  "model": "claude-opus-4-6",
+  "mode": "spans"
+ },
+ "3821fc67c5bbc309": {
+  "label": "SUPPORTED",
+  "reason": "The evidence shows S003 was read as 'abstract_held' with the passage 'Subscription required', which confirms that only the abstract was held and the full text was not available. The conclusion states 'We hold the abstract of this review, not the full text, so we cannot check its tables or its trial-by-trial judgements,' which is directly supported by this access limitation.",
+  "model": "claude-opus-4-6",
+  "mode": "spans"
+ },
+ "b921e3fd33e0dbb8": {
+  "label": "SUPPORTED",
+  "reason": "The passages show a 'clear dose-response curve' for intensity and state that the dose-response curve for weekly energy expenditure (amount) 'was unclear' with wide credible intervals. This supports the conclusion that intensity mattered more than amount in the BMJ analysis.",
+  "model": "claude-opus-4-6",
+  "mode": "spans"
+ },
+ "7b76ffc834229f84": {
+  "label": "SUPPORTED",
+  "reason": "S009 shows the university announcement stated definitively that 'Strength training was found to be an especially effective exercise for younger women, whereas older men received the most benefit from yoga.' S001 shows the paper itself hedges its sex findings, noting confounding concerns. The conclusion that the announcement 'went further than the paper on who benefits from what' is supported by this contrast between the definitive announcement claims and the paper's cautious language.",
+  "model": "claude-opus-4-6",
+  "mode": "spans"
+ },
+ "45bc6d5d5195128e": {
+  "label": "SUPPORTED",
+  "reason": "The conclusion states the advice is 'a hypothesis from the data, not a finding about individuals,' which aligns with the evidence that 'confounding means our moderators for age and sex should be interpreted cautiously' and that 'individual patient meta-analyses' are needed 'to allow for more detailed assessments of participant level moderators,' confirming the findings are study-level, not individual-level.",
+  "model": "claude-opus-4-6",
+  "mode": "spans"
+ },
+ "90881ff955b74a93": {
+  "label": "OVERSTATES",
+  "reason": "The passages describe multiple sources of bias affecting many trials, but they do not characterize bias as a 'central problem' nor claim that trial designs 'cannot easily remove' it. The evidence reports the prevalence of bias issues but does not make the stronger claim about the inherent difficulty of addressing them.",
+  "model": "claude-opus-4-6",
+  "mode": "spans"
+ },
+ "e274e65366931f66": {
+  "label": "SUPPORTED",
+  "reason": "The evidence shows that after restriction to higher-quality trials, the effect remained negative (direction survived: SMD -0.46) but the confidence interval widened considerably (-0.88 to -0.04, barely excluding zero), supporting the conclusion that 'the direction survived the restriction; the size became much less certain.'",
+  "model": "claude-opus-4-6",
+  "mode": "spans"
+ },
+ "7053118b8200cea0": {
+  "label": "SUPPORTED",
+  "reason": "The conclusion refers to 'two further signals' pointing 'the same way,' which corresponds to the two pieces of evidence: (1) funded studies showing stronger effects than unfunded ones, and (2) evidence of publication bias. Both signals suggest the overall effect estimate may be inflated, and the passages support this characterization.",
+  "model": "claude-opus-4-6",
+  "mode": "spans"
+ },
+ "006825d5d133c370": {
+  "label": "SUPPORTED",
+  "reason": "The passages from S003 show that exercise vs drugs had 'probably little to no difference' (SMD 0.03) and exercise vs psychotherapy had 'may be little to no difference' (SMD -0.11), but the drug comparison had moderate-certainty evidence while the therapy comparison had only low-certainty evidence. However, the conclusion says the drug comparison is 'weakest' and therapy comparison 'strongest.' The surrounding text clarifies this is about the case for exercise — the drug comparison showing essentially zero difference (SMD 0.03) means exercise looks no better than drugs (weak case for exercise replacing drugs), while the therapy comparison is described as strongest. The passage from S001 explicitly cautions that the review 'was not designed to find all studies of these treatments' for drugs/other comparators, further weakening the drug comparison. The conclusion's characterization aligns with the evidence pattern.",
+  "model": "claude-opus-4-6",
+  "mode": "spans"
+ },
+ "0c3383953d3fd2a2": {
+  "label": "SUPPORTED",
+  "reason": "The conclusion raises the issue of reverse causation in cohort designs (people becoming depressed may also become less active). The evidence confirms the studies were 'prospective cohort studies' and that the prevention estimate was conditional on 'assuming causality,' which aligns with the conclusion's point that cohort designs cannot fully separate the direction of the association.",
+  "model": "claude-opus-4-6",
+  "mode": "spans"
+ },
+ "61e821cb724f5f1f": {
+  "label": "SUPPORTED",
+  "reason": "The conclusion states that 'reviews translate them in different ways,' and the evidence shows exactly this: S001 uses a threshold of 0.5 standard deviations of the change score as a minimum clinically important difference, while S004 translates effect sizes into NNT (number needed to treat). These are indeed different ways of making standardised effect sizes more interpretable, supporting the claim that they are 'hard to picture' and translated differently.",
+  "model": "claude-opus-4-6",
+  "mode": "spans"
+ },
+ "3f3c3c3050b0c7c0": {
+  "label": "SUPPORTED",
+  "reason": "The conclusion states 'the best coverage we found carried the caveats.' The evidence from S008 shows WebMD noted 'risk for bias in the studies,' and S009 shows another outlet noted 'studies included in their review had limitations, and further high quality studies were needed.' These passages confirm that some coverage did carry caveats about study limitations, supporting the conclusion.",
+  "model": "claude-opus-4-6",
+  "mode": "spans"
+ },
+ "5ad71fcf779a82e1": {
+  "label": "SUPPORTED",
+  "reason": "The conclusion states 'We hold two pieces of coverage' and the evidence shows exactly two sources (S008 and S009), both with full_text_held. The conclusion's characterization of this as 'a sample of what was carried, not a survey of it' is a reasonable acknowledgment that two pieces do not constitute a comprehensive survey, which is directly supported by the limited number of sources.",
+  "model": "claude-opus-4-6",
+  "mode": "spans"
+ },
+ "7f95e473a49d3d75": {
+  "label": "SUPPORTED",
+  "reason": "The conclusion states 'reasonably high' confidence in direction (not magnitude) that exercise helps depressive symptoms, across independent syntheses and low-risk-of-bias trials. S001 states 'Exercise is an effective treatment for depression,' S003 shows a negative SMD (favoring exercise) with CI excluding zero, and S004 shows moderate effects specifically in low risk of bias studies. These three independent sources consistently support the direction of effect, and the surrounding text explicitly notes that confidence in magnitude is low, consistent with the conclusion's careful distinction between direction and magnitude.",
+  "model": "claude-opus-4-6",
+  "mode": "spans"
+ },
+ "9eff8e535acff24c": {
+  "label": "SUPPORTED",
+  "reason": "The conclusion states 'Confidence in magnitude is low, and the certainty grades in both major reviews say so.' S001 states confidence was 'low for walking or jogging and very low for other treatments' per CINeMA, and S003 states 'low-certainty evidence.' Both sources explicitly assign low (or very low) certainty/confidence grades, supporting the conclusion as worded.",
+  "model": "claude-opus-4-6",
+  "mode": "spans"
+ },
+ "6575754d7ba39e1f": {
+  "label": "SUPPORTED",
+  "reason": "The conclusion mentions 'walking or jogging, yoga or strength training' which aligns with S001's list ('walking, running, strength training, yoga'). 'Intensity that feels like effort' corresponds to S001's 'vigorous'. 'Structured programme' is supported by S001's 'standardised prescription' and 'clear direction and accountability'. 'Sustained over weeks' is supported by S007's 'more than 1 session per week for 10 weeks'. The phrasing 'the evidence favours' is appropriately hedged and does not overstate.",
+  "model": "claude-opus-4-6",
+  "mode": "spans"
+ },
+ "b461025547b0e0c4": {
+  "label": "OVERSTATES",
+  "reason": "The evidence says moderators for age and sex 'should be interpreted cautiously' due to confounding, which is a hedge indicating uncertainty. The conclusion states the evidence 'does not support choosing between those three on the basis of age or sex,' which is a stronger, more definitive claim than the cautious interpretation the evidence actually warrants.",
+  "model": "claude-opus-4-6",
+  "mode": "spans"
+ },
+ "d978c51c38dc0662": {
+  "label": "SUPPORTED",
+  "reason": "The conclusion says 'it does not support stopping an existing treatment' — S009 supports this with advice to 'talk to their doctor before changing what they are doing.' The conclusion says 'the strongest comparisons are with therapy, the drug comparisons are thin' — S003 states exercise is 'no more or less effective than psychological or pharmacological treatments' but 'based on a few small trials,' supporting that drug comparisons are thin. The conclusion says 'adding exercise to an SSRI looked better than either alone in the BMJ network' — S001 reports a clinically meaningful combined effect (g=-0.55) for exercise combined with SSRIs. All parts are supported at appropriate strength.",
+  "model": "claude-opus-4-6",
+  "mode": "spans"
+ }
+}

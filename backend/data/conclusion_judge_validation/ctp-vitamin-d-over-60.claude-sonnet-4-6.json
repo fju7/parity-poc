@@ -1,0 +1,230 @@
+{
+ "f8f75d89e15beed2|1": {
+  "label": "SUPPORTED",
+  "reason": "The writer's stated reasoning explicitly records that S003 (Bischoff-Ferrari 2023) returned only a stub via NCBI efetch and was refused by source_store, matching the conclusion's claim that 'the open repository holds only a stub.' The surrounding text and evidence confirm DO-HEALTH existed but was not directly obtained as a full paper.",
+  "model": "claude-sonnet-4-6",
+  "run": 1
+ },
+ "aefd34719ce48aa7|1": {
+  "label": "NOT_IN_EVIDENCE",
+  "reason": "The conclusion states the guideline was 'led by Marie Demay' and calls it 'the main source of support for supplementing older people,' but neither passage mentions Marie Demay or makes any comparative claim about this guideline being the primary or main source of support relative to other guidelines. The passages only confirm the age-75 recommendation itself.",
+  "model": "claude-sonnet-4-6",
+  "run": 1
+ },
+ "ca38e270952b49f3|1": {
+  "label": "SUPPORTED",
+  "reason": "The conclusion's two claims are both grounded in the passages: S004 confirms the dosing meta-analysis (ref 18) exists in that source but was not opened as a standalone source, and S010 directly states 'no statistically significant differences' by vitamin D dosage, matching the claim that the Task Force's pooled falls estimate 'found no difference by dose.'",
+  "model": "claude-sonnet-4-6",
+  "run": 1
+ },
+ "a2823b4454f95704|1": {
+  "label": "SUPPORTED",
+  "reason": "The headline passage (S008) reads 'USPSTF Recommends Against Vitamin D Supplementation for Fracture, Fall Prevention' with no mention of 'draft,' while the body passage states 'These recommendations form the basis of a draft recommendation statement,' confirming the conclusion that the headline omitted 'draft' though the body included it.",
+  "model": "claude-sonnet-4-6",
+  "run": 1
+ },
+ "19eb7a0ebe254e2a|1": {
+  "label": "SUPPORTED",
+  "reason": "The conclusion says 'a few fractures prevented per 1,000' which matches the ARD of 3 fewer (CI 7 fewer to 0 more), and 'a couple of extra kidney stones per 1,000' which matches the ARD of 2 more (CI 1 to 5 more). The phrase 'at most' appropriately captures the upper bound of the confidence intervals, and the hedged language aligns with the uncertainty in the pooled estimates.",
+  "model": "claude-sonnet-4-6",
+  "run": 1
+ },
+ "ee62aa8b405412d1|1": {
+  "label": "SUPPORTED",
+  "reason": "The conclusion states that vitamin D supplements 'do not prevent fractures or falls' in healthy older adults living at home who are not known to be deficient. S001 confirms no significant fracture reduction in 'generally healthy midlife and older adults not selected for vitamin D deficiency,' S005 states supplementation 'does not prevent fractures or falls,' and S010 shows the USPSTF recommends against supplementation for primary prevention of fractures in community-dwelling older adults—all matching the conclusion's scope, population, and certainty level.",
+  "model": "claude-sonnet-4-6",
+  "run": 1
+ },
+ "1d55a3fca62f95f7|1": {
+  "label": "SUPPORTED",
+  "reason": "The conclusion's two claims map directly onto the two passages: 'adequate intake is important for bone health' matches 'ensuring adequate vitamin D and calcium intake is important for bone and overall health,' and the exclusion of 'people with osteoporosis, deficiency or a past fragility fracture' matches the passage listing 'history of osteoporotic fractures, medical conditions associated with vitamin D deficiency... or a diagnosis of osteoporosis or vitamin D deficiency.'",
+  "model": "claude-sonnet-4-6",
+  "run": 1
+ },
+ "2306c5c0c1df26b0|1": {
+  "label": "SUPPORTED",
+  "reason": "The conclusion says 'very large occasional doses look worse than useless for falls in some trials' — S004 directly reports a high-dose annual bolus (500,000 IU) was associated with a significant increase in both falls and fractures, and S002 shows increased risk in a BMI subgroup, both consistent with 'some trials' showing harm. The framing as 'a reason for caution rather than a reason to take more' matches the cautionary, non-prescriptive tone supported by these signals of harm.",
+  "model": "claude-sonnet-4-6",
+  "run": 1
+ },
+ "8476cdab8210466a|1": {
+  "label": "SUPPORTED",
+  "reason": "The conclusion states 'we hold the abstract of that meta-analysis, not the full paper.' The evidence shows the source was read as 'abstract_held' and marked 'isOpenAccess':'N', directly confirming only the abstract is held and the full paper is not accessible.",
+  "model": "claude-sonnet-4-6",
+  "run": 1
+ },
+ "9cb699ad934b0e8b|1": {
+  "label": "OVERSTATES",
+  "reason": "The passages confirm the USPSTF reviewed 19 trials on fracture/fall/mortality and that the Endocrine Society prioritized RCTs in general populations, but neither passage states the two bodies 'looked at different questions and different trial sets' or that their conclusions are 'not directly comparable.' The conclusion's specific claim about non-comparability of mortality findings is an inference not directly supported by what the passages actually say.",
+  "model": "claude-sonnet-4-6",
+  "run": 1
+ },
+ "71cea50b2949e96a|1": {
+  "label": "SUPPORTED",
+  "reason": "The two DOIs (10.1210/clinem/dgae854 and 10.1210/clinem/dgaf310) are listed as abstract_held entries in S006, confirming two bibliographic records exist but have not been fully opened. The conclusion that these are 'errata we have not opened' matches the evidence that only abstracts are held and neither is characterized beyond its DOI.",
+  "model": "claude-sonnet-4-6",
+  "run": 1
+ },
+ "749ae9b503165cfc|1": {
+  "label": "SUPPORTED",
+  "reason": "The conclusion states 'We hold the guideline's abstract only.' The evidence shows S006 is marked 'abstract_held' and 'isOpenAccess':'N', confirming only the abstract was obtained, not the full text.",
+  "model": "claude-sonnet-4-6",
+  "run": 1
+ },
+ "e1ae1fc4fda827d8|1": {
+  "label": "SUPPORTED",
+  "reason": "The evidence states 'the mode of vitamin D administration appears to be a key determinant of safety,' which directly supports the conclusion that 'how vitamin D is given may matter.' Both the hedge ('appears to be') and the scope (mode/how it is given) align precisely.",
+  "model": "claude-sonnet-4-6",
+  "run": 1
+ },
+ "f01324588201ebdb|1": {
+  "label": "NOT_IN_EVIDENCE",
+  "reason": "The conclusion is about whether a HealthDay news report described the draft accurately, but the passages contain only the USPSTF recommendation text itself—there is no passage about HealthDay's reporting, its pooled hip-fracture estimate of 0.99, or its absolute difference figure. The accuracy of HealthDay's coverage cannot be assessed from these passages alone.",
+  "model": "claude-sonnet-4-6",
+  "run": 1
+ },
+ "956d7227f88bbc2f|1": {
+  "label": "SUPPORTED",
+  "reason": "The passage shows S008 is a single news article ('By: Elana Gotkine'), and the writer's reasoning confirms it is the only coverage document, directly supporting the conclusion that 'we hold one news report' and therefore this is not a survey of coverage.",
+  "model": "claude-sonnet-4-6",
+  "run": 1
+ },
+ "6649440290bd334a|1": {
+  "label": "SUPPORTED",
+  "reason": "The conclusion's direction ('do not prevent fractures or falls') is backed by HR 0.98 (CI 0.89–1.08) for fractures, no effect on falling, and the USPSTF's 'no net benefit' finding; the qualifier 'high confidence in direction' aligns with the Task Force's 'moderate certainty' label, which the writer explicitly maps to directional rather than magnitude certainty, and the scope ('healthy older adults living at home, not deficient') matches the USPSTF's target population.",
+  "model": "claude-sonnet-4-6",
+  "run": 1
+ },
+ "f1eedda324cd2d85|1": {
+  "label": "SUPPORTED",
+  "reason": "The conclusion lists osteoporosis, past fragility fracture, known deficiency or absorption condition, and care-home residents as outside the evidence. S010 explicitly excludes 'history of osteoporotic fractures, medical conditions associated with vitamin D deficiency or vitamin D malabsorption, or a diagnosis of osteoporosis or vitamin D deficiency' and defines community-dwelling as 'not living in a nursing home or other institutional care setting'; S001 similarly notes results 'may not be generalizable to adults with osteoporosis or osteomalacia or older institutionalized persons.' These match the conclusion's listed groups and the advice to consult a doctor.",
+  "model": "claude-sonnet-4-6",
+  "run": 1
+ },
+ "8570c11418e368cb|1": {
+  "label": "SUPPORTED",
+  "reason": "S004 explicitly recommends pivoting 'away from high-dose intermittent bolus regimens in favor of consistent daily low-dose administration,' directly supporting the conclusion that evidence argues against 'very large intermittent doses.' S002's signal of increased fall risk with supplementation in normal-BMI individuals adds further caution, consistent with the conclusion's direction and strength.",
+  "model": "claude-sonnet-4-6",
+  "run": 1
+ },
+ "c1938177e87908fa|1": {
+  "label": "SUPPORTED",
+  "reason": "The two passages confirm exactly what the conclusion claims: S007 shows an update is in progress (not a final version), and S009 confirms the topic page was last updated Dec 17, 2024 with public comments closed—both pages fetched show only the 2018 statement as current, with no final version present, matching the conclusion's scope ('the two pages we fetched').",
+  "model": "claude-sonnet-4-6",
+  "run": 1
+ },
+ "f8f75d89e15beed2|2": {
+  "label": "SUPPORTED",
+  "reason": "The writer's stated reasoning explicitly records that S003 (Bischoff-Ferrari 2023) returned only a stub via NCBI efetch and was refused by source_store, matching the conclusion's claim that 'the open repository holds only a stub.' The surrounding text and evidence confirm the DO-HEALTH trial exists but the investigators' own summary paper was not obtained, consistent with 'we did not obtain' the paper.",
+  "model": "claude-sonnet-4-6",
+  "run": 2
+ },
+ "aefd34719ce48aa7|2": {
+  "label": "NOT_IN_EVIDENCE",
+  "reason": "The conclusion claims the guideline is 'led by Marie Demay' and that it 'takes a partly different line' from another guideline, and calls it 'the main source of support for supplementing older people.' The passages confirm the over-75 recommendation but say nothing about Marie Demay's leadership or comparative positioning relative to other guidelines, so those specific claims are not addressed in the evidence.",
+  "model": "claude-sonnet-4-6",
+  "run": 2
+ },
+ "ca38e270952b49f3|2": {
+  "label": "SUPPORTED",
+  "reason": "The conclusion's claim that 'the Task Force's pooled falls estimate found no difference by dose' is directly supported by S010's statement that 'Analyses stratified by vitamin D dosage... found no statistically significant differences in the incidence of participants with falls.' The claim that the dosing meta-analysis (ref 18) is not in sources is supported by S004 only citing it as '[18]' without providing its content, and the conclusion accurately characterizes the tension between that external finding and the USPSTF result.",
+  "model": "claude-sonnet-4-6",
+  "run": 2
+ },
+ "a2823b4454f95704|2": {
+  "label": "SUPPORTED",
+  "reason": "The headline passage reads 'USPSTF Recommends Against Vitamin D Supplementation for Fracture, Fall Prevention' with no mention of 'draft,' while the body passage states 'These recommendations form the basis of a draft recommendation statement,' confirming the conclusion that the headline omitted 'draft' while the body included it.",
+  "model": "claude-sonnet-4-6",
+  "run": 2
+ },
+ "19eb7a0ebe254e2a|2": {
+  "label": "SUPPORTED",
+  "reason": "The conclusion says 'a few fractures prevented per 1,000' which matches the ARD of 3 fewer (CI 7 fewer to 0 more), and 'a couple of extra kidney stones per 1,000' which matches the ARD of 2 more (CI 1 to 5 more). The phrase 'at most' appropriately captures the upper bound of the confidence intervals, and the hedged language aligns with the uncertainty in the pooled estimates.",
+  "model": "claude-sonnet-4-6",
+  "run": 2
+ },
+ "ee62aa8b405412d1|2": {
+  "label": "SUPPORTED",
+  "reason": "The conclusion states that vitamin D supplements 'do not prevent fractures or falls' in healthy older adults living at home who are not known to be deficient. S001 confirms no significant fracture reduction in 'generally healthy midlife and older adults not selected for vitamin D deficiency,' S005 states supplementation 'does not prevent fractures or falls,' and S010 recommends against supplementation for 'primary prevention of fractures in community-dwelling' older adults—all matching the conclusion's scope, population, and strength of claim.",
+  "model": "claude-sonnet-4-6",
+  "run": 2
+ },
+ "1d55a3fca62f95f7|2": {
+  "label": "SUPPORTED",
+  "reason": "The conclusion's two claims map directly onto the two passages: 'adequate intake is important for bone health' matches 'ensuring adequate vitamin D and calcium intake is important for bone and overall health,' and the exclusion of 'people with osteoporosis, deficiency or a past fragility fracture' matches the passage listing 'history of osteoporotic fractures, medical conditions associated with vitamin D deficiency... or a diagnosis of osteoporosis or vitamin D deficiency.'",
+  "model": "claude-sonnet-4-6",
+  "run": 2
+ },
+ "2306c5c0c1df26b0|2": {
+  "label": "SUPPORTED",
+  "reason": "The conclusion says 'very large occasional doses look worse than useless for falls in some trials' — S004 directly reports a high-dose annual bolus (500,000 IU) was associated with a significant increase in both falls and fractures, and S002 shows increased risk in a BMI subgroup, both consistent with 'some trials.' The framing as 'a reason for caution rather than a reason to take more' matches the hedged, cautionary tone warranted by these signals.",
+  "model": "claude-sonnet-4-6",
+  "run": 2
+ },
+ "8476cdab8210466a|2": {
+  "label": "SUPPORTED",
+  "reason": "The conclusion states 'we hold the abstract of that meta-analysis, not the full paper.' The evidence shows the source was read as 'abstract_held' and marked 'isOpenAccess':'N', directly confirming that only the abstract is held and the full paper is not accessible.",
+  "model": "claude-sonnet-4-6",
+  "run": 2
+ },
+ "9cb699ad934b0e8b|2": {
+  "label": "OVERSTATES",
+  "reason": "The passages confirm the USPSTF reviewed 19 RCTs on fracture/fall/mortality and that the Endocrine Society prioritized RCTs in general populations, but neither passage states the two bodies 'looked at different questions and different trial sets' or that their mortality findings are 'not directly comparable.' The conclusion's specific claim about non-comparability is an inference not directly supported by the abstract-only and partial evidence available.",
+  "model": "claude-sonnet-4-6",
+  "run": 2
+ },
+ "71cea50b2949e96a|2": {
+  "label": "SUPPORTED",
+  "reason": "The two DOIs (10.1210/clinem/dgae854 and 10.1210/clinem/dgaf310) are listed as abstract_held entries in S006, confirming two bibliographic records exist but have not been fully opened. The conclusion that these are 'errata we have not opened' matches the evidence that only abstracts are held and neither is characterized beyond their DOIs.",
+  "model": "claude-sonnet-4-6",
+  "run": 2
+ },
+ "749ae9b503165cfc|2": {
+  "label": "SUPPORTED",
+  "reason": "The conclusion states 'We hold the guideline's abstract only.' The evidence shows S006 is marked 'abstract_held' and 'isOpenAccess':'N', directly confirming that only the abstract was obtained for this source.",
+  "model": "claude-sonnet-4-6",
+  "run": 2
+ },
+ "e1ae1fc4fda827d8|2": {
+  "label": "SUPPORTED",
+  "reason": "The evidence states 'the mode of vitamin D administration appears to be a key determinant of safety,' which directly supports the conclusion that 'how vitamin D is given may matter.' Both the hedge ('appears to be') and the scope (mode/how it is given) align precisely.",
+  "model": "claude-sonnet-4-6",
+  "run": 2
+ },
+ "f01324588201ebdb|2": {
+  "label": "NOT_IN_EVIDENCE",
+  "reason": "The conclusion is about whether a HealthDay news report described the draft accurately, including specific claims about pooled hip-fracture estimates and absolute differences. The passages provided only contain the USPSTF recommendation text itself; there is no passage from or about the HealthDay report to evaluate.",
+  "model": "claude-sonnet-4-6",
+  "run": 2
+ },
+ "956d7227f88bbc2f|2": {
+  "label": "SUPPORTED",
+  "reason": "The passage shows S008 is a single news article ('By: Elana Gotkine'), and the writer's reasoning confirms it is the only coverage document, directly supporting the conclusion that 'we hold one news report' and therefore this is not a survey of coverage.",
+  "model": "claude-sonnet-4-6",
+  "run": 2
+ },
+ "6649440290bd334a|2": {
+  "label": "SUPPORTED",
+  "reason": "The conclusion's direction (no prevention benefit) and population scope (healthy older adults not deficient, living at home) align with S001's near-null hazard ratio for fractures (0.98, CI 0.89–1.08), S002's null effect on falling, and S010's USPSTF moderate-certainty finding of no net benefit; the writer correctly caps certainty at 'high in direction' rather than claiming exact zero, matching the moderate-certainty grade.",
+  "model": "claude-sonnet-4-6",
+  "run": 2
+ },
+ "f1eedda324cd2d85|2": {
+  "label": "SUPPORTED",
+  "reason": "The conclusion lists osteoporosis, past fragility fracture, known deficiency or absorption condition, and care-home residents as outside the evidence. S010 explicitly excludes 'history of osteoporotic fractures, medical conditions associated with vitamin D deficiency or vitamin D malabsorption, or a diagnosis of osteoporosis or vitamin D deficiency' and defines community-dwelling as 'not living in a nursing home or other institutional care setting,' while S001 notes results 'may not be generalizable to adults with osteoporosis or osteomalacia or older institutionalized persons,' together covering all groups named in the conclusion.",
+  "model": "claude-sonnet-4-6",
+  "run": 2
+ },
+ "8570c11418e368cb|2": {
+  "label": "SUPPORTED",
+  "reason": "S004 explicitly recommends pivoting 'away from high-dose intermittent bolus regimens in favor of consistent daily low-dose administration,' directly supporting the conclusion that evidence argues against 'very large intermittent doses.' S002's signal of increased fall risk with supplementation in normal-BMI individuals adds further caution, consistent with the conclusion's direction and strength.",
+  "model": "claude-sonnet-4-6",
+  "run": 2
+ },
+ "c1938177e87908fa|2": {
+  "label": "SUPPORTED",
+  "reason": "The two passages confirm exactly what the conclusion describes: S007 shows an 'Update in Progress' (no final version present) and S009 shows the topic page last updated Dec 17, 2024 with public comments closed—both fetched pages show only the 2018 statement as current with an update underway, matching the scoped claim that no final version appeared on the two pages fetched from the Task Force's website.",
+  "model": "claude-sonnet-4-6",
+  "run": 2
+ }
+}

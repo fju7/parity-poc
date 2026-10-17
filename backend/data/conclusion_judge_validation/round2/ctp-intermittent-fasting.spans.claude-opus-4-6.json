@@ -1,0 +1,104 @@
+{
+ "1b1fd249e52c407d": {
+  "label": "NOT_IN_EVIDENCE",
+  "reason": "The conclusion claims the 4:3 trial is 'the main result on the other side,' but the passage only reports the trial's weight-reduction finding. There is nothing in the evidence that characterizes this trial as 'the main result on the other side' or assigns it any such relative importance.",
+  "model": "claude-opus-4-6",
+  "mode": "spans"
+ },
+ "3082914a62f3801e": {
+  "label": "SUPPORTED",
+  "reason": "The conclusion states alternate-day fasting lost more participants than daily restriction in one trial (S005 shows 38% dropout in ADF, the highest group) and the 4:3 schedule lost fewer in another (S006 shows 19.0% attrition in 4:3 IMF vs 29.6% in DCR). Both specific claims are directly supported by the evidence passages.",
+  "model": "claude-opus-4-6",
+  "mode": "spans"
+ },
+ "00cf8291d25109d6": {
+  "label": "SUPPORTED",
+  "reason": "The conclusion states that intermittent fasting produces 'about the same weight loss as ordinary calorie restriction.' S001 says 'little to no difference in weight loss,' S002 says 'similar benefits to continuous energy restriction for weight loss,' and S004 says time-restricted eating 'was not more beneficial with regard to reduction in body weight' than daily calorie restriction. All three passages support the conclusion's claim of roughly equivalent weight loss.",
+  "model": "claude-opus-4-6",
+  "mode": "spans"
+ },
+ "8023dcb275627492": {
+  "label": "SUPPORTED",
+  "reason": "S002 shows alternate-day fasting (near-total fasting on certain days) beat continuous restriction by -1.29 kg (a modest margin), and S006 shows 4:3 IMF produced 'modestly greater weight loss' — supporting 'beaten daily restriction by a modest margin in some analyses.' S002 also shows that in trials ≥24 weeks the benefit over continuous restriction disappeared (only showing benefit vs ad-libitum), supporting 'the margin shrinks or disappears in the longer studies.'",
+  "model": "claude-opus-4-6",
+  "mode": "spans"
+ },
+ "d0184a1f12077902": {
+  "label": "SUPPORTED",
+  "reason": "The conclusion states that the practical question is which method a person can keep doing, which aligns with the evidence's emphasis on evaluating 'individual practicality and sustainability' as the basis for choosing intermittent fasting as a strategy. Both focus on long-term adherence as the key consideration rather than which method is objectively best.",
+  "model": "claude-opus-4-6",
+  "mode": "spans"
+ },
+ "6194fdc09e7c40f5": {
+  "label": "SUPPORTED",
+  "reason": "The conclusion states 'We hold only the abstract of this review, from its bibliographic record.' The evidence shows the source S001 was read at the abstract level ('abstract_held') and the passage contains bibliographic metadata ('isOpenAccess':'N'), which supports the claim that only the abstract/bibliographic record is held.",
+  "model": "claude-opus-4-6",
+  "mode": "spans"
+ },
+ "a1343b0ac29e362c": {
+  "label": "SUPPORTED",
+  "reason": "S007 states that 'Time-restricted eating, in the absence of other interventions, is not more effective in weight loss than eating throughout the day,' which directly supports the conclusion that TRE 'has the weakest case when it is the only change.' S002 adds that alternate day fasting showed reductions compared to time-restricted eating, further supporting TRE's relatively weak standing among fasting approaches.",
+  "model": "claude-opus-4-6",
+  "mode": "spans"
+ },
+ "df7808395d67ac52": {
+  "label": "SUPPORTED",
+  "reason": "The 95% CI of -4.0 to 0.4 includes values favoring the time-restricted group (up to -4.0 kg more weight loss), so the conclusion that 'the interval still allows a modest advantage for the time-restricted group' and 'does not rule one out' is directly supported by the evidence showing the CI crosses zero but extends to -4.0 on the side favoring time restriction.",
+  "model": "claude-opus-4-6",
+  "mode": "spans"
+ },
+ "5f0f63b2077fe282": {
+  "label": "SUPPORTED",
+  "reason": "The conclusion states 'We hold the abstract of this trial, not the full paper.' The evidence metadata shows the source S004 was read as 'abstract_held' with '\"isOpenAccess\":\"N\"', confirming that only the abstract was available and the full paper was not accessed.",
+  "model": "claude-opus-4-6",
+  "mode": "spans"
+ },
+ "1e3c04897eb98c80": {
+  "label": "SUPPORTED",
+  "reason": "The conclusion states the authors call the advantage 'modest,' which matches 'modestly greater weight loss' in S006. The conclusion states 'the lower end of its interval is close to zero,' which matches the CI lower bound of -0.14 kg, indeed close to zero.",
+  "model": "claude-opus-4-6",
+  "mode": "spans"
+ },
+ "9b014f8959b0580b": {
+  "label": "SUPPORTED",
+  "reason": "The conclusion states 'It reads as a typographical error, and we have not checked the published version of record.' The passage from S006 confirms the suspicious interval '-5.65, -0.14 kg' that the surrounding text identifies as the between-group interval repeated in the wrong place, supporting that it reads as a typographical error. The passage 'NIHPA Author Manuscripts' confirms the document is an author manuscript (not the published version of record), supporting the claim that the published version has not been checked.",
+  "model": "claude-opus-4-6",
+  "mode": "spans"
+ },
+ "311ab89af570b16b": {
+  "label": "SUPPORTED",
+  "reason": "The conclusion states 'the coverage we hold was better than its headlines.' The evidence from S008 shows the coverage acknowledged the finding 'bucks a research trend that has shown little difference,' providing context and nuance. S009 quotes 'That's not a huge difference,' which tempers the finding. Both passages indicate the coverage included caveats and context that would make it better (more balanced) than sensational headlines, supporting the conclusion as worded.",
+  "model": "claude-opus-4-6",
+  "mode": "spans"
+ },
+ "5823af389cf30c3c": {
+  "label": "SUPPORTED",
+  "reason": "The conclusion says both headlines 'outran the evidence' by presenting 'one trial's result as a verdict, when the reviews pooling the other trials point the other way.' The two headlines (S008, S009) declare fasting 'outperforms' daily calorie restriction, while the systematic review abstract (S001) states fasting 'may result in little to no difference in weight loss,' which indeed 'points the other way.' The surrounding text confirms only two pieces of coverage were held and that confidence is only 'moderate,' consistent with the conclusion's framing.",
+  "model": "claude-opus-4-6",
+  "mode": "spans"
+ },
+ "34b87f2098981621": {
+  "label": "SUPPORTED",
+  "reason": "The conclusion states 'We hold two pieces of coverage,' which is supported by the evidence showing exactly two sources (S008 and S009), both held as full text. The conclusion that 'this is a sample, not a survey' is a reasonable characterization consistent with the surrounding text's acknowledgment that the analysis is limited, and the passages confirm only two pieces of coverage were available.",
+  "model": "claude-opus-4-6",
+  "mode": "spans"
+ },
+ "6b06b0bda9ea3ccc": {
+  "label": "SUPPORTED",
+  "reason": "The conclusion states 'moderate to good' confidence that intermittent fasting works 'about as well as' calorie restriction, citing reviews and year-long trials. The evidence supports equivalence: S001 says 'little to no difference in percentage from baseline weight loss,' S004 says 'Changes in weight were not significantly different in the two groups at the 12-month assessment,' and S005 says alternate-day fasting 'did not produce superior...weight loss.' The 'moderate to good' hedging aligns with the surrounding text's acknowledgment that this is 'a sample, not a survey' and the evidence consistently points to equivalence rather than superiority.",
+  "model": "claude-opus-4-6",
+  "mode": "spans"
+ },
+ "beb2221536821c43": {
+  "label": "SUPPORTED",
+  "reason": "The conclusion states that 'the advantage in the best trial for fasting was modest,' which aligns with S006's statement that '4:3 IMF produced modestly greater weight loss.' The conclusion's claim that 'Confidence that any version is reliably better is low' is consistent with the surrounding text's moderate confidence that intermittent fasting works 'about as well as' calorie restriction, and S002's evidence showing benefits only for diet strategies vs ad-libitum (not one diet over another). The wording appropriately hedges the comparison.",
+  "model": "claude-opus-4-6",
+  "mode": "spans"
+ },
+ "656b6b8e840463ba": {
+  "label": "SUPPORTED",
+  "reason": "S007 states time-restricted eating 'is not more effective in weight loss than eating throughout the day,' supporting the claim that 'the calorie deficit, not the clock, does most of the work.' S002 shows both intermittent fasting and continuous energy restriction reduce weight vs. ad-libitum, consistent with deficit being the key driver. S001 emphasizes evaluating 'willingness and readiness' and 'individual practicality and sustainability,' supporting the advice to 'pick the pattern they can sustain.' The conclusion's strength and causal framing ('does most of the work') is appropriately hedged and aligns with the evidence.",
+  "model": "claude-opus-4-6",
+  "mode": "spans"
+ }
+}

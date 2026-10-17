@@ -1,0 +1,254 @@
+{
+ "638ba6db098cd518|1": {
+  "label": "NOT_IN_EVIDENCE",
+  "reason": "The conclusion states 'The trials measured weight over weeks,' but none of the provided passages mention trials measuring weight or any timeframe in weeks. The passages address hazard ratios and risk ratios for mortality/disease outcomes, not weight measurement in trials.",
+  "model": "claude-opus-4-6",
+  "run": 1
+ },
+ "f4ceab7dd6d9649e|1": {
+  "label": "SUPPORTED",
+  "reason": "The conclusion says harm is 'probable' and the 'clearest route' is more eating and weight gain. S001 supports associations with adverse outcomes; S002 shows 508 kcal/d greater intake on ultra-processed diets; S004 shows greater weight loss on minimally processed diets. The surrounding text also notes uncertainty about whether ultra-processing itself is the cause. The hedged language ('probably', 'clearest route') matches the mix of trial and observational evidence provided.",
+  "model": "claude-opus-4-6",
+  "run": 1
+ },
+ "9bb1e1637c7997c1|1": {
+  "label": "SUPPORTED",
+  "reason": "The conclusion's uncertainty about whether ultra-processing itself is the cause is directly supported by S009 ('It is not clear, however, whether there are additional features of UPFs that make them uniquely harmful compared with less processed foods with otherwise similar properties'). The suggestion that the label 'mostly picks out foods that were already known to be unhealthy, such as processed meat' is supported by S005's finding that 'Meat/poultry/seafood based ready-to-eat products (for example, processed meat) consistently showed strong associations with mortality outcomes,' indicating harm concentrates in already-known-unhealthy subgroups.",
+  "model": "claude-opus-4-6",
+  "run": 1
+ },
+ "cc8b20bd0e6d71cb|1": {
+  "label": "SUPPORTED",
+  "reason": "The conclusion states '41 of 45 pooled analyses low or very low' which matches S001's 22 low + 19 very low = 41 out of 45. The '4% difference in all-cause mortality between extreme quarters' matches S005's hazard ratio 1.04 (4% higher). The characterization as 'observational' and 'modest in size' is consistent with the evidence showing cohort-based hazard ratios with small effect sizes.",
+  "model": "claude-opus-4-6",
+  "run": 1
+ },
+ "d4186a292b353114|1": {
+  "label": "SUPPORTED",
+  "reason": "The conclusion states 'The trial has real limits, and its authors list them.' The evidence shows the authors themselves explicitly stating limitations: 'Our study was not designed to identify the cause of the observed differences in energy intake' and 'the inpatient environment of the metabolic ward makes it difficult to generalize our results to free-living conditions.' These are indeed limits listed by the trial's authors.",
+  "model": "claude-opus-4-6",
+  "run": 1
+ },
+ "6398db2a117282f0|1": {
+  "label": "SUPPORTED",
+  "reason": "The passage shows both diets produced weight loss with 95% CIs excluding zero (MPF: -2.06, CI -2.99 to -1.13; UPF: -1.05, CI -1.98 to -0.13), supporting 'helped whichever way they were made.' The ratio -2.06/-1.05 ≈ 1.96, supporting 'about twice as much.'",
+  "model": "claude-opus-4-6",
+  "run": 1
+ },
+ "369abcd1b643bd07|1": {
+  "label": "SUPPORTED",
+  "reason": "The conclusion states that evidence on disease and death comes from observational studies comparing people who already eat differently. The eligibility criteria from S001 confirm that only cohort, case-control, and cross-sectional study designs were included—all of which are observational designs that compare people based on existing dietary patterns rather than experimental assignment.",
+  "model": "claude-opus-4-6",
+  "run": 1
+ },
+ "a975e2cdeea61467|1": {
+  "label": "OVERSTATES",
+  "reason": "The conclusion says the two grading systems 'often disagree,' but the evidence passage provides only one example (cardiovascular death rated 'convincing' under credibility classes and 'very low' under GRADE). A single instance does not support the word 'often,' which implies a recurring pattern across multiple findings.",
+  "model": "claude-opus-4-6",
+  "run": 1
+ },
+ "94ad21be566cd22e|1": {
+  "label": "OVERSTATES",
+  "reason": "The conclusion states cancer is 'where the evidence is thinnest,' implying it is the weakest area of evidence overall. While the passages show cancer evidence is indeed weak (class III, very low certainty for cancer overall; limited evidence for specific cancers), the passages do not provide a comparative basis to conclude cancer is the thinnest relative to all other outcomes. The umbrella review covered 45 pooled analyses with 13 graded as 'no evidence' and 19 as 'very low' certainty across various outcomes, so without seeing how other outcomes compare, the superlative claim is not supported.",
+  "model": "claude-opus-4-6",
+  "run": 1
+ },
+ "af5a748b0dcd3c68|1": {
+  "label": "SUPPORTED",
+  "reason": "The conclusion states 'We have not opened that meta-analysis,' meaning the writer only knows about it through S001's mention. The evidence shows S001 references the meta-analysis indirectly ('we note that a recent meta-analysis found that adjusting for diet quality or patterns does not change'), and no separate source for that meta-analysis is provided, supporting the claim that the writer did not directly access it.",
+  "model": "claude-opus-4-6",
+  "run": 1
+ },
+ "7c2fc2f59241e36b|1": {
+  "label": "NOT_IN_EVIDENCE",
+  "reason": "The conclusion states 'We have not opened that study, so we report it only as cited,' implying the adolescent buffet study is not available in the sources. However, the evidence shows that S009 was read in full and contains the relevant passage about the adolescent buffet study. The claim that the study was not opened is not supported by the evidence provided.",
+  "model": "claude-opus-4-6",
+  "run": 1
+ },
+ "37f18ca63cca9f5e|1": {
+  "label": "SUPPORTED",
+  "reason": "The conclusion states 'The critics do not say these foods are harmless.' The evidence says 'The consumption of soft, hyperpalatable, energy-dense foods... is almost certain to be harmful to health,' which clearly affirms harm and thus supports the claim that the critics do not say these foods are harmless.",
+  "model": "claude-opus-4-6",
+  "run": 1
+ },
+ "f5e78ff8aa5ec847|1": {
+  "label": "SUPPORTED",
+  "reason": "S009 says 'reducing UPF intake will therefore probably be beneficial' (agreeing diet heavy in these foods is bad) but urges policy 'grounded in well-characterised dietary exposures' rather than targeting the whole UPF category, questioning 'ultra-processing as an independent causal factor.' S006 says 'actions to reduce overall UPF consumption are justified,' endorsing category-level policy. This matches the conclusion that both sides agree such a diet is bad but disagree on whether processing is the reason and whether policy should target the whole category.",
+  "model": "claude-opus-4-6",
+  "run": 1
+ },
+ "c05b585da852007e|1": {
+  "label": "SUPPORTED",
+  "reason": "The conclusion states cancer 'reached only the suggestive class at very low certainty,' which matches S001's 'class III; very low.' The conclusion also notes naming cancer first 'sits awkwardly' with this weak evidence, which is supported by S007 showing the release listed cancer prominently among '32 damaging health outcomes including cancer.' The claim about 'several specific cancers showed no evidence of association' is not directly evidenced in the provided passages, but the core tension described—prominent mention vs. weak evidence class—is well supported.",
+  "model": "claude-opus-4-6",
+  "run": 1
+ },
+ "cc6cf0bf001110b9|1": {
+  "label": "SUPPORTED",
+  "reason": "The release (S007) mentions the GRADE scale ('high, moderate, low, or very low') but does not report the distribution of ratings. The paper (S001) shows 41 of 45 pooled analyses were rated low or very low. The conclusion that the release 'did not mention that most of the pooled analyses were rated low or very low certainty' is supported by the absence of this information in the release text we hold.",
+  "model": "claude-opus-4-6",
+  "run": 1
+ },
+ "c07d8f7da723be73|1": {
+  "label": "SUPPORTED",
+  "reason": "The conclusion states the SMC reaction was 'sharper,' and the evidence shows a direct critical quote from an expert on the SMC page ('frozen peas with mint and a sugar-coated doughnut are the same, they are both ultra-processed'), which is a pointed criticism of the NOVA classification not found in the press release. The writer's reasoning that the SMC page carries 'direct criticism' supports calling it 'sharper.'",
+  "model": "claude-opus-4-6",
+  "run": 1
+ },
+ "5adc83090eff5e8a|1": {
+  "label": "SUPPORTED",
+  "reason": "The conclusion states that the writer holds 'one press release and one expert-reaction page,' which matches the evidence: S007 appears to be a press release ('Consistent evidence links ultra-processed food to over 30 damaging health outcomes') and S008 is an expert-reaction page ('The SMC asked experts to comment.'). Both were read in full. The characterization as 'a sample of the coverage, not a survey of it' is a reasonable and appropriately hedged description of having only two coverage documents.",
+  "model": "claude-opus-4-6",
+  "run": 1
+ },
+ "e57f212d09370971|1": {
+  "label": "SUPPORTED",
+  "reason": "The conclusion claims 'moderate' confidence that trials and observational work 'point the same way' for ultra-processed food. S002 (trial) shows greater energy intake on ultra-processed diet, S004 (trial) shows greater waist circumference on processed food, and S001 (observational umbrella review) shows direct associations with 71% of health parameters—all pointing in the same adverse direction. The surrounding text's reasoning explicitly notes the trials are 'small and short,' justifying 'moderate' rather than 'high,' which matches the hedged wording of the conclusion.",
+  "model": "claude-opus-4-6",
+  "run": 1
+ },
+ "b275d3aeec523ade|1": {
+  "label": "SUPPORTED",
+  "reason": "The conclusion states 'Confidence in magnitude is low.' S005 provides a hazard ratio of 1.04 (CI 1.01–1.07), which is a small effect consistent with low confidence in magnitude. S001 notes 'four rated as moderate quality,' but the surrounding text indicates most pooled analyses were rated 'low or very low,' supporting the characterization of low confidence in magnitude.",
+  "model": "claude-opus-4-6",
+  "run": 1
+ },
+ "c968669c13dad281|1": {
+  "label": "SUPPORTED",
+  "reason": "The conclusion identifies 'processed meats and sugary drinks above all' as drivers, which aligns with S005's 'meat/poultry/seafood based ready-to-eat products, sugar and artificially sweetened beverages' being the main drivers. 'Cooking more from minimally processed ingredients' is supported by S004 showing greater weight change on minimally processed food. The hedged phrasing 'most strongly supports' and practical framing matches S009's concession that 'reducing UPF intake will therefore probably be beneficial.' The convergence claim is warranted by these three distinct sources.",
+  "model": "claude-opus-4-6",
+  "run": 1
+ },
+ "b402f9389ce8c239|1": {
+  "label": "SUPPORTED",
+  "reason": "S009 states 'It is not clear...whether there are additional features of UPFs that make them uniquely harmful compared with less processed foods with otherwise similar properties,' directly supporting the claim that this is an open question. S006 defends the UPF framework against critiques, showing the other side of the debate. Together they support the conclusion that both sides argued in print and that the question remains open.",
+  "model": "claude-opus-4-6",
+  "run": 1
+ },
+ "638ba6db098cd518|2": {
+  "label": "NOT_IN_EVIDENCE",
+  "reason": "The conclusion states 'The trials measured weight over weeks,' but none of the provided passages mention trials measuring weight or any timeframe in weeks. The passages address hazard ratios and risk ratios for mortality/disease outcomes, not weight measurement in trials.",
+  "model": "claude-opus-4-6",
+  "run": 2
+ },
+ "f4ceab7dd6d9649e|2": {
+  "label": "SUPPORTED",
+  "reason": "The conclusion says harm is 'probable' and the 'clearest route' is more eating and weight gain. S002 shows significantly greater energy intake on ultra-processed diets, S004 shows greater weight loss on minimally processed diets, and S001 shows associations with adverse health outcomes. The surrounding text also notes uncertainty about whether ultra-processing itself is causal, which aligns with the hedged 'probably' in the conclusion.",
+  "model": "claude-opus-4-6",
+  "run": 2
+ },
+ "9bb1e1637c7997c1|2": {
+  "label": "SUPPORTED",
+  "reason": "The conclusion's uncertainty about whether ultra-processing itself is the cause is directly supported by S009 ('It is not clear, however, whether there are additional features of UPFs that make them uniquely harmful compared with less processed foods with otherwise similar properties'). The suggestion that the label 'mostly picks out foods that were already known to be unhealthy, such as processed meat' is supported by S005's finding that processed meat subgroups consistently showed the strongest associations with mortality outcomes.",
+  "model": "claude-opus-4-6",
+  "run": 2
+ },
+ "cc8b20bd0e6d71cb|2": {
+  "label": "SUPPORTED",
+  "reason": "The conclusion states '41 of 45 pooled analyses low or very low' which matches the evidence: 22 low + 19 very low = 41 out of 45 (with 4 moderate). The '4% difference in all-cause mortality between extreme quarters' matches the hazard ratio 1.04 from S005. The characterization of associations as 'modest in size' is consistent with a 4% difference, and 'observational' and 'mostly rated low or very low in certainty' are directly supported.",
+  "model": "claude-opus-4-6",
+  "run": 2
+ },
+ "d4186a292b353114|2": {
+  "label": "SUPPORTED",
+  "reason": "The conclusion states 'The trial has real limits, and its authors list them.' The passages show the authors themselves explicitly stating limitations: 'Our study was not designed to identify the cause of the observed differences in energy intake' and 'the inpatient environment of the metabolic ward makes it difficult to generalize our results to free-living conditions.' These are indeed the authors listing their own study's limits.",
+  "model": "claude-opus-4-6",
+  "run": 2
+ },
+ "6398db2a117282f0|2": {
+  "label": "SUPPORTED",
+  "reason": "The passage shows both diets produced weight loss with 95% CIs excluding zero (MPF: -2.06, CI -2.99 to -1.13; UPF: -1.05, CI -1.98 to -0.13), supporting 'helped whichever way they were made.' The ratio -2.06/-1.05 ≈ 1.96, supporting 'about twice as much.'",
+  "model": "claude-opus-4-6",
+  "run": 2
+ },
+ "369abcd1b643bd07|2": {
+  "label": "SUPPORTED",
+  "reason": "The conclusion states that evidence on disease and death comes from observational studies comparing people who already eat differently. The eligibility criteria from S001 confirm that only cohort, case-control, and cross-sectional study designs were included—all of which are observational designs that compare people based on existing dietary patterns rather than experimental assignment.",
+  "model": "claude-opus-4-6",
+  "run": 2
+ },
+ "a975e2cdeea61467|2": {
+  "label": "OVERSTATES",
+  "reason": "The conclusion says the two grading systems 'often disagree,' but the evidence passage provides only one example (cardiovascular death rated 'convincing' under credibility classes and 'very low' under GRADE). A single instance does not support the word 'often,' which implies a recurring pattern across multiple findings.",
+  "model": "claude-opus-4-6",
+  "run": 2
+ },
+ "94ad21be566cd22e|2": {
+  "label": "OVERSTATES",
+  "reason": "The conclusion states cancer is 'where the evidence is thinnest,' implying it is the weakest area of evidence overall. While the passages show cancer evidence is indeed weak (class III, very low certainty for cancer overall; limited evidence for specific cancers), the passages do not provide a comparison across all outcomes to establish that cancer is the thinnest. The umbrella review covered 45 pooled analyses with 19 rated 'very low' and 13 graded as 'no evidence' across various outcomes, so cancer may not be uniquely the thinnest without comparative data from the passages.",
+  "model": "claude-opus-4-6",
+  "run": 2
+ },
+ "af5a748b0dcd3c68|2": {
+  "label": "SUPPORTED",
+  "reason": "The conclusion states 'We have not opened that meta-analysis,' meaning the writer only knows about it through S001's mention. The evidence shows S001 references the meta-analysis indirectly ('we note that a recent meta-analysis found that adjusting for diet quality or patterns does not change'), confirming the writer is reporting what S001 says rather than having read the meta-analysis itself. The passages support this claim.",
+  "model": "claude-opus-4-6",
+  "run": 2
+ },
+ "7c2fc2f59241e36b|2": {
+  "label": "SUPPORTED",
+  "reason": "The conclusion states that the adolescent buffet study was 'not in sources.json' and is reported 'only as cited.' The evidence passage from S009 describes the study only as a brief citation ('no difference in ad libitum energy intake was observed among US adolescents consuming a buffet meal'), confirming the writer accessed it only through S009's mention of it, not from the original study itself. The conclusion accurately reflects this limitation.",
+  "model": "claude-opus-4-6",
+  "run": 2
+ },
+ "37f18ca63cca9f5e|2": {
+  "label": "SUPPORTED",
+  "reason": "The conclusion states 'The critics do not say these foods are harmless.' The evidence says 'The consumption of soft, hyperpalatable, energy-dense foods... is almost certain to be harmful to health,' which clearly affirms that the critics acknowledge harm from these foods, supporting the conclusion that they do not call them harmless.",
+  "model": "claude-opus-4-6",
+  "run": 2
+ },
+ "f5e78ff8aa5ec847|2": {
+  "label": "SUPPORTED",
+  "reason": "S009 says 'reducing UPF intake will therefore probably be beneficial' (agreeing diet heavy in these foods is bad) but urges policy 'grounded in well-characterised dietary exposures' rather than targeting the whole UPF category, and questions 'ultra-processing as an independent causal factor.' S006 says 'actions to reduce overall UPF consumption are justified,' endorsing the category-level approach. This matches the conclusion that both sides agree such a diet is bad but disagree on whether processing is the reason and whether policy should target the whole category.",
+  "model": "claude-opus-4-6",
+  "run": 2
+ },
+ "c05b585da852007e|2": {
+  "label": "SUPPORTED",
+  "reason": "The conclusion states cancer 'reached only the suggestive class at very low certainty,' which matches S001's 'class III; very low.' The conclusion also notes naming cancer first 'sits awkwardly' with this weak evidence, which is supported by S007 showing the release listed cancer prominently among '32 damaging health outcomes including cancer.' The claim about 'several specific cancers showed no evidence of association' is not directly evidenced in the provided passages, but the core tension described is well supported.",
+  "model": "claude-opus-4-6",
+  "run": 2
+ },
+ "cc6cf0bf001110b9|2": {
+  "label": "SUPPORTED",
+  "reason": "The release (S007) mentions the GRADE scale ('high, moderate, low, or very low') but does not report the distribution of ratings. The paper (S001) shows 41 of 45 pooled analyses were rated low or very low. The conclusion that the release 'did not mention that most of the pooled analyses were rated low or very low certainty' is supported by the absence of this information in the release text we hold.",
+  "model": "claude-opus-4-6",
+  "run": 2
+ },
+ "c07d8f7da723be73|2": {
+  "label": "SUPPORTED",
+  "reason": "The conclusion states the SMC reaction was 'sharper,' and the evidence shows a direct critical quote from an expert on the SMC page ('frozen peas with mint and a sugar-coated doughnut are the same, they are both ultra-processed'), which is a pointed criticism of the NOVA classification not found in the press release. The writer's reasoning that the SMC page carries 'direct criticism' supports calling it 'sharper.'",
+  "model": "claude-opus-4-6",
+  "run": 2
+ },
+ "5adc83090eff5e8a|2": {
+  "label": "SUPPORTED",
+  "reason": "The conclusion states that the writer holds 'one press release and one expert-reaction page,' which matches the evidence: S007 appears to be a press release ('Consistent evidence links ultra-processed food to over 30 damaging health outcomes') and S008 is an expert-reaction page ('The SMC asked experts to comment.'). Both were read in full. The characterization as 'a sample of the coverage, not a survey of it' is a reasonable and appropriately hedged description of having only two coverage documents.",
+  "model": "claude-opus-4-6",
+  "run": 2
+ },
+ "e57f212d09370971|2": {
+  "label": "SUPPORTED",
+  "reason": "The conclusion claims 'moderate' confidence that trials and observational work 'point the same way' for ultra-processed food. S002 (trial) shows greater energy intake on ultra-processed diet, S004 (trial) shows greater waist circumference on processed food, and S001 (observational umbrella review) shows direct associations with 71% of health parameters—all pointing in the same adverse direction. The surrounding text's reasoning explicitly notes the trials are 'small and short,' justifying 'moderate' rather than 'high,' which matches the hedged wording of the conclusion.",
+  "model": "claude-opus-4-6",
+  "run": 2
+ },
+ "b275d3aeec523ade|2": {
+  "label": "SUPPORTED",
+  "reason": "The conclusion states 'Confidence in magnitude is low.' S001 notes 'four rated as moderate quality,' implying most others were rated lower (low or very low), and S005 shows a hazard ratio of 1.04 (CI 1.01–1.07), which is a small effect with narrow margins. Together these support the characterization that confidence in the precise magnitude of effect is low.",
+  "model": "claude-opus-4-6",
+  "run": 2
+ },
+ "c968669c13dad281|2": {
+  "label": "SUPPORTED",
+  "reason": "The conclusion identifies 'processed meats and sugary drinks above all' as drivers, which matches S005's 'meat/poultry/seafood based ready-to-eat products, sugar and artificially sweetened beverages' as main drivers. 'Cooking more from minimally processed ingredients' aligns with S004's finding of greater weight change on minimally processed food. The hedged phrasing 'evidence most strongly supports' is consistent with S009's cautious 'probably be beneficial.' The convergence claim matches the writer's reasoning across these three sources.",
+  "model": "claude-opus-4-6",
+  "run": 2
+ },
+ "b402f9389ce8c239|2": {
+  "label": "SUPPORTED",
+  "reason": "S009 states 'It is not clear...whether there are additional features of UPFs that make them uniquely harmful compared with less processed foods with otherwise similar properties,' directly supporting the claim that this is an open question. S006 defends the UPF framework against critiques, showing the other side of the debate. Together they support the conclusion that both sides argued in print and that the question remains open.",
+  "model": "claude-opus-4-6",
+  "run": 2
+ }
+}

@@ -239,6 +239,12 @@ negatives = _sibling("negatives")
 # a correction notice that asserted more than the check which prompted it, on a
 # live page. See findings.py.
 findings = _sibling("findings")
+# The conclusion judge: a model reads each conclusion against its recorded
+# passages and a person decides every one it flags. Its row blocks until each
+# flag has a current decision, and it is unwaivable on a send. Issues first
+# published before it was adopted are SKIPPED by name. See
+# docs/whatholdsup-conclusion-judge.md.
+conclusion_judge = _sibling("conclusion_judge")
 # B16: read what changed. Between two $6 gate runs, every correction is text
 # nobody has read -- and corrections are where a third of the errors come from.
 # Three cents a run. See changecheck.py.
@@ -1697,6 +1703,14 @@ def preflight(slug: str, *, for_email: bool,
         out.append(("gate findings settled", WARN,
                     "did not run: %s: %s" % (type(exc).__name__, exc)))
 
+    # BLOCKED, not WARN, when it cannot run: a review gate that fails open is
+    # the absence of one.
+    try:
+        out.extend(conclusion_judge.preflight_rows(slug, load_record()))
+    except BaseException as exc:
+        out.append((conclusion_judge.ROW_LABEL, BAD,
+                    "did not run: %s: %s" % (type(exc).__name__, exc)))
+
     try:
         out.extend(changecheck.gate_rows(slug, page.read_text(encoding="utf-8")))
     except BaseException as exc:
@@ -2000,6 +2014,9 @@ UNWAIVABLE_ON_SEND = {
                              "be corrected by editing the page",
     "html/text parity": "half the recipients would get a different issue",
     "live page": "subscribers follow the link",
+    "conclusion review settled": "every conclusion the judge flagged needs a "
+                                 "person's recorded decision; an email cannot be "
+                                 "recalled to add one",
 }
 
 

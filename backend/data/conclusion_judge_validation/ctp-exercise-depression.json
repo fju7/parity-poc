@@ -1,0 +1,718 @@
+{
+ "slug": "ctp-exercise-depression",
+ "rows": [
+  {
+   "sha": "17f49046347f6d44",
+   "sentence": "The Cochrane review, updated in 2026 by Clegg and colleagues, reached the same direction by a different route.",
+   "verdicts": [
+    {
+     "model": "claude-sonnet-4-6",
+     "run": 1,
+     "label": "NOT_IN_EVIDENCE",
+     "reason": "The conclusion specifically attributes the Cochrane review to 'Clegg and colleagues' and dates it '2026,' but the passages only state the review 'updates one first published in 2008 and last updated in 2013' with no author names or 2026 date mentioned. The specific authorship and year claimed in the conclusion are not addressed anywhere in the provided evidence."
+    },
+    {
+     "model": "claude-sonnet-4-6",
+     "run": 2,
+     "label": "NOT_IN_EVIDENCE",
+     "reason": "The conclusion specifically attributes the Cochrane review to 'Clegg and colleagues' and dates it '2026,' but neither passage mentions these authors or that update year. The passages only state the review 'updates one first published in 2008 and last updated in 2013,' providing no evidence for a 2026 Clegg update."
+    },
+    {
+     "model": "claude-opus-4-6",
+     "run": 1,
+     "label": "NOT_IN_EVIDENCE",
+     "reason": "The conclusion states the Cochrane review was 'updated in 2026 by Clegg and colleagues,' but the passages only say 'This review updates one first published in 2008 and last updated in 2013' without mentioning the year 2026 or the authors 'Clegg and colleagues.' There is no evidence in the passages for these specific claims."
+    },
+    {
+     "model": "claude-opus-4-6",
+     "run": 2,
+     "label": "NOT_IN_EVIDENCE",
+     "reason": "The conclusion states the Cochrane review was 'updated in 2026 by Clegg and colleagues,' but the passages only say 'This review updates one first published in 2008 and last updated in 2013' without mentioning the year 2026 or the authors 'Clegg and colleagues.' There is no evidence in the passages for these specific claims."
+    }
+   ],
+   "flagged": true
+  },
+  {
+   "sha": "8e0ec2e7e4776042",
+   "sentence": "Four groups of reviewers, pooling overlapping but different sets of trials, land between roughly -0.4 and -0.95, and the spread tracks what each one counted as a comparison and as acceptable quality.",
+   "verdicts": [
+    {
+     "model": "claude-sonnet-4-6",
+     "run": 1,
+     "label": "OVERSTATES",
+     "reason": "The conclusion claims 'four groups of reviewers' with estimates between roughly -0.4 and -0.95, but the passages only clearly support three distinct estimates: -0.43 (S006), -0.946 (S004), and -0.67 (S003). S001 mentions 'active control conditions' as a methodological note but provides no specific pooled effect size in the passage shown, so a fourth distinct estimate in that range is not established by the evidence provided."
+    },
+    {
+     "model": "claude-sonnet-4-6",
+     "run": 2,
+     "label": "OVERSTATES",
+     "reason": "The conclusion claims 'four groups of reviewers' with estimates between roughly -0.4 and -0.95, but the passages only clearly supply two anchor points: -0.43 (S006) and -0.946 (S004), plus -0.67 (S003 abstract). The fourth review's estimate is not given in the passages—S001 mentions presenting effect sizes beyond active controls but gives no specific pooled number—so the claim of four distinct groups landing in that range is not supported by the evidence shown."
+    },
+    {
+     "model": "claude-opus-4-6",
+     "run": 1,
+     "label": "SUPPORTED",
+     "reason": "The conclusion states estimates range 'between roughly -0.4 and -0.95,' which matches S006's -0.43 and S004's -0.946, with S003's -0.67 falling in between. The conclusion says 'the spread tracks what each one counted as a comparison and as acceptable quality,' which is supported by S004 specifying 'non-exercising control groups only' and S001 noting 'improvements beyond active control conditions,' showing different comparison definitions. The claim about 'four groups of reviewers' is supported by evidence from at least three distinct sources (S001, S003, S004, S006) with different estimates."
+    },
+    {
+     "model": "claude-opus-4-6",
+     "run": 2,
+     "label": "SUPPORTED",
+     "reason": "The conclusion states estimates range 'between roughly -0.4 and -0.95,' which matches S006's -0.43 and S004's -0.946, with S003's -0.67 falling in between. The conclusion attributes the spread to 'what each one counted as a comparison,' supported by S004 restricting to 'non-exercising control groups only' and S001 presenting effects 'as improvements beyond active control conditions,' and S006 comparing to usual care. The claim about 'acceptable quality' differences is supported by the surrounding text noting Singh rated 77 of 97 reviews 'critically low in quality.' Four groups are mentioned (S006, S004, S003, and S001/the BMJ network), consistent with the conclusion."
+    }
+   ],
+   "flagged": true
+  },
+  {
+   "sha": "6c22c581e90afa2c",
+   "sentence": "We would not lean on that figure: it is computed from the largest of the pooled estimates, and the same review gives 2.8 once the analysis is limited to low-risk-of-bias studies.",
+   "verdicts": [
+    {
+     "model": "claude-sonnet-4-6",
+     "run": 1,
+     "label": "SUPPORTED",
+     "reason": "The passages confirm the main SMD is -0.946 with NNT=2, and that restricting to low-risk-of-bias studies yields SMD=-0.666 with NNT=2.8, directly supporting the conclusion's claim that the NNT of 2 comes from the largest estimate and rises to 2.8 in the bias-restricted analysis."
+    },
+    {
+     "model": "claude-sonnet-4-6",
+     "run": 2,
+     "label": "SUPPORTED",
+     "reason": "The passages confirm the main SMD is -0.946 with NNT=2, and that restricting to low-risk-of-bias studies yields SMD=-0.666 with NNT=2.8, directly supporting the conclusion's claim that the NNT of 2 comes from the largest estimate and rises to 2.8 under bias restriction."
+    },
+    {
+     "model": "claude-opus-4-6",
+     "run": 1,
+     "label": "SUPPORTED",
+     "reason": "The conclusion states the NNT of 2 'is computed from the largest of the pooled estimates' and that 'the same review gives 2.8 once the analysis is limited to low-risk-of-bias studies.' The evidence confirms the NNT=2 derives from SMD=-0.946 (the largest magnitude estimate) and that restricting to low-risk-of-bias studies yields NNT=2.8 with SMD=-0.666. The cautionary framing ('We would not lean on that figure') is an editorial judgment consistent with the evidence showing the NNT changes substantially under stricter bias criteria."
+    },
+    {
+     "model": "claude-opus-4-6",
+     "run": 2,
+     "label": "SUPPORTED",
+     "reason": "The conclusion states the NNT of 2 'is computed from the largest of the pooled estimates' and that 'the same review gives 2.8 once the analysis is limited to low-risk-of-bias studies.' The evidence confirms the NNT=2 derives from SMD=-0.946 (the largest magnitude SMD presented) and that restricting to low-risk-of-bias studies yields NNT=2.8 with SMD=-0.666. The conclusion's caution about relying on this figure is an editorial judgment consistent with the data pattern shown in the passages."
+    }
+   ],
+   "flagged": false
+  },
+  {
+   "sha": "d9e456a12e1d7347",
+   "sentence": "Yes, exercise reduces the symptoms of depression, and the reviews we hold agree on the direction of that effect much more firmly than on its size.",
+   "verdicts": [
+    {
+     "model": "claude-sonnet-4-6",
+     "run": 1,
+     "label": "SUPPORTED",
+     "reason": "Both S001 ('Exercise is an effective treatment for depression') and S003 ('moderately more effective') confirm the direction of effect, while S003's restricted-trial analysis shows the SMD shrinks and the CI widens (-0.46, 95% CI -0.88 to -0.04), directly supporting the claim that reviews agree on direction more firmly than on size/magnitude."
+    },
+    {
+     "model": "claude-sonnet-4-6",
+     "run": 2,
+     "label": "SUPPORTED",
+     "reason": "Both S001 ('Exercise is an effective treatment for depression') and S003 ('moderately more effective') confirm the direction of effect, while S003's restricted-trial analysis shows the SMD shrinks and the CI widens (-0.46, 95% CI -0.88 to -0.04), directly supporting the claim that reviews 'agree on direction much more firmly than on size.'"
+    },
+    {
+     "model": "claude-opus-4-6",
+     "run": 1,
+     "label": "SUPPORTED",
+     "reason": "Both S001 and S003 agree exercise reduces depression symptoms (direction agreement). S003 shows the effect estimate shrinks and the confidence interval widens when restricted to better trials (SMD -0.46, 95% CI -0.88 to -0.04), supporting the claim that agreement on direction is firmer than agreement on magnitude. The conclusion's wording matches the evidence without overstating or understating."
+    },
+    {
+     "model": "claude-opus-4-6",
+     "run": 2,
+     "label": "SUPPORTED",
+     "reason": "Both S001 and S003 agree exercise reduces depression symptoms (direction agreement). S003 shows the effect estimate shrinks and the confidence interval widens when restricted to better trials (SMD -0.46, 95% CI -0.88 to -0.04), supporting the claim that agreement on direction is firmer than agreement on magnitude. The conclusion's wording matches the evidence."
+    }
+   ],
+   "flagged": false
+  },
+  {
+   "sha": "1aaf411195bee124",
+   "sentence": "What the evidence cannot yet tell you is how large the benefit is for a particular person, because most of the trials behind it are small and could not be blinded.",
+   "verdicts": [
+    {
+     "model": "claude-sonnet-4-6",
+     "run": 1,
+     "label": "SUPPORTED",
+     "reason": "The conclusion's two claims—small trials and inability to blind—map directly onto the passages: S001 notes 'small trials (eg, the median number of walking or jogging arms was 17)' and S003 states 'all studies to be at high risk of performance bias' due to inherent blinding difficulty. The moderator limitation (study-level not individual-level) further supports why the pooled averages cannot be translated to an individual's expected benefit."
+    },
+    {
+     "model": "claude-sonnet-4-6",
+     "run": 2,
+     "label": "SUPPORTED",
+     "reason": "The conclusion's two claims—small trials and inability to blind—map directly onto the passages: S001 notes 'small trials (eg, the median number of walking or jogging arms was 17)' and S003 states 'all studies to be at high risk of performance bias' due to inherent blinding difficulty. The moderator limitation (study-level not individual-level) further supports why the pooled averages cannot be translated to an individual benefit, matching the conclusion's scope and certainty."
+    },
+    {
+     "model": "claude-opus-4-6",
+     "run": 1,
+     "label": "SUPPORTED",
+     "reason": "The conclusion states the evidence cannot tell you 'how large the benefit is for a particular person' because 'most of the trials behind it are small and could not be blinded.' S001 confirms small trial arms ('median number of walking or jogging arms was 17'), S003 confirms universal performance bias ('we judged all studies to be at high risk of performance bias'), and S001 confirms moderators are at the study level rather than individual level, all supporting the stated inability to translate pooled averages into individual-level expected benefits."
+    },
+    {
+     "model": "claude-opus-4-6",
+     "run": 2,
+     "label": "SUPPORTED",
+     "reason": "The conclusion states the evidence cannot tell you 'how large the benefit is for a particular person' because 'most of the trials behind it are small and could not be blinded.' S001 confirms small trial arms ('median number of walking or jogging arms was 17'), S003 confirms all studies were at high risk of performance bias (i.e., could not be blinded), and S001 confirms moderators were at the study level rather than individual level. All three elements of the stated reasoning are directly supported by the passages."
+    }
+   ],
+   "flagged": false
+  },
+  {
+   "sha": "2a3892697f5de517",
+   "sentence": "That is a fair summary of what the paper argued, not an invention by the press.",
+   "verdicts": [
+    {
+     "model": "claude-sonnet-4-6",
+     "run": 1,
+     "label": "SUPPORTED",
+     "reason": "S001 confirms the paper itself states effect sizes 'seem comparable' to CBT while noting lower confidence, and S008 shows WebMD's opening line restates that comparison without the caveat. The conclusion accurately characterizes both the paper's argument and what the press reported, matching the writer's reasoning."
+    },
+    {
+     "model": "claude-sonnet-4-6",
+     "run": 2,
+     "label": "SUPPORTED",
+     "reason": "S001 confirms the paper itself states effect sizes 'seem comparable' to CBT while noting lower confidence, and S008 shows WebMD's headline restates that comparison without the caveat. The conclusion correctly identifies both that the comparison originates in the paper and that the headline drops the confidence caveat."
+    },
+    {
+     "model": "claude-opus-4-6",
+     "run": 1,
+     "label": "SUPPORTED",
+     "reason": "The conclusion states that the press summary (WebMD's headline) is a fair restatement of what the paper argued, not an invention. The evidence confirms this: the paper itself says 'the effect sizes seem comparable' to CBT (S001), and WebMD's line says exercise is 'as strong as therapy' (S008). The writer also notes the caveat the headline drops, but the conclusion only claims the comparison itself is fair, which the passages support."
+    },
+    {
+     "model": "claude-opus-4-6",
+     "run": 2,
+     "label": "SUPPORTED",
+     "reason": "The conclusion states that the press summary is a fair restatement of what the paper argued, not an invention. The paper (S001) says 'the effect sizes seem comparable' between exercise and CBT, and WebMD (S008) says exercise is 'as strong as therapy in treating depression.' The writer's reasoning that the headline drops the paper's caveat about lower confidence is consistent with calling the comparison itself a fair summary of the paper's argument rather than an invention."
+    }
+   ],
+   "flagged": false
+  },
+  {
+   "sha": "3821fc67c5bbc309",
+   "sentence": "We hold the abstract of this review, not the full text, so we cannot check its tables or its trial-by-trial judgements.",
+   "verdicts": [
+    {
+     "model": "claude-sonnet-4-6",
+     "run": 1,
+     "label": "SUPPORTED",
+     "reason": "The evidence passage shows only 'Subscription required' for S003, confirming the source is held as abstract_held and the full text is inaccessible. The conclusion states exactly this: that only the abstract is held and tables/trial-by-trial judgements cannot be checked, which is directly supported by the subscription barrier recorded in the evidence."
+    },
+    {
+     "model": "claude-sonnet-4-6",
+     "run": 2,
+     "label": "SUPPORTED",
+     "reason": "The evidence passage shows only 'Subscription required' for S003, confirming the source is held as abstract_held and the full text is inaccessible. The conclusion states exactly this: that only the abstract is held and tables/trial-by-trial judgements cannot be checked, which is directly supported by the subscription barrier recorded in the evidence."
+    },
+    {
+     "model": "claude-opus-4-6",
+     "run": 1,
+     "label": "SUPPORTED",
+     "reason": "The evidence shows S003 was read as 'abstract_held' with the passage simply stating 'Subscription required,' which confirms the conclusion's claim that 'We hold the abstract of this review, not the full text, so we cannot check its tables or its trial-by-trial judgements.'"
+    },
+    {
+     "model": "claude-opus-4-6",
+     "run": 2,
+     "label": "SUPPORTED",
+     "reason": "The evidence shows S003 was read as 'abstract_held' with the passage simply stating 'Subscription required,' confirming that only the abstract was available and the full text (including tables and trial-by-trial judgements) could not be checked. The conclusion accurately states this limitation."
+    }
+   ],
+   "flagged": false
+  },
+  {
+   "sha": "b921e3fd33e0dbb8",
+   "sentence": "Intensity mattered more than amount in the BMJ analysis.",
+   "verdicts": [
+    {
+     "model": "claude-sonnet-4-6",
+     "run": 1,
+     "label": "SUPPORTED",
+     "reason": "The passages state 'a clear dose-response curve was observed for intensity' while the curve for weekly energy expenditure (amount) was 'unclear' due to wide credible intervals, directly supporting that intensity showed a clearer/stronger relationship than amount, which is what 'intensity mattered more than amount' summarises."
+    },
+    {
+     "model": "claude-sonnet-4-6",
+     "run": 2,
+     "label": "SUPPORTED",
+     "reason": "The passages state 'a clear dose-response curve was observed for intensity' while 'the dose-response curve for METs/min prescribed per week was unclear,' directly supporting that intensity showed a clearer relationship than amount (weekly energy expenditure), which is what 'intensity mattered more than amount' summarises."
+    },
+    {
+     "model": "claude-opus-4-6",
+     "run": 1,
+     "label": "SUPPORTED",
+     "reason": "The passages show a 'clear dose-response curve' for intensity and an 'unclear' dose-response curve for weekly energy expenditure (METs/min per week). The conclusion that 'intensity mattered more than amount' accurately summarises this contrast between a clear intensity signal and an unclear volume signal."
+    },
+    {
+     "model": "claude-opus-4-6",
+     "run": 2,
+     "label": "SUPPORTED",
+     "reason": "The passages show a 'clear dose-response curve' for intensity and an 'unclear' dose-response curve for weekly energy expenditure (METs/min per week). The conclusion that 'intensity mattered more than amount' accurately summarizes this contrast between a clear intensity signal and an unclear amount signal."
+    }
+   ],
+   "flagged": false
+  },
+  {
+   "sha": "7b76ffc834229f84",
+   "sentence": "The university announcement went further than the paper on who benefits from what.",
+   "verdicts": [
+    {
+     "model": "claude-sonnet-4-6",
+     "run": 1,
+     "label": "SUPPORTED",
+     "reason": "The university announcement (S009) states individual-level findings as fact ('strength training was found to be an especially effective exercise for younger women, whereas older men received the most benefit from yoga'), while the paper (S001) qualifies its age/sex findings as potentially confounded study-level moderators. This confirms the conclusion that the announcement went further than the paper on who benefits from what."
+    },
+    {
+     "model": "claude-sonnet-4-6",
+     "run": 2,
+     "label": "SUPPORTED",
+     "reason": "The university announcement (S009) states individual-level findings as fact ('strength training was found to be an especially effective exercise for younger women, whereas older men received the most benefit from yoga'), while the paper (S001) qualifies its age/sex findings as potentially confounded and study-level. This confirms the conclusion that the announcement went further than the paper on who benefits from what."
+    },
+    {
+     "model": "claude-opus-4-6",
+     "run": 1,
+     "label": "SUPPORTED",
+     "reason": "S009 shows the university announcement states as fact that 'Strength training was found to be an especially effective exercise for younger women, whereas older men received the most benefit from yoga,' while S001 shows the paper itself cautions that 'These studies may have been tailored towards women, so effects may be subject to confounding.' The conclusion that the announcement 'went further than the paper on who benefits from what' is supported by this contrast between the announcement's definitive individual-level claims and the paper's hedged, study-level findings."
+    },
+    {
+     "model": "claude-opus-4-6",
+     "run": 2,
+     "label": "SUPPORTED",
+     "reason": "S009 shows the university announcement states as fact that 'Strength training was found to be an especially effective exercise for younger women, whereas older men received the most benefit from yoga,' while S001 shows the paper itself cautions that 'These studies may have been tailored towards women, so effects may be subject to confounding.' The conclusion that the announcement 'went further than the paper on who benefits from what' is supported by this contrast between the announcement's definitive individual-level claims and the paper's hedged, study-level findings."
+    }
+   ],
+   "flagged": false
+  },
+  {
+   "sha": "45bc6d5d5195128e",
+   "sentence": "So the advice to match strength training to young women and yoga to older men is a hypothesis from the data, not a finding about individuals.",
+   "verdicts": [
+    {
+     "model": "claude-sonnet-4-6",
+     "run": 1,
+     "label": "OVERSTATES",
+     "reason": "The passages say moderators 'should be interpreted cautiously' and call for individual patient meta-analyses, but they do not mention 'strength training for young women' or 'yoga for older men' as specific hypotheses. The conclusion presents a specific directional hypothesis as if it were drawn from the evidence, when the passages only speak generally about cautious interpretation of age and sex moderators."
+    },
+    {
+     "model": "claude-sonnet-4-6",
+     "run": 2,
+     "label": "OVERSTATES",
+     "reason": "The passages say moderators 'should be interpreted cautiously' and call for individual patient meta-analyses, but they do not mention 'strength training for young women' or 'yoga for older men' as specific hypotheses. The conclusion presents a specific directional hypothesis (strength training→young women, yoga→older men) that is not addressed in the evidence passages, making the conclusion assert more specific content than the passages support."
+    },
+    {
+     "model": "claude-opus-4-6",
+     "run": 1,
+     "label": "SUPPORTED",
+     "reason": "The conclusion characterizes the advice as 'a hypothesis from the data, not a finding about individuals,' which aligns with the evidence that moderators 'should be interpreted cautiously' due to confounding and that 'individual patient meta-analyses' are needed for 'participant level moderators.' The study-level nature of the moderators and the call for individual-patient analysis support describing the conclusion as a hypothesis rather than individual-level advice."
+    },
+    {
+     "model": "claude-opus-4-6",
+     "run": 2,
+     "label": "SUPPORTED",
+     "reason": "The conclusion states the advice is 'a hypothesis from the data, not a finding about individuals,' which aligns with the evidence that moderators 'should be interpreted cautiously' due to confounding and that 'individual patient meta-analyses' are needed for 'participant level moderators.' The study-level nature of the moderators and the call for individual-patient analysis support characterizing the results as a hypothesis rather than individual-level findings."
+    }
+   ],
+   "flagged": true
+  },
+  {
+   "sha": "90881ff955b74a93",
+   "sentence": "The central problem is bias that the trial designs cannot easily remove.",
+   "verdicts": [
+    {
+     "model": "claude-sonnet-4-6",
+     "run": 1,
+     "label": "OVERSTATES",
+     "reason": "The passages establish that bias is widespread across trials (weak concealment, blinding, ITT analysis), but the conclusion adds the causal claim that these are problems 'trial designs cannot easily remove' — a structural/inherent limitation claim that neither passage addresses. The evidence shows bias exists but does not speak to whether it is removable by better design."
+    },
+    {
+     "model": "claude-sonnet-4-6",
+     "run": 2,
+     "label": "OVERSTATES",
+     "reason": "The passages establish that bias is widespread across trials (weak concealment, blinding, ITT analysis), but the conclusion adds the causal claim that these are biases 'the trial designs cannot easily remove' — a structural/inherent limitation not stated in either passage, which only report frequencies of methodological shortcomings without characterising them as structurally irremovable."
+    },
+    {
+     "model": "claude-opus-4-6",
+     "run": 1,
+     "label": "SUPPORTED",
+     "reason": "The passages document widespread bias across trials (only 22/73 with adequate concealment, only 31 with ITT, only 23 with blinded assessment, few blinding participants/staff). The conclusion that 'the central problem is bias that the trial designs cannot easily remove' is supported because the evidence shows structural limitations inherent to exercise trials (e.g., blinding participants in exercise interventions is inherently difficult), and both reviews report these issues across most studies."
+    },
+    {
+     "model": "claude-opus-4-6",
+     "run": 2,
+     "label": "SUPPORTED",
+     "reason": "The passages document widespread bias across trials (only 22/73 with adequate concealment, only 31 with ITT, only 23 with blinded assessment, few blinding participants/staff). The conclusion that 'the central problem is bias that the trial designs cannot easily remove' is supported because the evidence shows structural limitations inherent to exercise trials (e.g., blinding participants in exercise interventions is inherently difficult), and the pervasiveness of these issues across most studies indicates a design-level problem rather than an incidental one."
+    }
+   ],
+   "flagged": true
+  },
+  {
+   "sha": "e274e65366931f66",
+   "sentence": "The direction survived the restriction; the size became much less certain.",
+   "verdicts": [
+    {
+     "model": "claude-sonnet-4-6",
+     "run": 1,
+     "label": "SUPPORTED",
+     "reason": "The passage confirms the direction survived (SMD -0.46, CI -0.88 to -0.04 excludes zero) while the wide interval from near-zero to large (-0.88) supports 'size became much less certain,' matching the conclusion as worded."
+    },
+    {
+     "model": "claude-sonnet-4-6",
+     "run": 2,
+     "label": "SUPPORTED",
+     "reason": "The passage confirms the direction survived (SMD -0.46, CI -0.88 to -0.04 excludes zero) while the wide interval from near-zero to large (-0.88) supports 'size became much less certain,' matching the conclusion as worded."
+    },
+    {
+     "model": "claude-opus-4-6",
+     "run": 1,
+     "label": "SUPPORTED",
+     "reason": "The evidence shows the CI is -0.88 to -0.04, which excludes zero (supporting 'the direction survived the restriction') but spans from a very small effect (-0.04) to a large one (-0.88), supporting 'the size became much less certain.' The conclusion accurately characterizes the statistical result."
+    },
+    {
+     "model": "claude-opus-4-6",
+     "run": 2,
+     "label": "SUPPORTED",
+     "reason": "The passage shows the CI is -0.88 to -0.04, which excludes zero (direction survived) but spans from a near-zero effect to a large effect (size much less certain). The conclusion accurately captures both points."
+    }
+   ],
+   "flagged": false
+  },
+  {
+   "sha": "7053118b8200cea0",
+   "sentence": "Two further signals point the same way.",
+   "verdicts": [
+    {
+     "model": "claude-sonnet-4-6",
+     "run": 1,
+     "label": "SUPPORTED",
+     "reason": "The conclusion says 'two further signals point the same way' — the passages confirm exactly two signals: funded studies showing stronger effects than unfunded ones, and evidence of publication bias, both suggesting the pooled effect size may be inflated, consistent with the risk-of-bias direction mentioned in surrounding text."
+    },
+    {
+     "model": "claude-sonnet-4-6",
+     "run": 2,
+     "label": "SUPPORTED",
+     "reason": "The conclusion says 'two further signals point the same way' — the passages confirm exactly two signals: funded studies showing stronger effects than unfunded ones, and evidence of publication bias, both suggesting the pooled effect size may be inflated, consistent with the risk-of-bias concern direction."
+    },
+    {
+     "model": "claude-opus-4-6",
+     "run": 1,
+     "label": "SUPPORTED",
+     "reason": "The conclusion states 'Two further signals point the same way,' referring to funding bias and publication bias. The passages confirm both: funded studies showed stronger effects than unfunded ones, and evidence of publication bias was found. The writer's reasoning that both suggest the pooled effect size may be inflated (same direction as risk-of-bias concern) is consistent with the evidence provided."
+    },
+    {
+     "model": "claude-opus-4-6",
+     "run": 2,
+     "label": "SUPPORTED",
+     "reason": "The conclusion states 'Two further signals point the same way,' referring to funding bias and publication bias. The passages confirm both: funded studies showed stronger effects than unfunded ones, and evidence of publication bias was found. The writer's reasoning that both suggest the pooled effect size may be inflated (same direction as risk-of-bias concern) is consistent with the evidence provided."
+    }
+   ],
+   "flagged": false
+  },
+  {
+   "sha": "006825d5d133c370",
+   "sentence": "So the comparison with drugs is the weakest part of the case, and the comparison with therapy the strongest.",
+   "verdicts": [
+    {
+     "model": "claude-sonnet-4-6",
+     "run": 1,
+     "label": "SUPPORTED",
+     "reason": "The passages confirm the drug comparison is low-certainty evidence and the BMJ authors themselves caution their drug estimate 'should not usurp' focused reviews, while the therapy comparison carries moderate-certainty evidence—directly supporting the conclusion that the drug comparison is the weakest and the therapy comparison the strongest part of the case."
+    },
+    {
+     "model": "claude-sonnet-4-6",
+     "run": 2,
+     "label": "SUPPORTED",
+     "reason": "The passages confirm the drug comparison is low-certainty (supporting 'weakest') and the therapy comparison is moderate-certainty (supporting 'strongest'), and the BMJ review's own caveat ('should not usurp these directly focused systematic reviews') supports flagging its drug estimate as not authoritative, matching the writer's stated reasoning and the conclusion as worded."
+    },
+    {
+     "model": "claude-opus-4-6",
+     "run": 1,
+     "label": "SUPPORTED",
+     "reason": "S003 shows the therapy comparison has 'moderate-certainty evidence' while the drug comparison has 'low-certainty evidence,' and S001 confirms the drug estimate 'should not usurp these directly focused systematic reviews.' This supports the conclusion that the drug comparison is the weakest part and the therapy comparison the strongest."
+    },
+    {
+     "model": "claude-opus-4-6",
+     "run": 2,
+     "label": "SUPPORTED",
+     "reason": "S003 shows the therapy comparison has 'moderate-certainty evidence' while the drug comparison has 'low-certainty evidence,' and S001 explicitly cautions that the drug estimate 'should not usurp these directly focused systematic reviews.' This supports the conclusion that the drug comparison is the weakest part and the therapy comparison the strongest."
+    }
+   ],
+   "flagged": false
+  },
+  {
+   "sha": "0c3383953d3fd2a2",
+   "sentence": "People who are becoming depressed may also become less active, which a cohort design cannot fully separate from the reverse.",
+   "verdicts": [
+    {
+     "model": "claude-sonnet-4-6",
+     "run": 1,
+     "label": "NOT_IN_EVIDENCE",
+     "reason": "The conclusion specifically claims that cohort designs cannot fully separate depression-causing inactivity from inactivity-causing depression (reverse causation from early undiagnosed symptoms). The passages only state that prospective cohort studies were used and that causality was assumed conditionally; neither passage mentions reverse causation, prodromal depression, or the limitation of cohort designs in separating these directions."
+    },
+    {
+     "model": "claude-sonnet-4-6",
+     "run": 2,
+     "label": "SUPPORTED",
+     "reason": "The passages confirm prospective cohort design and the conditional 'assuming causality' language, which together support the conclusion that reverse causation (people becoming depressed becoming less active) cannot be fully eliminated—exactly the hedged claim the conclusion makes."
+    },
+    {
+     "model": "claude-opus-4-6",
+     "run": 1,
+     "label": "SUPPORTED",
+     "reason": "The conclusion states that cohort designs cannot fully separate reverse causation from early depressive symptoms reducing activity. The evidence shows these were 'prospective cohort studies' and the authors qualified their prevention estimate with 'Assuming causality,' which directly reflects the acknowledged limitation that causality (and thus the direction of effect) is not established, supporting the conclusion's claim about the design's inability to fully separate reverse causation."
+    },
+    {
+     "model": "claude-opus-4-6",
+     "run": 2,
+     "label": "SUPPORTED",
+     "reason": "The conclusion states that cohort designs cannot fully separate reverse causation from early depressive symptoms reducing activity. The evidence shows these were 'prospective cohort studies' and that the prevention estimate was conditional on 'Assuming causality,' which directly reflects the limitation the conclusion describes—that the causal direction is not fully established by the cohort design."
+    }
+   ],
+   "flagged": true
+  },
+  {
+   "sha": "61e821cb724f5f1f",
+   "sentence": "Standardised effect sizes are hard to picture, and the reviews translate them in different ways.",
+   "verdicts": [
+    {
+     "model": "claude-sonnet-4-6",
+     "run": 1,
+     "label": "SUPPORTED",
+     "reason": "The conclusion says reviews 'translate them in different ways': S001 shows one review uses a 'minimum clinically important difference' (0.5 SD of change score), while S004 shows another uses a 'number needed to treat' (NNT of 2). These are indeed different translations of standardised effect sizes, directly supporting the conclusion as worded."
+    },
+    {
+     "model": "claude-sonnet-4-6",
+     "run": 2,
+     "label": "SUPPORTED",
+     "reason": "The conclusion says reviews 'translate them in different ways': S001 shows one review uses a 'minimum clinically important difference' (0.5 SD of change score), while S004 shows another uses a 'NNT of 2' (number needed to treat) — exactly two different translations of standardised effect sizes, matching the conclusion's wording precisely."
+    },
+    {
+     "model": "claude-opus-4-6",
+     "run": 1,
+     "label": "SUPPORTED",
+     "reason": "The conclusion states that reviews 'translate them in different ways,' and the evidence shows exactly this: S001 uses a 'standardised minimum clinically important difference' while S004 uses a 'NNT of 2' (number needed to treat). These are indeed different translations of standardised effect sizes, matching the conclusion's claim."
+    },
+    {
+     "model": "claude-opus-4-6",
+     "run": 2,
+     "label": "SUPPORTED",
+     "reason": "The conclusion states that reviews 'translate them in different ways,' and the evidence shows exactly this: S001 uses a 'standardised minimum clinically important difference' while S004 uses a 'NNT of 2' (number needed to treat). These are indeed different translations of standardised effect sizes, matching the conclusion's claim."
+    }
+   ],
+   "flagged": false
+  },
+  {
+   "sha": "3f3c3c3050b0c7c0",
+   "sentence": "The best coverage we found carried the caveats.",
+   "verdicts": [
+    {
+     "model": "claude-sonnet-4-6",
+     "run": 1,
+     "label": "SUPPORTED",
+     "reason": "The conclusion says 'the best coverage we found carried the caveats.' S008 shows WebMD's report noted 'risk for bias in the studies' and S009 shows the university release noted 'limitations' and need for 'further high quality studies,' both confirming that these top-cited sources included study caveats/limitations as the conclusion states."
+    },
+    {
+     "model": "claude-sonnet-4-6",
+     "run": 2,
+     "label": "SUPPORTED",
+     "reason": "The conclusion says 'the best coverage we found carried the caveats.' S008 shows WebMD's report noted 'risk for bias in the studies' and S009 shows the university release noted 'limitations' and need for 'further high quality studies,' both confirming that these top-found reports included study caveats/limitations as the conclusion states."
+    },
+    {
+     "model": "claude-opus-4-6",
+     "run": 1,
+     "label": "SUPPORTED",
+     "reason": "The conclusion states 'The best coverage we found carried the caveats.' The evidence from S008 shows WebMD noted 'there was risk for bias in the studies,' and S009 shows the university release noted 'some of the studies included in their review had limitations, and further high quality studies were needed.' Both passages confirm that the best coverage included caveats about study limitations."
+    },
+    {
+     "model": "claude-opus-4-6",
+     "run": 2,
+     "label": "SUPPORTED",
+     "reason": "The conclusion states 'the best coverage we found carried the caveats.' The evidence from S008 shows WebMD noted 'risk for bias in the studies' and S009 shows the university release noted 'some of the studies included in their review had limitations, and further high quality studies were needed.' Both passages confirm that the coverage identified as best did indeed carry caveats about study limitations."
+    }
+   ],
+   "flagged": false
+  },
+  {
+   "sha": "5ad71fcf779a82e1",
+   "sentence": "We hold two pieces of coverage, so this is a sample of what was carried, not a survey of it.",
+   "verdicts": [
+    {
+     "model": "claude-sonnet-4-6",
+     "run": 1,
+     "label": "SUPPORTED",
+     "reason": "The conclusion states 'we hold two pieces of coverage' and names them as a sample rather than a survey. The evidence confirms exactly two coverage documents exist (S008 and S009), and the writer's reasoning explicitly notes these are the only coverage sources, supporting the claim that this is a sample of what was carried, not a complete survey."
+    },
+    {
+     "model": "claude-sonnet-4-6",
+     "run": 2,
+     "label": "SUPPORTED",
+     "reason": "The conclusion states 'we hold two pieces of coverage' and names them as a 'sample' rather than a 'survey,' which matches exactly the evidence: only S008 ('Exercise Treats Depression as Well as Therapy, Study Says') and S009 ('Exercising your way out of depression') are the coverage documents held, confirming the claim that these two pieces represent a partial sample of what was carried, not a comprehensive survey."
+    },
+    {
+     "model": "claude-opus-4-6",
+     "run": 1,
+     "label": "SUPPORTED",
+     "reason": "The conclusion states 'We hold two pieces of coverage' and indeed exactly two coverage documents are presented (S008 and S009). The conclusion correctly characterizes this as 'a sample of what was carried, not a survey of it,' which is an appropriate hedge given that only two sources are available."
+    },
+    {
+     "model": "claude-opus-4-6",
+     "run": 2,
+     "label": "SUPPORTED",
+     "reason": "The conclusion states 'We hold two pieces of coverage, so this is a sample of what was carried, not a survey of it.' The evidence confirms exactly two coverage documents (S008 and S009), both held in full text, and the conclusion appropriately characterizes them as a sample rather than a comprehensive survey."
+    }
+   ],
+   "flagged": false
+  },
+  {
+   "sha": "7f95e473a49d3d75",
+   "sentence": "Confidence in direction is reasonably high: exercise helps depressive symptoms, across several independent syntheses and across trials judged at low risk of bias.",
+   "verdicts": [
+    {
+     "model": "claude-sonnet-4-6",
+     "run": 1,
+     "label": "SUPPORTED",
+     "reason": "The conclusion claims 'reasonably high' confidence in direction (not magnitude) across independent syntheses and low-bias trials. S003 shows SMD -0.46 (95% CI -0.88 to -0.04, excluding zero) in lower-bias trials, S004 shows SMD -0.666 (95% CI -0.99 to -0.34, excluding zero) restricted to low risk of bias studies, and S001 states 'Exercise is an effective treatment for depression'—together these support the directional claim across multiple independent reviews without overstating certainty about magnitude."
+    },
+    {
+     "model": "claude-sonnet-4-6",
+     "run": 2,
+     "label": "SUPPORTED",
+     "reason": "The conclusion claims 'reasonably high' confidence in direction (not magnitude) across independent syntheses and low-bias trials. S003 shows SMD -0.46 (95% CI -0.88 to -0.04, excluding zero) in lower-bias trials, S004 shows SMD -0.666 (95% CI -0.99 to -0.34, excluding zero) restricted to low risk of bias studies, and S001 states 'Exercise is an effective treatment for depression'—together these support the directional claim across multiple independent reviews without overstating certainty about magnitude."
+    },
+    {
+     "model": "claude-opus-4-6",
+     "run": 1,
+     "label": "SUPPORTED",
+     "reason": "The conclusion states 'confidence in direction is reasonably high' that 'exercise helps depressive symptoms, across several independent syntheses and across trials judged at low risk of bias.' S003 shows a pooled SMD of -0.46 (95% CI -0.88 to -0.04) excluding zero, S004 shows SMD=-0.666 (95% CI -0.99 to -0.34) restricted to low risk of bias studies also excluding zero, and S001 states 'Exercise is an effective treatment for depression.' These three independent sources consistently show effects favoring exercise with confidence intervals excluding zero, supporting the 'reasonably high' confidence in direction across multiple syntheses and low-bias trials."
+    },
+    {
+     "model": "claude-opus-4-6",
+     "run": 2,
+     "label": "SUPPORTED",
+     "reason": "The conclusion states 'confidence in direction is reasonably high' that 'exercise helps depressive symptoms, across several independent syntheses and across trials judged at low risk of bias.' S003 shows a pooled SMD of -0.46 (95% CI -0.88 to -0.04) excluding zero, S004 shows SMD=-0.666 (95% CI -0.99 to -0.34) restricted to low risk of bias studies also excluding zero, and S001 states 'Exercise is an effective treatment for depression.' These three independent sources consistently show effects favoring exercise with confidence intervals excluding zero, supporting the 'reasonably high' confidence in direction across multiple syntheses and low-bias trials."
+    }
+   ],
+   "flagged": false
+  },
+  {
+   "sha": "9eff8e535acff24c",
+   "sentence": "Confidence in magnitude is low, and the certainty grades in both major reviews say so.",
+   "verdicts": [
+    {
+     "model": "claude-sonnet-4-6",
+     "run": 1,
+     "label": "SUPPORTED",
+     "reason": "S001 explicitly states 'confidence in accordance with CINeMA was low for walking or jogging and very low for other treatments,' and S003 states 'low-certainty evidence,' both matching the conclusion that 'certainty grades in both major reviews say so' and that 'confidence in magnitude is low.'"
+    },
+    {
+     "model": "claude-sonnet-4-6",
+     "run": 2,
+     "label": "SUPPORTED",
+     "reason": "S001 explicitly states 'confidence in accordance with CINeMA was low for walking or jogging and very low for other treatments,' and S003 states 'low-certainty evidence,' both matching the conclusion's claim that 'certainty grades in both major reviews say so' and that 'confidence in magnitude is low.'"
+    },
+    {
+     "model": "claude-opus-4-6",
+     "run": 1,
+     "label": "SUPPORTED",
+     "reason": "The conclusion states 'certainty grades in both major reviews say so' regarding low confidence in magnitude. S001 states 'confidence in accordance with CINeMA was low for walking or jogging and very low for other treatments,' and S003 states 'low-certainty evidence.' Both sources confirm low or very low certainty grades, matching the conclusion that both reviews grade their main estimates low or very low certainty."
+    },
+    {
+     "model": "claude-opus-4-6",
+     "run": 2,
+     "label": "SUPPORTED",
+     "reason": "The conclusion states that 'certainty grades in both major reviews say so' (i.e., low confidence in magnitude). S001 reports 'confidence in accordance with CINeMA was low for walking or jogging and very low for other treatments,' and S003 reports 'low-certainty evidence.' Both sources confirm low or very low certainty grades, matching the conclusion that both major reviews grade their main estimates low or very low certainty."
+    }
+   ],
+   "flagged": false
+  },
+  {
+   "sha": "6575754d7ba39e1f",
+   "sentence": "For someone deciding what to do, the evidence favours a structured programme of walking or jogging, yoga or strength training, at an intensity that feels like effort, sustained over weeks.",
+   "verdicts": [
+    {
+     "model": "claude-sonnet-4-6",
+     "run": 1,
+     "label": "SUPPORTED",
+     "reason": "The passages collectively support each element of the conclusion: S001 names walking/running, strength training, yoga as types that work well; S001 notes benefits from 'clear direction and accountability of a standardised prescription' (structured programme); S001 specifies vigorous intensity (effort); and S007 describes more than one session per week for 10 weeks (sustained over weeks)."
+    },
+    {
+     "model": "claude-sonnet-4-6",
+     "run": 2,
+     "label": "SUPPORTED",
+     "reason": "The passages collectively support each element of the conclusion: S001 names walking/running, strength training, yoga as types that work well; S001 notes benefit from 'clear direction and accountability of a standardised prescription' (structured programme); S001 specifies 'vigorous' intensity (feels like effort); and S007 describes 'more than 1 session per week for 10 weeks' (sustained over weeks). The conclusion's hedged framing ('evidence favours') matches the qualified language in the sources."
+    },
+    {
+     "model": "claude-opus-4-6",
+     "run": 1,
+     "label": "SUPPORTED",
+     "reason": "The conclusion names 'walking or jogging, yoga or strength training' — S001 lists 'walking, running, … strength training, yoga' among types that 'appear to work well.' 'Intensity that feels like effort' maps to S001's guidance on 'vigorous' intensity. 'Structured programme' is supported by S001's finding that 'a standardised prescription' helped. 'Sustained over weeks' is supported by S007's 'more than 1 session per week for 10 weeks.' The conclusion's hedged phrasing ('the evidence favours') is consistent with the surrounding text's note that confidence in magnitude is low."
+    },
+    {
+     "model": "claude-opus-4-6",
+     "run": 2,
+     "label": "SUPPORTED",
+     "reason": "The conclusion names 'walking or jogging, yoga or strength training' — S001 lists 'walking, running, … strength training, yoga' among types that 'appear to work well.' 'Intensity that feels like effort' maps to S001's guidance on 'vigorous' intensity. 'Structured programme' is supported by S001's finding that 'a standardised prescription' helped. 'Sustained over weeks' is supported by S007's 'more than 1 session per week for 10 weeks.' The phrase 'the evidence favours' is appropriately hedged given the surrounding text's note that confidence in magnitude is low."
+    }
+   ],
+   "flagged": false
+  },
+  {
+   "sha": "b461025547b0e0c4",
+   "sentence": "The evidence does not support choosing between those three on the basis of age or sex.",
+   "verdicts": [
+    {
+     "model": "claude-sonnet-4-6",
+     "run": 1,
+     "label": "SUPPORTED",
+     "reason": "The passage states age and sex moderators 'should be interpreted cautiously' due to confounding, which directly supports the conclusion that the evidence does not support choosing between the three interventions on the basis of age or sex. Both the evidence and conclusion convey the same level of uncertainty about these moderators."
+    },
+    {
+     "model": "claude-sonnet-4-6",
+     "run": 2,
+     "label": "SUPPORTED",
+     "reason": "The passage states age and sex moderators 'should be interpreted cautiously' due to confounding, which directly supports the conclusion that the evidence does not support choosing between the three interventions on the basis of age or sex. Both the evidence and conclusion convey the same level of uncertainty about these moderators."
+    },
+    {
+     "model": "claude-opus-4-6",
+     "run": 1,
+     "label": "OVERSTATES",
+     "reason": "The source says age and sex moderators 'should be interpreted cautiously,' which is a hedge urging caution, not a blanket statement that the evidence 'does not support choosing between those three on the basis of age or sex.' The conclusion drops the uncertainty and states a firmer negative claim than the evidence warrants."
+    },
+    {
+     "model": "claude-opus-4-6",
+     "run": 2,
+     "label": "OVERSTATES",
+     "reason": "The source says age and sex moderators 'should be interpreted cautiously,' which is a hedge urging caution, not a blanket statement that the evidence 'does not support choosing between those three on the basis of age or sex.' The conclusion drops the uncertainty and states a firmer negative claim than the evidence warrants."
+    }
+   ],
+   "flagged": true
+  },
+  {
+   "sha": "d978c51c38dc0662",
+   "sentence": "It also does not support stopping an existing treatment: the strongest comparisons are with therapy, the drug comparisons are thin, and adding exercise to an SSRI looked better than either alone in the BMJ network.",
+   "verdicts": [
+    {
+     "model": "claude-sonnet-4-6",
+     "run": 1,
+     "label": "SUPPORTED",
+     "reason": "The conclusion's three claims map directly to the passages: 'drug comparisons are thin' matches S003's 'based on a few small trials'; 'strongest comparisons are with therapy' is consistent with S003 noting psychological treatments are compared; 'adding exercise to an SSRI looked better than either alone' matches S001's combination effect (g=-0.55); and 'not support stopping an existing treatment' is grounded in S009's explicit advice to talk to a doctor before changing treatment."
+    },
+    {
+     "model": "claude-sonnet-4-6",
+     "run": 2,
+     "label": "SUPPORTED",
+     "reason": "S003 confirms drug comparisons are 'based on a few small trials' (thin), S001 shows the combination estimate (g=-0.55) is favorable, and S009 supports the 'not stopping existing treatment' framing via the lead author's advice to talk to a doctor before changing treatment. The conclusion's characterization of therapy comparisons as 'strongest' is consistent with S003's framing that drug comparisons are the weak link, and no passage contradicts any element."
+    },
+    {
+     "model": "claude-opus-4-6",
+     "run": 1,
+     "label": "SUPPORTED",
+     "reason": "The conclusion says 'the strongest comparisons are with therapy, the drug comparisons are thin' — S003's abstract states exercise effectiveness conclusions vs pharmacological treatments are 'based on a few small trials,' supporting 'thin.' The conclusion says 'adding exercise to an SSRI looked better than either alone in the BMJ network' — S001 reports a clinically meaningful combined effect (g=-0.55) for exercise combined with SSRIs. The conclusion says it 'does not support stopping an existing treatment' — S009 quotes the lead author advising talking to a doctor before changing treatment. All elements are supported at appropriate strength."
+    },
+    {
+     "model": "claude-opus-4-6",
+     "run": 2,
+     "label": "SUPPORTED",
+     "reason": "The conclusion says 'the strongest comparisons are with therapy, the drug comparisons are thin' — S003's abstract states exercise effectiveness vs pharmacological treatments 'is based on a few small trials,' supporting 'thin.' The conclusion says 'adding exercise to an SSRI looked better than either alone in the BMJ network' — S001 reports a clinically meaningful combined effect (g=-0.55) for exercise combined with SSRIs. The conclusion says it 'does not support stopping an existing treatment' — S009 quotes the lead author advising talking to a doctor before changing treatment. All elements are adequately supported."
+    }
+   ],
+   "flagged": false
+  }
+ ]
+}
