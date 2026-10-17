@@ -607,18 +607,66 @@ def test_an_undeclared_sentence_naming_a_registered_source_only_warns(monkeypatc
     assert B.BAD not in severity(row)
 
 
-@pytest.mark.parametrize("sent", ["We have not opened that meta-analysis.",
-                                  "We did not obtain the investigators' summary paper."])
-@pytest.mark.parametrize("state", ["not_opened", "blocked", "fragment_only",
-                                   "abstract_held"])
+NOT_OBTAINED_SENTENCES = ["We have not opened that meta-analysis.",
+                          "We did not obtain the investigators' summary paper.",
+                          "We could not obtain PALMARES-2 itself."]
+
+
+@pytest.mark.parametrize("sent", NOT_OBTAINED_SENTENCES)
+@pytest.mark.parametrize("state", ["not_opened", "blocked", "fragment_only"])
 def test_not_opened_or_not_obtained_passes_on_an_unread_or_unheld_entry(sent, state,
                                                                        monkeypatch):
     monkeypatch.setattr(E, "_sources", lambda slug: [_src("S020", state)])
     assert E.check_sentence(sent, SLUG, declared=["S020"])[0]["verdict"] == "PASS"
 
 
-@pytest.mark.parametrize("sent", ["We have not opened that meta-analysis.",
-                                  "We did not obtain the investigators' summary paper."])
+@pytest.mark.parametrize("sent", NOT_OBTAINED_SENTENCES)
+def test_not_opened_or_not_obtained_warns_on_abstract_held(sent, monkeypatch):
+    """Round 4: true of the paper, silent about the abstract we hold."""
+    monkeypatch.setattr(E, "_sources", lambda slug: [_src("S020", "abstract_held")])
+    got = E.check_sentence(sent, SLUG, declared=["S020"])
+    assert [(v["verdict"], v["why"]) for v in got] == \
+        [("WARN", "we hold its abstract — say so")]
+
+
+def test_other_unread_phrasings_still_pass_on_abstract_held(monkeypatch):
+    monkeypatch.setattr(E, "_sources", lambda slug: [_src("S020", "abstract_held")])
+    got = E.check_sentence("We have not read the paper.", SLUG, declared=["S020"])
+    assert got[0]["verdict"] == "PASS"
+
+
+def test_b21_reports_the_abstract_held_warn(monkeypatch):
+    stub = _Epistemic()
+    stub.WARN_VERDICT = "WARN"
+    stub.check_sentence = lambda s, slug, declared=None: [
+        {"verdict": "WARN", "source": "S020", "recorded": "abstract_held",
+         "why": "we hold its abstract — say so"}]
+    monkeypatch.setitem(sys.modules, "epistemic", stub)
+    row = {"sentence": "We have not opened that meta-analysis.",
+           "bucket": "deterministic", "rests_on_store": ["S020"]}
+    assert verdicts(row) == [("B21", "we hold its abstract — say so")]
+    assert B.CALIBRATION_SEVERITY["we hold its abstract — say so"] == B.WARN
+
+
+def test_could_not_obtain_is_read_as_unread():
+    assert E._asserted("We could not obtain PALMARES-2 itself.") == "UNREAD"
+
+
+def test_the_cdk46_shape_two_named_sources_and_no_declaration(monkeypatch):
+    """'PALMARES-2' is an alias of the paper (S011) and the registry record
+    (S021). Undeclared, the subject is not decidable; declared, it evaluates."""
+    monkeypatch.setattr(E, "_sources", lambda slug: [
+        _src("S011", "fragment_only", also_called=["PALMARES-2"]),
+        _src("S021", "full_text_held", also_called=["PALMARES-2"])])
+    monkeypatch.setattr(E, "store_subjects", lambda s, slug: [])
+    monkeypatch.setattr(E, "declared_sources", lambda s, slug: [])
+    sent = "We could not obtain PALMARES-2 itself."
+    assert E.check_sentence(sent, SLUG)[0]["verdict"] == "NOT EVALUATED"
+    assert [(v["verdict"], v["source"]) for v in
+            E.check_sentence(sent, SLUG, declared=["S011"])] == [("PASS", "S011")]
+
+
+@pytest.mark.parametrize("sent", NOT_OBTAINED_SENTENCES)
 @pytest.mark.parametrize("state", ["full_text_held", "human_read"])
 def test_not_opened_or_not_obtained_fails_when_the_entry_shows_it_held(sent, state,
                                                                       monkeypatch):

@@ -813,6 +813,11 @@ def b21_holdings(row: dict, slug: str) -> list[dict]:
             continue
         if v["verdict"] == E.NOT_EVALUATED and unknown and v.get("source") in unknown:
             continue                       # already the STOP above
+        if v["verdict"] == getattr(E, "WARN_VERDICT", "WARN"):
+            out.append({"check": "B21", "verdict": "we hold its abstract — say so",
+                        "why": "%s is abstract_held; the sentence says we have not "
+                               "opened or obtained it" % v.get("source")})
+            continue
         if v["verdict"] == E.FAIL:
             out.append({"check": "B21", "verdict": "store disagrees",
                         "why": "%s: asserts %s, store records %s"
@@ -828,6 +833,7 @@ NOT_IN_SOURCES = "document not in sources.json — add an entry (unread) for it"
 CALIBRATION_SEVERITY = {
     NOT_IN_SOURCES: BAD,
     "source unclassified": WARN,
+    "we hold its abstract — say so": WARN,
     "holdings sentence not declared to the store": WARN,
     "evidence hedge dropped": WARN,
     "confidence above its cited grade": BAD,

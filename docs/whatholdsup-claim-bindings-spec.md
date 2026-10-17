@@ -281,9 +281,10 @@ means — and records a FAIL or NOT EVALUATED in `check_flags`. A row without th
 field resolves from the text exactly as before. A sentence saying we hold the
 abstract ONLY ("abstract only", "only the abstract", "the abstract … not the
 full text / paper") passes on abstract_held and fails on every other state,
-full_text_held included. "Have not opened" and "did not obtain" pass on any
-state epistemic counts as unread or not held in full (not_opened, blocked,
-fragment_only, abstract_held) and fail on full_text_held or human_read.
+full_text_held included. "Have not opened", "did not obtain" and "could not obtain"
+pass on not_opened, blocked or fragment_only and fail on full_text_held or
+human_read. On abstract_held they WARN, "we hold its abstract — say so": true of
+the paper, silent about what we hold. epistemic counts that WARN as evaluated.
 
 **A document mentioned and not held gets an entry.** A holdings sentence whose
 `rests_on_store` names an id with no entry, or that declares nothing, cites
@@ -326,8 +327,9 @@ issues sets `document_class`, so every declared subject is NOT EVALUATED — by
 design: an unclassified source is never assumed to be a document. Three of the
 15 holdings sentences are about documents with no entry in `sources.json` (a
 meta-analysis or study cited inside another source, a guideline's errata) and
-STOP until one is added. "We could not obtain" is classified as a holdings
-sentence but not read by epistemic, so it is NOT EVALUATED. A sentence mixing a holdings clause with a cited claim (T04
+STOP until one is added. A sentence whose text names two registered sources
+and whose row declares neither ("We could not obtain PALMARES-2 itself": S011
+and S021) stays NOT EVALUATED until rests_on_store says which. A sentence mixing a holdings clause with a cited claim (T04
 s51) must be split: it cannot both rest on the store and cite a document. No page renders a per-sentence citation marker from the
 bindings today, so a holdings sentence carries none by construction.
 

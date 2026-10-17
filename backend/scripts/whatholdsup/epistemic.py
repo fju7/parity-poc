@@ -56,6 +56,9 @@ import source_store as store          # noqa: E402
 OK, BAD, WARN = "ok", "BLOCKED", "warn"   # publish.py's vocabulary; " STOP" is the display mark
 
 PASS, FAIL, NOT_EVALUATED = "PASS", "FAIL", "NOT EVALUATED"
+# WARN is an EVALUATED outcome: the store answered, and the sentence is true but
+# leaves out what the store holds. Counted with PASS and FAIL in coverage.
+WARN_VERDICT = "WARN"
 
 # THREE OUTCOMES, NEVER TWO.
 #
@@ -145,7 +148,14 @@ _UNREAD = re.compile(
     r"|have not been able to read|requires reading it|cannot say .{0,80}reading"
     r"|nobody (?:here )?(?:has|had) (?:ever )?opened|never (?:been )?read"
     r"|we have never read|unread by us|have not obtained"
-    r"|have not (?:yet )?opened|did not obtain)\b", re.I)
+    r"|have not (?:yet )?opened|did not obtain|could not obtain)\b", re.I)
+
+# "We have not opened it" / "did not obtain" / "could not obtain", said of a
+# document whose abstract we hold, is true of the paper and silent about the
+# abstract. Not false, so not a FAIL; not the whole story, so not a PASS.
+_NOT_OBTAINED = re.compile(r"\b(have not (?:yet )?opened|did not obtain"
+                           r"|could not obtain)\b", re.I)
+ABSTRACT_HELD_NOTE = "we hold its abstract — say so"
 _READ = re.compile(
     r"\b(we have (?:now )?read|read in full|read it in full|having read it"
     r"|read at source|we have opened)\b", re.I)
@@ -366,6 +376,12 @@ def _verdicts(subjects, asserted, how, sentence, slug) -> list[dict]:
             good = state == "abstract_held"
         else:
             good = state in SATISFIED_BY.get(asserted, set())
+        if (good and asserted == UNREAD and state == "abstract_held"
+                and _NOT_OBTAINED.search(sentence)):
+            out.append({"verdict": WARN_VERDICT, "asserted": claim, "source": sid,
+                        "recorded": state, "why": ABSTRACT_HELD_NOTE,
+                        "sentence": " ".join(sentence.split())[:220]})
+            continue
         out.append({"verdict": PASS if good else FAIL, "asserted": claim,
                     "source": sid, "recorded": state or "(no access state)",
                     "why": how, "sentence": " ".join(sentence.split())[:220]})
@@ -442,7 +458,7 @@ def scan(slug: str) -> dict:
                 f["where"] = "corrections.md (claimed change)"
                 verdicts.append(f)
     n = len(verdicts)
-    ev = len([v for v in verdicts if v["verdict"] in (PASS, FAIL)])
+    ev = len([v for v in verdicts if v["verdict"] in (PASS, FAIL, WARN_VERDICT)])
     return {"slug": slug, "verdicts": verdicts, "epistemic_sentences": n,
             "evaluated": ev, "coverage": (ev / n) if n else 0.0,
             "aliases": alias_coverage(slug)}
