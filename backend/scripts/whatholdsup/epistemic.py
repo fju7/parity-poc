@@ -94,6 +94,52 @@ RECORD_TYPES = {"reference"}
 HELD_STATES = {"full_text_held", "human_read"}
 NOT_HELD_STATES = {"blocked", "fragment_only", "abstract_held", "unchecked", ""}
 
+# THE TWO CLASSES, AND THE THIRD ANSWER.
+#
+# `document_class` is "document" or "record_about", and until October 2026 it
+# was set only by hand -- 32 of 140 entries across seven issues, none in the
+# four WHU test issues -- so every subject this file resolved there came back
+# NOT EVALUATED. document_class_of() is what source_ledger.add_unread() writes
+# when it creates an entry. When it cannot tell, it writes "unclassified",
+# which is reported as such rather than read as an unset field.
+DOCUMENT, RECORD_ABOUT, UNCLASSIFIED = "document", "record_about", "unclassified"
+
+
+def document_class_of(src: dict) -> str:
+    """The class a new sources.json entry should carry.
+
+    record_about: the same three discriminators is_record_about() reads -- an
+    explicit `form` in RECORD_FORMS, a `type` in RECORD_TYPES, or held sections
+    saying the bytes are the bibliographic record.
+
+    document: a form the store's own TYPES registry settles -- an explicit
+    `form`, or the form source_store.TYPES gives the type (article, notice,
+    record, page). A registry record, a label and a guideline are their own
+    documents; the 31 entries classed `document` by hand include all three.
+
+    unclassified: anything else, including the types whose form TYPES leaves
+    open (critique, prior_art) with no explicit form. Never a guess.
+    """
+    if (src.get("form") or "").lower() in RECORD_FORMS:
+        return RECORD_ABOUT
+    if (src.get("type") or "").lower() in RECORD_TYPES:
+        return RECORD_ABOUT
+    secs = " ".join((src.get("access") or {}).get("sections") or []).lower()
+    if "bibliographic" in secs or secs.strip() == "record":
+        return RECORD_ABOUT
+    import source_store as _ss
+    return DOCUMENT if _ss.form_of(src) in _ss.FORMS else UNCLASSIFIED
+
+
+# "We hold the abstract only" is a claim that the store holds the abstract AND
+# does not hold the paper. HOLD alone is satisfied by full_text_held, so the
+# "only" went unchecked. These phrasings require abstract_held exactly.
+_ABSTRACT_ONLY = re.compile(
+    r"\b(abstract only|only (?:the |its |an )?abstract"
+    r"|abstract\b[^.;]{0,80}?\bnot the full (?:text|paper|article|guideline)"
+    r"|abstract\b[^.;]{0,40}?\bonly)\b", re.I)
+ABSTRACT_ONLY = "HOLD, abstract only"
+
 _UNREAD = re.compile(
     r"\b(remains? unread|still unread|have not (?:yet )?read|has not (?:yet )?been read"
     r"|have not been able to read|requires reading it|cannot say .{0,80}reading"
@@ -295,6 +341,12 @@ def _verdicts(subjects, asserted, how, sentence, slug) -> list[dict]:
         klass = (row.get("document_class") or "").lower()
         # A record ABOUT a document cannot answer a question about the document.
         # Unclassified is NOT EVALUATED, never an assumed `document`.
+        if klass == UNCLASSIFIED:
+            out.append({"verdict": NOT_EVALUATED, "asserted": asserted,
+                        "source": sid, "class": UNCLASSIFIED,
+                        "why": "document_class is unclassified on this source",
+                        "sentence": " ".join(sentence.split())[:220]})
+            continue
         if not klass:
             out.append({"verdict": NOT_EVALUATED, "asserted": asserted,
                         "source": sid, "why": "document_class not set on this source",
@@ -308,8 +360,13 @@ def _verdicts(subjects, asserted, how, sentence, slug) -> list[dict]:
                         "sentence": " ".join(sentence.split())[:220]})
             continue
         state = ((row.get("access") or {}).get("state") or "").lower()
-        good = state in SATISFIED_BY.get(asserted, set())
-        out.append({"verdict": PASS if good else FAIL, "asserted": asserted,
+        claim = asserted
+        if asserted == HOLD and _ABSTRACT_ONLY.search(sentence):
+            claim = ABSTRACT_ONLY
+            good = state == "abstract_held"
+        else:
+            good = state in SATISFIED_BY.get(asserted, set())
+        out.append({"verdict": PASS if good else FAIL, "asserted": claim,
                     "source": sid, "recorded": state or "(no access state)",
                     "why": how, "sentence": " ".join(sentence.split())[:220]})
     return out

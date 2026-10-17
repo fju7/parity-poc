@@ -529,3 +529,190 @@ def test_store_subjects_reads_rests_on_store_from_the_case_bindings(tmp_path, mo
     monkeypatch.setattr(E.store, "case_dir", lambda slug: tmp_path)
     assert E.store_subjects("We hold  one news report.", SLUG) == ["S008"]
     assert E.store_subjects("We hold two.", SLUG) == []
+
+
+# --- round 3: "only" holdings ----------------------------------------------
+
+ABSTRACT_ONLY_SENTENCES = [
+    T01_S17["sentence"],                                              # T01 s17
+    "We hold only the abstract of this review, from its bibliographic record.",
+    "We hold the abstract of this trial, not the full paper.",        # T03 s28
+    "We hold the abstract of that meta-analysis, not the full paper.",  # T04 s26
+    "We hold the guideline's abstract only.",                         # T04 s47
+]
+
+
+def _src(sid, state, **kw):
+    return dict({"id": sid, "document_class": "document", "access": {"state": state}}, **kw)
+
+
+@pytest.mark.parametrize("sent", ABSTRACT_ONLY_SENTENCES)
+def test_abstract_only_passes_on_abstract_held(sent, monkeypatch):
+    monkeypatch.setattr(E, "_sources", lambda slug: [_src("S001", "abstract_held")])
+    got = E.check_sentence(sent, SLUG, declared=["S001"])
+    assert [(v["verdict"], v["asserted"]) for v in got] == [("PASS", E.ABSTRACT_ONLY)]
+
+
+@pytest.mark.parametrize("state", ["full_text_held", "human_read", "blocked", "not_opened"])
+@pytest.mark.parametrize("sent", ABSTRACT_ONLY_SENTENCES)
+def test_abstract_only_fails_on_any_other_state(sent, state, monkeypatch):
+    monkeypatch.setattr(E, "_sources", lambda slug: [_src("S001", state)])
+    got = E.check_sentence(sent, SLUG, declared=["S001"])
+    assert got[0]["verdict"] == "FAIL" and got[0]["recorded"] == state
+
+
+def test_a_plain_hold_still_passes_on_full_text(monkeypatch):
+    monkeypatch.setattr(E, "_sources", lambda slug: [_src("S008", "full_text_held")])
+    got = E.check_sentence("We hold one news report.", SLUG, declared=["S008"])
+    assert [(v["verdict"], v["asserted"]) for v in got] == [("PASS", "HOLD")]
+
+
+# --- round 3: documents mentioned but not held -----------------------------
+
+class _NoEntry(_Epistemic):
+    def __init__(self, named=()):
+        super().__init__()
+        self.named = list(named)
+
+    def _sources(self, slug):
+        return [{"id": "S001"}]
+
+    def resolve(self, sentence, slug):
+        return self.named
+
+
+def test_a_holdings_sentence_naming_no_source_stops_as_not_in_sources(monkeypatch):
+    """T02 s46, s61, T04 s46 once their citations are removed."""
+    monkeypatch.setitem(sys.modules, "epistemic", _NoEntry())
+    row = {"sentence": "We have not opened that meta-analysis.", "bucket": "deterministic"}
+    assert ("B21", B.NOT_IN_SOURCES) in verdicts(row)
+    assert B.CALIBRATION_SEVERITY[B.NOT_IN_SOURCES] == B.BAD
+
+
+def test_a_declared_id_with_no_entry_stops_as_not_in_sources(monkeypatch):
+    monkeypatch.setitem(sys.modules, "epistemic", _NoEntry())
+    row = {"sentence": "We have not opened that meta-analysis.",
+           "bucket": "deterministic", "rests_on_store": ["S099"]}
+    assert ("B21", B.NOT_IN_SOURCES) in verdicts(row)
+
+
+def test_an_undeclared_sentence_naming_a_registered_source_only_warns(monkeypatch):
+    """The two published sentences the first version wrongly stopped on."""
+    monkeypatch.setitem(sys.modules, "epistemic", _NoEntry(named=["S010"]))
+    row = {"sentence": "We have not opened Sparrow, Liu and Wegner's 2011 Science paper, "
+                       "which is paywalled.", "bucket": None}
+    got = verdicts(row)
+    assert ("B21", "holdings sentence not declared to the store") in got
+    assert ("B21", B.NOT_IN_SOURCES) not in got
+    assert B.BAD not in severity(row)
+
+
+@pytest.mark.parametrize("sent", ["We have not opened that meta-analysis.",
+                                  "We did not obtain the investigators' summary paper."])
+@pytest.mark.parametrize("state", ["not_opened", "blocked", "fragment_only",
+                                   "abstract_held"])
+def test_not_opened_or_not_obtained_passes_on_an_unread_or_unheld_entry(sent, state,
+                                                                       monkeypatch):
+    monkeypatch.setattr(E, "_sources", lambda slug: [_src("S020", state)])
+    assert E.check_sentence(sent, SLUG, declared=["S020"])[0]["verdict"] == "PASS"
+
+
+@pytest.mark.parametrize("sent", ["We have not opened that meta-analysis.",
+                                  "We did not obtain the investigators' summary paper."])
+@pytest.mark.parametrize("state", ["full_text_held", "human_read"])
+def test_not_opened_or_not_obtained_fails_when_the_entry_shows_it_held(sent, state,
+                                                                      monkeypatch):
+    monkeypatch.setattr(E, "_sources", lambda slug: [_src("S020", state)])
+    assert E.check_sentence(sent, SLUG, declared=["S020"])[0]["verdict"] == "FAIL"
+
+
+# --- round 3: document_class at creation -----------------------------------
+
+@pytest.mark.parametrize("src,klass", [
+    ({"type": "primary"}, "document"),                     # TYPES: article
+    ({"type": "registry"}, "document"),                    # TYPES: record -- the record IS it
+    ({"type": "guideline"}, "document"),
+    ({"type": "corrigendum"}, "document"),                 # notice
+    ({"type": "coverage"}, "document"),                    # page
+    ({"type": "critique", "form": "article"}, "document"),
+    ({"type": "reference"}, "record_about"),               # RECORD_TYPES
+    ({"type": "primary", "form": "record"}, "record_about"),   # S030's shape
+    ({"type": "primary", "access": {"sections": ["bibliographic record"]}}, "record_about"),
+    ({"type": "critique"}, "unclassified"),                # TYPES leaves the form open
+    ({"type": "prior_art"}, "unclassified"),
+    ({"type": "a-type-nobody-declared"}, "unclassified"),
+    ({}, "unclassified"),
+])
+def test_document_class_of(src, klass, monkeypatch):
+    monkeypatch.syspath_prepend(str(WHU))
+    assert E.document_class_of(src) == klass
+
+
+def test_an_unclassified_source_is_reported_by_b21_not_silently(monkeypatch):
+    stub = _Epistemic()
+    stub.check_sentence = lambda s, slug, declared=None: [
+        {"verdict": "NOT EVALUATED", "source": "S004", "class": "unclassified",
+         "why": "document_class is unclassified on this source"}]
+    monkeypatch.setitem(sys.modules, "epistemic", stub)
+    row = {"sentence": "We hold the abstract of this trial, not the full paper.",
+           "bucket": "deterministic", "rests_on_store": ["S004"]}
+    assert verdicts(row) == [("B21", "source unclassified")]
+    assert B.CALIBRATION_SEVERITY["source unclassified"] == B.WARN
+
+
+def test_epistemic_marks_an_explicitly_unclassified_source(monkeypatch):
+    monkeypatch.setattr(E, "_sources", lambda slug: [
+        {"id": "S004", "document_class": "unclassified", "access": {"state": "abstract_held"}}])
+    got = E.check_sentence("We hold the abstract of this trial.", SLUG, declared=["S004"])
+    assert got[0]["verdict"] == "NOT EVALUATED" and got[0]["class"] == "unclassified"
+
+
+L = _load("source_ledger")
+
+
+@pytest.fixture
+def scratch_store(tmp_path, monkeypatch):
+    """A scratch case directory; the ledger's CASES points at it, nothing else moves."""
+    import json
+    case = tmp_path / "WHU-999-scratch"
+    case.mkdir()
+    (case / "sources.json").write_text(json.dumps({"sources": [
+        {"id": "S001", "type": "synthesis", "title": "Lane et al.",
+         "access": {"state": "full_text_held"}}]}))
+    monkeypatch.setattr(L, "CASES", tmp_path)
+    monkeypatch.syspath_prepend(str(WHU))
+    return case
+
+
+def test_add_unread_creates_a_not_opened_entry_with_its_class(scratch_store):
+    import json
+    e = L.add_unread("scratch", "S002", title="The meta-analysis Lane et al. cite on "
+                     "diet-quality adjustment", stype="synthesis", by="Fred Ugast",
+                     mentioned="T02 s45-s46", on="2026-10-17")
+    held = json.loads((scratch_store / "sources.json").read_text())["sources"]
+    assert held[-1] == e
+    assert e["access"] == {"state": "not_opened", "by": "Fred Ugast", "on": "2026-10-17",
+                           "not_read": ["all -- not held"]}
+    assert e["access"]["state"] in L.STATES            # an existing state, not a new one
+    assert e["document_class"] == "document"
+    assert held[0]["id"] == "S001" and "document_class" not in held[0]   # no back-fill
+
+
+def test_add_unread_writes_unclassified_when_it_cannot_tell(scratch_store):
+    e = L.add_unread("scratch", "S002", title="A comment", stype="critique", by="Fred Ugast")
+    assert e["document_class"] == "unclassified"
+
+
+def test_add_unread_refuses_an_existing_id_and_an_unnamed_recorder(scratch_store):
+    with pytest.raises(ValueError):
+        L.add_unread("scratch", "S001", title="x", stype="primary", by="Fred Ugast")
+    with pytest.raises(ValueError):
+        L.add_unread("scratch", "S003", title="x", stype="primary", by="  ")
+
+
+def test_the_add_command(scratch_store, monkeypatch, capsys):
+    monkeypatch.setattr(sys, "argv", ["source_ledger.py", "add", "scratch", "S002",
+                                      "--title", "Feeding study in US adolescents",
+                                      "--type", "primary", "--by", "Fred Ugast"])
+    assert L.main() == 0
+    assert "not_opened, document_class document" in capsys.readouterr().out

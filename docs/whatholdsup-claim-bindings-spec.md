@@ -278,7 +278,32 @@ bucket `deterministic`: the machine answers all three questions against the
 store. `bindings.py check` runs `epistemic.check_sentence` on every one, passing the
 row's `rests_on_store` as the subject — the text is not asked which source it
 means — and records a FAIL or NOT EVALUATED in `check_flags`. A row without the
-field resolves from the text exactly as before. epistemic also reads "have not
+field resolves from the text exactly as before. A sentence saying we hold the
+abstract ONLY ("abstract only", "only the abstract", "the abstract … not the
+full text / paper") passes on abstract_held and fails on every other state,
+full_text_held included. "Have not opened" and "did not obtain" pass on any
+state epistemic counts as unread or not held in full (not_opened, blocked,
+fragment_only, abstract_held) and fail on full_text_held or human_read.
+
+**A document mentioned and not held gets an entry.** A holdings sentence whose
+`rests_on_store` names an id with no entry, or that declares nothing, cites
+nothing, and whose text names no registered source, STOPs: "document not in
+sources.json — add an entry (unread) for it". If the text does name a
+registered source, it is undeclared, not unregistered, and WARNs with that id.
+The entry is made with `source_ledger.py <slug> add <id> --title … --type …
+--by <name>`, which writes the ledger's existing `not_opened` state — no new
+state — and sets `document_class`. The ledger audit's "source ledger complete"
+row reports every not_opened entry; that is intended.
+
+**document_class at creation.** `epistemic.document_class_of()` sets it when
+`source_ledger.add_unread()` creates an entry: `record_about` by the same three
+discriminators `is_record_about()` reads (an explicit record form, type
+`reference`, bibliographic sections); `document` where an explicit form or the
+form `source_store.TYPES` gives the type settles it; otherwise `unclassified`,
+written explicitly, which B21 reports as a WARN ("source unclassified") rather
+than a silent NOT EVALUATED. It agrees with all 32 classes set by hand across
+the seven issues. Existing entries are not back-filled; acquire_sources.py,
+which updates existing entries, does not set it. epistemic also reads "have not
 opened" and "did not obtain" as UNREAD, and "our search" as HOLD over the
 declared sources (whether what the search fetched is held; not whether the
 search was adequate). STOP: a holdings sentence that cites a
@@ -298,12 +323,11 @@ reads the source ids off the row to know which record to ask.
 **What the store check cannot yet do** (measured on copies of the test issues'
 bindings, October 2026, with `rests_on_store` added). No source in the four
 issues sets `document_class`, so every declared subject is NOT EVALUATED — by
-design: an unclassified source is never assumed to be a document. Four of the
+design: an unclassified source is never assumed to be a document. Three of the
 15 holdings sentences are about documents with no entry in `sources.json` (a
 meta-analysis or study cited inside another source, a guideline's errata) and
-cannot declare a subject at all. HOLD is satisfied by any held state, so "we
-hold the abstract … not the full text" passes on full_text_held too; the "only"
-is not checked. A sentence mixing a holdings clause with a cited claim (T04
+STOP until one is added. "We could not obtain" is classified as a holdings
+sentence but not read by epistemic, so it is NOT EVALUATED. A sentence mixing a holdings clause with a cited claim (T04
 s51) must be split: it cannot both rest on the store and cite a document. No page renders a per-sentence citation marker from the
 bindings today, so a holdings sentence carries none by construction.
 

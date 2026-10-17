@@ -812,6 +812,71 @@ def cmd_set(args) -> int:
     return 1
 
 
+# ---------------------------------------------------------------------------
+# creating an entry: a document we cite or mention and do not hold
+# ---------------------------------------------------------------------------
+#
+# Until October 2026 nothing in this repository created a sources.json entry.
+# acquire_sources.py and `set` above update entries that already exist; every
+# entry was written by hand. So a sentence about a document we never obtained --
+# "We have not opened that meta-analysis" -- had nowhere to point: the
+# meta-analysis had no id, the store check had no record to ask, and B21 could
+# only say the sentence named nothing.
+#
+# This is that path. The state is NOT_OPENED, the ledger's existing "nobody
+# tried" -- no new state. It permits "nothing. Cite it or get it.", which is
+# exactly what a page may say about such a document, and epistemic.py already
+# reads it as satisfying UNREAD and UNREACHED. The entry also gets the
+# document_class epistemic.py expects, from document_class_of(), so B21 can
+# evaluate it; "unclassified" where the type and form do not settle it.
+#
+# Consequence, stated so it is not a surprise: the audit's "source ledger
+# complete" row reports every not_opened entry. That is the point -- an
+# unopened document the page mentions is now visible instead of absent.
+
+def add_unread(slug: str, sid: str, *, title: str, stype: str, by: str,
+               url: str = "", form: str = "", also_called=(), mentioned: str = "",
+               on: str = "") -> dict:
+    """Append a NOT_OPENED entry for a document we mention but do not hold."""
+    import epistemic as E
+    doc = load(slug)
+    srcs = doc.setdefault("sources", [])
+    if any(s.get("id") == sid for s in srcs):
+        raise ValueError("%s already has an entry in %s" % (sid, sources_path(slug)))
+    if not title.strip() or not by.strip():
+        raise ValueError("an entry needs a title and a named person in --by")
+    entry = {"id": sid, "type": stype, "title": title}
+    if form:
+        entry["form"] = form
+    if url:
+        entry["url"] = url
+    entry["also_called"] = [a for a in also_called if a]
+    entry["used_for"] = mentioned or "mentioned on the page; not held"
+    entry["access"] = {"state": NOT_OPENED, "by": by,
+                       "on": on or date.today().isoformat(),
+                       "not_read": ["all -- not held"]}
+    entry["document_class"] = E.document_class_of(entry)
+    srcs.append(entry)
+    save(slug, doc)
+    return entry
+
+
+def cmd_add(args) -> int:
+    try:
+        e = add_unread(args.slug, args.id, title=args.title, stype=args.type,
+                       by=args.by, url=args.url or "", form=args.form or "",
+                       also_called=args.also_called or (), mentioned=args.mentioned or "",
+                       on=args.on or "")
+    except ValueError as exc:
+        print("  REFUSED: %s" % exc, file=sys.stderr)
+        return 1
+    print("  %s: %s, document_class %s (by %s on %s)"
+          % (e["id"], e["access"]["state"], e["document_class"], e["access"]["by"],
+             e["access"]["on"]))
+    print("  permits: %s" % PERMITS[NOT_OPENED])
+    return 0
+
+
 def cmd_audit(args) -> int:
     page = ROOT / args.page
     text = plain(page.read_text(encoding="utf-8"))
@@ -844,6 +909,21 @@ def main() -> int:
     se.add_argument("--blocked-by", choices=("paywall", "licence", "captcha", "dead-link"))
     se.add_argument("--note")
     se.set_defaults(fn=cmd_set)
+
+    ad = sub.add_parser("add", help="create a not_opened entry for a document the "
+                                    "page cites or mentions but we do not hold")
+    ad.add_argument("slug")
+    ad.add_argument("id")
+    ad.add_argument("--title", required=True)
+    ad.add_argument("--type", required=True, help="a type from source_store.TYPES")
+    ad.add_argument("--by", required=True, help="who recorded it — a name, not a role")
+    ad.add_argument("--url")
+    ad.add_argument("--form", help="article | notice | record | page, if the type "
+                                   "does not settle it")
+    ad.add_argument("--also-called", nargs="*", dest="also_called")
+    ad.add_argument("--mentioned", help="where the page mentions it, and why")
+    ad.add_argument("--on", help="ISO date; defaults to today")
+    ad.set_defaults(fn=cmd_add)
 
     au = sub.add_parser("audit", help="check the page's claims against the ledger")
     au.add_argument("slug")

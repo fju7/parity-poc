@@ -755,16 +755,48 @@ def b21_holdings(row: dict, slug: str) -> list[dict]:
                             "what we hold; a person decides which is wrong"}]
         return []
     out = []
+    import epistemic as E
     cited = support_ids(row)
+    try:
+        known = {r.get("id") for r in E._sources(slug)}
+    except (Exception, SystemExit):
+        known = None
+    unknown = [d for d in declared if known is not None and d not in known]
     if cited:
         out.append({"check": "B21", "verdict": "holdings sentence cites a document",
                     "why": "a sentence about what we hold is settled by the store, "
                            "and this one cites %s as support" % ", ".join(cited)})
+    elif unknown:
+        out.append({"check": "B21", "verdict": NOT_IN_SOURCES,
+                    "why": "rests_on_store names %s, which has no entry; add one with "
+                           "source_ledger.py add (state not_opened)" % ", ".join(unknown)})
     elif not declared:
-        out.append({"check": "B21", "verdict": "holdings sentence not declared to the store",
-                    "why": "no rests_on_store on the row, so the store check cannot "
-                           "be told which record the sentence is about"})
-    import epistemic as E
+        # Round 3: a holdings sentence that names no entry, and whose text names
+        # none either, is about a document the store has never recorded -- T02
+        # s46's meta-analysis, s61's feeding study, T04 s46's errata. The store
+        # cannot answer for a document it has no row for: the cure is the row.
+        #
+        # But "names no entry" is not "has no entry". The first version stopped
+        # on two published sentences whose documents ARE registered ("We could
+        # not obtain PALMARES-2 itself" -- S011, S021; "We have not opened
+        # Sparrow, Liu and Wegner's 2011 Science paper" -- S010), only because
+        # their rows predate rests_on_store. So the text is asked first, with
+        # epistemic's own resolver; a sentence that names a registered source is
+        # undeclared, not unregistered.
+        try:
+            named = list(getattr(E, "resolve", lambda s_, g: [])(sent, slug))
+        except (Exception, SystemExit):
+            named = []
+        if named:
+            out.append({"check": "B21", "verdict": "holdings sentence not declared to the store",
+                        "why": "the text names %s, which has an entry; declare it in "
+                               "rests_on_store" % ", ".join(named)})
+        else:
+            out.append({"check": "B21", "verdict": NOT_IN_SOURCES,
+                        "why": "neither the row nor the text names a source; if the "
+                               "document has an entry, declare it in rests_on_store, "
+                               "and if not, add one with source_ledger.py add (state "
+                               "not_opened)"})
     try:
         verdicts = E.check_sentence(sent, slug, declared=list(declared) or None)
     except (Exception, SystemExit) as exc:
@@ -774,6 +806,13 @@ def b21_holdings(row: dict, slug: str) -> list[dict]:
                     "why": "epistemic.check_sentence reads no claim about our access "
                            "in this sentence; nothing has checked it against the store"})
     for v in verdicts:
+        if v.get("class") == getattr(E, "UNCLASSIFIED", "unclassified"):
+            out.append({"check": "B21", "verdict": "source unclassified",
+                        "why": "%s carries document_class unclassified; set it to "
+                               "document or record_about" % v.get("source")})
+            continue
+        if v["verdict"] == E.NOT_EVALUATED and unknown and v.get("source") in unknown:
+            continue                       # already the STOP above
         if v["verdict"] == E.FAIL:
             out.append({"check": "B21", "verdict": "store disagrees",
                         "why": "%s: asserts %s, store records %s"
@@ -784,14 +823,18 @@ def b21_holdings(row: dict, slug: str) -> list[dict]:
     return out
 
 
+NOT_IN_SOURCES = "document not in sources.json — add an entry (unread) for it"
+
 CALIBRATION_SEVERITY = {
+    NOT_IN_SOURCES: BAD,
+    "source unclassified": WARN,
+    "holdings sentence not declared to the store": WARN,
     "evidence hedge dropped": WARN,
     "confidence above its cited grade": BAD,
     "confidence stated without a cited grade": BAD,
     "confidence level unreadable": WARN,
     "holdings sentence cites a document": BAD,
     "store disagrees": BAD,
-    "holdings sentence not declared to the store": WARN,
     "store check not evaluated": WARN,
     "declared to the store, not a holdings sentence": WARN,
 }
