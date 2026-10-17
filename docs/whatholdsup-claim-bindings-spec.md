@@ -333,6 +333,140 @@ and S021) stays NOT EVALUATED until rests_on_store says which. A sentence mixing
 s51) must be split: it cannot both rest on the store and cite a document. No page renders a per-sentence citation marker from the
 bindings today, so a holdings sentence carries none by construction.
 
+## 4b. Figures and wording — separators, rounding, B22, B23 (added 17 October 2026)
+
+These make the free layer able to settle what the paid gate used to be paid for.
+Code: `figure_text.py` (separators and rounding), `bindings.py` (rule 1, B22,
+B23), `spancheck.py` (B12), `b13.py`. Tests:
+`backend/tests/test_whatholdsup_figure_checks.py`.
+
+**Thousands separators.** Rule 1, B12 and B13 read a grouped integer written
+with a comma, a space, a no-break space or a thin space as one figure, both in
+the sentence and in the held text. Before this, rule 1 and B13 read only the
+comma, and B12 only matched a comma literally. Six figures in the test issues
+(T01 14,170; T02 9,888,373 and 100,000; T04 21,315, 60,000 and 53,537) were in
+their own spans, printed "14 170", and were reported as resting on nothing.
+The reading is narrow: a lead group of one to three digits, then groups of
+exactly three, with no digit, decimal point or separator-and-digit on either
+side, so "in 2019 100 patients" is not joined.
+
+**Rule 1 on judgements.** A judgement's figures must be in one of its premise
+spans. A figure found only elsewhere in the held text does not satisfy it. An
+undetermined premise covers its figures on the binder's word and is reported on
+its own row. (This was already how rule 1 behaved; it is now pinned by tests.)
+
+**Rounding.** A sentence figure that is a span figure with **at most one decimal
+place dropped, correctly rounded** (half away from zero) passes rule 1. The pass
+is not silent: an ok row, "rule 1 — figures shown rounded from their span",
+carries an INFO note naming both values. Examples: −0.946 shown as −0.95, and
+−0.43 shown as −0.4, pass. −0.946 shown as −0.9 (two places dropped) or as −0.94
+(a truncation) fails as a figure in no span. An integer is never read as a
+rounding. This is B12's precision rule, the one function `figure_text.rounds_to`
+used by both, so the two cannot drift.
+
+**B22 Wording claim. STOP.** This catches a sentence that says it gives a
+source's own words.
+
+- **Triggers:** "own wording", "own words", "in its words", "in their words"
+  (and "in its own words").
+- **"verbatim" and "word for word" trigger only** when the next thing after them,
+  whitespace aside, is a colon or an opening quotation mark. "Addresses this
+  question almost word for word" describes a likeness and gives no words to
+  check, so it does not flag.
+- **What is checked:** the claimed words are the clause after the phrase (after
+  "is that", "is:" or a comma), up to the closing quotation mark if it opens with
+  one, or else to the end of the clause.
+- **When it passes:** if the whole clause, or any comma-delimited prefix of it of
+  at least **two** words, is verbatim in a span the row is bound to or in the held
+  text of a source it cites. Matching uses spancheck's normalisation. The
+  two-word floor exists because melanoma's "in its own words, descriptive only ,
+  against …" claims two words, and they are in S007. A single word is never
+  enough.
+- **When it fails:** STOP, naming the clause and the closest held sentence.
+- **Source not held, or a defective text layer:** "wording claim undetermined",
+  WARN, never STOP.
+- **Reported speech** ("states that", "writes that", "describes this as") claims
+  only the sense and is not this check's.
+- **What it was built for:** T01 s80, the paid gate's one real error in Phase B.
+
+**B23 Omitted interval. INFO.** A bound span gives a point estimate with a
+confidence interval, and the sentence states that estimate (or a correct
+rounding of it) with no interval, no interval word and neither bound. Most of
+Phase B's real minor findings (I2, I3, I7, I9, I10) were this. A named interval
+("95% CI") counts. An unnamed bracket counts only for a decimal estimate lying
+between its bounds, so "aged 65 (60–70)" is not read as one.
+
+**INFO** is a severity, never a preflight state: `publish.show()` turns any state
+other than ok / BLOCKED / warn into a STOP. An INFO note rides in an ok row's
+detail. The calibration row is ok when it carries only INFO notes.
+
+Validation (read-only, saves captured in memory):
+
+- **T01 s80:** STOPs under B22.
+- **Published issues:** no new STOP on melanoma, cdk46 or deskilling. Two B22
+  warns, cdk46 `78e56e24` and deskilling `34dbcad2`, are undetermined because the
+  cited source is not held.
+- **INFO notes:** B23 gave 24 across the test issues and 8 across the published
+  ones; rule 1 gave 3 rounding notes.
+
+## 4c. The narrowed paid gate (17 October 2026)
+
+`factcheck_draft.py` now runs NARROW by default:
+
+- **source** over only the figures and quotations the free checks cannot decide.
+  `whatholdsup/narrow_gate.py` selects them, and the call is given those claims
+  and nothing of the draft. A claim is selected when its evidence is a span
+  `b2_present` marks UNDETERMINED: the source is fragment_only, blocked or
+  not_opened, its held text has a defective layer, or the span is in no held text
+  we could search. A quotation is selected when it is recorded in
+  `quotations.json` against a source we do not hold. There is at most one call
+  per such source, and no call at all if the set is empty.
+- **recency**, unchanged, one call: whether a readout has been superseded is a
+  question about the world after the documents we hold.
+
+Not selected, because something free already answers it:
+
+- a figure in a held span (rule 1, B12, B13, rounding);
+- a figure in no span, or a span not in its document (rule 1 BLOCKS);
+- an unbound sentence (rule 1's backlog row);
+- a quotation whose source is held (quotations.py reads it against the bytes);
+- a quotation with no recorded source (quotations.py BLOCKS);
+- an attested `figure` row, and any source whose licence forbids machine
+  reading. These are listed under `excluded`.
+
+**The report** records `mode` (narrow or full), `roles_run`, `roles_not_run`, and
+`narrow.source_checked` (the claim ids sent), with each claim's
+`undetermined_because`. Roles that did not run print as NOT RUN, never as "0
+findings". The report keeps the same sha binding, sentence fingerprints and
+`passed` flag. So preflight's page-gate row (current report bound to the page
+sha) and findings.py (B15) read it as before. Caps and run limits are unchanged:
+a narrow run is a run.
+
+**`--full`** restores the old gate unchanged: extract, source over every
+extracted claim, recency, advocate (selective reporting, framing, unsupported
+characterisation), inference (whether conclusions are warranted), and coverage
+(best outside coverage, contradictions of the premise). Use it when the narrow
+gate's blind spots matter.
+
+**`--dry-run`** prints the selected claims, the calls that would be made and the
+estimated cost ($0.75 a call, the figure the cap is checked with). It makes no
+call, writes no report and counts no cycle. On T01 it selects nothing: one call,
+recency, $0.75, against Phase B's $4.63. melanoma, cdk46 and deskilling also
+select nothing.
+
+**What the narrow gate gives up**, accepted on 17 October 2026:
+
+- **Provenance of verbatim words.** Phase B S7/S8: WebMD relaying CNN. The words
+  are verbatim in held text; the defect is who said them first. No string check
+  sees that, and in narrow mode no role reads for it.
+- **The whole-document readers.** Advocate, inference and coverage found Phase B's
+  real calibration and selection points (A6–A8, I4, I8). B19–B21 and the
+  conclusion judge cover part of that ground, not all of it.
+- **Figures nobody bound.** A figure in an unbound sentence is not sent. On
+  deskilling, B13 reports 39 figures in no held document while 19 sources are
+  unheld, and the narrow gate selects none of them, because their sentences carry
+  no binding naming a source. Binding them is the fix; `--full` is the stopgap.
+
 ## 5. Context
 
 The operator is right that a span quoted accurately but out of context is where a
@@ -422,10 +556,11 @@ one of them is the kind of thing a span check can see.
 ## 8. The pipeline
 
     bind          every empirical sentence gets a row, or blocks
-    deterministic B1–B11; free; produces blocks and repairs, never verdicts on truth
+    deterministic B1–B23; free; produces blocks and repairs, never verdicts on truth
     rewrite       unbindable claims are narrowed toward bindable ones
-    gate          priced, and ONLY over sentences whose span is present and
-                  whose characterisation is in question
+    gate          priced, and by default ONLY over figures and quotations the
+                  deterministic layer marks UNDETERMINED, plus recency (4c);
+                  --full runs the whole-document roles as well
     correct       edit the sentence AND its binding; a correction that removes a
                   claim must remove a row whose span was ABSENT
     re-gate       only the rows whose sentence_sha or span changed

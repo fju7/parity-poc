@@ -2046,8 +2046,14 @@ def is_lead(item: dict) -> bool:
 
 
 def render(claims, verdicts, recency, objections, inferences, cov,
-           decisions=None) -> tuple[str, bool]:
+           decisions=None, not_run=()) -> tuple[str, bool]:
     decisions = decisions or {}
+    # A role that did not run is printed as not run. "FAIRNESS 0 objection(s)"
+    # over a role that never read the draft would be a pass nobody performed.
+    def _header(role, text):
+        if role in not_run:
+            return "%s  NOT RUN — narrow gate; --full runs it" % text.split()[0]
+        return text
     adjudicated = []   # findings already read and accepted
     # NOT named 'stale': render() already binds that name to the recency
     # studies further down, and the later assignment silently replaced this
@@ -2157,7 +2163,7 @@ def render(claims, verdicts, recency, objections, inferences, cov,
     serious = [o for o in (objections or []) if o.get("severity") == "SERIOUS"]
     lines.append("")
     lines.append("=" * 72)
-    lines.append(f"FAIRNESS {len(objections or [])} objection(s) · {len(serious)} serious")
+    lines.append(_header("advocate", f"FAIRNESS {len(objections or [])} objection(s) · {len(serious)} serious"))
     lines.append("=" * 72)
     for o in (objections or []):
         kind, dec, how = classify("ADVOCATE", o.get("quote", ""), o.get("severity", ""), decisions)
@@ -2191,7 +2197,7 @@ def render(claims, verdicts, recency, objections, inferences, cov,
     serious_inf = [i for i in (inferences or []) if i.get("severity") == "SERIOUS"]
     lines.append("")
     lines.append("=" * 72)
-    lines.append(f"INFERENCE {len(inferences or [])} finding(s) · {len(serious_inf)} serious")
+    lines.append(_header("inference", f"INFERENCE {len(inferences or [])} finding(s) · {len(serious_inf)} serious"))
     lines.append("=" * 72)
     for i in (inferences or []):
         kind, dec, how = classify("INFERENCE", i.get("quote", ""), i.get("severity", ""), decisions)
@@ -2225,8 +2231,8 @@ def render(claims, verdicts, recency, objections, inferences, cov,
     serious_c = [c for c in contra if c.get("severity") == "SERIOUS"]
     lines.append("")
     lines.append("=" * 72)
-    lines.append(f"COVERAGE {len(best)} careful treatment(s) elsewhere · "
-                 f"{len(contra)} contradiction(s), {len(serious_c)} serious")
+    lines.append(_header("coverage", f"COVERAGE {len(best)} careful treatment(s) elsewhere · "
+                 f"{len(contra)} contradiction(s), {len(serious_c)} serious"))
     lines.append("=" * 72)
     for b in best:
         lines.append("")
@@ -2318,6 +2324,95 @@ def render(claims, verdicts, recency, objections, inferences, cov,
     return "\n".join(lines), failed
 
 
+# ---------------------------------------------------------------------------
+# THE NARROW GATE (default since 2026-10-17)
+# ---------------------------------------------------------------------------
+#
+# Phase B on T01 (issues/WHU-T01-ctp-exercise-depression/gate/PHASE_B.md) cost
+# $4.63 over eighteen calls. Its one real error was a wording claim, which B22
+# now catches for nothing; none of its fourteen figure findings was a wrong
+# value, and every figure in the four test issues is in held text the free
+# checks read (rule 1, B12, B13, quotations.py). So by default this gate asks a
+# model only what the free checks cannot answer:
+#
+#   source   the figures and quotations whose evidence the free checks mark
+#            UNDETERMINED -- source fragment_only, blocked or not_opened, a
+#            defective text layer, a span in no held text -- chosen by
+#            whatholdsup/narrow_gate.py, at most one call per source, and the
+#            call is given those claims and nothing of the draft;
+#   recency  unchanged, one call: whether a cited readout has been superseded
+#            is a question about the world after the documents we hold.
+#
+# extract, advocate, inference and coverage run only with --full, unchanged.
+# What that gives up is recorded in docs/whatholdsup-claim-bindings-spec.md
+# (section 4c): Phase B's real minor findings came mostly from those roles, and
+# the provenance of verbatim words (S7/S8 -- WebMD relaying CNN) is visible to
+# no string check.
+NARROW_ROLES = ("source", "recency")
+FULL_ONLY_ROLES = ("extract", "advocate", "inference", "coverage")
+EST_PER_CALL = 0.75          # the per-call estimate call() checks the cap with
+NARROW_SELECTOR = (Path(__file__).resolve().parents[1] / "whatholdsup"
+                   / "narrow_gate.py")
+
+
+def narrow_selection(slug: str, page_text: str) -> dict | None:
+    """The claims the narrow source role is given, or None if the selector
+    could not run. None blocks the run: a selection that did not happen is not
+    an empty selection, and an empty one would make no call and pass."""
+    try:
+        import importlib.util as _ilu
+        sp = _ilu.spec_from_file_location("narrow_gate", NARROW_SELECTOR)
+        mod = _ilu.module_from_spec(sp)
+        sp.loader.exec_module(mod)
+        return mod.select(slug, page_text)
+    except KeyboardInterrupt:
+        raise
+    except BaseException as exc:          # noqa: BLE001 - SystemExit included
+        print("[ERROR] the narrow-gate selection did not run (%s: %s)"
+              % (type(exc).__name__, exc))
+        return None
+
+
+def source_groups(claims: list[dict]) -> dict[str, list[dict]]:
+    """The calls audit_sources() would make: one per attributed source."""
+    groups: dict[str, list[dict]] = {}
+    for c in claims:
+        if c.get("scope", "external") == "internal":
+            continue
+        groups.setdefault(c.get("attributed_to") or "__UNATTRIBUTED__", []).append(c)
+    return groups
+
+
+def dry_run_plan(selection: dict, recency_carried: bool = False) -> tuple[list[str], float]:
+    """(lines, estimated dollars) for a narrow run, without calling anything."""
+    claims = selection.get("claims") or []
+    groups = source_groups(claims)
+    lines = ["NARROW GATE — DRY RUN (no API call is made)",
+             "  free checks considered %d sentence(s) or quotation(s) carrying a figure "
+             "or a quotation" % selection.get("considered", 0),
+             "  claims the source role would receive: %d" % len(claims)]
+    for c in claims:
+        lines.append("    %s  %s  [%s, %s]  %s" % (c["id"], c.get("figure"),
+                                                  c.get("source_id"), c.get("access"),
+                                                  (c.get("claim") or "")[:90]))
+    for x in selection.get("excluded") or []:
+        lines.append("    not sent: %s" % x)
+    calls = [("source:%s" % (k[:40]), len(v)) for k, v in groups.items()]
+    if not recency_carried:
+        calls.append(("recency", None))
+    lines.append("  calls that would be made: %d" % len(calls))
+    for label, n in calls:
+        lines.append("    %-46s %s" % (label, "%d claim(s)" % n if n else "whole draft"))
+    if not groups:
+        lines.append("    (source: no UNDETERMINED claim, so no source call)")
+    est = EST_PER_CALL * len(calls)
+    lines.append("  not run (--full only): %s" % ", ".join(FULL_ONLY_ROLES))
+    lines.append("  estimated cost: %d call(s) x $%.2f = $%.2f (the per-call figure "
+                 "the cap is checked with; Phase B's full run was $4.63)"
+                 % (len(calls), EST_PER_CALL, est))
+    return lines, est
+
+
 def main():
     ap = argparse.ArgumentParser(description="Pre-publication fact-check gate.")
     ap.add_argument("draft", nargs="?", help="Path to the draft (HTML or text).")
@@ -2358,6 +2453,15 @@ def main():
                          "our wording. ADVOCATE and INFERENCE always re-run: they are the "
                          "whole-document readers and scoping them to the diff is how a "
                          "fixed sentence breaks a distant one.")
+    ap.add_argument("--full", action="store_true",
+                    help="Run every role: extract, source over every extracted claim, "
+                         "recency, advocate, inference and coverage. Without it the "
+                         "gate is NARROW: source over the figures and quotations the "
+                         "free checks cannot decide, and recency.")
+    ap.add_argument("--dry-run", action="store_true",
+                    help="Show the claims and calls a run would make, with the "
+                         "estimated cost, and exit. No API call, no report, no "
+                         "cycle counted.")
     ap.add_argument("--verify", action="store_true", help="Check credentials and exit.")
     ap.add_argument("--known-errors", action="store_true",
                     help="Print the recorded error classes this gate exists to catch.")
@@ -2373,7 +2477,7 @@ def main():
     # See the note on --report above. A run that writes nothing is never what
     # the caller wanted, and on 2026-08-30 it was what the caller got, three
     # times, because the flag was easy to forget when writing a command by hand.
-    if args.draft and not args.report:
+    if args.draft and not args.report and not args.dry_run:
         args.report = str(Path(args.draft).with_suffix(
             Path(args.draft).suffix + ".gate.json"))
         print("  --report not given; writing to %s" % args.report)
@@ -2465,6 +2569,22 @@ def main():
     if not args.draft:
         ap.error("a draft path is required (or use --verify / --known-errors / --survey)")
 
+    mode = "full" if args.full else "narrow"
+    if args.dry_run:
+        if mode == "full":
+            print("A dry run of --full cannot list its claims: they come from the "
+                  "extract call. It would make 1 extract + one source call per "
+                  "attributed source + recency, advocate, inference, coverage.")
+            sys.exit(0)
+        sel = narrow_selection(issue_slug_for(args.draft),
+                               Path(args.draft).read_text(encoding="utf-8"))
+        if sel is None:
+            print("\n[BLOCKED] The narrow-gate selection did not run.")
+            sys.exit(2)
+        lines, _est = dry_run_plan(sel)
+        print("\n".join(lines))
+        sys.exit(0)
+
     # THE CAP, ENFORCED RATHER THAN REPORTED.
     #
     # The ledger was wired to RECORD spend and nothing was wired to STOP it, so
@@ -2503,12 +2623,30 @@ def main():
     today = args.today or time.strftime("%Y-%m-%d")
     print(f"\nFact-checking {path.name} ({len(draft):,} chars of prose) as of {today}\n")
 
-    claims = extract_claims(draft)
-    if claims is None:
-        print("\n[BLOCKED] Could not extract claims. Nothing was checked.")
-        sys.exit(2)
+    narrow = None
+    if mode == "full":
+        claims = extract_claims(draft)
+        if claims is None:
+            print("\n[BLOCKED] Could not extract claims. Nothing was checked.")
+            sys.exit(2)
+    else:
+        print("[1/2] Narrow gate: selecting the figures and quotations the free "
+              "checks cannot decide (no model call)...")
+        narrow = narrow_selection(issue_slug_for(args.draft),
+                                  path.read_text(encoding="utf-8"))
+        if narrow is None:
+            print("\n[BLOCKED] The narrow-gate selection did not run. Nothing was "
+                  "checked; an unrun selection is not an empty one.")
+            sys.exit(2)
+        claims = narrow["claims"]
+        print("      %d undetermined claim(s) of %d considered"
+              % (len(claims), narrow.get("considered", 0)))
 
     prior = load_prior(args.since)
+    if prior and (prior.get("mode") or "full") != mode:
+        print(f"      --since report is a {prior.get('mode') or 'full'} run; this is "
+              f"a {mode} run, so nothing is carried from it")
+        prior = {}
     carried_note = []
 
     # Ask the registry once, before anything asks a model. See registry_settle.
@@ -2550,8 +2688,13 @@ def main():
             carried_note.append(f"{n} claim verdict(s) carried forward")
         verdicts = {**carried,
                     **(audit_sources(todo, path.stem, _settler) if todo else {})}
-    else:
+    elif claims:
         verdicts = audit_sources(claims, path.stem, _settler)
+    else:
+        # Narrow, and nothing undetermined: the free checks decided every figure
+        # and quotation, so the source role has no question and makes no call.
+        print("[2/2] Source audit... no undetermined claim, so no source call")
+        verdicts = {}
 
     age = _days_since(prior.get("checked_at")) if prior else 1e9
     if prior and prior.get("recency") and age <= RECENCY_FRESH_DAYS:
@@ -2562,10 +2705,18 @@ def main():
     else:
         recency = sweep_recency(draft, today)
 
-    objections = advocate(draft)
-    inferences = inference(draft)
+    if mode == "narrow":
+        # Not run, and recorded as not run (report "roles_not_run"). An empty
+        # list here means "this role did not read the draft", never "it found
+        # nothing" -- render() says so, and the report says which.
+        objections, inferences, cov = [], [], {}
+    else:
+        objections = advocate(draft)
+        inferences = inference(draft)
 
-    if prior and prior.get("coverage") and age <= COVERAGE_FRESH_DAYS:
+    if mode == "narrow":
+        pass
+    elif prior and prior.get("coverage") and age <= COVERAGE_FRESH_DAYS:
         print(f"[6/6] Best coverage elsewhere... carried ({age:.0f}d old, fresh under "
               f"{COVERAGE_FRESH_DAYS}d — other outlets did not republish because we edited)")
         cov = prior["coverage"]
@@ -2643,6 +2794,16 @@ def main():
             "passed": passed,
             "carried": carried_note,
             "checked_at": today, "model": SIGNAL_MODEL,
+            "mode": mode,
+            "roles_run": list(NARROW_ROLES) if mode == "narrow" else
+                         ["extract", "source", "recency", "advocate", "inference",
+                          "coverage"],
+            "roles_not_run": list(FULL_ONLY_ROLES) if mode == "narrow" else [],
+            "narrow": None if narrow is None else {
+                "selector": "backend/scripts/whatholdsup/narrow_gate.py",
+                "considered": narrow.get("considered", 0),
+                "source_checked": [c["id"] for c in claims],
+                "excluded": narrow.get("excluded") or []},
             "usage": usage_summary(),
             "claims": claims, "verdicts": verdicts,
             "recency": recency, "objections": objections,
@@ -2660,7 +2821,8 @@ def main():
 
     try:
         report, failed = render(claims, verdicts, recency, objections, inferences, cov,
-                                decisions)
+                                decisions,
+                                not_run=FULL_ONLY_ROLES if mode == "narrow" else ())
     except Exception as exc:
         print(f"\n[ERROR] The findings were collected but could not be rendered: "
               f"{exc!r}")
@@ -2685,6 +2847,11 @@ def main():
             print("  sentence from the held document under 'held_figures' in the report.")
             print("  Read those against the bytes before treating any of them as a finding.")
         sys.exit(1)
+    if mode == "narrow":
+        print("PASSED (narrow) — every undetermined figure and quotation verified, "
+              "nothing stale.")
+        print("         advocate, inference and coverage did not run; --full runs them.")
+        sys.exit(0)
     print("PASSED — every claim verified against a primary source, nothing stale, "
           "no serious objection, no unwarranted inference,")
     print("         and no claim about the coverage that a careful outlet "
