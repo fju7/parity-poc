@@ -2213,7 +2213,10 @@
       },
       "first_seen": "2026-09-01",
       "on_page": true,
-      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)"
+      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)",
+      "rests_on_store": [
+        "S010"
+      ]
     },
     "5e56afea8fc7ce1b": {
       "sentence": "Primary Gerlich M.",

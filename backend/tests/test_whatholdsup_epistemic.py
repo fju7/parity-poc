@@ -161,12 +161,38 @@ def test_an_unresolvable_subject_is_not_evaluated_and_never_passes():
         "an unresolved subject must never be reported as passing: %r" % (v,)
 
 
-def test_an_unclassified_source_is_not_evaluated_rather_than_assumed():
-    """Absent document_class means NOT EVALUATED, never an assumed document."""
-    r = E.scan("deskilling")
-    assert r["aliases"]["with_document_class"] == 0
-    assert r["evaluated"] == 0, "nothing may be evaluated with no source classified"
-    assert r["epistemic_sentences"] > 0, "and the sentences must still be counted"
+def test_an_unclassified_source_is_not_evaluated_rather_than_assumed(monkeypatch):
+    """Absent document_class means NOT EVALUATED, never an assumed document.
+
+    A fixture, not deskilling's live data: the first version asserted that
+    deskilling had no classified source, which made classifying one -- the
+    purpose of the field -- a test failure. Both sources here sit in a state
+    that satisfies "have not opened", so the only thing that can stop the
+    unclassified one from passing is the missing class.
+    """
+    store = [
+        {"id": "S001", "also_called": ["Sparrow"],              # no document_class
+         "access": {"state": "blocked"}},
+        {"id": "S002", "also_called": ["Hesselmann"], "document_class": "document",
+         "access": {"state": "blocked"}},
+    ]
+    monkeypatch.setattr(E, "_sources", lambda slug: store)
+    monkeypatch.setattr(E, "declared_sources", lambda s, slug: [])
+    monkeypatch.setattr(E, "store_subjects", lambda s, slug: [])
+    evaluated = {E.PASS, E.FAIL, getattr(E, "WARN_VERDICT", "WARN")}
+
+    unclassified = E.check_sentence("We have not opened Sparrow's 2011 paper.", "fixture")
+    assert [(v["verdict"], v.get("source")) for v in unclassified] == \
+        [(E.NOT_EVALUATED, "S001")]
+    assert unclassified[0]["why"] == "document_class not set on this source"
+    assert "recorded" not in unclassified[0], \
+        "an unclassified source's access state must not be read as a document's"
+    assert sum(v["verdict"] in evaluated for v in unclassified) == 0, \
+        "an unclassified source adds no evaluated store check"
+
+    classified = E.check_sentence("We have not opened Hesselmann's 2020 paper.", "fixture")
+    assert [(v["verdict"], v.get("source"), v.get("recorded")) for v in classified] == \
+        [(E.PASS, "S002", "blocked")], "the classified source IS evaluated"
 
 
 def test_a_correction_whose_change_was_actually_made_does_not_fire():

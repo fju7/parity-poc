@@ -328,7 +328,8 @@
           "the paper"
         ],
         "note": "Paywalled at Science. The page names the authors and describes only what the replications tested, and says in the sources list that it has not been read here. Recorded as blocked rather than left as not_opened, because nobody is going to open it and the distinction between 'we have not got to it' and 'we cannot' is one a reader deserves."
-      }
+      },
+      "document_class": "document"
     },
     {
       "id": "S011",
