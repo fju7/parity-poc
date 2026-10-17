@@ -240,12 +240,16 @@ bound sentence's span plus `also_rests_on`. If the evidence carries a hedge
 (may, might, could, possibly, probably, likely, suggest(s), suggestive,
 appear(s/ed), cautious(ly), preliminary, tentative, uncertain(ty), exploratory,
 hypothesis(-generating), limited, low certainty, very low, low quality, not
-statistically significant, trend) and the sentence carries none (the same list
-plus modest, unclear, not a finding, cannot, does not show, too few, low, weak),
-it is reported with the word found. A sentence that negates what the evidence
-hedges — "does not support", "no evidence" — counts as carrying no hedge. →
-T01 s85, "The evidence does not support choosing … on the basis of age or sex",
-against "should be interpreted cautiously".
+statistically significant, trend, perhaps, would tend to, arguably) and the
+sentence carries none (the same list plus modest, unclear, not a finding,
+cannot, does not show, too few, low, weak), it is reported with the word found.
+A negation — "does not support", "no evidence" — removes the hedge only when
+the sentence carries no other hedge word; it never cancels one the sentence
+keeps ("limited evidence, graded as no evidence" keeps "limited"). The
+capitalised "May" is not a hedge where a date makes it the month: followed by
+a year, a day number or "of", or preceded by a day number. → T01 s85, "The
+evidence does not support choosing … on the basis of age or sex", against
+"should be interpreted cautiously".
 
 **B20 Confidence ceiling. STOP on a breach, WARN on no grade.** A sentence
 beginning "Confidence in", "Confidence that" or "Confidence … is" states a
@@ -253,14 +257,16 @@ level on the ladder very low < low < moderate < moderate-to-good = reasonably
 high < high. Its evidence's grades are very low / low / moderate / high within
 six words of certainty, quality, confidence, GRADE or CINeMA. A level above the
 highest stated grade blocks unless the row carries `grade_departure`, a
-non-empty reason written by a person. No grade in any premise is a WARN —
-"confidence stated without a cited grade" — not a pass. → T04 s60, "high"
-against the USPSTF's "moderate certainty".
+non-empty reason written by a person. No grade in any premise also blocks —
+"confidence stated without a cited grade" — unless the stated level is low or
+very low, which claim nothing a missing grade could undercut. `grade_departure`
+lifts the ceiling block only: a missing grade is cured by citing the grade. →
+T04 s60, "high" against the USPSTF's "moderate certainty".
 
 The ceiling reads the PREMISE SPANS, not the documents. A grade the source
 states somewhere the binding did not cite is invisible to it: T03 s53 and T01
-s82 rest on reviews that grade their evidence low, but no premise span says so,
-and both WARN rather than STOP. The cure is to cite the grade.
+s82 rest on reviews that grade their evidence low, but no premise span says so.
+Both block as stating a level with no cited grade.
 
 **B21 Holdings sentences rest on the store.** A sentence whose subject is our
 own holdings or actions — begins "We hold", "We have not opened / read /
@@ -269,8 +275,13 @@ not opened" — is true or false according to `sources.json`, not according to
 any document. Such a row declares `rests_on_store` (the ids whose store record
 it describes), carries no `source_id`, `also_rests_on` or `premises`, and takes
 bucket `deterministic`: the machine answers all three questions against the
-store. `bindings.py check` runs `epistemic.check_sentence` on every one and
-records a FAIL or NOT EVALUATED in `check_flags`. STOP: a holdings sentence that cites a
+store. `bindings.py check` runs `epistemic.check_sentence` on every one, passing the
+row's `rests_on_store` as the subject — the text is not asked which source it
+means — and records a FAIL or NOT EVALUATED in `check_flags`. A row without the
+field resolves from the text exactly as before. epistemic also reads "have not
+opened" and "did not obtain" as UNREAD, and "our search" as HOLD over the
+declared sources (whether what the search fetched is held; not whether the
+search was adequate). STOP: a holdings sentence that cites a
 document as support; the store disagreeing. WARN: an undeclared holdings
 sentence; a store check that returns NOT EVALUATED or reads no claim; a row
 declaring `rests_on_store` whose sentence is not a holdings sentence. Rule 1 is
@@ -284,12 +295,16 @@ answer. `bind_field` binds to a held document's field, and the store is not a
 held document. The field also carries the subject: `epistemic.declared_sources`
 reads the source ids off the row to know which record to ask.
 
-**What the store check cannot yet do** (measured on the test issues, October
-2026): it resolved none of the 15 holdings sentences. Nine say "this review" or
-"two pieces of coverage" and name no source, so `check_sentence` reports
-binding and text disagreeing; six use "have not opened" or "did not obtain",
-which `epistemic._asserted` does not read. Both are reported as NOT EVALUATED,
-never as a pass. No page renders a per-sentence citation marker from the
+**What the store check cannot yet do** (measured on copies of the test issues'
+bindings, October 2026, with `rests_on_store` added). No source in the four
+issues sets `document_class`, so every declared subject is NOT EVALUATED — by
+design: an unclassified source is never assumed to be a document. Four of the
+15 holdings sentences are about documents with no entry in `sources.json` (a
+meta-analysis or study cited inside another source, a guideline's errata) and
+cannot declare a subject at all. HOLD is satisfied by any held state, so "we
+hold the abstract … not the full text" passes on full_text_held too; the "only"
+is not checked. A sentence mixing a holdings clause with a cited claim (T04
+s51) must be split: it cannot both rest on the store and cite a document. No page renders a per-sentence citation marker from the
 bindings today, so a holdings sentence carries none by construction.
 
 ## 5. Context

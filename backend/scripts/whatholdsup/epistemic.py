@@ -98,11 +98,17 @@ _UNREAD = re.compile(
     r"\b(remains? unread|still unread|have not (?:yet )?read|has not (?:yet )?been read"
     r"|have not been able to read|requires reading it|cannot say .{0,80}reading"
     r"|nobody (?:here )?(?:has|had) (?:ever )?opened|never (?:been )?read"
-    r"|we have never read|unread by us|have not obtained)\b", re.I)
+    r"|we have never read|unread by us|have not obtained"
+    r"|have not (?:yet )?opened|did not obtain)\b", re.I)
 _READ = re.compile(
     r"\b(we have (?:now )?read|read in full|read it in full|having read it"
     r"|read at source|we have opened)\b", re.I)
-_HOLD = re.compile(r"\b(we hold|held in full|the .{0,40}we hold|do not hold)\b", re.I)
+# "Our search ... on the two pages we fetched there" (WHU T04 s38) says what we
+# searched and fetched. The only part of that the store can answer is whether
+# what the search fetched is held, so it is read as HOLD over the sources the
+# row declares. Whether the search was adequate is not the store's to say.
+_HOLD = re.compile(r"\b(we hold|held in full|the .{0,40}we hold|do not hold"
+                   r"|our search)\b", re.I)
 _UNREACHED = re.compile(
     r"\b(could not reach|cannot reach|every retrieval route .{0,40}block"
     r"|returned a block|we could not open)\b", re.I)
@@ -212,14 +218,53 @@ def declared_sources(sentence: str, slug: str) -> list[str]:
     return []
 
 
-def check_sentence(sentence: str, slug: str) -> list[dict]:
+def store_subjects(sentence: str, slug: str) -> list[str]:
+    """The `rests_on_store` ids the BINDING for this sentence declares, or [].
+
+    Unlike declared_sources, these are not support that might be about another
+    document: the field exists to name the record the sentence describes
+    (claim-bindings spec §4a, B21).
+    """
+    try:
+        rows = json.loads((store.case_dir(slug) / "bindings.json")
+                          .read_text(encoding="utf-8")).get("bindings") or []
+    except (Exception, SystemExit):
+        return []
+    if isinstance(rows, dict):
+        rows = list(rows.values())
+    key = " ".join(sentence.split())
+    for r in rows:
+        if " ".join((r.get("sentence") or "").split()) == key:
+            return [x for x in (r.get("rests_on_store") or []) if x]
+    return []
+
+
+def check_sentence(sentence: str, slug: str, declared=None) -> list[dict]:
     """One verdict per epistemic sentence: PASS, FAIL or NOT EVALUATED.
 
     NOT EVALUATED is never silence. It is the passage-reading stage's worklist.
+
+    `declared` is a row's rests_on_store, passed by bindings.b21_holdings; when
+    absent it is read from bindings.json. A row that declares its subject is
+    checked against exactly those records and the text is not asked -- "We hold
+    the abstract of this review" names no source, and nothing in the string
+    could resolve it. A row without the field resolves exactly as before.
     """
     asserted = _asserted(sentence)
     if not asserted:
         return []
+
+    if declared is None:
+        declared = store_subjects(sentence, slug)
+    if declared:
+        known = {r.get("id") for r in _sources(slug)}
+        flat = " ".join(sentence.split())[:220]
+        missing = [{"verdict": NOT_EVALUATED, "asserted": asserted, "source": sid,
+                    "why": "rests_on_store names %s, which is not in sources.json" % sid,
+                    "sentence": flat}
+                   for sid in declared if sid not in known]
+        return missing + _verdicts([s for s in declared if s in known], asserted,
+                                   "declared by rests_on_store", sentence, slug)
 
     by_string = resolve(sentence, slug)
     by_binding = declared_sources(sentence, slug)
@@ -240,7 +285,10 @@ def check_sentence(sentence: str, slug: str) -> list[dict]:
         return [{"verdict": NOT_EVALUATED, "asserted": asserted, "why": how,
                  "candidates": by_string or by_binding,
                  "sentence": " ".join(sentence.split())[:220]}]
+    return _verdicts(subjects, asserted, how, sentence, slug)
 
+
+def _verdicts(subjects, asserted, how, sentence, slug) -> list[dict]:
     out = []
     for sid in subjects:
         row = next((r for r in _sources(slug) if r.get("id") == sid), {})

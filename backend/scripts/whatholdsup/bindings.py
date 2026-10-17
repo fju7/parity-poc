@@ -542,13 +542,17 @@ EVIDENCE_HEDGES = (
     "cautiously", "preliminary", "tentative", "uncertain", "uncertainty",
     "exploratory", "hypothesis", "hypothesis-generating", "limited",
     "low certainty", "very low", "low quality", "not statistically significant",
-    "trend")
+    "trend", "perhaps", "would tend to", "arguably")
 SENTENCE_HEDGES = EVIDENCE_HEDGES + (
     "modest", "unclear", "not a finding", "cannot", "does not show", "too few",
     "low", "weak")
 # A sentence that NEGATES what the evidence hedges has turned "we cannot tell"
-# into "it is not so". That is the T01 failure exactly, so these count as no
-# hedge at all, whatever else the sentence carries.
+# into "it is not so" -- the T01 s85 failure. Round 1 let a negation cancel
+# every hedge in the sentence, and that silenced T02 s40 ("limited evidence,
+# graded as no evidence") and s68 ("at very low certainty ... no evidence"),
+# which keep their hedges. A negation now removes the hedge only where the
+# sentence has no other hedge word -- which is to say it never cancels one; it
+# only names what the sentence did in the report.
 NEGATING = ("does not support", "no evidence")
 
 
@@ -581,10 +585,26 @@ def evidence_spans(row: dict) -> list[tuple[str, str]]:
     return [(a, b) for a, b in out if b]
 
 
+# "Between February 2014 and May 2015" is a date, not a hedge (T04 s16). Only
+# the capitalised word, and only where a date says it is the month: followed
+# by a year, a day number or "of", or preceded by a day number. A lowercase
+# "may" is always read as a hedge.
+_MAY_MONTH_AFTER = re.compile(r"\s+(?:\d{4}\b|\d{1,2}(?:st|nd|rd|th)?\b|of\b)")
+_MAY_MONTH_BEFORE = re.compile(r"\b\d{1,2}(?:st|nd|rd|th)?\s+$")
+
+
+def _hedges(pattern: re.Pattern, text: str) -> list[str]:
+    out = []
+    for m in pattern.finditer(text or ""):
+        if m.group(0) == "May" and (_MAY_MONTH_AFTER.match(text, m.end())
+                                    or _MAY_MONTH_BEFORE.search(text[:m.start()])):
+            continue
+        out.append(" ".join(m.group(0).lower().split()))
+    return out
+
+
 def sentence_hedges(sent: str) -> list[str]:
-    if _NEGATING.search(sent):
-        return []
-    return [" ".join(m.group(0).lower().split()) for m in _SENTENCE_HEDGE.finditer(sent)]
+    return _hedges(_SENTENCE_HEDGE, sent)
 
 
 def b19_hedge_dropped(row: dict) -> list[dict]:
@@ -592,8 +612,7 @@ def b19_hedge_dropped(row: dict) -> list[dict]:
     sent = row.get("sentence") or ""
     hits = []
     for sid, span in evidence_spans(row):
-        for m in _EVIDENCE_HEDGE.finditer(span):
-            w = " ".join(m.group(0).lower().split())
+        for w in _hedges(_EVIDENCE_HEDGE, span):
             if (w, sid) not in hits:
                 hits.append((w, sid))
     if not hits or sentence_hedges(sent):
@@ -655,8 +674,12 @@ def b20_confidence_ceiling(row: dict) -> list[dict]:
 
     STOP when the sentence is surer than every grade it cites, unless the row
     carries `grade_departure`: a person's written reason for going above it.
-    WARN when no premise states a grade at all -- the comparison cannot be
-    made, which is not the same as passing it.
+    STOP, too, when no premise states a grade at all and the sentence claims
+    more than low confidence: a level with no cited grade is a level nobody can
+    check (T03 s53 and T01 s82 rest on reviews that grade their evidence low,
+    and cite no span saying so). "low" and "very low" claim nothing a missing
+    grade could undercut, so they pass. grade_departure lifts the ceiling STOP
+    only, as before: a missing grade is cured by citing the grade.
     """
     sent = row.get("sentence") or ""
     level = whu_level(sent)
@@ -669,10 +692,12 @@ def b20_confidence_ceiling(row: dict) -> list[dict]:
     grades = [(g, sid) for sid, span in evidence_spans(row)
               for g in stated_grades(span)]
     if not grades:
+        if WHU_LEVELS[level] <= GRADE_RANK["low"]:
+            return []
         return [{"check": "B20", "verdict": "confidence stated without a cited grade",
                  "level": level,
-                 "why": "states %r; no premise states a certainty grade, so the "
-                        "ceiling cannot be read -- not passed, not failed" % level}]
+                 "why": "states %r; no premise states a certainty grade, so nothing "
+                        "the sentence cites bounds it. Cite the grade" % level}]
     top = max(GRADE_RANK[g] for g, _ in grades)
     if WHU_LEVELS[level] <= top:
         return []
@@ -741,7 +766,7 @@ def b21_holdings(row: dict, slug: str) -> list[dict]:
                            "be told which record the sentence is about"})
     import epistemic as E
     try:
-        verdicts = E.check_sentence(sent, slug)
+        verdicts = E.check_sentence(sent, slug, declared=list(declared) or None)
     except (Exception, SystemExit) as exc:
         verdicts = [{"verdict": E.NOT_EVALUATED, "why": "%s: %s" % (type(exc).__name__, exc)}]
     if not verdicts:
@@ -762,7 +787,7 @@ def b21_holdings(row: dict, slug: str) -> list[dict]:
 CALIBRATION_SEVERITY = {
     "evidence hedge dropped": WARN,
     "confidence above its cited grade": BAD,
-    "confidence stated without a cited grade": WARN,
+    "confidence stated without a cited grade": BAD,
     "confidence level unreadable": WARN,
     "holdings sentence cites a document": BAD,
     "store disagrees": BAD,
