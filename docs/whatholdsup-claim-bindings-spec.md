@@ -86,6 +86,10 @@ inherits the incident's scope and nothing else.
                           to a token in the span, or flagged unmapped
       verdicts            locatable / faithful / warranted, each with who and when
       bucket              observed, not chosen — see section 4
+      rests_on_store      for a sentence about OUR holdings only: the source ids
+                          whose store record it describes — see §4a, B21
+      grade_departure     a person's written reason for stating more confidence
+                          than any grade the evidence states — see §4a, B20
 
 A sentence carrying a figure, a trial name, a registry id, a proper noun or a
 quotation and having NO binding row is a defect that blocks publication. That one
@@ -220,6 +224,114 @@ respectively in which to find them.
 differs, every span bound to the old bytes is re-tested against the new. Content
 addressing already keeps both versions, so this is a diff, not an argument. This
 is the changelog mechanism the library was built for and it has never been wired.
+
+## 4a. Calibration — B19, B20, B21 (added October 2026)
+
+A three-judge read of all 80 judgement sentences in the four WHU test issues
+(T01–T04) found that every confirmed reasoning error leaned one way: toward
+more certainty than the cited source allows. B6 asks whether a hedge in the
+SENTENCE maps to the span; nothing asked the converse. These are numbered
+after B18 rather than filed under B6, because `negatives.py` reads every B6
+flag as its own quantifier worklist. All three run in `bindings.py check`, over
+every on-page row — judgements included, which the span checks skip.
+
+**B19 Hedge preserved. WARN.** The evidence is a judgement's premises, or a
+bound sentence's span plus `also_rests_on`. If the evidence carries a hedge
+(may, might, could, possibly, probably, likely, suggest(s), suggestive,
+appear(s/ed), cautious(ly), preliminary, tentative, uncertain(ty), exploratory,
+hypothesis(-generating), limited, low certainty, very low, low quality, not
+statistically significant, trend, perhaps, would tend to, arguably) and the
+sentence carries none (the same list plus modest, unclear, not a finding,
+cannot, does not show, too few, low, weak), it is reported with the word found.
+A negation — "does not support", "no evidence" — removes the hedge only when
+the sentence carries no other hedge word; it never cancels one the sentence
+keeps ("limited evidence, graded as no evidence" keeps "limited"). The
+capitalised "May" is not a hedge where a date makes it the month: followed by
+a year, a day number or "of", or preceded by a day number. → T01 s85, "The
+evidence does not support choosing … on the basis of age or sex", against
+"should be interpreted cautiously".
+
+**B20 Confidence ceiling. STOP on a breach, WARN on no grade.** A sentence
+beginning "Confidence in", "Confidence that" or "Confidence … is" states a
+level on the ladder very low < low < moderate < moderate-to-good = reasonably
+high < high. Its evidence's grades are very low / low / moderate / high within
+six words of certainty, quality, confidence, GRADE or CINeMA. A level above the
+highest stated grade blocks unless the row carries `grade_departure`, a
+non-empty reason written by a person. No grade in any premise also blocks —
+"confidence stated without a cited grade" — unless the stated level is low or
+very low, which claim nothing a missing grade could undercut. `grade_departure`
+lifts the ceiling block only: a missing grade is cured by citing the grade. →
+T04 s60, "high" against the USPSTF's "moderate certainty".
+
+The ceiling reads the PREMISE SPANS, not the documents. A grade the source
+states somewhere the binding did not cite is invisible to it: T03 s53 and T01
+s82 rest on reviews that grade their evidence low, but no premise span says so.
+Both block as stating a level with no cited grade.
+
+**B21 Holdings sentences rest on the store.** A sentence whose subject is our
+own holdings or actions — begins "We hold", "We have not opened / read /
+checked / obtained", "We did not obtain", "Our search", or ends ", which we have
+not opened" — is true or false according to `sources.json`, not according to
+any document. Such a row declares `rests_on_store` (the ids whose store record
+it describes), carries no `source_id`, `also_rests_on` or `premises`, and takes
+bucket `deterministic`: the machine answers all three questions against the
+store. `bindings.py check` runs `epistemic.check_sentence` on every one, passing the
+row's `rests_on_store` as the subject — the text is not asked which source it
+means — and records a FAIL or NOT EVALUATED in `check_flags`. A row without the
+field resolves from the text exactly as before. A sentence saying we hold the
+abstract ONLY ("abstract only", "only the abstract", "the abstract … not the
+full text / paper") passes on abstract_held and fails on every other state,
+full_text_held included. "Have not opened", "did not obtain" and "could not obtain"
+pass on not_opened, blocked or fragment_only and fail on full_text_held or
+human_read. On abstract_held they WARN, "we hold its abstract — say so": true of
+the paper, silent about what we hold. epistemic counts that WARN as evaluated.
+
+**A document mentioned and not held gets an entry.** A holdings sentence whose
+`rests_on_store` names an id with no entry, or that declares nothing, cites
+nothing, and whose text names no registered source, STOPs: "document not in
+sources.json — add an entry (unread) for it". If the text does name a
+registered source, it is undeclared, not unregistered, and WARNs with that id.
+The entry is made with `source_ledger.py <slug> add <id> --title … --type …
+--by <name>`, which writes the ledger's existing `not_opened` state — no new
+state — and sets `document_class`. The ledger audit's "source ledger complete"
+row reports every not_opened entry; that is intended.
+
+**document_class at creation.** `epistemic.document_class_of()` sets it when
+`source_ledger.add_unread()` creates an entry: `record_about` by the same three
+discriminators `is_record_about()` reads (an explicit record form, type
+`reference`, bibliographic sections); `document` where an explicit form or the
+form `source_store.TYPES` gives the type settles it; otherwise `unclassified`,
+written explicitly, which B21 reports as a WARN ("source unclassified") rather
+than a silent NOT EVALUATED. It agrees with all 32 classes set by hand across
+the seven issues. Existing entries are not back-filled; acquire_sources.py,
+which updates existing entries, does not set it. epistemic also reads "have not
+opened" and "did not obtain" as UNREAD, and "our search" as HOLD over the
+declared sources (whether what the search fetched is held; not whether the
+search was adequate). STOP: a holdings sentence that cites a
+document as support; the store disagreeing. WARN: an undeclared holdings
+sentence; a store check that returns NOT EVALUATED or reads no claim; a row
+declaring `rests_on_store` whose sentence is not a holdings sentence. Rule 1 is
+satisfied by the store and reported on its own row, never counted as a span.
+
+**Why one new field, `rests_on_store`.** Nothing existing fit. A bucket names
+who signs; it cannot name a record. `source_id`, `also_rests_on` and
+`premises` are support, which is exactly what such a sentence must not carry.
+`locator_type: none` says there is no locator, not that the store is the
+answer. `bind_field` binds to a held document's field, and the store is not a
+held document. The field also carries the subject: `epistemic.declared_sources`
+reads the source ids off the row to know which record to ask.
+
+**What the store check cannot yet do** (measured on copies of the test issues'
+bindings, October 2026, with `rests_on_store` added). No source in the four
+issues sets `document_class`, so every declared subject is NOT EVALUATED — by
+design: an unclassified source is never assumed to be a document. Three of the
+15 holdings sentences are about documents with no entry in `sources.json` (a
+meta-analysis or study cited inside another source, a guideline's errata) and
+STOP until one is added. A sentence whose text names two registered sources
+and whose row declares neither ("We could not obtain PALMARES-2 itself": S011
+and S021) stays NOT EVALUATED until rests_on_store says which. A sentence mixing a holdings clause with a cited claim (T04
+s51) must be split: it cannot both rest on the store and cite a document. No page renders a per-sentence citation marker from the
+bindings today, so a holdings sentence carries none by construction.
 
 ## 5. Context
 

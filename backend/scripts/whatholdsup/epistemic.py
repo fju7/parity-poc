@@ -56,6 +56,9 @@ import source_store as store          # noqa: E402
 OK, BAD, WARN = "ok", "BLOCKED", "warn"   # publish.py's vocabulary; " STOP" is the display mark
 
 PASS, FAIL, NOT_EVALUATED = "PASS", "FAIL", "NOT EVALUATED"
+# WARN is an EVALUATED outcome: the store answered, and the sentence is true but
+# leaves out what the store holds. Counted with PASS and FAIL in coverage.
+WARN_VERDICT = "WARN"
 
 # THREE OUTCOMES, NEVER TWO.
 #
@@ -94,15 +97,74 @@ RECORD_TYPES = {"reference"}
 HELD_STATES = {"full_text_held", "human_read"}
 NOT_HELD_STATES = {"blocked", "fragment_only", "abstract_held", "unchecked", ""}
 
+# THE TWO CLASSES, AND THE THIRD ANSWER.
+#
+# `document_class` is "document" or "record_about", and until October 2026 it
+# was set only by hand -- 32 of 140 entries across seven issues, none in the
+# four WHU test issues -- so every subject this file resolved there came back
+# NOT EVALUATED. document_class_of() is what source_ledger.add_unread() writes
+# when it creates an entry. When it cannot tell, it writes "unclassified",
+# which is reported as such rather than read as an unset field.
+DOCUMENT, RECORD_ABOUT, UNCLASSIFIED = "document", "record_about", "unclassified"
+
+
+def document_class_of(src: dict) -> str:
+    """The class a new sources.json entry should carry.
+
+    record_about: the same three discriminators is_record_about() reads -- an
+    explicit `form` in RECORD_FORMS, a `type` in RECORD_TYPES, or held sections
+    saying the bytes are the bibliographic record.
+
+    document: a form the store's own TYPES registry settles -- an explicit
+    `form`, or the form source_store.TYPES gives the type (article, notice,
+    record, page). A registry record, a label and a guideline are their own
+    documents; the 31 entries classed `document` by hand include all three.
+
+    unclassified: anything else, including the types whose form TYPES leaves
+    open (critique, prior_art) with no explicit form. Never a guess.
+    """
+    if (src.get("form") or "").lower() in RECORD_FORMS:
+        return RECORD_ABOUT
+    if (src.get("type") or "").lower() in RECORD_TYPES:
+        return RECORD_ABOUT
+    secs = " ".join((src.get("access") or {}).get("sections") or []).lower()
+    if "bibliographic" in secs or secs.strip() == "record":
+        return RECORD_ABOUT
+    import source_store as _ss
+    return DOCUMENT if _ss.form_of(src) in _ss.FORMS else UNCLASSIFIED
+
+
+# "We hold the abstract only" is a claim that the store holds the abstract AND
+# does not hold the paper. HOLD alone is satisfied by full_text_held, so the
+# "only" went unchecked. These phrasings require abstract_held exactly.
+_ABSTRACT_ONLY = re.compile(
+    r"\b(abstract only|only (?:the |its |an )?abstract"
+    r"|abstract\b[^.;]{0,80}?\bnot the full (?:text|paper|article|guideline)"
+    r"|abstract\b[^.;]{0,40}?\bonly)\b", re.I)
+ABSTRACT_ONLY = "HOLD, abstract only"
+
 _UNREAD = re.compile(
     r"\b(remains? unread|still unread|have not (?:yet )?read|has not (?:yet )?been read"
     r"|have not been able to read|requires reading it|cannot say .{0,80}reading"
     r"|nobody (?:here )?(?:has|had) (?:ever )?opened|never (?:been )?read"
-    r"|we have never read|unread by us|have not obtained)\b", re.I)
+    r"|we have never read|unread by us|have not obtained"
+    r"|have not (?:yet )?opened|did not obtain|could not obtain)\b", re.I)
+
+# "We have not opened it" / "did not obtain" / "could not obtain", said of a
+# document whose abstract we hold, is true of the paper and silent about the
+# abstract. Not false, so not a FAIL; not the whole story, so not a PASS.
+_NOT_OBTAINED = re.compile(r"\b(have not (?:yet )?opened|did not obtain"
+                           r"|could not obtain)\b", re.I)
+ABSTRACT_HELD_NOTE = "we hold its abstract — say so"
 _READ = re.compile(
     r"\b(we have (?:now )?read|read in full|read it in full|having read it"
     r"|read at source|we have opened)\b", re.I)
-_HOLD = re.compile(r"\b(we hold|held in full|the .{0,40}we hold|do not hold)\b", re.I)
+# "Our search ... on the two pages we fetched there" (WHU T04 s38) says what we
+# searched and fetched. The only part of that the store can answer is whether
+# what the search fetched is held, so it is read as HOLD over the sources the
+# row declares. Whether the search was adequate is not the store's to say.
+_HOLD = re.compile(r"\b(we hold|held in full|the .{0,40}we hold|do not hold"
+                   r"|our search)\b", re.I)
 _UNREACHED = re.compile(
     r"\b(could not reach|cannot reach|every retrieval route .{0,40}block"
     r"|returned a block|we could not open)\b", re.I)
@@ -212,14 +274,53 @@ def declared_sources(sentence: str, slug: str) -> list[str]:
     return []
 
 
-def check_sentence(sentence: str, slug: str) -> list[dict]:
+def store_subjects(sentence: str, slug: str) -> list[str]:
+    """The `rests_on_store` ids the BINDING for this sentence declares, or [].
+
+    Unlike declared_sources, these are not support that might be about another
+    document: the field exists to name the record the sentence describes
+    (claim-bindings spec §4a, B21).
+    """
+    try:
+        rows = json.loads((store.case_dir(slug) / "bindings.json")
+                          .read_text(encoding="utf-8")).get("bindings") or []
+    except (Exception, SystemExit):
+        return []
+    if isinstance(rows, dict):
+        rows = list(rows.values())
+    key = " ".join(sentence.split())
+    for r in rows:
+        if " ".join((r.get("sentence") or "").split()) == key:
+            return [x for x in (r.get("rests_on_store") or []) if x]
+    return []
+
+
+def check_sentence(sentence: str, slug: str, declared=None) -> list[dict]:
     """One verdict per epistemic sentence: PASS, FAIL or NOT EVALUATED.
 
     NOT EVALUATED is never silence. It is the passage-reading stage's worklist.
+
+    `declared` is a row's rests_on_store, passed by bindings.b21_holdings; when
+    absent it is read from bindings.json. A row that declares its subject is
+    checked against exactly those records and the text is not asked -- "We hold
+    the abstract of this review" names no source, and nothing in the string
+    could resolve it. A row without the field resolves exactly as before.
     """
     asserted = _asserted(sentence)
     if not asserted:
         return []
+
+    if declared is None:
+        declared = store_subjects(sentence, slug)
+    if declared:
+        known = {r.get("id") for r in _sources(slug)}
+        flat = " ".join(sentence.split())[:220]
+        missing = [{"verdict": NOT_EVALUATED, "asserted": asserted, "source": sid,
+                    "why": "rests_on_store names %s, which is not in sources.json" % sid,
+                    "sentence": flat}
+                   for sid in declared if sid not in known]
+        return missing + _verdicts([s for s in declared if s in known], asserted,
+                                   "declared by rests_on_store", sentence, slug)
 
     by_string = resolve(sentence, slug)
     by_binding = declared_sources(sentence, slug)
@@ -240,13 +341,22 @@ def check_sentence(sentence: str, slug: str) -> list[dict]:
         return [{"verdict": NOT_EVALUATED, "asserted": asserted, "why": how,
                  "candidates": by_string or by_binding,
                  "sentence": " ".join(sentence.split())[:220]}]
+    return _verdicts(subjects, asserted, how, sentence, slug)
 
+
+def _verdicts(subjects, asserted, how, sentence, slug) -> list[dict]:
     out = []
     for sid in subjects:
         row = next((r for r in _sources(slug) if r.get("id") == sid), {})
         klass = (row.get("document_class") or "").lower()
         # A record ABOUT a document cannot answer a question about the document.
         # Unclassified is NOT EVALUATED, never an assumed `document`.
+        if klass == UNCLASSIFIED:
+            out.append({"verdict": NOT_EVALUATED, "asserted": asserted,
+                        "source": sid, "class": UNCLASSIFIED,
+                        "why": "document_class is unclassified on this source",
+                        "sentence": " ".join(sentence.split())[:220]})
+            continue
         if not klass:
             out.append({"verdict": NOT_EVALUATED, "asserted": asserted,
                         "source": sid, "why": "document_class not set on this source",
@@ -260,8 +370,19 @@ def check_sentence(sentence: str, slug: str) -> list[dict]:
                         "sentence": " ".join(sentence.split())[:220]})
             continue
         state = ((row.get("access") or {}).get("state") or "").lower()
-        good = state in SATISFIED_BY.get(asserted, set())
-        out.append({"verdict": PASS if good else FAIL, "asserted": asserted,
+        claim = asserted
+        if asserted == HOLD and _ABSTRACT_ONLY.search(sentence):
+            claim = ABSTRACT_ONLY
+            good = state == "abstract_held"
+        else:
+            good = state in SATISFIED_BY.get(asserted, set())
+        if (good and asserted == UNREAD and state == "abstract_held"
+                and _NOT_OBTAINED.search(sentence)):
+            out.append({"verdict": WARN_VERDICT, "asserted": claim, "source": sid,
+                        "recorded": state, "why": ABSTRACT_HELD_NOTE,
+                        "sentence": " ".join(sentence.split())[:220]})
+            continue
+        out.append({"verdict": PASS if good else FAIL, "asserted": claim,
                     "source": sid, "recorded": state or "(no access state)",
                     "why": how, "sentence": " ".join(sentence.split())[:220]})
     return out
@@ -337,7 +458,7 @@ def scan(slug: str) -> dict:
                 f["where"] = "corrections.md (claimed change)"
                 verdicts.append(f)
     n = len(verdicts)
-    ev = len([v for v in verdicts if v["verdict"] in (PASS, FAIL)])
+    ev = len([v for v in verdicts if v["verdict"] in (PASS, FAIL, WARN_VERDICT)])
     return {"slug": slug, "verdicts": verdicts, "epistemic_sentences": n,
             "evaluated": ev, "coverage": (ev / n) if n else 0.0,
             "aliases": alias_coverage(slug)}
