@@ -84,6 +84,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 import source_store as store   # noqa: E402
 import source_ledger as ledger  # noqa: E402
 import spancheck as SC          # noqa: E402
+import figure_text as FT        # noqa: E402
 import bindings as B            # noqa: E402
 import autobind as AB           # noqa: E402
 
@@ -111,10 +112,13 @@ def figures_on_page(slug: str) -> list[tuple[str, str]]:
     for sent in B.page_sentences(slug):
         if AB.OURS.search(sent):
             continue                      # the page says it did this sum itself
-        for m in FIGURE.finditer(SC._norm(sent)):
+        # A page may group thousands with a space, a no-break space or a thin
+        # space as well as a comma; all four read as one figure here.
+        text = FT.comma_grouped(SC._norm(sent))
+        for m in FIGURE.finditer(text):
             f = m.group(1).replace(",", "")
             if _is_year(f) or NOT_A_MEASUREMENT.search(
-                    sent[max(0, m.start() - 12):m.end() + 12]):
+                    text[max(0, m.start() - 12):m.end() + 12]):
                 continue
             if (f, sent) in seen:
                 continue
@@ -150,8 +154,12 @@ def _forms(fig: str) -> list[str]:
 
 def where(fig: str, slug: str) -> list[str]:
     """Every held source whose bytes carry this figure, however it prints it."""
-    pat = re.compile("|".join(r"(?<![0-9.])%s(?![0-9])" % re.escape(f)
-                              for f in _forms(fig)))
+    # _forms gives the bare and comma forms; figure_pattern adds the space,
+    # no-break-space and thin-space forms. On 2026-10-17 six figures in the
+    # test issues were "in no document we hold" while each was in its source
+    # as "14 170".
+    pat = re.compile("|".join([r"(?<![0-9.])%s(?![0-9])" % re.escape(f)
+                               for f in _forms(fig)] + [FT.figure_pattern(fig)]))
     hits = []
     for sid in sorted(store.held(slug)):
         text = SC._text(slug, sid) or ""

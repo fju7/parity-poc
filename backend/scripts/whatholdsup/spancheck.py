@@ -127,6 +127,13 @@ def _norm(s: str) -> str:
     return " ".join(s.split())
 
 
+# --- thousands separators and rounding -----------------------------------
+#
+# In figure_text.py, so that rule 1 (bindings.py), B12 (below) and b13 read
+# figures with one set of rules. Re-exported here for callers that hold SC.
+from figure_text import GROUP_SEP, comma_grouped, figure_pattern, rounds_to  # noqa: E402,F401
+
+
 # --- B2 ---------------------------------------------------------------------
 
 UNDETERMINED = "undetermined"
@@ -399,6 +406,10 @@ def b12_precision(figure: str, slug: str, sid: str) -> tuple[bool, str]:
     f = _norm(figure)
     if f.lower() in d.lower():
         return True, "the source carries this figure as printed"
+    # "1,234.56" in the sentence is "1 234.56" in a source that groups with a
+    # space: the same figure as printed (see comma_grouped).
+    if re.fullmatch(r"[\d,]+(?:\.\d+)?", f) and re.search(figure_pattern(f), d):
+        return True, "the source carries this figure as printed"
     if "." not in f:
         return True, "not a decimal figure"
     whole, frac = f.split(".", 1)
@@ -409,22 +420,16 @@ def b12_precision(figure: str, slug: str, sid: str) -> tuple[bool, str]:
     # 0.5 in a document is not a statement of the same quantity; it is a digit.
     # Only a rounding one place shorter is evidence that the source reported the
     # figure less precisely than we do.
-    for keep in range(len(frac) - 1, max(0, len(frac) - 2), -1):
-        if keep < 2:
-            break
+    keep = len(frac) - 1
+    if keep >= 2:
         shorter = "%s.%s" % (whole, frac[:keep])
         # a bare prefix match would find 0.51 inside 0.519; require a boundary
         # AND IT MUST BE THE CORRECT ROUNDING. Truncating 0.008 gives "0.00",
         # which is not what a source reporting that figure less precisely would
         # print — it would print 0.01. Run over a registry posting, the
         # truncating version announced that "the source prints 0.00, not 0.008".
-        try:
-            rounded = ("%%.%df" % keep) % float(f)
-        except ValueError:
-            break
-        if rounded != shorter:
-            continue
-        if re.search(r"(?<![0-9.])%s(?![0-9])" % re.escape(shorter), d):
+        # rounds_to is that rule, shared with rule 1 (A3, 2026-10-17).
+        if rounds_to(f, shorter, min_places=2) and re.search(figure_pattern(shorter), d):
             return False, ("the source prints %s, not %s — we show %d decimal "
                            "place(s) the source does not"
                            % (shorter, f, len(frac) - keep))

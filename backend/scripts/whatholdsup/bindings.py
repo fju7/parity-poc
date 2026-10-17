@@ -47,8 +47,13 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import source_store as store      # noqa: E402
 import source_ledger as ledger    # noqa: E402
+import figure_text as FT          # noqa: E402
 
 OK, BAD, WARN = "ok", "BLOCKED", "warn"
+# INFO is a severity, never a preflight state: publish.show() turns any state
+# other than ok / BLOCKED / warn into a STOP, so an INFO note is carried in an
+# ok row's detail and nowhere else.
+INFO = "info"
 
 BUCKETS = ("deterministic", "context", "judgement", "figure")
 QUESTIONS = ("locatable", "faithful", "warranted")
@@ -828,6 +833,197 @@ def b21_holdings(row: dict, slug: str) -> list[dict]:
     return out
 
 
+# ---------------------------------------------------------------------------
+# B22 — a claim to a source's own words is checked against its words
+# ---------------------------------------------------------------------------
+#
+# T01 s80: "The paper's own wording is that exercise appeared equally effective
+# across comorbidities and baseline severity". The paper's words are "Exercise
+# appeared equally effective for people with and without comorbidities and with
+# different baseline levels of depression." The sentence has no quotation
+# marks, so quotations.py never saw it, and no figure, so rule 1 never did. The
+# paid gate found it (Phase B S5); nothing free could.
+#
+# A sentence that says it gives a source's own words makes a claim a string
+# search can settle. Reported speech -- "states that", "writes that",
+# "describes this as" -- claims only the sense, and is not this check's.
+#
+# "verbatim" and "word for word" are wording claims ONLY when what follows is
+# the words: a colon or an opening quotation mark, whitespace aside. T04's
+# "addresses this question almost word for word" describes a likeness and gives
+# no words to check (ruled 2026-10-17).
+WORDING_CLAIM = re.compile(
+    r"\b(?:own\s+wording|own\s+words|in\s+(?:its|their)\s+(?:own\s+)?words)\b"
+    r"|\b(?:verbatim|word\s+for\s+word)(?=\s*[:\"\u201c\u2018'])", re.I)
+_WORDING_LEAD = re.compile(
+    r"^[\s,:;—–-]*(?:(?:is|are|was|were|reads?|runs?)\b)?[\s,:]*"
+    r"(?:that\b)?[\s,:]*")
+_CLAUSE_END = re.compile(r"(?<!\d)[.;!?](?!\d)|\s[—–]\s")
+MIN_CLAUSE_WORDS = 2
+
+
+def wording_clause(sent: str) -> str:
+    """The words a wording claim says are the source's, or "".
+
+    What follows the phrase, after "is that" / "is:" / a comma; up to the
+    closing quotation mark if it opens with one, else to the end of the
+    clause."""
+    m = WORDING_CLAIM.search(sent)
+    if not m:
+        return ""
+    rest = sent[m.end():]
+    rest = rest[_WORDING_LEAD.match(rest).end():]
+    q = re.match(r"\s*([\"“‘'])", rest)
+    if q:
+        close = {"“": "”", "‘": "’"}.get(q.group(1), q.group(1))
+        body = rest[q.end():]
+        j = body.find(close)
+        return (body[:j] if j >= 0 else body).strip()
+    e = _CLAUSE_END.search(rest)
+    return (rest[:e.start()] if e else rest).strip().rstrip(",:")
+
+
+def _clause_prefixes(clause: str) -> list[str]:
+    """The whole clause, and every comma-delimited prefix of it of at least
+    MIN_CLAUSE_WORDS (two) words: "X, which is our gloss" is a claim about X.
+
+    Two, not four. Melanoma's "in its own words, descriptive only , against a
+    one-sided alpha of 0.10, ..." claims two words, which are in S007 verbatim
+    ("(ie, are descriptive only)"); a four-word floor never tested them and
+    reported a correct published sentence as a STOP (2026-10-17). Never one: a
+    single word is in almost any document."""
+    parts = clause.split(",")
+    out = []
+    for i in range(1, len(parts) + 1):
+        p = ",".join(parts[:i]).strip()
+        if len(p.split()) >= MIN_CLAUSE_WORDS and p not in out:
+            out.append(p)
+    whole = clause.strip()
+    if whole and whole not in out:
+        out.append(whole)
+    return out
+
+
+def _closest_sentence(clause: str, texts: list[str]) -> str:
+    import difflib
+    import spancheck as SC
+    want = SC._norm(clause).lower()
+    best, score = "", 0.0
+    for t in texts:
+        for s in re.split(r"(?<=[.!?])\s+", SC._norm(t)):
+            if len(s) < 12:
+                continue
+            r = difflib.SequenceMatcher(None, want, s.lower()).ratio()
+            if r > score:
+                best, score = s, r
+    return best
+
+
+def b22_wording_claim(row: dict, slug: str) -> list[dict]:
+    """A sentence claiming a source's own words: those words, verbatim (after
+    spancheck's normalisation), in a span the row is bound to or in the held
+    text of a source it cites. Absent: STOP, naming the clause and the nearest
+    held sentence. Source not held: undetermined, never STOP."""
+    import spancheck as SC
+    sent = row.get("sentence") or ""
+    if not WORDING_CLAIM.search(sent):
+        return []
+    clause = wording_clause(sent)
+    if not clause:
+        return [{"check": "B22", "verdict": "wording claim with nothing to check",
+                 "why": "the sentence claims a source's own words and no clause "
+                        "follows the claim"}]
+    spans = [b for _, b in covering_spans(row)]
+    held, defective = [], []
+    for sid in support_ids(row):
+        texts = [t for _, t in SC._texts(slug, sid)]
+        if texts:
+            held += texts
+            if SC.defective_renditions(slug, sid)[0]:
+                defective.append(sid)
+    hay = [SC._norm(t).lower() for t in spans + held]
+    for p in _clause_prefixes(clause):
+        want = SC._norm(p).lower()
+        if want and any(want in h for h in hay):
+            return []
+    if not held or defective:
+        return [{"check": "B22", "verdict": "wording claim undetermined",
+                 "why": "%r: not in the bound span(s), and %s"
+                        % (clause[:160], "the source's held text has a defective layer"
+                           if defective else "no source it cites is held")}]
+    return [{"check": "B22", "verdict": "wording claim not in its source",
+             "why": "claims the source's own words, %r, and they are in no bound span "
+                    "and no held text of %s; nearest held sentence: %r"
+                    % (clause[:200], ", ".join(support_ids(row)),
+                       _closest_sentence(clause, spans + held)[:240])}]
+
+
+# ---------------------------------------------------------------------------
+# B23 — a point estimate shown without the interval its span gives (INFO)
+# ---------------------------------------------------------------------------
+#
+# Most of Phase B's real minor findings (I2, I3, I7, I9, I10) were one thing: a
+# sentence stating an effect size whose span gives it with a confidence
+# interval, and leaving the interval out. Not wrong; less than the source says.
+# A note for the writer, never a block.
+_INTERVAL_NAME = (r"(?:CI|CrI|UI|confidence interval|credible interval|uncertainty interval)"
+                  r"(?:\s*\[CI\])?")
+_EST_CI = re.compile(
+    r"(?<![\d.])(?P<est>-?\d+(?:\.\d+)?)\s*%?\s*"
+    r"(?:(?P<named>[\(\[]\s*95\s?%\s*" + _INTERVAL_NAME + r"\s*[,:=]?\s*"
+    r"|[,;]\s*95\s?%\s*" + _INTERVAL_NAME + r"\s*[,:=]?\s*"
+    r"|[\(\[]\s*" + _INTERVAL_NAME + r"\s*[,:=]?\s*)"
+    r"|(?P<bare>[\(\[]\s*))"
+    r"(?P<lo>-?\d+(?:\.\d+)?)\s*%?\s*(?:to|-|,|;)\s*(?P<hi>-?\d+(?:\.\d+)?)", re.I)
+_INTERVAL_WORDS = re.compile(r"\b(?:CI|CrI|confidence|credible|interval|range)\b", re.I)
+
+
+def span_estimates(span: str) -> list[tuple[str, str, str]]:
+    """(estimate, low, high) for each point estimate the span gives WITH an
+    interval. A named interval ("95% CI") counts as written. An unnamed
+    bracket counts only for a decimal estimate that lies between its bounds,
+    so "aged 65 (60-70)" and "n = 120 (45-60)" are not read as intervals."""
+    import spancheck as SC
+    out = []
+    for m in _EST_CI.finditer(SC._norm(span)):
+        est, lo, hi = m.group("est"), m.group("lo"), m.group("hi")
+        if m.group("bare") is not None:
+            try:
+                e, a, b = float(est), float(lo), float(hi)
+            except ValueError:
+                continue
+            if "." not in est or not min(a, b) <= e <= max(a, b):
+                continue
+        out.append((est, lo, hi))
+    return out
+
+
+def b23_interval_omitted(row: dict) -> list[dict]:
+    import spancheck as SC
+    import modelbind as MB
+    sent = row.get("sentence") or ""
+    if _INTERVAL_WORDS.search(sent):
+        return []
+    figs = MB.figures(FT.comma_grouped(sent))
+    out, seen = [], set()
+    for _, span in covering_spans(row):
+        for est, lo, hi in span_estimates(span):
+            e = est.lstrip("-")
+            if e in seen or e in {"0", "1"}:
+                continue
+            shown = [f for f in figs if f == e or FT.rounds_to(e, f)]
+            if not shown:
+                continue
+            if lo.lstrip("-") in figs or hi.lstrip("-") in figs:
+                continue
+            seen.add(e)
+            out.append({"check": "B23", "verdict": "interval omitted",
+                        "why": "the span gives %s with the interval %s to %s; the "
+                               "sentence states %s and no interval"
+                               % (est, lo, hi, shown[0])})
+    return out
+
+
 NOT_IN_SOURCES = "document not in sources.json — add an entry (unread) for it"
 
 CALIBRATION_SEVERITY = {
@@ -843,14 +1039,21 @@ CALIBRATION_SEVERITY = {
     "store disagrees": BAD,
     "store check not evaluated": WARN,
     "declared to the store, not a holdings sentence": WARN,
+    "wording claim not in its source": BAD,
+    "wording claim undetermined": WARN,
+    "wording claim with nothing to check": WARN,
+    "interval omitted": INFO,
 }
-CALIBRATION_CHECKS = {"B19", "B20", "B21"}
+CALIBRATION_CHECKS = {"B19", "B20", "B21", "B22", "B23"}
 
 
 def calibration_findings(row: dict, slug: str) -> list[dict]:
-    """B19, B20 and B21 over one row. Reads the row, and the store for B21.
-    Writes nothing: run_checks puts what it returns in check_flags."""
-    return b19_hedge_dropped(row) + b20_confidence_ceiling(row) + b21_holdings(row, slug)
+    """B19-B23 over one row. Reads the row, the store for B21 and the held
+    text for B22. Writes nothing: run_checks puts what it returns in
+    check_flags."""
+    return (b19_hedge_dropped(row) + b20_confidence_ceiling(row)
+            + b21_holdings(row, slug) + b22_wording_claim(row, slug)
+            + b23_interval_omitted(row))
 
 
 def run_checks(slug: str, *, only: str = "") -> dict:
@@ -879,7 +1082,7 @@ def run_checks(slug: str, *, only: str = "") -> dict:
     doc = load(slug)
     rows = doc.get("bindings") or {}
     tally = {"checked": 0, "flags": 0, "undetermined": 0,
-             "calibration_stop": 0, "calibration_warn": 0}
+             "calibration_stop": 0, "calibration_warn": 0, "calibration_info": 0}
     for sha, row in rows.items():
         if only and sha != only:
             continue
@@ -891,7 +1094,8 @@ def run_checks(slug: str, *, only: str = "") -> dict:
         calib = calibration_findings(row, slug)
         for f in calib:
             sev = CALIBRATION_SEVERITY.get(f["verdict"], WARN)
-            tally["calibration_stop" if sev == BAD else "calibration_warn"] += 1
+            tally[{BAD: "calibration_stop", INFO: "calibration_info"}
+                  .get(sev, "calibration_warn")] += 1
         if not row.get("span") or not row.get("source_id"):
             row["check_flags"] = calib
             if calib:
@@ -1170,8 +1374,11 @@ def _bare_integer_in(fig: str, covered: str) -> bool:
     digits = fig.replace(",", "")
     if not digits.isdigit() or len(digits) < 4:
         return False
-    text = re.sub(r"(?<=\d),(?=\d{3}(?!\d))", "", covered)
-    return re.search(r"(?<![\d.])%s(?![\d.])" % re.escape(digits), text) is not None
+    # Every separator a source groups thousands with, not only the comma: a
+    # space, a no-break space, a thin space (spancheck.figure_pattern). Six
+    # figures in the test issues were printed "14 170" in their own spans and
+    # reported as in none (2026-10-17).
+    return re.search(FT.figure_pattern(digits) + r"(?!\.\d)", covered) is not None
 
 
 def _claim_figures(text: str, names: set[str] | None = None) -> set[str]:
@@ -1401,7 +1608,7 @@ def rule_rows(slug: str) -> list[tuple[str, str, str]]:
     # the other question, which is the shape of every failure in this file's
     # history. So: every figure the sentence carries must appear in a span the
     # sentence is actually bound to.
-    loose, loose_keys, unevaluable = [], set(), []
+    loose, loose_keys, unevaluable, rounded = [], set(), [], []
     for k, v in on_page.items():
         if k in set(attested):
             continue          # nothing here may read the document it rests on
@@ -1440,10 +1647,28 @@ def rule_rows(slug: str) -> list[tuple[str, str, str]]:
             ins = (r.get("in_sentence") or "").strip()
             if ins and SC._norm(ins) in SC._norm(v["sentence"]):
                 declared |= _as_numbers([r.get("figure")])
-        held = _as_numbers(MB.figures(covered)) | worked_out | declared
-        missing = [f for f in _claim_figures(v["sentence"], known_names)
-                   if MB._weight(f) and not _as_numbers([f]) <= held
-                   and not _bare_integer_in(f, covered)]
+        # Thousands separators are read on both sides: "14 170" in a span is
+        # 14,170, and so is "14 170" in a sentence (spancheck.comma_grouped).
+        span_figs = MB.figures(covered) | MB.figures(FT.comma_grouped(covered))
+        held = _as_numbers(span_figs) | worked_out | declared
+        missing = []
+        for f in _claim_figures(FT.comma_grouped(v["sentence"]), known_names):
+            if not MB._weight(f) or _as_numbers([f]) <= held \
+                    or _bare_integer_in(f, covered):
+                continue
+            # A ROUNDING OF A SPAN FIGURE IS THAT FIGURE, AND IS SAID SO.
+            # T01 s21 prints "-0.95" and "-0.4" for a span's -0.946 and -0.43
+            # and was reported as resting on nothing. A figure that is a span
+            # figure correctly rounded one decimal place shorter passes, with a
+            # note naming both values; anything else -- -0.946 shown as -0.9 or
+            # -0.94 -- is still a figure in no span. The rule is B12's
+            # (spancheck.rounds_to), not a second copy of it.
+            src = sorted(h for h in span_figs if FT.rounds_to(h, f))
+            if src:
+                rounded.append("%s: %s is %s rounded (%s)"
+                               % (k[:8], f, src[0], v["sentence"][:40]))
+                continue
+            missing.append(f)
         if missing:
             loose.append("%s: %s in no span it is bound to (%s)"
                          % (k[:8], ", ".join(sorted(missing)[:4]),
@@ -1451,6 +1676,14 @@ def rule_rows(slug: str) -> list[tuple[str, str, str]]:
             loose_keys.add(k)
 
     out_extra = []
+    if rounded:
+        # INFO, AND SO OK: nothing here is unsupported. The row exists so that
+        # a rounding is never silent -- the reader of the page sees -0.95, the
+        # span says -0.946, and the record says both.
+        out_extra.append(("rule 1 — figures shown rounded from their span", OK,
+                          "INFO: %d figure(s) are a span figure correctly rounded one "
+                          "decimal place shorter, and pass as that figure: %s"
+                          % (len(rounded), " || ".join(rounded))))
     if unevaluable:
         out_extra.append(("spans this check cannot evaluate", WARN,
                           "%d span(s) name a source whose only held rendition has a "
@@ -1700,12 +1933,17 @@ def preflight_rows(slug: str) -> list[tuple[str, str, str]]:
     if calib:
         stops = [(k, f) for k, f in calib
                  if CALIBRATION_SEVERITY.get(f["verdict"]) == BAD]
+        infos = [(k, f) for k, f in calib
+                 if CALIBRATION_SEVERITY.get(f["verdict"]) == INFO]
+        warns = [x for x in calib if x not in stops and x not in infos]
+        # An INFO note does not make the row warn: it is ok with the notes
+        # counted, so a page with only notes is not a page with problems.
         out.append(("sentences surer than their sources (B19-B21)",
-                    BAD if stops else WARN,
-                    "%d STOP, %d warn: %s"
-                    % (len(stops), len(calib) - len(stops),
+                    BAD if stops else (WARN if warns else OK),
+                    "%d STOP, %d warn, %d info: %s"
+                    % (len(stops), len(warns), len(infos),
                        " || ".join("%s %s" % (f["check"], f["verdict"])
-                                   for k, f in (stops or calib)[:4]))))
+                                   for k, f in (stops or warns or infos)[:4]))))
     if unbucketed:
         out.append(("sentences with no declared bucket", WARN,
                     "%d of %d — a sentence whose kind nobody declared cannot be "
@@ -1731,8 +1969,8 @@ def main() -> int:
         print("\n  %d bound sentence(s) checked against the source each row "
               "names" % t["checked"])
         print("  %d flag(s), %d undetermined" % (t["flags"], t["undetermined"]))
-        print("  calibration (B19-B21): %d STOP, %d warn\n"
-              % (t["calibration_stop"], t["calibration_warn"]))
+        print("  calibration (B19-B23): %d STOP, %d warn, %d info\n"
+              % (t["calibration_stop"], t["calibration_warn"], t["calibration_info"]))
         doc = load(args.slug)
         for sha, row in (doc.get("bindings") or {}).items():
             # ONLY WHAT IS STILL ON THE PAGE. A row whose sentence has been
@@ -1743,8 +1981,8 @@ def main() -> int:
             for f in (row.get("check_flags") or []):
                 mark = ""
                 if f.get("check") in CALIBRATION_CHECKS:
-                    mark = (" STOP" if CALIBRATION_SEVERITY.get(f["verdict"]) == BAD
-                            else " warn")
+                    mark = {BAD: " STOP", INFO: " info"}.get(
+                        CALIBRATION_SEVERITY.get(f["verdict"]), " warn")
                 print("  %-7s %-20s %s" % (f["check"] + mark, f["verdict"],
                                            row["sentence"][:78]))
                 print("          [%s] %s" % (sha[:8], f["why"][:130]))
