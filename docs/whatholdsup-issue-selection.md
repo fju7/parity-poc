@@ -97,8 +97,12 @@ product.
    Signal's corpus is a place to find a claim, not to settle one.
 4. **Decompose confidence.** Direction and magnitude separately. What is
    established, what is contested, what is unquantified, what would settle it.
-5. **Draft**, then the six-role gate, then read against every rule in the
-   editorial standard rather than recalling them.
+5. **Draft**, then the gate (by default the narrow gate: the source role only
+   on figures and quotations the free checks mark UNDETERMINED, at most one
+   call per such source, plus recency; the six-role run, including COVERAGE,
+   requires `--full`; see `docs/whatholdsup-claim-bindings-spec.md` §4b–4c),
+   then read against every rule in the editorial standard rather than
+   recalling them.
 
 ## The recurring question a reader should be able to answer afterwards
 

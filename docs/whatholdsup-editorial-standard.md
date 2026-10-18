@@ -347,7 +347,11 @@ the piece has something to be wrong about.
   with no sentence left to revalidate. This is checked FIRST. Running the roles
   over a draft whose sentences rest on nothing spends money to rediscover that
   they rest on nothing.
-- `factcheck_draft.py` exits 0 — six roles, including COVERAGE.
+- `factcheck_draft.py` exits 0. By default this is the narrow gate: the source
+  role runs only on figures and quotations the free checks mark UNDETERMINED
+  (at most one call per such source), plus recency. The six-role run,
+  including COVERAGE, now requires `--full`. Detail:
+  `docs/whatholdsup-claim-bindings-spec.md` §4b–4c.
 - `--survey` was run BEFORE drafting, not after.
 - The four questions are answerable from the piece.
 - Every rule above has been read against the draft, not recalled from memory.
