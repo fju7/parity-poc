@@ -1642,6 +1642,34 @@
         "note": "2026-10-18: not_opened -> full_text_held. Fetched by a free route (Europe PMC full-text XML, https://www.ebi.ac.uk/europepmc/webservices/rest/PMC11780016/fullTextXML) and identified by the library's own test (contains its identifier 10.1186/s13244-024-01893-4); substance: 44254 characters, reference list and discussion/introduction present."
       },
       "document_class": "document"
+    },
+    {
+      "id": "S048",
+      "type": "primary",
+      "title": "Budzyń K, Romańczyk M, Kitala D, et al. — Endoscopist de-skilling after exposure to artificial intelligence in colonoscopy: a multicenter observational study. SSRN preprint 5070304, December 2024 (not peer reviewed); the preprint of S021's paper, later published in Lancet Gastroenterol Hepatol 2025;10(10):896-903",
+      "url": "https://papers.ssrn.com/sol3/papers.cfm?abstract_id=5070304",
+      "also_called": [
+        "the preprint",
+        "the December 2024 preprint",
+        "Budzyń's preprint"
+      ],
+      "used_for": "Quoted by the page for Q-36 ('a negative impact on endoscopist performance'). The preprint version of S021 (Budzyń et al., published in Lancet Gastroenterol Hepatol 2025, held as the Warwick accepted manuscript); not the same document, and its wording may differ from the published paper's.",
+      "access": {
+        "state": "full_text_held",
+        "by": "Fred Ugast (download) and claude (identification)",
+        "on": "2026-10-18",
+        "not_read": [
+          "all -- not held"
+        ],
+        "held": {
+          "file": "docs/ad/ad9ba620f5093052691118d8432da3763bbcc4b3686206205c8218bec24923b0.pdf",
+          "sha256": "ad9ba620f5093052691118d8432da3763bbcc4b3686206205c8218bec24923b0",
+          "bytes": 259133,
+          "identified_by": "contains 12 of 12 distinctive title words; Budzyń et al. author list; every page footer 'This preprint research paper has not been peer reviewed. Electronic copy available at: https://ssrn.com/abstract=5070304'"
+        },
+        "note": "2026-10-18: not_opened -> full_text_held. Downloaded by Fred Ugast in his own browser from SSRN; identified from its own text (title, Budzyń et al., SSRN 5070304 on every page, references accessed to 12 December 2024, PDF created 23 December 2024) and ingested with source_store.py add. It is the SSRN PREPRINT, not peer reviewed, of the paper later published in Lancet Gastroenterol Hepatol 2025;10(10):896-903 (S021 holds that paper's accepted manuscript). SSRN's diagonal watermark is interleaved in the extracted text ('Pr', 'iew ed', 'er r' fragments), which can break a span that crosses it."
+      },
+      "document_class": "document"
     }
   ],
   "independence_note": "S004, S015 and S016 all descend from S005 and the retraction notice. They are not corroboration of each other. Six outlets reporting the same audit is one source. S017 and S018 came from a Reddit thread rather than from our own searching. Neither our scanner nor six rounds of targeted search found either, and one of them is the most rigorously designed study in the set. That is a finding about our coverage, not about Reddit.",

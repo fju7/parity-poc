@@ -512,6 +512,19 @@
       "kind_why": "37827 characters, reference list and discussion/introduction present",
       "superseded": [],
       "also_held": []
+    },
+    "S048": {
+      "sha256": "ad9ba620f5093052691118d8432da3763bbcc4b3686206205c8218bec24923b0",
+      "file": "docs/ad/ad9ba620f5093052691118d8432da3763bbcc4b3686206205c8218bec24923b0.pdf",
+      "bytes": 259133,
+      "url": "https://papers.ssrn.com/sol3/papers.cfm?abstract_id=5070304",
+      "held": "2026-10-18",
+      "via": "downloaded by Fred Ugast in his own browser from SSRN (abstract 5070304), 2026-10-18; identified and ingested by Claude Code (SSRN preprint, not peer reviewed, December 2024)",
+      "note": "",
+      "kind": "full_text",
+      "kind_why": "38585 characters, reference list and discussion/introduction present",
+      "superseded": [],
+      "also_held": []
     }
   }
 }

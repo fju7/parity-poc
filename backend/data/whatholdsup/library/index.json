@@ -1552,6 +1552,22 @@
         "deskilling:S046"
       ],
       "note": ""
+    },
+    "ad9ba620f5093052691118d8432da3763bbcc4b3686206205c8218bec24923b0": {
+      "file": "docs/ad/ad9ba620f5093052691118d8432da3763bbcc4b3686206205c8218bec24923b0.pdf",
+      "bytes": 259133,
+      "content_type": "application/pdf",
+      "first_held": "2026-10-18",
+      "urls": [
+        "https://papers.ssrn.com/sol3/papers.cfm?abstract_id=5070304"
+      ],
+      "titles": [
+        "Budzyń K, Romańczyk M, Kitala D, et al. — Endoscopist de-skilling after exposure to artificial intelligence in colonoscopy: a multicenter observational study. SSRN preprint 5070304, December 2024 (not peer reviewed); the preprint of S021's paper, later published in Lancet Gastroenterol Hepatol 2025;10(10):896-903"
+      ],
+      "used_by": [
+        "deskilling:S048"
+      ],
+      "note": ""
     }
   }
 }
