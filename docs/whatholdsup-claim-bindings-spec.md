@@ -467,6 +467,8 @@ select nothing.
   unheld, and the narrow gate selects none of them, because their sentences carry
   no binding naming a source. Binding them is the fix; `--full` is the stopgap.
 
+Deskilling records ahead of page from 52f2205: S033/S034/S045 quoted but not linked on the committed page; clears at republish.
+
 ## 5. Context
 
 The operator is right that a span quoted accurately but out of context is where a
