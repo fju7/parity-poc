@@ -1184,6 +1184,134 @@
         "cdk46:S015"
       ],
       "note": ""
+    },
+    "73ec3a417a17b82c151d3715551290e652b024ea2744ab980835c859097abd1e": {
+      "file": "docs/73/73ec3a417a17b82c151d3715551290e652b024ea2744ab980835c859097abd1e.html",
+      "bytes": 454986,
+      "content_type": "text/html",
+      "first_held": "2026-09-15",
+      "urls": [
+        "https://fortune.com/2025/08/26/ai-overreliance-doctor-procedure-study"
+      ],
+      "titles": [
+        "Sasha Rogelberg, Fortune, 26 August 2025 — on the colonoscopy deskilling study"
+      ],
+      "used_by": [
+        "deskilling:S023"
+      ],
+      "note": ""
+    },
+    "2402cde39b20be8bc2fef474427e7db389834ce041b9273e21c876cd6b740ccc": {
+      "file": "docs/24/2402cde39b20be8bc2fef474427e7db389834ce041b9273e21c876cd6b740ccc.xml",
+      "bytes": 48094,
+      "content_type": "application/xml",
+      "first_held": "2026-09-15",
+      "urls": [
+        "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC9500006/fullTextXML"
+      ],
+      "titles": [
+        "Troya J, Fitting D, Brand M, Sudarevic B, Kather JN, Meining A, Hann A — The influence of computer-aided polyp detection systems on reaction time for polyp detection and eye gaze. Endoscopy 2022; 54: 1009-1014. doi 10.1055/a-1770-7353. OPEN ACCESS, CC BY-NC-ND."
+      ],
+      "used_by": [
+        "deskilling:S031"
+      ],
+      "note": ""
+    },
+    "3af130dc2d4dc9bf7c8a61e65acb7dba5702cac1cce2cce6022311f05c96666c": {
+      "file": "docs/3a/3af130dc2d4dc9bf7c8a61e65acb7dba5702cac1cce2cce6022311f05c96666c.xml",
+      "bytes": 114756,
+      "content_type": "application/xml",
+      "first_held": "2026-09-15",
+      "urls": [
+        "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC13552228/fullTextXML"
+      ],
+      "titles": [
+        "Pedersen TA, Mori Y, Botteri E, Engjom T, Seip B, Dimcevski GG, Havre RF (2026) — Learning and deskilling effects of artificial intelligence in colonoscopy among endoscopists with different levels of experience: a pragmatic, prospective trial. Endoscopy 2026;58:1003–1014, published online 3 June 2026."
+      ],
+      "used_by": [
+        "deskilling:S043"
+      ],
+      "note": ""
+    },
+    "72e1d3c7e1e93cd9973efc2c5d53fbf7faa20342c5261f35953aa51d63581b73": {
+      "file": "docs/72/72e1d3c7e1e93cd9973efc2c5d53fbf7faa20342c5261f35953aa51d63581b73.pdf",
+      "bytes": 6197678,
+      "content_type": "application/pdf",
+      "first_held": "2026-09-15",
+      "urls": [
+        "https://arxiv.org/pdf/2604.04721"
+      ],
+      "titles": [
+        "Liu, Christian, Dumbalska, Bakker & Dubey — AI Assistance Reduces Persistence and Hurts Independent Performance"
+      ],
+      "used_by": [
+        "deskilling:S001"
+      ],
+      "note": ""
+    },
+    "9b84e8dff3e5a9eaca8d5cdcbdeef3dfb1ef32c2455eda2ed56d0079c9b45790": {
+      "file": "docs/9b/9b84e8dff3e5a9eaca8d5cdcbdeef3dfb1ef32c2455eda2ed56d0079c9b45790.pdf",
+      "bytes": 38177802,
+      "content_type": "application/pdf",
+      "first_held": "2026-09-15",
+      "urls": [
+        "https://arxiv.org/pdf/2506.08872"
+      ],
+      "titles": [
+        "Kosmyna, Hauptmann, Yuan, Situ, Liao, Beresnitzky, Braunstein & Maes — Your Brain on ChatGPT: Accumulation of Cognitive Debt, arXiv preprint"
+      ],
+      "used_by": [
+        "deskilling:S007"
+      ],
+      "note": ""
+    },
+    "4296ea811a437d2749051b11f4300da2d43716705ca10ea7b8ffda4ddf0cfbe9": {
+      "file": "docs/42/4296ea811a437d2749051b11f4300da2d43716705ca10ea7b8ffda4ddf0cfbe9.pdf",
+      "bytes": 1115789,
+      "content_type": "application/pdf",
+      "first_held": "2026-09-15",
+      "urls": [
+        "https://wrap.warwick.ac.uk/id/eprint/191005/3/WRAP-Endoscopist-de-skilling-risk-exposure-artificial-intelligence-colonoscopy-25.pdf"
+      ],
+      "titles": [
+        "Budzyń, Romańczyk, Kitala, Kołodziej, Bugajski, Adami, Blom, Buszkiewicz, Halvorsen, Hassan, Romańczyk, Holme, Jarus, Fielding, Kunar, Pellisé, Pilonis, Kamiński, Kalager, Bretthauer & Mori (2025) — Endoscopist deskilling risk after exposure to artificial intelligence in colonoscopy: a multicentre, observational study. The Lancet Gastroenterology & Hepatology 10(10), 896-903."
+      ],
+      "used_by": [
+        "deskilling:S021"
+      ],
+      "note": ""
+    },
+    "caec391d5633d94baadfb0ef78a25e1c092e9d535d224f897821b08110e55e5c": {
+      "file": "docs/ca/caec391d5633d94baadfb0ef78a25e1c092e9d535d224f897821b08110e55e5c.pdf",
+      "bytes": 566346,
+      "content_type": "application/pdf",
+      "first_held": "2026-09-15",
+      "urls": [
+        "https://www.esmorwd.org/article/S2949-8201(26)00012-3/fulltext"
+      ],
+      "titles": [
+        "Heudel, Crochet, Filori, Bachelot & Blay (2026) — Artificial intelligence in medicine: a scoping review of the risk of deskilling and loss of expertise among physicians. ESMO Real World Data and Digital Oncology 11(C), 100693. Centre Léon Bérard, Lyon. Open access, CC BY-NC-ND."
+      ],
+      "used_by": [
+        "deskilling:S029"
+      ],
+      "note": ""
+    },
+    "4a3a8265fbfd97350e82cf0ae8c8d1a354006af91f2bc0ddf05a6fb75df52448": {
+      "file": "docs/4a/4a3a8265fbfd97350e82cf0ae8c8d1a354006af91f2bc0ddf05a6fb75df52448.pdf",
+      "bytes": 104752,
+      "content_type": "application/pdf",
+      "first_held": "2026-09-15",
+      "urls": [
+        "https://osf.io/preprints/psyarxiv/wgu56_v2"
+      ],
+      "titles": [
+        "Ingebrigtsen & Lukic — Substantial Errors Invalidate the Conclusion from Wang and Fan (2025) About ChatGPT and Learning Outcomes. Submitted 26 June 2025; preprint v1 2 July 2025; v2 23 April 2026. A Matters Arising submitted to Humanities and Social Sciences Communications, CC BY 4.0."
+      ],
+      "used_by": [
+        "deskilling:S005"
+      ],
+      "note": ""
     }
   }
 }

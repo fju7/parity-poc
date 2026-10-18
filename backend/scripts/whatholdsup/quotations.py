@@ -47,6 +47,7 @@ import argparse
 import html
 import json
 import re
+import unicodedata
 import sys
 from pathlib import Path
 
@@ -82,8 +83,11 @@ _SMART = {u"‘": "'", u"’": "'", u"“": '"', u"”": '"',
 READ_STATES = ("full_text_held", "human_read")   # see source_ledger: machine_read is gone
 
 
-def norm(text: str) -> str:
+def norm(text: str, *, fold_accents: bool = True) -> str:
     """Comparison form. Punctuation is not identity.
+
+    fold_accents=False keeps combining marks, so a caller can tell whether a
+    match depended on dropping them (accent_folds) and say so.
 
     Same reasoning as counterexample._key: a curly apostrophe on the page and a
     straight one in the source are the same character to a reader, and two of
@@ -91,6 +95,23 @@ def norm(text: str) -> str:
     """
     for a, b in _SMART.items():
         text = text.replace(a, b)
+    # QUOTE-MARK KIND. _SMART folds curly to straight; it does not fold single
+    # against double. The page writes 'while' where S043 prints "while", and
+    # 'Age >60 years' where S045 prints "Age >60 years". House style on each
+    # side, manufactured by typesetting, not a difference a reader could act
+    # on. Q-01 and Q-12 were unmatchable for exactly this -- and the note above
+    # about "two of nine claims once unmatchable" was about CURLINESS, which
+    # has been folded all along. Different character difference, same failure.
+    text = text.replace('"', "'")
+    # COMBINING DIACRITICS. pdftotext returns S043's author name as "Budzyn";
+    # the page prints "Budzyn" with an acute. Decompose and drop the marks so
+    # the two are the same name. Q-05. NOT a general unicode fold: marks only.
+    # A match that needs this fold is reported, never silent (accent_folds).
+    if fold_accents:
+        text = "".join(c for c in unicodedata.normalize("NFD", text)
+                       if unicodedata.category(c) != "Mn")
+    else:
+        text = unicodedata.normalize("NFC", text)
     text = " ".join(text.lower().split())
     # A SPACE BEFORE A FULL STOP IS TYPESETTING, NOT IDENTITY.
     #
@@ -104,6 +125,23 @@ def norm(text: str) -> str:
     # where there is none, which is the failure this repository has recorded
     # more than any other.
     return re.sub(r"\s+([.,;:!?])", r"\1", text)
+
+
+ACCENT_NOTE = "matched ignoring accents"
+
+
+def accent_folds(text: str) -> list[str]:
+    """'Budzyń / Budzyn' for every word in `text` that the accent fold changes."""
+    out = []
+    for w in text.split():
+        bare = "".join(c for c in unicodedata.normalize("NFD", w)
+                       if unicodedata.category(c) != "Mn")
+        if bare != unicodedata.normalize("NFC", w):
+            pair = "%s / %s" % (w.strip(".,;:!?()'\"‘’“”"),
+                                bare.strip(".,;:!?()'\"‘’“”"))
+            if pair not in out:
+                out.append(pair)
+    return out
 
 
 def case_dir(slug: str) -> Path:
@@ -427,6 +465,7 @@ def preflight_rows(slug: str, page_text: str,
 
     # A record whose page quote is not what the source says.
     altered, interrupted, transcription, unattested, rhetorical = [], [], [], [], 0
+    accented = []
     srcs = _sources(slug)
     found_already = []
     for q in on_page:
@@ -474,7 +513,8 @@ def preflight_rows(slug: str, page_text: str,
             # XML which has the sentence whole. A quotation matches cleanly if
             # ANY rendition carries it; "interrupted" is claimed only when no
             # rendition matches whole and one matches across an insertion.
-            bodies = [(f, norm(_SC._norm(t))) for f, t in _SC._texts(slug, sid_now)]
+            raw = _SC._texts(slug, sid_now)
+            bodies = [(f, norm(_SC._norm(t))) for f, t in raw]
             if not bodies:
                 bodies = [("", "")]
             # THE PAGE'S QUOTATION against the bytes. This is the claim a
@@ -498,6 +538,16 @@ def preflight_rows(slug: str, page_text: str,
                         "or the source is not what it was"
                         % (r.get("id") or "?", sid_now, len(bodies)))
                     continue
+            # ACCENTS. norm() drops combining marks, because pdftotext returns
+            # S043's "Budzyń" as "Budzyn" (Q-05). A match that holds only with
+            # the marks dropped is a match, and the record says so.
+            if any(qn in b for _f, b in bodies):
+                strict = norm(q, fold_accents=False)
+                if not any(strict in norm(_SC._norm(t), fold_accents=False)
+                           for _f, t in raw):
+                    accented.append("%s: %s" % (
+                        r.get("id") or "?", ", ".join(accent_folds(q))
+                        or "the source's text carries accents the page does not"))
             # THE RECORDED CONTEXT against the bytes. `verbatim` is the
             # source's wording around the quote, typed by a person or a model.
             # If it is in no rendition either whole or across one
@@ -529,6 +579,12 @@ def preflight_rows(slug: str, page_text: str,
                  if not altered else
                  "%d quotation(s) differ from the source: %s"
                  % (len(altered), " || ".join(altered[:2]))))
+    if accented:
+        # INFO, AND SO OK: the letters are the source's; the extractor or the
+        # typesetter dropped a mark. Never silent.
+        rows.append(("quotations matched ignoring accents", OK,
+                     "INFO: %d quotation(s) %s: %s"
+                     % (len(accented), ACCENT_NOTE, " || ".join(accented))))
     if transcription:
         rows.append(("recorded verbatim context matches the bytes", WARN,
                      "%d quotation record(s) whose verbatim field is not in the source "
