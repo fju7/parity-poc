@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
-"""How a figure is written: thousands separators and one-place rounding.
+"""How a figure is written: thousands separators, one-place rounding, and a
+comma-and-space grouping that only extracted text produces.
 
 One module, so that rule 1 (bindings.rule_rows), B12 (spancheck.b12_precision)
 and B13 (b13.py) read a figure with the same rules and cannot drift. Pure
@@ -51,6 +52,34 @@ def figure_pattern(figure: str) -> str:
     if dot:
         body += re.escape(dot + frac)
     return (r"(?<![\d.])(?<!\d%s)%s(?!\d)(?!%s\d{3}(?!\d))" % (_SEP, body, _SEP))
+
+
+# --- a comma and one space between groups, in extracted text only -------------
+#
+# S001's PDF prints 1,222 and pdftotext returns "1, 222": a comma, one space,
+# three digits. _GROUPED will not read that as one number, rightly, because on
+# a page "1, 222 and 3" is a list. So this is never applied to a page sentence
+# and never rewrites a text: it asks of held text only whether THIS figure is
+# printed there with ", " between its groups, and the caller records that it
+# read it so (an INFO note, never silent). A figure it does not equal -- 222
+# against "1, 222" -- gets nothing from it. 2026-10-18.
+def split_grouped(figure: str, text: str) -> str | None:
+    """The run in `text` that prints `figure` with a comma and exactly one
+    space between its thousands groups ("1, 222" for 1,222), or None. Bounded
+    like figure_pattern, and refused where the run continues a list ("5, 1,
+    222"), runs on into another group ("1, 222, 333" is not 1,222) or opens a
+    bracket."""
+    whole, dot, frac = figure.replace(",", "").partition(".")
+    if not whole.isdigit() or len(whole) <= 3 or (dot and not frac.isdigit()):
+        return None
+    lead = len(whole) % 3 or 3
+    groups = [whole[:lead]] + [whole[i:i + 3] for i in range(lead, len(whole), 3)]
+    body = ", ".join(re.escape(g) for g in groups)
+    if dot:
+        body += re.escape("." + frac)
+    # Not straight after "(": "F (3, 581)" is a pair of degrees of freedom.
+    m = re.search(r"(?<![\d.,(])(?<!\d, )%s(?![\d])(?!\.\d)(?!, \d)" % body, text)
+    return m.group(0) if m else None
 
 
 def rounds_to(value: str, printed: str, *, min_places: int = 1) -> bool:

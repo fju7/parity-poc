@@ -71,6 +71,7 @@ DEFECTIVE = set()
 class _Stub:
     """spancheck over a fixture library: HELD maps a source id to its text."""
     UNDETERMINED = "undetermined"
+    DROPPED_HYPHEN_NOTE = SC.DROPPED_HYPHEN_NOTE
     _norm = staticmethod(SC._norm)
 
     @staticmethod

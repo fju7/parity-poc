@@ -466,6 +466,7 @@ def preflight_rows(slug: str, page_text: str,
     # A record whose page quote is not what the source says.
     altered, interrupted, transcription, unattested, rhetorical = [], [], [], [], 0
     accented = []
+    dehyphenated = []
     srcs = _sources(slug)
     found_already = []
     for q in on_page:
@@ -522,7 +523,15 @@ def preflight_rows(slug: str, page_text: str,
             # the source's -- so it is tested directly, not through the
             # typed `verbatim` field.
             qn = norm(q)
-            if not any(qn in b for _f, b in bodies):
+            # A HYPHEN THE PDF TEXT DROPPED is not a different wording: S029's
+            # "high-quality" extracts as "highquality". PDF layers only, and
+            # said so (spancheck.find_dropping_hyphens).
+            dh = [f for f, b in bodies if not any(qn in bb for _ff, bb in bodies)
+                  and _SC.is_pdf_layer(f) and _SC.find_dropping_hyphens(qn, b)]
+            if dh:
+                dehyphenated.append("%s: in %s (%s)" % (r.get("id") or "?", sid_now,
+                                                        dh[0][-16:]))
+            if not dh and not any(qn in b for _f, b in bodies):
                 gaps = [(f, interrupted_by(qn, b)) for f, b in bodies]
                 gaps = [(f, g) for f, g in gaps if g is not None]
                 if gaps:
@@ -555,7 +564,9 @@ def preflight_rows(slug: str, page_text: str,
             # Q-21's omitted "(https://www.medcalc.org/)" -- which is a defect
             # in the record, not in the page, and is reported as that.
             vn = norm(r.get("verbatim", ""))
-            if not any(vn in b or interrupted_by(vn, b) is not None for _f, b in bodies):
+            if not any(vn in b or interrupted_by(vn, b) is not None
+                       or (_SC.is_pdf_layer(_f) and _SC.find_dropping_hyphens(vn, b))
+                       for _f, b in bodies):
                 transcription.append(
                     "%s: the page's quotation is in %s but the recorded verbatim "
                     "context is not, whole or across one interruption — something "
@@ -585,6 +596,13 @@ def preflight_rows(slug: str, page_text: str,
         rows.append(("quotations matched ignoring accents", OK,
                      "INFO: %d quotation(s) %s: %s"
                      % (len(accented), ACCENT_NOTE, " || ".join(accented))))
+    if dehyphenated:
+        # INFO, AND SO OK: the words are the source's; the extractor joined a
+        # word its PDF broke across a line. Never silent.
+        rows.append(("quotations matched ignoring a dropped hyphen", OK,
+                     "INFO: %d quotation(s) %s: %s"
+                     % (len(dehyphenated), _SC.DROPPED_HYPHEN_NOTE,
+                        " || ".join(dehyphenated))))
     if transcription:
         rows.append(("recorded verbatim context matches the bytes", WARN,
                      "%d quotation record(s) whose verbatim field is not in the source "

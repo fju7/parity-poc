@@ -9,6 +9,84 @@
       "by": "claude",
       "on": "2026-09-15",
       "falsifier": "The sentence changing so that 00289 is a quantity the page asserts rather than part of the DOI it currently prints. At that point the exclusion stops matching and the check comes back, which is the behaviour this file's rule requires."
+    },
+    {
+      "figure": "100693",
+      "in_sentence": "ESMO Real World Data and Digital Oncology 2026;12:100693",
+      "why": "Declared at the operator's instruction of 2026-10-18 (deskilling revision, step 2c). Citation furniture, not a quantity: 100693 is the article number of S029 in ESMO Real World Data and Digital Oncology (2026;12:100693; its DOI is 10.1016/j.esmorw.2026.100693), printed in the page's source list. No document would contain it as a measurement.",
+      "by": "claude",
+      "on": "2026-10-18",
+      "falsifier": "The sentence changing so that 100693 is a quantity the page asserts rather than part of S029's citation; the exclusion then stops matching and the check comes back."
+    },
+    {
+      "figure": "105224",
+      "in_sentence": "Computers & Education 2025;227:105224",
+      "why": "Declared at the operator's instruction of 2026-10-18 (deskilling revision, step 2c). Citation furniture, not a quantity: 105224 is the article number of Deng et al., Computers & Education 2025;227:105224, the meta-analysis the sentence names. No document would contain it as a measurement.",
+      "by": "claude",
+      "on": "2026-10-18",
+      "falsifier": "The sentence changing so that 105224 is a quantity the page asserts rather than part of Deng et al.'s citation."
+    },
+    {
+      "figure": "2411.00998",
+      "in_sentence": "(arXiv:2411.00998)",
+      "why": "Declared at the operator's instruction of 2026-10-18 (deskilling revision, step 2c). Citation furniture, not a quantity: 2411.00998 is an arXiv identifier (Rosbach et al., the conference version cited for S038), not a decimal figure. The figure reader takes the digits of an arXiv id as a number.",
+      "by": "claude",
+      "on": "2026-10-18",
+      "falsifier": "The sentence no longer printing 2411.00998 as an arXiv identifier."
+    },
+    {
+      "figure": "2603.11821",
+      "in_sentence": "(arXiv:2603.11821)",
+      "why": "Declared at the operator's instruction of 2026-10-18 (deskilling revision, step 2c). Citation furniture, not a quantity: 2603.11821 is the arXiv identifier of the extended, peer-reviewed Rosbach et al. paper (S038), not a decimal figure.",
+      "by": "claude",
+      "on": "2026-10-18",
+      "falsifier": "The sentence no longer printing 2603.11821 as an arXiv identifier."
+    },
+    {
+      "figure": "1060",
+      "in_sentence": "1,222 people randomised, 1,060 analysed",
+      "why": "Declared at the operator's instruction of 2026-10-18 (deskilling revision, step 2c). The page's own arithmetic, not a figure S001 prints: 1,060 is the sum of the three experiments' final analysed samples, 307 + 585 + 168 = 1,060. Each input is in S001's held text ('leaving a final sample of 307 participants', '... of 585 participants', '... of 168 participants'), and the sum is recorded in sources.json under S001 verified_against_v4.analysed.",
+      "inputs": [
+        "307 (S001: 'leaving a final sample of 307 participants')",
+        "585 (S001: 'leaving a final sample of 585 participants')",
+        "168 (S001: 'leaving a final sample of 168 participants')"
+      ],
+      "by": "claude",
+      "on": "2026-10-18",
+      "falsifier": "Any of the three final samples in S001 differing from 307, 585 or 168, or the sentence no longer presenting 1,060 as the total analysed across the three experiments."
+    },
+    {
+      "figure": "1060",
+      "in_sentence": "1,222 randomised and 1,060 analysed",
+      "why": "Declared at the operator's instruction of 2026-10-18 (deskilling revision, step 2c). The page's own arithmetic, not a figure S001 prints: 1,060 is the sum of the three experiments' final analysed samples, 307 + 585 + 168 = 1,060. Each input is in S001's held text ('leaving a final sample of 307 participants', '... of 585 participants', '... of 168 participants'), and the sum is recorded in sources.json under S001 verified_against_v4.analysed.",
+      "inputs": [
+        "307 (S001: 'leaving a final sample of 307 participants')",
+        "585 (S001: 'leaving a final sample of 585 participants')",
+        "168 (S001: 'leaving a final sample of 168 participants')"
+      ],
+      "by": "claude",
+      "on": "2026-10-18",
+      "falsifier": "Any of the three final samples in S001 differing from 307, 585 or 168, or the sentence no longer presenting 1,060 as the total analysed across the three experiments."
+    },
+    {
+      "figure": "6.5",
+      "in_sentence": "That is a reduction of about 6.5% across all participants.",
+      "why": "Declared at the operator's instruction of 2026-10-18 (deskilling revision, step 2c). The page's own arithmetic, not a figure S031 prints: S031's table gives median eye travel distance for all videos, all participants, as 248.86 cm without CADe and 232.68 cm with it; (248.86 - 232.68) / 248.86 = 6.50%, which the page gives as 'about 6.5%'. Both inputs are in S031's held text.",
+      "inputs": [
+        "248.86 (S031: eye travel distance, median, all videos, all participants, without CADe)",
+        "232.68 (S031: the same, with CADe)"
+      ],
+      "by": "claude",
+      "on": "2026-10-18",
+      "falsifier": "S031's two medians differing from 248.86 and 232.68, or the sentence no longer describing the reduction between them."
+    },
+    {
+      "figure": "402",
+      "in_sentence": "counter read 402 at one point on 30 August 2026",
+      "why": "Declared at the operator's instruction of 2026-10-18 (deskilling revision, step 2c). Our own observation, not a figure any document reports: 402 is what the journal's live citation counter for the retracted meta-analysis read when we looked on 30 August 2026, as the sentence itself says (and 399 an hour later). Same standing as cdk46's declared HTTP 403: a measurement of something we looked at, not a claim taken from a source.",
+      "by": "claude",
+      "on": "2026-10-18",
+      "falsifier": "The sentence presenting 402 as a figure some document reports, rather than as our reading of a live counter on 30 August 2026."
     }
   ]
 }

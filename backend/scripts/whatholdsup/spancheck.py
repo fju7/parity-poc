@@ -131,7 +131,44 @@ def _norm(s: str) -> str:
 #
 # In figure_text.py, so that rule 1 (bindings.py), B12 (below) and b13 read
 # figures with one set of rules. Re-exported here for callers that hold SC.
-from figure_text import GROUP_SEP, comma_grouped, figure_pattern, rounds_to  # noqa: E402,F401
+from figure_text import GROUP_SEP, comma_grouped, figure_pattern, rounds_to, split_grouped  # noqa: E402,F401
+
+
+# --- a hyphen the PDF text dropped -------------------------------------------
+#
+# S029's PDF prints "high-quality" broken across a line, and pdftotext returns
+# "highquality": the hyphen is gone and the two halves are joined. The page's
+# "high-quality" is then in no held text, and Q-29 -- the review's own words --
+# was reported as not the source's. Same family as the middle dot and the
+# ligatures above: the extractor's loss described as a fact about the paper.
+#
+# Narrow on purpose. Only a hyphen BETWEEN TWO LETTERS on the page side, only
+# where the held text has nothing at that point (not a space, not another
+# character), and only against a PDF-derived text layer -- HTML and XML keep
+# their hyphens, so a missing one there is a real difference. Every caller
+# that accepts a match this way says so in an INFO note. 2026-10-18.
+DROPPED_HYPHEN_NOTE = "matched ignoring a hyphen the PDF text dropped"
+_LETTER_HYPHEN = re.compile(r"(?<=[^\W\d_])-(?=[^\W\d_])")
+
+
+def is_pdf_layer(file) -> bool:
+    """Is this rendition's text extracted from a PDF? By the held file's type."""
+    return str(file or "").lower().endswith(".pdf")
+
+
+def find_dropping_hyphens(needle: str, body: str) -> tuple[int, int] | None:
+    """(start, end) of `needle` in `body` where at least one of needle's
+    letter-hyphen-letter hyphens is absent from body, or None. Both sides are
+    compared as given; callers normalise and lowercase first. A plain match is
+    not this function's business and returns None."""
+    parts = _LETTER_HYPHEN.split(needle)
+    if len(parts) < 2:
+        return None
+    pat = "-?".join(re.escape(x) for x in parts)
+    for m in re.finditer(pat, body):
+        if m.group(0) != needle:
+            return m.start(), m.end()
+    return None
 
 
 # --- B2 ---------------------------------------------------------------------
@@ -170,6 +207,12 @@ def b2_present(span: str, slug: str, sid: str,
     for f, other in _texts(slug, sid)[1:]:
         if _norm(span).lower() in _norm(other).lower():
             return True, "searched the held bytes of %s (rendition %s)" % (sid, f[:12])
+    # A PDF's extractor can drop a line-break hyphen (see find_dropping_hyphens).
+    for f, other in _texts(slug, sid):
+        if is_pdf_layer(f) and find_dropping_hyphens(_norm(span).lower(),
+                                                     _norm(other).lower()):
+            return True, ("searched the held bytes of %s — INFO: %s (rendition %s)"
+                          % (sid, DROPPED_HYPHEN_NOTE, f[:12]))
     # A span that is FOUND in a defective layer is really there (a broken
     # layer loses characters; it does not invent them). A span NOT found may
     # be the layer's loss, so absence cannot be evaluated.
@@ -229,16 +272,27 @@ def b5_complete(span: str, slug: str, sid: str) -> tuple[bool, str]:
         return False, "%s is not in the library" % sid
     d, s = _norm(doc), _norm(span)
     i = d.lower().find(s.lower())
+    end = i + len(s)
     if i < 0:
         # the rendition that carries it, if another does (see b2_present)
         for _f, other in _texts(slug, sid)[1:]:
             d = _norm(other)
             i = d.lower().find(s.lower())
             if i >= 0:
+                end = i + len(s)
+                break
+    if i < 0:
+        # or carries it without a hyphen its PDF text dropped, as b2_present
+        # accepts; the tail is read from where the held text's run ends
+        for f, other in _texts(slug, sid):
+            d = _norm(other)
+            hit = is_pdf_layer(f) and find_dropping_hyphens(s.lower(), d.lower())
+            if hit:
+                i, end = hit
                 break
     if i < 0:
         return False, "the span is not in %s at all (B2)" % sid
-    tail = d[i + len(s):]
+    tail = d[end:]
     m = CONTINUES.match(tail)
     if m:
         return False, ("the span stops immediately before %r — the document "
@@ -410,6 +464,14 @@ def b12_precision(figure: str, slug: str, sid: str) -> tuple[bool, str]:
     # space: the same figure as printed (see comma_grouped).
     if re.fullmatch(r"[\d,]+(?:\.\d+)?", f) and re.search(figure_pattern(f), d):
         return True, "the source carries this figure as printed"
+    # "1, 222" in extracted text is 1,222 when it is exactly this figure
+    # (figure_text.split_grouped); said so, never silently.
+    if re.fullmatch(r"[\d,]+(?:\.\d+)?", f):
+        grouped = split_grouped(f, d)
+        if grouped:
+            return True, ("the source carries this figure as printed — INFO: as %r, "
+                          "a comma and one space between thousands groups, read as "
+                          "one figure" % grouped)
     if "." not in f:
         return True, "not a decimal figure"
     whole, frac = f.split(".", 1)

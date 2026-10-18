@@ -154,18 +154,32 @@ def _forms(fig: str) -> list[str]:
 
 def where(fig: str, slug: str) -> list[str]:
     """Every held source whose bytes carry this figure, however it prints it."""
+    return where_noted(fig, slug)[0]
+
+
+def where_noted(fig: str, slug: str) -> tuple[list[str], list[str]]:
+    """(the sources where() returns, an INFO note for each one that carries the
+    figure only with a comma and one space between its groups -- "1, 222" for
+    1,222, as pdftotext returns S001 -- which is read as the figure and said
+    so; figure_text.split_grouped)."""
     # _forms gives the bare and comma forms; figure_pattern adds the space,
     # no-break-space and thin-space forms. On 2026-10-17 six figures in the
     # test issues were "in no document we hold" while each was in its source
     # as "14 170".
     pat = re.compile("|".join([r"(?<![0-9.])%s(?![0-9])" % re.escape(f)
                                for f in _forms(fig)] + [FT.figure_pattern(fig)]))
-    hits = []
+    hits, notes = [], []
     for sid in sorted(store.held(slug)):
-        text = SC._text(slug, sid) or ""
-        if pat.search(SC._norm(text)):
+        text = SC._norm(SC._text(slug, sid) or "")
+        if pat.search(text):
             hits.append(sid)
-    return hits
+            continue
+        split = FT.split_grouped(fig, text)
+        if split:
+            hits.append(sid)
+            notes.append("%s is printed %r in %s's extracted text, read as one "
+                         "figure" % (fig, split, sid))
+    return hits, notes
 
 
 def unheld(slug: str) -> list[str]:
@@ -218,11 +232,12 @@ def _excluded(fig: str, sent: str, rules: list[dict]) -> dict | None:
 def run(slug: str) -> dict:
     rules = load_exclusions(slug)
     used: set[int] = set()
-    missing, present, excluded = [], 0, []
+    missing, present, excluded, split = [], 0, [], []
     for fig, sent in figures_on_page(slug):
-        hits = where(fig, slug)
+        hits, notes = where_noted(fig, slug)
         if hits:
             present += 1
+            split.extend(n for n in notes if n not in split)
             continue
         r = _excluded(fig, sent, rules)
         if r is not None:
@@ -266,6 +281,7 @@ def run(slug: str) -> dict:
              and SC._norm(r.get("in_sentence") or "") not in whole]
     return {"checked": present + len(missing) + len(excluded), "present": present,
             "missing": missing, "excluded": excluded, "stale": stale,
+            "split_grouping": split,
             "unheld": unheld(slug), "sources": len(store.sources(slug))}
 
 
@@ -345,6 +361,17 @@ OK, BAD, WARN = "ok", "BLOCKED", "warn"
 
 def preflight_rows(slug: str) -> list[tuple[str, str, str]]:
     r = run(slug)
+    # INFO, AND SO OK: a figure found by reading a comma and one space as a
+    # thousands separator in extracted text is found, and the record says how.
+    info = ([("figures read across a comma-and-space grouping", OK,
+              "INFO: %d figure(s) are in held text only with a comma and one space "
+              "between their thousands groups, and pass as that figure: %s"
+              % (len(r["split_grouping"]), " || ".join(r["split_grouping"])))]
+            if r.get("split_grouping") else [])
+    return _main_row(r, slug) + info
+
+
+def _main_row(r: dict, slug: str) -> list[tuple[str, str, str]]:
     if not r["checked"]:
         return [("figures in held documents", WARN,
                  "no figures found on the page to check")]

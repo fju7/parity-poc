@@ -63,6 +63,7 @@ HELD = {"S002": "Sixty percent of patients were still alive at five years."}
 
 class _Stub:
     UNDETERMINED = "undetermined"
+    DROPPED_HYPHEN_NOTE = "matched ignoring a hyphen the PDF text dropped"
 
     @staticmethod
     def _norm(text):

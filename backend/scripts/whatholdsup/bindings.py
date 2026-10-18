@@ -1192,12 +1192,18 @@ def run_checks(slug: str, *, only: str = "") -> dict:
                                "scope word in the sentence; a disposition that "
                                "outlives its word is a filter" % w})
             import autobind as AB
+            grouped = []
             for a in AB.anchors_of(sent):
                 # Ask every source the row names. A figure printed as we print
                 # it by ANY of them is not a precision we added; a source that
                 # is not in the library answers nothing and clears nothing.
                 verdicts = [SC.b12_precision(a, slug, x) for x in cover_sids]
-                if any(ok and "as printed" in why for ok, why in verdicts):
+                printed = [why for ok, why in verdicts if ok and "as printed" in why]
+                if printed:
+                    # INFO, on the row and never a flag: found only by reading
+                    # "1, 222" as 1,222 (figure_text.split_grouped).
+                    if all("INFO:" in why for why in printed):
+                        grouped.append("%s: %s" % (a, printed[0].split("INFO: ", 1)[1]))
                     continue
                 bad = [why for ok, why in verdicts if not ok]
                 if bad:
@@ -1205,6 +1211,10 @@ def run_checks(slug: str, *, only: str = "") -> dict:
                              " (asked %s)" % ", ".join(cover_sids))
                     found.append({"check": "B12", "verdict": "added precision",
                                   "why": bad[0] + where})
+            if grouped:
+                row["figures_read_across_grouping"] = grouped
+            else:
+                row.pop("figures_read_across_grouping", None)
         found += calib
         row["check_flags"] = found
         row["checked_on"] = date.today().isoformat()
@@ -1609,6 +1619,7 @@ def rule_rows(slug: str) -> list[tuple[str, str, str]]:
     # history. So: every figure the sentence carries must appear in a span the
     # sentence is actually bound to.
     loose, loose_keys, unevaluable, rounded = [], set(), [], []
+    split, dehyphenated = [], []
     for k, v in on_page.items():
         if k in set(attested):
             continue          # nothing here may read the document it rests on
@@ -1626,6 +1637,8 @@ def rule_rows(slug: str) -> list[tuple[str, str, str]]:
                 unevaluable.append("%s: %s" % (k[:8], why[:120]))
                 covered += " " + SC._norm(span)
                 continue
+            if present is True and SC.DROPPED_HYPHEN_NOTE in why:
+                dehyphenated.append("%s: in %s (%s)" % (k[:8], sid, v["sentence"][:40]))
             if present is not True:
                 loose.append("%s: a span it names is not in %s" % (k[:8], sid))
                 loose_keys.add(k)
@@ -1668,6 +1681,13 @@ def rule_rows(slug: str) -> list[tuple[str, str, str]]:
                 rounded.append("%s: %s is %s rounded (%s)"
                                % (k[:8], f, src[0], v["sentence"][:40]))
                 continue
+            # "1, 222" in a span copied from extracted text is 1,222, read so
+            # only where it is exactly this figure (figure_text.split_grouped).
+            grouped = FT.split_grouped(f, covered)
+            if grouped:
+                split.append("%s: %s is printed %r in its span (%s)"
+                             % (k[:8], f, grouped, v["sentence"][:40]))
+                continue
             missing.append(f)
         if missing:
             loose.append("%s: %s in no span it is bound to (%s)"
@@ -1684,6 +1704,16 @@ def rule_rows(slug: str) -> list[tuple[str, str, str]]:
                           "INFO: %d figure(s) are a span figure correctly rounded one "
                           "decimal place shorter, and pass as that figure: %s"
                           % (len(rounded), " || ".join(rounded))))
+    if split:
+        out_extra.append(("rule 1 — figures read across a comma-and-space grouping", OK,
+                          "INFO: %d figure(s) are in their span only with a comma and "
+                          "one space between thousands groups, and pass as that "
+                          "figure: %s" % (len(split), " || ".join(split))))
+    if dehyphenated:
+        out_extra.append(("rule 1 — spans matched ignoring a dropped hyphen", OK,
+                          "INFO: %d span(s) %s: %s"
+                          % (len(dehyphenated), SC.DROPPED_HYPHEN_NOTE,
+                             " || ".join(dehyphenated))))
     if unevaluable:
         out_extra.append(("spans this check cannot evaluate", WARN,
                           "%d span(s) name a source whose only held rendition has a "
