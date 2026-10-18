@@ -8,11 +8,11 @@ unless marked otherwise. Rows are binding-row shas in `bindings.json`.
 
 ## Errors found in the published page
 
-22 errors in about 71 sentences read closely — 12 overstate a finding, 4 misattribute or misdescribe, 2 misquote, 1 misstates how a source was read, 3 understate a source's standing (published work called "accepted" or "a preprint"); 0 understate a finding.
+24 errors in about 73 sentences read closely — 14 overstate a finding, 4 misattribute or misdescribe, 2 misquote, 1 misstates how a source was read, 3 understate a source's standing (published work called "accepted" or "a preprint"); 0 understate a finding.
 
 | | count | rows |
 |---|---|---|
-| overstates a finding | 12 | 32db25e0, 509b18f6, b8844660, bd8b242c, ad3f7c73; batch 3: ed48b451, 41c3df15, 1c761af8, 94b39b65, 8762158c, f8238a88, 94cd79d4 |
+| overstates a finding | 14 | 32db25e0, 509b18f6, b8844660, bd8b242c, ad3f7c73; batch 3: ed48b451, 41c3df15, 1c761af8, 94b39b65, 8762158c, f8238a88, 94cd79d4, a4267014, 09ba5473 |
 | misattributes or misdescribes | 4 | 26e94905, 8598e9ca, 34b99db8; batch 3: 73aed151 |
 | misquotes | 2 | Q-25; batch 3: e0713036 |
 | misstates how a source was read | 1 | the Wang paragraph (c8d0e2c5, 5bd6e3b7, b8844660 rest on it) — now true once those rows bind to S046 |
@@ -20,8 +20,6 @@ unless marked otherwise. Rows are binding-row shas in `bindings.json`.
 | understates a finding | 0 | |
 
 Of the 10 batch-3 errors, the automatic checks caught 1 on the uncorrected text; close reading against the source found the rest.
-
-Not in the count above (operator's call): a4267014 and 09ba5473, §27 and §28 — "without warning" is S001's description of Experiment 1 only, found by the batch-3 write's conditional check.
 
 Not counted as errors: Q-17 (a title marked as a quotation; formatting) and 43.8 (in S031's
 Table 2 as 43.79, correctly rounded; no change).
