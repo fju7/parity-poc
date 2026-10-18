@@ -31,7 +31,7 @@ given in turn.
 So this layer reports what it can observe and hands the resolution to a person. A
 block is a question. A verdict about truth is not this layer's to give.
 
-**R2. Every empirical sentence answers all three questions in section 3. A bucket
+**R2. Every sentence answers all three questions in section 3. A bucket
 selects WHO SIGNS each answer; it never excuses a sentence from being asked.**
 
 ---
@@ -142,7 +142,7 @@ never which verdicts are required.
 
 Two rules make the classification load-bearing rather than decorative.
 
-**An unclassified empirical sentence is a defect** and blocks publication, exactly
+**An unclassified sentence is a defect** and blocks publication, exactly
 as an unbound one does. The bucket is declared when the sentence is written, by
 whoever writes it, and it is a claim about the sentence that can itself be wrong —
 which is why the machine still runs B1–B11 over every row regardless of bucket.
@@ -159,8 +159,25 @@ leaving.
 Each check below is stated with the error from this issue it would have caught.
 None of them costs money and none of them calls a model.
 
-**B1 Unbound empirical sentence.** A sentence carrying a figure, trial name,
-registry id or quotation with no binding row. → the *Cancers* 2023 study.
+**B1 Unbound sentence.** A page sentence with no binding row, or with a row that
+is bound to nothing. → the *Cancers* 2023 study.
+
+*Every sentence gets a row (2026-10-18).* B1 used to apply only to an "empirical"
+sentence — one carrying a figure, trial name, registry id or quotation — and that
+filter contradicted the writing rule the editor adopted on 2026-09-02, which the
+editorial standard states as: "A sentence leaves that column by being bound to the
+words it rests on, by being declared an inference and shown, or by coming off the
+page", and preflight prints as "every sentence in the article is either bound to the
+words it rests on, declared as an inference and shown, or off the page". Read by
+hand, the 282 sentences the filter left without a row on the deskilling page held 53
+errors, and no word list recovered them (the best reached 81% of a hand sort). So
+`bindings.scan` now gives every page sentence a row except the ones the MARKUP says
+are not prose: headings (h1–h4, and a bold lead of six words or fewer at the start of
+a paragraph) and a source-list role label standing alone. The old triggers still name
+a row's reason when they fire. Two word lists tag rows — `trigger: source_claim` (the
+sentence describes a document in words) and `trigger: process_claim` (it says what we
+read, opened, hold, checked or found) — and the process tag routes the row to B21's
+store check (§4, B21). Tags route; they never decide whether a sentence gets a row.
 
 **B2 Span present in cited document.** `span in document_bytes`. → HR 0.956
 (0.777–1.177) attributed to *J Clin Oncol* 2024; the strings occur nowhere in the
@@ -296,6 +313,20 @@ full_text_held included. "Have not opened", "did not obtain" and "could not obta
 pass on not_opened, blocked or fragment_only and fail on full_text_held or
 human_read. On abstract_held they WARN, "we hold its abstract — say so": true of
 the paper, silent about what we hold. epistemic counts that WARN as evaluated.
+
+**Process claims (2026-10-18).** A row the scan tags `trigger: process_claim` is a
+holdings sentence too (`bindings.is_holdings(sentence, trigger)`; one detector, not
+two). Its subject is the source-list entry it sits in (`store_subject_markup`, read
+from the entry's link) if it sits in one, else whatever its text names. With
+neither, it is NOT EVALUATED (WARN), never "not in sources" — "We check the sources
+on this page" is about no one document. The comparisons the store can make
+mechanically: "read in full / read at source / read directly / read in the … / we
+read / we opened" need full_text_held or human_read; "could not open / could not
+read / has not been able to read or open" need a not-held state; and "read at the
+publisher" is a claim about the ROUTE, checked against the library: it passes when a
+held rendition comes from a host that is not a repository or the ledger's sections
+name the publisher's page, and fails when every held rendition is a repository copy
+(PubMed Central, Europe PMC, arXiv, SSRN, OSF, an institutional repository).
 
 **A document mentioned and not held gets an entry.** A holdings sentence whose
 `rests_on_store` names an id with no entry, or that declares nothing, cites
@@ -568,7 +599,7 @@ one of them is the kind of thing a span check can see.
 
 ## 8. The pipeline
 
-    bind          every empirical sentence gets a row, or blocks
+    bind          every sentence gets a row (headings and labels by markup excepted), or blocks
     deterministic B1–B23; free; produces blocks and repairs, never verdicts on truth
     rewrite       unbindable claims are narrowed toward bindable ones
     gate          priced, and by default ONLY over figures and quotations the

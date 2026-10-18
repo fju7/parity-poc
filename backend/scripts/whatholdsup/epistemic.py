@@ -148,7 +148,8 @@ _UNREAD = re.compile(
     r"|have not been able to read|requires reading it|cannot say .{0,80}reading"
     r"|nobody (?:here )?(?:has|had) (?:ever )?opened|never (?:been )?read"
     r"|we have never read|unread by us|have not obtained"
-    r"|have not (?:yet )?opened|did not obtain|could not obtain)\b", re.I)
+    r"|have not (?:yet )?opened|did not obtain|could not obtain"
+    r"|could not read|have not been able to (?:open|obtain|reach))\b", re.I)
 
 # "We have not opened it" / "did not obtain" / "could not obtain", said of a
 # document whose abstract we hold, is true of the paper and silent about the
@@ -158,7 +159,9 @@ _NOT_OBTAINED = re.compile(r"\b(have not (?:yet )?opened|did not obtain"
 ABSTRACT_HELD_NOTE = "we hold its abstract — say so"
 _READ = re.compile(
     r"\b(we have (?:now )?read|read in full|read it in full|having read it"
-    r"|read at source|we have opened)\b", re.I)
+    r"|read at source|we have opened"
+    # 2026-10-18, with the process-claim trigger: the source list's own forms.
+    r"|read directly|we read|we opened|read in the|read at the publisher)\b", re.I)
 # "Our search ... on the two pages we fetched there" (WHU T04 s38) says what we
 # searched and fetched. The only part of that the store can answer is whether
 # what the search fetched is held, so it is read as HOLD over the sources the
@@ -167,7 +170,7 @@ _HOLD = re.compile(r"\b(we hold|held in full|the .{0,40}we hold|do not hold"
                    r"|our search)\b", re.I)
 _UNREACHED = re.compile(
     r"\b(could not reach|cannot reach|every retrieval route .{0,40}block"
-    r"|returned a block|we could not open)\b", re.I)
+    r"|returned a block|we could not open|could not open|could not be opened)\b", re.I)
 
 def _asserted(sentence: str):
     """The claim this sentence makes about our own access. Order matters: the
@@ -385,6 +388,51 @@ def _verdicts(subjects, asserted, how, sentence, slug) -> list[dict]:
         out.append({"verdict": PASS if good else FAIL, "asserted": claim,
                     "source": sid, "recorded": state or "(no access state)",
                     "why": how, "sentence": " ".join(sentence.split())[:220]})
+    return out
+
+
+# READ AT THE PUBLISHER -- A CLAIM ABOUT THE ROUTE, NOT ONLY THE STATE.
+#
+# "Read at the publisher." sat under a paper we had fetched from PubMed Central
+# and under nothing from the publisher. The access state (full_text_held) was
+# true; the route was not. The library records every rendition's URL and the
+# ledger records what was read where, so the route is a fact the store can
+# answer: PASS when a held rendition comes from a host that is not a repository,
+# or the ledger's sections name the publisher's page; FAIL when every held
+# rendition is a repository copy; NOT EVALUATED when nothing is held.
+_AT_PUBLISHER = re.compile(r"\bat the publisher\b", re.I)
+REPOSITORY_HOSTS = re.compile(
+    r"pmc\.ncbi|ncbi\.nlm|europepmc|arxiv\.org|ssrn\.com|osf\.io|psyarxiv|wrap\.warwick"
+    r"|repository|researchgate|zenodo|semanticscholar|core\.ac\.uk|hal\.science", re.I)
+AT_PUBLISHER = "READ AT THE PUBLISHER"
+
+
+def route_check(sentence: str, subjects, slug: str) -> list[dict]:
+    if not _AT_PUBLISHER.search(sentence or ""):
+        return []
+    flat = " ".join(sentence.split())[:220]
+    if not subjects:
+        return [{"verdict": NOT_EVALUATED, "asserted": AT_PUBLISHER,
+                 "why": "no source resolved for a claim about where it was read",
+                 "sentence": flat}]
+    held = store.held(slug)
+    rows = {r.get("id"): r for r in _sources(slug)}
+    out = []
+    for sid in subjects:
+        h = held.get(sid)
+        if not h:
+            out.append({"verdict": NOT_EVALUATED, "asserted": AT_PUBLISHER, "source": sid,
+                        "why": "nothing held for this source, so no route is recorded",
+                        "sentence": flat})
+            continue
+        urls = [h.get("url") or ""] + [a.get("url") or "" for a in h.get("also_held") or []]
+        secs = " ".join((rows.get(sid, {}).get("access") or {}).get("sections") or [])
+        publisher = [u for u in urls if u and not REPOSITORY_HOSTS.search(u)]
+        named = re.search(r"publisher", secs, re.I)
+        good = bool(publisher or named)
+        out.append({"verdict": PASS if good else FAIL, "asserted": AT_PUBLISHER, "source": sid,
+                    "recorded": "route: " + ", ".join(u for u in urls if u),
+                    "why": "held renditions and the ledger's sections", "sentence": flat})
     return out
 
 

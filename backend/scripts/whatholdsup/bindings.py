@@ -122,9 +122,140 @@ def trial_names(srcs: list[dict]) -> set[str]:
     return names
 
 
-def is_empirical(sent: str, names: set[str]) -> tuple[bool, str]:
+# CLAIMS IN WORDS, AND CLAIMS ABOUT OURSELVES.
+#
+# Every trigger above looks for a number, an identifier, a quotation or a
+# trial's name. A sentence that says a study is a preprint, retrospective or
+# randomised, that its authors "call" or "report" something, or that we "read
+# it at source", carries none of those, so it never got a row and no check
+# ever read it. Read by hand on 2026-10-18, 282 such sentences on the
+# deskilling page held 53 errors -- "the review's body says so" of a word the
+# review never uses, a "preprint" that had been published, "read at the
+# publisher" of a copy fetched from PubMed Central.
+#
+# Two triggers, added AFTER the old ones so nothing the old rule bound changes
+# reason. A source claim describes a document in words; a process claim says
+# what we did or hold, and is routed to B21's store check (is_holdings). The
+# lists are words, not grammar: a heading that happens to contain "published"
+# is excluded by its markup (page_markup), never by guessing at its wording.
+SOURCE_CLAIM = re.compile(
+    r"\b(?:preprints?|working\s+papers?|published|accepted|retract(?:ed|ion)"
+    r"|corrections?|corrigend(?:um|a)|errat(?:um|a)|peer[-\s]review(?:ed)?"
+    r"|conference\s+paper|retrospective|prospective|observational"
+    r"|cross-sectional|randomi[sz]ed|cross-?over|colleagues|the\s+authors"
+    r"|their\s+own|says|said|calls|called|describes|described|reports|reported"
+    r"|finds)\b|\bet\s+al\.|(?<!we )(?<!We )\bfound\b", re.I)
+PROCESS_CLAIM = re.compile(
+    r"\b(?:read\s+at\s+source|read\s+in\s+full|read\s+directly|at\s+the\s+publisher"
+    r"|we\s+read|we\s+opened|opened|could\s+not\s+open|could\s+not\s+read"
+    r"|ha(?:ve|s)\s+not\s+read|ha(?:ve|s)\s+not\s+been\s+able|we\s+checked|we\s+check"
+    r"|we\s+hold|we\s+found|we\s+searched|we\s+missed|checked\s+against)\b", re.I)
+SOURCE_TRIGGER, PROCESS_TRIGGER = "source_claim", "process_claim"
+
+
+def claim_trigger(sent: str) -> tuple[str, str]:
+    """(trigger, why) for a sentence the number-and-name rule does not reach.
+    A process claim wins over a source claim: what we did is settled by the
+    store, whatever document it also names."""
+    m = PROCESS_CLAIM.search(sent)
+    if m:
+        return PROCESS_TRIGGER, "process claim: %r" % m.group(0)
+    m = SOURCE_CLAIM.search(sent)
+    if m:
+        return SOURCE_TRIGGER, "source claim: %r" % m.group(0)
+    return "", ""
+
+
+def is_empirical(sent: str, names: set[str], *, heading: bool = False,
+                 label: str = "") -> tuple[bool, str]:
     """(must_be_bound, why). The why is printed, so a person can disagree with
-    the classifier rather than guess at it."""
+    the classifier rather than guess at it.
+
+    EVERY SENTENCE GETS A ROW (2026-10-18). The writing rule adopted on
+    2026-09-02 is that every sentence in the article is either bound to the
+    words it rests on, declared as an inference and shown, or off the page. A
+    filter that decided which sentences were "empirical" -- a figure, an
+    identifier, a quotation, a trial's name -- left 282 sentences on the
+    deskilling page with no row, and 53 of them were wrong. No word list
+    recovered them: the best reached 81% of what a reader sorted by hand, and
+    the misses were exactly the sentences with no marker at all ("It had not.").
+
+    So the only sentences without a row are the ones the MARKUP says are not
+    prose: a heading (h1-h4, or a run-in <p><strong> lead -- page_markup), and a
+    source-list role label standing alone. The old triggers still name the
+    reason when they fire; otherwise the reason is the claim_trigger tag, or
+    "sentence" when no word marks it. The tags route, they do not admit."""
+    flat = " ".join(sent.split())
+    if heading or (label and flat == label):
+        return False, ""
+    must, why = _old_empirical(sent, names)
+    if must:
+        return must, why
+    rest = sent[len(label):].strip() if label and flat.startswith(label + " ") else sent
+    trig, twhy = claim_trigger(rest)
+    return True, (twhy if trig else "sentence")
+
+
+RUN_IN_MAX_WORDS = 6
+
+
+def page_markup(slug: str) -> tuple[set[str], list[str], list[tuple[str, list[str]]]]:
+    """(heading texts, source-list labels, source-list entries) from the page.
+
+    Headings are h1-h4. Labels are the source list's <span class="tag">. An
+    entry is a <div class="src"> block: its links and its plain text, so a
+    sentence such as "Read at source." can be tied to the entry it sits in."""
+    import html as _h
+    raw = HEAD.sub(" ", _page_html(slug) if not hasattr(ledger, "page_text")
+                   else (ledger.page_text(slug) or _page_html(slug)))
+
+    def txt(s: str) -> str:
+        return " ".join(_h.unescape(re.sub(r"<[^>]+>", " ", s)).split())
+    heads = {txt(m) for m in re.findall(r"<h[1-4]\b[^>]*>(.*?)</h[1-4]>", raw, re.S | re.I)}
+    # A run-in heading: <p><strong>Peer review.</strong> Three of the studies ...
+    # The bold lead at the very start of a paragraph is a heading by markup --
+    # but the same markup also carries emphatic claims ("<strong>It is a
+    # retrospective observational study, and that governs everything you can
+    # take from it.</strong>"), and markup cannot tell the two apart. A missed
+    # claim costs more than a row for a heading, so a bold lead counts as a
+    # heading only when it is six words or fewer (on deskilling: every one of
+    # the sixteen headings, and two short judgements as well).
+    heads |= {t for t in (txt(m) for m in re.findall(r"<p\b[^>]*>\s*<strong>(.*?)</strong>",
+                                                     raw, re.S | re.I))
+              if len(t.split()) <= RUN_IN_MAX_WORDS}
+    labels = sorted({txt(m) for m in re.findall(r'<span class="tag">(.*?)</span>', raw, re.S)},
+                    key=len, reverse=True)
+    entries = [(txt(b), re.findall(r'href="([^"]+)"', b))
+               for b in re.findall(r'<div class="src">(.*?)</div>', raw, re.S)]
+    return {h for h in heads if h}, [l for l in labels if l], entries
+
+
+def _url_key(u: str) -> str:
+    u = (u or "").lower().strip()
+    u = re.sub(r"^https?://(?:www\.|dx\.)?", "", u).replace("doi.org/", "")
+    return u.rstrip("/")
+
+
+def entry_subject(sent: str, entries, srcs: list[dict]) -> list[str]:
+    """The source a source-list sentence is about, from the entry's link."""
+    key = " ".join(sent.split())
+    for text, hrefs in entries:
+        if key and key in text:
+            out = []
+            for h in hrefs:
+                k = _url_key(h)
+                hit = next((s["id"] for s in srcs if k and k in
+                            (_url_key(s.get("url")), _url_key("doi.org/" + (s.get("doi") or "")))), None)
+                if not hit and "/" in k:
+                    hit = next((s["id"] for s in srcs if k.split("/", 1)[-1] and
+                                k.split("/", 1)[-1] in json.dumps(s).lower()), None)
+                if hit and hit not in out:
+                    out.append(hit)
+            return out
+    return []
+
+
+def _old_empirical(sent: str, names: set[str]) -> tuple[bool, str]:
     if NCT.search(sent):
         return True, "registry identifier"
     if DOI.search(sent):
@@ -290,15 +421,27 @@ def scan(slug: str) -> tuple[dict, list[str], list[str]]:
     # packet, so the reasoning disappears from the reader's view without anyone
     # deciding that it should.
     present, live, unbound = set(), set(), []
+    heads, labels, entries = page_markup(slug)
+    srcs = store.sources(slug)
     for sent in page_sentences(slug):
         sha = fingerprint(sent)
         present.add(sha)
-        must, why = is_empirical(sent, names)
+        flat = " ".join(sent.split())
+        label = next((l for l in labels if flat.startswith(l + " ") or flat == l), "")
+        must, why = is_empirical(sent, names, heading=flat in heads, label=label)
         if not must:
             continue
         live.add(sha)
         if sha not in rows:
             rows[sha] = blank_row(sent, why)
+            trig = claim_trigger(flat[len(label):] if label else flat)[0]
+            if trig:
+                rows[sha]["trigger"] = trig
+                subj = entry_subject(sent, entries, srcs)
+                if subj:
+                    # The source-list entry this sentence sits in, read from its
+                    # link: what the sentence is ABOUT, not what supports it.
+                    rows[sha]["store_subject_markup"] = subj
         rows[sha]["on_page"] = True
         if not rows[sha].get("span"):
             unbound.append(sha)
@@ -819,8 +962,11 @@ HOLDINGS = re.compile(
     re.I)
 
 
-def is_holdings(sent: str) -> bool:
-    return bool(HOLDINGS.search(sent or ""))
+def is_holdings(sent: str, trigger: str = "") -> bool:
+    """A sentence about what we hold or did. The subject phrasing above, or a
+    row the scan marked as a process claim (PROCESS_CLAIM): the same check, one
+    door, so the two cannot drift."""
+    return bool(HOLDINGS.search(sent or "")) or trigger == PROCESS_TRIGGER
 
 
 def support_ids(row: dict) -> list[str]:
@@ -839,7 +985,16 @@ def b21_holdings(row: dict, slug: str) -> list[dict]:
     """
     sent = row.get("sentence") or ""
     declared = row.get("rests_on_store") or []
-    if not is_holdings(sent):
+    # A process-claim row that the old subject phrasing would not have caught:
+    # nobody has declared its subject yet, so the declaration findings below are
+    # not its to raise. Its subject is the source-list entry it sits in, if any,
+    # else whatever the text names; with neither, it is NOT EVALUATED (warn),
+    # never "not in sources" -- "We check the sources on this page" is about no
+    # one document.
+    process_only = (row.get("trigger") == PROCESS_TRIGGER
+                    and not HOLDINGS.search(sent) and not declared)
+    markup = row.get("store_subject_markup") or []
+    if not is_holdings(sent, row.get("trigger") or ""):
         if declared:
             return [{"check": "B21", "verdict": "declared to the store, not a holdings sentence",
                      "why": "rests_on_store is set and the sentence is not about "
@@ -861,6 +1016,8 @@ def b21_holdings(row: dict, slug: str) -> list[dict]:
         out.append({"check": "B21", "verdict": NOT_IN_SOURCES,
                     "why": "rests_on_store names %s, which has no entry; add one with "
                            "source_ledger.py add (state not_opened)" % ", ".join(unknown)})
+    elif process_only or (markup and not declared):
+        pass
     elif not declared:
         # Round 3: a holdings sentence that names no entry, and whose text names
         # none either, is about a document the store has never recorded -- T02
@@ -889,7 +1046,10 @@ def b21_holdings(row: dict, slug: str) -> list[dict]:
                                "and if not, add one with source_ledger.py add (state "
                                "not_opened)"})
     try:
-        verdicts = E.check_sentence(sent, slug, declared=list(declared) or None)
+        verdicts = E.check_sentence(sent, slug, declared=list(declared) or list(markup) or None)
+        if process_only:
+            subj = list(declared) or list(markup) or list(E.resolve(sent, slug))
+            verdicts += E.route_check(sent, subj, slug)
     except (Exception, SystemExit) as exc:
         verdicts = [{"verdict": E.NOT_EVALUATED, "why": "%s: %s" % (type(exc).__name__, exc)}]
     if not verdicts:
