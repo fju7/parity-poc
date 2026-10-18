@@ -612,8 +612,31 @@ def sentence_hedges(sent: str) -> list[str]:
     return _hedges(_SENTENCE_HEDGE, sent)
 
 
+def hedge_dispositions(row: dict) -> dict[str, dict]:
+    """word -> entry, for the row's signed B19 dispositions.
+
+    A HEDGE WORD MAY BE DISPOSED OF, BY A PERSON, IN THE ROW -- the same
+    discipline as B6's scope_words and B20's grade_departure. "they appear in
+    about 36% of the included studies" trips B19 on 'appear', which there
+    means 'occur': the source states a count and hedges nothing. Left alone
+    that flag is the one the operator learns to scroll past. So the row may
+    carry `hedge_dispositions`: [{word, why, by, on}]. An entry with a blank
+    why or by is not a signature and is ignored. 2026-10-18.
+    """
+    out = {}
+    for d in (row.get("hedge_dispositions") or []):
+        if isinstance(d, dict) and (d.get("word") or "").strip() and \
+                (d.get("why") or "").strip() and (d.get("by") or "").strip():
+            out[" ".join(d["word"].lower().split())] = d
+    return out
+
+
 def b19_hedge_dropped(row: dict) -> list[dict]:
-    """The evidence hedges and the sentence does not. WARN, never a block."""
+    """The evidence hedges and the sentence does not. WARN, never a block.
+
+    A hedge word the row disposes of (hedge_dispositions) is reported as INFO,
+    with the signer's reason, rather than dropped: the record still says the
+    evidence used the word."""
     sent = row.get("sentence") or ""
     hits = []
     for sid, span in evidence_spans(row):
@@ -622,13 +645,26 @@ def b19_hedge_dropped(row: dict) -> list[dict]:
                 hits.append((w, sid))
     if not hits or sentence_hedges(sent):
         return []
-    why = "the evidence says %s; the sentence carries no hedge" % ", ".join(
-        "%r (%s)" % (w, sid) for w, sid in hits[:4])
-    if _NEGATING.search(sent):
-        why += (" -- it negates (%r), which turns the evidence's caution into "
-                "a verdict" % _NEGATING.search(sent).group(0))
-    return [{"check": "B19", "verdict": "evidence hedge dropped",
-             "hedge": hits[0][0], "why": why}]
+    disposed = hedge_dispositions(row)
+    live = [(w, sid) for w, sid in hits if w not in disposed]
+    done = [(w, sid) for w, sid in hits if w in disposed]
+    out = []
+    if live:
+        why = "the evidence says %s; the sentence carries no hedge" % ", ".join(
+            "%r (%s)" % (w, sid) for w, sid in live[:4])
+        if _NEGATING.search(sent):
+            why += (" -- it negates (%r), which turns the evidence's caution into "
+                    "a verdict" % _NEGATING.search(sent).group(0))
+        out.append({"check": "B19", "verdict": "evidence hedge dropped",
+                    "hedge": live[0][0], "why": why})
+    if done:
+        why = "; ".join("the evidence says %r (%s), disposed of by %s%s: %s"
+                        % (w, sid, disposed[w]["by"],
+                           " on %s" % disposed[w]["on"] if disposed[w].get("on") else "",
+                           disposed[w]["why"]) for w, sid in done[:4])
+        out.append({"check": "B19", "verdict": "evidence hedge disposed",
+                    "hedge": done[0][0], "why": why})
+    return out
 
 
 # B20. The ladder is the brief's. "moderate to good" and "reasonably high" sit
@@ -1032,6 +1068,7 @@ CALIBRATION_SEVERITY = {
     "we hold its abstract — say so": WARN,
     "holdings sentence not declared to the store": WARN,
     "evidence hedge dropped": WARN,
+    "evidence hedge disposed": INFO,
     "confidence above its cited grade": BAD,
     "confidence stated without a cited grade": BAD,
     "confidence level unreadable": WARN,

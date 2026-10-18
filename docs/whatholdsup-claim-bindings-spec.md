@@ -251,6 +251,17 @@ a year, a day number or "of", or preceded by a day number. → T01 s85, "The
 evidence does not support choosing … on the basis of age or sex", against
 "should be interpreted cautiously".
 
+*Disposition (added 18 October 2026).* A hedge word may be disposed of, by a
+person, on the row: `hedge_dispositions`, a list of `{word, why, by, on}`, the
+same discipline as B6's `scope_words` and B20's `grade_departure`. When a hedge
+B19 finds has a matching entry (word compared case- and space-insensitively),
+that word is reported as INFO, verdict "evidence hedge disposed", with the
+signer, date and reason in the finding; any other hedge on the row stays WARN.
+An entry with a blank `why` or `by` is not a signature and is ignored. The flag
+is never dropped: the record still says the evidence used the word. → deskilling
+5850f3bd, S005's "they appear in about 36% of the included studies", where
+"appear" means "occur" and states a count.
+
 **B20 Confidence ceiling. STOP on a breach, WARN on no grade.** A sentence
 beginning "Confidence in", "Confidence that" or "Confidence … is" states a
 level on the ladder very low < low < moderate < moderate-to-good = reasonably
@@ -463,7 +474,7 @@ select nothing.
   real calibration and selection points (A6–A8, I4, I8). B19–B21 and the
   conclusion judge cover part of that ground, not all of it.
 - **Figures nobody bound.** A figure in an unbound sentence is not sent. On
-  deskilling, B13 reports 39 figures in no held document while 19 sources are
+  deskilling, B13 reports 29 figures in no held document while 19 sources are
   unheld, and the narrow gate selects none of them, because their sentences carry
   no binding naming a source. Binding them is the fix; `--full` is the stopgap.
 

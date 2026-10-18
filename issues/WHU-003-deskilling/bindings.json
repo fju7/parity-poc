@@ -2414,7 +2414,15 @@
       "proposed_by": "model",
       "proposed_on": "2026-10-18",
       "confirmed": true,
-      "why_bound": "batch 1 (2026-10-18): proposed by Claude from held text, every span an exact substring of the held bytes; confirmed by Fred Ugast. See docs/whatholdsup-deskilling-revision.md."
+      "why_bound": "batch 1 (2026-10-18): proposed by Claude from held text, every span an exact substring of the held bytes; confirmed by Fred Ugast. See docs/whatholdsup-deskilling-revision.md.",
+      "hedge_dispositions": [
+        {
+          "word": "appear",
+          "why": "S005's 'appear' means 'occur'; it states the 36% as a count, not a hedge.",
+          "by": "Fred Ugast",
+          "on": "2026-10-18"
+        }
+      ]
     },
     "7675d3e4f6eef724": {
       "sentence": "J Comput Assist Learn 2025;41:e70105 Read in the corresponding author's own copy of the published paper, the publisher's site having refused us; the audit table gives four of nineteen comparisons meeting all three criteria, the treatment well described in fourteen, the control in eight, and a valid learning measure present in ten.",
@@ -2712,7 +2720,15 @@
       "proposed_by": "model",
       "proposed_on": "2026-10-18",
       "confirmed": true,
-      "why_bound": "batch 1 (2026-10-18): proposed by Claude from held text, every span an exact substring of the held bytes; confirmed by Fred Ugast. See docs/whatholdsup-deskilling-revision.md."
+      "why_bound": "batch 1 (2026-10-18): proposed by Claude from held text, every span an exact substring of the held bytes; confirmed by Fred Ugast. See docs/whatholdsup-deskilling-revision.md.",
+      "hedge_dispositions": [
+        {
+          "word": "may",
+          "why": "S033's 'may' belongs to a claim the page does not make; the page cites it as a caveat Greengard carries.",
+          "by": "Fred Ugast",
+          "on": "2026-10-18"
+        }
+      ]
     },
     "61068fb5aeb4136f": {
       "sentence": "It became a piece about a distinction between AI that teaches and AI that answers; a check found that distinction already in print, and the retraction of the meta-analysis it rested on.",
