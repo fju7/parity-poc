@@ -4818,23 +4818,46 @@
       "sentence": "In fairness to the author, two further things: the recruitment was by convenience and purposive sampling promoted on social media, which he reports; and the paper carries a published correction of 10 September 2025, in which Table 4 had duplicated Table 3 and was replaced.",
       "sentence_sha": "17e6f09555beb9fa",
       "why_empirical": "the bare integer 4 is a quantity",
-      "bucket": null,
-      "source_id": null,
-      "document_sha": null,
-      "locator_type": null,
-      "locator": null,
-      "span": null,
-      "envelope": null,
+      "bucket": "context",
+      "source_id": "S008",
+      "document_sha": "e90160a909e933f2f6e3ae29ff36990bd17057288f0a67bc9bbc5f5abf5a8d7f",
+      "locator_type": "prose",
+      "locator": "3.2 Participants (S008); correction notice (S049)",
+      "span": "The study sample comprised 669 participants in the United Kingdom, of which 666 were considered valid. They were recruited through a combination of convenience and purposive sampling to ensure a diverse representation across age groups, educational backgrounds, and professional fields. The sample was promoted online in the UK on different social media platforms to attract a diverse sample.",
+      "envelope": "ffering a more complete perspective on the research problem than either method alone [32]. This design allows for the triangulation of data, enhancing the validity and reliability of the findings [33]. 3.2. Participants The study sample comprised 669 participants in the United Kingdom, of which 666 were considered valid. They were recruited through a combination of convenience and purposive sampling to ensure a diverse representation across age groups, educational backgrounds, and professional fields. The sample was promoted online in the UK on different social media platforms to attract a diverse sample. Participants were categorised into three age groups: 17-25 years (young), 26-45 years (middle-aged), and 46 years and older (older). This categorisation facilitated the examination of age-related differences in AI tool ",
       "scope_words": [],
       "falsifier": null,
       "verdicts": {
-        "locatable": null,
-        "faithful": null,
+        "locatable": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "checked against held text with Claude (advisor), 2026-10-18"
+        },
+        "faithful": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "checked against held text with Claude (advisor), 2026-10-18"
+        },
         "warranted": null
       },
       "first_seen": "2026-10-18",
       "on_page": true,
-      "check_flags": []
+      "check_flags": [],
+      "also_rests_on": [
+        {
+          "source_id": "S049",
+          "span": "In the original publication [ 1 ], there was a mistake in Table 4 as published. Table 4 was a duplicate of Table 3 in the publication."
+        },
+        {
+          "source_id": "S049",
+          "span": "Correction 10 September 2025"
+        }
+      ],
+      "proposed_by": "model",
+      "proposed_on": "2026-10-18",
+      "confirmed": true,
+      "why_bound": "batch 4, Part A (2026-10-18): proposed by Claude from held text, every span an exact substring of the held bytes; confirmed by Fred Ugast. See docs/whatholdsup-deskilling-revision.md.",
+      "checked_on": "2026-10-18"
     },
     "132860a7225e182e": {
       "sentence": "The most-cited meta-analysis finding that ChatGPT improves learning — cited several hundred times — its own journal's counter read 402 at one point on 30 August 2026 and 399 an hour later, which is what live metrics do, and other counts of the same paper run from 262 to over 500 — was retracted by its journal on 22 April 2026.",

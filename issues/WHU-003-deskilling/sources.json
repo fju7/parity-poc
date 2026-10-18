@@ -1625,7 +1625,14 @@
       "also_called": [
         "the notice"
       ],
-      "WHY_THIS_ALIAS": "Not 'the correction'. That phrase occurs three times on this page and only one is this document: the first is Georgiou's correction of 10 September 2025 (table 4 had duplicated table 3), a different paper's correction entirely; the third is 'the correction history', which is this site's own furniture. 'The correction notice' is worse — its only hit is the Georgiou one. 'The notice' occurs exactly once on the page, in the sentence that says the operator obtained it, and that sentence is about this document. An alias that is too broad attaches a source to sentences that are not about it, which is the same failure as having no alias, pointed the other way. [2026-10-18 note: the 10 September 2025 correction described above as 'Georgiou's' is Gerlich's (S008), Societies 2025, 15(9), 252, now held as S049.]"
+      "WHY_THIS_ALIAS": "Not 'the correction'. That phrase occurs three times on this page and only one is this document: the first is Georgiou's correction of 10 September 2025 (table 4 had duplicated table 3), a different paper's correction entirely; the third is 'the correction history', which is this site's own furniture. 'The correction notice' is worse — its only hit is the Georgiou one. 'The notice' occurs exactly once on the page, in the sentence that says the operator obtained it, and that sentence is about this document. An alias that is too broad attaches a source to sentences that are not about it, which is the same failure as having no alias, pointed the other way. [2026-10-18 note: the 10 September 2025 correction described above as 'Georgiou's' is Gerlich's (S008), Societies 2025, 15(9), 252, now held as S049.]",
+      "notes": [
+        {
+          "on": "2026-10-18",
+          "by": "claude",
+          "note": "WHY_THIS_ALIAS names the 10 September 2025 correction (Table 4 had duplicated Table 3) as Georgiou's. It is Gerlich's correction to S008: Societies 2025, 15(9), 252, doi 10.3390/soc15090252, held as S049. The alias reasoning is unchanged: 'the notice' still names only S045."
+        }
+      ]
     },
     {
       "id": "S046",
