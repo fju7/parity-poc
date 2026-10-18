@@ -182,6 +182,28 @@ def where_noted(fig: str, slug: str) -> tuple[list[str], list[str]]:
     return hits, notes
 
 
+def rounded_in(fig: str, slug: str) -> tuple[list[str], list[str]]:
+    """(held sources carrying a figure that `fig` correctly rounds, one decimal
+    place shorter, INFO notes naming both). The rule is rule 1's
+    (figure_text.rounds_to, min_places=1), so the page's 43.8 for S031's 43.79
+    is found by B13 as it already is by rule 1, and 43.7 for 43.79 is not.
+    Asked only after the exact and comma-and-space searches fail. 2026-10-18."""
+    if "." not in fig:
+        return [], []
+    places = len(fig.split(".", 1)[1])
+    # Same sign only: rounds_to compares magnitudes, so -6.45 would "round" to 6.5.
+    pat = re.compile(r"(?<![\d.\-\u2212])%s\d+\.\d{%d}(?![\d])"
+                     % (r"[-\u2212]" if fig.startswith(("-", "\u2212")) else "", places + 1))
+    hits, notes = [], []
+    for sid in sorted(store.held(slug)):
+        text = SC._norm(SC._text(slug, sid) or "")
+        src = next((m.group(0) for m in pat.finditer(text) if FT.rounds_to(m.group(0), fig)), None)
+        if src:
+            hits.append(sid)
+            notes.append("%s is %s rounded, in %s" % (fig, src, sid))
+    return hits, notes
+
+
 def unheld(slug: str) -> list[str]:
     held = store.held(slug)
     return [s["id"] for s in store.sources(slug) if s["id"] not in held]
@@ -232,7 +254,7 @@ def _excluded(fig: str, sent: str, rules: list[dict]) -> dict | None:
 def run(slug: str) -> dict:
     rules = load_exclusions(slug)
     used: set[int] = set()
-    missing, present, excluded, split = [], 0, [], []
+    missing, present, excluded, split, rounded = [], 0, [], [], []
     for fig, sent in figures_on_page(slug):
         hits, notes = where_noted(fig, slug)
         if hits:
@@ -243,6 +265,14 @@ def run(slug: str) -> dict:
         if r is not None:
             used.add(id(r))
             excluded.append((fig, r))
+            continue
+        # A ROUNDING IS ASKED AFTER THE DECLARED EXCLUSIONS, so a figure a person
+        # has declared (6.5, our own arithmetic) is not "found" in a held 6.48
+        # that has nothing to do with it.
+        hits, notes = rounded_in(fig, slug)
+        if hits:
+            present += 1
+            rounded.extend(n for n in notes if n not in rounded)
             continue
         missing.append((fig, sent))
     # STALE MEANS THE SENTENCE IS GONE, NOT THAT THIS RUN DID NOT CONSULT IT.
@@ -281,7 +311,7 @@ def run(slug: str) -> dict:
              and SC._norm(r.get("in_sentence") or "") not in whole]
     return {"checked": present + len(missing) + len(excluded), "present": present,
             "missing": missing, "excluded": excluded, "stale": stale,
-            "split_grouping": split,
+            "split_grouping": split, "rounded": rounded,
             "unheld": unheld(slug), "sources": len(store.sources(slug))}
 
 
@@ -368,6 +398,11 @@ def preflight_rows(slug: str) -> list[tuple[str, str, str]]:
               "between their thousands groups, and pass as that figure: %s"
               % (len(r["split_grouping"]), " || ".join(r["split_grouping"])))]
             if r.get("split_grouping") else [])
+    info += ([("figures found as a held figure correctly rounded", OK,
+               "INFO: %d figure(s) are a held figure correctly rounded one decimal place "
+               "shorter, and pass as that figure: %s"
+               % (len(r["rounded"]), " || ".join(r["rounded"])))]
+             if r.get("rounded") else [])
     return _main_row(r, slug) + info
 
 
