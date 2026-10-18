@@ -77,14 +77,15 @@
     {
       "id": "Q-07",
       "quote": "If measured during treatment, differences likely reflect situational (dis)advantages due to the (non)availability of the treatment rather than durable learning.",
-      "source_id": "",
-      "verbatim": "",
+      "source_id": "S006",
+      "verbatim": "If measured during treatment, differences likely reflect situational (dis)advantages due to the (non)availability of the treatment rather than durable learning. Non-­identical measures between groups render results wholly uninterpretable.",
       "kind": "",
       "why": "",
       "attested": {
         "by": "",
         "on": ""
-      }
+      },
+      "note": "Verbatim in S006, the published version (J Comput Assist Learn)."
     },
     {
       "id": "Q-08",
@@ -113,14 +114,15 @@
     {
       "id": "Q-10",
       "quote": "a group with fewer significant connections should not necessarily be interpreted as exhibiting weaker overall neural activity",
-      "source_id": "",
-      "verbatim": "",
+      "source_id": "S019",
+      "verbatim": "Thus, a group with fewer significant connections should not necessarily be interpreted as exhibiting weaker overall neural activity.",
       "kind": "",
       "why": "",
       "attested": {
         "by": "",
         "on": ""
-      }
+      },
+      "note": "Verbatim in S019's PDF (arXiv 2601.00856, held 2026-10-18)."
     },
     {
       "id": "Q-11",
@@ -185,14 +187,15 @@
     {
       "id": "Q-16",
       "quote": "AI is not inherently harmful to learning; its educational impact depends on how and when it is introduced.",
-      "source_id": "",
-      "verbatim": "",
+      "source_id": "S025",
+      "verbatim": "AI is not inherently harmful to learning; its educational impact depends on how and when it is introduced. We propose a three-phase competency-protective framework: establishing AI-independent baseline competency, building critical calibration through structured pedagogy, and integrating AI under supervision in medical training.",
       "kind": "",
       "why": "",
       "attested": {
         "by": "",
         "on": ""
-      }
+      },
+      "note": "Checked against the accepted manuscript (LSHTM Research Online), not the published Nature Medicine wording, which we do not hold."
     },
     {
       "id": "Q-17",
@@ -221,14 +224,15 @@
     {
       "id": "Q-19",
       "quote": "may fail to develop the foundational reasoning skills that safe, independent practice requires",
-      "source_id": "",
-      "verbatim": "",
+      "source_id": "S025",
+      "verbatim": "This Perspective identifies a risk that has received insufficient attention: that trainees who rely on AI during the early formative years of clinical education may fail to develop the foundational reasoning skills that safe, independent practice requires.",
       "kind": "",
       "why": "",
       "attested": {
         "by": "",
         "on": ""
-      }
+      },
+      "note": "Checked against the accepted manuscript (LSHTM Research Online), not the published Nature Medicine wording, which we do not hold."
     },
     {
       "id": "Q-20",
@@ -305,14 +309,15 @@
     {
       "id": "Q-26",
       "quote": "are prone to automation bias when being supported by an AI-based system",
-      "source_id": "",
-      "verbatim": "",
+      "source_id": "S030",
+      "verbatim": "Conclusion: The results show that inexperienced, moderately experienced, and very experienced radiologists reading mammograms are prone to automation bias when being supported by an AI-based system.",
       "kind": "",
       "why": "",
       "attested": {
         "by": "",
         "on": ""
-      }
+      },
+      "note": "Verbatim in S030, the published version (Radiology), Abstract, Conclusion."
     },
     {
       "id": "Q-27",
@@ -437,14 +442,15 @@
     {
       "id": "Q-37",
       "quote": "accounting for 45.5% of the total mistakes",
-      "source_id": "",
-      "verbatim": "",
+      "source_id": "S046",
+      "verbatim": "However, the clinicians' errors in the AI-assisted round were associated with automation bias, accounting for 45.5% of the total mistakes.",
       "kind": "",
       "why": "",
       "attested": {
         "by": "",
         "on": ""
-      }
+      },
+      "note": "Verbatim in S046 (Wang et al., J Am Med Inform Assoc 2023, the published version), Abstract, Results."
     },
     {
       "id": "Q-38",
@@ -461,14 +467,15 @@
     {
       "id": "Q-39",
       "quote": "a retrospective observational study",
-      "source_id": "",
-      "verbatim": "",
+      "source_id": "S021",
+      "verbatim": "Methods We conducted a retrospective observational study at four endoscopy centers in Poland.",
       "kind": "",
       "why": "",
       "attested": {
         "by": "",
         "on": ""
-      }
+      },
+      "note": "S021 is the study itself (Budzyń et al., author's accepted manuscript), Methods; the phrase is verbatim there. Not S029, which says only 'observational'."
     },
     {
       "id": "Q-40",

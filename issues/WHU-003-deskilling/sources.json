@@ -244,9 +244,9 @@
       ],
       "used_for": "The audit of Deng et al.'s 19 academic-performance comparisons: only 4 (21%) met all three criteria; ChatGPT treatment well defined 14/19 (74%); control group well defined 8/19 (42%); a learning measure present 10/19 (53%). And the sentence that decides our piece: ‘If measured during treatment, differences likely reflect situational (dis)advantages due to the (non)availability of the treatment rather than durable learning.’",
       "access": {
-        "state": "fragment_only",
-        "by": "claude",
-        "on": "2026-08-29",
+        "state": "full_text_held",
+        "by": "Fred Ugast (download) and claude (identification)",
+        "on": "2026-10-18",
         "sections": [
           "the author's own PDF of the published paper: argument, three non-negotiables, audit percentages, conclusion, recommendations",
           "audit table and the 21% all-three-criteria figure, confirmed by a second read"
@@ -254,7 +254,13 @@
         "not_read": [
           "the appendix listing which studies were audited"
         ],
-        "note": "Read from the author's copy rather than the publisher's, which 403s. Confirm the percentages against the Wiley version before printing.\n\n2026-09-01: state migrated from `machine_read` to `fragment_only`. machine_read was abolished on issue two the same day: its only evidence was that this URL appeared in the citation list of a gate report, so an automated check reached it. Nothing checked what came back, or whether anything did. It sat in READ_STATES and licensed characterisation and adverse claims; fragment_only licenses neither. Nothing about what we know changed here — only what the ledger admits. Issues one and three kept the abolished state for a day because no check asked whether a state was one the ledger defines. One does now.\n\n2026-10-18, fetch attempt (state unchanged): Unpaywall hybrid OA. Wiley pdfdirect HTTP 403; OSF accepted version returned a 4,207-byte JavaScript page; Monash repository OA PDF (/files/739077907/721254972-oa.pdf) HTTP 403; OU repository page has no direct file link. FREE ROUTES EXIST — browser download needed."
+        "note": "Read from the author's copy rather than the publisher's, which 403s. Confirm the percentages against the Wiley version before printing.\n\n2026-09-01: state migrated from `machine_read` to `fragment_only`. machine_read was abolished on issue two the same day: its only evidence was that this URL appeared in the citation list of a gate report, so an automated check reached it. Nothing checked what came back, or whether anything did. It sat in READ_STATES and licensed characterisation and adverse claims; fragment_only licenses neither. Nothing about what we know changed here — only what the ledger admits. Issues one and three kept the abolished state for a day because no check asked whether a state was one the ledger defines. One does now.\n\n2026-10-18, fetch attempt (state unchanged): Unpaywall hybrid OA. Wiley pdfdirect HTTP 403; OSF accepted version returned a 4,207-byte JavaScript page; Monash repository OA PDF (/files/739077907/721254972-oa.pdf) HTTP 403; OU repository page has no direct file link. FREE ROUTES EXIST — browser download needed.\n\n2026-10-18: fragment_only -> full_text_held. Downloaded by Fred Ugast in his own browser from the free route; identified from its own text (contains its identifier 10.1111/jcal.70105) and ingested with source_store.py add; it is the published version (J Comput Assist Learn, open access, Wiley).",
+        "held": {
+          "file": "docs/2e/2e850b25c50fb85cba8c90b49e0a72923e280d9afd9e86686b781a2745a09713.pdf",
+          "sha256": "2e850b25c50fb85cba8c90b49e0a72923e280d9afd9e86686b781a2745a09713",
+          "bytes": 257772,
+          "identified_by": "contains its identifier 10.1111/jcal.70105"
+        }
       },
       "form": "article",
       "form_decided_by": "Wiley journal (host), not held — provisional"
@@ -302,9 +308,9 @@
       ],
       "used_for": "666 valid responses of 669. Recruited by convenience and purposive sampling, promoted on social media in the UK. Cross-sectional survey plus semi-structured interviews. AI tool use measured by self-report on a 6-point Likert scale. CRITICAL THINKING measured by self-report too — items drawn from the Halpern Critical Thinking Assessment and Terenzini's self-reported measures, combined into a self-reported scale. r = -0.68 between AI use and critical thinking; r = +0.72 between AI use and cognitive offloading; r = -0.75 between offloading and critical thinking. The paper does not claim causation.",
       "access": {
-        "state": "fragment_only",
-        "by": "claude",
-        "on": "2026-08-29",
+        "state": "full_text_held",
+        "by": "Fred Ugast (download) and claude (identification)",
+        "on": "2026-10-18",
         "sections": [
           "the MDPI article page: citation, affiliation, sample, recruitment, design, both measures, all correlations, the causation disclaimer"
         ],
@@ -312,7 +318,13 @@
           "the limitations section in full",
           "the correction notice at Societies 15(9) 252, which our file describes as a duplicated table with conclusions unaffected and which has NOT been opened"
         ],
-        "note": "URL VERIFIED — it was recorded from memory and this time memory was right. The sibling that was wrong was Hesselmann.\n\n2026-09-01: state migrated from `machine_read` to `fragment_only`. machine_read was abolished on issue two the same day: its only evidence was that this URL appeared in the citation list of a gate report, so an automated check reached it. Nothing checked what came back, or whether anything did. It sat in READ_STATES and licensed characterisation and adverse claims; fragment_only licenses neither. Nothing about what we know changed here — only what the ledger admits. Issues one and three kept the abolished state for a day because no check asked whether a state was one the ledger defines. One does now.\n\n2026-10-18, fetch attempt (state unchanged): Unpaywall gold OA (MDPI publisher PDF; SSRN accepted version 10.2139/ssrn.5082524). MDPI returns HTTP 403 to a script for both the PDF and the article page. FREE ROUTE EXISTS — a browser download of the MDPI PDF is legitimate."
+        "note": "URL VERIFIED — it was recorded from memory and this time memory was right. The sibling that was wrong was Hesselmann.\n\n2026-09-01: state migrated from `machine_read` to `fragment_only`. machine_read was abolished on issue two the same day: its only evidence was that this URL appeared in the citation list of a gate report, so an automated check reached it. Nothing checked what came back, or whether anything did. It sat in READ_STATES and licensed characterisation and adverse claims; fragment_only licenses neither. Nothing about what we know changed here — only what the ledger admits. Issues one and three kept the abolished state for a day because no check asked whether a state was one the ledger defines. One does now.\n\n2026-10-18, fetch attempt (state unchanged): Unpaywall gold OA (MDPI publisher PDF; SSRN accepted version 10.2139/ssrn.5082524). MDPI returns HTTP 403 to a script for both the PDF and the article page. FREE ROUTE EXISTS — a browser download of the MDPI PDF is legitimate.\n\n2026-10-18: fragment_only -> full_text_held. Downloaded by Fred Ugast in his own browser from the free route; identified from its own text (contains 12 of 12 distinctive title words; prints its DOI 10.3390/soc15010006) and ingested with source_store.py add; it is the published version (MDPI Societies, open access, CC BY; received/revised/accepted/published dates on the title page).",
+        "held": {
+          "file": "docs/e9/e90160a909e933f2f6e3ae29ff36990bd17057288f0a67bc9bbc5f5abf5a8d7f.pdf",
+          "sha256": "e90160a909e933f2f6e3ae29ff36990bd17057288f0a67bc9bbc5f5abf5a8d7f",
+          "bytes": 1280855,
+          "identified_by": "contains 12 of 12 distinctive title words; prints its DOI 10.3390/soc15010006"
+        }
       },
       "doi": "10.3390/soc15010006",
       "the_precise_criticism": "Not 'it is only a correlation' — the author says that himself. The point is that all three constructs are self-reported in one instrument, and the three correlations are uniformly strong: 0.68, 0.72, 0.75. That uniformity is the signature of common-method variance rather than three separately established relationships. Note also that the critical-thinking items are DERIVED from the Halpern assessment rather than being the Halpern assessment administered as a test; the piece must say 'items drawn from' and not imply a test was sat.",
@@ -547,9 +559,9 @@
       "why_it_matters": "A THIRD mechanism, distinct from both existing strands. Not 'you get worse when the tool is taken away' (Liu et al.) and not 'you learn more with a tutor' (the meta-analyses), but 'you adopt the machine's answer over your own reasoning, including when it is wrong, and pay for it'. It is also the mechanism that matches what people actually describe when they say AI has changed their thinking. And it is PREREGISTERED, which Liu et al. appears not to be — so on that axis it is the most rigorous study in the whole set.",
       "peer_review": "NONE. Wharton working paper, v20260111. The same standard we applied to the MIT preprint applies here.",
       "access": {
-        "state": "fragment_only",
-        "by": "claude",
-        "on": "2026-08-30",
+        "state": "full_text_held",
+        "by": "Fred Ugast (download) and claude (identification)",
+        "on": "2026-10-18",
         "sections": [
           "pp.1-8 (abstract, framing, design), 17-28 (empirical overview, Study 1 in full, Study 2 methods and results), 29-40 (Study 2 results, Study 3 in full), 41-48 (general discussion, trial-level synthesis, limitations), 49-52 (conclusion, references)",
           "the confidence result sentence with both means, SEs, CIs and the t-test, re-read for extracts 2026-08-30"
@@ -557,7 +569,13 @@
         "not_read": [
           "Web Appendices A-D, including the preregistered hypotheses summary (D) and the detailed sample exclusions (C)"
         ],
-        "note": "Read first by fred, who supplied the PDF after SSRN's delivery endpoint 404'd, then page by page by claude. Not summarised.\n\n2026-09-01: state migrated from `machine_read` to `fragment_only`. machine_read was abolished on issue two the same day: its only evidence was that this URL appeared in the citation list of a gate report, so an automated check reached it. Nothing checked what came back, or whether anything did. It sat in READ_STATES and licensed characterisation and adverse claims; fragment_only licenses neither. Nothing about what we know changed here — only what the ledger admits. Issues one and three kept the abolished state for a day because no check asked whether a state was one the ledger defines. One does now.\n\n2026-10-18, fetch attempt (state unchanged): SSRN abstract page and delivery URL both HTTP 403 to a script. SSRN downloads are free to a browser."
+        "note": "Read first by fred, who supplied the PDF after SSRN's delivery endpoint 404'd, then page by page by claude. Not summarised.\n\n2026-09-01: state migrated from `machine_read` to `fragment_only`. machine_read was abolished on issue two the same day: its only evidence was that this URL appeared in the citation list of a gate report, so an automated check reached it. Nothing checked what came back, or whether anything did. It sat in READ_STATES and licensed characterisation and adverse claims; fragment_only licenses neither. Nothing about what we know changed here — only what the ledger admits. Issues one and three kept the abolished state for a day because no check asked whether a state was one the ledger defines. One does now.\n\n2026-10-18, fetch attempt (state unchanged): SSRN abstract page and delivery URL both HTTP 403 to a script. SSRN downloads are free to a browser.\n\n2026-10-18: fragment_only -> full_text_held. Downloaded by Fred Ugast in his own browser from the free route; identified from its own text (contains 12 of 12 distinctive title words (no DOI; Shaw & Nave author block)) and ingested with source_store.py add; it is the SSRN working paper (58 pages; not peer-reviewed).",
+        "held": {
+          "file": "docs/9d/9db353a1dcf7baacdfdca5e578bbe145e8d05f4980744d80ae0d7e27c6db09af.pdf",
+          "sha256": "9db353a1dcf7baacdfdca5e578bbe145e8d05f4980744d80ae0d7e27c6db09af",
+          "bytes": 1912650,
+          "identified_by": "contains 12 of 12 distinctive title words (no DOI; Shaw & Nave author block)"
+        }
       },
       "found_via": "A Reddit thread the operator passed on, 2026-08-29. Recorded because provenance matters: it is not something our scanner or our searches surfaced, and that is worth knowing about our own coverage.",
       "what_it_actually_says": {
@@ -1064,16 +1082,22 @@
       "used_for": "27 radiologists — 11 inexperienced, 11 moderately experienced, 5 very experienced — reading 50 mammograms (49 analysed). The first 10 cases carried correct AI suggestions to establish credibility; of the remaining 40, 12 carried incorrect ones. WHEN THE AI WAS WRONG, readers were correct 19.8% (SD 14.0) of the time if inexperienced, 24.8% (11.6) if moderately experienced, and 45.5% (9.1) if very experienced. Their conclusion: 'All radiologists, regardless of experience reading mammograms, were prone to automation bias.'",
       "why_it_matters": "It is the same finding as Shaw & Nave's cognitive surrender, in a hospital, with cancer on the line, three years earlier, in Radiology. Very experienced readers were wrong more often than not when the machine was wrong. And it is the study the ESMO scoping review appears to describe while citing a different paper.",
       "access": {
-        "state": "fragment_only",
-        "by": "claude",
-        "on": "2026-08-29",
+        "state": "full_text_held",
+        "by": "Fred Ugast (download) and claude (identification)",
+        "on": "2026-10-18",
         "sections": [
           "the RSNA publisher page: citation, the three experience groups, case count, accuracy when the AI was WRONG and when it was RIGHT, and the conclusion verbatim"
         ],
         "not_read": [
           "the full paper"
         ],
-        "note": "VERIFIED AT THE PUBLISHER, not only the Vrije Universiteit repository copy. Figures identical.\n\n2026-09-01: state migrated from `machine_read` to `fragment_only`. machine_read was abolished on issue two the same day: its only evidence was that this URL appeared in the citation list of a gate report, so an automated check reached it. Nothing checked what came back, or whether anything did. It sat in READ_STATES and licensed characterisation and adverse claims; fragment_only licenses neither. Nothing about what we know changed here — only what the ledger admits. Issues one and three kept the abolished state for a day because no check asked whether a state was one the ledger defines. One does now.\n\n2026-10-18, fetch attempt (state unchanged): Unpaywall green: VU Amsterdam repository PDF (submitted version) HTTP 403 to a script. FREE ROUTE EXISTS — browser download needed; note it is the submitted version, not Radiology's."
+        "note": "VERIFIED AT THE PUBLISHER, not only the Vrije Universiteit repository copy. Figures identical.\n\n2026-09-01: state migrated from `machine_read` to `fragment_only`. machine_read was abolished on issue two the same day: its only evidence was that this URL appeared in the citation list of a gate report, so an automated check reached it. Nothing checked what came back, or whether anything did. It sat in READ_STATES and licensed characterisation and adverse claims; fragment_only licenses neither. Nothing about what we know changed here — only what the ledger admits. Issues one and three kept the abolished state for a day because no check asked whether a state was one the ledger defines. One does now.\n\n2026-10-18, fetch attempt (state unchanged): Unpaywall green: VU Amsterdam repository PDF (submitted version) HTTP 403 to a script. FREE ROUTE EXISTS — browser download needed; note it is the submitted version, not Radiology's.\n\n2026-10-18: fragment_only -> full_text_held. Downloaded by Fred Ugast in his own browser from the free route; identified from its own text (contains its identifier 10.1148/radiol.222176) and ingested with source_store.py add; it is the published version (RSNA's own PDF of Radiology 2023); a VU Research Portal copy of the same version of record was downloaded too and not ingested.",
+        "held": {
+          "file": "docs/69/69d3852d76cd4315adda5e95416727983bb62e9d82436cd2282ba96a684a6222.pdf",
+          "sha256": "69d3852d76cd4315adda5e95416727983bb62e9d82436cd2282ba96a684a6222",
+          "bytes": 924965,
+          "identified_by": "contains its identifier 10.1148/radiol.222176"
+        }
       },
       "found_via": "Checking a citation in the ESMO scoping review that did not match its own description.",
       "the_number_pair": "The figure the piece should carry. Same radiologists, same task, same session.\n\n  When the AI's BI-RADS suggestion was CORRECT: all three experience groups scored about the same, roughly 79.7% to 82.3% correct.\n  When the AI's suggestion was WRONG: 19.8% (SD 14.0) for inexperienced readers, 24.8% (11.6) for moderately experienced, 45.5% (9.1) for very experienced.\n\nTwenty-seven radiologists went from roughly four in five right to roughly one in five right, according to whether the machine was right. The most experienced were wrong more often than not. Their conclusion: 'inexperienced, moderately experienced, and very experienced radiologists reading mammograms are prone to automation bias when being supported by an AI-based system.'"
@@ -1577,13 +1601,19 @@
       ],
       "used_for": "Cited in the page's source list (Primary; 'Read at the publisher') and in 'Is it one study, or a pattern?' (rows c8d0e2c5, 5bd6e3b7, b8844660); S029's reference 22. Had no ledger row until 2026-10-18.",
       "access": {
-        "state": "not_opened",
-        "by": "claude",
+        "state": "full_text_held",
+        "by": "Fred Ugast (download) and claude (identification)",
         "on": "2026-10-18",
         "not_read": [
           "all -- not held"
         ],
-        "note": "2026-10-18, fetch attempt (state unchanged): Europe PMC record PMC10531198 has no full text (inEPMC N; fullTextXML HTTP 500); NCBI efetch db=pmc returns the record WITHOUT a body (the publisher does not allow XML full text); the PMC PDF (pmc.ncbi.nlm.nih.gov/articles/PMC10531198/pdf/ocad118.pdf) is free but served behind a browser challenge (1,817-byte HTML to a script). FREE ROUTE EXISTS — a person can download that PDF in a browser and add it with source_store.py add."
+        "note": "2026-10-18, fetch attempt (state unchanged): Europe PMC record PMC10531198 has no full text (inEPMC N; fullTextXML HTTP 500); NCBI efetch db=pmc returns the record WITHOUT a body (the publisher does not allow XML full text); the PMC PDF (pmc.ncbi.nlm.nih.gov/articles/PMC10531198/pdf/ocad118.pdf) is free but served behind a browser challenge (1,817-byte HTML to a script). FREE ROUTE EXISTS — a person can download that PDF in a browser and add it with source_store.py add.\n\n2026-10-18: not_opened -> full_text_held. Downloaded by Fred Ugast in his own browser from PubMed Central (PMC10531198); identified from its own text (DOI 10.1093/jamia/ocad118, title, Wang D-Y, Ding J, Sun A-L ... Yu J-K) and ingested with source_store.py add. It is the published version: OUP's PDF of J Am Med Inform Assoc 2023;30(10):1684-1692 ('© The Author(s) 2023. Published by Oxford University Press ... All rights reserved'), as deposited in PMC.",
+        "held": {
+          "file": "docs/89/8901af1d48c1ab9f198cb45c5c0ab99dd2ba77455768701b5cdb92b3f20eb9eb.pdf",
+          "sha256": "8901af1d48c1ab9f198cb45c5c0ab99dd2ba77455768701b5cdb92b3f20eb9eb",
+          "bytes": 765050,
+          "identified_by": "contains its identifier 10.1093/jamia/ocad118"
+        }
       },
       "document_class": "document"
     },

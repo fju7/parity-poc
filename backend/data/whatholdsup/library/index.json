@@ -1472,6 +1472,86 @@
         "deskilling:S025"
       ],
       "note": ""
+    },
+    "2e850b25c50fb85cba8c90b49e0a72923e280d9afd9e86686b781a2745a09713": {
+      "file": "docs/2e/2e850b25c50fb85cba8c90b49e0a72923e280d9afd9e86686b781a2745a09713.pdf",
+      "bytes": 257772,
+      "content_type": "application/pdf",
+      "first_held": "2026-10-18",
+      "urls": [
+        "https://onlinelibrary.wiley.com/doi/pdfdirect/10.1111/jcal.70105"
+      ],
+      "titles": [
+        "Weidlich, Gašević, Drachsler & Kirschner (2025) — ChatGPT in Education: An Effect in Search of a Cause, J Comput Assist Learn 41, e70105"
+      ],
+      "used_by": [
+        "deskilling:S006"
+      ],
+      "note": ""
+    },
+    "e90160a909e933f2f6e3ae29ff36990bd17057288f0a67bc9bbc5f5abf5a8d7f": {
+      "file": "docs/e9/e90160a909e933f2f6e3ae29ff36990bd17057288f0a67bc9bbc5f5abf5a8d7f.pdf",
+      "bytes": 1280855,
+      "content_type": "application/pdf",
+      "first_held": "2026-10-18",
+      "urls": [
+        "https://www.mdpi.com/2075-4698/15/1/6"
+      ],
+      "titles": [
+        "Gerlich, M. (2025) — AI Tools in Society: Impacts on Cognitive Offloading and the Future of Critical Thinking. Societies 15(1), 6, 3 January 2025. Center for Strategic Corporate Foresight and Sustainability, SBS Swiss Business School."
+      ],
+      "used_by": [
+        "deskilling:S008"
+      ],
+      "note": ""
+    },
+    "69d3852d76cd4315adda5e95416727983bb62e9d82436cd2282ba96a684a6222": {
+      "file": "docs/69/69d3852d76cd4315adda5e95416727983bb62e9d82436cd2282ba96a684a6222.pdf",
+      "bytes": 924965,
+      "content_type": "application/pdf",
+      "first_held": "2026-10-18",
+      "urls": [
+        "https://doi.org/10.1148/radiol.222176"
+      ],
+      "titles": [
+        "Dratsch, Chen, Mehrizi, Kloeckner, Mähringer-Kunz, Püsken, Baeßler, Sauer, Maintz & dos Santos (2023) — Automation Bias in Mammography: The Impact of Artificial Intelligence BI-RADS Suggestions on Reader Performance. Radiology 307(4), e222176."
+      ],
+      "used_by": [
+        "deskilling:S030"
+      ],
+      "note": ""
+    },
+    "9db353a1dcf7baacdfdca5e578bbe145e8d05f4980744d80ae0d7e27c6db09af": {
+      "file": "docs/9d/9db353a1dcf7baacdfdca5e578bbe145e8d05f4980744d80ae0d7e27c6db09af.pdf",
+      "bytes": 1912650,
+      "content_type": "application/pdf",
+      "first_held": "2026-10-18",
+      "urls": [
+        "https://papers.ssrn.com/sol3/papers.cfm?abstract_id=6097646"
+      ],
+      "titles": [
+        "Shaw & Nave — Thinking—Fast, Slow, and Artificial: How AI is Reshaping Human Reasoning and the Rise of Cognitive Surrender. Wharton School Research Paper, version v20260111, posted 2 February 2026."
+      ],
+      "used_by": [
+        "deskilling:S017"
+      ],
+      "note": ""
+    },
+    "8901af1d48c1ab9f198cb45c5c0ab99dd2ba77455768701b5cdb92b3f20eb9eb": {
+      "file": "docs/89/8901af1d48c1ab9f198cb45c5c0ab99dd2ba77455768701b5cdb92b3f20eb9eb.pdf",
+      "bytes": 765050,
+      "content_type": "application/pdf",
+      "first_held": "2026-10-18",
+      "urls": [
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC10531198/"
+      ],
+      "titles": [
+        "Wang DY, Ding J, Sun AL, et al. — Artificial intelligence suppression as a strategy to mitigate artificial intelligence automation bias. J Am Med Inform Assoc 2023;30(10):1684-1692"
+      ],
+      "used_by": [
+        "deskilling:S046"
+      ],
+      "note": ""
     }
   }
 }

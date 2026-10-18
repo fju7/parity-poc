@@ -447,6 +447,71 @@
       "kind_why": "44254 characters, reference list and discussion/introduction present",
       "superseded": [],
       "also_held": []
+    },
+    "S006": {
+      "sha256": "2e850b25c50fb85cba8c90b49e0a72923e280d9afd9e86686b781a2745a09713",
+      "file": "docs/2e/2e850b25c50fb85cba8c90b49e0a72923e280d9afd9e86686b781a2745a09713.pdf",
+      "bytes": 257772,
+      "url": "https://onlinelibrary.wiley.com/doi/pdfdirect/10.1111/jcal.70105",
+      "held": "2026-10-18",
+      "via": "downloaded by Fred Ugast in his own browser from the free route, 2026-10-18; identified and ingested by Claude Code (Wiley open-access PDF, published version)",
+      "note": "",
+      "kind": "full_text",
+      "kind_why": "65410 characters, reference list and discussion/introduction present",
+      "superseded": [],
+      "also_held": []
+    },
+    "S008": {
+      "sha256": "e90160a909e933f2f6e3ae29ff36990bd17057288f0a67bc9bbc5f5abf5a8d7f",
+      "file": "docs/e9/e90160a909e933f2f6e3ae29ff36990bd17057288f0a67bc9bbc5f5abf5a8d7f.pdf",
+      "bytes": 1280855,
+      "url": "https://www.mdpi.com/2075-4698/15/1/6",
+      "held": "2026-10-18",
+      "via": "downloaded by Fred Ugast in his own browser from the free route, 2026-10-18; identified and ingested by Claude Code (MDPI open-access PDF, published version)",
+      "note": "",
+      "kind": "full_text",
+      "kind_why": "97057 characters, reference list and discussion/introduction present",
+      "superseded": [],
+      "also_held": []
+    },
+    "S030": {
+      "sha256": "69d3852d76cd4315adda5e95416727983bb62e9d82436cd2282ba96a684a6222",
+      "file": "docs/69/69d3852d76cd4315adda5e95416727983bb62e9d82436cd2282ba96a684a6222.pdf",
+      "bytes": 924965,
+      "url": "https://doi.org/10.1148/radiol.222176",
+      "held": "2026-10-18",
+      "via": "downloaded by Fred Ugast in his own browser from the free route, 2026-10-18; identified and ingested by Claude Code (RSNA's own PDF of the published version; a VU Research Portal copy of the same version of record was also downloaded and not ingested)",
+      "note": "",
+      "kind": "full_text",
+      "kind_why": "40969 characters, reference list and discussion/introduction present",
+      "superseded": [],
+      "also_held": []
+    },
+    "S017": {
+      "sha256": "9db353a1dcf7baacdfdca5e578bbe145e8d05f4980744d80ae0d7e27c6db09af",
+      "file": "docs/9d/9db353a1dcf7baacdfdca5e578bbe145e8d05f4980744d80ae0d7e27c6db09af.pdf",
+      "bytes": 1912650,
+      "url": "https://papers.ssrn.com/sol3/papers.cfm?abstract_id=6097646",
+      "held": "2026-10-18",
+      "via": "downloaded by Fred Ugast in his own browser from the free route, 2026-10-18; identified and ingested by Claude Code (SSRN working paper, not peer-reviewed)",
+      "note": "",
+      "kind": "full_text",
+      "kind_why": "94089 characters, reference list and discussion/introduction present",
+      "superseded": [],
+      "also_held": []
+    },
+    "S046": {
+      "sha256": "8901af1d48c1ab9f198cb45c5c0ab99dd2ba77455768701b5cdb92b3f20eb9eb",
+      "file": "docs/89/8901af1d48c1ab9f198cb45c5c0ab99dd2ba77455768701b5cdb92b3f20eb9eb.pdf",
+      "bytes": 765050,
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10531198/",
+      "held": "2026-10-18",
+      "via": "downloaded by Fred Ugast in his own browser from PubMed Central (PMC10531198), 2026-10-18; identified and ingested by Claude Code (the publisher's PDF of the version of record, as deposited in PMC)",
+      "note": "",
+      "kind": "full_text",
+      "kind_why": "37827 characters, reference list and discussion/introduction present",
+      "superseded": [],
+      "also_held": []
     }
   }
 }

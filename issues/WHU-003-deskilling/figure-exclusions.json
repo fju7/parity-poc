@@ -87,6 +87,14 @@
       "by": "claude",
       "on": "2026-10-18",
       "falsifier": "The sentence presenting 402 as a figure some document reports, rather than as our reading of a live counter on 30 August 2026."
+    },
+    {
+      "figure": "2601.00856",
+      "in_sentence": "arXiv 2601.00856",
+      "why": "Declared at the operator's instruction of 2026-10-18. Citation furniture, not a quantity: 2601.00856 is S019's own arXiv identifier (Stanković et al., 'Comment on: Your Brain on ChatGPT'), printed in the page's source list. The figure reader takes the digits of an arXiv id as a decimal; the held PDF does not print its own id.",
+      "by": "claude",
+      "on": "2026-10-18",
+      "falsifier": "The sentence no longer printing 2601.00856 as S019's arXiv identifier."
     }
   ]
 }
