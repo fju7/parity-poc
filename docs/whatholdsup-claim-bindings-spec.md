@@ -172,8 +172,9 @@ words it rests on, declared as an inference and shown, or off the page". Read by
 hand, the 282 sentences the filter left without a row on the deskilling page held 53
 errors, and no word list recovered them (the best reached 81% of a hand sort). So
 `bindings.scan` now gives every page sentence a row except the ones the MARKUP says
-are not prose: headings (h1–h4, and a bold lead of six words or fewer at the start of
-a paragraph) and a source-list role label standing alone. The old triggers still name
+are not prose: headings (h1–h4) and a source-list role label standing alone. A bold
+lead at the start of a paragraph is NOT a heading: the page uses that markup for
+emphatic claims as well, and markup cannot tell the two apart. The old triggers still name
 a row's reason when they fire. Two word lists tag rows — `trigger: source_claim` (the
 sentence describes a document in words) and `trigger: process_claim` (it says what we
 read, opened, hold, checked or found) — and the process tag routes the row to B21's

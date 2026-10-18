@@ -181,8 +181,8 @@ def is_empirical(sent: str, names: set[str], *, heading: bool = False,
     the misses were exactly the sentences with no marker at all ("It had not.").
 
     So the only sentences without a row are the ones the MARKUP says are not
-    prose: a heading (h1-h4, or a run-in <p><strong> lead -- page_markup), and a
-    source-list role label standing alone. The old triggers still name the
+    prose: a heading (h1-h4 -- page_markup) and a source-list role label
+    standing alone. The old triggers still name the
     reason when they fire; otherwise the reason is the claim_trigger tag, or
     "sentence" when no word marks it. The tags route, they do not admit."""
     flat = " ".join(sent.split())
@@ -194,9 +194,6 @@ def is_empirical(sent: str, names: set[str], *, heading: bool = False,
     rest = sent[len(label):].strip() if label and flat.startswith(label + " ") else sent
     trig, twhy = claim_trigger(rest)
     return True, (twhy if trig else "sentence")
-
-
-RUN_IN_MAX_WORDS = 6
 
 
 def page_markup(slug: str) -> tuple[set[str], list[str], list[tuple[str, list[str]]]]:
@@ -212,17 +209,11 @@ def page_markup(slug: str) -> tuple[set[str], list[str], list[tuple[str, list[st
     def txt(s: str) -> str:
         return " ".join(_h.unescape(re.sub(r"<[^>]+>", " ", s)).split())
     heads = {txt(m) for m in re.findall(r"<h[1-4]\b[^>]*>(.*?)</h[1-4]>", raw, re.S | re.I)}
-    # A run-in heading: <p><strong>Peer review.</strong> Three of the studies ...
-    # The bold lead at the very start of a paragraph is a heading by markup --
-    # but the same markup also carries emphatic claims ("<strong>It is a
+    # NOT A RUN-IN BOLD LEAD. <p><strong>…</strong> at a paragraph's start
+    # carries headings ("Peer review.") and emphatic claims alike ("It is a
     # retrospective observational study, and that governs everything you can
-    # take from it.</strong>"), and markup cannot tell the two apart. A missed
-    # claim costs more than a row for a heading, so a bold lead counts as a
-    # heading only when it is six words or fewer (on deskilling: every one of
-    # the sixteen headings, and two short judgements as well).
-    heads |= {t for t in (txt(m) for m in re.findall(r"<p\b[^>]*>\s*<strong>(.*?)</strong>",
-                                                     raw, re.S | re.I))
-              if len(t.split()) <= RUN_IN_MAX_WORDS}
+    # take from it."), and markup cannot tell them apart; a claim without a row
+    # is the failure this rule exists to prevent, so only h1-h4 are headings.
     labels = sorted({txt(m) for m in re.findall(r'<span class="tag">(.*?)</span>', raw, re.S)},
                     key=len, reverse=True)
     entries = [(txt(b), re.findall(r'href="([^"]+)"', b))

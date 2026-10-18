@@ -84,15 +84,13 @@ def test_a_label_prefix_is_not_the_sentences_own_words():
     assert B.is_empirical(sent, set())[1].startswith("source claim")
 
 
-def test_run_in_headings_are_short_bold_leads(monkeypatch):
+def test_a_bold_lead_at_paragraph_start_is_not_a_heading(monkeypatch):
     html = ("<html><body><p><strong>Peer review.</strong> Three of the studies are preprints.</p>"
             "<p><strong>It is a retrospective observational study, and that governs everything.</strong> "
-            "Nobody was randomised.</p><p>One more thing. <strong>Mid-paragraph bold.</strong></p></body></html>")
+            "Nobody was randomised.</p><h3>Real heading</h3></body></html>")
     monkeypatch.setattr(B, "_page_html", lambda slug: html)
     heads, _labels, _entries = B.page_markup("t")
-    assert "Peer review." in heads
-    assert not any(h.startswith("It is a retrospective") for h in heads)
-    assert "Mid-paragraph bold." not in heads
+    assert heads == {"Real heading"}
 
 
 def test_page_markup_reads_headings_labels_and_entries(monkeypatch):
@@ -173,7 +171,8 @@ def test_scan_gives_every_sentence_a_row_and_tags_it(monkeypatch, tmp_path):
     monkeypatch.setattr(B, "save", lambda slug, doc: saved.update(doc))
     B.scan("t")
     rows = {v["sentence"]: v for v in saved["bindings"].values()}
-    assert "The number" not in rows and "Peer review." not in rows and "Primary" not in rows
+    assert "The number" not in rows and "Primary" not in rows
+    assert "Peer review." in rows            # a bold lead is prose, not a heading
     assert rows["We read both."]["trigger"] == B.PROCESS_TRIGGER
     assert "trigger" not in rows["It had not."]
     assert rows["Read at the publisher."]["store_subject_markup"] == ["S001"]
