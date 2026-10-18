@@ -82,6 +82,25 @@ def split_grouped(figure: str, text: str) -> str | None:
     return m.group(0) if m else None
 
 
+# --- a citation's volume, issue and pages are not figures --------------------
+#
+# "Lancet Gastroenterol Hepatol 2025;10(10):896–903" put 896 and 903 into rule
+# 1 as figures in no span (deskilling c2f8c733), and "2025;227:105224" put an
+# article number into B13. That is the journal's address, not a quantity. ONLY
+# this shape -- a year, a semicolon, a volume, an optional (issue), a colon and
+# a page, article number or page range -- is removed, so a real figure after a
+# semicolon ("rose 20%; 12.5 percent fell") is untouched. 2026-10-18.
+CITATION = re.compile(
+    r"(?<![\d.])(?:19|20)\d{2};\s?\d{1,4}(?:\s?\(\s?\d{1,4}(?:[–-]\d{1,4})?\s?\))?:"
+    r"\s?[eA-Z]?\d{1,7}(?:\s?[–-]\s?[eA-Z]?\d{1,7})?(?![\d.])")
+
+
+def strip_citations(text: str) -> str:
+    """`text` with every citation volume/issue/page run blanked to spaces
+    (same length, so offsets still line up)."""
+    return CITATION.sub(lambda m: " " * len(m.group(0)), text)
+
+
 def rounds_to(value: str, printed: str, *, min_places: int = 1) -> bool:
     """Is `printed` `value` with at most one decimal place dropped, correctly
     rounded? (Exactly one dropped here; equal strings are matched before this

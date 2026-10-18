@@ -171,6 +171,36 @@ def find_dropping_hyphens(needle: str, body: str) -> tuple[int, int] | None:
     return None
 
 
+# --- SSRN's download watermark -----------------------------------------------
+#
+# SSRN stamps every page of a preprint it serves with a footer and a diagonal
+# watermark, and pdftotext interleaves both into the prose: S048 (Budzyń's
+# preprint) reads "suggesting a er r ev negative impact on endoscopist
+# performance", where the paper says "a negative impact". The fragments are
+# the watermark "Preprint not peer reviewed" broken by the extractor. Removed
+# ONLY from text that carries an SSRN abstract URL, and every match that needs
+# it says so. Patterns, exactly:
+#   footer:    "This preprint research paper has not been peer reviewed.
+#               Electronic copy available at: https://ssrn.com/abstract=NNNN"
+#   watermark: the standalone runs "Pr ep rin tn ot pe", "er r", "iew ed", "ev"
+# 2026-10-18.
+SSRN_NOTE = "matched after removing SSRN's download watermark"
+_SSRN_SOURCE = re.compile(r"ssrn\.com/abstract=\d+", re.I)
+_SSRN_FOOTER = re.compile(r"This preprint research paper has not been peer reviewed\.\s*"
+                          r"Electronic copy available at:\s*https?://ssrn\.com/abstract=\d+", re.I)
+_SSRN_WATERMARK = re.compile(r"(?<![\w-])(?:Pr ep rin tn ot pe|er r|iew ed|ev)(?![\w-])")
+
+
+def strip_ssrn(text: str) -> str | None:
+    """`text` without SSRN's footer and watermark, or None when the text is not
+    an SSRN download (nothing to strip, and nothing may be)."""
+    if not _SSRN_SOURCE.search(text or ""):
+        return None
+    t = _SSRN_FOOTER.sub(" ", text)
+    t = _SSRN_WATERMARK.sub(" ", t)
+    return " ".join(t.split())
+
+
 # --- B2 ---------------------------------------------------------------------
 
 UNDETERMINED = "undetermined"
@@ -213,6 +243,12 @@ def b2_present(span: str, slug: str, sid: str,
                                                      _norm(other).lower()):
             return True, ("searched the held bytes of %s — INFO: %s (rendition %s)"
                           % (sid, DROPPED_HYPHEN_NOTE, f[:12]))
+    # SSRN's watermark interleaved in the extracted text (see strip_ssrn).
+    for f, other in _texts(slug, sid):
+        bare = strip_ssrn(_norm(other))
+        if bare and _norm(span).lower() in bare.lower():
+            return True, ("searched the held bytes of %s — INFO: %s (rendition %s)"
+                          % (sid, SSRN_NOTE, f[:12]))
     # A span that is FOUND in a defective layer is really there (a broken
     # layer loses characters; it does not invent them). A span NOT found may
     # be the layer's loss, so absence cannot be evaluated.
@@ -289,6 +325,11 @@ def b5_complete(span: str, slug: str, sid: str) -> tuple[bool, str]:
             hit = is_pdf_layer(f) and find_dropping_hyphens(s.lower(), d.lower())
             if hit:
                 i, end = hit
+                break
+            bare = strip_ssrn(d)
+            if bare and s.lower() in bare.lower():
+                d = bare
+                i = d.lower().find(s.lower()); end = i + len(s)
                 break
     if i < 0:
         return False, "the span is not in %s at all (B2)" % sid

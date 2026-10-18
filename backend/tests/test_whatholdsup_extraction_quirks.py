@@ -135,6 +135,7 @@ class _Stub:
     """spancheck over one fixture span, as test_whatholdsup_figure_checks does."""
     UNDETERMINED = "undetermined"
     DROPPED_HYPHEN_NOTE = SC.DROPPED_HYPHEN_NOTE
+    SSRN_NOTE = SC.SSRN_NOTE
     _norm = staticmethod(SC._norm)
     HELD = {}
 

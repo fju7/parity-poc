@@ -114,7 +114,7 @@ def figures_on_page(slug: str) -> list[tuple[str, str]]:
             continue                      # the page says it did this sum itself
         # A page may group thousands with a space, a no-break space or a thin
         # space as well as a comma; all four read as one figure here.
-        text = FT.comma_grouped(SC._norm(sent))
+        text = FT.strip_citations(FT.comma_grouped(SC._norm(sent)))
         for m in FIGURE.finditer(text):
             f = m.group(1).replace(",", "")
             if _is_year(f) or NOT_A_MEASUREMENT.search(

@@ -466,7 +466,7 @@ def preflight_rows(slug: str, page_text: str,
     # A record whose page quote is not what the source says.
     altered, interrupted, transcription, unattested, rhetorical = [], [], [], [], 0
     accented = []
-    dehyphenated = []
+    dehyphenated, unwatermarked = [], []
     srcs = _sources(slug)
     found_already = []
     for q in on_page:
@@ -531,7 +531,12 @@ def preflight_rows(slug: str, page_text: str,
             if dh:
                 dehyphenated.append("%s: in %s (%s)" % (r.get("id") or "?", sid_now,
                                                         dh[0][-16:]))
-            if not dh and not any(qn in b for _f, b in bodies):
+            # SSRN's watermark interleaved in a preprint's text (spancheck.strip_ssrn).
+            sw = [] if (dh or any(qn in b for _f, b in bodies)) else \
+                [f for f, t in raw if (lambda x: x and qn in norm(x))(_SC.strip_ssrn(_SC._norm(t)))]
+            if sw:
+                unwatermarked.append("%s: in %s (%s)" % (r.get("id") or "?", sid_now, sw[0][-16:]))
+            if not dh and not sw and not any(qn in b for _f, b in bodies):
                 gaps = [(f, interrupted_by(qn, b)) for f, b in bodies]
                 gaps = [(f, g) for f, g in gaps if g is not None]
                 if gaps:
@@ -566,7 +571,8 @@ def preflight_rows(slug: str, page_text: str,
             vn = norm(r.get("verbatim", ""))
             if not any(vn in b or interrupted_by(vn, b) is not None
                        or (_SC.is_pdf_layer(_f) and _SC.find_dropping_hyphens(vn, b))
-                       for _f, b in bodies):
+                       for _f, b in bodies) and not any(
+                    (lambda x: x and vn in norm(x))(_SC.strip_ssrn(_SC._norm(t))) for _f, t in raw):
                 transcription.append(
                     "%s: the page's quotation is in %s but the recorded verbatim "
                     "context is not, whole or across one interruption — something "
@@ -596,6 +602,12 @@ def preflight_rows(slug: str, page_text: str,
         rows.append(("quotations matched ignoring accents", OK,
                      "INFO: %d quotation(s) %s: %s"
                      % (len(accented), ACCENT_NOTE, " || ".join(accented))))
+    if unwatermarked:
+        # INFO, AND SO OK: the words are the source's; SSRN's watermark was
+        # interleaved in the extracted line.
+        rows.append(("quotations matched after removing SSRN's watermark", OK,
+                     "INFO: %d quotation(s) %s: %s"
+                     % (len(unwatermarked), _SC.SSRN_NOTE, " || ".join(unwatermarked))))
     if dehyphenated:
         # INFO, AND SO OK: the words are the source's; the extractor joined a
         # word its PDF broke across a line. Never silent.

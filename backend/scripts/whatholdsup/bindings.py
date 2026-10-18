@@ -667,6 +667,56 @@ def b19_hedge_dropped(row: dict) -> list[dict]:
     return out
 
 
+# B19, the significance qualifier. A source's "no significant change" is not
+# "no change": the first says the test could not tell the phases apart, the
+# second says they are the same. Deskilling printed "which is no change" for
+# S043's "no significant change", and "their confidence did not fall" for
+# S017's "did not significantly decline (p = 0.202)". The general hedge list
+# could not see either: "significant" is a hedge only in this construction.
+# So: evidence that negates significance ABOUT A CHANGE OR DIFFERENCE, and a
+# sentence asserting no change with no significance word, is a WARN. It is
+# disposable through hedge_dispositions on the word "significant". 2026-10-18.
+_SIG_NEGATED = re.compile(
+    r"\b(?:no|not|non-?)\s?(?:statistically\s)?significant(?:ly)?\b"
+    r"|\bdid not (?:statistically\s)?significantly\b"
+    r"|\bnot statistically (?:significant|different)\b", re.I)
+_SIG_ABOUT = re.compile(
+    r"\b(?:chang\w*|differ\w*|effect\w*|declin\w*|decreas\w*|increas\w*|"
+    r"improv\w*|reduc\w*|rise|rose|fall|fell|drop\w*|impact\w*|associat\w*)\b", re.I)
+_SENT_NO_CHANGE = re.compile(
+    r"\b(?:no (?:change|difference|effect|increase|decrease|decline|improvement|"
+    r"reduction|rise|fall|drop)|did not (?:fall|change|decline|drop|rise|differ|"
+    r"increase|decrease|improve)|unchanged|indistinguishable|no (?:faster|slower|"
+    r"better|worse))\b", re.I)
+_SENT_SIG = re.compile(r"significan|statistical", re.I)
+
+
+def b19_significance_dropped(row: dict) -> list[dict]:
+    """'no significant change' in the evidence, 'no change' in the sentence."""
+    sent = row.get("sentence") or ""
+    said = _SENT_NO_CHANGE.search(sent)
+    if not said or _SENT_SIG.search(sent):
+        return []
+    hits = []
+    for sid, span in evidence_spans(row):
+        for m in _SIG_NEGATED.finditer(span or ""):
+            if _SIG_ABOUT.search(span[m.start():m.end() + 40]) or "differ" in m.group(0).lower():
+                hits.append((m.group(0), sid))
+                break
+    if not hits:
+        return []
+    disposed = hedge_dispositions(row)
+    if "significant" in disposed:
+        d = disposed["significant"]
+        return [{"check": "B19", "verdict": "evidence hedge disposed", "hedge": "significant",
+                 "why": "the evidence says %r (%s), disposed of by %s%s: %s"
+                        % (hits[0][0], hits[0][1], d["by"], " on %s" % d["on"] if d.get("on") else "",
+                           d["why"])}]
+    return [{"check": "B19", "verdict": "significance qualifier dropped", "hedge": "significant",
+             "why": "the evidence says %s; the sentence says %r with no significance qualifier"
+                    % (", ".join("%r (%s)" % h for h in hits[:3]), said.group(0))}]
+
+
 # B20. The ladder is the brief's. "moderate to good" and "reasonably high" sit
 # between moderate and high: above anything a source grades moderate, below a
 # source's "high".
@@ -1069,6 +1119,7 @@ CALIBRATION_SEVERITY = {
     "holdings sentence not declared to the store": WARN,
     "evidence hedge dropped": WARN,
     "evidence hedge disposed": INFO,
+    "significance qualifier dropped": WARN,
     "confidence above its cited grade": BAD,
     "confidence stated without a cited grade": BAD,
     "confidence level unreadable": WARN,
@@ -1088,7 +1139,7 @@ def calibration_findings(row: dict, slug: str) -> list[dict]:
     """B19-B23 over one row. Reads the row, the store for B21 and the held
     text for B22. Writes nothing: run_checks puts what it returns in
     check_flags."""
-    return (b19_hedge_dropped(row) + b20_confidence_ceiling(row)
+    return (b19_hedge_dropped(row) + b19_significance_dropped(row) + b20_confidence_ceiling(row)
             + b21_holdings(row, slug) + b22_wording_claim(row, slug)
             + b23_interval_omitted(row))
 
@@ -1230,7 +1281,7 @@ def run_checks(slug: str, *, only: str = "") -> dict:
                                "outlives its word is a filter" % w})
             import autobind as AB
             grouped = []
-            for a in AB.anchors_of(sent):
+            for a in AB.anchors_of(FT.strip_citations(sent)):
                 # Ask every source the row names. A figure printed as we print
                 # it by ANY of them is not a precision we added; a source that
                 # is not in the library answers nothing and clears nothing.
@@ -1430,6 +1481,7 @@ def _bare_integer_in(fig: str, covered: str) -> bool:
 
 def _claim_figures(text: str, names: set[str] | None = None) -> set[str]:
     """The figures a sentence CLAIMS, which is not every digit string in it.
+    A citation's volume/issue/pages are not among them (FT.strip_citations).
 
     "KEYNOTE-942" and "mRNA-4157" are names. The first run of the coverage
     check read 942 as a figure and reported it missing from the span the
@@ -1439,6 +1491,7 @@ def _claim_figures(text: str, names: set[str] | None = None) -> set[str]:
     the identifiers we happen to have met, because every allowlist built from
     met vocabulary in this repository has been wrong.
     """
+    text = FT.strip_citations(text)
     import modelbind as MB
     named = set()
     for tok in re.split(r"\s+", text):
@@ -1656,7 +1709,7 @@ def rule_rows(slug: str) -> list[tuple[str, str, str]]:
     # history. So: every figure the sentence carries must appear in a span the
     # sentence is actually bound to.
     loose, loose_keys, unevaluable, rounded = [], set(), [], []
-    split, dehyphenated = [], []
+    split, dehyphenated, unwatermarked = [], [], []
     for k, v in on_page.items():
         if k in set(attested):
             continue          # nothing here may read the document it rests on
@@ -1676,6 +1729,8 @@ def rule_rows(slug: str) -> list[tuple[str, str, str]]:
                 continue
             if present is True and SC.DROPPED_HYPHEN_NOTE in why:
                 dehyphenated.append("%s: in %s (%s)" % (k[:8], sid, v["sentence"][:40]))
+            if present is True and SC.SSRN_NOTE in why:
+                unwatermarked.append("%s: in %s (%s)" % (k[:8], sid, v["sentence"][:40]))
             if present is not True:
                 loose.append("%s: a span it names is not in %s" % (k[:8], sid))
                 loose_keys.add(k)
@@ -1751,6 +1806,10 @@ def rule_rows(slug: str) -> list[tuple[str, str, str]]:
                           "INFO: %d span(s) %s: %s"
                           % (len(dehyphenated), SC.DROPPED_HYPHEN_NOTE,
                              " || ".join(dehyphenated))))
+    if unwatermarked:
+        out_extra.append(("rule 1 — spans matched after removing SSRN's watermark", OK,
+                          "INFO: %d span(s) %s: %s"
+                          % (len(unwatermarked), SC.SSRN_NOTE, " || ".join(unwatermarked))))
     if unevaluable:
         out_extra.append(("spans this check cannot evaluate", WARN,
                           "%d span(s) name a source whose only held rendition has a "
