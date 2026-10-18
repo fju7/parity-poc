@@ -747,3 +747,39 @@ def test_a_sentence_that_denies_no_figure_is_not_this_check(monkeypatch):
     assert verdict == ""
 
 
+
+
+# 18 October 2026: a declared context (framing) row is settled, not "rests on
+# nothing yet". It is reported on its own row and never counted as bound.
+R1_FRAMING = "rule 1 — sentences declared framing"
+FRAMING = {"why": "a signpost: it makes no claim about the world or a source",
+           "by": "Fred Ugast", "on": "2026-10-18"}
+
+
+def test_a_declared_framing_row_is_settled_not_unbound():
+    put({"sentence": "What follows is the evidence.", "bucket": "context", "framing": FRAMING})
+    rows = {n: (s, w) for n, s, w in B.rule_rows(SLUG)}
+    assert rows[R1_BACKLOG][0] == B.OK and rows[R1][0] == B.OK
+    assert rows[R1_FRAMING][0] == B.OK and "1 of 1" in rows[R1_FRAMING][1]
+    assert "0 bound" in rows[R1][1], "a framing row is never counted as bound"
+
+
+def test_a_framing_row_beside_an_unbound_one_leaves_only_the_unbound_counted():
+    put({"sentence": "What follows is the evidence.", "bucket": "context", "framing": FRAMING}, {})
+    w = [w for n, _, w in B.rule_rows(SLUG) if n == R1_BACKLOG][0]
+    assert "1 of 2 rest on nothing yet" in w
+
+
+@pytest.mark.parametrize("framing", [{"why": "", "by": "Fred Ugast"},
+                                     {"why": "a signpost", "by": ""},
+                                     "a signpost", None])
+def test_an_unsigned_or_malformed_framing_declaration_is_still_unbound(framing):
+    put({"sentence": "What follows is the evidence.", "bucket": "context", "framing": framing})
+    assert verdicts()[R1_BACKLOG] == B.WARN
+
+
+def test_framing_without_the_context_bucket_is_still_unbound():
+    """The declaration is the bucket AND the signed note: a note on a row nobody
+    has declared context is not a way out of rule 1."""
+    put({"sentence": "What follows is the evidence.", "framing": FRAMING})
+    assert verdicts()[R1_BACKLOG] == B.WARN

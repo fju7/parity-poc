@@ -976,16 +976,27 @@ def b21_holdings(row: dict, slug: str) -> list[dict]:
     """
     sent = row.get("sentence") or ""
     declared = row.get("rests_on_store") or []
+    # A ROW DECLARED A JUDGEMENT IS NOT ROUTED HERE BY ITS TAG. The scan's
+    # process_claim tag is a word match ("we missed"), set before anyone has
+    # read the sentence; a person who has declared the row a judgement, with
+    # premises in held documents and a step, has answered the question the tag
+    # asked. Routing it to the store anyway makes its premises a "holdings
+    # sentence cites a document" BAD -- the declared bucket overruled by a
+    # regex. The subject phrasing (HOLDINGS) still routes it: a judgement that
+    # says "we hold" is about the store whatever its bucket. A process_claim
+    # row NOT declared a judgement is routed exactly as before. 2026-10-18,
+    # deskilling d03dd93f.
+    trigger = "" if (row.get("bucket") or "") == "judgement" else (row.get("trigger") or "")
     # A process-claim row that the old subject phrasing would not have caught:
     # nobody has declared its subject yet, so the declaration findings below are
     # not its to raise. Its subject is the source-list entry it sits in, if any,
     # else whatever the text names; with neither, it is NOT EVALUATED (warn),
     # never "not in sources" -- "We check the sources on this page" is about no
     # one document.
-    process_only = (row.get("trigger") == PROCESS_TRIGGER
+    process_only = (trigger == PROCESS_TRIGGER
                     and not HOLDINGS.search(sent) and not declared)
     markup = row.get("store_subject_markup") or []
-    if not is_holdings(sent, row.get("trigger") or ""):
+    if not is_holdings(sent, trigger):
         if declared:
             return [{"check": "B21", "verdict": "declared to the store, not a holdings sentence",
                      "why": "rests_on_store is set and the sentence is not about "
@@ -1847,8 +1858,22 @@ def rule_rows(slug: str) -> list[tuple[str, str, str]]:
     stored = [k for k, v in on_page.items()
               if (v.get("rests_on_store") or []) and is_holdings(v.get("sentence"))
               and not support_ids(v)]
+    # A DECLARED FRAMING ROW IS SETTLED, NOT UNBOUND. A heading, signpost or
+    # transition makes no claim about the world or about a source, so there is
+    # no span for it to rest on; a person has said so in the row (bucket
+    # context, `framing` {why, by}). Counting it as "rests on nothing yet" put
+    # 23 deskilling rows in the backlog that nobody could ever clear -- the
+    # pressure toward pointing a signpost at a passage it does not rest on.
+    # Reported on its own row, never counted as bound or verified, and a row
+    # with a blank why or by is not a declaration and stays unbound. 2026-10-18.
+    framed = [k for k, v in on_page.items()
+              if (v.get("bucket") or "") == "context" and not covering(v)
+              and isinstance(v.get("framing"), dict)
+              and (v["framing"].get("why") or "").strip()
+              and (v["framing"].get("by") or "").strip()]
     unbound = [k for k, v in on_page.items()
-               if not covering(v) and k not in set(attested) and k not in set(stored)]
+               if not covering(v) and k not in set(attested) and k not in set(stored)
+               and k not in set(framed)]
 
     # A SENTENCE IS NOT BOUND BECAUSE ONE OF ITS FIGURES IS.
     #
@@ -1973,6 +1998,12 @@ def rule_rows(slug: str) -> list[tuple[str, str, str]]:
                           "record rather than on a document; B21 asks the store. "
                           "Not a verified span and never counted as one."
                           % (len(stored), len(on_page))))
+    if framed:
+        out_extra.append(("rule 1 — sentences declared framing", OK,
+                          "INFO: %d of %d are headings, signposts or transitions a "
+                          "person has declared make no claim (bucket context, with "
+                          "`framing`); settled, not bound, and never counted as a "
+                          "verified span" % (len(framed), len(on_page))))
     if attested:
         out_extra.append(("sentences resting on a human attestation", WARN,
                           "%d of %d rest on a document no check may read: a named "
@@ -1998,7 +2029,7 @@ def rule_rows(slug: str) -> list[tuple[str, str, str]]:
     # and counted. Not a demotion of rule 1 -- the blocking half keeps its
     # label -- but a split, so the block names the defect and the backlog is
     # the backlog.
-    bound_n = len(on_page) - len(unbound) - len(attested) - len(stored)
+    bound_n = len(on_page) - len(unbound) - len(attested) - len(stored) - len(framed)
     out = [("rule 1 — written from a document we hold",
             OK if not loose else BAD,
             "every figure in the %d bound sentence(s) is in a span the sentence "
@@ -2009,8 +2040,8 @@ def rule_rows(slug: str) -> list[tuple[str, str, str]]:
             % (len(loose), " || ".join(loose[:3]))),
            ("rule 1 — sentences not yet bound",
             OK if not unbound else WARN,
-            "every one of the %d sentence(s) with a binding row is bound"
-            % len(on_page) if not unbound else
+            "every one of the %d sentence(s) with a binding row is bound or "
+            "declared framing" % len(on_page) if not unbound else
             "%d of %d rest on nothing yet: no span, no premises. Nothing has "
             "checked these -- not passed, not failed. %s"
             % (len(unbound), len(on_page),

@@ -176,3 +176,39 @@ def test_scan_gives_every_sentence_a_row_and_tags_it(monkeypatch, tmp_path):
     assert rows["We read both."]["trigger"] == B.PROCESS_TRIGGER
     assert "trigger" not in rows["It had not."]
     assert rows["Read at the publisher."]["store_subject_markup"] == ["S001"]
+
+
+# 18 October 2026: a row declared a judgement is not routed to B21 by its
+# process_claim tag. d03dd93f's shape: tagged by "we missed", declared a
+# judgement, premises in held documents.
+D03 = ("Twelve studies, a consistent direction, a null we were offered that is not one, "
+       "and a null we missed that is — whose authors explain why it does not cancel the first result.")
+
+
+def test_a_declared_judgement_is_not_routed_to_b21_by_its_tag(store, monkeypatch):
+    monkeypatch.setattr(E, "resolve", lambda s, g: [])
+    r = {"sentence": D03, "trigger": B.PROCESS_TRIGGER, "bucket": "judgement",
+         "premises": [{"source_id": "S046", "span": "x"}, {"source_id": "S030", "span": "y"}],
+         "step": "S029 includes 12 studies; S043 reports a null after withdrawal."}
+    assert B.b21_holdings(r, "t") == []
+
+
+def test_the_same_row_undeclared_is_still_routed_to_b21(store, monkeypatch):
+    monkeypatch.setattr(E, "resolve", lambda s, g: [])
+    r = {"sentence": D03, "trigger": B.PROCESS_TRIGGER,
+         "premises": [{"source_id": "S046", "span": "x"}]}
+    fl = B.b21_holdings(r, "t")
+    assert "holdings sentence cites a document" in [f["verdict"] for f in fl]
+
+
+def test_a_judgement_in_holdings_phrasing_is_still_routed_to_b21(store, monkeypatch):
+    """The bucket overrules the tag, not the subject: 'we hold' is about the store."""
+    monkeypatch.setattr(E, "resolve", lambda s, g: [])
+    r = {"sentence": "We hold the paper and it settles nothing.", "bucket": "judgement",
+         "trigger": B.PROCESS_TRIGGER, "premises": [{"source_id": "S046", "span": "x"}]}
+    assert "holdings sentence cites a document" in [f["verdict"] for f in B.b21_holdings(r, "t")]
+
+
+def test_a_process_claim_not_declared_judgement_keeps_its_store_check(store):
+    r = dict(row("Read at the publisher.", "S046"), bucket="context")
+    assert [f["verdict"] for f in B.b21_holdings(r, "t")] == ["store disagrees"]

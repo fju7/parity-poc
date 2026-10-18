@@ -329,6 +329,19 @@ held rendition comes from a host that is not a repository or the ledger's sectio
 name the publisher's page, and fails when every held rendition is a repository copy
 (PubMed Central, Europe PMC, arXiv, SSRN, OSF, an institutional repository).
 
+**A declared judgement is not routed by its tag (2026-10-18).** The process_claim tag
+is a word match set before anyone reads the sentence. A row whose bucket is
+declared `judgement` — premises in held documents and a step — is not routed to B21
+because of the tag; the subject phrasing (`HOLDINGS`, "we hold …") still routes it.
+A process_claim row not declared a judgement is routed as above. (Deskilling
+d03dd93f: tagged by "we missed", a judgement over S029, S047 and S043.)
+
+**A declared framing row is settled (2026-10-18).** A row with bucket `context` and a
+signed `framing` note {why, by} — a heading, signpost or transition that makes no
+claim — is not "rests on nothing yet" in rule 1. It is reported on its own ok row,
+"rule 1 — sentences declared framing", and never counted as bound or verified. A
+note with a blank why or by, or on a row not declared context, is not a declaration.
+
 **A document mentioned and not held gets an entry.** A holdings sentence whose
 `rests_on_store` names an id with no entry, or that declares nothing, cites
 nothing, and whose text names no registered source, STOPs: "document not in
