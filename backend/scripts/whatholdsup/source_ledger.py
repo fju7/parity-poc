@@ -481,7 +481,10 @@ def inaccessibility_claims(page_text: str, srcs: list[dict]) -> list[tuple[str, 
 # clause names no source by any alias is returned separately, as
 # unattributed, because a check that quietly drops it is a check that
 # passes on a sentence it could not read.
-_CLAUSE_SPLIT = re.compile(r";|\s[\u2014\u2013]\s|\s-{2,}\s|,\s+(?:and|but|while|whereas)\s")
+# A semicolon BETWEEN DIGITS is citation punctuation ("2025;227:105224"),
+# not a clause break; splitting there put "Deng et al." in one clause and
+# "which this page has not read" in the next (2026-10-18).
+_CLAUSE_SPLIT = re.compile(r"(?<!\d);|;(?!\d)|\s[\u2014\u2013]\s|\s-{2,}\s|,\s+(?:and|but|while|whereas)\s")
 
 
 def _clauses(sent: str) -> list[str]:
@@ -494,19 +497,56 @@ def unattributed_inaccessibility_claims(page_text: str, srcs: list[dict]) -> lis
     return _inaccessibility(page_text, srcs)[1]
 
 
+# AND A CLAUSE IS NOT A SUBJECT. On 2026-10-18 this check blamed S006
+# (Weidlich, held) for "The meta-analysis they audit is Deng et al., ...,
+# which this page has not read: its scope and effect size are given here as
+# Weidlich and colleagues report them". The clause carried both aliases and
+# the first source in ledger order won. What the phrase is about is the name
+# it is attached to: the nearest alias BEFORE it ("Deng et al., which ... has
+# not read"), or, when nothing precedes it, one that follows at once ("We
+# could not open PALMARES-2's declaration") -- before any colon and within
+# FOLLOW_MAX characters. An alias further on is a different statement about a
+# different document; if nothing qualifies, the sentence is unattributed,
+# never pinned on whoever else the clause mentions.
+FOLLOW_MAX = 80
+
+
+def _named_unread(clause: str, srcs: list[dict]) -> list[dict]:
+    """The sources each inaccessibility phrase in `clause` is attached to."""
+    hits = []
+    for src in srcs:
+        for n in identifiers(src):
+            # Not \b: an alias that ends in punctuation ("Deng et al.") has no
+            # word boundary before the comma that follows it.
+            for m in re.finditer(r"(?<!\w)%s(?!\w)" % re.escape(n), clause, re.I):
+                hits.append((m.start(), m.end(), src))
+    chosen = []
+    for ph in INACCESSIBLE.finditer(clause):
+        before = [h for h in hits if h[1] <= ph.start()]
+        if before:
+            pick = max(before, key=lambda h: (h[1], h[1] - h[0]))
+        else:
+            colon = clause.find(":", ph.end())
+            limit = min(ph.end() + FOLLOW_MAX, colon if colon >= 0 else len(clause))
+            after = [h for h in hits if ph.end() <= h[0] < limit]
+            pick = min(after, key=lambda h: (h[0], -(h[1] - h[0]))) if after else None
+        if pick and all(pick[2] is not c for c in chosen):
+            chosen.append(pick[2])
+    return chosen
+
+
 def _inaccessibility(page_text: str, srcs: list[dict]) -> tuple[list[tuple[str, dict, str]], list[str]]:
     out, unattributed = [], []
     for sent in sentences(plain(page_text)):
         if not INACCESSIBLE.search(sent):
             continue
         claim_clauses = [c for c in _clauses(sent) if INACCESSIBLE.search(c)] or [sent]
-        for src in srcs:
-            names = identifiers(src)
-            if not names:
-                continue
-            if not any(re.search(r"\b%s\b" % re.escape(n), c, re.I)
-                       for c in claim_clauses for n in names):
-                continue
+        named = []
+        for c in claim_clauses:
+            for src in _named_unread(c, srcs):
+                if all(src is not x for x in named):
+                    named.append(src)
+        for src in named:
             state = (access_of(src) or {}).get("state")
             # WHOLE DOCUMENT, not READ_STATES.
             #
@@ -526,8 +566,7 @@ def _inaccessibility(page_text: str, srcs: list[dict]) -> tuple[list[tuple[str, 
             # sentence to satisfy it.
             if state in HOLDS_WHOLE_DOCUMENT:
                 out.append((" ".join(sent.split())[:190], src, state))
-            break
-        else:
+        if not named:
             unattributed.append(" ".join(sent.split())[:190])
     return out, unattributed
 
