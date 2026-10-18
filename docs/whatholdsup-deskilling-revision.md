@@ -8,15 +8,20 @@ unless marked otherwise. Rows are binding-row shas in `bindings.json`.
 
 ## Errors found in the published page
 
-Ten confirmed across batches 1 and 2 (read against held text, 18 October 2026):
+22 errors in about 71 sentences read closely — 12 overstate a finding, 4 misattribute or misdescribe, 2 misquote, 1 misstates how a source was read, 3 understate a source's standing (published work called "accepted" or "a preprint"); 0 understate a finding.
 
 | | count | rows |
 |---|---|---|
-| overstates the source | 5 | 32db25e0, 509b18f6, b8844660, bd8b242c, ad3f7c73 |
-| misattributes or misdescribes | 3 | 26e94905, 8598e9ca, 34b99db8 |
+| overstates a finding | 12 | 32db25e0, 509b18f6, b8844660, bd8b242c, ad3f7c73; batch 3: ed48b451, 41c3df15, 1c761af8, 94b39b65, 8762158c, f8238a88, 94cd79d4 |
+| misattributes or misdescribes | 4 | 26e94905, 8598e9ca, 34b99db8; batch 3: 73aed151 |
+| misquotes | 2 | Q-25; batch 3: e0713036 |
 | misstates how a source was read | 1 | the Wang paragraph (c8d0e2c5, 5bd6e3b7, b8844660 rest on it) — now true once those rows bind to S046 |
-| misquotes | 1 | Q-25 |
-| understates the source | 0 | |
+| understates a source's standing | 3 | batch 3: 7a05297b, 4173a438, e14ccbb0 |
+| understates a finding | 0 | |
+
+Of the 10 batch-3 errors, the automatic checks caught 1 on the uncorrected text; close reading against the source found the rest.
+
+Not in the count above (operator's call): a4267014 and 09ba5473, §27 and §28 — "without warning" is S001's description of Experiment 1 only, found by the batch-3 write's conditional check.
 
 Not counted as errors: Q-17 (a title marked as a quotation; formatting) and 43.8 (in S031's
 Table 2 as 43.79, correctly rounded; no change).
@@ -258,9 +263,157 @@ identifications, P = 0.001) and Table 1 (eye travel).
 None left from batch 1: 43a5da1b (S008) is bound; 34b99db8, bd8b242c and 8598e9ca have their
 sources held and corrections above.
 
+## 15. 94cd79d4 — "the largest", and "primarily" dropped
+
+**Page now:** The authors list eleven limitations of their own, and the largest is not subtle: the total number of procedures in the second period nearly doubled, from 795 to 1,382 — while the non-AI procedures actually measured fell from 795 to 648 — because Poland suspended its colonoscopy-based screening programme on 1 January 2022 and the centres used the freed capacity to draw patients off the waiting list.
+
+**Evidence:** S021 numbers its eleven limitations (First … Tenth, Finally) and ranks none of them; "the largest" was our ranking stated as fact. And the eighth limitation says the volume rise "was primarily due to the temporary suspension of the colonoscopy-based colorectal cancer screening programme in Poland on 1 January 2022"; the page said "because".
+
+**Proposed:** "The authors list eleven limitations of their own, and the one we think matters most is not subtle: the total number of procedures in the second period nearly doubled, from 795 to 1,382 — while the non-AI procedures actually measured fell from 795 to 648 — primarily because Poland suspended its colonoscopy-based screening programme on 1 January 2022 and the centres used the freed capacity to take more patients from the waiting list."
+
+**Binding for the corrected text:** judgement. premise S021: "The present study has several limitations." premise S021: "Eighth, we observed an almost two-fold increase in the number of procedures in the post-AI phase compared to …" premise S021: "Finally, the number of examinations performed by some endoscopists was relatively low" premise S021: "Before AI implementation N=795 After AI implementation N=648 Difference (95% CI); p-value ADR n (%) 226 …" Step: The limitations paragraph runs First to Tenth and then Finally: eleven. The eighth reports 795 procedures before and 1382 after (734 with AI, 648 without), 'primarily due to' the suspension of the screening programme on 1 January 2022, which let centres take more patients from the waiting list. The ranking is ours: S021 numbers its limitations and does not rank them; 'the one we think matters most' says so on the page. Checks in memory on the corrected text (rule 1, B2, B5, B6, B12, B19 incl. significance, B20, B22, B23): clean.
+
+## 16. ed48b451 — "adjusted" again, in the source list
+
+**Page now:** Source of the three phases — before CADe, during CADe, after CADe removal — the thirteen endoscopists (seven inexperienced, six experienced) and 5,013 colonoscopies, the primary endpoint of detection of at least one polyp of 5 mm or more, the rise among inexperienced endoscopists from 31.9% (216/678) to 39.5% (257/651) at an odds ratio of 1.43 on 1.11–1.84, the 36.3% (173/476) after removal at an adjusted odds ratio of 1.03 on 0.79–1.34, the absence of any significant effect among the experienced, and the quoted conclusion.
+
+**Evidence:** Same error as §1 (32db25e0). S043 abstract: "There was no significant change between phases 1 and 3 (31.9% [216/678] to 36.3% [173/476]; OR 1.03, 95%CI 0.79-1.34)." Its table gives "Inexperienced 173/476 (36.3) 1.03 (0.79-1.34) -": the univariable column, with "-" for multivariable.
+
+**Proposed:** "Source of the three phases — before CADe, during CADe, after CADe removal — the thirteen endoscopists (seven inexperienced, six experienced) and 5,013 colonoscopies, the primary endpoint of detection of at least one polyp of 5 mm or more, the rise among inexperienced endoscopists from 31.9% (216/678) to 39.5% (257/651) at an odds ratio of 1.43 on 1.11–1.84, the 36.3% (173/476) after removal at an odds ratio of 1.03 on 0.79–1.34, the absence of any significant effect among the experienced, and the quoted conclusion."
+
+**Binding for the corrected text:** deterministic. Span, S043 (Abstract, Methods/Results/Conclusions): "endoscopists from phase 1 to 2 (31.9% [216/678] to 39.5% [257/651]; odds ratio [OR] 1.43, 95%CI 1.11-1.84). There was no significant change between phases 1 …" also_rests_on S043: "13 endoscopists (7 inexperienced, 6 experienced) performed 5013 colonoscopies; median patient age was 59 …" also_rests_on S043: "The primary end point was change in the proportion of colonoscopies with detection of at least one polyp ≥5 …" also_rests_on S043: "3 (after CADe) All 457/1521 (30.0) 0.95 (0.82-1.11) - Inexperienced 173/476 (36.3) 1.03 (0.79-1.34) -" also_rests_on S043: "Conclusions PDR-5 of inexperienced endoscopists increased when CADe was used." Checks in memory on the corrected text (rule 1, B2, B5, B6, B12, B19 incl. significance, B20, B22, B23): clean.
+
+## 17. 73aed151 — "AI-generated" suggestions from a purported AI
+
+**Page now:** Dratsch and colleagues showed 27 radiologists a set of mammograms alongside AI-generated BI-RADS category suggestions.
+
+**Evidence:** S030 Materials and Methods: "27 radiologists read 50 mammograms and provided their Breast Imaging Reporting and Data System (BI-RADS) assessment assisted by a purported AI system." The suggestions were the researchers', set correct or incorrect by design; no AI generated them.
+
+**Proposed:** "Dratsch and colleagues had 27 radiologists read a set of mammograms alongside BI-RADS category suggestions from a purported AI system."
+
+**Binding for the corrected text:** context. Span, S030 (Abstract, Materials and Methods): "In this prospective experiment, 27 radiologists read 50 mammograms and provided their Breast Imaging Reporting and Data System (BI-RADS) assessment assisted by …" Checks in memory on the corrected text (rule 1, B2, B5, B6, B12, B19 incl. significance, B20, B22, B23): clean.
+
+## 18. 41c3df15 — "the figure most often quoted"
+
+**Page now:** Gerlich's 2025 study is the source of the figure most often quoted, a correlation of −0.68 between AI use and critical thinking.
+
+**Evidence:** No held document ranks how often figures are quoted. The figure itself is right: S008, "The correlation between AI tool use and critical thinking was found to be strongly negative (r = -0.68)".
+
+**Proposed:** "Gerlich's 2025 study reports a correlation of −0.68 between AI tool use and critical thinking."
+
+**Binding for the corrected text:** deterministic. Span, S008 (Results, correlations): "The correlation between AI tool use and critical thinking was found to be strongly negative (r = -0.68), suggesting that greater reliance on AI tools is …" Checks in memory on the corrected text (rule 1, B2, B5, B6, B12, B19 incl. significance, B20, B22, B23): clean.
+
+## 19. 1c761af8 — "gave up sooner"
+
+**Page now:** Unassisted solve rates fell, at effect sizes of −0.42, −0.19 and −0.42, and people gave up sooner.
+
+**Evidence:** S001 measures a skip rate (how often a test problem was skipped), not timing; its words are "give up more frequently" and "more likely to give up". The skip-rate difference was significant in Experiment 1 ("P = 0.031") and Experiment 3 ("P = 0.008") but not Experiment 2: "t(583) = 1.18, P = 0.239; Cohen's d = 0.10, 95% CI [-0.07, 0.26]), but the result was not significant." The three solve-rate effect sizes (−0.42, −0.19, −0.42) are right.
+
+**Proposed:** "Unassisted solve rates fell, at effect sizes of −0.42, −0.19 and −0.42, and people gave up more often — significantly in the first and third experiments, not in the second."
+
+**Binding for the corrected text:** deterministic. Span, S001 (Experiments 1-3, Results): "had a lower solve rate (mean 0.57, s.d. 0.41) than participants in the control condition (mean 0.73, s.d. 0.34; t(305) = -3.64, P < 0.001; Cohen's d = -0.42, …" also_rests_on S001: "had a lower solve rate (mean 0.71, s.d. 0.36) than participants in the control condition (mean 0.77, s.d. …" also_rests_on S001: "had a lower solve rate (mean 0.76, s.d. 0.34) than participants in the control condition (mean 0.89, s.d. …" also_rests_on S001: "the AI condition had a higher skip rate (mean 0.20, s.d. 0.36) than participants in the control condition …" also_rests_on S001: "exhibited a higher skip rate (mean 0.10, s.d. 0.26) than participants in the control condition (mean 0.07, …" also_rests_on S001: "also had a higher skip rate (mean 0.08, s.d. 0.21) than participants in the control condition (mean 0.01, …" Checks in memory on the corrected text (rule 1, B2, B5, B6, B12, B19 incl. significance, B20, B22, B23): clean.
+
+## 20. 94b39b65 — 79.8% given to all three experiments
+
+**Page now:** Separately, three pre-registered experiments with 1,372 participants across 9,593 trials randomised whether an AI assistant's answer was right or wrong: participants consulted it on more than half of trials and, having consulted it, followed it on 79.8% of the trials where it was wrong .
+
+**Evidence:** The abstract covers the pool: "Across three preregistered experiments … (N = 1,372; 9,593 trials) … Participants chose to consult an AI assistant on a majority of trials (>50%)." The 79.8% is printed only in Study 1's results: "Conditional on using System 3, participants followed AI's advice on 92.7% of AI-Accurate trials … and 79.8% of AI-Faulty trials". No pooled faulty-trial follow rate was found.
+
+**Proposed:** "Separately, three pre-registered experiments with 1,372 participants across 9,593 trials randomised whether an AI assistant's answer was right or wrong: participants consulted it on more than half of trials and, in the first experiment, having consulted it, followed it on 79.8% of the trials where it was wrong."
+
+**Binding for the corrected text:** deterministic. Span, S017 (Abstract; Study 1, Chat Use & AI Adoption): "Across three preregistered experiments using an adapted Cognitive Reflection Test (N = 1,372; 9,593 trials), we randomized AI accuracy via hidden seed prompts. …" also_rests_on S017: "Conditional on using System 3, participants followed AI's advice on 92.7% of AI-Accurate trials (SE = 1.2%, …" Checks in memory on the corrected text (rule 1, B2, B5, B6, B12, B19 incl. significance, B20, B22, B23): clean.
+
+## 21. 8762158c — "did not decline", and Study 1 figures given to the three
+
+**Page now:** Wharton School Research Paper, February 2026 Source of the three pre-registered experiments, 1,372 participants and 9,593 trials, the 79.8% of chat-engaged trials on which participants followed faulty advice, and the confidence rise of 11.7 percentage points that did not decline as faulty trials accumulated.
+
+**Evidence:** S017 Study 1: "Within the AI-Assisted condition, confidence did not significantly decline as the number of faulty trials increased (β = -1.14, SE = 0.89, t = -1.28, 95% CI [-2.88, 0.61], p = 0.202)." The 79.8% and the 11.7-point rise are Study 1's (as 94b39b65). The B19 significance check catches the first error on the uncorrected text.
+
+**Proposed:** "Wharton School Research Paper, February 2026 Source of the three pre-registered experiments, 1,372 participants and 9,593 trials, and, from the first experiment, the 79.8% of chat-engaged trials on which participants followed faulty advice and the confidence rise of 11.7 percentage points that did not significantly decline as faulty trials accumulated."
+
+**Binding for the corrected text:** deterministic. Span, S017 (Abstract; Study 1): "Across three preregistered experiments using an adapted Cognitive Reflection Test (N = 1,372; 9,593 trials), we randomized AI accuracy via hidden seed prompts. …" also_rests_on S017: "Conditional on using System 3, participants followed AI's advice on 92.7% of AI-Accurate trials (SE = 1.2%, …" also_rests_on S017: "Despite approximately half of System 3 answers being faulty, access to AI increased confidence by 11.7 …" also_rests_on S017: "Within the AI-Assisted condition, confidence did not significantly decline as the number of faulty trials …" Checks in memory on the corrected text (rule 1, B2, B5, B6, B12, B19 incl. significance, B20, B22, B23): clean.
+
+## 22. e0713036 — a quotation with an article the source does not have
+
+**Page now:** Healthgrades , 19 August 2025 Calls it “a retrospective observational study” and carries an outside expert’s judgement that “the study design, population limits, operator factors, and short-term focus restrict broad applicability, and the deskilling concern remains hypothetical rather than proven”.
+
+**Evidence:** Healthgrades (S042): "This retrospective observational study was conducted across four Polish endoscopy centers …". The page's quotation marks enclose "a retrospective observational study". The second quotation is verbatim; the outside expert is Prateek Sharma, chair of ASGE's AI Institute for Gastroenterology, not an author of the study.
+
+**Proposed:** "Healthgrades , 19 August 2025 Calls it a “retrospective observational study” and carries an outside expert’s judgement that “the study design, population limits, operator factors, and short-term focus restrict broad applicability, and the deskilling concern remains hypothetical rather than proven”."
+
+**Binding for the corrected text:** deterministic. Span, S042 (Healthgrades article body): "However, the study design, population limits, operator factors, and short-term focus restrict broad applicability, and the deskilling concern remains …" also_rests_on S042: "This retrospective observational study was conducted across four Polish endoscopy centers participating in …" also_rests_on S042: "Updated on August 19, 2025" also_rests_on S042: "Commenting on the study, Prateek Sharma , MD, MASGE, the chair of the American Society for Gastrointestinal …" Checks in memory on the corrected text (rule 1, B2, B5, B6, B12, B19 incl. significance, B20, B22, B23): clean.
+
+## 23. f8238a88 — "exploratory" dropped; "recruited"
+
+**Page now:** Hesselmann's 2020 replication analysed 89 participants of 117 recruited and did not find the effect: the data were about five times more likely under the null than under the alternative, and about sixteen times more likely when tested against the original's specific predicted pattern.
+
+**Evidence:** S009: "When the specific data pattern reported in the original study was considered as alternative model in an exploratory analysis, our data were 16 times more likely under the null model (BF 0+ = 16.43)." The page presents it beside the preregistered BF01 of 5.07 as a second result of the same standing. And "A total of 117 participants were tested.", not recruited.
+
+**Proposed:** "Hesselmann's 2020 replication analysed 89 participants of 117 tested and did not find the effect: the data were about five times more likely under the null than under the alternative, and, in an exploratory analysis, about sixteen times more likely when tested against the original's specific predicted pattern."
+
+**Binding for the corrected text:** deterministic. Span, S009 (Methods, Sample; Results): "Accordingly, the sequential Bayes Factor (BF) analysis yielded a final BF 01 of 5.07 in favor of the null over the alternative hypothesis, after the data from …" also_rests_on S009: "A total of 117 participants were tested." also_rests_on S009: "When the specific data pattern reported in the original study was considered as alternative model in an …" Checks in memory on the corrected text (rule 1, B2, B5, B6, B12, B19 incl. significance, B20, B22, B23): clean.
+
+## 24. 7a05297b — "accepted at the Journal of …": published, and not that name
+
+**Page now:** Extended and peer reviewed as Rosbach E, Ammeling J, Ganz J, Bertram CA, Conrad T, Riener A, Aubreville M, “Stuck on Suggestions”, accepted at the Journal of Machine Learning for Biomedical Imaging , 2026 (arXiv:2603.11821) Source of the 28 trained pathology experts, the 7% automation-bias rate — initially correct evaluations overturned by erroneous AI advice — and the finding that time pressure did not raise the frequency of automation bias but appeared to increase its severity, through heavier reliance on the system’s negative consultations and a subsequent fall in performance.
+
+**Evidence:** The held MELBA article (arXiv 2603.11821v3) header: "Machine Learning for Biomedical Imaging … Volume 2026, Received: 2025-07-15, Published 2026-03-13". It was published five months before the page was drafted, in a journal whose name has no "Journal of". The findings are unchanged.
+
+**Proposed:** "Extended and peer reviewed as Rosbach E, Ammeling J, Ganz J, Bertram CA, Conrad T, Riener A, Aubreville M, “Stuck on Suggestions”, Machine Learning for Biomedical Imaging, published 13 March 2026 (arXiv:2603.11821) Source of the 28 trained pathology experts, the 7% automation-bias rate — initially correct evaluations overturned by erroneous AI advice — and the finding that time pressure did not raise the frequency of automation bias but appeared to increase its severity, through heavier reliance on the system’s negative consultations and a subsequent fall in performance."
+
+**Binding for the corrected text:** deterministic. Span, S038 (MELBA article header and abstract; arXiv v1 abstract): "However, it also introduced a 7% automation bias rate, quantified as the number of accepted negative consultations, where a previously correct independent …" also_rests_on S038: "Machine Learning for Biomedical Imaging Stuck on Suggestions: Automation Bias, the Anchoring Effect, and the …" also_rests_on S038: "Volume 2026, Received: 2025-07-15, Published 2026-03-13" also_rests_on S038: "Through a web-based experiment involving 28 trained pathology experts, who estimated tumor cell percentages …" also_rests_on S038: "it also resulted in a 7% automation bias rate, where initially correct evaluations were overturned by …" Checks in memory on the corrected text (rule 1, B2, B5, B6, B12, B19 incl. significance, B20, B22, B23): clean.
+
+## 25. 4173a438 — "one preprint"; "held in all three"
+
+**Page now:** That is causal, and it held in all three experiments — which is internal replication by one team in one preprint, not confirmation by anybody else.
+
+**Evidence:** S001, the version the page says it checked (arXiv 2604.04721v4), carries "Published as a conference paper at COLM 2026" on every page. "It held in all three experiments" is true of the solve rates (d = −0.42, −0.19, −0.42, each significant) and not of giving up (Experiment 2: "the result was not significant").
+
+**Proposed:** "That is causal, and the fall in solve rates held in all three experiments — which is internal replication by one team in one paper, not confirmation by anybody else."
+
+**Binding for the corrected text:** S001: the header line "Published as a conference paper at COLM 2026"; the three solve-rate sentences (Cohen's d = -0.42, -0.19, -0.42), as for 1c761af8. No bindings.json row: the tooling does not classify the sentence as empirical (no figure, no named source), so it has none to bind.
+
+## 26. e14ccbb0 — "a preprint"; "about fifteen minutes long"
+
+**Page now:** It is also about fifteen minutes long, and it is a preprint with no pre-registration statement.
+
+**Evidence:** S001: "Published as a conference paper at COLM 2026". The fifteen minutes is Experiment 2's: "our study took approximately 15 minutes to complete" (Experiment 3: "approximately 13 minutes"). No pre-registration statement occurs in the held text, which agrees with the page.
+
+**Proposed:** "Its second experiment took about fifteen minutes, and the paper, published at COLM 2026, carries no pre-registration statement."
+
+**Binding for the corrected text:** S001: "(our study took approximately 15 minutes to complete)" (Experiment 2, 3.1 Method); the header line "Published as a conference paper at COLM 2026". No bindings.json row, as 4173a438.
+
+## 27. a4267014 — "without warning" holds for Experiment 1 only
+
+**Page now:** Three randomised experiments — 1,222 people randomised, 1,060 analysed — had participants work through practice problems with or without AI, then removed the AI without warning and gave them three more.
+
+**Evidence:** S001 Experiment 1: "the AI assistant was then removed without warning, and participants were asked to solve 3 additional fraction problems." Experiment 2: "The AI assistant was then removed, and participants were asked to solve 3 additional fraction problems." Experiment 3: "The AI assistant was then removed, and participants were asked to solve 3 additional reading comprehension problems." (Experiment 2's motivation speaks of "the AI sidebar being present and then suddenly removed" in Experiment 1, and its control arm saw an equivalent sidebar removed.) The page states it of all three.
+
+**Proposed:** "Three randomised experiments — 1,222 people randomised, 1,060 analysed — had participants work through practice problems with or without AI, then removed the AI and gave them three more."
+
+**Binding for the corrected text:** judgement. premise S001: "We conduct a series of randomized experiments across 1, 222 participants, spanning mathematical reasoning …" premise S001: "This led to the exclusion of 47 participants, leaving a final sample of 307 participants (N = 185 in the AI …" premise S001: "This led to the exclusion of 82 participants, leaving a final sample of 585 participants (N = 308 in the AI …" premise S001: "This led to the exclusion of 33 participants, leaving a final sample of 168 participants (N = 85 in the AI …" premise S001: "the AI assistant was then removed without warning, and participants were asked to solve 3 additional fraction …" premise S001: "The AI assistant was then removed, and participants were asked to solve 3 additional reading comprehension …" Step: S001 reports 1,222 participants across the three experiments and final analysed samples of 307, 585 and 168; 307 + 585 + 168 = 1,060 (our sum, declared in figure-exclusions). Each experiment removed the AI after the learning problems and set 3 test problems; only Experiment 1 says the removal was 'without warning'. Checks in memory on the corrected text (rule 1, B2, B5, B6, B12, B19 incl. significance, B20, B22, B23): clean, with rule 1's comma-and-space INFO on 1, 222.
+
+## 28. 09ba5473 — "withdrawn without warning" in the source list
+
+**Page now:** arXiv 2604.04721 Source of the three randomised experiments, 1,222 randomised and 1,060 analysed, the effect sizes of −0.42, −0.19 and −0.42 on unassisted solve rates, and the design in which the AI is withdrawn without warning before three test problems.
+
+**Evidence:** As a4267014: only Experiment 1 says "without warning".
+
+**Proposed:** "arXiv 2604.04721 Source of the three randomised experiments, 1,222 randomised and 1,060 analysed, the effect sizes of −0.42, −0.19 and −0.42 on unassisted solve rates, and the design in which the AI is withdrawn before three test problems."
+
+**Binding for the corrected text:** judgement. premise S001: "arXiv:2604.04721v4 [cs.AI] 5 Aug 2026" premise S001: "We conduct a series of randomized experiments across 1, 222 participants, spanning mathematical reasoning …" premise S001: "This led to the exclusion of 47 participants, leaving a final sample of 307 participants (N = 185 in the AI …" premise S001: "This led to the exclusion of 82 participants, leaving a final sample of 585 participants (N = 308 in the AI …" premise S001: "This led to the exclusion of 33 participants, leaving a final sample of 168 participants (N = 85 in the AI …" premise S001: "had a lower solve rate (mean 0.57, s.d. 0.41) than participants in the control condition (mean 0.73, s.d. …" premise S001: "had a lower solve rate (mean 0.71, s.d. 0.36) than participants in the control condition (mean 0.77, s.d. …" premise S001: "had a lower solve rate (mean 0.76, s.d. 0.34) than participants in the control condition (mean 0.89, s.d. …" premise S001: "the AI assistant was then removed without warning, and participants were asked to solve 3 additional fraction …" Step: As a4267014 for the counts and design (1,060 = 307 + 585 + 168, our sum); the three solve-rate effect sizes are Cohen's d = -0.42, -0.19 and -0.42 as printed in the three Results sections. Checks in memory on the corrected text (rule 1, B2, B5, B6, B12, B19 incl. significance, B20, B22, B23): clean, with rule 1's comma-and-space INFO on 1, 222.
+
+## 29. 59861255 — "2025 (arXiv:2411.00998)" stands
+
+**Page now:** 2025 (arXiv:2411.00998).
+
+**Evidence:** the held v1 is dated "arXiv:2411.00998v1 [cs.HC] 1 Nov 2024", but the paper was published in 2025: Crossref (free works API, 2026-10-18) holds doi 10.1007/978-3-658-47422-5_27, a book chapter in *Bildverarbeitung für die Medizin 2025* (Informatik aktuell), Springer Fachmedien Wiesbaden, pp. 129–134, issued 2025, same title, same five authors. Recorded on S038 in sources.json as a citation-only rendition (the chapter text is not held). No page change.
+
+**Proposed binding (not written):** context, resting on S038's Crossref record for the year and venue. A source-store binding rather than a span, since the chapter is not held; to be confirmed by the operator.
+
 ## Bound
 
 Batch 1 (2026-10-18): 849a833e, b61e583d, 9675c628, f2072847, a84075d9, 5850f3bd, 83bed04b,
 d49da6c2. Batch 2 (2026-10-18): c8d0e2c5 (S046), 43a5da1b, 7a69a530, e2d620f3, 495cfe6a,
 3da7203e, 57c41ddd, 03ea8e0e, f9eb567e, 48a03a9a, b2fff6c7, c2f8c733, 5bd6e3b7 (S046, page text
-unchanged). Verdicts signed by Fred Ugast, checked against held text with Claude as advisor.
+unchanged). Verdicts signed by Fred Ugast, checked against held text with Claude as advisor. Batch 3 (2026-10-18): 11147b19 (B6 disposition on "only"), f83a6cfe, ae6de87f, d250f28b, 875ef76c, 695c1c4e, 7332d1e1, b9b79e7b, fa3d6649, 0f7a7387, ff258fcb, 286c807d, 8367d5ea, ea7550a9, 8e62c8a7 and 36c83e6f (each also resting on S043's "from November 2021 to June 2025 … at three Norwegian outpatient clinics"), 086f4a02 (S046's PMC HTML rendition, which prints ±). Not bound, corrections above: a4267014, 09ba5473 and the batch-3 errors.

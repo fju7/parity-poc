@@ -1370,7 +1370,17 @@
         }
       },
       "found_via": "Searching for the primary behind a figure the page had taken from a review summary.",
-      "the_discrepancy_to_check": "sources.json S029 records the scoping review's pathology entry as 'Bellahsen-Harrar et al. (2025), Mod Pathol — 28 pathologists under time pressure abandoned 7% of initially correct judgments'. Bellahsen-Harrar Y, Lubrano M, Lepine C, et al., 'Exploring the risks of over-reliance on AI in diagnostic pathology', is PLOS ONE 2025;20(8):e0323270 — EIGHT pathologists, no time-pressure condition, and no 7% figure. The 28/7%/time-pressure figures are Rosbach's. Either the review attaches Rosbach's figures to a Bellahsen-Harrar citation — a third miscitation, after the colonoscopy trial description and the mammography reference — or the transcription into S029 crossed two rows of its table. THE PAGE PRINTS NO ACCUSATION ON THIS. It must be checked against the review PDF, which only the operator holds, before anything is said."
+      "the_discrepancy_to_check": "sources.json S029 records the scoping review's pathology entry as 'Bellahsen-Harrar et al. (2025), Mod Pathol — 28 pathologists under time pressure abandoned 7% of initially correct judgments'. Bellahsen-Harrar Y, Lubrano M, Lepine C, et al., 'Exploring the risks of over-reliance on AI in diagnostic pathology', is PLOS ONE 2025;20(8):e0323270 — EIGHT pathologists, no time-pressure condition, and no 7% figure. The 28/7%/time-pressure figures are Rosbach's. Either the review attaches Rosbach's figures to a Bellahsen-Harrar citation — a third miscitation, after the colonoscopy trial description and the mammography reference — or the transcription into S029 crossed two rows of its table. THE PAGE PRINTS NO ACCUSATION ON THIS. It must be checked against the review PDF, which only the operator holds, before anything is said.",
+      "renditions": [
+        {
+          "kind": "citation only (not held)",
+          "record": "Rosbach E, Ganz J, Ammeling J, Riener A, Aubreville M. Automation Bias in AI-assisted Medical Decision-making under Time Pressure in Computational Pathology. In: Bildverarbeitung für die Medizin 2025 (Informatik aktuell). Springer Fachmedien Wiesbaden, 2025: 129-134. doi 10.1007/978-3-658-47422-5_27",
+          "found_via": "Crossref works API (query.bibliographic + query.author=Rosbach), free, 2026-10-18; type book-chapter, issued 2025, same title and same five authors as arXiv 2411.00998v1",
+          "by": "claude",
+          "on": "2026-10-18",
+          "note": "The chapter text is not held; this records the publication year (2025) and venue only. The held renditions are the arXiv v1 PDF (2411.00998v1, 1 Nov 2024) and the extended MELBA article (2603.11821v3, Published 2026-03-13)."
+        }
+      ]
     },
     {
       "id": "S039",
@@ -1607,7 +1617,7 @@
         "not_read": [
           "all -- not held"
         ],
-        "note": "2026-10-18, fetch attempt (state unchanged): Europe PMC record PMC10531198 has no full text (inEPMC N; fullTextXML HTTP 500); NCBI efetch db=pmc returns the record WITHOUT a body (the publisher does not allow XML full text); the PMC PDF (pmc.ncbi.nlm.nih.gov/articles/PMC10531198/pdf/ocad118.pdf) is free but served behind a browser challenge (1,817-byte HTML to a script). FREE ROUTE EXISTS — a person can download that PDF in a browser and add it with source_store.py add.\n\n2026-10-18: not_opened -> full_text_held. Downloaded by Fred Ugast in his own browser from PubMed Central (PMC10531198); identified from its own text (DOI 10.1093/jamia/ocad118, title, Wang D-Y, Ding J, Sun A-L ... Yu J-K) and ingested with source_store.py add. It is the published version: OUP's PDF of J Am Med Inform Assoc 2023;30(10):1684-1692 ('© The Author(s) 2023. Published by Oxford University Press ... All rights reserved'), as deposited in PMC.",
+        "note": "2026-10-18, fetch attempt (state unchanged): Europe PMC record PMC10531198 has no full text (inEPMC N; fullTextXML HTTP 500); NCBI efetch db=pmc returns the record WITHOUT a body (the publisher does not allow XML full text); the PMC PDF (pmc.ncbi.nlm.nih.gov/articles/PMC10531198/pdf/ocad118.pdf) is free but served behind a browser challenge (1,817-byte HTML to a script). FREE ROUTE EXISTS — a person can download that PDF in a browser and add it with source_store.py add.\n\n2026-10-18: not_opened -> full_text_held. Downloaded by Fred Ugast in his own browser from PubMed Central (PMC10531198); identified from its own text (DOI 10.1093/jamia/ocad118, title, Wang D-Y, Ding J, Sun A-L ... Yu J-K) and ingested with source_store.py add. It is the published version: OUP's PDF of J Am Med Inform Assoc 2023;30(10):1684-1692 ('© The Author(s) 2023. Published by Oxford University Press ... All rights reserved'), as deposited in PMC.\n\n2026-10-18: second rendition added. PubMed Central's HTML of the same article (PMC10531198), saved by Fred Ugast in his own browser and identified by Claude Code from its citation_doi 10.1093/jamia/ocad118 and title; held with source_store.py add --also-held (docs/a0/a0081da6469b2c515947dcfde44edc632611ab35eac5ebe9d85a4765241006fe.html, 177,081 bytes). Held because the PDF's text layer renders ± as '6' ('87.2%613.1%'); the HTML prints '87.2%±13.1% to 96.4%±1.9%'. The PDF stays the primary rendition.",
         "held": {
           "file": "docs/89/8901af1d48c1ab9f198cb45c5c0ab99dd2ba77455768701b5cdb92b3f20eb9eb.pdf",
           "sha256": "8901af1d48c1ab9f198cb45c5c0ab99dd2ba77455768701b5cdb92b3f20eb9eb",

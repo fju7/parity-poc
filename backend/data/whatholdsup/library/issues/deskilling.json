@@ -525,7 +525,21 @@
       "kind": "full_text",
       "kind_why": "37827 characters, reference list and discussion/introduction present",
       "superseded": [],
-      "also_held": []
+      "also_held": [
+        {
+          "sha256": "a0081da6469b2c515947dcfde44edc632611ab35eac5ebe9d85a4765241006fe",
+          "file": "docs/a0/a0081da6469b2c515947dcfde44edc632611ab35eac5ebe9d85a4765241006fe.html",
+          "bytes": 177081,
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10531198/",
+          "held": "2026-10-18",
+          "via": "PMC HTML (PMC10531198), saved by Fred Ugast in his own browser, 2026-10-18; identified by Claude Code from its citation_doi 10.1093/jamia/ocad118 (free route)",
+          "note": "",
+          "also_held_reason": "PubMed Central's HTML of the same article (PMC10531198, DOI 10.1093/jamia/ocad118). Held because the PDF's text layer renders ± as '6' ('87.2%613.1%'); the HTML prints '87.2%±13.1% to 96.4%±1.9%'.",
+          "also_held_added": "2026-10-18",
+          "kind": "full_text",
+          "kind_why": "45030 characters, reference list and discussion/introduction present"
+        }
+      ]
     },
     "S048": {
       "sha256": "ad9ba620f5093052691118d8432da3763bbcc4b3686206205c8218bec24923b0",
