@@ -68,17 +68,25 @@
       "also_held": []
     },
     "S019": {
-      "sha256": "d811e9038b17daa1f07bf9fe1c4c28c112712c40106ee56452cf34c516014331",
-      "file": "docs/d8/d811e9038b17daa1f07bf9fe1c4c28c112712c40106ee56452cf34c516014331.html",
-      "bytes": 41086,
-      "url": "https://arxiv.org/abs/2601.00856",
-      "held": "2026-09-01",
-      "via": "acquire_sources.py on the operator's machine",
+      "sha256": "c9a31194f7da3d36c628942b8c5ebcc175cddbb44977a4a227c0f084cd128e5e",
+      "file": "docs/c9/c9a31194f7da3d36c628942b8c5ebcc175cddbb44977a4a227c0f084cd128e5e.pdf",
+      "bytes": 147809,
+      "url": "https://arxiv.org/pdf/2601.00856",
+      "held": "2026-10-18",
+      "via": "arXiv PDF, fetched by Claude Code on the operator's machine, 2026-10-18 (free route)",
       "note": "",
-      "kind": "landing",
-      "kind_why": "4657 characters and 5 section markers — this is a page ABOUT the document, not the document",
+      "kind": "full_text",
+      "kind_why": "17886 characters, reference list and discussion/introduction present",
       "superseded": [],
-      "also_held": []
+      "also_held": [
+        {
+          "sha256": "d811e9038b17daa1f07bf9fe1c4c28c112712c40106ee56452cf34c516014331",
+          "file": "docs/d8/d811e9038b17daa1f07bf9fe1c4c28c112712c40106ee56452cf34c516014331.html",
+          "held": "2026-09-01",
+          "url": "https://arxiv.org/abs/2601.00856",
+          "recorded": "2026-10-18"
+        }
+      ]
     },
     "S026": {
       "sha256": "945bd6e22b82612820de84f4ba5835d653389fdf87259fd3c9b2f888d3b5610f",
@@ -324,6 +332,119 @@
       "note": "",
       "kind": "abstract",
       "kind_why": "12040 characters, abstract present but no reference list or discussion — this is the abstract, not the paper",
+      "superseded": [],
+      "also_held": []
+    },
+    "S027": {
+      "sha256": "54237f3ca19fa166fde2f82a083fde4a857cfe9f6ab36e67948c1a724ae6ff72",
+      "file": "docs/54/54237f3ca19fa166fde2f82a083fde4a857cfe9f6ab36e67948c1a724ae6ff72.html",
+      "bytes": 231304,
+      "url": "https://www.nature.com/articles/s41575-025-01122-3?error=cookies_not_supported&code=4e003ca8-40ab-45e2-9dd9-fbf8bef41e9b",
+      "held": "2026-10-18",
+      "via": "Nature (publisher), fetched by Claude Code on the operator's machine, 2026-10-18 (free route)",
+      "note": "",
+      "kind": "document",
+      "kind_why": "form 'page' — 19 prose sentence(s) over sixty characters, 927 words — this reads as the page itself",
+      "superseded": [],
+      "also_held": []
+    },
+    "S028": {
+      "sha256": "934e511be728fab490784e8c90f7f0dadb2b95c4ec06ad6393416640f979e33a",
+      "file": "docs/93/934e511be728fab490784e8c90f7f0dadb2b95c4ec06ad6393416640f979e33a.pdf",
+      "bytes": 2577185,
+      "url": "https://europepmc.org/api/getPdf?pmcid=PMC12314766",
+      "held": "2026-10-18",
+      "via": "Europe PMC PDF render, fetched by Claude Code on the operator's machine, 2026-10-18 (free route)",
+      "note": "",
+      "kind": "full_text",
+      "kind_why": "56025 characters, reference list and discussion present",
+      "superseded": [],
+      "also_held": []
+    },
+    "S038": {
+      "sha256": "9a6d53b2f3f08cde556792a804620eaa9ded7c879a837f6e3a1ccd9384d13b5d",
+      "file": "docs/9a/9a6d53b2f3f08cde556792a804620eaa9ded7c879a837f6e3a1ccd9384d13b5d.pdf",
+      "bytes": 1106262,
+      "url": "https://arxiv.org/pdf/2411.00998",
+      "held": "2026-10-18",
+      "via": "arXiv PDF 2411.00998, fetched by Claude Code on the operator's machine, 2026-10-18 (free route)",
+      "note": "",
+      "kind": "full_text",
+      "kind_why": "19390 characters, reference list and discussion/introduction present",
+      "superseded": [],
+      "also_held": [
+        {
+          "sha256": "562405fcc1c51e1abc40dda0464bb45a6ff78d0cd6f06b97cc17e9319e905ca0",
+          "file": "docs/56/562405fcc1c51e1abc40dda0464bb45a6ff78d0cd6f06b97cc17e9319e905ca0.pdf",
+          "bytes": 1661630,
+          "url": "https://arxiv.org/pdf/2603.11821",
+          "held": "2026-10-18",
+          "via": "arXiv PDF 2603.11821, fetched by Claude Code on the operator's machine, 2026-10-18 (free route)",
+          "note": "",
+          "also_held_reason": "the extended, peer-reviewed version (Rosbach et al., 'Stuck on Suggestions', JMLBI 2026, arXiv 2603.11821), cited in the same source-list entry as the conference paper and named there as the source of the 28 experts and the 7% rate",
+          "also_held_added": "2026-10-18",
+          "kind": "full_text",
+          "kind_why": "106902 characters, reference list and discussion/introduction present"
+        }
+      ]
+    },
+    "S002": {
+      "sha256": "a2933e19fb646904f22694cd51ba1f5d905f45fbe7a98f4ce81862cd7f7acb0f",
+      "file": "docs/a2/a2933e19fb646904f22694cd51ba1f5d905f45fbe7a98f4ce81862cd7f7acb0f.html",
+      "bytes": 601749,
+      "url": "https://www.nature.com/articles/s41599-026-07019-z?error=cookies_not_supported&code=6172d57e-64b3-4ed8-af50-870c00b7b6bc",
+      "held": "2026-10-18",
+      "via": "Nature HSSC article (publisher, OA), fetched by Claude Code on the operator's machine, 2026-10-18 (free route)",
+      "note": "",
+      "kind": "full_text",
+      "kind_why": "118801 characters, reference list and discussion/introduction present",
+      "superseded": [],
+      "also_held": []
+    },
+    "S009": {
+      "sha256": "45de5e41b56a04fb7cb1a335d594ccfdb8959a7cfc20ae0fb1ca737b8ffde524",
+      "file": "docs/45/45de5e41b56a04fb7cb1a335d594ccfdb8959a7cfc20ae0fb1ca737b8ffde524.xml",
+      "bytes": 77040,
+      "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC7651475/fullTextXML",
+      "held": "2026-10-18",
+      "via": "Europe PMC full-text XML, fetched by Claude Code on the operator's machine, 2026-10-18 (free route)",
+      "note": "",
+      "kind": "full_text",
+      "kind_why": "45518 characters, reference list and discussion/introduction present",
+      "superseded": [],
+      "also_held": []
+    },
+    "S025": {
+      "sha256": "5e52060b995d03a23f402bbc744e03d646c2ab59abe9d4e8d89241f0afdc57b6",
+      "file": "docs/5e/5e52060b995d03a23f402bbc744e03d646c2ab59abe9d4e8d89241f0afdc57b6.pdf",
+      "bytes": 384611,
+      "url": "https://researchonline.lshtm.ac.uk/id/eprint/4682189/8/Ke_etal_2026_AI_induced_never_skilling_in_medical_education.pdf",
+      "held": "2026-10-18",
+      "via": "LSHTM Research Online (accepted manuscript), fetched by Claude Code on the operator's machine, 2026-10-18 (free route)",
+      "note": "",
+      "kind": "full_text",
+      "kind_why": "65840 characters, reference list and discussion/introduction present",
+      "superseded": [],
+      "also_held": [
+        {
+          "sha256": "7da5bd5469dd3a501539e35be8953a1cc2c888ce60301c72917ecfd12460a14f",
+          "file": "docs/7d/7da5bd5469dd3a501539e35be8953a1cc2c888ce60301c72917ecfd12460a14f.html",
+          "held": "2026-10-18",
+          "url": "https://www.nature.com/articles/s41591-026-04438-y?error=cookies_not_supported&code=d3e4c1ca-8e24-43f8-b287-5c4859745b98",
+          "recorded": "2026-10-18"
+        }
+      ]
+    },
+    "S047": {
+      "sha256": "e8869cc8faa587d0d2c3edbcfa83193569abbeb1b8c19d5c7c751443685d592a",
+      "file": "docs/e8/e8869cc8faa587d0d2c3edbcfa83193569abbeb1b8c19d5c7c751443685d592a.xml",
+      "bytes": 94142,
+      "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC11780016/fullTextXML",
+      "held": "2026-10-18",
+      "via": "Europe PMC full-text XML, fetched by Claude Code on the operator's machine, 2026-10-18 (free route)",
+      "note": "",
+      "kind": "full_text",
+      "kind_why": "44254 characters, reference list and discussion/introduction present",
       "superseded": [],
       "also_held": []
     }

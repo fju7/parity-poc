@@ -1312,6 +1312,166 @@
         "deskilling:S005"
       ],
       "note": ""
+    },
+    "c9a31194f7da3d36c628942b8c5ebcc175cddbb44977a4a227c0f084cd128e5e": {
+      "file": "docs/c9/c9a31194f7da3d36c628942b8c5ebcc175cddbb44977a4a227c0f084cd128e5e.pdf",
+      "bytes": 147809,
+      "content_type": "application/pdf",
+      "first_held": "2026-10-18",
+      "urls": [
+        "https://arxiv.org/pdf/2601.00856"
+      ],
+      "titles": [
+        "Stankovic, Hirche, Kollatzsch & Doetsch — Comment on: Your Brain on ChatGPT. arXiv 2601.00856, submitted 29 December 2025"
+      ],
+      "used_by": [
+        "deskilling:S019"
+      ],
+      "note": ""
+    },
+    "54237f3ca19fa166fde2f82a083fde4a857cfe9f6ab36e67948c1a724ae6ff72": {
+      "file": "docs/54/54237f3ca19fa166fde2f82a083fde4a857cfe9f6ab36e67948c1a724ae6ff72.html",
+      "bytes": 231304,
+      "content_type": "text/html; charset=utf-8",
+      "first_held": "2026-10-18",
+      "urls": [
+        "https://www.nature.com/articles/s41575-025-01122-3?error=cookies_not_supported&code=4e003ca8-40ab-45e2-9dd9-fbf8bef41e9b"
+      ],
+      "titles": [
+        "Katrina Ray — 'AI-assisted colonoscopy and risk of endoscopist deskilling', Research Highlight, Nature Reviews Gastroenterology & Hepatology, 5 September 2025"
+      ],
+      "used_by": [
+        "deskilling:S027"
+      ],
+      "note": ""
+    },
+    "934e511be728fab490784e8c90f7f0dadb2b95c4ec06ad6393416640f979e33a": {
+      "file": "docs/93/934e511be728fab490784e8c90f7f0dadb2b95c4ec06ad6393416640f979e33a.pdf",
+      "bytes": 2577185,
+      "content_type": "application/pdf",
+      "first_held": "2026-10-18",
+      "urls": [
+        "https://europepmc.org/api/getPdf?pmcid=PMC12314766"
+      ],
+      "titles": [
+        "Gommers, Verboom, Duvivier et al. — Influence of AI Decision Support on Radiologists' Performance and Visual Search in Screening Mammography. Radiology 2025; 316(1): e243688, online 8 July 2025."
+      ],
+      "used_by": [
+        "deskilling:S028"
+      ],
+      "note": ""
+    },
+    "9a6d53b2f3f08cde556792a804620eaa9ded7c879a837f6e3a1ccd9384d13b5d": {
+      "file": "docs/9a/9a6d53b2f3f08cde556792a804620eaa9ded7c879a837f6e3a1ccd9384d13b5d.pdf",
+      "bytes": 1106262,
+      "content_type": "application/pdf",
+      "first_held": "2026-10-18",
+      "urls": [
+        "https://arxiv.org/pdf/2411.00998"
+      ],
+      "titles": [
+        "Rosbach E, Ganz J, Ammeling J, Riener A, Aubreville M — Automation Bias in AI-assisted Medical Decision-making under Time Pressure in Computational Pathology. arXiv 2411.00998; published as a chapter, doi 10.1007/978-3-658-47422-5_27."
+      ],
+      "used_by": [
+        "deskilling:S038"
+      ],
+      "note": ""
+    },
+    "562405fcc1c51e1abc40dda0464bb45a6ff78d0cd6f06b97cc17e9319e905ca0": {
+      "file": "docs/56/562405fcc1c51e1abc40dda0464bb45a6ff78d0cd6f06b97cc17e9319e905ca0.pdf",
+      "bytes": 1661630,
+      "content_type": "application/pdf",
+      "first_held": "2026-10-18",
+      "urls": [
+        "https://arxiv.org/pdf/2603.11821"
+      ],
+      "titles": [
+        "Rosbach E, Ganz J, Ammeling J, Riener A, Aubreville M — Automation Bias in AI-assisted Medical Decision-making under Time Pressure in Computational Pathology. arXiv 2411.00998; published as a chapter, doi 10.1007/978-3-658-47422-5_27."
+      ],
+      "used_by": [
+        "deskilling:S038"
+      ],
+      "note": ""
+    },
+    "a2933e19fb646904f22694cd51ba1f5d905f45fbe7a98f4ce81862cd7f7acb0f": {
+      "file": "docs/a2/a2933e19fb646904f22694cd51ba1f5d905f45fbe7a98f4ce81862cd7f7acb0f.html",
+      "bytes": 601749,
+      "content_type": "text/html; charset=utf-8",
+      "first_held": "2026-10-18",
+      "urls": [
+        "https://www.nature.com/articles/s41599-026-07019-z?error=cookies_not_supported&code=6172d57e-64b3-4ed8-af50-870c00b7b6bc"
+      ],
+      "titles": [
+        "Wu, Zhu, Zhang, Yin & Wang (2026) — ChatGPT's impact on student learning outcomes: a meta-analysis of 35 experimental studies, Hum Soc Sci Commun 13(1) 684"
+      ],
+      "used_by": [
+        "deskilling:S002"
+      ],
+      "note": ""
+    },
+    "45de5e41b56a04fb7cb1a335d594ccfdb8959a7cfc20ae0fb1ca737b8ffde524": {
+      "file": "docs/45/45de5e41b56a04fb7cb1a335d594ccfdb8959a7cfc20ae0fb1ca737b8ffde524.xml",
+      "bytes": 77040,
+      "content_type": "application/xml",
+      "first_held": "2026-10-18",
+      "urls": [
+        "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC7651475/fullTextXML"
+      ],
+      "titles": [
+        "Hesselmann (2020) — No conclusive evidence that difficult general knowledge questions cause a “Google Stroop effect”. A replication study. PeerJ 8:e10325"
+      ],
+      "used_by": [
+        "deskilling:S009"
+      ],
+      "note": ""
+    },
+    "7da5bd5469dd3a501539e35be8953a1cc2c888ce60301c72917ecfd12460a14f": {
+      "file": "docs/7d/7da5bd5469dd3a501539e35be8953a1cc2c888ce60301c72917ecfd12460a14f.html",
+      "bytes": 387570,
+      "content_type": "text/html; charset=utf-8",
+      "first_held": "2026-10-18",
+      "urls": [
+        "https://www.nature.com/articles/s41591-026-04438-y?error=cookies_not_supported&code=d3e4c1ca-8e24-43f8-b287-5c4859745b98"
+      ],
+      "titles": [
+        "Ke, Jin, Ong, Thirunavukarasu, Car, Cheung, Tham, Ting, Ong, Compton, Narayan, Keane, Wong, Bates, Tan & Liu (2026) — AI-induced never-skilling in medical education. Nature Medicine 32(6), Perspective, 22 May 2026."
+      ],
+      "used_by": [
+        "deskilling:S025"
+      ],
+      "note": ""
+    },
+    "e8869cc8faa587d0d2c3edbcfa83193569abbeb1b8c19d5c7c751443685d592a": {
+      "file": "docs/e8/e8869cc8faa587d0d2c3edbcfa83193569abbeb1b8c19d5c7c751443685d592a.xml",
+      "bytes": 94142,
+      "content_type": "application/xml",
+      "first_held": "2026-10-18",
+      "urls": [
+        "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC11780016/fullTextXML"
+      ],
+      "titles": [
+        "Savardi M, Signoroni A, Benini S, et al. — Upskilling or deskilling? Measurable role of an AI-supported training for radiology residents: a lesson from the pandemic. Insights into Imaging 2025;16:23"
+      ],
+      "used_by": [
+        "deskilling:S047"
+      ],
+      "note": ""
+    },
+    "5e52060b995d03a23f402bbc744e03d646c2ab59abe9d4e8d89241f0afdc57b6": {
+      "file": "docs/5e/5e52060b995d03a23f402bbc744e03d646c2ab59abe9d4e8d89241f0afdc57b6.pdf",
+      "bytes": 384611,
+      "content_type": "application/pdf",
+      "first_held": "2026-10-18",
+      "urls": [
+        "https://researchonline.lshtm.ac.uk/id/eprint/4682189/8/Ke_etal_2026_AI_induced_never_skilling_in_medical_education.pdf"
+      ],
+      "titles": [
+        "Ke, Jin, Ong, Thirunavukarasu, Car, Cheung, Tham, Ting, Ong, Compton, Narayan, Keane, Wong, Bates, Tan & Liu (2026) — AI-induced never-skilling in medical education. Nature Medicine 32(6), Perspective, 22 May 2026."
+      ],
+      "used_by": [
+        "deskilling:S025"
+      ],
+      "note": ""
     }
   }
 }

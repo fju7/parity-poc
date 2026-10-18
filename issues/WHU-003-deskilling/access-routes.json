@@ -1,6 +1,6 @@
 {
   "what_this_is": "Where each document we do not hold can be got. Every route here was title-checked against our own record for that source, because the first hand-typed attempt at this returned three wrong papers from three wrong DOIs.",
-  "checked": "2026-09-15",
+  "checked": "2026-10-18",
   "sources": {
     "S001": {
       "ids": {},
@@ -18,9 +18,16 @@
     },
     "S002": {
       "ids": {},
-      "routes": [],
+      "routes": [
+        [
+          "Nature HSSC article (publisher, OA)",
+          "",
+          "https://www.nature.com/articles/s41599-026-07019-z"
+        ]
+      ],
       "notes": [
-        "no DOI could be taken from the url we hold; nothing was guessed"
+        "no DOI could be taken from the url we hold; nothing was guessed",
+        "2026-10-18 (Claude Code, operator's machine): Nature HSSC article (publisher, OA) https://www.nature.com/articles/s41599-026-07019-z -> held — contains 10 of 11 distinctive title words; kind full_text (118801 characters, reference list and discussion/introduction present)"
       ],
       "verified_title": ""
     },
@@ -82,11 +89,25 @@
           "Unpaywall: repository",
           "submittedVersion",
           "https://www.zora.uzh.ch/handle/20.500.14742/238378"
+        ],
+        [
+          "OSF accepted version",
+          "",
+          "https://osf.io/t6uzy_v2/download"
+        ],
+        [
+          "Monash University repository PDF (open access)",
+          "",
+          "https://research.monash.edu/files/739077907/721254972-oa.pdf"
         ]
       ],
       "notes": [
         "Europe PMC has no record for doi 10.1111/jcal.70105",
-        "resolved title: 'ChatGPT in Education: An Effect in Search of a Cause'"
+        "resolved title: 'ChatGPT in Education: An Effect in Search of a Cause'",
+        "2026-10-18 (Claude Code, operator's machine): Wiley pdfdirect (publisher, OA) https://onlinelibrary.wiley.com/doi/pdfdirect/10.1111/jcal.70105 -> HTTP 403",
+        "2026-10-18 (Claude Code, operator's machine): OSF accepted version https://osf.io/t6uzy_v2/download -> fetched 4207 B (text/html) but refused: nothing in these bytes identifies them as this document (0 of 12 title words, no DOI/PMID/NCT match)",
+        "2026-10-18 (Claude Code, operator's machine): Monash University repository PDF (open access) https://research.monash.edu/files/739077907/721254972-oa.pdf -> HTTP 403",
+        "2026-10-18: Unpaywall hybrid OA. Wiley pdfdirect HTTP 403; OSF accepted version returned a 4,207-byte JavaScript page; Monash repository OA PDF (/files/739077907/721254972-oa.pdf) HTTP 403; OU repository page has no direct file link. FREE ROUTES EXIST — browser download needed."
       ],
       "verified_title": ""
     },
@@ -107,17 +128,38 @@
     },
     "S008": {
       "ids": {},
-      "routes": [],
+      "routes": [
+        [
+          "MDPI open-access PDF (publisher)",
+          "",
+          "https://www.mdpi.com/2075-4698/15/1/6/pdf?version=1735907439"
+        ],
+        [
+          "MDPI article page (publisher)",
+          "",
+          "https://www.mdpi.com/2075-4698/15/1/6"
+        ]
+      ],
       "notes": [
-        "no DOI could be taken from the url we hold; nothing was guessed"
+        "no DOI could be taken from the url we hold; nothing was guessed",
+        "2026-10-18 (Claude Code, operator's machine): MDPI open-access PDF (publisher) https://www.mdpi.com/2075-4698/15/1/6/pdf?version=1735907439 -> HTTP 403",
+        "2026-10-18 (Claude Code, operator's machine): MDPI article page (publisher) https://www.mdpi.com/2075-4698/15/1/6 -> HTTP 403",
+        "2026-10-18: Unpaywall gold OA (MDPI publisher PDF; SSRN accepted version 10.2139/ssrn.5082524). MDPI returns HTTP 403 to a script for both the PDF and the article page. FREE ROUTE EXISTS — a browser download of the MDPI PDF is legitimate."
       ],
       "verified_title": ""
     },
     "S009": {
       "ids": {},
-      "routes": [],
+      "routes": [
+        [
+          "Europe PMC full-text XML",
+          "",
+          "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC7651475/fullTextXML"
+        ]
+      ],
       "notes": [
-        "no DOI could be taken from the url we hold; nothing was guessed"
+        "no DOI could be taken from the url we hold; nothing was guessed",
+        "2026-10-18 (Claude Code, operator's machine): Europe PMC full-text XML https://www.ebi.ac.uk/europepmc/webservices/rest/PMC7651475/fullTextXML -> held — contains 12 of 12 distinctive title words; kind full_text (45518 characters, reference list and discussion/introduction present)"
       ],
       "verified_title": ""
     },
@@ -129,7 +171,8 @@
       "notes": [
         "identifier doi=10.1126/science.1207745 came from the url we already hold, not a search",
         "resolved title: 'Google Effects on Memory: Cognitive Consequences of Having Information a'",
-        "Unpaywall: no free version anywhere (is_oa false)"
+        "Unpaywall: no free version anywhere (is_oa false)",
+        "2026-10-18: left blocked, as instructed."
       ],
       "verified_title": "Google effects on memory: cognitive consequences of having information at our fingertips."
     },
@@ -160,9 +203,23 @@
     },
     "S017": {
       "ids": {},
-      "routes": [],
+      "routes": [
+        [
+          "SSRN abstract page (author posting)",
+          "",
+          "https://papers.ssrn.com/sol3/papers.cfm?abstract_id=6097646"
+        ],
+        [
+          "SSRN delivery",
+          "",
+          "https://papers.ssrn.com/sol3/Delivery.cfm?abstractid=6097646"
+        ]
+      ],
       "notes": [
-        "no DOI could be taken from the url we hold; nothing was guessed"
+        "no DOI could be taken from the url we hold; nothing was guessed",
+        "2026-10-18 (Claude Code, operator's machine): SSRN abstract page (author posting) https://papers.ssrn.com/sol3/papers.cfm?abstract_id=6097646 -> HTTP 403",
+        "2026-10-18 (Claude Code, operator's machine): SSRN delivery https://papers.ssrn.com/sol3/Delivery.cfm?abstractid=6097646 -> HTTP 403",
+        "2026-10-18: SSRN abstract page and delivery URL both HTTP 403 to a script. SSRN downloads are free to a browser."
       ],
       "verified_title": ""
     },
@@ -211,7 +268,8 @@
         "identifier doi=10.1016/S2468-1253(25)00133-5 came from the url we already hold, not a search",
         "resolved title: 'Endoscopist deskilling risk after exposure to artificial intelligence in'",
         "Unpaywall: no free version anywhere (is_oa false)",
-        "hand route: WRAP accepted manuscript. Identity verified by fred 2026-09-15 against our own record on DOI 10.1016/S2468-1253(25)00133-5, journal/volume/pages 10(10) 896-903, the full author sequence, and the CC BY-NC-ND licence that S021's own access note already names. Not indexed by Unpaywall, which is why find_access.py returned nothing."
+        "hand route: WRAP accepted manuscript. Identity verified by fred 2026-09-15 against our own record on DOI 10.1016/S2468-1253(25)00133-5, journal/volume/pages 10(10) 896-903, the full author sequence, and the CC BY-NC-ND licence that S021's own access note already names. Not indexed by Unpaywall, which is why find_access.py returned nothing.",
+        "2026-10-18: the published Lancet Gastroenterology & Hepatology version (10.1016/S2468-1253(25)00133-5): Unpaywall closed, no free copy; paywalled. Not fetched. The held S021 remains the Warwick author's accepted manuscript."
       ],
       "verified_title": "Endoscopist deskilling risk after exposure to artificial intelligence in colonoscopy: a multicentre, observational study."
     },
@@ -225,17 +283,38 @@
     },
     "S025": {
       "ids": {},
-      "routes": [],
+      "routes": [
+        [
+          "Nature Medicine (publisher)",
+          "",
+          "https://www.nature.com/articles/s41591-026-04438-y"
+        ],
+        [
+          "LSHTM Research Online (accepted manuscript)",
+          "",
+          "https://researchonline.lshtm.ac.uk/id/eprint/4682189/8/Ke_etal_2026_AI_induced_never_skilling_in_medical_education.pdf"
+        ]
+      ],
       "notes": [
-        "no DOI could be taken from the url we hold; nothing was guessed"
+        "no DOI could be taken from the url we hold; nothing was guessed",
+        "2026-10-18 (Claude Code, operator's machine): Nature Medicine (publisher) https://www.nature.com/articles/s41591-026-04438-y -> held — contains 12 of 12 distinctive title words; kind abstract (23193 characters, abstract present but no reference list or discussion — this is)",
+        "2026-10-18 (Claude Code, operator's machine): LSHTM Research Online (accepted manuscript) https://researchonline.lshtm.ac.uk/id/eprint/4682189/8/Ke_etal_2026_AI_induced_never_skilling_in_medical_education.pdf -> held — contains 12 of 12 distinctive title words; kind full_text (65840 characters, reference list and discussion/introduction present)"
       ],
       "verified_title": ""
     },
     "S027": {
       "ids": {},
-      "routes": [],
+      "routes": [
+        [
+          "Nature (publisher)",
+          "",
+          "https://www.nature.com/articles/s41575-025-01122-3"
+        ]
+      ],
       "notes": [
-        "no DOI could be taken from the url we hold; nothing was guessed"
+        "no DOI could be taken from the url we hold; nothing was guessed",
+        "2026-10-18 (Claude Code, operator's machine): Nature (publisher) https://www.nature.com/articles/s41575-025-01122-3 -> held — contains 11 of 12 distinctive title words; kind document (form 'page' — 19 prose sentence(s) over sixty characters, 927 words — this reads)",
+        "2026-10-18: Unpaywall: closed. Nature serves a subscription PREVIEW to non-subscribers; that preview is held (abstract_held). The full highlight is paywalled with no free route."
       ],
       "verified_title": ""
     },
@@ -282,7 +361,9 @@
       ],
       "notes": [
         "identifier doi=10.1148/radiol.243688 came from the url we already hold, not a search",
-        "resolved title: 'Influence of AI Decision Support on Radiologists’ Performance and Visual'"
+        "resolved title: 'Influence of AI Decision Support on Radiologists’ Performance and Visual'",
+        "2026-10-18 (Claude Code, operator's machine): Europe PMC full-text XML https://www.ebi.ac.uk/europepmc/webservices/rest/PMC12314766/fullTextXML -> HTTP 500",
+        "2026-10-18 (Claude Code, operator's machine): Europe PMC PDF render https://europepmc.org/articles/PMC12314766?pdf=render -> held — contains its identifier 10.1148/radiol.243688; kind full_text (56025 characters, reference list and discussion present)"
       ],
       "verified_title": "Influence of AI Decision Support on Radiologists' Performance and Visual Search in Screening Mammography."
     },
@@ -309,7 +390,9 @@
       ],
       "notes": [
         "identifier doi=10.1148/radiol.222176 came from the url we already hold, not a search",
-        "resolved title: 'Automation Bias in Mammography: The Impact of Artificial Intelligence BI'"
+        "resolved title: 'Automation Bias in Mammography: The Impact of Artificial Intelligence BI'",
+        "2026-10-18 (Claude Code, operator's machine): VU Amsterdam repository PDF https://research.vu.nl/files/291201748/Dratsch_et_al._2023_-_Automation_Bias_in_Mammography_-_The_Impact_of_Artificial_Intelligence_BI-RADS_Suggestions_on_Reader_Performance.pdf -> HTTP 403",
+        "2026-10-18: Unpaywall green: VU Amsterdam repository PDF (submitted version) HTTP 403 to a script. FREE ROUTE EXISTS — browser download needed; note it is the submitted version, not Radiology's."
       ],
       "verified_title": "Automation Bias in Mammography: The Impact of Artificial Intelligence BI-RADS Suggestions on Reader Performance."
     },
@@ -362,9 +445,22 @@
     },
     "S038": {
       "ids": {},
-      "routes": [],
+      "routes": [
+        [
+          "arXiv PDF 2411.00998",
+          "",
+          "https://arxiv.org/pdf/2411.00998"
+        ],
+        [
+          "arXiv PDF 2603.11821",
+          "",
+          "https://arxiv.org/pdf/2603.11821"
+        ]
+      ],
       "notes": [
-        "no DOI could be taken from the url we hold; nothing was guessed"
+        "no DOI could be taken from the url we hold; nothing was guessed",
+        "2026-10-18 (Claude Code, operator's machine): arXiv PDF 2411.00998 https://arxiv.org/pdf/2411.00998 -> held — contains 12 of 12 distinctive title words; kind full_text (19390 characters, reference list and discussion/introduction present)",
+        "2026-10-18 (Claude Code, operator's machine): arXiv PDF 2603.11821 https://arxiv.org/pdf/2603.11821 -> held — contains 12 of 12 distinctive title words; kind full_text (106902 characters, reference list and discussion/introduction present)"
       ],
       "verified_title": ""
     },
@@ -416,7 +512,69 @@
         "Unpaywall: no free version anywhere (is_oa false)"
       ],
       "verified_title": "Upskilling, Deskilling, or Never Skilling: Who Benefits From Artificial Intelligence in Colonoscopy?"
+    },
+    "S046": {
+      "ids": {},
+      "routes": [
+        [
+          "Europe PMC full-text XML",
+          "",
+          "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC10531198/fullTextXML"
+        ],
+        [
+          "Europe PMC PDF render",
+          "",
+          "https://europepmc.org/articles/PMC10531198?pdf=render"
+        ],
+        [
+          "PMC PDF",
+          "",
+          "https://pmc.ncbi.nlm.nih.gov/articles/PMC10531198/pdf/ocad118.pdf"
+        ]
+      ],
+      "notes": [
+        "2026-10-18 (Claude Code, operator's machine): Europe PMC full-text XML https://www.ebi.ac.uk/europepmc/webservices/rest/PMC10531198/fullTextXML -> HTTP 500",
+        "2026-10-18 (Claude Code, operator's machine): Europe PMC PDF render https://europepmc.org/articles/PMC10531198?pdf=render -> HTTP 403",
+        "2026-10-18 (Claude Code, operator's machine): PMC PDF https://pmc.ncbi.nlm.nih.gov/articles/PMC10531198/pdf/ocad118.pdf -> fetched 1817 B (text/html; charset=utf-8) but refused: only 1817 bytes",
+        "2026-10-18: Europe PMC record PMC10531198 has no full text (inEPMC N; fullTextXML HTTP 500); NCBI efetch db=pmc returns the record WITHOUT a body (the publisher does not allow XML full text); the PMC PDF (pmc.ncbi.nlm.nih.gov/articles/PMC10531198/pdf/ocad118.pdf) is free but served behind a browser challenge (1,817-byte HTML to a script). FREE ROUTE EXISTS — a person can download that PDF in a browser and add it with source_store.py add."
+      ],
+      "verified_title": ""
+    },
+    "S019": {
+      "ids": {},
+      "routes": [
+        [
+          "arXiv PDF",
+          "",
+          "https://arxiv.org/pdf/2601.00856"
+        ]
+      ],
+      "notes": [
+        "2026-10-18 (Claude Code, operator's machine): arXiv PDF https://arxiv.org/pdf/2601.00856 -> held — contains 9 of 11 distinctive title words; kind full_text (17886 characters, reference list and discussion/introduction present)"
+      ],
+      "verified_title": ""
+    },
+    "S047": {
+      "ids": {},
+      "routes": [
+        [
+          "Europe PMC full-text XML",
+          "",
+          "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC11780016/fullTextXML"
+        ]
+      ],
+      "notes": [
+        "2026-10-18 (Claude Code, operator's machine): Europe PMC full-text XML https://www.ebi.ac.uk/europepmc/webservices/rest/PMC11780016/fullTextXML -> held — contains its identifier 10.1186/s13244-024-01893-4; kind full_text (44254 characters, reference list and discussion/introduction present)",
+        "2026-10-18: Europe PMC PMC11780016 (open access, CC BY): held as full-text XML."
+      ],
+      "verified_title": ""
     }
   },
-  "hand_routes_note": "S021, S001, S007 routes hand-entered by fred on 2026-09-15 (see each source's notes); the acquisition gate (identity + substance) is the check on them. S005's DOI came from sources.json identifier.value, not the url."
+  "hand_routes_note": "S021, S001, S007 routes hand-entered by fred on 2026-09-15 (see each source's notes); the acquisition gate (identity + substance) is the check on them. S005's DOI came from sources.json identifier.value, not the url.",
+  "budzyn_preprint_2024": {
+    "what": "Budzyń et al., SSRN preprint 5070304 (December 2024), quoted by the page for Q-36; no ledger row.",
+    "notes": [
+      "2026-10-18: SSRN abstract page https://papers.ssrn.com/sol3/papers.cfm?abstract_id=5070304 -> HTTP 403 to a script. Not held; no ledger row added because nothing was fetched. SSRN downloads are free to a browser."
+    ]
+  }
 }
