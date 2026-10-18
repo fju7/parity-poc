@@ -11087,6 +11087,303 @@
       },
       "first_seen": "2026-10-18",
       "on_page": true
+    },
+    "8d3197bbfe493c74": {
+      "sentence": "And the caveats were not hidden.",
+      "sentence_sha": "8d3197bbfe493c74",
+      "why_empirical": "sentence",
+      "bucket": null,
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-10-18",
+      "on_page": true
+    },
+    "e52551c8c816f279": {
+      "sentence": "Radiology.",
+      "sentence_sha": "e52551c8c816f279",
+      "why_empirical": "sentence",
+      "bucket": null,
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-10-18",
+      "on_page": true
+    },
+    "0d6a45a24b9a0922": {
+      "sentence": "Pathology.",
+      "sentence_sha": "0d6a45a24b9a0922",
+      "why_empirical": "sentence",
+      "bucket": null,
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-10-18",
+      "on_page": true
+    },
+    "70a74bf87335cfc4": {
+      "sentence": "Structural rather than cognitive.",
+      "sentence_sha": "70a74bf87335cfc4",
+      "why_empirical": "sentence",
+      "bucket": null,
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-10-18",
+      "on_page": true
+    },
+    "61364c88b8be1974": {
+      "sentence": "What this is not.",
+      "sentence_sha": "61364c88b8be1974",
+      "why_empirical": "sentence",
+      "bucket": null,
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-10-18",
+      "on_page": true
+    },
+    "a0f18385493a69fb": {
+      "sentence": "The brain-scan study.",
+      "sentence_sha": "a0f18385493a69fb",
+      "why_empirical": "sentence",
+      "bucket": null,
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-10-18",
+      "on_page": true
+    },
+    "8bf90c1297830fa2": {
+      "sentence": "The Google-effect study.",
+      "sentence_sha": "8bf90c1297830fa2",
+      "why_empirical": "sentence",
+      "bucket": null,
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-10-18",
+      "on_page": true
+    },
+    "6e313cb074e91907": {
+      "sentence": "The critical-thinking correlation.",
+      "sentence_sha": "6e313cb074e91907",
+      "why_empirical": "sentence",
+      "bucket": null,
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-10-18",
+      "on_page": true
+    },
+    "5dee45fa62756e88": {
+      "sentence": "The randomised crossover trial.",
+      "sentence_sha": "5dee45fa62756e88",
+      "why_empirical": "source claim: 'randomised'",
+      "bucket": null,
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-10-18",
+      "trigger": "source_claim",
+      "on_page": true
+    },
+    "8eb699e78252aecb": {
+      "sentence": "A longer horizon.",
+      "sentence_sha": "8eb699e78252aecb",
+      "why_empirical": "sentence",
+      "bucket": null,
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-10-18",
+      "on_page": true
+    },
+    "c636eb7ab4cf520a": {
+      "sentence": "The mechanism in live procedures.",
+      "sentence_sha": "c636eb7ab4cf520a",
+      "why_empirical": "sentence",
+      "bucket": null,
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-10-18",
+      "on_page": true
+    },
+    "4d6f06154d69dfcf": {
+      "sentence": "Peer review.",
+      "sentence_sha": "4d6f06154d69dfcf",
+      "why_empirical": "source claim: 'Peer review'",
+      "bucket": null,
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-10-18",
+      "trigger": "source_claim",
+      "on_page": true
+    },
+    "5f1b90d3d2162090": {
+      "sentence": "Corrections and retractions.",
+      "sentence_sha": "5f1b90d3d2162090",
+      "why_empirical": "source claim: 'Corrections'",
+      "bucket": null,
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-10-18",
+      "trigger": "source_claim",
+      "on_page": true
+    },
+    "26946f81b4c14f8a": {
+      "sentence": "Whether anyone else does this carefully.",
+      "sentence_sha": "26946f81b4c14f8a",
+      "why_empirical": "sentence",
+      "bucket": null,
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-10-18",
+      "on_page": true
     }
   }
 }
