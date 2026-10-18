@@ -5,8 +5,8 @@
     {
       "id": "Q-01",
       "quote": "We evaluated the effect of exposure to CADe ‘after’ CADe was removed, whereas Budzyń et al. investigated how endoscopists perform non-CADe-assisted colonoscopy ‘while’ they were exposed to CADe in the other colonoscopies they performed during the same time period.",
-      "source_id": "",
-      "verbatim": "",
+      "source_id": "S043",
+      "verbatim": "We evaluated the effect of exposure to CADe \"after\" CADe was removed, whereas Budzyn et al. investigated how endoscopists perform non-CADe-assisted colonoscopy \"while\" they were exposed to CADe in the other colonoscopies they performed during the same time period.",
       "kind": "",
       "why": "",
       "attested": {
@@ -17,8 +17,8 @@
     {
       "id": "Q-02",
       "quote": "Effort, as expressed by eye travel distance, decreased, and gaze remained more focused, presumably waiting for a bounding box to appear. This might be efficient but risks missing a polyp that is not captured by the system.",
-      "source_id": "",
-      "verbatim": "",
+      "source_id": "S031",
+      "verbatim": "This was pronounced in the sequences without polyps where examiners were expected to show their visual polyp search pattern. Effort, as expressed by eye travel distance, decreased, and gaze remained more focused, presumably waiting for a bounding box to appear. This might be efficient but risks missing a polyp that is not captured by the system.",
       "kind": "",
       "why": "",
       "attested": {
@@ -29,8 +29,8 @@
     {
       "id": "Q-03",
       "quote": "argues against the idea that exposure to CADe erodes skills, at least for nonexperienced endoscopists, although such skill reduction has been observed in another study involving only experienced endoscopists",
-      "source_id": "",
-      "verbatim": "",
+      "source_id": "S043",
+      "verbatim": "Additionally, the absence of an observable post-exposure reduction in PDR-5 compared with pre-exposure argues against the idea that exposure to CADe erodes skills, at least for nonexperienced endoscopists, although such skill reduction has been observed in another study involving only experienced endoscopists .",
       "kind": "",
       "why": "",
       "attested": {
@@ -41,8 +41,8 @@
     {
       "id": "Q-04",
       "quote": "the study design, population limits, operator factors, and short-term focus restrict broad applicability, and the deskilling concern remains hypothetical rather than proven",
-      "source_id": "",
-      "verbatim": "",
+      "source_id": "S042",
+      "verbatim": "On the other hand, this study found that the use of AI could be associated with deskilling. \"However, the study design, population limits, operator factors, and short-term focus restrict broad applicability, and the deskilling concern remains hypothetical rather than proven,\" he noted.",
       "kind": "",
       "why": "",
       "attested": {
@@ -53,8 +53,8 @@
     {
       "id": "Q-05",
       "quote": "will be stronger in the Budzyń study than in our study, suggesting that the deskilling effect may be a temporal phenomenon that disappears over time after CADe is removed.",
-      "source_id": "",
-      "verbatim": "",
+      "source_id": "S043",
+      "verbatim": "Thus, it is considered that the effect of exposure to CADe will be stronger in the Budzyn study than in our study, suggesting that the deskilling effect may be a temporal phenomenon that disappears over time after CADe is removed.",
       "kind": "",
       "why": "",
       "attested": {
@@ -65,8 +65,8 @@
     {
       "id": "Q-06",
       "quote": "may have an impact on the learning curve of colonoscopy trainees by preventing them from developing the visual ‘bottom U’ pattern of high-performing endoscopists",
-      "source_id": "",
-      "verbatim": "",
+      "source_id": "S031",
+      "verbatim": "Extrapolating this finding raises the concern that CADe systems may have an impact on the learning curve of colonoscopy trainees by preventing them from developing the visual \"bottom U\" pattern of high-performing endoscopists 10 .",
       "kind": "",
       "why": "",
       "attested": {
@@ -89,8 +89,8 @@
     {
       "id": "Q-08",
       "quote": "went from detecting potential polyps at a rate of 28.4% with the technology to 22.4% after they no longer had access to the AI tools they were introduced to",
-      "source_id": "",
-      "verbatim": "",
+      "source_id": "S023",
+      "verbatim": "Recommended Video A study published in the Lancet Gastroenterology & Hepatology journal this month found that in 1,443 patients who underwent colonoscopies with and without AI-assisted systems, endoscopists introduced to an AI-assistance system went from detecting potential polyps at a rate of 28.4% with the technology to 22.4% after they no longer had access to the AI tools they were introduced to-a 20% drop in detection rates.",
       "kind": "",
       "why": "",
       "attested": {
@@ -101,8 +101,8 @@
     {
       "id": "Q-09",
       "quote": "had been mistakenly omitted from the multivariable analysis presented in supplementary table 6 in the appendix of this Article",
-      "source_id": "",
-      "verbatim": "",
+      "source_id": "S045",
+      "verbatim": "Lancet Gastroenterol Hepatol 2025; 10: 896-903-A covariate (indication for colonoscopy) had been mistakenly omitted from the multivariable analysis presented in supplementary table 6 in the appendix of this Article.",
       "kind": "",
       "why": "",
       "attested": {
@@ -125,8 +125,8 @@
     {
       "id": "Q-11",
       "quote": "a controlled reader study published in 2023 evaluated 27 radiologists interpreting 720 mammograms with and without AI support",
-      "source_id": "",
-      "verbatim": "",
+      "source_id": "S029",
+      "verbatim": "This provided direct evidence of behavioral dependence and skill erosion after repeated AI use. Radiology In breast imaging, a controlled reader study published in 2023 evaluated 27 radiologists interpreting 720 mammograms with and without AI support.",
       "kind": "",
       "why": "",
       "attested": {
@@ -137,8 +137,8 @@
     {
       "id": "Q-12",
       "quote": "the only affected findings are for the variables ‘After AI introduction (using AI in colonoscopy)’ and ‘Age >60 years’",
-      "source_id": "",
-      "verbatim": "",
+      "source_id": "S045",
+      "verbatim": "The appendix has been updated with the corrected analysis; the only affected findings are for the variables \"After AI introduction (using AI in colonoscopy)\" and \"Age >60 years\".",
       "kind": "",
       "why": "",
       "attested": {
@@ -149,8 +149,8 @@
     {
       "id": "Q-13",
       "quote": "In non-CADe-assisted colonoscopy, no upskilling or deskilling was observed following a period of CADe exposure.",
-      "source_id": "",
-      "verbatim": "",
+      "source_id": "S043",
+      "verbatim": "Conclusions PDR-5 of inexperienced endoscopists increased when CADe was used. In non-CADe-assisted colonoscopy, no upskilling or deskilling was observed following a period of CADe exposure.",
       "kind": "",
       "why": "",
       "attested": {
@@ -161,8 +161,8 @@
     {
       "id": "Q-14",
       "quote": "a massive reduction in cytology workload, estimated to be approximately 70%, according to Public Health England",
-      "source_id": "",
-      "verbatim": "",
+      "source_id": "S039",
+      "verbatim": "10 Effects on the workforce The major shift into primary HPV testing has resulted in a massive reduction in cytology workload, estimated to be approximately 70%, according to Public Health England.",
       "kind": "",
       "why": "",
       "attested": {
@@ -173,8 +173,8 @@
     {
       "id": "Q-15",
       "quote": "the number of colonoscopies performed nearly doubled after the AI tool was introduced, going from 795 to 1382",
-      "source_id": "",
-      "verbatim": "",
+      "source_id": "S035",
+      "verbatim": "The study's findings might be influenced by other factors. \"For example, the number of colonoscopies performed nearly doubled after the AI tool was introduced, going from 795 to 1382.",
       "kind": "",
       "why": "",
       "attested": {
@@ -209,8 +209,8 @@
     {
       "id": "Q-18",
       "quote": "there is always a time effect in which endoscopists may naturally upskill or deskill over time",
-      "source_id": "",
-      "verbatim": "",
+      "source_id": "S043",
+      "verbatim": "However, it is challenging to draw such a conclusion based solely on the change in PDR-5 between phases 1 and 3, given that there is always a time effect in which endoscopists may naturally upskill or deskill over time.",
       "kind": "",
       "why": "",
       "attested": {
@@ -233,8 +233,8 @@
     {
       "id": "Q-20",
       "quote": "similar issues pop up in law, education, journalism, software development, and other fields",
-      "source_id": "",
-      "verbatim": "",
+      "source_id": "S033",
+      "verbatim": "The detection rate for precancerous lesions dropped from 28.4% to 22.4% without AI in the picture. Similar issues pop up in law, education, journalism, software development, and other fields.",
       "kind": "",
       "why": "",
       "attested": {
@@ -245,8 +245,8 @@
     {
       "id": "Q-21",
       "quote": "possible consequences of these findings might be prolonged examination time and deskilling",
-      "source_id": "",
-      "verbatim": "",
+      "source_id": "S031",
+      "verbatim": "It increased misinterpretation of normal mucosa and decreased the eye travel distance. Possible consequences of these findings might be prolonged examination time and deskilling.",
       "kind": "",
       "why": "",
       "attested": {
@@ -257,8 +257,8 @@
     {
       "id": "Q-22",
       "quote": "may also be less enthusiastic about a software tool intended to improve their performance",
-      "source_id": "",
-      "verbatim": "",
+      "source_id": "S043",
+      "verbatim": "Experienced endoscopists may underestimate, or at least do not overestimate, polyp size, whereas inexperienced endoscopists may be more prone to overestimation. The experienced endoscopists may also be less enthusiastic about a software tool intended to improve their performance, leading to an aversion to using it effectively.",
       "kind": "",
       "why": "",
       "attested": {
@@ -269,8 +269,8 @@
     {
       "id": "Q-23",
       "quote": "Evidence of clinical deskilling, though scarce, is consistent across specialties",
-      "source_id": "",
-      "verbatim": "",
+      "source_id": "S029",
+      "verbatim": "Evidence of clinical deskilling, though scarce, is consistent across specialties.",
       "kind": "",
       "why": "",
       "attested": {
@@ -281,8 +281,8 @@
     {
       "id": "Q-24",
       "quote": "factors other than the implementation of AI use may have influenced the findings",
-      "source_id": "",
-      "verbatim": "",
+      "source_id": "S041",
+      "verbatim": "It could be the case that non-AI assisted colonoscopy assessed in these trials is different from standard non-AI assisted colonoscopy, as the endoscopists in the trials may have been negatively affected by continuous AI exposure.\" The authors acknowledged some limitations of the study, including its observational nature, noting that factors other than the implementation of AI use may have influenced the findings.",
       "kind": "",
       "why": "",
       "attested": {
@@ -317,8 +317,8 @@
     {
       "id": "Q-27",
       "quote": "when endoscopists reverted to non-AI procedures after repeated AI use",
-      "source_id": "",
-      "verbatim": "",
+      "source_id": "S029",
+      "verbatim": "In a multicenter randomized trial in colonoscopy, the adenoma detection rate (ADR) dropped significantly from 28.4% to 22.4% when endoscopists reverted to non-AI procedures after repeated AI use, while ADR remained stable with AI assistance (25.3%).",
       "kind": "",
       "why": "",
       "attested": {
@@ -329,8 +329,8 @@
     {
       "id": "Q-28",
       "quote": "robust prospective studies such as randomized crossover trials",
-      "source_id": "",
-      "verbatim": "",
+      "source_id": "S021",
+      "verbatim": "19 In conclusion, we observed that continuous exposure to AI in colonoscopy may reduce the ADR of standard, non-AI assisted colonoscopy. We emphasize the urgent need for robust prospective studies such as randomized crossover trials to assess its generalizability and call for more behavioral research to understand the currently under-investigated mechanisms of how AI affects physician capability.",
       "kind": "",
       "why": "",
       "attested": {
@@ -353,8 +353,8 @@
     {
       "id": "Q-30",
       "quote": "over 30% of participants reversed correct initial diagnoses",
-      "source_id": "",
-      "verbatim": "",
+      "source_id": "S029",
+      "verbatim": "over 30% of participants reversed correct initial diagnoses when exposed to incorrect AI suggestions under time constraints",
       "kind": "",
       "why": "",
       "attested": {
@@ -365,8 +365,8 @@
     {
       "id": "Q-31",
       "quote": "these changes do not affect the interpretation of the data",
-      "source_id": "",
-      "verbatim": "",
+      "source_id": "S045",
+      "verbatim": "The appendix has been updated with the corrected analysis; the only affected findings are for the variables \"After AI introduction (using AI in colonoscopy)\" and \"Age >60 years\". These changes do not affect the interpretation of the data.",
       "kind": "",
       "why": "",
       "attested": {
@@ -377,8 +377,8 @@
     {
       "id": "Q-32",
       "quote": "the experimental design using only short video sequences",
-      "source_id": "",
-      "verbatim": "",
+      "source_id": "S031",
+      "verbatim": "previously questioned the relevance of these short activations; thus, developers of CADe systems might consider suppressing them 9 . Limitations of the study include the experimental design using only short video sequences that were chosen in order to increase the number of voluntary participants.",
       "kind": "",
       "why": "",
       "attested": {
@@ -389,8 +389,8 @@
     {
       "id": "Q-33",
       "quote": "became 20% worse at spotting abnormalities on their own",
-      "source_id": "",
-      "verbatim": "",
+      "source_id": "S023",
+      "verbatim": "Doctors who used AI assistance in procedures became 20% worse at spotting abnormalities on their own, study finds, raising concern about overreliance",
       "kind": "",
       "why": "",
       "attested": {
@@ -401,8 +401,8 @@
     {
       "id": "Q-34",
       "quote": "48 accredited labs to 8 centralised labs as of 2019",
-      "source_id": "",
-      "verbatim": "",
+      "source_id": "S039",
+      "verbatim": "reducing 48 accredited labs to 8 centralised labs as of 2019.",
       "kind": "",
       "why": "",
       "attested": {
@@ -413,8 +413,8 @@
     {
       "id": "Q-35",
       "quote": "a potential risk of overreliance and deskilling",
-      "source_id": "",
-      "verbatim": "",
+      "source_id": "S031",
+      "verbatim": "Analysis of false-positive detections and eye tracking metrics revealed marked changes, influenced by CADe, and suggests a potential risk of overreliance and deskilling when these systems are used.",
       "kind": "",
       "why": "",
       "attested": {
@@ -449,8 +449,8 @@
     {
       "id": "Q-38",
       "quote": "remains hypothetical rather than proven",
-      "source_id": "",
-      "verbatim": "",
+      "source_id": "S042",
+      "verbatim": "\"However, the study design, population limits, operator factors, and short-term focus restrict broad applicability, and the deskilling concern remains hypothetical rather than proven,\" he noted.",
       "kind": "",
       "why": "",
       "attested": {
@@ -473,8 +473,8 @@
     {
       "id": "Q-40",
       "quote": "a multicenter randomized trial",
-      "source_id": "",
-      "verbatim": "",
+      "source_id": "S029",
+      "verbatim": "In a multicenter randomized trial in colonoscopy, the adenoma detection rate (ADR) dropped significantly from 28.4% to 22.4%",
       "kind": "",
       "why": "",
       "attested": {
@@ -485,8 +485,8 @@
     {
       "id": "Q-41",
       "quote": "less well-validated than ADR",
-      "source_id": "",
-      "verbatim": "",
+      "source_id": "S043",
+      "verbatim": "We acknowledge that this quality indicator is less well-validated than ADR.",
       "kind": "",
       "why": "",
       "attested": {
@@ -497,8 +497,8 @@
     {
       "id": "Q-42",
       "quote": "When AI Reads the Easy Cases",
-      "source_id": "",
-      "verbatim": "",
+      "source_id": "S034",
+      "verbatim": "When AI Reads the Easy Cases: Radiology's Training Paradox",
       "kind": "",
       "why": "",
       "attested": {
@@ -509,8 +509,8 @@
     {
       "id": "Q-43",
       "quote": "The AI Deskilling Paradox",
-      "source_id": "",
-      "verbatim": "",
+      "source_id": "S033",
+      "verbatim": "The AI Deskilling Paradox Gains from AI may lessen the value of individual expertise and erode the capacity of organizations. By Samuel Greengard Posted Nov 7 2025",
       "kind": "",
       "why": "",
       "attested": {

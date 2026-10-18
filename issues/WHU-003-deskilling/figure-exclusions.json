@@ -1,0 +1,14 @@
+{
+  "_what_this_is": "Figures on this page that are not claims about any document, each declared by a person with the sentence it belongs to and the reason. B13 counts them in its report and reports one that no longer matches a sentence as stale, so this file cannot quietly become a filter.",
+  "_the_rule": "An exclusion says 'this figure is not taken from a source', never 'do not check this figure'. If the sentence changes so that the figure IS a claim about a document, the exclusion stops matching and the check comes back.",
+  "exclusions": [
+    {
+      "figure": "00289",
+      "in_sentence": "The commentary published alongside it in the same journal, and the later correspondence on it — which we can now name: Levartovsky A and Kopylov U, Lancet Gastroenterol Hepatol , December 2025, doi 10.1016/S2468-1253(25)00289-4.",
+      "why": "00289 is not a quantity this page asserts. It is the tail of the DOI 10.1016/S2468-1253(25)00289-4, printed inside a citation of the Levartovsky and Kopylov correspondence — a document the same sentence discloses we could not open. The figure extractor tokenises runs of digits out of identifiers, which is how a DOI fragment reached a check that asks which document a number came from. Nothing on this page rests on 00289 as a number, and no held document could contain it as one. The general defect is recorded here rather than patched: the extractor does not know an identifier from a measurement.",
+      "by": "claude",
+      "on": "2026-09-15",
+      "falsifier": "The sentence changing so that 00289 is a quantity the page asserts rather than part of the DOI it currently prints. At that point the exclusion stops matching and the check comes back, which is the behaviour this file's rule requires."
+    }
+  ]
+}

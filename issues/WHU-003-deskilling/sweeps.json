@@ -10,13 +10,17 @@
       "count": 3,
       "hit_count": 3,
       "complete": true,
-      "swept": "2026-09-11",
+      "swept": "2026-10-12",
       "resolved_as": "MED/33194451"
     },
     "S010": {
       "ids": [
+        "42748377",
+        "42705481",
+        "PPR1303545",
         "42694587",
         "42613406",
+        "42611088",
         "42646031",
         "42643578",
         "42638848",
@@ -40,6 +44,7 @@
         "42218501",
         "42293911",
         "42141732",
+        "42113635",
         "42108691",
         "42019398",
         "42006131",
@@ -256,6 +261,7 @@
         "26340105",
         "26249731",
         "26170005",
+        "26033788",
         "26010489",
         "25731978",
         "25491269",
@@ -284,17 +290,28 @@
         "22447705",
         "22639611"
       ],
-      "count": 268,
-      "hit_count": 268,
+      "count": 274,
+      "hit_count": 274,
       "complete": true,
-      "swept": "2026-09-11",
+      "swept": "2026-10-12",
       "resolved_as": "MED/21764755"
     },
     "S021": {
       "ids": [
+        "42097880",
+        "42714031",
+        "42710030",
+        "42737839",
         "42697525",
+        "PPR1312067",
+        "41968087",
+        "PPR1310199",
+        "42713309",
+        "42618758",
         "42654218",
+        "42551696",
         "42559642",
+        "42498865",
         "42592621",
         "42481738",
         "42496257",
@@ -322,8 +339,10 @@
         "42341297",
         "42328851",
         "42396382",
+        "42314898",
         "42308450",
         "42354589",
+        "42286448",
         "42540091",
         "42263727",
         "42250891",
@@ -335,6 +354,7 @@
         "42235527",
         "42233416",
         "42224691",
+        "42642171",
         "42411529",
         "42316546",
         "42252495",
@@ -347,6 +367,7 @@
         "42174254",
         "42195401",
         "42233057",
+        "42149976",
         "42142322",
         "42194544",
         "42103094",
@@ -376,12 +397,15 @@
         "41720136",
         "41720644",
         "41703356",
+        "41696998",
         "41953857",
+        "PPR1268858",
         "42394882",
         "41869851",
         "41716045",
         "41479124",
         "41620563",
+        "41612831",
         "41610931",
         "41681714",
         "41577228",
@@ -392,6 +416,7 @@
         "41583977",
         "41504353",
         "41423329",
+        "42370064",
         "41783687",
         "41572653",
         "41549495",
@@ -407,6 +432,7 @@
         "41205614",
         "41243630",
         "41256967",
+        "42712285",
         "41201255",
         "41196202",
         "41187419",
@@ -423,10 +449,10 @@
         "40935625",
         "40816300"
       ],
-      "count": 130,
-      "hit_count": 130,
+      "count": 150,
+      "hit_count": 150,
       "complete": true,
-      "swept": "2026-09-11",
+      "swept": "2026-10-12",
       "resolved_as": "MED/40816301"
     },
     "S028": {
@@ -448,19 +474,32 @@
       "count": 13,
       "hit_count": 13,
       "complete": true,
-      "swept": "2026-09-11",
+      "swept": "2026-10-12",
       "resolved_as": "MED/40626877"
     },
     "S030": {
       "ids": [
-        "42697954",
-        "42645664",
-        "42191222",
         "42468971",
+        "42727080",
+        "42721701",
+        "42706858",
+        "42697794",
+        "42697954",
+        "42684485",
+        "42708850",
+        "42680937",
+        "PPR1308132",
+        "42649333",
+        "42645664",
+        "PPR1301395",
+        "42607357",
+        "42719514",
+        "42191222",
         "42466917",
         "42445869",
         "42426584",
         "42420156",
+        "42719538",
         "42446361",
         "42446358",
         "42446353",
@@ -671,10 +710,10 @@
         "37286665",
         "37129485"
       ],
-      "count": 217,
-      "hit_count": 217,
+      "count": 230,
+      "hit_count": 230,
       "complete": true,
-      "swept": "2026-09-11",
+      "swept": "2026-10-12",
       "resolved_as": "MED/37129490"
     },
     "S031": {
@@ -737,7 +776,7 @@
       "count": 54,
       "hit_count": 54,
       "complete": true,
-      "swept": "2026-09-11",
+      "swept": "2026-10-12",
       "resolved_as": "MED/35158384"
     },
     "S043": {
@@ -745,7 +784,7 @@
       "count": 0,
       "hit_count": 0,
       "complete": true,
-      "swept": "2026-09-11",
+      "swept": "2026-10-12",
       "resolved_as": "MED/42235541"
     },
     "S044": {
@@ -753,7 +792,7 @@
       "count": 0,
       "hit_count": 0,
       "complete": true,
-      "swept": "2026-09-11",
+      "swept": "2026-10-12",
       "resolved_as": "MED/42250888"
     },
     "S045": {
@@ -761,7 +800,7 @@
       "count": 0,
       "hit_count": 0,
       "complete": true,
-      "swept": "2026-09-11",
+      "swept": "2026-10-12",
       "resolved_as": "MED/40946709"
     },
     "S024": {
@@ -777,12 +816,14 @@
       "count": 7,
       "hit_count": 7,
       "complete": true,
-      "swept": "2026-09-11",
+      "swept": "2026-10-12",
       "resolved_as": "MED/40816300"
     },
     "S025": {
       "ids": [
         "42608860",
+        "42721677",
+        "42626027",
         "42295838",
         "42530614",
         "PPR1273986",
@@ -790,10 +831,10 @@
         "42428959",
         "42320614"
       ],
-      "count": 7,
-      "hit_count": 7,
+      "count": 9,
+      "hit_count": 9,
       "complete": true,
-      "swept": "2026-09-11",
+      "swept": "2026-10-12",
       "resolved_as": "MED/42174254"
     },
     "S027": {
@@ -805,8 +846,31 @@
       "count": 3,
       "hit_count": 3,
       "complete": true,
-      "swept": "2026-09-11",
+      "swept": "2026-10-12",
       "resolved_as": "MED/40913101"
+    },
+    "S005": {
+      "ids": [],
+      "count": 0,
+      "hit_count": 0,
+      "complete": true,
+      "swept": "2026-10-12",
+      "resolved_as": "PPR/PPR1182273"
+    },
+    "S029": {
+      "ids": [
+        "PPR1310199",
+        "42627286",
+        "42530614",
+        "42496257",
+        "42465700",
+        "42354497"
+      ],
+      "count": 6,
+      "hit_count": 6,
+      "complete": true,
+      "swept": "2026-10-12",
+      "resolved_as": "MED/41890350"
     }
   },
   "status": {
@@ -1389,6 +1453,455 @@
         "S041",
         "S042"
       ]
+    },
+    {
+      "on": "2026-09-14",
+      "command": "resolve --write",
+      "resolved": [],
+      "refused": [
+        {
+          "id": "S029",
+          "why": "PII S2949-8201(26)00012-3: no Europe PMC record whose DOI embeds it, and Crossref holds no alternative-id for it. Not resolvable from what we hold."
+        },
+        {
+          "id": "S032",
+          "why": "could not confirm DOI 10.48550/arXiv.2506.08872: not registered at Crossref (a DataCite DOI, e.g. arXiv, would be) and not in Europe PMC. Not written."
+        }
+      ],
+      "failed": [],
+      "unsweepable": [
+        "S012",
+        "S013",
+        "S014",
+        "S015",
+        "S016",
+        "S017",
+        "S023",
+        "S033",
+        "S034",
+        "S035",
+        "S036",
+        "S037",
+        "S039",
+        "S040",
+        "S041",
+        "S042"
+      ]
+    },
+    {
+      "on": "2026-09-14",
+      "command": "citations",
+      "sources_queried": 12,
+      "new_citations": 0,
+      "first_sweep": {},
+      "rebaselined_from_truncated": [],
+      "incomplete": [],
+      "unresolved": [
+        "S001",
+        "S002",
+        "S003",
+        "S004",
+        "S005",
+        "S006",
+        "S007",
+        "S008",
+        "S011",
+        "S018",
+        "S019",
+        "S020",
+        "S026",
+        "S038"
+      ],
+      "candidates_unconfirmed": [
+        "S029",
+        "S032"
+      ],
+      "unsweepable": [
+        "S012",
+        "S013",
+        "S014",
+        "S015",
+        "S016",
+        "S017",
+        "S023",
+        "S033",
+        "S034",
+        "S035",
+        "S036",
+        "S037",
+        "S039",
+        "S040",
+        "S041",
+        "S042"
+      ]
+    },
+    {
+      "on": "2026-09-14",
+      "command": "registry",
+      "sources_queried": 0,
+      "first_capture": [],
+      "changes": {},
+      "alarms": [],
+      "titles_disagree": [],
+      "titles_inconclusive": [],
+      "unresolved": [],
+      "unsweepable": []
+    },
+    {
+      "on": "2026-09-21",
+      "command": "resolve --write",
+      "resolved": [],
+      "refused": [
+        {
+          "id": "S032",
+          "why": "could not confirm DOI 10.48550/arXiv.2506.08872: not registered at Crossref (a DataCite DOI, e.g. arXiv, would be) and not in Europe PMC. Not written."
+        }
+      ],
+      "failed": [],
+      "unsweepable": [
+        "S012",
+        "S013",
+        "S014",
+        "S015",
+        "S016",
+        "S017",
+        "S023",
+        "S033",
+        "S034",
+        "S035",
+        "S036",
+        "S037",
+        "S039",
+        "S040",
+        "S041",
+        "S042"
+      ]
+    },
+    {
+      "on": "2026-09-21",
+      "command": "citations",
+      "sources_queried": 9,
+      "new_citations": 5,
+      "first_sweep": {
+        "S029": 5
+      },
+      "rebaselined_from_truncated": [],
+      "incomplete": [],
+      "unresolved": [
+        "S001",
+        "S002",
+        "S003",
+        "S004",
+        "S006",
+        "S007",
+        "S008",
+        "S011",
+        "S018",
+        "S019",
+        "S020",
+        "S024",
+        "S026",
+        "S027",
+        "S028",
+        "S030",
+        "S038",
+        "S045"
+      ],
+      "candidates_unconfirmed": [
+        "S032"
+      ],
+      "unsweepable": [
+        "S012",
+        "S013",
+        "S014",
+        "S015",
+        "S016",
+        "S017",
+        "S023",
+        "S033",
+        "S034",
+        "S035",
+        "S036",
+        "S037",
+        "S039",
+        "S040",
+        "S041",
+        "S042"
+      ]
+    },
+    {
+      "on": "2026-09-21",
+      "command": "registry",
+      "sources_queried": 0,
+      "first_capture": [],
+      "changes": {},
+      "alarms": [],
+      "titles_disagree": [],
+      "titles_inconclusive": [],
+      "unresolved": [],
+      "unsweepable": []
+    },
+    {
+      "on": "2026-09-28",
+      "command": "resolve --write",
+      "resolved": [],
+      "refused": [
+        {
+          "id": "S032",
+          "why": "could not confirm DOI 10.48550/arXiv.2506.08872: not registered at Crossref (a DataCite DOI, e.g. arXiv, would be) and not in Europe PMC. Not written."
+        }
+      ],
+      "failed": [],
+      "unsweepable": [
+        "S012",
+        "S013",
+        "S014",
+        "S015",
+        "S016",
+        "S017",
+        "S023",
+        "S033",
+        "S034",
+        "S035",
+        "S036",
+        "S037",
+        "S039",
+        "S040",
+        "S041",
+        "S042"
+      ]
+    },
+    {
+      "on": "2026-09-28",
+      "command": "citations",
+      "sources_queried": 14,
+      "new_citations": 28,
+      "first_sweep": {},
+      "rebaselined_from_truncated": [],
+      "incomplete": [],
+      "unresolved": [
+        "S001",
+        "S002",
+        "S003",
+        "S004",
+        "S006",
+        "S007",
+        "S008",
+        "S011",
+        "S018",
+        "S019",
+        "S020",
+        "S026",
+        "S038"
+      ],
+      "candidates_unconfirmed": [
+        "S032"
+      ],
+      "unsweepable": [
+        "S012",
+        "S013",
+        "S014",
+        "S015",
+        "S016",
+        "S017",
+        "S023",
+        "S033",
+        "S034",
+        "S035",
+        "S036",
+        "S037",
+        "S039",
+        "S040",
+        "S041",
+        "S042"
+      ]
+    },
+    {
+      "on": "2026-09-28",
+      "command": "registry",
+      "sources_queried": 0,
+      "first_capture": [],
+      "changes": {},
+      "alarms": [],
+      "titles_disagree": [],
+      "titles_inconclusive": [],
+      "unresolved": [],
+      "unsweepable": []
+    },
+    {
+      "on": "2026-10-05",
+      "command": "resolve --write",
+      "resolved": [],
+      "refused": [
+        {
+          "id": "S032",
+          "why": "could not confirm DOI 10.48550/arXiv.2506.08872: not registered at Crossref (a DataCite DOI, e.g. arXiv, would be) and not in Europe PMC. Not written."
+        }
+      ],
+      "failed": [],
+      "unsweepable": [
+        "S012",
+        "S013",
+        "S014",
+        "S015",
+        "S016",
+        "S017",
+        "S023",
+        "S033",
+        "S034",
+        "S035",
+        "S036",
+        "S037",
+        "S039",
+        "S040",
+        "S041",
+        "S042"
+      ]
+    },
+    {
+      "on": "2026-10-05",
+      "command": "citations",
+      "sources_queried": 14,
+      "new_citations": 2,
+      "first_sweep": {},
+      "rebaselined_from_truncated": [],
+      "incomplete": [],
+      "unresolved": [
+        "S001",
+        "S002",
+        "S003",
+        "S004",
+        "S006",
+        "S007",
+        "S008",
+        "S011",
+        "S018",
+        "S019",
+        "S020",
+        "S026",
+        "S038"
+      ],
+      "candidates_unconfirmed": [
+        "S032"
+      ],
+      "unsweepable": [
+        "S012",
+        "S013",
+        "S014",
+        "S015",
+        "S016",
+        "S017",
+        "S023",
+        "S033",
+        "S034",
+        "S035",
+        "S036",
+        "S037",
+        "S039",
+        "S040",
+        "S041",
+        "S042"
+      ]
+    },
+    {
+      "on": "2026-10-05",
+      "command": "registry",
+      "sources_queried": 0,
+      "first_capture": [],
+      "changes": {},
+      "alarms": [],
+      "titles_disagree": [],
+      "titles_inconclusive": [],
+      "unresolved": [],
+      "unsweepable": []
+    },
+    {
+      "on": "2026-10-12",
+      "command": "resolve --write",
+      "resolved": [],
+      "refused": [
+        {
+          "id": "S032",
+          "why": "could not confirm DOI 10.48550/arXiv.2506.08872: not registered at Crossref (a DataCite DOI, e.g. arXiv, would be) and not in Europe PMC. Not written."
+        }
+      ],
+      "failed": [],
+      "unsweepable": [
+        "S012",
+        "S013",
+        "S014",
+        "S015",
+        "S016",
+        "S017",
+        "S023",
+        "S033",
+        "S034",
+        "S035",
+        "S036",
+        "S037",
+        "S039",
+        "S040",
+        "S041",
+        "S042"
+      ]
+    },
+    {
+      "on": "2026-10-12",
+      "command": "citations",
+      "sources_queried": 14,
+      "new_citations": 7,
+      "first_sweep": {},
+      "rebaselined_from_truncated": [],
+      "incomplete": [],
+      "unresolved": [
+        "S001",
+        "S002",
+        "S003",
+        "S004",
+        "S006",
+        "S007",
+        "S008",
+        "S011",
+        "S018",
+        "S019",
+        "S020",
+        "S026",
+        "S038"
+      ],
+      "candidates_unconfirmed": [
+        "S032"
+      ],
+      "unsweepable": [
+        "S012",
+        "S013",
+        "S014",
+        "S015",
+        "S016",
+        "S017",
+        "S023",
+        "S033",
+        "S034",
+        "S035",
+        "S036",
+        "S037",
+        "S039",
+        "S040",
+        "S041",
+        "S042"
+      ]
+    },
+    {
+      "on": "2026-10-12",
+      "command": "registry",
+      "sources_queried": 0,
+      "first_capture": [],
+      "changes": {},
+      "alarms": [],
+      "titles_disagree": [],
+      "titles_inconclusive": [],
+      "unresolved": [],
+      "unsweepable": []
     }
-  ]
+  ],
+  "registry": {}
 }

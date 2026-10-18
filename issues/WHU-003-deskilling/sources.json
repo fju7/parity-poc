@@ -23,7 +23,7 @@
       ],
       "used_for": "The three experiments, their Ns before and after exclusion, the effect sizes, and above all the DESIGN — twelve to fourteen practice problems, AI removed without warning, three test problems immediately after.",
       "access": {
-        "state": "fragment_only",
+        "state": "full_text_held",
         "by": "claude",
         "on": "2026-08-29",
         "sections": [
@@ -34,7 +34,13 @@
           "the supplement",
           "any OSF record"
         ],
-        "note": "CHECKED AGAINST v4, the current version. Every figure is identical to v2. Submission history: v1 6 Apr 2026, v2 7 Apr, v3 4 Aug, v4 5 Aug 2026; no changelog is published.\n\n2026-09-01: state migrated from `machine_read` to `fragment_only`. machine_read was abolished on issue two the same day: its only evidence was that this URL appeared in the citation list of a gate report, so an automated check reached it. Nothing checked what came back, or whether anything did. It sat in READ_STATES and licensed characterisation and adverse claims; fragment_only licenses neither. Nothing about what we know changed here — only what the ledger admits. Issues one and three kept the abolished state for a day because no check asked whether a state was one the ledger defines. One does now."
+        "note": "CHECKED AGAINST v4, the current version. Every figure is identical to v2. Submission history: v1 6 Apr 2026, v2 7 Apr, v3 4 Aug, v4 5 Aug 2026; no changelog is published.\n\n2026-09-01: state migrated from `machine_read` to `fragment_only`. machine_read was abolished on issue two the same day: its only evidence was that this URL appeared in the citation list of a gate report, so an automated check reached it. Nothing checked what came back, or whether anything did. It sat in READ_STATES and licensed characterisation and adverse claims; fragment_only licenses neither. Nothing about what we know changed here — only what the ledger admits. Issues one and three kept the abolished state for a day because no check asked whether a state was one the ledger defines. One does now.",
+        "held": {
+          "file": "docs/72/72e1d3c7e1e93cd9973efc2c5d53fbf7faa20342c5261f35953aa51d63581b73.pdf",
+          "sha256": "72e1d3c7e1e93cd9973efc2c5d53fbf7faa20342c5261f35953aa51d63581b73",
+          "bytes": 6197678,
+          "identified_by": "contains 10 of 10 distinctive title words — 87215 characters, reference list and introduction present"
+        }
       },
       "verified_against_v4": {
         "recruited": "354 + 667 + 201 = 1,222, which is the N the abstract reports.",
@@ -170,7 +176,7 @@
       ],
       "used_for": "The specific errors in Wang & Fan, and the corrected effect size. THIS IS THE LOAD-BEARING SOURCE for everything the piece would say about what was wrong with the retracted paper.",
       "access": {
-        "state": "human_read",
+        "state": "full_text_held",
         "by": "fred",
         "on": "2026-08-29",
         "sections": [
@@ -179,7 +185,13 @@
         "not_read": [
           "v2 of 23 April 2026, if it differs"
         ],
-        "note": "The operator obtained and supplied the PDF after OSF refused machine fetch. This is the second time the deciding document on an issue has had to be read by a human, and the second time it changed what we would have printed."
+        "note": "The operator obtained and supplied the PDF after OSF refused machine fetch. This is the second time the deciding document on an issue has had to be read by a human, and the second time it changed what we would have printed.",
+        "held": {
+          "file": "docs/4a/4a3a8265fbfd97350e82cf0ae8c8d1a354006af91f2bc0ddf05a6fb75df52448.pdf",
+          "sha256": "4a3a8265fbfd97350e82cf0ae8c8d1a354006af91f2bc0ddf05a6fb75df52448",
+          "bytes": 104752,
+          "identified_by": "contains 12 of 12 distinctive title words — 12040 characters; the library's substance classifier filed these bytes as 'abstract' for want of an Introduction/Discussion heading, but the PDF is the whole Matters Arising with its reference list (see spancheck text); versions 1 and 2 dated in its front matter"
+        }
       },
       "authors": "Magnus Ingebrigtsen (Department of Psychology, UiT The Arctic University of Norway) and Marko Lukic (Centre for Faculty Development (HelPed), UiT). Competing interests: none declared. They thank Torstein Låg of the UiT University Library for advice on assessing bias in meta-analysis.",
       "what_it_actually_says": {
@@ -201,7 +213,17 @@
         "We had a vague 'improper weighting'. The actual finding is sharper and more damaging: the two heaviest studies, together nearly 30% of the weight, were one retracted paper and one that measured self-efficacy rather than learning."
       ],
       "form": "article",
-      "form_decided_by": "OSF preprint (host), not held — provisional"
+      "form_decided_by": "OSF preprint (host), not held — provisional",
+      "identifier": {
+        "kind": "doi",
+        "value": "10.31234/osf.io/wgu56_v2",
+        "shape": "OSF preprint landing URL https://osf.io/preprints/psyarxiv/wgu56_v2 carries no DOI shape; DOI supplied by hand",
+        "resolved_by": "fred, 2026-09-15: doi.org resolves it (302) to osf.io/wgu56_v2; Sciety indexes it under the title 'Substantial Errors Invalidate the Conclusion from Wang and Fan (2025) About ChatGPT and Learning Outcomes'",
+        "identity": "the DOI's landing page is the URL we hold, and the indexed title is ours",
+        "resolved_on": "2026-09-15",
+        "resolved_title": "Substantial Errors Invalidate the Conclusion from Wang and Fan (2025) About ChatGPT and Learning Outcomes",
+        "by": "hand-supplied by fred; written via sweep_sources.write_identifier from a Claude Code session"
+      }
     },
     {
       "id": "S006",
@@ -244,7 +266,7 @@
       ],
       "used_for": "54 participants through session 3; session 4 with 18 across two crossover arms; still unreviewed.",
       "access": {
-        "state": "fragment_only",
+        "state": "full_text_held",
         "by": "claude",
         "on": "2026-08-30",
         "sections": [
@@ -254,7 +276,13 @@
         "not_read": [
           "the EEG analysis in technical detail"
         ],
-        "note": "arXiv id 2506.08872 verified 2026-08-29. Full PDF read 2026-08-30 to settle the 55/54 question; the paper explains the drop and the Comment does not address that sentence. Recorded verbatim in sources.json under the_55_and_the_54.\n\n2026-09-01: state migrated from `machine_read` to `fragment_only`. machine_read was abolished on issue two the same day: its only evidence was that this URL appeared in the citation list of a gate report, so an automated check reached it. Nothing checked what came back, or whether anything did. It sat in READ_STATES and licensed characterisation and adverse claims; fragment_only licenses neither. Nothing about what we know changed here — only what the ledger admits. Issues one and three kept the abolished state for a day because no check asked whether a state was one the ledger defines. One does now."
+        "note": "arXiv id 2506.08872 verified 2026-08-29. Full PDF read 2026-08-30 to settle the 55/54 question; the paper explains the drop and the Comment does not address that sentence. Recorded verbatim in sources.json under the_55_and_the_54.\n\n2026-09-01: state migrated from `machine_read` to `fragment_only`. machine_read was abolished on issue two the same day: its only evidence was that this URL appeared in the citation list of a gate report, so an automated check reached it. Nothing checked what came back, or whether anything did. It sat in READ_STATES and licensed characterisation and adverse claims; fragment_only licenses neither. Nothing about what we know changed here — only what the ledger admits. Issues one and three kept the abolished state for a day because no check asked whether a state was one the ledger defines. One does now.",
+        "held": {
+          "file": "docs/9b/9b84e8dff3e5a9eaca8d5cdcbdeef3dfb1ef32c2455eda2ed56d0079c9b45790.pdf",
+          "sha256": "9b84e8dff3e5a9eaca8d5cdcbdeef3dfb1ef32c2455eda2ed56d0079c9b45790",
+          "bytes": 38177802,
+          "identified_by": "contains 12 of 12 distinctive title words — 379935 characters, reference list and discussion/introduction present"
+        }
       },
       "the_55_and_the_54": "VERBATIM, from the v1 PDF read in full on 2026-08-30: “55 completed the experiment in full (attending a minimum of three sessions, defined later). To ensure data distribution, we are here only reporting data from 54 participants (as participants were assigned in three groups, see details below).” This matters because the Comment (S019) reports the 55/54 gap and says the exclusion criteria remain unclear. The paper does give a reason, in the sentence above, and the Comment does not address it. The page now prints both."
     },
@@ -673,7 +701,7 @@
       "peer_review": "YES. The Lancet Gastroenterology & Hepatology. Note that a preprint version also sits on SSRN (abstract_id 5070304), and the journal ran an accompanying comment, 'Endoscopist deskilling: an unintended consequence of AI-assisted colonoscopy?' (S2468-1253(25)00164-5), plus later correspondence (S2468-1253(25)00290-0). Neither has been read.",
       "limitations_that_must_travel_with_it": "OBSERVATIONAL, and the piece must say so as loudly as it says the result. Per the American College of Gastroenterology's appraisal: susceptible to confounding and selection bias; patient characteristics differed between periods (more women, less sedation after AI introduction), requiring adjustment that may leave residual bias; only 19 endoscopists, too few colonoscopies for a per-endoscopist analysis; the overall ADR of 25.7% is low against a US target of about 35%; and withdrawal time — which strongly affects detection — was not reported.",
       "access": {
-        "state": "fragment_only",
+        "state": "full_text_held",
         "by": "claude",
         "on": "2026-08-29",
         "sections": [
@@ -685,7 +713,13 @@
           "the Appendix, including per-endoscopist volumes on p2",
           "the accompanying Lancet comment and the later correspondence"
         ],
-        "note": "Read at source, replacing the secondary appraisal. The appraisal was broadly right and missed the largest confounder.\n\n2026-09-01: state migrated from `machine_read` to `fragment_only`. machine_read was abolished on issue two the same day: its only evidence was that this URL appeared in the citation list of a gate report, so an automated check reached it. Nothing checked what came back, or whether anything did. It sat in READ_STATES and licensed characterisation and adverse claims; fragment_only licenses neither. Nothing about what we know changed here — only what the ledger admits. Issues one and three kept the abolished state for a day because no check asked whether a state was one the ledger defines. One does now."
+        "note": "Read at source, replacing the secondary appraisal. The appraisal was broadly right and missed the largest confounder.\n\n2026-09-01: state migrated from `machine_read` to `fragment_only`. machine_read was abolished on issue two the same day: its only evidence was that this URL appeared in the citation list of a gate report, so an automated check reached it. Nothing checked what came back, or whether anything did. It sat in READ_STATES and licensed characterisation and adverse claims; fragment_only licenses neither. Nothing about what we know changed here — only what the ledger admits. Issues one and three kept the abolished state for a day because no check asked whether a state was one the ledger defines. One does now.",
+        "held": {
+          "file": "docs/42/4296ea811a437d2749051b11f4300da2d43716705ca10ea7b8ffda4ddf0cfbe9.pdf",
+          "sha256": "4296ea811a437d2749051b11f4300da2d43716705ca10ea7b8ffda4ddf0cfbe9",
+          "bytes": 1115789,
+          "identified_by": "contains 11 of 11 distinctive title words — 51687 characters, reference list and discussion/introduction present"
+        }
       },
       "found_via": "Its own citation inside Shaw & Nave's reference list. It was not returned by any search we ran, including the working-paper sweep.",
       "what_it_actually_says": {
@@ -720,14 +754,20 @@
       "used_for": "Evidence that the colonoscopy result DID cross into the general conversation about AI and human capability. Fortune connects it to the Microsoft/Carnegie Mellon study on reduced critical engagement and 'atrophying judgment skills', to the 2009 Air France 447 crash as an automation-erosion analogy, and quotes Lynn Wu of Wharton. It also carries Dr Romańczyk's own 'Google Maps effect' framing.",
       "what_it_does_not_do": "It reports NONE of the eleven limitations. Not the retrospective design, not the confounding, not the Polish screening-programme suspension that nearly doubled procedure volume, not the missing withdrawal times, not the absence of blinding. It notes only that the researchers 'did not collect data on why this happened'. And it does not cite the MIT preprint or any of the cognitive literature.",
       "access": {
-        "state": "fragment_only",
+        "state": "full_text_held",
         "by": "claude",
         "on": "2026-08-29",
         "sections": [
           "full text"
         ],
         "not_read": [],
-        "note": "2026-09-01: state migrated from `machine_read` to `fragment_only`. machine_read was abolished on issue two the same day: its only evidence was that this URL appeared in the citation list of a gate report, so an automated check reached it. Nothing checked what came back, or whether anything did. It sat in READ_STATES and licensed characterisation and adverse claims; fragment_only licenses neither. Nothing about what we know changed here — only what the ledger admits. Issues one and three kept the abolished state for a day because no check asked whether a state was one the ledger defines. One does now."
+        "note": "2026-09-01: state migrated from `machine_read` to `fragment_only`. machine_read was abolished on issue two the same day: its only evidence was that this URL appeared in the citation list of a gate report, so an automated check reached it. Nothing checked what came back, or whether anything did. It sat in READ_STATES and licensed characterisation and adverse claims; fragment_only licenses neither. Nothing about what we know changed here — only what the ledger admits. Issues one and three kept the abolished state for a day because no check asked whether a state was one the ledger defines. One does now.",
+        "held": {
+          "file": "docs/73/73ec3a417a17b82c151d3715551290e652b024ea2744ab980835c859097abd1e.html",
+          "sha256": "73ec3a417a17b82c151d3715551290e652b024ea2744ab980835c859097abd1e",
+          "bytes": 454986,
+          "identified_by": "contains 5 of 7 distinctive title words"
+        }
       },
       "found_via": "Searching for coverage of Budzyń, after recording a novelty claim that assumed there was none."
     },
@@ -908,13 +948,19 @@
       "used_for": "THE ANSWER TO WHETHER BUDZYN IS ALONE. He is not — but the company is thin and mostly of a different kind. 432 records from PubMed, Embase, Web of Science and Scopus plus 41 from grey literature; 373 after duplicates; 65 at full text; TWELVE STUDIES included in the synthesis, with six in the key-studies table. The authors' own words: evidence of clinical deskilling is 'though scarce, consistent across specialties', 'the number of high-quality empirical studies remains limited', and 'many reports are based on expert opinion or small-scale qualitative investigations rather than large multi-center trials'.",
       "why_it_matters": "It is the one document that would answer the question deciding whether this piece is ready: IS BUDZYN ALONE? If there are several studies measuring physician performance without AI after exposure to it, the piece is about a pattern. If Budzyn is the only one, the piece is about a single observational study carrying an enormous amount of weight — which is a different and more cautious piece.",
       "access": {
-        "state": "fragment_only",
+        "state": "full_text_held",
         "by": "claude",
         "on": "2026-08-30",
         "sections": [
           "the whole paper: abstract, methods, the PRISMA flowchart (which extracts as text: 432, 41, 37, 373, 332, 65, 12), every specialty section, Table 1 row by row, discussion, limitations, conclusion and the full reference list"
         ],
-        "note": "Supplied by fred after esmorwd.org 403'd and ScienceDirect refused robots; read end to end by claude on 2026-08-29 and again on 2026-08-30. Every adverse claim this page makes about the review is quoted from this PDF. NOTE the proof's running footer prints 'Volume 11, Issue C' above 'Available online xxx'; CrossRef's registered record for the version of record gives volume 12 and no issue, which is what the page cites.\n\n2026-09-01: state migrated from `machine_read` to `fragment_only`. machine_read was abolished on issue two the same day: its only evidence was that this URL appeared in the citation list of a gate report, so an automated check reached it. Nothing checked what came back, or whether anything did. It sat in READ_STATES and licensed characterisation and adverse claims; fragment_only licenses neither. Nothing about what we know changed here — only what the ledger admits. Issues one and three kept the abolished state for a day because no check asked whether a state was one the ledger defines. One does now."
+        "note": "Supplied by fred after esmorwd.org 403'd and ScienceDirect refused robots; read end to end by claude on 2026-08-29 and again on 2026-08-30. Every adverse claim this page makes about the review is quoted from this PDF. NOTE the proof's running footer prints 'Volume 11, Issue C' above 'Available online xxx'; CrossRef's registered record for the version of record gives volume 12 and no issue, which is what the page cites.\n\n2026-09-01: state migrated from `machine_read` to `fragment_only`. machine_read was abolished on issue two the same day: its only evidence was that this URL appeared in the citation list of a gate report, so an automated check reached it. Nothing checked what came back, or whether anything did. It sat in READ_STATES and licensed characterisation and adverse claims; fragment_only licenses neither. Nothing about what we know changed here — only what the ledger admits. Issues one and three kept the abolished state for a day because no check asked whether a state was one the ledger defines. One does now.",
+        "held": {
+          "file": "docs/ca/caec391d5633d94baadfb0ef78a25e1c092e9d535d224f897821b08110e55e5c.pdf",
+          "sha256": "caec391d5633d94baadfb0ef78a25e1c092e9d535d224f897821b08110e55e5c",
+          "bytes": 566346,
+          "identified_by": "contains 12 of 12 distinctive title words — 34440 characters, reference list and discussion/introduction present"
+        }
       },
       "needs_human_read": true,
       "the_six_key_studies": [
@@ -967,7 +1013,8 @@
         "and_a_further_problem_with_reference_17": "The arXiv number is right and everything else about the reference is wrong. It reads 'Rosbach N, Schuffenhauer S, Bulten W, et al. Artificial intelligence under time pressure: how diagnostic support systems affect pathologists' decisions.' The paper at arXiv 2411.00998 is by Rosbach E, Ganz J, Ammeling J, Riener A and Aubreville M, and is titled 'Automation Bias in AI-Assisted Medical Decision-Making under Time Pressure in Computational Pathology'. Wrong first initial, wrong co-authors, wrong title, right identifier.",
         "what_our_own_note_got_right_and_wrong": "The 2026-08-29 transcription into this file recorded the review's pathology entry as Bellahsen-Harrar, Mod Pathol. That is exactly what Table 1 says, including the journal, which the review's own reference list contradicts. The transcription did not cross two rows, as was suspected on 2026-08-30 before the PDF was reopened. It was right about the table and silent about the body.",
         "what_the_page_says": "The body paragraph gained one sentence, on the abstract's 'over 30% of participants' against the body's 7% of judgments — different denominators, both possibly true, the larger one in the abstract. The citation mismatch itself is in the Rosbach source note, stated factually and with the review's body credited for getting it right."
-      }
+      },
+      "doi": "10.1016/j.esmorw.2026.100693"
     },
     {
       "id": "S030",
@@ -1010,7 +1057,7 @@
       "used_for": "THE MECHANISM, measured in the right procedure four years before the deskilling result. Per Zhou's description: use of CADe was associated with a significant reduction in eye travel distance compared with non-CADe examinations, and the authors raise deskilling as a possible consequence. It is cited in Budzyn's own reference list.",
       "why_it_matters": "It removes any claim of novelty from the attention hypothesis and replaces it with something better: the narrowing was measured directly, in colonoscopy, by people who then said what it might mean. The piece credits Troya and Zhou rather than proposing anything.",
       "access": {
-        "state": "human_read",
+        "state": "full_text_held",
         "by": "fred",
         "on": "2026-08-29",
         "sections": [
@@ -1019,7 +1066,13 @@
         "not_read": [
           "the online-only supplementary material (Tables 1s, 2s; Figures 1s-4s)"
         ],
-        "note": "The operator supplied the PDF after Thieme 404'd on two URL forms, ResearchGate rate-limited, Semantic Scholar was robots-disallowed and PubMed served a CAPTCHA. Fourth document tonight that needed a human."
+        "note": "The operator supplied the PDF after Thieme 404'd on two URL forms, ResearchGate rate-limited, Semantic Scholar was robots-disallowed and PubMed served a CAPTCHA. Fourth document tonight that needed a human.",
+        "held": {
+          "file": "docs/24/2402cde39b20be8bc2fef474427e7db389834ce041b9273e21c876cd6b740ccc.xml",
+          "sha256": "2402cde39b20be8bc2fef474427e7db389834ce041b9273e21c876cd6b740ccc",
+          "bytes": 48094,
+          "identified_by": "contains its identifier 10.1055/a-1770-7353 — 22878 characters, reference list and discussion/introduction present"
+        }
       },
       "affiliations": "Interventional and Experimental Endoscopy (InExEn), Internal Medicine II, University Hospital Würzburg; and Department of Medicine III, University Hospital RWTH Aachen. Submitted 19 Sep 2021, accepted 10 Feb 2022, published 14 Feb 2022. Funded by the Bavarian Center for Cancer Research, the IZKF Würzburg and Forum Gesundheitsstandort Baden-Württemberg. No conflicts of interest declared.",
       "what_it_actually_says": {
@@ -1401,7 +1454,7 @@
         "setting": "pragmatic clinical trial from November 2021 to June 2025 ... 5013 patients, 3 centers, Norway. The 13 endoscopists comprised 12 physicians and 1 surgeon. Inexperienced mean age 41.1 years, experienced 50.7 years. Median withdrawal time across all phases 10 minutes (IQR 8-16) inexperienced, 9 minutes (IQR 7-11) experienced."
       },
       "access": {
-        "state": "fragment_only",
+        "state": "full_text_held",
         "by": "claude",
         "on": "2026-08-30",
         "sections": [
@@ -1410,7 +1463,13 @@
         "not_read": [
           "the online-only supplementary tables 1s-3s"
         ],
-        "note": "The abstract was read at Europe PMC first and four paragraphs were written from it; fred then supplied the full paper and it materially changed all four -- see WHAT_THE_ABSTRACT_DID_NOT_SAY. A review is a hop, and so is an abstract.\n\n2026-09-01: state migrated from `machine_read` to `fragment_only`. machine_read was abolished on issue two the same day: its only evidence was that this URL appeared in the citation list of a gate report, so an automated check reached it. Nothing checked what came back, or whether anything did. It sat in READ_STATES and licensed characterisation and adverse claims; fragment_only licenses neither. Nothing about what we know changed here — only what the ledger admits. Issues one and three kept the abolished state for a day because no check asked whether a state was one the ledger defines. One does now."
+        "note": "The abstract was read at Europe PMC first and four paragraphs were written from it; fred then supplied the full paper and it materially changed all four -- see WHAT_THE_ABSTRACT_DID_NOT_SAY. A review is a hop, and so is an abstract.\n\n2026-09-01: state migrated from `machine_read` to `fragment_only`. machine_read was abolished on issue two the same day: its only evidence was that this URL appeared in the citation list of a gate report, so an automated check reached it. Nothing checked what came back, or whether anything did. It sat in READ_STATES and licensed characterisation and adverse claims; fragment_only licenses neither. Nothing about what we know changed here — only what the ledger admits. Issues one and three kept the abolished state for a day because no check asked whether a state was one the ledger defines. One does now.",
+        "held": {
+          "file": "docs/3a/3af130dc2d4dc9bf7c8a61e65acb7dba5702cac1cce2cce6022311f05c96666c.xml",
+          "sha256": "3af130dc2d4dc9bf7c8a61e65acb7dba5702cac1cce2cce6022311f05c96666c",
+          "bytes": 114756,
+          "identified_by": "contains its identifier 10.1055/a-2858-7084 — 45205 characters, reference list and discussion/introduction present"
+        }
       },
       "found_via": "THE OUTSIDE REVIEWER, 2026-08-30. Not by us. Watch question W1 exists to catch exactly this and its search had not been run; the 2026-08-30 watch entry says so in writing, under 'not_checked'.",
       "the_overlap_that_makes_it_sharper": "Yuichi Mori is the second author here and the senior author of Budzyn et al. The same researcher is on the retrospective study that found a fall and the prospective study that found nothing. That is not a contradiction to be scored — it is what a field looks like when it is still working the question out, and the page now says so.",
@@ -1461,7 +1520,11 @@
           "the entire notice"
         ],
         "note": "THIS ENTRY IS LATE, AND WHY IT IS LATE IS THE POINT. The correction was obtained on 30 August, read the same day, and described accurately on the published page, which tells readers what it changed and states that one of the two affected findings is the exposure variable itself. None of that was ever written into the ledger: no source id, no access record, no copy in the library.\n\nSo on 2026-09-01 the new errata check reported that this page's central study had been corrected and that we did not hold the correction. That was true about the library and false about our knowledge, and it was narrated as 'nobody knew' — an absence asserted by something not in a position to observe it, which is the error this repository has now recorded seven times, this time in the narration rather than in the code.\n\nA document read by a person and then closed leaves no trace. That is the whole reason the library exists, and the library had only ever been run against issue two."
-      }
+      },
+      "also_called": [
+        "the notice"
+      ],
+      "WHY_THIS_ALIAS": "Not 'the correction'. That phrase occurs three times on this page and only one is this document: the first is Georgiou's correction of 10 September 2025 (table 4 had duplicated table 3), a different paper's correction entirely; the third is 'the correction history', which is this site's own furniture. 'The correction notice' is worse — its only hit is the Georgiou one. 'The notice' occurs exactly once on the page, in the sentence that says the operator obtained it, and that sentence is about this document. An alias that is too broad attaches a source to sentences that are not about it, which is the same failure as having no alias, pointed the other way."
     }
   ],
   "independence_note": "S004, S015 and S016 all descend from S005 and the retraction notice. They are not corroboration of each other. Six outlets reporting the same audit is one source. S017 and S018 came from a Reddit thread rather than from our own searching. Neither our scanner nor six rounds of targeted search found either, and one of them is the most rigorously designed study in the set. That is a finding about our coverage, not about Reddit.",

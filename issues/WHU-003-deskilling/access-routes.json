@@ -1,0 +1,422 @@
+{
+  "what_this_is": "Where each document we do not hold can be got. Every route here was title-checked against our own record for that source, because the first hand-typed attempt at this returned three wrong papers from three wrong DOIs.",
+  "checked": "2026-09-15",
+  "sources": {
+    "S001": {
+      "ids": {},
+      "routes": [
+        [
+          "hand-entered (fred): repository",
+          "",
+          "https://arxiv.org/pdf/2604.04721"
+        ]
+      ],
+      "notes": [
+        "hand route: hand-entered by fred 2026-09-15: title 'AI Assistance Reduces Persistence and Hurts Independent Performance', Liu, Christian, Dumbalska, Bakker & Dubey — matches ours."
+      ],
+      "verified_title": ""
+    },
+    "S002": {
+      "ids": {},
+      "routes": [],
+      "notes": [
+        "no DOI could be taken from the url we hold; nothing was guessed"
+      ],
+      "verified_title": ""
+    },
+    "S003": {
+      "ids": {},
+      "routes": [],
+      "notes": [
+        "no DOI could be taken from the url we hold; nothing was guessed"
+      ],
+      "verified_title": ""
+    },
+    "S004": {
+      "ids": {},
+      "routes": [],
+      "notes": [
+        "no DOI could be taken from the url we hold; nothing was guessed"
+      ],
+      "verified_title": ""
+    },
+    "S005": {
+      "ids": {
+        "doi": "10.31234/osf.io/wgu56_v2"
+      },
+      "routes": [
+        [
+          "Europe PMC: DOI",
+          "doi",
+          "https://doi.org/10.31234/osf.io/wgu56_v2"
+        ]
+      ],
+      "notes": [
+        "identifier doi=10.31234/osf.io/wgu56_v2 came from sources.json identifier.value (hand-supplied by fred 2026-09-15), NOT from the url; find_access.py reads only the url and returned nothing",
+        "Europe PMC record found for the DOI; inEPMC N; the only full-text url it lists is the DOI itself",
+        "Unpaywall: no record for this DOI (DataCite, not Crossref)"
+      ],
+      "verified_title": "Substantial Errors Invalidate the Conclusion from Wang and Fan (2025) About ChatGPT and Learning Outcomes"
+    },
+    "S006": {
+      "ids": {
+        "doi": "10.1111/jcal.70105"
+      },
+      "routes": [
+        [
+          "Unpaywall: publisher",
+          "publishedVersion",
+          "https://onlinelibrary.wiley.com/doi/pdfdirect/10.1111/jcal.70105"
+        ],
+        [
+          "Unpaywall: repository",
+          "publishedVersion",
+          "https://research.ou.nl/en/publications/aa062714-4627-42c3-9e5f-041a62982759"
+        ],
+        [
+          "Unpaywall: repository",
+          "submittedVersion",
+          "https://research.monash.edu/en/publications/39863240-2ddd-4577-8414-51080d5c7486"
+        ],
+        [
+          "Unpaywall: repository",
+          "submittedVersion",
+          "https://www.zora.uzh.ch/handle/20.500.14742/238378"
+        ]
+      ],
+      "notes": [
+        "Europe PMC has no record for doi 10.1111/jcal.70105",
+        "resolved title: 'ChatGPT in Education: An Effect in Search of a Cause'"
+      ],
+      "verified_title": ""
+    },
+    "S007": {
+      "ids": {},
+      "routes": [
+        [
+          "hand-entered (fred): repository",
+          "",
+          "https://arxiv.org/pdf/2506.08872"
+        ]
+      ],
+      "notes": [
+        "no DOI could be taken from the url we hold; nothing was guessed",
+        "hand route: hand-entered by fred 2026-09-15: title and eight-author list match ours exactly."
+      ],
+      "verified_title": ""
+    },
+    "S008": {
+      "ids": {},
+      "routes": [],
+      "notes": [
+        "no DOI could be taken from the url we hold; nothing was guessed"
+      ],
+      "verified_title": ""
+    },
+    "S009": {
+      "ids": {},
+      "routes": [],
+      "notes": [
+        "no DOI could be taken from the url we hold; nothing was guessed"
+      ],
+      "verified_title": ""
+    },
+    "S010": {
+      "ids": {
+        "doi": "10.1126/science.1207745"
+      },
+      "routes": [],
+      "notes": [
+        "identifier doi=10.1126/science.1207745 came from the url we already hold, not a search",
+        "resolved title: 'Google Effects on Memory: Cognitive Consequences of Having Information a'",
+        "Unpaywall: no free version anywhere (is_oa false)"
+      ],
+      "verified_title": "Google effects on memory: cognitive consequences of having information at our fingertips."
+    },
+    "S011": {
+      "ids": {
+        "doi": "10.1016/j.compedu.2024.105224"
+      },
+      "routes": [
+        [
+          "Unpaywall: publisher",
+          "publishedVersion",
+          "https://doi.org/10.1016/j.compedu.2024.105224"
+        ]
+      ],
+      "notes": [
+        "Europe PMC has no record for doi 10.1016/j.compedu.2024.105224",
+        "resolved title: 'Does ChatGPT enhance student learning? A systematic review and meta-anal'"
+      ],
+      "verified_title": ""
+    },
+    "S014": {
+      "ids": {},
+      "routes": [],
+      "notes": [
+        "no DOI could be taken from the url we hold; nothing was guessed"
+      ],
+      "verified_title": ""
+    },
+    "S017": {
+      "ids": {},
+      "routes": [],
+      "notes": [
+        "no DOI could be taken from the url we hold; nothing was guessed"
+      ],
+      "verified_title": ""
+    },
+    "S018": {
+      "ids": {
+        "doi": "10.1186/s41239-026-00585-x"
+      },
+      "routes": [
+        [
+          "Unpaywall: publisher",
+          "publishedVersion",
+          "https://link.springer.com/content/pdf/10.1186/s41239-026-00585-x.pdf"
+        ],
+        [
+          "Unpaywall: repository",
+          "submittedVersion",
+          "https://doaj.org/article/fa14fc737f8b41a7ac45439250e4a6fd"
+        ]
+      ],
+      "notes": [
+        "Europe PMC has no record for doi 10.1186/s41239-026-00585-x",
+        "resolved title: 'Pedagogical partnerships with generative AI in higher education: how dua'"
+      ],
+      "verified_title": ""
+    },
+    "S020": {
+      "ids": {},
+      "routes": [],
+      "notes": [
+        "no DOI could be taken from the url we hold; nothing was guessed"
+      ],
+      "verified_title": ""
+    },
+    "S021": {
+      "ids": {
+        "doi": "10.1016/S2468-1253(25)00133-5"
+      },
+      "routes": [
+        [
+          "hand-entered (fred): repository",
+          "",
+          "https://wrap.warwick.ac.uk/id/eprint/191005/3/WRAP-Endoscopist-de-skilling-risk-exposure-artificial-intelligence-colonoscopy-25.pdf"
+        ]
+      ],
+      "notes": [
+        "identifier doi=10.1016/S2468-1253(25)00133-5 came from the url we already hold, not a search",
+        "resolved title: 'Endoscopist deskilling risk after exposure to artificial intelligence in'",
+        "Unpaywall: no free version anywhere (is_oa false)",
+        "hand route: WRAP accepted manuscript. Identity verified by fred 2026-09-15 against our own record on DOI 10.1016/S2468-1253(25)00133-5, journal/volume/pages 10(10) 896-903, the full author sequence, and the CC BY-NC-ND licence that S021's own access note already names. Not indexed by Unpaywall, which is why find_access.py returned nothing."
+      ],
+      "verified_title": "Endoscopist deskilling risk after exposure to artificial intelligence in colonoscopy: a multicentre, observational study."
+    },
+    "S024": {
+      "ids": {},
+      "routes": [],
+      "notes": [
+        "no DOI could be taken from the url we hold; nothing was guessed"
+      ],
+      "verified_title": ""
+    },
+    "S025": {
+      "ids": {},
+      "routes": [],
+      "notes": [
+        "no DOI could be taken from the url we hold; nothing was guessed"
+      ],
+      "verified_title": ""
+    },
+    "S027": {
+      "ids": {},
+      "routes": [],
+      "notes": [
+        "no DOI could be taken from the url we hold; nothing was guessed"
+      ],
+      "verified_title": ""
+    },
+    "S028": {
+      "ids": {
+        "doi": "10.1148/radiol.243688"
+      },
+      "routes": [
+        [
+          "Europe PMC: Europe_PMC",
+          "html",
+          "https://europepmc.org/articles/PMC12314766"
+        ],
+        [
+          "Europe PMC: Europe_PMC",
+          "pdf",
+          "https://europepmc.org/articles/PMC12314766?pdf=render"
+        ],
+        [
+          "Europe PMC: DOI",
+          "doi",
+          "https://doi.org/10.1148/radiol.243688"
+        ],
+        [
+          "Europe PMC full-text XML",
+          "xml",
+          "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC12314766/fullTextXML"
+        ],
+        [
+          "Unpaywall: repository",
+          "publishedVersion",
+          "https://pure.amsterdamumc.nl/en/publications/152cc23d-07b3-47cf-b71e-376d218c12da"
+        ],
+        [
+          "Unpaywall: repository",
+          "submittedVersion",
+          "https://repository.ubn.ru.nl//bitstream/handle/2066/320997/320997.pdf"
+        ],
+        [
+          "Unpaywall: repository",
+          "submittedVersion",
+          "https://pmc.ncbi.nlm.nih.gov/articles/PMC12314766/"
+        ]
+      ],
+      "notes": [
+        "identifier doi=10.1148/radiol.243688 came from the url we already hold, not a search",
+        "resolved title: 'Influence of AI Decision Support on Radiologists’ Performance and Visual'"
+      ],
+      "verified_title": "Influence of AI Decision Support on Radiologists' Performance and Visual Search in Screening Mammography."
+    },
+    "S029": {
+      "ids": {
+        "pii": "S2949-8201(26)00012-3"
+      },
+      "routes": [],
+      "notes": [
+        "no DOI could be taken from the url we hold; nothing was guessed"
+      ],
+      "verified_title": ""
+    },
+    "S030": {
+      "ids": {
+        "doi": "10.1148/radiol.222176"
+      },
+      "routes": [
+        [
+          "Unpaywall: repository",
+          "submittedVersion",
+          "https://research.vu.nl/files/291201748/Dratsch_et_al._2023_-_Automation_Bias_in_Mammography_-_The_Impact_of_Artificial_Intelligence_BI-RADS_Suggestions_on_Reader_Performance.pdf"
+        ]
+      ],
+      "notes": [
+        "identifier doi=10.1148/radiol.222176 came from the url we already hold, not a search",
+        "resolved title: 'Automation Bias in Mammography: The Impact of Artificial Intelligence BI'"
+      ],
+      "verified_title": "Automation Bias in Mammography: The Impact of Artificial Intelligence BI-RADS Suggestions on Reader Performance."
+    },
+    "S031": {
+      "ids": {
+        "doi": "10.1055/a-1770-7353"
+      },
+      "routes": [
+        [
+          "Europe PMC: Europe_PMC",
+          "html",
+          "https://europepmc.org/articles/PMC9500006"
+        ],
+        [
+          "Europe PMC: Europe_PMC",
+          "pdf",
+          "https://europepmc.org/articles/PMC9500006?pdf=render"
+        ],
+        [
+          "Europe PMC full-text XML",
+          "xml",
+          "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC9500006/fullTextXML"
+        ],
+        [
+          "Unpaywall: publisher",
+          "publishedVersion",
+          "http://www.thieme-connect.de/products/ejournals/pdf/10.1055/a-1770-7353.pdf"
+        ],
+        [
+          "Unpaywall: repository",
+          "submittedVersion",
+          "https://www.ncbi.nlm.nih.gov/pmc/articles/9500006"
+        ],
+        [
+          "Unpaywall: repository",
+          "submittedVersion",
+          "https://publications.rwth-aachen.de/record/953704"
+        ],
+        [
+          "Unpaywall: repository",
+          null,
+          "https://doi.org/10.18154/rwth-conv-251219"
+        ]
+      ],
+      "notes": [
+        "identifier doi=10.1055/a-1770-7353 came from the url we already hold, not a search",
+        "resolved title: 'The influence of computer-aided polyp detection systems on reaction time'"
+      ],
+      "verified_title": "The influence of computer-aided polyp detection systems on reaction time for polyp detection and eye gaze."
+    },
+    "S038": {
+      "ids": {},
+      "routes": [],
+      "notes": [
+        "no DOI could be taken from the url we hold; nothing was guessed"
+      ],
+      "verified_title": ""
+    },
+    "S043": {
+      "ids": {
+        "doi": "10.1055/a-2858-7084"
+      },
+      "routes": [
+        [
+          "Europe PMC: Europe_PMC",
+          "html",
+          "https://europepmc.org/articles/PMC13552228"
+        ],
+        [
+          "Europe PMC: Europe_PMC",
+          "pdf",
+          "https://europepmc.org/articles/PMC13552228?pdf=render"
+        ],
+        [
+          "Europe PMC full-text XML",
+          "xml",
+          "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC13552228/fullTextXML"
+        ],
+        [
+          "Unpaywall: publisher",
+          "publishedVersion",
+          "https://doi.org/10.1055/a-2858-7084"
+        ],
+        [
+          "Unpaywall: repository",
+          "submittedVersion",
+          "https://pmc.ncbi.nlm.nih.gov/articles/PMC13552228/pdf/10-1055-a-2858-7084.pdf"
+        ]
+      ],
+      "notes": [
+        "identifier doi=10.1055/a-2858-7084 came from the url we already hold, not a search",
+        "resolved title: 'Learning and deskilling effects of artificial intelligence in colonoscop'"
+      ],
+      "verified_title": "Learning and deskilling effects of artificial intelligence in colonoscopy among endoscopists with different levels of experience: a pragmatic, prospective trial."
+    },
+    "S044": {
+      "ids": {
+        "doi": "10.1053/j.gastro.2026.05.026"
+      },
+      "routes": [],
+      "notes": [
+        "identifier doi=10.1053/j.gastro.2026.05.026 came from the url we already hold, not a search",
+        "resolved title: 'Upskilling, Deskilling, or Never Skilling: Who Benefits From Artificial '",
+        "Unpaywall: no free version anywhere (is_oa false)"
+      ],
+      "verified_title": "Upskilling, Deskilling, or Never Skilling: Who Benefits From Artificial Intelligence in Colonoscopy?"
+    }
+  },
+  "hand_routes_note": "S021, S001, S007 routes hand-entered by fred on 2026-09-15 (see each source's notes); the acquisition gate (identity + substance) is the check on them. S005's DOI came from sources.json identifier.value, not the url."
+}
