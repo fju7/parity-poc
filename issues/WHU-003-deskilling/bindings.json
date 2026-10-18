@@ -5748,7 +5748,7 @@
       "sentence": "The population being examined plausibly changed.",
       "sentence_sha": "faec9851a5170987",
       "why_empirical": "sentence",
-      "bucket": null,
+      "bucket": "judgement",
       "source_id": null,
       "document_sha": null,
       "locator_type": null,
@@ -5758,13 +5758,52 @@
       "scope_words": [],
       "falsifier": null,
       "verdicts": {
-        "locatable": null,
-        "faithful": null,
-        "warranted": null
+        "locatable": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "premises read against held text by Claude Code, reviewed by Claude (advisor), 2026-10-18"
+        },
+        "faithful": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "premises read against held text by Claude Code, reviewed by Claude (advisor), 2026-10-18"
+        },
+        "warranted": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "premises read against held text by Claude Code, reviewed by Claude (advisor), 2026-10-18"
+        }
       },
       "first_seen": "2026-10-18",
       "on_page": true,
-      "check_flags": []
+      "check_flags": [
+        {
+          "check": "B19",
+          "verdict": "evidence hedge dropped",
+          "hedge": "might",
+          "why": "the evidence says 'might' (S021); the sentence carries no hedge"
+        }
+      ],
+      "premises": [
+        {
+          "source_id": "S021",
+          "span": "Eighth, we observed an almost two-fold increase in the number of procedures in the post-AI phase compared to the pre-AI phase (795 before vs. 1382 after AI implementation including 734 with AI-assistance and 648 without AI-assistance), even though both phases covered approximately three months."
+        },
+        {
+          "source_id": "S021",
+          "span": "This suspension has increased each centre's capacity for diagnostic colonoscopies, enabling them to accept more patients from the waiting list in the second phase, being potentially a cofounding factor."
+        },
+        {
+          "source_id": "S021",
+          "span": "First, the compared patient cohorts might not have comparable background characteristics including indications and procedural contexts due to the observational study design."
+        }
+      ],
+      "step": "S021 reports the second period's procedure count nearly doubled because the screening suspension let centres draw patients from the waiting list, which the authors call potentially confounding, and say the cohorts may not be comparable in indications; so the examined population plausibly changed.",
+      "proposed_by": "model",
+      "proposed_on": "2026-10-18",
+      "confirmed": true,
+      "why_bound": "judgement batch (2026-10-18): premises cut from held text and re-verified as exact substrings, step written out; stands as written on the page; confirmed by Fred Ugast. See docs/whatholdsup-deskilling-revision.md.",
+      "checked_on": "2026-10-18"
     },
     "2e9cfe50b555e45b": {
       "sentence": "Withdrawal time — how long the endoscopist spends inspecting on the way out, which strongly affects what is found — was not recorded.",
@@ -6044,7 +6083,7 @@
       "sentence": "Twelve studies, a consistent direction, a null we were offered that is not one, and a null we missed that is — whose authors explain why it does not cancel the first result.",
       "sentence_sha": "d03dd93f7a79dbec",
       "why_empirical": "process claim: 'we missed'",
-      "bucket": null,
+      "bucket": "judgement",
       "source_id": null,
       "document_sha": null,
       "locator_type": null,
@@ -6054,21 +6093,77 @@
       "scope_words": [],
       "falsifier": null,
       "verdicts": {
-        "locatable": null,
-        "faithful": null,
-        "warranted": null
+        "locatable": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "premises read against held text by Claude Code, reviewed by Claude (advisor), 2026-10-18"
+        },
+        "faithful": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "premises read against held text by Claude Code, reviewed by Claude (advisor), 2026-10-18"
+        },
+        "warranted": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "premises read against held text by Claude Code, reviewed by Claude (advisor), 2026-10-18"
+        }
       },
       "first_seen": "2026-10-18",
       "trigger": "process_claim",
       "on_page": true,
       "check_flags": [
         {
-          "check": "B21",
-          "verdict": "store check not evaluated",
-          "why": "epistemic.check_sentence reads no claim about our access in this sentence; nothing has checked it against the store"
+          "check": "B19",
+          "verdict": "evidence hedge disposed",
+          "hedge": "may",
+          "why": "the evidence says 'may' (S043), disposed of by Fred Ugast on 2026-10-18: 'may' qualifies S043's own claim (that the deskilling effect may be a temporal phenomenon that disappears after CADe is removed), which this judgement does not restate"
         }
       ],
-      "checked_on": "2026-10-18"
+      "checked_on": "2026-10-18",
+      "premises": [
+        {
+          "source_id": "S029",
+          "span": "Full-text articles assessed for eligibility n = 65 Studies included in qualitative synthesis (scoping review) n = 12"
+        },
+        {
+          "source_id": "S029",
+          "span": "Evidence of clinical deskilling, though scarce, is consistent across specialties."
+        },
+        {
+          "source_id": "S029",
+          "span": "This study evaluated 32 radiology residents trained with an AI-assisted module for detecting COVID-19 pneumonia on chest X-rays."
+        },
+        {
+          "source_id": "S029",
+          "span": "Although performance remained stable at 3month follow-up"
+        },
+        {
+          "source_id": "S047",
+          "span": "The participants in our study were eight radiologists in training, four of whom were in their first year and four in their third year"
+        },
+        {
+          "source_id": "S043",
+          "span": "In non-CADe-assisted colonoscopy, no upskilling or deskilling was observed following a period of CADe exposure."
+        },
+        {
+          "source_id": "S043",
+          "span": "Thus, it is considered that the effect of exposure to CADe will be stronger in the Budzyn study than in our study, suggesting that the deskilling effect may be a temporal phenomenon that disappears over time after CADe is removed."
+        }
+      ],
+      "step": "S029 includes 12 studies and calls the direction consistent; it presents Savardi as 32 residents with stable 3-month follow-up, while S047 has eight residents and reports no such follow-up; S043 reports no deskilling after withdrawal and explains why its result would be weaker than Budzyń's; so the sentence's four-part summary follows.",
+      "proposed_by": "model",
+      "proposed_on": "2026-10-18",
+      "confirmed": true,
+      "why_bound": "judgement batch (2026-10-18): premises cut from held text and re-verified as exact substrings, step written out; stands as written on the page; confirmed by Fred Ugast. See docs/whatholdsup-deskilling-revision.md.",
+      "hedge_dispositions": [
+        {
+          "word": "may",
+          "why": "'may' qualifies S043's own claim (that the deskilling effect may be a temporal phenomenon that disappears after CADe is removed), which this judgement does not restate",
+          "by": "Fred Ugast",
+          "on": "2026-10-18"
+        }
+      ]
     },
     "76c1959566e4a3ba": {
       "sentence": "Heudel and colleagues at the Centre Léon Bérard published a scoping review of exactly this question in 2026.",
@@ -6166,7 +6261,7 @@
       "sentence": "So, within the twelve studies that review includes: not one study, and not a settled literature either.",
       "sentence_sha": "af54c42591b226fa",
       "why_empirical": "sentence",
-      "bucket": null,
+      "bucket": "judgement",
       "source_id": null,
       "document_sha": null,
       "locator_type": null,
@@ -6176,19 +6271,58 @@
       "scope_words": [],
       "falsifier": null,
       "verdicts": {
-        "locatable": null,
-        "faithful": null,
-        "warranted": null
+        "locatable": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "premises read against held text by Claude Code, reviewed by Claude (advisor), 2026-10-18"
+        },
+        "faithful": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "premises read against held text by Claude Code, reviewed by Claude (advisor), 2026-10-18"
+        },
+        "warranted": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "premises read against held text by Claude Code, reviewed by Claude (advisor), 2026-10-18"
+        }
       },
       "first_seen": "2026-10-18",
       "on_page": true,
-      "check_flags": []
+      "check_flags": [
+        {
+          "check": "B19",
+          "verdict": "evidence hedge dropped",
+          "hedge": "limited",
+          "why": "the evidence says 'limited' (S029); the sentence carries no hedge"
+        }
+      ],
+      "premises": [
+        {
+          "source_id": "S029",
+          "span": "Full-text articles assessed for eligibility n = 65 Studies included in qualitative synthesis (scoping review) n = 12"
+        },
+        {
+          "source_id": "S029",
+          "span": "Overall, the number of highquality empirical studies remains limited, but consistent themes emerge across domains."
+        },
+        {
+          "source_id": "S029",
+          "span": "Many reports are based on expert opinion or smallscale qualitative investigations rather than large multicenter trials, which restricts the generalizability of findings."
+        }
+      ],
+      "step": "S029 includes twelve studies (so more than one) but itself says high-quality empirical studies remain limited and many reports rest on expert opinion or small qualitative work; so neither 'one study' nor 'a settled literature'.",
+      "proposed_by": "model",
+      "proposed_on": "2026-10-18",
+      "confirmed": true,
+      "why_bound": "judgement batch (2026-10-18): premises cut from held text and re-verified as exact substrings, step written out; stands as written on the page; confirmed by Fred Ugast. See docs/whatholdsup-deskilling-revision.md.",
+      "checked_on": "2026-10-18"
     },
     "d742d3ee2c09e692": {
       "sentence": "What it assembles is a consistent direction carried by very few measurements.",
       "sentence_sha": "d742d3ee2c09e692",
       "why_empirical": "sentence",
-      "bucket": null,
+      "bucket": "judgement",
       "source_id": null,
       "document_sha": null,
       "locator_type": null,
@@ -6198,13 +6332,52 @@
       "scope_words": [],
       "falsifier": null,
       "verdicts": {
-        "locatable": null,
-        "faithful": null,
-        "warranted": null
+        "locatable": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "premises read against held text by Claude Code, reviewed by Claude (advisor), 2026-10-18"
+        },
+        "faithful": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "premises read against held text by Claude Code, reviewed by Claude (advisor), 2026-10-18"
+        },
+        "warranted": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "premises read against held text by Claude Code, reviewed by Claude (advisor), 2026-10-18"
+        }
       },
       "first_seen": "2026-10-18",
       "on_page": true,
-      "check_flags": []
+      "check_flags": [
+        {
+          "check": "B19",
+          "verdict": "evidence hedge dropped",
+          "hedge": "limited",
+          "why": "the evidence says 'limited' (S029); the sentence carries no hedge"
+        }
+      ],
+      "premises": [
+        {
+          "source_id": "S029",
+          "span": "Evidence of clinical deskilling, though scarce, is consistent across specialties."
+        },
+        {
+          "source_id": "S029",
+          "span": "Overall, the number of highquality empirical studies remains limited, but consistent themes emerge across domains."
+        },
+        {
+          "source_id": "S029",
+          "span": "Firstly, most of the available evidence on deskilling remains fragmented across specialties, with heterogeneous study designs and variable methodological rigor."
+        }
+      ],
+      "step": "S029 calls the evidence scarce but consistent, high-quality studies limited and the evidence fragmented; so a consistent direction carried by few measurements.",
+      "proposed_by": "model",
+      "proposed_on": "2026-10-18",
+      "confirmed": true,
+      "why_bound": "judgement batch (2026-10-18): premises cut from held text and re-verified as exact substrings, step written out; stands as written on the page; confirmed by Fred Ugast. See docs/whatholdsup-deskilling-revision.md.",
+      "checked_on": "2026-10-18"
     },
     "86c673ece8f4e8c2": {
       "sentence": "Among them, and each read here at source rather than through the review’s summary of it:",
@@ -6456,7 +6629,7 @@
       "sentence": "What the paper does show is worth having.",
       "sentence_sha": "1d4c39aaf50e263b",
       "why_empirical": "sentence",
-      "bucket": null,
+      "bucket": "judgement",
       "source_id": null,
       "document_sha": null,
       "locator_type": null,
@@ -6466,13 +6639,44 @@
       "scope_words": [],
       "falsifier": null,
       "verdicts": {
-        "locatable": null,
-        "faithful": null,
-        "warranted": null
+        "locatable": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "premises read against held text by Claude Code, reviewed by Claude (advisor), 2026-10-18"
+        },
+        "faithful": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "premises read against held text by Claude Code, reviewed by Claude (advisor), 2026-10-18"
+        },
+        "warranted": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "premises read against held text by Claude Code, reviewed by Claude (advisor), 2026-10-18"
+        }
       },
       "first_seen": "2026-10-18",
       "on_page": true,
-      "check_flags": []
+      "check_flags": [],
+      "premises": [
+        {
+          "source_id": "S047",
+          "span": "The participants in our study were eight radiologists in training, four of whom were in their first year and four in their third year"
+        },
+        {
+          "source_id": "S047",
+          "span": "the inter-rater correlation coefficient ICC-1 rose from 0.665 for the no-AI scenario, to 0.788 for the on-demand-AI case, and reached 0.813 in the integrated-AI one"
+        },
+        {
+          "source_id": "S047",
+          "span": "Balancing educational benefits and deskilling risks is essential to exploit AI systems as effective learning tools in radiology residency programs."
+        }
+      ],
+      "step": "S047 reports real measured results — inter-reader agreement rising from 0.665 to 0.813 with integrated AI in eight trainees — and frames the educational balance; so the paper shows something worth having.",
+      "proposed_by": "model",
+      "proposed_on": "2026-10-18",
+      "confirmed": true,
+      "why_bound": "judgement batch (2026-10-18): premises cut from held text and re-verified as exact substrings, step written out; stands as written on the page; confirmed by Fred Ugast. See docs/whatholdsup-deskilling-revision.md."
     },
     "7032a248d5a96b7a": {
       "sentence": "And when the AI's errors exceeded an acceptability threshold, they overrode it.",
@@ -6672,7 +6876,7 @@
       "sentence": "The two studies do not contradict each other, and the reason is the best thing in either paper.",
       "sentence_sha": "c999cd4055517b80",
       "why_empirical": "sentence",
-      "bucket": null,
+      "bucket": "judgement",
       "source_id": null,
       "document_sha": null,
       "locator_type": null,
@@ -6682,13 +6886,56 @@
       "scope_words": [],
       "falsifier": null,
       "verdicts": {
-        "locatable": null,
-        "faithful": null,
-        "warranted": null
+        "locatable": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "premises read against held text by Claude Code, reviewed by Claude (advisor), 2026-10-18"
+        },
+        "faithful": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "premises read against held text by Claude Code, reviewed by Claude (advisor), 2026-10-18"
+        },
+        "warranted": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "premises read against held text by Claude Code, reviewed by Claude (advisor), 2026-10-18"
+        }
       },
       "first_seen": "2026-10-18",
       "on_page": true,
-      "check_flags": []
+      "check_flags": [
+        {
+          "check": "B19",
+          "verdict": "evidence hedge disposed",
+          "hedge": "may",
+          "why": "the evidence says 'may' (S043), disposed of by Fred Ugast on 2026-10-18: 'may' qualifies S043's own claim (that the deskilling effect may be a temporal phenomenon that disappears after CADe is removed), which this judgement does not restate"
+        }
+      ],
+      "premises": [
+        {
+          "source_id": "S043",
+          "span": "However, there is a distinct difference in study design between our study and the Budzyn study. We evaluated the effect of exposure to CADe \"after\" CADe was removed, whereas Budzyn et al. investigated how endoscopists perform non-CADe-assisted colonoscopy \"while\" they were exposed to CADe in the other colonoscopies they performed during the same time period."
+        },
+        {
+          "source_id": "S043",
+          "span": "Thus, it is considered that the effect of exposure to CADe will be stronger in the Budzyn study than in our study, suggesting that the deskilling effect may be a temporal phenomenon that disappears over time after CADe is removed."
+        }
+      ],
+      "step": "S043 explains that it measured after removal while S021 measured during exposure, and infers the effect would be stronger in S021; so the two results are compatible.",
+      "proposed_by": "model",
+      "proposed_on": "2026-10-18",
+      "confirmed": true,
+      "why_bound": "judgement batch (2026-10-18): premises cut from held text and re-verified as exact substrings, step written out; stands as written on the page; confirmed by Fred Ugast. See docs/whatholdsup-deskilling-revision.md.",
+      "checked_on": "2026-10-18",
+      "hedge_dispositions": [
+        {
+          "word": "may",
+          "why": "'may' qualifies S043's own claim (that the deskilling effect may be a temporal phenomenon that disappears after CADe is removed), which this judgement does not restate",
+          "by": "Fred Ugast",
+          "on": "2026-10-18"
+        }
+      ]
     },
     "335de9ef78098cd5": {
       "sentence": "investigated how endoscopists perform non-CADe-assisted colonoscopy ‘while’ they were exposed to CADe in the other colonoscopies they performed during the same time period.",
@@ -6774,7 +7021,7 @@
       "sentence": "That is their reading, and it is worth saying what their design cannot separate: finding no deskilling after the tool is withdrawn is consistent with an effect that faded, and equally consistent with one that was never there.",
       "sentence_sha": "ca66d6ea72a8f91b",
       "why_empirical": "sentence",
-      "bucket": null,
+      "bucket": "judgement",
       "source_id": null,
       "document_sha": null,
       "locator_type": null,
@@ -6784,13 +7031,44 @@
       "scope_words": [],
       "falsifier": null,
       "verdicts": {
-        "locatable": null,
-        "faithful": null,
-        "warranted": null
+        "locatable": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "premises read against held text by Claude Code, reviewed by Claude (advisor), 2026-10-18"
+        },
+        "faithful": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "premises read against held text by Claude Code, reviewed by Claude (advisor), 2026-10-18"
+        },
+        "warranted": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "premises read against held text by Claude Code, reviewed by Claude (advisor), 2026-10-18"
+        }
       },
       "first_seen": "2026-10-18",
       "on_page": true,
-      "check_flags": []
+      "check_flags": [],
+      "premises": [
+        {
+          "source_id": "S043",
+          "span": "Thus, it is considered that the effect of exposure to CADe will be stronger in the Budzyn study than in our study, suggesting that the deskilling effect may be a temporal phenomenon that disappears over time after CADe is removed."
+        },
+        {
+          "source_id": "S043",
+          "span": "There was no significant change between phases 1 and 3 (31.9% [216/678] to 36.3% [173/476]; OR 1.03, 95%CI 0.79-1.34)."
+        },
+        {
+          "source_id": "S043",
+          "span": "However, it is challenging to draw such a conclusion based solely on the change in PDR-5 between phases 1 and 3, given that there is always a time effect in which endoscopists may naturally upskill or deskill over time."
+        }
+      ],
+      "step": "S043 reads its after-removal null as an effect that faded, but a null at phase 3 relative to phase 1 is equally what one would see if no deskilling effect had ever occurred, and S043 itself notes a time effect clouds phase 1-to-3 comparisons; so the design cannot separate the two.",
+      "proposed_by": "model",
+      "proposed_on": "2026-10-18",
+      "confirmed": true,
+      "why_bound": "judgement batch (2026-10-18): premises cut from held text and re-verified as exact substrings, step written out; stands as written on the page; confirmed by Fred Ugast. See docs/whatholdsup-deskilling-revision.md."
     },
     "be327c2dc1d10231": {
       "sentence": "What the Norwegian authors say their own study cannot do.",
@@ -6946,7 +7224,7 @@
       "sentence": "The experienced group is where care is needed.",
       "sentence_sha": "5c684127a5b6659c",
       "why_empirical": "sentence",
-      "bucket": null,
+      "bucket": "judgement",
       "source_id": null,
       "document_sha": null,
       "locator_type": null,
@@ -6956,13 +7234,60 @@
       "scope_words": [],
       "falsifier": null,
       "verdicts": {
-        "locatable": null,
-        "faithful": null,
-        "warranted": null
+        "locatable": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "premises read against held text by Claude Code, reviewed by Claude (advisor), 2026-10-18"
+        },
+        "faithful": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "premises read against held text by Claude Code, reviewed by Claude (advisor), 2026-10-18"
+        },
+        "warranted": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "premises read against held text by Claude Code, reviewed by Claude (advisor), 2026-10-18"
+        }
       },
       "first_seen": "2026-10-18",
       "on_page": true,
-      "check_flags": []
+      "check_flags": [
+        {
+          "check": "B19",
+          "verdict": "evidence hedge disposed",
+          "hedge": "may",
+          "why": "the evidence says 'may' (S043), disposed of by Fred Ugast on 2026-10-18: 'may' qualifies S043's own claim (that experienced endoscopists may have been less enthusiastic about the tool and averse to using it), which this judgement does not restate"
+        }
+      ],
+      "premises": [
+        {
+          "source_id": "S043",
+          "span": "There was no significant CADe effect on PDR-5 among experienced endoscopists between phases."
+        },
+        {
+          "source_id": "S043",
+          "span": "The experienced endoscopists may also be less enthusiastic about a software tool intended to improve their performance, leading to an aversion to using it effectively."
+        },
+        {
+          "source_id": "S043",
+          "span": "In the current study, two endoscopists reported having CADe active throughout the entire examination (including intubation of the colon), while the remaining endoscopists activated CADe on withdrawal from the cecum."
+        }
+      ],
+      "step": "S043 finds no significant effect in the experienced group in any phase, suggests they may have used the tool less effectively, and notes uneven use; so that group's null needs careful reading.",
+      "proposed_by": "model",
+      "proposed_on": "2026-10-18",
+      "confirmed": true,
+      "why_bound": "judgement batch (2026-10-18): premises cut from held text and re-verified as exact substrings, step written out; stands as written on the page; confirmed by Fred Ugast. See docs/whatholdsup-deskilling-revision.md.",
+      "checked_on": "2026-10-18",
+      "hedge_dispositions": [
+        {
+          "word": "may",
+          "why": "'may' qualifies S043's own claim (that experienced endoscopists may have been less enthusiastic about the tool and averse to using it), which this judgement does not restate",
+          "by": "Fred Ugast",
+          "on": "2026-10-18"
+        }
+      ]
     },
     "5ddcede11be78497": {
       "sentence": "It shows no significant effect in any phase — but that includes no benefit while the AI was running, and the authors suggest why: experienced endoscopists may also be less enthusiastic about a software tool intended to improve their performance , and two endoscopists ran it throughout while the rest switched it on only during withdrawal.",
@@ -6991,7 +7316,7 @@
       "sentence": "A group that did not visibly gain from the tool is weak evidence about what losing the tool does to them.",
       "sentence_sha": "98040c6fb564e59e",
       "why_empirical": "sentence",
-      "bucket": null,
+      "bucket": "judgement",
       "source_id": null,
       "document_sha": null,
       "locator_type": null,
@@ -7001,13 +7326,44 @@
       "scope_words": [],
       "falsifier": null,
       "verdicts": {
-        "locatable": null,
-        "faithful": null,
-        "warranted": null
+        "locatable": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "premises read against held text by Claude Code, reviewed by Claude (advisor), 2026-10-18"
+        },
+        "faithful": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "premises read against held text by Claude Code, reviewed by Claude (advisor), 2026-10-18"
+        },
+        "warranted": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "premises read against held text by Claude Code, reviewed by Claude (advisor), 2026-10-18"
+        }
       },
       "first_seen": "2026-10-18",
       "on_page": true,
-      "check_flags": []
+      "check_flags": [],
+      "premises": [
+        {
+          "source_id": "S043",
+          "span": "2 (CADe) All 548/1739 (31.5) 1.09 (0.94-1.26) - Inexperienced 257/651 (39.5) 1.37 (1.09-1.72) 1 1.43 (1.11-1.84) 1 Experienced 291/1088 (26.7) 0.92 (0.76-1.12)"
+        },
+        {
+          "source_id": "S043",
+          "span": "There was no significant CADe effect on PDR-5 among experienced endoscopists between phases."
+        },
+        {
+          "source_id": "S043",
+          "span": "The experienced endoscopists may also be less enthusiastic about a software tool intended to improve their performance, leading to an aversion to using it effectively."
+        }
+      ],
+      "step": "S043's experienced group showed no gain while CADe was on (26.7%, OR 0.92, 0.76-1.12) and may have used it reluctantly; if exposure produced no measurable change in their practice, withdrawal is a weak test of what losing it does; so their after-removal null is weak evidence.",
+      "proposed_by": "model",
+      "proposed_on": "2026-10-18",
+      "confirmed": true,
+      "why_bound": "judgement batch (2026-10-18): premises cut from held text and re-verified as exact substrings, step written out; stands as written on the page; confirmed by Fred Ugast. See docs/whatholdsup-deskilling-revision.md."
     },
     "3313336c1b020dae": {
       "sentence": "At the level of individual endoscopists the split is a wash in both directions: among the inexperienced, three declined, two were unchanged and two improved; among the experienced, three declined and three improved.",
@@ -7076,7 +7432,7 @@
       "sentence": "That is not a contradiction to be scored.",
       "sentence_sha": "82f7999be1dbccda",
       "why_empirical": "sentence",
-      "bucket": null,
+      "bucket": "judgement",
       "source_id": null,
       "document_sha": null,
       "locator_type": null,
@@ -7086,19 +7442,50 @@
       "scope_words": [],
       "falsifier": null,
       "verdicts": {
-        "locatable": null,
-        "faithful": null,
-        "warranted": null
+        "locatable": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "premises read against held text by Claude Code, reviewed by Claude (advisor), 2026-10-18"
+        },
+        "faithful": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "premises read against held text by Claude Code, reviewed by Claude (advisor), 2026-10-18"
+        },
+        "warranted": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "premises read against held text by Claude Code, reviewed by Claude (advisor), 2026-10-18"
+        }
       },
       "first_seen": "2026-10-18",
       "on_page": true,
-      "check_flags": []
+      "check_flags": [],
+      "premises": [
+        {
+          "source_id": "S021",
+          "span": "Michael Bretthauer, MD* 6, Yuichi Mori, MD* 6,23 * Full professors"
+        },
+        {
+          "source_id": "S043",
+          "span": "Pedersen Tom Andre MD http://orcid.org/0000-0003-2262-0334 Mori Yuichi Prof."
+        },
+        {
+          "source_id": "S043",
+          "span": "However, there is a distinct difference in study design between our study and the Budzyn study. We evaluated the effect of exposure to CADe \"after\" CADe was removed, whereas Budzyn et al. investigated how endoscopists perform non-CADe-assisted colonoscopy \"while\" they were exposed to CADe in the other colonoscopies they performed during the same time period."
+        }
+      ],
+      "step": "Mori appears in the author lists of both S021 and S043, and S043 reconciles the two results by design rather than disputing S021; so the shared authorship is not a contradiction to be scored.",
+      "proposed_by": "model",
+      "proposed_on": "2026-10-18",
+      "confirmed": true,
+      "why_bound": "judgement batch (2026-10-18): premises cut from held text and re-verified as exact substrings, step written out; stands as written on the page; confirmed by Fred Ugast. See docs/whatholdsup-deskilling-revision.md."
     },
     "1cfeb55b61b22794": {
       "sentence": "It is what a field looks like when the people in it are still working the question out.",
       "sentence_sha": "1cfeb55b61b22794",
       "why_empirical": "sentence",
-      "bucket": null,
+      "bucket": "judgement",
       "source_id": null,
       "document_sha": null,
       "locator_type": null,
@@ -7108,13 +7495,60 @@
       "scope_words": [],
       "falsifier": null,
       "verdicts": {
-        "locatable": null,
-        "faithful": null,
-        "warranted": null
+        "locatable": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "premises read against held text by Claude Code, reviewed by Claude (advisor), 2026-10-18"
+        },
+        "faithful": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "premises read against held text by Claude Code, reviewed by Claude (advisor), 2026-10-18"
+        },
+        "warranted": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "premises read against held text by Claude Code, reviewed by Claude (advisor), 2026-10-18"
+        }
       },
       "first_seen": "2026-10-18",
       "on_page": true,
-      "check_flags": []
+      "check_flags": [
+        {
+          "check": "B19",
+          "verdict": "evidence hedge disposed",
+          "hedge": "may",
+          "why": "the evidence says 'may' (S021), disposed of by Fred Ugast on 2026-10-18: 'may' qualifies S021 and S043's own claim (S021: that continuous AI exposure may reduce unassisted ADR; S043: that the effect may be temporal), which this judgement does not restate; the evidence says 'may' (S043), disposed of by Fred Ugast on 2026-10-18: 'may' qualifies S021 and S043's own claim (S021: that continuous AI exposure may reduce unassisted ADR; S043: that the effect may be temporal), which this judgement does not restate"
+        }
+      ],
+      "premises": [
+        {
+          "source_id": "S021",
+          "span": "we observed that continuous exposure to AI in colonoscopy may reduce the ADR of standard, non-AI assisted colonoscopy. We emphasize the urgent need for robust prospective studies such as randomized crossover trials to assess its generalizability"
+        },
+        {
+          "source_id": "S043",
+          "span": "Thus, it is considered that the effect of exposure to CADe will be stronger in the Budzyn study than in our study, suggesting that the deskilling effect may be a temporal phenomenon that disappears over time after CADe is removed."
+        },
+        {
+          "source_id": "S043",
+          "span": "argues against the idea that exposure to CADe erodes skills, at least for nonexperienced endoscopists, although such skill reduction has been observed in another study involving only experienced endoscopists"
+        }
+      ],
+      "step": "S021 calls for prospective crossover trials and S043 offers a tentative, explicitly limited reconciliation; so the same researchers are still working the question out.",
+      "proposed_by": "model",
+      "proposed_on": "2026-10-18",
+      "confirmed": true,
+      "why_bound": "judgement batch (2026-10-18): premises cut from held text and re-verified as exact substrings, step written out; stands as written on the page; confirmed by Fred Ugast. See docs/whatholdsup-deskilling-revision.md.",
+      "checked_on": "2026-10-18",
+      "hedge_dispositions": [
+        {
+          "word": "may",
+          "why": "'may' qualifies S021 and S043's own claim (S021: that continuous AI exposure may reduce unassisted ADR; S043: that the effect may be temporal), which this judgement does not restate",
+          "by": "Fred Ugast",
+          "on": "2026-10-18"
+        }
+      ]
     },
     "ac01bf5c6797b15a": {
       "sentence": "So the honest position is this.",
@@ -7353,7 +7787,7 @@
       "sentence": "The effect is real, statistically clear, and modest.",
       "sentence_sha": "8955614972e4268a",
       "why_empirical": "sentence",
-      "bucket": null,
+      "bucket": "judgement",
       "source_id": null,
       "document_sha": null,
       "locator_type": null,
@@ -7363,13 +7797,40 @@
       "scope_words": [],
       "falsifier": null,
       "verdicts": {
-        "locatable": null,
-        "faithful": null,
-        "warranted": null
+        "locatable": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "premises read against held text by Claude Code, reviewed by Claude (advisor), 2026-10-18"
+        },
+        "faithful": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "premises read against held text by Claude Code, reviewed by Claude (advisor), 2026-10-18"
+        },
+        "warranted": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "premises read against held text by Claude Code, reviewed by Claude (advisor), 2026-10-18"
+        }
       },
       "first_seen": "2026-10-18",
       "on_page": true,
-      "check_flags": []
+      "check_flags": [],
+      "premises": [
+        {
+          "source_id": "S031",
+          "span": "All participants 248.86 (221.39-282.88) 232.68 (210.43-262.33) < 0.001 Experienced 247.89 (209.68-299.26) 227.09 (192.39-278.32) Novice 255.66 (221.40-297.99) 247.89 (216.31-266.20)"
+        },
+        {
+          "source_id": "S031",
+          "span": "Limitations of the study include the experimental design using only short video sequences that were chosen in order to increase the number of voluntary participants."
+        }
+      ],
+      "step": "S031 reports median eye travel falling from 248.86 to 232.68 cm at P < 0.001, about 6.5%; so the effect is statistically clear and modest, within the limits of a short-video experiment.",
+      "proposed_by": "model",
+      "proposed_on": "2026-10-18",
+      "confirmed": true,
+      "why_bound": "judgement batch (2026-10-18): premises cut from held text and re-verified as exact substrings, step written out; stands as written on the page; confirmed by Fred Ugast. See docs/whatholdsup-deskilling-revision.md."
     },
     "fd0e70c38615f5d4": {
       "sentence": "The authors' reading of it is the sentence this section exists for:",
@@ -8586,7 +9047,7 @@
       "sentence": "The reassurance is in worse condition than the alarm.",
       "sentence_sha": "9fec3c7618c61faa",
       "why_empirical": "sentence",
-      "bucket": null,
+      "bucket": "judgement",
       "source_id": null,
       "document_sha": null,
       "locator_type": null,
@@ -8596,13 +9057,76 @@
       "scope_words": [],
       "falsifier": null,
       "verdicts": {
-        "locatable": null,
-        "faithful": null,
-        "warranted": null
+        "locatable": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "premises read against held text by Claude Code, reviewed by Claude (advisor), 2026-10-18"
+        },
+        "faithful": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "premises read against held text by Claude Code, reviewed by Claude (advisor), 2026-10-18"
+        },
+        "warranted": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "premises read against held text by Claude Code, reviewed by Claude (advisor), 2026-10-18"
+        }
       },
       "first_seen": "2026-10-18",
       "on_page": true,
-      "check_flags": []
+      "check_flags": [
+        {
+          "check": "B19",
+          "verdict": "evidence hedge disposed",
+          "hedge": "likely",
+          "why": "the evidence says 'likely' (S006), disposed of by Fred Ugast on 2026-10-18: 'likely' qualifies S006's own claim (that differences measured during treatment likely reflect situational advantage rather than durable learning), which this judgement does not restate"
+        }
+      ],
+      "premises": [
+        {
+          "source_id": "S005",
+          "span": "Wang & Fan (2025) was retracted by the Editor on 22 April 2026, citing discrepancies in the meta-analysis that undermine the validity of the analysis and its conclusions."
+        },
+        {
+          "source_id": "S005",
+          "span": "the study with the lowest standard error by (SE = 0.066), carrying approximately 19% of the total weight, was ohicially retracted two months before the publication of Wang and Fan's metaanalysis"
+        },
+        {
+          "source_id": "S006",
+          "span": "Notably, only four comparisons (21%) satisfied all three criteria"
+        },
+        {
+          "source_id": "S006",
+          "span": "If measured during treatment, differences likely reflect situational (dis)advantages due to the (non)availability of the treatment rather than durable learning."
+        },
+        {
+          "source_id": "S007",
+          "span": "We recruited a total of 54 participants for Sessions 1, 2, 3, and 18 participants among them completed session 4."
+        },
+        {
+          "source_id": "S019",
+          "span": "indicates that approximately N = 159 participants would be required for adequate power."
+        },
+        {
+          "source_id": "S008",
+          "span": "They were recruited through a combination of convenience and purposive sampling to ensure a diverse representation across age groups, educational backgrounds, and professional fields. The sample was promoted online in the UK on different social media platforms"
+        }
+      ],
+      "step": "The best-known synthesis reporting that ChatGPT improves learning has been retracted and the next synthesis's comparisons mostly lack an interpretable learning measure, whereas the alarm studies are small, uncorroborated or cross-sectional but not retracted, so the reassuring side is in the weaker state.",
+      "proposed_by": "model",
+      "proposed_on": "2026-10-18",
+      "confirmed": true,
+      "why_bound": "judgement batch (2026-10-18): premises cut from held text and re-verified as exact substrings, step written out; stands as written on the page; confirmed by Fred Ugast. See docs/whatholdsup-deskilling-revision.md.",
+      "checked_on": "2026-10-18",
+      "hedge_dispositions": [
+        {
+          "word": "likely",
+          "why": "'likely' qualifies S006's own claim (that differences measured during treatment likely reflect situational advantage rather than durable learning), which this judgement does not restate",
+          "by": "Fred Ugast",
+          "on": "2026-10-18"
+        }
+      ]
     },
     "8a7c0f6caa4adde0": {
       "sentence": "Two researchers at the Arctic University of Norway had documented the problems publicly on 2 July 2025, nine and a half months earlier.",
@@ -8696,7 +9220,7 @@
       "sentence": "What does exist outside medicine is narrow and good.",
       "sentence_sha": "4332610d5d09782e",
       "why_empirical": "sentence",
-      "bucket": null,
+      "bucket": "judgement",
       "source_id": null,
       "document_sha": null,
       "locator_type": null,
@@ -8706,13 +9230,56 @@
       "scope_words": [],
       "falsifier": null,
       "verdicts": {
-        "locatable": null,
-        "faithful": null,
-        "warranted": null
+        "locatable": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "premises read against held text by Claude Code, reviewed by Claude (advisor), 2026-10-18"
+        },
+        "faithful": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "premises read against held text by Claude Code, reviewed by Claude (advisor), 2026-10-18"
+        },
+        "warranted": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "premises read against held text by Claude Code, reviewed by Claude (advisor), 2026-10-18"
+        }
       },
       "first_seen": "2026-10-18",
       "on_page": true,
-      "check_flags": []
+      "check_flags": [],
+      "premises": [
+        {
+          "source_id": "S001",
+          "span": "through a series of randomized controlled trials on human-AI interactions (N = 1, 222), we provide causal evidence for two key consequences of AI assistance: reduced persistence and impairment of unassisted performance."
+        },
+        {
+          "source_id": "S001",
+          "span": "Participants in the AI condition had a lower solve rate (mean 0.57, s.d. 0.41) than participants in the control condition (mean 0.73, s.d. 0.34; t(305) = -3.64, P < 0.001; Cohen's d = -0.42, 95% CI [-0.66, -0.19])."
+        },
+        {
+          "source_id": "S001",
+          "span": "These effects emerge after a 10-15 minute session, raising the question of what prolonged AI use does to human capabil"
+        },
+        {
+          "source_id": "S001",
+          "span": "arXiv:2604.04721v4 [cs.AI] 5 Aug 2026"
+        },
+        {
+          "source_id": "S017",
+          "span": "Across three preregistered experiments using an adapted Cognitive Reflection Test (N = 1,372; 9,593 trials), we randomized AI accuracy via hidden seed prompts."
+        },
+        {
+          "source_id": "S017",
+          "span": "participants followed AI's advice on 92.7% of AI-Accurate trials (SE = 1.2%, 95% CI [90.2, 95.0]), overriding it only 7.3% of the time, and 79.8% of AI-Faulty trials"
+        }
+      ],
+      "step": "The non-medical experimental evidence consists of randomised studies (Liu et al., N = 1,222; Shaw and Nave, three pre-registered experiments, N = 1,372) that are causal in design but cover short laboratory tasks of 10–15 minutes, which is what 'narrow and good' summarises.",
+      "proposed_by": "model",
+      "proposed_on": "2026-10-18",
+      "confirmed": true,
+      "why_bound": "judgement batch (2026-10-18): premises cut from held text and re-verified as exact substrings, step written out; stands as written on the page; confirmed by Fred Ugast. See docs/whatholdsup-deskilling-revision.md."
     },
     "4173a438cb80df4f": {
       "sentence": "That is causal, and it held in all three experiments — which is internal replication by one team in one preprint, not confirmation by anybody else.",
@@ -8923,7 +9490,7 @@
       "sentence": "The caveats existed.",
       "sentence_sha": "46230167fd715c3e",
       "why_empirical": "sentence",
-      "bucket": null,
+      "bucket": "judgement",
       "source_id": null,
       "document_sha": null,
       "locator_type": null,
@@ -8933,19 +9500,70 @@
       "scope_words": [],
       "falsifier": null,
       "verdicts": {
-        "locatable": null,
-        "faithful": null,
-        "warranted": null
+        "locatable": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "premises read against held text by Claude Code, reviewed by Claude (advisor), 2026-10-18"
+        },
+        "faithful": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "premises read against held text by Claude Code, reviewed by Claude (advisor), 2026-10-18"
+        },
+        "warranted": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "premises read against held text by Claude Code, reviewed by Claude (advisor), 2026-10-18"
+        }
       },
       "first_seen": "2026-10-18",
       "on_page": true,
-      "check_flags": []
+      "check_flags": [
+        {
+          "check": "B19",
+          "verdict": "evidence hedge disposed",
+          "hedge": "could",
+          "why": "the evidence says 'could' (S035), disposed of by Fred Ugast on 2026-10-18: 'could' qualifies S035's own claim (that the near-doubled workload, rather than AI, could have led to the lower detection rate), which this judgement does not restate"
+        }
+      ],
+      "premises": [
+        {
+          "source_id": "S021",
+          "span": "we observed an almost two-fold increase in the number of procedures in the post-AI phase compared to the pre-AI phase (795 before vs. 1382 after AI implementation including 734 with AI-assistance and 648 without AI-assistance), even though both phases covered approximately three months."
+        },
+        {
+          "source_id": "S021",
+          "span": "This was primarily due to the temporary suspension of the colonoscopy-based colorectal cancer screening programme in Poland on 1 January 2022 (lasting until December 2022)."
+        },
+        {
+          "source_id": "S021",
+          "span": "Seventh, the lack of data of endoscope withdrawal time and sample size calculation due to the retrospective observational design are also noticeable limitations."
+        },
+        {
+          "source_id": "S035",
+          "span": "For example, the number of colonoscopies performed nearly doubled after the AI tool was introduced, going from 795 to 1382. It's possible that this sharp increase in workload, rather than the AI itself, could have led to a lower detection rate."
+        }
+      ],
+      "step": "The study's own limitations section and the Science Media Centre reaction set out the confounders on the day of publication, so the caveats existed at source.",
+      "proposed_by": "model",
+      "proposed_on": "2026-10-18",
+      "confirmed": true,
+      "why_bound": "judgement batch (2026-10-18): premises cut from held text and re-verified as exact substrings, step written out; stands as written on the page; confirmed by Fred Ugast. See docs/whatholdsup-deskilling-revision.md.",
+      "checked_on": "2026-10-18",
+      "hedge_dispositions": [
+        {
+          "word": "could",
+          "why": "'could' qualifies S035's own claim (that the near-doubled workload, rather than AI, could have led to the lower detection rate), which this judgement does not restate",
+          "by": "Fred Ugast",
+          "on": "2026-10-18"
+        }
+      ]
     },
     "6b15012a79455594": {
       "sentence": "Some travelled.",
       "sentence_sha": "6b15012a79455594",
       "why_empirical": "sentence",
-      "bucket": null,
+      "bucket": "judgement",
       "source_id": null,
       "document_sha": null,
       "locator_type": null,
@@ -8955,13 +9573,70 @@
       "scope_words": [],
       "falsifier": null,
       "verdicts": {
-        "locatable": null,
-        "faithful": null,
-        "warranted": null
+        "locatable": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "premises read against held text by Claude Code, reviewed by Claude (advisor), 2026-10-18"
+        },
+        "faithful": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "premises read against held text by Claude Code, reviewed by Claude (advisor), 2026-10-18"
+        },
+        "warranted": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "premises read against held text by Claude Code, reviewed by Claude (advisor), 2026-10-18"
+        }
       },
       "first_seen": "2026-10-18",
       "on_page": true,
-      "check_flags": []
+      "check_flags": [
+        {
+          "check": "B19",
+          "verdict": "evidence hedge disposed",
+          "hedge": "could",
+          "why": "the evidence says 'could' (S040), disposed of by Fred Ugast on 2026-10-18: 'could' qualifies S040's own claim (Osmani's suggestion that the increased workload could have led to fatigue and poorer detection), which this judgement does not restate; the evidence says 'may' (S041), disposed of by Fred Ugast on 2026-10-18: 'may' qualifies S041's own claim (that factors other than the implementation of AI use may have influenced the findings), which this judgement does not restate"
+        }
+      ],
+      "premises": [
+        {
+          "source_id": "S040",
+          "span": "Researchers across various European institutions conducted an observational study surveying four endoscopy centers in Poland"
+        },
+        {
+          "source_id": "S040",
+          "span": "noted to SMC that the total number of colonoscopies-including both AI-assisted and non-AI-assisted ones-increased over the course of the study. The increased workload, Osmani suggested, could have led to clinician fatigue and poorer detection rates."
+        },
+        {
+          "source_id": "S041",
+          "span": "The authors acknowledged some limitations of the study, including its observational nature, noting that factors other than the implementation of AI use may have influenced the findings."
+        },
+        {
+          "source_id": "S042",
+          "span": "This retrospective observational study was conducted across four Polish endoscopy centers"
+        }
+      ],
+      "step": "Time, The ASCO Post and Healthgrades reported the study as observational and carried the volume or other-factors caveat, so some caveats reached coverage.",
+      "proposed_by": "model",
+      "proposed_on": "2026-10-18",
+      "confirmed": true,
+      "why_bound": "judgement batch (2026-10-18): premises cut from held text and re-verified as exact substrings, step written out; stands as written on the page; confirmed by Fred Ugast. See docs/whatholdsup-deskilling-revision.md.",
+      "checked_on": "2026-10-18",
+      "hedge_dispositions": [
+        {
+          "word": "could",
+          "why": "'could' qualifies S040's own claim (Osmani's suggestion that the increased workload could have led to fatigue and poorer detection), which this judgement does not restate",
+          "by": "Fred Ugast",
+          "on": "2026-10-18"
+        },
+        {
+          "word": "may",
+          "why": "'may' qualifies S041's own claim (that factors other than the implementation of AI use may have influenced the findings), which this judgement does not restate",
+          "by": "Fred Ugast",
+          "on": "2026-10-18"
+        }
+      ]
     },
     "b25cbddcce44daa5": {
       "sentence": "The ones that would make a reader hold the number loosely did not.",
@@ -9011,7 +9686,7 @@
       "sentence": "It is not, at the source.",
       "sentence_sha": "3944e40f681397a1",
       "why_empirical": "sentence",
-      "bucket": null,
+      "bucket": "judgement",
       "source_id": null,
       "document_sha": null,
       "locator_type": null,
@@ -9021,13 +9696,64 @@
       "scope_words": [],
       "falsifier": null,
       "verdicts": {
-        "locatable": null,
-        "faithful": null,
-        "warranted": null
+        "locatable": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "premises read against held text by Claude Code, reviewed by Claude (advisor), 2026-10-18"
+        },
+        "faithful": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "premises read against held text by Claude Code, reviewed by Claude (advisor), 2026-10-18"
+        },
+        "warranted": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "premises read against held text by Claude Code, reviewed by Claude (advisor), 2026-10-18"
+        }
       },
       "first_seen": "2026-10-18",
       "on_page": true,
-      "check_flags": []
+      "check_flags": [
+        {
+          "check": "B19",
+          "verdict": "evidence hedge disposed",
+          "hedge": "could",
+          "why": "the evidence says 'could' (S035), disposed of by Fred Ugast on 2026-10-18: 'could' qualifies S035 and S032's own claim (S035: that workload could have caused the fall; S032: that visual gaze could be a mechanism), which this judgement does not restate; the evidence says 'could' (S032), disposed of by Fred Ugast on 2026-10-18: 'could' qualifies S035 and S032's own claim (S035: that workload could have caused the fall; S032: that visual gaze could be a mechanism), which this judgement does not restate"
+        }
+      ],
+      "premises": [
+        {
+          "source_id": "S021",
+          "span": "we observed an almost two-fold increase in the number of procedures in the post-AI phase compared to the pre-AI phase (795 before vs. 1382 after AI implementation including 734 with AI-assistance and 648 without AI-assistance), even though both phases covered approximately three months."
+        },
+        {
+          "source_id": "S021",
+          "span": "This was primarily due to the temporary suspension of the colonoscopy-based colorectal cancer screening programme in Poland on 1 January 2022 (lasting until December 2022)."
+        },
+        {
+          "source_id": "S035",
+          "span": "For example, the number of colonoscopies performed nearly doubled after the AI tool was introduced, going from 795 to 1382. It's possible that this sharp increase in workload, rather than the AI itself, could have led to a lower detection rate."
+        },
+        {
+          "source_id": "S032",
+          "span": "the potential impact on visual gaze could potentially be a mechanism by which prolonged CADe exposure could potentially impact performance over time."
+        }
+      ],
+      "step": "The paper lists the confounders, the Science Media Centre quoted Osmani on the near-doubling of procedures, and the ACG appraisal discussed design and mechanism, so the claim that the evidence reached the public without its qualifications is false at the source.",
+      "proposed_by": "model",
+      "proposed_on": "2026-10-18",
+      "confirmed": true,
+      "why_bound": "judgement batch (2026-10-18): premises cut from held text and re-verified as exact substrings, step written out; stands as written on the page; confirmed by Fred Ugast. See docs/whatholdsup-deskilling-revision.md.",
+      "checked_on": "2026-10-18",
+      "hedge_dispositions": [
+        {
+          "word": "could",
+          "why": "'could' qualifies S035 and S032's own claim (S035: that workload could have caused the fall; S032: that visual gaze could be a mechanism), which this judgement does not restate",
+          "by": "Fred Ugast",
+          "on": "2026-10-18"
+        }
+      ]
     },
     "ccc8b6804cb8b74d": {
       "sentence": "The colonoscopy authors' eleven limitations are in their paper.",
@@ -9113,7 +9839,7 @@
       "sentence": "Some of it crossed, and the split is not random.",
       "sentence_sha": "4cea8f5d4b05641d",
       "why_empirical": "sentence",
-      "bucket": null,
+      "bucket": "judgement",
       "source_id": null,
       "document_sha": null,
       "locator_type": null,
@@ -9123,19 +9849,84 @@
       "scope_words": [],
       "falsifier": null,
       "verdicts": {
-        "locatable": null,
-        "faithful": null,
-        "warranted": null
+        "locatable": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "premises read against held text by Claude Code, reviewed by Claude (advisor), 2026-10-18"
+        },
+        "faithful": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "premises read against held text by Claude Code, reviewed by Claude (advisor), 2026-10-18"
+        },
+        "warranted": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "premises read against held text by Claude Code, reviewed by Claude (advisor), 2026-10-18"
+        }
       },
       "first_seen": "2026-10-18",
       "on_page": true,
-      "check_flags": []
+      "check_flags": [
+        {
+          "check": "B19",
+          "verdict": "evidence hedge disposed",
+          "hedge": "could",
+          "why": "the evidence says 'could' (S040), disposed of by Fred Ugast on 2026-10-18: 'could' qualifies S040's own claim (Osmani's suggestion that the increased workload could have led to fatigue and poorer detection), which this judgement does not restate; the evidence says 'may' (S041), disposed of by Fred Ugast on 2026-10-18: 'may' qualifies S041's own claim (that factors other than the implementation of AI use may have influenced the findings), which this judgement does not restate"
+        }
+      ],
+      "premises": [
+        {
+          "source_id": "S040",
+          "span": "Researchers across various European institutions conducted an observational study surveying four endoscopy centers in Poland"
+        },
+        {
+          "source_id": "S040",
+          "span": "noted to SMC that the total number of colonoscopies-including both AI-assisted and non-AI-assisted ones-increased over the course of the study. The increased workload, Osmani suggested, could have led to clinician fatigue and poorer detection rates."
+        },
+        {
+          "source_id": "S041",
+          "span": "The authors acknowledged some limitations of the study, including its observational nature, noting that factors other than the implementation of AI use may have influenced the findings."
+        },
+        {
+          "source_id": "S042",
+          "span": "\"However, the study design, population limits, operator factors, and short-term focus restrict broad applicability, and the deskilling concern remains hypothetical rather than proven,\" he noted."
+        },
+        {
+          "source_id": "S021",
+          "span": "This was primarily due to the temporary suspension of the colonoscopy-based colorectal cancer screening programme in Poland on 1 January 2022 (lasting until December 2022)."
+        },
+        {
+          "source_id": "S021",
+          "span": "Seventh, the lack of data of endoscope withdrawal time and sample size calculation due to the retrospective observational design are also noticeable limitations."
+        }
+      ],
+      "step": "General caveats (observational design, other factors possibly responsible) appear in Time, ASCO Post and Healthgrades, while the specific caveats in the paper (why volume rose, missing withdrawal time) do not appear in the coverage held, which is the pattern 'not random' describes.",
+      "proposed_by": "model",
+      "proposed_on": "2026-10-18",
+      "confirmed": true,
+      "why_bound": "judgement batch (2026-10-18): premises cut from held text and re-verified as exact substrings, step written out; stands as written on the page; confirmed by Fred Ugast. See docs/whatholdsup-deskilling-revision.md.",
+      "checked_on": "2026-10-18",
+      "hedge_dispositions": [
+        {
+          "word": "could",
+          "why": "'could' qualifies S040's own claim (Osmani's suggestion that the increased workload could have led to fatigue and poorer detection), which this judgement does not restate",
+          "by": "Fred Ugast",
+          "on": "2026-10-18"
+        },
+        {
+          "word": "may",
+          "why": "'may' qualifies S041's own claim (that factors other than the implementation of AI use may have influenced the findings), which this judgement does not restate",
+          "by": "Fred Ugast",
+          "on": "2026-10-18"
+        }
+      ]
     },
     "d190d0b3b615ca42": {
       "sentence": "Two things travelled: that the study was observational, and that something other than AI might account for the fall.",
       "sentence_sha": "d190d0b3b615ca42",
       "why_empirical": "source claim: 'observational'",
-      "bucket": null,
+      "bucket": "judgement",
       "source_id": null,
       "document_sha": null,
       "locator_type": null,
@@ -9145,14 +9936,53 @@
       "scope_words": [],
       "falsifier": null,
       "verdicts": {
-        "locatable": null,
-        "faithful": null,
-        "warranted": null
+        "locatable": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "premises read against held text by Claude Code, reviewed by Claude (advisor), 2026-10-18"
+        },
+        "faithful": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "premises read against held text by Claude Code, reviewed by Claude (advisor), 2026-10-18"
+        },
+        "warranted": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "premises read against held text by Claude Code, reviewed by Claude (advisor), 2026-10-18"
+        }
       },
       "first_seen": "2026-10-18",
       "trigger": "source_claim",
       "on_page": true,
-      "check_flags": []
+      "check_flags": [],
+      "premises": [
+        {
+          "source_id": "S040",
+          "span": "Researchers across various European institutions conducted an observational study surveying four endoscopy centers in Poland"
+        },
+        {
+          "source_id": "S040",
+          "span": "noted to SMC that the total number of colonoscopies-including both AI-assisted and non-AI-assisted ones-increased over the course of the study. The increased workload, Osmani suggested, could have led to clinician fatigue and poorer detection rates."
+        },
+        {
+          "source_id": "S041",
+          "span": "The authors acknowledged some limitations of the study, including its observational nature, noting that factors other than the implementation of AI use may have influenced the findings."
+        },
+        {
+          "source_id": "S042",
+          "span": "This retrospective observational study was conducted across four Polish endoscopy centers"
+        },
+        {
+          "source_id": "S042",
+          "span": "\"However, the study design, population limits, operator factors, and short-term focus restrict broad applicability, and the deskilling concern remains hypothetical rather than proven,\" he noted."
+        }
+      ],
+      "step": "Each of Time, The ASCO Post and Healthgrades describes the study as observational and/or reports that factors other than AI (such as workload) may explain the fall.",
+      "proposed_by": "model",
+      "proposed_on": "2026-10-18",
+      "confirmed": true,
+      "why_bound": "judgement batch (2026-10-18): premises cut from held text and re-verified as exact substrings, step written out; stands as written on the page; confirmed by Fred Ugast. See docs/whatholdsup-deskilling-revision.md."
     },
     "6350f29e8d7646f3": {
       "sentence": "Time carried both on 13 August 2025, quoting Professor Osmani on the rise in procedure volume and the fatigue it could cause, and Professor Tucker on automation bias not being peculiar to AI, and calling the study observational throughout.",
@@ -9602,7 +10432,7 @@
       "sentence": "And the sharpest instance is not general coverage at all.",
       "sentence_sha": "1b44f6727465a5f2",
       "why_empirical": "sentence",
-      "bucket": null,
+      "bucket": "judgement",
       "source_id": null,
       "document_sha": null,
       "locator_type": null,
@@ -9612,13 +10442,44 @@
       "scope_words": [],
       "falsifier": null,
       "verdicts": {
-        "locatable": null,
-        "faithful": null,
-        "warranted": null
+        "locatable": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "premises read against held text by Claude Code, reviewed by Claude (advisor), 2026-10-18"
+        },
+        "faithful": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "premises read against held text by Claude Code, reviewed by Claude (advisor), 2026-10-18"
+        },
+        "warranted": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "premises read against held text by Claude Code, reviewed by Claude (advisor), 2026-10-18"
+        }
       },
       "first_seen": "2026-10-18",
       "on_page": true,
-      "check_flags": []
+      "check_flags": [],
+      "premises": [
+        {
+          "source_id": "S029",
+          "span": "In a multicenter randomized trial in colonoscopy, the adenoma detection rate (ADR) dropped significantly from 28.4% to 22.4% when endoscopists reverted to non-AI procedures after repeated AI use, while ADR remained stable with AI assistance (25.3%)."
+        },
+        {
+          "source_id": "S029",
+          "span": "The strongest empirical signal of clinical deskilling was observed in colonoscopy. A multicenter observational study conducted in Poland"
+        },
+        {
+          "source_id": "S021",
+          "span": "We conducted a retrospective observational study at four endoscopy centers in Poland."
+        }
+      ],
+      "step": "The scoping review written for doctors calls the retrospective observational study a 'multicenter randomized trial' and describes reversion 'after repeated AI use' in its abstract, which is a more serious misstatement than those in general coverage because it comes from a specialist synthesis.",
+      "proposed_by": "model",
+      "proposed_on": "2026-10-18",
+      "confirmed": true,
+      "why_bound": "judgement batch (2026-10-18): premises cut from held text and re-verified as exact substrings, step written out; stands as written on the page; confirmed by Fred Ugast. See docs/whatholdsup-deskilling-revision.md."
     },
     "5a6027406d3b1da3": {
       "sentence": "It is a retrospective observational study; the review's body says so.",
@@ -9974,7 +10835,7 @@
       "sentence": "Randomise which endoscopists work with AI, cross them over, and measure unassisted detection on both sides.",
       "sentence_sha": "22bfc8c8ff0659e1",
       "why_empirical": "sentence",
-      "bucket": null,
+      "bucket": "judgement",
       "source_id": null,
       "document_sha": null,
       "locator_type": null,
@@ -9984,13 +10845,40 @@
       "scope_words": [],
       "falsifier": null,
       "verdicts": {
-        "locatable": null,
-        "faithful": null,
-        "warranted": null
+        "locatable": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "premises read against held text by Claude Code, reviewed by Claude (advisor), 2026-10-18"
+        },
+        "faithful": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "premises read against held text by Claude Code, reviewed by Claude (advisor), 2026-10-18"
+        },
+        "warranted": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "premises read against held text by Claude Code, reviewed by Claude (advisor), 2026-10-18"
+        }
       },
       "first_seen": "2026-10-18",
       "on_page": true,
-      "check_flags": []
+      "check_flags": [],
+      "premises": [
+        {
+          "source_id": "S021",
+          "span": "We emphasize the urgent need for robust prospective studies such as randomized crossover trials to assess its generalizability and call for more behavioral research to understand the currently under-investigated mechanisms of how AI affects physician capability."
+        },
+        {
+          "source_id": "S035",
+          "span": "the authors make it clear that randomised crossover trials are needed to make more robust claims."
+        }
+      ],
+      "step": "The authors call for randomised crossover trials and Tucker repeats the call at the Science Media Centre; the sentence spells out what such a trial would do.",
+      "proposed_by": "model",
+      "proposed_on": "2026-10-18",
+      "confirmed": true,
+      "why_bound": "judgement batch (2026-10-18): premises cut from held text and re-verified as exact substrings, step written out; stands as written on the page; confirmed by Fred Ugast. See docs/whatholdsup-deskilling-revision.md."
     },
     "738c8380541b32d3": {
       "sentence": "It settles the confounding that the volume doubling introduced, and it is the single study that would move this from an association to a causal finding.",
@@ -10167,7 +11055,7 @@
       "sentence": "If they are reviewed, that changes what they carry.",
       "sentence_sha": "2f2fe514191a2c77",
       "why_empirical": "sentence",
-      "bucket": null,
+      "bucket": "judgement",
       "source_id": null,
       "document_sha": null,
       "locator_type": null,
@@ -10177,13 +11065,40 @@
       "scope_words": [],
       "falsifier": null,
       "verdicts": {
-        "locatable": null,
-        "faithful": null,
-        "warranted": null
+        "locatable": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "premises read against held text by Claude Code, reviewed by Claude (advisor), 2026-10-18"
+        },
+        "faithful": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "premises read against held text by Claude Code, reviewed by Claude (advisor), 2026-10-18"
+        },
+        "warranted": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "premises read against held text by Claude Code, reviewed by Claude (advisor), 2026-10-18"
+        }
       },
       "first_seen": "2026-10-18",
       "on_page": true,
-      "check_flags": []
+      "check_flags": [],
+      "premises": [
+        {
+          "source_id": "S007",
+          "span": "Preprint, under review"
+        },
+        {
+          "source_id": "S001",
+          "span": "arXiv:2604.04721v4 [cs.AI] 5 Aug 2026"
+        }
+      ],
+      "step": "The preprint and working-paper studies have not been peer reviewed; review would add (or remove) the weight their findings can carry.",
+      "proposed_by": "model",
+      "proposed_on": "2026-10-18",
+      "confirmed": true,
+      "why_bound": "judgement batch (2026-10-18): premises cut from held text and re-verified as exact substrings, step written out; stands as written on the page; confirmed by Fred Ugast. See docs/whatholdsup-deskilling-revision.md."
     },
     "14e6751bf756e63d": {
       "sentence": "One meta-analysis in this literature has already been retracted after nine and a half months of public criticism, and a scoping review in it mis-cites a paper.",
@@ -13002,7 +13917,7 @@
       "sentence": "And the caveats were not hidden.",
       "sentence_sha": "8d3197bbfe493c74",
       "why_empirical": "sentence",
-      "bucket": null,
+      "bucket": "judgement",
       "source_id": null,
       "document_sha": null,
       "locator_type": null,
@@ -13012,13 +13927,64 @@
       "scope_words": [],
       "falsifier": null,
       "verdicts": {
-        "locatable": null,
-        "faithful": null,
-        "warranted": null
+        "locatable": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "premises read against held text by Claude Code, reviewed by Claude (advisor), 2026-10-18"
+        },
+        "faithful": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "premises read against held text by Claude Code, reviewed by Claude (advisor), 2026-10-18"
+        },
+        "warranted": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "premises read against held text by Claude Code, reviewed by Claude (advisor), 2026-10-18"
+        }
       },
       "first_seen": "2026-10-18",
       "on_page": true,
-      "check_flags": []
+      "check_flags": [
+        {
+          "check": "B19",
+          "verdict": "evidence hedge disposed",
+          "hedge": "could",
+          "why": "the evidence says 'could' (S035), disposed of by Fred Ugast on 2026-10-18: 'could' qualifies S035's own claim (that the near-doubled workload, rather than AI, could have led to the lower detection rate), which this judgement does not restate"
+        }
+      ],
+      "premises": [
+        {
+          "source_id": "S021",
+          "span": "Seventh, the lack of data of endoscope withdrawal time and sample size calculation due to the retrospective observational design are also noticeable limitations."
+        },
+        {
+          "source_id": "S021",
+          "span": "Eighth, we observed an almost two-fold increase in the number of procedures in the post-AI phase compared to the pre-AI phase (795 before vs. 1382 after AI implementation including 734 with AI-assistance and 648 without AI-assistance), even though both phases covered approximately three months."
+        },
+        {
+          "source_id": "S035",
+          "span": "For example, the number of colonoscopies performed nearly doubled after the AI tool was introduced, going from 795 to 1382. It's possible that this sharp increase in workload, rather than the AI itself, could have led to a lower detection rate."
+        },
+        {
+          "source_id": "S035",
+          "span": "the authors make it clear that randomised crossover trials are needed to make more robust claims"
+        }
+      ],
+      "step": "S021 lists its own limitations, including withdrawal time and the near-doubling of volume, and S035 put named experts on record raising the volume confounder and the need for crossover trials; so the caveats were publicly available rather than hidden.",
+      "proposed_by": "model",
+      "proposed_on": "2026-10-18",
+      "confirmed": true,
+      "why_bound": "judgement batch (2026-10-18): premises cut from held text and re-verified as exact substrings, step written out; stands as written on the page; confirmed by Fred Ugast. See docs/whatholdsup-deskilling-revision.md.",
+      "checked_on": "2026-10-18",
+      "hedge_dispositions": [
+        {
+          "word": "could",
+          "why": "'could' qualifies S035's own claim (that the near-doubled workload, rather than AI, could have led to the lower detection rate), which this judgement does not restate",
+          "by": "Fred Ugast",
+          "on": "2026-10-18"
+        }
+      ]
     },
     "e52551c8c816f279": {
       "sentence": "Radiology.",
@@ -13080,7 +14046,7 @@
       "sentence": "Structural rather than cognitive.",
       "sentence_sha": "70a74bf87335cfc4",
       "why_empirical": "sentence",
-      "bucket": null,
+      "bucket": "judgement",
       "source_id": null,
       "document_sha": null,
       "locator_type": null,
@@ -13090,13 +14056,44 @@
       "scope_words": [],
       "falsifier": null,
       "verdicts": {
-        "locatable": null,
-        "faithful": null,
-        "warranted": null
+        "locatable": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "premises read against held text by Claude Code, reviewed by Claude (advisor), 2026-10-18"
+        },
+        "faithful": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "premises read against held text by Claude Code, reviewed by Claude (advisor), 2026-10-18"
+        },
+        "warranted": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "premises read against held text by Claude Code, reviewed by Claude (advisor), 2026-10-18"
+        }
       },
       "first_seen": "2026-10-18",
       "on_page": true,
-      "check_flags": []
+      "check_flags": [],
+      "premises": [
+        {
+          "source_id": "S029",
+          "span": "Structural deskilling has been reported in cytology following the UK's transition to human papillomavirus primary screening"
+        },
+        {
+          "source_id": "S039",
+          "span": "The major shift into primary HPV testing has resulted in a massive reduction in cytology workload, estimated to be approximately 70%, according to Public Health England."
+        },
+        {
+          "source_id": "S039",
+          "span": "The effect on the workforce was further exacerbated by the centralisation and consolidation of NHSCSP labs, reducing 48 accredited labs to 8 centralised labs as of 2019."
+        }
+      ],
+      "step": "S029 labels the cytology case structural deskilling, and S039 attributes it to a ~70% workload fall and consolidation from 48 to 8 labs, i.e. changes in the work rather than in cognition; so 'structural rather than cognitive'.",
+      "proposed_by": "model",
+      "proposed_on": "2026-10-18",
+      "confirmed": true,
+      "why_bound": "judgement batch (2026-10-18): premises cut from held text and re-verified as exact substrings, step written out; stands as written on the page; confirmed by Fred Ugast. See docs/whatholdsup-deskilling-revision.md."
     },
     "61364c88b8be1974": {
       "sentence": "What this is not.",

@@ -8,7 +8,7 @@ unless marked otherwise. Rows are binding-row shas in `bindings.json`.
 
 ## Errors found in the published page
 
-81 errors in about 300 sentences read closely — 31 overstate a finding or a source's claim; 18 claim more about WHU's own process than the records show; 14 misattribute or misdescribe; 6 wrong date, count, figure or author; 3 misquote; 5 understate a source's standing; 2 understate a finding; 2 rest on a document not held. 53 of these were in sentences outside the 'empirical' rule, which no automatic check reaches.
+105 errors in about 350 sentences read closely — 53 overstate a finding or a source's claim; 18 claim more about WHU's own process than the records show; 15 misattribute or misdescribe; 6 wrong date, count, figure or author; 5 understate a source's standing; 3 misquote; 3 rest on a document not held; 2 understate a finding. Of the 48 judgement sentences, 24 were wrong.
 
 Adjusted from the operator's figure (78, of which 54 outside the rule) by steps 1–2 of the batch-4 write: three sentences the batch-4 readers had left as not held or unclear are corrections at the operator's instruction and are now counted (b44e344b, overstates; 645248a3, misquotes; 0f2e96af, rests on a document not held), and the outside-the-rule count is 53, not 54: 48 batch-4 step-2 sentences, those three, and 4173a438 and e14ccbb0 from batch 3. The five step-4 errors and b053b281 are bound rows, inside the rule. No verdict was reversed: 89466d77 and 13eeff53 stay errors (the article page has no causation disclaimer either); d06d9c3d, 7011fffe, 111ae20d, 483ce0da, d956dc78, 93c14a94 and 7419c16a stand.
 
@@ -16,14 +16,14 @@ The "misstates how a source was read" row of the earlier tally (the Wang paragra
 
 | | count | rows |
 |---|---|---|
-| overstates a finding or a source's claim | 31 | 32db25e0, 509b18f6, b8844660, bd8b242c, ad3f7c73; batch 3: ed48b451, 41c3df15, 1c761af8, 94b39b65, 8762158c, f8238a88, 94cd79d4, a4267014, 09ba5473; batch 4: 7032a248, 84eaf825, 50770789, 5ddcede1, dd75605f, 523c0e8e, 6350f29e, b34b3805, 3646a7a7, 97c5510d, 89466d77, 13eeff53, 3b702c14, dde90522, 991b00d0, 65dba6ca, b44e344b |
+| overstates a finding or a source's claim | 53 | 32db25e0, 509b18f6, b8844660, bd8b242c, ad3f7c73; batch 3: ed48b451, 41c3df15, 1c761af8, 94b39b65, 8762158c, f8238a88, 94cd79d4, a4267014, 09ba5473; batch 4: 7032a248, 84eaf825, 50770789, 5ddcede1, dd75605f, 523c0e8e, 6350f29e, b34b3805, 3646a7a7, 97c5510d, 89466d77, 13eeff53, 3b702c14, dde90522, 991b00d0, 65dba6ca, b44e344b; judgements: acd4fe6c, fcd870cc, 8d9dda78, b7985c65, 3d054dd8, a0b796f2, dbe8c633, 94285a34, caab5487, e7229fa9, b25cbddc, 6183737f, 2c9f964b, 13a1f595, cb13b0ff, 1ed69ef1, 738c8380, 6b66734b, 4512a421, afd83f74, e99eaaf7, 849ac2af |
 | claims more about WHU's own process than the records show | 18 | the Wang paragraph (c8d0e2c5, 5bd6e3b7, b8844660); batch 4: 514fe6d8, f3bac0ab, d0f6be94, e6b318db, 1007d4e3, 3277476a, a3804315, dfbdfe06, 6f8d3f6e, 9c6d0d80, 6349e704, 6da54bce, d77cec11, b3bad0a5, 66fbb27d, 63ba2dc1, e68fe056 |
-| misattributes or misdescribes | 14 | 26e94905, 8598e9ca, 34b99db8; batch 3: 73aed151; batch 4: bfc28e7c, b4f1e3b4, 5a602740, 194ddb13, 91730a4c, cb170ac7, 3c3f210c, 042baf28, c4927d74, e7b33c5f |
+| misattributes or misdescribes | 15 | 26e94905, 8598e9ca, 34b99db8; batch 3: 73aed151; batch 4: bfc28e7c, b4f1e3b4, 5a602740, 194ddb13, 91730a4c, cb170ac7, 3c3f210c, 042baf28, c4927d74, e7b33c5f; judgements: 4fd2fa15 |
 | wrong date, count, figure or author | 6 | batch 4: 20099139, 5f408161, d09a03dc, f7dd45eb, 930417d1, b053b281 |
 | misquotes | 3 | Q-25; batch 3: e0713036; batch 4: 645248a3 |
 | understates a source's standing | 5 | batch 3: 7a05297b, 4173a438, e14ccbb0; batch 4: 38d82aac, 564c3790 |
 | understates a finding | 2 | batch 4: dba5f62d, 14e6751b |
-| rests on a document not held | 2 | batch 4: 0eba3348, 0f2e96af |
+| rests on a document not held | 3 | batch 4: 0eba3348, 0f2e96af; judgements: dbaaa31b |
 
 Of the 10 batch-3 errors in the proposals, the automatic checks caught 1 on the uncorrected text; of the 5 batch-4 step-4 errors, 2. Close reading against the source found the rest.
 
@@ -1001,9 +1001,255 @@ Read by five read-only agents against the held texts and our own records, with t
 - `17e6f095` (In fairness to the author… a published correction of 10 September 2025…) — now fully supported: the recruitment is in S008, and the correction is S049 ('Table 4 was a duplicate of Table 3'). Bindable; not yet bound.
 - `89466d77`, `13eeff53` — do NOT stand: the MDPI article page (held 2026-10-18 as S008's second rendition) contains no causation disclaimer either; corrected above.
 
+## Judgements (2026-10-18): the 48 group-(iii) sentences
+
+Each judgement sentence was given premises cut from held text by two read-only agents, every span re-verified by script as an exact substring of its held text, and a written-out step; Claude Code read each against its premises, reviewed by Claude (advisor), and the operator ruled. 24 stand and are bound as judgements (listed under Bound). 24 are corrections, below. The proposed wording is Claude Code's unless the operator gave it (afd83f74, e99eaaf7, 849ac2af).
+
+## 88. acd4fe6c — overstates (judgement)
+
+**Page now:** Nobody's skill decayed; there was simply far less of the work on which the skill is built.
+
+**Evidence:** 'Nobody's skill decayed' is a universal negative no source establishes; S039 says the change is 'potentially reducing diagnostic expertise' and calls skill retention a challenge, and S029 cites 'erosion of morphological expertise'.
+
+**Proposed:** "Nobody measured an individual's skill decaying; there was simply far less of the work on which the skill is built — which, the College warns, may itself reduce diagnostic expertise."
+
+**Binding for the corrected text:** judgement. Premises: S039: "The major shift into primary HPV testing has resulted in a massive reduction in cytology workload, estimated to be approximately 70%, according to Public Health England."; S039: "The effect on the workforce was further exacerbated by the centralisation and consolidation of NHSCSP labs, reducing 48 accredited labs to 8 centralised labs as of 2019."; S039: "resulting in less exposure to abnormal cases and a shift towards lower-grade lesions, potentially reducing diagnostic expertise in the diagnosis of higher-grade lesions. The retention of skills, continued training and maintenance of diagnostic accuracy in the face of decreasing disease prevalence remains a challenge in both cytology and histopathology."; S029: "cytology workloads declined by 80%-85%, raising concerns about the erosion of morphological expertise and the reduction of training opportunities for junior pathologists.". Step: S039 and S029 describe a fall in cytology workload and laboratories, and both warn this may erode expertise; no held source measured individual skill in either direction, so the far-less-work clause holds but the universal 'nobody's skill decayed' does not. Checks in memory on the corrected text (rule 1, rule 2, B2, B5, B6, B12, B19 incl. significance, B20, B21, B22, B23): clean.
+
+## 89. fcd870cc — overstates (judgement)
+
+**Page now:** This one is — specifically on the question of what happens after the tool is withdrawn, since it found a real gain while the tool was running — with the limits its own authors put on it.
+
+**Evidence:** 'It found a real gain while the tool was running' drops the restriction: the gain was significant only among the seven inexperienced endoscopists; overall and among the experienced there was none, so the after-withdrawal null is not informative in the same way for them.
+
+**Proposed:** "This one is — specifically on the question of what happens after the tool is withdrawn, since among its inexperienced endoscopists it found a real gain while the tool was running — with the limits its own authors put on it."
+
+**Binding for the corrected text:** judgement. Premises: S043: "CADe temporarily increased PDR-5 among inexperienced endoscopists from phase 1 to 2 (31.9% [216/678] to 39.5% [257/651]; odds ratio [OR] 1.43, 95%CI 1.11-1.84). There was no significant change between phases 1 and 3 (31.9% [216/678] to 36.3% [173/476]; OR 1.03, 95%CI 0.79-1.34). There was no significant CADe effect on PDR-5 among experienced endoscopists between phases."; S043: "2 (CADe) All 548/1739 (31.5) 1.09 (0.94-1.26) - Inexperienced 257/651 (39.5) 1.37 (1.09-1.72) 1 1.43 (1.11-1.84) 1 Experienced 291/1088 (26.7) 0.92 (0.76-1.12)"; S043: "In non-CADe-assisted colonoscopy, no upskilling or deskilling was observed following a period of CADe exposure.". Step: S043 reports a null after withdrawal, but its gain during CADe was among inexperienced endoscopists only (OR 1.43); overall the phase-2 rise was 29.7% to 31.5% (OR 1.09, 0.94-1.26) and the experienced showed none; so the null after withdrawal is informative chiefly for the inexperienced. Checks in memory on the corrected text (rule 1, rule 2, B2, B5, B6, B12, B19 incl. significance, B20, B21, B22, B23): clean.
+
+## 90. 8d9dda78 — overstates (judgement)
+
+**Page now:** If AI exposure changes what an endoscopist can do unassisted, something has to have changed in how they look.
+
+**Evidence:** 'Something has to have changed in how they look' asserts a necessary mechanism; S021 itself proposes motivation, focus and responsibility, and withdrawal time and case mix were also uncontrolled, and S043 says only that gaze 'could explain' the result.
+
+**Proposed:** "If AI exposure changes what an endoscopist can do unassisted, one plausible place for the change is in how they look."
+
+**Binding for the corrected text:** judgement. Premises: S043: "A study by Troya et al. showed decreased eye travel distance when using CADe , which could explain why such deskilling happened in the study by Budzyn et al."; S031: "Effort, as expressed by eye travel distance, decreased, and gaze remained more focused, presumably waiting for a bounding box to appear. This might be efficient but risks missing a polyp that is not captured by the system."; S021: "We assume that continuous exposure to decision support systems like AI may lead to the natural human tendency to over-rely on their recommendations, leading to clinicians becoming less motivated, less focused, and less responsible when making cognitive decisions without AI assistance.". Step: S043 and S031 propose gaze change as one possible mechanism, while S021 proposes reduced motivation, focus and responsibility; so a change in looking is a plausible mechanism, not a necessary one. Checks in memory on the corrected text (rule 1, rule 2, B2, B5, B6, B12, B19 incl. significance, B20, B21, B22, B23): B19 evidence hedge dropped (the evidence says 'could' (S043), 'appear' (S031), 'might' (S031), 'may' (S021); the sentence carries no hedge) — a WARN, not a block.
+
+## 91. b7985c65 — overstates (judgement)
+
+**Page now:** Nobody has tested whether those are the same thing, and this page does not claim they are.
+
+**Evidence:** 'Nobody has tested' is a universal negative no held source establishes; the most the evidence supports is that neither paper tests it and we found no study that does. (Also, S028 itself warns reduced coverage could increase missed cancers, so the preceding contrast slightly understates Gommers' caution.)
+
+**Proposed:** "We have found no study that tests whether those are the same thing, and this page does not claim they are."
+
+**Binding for the corrected text:** judgement. Premises: S028: "Radiologists improved their breast cancer detection accuracy when reading mammography with AI support, spending more fixation time on suspicious areas and less on the rest of the breast, indicating a more efficient search."; S028: "However, reduced coverage could also increase the risk of missing cancers not detected by AI"; S031: "Effort, as expressed by eye travel distance, decreased, and gaze remained more focused, presumably waiting for a bounding box to appear. This might be efficient but risks missing a polyp that is not captured by the system.". Step: S028 reads narrowed search as efficiency and S031 reads narrowed gaze as a risk; neither tests whether the two narrowings are the same phenomenon; we found no study that does, but that absence is ours, not established. Checks in memory on the corrected text (rule 1, rule 2, B2, B5, B6, B12, B19 incl. significance, B20, B21, B22, B23): B19 evidence hedge dropped (the evidence says 'could' (S028), 'appear' (S031), 'might' (S031); the sentence carries no hedge) — a WARN, not a block.
+
+## 92. 3d054dd8 — overstates (judgement)
+
+**Page now:** It is a study about what happens inside a single reading, and it is the clearest measurement in this entire field of the thing people actually describe when they say AI has changed how they work: you take what it gives you.
+
+**Evidence:** 'The clearest measurement in this entire field' is an unsupported superlative; S046 (45.5% of errors under AI attributable to automation bias), S038 (7% of correct judgements overturned) and S017 (79.8% following wrong advice) measure the same thing, and no ranking is given.
+
+**Proposed:** "It is a study about what happens inside a single reading, and it measures directly the thing people actually describe when they say AI has changed how they work: you take what it gives you."
+
+**Binding for the corrected text:** judgement. Premises: S030: "The percentage of correctly rated mammograms by inexperienced (mean, 79.7% ± 11.7 [SD] vs 19.8% ± 14.0; P < .001; r = 0.93), moderately experienced (mean, 81.3% ± 10.1 vs 24.8% ± 11.6; P < .001; r = 0.96), and very experienced (mean, 82.3% ± 4.2 vs 45.5% ± 9.1; P = .003; r = 0.97) radiologists was significantly impacted by the correctness of"; S030: "The results show that inexperienced, moderately experienced, and very experienced radiologists reading mammograms are prone to automation bias when being supported by an AI-based system.". Step: S030 measures, within single readings, how accuracy falls when the AI suggestion is wrong (to 19.8%, 24.8% and 45.5%) and concludes readers at all levels are prone to automation bias; so it directly measures taking what the AI gives you. Checks in memory on the corrected text (rule 1, rule 2, B2, B5, B6, B12, B19 incl. significance, B20, B21, B22, B23): clean.
+
+## 93. dbaaa31b — rests on a document not held (S044) (judgement)
+
+**Page now:** What this page does that it does not is carry the distinction out of the specialty to a reader deciding something about their own work — and that, rather than the frame, is the part we can claim.
+
+**Evidence:** The comparison ('what this page does that it does not') concerns the content and audience of S044, which is not among the held texts, so no passage can support what that editorial does or does not do.
+
+**Proposed:** "What this page tries to add to an editorial written for the specialty is to carry the distinction out of it to a reader deciding something about their own work — and that, rather than the frame, is the part we can claim."
+
+**Binding for the corrected text:** judgement. Premises: S025: "AI integration in medical training may introduce three distinct risks to competency development: deskilling, mis-skilling, and never-skilling.". Step: S025 supplies the three-way distinction; the claim that the Weinberg and Bretthauer editorial does not carry it to general readers rests on S044, which is not held, and on its venue (Gastroenterology). Checks in memory on the corrected text (rule 1, rule 2, B2, B5, B6, B12, B19 incl. significance, B20, B21, B22, B23): B19 evidence hedge dropped (the evidence says 'may' (S025); the sentence carries no hedge) — a WARN, not a block.
+
+## 94. a0b796f2 — overstates (judgement)
+
+**Page now:** The evidence a general reader has been offered is much weaker than the evidence they have not.
+
+**Evidence:** The strength comparison is supported, but 'the evidence they have not [been offered]' is too strong: Fortune (S023) carried the Polish result to a general readership; what did not reach them is that evidence with its qualifications, which is how the page's own opening puts it.
+
+**Proposed:** "The evidence a general reader is usually offered is much weaker than the evidence that has mostly not reached them with its qualifications intact."
+
+**Binding for the corrected text:** judgement. Premises: S019: "indicates that approximately N = 159 participants would be required for adequate power."; S007: "We recruited a total of 54 participants for Sessions 1, 2, 3, and 18 participants among them completed session 4."; S009: "the sequential Bayes Factor (BF) analysis yielded a final BF 01 of 5.07 in favor of the null over the alternative hypothesis, after the data from N = 89 participants were taken into account"; S008: "The correlation between AI tool use and critical thinking was found to be strongly negative (r = -0.68), suggesting that greater reliance on AI tools is associated with a decline in critical thinking skills."; S021: "ADR of standard colonoscopy significantly decreased from 28.4% (226/795) before to 22.4% (145/648) after the exposure to AI, corresponding to a 6% absolute reduction (95% confidence interval: -10.5% to -1.6%)."; S030: "The percentage of correctly rated mammograms by inexperienced (mean, 79.7% ± 11.7 [SD] vs 19.8% ± 14.0; P < .001; r = 0.93), moderately experienced (mean, 81.3% ± 10.1 vs 24.8% ± 11.6; P < .001; r = 0.96), and very experienced (mean, 82.3% ± 4.2 vs 45.5% ± 9.1; P = .003; r = 0.97) radiologists was significantly impacted by the correctness of"; S023: "endoscopists introduced to an AI-assistance system went from detecting potential polyps at a rate of 28.4% with the technology to 22.4% after they no longer had access to the AI tools they were introduced to-a 20% drop in detection rates.". Step: The widely circulated studies are underpowered (S019 on S007), a failed replication (S009) or cross-sectional (S008), while the medical evidence includes measured falls (S021) and controlled reader studies (S030); but S023 shows the Polish result did reach a general (business) readership, albeit misdescribed and without its limitations. Checks in memory on the corrected text (rule 1, rule 2, B2, B5, B6, B12, B19 incl. significance, B20, B21, B22, B23): B19 evidence hedge dropped (the evidence says 'hypothesis' (S009); the sentence carries no hedge) — a WARN, not a block.
+
+## 95. dbe8c633 — overstates (a claim about what public belief rests on, stated as fact) (judgement)
+
+**Page now:** The belief that AI is degrading thinking does not usually travel on any of the above.
+
+**Evidence:** This is an empirical claim about what public belief travels on, and no held passage measures it; the held coverage that does exist (Fortune, CACM) cites the Polish study and a Microsoft/Carnegie Mellon survey, which cuts partly against it.
+
+**Proposed:** "In our reading, the belief that AI is degrading thinking does not usually rest on any of the above."
+
+**Binding for the corrected text:** judgement. Premises: S023: "A study from Microsoft and Carnegie Mellon University earlier this year found that among surveyed knowledge workers, AI increased work efficiency, but reduced critical enga"; S033: "In a 2025 survey conducted by Microsoft Research and Hank Lee , a Carnegie Mellon Ph.D. student, knowledge workers reported that generative AI made tasks seem cognitively easier.". Step: No held source surveys which studies the general belief rests on; the two held general-audience pieces (S023, S033) lean on the Polish study itself and on a Microsoft/Carnegie Mellon survey, neither of which is the 'three studies' that follow. Checks in memory on the corrected text (rule 1, rule 2, B2, B5, B6, B12, B19 incl. significance, B20, B21, B22, B23): clean.
+
+## 96. 94285a34 — overstates (judgement)
+
+**Page now:** It travels on three studies, and all three are weaker than their reputations.
+
+**Evidence:** 'It travels on three studies' asserts which studies carry the belief without any source on that, and held coverage cites the Microsoft/Carnegie Mellon survey instead; 'weaker than their reputations' needs their reputations documented, which only the page's own descriptions supply.
+
+**Proposed:** "Three studies often cited for it are each weaker than they are usually taken to be."
+
+**Binding for the corrected text:** judgement. Premises: S007: "We recruited a total of 54 participants for Sessions 1, 2, 3, and 18 participants among them completed session 4."; S019: "indicates that approximately N = 159 participants would be required for adequate power."; S019: "Thus, a group with fewer significant connections should not necessarily be interpreted as exhibiting weaker overall neural activity."; S009: "the sequential Bayes Factor (BF) analysis yielded a final BF 01 of 5.07 in favor of the null over the alternative hypothesis, after the data from N = 89 participants were taken into account"; S008: "The correlation between AI tool use and critical thinking was found to be strongly negative (r = -0.68), suggesting that greater reliance on AI tools is associated with a decline in critical thinking skills."; S008: "Experimental studies that manipulate the level of AI tool usage and measure resultant changes in critical thinking performance could offer causal evidence of the relationship between these variables."; S023: "A study from Microsoft and Carnegie Mellon University earlier this year found that among surveyed knowledge workers, AI increased work efficiency, but reduced critical enga". Step: S019 shows S007 is underpowered (54, then 18; ~159 needed) and its connectivity measure relative; S009 finds no Google effect (BF 5.07 for the null); S008 is a survey correlation whose author says experiments are needed for causal evidence; so each is weaker than a causal reading, but no source establishes that belief 'travels on' exactly these three, and S023/S033 cite a different study. Checks in memory on the corrected text (rule 1, rule 2, B2, B5, B6, B12, B19 incl. significance, B20, B21, B22, B23): B19 evidence hedge dropped (the evidence says 'hypothesis' (S009), 'could' (S008); the sentence carries no hedge) — a WARN, not a block.
+
+## 97. caab5487 — overstates (judgement)
+
+**Page now:** That uniformity is what common-method variance looks like.
+
+**Evidence:** 'Is what common-method variance looks like' reads as a diagnosis; uniform correlations are consistent with common-method variance but equally with a real relationship, and no held source tests for it.
+
+**Proposed:** "That uniformity is what common-method variance would produce, though it does not prove it is present."
+
+**Binding for the corrected text:** judgement. Premises: S008: "Cognitive Offloading ↔ Critical Thinking +0.72 -0.68 -0.75 Strong positive correlation Strong negative correlation Strong negative correlation"; S008: "we conducted surveys and in-depth interviews with 666 participants across diverse age groups and educational backgrounds"; S008: "Experimental studies that manipulate the level of AI tool usage and measure resultant changes in critical thinking performance could offer causal evidence of the relationship between these variables.". Step: S008 measures all three constructs in one survey and reports uniformly strong correlations (+0.72, -0.68, -0.75); uniform strong correlations among same-source self-reports are what shared method variance would produce, but S008 does not test for it and genuine association would also produce them. Checks in memory on the corrected text (rule 1, rule 2, B2, B5, B6, B12, B19 incl. significance, B20, B21, B22, B23): B19 evidence hedge dropped (the evidence says 'could' (S008); the sentence carries no hedge) — a WARN, not a block.
+
+## 98. e7229fa9 — overstates (judgement)
+
+**Page now:** The strongest evidence that AI use degrades a real skill, in real work, comes from an endoscopy suite — measured not after the tool was taken away but on the days it was not used, during a period when it was in use on the others.
+
+**Evidence:** 'The strongest evidence' is an unscoped superlative across all evidence; the premises establish only that it is the strongest such evidence among the studies this page read, and the prospective Pedersen trial on the same question found no decay.
+
+**Proposed:** "The strongest evidence we found that AI use degrades a real skill, in real work, comes from an endoscopy suite — measured not after the tool was taken away but on the days it was not used, during a period when it was in use on the others."
+
+**Binding for the corrected text:** judgement. Premises: S021: "ADR of standard colonoscopy significantly decreased from 28.4% (226/795) before to 22.4% (145/648) after the exposure to AI, corresponding to a 6% absolute reduction (95% confidence interval: -10.5% to -1.6%)."; S021: "These centers implemented AI tools for polyp detection at the end of 2021, after which colonoscopies were randomly conducted with or without AI assistance according to the date of examination."; S021: "We conducted a retrospective observational study at four endoscopy centers in Poland."; S043: "We evaluated the effect of exposure to CADe "after" CADe was removed, whereas Budzyn et al. investigated how endoscopists perform non-CADe-assisted colonoscopy "while" they were exposed to CADe in the other colonoscopies they performed during the same time period.". Step: Among the studies this page reviewed, the Polish study is the only one showing a fall in a clinical skill in routine practice, and its non-AI colonoscopies were done on non-AI days while AI was in use on other days, as Pedersen et al. point out; the superlative is therefore a ranking within this page's evidence. Checks in memory on the corrected text (rule 1, rule 2, B2, B5, B6, B12, B19 incl. significance, B20, B21, B22, B23): clean.
+
+## 99. b25cbddc — overstates (judgement)
+
+**Page now:** The ones that would make a reader hold the number loosely did not.
+
+**Evidence:** An unscoped universal negative about all coverage; the premises (and the page itself, 'not one piece of coverage we read') support it only for the coverage this page read, and absence cannot be shown from held passages.
+
+**Proposed:** "The ones that would make a reader hold the number loosely did not, in the coverage we read."
+
+**Binding for the corrected text:** judgement. Premises: S021: "This was primarily due to the temporary suspension of the colonoscopy-based colorectal cancer screening programme in Poland on 1 January 2022 (lasting until December 2022)."; S021: "Seventh, the lack of data of endoscope withdrawal time and sample size calculation due to the retrospective observational design are also noticeable limitations."; S040: "noted to SMC that the total number of colonoscopies-including both AI-assisted and non-AI-assisted ones-increased over the course of the study. The increased workload, Osmani suggested, could have led to clinician fatigue and poorer detection rates."; S023: "endoscopists introduced to an AI-assistance system went from detecting potential polyps at a rate of 28.4% with the technology to 22.4% after they no longer had access to the AI tools they were introduced to-a 20% drop in detection rates.". Step: The caveats that explain the fall in detail (the screening-programme suspension as the cause of the volume rise, the missing withdrawal-time data) are in the paper, while the coverage read reported at most that volume rose, and Fortune reported the figures without limitations. Checks in memory on the corrected text (rule 1, rule 2, B2, B5, B6, B12, B19 incl. significance, B20, B21, B22, B23): B19 evidence hedge dropped (the evidence says 'could' (S040); the sentence carries no hedge) — a WARN, not a block.
+
+## 100. 6183737f — overstates (judgement)
+
+**Page now:** What did not travel is the specific.
+
+**Evidence:** Time carried a specific caveat (the rise in procedure volume and its possible effect through fatigue), as the page's own next sentence concedes; the unqualified 'the specific' did not travel is broader than the premises allow.
+
+**Proposed:** "What mostly did not travel is the specific."
+
+**Binding for the corrected text:** judgement. Premises: S021: "This was primarily due to the temporary suspension of the colonoscopy-based colorectal cancer screening programme in Poland on 1 January 2022 (lasting until December 2022)."; S021: "Seventh, the lack of data of endoscope withdrawal time and sample size calculation due to the retrospective observational design are also noticeable limitations."; S040: "noted to SMC that the total number of colonoscopies-including both AI-assisted and non-AI-assisted ones-increased over the course of the study. The increased workload, Osmani suggested, could have led to clinician fatigue and poorer detection rates.". Step: The paper's specific limitations (the screening-programme suspension as the reason for the volume rise, the missing withdrawal-time data) are absent from the coverage held, although Time did carry the volume rise itself. Checks in memory on the corrected text (rule 1, rule 2, B2, B5, B6, B12, B19 incl. significance, B20, B21, B22, B23): B19 evidence hedge dropped (the evidence says 'could' (S040); the sentence carries no hedge) — a WARN, not a block.
+
+## 101. 2c9f964b — overstates (judgement)
+
+**Page now:** And the further the finding got from the specialty, the less arrived with it.
+
+**Evidence:** 'The further ..., the less' asserts a graded, monotonic relationship across all coverage; the premises show only a contrast between a few specialist and a few general outlets, and Time, a general outlet, carried both caveats.
+
+**Proposed:** "And the pieces we read that were furthest from the specialty, in business and computing outlets, carried the least of it."
+
+**Binding for the corrected text:** judgement. Premises: S023: "endoscopists introduced to an AI-assistance system went from detecting potential polyps at a rate of 28.4% with the technology to 22.4% after they no longer had access to the AI tools they were introduced to-a 20% drop in detection rates."; S023: "Doctors who used AI assistance in procedures became 20% worse at spotting abnormalities on their own, study finds, raising concern about overreliance"; S023: "A study from Microsoft and Carnegie Mellon University earlier this year found that among surveyed knowledge workers, AI increased work efficiency, but reduced critical engagement with content, atrophying judgment skills."; S033: "The detection rate for precancerous lesions dropped from 28.4% to 22.4% without AI in the picture. Similar issues pop up in law, education, journalism, software development, and other fields."; S041: "The authors acknowledged some limitations of the study, including its observational nature, noting that factors other than the implementation of AI use may have influenced the findings."; S042: ""However, the study design, population limits, operator factors, and short-term focus restrict broad applicability, and the deskilling concern remains hypothetical rather than proven," he noted.". Step: Specialist outlets (ASCO Post, Healthgrades with a named gastroenterologist) carried caveats, while the business and computing outlets (Fortune, Communications of the ACM) reported the figures with none of the study's limitations, so the pieces furthest from the specialty carried the least. Checks in memory on the corrected text (rule 1, rule 2, B2, B5, B6, B12, B19 incl. significance, B20, B21, B22, B23): B19 evidence hedge dropped (the evidence says 'may' (S041); the sentence carries no hedge) — a WARN, not a block.
+
+## 102. 13a1f595 — overstates (judgement)
+
+**Page now:** That is the same design error this page is about, in a magazine read by more people than the journal — and a draft of this section said nothing false had been printed here.
+
+**Evidence:** No held passage supports the readership comparison ('read by more people than the journal'), and the draft history is an internal record, not a source; the design-error part is fully supported.
+
+**Proposed:** "That is the same design error this page is about, in a general business magazine — and a draft of this section said nothing false had been printed here."
+
+**Binding for the corrected text:** judgement. Premises: S023: "endoscopists introduced to an AI-assistance system went from detecting potential polyps at a rate of 28.4% with the technology to 22.4% after they no longer had access to the AI tools they were introduced to-a 20% drop in detection rates."; S021: "ADR of standard colonoscopy significantly decreased from 28.4% (226/795) before to 22.4% (145/648) after the exposure to AI, corresponding to a 6% absolute reduction (95% confidence interval: -10.5% to -1.6%)."; S021: "These centers implemented AI tools for polyp detection at the end of 2021, after which colonoscopies were randomly conducted with or without AI assistance according to the date of examination."; S043: "We evaluated the effect of exposure to CADe "after" CADe was removed, whereas Budzyn et al. investigated how endoscopists perform non-CADe-assisted colonoscopy "while" they were exposed to CADe in the other colonoscopies they performed during the same time period.". Step: Fortune said the 28.4% was 'with the technology' and the 22.4% 'after they no longer had access', whereas the paper's 28.4% is pre-AI and the 22.4% was measured on non-AI days while AI was in use on other days, so Fortune repeats the 'after removal' misreading the page is about. Checks in memory on the corrected text (rule 1, rule 2, B2, B5, B6, B12, B19 incl. significance, B20, B21, B22, B23): clean.
+
+## 103. cb13b0ff — overstates (judgement)
+
+**Page now:** None of this makes the review's substance wrong, and we are relying on it.
+
+**Evidence:** The listed errors (wrong design label, misattributed reference 16, a Savardi summary that does not match the paper, a Table 1 misattribution) are themselves errors of substance; the premises support only that the parts this page relies on — the count and the overall characterisation — are not undermined.
+
+**Proposed:** "None of this undermines the parts of the review we rely on — its count of included studies and its description of the evidence as scarce and fragmented."
+
+**Binding for the corrected text:** judgement. Premises: S029: "Studies included in qualitative synthesis (scoping review) n = 12"; S029: "Evidence of clinical deskilling, though scarce, is consistent across specialties."; S029: "most of the available evidence on deskilling remains fragmented across specialties, with heterogeneous study designs and variable methodological rigor."; S029: "In a multicenter randomized trial in colonoscopy, the adenoma detection rate (ADR) dropped significantly from 28.4% to 22.4% when endoscopists reverted to non-AI procedures after repeated AI use, while ADR remained stable with AI assistance (25.3%)."; S029: "16. Gommers JJJ, Verboom SD, Duvivier KM, et al. Influence of AI decision support on radiologists' performance and visual search in screening mammography. Radiology. 2025;316(1):e243688.". Step: The review's errors are in how it describes individual studies (design label, reference attribution), while the count of included studies and its characterisation of the evidence as scarce and fragmented, which is what this page uses, are unaffected. Checks in memory on the corrected text (rule 1, rule 2, B2, B5, B6, B12, B19 incl. significance, B20, B21, B22, B23): clean.
+
+## 104. 1ed69ef1 — overstates (judgement)
+
+**Page now:** It makes the point that carrying a finding accurately across a boundary is difficult enough that the careful people fail at it too.
+
+**Evidence:** One review's errors show that careful specialists can fail; 'difficult enough that the careful people fail at it too' generalises from one case, and calling the authors 'careful' is not established by a review with several misattributions.
+
+**Proposed:** "It shows that carrying a finding accurately across a boundary is difficult enough that a specialist review, whose own body gets the design right, can still fail at it."
+
+**Binding for the corrected text:** judgement. Premises: S029: "In a multicenter randomized trial in colonoscopy, the adenoma detection rate (ADR) dropped significantly from 28.4% to 22.4% when endoscopists reverted to non-AI procedures after repeated AI use, while ADR remained stable with AI assistance (25.3%)."; S029: "The strongest empirical signal of clinical deskilling was observed in colonoscopy. A multicenter observational study conducted in Poland". Step: A specialist review whose body correctly calls the study observational still misdescribes it in its abstract, which shows that even expert authors can lose a finding's design when summarising it. Checks in memory on the corrected text (rule 1, rule 2, B2, B5, B6, B12, B19 incl. significance, B20, B21, B22, B23): clean.
+
+## 105. 738c8380 — overstates (judgement)
+
+**Page now:** It settles the confounding that the volume doubling introduced, and it is the single study that would move this from an association to a causal finding.
+
+**Evidence:** 'Settles' and 'the single study that would move this from an association to a causal finding' are stronger than the premises allow: one trial would address confounding by period but not settle it, and Pedersen et al.'s prospective before-during-after design is another route to a causal test.
+
+**Proposed:** "It would address the confounding that the volume doubling introduced, and it is the design that would most directly test whether the association is causal."
+
+**Binding for the corrected text:** judgement. Premises: S021: "we observed an almost two-fold increase in the number of procedures in the post-AI phase compared to the pre-AI phase (795 before vs. 1382 after AI implementation including 734 with AI-assistance and 648 without AI-assistance), even though both phases covered approximately three months."; S021: "This was primarily due to the temporary suspension of the colonoscopy-based colorectal cancer screening programme in Poland on 1 January 2022 (lasting until December 2022)."; S021: "We conducted a retrospective observational study at four endoscopy centers in Poland."; S021: "We emphasize the urgent need for robust prospective studies such as randomized crossover trials to assess its generalizability and call for more behavioral research to understand the currently under-investigated mechanisms of how AI affects physician capability."; S043: "We evaluated the effect of exposure to CADe "after" CADe was removed, whereas Budzyn et al. investigated how endoscopists perform non-CADe-assisted colonoscopy "while" they were exposed to CADe in the other colonoscopies they performed during the same time period.". Step: A randomised crossover allocation of endoscopists would balance period effects such as the volume increase from the screening suspension across arms, so it would address that confounding and test whether the observed association is causal. Checks in memory on the corrected text (rule 1, rule 2, B2, B5, B6, B12, B19 incl. significance, B20, B21, B22, B23): clean.
+
+## 106. 4fd2fa15 — misdescribes the Norwegian trial's span (judgement)
+
+**Page now:** Neither reaches the horizon people actually ask about, which is years.
+
+**Evidence:** Pedersen et al. ran from November 2021 to June 2025 and the inexperienced group's mean inclusion reached 23.8 months by phase 3, so the trial's sequence does span about two years; what neither reaches is years of AI exposure before unassisted measurement. 'The horizon people actually ask about' is also unsourced.
+
+**Proposed:** "Neither follows endoscopists through years of AI use before measuring them without it."
+
+**Binding for the corrected text:** judgement. Premises: S043: "Mean inclusion times from the first colonoscopy among the inexperienced vs. experienced groups were 6.8 vs. 2.2 months in phase 1, 17.7 vs. 7.6 months in phase 2, and 23.8 vs. 11.8 months in phase 3, respectively."; S043: "We performed a prospective, multicenter, registry-based, pragmatic clinical trial from November 2021 to June 2025"; S021: "we observed an almost two-fold increase in the number of procedures in the post-AI phase compared to the pre-AI phase (795 before vs. 1382 after AI implementation including 734 with AI-assistance and 648 without AI-assistance), even though both phases covered approximately three months.". Step: The Polish comparison covers about three months either side and the Norwegian trial's phases cover roughly a year of CADe exposure and about six months after removal for the inexperienced group, so neither follows endoscopists through several years of use. Checks in memory on the corrected text (rule 1, rule 2, B2, B5, B6, B12, B19 incl. significance, B20, B21, B22, B23): clean.
+
+## 107. 6b66734b — overstates (judgement)
+
+**Page now:** Eye tracking during real colonoscopy, linked to what was actually found, would move the mechanism from plausible to shown.
+
+**Evidence:** Eye tracking linked to findings in live procedures would still be observational; it would make the mechanism more than plausible but would not by itself 'show' it causally.
+
+**Proposed:** "Eye tracking during real colonoscopy, linked to what was actually found, would test the mechanism directly rather than in video clips."
+
+**Binding for the corrected text:** judgement. Premises: S031: "Participants with variable levels of colonoscopy experience viewed video sequences (n = 29) while eye movement was tracked."; S031: "21 participants performed 1218 experiments."; S031: "It increased misinterpretation of normal mucosa and decreased the eye travel distance. Possible consequences of these findings might be prolonged examination time and deskilling."; S032: "the potential impact on visual gaze could potentially be a mechanism by which prolonged CADe exposure could potentially impact performance over time.". Step: The gaze evidence (Troya et al., 21 participants viewing video sequences) and the ACG appraisal propose gaze narrowing as a possible mechanism; measuring gaze in live procedures and linking it to detections would test that mechanism directly. Checks in memory on the corrected text (rule 1, rule 2, B2, B5, B6, B12, B19 incl. significance, B20, B21, B22, B23): B19 evidence hedge dropped (the evidence says 'might' (S031), 'could' (S032); the sentence carries no hedge) — a WARN, not a block.
+
+## 108. 4512a421 — overstates (judgement)
+
+**Page now:** It does not say whether any clinician, department or reader should use these tools, and nothing here bears on whether AI-assisted colonoscopy is good for patients — the randomised evidence that AI raises detection during the procedure is not in dispute and is not what this page examined.
+
+**Evidence:** 'Not in dispute' is a universal claim no held passage establishes; the premises show a meta-analysis of randomised trials reporting a rise, which this page does not dispute.
+
+**Proposed:** "It does not say whether any clinician, department or reader should use these tools, and nothing here bears on whether AI-assisted colonoscopy is good for patients — the randomised evidence that AI raises detection during the procedure is not something this page disputes and is not what it examined."
+
+**Binding for the corrected text:** judgement. Premises: S021: "a meta-analysis of 20 randomized trials showed an absolute 8.1 % increase in ADR with the use of AI during colonoscopy."; S043: "We evaluated the effect of exposure to CADe "after" CADe was removed, whereas Budzyn et al. investigated how endoscopists perform non-CADe-assisted colonoscopy "while" they were exposed to CADe in the other colonoscopies they performed during the same time period.". Step: The Polish authors cite a meta-analysis of 20 randomised trials showing an 8.1% absolute ADR increase with AI, and this page's question is unassisted performance, so the in-procedure benefit is outside its scope. Checks in memory on the corrected text (rule 1, rule 2, B2, B5, B6, B12, B19 incl. significance, B20, B21, B22, B23): clean.
+
+## 109. afd83f74 — overstates (judgement)
+
+**Page now:** The studies being quoted in general coverage are not the strong ones, in either direction.
+
+**Evidence:** Held coverage shows only the alarm-side studies (MIT, Microsoft/Carnegie Mellon) being quoted; no held passage shows general coverage quoting the reassuring meta-analyses, so 'in either direction' is not established for coverage, and 'being quoted' is unscoped. The operator's correction also drops the second clause: the premises it needed (S005, the retraction) bear on a synthesis, not on what the coverage quoted.
+
+**Proposed:** "The studies quoted in the general coverage we read are not the strong ones."
+
+**Binding for the corrected text:** judgement. Premises: S040: "An earlier study by the Massachusetts Institute of Technology found that ChatGPT eroded critical thinking skills ."; S023: "A study from Microsoft and Carnegie Mellon University earlier this year found that among surveyed knowledge workers, AI increased work efficiency, but reduced critical engagement with content, atrophying judgment skills."; S007: "We recruited a total of 54 participants for Sessions 1, 2, 3, and 18 participants among them completed session 4."; S007: "Preprint, under review"; S019: "indicates that approximately N = 159 participants would be required for adequate power."; S008: "They were recruited through a combination of convenience and purposive sampling to ensure a diverse representation across age groups, educational backgrounds, and professional fields. The sample was promoted online in the UK on different social media platforms". Step: The studies the general coverage we read attached the colonoscopy result to (an MIT ChatGPT study in Time, a Microsoft and Carnegie Mellon survey in Fortune) are a small preprint under review (S007: 54 participants, 18 in session 4; S019: about 159 needed) and a self-selected self-report survey (S008), so neither is among the strong ones. Checks in memory on the corrected text (rule 1, rule 2, B2, B5, B6, B12, B19 incl. significance, B20, B21, B22, B23): clean.
+
+## 110. e99eaaf7 — overstates (a claim about readers, stated as fact) (judgement)
+
+**Page now:** Both of those are true, and neither is what a reader takes from a review date on a page.
+
+**Evidence:** No held passage concerns how readers interpret review dates; 'what a reader takes from a review date' is an empirical claim about readers stated as fact.
+
+**Proposed:** "Both of those are true, and in our judgement neither is what a reader takes from a review date on a page."
+
+**Binding for the corrected text:** WHU's own records, as a process claim: the operator's ruling of 12 September 2026 (`issues/WHU-003-deskilling/review/2026-09-12-modest-promise-ruling.md`, adjudicated as REVIEW-DATE-001 in `review/2026-09-12-review-date-adjudication.md`): “A "Last reviewed" date on a page is a currency claim — it tells a reader somebody looked recently and found nothing”; and `corrections.md`, 12 September 2026 entry: "Neither of those is what a reader takes from a review date on a page. A review date implies the page is kept current, and we cannot stand behind that." The corrected wording marks the sentence as our judgement; no held document bears on it. Not yet bound in bindings.json: no binding mechanism reads a record outside the source store (as a judgement with no premises it blocks rule 2).
+
+## 111. 849ac2af — overstates (an unscoped superlative) (judgement)
+
+**Page now:** The clearest evidence about what happens when the machine is wrong comes from a reading room.
+
+**Evidence:** 'The clearest evidence' is unscoped. The premises rank the reader studies this page read (S030 against S046 and S038); they establish nothing about evidence the page did not read.
+
+**Proposed:** "Among the studies we read, the clearest evidence about what happens when the machine is wrong comes from a reading room."
+
+**Binding for the corrected text:** judgement. Premises: S030: "The percentage of correctly rated mammograms by inexperienced (mean, 79.7% ± 11.7 [SD] vs 19.8% ± 14.0; P < .001; r = 0.93)"; S030: "very experienced (mean, 82.3% ± 4.2 vs 45.5% ± 9.1; P = .003; r = 0.97) radiologists was significantly impacted by the correctness of the AI prediction of BI-RADS category."; S046: "However, the clinicians' errors in the AI-assisted round were associated with automation bias, accounting for 45.5% of the total mistakes."; S038: "it also resulted in a 7% automation bias rate, where initially correct evaluations were overturned by erroneous AI advice.". Step: Dratsch et al.'s reader study, in which the same radiologists' accuracy fell from about 80% to 19.8–45.5% when the AI suggestion was wrong, is the most direct measurement of the effect of erroneous AI among the studies reviewed (Wang et al. and Rosbach et al. measure smaller or differently defined effects), so the clearest evidence comes from a radiology reading room. Checks in memory on the corrected text (rule 1, rule 2, B2, B5, B6, B12, B19 incl. significance, B20, B21, B22, B23): clean.
+
 ## Bound
 
 Batch 1 (2026-10-18): 849a833e, b61e583d, 9675c628, f2072847, a84075d9, 5850f3bd, 83bed04b,
 d49da6c2. Batch 2 (2026-10-18): c8d0e2c5 (S046), 43a5da1b, 7a69a530, e2d620f3, 495cfe6a,
 3da7203e, 57c41ddd, 03ea8e0e, f9eb567e, 48a03a9a, b2fff6c7, c2f8c733, 5bd6e3b7 (S046, page text
 unchanged). Verdicts signed by Fred Ugast, checked against held text with Claude as advisor. Batch 3 (2026-10-18): 11147b19 (B6 disposition on "only"), f83a6cfe, ae6de87f, d250f28b, 875ef76c, 695c1c4e, 7332d1e1, b9b79e7b, fa3d6649, 0f7a7387, ff258fcb, 286c807d, 8367d5ea, ea7550a9, 8e62c8a7 and 36c83e6f (each also resting on S043's "from November 2021 to June 2025 … at three Norwegian outpatient clinics"), 086f4a02 (S046's PMC HTML rendition, which prints ±). Not bound, corrections above: a4267014, 09ba5473 and the batch-3 errors. Batch 4 (2026-10-18): ca9628d8, 27aa49d9, d9fc5473, 502fa7d2, 0172a591, cfb23438 (citation only), 156950e7, e3505b85, f75193b0, 02c52e9f, 286e6f09, 74c83102, a6e4f110, 6e60f428, 5ba6a1cf, 2da5831f, b3980490, 6e298fd2 (Table 1 linearisation doubt in why_bound), 9e43899c, 97fc07bf, 8c183fe5 (issue 6 from Crossref; 'Issue date : June 2026' held), 30a6ffe0 and b27ab3c7 (53, 436 and 41 declared as our arithmetic).
+
+Judgements (2026-10-18), bound as judgement rows with premises and step, verdicts signed by Fred Ugast (premises read against held text by Claude Code, reviewed by Claude as advisor): faec9851, 8d3197bb, d03dd93f, af54c425, d742d3ee, 70a74bf8, 1d4c39aa, ca66d6ea, 5c684127, 98040c6f, 82f7999b, 1cfeb55b, 89556149, 9fec3c76, 4332610d, 46230167, 6b15012a, 3944e40f, 4cea8f5d, d190d0b3, 1b44f672, 22bfc8c8, 2f2fe514, c999cd40. B19 hedge dispositions recorded on 10 (c999cd40, 8d3197bb, d03dd93f, 5c684127, 1cfeb55b, 9fec3c76, 46230167, 6b15012a, 3944e40f, 4cea8f5d). B19 left as WARN on 3, because the disposition's form would be false: faec9851 (it does restate S021's hedged claim, with its own 'plausibly', which B19's sentence list does not read as a hedge); af54c425 and d742d3ee ('limited' is S029's finding, not a hedge on it, and both sentences restate it). Not bound, corrections above: the 24 judgement errors.
