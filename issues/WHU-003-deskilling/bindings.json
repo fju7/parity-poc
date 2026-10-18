@@ -439,23 +439,45 @@
       "sentence": "Among the seven inexperienced endoscopists, detection of at least one polyp of 5 mm or more rose while the AI was running, from 31.9% (216 of 678) to 39.5% (257 of 651), an odds ratio of 1.43 on a 95% confidence interval of 1.11 to 1.84.",
       "sentence_sha": "849a833ee8fd206c",
       "why_empirical": "figure",
-      "bucket": null,
-      "source_id": null,
-      "document_sha": null,
-      "locator_type": null,
-      "locator": null,
-      "span": null,
-      "envelope": null,
+      "bucket": "deterministic",
+      "source_id": "S043",
+      "document_sha": "3af130dc2d4dc9bf7c8a61e65acb7dba5702cac1cce2cce6022311f05c96666c",
+      "locator_type": "prose",
+      "locator": "Abstract, Results; PDR-5 defined in the Introduction",
+      "span": "CADe temporarily increased PDR-5 among inexperienced endoscopists from phase 1 to 2 (31.9% [216/678] to 39.5% [257/651]; odds ratio [OR] 1.43, 95%CI 1.11-1.84).",
+      "envelope": "(interquartile range 44-71) and 2703 (53.9%) were women. Patient sex and age were similar across the two experience groups, whereas indications differed (e.g. more inflammatory bowel disease in the inexperienced group). CADe temporarily increased PDR-5 among inexperienced endoscopists from phase 1 to 2 (31.9% [216/678] to 39.5% [257/651]; odds ratio [OR] 1.43, 95%CI 1.11-1.84). There was no significant change between phases 1 and 3 (31.9% [216/678] to 36.3% [173/476]; OR 1.03, 95%CI 0.79-1.34). There was no significant CADe effect on PDR-5 among experienced endoscopists between phases. Conclus",
       "scope_words": [],
       "falsifier": null,
       "verdicts": {
-        "locatable": null,
-        "faithful": null,
+        "locatable": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "checked against held text with Claude (advisor), 2026-10-18"
+        },
+        "faithful": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "checked against held text with Claude (advisor), 2026-10-18"
+        },
         "warranted": null
       },
       "first_seen": "2026-09-01",
       "on_page": true,
-      "autobind": "no held document contains all 5 anchors: 31.9%, 39.5%, 1.43, 1.11, 1.84"
+      "autobind": "no held document contains all 5 anchors: 31.9%, 39.5%, 1.43, 1.11, 1.84",
+      "also_rests_on": [
+        {
+          "source_id": "S043",
+          "span": "defined as the proportion of colonoscopies with detection of at least one polyp ≥5 mm in size"
+        },
+        {
+          "source_id": "S043",
+          "span": "Results 13 endoscopists (7 inexperienced, 6 experienced)"
+        }
+      ],
+      "proposed_by": "model",
+      "proposed_on": "2026-10-18",
+      "confirmed": true,
+      "why_bound": "batch 1 (2026-10-18): proposed by Claude from held text, every span an exact substring of the held bytes; confirmed by Fred Ugast. See docs/whatholdsup-deskilling-revision.md."
     },
     "32db25e0d55b2a80": {
       "sentence": "After the AI was removed it was 36.3% (173 of 476) against the 31.9% baseline — an adjusted odds ratio of 1.03 , on 0.79 to 1.34, which is no change.",
@@ -681,29 +703,41 @@
       "sentence": "With the AI running, eye travel distance fell from a median of 248.86 cm to 232.68 cm (P < 0.001).",
       "sentence_sha": "b61e583d8596dfb5",
       "why_empirical": "figure",
-      "bucket": null,
-      "source_id": null,
-      "document_sha": null,
-      "locator_type": null,
-      "locator": null,
-      "span": null,
-      "envelope": null,
+      "bucket": "context",
+      "source_id": "S031",
+      "document_sha": "2402cde39b20be8bc2fef474427e7db389834ce041b9273e21c876cd6b740ccc",
+      "locator_type": "table",
+      "locator": "Table, eye travel distance (all videos, all participants)",
+      "span": "Eye travel distance, median (99 %CI), cm P value Without CADe CADe All videos All participants 248.86 (221.39-282.88) 232.68 (210.43-262.33) < 0.001",
+      "envelope": "ositives were analyzed. Fig. 3 is an example of the area covered by the gaze of a novice and an experienced examiner on a video containing no polyp. Table 1 Eye travel distance with and without computer-aided detection. Eye travel distance, median (99 %CI), cm P value Without CADe CADe All videos All participants 248.86 (221.39-282.88) 232.68 (210.43-262.33) < 0.001 Experienced 247.89 (209.68-299.26) 227.09 (192.39-278.32) Novice 255.66 (221.40-297.99) 247.89 (216.31-266.20) False-positive videos only All participants 368.95 (331.75-395.10) 329.76 (293.81-387.00) CADe, computer-aid",
       "scope_words": [],
       "falsifier": null,
       "verdicts": {
-        "locatable": null,
-        "faithful": null,
+        "locatable": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "checked against held text with Claude (advisor), 2026-10-18"
+        },
+        "faithful": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "checked against held text with Claude (advisor), 2026-10-18"
+        },
         "warranted": null
       },
       "first_seen": "2026-09-01",
       "on_page": true,
-      "autobind": "no held document contains all 3 anchors: 248.86, 232.68, 0.001"
+      "autobind": "no held document contains all 3 anchors: 248.86, 232.68, 0.001",
+      "proposed_by": "model",
+      "proposed_on": "2026-10-18",
+      "confirmed": true,
+      "why_bound": "batch 1 (2026-10-18): proposed by Claude from held text, every span an exact substring of the held bytes; confirmed by Fred Ugast. See docs/whatholdsup-deskilling-revision.md."
     },
     "9675c628d62f8254": {
       "sentence": "That is a reduction of about 6.5% across all participants.",
       "sentence_sha": "9675c628d62f8254",
       "why_empirical": "figure",
-      "bucket": null,
+      "bucket": "judgement",
       "source_id": null,
       "document_sha": null,
       "locator_type": null,
@@ -713,19 +747,42 @@
       "scope_words": [],
       "falsifier": null,
       "verdicts": {
-        "locatable": null,
-        "faithful": null,
-        "warranted": null
+        "locatable": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "checked against held text with Claude (advisor), 2026-10-18"
+        },
+        "faithful": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "checked against held text with Claude (advisor), 2026-10-18"
+        },
+        "warranted": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "checked against held text with Claude (advisor), 2026-10-18"
+        }
       },
       "first_seen": "2026-09-01",
       "on_page": true,
-      "autobind": "anchors too weak to identify a document: 6.5% (strength 1, need 4)"
+      "autobind": "anchors too weak to identify a document: 6.5% (strength 1, need 4)",
+      "premises": [
+        {
+          "source_id": "S031",
+          "span": "Eye travel distance, median (99 %CI), cm P value Without CADe CADe All videos All participants 248.86 (221.39-282.88) 232.68 (210.43-262.33) < 0.001"
+        }
+      ],
+      "step": "(248.86 - 232.68) / 248.86 = 6.50%, so the fall in median eye travel distance is about 6.5%; our arithmetic on S031's two medians, declared in figure-exclusions.json.",
+      "proposed_by": "model",
+      "proposed_on": "2026-10-18",
+      "confirmed": true,
+      "why_bound": "batch 1 (2026-10-18): proposed by Claude from held text, every span an exact substring of the held bytes; confirmed by Fred Ugast. See docs/whatholdsup-deskilling-revision.md."
     },
     "f2072847c5289da8": {
       "sentence": "Among the experienced it was larger — 247.89 cm to 227.09 cm, about 8% — and among novices smaller: 255.66 cm to 247.89 cm, about 3%.",
       "sentence_sha": "f2072847c5289da8",
       "why_empirical": "figure",
-      "bucket": null,
+      "bucket": "judgement",
       "source_id": null,
       "document_sha": null,
       "locator_type": null,
@@ -735,13 +792,36 @@
       "scope_words": [],
       "falsifier": null,
       "verdicts": {
-        "locatable": null,
-        "faithful": null,
-        "warranted": null
+        "locatable": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "checked against held text with Claude (advisor), 2026-10-18"
+        },
+        "faithful": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "checked against held text with Claude (advisor), 2026-10-18"
+        },
+        "warranted": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "checked against held text with Claude (advisor), 2026-10-18"
+        }
       },
       "first_seen": "2026-09-01",
       "on_page": true,
-      "autobind": "no held document contains all 3 anchors: 247.89, 227.09, 255.66"
+      "autobind": "no held document contains all 3 anchors: 247.89, 227.09, 255.66",
+      "premises": [
+        {
+          "source_id": "S031",
+          "span": "Experienced 247.89 (209.68-299.26) 227.09 (192.39-278.32) Novice 255.66 (221.40-297.99) 247.89 (216.31-266.20)"
+        }
+      ],
+      "step": "Experienced (247.89 - 227.09) / 247.89 = 8.4%, about 8%; novices (255.66 - 247.89) / 255.66 = 3.0%, about 3%; our arithmetic on S031's subgroup medians.",
+      "proposed_by": "model",
+      "proposed_on": "2026-10-18",
+      "confirmed": true,
+      "why_bound": "batch 1 (2026-10-18): proposed by Claude from held text, every span an exact substring of the held bytes; confirmed by Fred Ugast. See docs/whatholdsup-deskilling-revision.md."
     },
     "509b18f63d6799c5": {
       "sentence": "The system detected polyps faster than people did — a median 1.16 seconds against 2.97 — but the people using it were no faster than the people working without it (2.90 seconds, indistinguishable from 2.97).",
@@ -1143,23 +1223,35 @@
       "sentence": "One included study gave 36 students a single shared grade per group and was entered as though each had an individual score, producing an effect size of 4.009.",
       "sentence_sha": "a84075d9f06dcc6a",
       "why_empirical": "figure",
-      "bucket": null,
-      "source_id": null,
-      "document_sha": null,
-      "locator_type": null,
-      "locator": null,
-      "span": null,
-      "envelope": null,
+      "bucket": "context",
+      "source_id": "S005",
+      "document_sha": "4a3a8265fbfd97350e82cf0ae8c8d1a354006af91f2bc0ddf05a6fb75df52448",
+      "locator_type": "prose",
+      "locator": "Main text, data handling in studies with the highest effect sizes",
+      "span": "For example, Ji et al. (2023) divided 36 students into groups of five to six, with each group receiving a single, shared grade. In Wang and Fan's meta-analysis, however, this group-based assessment was treated as if each student had received an individual score. Ignoring the clustered nature of the data artificially reduces variance and inflates the effect size, which was reported as g = 4.009.",
+      "envelope": "reports 250 participants in the abstract, but only 150 in the results section. We also examined the data handling in several studies with the highest reported effect sizes, many of which contained notable discrepancies. For example, Ji et al. (2023) divided 36 students into groups of five to six, with each group receiving a single, shared grade. In Wang and Fan's meta-analysis, however, this group-based assessment was treated as if each student had received an individual score. Ignoring the clustered nature of the data artificially reduces variance and inflates the effect size, which was reported as g = 4.009. The presence of such an extreme value should have prompted immediate scrutiny by both the authors and peer reviewers. Effect sizes greater than 1 are rare in educational research (Kraft, 2023), yet in Wang and Fan's met",
       "scope_words": [],
       "falsifier": null,
       "verdicts": {
-        "locatable": null,
-        "faithful": null,
+        "locatable": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "checked against held text with Claude (advisor), 2026-10-18"
+        },
+        "faithful": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "checked against held text with Claude (advisor), 2026-10-18"
+        },
         "warranted": null
       },
       "first_seen": "2026-09-01",
       "on_page": true,
-      "autobind": "anchors too weak to identify a document: 4.009 (strength 3, need 4)"
+      "autobind": "anchors too weak to identify a document: 4.009 (strength 3, need 4)",
+      "proposed_by": "model",
+      "proposed_on": "2026-10-18",
+      "confirmed": true,
+      "why_bound": "batch 1 (2026-10-18): proposed by Claude from held text, every span an exact substring of the held bytes; confirmed by Fred Ugast. See docs/whatholdsup-deskilling-revision.md."
     },
     "c41b6d69248ce5c4": {
       "sentence": "Effect sizes above 1 are rare in education research; in that analysis they appeared in about 36% of included studies.",
@@ -2268,23 +2360,61 @@
       "sentence": "The audit that prompted it — Ingebrigtsen M and Lukic M, PsyArXiv, first posted 2 July 2025 — is the source of the corrected effect read off the original’s own funnel plot, the retracted study carrying about 19% of the weight, the second-heaviest study measuring self-efficacy rather than learning, the 41 unique table entries against a reported 44, the effect size of 4.009 produced by treating shared group grades as individual scores, and effect sizes above 1 in about 36% of included studies.",
       "sentence_sha": "5850f3bd7194a4c2",
       "why_empirical": "figure",
-      "bucket": null,
-      "source_id": null,
-      "document_sha": null,
-      "locator_type": null,
-      "locator": null,
-      "span": null,
-      "envelope": null,
+      "bucket": "context",
+      "source_id": "S005",
+      "document_sha": "4a3a8265fbfd97350e82cf0ae8c8d1a354006af91f2bc0ddf05a6fb75df52448",
+      "locator_type": "prose",
+      "locator": "Main text throughout; version history on the title page",
+      "span": "For example, Ji et al. (2023) divided 36 students into groups of five to six, with each group receiving a single, shared grade. In Wang and Fan's meta-analysis, however, this group-based assessment was treated as if each student had received an individual score. Ignoring the clustered nature of the data artificially reduces variance and inflates the effect size, which was reported as g = 4.009.",
+      "envelope": "reports 250 participants in the abstract, but only 150 in the results section. We also examined the data handling in several studies with the highest reported effect sizes, many of which contained notable discrepancies. For example, Ji et al. (2023) divided 36 students into groups of five to six, with each group receiving a single, shared grade. In Wang and Fan's meta-analysis, however, this group-based assessment was treated as if each student had received an individual score. Ignoring the clustered nature of the data artificially reduces variance and inflates the effect size, which was reported as g = 4.009. The presence of such an extreme value should have prompted immediate scrutiny by both the authors and peer reviewers. Effect sizes greater than 1 are rare in educational research (Kraft, 2023), yet in Wang and Fan's met",
       "scope_words": [],
       "falsifier": null,
       "verdicts": {
-        "locatable": null,
-        "faithful": null,
+        "locatable": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "checked against held text with Claude (advisor), 2026-10-18"
+        },
+        "faithful": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "checked against held text with Claude (advisor), 2026-10-18"
+        },
         "warranted": null
       },
       "first_seen": "2026-09-01",
       "on_page": true,
-      "autobind": "anchors too weak to identify a document: 4.009 (strength 3, need 4)"
+      "autobind": "anchors too weak to identify a document: 4.009 (strength 3, need 4)",
+      "also_rests_on": [
+        {
+          "source_id": "S005",
+          "span": "the funnel plot for learning performance indicates that the pooled ehect size was approximately 0.5, and not 0.867."
+        },
+        {
+          "source_id": "S005",
+          "span": "Critically, the study with the lowest standard error by (SE = 0.066), carrying approximately 19% of the total weight, was ohicially retracted two months before the publication of Wang and Fan's metaanalysis"
+        },
+        {
+          "source_id": "S005",
+          "span": "The second most influential study, Huang et al. (2024), had an SE of 0.092 and accounted for roughly 10% of the total weight. However, it did not measure learning performance. Its primary outcomes were self-ehicacy and technology acceptance, constructs that do not align with the authors' stated inclusion criteria for learning performance."
+        },
+        {
+          "source_id": "S005",
+          "span": "Notably, the table lists only 41 unique entries for learning performance, despite the analysis reporting k = 44."
+        },
+        {
+          "source_id": "S005",
+          "span": "Effect sizes greater than 1 are rare in educational research (Kraft, 2023), yet in Wang and Fan's meta-analysis, they appear in about 36% of the included studies."
+        },
+        {
+          "source_id": "S005",
+          "span": "Preprint Version 1: 2 July 2025"
+        }
+      ],
+      "proposed_by": "model",
+      "proposed_on": "2026-10-18",
+      "confirmed": true,
+      "why_bound": "batch 1 (2026-10-18): proposed by Claude from held text, every span an exact substring of the held bytes; confirmed by Fred Ugast. See docs/whatholdsup-deskilling-revision.md."
     },
     "7675d3e4f6eef724": {
       "sentence": "J Comput Assist Learn 2025;41:e70105 Read in the corresponding author's own copy of the published paper, the publisher's site having refused us; the audit table gives four of nineteen comparisons meeting all three criteria, the treatment well described in fourteen, the control in eight, and a valid learning measure present in ten.",
@@ -2426,24 +2556,42 @@
       "sentence": "The ASCO Post , 13 August 2025 Source of the quoted acknowledgements — “its observational nature” and “factors other than the implementation of AI use may have influenced the findings” — and of the senior author’s question about the randomised trials that preceded this result.",
       "sentence_sha": "83bed04bda808ab1",
       "why_empirical": "quoted passage",
-      "bucket": null,
-      "source_id": null,
-      "document_sha": null,
-      "locator_type": null,
-      "locator": null,
-      "span": null,
-      "envelope": null,
+      "bucket": "context",
+      "source_id": "S041",
+      "document_sha": "1c5c2894f6932a55a3885042f26e672b662f7b356381d3785b74f2c289706f04",
+      "locator_type": "prose",
+      "locator": "body, the limitations paragraph and Dr Mori's quotation",
+      "span": "The authors acknowledged some limitations of the study, including its observational nature, noting that factors other than the implementation of AI use may have influenced the findings.",
+      "envelope": " the case that non-AI assisted colonoscopy assessed in these trials is different from standard non-AI assisted colonoscopy, as the endoscopists in the trials may have been negatively affected by continuous AI exposure.\" The authors acknowledged some limitations of the study, including its observational nature, noting that factors other than the implementation of AI use may have influenced the findings. Additionally, as the study was conducted with experienced endoscopists, this may limit its generalization to all endoscopists. Further studies with less experienced health professionals are needed to see if long-term AI",
       "scope_words": [],
       "falsifier": null,
       "verdicts": {
-        "locatable": null,
-        "faithful": null,
+        "locatable": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "checked against held text with Claude (advisor), 2026-10-18"
+        },
+        "faithful": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "checked against held text with Claude (advisor), 2026-10-18"
+        },
         "warranted": null
       },
       "first_seen": "2026-09-01",
       "on_page": true,
       "autobind": "anchors too weak to identify a document: factors other than the implementation of AI use may have influenced the findings (strength 3, need 4)",
-      "left_page": "2026-09-01"
+      "left_page": "2026-09-01",
+      "also_rests_on": [
+        {
+          "source_id": "S041",
+          "span": "Senior author Yuichi Mori, MD , of the University of Oslo, said, \"These results pose an interesting question about previous randomized controlled trials which found AI-assisted colonoscopy enabled a higher adenoma detection rate than non-AI assisted colonoscopy."
+        }
+      ],
+      "proposed_by": "model",
+      "proposed_on": "2026-10-18",
+      "confirmed": true,
+      "why_bound": "batch 1 (2026-10-18): proposed by Claude from held text, every span an exact substring of the held bytes; confirmed by Fred Ugast. See docs/whatholdsup-deskilling-revision.md."
     },
     "e07130366e4bb255": {
       "sentence": "Healthgrades , 19 August 2025 Calls it “a retrospective observational study” and carries an outside expert’s judgement that “the study design, population limits, operator factors, and short-term focus restrict broad applicability, and the deskilling concern remains hypothetical rather than proven”.",
@@ -2517,7 +2665,7 @@
       "sentence": "Greengard S, “The AI Deskilling Paradox”, Communications of the ACM , 7 November 2025, carries none of this study’s limitations but does carry caveats of its own, on governance and on deskilling having good outcomes as well as bad ones; we had described it as carrying none, and that was wrong.",
       "sentence_sha": "d49da6c26316623b",
       "why_empirical": "quoted passage",
-      "bucket": null,
+      "bucket": "judgement",
       "source_id": null,
       "document_sha": null,
       "locator_type": null,
@@ -2527,13 +2675,44 @@
       "scope_words": [],
       "falsifier": null,
       "verdicts": {
-        "locatable": null,
-        "faithful": null,
-        "warranted": null
+        "locatable": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "checked against held text with Claude (advisor), 2026-10-18"
+        },
+        "faithful": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "checked against held text with Claude (advisor), 2026-10-18"
+        },
+        "warranted": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "checked against held text with Claude (advisor), 2026-10-18"
+        }
       },
       "first_seen": "2026-09-01",
       "on_page": true,
-      "autobind": "anchors too weak to identify a document: The AI Deskilling Paradox (strength 3, need 4)"
+      "autobind": "anchors too weak to identify a document: The AI Deskilling Paradox (strength 3, need 4)",
+      "premises": [
+        {
+          "source_id": "S033",
+          "span": "Consider: a study published in 2025 in The Lancet of Gastroenterology & Hepatology found that endoscopists who routinely used AI for assistance in colonoscopies performed worse if access to the technology suddenly disappeared. The detection rate for precancerous lesions dropped from 28.4% to 22.4% without AI in the picture."
+        },
+        {
+          "source_id": "S033",
+          "span": "Without appropriate oversight and controls, both groups may perform worse."
+        },
+        {
+          "source_id": "S033",
+          "span": "Deskilling can lead to a variety of positive and negative outcomes, Kittur said. How society chooses to design, deploy, and govern AI will determine whether it fuels progress or unleashes misery on the masses."
+        }
+      ],
+      "step": "Greengard reports the colonoscopy result with no limitation attached (no 'limitation', 'observational', 'retrospective' or 'caveat' anywhere in S033), and does carry caveats of its own: oversight and how AI is governed, and deskilling having positive as well as negative outcomes. 'We had described it as carrying none' is our own record, not S033's.",
+      "proposed_by": "model",
+      "proposed_on": "2026-10-18",
+      "confirmed": true,
+      "why_bound": "batch 1 (2026-10-18): proposed by Claude from held text, every span an exact substring of the held bytes; confirmed by Fred Ugast. See docs/whatholdsup-deskilling-revision.md."
     },
     "61068fb5aeb4136f": {
       "sentence": "It became a piece about a distinction between AI that teaches and AI that answers; a check found that distinction already in print, and the retraction of the meta-analysis it rested on.",
