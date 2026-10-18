@@ -255,7 +255,21 @@
       "kind": "full_text",
       "kind_why": "22878 characters, reference list and discussion/introduction present",
       "superseded": [],
-      "also_held": []
+      "also_held": [
+        {
+          "sha256": "4564350bb3597e9a803da5557809de6fdb00f070afaf37a47e8fc66a0e580742",
+          "file": "docs/45/4564350bb3597e9a803da5557809de6fdb00f070afaf37a47e8fc66a0e580742.pdf",
+          "bytes": 1086163,
+          "url": "http://www.thieme-connect.de/products/ejournals/pdf/10.1055/a-1770-7353.pdf",
+          "held": "2026-10-18",
+          "via": "downloaded by Fred Ugast in his own browser from Thieme's open-access PDF, 2026-10-18; identified and ingested by Claude Code",
+          "note": "",
+          "also_held_reason": "the publisher's PDF (version of record, Endoscopy 2022;54:1009-1014, open access) of the same paper held as Europe PMC XML; both carry Table 2 (inspection time, incl. 43.79 for all participants); held as the version of record",
+          "also_held_added": "2026-10-18",
+          "kind": "full_text",
+          "kind_why": "22858 characters, reference list and discussion/introduction present"
+        }
+      ]
     },
     "S043": {
       "sha256": "3af130dc2d4dc9bf7c8a61e65acb7dba5702cac1cce2cce6022311f05c96666c",

@@ -430,14 +430,15 @@
     {
       "id": "Q-36",
       "quote": "a negative impact on endoscopist performance",
-      "source_id": "",
-      "verbatim": "",
+      "source_id": "S048",
+      "verbatim": "Continuous exposure to AI reduced ADR of standard, non-AI assisted colonoscopy, suggesting a negative impact on endoscopist performance.",
       "kind": "",
       "why": "",
       "attested": {
         "by": "",
         "on": ""
-      }
+      },
+      "note": "Verbatim in S048 (Budzyń et al., SSRN preprint 5070304, December 2024), Abstract, Conclusion, once SSRN's interleaved watermark is removed (spancheck.strip_ssrn); the raw extraction reads 'a er r ev negative impact'."
     },
     {
       "id": "Q-37",

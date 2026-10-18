@@ -1124,7 +1124,7 @@
         "not_read": [
           "the online-only supplementary material (Tables 1s, 2s; Figures 1s-4s)"
         ],
-        "note": "The operator supplied the PDF after Thieme 404'd on two URL forms, ResearchGate rate-limited, Semantic Scholar was robots-disallowed and PubMed served a CAPTCHA. Fourth document tonight that needed a human.",
+        "note": "The operator supplied the PDF after Thieme 404'd on two URL forms, ResearchGate rate-limited, Semantic Scholar was robots-disallowed and PubMed served a CAPTCHA. Fourth document tonight that needed a human.\n\n2026-10-18: a second rendition is held — Thieme's open-access PDF, the version of record (Endoscopy 2022;54:1009-1014; DOI 10.1055/a-1770-7353 printed on it), downloaded by Fred Ugast in his own browser and ingested with source_store.py add --also-held; the Europe PMC XML stays the primary rendition. Both carry Table 2, whose 'All' row gives 43.79 (40.71-54.89), the figure the page rounds to 43.8.",
         "held": {
           "file": "docs/24/2402cde39b20be8bc2fef474427e7db389834ce041b9273e21c876cd6b740ccc.xml",
           "sha256": "2402cde39b20be8bc2fef474427e7db389834ce041b9273e21c876cd6b740ccc",

@@ -75,24 +75,42 @@
       "sentence": "That is a drop of 6.0 percentage points , 95% confidence interval −10.5 to −1.6 percentage points — both ends below zero — at P = 0.0089.",
       "sentence_sha": "b2fff6c7deed25e8",
       "why_empirical": "figure",
-      "bucket": null,
-      "source_id": null,
-      "document_sha": null,
-      "locator_type": null,
-      "locator": null,
-      "span": null,
-      "envelope": null,
+      "bucket": "deterministic",
+      "source_id": "S021",
+      "document_sha": "4296ea811a437d2749051b11f4300da2d43716705ca10ea7b8ffda4ddf0cfbe9",
+      "locator_type": "prose",
+      "locator": "Table 2 (S021, accepted manuscript); S027 preview for P = 0.0089",
+      "span": "ADR n (%) 226 (28.4%) 145 (22.4%) -6.0 (-10.5, -1.6); p = 0.009",
+      "envelope": "Table 2. Quality indicators of standard, non-AI assisted colonoscopy before and after the artificial intelligence implementation. Before AI implementation N=795 After AI implementation N=648 Difference (95% CI); p-value ADR n (%) 226 (28.4%) 145 (22.4%) -6.0 (-10.5, -1.6); p = 0.009# Adenoma per colonoscopy, mean (SE) 0.54 (0.04) 0.43 (0.04) 0.11 (-0.01, 0.24); p = 0.071~ Advanced adenomas per colonoscopy, mean (SE) 0.062 (0.01) 0.063 (0.01) -0.002 (-0.03, 0.03); p=0.918~ AI-artificial intelligence",
       "scope_words": [],
       "falsifier": null,
       "verdicts": {
-        "locatable": null,
-        "faithful": null,
+        "locatable": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "checked against held text with Claude (advisor), 2026-10-18"
+        },
+        "faithful": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "checked against held text with Claude (advisor), 2026-10-18"
+        },
         "warranted": null
       },
       "first_seen": "2026-09-01",
       "on_page": true,
       "autobind": "no held document contains all 4 anchors: 6.0, 10.5, 1.6, 0.0089",
-      "check_flags": []
+      "check_flags": [],
+      "also_rests_on": [
+        {
+          "source_id": "S027",
+          "span": "Crucially, the ADR of standard colonoscopy decreased significantly from 28.4% before to 22.4% after exposure to AI (-6% absolute difference, P = 0.0089)."
+        }
+      ],
+      "proposed_by": "model",
+      "proposed_on": "2026-10-18",
+      "confirmed": true,
+      "why_bound": "batch 2 (2026-10-18): proposed by Claude from held text, every span an exact substring of the held bytes; confirmed by Fred Ugast. See docs/whatholdsup-deskilling-revision.md."
     },
     "dab1a46d94d804de": {
       "sentence": "The nineteen endoscopists involved were not novices: each had performed more than 2,000 colonoscopies, and they averaged 27.6 years since graduation, over a range of 8 to 39.",
@@ -151,47 +169,81 @@
       "sentence": "AI assistance raised overall diagnostic accuracy from 87.2% to 96.4%.",
       "sentence_sha": "c8d0e2c5bfbb6600",
       "why_empirical": "figure",
-      "bucket": null,
-      "source_id": null,
-      "document_sha": null,
-      "locator_type": null,
-      "locator": null,
-      "span": null,
-      "envelope": null,
+      "bucket": "deterministic",
+      "source_id": "S046",
+      "document_sha": "8901af1d48c1ab9f198cb45c5c0ab99dd2ba77455768701b5cdb92b3f20eb9eb",
+      "locator_type": "prose",
+      "locator": "Abstract, Results",
+      "span": "The AI significantly increased clinicians' accuracy from 87.2%613.1% to 96.4%61.9% (P < .001).",
+      "envelope": "isleading probabilities of the AI. We further proposed an AI suppression strategy that retracted AI diagnoses with a higher misleading probability and provided AI diagnoses with a higher correcting probability. Results: The AI significantly increased clinicians' accuracy from 87.2%613.1% to 96.4%61.9% (P < .001). However, the clinicians' errors in the AI-assisted round were associated with automation bias, accounting for 45.5% of the total mistakes. The automation bias was found to affect clinicians of all levels of expertise. U",
       "scope_words": [],
       "falsifier": null,
       "verdicts": {
-        "locatable": null,
-        "faithful": null,
+        "locatable": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "checked against held text with Claude (advisor), 2026-10-18"
+        },
+        "faithful": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "checked against held text with Claude (advisor), 2026-10-18"
+        },
         "warranted": null
       },
       "first_seen": "2026-09-01",
       "on_page": true,
       "autobind": "no held document contains all 2 anchors: 87.2%, 96.4%",
-      "check_flags": []
+      "check_flags": [],
+      "proposed_by": "model",
+      "proposed_on": "2026-10-18",
+      "confirmed": true,
+      "why_bound": "batch 2 (2026-10-18): proposed by Claude from held text, every span an exact substring of the held bytes; confirmed by Fred Ugast. See docs/whatholdsup-deskilling-revision.md."
     },
     "5bd6e3b7ba6a8127": {
       "sentence": "It also accounted for the errors that remained: 45.5% of the errors made under AI assistance were attributable to automation bias , across all levels of experience.",
       "sentence_sha": "5bd6e3b7ba6a8127",
       "why_empirical": "figure",
-      "bucket": null,
-      "source_id": null,
-      "document_sha": null,
-      "locator_type": null,
-      "locator": null,
-      "span": null,
-      "envelope": null,
+      "bucket": "deterministic",
+      "source_id": "S046",
+      "document_sha": "8901af1d48c1ab9f198cb45c5c0ab99dd2ba77455768701b5cdb92b3f20eb9eb",
+      "locator_type": "prose",
+      "locator": "Methods (definition); Results; Abstract",
+      "span": "The clinicians' mistakes in the AI-assisted round were associated with misleading events, accounting for 45.5% (132/290) of the total mistakes, indicating widespread automation bias.",
+      "envelope": "\u0003 10\u00021 (Figure 2, Overall). AI provided both correcting and misleading effects We identified 833 (10.4%) correcting events and 132 (1.7%) misleading events among the 8000 clinician-AI interactions in the test (Table 3). The clinicians' mistakes in the AI-assisted round were associated with misleading events, accounting for 45.5% (132/290) of the total mistakes, indicating widespread automation bias. However, all clinicians denied that the AI had any misleading effect on themselves in the interviews (eg, \"The mistakes of the AI are obvious. I don't think the AI misleads me.\"). They only reported the positive aspects",
       "scope_words": [],
       "falsifier": null,
       "verdicts": {
-        "locatable": null,
-        "faithful": null,
+        "locatable": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "checked against held text with Claude (advisor), 2026-10-18"
+        },
+        "faithful": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "checked against held text with Claude (advisor), 2026-10-18"
+        },
         "warranted": null
       },
       "first_seen": "2026-09-01",
       "on_page": true,
       "autobind": "anchors too weak to identify a document: 45.5% (strength 2, need 4)",
-      "check_flags": []
+      "check_flags": [],
+      "also_rests_on": [
+        {
+          "source_id": "S046",
+          "span": "A misleading event (automation bias) was defined as the clinician's original correct diagnosis being misled by a wrong AI diagnosis."
+        },
+        {
+          "source_id": "S046",
+          "span": "The automation bias was found to affect clinicians of all levels of expertise."
+        }
+      ],
+      "proposed_by": "model",
+      "proposed_on": "2026-10-18",
+      "confirmed": true,
+      "why_bound": "batch 2 (2026-10-18): proposed by Claude from held text, every span an exact substring of the held bytes; confirmed by Fred Ugast. See docs/whatholdsup-deskilling-revision.md."
     },
     "b8844660760b8fab": {
       "sentence": "When the authors tested selectively withholding AI outputs that were likely to mislead, automation bias fell by 41.7%.",
@@ -363,24 +415,36 @@
       "sentence": "Agreement between readers rose from an intraclass correlation of 0.665 without AI to 0.813 with it integrated.",
       "sentence_sha": "7a69a5308797e574",
       "why_empirical": "figure",
-      "bucket": null,
-      "source_id": null,
-      "document_sha": null,
-      "locator_type": null,
-      "locator": null,
-      "span": null,
-      "envelope": null,
+      "bucket": "deterministic",
+      "source_id": "S047",
+      "document_sha": "e8869cc8faa587d0d2c3edbcfa83193569abbeb1b8c19d5c7c751443685d592a",
+      "locator_type": "prose",
+      "locator": "Results, inter-rater agreement (Table 4)",
+      "span": "In fact, the inter-rater correlation coefficient ICC-1 rose from 0.665 for the no-AI scenario, to 0.788 for the on-demand-AI case, and reached 0.813 in the integrated-AI one, as shown in Table 4 .",
+      "envelope": "ored red. Overall, from the performed tests, it emerged that the increasing level of AI support in the three scenarios (from no-AI to integrated-AI) correlated with an improvement of the agreement level among residents. In fact, the inter-rater correlation coefficient ICC-1 rose from 0.665 for the no-AI scenario, to 0.788 for the on-demand-AI case, and reached 0.813 in the integrated-AI one, as shown in Table 4 . Table 4 Inter-rater correlation coefficient ICC-1 in the three different scenarios Scenario no-AI [95% CI] on-demand-AI [95% CI] integrated-AI [95% CI] ICC-1 coefficient 0.665 [0.57-0.76] 0.788 [0.71-0.86] 0.813 [0.74-0",
       "scope_words": [],
       "falsifier": null,
       "verdicts": {
-        "locatable": null,
-        "faithful": null,
+        "locatable": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "checked against held text with Claude (advisor), 2026-10-18"
+        },
+        "faithful": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "checked against held text with Claude (advisor), 2026-10-18"
+        },
         "warranted": null
       },
       "first_seen": "2026-09-01",
       "on_page": true,
       "autobind": "no held document contains all 2 anchors: 0.665, 0.813",
-      "check_flags": []
+      "check_flags": [],
+      "proposed_by": "model",
+      "proposed_on": "2026-10-18",
+      "confirmed": true,
+      "why_bound": "batch 2 (2026-10-18): proposed by Claude from held text, every span an exact substring of the held bytes; confirmed by Fred Ugast. See docs/whatholdsup-deskilling-revision.md."
     },
     "175d7353309177d7": {
       "sentence": "Residents asked for the AI in 70% of cases.",
@@ -963,24 +1027,46 @@
       "sentence": "Gommers and colleagues eye-tracked 12 radiologists across 150 screening mammograms: with AI support their accuracy improved, area under the curve rising from 0.93 to 0.97, while the share of the breast covered by their fixations fell from 11.1% to 9.5% and their dwell time inside lesion regions rose from 4.4 to 5.4 seconds.",
       "sentence_sha": "495cfe6ae24e67be",
       "why_empirical": "figure",
-      "bucket": null,
-      "source_id": null,
-      "document_sha": null,
-      "locator_type": null,
-      "locator": null,
-      "span": null,
-      "envelope": null,
+      "bucket": "deterministic",
+      "source_id": "S028",
+      "document_sha": "934e511be728fab490784e8c90f7f0dadb2b95c4ec06ad6393416640f979e33a",
+      "locator_type": "prose",
+      "locator": "Abstract, Results; Key Results",
+      "span": "The mean AUC was higher with AI support versus unaided reading (unaided, 0.93 [95% CI: 0.91, 0.96]; AIsupported, 0.97 [95% CI: 0.95, 0.98]; P < .001).",
+      "envelope": "ed using bootstrap resampling (n = 20 000). Results: Mammography examinations (75 with breast cancer, 75 without breast cancer) from 150 women (median age, 55 years [IQR, 50-63 years]; age range, 49-72 years) were read. The mean AUC was higher with AI support versus unaided reading (unaided, 0.93 [95% CI: 0.91, 0.96]; AIsupported, 0.97 [95% CI: 0.95, 0.98]; P < .001). There was no evidence of a difference in mean sensitivity (81.7% [735 of 900 readings] vs 87.2% [785 of 900]; P = .06), specificity (89.0% [801 of 900] vs 91.1% [820 of 900]; P = .46), or reading time (29.4 vs 30.8 seco",
       "scope_words": [],
       "falsifier": null,
       "verdicts": {
-        "locatable": null,
-        "faithful": null,
+        "locatable": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "checked against held text with Claude (advisor), 2026-10-18"
+        },
+        "faithful": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "checked against held text with Claude (advisor), 2026-10-18"
+        },
         "warranted": null
       },
       "first_seen": "2026-09-01",
       "on_page": true,
       "autobind": "no held document contains all 6 anchors: 0.93, 0.97, 11.1%, 9.5%, 4.4",
-      "check_flags": []
+      "check_flags": [],
+      "also_rests_on": [
+        {
+          "source_id": "S028",
+          "span": "Breast fixation coverage was lower with AI support (11.1% vs 9.5% of breast area; P = .004), while fixation time in the lesion region was higher (4.4 vs 5.4 seconds; P = .006)."
+        },
+        {
+          "source_id": "S028",
+          "span": "In 150 screening mammograms read by 12 radiologists, compared with unaided reading, radiologists using artificial intelligence (AI) support achieved higher mean areas under the receiver operating characteristic curves (0.93 vs 0.97; P < .001)"
+        }
+      ],
+      "proposed_by": "model",
+      "proposed_on": "2026-10-18",
+      "confirmed": true,
+      "why_bound": "batch 2 (2026-10-18): proposed by Claude from held text, every span an exact substring of the held bytes; confirmed by Fred Ugast. See docs/whatholdsup-deskilling-revision.md."
     },
     "73aed151fb771438": {
       "sentence": "Dratsch and colleagues showed 27 radiologists a set of mammograms alongside AI-generated BI-RADS category suggestions.",
@@ -1009,47 +1095,77 @@
       "sentence": "When the AI's suggestion was correct, all three experience groups performed similarly, scoring roughly 80% — 79.7%, 81.3% and 82.3%.",
       "sentence_sha": "03ea8e0e611b3e84",
       "why_empirical": "figure",
-      "bucket": null,
-      "source_id": null,
-      "document_sha": null,
-      "locator_type": null,
-      "locator": null,
-      "span": null,
-      "envelope": null,
+      "bucket": "deterministic",
+      "source_id": "S030",
+      "document_sha": "69d3852d76cd4315adda5e95416727983bb62e9d82436cd2282ba96a684a6222",
+      "locator_type": "prose",
+      "locator": "Abstract, Results; Results",
+      "span": "Results: The percentage of correctly rated mammograms by inexperienced (mean, 79.7% ± 11.7 [SD] vs 19.8% ± 14.0; P < .001; r = 0.93), moderately experienced (mean, 81.3% ± 10.1 vs 24.8% ± 11.6; P < .001; r = 0.96), and very experienced (mean, 82.3% ± 4.2 vs 45.5% ± 9.1; P = .003; r = 0.97) radiologists was significantly impacted by the correctness of the AI prediction of BI-RADS category.",
+      "envelope": "em, and reader confidence in their own BI-RADS ratings were assessed using analysis of variance (ANOVA) and repeated-measures ANOVA followed by post hoc tests and Kruskal-Wallis tests followed by the Dunn post hoc test. Results: The percentage of correctly rated mammograms by inexperienced (mean, 79.7% ± 11.7 [SD] vs 19.8% ± 14.0; P < .001; r = 0.93), moderately experienced (mean, 81.3% ± 10.1 vs 24.8% ± 11.6; P < .001; r = 0.96), and very experienced (mean, 82.3% ± 4.2 vs 45.5% ± 9.1; P = .003; r = 0.97) radiologists was significantly impacted by the correctness of the AI prediction of BI-RADS category. Inexperienced radiologists were significantly more likely to follow the suggestions of the purported AI when it incorrectly suggested a higher BI-RADS category than the actual ground truth compared with both moderately ",
       "scope_words": [],
       "falsifier": null,
       "verdicts": {
-        "locatable": null,
-        "faithful": null,
+        "locatable": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "checked against held text with Claude (advisor), 2026-10-18"
+        },
+        "faithful": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "checked against held text with Claude (advisor), 2026-10-18"
+        },
         "warranted": null
       },
       "first_seen": "2026-09-01",
       "on_page": true,
       "autobind": "no held document contains all 3 anchors: 79.7%, 81.3%, 82.3%",
-      "check_flags": []
+      "check_flags": [],
+      "also_rests_on": [
+        {
+          "source_id": "S030",
+          "span": "The three groups of readers did not differ significantly in the percentage of correctly rated mammograms when the AI predictions were correct"
+        }
+      ],
+      "proposed_by": "model",
+      "proposed_on": "2026-10-18",
+      "confirmed": true,
+      "why_bound": "batch 2 (2026-10-18): proposed by Claude from held text, every span an exact substring of the held bytes; confirmed by Fred Ugast. See docs/whatholdsup-deskilling-revision.md."
     },
     "f9eb567ec0992f96": {
       "sentence": "When the AI's suggestion was incorrect, the same readers scored 19.8% if inexperienced, 24.8% if moderately experienced, and 45.5% if very experienced, on standard deviations of 14.0, 11.6 and 9.1.",
       "sentence_sha": "f9eb567ec0992f96",
       "why_empirical": "figure",
-      "bucket": null,
-      "source_id": null,
-      "document_sha": null,
-      "locator_type": null,
-      "locator": null,
-      "span": null,
-      "envelope": null,
+      "bucket": "deterministic",
+      "source_id": "S030",
+      "document_sha": "69d3852d76cd4315adda5e95416727983bb62e9d82436cd2282ba96a684a6222",
+      "locator_type": "prose",
+      "locator": "Abstract, Results",
+      "span": "Results: The percentage of correctly rated mammograms by inexperienced (mean, 79.7% ± 11.7 [SD] vs 19.8% ± 14.0; P < .001; r = 0.93), moderately experienced (mean, 81.3% ± 10.1 vs 24.8% ± 11.6; P < .001; r = 0.96), and very experienced (mean, 82.3% ± 4.2 vs 45.5% ± 9.1; P = .003; r = 0.97) radiologists was significantly impacted by the correctness of the AI prediction of BI-RADS category.",
+      "envelope": "em, and reader confidence in their own BI-RADS ratings were assessed using analysis of variance (ANOVA) and repeated-measures ANOVA followed by post hoc tests and Kruskal-Wallis tests followed by the Dunn post hoc test. Results: The percentage of correctly rated mammograms by inexperienced (mean, 79.7% ± 11.7 [SD] vs 19.8% ± 14.0; P < .001; r = 0.93), moderately experienced (mean, 81.3% ± 10.1 vs 24.8% ± 11.6; P < .001; r = 0.96), and very experienced (mean, 82.3% ± 4.2 vs 45.5% ± 9.1; P = .003; r = 0.97) radiologists was significantly impacted by the correctness of the AI prediction of BI-RADS category. Inexperienced radiologists were significantly more likely to follow the suggestions of the purported AI when it incorrectly suggested a higher BI-RADS category than the actual ground truth compared with both moderately ",
       "scope_words": [],
       "falsifier": null,
       "verdicts": {
-        "locatable": null,
-        "faithful": null,
+        "locatable": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "checked against held text with Claude (advisor), 2026-10-18"
+        },
+        "faithful": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "checked against held text with Claude (advisor), 2026-10-18"
+        },
         "warranted": null
       },
       "first_seen": "2026-09-01",
       "on_page": true,
       "autobind": "no held document contains all 6 anchors: 19.8%, 24.8%, 45.5%, 14.0, 11.6",
-      "check_flags": []
+      "check_flags": [],
+      "proposed_by": "model",
+      "proposed_on": "2026-10-18",
+      "confirmed": true,
+      "why_bound": "batch 2 (2026-10-18): proposed by Claude from held text, every span an exact substring of the held bytes; confirmed by Fred Ugast. See docs/whatholdsup-deskilling-revision.md."
     },
     "ff258fcb7375e1a2": {
       "sentence": "The most experienced readers in the study were wrong more often than they were right, on average, whenever the machine was wrong — though 9.1 is a spread wide enough that the group reaches across the halfway line.",
@@ -1262,7 +1378,7 @@
       "sentence": "The more specific problem is that AI use, cognitive offloading and critical thinking were all three measured by self-report in the same instrument, and the three correlations among them are uniformly strong — −0.68, +0.72 and −0.75.",
       "sentence_sha": "43a5da1b31da88b5",
       "why_empirical": "figure",
-      "bucket": null,
+      "bucket": "judgement",
       "source_id": null,
       "document_sha": null,
       "locator_type": null,
@@ -1272,14 +1388,41 @@
       "scope_words": [],
       "falsifier": null,
       "verdicts": {
-        "locatable": null,
-        "faithful": null,
-        "warranted": null
+        "locatable": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "checked against held text with Claude (advisor), 2026-10-18"
+        },
+        "faithful": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "checked against held text with Claude (advisor), 2026-10-18"
+        },
+        "warranted": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "checked against held text with Claude (advisor), 2026-10-18"
+        }
       },
       "first_seen": "2026-09-01",
       "on_page": true,
       "autobind": "anchors too weak to identify a document: 0.68, 0.72, 0.75 (strength 3, need 4)",
-      "check_flags": []
+      "check_flags": [],
+      "premises": [
+        {
+          "source_id": "S008",
+          "span": "A structured questionnaire consisting of 23 questions was developed based on validated scales and existing literature to measure AI tool usage, cognitive offloading, and critical thinking skills. The survey included items from established instruments such as the Halpern Critical Thinking Assessment (HCTA) [1] tool and Terenzini's self-reported measures of critical thinking [30]. The questionnaire was divided into several sections: 1. 2. 3. 4. Demographic Information: Age, gender, education level, and occupation. AI Tool Usage: Frequency and reliance on AI tools for information retrieval and decision-making. Cognitive Offloading: Use of digital devices for memory and problem-solving tasks. Critical Thinking: Self-reported and assessed critical thinking skills."
+        },
+        {
+          "source_id": "S008",
+          "span": "AI Tool Use ↔ Cognitive Offloading AI Tool Use ↔ Critical Thinking Cognitive Offloading ↔ Critical Thinking +0.72 -0.68 -0.75"
+        }
+      ],
+      "step": "Gerlich measures AI use, cognitive offloading and critical thinking with one 23-question questionnaire, mostly on a 6-point Likert scale, and reports correlations of +0.72, -0.68 and -0.75 among them; that three constructs taken from one self-administered instrument correlate uniformly strongly is the pattern common-method variance produces -- our reading, not Gerlich's.",
+      "proposed_by": "model",
+      "proposed_on": "2026-10-18",
+      "confirmed": true,
+      "why_bound": "batch 2 (2026-10-18): proposed by Claude from held text, every span an exact substring of the held bytes; confirmed by Fred Ugast. See docs/whatholdsup-deskilling-revision.md."
     },
     "79a88270faa75b89": {
       "sentence": "Their audit found that the study carrying the greatest weight in the analysis, about 19% of it, had itself been retracted two months before the meta-analysis was published, and that the second heaviest, about 10%, measured self-efficacy and technology acceptance rather than learning.",
@@ -1736,25 +1879,67 @@
       "sentence": "Lancet Gastroenterol Hepatol 2025;10(10):896–903 Source of the 28.4% (226/795) to 22.4% (145/648) fall, the −6.0 percentage-point difference on a 95% confidence interval of −10.5 to −1.6 at P = 0.0089, the nineteen endoscopists with more than 2,000 procedures each and a mean 27.6 years since graduation over a range of 8 to 39, and all eleven limitations including the rise from 795 procedures to 1,382 after the Polish screening programme was suspended on 1 January 2022, the absence of withdrawal-time data, the absence of blinding and the exclusion of the first 100 procedures after AI was introduced.",
       "sentence_sha": "c2f8c733ea6082f1",
       "why_empirical": "figure",
-      "bucket": null,
-      "source_id": null,
-      "document_sha": null,
-      "locator_type": null,
-      "locator": null,
-      "span": null,
-      "envelope": null,
+      "bucket": "context",
+      "source_id": "S021",
+      "document_sha": "4296ea811a437d2749051b11f4300da2d43716705ca10ea7b8ffda4ddf0cfbe9",
+      "locator_type": "prose",
+      "locator": "S021 Results, Table 2, Discussion (limitations 6-8, 10); S027 preview",
+      "span": "ADR n (%) 226 (28.4%) 145 (22.4%) -6.0 (-10.5, -1.6); p = 0.009",
+      "envelope": "Table 2. Quality indicators of standard, non-AI assisted colonoscopy before and after the artificial intelligence implementation. Before AI implementation N=795 After AI implementation N=648 Difference (95% CI); p-value ADR n (%) 226 (28.4%) 145 (22.4%) -6.0 (-10.5, -1.6); p = 0.009# Adenoma per colonoscopy, mean (SE) 0.54 (0.04) 0.43 (0.04) 0.11 (-0.01, 0.24); p = 0.071~ Advanced adenomas per colonoscopy, mean (SE) 0.062 (0.01) 0.063 (0.01) -0.002 (-0.03, 0.03); p=0.918~ AI-artificial intelligence",
       "scope_words": [],
       "falsifier": null,
       "verdicts": {
-        "locatable": null,
-        "faithful": null,
+        "locatable": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "checked against held text with Claude (advisor), 2026-10-18"
+        },
+        "faithful": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "checked against held text with Claude (advisor), 2026-10-18"
+        },
         "warranted": null
       },
       "first_seen": "2026-09-01",
       "on_page": true,
       "autobind": "no held document contains all 9 anchors: 28.4%, 22.4%, 6.0, 10.5, 1.6",
       "left_page": "2026-09-01",
-      "check_flags": []
+      "check_flags": [],
+      "also_rests_on": [
+        {
+          "source_id": "S027",
+          "span": "Crucially, the ADR of standard colonoscopy decreased significantly from 28.4% before to 22.4% after exposure to AI (-6% absolute difference, P = 0.0089)."
+        },
+        {
+          "source_id": "S021",
+          "span": "The colonoscopies were performed by 19 endoscopists who completed the endoscopic training (16 physicians and 3 general surgeons) with experience of over 2,000 colonoscopies each."
+        },
+        {
+          "source_id": "S021",
+          "span": "all participants were experienced endoscopists (average 27.6 years of experience, ranging from 8 to 39 years)"
+        },
+        {
+          "source_id": "S021",
+          "span": "Eighth, we observed an almost two-fold increase in the number of procedures in the post-AI phase compared to the pre-AI phase (795 before vs. 1382 after AI implementation including 734 with AI-assistance and 648 without AI-assistance), even though both phases covered approximately three months. This was primarily due to the temporary suspension of the colonoscopy-based colorectal cancer screening programme in Poland on 1 January 2022 (lasting until December 2022)."
+        },
+        {
+          "source_id": "S021",
+          "span": "Seventh, the lack of data of endoscope withdrawal time and sample size calculation due to the retrospective observational design are also noticeable limitations."
+        },
+        {
+          "source_id": "S021",
+          "span": "Sixth, we primarily investigated the impact of AI exposure on human behavior; therefore, blinding was not done."
+        },
+        {
+          "source_id": "S021",
+          "span": "Tenth, the first 100 colonoscopies per center following AI implementation were excluded to give endoscopists time to become familiar with the technology"
+        }
+      ],
+      "proposed_by": "model",
+      "proposed_on": "2026-10-18",
+      "confirmed": true,
+      "why_bound": "batch 2 (2026-10-18): proposed by Claude from held text, every span an exact substring of the held bytes; confirmed by Fred Ugast. See docs/whatholdsup-deskilling-revision.md."
     },
     "ea7550a9c4f4de50": {
       "sentence": "This paper carries a correction, published online 11 September 2025 ( Lancet Gastroenterol Hepatol 2025;10(11):e12, doi 10.1016/S2468-1253(25)00294-8), and we have now read it.",
@@ -2089,25 +2274,51 @@
       "sentence": "Insights into Imaging 2025;16:23 Source of the eight radiologists in training, the 150 chest X-rays across three conditions, the intraclass correlation rising from 0.665 without AI to 0.813 with it integrated, the 70% of cases in which residents requested the AI, and their overriding it when its errors exceeded an acceptability threshold.",
       "sentence_sha": "e2d620f3e3ff691b",
       "why_empirical": "figure",
-      "bucket": null,
-      "source_id": null,
-      "document_sha": null,
-      "locator_type": null,
-      "locator": null,
-      "span": null,
-      "envelope": null,
+      "bucket": "context",
+      "source_id": "S047",
+      "document_sha": "e8869cc8faa587d0d2c3edbcfa83193569abbeb1b8c19d5c7c751443685d592a",
+      "locator_type": "prose",
+      "locator": "Abstract, Methods and Results; Results",
+      "span": "We involved eight residents evaluating 150 CXRs in three scenarios: no AI, on-demand AI, and integrated-AI.",
+      "envelope": " article aims to evaluate the use and effects of an artificial intelligence system supporting a critical diagnostic task during radiology resident training, addressing a research gap in this field. Materials and methods We involved eight residents evaluating 150 CXRs in three scenarios: no AI, on-demand AI, and integrated-AI. The considered task was the assessment of a multi-regional severity score of lung compromise in patients affected by COVID-19. The chosen artificial intelligence tool, fully integrated in the RIS/PACS, demonstrated supe",
       "scope_words": [],
       "falsifier": null,
       "verdicts": {
-        "locatable": null,
-        "faithful": null,
+        "locatable": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "checked against held text with Claude (advisor), 2026-10-18"
+        },
+        "faithful": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "checked against held text with Claude (advisor), 2026-10-18"
+        },
         "warranted": null
       },
       "first_seen": "2026-09-01",
       "on_page": true,
       "autobind": "no held document contains all 2 anchors: 0.665, 0.813",
       "left_page": "2026-09-01",
-      "check_flags": []
+      "check_flags": [],
+      "also_rests_on": [
+        {
+          "source_id": "S047",
+          "span": "In fact, the inter-rater correlation coefficient ICC-1 rose from 0.665 for the no-AI scenario, to 0.788 for the on-demand-AI case, and reached 0.813 in the integrated-AI one, as shown in Table 4 ."
+        },
+        {
+          "source_id": "S047",
+          "span": "Residents required AI in 70% of cases when left free to choose."
+        },
+        {
+          "source_id": "S047",
+          "span": "Residents were resilient to AI errors above an acceptability threshold."
+        }
+      ],
+      "proposed_by": "model",
+      "proposed_on": "2026-10-18",
+      "confirmed": true,
+      "why_bound": "batch 2 (2026-10-18): proposed by Claude from held text, every span an exact substring of the held bytes; confirmed by Fred Ugast. See docs/whatholdsup-deskilling-revision.md."
     },
     "d5e49f63198fe467": {
       "sentence": "Read at source because a check on this page requires it, and it is not the study the scoping review describes: the review reports 32 residents, a 12-point sensitivity gain, an 18% reduction in reading time and stability at a three-month follow-up.",
@@ -2207,25 +2418,47 @@
       "sentence": "Radiology 2023;307(4):e222176 Source of the 27 radiologists in three experience groups, the 50 mammograms of which 49 were analysed, the ten opening cases with correct suggestions and twelve incorrect suggestions among the remaining forty, the accuracy of roughly 79.7% to 82.3% across all groups when the suggestion was correct, and of 19.8% ± 14.0, 24.8% ± 11.6 and 45.5% ± 9.1 when it was wrong.",
       "sentence_sha": "48a03a9ad7d9bd40",
       "why_empirical": "figure",
-      "bucket": null,
-      "source_id": null,
-      "document_sha": null,
-      "locator_type": null,
-      "locator": null,
-      "span": null,
-      "envelope": null,
+      "bucket": "context",
+      "source_id": "S030",
+      "document_sha": "69d3852d76cd4315adda5e95416727983bb62e9d82436cd2282ba96a684a6222",
+      "locator_type": "prose",
+      "locator": "Abstract, Materials and Methods and Results; Methods",
+      "span": "In this prospective experiment, 27 radiologists read 50 mammograms and provided their Breast Imaging Reporting and Data System (BI-RADS) assessment assisted by a purported AI system. Mammograms were obtained between January 2017 and December 2019 and were presented in two randomized sets. The first was a training set of 10 mammograms, with the correct BI-RADS category suggested by the AI system. The second was a set of 40 mammograms in which an incorrect BI-RADS category was suggested for 12 mammograms.",
+      "envelope": "To determine how automation bias can affect inexperienced, moderately experienced, and very experienced radiologists when reading mammograms with the aid of an artificial intelligence (AI) system. Materials and Methods: In this prospective experiment, 27 radiologists read 50 mammograms and provided their Breast Imaging Reporting and Data System (BI-RADS) assessment assisted by a purported AI system. Mammograms were obtained between January 2017 and December 2019 and were presented in two randomized sets. The first was a training set of 10 mammograms, with the correct BI-RADS category suggested by the AI system. The second was a set of 40 mammograms in which an incorrect BI-RADS category was suggested for 12 mammograms. Reader performance, degree of bias in BI-RADS scoring, perceived accuracy of the AI system, and reader confidence in their own BI-RADS ratings were assessed using analysis of variance (ANOVA) and repeated-measures ANOVA",
       "scope_words": [],
       "falsifier": null,
       "verdicts": {
-        "locatable": null,
-        "faithful": null,
+        "locatable": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "checked against held text with Claude (advisor), 2026-10-18"
+        },
+        "faithful": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "checked against held text with Claude (advisor), 2026-10-18"
+        },
         "warranted": null
       },
       "first_seen": "2026-09-01",
       "on_page": true,
       "autobind": "no held document contains all 8 anchors: 79.7%, 82.3%, 19.8%, 14.0, 24.8%",
       "left_page": "2026-09-01",
-      "check_flags": []
+      "check_flags": [],
+      "also_rests_on": [
+        {
+          "source_id": "S030",
+          "span": "Results: The percentage of correctly rated mammograms by inexperienced (mean, 79.7% ± 11.7 [SD] vs 19.8% ± 14.0; P < .001; r = 0.93), moderately experienced (mean, 81.3% ± 10.1 vs 24.8% ± 11.6; P < .001; r = 0.96), and very experienced (mean, 82.3% ± 4.2 vs 45.5% ± 9.1; P = .003; r = 0.97) radiologists was significantly impacted by the correctness of the AI prediction of BI-RADS category."
+        },
+        {
+          "source_id": "S030",
+          "span": "One mammogram was excluded from the final analysis because it was revealed during analysis that the sides of the lesions in the original report had been switched"
+        }
+      ],
+      "proposed_by": "model",
+      "proposed_on": "2026-10-18",
+      "confirmed": true,
+      "why_bound": "batch 2 (2026-10-18): proposed by Claude from held text, every span an exact substring of the held bytes; confirmed by Fred Ugast. See docs/whatholdsup-deskilling-revision.md."
     },
     "0ba88eb0ad73cbd6": {
       "sentence": "Primary Gommers JJJ, Verboom SD, Duvivier KM, et al.",
@@ -2255,25 +2488,51 @@
       "sentence": "Radiology 2025;316(1):e243688 Source of the 12 radiologists, the 150 screening mammograms, the area under the curve rising from 0.93 to 0.97 at P < .001, the fixation coverage falling from 11.1% to 9.5% at P = .004, the lesion dwell time rising from 4.4 to 5.4 seconds at P = .006, and the authors’ description of that pattern as a more efficient search.",
       "sentence_sha": "3da7203ece172c5a",
       "why_empirical": "figure",
-      "bucket": null,
-      "source_id": null,
-      "document_sha": null,
-      "locator_type": null,
-      "locator": null,
-      "span": null,
-      "envelope": null,
+      "bucket": "context",
+      "source_id": "S028",
+      "document_sha": "934e511be728fab490784e8c90f7f0dadb2b95c4ec06ad6393416640f979e33a",
+      "locator_type": "prose",
+      "locator": "Abstract",
+      "span": "The mean AUC was higher with AI support versus unaided reading (unaided, 0.93 [95% CI: 0.91, 0.96]; AIsupported, 0.97 [95% CI: 0.95, 0.98]; P < .001).",
+      "envelope": "ed using bootstrap resampling (n = 20 000). Results: Mammography examinations (75 with breast cancer, 75 without breast cancer) from 150 women (median age, 55 years [IQR, 50-63 years]; age range, 49-72 years) were read. The mean AUC was higher with AI support versus unaided reading (unaided, 0.93 [95% CI: 0.91, 0.96]; AIsupported, 0.97 [95% CI: 0.95, 0.98]; P < .001). There was no evidence of a difference in mean sensitivity (81.7% [735 of 900 readings] vs 87.2% [785 of 900]; P = .06), specificity (89.0% [801 of 900] vs 91.1% [820 of 900]; P = .46), or reading time (29.4 vs 30.8 seco",
       "scope_words": [],
       "falsifier": null,
       "verdicts": {
-        "locatable": null,
-        "faithful": null,
+        "locatable": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "checked against held text with Claude (advisor), 2026-10-18"
+        },
+        "faithful": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "checked against held text with Claude (advisor), 2026-10-18"
+        },
         "warranted": null
       },
       "first_seen": "2026-09-01",
       "on_page": true,
       "autobind": "no held document contains all 6 anchors: 0.93, 0.97, 11.1%, 9.5%, 4.4",
       "left_page": "2026-09-01",
-      "check_flags": []
+      "check_flags": [],
+      "also_rests_on": [
+        {
+          "source_id": "S028",
+          "span": "Breast fixation coverage was lower with AI support (11.1% vs 9.5% of breast area; P = .004), while fixation time in the lesion region was higher (4.4 vs 5.4 seconds; P = .006)."
+        },
+        {
+          "source_id": "S028",
+          "span": "In 150 screening mammograms read by 12 radiologists, compared with unaided reading, radiologists using artificial intelligence (AI) support achieved higher mean areas under the receiver operating characteristic curves (0.93 vs 0.97; P < .001)"
+        },
+        {
+          "source_id": "S028",
+          "span": "Conclusion: Radiologists improved their breast cancer detection accuracy when reading mammography with AI support, spending more fixation time on suspicious areas and less on the rest of the breast, indicating a more efficient search."
+        }
+      ],
+      "proposed_by": "model",
+      "proposed_on": "2026-10-18",
+      "confirmed": true,
+      "why_bound": "batch 2 (2026-10-18): proposed by Claude from held text, every span an exact substring of the held bytes; confirmed by Fred Ugast. See docs/whatholdsup-deskilling-revision.md."
     },
     "43f8f175be65b85d": {
       "sentence": "Your Brain on ChatGPT: Accumulation of Cognitive Debt when Using an AI Assistant for Essay Writing Task.",
@@ -2397,25 +2656,61 @@
       "sentence": "PeerJ 2020;8:e10325 Source of the 89 participants analysed of 117 recruited, and of the Bayes factors of 5.07 against the alternative and 16.43 against the original’s specific predicted pattern.",
       "sentence_sha": "57c41ddd709a875e",
       "why_empirical": "figure",
-      "bucket": null,
-      "source_id": null,
-      "document_sha": null,
-      "locator_type": null,
-      "locator": null,
-      "span": null,
-      "envelope": null,
+      "bucket": "context",
+      "source_id": "S009",
+      "document_sha": "45de5e41b56a04fb7cb1a335d594ccfdb8959a7cfc20ae0fb1ca737b8ffde524",
+      "locator_type": "prose",
+      "locator": "Methods, Sample; Results",
+      "span": "Accordingly, the sequential Bayes Factor (BF) analysis yielded a final BF 01 of 5.07 in favor of the null over the alternative hypothesis, after the data from N = 89 participants were taken into account",
+      "envelope": "901 ± 620 ms for computer terms (mean ± standard deviation). In hard question blocks, mean RT was 825 ± 453 ms for general terms, and 821 ± 379 ms for computer terms. Thus, the RT data do not show the predicted pattern. Accordingly, the sequential Bayes Factor (BF) analysis yielded a final BF 01 of 5.07 in favor of the null over the alternative hypothesis, after the data from N = 89 participants were taken into account ( Fig. 2B ). The observed data are thus 5 times more likely under the null model than under the alternative model (i.e., the \"question type x word type\" interaction). When the specific data pattern reported in the origi",
       "scope_words": [],
       "falsifier": null,
       "verdicts": {
-        "locatable": null,
-        "faithful": null,
+        "locatable": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "checked against held text with Claude (advisor), 2026-10-18"
+        },
+        "faithful": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "checked against held text with Claude (advisor), 2026-10-18"
+        },
         "warranted": null
       },
       "first_seen": "2026-09-01",
       "on_page": true,
       "autobind": "no held document contains all 2 anchors: 5.07, 16.43",
       "left_page": "2026-09-01",
-      "check_flags": []
+      "check_flags": [],
+      "also_rests_on": [
+        {
+          "source_id": "S009",
+          "span": "A total of 117 participants were tested."
+        },
+        {
+          "source_id": "S009",
+          "span": "our data were 16 times more likely under the null model (BF 0+ = 16.43)."
+        }
+      ],
+      "proposed_by": "model",
+      "proposed_on": "2026-10-18",
+      "confirmed": true,
+      "why_bound": "batch 2 (2026-10-18): proposed by Claude from held text, every span an exact substring of the held bytes; confirmed by Fred Ugast. See docs/whatholdsup-deskilling-revision.md.",
+      "hedge_dispositions": [
+        {
+          "word": "hypothesis",
+          "why": "S009's statistical vocabulary (null vs alternative hypothesis; data more likely under the null), not hedges on the finding.",
+          "by": "Fred Ugast",
+          "on": "2026-10-18"
+        },
+        {
+          "word": "likely",
+          "why": "S009's statistical vocabulary (null vs alternative hypothesis; data more likely under the null), not hedges on the finding.",
+          "by": "Fred Ugast",
+          "on": "2026-10-18"
+        }
+      ]
     },
     "70c1e16d7298ac07": {
       "sentence": "We have not opened Sparrow, Liu and Wegner’s 2011 Science paper, which is paywalled.",

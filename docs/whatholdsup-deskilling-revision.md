@@ -8,14 +8,18 @@ unless marked otherwise. Rows are binding-row shas in `bindings.json`.
 
 ## Errors found in the published page
 
-Six confirmed in batch 1 (19 rows read against held text):
+Ten confirmed across batches 1 and 2 (read against held text, 18 October 2026):
 
 | | count | rows |
 |---|---|---|
-| overstates the source | 4 | 32db25e0, 509b18f6, b8844660, ad3f7c73 |
-| misstates how the source was read | 1 | the Wang paragraph (c8d0e2c5, 5bd6e3b7, b8844660 rest on it) |
-| misattributes | 1 | 26e94905 |
+| overstates the source | 5 | 32db25e0, 509b18f6, b8844660, bd8b242c, ad3f7c73 |
+| misattributes or misdescribes | 3 | 26e94905, 8598e9ca, 34b99db8 |
+| misstates how a source was read | 1 | the Wang paragraph (c8d0e2c5, 5bd6e3b7, b8844660 rest on it) — now true once those rows bind to S046 |
+| misquotes | 1 | Q-25 |
 | understates the source | 0 | |
+
+Not counted as errors: Q-17 (a title marked as a quotation; formatting) and 43.8 (in S031's
+Table 2 as 43.79, correctly rounded; no change).
 
 ## 1. 32db25e0 — "adjusted", and a dropped hedge
 
@@ -60,7 +64,7 @@ body says" with "the study is observational, as the review's own body says, and
 retrospective, as the study itself states". **Binding:** when this row is bound, add S021
 (that Methods sentence) as `also_rests_on`.
 
-## 4. ad3f7c73 — Decker and the Nature Reviews highlight (wording pending)
+## 4. ad3f7c73 — Decker and the Nature Reviews highlight
 
 **Page now, with the two sentences it depends on (verbatim, in order):**
 
@@ -73,9 +77,27 @@ retrospective, as the study itself states". **Binding:** when this row is bound,
 Reviews highlight. Decker (S034, full_text_held) names the design: "Budzyń and colleagues
 published a multicentre observational study…", the limitation the page credits The ASCO
 Post with reporting ("its observational nature"). The Nature Reviews highlight (S027) is
-fragment_only, so nothing held supports its half of the sentence.
+now held only as Nature's subscription preview (abstract_held), which itself calls the study
+"A new multicentre, observational study" and "this retrospective study".
 
-**Proposed:** to be decided after the S027 fetch attempt.
+**Evidence:** S027 preview: "A new multicentre, observational study has examined whether
+continuous exposure to artificial intelligence (AI) …"; "In this retrospective study at four
+endoscopy centres in Poland taking part in the ACCEPT trial …"; the preview stops at "This is
+a preview of subscription content". S034 (full text): "Budzyń and colleagues published a
+multicentre observational study in Lancet Gastroenterology & Hepatology …"; searched and
+absent from S034: retrospective; the screening programme's suspension or the 795-to-1,382
+rise; withdrawal time; blinding of the study ("blind" occurs only as "AI-blind reading
+slots"); the exclusion of the first 100 procedures; confounding; "limitation". The Fortune
+sentence before it stands: S023 mentions none of the eleven limitations (§12).
+
+**Proposed (replacing ad3f7c73):**
+
+> The research highlight in Nature Reviews Gastroenterology & Hepatology of 5 September 2025 calls it a multicentre, observational, retrospective study; we hold only the publisher's preview, which says nothing more about its limitations. Decker J, “When AI Reads the Easy Cases”, Rad Insights, 15 May 2026, calls it a multicentre observational study but mentions none of these others: the near-doubling of procedures after the screening programme was suspended, the missing withdrawal times, the absence of blinding, or the exclusion of the first 100 procedures. It pairs the colonoscopy and mammography results and is the closest published thing to this page.
+
+**Binding for the corrected text:** judgement; premises S027 (the two preview sentences),
+S034 (the Budzyń sentence; the Dratsch mammography sentence); step: both name the design;
+S034's full text names none of the listed limitations (bounded term search above); S027 is
+a preview, so nothing is said about what the rest of it omits.
 
 ## 5. c8d0e2c5, 5bd6e3b7, b8844660 — Wang et al., "read here at source"
 
@@ -93,9 +115,27 @@ says the authors "tested" withholding outputs, where S029 says they "proposed an
 suppression' strategy … reducing automation bias by 41.7%"; whether 41.7% was measured or
 simulated needs Wang itself.
 
-**Proposed:** resolution pending a Wang fetch attempt — either Wang is acquired, entered
-in the ledger and these rows bound to it, or the paragraph stops claiming a reading at
-source and the rows are attributed to the review.
+**Resolved 18 October 2026:** Wang is held (S046, the published version, via PMC).
+c8d0e2c5 and 5bd6e3b7 are bound to S046 with their page text unchanged — Wang defines "A
+misleading event (automation bias) … as the clinician's original correct diagnosis being
+misled by a wrong AI diagnosis", and the 45.5% is 132/290 of those, so "attributable to"
+stands; "The automation bias was found to affect clinicians of all levels of expertise".
+With those bindings the paragraph's "read here at source" is true for Wang.
+
+**b8844660 still needs the page change.** Wang: "We simulated a third-round clinician-AI
+interaction test with this AI suppression strategy … It was assumed that the clinicians'
+diagnoses would switch to their AI-unassisted diagnoses"; "If we had retracted the AI
+diagnosis of these 16 MRIs … the misleading events were estimated to be decreased by
+41.7%"; limitation (3): "The third-round clinician-AI interaction test was a simulation and
+the reading session was not repeated."
+
+**Proposed (b8844660):** "When the authors simulated selectively withholding AI outputs that
+were likely to mislead, recalculating their own data on the assumption that clinicians
+would fall back on their unassisted diagnoses, automation bias was estimated to fall by
+41.7%."
+
+**Binding for the corrected text:** S046, the 41.7% Results sentence; also_rests_on the
+Methods simulation passage.
 
 ## 6. S005 not linked in the source list
 
@@ -107,20 +147,120 @@ Binding those two rows raised a new preflight block, "every document the piece r
 in the list a reader sees" (S005). It is accepted on the same basis as the S033/S034/S045
 block of 52f2205: the records are ahead of the page, and it clears at republish.
 
-## 7. Unbound until a source is held
+## 7. bd8b242c — a significance qualifier dropped
 
-Not page errors: the held document that "matched" each is a coincidence of digits, so
-they stay unbound.
+**Page now:** Access to it raised their confidence by 11.7 percentage points while about half its answers were faulty — and their confidence did not fall as they met more wrong answers.
 
-| row | page sentence | needs |
-|---|---|---|
-| 43a5da1b | The more specific problem is that AI use, cognitive offloading and critical thinking were all three measured by self-report in the same instrument, and the three correlations among them are uniformly strong — −0.68, +0.72 and −0.75. | S008 (Gerlich), fragment_only |
-| 34b99db8 | Societies 2025;15(1):6 Source of the 666 valid responses of 669, the recruitment through social media in the United Kingdom, the cross-sectional design, and the three correlations of −0.68, +0.72 and −0.75. | S008 |
-| bd8b242c | Access to it raised their confidence by 11.7 percentage points while about half its answers were faulty — and their confidence did not fall as they met more wrong answers. | S017 (Shaw & Nave), fragment_only |
-| 8598e9ca | arXiv 2601.00856 Their closing sentence — that there is no strong evidence the tool use negatively affects performance itself — is a verdict on the paper they audited, not on the field. | S019's PDF (only the arXiv abstract page is held) |
+**Problem:** S017 (Shaw & Nave, SSRN working paper, held): "Within the AI-Assisted condition,
+confidence did not significantly decline as the number of faulty trials increased (β = -1.14,
+SE = 0.89, t = -1.28, 95% CI [-2.88, 0.61], p = 0.202)." The page drops "significantly".
+The rest is supported: "Despite approximately half of System 3 answers being faulty, access to
+AI increased confidence by 11.7 percentage points". B19's new check catches this ("significance
+qualifier dropped").
 
-## Bound in batch 1
+**Proposed:** "Access to it raised their confidence by 11.7 percentage points while about
+half its answers were faulty — and their confidence did not fall significantly as they met
+more wrong answers."
 
-Confirmed 2026-10-18 (verdicts signed by Fred Ugast, checked against held text with
-Claude as advisor): 849a833e, b61e583d, 9675c628, f2072847, a84075d9, 5850f3bd, 83bed04b,
-d49da6c2. Full proposals, spans and checks: the batch-1 review of 18 October.
+**Binding for the corrected text:** S017, the Confidence sentence (11.7, half faulty);
+also_rests_on the β/p = 0.202 sentence.
+
+## 8. 8598e9ca — not their closing sentence
+
+**Page now:** arXiv 2601.00856 Their closing sentence — that there is no strong evidence the tool use negatively affects performance itself — is a verdict on the paper they audited, not on the field.
+
+**Problem:** S019 (the comment's PDF, held): the sentence "However, there is no strong evidence
+that the LLM use negatively affects performance itself." sits at character 14,281 of 17,886,
+inside the paragraph beginning "Finally, the results presented in the commented paper …", with
+more argument after it. The comment closes: "Ultimately, the field stands to gain significantly
+from further exploration of the cognitive impact of AI tools, but careful attention to these
+methodological challenges is essential to ensure more reliable and meaningful conclusions."
+Also S019 says "the LLM use", the page "the tool use".
+
+**Proposed:** "arXiv 2601.00856 Their sentence that there is no strong evidence the LLM use
+negatively affects performance itself is a verdict on the paper they audited, not on the
+field." (2601.00856 is declared citation furniture.)
+
+**Binding for the corrected text:** S019 PDF, that sentence.
+
+## 9. 34b99db8 — "the cross-sectional design" is not Gerlich's description
+
+**Page now:** Societies 2025;15(1):6 Source of the 666 valid responses of 669, the recruitment through social media in the United Kingdom, the cross-sectional design, and the three correlations of −0.68, +0.72 and −0.75.
+
+**Problem:** S008 (Gerlich, published, held) calls its design "a mixed-method design": "A
+structured questionnaire consisting of 23 questions" and "Semi-structured interviews were
+conducted with a subset of 50 participants" (Results: "50 semi-structured interviews"). Its
+abstract says "surveys and in-depth interviews with 666 participants"; the Methods and Results
+agree on 50 and are the ones to cite. 666 of 669, the UK, social media and the three
+correlations are all in S008.
+
+**Proposed:** "Societies 2025;15(1):6 Source of the 666 valid responses of 669, the recruitment
+through social media in the United Kingdom, the mixed-method design — a single 23-question
+questionnaire and 50 semi-structured interviews — and the three correlations of −0.68, +0.72
+and −0.75."
+
+**Binding for the corrected text:** S008: 3.2 Participants (669/666, UK, social media); 3.3 the
+questionnaire; 3.4 the 50 interviews; Table 6 (correlations).
+
+## 10. Q-25 — a spliced quotation
+
+**Page now:** it says it reports 54 <q>to ensure data distribution (as participants were
+assigned in three groups)</q>
+
+**Problem:** S007: "To ensure data distribution, we are here only reporting data from 54
+participants (as participants were assigned in three groups, see details below)." The
+quotation silently omits ", we are here only reporting data from 54 participants" and ", see
+details below". The meaning is not changed (the page states the 54 outside the quotation
+marks), but a quotation with silent omissions is not verbatim.
+
+**Proposed:** it says it reports 54 participants <q>to ensure data distribution</q>, because
+<q>participants were assigned in three groups</q>
+
+**Record for the corrected text:** two quotation records against S007, each fragment verbatim.
+
+## 11. Q-17 — a title, not a quotation
+
+**Page now:** Gastroenterology published an editorial by Weinberg and Bretthauer titled
+<q>Upskilling, Deskilling, or Never Skilling: Who Benefits From Artificial Intelligence in
+Colonoscopy?</q>
+
+**Evidence:** Crossref (DOI 10.1053/j.gastro.2026.05.026): title "Upskilling, Deskilling, or
+Never Skilling: Who Benefits From Artificial Intelligence in Colonoscopy?"; authors David S.
+Weinberg, Michael Bretthauer; Gastroenterology; issued June 2026 — identical. S044 itself is
+blocked.
+
+**Proposed:** titled <cite>Upskilling, Deskilling, or Never Skilling: Who Benefits From Artificial
+Intelligence in Colonoscopy?</cite> — a title, which the quotation check does not read; bound to
+S044's Crossref record.
+
+## 12. Fortune (S023) — "reports none of the study's eleven limitations" stands
+
+Term search and a read of S023's whole passage on the study against S021's eleven
+limitations (first … tenth, finally): none appears. Its one caveat — "To be sure, Romańczyk and
+his team did measure why endoscopists behaved this way because they did not anticipate this
+outcome and therefore did not collect data on why this happened" — is about the mechanism, not
+one of the eleven (and reads as a typo for "did not measure"). No change.
+
+## 13. 43.8 (fa3d6649, 0f7a7387) — in S031's Table 2, no change
+
+S031's Table 2 ("Percentage of time an examiner inspected false-positive bounding boxes relative
+to duration of the bounding box on screen"), row "All", column "All": "43.79 (40.71-54.89)". The
+page's 43.8 is that figure correctly rounded one place; rule 1 passes it with an INFO note.
+"least of all for the briefest ones": the Mild row (24.76) is the lowest. Table 2 is in the held
+Europe PMC XML as well as in Thieme's PDF, now held as S031's second rendition (version of
+record). No page change; bindings to propose: fa3d6649 → S031 Table 2 + "Participants inspected
+the bounding boxes for < 50 % of the time …"; 0f7a7387 → the same plus Results (21 participants,
+10 novice and 11 experienced, 1218 experiments; the 3-week washout; reaction times; 4 to 6 false
+identifications, P = 0.001) and Table 1 (eye travel).
+
+## 14. Unbound until a source is held
+
+None left from batch 1: 43a5da1b (S008) is bound; 34b99db8, bd8b242c and 8598e9ca have their
+sources held and corrections above.
+
+## Bound
+
+Batch 1 (2026-10-18): 849a833e, b61e583d, 9675c628, f2072847, a84075d9, 5850f3bd, 83bed04b,
+d49da6c2. Batch 2 (2026-10-18): c8d0e2c5 (S046), 43a5da1b, 7a69a530, e2d620f3, 495cfe6a,
+3da7203e, 57c41ddd, 03ea8e0e, f9eb567e, 48a03a9a, b2fff6c7, c2f8c733, 5bd6e3b7 (S046, page text
+unchanged). Verdicts signed by Fred Ugast, checked against held text with Claude as advisor.
