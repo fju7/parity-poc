@@ -472,24 +472,47 @@
       "sentence": "Heudel and colleagues summarise Savardi and colleagues as showing 32 radiology residents gaining 12 percentage points of sensitivity, reading 18% faster, and holding that performance at a three-month follow-up.",
       "sentence_sha": "9e43899cec809a1a",
       "why_empirical": "figure",
-      "bucket": null,
-      "source_id": null,
-      "document_sha": null,
-      "locator_type": null,
-      "locator": null,
-      "span": null,
-      "envelope": null,
+      "bucket": "deterministic",
+      "source_id": "S029",
+      "document_sha": "caec391d5633d94baadfb0ef78a25e1c092e9d535d224f897821b08110e55e5c",
+      "locator_type": "prose",
+      "locator": "Radiology section",
+      "span": "This study evaluated 32 radiology residents trained with an AI-assisted module for detecting COVID-19 pneumonia on chest X-rays.",
+      "envelope": "manifestation of automation bias.16 A recent empirical study conducted during the coronavirus disease 2019 (COVID-19) pandemic evaluated radiology residents interpreting chest Xrays with varying degrees of AI support.12 This study evaluated 32 radiology residents trained with an AI-assisted module for detecting COVID-19 pneumonia on chest X-rays. While AIsupported training resulted in a 12% improvement in sensitivity (from 0.73 to 0.85, P < 0.01) and an 18% reduction in mean reading time per case (from 68 s to 56 s), the authors Volume 12 ■ Issue C ■ 2026 highli",
       "scope_words": [],
       "falsifier": null,
       "verdicts": {
-        "locatable": null,
-        "faithful": null,
+        "locatable": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "checked against held text with Claude (advisor), 2026-10-18"
+        },
+        "faithful": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "checked against held text with Claude (advisor), 2026-10-18"
+        },
         "warranted": null
       },
       "first_seen": "2026-09-01",
       "on_page": true,
       "autobind": "anchors too weak to identify a document: none (strength 0, need 4)",
-      "check_flags": []
+      "check_flags": [],
+      "also_rests_on": [
+        {
+          "source_id": "S029",
+          "span": "While AIsupported training resulted in a 12% improvement in sensitivity (from 0.73 to 0.85, P < 0.01) and an 18% reduction in mean reading time per case (from 68 s to 56 s)"
+        },
+        {
+          "source_id": "S029",
+          "span": "Although performance remained stable at 3month follow-up"
+        }
+      ],
+      "proposed_by": "model",
+      "proposed_on": "2026-10-18",
+      "confirmed": true,
+      "why_bound": "batch 4 (2026-10-18): proposed by Claude from held text, every span an exact substring of the held bytes; confirmed by Fred Ugast. See docs/whatholdsup-deskilling-revision.md.",
+      "checked_on": "2026-10-18"
     },
     "7a69a5308797e574": {
       "sentence": "Agreement between readers rose from an intraclass correlation of 0.665 without AI to 0.813 with it integrated.",
@@ -554,24 +577,43 @@
       "sentence": "On 3 June 2026 — nearly three months before this page was drafted — Pedersen and colleagues published a prospective, multicentre, registry-based trial in Endoscopy that did the thing this page says the field needs: it ran endoscopists through three successive phases, before computer-aided detection, during it, and after it was taken away .",
       "sentence_sha": "156950e751650914",
       "why_empirical": "names Pedersen and colleagues",
-      "bucket": null,
-      "source_id": null,
-      "document_sha": null,
-      "locator_type": null,
-      "locator": null,
-      "span": null,
-      "envelope": null,
+      "bucket": "context",
+      "source_id": "S043",
+      "document_sha": "3af130dc2d4dc9bf7c8a61e65acb7dba5702cac1cce2cce6022311f05c96666c",
+      "locator_type": "prose",
+      "locator": "Methods, Design and patients; Abstract",
+      "span": "We performed a prospective, multicenter, registry-based, pragmatic clinical trial from November 2021 to June 2025, including patients who underwent colonoscopy at three Norwegian outpatient clinics",
+      "envelope": "pists in training across three consecutive phases: 1) before CADe exposure, 2) during CADe use, and 3) after CADe removal. We also investigated the same measures for experienced endoscopists. Methods Design and patients We performed a prospective, multicenter, registry-based, pragmatic clinical trial from November 2021 to June 2025, including patients who underwent colonoscopy at three Norwegian outpatient clinics: a university clinic (Haukeland University Hospital), a local hospital (Haraldsplass Deaconess Hospital), and a high-volume outpatient endoscopy practice (Kanalspesialistene). Each endoscopist aimed to perform at least ",
       "scope_words": [],
       "falsifier": null,
       "verdicts": {
-        "locatable": null,
-        "faithful": null,
+        "locatable": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "checked against held text with Claude (advisor), 2026-10-18"
+        },
+        "faithful": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "checked against held text with Claude (advisor), 2026-10-18"
+        },
         "warranted": null
       },
       "first_seen": "2026-09-01",
       "on_page": true,
       "autobind": "anchors too weak to identify a document: none (strength 0, need 4)",
-      "check_flags": []
+      "check_flags": [],
+      "also_rests_on": [
+        {
+          "source_id": "S043",
+          "span": "Each endoscopist performed colonoscopies in three successive phases: 1) before CADe exposure, 2) during CADe use, and 3) after CADe removal."
+        }
+      ],
+      "proposed_by": "model",
+      "proposed_on": "2026-10-18",
+      "confirmed": true,
+      "why_bound": "batch 4 (2026-10-18): proposed by Claude from held text, every span an exact substring of the held bytes; confirmed by Fred Ugast. See docs/whatholdsup-deskilling-revision.md.",
+      "checked_on": "2026-10-18"
     },
     "695c1c4e048e8603": {
       "sentence": "Thirteen endoscopists, 5,013 colonoscopies.",
@@ -4300,23 +4342,36 @@
       "sentence": "The first 100 procedures per centre after installation were excluded to allow for familiarisation.",
       "sentence_sha": "ca9628d8a2951ac0",
       "why_empirical": "the bare integer 100 is a quantity",
-      "bucket": null,
-      "source_id": null,
-      "document_sha": null,
-      "locator_type": null,
-      "locator": null,
-      "span": null,
-      "envelope": null,
+      "bucket": "deterministic",
+      "source_id": "S021",
+      "document_sha": "4296ea811a437d2749051b11f4300da2d43716705ca10ea7b8ffda4ddf0cfbe9",
+      "locator_type": "prose",
+      "locator": "Methods, Study design",
+      "span": "The first 100 colonoscopies per center after AI implementation were excluded from analysis to allow endoscopists to become familiar with using AI.",
+      "envelope": "diagnostic, non-AI assisted colonoscopies between the 8th of September of 2021 and 9th of March of 2022, by comparing two different phases: approximately 3 months before and after AI implementation in clinical practice. The first 100 colonoscopies per center after AI implementation were excluded from analysis to allow endoscopists to become familiar with using AI. The institutional review board granted an exemption from review (No. ŚIL.KB.1159.2022) about the present study as it was observational and did not use any person-identifiable information. The study was conducted in acco",
       "scope_words": [],
       "falsifier": null,
       "verdicts": {
-        "locatable": null,
-        "faithful": null,
+        "locatable": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "checked against held text with Claude (advisor), 2026-10-18"
+        },
+        "faithful": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "checked against held text with Claude (advisor), 2026-10-18"
+        },
         "warranted": null
       },
       "first_seen": "2026-10-18",
       "on_page": true,
-      "check_flags": []
+      "check_flags": [],
+      "proposed_by": "model",
+      "proposed_on": "2026-10-18",
+      "confirmed": true,
+      "why_bound": "batch 4 (2026-10-18): proposed by Claude from held text, every span an exact substring of the held bytes; confirmed by Fred Ugast. See docs/whatholdsup-deskilling-revision.md.",
+      "checked_on": "2026-10-18"
     },
     "dde90522d04ad77c": {
       "sentence": "Professor Venet Osmani of Queen Mary University of London named the volume problem exactly — the number of colonoscopies performed nearly doubled after the AI tool was introduced, going from 795 to 1382 — and argued that three months is too short a window for genuine skill loss in experienced clinicians.",
@@ -4344,177 +4399,363 @@
       "sentence": "It assessed 65 articles in full and included twelve studies .",
       "sentence_sha": "27aa49d9a816ea81",
       "why_empirical": "the bare integer 65 is a quantity",
-      "bucket": null,
-      "source_id": null,
-      "document_sha": null,
-      "locator_type": null,
-      "locator": null,
-      "span": null,
-      "envelope": null,
+      "bucket": "deterministic",
+      "source_id": "S029",
+      "document_sha": "caec391d5633d94baadfb0ef78a25e1c092e9d535d224f897821b08110e55e5c",
+      "locator_type": "figure",
+      "locator": "Figure 1 (PRISMA flowchart)",
+      "span": "Total records identified n = 373 Total records screened n = 65 Full-text articles assessed for eligibility n = 65 Studies included in qualitative synthesis (scoping review) n = 12",
+      "envelope": "ierre E. Heudel et al. Records identified through database searching (PubMed, Embase, Web of Science, Scopus) n = 432 Additional records identified through gray literature (Google Scholar, conference proceedings) n = 41 Total records identified n = 373 Total records screened n = 65 Full-text articles assessed for eligibility n = 65 Studies included in qualitative synthesis (scoping review) n = 12 Duplicates removed n = 37 Pathology Records excluded (not focused on physician expertise, automation bias or deskilling; Al tech-nical -only papers; non-medical populations; outside date range) n = 332 Full-text article",
       "scope_words": [],
       "falsifier": null,
       "verdicts": {
-        "locatable": null,
-        "faithful": null,
+        "locatable": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "checked against held text with Claude (advisor), 2026-10-18"
+        },
+        "faithful": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "checked against held text with Claude (advisor), 2026-10-18"
+        },
         "warranted": null
       },
       "first_seen": "2026-10-18",
       "on_page": true,
-      "check_flags": []
+      "check_flags": [],
+      "proposed_by": "model",
+      "proposed_on": "2026-10-18",
+      "confirmed": true,
+      "why_bound": "batch 4 (2026-10-18): proposed by Claude from held text, every span an exact substring of the held bytes; confirmed by Fred Ugast. See docs/whatholdsup-deskilling-revision.md.",
+      "checked_on": "2026-10-18"
     },
     "30a6ffe09e4b7a8b": {
       "sentence": "(We give the number that its own flow diagram supports: 65 assessed, 53 excluded with reasons, 12 included.",
       "sentence_sha": "30a6ffe09e4b7a8b",
       "why_empirical": "the bare integer 65 is a quantity",
-      "bucket": null,
+      "bucket": "judgement",
       "source_id": null,
       "document_sha": null,
       "locator_type": null,
       "locator": null,
       "span": null,
-      "envelope": null,
+      "envelope": "",
       "scope_words": [],
       "falsifier": null,
       "verdicts": {
-        "locatable": null,
-        "faithful": null,
-        "warranted": null
+        "locatable": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "checked against held text with Claude (advisor), 2026-10-18"
+        },
+        "faithful": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "checked against held text with Claude (advisor), 2026-10-18"
+        },
+        "warranted": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "checked against held text with Claude (advisor), 2026-10-18"
+        }
       },
       "first_seen": "2026-10-18",
       "on_page": true,
-      "check_flags": []
+      "check_flags": [],
+      "premises": [
+        {
+          "source_id": "S029",
+          "span": "Total records identified n = 373 Total records screened n = 65 Full-text articles assessed for eligibility n = 65 Studies included in qualitative synthesis (scoping review) n = 12"
+        },
+        {
+          "source_id": "S029",
+          "span": "Full-text articles excluded, with reasons: • No link to deskill-ing or expertise erosion, n = 29 • Not addressing physicians or trainees specifical-ly, n = 14 • Conceptual/ethical papers outside review scope, n = 10"
+        }
+      ],
+      "step": "Figure 1: 65 full-text articles assessed, 12 included; the three exclusion reasons it lists are 29 + 14 + 10 = 53 (our sum), and 65 - 53 = 12. 53 needs declaring as our arithmetic in figure-exclusions.json before this row can pass rule 1.",
+      "proposed_by": "model",
+      "proposed_on": "2026-10-18",
+      "confirmed": true,
+      "why_bound": "batch 4 (2026-10-18): proposed by Claude from held text, every span an exact substring of the held bytes; confirmed by Fred Ugast. See docs/whatholdsup-deskilling-revision.md. 53 is our sum, declared in figure-exclusions.json."
     },
     "b27ab3c71aa1e2ae": {
       "sentence": "The earlier steps of that diagram do not reconcile — 432 database records and 41 from grey literature, less 37 duplicates, is 436 rather than the 373 printed, and 373 less 332 excluded is 41 rather than the 65 it then reports assessing.",
       "sentence_sha": "b27ab3c71aa1e2ae",
       "why_empirical": "the bare integer 432 is a quantity",
-      "bucket": null,
+      "bucket": "judgement",
       "source_id": null,
       "document_sha": null,
       "locator_type": null,
       "locator": null,
       "span": null,
-      "envelope": null,
+      "envelope": "",
       "scope_words": [],
       "falsifier": null,
       "verdicts": {
-        "locatable": null,
-        "faithful": null,
-        "warranted": null
+        "locatable": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "checked against held text with Claude (advisor), 2026-10-18"
+        },
+        "faithful": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "checked against held text with Claude (advisor), 2026-10-18"
+        },
+        "warranted": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "checked against held text with Claude (advisor), 2026-10-18"
+        }
       },
       "first_seen": "2026-10-18",
       "on_page": true,
-      "check_flags": []
+      "check_flags": [],
+      "premises": [
+        {
+          "source_id": "S029",
+          "span": "Records identified through database searching (PubMed, Embase, Web of Science, Scopus) n = 432 Additional records identified through gray literature (Google Scholar, conference proceedings) n = 41 Total records identified n = 373 Total records screened n = 65 Full-text articles assessed for eligibility n = 65 Studies included in qualitative synthesis (scoping review) n = 12 Duplicates removed n = 37"
+        },
+        {
+          "source_id": "S029",
+          "span": "Total records identified n = 373 Total records screened n = 65 Full-text articles assessed for eligibility n = 65 Studies included in qualitative synthesis (scoping review) n = 12"
+        },
+        {
+          "source_id": "S029",
+          "span": "Records excluded (not focused on physician expertise, automation bias or deskilling; Al tech-nical -only papers; non-medical populations; outside date range) n = 332"
+        }
+      ],
+      "step": "Figure 1: 432 database records + 41 grey-literature records - 37 duplicates = 436 (our arithmetic), not the 373 it prints as total records identified; 373 - 332 records excluded = 41 (our arithmetic), not the 65 it reports as assessed. 436 needs declaring in figure-exclusions.json.",
+      "proposed_by": "model",
+      "proposed_on": "2026-10-18",
+      "confirmed": true,
+      "why_bound": "batch 4 (2026-10-18): proposed by Claude from held text, every span an exact substring of the held bytes; confirmed by Fred Ugast. See docs/whatholdsup-deskilling-revision.md. 436 and 41 are our arithmetic, declared in figure-exclusions.json."
     },
     "d9fc547362d55463": {
       "sentence": "Wang and colleagues ran a randomised crossover study of 40 clinicians diagnosing anterior cruciate ligament tears on MRI.",
       "sentence_sha": "d9fc547362d55463",
       "why_empirical": "the bare integer 40 is a quantity",
-      "bucket": null,
-      "source_id": null,
-      "document_sha": null,
-      "locator_type": null,
-      "locator": null,
-      "span": null,
-      "envelope": null,
+      "bucket": "deterministic",
+      "source_id": "S046",
+      "document_sha": "8901af1d48c1ab9f198cb45c5c0ab99dd2ba77455768701b5cdb92b3f20eb9eb",
+      "locator_type": "prose",
+      "locator": "Abstract, Methods; Clinician-AI interaction analysis",
+      "span": "This was a laboratory study with a randomized cross-over design. The diagnosis of anterior cruciate ligament (ACL) rupture, a common injury, on magnetic resonance imaging (MRI) was used as an example. Forty clinicians were invited to diagnose 200 ACLs with and without AI assistance.",
+      "envelope": "gence (AI) into clinics brings the risk of automation bias, which potentially misleads the clinician's decision-making. The purpose of this study was to propose a potential strategy to mitigate automation bias. Methods: This was a laboratory study with a randomized cross-over design. The diagnosis of anterior cruciate ligament (ACL) rupture, a common injury, on magnetic resonance imaging (MRI) was used as an example. Forty clinicians were invited to diagnose 200 ACLs with and without AI assistance. The AI's correcting and misleading (automation bias) effects on the clinicians' decision-making processes were analyzed. An ordinal logistic regression model was employed to predict the correcting and misleading probabi",
       "scope_words": [],
       "falsifier": null,
       "verdicts": {
-        "locatable": null,
-        "faithful": null,
+        "locatable": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "checked against held text with Claude (advisor), 2026-10-18"
+        },
+        "faithful": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "checked against held text with Claude (advisor), 2026-10-18"
+        },
         "warranted": null
       },
       "first_seen": "2026-10-18",
       "on_page": true,
-      "check_flags": []
+      "check_flags": [],
+      "also_rests_on": [
+        {
+          "source_id": "S046",
+          "span": "In total, there were 8000 clinician-AI interactions (200 MRIs\u000340 clinicians)."
+        }
+      ],
+      "proposed_by": "model",
+      "proposed_on": "2026-10-18",
+      "confirmed": true,
+      "why_bound": "batch 4 (2026-10-18): proposed by Claude from held text, every span an exact substring of the held bytes; confirmed by Fred Ugast. See docs/whatholdsup-deskilling-revision.md.",
+      "checked_on": "2026-10-18"
     },
     "502fa7d22b143897": {
       "sentence": "Eight trainees scored 150 chest X-rays for COVID-19 severity across three conditions — no AI, AI on demand, and AI integrated into the reporting system.",
       "sentence_sha": "502fa7d22b143897",
       "why_empirical": "the bare integer 150 is a quantity",
-      "bucket": null,
-      "source_id": null,
-      "document_sha": null,
-      "locator_type": null,
-      "locator": null,
-      "span": null,
-      "envelope": null,
+      "bucket": "deterministic",
+      "source_id": "S047",
+      "document_sha": "e8869cc8faa587d0d2c3edbcfa83193569abbeb1b8c19d5c7c751443685d592a",
+      "locator_type": "prose",
+      "locator": "Abstract, Materials and methods",
+      "span": "We involved eight residents evaluating 150 CXRs in three scenarios: no AI, on-demand AI, and integrated-AI. The considered task was the assessment of a multi-regional severity score of lung compromise in patients affected by COVID-19.",
+      "envelope": " article aims to evaluate the use and effects of an artificial intelligence system supporting a critical diagnostic task during radiology resident training, addressing a research gap in this field. Materials and methods We involved eight residents evaluating 150 CXRs in three scenarios: no AI, on-demand AI, and integrated-AI. The considered task was the assessment of a multi-regional severity score of lung compromise in patients affected by COVID-19. The chosen artificial intelligence tool, fully integrated in the RIS/PACS, demonstrated superior performance in scoring compared to the average radiologist. Using quantitative metrics and questionnaires, we measured the",
       "scope_words": [],
       "falsifier": null,
       "verdicts": {
-        "locatable": null,
-        "faithful": null,
+        "locatable": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "checked against held text with Claude (advisor), 2026-10-18"
+        },
+        "faithful": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "checked against held text with Claude (advisor), 2026-10-18"
+        },
         "warranted": null
       },
       "first_seen": "2026-10-18",
       "on_page": true,
-      "check_flags": []
+      "check_flags": [],
+      "also_rests_on": [
+        {
+          "source_id": "S047",
+          "span": "The chosen artificial intelligence tool, fully integrated in the RIS/PACS, demonstrated superior performance in scoring compared to the average radiologist."
+        }
+      ],
+      "proposed_by": "model",
+      "proposed_on": "2026-10-18",
+      "confirmed": true,
+      "why_bound": "batch 4 (2026-10-18): proposed by Claude from held text, every span an exact substring of the held bytes; confirmed by Fred Ugast. See docs/whatholdsup-deskilling-revision.md.",
+      "checked_on": "2026-10-18"
     },
     "0172a591ed17f818": {
       "sentence": "Its endpoint is not adenoma detection but polyp detection at 5 mm and above, which they call the most important limitation and less well-validated than ADR .",
       "sentence_sha": "0172a591ed17f818",
       "why_empirical": "the bare integer 5 is a quantity",
-      "bucket": null,
-      "source_id": null,
-      "document_sha": null,
-      "locator_type": null,
-      "locator": null,
-      "span": null,
-      "envelope": null,
+      "bucket": "deterministic",
+      "source_id": "S043",
+      "document_sha": "3af130dc2d4dc9bf7c8a61e65acb7dba5702cac1cce2cce6022311f05c96666c",
+      "locator_type": "prose",
+      "locator": "Discussion, limitations; Abstract, Methods",
+      "span": "There are several limitations to this study. The most important is the use of PDR-5 as a quality indicator for lesion detection, rather than the gold standard ADR.",
+      "envelope": "university hospital, local hospital, and high-volume outpatient endoscopy practice. The design reflects a variety of endoscopy settings and experience levels, making this study broadly relevant for real-world endoscopy. There are several limitations to this study. The most important is the use of PDR-5 as a quality indicator for lesion detection, rather than the gold standard ADR. A meta-analysis by Niv et al. found that a ratio of 0.68 can be used to estimate ADR from PDR for the individual endoscopist or a group of endoscopists before receiving formal results from the pathology department . PDR",
       "scope_words": [],
       "falsifier": null,
       "verdicts": {
-        "locatable": null,
-        "faithful": null,
+        "locatable": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "checked against held text with Claude (advisor), 2026-10-18"
+        },
+        "faithful": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "checked against held text with Claude (advisor), 2026-10-18"
+        },
         "warranted": null
       },
       "first_seen": "2026-10-18",
       "on_page": true,
-      "check_flags": []
+      "check_flags": [],
+      "also_rests_on": [
+        {
+          "source_id": "S043",
+          "span": "We acknowledge that this quality indicator is less well-validated than ADR."
+        },
+        {
+          "source_id": "S043",
+          "span": "The primary end point was change in the proportion of colonoscopies with detection of at least one polyp ≥5 mm (PDR-5)."
+        }
+      ],
+      "proposed_by": "model",
+      "proposed_on": "2026-10-18",
+      "confirmed": true,
+      "why_bound": "batch 4 (2026-10-18): proposed by Claude from held text, every span an exact substring of the held bytes; confirmed by Fred Ugast. See docs/whatholdsup-deskilling-revision.md.",
+      "checked_on": "2026-10-18"
     },
     "e3505b857992fcc4": {
       "sentence": "Twenty-one participants — ten novices and eleven experienced staff, physicians and nurses — watched 29 recorded colonoscopy sequences while wearing eye-tracking glasses, pressing a button when they saw a polyp.",
       "sentence_sha": "e3505b857992fcc4",
       "why_empirical": "the bare integer 29 is a quantity",
-      "bucket": null,
-      "source_id": null,
-      "document_sha": null,
-      "locator_type": null,
-      "locator": null,
-      "span": null,
-      "envelope": null,
+      "bucket": "deterministic",
+      "source_id": "S031",
+      "document_sha": "2402cde39b20be8bc2fef474427e7db389834ce041b9273e21c876cd6b740ccc",
+      "locator_type": "prose",
+      "locator": "Results; Fig. 1 flow; Methods",
+      "span": "A total of 21 participants were enrolled in the study ( Fig. 1 ) and assessed 29 video sequences with and without the CADe system, leading to a total of 1218 experiments. The ratio of professional experience was balanced, with 10 novice and 11 experienced participants.",
+      "envelope": "l procedures were in accordance with the Helsinki Declaration of 1964 and later versions. Written informed consent for publication from the person shown in Fig. 2 s was obtained prior to submission. Results Participants A total of 21 participants were enrolled in the study ( Fig. 1 ) and assessed 29 video sequences with and without the CADe system, leading to a total of 1218 experiments. The ratio of professional experience was balanced, with 10 novice and 11 experienced participants. The reaction time was analyzed in all experiments. A comparison of the median reaction time paired distribution at the first assessment with the one at the second assessment confirmed the effectiveness of the 3-week was",
       "scope_words": [],
       "falsifier": null,
       "verdicts": {
-        "locatable": null,
-        "faithful": null,
+        "locatable": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "checked against held text with Claude (advisor), 2026-10-18"
+        },
+        "faithful": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "checked against held text with Claude (advisor), 2026-10-18"
+        },
         "warranted": null
       },
       "first_seen": "2026-10-18",
       "on_page": true,
-      "check_flags": []
+      "check_flags": [],
+      "also_rests_on": [
+        {
+          "source_id": "S031",
+          "span": "21 participants enrolled 10 novice ▪6 physicians ▪4 nurses 11 experienced ▪7 physicians ▪4 nurses"
+        },
+        {
+          "source_id": "S031",
+          "span": "Participants reviewed 29 colonoscopy video sequences per assessment while wearing eye-tracking glasses"
+        },
+        {
+          "source_id": "S031",
+          "span": "Reaction time was defined as the time needed to press the button after the first appearance of the polyp in a video sequence."
+        }
+      ],
+      "proposed_by": "model",
+      "proposed_on": "2026-10-18",
+      "confirmed": true,
+      "why_bound": "batch 4 (2026-10-18): proposed by Claude from held text, every span an exact substring of the held bytes; confirmed by Fred Ugast. See docs/whatholdsup-deskilling-revision.md.",
+      "checked_on": "2026-10-18"
     },
     "286e6f097f610a6c": {
       "sentence": "A comment on it by four researchers at Vienna and Dresden calculates that roughly 159 participants would have been needed for adequate power, notes that some reported figures rest on two to four essays per group, and observes that the paper reports 55 completers while analysing 54, and that the criteria for dropping the one remain unclear.",
       "sentence_sha": "286e6f097f610a6c",
       "why_empirical": "the bare integer 159 is a quantity",
-      "bucket": null,
-      "source_id": null,
-      "document_sha": null,
-      "locator_type": null,
-      "locator": null,
-      "span": null,
-      "envelope": null,
+      "bucket": "deterministic",
+      "source_id": "S019",
+      "document_sha": "c9a31194f7da3d36c628942b8c5ebcc175cddbb44977a4a227c0f084cd128e5e",
+      "locator_type": "prose",
+      "locator": "Comment, main text; author affiliations",
+      "span": "indicates that approximately N = 159 participants would be required for adequate power.",
+      "envelope": "relative to the number of comparisons performed. A basic a priori power analysis using G*Power (Faul et al., 2007) for a repeated-measures ANOVA (f = 0.25, α = .05, power = .95, three groups, four measurements, r = .50) indicates that approximately N = 159 participants would be required for adequate power. Thus, the power of the reported study is likely lower, especially for analyses involving Session 4 or analyses on essay topics. For example, several topic-specific figures were interpreted based on extremely small subsa",
       "scope_words": [],
       "falsifier": null,
       "verdicts": {
-        "locatable": null,
-        "faithful": null,
+        "locatable": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "checked against held text with Claude (advisor), 2026-10-18"
+        },
+        "faithful": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "checked against held text with Claude (advisor), 2026-10-18"
+        },
         "warranted": null
       },
       "first_seen": "2026-10-18",
       "on_page": true,
-      "check_flags": []
+      "check_flags": [],
+      "also_rests_on": [
+        {
+          "source_id": "S019",
+          "span": "several topic-specific figures were interpreted based on extremely small subsamples (sometimes only 2-4 essays per group)"
+        },
+        {
+          "source_id": "S019",
+          "span": "the authors state that 55 participants completed all experiments, yet only 54 participants are reported in the analysis. The criteria for excluding the participant who completed all experimental sessions from the analysis remain unclear."
+        },
+        {
+          "source_id": "S019",
+          "span": "Miloš Stanković1,2,*, Ella Hirche2,+, Sarah Kollatzsch2,+, Julia Nadine Doetsch2 1Department of Clinical and Health Psychology, Faculty of Psychology, University of Vienna, Vienna, Austria 2Behavioral Epidemiology, Institute of Clinical Psychology and Psychotherapy, Technische Universität Dresden, Germany"
+        }
+      ],
+      "proposed_by": "model",
+      "proposed_on": "2026-10-18",
+      "confirmed": true,
+      "why_bound": "batch 4 (2026-10-18): proposed by Claude from held text, every span an exact substring of the held bytes; confirmed by Fred Ugast. See docs/whatholdsup-deskilling-revision.md.",
+      "checked_on": "2026-10-18"
     },
     "53c9cdd71eb9fa90": {
       "sentence": "The paper does give a reason — it says it reports 54 to ensure data distribution (as participants were assigned in three groups) — and the comment does not address that sentence.",
@@ -4542,23 +4783,36 @@
       "sentence": "It surveyed 666 people recruited through social media in the UK.",
       "sentence_sha": "a6e4f110e4c47a47",
       "why_empirical": "the bare integer 666 is a quantity",
-      "bucket": null,
-      "source_id": null,
-      "document_sha": null,
-      "locator_type": null,
-      "locator": null,
-      "span": null,
-      "envelope": null,
+      "bucket": "deterministic",
+      "source_id": "S008",
+      "document_sha": "e90160a909e933f2f6e3ae29ff36990bd17057288f0a67bc9bbc5f5abf5a8d7f",
+      "locator_type": "prose",
+      "locator": "3.2 Participants",
+      "span": "The study sample comprised 669 participants in the United Kingdom, of which 666 were considered valid. They were recruited through a combination of convenience and purposive sampling to ensure a diverse representation across age groups, educational backgrounds, and professional fields. The sample was promoted online in the UK on different social media platforms to attract a diverse sample.",
+      "envelope": "ffering a more complete perspective on the research problem than either method alone [32]. This design allows for the triangulation of data, enhancing the validity and reliability of the findings [33]. 3.2. Participants The study sample comprised 669 participants in the United Kingdom, of which 666 were considered valid. They were recruited through a combination of convenience and purposive sampling to ensure a diverse representation across age groups, educational backgrounds, and professional fields. The sample was promoted online in the UK on different social media platforms to attract a diverse sample. Participants were categorised into three age groups: 17-25 years (young), 26-45 years (middle-aged), and 46 years and older (older). This categorisation facilitated the examination of age-related differences in AI tool ",
       "scope_words": [],
       "falsifier": null,
       "verdicts": {
-        "locatable": null,
-        "faithful": null,
+        "locatable": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "checked against held text with Claude (advisor), 2026-10-18"
+        },
+        "faithful": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "checked against held text with Claude (advisor), 2026-10-18"
+        },
         "warranted": null
       },
       "first_seen": "2026-10-18",
       "on_page": true,
-      "check_flags": []
+      "check_flags": [],
+      "proposed_by": "model",
+      "proposed_on": "2026-10-18",
+      "confirmed": true,
+      "why_bound": "batch 4 (2026-10-18): proposed by Claude from held text, every span an exact substring of the held bytes; confirmed by Fred Ugast. See docs/whatholdsup-deskilling-revision.md.",
+      "checked_on": "2026-10-18"
     },
     "17e6f09555beb9fa": {
       "sentence": "In fairness to the author, two further things: the recruitment was by convenience and purposive sampling promoted on social media, which he reports; and the paper carries a published correction of 10 September 2025, in which Table 4 had duplicated Table 3 and was replaced.",
@@ -4608,23 +4862,36 @@
       "sentence": "A table listing 41 unique entries supported an analysis reporting 44.",
       "sentence_sha": "6e60f428740b9a46",
       "why_empirical": "the bare integer 41 is a quantity",
-      "bucket": null,
-      "source_id": null,
-      "document_sha": null,
-      "locator_type": null,
-      "locator": null,
-      "span": null,
-      "envelope": null,
+      "bucket": "deterministic",
+      "source_id": "S005",
+      "document_sha": "4a3a8265fbfd97350e82cf0ae8c8d1a354006af91f2bc0ddf05a6fb75df52448",
+      "locator_type": "prose",
+      "locator": "main text",
+      "span": "Notably, the table lists only 41 unique entries for learning performance, despite the analysis reporting k = 44.",
+      "envelope": "and Chang (2024), who studied 7th graders, appear four times-two entries labeled as \"college\" and two as \"secondary.\" One entry even refers to a meta-analysis, directly contradicting the authors' own inclusion criteria. Notably, the table lists only 41 unique entries for learning performance, despite the analysis reporting k = 44. Following Springer Nature's policy, we contacted the authors directly and outlined several discrepancies that required clarification. We also requested the dataset and a forest plot, an essential part of a meta-analysis",
       "scope_words": [],
       "falsifier": null,
       "verdicts": {
-        "locatable": null,
-        "faithful": null,
+        "locatable": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "checked against held text with Claude (advisor), 2026-10-18"
+        },
+        "faithful": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "checked against held text with Claude (advisor), 2026-10-18"
+        },
         "warranted": null
       },
       "first_seen": "2026-10-18",
       "on_page": true,
-      "check_flags": []
+      "check_flags": [],
+      "proposed_by": "model",
+      "proposed_on": "2026-10-18",
+      "confirmed": true,
+      "why_bound": "batch 4 (2026-10-18): proposed by Claude from held text, every span an exact substring of the held bytes; confirmed by Fred Ugast. See docs/whatholdsup-deskilling-revision.md.",
+      "checked_on": "2026-10-18"
     },
     "65dba6ca6bec3f6c": {
       "sentence": "Separately, four learning scientists audited the studies behind the next-most-cited synthesis and found that of 19 comparisons, four met three basic criteria : a well-defined treatment, an adequately described control, and a valid learning measure.",
@@ -4652,89 +4919,161 @@
       "sentence": "A learning measure was present in 10 of the 19.",
       "sentence_sha": "5ba6a1cf2062a0e5",
       "why_empirical": "the bare integer 10 is a quantity",
-      "bucket": null,
-      "source_id": null,
-      "document_sha": null,
-      "locator_type": null,
-      "locator": null,
-      "span": null,
-      "envelope": null,
+      "bucket": "deterministic",
+      "source_id": "S006",
+      "document_sha": "2e850b25c50fb85cba8c90b49e0a72923e280d9afd9e86686b781a2745a09713",
+      "locator_type": "table",
+      "locator": "Table 1",
+      "span": "10/19 (53%) Learning measure present",
+      "envelope": "ly rich literature has accrued until then. Coding category ChatGPT treatment Control group Outcome = learning Well-­defined 14/19 (74%) 8/19 (42%) - Partial 4/19 (21%) 8/19 (42%) - Not defined 1/19 (5%) 3/19 (16%) - - - 10/19 (53%) Learning measure present did not warrant separate coding. A summary of results for 19 comparisons is reported (see Table 1). Notably, only four comparisons (21%) satisfied all three criteria: Johnson et al. (2024), Meyer et al. (2024), Song and",
       "scope_words": [],
       "falsifier": null,
       "verdicts": {
-        "locatable": null,
-        "faithful": null,
+        "locatable": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "checked against held text with Claude (advisor), 2026-10-18"
+        },
+        "faithful": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "checked against held text with Claude (advisor), 2026-10-18"
+        },
         "warranted": null
       },
       "first_seen": "2026-10-18",
       "on_page": true,
-      "check_flags": []
+      "check_flags": [],
+      "also_rests_on": [
+        {
+          "source_id": "S006",
+          "span": "A summary of results for 19 comparisons is reported (see Table 1). Notably, only four comparisons (21%) satisfied all three criteria"
+        }
+      ],
+      "proposed_by": "model",
+      "proposed_on": "2026-10-18",
+      "confirmed": true,
+      "why_bound": "batch 4 (2026-10-18): proposed by Claude from held text, every span an exact substring of the held bytes; confirmed by Fred Ugast. See docs/whatholdsup-deskilling-revision.md.",
+      "checked_on": "2026-10-18"
     },
     "2da5831f88ca40d2": {
       "sentence": "Its radiology section then says that a controlled reader study published in 2023 evaluated 27 radiologists interpreting 720 mammograms with and without AI support and that error rates rose when the AI was wrong — and attaches that sentence to its reference 16, which is a 2025 paper by different authors, 12 radiologists reading examinations from 150 women, that found AI improved accuracy.",
       "sentence_sha": "2da5831f88ca40d2",
       "why_empirical": "the bare integer 27 is a quantity",
-      "bucket": null,
-      "source_id": null,
-      "document_sha": null,
-      "locator_type": null,
-      "locator": null,
-      "span": null,
-      "envelope": null,
+      "bucket": "context",
+      "source_id": "S029",
+      "document_sha": "caec391d5633d94baadfb0ef78a25e1c092e9d535d224f897821b08110e55e5c",
+      "locator_type": "prose",
+      "locator": "Radiology section; reference 16; S028 Key Results",
+      "span": "In breast imaging, a controlled reader study published in 2023 evaluated 27 radiologists interpreting 720 mammograms with and without AI support. When AI provided incorrect recommendations, radiologists' error rates increased by 12%-15%, even among experienced readers, demonstrating a clear manifestation of automation bias.16",
+      "envelope": "oduction to 22.4% when working without AI after routine AI exposure, while ADR remained at 25.3% with AI support. This provided direct evidence of behavioral dependence and skill erosion after repeated AI use. Radiology In breast imaging, a controlled reader study published in 2023 evaluated 27 radiologists interpreting 720 mammograms with and without AI support. When AI provided incorrect recommendations, radiologists' error rates increased by 12%-15%, even among experienced readers, demonstrating a clear manifestation of automation bias.16 A recent empirical study conducted during the coronavirus disease 2019 (COVID-19) pandemic evaluated radiology residents interpreting chest Xrays with varying degrees of AI support.12 This study evaluated 32 radiology r",
       "scope_words": [],
       "falsifier": null,
       "verdicts": {
-        "locatable": null,
-        "faithful": null,
+        "locatable": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "checked against held text with Claude (advisor), 2026-10-18"
+        },
+        "faithful": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "checked against held text with Claude (advisor), 2026-10-18"
+        },
         "warranted": null
       },
       "first_seen": "2026-10-18",
       "on_page": true,
-      "check_flags": []
+      "check_flags": [],
+      "also_rests_on": [
+        {
+          "source_id": "S029",
+          "span": "16. Gommers JJJ, Verboom SD, Duvivier KM, et al. Influence of AI decision support on radiologists' performance and visual search in screening mammography. Radiology. 2025;316(1):e243688."
+        },
+        {
+          "source_id": "S028",
+          "span": "In 150 screening mammograms read by 12 radiologists, compared with unaided reading, radiologists using artificial intelligence (AI) support achieved higher mean areas under the receiver operating characteristic curves (0.93 vs 0.97; P < .001)"
+        },
+        {
+          "source_id": "S028",
+          "span": "from 150 women (median age, 55 years [IQR, 50-63 years]; age range, 49-72 years) were read"
+        }
+      ],
+      "proposed_by": "model",
+      "proposed_on": "2026-10-18",
+      "confirmed": true,
+      "why_bound": "batch 4 (2026-10-18): proposed by Claude from held text, every span an exact substring of the held bytes; confirmed by Fred Ugast. See docs/whatholdsup-deskilling-revision.md.",
+      "checked_on": "2026-10-18"
     },
     "f75193b0feb17648": {
       "sentence": "The eye-tracking evidence is 21 people watching video clips.",
       "sentence_sha": "f75193b0feb17648",
       "why_empirical": "the bare integer 21 is a quantity",
-      "bucket": null,
-      "source_id": null,
-      "document_sha": null,
-      "locator_type": null,
-      "locator": null,
-      "span": null,
-      "envelope": null,
+      "bucket": "deterministic",
+      "source_id": "S031",
+      "document_sha": "2402cde39b20be8bc2fef474427e7db389834ce041b9273e21c876cd6b740ccc",
+      "locator_type": "prose",
+      "locator": "Results, Participants",
+      "span": "A total of 21 participants were enrolled in the study ( Fig. 1 ) and assessed 29 video sequences with and without the CADe system, leading to a total of 1218 experiments. The ratio of professional experience was balanced, with 10 novice and 11 experienced participants.",
+      "envelope": "l procedures were in accordance with the Helsinki Declaration of 1964 and later versions. Written informed consent for publication from the person shown in Fig. 2 s was obtained prior to submission. Results Participants A total of 21 participants were enrolled in the study ( Fig. 1 ) and assessed 29 video sequences with and without the CADe system, leading to a total of 1218 experiments. The ratio of professional experience was balanced, with 10 novice and 11 experienced participants. The reaction time was analyzed in all experiments. A comparison of the median reaction time paired distribution at the first assessment with the one at the second assessment confirmed the effectiveness of the 3-week was",
       "scope_words": [],
       "falsifier": null,
       "verdicts": {
-        "locatable": null,
-        "faithful": null,
+        "locatable": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "checked against held text with Claude (advisor), 2026-10-18"
+        },
+        "faithful": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "checked against held text with Claude (advisor), 2026-10-18"
+        },
         "warranted": null
       },
       "first_seen": "2026-10-18",
       "on_page": true,
-      "check_flags": []
+      "check_flags": [],
+      "proposed_by": "model",
+      "proposed_on": "2026-10-18",
+      "confirmed": true,
+      "why_bound": "batch 4 (2026-10-18): proposed by Claude from held text, every span an exact substring of the held bytes; confirmed by Fred Ugast. See docs/whatholdsup-deskilling-revision.md.",
+      "checked_on": "2026-10-18"
     },
     "97fc07bf64498e1d": {
       "sentence": "In full, it says that a covariate — indication for colonoscopy — had been mistakenly omitted from the multivariable analysis presented in supplementary table 6 in the appendix of this Article , that the appendix has been updated, that the only affected findings are for the variables ‘After AI introduction (using AI in colonoscopy)’ and ‘Age >60 years’ , and that these changes do not affect the interpretation of the data .",
       "sentence_sha": "97fc07bf64498e1d",
       "why_empirical": "the bare integer 6 is a quantity",
-      "bucket": null,
-      "source_id": null,
-      "document_sha": null,
-      "locator_type": null,
-      "locator": null,
-      "span": null,
-      "envelope": null,
+      "bucket": "deterministic",
+      "source_id": "S045",
+      "document_sha": "cef89cd565d393842ade7274482d178e8638f9e988ac4f537330c7fb1056b983",
+      "locator_type": "quotation",
+      "locator": "Correction notice",
+      "span": "had been mistakenly omitted from the multivariable analysis presented in supplementary table 6 in the appendix of this Article. The appendix has been updated with the corrected analysis; the only affected findings are for the variables \"After AI introduction (using AI in colonoscopy)\" and \"Age >60 years\". These changes do not affect the interpretation of the data.",
+      "envelope": "D, et al. Endoscopist deskilling risk after exposure to artificial intelligence in colonoscopy: a multicentre, observational study. Lancet Gastroenterol Hepatol 2025; 10: 896-903-A covariate (indication for colonoscopy) had been mistakenly omitted from the multivariable analysis presented in supplementary table 6 in the appendix of this Article. The appendix has been updated with the corrected analysis; the only affected findings are for the variables \"After AI introduction (using AI in colonoscopy)\" and \"Age >60 years\". These changes do not affect the interpretation of the data. This correction has been made as of Sept 11, 2025. Published Online September 11, 2025 https://doi.org/10.1016/ S2468-1253(25)00294-8 Correction to Lancet Gastroenterol Hepatol 2025; published online Sept 10. https://do",
       "scope_words": [],
       "falsifier": null,
       "verdicts": {
-        "locatable": null,
-        "faithful": null,
+        "locatable": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "checked against held text with Claude (advisor), 2026-10-18"
+        },
+        "faithful": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "checked against held text with Claude (advisor), 2026-10-18"
+        },
         "warranted": null
       },
       "first_seen": "2026-10-18",
       "on_page": true,
-      "check_flags": []
+      "check_flags": [],
+      "proposed_by": "model",
+      "proposed_on": "2026-10-18",
+      "confirmed": true,
+      "why_bound": "batch 4 (2026-10-18): proposed by Claude from held text, every span an exact substring of the held bytes; confirmed by Fred Ugast. See docs/whatholdsup-deskilling-revision.md.",
+      "checked_on": "2026-10-18"
     },
     "194b949b9571a7ed": {
       "sentence": "We found the correction on 30 August 2026 through a page-gate search, could not open it through seven routes, and read it only when the operator obtained the notice.",
@@ -4784,45 +5123,103 @@
       "sentence": "Its radiology section describes a 2023 reader study of 27 radiologists and attaches that description to its reference 16, which is a different 2025 paper with 12 radiologists that found AI improved accuracy.",
       "sentence_sha": "b3980490ac52d8bf",
       "why_empirical": "the bare integer 27 is a quantity",
-      "bucket": null,
-      "source_id": null,
-      "document_sha": null,
-      "locator_type": null,
-      "locator": null,
-      "span": null,
-      "envelope": null,
+      "bucket": "context",
+      "source_id": "S029",
+      "document_sha": "caec391d5633d94baadfb0ef78a25e1c092e9d535d224f897821b08110e55e5c",
+      "locator_type": "prose",
+      "locator": "Radiology section; reference 16; S028 Key Results",
+      "span": "In breast imaging, a controlled reader study published in 2023 evaluated 27 radiologists interpreting 720 mammograms with and without AI support. When AI provided incorrect recommendations, radiologists' error rates increased by 12%-15%, even among experienced readers, demonstrating a clear manifestation of automation bias.16",
+      "envelope": "oduction to 22.4% when working without AI after routine AI exposure, while ADR remained at 25.3% with AI support. This provided direct evidence of behavioral dependence and skill erosion after repeated AI use. Radiology In breast imaging, a controlled reader study published in 2023 evaluated 27 radiologists interpreting 720 mammograms with and without AI support. When AI provided incorrect recommendations, radiologists' error rates increased by 12%-15%, even among experienced readers, demonstrating a clear manifestation of automation bias.16 A recent empirical study conducted during the coronavirus disease 2019 (COVID-19) pandemic evaluated radiology residents interpreting chest Xrays with varying degrees of AI support.12 This study evaluated 32 radiology r",
       "scope_words": [],
       "falsifier": null,
       "verdicts": {
-        "locatable": null,
-        "faithful": null,
+        "locatable": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "checked against held text with Claude (advisor), 2026-10-18"
+        },
+        "faithful": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "checked against held text with Claude (advisor), 2026-10-18"
+        },
         "warranted": null
       },
       "first_seen": "2026-10-18",
       "on_page": true,
-      "check_flags": []
+      "check_flags": [],
+      "also_rests_on": [
+        {
+          "source_id": "S029",
+          "span": "16. Gommers JJJ, Verboom SD, Duvivier KM, et al. Influence of AI decision support on radiologists' performance and visual search in screening mammography. Radiology. 2025;316(1):e243688."
+        },
+        {
+          "source_id": "S028",
+          "span": "In 150 screening mammograms read by 12 radiologists, compared with unaided reading, radiologists using artificial intelligence (AI) support achieved higher mean areas under the receiver operating characteristic curves (0.93 vs 0.97; P < .001)"
+        }
+      ],
+      "proposed_by": "model",
+      "proposed_on": "2026-10-18",
+      "confirmed": true,
+      "why_bound": "batch 4 (2026-10-18): proposed by Claude from held text, every span an exact substring of the held bytes; confirmed by Fred Ugast. See docs/whatholdsup-deskilling-revision.md.",
+      "checked_on": "2026-10-18"
     },
     "6e298fd2fe830390": {
       "sentence": "And its Table 1 attributes a pathology experiment’s figures to a paper that did not produce them, while its own body cites the paper that did.",
       "sentence_sha": "6e298fd2fe830390",
       "why_empirical": "the bare integer 1 is a quantity",
-      "bucket": null,
+      "bucket": "judgement",
       "source_id": null,
       "document_sha": null,
       "locator_type": null,
       "locator": null,
       "span": null,
-      "envelope": null,
+      "envelope": "",
       "scope_words": [],
       "falsifier": null,
       "verdicts": {
-        "locatable": null,
-        "faithful": null,
-        "warranted": null
+        "locatable": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "checked against held text with Claude (advisor), 2026-10-18"
+        },
+        "faithful": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "checked against held text with Claude (advisor), 2026-10-18"
+        },
+        "warranted": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "checked against held text with Claude (advisor), 2026-10-18"
+        }
       },
       "first_seen": "2026-10-18",
       "on_page": true,
-      "check_flags": []
+      "check_flags": [],
+      "premises": [
+        {
+          "source_id": "S029",
+          "span": "Bellahsen-Harrar et al. (2025)35 (Mod Pathol, PMID: 40875775)"
+        },
+        {
+          "source_id": "S029",
+          "span": "gov/40875775/ Pathology (computational) 28 pathologists, 7% of correct initial Erosion of independent diagnoses reversed due to misleading AI judgment"
+        },
+        {
+          "source_id": "S029",
+          "span": "17. Rosbach N, Schuffenhauer S, Bulten W, et al. Artificial intelligence under time pressure: how diagnostic support systems affect pathologists' decisions. arXiv. 2024;2411:00998."
+        },
+        {
+          "source_id": "S038",
+          "span": "28 trained pathology experts"
+        }
+      ],
+      "step": "S029's Table 1 places the pathology (computational) entry — 28 pathologists, 7% of correct initial diagnoses reversed — after the URL of Bellahsen-Harrar et al. (2025, Mod Pathol, PMID 40875775); those figures are Rosbach et al.'s (S038: 28 trained pathology experts, 7%). The body cites the Rosbach paper as reference 17, by its arXiv number 2411.00998, under wrong author names. The row reading of Table 1 is ours: the PDF text layer linearises the table.",
+      "proposed_by": "model",
+      "proposed_on": "2026-10-18",
+      "confirmed": true,
+      "why_bound": "batch 4 (2026-10-18): proposed by Claude from held text, every span an exact substring of the held bytes; confirmed by Fred Ugast. See docs/whatholdsup-deskilling-revision.md. Doubt: the PDF text layer linearises S029's Table 1, so tying the 28-pathologist / 7% entry to the Bellahsen-Harrar row is our reading of the order (the entry follows that row's PubMed URL)."
     },
     "b053b281f42e1d89": {
       "sentence": "The proof we hold prints “Volume 11 ■ Issue C” in its running footer, above “Available online xxx”; the publisher’s registered metadata for the version of record gives volume 12 and no issue, which is what we cite.",
@@ -4872,23 +5269,42 @@
       "sentence": "Endoscopy 2026;58:1003–1014, published online 3 June 2026 The null result on the central question, and the study whose design is closest to the causal sequence.",
       "sentence_sha": "cfb2343822547444",
       "why_empirical": "the bare integer 58 is a quantity",
-      "bucket": null,
-      "source_id": null,
-      "document_sha": null,
-      "locator_type": null,
-      "locator": null,
-      "span": null,
-      "envelope": null,
+      "bucket": "context",
+      "source_id": "S043",
+      "document_sha": "3af130dc2d4dc9bf7c8a61e65acb7dba5702cac1cce2cce6022311f05c96666c",
+      "locator_type": "field",
+      "locator": "article metadata (epub 3 June 2026; vol 58, pp 1003-1014)",
+      "span": "03 6 2026 9 2026 58 9 520043 1003 1014",
+      "envelope": "Tønsberg Norway 9 Kanalspesialistene AS Bergen Norway Correspondence Tom Andre Pedersen MD Department of Medicine, Haukeland University Hospital Post Office Box 1400 Bergen 5021 Norway tom.andre.pedersen@helse-bergen.no 03 6 2026 9 2026 58 9 520043 1003 1014 22 12 2025 13 4 2026 01 06 2026 09 09 2026 09 09 2026 The Author(s). This is an open access article published by Thieme under the terms of the Creative Commons Attribution License, permitting unrestricted use, distribut",
       "scope_words": [],
       "falsifier": null,
       "verdicts": {
-        "locatable": null,
-        "faithful": null,
+        "locatable": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "checked against held text with Claude (advisor), 2026-10-18"
+        },
+        "faithful": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "checked against held text with Claude (advisor), 2026-10-18"
+        },
         "warranted": null
       },
       "first_seen": "2026-10-18",
       "on_page": true,
-      "check_flags": []
+      "check_flags": [],
+      "also_rests_on": [
+        {
+          "source_id": "S043",
+          "span": "This is an open access article published by Thieme under the terms of the Creative Commons Attribution License"
+        }
+      ],
+      "proposed_by": "model",
+      "proposed_on": "2026-10-18",
+      "confirmed": true,
+      "why_bound": "batch 4 (2026-10-18): proposed by Claude from held text, every span an exact substring of the held bytes; confirmed by Fred Ugast. See docs/whatholdsup-deskilling-revision.md. Binds the citation only (journal, volume, pages, epub date); the sentence's second half is our judgement.",
+      "checked_on": "2026-10-18"
     },
     "47cbad8d2e61242a": {
       "sentence": "The abstract was read at Europe PMC on 30 August 2026 and the full paper the same evening, after the operator obtained it; the publisher's own page returned 404 to every URL form we tried.",
@@ -4916,67 +5332,148 @@
       "sentence": "Endoscopy 2022;54:1009–1014 Open access.",
       "sentence_sha": "02c52e9ff058ef63",
       "why_empirical": "the bare integer 54 is a quantity",
-      "bucket": null,
-      "source_id": null,
-      "document_sha": null,
-      "locator_type": null,
-      "locator": null,
-      "span": null,
-      "envelope": null,
+      "bucket": "context",
+      "source_id": "S031",
+      "document_sha": "4564350bb3597e9a803da5557809de6fdb00f070afaf37a47e8fc66a0e580742",
+      "locator_type": "field",
+      "locator": "running header; licence statement",
+      "span": "Endoscopy 2022; 54: 1009-1014",
+      "envelope": " s Supplementary material is available under https://doi.org/10.1055/a-1770-7353 Scan this QR-Code for the author commentary. submitted 19.9.2021 accepted after revision 10.2.2022 published online 14.2.2022 Bibliography Endoscopy 2022; 54: 1009-1014 DOI 10.1055/a-1770-7353 ISSN 0013-726X © 2022. The Author(s). This is an open access article published by Thieme under the terms of the Creative Commons Attribution-NonDerivative-NonCommercial License, permitting copyin",
       "scope_words": [],
       "falsifier": null,
       "verdicts": {
-        "locatable": null,
-        "faithful": null,
+        "locatable": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "checked against held text with Claude (advisor), 2026-10-18"
+        },
+        "faithful": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "checked against held text with Claude (advisor), 2026-10-18"
+        },
         "warranted": null
       },
       "first_seen": "2026-10-18",
       "on_page": true,
-      "check_flags": []
+      "check_flags": [],
+      "also_rests_on": [
+        {
+          "source_id": "S031",
+          "span": "This is an open access article published by Thieme"
+        }
+      ],
+      "proposed_by": "model",
+      "proposed_on": "2026-10-18",
+      "confirmed": true,
+      "why_bound": "batch 4 (2026-10-18): proposed by Claude from held text, every span an exact substring of the held bytes; confirmed by Fred Ugast. See docs/whatholdsup-deskilling-revision.md.",
+      "checked_on": "2026-10-18"
     },
     "8c183fe55547ced8": {
       "sentence": "Nature Medicine 2026;32(6) Source of the three-way distinction this page borrows — deskilling, never-skilling and mis-skilling — of the quoted description of trainees who may fail to develop foundational reasoning skills, and of the quoted conclusion that AI is not inherently harmful to learning and that its impact depends on how and when it is introduced.",
       "sentence_sha": "8c183fe55547ced8",
       "why_empirical": "the bare integer 32 is a quantity",
-      "bucket": null,
-      "source_id": null,
-      "document_sha": null,
-      "locator_type": null,
-      "locator": null,
-      "span": null,
-      "envelope": null,
+      "bucket": "context",
+      "source_id": "S025",
+      "document_sha": "5e52060b995d03a23f402bbc744e03d646c2ab59abe9d4e8d89241f0afdc57b6",
+      "locator_type": "prose",
+      "locator": "Abstract; Introduction; article page",
+      "span": "trainees who rely on AI during the early formative years of clinical education may fail to develop the foundational reasoning skills that safe, independent practice requires.",
+      "envelope": "ration of artificial intelligence (A) into medical training is accelerating faster than the educational frameworks designed to govern it. This Perspective identifies a risk that has received insufficient attention: that trainees who rely on AI during the early formative years of clinical education may fail to develop the foundational reasoning skills that safe, independent practice requires. We term this \"never-skilling,\" distinguishing it from deskilling in experienced clinicians, and from mis-skilling, in which uncritical acceptance of AI errors leads trainees to internalise flawed clinical knowledge as f",
       "scope_words": [],
       "falsifier": null,
       "verdicts": {
-        "locatable": null,
-        "faithful": null,
+        "locatable": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "checked against held text with Claude (advisor), 2026-10-18"
+        },
+        "faithful": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "checked against held text with Claude (advisor), 2026-10-18"
+        },
         "warranted": null
       },
       "first_seen": "2026-10-18",
       "on_page": true,
-      "check_flags": []
+      "check_flags": [],
+      "also_rests_on": [
+        {
+          "source_id": "S025",
+          "span": "AI is not inherently harmful to learning; its educational impact depends on how and when it is introduced."
+        },
+        {
+          "source_id": "S025",
+          "span": "AI integration in medical training may introduce three distinct risks to competency development: deskilling, mis-skilling, and never-skilling."
+        },
+        {
+          "source_id": "S025",
+          "span": "Nature Medicine volume 32 , pages 1997-2006 ( 2026 )"
+        },
+        {
+          "source_id": "S025",
+          "span": "Issue date : June 2026"
+        }
+      ],
+      "proposed_by": "model",
+      "proposed_on": "2026-10-18",
+      "confirmed": true,
+      "why_bound": "batch 4 (2026-10-18): proposed by Claude from held text, every span an exact substring of the held bytes; confirmed by Fred Ugast. See docs/whatholdsup-deskilling-revision.md. Issue 6: the held page gives 'Issue date : June 2026'; Crossref's record for 10.1038/s41591-026-04438-y gives volume 32, issue 6 (checked 2026-10-18).",
+      "checked_on": "2026-10-18"
     },
     "74c831026426c2b3": {
       "sentence": "Source of the power calculation of roughly 159 participants, the observation that some reported figures rest on two to four essays per group, the discrepancy between 55 completers and 54 analysed — on which the paper itself gives a reason the comment does not address, and this page prints the paper’s — the definition of a “significant connection” as a relative measure and the consequence they draw from it, and their assessment that there is no strong evidence that the tool use negatively affects performance itself.",
       "sentence_sha": "74c831026426c2b3",
       "why_empirical": "the bare integer 159 is a quantity",
-      "bucket": null,
-      "source_id": null,
-      "document_sha": null,
-      "locator_type": null,
-      "locator": null,
-      "span": null,
-      "envelope": null,
+      "bucket": "deterministic",
+      "source_id": "S019",
+      "document_sha": "c9a31194f7da3d36c628942b8c5ebcc175cddbb44977a4a227c0f084cd128e5e",
+      "locator_type": "prose",
+      "locator": "Comment, main text; S007 Participants",
+      "span": "indicates that approximately N = 159 participants would be required for adequate power.",
+      "envelope": "relative to the number of comparisons performed. A basic a priori power analysis using G*Power (Faul et al., 2007) for a repeated-measures ANOVA (f = 0.25, α = .05, power = .95, three groups, four measurements, r = .50) indicates that approximately N = 159 participants would be required for adequate power. Thus, the power of the reported study is likely lower, especially for analyses involving Session 4 or analyses on essay topics. For example, several topic-specific figures were interpreted based on extremely small subsa",
       "scope_words": [],
       "falsifier": null,
       "verdicts": {
-        "locatable": null,
-        "faithful": null,
+        "locatable": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "checked against held text with Claude (advisor), 2026-10-18"
+        },
+        "faithful": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "checked against held text with Claude (advisor), 2026-10-18"
+        },
         "warranted": null
       },
       "first_seen": "2026-10-18",
       "on_page": true,
-      "check_flags": []
+      "check_flags": [],
+      "also_rests_on": [
+        {
+          "source_id": "S019",
+          "span": "several topic-specific figures were interpreted based on extremely small subsamples (sometimes only 2-4 essays per group)"
+        },
+        {
+          "source_id": "S019",
+          "span": "the authors state that 55 participants completed all experiments, yet only 54 participants are reported in the analysis. The criteria for excluding the participant who completed all experimental sessions from the analysis remain unclear."
+        },
+        {
+          "source_id": "S019",
+          "span": "However, there is no strong evidence that the LLM use negatively affects performance itself."
+        },
+        {
+          "source_id": "S007",
+          "span": "To ensure data distribution, we are here only reporting data from 54 participants (as participants were assigned in three groups, see details below)."
+        }
+      ],
+      "proposed_by": "model",
+      "proposed_on": "2026-10-18",
+      "confirmed": true,
+      "why_bound": "batch 4 (2026-10-18): proposed by Claude from held text, every span an exact substring of the held bytes; confirmed by Fred Ugast. See docs/whatholdsup-deskilling-revision.md.",
+      "checked_on": "2026-10-18"
     }
   }
 }

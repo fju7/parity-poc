@@ -95,6 +95,30 @@
       "by": "claude",
       "on": "2026-10-18",
       "falsifier": "The sentence no longer printing 2601.00856 as S019's arXiv identifier."
+    },
+    {
+      "figure": "53",
+      "in_sentence": "65 assessed, 53 excluded with reasons, 12 included",
+      "why": "Declared at the operator's instruction of 2026-10-18 (deskilling batch 4). Our own arithmetic on S029's Figure 1 (PRISMA flowchart), not a figure the review prints: 53 = 29 + 14 + 10, the three full-text exclusion reasons it lists ('n = 29', 'n = 14', 'n = 10'); 65 - 53 = 12.",
+      "by": "claude",
+      "on": "2026-10-18",
+      "falsifier": "S029's flow diagram printing a different set of exclusion counts, or the sentence no longer giving 53."
+    },
+    {
+      "figure": "436",
+      "in_sentence": "less 37 duplicates, is 436 rather than the 373 printed",
+      "why": "Declared at the operator's instruction of 2026-10-18 (deskilling batch 4). Our own arithmetic on S029's Figure 1 (PRISMA flowchart), not a figure the review prints: 436 = 432 database records + 41 grey-literature records - 37 duplicates; the diagram prints 373 as total records identified.",
+      "by": "claude",
+      "on": "2026-10-18",
+      "falsifier": "S029's flow diagram printing different counts for those three boxes."
+    },
+    {
+      "figure": "41",
+      "in_sentence": "373 less 332 excluded is 41 rather than the 65",
+      "why": "Declared at the operator's instruction of 2026-10-18 (deskilling batch 4). Our own arithmetic on S029's Figure 1 (PRISMA flowchart), not a figure the review prints: 41 = 373 records identified - 332 records excluded; the diagram then reports 65 assessed. (41 is also printed in the diagram as the grey-literature count; this declaration covers the subtraction in this sentence only.)",
+      "by": "claude",
+      "on": "2026-10-18",
+      "falsifier": "S029's flow diagram printing different counts for those boxes."
     }
   ]
 }

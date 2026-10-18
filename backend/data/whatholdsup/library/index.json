@@ -1600,6 +1600,38 @@
         "deskilling:S046"
       ],
       "note": ""
+    },
+    "4897ee81a1805ac558e547be94b8c55eeb62a1bed0e27cfb2043631e1f8f388d": {
+      "file": "docs/48/4897ee81a1805ac558e547be94b8c55eeb62a1bed0e27cfb2043631e1f8f388d.html",
+      "bytes": 619110,
+      "content_type": "text/html",
+      "first_held": "2026-10-18",
+      "urls": [
+        "https://www.mdpi.com/2075-4698/15/1/6"
+      ],
+      "titles": [
+        "Gerlich, M. (2025) — AI Tools in Society: Impacts on Cognitive Offloading and the Future of Critical Thinking. Societies 15(1), 6, 3 January 2025. Center for Strategic Corporate Foresight and Sustainability, SBS Swiss Business School."
+      ],
+      "used_by": [
+        "deskilling:S008"
+      ],
+      "note": ""
+    },
+    "77be38cb3af027f5aed81c6afb91cc30eaa93200bfc3b9a3102a3dd1a340dca1": {
+      "file": "docs/77/77be38cb3af027f5aed81c6afb91cc30eaa93200bfc3b9a3102a3dd1a340dca1.html",
+      "bytes": 163059,
+      "content_type": "text/html",
+      "first_held": "2026-10-18",
+      "urls": [
+        "https://www.mdpi.com/2075-4698/15/9/252"
+      ],
+      "titles": [
+        "Correction: Gerlich, M. AI Tools in Society: Impacts on Cognitive Offloading and the Future of Critical Thinking. Societies 2025, 15, 6. Societies 2025, 15(9), 252"
+      ],
+      "used_by": [
+        "deskilling:S049"
+      ],
+      "note": ""
     }
   }
 }

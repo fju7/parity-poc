@@ -296,7 +296,17 @@
           "identified_by": "contains 12 of 12 distinctive title words — 379935 characters, reference list and discussion/introduction present"
         }
       },
-      "the_55_and_the_54": "VERBATIM, from the v1 PDF read in full on 2026-08-30: “55 completed the experiment in full (attending a minimum of three sessions, defined later). To ensure data distribution, we are here only reporting data from 54 participants (as participants were assigned in three groups, see details below).” This matters because the Comment (S019) reports the 55/54 gap and says the exclusion criteria remain unclear. The paper does give a reason, in the sentence above, and the Comment does not address it. The page now prints both."
+      "the_55_and_the_54": "VERBATIM, from the v1 PDF read in full on 2026-08-30: “55 completed the experiment in full (attending a minimum of three sessions, defined later). To ensure data distribution, we are here only reporting data from 54 participants (as participants were assigned in three groups, see details below).” This matters because the Comment (S019) reports the 55/54 gap and says the exclusion criteria remain unclear. The paper does give a reason, in the sentence above, and the Comment does not address it. The page now prints both.",
+      "status_checks": [
+        {
+          "question": "has it been published in a journal or conference?",
+          "answer": "No published version found; still a preprint.",
+          "evidence": "arXiv API (export.arxiv.org, id 2506.08872): latest version v2, published 2025-06-10T15:04:28Z, updated 2025-12-31T21:13:04Z, no journal_ref, no DOI. Crossref works search ('Your Brain on ChatGPT', from 2025-06-01): commentary and news only, no published version by Kosmyna et al.",
+          "note": "A v2 exists (31 December 2025). The held file is v1; v2 has not been read.",
+          "on": "2026-10-18",
+          "by": "claude"
+        }
+      ]
     },
     {
       "id": "S008",
@@ -312,13 +322,12 @@
         "by": "Fred Ugast (download) and claude (identification)",
         "on": "2026-10-18",
         "sections": [
-          "the MDPI article page: citation, affiliation, sample, recruitment, design, both measures, all correlations, the causation disclaimer"
+          "the MDPI article PDF (published version) and, since 2026-10-18, the MDPI article page (HTML): citation, affiliation, sample, recruitment, design, both measures, all correlations"
         ],
         "not_read": [
-          "the limitations section in full",
-          "the correction notice at Societies 15(9) 252, which our file describes as a duplicated table with conclusions unaffected and which has NOT been opened"
+          "the limitations section in full"
         ],
-        "note": "URL VERIFIED — it was recorded from memory and this time memory was right. The sibling that was wrong was Hesselmann.\n\n2026-09-01: state migrated from `machine_read` to `fragment_only`. machine_read was abolished on issue two the same day: its only evidence was that this URL appeared in the citation list of a gate report, so an automated check reached it. Nothing checked what came back, or whether anything did. It sat in READ_STATES and licensed characterisation and adverse claims; fragment_only licenses neither. Nothing about what we know changed here — only what the ledger admits. Issues one and three kept the abolished state for a day because no check asked whether a state was one the ledger defines. One does now.\n\n2026-10-18, fetch attempt (state unchanged): Unpaywall gold OA (MDPI publisher PDF; SSRN accepted version 10.2139/ssrn.5082524). MDPI returns HTTP 403 to a script for both the PDF and the article page. FREE ROUTE EXISTS — a browser download of the MDPI PDF is legitimate.\n\n2026-10-18: fragment_only -> full_text_held. Downloaded by Fred Ugast in his own browser from the free route; identified from its own text (contains 12 of 12 distinctive title words; prints its DOI 10.3390/soc15010006) and ingested with source_store.py add; it is the published version (MDPI Societies, open access, CC BY; received/revised/accepted/published dates on the title page).",
+        "note": "URL VERIFIED — it was recorded from memory and this time memory was right. The sibling that was wrong was Hesselmann.\n\n2026-09-01: state migrated from `machine_read` to `fragment_only`. machine_read was abolished on issue two the same day: its only evidence was that this URL appeared in the citation list of a gate report, so an automated check reached it. Nothing checked what came back, or whether anything did. It sat in READ_STATES and licensed characterisation and adverse claims; fragment_only licenses neither. Nothing about what we know changed here — only what the ledger admits. Issues one and three kept the abolished state for a day because no check asked whether a state was one the ledger defines. One does now.\n\n2026-10-18, fetch attempt (state unchanged): Unpaywall gold OA (MDPI publisher PDF; SSRN accepted version 10.2139/ssrn.5082524). MDPI returns HTTP 403 to a script for both the PDF and the article page. FREE ROUTE EXISTS — a browser download of the MDPI PDF is legitimate.\n\n2026-10-18: fragment_only -> full_text_held. Downloaded by Fred Ugast in his own browser from the free route; identified from its own text (contains 12 of 12 distinctive title words; prints its DOI 10.3390/soc15010006) and ingested with source_store.py add; it is the published version (MDPI Societies, open access, CC BY; received/revised/accepted/published dates on the title page).\n\n2026-10-18: two corrections to this record, from what is now held. (1) The correction notice is now held as S049 (MDPI HTML, doi 10.3390/soc15090252), so it is no longer 'NOT opened'; the_correction's 'READ AT SOURCE 2026-08-30' and this record's not_read contradicted each other, and the notice we hold matches the_correction's description: Table 4 duplicated Table 3, the author states the scientific conclusions are unaffected. (2) 'the causation disclaimer' has been removed from sections: neither the held PDF nor the article page (MDPI HTML, held as a second rendition) contains a sentence disclaiming causation. The only sentence about causation in either is: 'Experimental studies that manipulate the level of AI tool usage and measure resultant changes in critical thinking performance could offer causal evidence of the relationship between these variables.' The paper writes of 'the negative impact of AI usage on critical thinking'.",
         "held": {
           "file": "docs/e9/e90160a909e933f2f6e3ae29ff36990bd17057288f0a67bc9bbc5f5abf5a8d7f.pdf",
           "sha256": "e90160a909e933f2f6e3ae29ff36990bd17057288f0a67bc9bbc5f5abf5a8d7f",
@@ -328,7 +337,7 @@
       },
       "doi": "10.3390/soc15010006",
       "the_precise_criticism": "Not 'it is only a correlation' — the author says that himself. The point is that all three constructs are self-reported in one instrument, and the three correlations are uniformly strong: 0.68, 0.72, 0.75. That uniformity is the signature of common-method variance rather than three separately established relationships. Note also that the critical-thinking items are DERIVED from the Halpern assessment rather than being the Halpern assessment administered as a test; the piece must say 'items drawn from' and not imply a test was sat.",
-      "the_correction": "Correction, Societies 2025, 15(9), 252, published 10 September 2025: Table 4 had duplicated Table 3 and a corrected Table 4 of ANOVA results for deep thinking activities was supplied. The notice states the scientific conclusions are unaffected. READ AT SOURCE 2026-08-30, after the source advocate objected that the page used this paper as an example of weak evidence without disclosing that it carries a correction. The advocate was right and the page now carries it, with the fact that it was minor."
+      "the_correction": "Correction, Societies 2025, 15(9), 252, published 10 September 2025: Table 4 had duplicated Table 3 and a corrected Table 4 of ANOVA results for deep thinking activities was supplied. The notice states the scientific conclusions are unaffected. READ AT SOURCE 2026-08-30, after the source advocate objected that the page used this paper as an example of weak evidence without disclosing that it carries a correction. The advocate was right and the page now carries it, with the fact that it was minor. 2026-10-18: now held as S049; see access.note."
     },
     {
       "id": "S009",
@@ -610,7 +619,16 @@
         "the_accuracy_swing": "Relative to baseline (no System 3 access), accuracy significantly rose when AI was accurate and fell when it erred (+25/-15 percentage points; Study 1), the behavioral signature of cognitive surrender (AI-Accurate vs. AI-Faulty contrast; Cohen's h = 0.81).",
         "the_follow_rate_on_faulty_advice": "Conditional on using System 3, participants followed AI's advice on 92.7% of AI-Accurate trials (SE = 1.2%, 95% CI [90.2, 95.0]), overriding it only 7.3% of the time, and 79.8% of AI-Faulty trials (SE = 1.9%, 95% CI [75.9, 83.4]), overriding it 20.2% of the time. ... participants followed faulty AI recommendations on roughly four out of five chat-engaged trials.",
         "_status": "COMPLIANT with THE_EXTRACT_RULE as of 2026-08-30. Every figure this page takes from this paper is now recorded here in the paper's own words. Extracted from the PDF the operator supplied on 2026-08-29, which was on disk in the session's upload directory the whole time."
-      }
+      },
+      "status_checks": [
+        {
+          "question": "is there a published (peer-reviewed) version?",
+          "answer": "No published version found; working paper / preprint only.",
+          "evidence": "Crossref works search (title): SSRN posted-content 10.2139/ssrn.6097646 (2026) and PsyArXiv/OSF posted-content 10.31234/osf.io/yk25n_v1 (2026-01-12), both Shaw and Nave; no journal-article record.",
+          "on": "2026-10-18",
+          "by": "claude"
+        }
+      ]
     },
     {
       "id": "S018",
@@ -1006,7 +1024,7 @@
         "sections": [
           "the whole paper: abstract, methods, the PRISMA flowchart (which extracts as text: 432, 41, 37, 373, 332, 65, 12), every specialty section, Table 1 row by row, discussion, limitations, conclusion and the full reference list"
         ],
-        "note": "Supplied by fred after esmorwd.org 403'd and ScienceDirect refused robots; read end to end by claude on 2026-08-29 and again on 2026-08-30. Every adverse claim this page makes about the review is quoted from this PDF. NOTE the proof's running footer prints 'Volume 11, Issue C' above 'Available online xxx'; CrossRef's registered record for the version of record gives volume 12 and no issue, which is what the page cites.\n\n2026-09-01: state migrated from `machine_read` to `fragment_only`. machine_read was abolished on issue two the same day: its only evidence was that this URL appeared in the citation list of a gate report, so an automated check reached it. Nothing checked what came back, or whether anything did. It sat in READ_STATES and licensed characterisation and adverse claims; fragment_only licenses neither. Nothing about what we know changed here — only what the ledger admits. Issues one and three kept the abolished state for a day because no check asked whether a state was one the ledger defines. One does now.",
+        "note": "Supplied by fred after esmorwd.org 403'd and ScienceDirect refused robots; read end to end by claude on 2026-08-29 and again on 2026-08-30. Every adverse claim this page makes about the review is quoted from this PDF. NOTE the proof's running footer prints 'Volume 11, Issue C' above 'Available online xxx'; CrossRef's registered record for the version of record gives volume 12 and no issue, which is what the page cites. [2026-10-18: the PDF we hold (library sha caec391d…, held 2026-09-15 from the publisher's whole-issue bundle) prints 'Volume 12 ■ Issue C ■ 2026' in its running footer and 'Available online 19 March 2026', matching Crossref's volume 12. The earlier note said 'Volume 11' and 'Available online xxx': that describes the proof read on 29-30 August, which is not the file in the library. What we hold says 12.]\n\n2026-09-01: state migrated from `machine_read` to `fragment_only`. machine_read was abolished on issue two the same day: its only evidence was that this URL appeared in the citation list of a gate report, so an automated check reached it. Nothing checked what came back, or whether anything did. It sat in READ_STATES and licensed characterisation and adverse claims; fragment_only licenses neither. Nothing about what we know changed here — only what the ledger admits. Issues one and three kept the abolished state for a day because no check asked whether a state was one the ledger defines. One does now.",
         "held": {
           "file": "docs/ca/caec391d5633d94baadfb0ef78a25e1c092e9d535d224f897821b08110e55e5c.pdf",
           "sha256": "caec391d5633d94baadfb0ef78a25e1c092e9d535d224f897821b08110e55e5c",
@@ -1056,7 +1074,7 @@
         "references_18_and_19": "18. NHS Digital. Cervical Screening Programme, England: Annual Report 2019. 19. UK National Screening Committee. Evidence Review: HPV Primary Screening in Cervical Cancer Prevention. UK: NSC; 2020.",
         "reference_35": "Bellahsen-Harrar Y, Lubrano M, Lepine C, et al. Exploring the risks of over-reliance on AI in diagnostic pathology: What lessons can be learned to support the training of young pathologists? PLoS One. 2025;20(8):e0323270.",
         "reference_36": "Rebolj M, Mathews CS, Denton K, HPV Pilot Steering Group. Cytology interpretation after a change to HPV testing in primary cervical screening: Observational study from the English pilot. Cancer Cytopathol. 2022;130(7):531-541.",
-        "volume_and_issue_as_printed": "Volume 11 [box] Issue C [box] 2026 — the running footer on all six pages of the PDF. Recorded because a run-2 gate finding called our citation's volume number wrong against the publisher's online record. The article itself prints 11."
+        "volume_and_issue_as_printed": "Volume 11 [box] Issue C [box] 2026 — the running footer on all six pages of the PDF. Recorded because a run-2 gate finding called our citation's volume number wrong against the publisher's online record. The article itself prints 11. [2026-10-18: the PDF we hold (library sha caec391d…, held 2026-09-15 from the publisher's whole-issue bundle) prints 'Volume 12 ■ Issue C ■ 2026' in its running footer and 'Available online 19 March 2026', matching Crossref's volume 12. The earlier note said 'Volume 11' and 'Available online xxx': that describes the proof read on 29-30 August, which is not the file in the library. What we hold says 12.]"
       },
       "W8_ANSWERED": {
         "on": "2026-08-30",
@@ -1576,7 +1594,16 @@
       },
       "found_via": "The page gate's COVERAGE role, 2026-08-30, on the new-cycle run — the third instance this week of a role finding prior art our own searches did not.",
       "form": "notice",
-      "form_decided_by": "a Gastroenterology editorial — a short journal item, not a research paper; not held"
+      "form_decided_by": "a Gastroenterology editorial — a short journal item, not a research paper; not held",
+      "status_checks": [
+        {
+          "question": "exact online publication date",
+          "answer": "5 June 2026 (electronic); June 2026 issue.",
+          "evidence": "Europe PMC core record PMID 42250888, doi 10.1053/j.gastro.2026.05.026: electronicPublicationDate 2026-06-05, firstPublicationDate 2026-06-05, printPublicationDate 2026-06-01, dateOfPublication '2026 Jun'. Crossref: issued 2026-06, DOI created 2026-06-05T16:10:29Z, no published-online field.",
+          "on": "2026-10-18",
+          "by": "claude"
+        }
+      ]
     },
     {
       "id": "S045",
@@ -1598,7 +1625,7 @@
       "also_called": [
         "the notice"
       ],
-      "WHY_THIS_ALIAS": "Not 'the correction'. That phrase occurs three times on this page and only one is this document: the first is Georgiou's correction of 10 September 2025 (table 4 had duplicated table 3), a different paper's correction entirely; the third is 'the correction history', which is this site's own furniture. 'The correction notice' is worse — its only hit is the Georgiou one. 'The notice' occurs exactly once on the page, in the sentence that says the operator obtained it, and that sentence is about this document. An alias that is too broad attaches a source to sentences that are not about it, which is the same failure as having no alias, pointed the other way."
+      "WHY_THIS_ALIAS": "Not 'the correction'. That phrase occurs three times on this page and only one is this document: the first is Georgiou's correction of 10 September 2025 (table 4 had duplicated table 3), a different paper's correction entirely; the third is 'the correction history', which is this site's own furniture. 'The correction notice' is worse — its only hit is the Georgiou one. 'The notice' occurs exactly once on the page, in the sentence that says the operator obtained it, and that sentence is about this document. An alias that is too broad attaches a source to sentences that are not about it, which is the same failure as having no alias, pointed the other way. [2026-10-18 note: the 10 September 2025 correction described above as 'Georgiou's' is Gerlich's (S008), Societies 2025, 15(9), 252, now held as S049.]"
     },
     {
       "id": "S046",
@@ -1680,6 +1707,28 @@
         "note": "2026-10-18: not_opened -> full_text_held. Downloaded by Fred Ugast in his own browser from SSRN; identified from its own text (title, Budzyń et al., SSRN 5070304 on every page, references accessed to 12 December 2024, PDF created 23 December 2024) and ingested with source_store.py add. It is the SSRN PREPRINT, not peer reviewed, of the paper later published in Lancet Gastroenterol Hepatol 2025;10(10):896-903 (S021 holds that paper's accepted manuscript). SSRN's diagonal watermark is interleaved in the extracted text ('Pr', 'iew ed', 'er r' fragments), which can break a span that crosses it."
       },
       "document_class": "document"
+    },
+    {
+      "id": "S049",
+      "type": "corrigendum",
+      "title": "Correction: Gerlich, M. AI Tools in Society: Impacts on Cognitive Offloading and the Future of Critical Thinking. Societies 2025, 15, 6. Societies 2025, 15(9), 252",
+      "form": "notice",
+      "url": "https://doi.org/10.3390/soc15090252",
+      "also_called": [
+        "Gerlich's correction"
+      ],
+      "used_for": "The published correction to Gerlich (S008): Table 4 had duplicated Table 3 and was replaced; the author states the scientific conclusions are unaffected; approved by the Academic Editor; the original publication updated. Supports 17e6f095 and 93c14a94.",
+      "access": {
+        "state": "full_text_held",
+        "by": "Fred Ugast (download) and claude (identification)",
+        "on": "2026-10-18",
+        "sections": [
+          "the entire notice: what was corrected, the author's statement on the conclusions, the corrected Table 4"
+        ],
+        "note": "2026-10-18: held. MDPI HTML of the correction notice (doi 10.3390/soc15090252), saved by Fred Ugast in his own browser and identified by Claude Code from its citation_doi. It reads: 'In the original publication [1], there was a mistake in Table 4 as published. Table 4 was a duplicate of Table 3 in the publication. The corrected version of Table 4 appears below. The author states that the scientific conclusions are unaffected. This correction was approved by the Academic Editor. The original publication has also been updated.'"
+      },
+      "document_class": "document",
+      "amends": "S008"
     }
   ],
   "independence_note": "S004, S015 and S016 all descend from S005 and the retraction notice. They are not corroboration of each other. Six outlets reporting the same audit is one source. S017 and S018 came from a Reddit thread rather than from our own searching. Neither our scanner nor six rounds of targeted search found either, and one of them is the most rigorously designed study in the set. That is a finding about our coverage, not about Reddit.",

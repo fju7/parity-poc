@@ -486,7 +486,21 @@
       "kind": "full_text",
       "kind_why": "97057 characters, reference list and discussion/introduction present",
       "superseded": [],
-      "also_held": []
+      "also_held": [
+        {
+          "sha256": "4897ee81a1805ac558e547be94b8c55eeb62a1bed0e27cfb2043631e1f8f388d",
+          "file": "docs/48/4897ee81a1805ac558e547be94b8c55eeb62a1bed0e27cfb2043631e1f8f388d.html",
+          "bytes": 619110,
+          "url": "https://www.mdpi.com/2075-4698/15/1/6",
+          "held": "2026-10-18",
+          "via": "MDPI HTML of the article, saved by Fred Ugast in his own browser, 2026-10-18; identified by Claude Code from its citation_doi 10.3390/soc15010006 (free route)",
+          "note": "",
+          "also_held_reason": "MDPI's HTML of the same article (doi 10.3390/soc15010006), held to check what the article page says (the ledger had recorded a causation disclaimer read on it). The PDF stays primary.",
+          "also_held_added": "2026-10-18",
+          "kind": "full_text",
+          "kind_why": "98326 characters, reference list and discussion/introduction present"
+        }
+      ]
     },
     "S030": {
       "sha256": "69d3852d76cd4315adda5e95416727983bb62e9d82436cd2282ba96a684a6222",
@@ -551,6 +565,19 @@
       "note": "",
       "kind": "full_text",
       "kind_why": "38585 characters, reference list and discussion/introduction present",
+      "superseded": [],
+      "also_held": []
+    },
+    "S049": {
+      "sha256": "77be38cb3af027f5aed81c6afb91cc30eaa93200bfc3b9a3102a3dd1a340dca1",
+      "file": "docs/77/77be38cb3af027f5aed81c6afb91cc30eaa93200bfc3b9a3102a3dd1a340dca1.html",
+      "bytes": 163059,
+      "url": "https://www.mdpi.com/2075-4698/15/9/252",
+      "held": "2026-10-18",
+      "via": "MDPI HTML of the correction notice, saved by Fred Ugast in his own browser, 2026-10-18; identified by Claude Code from its citation_doi 10.3390/soc15090252 (free route, open access)",
+      "note": "",
+      "kind": "document",
+      "kind_why": "form 'notice' — 4593 characters held. The article test does not apply to this form",
       "superseded": [],
       "also_held": []
     }
