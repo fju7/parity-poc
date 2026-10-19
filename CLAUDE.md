@@ -1798,7 +1798,8 @@ drifts and warnings are printed but pass (known_only). The script prints
 GOLDEN_OUTCOME=<outcome>; the run summary reads it. Runner pinned to
 ubuntu-24.04 (26.04 pre-caches only Python 3.14); actions on Node 24 majors
 (checkout@v5, setup-python@v6, upload-artifact@v6 — upload-artifact@v5 is still
-Node 20). The other four workflows still use ubuntu-latest + Node 20 actions.
+Node 20). Same pins applied to db-posture, verify-gates,
+signal-source-verification and staging-aliases on 2026-10-19.
 
 CI rather than a Render cron endpoint: this is a regression test, an endpoint
 would have to survive 52 sequential model calls inside one HTTP request, and it

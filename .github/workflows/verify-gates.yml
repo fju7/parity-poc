@@ -63,11 +63,11 @@ concurrency:
 
 jobs:
   offline:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 15
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
         with:
           python-version: "3.11"
       - name: pdftotext, so the manual adapters run rather than skip
@@ -91,11 +91,11 @@ jobs:
   live:
     # Monthly and on demand only: a push should not hit five registries.
     if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 30
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
         with:
           python-version: "3.11"
       - run: sudo apt-get update -q && sudo apt-get install -y -q poppler-utils
@@ -133,11 +133,11 @@ jobs:
   # ---------------------------------------------------------------------------
   recheck-status:
     if: (github.event_name == 'schedule' && github.event.schedule == '0 12 * * 1') || (github.event_name == 'workflow_dispatch' && inputs.recheck == 'status')
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 30
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
         with:
           python-version: "3.11"
       - run: pip install -r backend/requirements.txt
@@ -148,7 +148,7 @@ jobs:
           SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
         run: python scripts/recheck_topic.py --all --kind status 2>&1 | tee /tmp/recheck-status.log
       - if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: recheck-status
           path: |
@@ -158,11 +158,11 @@ jobs:
 
   recheck-bindings:
     if: (github.event_name == 'schedule' && github.event.schedule == '0 13 1-7 * 1') || (github.event_name == 'workflow_dispatch' && inputs.recheck == 'bindings')
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 60
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
         with:
           python-version: "3.11"
       - run: sudo apt-get update -q && sudo apt-get install -y -q poppler-utils
@@ -174,7 +174,7 @@ jobs:
           SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
         run: python scripts/recheck_topic.py --all --kind bindings 2>&1 | tee /tmp/recheck-bindings.log
       - if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: recheck-bindings
           path: |
