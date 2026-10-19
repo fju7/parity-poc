@@ -174,3 +174,187 @@ $5.74 of the $10 cap: 36 calls in `backend/data/spend/ledger.jsonl` under issue 
 | 1 | Claude (Opus 5.5) | P01 refusal diagnostic |
 
 The prices added to `spend_ledger.PRICES` (and the gate's copy, held equal by test) are `claude-fable-5-1` and `claude-opus-5-5`, from the pricing page on 19 October. The OpenAI price is in `judge_m1.py`, with its source and date.
+
+## Prep round 2 (19 October 2026)
+
+Rulings: protocol rev 23, "Rulings from prep round 1", "Blinding rulings" and "Audit stage design approved". Data under `runs/prep2/`, not committed. Spend: **$6.07 of $25**, under ledger issue `whu-reliability-prep2`.
+
+### Part 1. Judge prompts
+
+**OpenAI model.** `GET /v1/models` (19 October) returns 135 ids. The gpt-6 family is `gpt-6-astra` (created 2026-08-27), `gpt-6-sol` and `gpt-6-luna` (2026-09-14), and `gpt-6.1-sol` (2026-09-27). OpenAI's models page (developers.openai.com/api/docs/models) calls GPT-6 Astra "our flagship model for complex reasoning and coding" and "Our most capable model for the most demanding work". GPT-6.1 Sol is "Near-Astra performance … at a lower cost". **Judge: `gpt-6-astra`.**
+
+**Claude judge.** Switched to `claude-opus-5-5`.
+
+**M1 v3** (`prompts/m1_citation_support.md`; v2 kept as `m1_citation_support_v2.md`, with its replies in `runs/prep1/`):
+- **Order.** The sources come first, then the claim, then the instructions.
+- **Framing.** Superlatives, rankings and "first" are part of the claim; unsupported framing is Overstates.
+- **Several sources.** A sentence citing several sources is judged against all of them, and the judge sees every cited snapshot.
+- **Naming errors.** A small error in naming a document still doesn't change the label.
+
+**Caching.**
+- Claude uses a `cache_control` breakpoint at the end of the documents.
+- OpenAI uses automatic prefix caching, with a `prompt_cache_key` naming the documents.
+
+**Runner rules** (`scripts/judge_m1.py`, tests in `backend/tests/test_whu_study_judge_m1.py`):
+- **Refusal.** Retried once, unchanged. If refused again, the label is REFUSED and the item is flagged for a person; the other judge's label stands.
+- **Abstract only.** An Absent on an abstract-only snapshot is recorded as NOT_VERIFIABLE_ABSTRACT. The snapshot record has an `abstract_only` flag, decided from the stored text by `snapshot.py`.
+- **Length.** Snapshots are counted in tokens. Over 150,000 tokens, a source is cut to the sections containing the claim's key terms and the item is marked CHUNKED. **No test item was over 150,000 tokens.** The largest, P41, is 120,853, so chunking is exercised only by the tests.
+
+**Snapshots.**
+- Now one per source.
+- The prep-1 bytes are reused, so each source was fetched once for the whole prep.
+- Four test sentences cite two sources: P03, P06, P31 and P40. P40's second source (hopkinsdiabetesinfo.org) is unreachable and is recorded on the item.
+
+**Results** (16 items, one run per judge):
+
+| | Claude judge (Opus 5.5) | ChatGPT judge (gpt-6-astra) |
+|---|---|---|
+| Agrees with the unanimous pilot label | 12/16 | 13/16 |
+| Refused items (calls) | **2 (4)**: P01 and P41, refused on both attempts | 0 |
+| NOT_VERIFIABLE_ABSTRACT | 0 | 2 (P29, P34) |
+| Valid JSON / span verbatim, of labelled items | 14/14 / 14/14 | 16/16 / 16/16 |
+| Judge agrees with the other judge | 12/16 | |
+| Sent to a person | P01, P29, P34, P41 | |
+
+| Pilot label (n) | Claude judge said | ChatGPT judge said |
+|---|---|---|
+| Supported (12) | Supported 11, Overstates 1 (P16) | Supported 10, Overstates 1 (P16), NOT_VERIFIABLE_ABSTRACT 1 (P29) |
+| Absent (3) | Absent 1, Supported 1 (P34), REFUSED 1 (P41) | Absent 2, NOT_VERIFIABLE_ABSTRACT 1 (P34) |
+| Overstates (1) | REFUSED 1 (P01) | Overstates 1 |
+
+**Reading the results:**
+- **P16.** Both judges now apply the framing rule to "most explicit". The pilot's "Supported" predates that rule.
+- **P22.** The two judges now agree on Supported.
+- **The refusals were not Fable-specific.** Opus 5.5 refuses P01 (a gut-microbiome feeding trial) and P41 (an NCBI Bookshelf chapter on vitamin D metabolism), as Fable 5.1 did. The ruling expected Opus 5.5 to be free of them.
+- **P34.** The Claude judge still passes P34 on the Gibney part alone. The sentence's other source (Atzeni 2022) had no link in the ChatGPT answer, so it could not be given.
+- **Checker fix.** The verbatim check now applies Unicode NFKC normalisation. P33's span was verbatim apart from a PDF ligature ("Eﬀects").
+
+**Cost per call, measured:**
+
+| | Claude judge | ChatGPT judge |
+|---|---|---|
+| Main run, mean (median) | $0.099 ($0.047) | $0.139 ($0.069) |
+| Cache hits in the main run | 3 of 18 calls; 27% of input tokens | 0 of 16 calls |
+| Cache probe: second pass on P28, P36 and P39 | $0.0146 per call; 90% of input from cache | $0.0153 per call; 100% of the source block from cache |
+
+The main run had few cache hits because every item ran once and few items share a source:
+- P06 and P31 cite the same two sources, but in opposite order, so their prefixes differ.
+- P29's source block is under OpenAI's 1,024-token caching minimum.
+
+The probe (`replies-cacheprobe1/2`) is what a study run 2 looks like. Its labels are not used.
+
+**Full-study projection with caching** (`scripts/project_cost.py`):
+- Run 1 of each item is priced as measured.
+- Run 2 is priced from the same call's tokens, with the source block at the cached rate.
+- M2 is estimated: the answer is cached once and read by its other nine calls (5 conclusions × 2 runs).
+
+| | M1 Claude | M1 ChatGPT | M2 Claude | M2 ChatGPT | **Total** |
+|---|---|---|---|---|---|
+| Pilot-sized sources | $40 | $55 | $6 | $13 | **$114** |
+| Sources twice the pilot's size | $73 | $97 | $6 | $13 | **$188** |
+
+**Both are below $300.** Two assumptions:
+- **Run 2 must reach each item within the cache's lifetime.** Five minutes is Claude's default, so run each item's two runs back to back.
+- **Order matters.** Sentences citing the same sources should give them in the same order.
+
+**M2** (`prompts/m2_conclusion_calibration.md`) now puts the answer first, then the conclusion, then the instructions. It has the same framing wording and a several-places rule. **Not tested.**
+
+### Part 2. Blinding
+
+**WHU export** (`blinding/export_whu.py`):
+- **Splitting.** Sentences are split exactly as `bindings.py` splits the page.
+- **Markers.** `[n]` comes from each sentence's binding: `source_id`, then `also_rests_on`, then the premises' sources. References are numbered in order of first citation, and markers sit before the closing punctuation.
+- **Dropped:** the masthead line, the correction notices, the source notes and the change history.
+
+| | Sentences | Bound | With markers |
+|---|---|---|---|
+| Deskilling | 288 | 288 | 231 |
+| cdk46 | 304 | 158 | 31 |
+| Melanoma | 205 | 56 | 51 |
+
+**Gap: cdk46's and melanoma's bindings cover only their empirical sentences.** A study answer built under the every-sentence rule would look like deskilling.
+
+**One plain format for the tools** (`blind.py`):
+- **Claude.** Its site-name chips become `[n]`, placed before the full stop.
+- **Gemini.** Glued numerals and `[cite: n]` become `[n]`.
+- **ChatGPT.** HTML tables and captions left in its exports are stripped.
+- **Splitting.** All systems' sentences are split by WHU's splitter, with common abbreviations protected.
+
+**Phrase list changes** (`blind_phrases.json`):
+- **Deleted, not replaced:** "in our reading", "in our judgement" and "as we read it" (rules W03a–e). These are the only WHU-only hedges in the three issues: 6, 1 and 1 uses, and 0 in any tool's answer.
+- **The "In this answer" rewrite is gone.**
+- **"This page" now becomes "this report".** That's a replacement, because the phrase can't be deleted without breaking the sentence. Claude Research calls its own answer "this report". **This is a decision for Fred.**
+- **Approximation signs.** "~" and "≈" before a number become "about", for every system (rule N01, added after check 1).
+
+**Not samplable, for every system:** `blind.process_reason()` covers unread-source notes, dated process notes, change history, the watch section and own-method sentences. The WHU export also excludes the watch section whole. Sentences whose values Gemini's export lost are marked too. First person, length and paragraph shape are untouched.
+
+**Identifiability check** (`blinding/identifiability.py`):
+- Opus 5.5 guesses the system for 20 blinded claim-like sentences per system, each with the roughly 400 characters before it, as an M1 judge sees it.
+- The 80 sentences are shuffled and sent in four batches of 20 (seed 20261019).
+- WHU's sentences come from the three published issues; the tools' from the pilot answers.
+
+| | WHU | Claude | ChatGPT | Gemini |
+|---|---|---|---|---|
+| Check 1: identified | **20/20** | 20/20 | 20/20 | 20/20 |
+| Check 2 (after extending the list): identified | **20/20** | 19/20 (1 guessed ChatGPT) | 20/20 | 20/20 |
+
+**Blinding fails: WHU was identified 100% of the time in both runs**, against the 50% threshold. Chance is 25%.
+
+**What the guesser said gave WHU away:**
+- **Topic.** WHU's sentences are about AI deskilling, CDK4/6 drugs and melanoma; the tools' are about the pilot's four questions. This is a confound in the check as specified: no phrase list can remove it.
+- **Editorial voice and first person.** "We give the number…", "the general rule we have drawn", "in their words", "In fairness to the author".
+- **Close checking of other sources.** Auditing a review's references, abstract against body, pre-registration.
+- **WHU-only page elements.** Chart descriptions ("Amber bars cross the 95% no-effect line") and the rubric scorecard ("Rigor scores 5").
+
+**What gave the tools away:**
+- **Claude:** site-name tags in check 1, which were a converter bug, now fixed. In check 2, dense trial statistics.
+- **ChatGPT:** "~" and "≈" notation and no citations at all. Its answers have none.
+- **Gemini:** ornate mechanistic prose and its "[cite:]" format.
+
+**Not yet handled:**
+- **Converter leftovers.** A few Claude tags and Gemini "cite:" markers remain in check 2's text.
+- **Further extensions** (not run, since only one re-run was allowed): marking chart-description and rubric-score sentences as not samplable.
+
+### Part 3. The audit stage
+
+**Built:**
+- `backend/scripts/whatholdsup/audit_stage.py`, the driver;
+- `audit_prompts/read.md` and `audit_prompts/rule.md`, the prompts, each identified by sha256 on the manifest;
+- the preflight row `audit complete` in `publish.py`, BLOCKED when it cannot run.
+
+See `docs/whu-audit-stage-design.md`, "As built".
+
+**Tests:** `backend/tests/test_whatholdsup_audit_stage.py`, 20 passed. They cover:
+- a fabricated quote fails the verbatim check;
+- preflight blocks an issue with no audit, a sentence with no verdict, a corrected or cut sentence still on the page, a failed run and a dry run;
+- a sentence still failing after three rounds is cut and logged;
+- what the ruling model was actually sent contains none of the forbidden fields, even with them smuggled into the binding row;
+- the spend cap stops a call before it is made.
+
+**Dry run.** The first 20 units of deskilling: 4 card, 2 meta description, 14 page.
+- **Command:** `audit_stage.py run deskilling --dry-run --limit 20 --out <scratch> --ledger-issue whu-reliability-prep2`.
+- **It wrote nothing to the issue.** The dry run refuses an `--out` inside `issues/`.
+
+| | Calls | Input tokens | Output tokens | $ |
+|---|---|---|---|---|
+| Reading (3 rounds) | 7 | 168,887 | 9,607 | 0.868 |
+| Ruling | 7 | 8,464 | 1,932 | 0.073 |
+| Second reader (7 units: 6 judgement rows + 1) | 3 | 140,199 | 3,962 | 0.640 |
+| **Total** | 17 | 317,550 | 15,501 | **1.580** |
+
+- **Per sentence: $0.079.**
+- **By part:** reading $0.043, ruling $0.004, second reader $0.032.
+- **Tokens per sentence:** about 15,900 in and 780 out.
+- **Time:** 149 s of model time, 2 min 32 s of wall time.
+- **Whole page (495 units):** about $39 at this rate. That is an extrapolation from 20 units, not a measurement.
+
+**What the dry run found** (read-only; nothing was applied):
+- **Masthead dateline (u7).** "Evidence last read 18 October 2026" was flagged.
+  - Round 1 changed it to 19 October; round 2 to "30 August"; round 3 still found a problem, so it was cut.
+  - The rounds disagree because the records hold both dates. The three-round cut worked as designed, but the sentence needs a person.
+  - Preflight already warns that the "as of" date trails the newest recorded check.
+- **Correction notice (u14).** "On 19 October 2026 we re-read every sentence" → "On 18 and 19 October 2026…", accepted. The records show the reading ran over both days.
+- **Card and meta description (u4, u5, u6): a defect in the build.** These sentences found no page sentence to borrow a binding from, so they were read with no documents. They were found "Rested on a document we do not hold", and the ruling model amended them to "" and cut them. A card restates the page and must be read against it. **This needs fixing before the practice run.**
+- **Second reader.** Agreed on all 7.
+
+**The card is also out of date on its own.** The homepage card still reads "The evidence usually offered is weak." The page was corrected on 19 October to "In our reading, the evidence usually offered for it is weak." Not fixed here.

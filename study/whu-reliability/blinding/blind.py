@@ -27,6 +27,7 @@ import argparse
 import html as H
 import json
 import re
+import sys
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
@@ -77,22 +78,68 @@ def from_html(raw: str) -> tuple[str, list[str]]:
     return t, refs
 
 
+# A value the export could not capture (Gemini's formulas came out as images).
+# Kept as an invisible token so the sentence can be marked not samplable, then
+# removed from what a judge would read.
+LOST = "\u2063LOST\u2063"
+CHIP = re.compile(r"^[a-z0-9][a-z0-9.-]{1,39}$")      # a link whose text is a site name
+
+
 def from_markdown(raw: str) -> tuple[str, list[str]]:
+    """One plain format for every tool: text, then [n] markers placed before the
+    sentence's closing punctuation (as export_whu.py places WHU's), then the
+    numbered reference list.
+
+    Claude Research cites with site-name chips after the sentence
+    ("... in 2009. [preventncd](url)"); a chip becomes [n] and moves inside the
+    full stop. Gemini cites with numerals glued to the last word
+    ("impairment1."); those become [n] too. Links whose text is prose keep
+    their text, followed by [n]. ChatGPT's answers carry no links."""
+    gemini = "Works cited" in raw
     t = re.sub(r"<!--.*?-->", " ", raw, flags=re.S)                         # capture metadata
+    # Private-use glyphs: Claude's citation chips carry one ("nih\ue015").
+    t = re.sub("[\ue000-\uf8ff]", "", t)
+    # HTML left in an export (ChatGPT's tables and figures): cells become
+    # " ; ", as markdown table cells do; every other tag goes.
+    t = re.sub(r"</t[dh]>\s*<t[dh][^>]*>", " ; ", t, flags=re.I)
+    t = re.sub(r"</?(tr|table|thead|tbody|p|div|br|figure|figcaption|li|ul|ol)\b[^>]*>", "\n", t, flags=re.I)
+    t = re.sub(r"<[^>]+>", " ", t)
+    # Gemini's "[cite: 11, 22]" is a citation marker like any other.
+    t = re.sub(r"\[cite:\s*([\d,\s]+)\]", lambda m: "".join("[%s]" % x.strip() for x in m.group(1).split(",") if x.strip()), t)
+    if gemini:
+        # The reference list is rebuilt below; Gemini's own is dropped.
+        t = re.split(r"(?m)^#{1,6}\s*\**Works cited\**\s*$", t)[0]
     t = re.sub(r"(?m)^\s{0,3}#{1,6}\s.*$", "", t)                              # headings removed
     t = re.sub(r"(?m)^\s*\|?\s*:?-{3,}.*$", "", t)                            # table rules
     t = re.sub(r"(?m)^\s*\|(.*)\|\s*$", lambda m: " ; ".join(c.strip() for c in m.group(1).split("|")), t)
     refs: list[str] = []
     index: dict[str, int] = {}
 
-    def link(m):
-        text, url = m.group(1), m.group(2)
+    def num(url: str) -> int:
         if url not in index:
             refs.append(url); index[url] = len(refs)
-        return "%s [%d]" % (text, index[url])
+        return index[url]
+    t = re.sub(r"!\[\]\[image\d+\]", LOST, t)                                  # Gemini's lost formulas
     t = re.sub(r"!\[[^\]]*\]\([^)]*\)", " ", t)                               # images
+    # Chips after a full stop move inside it: "x. [site](u) [site2](u2)" -> "x [1][2]."
+    t = re.sub(r"([.!?])((?:\s*\[[a-z0-9][a-z0-9.-]{1,39}\]\(https?://[^)\s]+\))+)",
+               lambda m: " " + "".join("[%d]" % num(u) for u in re.findall(r"\]\((https?://[^)\s]+)\)", m.group(2))) + m.group(1),
+               t)
+
+    def link(m):
+        text, url = m.group(1), m.group(2)
+        if CHIP.match(text):
+            return "[%d]" % num(url)
+        return "%s [%d]" % (text, num(url))
     t = re.sub(r"\[([^\]]+)\]\((https?://[^)\s]+)[^)]*\)", link, t)
     t = re.sub(r"(\*\*|__|\*|_)(\S.*?\S|\S)\1", r"\2", t)                     # emphasis
+    if gemini:
+        # Glued citation numerals: after a lowercase word or a closing
+        # bracket, before punctuation or a space. Not after a capital (MUC2,
+        # D3), so names with digits are left alone.
+        t = re.sub(r"(?:(?<=[a-z]{3})|(?<=[)\]]))(\d{1,2}(?:,\d{1,2})*)(?=[\s.,;:]|$)",
+                   lambda m: " " + "".join("[%s]" % x for x in m.group(1).split(",")), t)
+        t = re.sub(r"(?<=[a-z]) (\[\d+\](?:\[\d+\])*)([.,;:])", r" \1\2", t)
     t = re.sub(r"(?m)^\s*([-*+]|\d+\.)\s+", "", t)                            # list markers
     t = t.replace("\\", "")
     return t, refs
@@ -101,7 +148,13 @@ def from_markdown(raw: str) -> tuple[str, list[str]]:
 def apply_rules(t: str) -> tuple[str, dict[str, int]]:
     fired: dict[str, int] = {}
     for r in PHRASES["rules"]:
-        t, n = re.subn(r["pattern"], r["replace"], t)
+        if "upper_group" in r:
+            # A deletion at the start of a sentence: the word after it now
+            # starts the sentence and takes its capital.
+            g = r["upper_group"]
+            t, n = re.subn(r["pattern"], lambda m: m.group(g)[:1].upper() + m.group(g)[1:], t)
+        else:
+            t, n = re.subn(r["pattern"], r["replace"], t)
         if n:
             fired[r["id"]] = n
     sp = {k: v for k, v in PHRASES["spelling"].items() if not k.startswith("_")}
@@ -123,18 +176,86 @@ def apply_rules(t: str) -> tuple[str, dict[str, int]]:
     return t, fired
 
 
-def blind(path: Path) -> tuple[str, dict[str, int]]:
+def blind(path: Path, keep_lost: bool = False) -> tuple[str, dict[str, int]]:
     raw = path.read_text(encoding="utf-8", errors="replace")
-    body, refs = (from_html(raw) if path.suffix.lower() in (".html", ".htm") else from_markdown(raw))
+    if path.name.endswith(".export.txt"):
+        # export_whu.py's output: already plain text with [n] markers and its
+        # reference list; only the rewrite rules remain to be applied.
+        body, refs = raw, []
+    else:
+        body, refs = (from_html(raw) if path.suffix.lower() in (".html", ".htm") else from_markdown(raw))
     # Whitespace first: the line-anchored rules (the confidence line) need a
     # paragraph to start at the start of a line, not after markup's indent.
     body = re.sub(r"[ \t]+", " ", _typography(body))
     body = re.sub(r" *\n[ \n]*", "\n\n", body).strip()
     body, fired = apply_rules(body)
+    if not keep_lost:
+        body = re.sub(r" ?" + LOST + r" ?", " ", body)
     if refs:
         refs_t, _ = apply_rules(_typography("\n".join(refs)))
         body += "\n\nReferences\n" + "\n".join("[%d] %s" % (i + 1, r) for i, r in enumerate(refs_t.splitlines()))
     return body, fired
+
+
+def process_reason(sentence: str) -> str:
+    """Why SENTENCE is about how the answer was made, or "" if it is not.
+
+    Blinding ruling (19 October 2026): notes on unread sources, dated process
+    notes, change history and the watch section are not sampled, for every
+    system. One function, applied to every system's sentences, so the
+    exclusion cannot favour one of them."""
+    for name, pat in PHRASES["process"].items():
+        if name.startswith("_"):
+            continue
+        if re.search(pat, sentence, flags=re.I | re.M):
+            return name
+    return ""
+
+
+def split_sentences(text: str) -> list[str]:
+    """WHU's own splitter (ledger.sentences), used for every system so that no
+    system's sentences are cut differently from another's."""
+    sys.path.insert(0, str(HERE.parents[2] / "backend" / "scripts" / "whatholdsup"))
+    import source_ledger as ledger
+    out = []
+    abbrev = r"\b(e\.g|i\.e|et al|vs|cf|approx|Fig|Figs|No|Dr|Prof|Ref|Vol|Suppl)\."
+    text = re.sub(abbrev, lambda m: m.group(0).replace(".", "\u2024"), text)
+    for para in re.split(r"\n\s*\n", text):
+        if para.strip() == "References" or re.match(r"^\[\d+\]\s", para.strip()):
+            continue                     # the reference list is not prose
+        out += [" ".join(s.split()).replace("\u2024", ".") for s in ledger.sentences(para) if s.strip()]
+    return out
+
+
+def sentence_rows(path: Path, system: str, context_chars: int = 400) -> list[dict]:
+    """One row per blinded sentence, with the ~400 characters before it (what
+    an M1 judge is shown) and whether it may be sampled.
+
+    A WHU export brings its own sentence list (export_whu.py splits the page
+    exactly as bindings.py does and knows each sentence's section, so the watch
+    section is excluded whole); each is blinded by the same rules. Any other
+    answer is blinded whole and then split."""
+    side = path.with_name(path.name.replace(".export.txt", ".sentences.jsonl"))
+    if path.name.endswith(".export.txt") and side.exists():
+        src = [json.loads(l) for l in side.read_text(encoding="utf-8").splitlines() if l.strip()]
+        pairs = []
+        for r in src:
+            t = re.sub(r"[ \t]+", " ", _typography(r["text"])).strip()
+            t, _f = apply_rules(t)
+            pre = "" if r.get("samplable") else r.get("not_samplable_why", "")
+            pairs.append((t, pre))
+    else:
+        text, _fired = blind(path, keep_lost=True)
+        pairs = [(s, "") for s in split_sentences(text.split("\n\nReferences\n")[0])]
+    rows, so_far = [], ""
+    for i, (s, pre) in enumerate(pairs):
+        lost = LOST in s or re.search(r"\(\s*(to|-|,|;|vs\.?)?\s*\)", s)
+        why = pre or ("value_not_captured" if lost else "") or process_reason(s)
+        s = " ".join(s.replace(LOST, " ").split())
+        rows.append({"system": system, "doc": path.name, "idx": i, "text": s,
+                     "context": so_far[-context_chars:], "samplable": not why, "not_samplable_why": why})
+        so_far += " " + s
+    return rows
 
 
 def tells(text: str) -> dict[str, list[str]]:
@@ -157,6 +278,8 @@ def main() -> int:
     ap.add_argument("--out", default=".")
     ap.add_argument("--report", action="store_true")
     ap.add_argument("--json")
+    ap.add_argument("--sentences", metavar="SYSTEM",
+                    help="also write <name>.sentences.blind.jsonl: one row per sentence, for sampling")
     a = ap.parse_args()
     out = Path(a.out); out.mkdir(parents=True, exist_ok=True)
     summary = {}
@@ -164,6 +287,11 @@ def main() -> int:
         p = Path(f)
         text, fired = blind(p)
         (out / (p.stem + ".blind.txt")).write_text(text, encoding="utf-8")
+        if a.sentences:
+            rows = sentence_rows(p, a.sentences)
+            with open(out / (p.stem + ".sentences.blind.jsonl"), "w", encoding="utf-8") as fh:
+                for r in rows:
+                    fh.write(json.dumps(r, ensure_ascii=False) + "\n")
         words = len(text.split())
         tl = tells(text)
         summary[p.name] = {"words": words, "fired": fired,

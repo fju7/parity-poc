@@ -16,11 +16,40 @@
    "why": "draft banners on a test page"
   },
   {
-   "id": "W03",
+   "id": "W03a",
    "system": "WHU",
-   "pattern": "\\b([Ii])n our (reading|judgement|judgment|view)\\b",
-   "replace": "\\1n this answer",
-   "why": "WHU's hedge on its own judgements; reworded, not dropped, so the answer's certainty is unchanged ('In this answer' is what W15 would make of 'In this assessment' anyway)"
+   "pattern": "(?<![,\\w] )\\bIn our (reading|judgement|judgment|view),?\\s+(\\w)",
+   "replace": "\\2",
+   "upper_group": 2,
+   "why": "WHU-only hedge at the start of a sentence: deleted, not replaced (blinding ruling 19 Oct); the next word is capitalised"
+  },
+  {
+   "id": "W03b",
+   "system": "WHU",
+   "pattern": ",\\s*in our (reading|judgement|judgment|view),\\s*",
+   "replace": " ",
+   "why": "WHU-only hedge as a parenthetical ('is, in our reading, modest'): deleted"
+  },
+  {
+   "id": "W03c",
+   "system": "WHU",
+   "pattern": "\\s+in our (reading|judgement|judgment|view)\\b,?",
+   "replace": "",
+   "why": "WHU-only hedge mid-sentence ('and in our judgement neither is'): deleted"
+  },
+  {
+   "id": "W03d",
+   "system": "WHU",
+   "pattern": ",\\s*as we read (it|them),\\s*",
+   "replace": " ",
+   "why": "WHU-only hedge 'as we read it' as a parenthetical: deleted"
+  },
+  {
+   "id": "W03e",
+   "system": "WHU",
+   "pattern": ",?\\s*as we read (it|them)\\b",
+   "replace": "",
+   "why": "WHU-only hedge 'as we read it', other positions: deleted"
   },
   {
    "id": "W04",
@@ -117,8 +146,8 @@
    "id": "W15",
    "system": "WHU",
    "pattern": "\\b([Tt])his (page|publication|assessment)\\b",
-   "replace": "\\1his answer",
-   "why": "self-reference as a page"
+   "replace": "\\1his report",
+   "why": "self-reference as a page; 'this report' is what Claude Research calls its own answer (3 uses in the pilot), so it is not a new marker. A replacement, not a hedge: 'this page' cannot be deleted without breaking the sentence."
   },
   {
    "id": "T01",
@@ -147,6 +176,13 @@
    "pattern": "(?im)^\\s*\\**Works cited\\**\\s*$",
    "replace": "",
    "why": "Gemini Deep Research's reference heading"
+  },
+  {
+   "id": "N01",
+   "system": "all",
+   "pattern": "(?<![\\w])[~≈∼]\\s?(?=[\\d−-])",
+   "replace": "about ",
+   "why": "approximation signs before a number ('~5%', '≈0.5') written as 'about', for every system: ChatGPT uses the signs and the others the word; same meaning (added after identifiability check 1)"
   }
  ],
  "tells": {
@@ -160,11 +196,11 @@
   "watching": "\\b(watching|we watch|would settle)\\b",
   "corrections_language": "\\b(corrected|correction|we were wrong|our error)\\b",
   "british_spelling": "(?-i:\\b(randomis\\w*|analys(ed|ing)|behaviour\\w*|centre[sd]?|programmes?|colour\\w*|favour\\w*|labelled|labelling|judgements?|organisation\\w*|recognis\\w*|characteris\\w*|summaris\\w*|emphasis(ed|ing)|criticis(e|ed|es|ing)|minimis\\w*|licence|tumour\\w*|oesophag\\w*|haemo\\w*|anaemi\\w*|paediatric\\w*)\\b)",
-  "in_this_assessment": "\\bin this answer\\b",
   "certainty_line": "(?m)^(Certainty about the|Certainty that)\\b",
   "inline_citation_markers": "\\[\\d{1,3}\\]",
   "and_colleagues": "\\band colleagues\\b",
-  "et_al": "\\bet al\\b"
+  "et_al": "\\bet al\\b",
+  "this_report": "\\bthis report\\b"
  },
  "spelling": {
   "_what_this_is": "British to American spelling, applied to every answer whole-word and case-preserving. WHU writes British English and the three tools write American; spelling is the cheapest tell there is.",
@@ -277,5 +313,16 @@
   "spelt": "spelled",
   "towards": "toward",
   "programme's": "program's"
- }
+ },
+ "process": {
+  "_what_this_is": "Sentences about how the answer was made are not sampled, for every system (blinding ruling 19 Oct). A sentence matching any pattern is marked not samplable with the pattern's name. Patterns are matched before and after the rewrite rules, so they cover both 'we could not open' and 'it was not possible to open'.",
+  "unread_source_note": "\\b(could not|couldn't|cannot|can't|were unable to|was unable to|unable to|not able to|not possible to|has not been possible to)\\s+(be\\s+)?(open|opened|read|access|accessed|obtain|obtained|reach|reached|retrieve|retrieved|verify|verified)\\b|\\b(have|has|had) not (read|opened|seen|been able to)\\b|\\bpaywall(ed)?\\b|\\bnot held\\b|\\bwe hold\\b|\\bthis answer draws on\\b|\\b(only|just) (the|its) abstract\\b|\\babstract only\\b|\\bfull text (was|is|were) (not|un)",
+  "dated_process_note": "\\b(read|checked|fetched|accessed|retrieved|searched|looked|consulted|verified|captured|opened)\\b[^.]{0,80}\\bon \\d{1,2} (January|February|March|April|May|June|July|August|September|October|November|December) 20\\d\\d\\b|\\b(accessed|retrieved) (on )?\\d{1,2} [A-Z][a-z]+ 20\\d\\d|\\bas of (our|the) (last )?(check|search|reading)\\b",
+  "change_history": "^(Updated|Corrected|Revised) \\d{1,2} [A-Z][a-z]+ 20\\d\\d|\\b(this (page|report|answer|piece)|we) (was |were |has been |have )?(corrected|updated|revised|amended)\\b|\\bchange history\\b|\\bcorrection notice\\b|\\bcorrections? (list|page)\\b|\\buntil \\d{1,2} (January|February|March|April|May|June|July|August|September|October|November|December)( 20\\d\\d)?\\b[^.]{0,80}\\b(said|read|stated|gave|called|described)\\b",
+  "watch_section": "\\b(we are watching|we watch|we will watch|what would settle|would settle (it|this|the question))\\b",
+  "own_method": "\\b(this (page|report|answer|piece)|we) (relies|rely|draws|draw|rests|rest|uses|use|cites|cite|quotes|quote|reads|read) (only )?(on |the |its |every )?(sources?|documents?|studies|text|record|records|figures?)\\b|\\bthat reading is ours\\b|\\bour (reading|rubric|scores?|scoring|method)\\b|\\b(this|the) (report|page)'s (rubric|scores?|method)\\b"
+ },
+ "_changes": [
+  "2026-10-19 after identifiability check 1: N01 (approximation signs), own_method and change_history process patterns extended; converter fixes in blind.py (private-use glyphs in Claude chips, HTML residue, Gemini [cite:] markers, empty-parenthesis lost values)."
+ ]
 }

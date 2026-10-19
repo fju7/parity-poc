@@ -1,30 +1,89 @@
 #!/usr/bin/env python3
-"""Prep-round tables: per-label agreement with the pilot's unanimous labels,
-confusion tables, form checks, and measured cost per M1 call. Free."""
-import json, glob, sys, statistics as st
+"""Prep-round tables: agreement with the pilot's unanimous labels, confusion
+tables, form checks, refusals, caching and measured cost per call. Free.
+
+Usage: score_prep.py RUN_DIR [--replies replies] [--probe replies-cacheprobe2]
+
+Reads replies written by judge_m1.py (v2 or v3 records). The span check is
+re-done here with judge_m1.norm, so a fix to the checker applies to old
+replies without touching them."""
+import argparse
+import glob
+import importlib.util
+import json
+import statistics as st
 from pathlib import Path
-run = Path(sys.argv[1])
-LAB = ["Supported", "Overstates", "Understates", "Absent", "Wrong source", "Contradicted", "Unreachable", "(no label)"]
-out = {}
-for j in ("claude", "openai"):
-    rows = [json.load(open(f)) for f in sorted(glob.glob(str(run / "replies" / j / "*.json")))]
-    conf = {}
+
+HERE = Path(__file__).resolve().parent
+spec = importlib.util.spec_from_file_location("judge_m1", HERE / "judge_m1.py")
+J = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(J)
+
+
+def load(run: Path, folder: str, judge: str) -> list[dict]:
+    return [json.load(open(f)) for f in sorted(glob.glob(str(run / folder / judge / "*.json")))]
+
+
+def docs_text(run: Path, rec: dict) -> list[str]:
+    return [(run / "sources" / (s["source_id"] + ".txt")).read_text(encoding="utf-8") for s in rec.get("sources", [])]
+
+
+def summary(run: Path, rows: list[dict]) -> dict:
+    conf: dict = {}
     for d in rows:
-        got = (d["parsed"] or {}).get("label") or "(no label)"
+        got = d.get("label") or "(no label)"
         conf.setdefault(d["reference"], {}).setdefault(got, 0)
         conf[d["reference"]][got] += 1
-    per = {r: "%d/%d" % (c.get(r, 0), sum(c.values())) for r, c in conf.items()}
-    usd = [d["usd"] for d in rows]
-    out[j] = {"n": len(rows), "agree": sum(((d["parsed"] or {}).get("label") == d["reference"]) for d in rows),
-              "refusals": sum(d["usage"].get("stop") == "refusal" for d in rows),
-              "valid_json": sum(not d["form_problems"] for d in rows),
-              "span_verbatim": sum(bool(d["span_verbatim_in_document"]) for d in rows),
-              "per_label": per, "confusion": conf,
-              "usd_total": round(sum(usd), 4), "usd_mean": round(st.mean(usd), 4), "usd_median": round(st.median(usd), 4),
-              "in_mean": round(st.mean(d["usage"]["input"] for d in rows)), "out_mean": round(st.mean(d["usage"]["output"] for d in rows)),
-              "seconds_mean": round(st.mean(d["seconds"] for d in rows), 1)}
-c = {Path(f).stem: json.load(open(f)) for f in glob.glob(str(run / "replies/claude/*.json"))}
-o = {Path(f).stem: json.load(open(f)) for f in glob.glob(str(run / "replies/openai/*.json"))}
-both = [i for i in c if i in o]
-out["judge_vs_judge"] = "%d/%d" % (sum((c[i]["parsed"] or {}).get("label") == (o[i]["parsed"] or {}).get("label") for i in both), len(both))
-print(json.dumps(out, indent=1))
+    calls = [a for d in rows for a in d["attempts"]]
+    labelled = [d for d in rows if d.get("label") != J.REFUSED]
+    spans = 0
+    for d in labelled:
+        sp = (d.get("parsed") or {}).get("span") or ""
+        spans += bool(sp) and any(J.norm(sp) in J.norm(t) for t in docs_text(run, d))
+    hit = [a for a in calls if (a["usage"].get("cache_read") or 0) > 0]
+    # Claude's "input" excludes cached tokens; OpenAI's "input" includes them.
+    src_tokens = sum(((a["usage"].get("cache_read") or 0) + (a["usage"].get("cache_write") or 0)
+                      if "cache_write" in a["usage"] else 0) + (a["usage"].get("input") or 0) for a in calls)
+    read_tokens = sum(a["usage"].get("cache_read") or 0 for a in calls)
+    usd = [a["usd"] for a in calls]
+    return {
+        "items": len(rows), "calls": len(calls),
+        "agree_with_pilot": sum(d.get("label") == d["reference"] for d in rows),
+        "refused_items": sum(d.get("label") == J.REFUSED for d in rows),
+        "refused_calls": sum(a["refused"] for a in calls),
+        "not_verifiable_abstract": sum(d.get("label") == J.NOT_VERIFIABLE_ABSTRACT for d in rows),
+        "valid_json": sum(not d["form_problems"] for d in labelled), "labelled": len(labelled),
+        "span_verbatim": spans,
+        "per_reference": {r: "%d/%d" % (c.get(r, 0), sum(c.values())) for r, c in conf.items()},
+        "confusion": conf,
+        "calls_with_cache_hit": "%d/%d" % (len(hit), len(calls)),
+        "input_tokens_read_from_cache": "%.1f%%" % (100.0 * read_tokens / max(src_tokens, 1)),
+        "usd_total": round(sum(usd), 4), "usd_mean_per_call": round(st.mean(usd), 4),
+        "usd_median_per_call": round(st.median(usd), 4),
+    }
+
+
+def main() -> int:
+    ap = argparse.ArgumentParser()
+    ap.add_argument("run")
+    ap.add_argument("--replies", default="replies")
+    ap.add_argument("--probe")
+    a = ap.parse_args()
+    run = Path(a.run)
+    out = {}
+    for j in ("claude", "openai"):
+        out[j] = summary(run, load(run, a.replies, j))
+        if a.probe:
+            out[j + "_cache_probe"] = summary(run, load(run, a.probe, j))
+    c = {d["item"]: d for d in load(run, a.replies, "claude")}
+    o = {d["item"]: d for d in load(run, a.replies, "openai")}
+    both = [i for i in c if i in o]
+    out["judge_vs_judge"] = "%d/%d" % (sum(c[i].get("label") == o[i].get("label") for i in both), len(both))
+    out["human_review_items"] = sorted(i for i in both if c[i].get("label") != o[i].get("label")
+                                       or c[i].get("human_review") or o[i].get("human_review"))
+    print(json.dumps(out, indent=1))
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

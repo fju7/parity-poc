@@ -86,45 +86,81 @@ def extent(url: str, data: bytes, text: str, ctype: str) -> tuple[str, str]:
     return "full text", "not an article; the page is the whole document (%d characters)" % len(text)
 
 
+def source_id(url: str) -> str:
+    return "S" + hashlib.sha256(url.encode()).hexdigest()[:12]
+
+
+def text_of(data: bytes) -> str:
+    if data[:5] == b"%PDF-":
+        text, how = source_store.text_of(data, "application/pdf", pages=0)
+        return text if how == "pdftotext" else ""
+    return html_text(data)
+
+
 def main() -> int:
-    items = json.loads(Path(sys.argv[1]).read_text())
-    out = Path(sys.argv[2]); out.mkdir(parents=True, exist_ok=True)
-    cache: dict[str, dict] = {}
-    rows = []
+    """snapshot.py ITEMS.json OUT_DIR [--reuse OLD_DIR]
+
+    One snapshot per SOURCE (keyed by URL), not per item: a sentence citing
+    two sources is judged against both, and two sentences citing one source
+    read the same bytes. ITEMS.json rows carry "urls" (or a single "url").
+
+    --reuse OLD_DIR takes the bytes already fetched for a URL in an earlier
+    round (OLD_DIR/manifest.json) instead of fetching again, so a source is
+    retrieved once for the whole prep, as the protocol requires. Extent is
+    always re-decided from the stored bytes, never carried over.
+
+    Each row records abstract_only, decided from the stored text by extent():
+    True only when the text is an abstract or an article record without the
+    paper's body. Unreachable sources are recorded and never judged.
+    """
+    args = sys.argv[1:]
+    reuse = None
+    if "--reuse" in args:
+        i = args.index("--reuse"); reuse = Path(args[i + 1]); del args[i:i + 2]
+    items = json.loads(Path(args[0]).read_text())
+    out = Path(args[1]); (out / "sources").mkdir(parents=True, exist_ok=True)
+    old: dict[str, Path] = {}
+    if reuse:
+        for r in json.loads((reuse / "manifest.json").read_text()):
+            f = reuse / (r["item"] + ".raw")
+            if f.exists():
+                old.setdefault(r["url"], f)
+    urls = []
     for it in items:
-        url = it["url"]
-        if url not in cache:
-            row = {"url": url, "fetched_at": datetime.now(timezone.utc).isoformat(timespec="seconds")}
-            try:
+        for u in it.get("urls") or [it["url"]]:
+            if u not in urls:
+                urls.append(u)
+    rows = []
+    for url in urls:
+        sid = source_id(url)
+        row = {"source_id": sid, "url": url}
+        try:
+            if url in old:
+                data = old[url].read_bytes()
+                row.update(fetched="reused", reused_from=str(old[url]))
+            else:
+                row["fetched_at"] = datetime.now(timezone.utc).isoformat(timespec="seconds")
                 r = requests.get(url, headers={"User-Agent": UA, "Accept-Language": "en"},
                                  timeout=60, allow_redirects=True)
-                row.update(status=r.status_code, final_url=r.url,
+                row.update(fetched="fetched", status=r.status_code, final_url=r.url,
                            content_type=r.headers.get("content-type", ""))
-                data = r.content
                 if r.status_code >= 400:
                     raise RuntimeError("HTTP %d" % r.status_code)
-                if data[:5] == b"%PDF-":
-                    text, how = source_store.text_of(data, row["content_type"], pages=0)
-                    if how != "pdftotext":
-                        text = ""
-                else:
-                    text = html_text(data)
-                ext, why = extent(url, data, text, row["content_type"])
-                row.update(raw_sha256=hashlib.sha256(data).hexdigest(), raw_bytes=len(data),
-                           text_sha256=hashlib.sha256(text.encode()).hexdigest(),
-                           text_chars=len(text), extent=ext, extent_why=why)
-                row["_data"], row["_text"] = data, text
-            except Exception as e:  # unreachable is a finding, not a crash
-                row.update(extent="unreachable", extent_why=str(e)[:200])
-            cache[url] = row
-        row = cache[url]
-        if "_data" in row:
-            (out / (it["item"] + ".raw")).write_bytes(row["_data"])
-            (out / (it["item"] + ".txt")).write_text(row["_text"], encoding="utf-8")
-        rows.append({"item": it["item"], **{k: v for k, v in row.items() if not k.startswith("_")}})
-        print("%-5s %-14s %7s chars  %s" % (it["item"], rows[-1]["extent"],
-                                             rows[-1].get("text_chars", "-"), rows[-1]["extent_why"][:90]))
-    (out / "manifest.json").write_text(json.dumps(rows, indent=1), encoding="utf-8")
+                data = r.content
+            text = text_of(data)
+            ext, why = extent(url, data, text, row.get("content_type", ""))
+            row.update(raw_sha256=hashlib.sha256(data).hexdigest(), raw_bytes=len(data),
+                       text_sha256=hashlib.sha256(text.encode()).hexdigest(),
+                       text_chars=len(text), extent=ext, extent_why=why,
+                       abstract_only=(ext == "abstract only"))
+            (out / "sources" / (sid + ".raw")).write_bytes(data)
+            (out / "sources" / (sid + ".txt")).write_text(text, encoding="utf-8")
+        except Exception as e:  # unreachable is a finding, not a crash
+            row.update(extent="unreachable", extent_why=str(e)[:200], abstract_only=False)
+        rows.append(row)
+        print("%s %-14s %7s chars  %-8s %s" % (sid, row["extent"], row.get("text_chars", "-"),
+                                              row.get("fetched", "-"), url[:70]))
+    (out / "sources" / "manifest.json").write_text(json.dumps(rows, indent=1), encoding="utf-8")
     return 0
 
 
