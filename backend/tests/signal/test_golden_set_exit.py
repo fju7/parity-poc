@@ -176,8 +176,17 @@ RUN_2026_10_19 = {
 }
 
 
+GLP1_CV = ("glp1-drugs", "cardiovascular", "consensus -> debated")
+
+
+def _real_decisions_without_glp1():
+    # glp1 cardiovascular was decided on 2026-10-19 (after this run). Remove it
+    # so the test keeps exercising the undecided path whatever the file holds.
+    return {k: v for k, v in gs.load_decisions().items() if k != GLP1_CV}
+
+
 def test_main_fails_on_the_one_undecided_drift_and_still_reports_the_known_ones(monkeypatch, capsys):
-    code, out = _run_main(monkeypatch, capsys, RUN_2026_10_19, gs.load_decisions())
+    code, out = _run_main(monkeypatch, capsys, RUN_2026_10_19, _real_decisions_without_glp1())
     assert code == 1
     assert "GOLDEN_OUTCOME=new_drift" in out
     assert "ALREADY DECIDED" in out and "car-t-cell-therapy" in out
@@ -186,9 +195,8 @@ def test_main_fails_on_the_one_undecided_drift_and_still_reports_the_known_ones(
 
 
 def test_main_passes_once_that_drift_is_decided(monkeypatch, capsys):
-    decisions = dict(gs.load_decisions())
-    decisions[("glp1-drugs", "cardiovascular", "consensus -> debated")] = {
-        "decision": "fixture_is_right", "reason": "test stub"}
+    decisions = _real_decisions_without_glp1()
+    decisions[GLP1_CV] = {"decision": "fixture_is_right", "reason": "test stub"}
     code, out = _run_main(monkeypatch, capsys, RUN_2026_10_19, decisions)
     assert code == 0
     assert "GOLDEN_OUTCOME=known_only" in out
@@ -239,7 +247,13 @@ def test_main_unbaselined_fails(monkeypatch, capsys):
     assert "GOLDEN_OUTCOME=unbaselined" in capsys.readouterr().out
 
 
+def test_the_real_decisions_file_now_passes_the_2026_10_19_run(monkeypatch, capsys):
+    code, out = _run_main(monkeypatch, capsys, RUN_2026_10_19, gs.load_decisions())
+    assert code == 0 and "GOLDEN_OUTCOME=known_only" in out
+
+
 def test_the_real_decisions_file_loads_and_keys_both_drift_kinds():
     d = gs.load_decisions()
+    assert GLP1_CV in d
     assert ("car-t-cell-therapy", "long_term_outcomes", "consensus -> debated") in d
     assert ("social-media-teen-mental-health", "methodology", "side BALANCE REVERSED") in d
