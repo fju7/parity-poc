@@ -28,10 +28,10 @@
       "run_on": "2026-10-19",
       "flagged": true,
       "decision": {
-        "decision": null,
-        "by": null,
-        "on": null,
-        "why": null
+        "decision": "rejected",
+        "by": "advisor (Claude), ruled 2026-10-19",
+        "on": "2026-10-19",
+        "why": "The judge mixed up the two papers: Troya (S031) was published online 14 Feb 2022; the deskilling study (S021) in 2025 — about three and a half years later, so \"three years before\" holds."
       }
     },
     "9675c628d62f8254": {
@@ -52,10 +52,10 @@
       "run_on": "2026-10-19",
       "flagged": true,
       "decision": {
-        "decision": null,
-        "by": null,
-        "on": null,
-        "why": null
+        "decision": "rejected",
+        "by": "advisor (Claude), ruled 2026-10-19",
+        "on": "2026-10-19",
+        "why": "The judge's own reasoning ends \"The conclusion is SUPPORTED\": 247.89→227.09 cm (~8%) and 255.66→247.89 cm (~3%) are S031's figures."
       }
     },
     "ff258fcb7375e1a2": {
@@ -76,10 +76,10 @@
       "run_on": "2026-10-19",
       "flagged": true,
       "decision": {
-        "decision": null,
-        "by": null,
-        "on": null,
-        "why": null
+        "decision": "rejected",
+        "by": "advisor (Claude), ruled 2026-10-19",
+        "on": "2026-10-19",
+        "why": "\"That\" is deskilling, defined in the previous sentence as an experienced practitioner losing a skill; S021's endoscopists had over 2,000 colonoscopies each. The judge read it as never-skilling."
       }
     },
     "062050812f814e03": {
@@ -109,10 +109,10 @@
       "run_on": "2026-10-19",
       "flagged": true,
       "decision": {
-        "decision": null,
-        "by": null,
-        "on": null,
-        "why": null
+        "decision": "rejected",
+        "by": "advisor (Claude), ruled 2026-10-19",
+        "on": "2026-10-19",
+        "why": "An absence claim checked by term search of S023 against S021's eleven limitations (revision doc §12). Strengthen: add that record as rests_on_record."
       }
     },
     "9c4da3ef97405a16": {
@@ -124,10 +124,10 @@
       "run_on": "2026-10-19",
       "flagged": true,
       "decision": {
-        "decision": null,
-        "by": null,
-        "on": null,
-        "why": null
+        "decision": "rejected",
+        "by": "advisor (Claude), ruled 2026-10-19",
+        "on": "2026-10-19",
+        "why": "6.0 / 28.4 = 21.1%; \"21%\" is our arithmetic and correct. Declare it in figure-exclusions as our computation so the 20% elsewhere is not read as the source."
       }
     },
     "ae6de87f8facde88": {
@@ -139,10 +139,10 @@
       "run_on": "2026-10-19",
       "flagged": true,
       "decision": {
-        "decision": null,
-        "by": null,
-        "on": null,
-        "why": null
+        "decision": "rejected",
+        "by": "advisor (Claude), ruled 2026-10-19",
+        "on": "2026-10-19",
+        "why": "S021: after installation, colonoscopies were done with or without AI by date; the 22.4% is the non-AI days of that period, i.e. while AI was in use on other days. The judge read \"after implementation\" as \"after removal\"."
       }
     },
     "9f2624ac1ffae178": {
@@ -172,10 +172,10 @@
       "run_on": "2026-10-19",
       "flagged": true,
       "decision": {
-        "decision": null,
-        "by": null,
-        "on": null,
-        "why": null
+        "decision": "rejected",
+        "by": "advisor (Claude), ruled 2026-10-19",
+        "on": "2026-10-19",
+        "why": "The judge took S029 (the review) for the Savardi paper. The sentence says the review's summary does not match Savardi (S047: eight residents, no follow-up) — which the judge's own reading confirms."
       }
     },
     "40e3e69240dfa312": {
@@ -187,10 +187,10 @@
       "run_on": "2026-10-19",
       "flagged": true,
       "decision": {
-        "decision": null,
-        "by": null,
-        "on": null,
-        "why": null
+        "decision": "accepted",
+        "by": "advisor (Claude), ruled 2026-10-19",
+        "on": "2026-10-19",
+        "why": "Claim supported (cf. 520bd737), but the premises lack the bylines. Add S043's \"Mori Yuichi Prof.\" and S021's \"Yuichi Mori, MD\" byline spans."
       }
     },
     "434e658a4d0f88e0": {
@@ -202,10 +202,10 @@
       "run_on": "2026-10-19",
       "flagged": true,
       "decision": {
-        "decision": null,
-        "by": null,
-        "on": null,
-        "why": null
+        "decision": "rejected",
+        "by": "advisor (Claude), ruled 2026-10-19",
+        "on": "2026-10-19",
+        "why": "Same absence as f20aa68b (Fortune carries none of the eleven limitations; §12 term search). Add the record."
       }
     },
     "30a6ffe09e4b7a8b": {
@@ -235,10 +235,10 @@
       "run_on": "2026-10-19",
       "flagged": true,
       "decision": {
-        "decision": null,
-        "by": null,
-        "on": null,
-        "why": null
+        "decision": "rejected",
+        "by": "advisor (Claude), ruled 2026-10-19",
+        "on": "2026-10-19",
+        "why": "The premises show S029's Table 1 attaching \"28 pathologists, 7%\" to Bellahsen-Harrar while S038 (Rosbach) produced them. Strengthen: add S029's body citation of arXiv 2411.00998 as a premise."
       }
     },
     "faec9851a5170987": {
@@ -259,10 +259,10 @@
       "run_on": "2026-10-19",
       "flagged": true,
       "decision": {
-        "decision": null,
-        "by": null,
-        "on": null,
-        "why": null
+        "decision": "judgement",
+        "by": "advisor (Claude), ruled 2026-10-19",
+        "on": "2026-10-19",
+        "why": "A section subheading summarising what the section argues; each part is argued and bound below it."
       }
     },
     "af54c42591b226fa": {
@@ -274,10 +274,10 @@
       "run_on": "2026-10-19",
       "flagged": true,
       "decision": {
-        "decision": null,
-        "by": null,
-        "on": null,
-        "why": null
+        "decision": "rejected",
+        "by": "advisor (Claude), ruled 2026-10-19",
+        "on": "2026-10-19",
+        "why": "\"Not one study\" means \"not just one study\" (the section asks \"Is it one study, or a pattern?\"); the judge read it as \"no studies\". Optional: \"more than one study\"."
       }
     },
     "d742d3ee2c09e692": {
@@ -298,10 +298,10 @@
       "run_on": "2026-10-19",
       "flagged": true,
       "decision": {
-        "decision": null,
-        "by": null,
-        "on": null,
-        "why": null
+        "decision": "rejected",
+        "by": "advisor (Claude), ruled 2026-10-19",
+        "on": "2026-10-19",
+        "why": "The judge used S029's (mis)description; Savardi's paper (S047) has no three-month follow-up — that mismatch is the sentence's point."
       }
     },
     "1d4c39aaf50e263b": {
@@ -322,10 +322,10 @@
       "run_on": "2026-10-19",
       "flagged": true,
       "decision": {
-        "decision": null,
-        "by": null,
-        "on": null,
-        "why": null
+        "decision": "judgement",
+        "by": "advisor (Claude), ruled 2026-10-19",
+        "on": "2026-10-19",
+        "why": "\"The best thing in either paper\" is our evaluation, plainly ours."
       }
     },
     "ca66d6ea72a8f91b": {
@@ -355,10 +355,10 @@
       "run_on": "2026-10-19",
       "flagged": true,
       "decision": {
-        "decision": null,
-        "by": null,
-        "on": null,
-        "why": null
+        "decision": "judgement",
+        "by": "advisor (Claude), ruled 2026-10-19",
+        "on": "2026-10-19",
+        "why": "Our editorial conclusion: S021's fall is among experienced endoscopists, and S043's null is chiefly informative for the inexperienced (its experienced arm showed no effect in any phase)."
       }
     },
     "98040c6fb564e59e": {
@@ -379,10 +379,10 @@
       "run_on": "2026-10-19",
       "flagged": true,
       "decision": {
-        "decision": null,
-        "by": null,
-        "on": null,
-        "why": null
+        "decision": "judgement",
+        "by": "advisor (Claude), ruled 2026-10-19",
+        "on": "2026-10-19",
+        "why": "Our framing of the shared authorship; makes no claim about a source."
       }
     },
     "1cfeb55b61b22794": {
@@ -403,10 +403,10 @@
       "run_on": "2026-10-19",
       "flagged": true,
       "decision": {
-        "decision": null,
-        "by": null,
-        "on": null,
-        "why": null
+        "decision": "accepted",
+        "by": "advisor (Claude), ruled 2026-10-19",
+        "on": "2026-10-19",
+        "why": "\"Real\" is stronger than a video-clip study supports, and \"modest\" is ours. Propose: \"The effect is statistically clear and modest, and it was measured on video clips.\""
       }
     },
     "d06d9c3d31b3528d": {
@@ -418,10 +418,10 @@
       "run_on": "2026-10-19",
       "flagged": true,
       "decision": {
-        "decision": null,
-        "by": null,
-        "on": null,
-        "why": null
+        "decision": "rejected",
+        "by": "advisor (Claude), ruled 2026-10-19",
+        "on": "2026-10-19",
+        "why": "arXiv 2506.08872: posted June 2025, latest v2, no journal reference or DOI (checked 2026-10-18, §87). The judge read \"publication\" as journal publication."
       }
     },
     "9fec3c7618c61faa": {
@@ -433,10 +433,10 @@
       "run_on": "2026-10-19",
       "flagged": true,
       "decision": {
-        "decision": null,
-        "by": null,
-        "on": null,
-        "why": null
+        "decision": "judgement",
+        "by": "advisor (Claude), ruled 2026-10-19",
+        "on": "2026-10-19",
+        "why": "\"The reassurance\" is the retracted ChatGPT-improves-learning meta-analysis and its literature (premises); the comparison is ours."
       }
     },
     "4332610d5d09782e": {
@@ -448,10 +448,10 @@
       "run_on": "2026-10-19",
       "flagged": true,
       "decision": {
-        "decision": null,
-        "by": null,
-        "on": null,
-        "why": null
+        "decision": "judgement",
+        "by": "advisor (Claude), ruled 2026-10-19",
+        "on": "2026-10-19",
+        "why": "A signpost judgement introducing the narrow good studies (Liu, Shaw & Nave), argued below."
       }
     },
     "111ae20d4698f81e": {
@@ -463,10 +463,10 @@
       "run_on": "2026-10-19",
       "flagged": true,
       "decision": {
-        "decision": null,
-        "by": null,
-        "on": null,
-        "why": null
+        "decision": "accepted",
+        "by": "advisor (Claude), ruled 2026-10-19",
+        "on": "2026-10-19",
+        "why": "The claim stands (Crossref check, §87: only SSRN/PsyArXiv versions), but the binding's only premise is an acknowledgement line. Add the §87 record quote as rests_on_record."
       }
     },
     "46230167fd715c3e": {
@@ -496,10 +496,10 @@
       "run_on": "2026-10-19",
       "flagged": true,
       "decision": {
-        "decision": null,
-        "by": null,
-        "on": null,
-        "why": null
+        "decision": "judgement",
+        "by": "advisor (Claude), ruled 2026-10-19",
+        "on": "2026-10-19",
+        "why": "\"It\" is the stripping of qualifications; at the source (the paper, the SMC roundup) the caveats were present — the judge read the sentence backwards."
       }
     },
     "4cea8f5d4b05641d": {
@@ -538,10 +538,10 @@
       "run_on": "2026-10-19",
       "flagged": true,
       "decision": {
-        "decision": null,
-        "by": null,
-        "on": null,
-        "why": null
+        "decision": "judgement",
+        "by": "advisor (Claude), ruled 2026-10-19",
+        "on": "2026-10-19",
+        "why": "Stated as our specification of the trial the authors call for (S021: \"randomized crossover trials\"), in the watch section."
       }
     },
     "2f2fe514191a2c77": {
@@ -553,10 +553,10 @@
       "run_on": "2026-10-19",
       "flagged": true,
       "decision": {
-        "decision": null,
-        "by": null,
-        "on": null,
-        "why": null
+        "decision": "judgement",
+        "by": "advisor (Claude), ruled 2026-10-19",
+        "on": "2026-10-19",
+        "why": "A general statement about review status; ours."
       }
     },
     "bd92d10544c43343": {
@@ -577,10 +577,10 @@
       "run_on": "2026-10-19",
       "flagged": true,
       "decision": {
-        "decision": null,
-        "by": null,
-        "on": null,
-        "why": null
+        "decision": "accepted",
+        "by": "advisor (Claude), ruled 2026-10-19",
+        "on": "2026-10-19",
+        "why": "Add S029's Table 1 Bellahsen-Harrar span (\"28 pathologists, 7% of correct initial…\") as a premise; the reading-at-source half rests on our records."
       }
     },
     "774bb7cbfb04017b": {
@@ -610,10 +610,10 @@
       "run_on": "2026-10-19",
       "flagged": true,
       "decision": {
-        "decision": null,
-        "by": null,
-        "on": null,
-        "why": null
+        "decision": "accepted",
+        "by": "advisor (Claude), ruled 2026-10-19",
+        "on": "2026-10-19",
+        "why": "An absence claim about S041 (ASCO Post); record a term search of S041's held text (suspension, withdrawal, eleven/limitations count) as §12 did for S023."
       }
     },
     "8d3197bbfe493c74": {
@@ -634,10 +634,10 @@
       "run_on": "2026-10-19",
       "flagged": true,
       "decision": {
-        "decision": null,
-        "by": null,
-        "on": null,
-        "why": null
+        "decision": "judgement",
+        "by": "advisor (Claude), ruled 2026-10-19",
+        "on": "2026-10-19",
+        "why": "A run-in lead; S029 calls the cytology case \"structural deskilling\", and the contrast with the cognitive studies is the page's."
       }
     },
     "7b317d349df65b09": {
@@ -649,10 +649,10 @@
       "run_on": "2026-10-19",
       "flagged": true,
       "decision": {
-        "decision": null,
-        "by": null,
-        "on": null,
-        "why": null
+        "decision": "rejected",
+        "by": "advisor (Claude), ruled 2026-10-19",
+        "on": "2026-10-19",
+        "why": "The judge lacked S021's \"This was primarily due to the temporary suspension…\" sentence; added as a premise in step 2. Re-judge on the next run."
       }
     },
     "1f224f4f67d348ea": {
@@ -700,10 +700,10 @@
       "run_on": "2026-10-19",
       "flagged": true,
       "decision": {
-        "decision": null,
-        "by": null,
-        "on": null,
-        "why": null
+        "decision": "accepted",
+        "by": "advisor (Claude), ruled 2026-10-19",
+        "on": "2026-10-19",
+        "why": "\"the thing people actually describe\" is a claim about people stated as fact (as §110). Propose \"…and it measures directly what, in our reading, people describe when they say AI has changed how they work: you take what it gives you.\""
       }
     },
     "fdf5c2a167633a0e": {
@@ -715,10 +715,10 @@
       "run_on": "2026-10-19",
       "flagged": true,
       "decision": {
-        "decision": null,
-        "by": null,
-        "on": null,
-        "why": null
+        "decision": "rejected",
+        "by": "advisor (Claude), ruled 2026-10-19",
+        "on": "2026-10-19",
+        "why": "The operator's wording. The three designs (S030 one session; S038 one web experiment; S031 two viewings three weeks apart of the same clips) measure acceptance of errors at the time; none follows up whether errors were learned. Strengthen with S031's washout span."
       }
     },
     "5c35c2424fdebabd": {
@@ -730,10 +730,10 @@
       "run_on": "2026-10-19",
       "flagged": true,
       "decision": {
-        "decision": null,
-        "by": null,
-        "on": null,
-        "why": null
+        "decision": "judgement",
+        "by": "advisor (Claude), ruled 2026-10-19",
+        "on": "2026-10-19",
+        "why": "Scoped \"in our reading\"; the operator's correction."
       }
     },
     "034217d243cad063": {
@@ -772,10 +772,10 @@
       "run_on": "2026-10-19",
       "flagged": true,
       "decision": {
-        "decision": null,
-        "by": null,
-        "on": null,
-        "why": null
+        "decision": "judgement",
+        "by": "advisor (Claude), ruled 2026-10-19",
+        "on": "2026-10-19",
+        "why": "Scoped \"among the studies we read\"; Dratsch's radiologists reading mammograms is the reading room."
       }
     },
     "7cd3f34eb02a2bf0": {
@@ -796,10 +796,10 @@
       "run_on": "2026-10-19",
       "flagged": true,
       "decision": {
-        "decision": null,
-        "by": null,
-        "on": null,
-        "why": null
+        "decision": "accepted",
+        "by": "advisor (Claude), ruled 2026-10-19",
+        "on": "2026-10-19",
+        "why": "Claim scoped to coverage we read; add premise.json's carried_in_general_coverage record (\"NO. Every piece of the scrutiny exists and every piece is somewhere else\") as rests_on_record."
       }
     },
     "255ff58f3b5edeaa": {
@@ -838,10 +838,10 @@
       "run_on": "2026-10-19",
       "flagged": true,
       "decision": {
-        "decision": null,
-        "by": null,
-        "on": null,
-        "why": null
+        "decision": "accepted",
+        "by": "advisor (Claude), ruled 2026-10-19",
+        "on": "2026-10-19",
+        "why": "Add S029's abstract span (\"In a multicenter randomized trial in colonoscopy\") and its body span (\"A multicenter observational study conducted in Poland\") as premises."
       }
     },
     "5233c54e75e0227d": {
@@ -853,10 +853,10 @@
       "run_on": "2026-10-19",
       "flagged": true,
       "decision": {
-        "decision": null,
-        "by": null,
-        "on": null,
-        "why": null
+        "decision": "judgement",
+        "by": "advisor (Claude), ruled 2026-10-19",
+        "on": "2026-10-19",
+        "why": "The operator's corrected wording (§105); the design comparison is ours."
       }
     },
     "ad94c89aae326ea7": {
@@ -886,10 +886,10 @@
       "run_on": "2026-10-19",
       "flagged": true,
       "decision": {
-        "decision": null,
-        "by": null,
-        "on": null,
-        "why": null
+        "decision": "accepted",
+        "by": "advisor (Claude), ruled 2026-10-19",
+        "on": "2026-10-19",
+        "why": "Add S038's own title span so \"wrong title\" is checkable against S029's \"Artificial intelligence under time pressure…\"."
       }
     },
     "ccbfcd7c74c8a2de": {
@@ -901,10 +901,10 @@
       "run_on": "2026-10-19",
       "flagged": true,
       "decision": {
-        "decision": null,
-        "by": null,
-        "on": null,
-        "why": null
+        "decision": "rejected",
+        "by": "advisor (Claude), ruled 2026-10-19",
+        "on": "2026-10-19",
+        "why": "All three experiments set three test problems (S001: Exp 2 \"3 additional fraction problems\", Exp 3 \"3 additional reading comprehension problems\"); add those spans. Separately, arXiv v6 changes this row's figures (1,060 → 1,058; −0.42, −0.19 → −0.45, −0.20) — awaiting your ruling."
       }
     },
     "2c5c3bb28872daa4": {
@@ -915,6 +915,285 @@
       "model": "claude-sonnet-4-6",
       "run_on": "2026-10-19",
       "flagged": false
+    },
+    "93e1ea78aa4c3b5e": {
+      "sentence_sha": "93e1ea78aa4c3b5e",
+      "sentence": "Those are compatible, and the second study's authors explain why.",
+      "label": "SUPPORTED",
+      "reason": "The conclusion says the two studies are compatible and that the second study's authors explain why. The passages from S043 explicitly state 'there is a distinct difference in study design' and explain that the deskilling effect 'may be a temporal phenomenon that disappears over time after CADe is removed,' directly reconciling the two studies' differing findings.",
+      "model": "claude-sonnet-4-6",
+      "run_on": "2026-10-19",
+      "flagged": false
+    },
+    "d2d6cc29e7ce5a8d": {
+      "sentence_sha": "d2d6cc29e7ce5a8d",
+      "sentence": "We have found no study that tests whether those are the same thing, and this page does not claim they are.",
+      "label": "NOT_IN_EVIDENCE",
+      "reason": "The conclusion claims 'we have found no study that tests whether those are the same thing' and 'this page does not claim they are' — referring to some equivalence between two concepts. The passages provided discuss efficient search, reduced coverage, and missing cancers, but none of them address whether any two specific things are 'the same,' nor do the passages contain any statement about the absence of studies testing such equivalence.",
+      "model": "claude-sonnet-4-6",
+      "run_on": "2026-10-19",
+      "flagged": true,
+      "decision": {
+        "decision": null,
+        "by": null,
+        "on": null,
+        "why": null
+      }
+    },
+    "890aa12b1ffb4d56": {
+      "sentence_sha": "890aa12b1ffb4d56",
+      "sentence": "What this page tries to add to an editorial written for the specialty is to carry the distinction out of it to a reader deciding something about their own work — and that, rather than the frame, is the part we can claim.",
+      "label": "NOT_IN_EVIDENCE",
+      "reason": "The conclusion is about what 'this page tries to add' beyond an editorial — specifically carrying a distinction to a reader deciding about their own work, and claiming that as the page's contribution. The evidence passage only defines AI-related competency risks (deskilling, mis-skilling, never-skilling) and says nothing about the page's purpose, its relationship to an editorial, or the act of addressing a reader's personal decisions.",
+      "model": "claude-sonnet-4-6",
+      "run_on": "2026-10-19",
+      "flagged": true,
+      "decision": {
+        "decision": null,
+        "by": null,
+        "on": null,
+        "why": null
+      }
+    },
+    "cbb665938c5e19fb": {
+      "sentence_sha": "cbb665938c5e19fb",
+      "sentence": "The evidence a general reader is usually offered is much weaker than the evidence that has mostly not reached them with its qualifications intact.",
+      "label": "NOT_IN_EVIDENCE",
+      "reason": "The conclusion contrasts 'evidence a general reader is usually offered' (weak) against 'evidence that has mostly not reached them with its qualifications intact' (stronger), implying a systematic pattern of qualification-stripping in public communication. The passages show individual study details (sample sizes, effect sizes, Bayes factors) but none of them address what evidence reaches general readers or how qualifications are lost in transmission to them.",
+      "model": "claude-sonnet-4-6",
+      "run_on": "2026-10-19",
+      "flagged": true,
+      "decision": {
+        "decision": null,
+        "by": null,
+        "on": null,
+        "why": null
+      }
+    },
+    "bd9b05b9fe966076": {
+      "sentence_sha": "bd9b05b9fe966076",
+      "sentence": "Three studies often cited for it are each weaker than they are usually taken to be.",
+      "label": "SUPPORTED",
+      "reason": "The conclusion says 'three studies often cited' are 'each weaker than usually taken to be.' The passages show the brain-scan study (S007) had only 54 participants while S019 indicates ~159 are needed for adequate power and warns against interpreting fewer connections as weaker neural activity; S009 shows Bayesian evidence favoring the null hypothesis for another study; and S008 acknowledges its correlation (r=-0.68) is observational and calls for experimental causal evidence—each weakness aligns with the claim that the studies are weaker than commonly portrayed.",
+      "model": "claude-sonnet-4-6",
+      "run_on": "2026-10-19",
+      "flagged": false
+    },
+    "5529ad6643c8cb8e": {
+      "sentence_sha": "5529ad6643c8cb8e",
+      "sentence": "That uniformity is what common-method variance would produce, though it does not prove it is present.",
+      "label": "SUPPORTED",
+      "reason": "The passages confirm the three uniformly strong correlations (−0.68, +0.72, −0.75) among self-reported measures in the same instrument, and the conclusion's hedge—'does not prove it is present'—accurately reflects that the evidence only shows a pattern consistent with common-method variance without establishing it causally, which aligns with the observational/survey nature of the data reported.",
+      "model": "claude-sonnet-4-6",
+      "run_on": "2026-10-19",
+      "flagged": false
+    },
+    "70ee9b2e7c982706": {
+      "sentence_sha": "70ee9b2e7c982706",
+      "sentence": "The ones that would make a reader hold the number loosely did not, in the coverage we read.",
+      "label": "NOT_IN_EVIDENCE",
+      "reason": "The conclusion claims that caveats 'that would make a reader hold the number loosely did not' travel in the coverage read. The passages provided are all from full-text studies (S021, S040, S023), not from general public coverage, so they do not address what appeared or failed to appear in the coverage the writer read.",
+      "model": "claude-sonnet-4-6",
+      "run_on": "2026-10-19",
+      "flagged": true,
+      "decision": {
+        "decision": null,
+        "by": null,
+        "on": null,
+        "why": null
+      }
+    },
+    "e104c7fcf82a6dd0": {
+      "sentence_sha": "e104c7fcf82a6dd0",
+      "sentence": "What mostly did not travel is the specific.",
+      "label": "SUPPORTED",
+      "reason": "The conclusion says 'what did not travel is why it rose' (the specific reason). The evidence shows S040 contains Osmani's specific explanation (increased workload/clinician fatigue) and S021 contains another specific reason (suspension of screening programme), but the surrounding text explicitly states 'none of the news coverage we [read]' carried these specifics—matching the conclusion that the specific did not travel.",
+      "model": "claude-sonnet-4-6",
+      "run_on": "2026-10-19",
+      "flagged": false
+    },
+    "2cc79dcb147db53d": {
+      "sentence_sha": "2cc79dcb147db53d",
+      "sentence": "And the pieces we read that were furthest from the specialty, in business and computing outlets, carried the least of it.",
+      "label": "SUPPORTED",
+      "reason": "The conclusion says business/computing outlets 'carried the least of it' (referring to methodological caveats). The Fortune passage (S023) shows it reported none of the eleven caveats and connected the finding to an aviation analogy and Microsoft/Carnegie Mellon study, while the medical-specialty passages (S041, S042) show those outlets did carry limitations and caveats. This pattern directly supports the conclusion that outlets furthest from the specialty carried the least methodological detail.",
+      "model": "claude-sonnet-4-6",
+      "run_on": "2026-10-19",
+      "flagged": false
+    },
+    "84570e25f6328924": {
+      "sentence_sha": "84570e25f6328924",
+      "sentence": "The research highlight in Nature Reviews Gastroenterology & Hepatology of 5 September 2025 calls it a multicentre, observational, retrospective study; we hold only the publisher’s preview, which says nothing more about its limitations.",
+      "label": "SUPPORTED",
+      "reason": "The passages from S027 confirm the study is described as 'multicentre, observational' and 'retrospective' (matching the conclusion's characterization), and the abstract ends with 'This is a preview of subscription content,' confirming only a publisher's preview is held. The conclusion's claim that the preview 'says nothing more about its limitations' is consistent with the abstract containing no mention of limitations.",
+      "model": "claude-sonnet-4-6",
+      "run_on": "2026-10-19",
+      "flagged": false
+    },
+    "75164565c03c47c6": {
+      "sentence_sha": "75164565c03c47c6",
+      "sentence": "Decker J, “When AI Reads the Easy Cases”, Rad Insights, 15 May 2026 , calls it a multicentre observational study but mentions none of these others: the near-doubling of procedures after the screening programme was suspended, the missing withdrawal times, the absence of blinding, or the exclusion of the first 100 procedures.",
+      "label": "NOT_IN_EVIDENCE",
+      "reason": "The conclusion claims Decker J ('When AI Reads the Easy Cases', Rad Insights, 15 May 2026) calls it a multicentre observational study but omits certain limitations. No passage in the evidence is from or about that Decker article; the passages reference S034 (Greengard, Communications of the ACM) and S027 (the Budzyń study abstract), neither of which is the Decker source the conclusion is about.",
+      "model": "claude-sonnet-4-6",
+      "run_on": "2026-10-19",
+      "flagged": true,
+      "decision": {
+        "decision": null,
+        "by": null,
+        "on": null,
+        "why": null
+      }
+    },
+    "c751fc9a9c42b46b": {
+      "sentence_sha": "c751fc9a9c42b46b",
+      "sentence": "It pairs the colonoscopy and mammography results and is the closest published thing to this page.",
+      "label": "NOT_IN_EVIDENCE",
+      "reason": "The conclusion claims the source 'pairs the colonoscopy and mammography results' and is 'the closest published thing to this page,' but none of the passages mention mammography results or make any comparison to this page. The passages only describe a colonoscopy/AI deskilling study.",
+      "model": "claude-sonnet-4-6",
+      "run_on": "2026-10-19",
+      "flagged": true,
+      "decision": {
+        "decision": null,
+        "by": null,
+        "on": null,
+        "why": null
+      }
+    },
+    "3603aa079eaf7c89": {
+      "sentence_sha": "3603aa079eaf7c89",
+      "sentence": "The evidence usually offered is weak.",
+      "label": "CONTRADICTED",
+      "reason": "The conclusion says 'the evidence usually offered is weak,' but the surrounding text and passages show mixed quality: S008 reports a 'strongly negative' correlation (r = -0.68), S009 shows Bayesian evidence favoring the null, S019 notes underpowering, and the surrounding text explicitly states 'the strongest evidence is real.' The passages do not uniformly support characterizing the evidence as 'usually weak.'",
+      "model": "claude-sonnet-4-6",
+      "run_on": "2026-10-19",
+      "flagged": true,
+      "decision": {
+        "decision": null,
+        "by": null,
+        "on": null,
+        "why": null
+      }
+    },
+    "cfe316e9dcea338a": {
+      "sentence_sha": "cfe316e9dcea338a",
+      "sentence": "In our reading the strongest evidence is real, and in the coverage we read it has mostly not reached readers outside medicine with its qualifications intact: in four Polish endoscopy centres, the rate at which experienced doctors found precancerous growths without AI fell from 28.4% to 22.4% after their units adopted it.",
+      "label": "SUPPORTED",
+      "reason": "The passages confirm all specific claims: four Polish endoscopy centres (S021 retrospective study), experienced doctors (19 endoscopists with over 2,000 colonoscopies each), and the ADR drop from 28.4% to 22.4% after AI exposure. The conclusion also accurately characterises the study as retrospective and notes its qualifications, matching the evidence.",
+      "model": "claude-sonnet-4-6",
+      "run_on": "2026-10-19",
+      "flagged": false
+    },
+    "da0215c55f639a92": {
+      "sentence_sha": "da0215c55f639a92",
+      "sentence": "That study is retrospective, its authors call it vulnerable to confounding, and they list eleven limitations.",
+      "label": "OVERSTATES",
+      "reason": "The conclusion states the authors 'list eleven limitations,' but the passages only say 'The present study has several limitations' without specifying a number. The exact count of eleven is not supported by the evidence provided.",
+      "model": "claude-sonnet-4-6",
+      "run_on": "2026-10-19",
+      "flagged": true,
+      "decision": {
+        "decision": null,
+        "by": null,
+        "on": null,
+        "why": null
+      }
+    },
+    "4d16cecd5898773a": {
+      "sentence_sha": "4d16cecd5898773a",
+      "sentence": "Two of three named academics raised its limits publicly the day it appeared, and some of that did travel.",
+      "label": "NOT_IN_EVIDENCE",
+      "reason": "The conclusion claims 'two of three named academics raised its limits publicly the day it appeared' and that 'some of that did travel' — neither the count of three named academics, the timing ('the day it appeared'), nor the claim about coverage traveling is addressed in any of the four passages provided.",
+      "model": "claude-sonnet-4-6",
+      "run_on": "2026-10-19",
+      "flagged": true,
+      "decision": {
+        "decision": null,
+        "by": null,
+        "on": null,
+        "why": null
+      }
+    },
+    "585dc13c21765ad6": {
+      "sentence_sha": "585dc13c21765ad6",
+      "sentence": "What mostly did not, in the coverage we read, is the part that tells you how loosely to hold the number.",
+      "label": "NOT_IN_EVIDENCE",
+      "reason": "The conclusion is about whether coverage communicated uncertainty around a number (how loosely to hold it). The passages address study limitations, screening programme suspension, clinician fatigue, and AI-dependency effects, but none of them address whether media or other coverage did or did not convey uncertainty/caveats about a specific figure.",
+      "model": "claude-sonnet-4-6",
+      "run_on": "2026-10-19",
+      "flagged": true,
+      "decision": {
+        "decision": null,
+        "by": null,
+        "on": null,
+        "why": null
+      }
+    },
+    "599039192cff336a": {
+      "sentence_sha": "599039192cff336a",
+      "sentence": "So, within the twelve studies that review includes: more than one study, and not a settled literature either.",
+      "label": "SUPPORTED",
+      "reason": "The passages confirm exactly twelve included studies ('n = 12'), that high-quality empirical studies remain limited ('the number of high-quality empirical studies remains limited'), and that findings are not settled ('Many reports are based on expert opinion or small-scale qualitative investigations rather than large multicenter trials'), matching the conclusion's claims about count, limited evidence base, and unsettled literature.",
+      "model": "claude-sonnet-4-6",
+      "run_on": "2026-10-19",
+      "flagged": false
+    },
+    "a2e882feb6e7b04a": {
+      "sentence_sha": "a2e882feb6e7b04a",
+      "sentence": "The effect is statistically significant and, in our reading, modest, and it was measured on video clips.",
+      "label": "SUPPORTED",
+      "reason": "The passages confirm statistical significance (p < 0.001), the numeric reductions (~6.5% overall, ~8% experienced, ~3% novices) support the 'modest' characterization, and the limitation passage explicitly states the study used 'short video sequences,' matching 'measured on video clips.'",
+      "model": "claude-sonnet-4-6",
+      "run_on": "2026-10-19",
+      "flagged": false
+    },
+    "485f37d72a979863": {
+      "sentence_sha": "485f37d72a979863",
+      "sentence": "It is a study about what happens inside a single reading, and it measures directly what, in our reading, people describe when they say AI has changed how they work: you take what it gives you.",
+      "label": "NOT_IN_EVIDENCE",
+      "reason": "The conclusion claims the study 'measures directly what people describe when they say AI has changed how they work: you take what it gives you,' framing it as capturing a subjective worker experience or behavioral pattern about accepting AI output. The passages only report quantitative accuracy rates and automation bias proneness across radiologist experience levels; they say nothing about measuring what people describe or about the 'you take what it gives you' characterization.",
+      "model": "claude-sonnet-4-6",
+      "run_on": "2026-10-19",
+      "flagged": true,
+      "decision": {
+        "decision": null,
+        "by": null,
+        "on": null,
+        "why": null
+      }
+    },
+    "12d5a028feef2804": {
+      "sentence_sha": "12d5a028feef2804",
+      "sentence": "Three randomised experiments — 1,222 people randomised, 1,058 analysed — had participants work through practice problems with or without AI, then removed the AI and gave them three more.",
+      "label": "SUPPORTED",
+      "reason": "The passages confirm three randomized experiments with 1,222 participants randomized; the three analysed samples (305+585+168=1,058) match the conclusion's figures. The passages also confirm AI was removed and participants given 3 additional problems in each experiment.",
+      "model": "claude-sonnet-4-6",
+      "run_on": "2026-10-19",
+      "flagged": false
+    },
+    "16f9fa0354f6bf1c": {
+      "sentence_sha": "16f9fa0354f6bf1c",
+      "sentence": "Eye tracking during real colonoscopy, linked to what was actually found, would test the proposed mechanism directly rather than in video clips.",
+      "label": "SUPPORTED",
+      "reason": "The conclusion says the eye-tracking evidence comes from 'video clips' (confirmed: 'viewed video sequences' / 'video clips') with '21 people' (confirmed: '21 participants'), and proposes that real colonoscopy linked to actual findings would test the mechanism more directly. The passages confirm the video-clip limitation and describe the gaze impact as a proposed mechanism ('could potentially be a mechanism'), matching the conclusion's framing of it as a proposed rather than proven mechanism.",
+      "model": "claude-sonnet-4-6",
+      "run_on": "2026-10-19",
+      "flagged": false
+    },
+    "5f9d8bf563262c0e": {
+      "sentence_sha": "5f9d8bf563262c0e",
+      "sentence": "arXiv 2604.04721 Source of the three randomised experiments, 1,222 randomised and 1,058 analysed, the effect sizes of −0.45, −0.20 and −0.42 on unassisted solve rates, and the design in which the AI is withdrawn before three test problems.",
+      "label": "OVERSTATES",
+      "reason": "The conclusion states 1,058 were 'analysed' but the passages show three separate final samples of 305, 585, and 168, which sum to 1,058 — this arithmetic is correct. However, the conclusion says the AI is 'withdrawn before three test problems' as a single design feature, but the passages show this applies to all three experiments (Experiments 1, 2, and 3), so that part is accurate. The main issue is the total randomised: the passages say '1,222 participants' were in the experiments but do not explicitly state all 1,222 were randomised (some could have been excluded before randomisation). The conclusion treats 1,222 as the randomised count, which the evidence does not explicitly confirm — the paper says '1,222 participants' spanning the experiments, not necessarily all randomised. This is a minor overstatement of precision not fully supported by the passages.",
+      "model": "claude-sonnet-4-6",
+      "run_on": "2026-10-19",
+      "flagged": true,
+      "decision": {
+        "decision": null,
+        "by": null,
+        "on": null,
+        "why": null
+      }
     }
   }
 }

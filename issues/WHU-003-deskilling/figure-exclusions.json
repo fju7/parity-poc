@@ -43,32 +43,6 @@
       "falsifier": "The sentence no longer printing 2603.11821 as an arXiv identifier."
     },
     {
-      "figure": "1060",
-      "in_sentence": "1,222 people randomised, 1,060 analysed",
-      "why": "Declared at the operator's instruction of 2026-10-18 (deskilling revision, step 2c). The page's own arithmetic, not a figure S001 prints: 1,060 is the sum of the three experiments' final analysed samples, 307 + 585 + 168 = 1,060. Each input is in S001's held text ('leaving a final sample of 307 participants', '... of 585 participants', '... of 168 participants'), and the sum is recorded in sources.json under S001 verified_against_v4.analysed.",
-      "inputs": [
-        "307 (S001: 'leaving a final sample of 307 participants')",
-        "585 (S001: 'leaving a final sample of 585 participants')",
-        "168 (S001: 'leaving a final sample of 168 participants')"
-      ],
-      "by": "claude",
-      "on": "2026-10-18",
-      "falsifier": "Any of the three final samples in S001 differing from 307, 585 or 168, or the sentence no longer presenting 1,060 as the total analysed across the three experiments."
-    },
-    {
-      "figure": "1060",
-      "in_sentence": "1,222 randomised and 1,060 analysed",
-      "why": "Declared at the operator's instruction of 2026-10-18 (deskilling revision, step 2c). The page's own arithmetic, not a figure S001 prints: 1,060 is the sum of the three experiments' final analysed samples, 307 + 585 + 168 = 1,060. Each input is in S001's held text ('leaving a final sample of 307 participants', '... of 585 participants', '... of 168 participants'), and the sum is recorded in sources.json under S001 verified_against_v4.analysed.",
-      "inputs": [
-        "307 (S001: 'leaving a final sample of 307 participants')",
-        "585 (S001: 'leaving a final sample of 585 participants')",
-        "168 (S001: 'leaving a final sample of 168 participants')"
-      ],
-      "by": "claude",
-      "on": "2026-10-18",
-      "falsifier": "Any of the three final samples in S001 differing from 307, 585 or 168, or the sentence no longer presenting 1,060 as the total analysed across the three experiments."
-    },
-    {
       "figure": "6.5",
       "in_sentence": "That is a reduction of about 6.5% across all participants.",
       "why": "Declared at the operator's instruction of 2026-10-18 (deskilling revision, step 2c). The page's own arithmetic, not a figure S031 prints: S031's table gives median eye travel distance for all videos, all participants, as 248.86 cm without CADe and 232.68 cm with it; (248.86 - 232.68) / 248.86 = 6.50%, which the page gives as 'about 6.5%'. Both inputs are in S031's held text.",
@@ -119,6 +93,32 @@
       "by": "claude",
       "on": "2026-10-19",
       "falsifier": "The sentence presenting 21% as a figure some document reports, rather than as the ratio of the two rates it names."
+    },
+    {
+      "figure": "1058",
+      "in_sentence": "1,222 people randomised, 1,058 analysed",
+      "why": "Our arithmetic, declared: 305 + 585 + 168 = 1,058, the three final samples arXiv v6 (13 October 2026) reports for Experiments 1-3. No sentence of the paper prints 1,058. Replaces the 1,060 exclusion (v4's 307 + 585 + 168) at the republish of 19 October 2026.",
+      "inputs": [
+        "307 (S001: 'leaving a final sample of 307 participants')",
+        "585 (S001: 'leaving a final sample of 585 participants')",
+        "168 (S001: 'leaving a final sample of 168 participants')"
+      ],
+      "by": "claude",
+      "on": "2026-10-19",
+      "falsifier": "Any of the three final samples in S001 differing from 307, 585 or 168, or the sentence no longer presenting 1,060 as the total analysed across the three experiments."
+    },
+    {
+      "figure": "1058",
+      "in_sentence": "1,222 randomised and 1,058 analysed",
+      "why": "Our arithmetic, declared: 305 + 585 + 168 = 1,058, the three final samples arXiv v6 (13 October 2026) reports for Experiments 1-3. No sentence of the paper prints 1,058. Replaces the 1,060 exclusion (v4's 307 + 585 + 168) at the republish of 19 October 2026.",
+      "inputs": [
+        "307 (S001: 'leaving a final sample of 307 participants')",
+        "585 (S001: 'leaving a final sample of 585 participants')",
+        "168 (S001: 'leaving a final sample of 168 participants')"
+      ],
+      "by": "claude",
+      "on": "2026-10-19",
+      "falsifier": "Any of the three final samples in S001 differing from 307, 585 or 168, or the sentence no longer presenting 1,060 as the total analysed across the three experiments."
     }
   ],
   "retired": [
@@ -131,6 +131,36 @@
       "falsifier": "The sentence presenting 402 as a figure some document reports, rather than as our reading of a live counter on 30 August 2026.",
       "retired_on": "2026-10-19",
       "retired_why": "the sentence carrying 402 was corrected on 19 October 2026 (revision doc §130, 132860a7); the counter readings are no longer on the page, and deletions.json records the removal"
+    },
+    {
+      "figure": "1060",
+      "in_sentence": "1,222 people randomised, 1,060 analysed",
+      "why": "Declared at the operator's instruction of 2026-10-18 (deskilling revision, step 2c). The page's own arithmetic, not a figure S001 prints: 1,060 is the sum of the three experiments' final analysed samples, 307 + 585 + 168 = 1,060. Each input is in S001's held text ('leaving a final sample of 307 participants', '... of 585 participants', '... of 168 participants'), and the sum is recorded in sources.json under S001 verified_against_v4.analysed.",
+      "inputs": [
+        "307 (S001: 'leaving a final sample of 307 participants')",
+        "585 (S001: 'leaving a final sample of 585 participants')",
+        "168 (S001: 'leaving a final sample of 168 participants')"
+      ],
+      "by": "claude",
+      "on": "2026-10-18",
+      "falsifier": "Any of the three final samples in S001 differing from 307, 585 or 168, or the sentence no longer presenting 1,060 as the total analysed across the three experiments.",
+      "retired_on": "2026-10-19",
+      "retired_why": "Liu et al. revised their paper (arXiv v6, 13 October 2026): Experiment 1 now analyses 305, so the sum is 1,058; the page carries v6's figures (republish step 2b)"
+    },
+    {
+      "figure": "1060",
+      "in_sentence": "1,222 randomised and 1,060 analysed",
+      "why": "Declared at the operator's instruction of 2026-10-18 (deskilling revision, step 2c). The page's own arithmetic, not a figure S001 prints: 1,060 is the sum of the three experiments' final analysed samples, 307 + 585 + 168 = 1,060. Each input is in S001's held text ('leaving a final sample of 307 participants', '... of 585 participants', '... of 168 participants'), and the sum is recorded in sources.json under S001 verified_against_v4.analysed.",
+      "inputs": [
+        "307 (S001: 'leaving a final sample of 307 participants')",
+        "585 (S001: 'leaving a final sample of 585 participants')",
+        "168 (S001: 'leaving a final sample of 168 participants')"
+      ],
+      "by": "claude",
+      "on": "2026-10-18",
+      "falsifier": "Any of the three final samples in S001 differing from 307, 585 or 168, or the sentence no longer presenting 1,060 as the total analysed across the three experiments.",
+      "retired_on": "2026-10-19",
+      "retired_why": "Liu et al. revised their paper (arXiv v6, 13 October 2026): Experiment 1 now analyses 305, so the sum is 1,058; the page carries v6's figures (republish step 2b)"
     }
   ]
 }

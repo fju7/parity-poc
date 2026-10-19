@@ -1721,8 +1721,8 @@
       "kind": "changed",
       "was": "The sentence under it was not.",
       "now": "A sentence further down was not.",
-      "because": "AD-HOC",
-      "note": "Correction of 19 October 2026: docs/whatholdsup-deskilling-revision.md §49 (e7b33c5f), applied as worded there (operator's wording unless the doc marks it otherwise); listed in the page's 19 October entry under #updates and in corrections.md."
+      "because": "REPUBLISH-2026-10-19",
+      "note": "Correction of 19 October 2026: docs/whatholdsup-deskilling-revision.md §49 (e7b33c5f), applied as worded there (operator's wording unless the doc marks it otherwise); listed in the page's 19 October entry under #updates and in corrections.md. Label changed to REPUBLISH-2026-10-19 (step 2b, item G): the sentence is too short for the corrections.md quote test, and the dated adjudication of 19 October covers it."
     },
     {
       "at": "2026-10-19T12:25:42+00:00",
@@ -3042,6 +3042,164 @@
       "now": "What has changed is that they are our instrument rather than a promise to you.",
       "because": "REVIEW-DATE-001",
       "note": "12 September 2026 change: the review-date promise withdrawn (REVIEW-DATE-001, corrections.md entry of 12 September 2026); the differ pairs these sentences against the paragraph they replaced"
+    },
+    {
+      "at": "2026-10-19T14:37:39+00:00",
+      "interpreter": "/Users/fredugast/Projects/parity-poc-repo/backend/venv/bin/python3",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "Corrected 19 October 2026 On 19 October 2026 we re-read every sentence on this page above the change history at its foot, the standfirst included, against its source or our own records, and corrected 137 of them.",
+      "because": "REPUBLISH-2026-10-19",
+      "note": "The correction notice, now counting 137 (republish step 2b). Records corrections; corrects nothing itself.",
+      "correction": false
+    },
+    {
+      "at": "2026-10-19T14:37:39+00:00",
+      "interpreter": "/Users/fredugast/Projects/parity-poc-repo/backend/venv/bin/python3",
+      "by": "claude",
+      "kind": "changed",
+      "was": "So, within the twelve studies that review includes: not one study, and not a settled literature either.",
+      "now": "So, within the twelve studies that review includes: more than one study, and not a settled literature either.",
+      "because": "REPUBLISH-2026-10-19",
+      "note": "Correction of 19 October 2026 at the advisor's rulings on step 2 (republish step 2b): revision doc 'Republish step 2b'; listed on /deskilling-corrections and in corrections.md."
+    },
+    {
+      "at": "2026-10-19T14:37:39+00:00",
+      "interpreter": "/Users/fredugast/Projects/parity-poc-repo/backend/venv/bin/python3",
+      "by": "claude",
+      "kind": "changed",
+      "was": "The effect is real, statistically clear, and modest.",
+      "now": "The effect is statistically significant and, in our reading, modest, and it was measured on video clips.",
+      "because": "REPUBLISH-2026-10-19",
+      "note": "Correction of 19 October 2026 at the advisor's rulings on step 2 (republish step 2b): revision doc 'Republish step 2b'; listed on /deskilling-corrections and in corrections.md."
+    },
+    {
+      "at": "2026-10-19T14:37:39+00:00",
+      "interpreter": "/Users/fredugast/Projects/parity-poc-repo/backend/venv/bin/python3",
+      "by": "claude",
+      "kind": "changed",
+      "was": "It is a study about what happens inside a single reading, and it is the clearest measurement in this entire field of the thing people actually describe when they say AI has changed how they work: you take what it gives you.",
+      "now": "It is a study about what happens inside a single reading, and it measures directly what, in our reading, people describe when they say AI has changed how they work: you take what it gives you.",
+      "because": "REPUBLISH-2026-10-19",
+      "note": "Correction of 19 October 2026 at the advisor's rulings on step 2 (republish step 2b): revision doc 'Republish step 2b'; listed on /deskilling-corrections and in corrections.md."
+    },
+    {
+      "at": "2026-10-19T14:37:39+00:00",
+      "interpreter": "/Users/fredugast/Projects/parity-poc-repo/backend/venv/bin/python3",
+      "by": "claude",
+      "kind": "changed",
+      "was": "Three randomised experiments - 1,222 people randomised, 1,060 analysed - had participants work through practice problems with or without AI, then removed the AI without warning and gave them three more.",
+      "now": "Three randomised experiments - 1,222 people randomised, 1,058 analysed - had participants work through practice problems with or without AI, then removed the AI and gave them three more.",
+      "because": "REPUBLISH-2026-10-19",
+      "note": "Updated to the authors' revised version: Liu et al. arXiv v6 (13 October 2026), adopted at the advisor's ruling of 2026-10-19 (republish step 2b). Not our error; listed separately on the corrections page under 'Updated to the authors' revised version'.",
+      "correction": false
+    },
+    {
+      "at": "2026-10-19T14:37:39+00:00",
+      "interpreter": "/Users/fredugast/Projects/parity-poc-repo/backend/venv/bin/python3",
+      "by": "claude",
+      "kind": "changed",
+      "was": "Unassisted solve rates fell, at effect sizes of -0.42, -0.19 and -0.42, and people gave up sooner.",
+      "now": "Unassisted solve rates fell, at effect sizes of -0.45, -0.20 and -0.42, and people gave up more often - significantly in the first and third experiments, not in the second.",
+      "because": "REPUBLISH-2026-10-19",
+      "note": "Updated to the authors' revised version: Liu et al. arXiv v6 (13 October 2026), adopted at the advisor's ruling of 2026-10-19 (republish step 2b). Not our error; listed separately on the corrections page under 'Updated to the authors' revised version'.",
+      "correction": false
+    },
+    {
+      "at": "2026-10-19T14:37:39+00:00",
+      "interpreter": "/Users/fredugast/Projects/parity-poc-repo/backend/venv/bin/python3",
+      "by": "claude",
+      "kind": "changed",
+      "was": "Eye tracking during real colonoscopy, linked to what was actually found, would move the mechanism from plausible to shown.",
+      "now": "Eye tracking during real colonoscopy, linked to what was actually found, would test the proposed mechanism directly rather than in video clips.",
+      "because": "REPUBLISH-2026-10-19",
+      "note": "Correction of 19 October 2026 at the advisor's rulings on step 2 (republish step 2b): revision doc 'Republish step 2b'; listed on /deskilling-corrections and in corrections.md."
+    },
+    {
+      "at": "2026-10-19T14:37:39+00:00",
+      "interpreter": "/Users/fredugast/Projects/parity-poc-repo/backend/venv/bin/python3",
+      "by": "claude",
+      "kind": "changed",
+      "was": "Editorial Retraction Note, Humanities and Social Sciences Communications , 22 April 2026 The retraction of the most-cited meta-analysis finding that ChatGPT improves learning.",
+      "now": "Correction Gerlich M.",
+      "because": "REPUBLISH-2026-10-19",
+      "note": "S049's source entry: link text reworded so the role label and the title no longer read 'Correction Correction' (step 2b, item I). The differ pairs it against the Retraction Note entry below, which is unchanged. Not a correction.",
+      "correction": false
+    },
+    {
+      "at": "2026-10-19T14:37:39+00:00",
+      "interpreter": "/Users/fredugast/Projects/parity-poc-repo/backend/venv/bin/python3",
+      "by": "claude",
+      "kind": "changed",
+      "was": "Source of the date and of the editor's stated ground.",
+      "now": "Notice of correction to \"AI Tools in Society: Impacts on Cognitive Offloading and the Future of Critical Thinking\".",
+      "because": "REPUBLISH-2026-10-19",
+      "note": "S049's source entry: link text reworded so the role label and the title no longer read 'Correction Correction' (step 2b, item I). The differ pairs it against the Retraction Note entry below, which is unchanged. Not a correction.",
+      "correction": false
+    },
+    {
+      "at": "2026-10-19T14:37:39+00:00",
+      "interpreter": "/Users/fredugast/Projects/parity-poc-repo/backend/venv/bin/python3",
+      "by": "claude",
+      "kind": "changed",
+      "was": "Also the source of and the quoted sentence about differences measured during treatment reflecting the availability of the treatment rather than durable learning.",
+      "now": "Also the source of the quoted sentence about differences measured during treatment likely reflecting the availability of the treatment rather than durable learning.",
+      "because": "REPUBLISH-2026-10-19",
+      "note": "Correction of 19 October 2026 at the advisor's rulings on step 2 (republish step 2b): revision doc 'Republish step 2b'; listed on /deskilling-corrections and in corrections.md."
+    },
+    {
+      "at": "2026-10-19T14:37:39+00:00",
+      "interpreter": "/Users/fredugast/Projects/parity-poc-repo/backend/venv/bin/python3",
+      "by": "claude",
+      "kind": "changed",
+      "was": "AI Assistance Reduces Persistence and Hurts Independent Performance. arXiv 2604.04721 Source of the three randomised experiments, 1,222 randomised and 1,060 analysed, the effect sizes of -0.42, -0.19 and -0.42 on unassisted solve rates, and the design in which the AI is withdrawn without warning before three test problems.",
+      "now": "AI Assistance Reduces Persistence and Hurts Independent Performance. arXiv 2604.04721 Source of the three randomised experiments, 1,222 randomised and 1,058 analysed, the effect sizes of -0.45, -0.20 and -0.42 on unassisted solve rates, and the design in which the AI is withdrawn before three test problems.",
+      "because": "REPUBLISH-2026-10-19",
+      "note": "Updated to the authors' revised version: Liu et al. arXiv v6 (13 October 2026), adopted at the advisor's ruling of 2026-10-19 (republish step 2b). Not our error; listed separately on the corrections page under 'Updated to the authors' revised version'.",
+      "correction": false
+    },
+    {
+      "at": "2026-10-19T14:37:39+00:00",
+      "interpreter": "/Users/fredugast/Projects/parity-poc-repo/backend/venv/bin/python3",
+      "by": "claude",
+      "kind": "changed",
+      "was": "Checked against version 4.",
+      "now": "Read in version 4 (5 August 2026) and version 6 (13 October 2026); the figures here are version 6's.",
+      "because": "REPUBLISH-2026-10-19",
+      "note": "Updated to the authors' revised version: Liu et al. arXiv v6 (13 October 2026), adopted at the advisor's ruling of 2026-10-19 (republish step 2b). Not our error; listed separately on the corrections page under 'Updated to the authors' revised version'.",
+      "correction": false
+    },
+    {
+      "at": "2026-10-19T14:37:39+00:00",
+      "interpreter": "/Users/fredugast/Projects/parity-poc-repo/backend/venv/bin/python3",
+      "by": "claude",
+      "kind": "changed",
+      "was": "No pre-registration statement appears in any version.",
+      "now": "No pre-registration statement appears in version 2, 4 or 6, the three we read.",
+      "because": "REPUBLISH-2026-10-19",
+      "note": "Updated to the authors' revised version: Liu et al. arXiv v6 (13 October 2026), adopted at the advisor's ruling of 2026-10-19 (republish step 2b). Not our error; listed separately on the corrections page under 'Updated to the authors' revised version'.",
+      "correction": false
+    },
+    {
+      "at": "2026-10-19T14:37:39+00:00",
+      "interpreter": "/Users/fredugast/Projects/parity-poc-repo/backend/venv/bin/python3",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "The entry of 12 September below said \"What we watch is narrower than what could change - we can see a trial registry move and a paper cite another paper, and we cannot see most of what happens in a field - and nothing obliges anyone to look before you arrive.\" That was wrong: no trial-registry record is captured for this page, so we cannot see one move; the entry is left as written, and the correction is listed with the others .",
+      "because": "REPUBLISH-2026-10-19",
+      "note": "Correction of 19 October 2026 (step 2b, item E): the 12 September change-history entry said we can see a trial registry move; it is left as written and this note says it was wrong."
+    },
+    {
+      "at": "2026-10-19T14:37:39+00:00",
+      "interpreter": "/Users/fredugast/Projects/parity-poc-repo/backend/venv/bin/python3",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "Also the source of the quoted sentence about differences measured during treatment likely reflecting the availability of the treatment rather than durable learning.",
+      "because": "REPUBLISH-2026-10-19",
+      "note": "Correction of 19 October 2026 at the advisor's rulings on step 2 (republish step 2b): revision doc 'Republish step 2b'; listed on /deskilling-corrections and in corrections.md."
     }
   ]
 }

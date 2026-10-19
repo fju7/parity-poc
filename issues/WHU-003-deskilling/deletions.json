@@ -64,6 +64,16 @@
       "by": "claude, recording the operator's rulings (republish brief of 2026-10-19)",
       "library_at_the_time": "9 source(s) are unheld (S003, S004, S010, S011, S014, S018), so this library cannot answer whether a figure is anywhere",
       "note": "§130: 'over 500' is S015's ('cited over 500 times'); the corrected sentence carries it as 'cited several hundred times'"
+    },
+    {
+      "figure": "1060",
+      "removed_on": "2026-10-19",
+      "reason": "superseded",
+      "source_id": "S001",
+      "bound_row_absent": "",
+      "by": "claude, recording the advisor's ruling of 2026-10-19 (adopt Liu et al. v6)",
+      "library_at_the_time": "9 source(s) are unheld (S003, S004, S010, S011, S014, S018), so this library cannot answer whether a figure is anywhere",
+      "note": "arXiv v6 (13 October 2026) analyses 305 participants in Experiment 1, not 307; the sum of the three final samples is 1,058, which replaces 1,060 in both sentences (declared as our arithmetic in figure-exclusions)"
     }
   ]
 }

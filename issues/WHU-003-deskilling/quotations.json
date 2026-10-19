@@ -627,6 +627,40 @@
         "on": "2026-10-19",
         "note": "§10 (Q-25): the spliced quotation is now two fragments, each verbatim in this S007 sentence"
       }
+    },
+    {
+      "id": "Q-50",
+      "quote": "What we watch is narrower than what could change — we can see a trial registry move and a paper cite another paper, and we cannot see most of what happens in a field — and nothing obliges anyone to look before you arrive.",
+      "source_id": "",
+      "verbatim": "",
+      "kind": "rhetorical",
+      "why": "quotes this page's own change-history entry of 12 September 2026, word for word, in order to say it was wrong; not a quotation from a source",
+      "attested": {
+        "by": "",
+        "on": ""
+      },
+      "recorded": {
+        "by": "claude",
+        "on": "2026-10-19",
+        "note": "republish step 2b, item E"
+      }
+    },
+    {
+      "id": "Q-51",
+      "quote": "AI Tools in Society: Impacts on Cognitive Offloading and the Future of Critical Thinking",
+      "source_id": "S049",
+      "verbatim": "Correction: Gerlich, M. AI Tools in Society: Impacts on Cognitive Offloading and the Future of Critical Thinking.",
+      "kind": "",
+      "why": "",
+      "attested": {
+        "by": "",
+        "on": ""
+      },
+      "recorded": {
+        "by": "claude",
+        "on": "2026-10-19",
+        "note": "the title the notice corrects, in S049's entry (republish step 2b, item I)"
+      }
     }
   ]
 }
