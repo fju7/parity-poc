@@ -111,6 +111,14 @@
       "by": "claude",
       "on": "2026-10-18",
       "falsifier": "S029's flow diagram printing different counts for those boxes."
+    },
+    {
+      "figure": "21",
+      "in_sentence": "about a fifth — 21% — is the relative one",
+      "why": "Our arithmetic, declared: 6.0 percentage points of 28.4% is 21.1% (S021's 28.4% and 22.4%), shown rounded as 21%. No source prints 21%; a source that says 'about 20%' is describing the same ratio less precisely. Declared at the advisor's ruling of 2026-10-19 on judge flag 9c4da3ef.",
+      "by": "claude",
+      "on": "2026-10-19",
+      "falsifier": "The sentence presenting 21% as a figure some document reports, rather than as the ratio of the two rates it names."
     }
   ],
   "retired": [

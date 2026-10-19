@@ -1474,6 +1474,18 @@ Tally with these ten: 69 overstate a finding or a source's claim; 20 claim more 
 
 **Not yet applied — Liu et al., arXiv v6 (13 October 2026), held as an also_held rendition of S001.** v6 changes figures the page prints from v4: Experiment 1's analysed sample is 305 (49 excluded), not 307 (47); its solve-rate effect size is d = −0.45 (95% CI −0.69 to −0.22), not −0.42; Experiment 2's is d = −0.20, not −0.19; Experiment 3's stays −0.42; Experiment 1's skip-rate difference is P = 0.020, not 0.031 (still significant). So "1,060 analysed" becomes 1,058 and "−0.42, −0.19 and −0.42" becomes "−0.45, −0.20 and −0.42". Unchanged: 1,222 participants, the COLM 2026 header, the absence of any pre-registration statement, the 15- and 13-minute timings, Experiment 2's non-significant skip rate. Proposed page fix in the step-2 report; stopped on for the operator's ruling.
 
+## Republish step 2b (2026-10-19): the advisor's rulings on step 2
+
+Applied as ruled. The page now carries 137 corrected sentences: the 135 above and two more found in the judge review, 89556149 ("The effect is real, statistically clear, and modest." → "The effect is statistically significant and, in our reading, modest, and it was measured on video clips.") and af54c425 ("not one study" → "more than one study"). Not counted as our errors, and listed separately on the corrections page: Liu et al.'s figures updated to v6; the page's meta/og/twitter description; the note on the 12 September change-history entry.
+
+**Liu et al. — v6 adopted.** arXiv v6 (13 October 2026) is now S001's primary rendition, v4 held beside it. The page's S001 figures are v6's: 1,058 analysed (305 + 585 + 168), effect sizes −0.45, −0.20 and −0.42. Unchanged in v6 and still printed: 1,222 participants; three test problems after the AI was removed; Experiment 2 about 15 minutes; the skip-rate difference significant in Experiments 1 and 3 and not in 2 (Experiment 1's P is 0.020 in v6, 0.031 in v4; not printed); the COLM 2026 header; no pre-registration statement. The email prints no S001 figure.
+
+**Term search, S041 (The ASCO Post), 2026-10-19.** The held text was searched for "suspen", "screening programme", "screening program", "withdrawal", "blind", "first 100", "familiar", "eleven", "confound", "1,382" and "doubl": none occurs. Its only limitation is "The authors acknowledged some limitations of the study, including its observational nature, noting that factors other than the implementation of AI use may have influenced the findings."
+
+**Not applied.** be318988 ("…and we have said so where each is introduced"): the comment by Stanković and colleagues is introduced as "A comment on it by four researchers at Vienna and Dresden" with no status; its preprint status is stated only in the source list ("Also a preprint."). Shaw and Nave's working paper is introduced in one sentence and called "a working paper, not a reviewed one" two sentences later, in the same paragraph. Stopped on that row.
+
+**Resolved.** The nineteen endoscopists sentence (dab1a46d) rested only on Healthgrades' report; S021 states every figure in it: "The colonoscopies were performed by 19 endoscopists who completed the endoscopic training (16 physicians and 3 general surgeons) with experience of over 2,000 colonoscopies each", "average 27.6 years of experience, ranging from 8 to 39 years", and experience defined as "years after graduation from medical school". Rebound to S021.
+
 ## Bound
 
 Batch 1 (2026-10-18): 849a833e, b61e583d, 9675c628, f2072847, a84075d9, 5850f3bd, 83bed04b,

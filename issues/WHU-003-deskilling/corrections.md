@@ -53,10 +53,10 @@ stated date — and does not promise currency, because it cannot be sure that
 promise is true.
 
 
-## 19 October 2026 — we re-read this page and corrected 135 of its sentences
+## 19 October 2026 — we re-read this page and corrected 137 of its sentences
 
 On 18 and 19 October 2026 every sentence on this page above the change history at its foot, the
-standfirst included, was read against its source or our own records. 135 were wrong and are
+standfirst included, was read against its source or our own records. 137 were wrong and are
 corrected. Each is listed on the page's own corrections page (/deskilling-corrections), as it
 stood and as it now reads, grouped by the kind of error; the same list is below, sentence by
 sentence as the page's text gives them. The change history itself was not re-read. The working
@@ -364,3 +364,5 @@ that had been set as a quotation (Weinberg and Bretthauer's editorial) is now se
 - Was: Source of the date and of the editor's stated ground.
   Now: AI Tools in Society: Impacts on Cognitive Offloading and the Future of Critical Thinking.
 - Added: Not held; the date and the editor's stated ground are as the audit's front matter reports them.
+
+**Added on the same date (republish step 2b).** Two more sentences, both overstating: "The effect is real, statistically clear, and modest." now reads "The effect is statistically significant and, in our reading, modest, and it was measured on video clips."; "So, within the twelve studies that review includes: not one study, and not a settled literature either." now reads "So, within the twelve studies that review includes: more than one study, and not a settled literature either." Three already-listed sentences were reworded again: the Weidlich note now says differences "likely" reflect availability; the watch item now says eye tracking in live procedures "would test the proposed mechanism directly"; the radiology sentence now says the study measures "what, in our reading, people describe". Not counted as our errors, and listed separately on the corrections page: Liu and colleagues' figures are now those of their revised paper (arXiv v6, 13 October 2026) — 1,058 analysed, effect sizes −0.45, −0.20 and −0.42; the page's description no longer calls the endoscopy evidence "the best evidence" without "in our reading"; and the change history's entry of 12 September, left as written, said we can see a trial registry move, which was wrong — the entry of 19 October says so.
