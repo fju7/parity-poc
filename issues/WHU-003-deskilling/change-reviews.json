@@ -152,6 +152,16 @@
       "on": "2026-10-19",
       "reason": "Resolved by rewording, 2026-10-19 (advisor): the note's 'none' referred to caveats of any kind; now says so.",
       "what_would_change_it": "the note returning to 'carrying none', or the body's 'none of this study's caveats' changing"
+    },
+    {
+      "key": "9f12bb8937e8ccbf",
+      "kind": "NEW_AND_UNBOUND",
+      "sentence": "Corrected 19 October 2026 On 19 October 2026 we re-read every sentence on this page above the change history at its foot, the standfirst included, against its source or our own records, and corrected 140 of them.",
+      "decision": "reject",
+      "by": "advisor (Claude), ruled 2026-10-19; recorded by claude",
+      "on": "2026-10-19",
+      "reason": "adjudicated (advisor, 2026-10-19): process claim; rests_on_record = corrections.md 19 October heading and the corrections page count (140).",
+      "what_would_change_it": "the count no longer matching corrections.md's 19 October heading and the corrections page"
     }
   ],
   "acknowledged": [

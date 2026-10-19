@@ -195,3 +195,16 @@ The step is excluded on that lead.
 confidence-ceiling errors B20 exists for. In round 1 it endorsed every hedge
 that B19 reports dropped. **B19 warnings and B20 stops stand on their own; this
 judge must not be used to filter, clear or rank them.**
+
+## Open items
+
+- **A disposition keyed on exact sentence text is lost when a count in the
+  sentence changes; process sentences carrying a count should bind via
+  rests_on_record to the record that holds the count, so a recount does not
+  reopen them.** Found 2026-10-19 on the deskilling republish: the correction
+  notice's changed-sentence finding (NEW_AND_UNBOUND, "carries 137") was
+  adjudicated, and the disposition was recorded again at 139 and at 140 because
+  `changecheck.finding_key` hashes the sentence text, so each recount reopened
+  it. The same holds for a judge decision on a sentence whose text changes
+  (marked stale). Applies to changecheck dispositions (change-reviews.json) and
+  to judge decisions alike. Not built.
