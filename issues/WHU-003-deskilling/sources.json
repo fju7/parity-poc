@@ -707,12 +707,12 @@
       },
       "what_we_could_not_establish": "Whether all four authors are clinical psychologists. The page said 'four clinical psychologists at Vienna and Dresden'; nothing in this record supports the professional designation for all four, and the arXiv abstract page carries no affiliation block. Narrowed on 2026-08-30 to 'four researchers at Vienna and Dresden', which is what we can show.",
       "form": "article",
-      "form_decided_by": "arXiv comment — held bytes are its abstract page, but the source itself is a paper",
+      "form_decided_by": "arXiv comment — held bytes are the comment's PDF (since 2026-10-18) and its abstract page; the source itself is a paper",
       "notes": [
         {
           "on": "2026-10-18",
           "by": "claude",
-          "note": "Made consistent with what is held. HELD: arXiv's abstract page (sha256 d811e903…, an also-held rendition) and, since 2026-10-18, the comment itself as arXiv's PDF (sha256 c9a31194…, 17,886 characters of text), read in deskilling batches 4 and 5; `not_read` no longer lists the PDF. WHAT THE RECORDS SHOW FOR AUGUST: at the drafting and publication commits (0ee52b8 and 7c95f92, 30 August 2026) this entry recorded a full-PDF read 'by claude' on 29 August under the state `machine_read`, which the 2026-09-01 note above records as resting only on the URL appearing in a gate report. No copy of the comment was held then, and no record shows the comment itself was read on 29 or 30 August. What the page said about the comment before 2026-10-18 therefore rested on no held document; it is now checked against the PDF. The note 'Read in full, replacing the five bare headings…' above is kept as the August record, not as evidence of an August reading."
+          "note": "Made consistent with what is held. HELD: arXiv's abstract page (sha256 d811e903…, an also-held rendition) and, since 2026-10-18, the comment itself as arXiv's PDF (sha256 c9a31194…, 17,886 characters of text), read in deskilling batches 4 and 5; `not_read` no longer lists the PDF. WHAT THE RECORDS SHOW FOR AUGUST: at the drafting and publication commits (0ee52b8 and 7c95f92, 30 August 2026) this entry recorded a full-PDF read 'by claude' on 29 August under the state `machine_read`, which the 2026-09-01 note above records as resting only on the URL appearing in a gate report. No copy of the comment was held then, and no record shows the comment itself was read on 29 or 30 August. What the page said about the comment before 2026-10-18 therefore rested on no held document; it is now checked against the PDF. The note 'Read in full, replacing the five bare headings…' above is kept as the August record, not as evidence of an August reading. form_decided_by, which still said the held bytes were the abstract page, now names both renditions."
         }
       ]
     },
