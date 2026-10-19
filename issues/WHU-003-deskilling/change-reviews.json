@@ -58,6 +58,35 @@
           "other": "The nineteen endoscopists involved were not novices: each had performed more than 2,000 colonoscopies, and they averaged 27.6 years since graduation, over a range of 8 to 39."
         }
       ]
+    },
+    {
+      "sha": "faad235bfb88449f",
+      "against": "HEAD",
+      "changed": 154,
+      "changed_total": 154,
+      "withheld": [],
+      "withheld_note": "every changed sentence was reviewed",
+      "at": "2026-10-19T15:22:58+00:00",
+      "findings": [
+        {
+          "sentence": "Corrected 19 October 2026 On 19 October 2026 we re-read every sentence on this page above the change history at its foot, the standfirst included, against its source or our own records, and corrected 139 of them.",
+          "kind": "NEW_AND_UNBOUND",
+          "why": "carries 139 and rests on nothing this system can name",
+          "other": ""
+        },
+        {
+          "sentence": "Read in the accepted manuscript held by the University of Warwick repository, which gives the P value as 0.009; the published version is paywalled and we have not read it.",
+          "kind": "NEW_AND_UNBOUND",
+          "why": "carries 0.009 and rests on nothing this system can name",
+          "other": ""
+        },
+        {
+          "sentence": "Greengard S, \"The AI Deskilling Paradox\", Communications of the ACM , 7 November 2025 , carries none of this study's limitations but does carry caveats of its own, on governance and on deskilling having good outcomes as well as bad ones; we had described it as carrying none, and that was wrong.",
+          "kind": "CONTRADICTION",
+          "why": "The body of the page states 'Communications of the ACM took the finding to knowledge workers … it carries caveats of its own, about governance and about deskilling having good outcomes as well as bad ones, but none of this study's caveats,' which is consistent, but the changed sentence in the sources section says the earlier description said it carried none at all and was wrong — yet the body text still says 'but none of this study's caveats,' which a reader could take as the same claim the source note now says was corrected, creating an unresolved contradiction between the body and the correction note about what was wrong.",
+          "other": "Communications of the ACM took the finding to knowledge workers, observing that similar issues pop up in law, education, journalism, software development, and other fields ; it carries caveats of its own, about governance and about deskilling having good outcomes as well as bad ones, but none of this study's caveats."
+        }
+      ]
     }
   ],
   "dispositions": [

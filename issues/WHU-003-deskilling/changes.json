@@ -3281,6 +3281,16 @@
       "now": "It pairs the colonoscopy and mammography results and is the closest published thing to this page that we found.",
       "because": "REPUBLISH-2026-10-19",
       "note": "Correction of 19 October 2026 at the advisor's rulings on step 2b (republish step 2c): revision doc 'Republish step 2c'; listed on /deskilling-corrections and in corrections.md."
+    },
+    {
+      "at": "2026-10-19T15:21:24+00:00",
+      "interpreter": "/Users/fredugast/Projects/parity-poc-repo/backend/venv/bin/python3",
+      "by": "claude",
+      "kind": "changed",
+      "was": "Professor Venet Osmani of Queen Mary University of London named the volume problem exactly - the number of colonoscopies performed nearly doubled after the AI tool was introduced, going from 795 to 1382 - and argued that three months is too short a window for genuine skill loss in experienced clinicians.",
+      "now": "Professor Venet Osmani of Queen Mary University of London named the volume problem exactly - the number of colonoscopies performed nearly doubled after the AI tool was introduced, going from 795 to 1382 - and questioned whether a true loss of skill could happen in three months, a very short period, especially for a clinician with over 27 years of experience (the study's endoscopists averaged 27.6 years, from 8 to 39).",
+      "because": "REPUBLISH-2026-10-19",
+      "note": "Correction of 19 October 2026, §81 reworded at republish step 2d: Professor Osmani's words quoted verbatim (S035) with the study's figure (S021); listed on /deskilling-corrections and in corrections.md."
     }
   ]
 }
