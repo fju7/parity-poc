@@ -39,6 +39,17 @@ def report(tmp_path):
     return str(tmp_path / "draft.gate.json")
 
 
+@pytest.fixture(autouse=True)
+def _no_real_ledger(monkeypatch):
+    """An override past the issue budget writes a ledger line (2026-10-19).
+    No test here may write to backend/data/spend/ledger.jsonl: the first
+    version of these tests did, twice, through the older --past-cap case."""
+    class _Null:
+        def record(self, **kw):
+            pass
+    monkeypatch.setattr(fc, "_spend", _Null())
+
+
 def run(report, n=1, past=None, new=False):
     """Attempt n runs; return how many were allowed."""
     done = 0
