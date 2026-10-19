@@ -1486,6 +1486,16 @@ Applied as ruled. The page now carries 137 corrected sentences: the 135 above an
 
 **Resolved.** The nineteen endoscopists sentence (dab1a46d) rested only on Healthgrades' report; S021 states every figure in it: "The colonoscopies were performed by 19 endoscopists who completed the endoscopic training (16 physicians and 3 general surgeons) with experience of over 2,000 colonoscopies each", "average 27.6 years of experience, ranging from 8 to 39 years", and experience defined as "years after graduation from medical school". Rebound to S021.
 
+## Republish step 2c (2026-10-19): the advisor's rulings on step 2b
+
+The page now carries 139 corrected sentences: the 137 above and two more, the standfirst's "The evidence usually offered is weak." (now "In our reading, the evidence usually offered for it is weak.", as in the email) and the brain-scan section's "A comment on it by four researchers at Vienna and Dresden calculates…" (now "…Vienna and Dresden, itself a preprint, calculates…"; sources.json S019: peer_review "NONE. arXiv preprint."; the source list: "Also a preprint."). Reworded again, already counted: be318988 ("and we say so in the text where each appears" — the brain-scan preprint, the working paper and the comment now each carry their status in the body text), cbb66593 ("In our reading, …"), c751fc9a ("…the closest published thing to this page that we found.").
+
+**Term search, S034 (Decker, Rad Insights), 2026-10-19.** The held text was searched for "suspen", "screening programme", "screening program", "1,382", "1382", "doubl", "795", "withdrawal", "blind", "first 100", "familiar", "limitation", "retrospective" and "confound": none occurs except "blind", twice, both in "AI-blind reading slots", a training proposal and not the study's blinding. Decker names the design ("Budzyń and colleagues published a multicentre observational study in Lancet Gastroenterology & Hepatology") and pairs it with Dratsch's mammography result ("Dratsch and colleagues showed in 2023 that incorrect AI-style BI-RADS suggestions degraded mammography reader performance across all experience levels").
+
+**Changed-sentence check, adjudicated at the ruling.** The notice's count rests on the corrections list (this record and corrections.md); §65's 0.009 rests on S021's store record (the accepted manuscript held). Both findings are rejected on the record in change-reviews.json.
+
+**Not applied — Osmani.** The ruling asked to quote "a very short period for a clinician with over 27 years of experience". That is not verbatim in S035, which reads "This is a very short period, especially for a clinician with over 27 years of experience." Stopped on that row; the changed-sentence check's CONTRADICTION finding on it stays open.
+
 ## Bound
 
 Batch 1 (2026-10-18): 849a833e, b61e583d, 9675c628, f2072847, a84075d9, 5850f3bd, 83bed04b,

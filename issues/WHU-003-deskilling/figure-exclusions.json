@@ -119,6 +119,14 @@
       "by": "claude",
       "on": "2026-10-19",
       "falsifier": "Any of the three final samples in S001 differing from 307, 585 or 168, or the sentence no longer presenting 1,060 as the total analysed across the three experiments."
+    },
+    {
+      "figure": "eleven",
+      "in_sentence": "they list eleven limitations",
+      "why": "Our count, declared: S021's limitations paragraph opens 'The present study has several limitations' and numbers them First to Tenth and then Finally — eleven. S021 does not print the number. Declared at the advisor's ruling of 2026-10-19 on judge flag da0215c5.",
+      "by": "claude",
+      "on": "2026-10-19",
+      "falsifier": "S021's limitations list not running First to Tenth then Finally, or the sentence presenting eleven as a number S021 prints."
     }
   ],
   "retired": [

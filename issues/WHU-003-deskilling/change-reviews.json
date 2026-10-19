@@ -30,5 +30,37 @@
         }
       ]
     }
+  ],
+  "dispositions": [
+    {
+      "key": "55fcc5327bd6d10b",
+      "kind": "NEW_AND_UNBOUND",
+      "sentence": "Corrected 19 October 2026 On 19 October 2026 we re-read every sentence on this page above the change history at its foot, the standfirst included, against its source or our own records, and corrected 137 of them.",
+      "decision": "reject",
+      "by": "advisor (Claude), ruled 2026-10-19; recorded by claude",
+      "on": "2026-10-19",
+      "reason": "The notice's count rests on WHU's records, not a document: the corrections list (docs/whatholdsup-deskilling-revision.md, the step-2c count of 139, and corrections.md's entry of 19 October 2026), bound as rests_on_record. This check reads spans, not records, so it reports the figure as resting on nothing.",
+      "what_would_change_it": "the count no longer matching the corrections list, or the record quotes leaving the committed files"
+    },
+    {
+      "key": "b2d776ccbdd0d6a3",
+      "kind": "NEW_AND_UNBOUND",
+      "sentence": "Corrected 19 October 2026 On 19 October 2026 we re-read every sentence on this page above the change history at its foot, the standfirst included, against its source or our own records, and corrected 139 of them.",
+      "decision": "reject",
+      "by": "advisor (Claude), ruled 2026-10-19; recorded by claude",
+      "on": "2026-10-19",
+      "reason": "The notice's count rests on WHU's records, not a document: the corrections list (docs/whatholdsup-deskilling-revision.md, the step-2c count of 139, and corrections.md's entry of 19 October 2026), bound as rests_on_record. This check reads spans, not records, so it reports the figure as resting on nothing. Recorded also for the notice as reworded at step 2c (139), the same ruling.",
+      "what_would_change_it": "the count no longer matching the corrections list, or the record quotes leaving the committed files"
+    },
+    {
+      "key": "0f4110cd17f31eaa",
+      "kind": "NEW_AND_UNBOUND",
+      "sentence": "Read in the accepted manuscript held by the University of Warwick repository, which gives the P value as 0.009; the published version is paywalled and we have not read it.",
+      "decision": "reject",
+      "by": "advisor (Claude), ruled 2026-10-19; recorded by claude",
+      "on": "2026-10-19",
+      "reason": "0.009 is S021's own figure ('p=0.009' in the held accepted manuscript); the sentence rests on S021's store record (accepted manuscript held; the published version listed as not read), bound as rests_on_store, which this check does not read.",
+      "what_would_change_it": "S021's held accepted manuscript not giving p=0.009, or S021's store record changing"
+    }
   ]
 }
