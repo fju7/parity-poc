@@ -198,12 +198,12 @@ def test_the_cards_equal_the_generator_exactly():
         assert I.PROV.search(m.group("meta")).group("line") == I.meta_html(m.group("slug"), I.CARD_ORDINAL)
 
 
-def test_a_wrong_correction_count_blocks_and_names_the_field_and_both_values():
+def test_a_wrong_correction_date_blocks_and_names_the_field_and_both_values():
     line = _melanoma_line()
-    n = int([s for s in I._slots(line) if s.endswith("corrections")][0].split()[0])
-    bad = I.audit(_index_with("%d corrections" % n, "%d corrections" % (n + 1)))
+    slot = [s for s in I._slots(line) if s.startswith("corrected ")][0]
+    bad = I.audit(_index_with(slot, "corrected 1 January 2026"))
     assert len(bad) == 1
-    assert bad[0].startswith("melanoma: corrections -- page says '%d corrections', record says '%d corrections'" % (n + 1, n))
+    assert bad[0].startswith("melanoma: corrections -- page says 'corrected 1 January 2026', record says %r" % slot)
 
 
 def test_a_wrong_sources_checked_date_blocks_and_names_the_field():
@@ -215,7 +215,7 @@ def test_a_wrong_sources_checked_date_blocks_and_names_the_field():
 
 def test_a_missing_marker_is_the_corrections_slot_not_a_second_row():
     line = _melanoma_line()
-    slot = [s for s in I._slots(line) if s.endswith("corrections")][0]
+    slot = [s for s in I._slots(line) if s.startswith("corrected ")][0]
     bad = I.audit(_index_with(slot, "no corrections"))
     assert bad == ["melanoma: corrections -- page says 'no corrections', record says %r" % slot]
 
@@ -240,3 +240,39 @@ def test_the_preflight_row_blocks_on_a_field_difference():
     rows = I.preflight_rows(_index_with(slot, "sources checked 1 January 2026"))
     assert rows[0][0] == "homepage dates match the record" and rows[0][1] == I.BAD
     assert "sources checked -- page says" in rows[0][2]
+
+
+
+# ---------------------------------------------------------------------------
+# The card shows the date of the latest correction, not a count (2026-10-19)
+# ---------------------------------------------------------------------------
+
+F = _mod("issue_facts")
+
+
+def test_the_corrections_slot_is_the_latest_dated_correction_not_a_count(tmp_path, monkeypatch):
+    case = tmp_path / "issues" / "WHU-009-x"
+    case.mkdir(parents=True)
+    (case / "corrections.md").write_text(
+        "# x\n\n## 2 September 2026 — first\n\ntext\n\n**Corrected 10 September 2026.** note\n\n"
+        "## 4 September 2026 — second\n", encoding="utf-8")
+    monkeypatch.setattr(I, "ROOT", tmp_path)
+    assert I.latest_correction_date("x") == date(2026, 9, 10)
+    assert F.correction_slot({"corrected_on": I.latest_correction_date("x")}) == "corrected 10 September 2026"
+
+
+def test_an_issue_with_no_corrections_says_so(tmp_path, monkeypatch):
+    case = tmp_path / "issues" / "WHU-009-x"
+    case.mkdir(parents=True)
+    (case / "corrections.md").write_text("# x\n\nNothing yet.\n", encoding="utf-8")
+    monkeypatch.setattr(I, "ROOT", tmp_path)
+    assert I.latest_correction_date("x") is None
+    assert F.correction_slot({"corrected_on": None}) == "no corrections"
+
+
+def test_no_card_carries_a_correction_count_any_more():
+    import re
+    for slug in ("melanoma", "cdk46", "deskilling"):
+        line = I.meta_html(slug, None)
+        assert not re.search(r"\d+ corrections?\b", line), line
+        assert "corrected " in line or "no corrections" in line

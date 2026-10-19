@@ -72,9 +72,7 @@ def facts_line(slug: str) -> str:
     # fact after "14 corrections" falls outside the clickable card. The first
     # version of this line did exactly that and it was served for twenty
     # minutes. The count is text; the card already links to the issue.
-    n = f["corrections"]
-    bits.append(("1 correction" if n == 1 else "%d corrections" % n)
-                if n else "no corrections")
+    bits.append(issue_facts.correction_slot(f))
     pre = [r for r in f["reviews"] if r["kind"] == "pre"]
     post = [r for r in f["reviews"] if r["kind"] == "post"]
     if post:

@@ -181,8 +181,22 @@ def facts(slug: str) -> dict:
             "published": days[0] if days else None,
             "revised": days[-1] if days and days[-1] != days[0] else None,
             "corrections": corrections(slug),
+            "corrected_on": I.latest_correction_date(slug),
             "reviews": revs,
             "sources_checked": sources_checked(slug)}
+
+
+def correction_slot(f: dict) -> str:
+    """THE DATE OF THE LATEST CORRECTION, NOT A COUNT (2026-10-19).
+
+    The count was the number of dated corrections.md entries. On 19 October
+    2026 deskilling corrected 135 sentences in one entry, and its card would
+    have read "2 corrections" beside a page notice saying 135. A count of
+    entries reads as a count of errors; a date says when we last told readers
+    we had been wrong, which is the fact a card can carry honestly. "no
+    corrections" stays when there are none."""
+    d = f.get("corrected_on")
+    return "corrected %s" % I.fmt(d) if d else "no corrections"
 
 
 def line(slug: str, ordinal: str | None = None) -> str | None:
@@ -211,9 +225,7 @@ def line(slug: str, ordinal: str | None = None) -> str | None:
     # fact after "14 corrections" falls outside the clickable card. The first
     # version of this line did exactly that and it was served for twenty
     # minutes. The count is text; the card already links to the issue.
-    n = f["corrections"]
-    bits.append(("1 correction" if n == 1 else "%d corrections" % n)
-                if n else "no corrections")
+    bits.append(correction_slot(f))
     pre  = [r for r in f["reviews"] if r["kind"] == "pre"]
     post = [r for r in f["reviews"] if r["kind"] == "post"]
     if post:

@@ -327,6 +327,27 @@ def corrections_count(slug: str) -> int:
     return 0
 
 
+CORRECTION_DATE = re.compile(r"(?:^##\s+|\*\*Corrected\s+)(\d{1,2})\s+([A-Z][a-z]+)\s+(\d{4})", re.M)
+
+
+def latest_correction_date(slug: str) -> date | None:
+    """The newest date corrections.md carries an entry or a dated annotation
+    for -- the same reading as publish.corrections_dates. None when there is
+    no correction."""
+    for d in (ROOT / "issues").glob("WHU-*-%s" % slug):
+        f = d / "corrections.md"
+        if not f.exists():
+            return None
+        days = []
+        for m in CORRECTION_DATE.finditer(f.read_text(encoding="utf-8")):
+            try:
+                days.append(datetime.strptime("%s %s %s" % m.groups(), "%d %B %Y").date())
+            except ValueError:
+                continue
+        return max(days) if days else None
+    return None
+
+
 def expected(slug: str) -> dict:
     days = publication_dates(slug)
     if not days:
