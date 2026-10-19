@@ -8,7 +8,7 @@ unless marked otherwise. Rows are binding-row shas in `bindings.json`.
 
 ## Errors found in the published page
 
-105 errors in about 350 sentences read closely — 53 overstate a finding or a source's claim; 18 claim more about WHU's own process than the records show; 15 misattribute or misdescribe; 6 wrong date, count, figure or author; 5 understate a source's standing; 3 misquote; 3 rest on a document not held; 2 understate a finding. Of the 48 judgement sentences, 24 were wrong.
+125 errors in about 435 sentences read closely — 62 overstate a finding or a source's claim; 20 claim more about WHU's own process than the records show; 19 misattribute or misdescribe; 7 rest on a document not held; 6 wrong date, count, figure or author; 5 understate a source's standing; 3 misquote; 2 understate a finding; 1 copy defect. Of the 48 judgement sentences, 24 were wrong. Every sentence on the page has now been read against its source or WHU's records.
 
 Adjusted from the operator's figure (78, of which 54 outside the rule) by steps 1–2 of the batch-4 write: three sentences the batch-4 readers had left as not held or unclear are corrections at the operator's instruction and are now counted (b44e344b, overstates; 645248a3, misquotes; 0f2e96af, rests on a document not held), and the outside-the-rule count is 53, not 54: 48 batch-4 step-2 sentences, those three, and 4173a438 and e14ccbb0 from batch 3. The five step-4 errors and b053b281 are bound rows, inside the rule. No verdict was reversed: 89466d77 and 13eeff53 stay errors (the article page has no causation disclaimer either); d06d9c3d, 7011fffe, 111ae20d, 483ce0da, d956dc78, 93c14a94 and 7419c16a stand.
 
@@ -16,14 +16,15 @@ The "misstates how a source was read" row of the earlier tally (the Wang paragra
 
 | | count | rows |
 |---|---|---|
-| overstates a finding or a source's claim | 53 | 32db25e0, 509b18f6, b8844660, bd8b242c, ad3f7c73; batch 3: ed48b451, 41c3df15, 1c761af8, 94b39b65, 8762158c, f8238a88, 94cd79d4, a4267014, 09ba5473; batch 4: 7032a248, 84eaf825, 50770789, 5ddcede1, dd75605f, 523c0e8e, 6350f29e, b34b3805, 3646a7a7, 97c5510d, 89466d77, 13eeff53, 3b702c14, dde90522, 991b00d0, 65dba6ca, b44e344b; judgements: acd4fe6c, fcd870cc, 8d9dda78, b7985c65, 3d054dd8, a0b796f2, dbe8c633, 94285a34, caab5487, e7229fa9, b25cbddc, 6183737f, 2c9f964b, 13a1f595, cb13b0ff, 1ed69ef1, 738c8380, 6b66734b, 4512a421, afd83f74, e99eaaf7, 849ac2af |
-| claims more about WHU's own process than the records show | 18 | the Wang paragraph (c8d0e2c5, 5bd6e3b7, b8844660); batch 4: 514fe6d8, f3bac0ab, d0f6be94, e6b318db, 1007d4e3, 3277476a, a3804315, dfbdfe06, 6f8d3f6e, 9c6d0d80, 6349e704, 6da54bce, d77cec11, b3bad0a5, 66fbb27d, 63ba2dc1, e68fe056 |
-| misattributes or misdescribes | 15 | 26e94905, 8598e9ca, 34b99db8; batch 3: 73aed151; batch 4: bfc28e7c, b4f1e3b4, 5a602740, 194ddb13, 91730a4c, cb170ac7, 3c3f210c, 042baf28, c4927d74, e7b33c5f; judgements: 4fd2fa15 |
+| overstates a finding or a source's claim | 62 | 32db25e0, 509b18f6, b8844660, bd8b242c, ad3f7c73; batch 3: ed48b451, 41c3df15, 1c761af8, 94b39b65, 8762158c, f8238a88, 94cd79d4, a4267014, 09ba5473; batch 4: 7032a248, 84eaf825, 50770789, 5ddcede1, dd75605f, 523c0e8e, 6350f29e, b34b3805, 3646a7a7, 97c5510d, 89466d77, 13eeff53, 3b702c14, dde90522, 991b00d0, 65dba6ca, b44e344b; judgements: acd4fe6c, fcd870cc, 8d9dda78, b7985c65, 3d054dd8, a0b796f2, dbe8c633, 94285a34, caab5487, e7229fa9, b25cbddc, 6183737f, 2c9f964b, 13a1f595, cb13b0ff, 1ed69ef1, 738c8380, 6b66734b, 4512a421, afd83f74, e99eaaf7, 849ac2af; batch 5: ad7d6f24, 1d65b9e5, 100fe39d, e204516e, 600c8527, 132860a7, d4f61441, a8d48f8e, cb9a2502 |
+| claims more about WHU's own process than the records show | 20 | the Wang paragraph (c8d0e2c5, 5bd6e3b7, b8844660); batch 4: 514fe6d8, f3bac0ab, d0f6be94, e6b318db, 1007d4e3, 3277476a, a3804315, dfbdfe06, 6f8d3f6e, 9c6d0d80, 6349e704, 6da54bce, d77cec11, b3bad0a5, 66fbb27d, 63ba2dc1, e68fe056; batch 5: 6843d335, 47cbad8d |
+| misattributes or misdescribes | 19 | 26e94905, 8598e9ca, 34b99db8; batch 3: 73aed151; batch 4: bfc28e7c, b4f1e3b4, 5a602740, 194ddb13, 91730a4c, cb170ac7, 3c3f210c, 042baf28, c4927d74, e7b33c5f; judgements: 4fd2fa15; batch 5: d42675d6, 39630d1b, 93c14a94, 4845354b |
 | wrong date, count, figure or author | 6 | batch 4: 20099139, 5f408161, d09a03dc, f7dd45eb, 930417d1, b053b281 |
 | misquotes | 3 | Q-25; batch 3: e0713036; batch 4: 645248a3 |
 | understates a source's standing | 5 | batch 3: 7a05297b, 4173a438, e14ccbb0; batch 4: 38d82aac, 564c3790 |
 | understates a finding | 2 | batch 4: dba5f62d, 14e6751b |
-| rests on a document not held | 3 | batch 4: 0eba3348, 0f2e96af; judgements: dbaaa31b |
+| copy defect | 1 | batch 5: 2d909a46 |
+| rests on a document not held | 7 | batch 4: 0eba3348, 0f2e96af; judgements: dbaaa31b; batch 5: 8dfd8a42, 3224a881, a841be7b, 7419c16a |
 
 Of the 10 batch-3 errors in the proposals, the automatic checks caught 1 on the uncorrected text; of the 5 batch-4 step-4 errors, 2. Close reading against the source found the rest.
 
@@ -1245,6 +1246,211 @@ Each judgement sentence was given premises cut from held text by two read-only a
 
 **Binding for the corrected text:** judgement. Premises: S030: "The percentage of correctly rated mammograms by inexperienced (mean, 79.7% ± 11.7 [SD] vs 19.8% ± 14.0; P < .001; r = 0.93)"; S030: "very experienced (mean, 82.3% ± 4.2 vs 45.5% ± 9.1; P = .003; r = 0.97) radiologists was significantly impacted by the correctness of the AI prediction of BI-RADS category."; S046: "However, the clinicians' errors in the AI-assisted round were associated with automation bias, accounting for 45.5% of the total mistakes."; S038: "it also resulted in a 7% automation bias rate, where initially correct evaluations were overturned by erroneous AI advice.". Step: Dratsch et al.'s reader study, in which the same radiologists' accuracy fell from about 80% to 19.8–45.5% when the AI suggestion was wrong, is the most direct measurement of the effect of erroneous AI among the studies reviewed (Wang et al. and Rosbach et al. measure smaller or differently defined effects), so the clearest evidence comes from a radiology reading room. Checks in memory on the corrected text (rule 1, rule 2, B2, B5, B6, B12, B19 incl. significance, B20, B21, B22, B23): clean.
 
+## Batch 5 (2026-10-18): the remaining unbound rows
+
+The 85 rows not already carried as corrections, read by three read-only agents against the held texts and WHU's committed records; every span and record quote re-verified by script; every flagged row read by Claude Code, which overruled the readers on four (1d65b9e5 and 39630d1b are errors, 2d909a46 a copy defect, d5e49f63 supported by commit 0ee52b8's message). 65 are bound (listed under Bound). The 20 corrections follow. Three rows §87 had listed as standing were re-read: 93c14a94 and 7419c16a are now corrections, and d956dc78 is bound on the dated Europe PMC status check.
+
+## 112. d42675d6 — misattributes or misdescribes (batch 5)
+
+**Page now:** Where it was, 7% of judgments the pathologists had initially got right were overturned by it .
+
+**Evidence:** The 7% is 38 overturned-correct judgments out of all 560 AI-aided estimates, not 7% of the judgments the pathologists had initially got right (nor of the cases where the advice was wrong). The page names the wrong denominator. S038: "Of 560 TCP estimates made with AI aid, practitioners adopted AI recommendations contradictory to their independent assessments, pertaining to the TCP being below/above the 25% threshold, in only 67 cases.". S038: "The resulting AB rate consequently yielded approximately 7% (38/560).". S038: "Our results indicate that while AI integration led to a statistically significant increase in overall performance, it also resulted in a 7% automation bias rate, where initially correct evaluations were overturned by erroneous AI advice.".
+
+**Proposed:** "Of the 560 estimates they made with its aid, about 7% were judgments the pathologists had initially got right and that its erroneous advice overturned."
+
+**Binding for the corrected text:** deterministic. S038: "The resulting AB rate consequently yielded approximately 7% (38/560)."; S038: "Of 560 TCP estimates made with AI aid, practitioners adopted AI recommendations contradictory to their independent assessments, pertaining to the TCP being below/above the 25% threshold, in only 67 cases."; S038: "Our results indicate that while AI integration led to a statistically significant increase in overall performance, it also resulted in a 7% automation bias rate, where initially correct evaluations were overturned by erroneous AI advice." Checks in memory on the corrected text: clean.
+
+## 113. ad7d6f24 — overstates (batch 5)
+
+**Page now:** The case mix moved between phases.
+
+**Evidence:** The authors report a case-mix shift only for the inexperienced endoscopists, between phases 1 and 3; the unqualified sentence widens it to the whole study. S043: "In particular, the inexperienced endoscopists had differences in the case-mix between phases 1 and 3, with higher age, more women, more symptoms, and fewer IBD patients in phase 3.". S043: "This difference in case-mix may have influenced the PDR-5.".
+
+**Proposed:** "Among the inexperienced endoscopists, the case mix moved between phases."
+
+**Binding for the corrected text:** context. S043: "In particular, the inexperienced endoscopists had differences in the case-mix between phases 1 and 3, with higher age, more women, more symptoms, and fewer IBD patients in phase 3." Checks in memory on the corrected text: clean.
+
+## 114. 1d65b9e5 — overstates (batch 5)
+
+**Page now:** A larger prospective study found no fall in endoscopists measured after the AI was withdrawn, most clearly among the inexperienced, on a different and weaker endpoint.
+
+**Evidence:** Overruling the reader. S043 reports 'no significant effects on PDR-5 overall or within the two endoscopist groups'; the page says 'no fall', dropping the significance qualifier (the same error as bd8b242c). 'Larger' holds for procedures (5013 against 2,177) but not for endoscopists (13 against 19). S043: "Methods We performed a prospective, multicenter, registry-based, pragmatic clinical trial.". S043: "Results 13 endoscopists (7 inexperienced, 6 experienced) performed 5013 colonoscopies; median patient age was 59 years (interquartile range 44-71) and 2703 (53.". S021: "Results In the observed period between the 8th of September in 2021 and 9th of March in 2022, a total of 2,177 colonoscopies were conducted, including 1,443 without AI use and 734 with AI.".
+
+**Proposed:** "A prospective study with more than twice the procedures, though fewer endoscopists, found no significant fall in endoscopists measured after the AI was withdrawn, most clearly among the inexperienced, on a different and weaker endpoint."
+
+**Binding for the corrected text:** judgement. S043: "Methods We performed a prospective, multicenter, registry-based, pragmatic clinical trial."; S043: "Results 13 endoscopists (7 inexperienced, 6 experienced) performed 5013 colonoscopies; median patient age was 59 years (interquartile range 44-71) and 2703 (53."; S021: "Results In the observed period between the 8th of September in 2021 and 9th of March in 2022, a total of 2,177 colonoscopies were conducted, including 1,443 without AI use and 734 with AI."; S043: "When comparing phase 1 (before CADe) with phase 3 (after CADe), there were no significant effects on PDR-5 overall or within the two endoscopist groups ( )."; S043: "Additionally, the absence of an observable post-exposure reduction in PDR-5 compared with pre-exposure argues against the idea that exposure to CADe erodes skills, at least for nonexperienced endoscopists, although such skill reduction has been observed in another study involving only experienced endoscopists ."; S043: "We acknowledge that this quality indicator is less well-validated than ADR.". Step: A prospective trial of 5013 colonoscopies (vs 2,177) found no phase 1 to 3 change, which its authors read as evidence against erosion at least for nonexperienced endoscopists, on PDR-5, which they call less well-validated than ADR. Checks in memory on the corrected text: clean.
+
+## 115. 39630d1b — misattributes or misdescribes (batch 5)
+
+**Page now:** Those are compatible, and the second study's authors say so.
+
+**Evidence:** Overruling the reader. Pedersen et al. say their finding 'differs from the recent study by Budzyn et al.' and then explain the difference by design; they never say the two are compatible. 'Say so' attributes to them a conclusion the page draws. S043: "The finding of no significant effects of CADe on learning or deskilling among experienced endoscopists differs from the recent study by Budzyn et al., which found a significant deskilling effect among experienced endoscopists while they were exposed to CADe .". S043: "However, there is a distinct difference in study design between our study and the Budzyn study.". S043: "We evaluated the effect of exposure to CADe "after" CADe was removed, whereas Budzyn et al. investigated how endoscopists perform non-CADe-assisted colonoscopy "while" they were exposed to CADe in the other colonoscopies they performed during the same time period.".
+
+**Proposed:** "Those are compatible, and the second study's authors explain why."
+
+**Binding for the corrected text:** judgement. S043: "However, there is a distinct difference in study design between our study and the Budzyn study."; S043: "We evaluated the effect of exposure to CADe "after" CADe was removed, whereas Budzyn et al. investigated how endoscopists perform non-CADe-assisted colonoscopy "while" they were exposed to CADe in the other colonoscopies they performed during the same time period."; S043: "Thus, it is considered that the effect of exposure to CADe will be stronger in the Budzyn study than in our study, suggesting that the deskilling effect may be a temporal phenomenon that disappears over time after CADe is removed.". Step: S043 explains that it measured after removal while S021 measured during exposure and expects the effect to be stronger in S021, so the authors present the two results as reconcilable. Checks in memory on the corrected text: B19 evidence hedge dropped.
+
+## 116. 100fe39d — overstates (batch 5)
+
+**Page now:** The first ten cases carried correct suggestions, which established the system's credibility.
+
+**Evidence:** The paper states the purpose of the correct first block ('to establish the credibility of the AI'); it does not report that credibility was established. 'Which established' turns intent into outcome. S030: "the purported AI was always correct to establish the credibility of the AI.".
+
+**Proposed:** "The first ten cases carried correct suggestions, to establish the system's credibility."
+
+**Binding for the corrected text:** deterministic. S030: "At the beginning of the study, participants were presented with a randomized block of 10 mammograms (Fig 1, stage 1) in which Radiology:Volume 307: Number 4-May 2023 ■ radiology.rsna.org the purported AI was always correct to establish the credibility of the AI." Checks in memory on the corrected text: clean.
+
+## 117. 8dfd8a42 — rests on a document not held (batch 5)
+
+**Page now:** So the specialty is working this frame over its own evidence, in its own journals, and has been since the week the null result was published.
+
+**Evidence:** That the specialty is 'working this frame over its own evidence' describes the editorial's content, and we have never read it (S044 blocked; sources.json says the page states only what the title and authorship establish). Its title has upskilling/deskilling/never-skilling, not Ke's mis-skilling. 'Journals' is also plural on one editorial. issues/WHU-003-deskilling/sources.json: "NOT READ IN FULL. The page states only what the title and authorship establish". issues/WHU-003-deskilling/sources.json: "the editorial text — Europe PMC carries no abstract for it and the publisher was not tried".
+
+**Proposed:** "So, to judge by that editorial's title (we have not read its text), the specialty has been putting a version of this frame to its own evidence, in its own journal, since the week the null result was published."
+
+**Binding for the corrected text:** deterministic. record issues/WHU-003-deskilling/sources.json: "Weinberg DS, Bretthauer M (2026) — Upskilling, Deskilling, or Never Skilling: Who Benefits From Artificial Intelligence in Colonoscopy? Gastroenterology, published 5 June 2026."; record issues/WHU-003-deskilling/sources.json: "NOT READ IN FULL. The page states only what the title and authorship establish" Checks in memory on the corrected text: clean.
+
+## 118. e204516e — overstates (batch 5)
+
+**Page now:** That is Dratsch's forty-point swing, and the pathologists who abandoned correct judgments, and the endoscopists who saw more polyps that were not there.
+
+**Evidence:** Ke define mis-skilling as uncritical acceptance of AI errors leading trainees to INTERNALISE flawed knowledge as fact. All three studies measure in-the-moment acceptance of wrong advice, mostly by trained readers, and none tests whether anything was learned. The page itself calls Dratsch 'a study about what happens inside a single reading'. Also, the swing is 37 points (very experienced) to 60 (inexperienced), not forty. S025: "We refer to this as ‘never-skilling', distinguishing it from deskilling in experienced clinicians and from mis-skilling, in which uncritical acceptance of AI errors leads trainees to internalize flawed clinical knowledge as fact.". S030: "Results: The percentage of correctly rated mammograms by inexperienced (mean, 79.7% ± 11.7 [SD] vs 19.8% ± 14.0; P < .001; r = 0.93), moderately experienced (mean, 81.3% ± 10.1 vs 24.8% ± 11.6; P < .001; r = 0.96), and very experienced (mean, 82.3% ± 4.2 vs 45.5% ± 9.1; P = .003; r = 0.97) radiologists was significantly impacted by the correctness of the AI prediction of BI-RADS category.". S038: "Our results indicate that while AI integration led to a statistically significant increase in overall performance, it also resulted in a 7% automation bias rate, where initially correct evaluations were overturned by erroneous AI advice.".
+
+**Proposed:** "Its first step — taking the machine's errors in the moment — is what Dratsch's swing of 37 to 60 points, the pathologists who abandoned correct judgments, and the endoscopists who saw more polyps that were not there all measured; none of them tested whether the errors were learned."
+
+**Binding for the corrected text:** judgement. S025: "We refer to this as ‘never-skilling', distinguishing it from deskilling in experienced clinicians and from mis-skilling, in which uncritical acceptance of AI errors leads trainees to internalize flawed clinical knowledge as fact."; S030: "Results: The percentage of correctly rated mammograms by inexperienced (mean, 79.7% ± 11.7 [SD] vs 19.8% ± 14.0; P < .001; r = 0.93), moderately experienced (mean, 81.3% ± 10.1 vs 24.8% ± 11.6; P < .001; r = 0.96), and very experienced (mean, 82.3% ± 4.2 vs 45.5% ± 9.1; P = .003; r = 0.97) radiologists was significantly impacted by the correctness of the AI prediction of BI-RADS category."; S038: "Our results indicate that while AI integration led to a statistically significant increase in overall performance, it also resulted in a 7% automation bias rate, where initially correct evaluations were overturned by erroneous AI advice."; S031: "CADe increased misinterpretation of normal mucosa and reduced the eye travel distance.". Step: Ke's mis-skilling starts with uncritical acceptance of AI errors; Dratsch (82.3 to 45.5 and 79.7 to 19.8), Rosbach (overturned correct judgments) and Troya (more mucosa misread as polyps) each measure that acceptance within one session and none measures internalisation. Checks in memory on the corrected text: clean.
+
+## 119. 600c8527 — overstates (batch 5)
+
+**Page now:** Sparrow, Liu and Wegner's 2011 finding that people offload memory to the internet is the origin of the modern version of this worry.
+
+**Evidence:** Sparrow 2011 is not held (S010 blocked). The held replication calls it 'much-cited' and 'influential', not the origin; a held source dates the modern worry to Carr's 2008 'Is Google Making Us Stupid?', before Sparrow. S009: "Evidence for such "Google effects on memory" has been presented in a much-cited 1 and influential 2 paper published in Science ( Sparrow, Liu & Wegner, 2011 ).". S009: "Across four experiments, the authors showed that (a) when people expect to have future access to information, they have lower rates of recall of the information itself and enhanced recall instead for where to access it, and (b) when faced with difficult general knowledge (or, trivia) questions, people are primed to think about the Internet and computers.". S013: "Nicholas Carr's " Is Google Making Us Stupid? " argued in The Atlantic in 2008 that the internet was rewiring our brains for distraction and shallow thinking".
+
+**Proposed:** "Sparrow, Liu and Wegner's much-cited 2011 finding that people offload memory to the internet is an influential source of the modern version of this worry."
+
+**Binding for the corrected text:** judgement. S009: "Evidence for such "Google effects on memory" has been presented in a much-cited 1 and influential 2 paper published in Science ( Sparrow, Liu & Wegner, 2011 )."; S009: "Across four experiments, the authors showed that (a) when people expect to have future access to information, they have lower rates of recall of the information itself and enhanced recall instead for where to access it, and (b) when faced with difficult general knowledge (or, trivia) questions, people are primed to think about the Internet and computers.". Step: Hesselmann describes the 2011 paper as much-cited and influential and summarises its finding as lower recall of information people expect to be able to access, i.e. offloading memory to the internet. Checks in memory on the corrected text: clean.
+
+## 120. 93c14a94 — misattributes or misdescribes (batch 5)
+
+**Page now:** The correction notice states that the scientific conclusions are unaffected, and nothing on this page turns on the corrected table.
+
+**Evidence:** The notice does not itself state that conclusions are unaffected; it reports that the author states so. S049: "The author states that the scientific conclusions are unaffected.". S049: "Table 4 was a duplicate of Table 3 in the publication.".
+
+**Proposed:** "The correction notice records the author's statement that the scientific conclusions are unaffected, and nothing on this page turns on the corrected table."
+
+**Binding for the corrected text:** context. S049: "The author states that the scientific conclusions are unaffected."; S049: "Table 4 was a duplicate of Table 3 in the publication." Checks in memory on the corrected text: clean.
+
+## 121. d4f61441 — overstates (batch 5)
+
+**Page now:** It did not reach a general reader.
+
+**Evidence:** An unqualified universal about all general-audience coverage; the evidence is only the coverage WHU read and holds (STAT only partly held). None of that held coverage carries the crossover-trial call; ASCO Post carries only a call for studies with less experienced clinicians. S035: "It is also worth noting that some major changes to the endoscopy department were undertaken in the middle of the study, and the authors make it clear that randomised crossover trials are needed to make more robust claims.". S041: "Further studies with less experienced health professionals are needed to see if long-term AI tool use has a larger impact on their ability to detect of adenomas without AI.".
+
+**Proposed:** "It did not reach a general reader in any coverage we read."
+
+**Binding for the corrected text:** judgement. S035: "It is also worth noting that some major changes to the endoscopy department were undertaken in the middle of the study, and the authors make it clear that randomised crossover trials are needed to make more robust claims."; S041: "Further studies with less experienced health professionals are needed to see if long-term AI tool use has a larger impact on their ability to detect of adenomas without AI.". Step: The crossover-trial call appears in the SMC roundup for journalists, while the general coverage held (Fortune, STAT's free portion, Fox, Time, ASCO Post, Healthgrades, CACM) carries at most a generic call for further studies, so in the coverage read it did not reach a general reader. Checks in memory on the corrected text: clean.
+
+## 122. 3224a881 — rests on a document not held (batch 5)
+
+**Page now:** A research highlight in Nature Reviews Gastroenterology & Hepatology labelled the study observational and retrospective, as it should, and then reported the figures with no limitations and no quotes.
+
+**Evidence:** Only Nature's subscription preview of the highlight is held (abstract_held). It does label the study observational and retrospective and reports the figures, but 'no limitations and no quotes' is a claim about the whole highlight, most of which we do not hold. S027: "A new multicentre, observational study has examined whether continuous exposure to artificial intelligence (AI) when conducting colonoscopy could affect endoscopist behaviour (quality of colonoscopy) in non-AI-assisted settings". S027: "In this retrospective study at four endoscopy centres in Poland taking part in the ACCEPT trial". S027: "Crucially, the ADR of standard colonoscopy decreased significantly from 28.4% before to 22.4% after exposure to AI (-6% absolute difference, P = 0.0089).".
+
+**Proposed:** "A research highlight in Nature Reviews Gastroenterology & Hepatology labelled the study observational and retrospective, as it should, and then, in the opening we could read, reported the figures with no limitations and no quotes."
+
+**Binding for the corrected text:** context. S027: "A new multicentre, observational study has examined whether continuous exposure to artificial intelligence (AI) when conducting colonoscopy could affect endoscopist behaviour (quality of colonoscopy) in non-AI-assisted settings"; S027: "In this retrospective study at four endoscopy centres in Poland taking part in the ACCEPT trial"; S027: "Crucially, the ADR of standard colonoscopy decreased significantly from 28.4% before to 22.4% after exposure to AI (-6% absolute difference, P = 0.0089)."; S027: "This is a preview of subscription content, access via your institution" Checks in memory on the corrected text: B6 unmapped scope word.
+
+## 123. a8d48f8e — overstates (batch 5)
+
+**Page now:** The 2023 study the description otherwise fits is not in the review's reference list at all.
+
+**Evidence:** No 2023 mammography reader study is in the reference list (Dratsch 2023 is absent; ref 16 is Gommers 2025), but the description does not otherwise fit Dratsch: it says 720 mammograms, and Dratsch's 27 radiologists read 50. S029: "In breast imaging, a controlled reader study published in 2023 evaluated 27 radiologists interpreting 720 mammograms with and without AI support.". S029: "16. Gommers JJJ, Verboom SD, Duvivier KM, et al. Influence of AI decision support on radiologists' performance and visual search in screening mammography. Radiology. 2025;316(1):e243688.". S030: "In this prospective experiment, 27 radiologists read 50 mammograms and provided their Breast Imaging Reporting and Data System (BI-RADS) assessment assisted by a purported AI system.".
+
+**Proposed:** "The 2023 study whose year, reader count and finding the description matches — 27 radiologists, though reading 50 mammograms rather than 720 — is not in the review's reference list at all."
+
+**Binding for the corrected text:** judgement. S029: "In breast imaging, a controlled reader study published in 2023 evaluated 27 radiologists interpreting 720 mammograms with and without AI support."; S029: "16. Gommers JJJ, Verboom SD, Duvivier KM, et al. Influence of AI decision support on radiologists' performance and visual search in screening mammography. Radiology. 2025;316(1):e243688."; S030: "In this prospective experiment, 27 radiologists read 50 mammograms and provided their Breast Imaging Reporting and Data System (BI-RADS) assessment assisted by a purported AI system.". Step: The review's 2023/27-radiologist description matches Dratsch 2023 except for the 720 mammograms (Dratsch: 50), and the reference list's 2023 entries include no mammography reader study. Checks in memory on the corrected text: clean.
+
+## 124. 6843d335 — claims more about WHU's own process than the records show (batch 5)
+
+**Page now:** Three things on this page fall into that category: a commentary published alongside the colonoscopy study, which we could not open; the 2011 memory study, which is paywalled; and one meta-analysis whose scope we describe as its auditors reported it rather than as we read it.
+
+**Evidence:** The records show more than three unread items the page relies on or names: besides the Ahmad commentary, Sparrow 2011 and Deng, the later correspondence on the colonoscopy study is unread (the page names the Levartovsky letter elsewhere), and the retracted Wang & Fan paper itself is held only as a fragment. issues/WHU-003-deskilling/sources.json: "CLOSED AS UNREAD.". issues/WHU-003-deskilling/sources.json: "Paywalled at Science.". issues/WHU-003-deskilling/sources.json: "plus later correspondence (S2468-1253(25)00290-0). Neither has been read.".
+
+**Proposed:** "Among the things on this page that fall into that category are a commentary published alongside the colonoscopy study, and the later correspondence on it, which we could not open; the 2011 memory study, which is paywalled; and one meta-analysis whose scope we describe as its auditors reported it rather than as we read it."
+
+**Binding for the corrected text:** deterministic. record issues/WHU-003-deskilling/sources.json: "CLOSED AS UNREAD."; record issues/WHU-003-deskilling/sources.json: "Paywalled at Science."; record issues/WHU-003-deskilling/sources.json: "plus later correspondence (S2468-1253(25)00290-0). Neither has been read."; record issues/WHU-003-deskilling/sources.json: "NOT READ, and now formally NOT NEEDED" Checks in memory on the corrected text: clean.
+
+## 125. a841be7b — rests on a document not held (batch 5)
+
+**Page now:** The review’s body cites this paper correctly by its arXiv number, though under the wrong author names and a wrong title; its Table 1 attaches the same 28 pathologists and the same 7% to a different reference — Bellahsen-Harrar and colleagues, PLOS ONE 2025;20(8):e0323270, which studied eight pathologists, had no time-pressure condition and reports no such figure.
+
+**Evidence:** What the review does is supported by S029: the body's reference 17 has the right arXiv number under wrong authors and title, and the Table 1 row with 28 pathologists and 7% sits under Bellahsen-Harrar (ref 35). But the closing claims about Bellahsen-Harrar (eight pathologists, no time-pressure condition, no such figure) rest on a paper we do not hold and have no ledger row for; the records only assert them. S029: "17. Rosbach N, Schuffenhauer S, Bulten W, et al. Artificial intelligence under time pressure: how diagnostic support systems affect pathologists' decisions. arXiv. 2024;2411:00998.". S029: "Bellahsen-Harrar et al. (2025)35 (Mod Pathol, PMID: 40875775)". S029: "https://pubmed.ncbi.nlm.nih. gov/40875775/ Pathology (computational) 28 pathologists, 7% of correct initial Erosion of independent diagnoses reversed due to misleading AI judgment".
+
+**Proposed:** "The review’s body cites this paper correctly by its arXiv number, though under the wrong author names and a wrong title; its Table 1 attaches the same 28 pathologists and the same 7% to a different reference — Bellahsen-Harrar and colleagues, PLOS ONE 2025;20(8):e0323270."
+
+**Binding for the corrected text:** judgement. S029: "17. Rosbach N, Schuffenhauer S, Bulten W, et al. Artificial intelligence under time pressure: how diagnostic support systems affect pathologists' decisions. arXiv. 2024;2411:00998."; S038: "arXiv:2411.00998v1"; S038: "Emely Rosbach1 , Jonathan Ganz1 , Jonas Ammeling1 , Andreas Riener1 , and Marc Aubreville2"; S029: "Bellahsen-Harrar et al. (2025)35 (Mod Pathol, PMID: 40875775)"; S029: "https://pubmed.ncbi.nlm.nih. gov/40875775/ Pathology (computational) 28 pathologists, 7% of correct initial Erosion of independent diagnoses reversed due to misleading AI judgment"; S029: "35. Bellahsen-Harrar Y, Lubrano M, Lépine C, et al. Exploring the risks of over-reliance on AI in diagnostic pathology: What lessons can be learned to support the training of young pathologists? PLoS One. 2025;20(8):e0323270.". Step: Reference 17 carries arXiv 2411.00998 (written '2411:00998') under authors and a title that differ from the held Rosbach paper, and Table 1's 28-pathologist, 7% row is keyed to PMID 40875775, the Bellahsen-Harrar entry, which reference 35 gives as PLoS One 2025;20(8):e0323270. Checks in memory on the corrected text: clean.
+
+## 126. 4845354b — misattributes or misdescribes (batch 5)
+
+**Page now:** The scoping review gives 80–85% and 45 laboratories, citing a 2022 cytopathology paper we could not reach at the publisher, on PubMed or in PMC; we print the College’s figures because we could read them.
+
+**Evidence:** The review does give 80–85% and 45 laboratories, but its body cites the 80–85% to references 18 and 19 (NHS Digital, UK NSC). Only Table 1 cites Rebolj et al. 2022, so 'citing a 2022 cytopathology paper' misdescribes the review's sourcing. WHU's own sent version said this correctly. S029: "Structural deskilling has been reported in cytology following the UK's transition to human papillomavirus primary screening, leading to an 80%-85% reduction in case volumes and consolidation of laboratories from 45 to 8 centers, with major implications for training capacity.". S029: "following the transition to human papillomavirus primary screening in the UK, cytology workloads declined by 80%-85%, raising concerns about the erosion of morphological expertise and the reduction of training opportunities for junior pathologists.18,19". S029: "18. NHS Digital. Cervical Screening Programme, England: Annual Report 2019.".
+
+**Proposed:** "The scoping review gives 80–85% and 45 laboratories, citing in its body an NHS Digital annual report and a UK National Screening Committee evidence review and in its Table 1 a 2022 cytopathology paper we could not reach at the publisher, on PubMed or in PMC; we print the College’s figures because we could read them."
+
+**Binding for the corrected text:** deterministic. S029: "Structural deskilling has been reported in cytology following the UK's transition to human papillomavirus primary screening, leading to an 80%-85% reduction in case volumes and consolidation of laboratories from 45 to 8 centers, with major implications for training capacity."; S029: "following the transition to human papillomavirus primary screening in the UK, cytology workloads declined by 80%-85%, raising concerns about the erosion of morphological expertise and the reduction of training opportunities for junior pathologists.18,19"; S029: "18. NHS Digital. Cervical Screening Programme, England: Annual Report 2019."; S029: "19. UK National Screening Committee. Evidence Review: HPV Primary Screening in Cervical Cancer Prevention. UK: NSC; 2020."; S029: "Rebolj et al. (2022)36 (Cytopathology, PMID: 35377967)"; S039: "The major shift into primary HPV testing has resulted in a massive reduction in cytology workload, estimated to be approximately 70%, according to Public Health England." Checks in memory on the corrected text: clean.
+
+## 127. 47cbad8d — claims more about WHU's own process than the records show (batch 5)
+
+**Page now:** The abstract was read at Europe PMC on 30 August 2026 and the full paper the same evening, after the operator obtained it; the publisher's own page returned 404 to every URL form we tried.
+
+**Evidence:** The ledger supports abstract-first at Europe PMC and then the full paper supplied by the operator on 30 August. No record mentions the publisher's page returning 404, or 'every URL form we tried' ('404' occurs in the records only inside hashes), and none says 'evening'. The review adjudication calls it 'read at source in the publisher's PDF'. issues/WHU-003-deskilling/sources.json: "The abstract was read at Europe PMC first and four paragraphs were written from it; fred then supplied the full paper and it materially changed all four". issues/WHU-003-deskilling/review/2026-08-30-adjudication.md: "read
+at source in the publisher's PDF".
+
+**Proposed:** "The abstract was read at Europe PMC on 30 August 2026 and the full paper the same day, after the operator obtained it."
+
+**Binding for the corrected text:** deterministic. record issues/WHU-003-deskilling/sources.json: "The abstract was read at Europe PMC first and four paragraphs were written from it; fred then supplied the full paper and it materially changed all four"; record issues/WHU-003-deskilling/sources.json: "THE OUTSIDE REVIEWER, 2026-08-30. Not by us." Checks in memory on the corrected text: clean.
+
+## 128. 2d909a46 — copy defect (batch 5)
+
+**Page now:** Also the source of and the quoted sentence about differences measured during treatment reflecting the availability of the treatment rather than durable learning.
+
+**Evidence:** The quoted sentence is verbatim in S006 (Weidlich et al.), but the page's sentence is garbled: 'Also the source of and the quoted sentence', with a word missing after 'of'. A copy defect, not a misstatement. S006: "If measured during treatment, differences likely reflect situational (dis)advantages due to the (non)availability of the treatment rather than durable learning.".
+
+**Proposed:** "Also the source of the quoted sentence about differences measured during treatment reflecting the availability of the treatment rather than durable learning."
+
+**Binding for the corrected text:** context. S006: "If measured during treatment, differences likely reflect situational (dis)advantages due to the (non)availability of the treatment rather than durable learning." Checks in memory on the corrected text: B19 evidence hedge dropped.
+
+## 129. cb9a2502 — overstates (batch 5)
+
+**Page now:** Source of the proposal that visual gaze is the mechanism, citing Troya and colleagues.
+
+**Evidence:** Zhou hedges heavily: gaze 'could potentially be a mechanism' through which exposure 'could potentially impact performance', and she says the Troya study 'does not address the question'. 'The proposal that visual gaze is the mechanism' drops both hedges and the indefinite article. S032: "While this study does not address the question of how any CADe exposure may impact endoscopist metrics, the potential impact on visual gaze could potentially be a mechanism by which prolonged CADe exposure could potentially impact performance over time.". S032: "Nonetheless, the authors do cite an interesting study looking at the impact of a CADe system on visual gaze pattern assessed on colonoscopy video sequences, which found that use of CADe was associated with a significant reduction in eye travel distance compared to non-CADe exams.".
+
+**Proposed:** "Source of the suggestion that the effect on visual gaze could potentially be a mechanism, citing Troya and colleagues."
+
+**Binding for the corrected text:** context. S032: "While this study does not address the question of how any CADe exposure may impact endoscopist metrics, the potential impact on visual gaze could potentially be a mechanism by which prolonged CADe exposure could potentially impact performance over time."; S032: "Nonetheless, the authors do cite an interesting study looking at the impact of a CADe system on visual gaze pattern assessed on colonoscopy video sequences, which found that use of CADe was associated with a significant reduction in eye travel distance compared to non-CADe exams."; S032: "Troya J, Fitting D, Brand M, et al. The influence of computer-aided polyp detection systems on reaction time for polyp detection and eye gaze." Checks in memory on the corrected text: clean.
+
+## 130. 132860a7 — overstates (batch 5)
+
+**Page now:** The most-cited meta-analysis finding that ChatGPT improves learning — cited several hundred times — its own journal's counter read 402 at one point on 30 August 2026 and 399 an hour later, which is what live metrics do, and other counts of the same paper run from 262 to over 500 — was retracted by its journal on 22 April 2026.
+
+**Evidence:** No held text or record supports 'most-cited'. The 402 and 399 counter readings and the 262 are WHU's own observations, recorded in sources.json and not in any held document, and rule 1 cannot bind a figure to a record; the operator's correction takes them off the page. S015 dates the retraction to May; S005, which links the notice, gives 22 April 2026.
+
+**Proposed:** "A widely cited meta-analysis finding that ChatGPT improves learning — cited several hundred times — was retracted by its journal on 22 April 2026." (the operator's wording)
+
+**Binding for the corrected text:** context. S005: "Following an editorial review process, Wang & Fan (2025) was retracted by the Editor on 22 April 2026, citing discrepancies in the meta-analysis that undermine the validity of the analysis and its conclusions." (the date); S015: "Though it was cited over 500 times by other researchers, the study was especially popular on social media." (over 500 citations, 'several hundred').
+
+## 131. 7419c16a — rests on a document not held (batch 5)
+
+**Page now:** Source of the date and of the editor’s stated ground.
+
+**Evidence:** The sentence, a source-list note on the Retraction Note (S004), says that document is the source of the date and the editor's stated ground. S004 is fragment_only: we hold no text of it. §87 above had ruled the sentence stands on S005's front matter; batch 5 re-read it, and what S005 carries is the audit's report of the retraction, not the notice.
+
+**Proposed:** "Not held; the date and the editor's stated ground are as the audit's front matter reports them." (the operator's wording)
+
+**Binding for the corrected text:** context. S005 (front matter): "Following an editorial review process, Wang & Fan (2025) was retracted by the Editor on 22 April 2026, citing discrepancies in the meta-analysis that undermine the validity of the analysis and its conclusions."
+
 ## Bound
 
 Batch 1 (2026-10-18): 849a833e, b61e583d, 9675c628, f2072847, a84075d9, 5850f3bd, 83bed04b,
@@ -1253,3 +1459,5 @@ d49da6c2. Batch 2 (2026-10-18): c8d0e2c5 (S046), 43a5da1b, 7a69a530, e2d620f3, 4
 unchanged). Verdicts signed by Fred Ugast, checked against held text with Claude as advisor. Batch 3 (2026-10-18): 11147b19 (B6 disposition on "only"), f83a6cfe, ae6de87f, d250f28b, 875ef76c, 695c1c4e, 7332d1e1, b9b79e7b, fa3d6649, 0f7a7387, ff258fcb, 286c807d, 8367d5ea, ea7550a9, 8e62c8a7 and 36c83e6f (each also resting on S043's "from November 2021 to June 2025 … at three Norwegian outpatient clinics"), 086f4a02 (S046's PMC HTML rendition, which prints ±). Not bound, corrections above: a4267014, 09ba5473 and the batch-3 errors. Batch 4 (2026-10-18): ca9628d8, 27aa49d9, d9fc5473, 502fa7d2, 0172a591, cfb23438 (citation only), 156950e7, e3505b85, f75193b0, 02c52e9f, 286e6f09, 74c83102, a6e4f110, 6e60f428, 5ba6a1cf, 2da5831f, b3980490, 6e298fd2 (Table 1 linearisation doubt in why_bound), 9e43899c, 97fc07bf, 8c183fe5 (issue 6 from Crossref; 'Issue date : June 2026' held), 30a6ffe0 and b27ab3c7 (53, 436 and 41 declared as our arithmetic).
 
 Judgements (2026-10-18), bound as judgement rows with premises and step, verdicts signed by Fred Ugast (premises read against held text by Claude Code, reviewed by Claude as advisor): faec9851, 8d3197bb, d03dd93f, af54c425, d742d3ee, 70a74bf8, 1d4c39aa, ca66d6ea, 5c684127, 98040c6f, 82f7999b, 1cfeb55b, 89556149, 9fec3c76, 4332610d, 46230167, 6b15012a, 3944e40f, 4cea8f5d, d190d0b3, 1b44f672, 22bfc8c8, 2f2fe514, c999cd40. B19 hedge dispositions recorded on 10 (c999cd40, 8d3197bb, d03dd93f, 5c684127, 1cfeb55b, 9fec3c76, 46230167, 6b15012a, 3944e40f, 4cea8f5d). B19 left as WARN on 3, because the disposition's form would be false: faec9851 (it does restate S021's hedged claim, with its own 'plausibly', which B19's sentence list does not read as a hedge); af54c425 and d742d3ee ('limited' is S029's finding, not a hedge on it, and both sentences restate it). Not bound, corrections above: the 24 judgement errors.
+
+Batch 5 (2026-10-18), confirmed by Fred Ugast (read against held text and records by Claude Code, reviewed by Claude as advisor): 65 rows — 057b9bc7, 06205081, 06c652b2, 08236360, 111ae20d, 120466a9, 175d7353, 194b949b, 1aaf0958, 24bdc717, 2648dfb3, 27b06aa5, 2a091110, 3225e517, 34dbcad2, 392e1a46, 40e3e692, 416ee441, 434e658a, 483ce0da, 4b1d340f, 520bd737, 53c78deb, 53c9cdd7, 5b9166b7, 5e5ad2ed, 5e8521fb, 5ec8d502, 6c93b786, 6e4d7bc0, 7011fffe, 7675d3e4, 774bb7cb, 79a88270, 7af541ee, 86c673ec, 89a4e256, 8dbe0207, 959ec1bf, 97e35d3f, 9b2cdd16, 9c4da3ef, 9eeef393, 9f2624ac, a586b41f, a7d069d3, b897240e, bd92d105, c35a87f5, c41b6d69, c68f6dce, c89ff6a9, cbafbdf0, d06d9c3d, d5e49f63, d76ea234, d956dc78, eac28512, f1804bd4, f19dfde1, f20aa68b, f849b96e, fbc19e23, fdc3d044, fef38b29. Of these, 392e1a46 is declared framing; d956dc78 rests on the dated Europe PMC status check in sources.json and S043's epub date; d5e49f63 rests on commit 0ee52b8's message (B24 commit record); 34dbcad2 passes B22 with an accent note (Budzyń / Budzyn). B19 dispositions on 4b1d340f, 06205081, 97e35d3f, a7d069d3, bd92d105, 53c78deb, fdc3d044, 9eeef393, 6e4d7bc0, 434e658a; a B6 disposition on a586b41f ('none', an absence searched over the held text). Not bound, corrections above: the 20 batch-5 errors.
