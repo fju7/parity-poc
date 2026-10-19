@@ -204,6 +204,13 @@ detectable.
 → "grade 3 in 8%", where the span stops before "to 20%".
 → the ribociclib monitoring schedule, where the span stops before "at the
   beginning of each subsequent 4 cycles", halving the monitoring it describes.
+*Sentence end (2026-10-18).* A span that ends at a sentence-final full stop,
+question or exclamation mark (a closing quotation mark or bracket allowed), where
+the document goes on with a new sentence (a capital, a digit or an opening
+quotation mark), is complete. The conjunction test is case-insensitive and had
+read the next sentence's "To" as the preposition (deskilling 2a091110, Troya's
+"…not captured by the system. To further analyze…"). A span cut mid-sentence still
+flags.
 
 **B6 Scope words traceable.** Every quantifier and hedge in the sentence — every,
 all, none, only, never, restricted, established, confirmed, always — must map to a
@@ -366,6 +373,15 @@ record-bound row that declares no store subject; a row that cites a document as
 support is still refused, and a row with a store subject is still checked
 against it.
 
+*Markup and commit messages (2026-10-18).* HTML tags — an element name and its
+attributes, never a bare "<" as in "p<0.001" — are removed from both the file and
+the quote before matching, so a quote of a corrections.md sentence matches with or
+without its `<q>` markup. A record entry may instead be `{commit, quote}`: the
+quote must be in that commit's message (`git show -s --format=%B`), and the commit
+must be in main's history; a quote not in the message, or a commit that is not an
+ancestor of main, is BAD. No sha: a commit is immutable. `bindings.commit_entry`
+writes it.
+
 **A document mentioned and not held gets an entry.** A holdings sentence whose
 `rests_on_store` names an id with no entry, or that declares nothing, cites
 nothing, and whose text names no registered source, STOPs: "document not in
@@ -462,6 +478,16 @@ source's own words.
   two-word floor exists because melanoma's "in its own words, descriptive only ,
   against …" claims two words, and they are in S007. A single word is never
   enough.
+- **Comparison form (2026-10-18):** quotations.py's. Curly against straight and
+  single against double quotation marks fold silently. A match that needs the
+  accent fold ("Budzyń" on the page, "Budzyn" in the held XML) passes with an INFO
+  note, "wording claim matched ignoring accents", naming the words.
+- **A sentence with a `<q>` (2026-10-18):** only the words inside the `<q>`
+  elements that fall within the sentence on the page are claimed, and every one
+  must be in the source; an unquoted lead-in ("In their words, trainees who rely
+  on AI during the early formative years <q>may fail …</q>") is paraphrase and is
+  not checked. A `<q>` running past the sentence's end is cut there. A sentence
+  that cannot be found on the page is read as before.
 - **When it fails:** STOP, naming the clause and the closest held sentence.
 - **Source not held, or a defective text layer:** "wording claim undetermined",
   WARN, never STOP.

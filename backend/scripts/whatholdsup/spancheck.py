@@ -334,6 +334,15 @@ def b5_complete(span: str, slug: str, sid: str) -> tuple[bool, str]:
     if i < 0:
         return False, "the span is not in %s at all (B2)" % sid
     tail = d[end:]
+    # A SPAN THAT ENDS A SENTENCE IS NOT CUT. CONTINUES is case-insensitive, so
+    # "…not captured by the system. To further analyze…" read the next
+    # sentence's "To" as the preposition and called a whole sentence truncated
+    # (deskilling 2a091110, fdc3d044; 2026-10-18). A span ending at a
+    # sentence-final full stop, question or exclamation mark (a closing quote
+    # or bracket allowed), followed by a new sentence -- a capital, a digit or
+    # an opening quote -- ends where the document's thought ends.
+    if re.search(r"[.!?][\"'”’)\]]*$", s) and re.match(r"\s+[\"'“‘(\[]?[A-Z0-9]", tail):
+        return True, "the span ends a sentence and the document begins a new one"
     m = CONTINUES.match(tail)
     if m:
         return False, ("the span stops immediately before %r — the document "

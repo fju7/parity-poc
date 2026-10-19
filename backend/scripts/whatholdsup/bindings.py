@@ -1141,6 +1141,62 @@ def _committed(path: str) -> tuple[str, str] | None:
     return out
 
 
+def _untagged(text: str) -> str:
+    """A record's text with HTML tags removed, compared under spancheck's
+    normalisation. corrections.md writes <q>Last reviewed 30 August 2026</q>
+    inside its sentences; a quote of the sentence is a quote of its words, with
+    or without the markup (2026-10-18)."""
+    import spancheck as SC
+    return SC._norm(_HTML_TAG.sub("", text or ""))
+
+
+# A TAG, NOT A LESS-THAN SIGN. "<[^>]+>" over a whole sources.json deletes from
+# "p<0.001" to the next ">" anywhere in the file -- the hazard CLAUDE.md records
+# for text.normalise (62k of a page lost to one stray "<"). Only an element
+# name, an optional attribute run with no angle bracket in it, and a close.
+_HTML_TAG = re.compile(r"</?[A-Za-z][A-Za-z0-9]*(?:\s[^<>]{0,200})?/?>")
+
+
+_COMMIT_CACHE: dict[str, tuple[str, str] | None] = {}
+
+
+def _commit_message(commit: str) -> tuple[str, str] | None:
+    """(full sha, message) of a commit in main's history, or None. A commit that
+    is not an ancestor of main -- an unmerged branch, a stash, a typo that
+    resolves to nothing -- is not a record of this publication."""
+    c = (commit or "").strip()
+    if c in _COMMIT_CACHE:
+        return _COMMIT_CACHE[c]
+    import subprocess
+    root = str(_repo_root())
+    out = None
+    try:
+        full = subprocess.run(["git", "-C", root, "rev-parse", "--verify", "%s^{commit}" % c],
+                              capture_output=True, text=True, check=True).stdout.strip()
+        anc = subprocess.run(["git", "-C", root, "merge-base", "--is-ancestor", full, "main"],
+                             capture_output=True)
+        if anc.returncode == 0:
+            msg = subprocess.run(["git", "-C", root, "show", "-s", "--format=%B", full],
+                                 capture_output=True, check=True).stdout.decode("utf-8", "replace")
+            out = (full, msg)
+    except (subprocess.CalledProcessError, OSError):
+        out = None
+    _COMMIT_CACHE[c] = out
+    return out
+
+
+def commit_entry(commit: str, quote: str) -> dict:
+    """The entry to write for a commit message: checked now. Raises ValueError
+    rather than return an entry that would fail B24."""
+    import spancheck as SC
+    got = _commit_message(commit)
+    if got is None:
+        raise ValueError("%s: not a commit in main's history" % commit)
+    if SC._norm(quote) not in SC._norm(got[1]):
+        raise ValueError("%s: quote not in the commit message: %s" % (commit, quote[:60]))
+    return {"commit": got[0], "quote": quote}
+
+
 def record_path_ok(path: str, slug: str) -> bool:
     """Repo-relative, inside docs/ or this issue's case directory."""
     p = (path or "").strip()
@@ -1164,7 +1220,7 @@ def record_entry(path: str, quote: str, slug: str) -> dict:
     got = _committed(path)
     if got is None:
         raise ValueError("%s: not committed at HEAD" % path)
-    if SC._norm(quote) not in SC._norm(got[1]):
+    if _untagged(quote) not in _untagged(got[1]):
         raise ValueError("%s: quote not in the committed file: %s" % (path, quote[:60]))
     return {"path": path, "quote": quote, "sha": got[0]}
 
@@ -1174,6 +1230,23 @@ def b24_records(row: dict, slug: str) -> list[dict]:
     import spancheck as SC
     out = []
     for e in row.get("rests_on_record") or []:
+        if isinstance(e, dict) and (e.get("commit") or "").strip():
+            # A COMMIT MESSAGE IS A RECORD TOO (2026-10-18): the drafting
+            # commit 0ee52b8 is the only place it is written that lint_claims
+            # forced the papers open. Immutable, so no sha: the quote must be
+            # in the message of a commit in main's history.
+            quote = (e.get("quote") or "").strip()
+            got = _commit_message(e["commit"])
+            if not quote:
+                out.append({"check": "B24", "verdict": RECORD_INCOMPLETE,
+                            "why": "a commit binding needs commit and quote: %r" % (e,)})
+            elif got is None:
+                out.append({"check": "B24", "verdict": RECORD_GONE,
+                            "why": "%s is not a commit in main's history" % e["commit"][:12]})
+            elif SC._norm(quote) not in SC._norm(got[1]):
+                out.append({"check": "B24", "verdict": RECORD_GONE,
+                            "why": "commit %s's message does not contain %r" % (got[0][:12], quote[:80])})
+            continue
         path = (e.get("path") or "").strip() if isinstance(e, dict) else ""
         quote = (e.get("quote") or "").strip() if isinstance(e, dict) else ""
         if not path or not quote or not (e.get("sha") or "").strip():
@@ -1185,7 +1258,7 @@ def b24_records(row: dict, slug: str) -> list[dict]:
                         "why": "%s is not under docs/ or the issue's case directory" % path})
             continue
         got = _committed(path)
-        if got is None or SC._norm(quote) not in SC._norm(got[1]):
+        if got is None or _untagged(quote) not in _untagged(got[1]):
             out.append({"check": "B24", "verdict": RECORD_GONE,
                         "why": "%s %s: %r" % (path, "is not committed at HEAD" if got is None
                                               else "no longer contains the quote", quote[:80])})
@@ -1292,16 +1365,86 @@ def _closest_sentence(clause: str, texts: list[str]) -> str:
     return best
 
 
+_QS, _QE = "\u2063", "\u2064"          # invisible markers for <q> and </q>
+_MARKED_CACHE: dict = {}
+
+
+def _marked_page(slug: str) -> str:
+    """The page's text with each <q> element's boundaries kept as markers.
+    Tags become spaces, as in the text the scan split into sentences, so a
+    row's sentence ("... practice requires .") is found in it as written."""
+    import html as _h
+    key = (slug, id(_page_html))
+    if key not in _MARKED_CACHE:
+        try:
+            raw = HEAD.sub(" ", _page_html(slug))
+        except (Exception, SystemExit):
+            raw = ""
+        raw = re.sub(r"<q\b[^>]*>", " " + _QS, raw, flags=re.I)
+        raw = re.sub(r"</q\s*>", _QE + " ", raw, flags=re.I)
+        raw = re.sub(r"<[^>]+>", " ", raw)
+        _MARKED_CACHE[key] = " ".join(_h.unescape(raw).split())
+    return _MARKED_CACHE[key]
+
+
+def quoted_parts(sent: str, slug: str) -> list[str] | None:
+    """The words inside <q> elements WITHIN this sentence on the page: [] when
+    the sentence carries none, None when the sentence cannot be found on the
+    page (the caller then reads the sentence as it always has). A <q> that runs
+    past the sentence's end -- the row is "... whereas Budzyń et al." and the
+    quotation continues -- is cut at the sentence's end."""
+    marked = _marked_page(slug)
+    if not marked:
+        return None
+    plain, where = [], []
+    for k, c in enumerate(marked):
+        if c not in (_QS, _QE):
+            plain.append(c); where.append(k)
+    plain = "".join(plain)
+    want = " ".join((sent or "").split())
+    a = plain.find(want)
+    if a < 0 or not want:
+        return None
+    lo, hi = where[a], where[a + len(want) - 1] + 1
+    inside = marked[:lo].count(_QS) > marked[:lo].count(_QE)
+    parts, cur = [], []
+    for c in marked[lo:hi]:
+        if c == _QS:
+            inside = True; cur = []
+        elif c == _QE:
+            if inside and cur: parts.append("".join(cur))
+            inside = False; cur = []
+        elif inside:
+            cur.append(c)
+    if inside and cur:
+        parts.append("".join(cur))
+    return [p.strip(" ,;:") for p in (" ".join(x.split()) for x in parts)
+            if len(p.strip(" ,;:").split()) >= MIN_CLAUSE_WORDS]
+
+
+ACCENT_INFO = "wording claim matched ignoring accents"
+
+
 def b22_wording_claim(row: dict, slug: str) -> list[dict]:
-    """A sentence claiming a source's own words: those words, verbatim (after
-    spancheck's normalisation), in a span the row is bound to or in the held
-    text of a source it cites. Absent: STOP, naming the clause and the nearest
-    held sentence. Source not held: undetermined, never STOP."""
+    """A sentence claiming a source's own words: those words, verbatim, in a span
+    the row is bound to or in the held text of a source it cites. Absent: STOP,
+    naming the clause and the nearest held sentence. Source not held:
+    undetermined, never STOP.
+
+    THE COMPARISON IS QUOTATIONS.PY'S (2026-10-18). Curly and straight, single
+    and double quotation marks fold silently -- house style, not wording; a
+    match that needed the accent fold ("Budzyń" / "Budzyn") passes with an INFO
+    note saying so. And WHEN THE PAGE MARKS THE QUOTATION with <q>, only the
+    words inside it are claimed: "In their words, trainees who rely on AI during
+    the early formative years <q>may fail to develop …</q>" quotes the <q> and
+    paraphrases the lead-in, and B22 had STOPped on the lead-in (24bdc717)."""
     import spancheck as SC
+    import quotations as Q
     sent = row.get("sentence") or ""
     if not WORDING_CLAIM.search(sent):
         return []
-    clause = wording_clause(sent)
+    parts = quoted_parts(sent, slug) or []
+    clause = parts[0] if parts else wording_clause(sent)
     if not clause:
         return [{"check": "B22", "verdict": "wording claim with nothing to check",
                  "why": "the sentence claims a source's own words and no clause "
@@ -1314,11 +1457,34 @@ def b22_wording_claim(row: dict, slug: str) -> list[dict]:
             held += texts
             if SC.defective_renditions(slug, sid)[0]:
                 defective.append(sid)
-    hay = [SC._norm(t).lower() for t in spans + held]
-    for p in _clause_prefixes(clause):
-        want = SC._norm(p).lower()
-        if want and any(want in h for h in hay):
-            return []
+    hay = [Q.norm(SC._norm(t)) for t in spans + held]
+    strict_hay = [Q.norm(SC._norm(t), fold_accents=False) for t in spans + held]
+    def found(p):
+        want = Q.norm(SC._norm(p))
+        if not want or not any(want in h for h in hay):
+            return None
+        return any(Q.norm(SC._norm(p), fold_accents=False) in h for h in strict_hay)
+    if parts:
+        # Every <q> in the sentence must be in the source; nothing outside them
+        # is claimed as the source's words.
+        res = [(p, found(p)) for p in parts]
+        missing = [p for p, f in res if f is None]
+        if not missing:
+            if all(res_f for _p, res_f in res):
+                return []
+            return [{"check": "B22", "verdict": ACCENT_INFO,
+                     "why": "%s: %s" % (Q.ACCENT_NOTE, ", ".join(Q.accent_folds(" ".join(parts)))
+                                        or "the source's text carries accents the quotation does not")}]
+        clause = missing[0]
+    else:
+        for p in _clause_prefixes(clause):
+            f = found(p)
+            if f is True:
+                return []
+            if f is False:
+                return [{"check": "B22", "verdict": ACCENT_INFO,
+                         "why": "%s: %s" % (Q.ACCENT_NOTE, ", ".join(Q.accent_folds(p))
+                                            or "the source's text carries accents the sentence does not")}]
     if not held or defective:
         return [{"check": "B22", "verdict": "wording claim undetermined",
                  "why": "%r: not in the bound span(s), and %s"
@@ -1417,6 +1583,7 @@ CALIBRATION_SEVERITY = {
     "wording claim not in its source": BAD,
     "wording claim undetermined": WARN,
     "wording claim with nothing to check": WARN,
+    ACCENT_INFO: INFO,
     "interval omitted": INFO,
     RECORD_CHANGED: WARN,
     RECORD_GONE: BAD,
