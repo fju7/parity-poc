@@ -2335,7 +2335,7 @@
         {
           "path": "docs/whatholdsup-deskilling-revision.md",
           "quote": "Term search and a read of S023's whole passage on the study against S021's eleven limitations (first … tenth, finally): none appears.",
-          "sha": "c4de5f684154b48db3c1f650ee9b89afb721b6b5"
+          "sha": "f345ef2679669251b7e9705432851826385ba8ed"
         }
       ]
     },
@@ -4569,7 +4569,7 @@
         {
           "path": "docs/whatholdsup-deskilling-revision.md",
           "quote": "Term search and a read of S023's whole passage on the study against S021's eleven limitations (first … tenth, finally): none appears.",
-          "sha": "c4de5f684154b48db3c1f650ee9b89afb721b6b5"
+          "sha": "f345ef2679669251b7e9705432851826385ba8ed"
         }
       ]
     },
@@ -5735,7 +5735,7 @@
         "warranted": null
       },
       "first_seen": "2026-10-18",
-      "on_page": true,
+      "on_page": false,
       "check_flags": [],
       "also_rests_on": [
         {
@@ -5755,7 +5755,8 @@
       "proposed_on": "2026-10-18",
       "confirmed": true,
       "why_bound": "batch 4 (2026-10-18): proposed by Claude from held text, every span an exact substring of the held bytes; confirmed by Fred Ugast. See docs/whatholdsup-deskilling-revision.md.",
-      "checked_on": "2026-10-19"
+      "checked_on": "2026-10-19",
+      "left_page": "2026-10-19"
     },
     "53c9cdd71eb9fa90": {
       "sentence": "The paper does give a reason — it says it reports 54 to ensure data distribution (as participants were assigned in three groups) — and the comment does not address that sentence.",
@@ -10869,7 +10870,7 @@
         {
           "path": "docs/whatholdsup-deskilling-revision.md",
           "quote": "Crossref, checked 2026-10-18: only SSRN (10.2139/ssrn.6097646) and PsyArXiv/OSF (10.31234/osf.io/yk25n_v1) posted versions; no journal article.",
-          "sha": "c4de5f684154b48db3c1f650ee9b89afb721b6b5"
+          "sha": "f345ef2679669251b7e9705432851826385ba8ed"
         }
       ],
       "proposed_by": "model",
@@ -12468,7 +12469,7 @@
         {
           "path": "issues/WHU-003-deskilling/corrections.md",
           "quote": "the evidence was read, <q>not a guarantee that anyone has looked since</q>.",
-          "sha": "f2c645294864782e3cac301b756217130388dd31"
+          "sha": "b5f313252ad5584fa080834d16a674ad7aee076c"
         }
       ],
       "proposed_by": "model",
@@ -13143,12 +13144,12 @@
         {
           "path": "issues/WHU-003-deskilling/corrections.md",
           "quote": "Since 30 August this page's masthead has read <q>Last reviewed 30 August",
-          "sha": "f2c645294864782e3cac301b756217130388dd31"
+          "sha": "b5f313252ad5584fa080834d16a674ad7aee076c"
         },
         {
           "path": "issues/WHU-003-deskilling/corrections.md",
           "quote": "we still think it is a good one: when somebody last looked is worth more to a",
-          "sha": "f2c645294864782e3cac301b756217130388dd31"
+          "sha": "b5f313252ad5584fa080834d16a674ad7aee076c"
         }
       ],
       "proposed_by": "model",
@@ -13195,7 +13196,7 @@
         {
           "path": "issues/WHU-003-deskilling/corrections.md",
           "quote": "Neither of those is what a reader takes from a review date on a page. A review date implies the page is kept current, and we cannot stand behind that.",
-          "sha": "f2c645294864782e3cac301b756217130388dd31"
+          "sha": "b5f313252ad5584fa080834d16a674ad7aee076c"
         }
       ],
       "proposed_by": "model",
@@ -13242,7 +13243,7 @@
         {
           "path": "issues/WHU-003-deskilling/corrections.md",
           "quote": "A review date implies the page is kept current, and we cannot stand behind that.",
-          "sha": "f2c645294864782e3cac301b756217130388dd31"
+          "sha": "b5f313252ad5584fa080834d16a674ad7aee076c"
         }
       ],
       "proposed_by": "model",
@@ -16163,7 +16164,7 @@
         {
           "path": "docs/whatholdsup-deskilling-revision.md",
           "quote": "The held text was searched for \"suspen\", \"screening programme\", \"screening program\", \"withdrawal\", \"blind\", \"first 100\", \"familiar\", \"eleven\", \"confound\", \"1,382\" and \"doubl\": none occurs.",
-          "sha": "c4de5f684154b48db3c1f650ee9b89afb721b6b5"
+          "sha": "f345ef2679669251b7e9705432851826385ba8ed"
         }
       ]
     },
@@ -18637,7 +18638,7 @@
         }
       },
       "first_seen": "2026-10-19",
-      "on_page": true,
+      "on_page": false,
       "check_flags": [
         {
           "check": "B19",
@@ -18689,7 +18690,8 @@
           "on": "2026-10-19"
         }
       ],
-      "checked_on": "2026-10-19"
+      "checked_on": "2026-10-19",
+      "left_page": "2026-10-19"
     },
     "5c35c2424fdebabd": {
       "sentence": "In our reading, the belief that AI is degrading thinking does not usually rest on any of the above.",
@@ -19858,6 +19860,13 @@
           "by": "Fred Ugast",
           "on": "2026-10-19"
         }
+      ],
+      "rests_on_record": [
+        {
+          "path": "issues/WHU-003-deskilling/premise.json",
+          "quote": "NO. Every piece of the scrutiny exists and every piece is somewhere else",
+          "sha": "08a62c19bce9f745ba6144143598e4477af50e0c"
+        }
       ]
     },
     "52092edc5e8c687a": {
@@ -21010,8 +21019,9 @@
       },
       "first_seen": "2026-10-19",
       "trigger": "source_claim",
-      "on_page": true,
-      "check_flags": []
+      "on_page": false,
+      "check_flags": [],
+      "left_page": "2026-10-19"
     },
     "3cefe3b7ebfe080b": {
       "sentence": "One meta-analysis in this literature has already been retracted after nine and a half months of public criticism, and the scoping review that gathers this literature for doctors misdescribes the colonoscopy study and misattributes figures in its key-studies table.",
@@ -21448,7 +21458,7 @@
         {
           "path": "issues/WHU-003-deskilling/corrections.md",
           "quote": "Neither of those is what a reader takes from a review date on a page. A review date implies the page is kept current, and we cannot stand behind that",
-          "sha": "f2c645294864782e3cac301b756217130388dd31"
+          "sha": "b5f313252ad5584fa080834d16a674ad7aee076c"
         },
         {
           "path": "issues/WHU-003-deskilling/review/2026-09-12-modest-promise-ruling.md",
@@ -23364,6 +23374,10 @@
         {
           "source_id": "S021",
           "span": "The first 100 colonoscopies per center after AI implementation were excluded from analysis to allow endoscopists to become familiar with using AI."
+        },
+        {
+          "source_id": "S034",
+          "span": "Budzyń and colleagues published a multicentre observational study in Lancet Gastroenterology & Hepatology"
         }
       ],
       "step": "both name the design; S034's full text names none of the listed limitations (bounded term search above); S027 is a preview, so nothing is said about what the rest of it omits.",
@@ -23379,7 +23393,14 @@
           "on": "2026-10-19"
         }
       ],
-      "checked_on": "2026-10-19"
+      "checked_on": "2026-10-19",
+      "rests_on_record": [
+        {
+          "path": "docs/whatholdsup-deskilling-revision.md",
+          "quote": "The held text was searched for \"suspen\", \"screening programme\", \"screening program\", \"1,382\", \"1382\", \"doubl\", \"795\", \"withdrawal\", \"blind\", \"first 100\", \"familiar\", \"limitation\", \"retrospective\" and \"confound\": none occurs except \"blind\", twice, both in \"AI-blind reading slots\"",
+          "sha": "f345ef2679669251b7e9705432851826385ba8ed"
+        }
+      ]
     },
     "c751fc9a9c42b46b": {
       "sentence": "It pairs the colonoscopy and mammography results and is the closest published thing to this page.",
@@ -23418,7 +23439,7 @@
         "S034",
         "S033"
       ],
-      "on_page": true,
+      "on_page": false,
       "check_flags": [
         {
           "check": "B19",
@@ -23462,7 +23483,8 @@
           "on": "2026-10-19"
         }
       ],
-      "checked_on": "2026-10-19"
+      "checked_on": "2026-10-19",
+      "left_page": "2026-10-19"
     },
     "2c5c3bb28872daa4": {
       "sentence": "Greengard S, “The AI Deskilling Paradox”, Communications of the ACM , 7 November 2025 , carries none of this study’s limitations but does carry caveats of its own, on governance and on deskilling having good outcomes as well as bad ones; we had described it as carrying none, and that was wrong.",
@@ -23710,24 +23732,25 @@
         {
           "path": "issues/WHU-003-deskilling/corrections.md",
           "quote": "Since 30 August this page's masthead has read",
-          "sha": "f2c645294864782e3cac301b756217130388dd31"
+          "sha": "b5f313252ad5584fa080834d16a674ad7aee076c"
         },
         {
           "path": "docs/whatholdsup-deskilling-revision.md",
           "quote": "## Batch 5 (2026-10-18): the remaining unbound rows",
-          "sha": "c4de5f684154b48db3c1f650ee9b89afb721b6b5"
+          "sha": "f345ef2679669251b7e9705432851826385ba8ed"
         },
         {
           "path": "issues/WHU-003-deskilling/corrections.md",
-          "quote": "19 October 2026 — we re-read this page and corrected 137 of its sentences",
-          "sha": "f2c645294864782e3cac301b756217130388dd31"
+          "quote": "19 October 2026 — we re-read this page and corrected 139 of its sentences",
+          "sha": "b5f313252ad5584fa080834d16a674ad7aee076c"
         }
       ],
       "proposed_by": "model",
       "proposed_on": "2026-10-19",
       "confirmed": true,
-      "why_bound": "republish step 2b (2026-10-19): the masthead: published since 30 August, updated 19 October (the corrections.md entry of that date, now 137), evidence last read 18 October; every span an exact substring of the held text, every record quote in the committed file; confirmed at the operator's instruction (brief of 2026-10-19, step 2b).",
-      "check_flags": []
+      "why_bound": "republish step 2b (2026-10-19): the masthead: published since 30 August, updated 19 October (the corrections.md entry of that date, now 137), evidence last read 18 October; every span an exact substring of the held text, every record quote in the committed file; confirmed at the operator's instruction (brief of 2026-10-19, step 2b). Step 2c (2026-10-19): the corrections.md heading now counts 139; record repointed.",
+      "check_flags": [],
+      "checked_on": "2026-10-19"
     },
     "1e194600b205953e": {
       "sentence": "There is a widely held sense that using AI is making us worse at thinking, and that there is now real evidence for it.",
@@ -23806,7 +23829,7 @@
         }
       },
       "first_seen": "2026-10-19",
-      "on_page": true,
+      "on_page": false,
       "premises": [
         {
           "source_id": "S007",
@@ -23856,7 +23879,8 @@
       "proposed_on": "2026-10-19",
       "confirmed": true,
       "why_bound": "republish step 2 (2026-10-19): the binding written for it at republish step 2; every span an exact substring of the held text, every record quote in the committed file or commit message; confirmed at the operator's instruction (brief of 2026-10-19, step 9).",
-      "check_flags": []
+      "check_flags": [],
+      "left_page": "2026-10-19"
     },
     "cfe316e9dcea338a": {
       "sentence": "In our reading the strongest evidence is real, and in the coverage we read it has mostly not reached readers outside medicine with its qualifications intact: in four Polish endoscopy centres, the rate at which experienced doctors found precancerous growths without AI fell from 28.4% to 22.4% after their units adopted it.",
@@ -23968,6 +23992,10 @@
         {
           "source_id": "S021",
           "span": "Finally, the number of examinations performed by some endoscopists was relatively low"
+        },
+        {
+          "source_id": "S021",
+          "span": "Tenth, the first 100 colonoscopies per center following AI implementation were excluded to give endoscopists time to become familiar with the technology"
         }
       ],
       "step": "S021 calls itself retrospective and observational, says the design is vulnerable to selection bias and confounding, and numbers its limitations First to Tenth and then Finally: eleven (our count of its list).",
@@ -23991,7 +24019,14 @@
           "why": "the evidence says 'cautious' (S021), disposed of by Fred Ugast on 2026-10-19: 'cautious' is S021's 'necessitates cautious assessment', the authors' advice to the reader, which the sentence carries as 'its authors call it vulnerable to confounding'."
         }
       ],
-      "checked_on": "2026-10-19"
+      "checked_on": "2026-10-19",
+      "rests_on_record": [
+        {
+          "path": "issues/WHU-003-deskilling/figure-exclusions.json",
+          "quote": "they list eleven limitations",
+          "sha": "ace5f302a4f5e6cdc424607d696ec4520a32377c"
+        }
+      ]
     },
     "4d16cecd5898773a": {
       "sentence": "Two of three named academics raised its limits publicly the day it appeared, and some of that did travel.",
@@ -24041,6 +24076,22 @@
         {
           "source_id": "S040",
           "span": "noted to SMC that the total number of colonoscopies-including both AI-assisted and non-AI-assisted ones-increased over the course of the study."
+        },
+        {
+          "source_id": "S035",
+          "span": "Prof Venet Osmani, Professor of Clinical AI and Machine Learning, Queen Mary University of London, said:"
+        },
+        {
+          "source_id": "S035",
+          "span": "Prof Allan Tucker, Professor of Artificial Intelligence in the Department of Computer Science, Brunel University of London:"
+        },
+        {
+          "source_id": "S035",
+          "span": "Dr Catherine Menon, Principal Lecturer at the University of Hertfordshire's Department of Computer Science, said:"
+        },
+        {
+          "source_id": "S035",
+          "span": "August 12, 2025"
         }
       ],
       "step": "On the day of publication the Science Media Centre carried three named academics (S035): Osmani and Tucker raised the study's limits, Menon did not; Time then carried Osmani's volume point (S040), so some of it travelled.",
@@ -24130,7 +24181,14 @@
           "why": "the evidence says 'could' (S040), disposed of by Fred Ugast on 2026-10-19: 'could' is Osmani's hedge on the fatigue explanation (S040); the sentence is about which caveats the coverage carried."
         }
       ],
-      "checked_on": "2026-10-19"
+      "checked_on": "2026-10-19",
+      "rests_on_record": [
+        {
+          "path": "issues/WHU-003-deskilling/premise.json",
+          "quote": "NO. Every piece of the scrutiny exists and every piece is somewhere else",
+          "sha": "08a62c19bce9f745ba6144143598e4477af50e0c"
+        }
+      ]
     },
     "1ddf3368afed4183": {
       "sentence": "Corrected 19 October 2026 On 19 October 2026 we re-read every sentence on this page above the change history at its foot, the standfirst included, against its source or our own records, and corrected 135 of them.",
@@ -24164,12 +24222,12 @@
         {
           "path": "docs/whatholdsup-deskilling-revision.md",
           "quote": "The page now carries 135 corrected sentences: the 125 above and the ten below.",
-          "sha": "c4de5f684154b48db3c1f650ee9b89afb721b6b5"
+          "sha": "f345ef2679669251b7e9705432851826385ba8ed"
         },
         {
           "path": "docs/whatholdsup-deskilling-revision.md",
           "quote": "every sentence above the change history at its foot, the standfirst included, was read against its source or our own records, and 135 were corrected",
-          "sha": "c4de5f684154b48db3c1f650ee9b89afb721b6b5"
+          "sha": "f345ef2679669251b7e9705432851826385ba8ed"
         },
         {
           "path": "issues/WHU-003-deskilling/corrections.md",
@@ -26300,17 +26358,17 @@
         "warranted": null
       },
       "first_seen": "2026-10-19",
-      "on_page": true,
+      "on_page": false,
       "rests_on_record": [
         {
           "path": "docs/whatholdsup-deskilling-revision.md",
           "quote": "The page now carries 137 corrected sentences: the 135 above and two more found in the judge review",
-          "sha": "c4de5f684154b48db3c1f650ee9b89afb721b6b5"
+          "sha": "f345ef2679669251b7e9705432851826385ba8ed"
         },
         {
           "path": "docs/whatholdsup-deskilling-revision.md",
           "quote": "every sentence above the change history at its foot, the standfirst included, was read against its source or our own records",
-          "sha": "c4de5f684154b48db3c1f650ee9b89afb721b6b5"
+          "sha": "f345ef2679669251b7e9705432851826385ba8ed"
         },
         {
           "path": "issues/WHU-003-deskilling/corrections.md",
@@ -26322,7 +26380,8 @@
       "proposed_on": "2026-10-19",
       "confirmed": true,
       "why_bound": "republish step 2b (2026-10-19): the notice: the revision record and the corrections.md entry of 19 October 2026; every span an exact substring of the held text, every record quote in the committed file; confirmed at the operator's instruction (brief of 2026-10-19, step 2b).",
-      "check_flags": []
+      "check_flags": [],
+      "left_page": "2026-10-19"
     },
     "599039192cff336a": {
       "sentence": "So, within the twelve studies that review includes: more than one study, and not a settled literature either.",
@@ -26486,6 +26545,10 @@
         {
           "source_id": "S030",
           "span": "The results show that inexperienced, moderately experienced, and very experienced radiologists reading mammograms are prone to automation bias when being supported by an AI-based system"
+        },
+        {
+          "source_id": "S030",
+          "span": "Automation bias (the propensity for humans to favor suggestions from automated decision-making systems) is a known source of error in human-machine interactions"
         }
       ],
       "step": "S030 measures, within single readings, how accuracy falls when the AI suggestion is wrong (to 19.8%, 24.8% and 45.5%) and concludes readers at all levels are prone to automation bias; so it directly measures taking what the AI gives you.",
@@ -26887,6 +26950,10 @@
         {
           "source_id": "S001",
           "span": "The AI assistant was then removed, and participants were asked to solve 3 additional reading comprehension problems."
+        },
+        {
+          "source_id": "S001",
+          "span": "randomized controlled trials on human-AI interactions (N = 1, 222)"
         }
       ],
       "step": "As a4267014 for the counts and design (1,060 = 307 + 585 + 168, our sum); the three solve-rate effect sizes are Cohen's d = -0.42, -0.19 and -0.42 as printed in the three Results sections.",
@@ -26928,7 +26995,7 @@
         {
           "path": "docs/whatholdsup-deskilling-revision.md",
           "quote": "arXiv v6 (13 October 2026) is now S001's primary rendition, v4 held beside it. The page's S001 figures are v6's",
-          "sha": "c4de5f684154b48db3c1f650ee9b89afb721b6b5"
+          "sha": "f345ef2679669251b7e9705432851826385ba8ed"
         }
       ],
       "proposed_by": "model",
@@ -26983,7 +27050,7 @@
         {
           "path": "docs/whatholdsup-deskilling-revision.md",
           "quote": "the COLM 2026 header; no pre-registration statement.",
-          "sha": "c4de5f684154b48db3c1f650ee9b89afb721b6b5"
+          "sha": "f345ef2679669251b7e9705432851826385ba8ed"
         }
       ],
       "proposed_by": "model",
@@ -27043,7 +27110,7 @@
         {
           "path": "issues/WHU-003-deskilling/corrections.md",
           "quote": "said we can see a trial registry move, which was wrong",
-          "sha": "f2c645294864782e3cac301b756217130388dd31"
+          "sha": "b5f313252ad5584fa080834d16a674ad7aee076c"
         }
       ],
       "proposed_by": "model",
@@ -27051,6 +27118,441 @@
       "confirmed": true,
       "why_bound": "republish step 2b (2026-10-19): the 12 September claim was wrong: every registry run for this issue queried no source (sweeps.json); recorded in corrections.md; every span an exact substring of the held text, every record quote in the committed file; confirmed at the operator's instruction (brief of 2026-10-19, step 2b).",
       "check_flags": []
+    },
+    "154a2dc8ae11ffe7": {
+      "sentence": "In our reading, the evidence usually offered for it is weak.",
+      "sentence_sha": "154a2dc8ae11ffe7",
+      "why_empirical": "sentence",
+      "bucket": "judgement",
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": {
+          "by": "Fred Ugast",
+          "on": "2026-10-19",
+          "note": "binding written at republish step 2c (advisor's rulings of 2026-10-19 on step 2b): read against held text and WHU's committed records by Claude Code; every span an exact substring of the held text, every record quote in the committed file"
+        },
+        "faithful": {
+          "by": "Fred Ugast",
+          "on": "2026-10-19",
+          "note": "binding written at republish step 2c (advisor's rulings of 2026-10-19 on step 2b): read against held text and WHU's committed records by Claude Code; every span an exact substring of the held text, every record quote in the committed file"
+        },
+        "warranted": {
+          "by": "Fred Ugast",
+          "on": "2026-10-19",
+          "note": "binding written at republish step 2c (advisor's rulings of 2026-10-19 on step 2b): read against held text and WHU's committed records by Claude Code; every span an exact substring of the held text, every record quote in the committed file"
+        }
+      },
+      "first_seen": "2026-10-19",
+      "on_page": true,
+      "premises": [
+        {
+          "source_id": "S007",
+          "span": "We recruited a total of 54 participants for Sessions 1, 2, 3, and 18 participants among them completed session 4"
+        },
+        {
+          "source_id": "S019",
+          "span": "indicates that approximately N = 159 participants would be required for adequate power"
+        },
+        {
+          "source_id": "S019",
+          "span": "Thus, a group with fewer significant connections should not necessarily be interpreted as exhibiting weaker overall neural activity"
+        },
+        {
+          "source_id": "S009",
+          "span": "the sequential Bayes Factor (BF) analysis yielded a final BF 01 of 5.07 in favor of the null over the alternative hypothesis, after the data from N = 89 participants were taken into account"
+        },
+        {
+          "source_id": "S008",
+          "span": "The correlation between AI tool use and critical thinking was found to be strongly negative (r = -0.68), suggesting that greater reliance on AI tools is associated with a decline in critical thinking skills"
+        },
+        {
+          "source_id": "S008",
+          "span": "Experimental studies that manipulate the level of AI tool usage and measure resultant changes in critical thinking performance could offer causal evidence of the relationship between these variables"
+        },
+        {
+          "source_id": "S023",
+          "span": "A study from Microsoft and Carnegie Mellon University earlier this year found that among surveyed knowledge workers, AI increased work efficiency, but reduced critical enga"
+        }
+      ],
+      "step": "The evidence usually offered for the belief is the brain-scan preprint, the Google-effect study and the critical-thinking correlation (premise.json's belief, and the page's section on them): S019 shows the first is underpowered and its connectivity measure relative, S009 finds no effect on replication, and S008 is a single self-report survey whose author says experiments are needed for causal evidence; 'weak' is our judgement on that, argued in the body.",
+      "hedge_dispositions": [
+        {
+          "word": "hypothesis",
+          "why": "'hypothesis' is S009's statistical term (the alternative hypothesis of its Bayes factor), not a hedge.",
+          "by": "Fred Ugast",
+          "on": "2026-10-19"
+        },
+        {
+          "word": "could",
+          "why": "'could' is S008's statement of what future experiments could offer; the sentence does not restate it.",
+          "by": "Fred Ugast",
+          "on": "2026-10-19"
+        }
+      ],
+      "proposed_by": "model",
+      "proposed_on": "2026-10-19",
+      "confirmed": true,
+      "why_bound": "republish step 2c (2026-10-19): 3603aa07's binding carried to 'In our reading, the evidence usually offered for it is weak.'; every span an exact substring of the held text, every record quote in the committed file; confirmed at the operator's instruction (brief of 2026-10-19, step 2c).",
+      "check_flags": []
+    },
+    "28cc775d51744144": {
+      "sentence": "Corrected 19 October 2026 On 19 October 2026 we re-read every sentence on this page above the change history at its foot, the standfirst included, against its source or our own records, and corrected 139 of them.",
+      "sentence_sha": "28cc775d51744144",
+      "why_empirical": "the bare integer 139 is a quantity",
+      "bucket": "deterministic",
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": {
+          "by": "Fred Ugast",
+          "on": "2026-10-19",
+          "note": "binding written at republish step 2c (advisor's rulings of 2026-10-19 on step 2b): read against held text and WHU's committed records by Claude Code; every span an exact substring of the held text, every record quote in the committed file"
+        },
+        "faithful": {
+          "by": "Fred Ugast",
+          "on": "2026-10-19",
+          "note": "binding written at republish step 2c (advisor's rulings of 2026-10-19 on step 2b): read against held text and WHU's committed records by Claude Code; every span an exact substring of the held text, every record quote in the committed file"
+        },
+        "warranted": null
+      },
+      "first_seen": "2026-10-19",
+      "on_page": true,
+      "rests_on_record": [
+        {
+          "path": "docs/whatholdsup-deskilling-revision.md",
+          "quote": "The page now carries 139 corrected sentences: the 137 above and two more",
+          "sha": "f345ef2679669251b7e9705432851826385ba8ed"
+        },
+        {
+          "path": "docs/whatholdsup-deskilling-revision.md",
+          "quote": "every sentence above the change history at its foot, the standfirst included, was read against its source or our own records",
+          "sha": "f345ef2679669251b7e9705432851826385ba8ed"
+        },
+        {
+          "path": "issues/WHU-003-deskilling/corrections.md",
+          "quote": "19 October 2026 — we re-read this page and corrected 139 of its sentences",
+          "sha": "b5f313252ad5584fa080834d16a674ad7aee076c"
+        }
+      ],
+      "proposed_by": "model",
+      "proposed_on": "2026-10-19",
+      "confirmed": true,
+      "why_bound": "republish step 2c (2026-10-19): the notice at 139: the corrections list (revision record and the corrections.md entry of 19 October 2026); every span an exact substring of the held text, every record quote in the committed file; confirmed at the operator's instruction (brief of 2026-10-19, step 2c).",
+      "check_flags": []
+    },
+    "3ae4a380fd237914": {
+      "sentence": "In our reading, the evidence a general reader is usually offered is much weaker than the evidence that has mostly not reached them with its qualifications intact.",
+      "sentence_sha": "3ae4a380fd237914",
+      "why_empirical": "sentence",
+      "bucket": "judgement",
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": {
+          "by": "Fred Ugast",
+          "on": "2026-10-19",
+          "note": "binding written at republish step 2c (advisor's rulings of 2026-10-19 on step 2b): read against held text and WHU's committed records by Claude Code; every span an exact substring of the held text, every record quote in the committed file"
+        },
+        "faithful": {
+          "by": "Fred Ugast",
+          "on": "2026-10-19",
+          "note": "binding written at republish step 2c (advisor's rulings of 2026-10-19 on step 2b): read against held text and WHU's committed records by Claude Code; every span an exact substring of the held text, every record quote in the committed file"
+        },
+        "warranted": {
+          "by": "Fred Ugast",
+          "on": "2026-10-19",
+          "note": "binding written at republish step 2c (advisor's rulings of 2026-10-19 on step 2b): read against held text and WHU's committed records by Claude Code; every span an exact substring of the held text, every record quote in the committed file"
+        }
+      },
+      "first_seen": "2026-10-19",
+      "on_page": true,
+      "premises": [
+        {
+          "source_id": "S019",
+          "span": "indicates that approximately N = 159 participants would be required for adequate power"
+        },
+        {
+          "source_id": "S007",
+          "span": "We recruited a total of 54 participants for Sessions 1, 2, 3, and 18 participants among them completed session 4"
+        },
+        {
+          "source_id": "S009",
+          "span": "the sequential Bayes Factor (BF) analysis yielded a final BF 01 of 5.07 in favor of the null over the alternative hypothesis, after the data from N = 89 participants were taken into account"
+        },
+        {
+          "source_id": "S008",
+          "span": "The correlation between AI tool use and critical thinking was found to be strongly negative (r = -0.68), suggesting that greater reliance on AI tools is associated with a decline in critical thinking skills"
+        },
+        {
+          "source_id": "S021",
+          "span": "ADR of standard colonoscopy significantly decreased from 28.4% (226/795) before to 22.4% (145/648) after the exposure to AI, corresponding to a 6% absolute reduction (95% confidence interval: -10.5% to -1.6%)"
+        },
+        {
+          "source_id": "S030",
+          "span": "The percentage of correctly rated mammograms by inexperienced (mean, 79.7% ± 11.7 [SD] vs 19.8% ± 14.0; P < .001; r = 0.93), moderately experienced (mean, 81.3% ± 10.1 vs 24.8% ± 11.6; P < .001; r = 0.96), and very experienced (mean, 82.3% ± 4.2 vs 45.5% ± 9.1; P = .003; r = 0.97) radiologists was significantly impacted by the correctness of"
+        },
+        {
+          "source_id": "S023",
+          "span": "endoscopists introduced to an AI-assistance system went from detecting potential polyps at a rate of 28.4% with the technology to 22.4% after they no longer had access to the AI tools they were introduced to-a 20% drop in detection rates"
+        }
+      ],
+      "step": "The widely circulated studies are underpowered (S019 on S007), a failed replication (S009) or cross-sectional (S008), while the medical evidence includes measured falls (S021) and controlled reader studies (S030); but S023 shows the Polish result did reach a general (business) readership, albeit misdescribed and without its limitations.",
+      "hedge_dispositions": [
+        {
+          "word": "hypothesis",
+          "why": "'hypothesis' is S009's statistical term (the alternative hypothesis of its Bayes factor), not a hedge.",
+          "by": "Fred Ugast",
+          "on": "2026-10-19"
+        }
+      ],
+      "proposed_by": "model",
+      "proposed_on": "2026-10-19",
+      "confirmed": true,
+      "why_bound": "republish step 2c (2026-10-19): cbb66593's binding carried to the sentence now prefixed 'In our reading'; every span an exact substring of the held text, every record quote in the committed file; confirmed at the operator's instruction (brief of 2026-10-19, step 2c).",
+      "check_flags": [
+        {
+          "check": "B19",
+          "verdict": "evidence hedge disposed",
+          "hedge": "hypothesis",
+          "why": "the evidence says 'hypothesis' (S009), disposed of by Fred Ugast on 2026-10-19: 'hypothesis' is S009's statistical term (the alternative hypothesis of its Bayes factor), not a hedge."
+        }
+      ],
+      "checked_on": "2026-10-19"
+    },
+    "c54018c28488e8ef": {
+      "sentence": "A comment on it by four researchers at Vienna and Dresden, itself a preprint, calculates that roughly 159 participants would have been needed for adequate power, notes that some reported figures rest on two to four essays per group, and observes that the paper reports 55 completers while analysing 54, and that the criteria for dropping the one remain unclear.",
+      "sentence_sha": "c54018c28488e8ef",
+      "why_empirical": "the bare integer 159 is a quantity",
+      "bucket": "deterministic",
+      "source_id": "S019",
+      "document_sha": "c9a31194f7da3d36c628942b8c5ebcc175cddbb44977a4a227c0f084cd128e5e",
+      "locator_type": "prose",
+      "locator": "Comment, main text; author affiliations",
+      "span": "indicates that approximately N = 159 participants would be required for adequate power.",
+      "envelope": "relative to the number of comparisons performed. A basic a priori power analysis using G*Power (Faul et al., 2007) for a repeated-measures ANOVA (f = 0.25, α = .05, power = .95, three groups, four measurements, r = .50) indicates that approximately N = 159 participants would be required for adequate power. Thus, the power of the reported study is likely lower, especially for analyses involving Session 4 or analyses on essay topics. For example, several topic-specific figures were interpreted based on extremely small subsa",
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": {
+          "by": "Fred Ugast",
+          "on": "2026-10-19",
+          "note": "binding written at republish step 2c (advisor's rulings of 2026-10-19 on step 2b): read against held text and WHU's committed records by Claude Code; every span an exact substring of the held text, every record quote in the committed file"
+        },
+        "faithful": {
+          "by": "Fred Ugast",
+          "on": "2026-10-19",
+          "note": "binding written at republish step 2c (advisor's rulings of 2026-10-19 on step 2b): read against held text and WHU's committed records by Claude Code; every span an exact substring of the held text, every record quote in the committed file"
+        },
+        "warranted": null
+      },
+      "first_seen": "2026-10-19",
+      "trigger": "source_claim",
+      "on_page": true,
+      "also_rests_on": [
+        {
+          "source_id": "S019",
+          "span": "several topic-specific figures were interpreted based on extremely small subsamples (sometimes only 2-4 essays per group)"
+        },
+        {
+          "source_id": "S019",
+          "span": "the authors state that 55 participants completed all experiments, yet only 54 participants are reported in the analysis. The criteria for excluding the participant who completed all experimental sessions from the analysis remain unclear."
+        },
+        {
+          "source_id": "S019",
+          "span": "Miloš Stanković1,2,*, Ella Hirche2,+, Sarah Kollatzsch2,+, Julia Nadine Doetsch2 1Department of Clinical and Health Psychology, Faculty of Psychology, University of Vienna, Vienna, Austria 2Behavioral Epidemiology, Institute of Clinical Psychology and Psychotherapy, Technische Universität Dresden, Germany"
+        }
+      ],
+      "proposed_by": "model",
+      "rests_on_record": [
+        {
+          "path": "issues/WHU-003-deskilling/sources.json",
+          "quote": "\"peer_review\": \"NONE. arXiv preprint.\"",
+          "sha": "a1873362dde87edeaed288adc0e654ab65119a97"
+        }
+      ],
+      "proposed_on": "2026-10-19",
+      "confirmed": true,
+      "why_bound": "republish step 2c (2026-10-19): 286e6f09's binding carried; the comment's status ('itself a preprint') rests on sources.json S019's peer_review record; every span an exact substring of the held text, every record quote in the committed file; confirmed at the operator's instruction (brief of 2026-10-19, step 2c).",
+      "check_flags": [],
+      "checked_on": "2026-10-19"
+    },
+    "1cdbe045c4c545aa": {
+      "sentence": "Two of the studies this page relies on are a preprint and a working paper, as is the comment on one of them, and we say so in the text where each appears; a third, by Liu and colleagues, has been published as a COLM 2026 conference paper.",
+      "sentence_sha": "1cdbe045c4c545aa",
+      "why_empirical": "names Liu and colleagues",
+      "bucket": "deterministic",
+      "source_id": "S001",
+      "document_sha": "6025a4b27ad25f12056da64f756b6d626a500420618575de762fc3a45eb415e9",
+      "locator_type": "field",
+      "locator": "S001 header; S007 header",
+      "span": "Published as a conference paper at COLM 2026",
+      "envelope": "Published as a conference paper at COLM 2026 arXiv:2604.04721v6 [cs.AI] 13 Oct 2026 AI Assistance Reduces Persistence and Hurts Independent Performance Grace Liu Carnegie Mellon University Brian Christian UC Berkeley Tsvetomira Dumbalska University of Oxford gliu2",
+      "scope_words": [
+        {
+          "word": "each",
+          "why": "checked 2026-10-19 on the page: the brain-scan study is introduced as 'The MIT Media Lab preprint', Shaw and Nave's experiments are followed in the same paragraph by 'That is a working paper, not a reviewed one', and the comment as 'A comment on it …, itself a preprint'",
+          "falsifier": "a passage of the body discussing one of the three without its status",
+          "by": "Fred Ugast",
+          "on": "2026-10-19"
+        }
+      ],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": {
+          "by": "Fred Ugast",
+          "on": "2026-10-19",
+          "note": "binding written at republish step 2c (advisor's rulings of 2026-10-19 on step 2b): read against held text and WHU's committed records by Claude Code; every span an exact substring of the held text, every record quote in the committed file"
+        },
+        "faithful": {
+          "by": "Fred Ugast",
+          "on": "2026-10-19",
+          "note": "binding written at republish step 2c (advisor's rulings of 2026-10-19 on step 2b): read against held text and WHU's committed records by Claude Code; every span an exact substring of the held text, every record quote in the committed file"
+        },
+        "warranted": null
+      },
+      "first_seen": "2026-10-19",
+      "trigger": "source_claim",
+      "on_page": true,
+      "also_rests_on": [
+        {
+          "source_id": "S007",
+          "span": "Preprint, under review"
+        }
+      ],
+      "rests_on_record": [
+        {
+          "path": "issues/WHU-003-deskilling/sources.json",
+          "quote": "\"peer_review\": \"NONE. arXiv preprint.\"",
+          "sha": "a1873362dde87edeaed288adc0e654ab65119a97"
+        },
+        {
+          "path": "docs/whatholdsup-deskilling-revision.md",
+          "quote": "Crossref, checked 2026-10-18: only SSRN (10.2139/ssrn.6097646) and PsyArXiv/OSF (10.31234/osf.io/yk25n_v1) posted versions; no journal article.",
+          "sha": "f345ef2679669251b7e9705432851826385ba8ed"
+        },
+        {
+          "path": "docs/whatholdsup-deskilling-revision.md",
+          "quote": "the brain-scan preprint, the working paper and the comment now each carry their status in the body text",
+          "sha": "f345ef2679669251b7e9705432851826385ba8ed"
+        }
+      ],
+      "proposed_by": "model",
+      "proposed_on": "2026-10-19",
+      "confirmed": true,
+      "why_bound": "republish step 2c (2026-10-19): be318988 reworded at the ruling: the statuses rest on S007's header, sources.json S019, the Crossref check of the working paper (§87) and S001's COLM header; that each is stated in the body text is the step-2c record; every span an exact substring of the held text, every record quote in the committed file; confirmed at the operator's instruction (brief of 2026-10-19, step 2c).",
+      "check_flags": [],
+      "checked_on": "2026-10-19"
+    },
+    "60b24412334b1719": {
+      "sentence": "It pairs the colonoscopy and mammography results and is the closest published thing to this page that we found.",
+      "sentence_sha": "60b24412334b1719",
+      "why_empirical": "process claim: 'we found'",
+      "bucket": "judgement",
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": {
+          "by": "Fred Ugast",
+          "on": "2026-10-19",
+          "note": "binding written at republish step 2c (advisor's rulings of 2026-10-19 on step 2b): read against held text and WHU's committed records by Claude Code; every span an exact substring of the held text, every record quote in the committed file"
+        },
+        "faithful": {
+          "by": "Fred Ugast",
+          "on": "2026-10-19",
+          "note": "binding written at republish step 2c (advisor's rulings of 2026-10-19 on step 2b): read against held text and WHU's committed records by Claude Code; every span an exact substring of the held text, every record quote in the committed file"
+        },
+        "warranted": {
+          "by": "Fred Ugast",
+          "on": "2026-10-19",
+          "note": "binding written at republish step 2c (advisor's rulings of 2026-10-19 on step 2b): read against held text and WHU's committed records by Claude Code; every span an exact substring of the held text, every record quote in the committed file"
+        }
+      },
+      "first_seen": "2026-10-19",
+      "trigger": "process_claim",
+      "store_subject_markup": [
+        "S023",
+        "S027",
+        "S034",
+        "S033"
+      ],
+      "on_page": true,
+      "premises": [
+        {
+          "source_id": "S027",
+          "span": "A new multicentre, observational study has examined whether continuous exposure to artificial intelligence (AI) when conducting colonoscopy could affect endoscopist behaviour (quality of colonoscopy) in non-AI-assisted settings, indicating a risk of endoscopist deskilling after continued use of AI-assisted colonoscopy and highlighting the potential for negative effects of AI exposure on endoscopist behaviour and patient-related outcomes."
+        },
+        {
+          "source_id": "S027",
+          "span": "In this retrospective study at four endoscopy centres in Poland taking part in the ACCEPT trial, AI tools for polyp detection had been introduced, after which diagnostic colonoscopies had been randomly assigned to be performed with or without AI assistance."
+        },
+        {
+          "source_id": "S027",
+          "span": "This is a preview of subscription content"
+        },
+        {
+          "source_id": "S034",
+          "span": "Budzyń and colleagues published a multicentre observational study in Lancet Gastroenterology & Hepatology showing that endoscopists who had been routinely exposed to AI-assisted polyp detection performed worse in their standard non-AI colonoscopies than they had before AI was introduced."
+        },
+        {
+          "source_id": "S027",
+          "span": "this retrospective study"
+        },
+        {
+          "source_id": "S034",
+          "span": "Budzyń and colleagues published a multicentre observational study in Lancet Gastroenterology & Hepatology"
+        },
+        {
+          "source_id": "S034",
+          "span": "Dratsch and colleagues showed in 2023 that incorrect AI-style BI-RADS suggestions degraded mammography reader performance across all experience levels"
+        }
+      ],
+      "step": "both name the design; S034's full text names none of the listed limitations (bounded term search above); S027 is a preview, so nothing is said about what the rest of it omits.",
+      "hedge_dispositions": [
+        {
+          "word": "could",
+          "why": "'could' is S027's statement of the study's research question; the sentence describes Decker's pairing of two results.",
+          "by": "Fred Ugast",
+          "on": "2026-10-19"
+        }
+      ],
+      "proposed_by": "model",
+      "proposed_on": "2026-10-19",
+      "confirmed": true,
+      "why_bound": "republish step 2c (2026-10-19): c751fc9a's binding carried, with Decker's own pairing of the colonoscopy and mammography results from S034's held text; every span an exact substring of the held text, every record quote in the committed file; confirmed at the operator's instruction (brief of 2026-10-19, step 2c).",
+      "check_flags": [
+        {
+          "check": "B19",
+          "verdict": "evidence hedge disposed",
+          "hedge": "could",
+          "why": "the evidence says 'could' (S027), disposed of by Fred Ugast on 2026-10-19: 'could' is S027's statement of the study's research question; the sentence describes Decker's pairing of two results."
+        }
+      ],
+      "checked_on": "2026-10-19"
     }
   }
 }

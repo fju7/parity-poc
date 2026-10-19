@@ -934,10 +934,10 @@
       "run_on": "2026-10-19",
       "flagged": true,
       "decision": {
-        "decision": null,
-        "by": null,
-        "on": null,
-        "why": null
+        "decision": "judgement",
+        "by": "advisor (Claude), ruled 2026-10-19",
+        "on": "2026-10-19",
+        "why": "Judgement: an absence in what we found, stated as ours; the page does not claim the two narrowings are the same."
       }
     },
     "890aa12b1ffb4d56": {
@@ -949,10 +949,10 @@
       "run_on": "2026-10-19",
       "flagged": true,
       "decision": {
-        "decision": null,
-        "by": null,
-        "on": null,
-        "why": null
+        "decision": "judgement",
+        "by": "advisor (Claude), ruled 2026-10-19",
+        "on": "2026-10-19",
+        "why": "Judgement: a statement of this page's own aim, not a claim about a source."
       }
     },
     "cbb665938c5e19fb": {
@@ -964,10 +964,10 @@
       "run_on": "2026-10-19",
       "flagged": true,
       "decision": {
-        "decision": null,
-        "by": null,
-        "on": null,
-        "why": null
+        "decision": "accepted",
+        "by": "advisor (Claude), ruled 2026-10-19",
+        "on": "2026-10-19",
+        "why": "Accepted: prefixed 'In our reading,' — the comparison is ours."
       }
     },
     "bd9b05b9fe966076": {
@@ -997,10 +997,10 @@
       "run_on": "2026-10-19",
       "flagged": true,
       "decision": {
-        "decision": null,
-        "by": null,
-        "on": null,
-        "why": null
+        "decision": "judgement",
+        "by": "advisor (Claude), ruled 2026-10-19",
+        "on": "2026-10-19",
+        "why": "Judgement: scoped to the coverage we read; premise.json's carried_in_general_coverage record added as rests_on_record."
       }
     },
     "e104c7fcf82a6dd0": {
@@ -1039,10 +1039,10 @@
       "run_on": "2026-10-19",
       "flagged": true,
       "decision": {
-        "decision": null,
-        "by": null,
-        "on": null,
-        "why": null
+        "decision": "accepted",
+        "by": "advisor (Claude), ruled 2026-10-19",
+        "on": "2026-10-19",
+        "why": "Accepted (binding): 'calls it a multicentre observational study' bound to S034's held text, and a term search of S034 for the four omitted items recorded (revision doc, step 2c) as rests_on_record."
       }
     },
     "c751fc9a9c42b46b": {
@@ -1054,10 +1054,10 @@
       "run_on": "2026-10-19",
       "flagged": true,
       "decision": {
-        "decision": null,
-        "by": null,
-        "on": null,
-        "why": null
+        "decision": "accepted",
+        "by": "advisor (Claude), ruled 2026-10-19",
+        "on": "2026-10-19",
+        "why": "Accepted: '…the closest published thing to this page that we found'; the pairing of the colonoscopy and mammography results is bound to Decker's own held text (S034)."
       }
     },
     "3603aa079eaf7c89": {
@@ -1069,10 +1069,10 @@
       "run_on": "2026-10-19",
       "flagged": true,
       "decision": {
-        "decision": null,
-        "by": null,
-        "on": null,
-        "why": null
+        "decision": "accepted",
+        "by": "advisor (Claude), ruled 2026-10-19",
+        "on": "2026-10-19",
+        "why": "Accepted: 'weak' was our judgement stated as fact; the standfirst now reads 'In our reading, the evidence usually offered for it is weak.' (and so does the email)."
       }
     },
     "cfe316e9dcea338a": {
@@ -1093,10 +1093,10 @@
       "run_on": "2026-10-19",
       "flagged": true,
       "decision": {
-        "decision": null,
-        "by": null,
-        "on": null,
-        "why": null
+        "decision": "rejected",
+        "by": "advisor (Claude), ruled 2026-10-19",
+        "on": "2026-10-19",
+        "why": "Rejected: S021 numbers its limitations First to Tenth then Finally; 'eleven' is our count of that list, declared in figure-exclusions and bound to the list's spans."
       }
     },
     "4d16cecd5898773a": {
@@ -1108,10 +1108,10 @@
       "run_on": "2026-10-19",
       "flagged": true,
       "decision": {
-        "decision": null,
-        "by": null,
-        "on": null,
-        "why": null
+        "decision": "accepted",
+        "by": "advisor (Claude), ruled 2026-10-19",
+        "on": "2026-10-19",
+        "why": "Accepted (binding): bound to the Science Media Centre page's three named comments and its date, August 12, 2025 (S035)."
       }
     },
     "585dc13c21765ad6": {
@@ -1123,10 +1123,10 @@
       "run_on": "2026-10-19",
       "flagged": true,
       "decision": {
-        "decision": null,
-        "by": null,
-        "on": null,
-        "why": null
+        "decision": "judgement",
+        "by": "advisor (Claude), ruled 2026-10-19",
+        "on": "2026-10-19",
+        "why": "Judgement: scoped to the coverage we read; premise.json's carried_in_general_coverage record added as rests_on_record."
       }
     },
     "599039192cff336a": {
@@ -1156,10 +1156,10 @@
       "run_on": "2026-10-19",
       "flagged": true,
       "decision": {
-        "decision": null,
-        "by": null,
-        "on": null,
-        "why": null
+        "decision": "rejected",
+        "by": "advisor (Claude), ruled 2026-10-19",
+        "on": "2026-10-19",
+        "why": "Rejected: Dratsch measures automation bias directly (S030: 'Automation bias (the propensity for humans to favor suggestions from automated decision-making systems)…'), added as a premise; the 'in our reading' framing is ours."
       }
     },
     "12d5a028feef2804": {
@@ -1185,6 +1185,51 @@
       "sentence": "arXiv 2604.04721 Source of the three randomised experiments, 1,222 randomised and 1,058 analysed, the effect sizes of −0.45, −0.20 and −0.42 on unassisted solve rates, and the design in which the AI is withdrawn before three test problems.",
       "label": "OVERSTATES",
       "reason": "The conclusion states 1,058 were 'analysed' but the passages show three separate final samples of 305, 585, and 168, which sum to 1,058 — this arithmetic is correct. However, the conclusion says the AI is 'withdrawn before three test problems' as a single design feature, but the passages show this applies to all three experiments (Experiments 1, 2, and 3), so that part is accurate. The main issue is the total randomised: the passages say '1,222 participants' were in the experiments but do not explicitly state all 1,222 were randomised (some could have been excluded before randomisation). The conclusion treats 1,222 as the randomised count, which the evidence does not explicitly confirm — the paper says '1,222 participants' spanning the experiments, not necessarily all randomised. This is a minor overstatement of precision not fully supported by the passages.",
+      "model": "claude-sonnet-4-6",
+      "run_on": "2026-10-19",
+      "flagged": true,
+      "decision": {
+        "decision": "rejected",
+        "by": "advisor (Claude), ruled 2026-10-19",
+        "on": "2026-10-19",
+        "why": "Rejected: v6 states 'randomized controlled trials on human-AI interactions (N = 1, 222)'; bound."
+      }
+    },
+    "154a2dc8ae11ffe7": {
+      "sentence_sha": "154a2dc8ae11ffe7",
+      "sentence": "In our reading, the evidence usually offered for it is weak.",
+      "label": "CONTRADICTED",
+      "reason": "The conclusion says 'the evidence usually offered for it is weak,' but the surrounding text explicitly states 'the strongest evidence is real.' Additionally, S008 reports a 'strongly negative' correlation (r = -0.68), and S023 references a Microsoft/CMU study finding reduced critical engagement — these are not uniformly weak. The passages present a mixed picture where some evidence is real/strong, contradicting the blanket claim that the evidence is 'usually weak.'",
+      "model": "claude-sonnet-4-6",
+      "run_on": "2026-10-19",
+      "flagged": true,
+      "decision": {
+        "decision": null,
+        "by": null,
+        "on": null,
+        "why": null
+      }
+    },
+    "3ae4a380fd237914": {
+      "sentence_sha": "3ae4a380fd237914",
+      "sentence": "In our reading, the evidence a general reader is usually offered is much weaker than the evidence that has mostly not reached them with its qualifications intact.",
+      "label": "NOT_IN_EVIDENCE",
+      "reason": "The conclusion contrasts 'evidence a general reader is usually offered' (weak) against 'evidence that has mostly not reached them with its qualifications intact' (stronger), implying there exists a body of better-qualified evidence that the public hasn't seen. The passages show some studies are underpowered or have caveats, but none of the passages address what evidence 'has mostly not reached' general readers or characterize a broader literature as stronger—this comparative claim about public reception of evidence is not addressed in the provided passages.",
+      "model": "claude-sonnet-4-6",
+      "run_on": "2026-10-19",
+      "flagged": true,
+      "decision": {
+        "decision": null,
+        "by": null,
+        "on": null,
+        "why": null
+      }
+    },
+    "60b24412334b1719": {
+      "sentence_sha": "60b24412334b1719",
+      "sentence": "It pairs the colonoscopy and mammography results and is the closest published thing to this page that we found.",
+      "label": "NOT_IN_EVIDENCE",
+      "reason": "The conclusion claims a source 'pairs the colonoscopy and mammography results' and is 'the closest published thing to this page that we found.' The passages mention Dratsch et al. (mammography) and Budzyń et al. (colonoscopy) separately, but no passage describes any single source that pairs both results together or makes any 'closest published thing' comparison.",
       "model": "claude-sonnet-4-6",
       "run_on": "2026-10-19",
       "flagged": true,

@@ -29,6 +29,35 @@
           "other": "The nineteen endoscopists involved were not novices: each had performed more than 2,000 colonoscopies, and they averaged 27.6 years since graduation, over a range of 8 to 39."
         }
       ]
+    },
+    {
+      "sha": "fcb0a6af084ba8c3",
+      "against": "HEAD",
+      "changed": 154,
+      "changed_total": 154,
+      "withheld": [],
+      "withheld_note": "every changed sentence was reviewed",
+      "at": "2026-10-19T15:10:48+00:00",
+      "findings": [
+        {
+          "sentence": "Corrected 19 October 2026 On 19 October 2026 we re-read every sentence on this page above the change history at its foot, the standfirst included, against its source or our own records, and corrected 139 of them.",
+          "kind": "NEW_AND_UNBOUND",
+          "why": "carries 139 and rests on nothing this system can name",
+          "other": ""
+        },
+        {
+          "sentence": "Read in the accepted manuscript held by the University of Warwick repository, which gives the P value as 0.009; the published version is paywalled and we have not read it.",
+          "kind": "NEW_AND_UNBOUND",
+          "why": "carries 0.009 and rests on nothing this system can name",
+          "other": ""
+        },
+        {
+          "sentence": "Professor Venet Osmani of Queen Mary University of London named the volume problem exactly — the number of colonoscopies performed nearly doubled after the AI tool was introduced, going from 795 to 1382 — and questioned whether a true loss of skill could happen in three months, a very short period for a clinician with over 27 years of experience.",
+          "kind": "CONTRADICTION",
+          "why": "The page states the nineteen endoscopists averaged 27.6 years since graduation over a range of 8 to 39, so characterising the group as having 'over 27 years of experience' contradicts the stated average and the lower end of the range (8 years).",
+          "other": "The nineteen endoscopists involved were not novices: each had performed more than 2,000 colonoscopies, and they averaged 27.6 years since graduation, over a range of 8 to 39."
+        }
+      ]
     }
   ],
   "dispositions": [

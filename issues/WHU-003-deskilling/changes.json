@@ -3200,6 +3200,87 @@
       "now": "Also the source of the quoted sentence about differences measured during treatment likely reflecting the availability of the treatment rather than durable learning.",
       "because": "REPUBLISH-2026-10-19",
       "note": "Correction of 19 October 2026 at the advisor's rulings on step 2 (republish step 2b): revision doc 'Republish step 2b'; listed on /deskilling-corrections and in corrections.md."
+    },
+    {
+      "at": "2026-10-19T15:08:56+00:00",
+      "interpreter": "/Users/fredugast/Projects/parity-poc-repo/backend/venv/bin/python3",
+      "by": "claude",
+      "kind": "changed",
+      "was": "The evidence usually offered is weak.",
+      "now": "In our reading, the evidence usually offered for it is weak.",
+      "because": "REPUBLISH-2026-10-19",
+      "note": "Correction of 19 October 2026 at the advisor's rulings on step 2b (republish step 2c): revision doc 'Republish step 2c'; listed on /deskilling-corrections and in corrections.md."
+    },
+    {
+      "at": "2026-10-19T15:08:56+00:00",
+      "interpreter": "/Users/fredugast/Projects/parity-poc-repo/backend/venv/bin/python3",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "Corrected 19 October 2026 On 19 October 2026 we re-read every sentence on this page above the change history at its foot, the standfirst included, against its source or our own records, and corrected 139 of them.",
+      "because": "REPUBLISH-2026-10-19",
+      "note": "The correction notice, now counting 139 (republish step 2c). Records corrections; corrects nothing itself.",
+      "correction": false
+    },
+    {
+      "at": "2026-10-19T15:08:56+00:00",
+      "interpreter": "/Users/fredugast/Projects/parity-poc-repo/backend/venv/bin/python3",
+      "by": "claude",
+      "kind": "changed",
+      "was": "And the rest of us The evidence a general reader has been offered is much weaker than the evidence they have not.",
+      "now": "And the rest of us In our reading, the evidence a general reader is usually offered is much weaker than the evidence that has mostly not reached them with its qualifications intact.",
+      "because": "REPUBLISH-2026-10-19",
+      "note": "Correction of 19 October 2026 at the advisor's rulings on step 2b (republish step 2c): revision doc 'Republish step 2c'; listed on /deskilling-corrections and in corrections.md."
+    },
+    {
+      "at": "2026-10-19T15:08:56+00:00",
+      "interpreter": "/Users/fredugast/Projects/parity-poc-repo/backend/venv/bin/python3",
+      "by": "claude",
+      "kind": "changed",
+      "was": "A comment on it by four researchers at Vienna and Dresden calculates that roughly 159 participants would have been needed for adequate power, notes that some reported figures rest on two to four essays per group, and observes that the paper reports 55 completers while analysing 54, and that the criteria for dropping the one remain unclear.",
+      "now": "A comment on it by four researchers at Vienna and Dresden, itself a preprint, calculates that roughly 159 participants would have been needed for adequate power, notes that some reported figures rest on two to four essays per group, and observes that the paper reports 55 completers while analysing 54, and that the criteria for dropping the one remain unclear.",
+      "because": "REPUBLISH-2026-10-19",
+      "note": "Correction of 19 October 2026 at the advisor's rulings on step 2b (republish step 2c): revision doc 'Republish step 2c'; listed on /deskilling-corrections and in corrections.md."
+    },
+    {
+      "at": "2026-10-19T15:08:56+00:00",
+      "interpreter": "/Users/fredugast/Projects/parity-poc-repo/backend/venv/bin/python3",
+      "by": "claude",
+      "kind": "changed",
+      "was": "Three of the studies this page relies on are preprints or working papers, and we have said so each time.",
+      "now": "Two of the studies this page relies on are a preprint and a working paper, as is the comment on one of them, and we say so in the text where each appears; a third, by Liu and colleagues, has been published as a COLM 2026 conference paper.",
+      "because": "REPUBLISH-2026-10-19",
+      "note": "Correction of 19 October 2026 at the advisor's rulings on step 2b (republish step 2c): revision doc 'Republish step 2c'; listed on /deskilling-corrections and in corrections.md."
+    },
+    {
+      "at": "2026-10-19T15:08:56+00:00",
+      "interpreter": "/Users/fredugast/Projects/parity-poc-repo/backend/venv/bin/python3",
+      "by": "claude",
+      "kind": "changed",
+      "was": "As of 30 August 2026 - the date the evidence on this page was read.",
+      "now": "It pairs the colonoscopy and mammography results and is the closest published thing to this page that we found.",
+      "because": "REPUBLISH-2026-10-19",
+      "note": "Correction of 19 October 2026 (c751fc9a, '…that we found', step 2c). The differ pairs it with the change history's old 'As of 30 August 2026' note, which became 'As of 18 October 2026' at step 2 and is recorded there as not a correction."
+    },
+    {
+      "at": "2026-10-19T15:08:56+00:00",
+      "interpreter": "/Users/fredugast/Projects/parity-poc-repo/backend/venv/bin/python3",
+      "by": "claude",
+      "kind": "changed",
+      "was": "A comment on it by four researchers at Vienna and Dresden calculates that roughly 159 participants would have been needed for adequate power, notes that some reported figures rest on two to four essays per group, and observes that the paper reports 55 completers while analysing 54 without explaining the difference.",
+      "now": "A comment on it by four researchers at Vienna and Dresden, itself a preprint, calculates that roughly 159 participants would have been needed for adequate power, notes that some reported figures rest on two to four essays per group, and observes that the paper reports 55 completers while analysing 54, and that the criteria for dropping the one remain unclear.",
+      "because": "REPUBLISH-2026-10-19",
+      "note": "Correction of 19 October 2026 at the advisor's rulings on step 2b (republish step 2c): revision doc 'Republish step 2c'; listed on /deskilling-corrections and in corrections.md."
+    },
+    {
+      "at": "2026-10-19T15:08:56+00:00",
+      "interpreter": "/Users/fredugast/Projects/parity-poc-repo/backend/venv/bin/python3",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "It pairs the colonoscopy and mammography results and is the closest published thing to this page that we found.",
+      "because": "REPUBLISH-2026-10-19",
+      "note": "Correction of 19 October 2026 at the advisor's rulings on step 2b (republish step 2c): revision doc 'Republish step 2c'; listed on /deskilling-corrections and in corrections.md."
     }
   ]
 }
