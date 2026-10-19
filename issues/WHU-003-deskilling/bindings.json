@@ -2335,7 +2335,7 @@
         {
           "path": "docs/whatholdsup-deskilling-revision.md",
           "quote": "Term search and a read of S023's whole passage on the study against S021's eleven limitations (first … tenth, finally): none appears.",
-          "sha": "0efc72717aa03f717a4481b43d04e0bf6752b2df"
+          "sha": "fe62322ad04696c77db0b868518690acf4a6a44a"
         }
       ],
       "checked_on": "2026-10-19"
@@ -4570,7 +4570,7 @@
         {
           "path": "docs/whatholdsup-deskilling-revision.md",
           "quote": "Term search and a read of S023's whole passage on the study against S021's eleven limitations (first … tenth, finally): none appears.",
-          "sha": "0efc72717aa03f717a4481b43d04e0bf6752b2df"
+          "sha": "fe62322ad04696c77db0b868518690acf4a6a44a"
         }
       ]
     },
@@ -10871,7 +10871,7 @@
         {
           "path": "docs/whatholdsup-deskilling-revision.md",
           "quote": "Crossref, checked 2026-10-18: only SSRN (10.2139/ssrn.6097646) and PsyArXiv/OSF (10.31234/osf.io/yk25n_v1) posted versions; no journal article.",
-          "sha": "0efc72717aa03f717a4481b43d04e0bf6752b2df"
+          "sha": "fe62322ad04696c77db0b868518690acf4a6a44a"
         }
       ],
       "proposed_by": "model",
@@ -12471,7 +12471,7 @@
         {
           "path": "issues/WHU-003-deskilling/corrections.md",
           "quote": "the evidence was read, <q>not a guarantee that anyone has looked since</q>.",
-          "sha": "c2f63d526b3f792a9b0725c8325e2b94a2539a16"
+          "sha": "f2096bdc41dff2afbf0c4c84dcf38d9fa8cc1fa3"
         }
       ],
       "proposed_by": "model",
@@ -13146,12 +13146,12 @@
         {
           "path": "issues/WHU-003-deskilling/corrections.md",
           "quote": "Since 30 August this page's masthead has read <q>Last reviewed 30 August",
-          "sha": "c2f63d526b3f792a9b0725c8325e2b94a2539a16"
+          "sha": "f2096bdc41dff2afbf0c4c84dcf38d9fa8cc1fa3"
         },
         {
           "path": "issues/WHU-003-deskilling/corrections.md",
           "quote": "we still think it is a good one: when somebody last looked is worth more to a",
-          "sha": "c2f63d526b3f792a9b0725c8325e2b94a2539a16"
+          "sha": "f2096bdc41dff2afbf0c4c84dcf38d9fa8cc1fa3"
         }
       ],
       "proposed_by": "model",
@@ -13198,7 +13198,7 @@
         {
           "path": "issues/WHU-003-deskilling/corrections.md",
           "quote": "Neither of those is what a reader takes from a review date on a page. A review date implies the page is kept current, and we cannot stand behind that.",
-          "sha": "c2f63d526b3f792a9b0725c8325e2b94a2539a16"
+          "sha": "f2096bdc41dff2afbf0c4c84dcf38d9fa8cc1fa3"
         }
       ],
       "proposed_by": "model",
@@ -13245,7 +13245,7 @@
         {
           "path": "issues/WHU-003-deskilling/corrections.md",
           "quote": "A review date implies the page is kept current, and we cannot stand behind that.",
-          "sha": "c2f63d526b3f792a9b0725c8325e2b94a2539a16"
+          "sha": "f2096bdc41dff2afbf0c4c84dcf38d9fa8cc1fa3"
         }
       ],
       "proposed_by": "model",
@@ -16166,7 +16166,7 @@
         {
           "path": "docs/whatholdsup-deskilling-revision.md",
           "quote": "The held text was searched for \"suspen\", \"screening programme\", \"screening program\", \"withdrawal\", \"blind\", \"first 100\", \"familiar\", \"eleven\", \"confound\", \"1,382\" and \"doubl\": none occurs.",
-          "sha": "0efc72717aa03f717a4481b43d04e0bf6752b2df"
+          "sha": "fe62322ad04696c77db0b868518690acf4a6a44a"
         }
       ]
     },
@@ -21461,7 +21461,7 @@
         {
           "path": "issues/WHU-003-deskilling/corrections.md",
           "quote": "Neither of those is what a reader takes from a review date on a page. A review date implies the page is kept current, and we cannot stand behind that",
-          "sha": "c2f63d526b3f792a9b0725c8325e2b94a2539a16"
+          "sha": "f2096bdc41dff2afbf0c4c84dcf38d9fa8cc1fa3"
         },
         {
           "path": "issues/WHU-003-deskilling/review/2026-09-12-modest-promise-ruling.md",
@@ -23401,7 +23401,7 @@
         {
           "path": "docs/whatholdsup-deskilling-revision.md",
           "quote": "The held text was searched for \"suspen\", \"screening programme\", \"screening program\", \"1,382\", \"1382\", \"doubl\", \"795\", \"withdrawal\", \"blind\", \"first 100\", \"familiar\", \"limitation\", \"retrospective\" and \"confound\": none occurs except \"blind\", twice, both in \"AI-blind reading slots\"",
-          "sha": "0efc72717aa03f717a4481b43d04e0bf6752b2df"
+          "sha": "fe62322ad04696c77db0b868518690acf4a6a44a"
         }
       ]
     },
@@ -23526,7 +23526,7 @@
         "S034",
         "S033"
       ],
-      "on_page": true,
+      "on_page": false,
       "premises": [
         {
           "source_id": "S033",
@@ -23562,7 +23562,8 @@
           "why": "the evidence says 'may' (S033), disposed of by Fred Ugast on 2026-10-18: S033's 'may' belongs to a claim the page does not make; the page cites it as a caveat Greengard carries."
         }
       ],
-      "checked_on": "2026-10-19"
+      "checked_on": "2026-10-19",
+      "left_page": "2026-10-19"
     },
     "35ee5f0db88eba64": {
       "sentence": "Coverage Goldin HL.",
@@ -23735,17 +23736,17 @@
         {
           "path": "issues/WHU-003-deskilling/corrections.md",
           "quote": "Since 30 August this page's masthead has read",
-          "sha": "c2f63d526b3f792a9b0725c8325e2b94a2539a16"
+          "sha": "f2096bdc41dff2afbf0c4c84dcf38d9fa8cc1fa3"
         },
         {
           "path": "docs/whatholdsup-deskilling-revision.md",
           "quote": "## Batch 5 (2026-10-18): the remaining unbound rows",
-          "sha": "0efc72717aa03f717a4481b43d04e0bf6752b2df"
+          "sha": "fe62322ad04696c77db0b868518690acf4a6a44a"
         },
         {
           "path": "issues/WHU-003-deskilling/corrections.md",
-          "quote": "19 October 2026 — we re-read this page and corrected 139 of its sentences",
-          "sha": "c2f63d526b3f792a9b0725c8325e2b94a2539a16"
+          "quote": "19 October 2026 — we re-read this page and corrected 140 of its sentences",
+          "sha": "f2096bdc41dff2afbf0c4c84dcf38d9fa8cc1fa3"
         }
       ],
       "proposed_by": "model",
@@ -24225,12 +24226,12 @@
         {
           "path": "docs/whatholdsup-deskilling-revision.md",
           "quote": "The page now carries 135 corrected sentences: the 125 above and the ten below.",
-          "sha": "0efc72717aa03f717a4481b43d04e0bf6752b2df"
+          "sha": "fe62322ad04696c77db0b868518690acf4a6a44a"
         },
         {
           "path": "docs/whatholdsup-deskilling-revision.md",
           "quote": "every sentence above the change history at its foot, the standfirst included, was read against its source or our own records, and 135 were corrected",
-          "sha": "0efc72717aa03f717a4481b43d04e0bf6752b2df"
+          "sha": "fe62322ad04696c77db0b868518690acf4a6a44a"
         },
         {
           "path": "issues/WHU-003-deskilling/corrections.md",
@@ -26366,12 +26367,12 @@
         {
           "path": "docs/whatholdsup-deskilling-revision.md",
           "quote": "The page now carries 137 corrected sentences: the 135 above and two more found in the judge review",
-          "sha": "0efc72717aa03f717a4481b43d04e0bf6752b2df"
+          "sha": "fe62322ad04696c77db0b868518690acf4a6a44a"
         },
         {
           "path": "docs/whatholdsup-deskilling-revision.md",
           "quote": "every sentence above the change history at its foot, the standfirst included, was read against its source or our own records",
-          "sha": "0efc72717aa03f717a4481b43d04e0bf6752b2df"
+          "sha": "fe62322ad04696c77db0b868518690acf4a6a44a"
         },
         {
           "path": "issues/WHU-003-deskilling/corrections.md",
@@ -26998,7 +26999,7 @@
         {
           "path": "docs/whatholdsup-deskilling-revision.md",
           "quote": "arXiv v6 (13 October 2026) is now S001's primary rendition, v4 held beside it. The page's S001 figures are v6's",
-          "sha": "0efc72717aa03f717a4481b43d04e0bf6752b2df"
+          "sha": "fe62322ad04696c77db0b868518690acf4a6a44a"
         }
       ],
       "proposed_by": "model",
@@ -27054,7 +27055,7 @@
         {
           "path": "docs/whatholdsup-deskilling-revision.md",
           "quote": "the COLM 2026 header; no pre-registration statement.",
-          "sha": "0efc72717aa03f717a4481b43d04e0bf6752b2df"
+          "sha": "fe62322ad04696c77db0b868518690acf4a6a44a"
         }
       ],
       "proposed_by": "model",
@@ -27114,7 +27115,7 @@
         {
           "path": "issues/WHU-003-deskilling/corrections.md",
           "quote": "said we can see a trial registry move, which was wrong",
-          "sha": "c2f63d526b3f792a9b0725c8325e2b94a2539a16"
+          "sha": "f2096bdc41dff2afbf0c4c84dcf38d9fa8cc1fa3"
         }
       ],
       "proposed_by": "model",
@@ -27234,17 +27235,17 @@
         "warranted": null
       },
       "first_seen": "2026-10-19",
-      "on_page": true,
+      "on_page": false,
       "rests_on_record": [
         {
           "path": "docs/whatholdsup-deskilling-revision.md",
           "quote": "The page now carries 139 corrected sentences: the 137 above and two more",
-          "sha": "0efc72717aa03f717a4481b43d04e0bf6752b2df"
+          "sha": "fe62322ad04696c77db0b868518690acf4a6a44a"
         },
         {
           "path": "docs/whatholdsup-deskilling-revision.md",
           "quote": "every sentence above the change history at its foot, the standfirst included, was read against its source or our own records",
-          "sha": "0efc72717aa03f717a4481b43d04e0bf6752b2df"
+          "sha": "fe62322ad04696c77db0b868518690acf4a6a44a"
         },
         {
           "path": "issues/WHU-003-deskilling/corrections.md",
@@ -27257,7 +27258,8 @@
       "confirmed": true,
       "why_bound": "republish step 2c (2026-10-19): the notice at 139: the corrections list (revision record and the corrections.md entry of 19 October 2026); every span an exact substring of the held text, every record quote in the committed file; confirmed at the operator's instruction (brief of 2026-10-19, step 2c).",
       "check_flags": [],
-      "checked_on": "2026-10-19"
+      "checked_on": "2026-10-19",
+      "left_page": "2026-10-19"
     },
     "3ae4a380fd237914": {
       "sentence": "In our reading, the evidence a general reader is usually offered is much weaker than the evidence that has mostly not reached them with its qualifications intact.",
@@ -27453,12 +27455,12 @@
         {
           "path": "docs/whatholdsup-deskilling-revision.md",
           "quote": "Crossref, checked 2026-10-18: only SSRN (10.2139/ssrn.6097646) and PsyArXiv/OSF (10.31234/osf.io/yk25n_v1) posted versions; no journal article.",
-          "sha": "0efc72717aa03f717a4481b43d04e0bf6752b2df"
+          "sha": "fe62322ad04696c77db0b868518690acf4a6a44a"
         },
         {
           "path": "docs/whatholdsup-deskilling-revision.md",
           "quote": "the brain-scan preprint, the working paper and the comment now each carry their status in the body text",
-          "sha": "0efc72717aa03f717a4481b43d04e0bf6752b2df"
+          "sha": "fe62322ad04696c77db0b868518690acf4a6a44a"
         }
       ],
       "proposed_by": "model",
@@ -27607,6 +27609,133 @@
       "confirmed": true,
       "why_bound": "republish step 2d (2026-10-19): 8f33b92e's binding carried (§81); Osmani's words now quoted verbatim from S035, and the bracket's 27.6, 8 and 39 from S021; every span an exact substring of the held text, every record quote in the committed file; confirmed at the operator's instruction (brief of 2026-10-19, step 2d).",
       "check_flags": [],
+      "checked_on": "2026-10-19"
+    },
+    "2c1c5cc555e1b69a": {
+      "sentence": "Corrected 19 October 2026 On 19 October 2026 we re-read every sentence on this page above the change history at its foot, the standfirst included, against its source or our own records, and corrected 140 of them.",
+      "sentence_sha": "2c1c5cc555e1b69a",
+      "why_empirical": "the bare integer 140 is a quantity",
+      "bucket": "deterministic",
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": {
+          "by": "Fred Ugast",
+          "on": "2026-10-19",
+          "note": "binding written at republish step 2e (advisor's ruling of 2026-10-19 on the Greengard note): read against held text and WHU's committed records by Claude Code; every span an exact substring of the held text, every record quote in the committed file"
+        },
+        "faithful": {
+          "by": "Fred Ugast",
+          "on": "2026-10-19",
+          "note": "binding written at republish step 2e (advisor's ruling of 2026-10-19 on the Greengard note): read against held text and WHU's committed records by Claude Code; every span an exact substring of the held text, every record quote in the committed file"
+        },
+        "warranted": null
+      },
+      "first_seen": "2026-10-19",
+      "on_page": true,
+      "rests_on_record": [
+        {
+          "path": "docs/whatholdsup-deskilling-revision.md",
+          "quote": "the page now carries 140 corrected sentences, the 139 above and this one",
+          "sha": "fe62322ad04696c77db0b868518690acf4a6a44a"
+        },
+        {
+          "path": "docs/whatholdsup-deskilling-revision.md",
+          "quote": "every sentence above the change history at its foot, the standfirst included, was read against its source or our own records",
+          "sha": "fe62322ad04696c77db0b868518690acf4a6a44a"
+        },
+        {
+          "path": "issues/WHU-003-deskilling/corrections.md",
+          "quote": "19 October 2026 — we re-read this page and corrected 140 of its sentences",
+          "sha": "f2096bdc41dff2afbf0c4c84dcf38d9fa8cc1fa3"
+        }
+      ],
+      "proposed_by": "model",
+      "proposed_on": "2026-10-19",
+      "confirmed": true,
+      "why_bound": "republish step 2e (2026-10-19): the notice at 140: the revision record and the corrections.md entry of 19 October 2026; every span an exact substring of the held text, every record quote in the committed file; confirmed at the operator's instruction (brief of 2026-10-19, step 2e).",
+      "check_flags": []
+    },
+    "3e8546ad5649c4c5": {
+      "sentence": "Greengard S, “The AI Deskilling Paradox”, Communications of the ACM , 7 November 2025 , carries none of this study’s limitations but does carry caveats of its own, on governance and on deskilling having good outcomes as well as bad ones; we had described it as carrying no caveats at all, and that was wrong.",
+      "sentence_sha": "3e8546ad5649c4c5",
+      "why_empirical": "quoted passage",
+      "bucket": "judgement",
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": {
+          "by": "Fred Ugast",
+          "on": "2026-10-19",
+          "note": "binding written at republish step 2e (advisor's ruling of 2026-10-19 on the Greengard note): read against held text and WHU's committed records by Claude Code; every span an exact substring of the held text, every record quote in the committed file"
+        },
+        "faithful": {
+          "by": "Fred Ugast",
+          "on": "2026-10-19",
+          "note": "binding written at republish step 2e (advisor's ruling of 2026-10-19 on the Greengard note): read against held text and WHU's committed records by Claude Code; every span an exact substring of the held text, every record quote in the committed file"
+        },
+        "warranted": {
+          "by": "Fred Ugast",
+          "on": "2026-10-19",
+          "note": "binding written at republish step 2e (advisor's ruling of 2026-10-19 on the Greengard note): read against held text and WHU's committed records by Claude Code; every span an exact substring of the held text, every record quote in the committed file"
+        }
+      },
+      "first_seen": "2026-10-19",
+      "trigger": "source_claim",
+      "store_subject_markup": [
+        "S023",
+        "S027",
+        "S034",
+        "S033"
+      ],
+      "on_page": true,
+      "premises": [
+        {
+          "source_id": "S033",
+          "span": "Consider: a study published in 2025 in The Lancet of Gastroenterology & Hepatology found that endoscopists who routinely used AI for assistance in colonoscopies performed worse if access to the technology suddenly disappeared. The detection rate for precancerous lesions dropped from 28.4% to 22.4% without AI in the picture."
+        },
+        {
+          "source_id": "S033",
+          "span": "Without appropriate oversight and controls, both groups may perform worse."
+        },
+        {
+          "source_id": "S033",
+          "span": "Deskilling can lead to a variety of positive and negative outcomes, Kittur said. How society chooses to design, deploy, and govern AI will determine whether it fuels progress or unleashes misery on the masses."
+        }
+      ],
+      "step": "Greengard reports the colonoscopy result with no limitation attached (no 'limitation', 'observational', 'retrospective' or 'caveat' anywhere in S033), and does carry caveats of its own: oversight and how AI is governed, and deskilling having positive as well as negative outcomes. 'We had described it as carrying none' is our own record, not S033's.",
+      "hedge_dispositions": [
+        {
+          "word": "may",
+          "why": "S033's 'may' belongs to a claim the page does not make; the page cites it as a caveat Greengard carries.",
+          "by": "Fred Ugast",
+          "on": "2026-10-18"
+        }
+      ],
+      "proposed_by": "model",
+      "proposed_on": "2026-10-19",
+      "confirmed": true,
+      "why_bound": "republish step 2e (2026-10-19): 2c5c3bb2's binding carried to the note reworded 'carrying no caveats at all'; every span an exact substring of the held text, every record quote in the committed file; confirmed at the operator's instruction (brief of 2026-10-19, step 2e).",
+      "check_flags": [
+        {
+          "check": "B19",
+          "verdict": "evidence hedge disposed",
+          "hedge": "may",
+          "why": "the evidence says 'may' (S033), disposed of by Fred Ugast on 2026-10-18: S033's 'may' belongs to a claim the page does not make; the page cites it as a caveat Greengard carries."
+        }
+      ],
       "checked_on": "2026-10-19"
     }
   }

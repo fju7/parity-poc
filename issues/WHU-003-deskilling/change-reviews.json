@@ -87,6 +87,29 @@
           "other": "Communications of the ACM took the finding to knowledge workers, observing that similar issues pop up in law, education, journalism, software development, and other fields ; it carries caveats of its own, about governance and about deskilling having good outcomes as well as bad ones, but none of this study's caveats."
         }
       ]
+    },
+    {
+      "sha": "b2ca603a6821fe9a",
+      "against": "HEAD",
+      "changed": 154,
+      "changed_total": 154,
+      "withheld": [],
+      "withheld_note": "every changed sentence was reviewed",
+      "at": "2026-10-19T15:34:14+00:00",
+      "findings": [
+        {
+          "sentence": "Corrected 19 October 2026 On 19 October 2026 we re-read every sentence on this page above the change history at its foot, the standfirst included, against its source or our own records, and corrected 140 of them.",
+          "kind": "NEW_AND_UNBOUND",
+          "why": "carries 140 and rests on nothing this system can name",
+          "other": ""
+        },
+        {
+          "sentence": "Read in the accepted manuscript held by the University of Warwick repository, which gives the P value as 0.009; the published version is paywalled and we have not read it.",
+          "kind": "NEW_AND_UNBOUND",
+          "why": "carries 0.009 and rests on nothing this system can name",
+          "other": ""
+        }
+      ]
     }
   ],
   "dispositions": [

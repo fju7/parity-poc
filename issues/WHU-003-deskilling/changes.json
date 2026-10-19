@@ -3291,6 +3291,27 @@
       "now": "Professor Venet Osmani of Queen Mary University of London named the volume problem exactly - the number of colonoscopies performed nearly doubled after the AI tool was introduced, going from 795 to 1382 - and questioned whether a true loss of skill could happen in three months, a very short period, especially for a clinician with over 27 years of experience (the study's endoscopists averaged 27.6 years, from 8 to 39).",
       "because": "REPUBLISH-2026-10-19",
       "note": "Correction of 19 October 2026, §81 reworded at republish step 2d: Professor Osmani's words quoted verbatim (S035) with the study's figure (S021); listed on /deskilling-corrections and in corrections.md."
+    },
+    {
+      "at": "2026-10-19T15:32:46+00:00",
+      "interpreter": "/Users/fredugast/Projects/parity-poc-repo/backend/venv/bin/python3",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "Corrected 19 October 2026 On 19 October 2026 we re-read every sentence on this page above the change history at its foot, the standfirst included, against its source or our own records, and corrected 140 of them.",
+      "because": "REPUBLISH-2026-10-19",
+      "note": "The correction notice, now counting 140 (republish step 2e). Records corrections; corrects nothing itself.",
+      "correction": false
+    },
+    {
+      "at": "2026-10-19T15:32:46+00:00",
+      "interpreter": "/Users/fredugast/Projects/parity-poc-repo/backend/venv/bin/python3",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "Greengard S, \"The AI Deskilling Paradox\", Communications of the ACM , 7 November 2025 , carries none of this study's limitations but does carry caveats of its own, on governance and on deskilling having good outcomes as well as bad ones; we had described it as carrying no caveats at all, and that was wrong.",
+      "because": "REPUBLISH-2026-10-19",
+      "note": "Correction of 19 October 2026 (republish step 2e): the Greengard note's 'none' meant caveats of any kind and now says so; listed on /deskilling-corrections and in corrections.md."
     }
   ]
 }
