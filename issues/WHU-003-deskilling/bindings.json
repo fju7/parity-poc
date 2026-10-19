@@ -5776,14 +5776,7 @@
       },
       "first_seen": "2026-10-18",
       "on_page": true,
-      "check_flags": [
-        {
-          "check": "B19",
-          "verdict": "evidence hedge dropped",
-          "hedge": "might",
-          "why": "the evidence says 'might' (S021); the sentence carries no hedge"
-        }
-      ],
+      "check_flags": [],
       "premises": [
         {
           "source_id": "S021",
@@ -6292,9 +6285,9 @@
       "check_flags": [
         {
           "check": "B19",
-          "verdict": "evidence hedge dropped",
+          "verdict": "evidence hedge disposed",
           "hedge": "limited",
-          "why": "the evidence says 'limited' (S029); the sentence carries no hedge"
+          "why": "the evidence says 'limited' (S029), disposed of by Fred Ugast on 2026-10-18: 'limited' is S029's finding, restated here at the same strength."
         }
       ],
       "premises": [
@@ -6316,7 +6309,15 @@
       "proposed_on": "2026-10-18",
       "confirmed": true,
       "why_bound": "judgement batch (2026-10-18): premises cut from held text and re-verified as exact substrings, step written out; stands as written on the page; confirmed by Fred Ugast. See docs/whatholdsup-deskilling-revision.md.",
-      "checked_on": "2026-10-18"
+      "checked_on": "2026-10-18",
+      "hedge_dispositions": [
+        {
+          "word": "limited",
+          "why": "'limited' is S029's finding, restated here at the same strength.",
+          "by": "Fred Ugast",
+          "on": "2026-10-18"
+        }
+      ]
     },
     "d742d3ee2c09e692": {
       "sentence": "What it assembles is a consistent direction carried by very few measurements.",
@@ -6353,9 +6354,9 @@
       "check_flags": [
         {
           "check": "B19",
-          "verdict": "evidence hedge dropped",
+          "verdict": "evidence hedge disposed",
           "hedge": "limited",
-          "why": "the evidence says 'limited' (S029); the sentence carries no hedge"
+          "why": "the evidence says 'limited' (S029), disposed of by Fred Ugast on 2026-10-18: 'limited' is S029's finding, restated here at the same strength."
         }
       ],
       "premises": [
@@ -6377,7 +6378,15 @@
       "proposed_on": "2026-10-18",
       "confirmed": true,
       "why_bound": "judgement batch (2026-10-18): premises cut from held text and re-verified as exact substrings, step written out; stands as written on the page; confirmed by Fred Ugast. See docs/whatholdsup-deskilling-revision.md.",
-      "checked_on": "2026-10-18"
+      "checked_on": "2026-10-18",
+      "hedge_dispositions": [
+        {
+          "word": "limited",
+          "why": "'limited' is S029's finding, restated here at the same strength.",
+          "by": "Fred Ugast",
+          "on": "2026-10-18"
+        }
+      ]
     },
     "86c673ece8f4e8c2": {
       "sentence": "Among them, and each read here at source rather than through the review’s summary of it:",
@@ -6450,7 +6459,7 @@
       "sentence": "We give the College's figures because those are the ones we read at source.)",
       "sentence_sha": "1361084ceae1a6ad",
       "why_empirical": "process claim: 'we read'",
-      "bucket": null,
+      "bucket": "deterministic",
       "source_id": null,
       "document_sha": null,
       "locator_type": null,
@@ -6460,21 +6469,39 @@
       "scope_words": [],
       "falsifier": null,
       "verdicts": {
-        "locatable": null,
-        "faithful": null,
+        "locatable": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "checked against WHU's committed records by Claude Code, reviewed by Claude (advisor), 2026-10-18"
+        },
+        "faithful": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "checked against WHU's committed records by Claude Code, reviewed by Claude (advisor), 2026-10-18"
+        },
         "warranted": null
       },
       "first_seen": "2026-10-18",
       "trigger": "process_claim",
       "on_page": true,
-      "check_flags": [
+      "check_flags": [],
+      "checked_on": "2026-10-18",
+      "rests_on_record": [
         {
-          "check": "B21",
-          "verdict": "store check not evaluated",
-          "why": "no source resolved"
+          "path": "issues/WHU-003-deskilling/sources.json",
+          "quote": "the report page: the workforce section, both figures quoted verbatim",
+          "sha": "9b9ca671e51e50562420aec9929cc12e3222e0be"
+        },
+        {
+          "path": "issues/WHU-003-deskilling/sources.json",
+          "quote": "Printed the Royal College of Pathologists",
+          "sha": "9b9ca671e51e50562420aec9929cc12e3222e0be"
         }
       ],
-      "checked_on": "2026-10-18"
+      "proposed_by": "model",
+      "proposed_on": "2026-10-18",
+      "confirmed": true,
+      "why_bound": "records batch (2026-10-18): batch 4 found this supported by WHU's own records; every quote it names is verbatim in the file as committed (B24); confirmed by Fred Ugast."
     },
     "ca3d1c2cc080596f": {
       "sentence": "And the study the review offers as pointing the other way — which is not what that study says.",
@@ -6775,7 +6802,7 @@
       "sentence": "We missed it, and an outside reviewer found it.",
       "sentence_sha": "caae345d78590c8a",
       "why_empirical": "process claim: 'We missed'",
-      "bucket": null,
+      "bucket": "deterministic",
       "source_id": null,
       "document_sha": null,
       "locator_type": null,
@@ -6785,21 +6812,34 @@
       "scope_words": [],
       "falsifier": null,
       "verdicts": {
-        "locatable": null,
-        "faithful": null,
+        "locatable": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "checked against WHU's committed records by Claude Code, reviewed by Claude (advisor), 2026-10-18"
+        },
+        "faithful": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "checked against WHU's committed records by Claude Code, reviewed by Claude (advisor), 2026-10-18"
+        },
         "warranted": null
       },
       "first_seen": "2026-10-18",
       "trigger": "process_claim",
       "on_page": true,
-      "check_flags": [
+      "check_flags": [],
+      "checked_on": "2026-10-18",
+      "rests_on_record": [
         {
-          "check": "B21",
-          "verdict": "store check not evaluated",
-          "why": "epistemic.check_sentence reads no claim about our access in this sentence; nothing has checked it against the store"
+          "path": "issues/WHU-003-deskilling/sources.json",
+          "quote": "THE OUTSIDE REVIEWER, 2026-08-30. Not by us.",
+          "sha": "9b9ca671e51e50562420aec9929cc12e3222e0be"
         }
       ],
-      "checked_on": "2026-10-18"
+      "proposed_by": "model",
+      "proposed_on": "2026-10-18",
+      "confirmed": true,
+      "why_bound": "records batch (2026-10-18): batch 4 found this supported by WHU's own records; every quote it names is verbatim in the file as committed (B24); confirmed by Fred Ugast."
     },
     "588509bc24ef2b8e": {
       "sentence": "Among the six experienced endoscopists there was no significant effect between any of the phases.",
@@ -8316,7 +8356,7 @@
       "sentence": "A distinction we are borrowing, not making.",
       "sentence_sha": "53f2687c4d7c96fc",
       "why_empirical": "sentence",
-      "bucket": null,
+      "bucket": "deterministic",
       "source_id": null,
       "document_sha": null,
       "locator_type": null,
@@ -8326,13 +8366,37 @@
       "scope_words": [],
       "falsifier": null,
       "verdicts": {
-        "locatable": null,
-        "faithful": null,
+        "locatable": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "checked against WHU's committed records by Claude Code, reviewed by Claude (advisor), 2026-10-18"
+        },
+        "faithful": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "checked against WHU's committed records by Claude Code, reviewed by Claude (advisor), 2026-10-18"
+        },
         "warranted": null
       },
       "first_seen": "2026-10-18",
       "on_page": true,
-      "check_flags": []
+      "check_flags": [],
+      "rests_on_record": [
+        {
+          "path": "issues/WHU-003-deskilling/sources.json",
+          "quote": "The three-way distinction the piece should borrow and credit",
+          "sha": "9b9ca671e51e50562420aec9929cc12e3222e0be"
+        },
+        {
+          "path": "issues/WHU-003-deskilling/sources.json",
+          "quote": "The connecting has been done — by sixteen clinicians in Nature Medicine",
+          "sha": "9b9ca671e51e50562420aec9929cc12e3222e0be"
+        }
+      ],
+      "proposed_by": "model",
+      "proposed_on": "2026-10-18",
+      "confirmed": true,
+      "why_bound": "records batch (2026-10-18): batch 4 found this supported by WHU's own records; every quote it names is verbatim in the file as committed (B24); confirmed by Fred Ugast."
     },
     "9e43086a1839fee4": {
       "sentence": "Ke and fifteen colleagues, writing in Nature Medicine in 2026 — online in May, in the June issue — separate three effects that ordinary discussion treats as one.",
@@ -8384,7 +8448,7 @@
       "sentence": "We are using their frame and it is theirs.",
       "sentence_sha": "2affdacfdeee5b53",
       "why_empirical": "sentence",
-      "bucket": null,
+      "bucket": "deterministic",
       "source_id": null,
       "document_sha": null,
       "locator_type": null,
@@ -8394,13 +8458,37 @@
       "scope_words": [],
       "falsifier": null,
       "verdicts": {
-        "locatable": null,
-        "faithful": null,
+        "locatable": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "checked against WHU's committed records by Claude Code, reviewed by Claude (advisor), 2026-10-18"
+        },
+        "faithful": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "checked against WHU's committed records by Claude Code, reviewed by Claude (advisor), 2026-10-18"
+        },
         "warranted": null
       },
       "first_seen": "2026-10-18",
       "on_page": true,
-      "check_flags": []
+      "check_flags": [],
+      "rests_on_record": [
+        {
+          "path": "issues/WHU-003-deskilling/sources.json",
+          "quote": "The three-way distinction the piece should borrow and credit: DESKILLING",
+          "sha": "9b9ca671e51e50562420aec9929cc12e3222e0be"
+        },
+        {
+          "path": "issues/WHU-003-deskilling/sources.json",
+          "quote": "NEVER-SKILLING",
+          "sha": "9b9ca671e51e50562420aec9929cc12e3222e0be"
+        }
+      ],
+      "proposed_by": "model",
+      "proposed_on": "2026-10-18",
+      "confirmed": true,
+      "why_bound": "records batch (2026-10-18): batch 4 found this supported by WHU's own records; every quote it names is verbatim in the file as committed (B24); confirmed by Fred Ugast."
     },
     "0f2e96afb33289c3": {
       "sentence": "And it has already been applied to this exact literature, by someone with standing to do it.",
@@ -8486,7 +8574,7 @@
       "sentence": "We found that editorial through a fact-check run on this page, after writing the section above.",
       "sentence_sha": "746cf8940fcebbda",
       "why_empirical": "process claim: 'We found'",
-      "bucket": null,
+      "bucket": "deterministic",
       "source_id": null,
       "document_sha": null,
       "locator_type": null,
@@ -8496,21 +8584,39 @@
       "scope_words": [],
       "falsifier": null,
       "verdicts": {
-        "locatable": null,
-        "faithful": null,
+        "locatable": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "checked against WHU's committed records by Claude Code, reviewed by Claude (advisor), 2026-10-18"
+        },
+        "faithful": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "checked against WHU's committed records by Claude Code, reviewed by Claude (advisor), 2026-10-18"
+        },
         "warranted": null
       },
       "first_seen": "2026-10-18",
       "trigger": "process_claim",
       "on_page": true,
-      "check_flags": [
+      "check_flags": [],
+      "checked_on": "2026-10-18",
+      "rests_on_record": [
         {
-          "check": "B21",
-          "verdict": "store check not evaluated",
-          "why": "epistemic.check_sentence reads no claim about our access in this sentence; nothing has checked it against the store"
+          "path": "issues/WHU-003-deskilling/sources.json",
+          "quote": "The page gate's COVERAGE role, 2026-08-30, on the new-cycle run",
+          "sha": "9b9ca671e51e50562420aec9929cc12e3222e0be"
+        },
+        {
+          "path": "issues/WHU-003-deskilling/sources.json",
+          "quote": "says we found it through a gate run after writing the section",
+          "sha": "9b9ca671e51e50562420aec9929cc12e3222e0be"
         }
       ],
-      "checked_on": "2026-10-18"
+      "proposed_by": "model",
+      "proposed_on": "2026-10-18",
+      "confirmed": true,
+      "why_bound": "records batch (2026-10-18): batch 4 found this supported by WHU's own records; every quote it names is verbatim in the file as committed (B24); confirmed by Fred Ugast."
     },
     "dbaaa31ba3151a03": {
       "sentence": "What this page does that it does not is carry the distinction out of the specialty to a reader deciding something about their own work — and that, rather than the frame, is the part we can claim.",
@@ -8949,7 +9055,7 @@
       "sentence": "This page has not been able to read the 2011 paper itself, and so describes what the replications tested rather than what the original reported.",
       "sentence_sha": "132ffd33ef90cd1c",
       "why_empirical": "process claim: 'has not been able'",
-      "bucket": null,
+      "bucket": "deterministic",
       "source_id": null,
       "document_sha": null,
       "locator_type": null,
@@ -8959,21 +9065,39 @@
       "scope_words": [],
       "falsifier": null,
       "verdicts": {
-        "locatable": null,
-        "faithful": null,
+        "locatable": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "checked against WHU's committed records by Claude Code, reviewed by Claude (advisor), 2026-10-18"
+        },
+        "faithful": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "checked against WHU's committed records by Claude Code, reviewed by Claude (advisor), 2026-10-18"
+        },
         "warranted": null
       },
       "first_seen": "2026-10-18",
       "trigger": "process_claim",
       "on_page": true,
-      "check_flags": [
+      "check_flags": [],
+      "checked_on": "2026-10-18",
+      "rests_on_record": [
         {
-          "check": "B21",
-          "verdict": "store check not evaluated",
-          "why": "epistemic.check_sentence reads no claim about our access in this sentence; nothing has checked it against the store"
+          "path": "issues/WHU-003-deskilling/sources.json",
+          "quote": "the citation only, as Hesselmann reports it",
+          "sha": "9b9ca671e51e50562420aec9929cc12e3222e0be"
+        },
+        {
+          "path": "issues/WHU-003-deskilling/sources.json",
+          "quote": "The page names the authors and describes only what the replications tested",
+          "sha": "9b9ca671e51e50562420aec9929cc12e3222e0be"
         }
       ],
-      "checked_on": "2026-10-18"
+      "proposed_by": "model",
+      "proposed_on": "2026-10-18",
+      "confirmed": true,
+      "why_bound": "records batch (2026-10-18): batch 4 found this supported by WHU's own records; every quote it names is verbatim in the file as committed (B24); confirmed by Fred Ugast."
     },
     "89466d770bbb2c4c": {
       "sentence": "It is cross-sectional, and the author does not claim causation.",
@@ -11341,7 +11465,7 @@
       "sentence": "An outside reviewer found it.",
       "sentence_sha": "8e5855936577ccd0",
       "why_empirical": "source claim: 'found'",
-      "bucket": null,
+      "bucket": "deterministic",
       "source_id": null,
       "document_sha": null,
       "locator_type": null,
@@ -11351,20 +11475,39 @@
       "scope_words": [],
       "falsifier": null,
       "verdicts": {
-        "locatable": null,
-        "faithful": null,
+        "locatable": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "checked against WHU's committed records by Claude Code, reviewed by Claude (advisor), 2026-10-18"
+        },
+        "faithful": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "checked against WHU's committed records by Claude Code, reviewed by Claude (advisor), 2026-10-18"
+        },
         "warranted": null
       },
       "first_seen": "2026-10-18",
       "trigger": "source_claim",
       "on_page": true,
-      "check_flags": []
+      "check_flags": [],
+      "rests_on_record": [
+        {
+          "path": "issues/WHU-003-deskilling/sources.json",
+          "quote": "THE OUTSIDE REVIEWER, 2026-08-30. Not by us.",
+          "sha": "9b9ca671e51e50562420aec9929cc12e3222e0be"
+        }
+      ],
+      "proposed_by": "model",
+      "proposed_on": "2026-10-18",
+      "confirmed": true,
+      "why_bound": "records batch (2026-10-18): batch 4 found this supported by WHU's own records; every quote it names is verbatim in the file as committed (B24); confirmed by Fred Ugast."
     },
     "1a0d139c1db25193": {
       "sentence": "We had recorded that the search was outstanding and wrote the piece anyway, which is the failure — not the missing paper, but proceeding past our own note that we had not looked.",
       "sentence_sha": "1a0d139c1db25193",
       "why_empirical": "sentence",
-      "bucket": null,
+      "bucket": "deterministic",
       "source_id": null,
       "document_sha": null,
       "locator_type": null,
@@ -11374,13 +11517,42 @@
       "scope_words": [],
       "falsifier": null,
       "verdicts": {
-        "locatable": null,
-        "faithful": null,
+        "locatable": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "checked against WHU's committed records by Claude Code, reviewed by Claude (advisor), 2026-10-18"
+        },
+        "faithful": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "checked against WHU's committed records by Claude Code, reviewed by Claude (advisor), 2026-10-18"
+        },
         "warranted": null
       },
       "first_seen": "2026-10-18",
       "on_page": true,
-      "check_flags": []
+      "check_flags": [],
+      "rests_on_record": [
+        {
+          "path": "issues/WHU-003-deskilling/watch.json",
+          "quote": "W1 — no registry search run",
+          "sha": "f01883c220c00e46601a2f1e701c3c34980003aa"
+        },
+        {
+          "path": "issues/WHU-003-deskilling/watch.json",
+          "quote": "W2 — no citation sweep run",
+          "sha": "f01883c220c00e46601a2f1e701c3c34980003aa"
+        },
+        {
+          "path": "issues/WHU-003-deskilling/sources.json",
+          "quote": "the search that would have found it was recorded as NOT RUN and the piece was written anyway",
+          "sha": "9b9ca671e51e50562420aec9929cc12e3222e0be"
+        }
+      ],
+      "proposed_by": "model",
+      "proposed_on": "2026-10-18",
+      "confirmed": true,
+      "why_bound": "records batch (2026-10-18): batch 4 found this supported by WHU's own records; every quote it names is verbatim in the file as committed (B24); confirmed by Fred Ugast."
     },
     "c35a87f5c85c08db": {
       "sentence": "This page used to carry a “last reviewed” date, and an argument for it: that when somebody last looked is worth more to a reader than when something last changed, and that a review finding nothing is still a review.",
@@ -11408,7 +11580,7 @@
       "sentence": "Both of those are true, and neither is what a reader takes from a review date on a page.",
       "sentence_sha": "e99eaaf7a1eaa291",
       "why_empirical": "sentence",
-      "bucket": null,
+      "bucket": "deterministic",
       "source_id": null,
       "document_sha": null,
       "locator_type": null,
@@ -11418,19 +11590,48 @@
       "scope_words": [],
       "falsifier": null,
       "verdicts": {
-        "locatable": null,
-        "faithful": null,
+        "locatable": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "checked against WHU's committed records by Claude Code, reviewed by Claude (advisor), 2026-10-18"
+        },
+        "faithful": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "checked against WHU's committed records by Claude Code, reviewed by Claude (advisor), 2026-10-18"
+        },
         "warranted": null
       },
       "first_seen": "2026-10-18",
       "on_page": true,
-      "check_flags": []
+      "check_flags": [],
+      "rests_on_record": [
+        {
+          "path": "issues/WHU-003-deskilling/review/2026-09-12-modest-promise-ruling.md",
+          "quote": "A \"Last reviewed\" date on a page is a currency claim — it tells a reader somebody looked recently and found nothing",
+          "sha": "5ff1615330a73b58258b683f2a2fd18c2aa01295"
+        },
+        {
+          "path": "issues/WHU-003-deskilling/corrections.md",
+          "quote": "Neither of those is what a reader takes from a review date on a page. A review date implies the page is kept current, and we cannot stand behind that.",
+          "sha": "5141ddd87a101d0121bc05fa21bb684171c1f3c5"
+        }
+      ],
+      "proposed_by": "model",
+      "proposed_on": "2026-10-18",
+      "confirmed": true,
+      "why_bound": "records batch (2026-10-18): bound for the corrected text in docs/whatholdsup-deskilling-revision.md §110, recorded here as pending_text; rests on the operator's ruling of 12 September 2026 and corrections.md's entry of that day (B24); confirmed by Fred Ugast.",
+      "pending_text": {
+        "text": "Both of those are true, and in our judgement neither is what a reader takes from a review date on a page.",
+        "in": "docs/whatholdsup-deskilling-revision.md §110",
+        "on": "2026-10-18"
+      }
     },
     "8428c4ca0fa40c54": {
       "sentence": "A review date implies the page is kept current, and we cannot stand behind that.",
       "sentence_sha": "8428c4ca0fa40c54",
       "why_empirical": "sentence",
-      "bucket": null,
+      "bucket": "deterministic",
       "source_id": null,
       "document_sha": null,
       "locator_type": null,
@@ -11440,13 +11641,32 @@
       "scope_words": [],
       "falsifier": null,
       "verdicts": {
-        "locatable": null,
-        "faithful": null,
+        "locatable": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "checked against WHU's committed records by Claude Code, reviewed by Claude (advisor), 2026-10-18"
+        },
+        "faithful": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "checked against WHU's committed records by Claude Code, reviewed by Claude (advisor), 2026-10-18"
+        },
         "warranted": null
       },
       "first_seen": "2026-10-18",
       "on_page": true,
-      "check_flags": []
+      "check_flags": [],
+      "rests_on_record": [
+        {
+          "path": "issues/WHU-003-deskilling/corrections.md",
+          "quote": "A review date implies the page is kept current, and we cannot stand behind that.",
+          "sha": "5141ddd87a101d0121bc05fa21bb684171c1f3c5"
+        }
+      ],
+      "proposed_by": "model",
+      "proposed_on": "2026-10-18",
+      "confirmed": true,
+      "why_bound": "records batch (2026-10-18): batch 4 found this supported by WHU's own records; every quote it names is verbatim in the file as committed (B24); confirmed by Fred Ugast."
     },
     "9c6d0d801de1bbbf": {
       "sentence": "What we watch is narrower than what could change — we can see a registry record move and a paper cite another paper, and we cannot see most of what happens in a field — and nothing obliges anyone to look before you arrive.",
@@ -11474,7 +11694,7 @@
       "sentence": "So this page states the date its evidence was read and claims nothing about the interval since.",
       "sentence_sha": "0c51a7b1d1a52c74",
       "why_empirical": "sentence",
-      "bucket": null,
+      "bucket": "deterministic",
       "source_id": null,
       "document_sha": null,
       "locator_type": null,
@@ -11484,13 +11704,32 @@
       "scope_words": [],
       "falsifier": null,
       "verdicts": {
-        "locatable": null,
-        "faithful": null,
+        "locatable": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "checked against WHU's committed records by Claude Code, reviewed by Claude (advisor), 2026-10-18"
+        },
+        "faithful": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "checked against WHU's committed records by Claude Code, reviewed by Claude (advisor), 2026-10-18"
+        },
         "warranted": null
       },
       "first_seen": "2026-10-18",
       "on_page": true,
-      "check_flags": []
+      "check_flags": [],
+      "rests_on_record": [
+        {
+          "path": "issues/WHU-003-deskilling/review/2026-09-12-review-date-adjudication.md",
+          "quote": "Evidence read 30 August 2026",
+          "sha": "e0dd9df65cc0fe2fbd815598f2f1d69ef05d7ba1"
+        }
+      ],
+      "proposed_by": "model",
+      "proposed_on": "2026-10-18",
+      "confirmed": true,
+      "why_bound": "records batch (2026-10-18): batch 4 found this supported by WHU's own records; every quote it names is verbatim in the file as committed (B24); confirmed by Fred Ugast."
     },
     "6349e70498e555b8": {
       "sentence": "The watch list below is real and it runs; it is our instrument, not a promise to you.",
@@ -11743,7 +11982,7 @@
       "sentence": "This page cites it as the reason our own first framing — that the caveats never appeared — was wrong.",
       "sentence_sha": "48d29223850cd3af",
       "why_empirical": "sentence",
-      "bucket": null,
+      "bucket": "deterministic",
       "source_id": null,
       "document_sha": null,
       "locator_type": null,
@@ -11753,13 +11992,32 @@
       "scope_words": [],
       "falsifier": null,
       "verdicts": {
-        "locatable": null,
-        "faithful": null,
+        "locatable": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "checked against WHU's committed records by Claude Code, reviewed by Claude (advisor), 2026-10-18"
+        },
+        "faithful": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "checked against WHU's committed records by Claude Code, reviewed by Claude (advisor), 2026-10-18"
+        },
         "warranted": null
       },
       "first_seen": "2026-10-18",
       "on_page": true,
-      "check_flags": []
+      "check_flags": [],
+      "rests_on_record": [
+        {
+          "path": "issues/WHU-003-deskilling/sources.json",
+          "quote": "It falsifies the strong version of our thesis. The caveats did not fail to appear",
+          "sha": "9b9ca671e51e50562420aec9929cc12e3222e0be"
+        }
+      ],
+      "proposed_by": "model",
+      "proposed_on": "2026-10-18",
+      "confirmed": true,
+      "why_bound": "records batch (2026-10-18): batch 4 found this supported by WHU's own records; every quote it names is verbatim in the file as committed (B24); confirmed by Fred Ugast."
     },
     "0cc8ba89de38877a": {
       "sentence": "Review Heudel PE, Crochet H, Filori Q, Bachelot T, Blay JY.",
@@ -12080,7 +12338,7 @@
       "sentence": "Read at source on 30 August 2026.",
       "sentence_sha": "c718814d3fd705d6",
       "why_empirical": "process claim: 'Read at source'",
-      "bucket": null,
+      "bucket": "deterministic",
       "source_id": null,
       "document_sha": null,
       "locator_type": null,
@@ -12090,8 +12348,16 @@
       "scope_words": [],
       "falsifier": null,
       "verdicts": {
-        "locatable": null,
-        "faithful": null,
+        "locatable": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "checked against WHU's committed records by Claude Code, reviewed by Claude (advisor), 2026-10-18"
+        },
+        "faithful": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "checked against WHU's committed records by Claude Code, reviewed by Claude (advisor), 2026-10-18"
+        },
         "warranted": null
       },
       "first_seen": "2026-10-18",
@@ -12107,7 +12373,18 @@
           "why": "document_class not set on this source"
         }
       ],
-      "checked_on": "2026-10-18"
+      "checked_on": "2026-10-18",
+      "rests_on_record": [
+        {
+          "path": "issues/WHU-003-deskilling/sources.json",
+          "quote": "the arXiv abstract page: full author list, participant count, the 7% figure, the time-pressure finding",
+          "sha": "9b9ca671e51e50562420aec9929cc12e3222e0be"
+        }
+      ],
+      "proposed_by": "model",
+      "proposed_on": "2026-10-18",
+      "confirmed": true,
+      "why_bound": "records batch (2026-10-18): batch 4 found this supported by WHU's own records; every quote it names is verbatim in the file as committed (B24); confirmed by Fred Ugast."
     },
     "9b2cdd1692c611ed": {
       "sentence": "These are the figures the scoping review reports for its pathology entry, and we read them here rather than through the review.",
@@ -12290,7 +12567,7 @@
       "sentence": "This page did not find this study.",
       "sentence_sha": "4a66fe6d29232415",
       "why_empirical": "sentence",
-      "bucket": null,
+      "bucket": "deterministic",
       "source_id": null,
       "document_sha": null,
       "locator_type": null,
@@ -12300,13 +12577,32 @@
       "scope_words": [],
       "falsifier": null,
       "verdicts": {
-        "locatable": null,
-        "faithful": null,
+        "locatable": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "checked against WHU's committed records by Claude Code, reviewed by Claude (advisor), 2026-10-18"
+        },
+        "faithful": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "checked against WHU's committed records by Claude Code, reviewed by Claude (advisor), 2026-10-18"
+        },
         "warranted": null
       },
       "first_seen": "2026-10-18",
       "on_page": true,
-      "check_flags": []
+      "check_flags": [],
+      "rests_on_record": [
+        {
+          "path": "issues/WHU-003-deskilling/sources.json",
+          "quote": "THE OUTSIDE REVIEWER, 2026-08-30. Not by us.",
+          "sha": "9b9ca671e51e50562420aec9929cc12e3222e0be"
+        }
+      ],
+      "proposed_by": "model",
+      "proposed_on": "2026-10-18",
+      "confirmed": true,
+      "why_bound": "records batch (2026-10-18): batch 4 found this supported by WHU's own records; every quote it names is verbatim in the file as committed (B24); confirmed by Fred Ugast."
     },
     "057b9bc7d5019fc7": {
       "sentence": "An outside reviewer did, on 30 August 2026, after both fact-check runs had passed over it.",
@@ -12574,7 +12870,7 @@
       "sentence": "Read at the publisher and cross-checked against an institutional repository copy.",
       "sentence_sha": "76315032d8e3d4cf",
       "why_empirical": "process claim: 'at the publisher'",
-      "bucket": null,
+      "bucket": "deterministic",
       "source_id": null,
       "document_sha": null,
       "locator_type": null,
@@ -12584,8 +12880,16 @@
       "scope_words": [],
       "falsifier": null,
       "verdicts": {
-        "locatable": null,
-        "faithful": null,
+        "locatable": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "checked against WHU's committed records by Claude Code, reviewed by Claude (advisor), 2026-10-18"
+        },
+        "faithful": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "checked against WHU's committed records by Claude Code, reviewed by Claude (advisor), 2026-10-18"
+        },
         "warranted": null
       },
       "first_seen": "2026-10-18",
@@ -12601,7 +12905,23 @@
           "why": "document_class not set on this source"
         }
       ],
-      "checked_on": "2026-10-18"
+      "checked_on": "2026-10-18",
+      "rests_on_record": [
+        {
+          "path": "issues/WHU-003-deskilling/sources.json",
+          "quote": "the RSNA publisher page:",
+          "sha": "9b9ca671e51e50562420aec9929cc12e3222e0be"
+        },
+        {
+          "path": "issues/WHU-003-deskilling/sources.json",
+          "quote": "VERIFIED AT THE PUBLISHER, not only the Vrije Universiteit repository copy. Figures identical.",
+          "sha": "9b9ca671e51e50562420aec9929cc12e3222e0be"
+        }
+      ],
+      "proposed_by": "model",
+      "proposed_on": "2026-10-18",
+      "confirmed": true,
+      "why_bound": "records batch (2026-10-18): batch 4 found this supported by WHU's own records; every quote it names is verbatim in the file as committed (B24); confirmed by Fred Ugast."
     },
     "b0d9d9921b46b558": {
       "sentence": "Influence of AI Decision Support on Radiologists’ Performance and Visual Search in Screening Mammography.",
@@ -13306,7 +13626,7 @@
       "sentence": "Checked against version 4.",
       "sentence_sha": "c1aae5f156697201",
       "why_empirical": "process claim: 'Checked against'",
-      "bucket": null,
+      "bucket": "deterministic",
       "source_id": null,
       "document_sha": null,
       "locator_type": null,
@@ -13316,8 +13636,16 @@
       "scope_words": [],
       "falsifier": null,
       "verdicts": {
-        "locatable": null,
-        "faithful": null,
+        "locatable": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "checked against WHU's committed records by Claude Code, reviewed by Claude (advisor), 2026-10-18"
+        },
+        "faithful": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "checked against WHU's committed records by Claude Code, reviewed by Claude (advisor), 2026-10-18"
+        },
         "warranted": null
       },
       "first_seen": "2026-10-18",
@@ -13333,7 +13661,18 @@
           "why": "epistemic.check_sentence reads no claim about our access in this sentence; nothing has checked it against the store"
         }
       ],
-      "checked_on": "2026-10-18"
+      "checked_on": "2026-10-18",
+      "rests_on_record": [
+        {
+          "path": "issues/WHU-003-deskilling/sources.json",
+          "quote": "CHECKED AGAINST v4, the current version",
+          "sha": "9b9ca671e51e50562420aec9929cc12e3222e0be"
+        }
+      ],
+      "proposed_by": "model",
+      "proposed_on": "2026-10-18",
+      "confirmed": true,
+      "why_bound": "records batch (2026-10-18): batch 4 found this supported by WHU's own records; every quote it names is verbatim in the file as committed (B24); confirmed by Fred Ugast."
     },
     "e68fe0562532c8a1": {
       "sentence": "No pre-registration statement appears in any version.",
@@ -13514,7 +13853,7 @@
       "sentence": "We opened this page twice.",
       "sentence_sha": "5cb182c538aba9d2",
       "why_empirical": "process claim: 'We opened'",
-      "bucket": null,
+      "bucket": "deterministic",
       "source_id": null,
       "document_sha": null,
       "locator_type": null,
@@ -13524,8 +13863,16 @@
       "scope_words": [],
       "falsifier": null,
       "verdicts": {
-        "locatable": null,
-        "faithful": null,
+        "locatable": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "checked against WHU's committed records by Claude Code, reviewed by Claude (advisor), 2026-10-18"
+        },
+        "faithful": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "checked against WHU's committed records by Claude Code, reviewed by Claude (advisor), 2026-10-18"
+        },
         "warranted": null
       },
       "first_seen": "2026-10-18",
@@ -13541,13 +13888,24 @@
           "why": "document_class not set on this source"
         }
       ],
-      "checked_on": "2026-10-18"
+      "checked_on": "2026-10-18",
+      "rests_on_record": [
+        {
+          "path": "issues/WHU-003-deskilling/sources.json",
+          "quote": "Read twice, with different questions, and the second reading changed the piece.",
+          "sha": "9b9ca671e51e50562420aec9929cc12e3222e0be"
+        }
+      ],
+      "proposed_by": "model",
+      "proposed_on": "2026-10-18",
+      "confirmed": true,
+      "why_bound": "records batch (2026-10-18): batch 4 found this supported by WHU's own records; every quote it names is verbatim in the file as committed (B24); confirmed by Fred Ugast."
     },
     "e5f92405952b9e2a": {
       "sentence": "The first time we asked it only about the study’s limitations, and so missed the mechanism paragraph entirely; the repository records that as our error rather than its omission.",
       "sentence_sha": "e5f92405952b9e2a",
       "why_empirical": "sentence",
-      "bucket": null,
+      "bucket": "deterministic",
       "source_id": null,
       "document_sha": null,
       "locator_type": null,
@@ -13557,13 +13915,37 @@
       "scope_words": [],
       "falsifier": null,
       "verdicts": {
-        "locatable": null,
-        "faithful": null,
+        "locatable": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "checked against WHU's committed records by Claude Code, reviewed by Claude (advisor), 2026-10-18"
+        },
+        "faithful": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "checked against WHU's committed records by Claude Code, reviewed by Claude (advisor), 2026-10-18"
+        },
         "warranted": null
       },
       "first_seen": "2026-10-18",
       "on_page": true,
-      "check_flags": []
+      "check_flags": [],
+      "rests_on_record": [
+        {
+          "path": "issues/WHU-003-deskilling/sources.json",
+          "quote": "We read this page hours ago and asked it only about limitations. It also contained the mechanism",
+          "sha": "9b9ca671e51e50562420aec9929cc12e3222e0be"
+        },
+        {
+          "path": "issues/WHU-003-deskilling/sources.json",
+          "quote": "Recorded as a class.",
+          "sha": "9b9ca671e51e50562420aec9929cc12e3222e0be"
+        }
+      ],
+      "proposed_by": "model",
+      "proposed_on": "2026-10-18",
+      "confirmed": true,
+      "why_bound": "records batch (2026-10-18): batch 4 found this supported by WHU's own records; every quote it names is verbatim in the file as committed (B24); confirmed by Fred Ugast."
     },
     "db21c5d1a53e42cd": {
       "sentence": "Coverage Jeyaretnam M.",
@@ -13700,7 +14082,7 @@
       "sentence": "Read at source.",
       "sentence_sha": "4e5ed02e388dc603",
       "why_empirical": "process claim: 'Read at source'",
-      "bucket": null,
+      "bucket": "deterministic",
       "source_id": null,
       "document_sha": null,
       "locator_type": null,
@@ -13710,8 +14092,16 @@
       "scope_words": [],
       "falsifier": null,
       "verdicts": {
-        "locatable": null,
-        "faithful": null,
+        "locatable": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "checked against WHU's committed records by Claude Code, reviewed by Claude (advisor), 2026-10-18"
+        },
+        "faithful": {
+          "by": "Fred Ugast",
+          "on": "2026-10-18",
+          "note": "checked against WHU's committed records by Claude Code, reviewed by Claude (advisor), 2026-10-18"
+        },
         "warranted": null
       },
       "first_seen": "2026-10-18",
@@ -13727,7 +14117,18 @@
           "why": "document_class not set on this source"
         }
       ],
-      "checked_on": "2026-10-18"
+      "checked_on": "2026-10-18",
+      "rests_on_record": [
+        {
+          "path": "issues/WHU-003-deskilling/sources.json",
+          "quote": "the whole article",
+          "sha": "9b9ca671e51e50562420aec9929cc12e3222e0be"
+        }
+      ],
+      "proposed_by": "model",
+      "proposed_on": "2026-10-18",
+      "confirmed": true,
+      "why_bound": "records batch (2026-10-18): batch 4 found this supported by WHU's own records; every quote it names is verbatim in the file as committed (B24); confirmed by Fred Ugast."
     },
     "6eed95a56eb1ecfa": {
       "sentence": "Coverage The ASCO Post Staff.",
