@@ -91,5 +91,13 @@
       "reason": "0.009 is S021's own figure ('p=0.009' in the held accepted manuscript); the sentence rests on S021's store record (accepted manuscript held; the published version listed as not read), bound as rests_on_store, which this check does not read.",
       "what_would_change_it": "S021's held accepted manuscript not giving p=0.009, or S021's store record changing"
     }
+  ],
+  "acknowledged": [
+    {
+      "what": "gate fingerprint warnings ('sentences the gate has seen', 'empirical sentences never judged', 'page gate') for the three reworded sentences: the comment's status (c54018c2), be318988's rewording (1cdbe045) and c751fc9a's rewording (60b24412)",
+      "note": "Wording only; the one figure among them (159) is unchanged and was gated on 2026-10-19.",
+      "by": "advisor (Claude), ruled 2026-10-19; recorded by claude",
+      "on": "2026-10-19"
+    }
   ]
 }

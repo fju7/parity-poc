@@ -1496,6 +1496,14 @@ The page now carries 139 corrected sentences: the 137 above and two more, the st
 
 **Not applied — Osmani.** The ruling asked to quote "a very short period for a clinician with over 27 years of experience". That is not verbatim in S035, which reads "This is a very short period, especially for a clinician with over 27 years of experience." Stopped on that row; the changed-sentence check's CONTRADICTION finding on it stays open.
 
+## Republish step 2d (2026-10-19): the last open items
+
+**Osmani.** The §81 sentence now quotes him verbatim (S035: "This is a very short period, especially for a clinician with over 27 years of experience.") and adds the study's figure from S021: "(the study's endoscopists averaged 27.6 years, from 8 to 39)". It is the sentence §81 already corrected, so the count stays 139. The changed-sentence check's CONTRADICTION finding on it was the page attributing the phrase without marking it and without the study's figure; the sentence now does both.
+
+**Judge re-flags.** 154a2dc8, 3ae4a380 and 60b24412 decided as judgement by advisor (Claude), ruled 2026-10-19.
+
+**Gate fingerprints.** The three reworded sentences the gate's fingerprints do not include (the comment's status, be318988, c751fc9a) are wording only; the one figure among them (159) is unchanged and was gated on 2026-10-19. Acknowledged in change-reviews.json. No figure on the page changed in step 2d (117 before and after).
+
 ## Bound
 
 Batch 1 (2026-10-18): 849a833e, b61e583d, 9675c628, f2072847, a84075d9, 5850f3bd, 83bed04b,

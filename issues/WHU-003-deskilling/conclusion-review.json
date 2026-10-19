@@ -1204,10 +1204,10 @@
       "run_on": "2026-10-19",
       "flagged": true,
       "decision": {
-        "decision": null,
-        "by": null,
-        "on": null,
-        "why": null
+        "decision": "judgement",
+        "by": "advisor (Claude), ruled 2026-10-19",
+        "on": "2026-10-19",
+        "why": "Scoped 'in our reading'; contrasts the evidence usually cited with the strongest study, which the next sentence names. Not a contradiction."
       }
     },
     "3ae4a380fd237914": {
@@ -1219,10 +1219,10 @@
       "run_on": "2026-10-19",
       "flagged": true,
       "decision": {
-        "decision": null,
-        "by": null,
-        "on": null,
-        "why": null
+        "decision": "judgement",
+        "by": "advisor (Claude), ruled 2026-10-19",
+        "on": "2026-10-19",
+        "why": "Scoped as our reading / our search ('that we found'); the scope is the claim."
       }
     },
     "60b24412334b1719": {
@@ -1234,10 +1234,10 @@
       "run_on": "2026-10-19",
       "flagged": true,
       "decision": {
-        "decision": null,
-        "by": null,
-        "on": null,
-        "why": null
+        "decision": "judgement",
+        "by": "advisor (Claude), ruled 2026-10-19",
+        "on": "2026-10-19",
+        "why": "Scoped as our reading / our search ('that we found'); the scope is the claim."
       }
     }
   }

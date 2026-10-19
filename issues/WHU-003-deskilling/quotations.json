@@ -661,6 +661,23 @@
         "on": "2026-10-19",
         "note": "the title the notice corrects, in S049's entry (republish step 2b, item I)"
       }
+    },
+    {
+      "id": "Q-52",
+      "quote": "a very short period, especially for a clinician with over 27 years of experience",
+      "source_id": "S035",
+      "verbatim": "Finally, the study suggests a drop in skill over just three months. This is a very short period, especially for a clinician with over 27 years of experience.",
+      "kind": "",
+      "why": "",
+      "attested": {
+        "by": "",
+        "on": ""
+      },
+      "recorded": {
+        "by": "claude",
+        "on": "2026-10-19",
+        "note": "Professor Osmani's words, now marked as his (republish step 2d, item A)"
+      }
     }
   ]
 }
