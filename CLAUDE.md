@@ -1801,6 +1801,12 @@ ubuntu-24.04 (26.04 pre-caches only Python 3.14); actions on Node 24 majors
 Node 20). Same pins applied to db-posture, verify-gates,
 signal-source-verification and staging-aliases on 2026-10-19.
 
+Signal source verification (verify_sources.py) since 2026-10-19 fails ONLY for
+published topics, judged by data/verify/published/<slug>/latest.json (record
+missing, surviving source without a held document, or corpus changed since
+publishing). Draft topics' uncitable rows are reported, not failed. Prints
+SOURCES_OUTCOME=<clean|drafts_only|published_problem>.
+
 CI rather than a Render cron endpoint: this is a regression test, an endpoint
 would have to survive 52 sequential model calls inside one HTTP request, and it
 would couple the pipeline scripts into the web app and need a results table to

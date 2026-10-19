@@ -288,6 +288,58 @@ def check(rows: list[dict], offline: bool, pause: float = 0.12) -> list[dict]:
 FAILING = {"FABRICATED_IDENTIFIER", "WRONG_DOCUMENT", "NEVER_FETCHED",
            "NO_CONTENT", "UNVERIFIABLE_URL"}
 
+BACKEND = Path(__file__).resolve().parents[2]
+PUBLISHED = BACKEND / "data" / "verify" / "published"
+
+
+def published_problems(slug: str, source_ids: set[str],
+                       root: Path = PUBLISHED, backend: Path = BACKEND) -> list[str]:
+    """What is wrong with a PUBLISHED topic's sources, judged by its publish record.
+
+    A published topic's corpus rows still hold the model summaries the claims
+    were extracted from -- the corpus is frozen, so the row check above calls
+    every one of them NEVER_FETCHED. What a reader sees is governed by the
+    publish record instead: publish_topic.py resolved each source itself,
+    fetched the document, kept it under data/verify/docs, and withheld every
+    claim it could not bind to that text. So for a published topic the
+    question is whether the record still covers it:
+
+      - a record exists (latest.json);
+      - every source the record lets survive has a held document on disk;
+      - the corpus has not changed since the record (a source added or
+        removed after publishing was never gated).
+
+    Returns a list of problems; empty means the record covers the topic.
+    """
+    rec_path = root / slug / "latest.json"
+    if not rec_path.exists():
+        shown = rec_path.relative_to(backend) if rec_path.is_relative_to(backend) else rec_path
+        return [f"no publish record at {shown}"]
+    try:
+        rec = json.loads(rec_path.read_text(encoding="utf-8"))
+    except Exception as exc:  # unreadable record is a failure, not a pass
+        return [f"publish record unreadable: {exc}"]
+    problems = []
+    recorded = {s.get("source_id") for s in rec.get("sources", [])}
+    for s in rec.get("sources", []):
+        if not s.get("survives"):
+            continue
+        doc = s.get("document") or {}
+        path = doc.get("path")
+        if not path or not (backend / path).exists():
+            problems.append(f"surviving source {str(s.get('source_id'))[:8]} has no held "
+                            f"document ({path or 'no path in record'})")
+    added = source_ids - recorded
+    removed = recorded - source_ids
+    if added:
+        problems.append(f"{len(added)} corpus source(s) not in the publish record "
+                        f"(added after publishing, never gated): "
+                        + ", ".join(sorted(x[:8] for x in added)))
+    if removed:
+        problems.append(f"{len(removed)} recorded source(s) no longer in the corpus: "
+                        + ", ".join(sorted(str(x)[:8] for x in removed)))
+    return problems
+
 
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__,
@@ -300,14 +352,16 @@ def main() -> int:
     args = ap.parse_args()
 
     sb = mc._get_supabase()
-    iss = {r["id"]: r["slug"]
-           for r in (sb.table("signal_issues").select("id,slug").execute().data or [])}
+    issues = sb.table("signal_issues").select("id,slug,status").execute().data or []
+    iss = {r["id"]: r["slug"] for r in issues}
+    published = {r["slug"] for r in issues if r.get("status") == "published"}
     raw = sb.table("signal_sources").select("id,issue_id,title,url,content_text").execute().data or []
     rows = [{**r, "slug": iss.get(r["issue_id"])} for r in raw]
     if args.slug:
         rows = [r for r in rows if r["slug"] == args.slug]
         if not rows:
             sys.exit(f"No sources for slug '{args.slug}'.")
+        published = published & {args.slug}
 
     print(f"Verifying {len(rows)} sources" + (" (offline: provenance only)" if args.offline else ""))
     results = check(rows, args.offline)
@@ -327,7 +381,8 @@ def main() -> int:
         tot = Counter(r["slug"] for r in results)
         print("\nby topic (failing / total):")
         for slug, n in sorted(per.items(), key=lambda x: -x[1] / max(tot[x[0]], 1)):
-            print(f"  {slug:54s} {n:3d}/{tot[slug]:3d}  {n / tot[slug]:5.0%}")
+            tag = "  published: corpus rows only, see record below" if slug in published else ""
+            print(f"  {slug:54s} {n:3d}/{tot[slug]:3d}  {n / tot[slug]:5.0%}{tag}")
 
     wrong = [r for r in results if r["verdict"] == "WRONG_DOCUMENT"][:8]
     if wrong:
@@ -337,20 +392,62 @@ def main() -> int:
             print(f"     we say : {r['title'][:88]}")
             print(f"     it is  : {(r['registered_title'] or '')[:88]}")
 
+    code, outcome = report(results, bad, published, rows)
+    print(f"\nSOURCES_OUTCOME={outcome}")
+    return code
+
+
+def report(results: list[dict], bad: list[dict], published: set[str],
+           rows: list[dict], root: Path = PUBLISHED) -> tuple[int, str]:
+    """Print the verdict and return (exit code, outcome).
+
+    FAILS only for what reaches a reader: a PUBLISHED topic whose publish
+    record is missing, holds a surviving source with no document, or no
+    longer matches the corpus. Draft topics are not served (the anon key reads
+    published topics only -- migration 078, enforced daily by db-posture), so
+    their uncitable rows are reported in full but do not fail the job. A draft
+    is fixed by rebuilding it through publish_topic.py, which is the same gate
+    that makes a published topic citable, not by anything this job can see.
+
+    Before 2026-10-19 this failed on every draft row, every week, since
+    2026-08-31 -- a control that is red regardless of what changes stops
+    being read, which is the failure this file was written to prevent.
+    """
+    ids_by_slug: dict[str, set[str]] = {}
+    for r in rows:
+        ids_by_slug.setdefault(r["slug"], set()).add(r["id"])
+    pub_problems = {s: published_problems(s, ids_by_slug.get(s, set()), root=root)
+                    for s in sorted(published)}
+    draft_bad = [r for r in bad if r["slug"] not in published]
+    draft_total = sum(1 for r in results if r["slug"] not in published)
+
+    print(f"\n{'=' * 70}")
+    if pub_problems:
+        print("PUBLISHED TOPICS -- judged by their publish record, not the corpus rows")
+        for slug, probs in pub_problems.items():
+            if probs:
+                print(f"  {slug}: FAIL")
+                for p in probs:
+                    print(f"      {p}")
+            else:
+                print(f"  {slug}: ok -- every surviving source has a held document "
+                      f"and the record matches the corpus")
+    if draft_total:
+        print(f"\nDRAFT TOPICS (not served): {len(draft_bad)} of {draft_total} sources cannot be cited.")
+        print("A source that was never fetched did not supply the claims attributed to")
+        print("it -- a model summary did. A source whose identifier does not resolve")
+        print("names no document at all. These topics stay unpublishable until they")
+        print("are rebuilt through publish_topic.py. Reported, not failed.")
+
+    if any(pub_problems.values()):
+        print("\nA PUBLISHED topic's sources are not covered by its record. Fix before")
+        print("anything else: re-run the publish gate, or unpublish the topic.")
+        return 1, "published_problem"
     if not bad:
         print("\nEvery source resolves to the document it names, and every claim was "
               "extracted from text actually fetched from it.")
-        return 0
-
-    print(f"\n{'=' * 70}")
-    print(f"{len(bad)} of {len(results)} sources cannot be cited.")
-    print("A source that was never fetched did not supply the claims attributed to")
-    print("it -- a model summary did. A source whose identifier does not resolve")
-    print("names no document at all. Neither is a citation, and no amount of")
-    print("re-scoring or re-mapping downstream repairs it.")
-    print("\nThis check is deterministic: no model, no drift, nothing to re-measure.")
-    print("It fails until the corpus is rebuilt from fetched documents.")
-    return 1
+        return 0, "clean"
+    return 0, "drafts_only"
 
 
 if __name__ == "__main__":

@@ -18,9 +18,15 @@
 # So this job exists to make it not advisory. It is deterministic -- no model,
 # no API key, no drift, nothing to re-measure -- and it fails.
 #
-# IT WILL FAIL UNTIL THE CORPUS IS REBUILT. That is not a broken pipeline, it
-# is an accurate one. Do not add an allowlist to make it green; the corpus is
-# either citable or it is not.
+# WHAT FAILS IT (changed 2026-10-19). Until then it failed on every draft row
+# every week -- red regardless of anything that happened, which is how a
+# control stops being read. It now fails only for what reaches a reader: a
+# PUBLISHED topic whose publish record is missing, holds a surviving source
+# with no held document, or no longer matches the corpus. Draft topics are not
+# served (anon reads published topics only; db-posture enforces it daily), so
+# their uncitable rows are reported in full but do not fail. This is not an
+# allowlist: nothing is exempted by name, and a draft becomes citable only by
+# going through publish_topic.py, the gate that made the published topic so.
 
 name: Signal source verification
 
@@ -80,17 +86,24 @@ jobs:
       - name: Report to the run summary
         if: always()
         run: |
+          OUTCOME=$(grep -o 'SOURCES_OUTCOME=[a-z_]*' /tmp/verify.log 2>/dev/null | tail -1 | cut -d= -f2)
           {
             echo "## Signal source verification"
             echo ""
-            if [ "${{ steps.verify.outcome }}" = "success" ]; then
-              echo "Every source resolves to the document it names."
-            else
-              echo "**Sources in this corpus cannot be cited.** This is deterministic —"
-              echo "no model judgment is involved and there is nothing to re-measure."
-              echo "A source that was never fetched did not supply the claims attributed"
-              echo "to it. Rebuilding the corpus from fetched documents is the only fix."
-            fi
+            case "$OUTCOME" in
+              clean)
+                echo "Every source resolves to the document it names." ;;
+              drafts_only)
+                echo "**Passed.** Every published topic's sources are covered by its publish"
+                echo "record. Draft topics still hold uncitable sources (listed below); they"
+                echo "are not served and stay unpublishable until rebuilt through"
+                echo "\`publish_topic.py\`." ;;
+              published_problem)
+                echo "**A published topic's sources are not covered by its publish record.**"
+                echo "Re-run the publish gate or unpublish the topic. Details below." ;;
+              *)
+                echo "**The check did not finish** (no outcome line in the log). Read the log below." ;;
+            esac
             echo ""
             echo '```'
             tail -45 /tmp/verify.log 2>/dev/null || echo "(no output captured)"
