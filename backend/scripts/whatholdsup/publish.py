@@ -245,6 +245,7 @@ findings = _sibling("findings")
 # published before it was adopted are SKIPPED by name. See
 # docs/whatholdsup-conclusion-judge.md.
 conclusion_judge = _sibling("conclusion_judge")
+audit_stage = _sibling("audit_stage")
 # B16: read what changed. Between two $6 gate runs, every correction is text
 # nobody has read -- and corrections are where a third of the errors come from.
 # Three cents a run. See changecheck.py.
@@ -1713,6 +1714,15 @@ def preflight(slug: str, *, for_email: bool,
         out.extend(conclusion_judge.preflight_rows(slug, load_record()))
     except BaseException as exc:
         out.append((conclusion_judge.ROW_LABEL, BAD,
+                    "did not run: %s: %s" % (type(exc).__name__, exc)))
+
+    # The audit stage (docs/whu-audit-stage-design.md, approved 19 October
+    # 2026): every sentence a reader sees, settled at its current wording.
+    # BLOCKED when it cannot run, as above: an audit that fails open is none.
+    try:
+        out.extend(audit_stage.preflight_rows(slug, load_record()))
+    except BaseException as exc:
+        out.append(("audit complete", BAD,
                     "did not run: %s: %s" % (type(exc).__name__, exc)))
 
     try:

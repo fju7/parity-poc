@@ -1,6 +1,6 @@
 # WHU audit stage — design (not built)
 
-*Draft for review, 19 October 2026 (reliability study, prep round 1, item A). Nothing in this document is built. It turns the deskilling audit of 18–19 October 2026 into a stage that runs the same way on every draft, so that it can be frozen as part of the WHU process the reliability study tests (protocol open item "Define the WHU process that gets frozen", ruled 19 October).*
+*Approved 19 October 2026 (protocol rev 23, "Audit stage design approved") with two additions, both now in the text below: a sentence still failing after three read-and-correct rounds is cut and the cut logged, and the meta description and card text are read in the same pass as the body. Built in prep round 2 as `backend/scripts/whatholdsup/audit_stage.py`, with its prompts in `backend/scripts/whatholdsup/audit_prompts/`; see "As built" at the end for where the build departs from this design. It turns the deskilling audit of 18–19 October 2026 into a stage that runs the same way on every draft, so that it can be frozen as part of the WHU process the reliability study tests.*
 
 ## Why this stage exists
 
@@ -151,3 +151,26 @@ The advisor's rulings are part of WHU's process, so the advisor must see only wh
 4. Then freeze the stage with the protocol.
 
 Any change after the freeze waits until the study ends (integrity rule 1).
+
+
+## As built (prep round 2, 19 October 2026)
+
+`backend/scripts/whatholdsup/audit_stage.py` is the driver. `audit_prompts/read.md` and `audit_prompts/rule.md` are the reading prompt and the ruling prompt, each identified by sha256 on every run's manifest. Tests: `backend/tests/test_whatholdsup_audit_stage.py`.
+
+**The two additions.**
+- **Cuts.** A sentence still failing at its third read is cut. Its text must leave the page, and `cuts.jsonl` records every round's finding and ruling. A ruling that amends a sentence to "" cuts it too.
+- **Card and meta description.** `units()` reads the homepage card's prose and the meta description in the same pass as the page and the change history. A card or meta sentence with no binding row of its own is read against the binding of the page sentence it restates (word overlap of at least 0.45), and the unit records which one.
+
+**Where the build departs from the design above.**
+- **The reading runs through the API, not headless Claude Code agents.** That puts every token in the spend ledger, so a cap is a cap and cost per sentence is measured, not estimated. A held text over 120,000 characters is cut to windows around the batch's spans and key terms.
+- **The ruling model replaces the advisor during the study.** This is the protocol's ruling of 19 October ("Advisor rulings during WHU's run"). `ruling_payload()` is an allow-list of five fields: the sentence, the kind, the reader's reason, the proposed text, and the quoted source text, each quotation shown in its document. Not even a source id travels. The test inspects what the fake model was actually sent, with forbidden fields smuggled into the binding row.
+- **The second reader's accepted findings are not re-read in the same run.** Their old wording is marked "must leave the page", and the next run reads the corrected text.
+- **Any failure stops the run** and the manifest says "failed": a reply that does not parse, a quotation still not verbatim after one re-read, a refusal, a reply cut off at its token ceiling, the spend cap or the day cap.
+
+**The preflight row.** `audit complete` is a STOP unless all of the following hold:
+- the latest run under `issues/<case>/audit/` is complete;
+- it was not a `--dry-run` (which reads a limited number of units);
+- every sentence a reader will see, at its current wording, is settled in it;
+- no wording the audit corrected or cut is still on the page.
+
+**Issues published before adoption.** An issue first published before 19 October 2026 (`ADOPTED`) is SKIPPED by name, as the conclusion judge does for the issues that predate it. Deskilling, cdk46 and melanoma are SKIPPED. Whether they should be audited under the stage is a decision left open.
