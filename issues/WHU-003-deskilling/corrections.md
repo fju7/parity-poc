@@ -372,3 +372,7 @@ that had been set as a quotation (Weinberg and Bretthauer's editorial) is now se
 **Reworded on the same date (republish step 2d).** The Science Media Centre sentence about Professor Osmani, already corrected and counted above, now marks his words as his and adds the study's own figure: "…and questioned whether a true loss of skill could happen in three months, "a very short period, especially for a clinician with over 27 years of experience" (the study's endoscopists averaged 27.6 years, from 8 to 39)." The count stays 139: it is the same sentence.
 
 **Added on the same date (republish step 2e).** One more sentence: the Greengard source note said "we had described it as carrying none, and that was wrong", which a reader could take to contradict the body's "but none of this study's caveats"; the "none" meant caveats of any kind, and it now reads "we had described it as carrying no caveats at all, and that was wrong."
+
+**Published on 19 October 2026** at 16:23:39 UTC (12:23 ET), live sha256 `b2ca603a6821fe9ab5a66c351c1c595a46ab1513309d429ffa6891a9ab796ca4`, by `publish.py update` (commit `32af4a9`). The corrections page, `/deskilling-corrections`, was signed off with it as a companion page at sha256 `c1e2fc9810c11daa93986c16c50f39700054809b1cbe88c828dbce472f4cade6`.
+
+Correction email: not sent — no subscribers (ruled 2026-10-19).

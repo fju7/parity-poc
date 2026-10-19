@@ -101,10 +101,17 @@ def test_the_live_index_agrees_with_the_record():
 
 def test_a_reconciliation_is_not_a_reader_facing_update():
     """record-live writes action:"republish" for a change signed as NOT touching
-    the argument. deskilling got one on 9 September for a nav link."""
+    the argument. deskilling got one on 9 September for a nav link.
+
+    Until 19 October deskilling had no reader-facing update, so this asserted
+    "updated" was absent. Its update of 19 October is real and is shown; what
+    must still hold is that the reconciliation's date is never the one shown."""
     assert "republish" not in I.PUBLICATION_ACTIONS
-    assert I.reconciliations("deskilling"), "fixture gone: expected a record-live row"
-    assert "updated" not in I.expected("deskilling")
+    rec = I.reconciliations("deskilling")
+    assert rec, "fixture gone: expected a record-live row"
+    shown = I.expected("deskilling").get("updated")
+    assert shown not in {I.editorial_date(r) for r in rec}
+    assert shown == date(2026, 10, 19)
 
 
 # ---------------------------------------------------------------------------

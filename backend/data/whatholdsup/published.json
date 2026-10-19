@@ -293,6 +293,28 @@
       "waived": null,
       "page_changed_at": "2026-09-13T15:51:05+00:00",
       "page_changed_at_source": "operator-supplied: the production deployment of e6663185913a982805972ee587569156180d9615 (dpl_EC9SGpWNr6x9xV9mC1Gyrqj6H92k) was assigned the whatholdsup.org alias at 2026-09-13T15:51:05.773Z, the first instant the public name served these bytes; the deployment reported READY 248ms earlier at 15:51:05.525Z"
+    },
+    {
+      "issue": "deskilling",
+      "action": "update",
+      "companions": [
+        {
+          "path": "site/whatholdsup/deskilling-corrections.html",
+          "sha256": "c1e2fc9810c11daa93986c16c50f39700054809b1cbe88c828dbce472f4cade6"
+        }
+      ],
+      "at": "2026-10-19T16:23:39+00:00",
+      "interpreter": "/Users/fredugast/Projects/parity-poc-repo/backend/venv/bin/python3",
+      "sha": "b2ca603a6821fe9ab5a66c351c1c595a46ab1513309d429ffa6891a9ab796ca4",
+      "commit": "32af4a90ce65353f8b8b7742ec46c9d10dd4f6f7",
+      "url": "https://whatholdsup.org/deskilling",
+      "note": "Liu et al. revised their paper: arXiv v6, 13 October 2026",
+      "changed": "Liu et al.'s figures updated to their revised paper (v6): 1,058 analysed, effect sizes -0.45, -0.20 and -0.42. Separately, 140 sentences were corrected after a sentence-by-sentence re-read; those are corrections, recorded in corrections.md and on /deskilling-corrections, not here.",
+      "source": null,
+      "basis": "living issue update \u2014 judged on what it adds. Softened checks are listed in the preflight output above and in UPDATE_SOFTENS.",
+      "waived": null,
+      "page_changed_at": "2026-10-19T16:23:39+00:00",
+      "page_changed_at_source": "deploy-poll: the live page first served this sha at this instant, on poll 3 at 15s intervals; the change reached readers at or before it, not later"
     }
   ]
 }

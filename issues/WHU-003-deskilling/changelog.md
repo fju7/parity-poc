@@ -41,4 +41,12 @@ carried this evidence to a general reader with its limitations attached.
 
 ---
 
-*No entries yet — this assessment has not been published.*
+## 19 October 2026 — Liu et al. revised their paper
+
+**What appeared:** Liu and colleagues posted a revised version of their paper (arXiv v6, 13 October 2026).
+
+**What changed on the page:** their figures are now those of the revised paper: 1,058 analysed, effect sizes −0.45, −0.20 and −0.42.
+
+Separately, 140 sentences were corrected after a sentence-by-sentence re-read of the page. Those are corrections, not movements in the evidence; they are listed in `corrections.md` and on `/deskilling-corrections`, not here.
+
+Page sha256 `b2ca603a6821fe9a…` (recorded in `published.json` and `watch.json`).

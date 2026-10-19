@@ -853,6 +853,48 @@ cites the verification record and the sha that record was performed against,
 neither of which moves, so **no fresh signature is required and none should be
 requested.**
 
+## 11.7 Companion pages: a page published beside an issue's assessment
+
+*Established 19 October 2026, when the deskilling republish was refused at the
+push: `site/whatholdsup/deskilling-corrections.html` was "not a standing site
+page or a published issue".*
+
+Some issues publish a second page with the assessment. Deskilling's is the
+corrections list: every sentence corrected on 19 October, as it stood and as it
+now reads. A companion page is **neither standing nor the issue's page**. Its
+content changes with the issue, so exempting it as standing would leave it
+unguarded for good. It is therefore held to exactly the terms of the issue's
+page:
+
+- **Declared.** The issue's `ISSUES` entry in `publish.py` lists it under
+  `"companions"`.
+- **Signed off with the issue.** `publish` and `update` compute each
+  companion's sha256 just before the push, from the bytes being pushed, and
+  write it on the record row as `"companions": [{"path", "sha256"}]`. A
+  declared companion that is missing stops the publish.
+- **Guarded at that sha.** The pre-push guard (`guard_published.py`) allows a
+  companion only when its issue's last sign-off row lists it and the bytes on
+  the branch hash to the recorded sha. An edit after sign-off blocks, as an
+  edited issue page does. So does an unlisted page, or a companion whose issue
+  has never been published.
+- **During the issue's own publish.** While `publish.py` pushes the issue
+  (`WHATHOLDSUP_PUBLISHING=<slug>`), the companions declared for that slug pass,
+  because the record is written after the deploy, exactly as for the page. They
+  pass for that slug only.
+
+To change a companion page, republish its issue through `publish.py`. There is
+no separate route. Tests: `backend/tests/test_whatholdsup_guard_companions.py`.
+
+**Cards after a publish.** The homepage and issues cards read the publication
+record, and `publish.py` writes that record only after the deploy is confirmed
+live. A publish whose cards should reflect it therefore takes two pushes:
+
+1. the publish itself;
+2. a cards-only follow-up commit, containing the record and the regenerated
+   `index.html` and `issues.html`.
+
+The deskilling republish of 19 October went out this way.
+
 ---
 
 ## 12. The failure catalogue
