@@ -53,10 +53,10 @@ stated date — and does not promise currency, because it cannot be sure that
 promise is true.
 
 
-## 19 October 2026 — we re-read this page and corrected 139 of its sentences
+## 19 October 2026 — we re-read this page and corrected 140 of its sentences
 
 On 18 and 19 October 2026 every sentence on this page above the change history at its foot, the
-standfirst included, was read against its source or our own records. 139 were wrong and are
+standfirst included, was read against its source or our own records. 140 were wrong and are
 corrected. Each is listed on the page's own corrections page (/deskilling-corrections), as it
 stood and as it now reads, grouped by the kind of error; the same list is below, sentence by
 sentence as the page's text gives them. The change history itself was not re-read. The working
@@ -370,3 +370,5 @@ that had been set as a quotation (Weinberg and Bretthauer's editorial) is now se
 **Added on the same date (republish step 2c).** Two more sentences: the standfirst's "The evidence usually offered is weak." now reads "In our reading, the evidence usually offered for it is weak."; "A comment on it by four researchers at Vienna and Dresden calculates…" now reads "A comment on it by four researchers at Vienna and Dresden, itself a preprint, calculates…". Reworded again: "we have said so each time" now reads "we say so in the text where each appears"; "In our reading, the evidence a general reader is usually offered is much weaker…"; Decker's piece is "the closest published thing to this page that we found".
 
 **Reworded on the same date (republish step 2d).** The Science Media Centre sentence about Professor Osmani, already corrected and counted above, now marks his words as his and adds the study's own figure: "…and questioned whether a true loss of skill could happen in three months, "a very short period, especially for a clinician with over 27 years of experience" (the study's endoscopists averaged 27.6 years, from 8 to 39)." The count stays 139: it is the same sentence.
+
+**Added on the same date (republish step 2e).** One more sentence: the Greengard source note said "we had described it as carrying none, and that was wrong", which a reader could take to contradict the body's "but none of this study's caveats"; the "none" meant caveats of any kind, and it now reads "we had described it as carrying no caveats at all, and that was wrong."

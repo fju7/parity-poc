@@ -119,6 +119,16 @@
       "on": "2026-10-19",
       "reason": "0.009 is S021's own figure ('p=0.009' in the held accepted manuscript); the sentence rests on S021's store record (accepted manuscript held; the published version listed as not read), bound as rests_on_store, which this check does not read.",
       "what_would_change_it": "S021's held accepted manuscript not giving p=0.009, or S021's store record changing"
+    },
+    {
+      "key": "4c95821a33d69644",
+      "kind": "CONTRADICTION",
+      "sentence": "Greengard S, \"The AI Deskilling Paradox\", Communications of the ACM , 7 November 2025 , carries none of this study's limitations but does carry caveats of its own, on governance and on deskilling having good outcomes as well as bad ones; we had described it as carrying none, and that was wrong.",
+      "decision": "accept",
+      "by": "advisor (Claude), ruled 2026-10-19; recorded by claude",
+      "on": "2026-10-19",
+      "reason": "Resolved by rewording, 2026-10-19 (advisor): the note's 'none' referred to caveats of any kind; now says so.",
+      "what_would_change_it": "the note returning to 'carrying none', or the body's 'none of this study's caveats' changing"
     }
   ],
   "acknowledged": [

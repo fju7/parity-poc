@@ -1504,6 +1504,10 @@ The page now carries 139 corrected sentences: the 137 above and two more, the st
 
 **Gate fingerprints.** The three reworded sentences the gate's fingerprints do not include (the comment's status, be318988, c751fc9a) are wording only; the one figure among them (159) is unchanged and was gated on 2026-10-19. Acknowledged in change-reviews.json. No figure on the page changed in step 2d (117 before and after).
 
+## Republish step 2e (2026-10-19): the Greengard note
+
+The changed-sentence check of step 2d found the Greengard (CACM) source note's "we had described it as carrying none, and that was wrong" in tension with the body's "but none of this study's caveats". The note's "none" referred to caveats of any kind; it now reads "we had described it as carrying no caveats at all, and that was wrong." The live page carries the old note, so it is a correction: the page now carries 140 corrected sentences, the 139 above and this one.
+
 ## Bound
 
 Batch 1 (2026-10-18): 849a833e, b61e583d, 9675c628, f2072847, a84075d9, 5850f3bd, 83bed04b,
