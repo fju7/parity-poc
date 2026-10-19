@@ -1,6 +1,21 @@
 {
-  "cycle": 2,
+  "cycle": 3,
   "runs": [
+    {
+      "at": "2026-10-19T12:41:59+00:00",
+      "sha": "1757064d6afd137ee3c24aea858eff140fe658d52283d8db99417c2a7f9f15ff",
+      "past_cap": null,
+      "cycle": 3
+    },
+    {
+      "at": "2026-10-19T14:45:11+00:00",
+      "sha": "186165c8ef4db460ebd49b30a78466c1b46c92b2ba9678ecbf63f61a56fb2533",
+      "past_cap": null,
+      "cycle": 3,
+      "past_issue_cap": "Republish of deskilling after 135 corrections and Liu v6; all earlier gate runs predate these changes"
+    }
+  ],
+  "closed": [
     {
       "at": "2026-08-30T17:58:23+00:00",
       "sha": "f5d1c6dcdf3c89602849c2450dbb5682209cc924a87edd75379dd59818a7b34e",

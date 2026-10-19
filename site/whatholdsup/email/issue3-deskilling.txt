@@ -3,12 +3,11 @@ Issue three - 30 Aug 2026
 
 WHAT HAPPENS TO THE EXPERTS FIRST
 
-
 There is a widely held sense that using AI is making us worse at
-thinking, and that there is now real evidence for it. The evidence
-usually offered is weak. The best evidence anyone has is real, and
-almost nobody outside medicine has met it with its qualifications
-intact.
+thinking, and that there is now real evidence for it. In our reading,
+the evidence usually offered for it is weak. In our reading the
+strongest evidence is real, and in the coverage we read it has mostly
+not reached readers outside medicine with its qualifications intact.
 
 Four endoscopy centres in Poland adopted computer-aided polyp detection
 at the end of 2021. Looking only at the colonoscopies performed WITHOUT
@@ -20,14 +19,14 @@ more than 2,000 colonoscopies and averaged 27.6 years since graduation.
 
 IT IS A RETROSPECTIVE OBSERVATIONAL STUDY, and that governs everything
 you can take from it. Its authors list eleven limitations of their own.
-The largest is that the TOTAL number of procedures in the second
-period nearly doubled, from 795 to 1,382 - while the non-AI procedures
-actually measured fell from 795 to 648 - because Poland suspended its
-screening programme on 1 January 2022 and the centres drew patients
-off the waiting list.
-Withdrawal time was not recorded. There was no blinding. The authors
-write that AI exposure MAY reduce detection, and call for randomised
-crossover trials.
+The one we think matters most is that the TOTAL number of procedures in
+the second period nearly doubled, from 795 to 1,382 - while the non-AI
+procedures actually measured fell from 795 to 648 - primarily because
+Poland suspended its screening programme on 1 January 2022 and the
+centres used the freed capacity to take more patients from the waiting
+list. Withdrawal time was not recorded. There was no blinding. The
+authors write that AI exposure MAY reduce detection, and call for
+randomised crossover trials.
 
 And the caveats were not hidden. On the day the study published, the
 Science Media Centre put three named academics on the record for
@@ -43,23 +42,23 @@ its qualifications. At the source, it did not.
   wrong more often than right whenever the machine was.
   ----------------------------------------------------------------
 
-The mechanism was measured in 2021 and published in 2022, in the same
-procedure, by people
-who then said what worried them about it. Twenty-one participants
-watched 29 recorded colonoscopy sequences in eye-tracking glasses, each
-sequence once with the AI overlay and once without, three weeks apart.
-Median eye travel distance fell from 248.86 cm to 232.68 cm - about
-6.5% across all participants, about 8% among the experienced and about
-3% among novices. Their reading of it: effort decreased
-and gaze "remained more focused, presumably waiting for a bounding box
-to appear", which "might be efficient but risks missing a polyp that is
-not captured by the system".
+A possible mechanism was measured in a study published in 2022, in the
+same procedure, by people who then said what worried them about it.
+Twenty-one participants watched 29 recorded colonoscopy sequences in
+eye-tracking glasses, each sequence once with the AI overlay and once
+without, three weeks apart. Median eye travel distance fell from 248.86
+cm to 232.68 cm - about 6.5% across all participants, about 8% among the
+experienced and about 3% among novices. Their reading of it: effort
+decreased and gaze "remained more focused, presumably waiting for a
+bounding box to appear", which "might be efficient but risks missing a
+polyp that is not captured by the system".
 
 Two findings in the same study cut against any simple story. The system
 detected polyps faster than people did, but the people using it were no
-faster than the people without it. And false positives got worse:
-participants wrongly flagged a polyp in a median of 4 cases without
-the AI and 6 cases with it.
+faster than the people without it, by a margin that was not
+statistically different. And false positives got worse: participants
+wrongly flagged a polyp in a median of 4 cases without the AI and 6
+cases with it.
 
 IS IT ONE STUDY, OR A PATTERN? A 2026 scoping review screened 373
 records and included twelve studies, describing the evidence as scarce,
@@ -73,53 +72,55 @@ paper's own byline, so we opened it. It has eight residents, not 32. It
 measures scoring error and agreement between readers, not sensitivity
 or reading time. AND IT HAS NO THREE-MONTH FOLLOW-UP AT ALL.
 
-THERE IS A REAL NULL RESULT, AND WE MISSED IT. On 3 June 2026 -
-nearly three months before we drafted this - Pedersen and colleagues
-published a prospective, multicentre trial in Endoscopy: thirteen
-endoscopists, 5,013 colonoscopies, run in three phases, before the AI,
-during it, and after it was taken away. Among inexperienced
-endoscopists detection rose while the AI ran - odds ratio 1.43, 95% CI
-1.11-1.84 - and was back at baseline once it went, at 1.03 on 0.79 to
-1.34, an interval wide enough to be worth stating. Among experienced
-endoscopists there was no significant effect at any phase. Their
-conclusion: "In non-CADe-assisted colonoscopy, no upskilling or
-deskilling was observed following a period of CADe exposure." It is
-not randomised and its endpoint is polyp detection at 5 mm rather than
-adenoma detection. And the two results do not cancel: the Norwegian
-authors point out that they measured performance AFTER the AI was
-withdrawn, while the Polish study measured it DURING a period when
-endoscopists were still using AI on their other lists - so deskilling
-"may be a temporal phenomenon that disappears over time after CADe is
-removed". That is their reading; finding nothing after withdrawal is
-also consistent with there never having been an effect. They call their own endpoint their most important limitation,
-and their discussion is narrower than that conclusion: it argues
-against skill erosion "at least for nonexperienced endoscopists", and
-points at the Polish study for the experienced.
-Yuichi Mori is an author of both papers. An outside reviewer found this
-study after our own checks had passed over it twice; the assessment
-says so.
+THERE IS A REAL NULL RESULT, AND WE MISSED IT. On 3 June 2026 - nearly
+three months before we drafted this - Pedersen and colleagues published
+a prospective, multicentre trial in Endoscopy: thirteen endoscopists,
+5,013 colonoscopies, run in three phases, before the AI, during it, and
+after it was taken away. Among inexperienced endoscopists detection rose
+while the AI ran - odds ratio 1.43, 95% CI 1.11-1.84 - and showed no
+statistically significant change from baseline once it went, at an
+unadjusted odds ratio of 1.03 on 0.79 to 1.34, an interval wide enough
+to be worth stating. Among experienced endoscopists there was no
+significant effect at any phase. Their conclusion: "In non-CADe-assisted
+colonoscopy, no upskilling or deskilling was observed following a period
+of CADe exposure." It is not randomised and its endpoint is polyp
+detection at 5 mm rather than adenoma detection. And the two results do
+not cancel: the Norwegian authors point out that they measured
+performance AFTER the AI was withdrawn, while the Polish study measured
+it DURING a period when endoscopists were still using AI on their other
+lists - so deskilling "may be a temporal phenomenon that disappears over
+time after CADe is removed". That is their reading; finding nothing
+after withdrawal is also consistent with there never having been an
+effect. They call their own endpoint their most important limitation,
+and their discussion is narrower than that conclusion: it argues against
+skill erosion "at least for nonexperienced endoscopists", and points at
+the Polish study for the experienced. Yuichi Mori is an author of both
+papers. An outside reviewer found this study after our own checks had
+passed over it twice; the assessment says so.
 
-AND THE STUDIES THAT CIRCULATE IN THE GENERAL ARGUMENT THAT AI IS
-MAKING US WORSE AT THINKING ARE THE WEAK ONES. The brain-scan preprint everyone cites had 54 participants, and
-18 in the session carrying its claim about lasting effects; Stankovic
-and colleagues have published a comment noting that its brain
-measure was relative, so fewer significant connections does not mean
-less activity. The 2011 memory result has two failed replications
-behind it. The famous correlation of -0.68 measured all three of its
-variables by self-report in one instrument. And the most-cited
-meta-analysis on the other side of that argument - that ChatGPT
-IMPROVES learning, which is a different question from deskilling - was
-retracted in April 2026, having been cited several hundred times.
+AND THE STUDIES THAT CIRCULATE IN THE GENERAL ARGUMENT THAT AI IS MAKING
+US WORSE AT THINKING ARE, IN OUR READING, WEAKER THAN THEY ARE USUALLY
+TAKEN TO BE. The brain-scan preprint that has been widely read reports
+54 participants for its first three sessions (55 completed them), and 18
+in the session carrying its claim about lasting effects; Stankovic and
+colleagues have published a comment noting that its brain measure was
+relative, so fewer significant connections does not mean less activity.
+The 2011 memory result has two failed replications behind it. The
+correlation of -0.68 measured all three of its variables by self-report
+in one instrument. And a widely cited meta-analysis on the other side of
+that argument - that ChatGPT IMPROVES learning, which is a different
+question from deskilling - was retracted in April 2026, having been
+cited several hundred times.
 
 Read the full assessment: https://whatholdsup.org/deskilling
 
 
 ---
 
-This is a statement about evidence and not advice. Nothing here bears
-on whether AI-assisted colonoscopy is good for patients: the randomised
-evidence that AI raises detection during the procedure is not in
-dispute and is not what the assessment examined.
+This is a statement about evidence and not advice. Nothing here bears on
+whether AI-assisted colonoscopy is good for patients: the randomised
+evidence that AI raises detection during the procedure is not something
+the assessment disputes and is not what it examined.
 
 This is our first living assessment. It carries a standing list of
 the findings that would change it, and the date its evidence was read.
@@ -127,11 +128,13 @@ It does not promise to be current: what we watch is narrower than what
 could change, and the list is our instrument rather than a guarantee
 that anyone has looked since.
 
-Every figure above comes from the study that produced it, read
-directly. Where we could not read something, the assessment says so
-rather than passing on somebody else's account of it. The colonoscopy
-study carries a correction, published 11 September 2025; we have read
-it, and it does not touch any figure above.
+Every study figure above comes from the study that produced it, read
+directly, except the 70% cytology estimate, which is Public Health
+England's as the Royal College of Pathologists reports it. Where we
+could not read something, the assessment says so rather than passing on
+somebody else's account of it. The colonoscopy study carries a
+correction, published 11 September 2025; we have read it, and it does
+not touch any figure above.
 
 Published by CivicScale, which sells healthcare software and takes no
 outside investment. Who pays for this:
