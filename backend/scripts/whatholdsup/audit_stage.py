@@ -62,6 +62,7 @@ S = importlib.util.module_from_spec(_spec)
 _spec.loader.exec_module(S)
 
 READ_PROMPT = HERE / "audit_prompts" / "read.md"
+SUMMARY_PROMPT = HERE / "audit_prompts" / "summary.md"
 RULE_PROMPT = HERE / "audit_prompts" / "rule.md"
 MODEL = "claude-opus-5-5"
 READ_MAX_OUT = 12000
@@ -74,7 +75,9 @@ MAX_DOC_CHARS = 120_000          # a longer held text is cut to windows around t
 WINDOW = 3000
 QUOTE_AROUND = 600
 ROW_LABEL = "audit complete"
-BORROW = 0.45
+SUMMARY_PARTS = ("card", "meta_description")
+SUMMARY_KIND = "Summary says what the body does not"
+HUMAN_READ_REQUIRED = "HUMAN_READ_REQUIRED"
 ADOPTED = "2026-10-19T20:00:00+00:00"
 PUBLISHED_ACTIONS = ("publish", "republish")
 OK, BAD, WARN = "ok", "BLOCKED", "warn"
@@ -84,7 +87,8 @@ KINDS = ("Overstated a finding or a source's claim", "Misattributed or misdescri
          "Rested on a document we do not hold", "A wrong date, count, figure or author",
          "Understated a source's standing", "Misquoted", "Understated a finding", "A copy defect")
 VERDICTS = ("holds", "finding", "not_a_correction", "updated_by_source")
-SETTLED = ("holds", "not_a_correction", "updated_by_source", "holds_by_ruling")
+SUMMARY_VERDICTS = ("holds", "finding", "not_a_correction")
+SETTLED = ("holds", "not_a_correction", "updated_by_source", "holds_by_ruling", "holds_by_human_read")
 RULE_FIELDS = ("sentence", "kind", "reason", "proposed_text", "quoted_source_text")
 
 
@@ -164,22 +168,28 @@ def units(slug: str) -> list[dict]:
             seen.add((part, fp))
             out.append({"id": "u%d" % (len(out) + 1), "part": part, "sentence": s,
                         "sha": fp, "row": rows.get(fp)})
-    # The card and the meta description restate the page; a sentence there with
-    # no row of its own is read against the binding of the page sentence it
-    # restates (word overlap >= BORROW), and says which one it borrowed.
-    page_rows = [(set(_words(u["sentence"])), u) for u in out if u["part"] == "page" and u["row"]]
-    for u in out:
-        if u["row"] or u["part"] not in ("card", "meta_description"):
-            continue
-        w = set(_words(u["sentence"]))
-        best = max(page_rows, key=lambda pr: len(w & pr[0]) / max(len(w | pr[0]), 1), default=None)
-        if best and len(w & best[0]) / max(len(w | best[0]), 1) >= BORROW:
-            u["row"] = dict(best[1]["row"], borrowed_from=best[1]["sha"])
     return out
 
 
-def _words(s: str) -> list[str]:
-    return [w.lower() for w in re.findall(r"[A-Za-z0-9][A-Za-z0-9'%.-]*", s) if len(w) > 2]
+def page_body(us: list[dict]) -> str:
+    """The page body as the audit reads it: its sentences, in order. A summary
+    (card, meta description) is read against this, not against the sources
+    (ruling of 19 October 2026: the body has already been read against them)."""
+    return " ".join(u["sentence"] for u in us if u["part"] == "page")
+
+
+def licensed_ids(slug: str) -> set[str]:
+    """Sources whose licence forbids machine reading, from the issue's
+    sources.json (source_store.LICENCE_KEY, on the source or on its access
+    record). Read from the record every time, never hard-coded: NCCN on cdk46
+    is S001 today, and an id is not a licence."""
+    import source_store
+    key = source_store.LICENCE_KEY
+    p = source_store.case_dir(slug) / "sources.json"
+    if not p.exists():
+        return set()
+    srcs = json.loads(p.read_text(encoding="utf-8")).get("sources") or []
+    return {x["id"] for x in srcs if x.get(key) or (x.get("access") or {}).get(key)}
 
 
 def sources_of(row: dict | None) -> list[str]:
@@ -201,6 +211,9 @@ def batches(us: list[dict], size: int = BATCH) -> list[list[dict]]:
     groups: dict[str, list[dict]] = {}
     for u in us:
         row = u["row"] or {}
+        if u["part"] in SUMMARY_PARTS:
+            groups.setdefault(" summary", []).append(u)      # sorts first; read against the page
+            continue
         key = (sources_of(row) or [None])[0] or ("records" if row.get("rests_on_record") else "unbound")
         groups.setdefault(key, []).append(u)
     out = []
@@ -252,13 +265,15 @@ def trim(text: str, wanted: list[str]) -> tuple[str, bool]:
     return "\n[...]\n".join(out), True
 
 
-def batch_inputs(slug: str, batch: list[dict], held: dict[str, str]) -> tuple[dict[str, str], dict[str, dict]]:
-    """(documents {id: text}, records {id: {path, text}}) for one batch."""
+def batch_inputs(slug: str, batch: list[dict], held: dict[str, str],
+                 licensed: frozenset = frozenset()) -> tuple[dict[str, str], dict[str, dict]]:
+    """(documents {id: text}, records {id: {path, text}}) for one batch. A
+    licensed source is never a document, whatever the held texts contain."""
     docs: dict[str, str] = {}
     for u in batch:
         row = u["row"] or {}
         for sid in sources_of(row):
-            if sid in docs:
+            if sid in docs or sid in licensed:
                 continue
             text = held.get("%s:%s" % (slug, sid)) or held.get(sid)
             if text is None:
@@ -288,16 +303,24 @@ def batch_inputs(slug: str, batch: list[dict], held: dict[str, str]) -> tuple[di
     return docs, records
 
 
-def binding_line(row: dict | None) -> str:
+def binding_line(row: dict | None, licensed: frozenset = frozenset()) -> str:
+    """The binding as the reader sees it. A span from a licensed source is the
+    licensed text itself, so it is withheld: the reader is told the source
+    exists and that it is not shown."""
     if not row:
         return "none: this sentence has no binding row"
     bits = []
+
+    def one(label, sid, span):
+        if sid in licensed:
+            return "%s %s (its licence forbids machine reading: not shown, read against the other sources only)" % (label, sid)
+        return "%s %s: \"%s\"" % (label, sid, (span or "")[:300]) if span else "%s %s" % (label, sid)
     if row.get("source_id"):
-        bits.append("rests on %s%s" % (row["source_id"], (": \"%s\"" % row["span"][:300]) if row.get("span") else ""))
+        bits.append(one("rests on", row["source_id"], row.get("span")))
     for x in row.get("also_rests_on") or []:
-        bits.append("also %s: \"%s\"" % (x.get("source_id"), (x.get("span") or "")[:300]))
+        bits.append(one("also", x.get("source_id"), x.get("span")))
     for x in row.get("premises") or []:
-        bits.append("premise %s: \"%s\"" % (x.get("source_id"), (x.get("span") or "")[:300]))
+        bits.append(one("premise", x.get("source_id"), x.get("span")))
     for x in row.get("rests_on_record") or []:
         bits.append("record %s: \"%s\"" % (x.get("path"), (x.get("quote") or "")[:200]))
     if row.get("framing"):
@@ -305,8 +328,15 @@ def binding_line(row: dict | None) -> str:
     return "; ".join(bits) or "a row with nothing bound"
 
 
+def build_summary_prompt(batch: list[dict], body: str) -> str:
+    stext = "\n\n".join("[%s] (%s)\nSENTENCE: %s" % (u["id"], u["part"].replace("_", " "), u["sentence"])
+                         for u in batch)
+    t = SUMMARY_PROMPT.read_text(encoding="utf-8")
+    return t.replace("{documents}", "<<<DOCUMENT PAGE\n%s\nDOCUMENT PAGE>>>" % body).replace("{sentences}", stext)
+
+
 def build_read_prompt(batch: list[dict], docs: dict[str, str], records: dict[str, dict],
-                      context: dict[str, tuple[str, str]]) -> str:
+                      context: dict[str, tuple[str, str]], licensed: frozenset = frozenset()) -> str:
     dtext = "\n\n".join("<<<DOCUMENT %s\n%s\nDOCUMENT %s>>>" % (k, v, k) for k, v in docs.items()) \
         or "(no held document for this batch)"
     rtext = "\n\n".join("<<<RECORD %s (%s)\n%s\nRECORD %s>>>" % (k, r["path"], r["text"], k) for k, r in records.items()) \
@@ -314,7 +344,7 @@ def build_read_prompt(batch: list[dict], docs: dict[str, str], records: dict[str
     stext = "\n\n".join(
         "[%s] (%s)\nSENTENCE: %s\nBEFORE: %s\nAFTER: %s\nBINDING: %s"
         % (u["id"], u["part"].replace("_", " "), u["sentence"], context.get(u["id"], ("", ""))[0] or "-",
-           context.get(u["id"], ("", ""))[1] or "-", binding_line(u["row"]))
+           context.get(u["id"], ("", ""))[1] or "-", binding_line(u["row"], licensed))
         for u in batch)
     t = READ_PROMPT.read_text(encoding="utf-8")
     return t.replace("{documents}", "DOCUMENTS\n\n" + dtext).replace("{records}", "RECORDS\n\n" + rtext) \
@@ -336,7 +366,7 @@ def parse_json(text: str) -> dict | list:
             raise AuditFailure("reply is not JSON: %s" % e)
 
 
-def check_verdicts(batch: list[dict], got: dict) -> list[dict]:
+def check_verdicts(batch: list[dict], got: dict, summary: bool = False) -> list[dict]:
     vs = got.get("verdicts") if isinstance(got, dict) else None
     if not isinstance(vs, list):
         raise AuditFailure("reply has no verdicts list")
@@ -347,9 +377,9 @@ def check_verdicts(batch: list[dict], got: dict) -> list[dict]:
     out = []
     for u in batch:
         v = by[u["id"]]
-        if v.get("verdict") not in VERDICTS:
+        if v.get("verdict") not in (SUMMARY_VERDICTS if summary else VERDICTS):
             raise AuditFailure("%s: verdict %r not allowed" % (u["id"], v.get("verdict")))
-        if v["verdict"] == "finding" and v.get("kind") not in KINDS:
+        if v["verdict"] == "finding" and v.get("kind") not in ((SUMMARY_KIND,) if summary else KINDS):
             raise AuditFailure("%s: finding kind %r not allowed" % (u["id"], v.get("kind")))
         out.append(v)
     return out
@@ -485,20 +515,26 @@ def context_map(us: list[dict]) -> dict[str, tuple[str, str]]:
     return out
 
 
-def read_batch(call: Caller, slug: str, batch: list[dict], held: dict, ctx: dict, role: str) -> tuple[list[dict], dict, dict]:
-    docs, records = batch_inputs(slug, batch, held)
-    prompt = build_read_prompt(batch, docs, records, ctx)
-    text, usage = call(prompt, READ_MAX_OUT, role)
-    vs = check_verdicts(batch, parse_json(text))
+def read_batch(call: Caller, slug: str, batch: list[dict], held: dict, ctx: dict, role: str,
+               licensed: frozenset = frozenset(), body: str = "") -> tuple[list[dict], dict, dict]:
+    summary = all(u["part"] in SUMMARY_PARTS for u in batch)
+    if summary:
+        docs, records = {"PAGE": body}, {}
+        build = lambda bs: build_summary_prompt(bs, body)
+    else:
+        docs, records = batch_inputs(slug, batch, held, licensed)
+        build = lambda bs: build_read_prompt(bs, docs, records, ctx, licensed)
+    text, usage = call(build(batch), READ_MAX_OUT, role + ("-summary" if summary else ""))
+    vs = check_verdicts(batch, parse_json(text), summary)
     # Quotations not verbatim go back to the reader once, for those sentences only.
     retry = [u for u, v in zip(batch, vs) if bad_quotes(v, docs, records, u["row"])]
     if retry:
-        p2 = build_read_prompt(retry, docs, records, ctx) + (
+        p2 = build(retry) + (
             "\n\nYOUR PREVIOUS REPLY QUOTED TEXT THAT IS NOT IN THE DOCUMENTS for these sentences: %s. "
             "Quote only text that appears character for character in the document you name."
             % ", ".join(u["id"] for u in retry))
         t2, _u2 = call(p2, READ_MAX_OUT, role + "-requote")
-        v2 = {v["id"]: v for v in check_verdicts(retry, parse_json(t2))}
+        v2 = {v["id"]: v for v in check_verdicts(retry, parse_json(t2), summary)}
         for i, (u, v) in enumerate(zip(batch, vs)):
             if u["id"] in v2:
                 vs[i] = v2[u["id"]]
@@ -509,7 +545,7 @@ def read_batch(call: Caller, slug: str, batch: list[dict], held: dict, ctx: dict
 
 def run(slug: str, *, out_dir: Path, limit: int | None = None, cap: float = 40.0,
         ledger_issue: str | None = None, ask=None, held: dict | None = None,
-        unit_list: list[dict] | None = None) -> dict:
+        unit_list: list[dict] | None = None, licensed: set | None = None) -> dict:
     out_dir.mkdir(parents=True, exist_ok=True)
     call = Caller(cap=cap, ledger_issue=ledger_issue or slug, ask=ask)
     us = unit_list if unit_list is not None else units(slug)
@@ -518,11 +554,18 @@ def run(slug: str, *, out_dir: Path, limit: int | None = None, cap: float = 40.0
     if held is None:
         import reachability
         held = reachability.held_text(slug, cache=False)
+    lic = frozenset(licensed if licensed is not None else licensed_ids(slug))
+    # A licensed source's text is dropped from what this run holds before
+    # anything is built, so no code path below can put it in a prompt.
+    held = {k: v for k, v in held.items() if k.split(":")[-1] not in lic}
+    body = page_body(us)
     B = _B() if unit_list is None else None
     manifest = {
         "slug": slug, "started": datetime.now(timezone.utc).isoformat(timespec="seconds"),
         "model": MODEL, "read_prompt_sha256": sha(READ_PROMPT.read_text(encoding="utf-8")),
         "rule_prompt_sha256": sha(RULE_PROMPT.read_text(encoding="utf-8")),
+        "summary_prompt_sha256": sha(SUMMARY_PROMPT.read_text(encoding="utf-8")),
+        "licensed_sources_never_sent": sorted(lic),
         "cap_usd": cap, "ledger_issue": ledger_issue or slug, "units": len(us), "limit": limit,
         "max_rounds": MAX_ROUNDS, "second_share": SECOND_SHARE, "second_seed": SECOND_SEED,
         "inputs": {"held_texts": {k: sha(v) for k, v in sorted(held.items())}},
@@ -542,15 +585,30 @@ def run(slug: str, *, out_dir: Path, limit: int | None = None, cap: float = 40.0
     try:
         ctx = context_map(us)
         current = {u["id"]: dict(u, round=1, history=[]) for u in us}
-        pending = list(current.values())
+        pending = []
+        for u in current.values():
+            srcs = sources_of(u["row"])
+            if srcs and all(x in lic for x in srcs):
+                # Bound only to a source no model may read: a person reads it.
+                state[u["sha"]] = HUMAN_READ_REQUIRED
+                log("verdicts", {"unit": u["id"], "part": u["part"], "sha": u["sha"], "round": 0,
+                                 "sentence": u["sentence"], "verdict": HUMAN_READ_REQUIRED,
+                                 "licensed_sources": srcs,
+                                 "reason": "bound only to source(s) whose licence forbids machine reading"})
+                continue
+            if any(x in lic for x in srcs):
+                u["licensed_excluded"] = [x for x in srcs if x in lic]
+            pending.append(u)
         while pending:
             nxt = []
             for batch in batches(pending):
-                vs, docs, records = read_batch(call, slug, batch, held, ctx, "read")
+                vs, docs, records = read_batch(call, slug, batch, held, ctx, "read", lic, body)
                 for u, v in zip(batch, vs):
                     log("verdicts", {"unit": u["id"], "part": u["part"], "sha": u["sha"], "round": u["round"],
                                      "sentence": u["sentence"], **{k: v.get(k) for k in
-                                     ("verdict", "kind", "evidence", "proposed_text", "reason")}})
+                                     ("verdict", "kind", "evidence", "proposed_text", "reason")},
+                                     **({"read_without_licensed_sources": u["licensed_excluded"]}
+                                        if u.get("licensed_excluded") else {})})
                     if v["verdict"] != "finding":
                         state[u["sha"]] = v["verdict"]
                         continue
@@ -584,7 +642,7 @@ def run(slug: str, *, out_dir: Path, limit: int | None = None, cap: float = 40.0
         k = max(1, round(SECOND_SHARE * len(others))) if others else 0
         sample = judgement + (rng.sample(others, k) if k else [])
         for batch in batches(sample):
-            vs, docs, records = read_batch(call, slug, batch, held, ctx, "second-read")
+            vs, docs, records = read_batch(call, slug, batch, held, ctx, "second-read", lic, body)
             for u, v in zip(batch, vs):
                 agree = (v["verdict"] != "finding")
                 log("second_reads", {"unit": u["id"], "sha": u["sha"], "verdict": v["verdict"],
@@ -665,12 +723,23 @@ def preflight_rows(slug: str, record_rows: list[dict] | None = None, *, current:
     if m.get("limit"):
         return [(ROW_LABEL, BAD, "the latest audit run (%s) read only the first %d units -- a dry run, not an audit"
                  % (run_dir.name, m["limit"]))]
-    state = m.get("state") or {}
+    state = dict(m.get("state") or {})
+    # A sentence only a person may read is settled by a person's recorded read.
+    hr = run_dir / "human_reads.jsonl"
+    if hr.exists():
+        for line in hr.read_text(encoding="utf-8").splitlines():
+            r = json.loads(line) if line.strip() else {}
+            if state.get(r.get("sha")) == HUMAN_READ_REQUIRED and r.get("verdict") == "holds" and r.get("by") and r.get("at"):
+                state[r["sha"]] = "holds_by_human_read"
     us = current if current is not None else units(slug)
     unread = [u for u in us if u["sha"] not in state]
+    human = [u for u in us if state.get(u["sha"]) == HUMAN_READ_REQUIRED]
     leave = [u for u in us if state.get(u["sha"]) == "must_leave_page"]
-    if unread or leave:
+    if unread or leave or human:
         bits = []
+        if human:
+            bits.append("%d sentence(s) rest only on a source no model may read and have no recorded human read "
+                        "(human_reads.jsonl; e.g. %r)" % (len(human), human[0]["sentence"][:80]))
         if unread:
             bits.append("%d sentence(s) have no audit verdict on their current wording (e.g. %r)"
                         % (len(unread), unread[0]["sentence"][:80]))

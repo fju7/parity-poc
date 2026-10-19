@@ -138,7 +138,7 @@ class FakeModel:
 def test_a_sentence_still_failing_after_three_rounds_is_cut_and_logged(tmp_path):
     fake = FakeModel(always_finding=True)
     u = _unit("u1", "The study proves that AI deskills doctors.")
-    m = A.run("demo", out_dir=tmp_path, ask=fake, held=HELD, unit_list=[u], cap=1.0)
+    m = A.run("demo", out_dir=tmp_path, ask=fake, held=HELD, unit_list=[u], cap=1.0, licensed=set())
     assert m["status"] == "complete", m.get("failure")
     reads = [p for p in fake.prompts if "THE SENTENCES TO READ" in p and "second" not in p]
     assert len([p for p in fake.prompts if "THE FINDING:" in p]) == A.MAX_ROUNDS
@@ -157,7 +157,7 @@ def test_a_corrected_sentence_that_then_holds_is_not_cut(tmp_path):
             return super().__call__(prompt, max_tokens)
     fake = Once()
     u = _unit("u1", "The study proves that AI deskills doctors.")
-    m = A.run("demo", out_dir=tmp_path, ask=fake, held=HELD, unit_list=[u], cap=1.0)
+    m = A.run("demo", out_dir=tmp_path, ask=fake, held=HELD, unit_list=[u], cap=1.0, licensed=set())
     assert m["status"] == "complete"
     assert (tmp_path / "cuts.jsonl").read_text() == ""
     assert m["state"][A.fingerprint("Corrected wording 1.")] == "holds"
@@ -165,7 +165,7 @@ def test_a_corrected_sentence_that_then_holds_is_not_cut(tmp_path):
 
 def test_a_reply_that_is_not_json_stops_the_run(tmp_path):
     m = A.run("demo", out_dir=tmp_path, ask=lambda p, n: ("not json at all", {"usd": 0.0}),
-              held=HELD, unit_list=[_unit("u1", "x is y.")], cap=1.0)
+              held=HELD, unit_list=[_unit("u1", "x is y.")], cap=1.0, licensed=set())
     assert m["status"] == "failed"
     assert A.preflight_rows("demo", [], current=[_unit("u1", "x is y.")], run_dir=tmp_path)[0][1] == A.BAD
 
@@ -196,7 +196,7 @@ def test_what_the_ruling_model_was_actually_sent_contains_none_of_the_forbidden_
     fake = FakeModel(always_finding=True)
     u = _unit("u1", "The study proves that AI deskills doctors.")
     u["row"].update(FORBIDDEN)                  # smuggled into the binding row
-    A.run("demo", out_dir=tmp_path, ask=fake, held=HELD, unit_list=[u], cap=1.0)
+    A.run("demo", out_dir=tmp_path, ask=fake, held=HELD, unit_list=[u], cap=1.0, licensed=set())
     rule_prompts = [p for p in fake.prompts if "THE FINDING:" in p]
     assert rule_prompts
     for p in rule_prompts:
@@ -208,7 +208,7 @@ def test_what_the_ruling_model_was_actually_sent_contains_none_of_the_forbidden_
 
 def test_prompts_are_identified_by_sha256_on_the_manifest(tmp_path):
     m = A.run("demo", out_dir=tmp_path, ask=FakeModel(always_finding=False), held=HELD,
-              unit_list=[_unit("u1", "Of 795, 226 detected an adenoma.")], cap=1.0)
+              unit_list=[_unit("u1", "Of 795, 226 detected an adenoma.")], cap=1.0, licensed=set())
     assert m["read_prompt_sha256"] == A.sha(A.READ_PROMPT.read_text(encoding="utf-8"))
     assert m["rule_prompt_sha256"] == A.sha(A.RULE_PROMPT.read_text(encoding="utf-8"))
 
@@ -234,3 +234,72 @@ def test_the_dry_run_refuses_to_write_inside_issues():
 def test_a_finding_that_no_document_is_held_needs_no_quotation():
     v = {"verdict": "finding", "kind": "Rested on a document we do not hold", "evidence": []}
     assert A.bad_quotes(v, {}, {}, None) == []
+
+
+# ----------------------------------------------------------------- licensed sources
+
+LICENSED_TEXT = "NCCN-LICENSED-PASSAGE: category 1 preferred for ribociclib zx81"
+
+
+def test_a_licensed_source_never_appears_in_any_model_request(tmp_path):
+    """The licensed text is planted everywhere it could leak from: the held
+    texts and the binding's own span. Every prompt sent is inspected."""
+    fake = FakeModel(always_finding=True)
+    held = {"demo:S021": DOC, "demo:S001": "Preamble. " + LICENSED_TEXT + " More licensed text."}
+    mixed = _unit("u1", "The guideline prefers it, and the study is retrospective.")
+    mixed["row"]["also_rests_on"] = [{"source_id": "S001", "span": LICENSED_TEXT}]
+    only = _unit("u2", "The guideline assigns category 1.", sid="S001", span=LICENSED_TEXT)
+    m = A.run("demo", out_dir=tmp_path, ask=fake, held=held, unit_list=[mixed, only], cap=1.0,
+              licensed={"S001"})
+    assert m["status"] == "complete", m.get("failure")
+    assert fake.prompts
+    for p in fake.prompts:
+        assert LICENSED_TEXT not in p
+        assert "zx81" not in p
+    assert m["licensed_sources_never_sent"] == ["S001"]
+    v = [json.loads(l) for l in (tmp_path / "verdicts.jsonl").read_text().splitlines()]
+    assert any(x.get("read_without_licensed_sources") == ["S001"] for x in v if x["unit"] == "u1")
+
+
+def test_a_sentence_bound_only_to_a_licensed_source_needs_a_human_read(tmp_path):
+    fake = FakeModel(always_finding=False)
+    only = _unit("u1", "The guideline assigns category 1.", sid="S001", span=LICENSED_TEXT)
+    m = A.run("demo", out_dir=tmp_path, ask=fake, held={"demo:S001": LICENSED_TEXT}, unit_list=[only],
+              cap=1.0, licensed={"S001"})
+    assert m["status"] == "complete"
+    assert m["state"][only["sha"]] == A.HUMAN_READ_REQUIRED
+    assert fake.prompts == []                      # nothing was sent at all
+    row = A.preflight_rows("demo", [], current=[only], run_dir=tmp_path)[0]
+    assert row[1] == A.BAD and "human read" in row[2]
+    (tmp_path / "human_reads.jsonl").write_text(json.dumps(
+        {"sha": only["sha"], "verdict": "holds", "by": "Fred Ugast", "at": "2026-10-20T10:00:00+00:00"}) + "\n")
+    assert A.preflight_rows("demo", [], current=[only], run_dir=tmp_path)[0][1] == A.OK
+
+
+def test_the_licence_is_read_from_the_record_not_hard_coded():
+    assert "S001" in A.licensed_ids("cdk46")
+    assert "S001" not in A.licensed_ids("deskilling")
+    src = (WHU / "audit_stage.py").read_text()
+    assert '"S001"' not in src and "'S001'" not in src
+
+
+# ----------------------------------------------------------------- summaries against the body
+
+def test_card_and_meta_sentences_are_read_against_the_page_body_not_the_sources(tmp_path):
+    fake = FakeModel(always_finding=False)
+    page = _unit("u1", "In our reading, the evidence usually offered for it is weak.")
+    card = {"id": "u2", "part": "card", "sentence": "The evidence usually offered is weak.",
+            "sha": A.fingerprint("The evidence usually offered is weak."), "row": None}
+
+    def ask(prompt, n):
+        if "SUMMARIES of that page" in prompt:
+            assert "DOCUMENT PAGE" in prompt and page["sentence"] in prompt
+            assert DOC not in prompt                       # no source text
+            return json.dumps({"verdicts": [{"id": "u2", "verdict": "finding", "kind": A.SUMMARY_KIND,
+                                             "evidence": [{"source": "PAGE", "quote": "the evidence usually offered for it is weak"}],
+                                             "proposed_text": page["sentence"], "reason": "drops the hedge"}]}), {"usd": 0.0}
+        return fake(prompt, n)
+    m = A.run("demo", out_dir=tmp_path, ask=ask, held=HELD, unit_list=[card, page], cap=1.0, licensed=set())
+    assert m["status"] == "complete", m.get("failure")
+    v = [json.loads(l) for l in (tmp_path / "verdicts.jsonl").read_text().splitlines()]
+    assert any(x["unit"] == "u2" and x["kind"] == A.SUMMARY_KIND for x in v)

@@ -358,3 +358,80 @@ See `docs/whu-audit-stage-design.md`, "As built".
 - **Second reader.** Agreed on all 7.
 
 **The card is also out of date on its own.** The homepage card still reads "The evidence usually offered is weak." The page was corrected on 19 October to "In our reading, the evidence usually offered for it is weak." Not fixed here.
+
+## Prep round 3 (19 October 2026)
+
+Rulings: protocol rev 24, "Rulings from prep round 2". **Spend: $11.26 of $20** under ledger issue `whu-reliability-prep3`. Pushed first: `070eded..a7c18d4  HEAD -> main`.
+
+### Audit stage fixes
+
+- **Card and meta-description sentences are read against the page body**, not the sources. They use their own prompt (`audit_prompts/summary.md`), and a finding has the kind "Summary says what the body does not". The round-2 binding borrow is removed.
+- **The deskilling dry run was re-run** (20 units, read-only; $1.64):
+  - **No card sentence was cut.**
+  - **The stale card sentence was flagged:** "The evidence usually offered is weak." becomes the page's "In our reading, the evidence usually offered for it is weak."
+  - **The second card sentence and both meta-description sentences were flagged too.** Each drops or widens the body's hedges. All four corrections were accepted, and each corrected text then held.
+- **Licence.** `licensed_ids()` reads `licence_forbids_machine_reading` from the issue's `sources.json` (`source_store.LICENCE_KEY`). On cdk46 that is S001 (NCCN). No id is hard-coded.
+  - **Never sent:** a licensed source's text is dropped from the held texts before any prompt is built, and its spans are withheld from binding lines.
+  - **Bound only to it:** the sentence is HUMAN_READ_REQUIRED. Preflight blocks until a person's read is recorded in `human_reads.jsonl`.
+  - **Bound to it and to others:** the sentence is read against the others only, and the verdict records that.
+  - **Tests:** a payload test plants the licensed text in both the held texts and the binding span, and asserts it reaches no request. It fails if the withholding is switched off. Audit-stage tests: 24 passed.
+
+### Sampling
+
+Chart descriptions and rubric scores are not samplable, for every system:
+- **Structurally in the WHU export:** `p.ci-cap`, figcaptions and anything marked `data-whu`.
+- **By text pattern in `blind.py`**, for every system.
+
+Across the three issues this excludes 42 WHU sentences (34 rubric, 8 chart). The patterns matched no sentence in any tool's answer.
+
+### P34 and incomplete sources
+
+**Both judges were sent one snapshot for P34:** Gibney (nutritionconnect.org). The answer's sentence is "**Atzeni et al. (2022)** reports gut microbiome differences with UPF intake; and **Gibney (2018)** critiques UPF definitions."
+- **No link.** ChatGPT's answer gives no link and no reference list.
+- **No pair.** The pilot's pair extractor cut the bold name "Atzeni et al." and made no pair for it.
+- **So:** Atzeni had no snapshot.
+
+**The runner now marks such an item INCOMPLETE_SOURCES.** Each item lists every cited work under `citations`. If any has no URL or an unreachable snapshot, no judge is called and the item goes to a person. P34 (Atzeni) and P40 (`hopkinsdiabetesinfo.org`, HTTP 403) are now INCOMPLETE_SOURCES. `--allow-incomplete` is only for tests of the judges themselves.
+
+### Bias test (replaces the identifiability gate)
+
+16 items, M1 v3, both judges, one run per condition, all four conditions back to back per item. The author line comes after the documents and before the claim. The bias test ran with `--allow-incomplete`, so P34 and P40 were judged on the sources that exist.
+
+| Condition | Claude: labels changed from A1 | ChatGPT: labels changed from A1 |
+|---|---|---|
+| A2, repeat run | 0 | 1: P22, Overstates → Supported |
+| B, "written by What Holds Up" | 1: P34, Supported → NOT_VERIFIABLE_ABSTRACT | 0 |
+| C, "written by an AI chatbot" | 0 | 1: P03, Supported → Overstates |
+
+**Rule:** FAIL if B or C changed at least two more labels than A2.
+- **Claude: pass.** At most 1 more label changed than in A2.
+- **ChatGPT: pass.** No more labels changed than in A2.
+
+**Result: PASS.**
+
+**Refusals:** Claude refused P01 and P41 in every condition; ChatGPT refused nothing.
+
+**Cost:**
+
+| | A1 | A2 | B | C |
+|---|---|---|---|---|
+| Claude | $1.77 | $0.26 | $0.26 | $0.26 |
+| ChatGPT | $2.23 | $0.32 | $2.25 | $2.25 |
+
+**Caching:**
+- **Claude:** cache hits on 57 of 72 calls.
+- **ChatGPT:** only the identical repeat (A2) hit its cache: 16 of 64 calls. When the text after the documents changed (B, C), it paid full price.
+- **Cost consequence for M2:** if that holds generally, OpenAI's M2 calls (one answer, five different conclusions) won't share a cache. Its M2 estimate would rise from about $13 to about $24, putting the study at about $125 at pilot-sized sources and about $199 at twice that. Both are still under $300.
+
+### Practice question
+
+Choose from the pilot's four questions the one with the fewest unreachable cited sources across the three tools' answers. Every cited URL was fetched once on 19 October under `snapshot.py`'s rules; a cited work with no URL counts as unreachable.
+
+| Question | Reachable | Unreachable | No URL | Unreachable + no URL |
+|---|---|---|---|---|
+| Q1 exercise and depression | 52 | 34 | 4 | 38 |
+| **Q2 ultra-processed foods** | 71 | **21** | 4 | **25** |
+| Q3 intermittent fasting | 40 | 33 | 1 | 34 |
+| Q4 vitamin D over 60 | 41 | 32 | 1 | 33 |
+
+**Choice: Q2, "Do ultra-processed foods harm your health?"** It has the fewest unreachable sources either way: 21 fetched-unreachable, or 25 with no-URL citations included. No tie-break was needed. WHU has not been run on it.

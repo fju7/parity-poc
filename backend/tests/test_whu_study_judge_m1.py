@@ -111,3 +111,36 @@ def test_the_source_block_comes_first_and_is_the_cached_prefix():
     prefix, rest = J.build({**item}, [{"extent": "full text", "text": "DOCTEXT"}])
     assert "DOCTEXT" in prefix and "CLAIMTEXT" not in prefix and "CLAIMTEXT" in rest
     assert prefix.index("DOCTEXT") < len(prefix)
+
+
+def test_a_cited_work_with_no_snapshot_makes_the_item_incomplete_and_no_judge_is_called(tmp_path, monkeypatch):
+    called = []
+    _wire(monkeypatch, lambda *a: called.append(a), lambda *a: called.append(a))
+    run = _run_dir(tmp_path)
+    items = json.loads((run / "items.json").read_text())
+    items[0]["citations"] = [{"label": "Atzeni et al. (2022)", "url": None, "note": "no link in the answer"},
+                             {"label": "Gibney (2018)", "url": "https://example.org/a"}]
+    (run / "items.json").write_text(json.dumps(items))
+    monkeypatch.setattr(sys, "argv", ["judge_m1.py", str(run)])
+    J.main()
+    assert called == []
+    for j in ("claude", "openai"):
+        rec = json.loads((run / "replies" / j / "P01.json").read_text())
+        assert rec["label"] == J.INCOMPLETE_SOURCES and rec["human_review"] is True
+        assert rec["unreachable_sources"][0]["label"] == "Atzeni et al. (2022)"
+
+
+def test_the_author_line_goes_after_the_documents_and_before_the_claim(tmp_path, monkeypatch):
+    sent = {}
+
+    def claude(client, prefix, rest, model):
+        sent["prefix"], sent["rest"] = prefix, rest
+        return json.dumps({"label": "Supported", "span": "Mice did better in the trial.", "reason": "r"}), \
+            {"input": 1, "output": 1, "model": model, "stop": "end_turn"}, 0.0, False
+    _wire(monkeypatch, claude, lambda *a: (_ for _ in ()).throw(AssertionError("not called")))
+    run = _run_dir(tmp_path)
+    line = "This sentence was written by an AI chatbot."
+    monkeypatch.setattr(sys, "argv", ["judge_m1.py", str(run), "--judges", "claude", "--author-line", line])
+    J.main()
+    assert line not in sent["prefix"]                       # the cached block is unchanged
+    assert sent["rest"].index(line) < sent["rest"].index("Mice did better.")

@@ -25,8 +25,14 @@ protocol "Rulings from prep round 1"):
   Up to MAX_SOURCE_TOKENS it goes whole. Above that, chunk() keeps every
   section containing the claim's key terms, and the item is marked CHUNKED.
 
-  Several sources. Every reachable cited snapshot is given, in the order the
-  sentence cites them; an unreachable co-source is recorded on the item.
+  Several sources. Every cited snapshot is given, in the order the sentence
+  cites them. If any work the sentence cites has no snapshot (no URL in the
+  answer, or unreachable), the item is INCOMPLETE_SOURCES: no judge is called,
+  and it goes to a person. A sentence is never judged on part of its sources.
+  Items list every cited work under "citations" ({label, url}); "urls" is the
+  older field and is read as citations with no labels.
+  --allow-incomplete judges such an item on the snapshots that exist; it is for
+  tests of the judges themselves (the authorship bias test), never for labels.
 
 CACHING. The documents come first in the prompt so the source block can be
 cached: on Claude with an explicit cache_control breakpoint at the end of the
@@ -67,6 +73,7 @@ PROMPT = STUDY / "prompts" / "m1_citation_support.md"
 LABELS = ["Supported", "Overstates", "Understates", "Absent", "Wrong source",
           "Contradicted", "Unreachable"]
 REFUSED = "REFUSED"
+INCOMPLETE_SOURCES = "INCOMPLETE_SOURCES"
 NOT_VERIFIABLE_ABSTRACT = "NOT_VERIFIABLE_ABSTRACT"
 SCRIPT = "study/whu-reliability/judge_m1.py"
 CONTEXT_CHARS = 400
@@ -274,6 +281,9 @@ def main() -> int:
     ap.add_argument("--judges", default="claude,openai")
     ap.add_argument("--tag", default="")
     ap.add_argument("--ledger-issue", default="whu-reliability-prep2")
+    ap.add_argument("--allow-incomplete", action="store_true")
+    ap.add_argument("--author-line", default="",
+                    help="bias test: a line placed after the documents and before the claim")
     a = ap.parse_args()
     run = Path(a.run_dir)
     items = json.loads((run / "items.json").read_text())
@@ -295,7 +305,12 @@ def main() -> int:
     skipped = []
     for it in items:
         docs, unreachable = [], []
-        for u in it["urls"]:
+        cites = it.get("citations") or [{"label": "", "url": u} for u in it["urls"]]
+        for c in cites:
+            if not c.get("url"):
+                unreachable.append({"label": c.get("label"), "url": None,
+                                    "why": c.get("note") or "no URL in the answer"})
+        for u in [c["url"] for c in cites if c.get("url")]:
             m = manifest[u]
             if m["extent"] == "unreachable":
                 unreachable.append({"url": u, "why": m["extent_why"]})
@@ -314,7 +329,28 @@ def main() -> int:
         if not docs:
             skipped.append((it["item"], "; ".join(x["why"] for x in unreachable)))
             continue
+        if unreachable and not a.allow_incomplete:
+            for judge in a.judges.split(","):
+                out = run / ("replies" + a.tag) / judge / (it["item"] + ".json")
+                if out.exists():
+                    continue
+                out.parent.mkdir(parents=True, exist_ok=True)
+                out.write_text(json.dumps({
+                    "item": it["item"], "judge": judge, "prompt_version": "v3",
+                    "at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+                    "label": INCOMPLETE_SOURCES, "judge_label": None, "attempts": [], "usd": 0.0,
+                    "sources": [{k: v for k, v in d.items() if k != "text"} for d in docs],
+                    "unreachable_sources": unreachable, "human_review": True,
+                    "form_problems": [], "parsed": None, "reference": it["reference"]},
+                    indent=1, ensure_ascii=False), encoding="utf-8")
+                print("%-5s %-7s %-24s ref %-11s not judged: %s" % (
+                    it["item"], judge, INCOMPLETE_SOURCES, it["reference"],
+                    "; ".join("%s (%s)" % (x.get("label") or x.get("url"), x["why"]) for x in unreachable)[:120]))
+            continue
         prefix, rest = build(it, docs)
+        if a.author_line:
+            # After the documents, before the claim: the cached block is unchanged.
+            rest = "\n\n" + a.author_line.strip() + rest
         n_in = count(prefix + rest)
         for judge in a.judges.split(","):
             out = run / ("replies" + a.tag) / judge / (it["item"] + ".json")
@@ -357,7 +393,8 @@ def main() -> int:
             label = final_label((obj or {}).get("label"), refused, docs)
             rec = {"item": it["item"], "judge": judge, "model": last["usage"].get("model"),
                    "at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
-                   "prompt_sha256": prompt_sha, "prompt_version": "v3",
+                   "prompt_sha256": prompt_sha, "prompt_version": "v3", "author_line": a.author_line or None,
+                   "allow_incomplete": bool(a.allow_incomplete and unreachable),
                    "sources": [{k: v for k, v in d.items() if k != "text"} for d in docs],
                    "unreachable_sources": unreachable,
                    "chunked": any(d["chunked"] for d in docs),

@@ -48,7 +48,25 @@ import bindings as B  # noqa: E402
 import source_ledger as ledger  # noqa: E402
 import blind  # noqa: E402
 
-BLOCK = re.compile(r"<(p|li|blockquote|td|th|dd|figcaption)\b[^>]*>(.*?)</\1>", re.S | re.I)
+BLOCK = re.compile(r"<(p|li|blockquote|td|th|dd|figcaption)\b([^>]*)>(.*?)</\1>", re.S | re.I)
+# Not sampled (ruling of 19 October 2026, prep round 2): chart descriptions and
+# rubric scores are WHU's own judgements, not claims about a source. A chart
+# caption is p.ci-cap or a figcaption; the scorecard and anything else the page
+# generates about itself carries data-whu (furniture.py's mark).
+CHART_CLASSES = ("ci-cap",)
+
+
+def marked_regions(html: str) -> list[tuple[int, int, str]]:
+    """(start, end, mark) for every element carrying data-whu, its whole subtree."""
+    out = []
+    for m in re.finditer(r'<([a-zA-Z][\w-]*)\b[^>]*\bdata-whu="([^"]+)"[^>]*>', html):
+        tag, depth, pos = m.group(1).lower(), 1, m.end()
+        for t in re.finditer(r"<(/?)%s\b[^>]*>" % tag, html[pos:], re.I):
+            depth += -1 if t.group(1) else 1
+            if depth == 0:
+                out.append((m.start(), pos + t.end(), m.group(2)))
+                break
+    return out
 SECTION = re.compile(r'<h2[^>]*\bid="([^"]+)"', re.I)
 NOT_SAMPLED_SECTIONS = {"watch", "sources", "updates"}
 
@@ -111,11 +129,18 @@ def export(slug: str) -> tuple[str, list[dict]]:
     html = body_html(slug)
     # Which section each block sits in: the nearest <h2 id> before it.
     heads = [(m.start(), m.group(1)) for m in SECTION.finditer(html)]
+    regions = marked_regions(html)
     for bm in BLOCK.finditer(html):
         section = ""
         for pos, sid in heads:
             if pos < bm.start():
                 section = sid
+        attrs = bm.group(2) or ""
+        chart = bm.group(1).lower() == "figcaption" or any(
+            re.search(r'class="[^"]*\b%s\b' % c, attrs) for c in CHART_CLASSES)
+        mark = next((r[2] for r in regions if r[0] <= bm.start() < r[1]), "")
+        struct_why = ("chart_description" if chart or mark == "scale" else
+                      "rubric_score" if mark else "")
         sents = [" ".join(s.split()) for s in ledger.sentences(ledger.plain(bm.group(0)))]
         sents = [s for s in sents if s]
         if not sents:
@@ -129,7 +154,8 @@ def export(slug: str) -> tuple[str, list[dict]]:
                     order.append(i)
             nums = [order.index(i) + 1 for i in ids]
             text = with_markers(s, nums)
-            reason = ("section: " + section) if section in NOT_SAMPLED_SECTIONS else blind.process_reason(s)
+            reason = (("section: " + section) if section in NOT_SAMPLED_SECTIONS else
+                      struct_why or blind.process_reason(s))
             out_rows.append({"slug": slug, "row_sha": B.fingerprint(s), "bound": row is not None,
                              "sources": ids, "markers": nums, "section": section,
                              "text": text, "samplable": not reason, "not_samplable_why": reason})

@@ -174,3 +174,9 @@ Any change after the freeze waits until the study ends (integrity rule 1).
 - no wording the audit corrected or cut is still on the page.
 
 **Issues published before adoption.** An issue first published before 19 October 2026 (`ADOPTED`) is SKIPPED by name, as the conclusion judge does for the issues that predate it. Deskilling, cdk46 and melanoma are SKIPPED. Whether they should be audited under the stage is a decision left open.
+
+**Prep round 3 (19 October 2026).**
+- **Summaries against the body.** Card and meta-description sentences are read against the page body, with `audit_prompts/summary.md`. A finding there has the kind "Summary says what the body does not". This replaces the round-2 binding borrow, which had the dry run cutting the card.
+- **Licensed sources.** A source whose licence forbids machine reading (`licence_forbids_machine_reading` in `sources.json`) is never sent to a model. Its text is dropped from the held texts, and its spans are withheld from the binding lines.
+  - A sentence bound only to such sources is HUMAN_READ_REQUIRED. The preflight row blocks until `human_reads.jsonl` in the run records a person's read (sha, verdict, by, at).
+  - A sentence bound to such a source and to others is read against the others, and the verdict says so.
