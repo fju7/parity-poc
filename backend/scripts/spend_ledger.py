@@ -289,6 +289,13 @@ PRICES = {                       # US dollars per million tokens
                           "cache_write": 3.75, "cache_read": 0.30},
     "claude-opus-4-6":   {"input": 5.00, "output": 25.00,
                           "cache_write": 6.25, "cache_read": 0.50},
+    # Checked 2026-10-19 at platform.claude.com/docs/en/about-claude/pricing,
+    # for the reliability study's judge (study/whu-reliability). cache_write is
+    # the 5-minute rate; cache hits on Fable 5.1 are 0.025x base input.
+    "claude-fable-5-1":  {"input": 10.00, "output": 50.00,
+                          "cache_write": 12.50, "cache_read": 0.25},
+    "claude-opus-5-5":   {"input": 4.00, "output": 20.00,
+                          "cache_write": 5.00, "cache_read": 0.20},
 }
 WEB_SEARCH_PER_1000 = 10.00      # charged on top of tokens, all models
 
