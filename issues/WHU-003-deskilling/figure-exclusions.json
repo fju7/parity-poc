@@ -81,14 +81,6 @@
       "falsifier": "S031's two medians differing from 248.86 and 232.68, or the sentence no longer describing the reduction between them."
     },
     {
-      "figure": "402",
-      "in_sentence": "counter read 402 at one point on 30 August 2026",
-      "why": "Declared at the operator's instruction of 2026-10-18 (deskilling revision, step 2c). Our own observation, not a figure any document reports: 402 is what the journal's live citation counter for the retracted meta-analysis read when we looked on 30 August 2026, as the sentence itself says (and 399 an hour later). Same standing as cdk46's declared HTTP 403: a measurement of something we looked at, not a claim taken from a source.",
-      "by": "claude",
-      "on": "2026-10-18",
-      "falsifier": "The sentence presenting 402 as a figure some document reports, rather than as our reading of a live counter on 30 August 2026."
-    },
-    {
       "figure": "2601.00856",
       "in_sentence": "arXiv 2601.00856",
       "why": "Declared at the operator's instruction of 2026-10-18. Citation furniture, not a quantity: 2601.00856 is S019's own arXiv identifier (Stanković et al., 'Comment on: Your Brain on ChatGPT'), printed in the page's source list. The figure reader takes the digits of an arXiv id as a decimal; the held PDF does not print its own id.",
@@ -119,6 +111,18 @@
       "by": "claude",
       "on": "2026-10-18",
       "falsifier": "S029's flow diagram printing different counts for those boxes."
+    }
+  ],
+  "retired": [
+    {
+      "figure": "402",
+      "in_sentence": "counter read 402 at one point on 30 August 2026",
+      "why": "Declared at the operator's instruction of 2026-10-18 (deskilling revision, step 2c). Our own observation, not a figure any document reports: 402 is what the journal's live citation counter for the retracted meta-analysis read when we looked on 30 August 2026, as the sentence itself says (and 399 an hour later). Same standing as cdk46's declared HTTP 403: a measurement of something we looked at, not a claim taken from a source.",
+      "by": "claude",
+      "on": "2026-10-18",
+      "falsifier": "The sentence presenting 402 as a figure some document reports, rather than as our reading of a live counter on 30 August 2026.",
+      "retired_on": "2026-10-19",
+      "retired_why": "the sentence carrying 402 was corrected on 19 October 2026 (revision doc §130, 132860a7); the counter readings are no longer on the page, and deletions.json records the removal"
     }
   ]
 }

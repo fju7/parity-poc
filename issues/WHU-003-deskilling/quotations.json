@@ -593,6 +593,40 @@
         "on": "2026-10-19",
         "note": "quoted on the corrected page (republish 2026-10-19); verbatim copied from the held text and checked by quotations.norm"
       }
+    },
+    {
+      "id": "Q-48",
+      "quote": "to ensure data distribution",
+      "source_id": "S007",
+      "verbatim": "To ensure data distribution, we are here only reporting data from 54 participants (as participants were assigned in three groups, see details below).",
+      "kind": "",
+      "why": "",
+      "attested": {
+        "by": "",
+        "on": ""
+      },
+      "recorded": {
+        "by": "claude",
+        "on": "2026-10-19",
+        "note": "§10 (Q-25): the spliced quotation is now two fragments, each verbatim in this S007 sentence"
+      }
+    },
+    {
+      "id": "Q-49",
+      "quote": "participants were assigned in three groups",
+      "source_id": "S007",
+      "verbatim": "To ensure data distribution, we are here only reporting data from 54 participants (as participants were assigned in three groups, see details below).",
+      "kind": "",
+      "why": "",
+      "attested": {
+        "by": "",
+        "on": ""
+      },
+      "recorded": {
+        "by": "claude",
+        "on": "2026-10-19",
+        "note": "§10 (Q-25): the spliced quotation is now two fragments, each verbatim in this S007 sentence"
+      }
     }
   ]
 }

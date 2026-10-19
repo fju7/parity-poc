@@ -2610,6 +2610,438 @@
       "because": "AD-HOC",
       "note": "The published list of the 19 October 2026 corrections, in the page's own correction history (<footer id=\"updates\">): each corrected sentence as it stood and as it now reads. It records corrections and corrects nothing itself.",
       "correction": false
+    },
+    {
+      "at": "2026-10-19T13:58:22+00:00",
+      "interpreter": "/Users/fredugast/Projects/parity-poc-repo/backend/venv/bin/python3",
+      "by": "claude",
+      "kind": "changed",
+      "was": "What Happens to the Experts First - What Holds Up What Holds Up What this is The rubric Issues Who pays for this Issue three Evidence review Living assessment Published 30 August 2026 · Evidence read 30 August 2026 · what we are watching What Happens to the Experts First whatholdsup.org There is a widely held sense that using AI is making us worse at thinking, and that there is now real evidence for it.",
+      "now": "What Happens to the Experts First - What Holds Up What Holds Up What this is The rubric Issues Who pays for this Issue three Evidence review Living assessment Published 30 August 2026 · Updated 19 October 2026 · Evidence last read 18 October 2026 · what we are watching What Happens to the Experts First whatholdsup.org There is a widely held sense that using AI is making us worse at thinking, and that there is now real evidence for it.",
+      "because": "AD-HOC",
+      "note": "Masthead: an 'Updated 19 October 2026' slot beside 'Published 30 August 2026', and the evidence date set to 18 October 2026, the date the evidence was last read (republish briefs of 19 October, step 6 and step 8). Not a correction.",
+      "correction": false
+    },
+    {
+      "at": "2026-10-19T13:58:22+00:00",
+      "interpreter": "/Users/fredugast/Projects/parity-poc-repo/backend/venv/bin/python3",
+      "by": "claude",
+      "kind": "changed",
+      "was": "The best evidence anyone has is real, and almost nobody outside medicine has met it with its qualifications intact: in four Polish endoscopy centres, the rate at which experienced doctors found precancerous growths without AI fell from 28.4% to 22.4% after their units adopted it.",
+      "now": "In our reading the strongest evidence is real, and in the coverage we read it has mostly not reached readers outside medicine with its qualifications intact: in four Polish endoscopy centres, the rate at which experienced doctors found precancerous growths without AI fell from 28.4% to 22.4% after their units adopted it.",
+      "because": "AD-HOC",
+      "note": "Correction of 19 October 2026, standfirst: docs/whatholdsup-deskilling-revision.md, 'Republish step 2'. Listed on /deskilling-corrections and in corrections.md."
+    },
+    {
+      "at": "2026-10-19T13:58:22+00:00",
+      "interpreter": "/Users/fredugast/Projects/parity-poc-repo/backend/venv/bin/python3",
+      "by": "claude",
+      "kind": "changed",
+      "was": "That study is retrospective, confounded, and its authors list eleven limitations.",
+      "now": "That study is retrospective, its authors call it vulnerable to confounding, and they list eleven limitations.",
+      "because": "AD-HOC",
+      "note": "Correction of 19 October 2026, standfirst: docs/whatholdsup-deskilling-revision.md, 'Republish step 2'. Listed on /deskilling-corrections and in corrections.md."
+    },
+    {
+      "at": "2026-10-19T13:58:22+00:00",
+      "interpreter": "/Users/fredugast/Projects/parity-poc-repo/backend/venv/bin/python3",
+      "by": "claude",
+      "kind": "changed",
+      "was": "Three named academics said so publicly the day it appeared, and some of that did travel.",
+      "now": "Two of three named academics raised its limits publicly the day it appeared, and some of that did travel.",
+      "because": "AD-HOC",
+      "note": "Correction of 19 October 2026, standfirst: docs/whatholdsup-deskilling-revision.md, 'Republish step 2'. Listed on /deskilling-corrections and in corrections.md."
+    },
+    {
+      "at": "2026-10-19T13:58:22+00:00",
+      "interpreter": "/Users/fredugast/Projects/parity-poc-repo/backend/venv/bin/python3",
+      "by": "claude",
+      "kind": "changed",
+      "was": "What did not is the part that tells you how loosely to hold the number.",
+      "now": "What mostly did not, in the coverage we read, is the part that tells you how loosely to hold the number.",
+      "because": "AD-HOC",
+      "note": "Correction of 19 October 2026, standfirst: docs/whatholdsup-deskilling-revision.md, 'Republish step 2'. Listed on /deskilling-corrections and in corrections.md."
+    },
+    {
+      "at": "2026-10-19T13:58:22+00:00",
+      "interpreter": "/Users/fredugast/Projects/parity-poc-repo/backend/venv/bin/python3",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "Corrected 19 October 2026 On 19 October 2026 we re-read every sentence on this page above the change history at its foot, the standfirst included, against its source or our own records, and corrected 135 of them.",
+      "because": "AD-HOC",
+      "note": "The 19 October 2026 correction notice and the change history's entry for it, pointing to /deskilling-corrections. They record corrections and correct nothing themselves.",
+      "correction": false
+    },
+    {
+      "at": "2026-10-19T13:58:22+00:00",
+      "interpreter": "/Users/fredugast/Projects/parity-poc-repo/backend/venv/bin/python3",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "The full list is on a page of its own .",
+      "because": "AD-HOC",
+      "note": "The 19 October 2026 correction notice and the change history's entry for it, pointing to /deskilling-corrections. They record corrections and correct nothing themselves.",
+      "correction": false
+    },
+    {
+      "at": "2026-10-19T13:58:22+00:00",
+      "interpreter": "/Users/fredugast/Projects/parity-poc-repo/backend/venv/bin/python3",
+      "by": "claude",
+      "kind": "changed",
+      "was": "That is a drop of 6.0 percentage points , 95% confidence interval -10.5 to -1.6 percentage points - both ends below zero - at P = 0.0089.",
+      "now": "That is a drop of 6.0 percentage points , 95% confidence interval -10.5 to -1.6 percentage points - both ends below zero - at P = 0.009.",
+      "because": "AD-HOC",
+      "note": "Correction of 19 October 2026: P = 0.0089 replaced by the accepted manuscript's 0.009, and the sentences naming it as an exception reworded (revision doc 'Republish step 2'; §60, §61, §64)."
+    },
+    {
+      "at": "2026-10-19T13:58:22+00:00",
+      "interpreter": "/Users/fredugast/Projects/parity-poc-repo/backend/venv/bin/python3",
+      "by": "claude",
+      "kind": "changed",
+      "was": "What the eye does The mechanism was measured in 2022, by people who then said what worried them about it.",
+      "now": "What the eye does A possible mechanism was measured in a study published in 2022, by people who then said what worried them about it.",
+      "because": "AD-HOC",
+      "note": "Correction of 19 October 2026: §36 (20099139), and 'A possible mechanism' (revision doc 'Republish step 2')."
+    },
+    {
+      "at": "2026-10-19T13:58:22+00:00",
+      "interpreter": "/Users/fredugast/Projects/parity-poc-repo/backend/venv/bin/python3",
+      "by": "claude",
+      "kind": "changed",
+      "was": "It is cross-sectional, and the author does not claim causation.",
+      "now": "Its survey is cross-sectional, so it cannot show causation - though the paper writes of \"the negative impact of AI usage on critical thinking\", and itself calls for experiments that \"could offer causal evidence\".",
+      "because": "AD-HOC",
+      "note": "Correction of 19 October 2026: §43 (89466d77), now 'Its survey is cross-sectional' at the operator's ruling (revision doc 'Republish step 2')."
+    },
+    {
+      "at": "2026-10-19T13:58:22+00:00",
+      "interpreter": "/Users/fredugast/Projects/parity-poc-repo/backend/venv/bin/python3",
+      "by": "claude",
+      "kind": "changed",
+      "was": "Every figure above comes from the study that produced it, read directly.",
+      "now": "Every study figure above comes from the study that produced it, read directly, except the 70% cytology estimate, which is Public Health England's as the Royal College of Pathologists reports it.",
+      "because": "AD-HOC",
+      "note": "Correction of 19 October 2026: P = 0.0089 replaced by the accepted manuscript's 0.009, and the sentences naming it as an exception reworded (revision doc 'Republish step 2'; §60, §61, §64)."
+    },
+    {
+      "at": "2026-10-19T13:58:22+00:00",
+      "interpreter": "/Users/fredugast/Projects/parity-poc-repo/backend/venv/bin/python3",
+      "by": "claude",
+      "kind": "changed",
+      "was": "Where we could not read something, we say so rather than passing on somebody else's account of it.",
+      "now": "Where we could not read something, we say so rather than passing on somebody else's account of it - with one exception now corrected: the Gastroenterology editorial, which we know only by its title and authors.",
+      "because": "AD-HOC",
+      "note": "Correction of 19 October 2026: P = 0.0089 replaced by the accepted manuscript's 0.009, and the sentences naming it as an exception reworded (revision doc 'Republish step 2'; §60, §61, §64)."
+    },
+    {
+      "at": "2026-10-19T13:58:22+00:00",
+      "interpreter": "/Users/fredugast/Projects/parity-poc-repo/backend/venv/bin/python3",
+      "by": "claude",
+      "kind": "changed",
+      "was": "Where we read a study through somebody else's account of it rather than at source, this says so.",
+      "now": "Where we read a study through somebody else's account of it rather than at source, this says so, with one exception: the 70% cytology estimate is Public Health England's, as the Royal College of Pathologists reports it.",
+      "because": "AD-HOC",
+      "note": "Correction of 19 October 2026: P = 0.0089 replaced by the accepted manuscript's 0.009, and the sentences naming it as an exception reworded (revision doc 'Republish step 2'; §60, §61, §64)."
+    },
+    {
+      "at": "2026-10-19T13:58:22+00:00",
+      "interpreter": "/Users/fredugast/Projects/parity-poc-repo/backend/venv/bin/python3",
+      "by": "claude",
+      "kind": "changed",
+      "was": "Lancet Gastroenterol Hepatol 2025;10(10):896-903 Source of the 28.4% (226/795) to 22.4% (145/648) fall, the -6.0 percentage-point difference on a 95% confidence interval of -10.5 to -1.6 at P = 0.0089, the nineteen endoscopists with more than 2,000 procedures each and a mean 27.6 years since graduation over a range of 8 to 39, and all eleven limitations including the rise from 795 procedures to 1,382 after the Polish screening programme was suspended on 1 January 2022, the absence of withdrawal-time data, the absence of blinding and the exclusion of the first 100 procedures after AI was introduced.",
+      "now": "Lancet Gastroenterol Hepatol 2025;10(10):896-903 Source of the 28.4% (226/795) to 22.4% (145/648) fall, the -6.0 percentage-point difference on a 95% confidence interval of -10.5 to -1.6 at P = 0.009, the nineteen endoscopists with more than 2,000 procedures each and a mean 27.6 years since graduation over a range of 8 to 39, and all eleven limitations including the rise from 795 procedures to 1,382 after the Polish screening programme was suspended on 1 January 2022, the absence of withdrawal-time data, the absence of blinding and the exclusion of the first 100 procedures after AI was introduced.",
+      "because": "AD-HOC",
+      "note": "Correction of 19 October 2026: P = 0.0089 replaced by the accepted manuscript's 0.009, and the sentences naming it as an exception reworded (revision doc 'Republish step 2'; §60, §61, §64)."
+    },
+    {
+      "at": "2026-10-19T13:58:22+00:00",
+      "interpreter": "/Users/fredugast/Projects/parity-poc-repo/backend/venv/bin/python3",
+      "by": "claude",
+      "kind": "changed",
+      "was": "Expert reaction Science Media Centre - expert reaction to the colonoscopy study, 12 August 2025 Source of the three named comments published on the day of release: Professor Venet Osmani of Queen Mary University of London on the near-doubling of procedures and on three months being too short a window; Professor Allan Tucker of Brunel on the single AI system and the need for randomised crossover trials; Dr Catherine Menon of the University of Hertfordshire on the underlying concern.",
+      "now": "Expert reaction Science Media Centre - expert reaction to the colonoscopy study, 12 August 2025 Source of the three named comments published on the day of release: Professor Venet Osmani of Queen Mary University of London on the near-doubling of procedures and on whether a true loss of skill could happen in three months; Professor Allan Tucker of Brunel on the single AI system and the need for randomised crossover trials; Dr Catherine Menon of the University of Hertfordshire on the underlying concern.",
+      "because": "AD-HOC",
+      "note": "Correction of 19 October 2026: a source note repeating a claim corrected in the body (§81 / §32 / §8 / §23), revision doc 'Republish step 2'."
+    },
+    {
+      "at": "2026-10-19T13:58:22+00:00",
+      "interpreter": "/Users/fredugast/Projects/parity-poc-repo/backend/venv/bin/python3",
+      "by": "claude",
+      "kind": "changed",
+      "was": "Insights into Imaging 2025;16:23 Source of the eight radiologists in training, the 150 chest X-rays across three conditions, the intraclass correlation rising from 0.665 without AI to 0.813 with it integrated, the 70% of cases in which residents requested the AI, and their overriding it when its errors exceeded an acceptability threshold.",
+      "now": "Insights into Imaging 2025;16:23 Source of the eight radiologists in training, the 150 chest X-rays across three conditions, the intraclass correlation rising from 0.665 without AI to 0.813 with it integrated, the 70% of cases in which residents requested the AI, and the finding that once its errors were serious, beyond about three points on the global score, their own errors largely stopped following it, while just past the acceptability threshold of two points they still tracked it.",
+      "because": "AD-HOC",
+      "note": "Correction of 19 October 2026: a source note repeating a claim corrected in the body (§81 / §32 / §8 / §23), revision doc 'Republish step 2'."
+    },
+    {
+      "at": "2026-10-19T13:58:22+00:00",
+      "interpreter": "/Users/fredugast/Projects/parity-poc-repo/backend/venv/bin/python3",
+      "by": "claude",
+      "kind": "changed",
+      "was": "Source of the power calculation of roughly 159 participants, the observation that some reported figures rest on two to four essays per group, the discrepancy between 55 completers and 54 analysed - on which the paper itself gives a reason the comment does not address, and this page prints the paper's - the definition of a \"significant connection\" as a relative measure and the consequence they draw from it, and their assessment that there is no strong evidence that the tool use negatively affects performance itself.",
+      "now": "Source of the power calculation of roughly 159 participants, the observation that some reported figures rest on two to four essays per group, the discrepancy between 55 completers and 54 analysed - on which the paper itself gives a reason the comment does not address, and this page prints the paper's - the definition of a \"significant connection\" as a relative measure and the consequence they draw from it, and their assessment that there is no strong evidence that the LLM use negatively affects performance itself.",
+      "because": "AD-HOC",
+      "note": "Correction of 19 October 2026: a source note repeating a claim corrected in the body (§81 / §32 / §8 / §23), revision doc 'Republish step 2'."
+    },
+    {
+      "at": "2026-10-19T13:58:22+00:00",
+      "interpreter": "/Users/fredugast/Projects/parity-poc-repo/backend/venv/bin/python3",
+      "by": "claude",
+      "kind": "changed",
+      "was": "PeerJ 2020;8:e10325 Source of the 89 participants analysed of 117 recruited, and of the Bayes factors of 5.07 against the alternative and 16.43 against the original's specific predicted pattern.",
+      "now": "PeerJ 2020;8:e10325 Source of the 89 participants analysed of 117 tested, and of the Bayes factors of 5.07 against the alternative and 16.43 against the original's specific predicted pattern.",
+      "because": "AD-HOC",
+      "note": "Correction of 19 October 2026: a source note repeating a claim corrected in the body (§81 / §32 / §8 / §23), revision doc 'Republish step 2'."
+    },
+    {
+      "at": "2026-10-19T13:58:22+00:00",
+      "interpreter": "/Users/fredugast/Projects/parity-poc-repo/backend/venv/bin/python3",
+      "by": "claude",
+      "kind": "changed",
+      "was": "Editorial Retraction Note, Humanities and Social Sciences Communications , 22 April 2026 The retraction of the most-cited meta-analysis finding that ChatGPT improves learning.",
+      "now": "Correction Correction: Gerlich M.",
+      "because": "AD-HOC",
+      "note": "A source-list entry added for S049, the Gerlich correction notice (brief step 8: S049 carries a bound sentence and was not in the list a reader sees). The differ pairs the new entry against the Retraction Note entry below it, which is unchanged. Not a correction.",
+      "correction": false
+    },
+    {
+      "at": "2026-10-19T13:58:22+00:00",
+      "interpreter": "/Users/fredugast/Projects/parity-poc-repo/backend/venv/bin/python3",
+      "by": "claude",
+      "kind": "changed",
+      "was": "Source of the date and of the editor's stated ground.",
+      "now": "AI Tools in Society: Impacts on Cognitive Offloading and the Future of Critical Thinking.",
+      "because": "AD-HOC",
+      "note": "Correction of 19 October 2026: §80 (0f2e96af) and §131 (7419c16a), the Retraction Note entry, as recorded at step 1; re-recorded here because adding S049's entry above it changed how the differ pairs these sentences."
+    },
+    {
+      "at": "2026-10-19T13:58:22+00:00",
+      "interpreter": "/Users/fredugast/Projects/parity-poc-repo/backend/venv/bin/python3",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "Societies 2025;15(9):252 The notice replacing the paper's Table 4, which had duplicated Table 3, and carrying the author's statement that the scientific conclusions are unaffected.",
+      "because": "AD-HOC",
+      "note": "A source-list entry added for S049, the Gerlich correction notice (brief step 8: S049 carries a bound sentence and was not in the list a reader sees). The differ pairs the new entry against the Retraction Note entry below it, which is unchanged. Not a correction.",
+      "correction": false
+    },
+    {
+      "at": "2026-10-19T13:58:22+00:00",
+      "interpreter": "/Users/fredugast/Projects/parity-poc-repo/backend/venv/bin/python3",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "Editorial Retraction Note, Humanities and Social Sciences Communications , 22 April 2026 The retraction of the meta-analysis finding that ChatGPT improves learning.",
+      "because": "AD-HOC",
+      "note": "Correction of 19 October 2026: §80 (0f2e96af) and §131 (7419c16a), the Retraction Note entry, as recorded at step 1; re-recorded here because adding S049's entry above it changed how the differ pairs these sentences."
+    },
+    {
+      "at": "2026-10-19T13:58:22+00:00",
+      "interpreter": "/Users/fredugast/Projects/parity-poc-repo/backend/venv/bin/python3",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "Not held; the date and the editor's stated ground are as the audit's front matter reports them.",
+      "because": "AD-HOC",
+      "note": "Correction of 19 October 2026: §80 (0f2e96af) and §131 (7419c16a), the Retraction Note entry, as recorded at step 1; re-recorded here because adding S049's entry above it changed how the differ pairs these sentences."
+    },
+    {
+      "at": "2026-10-19T13:58:22+00:00",
+      "interpreter": "/Users/fredugast/Projects/parity-poc-repo/backend/venv/bin/python3",
+      "by": "claude",
+      "kind": "changed",
+      "was": "As of 30 August 2026 - the date the evidence on this page was read.",
+      "now": "It pairs the colonoscopy and mammography results and is the closest published thing to this page.",
+      "because": "AD-HOC",
+      "note": "The change history's standing note now gives 18 October 2026 as the date the evidence was read, matching the masthead (brief step 4). Not a correction. The differ pairs the old note with an unrelated sentence of the Decker entry, which is unchanged.",
+      "correction": false
+    },
+    {
+      "at": "2026-10-19T13:58:22+00:00",
+      "interpreter": "/Users/fredugast/Projects/parity-poc-repo/backend/venv/bin/python3",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "Greengard S, \"The AI Deskilling Paradox\", Communications of the ACM , 7 November 2025 , carries none of this study's limitations but does carry caveats of its own, on governance and on deskilling having good outcomes as well as bad ones; we had described it as carrying none, and that was wrong.",
+      "because": "AD-HOC",
+      "note": "The Greengard sentence as wrapped in a link on 16 September (row of 2026-09-15T21:33:09); no word changed.",
+      "correction": false
+    },
+    {
+      "at": "2026-10-19T13:58:22+00:00",
+      "interpreter": "/Users/fredugast/Projects/parity-poc-repo/backend/venv/bin/python3",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "As of 18 October 2026 - the date the evidence on this page was read.",
+      "because": "AD-HOC",
+      "note": "The change history's standing note now gives 18 October 2026 as the date the evidence was read, matching the masthead (brief step 4). Not a correction. The differ pairs the old note with an unrelated sentence of the Decker entry, which is unchanged.",
+      "correction": false
+    },
+    {
+      "at": "2026-10-19T13:58:22+00:00",
+      "interpreter": "/Users/fredugast/Projects/parity-poc-repo/backend/venv/bin/python3",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "Updated 19 October 2026.",
+      "because": "AD-HOC",
+      "note": "The 19 October 2026 correction notice and the change history's entry for it, pointing to /deskilling-corrections. They record corrections and correct nothing themselves.",
+      "correction": false
+    },
+    {
+      "at": "2026-10-19T13:58:22+00:00",
+      "interpreter": "/Users/fredugast/Projects/parity-poc-repo/backend/venv/bin/python3",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "We re-read this page sentence by sentence against its sources and our own records, and corrected what was wrong.",
+      "because": "AD-HOC",
+      "note": "The 19 October 2026 correction notice and the change history's entry for it, pointing to /deskilling-corrections. They record corrections and correct nothing themselves.",
+      "correction": false
+    },
+    {
+      "at": "2026-10-19T13:58:22+00:00",
+      "interpreter": "/Users/fredugast/Projects/parity-poc-repo/backend/venv/bin/python3",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "Every corrected sentence is listed, as it stood and as it now reads, on a page of its own .",
+      "because": "AD-HOC",
+      "note": "The 19 October 2026 correction notice and the change history's entry for it, pointing to /deskilling-corrections. They record corrections and correct nothing themselves.",
+      "correction": false
+    },
+    {
+      "at": "2026-10-19T13:58:22+00:00",
+      "interpreter": "/Users/fredugast/Projects/parity-poc-repo/backend/venv/bin/python3",
+      "by": "claude",
+      "kind": "changed",
+      "was": "What Happens to the Experts First - What Holds Up What Holds Up What this is Issue one Issue two Issue three Who pays for this Issue three Evidence review Living assessment Published 30 August 2026 · Last reviewed 30 August 2026 · what we are watching What Happens to the Experts First whatholdsup.org There is a widely held sense that using AI is making us worse at thinking, and that there is now real evidence for it.",
+      "now": "What Happens to the Experts First - What Holds Up What Holds Up What this is The rubric Issues Who pays for this Issue three Evidence review Living assessment Published 30 August 2026 · Updated 19 October 2026 · Evidence last read 18 October 2026 · what we are watching What Happens to the Experts First whatholdsup.org There is a widely held sense that using AI is making us worse at thinking, and that there is now real evidence for it.",
+      "because": "AD-HOC",
+      "note": "Site navigation and masthead since the 30 August review: the nav gained The rubric / Issues / Who pays for this (site-wide change), and the masthead now reads 'Updated 19 October 2026 · Evidence last read 18 October 2026'. Not a correction.",
+      "correction": false
+    },
+    {
+      "at": "2026-10-19T13:58:22+00:00",
+      "interpreter": "/Users/fredugast/Projects/parity-poc-repo/backend/venv/bin/python3",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "What the eye does A possible mechanism was measured in a study published in 2022, by people who then said what worried them about it.",
+      "because": "AD-HOC",
+      "note": "Correction of 19 October 2026: §36 (20099139), and 'A possible mechanism' (revision doc 'Republish step 2')."
+    },
+    {
+      "at": "2026-10-19T13:58:22+00:00",
+      "interpreter": "/Users/fredugast/Projects/parity-poc-repo/backend/venv/bin/python3",
+      "by": "claude",
+      "kind": "changed",
+      "was": "This page carries a \"last reviewed\" date rather than a \"last updated\" one, and the difference is deliberate.",
+      "now": "And one thing was not unread but unfound: the prospective trial above had been in print for nearly three months when we drafted this page, and our own standing search for exactly that study had not been run.",
+      "because": "REVIEW-DATE-001",
+      "note": "12 September 2026 change: the review-date promise withdrawn (REVIEW-DATE-001, corrections.md entry of 12 September 2026); the differ pairs these sentences against the paragraph they replaced"
+    },
+    {
+      "at": "2026-10-19T13:58:22+00:00",
+      "interpreter": "/Users/fredugast/Projects/parity-poc-repo/backend/venv/bin/python3",
+      "by": "claude",
+      "kind": "changed",
+      "was": "It is the date somebody last looked, not the date something last changed.",
+      "now": "An outside reviewer found it.",
+      "because": "REVIEW-DATE-001",
+      "note": "12 September 2026 change: the review-date promise withdrawn (REVIEW-DATE-001, corrections.md entry of 12 September 2026); the differ pairs these sentences against the paragraph they replaced"
+    },
+    {
+      "at": "2026-10-19T13:58:22+00:00",
+      "interpreter": "/Users/fredugast/Projects/parity-poc-repo/backend/venv/bin/python3",
+      "by": "claude",
+      "kind": "changed",
+      "was": "A review that finds nothing is still a review and is recorded as one.",
+      "now": "We had recorded that the search was outstanding and wrote the piece anyway, which is the failure - not the missing paper, but proceeding past our own note that we had not looked.",
+      "because": "REVIEW-DATE-001",
+      "note": "12 September 2026 change: the review-date promise withdrawn (REVIEW-DATE-001, corrections.md entry of 12 September 2026); the differ pairs these sentences against the paragraph they replaced"
+    },
+    {
+      "at": "2026-10-19T13:58:22+00:00",
+      "interpreter": "/Users/fredugast/Projects/parity-poc-repo/backend/venv/bin/python3",
+      "by": "claude",
+      "kind": "changed",
+      "was": "If that date is old, read this page accordingly.",
+      "now": "This page used to carry a \"last reviewed\" date, and an argument for it: that when somebody last looked is worth more to a reader than when something last changed, and that a review finding nothing is still a review.",
+      "because": "REVIEW-DATE-001",
+      "note": "12 September 2026 change: the review-date promise withdrawn (REVIEW-DATE-001, corrections.md entry of 12 September 2026); the differ pairs these sentences against the paragraph they replaced"
+    },
+    {
+      "at": "2026-10-19T13:58:22+00:00",
+      "interpreter": "/Users/fredugast/Projects/parity-poc-repo/backend/venv/bin/python3",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "A review date implies the page is kept current, and we cannot stand behind that.",
+      "because": "REVIEW-DATE-001",
+      "note": "12 September 2026 change: the review-date promise withdrawn (REVIEW-DATE-001, corrections.md entry of 12 September 2026); the differ pairs these sentences against the paragraph they replaced"
+    },
+    {
+      "at": "2026-10-19T13:58:22+00:00",
+      "interpreter": "/Users/fredugast/Projects/parity-poc-repo/backend/venv/bin/python3",
+      "by": "claude",
+      "kind": "changed",
+      "was": "Lancet Gastroenterol Hepatol 2025;10(10):896-903 Source of the 28.4% (226/795) to 22.4% (145/648) fall, the -6.0 percentage-point difference on a 95% confidence interval of -10.5 to -1.6 at P = 0.0089, the nineteen endoscopists with more than 2,000 procedures each and a mean 27.6 years since graduation over a range of 8 to 39, and all eleven limitations including the rise from 795 procedures to 1,382 after the Polish screening programme was suspended on 1 January 2022, the absence of withdrawal-time data, the absence of blinding and the exclusion of the first 100 procedures per centre.",
+      "now": "Lancet Gastroenterol Hepatol 2025;10(10):896-903 Source of the 28.4% (226/795) to 22.4% (145/648) fall, the -6.0 percentage-point difference on a 95% confidence interval of -10.5 to -1.6 at P = 0.009, the nineteen endoscopists with more than 2,000 procedures each and a mean 27.6 years since graduation over a range of 8 to 39, and all eleven limitations including the rise from 795 procedures to 1,382 after the Polish screening programme was suspended on 1 January 2022, the absence of withdrawal-time data, the absence of blinding and the exclusion of the first 100 procedures after AI was introduced.",
+      "because": "AD-HOC",
+      "note": "Correction of 19 October 2026: P = 0.0089 replaced by the accepted manuscript's 0.009, and the sentences naming it as an exception reworded (revision doc 'Republish step 2'; §60, §61, §64)."
+    },
+    {
+      "at": "2026-10-19T13:58:22+00:00",
+      "interpreter": "/Users/fredugast/Projects/parity-poc-repo/backend/venv/bin/python3",
+      "by": "claude",
+      "kind": "changed",
+      "was": "Source of the power calculation of roughly 159 participants, the observation that some reported figures rest on two to four essays per group, the discrepancy between 55 completers and 54 analysed, the definition of a \"significant connection\" as a relative measure and the consequence they draw from it, and their assessment that there is no strong evidence that the tool use negatively affects performance itself.",
+      "now": "Source of the power calculation of roughly 159 participants, the observation that some reported figures rest on two to four essays per group, the discrepancy between 55 completers and 54 analysed - on which the paper itself gives a reason the comment does not address, and this page prints the paper's - the definition of a \"significant connection\" as a relative measure and the consequence they draw from it, and their assessment that there is no strong evidence that the LLM use negatively affects performance itself.",
+      "because": "AD-HOC",
+      "note": "Correction of 19 October 2026: a source note repeating a claim corrected in the body (§81 / §32 / §8 / §23), revision doc 'Republish step 2'."
+    },
+    {
+      "at": "2026-10-19T13:58:22+00:00",
+      "interpreter": "/Users/fredugast/Projects/parity-poc-repo/backend/venv/bin/python3",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "This page is not monitored continuously.",
+      "because": "REVIEW-DATE-001",
+      "note": "12 September 2026 change: the review-date promise withdrawn (REVIEW-DATE-001, corrections.md entry of 12 September 2026); the differ pairs these sentences against the paragraph they replaced"
+    },
+    {
+      "at": "2026-10-19T13:58:22+00:00",
+      "interpreter": "/Users/fredugast/Projects/parity-poc-repo/backend/venv/bin/python3",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "What we watch is narrower than what could change - we can see a trial registry move and a paper cite another paper, and we cannot see most of what happens in a field - and nothing obliges anyone to look before you arrive.",
+      "because": "REVIEW-DATE-001",
+      "note": "12 September 2026 change: the review-date promise withdrawn (REVIEW-DATE-001, corrections.md entry of 12 September 2026); the differ pairs these sentences against the paragraph they replaced"
+    },
+    {
+      "at": "2026-10-19T13:58:22+00:00",
+      "interpreter": "/Users/fredugast/Projects/parity-poc-repo/backend/venv/bin/python3",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "A page trusted more because of a feature that has not run is the failure this publication exists to point at in other people.",
+      "because": "REVIEW-DATE-001",
+      "note": "12 September 2026 change: the review-date promise withdrawn (REVIEW-DATE-001, corrections.md entry of 12 September 2026); the differ pairs these sentences against the paragraph they replaced"
+    },
+    {
+      "at": "2026-10-19T13:58:22+00:00",
+      "interpreter": "/Users/fredugast/Projects/parity-poc-repo/backend/venv/bin/python3",
+      "by": "claude",
+      "kind": "added",
+      "was": "",
+      "now": "What has changed is that they are our instrument rather than a promise to you.",
+      "because": "REVIEW-DATE-001",
+      "note": "12 September 2026 change: the review-date promise withdrawn (REVIEW-DATE-001, corrections.md entry of 12 September 2026); the differ pairs these sentences against the paragraph they replaced"
     }
   ]
 }
