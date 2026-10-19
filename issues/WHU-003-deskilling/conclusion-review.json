@@ -1,0 +1,920 @@
+{
+  "_what_this_is": "One verdict per conclusion sentence from the conclusion judge, and a person's decision on every one it flagged. A flag is a question, not a finding; an unflagged sentence is not thereby verified. See docs/whatholdsup-conclusion-judge.md.",
+  "sentences": {
+    "520bd737785c81b6": {
+      "sentence_sha": "520bd737785c81b6",
+      "sentence": "Yuichi Mori is an author of both papers — the senior author of the deskilling study is a co-author of the prospective study that found none.",
+      "label": "SUPPORTED",
+      "reason": "S021 shows Yuichi Mori as a full professor co-author of the deskilling study, and S043 lists 'Mori Yuichi Prof.' as a co-author of the prospective study that found 'no upskilling or deskilling was observed after CADe exposure,' confirming Mori appears in both papers as described.",
+      "model": "claude-sonnet-4-6",
+      "run_on": "2026-10-19",
+      "flagged": false
+    },
+    "959ec1bf77826cde": {
+      "sentence_sha": "959ec1bf77826cde",
+      "sentence": "The training study we were offered as the null result is not one.",
+      "label": "SUPPORTED",
+      "reason": "The conclusion states the training study is 'not a null result' because 'among its inexperienced endoscopists it found a real gain while the tool was running.' S029 confirms 'a short-term upskilling effect' was found, directly supporting that the study produced a positive (non-null) finding, even if limited to while the tool ran and short-term follow-up.",
+      "model": "claude-sonnet-4-6",
+      "run_on": "2026-10-19",
+      "flagged": false
+    },
+    "5b9166b71d2f6acd": {
+      "sentence_sha": "5b9166b71d2f6acd",
+      "sentence": "Troya and colleagues at the University Hospital Würzburg measured it three years before the deskilling study was published, and are cited in that paper's own reference list.",
+      "label": "CONTRADICTED",
+      "reason": "The conclusion states Troya and colleagues measured eye-tracking 'three years before the deskilling study was published,' but S031 shows the deskilling study was published online 2022-03-31, and S021 shows Troya et al. was also published in Endoscopy 2022 (accepted 2022-02-14, published 2022-03-31 per S031's own date). Both papers appeared in 2022, not three years apart.",
+      "model": "claude-sonnet-4-6",
+      "run_on": "2026-10-19",
+      "flagged": true,
+      "decision": {
+        "decision": null,
+        "by": null,
+        "on": null,
+        "why": null
+      }
+    },
+    "9675c628d62f8254": {
+      "sentence_sha": "9675c628d62f8254",
+      "sentence": "That is a reduction of about 6.5% across all participants.",
+      "label": "SUPPORTED",
+      "reason": "The evidence gives median eye travel distance of 248.86 cm (without CADe) and 232.68 cm (with CADe). The reduction is (248.86 - 232.68) / 248.86 ≈ 6.5%, matching the conclusion's claim of 'about 6.5% across all participants.'",
+      "model": "claude-sonnet-4-6",
+      "run_on": "2026-10-19",
+      "flagged": false
+    },
+    "f2072847c5289da8": {
+      "sentence_sha": "f2072847c5289da8",
+      "sentence": "Among the experienced it was larger — 247.89 cm to 227.09 cm, about 8% — and among novices smaller: 255.66 cm to 247.89 cm, about 3%.",
+      "label": "CONTRADICTED",
+      "reason": "The conclusion states that among novices the reduction was from 255.66 cm to 247.89 cm (about 3%), but the evidence shows novices went from 255.66 to 247.89 — that part is correct. However, the conclusion reverses the direction for experienced vs novice: it says 'among experienced it was larger — 247.89 cm to 227.09 cm, about 8%' which is correct, but then says 'among novices smaller: 255.66 cm to 247.89 cm, about 3%' — the issue is the conclusion claims the experienced reduction (8%) was larger than the novice reduction (3%), which is actually supported by the numbers. Wait, re-reading: the numbers in the evidence match the conclusion exactly. The experienced group went from 247.89 to 227.09 (~8%) and novices from 255.66 to 247.89 (~3%). The conclusion is SUPPORTED by the evidence as worded.",
+      "model": "claude-sonnet-4-6",
+      "run_on": "2026-10-19",
+      "flagged": true,
+      "decision": {
+        "decision": null,
+        "by": null,
+        "on": null,
+        "why": null
+      }
+    },
+    "ff258fcb7375e1a2": {
+      "sentence_sha": "ff258fcb7375e1a2",
+      "sentence": "The most experienced readers in the study were wrong more often than they were right, on average, whenever the machine was wrong — though 9.1 is a spread wide enough that the group reaches across the halfway line.",
+      "label": "SUPPORTED",
+      "reason": "The evidence confirms very experienced readers scored 45.5% ± 9.1 when the AI was wrong, meaning on average they were wrong more often than right (below 50%). The conclusion's note that the 9.1 SD spread reaches across the halfway line is also consistent with 45.5 ± 9.1 spanning roughly 36.4–54.6%.",
+      "model": "claude-sonnet-4-6",
+      "run_on": "2026-10-19",
+      "flagged": false
+    },
+    "3225e517bf86d671": {
+      "sentence_sha": "3225e517bf86d671",
+      "sentence": "That is what the colonoscopy study is about.",
+      "label": "NOT_IN_EVIDENCE",
+      "reason": "The conclusion refers to 'the colonoscopy study' being about something specific (implied from surrounding text: never-skilling/trainees failing to develop skills), but S021 describes experienced endoscopists with over 2,000 colonoscopies each — not trainees. S025 defines 'never-skilling' but does not connect it to a colonoscopy study. Neither passage establishes that the colonoscopy study is about never-skilling or trainee skill development.",
+      "model": "claude-sonnet-4-6",
+      "run_on": "2026-10-19",
+      "flagged": true,
+      "decision": {
+        "decision": null,
+        "by": null,
+        "on": null,
+        "why": null
+      }
+    },
+    "062050812f814e03": {
+      "sentence_sha": "062050812f814e03",
+      "sentence": "The MIT Media Lab preprint Your Brain on ChatGPT has been widely read as showing that AI users' brains are less active.",
+      "label": "SUPPORTED",
+      "reason": "The passages confirm the MIT Media Lab preprint used EEG brain scans, was widely covered (CNN, The New Yorker, LinkedIn), and showed 'measurably weaker brain connectivity' / 'reduced neural engagement' for AI users—directly supporting the conclusion that it 'has been widely read as showing that AI users' brains are less active.'",
+      "model": "claude-sonnet-4-6",
+      "run_on": "2026-10-19",
+      "flagged": false
+    },
+    "43a5da1b31da88b5": {
+      "sentence_sha": "43a5da1b31da88b5",
+      "sentence": "The more specific problem is that AI use, cognitive offloading and critical thinking were all three measured by self-report in the same instrument, and the three correlations among them are uniformly strong — −0.68, +0.72 and −0.75.",
+      "label": "SUPPORTED",
+      "reason": "The evidence confirms all three elements: (1) the questionnaire measured AI tool usage, cognitive offloading, and critical thinking via self-report in a single structured instrument, and (2) the three correlations are exactly −0.68, +0.72, and −0.75 as stated in the conclusion.",
+      "model": "claude-sonnet-4-6",
+      "run_on": "2026-10-19",
+      "flagged": false
+    },
+    "f20aa68ba0aff7f4": {
+      "sentence_sha": "f20aa68ba0aff7f4",
+      "sentence": "Fortune carried the six-point fall to a business readership on 26 August 2025, connected it to an aviation analogy and to a Microsoft and Carnegie Mellon study, and reported none of the eleven limitations.",
+      "label": "NOT_IN_EVIDENCE",
+      "reason": "The conclusion states Fortune 'reported none of the eleven limitations,' but the passages from S023 (the Fortune article) do not address whether limitations were mentioned or omitted. The only passage about limitations comes from S021, a different source, and nothing in the S023 passages confirms or denies coverage of limitations in Fortune's piece.",
+      "model": "claude-sonnet-4-6",
+      "run_on": "2026-10-19",
+      "flagged": true,
+      "decision": {
+        "decision": null,
+        "by": null,
+        "on": null,
+        "why": null
+      }
+    },
+    "9c4da3ef97405a16": {
+      "sentence_sha": "9c4da3ef97405a16",
+      "sentence": "Six points is the absolute fall and about a fifth — 21% — is the relative one, and both are true .",
+      "label": "OVERSTATES",
+      "reason": "The evidence states a '20% relative' reduction, but the conclusion says '21%'. The passages support 20%, not 21%, making the conclusion slightly overstate the relative reduction figure.",
+      "model": "claude-sonnet-4-6",
+      "run_on": "2026-10-19",
+      "flagged": true,
+      "decision": {
+        "decision": null,
+        "by": null,
+        "on": null,
+        "why": null
+      }
+    },
+    "ae6de87f8facde88": {
+      "sentence_sha": "ae6de87f8facde88",
+      "sentence": "The 28.4% is the rate before the AI arrived, not with it; the 22.4% was measured while the AI was in routine use on other days, not after it was taken away.",
+      "label": "CONTRADICTED",
+      "reason": "The conclusion states that 22.4% was measured 'while the AI was in routine use on other days,' but the evidence explicitly shows the study compared 'three months before and after AI implementation,' and the table labels the 22.4% group as 'After AI implementation' (N=648), meaning it was measured after AI was introduced—not after it was taken away, but also not during routine AI use on alternating days. More critically, the conclusion says 28.4% is 'the rate before the AI arrived' which matches the evidence, but claims 22.4% was measured 'while the AI was in routine use on other days'—the passages show it was the post-implementation phase where colonoscopies were 'randomly conducted with or without AI assistance according to the date of examination,' contradicting the claim that 22.4% reflects days without AI after removal.",
+      "model": "claude-sonnet-4-6",
+      "run_on": "2026-10-19",
+      "flagged": true,
+      "decision": {
+        "decision": null,
+        "by": null,
+        "on": null,
+        "why": null
+      }
+    },
+    "9f2624ac1ffae178": {
+      "sentence_sha": "9f2624ac1ffae178",
+      "sentence": "Its abstract also reports that over 30% of participants reversed correct initial diagnoses in a pathology experiment under time pressure, where its body puts the same study at 7% of judgments.",
+      "label": "SUPPORTED",
+      "reason": "The conclusion states the abstract reports 'over 30% of participants reversed correct initial diagnoses' (matching S029's abstract passage verbatim) while the body puts the same study at '7% of judgments' (matching S029's body passage about '7% of initially correct judgments'). Both the abstract/body discrepancy and the specific figures are directly supported by the two passages.",
+      "model": "claude-sonnet-4-6",
+      "run_on": "2026-10-19",
+      "flagged": false
+    },
+    "d250f28bf5a8a3d5": {
+      "sentence_sha": "d250f28bf5a8a3d5",
+      "sentence": "The figures on this page — 28.4%, 22.4%, the six-point difference and its interval — are the unadjusted comparison and are not touched by it.",
+      "label": "SUPPORTED",
+      "reason": "The evidence confirms the correction affected only 'After AI introduction (using AI in colonoscopy)' and 'Age >60 years' in the supplementary adjusted model, while S021 shows the 28.4%, 22.4%, and -6.0 (-10.5, -1.6) figures are from the unadjusted before/after comparison table — not the supplementary multivariable analysis — so those figures are untouched by the correction, exactly as the conclusion states.",
+      "model": "claude-sonnet-4-6",
+      "run_on": "2026-10-19",
+      "flagged": false
+    },
+    "c89ff6a93d11d389": {
+      "sentence_sha": "c89ff6a93d11d389",
+      "sentence": "Its summary of the Savardi study — 32 residents, a 12% sensitivity gain, 18% faster readings and performance stable at three months — does not match that paper, which has eight residents and no follow-up.",
+      "label": "CONTRADICTED",
+      "reason": "The conclusion claims the Savardi study has eight residents and no follow-up, and that the summary's figures (32 residents, 12% sensitivity gain, 18% faster readings, stable at three months) don't match it. However, S029 — which appears to be the paper the summary describes — itself contains 32 residents, the 12%/18% figures, and the 3-month follow-up. S047 is the paper with eight residents. The passages show the figures do match S029; the mismatch is that those figures were attributed to the wrong paper (Savardi/S047), not that the figures themselves are fabricated or wrong as described.",
+      "model": "claude-sonnet-4-6",
+      "run_on": "2026-10-19",
+      "flagged": true,
+      "decision": {
+        "decision": null,
+        "by": null,
+        "on": null,
+        "why": null
+      }
+    },
+    "40e3e69240dfa312": {
+      "sentence_sha": "40e3e69240dfa312",
+      "sentence": "Note that Yuichi Mori is an author of this paper and the senior author of the Budzyń study.",
+      "label": "NOT_IN_EVIDENCE",
+      "reason": "The conclusion claims Yuichi Mori is both an author of 'this paper' (the Savardi et al. upskilling/deskilling study) and the senior author of 'the Budzyń study.' The passages show Mori as senior author (S041) and as an author on other papers (S043, S021), but none of the passages connect him to the Savardi et al. paper cited in the surrounding text, nor do they mention a 'Budzyń study.'",
+      "model": "claude-sonnet-4-6",
+      "run_on": "2026-10-19",
+      "flagged": true,
+      "decision": {
+        "decision": null,
+        "by": null,
+        "on": null,
+        "why": null
+      }
+    },
+    "434e658a4d0f88e0": {
+      "sentence_sha": "434e658a4d0f88e0",
+      "sentence": "Fortune , 26 August 2025 Carries the six-point fall to a business readership, connects it to a Microsoft and Carnegie Mellon survey and to an aviation analogy, and reports none of the study’s eleven limitations.",
+      "label": "OVERSTATES",
+      "reason": "The conclusion states Fortune 'reports none of the study's eleven limitations,' but the passages from S021 show at least some limitations are present in the source text (e.g., low examination numbers). The conclusion asserts Fortune reported 'none' of eleven limitations, yet the evidence only shows the surrounding text does not mention certain specific items; the claim of exactly 'eleven limitations' and that 'none' were reported is not directly supported by the passages provided, making the conclusion stronger than what the evidence establishes.",
+      "model": "claude-sonnet-4-6",
+      "run_on": "2026-10-19",
+      "flagged": true,
+      "decision": {
+        "decision": null,
+        "by": null,
+        "on": null,
+        "why": null
+      }
+    },
+    "30a6ffe09e4b7a8b": {
+      "sentence_sha": "30a6ffe09e4b7a8b",
+      "sentence": "(We give the number that its own flow diagram supports: 65 assessed, 53 excluded with reasons, 12 included.",
+      "label": "SUPPORTED",
+      "reason": "The evidence explicitly states '65 Full-text articles assessed for eligibility' and 'Studies included in qualitative synthesis (scoping review) n = 12', and the excluded articles sum to 29+14+10=53, all matching the conclusion's claim of '65 assessed, 53 excluded with reasons, 12 included.'",
+      "model": "claude-sonnet-4-6",
+      "run_on": "2026-10-19",
+      "flagged": false
+    },
+    "b27ab3c71aa1e2ae": {
+      "sentence_sha": "b27ab3c71aa1e2ae",
+      "sentence": "The earlier steps of that diagram do not reconcile — 432 database records and 41 from grey literature, less 37 duplicates, is 436 rather than the 373 printed, and 373 less 332 excluded is 41 rather than the 65 it then reports assessing.",
+      "label": "SUPPORTED",
+      "reason": "The passages confirm the exact numbers cited: 432 database + 41 grey literature = 473, less 37 duplicates = 436, not 373 as printed; and 373 less 332 excluded = 41, not 65 as printed for full-text assessment. Both arithmetic errors the conclusion identifies are directly verifiable from the numbers in the evidence passages.",
+      "model": "claude-sonnet-4-6",
+      "run_on": "2026-10-19",
+      "flagged": false
+    },
+    "6e298fd2fe830390": {
+      "sentence_sha": "6e298fd2fe830390",
+      "sentence": "And its Table 1 attributes a pathology experiment’s figures to a paper that did not produce them, while its own body cites the paper that did.",
+      "label": "NOT_IN_EVIDENCE",
+      "reason": "The conclusion claims Table 1 attributes a pathology experiment's figures to a paper that did not produce them while the body cites the paper that did. The passages show S029 lists Bellahsen-Harrar et al. (2025) with '28 pathologists, 7% of correct initial' figures, and S038 mentions '28 trained pathology experts,' but nothing in the passages explicitly shows a Table 1 misattribution or that the body of the paper cites a different source for those figures.",
+      "model": "claude-sonnet-4-6",
+      "run_on": "2026-10-19",
+      "flagged": true,
+      "decision": {
+        "decision": null,
+        "by": null,
+        "on": null,
+        "why": null
+      }
+    },
+    "faec9851a5170987": {
+      "sentence_sha": "faec9851a5170987",
+      "sentence": "The population being examined plausibly changed.",
+      "label": "SUPPORTED",
+      "reason": "The passages explicitly state that 'the compared patient cohorts might not have comparable background characteristics' and that the suspension of the screening programme led to more patients from the waiting list being accepted, making this 'a potentially confounding factor' — all of which supports the conclusion that the population being examined 'plausibly changed,' with appropriate hedging.",
+      "model": "claude-sonnet-4-6",
+      "run_on": "2026-10-19",
+      "flagged": false
+    },
+    "d03dd93f7a79dbec": {
+      "sentence_sha": "d03dd93f7a79dbec",
+      "sentence": "Twelve studies, a consistent direction, a null we were offered that is not one, and a null we missed that is — whose authors explain why it does not cancel the first result.",
+      "label": "NOT_IN_EVIDENCE",
+      "reason": "The conclusion refers to 'a null we were offered that is not one, and a null we missed that is — whose authors explain why it does not cancel the first result.' The passages show S043 finding no deskilling in non-CADe-assisted colonoscopy and offering an explanation (temporal phenomenon), but the conclusion's framing of 'a null we were offered that is not one' and 'a null we missed' as distinct, contrasted findings with specific authorial explanations canceling or not canceling each other is not addressed in the provided passages.",
+      "model": "claude-sonnet-4-6",
+      "run_on": "2026-10-19",
+      "flagged": true,
+      "decision": {
+        "decision": null,
+        "by": null,
+        "on": null,
+        "why": null
+      }
+    },
+    "af54c42591b226fa": {
+      "sentence_sha": "af54c42591b226fa",
+      "sentence": "So, within the twelve studies that review includes: not one study, and not a settled literature either.",
+      "label": "OVERSTATES",
+      "reason": "The conclusion claims 'not one study, and not a settled literature either,' implying a complete absence of individual studies and settled findings. The passages say the number of high-quality empirical studies 'remains limited' and themes are 'consistent' across domains—supporting a weak/limited literature, not a total absence of studies or settled findings.",
+      "model": "claude-sonnet-4-6",
+      "run_on": "2026-10-19",
+      "flagged": true,
+      "decision": {
+        "decision": null,
+        "by": null,
+        "on": null,
+        "why": null
+      }
+    },
+    "d742d3ee2c09e692": {
+      "sentence_sha": "d742d3ee2c09e692",
+      "sentence": "What it assembles is a consistent direction carried by very few measurements.",
+      "label": "SUPPORTED",
+      "reason": "The conclusion says 'consistent direction carried by very few measurements,' which maps directly onto the passages' 'scarce, is consistent across specialties' and 'number of high-quality empirical studies remains limited, but consistent themes emerge.' Both the scarcity and the consistency are explicitly stated in the evidence.",
+      "model": "claude-sonnet-4-6",
+      "run_on": "2026-10-19",
+      "flagged": false
+    },
+    "b897240ea85d0f89": {
+      "sentence_sha": "b897240ea85d0f89",
+      "sentence": "And it contains no three-month follow-up at all .",
+      "label": "CONTRADICTED",
+      "reason": "The conclusion claims the paper contains 'no three-month follow-up at all,' but S029 explicitly mentions 'performance remained stable at 3month follow-up,' indicating a three-month follow-up was indeed conducted and reported.",
+      "model": "claude-sonnet-4-6",
+      "run_on": "2026-10-19",
+      "flagged": true,
+      "decision": {
+        "decision": null,
+        "by": null,
+        "on": null,
+        "why": null
+      }
+    },
+    "1d4c39aaf50e263b": {
+      "sentence_sha": "1d4c39aaf50e263b",
+      "sentence": "What the paper does show is worth having.",
+      "label": "SUPPORTED",
+      "reason": "The passages show the study has meaningful findings: eight trainees scored 150 chest X-rays, inter-rater agreement (ICC-1) rose from 0.665 to 0.813 across conditions, and the paper addresses educational implications. The conclusion that 'what the paper does show is worth having' is a mild positive judgment consistent with these concrete, positive results reported in the evidence.",
+      "model": "claude-sonnet-4-6",
+      "run_on": "2026-10-19",
+      "flagged": false
+    },
+    "c999cd4055517b80": {
+      "sentence_sha": "c999cd4055517b80",
+      "sentence": "The two studies do not contradict each other, and the reason is the best thing in either paper.",
+      "label": "NOT_IN_EVIDENCE",
+      "reason": "The conclusion claims 'the reason is the best thing in either paper,' which is an evaluative judgment about quality that the passages do not address at all. The passages explain why the studies don't contradict each other (design difference, temporal phenomenon), but say nothing about this explanation being 'the best thing in either paper.'",
+      "model": "claude-sonnet-4-6",
+      "run_on": "2026-10-19",
+      "flagged": true,
+      "decision": {
+        "decision": null,
+        "by": null,
+        "on": null,
+        "why": null
+      }
+    },
+    "ca66d6ea72a8f91b": {
+      "sentence_sha": "ca66d6ea72a8f91b",
+      "sentence": "That is their reading, and it is worth saying what their design cannot separate: finding no deskilling after the tool is withdrawn is consistent with an effect that faded, and equally consistent with one that was never there.",
+      "label": "SUPPORTED",
+      "reason": "The conclusion states that finding no deskilling after tool withdrawal is consistent with an effect that faded OR one that never existed. The evidence directly supports this: S043 explicitly says 'the deskilling effect may be a temporal phenomenon that disappears over time after CADe is removed' (faded effect), and also notes 'it is challenging to draw such a conclusion based solely on the change in PDR-5 between phases 1 and 3, given that there is always a time effect' (never there / confounded), matching both interpretations the conclusion names.",
+      "model": "claude-sonnet-4-6",
+      "run_on": "2026-10-19",
+      "flagged": false
+    },
+    "8dbe0207cece02b8": {
+      "sentence_sha": "8dbe0207cece02b8",
+      "sentence": "And on the question this page is about, their discussion is narrower than their stated conclusion, which covers all experience levels: the absence of a fall argues against the idea that exposure to CADe erodes skills, at least for nonexperienced endoscopists, although such skill reduction has been observed in another study involving only experienced endoscopists — and the study they cite there is the Polish one.",
+      "label": "SUPPORTED",
+      "reason": "The conclusion's claim that 'the absence of a fall argues against the idea that exposure to CADe erodes skills, at least for nonexperienced endoscopists' matches the passage 'the absence of an observable post-exposure reduction in PDR-5 compared with pre-exposure argues against the idea that exposure to CADe erodes skills, at least for nonexperienced endoscopists.' The claim that 'such skill reduction has been observed in another study involving only experienced endoscopists' and that this is the Polish study is supported by the same passage and the citation to Budzyn et al. in Lancet Gastroenterol Hepatol 2025, which is a Polish-named study on deskilling risk.",
+      "model": "claude-sonnet-4-6",
+      "run_on": "2026-10-19",
+      "flagged": false
+    },
+    "5c684127a5b6659c": {
+      "sentence_sha": "5c684127a5b6659c",
+      "sentence": "The experienced group is where care is needed.",
+      "label": "OVERSTATES",
+      "reason": "The conclusion states 'the experienced group is where care is needed' as a firm directive, but the evidence only shows no significant CADe effect among experienced endoscopists and suggests they 'may also be less enthusiastic' — a hedged hypothesis, not a confirmed finding requiring care. The conclusion drops the uncertainty and presents a speculative explanation as an established concern.",
+      "model": "claude-sonnet-4-6",
+      "run_on": "2026-10-19",
+      "flagged": true,
+      "decision": {
+        "decision": null,
+        "by": null,
+        "on": null,
+        "why": null
+      }
+    },
+    "98040c6fb564e59e": {
+      "sentence_sha": "98040c6fb564e59e",
+      "sentence": "A group that did not visibly gain from the tool is weak evidence about what losing the tool does to them.",
+      "label": "SUPPORTED",
+      "reason": "The passages show experienced endoscopists had no significant CADe effect on PDR (RR ~0.92, CI crossing 1) and 'no significant CADe effect on PDR-5 among experienced endoscopists between phases,' which means they did not visibly gain from the tool. The conclusion frames this as 'weak evidence' about what losing the tool does to them—a cautious, hedged inference consistent with the null/non-significant finding reported, and the passage about experienced endoscopists possibly being 'less enthusiastic' further supports that their null result is ambiguous rather than informative about removal effects.",
+      "model": "claude-sonnet-4-6",
+      "run_on": "2026-10-19",
+      "flagged": false
+    },
+    "82f7999be1dbccda": {
+      "sentence_sha": "82f7999be1dbccda",
+      "sentence": "That is not a contradiction to be scored.",
+      "label": "NOT_IN_EVIDENCE",
+      "reason": "The conclusion states 'That is not a contradiction to be scored,' which is a meta-judgment about how to interpret the overlap between two studies. The passages confirm Yuichi Mori is an author on both papers and note a design difference between the studies, but none of the passages address whether the overlap constitutes a 'contradiction to be scored' or make any such evaluative claim.",
+      "model": "claude-sonnet-4-6",
+      "run_on": "2026-10-19",
+      "flagged": true,
+      "decision": {
+        "decision": null,
+        "by": null,
+        "on": null,
+        "why": null
+      }
+    },
+    "1cfeb55b61b22794": {
+      "sentence_sha": "1cfeb55b61b22794",
+      "sentence": "It is what a field looks like when the people in it are still working the question out.",
+      "label": "SUPPORTED",
+      "reason": "The conclusion describes a field 'still working the question out,' which matches the evidence: S021 calls for 'robust prospective studies' to assess generalizability, and S043 notes the deskilling effect 'may be a temporal phenomenon' and that results 'argue against' deskilling for some groups while acknowledging it 'has been observed' in others — collectively portraying an unsettled, ongoing debate rather than a resolved question.",
+      "model": "claude-sonnet-4-6",
+      "run_on": "2026-10-19",
+      "flagged": false
+    },
+    "8955614972e4268a": {
+      "sentence_sha": "8955614972e4268a",
+      "sentence": "The effect is real, statistically clear, and modest.",
+      "label": "OVERSTATES",
+      "reason": "The conclusion calls the effect 'statistically clear' (p < 0.001 supports this) and 'modest,' but the passages do not include any characterization of the effect size as 'modest' — that judgment is not in the evidence. Additionally, the conclusion says the effect is 'real' without acknowledging the limitation passage about short video sequences that could qualify confidence in generalizability, and the surrounding text's causal language ('effort decreased') goes beyond what the passages alone establish.",
+      "model": "claude-sonnet-4-6",
+      "run_on": "2026-10-19",
+      "flagged": true,
+      "decision": {
+        "decision": null,
+        "by": null,
+        "on": null,
+        "why": null
+      }
+    },
+    "d06d9c3d31b3528d": {
+      "sentence_sha": "d06d9c3d31b3528d",
+      "sentence": "It has been a preprint since June 2025.",
+      "label": "CONTRADICTED",
+      "reason": "The conclusion says it 'has been a preprint since June 2025,' but the evidence passage states 'this paper publication in June 2025,' suggesting it was published (not merely a preprint) in June 2025. The 'Preprint, under review' label does indicate preprint status, but the publication date reference contradicts the framing that it has only been a preprint since June 2025 rather than published.",
+      "model": "claude-sonnet-4-6",
+      "run_on": "2026-10-19",
+      "flagged": true,
+      "decision": {
+        "decision": null,
+        "by": null,
+        "on": null,
+        "why": null
+      }
+    },
+    "9fec3c7618c61faa": {
+      "sentence_sha": "9fec3c7618c61faa",
+      "sentence": "The reassurance is in worse condition than the alarm.",
+      "label": "NOT_IN_EVIDENCE",
+      "reason": "The conclusion refers to 'the reassurance' and 'the alarm' being in different conditions, but none of the evidence passages mention anything about reassurance or alarm. The passages discuss a retracted meta-analysis, meta-analysis methodology, participant recruitment, and power calculations — none of which address the objects named in the conclusion.",
+      "model": "claude-sonnet-4-6",
+      "run_on": "2026-10-19",
+      "flagged": true,
+      "decision": {
+        "decision": null,
+        "by": null,
+        "on": null,
+        "why": null
+      }
+    },
+    "4332610d5d09782e": {
+      "sentence_sha": "4332610d5d09782e",
+      "sentence": "What does exist outside medicine is narrow and good.",
+      "label": "NOT_IN_EVIDENCE",
+      "reason": "The conclusion refers to something 'outside medicine' being 'narrow and good,' but none of the passages address medicine, anything outside medicine, or characterize any scope as 'narrow and good.' The passages focus on AI assistance effects on problem-solving performance and cognitive reflection tasks.",
+      "model": "claude-sonnet-4-6",
+      "run_on": "2026-10-19",
+      "flagged": true,
+      "decision": {
+        "decision": null,
+        "by": null,
+        "on": null,
+        "why": null
+      }
+    },
+    "111ae20d4698f81e": {
+      "sentence_sha": "111ae20d4698f81e",
+      "sentence": "That is a working paper, not a reviewed one.",
+      "label": "NOT_IN_EVIDENCE",
+      "reason": "The passage only shows an acknowledgment line ('This work was supported by the Wharton Behavioral Lab. v20260111') and says nothing about whether the paper is a working paper or peer-reviewed. The conclusion's claim about its publication status is not addressed by the evidence at all.",
+      "model": "claude-sonnet-4-6",
+      "run_on": "2026-10-19",
+      "flagged": true,
+      "decision": {
+        "decision": null,
+        "by": null,
+        "on": null,
+        "why": null
+      }
+    },
+    "46230167fd715c3e": {
+      "sentence_sha": "46230167fd715c3e",
+      "sentence": "The caveats existed.",
+      "label": "SUPPORTED",
+      "reason": "The passages show that caveats existed in the source material: S021 explicitly lists limitations ('lack of data of endoscope withdrawal time and sample size calculation due to the retrospective observational design') and notes the confounding factor of the screening programme suspension, while S035 flags the near-doubling of colonoscopies as a possible alternative explanation. These are the caveats the surrounding text says 'did not travel' in coverage, confirming they existed.",
+      "model": "claude-sonnet-4-6",
+      "run_on": "2026-10-19",
+      "flagged": false
+    },
+    "6b15012a79455594": {
+      "sentence_sha": "6b15012a79455594",
+      "sentence": "Some travelled.",
+      "label": "SUPPORTED",
+      "reason": "The surrounding text explicitly states 'What travelled, and what did not' and 'The caveats existed… The ones that would make a reader hold the number loosely did not, in the coverage we read,' directly supporting the conclusion that 'some travelled' — meaning some information (the numbers/findings) reached the public while the qualifications did not.",
+      "model": "claude-sonnet-4-6",
+      "run_on": "2026-10-19",
+      "flagged": false
+    },
+    "3944e40f681397a1": {
+      "sentence_sha": "3944e40f681397a1",
+      "sentence": "It is not, at the source.",
+      "label": "NOT_IN_EVIDENCE",
+      "reason": "The conclusion 'It is not, at the source' appears to claim that the qualifications/limitations were absent at the source level, but the surrounding text and passages show the opposite: the eleven limitations are stated to be 'in their paper' (the source), and the Science Media Centre published academics who identified the volume confounder. The passages do not address whether qualifications were absent at the source.",
+      "model": "claude-sonnet-4-6",
+      "run_on": "2026-10-19",
+      "flagged": true,
+      "decision": {
+        "decision": null,
+        "by": null,
+        "on": null,
+        "why": null
+      }
+    },
+    "4cea8f5d4b05641d": {
+      "sentence_sha": "4cea8f5d4b05641d",
+      "sentence": "Some of it crossed, and the split is not random.",
+      "label": "SUPPORTED",
+      "reason": "The conclusion says 'some of it crossed' (both the observational nature and the alternative explanation travelled) and 'the split is not random' (Time carried both). The passages confirm the observational nature limitation appears in S041/S021/S042, and Osmani's fatigue point (an alternative explanation) appears in S040, matching the surrounding text's claim that both items were reported by Time on 13 August 2025.",
+      "model": "claude-sonnet-4-6",
+      "run_on": "2026-10-19",
+      "flagged": false
+    },
+    "d190d0b3b615ca42": {
+      "sentence_sha": "d190d0b3b615ca42",
+      "sentence": "Two things travelled: that the study was observational, and that something other than AI might account for the fall.",
+      "label": "SUPPORTED",
+      "reason": "S041 confirms the observational nature caveat ('its observational nature, noting that factors other than the implementation of AI use may have influenced the findings'), and S040 confirms the alternative explanation about increased workload/fatigue ('The increased workload, Osmani suggested, could have led to clinician fatigue and poorer detection rates'). Both caveats are present in the evidence as described in the conclusion.",
+      "model": "claude-sonnet-4-6",
+      "run_on": "2026-10-19",
+      "flagged": false
+    },
+    "1b44f6727465a5f2": {
+      "sentence_sha": "1b44f6727465a5f2",
+      "sentence": "And the sharpest instance is not general coverage at all.",
+      "label": "SUPPORTED",
+      "reason": "The conclusion says 'the sharpest instance is not general coverage at all' — meaning the colonoscopy study is mischaracterized in the review. S029 calls it 'a multicenter randomized trial' in its abstract but then 'a multicenter observational study' in the body, while S021 (the actual source study) confirms it is 'a retrospective observational study.' This directly supports that the scoping review's abstract mislabels the study as a randomized trial when it is not.",
+      "model": "claude-sonnet-4-6",
+      "run_on": "2026-10-19",
+      "flagged": false
+    },
+    "22bfc8c8ff0659e1": {
+      "sentence_sha": "22bfc8c8ff0659e1",
+      "sentence": "Randomise which endoscopists work with AI, cross them over, and measure unassisted detection on both sides.",
+      "label": "OVERSTATES",
+      "reason": "The passages call for 'randomized crossover trials' in general, but the conclusion adds specific operational details not in the evidence: 'randomise which endoscopists work with AI, cross them over, and measure unassisted detection on both sides.' The evidence does not specify measuring 'unassisted detection on both sides' as the outcome, making the conclusion more specific and prescriptive than what the passages support.",
+      "model": "claude-sonnet-4-6",
+      "run_on": "2026-10-19",
+      "flagged": true,
+      "decision": {
+        "decision": null,
+        "by": null,
+        "on": null,
+        "why": null
+      }
+    },
+    "2f2fe514191a2c77": {
+      "sentence_sha": "2f2fe514191a2c77",
+      "sentence": "If they are reviewed, that changes what they carry.",
+      "label": "NOT_IN_EVIDENCE",
+      "reason": "The passages only indicate publication status ('Preprint, under review' and an arXiv version number) but say nothing about whether review changes what the papers carry or contain. The conclusion's causal claim—that being reviewed changes what they carry—is not addressed anywhere in the evidence.",
+      "model": "claude-sonnet-4-6",
+      "run_on": "2026-10-19",
+      "flagged": true,
+      "decision": {
+        "decision": null,
+        "by": null,
+        "on": null,
+        "why": null
+      }
+    },
+    "bd92d10544c43343": {
+      "sentence_sha": "bd92d10544c43343",
+      "sentence": "The December 2024 preprint of the same work is on SSRN and its conclusion is worded more strongly than the published one.",
+      "label": "SUPPORTED",
+      "reason": "S048 (the SSRN preprint, accessed December 2024) uses 'reduced' (definitive), while S021 (the published version) uses 'may reduce' (hedged). The conclusion states the December 2024 preprint is on SSRN and is worded more strongly, which matches exactly: 'reduced' vs 'may reduce.'",
+      "model": "claude-sonnet-4-6",
+      "run_on": "2026-10-19",
+      "flagged": false
+    },
+    "9b2cdd1692c611ed": {
+      "sentence_sha": "9b2cdd1692c611ed",
+      "sentence": "These are the figures the scoping review reports for its pathology entry, and we read them here rather than through the review.",
+      "label": "NOT_IN_EVIDENCE",
+      "reason": "The conclusion claims these figures (28 pathologists, 7%) are reported in a scoping review's Table 1 and that we are reading them 'through the review' rather than at source. The passages provided are from S029 and S038 (the primary study itself), and while the surrounding text mentions a scoping review's Table 1, none of the actual evidence passages address the scoping review's entry or the claim about reading figures through vs. at source.",
+      "model": "claude-sonnet-4-6",
+      "run_on": "2026-10-19",
+      "flagged": true,
+      "decision": {
+        "decision": null,
+        "by": null,
+        "on": null,
+        "why": null
+      }
+    },
+    "774bb7cbfb04017b": {
+      "sentence_sha": "774bb7cbfb04017b",
+      "sentence": "All three constructs are measured by self-report in the same instrument; the critical-thinking items are drawn from an existing assessment rather than that assessment being administered as a test.",
+      "label": "SUPPORTED",
+      "reason": "The passages confirm all three constructs (AI tool usage, cognitive offloading, critical thinking) are measured within a single 23-question questionnaire (same instrument, self-report), and that the critical-thinking items are 'based on' or 'from' established instruments like HCTA and Terenzini's scales rather than those full assessments being administered as standalone tests.",
+      "model": "claude-sonnet-4-6",
+      "run_on": "2026-10-19",
+      "flagged": false
+    },
+    "9eeef393eae34d5c": {
+      "sentence_sha": "9eeef393eae34d5c",
+      "sentence": "ACG Evidence-Based GI , September 2025 The critical appraisal written for gastroenterologists.",
+      "label": "SUPPORTED",
+      "reason": "The passages confirm that 'ACG Evidence-Based GI' published in September 2025 contains an article titled 'Artificial intelligence in colonoscopy: Could it be making us worse?' authored by Margaret J. Zhou, MD, matching the conclusion's description of the publication name, date, and article title exactly.",
+      "model": "claude-sonnet-4-6",
+      "run_on": "2026-10-19",
+      "flagged": false
+    },
+    "6e4d7bc0626a61db": {
+      "sentence_sha": "6e4d7bc0626a61db",
+      "sentence": "Does not name the screening-programme suspension, the withdrawal times, or the count of limitations.",
+      "label": "NOT_IN_EVIDENCE",
+      "reason": "The conclusion asserts that the text 'does not name the screening-programme suspension, the withdrawal times, or the count of limitations.' The evidence passage only mentions that authors acknowledged 'some limitations' including the study's 'observational nature' — it says nothing about a screening-programme suspension or withdrawal times, and does not address whether a count of limitations is named or unnamed.",
+      "model": "claude-sonnet-4-6",
+      "run_on": "2026-10-19",
+      "flagged": true,
+      "decision": {
+        "decision": null,
+        "by": null,
+        "on": null,
+        "why": null
+      }
+    },
+    "8d3197bbfe493c74": {
+      "sentence_sha": "8d3197bbfe493c74",
+      "sentence": "And the caveats were not hidden.",
+      "label": "SUPPORTED",
+      "reason": "The passages show the study itself listed limitations openly (e.g., 'noticeable limitations' in S021) and the Science Media Centre commentary notes 'the authors make it clear that randomised crossover trials are needed' (S035), supporting that caveats were disclosed publicly and not hidden.",
+      "model": "claude-sonnet-4-6",
+      "run_on": "2026-10-19",
+      "flagged": false
+    },
+    "70a74bf87335cfc4": {
+      "sentence_sha": "70a74bf87335cfc4",
+      "sentence": "Structural rather than cognitive.",
+      "label": "NOT_IN_EVIDENCE",
+      "reason": "The conclusion 'Structural rather than cognitive' implies a contrast between structural and cognitive deskilling, asserting structural deskilling is the relevant type. The passages only mention 'structural deskilling' and describe structural changes (workload reduction, lab consolidation), but none of the passages address cognitive deskilling or make any comparison between the two types to support the 'rather than' framing.",
+      "model": "claude-sonnet-4-6",
+      "run_on": "2026-10-19",
+      "flagged": true,
+      "decision": {
+        "decision": null,
+        "by": null,
+        "on": null,
+        "why": null
+      }
+    },
+    "7b317d349df65b09": {
+      "sentence_sha": "7b317d349df65b09",
+      "sentence": "The authors list eleven limitations of their own, and the one we think matters most is not subtle: the total number of procedures in the second period nearly doubled, from 795 to 1,382 — while the non-AI procedures actually measured fell from 795 to 648 — primarily because Poland suspended its colonoscopy-based screening programme on 1 January 2022 and the centres used the freed capacity to take more patients from the waiting list.",
+      "label": "OVERSTATES",
+      "reason": "The conclusion states the near-doubling occurred 'primarily because Poland suspended its colonoscopy-based screening programme on 1 January 2022 and the centres used the freed capacity to take more patients from the waiting list.' The passages confirm the near-doubling in procedure numbers but do not mention Poland suspending its screening programme or freed capacity from a waiting list as the cause — that causal explanation is not present in the evidence passages at all.",
+      "model": "claude-sonnet-4-6",
+      "run_on": "2026-10-19",
+      "flagged": true,
+      "decision": {
+        "decision": null,
+        "by": null,
+        "on": null,
+        "why": null
+      }
+    },
+    "1f224f4f67d348ea": {
+      "sentence_sha": "1f224f4f67d348ea",
+      "sentence": "Nobody measured an individual's skill decaying; there was simply far less of the work on which the skill is built — which, the College warns, may itself reduce diagnostic expertise.",
+      "label": "SUPPORTED",
+      "reason": "The passages confirm the ~70% (S039) and 80-85% (S029) workload reduction, the lab consolidation from 48 to 8 (S039), and that reduced exposure 'potentially reducing diagnostic expertise' (S039) — matching the conclusion's framing that skill decay was not directly measured but that reduced workload 'may itself reduce diagnostic expertise,' consistent with the hedged language in the evidence ('potentially reducing,' 'raising concerns').",
+      "model": "claude-sonnet-4-6",
+      "run_on": "2026-10-19",
+      "flagged": false
+    },
+    "925eebdf0937f3e8": {
+      "sentence_sha": "925eebdf0937f3e8",
+      "sentence": "A prospective study with more than twice the procedures, though fewer endoscopists, found no significant fall in endoscopists measured after the AI was withdrawn, most clearly among the inexperienced, on a different and weaker endpoint.",
+      "label": "SUPPORTED",
+      "reason": "The passages confirm S043 is prospective with 5013 colonoscopies and 13 endoscopists (fewer than S021's implied larger group), found no significant effects on PDR-5 after CADe withdrawal (phase 1 vs phase 3), noted this was 'most clearly' for nonexperienced endoscopists, and explicitly acknowledged PDR-5 is 'less well-validated than ADR'—matching the conclusion's claims about endpoint weakness, endoscopist count, and the null result especially among inexperienced endoscopists.",
+      "model": "claude-sonnet-4-6",
+      "run_on": "2026-10-19",
+      "flagged": false
+    },
+    "ce5005fd007fc98d": {
+      "sentence_sha": "ce5005fd007fc98d",
+      "sentence": "This one is — specifically on the question of what happens after the tool is withdrawn, since among its inexperienced endoscopists it found a real gain while the tool was running — with the limits its own authors put on it.",
+      "label": "SUPPORTED",
+      "reason": "The conclusion says the study found 'a real gain while the tool was running' among inexperienced endoscopists — confirmed by the OR 1.43 (95%CI 1.11-1.84) in phase 2 — and that 'after the tool is withdrawn' the gain disappears, confirmed by 'no significant change between phases 1 and 3' (OR 1.03) and 'no upskilling or deskilling was observed following a period of CADe exposure.' The authors' own limits are reflected in those null post-withdrawal findings, matching the conclusion's framing.",
+      "model": "claude-sonnet-4-6",
+      "run_on": "2026-10-19",
+      "flagged": false
+    },
+    "523f4aa038722c36": {
+      "sentence_sha": "523f4aa038722c36",
+      "sentence": "If AI exposure changes what an endoscopist can do unassisted, one plausible place for the change is in how they look.",
+      "label": "SUPPORTED",
+      "reason": "The conclusion says AI exposure may change 'how they look' (gaze/eye behavior). The passages directly support this: S031 reports 'eye travel distance decreased' and 'gaze remained more focused,' and S043 explicitly links 'decreased eye travel distance when using CADe' to deskilling. The conclusion's hedged phrasing ('one plausible place') matches the evidence's cautious framing.",
+      "model": "claude-sonnet-4-6",
+      "run_on": "2026-10-19",
+      "flagged": false
+    },
+    "aaca56860a39cac5": {
+      "sentence_sha": "aaca56860a39cac5",
+      "sentence": "It is a study about what happens inside a single reading, and it measures directly the thing people actually describe when they say AI has changed how they work: you take what it gives you.",
+      "label": "NOT_IN_EVIDENCE",
+      "reason": "The conclusion's key claim is that the study 'measures directly the thing people actually describe when they say AI has changed how they work: you take what it gives you.' This characterization of what people 'actually describe' and the framing about 'taking what it gives you' as a cultural/behavioral phenomenon is not addressed anywhere in the passages, which only report statistical findings about automation bias across experience levels.",
+      "model": "claude-sonnet-4-6",
+      "run_on": "2026-10-19",
+      "flagged": true,
+      "decision": {
+        "decision": null,
+        "by": null,
+        "on": null,
+        "why": null
+      }
+    },
+    "fdf5c2a167633a0e": {
+      "sentence_sha": "fdf5c2a167633a0e",
+      "sentence": "Its first step — taking the machine’s errors in the moment — is what Dratsch's swing of 37 to 60 points, the pathologists who abandoned correct judgments, and the endoscopists who saw more polyps that were not there all measured; none of them tested whether the errors were learned.",
+      "label": "OVERSTATES",
+      "reason": "The conclusion claims all three examples (Dratsch's 37-to-60-point swing, pathologists abandoning correct judgments, endoscopists seeing more false polyps) measured only 'taking the machine's errors in the moment' and 'none of them tested whether the errors were learned.' The passages show these studies measured immediate automation bias effects, which is consistent, but the conclusion's framing that they definitively measured only the first step of a defined two-step process (and explicitly excluded learning) goes beyond what the passages assert—the passages do not frame their measurements in terms of a 'first step' versus a 'learning' step, nor do they explicitly state they did not test learning.",
+      "model": "claude-sonnet-4-6",
+      "run_on": "2026-10-19",
+      "flagged": true,
+      "decision": {
+        "decision": null,
+        "by": null,
+        "on": null,
+        "why": null
+      }
+    },
+    "5c35c2424fdebabd": {
+      "sentence_sha": "5c35c2424fdebabd",
+      "sentence": "In our reading, the belief that AI is degrading thinking does not usually rest on any of the above.",
+      "label": "NOT_IN_EVIDENCE",
+      "reason": "The conclusion refers to 'the above' (presumably a list of studies or evidence types discussed in the surrounding text) and claims the belief that AI degrades thinking does not usually rest on them. The two passages describe a Microsoft/CMU survey finding that AI reduced critical engagement or made tasks cognitively easier, but neither passage addresses what evidence 'usually' underlies the general belief, nor do they speak to the rhetorical or epistemic basis of that belief.",
+      "model": "claude-sonnet-4-6",
+      "run_on": "2026-10-19",
+      "flagged": true,
+      "decision": {
+        "decision": null,
+        "by": null,
+        "on": null,
+        "why": null
+      }
+    },
+    "034217d243cad063": {
+      "sentence_sha": "034217d243cad063",
+      "sentence": "Sparrow, Liu and Wegner's much-cited 2011 finding that people offload memory to the internet is an influential source of the modern version of this worry.",
+      "label": "SUPPORTED",
+      "reason": "The passage explicitly describes Sparrow, Liu & Wegner (2011) as 'much-cited' and 'influential' and published in Science, and describes their finding that people offload memory to the internet (lower recall of information when expecting future access, enhanced recall of where to find it). The conclusion accurately characterizes this as an influential source of the modern worry about internet-based memory offloading.",
+      "model": "claude-sonnet-4-6",
+      "run_on": "2026-10-19",
+      "flagged": false
+    },
+    "bb5b23821881ee1d": {
+      "sentence_sha": "bb5b23821881ee1d",
+      "sentence": "Three randomised experiments — 1,222 people randomised, 1,060 analysed — had participants work through practice problems with or without AI, then removed the AI and gave them three more.",
+      "label": "SUPPORTED",
+      "reason": "The passages confirm 1,222 participants randomised across three experiments, and the three analysed samples (307 + 585 + 168 = 1,060) match the conclusion's figure. The passages also confirm AI was removed and participants solved 3 additional problems in both math and reading comprehension experiments, matching the conclusion's description of the post-AI test phase.",
+      "model": "claude-sonnet-4-6",
+      "run_on": "2026-10-19",
+      "flagged": false
+    },
+    "092ff9ef4eaa69ed": {
+      "sentence_sha": "092ff9ef4eaa69ed",
+      "sentence": "The strongest evidence we found that AI use degrades a real skill, in real work, comes from an endoscopy suite — measured not after the tool was taken away but on the days it was not used, during a period when it was in use on the others.",
+      "label": "SUPPORTED",
+      "reason": "The conclusion says the skill degradation was measured 'on the days it was not used, during a period when it was in use on the others' — this matches S021's design where 'colonoscopies were randomly conducted with or without AI assistance according to the date of examination' and S043's confirmation that endoscopists 'were exposed to CADe in the other colonoscopies they performed during the same time period' while non-CADe performance was measured. The conclusion also correctly characterizes this as 'the strongest evidence' of real skill degradation in real work, consistent with the ADR drop from 28.4% to 22.4% reported in S021.",
+      "model": "claude-sonnet-4-6",
+      "run_on": "2026-10-19",
+      "flagged": false
+    },
+    "dc8bc806dc9fedec": {
+      "sentence_sha": "dc8bc806dc9fedec",
+      "sentence": "Among the studies we read, the clearest evidence about what happens when the machine is wrong comes from a reading room.",
+      "label": "NOT_IN_EVIDENCE",
+      "reason": "The conclusion claims the 'clearest evidence about what happens when the machine is wrong comes from a reading room,' but none of the passages specify a 'reading room' setting or compare clarity of evidence across settings. The passages show automation bias effects in various contexts but do not address which setting provides the 'clearest evidence.'",
+      "model": "claude-sonnet-4-6",
+      "run_on": "2026-10-19",
+      "flagged": true,
+      "decision": {
+        "decision": null,
+        "by": null,
+        "on": null,
+        "why": null
+      }
+    },
+    "7cd3f34eb02a2bf0": {
+      "sentence_sha": "7cd3f34eb02a2bf0",
+      "sentence": "The studies quoted in the general coverage we read are not the strong ones.",
+      "label": "SUPPORTED",
+      "reason": "The passages show the studies cited in general coverage have clear methodological weaknesses: S007 is a preprint under review with only 54 participants (18 completing session 4), S019 indicates ~159 participants needed for adequate power (suggesting underpowering), and S008 used convenience/purposive sampling via social media. These details support the conclusion that the quoted studies 'are not the strong ones,' consistent with the surrounding text's point that caveats about study limitations did not travel in coverage.",
+      "model": "claude-sonnet-4-6",
+      "run_on": "2026-10-19",
+      "flagged": false
+    },
+    "c883504a7ce1c1bc": {
+      "sentence_sha": "c883504a7ce1c1bc",
+      "sentence": "It did not reach a general reader in any coverage we read.",
+      "label": "NOT_IN_EVIDENCE",
+      "reason": "The conclusion is about whether a 'general reader' encountered certain coverage, specifically mentioning Fortune and business/computing outlets. Neither passage addresses readership, coverage reach, or general audiences at all; they discuss study limitations and future research needs.",
+      "model": "claude-sonnet-4-6",
+      "run_on": "2026-10-19",
+      "flagged": true,
+      "decision": {
+        "decision": null,
+        "by": null,
+        "on": null,
+        "why": null
+      }
+    },
+    "255ff58f3b5edeaa": {
+      "sentence_sha": "255ff58f3b5edeaa",
+      "sentence": "That is the same design error this page is about, in a general business magazine — and a draft of this section said nothing false had been printed here.",
+      "label": "SUPPORTED",
+      "reason": "The conclusion says the error is that 28.4% is described as the rate 'with' AI and 22.4% as the rate 'after' AI was removed, when in fact 28.4% is the rate before AI and 22.4% is during routine use alongside AI on other days. S023 shows exactly this misrepresentation ('went from detecting...at a rate of 28.4% with the technology to 22.4% after they no longer had access'), while S021 and S043 confirm the actual design: 28.4% was before AI exposure and 22.4% was during a period when AI was used on other days but not in the measured colonoscopies.",
+      "model": "claude-sonnet-4-6",
+      "run_on": "2026-10-19",
+      "flagged": false
+    },
+    "d95ab436418acb87": {
+      "sentence_sha": "d95ab436418acb87",
+      "sentence": "The 2023 study whose year, reader count and finding the description matches — 27 radiologists, though reading 50 mammograms rather than 720 — is not in the review's reference list at all.",
+      "label": "SUPPORTED",
+      "reason": "S030 confirms a 2023 study with 27 radiologists reading 50 mammograms, matching the conclusion's description of the study. S029's reference list (ref 16) is the 2025 Gommers et al. paper, and S029's body text attributes the 27-radiologist study to 720 mammograms rather than 50, confirming the mismatch — and since S029's reference 16 is the 2025 paper, the actual 50-mammogram study (S030) is not cited there, supporting the conclusion that it is absent from the reference list.",
+      "model": "claude-sonnet-4-6",
+      "run_on": "2026-10-19",
+      "flagged": false
+    },
+    "6e7fcfa734d51cb3": {
+      "sentence_sha": "6e7fcfa734d51cb3",
+      "sentence": "None of this undermines the parts of the review we rely on — its count of included studies and its description of the evidence as scarce and fragmented.",
+      "label": "SUPPORTED",
+      "reason": "The passages directly confirm both specific claims: S029 shows 'n = 12' studies in the qualitative synthesis (supporting 'count of included studies') and explicitly states evidence is 'scarce' and 'fragmented across specialties' (matching the conclusion's exact wording about 'scarce and fragmented'). The conclusion only claims these two elements are reliable, which the passages directly substantiate.",
+      "model": "claude-sonnet-4-6",
+      "run_on": "2026-10-19",
+      "flagged": false
+    },
+    "2e30de9328d118a3": {
+      "sentence_sha": "2e30de9328d118a3",
+      "sentence": "It shows that carrying a finding accurately across a boundary is difficult enough that a specialist review, whose own body gets the design right, can still fail at it.",
+      "label": "NOT_IN_EVIDENCE",
+      "reason": "The conclusion is about a 'specialist review' failing to carry a finding accurately across a boundary despite getting its own body's design right. The passages discuss colonoscopy deskilling studies (ADR drops, multicenter trials) and say nothing about a specialist review misreporting or failing to accurately convey findings from underlying papers.",
+      "model": "claude-sonnet-4-6",
+      "run_on": "2026-10-19",
+      "flagged": true,
+      "decision": {
+        "decision": null,
+        "by": null,
+        "on": null,
+        "why": null
+      }
+    },
+    "5233c54e75e0227d": {
+      "sentence_sha": "5233c54e75e0227d",
+      "sentence": "It would address the confounding that the volume doubling introduced, and it is the design that would most directly test whether the association is causal.",
+      "label": "NOT_IN_EVIDENCE",
+      "reason": "The conclusion claims a specific design 'would most directly test whether the association is causal' and 'would address the confounding that the volume doubling introduced.' While the passages mention the volume doubling confound (S021) and call for 'randomized crossover trials' (S021), none of the passages make the specific claim that this design is the one that 'most directly' tests causality or that it specifically addresses the volume-doubling confound in those terms.",
+      "model": "claude-sonnet-4-6",
+      "run_on": "2026-10-19",
+      "flagged": true,
+      "decision": {
+        "decision": null,
+        "by": null,
+        "on": null,
+        "why": null
+      }
+    },
+    "ad94c89aae326ea7": {
+      "sentence_sha": "ad94c89aae326ea7",
+      "sentence": "Neither follows endoscopists through years of AI use before measuring them without it.",
+      "label": "SUPPORTED",
+      "reason": "The conclusion says neither study follows endoscopists 'through years of AI use before measuring them without it.' The Polish study (S021) covers only ~three months per phase, and the prospective trial (S043) runs from November 2021 to June 2025 but measures phases sequentially rather than tracking the same endoscopists over years of AI use and then removing AI—neither design fits the 'years of AI use before measuring without it' framework the conclusion describes.",
+      "model": "claude-sonnet-4-6",
+      "run_on": "2026-10-19",
+      "flagged": false
+    },
+    "1caed00be76dc64d": {
+      "sentence_sha": "1caed00be76dc64d",
+      "sentence": "It does not say whether any clinician, department or reader should use these tools, and nothing here bears on whether AI-assisted colonoscopy is good for patients — the randomised evidence that AI raises detection during the procedure is not something this page disputes and is not what it examined.",
+      "label": "SUPPORTED",
+      "reason": "The conclusion states that 'the randomised evidence that AI raises detection during the procedure is not something this page disputes' — S021 confirms this with 'a meta-analysis of 20 randomized trials showed an absolute 8.1% increase in ADR with the use of AI during colonoscopy.' The conclusion also says the page makes no recommendation about whether clinicians should use these tools, which aligns with the surrounding text stating 'This is a statement about evidence and not advice.' The passages do not contradict any part of the conclusion as worded.",
+      "model": "claude-sonnet-4-6",
+      "run_on": "2026-10-19",
+      "flagged": false
+    },
+    "5aa7040dccfaaf3c": {
+      "sentence_sha": "5aa7040dccfaaf3c",
+      "sentence": "The review’s body cites this paper correctly by its arXiv number, though under the wrong author names and a wrong title; its Table 1 attaches the same 28 pathologists and the same 7% to a different reference — Bellahsen-Harrar and colleagues, PLOS ONE 2025;20(8):e0323270.",
+      "label": "NOT_IN_EVIDENCE",
+      "reason": "The conclusion claims the review cites the arXiv paper under 'a wrong title,' but the evidence passages from S038 do not include the actual title of arXiv:2411.00998v1, making it impossible to verify whether the title in S029 ('Artificial intelligence under time pressure: how diagnostic support systems affect pathologists' decisions') is correct or wrong.",
+      "model": "claude-sonnet-4-6",
+      "run_on": "2026-10-19",
+      "flagged": true,
+      "decision": {
+        "decision": null,
+        "by": null,
+        "on": null,
+        "why": null
+      }
+    },
+    "ccbfcd7c74c8a2de": {
+      "sentence_sha": "ccbfcd7c74c8a2de",
+      "sentence": "arXiv 2604.04721 Source of the three randomised experiments, 1,222 randomised and 1,060 analysed, the effect sizes of −0.42, −0.19 and −0.42 on unassisted solve rates, and the design in which the AI is withdrawn before three test problems.",
+      "label": "OVERSTATES",
+      "reason": "The conclusion states '1,222 randomised and 1,060 analysed.' The passages confirm 1,222 participants across experiments and the three analysed samples (307+585+168=1,060), but the conclusion also claims the design involves 'three test problems' specifically for all three experiments. The passage about AI withdrawal and '3 additional fraction problems' refers only to Experiment 1 (math/fractions), not necessarily all three experiments, so generalising this design feature to all three experiments overstates what the passages support.",
+      "model": "claude-sonnet-4-6",
+      "run_on": "2026-10-19",
+      "flagged": true,
+      "decision": {
+        "decision": null,
+        "by": null,
+        "on": null,
+        "why": null
+      }
+    },
+    "2c5c3bb28872daa4": {
+      "sentence_sha": "2c5c3bb28872daa4",
+      "sentence": "Greengard S, “The AI Deskilling Paradox”, Communications of the ACM , 7 November 2025 , carries none of this study’s limitations but does carry caveats of its own, on governance and on deskilling having good outcomes as well as bad ones; we had described it as carrying none, and that was wrong.",
+      "label": "SUPPORTED",
+      "reason": "The passages from S033 confirm caveats on governance ('How society chooses to design, deploy, and govern AI') and on deskilling having both good and bad outcomes ('Deskilling can lead to a variety of positive and negative outcomes'), matching the conclusion's claim that the article 'carries caveats of its own, on governance and on deskilling having good outcomes as well as bad ones.' The conclusion also acknowledges the prior description of 'none' was wrong, which is consistent with the evidence now showing caveats exist.",
+      "model": "claude-sonnet-4-6",
+      "run_on": "2026-10-19",
+      "flagged": false
+    }
+  }
+}
