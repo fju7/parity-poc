@@ -188,6 +188,16 @@
       "on": "2026-08-30",
       "where": "the Europe PMC core record for PMID 42250888, author list",
       "note": "Weinberg DS, Bretthauer M. Two authors. MICHAEL BRETTHAUER IS ALSO AN AUTHOR OF THE BUDZYN DESKILLING STUDY. Given name for Weinberg taken from the Gastroenterology record; if the page ever prints it, recheck."
+    },
+    {
+      "name": "Liu and colleagues",
+      "paper": "AI Assistance Reduces Persistence and Hurts Independent Performance. arXiv:2604.04721 (published as a conference paper at COLM 2026)",
+      "first_author": "Grace Liu",
+      "author_list_read": true,
+      "by": "claude",
+      "on": "2026-10-19",
+      "where": "the held arXiv v4 PDF's byline (S001, docs/72/72e1d3c7…); the v6 PDF (docs/60/6025a4b2…) has the same five names in the same order, with Brian Christian now at UC Berkeley",
+      "note": "Five authors: Grace Liu (Carnegie Mellon University), Brian Christian, Tsvetomira Dumbalska (University of Oxford), Michiel A. Bakker (MIT), Rachit Dubey (UCLA). Liu is first. The page's source list prints 'Liu, Christian, Dumbalska, Bakker & Dubey'."
     }
   ],
   "still_blocking": [],
@@ -310,6 +320,12 @@
       "as_printed": "Weinberg and Bretthauer",
       "checked_against": "the Europe PMC core record for PMID 42250888, read 2026-08-30",
       "first_author": "David S. Weinberg"
+    },
+    {
+      "name": "Liu",
+      "as_printed": "Liu and colleagues",
+      "checked_against": "the byline of the held arXiv v4 PDF of S001 (v6: same names, same order), read 2026-10-19",
+      "first_author": "Grace Liu"
     }
   ],
   "removed_from_the_page": [

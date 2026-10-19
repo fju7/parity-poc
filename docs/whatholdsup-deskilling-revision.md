@@ -1451,6 +1451,29 @@ at source in the publisher's PDF".
 
 **Binding for the corrected text:** context. S005 (front matter): "Following an editorial review process, Wang & Fan (2025) was retracted by the Editor on 22 April 2026, citing discrepancies in the meta-analysis that undermine the validity of the analysis and its conclusions."
 
+## Republish step 2 (2026-10-19): rulings applied, the standfirst read, and ten more corrections
+
+Applied at the operator's instruction (brief of 2026-10-19). The page now carries 135 corrected sentences: the 125 above and the ten below. The binding scan now gives the header's standfirst and masthead rows (they had none, so the 18 October read never reached them), and the footer's change-history sentences rows tagged process_claim; the change history itself has not been re-read. The notice on the page says exactly that: every sentence above the change history at its foot, the standfirst included, was read against its source or our own records, and 135 were corrected.
+
+Tally with these ten: 69 overstate a finding or a source's claim; 20 claim more about WHU's own process than the records show; 22 misattribute or misdescribe; 7 rest on a document not held; 6 wrong date, count, figure or author; 5 understate a source's standing; 3 misquote; 2 understate a finding; 1 copy defect.
+
+**Overstates (7).**
+- Standfirst: "The best evidence anyone has is real, and almost nobody outside medicine has met it with its qualifications intact: …" → "In our reading the strongest evidence is real, and in the coverage we read it has mostly not reached readers outside medicine with its qualifications intact: …" An unscoped superlative and a claim about readers stated as fact (as §110, §111); premise.json records the general-coverage finding only for the coverage read.
+- Standfirst: "That study is retrospective, confounded, and its authors list eleven limitations." → "That study is retrospective, its authors call it vulnerable to confounding, and they list eleven limitations." S021: "our observational study design necessitates cautious assessment because it is vulnerable to selection bias and confounding".
+- Standfirst: "Three named academics said so publicly the day it appeared, and some of that did travel." → "Two of three named academics raised its limits publicly the day it appeared, and some of that did travel." S035: Osmani ("There are several reasons to be cautious…") and Tucker ("the limitations of it are explicitly highlighted in the paper") raise limits; Menon does not ("this study is the first to present real-world data that might potentially indicate de-skilling…").
+- Standfirst: "What did not is the part that tells you how loosely to hold the number." → "What mostly did not, in the coverage we read, is the part that tells you how loosely to hold the number." Scoped as the body is (the corrected "What mostly did not travel is the specific", "in any coverage we read").
+- Hesselmann source note: "117 recruited" → "117 tested", as §23 (S009: "A total of 117 participants were tested.").
+- Gommers source note: "and their overriding it when its errors exceeded an acceptability threshold" → "and the finding that once its errors were serious, beyond about three points on the global score, their own errors largely stopped following it, while just past the acceptability threshold of two points they still tracked it", as §32.
+- Science Media Centre source note: "on three months being too short a window" → "on whether a true loss of skill could happen in three months", as §81 (S035: "It raises the question of whether a true loss of skill could happen so quickly").
+
+**Misattributes or misdescribes (3).**
+- Stanković source note: "the tool use" → "the LLM use", as §8.
+- Body: "… at P = 0.0089." → "… at P = 0.009." and the Budzyń source note likewise: 0.0089 is the Nature Reviews highlight's (S027, preview only); the accepted manuscript the page reads (S021) gives "p=0.009". Every sentence that named 0.0089 as an exception now names only the 70% cytology estimate (§60, §61, §64's sentences reworded to stay true).
+
+**Rewordings of sentences already corrected above** (not counted again): §36's subheading now reads "A possible mechanism was measured …"; §43's Gerlich sentence now begins "Its survey is cross-sectional"; §60, §61 and §64 as just described.
+
+**Not yet applied — Liu et al., arXiv v6 (13 October 2026), held as an also_held rendition of S001.** v6 changes figures the page prints from v4: Experiment 1's analysed sample is 305 (49 excluded), not 307 (47); its solve-rate effect size is d = −0.45 (95% CI −0.69 to −0.22), not −0.42; Experiment 2's is d = −0.20, not −0.19; Experiment 3's stays −0.42; Experiment 1's skip-rate difference is P = 0.020, not 0.031 (still significant). So "1,060 analysed" becomes 1,058 and "−0.42, −0.19 and −0.42" becomes "−0.45, −0.20 and −0.42". Unchanged: 1,222 participants, the COLM 2026 header, the absence of any pre-registration statement, the 15- and 13-minute timings, Experiment 2's non-significant skip rate. Proposed page fix in the step-2 report; stopped on for the operator's ruling.
+
 ## Bound
 
 Batch 1 (2026-10-18): 849a833e, b61e583d, 9675c628, f2072847, a84075d9, 5850f3bd, 83bed04b,

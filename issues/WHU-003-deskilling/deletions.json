@@ -1,0 +1,69 @@
+{
+  "_what_this_is": "Figures a correction removed from this page, and what each removal was argued from. See deletions.py: a removal is the least-checked text here and 35% of recorded errors came in with one.",
+  "deletions": [
+    {
+      "figure": "0.0089",
+      "removed_on": "2026-10-19",
+      "reason": "superseded",
+      "source_id": "S021",
+      "bound_row_absent": "",
+      "by": "claude, recording the operator's rulings (republish brief of 2026-10-19)",
+      "library_at_the_time": "9 source(s) are unheld (S003, S004, S010, S011, S014, S018), so this library cannot answer whether a figure is anywhere",
+      "note": "§64/§65 and brief step 6: P = 0.0089 is the Nature Reviews highlight's (S027, preview only); the accepted manuscript the page reads (S021) gives p=0.009, which replaces it in both places it appeared"
+    },
+    {
+      "figure": "262",
+      "removed_on": "2026-10-19",
+      "reason": "unsourced",
+      "source_id": "",
+      "bound_row_absent": "",
+      "by": "claude, recording the operator's rulings (republish brief of 2026-10-19)",
+      "library_at_the_time": "9 source(s) are unheld (S003, S004, S010, S011, S014, S018), so this library cannot answer whether a figure is anywhere",
+      "searched": "every held document's text (39 held, 9 unheld): 262 occurs only as table values in S031 and S043, never as a citation count; the low end of 'counts of the same paper run from 262' was WHU's own reading of a live index, recorded in sources.json and in no held document",
+      "note": "§130 (132860a7), the operator's wording removes the counter readings"
+    },
+    {
+      "figure": "399",
+      "removed_on": "2026-10-19",
+      "reason": "unsourced",
+      "source_id": "",
+      "bound_row_absent": "",
+      "by": "claude, recording the operator's rulings (republish brief of 2026-10-19)",
+      "library_at_the_time": "9 source(s) are unheld (S003, S004, S010, S011, S014, S018), so this library cannot answer whether a figure is anywhere",
+      "searched": "every held document's text: 399 occurs only as a subscription price in S036; the reading 'an hour later' was WHU's own observation of the journal's live counter, recorded in sources.json and in no held document",
+      "note": "§130 (132860a7)"
+    },
+    {
+      "figure": "402",
+      "removed_on": "2026-10-19",
+      "reason": "unsourced",
+      "source_id": "",
+      "bound_row_absent": "",
+      "by": "claude, recording the operator's rulings (republish brief of 2026-10-19)",
+      "library_at_the_time": "9 source(s) are unheld (S003, S004, S010, S011, S014, S018), so this library cannot answer whether a figure is anywhere",
+      "searched": "every held document's text: 402 occurs only as a page range in S009's reference list; the counter reading of 30 August 2026 was WHU's own observation, recorded in sources.json and in no held document",
+      "note": "§130 (132860a7)"
+    },
+    {
+      "figure": "404",
+      "removed_on": "2026-10-19",
+      "reason": "unsourced",
+      "source_id": "",
+      "bound_row_absent": "",
+      "by": "claude, recording the operator's rulings (republish brief of 2026-10-19)",
+      "library_at_the_time": "9 source(s) are unheld (S003, S004, S010, S011, S014, S018), so this library cannot answer whether a figure is anywhere",
+      "searched": "WHU's committed records (sources.json, review/, corrections.md, the ledger): no record of the publisher's page returning 404; '404' occurs in the records only inside hashes and in held texts only as '404 Media' (S016)",
+      "note": "§127 (47cbad8d): the clause is removed, not replaced"
+    },
+    {
+      "figure": "500",
+      "removed_on": "2026-10-19",
+      "reason": "rewritten",
+      "source_id": "S015",
+      "bound_row_absent": "",
+      "by": "claude, recording the operator's rulings (republish brief of 2026-10-19)",
+      "library_at_the_time": "9 source(s) are unheld (S003, S004, S010, S011, S014, S018), so this library cannot answer whether a figure is anywhere",
+      "note": "§130: 'over 500' is S015's ('cited over 500 times'); the corrected sentence carries it as 'cited several hundred times'"
+    }
+  ]
+}

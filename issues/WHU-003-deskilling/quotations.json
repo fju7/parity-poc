@@ -525,6 +525,74 @@
         "by": "",
         "on": ""
       }
+    },
+    {
+      "id": "Q-44",
+      "quote": "the negative impact of AI usage on critical thinking",
+      "source_id": "S008",
+      "verbatim": "These findings suggest that cognitive offloading plays a substantial role in explaining the negative impact of AI usage on critical thinking.",
+      "kind": "",
+      "why": "",
+      "attested": {
+        "by": "",
+        "on": ""
+      },
+      "recorded": {
+        "by": "claude",
+        "on": "2026-10-19",
+        "note": "quoted on the corrected page (republish 2026-10-19); verbatim copied from the held text and checked by quotations.norm"
+      }
+    },
+    {
+      "id": "Q-45",
+      "quote": "could offer causal evidence",
+      "source_id": "S008",
+      "verbatim": "Experimental studies that manipulate the level of AI tool usage and measure resultant changes in critical thinking performance could offer causal evidence of the relationship between these variables.",
+      "kind": "",
+      "why": "",
+      "attested": {
+        "by": "",
+        "on": ""
+      },
+      "recorded": {
+        "by": "claude",
+        "on": "2026-10-19",
+        "note": "quoted on the corrected page (republish 2026-10-19); verbatim copied from the held text and checked by quotations.norm"
+      }
+    },
+    {
+      "id": "Q-46",
+      "quote": "retrospective observational study",
+      "source_id": "S042",
+      "verbatim": "This retrospective observational study was conducted across four Polish endoscopy centers participating in the ACCEPT (Artificial Intelligence in Colonoscopy for Cancer Prevention) trial.",
+      "kind": "",
+      "why": "",
+      "attested": {
+        "by": "",
+        "on": ""
+      },
+      "recorded": {
+        "by": "claude",
+        "on": "2026-10-19",
+        "note": "quoted on the corrected page (republish 2026-10-19); verbatim copied from the held text and checked by quotations.norm"
+      }
+    },
+    {
+      "id": "Q-47",
+      "quote": "Volume 12 ■ Issue C ■ 2026",
+      "source_id": "S029",
+      "verbatim": "Volume 12 ■ Issue C ■ 2026",
+      "kind": "",
+      "why": "",
+      "attested": {
+        "by": "",
+        "on": ""
+      },
+      "recorded": {
+        "by": "claude",
+        "on": "2026-10-19",
+        "note": "quoted on the corrected page (republish 2026-10-19); verbatim copied from the held text and checked by quotations.norm"
+      }
     }
   ]
 }

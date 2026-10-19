@@ -295,7 +295,21 @@
       "kind": "full_text",
       "kind_why": "87215 characters, reference list and introduction present",
       "superseded": [],
-      "also_held": []
+      "also_held": [
+        {
+          "sha256": "6025a4b27ad25f12056da64f756b6d626a500420618575de762fc3a45eb415e9",
+          "file": "docs/60/6025a4b27ad25f12056da64f756b6d626a500420618575de762fc3a45eb415e9.pdf",
+          "bytes": 6201386,
+          "url": "https://arxiv.org/pdf/2604.04721v6",
+          "held": "2026-10-19",
+          "via": "curl arxiv.org (free), 2026-10-19, by claude",
+          "note": "v6 of the paper held as v4; read to compare the figures the page uses",
+          "also_held_reason": "arXiv v6 (13 October 2026) of the same paper; v4 (5 August 2026) stays the primary rendition every binding was read against; v6 changes Experiment 1's sample (305, 49 excluded), its solve-rate d (-0.45) and Experiment 2's d (-0.20)",
+          "also_held_added": "2026-10-19",
+          "kind": "full_text",
+          "kind_why": "87247 characters, reference list and introduction present"
+        }
+      ]
     },
     "S007": {
       "sha256": "9b84e8dff3e5a9eaca8d5cdcbdeef3dfb1ef32c2455eda2ed56d0079c9b45790",
