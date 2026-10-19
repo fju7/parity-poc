@@ -393,13 +393,47 @@ def check(ref: str | None = None,
         for slug, cfg in issues.items()
         if cfg.get("page") and (_last(rows, slug, "publish") or slug == publishing)
     }
+    # COMPANION PAGES (2026-10-19). An issue may publish a page of its own
+    # beside its assessment -- deskilling's corrections list, every corrected
+    # sentence as it stood and as it now reads. It is neither a standing page
+    # (its content changes with the issue, so a standing exemption would leave
+    # it unguarded for good) nor the issue's page. So it is allowed on exactly
+    # the terms the issue's page is: its issue's last sign-off lists it, with
+    # the sha256 it was signed off at, and the bytes on the branch hash to
+    # that sha. While publish.py is pushing that issue's record (the record is
+    # written after the deploy, as for the page), the companions the ISSUES
+    # table declares for that slug are allowed -- for that slug only.
+    # Anything else that is not standing or a published issue blocks, as before.
+    companions_ok: set[str] = set()
+    for slug, cfg in issues.items():
+        if slug == publishing:
+            companions_ok |= {Path(c).name for c in (cfg.get("companions") or [])}
+            continue
+        pub = _last(rows, slug, "publish")
+        for c in ((pub or {}).get("companions") or []):
+            rel = c.get("path") or ""
+            raw = _blob(ref, rel) if rel else None
+            if raw is None:
+                continue
+            now = hashlib.sha256(raw).hexdigest()
+            if now == c.get("sha256"):
+                companions_ok.add(Path(rel).name)
+            else:
+                blocking.append(
+                    "%s: companion page %s has changed since it was signed off.\n"
+                    "        signed off %s  content %s\n"
+                    "        this push         content %s\n"
+                    "        Republish %s through publish.py to sign off the new content."
+                    % (slug, rel, (pub or {}).get("at", "?")[:19],
+                       str(c.get("sha256", ""))[:16], now[:16], slug))
+                companions_ok.add(Path(rel).name)   # reported once, above
     _c, listing = _git("ls-tree", "--name-only",
                        (ref or "HEAD"), "site/whatholdsup/")
     for line in listing.splitlines():
         name = Path(line.strip()).name
         if not name.endswith(".html"):
             continue
-        if name in STANDING or name in published_pages:
+        if name in STANDING or name in published_pages or name in companions_ok:
             continue
         blocking.append(
             "site/whatholdsup/%s is on the deploy branch and is not a standing "

@@ -334,6 +334,10 @@ ISSUES = {
         "email_txt": "site/whatholdsup/email/issue3-deskilling.txt",
         "audience": "bae12ea6-cbad-4b91-b250-81991bf6b4b5",
         "email_subject": "What Happens to the Experts First \u2014 what AI does to people who are already good at something",
+        # Pages published beside the assessment and signed off with it. Their
+        # sha256 is recorded on each publish/update row ("companions"), and the
+        # pre-push guard allows them only at that sha. See guard_published.
+        "companions": ["site/whatholdsup/deskilling-corrections.html"],
     },
     "cdk46": {
         "number": 2,
@@ -2153,6 +2157,22 @@ def git(*args: str) -> tuple[int, str]:
     return p.returncode, (p.stdout + p.stderr).strip()
 
 
+def companion_record(cfg: dict) -> list[dict]:
+    """The issue's companion pages with the sha256 being signed off now.
+
+    Written on the publish/update row so the pre-push guard can hold each
+    companion to the bytes that were signed off (guard_published.check). A
+    declared companion that is missing is an error, not an empty list: the
+    record would otherwise sign off a page that is not there."""
+    out = []
+    for rel in cfg.get("companions") or []:
+        f = ROOT / rel
+        if not f.exists():
+            raise SystemExit("companion page %s is declared for this issue and missing" % rel)
+        out.append({"path": rel, "sha256": sha(f)})
+    return out
+
+
 def cmd_publish(args) -> int:
     cfg = ISSUES[args.slug]
     page = ROOT / cfg["page"]
@@ -2219,6 +2239,9 @@ def cmd_publish(args) -> int:
     # repository: on 13 September cdk46's update carried unsigned melanoma
     # and deskilling changes to readers behind it. The guard now stands
     # aside for this slug's page only and checks every other page as usual.
+    # The companions are signed off at the bytes being pushed, not at
+    # whatever is on disk after the deploy wait.
+    companions = companion_record(cfg)
     os.environ["WHATHOLDSUP_PUBLISHING"] = args.slug
     try:
         code, out = git("push", "origin", "HEAD")
@@ -2244,6 +2267,7 @@ def cmd_publish(args) -> int:
     _c, commit = git("rev-parse", "HEAD")
     append_record({
         "issue": args.slug, "action": "publish",
+        "companions": companions,
         "at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
         # The environment that produced this row. A stored result and a
         # stored-from-somewhere-else result must not look the same.
@@ -2544,6 +2568,9 @@ def cmd_update(args) -> int:
         return 2
 
     # This slug only; every other published page is checked. See cmd_publish.
+    # The companions are signed off at the bytes being pushed, not at
+    # whatever is on disk after the deploy wait.
+    companions = companion_record(cfg)
     os.environ["WHATHOLDSUP_PUBLISHING"] = args.slug
     try:
         code, out = git("push", "origin", "HEAD")
@@ -2569,6 +2596,7 @@ def cmd_update(args) -> int:
     _c, commit = git("rev-parse", "HEAD")
     append_record({
         "issue": args.slug, "action": "update",
+        "companions": companions,
         "at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
         # The environment that produced this row. A stored result and a
         # stored-from-somewhere-else result must not look the same.
