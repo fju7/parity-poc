@@ -681,7 +681,10 @@ EVIDENCE_HEDGES = (
     "cautiously", "preliminary", "tentative", "uncertain", "uncertainty",
     "exploratory", "hypothesis", "hypothesis-generating", "limited",
     "low certainty", "very low", "low quality", "not statistically significant",
-    "trend", "perhaps", "would tend to", "arguably")
+    "trend", "perhaps", "would tend to", "arguably",
+    # 2026-10-18: "The population being examined plausibly changed" (deskilling
+    # faec9851) carries its hedge and was reported as carrying none.
+    "plausibly", "plausible")
 SENTENCE_HEDGES = EVIDENCE_HEDGES + (
     "modest", "unclear", "not a finding", "cannot", "does not show", "too few",
     "low", "weak")
@@ -1002,6 +1005,12 @@ def b21_holdings(row: dict, slug: str) -> list[dict]:
                      "why": "rests_on_store is set and the sentence is not about "
                             "what we hold; a person decides which is wrong"}]
         return []
+    # A ROW RESTING ON WHU'S RECORDS (B24) has its support; with no store
+    # subject declared or marked up, there is nothing for the store to answer
+    # and nothing missing. It is still refused a document as support below if
+    # it cites one, and a row with a store subject is still checked against it.
+    if record_bound(row, slug) and not declared and not markup and not support_ids(row):
+        return []
     out = []
     import epistemic as E
     cited = support_ids(row)
@@ -1079,6 +1088,122 @@ def b21_holdings(row: dict, slug: str) -> list[dict]:
             out.append({"check": "B21", "verdict": "store check not evaluated",
                         "why": v.get("why") or ""})
     return out
+
+
+# ---------------------------------------------------------------------------
+# B24 — a sentence resting on WHU's own committed records
+# ---------------------------------------------------------------------------
+#
+# "We read it at the publisher", "a draft of this section said nothing false
+# had been printed", "neither is what a reader takes from a review date" --
+# claims about what WHU did or decided. Their evidence is not a document in the
+# library but a record in the repository: a ruling under review/, an entry in
+# corrections.md, a line in sources.json or watch.json. Batch 4 found eight such
+# sentences supported and could bind none of them: rests_on_store takes a
+# source id, and a ruling is not a source. 2026-10-18.
+#
+# So a row may carry `rests_on_record`: [{path, quote, sha}]. `path` is
+# repo-relative and must be under docs/ or the issue's own case directory;
+# `quote` must occur in the file AS COMMITTED AT HEAD (the working tree is not
+# a record -- seventy uncommitted files sit in it as this is written), under
+# spancheck's normalisation; `sha` is the file's git blob sha when the binding
+# was made. A quote no longer in the committed file is BAD: the sentence rests
+# on something that is not there. A file whose blob has moved on, with the
+# quote still in it, is a WARN -- the record changed under the binding, and a
+# person should look, but nothing is false yet.
+RECORD_CHANGED = "record changed since binding"
+RECORD_GONE = "record quote not in the committed file"
+RECORD_REFUSED = "record path is not a WHU record"
+RECORD_INCOMPLETE = "record binding incomplete"
+_COMMITTED_CACHE: dict[str, tuple[str, str] | None] = {}
+
+
+def _repo_root() -> Path:
+    return Path(__file__).resolve().parents[3]
+
+
+def _committed(path: str) -> tuple[str, str] | None:
+    """(blob sha, text) of `path` as committed at HEAD, or None if it is not
+    committed. Read through git, never from the working tree."""
+    if path in _COMMITTED_CACHE:
+        return _COMMITTED_CACHE[path]
+    import subprocess
+    root = str(_repo_root())
+    try:
+        sha = subprocess.run(["git", "-C", root, "rev-parse", "HEAD:%s" % path],
+                             capture_output=True, text=True, check=True).stdout.strip()
+        text = subprocess.run(["git", "-C", root, "cat-file", "blob", sha],
+                              capture_output=True, check=True).stdout.decode("utf-8", "replace")
+        out = (sha, text)
+    except (subprocess.CalledProcessError, OSError):
+        out = None
+    _COMMITTED_CACHE[path] = out
+    return out
+
+
+def record_path_ok(path: str, slug: str) -> bool:
+    """Repo-relative, inside docs/ or this issue's case directory."""
+    p = (path or "").strip()
+    if not p or p.startswith("/") or ".." in Path(p).parts:
+        return False
+    if p.startswith("docs/"):
+        return True
+    try:
+        case = store.case_dir(slug).resolve().relative_to(_repo_root().resolve()).as_posix()
+    except (Exception, SystemExit):
+        return False
+    return p.startswith(case + "/")
+
+
+def record_entry(path: str, quote: str, slug: str) -> dict:
+    """The entry to write: checked now, with the blob sha it was checked at.
+    Raises ValueError rather than return an entry that would fail B24."""
+    import spancheck as SC
+    if not record_path_ok(path, slug):
+        raise ValueError("%s: not under docs/ or the issue's case directory" % path)
+    got = _committed(path)
+    if got is None:
+        raise ValueError("%s: not committed at HEAD" % path)
+    if SC._norm(quote) not in SC._norm(got[1]):
+        raise ValueError("%s: quote not in the committed file: %s" % (path, quote[:60]))
+    return {"path": path, "quote": quote, "sha": got[0]}
+
+
+def b24_records(row: dict, slug: str) -> list[dict]:
+    """Every record the row names, checked against HEAD."""
+    import spancheck as SC
+    out = []
+    for e in row.get("rests_on_record") or []:
+        path = (e.get("path") or "").strip() if isinstance(e, dict) else ""
+        quote = (e.get("quote") or "").strip() if isinstance(e, dict) else ""
+        if not path or not quote or not (e.get("sha") or "").strip():
+            out.append({"check": "B24", "verdict": RECORD_INCOMPLETE,
+                        "why": "a record binding needs path, quote and sha: %r" % (e,)})
+            continue
+        if not record_path_ok(path, slug):
+            out.append({"check": "B24", "verdict": RECORD_REFUSED,
+                        "why": "%s is not under docs/ or the issue's case directory" % path})
+            continue
+        got = _committed(path)
+        if got is None or SC._norm(quote) not in SC._norm(got[1]):
+            out.append({"check": "B24", "verdict": RECORD_GONE,
+                        "why": "%s %s: %r" % (path, "is not committed at HEAD" if got is None
+                                              else "no longer contains the quote", quote[:80])})
+            continue
+        if got[0] != e["sha"].strip():
+            out.append({"check": "B24", "verdict": RECORD_CHANGED,
+                        "why": "%s was %s at binding and is %s now; the quote is still there, "
+                               "and a person should read what changed around it"
+                               % (path, e["sha"][:12], got[0][:12])})
+    return out
+
+
+def record_bound(row: dict, slug: str) -> bool:
+    """The row rests on records, and every one of them still says what it was
+    bound to (a changed file with the quote intact still counts)."""
+    if not row.get("rests_on_record"):
+        return False
+    return not any(CALIBRATION_SEVERITY.get(f["verdict"]) == BAD for f in b24_records(row, slug))
 
 
 # ---------------------------------------------------------------------------
@@ -1293,8 +1418,12 @@ CALIBRATION_SEVERITY = {
     "wording claim undetermined": WARN,
     "wording claim with nothing to check": WARN,
     "interval omitted": INFO,
+    RECORD_CHANGED: WARN,
+    RECORD_GONE: BAD,
+    RECORD_REFUSED: BAD,
+    RECORD_INCOMPLETE: BAD,
 }
-CALIBRATION_CHECKS = {"B19", "B20", "B21", "B22", "B23"}
+CALIBRATION_CHECKS = {"B19", "B20", "B21", "B22", "B23", "B24"}
 
 
 def calibration_findings(row: dict, slug: str) -> list[dict]:
@@ -1303,7 +1432,7 @@ def calibration_findings(row: dict, slug: str) -> list[dict]:
     check_flags."""
     return (b19_hedge_dropped(row) + b19_significance_dropped(row) + b20_confidence_ceiling(row)
             + b21_holdings(row, slug) + b22_wording_claim(row, slug)
-            + b23_interval_omitted(row))
+            + b23_interval_omitted(row) + b24_records(row, slug))
 
 
 def run_checks(slug: str, *, only: str = "") -> dict:
@@ -1871,9 +2000,19 @@ def rule_rows(slug: str) -> list[tuple[str, str, str]]:
               and isinstance(v.get("framing"), dict)
               and (v["framing"].get("why") or "").strip()
               and (v["framing"].get("by") or "").strip()]
+    # A SENTENCE RESTING ON WHU'S OWN COMMITTED RECORDS (B24) is bound: every
+    # quote it names is in the file as committed. Reported on its own row and
+    # never counted as a verified span of a document. A record quote that is no
+    # longer there is `loose` below -- bound, and resting on nothing.
+    rec_flags = {k: b24_records(v, slug) for k, v in on_page.items() if v.get("rests_on_record")}
+    recorded = [k for k, fl in rec_flags.items()
+                if not any(CALIBRATION_SEVERITY.get(f["verdict"]) == BAD for f in fl)]
+    rec_gone = {k: fl for k, fl in rec_flags.items() if k not in set(recorded)}
+    rec_changed = ["%s: %s" % (k[:8], f["why"][:120]) for k, fl in rec_flags.items()
+                   for f in fl if f["verdict"] == RECORD_CHANGED]
     unbound = [k for k, v in on_page.items()
                if not covering(v) and k not in set(attested) and k not in set(stored)
-               and k not in set(framed)]
+               and k not in set(framed) and k not in set(recorded) and k not in rec_gone]
 
     # A SENTENCE IS NOT BOUND BECAUSE ONE OF ITS FIGURES IS.
     #
@@ -1963,7 +2102,22 @@ def rule_rows(slug: str) -> list[tuple[str, str, str]]:
                             v["sentence"][:40]))
             loose_keys.add(k)
 
+    for k, fl in rec_gone.items():
+        loose.append("%s: a record it rests on does not say it (%s)"
+                     % (k[:8], "; ".join(f["why"][:100] for f in fl[:2])))
+        loose_keys.add(k)
+
     out_extra = []
+    if recorded:
+        out_extra.append(("rule 1 — sentences resting on WHU's committed records", OK,
+                          "INFO: %d of %d say what WHU did or decided, and every quote they "
+                          "name is in the file as committed (B24); not a span of a "
+                          "document and never counted as one" % (len(recorded), len(on_page))))
+    if rec_changed:
+        out_extra.append(("rule 1 — records changed since binding", WARN,
+                          "%d record(s) a sentence rests on have changed since the binding "
+                          "was made; the quote is still there, and a person should read "
+                          "what changed around it: %s" % (len(rec_changed), " || ".join(rec_changed[:3]))))
     if rounded:
         # INFO, AND SO OK: nothing here is unsupported. The row exists so that
         # a rounding is never silent -- the reader of the page sees -0.95, the
@@ -2029,7 +2183,8 @@ def rule_rows(slug: str) -> list[tuple[str, str, str]]:
     # and counted. Not a demotion of rule 1 -- the blocking half keeps its
     # label -- but a split, so the block names the defect and the backlog is
     # the backlog.
-    bound_n = len(on_page) - len(unbound) - len(attested) - len(stored) - len(framed)
+    bound_n = (len(on_page) - len(unbound) - len(attested) - len(stored) - len(framed)
+               - len(recorded))
     out = [("rule 1 — written from a document we hold",
             OK if not loose else BAD,
             "every figure in the %d bound sentence(s) is in a span the sentence "

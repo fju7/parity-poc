@@ -783,3 +783,44 @@ def test_framing_without_the_context_bucket_is_still_unbound():
     has declared context is not a way out of rule 1."""
     put({"sentence": "What follows is the evidence.", "framing": FRAMING})
     assert verdicts()[R1_BACKLOG] == B.WARN
+
+
+# 18 October 2026: B24 -- a sentence resting on WHU's committed records.
+R1_RECORDS = "rule 1 — sentences resting on WHU's committed records"
+R1_RECORDS_CHANGED = "rule 1 — records changed since binding"
+REC_PATH = "docs/whatholdsup-test-record.md"
+
+
+@pytest.fixture
+def records(monkeypatch):
+    files = {REC_PATH: ("a" * 40, "We withdrew the review date on 12 September.")}
+    monkeypatch.setattr(B, "_committed", lambda p: files.get(p))
+    return files
+
+
+def _rec(sha="a" * 40):
+    return {"bucket": "deterministic", "sentence": "We withdrew the review date.",
+            "rests_on_record": [{"path": REC_PATH, "quote": "We withdrew the review date", "sha": sha}]}
+
+
+def test_a_record_bound_sentence_is_settled_on_its_own_row(records):
+    put(_rec())
+    rows = {n: (s, w) for n, s, w in B.rule_rows(SLUG)}
+    assert rows[R1_BACKLOG][0] == B.OK and rows[R1][0] == B.OK
+    assert rows[R1_RECORDS][0] == B.OK and "1 of 1" in rows[R1_RECORDS][1]
+    assert R1_RECORDS_CHANGED not in rows
+
+
+def test_a_record_changed_since_binding_warns_and_still_counts(records):
+    records[REC_PATH] = ("b" * 40, records[REC_PATH][1] + " And more.")
+    put(_rec())
+    rows = {n: (s, w) for n, s, w in B.rule_rows(SLUG)}
+    assert rows[R1_RECORDS_CHANGED][0] == B.WARN and rows[R1][0] == B.OK
+    assert rows[R1_BACKLOG][0] == B.OK
+
+
+def test_a_record_whose_quote_is_gone_blocks_rule_one(records):
+    records[REC_PATH] = ("c" * 40, "Nothing about dates.")
+    put(_rec())
+    rows = {n: (s, w) for n, s, w in B.rule_rows(SLUG)}
+    assert rows[R1][0] == B.BAD and "a record it rests on does not say it" in rows[R1][1]

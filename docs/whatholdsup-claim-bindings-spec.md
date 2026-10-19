@@ -258,7 +258,8 @@ bound sentence's span plus `also_rests_on`. If the evidence carries a hedge
 (may, might, could, possibly, probably, likely, suggest(s), suggestive,
 appear(s/ed), cautious(ly), preliminary, tentative, uncertain(ty), exploratory,
 hypothesis(-generating), limited, low certainty, very low, low quality, not
-statistically significant, trend, perhaps, would tend to, arguably) and the
+statistically significant, trend, perhaps, would tend to, arguably, plausibly,
+plausible — the last two added 18 October 2026) and the
 sentence carries none (the same list plus modest, unclear, not a finding,
 cannot, does not show, too few, low, weak), it is reported with the word found.
 A negation — "does not support", "no evidence" — removes the hedge only when
@@ -341,6 +342,29 @@ signed `framing` note {why, by} — a heading, signpost or transition that makes
 claim — is not "rests on nothing yet" in rule 1. It is reported on its own ok row,
 "rule 1 — sentences declared framing", and never counted as bound or verified. A
 note with a blank why or by, or on a row not declared context, is not a declaration.
+
+**B24 — a sentence resting on WHU's own committed records (2026-10-18).** A claim
+about what WHU did or decided ("read at the publisher", "a draft of this section
+said …", the review-date ruling) has its evidence in the repository, not the
+library, and `rests_on_store` cannot name a ruling. Such a row carries
+`rests_on_record`: a list of `{path, quote, sha}`. `path` is repo-relative and
+must be under `docs/` or the issue's own case directory (its `review/`,
+`corrections.md`, `sources.json`, `watch.json`, `sweeps.json`, `errata.json` …);
+anything else — the page under `site/`, another issue, an absolute path — is
+BAD, "record path is not a WHU record". `quote` must occur, under spancheck's
+normalisation, in the file **as committed at HEAD** (read through git; the
+working tree is not a record). `sha` is the file's git blob sha when the binding
+was made (`bindings.record_entry` writes it). A quote no longer in the committed
+file, or a file not committed, is BAD, "record quote not in the committed file",
+and rule 1 counts the row as bound on something that is not there. A file whose
+blob has changed with the quote still in it is a WARN, "record changed since
+binding", reported per row and on rule 1's own row "records changed since
+binding"; the binding still counts. A verified record binding settles rule 1 —
+reported on its own ok row, "sentences resting on WHU's committed records", and
+never counted as a span of a document — and B21 does not ask the store about a
+record-bound row that declares no store subject; a row that cites a document as
+support is still refused, and a row with a store subject is still checked
+against it.
 
 **A document mentioned and not held gets an entry.** A holdings sentence whose
 `rests_on_store` names an id with no entry, or that declares nothing, cites
