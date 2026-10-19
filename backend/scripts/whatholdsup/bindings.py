@@ -297,12 +297,35 @@ FURNITURE = re.compile(r"<(nav|header|footer|aside)\b[^>]*>.*?</\1>",
 # read, and no binding covers it. Recorded in docs/whatholdsup-open-gaps.md.
 HEAD = re.compile(r"<head\b[^>]*>.*?</head>", re.S | re.I)
 
+# THE HEADER'S PROSE IS PROSE (2026-10-19).
+#
+# FURNITURE took the whole <header>, and with it the standfirst -- the first
+# five sentences a reader meets, and on deskilling the page's whole argument in
+# small: "That study is retrospective, confounded, and its authors list eleven
+# limitations." The 19 October revision read "every sentence on the page" and
+# corrected 125; none of the standfirst's sentences had a row, so none had been
+# read. The masthead's meta line carries dates a reader takes as facts about the
+# page. Both are kept, by their markup (p.standfirst, span.meta); the pills, the
+# title (an h1, excluded as a heading) and the domain line are still furniture.
+# A test draft's <header><h2>…</h2></header> section heads carry neither class
+# and are unaffected.
+HEADER = re.compile(r"<header\b[^>]*>(.*?)</header>", re.S | re.I)
+HEADER_PROSE = re.compile(r'<(p|span)\b[^>]*\bclass="(?:standfirst|meta)"[^>]*>.*?</\1>',
+                          re.S | re.I)
+FOOTER = re.compile(r"<footer\b[^>]*>(.*?)</footer>", re.S | re.I)
+FOOTER_WHY = "footer update entry: a claim about what we changed, bindable to records"
+
+
+def _header_prose(m: re.Match) -> str:
+    return " ".join("<p>%s</p>" % x.group(0) for x in HEADER_PROSE.finditer(m.group(1)))
+
 
 def page_sentences(slug: str) -> list[str]:
     html = ledger.page_text(slug) if hasattr(ledger, "page_text") else None
     if html is None:
         html = _page_html(slug)
     html = HEAD.sub(" ", html)
+    html = HEADER.sub(_header_prose, html)
     html = FURNITURE.sub(" ", html)
     # Text the page generates about itself -- an axis, a scorecard's working, a
     # table restating what the article proved -- is checked by furniture.py
@@ -312,6 +335,25 @@ def page_sentences(slug: str) -> list[str]:
     import furniture
     html = furniture.strip_marked(html)
     return [" ".join(s.split()) for s in ledger.sentences(ledger.plain(html))]
+
+
+def footer_sentences(slug: str) -> list[str]:
+    """The change log's sentences: what we say we changed, and when.
+
+    corrections_check.py (B18) reads the footer for its figures; nothing gave
+    its sentences rows, so a footer claim about our own process -- "we can see
+    a trial registry move" -- could be corrected in the body and stand in the
+    footer (2026-10-19). Each gets a row tagged process_claim, bindable to
+    WHU's records; page_sentences() still excludes the footer, so the body's
+    counts and their callers are unchanged."""
+    html = ledger.page_text(slug) if hasattr(ledger, "page_text") else None
+    if html is None:
+        html = _page_html(slug)
+    html = HEAD.sub(" ", html)
+    out = []
+    for m in FOOTER.finditer(html):
+        out += [" ".join(s.split()) for s in ledger.sentences(ledger.plain(m.group(1)))]
+    return [s for s in out if s]
 
 
 def _page_html(slug: str) -> str:
@@ -433,6 +475,19 @@ def scan(slug: str) -> tuple[dict, list[str], list[str]]:
                     # The source-list entry this sentence sits in, read from its
                     # link: what the sentence is ABOUT, not what supports it.
                     rows[sha]["store_subject_markup"] = subj
+        rows[sha]["on_page"] = True
+        if not rows[sha].get("span"):
+            unbound.append(sha)
+    for sent in footer_sentences(slug):
+        sha = fingerprint(sent)
+        if sha in live:
+            continue
+        present.add(sha)
+        live.add(sha)
+        if sha not in rows:
+            rows[sha] = blank_row(sent, FOOTER_WHY)
+            rows[sha]["trigger"] = PROCESS_TRIGGER
+            rows[sha]["region"] = "footer"
         rows[sha]["on_page"] = True
         if not rows[sha].get("span"):
             unbound.append(sha)

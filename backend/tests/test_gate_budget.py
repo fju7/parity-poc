@@ -109,3 +109,76 @@ def test_a_draft_with_no_report_path_is_not_counted(report):
     nothing to count against, and the caller is told nothing is being counted
     rather than being silently allowed forever."""
     assert fc.cycle_check("", None, False) is True
+
+
+# ---------------------------------------------------------------------------
+# --past-issue-cap (2026-10-19): the issue budget's own override, on the ledger
+# ---------------------------------------------------------------------------
+
+class _Ledger:
+    def __init__(self):
+        self.lines = []
+
+    def record(self, **kw):
+        self.lines.append(kw)
+
+
+def _spent(report, monkeypatch):
+    led = _Ledger()
+    monkeypatch.setattr(fc, "_spend", led)
+    run(report, 2)
+    run(report, 1, new=True)          # three runs: the whole budget
+    return led
+
+
+def test_the_issue_budget_stops_a_fourth_run(report, monkeypatch):
+    _spent(report, monkeypatch)
+    assert fc.cycle_check(report, None, False) is False
+
+
+def test_past_issue_cap_lifts_the_issue_budget_and_writes_the_ledger(report, monkeypatch):
+    led = _spent(report, monkeypatch)
+    assert fc.cycle_check(report, None, False,
+                          past_issue_cap="page changed after gate run 3") is True
+    over = [l for l in led.lines if l.get("role") == "override"]
+    assert len(over) == 1
+    assert over[0]["usd"] == 0.0 and over[0]["script"] == "factcheck_draft.py"
+    assert "RUNS_PER_ISSUE=%d" % fc.RUNS_PER_ISSUE in over[0]["note"]
+    assert "page changed after gate run 3" in over[0]["note"]
+    assert over[0]["issue"] == "draft"
+
+
+def test_past_issue_cap_with_a_blank_reason_is_refused(report, monkeypatch):
+    _spent(report, monkeypatch)
+    assert fc.cycle_check(report, None, False, past_issue_cap="   ") is False
+    with pytest.raises(Exception):
+        fc._reason("  ")
+    with pytest.raises(Exception):
+        fc._reason("ok")
+    assert fc._reason(" page changed after gate run 3 ") == "page changed after gate run 3"
+
+
+def test_the_cli_refuses_the_flag_without_a_reason(monkeypatch):
+    monkeypatch.setattr(sys, "argv", ["factcheck_draft.py", "x.html", "--past-issue-cap", ""])
+    with pytest.raises(SystemExit) as e:
+        fc.main()
+    assert e.value.code == 2
+
+
+def test_past_issue_cap_does_not_lift_the_per_cycle_cap(report, monkeypatch):
+    monkeypatch.setattr(fc, "_spend", _Ledger())
+    run(report, 2)
+    assert fc.cycle_check(report, None, False, past_issue_cap="a reason for it") is False
+
+
+def test_the_older_past_cap_route_past_the_issue_budget_is_now_on_the_ledger(report, monkeypatch):
+    led = _spent(report, monkeypatch)
+    assert fc.cycle_check(report, "the review found X and a run settles it", False) is True
+    assert [l for l in led.lines if l.get("role") == "override"]
+
+
+def test_the_run_records_the_issue_override(report, monkeypatch):
+    _spent(report, monkeypatch)
+    fc.cycle_record(report, "sha9", None, "page changed after gate run 3")
+    st = fc.cycle_state(report)
+    assert fc.all_runs(st)[-1]["past_issue_cap"] == "page changed after gate run 3"

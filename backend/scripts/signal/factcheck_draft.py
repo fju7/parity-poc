@@ -994,21 +994,68 @@ def all_runs(st: dict) -> list[dict]:
     return list(st.get("closed") or []) + list(st.get("runs") or [])
 
 
-def cycle_record(report: str, sha: str, past_cap: str | None) -> None:
+def cycle_record(report: str, sha: str, past_cap: str | None,
+                 past_issue_cap: str | None = None) -> None:
     st = cycle_state(report)
-    st["runs"].append({"at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
-                       "sha": sha, "past_cap": past_cap,
-                       "cycle": st.get("cycle", 1)})
+    run = {"at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+           "sha": sha, "past_cap": past_cap, "cycle": st.get("cycle", 1)}
+    if past_issue_cap:
+        run["past_issue_cap"] = past_issue_cap
+    st["runs"].append(run)
     _cycle_path(report).write_text(json.dumps(st, indent=2), encoding="utf-8")
 
 
-def cycle_check(report: str, past_cap: str | None, new_cycle: bool) -> bool:
-    """False means stop. Prints why."""
+def _reason(text: str) -> str:
+    """argparse type for an override: a reason, or refuse."""
+    t = (text or "").strip()
+    if len(t) < 8:
+        raise argparse.ArgumentTypeError(
+            "an override needs a reason someone could disagree with, not %r" % text)
+    return t
+
+
+def _record_issue_override(report: str, lifetime: int, why: str, flag: str) -> None:
+    """THE ISSUE BUDGET'S OVERRIDE IS A LEDGER FACT (2026-10-19).
+
+    --past-cap could always lift RUNS_PER_ISSUE, and the reason went into the
+    runs file beside the draft -- a file that sits under site/ and is not what
+    anyone reads to ask what an issue cost. The spend cap's override
+    (WHU_SPEND_OVERRIDE) writes a zero-dollar line to the spend ledger; running
+    past the issue's whole gate budget is the same kind of decision and now
+    leaves the same trace."""
+    if _spend is None:
+        return
+    try:
+        _spend.record(script="factcheck_draft.py", role="override",
+                      issue=issue_slug_for(report[:-len(".gate.json")] if report.endswith(".gate.json") else report),
+                      usd=0.0,
+                      note="gate run budget RUNS_PER_ISSUE=%d, %d run(s) already (%s) — %s"
+                           % (RUNS_PER_ISSUE, lifetime, flag, why))
+    except Exception:
+        pass
+
+
+def cycle_check(report: str, past_cap: str | None, new_cycle: bool,
+                past_issue_cap: str | None = None) -> bool:
+    """False means stop. Prints why.
+
+    past_issue_cap lifts RUNS_PER_ISSUE -- the lifetime budget -- and nothing
+    else; the per-cycle cap still needs --past-cap or a new cycle."""
     if not report:
         return True
+    if past_issue_cap is not None and not (past_issue_cap or "").strip():
+        print("\n  STOP. --past-issue-cap needs a reason.\n")
+        return False
     p = _cycle_path(report)
     st = cycle_state(report)
     lifetime = len(all_runs(st))
+    over_issue = lifetime >= RUNS_PER_ISSUE
+    if over_issue and past_issue_cap:
+        print("  Past the issue's gate budget of %d, on the record: %s" % (RUNS_PER_ISSUE, past_issue_cap))
+        _record_issue_override(report, lifetime, past_issue_cap, "--past-issue-cap")
+    elif over_issue and past_cap:
+        _record_issue_override(report, lifetime, past_cap, "--past-cap")
+    lifted = bool(past_cap or past_issue_cap)
     if new_cycle:
         # A NEW CYCLE KEEPS THE OLD RUNS. It used to drop them, which made the
         # per-cycle cap unenforceable by the one flag that asks for nothing.
@@ -1016,7 +1063,7 @@ def cycle_check(report: str, past_cap: str | None, new_cycle: bool) -> bool:
               "runs": [],
               "closed": all_runs(st),
               "reason": None}
-        if lifetime >= RUNS_PER_ISSUE and not past_cap:
+        if lifetime >= RUNS_PER_ISSUE and not lifted:
             print()
             print("  STOP. This draft has been gated %d times across %d cycle(s)."
                   % (lifetime, st["cycle"] - 1))
@@ -1040,7 +1087,7 @@ def cycle_check(report: str, past_cap: str | None, new_cycle: bool) -> bool:
               % (st["cycle"], len(st["closed"])))
         return True
     used = len(st.get("runs", []))
-    if lifetime >= RUNS_PER_ISSUE and not past_cap:
+    if lifetime >= RUNS_PER_ISSUE and not lifted:
         print()
         print("  STOP. This draft has been gated %d times, which is the whole budget."
               % lifetime)
@@ -1050,6 +1097,8 @@ def cycle_check(report: str, past_cap: str | None, new_cycle: bool) -> bool:
         print("  stops the next issue needing one.")
         print()
         print("    --past-cap \"why this run is different from the last %d\"" % lifetime)
+        print("  or, for the issue budget alone, recorded in the spend ledger:")
+        print("    --past-issue-cap \"why this run is different from the last %d\"" % lifetime)
         print()
         return False
     if used < RUNS_PER_CYCLE or past_cap:
@@ -2446,6 +2495,10 @@ def main():
                     help="Run past the per-cycle cap, recording why. A cap with no "
                          "override gets worked around; one with a required reason gets "
                          "used deliberately.")
+    ap.add_argument("--past-issue-cap", metavar="REASON", type=_reason,
+                    help="Run past the issue's lifetime gate budget (%d runs), recording "
+                         "why in the spend ledger. Refused without a reason. Does not lift "
+                         "the per-cycle cap." % RUNS_PER_ISSUE)
     ap.add_argument("--since", metavar="REPORT",
                     help="A previous gate report for this draft. Claims whose sentences "
                          "are unchanged keep their verdicts; RECENCY and COVERAGE are "
@@ -2616,7 +2669,8 @@ def main():
     # Before any money is spent. The cap is checked against the report path
     # because that is what identifies the draft across runs, and the counter
     # lives beside it so it travels with the issue rather than with a machine.
-    if not cycle_check(args.report, args.past_cap, args.new_cycle):
+    if not cycle_check(args.report, args.past_cap, args.new_cycle,
+                       past_issue_cap=args.past_issue_cap):
         sys.exit(3)
 
     draft = read_draft(path)
@@ -2817,7 +2871,7 @@ def main():
 
     save(None)
     cycle_record(args.report, hashlib.sha256(path.read_bytes()).hexdigest(),
-                 args.past_cap) if args.report else None
+                 args.past_cap, args.past_issue_cap) if args.report else None
 
     try:
         report, failed = render(claims, verdicts, recency, objections, inferences, cov,
