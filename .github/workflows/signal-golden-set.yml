@@ -6,7 +6,8 @@
 # endpoint would also have to survive 52 sequential model calls inside one HTTP
 # request, would couple the pipeline scripts into the web app, and would need a
 # results table to report through. Here the run IS the report: a drift fails the
-# job, and GitHub already knows how to tell Fred that.
+# job, and GitHub already knows how to tell Fred that. Since 2026-10-19 only an
+# UNDECIDED drift fails it; drifts with a recorded decision are reported, not failed.
 #
 # WHAT IT PROTECTS
 # ----------------
@@ -57,13 +58,19 @@ concurrency:
 
 jobs:
   check:
-    runs-on: ubuntu-latest
+    # Pinned, not ubuntu-latest. ubuntu-latest moves to Ubuntu 26.04 between
+    # 2026-10-19 and 2026-11-19, and the 26.04 image pre-caches only Python
+    # 3.14 -- 3.11 (what Render runs) is not on it. Move deliberately, after a
+    # test run on ubuntu-26.04, not because a label changed underneath us.
+    runs-on: ubuntu-24.04
     timeout-minutes: 45
 
     steps:
-      - uses: actions/checkout@v4
+      # Node 24 majors. v4/v5/v4 targeted Node 20, which GitHub is removing
+      # from hosted runners (deprecation warning on every run since Sept).
+      - uses: actions/checkout@v5
 
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v6
         with:
           python-version: "3.11"
 
@@ -100,26 +107,43 @@ jobs:
         # case anyone actually opens.
         if: always()
         run: |
+          OUTCOME=$(grep -o 'GOLDEN_OUTCOME=[a-z_]*' /tmp/golden.log 2>/dev/null | tail -1 | cut -d= -f2)
           {
             echo "## Signal golden set"
             echo ""
-            if [ "${{ steps.golden.outcome }}" = "success" ]; then
-              echo "No published judgment moved."
-            else
-              echo "**A judgment moved.** This is not automatically a regression —"
-              echo "three of the five drifts in the original sweep were the model"
-              echo "improving. Read the claims in the affected category, decide, then"
-              echo "re-baseline with \`golden_set.py --record\` and say why in the commit."
-            fi
+            case "$OUTCOME" in
+              clean)
+                echo "All categories measured. No published judgment moved." ;;
+              known_only)
+                echo "**Passed.** Every drift in this run already has a recorded decision in"
+                echo "\`signal_golden_decisions.json\`; warnings are listed below for reading."
+                echo "Nothing new to decide." ;;
+              new_drift)
+                echo "**A judgment moved and nobody has decided about it yet.** This is not"
+                echo "automatically a regression -- three of the five drifts in the original"
+                echo "sweep were the model improving. Read the claims in the affected category,"
+                echo "then record a decision in \`signal_golden_decisions.json\` (or re-baseline"
+                echo "with \`golden_set.py --record\` and say why in the commit)." ;;
+              site_mismatch)
+                echo "**The live page disagrees with the baseline** and the difference is not in"
+                echo "\`published_exceptions\`. Re-map the category or record why it is deliberate." ;;
+              unmeasured)
+                echo "**Some categories could not be measured.** This run proves nothing about them."
+                echo "Fix the cause and re-run." ;;
+              unbaselined)
+                echo "**Some categories have no baseline.** Add them with \`golden_set.py --record\`." ;;
+              *)
+                echo "**The check did not finish** (no outcome line in the log). Read the log below." ;;
+            esac
             echo ""
             echo '```'
-            tail -60 /tmp/golden.log 2>/dev/null || echo "(no output captured)"
+            tail -80 /tmp/golden.log 2>/dev/null || echo "(no output captured)"
             echo '```'
           } >> "$GITHUB_STEP_SUMMARY"
 
       - name: Keep the full log
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: golden-set-log
           path: /tmp/golden.log

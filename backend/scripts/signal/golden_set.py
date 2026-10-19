@@ -406,6 +406,58 @@ def decision_key(why: str) -> str:
     return re.sub(r"\s*\[.*$", "", why).strip().rstrip(":")
 
 
+def split_decided(failures: list[dict], decisions: dict) -> tuple[list, list]:
+    """Pair each failure with its recorded decision, if any.
+
+    Returns (decided, undecided), each a list of (failure, decision-or-None).
+    A status move keys on "consensus -> debated"; a side-balance reversal keys
+    on "side BALANCE REVERSED" with the run's counts stripped, so a decision
+    about it can match more than once. The two never collide.
+    """
+    decided, undecided = [], []
+    for f in failures:
+        d = decisions.get((f["slug"], f["category"], decision_key(f["why"])))
+        (decided if d else undecided).append((f, d))
+    return decided, undecided
+
+
+def run_outcome(*, unbaselined: list, unmeasured: list, undecided: list,
+                stale_new: list, decided: list, warnings: list) -> tuple[int, str]:
+    """The exit rule, in one place so it can be tested without a model call.
+
+    FAILS (exit 1) only on things nobody has looked at:
+      unbaselined  -- a category in the corpus with no fixture entry
+      unmeasured   -- a category the run could not see (API failure, emptied)
+      new_drift    -- a drift with no entry in signal_golden_decisions.json
+      site_mismatch -- the live page disagrees with the baseline and the
+                       difference is not in published_exceptions
+    PASSES (exit 0) when everything that moved has a recorded decision and
+    the only other findings are warnings. Known drifts and warnings are still
+    printed in full -- passing is not the same as hiding them.
+
+    Order matters only for which reason is reported first; any one of the four
+    failure classes fails the run on its own.
+    """
+    if unbaselined:
+        return 1, "unbaselined"
+    if unmeasured:
+        return 1, "unmeasured"
+    if undecided:
+        return 1, "new_drift"
+    if stale_new:
+        return 1, "site_mismatch"
+    if decided or warnings:
+        return 0, "known_only"
+    return 0, "clean"
+
+
+def _report_outcome(code: int, outcome: str) -> int:
+    # One greppable line for the workflow's run summary, so the summary can
+    # say WHY the job passed or failed instead of guessing from the exit code.
+    print(f"\nGOLDEN_OUTCOME={outcome}")
+    return code
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--verify", action="store_true",
@@ -504,13 +556,15 @@ def main():
     if unbaselined:
         print(f"\n{len(unbaselined)} categor{'y' if len(unbaselined) == 1 else 'ies'} in the corpus have NO baseline at all.")
         print("They are not drifting — they are unwatched. Add them with --record.")
-        return 1
+        return _report_outcome(*run_outcome(unbaselined=unbaselined, unmeasured=unmeasured,
+                                            undecided=[], stale_new=[], decided=[], warnings=warnings))
 
     if unmeasured:
         print(f"\n{len(unmeasured)} categor{'y' if len(unmeasured) == 1 else 'ies'} could not be measured.")
         print("This run proves NOTHING about whether those judgments moved. Fix the")
         print("cause and re-run — a green check here would be a lie.")
-        return 1
+        return _report_outcome(*run_outcome(unbaselined=[], unmeasured=unmeasured,
+                                            undecided=[], stale_new=[], decided=[], warnings=warnings))
 
     # What a READER sees, which is the only thing that reaches anyone.
     stale = published_mismatches(entries)
@@ -535,15 +589,7 @@ def main():
         for m in stale_new:
             print("  %-52s %-26s %s" % (m["slug"], m["category"], m["why"]))
 
-    decisions = load_decisions()
-    decided, undecided = [], []
-    for f in failures:
-        # A status move keys on "consensus -> debated"; a side-balance reversal
-        # keys on "side BALANCE REVERSED" with the run's counts stripped, so a
-        # decision about it can match more than once. The two never collide.
-        key = (f["slug"], f["category"], decision_key(f["why"]))
-        d = decisions.get(key)
-        (decided if d else undecided).append((f, d))
+    decided, undecided = split_decided(failures, load_decisions())
 
     if decided:
         print("\nALREADY DECIDED — read, judged, and written down. Not news.")
@@ -568,10 +614,9 @@ def main():
             print("  every run. Re-baselining cannot fix that; the fix is upstream, in what")
             print("  the page prints.")
 
-    if stale_new and not undecided:
-        print("\n%d categor%s live with a label nobody meant to publish."
-              % (len(stale_new), "y is" if len(stale_new) == 1 else "ies are"))
-        return 1
+    code, outcome = run_outcome(unbaselined=unbaselined, unmeasured=unmeasured,
+                                undecided=undecided, stale_new=stale_new,
+                                decided=decided, warnings=warnings)
 
     if undecided:
         print("\nA judgment moved and nobody has decided about it yet.")
@@ -581,16 +626,22 @@ def main():
         print("original sweep were the model improving. Read the claims, decide, and")
         print("record it in %s." % DECISIONS.name)
         print("Re-baseline with --record only once you understand it.")
-        return 1
 
-    if decided:
-        print("\nEvery drift in this run has a recorded decision behind it.")
-        return 1 if stale_new else 0
+    if stale_new:
+        print("\n%d categor%s live with a label nobody meant to publish."
+              % (len(stale_new), "y is" if len(stale_new) == 1 else "ies are"))
 
-    n_measured = len(measured) - len(unmeasured)
-    tail = f" ({len(warnings)} warning{'s' if len(warnings) != 1 else ''} to read)" if warnings else ""
-    print(f"\nAll {n_measured} categories measured. No published judgment moved.{tail}")
-    return 0
+    if outcome == "known_only":
+        tail = f" {len(warnings)} warning{'s' if len(warnings) != 1 else ''} to read." if warnings else ""
+        if decided:
+            print("\nEvery drift in this run has a recorded decision behind it.%s" % tail)
+        else:
+            print("\nNo judgment moved.%s" % tail)
+    elif outcome == "clean":
+        n_measured = len(measured) - len(unmeasured)
+        print(f"\nAll {n_measured} categories measured. No published judgment moved.")
+
+    return _report_outcome(code, outcome)
 
 
 if __name__ == "__main__":

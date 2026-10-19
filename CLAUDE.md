@@ -1791,6 +1791,15 @@ summary states plainly that a drift is not automatically a regression — three 
 the five found in the original sweep were the model improving — and points at
 `--record` for a deliberate re-baseline.
 
+Exit rule (2026-10-19, golden_set.run_outcome, tests/signal/test_golden_set_exit.py):
+the job fails ONLY on new_drift (no entry in signal_golden_decisions.json),
+unbaselined, unmeasured, or site_mismatch (not in published_exceptions). Decided
+drifts and warnings are printed but pass (known_only). The script prints
+GOLDEN_OUTCOME=<outcome>; the run summary reads it. Runner pinned to
+ubuntu-24.04 (26.04 pre-caches only Python 3.14); actions on Node 24 majors
+(checkout@v5, setup-python@v6, upload-artifact@v6 — upload-artifact@v5 is still
+Node 20). The other four workflows still use ubuntu-latest + Node 20 actions.
+
 CI rather than a Render cron endpoint: this is a regression test, an endpoint
 would have to survive 52 sequential model calls inside one HTTP request, and it
 would couple the pipeline scripts into the web app and need a results table to
