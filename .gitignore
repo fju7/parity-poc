@@ -91,3 +91,6 @@ issues/WHU-P*/change-reviews.json
 issues/WHU-S*/change-reviews.json
 issues/WHU-P*/draft/*.gate.json*
 issues/WHU-S*/draft/*.gate.json*
+
+# Local drop folder for incoming files; never committed (2026-10-20).
+_incoming/
