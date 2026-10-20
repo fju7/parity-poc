@@ -209,3 +209,39 @@ def test_the_sample_depends_on_the_seed_and_the_pool_not_the_order():
     assert a == J.consistency_sample(list(reversed(ids)), 0.2, 5) and len(a) == 8
     assert a != J.consistency_sample(ids, 0.2, 6)
     assert J.consistency_sample(ids, 0, 5) == [] and J.consistency_sample([], 0.2, 5) == []
+
+
+# --- delivery: what the judge receives must hold what the source holds (2026-10-20) ----
+
+def test_chunking_can_return_nothing_and_that_is_caught():
+    # One matching section longer than the limit is dropped until none is left.
+    text = "Filler.\n\n" + "Mice did better in the trial with carrageenans. " * 400
+    out, info = J.chunk(text, "Mice did better with carrageenans.", limit=50, count=lambda t: len(t) // 4)
+    assert out == "" and info["dropped_for_length"] == 1        # the defect, in this runner
+    assert J.delivery_problems(text, out, "Mice did better with carrageenans.") == \
+        ["delivered empty (%d characters held)" % len(text)]
+
+
+def test_a_key_term_or_cited_span_the_source_holds_must_be_delivered():
+    full = "The cohort was 1,137 patients. Mice did better in the trial. Ten percent dropped out."
+    assert J.delivery_problems(full, full, "Mice did better: 1,137 patients.", ["Mice did better in the trial."]) == []
+    bad = J.delivery_problems(full, "Ten percent dropped out.", "Mice did better: 1,137 patients.",
+                              ["Mice did better in the trial."])
+    assert any("1,137" in b for b in bad) and any("cited span" in b for b in bad)
+    # a term the source does not hold at all is the judge's to find, not a delivery problem
+    assert J.delivery_problems(full, full, "Rats did worse: 9,999 animals.") == []
+
+
+def test_an_item_whose_source_is_delivered_empty_is_incomplete_and_no_judge_is_called(tmp_path, monkeypatch):
+    called = []
+    _wire(monkeypatch, lambda *a: called.append(a), lambda *a: called.append(a))
+    monkeypatch.setattr(J, "MAX_SOURCE_TOKENS", 10)                # every source is "long"
+    monkeypatch.setattr(J, "chunk", lambda text, claim, limit, count: ("", {"planted": True}))
+    run = _run_dir(tmp_path)
+    monkeypatch.setattr(sys, "argv", ["judge_m1.py", str(run), "--allow-incomplete"])
+    J.main()
+    assert called == []
+    for j in ("claude", "openai"):
+        rec = json.loads((run / "replies" / j / "P01.json").read_text())
+        assert rec["label"] == J.INCOMPLETE_SOURCES and rec["human_review"] is True
+        assert "delivered empty" in rec["undelivered_sources"][0]["why"]

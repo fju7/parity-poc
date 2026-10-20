@@ -169,6 +169,33 @@ def chunk(text: str, claim: str, limit: int, count) -> tuple[str, dict]:
                  "key_numbers": sorted(nums), "key_words": sorted(words)}
 
 
+def delivery_problems(full: str, delivered: str, claim: str, spans: list[str] | None = None) -> list[str]:
+    """What the judge would NOT receive that its source holds (fail closed,
+    2026-10-20). chunk() can return nothing -- no section with the claim's key
+    terms, or one such section longer than the limit, dropped until none is
+    left -- which is the audit stage's empty-document defect in this runner.
+    Every key term of the claim and every cited span that is in the held text
+    must be in what is delivered; a term the source does not contain at all is
+    not a delivery problem (that is for the judge to find)."""
+    out = []
+    if full.strip() and not delivered.strip():
+        out.append("delivered empty (%d characters held)" % len(full))
+        return out
+    nums, words = key_terms(claim)
+    low_full, low_del = full.lower(), delivered.lower()
+    for n in sorted(nums):
+        if n in full and n not in delivered:
+            out.append("key number %r is in the source but not in what the judge receives" % n)
+    for w in sorted(words):
+        if w in low_full and w not in low_del:
+            out.append("key word %r is in the source but not in what the judge receives" % w)
+    norm = lambda s: " ".join((s or "").split()).lower()
+    for s in spans or []:
+        if s and norm(s) in norm(full) and norm(s) not in norm(delivered):
+            out.append("cited span %r is in the source but not in what the judge receives" % s[:80])
+    return out
+
+
 # --------------------------------------------------------------------------
 # The prompt
 # --------------------------------------------------------------------------
@@ -345,7 +372,7 @@ def main() -> int:
 
     def judge_items(todo: list[dict], tag: str, judged: list[str]) -> int:
         for it in todo:
-            docs, unreachable = [], []
+            docs, unreachable, undelivered = [], [], []
             cites = it.get("citations") or [{"label": "", "url": u} for u in it["urls"]]
             for c in cites:
                 if not c.get("url"):
@@ -366,11 +393,18 @@ def main() -> int:
                 if d["tokens"] > MAX_SOURCE_TOKENS:
                     d["text"], d["chunk"] = chunk(text, it["claim"], MAX_SOURCE_TOKENS, count)
                     d["chunked"] = True
+                spans = [s for s in [it.get("span")] + list(it.get("spans") or []) if s]
+                bad = delivery_problems(text, d["text"], it["claim"], spans)
+                if bad:
+                    undelivered.append({"url": u, "source_id": m["source_id"], "why": "; ".join(bad)})
                 docs.append(d)
             if not docs:
                 skipped.append((it["item"], "; ".join(x["why"] for x in unreachable)))
                 continue
-            if unreachable and not a.allow_incomplete:
+            # A source the judge would receive incompletely (undelivered) is never
+            # judged, whatever --allow-incomplete says: that flag is about sources
+            # nobody could fetch, not about text this runner failed to pass on.
+            if (unreachable and not a.allow_incomplete) or undelivered:
                 for judge in a.judges.split(","):
                     out = run / ("replies" + tag) / judge / (it["item"] + ".json")
                     if out.exists():
@@ -381,12 +415,14 @@ def main() -> int:
                         "at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
                         "label": INCOMPLETE_SOURCES, "judge_label": None, "attempts": [], "usd": 0.0,
                         "sources": [{k: v for k, v in d.items() if k != "text"} for d in docs],
-                        "unreachable_sources": unreachable, "human_review": True,
+                        "unreachable_sources": unreachable, "undelivered_sources": undelivered,
+                        "human_review": True,
                         "form_problems": [], "parsed": None, "reference": it["reference"]},
                         indent=1, ensure_ascii=False), encoding="utf-8")
                     print("%-5s %-7s %-24s ref %-11s not judged: %s" % (
                         it["item"], judge, INCOMPLETE_SOURCES, it["reference"],
-                        "; ".join("%s (%s)" % (x.get("label") or x.get("url"), x["why"]) for x in unreachable)[:120]))
+                        "; ".join("%s (%s)" % (x.get("label") or x.get("url"), x["why"])
+                                  for x in unreachable + undelivered)[:120]))
                 continue
             judged.append(it["item"])
             prefix, rest = build(it, docs)
