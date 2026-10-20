@@ -8,6 +8,8 @@ events it did not witness. What is established afterwards goes in a note that
 says when it was established. The two must never be merged, because the value of
 the record is that its rows were written at the time.
 
+**First live:** 2026-08-26 — "The page was live at `https://whatholdsup.org/melanoma` from 26 August." (§1 below). The machine-readable form of that finding, added 2026-10-20 so the homepage and issues cards can carry the date the masthead carries; `index_dates.first_live()` reads it. No row is added to `published.json`.
+
 ---
 
 ## The question

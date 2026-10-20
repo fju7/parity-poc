@@ -45,6 +45,9 @@ def _install(monkeypatch, tmp_path, rows):
     rec.write_text(json.dumps({"what_this_is": "synthetic", "published": rows}))
     monkeypatch.setattr(P, "RECORD", rec)
     monkeypatch.setattr(I, "RECORD", rec)
+    # The record is synthetic; the real issue's provenance.md (melanoma's
+    # "First live: 2026-08-26") must not move its "published" date.
+    monkeypatch.setattr(I, "first_live", lambda slug: None)
     return rows
 
 

@@ -348,12 +348,51 @@ def latest_correction_date(slug: str) -> date | None:
     return None
 
 
+# A PAGE THAT PREDATES ITS RECORD (2026-10-20). published.json begins on 28
+# August 2026 because it was created then; melanoma was live from 26 August.
+# The record is not backfilled (provenance.md, "The ruling"), so the masthead
+# kept 26 August while every card derived 28 August from the record, and a
+# reader saw both. The case's provenance.md may carry a "**First live:**"
+# field, quoting its own finding; when that date is EARLIER than the record's
+# first day, the card's "published" slot uses it. A later one is ignored: the
+# record witnessed the publication, and a note written afterwards cannot move
+# it forward. "revised" and "updated" still come from the record alone.
+FIRST_LIVE = re.compile(r"^\*\*First live:\*\*\s*(\d{4}-\d{2}-\d{2})\b", re.M)
+
+
+def first_live(slug: str) -> date | None:
+    """The first-live date a case's provenance.md records, or None."""
+    for d in (ROOT / "issues").glob("WHU-*-%s" % slug):
+        f = d / "provenance.md"
+        if not f.exists():
+            return None
+        m = FIRST_LIVE.search(f.read_text(encoding="utf-8"))
+        if not m:
+            return None
+        try:
+            return datetime.strptime(m.group(1), "%Y-%m-%d").date()
+        except ValueError:
+            return None
+    return None
+
+
+def published_date(slug: str, days: list | None = None) -> date | None:
+    """The card's "published" date: the record's first day, or the
+    provenance first-live date when that is earlier."""
+    days = publication_dates(slug) if days is None else days
+    first = days[0] if days else None
+    live = first_live(slug)
+    if first and live and live < first:
+        return live
+    return first
+
+
 def expected(slug: str) -> dict:
     days = publication_dates(slug)
     if not days:
         return {}
     first, latest = days[0], days[-1]
-    exp = {"published": first}
+    exp = {"published": published_date(slug, days)}
     if latest != first:
         exp["updated"] = latest
     if corrections_count(slug):

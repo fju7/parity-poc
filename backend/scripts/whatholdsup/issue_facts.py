@@ -178,7 +178,7 @@ def facts(slug: str) -> dict:
     days = I.publication_dates(slug)
     revs = outside_reviews(slug)
     return {"slug": slug,
-            "published": days[0] if days else None,
+            "published": I.published_date(slug, days),
             "revised": days[-1] if days and days[-1] != days[0] else None,
             "corrections": corrections(slug),
             "corrected_on": I.latest_correction_date(slug),
