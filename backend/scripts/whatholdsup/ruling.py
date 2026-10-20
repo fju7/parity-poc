@@ -135,11 +135,12 @@ def payload(sentence: str, kind: str, reason: str, proposed_text: str,
     of its document either side, labelled by position only."""
     shown = []
     for n, (sid, q) in enumerate(quotes, 1):
-        hay = held.get(sid) or ""
-        around = q
-        i = hay.find(q[:30]) if hay else -1
-        if i >= 0:
-            around = hay[max(0, i - QUOTE_AROUND): i + len(q) + QUOTE_AROUND]
+        # Located as the audit compares a quotation (audit_stage.locate: norm(),
+        # enclosing quote marks aside), then mapped back to the document's own
+        # offsets. Until 2026-10-20 this was an exact find of the first 30
+        # characters, which a line break or a curly quote defeated.
+        import audit_stage as A
+        around = A.in_context(q, held.get(sid) or "", QUOTE_AROUND)
         shown.append("Quotation %d: \"%s\"\nIn its document: ...%s..." % (n, q, " ".join(around.split())))
     p = {"sentence": " ".join((sentence or "").split()), "kind": kind or "",
          "reason": reason or "", "proposed_text": proposed_text or "",

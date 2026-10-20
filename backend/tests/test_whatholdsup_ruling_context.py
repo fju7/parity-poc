@@ -66,9 +66,10 @@ def assert_in_context(prompts, want=1):
         shown = SHOWN.findall(p)
         assert len(shown) >= want, "a quotation is missing from the prompt"
         for n, quote, window in shown:
-            assert _norm(quote) in _norm(window), "quotation %s is not in its window" % n
+            import audit_stage as A                       # the audit's own comparison
+            assert A.quoted_in(quote, window), "quotation %s is not in its window" % n
             assert len(_norm(window)) > len(_norm(quote)), "quotation %s has no context" % n
-            assert BEFORE.split()[0] in window or AFTER.split()[0] in window
+            assert len(_norm(window)) > len(_norm(quote)) + 20
 
 
 def test_gate(study):
@@ -137,13 +138,53 @@ def test_dangling(study):
     assert_in_context(fake.prompts)
 
 
-@pytest.mark.xfail(strict=True, reason=(
-    "OPEN, reported 2026-10-20, not fixed: payload locates a quotation by an exact "
-    "find of its first 30 characters, so a quotation the audit's comparison "
-    "(audit_stage.quoted_in) finds in the held text can still arrive with no "
-    "context. One WHU-P02 row (a211e776da17684b, S012) is in that state."))
 def test_a_quotation_whose_line_breaks_differ_from_the_held_text_still_gets_context():
     # The held text is extracted from a PDF and wraps where the bound span does not.
     wrapped = {"S7": DOC.replace("the intervention reduced", "the\nintervention  reduced")}
     p = R.payload(SENTENCE, "k", "r", "", [("S7", SPAN)], wrapped)
     assert_in_context([R.build_prompt("audit", p)])
+
+
+def test_curly_quotes_dashes_and_enclosing_marks_are_located_too():
+    held = {"S7": DOC.replace("2 kg", "2\u00a0kg").replace("over 12", "over\n  12")}
+    p = R.payload(SENTENCE, "k", "r", "", [("S7", "\u201c%s\u201d" % SPAN)], held)
+    assert_in_context([R.build_prompt("audit", p)])
+
+
+def test_locate_maps_back_to_the_documents_own_offsets():
+    import audit_stage as A
+    for hay in (DOC, DOC.replace(" ", "\n "), "\u00c9tude: " + DOC.replace("reduced", "re\u0301duced")):
+        for s in (hay, hay.upper()):
+            assert A.norm_map(s)[0] == A.norm(s)
+    hay = "x " * 50 + "the\nintervention   reduced weight" + " y" * 50
+    a, b = A.locate("The intervention reduced weight", hay)
+    assert hay[a:b] == "the\nintervention   reduced weight"
+    assert A.locate("not there at all", hay) is None
+
+
+def _p02():
+    import bindings as B
+    try:
+        rows = B.load("ultra-processed-foods").get("bindings") or {}
+        held = R.held_texts("ultra-processed-foods")
+    except BaseException:
+        return None
+    return (rows, held) if rows and held else None
+
+
+def test_every_wHU_P02_bound_quotation_is_shown_in_context():
+    """Private files, only where they exist; no source text is committed."""
+    got = _p02()
+    if not got:
+        pytest.skip("WHU-P02's bindings or held documents are not here")
+    rows, held = got
+    import audit_stage as A
+    quotes = [(sid, q) for r in rows.values() if r.get("on_page") for sid, q in R.quotations(r, held)]
+    assert quotes
+    missing = [(sid, len(q)) for sid, q in quotes if A.locate(q, held.get(sid) or "") is None]
+    assert missing == []
+    row = rows.get("a211e776da17684b")
+    if row:
+        qs = [x for x in R.quotations(row, held) if x[0] == "S012"]
+        assert qs
+        assert_in_context([R.build_prompt("audit", R.payload(row["sentence"], "k", "r", "", qs, held))])

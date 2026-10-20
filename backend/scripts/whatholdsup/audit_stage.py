@@ -560,6 +560,58 @@ def quoted_in(q: str, hay: str) -> bool:
     return bool(body) and body in norm(hay or "")
 
 
+def _norm_piece(s: str) -> str:
+    s = unicodedata.normalize("NFKC", s)
+    for a, b in (("’", "'"), ("‘", "'"), ("“", '"'), ("”", '"'),
+                 ("–", "-"), ("—", "-"), ("−", "-"), (" ", " ")):
+        s = s.replace(a, b)
+    return s.lower()
+
+
+def norm_map(s: str) -> tuple[str, list[int]]:
+    """(norm(s), offsets): offsets[i] is the index in S of the character that
+    produced norm(s)[i]. Normalised a base character with its combining marks
+    at a time, so NFKC composes as it does on the whole string."""
+    out, offs, i, n = [], [], 0, len(s or "")
+    while i < n:
+        j = i + 1
+        while j < n and unicodedata.combining(s[j]):
+            j += 1
+        for ch in _norm_piece(s[i:j]):
+            if ch.isspace():
+                if out and out[-1] != " ":
+                    out.append(" "); offs.append(i)
+            else:
+                out.append(ch); offs.append(i)
+        i = j
+    if out and out[-1] == " ":
+        out.pop(); offs.pop()
+    return "".join(out), offs
+
+
+def locate(q: str, hay: str) -> tuple[int, int] | None:
+    """Where quotation Q sits in HAY, as (start, end) offsets of HAY, found by
+    the comparison quoted_in uses (norm(), enclosing quote marks aside) --
+    never by an exact match on part of the quotation. None if it is not there."""
+    body = quote_body(q)
+    if not body or not hay:
+        return None
+    normed, offs = norm_map(hay)
+    k = normed.find(body)
+    if k < 0:
+        return None
+    return offs[k], offs[k + len(body) - 1] + 1
+
+
+def in_context(q: str, hay: str, around: int) -> str:
+    """The passage of HAY holding quotation Q with AROUND characters either
+    side; Q alone when it is not in HAY."""
+    at = locate(q, hay)
+    if at is None:
+        return q
+    return hay[max(0, at[0] - around): at[1] + around]
+
+
 def bad_quotes(verdict: dict, docs: dict[str, str], records: dict[str, dict], row: dict | None) -> list[dict]:
     """Every evidence quotation that is NOT verbatim in the document or record it
     names. A quote naming a document not shown is bad; a quote naming BINDING
@@ -597,13 +649,7 @@ def ruling_payload(finding: dict, sentence: str, docs: dict[str, str], records: 
     for n, e in enumerate(finding.get("evidence") or [], 1):
         src, q = e.get("source") or "", e.get("quote") or ""
         hay = docs.get(src) if src in docs else (records.get(src) or {}).get("text", "")
-        around = q
-        if hay:
-            i = norm(hay).find(norm(q))
-            if i >= 0:
-                # norm() collapses whitespace; find the raw position by the quote's first words
-                raw_i = hay.find(q[:30]) if hay.find(q[:30]) >= 0 else 0
-                around = hay[max(0, raw_i - QUOTE_AROUND): raw_i + len(q) + QUOTE_AROUND]
+        around = in_context(q, hay or "", QUOTE_AROUND)
         quoted.append("Quotation %d: \"%s\"\nIn its document: ...%s..." % (n, q, " ".join(around.split())))
     payload = {"sentence": sentence, "kind": finding.get("kind") or "",
                "reason": finding.get("reason") or "", "proposed_text": finding.get("proposed_text") or "",
