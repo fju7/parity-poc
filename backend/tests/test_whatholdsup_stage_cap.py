@@ -108,4 +108,5 @@ def test_every_paid_stage_is_guarded_before_its_first_call():
     assert 'stage_cap.guard("audit"' in src["audit_stage.py"]
     assert 'stage_cap.guard("conclusions"' in src["conclusion_judge.py"]
     assert 'stage_cap.guard("changecheck"' in src["changecheck.py"]
+    assert 'stage_cap.guard("advocate"' in src["source_advocate.py"]
     assert 'stage_cap.guard("rulings"' in src["ruling.py"]

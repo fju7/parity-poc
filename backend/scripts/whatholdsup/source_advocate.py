@@ -71,7 +71,7 @@ import importlib.util
 import json
 import re
 import sys
-from datetime import date
+from datetime import date, datetime, timezone
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[3]
@@ -220,8 +220,16 @@ RETURN ONLY a JSON object:
 QUOTE_NOTE = "the quotation is not in the held text"
 
 
+QUOTE_FIELDS = ("source_says", "source_says_first", "locator", "quotation_check")
+
+
+def quote_key(b: dict, i: int) -> str:
+    """One objection's identity within a run: its source and its position."""
+    return "%s#%d" % (b.get("source"), i)
+
+
 def check_quotations(slug: str, briefs: list[dict], held: dict[str, str], ask=None,
-                     log=None) -> list[dict]:
+                     log=None, done: dict | None = None) -> list[dict]:
     """Check every advocate quotation against the held text of its source
     (reading order; audit_stage.quoted_in), when it is written (GAP-018).
 
@@ -231,7 +239,13 @@ def check_quotations(slug: str, briefs: list[dict], held: dict[str, str], ask=No
     advocate's own words stay on the record. Every quotation checked is logged
     raw through `log` (advocate/quote_checks.jsonl: source text, never
     committed). `ask(brief, objection, text)` returns the advocate's reply; by
-    default it is a metered call."""
+    default it is a metered call.
+
+    RESUMABLE (2026-10-20). Each result is handed to `log` as soon as it is
+    known, with its key (quote_key) and the objection's quotation fields after
+    the check. `done` maps a key to such a record from an earlier, stopped run:
+    that objection takes the saved fields and is neither checked nor re-asked
+    again."""
     import audit_stage as A
     ask = ask or _requote
     out = []
@@ -239,11 +253,16 @@ def check_quotations(slug: str, briefs: list[dict], held: dict[str, str], ask=No
         if b.get("mode") != "objections":
             continue
         text = held.get(b["source"]) or ""
-        for o in b.get("objections") or []:
+        for i, o in enumerate(b.get("objections") or []):
+            key = quote_key(b, i)
+            if done and key in done:
+                o.update(done[key].get("objection_after") or {})
+                out.append(done[key])
+                continue
             says = (o.get("source_says") or "").strip()
             if not says:
                 continue
-            rec = {"source": b["source"], "claim_quoted": o.get("claim_quoted"), "first": says}
+            rec = {"key": key, "source": b["source"], "claim_quoted": o.get("claim_quoted"), "first": says}
             if A.quoted_in(says, text):
                 o["quotation_check"] = {"in_held_text": True, "asked": 1}
                 rec["result"] = "in the held text"
@@ -261,6 +280,7 @@ def check_quotations(slug: str, briefs: list[dict], held: dict[str, str], ask=No
                 else:
                     o["quotation_check"] = {"in_held_text": False, "asked": 2, "note": QUOTE_NOTE}
                     rec["result"] = QUOTE_NOTE
+            rec["objection_after"] = {k: o[k] for k in QUOTE_FIELDS if k in o}
             if log:
                 log(rec)
             out.append(rec)
@@ -596,6 +616,70 @@ def preflight_rows(slug: str) -> list[tuple[str, str, str]]:
     return rows
 
 
+# ---------------------------------------------------------------------------
+# a run that can stop and carry on (2026-10-20)
+# ---------------------------------------------------------------------------
+#
+# On 2026-10-20 the WHU-P02 advocate read 17 sources, drafted 27 objections and
+# spent $4.28, then the day cap stopped a re-ask in the quotation check; the run
+# exited before writing anything, so all of it would have been bought again.
+# Now every run has a directory, advocate/runs/<UTC stamp>/, and saves as it
+# goes: each source's brief (its objections) to briefs.jsonl when the call that
+# drafted it returns, and each quotation check to quote_checks.jsonl when it is
+# decided. A cap stop marks the run "stopped" in state.json and exits 3; `run
+# SLUG --resume RUN_DIR` carries on, refusing if any input has changed, and
+# never repeats a saved brief or a saved check. A brief whose call returned
+# nothing usable ("failed") is not saved, so a resumed run asks again.
+
+def runs_dir(slug: str) -> Path:
+    return sl.case_dir(slug) / "advocate" / "runs"
+
+
+def _sha(s: str) -> str:
+    import hashlib
+    return hashlib.sha256((s or "").encode("utf-8")).hexdigest()
+
+
+def run_inputs(args, text: str, srcs: list[dict], held: dict[str, str], day: str, only) -> dict:
+    """Everything a run's output depends on. A resume refuses if any of it
+    (the day aside) differs from the stopped run's."""
+    return {"slug": args.slug, "page": args.page, "page_body_sha256": _sha(text),
+            "sources_sha256": _sha(json.dumps(srcs, sort_keys=True, ensure_ascii=False)),
+            "held_sha256": {s["id"]: _sha(held.get(s["id"]) or "") for s in srcs},
+            "only": sorted(only) if only else None,
+            "prompts_sha256": {"advocate": _sha(ADVOCATE_SYSTEM), "questions": _sha(QUESTIONS_SYSTEM),
+                               "requote": _sha(REQUOTE_SYSTEM)},
+            "model": getattr(fc, "SIGNAL_MODEL", None), "day": day}
+
+
+def _jsonl(p: Path) -> list[dict]:
+    if not p.exists():
+        return []
+    return [json.loads(l) for l in p.read_text(encoding="utf-8").splitlines() if l.strip()]
+
+
+def _append(p: Path, rec: dict) -> None:
+    with open(p, "a", encoding="utf-8") as f:
+        f.write(json.dumps(rec, ensure_ascii=False) + "\n")
+        f.flush()
+
+
+def _state(rd: Path, **kw) -> None:
+    (rd / "state.json").write_text(json.dumps(dict(kw, at=datetime.now(timezone.utc).isoformat(
+        timespec="seconds")), indent=1, ensure_ascii=False) + "\n", encoding="utf-8")
+
+
+def is_cap_stop(exc: BaseException) -> bool:
+    """A spend cap stopped the call (spend_ledger.OverCap or OverIssueCap, from
+    whichever copy of the module raised it)."""
+    return any(c.__name__ in ("OverCap", "OverIssueCap") for c in type(exc).__mro__)
+
+
+def would_call(s: dict, text: str) -> bool:
+    st = sl.access_of(s).get("state")
+    return st not in (sl.NOT_OPENED, sl.BLOCKED) and bool(mentions(text, s))
+
+
 def cmd_run(args) -> int:
     page = ROOT / args.page
     # THE BODY, NOT THE CHANGE LOG. On its first run the advocate spent 7 of 28
@@ -606,24 +690,97 @@ def cmd_run(args) -> int:
     # source_ledger.body_only.
     text = sl.plain(sl.body_only(page.read_text(encoding="utf-8")))
     doc = sl.load(args.slug)
+    import audit_stage as A
+    held = A.held_for_audit(args.slug)
+    resume = getattr(args, "resume", None)
+    if resume:
+        rd = Path(resume)
+        if not rd.is_absolute() and not rd.exists():
+            rd = runs_dir(args.slug) / resume
+        try:
+            saved = json.loads((rd / "inputs.json").read_text(encoding="utf-8"))
+            st = json.loads((rd / "state.json").read_text(encoding="utf-8"))
+        except Exception as exc:
+            raise SystemExit("cannot resume: %s is not an advocate run directory (%s)" % (rd, exc))
+        if st.get("status") != "stopped":
+            raise SystemExit("cannot resume: the run in %s is %s, not stopped" % (rd, st.get("status")))
+        if args.only or args.day:
+            raise SystemExit("--resume takes --only and --day from the stopped run; give neither")
+        day, only = saved["day"], saved.get("only")
+    else:
+        day = args.day or date.today().isoformat()
+        only = args.only
     srcs = doc.get("sources", [])
-    if args.only:
-        srcs = [s for s in srcs if s["id"] in set(args.only)]
-    day = args.day or date.today().isoformat()
+    if only:
+        srcs = [s for s in srcs if s["id"] in set(only)]
+    inputs = run_inputs(args, text, srcs, held, day, only)
+    if resume:
+        changed = sorted(k for k in inputs if k != "day" and inputs[k] != saved.get(k))
+        if changed:
+            raise SystemExit("cannot resume %s: %s changed since the run stopped; start a new run"
+                             % (rd, ", ".join(changed)))
+    done_briefs = {b["source"]: b for b in _jsonl(rd / "briefs.jsonl")} if resume else {}
+    done_checks = {r["key"]: r for r in _jsonl(rd / "quote_checks.jsonl")} if resume else {}
 
+    # THE STAGE CAP (stage_cap.py): refuse to start if the sources still to be
+    # read are estimated to cost more than is left today or on the issue.
+    import stage_cap
+    stage_cap.guard("advocate", args.slug,
+                    sum(1 for s in srcs if s["id"] not in done_briefs and would_call(s, text)))
+    if not resume:
+        rd = runs_dir(args.slug) / datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
+        rd.mkdir(parents=True, exist_ok=False)
+        (rd / "inputs.json").write_text(json.dumps(inputs, indent=1, ensure_ascii=False) + "\n",
+                                        encoding="utf-8")
+    _state(rd, status="running", resumed=bool(resume))
+    print("  run         %s%s" % (rd.relative_to(ROOT), " (resumed: %d brief(s), %d quotation check(s) "
+                                  "saved)" % (len(done_briefs), len(done_checks)) if resume else ""))
+
+    bp = briefs_path(args.slug, day)
+    qlog = bp.parent / "quote_checks.jsonl"
     briefs = []
-    for s in srcs:
-        st = sl.access_of(s).get("state")
-        if st == sl.NOT_OPENED:
-            print(f"  {s['id']:5} skipped — nobody has opened it; the ledger blocks "
-                  f"characterising it at all")
-            continue
-        print(f"  {s['id']:5} {st:12} {principal(s)[:58]}")
-        b = brief_for(args.slug, s, text)
-        if b:
-            briefs.append(b)
-            k = len(b.get("objections") or [])
-            print(f"        -> {k} {b['mode']}")
+    try:
+        for s in srcs:
+            st = sl.access_of(s).get("state")
+            if st == sl.NOT_OPENED:
+                print(f"  {s['id']:5} skipped — nobody has opened it; the ledger blocks "
+                      f"characterising it at all")
+                continue
+            if s["id"] in done_briefs:
+                briefs.append(done_briefs[s["id"]])
+                print(f"  {s['id']:5} saved       {len(done_briefs[s['id']].get('objections') or [])} "
+                      f"{done_briefs[s['id']]['mode']} (from the stopped run)")
+                continue
+            print(f"  {s['id']:5} {st:12} {principal(s)[:58]}")
+            b = brief_for(args.slug, s, text)
+            if b:
+                briefs.append(b)
+                if not b.get("failed"):
+                    _append(rd / "briefs.jsonl", b)       # saved the moment it is drafted
+                k = len(b.get("objections") or [])
+                print(f"        -> {k} {b['mode']}")
+        # EVERY QUOTATION CHECKED WHEN WRITTEN (GAP-018, 2026-10-20). On WHU-P02 22
+        # of 29 were not in their source even in the reading-order text, and none
+        # was checked until the ruling model was told otherwise.
+
+        def log(r):
+            _append(rd / "quote_checks.jsonl", r)
+            _append(qlog, dict(r, day=day))
+        checked = check_quotations(args.slug, briefs, held, log=log, done=done_checks)
+    except Exception as exc:
+        if not is_cap_stop(exc):
+            _state(rd, status="failed", reason="%s: %s" % (type(exc).__name__, exc))
+            raise
+        _state(rd, status="stopped", reason=str(exc))
+        print("\n  STOPPED BY A SPEND CAP. Everything drafted or checked so far is saved in")
+        print("  %s. Carry on (after 00:00 UTC for the day cap) with:" % rd.relative_to(ROOT))
+        print("    source_advocate.py run %s --page %s --resume %s\n" % (args.slug, args.page, rd.name))
+        for line in str(exc).splitlines():
+            print("  " + line)
+        return 3
+    bad = sum(1 for r in checked if r["result"] == QUOTE_NOTE)
+    print(f"  quotations  {len(checked)} checked against the held text; {bad} still not in it "
+          f"after one re-ask (log: {qlog.relative_to(ROOT)}, never committed)")
     # A PARTIAL RUN MERGES. It used to overwrite.
     #
     # --only is documented as "source ids, for a cheap partial run", and it
@@ -633,7 +790,6 @@ def cmd_run(args) -> int:
     # is time-limited, would have left the briefs for the last three and a file
     # claiming that was the whole review. The adjudication template is built
     # from that file, so the objections would have gone with it.
-    bp = briefs_path(args.slug, day)
     keep = []
     if bp.exists():
         try:
@@ -642,22 +798,11 @@ def cmd_run(args) -> int:
                     if b.get("source") not in ran]
         except Exception:
             keep = []
-    # EVERY QUOTATION CHECKED WHEN WRITTEN (GAP-018, 2026-10-20). On WHU-P02 22
-    # of 29 were not in their source even in the reading-order text, and none
-    # was checked until the ruling model was told otherwise.
-    import audit_stage as A
-    held = A.held_for_audit(args.slug)
-    qlog = bp.parent / "quote_checks.jsonl"
-    with open(qlog, "a", encoding="utf-8") as f:
-        checked = check_quotations(args.slug, briefs, held,
-                                   log=lambda r: f.write(json.dumps(dict(r, day=day), ensure_ascii=False) + "\n"))
-    bad = sum(1 for r in checked if r["result"] == QUOTE_NOTE)
-    print(f"  quotations  {len(checked)} checked against the held text; {bad} still not in it "
-          f"after one re-ask (log: {qlog.relative_to(ROOT)}, never committed)")
     briefs = sorted(keep + briefs, key=lambda b: b.get("source") or "")
     bp.write_text(
         json.dumps(briefs, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
     p = write_template(args.slug, day, briefs)
+    _state(rd, status="complete", resumed=bool(resume))
     print()
     print(f"  briefs      {briefs_path(args.slug, day).relative_to(ROOT)}")
     print(f"  adjudicate  {p.relative_to(ROOT)}")
@@ -682,6 +827,9 @@ def main() -> int:
     r.add_argument("--page", required=True)
     r.add_argument("--only", nargs="*", help="source ids, for a cheap partial run")
     r.add_argument("--day", help="ISO date for the output files")
+    r.add_argument("--resume", metavar="RUN_DIR",
+                   help="carry on a run a spend cap stopped (advocate/runs/<stamp>); refuses if "
+                        "any input changed, and never redoes a saved brief or quotation check")
     r.set_defaults(fn=cmd_run)
     s = sub.add_parser("status")
     s.add_argument("slug")

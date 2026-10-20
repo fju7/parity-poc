@@ -103,3 +103,5 @@ issues/*/audit/*/quote_rejections.jsonl
 
 # The source advocate's raw quotation checks (source text; 2026-10-20).
 issues/*/advocate/quote_checks.jsonl
+# The advocate's resumable run directories (briefs and quotation checks; 2026-10-20).
+issues/*/advocate/runs/
