@@ -3932,3 +3932,10 @@ Signed fields (locatable, faithful, warranted) on binding rows name Fred Ugast, 
 **Fix when** after the Q2 practice run.
 
 The disposition fields (hedge_dispositions, scope_words, framing) settle checks for any non-blank name, so an agent can dispose a B6, B19 or framing flag; the checks should distinguish who may dispose.
+
+## GAP-012 — rows 820a543d and e7dfe192 sit in the figure bucket but rest on documents a check can open
+
+**Raised by** advisor, 2026-10-20.
+**Fix when** after the Q2 practice run.
+
+Rows 820a543d and e7dfe192 sit in the figure bucket but rest on documents a check can open; moving them out of figure is an upward move under spec §3 and needs the judge of the figure bucket.
