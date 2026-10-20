@@ -332,8 +332,15 @@ def load_reviews(slug: str) -> dict:
             "reviews": []}
 
 
+def fingerprint(sentence: str) -> str:
+    """A changed sentence's identity in the record: sha256 of the sentence as
+    sentences_of() normalises it, first 16 hex characters."""
+    return hashlib.sha256(" ".join((sentence or "").split()).encode("utf-8")).hexdigest()[:16]
+
+
 def save_review(slug: str, html: str, before: str, n: int,
-                findings: list[dict], withheld: list[dict] | None = None) -> None:
+                findings: list[dict], withheld: list[dict] | None = None,
+                read: list[str] | None = None, model_read: bool = True) -> None:
     """Append one review row.
 
     `changed` keeps its meaning -- the number of sentences that were
@@ -357,6 +364,13 @@ def save_review(slug: str, html: str, before: str, n: int,
                          "every changed sentence was reviewed",
         "at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
         "findings": findings,
+        # WHAT WAS READ (2026-10-20, study RUN.md ruling 5). `changed` is a count;
+        # the coverage check needs the sentences themselves, so each one sent is
+        # recorded by fingerprint (no text: a study issue's record must not quote
+        # its page beyond what the page shows). `model_read` is false for a
+        # --no-model run, whose sentences no model read.
+        "read": [fingerprint(s) for s in (read or [])],
+        "model_read": bool(model_read),
     })
     record_path(slug).write_text(
         json.dumps(doc, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
@@ -437,7 +451,8 @@ def main() -> int:
         print("      %s" % (f.get("sentence") or "")[:110])
         if f.get("other"):
             print("      against: %s" % f["other"][:110])
-    save_review(a.slug, after, a.before, len(new), found, withheld)
+    save_review(a.slug, after, a.before, len(new), found, withheld,
+                read=new, model_read=not a.no_model)
     if not found:
         print("  nothing found")
     print()
