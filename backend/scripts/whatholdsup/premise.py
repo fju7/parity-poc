@@ -191,6 +191,13 @@ def _all_directions() -> dict:
         f = d / "premise.json"
         if not f.exists():
             continue
+        # A study issue's direction is the protocol's draw, not WHU's pick, so it
+        # does not count toward WHU's own guard (2026-10-20, protocol rev 27).
+        try:
+            if json.loads((d / "issue.json").read_text(encoding="utf-8")).get("study") is True:
+                continue
+        except Exception:
+            pass
         try:
             v = (json.loads(f.read_text(encoding="utf-8"))
                  .get("direction") or {}).get("value", "")

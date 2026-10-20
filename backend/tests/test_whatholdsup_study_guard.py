@@ -38,3 +38,15 @@ def test_the_guard_is_skipped_on_a_study_issue_and_not_on_a_published_one(tmp_pa
     assert _guard(PR.preflight_rows("studyq")) == ("contrarianism guard", PR.OK, SKIP)
     _l, st, detail = _guard(PR.preflight_rows("pubq"))
     assert "SKIPPED" not in detail and (st, detail) == PR.contrarianism_guard()
+
+
+def test_a_study_issues_direction_does_not_change_a_published_issues_guard(tmp_path, monkeypatch):
+    monkeypatch.setattr(PR, "CASES", tmp_path)
+    for i in range(4):                               # four published issues, none confirming
+        _case(tmp_path, "WHU-07%d-pub%d" % (i, i), "pub%d" % i, False)
+    before = _guard(PR.preflight_rows("pub0"))
+    assert before[1] == PR.BAD                       # the guard blocks: nothing confirms
+    d = _case(tmp_path, "WHU-P78-studyc", "studyc", True)
+    (d / "premise.json").write_text(json.dumps({"direction": {"value": "confirms"}}))
+    assert _guard(PR.preflight_rows("pub0")) == before
+    assert "WHU-P78-studyc" not in PR._all_directions()
