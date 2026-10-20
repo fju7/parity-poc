@@ -3923,3 +3923,12 @@ changecheck reads only the page body: it skips the change-history footer, the ho
 **Fix when** before the next publication of any issue.
 
 Signed fields (locatable, faithful, warranted) on binding rows name Fred Ugast, but agents wrote them; see the investigation of 2026-10-20.
+
+*Note, 2026-10-20:* the 20 October re-key removed two rows signed in Fred's name (2c1c5cc5, 51bd7e34); git keeps them.
+
+## GAP-011 — the disposition fields settle checks for any non-blank name
+
+**Raised by** advisor, 2026-10-20.
+**Fix when** after the Q2 practice run.
+
+The disposition fields (hedge_dispositions, scope_words, framing) settle checks for any non-blank name, so an agent can dispose a B6, B19 or framing flag; the checks should distinguish who may dispose.

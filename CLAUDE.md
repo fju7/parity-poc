@@ -2872,6 +2872,21 @@ reviewer's signature was not re-opened.
   changes the aggregation key for 32 existing rows — decide the key first.
 - Suite: 1244 passed, 2 skipped.
 
+## RULE — Who may be named in a WHU signed field (2026-10-20)
+A signer value on a What Holds Up binding row (verdicts.*.by, scope_words[].by,
+hedge_dispositions[].by, framing.by, attested_by, deferred_by) names whoever
+actually did the reading. An agent writes its own name from
+`signers.AGENTS` ("Claude Code", "Claude (advisor)", "Claude (Opus 5)"),
+optionally "(session <id>)". A person's name is allowed only with a signature
+object {statement, source}, where source is `<path>:<line>` of a committed
+acceptance line ("Accepted by <name>, …, stated in session", or the dated form
+followed by the transcription marker) from a commit WITHOUT the Claude
+Co-Authored-By trailer. Enforced by backend/tests/test_whatholdsup_signers.py in
+the pre-commit hook; process doc §8. Origin: 1,084 deskilling signer values
+written by Claude Code as "Fred Ugast" on 18-19 October, re-attributed 20
+October (1dc5896). Note: every acceptance line committed before 20 October was
+committed with the trailer, so none can be cited until Fred commits one himself.
+
 ## Standing instructions for every session
 1. Read this file at the start of every session
 2. Verify all file paths before issuing commands
