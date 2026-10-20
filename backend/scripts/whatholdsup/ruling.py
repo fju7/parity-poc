@@ -207,9 +207,10 @@ def held_texts(slug: str) -> dict[str, str]:
 
 def _in_held(quote: str, text: str) -> bool:
     """The advocate's quotation is in the held text: compared as the audit
-    stage compares a reader's quotation (audit_stage.norm), no looser."""
+    stage compares a reader's quotation (audit_stage.quoted_in: norm(), and
+    enclosing quote marks removed), no looser."""
     import audit_stage as A
-    return bool(quote) and A.norm(quote) in A.norm(text or "")
+    return A.quoted_in(quote, text)
 
 
 def _publish():

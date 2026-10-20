@@ -537,6 +537,29 @@ def check_verdicts(batch: list[dict], got: dict, summary: bool = False) -> list[
     return out
 
 
+_QUOTE_MARKS = "\"'«»‹›„‟"
+
+
+def quote_body(q: str) -> str:
+    """A quotation as matched: normalised as norm() normalises, with any
+    quotation marks ENCLOSING it removed -- a reader or the source advocate
+    often wraps what it quotes in quote marks the document does not carry.
+    Only a pair at both ends is removed (repeatedly, for nested pairs); the
+    interior must still match exactly. 2026-10-20: four of WHU-P02's advocate
+    quotations were verbatim once their own enclosing quote marks were
+    removed."""
+    s = norm(q or "").strip()
+    while len(s) >= 2 and s[0] in _QUOTE_MARKS and s[-1] in _QUOTE_MARKS:
+        s = s[1:-1].strip()
+    return s
+
+
+def quoted_in(q: str, hay: str) -> bool:
+    """Is quotation Q, word for word, in HAY (enclosing quote marks aside)?"""
+    body = quote_body(q)
+    return bool(body) and body in norm(hay or "")
+
+
 def bad_quotes(verdict: dict, docs: dict[str, str], records: dict[str, dict], row: dict | None) -> list[dict]:
     """Every evidence quotation that is NOT verbatim in the document or record it
     names. A quote naming a document not shown is bad; a quote naming BINDING
@@ -554,7 +577,7 @@ def bad_quotes(verdict: dict, docs: dict[str, str], records: dict[str, dict], ro
             hay = records[src]["text"]
         else:
             bad.append(e); continue
-        if norm(q) not in norm(hay):
+        if not quoted_in(q, hay):
             bad.append(e)
     unheld = verdict.get("kind") == "Rested on a document we do not hold"
     if verdict.get("verdict") in ("holds", "finding") and not (verdict.get("evidence") or []) and not unheld:
