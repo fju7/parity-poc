@@ -193,3 +193,8 @@ Any change after the freeze waits until the study ends (integrity rule 1).
   - Resume refuses if anything has changed since the stop: the page, the bindings, the held texts, the units, the prompts, the model, the seed or the limit.
   - The run's `--cap` covers every day the run spans; spend before the stop counts against it. The `resumed` list on the manifest records each resume, with the failure it followed.
   - Tests: `test_a_run_stopped_by_the_day_cap_resumes_next_day_without_rereading_finished_sentences`, with the day cap stubbed to stop the run between batches and mid-batch, and `test_resume_refuses_when_an_input_changed_or_the_run_is_complete`.
+
+**What the stage may apply (20 October 2026).**
+- A card or meta-description wording is applied only if a script finds it, word for word, as a whole sentence of the page body; typography and spacing are folded, case and words are not. Anything else is a finding left for a person: `cuts.jsonl` records it with `left_for_person`, and the old wording still has to leave the page.
+- A body wording the stage applies reaches the page as a changed sentence, so preflight's "changed sentences reviewed" row blocks until changecheck has read it, and the narrow gate runs before publishing. Test: `test_a_body_wording_the_stage_applies_is_in_changechecks_changed_set`.
+- `verify/policy.py` enters the stage as factcheck_draft's surfaces are entered: all classes EXEMPT, "WHU checker role; out of scope", and the module is on the approved `anthropic` importer list. §8 of `verification-gates-phase1-design.md` keeps WHU's checks its own; nothing under `scripts/whatholdsup/` imports `verify`.

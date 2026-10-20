@@ -630,6 +630,12 @@ POLICY: dict[str, SurfacePolicy] = {
     "scripts.signal.factcheck_draft::advocate": SurfacePolicy(_MAPPING, "whu", note="WHU checker role; out of scope"),
     "scripts.signal.factcheck_draft::inference": SurfacePolicy(_MAPPING, "whu", note="WHU checker role; out of scope"),
     "scripts.signal.factcheck_draft::coverage": SurfacePolicy(_MAPPING, "whu", note="WHU checker role; out of scope"),
+    "scripts.whatholdsup.audit_stage::Caller.__call__": SurfacePolicy(_MAPPING, "whu", note=(
+        "WHU checker role; out of scope (2026-10-20). The audit stage's wording reaches a page only as a changed "
+        "sentence, which publish.py's preflight blocks until changecheck has read it and the narrow gate has run; "
+        "a card or meta-description wording is applied only if it is a whole page-body sentence word for word. "
+        "verification-gates-phase1-design.md §8 keeps WHU's checks its own: nothing under scripts/whatholdsup/ "
+        "imports this package.")),
 }
 
 # Generic wrappers: they contain the SDK call but are not surfaces. A function
@@ -674,6 +680,7 @@ APPROVED_ANTHROPIC_IMPORTERS = {
     "scripts.signal.00_discover_sources", "scripts.signal.classify_claims", "scripts.signal.extract_claims",
     "scripts.signal.generate_notifications", "scripts.signal.generate_summary", "scripts.signal.map_consensus",
     "scripts.signal.score_claims", "scripts.signal.factcheck_draft",
+    "scripts.whatholdsup.audit_stage",   # WHU audit stage: its own metered Caller, as factcheck_draft (2026-10-20)
 }
 
 

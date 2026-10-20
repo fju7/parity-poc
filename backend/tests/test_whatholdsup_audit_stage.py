@@ -447,3 +447,70 @@ def test_resume_refuses_when_an_input_changed_or_the_run_is_complete(tmp_path):
     assert m["status"] == "complete"
     with pytest.raises(A.AuditFailure, match="not a stopped run"):
         A.run("demo", out_dir=tmp_path, ask=PerUnit(), held=HELD, unit_list=us, cap=1.0, licensed=set(), resume=True)
+
+
+# ------------------------------------- what the stage may apply (2026-10-20, round 4)
+
+def _card_run(tmp_path, ruled_text):
+    page = _unit("u1", "In our reading, the evidence usually offered for it is weak.")
+    card = {"id": "u2", "part": "card", "sentence": "The evidence usually offered is weak.",
+            "sha": A.fingerprint("The evidence usually offered is weak."), "row": None}
+    seen = {"card_reads": []}
+
+    def ask(prompt, n):
+        if "SUMMARIES of that page" in prompt:
+            seen["card_reads"].append(prompt)
+            first = len(seen["card_reads"]) == 1
+            return json.dumps({"verdicts": [{"id": "u2", "verdict": "finding" if first else "holds",
+                                             "kind": A.SUMMARY_KIND if first else None,
+                                             "evidence": [{"source": "PAGE", "quote": "the evidence usually offered for it is weak"}],
+                                             "proposed_text": ruled_text if first else None, "reason": "drops the hedge"}]}), {"usd": 0.0}
+        if "THE SENTENCES TO READ" in prompt:
+            return FakeModel(always_finding=False)(prompt, n)
+        return json.dumps({"ruling": "amend", "text": ruled_text, "reason": "the page says in our reading"}), {"usd": 0.0}
+    m = A.run("demo", out_dir=tmp_path, ask=ask, held=HELD, unit_list=[card, page], cap=1.0, licensed=set())
+    assert m["status"] == "complete", m.get("failure")
+    return m, card, seen
+
+
+def test_a_card_wording_the_model_composed_is_left_for_a_person_and_never_applied(tmp_path):
+    composed = "In our reading, the usual evidence is weak."            # true to the page, not a body sentence
+    m, card, seen = _card_run(tmp_path, composed)
+    cuts = [json.loads(l) for l in (tmp_path / "cuts.jsonl").read_text().splitlines()]
+    assert len(cuts) == 1 and cuts[0]["left_for_person"] and cuts[0]["not_applied"] == composed
+    assert m["progress"]["done"]["u2"]["status"] == "left_for_person"
+    assert m["progress"]["done"]["u2"]["sentence"] == card["sentence"]    # nothing applied
+    assert A.fingerprint(composed) not in m["state"]
+    assert m["state"][card["sha"]] == "must_leave_page"                 # the old card still has to change
+    assert len(seen["card_reads"]) == 1                                  # the composed wording was never read as applied
+
+
+def test_a_card_wording_that_is_a_body_sentence_word_for_word_is_applied(tmp_path):
+    body = "In our reading, the evidence usually offered for it is weak."
+    m, card, seen = _card_run(tmp_path, body)
+    assert (tmp_path / "cuts.jsonl").read_text() == ""
+    assert m["progress"]["done"]["u2"]["sentence"] == body and m["progress"]["done"]["u2"]["status"] == "holds"
+    assert m["state"][A.fingerprint(body)] == "holds"
+    assert A.body_sentence("In our reading, the evidence usually offered for it is weak.", [_unit("x", body)])
+    assert not A.body_sentence("in our reading, the evidence usually offered for it is weak.", [_unit("x", body)])
+    assert not A.body_sentence("In our reading, the evidence usually offered for it is weak", [_unit("x", body + " More.")])
+
+
+def test_a_body_wording_the_stage_applies_is_in_changechecks_changed_set(tmp_path):
+    """Step 2d: what the stage applies to the body is exactly what changecheck
+    then reads, so the next preflight's 'changed sentences reviewed' row covers it."""
+    spec = importlib.util.spec_from_file_location("changecheck", WHU / "changecheck.py")
+    C = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(C)
+    before = ("<html><body><main><p>The study proves that AI deskills doctors. "
+              "Of 795 colonoscopies before AI was introduced, 226 detected an adenoma.</p></main>"
+              "<footer id=\"updates\"><p>Updated 12 September 2026. We withdrew a promise.</p></footer></body></html>")
+    sents = C.sentences_of(before)
+    us = [_unit("u%d" % (i + 1), s) for i, s in enumerate(sents)]
+    m = A.run("demo", out_dir=tmp_path, ask=PerUnit(flag={"u1"}), held=HELD, unit_list=us, cap=1.0, licensed=set())
+    assert m["status"] == "complete", m.get("failure")
+    applied = m["progress"]["done"]["u1"]["sentence"]
+    assert applied != us[0]["sentence"] and m["state"][A.fingerprint(applied)] == "holds"
+    after = before.replace(us[0]["sentence"], applied)
+    send, withheld = C.changed(before, after)
+    assert send == [applied] and withheld == []

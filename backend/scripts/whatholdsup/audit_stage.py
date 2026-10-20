@@ -50,6 +50,14 @@ same directory without reading a finished sentence again, and refuses if any
 input -- page, bindings, held texts, prompts, model, seed -- has changed since
 the stop. A unit whose read was logged but whose ruling was not is not
 finished, and is read again.
+
+A CARD OR META-DESCRIPTION WORDING is applied only if it is, word for word, a
+whole sentence of the page body (body_sentence: typography and spacing folded,
+nothing else). A summary may only repeat the page; a wording the ruling model
+composed is a finding left for a person, logged in cuts.jsonl with
+left_for_person, and never applied. A body wording the stage applies reaches
+the page as a changed sentence, which preflight blocks until changecheck has
+read it and the narrow gate has run.
 """
 from __future__ import annotations
 
@@ -180,6 +188,21 @@ def units(slug: str) -> list[dict]:
             out.append({"id": "u%d" % (len(out) + 1), "part": part, "sentence": s,
                         "sha": fp, "row": rows.get(fp)})
     return out
+
+
+def _words(s: str) -> str:
+    """Typography and spacing folded; case and every word kept."""
+    s = unicodedata.normalize("NFKC", s)
+    for a, b in (("’", "'"), ("‘", "'"), ("“", '"'), ("”", '"'),
+                 ("–", "-"), ("—", "-"), ("−", "-"), (" ", " ")):
+        s = s.replace(a, b)
+    return " ".join(s.split())
+
+
+def body_sentence(text: str, us: list[dict]) -> bool:
+    """Is `text` word for word a whole sentence of the page body?"""
+    want = _words(text or "")
+    return bool(want) and any(_words(u["sentence"]) == want for u in us if u["part"] == "page")
 
 
 def page_body(us: list[dict]) -> str:
@@ -698,6 +721,16 @@ def run(slug: str, *, out_dir: Path, limit: int | None = None, cap: float = 40.0
                     hist = u["history"] + [{"round": u["round"], "kind": v.get("kind"), "reason": v.get("reason"),
                                             "ruling": r["ruling"], "text": r["text"]}]
                     new = (r["text"] or "").strip()
+                    if new and u["part"] in SUMMARY_PARTS and not body_sentence(new, us):
+                        log("cuts", {"unit": u["id"], "part": u["part"], "original_sha": us_sha(us, u["id"]),
+                                     "last_text": u["sentence"], "rounds": hist, "left_for_person": True,
+                                     "not_applied": new,
+                                     "why": "a card or meta-description wording must be a whole sentence of the "
+                                            "page body, word for word; the proposed wording is not, so it is "
+                                            "left for a person and not applied"})
+                        prog["done"][u["id"]] = _snap(u, status="left_for_person")
+                        finish(u)
+                        continue
                     if not new or u["round"] >= MAX_ROUNDS:
                         log("cuts", {"unit": u["id"], "part": u["part"], "original_sha": us_sha(us, u["id"]),
                                      "last_text": u["sentence"], "rounds": hist,
@@ -733,9 +766,14 @@ def run(slug: str, *, out_dir: Path, limit: int | None = None, cap: float = 40.0
                     payload = ruling_payload(v, u["sentence"], docs, records)
                     rtext, _ru = call(build_rule_prompt(payload), RULE_MAX_OUT, "rule-second")
                     r = check_ruling(parse_json(rtext))
+                    # A card or meta wording that is not a whole body sentence
+                    # is recorded with apply: False and left for a person.
+                    summary_bad = (u["part"] in SUMMARY_PARTS and r["ruling"] != "reject"
+                                   and not body_sentence(r["text"] or "", us))
                     log("rulings", {"unit": u["id"], "sha": u["sha"], "round": "second",
                                     "at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
-                                    "by": "ruling model %s" % MODEL, "payload_sha256": sha(json.dumps(payload)), **r})
+                                    "by": "ruling model %s" % MODEL, "payload_sha256": sha(json.dumps(payload)), **r,
+                                    **({"apply": False, "left_for_person": True} if summary_bad else {})})
                     if r["ruling"] != "reject":
                         # Accepted on the second read: the sentence must change. It is
                         # not re-read here; the next run reads the corrected text.
