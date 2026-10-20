@@ -97,6 +97,10 @@ ROW_LABEL = "audit complete"
 SUMMARY_PARTS = ("card", "meta_description")
 SUMMARY_KIND = "Summary says what the body does not"
 HUMAN_READ_REQUIRED = "HUMAN_READ_REQUIRED"
+# A sentence whose reader quotation is still not word for word after its
+# re-read (2026-10-20). Marked and the run continues; at the end of the run it
+# becomes HUMAN_READ_REQUIRED. It used to stop the whole run.
+FAILED_READ = "FAILED_READ"
 ADOPTED = "2026-10-19T20:00:00+00:00"
 PUBLISHED_ACTIONS = ("publish", "republish")
 OK, BAD, WARN = "ok", "BLOCKED", "warn"
@@ -642,7 +646,7 @@ def context_map(us: list[dict]) -> dict[str, tuple[str, str]]:
 
 def read_batch(call: Caller, slug: str, batch: list[dict], held: dict, ctx: dict, role: str,
                licensed: frozenset = frozenset(), body: str = "",
-               deliveries: list | None = None) -> tuple[list[dict], dict, dict]:
+               deliveries: list | None = None, on_reject=None) -> tuple[list[dict], dict, dict]:
     summary = all(u["part"] in SUMMARY_PARTS for u in batch)
     if summary:
         docs, records = {"PAGE": body}, {}
@@ -658,8 +662,24 @@ def read_batch(call: Caller, slug: str, batch: list[dict], held: dict, ctx: dict
         check_delivery(rep)
     text, usage = call(build(batch), READ_MAX_OUT, role + ("-summary" if summary else ""))
     vs = check_verdicts(batch, parse_json(text), summary)
+    # Every rejected quotation, raw, to the run's private log (on_reject): the
+    # sentence, the document it named and the reader's own words, so a failure
+    # can be read against the held text afterwards.
+    def rejected(u: dict, bad: list[dict], attempt: str) -> None:
+        if on_reject is None:
+            return
+        for e in bad:
+            on_reject({"unit": u["id"], "sha": u["sha"], "role": role, "attempt": attempt,
+                       "source": e.get("source"), "quote": e.get("quote"),
+                       **({"why": e["why"]} if e.get("why") else {})})
+
     # Quotations not verbatim go back to the reader once, for those sentences only.
-    retry = [u for u, v in zip(batch, vs) if bad_quotes(v, docs, records, u["row"])]
+    retry = []
+    for u, v in zip(batch, vs):
+        bad = bad_quotes(v, docs, records, u["row"])
+        if bad:
+            rejected(u, bad, "first read")
+            retry.append(u)
     if retry:
         p2 = build(retry) + (
             "\n\nYOUR PREVIOUS REPLY QUOTED TEXT THAT IS NOT IN THE DOCUMENTS for these sentences: %s. "
@@ -670,8 +690,14 @@ def read_batch(call: Caller, slug: str, batch: list[dict], held: dict, ctx: dict
         for i, (u, v) in enumerate(zip(batch, vs)):
             if u["id"] in v2:
                 vs[i] = v2[u["id"]]
-                if bad_quotes(vs[i], docs, records, u["row"]):
-                    raise AuditFailure("%s: quotation still not verbatim after a re-read" % u["id"])
+                bad = bad_quotes(vs[i], docs, records, u["row"])
+                if bad:
+                    rejected(u, bad, "re-read")
+                    # FAILED_READ, not a stopped run: this sentence goes to a
+                    # person at the end; the others are read as usual.
+                    vs[i] = {"id": u["id"], "verdict": FAILED_READ, "kind": None,
+                             "evidence": vs[i].get("evidence") or [], "proposed_text": None,
+                             "reason": "quotation still not word for word after a re-read"}
     return vs, docs, records
 
 
@@ -743,7 +769,7 @@ def run(slug: str, *, out_dir: Path, limit: int | None = None, cap: float = 40.0
     # The run's cap covers every day it runs on, not each resume afresh.
     call = Caller(cap=cap - prior_usd, ledger_issue=ledger_issue or slug, ask=ask, day_cap=day_cap)
     files = {k: open(out_dir / ("%s.jsonl" % k), "a" if prior else "w", encoding="utf-8")
-             for k in ("verdicts", "rulings", "cuts", "second_reads")}
+             for k in ("verdicts", "rulings", "cuts", "second_reads", "quote_rejections")}
 
     def log(kind: str, rec: dict) -> None:
         files[kind].write(json.dumps(rec, ensure_ascii=False) + "\n"); files[kind].flush()
@@ -789,7 +815,8 @@ def run(slug: str, *, out_dir: Path, limit: int | None = None, cap: float = 40.0
                 prog["queue"], prog["next"] = prog["next"], []
             for batch in batches([live(s) for s in prog["queue"]]):
                 vs, docs, records = read_batch(call, slug, batch, held, ctx, "read", lic, body,
-                                               deliveries=manifest["deliveries"])
+                                               deliveries=manifest["deliveries"],
+                                               on_reject=lambda r: log("quote_rejections", r))
                 for u, v in zip(batch, vs):
                     log("verdicts", {"unit": u["id"], "part": u["part"], "sha": u["sha"], "round": u["round"],
                                      "sentence": u["sentence"], **{k: v.get(k) for k in
@@ -860,8 +887,17 @@ def run(slug: str, *, out_dir: Path, limit: int | None = None, cap: float = 40.0
         sec = prog["second"]
         for batch in batches([live(prog["done"][i]) for i in sec["todo"]]):
             vs, docs, records = read_batch(call, slug, batch, held, ctx, "second-read", lic, body,
-                                           deliveries=manifest["deliveries"])
+                                           deliveries=manifest["deliveries"],
+                                           on_reject=lambda r: log("quote_rejections", r))
             for u, v in zip(batch, vs):
+                if v["verdict"] == FAILED_READ:
+                    # Not an agreement: the second reader could not quote its
+                    # document. The sentence goes to a person.
+                    state[u["sha"]] = FAILED_READ
+                    log("second_reads", {"unit": u["id"], "sha": u["sha"], "verdict": FAILED_READ,
+                                         "reason": v.get("reason"), "agrees": None})
+                    sec["todo"] = [i for i in sec["todo"] if i != u["id"]]
+                    continue
                 agree = (v["verdict"] != "finding")
                 log("second_reads", {"unit": u["id"], "sha": u["sha"], "verdict": v["verdict"],
                                      "kind": v.get("kind"), "reason": v.get("reason"), "agrees": agree,
@@ -893,6 +929,12 @@ def run(slug: str, *, out_dir: Path, limit: int | None = None, cap: float = 40.0
         manifest["second_read"] = {"read": len(sec["flagged"]) + len(sec["sampled"]), "seed": seed,
                                    "had_finding": len(sec["flagged"]), "sampled": len(sec["sampled"]),
                                    "holds_pool": sec["holds_pool"], "sampled_units": sec["sampled"]}
+        # FAILED_READ sentences end as HUMAN_READ_REQUIRED: a person reads them
+        # (preflight blocks until human_reads.jsonl records it).
+        failed = sorted(h for h, st in state.items() if st == FAILED_READ)
+        for h in failed:
+            state[h] = HUMAN_READ_REQUIRED
+        manifest["failed_read"] = [{"unit": u["id"], "sha": u["sha"]} for u in us if u["sha"] in failed]
         manifest["status"] = "complete"
     except AuditFailure as e:
         manifest["status"] = "failed"; manifest["failure"] = str(e)

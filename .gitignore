@@ -94,3 +94,6 @@ issues/WHU-S*/draft/*.gate.json*
 
 # Local drop folder for incoming files; never committed (2026-10-20).
 _incoming/
+
+# The audit stage's private log of rejected reader quotations (raw source text; 2026-10-20).
+issues/*/audit/*/quote_rejections.jsonl
