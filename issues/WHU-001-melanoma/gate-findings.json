@@ -532,6 +532,18 @@
       "why": "Half reach, half a real point, and the real half is worth the run on its own. We hold all six outlets and checked them one by one, so 'unverifiable' is about what the role could open. But this page now prints an announcement-day post attributing 0.51 and 0.41 to the Phase 3, and that post is carried BY one of the six — KOL Pulse — which logged it and corrected it in the words quoted here. The outlet attributed correctly; someone it quoted did not. The sentence now says 'in its own voice', which is the distinction that had been doing silent work.",
       "by": "claude",
       "on": "2026-09-04"
+    },
+    {
+      "id": "rec-4",
+      "kind": "recency",
+      "gate_verdict": "SUPERSEDED",
+      "gate_said": "KEYNOTE-942 — Merck/Moderna five-year topline press release, 20 January 2026 is SUPERSEDED: the draft uses The draft's correction log states this document 'is still in nothing we hold' and that a one-sided nominal p=0.0075 figure attributed to it 'stays out.' The draft body does NOT print p=0.0075.; the latest known is The Merck/Moderna press release of 20 January 2026 is publicly available and ex",
+      "decision": "rejected",
+      "source_id": "S027",
+      "quote": "HR=0.510; [95% CI, 0.294–0.887]; one-sided nominal p=0.0075",
+      "why": "The gate called the 20 January 2026 Merck/Moderna topline superseded because it was not held when the gate ran. It is now held as S027, whose text includes 'HR=0.510; [95% CI, 0.294–0.887]; one-sided nominal p=0.0075'. The page already reports it as held, and the change-log line is accurate history.",
+      "by": "advisor ruling, relayed by Fred, 2026-10-20",
+      "on": "2026-10-20"
     }
   ]
 }
