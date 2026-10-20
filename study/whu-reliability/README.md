@@ -244,6 +244,7 @@ The main run had few cache hits because every item ran once and few items share 
 The probe (`replies-cacheprobe1/2`) is what a study run 2 looks like. Its labels are not used.
 
 **Full-study projection with caching** (`scripts/project_cost.py`):
+*(Superseded on 20 October 2026: see "Cost projection as ruled" at the end.)*
 - Run 1 of each item is priced as measured.
 - Run 2 is priced from the same call's tokens, with the source block at the cached rate.
 - M2 is estimated: the answer is cached once and read by its other nine calls (5 conclusions × 2 runs).
@@ -435,3 +436,46 @@ Choose from the pilot's four questions the one with the fewest unreachable cited
 | Q4 vitamin D over 60 | 41 | 32 | 1 | 33 |
 
 **Choice: Q2, "Do ultra-processed foods harm your health?"** It has the fewest unreachable sources either way: 21 fetched-unreachable, or 25 with no-URL citations included. No tie-break was needed. WHU has not been run on it.
+
+## Cost projection as ruled (20 October 2026)
+
+Budget ruling, protocol rev 26: four questions instead of eight, with the number of items judged unchanged; the audit's second reader reads every flagged sentence plus a seeded 10% of the sentences that held; each judge reads each item once, plus a seeded 20% read a second time. This supersedes the projections in prep rounds 2 and 3 above. No paid call was made for it. Script: `scripts/project_cost.py runs/prep2` (the "as ruled" rows).
+
+**What the code now does.**
+- `judge_m1.py` decides which items will be judged from the manifest, before any call. It draws the 20% from them with `--seed` (default 20261020) and writes `replies<tag>/consistency_sample.json` (seed, share, pool, items). Each sampled item's second read follows its first straight away, so the source block is still cached. A rerun that would draw a different sample stops.
+- `audit_stage.py`'s second reader reads every sentence that had a finding, at its final wording, plus `random.Random(seed).sample()` of 10% of those that held on first read. The seed and the sampled units are on the manifest.
+
+**Judging: 480 items.** These are 320 M1 claims and 160 M2 conclusions (16 answers × 10). Each judge reads each item once, plus a 20% second read.
+- The first-read cost per item is measured: prep round 2's main run (`runs/prep2/replies`).
+- A second read is priced as the cache probe measured it, because it is an identical prompt sent straight after the first.
+- On OpenAI, M2's ten conclusions per answer are each priced uncached. Prep round 3 found OpenAI caches only an identical prompt.
+- M2 is still an estimate: no M2 call has been made.
+
+| Part | Arithmetic | Pilot-sized sources | Sources 2× pilot |
+|---|---|---|---|
+| M1 Claude | 320 × ($0.1111 first + 0.2 × $0.0145 second) | $36.47 | 320 × ($0.2095 + 0.2 × $0.0180) = $68.20 |
+| M1 ChatGPT | 320 × ($0.1392 + 0.2 × $0.0335) | $46.68 | 320 × ($0.2570 + 0.2 × $0.0450) = $85.11 |
+| M2 Claude | 16 × ($0.0495 + 9 × $0.0142) + 32 × $0.0142 | $3.29 | $3.29 |
+| M2 ChatGPT | 16 × 10 × $0.0765 + 32 × $0.0256 | $13.06 | $13.06 |
+| **Judging** | | **$99.50** | **$169.66** |
+
+**WHU: 4 × $31 = $124.** $31 is the protocol's figure per question. The study total is:
+- **pilot-sized sources:** $124 + $99.50 = **$223.50**;
+- **sources twice the pilot's size:** $124 + $169.66 = **$293.66**.
+
+Both are under $300; the second is $6.34 under.
+
+**Check on the $31.** The figure is the dry-run estimate of $44.37 with the second reader cut from $15.84 to a tenth of that: 44.37 − 15.84 + 1.58 = $30.11. That treats the dry run's $0.032 per sentence as the cost of second-reading a sentence. It is not: the second reader read 7 of the 20 units for $0.640, which is **$0.091 per sentence read**. Under the ruling, the second reader reads F + 10% × (495 − F) sentences, where F is the number flagged. The deskilling re-read corrected 140 sentences.
+
+| Flagged (F) | Second reads | Second reader | WHU per question | Study, pilot-sized | Study, 2× |
+|---|---|---|---|---|---|
+| 50 | 94.5 | $8.64 | $37.17 | $248.18 | $318.34 |
+| 94 | 134.1 | $12.26 | $40.79 | $262.66 | $332.82 |
+| 140 | 175.5 | $16.05 | $44.58 | $277.82 | $347.98 |
+
+The other per-question parts are reading $21.29, ruling $1.98, the paid gate $4.63, the conclusion judge $0.54 and changecheck $0.09.
+
+**The per-sentence rate is uncertain.**
+- A reading call's cost is mostly its held documents, so cost follows the number of batches more than the number of sentences.
+- The dry run's 7 second reads took 3 calls, about 2 sentences a call. A full run's second-read batches would hold up to 20, so $0.091 is probably an upper bound.
+- The practice run is where this is first measured. If its measured cost would put the study over $300, Fred decides before the full run (protocol, "Budget ruling").

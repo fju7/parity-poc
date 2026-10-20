@@ -180,3 +180,16 @@ Any change after the freeze waits until the study ends (integrity rule 1).
 - **Licensed sources.** A source whose licence forbids machine reading (`licence_forbids_machine_reading` in `sources.json`) is never sent to a model. Its text is dropped from the held texts, and its spans are withheld from the binding lines.
   - A sentence bound only to such sources is HUMAN_READ_REQUIRED. The preflight row blocks until `human_reads.jsonl` in the run records a person's read (sha, verdict, by, at).
   - A sentence bound to such a source and to others is read against the others, and the verdict says so.
+
+**Budget ruling (20 October 2026, protocol rev 26).**
+- **The second reader.** It reads every sentence that had a finding, at its final wording, and a seeded 10% sample of the sentences that held on first read. It no longer reads every judgement row; "How each finding is settled" above still describes the judgement-row design, and the ruling replaces it.
+  - The sample is `random.Random(seed).sample()` over those sentences in page order. The default seed is `SECOND_SEED` (20261019).
+  - The seed, the size of the pool, the sampled unit ids and the flagged count are on the manifest under `second_read`.
+  - Each line of `second_reads.jsonl` says why the sentence was read: it had a finding, or it is in the seeded sample.
+  - A sentence cut after three rounds has no final wording and is not read again. A sentence whose finding was rejected is.
+- **Resume.** The run's progress is in the manifest: finished units, the current round's queue, the next round's queue, and the second reader's sample and what of it is left.
+  - A run stopped by the day cap (`stopped_by: "day cap"`) or by any other failure is carried on with `audit_stage.py run SLUG --resume RUN_DIR`, in the same directory.
+  - A finished sentence is not read again. A unit whose read was logged but whose ruling was not is not finished, and is read again.
+  - Resume refuses if anything has changed since the stop: the page, the bindings, the held texts, the units, the prompts, the model, the seed or the limit.
+  - The run's `--cap` covers every day the run spans; spend before the stop counts against it. The `resumed` list on the manifest records each resume, with the failure it followed.
+  - Tests: `test_a_run_stopped_by_the_day_cap_resumes_next_day_without_rereading_finished_sentences`, with the day cap stubbed to stop the run between batches and mid-batch, and `test_resume_refuses_when_an_input_changed_or_the_run_is_complete`.

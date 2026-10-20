@@ -36,9 +36,20 @@ text, and the new text is read again. A sentence still failing after
 MAX_ROUNDS read-and-correct rounds is cut: its text must leave the page, and
 cuts.jsonl says so with every round's finding.
 
-SECOND READER. After the rounds, every judgement sentence (its binding has
-premises) and a fixed-seed SECOND_SHARE of the other holds are read again by
-an independent call. A disagreement is a finding and is ruled like any other.
+SECOND READER. After the rounds, every sentence that had a finding (at its
+final wording) and a seeded SECOND_SHARE sample of the sentences that held on
+their first read are read again by an independent call. The seed and the
+sampled units are on the manifest. A disagreement is a finding and is ruled
+like any other. (Budget ruling, protocol rev 26, 20 October 2026; until then
+every judgement sentence was read again in place of the flagged ones.)
+
+RESUME. A run stopped by a cap or a failure writes its progress to the
+manifest: which units are finished, which are queued for the current round,
+and where the second reader is. `run SLUG --resume RUN_DIR` carries on in the
+same directory without reading a finished sentence again, and refuses if any
+input -- page, bindings, held texts, prompts, model, seed -- has changed since
+the stop. A unit whose read was logged but whose ruling was not is not
+finished, and is read again.
 """
 from __future__ import annotations
 
@@ -460,9 +471,12 @@ class Caller:
     """One model, metered, capped. `ask` may be replaced (tests): it takes
     (prompt, max_tokens) and returns (text, usage dict)."""
 
-    def __init__(self, *, cap: float, ledger_issue: str, ask=None):
+    def __init__(self, *, cap: float, ledger_issue: str, ask=None, day_cap=None):
         self.cap, self.issue, self.calls = cap, ledger_issue, []
         self._ask = ask
+        # The day cap is spend_ledger's on every real call. A test with a fake
+        # `ask` may pass its own, to stop a run as the day cap would.
+        self._day_cap = day_cap
         self._start = self._spent()
         if ask is None:
             import anthropic
@@ -481,6 +495,8 @@ class Caller:
 
     def __call__(self, prompt: str, max_tokens: int, role: str) -> tuple[str, dict]:
         if self._ask is not None:
+            if self._day_cap is not None:
+                self._day_cap(0.0)
             text, usage = self._ask(prompt, max_tokens)
             self.calls.append({"role": role, **usage})
             return text, usage
@@ -543,11 +559,21 @@ def read_batch(call: Caller, slug: str, batch: list[dict], held: dict, ctx: dict
     return vs, docs, records
 
 
+UNIT_KEYS = ("id", "sentence", "sha", "round", "history", "licensed_excluded")
+RESUME_SAME = ("slug", "model", "read_prompt_sha256", "rule_prompt_sha256", "summary_prompt_sha256",
+               "licensed_sources_never_sent", "units", "limit", "max_rounds", "second_share",
+               "second_seed", "inputs")
+
+
+def _snap(u: dict, **extra) -> dict:
+    return {**{k: u[k] for k in UNIT_KEYS if k in u}, **extra}
+
+
 def run(slug: str, *, out_dir: Path, limit: int | None = None, cap: float = 40.0,
         ledger_issue: str | None = None, ask=None, held: dict | None = None,
-        unit_list: list[dict] | None = None, licensed: set | None = None) -> dict:
+        unit_list: list[dict] | None = None, licensed: set | None = None,
+        seed: int = SECOND_SEED, resume: bool = False, day_cap=None) -> dict:
     out_dir.mkdir(parents=True, exist_ok=True)
-    call = Caller(cap=cap, ledger_issue=ledger_issue or slug, ask=ask)
     us = unit_list if unit_list is not None else units(slug)
     if limit:
         us = us[:limit]
@@ -567,41 +593,81 @@ def run(slug: str, *, out_dir: Path, limit: int | None = None, cap: float = 40.0
         "summary_prompt_sha256": sha(SUMMARY_PROMPT.read_text(encoding="utf-8")),
         "licensed_sources_never_sent": sorted(lic),
         "cap_usd": cap, "ledger_issue": ledger_issue or slug, "units": len(us), "limit": limit,
-        "max_rounds": MAX_ROUNDS, "second_share": SECOND_SHARE, "second_seed": SECOND_SEED,
-        "inputs": {"held_texts": {k: sha(v) for k, v in sorted(held.items())}},
+        "max_rounds": MAX_ROUNDS, "second_share": SECOND_SHARE, "second_seed": seed,
+        "inputs": {"held_texts": {k: sha(v) for k, v in sorted(held.items())},
+                   "units_sha256": sha(json.dumps([[u["id"], u["sha"]] for u in us]))},
         "status": "running",
     }
     if B is not None:
         page = B._page_html(slug)
         manifest["inputs"]["page_sha256"] = sha(page)
         manifest["inputs"]["bindings_sha256"] = sha(B.path(slug).read_text(encoding="utf-8"))
-    files = {k: open(out_dir / ("%s.jsonl" % k), "w", encoding="utf-8")
+    prior = None
+    if resume:
+        mp = out_dir / "manifest.json"
+        if not mp.exists():
+            raise AuditFailure("cannot resume: %s has no manifest" % out_dir)
+        prior = json.loads(mp.read_text(encoding="utf-8"))
+        if prior.get("status") != "failed" or not isinstance(prior.get("progress"), dict):
+            raise AuditFailure("cannot resume: the run in %s is %s, not a stopped run with its progress"
+                               % (out_dir, prior.get("status")))
+        changed = [k for k in RESUME_SAME if prior.get(k) != manifest.get(k)]
+        if changed:
+            raise AuditFailure("cannot resume: %s changed since the run stopped; start a new run"
+                               % ", ".join(changed))
+        manifest["started"] = prior["started"]
+        manifest["resumed"] = (prior.get("resumed") or []) + [
+            {"at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+             "after": prior.get("failure"), "usd_before": prior.get("usd") or 0.0}]
+    prior_usd = float((prior or {}).get("usd") or 0.0)
+    # The run's cap covers every day it runs on, not each resume afresh.
+    call = Caller(cap=cap - prior_usd, ledger_issue=ledger_issue or slug, ask=ask, day_cap=day_cap)
+    files = {k: open(out_dir / ("%s.jsonl" % k), "a" if prior else "w", encoding="utf-8")
              for k in ("verdicts", "rulings", "cuts", "second_reads")}
 
     def log(kind: str, rec: dict) -> None:
         files[kind].write(json.dumps(rec, ensure_ascii=False) + "\n"); files[kind].flush()
 
-    state: dict[str, str] = {}          # sentence sha -> settled status or "must_leave_page"
+    by_id = {u["id"]: u for u in us}
+
+    def live(s: dict) -> dict:
+        return {**by_id[s["id"]], **s}
+
+    # sentence sha -> settled status or "must_leave_page"
+    state: dict[str, str] = dict(prior["state"]) if prior else {}
+    # done: unit id -> its final wording and status. queue: this round's units
+    # not yet finished. next: the next round's. second: the second reader's
+    # sample and what of it is still to read.
+    prog = prior["progress"] if prior else {"done": {}, "flagged": [], "queue": None, "next": [], "second": None}
     try:
         ctx = context_map(us)
-        current = {u["id"]: dict(u, round=1, history=[]) for u in us}
-        pending = []
-        for u in current.values():
-            srcs = sources_of(u["row"])
-            if srcs and all(x in lic for x in srcs):
-                # Bound only to a source no model may read: a person reads it.
-                state[u["sha"]] = HUMAN_READ_REQUIRED
-                log("verdicts", {"unit": u["id"], "part": u["part"], "sha": u["sha"], "round": 0,
-                                 "sentence": u["sentence"], "verdict": HUMAN_READ_REQUIRED,
-                                 "licensed_sources": srcs,
-                                 "reason": "bound only to source(s) whose licence forbids machine reading"})
-                continue
-            if any(x in lic for x in srcs):
-                u["licensed_excluded"] = [x for x in srcs if x in lic]
-            pending.append(u)
-        while pending:
-            nxt = []
-            for batch in batches(pending):
+        if prog["queue"] is None:
+            queue = []
+            for u in us:
+                srcs = sources_of(u["row"])
+                if srcs and all(x in lic for x in srcs):
+                    # Bound only to a source no model may read: a person reads it.
+                    state[u["sha"]] = HUMAN_READ_REQUIRED
+                    prog["done"][u["id"]] = _snap(u, status=HUMAN_READ_REQUIRED)
+                    log("verdicts", {"unit": u["id"], "part": u["part"], "sha": u["sha"], "round": 0,
+                                     "sentence": u["sentence"], "verdict": HUMAN_READ_REQUIRED,
+                                     "licensed_sources": srcs,
+                                     "reason": "bound only to source(s) whose licence forbids machine reading"})
+                    continue
+                extra = {"licensed_excluded": [x for x in srcs if x in lic]} if any(x in lic for x in srcs) else {}
+                queue.append(_snap(u, round=1, history=[], **extra))
+            prog["queue"] = queue
+        flagged = prog["flagged"]
+
+        def finish(u: dict) -> None:
+            prog["queue"] = [s for s in prog["queue"] if s["id"] != u["id"]]
+
+        while True:
+            if not prog["queue"]:
+                if not prog["next"]:
+                    break
+                prog["queue"], prog["next"] = prog["next"], []
+            for batch in batches([live(s) for s in prog["queue"]]):
                 vs, docs, records = read_batch(call, slug, batch, held, ctx, "read", lic, body)
                 for u, v in zip(batch, vs):
                     log("verdicts", {"unit": u["id"], "part": u["part"], "sha": u["sha"], "round": u["round"],
@@ -611,6 +677,8 @@ def run(slug: str, *, out_dir: Path, limit: int | None = None, cap: float = 40.0
                                         if u.get("licensed_excluded") else {})})
                     if v["verdict"] != "finding":
                         state[u["sha"]] = v["verdict"]
+                        prog["done"][u["id"]] = _snap(u, status=v["verdict"])
+                        finish(u)
                         continue
                     payload = ruling_payload(v, u["sentence"], docs, records)
                     rtext, _ru = call(build_rule_prompt(payload), RULE_MAX_OUT, "rule")
@@ -619,8 +687,12 @@ def run(slug: str, *, out_dir: Path, limit: int | None = None, cap: float = 40.0
                                     "at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
                                     "by": "ruling model %s" % MODEL, "payload_sha256": sha(json.dumps(payload)),
                                     **r})
+                    if u["id"] not in flagged:
+                        flagged.append(u["id"])
                     if r["ruling"] == "reject":
                         state[u["sha"]] = "holds_by_ruling"
+                        prog["done"][u["id"]] = _snap(u, status="holds_by_ruling")
+                        finish(u)
                         continue
                     state[u["sha"]] = "must_leave_page"
                     hist = u["history"] + [{"round": u["round"], "kind": v.get("kind"), "reason": v.get("reason"),
@@ -631,47 +703,62 @@ def run(slug: str, *, out_dir: Path, limit: int | None = None, cap: float = 40.0
                                      "last_text": u["sentence"], "rounds": hist,
                                      "why": "ruling cut the sentence" if not new else
                                      "still failing after %d read-and-correct rounds" % MAX_ROUNDS})
+                        prog["done"][u["id"]] = _snap(u, status="cut")
+                        finish(u)
                         continue
-                    nxt.append(dict(u, sentence=new, sha=fingerprint(new), round=u["round"] + 1, history=hist))
-            pending = nxt
-        # Second reader: every judgement sentence and a fixed-seed share of the rest that hold.
-        settled = [u for u in us if state.get(u["sha"]) in SETTLED]
-        rng = random.Random(SECOND_SEED)
-        judgement = [u for u in settled if (u["row"] or {}).get("premises")]
-        others = [u for u in settled if u not in judgement]
-        k = max(1, round(SECOND_SHARE * len(others))) if others else 0
-        sample = judgement + (rng.sample(others, k) if k else [])
-        for batch in batches(sample):
+                    prog["next"].append(_snap(dict(u, sentence=new, sha=fingerprint(new),
+                                                   round=u["round"] + 1, history=hist)))
+                    finish(u)
+        # Second reader: every sentence that had a finding, at its final
+        # wording, and a seeded SECOND_SHARE of those that held on first read.
+        if prog["second"] is None:
+            final = [prog["done"][u["id"]] for u in us
+                     if prog["done"].get(u["id"], {}).get("status") in SETTLED]
+            had_finding = [s["id"] for s in final if s["id"] in flagged]
+            held_first = [s["id"] for s in final if s["id"] not in flagged]
+            k = max(1, round(SECOND_SHARE * len(held_first))) if held_first else 0
+            sampled = random.Random(seed).sample(held_first, k) if k else []
+            prog["second"] = {"seed": seed, "flagged": had_finding, "holds_pool": len(held_first),
+                              "sampled": sampled, "todo": had_finding + sampled}
+        sec = prog["second"]
+        for batch in batches([live(prog["done"][i]) for i in sec["todo"]]):
             vs, docs, records = read_batch(call, slug, batch, held, ctx, "second-read", lic, body)
             for u, v in zip(batch, vs):
                 agree = (v["verdict"] != "finding")
                 log("second_reads", {"unit": u["id"], "sha": u["sha"], "verdict": v["verdict"],
-                                     "kind": v.get("kind"), "reason": v.get("reason"), "agrees": agree})
-                if agree:
-                    continue
-                payload = ruling_payload(v, u["sentence"], docs, records)
-                rtext, _ru = call(build_rule_prompt(payload), RULE_MAX_OUT, "rule-second")
-                r = check_ruling(parse_json(rtext))
-                log("rulings", {"unit": u["id"], "sha": u["sha"], "round": "second",
-                                "at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
-                                "by": "ruling model %s" % MODEL, "payload_sha256": sha(json.dumps(payload)), **r})
-                if r["ruling"] != "reject":
-                    # Accepted on the second read: the sentence must change. It is
-                    # not re-read here; the next run reads the corrected text.
-                    state[u["sha"]] = "must_leave_page"
-        manifest["second_read"] = {"read": len(sample), "judgement_rows": len(judgement)}
+                                     "kind": v.get("kind"), "reason": v.get("reason"), "agrees": agree,
+                                     "why_read": "had a finding" if u["id"] in sec["flagged"] else
+                                                 "seeded sample (seed %d)" % seed})
+                if not agree:
+                    payload = ruling_payload(v, u["sentence"], docs, records)
+                    rtext, _ru = call(build_rule_prompt(payload), RULE_MAX_OUT, "rule-second")
+                    r = check_ruling(parse_json(rtext))
+                    log("rulings", {"unit": u["id"], "sha": u["sha"], "round": "second",
+                                    "at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+                                    "by": "ruling model %s" % MODEL, "payload_sha256": sha(json.dumps(payload)), **r})
+                    if r["ruling"] != "reject":
+                        # Accepted on the second read: the sentence must change. It is
+                        # not re-read here; the next run reads the corrected text.
+                        state[u["sha"]] = "must_leave_page"
+                sec["todo"] = [i for i in sec["todo"] if i != u["id"]]
+        manifest["second_read"] = {"read": len(sec["flagged"]) + len(sec["sampled"]), "seed": seed,
+                                   "had_finding": len(sec["flagged"]), "sampled": len(sec["sampled"]),
+                                   "holds_pool": sec["holds_pool"], "sampled_units": sec["sampled"]}
         manifest["status"] = "complete"
     except AuditFailure as e:
         manifest["status"] = "failed"; manifest["failure"] = str(e)
     except Exception as e:                      # any failure stops the run
         manifest["status"] = "failed"; manifest["failure"] = "%s: %s" % (type(e).__name__, e)
+        if isinstance(e, S.OverCap):
+            manifest["stopped_by"] = "day cap"
     finally:
         for f in files.values():
             f.close()
         manifest["finished"] = datetime.now(timezone.utc).isoformat(timespec="seconds")
         manifest["state"] = state
-        manifest["calls"] = call.calls
-        manifest["usd"] = round(sum(c.get("usd") or 0 for c in call.calls), 6)
+        manifest["progress"] = prog
+        manifest["calls"] = list((prior or {}).get("calls") or []) + call.calls
+        manifest["usd"] = round(sum(c.get("usd") or 0 for c in manifest["calls"]), 6)
         (out_dir / "manifest.json").write_text(json.dumps(manifest, indent=1, ensure_ascii=False), encoding="utf-8")
     return manifest
 
@@ -759,6 +846,8 @@ def main(argv=None) -> int:
     r.add_argument("--dry-run", action="store_true")
     r.add_argument("--limit", type=int)
     r.add_argument("--out")
+    r.add_argument("--resume", metavar="RUN_DIR",
+                   help="carry on a stopped run in its own directory; refuses if any input changed")
     c = sub.add_parser("check"); c.add_argument("slug")
     a = ap.parse_args(argv)
     if a.cmd == "check":
@@ -766,6 +855,17 @@ def main(argv=None) -> int:
         for row in preflight_rows(a.slug, publish.load_record()):
             print("  %-6s %-16s %s" % (row[1], row[0], row[2]))
         return 0
+    if a.resume:
+        if a.dry_run or a.out or a.limit:
+            raise SystemExit("--resume takes the stopped run's settings from its manifest; "
+                             "give no --dry-run, --out or --limit")
+        out = Path(a.resume)
+        prior = json.loads((out / "manifest.json").read_text(encoding="utf-8"))
+        m = run(a.slug, out_dir=out, limit=prior.get("limit"), cap=a.cap,
+                ledger_issue=a.ledger_issue or prior.get("ledger_issue"), resume=True)
+        print(json.dumps({k: m.get(k) for k in ("status", "failure", "units", "usd", "second_read", "resumed")},
+                         indent=1))
+        return 0 if m["status"] == "complete" else 2
     if a.dry_run:
         if not (a.out and a.limit):
             raise SystemExit("--dry-run needs --out DIR and --limit N: it writes nowhere in the issue")

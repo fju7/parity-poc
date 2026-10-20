@@ -7,6 +7,7 @@ Absent on an abstract-only snapshot is NOT_VERIFIABLE_ABSTRACT; a source over
 item marked CHUNKED. No API is called here."""
 import importlib.util
 import json
+import re
 import sys
 from pathlib import Path
 
@@ -84,7 +85,7 @@ def test_a_refusal_is_retried_once_unchanged_then_recorded_as_refused(tmp_path, 
             {"input": 1, "output": 1, "model": "m"}, 0.01, False
     _wire(monkeypatch, claude, openai)
     run = _run_dir(tmp_path)
-    monkeypatch.setattr(sys, "argv", ["judge_m1.py", str(run)])
+    monkeypatch.setattr(sys, "argv", ["judge_m1.py", str(run), "--consistency-share", "0"])
     assert J.main() == 0
     assert len(seen) == 2 and seen[0] == seen[1]           # retried once, unchanged
     c = json.loads((run / "replies" / "claude" / "P01.json").read_text())
@@ -144,3 +145,67 @@ def test_the_author_line_goes_after_the_documents_and_before_the_claim(tmp_path,
     J.main()
     assert line not in sent["prefix"]                       # the cached block is unchanged
     assert sent["rest"].index(line) < sent["rest"].index("Mice did better.")
+
+
+def _run_dir_n(tmp_path, n):
+    run = tmp_path / "run"; (run / "sources").mkdir(parents=True)
+    items, man = [], []
+    for k in range(1, n + 1):
+        url = "https://example.org/%d" % k
+        items.append({"item": "P%02d" % k, "claim": "Mice did better %d." % k, "context": "",
+                      "urls": [url], "reference": "Supported"})
+        man.append({"source_id": "S%d" % k, "url": url, "extent": "full text", "abstract_only": False,
+                    "text_sha256": "x"})
+        (run / "sources" / ("S%d.txt" % k)).write_text("Mice did better in trial %d. " % k * 20)
+    items.append({"item": "P99", "claim": "Not judged.", "context": "", "reference": "Supported",
+                  "citations": [{"label": "No link (2020)", "url": None}]})
+    (run / "items.json").write_text(json.dumps(items))
+    (run / "sources" / "manifest.json").write_text(json.dumps(man))
+    return run
+
+
+def test_each_judge_reads_each_item_once_and_a_seeded_20_percent_twice(tmp_path, monkeypatch):
+    """Budget ruling, protocol rev 26 (20 October 2026)."""
+    import random
+    calls = {"claude": [], "openai": []}
+    reply = json.dumps({"label": "Supported", "span": "Mice did better", "reason": "r"})
+
+    def claude(client, prefix, rest, model):
+        calls["claude"].append(re.search(r"Mice did better (\d+)\.", rest).group(1))
+        return reply, {"input": 1, "output": 1, "model": model, "stop": "end_turn"}, 0.0, False
+
+    def openai(key, prefix, rest, issue):
+        calls["openai"].append(re.search(r"Mice did better (\d+)\.", rest).group(1))
+        return reply, {"input": 1, "output": 1, "model": "m"}, 0.0, False
+    _wire(monkeypatch, claude, openai)
+    run = _run_dir_n(tmp_path, 20)
+    monkeypatch.setattr(sys, "argv", ["judge_m1.py", str(run), "--seed", "777"])
+    assert J.main() == 0
+    pool = ["P%02d" % k for k in range(1, 21)]                 # P99 is INCOMPLETE_SOURCES: not judged, not drawn
+    expected = sorted(random.Random(777).sample(sorted(pool), 4))
+    from collections import Counter
+    for judge in ("claude", "openai"):
+        n = Counter("P%02d" % int(x) for x in calls[judge])
+        assert set(n) == set(pool) and len(calls[judge]) == 24             # every item once, 4 of them twice
+        assert sorted(i for i, c in n.items() if c == 2) == expected      # exactly the seeded sample again
+        assert sorted(p.stem for p in (run / "replies_repeat" / judge).glob("P*.json")) == expected
+        # each second read follows its first straight away (the cache is warm)
+        seq = ["P%02d" % int(x) for x in calls[judge]]
+        for i in expected:
+            k = seq.index(i)
+            assert seq[k + 1] == i
+    s = json.loads((run / "replies" / "consistency_sample.json").read_text())
+    assert s["seed"] == 777 and s["share"] == 0.2 and s["items"] == expected and s["pool"] == pool
+    # Run again with another seed: the recorded sample stands and nothing is read.
+    before = {j: len(c) for j, c in calls.items()}
+    monkeypatch.setattr(sys, "argv", ["judge_m1.py", str(run), "--seed", "778"])
+    assert J.main() == 4
+    assert {j: len(c) for j, c in calls.items()} == before
+
+
+def test_the_sample_depends_on_the_seed_and_the_pool_not_the_order():
+    ids = ["P%02d" % k for k in range(1, 41)]
+    a = J.consistency_sample(ids, 0.2, 5)
+    assert a == J.consistency_sample(list(reversed(ids)), 0.2, 5) and len(a) == 8
+    assert a != J.consistency_sample(ids, 0.2, 6)
+    assert J.consistency_sample(ids, 0, 5) == [] and J.consistency_sample([], 0.2, 5) == []

@@ -303,3 +303,147 @@ def test_card_and_meta_sentences_are_read_against_the_page_body_not_the_sources(
     assert m["status"] == "complete", m.get("failure")
     v = [json.loads(l) for l in (tmp_path / "verdicts.jsonl").read_text().splitlines()]
     assert any(x["unit"] == "u2" and x["kind"] == A.SUMMARY_KIND for x in v)
+
+
+# ------------------------------------- budget ruling of 20 October 2026 (protocol rev 26)
+
+class PerUnit:
+    """A reader that gives a finding on a unit in `flag` at its original
+    wording, and holds otherwise (so a re-read gives the same verdict, as a
+    reader judging the text would); the ruling accepts a new wording. Records
+    the unit ids of every reading call (None for a ruling call), in order."""
+
+    def __init__(self, flag=()):
+        self.flag, self.reads, self.n = set(flag), [], 0
+
+    def __call__(self, prompt, max_tokens):
+        if "THE SENTENCES TO READ" in prompt:
+            found = re.findall(r"^\[(u\d+)\] \(.*?\)\nSENTENCE: (.*)$", prompt, re.M)
+            ids = [i for i, _s in found]
+            self.reads.append(ids)
+            out = []
+            for i, sentence in found:
+                f = i in self.flag and not sentence.startswith("Corrected wording")
+                out.append({"id": i, "verdict": "finding" if f else "holds",
+                            "kind": "Overstated a finding or a source's claim" if f else None,
+                            "evidence": [{"source": "S021", "quote": "it is vulnerable to confounding"}],
+                            "proposed_text": "A narrower sentence." if f else None, "reason": "test"})
+            return json.dumps({"verdicts": out}), {"input": 100, "output": 50, "usd": 0.0}
+        self.reads.append(None)
+        self.n += 1
+        return json.dumps({"ruling": "accept", "text": "Corrected wording %d." % self.n,
+                           "reason": "the source says vulnerable to confounding"}), {"input": 50, "output": 20, "usd": 0.0}
+
+
+def _many(n=30):
+    return [_unit("u%d" % i, "Sentence number %d says 28.4%% of something." % i) for i in range(1, n + 1)]
+
+
+def _second_read_ids(fake, manifest):
+    roles = [c["role"] for c in manifest["calls"]]
+    assert len(roles) == len(fake.reads)
+    return [i for ids, role in zip(fake.reads, roles) if role.startswith("second-read") for i in ids]
+
+
+def test_the_second_reader_reads_exactly_the_flagged_sentences_and_the_seeded_sample(tmp_path):
+    import random
+    us = _many(30)
+    fake = PerUnit(flag={"u2", "u7", "u19"})
+    m = A.run("demo", out_dir=tmp_path, ask=fake, held=HELD, unit_list=us, cap=1.0, licensed=set(), seed=4242)
+    assert m["status"] == "complete", m.get("failure")
+    held_first = [u["id"] for u in us if u["id"] not in {"u2", "u7", "u19"}]
+    expected_sample = random.Random(4242).sample(held_first, round(A.SECOND_SHARE * len(held_first)))
+    expected = {"u2", "u7", "u19"} | set(expected_sample)
+    # What the model was actually called on in the second-read phase:
+    called = _second_read_ids(fake, m)
+    assert sorted(called) == sorted(expected) and len(called) == len(expected) == 6
+    # ... and what was logged, with the seed and the sample on the manifest.
+    logged = [json.loads(l) for l in (tmp_path / "second_reads.jsonl").read_text().splitlines()]
+    assert sorted(r["unit"] for r in logged) == sorted(expected)
+    assert {r["unit"] for r in logged if r["why_read"] == "had a finding"} == {"u2", "u7", "u19"}
+    assert m["second_read"]["seed"] == m["second_seed"] == 4242
+    assert m["second_read"]["sampled_units"] == expected_sample
+    assert m["second_read"]["holds_pool"] == 27 and m["second_read"]["had_finding"] == 3
+    # A flagged sentence is read again at its corrected wording, not the old one.
+    flagged_second = [r for r in logged if r["unit"] == "u2"][0]
+    assert flagged_second["sha"] == A.fingerprint(m["progress"]["done"]["u2"]["sentence"])
+    assert m["progress"]["done"]["u2"]["sentence"].startswith("Corrected wording")
+
+
+def test_the_same_seed_draws_the_same_sample_and_another_seed_does_not(tmp_path):
+    runs = [A.run("demo", out_dir=tmp_path / str(s) / str(k), ask=PerUnit(), held=HELD, unit_list=_many(60),
+                  cap=1.0, licensed=set(), seed=s)["second_read"]["sampled_units"]
+            for s, k in ((1, "a"), (1, "b"), (2, "c"))]
+    assert runs[0] == runs[1] and runs[0] != runs[2] and len(runs[0]) == 6
+
+
+def _day_cap_after(n):
+    """A stubbed day cap: lets n calls through, then stops the run the way
+    spend_ledger.check_day_cap does, with OverCap."""
+    count = {"n": 0}
+
+    def cap(about):
+        count["n"] += 1
+        if count["n"] > n:
+            raise A.S.OverCap("DAY cap $25.00 reached (stub)")
+    return cap
+
+
+def _first_reads(path):
+    return [json.loads(l)["unit"] for l in (path / "verdicts.jsonl").read_text().splitlines()
+            if json.loads(l)["round"] == 1]
+
+
+@pytest.mark.parametrize("stop_after", [3, 2])
+def test_a_run_stopped_by_the_day_cap_resumes_next_day_without_rereading_finished_sentences(tmp_path, stop_after):
+    us = _many(30)                      # two reading batches: u1-u20, u21-u30
+    flag = {"u1", "u2"}
+    whole = A.run("demo", out_dir=tmp_path / "whole", ask=PerUnit(flag), held=HELD, unit_list=us,
+                  cap=1.0, licensed=set())
+    # Day one: calls are read batch 1, rule u1, rule u2, read batch 2, ...
+    # stop_after=3 stops between the batches; stop_after=2 stops before u2's ruling.
+    run_dir = tmp_path / "stopped"
+    day1 = PerUnit(flag)
+    m1 = A.run("demo", out_dir=run_dir, ask=day1, held=HELD, unit_list=us, cap=1.0, licensed=set(),
+               day_cap=_day_cap_after(stop_after))
+    assert m1["status"] == "failed" and m1["stopped_by"] == "day cap" and "OverCap" in m1["failure"]
+    finished = set(m1["progress"]["done"])
+    # Day two: same inputs, a fresh day, no cap reached.
+    day2 = PerUnit(flag)
+    day2.n = day1.n                     # the ruling model's wordings carry on from day one
+    m2 = A.run("demo", out_dir=run_dir, ask=day2, held=HELD, unit_list=us, cap=1.0, licensed=set(), resume=True)
+    assert m2["status"] == "complete", m2.get("failure")
+    reread = {i for ids in day2.reads if ids for i in ids} & finished
+    second = set(m2["progress"]["second"]["flagged"] + m2["progress"]["second"]["sampled"])
+    assert reread <= second, "a finished sentence was read again outside the second reader: %s" % (reread - second)
+    if stop_after == 3:
+        # Batch 1 was finished on day one; day two's first reads are exactly batch 2.
+        assert finished >= {"u%d" % i for i in range(3, 21)}
+        assert sorted(_first_reads(run_dir)) == sorted(u["id"] for u in us)    # each read once
+        assert {i for i in day2.reads[0]} == {"u%d" % i for i in range(21, 31)}
+    else:
+        # u1 was ruled (its new wording is queued for round 2); u2's read was
+        # logged but not ruled, so u2 and the rest of batch 1 are read again.
+        assert "u1" not in day2.reads[0] and "u2" in day2.reads[0]
+    # Same end state as a run that was never stopped.
+    assert m2["state"] == whole["state"]
+    assert m2["progress"]["second"]["sampled"] == whole["progress"]["second"]["sampled"]
+    assert len(m2["resumed"]) == 1 and m2["started"] == m1["started"]
+    assert m2["calls"][:len(m1["calls"])] == m1["calls"]
+
+
+def test_resume_refuses_when_an_input_changed_or_the_run_is_complete(tmp_path):
+    us = _many(30)
+    A.run("demo", out_dir=tmp_path, ask=PerUnit(), held=HELD, unit_list=us, cap=1.0, licensed=set(),
+          day_cap=_day_cap_after(1))
+    edited = us[:5] + [_unit("u6", "An edited sentence.")] + us[6:]
+    with pytest.raises(A.AuditFailure, match="changed since the run stopped"):
+        A.run("demo", out_dir=tmp_path, ask=PerUnit(), held=HELD, unit_list=edited, cap=1.0, licensed=set(),
+              resume=True)
+    with pytest.raises(A.AuditFailure, match="changed since the run stopped"):
+        A.run("demo", out_dir=tmp_path, ask=PerUnit(), held={"demo:S021": DOC + " More."}, unit_list=us,
+              cap=1.0, licensed=set(), resume=True)
+    m = A.run("demo", out_dir=tmp_path, ask=PerUnit(), held=HELD, unit_list=us, cap=1.0, licensed=set(), resume=True)
+    assert m["status"] == "complete"
+    with pytest.raises(A.AuditFailure, match="not a stopped run"):
+        A.run("demo", out_dir=tmp_path, ask=PerUnit(), held=HELD, unit_list=us, cap=1.0, licensed=set(), resume=True)
