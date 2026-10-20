@@ -337,6 +337,23 @@
       "waived": null,
       "page_changed_at": "2026-10-20T12:50:36+00:00",
       "page_changed_at_source": "deploy-poll: the live page first served this sha at this instant, on poll 1 at 15s intervals; the change reached readers at or before it, not later"
+    },
+    {
+      "issue": "melanoma",
+      "action": "update",
+      "companions": [],
+      "at": "2026-10-20T15:32:18+00:00",
+      "interpreter": "/Users/fredugast/Projects/parity-poc-repo/backend/venv/bin/python3",
+      "sha": "21370b7cc9897a679436191a2e2161b1ebf78bc40dff58524a894367b2ccbfb5",
+      "commit": "b26a98a6a01b8c48a979c8a0fdda1ebfb2510b5f",
+      "url": "https://whatholdsup.org/melanoma",
+      "note": "Correction: the page said two of its sentences rested on a named reader's attestation of a document no automated check may open.",
+      "changed": "They rest on a reading by Claude (Opus 5) of this publication's own rubric and page history, which an automated check can open; the sentence now says so.",
+      "source": null,
+      "basis": "living issue update \u2014 judged on what it adds. Softened checks are listed in the preflight output above and in UPDATE_SOFTENS.",
+      "waived": null,
+      "page_changed_at": "2026-10-20T15:32:18+00:00",
+      "page_changed_at_source": "deploy-poll: the live page first served this sha at this instant, on poll 1 at 15s intervals; the change reached readers at or before it, not later"
     }
   ]
 }
