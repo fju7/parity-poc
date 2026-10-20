@@ -101,7 +101,9 @@ def held_text(slug: str, cache: bool = True) -> dict[str, str]:
     """{source id: extracted text} for every document held for this issue."""
     root = S.case_dir(slug).parent if False else None       # noqa: F841
     lib = Path(S.issue_index_path(slug)).resolve().parent.parent
-    cpath = lib / f"_reachability_{slug}.json"
+    # The reading-order cache (2026-10-20). The old _reachability_<slug>.json
+    # holds `pdftotext -layout` text and is never read again.
+    cpath = lib / f"_reachability_{slug}.reading.json"
     if cache and cpath.exists():
         try:
             cached = json.loads(cpath.read_text(encoding="utf-8"))
@@ -139,18 +141,18 @@ def held_text(slug: str, cache: bool = True) -> dict[str, str]:
         p = lib / src["file"]
         if not p.exists():
             continue
+        # ONE EXTRACTION (2026-10-20): the binding checks' own, spancheck's
+        # reading-order text (source_store.text_of; markup stripped, entities
+        # unescaped). This used `pdftotext -layout`, which keeps the page's
+        # physical line order: on WHU-P02's S008 the margin lines were spliced
+        # into abstract sentences and line-end hyphens stayed split, so a model
+        # shown that text could not quote the paper. Nothing here uses layout.
         try:
-            if p.suffix == ".pdf":
-                exe = S.pdftotext_path()
-                if not exe:
-                    continue
-                t = subprocess.run([exe, "-layout", str(p), "-"],
-                                   capture_output=True, text=True, timeout=120).stdout
-            else:
-                raw = p.read_text(encoding="utf-8", errors="replace")
-                raw = re.sub(r"(?is)<(script|style).*?</\1>", " ", raw)
-                t = re.sub(r"(?s)<[^>]+>", " ", raw)
+            import spancheck as _SC
+            t = _SC._text_of_file(p)
         except Exception:
+            continue
+        if t is None:
             continue
         out[sid] = re.sub(r"[ \t\xa0\n]+", " ", t)
     if cache and out:            # never write an empty: see the read above

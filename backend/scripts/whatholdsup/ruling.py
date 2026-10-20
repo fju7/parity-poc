@@ -190,6 +190,28 @@ def rule(kind: str, p: dict, n_quotes: int, call, log: Path, ref: dict) -> dict:
 # the study issue
 # ---------------------------------------------------------------------------
 
+def held_texts(slug: str) -> dict[str, str]:
+    """{source id: text}, extracted as the binding checks extract it (reading
+    order; audit_stage.held_for_audit, via spancheck._text), keyed by the bare
+    source id that binding rows and briefs use.
+
+    Until 2026-10-20 this module read reachability.held_text, which (a) ran
+    `pdftotext -layout`, splicing margin text into sentences, and (b) keys its
+    texts "<issue>:<source id>". Every lookup here is by bare id, so the
+    surrounding context of a quotation was never found, and the advocate's
+    verbatim check below never found any quotation: every advocate quotation
+    was reported to the model as not in the held text."""
+    import audit_stage as A
+    return A.held_for_audit(slug)
+
+
+def _in_held(quote: str, text: str) -> bool:
+    """The advocate's quotation is in the held text: compared as the audit
+    stage compares a reader's quotation (audit_stage.norm), no looser."""
+    import audit_stage as A
+    return bool(quote) and A.norm(quote) in A.norm(text or "")
+
+
 def _publish():
     import importlib.util
     spec = importlib.util.spec_from_file_location("pub_ruling", str(HERE / "publish.py"))
@@ -268,8 +290,7 @@ def rule_gate(slug: str, call, *, P=None, report: dict | None = None, rows: dict
         import bindings as B
         rows = B.load(slug).get("bindings") or {}
     if held is None:
-        import reachability
-        held = reachability.held_text(slug, cache=False)
+        held = held_texts(slug)
     doc = F.load(slug)
     done = []
     for it in gate_items(report, doc):
@@ -309,8 +330,7 @@ def rule_conclusions(slug: str, call, *, P=None, rows: dict | None = None,
         import bindings as B
         rows = B.load(slug).get("bindings") or {}
     if held is None:
-        import reachability
-        held = reachability.held_text(slug, cache=False)
+        held = held_texts(slug)
     review = CJ.load_review(slug)
     done = []
     for k, e in sorted((review.get("sentences") or {}).items()):
@@ -343,8 +363,7 @@ def rule_changecheck(slug: str, call, *, P=None, rows: dict | None = None,
         import bindings as B
         rows = B.load(slug).get("bindings") or {}
     if held is None:
-        import reachability
-        held = reachability.held_text(slug, cache=False)
+        held = held_texts(slug)
     doc = C.load_reviews(slug)
     mine = [r for r in doc.get("reviews") or [] if r.get("sha") == C.page_sha(page_html)]
     if not mine:
@@ -435,8 +454,7 @@ def rule_advocate(slug: str, call, *, P=None, rows: dict | None = None,
         import bindings as B
         rows = B.load(slug).get("bindings") or {}
     if held is None:
-        import reachability
-        held = reachability.held_text(slug, cache=False)
+        held = held_texts(slug)
     done = []
     for it in advocate_items(slug, case):
         o = it["objection"]
@@ -449,7 +467,7 @@ def rule_advocate(slug: str, call, *, P=None, rows: dict | None = None,
             reason += " Why it matters: %s" % o["why"].strip()
         says = (o.get("source_says") or "").strip()
         if says:
-            if says in (held.get(it["source"]) or ""):
+            if _in_held(says, held.get(it["source"]) or ""):
                 if (it["source"], says) not in quotes:
                     quotes.append((it["source"], says))
             else:

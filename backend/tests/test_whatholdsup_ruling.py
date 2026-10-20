@@ -251,3 +251,43 @@ def test_an_advocate_quotation_not_in_the_held_text_is_not_shown_as_source_text(
     R.rule_advocate("xq", fake, P=P, rows={"k1": ROW}, held=HELD, case=d)
     assert "a sentence the paper does not contain" not in fake.prompts[0]
     assert "not in the held text" in fake.prompts[0] and "Quotation 2" not in fake.prompts[0]
+
+
+# --- one extraction for everything a model reads (2026-10-20) -------------------
+
+def test_the_ruling_context_for_s008_shows_u23s_span_whole_where_layout_splices_it():
+    """WHU-P02's u23 and S008, only where they exist (private: never committed).
+    No source text here: the spans come from the bindings at run time."""
+    import audit_stage as AS
+    try:
+        u = [x for x in AS.units("ultra-processed-foods") if x["id"] == "u23"][0]
+    except BaseException:
+        pytest.skip("WHU-P02's bindings are not here")
+    held = R.held_texts("ultra-processed-foods")
+    if "S008" not in held:
+        pytest.skip("S008 is not held here")
+    quotes = [q for q in R.quotations(u["row"], held) if q[0] == "S008"]
+    assert quotes
+    p = R.payload(u["sentence"], "k", "r", "", quotes, held)
+    import reachability
+    old_layout = subprocess_layout = None
+    for sid, span in quotes:
+        assert AS.norm(span) in AS.norm(p["quoted_source_text"])        # shown whole, in context
+        window = p["quoted_source_text"].split("In its document: ...", 1)[1]
+        assert len(window) > len(span) + 200                            # real context, not the quote alone
+    # and the -layout extraction the model used to be shown splits that span
+    import subprocess
+    import source_store as store
+    rec = (store.held("ultra-processed-foods") or {}).get("S008") or {}
+    pdf, exe = store.LIB / (rec.get("file") or ""), store.pdftotext_path()
+    if exe and pdf.suffix == ".pdf" and pdf.exists():
+        layout = subprocess.run([exe, "-layout", str(pdf), "-"], capture_output=True, text=True).stdout
+        assert not any(AS.norm(span) in AS.norm(" ".join(layout.split())) for _sid, span in quotes)
+
+
+def test_no_model_facing_text_is_extracted_with_layout():
+    import inspect
+    import reachability
+    src = inspect.getsource(reachability.held_text)
+    assert "-layout" not in src.replace("`pdftotext -layout`", "")
+    assert "held_texts(slug)" in inspect.getsource(R.rule_advocate)

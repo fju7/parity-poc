@@ -172,9 +172,14 @@ def test_the_real_case_s008_spans_are_in_the_audit_text_and_not_in_the_layout_te
     spans = _p02_case()
     if not spans:
         pytest.skip("WHU-P02's bindings or S008 are not held here")
-    import reachability
+    import subprocess
+    import source_store as store
     audit = A.held_for_audit("ultra-processed-foods").get("S008") or ""
-    layout = next((v for k, v in reachability.held_text("ultra-processed-foods", cache=False).items()
-                   if k.split(":")[-1] == "S008"), "")
     assert audit and all(A.norm(s) in A.norm(audit) for s in spans)        # the fix
-    assert not any(A.norm(s) in A.norm(layout) for s in spans)              # the defect, -layout
+    # the defect: `pdftotext -layout`, which nothing a model reads uses any more
+    rec = (store.held("ultra-processed-foods") or {}).get("S008") or {}
+    pdf, exe = store.LIB / (rec.get("file") or ""), store.pdftotext_path()
+    if exe and pdf.suffix == ".pdf" and pdf.exists():
+        layout = " ".join(subprocess.run([exe, "-layout", str(pdf), "-"], capture_output=True,
+                                         text=True).stdout.split())
+        assert not any(A.norm(s) in A.norm(layout) for s in spans)
