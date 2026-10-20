@@ -269,34 +269,115 @@ def terms(texts: list[str]) -> set[str]:
     return out
 
 
-def trim(text: str, wanted: list[str]) -> tuple[str, bool]:
+DOC_SEP = "\n[...]\n"
+
+
+def trim(text: str, wanted: list[str], must: list[str] | tuple = ()) -> tuple[str, bool]:
     """A held text over MAX_DOC_CHARS is cut to windows around every place a
-    span or key term occurs; the reader is told it is seeing windows."""
+    bound span (`must`) or a key term (`wanted`) occurs; the reader is told it
+    is seeing windows.
+
+    NEVER EMPTY FOR A NON-EMPTY TEXT (2026-10-20). The first version added
+    merged windows in document order and stopped at the first that did not
+    fit, so when every hit merged into one window longer than the limit -- a
+    159,009-character paper on the WHU-P02 practice run -- it returned "" and
+    the reader was shown an empty document. Now: an oversized window is cut to
+    the limit, centred on its bound span (else on the middle of its hits);
+    windows holding a bound span are kept first, then those covering the most
+    distinct terms; the kept windows are joined in document order; with no hit
+    at all the text's opening MAX_DOC_CHARS is kept."""
     if len(text) <= MAX_DOC_CHARS:
         return text, False
     low = text.lower()
-    hits = []
-    for w in wanted:
-        for m in re.finditer(re.escape(w.lower()), low):
-            hits.append(m.start())
+    must_l = {m.lower() for m in must if m}
+    hits = []                                     # (position, is_bound_span, length, term)
+    for w in {x.lower() for x in wanted if x} | must_l:
+        for m in re.finditer(re.escape(w), low):
+            hits.append((m.start(), w in must_l, len(w), w))
+    if not hits:
+        return text[:MAX_DOC_CHARS], True
     hits.sort()
-    spans, cur = [], None
+    spans = []                                    # [start, end, hits]
     for h in hits:
-        a, b = max(0, h - WINDOW), min(len(text), h + WINDOW)
-        if cur and a <= cur[1]:
-            cur[1] = b
+        a, b = max(0, h[0] - WINDOW), min(len(text), h[0] + h[2] + WINDOW)
+        if spans and a <= spans[-1][1]:
+            spans[-1][1] = max(spans[-1][1], b)
+            spans[-1][2].append(h)
         else:
-            if cur:
-                spans.append(cur)
-            cur = [a, b]
-    if cur:
-        spans.append(cur)
-    out, total = [], 0
-    for a, b in spans:
-        if total + (b - a) > MAX_DOC_CHARS:
-            break
-        out.append(text[a:b]); total += b - a
-    return "\n[...]\n".join(out), True
+            spans.append([a, b, [h]])
+    for s in spans:
+        if s[1] - s[0] > MAX_DOC_CHARS:
+            pts = sorted(h[0] for h in s[2] if h[1]) or sorted(h[0] for h in s[2])
+            c = pts[len(pts) // 2]
+            a = max(s[0], min(c - MAX_DOC_CHARS // 2, s[1] - MAX_DOC_CHARS))
+            s[0], s[1] = a, a + MAX_DOC_CHARS
+            s[2] = [h for h in s[2] if a <= h[0] and h[0] + h[2] <= s[1]]
+    ranked = sorted(spans, key=lambda s: (-sum(1 for h in s[2] if h[1]),
+                                          -len({h[3] for h in s[2]}), s[0]))
+    chosen, total = [], 0
+    for s in ranked:
+        need = (s[1] - s[0]) + (len(DOC_SEP) if chosen else 0)
+        if total + need <= MAX_DOC_CHARS:
+            chosen.append(s)
+            total += need
+    chosen.sort(key=lambda s: s[0])
+    return DOC_SEP.join(text[a:b] for a, b, _h in chosen), True
+
+
+class DocumentNotDelivered(AuditFailure):
+    """A held document reached the reader empty, or without a span its batch's
+    sentences are bound to. Never sent on; the run stops (fail closed)."""
+
+    def __init__(self, msg: str):
+        super().__init__("DOCUMENT_NOT_DELIVERED: " + msg)
+
+
+def delivery_report(slug: str, batch: list[dict], held: dict[str, str], docs: dict[str, str],
+                    licensed: frozenset = frozenset()) -> list[dict]:
+    """Per document the batch rests on: held characters, delivered characters,
+    and whether every bound span of the batch's sentences is in what was
+    delivered (spancheck's normalisation)."""
+    out = []
+    for sid, delivered in docs.items():
+        text = held.get("%s:%s" % (slug, sid)) or held.get(sid) or ""
+        spans = []
+        for u in batch:
+            row = u["row"] or {}
+            for x in [row] + (row.get("also_rests_on") or []) + (row.get("premises") or []):
+                if x.get("source_id") == sid and x.get("span"):
+                    spans.append(x["span"])
+        missing = [s for s in spans if norm(s) in norm(text) and norm(s) not in norm(delivered)]
+        out.append({"source": sid, "units": [u["id"] for u in batch], "held_chars": len(text),
+                    "delivered_chars": len(delivered), "bound_spans": len(spans),
+                    "spans_inside": not missing, "missing_spans": [m[:120] for m in missing]})
+    return out
+
+
+def check_delivery(report: list[dict]) -> None:
+    for r in report:
+        if not r["delivered_chars"]:                 # empty, whether or not the held text was
+            raise DocumentNotDelivered("%s held %d characters and %d were delivered (units %s)"
+                                       % (r["source"], r["held_chars"], r["delivered_chars"],
+                                          ", ".join(r["units"])))
+        if not r["spans_inside"]:
+            raise DocumentNotDelivered("%s: %d bound span(s) not in the %d characters delivered of %d "
+                                       "held (units %s): %r" % (r["source"], len(r["missing_spans"]),
+                                       r["delivered_chars"], r["held_chars"], ", ".join(r["units"]),
+                                       r["missing_spans"][0]))
+
+
+# A finding that says the reader was given nothing to read is a fault in the
+# delivery, not a finding about the sentence. It never reaches the ruling model
+# (which would cut a sentence for the stage's own defect): the run stops.
+_SAYS_MISSING = re.compile(
+    r"\b(?:document|source|text|paper|article|abstract|passage)s?\b[^.]{0,80}?\b(?:is|was|were|are|appears?|"
+    r"seems?)\s+(?:empty|blank|missing|unavailable|not (?:provided|shown|available|included|present|given))"
+    r"|\b(?:empty|blank)\s+(?:document|source|text)\b|\bno (?:document|source) text\b"
+    r"|\bcould not (?:see|read|access|open) (?:the|any|this) (?:document|source|text|paper)\b", re.I)
+
+
+def says_document_missing(v: dict) -> bool:
+    return bool(_SAYS_MISSING.search(" ".join(str(v.get(k) or "") for k in ("kind", "reason"))))
 
 
 def batch_inputs(slug: str, batch: list[dict], held: dict[str, str],
@@ -312,9 +393,12 @@ def batch_inputs(slug: str, batch: list[dict], held: dict[str, str],
             text = held.get("%s:%s" % (slug, sid)) or held.get(sid)
             if text is None:
                 continue
-            wanted = [x.get("span") or "" for x in [row] + (row.get("also_rests_on") or []) + (row.get("premises") or [])]
-            wanted = [w[:60] for w in wanted if w] + sorted(terms([b["sentence"] for b in batch]))
-            docs[sid] = trim(text, wanted)[0]
+            must = [x.get("span") or "" for b in batch for x in
+                    [b["row"] or {}] + ((b["row"] or {}).get("also_rests_on") or [])
+                    + ((b["row"] or {}).get("premises") or [])
+                    if x.get("source_id") == sid and x.get("span")]
+            wanted = [w[:60] for w in must] + sorted(terms([b["sentence"] for b in batch]))
+            docs[sid] = trim(text, wanted, [w[:60] for w in must])[0]
     records: dict[str, dict] = {}
     B = _B()
     for u in batch:
@@ -557,7 +641,8 @@ def context_map(us: list[dict]) -> dict[str, tuple[str, str]]:
 
 
 def read_batch(call: Caller, slug: str, batch: list[dict], held: dict, ctx: dict, role: str,
-               licensed: frozenset = frozenset(), body: str = "") -> tuple[list[dict], dict, dict]:
+               licensed: frozenset = frozenset(), body: str = "",
+               deliveries: list | None = None) -> tuple[list[dict], dict, dict]:
     summary = all(u["part"] in SUMMARY_PARTS for u in batch)
     if summary:
         docs, records = {"PAGE": body}, {}
@@ -565,6 +650,12 @@ def read_batch(call: Caller, slug: str, batch: list[dict], held: dict, ctx: dict
     else:
         docs, records = batch_inputs(slug, batch, held, licensed)
         build = lambda bs: build_read_prompt(bs, docs, records, ctx, licensed)
+        # FAIL CLOSED, BEFORE ANY CALL: every document delivered non-empty and
+        # holding every span its sentences are bound to. Recorded either way.
+        rep = delivery_report(slug, batch, held, docs, licensed)
+        if deliveries is not None:
+            deliveries.extend(dict(r, role=role) for r in rep)
+        check_delivery(rep)
     text, usage = call(build(batch), READ_MAX_OUT, role + ("-summary" if summary else ""))
     vs = check_verdicts(batch, parse_json(text), summary)
     # Quotations not verbatim go back to the reader once, for those sentences only.
@@ -622,6 +713,9 @@ def run(slug: str, *, out_dir: Path, limit: int | None = None, cap: float = 40.0
         "inputs": {"held_texts": {k: sha(v) for k, v in sorted(held.items())},
                    "units_sha256": sha(json.dumps([[u["id"], u["sha"]] for u in us]))},
         "status": "running",
+        # Per document, per batch: held and delivered characters, and whether
+        # every bound span was delivered (fail closed: check_delivery).
+        "deliveries": [],
     }
     if B is not None:
         page = B._page_html(slug)
@@ -641,6 +735,7 @@ def run(slug: str, *, out_dir: Path, limit: int | None = None, cap: float = 40.0
             raise AuditFailure("cannot resume: %s changed since the run stopped; start a new run"
                                % ", ".join(changed))
         manifest["started"] = prior["started"]
+        manifest["deliveries"] = list(prior.get("deliveries") or [])
         manifest["resumed"] = (prior.get("resumed") or []) + [
             {"at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
              "after": prior.get("failure"), "usd_before": prior.get("usd") or 0.0}]
@@ -693,7 +788,8 @@ def run(slug: str, *, out_dir: Path, limit: int | None = None, cap: float = 40.0
                     break
                 prog["queue"], prog["next"] = prog["next"], []
             for batch in batches([live(s) for s in prog["queue"]]):
-                vs, docs, records = read_batch(call, slug, batch, held, ctx, "read", lic, body)
+                vs, docs, records = read_batch(call, slug, batch, held, ctx, "read", lic, body,
+                                               deliveries=manifest["deliveries"])
                 for u, v in zip(batch, vs):
                     log("verdicts", {"unit": u["id"], "part": u["part"], "sha": u["sha"], "round": u["round"],
                                      "sentence": u["sentence"], **{k: v.get(k) for k in
@@ -705,6 +801,10 @@ def run(slug: str, *, out_dir: Path, limit: int | None = None, cap: float = 40.0
                         prog["done"][u["id"]] = _snap(u, status=v["verdict"])
                         finish(u)
                         continue
+                    if says_document_missing(v):
+                        raise DocumentNotDelivered("%s: the reader's finding says a document was empty or "
+                                                   "unavailable (%r); not sent to the ruling model"
+                                                   % (u["id"], (v.get("reason") or "")[:160]))
                     payload = ruling_payload(v, u["sentence"], docs, records)
                     rtext, _ru = call(build_rule_prompt(payload), RULE_MAX_OUT, "rule")
                     r = check_ruling(parse_json(rtext))
@@ -759,7 +859,8 @@ def run(slug: str, *, out_dir: Path, limit: int | None = None, cap: float = 40.0
                               "sampled": sampled, "todo": had_finding + sampled}
         sec = prog["second"]
         for batch in batches([live(prog["done"][i]) for i in sec["todo"]]):
-            vs, docs, records = read_batch(call, slug, batch, held, ctx, "second-read", lic, body)
+            vs, docs, records = read_batch(call, slug, batch, held, ctx, "second-read", lic, body,
+                                           deliveries=manifest["deliveries"])
             for u, v in zip(batch, vs):
                 agree = (v["verdict"] != "finding")
                 log("second_reads", {"unit": u["id"], "sha": u["sha"], "verdict": v["verdict"],
@@ -767,6 +868,10 @@ def run(slug: str, *, out_dir: Path, limit: int | None = None, cap: float = 40.0
                                      "why_read": "had a finding" if u["id"] in sec["flagged"] else
                                                  "seeded sample (seed %d)" % seed})
                 if not agree:
+                    if says_document_missing(v):
+                        raise DocumentNotDelivered("%s: the second reader's finding says a document was "
+                                                   "empty or unavailable (%r); not sent to the ruling model"
+                                                   % (u["id"], (v.get("reason") or "")[:160]))
                     payload = ruling_payload(v, u["sentence"], docs, records)
                     rtext, _ru = call(build_rule_prompt(payload), RULE_MAX_OUT, "rule-second")
                     r = check_ruling(parse_json(rtext))
