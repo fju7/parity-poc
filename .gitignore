@@ -91,6 +91,9 @@ issues/WHU-P*/change-reviews.json
 issues/WHU-S*/change-reviews.json
 issues/WHU-P*/draft/*.gate.json*
 issues/WHU-S*/draft/*.gate.json*
+# The source advocate's briefs and adjudications quote source passages too (2026-10-20).
+issues/WHU-P*/advocate/
+issues/WHU-S*/advocate/
 
 # Local drop folder for incoming files; never committed (2026-10-20).
 _incoming/
