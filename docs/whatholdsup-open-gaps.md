@@ -3962,3 +3962,10 @@ A gate recency failure (any study not CURRENT, including UNKNOWN) produces no fi
 `audit_stage.trim()` cut a held text over MAX_DOC_CHARS to windows around the batch's terms, adding merged windows in document order and stopping at the first that did not fit. When every window merged into one run longer than the limit — a 159,009-character paper on the practice run — it returned "", the reader was shown an empty document and reported the sentence as resting on a document we do not hold, and the ruling model cut it. Nothing checked what the reader was actually given.
 
 The fix: `trim()` is never empty for a non-empty text (an oversized window is cut to the limit centred on its bound span; windows holding a bound span are kept first). Before every reader call the stage records, per document, the held and delivered character counts and whether every bound span is in what was delivered, and stops with DOCUMENT_NOT_DELIVERED otherwise, before any paid call. A finding that says its document was empty or unavailable never reaches the ruling model. The study's judge runner had the same defect in `chunk()` and now fails closed the same way: a key term or cited span the source holds but the judge would not receive makes the item INCOMPLETE_SOURCES.
+
+## GAP-016 — a ruling can remove a name a later sentence relies on
+
+**Raised by** advisor, 2026-10-20 (WHU-P02 practice run).
+**Fix when** before the reliability study is frozen.
+
+Rulings are applied one sentence at a time, so a ruling can remove a name or term a later sentence relies on (WHU-P02: 'UPDATE' removed from the sentence introducing the trial; a later sentence still says 'The UPDATE authors'). No check looks for references that no longer point at anything.
