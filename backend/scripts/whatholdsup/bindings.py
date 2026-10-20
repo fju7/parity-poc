@@ -356,13 +356,20 @@ def footer_sentences(slug: str) -> list[str]:
     return [s for s in out if s]
 
 
-def _page_html(slug: str) -> str:
+def _publish():
     import importlib.util
     spec = importlib.util.spec_from_file_location(
         "pub", str(Path(__file__).resolve().parent / "publish.py"))
     m = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(m)
-    cfg = m.ISSUES[slug]
+    return m
+
+
+def _page_html(slug: str) -> str:
+    m = _publish()
+    # issue_cfg, not ISSUES: a study issue (issue.json "study": true) is read
+    # the same way (protocol rev 27). An unknown slug still raises.
+    cfg = m.issue_cfg(slug)
     return (m.ROOT / cfg["page"]).read_text(encoding="utf-8")
 
 

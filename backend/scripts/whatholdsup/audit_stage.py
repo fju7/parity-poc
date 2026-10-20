@@ -529,7 +529,9 @@ class Caller:
         if self._spent() - self._start + worst > self.cap:
             raise AuditFailure("spend cap: this call could cost $%.3f; the run has spent $%.3f of $%.2f"
                                % (worst, self._spent() - self._start, self.cap))
-        S.check_day_cap(worst)
+        # The issue's cap as well as the day cap (protocol rev 27: a study issue is
+        # capped at caps.json's study_per_issue). check_cap checks both.
+        S.check_cap(self.issue, worst)
         t0 = time.time()
         r = self._client.messages.create(model=MODEL, max_tokens=max_tokens,
                                          messages=[{"role": "user", "content": prompt}])
@@ -788,7 +790,7 @@ def run(slug: str, *, out_dir: Path, limit: int | None = None, cap: float = 40.0
     except Exception as e:                      # any failure stops the run
         manifest["status"] = "failed"; manifest["failure"] = "%s: %s" % (type(e).__name__, e)
         if isinstance(e, S.OverCap):
-            manifest["stopped_by"] = "day cap"
+            manifest["stopped_by"] = "issue cap" if isinstance(e, getattr(S, "OverIssueCap", ())) else "day cap"
     finally:
         for f in files.values():
             f.close()

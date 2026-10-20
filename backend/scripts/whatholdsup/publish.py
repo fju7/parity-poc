@@ -352,7 +352,85 @@ ISSUES = {
     },
 }
 
-SENDER = ROOT / "site" / "whatholdsup" / "email" / "send_broadcast.py"
+# STUDY ISSUES (2026-10-20, protocol rev 27, "The frozen WHU process"). The
+# reliability study runs WHU on questions whose answers are never published.
+# Such an issue is registered by its own issue.json ("study": true), NOT by an
+# entry in ISSUES: ISSUES feeds the homepage cards, the emails, the subscriber
+# audiences and the pre-push guard, and a study issue must reach none of them.
+# `check`, the preflight and the audit stage resolve a slug through
+# issue_cfg(); `publish`, `update` and `announce` refuse a study issue. The
+# preflight records the four steps the study excludes -- outside review,
+# verification by a second session, operator acceptance and publication -- as
+# SKIPPED with STUDY_REASON, and runs every other row as it would for any issue.
+STUDY_REASON = "excluded from the frozen process for the study (protocol rev 27)"
+
+
+def study_issue(slug: str) -> dict | None:
+    """The config of a study issue registered by issue.json, or None."""
+    d = case_dir(slug)
+    if d is None:
+        return None
+    try:
+        meta = json.loads((d / "issue.json").read_text(encoding="utf-8"))
+    except Exception:
+        return None
+    if meta.get("study") is not True:
+        return None
+    def rel(p: Path) -> str:
+        return str(p.relative_to(ROOT)) if p.is_relative_to(ROOT) else str(p)
+    page = meta.get("page") or rel(d / "draft" / ("%s.html" % slug))
+    return {"title": meta.get("title") or slug, "page": page, "study": True,
+            "case": rel(d), "question": meta.get("question")}
+
+
+def study_slugs() -> list[str]:
+    out = []
+    for f in sorted(CASES.glob("*/issue.json")):
+        try:
+            meta = json.loads(f.read_text(encoding="utf-8"))
+        except Exception:
+            continue
+        if meta.get("study") is True and meta.get("slug") and meta["slug"] not in ISSUES:
+            out.append(meta["slug"])
+    return out
+
+
+def is_study(slug: str) -> bool:
+    return slug not in ISSUES and study_issue(slug) is not None
+
+
+def issue_cfg(slug: str) -> dict:
+    """ISSUES[slug] for a published issue, else a study issue's config."""
+    if slug in ISSUES:
+        return ISSUES[slug]
+    cfg = study_issue(slug)
+    if cfg is None:
+        # KeyError, as ISSUES[slug] raised before: callers catch that.
+        raise KeyError("%r is neither in publish.ISSUES nor a study issue (issue.json with "
+                       "\"study\": true)" % slug)
+    return cfg
+
+
+def study_skipped_rows() -> list[tuple[str, str, str]]:
+    """The four steps the study excludes, each recorded as SKIPPED. Status ok
+    with the word and the reason, as audit_stage and conclusion_judge record a
+    SKIPPED row: the display knows ok/warn/STOP only (test_whatholdsup_vocabulary)."""
+    return [
+        ("adjudication verification", OK, "SKIPPED \u2014 " + STUDY_REASON),
+        ("operator acceptance", OK, "SKIPPED \u2014 " + STUDY_REASON),
+        ("publication", OK, "SKIPPED \u2014 " + STUDY_REASON + "; covers the email, the live "
+         "page, the masthead and dateline, and every check against what readers see"),
+    ]
+
+
+def refuse_study(slug: str, what: str) -> int:
+    print("\nREFUSED \u2014 %s is a study issue (issue.json \"study\": true). A study answer is "
+          "never published: %s is %s. `publish.py check %s` runs its preflight.\n"
+          % (slug, what, STUDY_REASON, slug))
+    return 2
+
+
+SENDER =ROOT / "site" / "whatholdsup" / "email" / "send_broadcast.py"
 
 NUM = re.compile(r"\d+\.\d+|\d+(?:,\d{3})+|\d+%|\bn=\d+\b")
 OK, BAD, WARN = "ok", "BLOCKED", "warn"
@@ -1661,36 +1739,51 @@ UPDATE_SOFTENS = {
 
 def preflight(slug: str, *, for_email: bool,
               for_update: bool = False) -> list[tuple[str, str, str]]:
-    cfg = ISSUES[slug]
+    cfg = issue_cfg(slug)
+    study = bool(cfg.get("study"))
     page = ROOT / cfg["page"]
-    ehtml = ROOT / cfg["email_html"]
-    etxt = ROOT / cfg["email_txt"]
     out: list[tuple[str, str, str]] = []
 
-    for label, f in (("page file", page), ("email html", ehtml), ("email text", etxt)):
-        out.append((label, OK if f.exists() else BAD,
-                    str(f.relative_to(ROOT)) if f.exists() else f"missing: {f}"))
-    if not (page.exists() and ehtml.exists() and etxt.exists()):
-        return out
+    if study:
+        # A study issue has no email (it is never announced) and no live page.
+        out.append(("page file", OK if page.exists() else BAD,
+                    (str(page.relative_to(ROOT)) if page.is_relative_to(ROOT) else str(page))
+                    if page.exists() else f"missing: {page}"))
+        if not page.exists():
+            return out
+        st, detail = gate_report(page)
+        out.append(("page gate", st, detail))
+        ptext = fc.read_draft(page)
+    else:
+        ehtml = ROOT / cfg["email_html"]
+        etxt = ROOT / cfg["email_txt"]
+        for label, f in (("page file", page), ("email html", ehtml), ("email text", etxt)):
+            out.append((label, OK if f.exists() else BAD,
+                        str(f.relative_to(ROOT)) if f.exists() else f"missing: {f}"))
+        if not (page.exists() and ehtml.exists() and etxt.exists()):
+            return out
 
-    st, detail = gate_report(page)
-    out.append(("page gate", st, detail))
-    st, detail = gate_report(ehtml)
-    out.append(("email gate", st, detail))
+        st, detail = gate_report(page)
+        out.append(("page gate", st, detail))
+        st, detail = gate_report(ehtml)
+        out.append(("email gate", st, detail))
 
-    ptext, etext, ttext = fc.read_draft(page), fc.read_draft(ehtml), etxt.read_text(encoding="utf-8")
+        ptext, etext, ttext = fc.read_draft(page), fc.read_draft(ehtml), etxt.read_text(encoding="utf-8")
 
-    stray = figures(etext) - figures(ptext)
-    out.append(("email figures on page", OK if not stray else BAD,
-                "every figure in the email appears on the page" if not stray
-                else f"in the email and not on the page: {', '.join(sorted(stray))}"))
+        stray = figures(etext) - figures(ptext)
+        out.append(("email figures on page", OK if not stray else BAD,
+                    "every figure in the email appears on the page" if not stray
+                    else f"in the email and not on the page: {', '.join(sorted(stray))}"))
 
     # B14 -- against what readers can actually see. A removal is only checkable
     # against the published version, so this row is silent when the live page
-    # cannot be fetched, and says so rather than passing.
+    # cannot be fetched, and says so rather than passing. A study issue has no
+    # published version: that is part of the "publication" row it records.
     try:
-        _live_for_del = live_body(cfg["url"])
-        if _live_for_del:
+        _live_for_del = None if study else live_body(cfg["url"])
+        if study:
+            pass
+        elif _live_for_del:
             out.extend(deletions.check(slug, _live_for_del,
                                        page.read_text(encoding="utf-8")))
         else:
@@ -1731,21 +1824,23 @@ def preflight(slug: str, *, for_email: bool,
         out.append(("changed sentences reviewed", WARN,
                     "did not run: %s: %s" % (type(exc).__name__, exc)))
 
-    _pp = fc_parity_provenance(ptext, etext)
-    out.append(("email sourcing claims match the page", OK if not _pp else BAD,
-                "the email describes where its figures come from the way the page does"
-                if not _pp else
-                "%d sourcing claim(s) in the email that the page does not make. The "
-                "email said every figure came from a trial publication or a drug "
-                "label while quoting two observational studies: %s"
-                % (len(_pp), " || ".join(x[:120] for x in _pp[:2]))))
+    if not study:
+        _pp = fc_parity_provenance(ptext, etext)
+        out.append(("email sourcing claims match the page", OK if not _pp else BAD,
+                    "the email describes where its figures come from the way the page does"
+                    if not _pp else
+                    "%d sourcing claim(s) in the email that the page does not make. The "
+                    "email said every figure came from a trial publication or a drug "
+                    "label while quoting two observational studies: %s"
+                    % (len(_pp), " || ".join(x[:120] for x in _pp[:2]))))
 
-    drift = figures(etext) ^ figures(ttext)
-    out.append(("html/text parity", OK if not drift else BAD,
-                "same figures in both" if not drift
-                else f"differ: {', '.join(sorted(drift))}"))
+        drift = figures(etext) ^ figures(ttext)
+        out.append(("html/text parity", OK if not drift else BAD,
+                    "same figures in both" if not drift
+                    else f"differ: {', '.join(sorted(drift))}"))
 
-    for label, f, text in (("page", page, ptext), ("email", ehtml, etext)):
+    for label, f, text in ((("page", page, ptext),) if study
+                           else (("page", page, ptext), ("email", ehtml, etext))):
         dec = fc.load_decisions(fc.DECISIONS, f.name)
         orph = fc.orphaned(dec, text)
         out.append((f"{label} adjudications", OK if not orph else WARN,
@@ -1753,10 +1848,13 @@ def preflight(slug: str, *, for_email: bool,
                     else f"{len(orph)} quote a sentence that is gone: "
                          + "; ".join(q[:44] for _r, q in orph)))
 
-    st, detail = outside_review(page, slug)
-    out.append(("outside review", st, detail))
+    if study:
+        out.append(("outside review", OK, "SKIPPED — " + STUDY_REASON))
+    else:
+        st, detail = outside_review(page, slug)
+        out.append(("outside review", st, detail))
 
-    _cap = (spend.caps().get("per_issue") or {}).get(slug, spend.caps().get("default_per_issue"))
+    _cap = spend.cap_for(slug)
     _so_far = spend.spent(issue=slug)
     out.append(("spend on this issue",
                 OK if not _cap or _so_far < 0.8 * float(_cap) else WARN,
@@ -1821,7 +1919,7 @@ def preflight(slug: str, *, for_email: bool,
         out.append(("registry claims match the registry", WARN,
                     "did not run: %s: %s" % (type(exc).__name__, exc)))
     try:
-        _live = live_body(cfg["url"])
+        _live = None if study else live_body(cfg["url"])
         out.extend(ledger.audit(
             slug, ledger.plain(page.read_text(encoding="utf-8")),
             ledger.plain(_live) if _live else None))
@@ -1888,6 +1986,14 @@ def preflight(slug: str, *, for_email: bool,
                     "%s is available to the sender" % SENDER_KEY if has_sender_key()
                     else "%s is not set and not in %s — the send will fail"
                          % (SENDER_KEY, ENVFILE.relative_to(ROOT))))
+
+    # Everything from here down compares the page with what readers see or
+    # will see -- the dateline, the masthead against the record, the live page,
+    # the correction promise -- or softens rows for an update. A study issue
+    # has none of that: it is the "publication" row, recorded as SKIPPED.
+    if study:
+        out.extend(study_skipped_rows())
+        return out
 
     # The page's own date, against the day it is actually going out. An
     # assessment published on the 28th whose masthead says the 26th is the
@@ -2184,6 +2290,8 @@ def companion_record(cfg: dict) -> list[dict]:
 
 
 def cmd_publish(args) -> int:
+    if is_study(args.slug):
+        return refuse_study(args.slug, 'publication')
     cfg = ISSUES[args.slug]
     page = ROOT / cfg["page"]
     print(f"\nPreflight: {args.slug}\n")
@@ -2495,6 +2603,8 @@ def cmd_record_live(args) -> int:
 
 
 def cmd_update(args) -> int:
+    if is_study(args.slug):
+        return refuse_study(args.slug, 'publishing an update')
     """The third mode: a substantive change to a LIVING issue.
 
     `publish` is for a first publication and for a rewrite. `record-live` is
@@ -2643,6 +2753,8 @@ def cmd_update(args) -> int:
 
 
 def cmd_announce(args) -> int:
+    if is_study(args.slug):
+        return refuse_study(args.slug, 'announcing it')
     cfg = ISSUES[args.slug]
     ehtml = ROOT / cfg["email_html"]
     print(f"\nPreflight: {args.slug}\n")
@@ -4850,7 +4962,9 @@ def main() -> int:
                                ("publish", cmd_publish, "preflight, push, wait for live, record"),
                                ("announce", cmd_announce, "preflight the email and record the send")):
         p = sub.add_parser(name, help=helptext)
-        p.add_argument("slug", choices=sorted(ISSUES))
+        # Study issues are accepted so that `check` runs on them and `publish`
+        # and `announce` refuse them by name (refuse_study), not as a typo.
+        p.add_argument("slug", choices=sorted(ISSUES) + study_slugs())
         p.add_argument("--yes", action="store_true", help="actually do it")
         if name == "announce":
             p.add_argument("--subject",
@@ -4867,7 +4981,7 @@ def main() -> int:
         p.set_defaults(fn=fn)
     up = sub.add_parser("update",
                         help="record a substantive change to a LIVING issue")
-    up.add_argument("slug", choices=sorted(ISSUES))
+    up.add_argument("slug", choices=sorted(ISSUES) + study_slugs())
     up.add_argument("--what", help="what appeared in the world")
     up.add_argument("--changed", help="what changed on the page")
     up.add_argument("--source", help="the new source's id in sources.json")

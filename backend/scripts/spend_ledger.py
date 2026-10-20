@@ -164,6 +164,41 @@ class OverCap(Exception):
     pass
 
 
+class OverIssueCap(OverCap):
+    """The per-issue cap, as distinct from the day cap (both are OverCap)."""
+
+
+# STUDY ISSUES (2026-10-20, protocol rev 27). An issue whose issue.json says
+# "study": true is capped at caps.json's study_per_issue, set before the freeze
+# and never raised for a run: an answer that cannot finish within it is a
+# result. An explicit per_issue entry still wins.
+ISSUES_DIR = ROOT / "issues"
+
+
+def is_study_issue(issue: str | None) -> bool:
+    if not issue:
+        return False
+    for f in sorted(ISSUES_DIR.glob("*/issue.json")):
+        try:
+            meta = json.loads(f.read_text(encoding="utf-8"))
+        except Exception:
+            continue
+        if meta.get("slug") == issue:
+            return meta.get("study") is True
+    return False
+
+
+def cap_for(issue: str | None) -> float | None:
+    """The per-issue cap that applies to `issue`."""
+    c = caps()
+    per = c.get("per_issue") or {}
+    if issue in per:
+        return per[issue]
+    if is_study_issue(issue) and c.get("study_per_issue"):
+        return c["study_per_issue"]
+    return c.get("default_per_issue")
+
+
 def check_day_cap(about_to_spend: float = 0.0) -> None:
     """Stop when today's total across EVERYTHING is past the daily cap.
 
@@ -211,8 +246,7 @@ def check_cap(issue: str, about_to_spend: float = 0.0) -> None:
     a decision that leaves no trace.
     """
     check_day_cap(about_to_spend)
-    c = caps()
-    limit = (c.get("per_issue") or {}).get(issue, c.get("default_per_issue"))
+    limit = cap_for(issue)
     if not limit:
         return
     bad = unpriced(issue=issue)
@@ -231,7 +265,7 @@ def check_cap(issue: str, about_to_spend: float = 0.0) -> None:
                note="cap $%.2f, already $%.2f, about to spend $%.2f — %s"
                     % (float(limit), already, about_to_spend, why))
         return
-    raise OverCap(
+    raise OverIssueCap(
         "%s has spent $%.2f of a $%.2f cap and this run would add about $%.2f.\n"
         "Raise the cap in backend/data/spend/caps.json (committed, reviewable), or set\n"
         "WHU_SPEND_OVERRIDE='reason' for one run, which is recorded in the ledger."
