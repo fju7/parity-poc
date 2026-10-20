@@ -67,3 +67,27 @@ backend/data/whatholdsup/dashboard.html
 #   backend/venv/bin/python3 scripts/whatholdsup/source_store.py <slug> gaps
 # to see what is missing.
 backend/data/whatholdsup/library/docs/
+
+# WHU reliability study (advisor ruling 3, 2026-10-20; study/whu-reliability/RUN.md).
+# The repository is public: audit and ruling logs, and every file that quotes
+# source passages, are never committed for a study issue (WHU-P*, WHU-S*).
+# They are archived privately; only a sha256 manifest is committed.
+# (Two lines each: this git does not match a [PS] class in these patterns.)
+issues/WHU-P*/audit/
+issues/WHU-S*/audit/
+issues/WHU-P*/rulings/
+issues/WHU-S*/rulings/
+issues/WHU-P*/export/
+issues/WHU-S*/export/
+issues/WHU-P*/bindings.json
+issues/WHU-S*/bindings.json
+issues/WHU-P*/gate-findings.json
+issues/WHU-S*/gate-findings.json
+issues/WHU-P*/quotations.json
+issues/WHU-S*/quotations.json
+issues/WHU-P*/conclusion-review.json
+issues/WHU-S*/conclusion-review.json
+issues/WHU-P*/change-reviews.json
+issues/WHU-S*/change-reviews.json
+issues/WHU-P*/draft/*.gate.json*
+issues/WHU-S*/draft/*.gate.json*
