@@ -44,8 +44,15 @@ def test_the_audit_verbatim_check_accepts_an_enclosed_quotation():
 def test_the_real_cases_s004_08_and_s010_14():
     """WHU-P02's advocate quotations, only where the private files exist."""
     import ruling as R
-    case = WHU.parents[2] / "issues" / "WHU-P02-ultra-processed-foods" / "advocate" / "2026-10-20-briefs.json"
-    if not case.exists():
+    # The 2026-10-20 briefs: in place, or moved aside by the clean re-run's
+    # supersession (advocate/superseded/, each brief stamped, order kept), or
+    # in the private archive. All private; none is committed.
+    adv = WHU.parents[2] / "issues" / "WHU-P02-ultra-processed-foods" / "advocate"
+    arch = Path.home() / "Projects" / "whu-study-private" / "WHU-P02-ultra-processed-foods"
+    found = ([adv / "2026-10-20-briefs.json"] + sorted(adv.glob("superseded/*-2026-10-20-briefs.json")) +
+             sorted(arch.glob("*/issues/WHU-P02-ultra-processed-foods/advocate/2026-10-20-briefs.json")))
+    case = next((c for c in found if c.exists()), None)
+    if case is None:
         pytest.skip("WHU-P02's advocate briefs are not here")
     items, n = {}, 0
     for b in json.loads(case.read_text()):
