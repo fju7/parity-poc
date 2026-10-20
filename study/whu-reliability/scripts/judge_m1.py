@@ -140,33 +140,73 @@ def key_terms(claim: str) -> tuple[set[str], set[str]]:
     return nums, words
 
 
-def chunk(text: str, claim: str, limit: int, count) -> tuple[str, dict]:
-    """Every section of TEXT containing the claim's key terms, in order.
+def _fit(s: str, centre: int, limit: int, count) -> str:
+    """The longest slice of S around CENTRE whose token count is within LIMIT."""
+    if count(s) <= limit:
+        return s
+    n = max(1, int(len(s) * limit / max(1, count(s))))
+    while True:
+        a = max(0, min(centre - n // 2, len(s) - n))
+        cut = s[a:a + n]
+        if count(cut) <= limit or n <= 1:
+            return cut
+        n = max(1, int(n * 0.9))
 
-    A section is a block between blank lines. A section is kept if it contains
-    any of the claim's numbers, or at least two of its words. If what is kept
-    is still above LIMIT tokens, sections are dropped from the fewest matches
-    up until it fits, and the record says how many. `count` is a token counter
-    (text -> int), passed in so the test can use a fake one."""
+
+def chunk(text: str, claim: str, limit: int, count, spans: list[str] | None = None) -> tuple[str, dict]:
+    """The sections of TEXT the claim turns on, in order, within LIMIT tokens.
+
+    A section is a block between blank lines. It is kept if it contains a
+    cited span, any of the claim's numbers, or at least two of its words.
+    Sections with a cited span are ranked first, then by matches. If what is
+    kept is above LIMIT, sections are dropped from the weakest up -- but never
+    the last one. `count` is a token counter (text -> int), passed in so the
+    test can use a fake one.
+
+    NEVER EMPTY FOR A NON-EMPTY SOURCE (2026-10-20, as audit_stage.trim()).
+    This used to return "" when no section matched, and when the one matching
+    section was over the limit (it was dropped until nothing was left). Now a
+    single section over the limit is cut to the limit, centred on the cited
+    span (else on the claim's terms), and with no matching section the opening
+    of the source is kept, up to the limit."""
     nums, words = key_terms(claim)
+    norm = lambda s: " ".join((s or "").split()).lower()
+    spans_n = [norm(s) for s in (spans or []) if s]
     secs = [s for s in re.split(r"\n\s*\n", text) if s.strip()]
     scored = []
     for i, s in enumerate(secs):
-        low = s.lower()
+        low, ns = s.lower(), norm(s)
+        sp = sum(1 for x in spans_n if x in ns)
         n = sum(1 for x in nums if x in s)
         w = sum(1 for x in words if x in low)
-        if n or w >= 2:
-            scored.append((n * 3 + w, i))
+        if sp or n or w >= 2:
+            scored.append((sp * 100 + n * 3 + w, i))
+    info = {"sections_total": len(secs), "key_numbers": sorted(nums), "key_words": sorted(words),
+            "dropped_for_length": 0, "cut_to_limit": False, "opening_kept": False}
+    if not scored:
+        # Nothing matched: the opening of the source, up to the limit.
+        out = _fit(text, 0, limit, count)
+        info.update(sections_kept=0, opening_kept=True, cut_to_limit=len(out) < len(text))
+        return out, info
     keep = sorted(i for _sc, i in scored)
-    dropped_for_length = 0
     out = "\n\n[...]\n\n".join(secs[i] for i in keep)
-    while keep and count(out) > limit:
+    while len(keep) > 1 and count(out) > limit:
         worst = min((sc, i) for sc, i in scored if i in keep)
-        keep.remove(worst[1]); dropped_for_length += 1
+        keep.remove(worst[1]); info["dropped_for_length"] += 1
         out = "\n\n[...]\n\n".join(secs[i] for i in keep)
-    return out, {"sections_total": len(secs), "sections_kept": len(keep),
-                 "dropped_for_length": dropped_for_length,
-                 "key_numbers": sorted(nums), "key_words": sorted(words)}
+    if count(out) > limit:
+        # One section left and it is over the limit: cut it, centred on the
+        # cited span, else on the claim's terms.
+        s = secs[keep[0]]
+        low = s.lower()
+        at = [low.find(x[:40]) for x in spans_n if low.find(x[:40]) >= 0]
+        if not at:
+            at = sorted(p for p in [s.find(x) for x in nums] + [low.find(x) for x in words] if p >= 0)
+        centre = (at[len(at) // 2] if at else 0) + 20
+        out = _fit(s, centre, limit, count)
+        info["cut_to_limit"] = True
+    info["sections_kept"] = len(keep)
+    return out, info
 
 
 def delivery_problems(full: str, delivered: str, claim: str, spans: list[str] | None = None) -> list[str]:
@@ -390,10 +430,10 @@ def main() -> int:
                 d = {"source_id": m["source_id"], "url": u, "extent": m["extent"],
                      "abstract_only": bool(m.get("abstract_only")), "tokens": tokens[m["source_id"]],
                      "text_sha256": m["text_sha256"], "chunked": False, "text": text}
-                if d["tokens"] > MAX_SOURCE_TOKENS:
-                    d["text"], d["chunk"] = chunk(text, it["claim"], MAX_SOURCE_TOKENS, count)
-                    d["chunked"] = True
                 spans = [s for s in [it.get("span")] + list(it.get("spans") or []) if s]
+                if d["tokens"] > MAX_SOURCE_TOKENS:
+                    d["text"], d["chunk"] = chunk(text, it["claim"], MAX_SOURCE_TOKENS, count, spans)
+                    d["chunked"] = True
                 bad = delivery_problems(text, d["text"], it["claim"], spans)
                 if bad:
                     undelivered.append({"url": u, "source_id": m["source_id"], "why": "; ".join(bad)})

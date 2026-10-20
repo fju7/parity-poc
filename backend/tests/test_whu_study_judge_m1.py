@@ -213,13 +213,50 @@ def test_the_sample_depends_on_the_seed_and_the_pool_not_the_order():
 
 # --- delivery: what the judge receives must hold what the source holds (2026-10-20) ----
 
-def test_chunking_can_return_nothing_and_that_is_caught():
-    # One matching section longer than the limit is dropped until none is left.
-    text = "Filler.\n\n" + "Mice did better in the trial with carrageenans. " * 400
-    out, info = J.chunk(text, "Mice did better with carrageenans.", limit=50, count=lambda t: len(t) // 4)
-    assert out == "" and info["dropped_for_length"] == 1        # the defect, in this runner
-    assert J.delivery_problems(text, out, "Mice did better with carrageenans.") == \
-        ["delivered empty (%d characters held)" % len(text)]
+COUNT = lambda t: len(t) // 4
+
+
+def test_one_matching_section_over_the_limit_is_cut_not_dropped():
+    # Returned "" before 2026-10-20: the one matching section was dropped for length.
+    text = "Filler.\n\n" + ("Background words here. " * 300) + "Mice did better in the trial with carrageenans. " \
+        + ("More background words. " * 300)
+    claim = "Mice did better with carrageenans."
+    out, info = J.chunk(text, claim, limit=50, count=COUNT)
+    assert out and COUNT(out) <= 50 and info["cut_to_limit"]
+    assert "carrageenans" in out and "Mice did better" in out            # centred on the terms
+    assert J.delivery_problems(text, out, claim) == []
+
+
+def test_the_cut_is_centred_on_a_cited_span_first():
+    text = ("Alpha carrageenans sentence. " * 200) + "The exact cited span sits here in the middle. " \
+        + ("Omega carrageenans sentence. " * 200)
+    out, _ = J.chunk(text, "carrageenans matter", limit=40, count=COUNT,
+                     spans=["The exact cited span sits here in the middle."])
+    assert "The exact cited span sits here in the middle." in out
+
+
+def test_no_matching_section_keeps_the_opening_not_nothing():
+    # Returned "" before 2026-10-20: no section carried the claim's key terms.
+    text = "\n\n".join("Unrelated paragraph %d about nothing the claim names." % i for i in range(400))
+    out, info = J.chunk(text, "Carrageenans raised risk (HR 1.03).", limit=100, count=COUNT)
+    assert out and COUNT(out) <= 100 and info["opening_kept"] and text.startswith(out)
+
+
+def test_a_short_source_goes_to_the_judge_whole_and_unchunked(tmp_path, monkeypatch):
+    sent = {}
+
+    def claude(client, prefix, rest, model):
+        sent["prefix"] = prefix
+        return json.dumps({"label": "Supported", "span": "Mice did better in the trial.", "reason": "r"}), \
+            {"input": 1, "output": 1, "model": model, "stop": "end_turn"}, 0.0, False
+    _wire(monkeypatch, claude, lambda *a: (_ for _ in ()).throw(AssertionError("not called")))
+    run = _run_dir(tmp_path)
+    full = (run / "sources" / "S1.txt").read_text()
+    monkeypatch.setattr(sys, "argv", ["judge_m1.py", str(run), "--judges", "claude"])
+    J.main()
+    assert full in sent["prefix"]
+    rec = json.loads((run / "replies" / "claude" / "P01.json").read_text())
+    assert rec["sources"][0]["chunked"] is False
 
 
 def test_a_key_term_or_cited_span_the_source_holds_must_be_delivered():
@@ -236,7 +273,7 @@ def test_an_item_whose_source_is_delivered_empty_is_incomplete_and_no_judge_is_c
     called = []
     _wire(monkeypatch, lambda *a: called.append(a), lambda *a: called.append(a))
     monkeypatch.setattr(J, "MAX_SOURCE_TOKENS", 10)                # every source is "long"
-    monkeypatch.setattr(J, "chunk", lambda text, claim, limit, count: ("", {"planted": True}))
+    monkeypatch.setattr(J, "chunk", lambda text, claim, limit, count, spans=None: ("", {"planted": True}))
     run = _run_dir(tmp_path)
     monkeypatch.setattr(sys, "argv", ["judge_m1.py", str(run), "--allow-incomplete"])
     J.main()
