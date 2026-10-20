@@ -3950,7 +3950,7 @@ A change set is bound to the page sha it reached, so any edit to a published pag
 ## GAP-014 — a gate recency failure produces no finding
 
 **Raised by** advisor, 2026-10-20 (WHU-P02 practice run).
-**Fix when** before the reliability study is frozen.
+**Status:** fixed in 955a02f, on study issues only. `findings.recency_findings` makes every recency study not CURRENT (UNKNOWN included) a finding `rec-N`, and `ruling.py gate` rules it with the sentence that relies on that readout and its bound passages. Not applied to published issues: the cdk46 and melanoma gate reports each carry one SUPERSEDED study that would then block; that is for the operator.
 
 A gate recency failure (any study not CURRENT, including UNKNOWN) produces no finding: preflight shows only a warn on the same text, and nothing at all after an edit, although the gate's prompt treats UNKNOWN as failure. It should become a finding sent to the ruling model.
 
@@ -3966,7 +3966,7 @@ The fix: `trim()` is never empty for a non-empty text (an oversized window is cu
 ## GAP-016 — a ruling can remove a name a later sentence relies on
 
 **Raised by** advisor, 2026-10-20 (WHU-P02 practice run).
-**Fix when** before the reliability study is frozen.
+**Status:** fixed in 26d3305. `applied_check.py SLUG --dangling` lists every term (acronym, defined short form, capitalised name) an applied ruling removed that a later sentence still uses while no earlier sentence introduces it; `ruling.py dangling SLUG` sends each to the ruling model with both sentences. RUN.md runs both after every apply step.
 
 Rulings are applied one sentence at a time, so a ruling can remove a name or term a later sentence relies on (WHU-P02: 'UPDATE' removed from the sentence introducing the trial; a later sentence still says 'The UPDATE authors'). No check looks for references that no longer point at anything.
 
@@ -3975,12 +3975,13 @@ Rulings are applied one sentence at a time, so a ruling can remove a name or ter
 ## GAP-017 — the sentence splitter folds a source-list tag into its entry
 
 **Raised by** advisor, 2026-10-20 (WHU-P02 practice run).
-**Fix when** before the reliability study is frozen.
+**Status:** fixed in 03899e2, on study issues only. `bindings.page_sentences` drops `<span class="tag">` before splitting a study page, and changecheck, applied_check and changecheck_coverage split it the same way. Not applied to published issues: melanoma, cdk46 and deskilling hold 65 bound rows whose fingerprints include their tag. On WHU-P02 the change leaves 16 bound source-list rows keyed to the old, tagged sentence; they must be re-keyed or re-bound before the next audit.
 
 The sentence splitter folds a source-list tag (e.g. 'Methods') into the entry, so the audit reads the tag as part of the sentence (WHU-P02 u70: tag removed by a ruling).
 
 ## GAP-018 — the source advocate's quotations were never checked when written
 
 **Raised by** advisor, 2026-10-20 (WHU-P02 practice run).
+**Status:** fixed in 183d786. `source_advocate run` checks every quotation against the held reading-order text as it is written; one not found is re-asked once with the held text, and still-unfound quotations carry the note "the quotation is not in the held text". Every check is logged in `advocate/quote_checks.jsonl`.
 
 The source advocate's quotations were never checked when written; on WHU-P02, 22 of 29 are not in their source even in the reading-order text.
