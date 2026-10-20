@@ -3969,3 +3969,12 @@ The fix: `trim()` is never empty for a non-empty text (an oversized window is cu
 **Fix when** before the reliability study is frozen.
 
 Rulings are applied one sentence at a time, so a ruling can remove a name or term a later sentence relies on (WHU-P02: 'UPDATE' removed from the sentence introducing the trial; a later sentence still says 'The UPDATE authors'). No check looks for references that no longer point at anything.
+
+*Confirmed on WHU-P02:* u35 'The UPDATE authors…' held by the reader and the second reader after 'UPDATE' was removed from the sentence that introduced the trial.
+
+## GAP-017 — the sentence splitter folds a source-list tag into its entry
+
+**Raised by** advisor, 2026-10-20 (WHU-P02 practice run).
+**Fix when** before the reliability study is frozen.
+
+The sentence splitter folds a source-list tag (e.g. 'Methods') into the entry, so the audit reads the tag as part of the sentence (WHU-P02 u70: tag removed by a ruling).
