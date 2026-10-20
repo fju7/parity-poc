@@ -3939,3 +3939,10 @@ The disposition fields (hedge_dispositions, scope_words, framing) settle checks 
 **Fix when** after the Q2 practice run.
 
 Rows 820a543d and e7dfe192 sit in the figure bucket but rest on documents a check can open; moving them out of figure is an upward move under spec §3 and needs the judge of the figure bucket.
+
+## GAP-013 — a change set is bound to the page sha it reached
+
+**Raised by** advisor, 2026-10-20.
+**Fix when** after the Q2 practice run.
+
+A change set is bound to the page sha it reached, so any edit to a published page drops every change it covers back to unaccounted until the set is extended to the new page.

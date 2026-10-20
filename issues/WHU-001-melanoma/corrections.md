@@ -8,6 +8,28 @@ Each entry: what a reader who saw the earlier version needs to know, and when.
 Not how the process failed; that is in the repository.
 
 
+## 20 October 2026 — two sentences we said rested on a named reader's attestation
+
+**Was:** <q>The two rules examined 131 of them: 95 point at a span in a document
+we hold, 34 are judgements resting on stated premises, and 2 rest on a named
+reader's attestation of a document no automated check may open.</q>
+
+**Now:** <q>The two rules examined 131 of them: 95 point at a span in a document
+we hold, 34 are judgements resting on stated premises, and 2 rest on a reading
+by Claude (Opus 5), named in our records, of this publication's own rubric and
+page history.</q>
+
+The page said 2 of its sentences rested on a named reader's attestation of a
+document no automated check may open. They rest on a reading by Claude (Opus 5)
+of this publication's own rubric and page history, which an automated check can
+open; the sentence now says so.
+
+The header line, as the correction check reads it:
+
+**Was:** <q>The Melanoma Result - What Holds Up What Holds Up What this is The rubric Issues Who pays for this Issue one Evidence review Published 26 August 2026 · Updated 13 September 2026 · event dated 19 August 2026 The Melanoma Result whatholdsup.org Merck and Moderna announced that a large trial of a personalised mRNA cancer therapy succeeded in melanoma.</q>
+
+**Now:** <q>The Melanoma Result - What Holds Up What Holds Up What this is The rubric Issues Who pays for this Issue one Evidence review Published 26 August 2026 · Updated 20 October 2026 · event dated 19 August 2026 The Melanoma Result whatholdsup.org Merck and Moderna announced that a large trial of a personalised mRNA cancer therapy succeeded in melanoma.</q>
+
 ## 11 September 2026 — the erratum we said we could not read
 
 Since 9 September the source list on this page has said, of the New England

@@ -2003,6 +2003,57 @@
       "now": "The Melanoma Result - What Holds Up What Holds Up What this is The rubric Issues Who pays for this Issue one Evidence review Published 26 August 2026 · Updated 10 September 2026 · event dated 19 August 2026 The Melanoma Result whatholdsup.org Merck and Moderna announced that a large trial of a personalised mRNA cancer therapy succeeded in melanoma.",
       "because": "NAV-002",
       "note": "the enumerated issue links replaced by a single Issues link in commit eead63c; the operator read and signed the diff, recorded in published.json as the record-live republish of 2026-09-10T18:18:45+00:00, sha 97d53bc3 superseding 76703fe9. Adjudication: review/2026-09-15-masthead-adjudication.md"
+    },
+    {
+      "at": "2026-10-20T15:17:39+00:00",
+      "interpreter": "/Users/fredugast/Projects/parity-poc-repo/backend/venv/bin/python",
+      "by": "advisor ruling, relayed by Fred, 2026-10-20",
+      "kind": "added",
+      "was": "",
+      "now": "Updated 20 October 2026.",
+      "because": "AD-HOC",
+      "note": "Date label of a new change-history entry; not a correction.",
+      "correction": false
+    },
+    {
+      "at": "2026-10-20T15:18:26+00:00",
+      "interpreter": "/Users/fredugast/Projects/parity-poc-repo/backend/venv/bin/python",
+      "by": "advisor ruling, relayed by Fred, 2026-10-20",
+      "kind": "added",
+      "was": "",
+      "now": "The page said 2 of its sentences rested on a named reader's attestation of a document no automated check may open.",
+      "because": "REPUBLISH-2026-10-20",
+      "note": "Correction of the sentence on 2 attested rows, with its change-history line and dates; recorded in corrections.md's 20 October entry."
+    },
+    {
+      "at": "2026-10-20T15:18:27+00:00",
+      "interpreter": "/Users/fredugast/Projects/parity-poc-repo/backend/venv/bin/python",
+      "by": "advisor ruling, relayed by Fred, 2026-10-20",
+      "kind": "added",
+      "was": "",
+      "now": "They rest on a reading by Claude (Opus 5) of this publication's own rubric and page history, which an automated check can open; the sentence now says so.",
+      "because": "REPUBLISH-2026-10-20",
+      "note": "Correction of the sentence on 2 attested rows, with its change-history line and dates; recorded in corrections.md's 20 October entry."
+    },
+    {
+      "at": "2026-10-20T15:18:36+00:00",
+      "interpreter": "/Users/fredugast/Projects/parity-poc-repo/backend/venv/bin/python",
+      "by": "advisor ruling, relayed by Fred, 2026-10-20",
+      "kind": "changed",
+      "was": "The Melanoma Result - What Holds Up What Holds Up What this is The rubric Issues Who pays for this Issue one Evidence review Published 26 August 2026 · Updated 13 September 2026 · event dated 19 August 2026 The Melanoma Result whatholdsup.org Merck and Moderna announced that a large trial of a personalised mRNA cancer therapy succeeded in melanoma.",
+      "now": "The Melanoma Result - What Holds Up What Holds Up What this is The rubric Issues Who pays for this Issue one Evidence review Published 26 August 2026 · Updated 20 October 2026 · event dated 19 August 2026 The Melanoma Result whatholdsup.org Merck and Moderna announced that a large trial of a personalised mRNA cancer therapy succeeded in melanoma.",
+      "because": "REPUBLISH-2026-10-20",
+      "note": "Correction of the sentence on 2 attested rows, with its change-history line and dates; recorded in corrections.md's 20 October entry."
+    },
+    {
+      "at": "2026-10-20T15:18:37+00:00",
+      "interpreter": "/Users/fredugast/Projects/parity-poc-repo/backend/venv/bin/python",
+      "by": "advisor ruling, relayed by Fred, 2026-10-20",
+      "kind": "changed",
+      "was": "The two rules examined 131 of them: 95 point at a span in a document we hold, 34 are judgements resting on stated premises, and 2 rest on a named reader's attestation of a document no automated check may open.",
+      "now": "The two rules examined 131 of them: 95 point at a span in a document we hold, 34 are judgements resting on stated premises, and 2 rest on a reading by Claude (Opus 5), named in our records, of this publication's own rubric and page history.",
+      "because": "REPUBLISH-2026-10-20",
+      "note": "Correction of the sentence on 2 attested rows, with its change-history line and dates; recorded in corrections.md's 20 October entry."
     }
   ],
   "what_change_sets_are": "A round-level attribution: the span of page history it covers, the documents that decided the changes in it, and a label that must resolve like any other. Both shas are pinned, so a set stops covering the moment the page changes again. It is not a waiver — see recorded_change_sets() in publish.py for the three things that stop it becoming one.",
@@ -2062,6 +2113,24 @@
         "issues/WHU-003-deskilling/review/2026-09-12-modest-promise-ruling.md"
       ],
       "note": "Extends ROUND-2026-09-10 to the bytes readers have held since 2026-09-13T15:51:05Z (production deployment of e666318). Everything that set covered, plus the 11 September erratum entry (ERRATUM-001), the 12 September modest-promise wording (six AD-HOC entries citing the ruling), and the masthead date set to 13 September by publish.py dateline. Recorded as a set because the reasoning exists in the documents named and this is a linkage debt, not an unrecorded decision. See ROUND-2026-09-14 for the partition of the 287 and what would overturn it. Signed Fred Ugast, 14 September 2026."
+    },
+    {
+      "at": "2026-10-20T15:18:49+00:00",
+      "by": "advisor ruling, relayed by Fred, 2026-10-20",
+      "from_sha": "a788f00ab152123579a5593d0e2fe0908a4b0c264fbabdb0e5cff944517ee7f9",
+      "to_sha": "21370b7cc9897a679436191a2e2161b1ebf78bc40dff58524a894367b2ccbfb5",
+      "because": "ROUND-2026-10-20",
+      "decided_by": [
+        "issues/WHU-001-melanoma/review/2026-09-14-adjudication.md",
+        "issues/WHU-001-melanoma/review/2026-09-08-adjudication.md",
+        "issues/WHU-001-melanoma/review/2026-09-10-the-140-ruling.md",
+        "issues/WHU-001-melanoma/review/2026-09-10-melanoma-coverage-ruling.md",
+        "issues/WHU-001-melanoma/review/2026-09-10-changelog-correction-ruling.md",
+        "issues/WHU-001-melanoma/review/2026-09-11-erratum-read-adjudication.md",
+        "issues/WHU-003-deskilling/review/2026-09-12-modest-promise-ruling.md",
+        "issues/WHU-001-melanoma/review/2026-10-20-adjudication.md"
+      ],
+      "note": "Extends ROUND-2026-09-14 to the correction of 2026-10-20. The 283 changes it covers are unchanged and rest on the same decisions; today's 5 rest on REPUBLISH-2026-10-20."
     }
   ]
 }
