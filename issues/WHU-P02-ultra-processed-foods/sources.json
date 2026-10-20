@@ -290,7 +290,7 @@
       "id": "S013",
       "type": "review",
       "url": "https://doi.org/10.1016/S0140-6736(25)01565-X",
-      "title": "Monteiro CA et al. — Ultra-processed foods and human health: the main thesis and the evidence (Lancet 2025) — submitted manuscript",
+      "title": "Monteiro CA et al. — Ultra-processed foods and human health: the main thesis and the evidence (Lancet 2025;406:2667-2684)",
       "also_called": [
         "the Lancet series"
       ],
@@ -304,7 +304,19 @@
           "identified_by": "contains its identifier 10.1016/S0140-6736(25)01565-X — 1003201 characters, reference list and introduction present"
         },
         "on": "2026-10-20",
-        "version_held": "submitted manuscript (Unpaywall repository copy, edepot.wur.nl/706773), NOT the published Lancet version; the published PDF was not fetched (operator, 2026-10-20). Anything attributed to S013 is attributed to the submitted manuscript."
+        "version_held": {
+          "what_it_is": "the journal's published, typeset article (The Lancet, Vol 406, 6 December 2025, pages 2667-2684), 19 pages, preceded by a one-page cover added by the Wageningen University & Research repository. Not a submitted manuscript: Unpaywall's label 'submittedVersion' for this route is wrong.",
+          "evidence_from_the_file": [
+            "page 1 (repository cover): 'This publication is made publicly available in the institutional repository of Wageningen University and Research, under the terms of article 25fa of the Dutch Copyright Act'",
+            "page 1 (repository cover): 'Research outputs are distributed six months after their first online publication in the original published version'",
+            "page 2 running head and folio: 'Series' / 'Ultra-Processed Foods and Human Health 1'; footer 'www.thelancet.com Vol 406 December 6, 2025' with page number 2667",
+            "pages 3-19: journal footers 'www.thelancet.com Vol 406 December 6, 2025' with folios 2668 onward",
+            "DOI printed on page 1: 'https://doi.org/10.1016/S0140-6736(25)01565-X'",
+            "PDF metadata Subject: 'The Lancet, 406 (2025) 2667-2684. doi:10.1016/S0140-6736(25)01565-X'; Creator: 'Elsevier'"
+          ],
+          "identified_by": "Claude Code (session 8ff8c296-6467-4a56-8913-ec300d4b7c38), 2026-10-20, from pdfinfo and pdftotext of the held bytes (sha256 829a14b8…)",
+          "supersedes": "the earlier record of this file as the submitted manuscript, which was made without reading the file"
+        }
       },
       "identifier": {
         "kind": "doi",
