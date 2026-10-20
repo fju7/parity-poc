@@ -2383,7 +2383,7 @@ def rule_rows(slug: str) -> list[tuple[str, str, str]]:
     if attested:
         out_extra.append(("sentences resting on a human attestation", WARN,
                           "%d of %d rest on a document no check may read: a named "
-                          "person read it, the record of that reading is named, and "
+                          "reader read it, the record of that reading is named, and "
                           "the place in the document is named. This is not a "
                           "verified span and is never counted as one."
                           % (len(attested), len(on_page))))
