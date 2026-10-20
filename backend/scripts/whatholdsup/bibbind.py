@@ -78,7 +78,11 @@ def lines(slug: str) -> list[dict]:
             continue
         subj = B.entry_subject(" ".join(e["sentences"]), [(" ".join(e["sentences"]), e["hrefs"])], srcs)
         first = e["sentences"][0]
-        page = ("%s %s" % (e["label"], first)).strip() if e["label"] else first
+        # THE TAG IS NOT PART OF THE LINE where the splitter drops it (GAP-017:
+        # bindings.page_sentences, study issues), so the proposal carries the
+        # sentence a row is keyed by. A published issue keeps the tagged form
+        # until its next republish moves it to the new splitter.
+        page = ("%s %s" % (e["label"], first)).strip() if e["label"] and not B._is_study(slug) else first
         out.append({"kind": "author", "sentence": page, "body": first, "sources": subj})
         for s in e["sentences"][1:]:
             if CITATION.search(s):

@@ -84,3 +84,35 @@ def test_parse_authors():
     assert BB.parse_authors("Wang DY, Ding J, Sun AL, et al.") == [("Wang", "DY"), ("Ding", "J"), ("Sun", "AL")]
     assert BB.parse_authors("Liu, Christian, Dumbalska, Bakker & Dubey.") == [
         ("Liu", ""), ("Christian", ""), ("Dumbalska", ""), ("Bakker", ""), ("Dubey", "")]
+
+
+# --- GAP-017: the tag is not part of the line on a study issue (2026-10-20) -------
+
+SRC_PAGE = ('<html><body><div class="sources"><div class="src"><span class="tag">Methods</span> '
+            '<a href="https://example.org/s001">Gommers JJJ, Verboom SD, et al. Influence of AI '
+            'Decision Support on Radiologists. 2024.</a></div></div></body></html>')
+
+
+def _lines(monkeypatch, study):
+    monkeypatch.setattr(BB.B, "_page_html", lambda slug: SRC_PAGE)
+    monkeypatch.setattr(BB.B, "_is_study", lambda slug: study)
+    monkeypatch.setattr(BB.store, "sources", lambda slug: [{"id": "S001", "url": "https://example.org/s001"}])
+    return [l for l in BB.lines("demo") if l["kind"] == "author"]
+
+
+def test_a_study_issues_author_line_proposal_omits_the_tag(monkeypatch):
+    (a,) = _lines(monkeypatch, True)
+    assert a["sentence"] == a["body"] == "Gommers JJJ, Verboom SD, et al."
+    assert a["sources"] == ["S001"]
+
+
+def test_a_published_issue_keeps_the_tagged_line_until_its_republish(monkeypatch):
+    (a,) = _lines(monkeypatch, False)
+    assert a["sentence"] == "Methods Gommers JJJ, Verboom SD, et al." and a["body"].startswith("Gommers")
+
+
+def test_the_proposal_is_the_sentence_the_splitter_gives(monkeypatch):
+    monkeypatch.setattr(BB.B.ledger, "page_text", lambda slug: SRC_PAGE, raising=False)
+    for study in (True, False):
+        (a,) = _lines(monkeypatch, study)
+        assert a["sentence"] in BB.B.page_sentences("demo")
