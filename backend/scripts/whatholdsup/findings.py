@@ -264,6 +264,7 @@ def check(slug: str, report: dict) -> list[tuple[str, str, str]]:
     have = {f.get("id"): f for f in (doc.get("findings") or [])}
     claims = {c.get("id"): c for c in (report.get("claims") or [])}
     missing, unsettled, unverified, judged, unevaluable, partly = [], [], [], [], [], []
+    undecided = []
     for f in opens:
         r = have.get(f["id"])
         if not r or r.get("decision") not in DECISIONS:
@@ -299,8 +300,11 @@ def check(slug: str, report: dict) -> list[tuple[str, str, str]]:
                 # question for a person, and the row below asks it by name.
                 partly.append("%s: %s" % (f["id"], (r.get("retest") or {}).get("result", "")))
                 continue
-            unsettled.append("%s: decision %r is not one of %s"
-                             % (f["id"], d, ", ".join(DECISIONS)))
+            if d:
+                undecided.append("%s: decision %r is not one of %s"
+                                 % (f["id"], d, ", ".join(DECISIONS)))
+            else:
+                undecided.append("%s (%s)" % (f["id"], f["kind"]))
             continue
         if d == "judgement":
             judged.append(f["id"])
@@ -335,11 +339,27 @@ def check(slug: str, report: dict) -> list[tuple[str, str, str]]:
             unevaluable.append("%s: %s" % (f["id"], why))
         elif not ok:
             unverified.append("%s: %s" % (f["id"], why))
-    rows = [("gate findings settled", OK if not missing else BAD,
-             "%d open finding(s), each with a decision" % len(opens)
-             if not missing else
-             "%d finding(s) from the last run have no decision: %s"
-             % (len(missing), ", ".join(missing[:6])))]
+    # A row that EXISTS but carries no decision is not a settled finding.
+    # Before 2026-09-15 `missing` meant "no row at all", so the forty skeleton
+    # rows scan() wrote made this row read "each with a decision" while the
+    # forty empty strings fell through to the row below. Blocked either way;
+    # the board nonetheless said something false, in the direction of
+    # reassurance. Two blocking states, reported apart. See
+    # tests/whatholdsup/test_findings_skeleton_not_settled.py.
+    blocked = missing + undecided
+    if not blocked:
+        _detail = "%d open finding(s), each with a decision" % len(opens)
+    else:
+        _bits = []
+        if missing:
+            _bits.append("%d never recorded (%s)"
+                         % (len(missing), ", ".join(missing[:4])))
+        if undecided:
+            _bits.append("%d recorded with no decision yet (%s)"
+                         % (len(undecided), ", ".join(undecided[:4])))
+        _detail = ("%d of %d open finding(s) carry no decision: %s"
+                   % (len(blocked), len(opens), "; ".join(_bits)))
+    rows = [("gate findings settled", OK if not blocked else BAD, _detail)]
     rows.append(("findings settled by a document", OK if not unsettled else BAD,
                  "every accepted or rejected finding names a source and a "
                  "quotation" if not unsettled else
