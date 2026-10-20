@@ -3946,3 +3946,10 @@ Rows 820a543d and e7dfe192 sit in the figure bucket but rest on documents a chec
 **Fix when** after the Q2 practice run.
 
 A change set is bound to the page sha it reached, so any edit to a published page drops every change it covers back to unaccounted until the set is extended to the new page.
+
+## GAP-014 — a gate recency failure produces no finding
+
+**Raised by** advisor, 2026-10-20 (WHU-P02 practice run).
+**Fix when** before the reliability study is frozen.
+
+A gate recency failure (any study not CURRENT, including UNKNOWN) produces no finding: preflight shows only a warn on the same text, and nothing at all after an edit, although the gate's prompt treats UNKNOWN as failure. It should become a finding sent to the ruling model.
