@@ -320,11 +320,37 @@ def _header_prose(m: re.Match) -> str:
     return " ".join("<p>%s</p>" % x.group(0) for x in HEADER_PROSE.finditer(m.group(1)))
 
 
+# A SOURCE-LIST TAG IS NOT PART OF THE SENTENCE (GAP-017, 2026-10-20).
+#
+# The source list's <span class="tag">Methods</span> sits before the entry's
+# text, so the splitter folded it in: "Methods Hall KD, ... ." The audit read
+# the tag as the sentence's own words and a ruling removed it (WHU-P02 u70).
+# On a study issue the tag is dropped before splitting. NOT on a published
+# issue: melanoma, cdk46 and deskilling hold 65 bound rows whose fingerprints
+# include their tag, and dropping it there would orphan every one of them.
+TAG_LABEL = re.compile(r'<span class="tag">.*?</span>', re.S)
+
+
+def drop_tag_labels(html: str) -> str:
+    """The page without its source-list tags (GAP-017)."""
+    return TAG_LABEL.sub(" ", html or "")
+
+
+def _is_study(slug: str) -> bool:
+    try:
+        import publish
+        return bool(publish.is_study(slug))
+    except Exception:
+        return False
+
+
 def page_sentences(slug: str) -> list[str]:
     html = ledger.page_text(slug) if hasattr(ledger, "page_text") else None
     if html is None:
         html = _page_html(slug)
     html = HEAD.sub(" ", html)
+    if _is_study(slug):
+        html = drop_tag_labels(html)
     html = HEADER.sub(_header_prose, html)
     html = FURNITURE.sub(" ", html)
     # Text the page generates about itself -- an axis, a scorecard's working, a

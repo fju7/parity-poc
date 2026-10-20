@@ -24,7 +24,8 @@ WHAT "EQUALS" MEANS
 Normalised only as changecheck normalises (changecheck.sentences_of): the text
 is split into sentences by source_ledger.sentences after source_ledger.plain,
 and each sentence's whitespace is collapsed. The page is read through
-changecheck.sentences_of, so the body only. A ruling's text is applied when
+changecheck.sentences_of, so the body only, without the source list's tags
+(GAP-017). A ruling's text is applied when
 every one of its sentences is a sentence of the page. A ruling whose text is ""
 (cut) is applied when the sentence it ruled on is no longer on the page.
 
@@ -55,7 +56,7 @@ def norm_sentences(text: str) -> list[str]:
 
 def page_sentences(page_html: str) -> list[str]:
     import changecheck
-    return changecheck.sentences_of(page_html)
+    return changecheck.sentences_of(page_html, drop_tags=True)   # study only (GAP-017)
 
 
 def load_rulings(case: Path) -> list[dict]:

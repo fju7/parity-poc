@@ -43,7 +43,7 @@ def read_set(reviews: dict) -> tuple[set[str], int]:
 
 def check(first_html: str, now_html: str, reviews: dict) -> dict:
     import changecheck as C
-    sent, withheld = C.changed(first_html, now_html)
+    sent, withheld = C.changed(first_html, now_html, drop_tags=True)   # study only (GAP-017)
     changed_now = sent + [w["sentence"] for w in withheld]
     got, blind = read_set(reviews)
     missed = [s for s in changed_now if C.fingerprint(s) not in got]

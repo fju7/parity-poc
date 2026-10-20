@@ -113,7 +113,11 @@ Return JSON: {"findings":[{"sentence":"<the changed sentence, verbatim>",
 Empty findings list if there is nothing. Quote sentences exactly as given."""
 
 
-def sentences_of(html: str) -> list[str]:
+def sentences_of(html: str, drop_tags: bool = False) -> list[str]:
+    """drop_tags: a study page's source-list tags are not sentence text
+    (GAP-017, bindings.drop_tag_labels). False for a published issue."""
+    if drop_tags:
+        html = B.drop_tag_labels(html)
     return [" ".join(s.split())
             for s in ledger.sentences(ledger.plain(ledger.body_only(html)))]
 
@@ -133,7 +137,7 @@ def sentences_of(html: str) -> list[str]:
 SHORT_FLOOR = 0
 
 
-def changed(before: str, after: str) -> tuple[list[str], list[dict]]:
+def changed(before: str, after: str, drop_tags: bool = False) -> tuple[list[str], list[dict]]:
     """(sentences that will be sent, sentences withheld and why).
 
     Until 2026-09-14 this returned the first list only and the second did not
@@ -142,7 +146,7 @@ def changed(before: str, after: str) -> tuple[list[str], list[dict]]:
     knowledge of what was NOT reviewed is now returned to every caller, so a
     caller that discards it does so on purpose.
     """
-    a, b = sentences_of(before), sentences_of(after)
+    a, b = sentences_of(before, drop_tags), sentences_of(after, drop_tags)
     send, withheld = [], []
     for tag, i1, i2, j1, j2 in difflib.SequenceMatcher(None, a, b).get_opcodes():
         if tag in ("replace", "insert"):
@@ -206,7 +210,7 @@ def review(slug: str, new: list[str], page: str) -> list[dict]:
     fc = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(fc)
     fc.enter_issue(slug)
-    body = " ".join(sentences_of(page))
+    body = " ".join(sentences_of(page, B._is_study(slug)))
     user = json.dumps({"changed_sentences": new, "the_page": body[:120000]},
                       ensure_ascii=False)
     out = fc.call(SYSTEM, user, search=False, label="changecheck")
@@ -435,7 +439,7 @@ def main() -> int:
     if not before:
         print("\n  could not read %s at %s\n" % (a.page, a.before))
         return 2
-    new, withheld = changed(before, after)
+    new, withheld = changed(before, after, B._is_study(a.slug))
     print("\n  %d changed sentence(s) since %s%s\n"
           % (len(new) + len(withheld), a.before,
              ", %d reviewed and %d WITHHELD" % (len(new), len(withheld)) if withheld else ""))
