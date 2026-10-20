@@ -3977,6 +3977,8 @@ Rulings are applied one sentence at a time, so a ruling can remove a name or ter
 **Raised by** advisor, 2026-10-20 (WHU-P02 practice run).
 **Status:** fixed in 03899e2, on study issues only. `bindings.page_sentences` drops `<span class="tag">` before splitting a study page, and changecheck, applied_check and changecheck_coverage split it the same way. Not applied to published issues: melanoma, cdk46 and deskilling hold 65 bound rows whose fingerprints include their tag. On WHU-P02 the change leaves 16 bound source-list rows keyed to the old, tagged sentence; they must be re-keyed or re-bound before the next audit.
 
+*Published issues (2026-10-20):* each published issue moves to the new splitter at its next republish, and its tagged rows are re-keyed then, from the tagged sentence's fingerprint to the untagged one: melanoma 15 rows, cdk46 23, deskilling 27. Until that republish they keep the old splitter, so their bindings and the live page agree.
+
 The sentence splitter folds a source-list tag (e.g. 'Methods') into the entry, so the audit reads the tag as part of the sentence (WHU-P02 u70: tag removed by a ruling).
 
 ## GAP-018 — the source advocate's quotations were never checked when written
