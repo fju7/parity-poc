@@ -40,7 +40,22 @@
         "the NIH inpatient trial"
       ],
       "used_for": "The randomised inpatient feeding trial: energy intake and weight change on UPF vs unprocessed diets.",
-      "access": {},
+      "access": {
+        "state": "full_text_held",
+        "by": "Fred Ugast (browser download); added to the store by Claude Code (session 8ff8c296-6467-4a56-8913-ec300d4b7c38)",
+        "on": "2026-10-20",
+        "held": {
+          "file": "docs/85/8580b0951391ba1a3c914bb3f6945ebf128ca8e6294dec64be205920358a3a8b.pdf",
+          "sha256": "8580b0951391ba1a3c914bb3f6945ebf128ca8e6294dec64be205920358a3a8b",
+          "identified_by": "source_store add: identity from the file's own bytes"
+        },
+        "sections": [
+          "summary",
+          "results",
+          "discussion"
+        ],
+        "note": "state recorded at resume: source_store add stored the bytes but did not write the ledger entry"
+      },
       "identifier": {
         "kind": "pmid",
         "value": "31105044",
@@ -55,9 +70,24 @@
       "type": "corrigendum",
       "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7959109/",
       "title": "Erratum/notice on Hall et al., Cell Metab 2019 (10.1016/j.cmet.2019.05.020)",
-      "also_called": [],
+      "also_called": [
+        "the 2019 erratum on Hall et al."
+      ],
       "used_for": "Errata check on S002.",
-      "access": {},
+      "access": {
+        "state": "full_text_held",
+        "by": "Fred Ugast (browser download); added to the store by Claude Code (session 8ff8c296-6467-4a56-8913-ec300d4b7c38)",
+        "on": "2026-10-20",
+        "held": {
+          "file": "docs/44/44315e0c73877cde3dada490aaafeb6f4b13df42050fb8836eb7689bad79151e.pdf",
+          "sha256": "44315e0c73877cde3dada490aaafeb6f4b13df42050fb8836eb7689bad79151e",
+          "identified_by": "source_store add: identity from the file's own bytes"
+        },
+        "sections": [
+          "whole notice"
+        ],
+        "note": "state recorded at resume: source_store add stored the bytes but did not write the ledger entry"
+      },
       "identifier": {
         "kind": "pmid",
         "value": "31269427",
@@ -72,9 +102,25 @@
       "type": "corrigendum",
       "url": "https://pubmed.ncbi.nlm.nih.gov/33027677/",
       "title": "Correction on Hall et al., Cell Metab 2020 (10.1016/j.cmet.2020.08.014)",
-      "also_called": [],
+      "also_called": [
+        "the 2020 correction on Hall et al.",
+        "a correction published in 2020"
+      ],
       "used_for": "Errata check on S002.",
-      "access": {},
+      "access": {
+        "state": "full_text_held",
+        "by": "Fred Ugast (browser download); added to the store by Claude Code (session 8ff8c296-6467-4a56-8913-ec300d4b7c38)",
+        "on": "2026-10-20",
+        "held": {
+          "file": "docs/d3/d38cd31268dcb4ff00737755345c3fac9216cf57da4a5c3319160c1b48c3a76a.pdf",
+          "sha256": "d38cd31268dcb4ff00737755345c3fac9216cf57da4a5c3319160c1b48c3a76a",
+          "identified_by": "source_store add: identity from the file's own bytes"
+        },
+        "sections": [
+          "whole notice"
+        ],
+        "note": "state recorded at resume: source_store add stored the bytes but did not write the ledger entry"
+      },
       "identifier": {
         "kind": "pmid",
         "value": "33027677",
@@ -179,7 +225,21 @@
         "Chen"
       ],
       "used_for": "Type 2 diabetes association and UPF subgroups that go in different directions.",
-      "access": {},
+      "access": {
+        "state": "full_text_held",
+        "by": "Fred Ugast (browser download); added to the store by Claude Code (session 8ff8c296-6467-4a56-8913-ec300d4b7c38)",
+        "on": "2026-10-20",
+        "held": {
+          "file": "docs/ef/efdd3333590d55ce6c4f230fc523284493a851a7ae3da8360393bef8688052b8.pdf",
+          "sha256": "efdd3333590d55ce6c4f230fc523284493a851a7ae3da8360393bef8688052b8",
+          "identified_by": "source_store add: identity from the file's own bytes"
+        },
+        "sections": [
+          "abstract",
+          "results (subgroups)"
+        ],
+        "note": "state recorded at resume: source_store add stored the bytes but did not write the ledger entry"
+      },
       "identifier": {
         "kind": "pmid",
         "value": "36854188",
@@ -276,7 +336,20 @@
         "Monteiro 2019"
       ],
       "used_for": "The NOVA definition of ultra-processed food.",
-      "access": {},
+      "access": {
+        "state": "full_text_held",
+        "by": "Fred Ugast (browser download); added to the store by Claude Code (session 8ff8c296-6467-4a56-8913-ec300d4b7c38)",
+        "on": "2026-10-20",
+        "held": {
+          "file": "docs/75/753bf7d79fb3b5ca2197b6f7fd9e56daa1d92c4ccbf8eca06379e79122625aac.pdf",
+          "sha256": "753bf7d79fb3b5ca2197b6f7fd9e56daa1d92c4ccbf8eca06379e79122625aac",
+          "identified_by": "source_store add: identity from the file's own bytes"
+        },
+        "sections": [
+          "definition of ultra-processed foods"
+        ],
+        "note": "state recorded at resume: source_store add stored the bytes but did not write the ledger entry"
+      },
       "identifier": {
         "kind": "pmid",
         "value": "30744710",
@@ -395,7 +468,9 @@
       "type": "carrier",
       "url": "https://www.dailymaverick.co.za/article/2025-11-24-new-lancet-series-warns-ultraprocessed-fd-foods-are-reshaping-diets-and-fuelling/",
       "title": "Daily Maverick — New Lancet series warns ultra-processed foods are reshaping diets and fuelling global burden of disease (24 Nov 2025)",
-      "also_called": [],
+      "also_called": [
+        "Daily Maverick"
+      ],
       "used_for": "The belief as carried in general coverage.",
       "access": {
         "state": "full_text_held",
