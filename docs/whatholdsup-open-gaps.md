@@ -3953,3 +3953,12 @@ A change set is bound to the page sha it reached, so any edit to a published pag
 **Fix when** before the reliability study is frozen.
 
 A gate recency failure (any study not CURRENT, including UNKNOWN) produces no finding: preflight shows only a warn on the same text, and nothing at all after an edit, although the gate's prompt treats UNKNOWN as failure. It should become a finding sent to the ruling model.
+
+## GAP-015 — the audit delivered an empty document for a long source
+
+**Raised by** advisor, 2026-10-20 (WHU-P02 practice run).
+**Status:** fixed in bf02c96 (audit stage) and f308acf (study judge runner).
+
+`audit_stage.trim()` cut a held text over MAX_DOC_CHARS to windows around the batch's terms, adding merged windows in document order and stopping at the first that did not fit. When every window merged into one run longer than the limit — a 159,009-character paper on the practice run — it returned "", the reader was shown an empty document and reported the sentence as resting on a document we do not hold, and the ruling model cut it. Nothing checked what the reader was actually given.
+
+The fix: `trim()` is never empty for a non-empty text (an oversized window is cut to the limit centred on its bound span; windows holding a bound span are kept first). Before every reader call the stage records, per document, the held and delivered character counts and whether every bound span is in what was delivered, and stops with DOCUMENT_NOT_DELIVERED otherwise, before any paid call. A finding that says its document was empty or unavailable never reaches the ruling model. The study's judge runner had the same defect in `chunk()` and now fails closed the same way: a key term or cited span the source holds but the judge would not receive makes the item INCOMPLETE_SOURCES.
