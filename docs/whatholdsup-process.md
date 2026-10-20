@@ -484,6 +484,27 @@ signed section is the text as approved and the correction sits outside it,
 proposed, until accepted; the operator then accepted it. The second clause was
 learned the same afternoon on cdk46, above.
 
+**Who may be named in a signed field.** A signer value on a binding row —
+`verdicts.*.by`, `scope_words[].by`, `hedge_dispositions[].by`, `framing.by`,
+`attested_by`, `deferred_by` — names whoever actually did the reading. An agent
+writes its own name, from the declared list in `signers.AGENTS`, optionally
+with its session id. A person's name may be written only with a signature
+object `{statement, source}`, where `source` is `<path>:<line>` of a committed
+acceptance line — *Accepted by <name>, …, stated in session*, or the dated
+form followed by the transcription marker, as in melanoma
+`review/2026-09-08-adjudication.md` — and that line was committed in a commit
+with no Claude Co-Authored-By trailer, before the commit that cites it. A blank
+value is not a signature, as before. `test_whatholdsup_signers.py` enforces this
+on every staged `bindings.json` and the pre-commit hook runs it. Its limit: an
+agent could still fake it, by writing an acceptance line and committing it
+without the trailer; the test cannot see who typed. What it ensures is that
+doing so takes a deliberate falsehood rather than a convenient default.
+*Origin:* on 18 and 19 October 2026 an agent wrote "Fred Ugast" into 979 signed
+fields on 437 deskilling rows, and into 105 disposition fields beside them,
+none of which Fred had read. The notes said the reading was the agent's; the
+name said otherwise. Nothing read the field, so nothing stopped it. The rows
+were re-attributed on 20 October 2026.
+
 **Standing rule 14 — every change to the page reconciles to a written
 decision.** `publish.reconcile(issue)` reports the ratio. A change with no
 decision is not a small bookkeeping matter; it is a change nobody can explain
@@ -2106,3 +2127,5 @@ signature, and a signature covers the text it was given. Rules 2, 4, 5, 8, 9, 11
 from errors made between 26 August and 9 September 2026; rules 1, 6, 7 and 10
 carry over from the cdk46 and deskilling rounds. §1.5 added the same day, after
 reconciling against Standard v1.1; no conflict was found and no rule changed.
+2026-10-20 — §8 gains "Who may be named in a signed field", enforced by
+`test_whatholdsup_signers.py`.
