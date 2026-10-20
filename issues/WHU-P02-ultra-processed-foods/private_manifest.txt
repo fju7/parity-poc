@@ -1,0 +1,7 @@
+f6965371d389ce22edf35fc1f9f6d01b12f6b362558d5675f185f340556fe19a  ./issues/WHU-P02-ultra-processed-foods/bindings.json
+a28abf5b759267d20dd97c14c2c12cf59db5f430e6d87aa7efec17bd3396bc64  ./issues/WHU-P02-ultra-processed-foods/conclusion-review.json
+6dbb9610348f2ad33bbd5b15d4520a12ae038e59febea7c8d0a469f1722e927b  ./issues/WHU-P02-ultra-processed-foods/draft/ultra-processed-foods.html.gate.json
+8786b24c3270c9abba73b0792372995801bad5868e4aa9b859b1e1677d25ac47  ./issues/WHU-P02-ultra-processed-foods/draft/ultra-processed-foods.html.gate.json.runs.json
+3a157cf9a7452c7dd35f16e60607026168d21d2365f04e46d2be1db0b509b191  ./issues/WHU-P02-ultra-processed-foods/export/spec.json
+80af3a7829fa2eb539a26aae19a6c59dbf9b0715d9a99a696cb7bc363ab0bd67  ./issues/WHU-P02-ultra-processed-foods/gate-findings.json
+6e669d4b4f508dd448978ed60f864a971d9218ba66b9ca8507cd53ad01f98c3f  ./issues/WHU-P02-ultra-processed-foods/rulings/rulings.jsonl
