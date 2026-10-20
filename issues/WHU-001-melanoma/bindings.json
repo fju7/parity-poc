@@ -5456,7 +5456,8 @@
       "why_bound": "NOT A LIBRARY SOURCE. The sentence quotes our own scoring rubric, so the document that settles it is ours — the anchor text in score_claims.py, which the-rubric.html publishes word for word. No span check should be pointed at a source for it, because no source says it. A named person read the anchor and the published page; this is reported on its own line and never counted as a verified span.",
       "proposed_by": "human",
       "confirmed": true,
-      "proposed_on": "2026-09-03"
+      "proposed_on": "2026-09-03",
+      "reattributed": "2026-10-20: why_bound says a person read this; attested_by names Claude (Opus 5); no record of a person's reading was found."
     },
     "b50c431a41bb5f8f": {
       "sentence": "That single release converts this from a directional claim into a measurable one, and would move data support from 1 to 4 or 5 and source quality from 3 to 5.",
@@ -8268,7 +8269,8 @@
       "why_bound": "NOT LOCATABLE BY MACHINE, and not for the usual reason. This sentence is a claim about what THIS PAGE used to say, so the document that settles it is the page's own history rather than anything in the library. No span check can reach a git object. A person read the commits and the live page and is named above; the two figures also carry declared exclusions saying they are the page's own arithmetic, with the `computed` mark as their falsifier.",
       "proposed_by": "human",
       "confirmed": true,
-      "proposed_on": "2026-09-03"
+      "proposed_on": "2026-09-03",
+      "reattributed": "2026-10-20: why_bound says a person read this; attested_by names Claude (Opus 5); no record of a person's reading was found."
     },
     "a3cac8e3ff983691": {
       "sentence": "A 2018 erratum covering thirteen NEJM articles at once ( N Engl J Med 2018;379:2185) applies to this paper.",
