@@ -223,7 +223,7 @@ def is_study(slug: str) -> bool:
 def open_findings(report: dict) -> list[dict]:
     """Everything in a gate report that blocks: a verdict that is not VERIFIED
     or INTERNAL, a serious objection, a serious inference, a serious coverage
-    contradiction. On a study issue, recency_findings() is added (_opens)."""
+    contradiction. recency_findings() is added to these (_opens)."""
     out = []
     for vid, v in (report.get("verdicts") or {}).items():
         if v.get("verdict") in ("VERIFIED", "INTERNAL"):
@@ -253,8 +253,9 @@ def recency_findings(report: dict) -> list[dict]:
     """Every gate recency study that is not CURRENT, UNKNOWN included (GAP-014,
     2026-10-20). The gate's prompt treats UNKNOWN as a failure, but a recency
     failure produced no finding: a warn on the same text, nothing after an edit.
-    Added for study issues only (_opens); a published issue's recency results
-    are a person's to decide."""
+    Added on every issue (_opens): on a study issue the ruling model rules it
+    (ruling.py gate), on a published issue a person decides it, as every other
+    gate finding. Until 2026-10-20 (evening) it was added on study issues only."""
     out = []
     for i, s in enumerate((report.get("recency") or {}).get("studies") or [], 1):
         if not isinstance(s, dict) or s.get("status") == "CURRENT":
@@ -269,7 +270,7 @@ def recency_findings(report: dict) -> list[dict]:
 
 
 def _opens(slug: str, report: dict) -> list[dict]:
-    return open_findings(report) + (recency_findings(report) if is_study(slug) else [])
+    return open_findings(report) + recency_findings(report)
 
 
 def quote_is_in_source(slug: str, sid: str, quote: str) -> tuple[bool, str]:

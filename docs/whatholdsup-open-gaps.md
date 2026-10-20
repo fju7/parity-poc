@@ -3950,7 +3950,7 @@ A change set is bound to the page sha it reached, so any edit to a published pag
 ## GAP-014 — a gate recency failure produces no finding
 
 **Raised by** advisor, 2026-10-20 (WHU-P02 practice run).
-**Status:** fixed in 955a02f, on study issues only. `findings.recency_findings` makes every recency study not CURRENT (UNKNOWN included) a finding `rec-N`, and `ruling.py gate` rules it with the sentence that relies on that readout and its bound passages. Not applied to published issues: the cdk46 and melanoma gate reports each carry one SUPERSEDED study that would then block; that is for the operator.
+**Status:** fixed in 955a02f (study issues) and turned on for every issue on 2026-10-20 (evening). `findings.recency_findings` makes every recency study not CURRENT (UNKNOWN included) a finding `rec-N`; on a study issue `ruling.py gate` rules it with the sentence that relies on that readout and its bound passages, on a published issue a person decides it like any other gate finding. The cdk46 gate report (rec-5) and the melanoma gate report (rec-4) each carry one SUPERSEDED study, now an open finding on each.
 
 A gate recency failure (any study not CURRENT, including UNKNOWN) produces no finding: preflight shows only a warn on the same text, and nothing at all after an edit, although the gate's prompt treats UNKNOWN as failure. It should become a finding sent to the ruling model.
 

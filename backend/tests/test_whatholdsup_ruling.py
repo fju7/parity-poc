@@ -301,7 +301,7 @@ REPORT_REC = {"recency": {"studies": [
     {"name": "Another study", "status": "CURRENT"}]}}
 
 
-def test_a_recency_study_not_current_is_a_finding_on_a_study_issue_only(study):
+def test_a_recency_study_not_current_is_a_finding_on_every_issue(study):
     d, P = study
     import findings as F
     (d / "issue.json").write_text(json.dumps({"slug": "xq", "study": True}))
@@ -309,8 +309,8 @@ def test_a_recency_study_not_current_is_a_finding_on_a_study_issue_only(study):
     assert ids == ["rec-1"]
     row = [r for r in F.check("xq", REPORT_REC) if r[0] == "gate findings settled"][0]
     assert row[1] == F.BAD and "rec-1" in row[2]
-    (d / "issue.json").write_text(json.dumps({"slug": "xq"}))          # a published issue: unchanged
-    assert F._opens("xq", REPORT_REC) == []
+    (d / "issue.json").write_text(json.dumps({"slug": "xq"}))          # a published issue: the same
+    assert [f["id"] for f in F._opens("xq", REPORT_REC)] == ["rec-1"]
 
 
 def test_a_recency_finding_goes_to_the_ruling_model_with_the_sentence_and_the_bound_passages(study):
