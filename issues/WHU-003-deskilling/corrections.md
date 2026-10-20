@@ -55,6 +55,8 @@ promise is true.
 
 ## 19 October 2026 — we re-read this page and corrected 139 of its sentences
 
+Count corrected on 20 October 2026 from 140 to 139; see the 20 October entry.
+
 On 18 and 19 October 2026 every sentence on this page above the change history at its foot, the
 standfirst included, was read against its source or our own records. 139 were wrong and are
 corrected. Each is listed on the page's own corrections page (/deskilling-corrections), as it
@@ -420,6 +422,8 @@ Five things the republish of 19 October left wrong, corrected on 20 October 2026
   Now: As of 19 October 2026 — the date the evidence on this page was read.
 - Was (header): Updated 19 October 2026
   Now: Updated 20 October 2026
+- Was (the whole header line, as the page's text runs from its title to the end of the standfirst's first sentence): What Happens to the Experts First - What Holds Up What Holds Up What this is The rubric Issues Who pays for this Issue three Evidence review Living assessment Published 30 August 2026 · Updated 19 October 2026 · Evidence last read 18 October 2026 · what we are watching What Happens to the Experts First whatholdsup.org There is a widely held sense that using AI is making us worse at thinking, and that there is now real evidence for it.
+  Now: What Happens to the Experts First - What Holds Up What Holds Up What this is The rubric Issues Who pays for this Issue three Evidence review Living assessment Published 30 August 2026 · Updated 20 October 2026 · Evidence last read 19 October 2026 · what we are watching What Happens to the Experts First whatholdsup.org There is a widely held sense that using AI is making us worse at thinking, and that there is now real evidence for it.
 
 **The homepage summary still used wording this page had corrected.** Two of its sentences now read as this page's own corrected sentences.
 
