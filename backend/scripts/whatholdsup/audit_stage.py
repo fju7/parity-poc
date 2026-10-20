@@ -710,7 +710,9 @@ def run(slug: str, *, out_dir: Path, limit: int | None = None, cap: float = 40.0
                     r = check_ruling(parse_json(rtext))
                     log("rulings", {"unit": u["id"], "sha": u["sha"], "round": u["round"],
                                     "at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
-                                    "by": "ruling model %s" % MODEL, "payload_sha256": sha(json.dumps(payload)),
+                                    "by": "ruling model %s" % MODEL, "model": MODEL,
+                                    "prompt_sha256": sha(RULE_PROMPT.read_text(encoding="utf-8")),
+                                    "inputs": payload, "payload_sha256": sha(json.dumps(payload)),
                                     **r})
                     if u["id"] not in flagged:
                         flagged.append(u["id"])
@@ -774,7 +776,9 @@ def run(slug: str, *, out_dir: Path, limit: int | None = None, cap: float = 40.0
                                    and not body_sentence(r["text"] or "", us))
                     log("rulings", {"unit": u["id"], "sha": u["sha"], "round": "second",
                                     "at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
-                                    "by": "ruling model %s" % MODEL, "payload_sha256": sha(json.dumps(payload)), **r,
+                                    "by": "ruling model %s" % MODEL, "model": MODEL,
+                                    "prompt_sha256": sha(RULE_PROMPT.read_text(encoding="utf-8")),
+                                    "inputs": payload, "payload_sha256": sha(json.dumps(payload)), **r,
                                     **({"apply": False, "left_for_person": True} if summary_bad else {})})
                     if r["ruling"] != "reject":
                         # Accepted on the second read: the sentence must change. It is
