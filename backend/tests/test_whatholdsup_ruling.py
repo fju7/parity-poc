@@ -174,3 +174,80 @@ def test_audit_rulings_are_logged_with_time_model_prompt_sha_and_inputs(tmp_path
         assert r["at"] and r["by"] == "ruling model claude-opus-5-5" and r["model"] == "claude-opus-5-5"
         assert r["prompt_sha256"] == hashlib.sha256((WHU / "audit_prompts" / "rule.md").read_bytes()).hexdigest()
         assert tuple(r["inputs"]) == A.RULE_FIELDS
+
+
+# --- changecheck findings and source-advocate objections (2026-10-20) ---------
+
+LEAKS2 = LEAKS + ["LEAK-AGAINST", "LEAK-CCMODEL", "LEAK-PRINCIPAL", "LEAK-LOCATOR", "LEAK-STATE",
+                  "LEAK-TITLE", "LEAK-NOTE"]
+
+
+def _no_leaks2(prompts):
+    for p in prompts:
+        for leak in LEAKS2:
+            assert leak not in p, leak
+        assert "S-SECRET" not in p
+
+
+def test_a_changecheck_finding_is_ruled_with_only_the_allowed_inputs_and_disposed(study, monkeypatch):
+    d, P = study
+    import changecheck as C
+    monkeypatch.setattr(C, "record_path", lambda slug: d / "change-reviews.json")
+    page = "<html><body><p>%s</p></body></html>" % SENTENCE
+    f = {"sentence": SENTENCE, "kind": "NEW_AND_UNBOUND", "why": "carries 2 and rests on nothing",
+         "other": "", "source_id": "S-SECRET-7", "model": "LEAK-CCMODEL"}
+    (d / "change-reviews.json").write_text(json.dumps({"reviews": [
+        {"sha": C.page_sha(page), "against": "LEAK-AGAINST", "findings": [f, {"sentence": "", "kind": "UNRUN"}]}]}))
+    fake = Fake({"ruling": "reject", "text": None, "reason": "Quotation 1 carries the figure."})
+    done = R.rule_changecheck("xq", fake, P=P, rows={"k1": ROW}, held=HELD, page_html=page)
+    assert len(done) == 1 and len(fake.prompts) == 1            # UNRUN is not ruled
+    _no_leaks2(fake.prompts)
+    disp = json.loads((d / "change-reviews.json").read_text())["dispositions"]
+    assert disp[0]["key"] == C.finding_key(f) and disp[0]["decision"] == "reject"
+    assert disp[0]["by"] == "ruling model claude-opus-5-5"
+    rec = _log(d)[-1]
+    assert rec["ruling_kind"] == "changecheck" and tuple(rec["inputs"]) == R.RULE_FIELDS
+    assert rec["prompt_sha256"] == hashlib.sha256((WHU / "audit_prompts" / "rule.md").read_bytes()).hexdigest()
+    # A second run rules nothing: the finding is disposed.
+    assert R.rule_changecheck("xq", fake, P=P, rows={"k1": ROW}, held=HELD, page_html=page) == []
+
+
+def _advocate(d, monkeypatch, says):
+    import source_advocate as SA
+    monkeypatch.setattr(SA.sl, "case_dir", lambda slug: d)
+    briefs = [{"source": "S-SECRET-7", "title": "LEAK-TITLE", "principal": "LEAK-PRINCIPAL",
+               "state": "LEAK-STATE", "mode": "objections", "note": "LEAK-NOTE",
+               "objections": [{"severity": "SERIOUS", "claim_quoted": "cut weight by 2 kg",
+                               "objection": "The paper says 'reduced', not 'cut'.", "why": "wording",
+                               "source_says": says, "locator": "LEAK-LOCATOR"}]}]
+    (d / "advocate").mkdir(exist_ok=True)
+    (d / "advocate" / "2026-10-21-briefs.json").write_text(json.dumps(briefs))
+    SA.write_template("xq", "2026-10-21", briefs)
+    return SA, d / "advocate" / "2026-10-21-adjudication.md"
+
+
+def test_an_advocate_objection_is_ruled_with_only_the_allowed_inputs_and_closed(study, monkeypatch):
+    d, P = study
+    SA, adj = _advocate(d, monkeypatch, "the intervention reduced weight by 2 kg over 12 weeks compared "
+                                        "with control")          # IS in the held text, word for word
+    fake = Fake({"ruling": "amend", "text": "The trial found the intervention reduced weight by 2 kg in 12 weeks.",
+                 "reason": "Quotation 2 says reduced."})
+    done = R.rule_advocate("xq", fake, P=P, rows={"k1": ROW}, held=HELD, case=d)
+    assert len(done) == 1
+    _no_leaks2(fake.prompts)
+    assert "Quotation 2" in fake.prompts[0]                       # the verified advocate quotation
+    chunk = [c for c in adj.read_text().split("### ")[1:] if c.startswith("S-SECRET-7-01")][0]
+    assert SA._closed("### " + chunk, "objections")
+    assert "MERIT:  yes" in chunk and "EFFECT: corrects" in chunk and "reduced weight by 2 kg" in chunk
+    assert R.advocate_items("xq", d) == []                        # closed: nothing left to rule
+    rec = _log(d)[-1]
+    assert rec["ruling_kind"] == "advocate" and rec["by"] == "ruling model claude-opus-5-5"
+
+
+def test_an_advocate_quotation_not_in_the_held_text_is_not_shown_as_source_text(study, monkeypatch):
+    d, P = study
+    _advocate(d, monkeypatch, "a sentence the paper does not contain")
+    fake = Fake({"ruling": "reject", "text": None, "reason": "Quotation 1 supports the sentence."})
+    R.rule_advocate("xq", fake, P=P, rows={"k1": ROW}, held=HELD, case=d)
+    assert "a sentence the paper does not contain" not in fake.prompts[0]
+    assert "not in the held text" in fake.prompts[0] and "Quotation 2" not in fake.prompts[0]

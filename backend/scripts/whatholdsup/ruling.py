@@ -3,6 +3,8 @@
 
     ruling.py gate SLUG [--cap USD]          rule every undecided gate finding
     ruling.py conclusions SLUG [--cap USD]   rule every undecided conclusion-judge flag
+    ruling.py changecheck SLUG [--cap USD]   rule every undisposed changecheck finding
+    ruling.py advocate SLUG [--cap USD]      rule every open source-advocate objection
 
 WHY THIS EXISTS
 ---------------
@@ -36,6 +38,11 @@ model is never shown a source id, so it names the quotation's number and the id
 is looked up here. Every ruling is logged with its time, model, prompt sha256
 and its inputs, and is attributed "ruling model claude-opus-5-5".
 
+Changecheck findings and source-advocate objections (added 2026-10-20) use
+rule.md too: their records need no source and quotation. An advocate's own
+quotation of its document is shown as a quotation ONLY if it is in the held text
+of that document, word for word; otherwise the reason says it is not.
+
 HOW A RULING IS RECORDED
 ------------------------
   gate        reject -> "rejected"; accept/amend -> "accepted", carrying the
@@ -43,6 +50,15 @@ HOW A RULING IS RECORDED
               quotation cited -> "judgement".
   conclusion  reject -> "rejected"; accept/amend -> "accepted", with the
               ruling's text in the reason.
+  changecheck a disposition in change-reviews.json, keyed by
+              changecheck.finding_key: reject -> "reject"; accept/amend ->
+              "accept", carrying the ruling's text (an accepted finding does not
+              stay closed: the sentence must change).
+  advocate    the item's MERIT / EFFECT / DID lines in the advocate
+              adjudication file: reject -> "no" / "none"; accept/amend -> "yes"
+              / "corrects", DID naming the text to apply. Questions about a
+              source only a person may read are not ruled: they stay with a
+              person (protocol rev 27, "Sentences that need a person").
 """
 from __future__ import annotations
 
@@ -67,6 +83,8 @@ PROMPTS = {
     "second-reader": HERE / "audit_prompts" / "rule.md",
     "conclusion": HERE / "audit_prompts" / "rule.md",
     "gate": HERE / "audit_prompts" / "rule_cite.md",
+    "changecheck": HERE / "audit_prompts" / "rule.md",
+    "advocate": HERE / "audit_prompts" / "rule.md",
 }
 
 
@@ -99,7 +117,13 @@ def quotations(row: dict, held: dict[str, str]) -> list[tuple[str, str]]:
     for x in (row.get("also_rests_on") or []) + (row.get("premises") or []):
         if isinstance(x, dict) and x.get("source_id") and x.get("span"):
             out.append((x["source_id"], x["span"]))
-    return out
+    # The same passage can be a row's span AND one of its premises; it is shown once.
+    seen, uniq = set(), []
+    for q in out:
+        if q not in seen:
+            seen.add(q)
+            uniq.append(q)
+    return uniq
 
 
 def payload(sentence: str, kind: str, reason: str, proposed_text: str,
@@ -306,10 +330,154 @@ def rule_conclusions(slug: str, call, *, P=None, rows: dict | None = None,
     return done
 
 
+def rule_changecheck(slug: str, call, *, P=None, rows: dict | None = None,
+                     held: dict | None = None, page_html: str | None = None) -> list[dict]:
+    """Rule every finding of the latest changecheck review of the current page
+    that has no disposition, and record each as a disposition."""
+    import changecheck as C
+    P = P or _publish()
+    require_study(slug, P)
+    if page_html is None:
+        page_html = (P.ROOT / P.issue_cfg(slug)["page"]).read_text(encoding="utf-8")
+    if rows is None:
+        import bindings as B
+        rows = B.load(slug).get("bindings") or {}
+    if held is None:
+        import reachability
+        held = reachability.held_text(slug, cache=False)
+    doc = C.load_reviews(slug)
+    mine = [r for r in doc.get("reviews") or [] if r.get("sha") == C.page_sha(page_html)]
+    if not mine:
+        raise SystemExit("no changecheck review of the current page; run changecheck.py first")
+    have = {d.get("key") for d in doc.get("dispositions") or []}
+    done = []
+    for f in mine[-1].get("findings") or []:
+        key = C.finding_key(f)
+        if key in have or not (f.get("sentence") or "").strip():
+            continue                         # decided already, or UNRUN (nothing to rule on)
+        hit = _row_for(rows, f["sentence"])
+        quotes = quotations(hit[1], held) if hit else []
+        reason = f.get("why") or ""
+        if (f.get("other") or "").strip():
+            reason += " Against: %s" % " ".join(f["other"].split())
+        p = payload(f["sentence"], "changecheck: %s" % f.get("kind"), reason, "", quotes, held)
+        got = rule("changecheck", p, len(quotes), call, log_path(slug),
+                   {"finding_key": key, "row": hit[0] if hit else None})
+        d = {"key": key, "kind": f.get("kind"), "sentence": f["sentence"],
+             "decision": "reject" if got["ruling"] == "reject" else "accept",
+             "by": BY, "on": date.today().isoformat(), "reason": got.get("reason") or "",
+             "ruling": got["ruling"], "ruling_text": got.get("text"),
+             "ruled": "ruling.py changecheck, prompt %s" % prompt_sha("changecheck")[:12]}
+        doc.setdefault("dispositions", []).append(d)
+        have.add(key)
+        done.append(d)
+    C.record_path(slug).write_text(json.dumps(doc, indent=2, ensure_ascii=False) + "\n",
+                                   encoding="utf-8")
+    return done
+
+
+def advocate_items(slug: str, case: Path | None = None) -> list[dict]:
+    """Every OBJECTION in the advocate's briefs whose adjudication item is still
+    open, with its heading, as source_advocate numbers them."""
+    import source_advocate as SA
+    import source_store as store
+    d = (case or store.case_dir(slug)) / "advocate"
+    out = []
+    for bf in sorted(d.glob("*-briefs.json")) if d.exists() else []:
+        if "TEST" in bf.name:
+            continue
+        adj = d / ("%s-adjudication.md" % bf.name[:10])
+        if not adj.exists():
+            continue
+        chunks = {c.splitlines()[0][4:].split(" ")[0]: c
+                  for c in re.split(r"(?=^### )", adj.read_text(encoding="utf-8"), flags=re.M)[1:]}
+        n = 0
+        for b in json.loads(bf.read_text(encoding="utf-8")):
+            for o in b.get("objections") or []:
+                n += 1
+                head = "%s-%02d" % (b["source"], n)
+                if b.get("mode", "objections") != "objections":
+                    continue
+                c = chunks.get(head)
+                if c is None or SA._closed(c, "objections"):
+                    continue
+                out.append({"file": adj, "head": head, "source": b["source"], "objection": o})
+    return out
+
+
+def _close_item(path: Path, head: str, merit: str, effect: str, did: str) -> None:
+    """Fill the template's empty MERIT / EFFECT / DID lines of ONE item."""
+    text = path.read_text(encoding="utf-8")
+    parts = re.split(r"(?=^### )", text, flags=re.M)
+    for i, c in enumerate(parts):
+        if c.startswith("### %s " % head) or c.startswith("### %s\n" % head):
+            lines = c.split("\n")
+            for j, l in enumerate(lines):
+                if l.rstrip() == "MERIT:":
+                    lines[j] = "MERIT:  " + merit
+                elif l.rstrip() == "EFFECT:":
+                    lines[j] = "EFFECT: " + effect
+                elif l.rstrip() == "DID:":
+                    lines[j] = "DID:    " + did
+            parts[i] = "\n".join(lines)
+            break
+    else:
+        raise RulingError("no item %s in %s" % (head, path))
+    path.write_text("".join(parts), encoding="utf-8")
+
+
+def rule_advocate(slug: str, call, *, P=None, rows: dict | None = None,
+                  held: dict | None = None, case: Path | None = None) -> list[dict]:
+    """Rule every open source-advocate objection and close its item."""
+    P = P or _publish()
+    require_study(slug, P)
+    if rows is None:
+        import bindings as B
+        rows = B.load(slug).get("bindings") or {}
+    if held is None:
+        import reachability
+        held = reachability.held_text(slug, cache=False)
+    done = []
+    for it in advocate_items(slug, case):
+        o = it["objection"]
+        claim = o.get("claim_quoted") or ""
+        hit = _row_for(rows, claim)
+        sentence = hit[1]["sentence"] if hit else claim
+        quotes = quotations(hit[1], held) if hit else []
+        reason = o.get("objection") or ""
+        if (o.get("why") or "").strip():
+            reason += " Why it matters: %s" % o["why"].strip()
+        says = (o.get("source_says") or "").strip()
+        if says:
+            if says in (held.get(it["source"]) or ""):
+                if (it["source"], says) not in quotes:
+                    quotes.append((it["source"], says))
+            else:
+                reason += (" The objection quotes its document, but that quotation is not in "
+                           "the held text of the document.")
+        p = payload(sentence, "source advocate objection (%s)" % (o.get("severity") or "?"),
+                    reason, "", quotes, held)
+        got = rule("advocate", p, len(quotes), call, log_path(slug),
+                   {"advocate_item": it["head"], "file": it["file"].name,
+                    "row": hit[0] if hit else None})
+        tag = "ruled by %s, prompt %s" % (BY, prompt_sha("advocate")[:12])
+        if got["ruling"] == "reject":
+            _close_item(it["file"], it["head"], "no — %s" % (got.get("reason") or ""), "none",
+                        "nothing; %s" % tag)
+        else:
+            text = got.get("text") or ""
+            _close_item(it["file"], it["head"], "yes — %s" % (got.get("reason") or ""), "corrects",
+                        ("the sentence is to be replaced word for word with: %s; %s"
+                         % (json.dumps(text, ensure_ascii=False), tag)) if text else
+                        "the sentence is to be cut; %s" % tag)
+        done.append({"item": it["head"], **got})
+    return done
+
+
 def main(argv=None) -> int:
     ap = argparse.ArgumentParser(description=__doc__.split("\n\n")[0])
     sub = ap.add_subparsers(dest="cmd", required=True)
-    for name in ("gate", "conclusions"):
+    for name in ("gate", "conclusions", "changecheck", "advocate"):
         s = sub.add_parser(name)
         s.add_argument("slug")
         s.add_argument("--cap", type=float, default=50.0,
@@ -317,7 +485,8 @@ def main(argv=None) -> int:
     a = ap.parse_args(argv)
     import audit_stage as A
     call = A.Caller(cap=a.cap, ledger_issue=a.slug)
-    fn = rule_gate if a.cmd == "gate" else rule_conclusions
+    fn = {"gate": rule_gate, "conclusions": rule_conclusions,
+          "changecheck": rule_changecheck, "advocate": rule_advocate}[a.cmd]
     done = fn(a.slug, call)
     print("  %d ruling(s) recorded; log: %s" % (len(done), log_path(a.slug)))
     print("  usd this run: %.4f" % sum((c.get("usd") or 0) for c in call.calls))
