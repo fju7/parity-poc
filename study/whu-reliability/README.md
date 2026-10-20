@@ -435,7 +435,11 @@ Choose from the pilot's four questions the one with the fewest unreachable cited
 | Q3 intermittent fasting | 40 | 33 | 1 | 34 |
 | Q4 vitamin D over 60 | 41 | 32 | 1 | 33 |
 
-**Choice: Q2, "Do ultra-processed foods harm your health?"** It has the fewest unreachable sources either way: 21 fetched-unreachable, or 25 with no-URL citations included. No tie-break was needed. WHU has not been run on it.
+**Choice: Q2, "Do ultra-processed foods harm your health?"** It has the fewest unreachable sources either way: 21 fetched-unreachable, or 25 with no-URL citations included. No tie-break was needed.
+
+**WHU has been run on Q2 once, before the freeze, and that run is set aside.** The pilot's citation test built `issues/WHU-T02-ctp-ultra-processed-foods/` on 16–17 October 2026 (session `11b68ac5…`, model `claude-opus-5-5`, nothing committed): stages 1–3 only (premise, research and source store, drafting and binding), under the checks of the tree at `401a597`, before B19–B24, the narrow gate, the conclusion judge and the audit stage existed. Its 18 judgement sentences were then used on 17 October to calibrate the conclusion judge (126 calls, $0.539; `docs/whatholdsup-conclusion-judge.md`), so the conclusion judge's results on Q2 are not out of sample — for the practice run only, not the study.
+
+**Moved out of reach, 20 October 2026** (protocol rev 27, "Practice run"): the issue directory to `archive/WHU-T02/issue/` and its library map `library/issues/ctp-ultra-processed-foods.json` to `archive/WHU-T02/library/`; the nine `used_by` references to it were removed from `library/index.json` and are kept in `archive/WHU-T02/library/index_used_by_removed.json`. The nine held documents stay in the shared library. Why: the practice run (WHU-P02) is built from the question alone, and a drafting session that could open T02's draft, spans and notes on the same question would carry T02's choices into it. `archive/` is excluded from git (`.git/info/exclude`) and lies outside `issues/`, which no drafting step or the daily source sweep reads.
 
 ## Cost projection as ruled (20 October 2026)
 
