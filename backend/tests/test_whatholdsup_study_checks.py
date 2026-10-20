@@ -128,3 +128,35 @@ def test_changecheck_records_what_it_read(tmp_path, monkeypatch):
     C.save_review("x", page(NEW), "abc", 1, [], [], read=[NEW], model_read=True)
     r = json.loads((tmp_path / "change-reviews.json").read_text())["reviews"][0]
     assert r["read"] == [C.fingerprint(NEW)] and r["model_read"] is True and NEW not in json.dumps(r)
+
+
+# --- withdrawn audit runs (2026-10-20) --------------------------------------------
+
+def _manifest(case, run, **extra):
+    d = case / "audit" / run
+    d.mkdir(parents=True, exist_ok=True)
+    (d / "manifest.json").write_text(json.dumps({"status": "complete", **extra}))
+    return d
+
+
+def test_rulings_from_a_withdrawn_run_are_not_expected_on_the_page(tmp_path):
+    A = _load("audit_stage")
+    ruling(tmp_path, NEW, log="audit/20261020T173234Z/rulings.jsonl")
+    d = _manifest(tmp_path, "20261020T173234Z")
+    assert len(AC.check(tmp_path, page(OLD))["mismatches"]) == 1        # expected, and not applied
+    w = A.withdraw(d, "documents delivered empty (GAP-015)", on="2026-10-20")
+    assert w == {"reason": "documents delivered empty (GAP-015)", "on": "2026-10-20"}
+    res = AC.check(tmp_path, page(OLD))
+    assert res["mismatches"] == [] and res["checked"] == []             # the withdrawn run is not read
+
+
+def test_a_withdrawal_needs_a_reason_and_a_withdrawn_run_is_never_the_latest(tmp_path, monkeypatch):
+    A = _load("audit_stage")
+    old = _manifest(tmp_path, "20261020T100000Z")
+    new = _manifest(tmp_path, "20261020T173234Z")
+    monkeypatch.setattr(A, "audit_root", lambda slug: tmp_path / "audit")
+    assert A.latest_run("x") == new
+    with pytest.raises(ValueError):
+        A.withdraw(new, "  ")
+    A.withdraw(new, "documents delivered empty (GAP-015)")
+    assert A.latest_run("x") == old

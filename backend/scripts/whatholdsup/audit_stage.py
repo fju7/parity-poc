@@ -996,11 +996,34 @@ def audit_root(slug: str) -> Path:
     return source_store.case_dir(slug) / "audit"
 
 
+def is_withdrawn(run_dir: Path) -> dict | None:
+    """The run's withdrawal record ({reason, on}) if its manifest has one."""
+    try:
+        w = json.loads((run_dir / "manifest.json").read_text(encoding="utf-8")).get("withdrawn")
+    except Exception:
+        return None
+    return w if isinstance(w, dict) and w.get("reason") else None
+
+
+def withdraw(run_dir: Path, reason: str, on: str | None = None) -> dict:
+    """Mark a run withdrawn in its manifest, with the reason and the date. Its
+    rulings are then not expected on the page (applied_check) and it is never
+    the run preflight reads (latest_run). Nothing else in the run changes."""
+    mp = Path(run_dir) / "manifest.json"
+    m = json.loads(mp.read_text(encoding="utf-8"))
+    if not (reason or "").strip():
+        raise ValueError("a withdrawal needs a reason")
+    m["withdrawn"] = {"reason": reason.strip(),
+                      "on": on or datetime.now(timezone.utc).date().isoformat()}
+    mp.write_text(json.dumps(m, indent=1, ensure_ascii=False), encoding="utf-8")
+    return m["withdrawn"]
+
+
 def latest_run(slug: str) -> Path | None:
     root = audit_root(slug)
     if not root.exists():
         return None
-    runs = sorted(p for p in root.iterdir() if (p / "manifest.json").exists())
+    runs = sorted(p for p in root.iterdir() if (p / "manifest.json").exists() and not is_withdrawn(p))
     return runs[-1] if runs else None
 
 
@@ -1069,7 +1092,15 @@ def main(argv=None) -> int:
     r.add_argument("--resume", metavar="RUN_DIR",
                    help="carry on a stopped run in its own directory; refuses if any input changed")
     c = sub.add_parser("check"); c.add_argument("slug")
+    w = sub.add_parser("withdraw", help="mark a run withdrawn: its rulings no longer apply")
+    w.add_argument("slug"); w.add_argument("run_dir"); w.add_argument("--reason", required=True)
     a = ap.parse_args(argv)
+    if a.cmd == "withdraw":
+        rd = Path(a.run_dir)
+        if not rd.is_absolute():
+            rd = audit_root(a.slug) / a.run_dir if not rd.exists() else rd
+        print(json.dumps(withdraw(rd, a.reason), ensure_ascii=False))
+        return 0
     if a.cmd == "check":
         import publish
         for row in preflight_rows(a.slug, publish.load_record()):

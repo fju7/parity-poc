@@ -13,7 +13,8 @@ WHICH RULINGS
 Every ruling of "accept" or "amend" in the issue's logs: rulings/rulings.jsonl
 (gate and conclusion rulings, ruling.py) and audit/<run>/rulings.jsonl (audit
 and second-reader rulings). A ruling the audit stage marked "apply": false (a
-card or meta wording left for a person) is skipped and listed. A ruling is
+card or meta wording left for a person) is skipped and listed. Rulings from a
+run marked withdrawn in its manifest are not read at all. A ruling is
 SUPERSEDED when a later ruling took its text as the sentence it ruled on and
 accepted or amended it again: only the last text in such a chain is expected on
 the page. A "reject" leaves the sentence as written and expects nothing.
@@ -58,7 +59,8 @@ def page_sentences(page_html: str) -> list[str]:
 
 def load_rulings(case: Path) -> list[dict]:
     """Every ruling record, oldest first, each tagged with the log it came from."""
-    logs = [case / "rulings" / "rulings.jsonl"] + sorted((case / "audit").glob("*/rulings.jsonl"))
+    logs = [case / "rulings" / "rulings.jsonl"] + sorted(
+        p for p in (case / "audit").glob("*/rulings.jsonl") if not _withdrawn(p.parent))
     out = []
     for p in logs:
         if not p.exists():
@@ -69,6 +71,16 @@ def load_rulings(case: Path) -> list[dict]:
                 r["_log"] = "%s:%d" % (p.relative_to(case), n)
                 out.append(r)
     return sorted(out, key=lambda r: r.get("at") or "")
+
+
+def _withdrawn(run_dir: Path) -> bool:
+    """A run marked withdrawn in its manifest (audit_stage.py withdraw): its
+    rulings are not expected on the page."""
+    try:
+        w = json.loads((run_dir / "manifest.json").read_text(encoding="utf-8")).get("withdrawn")
+    except Exception:
+        return False
+    return isinstance(w, dict) and bool(w.get("reason"))
 
 
 def _ruled_on(r: dict) -> str:
