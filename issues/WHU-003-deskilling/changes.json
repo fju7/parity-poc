@@ -3312,6 +3312,97 @@
       "now": "Greengard S, \"The AI Deskilling Paradox\", Communications of the ACM , 7 November 2025 , carries none of this study's limitations but does carry caveats of its own, on governance and on deskilling having good outcomes as well as bad ones; we had described it as carrying no caveats at all, and that was wrong.",
       "because": "REPUBLISH-2026-10-19",
       "note": "Correction of 19 October 2026 (republish step 2e): the Greengard note's 'none' meant caveats of any kind and now says so; listed on /deskilling-corrections and in corrections.md."
+    },
+    {
+      "at": "2026-10-20T11:25:04+00:00",
+      "interpreter": "/Users/fredugast/Projects/parity-poc-repo/backend/venv/bin/python",
+      "by": "advisor ruling, relayed by Fred, 2026-10-20",
+      "kind": "added",
+      "was": "",
+      "now": "Updated 20 October 2026.",
+      "because": "AD-HOC",
+      "note": "Date label of a new change-history entry; not a correction.",
+      "correction": false
+    },
+    {
+      "at": "2026-10-20T12:33:57+00:00",
+      "interpreter": "/Users/fredugast/Projects/parity-poc-repo/backend/venv/bin/python",
+      "by": "advisor ruling, relayed by Fred, 2026-10-20",
+      "kind": "changed",
+      "was": "What Happens to the Experts First - What Holds Up What Holds Up What this is Issue one Issue two Issue three Who pays for this Issue three Evidence review Living assessment Published 30 August 2026 · Last reviewed 30 August 2026 · what we are watching What Happens to the Experts First whatholdsup.org There is a widely held sense that using AI is making us worse at thinking, and that there is now real evidence for it.",
+      "now": "What Happens to the Experts First - What Holds Up What Holds Up What this is The rubric Issues Who pays for this Issue three Evidence review Living assessment Published 30 August 2026 · Updated 20 October 2026 · Evidence last read 19 October 2026 · what we are watching What Happens to the Experts First whatholdsup.org There is a widely held sense that using AI is making us worse at thinking, and that there is now real evidence for it.",
+      "because": "REPUBLISH-2026-10-20",
+      "note": "Corrections to the 19 October re-read (dates, the count of 139, the homepage summary and the description), each recorded in corrections.md's 20 October entry."
+    },
+    {
+      "at": "2026-10-20T12:33:57+00:00",
+      "interpreter": "/Users/fredugast/Projects/parity-poc-repo/backend/venv/bin/python",
+      "by": "advisor ruling, relayed by Fred, 2026-10-20",
+      "kind": "added",
+      "was": "",
+      "now": "Corrected 19 October 2026 On 18 and 19 October 2026 we re-read every sentence on this page above the change history at its foot, the standfirst included, against its source or our own records, and corrected 139 of them.",
+      "because": "REPUBLISH-2026-10-20",
+      "note": "Corrections to the 19 October re-read (dates, the count of 139, the homepage summary and the description), each recorded in corrections.md's 20 October entry."
+    },
+    {
+      "at": "2026-10-20T12:33:57+00:00",
+      "interpreter": "/Users/fredugast/Projects/parity-poc-repo/backend/venv/bin/python",
+      "by": "advisor ruling, relayed by Fred, 2026-10-20",
+      "kind": "added",
+      "was": "",
+      "now": "As of 19 October 2026 - the date the evidence on this page was read.",
+      "because": "REPUBLISH-2026-10-20",
+      "note": "Corrections to the 19 October re-read (dates, the count of 139, the homepage summary and the description), each recorded in corrections.md's 20 October entry."
+    },
+    {
+      "at": "2026-10-20T12:33:57+00:00",
+      "interpreter": "/Users/fredugast/Projects/parity-poc-repo/backend/venv/bin/python",
+      "by": "advisor ruling, relayed by Fred, 2026-10-20",
+      "kind": "added",
+      "was": "",
+      "now": "After the re-read below was published, we corrected what it had left wrong.",
+      "because": "REPUBLISH-2026-10-20",
+      "note": "Corrections to the 19 October re-read (dates, the count of 139, the homepage summary and the description), each recorded in corrections.md's 20 October entry."
+    },
+    {
+      "at": "2026-10-20T12:33:57+00:00",
+      "interpreter": "/Users/fredugast/Projects/parity-poc-repo/backend/venv/bin/python",
+      "by": "advisor ruling, relayed by Fred, 2026-10-20",
+      "kind": "added",
+      "was": "",
+      "now": "The notice under the header said this page was re-read on 19 October; the re-read ran over 18 and 19 October, and the notice now says so.",
+      "because": "REPUBLISH-2026-10-20",
+      "note": "Corrections to the 19 October re-read (dates, the count of 139, the homepage summary and the description), each recorded in corrections.md's 20 October entry."
+    },
+    {
+      "at": "2026-10-20T12:33:57+00:00",
+      "interpreter": "/Users/fredugast/Projects/parity-poc-repo/backend/venv/bin/python",
+      "by": "advisor ruling, relayed by Fred, 2026-10-20",
+      "kind": "added",
+      "was": "",
+      "now": "The header said the evidence was last read on 18 October; the re-read ran to 19 October, and the header now says so, as does the note that opens this change history.",
+      "because": "REPUBLISH-2026-10-20",
+      "note": "Corrections to the 19 October re-read (dates, the count of 139, the homepage summary and the description), each recorded in corrections.md's 20 October entry."
+    },
+    {
+      "at": "2026-10-20T12:33:57+00:00",
+      "interpreter": "/Users/fredugast/Projects/parity-poc-repo/backend/venv/bin/python",
+      "by": "advisor ruling, relayed by Fred, 2026-10-20",
+      "kind": "added",
+      "was": "",
+      "now": "The summary of this page on the homepage still used wording this page had corrected, and the description of it shown in search results and links said more than this page does; both now use this page's own sentences, and the description's second sentence is gone.",
+      "because": "REPUBLISH-2026-10-20",
+      "note": "Corrections to the 19 October re-read (dates, the count of 139, the homepage summary and the description), each recorded in corrections.md's 20 October entry."
+    },
+    {
+      "at": "2026-10-20T12:33:57+00:00",
+      "interpreter": "/Users/fredugast/Projects/parity-poc-repo/backend/venv/bin/python",
+      "by": "advisor ruling, relayed by Fred, 2026-10-20",
+      "kind": "added",
+      "was": "",
+      "now": "The notice said 140 sentences were corrected; by the count recorded on the corrections page it was 139, and the notice now says so.",
+      "because": "REPUBLISH-2026-10-20",
+      "note": "Corrections to the 19 October re-read (dates, the count of 139, the homepage summary and the description), each recorded in corrections.md's 20 October entry."
     }
   ]
 }

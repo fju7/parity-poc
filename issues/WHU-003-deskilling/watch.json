@@ -182,6 +182,14 @@
       "changed": "Liu et al.'s figures updated to their revised paper (v6): 1,058 analysed, effect sizes -0.45, -0.20 and -0.42. Separately, 140 sentences were corrected after a sentence-by-sentence re-read; those are corrections, recorded in corrections.md and on /deskilling-corrections, not here.",
       "source": null,
       "page_sha": "b2ca603a6821fe9ab5a66c351c1c595a46ab1513309d429ffa6891a9ab796ca4"
+    },
+    {
+      "on": "2026-10-20",
+      "by": "publish.py update",
+      "what": "Corrections to the 19 October re-read: its dates, its count, and how this page is summarised elsewhere.",
+      "changed": "The notice now says the re-read ran over 18 and 19 October and corrected 139 sentences, not 140. The header now says the evidence was last read on 19 October. The homepage summary and the description shown in search results now use this page's own sentences.",
+      "source": null,
+      "page_sha": "7a134c6064b48373853950e7f74724d5f7a448a6af83208f81480f6c543d0c53"
     }
   ],
   "_seeding_note": "The kill conditions seeded four questions and they were the wrong four — they are PRE-PUBLICATION tests, and three of them are already answered. A living issue's watch has to be forward-looking: not 'did we get this right' but 'what would arrive that changes it'. Rewritten by hand, which is the honest use of `init`: it finds the questions, a person turns them into a watch."

@@ -315,6 +315,28 @@
       "waived": null,
       "page_changed_at": "2026-10-19T16:23:39+00:00",
       "page_changed_at_source": "deploy-poll: the live page first served this sha at this instant, on poll 3 at 15s intervals; the change reached readers at or before it, not later"
+    },
+    {
+      "issue": "deskilling",
+      "action": "update",
+      "companions": [
+        {
+          "path": "site/whatholdsup/deskilling-corrections.html",
+          "sha256": "3748dbd9520efe6354887a1a8549a0398842f536e22bfbd28615ecaa4e944c31"
+        }
+      ],
+      "at": "2026-10-20T12:50:36+00:00",
+      "interpreter": "/Users/fredugast/Projects/parity-poc-repo/backend/venv/bin/python",
+      "sha": "7a134c6064b48373853950e7f74724d5f7a448a6af83208f81480f6c543d0c53",
+      "commit": "04b6732b56e40c59d6d4c46f7a8eb82a1765ec6e",
+      "url": "https://whatholdsup.org/deskilling",
+      "note": "Corrections to the 19 October re-read: its dates, its count, and how this page is summarised elsewhere.",
+      "changed": "The notice now says the re-read ran over 18 and 19 October and corrected 139 sentences, not 140. The header now says the evidence was last read on 19 October. The homepage summary and the description shown in search results now use this page's own sentences.",
+      "source": null,
+      "basis": "living issue update \u2014 judged on what it adds. Softened checks are listed in the preflight output above and in UPDATE_SOFTENS.",
+      "waived": null,
+      "page_changed_at": "2026-10-20T12:50:36+00:00",
+      "page_changed_at_source": "deploy-poll: the live page first served this sha at this instant, on poll 1 at 15s intervals; the change reached readers at or before it, not later"
     }
   ]
 }

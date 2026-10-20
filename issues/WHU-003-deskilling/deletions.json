@@ -74,6 +74,17 @@
       "by": "claude, recording the advisor's ruling of 2026-10-19 (adopt Liu et al. v6)",
       "library_at_the_time": "9 source(s) are unheld (S003, S004, S010, S011, S014, S018), so this library cannot answer whether a figure is anywhere",
       "note": "arXiv v6 (13 October 2026) analyses 305 participants in Experiment 1, not 307; the sum of the three final samples is 1,058, which replaces 1,060 in both sentences (declared as our arithmetic in figure-exclusions)"
+    },
+    {
+      "figure": "140",
+      "removed_on": "2026-10-20",
+      "reason": "wrong",
+      "source_id": "record: issues/WHU-003-deskilling/corrections.md, 20 October 2026 entry (886c57b)",
+      "bound_row_absent": "",
+      "by": "advisor ruling, relayed by Fred, 2026-10-20",
+      "library_at_the_time": "9 source(s) are unheld (S003, S004, S010, S011, S014, S018), so this library cannot answer whether a figure is anywhere",
+      "span": "The notice said 140 sentences were corrected; by the count recorded on the corrections page it was 139, and the notice now says so.",
+      "note": "The count was wrong; corrected to 139. See corrections.md, 20 October 2026 entry. Removed from the notice on deskilling.html ('corrected 140 of them' -> 'corrected 139 of them') and from the corrections page standfirst ('corrected 140 sentences' -> 'corrected 139 sentences'); deletions.py scans deskilling.html only."
     }
   ]
 }

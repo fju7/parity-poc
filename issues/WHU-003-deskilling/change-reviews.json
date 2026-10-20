@@ -110,6 +110,58 @@
           "other": ""
         }
       ]
+    },
+    {
+      "sha": "2af77801d4fa22c5",
+      "against": "32af4a9",
+      "changed": 1,
+      "changed_total": 1,
+      "withheld": [],
+      "withheld_note": "every changed sentence was reviewed",
+      "at": "2026-10-20T00:06:03+00:00",
+      "findings": [
+        {
+          "sentence": "Corrected 19 October 2026 On 18 and 19 October 2026 we re-read every sentence on this page above the change history at its foot, the standfirst included, against its source or our own records, and corrected 140 of them.",
+          "kind": "NEW_AND_UNBOUND",
+          "why": "carries 140 and rests on nothing this system can name",
+          "other": ""
+        },
+        {
+          "sentence": "Corrected 19 October 2026 On 18 and 19 October 2026 we re-read every sentence on this page above the change history at its foot, the standfirst included, against its source or our own records, and corrected 140 of them.",
+          "kind": "CONTRADICTION",
+          "why": "The standfirst states 'Evidence last read 18 October 2026', but the correction notice says the re-reading took place on both 18 and 19 October 2026, contradicting the single date given in the standfirst.",
+          "other": "Evidence last read 18 October 2026"
+        }
+      ]
+    },
+    {
+      "sha": "7a134c6064b48373",
+      "against": "32af4a9",
+      "changed": 2,
+      "changed_total": 2,
+      "withheld": [],
+      "withheld_note": "every changed sentence was reviewed",
+      "at": "2026-10-20T11:41:56+00:00",
+      "findings": [
+        {
+          "sentence": "Corrected 19 October 2026 On 18 and 19 October 2026 we re-read every sentence on this page above the change history at its foot, the standfirst included, against its source or our own records, and corrected 139 of them.",
+          "kind": "NEW_AND_UNBOUND",
+          "why": "carries 139 and rests on nothing this system can name",
+          "other": ""
+        },
+        {
+          "sentence": "Fortune told its readers that the endoscopists went from detecting potential polyps at a rate of 28.4% with the technology to 22.4% after they no longer had access to the AI tools they were introduced to .",
+          "kind": "CONTRADICTION",
+          "why": "The page states the 28.4% is the rate before the AI arrived and the 22.4% was measured while the AI was in routine use on other days — but this sentence is describing what Fortune printed, and the page explicitly says 'Neither half of that describes the study,' so the sentence itself is not a contradiction; however, the page's standfirst says 'in four Polish endoscopy centres, the rate at which experienced doctors found precancerous growths without AI fell from 28.4% to 22.4% after their units adopted it,' which correctly describes the design, and the Fortune sentence is presented as an error in Fortune's coverage, not as a claim by this page — no contradiction is created.",
+          "other": ""
+        },
+        {
+          "sentence": "Six points is the absolute fall and about a fifth — 21% — is the relative one, and both are true .",
+          "kind": "OURS",
+          "why": "The page performs its own calculation that 6 percentage points is approximately 21% of 28.4% and declares both figures 'true,' which is an inference and arithmetic the page itself performed rather than a figure reported by any named source.",
+          "other": ""
+        }
+      ]
     }
   ],
   "dispositions": [
@@ -162,6 +214,36 @@
       "on": "2026-10-19",
       "reason": "adjudicated (advisor, 2026-10-19): process claim; rests_on_record = corrections.md 19 October heading and the corrections page count (140).",
       "what_would_change_it": "the count no longer matching corrections.md's 19 October heading and the corrections page"
+    },
+    {
+      "key": "b8698eec480a0881",
+      "kind": "NEW_AND_UNBOUND",
+      "sentence": "Corrected 19 October 2026 On 18 and 19 October 2026 we re-read every sentence on this page above the change history at its foot, the standfirst included, against its source or our own records, and corrected 139 of them.",
+      "decision": "reject",
+      "by": "advisor ruling, relayed by Fred, 2026-10-20",
+      "on": "2026-10-20",
+      "reason": "Known false positive. The row is bound to the committed corrections.md 20 October entry (886c57b), which preflight rule 1 accepts. changecheck counts only span or premise bindings; that gap is queued. 139 was counted by script from the reconciled table.",
+      "what_would_change_it": "(written by Claude Code, not part of the ruling) binding row 5726f8e27b3c0b5f no longer resting on the committed corrections.md entries, or the count of 139 no longer matching the corrections page headings and the 19 October entry's pairs"
+    },
+    {
+      "key": "879e698698623001",
+      "kind": "CONTRADICTION",
+      "sentence": "Fortune told its readers that the endoscopists went from detecting potential polyps at a rate of 28.4% with the technology to 22.4% after they no longer had access to the AI tools they were introduced to .",
+      "decision": "reject",
+      "by": "advisor ruling, relayed by Fred, 2026-10-20",
+      "on": "2026-10-20",
+      "reason": "Dismissed. The finding's own reason says the sentence is presented as an error in Fortune's coverage, not as a claim by this page.",
+      "what_would_change_it": "(written by Claude Code, not part of the ruling) the page ceasing to present the Fortune sentence as Fortune's error (the following 'Neither half of that describes the study')"
+    },
+    {
+      "key": "50b93b14cf79436a",
+      "kind": "OURS",
+      "sentence": "Six points is the absolute fall and about a fifth — 21% — is the relative one, and both are true .",
+      "decision": "reject",
+      "by": "advisor ruling, relayed by Fred, 2026-10-20",
+      "on": "2026-10-20",
+      "reason": "Ours and correct: (28.4 − 22.4) / 28.4 = 6.0 / 28.4 = 21.1%. Both inputs are the source's figures, given earlier on this page in “In our reading the strongest evidence is real…” (sentence 6 of 449 above the change history, the standfirst); the sentence presents the comparison as the page's own. Not in this fix's changed set; left unchanged. Corrects an earlier draft of this ruling, which wrongly said the inputs were in the preceding sentence.",
+      "what_would_change_it": "(written by Claude Code, not part of the ruling) either input changing on the page (28.4% or 22.4%, given with their denominators at sentence 16, 226 of 795 and 145 of 648), the 21% no longer being 6.0 / 28.4 rounded, or the sentence ceasing to present the comparison as the page's own"
     }
   ],
   "acknowledged": [

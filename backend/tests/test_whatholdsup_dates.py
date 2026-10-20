@@ -111,7 +111,7 @@ def test_a_reconciliation_is_not_a_reader_facing_update():
     assert rec, "fixture gone: expected a record-live row"
     shown = I.expected("deskilling").get("updated")
     assert shown not in {I.editorial_date(r) for r in rec}
-    assert shown == date(2026, 10, 19)
+    assert shown == date(2026, 10, 20)
 
 
 # ---------------------------------------------------------------------------

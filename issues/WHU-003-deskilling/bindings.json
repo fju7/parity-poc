@@ -2335,7 +2335,8 @@
         {
           "path": "docs/whatholdsup-deskilling-revision.md",
           "quote": "Term search and a read of S023's whole passage on the study against S021's eleven limitations (first … tenth, finally): none appears.",
-          "sha": "fe62322ad04696c77db0b868518690acf4a6a44a"
+          "sha": "d07740c2edeed7bff166376f705728a47f3f3a9b",
+          "restamp_note": "re-stamped by Claude Code, 2026-10-20: quote present; no change within its paragraph since fe62322ad04696c77db0b868518690acf4a6a44a"
         }
       ],
       "checked_on": "2026-10-19"
@@ -2694,7 +2695,8 @@
         {
           "path": "issues/WHU-003-deskilling/watch.json",
           "quote": "This question's search was recorded as NOT RUN on 2026-08-30 and the piece was drafted anyway. Pedersen et al. had been in print for nearly three months.",
-          "sha": "f01883c220c00e46601a2f1e701c3c34980003aa"
+          "sha": "5beb4dd0958139158cf354b45668ce8d2330cd35",
+          "restamp_note": "re-stamped by Claude Code, 2026-10-20: quote present; no change within its paragraph since f01883c220c00e46601a2f1e701c3c34980003aa"
         },
         {
           "path": "issues/WHU-003-deskilling/sources.json",
@@ -4570,7 +4572,8 @@
         {
           "path": "docs/whatholdsup-deskilling-revision.md",
           "quote": "Term search and a read of S023's whole passage on the study against S021's eleven limitations (first … tenth, finally): none appears.",
-          "sha": "fe62322ad04696c77db0b868518690acf4a6a44a"
+          "sha": "d07740c2edeed7bff166376f705728a47f3f3a9b",
+          "restamp_note": "re-stamped by Claude Code, 2026-10-20: quote present; no change within its paragraph since fe62322ad04696c77db0b868518690acf4a6a44a"
         }
       ]
     },
@@ -10871,7 +10874,8 @@
         {
           "path": "docs/whatholdsup-deskilling-revision.md",
           "quote": "Crossref, checked 2026-10-18: only SSRN (10.2139/ssrn.6097646) and PsyArXiv/OSF (10.31234/osf.io/yk25n_v1) posted versions; no journal article.",
-          "sha": "fe62322ad04696c77db0b868518690acf4a6a44a"
+          "sha": "d07740c2edeed7bff166376f705728a47f3f3a9b",
+          "restamp_note": "re-stamped by Claude Code, 2026-10-20: quote present; no change within its paragraph since fe62322ad04696c77db0b868518690acf4a6a44a"
         }
       ],
       "proposed_by": "model",
@@ -12471,7 +12475,8 @@
         {
           "path": "issues/WHU-003-deskilling/corrections.md",
           "quote": "the evidence was read, <q>not a guarantee that anyone has looked since</q>.",
-          "sha": "f2096bdc41dff2afbf0c4c84dcf38d9fa8cc1fa3"
+          "sha": "89ae581cd47c54328c5709a7c291ba63d784d3bf",
+          "restamp_note": "re-stamped by Claude Code, 2026-10-20: quote present; no change within its paragraph since f2096bdc41dff2afbf0c4c84dcf38d9fa8cc1fa3"
         }
       ],
       "proposed_by": "model",
@@ -13095,12 +13100,14 @@
         {
           "path": "issues/WHU-003-deskilling/watch.json",
           "quote": "W1 — no registry search run",
-          "sha": "f01883c220c00e46601a2f1e701c3c34980003aa"
+          "sha": "5beb4dd0958139158cf354b45668ce8d2330cd35",
+          "restamp_note": "re-stamped by Claude Code, 2026-10-20: quote present; no change within its paragraph since f01883c220c00e46601a2f1e701c3c34980003aa"
         },
         {
           "path": "issues/WHU-003-deskilling/watch.json",
           "quote": "W2 — no citation sweep run",
-          "sha": "f01883c220c00e46601a2f1e701c3c34980003aa"
+          "sha": "5beb4dd0958139158cf354b45668ce8d2330cd35",
+          "restamp_note": "re-stamped by Claude Code, 2026-10-20: quote present; no change within its paragraph since f01883c220c00e46601a2f1e701c3c34980003aa"
         },
         {
           "path": "issues/WHU-003-deskilling/sources.json",
@@ -13146,12 +13153,14 @@
         {
           "path": "issues/WHU-003-deskilling/corrections.md",
           "quote": "Since 30 August this page's masthead has read <q>Last reviewed 30 August",
-          "sha": "f2096bdc41dff2afbf0c4c84dcf38d9fa8cc1fa3"
+          "sha": "89ae581cd47c54328c5709a7c291ba63d784d3bf",
+          "restamp_note": "re-stamped by Claude Code, 2026-10-20: quote present; no change within its paragraph since f2096bdc41dff2afbf0c4c84dcf38d9fa8cc1fa3"
         },
         {
           "path": "issues/WHU-003-deskilling/corrections.md",
           "quote": "we still think it is a good one: when somebody last looked is worth more to a",
-          "sha": "f2096bdc41dff2afbf0c4c84dcf38d9fa8cc1fa3"
+          "sha": "89ae581cd47c54328c5709a7c291ba63d784d3bf",
+          "restamp_note": "re-stamped by Claude Code, 2026-10-20: quote present; no change within its paragraph since f2096bdc41dff2afbf0c4c84dcf38d9fa8cc1fa3"
         }
       ],
       "proposed_by": "model",
@@ -13245,7 +13254,8 @@
         {
           "path": "issues/WHU-003-deskilling/corrections.md",
           "quote": "A review date implies the page is kept current, and we cannot stand behind that.",
-          "sha": "f2096bdc41dff2afbf0c4c84dcf38d9fa8cc1fa3"
+          "sha": "89ae581cd47c54328c5709a7c291ba63d784d3bf",
+          "restamp_note": "re-stamped by Claude Code, 2026-10-20: quote present; no change within its paragraph since f2096bdc41dff2afbf0c4c84dcf38d9fa8cc1fa3"
         }
       ],
       "proposed_by": "model",
@@ -16166,7 +16176,8 @@
         {
           "path": "docs/whatholdsup-deskilling-revision.md",
           "quote": "The held text was searched for \"suspen\", \"screening programme\", \"screening program\", \"withdrawal\", \"blind\", \"first 100\", \"familiar\", \"eleven\", \"confound\", \"1,382\" and \"doubl\": none occurs.",
-          "sha": "fe62322ad04696c77db0b868518690acf4a6a44a"
+          "sha": "d07740c2edeed7bff166376f705728a47f3f3a9b",
+          "restamp_note": "re-stamped by Claude Code, 2026-10-20: quote present; no change within its paragraph since fe62322ad04696c77db0b868518690acf4a6a44a"
         }
       ]
     },
@@ -21105,7 +21116,8 @@
         {
           "path": "issues/WHU-003-deskilling/watch.json",
           "quote": "W4 — NO retraction sweep run",
-          "sha": "f01883c220c00e46601a2f1e701c3c34980003aa"
+          "sha": "5beb4dd0958139158cf354b45668ce8d2330cd35",
+          "restamp_note": "re-stamped by Claude Code, 2026-10-20: quote present; no change within its paragraph since f01883c220c00e46601a2f1e701c3c34980003aa"
         }
       ],
       "proposed_by": "model",
@@ -21151,7 +21163,8 @@
         {
           "path": "issues/WHU-003-deskilling/watch.json",
           "quote": "no promise to the reader",
-          "sha": "f01883c220c00e46601a2f1e701c3c34980003aa"
+          "sha": "5beb4dd0958139158cf354b45668ce8d2330cd35",
+          "restamp_note": "re-stamped by Claude Code, 2026-10-20: quote present; no change within its paragraph since f01883c220c00e46601a2f1e701c3c34980003aa"
         }
       ],
       "proposed_by": "model",
@@ -21461,7 +21474,8 @@
         {
           "path": "issues/WHU-003-deskilling/corrections.md",
           "quote": "Neither of those is what a reader takes from a review date on a page. A review date implies the page is kept current, and we cannot stand behind that",
-          "sha": "f2096bdc41dff2afbf0c4c84dcf38d9fa8cc1fa3"
+          "sha": "89ae581cd47c54328c5709a7c291ba63d784d3bf",
+          "restamp_note": "re-stamped by Claude Code, 2026-10-20: quote present; no change within its paragraph since f2096bdc41dff2afbf0c4c84dcf38d9fa8cc1fa3"
         },
         {
           "path": "issues/WHU-003-deskilling/review/2026-09-12-modest-promise-ruling.md",
@@ -21508,12 +21522,14 @@
         {
           "path": "issues/WHU-003-deskilling/sweeps.json",
           "quote": "\"command\": \"registry\"",
-          "sha": "d5140896e9123c05f25fb199076444f88194ace8"
+          "sha": "fbd11f832c766db56ad408976c7f21d8072040b2",
+          "restamp_note": "re-stamped by Claude Code, 2026-10-20: quote present; no change within its paragraph since d5140896e9123c05f25fb199076444f88194ace8"
         },
         {
           "path": "issues/WHU-003-deskilling/sweeps.json",
           "quote": "\"sources_queried\": 0",
-          "sha": "d5140896e9123c05f25fb199076444f88194ace8"
+          "sha": "fbd11f832c766db56ad408976c7f21d8072040b2",
+          "restamp_note": "re-stamped by Claude Code, 2026-10-20: quote present; no change within its paragraph since d5140896e9123c05f25fb199076444f88194ace8"
         }
       ],
       "proposed_by": "model",
@@ -23401,7 +23417,8 @@
         {
           "path": "docs/whatholdsup-deskilling-revision.md",
           "quote": "The held text was searched for \"suspen\", \"screening programme\", \"screening program\", \"1,382\", \"1382\", \"doubl\", \"795\", \"withdrawal\", \"blind\", \"first 100\", \"familiar\", \"limitation\", \"retrospective\" and \"confound\": none occurs except \"blind\", twice, both in \"AI-blind reading slots\"",
-          "sha": "fe62322ad04696c77db0b868518690acf4a6a44a"
+          "sha": "d07740c2edeed7bff166376f705728a47f3f3a9b",
+          "restamp_note": "re-stamped by Claude Code, 2026-10-20: quote present; no change within its paragraph since fe62322ad04696c77db0b868518690acf4a6a44a"
         }
       ]
     },
@@ -23701,59 +23718,6 @@
       "proposed_on": "2026-10-19",
       "confirmed": true,
       "why_bound": "republish step 2 (2026-10-19): Goldin's entry note: the EEG result as weaker connectivity, the MIT brand carrying the story, the newsletter's name and date, all in S013's held page; every span an exact substring of the held text, every record quote in the committed file or commit message; confirmed at the operator's instruction (brief of 2026-10-19, step 9).",
-      "checked_on": "2026-10-19"
-    },
-    "51bd7e34f2215252": {
-      "sentence": "Published 30 August 2026 · Updated 19 October 2026 · Evidence last read 18 October 2026 · what we are watching",
-      "sentence_sha": "51bd7e34f2215252",
-      "why_empirical": "source claim: 'Published'",
-      "bucket": "deterministic",
-      "source_id": null,
-      "document_sha": null,
-      "locator_type": null,
-      "locator": null,
-      "span": null,
-      "envelope": null,
-      "scope_words": [],
-      "falsifier": null,
-      "verdicts": {
-        "locatable": {
-          "by": "Fred Ugast",
-          "on": "2026-10-19",
-          "note": "binding written at republish step 2b (advisor's rulings of 2026-10-19): read against held text and WHU's committed records by Claude Code; every span an exact substring of the held text, every record quote in the committed file"
-        },
-        "faithful": {
-          "by": "Fred Ugast",
-          "on": "2026-10-19",
-          "note": "binding written at republish step 2b (advisor's rulings of 2026-10-19): read against held text and WHU's committed records by Claude Code; every span an exact substring of the held text, every record quote in the committed file"
-        },
-        "warranted": null
-      },
-      "first_seen": "2026-10-19",
-      "trigger": "source_claim",
-      "on_page": true,
-      "rests_on_record": [
-        {
-          "path": "issues/WHU-003-deskilling/corrections.md",
-          "quote": "Since 30 August this page's masthead has read",
-          "sha": "f2096bdc41dff2afbf0c4c84dcf38d9fa8cc1fa3"
-        },
-        {
-          "path": "docs/whatholdsup-deskilling-revision.md",
-          "quote": "## Batch 5 (2026-10-18): the remaining unbound rows",
-          "sha": "fe62322ad04696c77db0b868518690acf4a6a44a"
-        },
-        {
-          "path": "issues/WHU-003-deskilling/corrections.md",
-          "quote": "19 October 2026 — we re-read this page and corrected 140 of its sentences",
-          "sha": "f2096bdc41dff2afbf0c4c84dcf38d9fa8cc1fa3"
-        }
-      ],
-      "proposed_by": "model",
-      "proposed_on": "2026-10-19",
-      "confirmed": true,
-      "why_bound": "republish step 2b (2026-10-19): the masthead: published since 30 August, updated 19 October (the corrections.md entry of that date, now 137), evidence last read 18 October; every span an exact substring of the held text, every record quote in the committed file; confirmed at the operator's instruction (brief of 2026-10-19, step 2b). Step 2c (2026-10-19): the corrections.md heading now counts 139; record repointed.",
-      "check_flags": [],
       "checked_on": "2026-10-19"
     },
     "1e194600b205953e": {
@@ -26999,7 +26963,8 @@
         {
           "path": "docs/whatholdsup-deskilling-revision.md",
           "quote": "arXiv v6 (13 October 2026) is now S001's primary rendition, v4 held beside it. The page's S001 figures are v6's",
-          "sha": "fe62322ad04696c77db0b868518690acf4a6a44a"
+          "sha": "d07740c2edeed7bff166376f705728a47f3f3a9b",
+          "restamp_note": "re-stamped by Claude Code, 2026-10-20: quote present; no change within its paragraph since fe62322ad04696c77db0b868518690acf4a6a44a"
         }
       ],
       "proposed_by": "model",
@@ -27055,7 +27020,8 @@
         {
           "path": "docs/whatholdsup-deskilling-revision.md",
           "quote": "the COLM 2026 header; no pre-registration statement.",
-          "sha": "fe62322ad04696c77db0b868518690acf4a6a44a"
+          "sha": "d07740c2edeed7bff166376f705728a47f3f3a9b",
+          "restamp_note": "re-stamped by Claude Code, 2026-10-20: quote present; no change within its paragraph since fe62322ad04696c77db0b868518690acf4a6a44a"
         }
       ],
       "proposed_by": "model",
@@ -27105,17 +27071,20 @@
         {
           "path": "issues/WHU-003-deskilling/sweeps.json",
           "quote": "\"command\": \"registry\"",
-          "sha": "d5140896e9123c05f25fb199076444f88194ace8"
+          "sha": "fbd11f832c766db56ad408976c7f21d8072040b2",
+          "restamp_note": "re-stamped by Claude Code, 2026-10-20: quote present; no change within its paragraph since d5140896e9123c05f25fb199076444f88194ace8"
         },
         {
           "path": "issues/WHU-003-deskilling/sweeps.json",
           "quote": "\"sources_queried\": 0",
-          "sha": "d5140896e9123c05f25fb199076444f88194ace8"
+          "sha": "fbd11f832c766db56ad408976c7f21d8072040b2",
+          "restamp_note": "re-stamped by Claude Code, 2026-10-20: quote present; no change within its paragraph since d5140896e9123c05f25fb199076444f88194ace8"
         },
         {
           "path": "issues/WHU-003-deskilling/corrections.md",
           "quote": "said we can see a trial registry move, which was wrong",
-          "sha": "f2096bdc41dff2afbf0c4c84dcf38d9fa8cc1fa3"
+          "sha": "89ae581cd47c54328c5709a7c291ba63d784d3bf",
+          "restamp_note": "re-stamped by Claude Code, 2026-10-20: quote present; no change within its paragraph since f2096bdc41dff2afbf0c4c84dcf38d9fa8cc1fa3"
         }
       ],
       "proposed_by": "model",
@@ -27455,12 +27424,14 @@
         {
           "path": "docs/whatholdsup-deskilling-revision.md",
           "quote": "Crossref, checked 2026-10-18: only SSRN (10.2139/ssrn.6097646) and PsyArXiv/OSF (10.31234/osf.io/yk25n_v1) posted versions; no journal article.",
-          "sha": "fe62322ad04696c77db0b868518690acf4a6a44a"
+          "sha": "d07740c2edeed7bff166376f705728a47f3f3a9b",
+          "restamp_note": "re-stamped by Claude Code, 2026-10-20: quote present; no change within its paragraph since fe62322ad04696c77db0b868518690acf4a6a44a"
         },
         {
           "path": "docs/whatholdsup-deskilling-revision.md",
           "quote": "the brain-scan preprint, the working paper and the comment now each carry their status in the body text",
-          "sha": "fe62322ad04696c77db0b868518690acf4a6a44a"
+          "sha": "d07740c2edeed7bff166376f705728a47f3f3a9b",
+          "restamp_note": "re-stamped by Claude Code, 2026-10-20: quote present; no change within its paragraph since fe62322ad04696c77db0b868518690acf4a6a44a"
         }
       ],
       "proposed_by": "model",
@@ -27611,57 +27582,6 @@
       "check_flags": [],
       "checked_on": "2026-10-19"
     },
-    "2c1c5cc555e1b69a": {
-      "sentence": "Corrected 19 October 2026 On 19 October 2026 we re-read every sentence on this page above the change history at its foot, the standfirst included, against its source or our own records, and corrected 140 of them.",
-      "sentence_sha": "2c1c5cc555e1b69a",
-      "why_empirical": "the bare integer 140 is a quantity",
-      "bucket": "deterministic",
-      "source_id": null,
-      "document_sha": null,
-      "locator_type": null,
-      "locator": null,
-      "span": null,
-      "envelope": null,
-      "scope_words": [],
-      "falsifier": null,
-      "verdicts": {
-        "locatable": {
-          "by": "Fred Ugast",
-          "on": "2026-10-19",
-          "note": "binding written at republish step 2e (advisor's ruling of 2026-10-19 on the Greengard note): read against held text and WHU's committed records by Claude Code; every span an exact substring of the held text, every record quote in the committed file"
-        },
-        "faithful": {
-          "by": "Fred Ugast",
-          "on": "2026-10-19",
-          "note": "binding written at republish step 2e (advisor's ruling of 2026-10-19 on the Greengard note): read against held text and WHU's committed records by Claude Code; every span an exact substring of the held text, every record quote in the committed file"
-        },
-        "warranted": null
-      },
-      "first_seen": "2026-10-19",
-      "on_page": true,
-      "rests_on_record": [
-        {
-          "path": "docs/whatholdsup-deskilling-revision.md",
-          "quote": "the page now carries 140 corrected sentences, the 139 above and this one",
-          "sha": "fe62322ad04696c77db0b868518690acf4a6a44a"
-        },
-        {
-          "path": "docs/whatholdsup-deskilling-revision.md",
-          "quote": "every sentence above the change history at its foot, the standfirst included, was read against its source or our own records",
-          "sha": "fe62322ad04696c77db0b868518690acf4a6a44a"
-        },
-        {
-          "path": "issues/WHU-003-deskilling/corrections.md",
-          "quote": "19 October 2026 — we re-read this page and corrected 140 of its sentences",
-          "sha": "f2096bdc41dff2afbf0c4c84dcf38d9fa8cc1fa3"
-        }
-      ],
-      "proposed_by": "model",
-      "proposed_on": "2026-10-19",
-      "confirmed": true,
-      "why_bound": "republish step 2e (2026-10-19): the notice at 140: the revision record and the corrections.md entry of 19 October 2026; every span an exact substring of the held text, every record quote in the committed file; confirmed at the operator's instruction (brief of 2026-10-19, step 2e).",
-      "check_flags": []
-    },
     "3e8546ad5649c4c5": {
       "sentence": "Greengard S, “The AI Deskilling Paradox”, Communications of the ACM , 7 November 2025 , carries none of this study’s limitations but does carry caveats of its own, on governance and on deskilling having good outcomes as well as bad ones; we had described it as carrying no caveats at all, and that was wrong.",
       "sentence_sha": "3e8546ad5649c4c5",
@@ -27737,6 +27657,113 @@
         }
       ],
       "checked_on": "2026-10-19"
+    },
+    "5726f8e27b3c0b5f": {
+      "sentence": "Corrected 19 October 2026 On 18 and 19 October 2026 we re-read every sentence on this page above the change history at its foot, the standfirst included, against its source or our own records, and corrected 139 of them.",
+      "sentence_sha": "5726f8e27b3c0b5f",
+      "why_empirical": "the bare integer 139 is a quantity",
+      "bucket": "deterministic",
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-10-20",
+      "on_page": true,
+      "rests_on_record": [
+        {
+          "path": "issues/WHU-003-deskilling/corrections.md",
+          "quote": "19 October 2026 — we re-read this page and corrected 139 of its sentences",
+          "sha": "89ae581cd47c54328c5709a7c291ba63d784d3bf"
+        },
+        {
+          "path": "issues/WHU-003-deskilling/corrections.md",
+          "quote": "139 were wrong and are corrected",
+          "sha": "89ae581cd47c54328c5709a7c291ba63d784d3bf"
+        },
+        {
+          "path": "issues/WHU-003-deskilling/corrections.md",
+          "quote": "On 18 and 19 October 2026 every sentence on this page above the change history at its foot, the standfirst included, was read against its source or our own records",
+          "sha": "89ae581cd47c54328c5709a7c291ba63d784d3bf"
+        }
+      ],
+      "proposed_by": "model",
+      "proposed_on": "2026-10-20",
+      "confirmed": false,
+      "why_bound": "deskilling fixes finish, step 5b (2026-10-20): the notice at 139 (and 18 and 19 October): the corrections.md entry of 19 October 2026 as rebuilt from the reconciled table (4a62ab8); every record quote checked against the committed file by bindings.record_entry. Unsigned: written by Claude Code; awaiting Fred's own statement.",
+      "check_flags": [],
+      "rekeyed_from": {
+        "sentence_sha": "2c1c5cc555e1b69a",
+        "sentence": "Corrected 19 October 2026 On 19 October 2026 we re-read every sentence on this page above the change history at its foot, the standfirst included, against its source or our own records, and corrected 140 of them.",
+        "on": "2026-10-20"
+      }
+    },
+    "be8a0d1aa42078c6": {
+      "sentence": "Published 30 August 2026 · Updated 20 October 2026 · Evidence last read 19 October 2026 · what we are watching",
+      "sentence_sha": "be8a0d1aa42078c6",
+      "why_empirical": "source claim: 'Published'",
+      "bucket": "deterministic",
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-10-20",
+      "trigger": "source_claim",
+      "on_page": true,
+      "rests_on_record": [
+        {
+          "path": "issues/WHU-003-deskilling/corrections.md",
+          "quote": "Since 30 August this page's masthead has read",
+          "sha": "89ae581cd47c54328c5709a7c291ba63d784d3bf"
+        },
+        {
+          "path": "issues/WHU-003-deskilling/corrections.md",
+          "quote": "The re-read of 18 and 19 October read every sentence against its source, so the evidence was last read on 19 October.",
+          "sha": "89ae581cd47c54328c5709a7c291ba63d784d3bf"
+        },
+        {
+          "path": "issues/WHU-003-deskilling/corrections.md",
+          "quote": "Now: Evidence last read 19 October 2026",
+          "sha": "89ae581cd47c54328c5709a7c291ba63d784d3bf"
+        },
+        {
+          "path": "issues/WHU-003-deskilling/corrections.md",
+          "quote": "Now: Updated 20 October 2026",
+          "sha": "89ae581cd47c54328c5709a7c291ba63d784d3bf"
+        },
+        {
+          "path": "issues/WHU-003-deskilling/corrections.md",
+          "quote": "Published 30 August 2026 · Updated 20 October 2026 · Evidence last read 19 October 2026 · what we are watching",
+          "sha": "89ae581cd47c54328c5709a7c291ba63d784d3bf"
+        }
+      ],
+      "proposed_by": "model",
+      "proposed_on": "2026-10-20",
+      "confirmed": false,
+      "why_bound": "preflight STOPs brief, step 2 (2026-10-20): the header at Updated 20 October / evidence last read 19 October: the corrections.md entry of 20 October 2026 (886c57b); every record quote checked against the committed file by bindings.record_entry. Unsigned: written by Claude Code; awaiting Fred's own statement.",
+      "check_flags": [],
+      "rekeyed_from": {
+        "sentence_sha": "51bd7e34f2215252",
+        "sentence": "Published 30 August 2026 · Updated 19 October 2026 · Evidence last read 18 October 2026 · what we are watching",
+        "on": "2026-10-20"
+      }
     }
   }
 }
