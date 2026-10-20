@@ -327,3 +327,26 @@ def test_a_recency_finding_goes_to_the_ruling_model_with_the_sentence_and_the_bo
     assert "UNKNOWN" in pr and "the 12-week readout" in pr             # the recency result
     assert "Quotation 1" in pr and "reduced weight by 2 kg" in pr      # the bound passage, in context
     _no_leaks(fake.prompts)
+
+
+def test_a_dangling_reference_goes_to_the_ruling_model_with_both_sentences(study):
+    d, P = study
+    old = "In the UPDATE trial, the intervention cut weight by 2 kg in 12 weeks."
+    new = "In the trial, the intervention cut weight by 2 kg in 12 weeks."
+    later = "The UPDATE authors call the effect modest."
+    (d / "rulings").mkdir(exist_ok=True)
+    (d / "rulings" / "rulings.jsonl").write_text(json.dumps(
+        {"at": "2026-10-21T10:00:00+00:00", "ruling_kind": "conclusion", "ruling": "amend", "text": new,
+         "inputs": {"sentence": old}}) + "\n")
+    page = "<html><body><p>An opening sentence stands here.</p><p>%s %s</p></body></html>" % (new, later)
+    rows = {"k1": dict(ROW, sentence=later)}
+    fake = Fake({"ruling": "amend", "text": "Its authors call the effect modest.", "reason": "r"})
+    done = R.rule_dangling("xq", fake, P=P, rows=rows, held=HELD, page_html=page, case=d)
+    assert [x["term"] for x in done] == ["UPDATE"] and len(fake.prompts) == 1
+    assert later in fake.prompts[0] and new in fake.prompts[0]          # both sentences
+    assert "reduced weight by 2 kg" in fake.prompts[0]                  # the later sentence's passages
+    _no_leaks(fake.prompts)
+    rec = _log(d)[-1]
+    assert rec["ruling_kind"] == "dangling" and rec["term"] == "UPDATE"
+    # ruled once: the same (term, sentence) is not ruled again
+    assert R.rule_dangling("xq", fake, P=P, rows=rows, held=HELD, page_html=page, case=d) == []

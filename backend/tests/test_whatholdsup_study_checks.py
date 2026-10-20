@@ -160,3 +160,35 @@ def test_a_withdrawal_needs_a_reason_and_a_withdrawn_run_is_never_the_latest(tmp
         A.withdraw(new, "  ")
     A.withdraw(new, "documents delivered empty (GAP-015)")
     assert A.latest_run("x") == old
+
+
+# --- GAP-016: a ruling that removes a term a later sentence relies on ------------
+
+INTRO_OLD = "In the UPDATE trial, 20 adults ate both diets for two weeks."
+INTRO_NEW = "In the trial, 20 adults ate both diets for two weeks."
+LATER = "The UPDATE authors report that energy intake rose."
+
+
+def test_the_update_case_is_found(tmp_path):
+    ruling(tmp_path, INTRO_NEW, ruled_on=INTRO_OLD)
+    found = AC.dangling(tmp_path, page(INTRO_NEW, LATER))
+    assert [(f["term"], f["later_sentence"]) for f in found] == [("UPDATE", LATER)]
+    assert found[0]["applied_sentence"] == INTRO_NEW
+
+
+def test_a_term_still_introduced_earlier_is_not_dangling(tmp_path):
+    ruling(tmp_path, INTRO_NEW, ruled_on=INTRO_OLD)
+    assert AC.dangling(tmp_path, page("The UPDATE trial was a crossover study.", INTRO_NEW, LATER)) == []
+
+
+def test_a_term_used_nowhere_later_is_not_dangling_and_a_cut_counts(tmp_path):
+    ruling(tmp_path, INTRO_NEW, ruled_on=INTRO_OLD)
+    assert AC.dangling(tmp_path, page(INTRO_NEW, "The authors report that energy intake rose.")) == []
+    ruling(tmp_path / "cut", "", ruled_on=INTRO_OLD)
+    found = AC.dangling(tmp_path / "cut", page(LATER))
+    assert [f["term"] for f in found] == ["UPDATE"] and found[0]["applied_sentence"] == "(cut)"
+
+
+def test_terms_are_acronyms_short_forms_and_names_not_sentence_starts():
+    assert AC.terms("The UPDATE trial (UPF) was run by Hall and Monteiro in NOVA group 4.") == \
+        {"UPDATE", "UPF", "NOVA", "Hall", "Monteiro"}

@@ -5,6 +5,8 @@
     ruling.py conclusions SLUG [--cap USD]   rule every undecided conclusion-judge flag
     ruling.py changecheck SLUG [--cap USD]   rule every undisposed changecheck finding
     ruling.py advocate SLUG [--cap USD]      rule every open source-advocate objection
+    ruling.py dangling SLUG [--cap USD]      rule every reference an applied ruling left
+                                             pointing at nothing (GAP-016)
 
 WHY THIS EXISTS
 ---------------
@@ -85,6 +87,7 @@ PROMPTS = {
     "gate": HERE / "audit_prompts" / "rule_cite.md",
     "changecheck": HERE / "audit_prompts" / "rule.md",
     "advocate": HERE / "audit_prompts" / "rule.md",
+    "dangling": HERE / "audit_prompts" / "rule.md",
 }
 
 
@@ -502,10 +505,53 @@ def rule_advocate(slug: str, call, *, P=None, rows: dict | None = None,
     return done
 
 
+def rule_dangling(slug: str, call, *, P=None, rows: dict | None = None, held: dict | None = None,
+                  page_html: str | None = None, case: Path | None = None) -> list[dict]:
+    """Rule every term an applied ruling removed that a later sentence still
+    uses while no earlier sentence now introduces it (applied_check.dangling).
+    The model gets the later sentence, the finding (both sentences: the later
+    one, and the applied text that no longer introduces the term) and the
+    later sentence's bound passages. A (term, sentence) already ruled is not
+    ruled again."""
+    import applied_check as AC
+    import source_store as store
+    P = P or _publish()
+    require_study(slug, P)
+    case = case or store.case_dir(slug)
+    if page_html is None:
+        page_html = (P.ROOT / P.issue_cfg(slug)["page"]).read_text(encoding="utf-8")
+    if rows is None:
+        import bindings as B
+        rows = B.load(slug).get("bindings") or {}
+    if held is None:
+        held = held_texts(slug)
+    done_before = set()
+    lp = case / "rulings" / "rulings.jsonl"
+    if lp.exists():
+        for line in lp.read_text(encoding="utf-8").splitlines():
+            r = json.loads(line) if line.strip() else {}
+            if r.get("ruling_kind") == "dangling":
+                done_before.add((r.get("term"), (r.get("inputs") or {}).get("sentence")))
+    done = []
+    for f in AC.dangling(case, page_html):
+        if (f["term"], f["later_sentence"]) in done_before:
+            continue
+        hit = _row_for(rows, f["later_sentence"])
+        quotes = quotations(hit[1], held) if hit else []
+        reason = ("It uses %r, which no earlier sentence on the page now introduces: a ruling "
+                  "changed the sentence that did, which now reads: %s"
+                  % (f["term"], json.dumps(f["applied_sentence"], ensure_ascii=False)))
+        p = payload(f["later_sentence"], "dangling reference", reason, "", quotes, held)
+        got = rule("dangling", p, len(quotes), call, lp,
+                   {"term": f["term"], "after_ruling": f["log"], "row": hit[0] if hit else None})
+        done.append({"term": f["term"], **got})
+    return done
+
+
 def main(argv=None) -> int:
     ap = argparse.ArgumentParser(description=__doc__.split("\n\n")[0])
     sub = ap.add_subparsers(dest="cmd", required=True)
-    for name in ("gate", "conclusions", "changecheck", "advocate"):
+    for name in ("gate", "conclusions", "changecheck", "advocate", "dangling"):
         s = sub.add_parser(name)
         s.add_argument("slug")
         s.add_argument("--cap", type=float, default=50.0,
@@ -514,7 +560,8 @@ def main(argv=None) -> int:
     import audit_stage as A
     call = A.Caller(cap=a.cap, ledger_issue=a.slug)
     fn = {"gate": rule_gate, "conclusions": rule_conclusions,
-          "changecheck": rule_changecheck, "advocate": rule_advocate}[a.cmd]
+          "changecheck": rule_changecheck, "advocate": rule_advocate,
+          "dangling": rule_dangling}[a.cmd]
     done = fn(a.slug, call)
     print("  %d ruling(s) recorded; log: %s" % (len(done), log_path(a.slug)))
     print("  usd this run: %.4f" % sum((c.get("usd") or 0) for c in call.calls))

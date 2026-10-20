@@ -35,6 +35,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import re
 import sys
 from datetime import datetime, timezone
 from pathlib import Path
@@ -119,9 +120,74 @@ def check(case: Path, page_html: str) -> dict:
     return out
 
 
+# --------------------------------------------------------------------------
+# References a ruling left pointing at nothing (GAP-016)
+# --------------------------------------------------------------------------
+#
+# Rulings are applied one sentence at a time, so a ruling can remove a name or
+# a term a later sentence relies on. WHU-P02: 'UPDATE' was removed from the
+# sentence that introduced the trial, and a later sentence still says "The
+# UPDATE authors"; the reader and the second reader both held it.
+
+_ACRONYM = re.compile(r"\b[A-Z][A-Z0-9]+(?:-[A-Z0-9]+)*\b")
+_NAME = re.compile(r"\b[A-Z][a-z]+(?:[A-Z][a-z]+)*\b")
+_NOT_NAMES = {"The", "This", "That", "These", "Those", "There", "Their", "They", "In", "On", "At",
+              "As", "An", "And", "But", "For", "Of", "Or", "It", "Its", "We", "Our", "Us", "If",
+              "When", "Where", "Which", "What", "Who", "With", "From", "By", "To", "Into", "Each",
+              "All", "Some", "Both", "One", "Two", "Three", "Most", "Many", "No", "Not", "Yet"}
+
+
+def terms(sentence: str) -> set[str]:
+    """Acronyms and defined short forms (UPDATE, UPF, NOVA, HR), and capitalised
+    names not at the start of the sentence (Hall, Monteiro)."""
+    s = sentence or ""
+    out = {m.group(0) for m in _ACRONYM.finditer(s) if len(m.group(0)) >= 2}
+    first = re.match(r"\s*\W*(\w+)", s)
+    for m in _NAME.finditer(s):
+        w = m.group(0)
+        if w in _NOT_NAMES or (first and m.start(0) == first.start(1)):
+            continue
+        out.add(w)
+    return out
+
+
+def _uses(term: str, sentence: str) -> bool:
+    return re.search(r"(?<![A-Za-z0-9])%s(?![A-Za-z0-9])" % re.escape(term), sentence or "") is not None
+
+
+def dangling(case: Path, page_html: str) -> list[dict]:
+    """Every term an applied ruling removed that a later sentence still uses
+    while no earlier sentence now introduces it. One finding per (term, later
+    sentence)."""
+    res = check(case, page_html)
+    page = page_sentences(page_html)
+    out, seen = [], set()
+    for r in res["checked"]:
+        old = " ".join((r.get("ruled_on") or "").split())
+        new = " ".join((r.get("text") or "").split())
+        removed = terms(old) - terms(new)
+        if not removed:
+            continue
+        new_first = norm_sentences(new)[0] if new else None
+        at = page.index(new_first) if new_first in page else -1        # -1: cut, or not found
+        for term in sorted(removed):
+            first = next((i for i, s in enumerate(page) if _uses(term, s)), None)
+            if first is None or first <= at:
+                continue                                                # unused, or still introduced earlier
+            key = (term, page[first])
+            if key in seen:
+                continue
+            seen.add(key)
+            out.append({"term": term, "applied_sentence": new or "(cut)", "ruled_on": old,
+                        "later_sentence": page[first], "log": r["log"]})
+    return out
+
+
 def main(argv=None) -> int:
     ap = argparse.ArgumentParser(description=__doc__.split("\n\n")[0])
     ap.add_argument("slug")
+    ap.add_argument("--dangling", action="store_true",
+                    help="list references an applied ruling left pointing at nothing (GAP-016)")
     a = ap.parse_args(argv)
     import publish as P
     import source_store as store
@@ -129,6 +195,13 @@ def main(argv=None) -> int:
         raise SystemExit("%s is not a study issue (issue.json \"study\": true)" % a.slug)
     case = store.case_dir(a.slug)
     page_html = (P.ROOT / P.issue_cfg(a.slug)["page"]).read_text(encoding="utf-8")
+    if a.dangling:
+        found = dangling(case, page_html)
+        for f in found:
+            print("  DANGLING  %r: removed from %r; still used in %r"
+                  % (f["term"], f["applied_sentence"][:80], f["later_sentence"][:80]))
+        print("\n  %d reference(s) pointing at nothing\n" % len(found))
+        return 1 if found else 0
     res = check(case, page_html)
     rec = {"at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
            "page_sha256": hashlib.sha256(page_html.encode("utf-8")).hexdigest(),
