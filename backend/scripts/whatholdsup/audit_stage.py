@@ -1077,13 +1077,23 @@ def is_withdrawn(run_dir: Path) -> dict | None:
 def withdraw(run_dir: Path, reason: str, on: str | None = None) -> dict:
     """Mark a run withdrawn in its manifest, with the reason and the date. Its
     rulings are then not expected on the page (applied_check) and it is never
-    the run preflight reads (latest_run). Nothing else in the run changes."""
+    the run preflight reads (latest_run). Nothing else in the run changes.
+
+    A LIST, NOT A FIELD (2026-10-20). Withdrawing a run again appends the new
+    reason to "reasons", each with its date, oldest first; "reason" and "on"
+    are the latest. Until then the second withdrawal overwrote the first:
+    WHU-P02's 20261020T173234Z lost "documents delivered empty (GAP-015)" when
+    it was withdrawn again for "made before ruling payloads carried context"."""
     mp = Path(run_dir) / "manifest.json"
     m = json.loads(mp.read_text(encoding="utf-8"))
     if not (reason or "").strip():
         raise ValueError("a withdrawal needs a reason")
-    m["withdrawn"] = {"reason": reason.strip(),
-                      "on": on or datetime.now(timezone.utc).date().isoformat()}
+    rec = {"reason": reason.strip(), "on": on or datetime.now(timezone.utc).date().isoformat()}
+    old = m.get("withdrawn") if isinstance(m.get("withdrawn"), dict) else {}
+    reasons = list(old.get("reasons") or ([{"reason": old["reason"], "on": old.get("on")}]
+                                          if old.get("reason") else []))
+    reasons.append(rec)
+    m["withdrawn"] = dict(rec, reasons=reasons)
     mp.write_text(json.dumps(m, indent=1, ensure_ascii=False), encoding="utf-8")
     return m["withdrawn"]
 

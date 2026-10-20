@@ -145,7 +145,8 @@ def test_rulings_from_a_withdrawn_run_are_not_expected_on_the_page(tmp_path):
     d = _manifest(tmp_path, "20261020T173234Z")
     assert len(AC.check(tmp_path, page(OLD))["mismatches"]) == 1        # expected, and not applied
     w = A.withdraw(d, "documents delivered empty (GAP-015)", on="2026-10-20")
-    assert w == {"reason": "documents delivered empty (GAP-015)", "on": "2026-10-20"}
+    assert w["reason"] == "documents delivered empty (GAP-015)" and w["on"] == "2026-10-20"
+    assert w["reasons"] == [{"reason": "documents delivered empty (GAP-015)", "on": "2026-10-20"}]
     res = AC.check(tmp_path, page(OLD))
     assert res["mismatches"] == [] and res["checked"] == []             # the withdrawn run is not read
 
@@ -160,6 +161,24 @@ def test_a_withdrawal_needs_a_reason_and_a_withdrawn_run_is_never_the_latest(tmp
         A.withdraw(new, "  ")
     A.withdraw(new, "documents delivered empty (GAP-015)")
     assert A.latest_run("x") == old
+
+
+def test_a_second_withdrawal_appends_its_reason_and_keeps_the_first(tmp_path):
+    A = _load("audit_stage")
+    d = _manifest(tmp_path, "20261020T173234Z")
+    A.withdraw(d, "documents delivered empty (GAP-015)", on="2026-10-20")
+    w = A.withdraw(d, "made before ruling payloads carried context (0b39fb3)", on="2026-10-21")
+    assert w["reasons"] == [{"reason": "documents delivered empty (GAP-015)", "on": "2026-10-20"},
+                            {"reason": "made before ruling payloads carried context (0b39fb3)",
+                             "on": "2026-10-21"}]
+    assert w["reason"].startswith("made before") and A.is_withdrawn(d) == w
+
+
+def test_a_withdrawal_written_before_the_list_keeps_its_reason(tmp_path):
+    A = _load("audit_stage")
+    d = _manifest(tmp_path, "r", withdrawn={"reason": "first", "on": "2026-10-20"})
+    w = A.withdraw(d, "second", on="2026-10-20")
+    assert [r["reason"] for r in w["reasons"]] == ["first", "second"]
 
 
 # --- GAP-016: a ruling that removes a term a later sentence relies on ------------
