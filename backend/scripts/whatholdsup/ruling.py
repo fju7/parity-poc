@@ -260,6 +260,7 @@ def gate_items(report: dict, findings_doc: dict) -> list[dict]:
     objs = report.get("objections") or []
     infs = report.get("inferences") or []
     cov = (report.get("coverage") or {}).get("contradictions") or []
+    rec = (report.get("recency") or {}).get("studies") or []
     out = []
     for f in findings_doc.get("findings") or []:
         if (f.get("decision") or "").strip():
@@ -274,6 +275,14 @@ def gate_items(report: dict, findings_doc: dict) -> list[dict]:
             o = cov[int(fid[4:]) - 1]; text, fix = o.get("quote") or "", o.get("fix") or ""
         elif fid in claims:
             text = claims[fid].get("claim") or ""
+        elif fid.startswith("rec-") and fid[4:].isdigit() and int(fid[4:]) <= len(rec):
+            # A recency study that is not CURRENT (GAP-014): the sentence is the
+            # one that relies on that readout, found by the study's name or by
+            # the readout the gate says the draft uses.
+            s = rec[int(fid[4:]) - 1]
+            text = s.get("name") or ""
+            out.append({"finding": f, "text": text, "fix": "", "alt": s.get("draft_uses") or ""})
+            continue
         out.append({"finding": f, "text": text, "fix": fix})
     return out
 
@@ -296,7 +305,7 @@ def rule_gate(slug: str, call, *, P=None, report: dict | None = None, rows: dict
     done = []
     for it in gate_items(report, doc):
         f = it["finding"]
-        hit = _row_for(rows, it["text"])
+        hit = _row_for(rows, it["text"]) or (_row_for(rows, it["alt"]) if it.get("alt") else None)
         sentence = hit[1]["sentence"] if hit else it["text"]
         quotes = quotations(hit[1], held) if hit else []
         p = payload(sentence, "gate %s finding (%s)" % (f.get("kind"), f.get("gate_verdict")),

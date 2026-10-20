@@ -212,10 +212,18 @@ def save(slug: str, doc: dict) -> None:
                           encoding="utf-8")
 
 
+def is_study(slug: str) -> bool:
+    """issue.json says "study": true (protocol rev 27)."""
+    try:
+        return json.loads((store.case_dir(slug) / "issue.json").read_text(encoding="utf-8")).get("study") is True
+    except (Exception, SystemExit):
+        return False
+
+
 def open_findings(report: dict) -> list[dict]:
     """Everything in a gate report that blocks: a verdict that is not VERIFIED
     or INTERNAL, a serious objection, a serious inference, a serious coverage
-    contradiction."""
+    contradiction. On a study issue, recency_findings() is added (_opens)."""
     out = []
     for vid, v in (report.get("verdicts") or {}).items():
         if v.get("verdict") in ("VERIFIED", "INTERNAL"):
@@ -241,6 +249,29 @@ def open_findings(report: dict) -> list[dict]:
     return out
 
 
+def recency_findings(report: dict) -> list[dict]:
+    """Every gate recency study that is not CURRENT, UNKNOWN included (GAP-014,
+    2026-10-20). The gate's prompt treats UNKNOWN as a failure, but a recency
+    failure produced no finding: a warn on the same text, nothing after an edit.
+    Added for study issues only (_opens); a published issue's recency results
+    are a person's to decide."""
+    out = []
+    for i, s in enumerate((report.get("recency") or {}).get("studies") or [], 1):
+        if not isinstance(s, dict) or s.get("status") == "CURRENT":
+            continue
+        what = "%s is %s: the draft uses %s; the latest known is %s%s" % (
+            s.get("name") or "a study", s.get("status") or "not established as current",
+            s.get("draft_uses") or "?", s.get("latest_known") or "?",
+            ("; what changes: %s" % s["what_changed"]) if s.get("what_changed") else "")
+        out.append({"id": "rec-%d" % i, "kind": "recency", "verdict": s.get("status") or "UNKNOWN",
+                    "what": what[:400]})
+    return out
+
+
+def _opens(slug: str, report: dict) -> list[dict]:
+    return open_findings(report) + (recency_findings(report) if is_study(slug) else [])
+
+
 def quote_is_in_source(slug: str, sid: str, quote: str) -> tuple[bool, str]:
     if sid not in store.held(slug):
         return False, "%s is not in the library" % sid
@@ -257,7 +288,7 @@ def quote_is_in_source(slug: str, sid: str, quote: str) -> tuple[bool, str]:
 
 
 def check(slug: str, report: dict) -> list[tuple[str, str, str]]:
-    opens = open_findings(report)
+    opens = _opens(slug, report)
     if not opens:
         return [("gate findings settled", OK, "the last run left nothing open")]
     doc = load(slug)
@@ -391,7 +422,7 @@ def check(slug: str, report: dict) -> list[tuple[str, str, str]]:
 def scan(slug: str, report: dict) -> dict:
     doc = load(slug)
     have = {f.get("id") for f in (doc.get("findings") or [])}
-    for f in open_findings(report):
+    for f in _opens(slug, report):
         if f["id"] in have:
             continue
         doc["findings"].append({
@@ -488,7 +519,7 @@ def retest(slug: str, report: dict, write: bool = True) -> dict:
     page = _page_plain(slug)
     out = {"closed": [], "attested": [], "live": [], "partly": [], "moot": [], "operator": []}
     today = date.today().isoformat()
-    for f in open_findings(report):
+    for f in _opens(slug, report):
         rec = have.get(f["id"])
         if rec and rec.get("decision") in DECISIONS:
             continue

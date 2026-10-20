@@ -291,3 +291,39 @@ def test_no_model_facing_text_is_extracted_with_layout():
     src = inspect.getsource(reachability.held_text)
     assert "-layout" not in src.replace("`pdftotext -layout`", "")
     assert "held_texts(slug)" in inspect.getsource(R.rule_advocate)
+
+
+# --- GAP-014: a recency study that is not CURRENT is a finding (study issues) ----
+
+REPORT_REC = {"recency": {"studies": [
+    {"name": "The trial", "status": "UNKNOWN", "draft_uses": "the 12-week readout",
+     "latest_known": "could not establish", "what_changed": None},
+    {"name": "Another study", "status": "CURRENT"}]}}
+
+
+def test_a_recency_study_not_current_is_a_finding_on_a_study_issue_only(study):
+    d, P = study
+    import findings as F
+    (d / "issue.json").write_text(json.dumps({"slug": "xq", "study": True}))
+    ids = [f["id"] for f in F._opens("xq", REPORT_REC)]
+    assert ids == ["rec-1"]
+    row = [r for r in F.check("xq", REPORT_REC) if r[0] == "gate findings settled"][0]
+    assert row[1] == F.BAD and "rec-1" in row[2]
+    (d / "issue.json").write_text(json.dumps({"slug": "xq"}))          # a published issue: unchanged
+    assert F._opens("xq", REPORT_REC) == []
+
+
+def test_a_recency_finding_goes_to_the_ruling_model_with_the_sentence_and_the_bound_passages(study):
+    d, P = study
+    import findings as F
+    (d / "issue.json").write_text(json.dumps({"slug": "xq", "study": True}))
+    F.scan("xq", REPORT_REC)
+    row = dict(ROW, sentence="The trial showed the intervention cut weight by 2 kg in 12 weeks.")
+    fake = Fake({"ruling": "reject", "text": None, "reason": "Quotation 1 is the readout.", "quotation": 1})
+    done = R.rule_gate("xq", fake, P=P, report=REPORT_REC, rows={"k1": row}, held=HELD)
+    assert len(done) == 1 and done[0]["decision"] == "rejected"
+    pr = fake.prompts[0]
+    assert "The trial showed the intervention" in pr                   # the sentence
+    assert "UNKNOWN" in pr and "the 12-week readout" in pr             # the recency result
+    assert "Quotation 1" in pr and "reduced weight by 2 kg" in pr      # the bound passage, in context
+    _no_leaks(fake.prompts)
