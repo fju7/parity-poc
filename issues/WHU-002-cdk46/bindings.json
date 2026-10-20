@@ -58,7 +58,8 @@
       "attested_by": "fred",
       "attested_in": "issues/WHU-002-cdk46/advocate/2026-08-29-adjudication.md",
       "locator_type": "figure",
-      "why_bound": "No new question was needed. The thirteen answers already on file all locate content inside a first-line HR+/HER2- advanced breast cancer section, which is what this sentence claims the guideline covers. Asking the operator to re-open a licence-bound document for a fact his own record already establishes spends his attention on nothing."
+      "why_bound": "No new question was needed. The thirteen answers already on file all locate content inside a first-line HR+/HER2- advanced breast cancer section, which is what this sentence claims the guideline covers. Asking the operator to re-open a licence-bound document for a fact his own record already establishes spends his attention on nothing.",
+      "check_flags": []
     },
     "02311196265d1957": {
       "sentence": "For an aromatase inhibitor combined with a CDK4/6 inhibitor, the guideline assigns ribociclib category 1 .",
@@ -80,7 +81,8 @@
       "attested_in": "issues/WHU-002-cdk46/advocate/2026-08-29-adjudication.md",
       "locator_type": "figure",
       "source_id": "S001",
-      "why_bound": "NCCN's licence forbids putting this document through any automated tool, so no check has read it or ever may. The operator read it and the questions and answers are in issues/WHU-002-cdk46/advocate/2026-08-29-adjudication.md. This row records an attestation, not a verified span."
+      "why_bound": "NCCN's licence forbids putting this document through any automated tool, so no check has read it or ever may. The operator read it and the questions and answers are in issues/WHU-002-cdk46/advocate/2026-08-29-adjudication.md. This row records an attestation, not a verified span.",
+      "check_flags": []
     },
     "770f57ef440cd9aa": {
       "sentence": "That is one of two systems NCCN runs, and it is not the one that says which drug to prefer.",
@@ -97,7 +99,8 @@
       },
       "first_seen": "2026-09-01",
       "on_page": true,
-      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)"
+      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)",
+      "check_flags": []
     },
     "ca63c3418f9e7e49": {
       "sentence": "It is not an ordinal ranking and the guideline does not present it as one.",
@@ -114,7 +117,8 @@
       },
       "first_seen": "2026-09-01",
       "on_page": true,
-      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)"
+      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)",
+      "check_flags": []
     },
     "552734e53ea48d68": {
       "sentence": "On that second system the guideline lists all three aromatase-inhibitor-plus-CDK4/6-inhibitor combinations as preferred first-line options — for postmenopausal patients and for premenopausal patients on ovarian suppression alike — and explains the evidence grade elsewhere, in the categories-of-evidence discussion rather than beside the preference listing: Due to the clear OS benefit seen with ribociclib in combination with AI, it is a category 1 recommendation.",
@@ -136,7 +140,8 @@
       "attested_in": "issues/WHU-002-cdk46/advocate/2026-08-29-adjudication.md",
       "locator_type": "figure",
       "source_id": "S001",
-      "why_bound": "NCCN's licence forbids putting this document through any automated tool, so no check has read it or ever may. The operator read it and the questions and answers are in issues/WHU-002-cdk46/advocate/2026-08-29-adjudication.md. This row records an attestation, not a verified span."
+      "why_bound": "NCCN's licence forbids putting this document through any automated tool, so no check has read it or ever may. The operator read it and the questions and answers are in issues/WHU-002-cdk46/advocate/2026-08-29-adjudication.md. This row records an attestation, not a verified span.",
+      "check_flags": []
     },
     "d21a27c491f95031": {
       "sentence": "And there the guideline stops.",
@@ -153,7 +158,8 @@
       },
       "first_seen": "2026-09-01",
       "on_page": true,
-      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)"
+      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)",
+      "check_flags": []
     },
     "af1fb6849a6bf948": {
       "sentence": "That is not a criticism of the guideline, which is a reference document and not a reading primer.",
@@ -170,7 +176,8 @@
       },
       "first_seen": "2026-09-01",
       "on_page": true,
-      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)"
+      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)",
+      "check_flags": []
     },
     "b6752ec5d30790ff": {
       "sentence": "It reported the category difference, asked what a reader should make of it, and never mentioned that the guideline itself had already answered the question elsewhere in the same document.",
@@ -187,7 +194,8 @@
       },
       "first_seen": "2026-09-01",
       "on_page": true,
-      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)"
+      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)",
+      "check_flags": []
     },
     "b6b3527c8dc49ee3": {
       "sentence": "That second setting is worth pausing on, because the guideline gives the same reason for it: ribociclib and abemaciclib with fulvestrant are category 1 because those combinations showed an overall survival benefit, in MONALEESA-3 and MONARCH 2.",
@@ -209,7 +217,8 @@
       "attested_in": "issues/WHU-002-cdk46/advocate/2026-08-29-adjudication.md",
       "locator_type": "figure",
       "source_id": "S001",
-      "why_bound": "NCCN's licence forbids putting this document through any automated tool, so no check has read it or ever may. The operator read it and the questions and answers are in issues/WHU-002-cdk46/advocate/2026-08-29-adjudication.md. This row records an attestation, not a verified span."
+      "why_bound": "NCCN's licence forbids putting this document through any automated tool, so no check has read it or ever may. The operator read it and the questions and answers are in issues/WHU-002-cdk46/advocate/2026-08-29-adjudication.md. This row records an attestation, not a verified span.",
+      "check_flags": []
     },
     "c28b755471e5b727": {
       "sentence": "It is a record of which of its trials produced a significant survival result, and the guideline says so plainly.",
@@ -273,7 +282,8 @@
       },
       "first_seen": "2026-09-01",
       "on_page": true,
-      "autobind": "anchors too weak to identify a document: 0.54, 0.57, 0.58 (strength 3, need 4)"
+      "autobind": "anchors too weak to identify a document: 0.54, 0.57, 0.58 (strength 3, need 4)",
+      "check_flags": []
     },
     "1996f72f4c6cf18e": {
       "sentence": "MONALEESA-7, in a different population, reports 0.55.",
@@ -301,7 +311,7 @@
       "proposed_on": "2026-09-01",
       "why_bound": "a model proposed this span and B2 confirmed the string is in S022; nobody has yet signed that the sentence is warranted by it",
       "check_flags": [],
-      "checked_on": "2026-09-04",
+      "checked_on": "2026-10-20",
       "also_rests_on": [
         {
           "source_id": "S023",
@@ -326,7 +336,8 @@
       },
       "first_seen": "2026-09-01",
       "on_page": true,
-      "autobind": "anchors too weak to identify a document: 0.52, 0.58 (strength 2, need 4)"
+      "autobind": "anchors too weak to identify a document: 0.52, 0.58 (strength 2, need 4)",
+      "check_flags": []
     },
     "8d67ec97d4d8fde5": {
       "sentence": "MONALEESA-2’s test was one-sided: the trial’s own results posting on ClinicalTrials.gov (NCT01958021) states that the distribution of overall survival between the arms was compared using a log-rank test at one-sided cumulative 2.5% level of significance .",
@@ -518,7 +529,7 @@
       "proposed_on": "2026-09-01",
       "why_bound": "a model proposed this span and B2 confirmed the string is in S007; nobody has yet signed that the sentence is warranted by it",
       "check_flags": [],
-      "checked_on": "2026-09-04"
+      "checked_on": "2026-10-20"
     },
     "62cbbe9aa42eef41": {
       "sentence": "PALOMA-2 powered for it: its final survival analysis was planned after at least 390 events, with 80% power to detect a hazard ratio of 0.74 or better at a one-sided 0.025.",
@@ -546,7 +557,7 @@
       "proposed_on": "2026-09-01",
       "why_bound": "a model proposed this span and B2 confirmed the string is in S010; nobody has yet signed that the sentence is warranted by it",
       "check_flags": [],
-      "checked_on": "2026-09-04"
+      "checked_on": "2026-10-20"
     },
     "763c5a7266d4fdfa": {
       "sentence": "Abemaciclib MONARCH 3 · HR 0.80 Ribociclib MONALEESA-2 · HR 0.76 Palbociclib PALOMA-2 · HR 0.96 0 0.5 1.0 — no effect 1.5 The distance that separates a category 1 from a category 2A Abemaciclib’s hazard ratio is 0.80 , on an interval running 0.64 to 1.02 .",
@@ -603,7 +614,7 @@
       "proposed_on": "2026-09-01",
       "why_bound": "a model proposed this span and B2 confirmed the string is in S005; nobody has yet signed that the sentence is warranted by it",
       "check_flags": [],
-      "checked_on": "2026-09-04"
+      "checked_on": "2026-10-20"
     },
     "7786ca2c9c63cca8": {
       "sentence": "The intervals overlap along almost their entire length: 97% of ribociclib’s interval lies inside abemaciclib’s .",
@@ -620,7 +631,8 @@
       },
       "first_seen": "2026-09-01",
       "on_page": true,
-      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)"
+      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)",
+      "check_flags": []
     },
     "55f19d8263340019": {
       "sentence": "The figure is ours, not a published one, and it is one subtraction, on the same rounded bounds shown above: ribociclib’s interval runs 0.63 to 0.93, a width of 0.30; the part of it inside abemaciclib’s runs 0.64 to 0.93, a width of 0.29.",
@@ -638,7 +650,8 @@
       "first_seen": "2026-09-01",
       "on_page": true,
       "locator_type": "none",
-      "autobind": "the sentence shows its own working ('The figure is ours') — it rests on figures already on the page, not on a source"
+      "autobind": "the sentence shows its own working ('The figure is ours') — it rests on figures already on the page, not on a source",
+      "check_flags": []
     },
     "92ce71614deebe9b": {
       "sentence": "0.29 ÷ 0.30 = 96.7%.",
@@ -656,7 +669,8 @@
       "first_seen": "2026-09-01",
       "on_page": true,
       "locator_type": "none",
-      "autobind": "the sentence shows its own working ('0.29 ÷ 0.30 =') — it rests on figures already on the page, not on a source"
+      "autobind": "the sentence shows its own working ('0.29 ÷ 0.30 =') — it rests on figures already on the page, not on a source",
+      "check_flags": []
     },
     "143d2bd4ce132389": {
       "sentence": "Using abemaciclib’s unrounded lower bound of 0.637 in place of the rounded 0.64, the same subtraction gives 97.7%.",
@@ -674,7 +688,8 @@
       "first_seen": "2026-09-01",
       "on_page": true,
       "locator_type": "none",
-      "autobind": "the sentence shows its own working ('subtraction') — it rests on figures already on the page, not on a source"
+      "autobind": "the sentence shows its own working ('subtraction') — it rests on figures already on the page, not on a source",
+      "check_flags": []
     },
     "d77f81b0696ca5d4": {
       "sentence": "We print 97%.",
@@ -691,7 +706,8 @@
       },
       "first_seen": "2026-09-01",
       "on_page": true,
-      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)"
+      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)",
+      "check_flags": []
     },
     "9d9828733fdc7f72": {
       "sentence": "(0.637 and 1.015 are abemaciclib’s bounds throughout; ribociclib’s are 0.63 and 0.93.) One interval stopped at 0.93 and the other at 1.015 , and that is the whole of it: ribociclib’s result reached statistical significance (p = 0.008) and abemaciclib’s did not (P = .0664, against its own boundary of .034).",
@@ -737,7 +753,8 @@
       },
       "first_seen": "2026-09-01",
       "on_page": true,
-      "autobind": "no held document contains all 2 anchors: 0.93, 1.015"
+      "autobind": "no held document contains all 2 anchors: 0.93, 1.015",
+      "check_flags": []
     },
     "eddfcd661f78cec1": {
       "sentence": "This page rounds to two decimal places elsewhere and prints 1.02, which is correct rounding; here, where the whole argument is about where a bound landed, the rounded figure was doing work the published one should do.",
@@ -754,7 +771,8 @@
       },
       "first_seen": "2026-09-01",
       "on_page": true,
-      "autobind": "anchors too weak to identify a document: 1.02 (strength 2, need 4)"
+      "autobind": "anchors too weak to identify a document: 1.02 (strength 2, need 4)",
+      "check_flags": []
     },
     "ff79f42fada7e383": {
       "sentence": "An earlier version of this page handed it to Tanguy and colleagues, npj Breast Cancer , 2018 , and they do not make it: their paper contains nothing about the width of a confidence interval.",
@@ -771,7 +789,8 @@
       },
       "first_seen": "2026-09-01",
       "on_page": true,
-      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)"
+      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)",
+      "check_flags": []
     },
     "d55e0afb2d5364e8": {
       "sentence": "What they did, before any of these trials had mature survival data, was compute each trial’s statistical power to reach significance on survival — finding MONARCH 3 less powered than PALOMA-2, MONALEESA-2 and MONALEESA-7, all four under 70% unless the survival gain exceeded twelve months, and concluding that if significance appeared in some trials and not others the difference “might be more attributable to chance than to a truly different drug efficacy”.",
@@ -799,7 +818,7 @@
       "proposed_on": "2026-09-01",
       "why_bound": "a model proposed this span and B2 confirmed the string is in S024; nobody has yet signed that the sentence is warranted by it",
       "check_flags": [],
-      "checked_on": "2026-09-04"
+      "checked_on": "2026-10-20"
     },
     "2294f8d5be3c9918": {
       "sentence": "A hazard ratio of 0.96 on an interval from 0.78 to 1.18 is not a near miss.",
@@ -825,7 +844,7 @@
       "confirmed": false,
       "autobind": "the only held document containing all 3 anchors (0.96, 0.78, 1.18), sharing 2 subject word(s) with the sentence: hazard, ratio",
       "check_flags": [],
-      "checked_on": "2026-09-04"
+      "checked_on": "2026-10-20"
     },
     "a08e0b80cab2196d": {
       "sentence": "That is all it established, and it is less than “palbociclib does not work”.",
@@ -842,7 +861,8 @@
       },
       "first_seen": "2026-09-01",
       "on_page": true,
-      "autobind": "anchors too weak to identify a document: palbociclib does not work (strength 3, need 4)"
+      "autobind": "anchors too weak to identify a document: palbociclib does not work (strength 3, need 4)",
+      "check_flags": []
     },
     "e1c8b5c5432950bd": {
       "sentence": "PALOMA-2 is also the trial whose investigators recorded a large and disproportionate imbalance in missing survival data between its arms — survival status was unknown for 13.3% of the palbociclib arm and 21.2% of the placebo arm — which they said limits interpretation.",
@@ -867,8 +887,15 @@
       "proposed_by": "autobind",
       "confirmed": false,
       "autobind": "the only held document containing all 2 anchors (13.3%, 21.2%), sharing 5 subject word(s) with the sentence: between, imbalance, interpretation, survival, unknown",
-      "check_flags": [],
-      "checked_on": "2026-09-04"
+      "check_flags": [
+        {
+          "check": "B19",
+          "verdict": "evidence hedge dropped",
+          "hedge": "limited",
+          "why": "the evidence says 'limited' (S010); the sentence carries no hedge"
+        }
+      ],
+      "checked_on": "2026-10-20"
     },
     "821ecac5105e7e36": {
       "sentence": "A sensitivity analysis using recovered data cut the unknowns to 9.2% and 11.7% and moved the hazard ratio from 0.96 to 0.92 (0.76–1.12) .",
@@ -895,8 +922,14 @@
       "confirmed": false,
       "proposed_on": "2026-09-01",
       "why_bound": "a model proposed this span and B2 confirmed the string is in S010; nobody has yet signed that the sentence is warranted by it",
-      "check_flags": [],
-      "checked_on": "2026-09-04",
+      "check_flags": [
+        {
+          "check": "B23",
+          "verdict": "interval omitted",
+          "why": "the span gives 0.96 with the interval 0.78 to 1.18; the sentence states 0.96 and no interval"
+        }
+      ],
+      "checked_on": "2026-10-20",
       "also_rests_on": [
         {
           "source_id": "S010",
@@ -921,7 +954,8 @@
       },
       "first_seen": "2026-09-01",
       "on_page": true,
-      "autobind": "anchors too weak to identify a document: 1.0 (strength 1, need 4)"
+      "autobind": "anchors too weak to identify a document: 1.0 (strength 1, need 4)",
+      "check_flags": []
     },
     "cd48146873dde510": {
       "sentence": "A hazard ratio of 0.80 does not mean 20% fewer deaths.",
@@ -938,7 +972,8 @@
       },
       "first_seen": "2026-09-01",
       "on_page": true,
-      "autobind": "anchors too weak to identify a document: 0.80 (strength 1, need 4)"
+      "autobind": "anchors too weak to identify a document: 0.80 (strength 1, need 4)",
+      "check_flags": []
     },
     "382a1e37ffebfda7": {
       "sentence": "It does not mean a 20% better chance of anything, and it is not a probability that applies to a person.",
@@ -955,7 +990,8 @@
       },
       "first_seen": "2026-09-01",
       "on_page": true,
-      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)"
+      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)",
+      "check_flags": []
     },
     "5d726927398c0511": {
       "sentence": "Trial Median overall survival Difference Hazard ratio Category MONARCH 3 abemaciclib 66.8 vs 53.7 mo 13.1 months 0.80 2A MONALEESA-2 ribociclib 63.9 vs 51.4 mo 12.5 months 0.76 1 PALOMA-2 palbociclib 53.9 vs 51.2 mo 2.7 months 0.96 2A The number a patient would ask for On the scale that means something to a person — months of median survival added over endocrine therapy alone — the category 2A drug’s trial reported the larger figure.",
@@ -1012,7 +1048,7 @@
       "proposed_on": "2026-09-01",
       "why_bound": "a model proposed this span and B2 confirmed the string is in S003; nobody has yet signed that the sentence is warranted by it",
       "check_flags": [],
-      "checked_on": "2026-09-04"
+      "checked_on": "2026-10-20"
     },
     "ceab8d8a37e320de": {
       "sentence": "These are medians, not lifespans : a median difference of 13.1 months is the gap between the times by which half of each group had died, and no individual is promised anything by it.",
@@ -1040,7 +1076,7 @@
       "proposed_on": "2026-09-01",
       "why_bound": "a model proposed this span and B2 confirmed the string is in S003; nobody has yet signed that the sentence is warranted by it",
       "check_flags": [],
-      "checked_on": "2026-09-04"
+      "checked_on": "2026-10-20"
     },
     "4541e9b4303fcd3b": {
       "sentence": "That is not what this page criticises the guideline for; the guideline grades each trial on its own threshold.",
@@ -1057,7 +1093,8 @@
       },
       "first_seen": "2026-09-01",
       "on_page": true,
-      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)"
+      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)",
+      "check_flags": []
     },
     "0ed90b2c9885cf31": {
       "sentence": "2.7 months of median difference, a hazard ratio of 0.96, an interval running through the no-effect line, and a sensitivity analysis that moved the estimate to 0.92 without changing the conclusion.",
@@ -1084,8 +1121,15 @@
       "confirmed": false,
       "proposed_on": "2026-09-01",
       "why_bound": "a model proposed this span and B2 confirmed the string is in S010; nobody has yet signed that the sentence is warranted by it",
-      "check_flags": [],
-      "checked_on": "2026-09-04",
+      "check_flags": [
+        {
+          "check": "B19",
+          "verdict": "evidence hedge dropped",
+          "hedge": "limited",
+          "why": "the evidence says 'limited' (S010); the sentence carries no hedge"
+        }
+      ],
+      "checked_on": "2026-10-20",
       "also_rests_on": [
         {
           "source_id": "S015",
@@ -1110,7 +1154,8 @@
       },
       "first_seen": "2026-09-01",
       "on_page": true,
-      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)"
+      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)",
+      "check_flags": []
     },
     "8ae3669f5a48557f": {
       "sentence": "Two randomised trials have tested one of these drugs against another — both ribociclib against palbociclib, neither in the population the guideline sentence describes.",
@@ -1138,7 +1183,7 @@
       "proposed_on": "2026-09-01",
       "why_bound": "a model proposed this span and B2 confirmed the string is in S017; nobody has yet signed that the sentence is warranted by it",
       "check_flags": [],
-      "checked_on": "2026-09-04"
+      "checked_on": "2026-10-20"
     },
     "db49bc98137d6aee": {
       "sentence": "A network meta-analysis ( Scientific Reports, February 2024 ) pooled seven phase III randomised trials, 4,415 patients, at a median follow-up of 73.3 months.",
@@ -1173,7 +1218,7 @@
       "sentence": "Its MONARCH 3 input is the final overall-survival result — HR 0.804 (0.637–1.015), at 97.2 months, the figure given above — not the earlier interim one.",
       "sentence_sha": "305047b7d6494a96",
       "why_empirical": "figure",
-      "bucket": null,
+      "bucket": "deterministic",
       "locator": null,
       "scope_words": [],
       "falsifier": null,
@@ -1184,7 +1229,33 @@
       },
       "first_seen": "2026-09-01",
       "on_page": true,
-      "autobind": "no held document contains all 4 anchors: 0.804, 0.637, 1.015, 97.2"
+      "autobind": "no held document contains all 4 anchors: 0.804, 0.637, 1.015, 97.2",
+      "check_flags": [
+        {
+          "check": "B12",
+          "verdict": "added precision",
+          "why": "the source prints 0.80, not 0.804 — we show 1 decimal place(s) the source does not"
+        }
+      ],
+      "source_id": "S015",
+      "span": "Reported HR for OS 0.956 0.76 0.76 0.804 0.814 0.73 0.757",
+      "also_rests_on": [
+        {
+          "source_id": "S015",
+          "span": "Study characteristics CDK4/6i with AI or tamoxifen CDK4/6i with fulvestrant PAL-2 MONALEESA-2 MONALEESA-7 MONARCH-3 PALOMA-3 MOLANEESA-3 MONARCH 2"
+        },
+        {
+          "source_id": "S015",
+          "span": "Reported 95% CI for HR of OS 0.777–1.177 0.63–0.93 0.61–0.96 0.637–1.015"
+        },
+        {
+          "source_id": "S015",
+          "span": "Median follow-up (months) 90 80 53.5 97.2 73.3 56.3 48.7"
+        }
+      ],
+      "bound_on": "2026-10-20",
+      "bound_why": "S015's Table 1 (second rendition), as row 8045a0c05bba57ad: the HR and 95% CI rows, the study row that identifies the MONARCH-3 column, and the median follow-up row (97.2 months in that column)",
+      "checked_on": "2026-10-20"
     },
     "4728c66a769cf780": {
       "sentence": "P-VERIFY took 9,146 patients from US oncology records and weighted them by inverse probability of treatment.",
@@ -1212,7 +1283,7 @@
       "proposed_on": "2026-09-01",
       "why_bound": "a model proposed this span and B2 confirmed the string is in S016; nobody has yet signed that the sentence is warranted by it",
       "check_flags": [],
-      "checked_on": "2026-09-04",
+      "checked_on": "2026-10-20",
       "also_rests_on": [
         {
           "source_id": "S016",
@@ -1248,7 +1319,7 @@
       "proposed_on": "2026-09-01",
       "why_bound": "a model proposed this span and B2 confirmed the string is in S016; nobody has yet signed that the sentence is warranted by it",
       "check_flags": [],
-      "checked_on": "2026-09-04"
+      "checked_on": "2026-10-20"
     },
     "7d5cb47acaee2c34": {
       "sentence": "Its arms are very uneven — 6,831 patients on palbociclib, 1,279 on ribociclib, 1,036 on abemaciclib — which is what prescribing actually looked like and is also a limit on what the smaller arms can show.",
@@ -1265,7 +1336,8 @@
       },
       "first_seen": "2026-09-01",
       "on_page": true,
-      "autobind": "no held document contains all 3 anchors: 6,831, 1,279, 1,036"
+      "autobind": "no held document contains all 3 anchors: 6,831, 1,279, 1,036",
+      "check_flags": []
     },
     "3dda7578458798e7": {
       "sentence": "PALMARES-2 ( Annals of Oncology, April 2025 ) followed 1,982 patients across eighteen Italian centres and weighted them the same way.",
@@ -1371,7 +1443,8 @@
       },
       "first_seen": "2026-09-01",
       "on_page": true,
-      "autobind": "anchors too weak to identify a document: 1,827 (strength 3, need 4)"
+      "autobind": "anchors too weak to identify a document: 1,827 (strength 3, need 4)",
+      "check_flags": []
     },
     "26e7714faa78103c": {
       "sentence": "On overall survival it separates nobody: abemaciclib versus ribociclib 0.933 (0.753–1.157), p = 0.528 .",
@@ -1388,7 +1461,8 @@
       },
       "first_seen": "2026-09-01",
       "on_page": true,
-      "autobind": "no held document contains all 4 anchors: 0.933, 0.753, 1.157, 0.528"
+      "autobind": "no held document contains all 4 anchors: 0.933, 0.753, 1.157, 0.528",
+      "check_flags": []
     },
     "a9321311f1fc8f46": {
       "sentence": "On progression-free survival its one-stage model puts abemaciclib against ribociclib at 0.722 (0.520–1.002), p = 0.051 — the closest any study has come to separating those two, and it does not, while its two-stage model on the same data gives 0.921 (0.597–1.420), p = 0.710.",
@@ -1405,7 +1479,8 @@
       },
       "first_seen": "2026-09-01",
       "on_page": true,
-      "autobind": "no held document contains all 8 anchors: 0.722, 0.520, 1.002, 0.051, 0.921"
+      "autobind": "no held document contains all 8 anchors: 0.722, 0.520, 1.002, 0.051, 0.921",
+      "check_flags": []
     },
     "0c5a1d3791d3b4c7": {
       "sentence": "The smaller one finds palbociclib behind on progression, on intervals that exclude the no-effect line — abemaciclib’s by 0.08 and ribociclib’s by 0.05, which is significant but not comfortably so, and reports an exploratory survival result pointing the same way on data its own authors call immature.",
@@ -1440,7 +1515,8 @@
       },
       "first_seen": "2026-09-01",
       "on_page": true,
-      "autobind": "no held document contains all 4 anchors: 0.933, 0.753, 1.157, 0.528"
+      "autobind": "no held document contains all 4 anchors: 0.933, 0.753, 1.157, 0.528",
+      "check_flags": []
     },
     "ceb2744177fcf7ef": {
       "sentence": "P-VERIFY, on overall survival: 0.97, on 0.82 to 1.14 , P = 0.70.",
@@ -1457,7 +1533,8 @@
       },
       "first_seen": "2026-09-01",
       "on_page": true,
-      "autobind": "no held document contains all 4 anchors: 0.97, 0.82, 1.14, 0.70"
+      "autobind": "no held document contains all 4 anchors: 0.97, 0.82, 1.14, 0.70",
+      "check_flags": []
     },
     "1c0ce7e395c28716": {
       "sentence": "And PALMARES-2 — the study that did separate palbociclib, on both endpoints — puts this pairing, on progression-free survival, at 0.91, on 0.73 to 1.14 , p = 0.425.",
@@ -1492,7 +1569,8 @@
       },
       "first_seen": "2026-09-01",
       "on_page": true,
-      "autobind": "anchors too weak to identify a document: 0.76, 0.83 (strength 2, need 4)"
+      "autobind": "anchors too weak to identify a document: 0.76, 0.83 (strength 2, need 4)",
+      "check_flags": []
     },
     "60030fb3126653b5": {
       "sentence": "They do not contradict the guideline’s own statement, and it is worth saying so plainly.",
@@ -1509,7 +1587,8 @@
       },
       "first_seen": "2026-09-01",
       "on_page": true,
-      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)"
+      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)",
+      "check_flags": []
     },
     "b9f40972047b0203": {
       "sentence": "In guideline language, “directly compared in clinical trials” means a randomised head-to-head trial, and none exists in the setting that sentence is about — first line, with an aromatase inhibitor.",
@@ -1544,7 +1623,8 @@
       },
       "first_seen": "2026-09-01",
       "on_page": true,
-      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)"
+      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)",
+      "check_flags": []
     },
     "5681026f0ed23417": {
       "sentence": "Clinical benefit at six months was 58.6% in both arms, exactly 34 patients of 58 either way.",
@@ -1561,7 +1641,8 @@
       },
       "first_seen": "2026-09-01",
       "on_page": true,
-      "autobind": "anchors too weak to identify a document: 58.6% (strength 2, need 4)"
+      "autobind": "anchors too weak to identify a document: 58.6% (strength 2, need 4)",
+      "check_flags": []
     },
     "f36836f6bed773d0": {
       "sentence": "Median progression-free survival was 13.67 months on palbociclib against 12.69 on ribociclib, and not significantly different — though progression-free survival was a secondary endpoint there.",
@@ -1587,7 +1668,7 @@
       "confirmed": false,
       "autobind": "the only held document containing all 2 anchors (13.67, 12.69), sharing 4 subject word(s) with the sentence: median, months, palbociclib, ribociclib",
       "check_flags": [],
-      "checked_on": "2026-09-04"
+      "checked_on": "2026-10-20"
     },
     "b463e40d6e615a48": {
       "sentence": "What this trial was built to measure takes some care: its stated primary objectives are to compare the clinical benefit rate (CBR), quality of life and toxicity profiles , while its sample-size calculation says The primary outcome of interest is the overall response rate (ORR) and sizes the arms from response rates of 55% and 25% taken from MONALEESA-2 and PALOMA-3.",
@@ -1604,7 +1685,8 @@
       },
       "first_seen": "2026-09-01",
       "on_page": true,
-      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)"
+      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)",
+      "check_flags": []
     },
     "980ada3875109cac": {
       "sentence": "HARMONIA (NCT05207709) is a phase III, randomised, open-label trial of the same pair in the HER2-enriched subtype; it opened in March 2022 and terminated with 61 patients enrolled.",
@@ -1621,7 +1703,8 @@
       },
       "first_seen": "2026-09-01",
       "on_page": true,
-      "autobind": "anchors too weak to identify a document: NCT05207709 (strength 3, need 4)"
+      "autobind": "anchors too weak to identify a document: NCT05207709 (strength 3, need 4)",
+      "check_flags": []
     },
     "53e1c854d982b2e4": {
       "sentence": "Neither enrolled the population the guideline sentence describes, which is why neither contradicts it — but not for the reason this page gave until 1 September.",
@@ -1638,7 +1721,8 @@
       },
       "first_seen": "2026-09-01",
       "on_page": true,
-      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)"
+      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)",
+      "check_flags": []
     },
     "88a9e34cc0f21de9": {
       "sentence": "HARMONIA’s registry record lists its arms as ribociclib or palbociclib plus letrozole or fulvestrant , and it enrolled first-line patients; letrozole is an aromatase inhibitor.",
@@ -1655,7 +1739,8 @@
       },
       "first_seen": "2026-09-01",
       "on_page": true,
-      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)"
+      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)",
+      "check_flags": []
     },
     "ee027b4214dd0d28": {
       "sentence": "The reason that actually holds is in the trial’s title: HARMONIA was restricted to the HER2-enriched intrinsic subtype , a molecularly selected population, not the unselected HR+/HER2− one the guideline is describing.",
@@ -1672,7 +1757,8 @@
       },
       "first_seen": "2026-09-01",
       "on_page": true,
-      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)"
+      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)",
+      "check_flags": []
     },
     "caf6fe68a470d74e": {
       "sentence": "Shaaban is second line with fulvestrant.",
@@ -1689,7 +1775,8 @@
       },
       "first_seen": "2026-09-01",
       "on_page": true,
-      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)"
+      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)",
+      "check_flags": []
     },
     "729ce48a4c3e5dc8": {
       "sentence": "Abemaciclib carries a labelled warning for venous thromboembolism — thrombotic events in 2% to 5% of patients treated across the trials the label reports, which include the early-breast-cancer trial as well as the two metastatic ones, with monitoring for signs and symptoms — and diarrhoea in 81% to 90% of patients across four trials, grade 3 in 8% to 20%, with patients instructed to begin antidiarrhoeal treatment at the first loose stool.",
@@ -1706,7 +1793,8 @@
       },
       "first_seen": "2026-09-01",
       "on_page": true,
-      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)"
+      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)",
+      "check_flags": []
     },
     "f776cee6b4ef9068": {
       "sentence": "Palbociclib carries neutropenia: 80% of patients in PALOMA-2, grade 3 or worse in 66% , with blood counts required on day 15 of each of the first two cycles as well as at the start of every cycle.",
@@ -1723,7 +1811,8 @@
       },
       "first_seen": "2026-09-01",
       "on_page": true,
-      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)"
+      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)",
+      "check_flags": []
     },
     "9b195979f6080ed7": {
       "sentence": "In the three first-line postmenopausal aromatase-inhibitor trials the hazard ratios are 0.54, 0.57 and 0.58; MONALEESA-7, in pre/perimenopausal women on a different endocrine backbone, reports 0.55.",
@@ -1740,7 +1829,8 @@
       },
       "first_seen": "2026-09-01",
       "on_page": true,
-      "autobind": "no held document contains all 4 anchors: 0.54, 0.57, 0.58, 0.55"
+      "autobind": "no held document contains all 4 anchors: 0.54, 0.57, 0.58, 0.55",
+      "check_flags": []
     },
     "b3cd12db6be3a3c8": {
       "sentence": "Ribociclib plus letrozole improved overall survival against letrozole alone: 63.9 versus 51.4 months, HR 0.76 (0.63–0.93), p = 0.008, at 6.6 years of median follow-up.",
@@ -1766,7 +1856,7 @@
       "confirmed": false,
       "autobind": "the only held document containing all 7 anchors (63.9, 51.4, 0.76, 0.63, 0.93), sharing 8 subject word(s) with the sentence: follow, letrozole, median, months, overall, ribociclib",
       "check_flags": [],
-      "checked_on": "2026-09-04"
+      "checked_on": "2026-10-20"
     },
     "f6aa8b6940557f11": {
       "sentence": "Abemaciclib plus a non-steroidal aromatase inhibitor did not: 66.8 versus 53.7 months, HR 0.80 (0.64–1.02), two-sided P = .0664 against a final-analysis threshold of .034, at 8.1 years of median follow-up.",
@@ -1783,7 +1873,8 @@
       },
       "first_seen": "2026-09-01",
       "on_page": true,
-      "autobind": "no held document contains all 6 anchors: 66.8, 53.7, 0.80, 0.64, 1.02"
+      "autobind": "no held document contains all 6 anchors: 66.8, 53.7, 0.80, 0.64, 1.02",
+      "check_flags": []
     },
     "d8a522676b93164d": {
       "sentence": "Palbociclib plus letrozole did not: 53.9 versus 51.2 months, HR 0.96 (0.78–1.18).",
@@ -1809,7 +1900,7 @@
       "confirmed": false,
       "autobind": "the only held document containing all 5 anchors (53.9, 51.2, 0.96, 0.78, 1.18), sharing 3 subject word(s) with the sentence: letrozole, months, palbociclib",
       "check_flags": [],
-      "checked_on": "2026-09-04"
+      "checked_on": "2026-10-20"
     },
     "44f6377bbe14d006": {
       "sentence": "A sensitivity analysis recovering missing survival data moved the point estimate to 0.92 (0.76–1.12) and left the conclusion where it was.",
@@ -1826,7 +1917,8 @@
       },
       "first_seen": "2026-09-01",
       "on_page": true,
-      "autobind": "2 held documents contain all these anchors (S010, S016) — which one the sentence rests on is not decidable by presence alone"
+      "autobind": "2 held documents contain all these anchors (S010, S016) — which one the sentence rests on is not decidable by presence alone",
+      "check_flags": []
     },
     "d6c29fab61f3f144": {
       "sentence": "Ribociclib and palbociclib have been compared head to head twice — Shaaban and colleagues in the second line with fulvestrant, and HARMONIA, which terminated at 61 patients — and neither separated them.",
@@ -1861,7 +1953,8 @@
       },
       "first_seen": "2026-09-01",
       "on_page": true,
-      "autobind": "no held document contains all 3 anchors: 9,146, 1,982, 0.051"
+      "autobind": "no held document contains all 3 anchors: 9,146, 1,982, 0.051",
+      "check_flags": []
     },
     "d9a52a6684ae993c": {
       "sentence": "Each of the three carries a different labelled burden: ribociclib a cardiac monitoring requirement, abemaciclib a venous thromboembolism warning and diarrhoea in 81–90% of patients, palbociclib grade 3 or worse neutropenia in 66%.",
@@ -1878,7 +1971,8 @@
       },
       "first_seen": "2026-09-01",
       "on_page": true,
-      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)"
+      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)",
+      "check_flags": []
     },
     "17611de12340adea": {
       "sentence": "Not because the guideline says so — it does not.",
@@ -1895,7 +1989,8 @@
       },
       "first_seen": "2026-09-01",
       "on_page": true,
-      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)"
+      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)",
+      "check_flags": []
     },
     "f5f5514857d9888d": {
       "sentence": "Registry MONALEESA-2 — ClinicalTrials.gov results posting.",
@@ -1912,7 +2007,8 @@
       },
       "first_seen": "2026-09-01",
       "on_page": true,
-      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)"
+      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)",
+      "check_flags": []
     },
     "7f7c08ebf5405190": {
       "sentence": "NCT01958021 Source of the direction of the final overall-survival test, which this page twice failed to establish from the journal.",
@@ -1929,7 +2025,8 @@
       },
       "first_seen": "2026-09-01",
       "on_page": true,
-      "autobind": "anchors too weak to identify a document: NCT01958021 (strength 3, need 4)"
+      "autobind": "anchors too weak to identify a document: NCT01958021 (strength 3, need 4)",
+      "check_flags": []
     },
     "ce8175b3d1d52253": {
       "sentence": "The sponsor’s own posting states that overall survival was compared using a log-rank test at one-sided cumulative 2.5% level of significance , and gives HR 0.765 (95% CI 0.628–0.932), p = 0.004 for that analysis.",
@@ -1946,7 +2043,8 @@
       },
       "first_seen": "2026-09-01",
       "on_page": true,
-      "autobind": "no held document contains all 5 anchors: 2.5%, 0.765, 0.628, 0.932, 0.004"
+      "autobind": "no held document contains all 5 anchors: 2.5%, 0.765, 0.628, 0.932, 0.004",
+      "check_flags": []
     },
     "043503530cba5652": {
       "sentence": "NCT01740427 Independent confirmation that PALOMA-2’s log-rank p-values are one-sided: every such analysis in the posting is annotated 1-sided p-value from the stratified log-rank test .",
@@ -1963,7 +2061,8 @@
       },
       "first_seen": "2026-09-01",
       "on_page": true,
-      "autobind": "anchors too weak to identify a document: NCT01740427 (strength 3, need 4)"
+      "autobind": "anchors too weak to identify a document: NCT01740427 (strength 3, need 4)",
+      "check_flags": []
     },
     "da519baff6cf2794": {
       "sentence": "Also gives the final overall-survival analysis as HR 0.921 (0.755–1.124).",
@@ -1989,7 +2088,7 @@
       "confirmed": false,
       "autobind": "the only held document containing all 3 anchors (0.921, 0.755, 1.124), sharing 3 subject word(s) with the sentence: analysis, final, survival",
       "check_flags": [],
-      "checked_on": "2026-09-04",
+      "checked_on": "2026-10-20",
       "rebound_on": "2026-09-12",
       "rebound_why": "the prior span was the outcome measure's description field; the figures the sentence carries sit in its analysis record, quoted here"
     },
@@ -2008,7 +2107,8 @@
       },
       "first_seen": "2026-09-01",
       "on_page": true,
-      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)"
+      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)",
+      "check_flags": []
     },
     "e0284ffb1c8c1635": {
       "sentence": "Asian Pac J Cancer Prev 2024;25(9):3039–3049 A randomised, open-label phase III trial putting two of these three drugs directly against each other, registered as NCT05670054 .",
@@ -2025,7 +2125,8 @@
       },
       "first_seen": "2026-09-01",
       "on_page": true,
-      "autobind": "anchors too weak to identify a document: NCT05670054 (strength 3, need 4)"
+      "autobind": "anchors too weak to identify a document: NCT05670054 (strength 3, need 4)",
+      "check_flags": []
     },
     "6e9acad826256ad2": {
       "sentence": "Restored 1 September from the full text — the clinical benefit rate at six months of 58.6% in both arms (34 of 58 either way), the median progression-free survival of 13.67 months on palbociclib against 12.69 on ribociclib, and the authors’ conclusion that both Ribociclib and palbociclib have similar CBR, PFS and toxicity profile .",
@@ -2050,8 +2151,15 @@
       "proposed_by": "autobind",
       "confirmed": false,
       "autobind": "the only held document containing all 3 anchors (58.6%, 13.67, 12.69), sharing 5 subject word(s) with the sentence: median, months, palbociclib, ribociclib, survival",
-      "check_flags": [],
-      "checked_on": "2026-09-04"
+      "check_flags": [
+        {
+          "check": "B19",
+          "verdict": "evidence hedge dropped",
+          "hedge": "likely",
+          "why": "the evidence says 'likely' (S017); the sentence carries no hedge"
+        }
+      ],
+      "checked_on": "2026-10-20"
     },
     "27654ffd14a9b1fc": {
       "sentence": "Second line, with fulvestrant — not the first-line aromatase-inhibitor setting the guideline sentence describes.",
@@ -2068,7 +2176,8 @@
       },
       "first_seen": "2026-09-01",
       "on_page": true,
-      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)"
+      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)",
+      "check_flags": []
     },
     "300574f681e16228": {
       "sentence": "Registry HARMONIA — ribociclib vs palbociclib in HR+/HER2−/HER2-enriched advanced breast cancer.",
@@ -2085,7 +2194,8 @@
       },
       "first_seen": "2026-09-01",
       "on_page": true,
-      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)"
+      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)",
+      "check_flags": []
     },
     "a3ea73a53f90bea3": {
       "sentence": "NCT05207709 The second head-to-head randomised trial of the same pair.",
@@ -2102,7 +2212,8 @@
       },
       "first_seen": "2026-09-01",
       "on_page": true,
-      "autobind": "anchors too weak to identify a document: NCT05207709 (strength 3, need 4)"
+      "autobind": "anchors too weak to identify a document: NCT05207709 (strength 3, need 4)",
+      "check_flags": []
     },
     "2f27329e2c76d922": {
       "sentence": "Guideline NCCN Clinical Practice Guidelines in Oncology — Breast Cancer, version 6.2026 Source of the category assignments, the stated reason for them, and the record that the three drugs have not been directly compared in clinical trials.",
@@ -2124,7 +2235,8 @@
       "attested_in": "issues/WHU-002-cdk46/advocate/2026-08-29-adjudication.md",
       "locator_type": "figure",
       "source_id": "S001",
-      "why_bound": "NCCN's licence forbids putting this document through any automated tool, so no check has read it or ever may. The operator read it and the questions and answers are in issues/WHU-002-cdk46/advocate/2026-08-29-adjudication.md. This row records an attestation, not a verified span."
+      "why_bound": "NCCN's licence forbids putting this document through any automated tool, so no check has read it or ever may. The operator read it and the questions and answers are in issues/WHU-002-cdk46/advocate/2026-08-29-adjudication.md. This row records an attestation, not a verified span.",
+      "check_flags": []
     },
     "574018a0d6bef965": {
       "sentence": "J Clin Oncol , 2017 Primary progression-free survival: median not reached vs 14.7 months, HR 0.54 (95% CI 0.41–0.72), P = .000021.",
@@ -2141,7 +2253,8 @@
       },
       "first_seen": "2026-09-01",
       "on_page": true,
-      "autobind": "no held document contains all 4 anchors: 14.7, 0.54, 0.41, 0.72"
+      "autobind": "no held document contains all 4 anchors: 14.7, 0.54, 0.41, 0.72",
+      "check_flags": []
     },
     "98c722932492c3c8": {
       "sentence": "Ann Oncol , 2024 66.8 vs 53.7 months, HR 0.804 (95% CI 0.637–1.015), two-sided P = .0664, at 8.1 years median follow-up.",
@@ -2167,7 +2280,7 @@
       "confirmed": false,
       "autobind": "the only held document containing all 6 anchors (66.8, 53.7, 0.804, 0.637, 1.015), sharing 4 subject word(s) with the sentence: follow, median, months, years",
       "check_flags": [],
-      "checked_on": "2026-09-04"
+      "checked_on": "2026-10-20"
     },
     "79a52368bbf15398": {
       "sentence": "A corrigendum to this paper exists — Ann Oncol 2025;36:1556, doi 10.1016/j.annonc.2025.07.002 — and we have not read it .",
@@ -2220,7 +2333,8 @@
       },
       "first_seen": "2026-09-01",
       "on_page": true,
-      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)"
+      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)",
+      "check_flags": []
     },
     "c39cd22daf327a90": {
       "sentence": "Ann Oncol , 2018 Progression-free survival 25.3 vs 16.0 months, HR 0.568 (95% CI 0.457–0.704), which this page rounds to 0.57 (0.46–0.70).",
@@ -2237,7 +2351,8 @@
       },
       "first_seen": "2026-09-01",
       "on_page": true,
-      "autobind": "no held document contains all 8 anchors: 25.3, 16.0, 0.568, 0.457, 0.704"
+      "autobind": "no held document contains all 8 anchors: 25.3, 16.0, 0.568, 0.457, 0.704",
+      "check_flags": []
     },
     "78c0a6768b334868": {
       "sentence": "The guideline prints the same medians against HR 0.56 (0.45–0.70) .",
@@ -2254,7 +2369,8 @@
       },
       "first_seen": "2026-09-01",
       "on_page": true,
-      "autobind": "anchors too weak to identify a document: 0.56, 0.45, 0.70 (strength 3, need 4)"
+      "autobind": "anchors too weak to identify a document: 0.56, 0.45, 0.70 (strength 3, need 4)",
+      "check_flags": []
     },
     "6a5d074828dc9fdc": {
       "sentence": "Primary MONALEESA-2 — overall survival with ribociclib plus letrozole.",
@@ -2271,7 +2387,8 @@
       },
       "first_seen": "2026-09-01",
       "on_page": true,
-      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)"
+      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)",
+      "check_flags": []
     },
     "3015abd786795317": {
       "sentence": "N Engl J Med , 2022 63.9 vs 51.4 months, HR 0.76 (95% CI 0.63–0.93), P = 0.008 as the paper prints it, at 6.6 years median follow-up.",
@@ -2297,7 +2414,7 @@
       "confirmed": false,
       "autobind": "the only held document containing all 7 anchors (63.9, 51.4, 0.76, 0.63, 0.93), sharing 4 subject word(s) with the sentence: follow, median, months, years",
       "check_flags": [],
-      "checked_on": "2026-09-04"
+      "checked_on": "2026-10-20"
     },
     "87c0675a58d976a7": {
       "sentence": "The test is one-sided, at a cumulative 2.5% level of significance, per the trial’s own results posting on ClinicalTrials.gov (NCT01958021), which also gives HR 0.765 (0.628–0.932).",
@@ -2332,7 +2449,8 @@
       },
       "first_seen": "2026-09-01",
       "on_page": true,
-      "autobind": "no held document contains all 3 anchors: 23.8, 13.0, 0.55"
+      "autobind": "no held document contains all 3 anchors: 23.8, 13.0, 0.55",
+      "check_flags": []
     },
     "a8d1861cf61a1555": {
       "sentence": "N Engl J Med , 2019 The protocol-specified interim analysis: median not reached vs 40.9 months, HR 0.71 (95% CI 0.54–0.95), one-sided P = .00973 against a prespecified stopping boundary of P = .01018, at 34.6 months median follow-up.",
@@ -2367,7 +2485,9 @@
         }
       ],
       "bound_on": "2026-09-13",
-      "bound_why": "S007-WALL-001: every figure in the held paper"
+      "bound_why": "S007-WALL-001: every figure in the held paper",
+      "check_flags": [],
+      "checked_on": "2026-10-20"
     },
     "99a2338d6c5a345b": {
       "sentence": "The direction of the test is stated in the ASCO 2019 abstract of the same analysis — “statistical comparison was made by 1-sided stratified log-rank test” — and confirmed independently in the trial’s ClinicalTrials.gov results posting ( NCT02278120 ), whose overall-survival analysis is posted with p = 0.00973 and the annotation One-sided stratified log-rank test .",
@@ -2441,7 +2561,8 @@
       },
       "first_seen": "2026-09-01",
       "on_page": true,
-      "autobind": "anchors too weak to identify a document: 0.008 (strength 1, need 4)"
+      "autobind": "anchors too weak to identify a document: 0.008 (strength 1, need 4)",
+      "check_flags": []
     },
     "ee90aa2f5f12f640": {
       "sentence": "Clin Cancer Res , 2022;28:851 The exploratory extended follow-up at 53.5 months: 58.7 vs 48.0 months, HR 0.76 (95% CI 0.61–0.96).",
@@ -2458,7 +2579,8 @@
       },
       "first_seen": "2026-09-01",
       "on_page": true,
-      "autobind": "no held document contains all 6 anchors: 53.5, 58.7, 48.0, 0.76, 0.61"
+      "autobind": "no held document contains all 6 anchors: 53.5, 58.7, 48.0, 0.76, 0.61",
+      "check_flags": []
     },
     "d47c013ea7e6b527": {
       "sentence": "N Engl J Med , 2016 Primary progression-free survival: 24.8 vs 14.5 months, HR 0.58 (95% CI 0.46–0.72), two-sided P < .001.",
@@ -2484,7 +2606,7 @@
       "confirmed": false,
       "autobind": "the only held document containing all 5 anchors (24.8, 14.5, 0.58, 0.46, 0.72), sharing 3 subject word(s) with the sentence: months, progression, survival",
       "check_flags": [],
-      "checked_on": "2026-09-04"
+      "checked_on": "2026-10-20"
     },
     "9fcd4c9b6e135c6f": {
       "sentence": "The unrounded 0.576 (0.463–0.718) appears in the 2019 extended-follow-up paper ( Breast Cancer Res Treat ), which restates the primary analysis — not in NEJM 2016.",
@@ -2502,7 +2624,8 @@
       "first_seen": "2026-09-01",
       "on_page": true,
       "locator_type": null,
-      "autobind": "the sentence is a claim about WHERE a figure appears ('appears in the 2019 extended-follow-up paper'), so its numbers will be found somewhere that is not what the sentence is about"
+      "autobind": "the sentence is a claim about WHERE a figure appears ('appears in the 2019 extended-follow-up paper'), so its numbers will be found somewhere that is not what the sentence is about",
+      "check_flags": []
     },
     "19f1bd663fc7bc2f": {
       "sentence": "J Clin Oncol , 2024 53.9 vs 51.2 months, HR 0.956 (95% CI 0.777–1.177), one-sided P = .34, at 90.1 months median follow-up.",
@@ -2519,7 +2642,8 @@
       },
       "first_seen": "2026-09-01",
       "on_page": true,
-      "autobind": "no held document contains all 6 anchors: 53.9, 51.2, 0.956, 0.777, 1.177"
+      "autobind": "no held document contains all 6 anchors: 53.9, 51.2, 0.956, 0.777, 1.177",
+      "check_flags": []
     },
     "b1a5468cce7c29ae": {
       "sentence": "Source also of the survival analysis’s design: “The final OS analysis was planned to be performed after at least 390 events, providing an 80% power to detect a hazard ratio [HR] ≤0.74, using a stratified log-rank test with a one-sided significance level of 0.025.” Source also of the missing-data imbalance (unknown survival status 13.3% vs 21.2%) and of the investigators’ recovered-data sensitivity analysis (9.2% vs 11.7%; HR 0.92, 95% CI 0.76–1.12, P = .21).",
@@ -2536,7 +2660,8 @@
       },
       "first_seen": "2026-09-01",
       "on_page": true,
-      "autobind": "no held document contains all 9 anchors: 0.74, 0.025, 13.3%, 21.2%, 9.2%"
+      "autobind": "no held document contains all 9 anchors: 0.74, 0.025, 13.3%, 21.2%, 9.2%",
+      "check_flags": []
     },
     "4dd7e18ddedd393c": {
       "sentence": "Cancers , 2023;15(18) Patient-level survival curves rebuilt from PALOMA-2, MONALEESA-2 and MONARCH 3 by graphical reconstruction, 1,827 patients, every pair estimated directly.",
@@ -2553,7 +2678,8 @@
       },
       "first_seen": "2026-09-01",
       "on_page": true,
-      "autobind": "anchors too weak to identify a document: 1,827 (strength 3, need 4)"
+      "autobind": "anchors too weak to identify a document: 1,827 (strength 3, need 4)",
+      "check_flags": []
     },
     "c8fd88b3b2e89780": {
       "sentence": "Overall survival: ribociclib vs palbociclib 0.903 (0.746–1.094, p = 0.297); abemaciclib vs palbociclib 0.843 (0.690–1.030, p = 0.094); abemaciclib vs ribociclib 0.933 (0.753–1.157, p = 0.528) .",
@@ -2570,7 +2696,8 @@
       },
       "first_seen": "2026-09-01",
       "on_page": true,
-      "autobind": "no held document contains all 12 anchors: 0.903, 0.746, 1.094, 0.297, 0.843"
+      "autobind": "no held document contains all 12 anchors: 0.903, 0.746, 1.094, 0.297, 0.843",
+      "check_flags": []
     },
     "c69524de3bdf808b": {
       "sentence": "Progression-free survival, one-stage model: abemaciclib vs ribociclib 0.722 (0.520–1.002, p = 0.051 ); two-stage model on the same data, 0.921 (0.597–1.420, p = 0.710).",
@@ -2587,7 +2714,8 @@
       },
       "first_seen": "2026-09-01",
       "on_page": true,
-      "autobind": "no held document contains all 8 anchors: 0.722, 0.520, 1.002, 0.051, 0.921"
+      "autobind": "no held document contains all 8 anchors: 0.722, 0.520, 1.002, 0.051, 0.921",
+      "check_flags": []
     },
     "d3da30b22fbf66be": {
       "sentence": "Ann Oncol , April 2025 1,982 patients, eighteen Italian centres, inverse-probability weighting.",
@@ -2676,7 +2804,8 @@
       },
       "first_seen": "2026-09-01",
       "on_page": true,
-      "autobind": "anchors too weak to identify a document: 3,691 (strength 3, need 4)"
+      "autobind": "anchors too weak to identify a document: 3,691 (strength 3, need 4)",
+      "check_flags": []
     },
     "3d24a59326cd8fc8": {
       "sentence": "Label IBRANCE (palbociclib) — warnings and precautions Source of neutropenia in 80% of PALOMA-2 patients, grade 3 or worse in 66%, and of the requirement for blood counts on day 15 of each of the first two cycles.",
@@ -2693,7 +2822,8 @@
       },
       "first_seen": "2026-09-01",
       "on_page": true,
-      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)"
+      "autobind": "anchors too weak to identify a document: none (strength 0, need 4)",
+      "check_flags": []
     },
     "2b90b3e9cdcbfa4c": {
       "sentence": "Scientific Reports , February 2024 Seven phase III trials, 4,415 patients, 73.3 months median follow-up.",
@@ -2750,7 +2880,15 @@
         }
       ],
       "bound_on": "2026-09-13",
-      "bound_why": "S015's Table 1 (second rendition, held 2026-09-13) and its reference list; the study row identifies the column"
+      "bound_why": "S015's Table 1 (second rendition, held 2026-09-13) and its reference list; the study row identifies the column",
+      "check_flags": [
+        {
+          "check": "B12",
+          "verdict": "added precision",
+          "why": "the source prints 0.80, not 0.804 — we show 1 decimal place(s) the source does not"
+        }
+      ],
+      "checked_on": "2026-10-20"
     },
     "167f0e00c2026beb": {
       "sentence": "(The 73.3 months above is the pooled median across the seven trials, over a range of 48.7 to 97.2 months — the figure its abstract gives.",
@@ -2816,7 +2954,8 @@
       },
       "first_seen": "2026-09-01",
       "on_page": true,
-      "autobind": "no held document contains all 4 anchors: 9,146, 6,831, 1,279, 1,036"
+      "autobind": "no held document contains all 4 anchors: 9,146, 6,831, 1,279, 1,036",
+      "check_flags": []
     },
     "11ac507650f22ce7": {
       "sentence": "Overall survival: ribociclib vs palbociclib aHR 0.98 (0.87–1.10, P = 0.7531); abemaciclib vs palbociclib 0.95 (0.84–1.08, P = 0.4292); abemaciclib vs ribociclib 0.97 (0.82–1.14, P = 0.6956).",
@@ -2842,7 +2981,7 @@
       "confirmed": false,
       "autobind": "the only held document containing all 12 anchors (0.98, 0.87, 1.10, 0.7531, 0.95), sharing 3 subject word(s) with the sentence: abemaciclib, palbociclib, ribociclib",
       "check_flags": [],
-      "checked_on": "2026-09-04"
+      "checked_on": "2026-10-20"
     },
     "edf6d63d6ff431c8": {
       "sentence": "The study’s own SABCS 2024 poster states: “This study was funded by Pfizer Inc.” Pfizer makes palbociclib.",
@@ -3196,8 +3335,15 @@
       "confirmed": false,
       "proposed_on": "2026-09-01",
       "why_bound": "a model proposed this span and B2 confirmed the string is in S005; nobody has yet signed that the sentence is warranted by it",
-      "check_flags": [],
-      "checked_on": "2026-09-04"
+      "check_flags": [
+        {
+          "check": "B19",
+          "verdict": "evidence hedge dropped",
+          "hedge": "hypothesis",
+          "why": "the evidence says 'hypothesis' (S005); the sentence carries no hedge"
+        }
+      ],
+      "checked_on": "2026-10-20"
     },
     "a66b25b2dcf48f2f": {
       "sentence": "Its statistical section describes a one-sided stratified log-rank test with a Lan–DeMets (O’Brien–Fleming) boundary for the P value at a one-sided overall significance level of 2.5%, and then states, in its own sentence: A two-sided version of the P value is reported.",
@@ -3220,7 +3366,9 @@
       "first_seen": "2026-09-01",
       "on_page": true,
       "bound_on": "2026-09-12",
-      "bound_why": "changecheck NEW_AND_UNBOUND, disposed by binding; operator authorisation of 12 September 2026"
+      "bound_why": "changecheck NEW_AND_UNBOUND, disposed by binding; operator authorisation of 12 September 2026",
+      "check_flags": [],
+      "checked_on": "2026-10-20"
     },
     "f29e30172337d310": {
       "sentence": "The trial’s results posting on ClinicalTrials.gov (NCT01958021) gives that test’s one-sided p as p = 0.004 , alongside HR 0.765 (0.628–0.932); NEJM prints the two-sided version of the same p-value, P = 0.008 , alongside HR 0.76 (0.63–0.93).",
@@ -3249,7 +3397,9 @@
         }
       ],
       "bound_on": "2026-09-12",
-      "bound_why": "changecheck NEW_AND_UNBOUND, disposed by binding; operator authorisation of 12 September 2026"
+      "bound_why": "changecheck NEW_AND_UNBOUND, disposed by binding; operator authorisation of 12 September 2026",
+      "check_flags": [],
+      "checked_on": "2026-10-20"
     },
     "c8db0a756f3bf3ad": {
       "sentence": "PALOMA-2 is one-sided too, at an alpha of 0.025 — its registry record (NCT01740427) annotates each of its three stratified log-rank analyses — progression-free survival, and overall survival at both the primary and the final look — 1-sided p-value from the stratified log-rank test — which puts the critical value in the same place on the benefit side — a result that clears one clears the other — while differing in what the test was capable of concluding at all: a one-sided test is built to detect benefit and cannot declare harm.",
@@ -3265,7 +3415,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": true,
+      "check_flags": []
     },
     "f788d9a88342d397": {
       "sentence": "A corrigendum to this paper exists — Ann Oncol 2025;36:1556, doi 10.1016/j.annonc.2025.07.002 — and we have now read it.",
@@ -3316,7 +3467,9 @@
         }
       ],
       "bound_on": "2026-09-12",
-      "bound_why": "changecheck NEW_AND_UNBOUND, disposed by binding; operator authorisation of 12 September 2026"
+      "bound_why": "changecheck NEW_AND_UNBOUND, disposed by binding; operator authorisation of 12 September 2026",
+      "check_flags": [],
+      "checked_on": "2026-10-20"
     },
     "916dfa46242b3cde": {
       "sentence": "The trial’s results posting on ClinicalTrials.gov (NCT01958021) gives the one-sided form, p = 0.004, with HR 0.765 (0.628–0.932).",
@@ -3339,7 +3492,9 @@
       "first_seen": "2026-09-01",
       "on_page": true,
       "bound_on": "2026-09-12",
-      "bound_why": "changecheck NEW_AND_UNBOUND, disposed by binding; operator authorisation of 12 September 2026"
+      "bound_why": "changecheck NEW_AND_UNBOUND, disposed by binding; operator authorisation of 12 September 2026",
+      "check_flags": [],
+      "checked_on": "2026-10-20"
     },
     "4345ebf111a640ff": {
       "sentence": "What the guideline says",
@@ -3360,7 +3515,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": true,
+      "check_flags": []
     },
     "fc6f0ad6fc27515b": {
       "sentence": "That is not a criticism of the guideline, which is a reference",
@@ -3403,7 +3559,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": true,
+      "check_flags": []
     },
     "eb2f08844fa03107": {
       "sentence": "HR 0.54 (0.41–0.72)",
@@ -3424,7 +3581,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": true,
+      "check_flags": []
     },
     "68537dbb74fbf8d1": {
       "sentence": "66.8 vs 53.7 mo",
@@ -3445,7 +3603,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": true,
+      "check_flags": []
     },
     "e895ddbd5bb0428e": {
       "sentence": "HR 0.80 (0.64–1.02)",
@@ -3466,7 +3625,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": true,
+      "check_flags": []
     },
     "9a1703971fc3c92c": {
       "sentence": "final analysis, 8.1 y, Ann Oncol 2024 · two-sided P = .0664 against a final-analysis threshold of .034 — not significant †",
@@ -3487,7 +3647,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": true,
+      "check_flags": []
     },
     "f46f416fd9944f00": {
       "sentence": "MONALEESA-2",
@@ -3508,7 +3669,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": true,
+      "check_flags": []
     },
     "123823f4a17d451d": {
       "sentence": "25.3 vs 16.0 mo",
@@ -3529,7 +3691,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": true,
+      "check_flags": []
     },
     "b105c5da06def326": {
       "sentence": "HR 0.57 (0.46–0.70)",
@@ -3550,7 +3713,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": true,
+      "check_flags": []
     },
     "d84162ea931cfcfa": {
       "sentence": "63.9 vs 51.4 mo",
@@ -3571,7 +3735,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": true,
+      "check_flags": []
     },
     "e7c2039564d3754a": {
       "sentence": "HR 0.76 (0.63–0.93)",
@@ -3592,7 +3757,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": true,
+      "check_flags": []
     },
     "702ba96a846539a3": {
       "sentence": "final analysis, 6.6 y, NEJM 2022 · p = 0.008 — significant †",
@@ -3613,7 +3779,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": true,
+      "check_flags": []
     },
     "abc81a9fd51806ca": {
       "sentence": "23.8 vs 13.0 mo",
@@ -3634,7 +3801,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": true,
+      "check_flags": []
     },
     "0c1e283e6e755cea": {
       "sentence": "HR 0.55",
@@ -3655,7 +3823,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": true,
+      "check_flags": []
     },
     "1a91794835711036": {
       "sentence": "not reached vs 40.9 mo",
@@ -3676,7 +3845,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": true,
+      "check_flags": []
     },
     "fd33200437afe56a": {
       "sentence": "HR 0.71 (0.54–0.95)",
@@ -3697,7 +3867,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": true,
+      "check_flags": []
     },
     "ba315b247437a6e3": {
       "sentence": "protocol-specified interim analysis, 34.6 mo, NEJM 2019 · one-sided P = .00973 against a prespecified stopping boundary of .01018 — crossed it †",
@@ -3718,7 +3889,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": true,
+      "check_flags": []
     },
     "f99f3dc04fad3e56": {
       "sentence": "Later exploratory extended follow-up (53.5 mo): 58.7 vs 48.0 mo, HR 0.76 (0.61–0.96)",
@@ -3739,7 +3911,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": true,
+      "check_flags": []
     },
     "c55724089c957c84": {
       "sentence": "24.8 vs 14.5 mo",
@@ -3760,7 +3933,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": true,
+      "check_flags": []
     },
     "5c1009de9d275377": {
       "sentence": "HR 0.58 (0.46–0.72)",
@@ -3781,7 +3955,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": true,
+      "check_flags": []
     },
     "ebea8fb1e2dee668": {
       "sentence": "53.9 vs 51.2 mo",
@@ -3802,7 +3977,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": true,
+      "check_flags": []
     },
     "fece8081f21a9ad2": {
       "sentence": "HR 0.96 (0.78–1.18)",
@@ -3823,7 +3999,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": true,
+      "check_flags": []
     },
     "374701a5053d3767": {
       "sentence": "final analysis, 90.1 mo, JCO 2024 · one-sided P = .34 — not significant †",
@@ -3844,7 +4021,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": true,
+      "check_flags": []
     },
     "7e82c68dc5ed4f19": {
       "sentence": "Abemaciclib MONARCH 3 · HR 0.80",
@@ -3865,7 +4043,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": true,
+      "check_flags": []
     },
     "543e4b395f14b8ea": {
       "sentence": "Ribociclib MONALEESA-2 · HR 0.76",
@@ -3886,7 +4065,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": true,
+      "check_flags": []
     },
     "c487d5f0fda1d56f": {
       "sentence": "Palbociclib PALOMA-2 · HR 0.96",
@@ -3907,7 +4087,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": true,
+      "check_flags": []
     },
     "ce4dfd12e8ef5751": {
       "sentence": "0 0.5 1.0 — no effect 1.5",
@@ -3928,7 +4109,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": true,
+      "check_flags": []
     },
     "1aeaa4fecb8cee77": {
       "sentence": "Abemaciclib’s hazard ratio is 0.80 , on an interval running 0.64 to 1.02 .",
@@ -3977,7 +4159,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": true,
+      "check_flags": []
     },
     "e17209aa4a7fc17b": {
       "sentence": "One interval stopped at 0.93 and the other at 1.015 , and that is the whole of it: ribociclib’s result reached statistical significance (p = 0.008) and abemaciclib’s did not (P = .0664, against its own boundary of .034).",
@@ -3998,7 +4181,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": true,
+      "check_flags": []
     },
     "28d0517d421fae3f": {
       "sentence": "13.1 months",
@@ -4019,7 +4203,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": true,
+      "check_flags": []
     },
     "1d464f4ecc27b72a": {
       "sentence": "0.80",
@@ -4040,7 +4225,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": true,
+      "check_flags": []
     },
     "0e959e3b0266eb85": {
       "sentence": "MONALEESA-2 ribociclib",
@@ -4061,7 +4247,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": true,
+      "check_flags": []
     },
     "0ae190880539d391": {
       "sentence": "12.5 months",
@@ -4082,7 +4269,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": true,
+      "check_flags": []
     },
     "342a441fd887344f": {
       "sentence": "0.76",
@@ -4103,7 +4291,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": true,
+      "check_flags": []
     },
     "1339e612f4b2494f": {
       "sentence": "2.7 months",
@@ -4124,7 +4313,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": true,
+      "check_flags": []
     },
     "bf5fac6e3a727da6": {
       "sentence": "0.96",
@@ -4145,7 +4335,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": true,
+      "check_flags": []
     },
     "a7b64dbecb58f07a": {
       "sentence": "MONALEESA-2 — ClinicalTrials.gov results posting.",
@@ -4734,7 +4925,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-01",
-      "on_page": true
+      "on_page": true,
+      "check_flags": []
     },
     "1c895d650b602573": {
       "sentence": "The guideline defines category 1 as based upon high-level evidence (≥1 randomized phase 3 trials or high-quality, robust meta-analyses), there is uniform NCCN consensus (≥85% support of the Panel) that the intervention is appropriate , and category 2A as based upon lower-level evidence, there is uniform NCCN consensus (≥85% support of the Panel) that the intervention is appropriate .",
@@ -4758,7 +4950,8 @@
       "on_page": true,
       "attested_by": "fred",
       "attested_in": "issues/WHU-002-cdk46/advocate/2026-08-29-adjudication.md",
-      "why_bound": "NCCN's licence forbids putting this document through any automated tool, so no check has read it or ever may. The operator read it and the questions and answers are in issues/WHU-002-cdk46/advocate/2026-08-29-adjudication.md. This row records an attestation, not a verified span."
+      "why_bound": "NCCN's licence forbids putting this document through any automated tool, so no check has read it or ever may. The operator read it and the questions and answers are in issues/WHU-002-cdk46/advocate/2026-08-29-adjudication.md. This row records an attestation, not a verified span.",
+      "check_flags": []
     },
     "3f31f94498770743": {
       "sentence": "The difference between them is the evidence, not the consensus: both require the same ≥85% panel support.",
@@ -4779,7 +4972,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-03",
-      "on_page": true
+      "on_page": true,
+      "check_flags": []
     },
     "f58e1f9e6806eaf1": {
       "sentence": "That reading is ours, and this is the whole of what the guideline gives for it: it says ribociclib with an aromatase inhibitor is category 1 due to the clear overall survival benefit, and that ribociclib and abemaciclib with fulvestrant are category 1 since those combinations showed an overall survival benefit in MONALEESA-3 and MONARCH 2.",
@@ -4803,7 +4997,8 @@
       "on_page": true,
       "attested_by": "fred",
       "attested_in": "issues/WHU-002-cdk46/advocate/2026-08-29-adjudication.md",
-      "why_bound": "NCCN's licence forbids putting this document through any automated tool, so no check has read it or ever may. The operator read it and the questions and answers are in issues/WHU-002-cdk46/advocate/2026-08-29-adjudication.md. This row records an attestation, not a verified span."
+      "why_bound": "NCCN's licence forbids putting this document through any automated tool, so no check has read it or ever may. The operator read it and the questions and answers are in issues/WHU-002-cdk46/advocate/2026-08-29-adjudication.md. This row records an attestation, not a verified span.",
+      "check_flags": []
     },
     "7da1618ee2cfc708": {
       "sentence": "The same combination with abemaciclib or palbociclib is category 2A .",
@@ -4824,7 +5019,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-12",
-      "on_page": true
+      "on_page": true,
+      "check_flags": []
     },
     "09b928b2b8f61dec": {
       "sentence": "The guideline states the basis for the difference: the overall survival benefit seen with ribociclib.",
@@ -4845,7 +5041,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-12",
-      "on_page": true
+      "on_page": true,
+      "check_flags": []
     },
     "8d5e6c8e99531d9a": {
       "sentence": "The Categories of Evidence and Consensus — the 1 and the 2A above — record how strong the evidence is that an intervention is appropriate .",
@@ -4866,7 +5063,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-12",
-      "on_page": true
+      "on_page": true,
+      "check_flags": []
     },
     "ec05334de9667314": {
       "sentence": "Abemaciclib and palbociclib are category 2A.",
@@ -4887,7 +5085,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-12",
-      "on_page": true
+      "on_page": true,
+      "check_flags": []
     },
     "97b97eaaa01668f4": {
       "sentence": "We asked whether it anywhere tells a reader how to read a category 1 sitting beside a category 2A when all three regimens are equally preferred — whether it cautions, in the discussion, the principles section, a footnote or a panel comment, against taking the higher evidence grade for the better drug.",
@@ -4908,7 +5107,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-12",
-      "on_page": true
+      "on_page": true,
+      "check_flags": []
     },
     "c5e8b3c7c07e1705": {
       "sentence": "In combination with fulvestrant rather than an aromatase inhibitor, both ribociclib and abemaciclib are category 1 , and palbociclib is not.",
@@ -4929,7 +5129,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-12",
-      "on_page": true
+      "on_page": true,
+      "check_flags": []
     },
     "ecf41244181a08b3": {
       "sentence": "So the claim is narrow: first-line, with an aromatase inhibitor, ribociclib alone carries category 1.",
@@ -4950,7 +5151,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-12",
-      "on_page": true
+      "on_page": true,
+      "check_flags": []
     },
     "f50e2606ff766a51": {
       "sentence": "Which means abemaciclib is a category 1 drug in one setting and a category 2A drug in another — on the same evidence standard, consistently applied.",
@@ -4971,7 +5173,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-12",
-      "on_page": true
+      "on_page": true,
+      "check_flags": []
     },
     "0efddef67f4492d0": {
       "sentence": "Nowhere in version 6.2026 does it state the general rule we have drawn from them — that the category itself records which trial produced a significant survival result.",
@@ -4992,7 +5195,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-12",
-      "on_page": true
+      "on_page": true,
+      "check_flags": []
     },
     "4507f724698101a9": {
       "sentence": "MONARCH 3",
@@ -5013,7 +5217,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-12",
-      "on_page": true
+      "on_page": true,
+      "check_flags": []
     },
     "1354cf61465d9562": {
       "sentence": "abemaciclib",
@@ -5034,7 +5239,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-12",
-      "on_page": true
+      "on_page": true,
+      "check_flags": []
     },
     "ec046665d2575d00": {
       "sentence": "ribociclib",
@@ -5055,7 +5261,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-12",
-      "on_page": true
+      "on_page": true,
+      "check_flags": []
     },
     "022d420e1001546d": {
       "sentence": "MONALEESA-7",
@@ -5076,7 +5283,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-12",
-      "on_page": true
+      "on_page": true,
+      "check_flags": []
     },
     "489d9bed1f63afe2": {
       "sentence": "PALOMA-2",
@@ -5097,7 +5305,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-12",
-      "on_page": true
+      "on_page": true,
+      "check_flags": []
     },
     "f8ab54972063c21e": {
       "sentence": "palbociclib",
@@ -5118,7 +5327,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-12",
-      "on_page": true
+      "on_page": true,
+      "check_flags": []
     },
     "4f7ad8cc25d09c7a": {
       "sentence": "Nobody performed a cross-trial comparison; the format performs one on the reader’s behalf, and a category 1 sitting next to a category 2A is read as a ranking of the drugs whether or not it was meant as one.",
@@ -5139,7 +5349,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-12",
-      "on_page": true
+      "on_page": true,
+      "check_flags": []
     },
     "6db3c655645aff37": {
       "sentence": "So on the narrow question of how hard it was to reach significance, PALOMA-2’s bar sat where the conventional one sits — while the test itself was not the conventional test, because it was built only to look for benefit.",
@@ -5160,7 +5371,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-12",
-      "on_page": true
+      "on_page": true,
+      "check_flags": []
     },
     "6faa1abfd1170acc": {
       "sentence": "MONALEESA-7’s is an interim result against a group-sequential stopping boundary of .01018 .",
@@ -5181,7 +5393,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-12",
-      "on_page": true
+      "on_page": true,
+      "check_flags": []
     },
     "a076507fd6e290db": {
       "sentence": "MONARCH 3 did not: survival there was a gated secondary endpoint, its final analysis planned at about 315 events with alpha split between the whole population and a visceral-disease subgroup.",
@@ -5202,7 +5415,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-12",
-      "on_page": true
+      "on_page": true,
+      "check_flags": []
     },
     "04c583a87bea8da2": {
       "sentence": "So palbociclib's null result comes from an analysis built to find an effect of that size, and abemaciclib's near-miss comes from one that was not.",
@@ -5223,7 +5437,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-12",
-      "on_page": true
+      "on_page": true,
+      "check_flags": []
     },
     "9a7c0fb021653d19": {
       "sentence": "MONALEESA-7 is not on this chart: it enrolled pre/perimenopausal women on ovarian suppression with an aromatase inhibitor or tamoxifen , and putting it beside three postmenopausal aromatase-inhibitor trials would be the cross-trial comparison this piece spends its second half warning about.",
@@ -5244,7 +5459,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-12",
-      "on_page": true
+      "on_page": true,
+      "check_flags": []
     },
     "b366ea9b32c2c603": {
       "sentence": "That overlap is also a function of how wide abemaciclib’s interval is — itself a consequence of what that trial was powered to detect — and not only of how close the two point estimates are.",
@@ -5265,7 +5481,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-12",
-      "on_page": true
+      "on_page": true,
+      "check_flags": []
     },
     "0404a5f80f92c11e": {
       "sentence": "What separates a category 1 from a category 2A here is eight and a half hundredths in where an upper bound landed, on point estimates four hundredths apart.",
@@ -5286,7 +5503,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-12",
-      "on_page": true
+      "on_page": true,
+      "check_flags": []
     },
     "6368cee862c7220b": {
       "sentence": "What PALOMA-2 established is that it did not demonstrate a survival benefit.",
@@ -5307,7 +5525,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-12",
-      "on_page": true
+      "on_page": true,
+      "check_flags": []
     },
     "fa4fea3d784c3df3": {
       "sentence": "A different number, from a trial with a defect its own authors flagged, is still not a measurement of a different drug — but this piece is not claiming palbociclib’s result sits where abemaciclib’s does.",
@@ -5328,7 +5547,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-12",
-      "on_page": true
+      "on_page": true,
+      "check_flags": []
     },
     "ebefe435944592e8": {
       "sentence": "MONARCH 3 abemaciclib",
@@ -5349,7 +5569,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-12",
-      "on_page": true
+      "on_page": true,
+      "check_flags": []
     },
     "7259a0720e4266ed": {
       "sentence": "2A",
@@ -5370,7 +5591,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-12",
-      "on_page": true
+      "on_page": true,
+      "check_flags": []
     },
     "6b86b273ff34fce1": {
       "sentence": "1",
@@ -5391,7 +5613,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-12",
-      "on_page": true
+      "on_page": true,
+      "check_flags": []
     },
     "8540cc0f2f4c78b4": {
       "sentence": "PALOMA-2 palbociclib",
@@ -5412,7 +5635,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-12",
-      "on_page": true
+      "on_page": true,
+      "check_flags": []
     },
     "abb1cde6d8b01732": {
       "sentence": "The number a patient would ask for On the scale that means something to a person — months of median survival added over endocrine therapy alone — the category 2A drug’s trial reported the larger figure.",
@@ -5433,7 +5657,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-12",
-      "on_page": true
+      "on_page": true,
+      "check_flags": []
     },
     "e53d8f3af2774b81": {
       "sentence": "Whatever is true of the other two, PALOMA-2 did not show a survival benefit.",
@@ -5454,7 +5679,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-12",
-      "on_page": true
+      "on_page": true,
+      "check_flags": []
     },
     "c1b7c7f15ca26db0": {
       "sentence": "On palbociclib they contradict each other.",
@@ -5475,7 +5701,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-12",
-      "on_page": true
+      "on_page": true,
+      "check_flags": []
     },
     "c33f1733f01ba7e8": {
       "sentence": "One found no significant difference between them; the other stopped at 61 patients and never reported, so it establishes nothing either way.",
@@ -5496,7 +5723,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-12",
-      "on_page": true
+      "on_page": true,
+      "check_flags": []
     },
     "d850c57545725dcc": {
       "sentence": "None has tested abemaciclib against either of the others, which is the pair the category difference turns on.",
@@ -5517,7 +5745,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-12",
-      "on_page": true
+      "on_page": true,
+      "check_flags": []
     },
     "920828c72f406c8a": {
       "sentence": "For the comparison this piece turns on, abemaciclib against ribociclib, the two arms are of similar size and the imbalance is not the issue; it is their size against palbociclib’s that limits the other two comparisons.",
@@ -5538,7 +5767,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-12",
-      "on_page": true
+      "on_page": true,
+      "check_flags": []
     },
     "b838dcc73b97f765": {
       "sentence": ", which makes palbociclib.",
@@ -5559,7 +5789,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-12",
-      "on_page": true
+      "on_page": true,
+      "check_flags": []
     },
     "69a831d757952459": {
       "sentence": "This page has not read PALMARES-2’s declaration of interests, and the honest reason is that we did not go and get it.",
@@ -5580,7 +5811,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-12",
-      "on_page": true
+      "on_page": true,
+      "check_flags": []
     },
     "fb033ad5b97a9b22": {
       "sentence": "Together they are the best comparative evidence in existence, and on palbociclib they contradict each other .",
@@ -5601,7 +5833,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-12",
-      "on_page": true
+      "on_page": true,
+      "check_flags": []
     },
     "4cc61cd18ad7587c": {
       "sentence": "Whether palbociclib is behind the other two is unsettled, and this page does not settle it.",
@@ -5622,7 +5855,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-12",
-      "on_page": true
+      "on_page": true,
+      "check_flags": []
     },
     "d9a911546a53a334": {
       "sentence": "What all four agree on The studies disagree about palbociclib.",
@@ -5643,7 +5877,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-12",
-      "on_page": true
+      "on_page": true,
+      "check_flags": []
     },
     "2ba453d1c7335716": {
       "sentence": "On abemaciclib against ribociclib — the comparison the category difference actually rests on — they do not disagree at all.",
@@ -5664,7 +5899,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-12",
-      "on_page": true
+      "on_page": true,
+      "check_flags": []
     },
     "f422b5f9a0085a8a": {
       "sentence": "PALMARES-2 publishes no abemaciclib-versus-ribociclib survival figure, so on that pairing the survival evidence is P-VERIFY’s and the meta-analysis’s.",
@@ -5707,7 +5943,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-12",
-      "on_page": true
+      "on_page": true,
+      "check_flags": []
     },
     "c390d4890bb818a6": {
       "sentence": "The guideline’s sentence is However, the CDK4/6 inhibitors have not been directly compared in clinical trials.",
@@ -5728,7 +5965,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-12",
-      "on_page": true
+      "on_page": true,
+      "check_flags": []
     },
     "2bf9e34437c4d372": {
       "sentence": "On that reading the guideline’s sentence is true — none exists in the setting that sentence is about , first line with an aromatase inhibitor.",
@@ -5749,7 +5987,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-12",
-      "on_page": true
+      "on_page": true,
+      "check_flags": []
     },
     "dfaf74bb9b51b413": {
       "sentence": "On that reading the guideline’s sentence would be false, because the four comparative studies on this page do exactly that — two real-world cohorts of 9,146 and 1,982 patients, a network meta-analysis and a reconstruction from published curves — and three of them report abemaciclib against ribociclib directly.",
@@ -5791,7 +6030,8 @@
       ],
       "step": "The four comparative studies, each identified by its own methods statement: P-VERIFY's 9,146; PALMARES-2's 1,982 (as S027 states it; the paper itself is not held); the network meta-analysis; the reconstruction from published curves. That three of them compare abemaciclib against ribociclib directly is read off the same documents' results (S016, S015, S028); the reading of the guideline's sentence this rests on is the page's own, and the sentence says so ('On that reading').",
       "bound_on": "2026-09-12",
-      "bound_why": "changecheck NEW_AND_UNBOUND, disposed by binding; operator authorisation of 12 September 2026"
+      "bound_why": "changecheck NEW_AND_UNBOUND, disposed by binding; operator authorisation of 12 September 2026",
+      "check_flags": []
     },
     "cc93061be2360a9c": {
       "sentence": "Where a reader who prefers the wider reading diverges from us: they would say the guideline is out of date rather than accurate, and that the comparison it calls untested has in fact been attempted four times.",
@@ -5812,7 +6052,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-12",
-      "on_page": true
+      "on_page": true,
+      "check_flags": []
     },
     "70a5522dee802f89": {
       "sentence": "Note that nothing downstream of this page changes either way : on both readings, no study of any design separates abemaciclib from ribociclib.",
@@ -5833,7 +6074,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-12",
-      "on_page": true
+      "on_page": true,
+      "check_flags": []
     },
     "08633e9b039b1a87": {
       "sentence": "Both put ribociclib against palbociclib.",
@@ -5854,7 +6096,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-12",
-      "on_page": true
+      "on_page": true,
+      "check_flags": []
     },
     "78e56e248cf74a75": {
       "sentence": "Their conclusion, in their words: both Ribociclib and palbociclib have similar CBR, PFS and toxicity profile .",
@@ -5875,7 +6118,15 @@
         "warranted": null
       },
       "first_seen": "2026-09-12",
-      "on_page": true
+      "on_page": true,
+      "check_flags": [
+        {
+          "check": "B22",
+          "verdict": "wording claim undetermined",
+          "why": "'both Ribociclib and palbociclib have similar CBR, PFS and toxicity profile': not in the bound span(s), and no source it cites is held"
+        }
+      ],
+      "checked_on": "2026-10-20"
     },
     "ccbf6f7c32647c3e": {
       "sentence": "What they do not do is close the abemaciclib question: no randomised trial has compared abemaciclib against either of the other two , in any setting, and that is the comparison the category difference actually turns on.",
@@ -5896,7 +6147,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-12",
-      "on_page": true
+      "on_page": true,
+      "check_flags": []
     },
     "3c4925172971b60c": {
       "sentence": "Ribociclib is the only one requiring cardiac monitoring: an ECG before treatment and again at about day 14 of the first cycle.",
@@ -5917,7 +6169,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-12",
-      "on_page": true
+      "on_page": true,
+      "check_flags": []
     },
     "d23468ac537b36fa": {
       "sentence": "The category 1 drug is the one with the cardiac requirement.",
@@ -5938,7 +6191,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-12",
-      "on_page": true
+      "on_page": true,
+      "check_flags": []
     },
     "1a0d7c32deed2b82": {
       "sentence": "One category 2A drug carries a thrombosis warning and the other a two-in-three rate of grade 3 neutropenia.",
@@ -5959,7 +6213,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-12",
-      "on_page": true
+      "on_page": true,
+      "check_flags": []
     },
     "591094dde9469f59": {
       "sentence": "MONALEESA-7, in pre/perimenopausal women, also reached significance for first-line overall survival.",
@@ -5980,7 +6235,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-12",
-      "on_page": true
+      "on_page": true,
+      "check_flags": []
     },
     "6856a19153dec786": {
       "sentence": "The point estimate favours abemaciclib; the interval crosses the no-effect line.",
@@ -6001,7 +6257,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-12",
-      "on_page": true
+      "on_page": true,
+      "check_flags": []
     },
     "7f7bbde0d7b1cf42": {
       "sentence": "The guideline assigns ribociclib category 1 first-line with an aromatase inhibitor, and abemaciclib and palbociclib category 2A, on the stated basis of that survival result.",
@@ -6022,7 +6279,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-12",
-      "on_page": true
+      "on_page": true,
+      "check_flags": []
     },
     "fbbd38d359ccff2d": {
       "sentence": "No randomised trial has compared abemaciclib against either of the other two, in any setting.",
@@ -6043,7 +6301,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-12",
-      "on_page": true
+      "on_page": true,
+      "check_flags": []
     },
     "4f9d59e52937bdbe": {
       "sentence": "Ribociclib and palbociclib have been compared head to head twice — Shaaban and colleagues in the second line with fulvestrant, and HARMONIA, which terminated at 61 patients — and the one that reported did not separate them; HARMONIA reported nothing.",
@@ -6064,7 +6323,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-12",
-      "on_page": true
+      "on_page": true,
+      "check_flags": []
     },
     "6d79fa0a05a29863": {
       "sentence": "The guideline’s own sentence, that the CDK4/6 inhibitors have not been directly compared in clinical trials , is about first-line aromatase-inhibitor combinations and is accurate in that scope.",
@@ -6085,7 +6345,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-12",
-      "on_page": true
+      "on_page": true,
+      "check_flags": []
     },
     "8b691594843d5353": {
       "sentence": "That abemaciclib and ribociclib differ in effectiveness.",
@@ -6106,7 +6367,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-12",
-      "on_page": true
+      "on_page": true,
+      "check_flags": []
     },
     "2d8fde11e7b0cb15": {
       "sentence": "Whether palbociclib is behind the other two.",
@@ -6127,7 +6389,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-12",
-      "on_page": true
+      "on_page": true,
+      "check_flags": []
     },
     "46e064167a54fd0c": {
       "sentence": "PALMARES-2’s survival data are immature and its arms unevenly followed; P-VERIFY is larger and is funded by palbociclib’s manufacturer.",
@@ -6170,7 +6433,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-12",
-      "on_page": true
+      "on_page": true,
+      "check_flags": []
     },
     "2baa68dec79db596": {
       "sentence": "Of the two that have been run — both ribociclib against palbociclib, elsewhere in the treatment course — one found no difference and the other stopped at 61 patients and never reported, which is a thin basis for either conclusion.",
@@ -6191,7 +6455,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-12",
-      "on_page": true
+      "on_page": true,
+      "check_flags": []
     },
     "f45c55c6608dbc4d": {
       "sentence": "If you are taking one of these drugs, or choosing between them, the question underneath all of this is whether a category 2A drug is a worse drug.",
@@ -6212,7 +6477,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-12",
-      "on_page": true
+      "on_page": true,
+      "check_flags": []
     },
     "462829012bad0618": {
       "sentence": "The evidence’s answer is that nothing has been shown to separate them: of the two randomised trials that have put any pair of them head to head, both ribociclib against palbociclib, the one that reported found no difference and the other stopped at 61 patients without reporting at all; no randomised trial has compared abemaciclib against either of the others; and none of the four comparative studies on this page can tell abemaciclib and ribociclib apart.",
@@ -6233,7 +6499,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-12",
-      "on_page": true
+      "on_page": true,
+      "check_flags": []
     },
     "44113e0fdd8702b8": {
       "sentence": "Because a category 1 and a category 2A printed in one column look like a ranking, and the preference designation that would correct the impression sits somewhere else in the document.",
@@ -6254,7 +6521,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-12",
-      "on_page": true
+      "on_page": true,
+      "check_flags": []
     },
     "ac194e081764cf59": {
       "sentence": "Registry PALOMA-2 — ClinicalTrials.gov results posting.",
@@ -6275,7 +6543,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-12",
-      "on_page": true
+      "on_page": true,
+      "check_flags": []
     },
     "5c8113c4d0f635e7": {
       "sentence": "Comparing ribociclib versus palbociclib as a second line treatment in combination with fulvestrant in metastatic breast cancer: a randomized clinical trial.",
@@ -6296,7 +6565,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-12",
-      "on_page": true
+      "on_page": true,
+      "check_flags": []
     },
     "e024f361451e1bc7": {
       "sentence": "Source of the 116 patients and the 58 per arm, and of the randomisation using 29 blocks with block size of four by opaque sealed envelope.",
@@ -6317,7 +6587,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-12",
-      "on_page": true
+      "on_page": true,
+      "check_flags": []
     },
     "7ea60e92016cdb64": {
       "sentence": "On 31 August this page withdrew the number 29 , on a fact-check finding that no reachable source stated a block count, reasoning that 29 was only 116 divided by four.",
@@ -6338,7 +6609,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-12",
-      "on_page": true
+      "on_page": true,
+      "check_flags": []
     },
     "d272b728caff496e": {
       "sentence": "This is the only randomised head-to-head trial on this page that reported a result ; the other, HARMONIA below, terminated at 61 patients.",
@@ -6359,7 +6631,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-12",
-      "on_page": true
+      "on_page": true,
+      "check_flags": []
     },
     "17f0b3114d602350": {
       "sentence": "Source of the design (phase III, randomised, open label, parallel), the start date of 28 March 2022, and the fact that it terminated with 61 patients enrolled.",
@@ -6380,7 +6653,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-12",
-      "on_page": true
+      "on_page": true,
+      "check_flags": []
     },
     "b7ccb157d16649a1": {
       "sentence": "Read directly by Fred Ugast, on 28 and 29 August 2026, and by nobody and nothing else.",
@@ -6401,7 +6675,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-12",
-      "on_page": true
+      "on_page": true,
+      "check_flags": []
     },
     "ddb8739fe64728d7": {
       "sentence": "NCCN’s licence forbids putting the document through any automated tool, so no fact-check run, gate or script on this page has read it, and none ever can; every claim here about what the guideline says rests on that one person’s reading, and on the thirteen questions put to him about it and answered by name, with locators, in the record that produces this page.",
@@ -6422,7 +6697,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-12",
-      "on_page": true
+      "on_page": true,
+      "check_flags": []
     },
     "67a3a31459dbeb0d": {
       "sentence": "Primary MONARCH 3 — abemaciclib as initial therapy.",
@@ -6443,7 +6719,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-12",
-      "on_page": true
+      "on_page": true,
+      "check_flags": []
     },
     "6713fb33cdf1ce38": {
       "sentence": "Primary MONARCH 3 — final overall survival.",
@@ -6464,7 +6741,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-12",
-      "on_page": true
+      "on_page": true,
+      "check_flags": []
     },
     "689c2fde7d95a42a": {
       "sentence": "A corrigendum to this paper exists — Ann Oncol 2025;36:1556, doi 10.1016/j.annonc.2025.07.002 — and we have read it in full.",
@@ -6487,7 +6765,9 @@
       "first_seen": "2026-09-12",
       "on_page": true,
       "bound_on": "2026-09-12",
-      "bound_why": "changecheck NEW_AND_UNBOUND, disposed by binding; operator authorisation of 12 September 2026"
+      "bound_why": "changecheck NEW_AND_UNBOUND, disposed by binding; operator authorisation of 12 September 2026",
+      "check_flags": [],
+      "checked_on": "2026-10-20"
     },
     "94a73b02790931fc": {
       "sentence": "It corrects one number: in Figure 4, in the placebo arm of the chemotherapy-free survival analysis, the event count was published as 162 and is 132.",
@@ -6510,7 +6790,9 @@
       "first_seen": "2026-09-12",
       "on_page": true,
       "bound_on": "2026-09-12",
-      "bound_why": "changecheck NEW_AND_UNBOUND, disposed by binding; operator authorisation of 12 September 2026"
+      "bound_why": "changecheck NEW_AND_UNBOUND, disposed by binding; operator authorisation of 12 September 2026",
+      "check_flags": [],
+      "checked_on": "2026-10-20"
     },
     "0d1ad8c8cc20b169": {
       "sentence": "It also republishes Figure 4 entire , and that figure carries a complete chemotherapy-free survival dataset — patients and events in both arms, medians of 46.7 against 30.6 months, log-rank P = 0.0010, HR 0.693 (95% CI 0.557–0.863) and a full numbers-at-risk table.",
@@ -6543,7 +6825,15 @@
         }
       ],
       "bound_on": "2026-09-12",
-      "bound_why": "changecheck NEW_AND_UNBOUND, disposed by binding; operator authorisation of 12 September 2026"
+      "bound_why": "changecheck NEW_AND_UNBOUND, disposed by binding; operator authorisation of 12 September 2026",
+      "check_flags": [
+        {
+          "check": "B6",
+          "verdict": "unmapped scope word",
+          "why": "entire — the sentence says 'entire' and the span contains no word carrying that force"
+        }
+      ],
+      "checked_on": "2026-10-20"
     },
     "d2c36f1658da5222": {
       "sentence": "This is the fourth and it is a measurement: the corrigendum is open access under CC BY-NC-ND , checked on 10 September 2026 three ways from a session holding no credentials of any kind.",
@@ -6564,7 +6854,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-12",
-      "on_page": true
+      "on_page": true,
+      "check_flags": []
     },
     "5c6def35543c2506": {
       "sentence": "Crossref gives the version of record a licence of creativecommons.org/licenses/by-nc-nd/4.0/ , effective 9 July 2025.",
@@ -6651,7 +6942,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-12",
-      "on_page": true
+      "on_page": true,
+      "check_flags": []
     },
     "b60478ed38912677": {
       "sentence": "Primary MONALEESA-7 — ribociclib plus endocrine therapy in premenopausal women.",
@@ -6672,7 +6964,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-12",
-      "on_page": true
+      "on_page": true,
+      "check_flags": []
     },
     "cd579d1daa21732c": {
       "sentence": "Primary MONALEESA-7 — overall survival.",
@@ -6693,7 +6986,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-12",
-      "on_page": true
+      "on_page": true,
+      "check_flags": []
     },
     "44bb77a7e66fa0d9": {
       "sentence": "Primary MONALEESA-7 — updated overall survival.",
@@ -6714,7 +7008,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-12",
-      "on_page": true
+      "on_page": true,
+      "check_flags": []
     },
     "3c4a4425c903c37e": {
       "sentence": "It is not the figure this page leads with for MONALEESA-7 and it is not on the interval chart; the protocol-specified result above is.",
@@ -6735,7 +7030,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-12",
-      "on_page": true
+      "on_page": true,
+      "check_flags": []
     },
     "95fb9feebf380a1f": {
       "sentence": "Primary PALOMA-2 — palbociclib and letrozole.",
@@ -6756,7 +7052,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-12",
-      "on_page": true
+      "on_page": true,
+      "check_flags": []
     },
     "96ecb2a9538c2058": {
       "sentence": "Primary PALOMA-2 — final overall survival.",
@@ -6777,7 +7074,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-12",
-      "on_page": true
+      "on_page": true,
+      "check_flags": []
     },
     "35438ab09aba96ab": {
       "sentence": "Cdk4/6 inhibitors and overall survival: power of first-line trials in metastatic breast cancer.",
@@ -6798,7 +7096,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-12",
-      "on_page": true
+      "on_page": true,
+      "check_flags": []
     },
     "5437c4fd37528276": {
       "sentence": "npj Breast Cancer 2018;4:14 The statistical power of PALOMA-2, MONALEESA-2, MONALEESA-7 and MONARCH 3 to reach significance on overall survival, computed before any of them had mature survival data: all four under 70% unless the median gain exceeds twelve months, and if a significant OS improvement is observed in some but not at all trials, this discrepancy might be more attributable to chance than to a truly different drug efficacy .",
@@ -6819,7 +7118,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-12",
-      "on_page": true
+      "on_page": true,
+      "check_flags": []
     },
     "797b35325f8d0729": {
       "sentence": "Source also of the record that MONARCH 3’s main survival analysis was planned as part of a pooled analysis with MONARCH 2.",
@@ -6840,7 +7140,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-12",
-      "on_page": true
+      "on_page": true,
+      "check_flags": []
     },
     "ab7142a8c97ba34e": {
       "sentence": "Comparison PALMARES-2 — real-world comparison of first-line palbociclib, ribociclib and abemaciclib.",
@@ -6861,7 +7162,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-12",
-      "on_page": true
+      "on_page": true,
+      "check_flags": []
     },
     "8332b4770a5570cb": {
       "sentence": "This is the study that separates palbociclib from the other two, on both endpoints.",
@@ -6904,7 +7206,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-12",
-      "on_page": true
+      "on_page": true,
+      "check_flags": []
     },
     "e0d21e4f42d7e244": {
       "sentence": "Comparison Network meta-analysis of CDK4/6 inhibitors.",
@@ -6925,7 +7228,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-12",
-      "on_page": true
+      "on_page": true,
+      "check_flags": []
     },
     "d27227b7046df9bb": {
       "sentence": "Comparison P-VERIFY — comparative overall survival of CDK4/6 inhibitors plus an aromatase inhibitor, US real-world setting, 2025 The Palbociclib Verifying Evidence of Real-world Impact study.",
@@ -6946,7 +7250,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-12",
-      "on_page": true
+      "on_page": true,
+      "check_flags": []
     },
     "3b0ca3bca49e41b1": {
       "sentence": "The paper’s funding statement reads: “This work was supported by Pfizer Inc (no grant number)”.",
@@ -6967,7 +7272,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-12",
-      "on_page": true
+      "on_page": true,
+      "check_flags": []
     },
     "9e4040de20927000": {
       "sentence": "Pfizer makes palbociclib.",
@@ -6988,7 +7294,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-12",
-      "on_page": true
+      "on_page": true,
+      "check_flags": []
     },
     "329cd88962a6a303": {
       "sentence": "MONARCH 3’s is two-sided and was judged against .034 , not .05: its cumulative two-sided type I error of 0.05 was divided between the intention-to-treat population and a visceral-disease subgroup, and spent across interim and final analyses under a Lan–DeMets spending function with an O’Brien–Fleming boundary.",
@@ -7009,7 +7316,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-13",
-      "on_page": true
+      "on_page": true,
+      "check_flags": []
     },
     "60c0c8689c403556": {
       "sentence": "The catalogues corroborate it, as read on that date: Crossref’s work record gives the version of record a licence of http://creativecommons.org/licenses/by-nc-nd/4.0/, effective 9 July 2025, and Europe PMC’s record (PMID 41093689) carries a license field reading cc by-nc-nd.",
@@ -7030,7 +7338,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-13",
-      "on_page": true
+      "on_page": true,
+      "check_flags": []
     },
     "469675ce540088b6": {
       "sentence": "The publisher’s block is not a paywall either: an unauthenticated request for the article returns HTTP 403 with 5,849 bytes containing no “subscribe”, no “sign in” and no “purchase access” — a block on automated retrieval, not a wall in front of a reader.",
@@ -7051,7 +7360,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-13",
-      "on_page": true
+      "on_page": true,
+      "check_flags": []
     },
     "adcd0f76079de35e": {
       "sentence": "The trial maintained a cumulative two-sided type I error of 0.05 by a Lan–DeMets spending function with an O’Brien–Fleming boundary, with alpha divided between the intention-to-treat population and a visceral-disease subgroup by a prespecified graphical testing procedure.",
@@ -7080,7 +7390,9 @@
         }
       ],
       "bound_on": "2026-09-13",
-      "bound_why": "C95-001 rewrite of the MONARCH 3 source note: alpha 0.05, split ITT / visceral subgroup, graphical approach, two-sided — all in the held S003 text. The Lan–DeMets / O'Brien–Fleming clause is NOT bound here: the layer is declared defective for it (text_layer on S003; F1 rendered page is the evidence)."
+      "bound_why": "C95-001 rewrite of the MONARCH 3 source note: alpha 0.05, split ITT / visceral subgroup, graphical approach, two-sided — all in the held S003 text. The Lan–DeMets / O'Brien–Fleming clause is NOT bound here: the layer is declared defective for it (text_layer on S003; F1 rendered page is the evidence).",
+      "check_flags": [],
+      "checked_on": "2026-10-20"
     },
     "c883c9dbe4a43060": {
       "sentence": "What is exploratory is the maturity of this look at it: the authors describe the survival data as immature — 464 events at a median 31.3 months — with follow-up of 45.7 months on palbociclib against 25.2 on ribociclib and 22.4 on abemaciclib.",
@@ -7153,7 +7465,9 @@
       ],
       "on_page": true,
       "bound_on": "2026-09-13",
-      "bound_why": "inf-3 clarification: the sentence now names the endpoint. Each of the four trials' primary-endpoint statements, in the paper and the registry posting where both are held (MONALEESA-2: S005/S019; MONARCH 3: S003; PALOMA-2: S009/S020; MONALEESA-7: S007/S022). Nothing bound here says anything about what PALOMA-2 was or was not additionally powered for."
+      "bound_why": "inf-3 clarification: the sentence now names the endpoint. Each of the four trials' primary-endpoint statements, in the paper and the registry posting where both are held (MONALEESA-2: S005/S019; MONARCH 3: S003; PALOMA-2: S009/S020; MONALEESA-7: S007/S022). Nothing bound here says anything about what PALOMA-2 was or was not additionally powered for.",
+      "check_flags": [],
+      "checked_on": "2026-10-20"
     },
     "9c4e0c830df1d058": {
       "sentence": "The interval still runs through 1.0, and the conclusion does not change.",
@@ -7186,7 +7500,8 @@
       "bound_on": "2026-09-13",
       "bound_why": "inf-16 addition: 1.0 is the no-effect line; the interval 0.76-1.12 that runs through it is S010's. Arithmetic on a figure the page carries.",
       "judge": "the advisor, directive of 13 September 2026",
-      "step": "The page's own arithmetic on one held figure. S010 gives the recovered-data hazard ratio as 0.92 with a 95% CI of 0.76 to 1.12 (premise). 0.76 < 1.0 < 1.12, so the interval contains the no-effect value; 1.0 is that value, not a figure taken from any document. 'The conclusion does not change' restates S010's own 'OS was not significantly improved'. Judged by the advisor, directive of 13 September 2026 (inf-16)."
+      "step": "The page's own arithmetic on one held figure. S010 gives the recovered-data hazard ratio as 0.92 with a 95% CI of 0.76 to 1.12 (premise). 0.76 < 1.0 < 1.12, so the interval contains the no-effect value; 1.0 is that value, not a figure taken from any document. 'The conclusion does not change' restates S010's own 'OS was not significantly improved'. Judged by the advisor, directive of 13 September 2026 (inf-16).",
+      "check_flags": []
     },
     "c85b42e81f5197a1": {
       "sentence": "Not because four hundredths is large — it is the same magnitude this piece has just called too small to separate two drugs — but because here it moves one trial’s own estimate further from the no-effect line under a better handling of its own missing data.",
@@ -7225,7 +7540,8 @@
       "bound_on": "2026-09-13",
       "bound_why": "inf-16 clarification: 0.96 -> 0.92 is a shift away from 1.0 (arithmetic on S010's two hazard ratios); 'the interval still runs through 1.0' reads off S010's 0.76-1.12; 'too small to separate two drugs' is the page's own earlier argument.",
       "judge": "the advisor, directive of 13 September 2026",
-      "step": "Arithmetic and a reading of the page's own argument. Premises: S010's headline HR 0.96 (0.78-1.18) and its recovered-data HR 0.92 (0.76-1.12). 0.96 - 0.92 = 0.04, the 'four hundredths'; 0.92 is further from 1.0 than 0.96, so the recovered-data analysis moves the estimate away from the no-effect line; 'the same magnitude this piece has just called too small to separate two drugs' refers to the page's own earlier argument about a 0.04 gap between trial point estimates, which is the page's reasoning and not a source claim. 'A better handling of its own missing data' is S010's description of the recovered-data analysis reducing unknown survival status from 13.3%/21.2% to 9.2%/11.7%. Judged by the advisor, directive of 13 September 2026 (inf-16)."
+      "step": "Arithmetic and a reading of the page's own argument. Premises: S010's headline HR 0.96 (0.78-1.18) and its recovered-data HR 0.92 (0.76-1.12). 0.96 - 0.92 = 0.04, the 'four hundredths'; 0.92 is further from 1.0 than 0.96, so the recovered-data analysis moves the estimate away from the no-effect line; 'the same magnitude this piece has just called too small to separate two drugs' refers to the page's own earlier argument about a 0.04 gap between trial point estimates, which is the page's reasoning and not a source claim. 'A better handling of its own missing data' is S010's description of the recovered-data analysis reducing unknown survival status from 13.3%/21.2% to 9.2%/11.7%. Judged by the advisor, directive of 13 September 2026 (inf-16).",
+      "check_flags": []
     },
     "35a206d4b28bc182": {
       "sentence": "A network meta-analysis ( Scientific Reports, February 2024 ) pooled seven phase III randomised trials, 4,415 patients, at a median follow-up the paper reports as 73.3 months in its abstract and 70.2 months in its results section; this page cannot determine which is correct.",
@@ -7258,7 +7574,9 @@
         }
       ],
       "bound_on": "2026-09-13",
-      "bound_why": "INF8-001: both follow-up figures, abstract and results section, in the held S015 article HTML"
+      "bound_why": "INF8-001: both follow-up figures, abstract and results section, in the held S015 article HTML",
+      "check_flags": [],
+      "checked_on": "2026-10-20"
     },
     "181bfd879a985c63": {
       "sentence": "Scientific Reports , February 2024 Seven phase III trials, 4,415 patients, at a median follow-up the paper reports as 73.3 months in its abstract and 70.2 months in its results section, both over a range of 48.7 to 97.2 months; this page cannot determine which is correct.",
@@ -7291,7 +7609,9 @@
         }
       ],
       "bound_on": "2026-09-13",
-      "bound_why": "INF8-001: both follow-up figures, abstract and results section, in the held S015 article HTML"
+      "bound_why": "INF8-001: both follow-up figures, abstract and results section, in the held S015 article HTML",
+      "check_flags": [],
+      "checked_on": "2026-10-20"
     },
     "4f6f76f4455b00f8": {
       "sentence": "The paper states the direction of its test itself — The one-sided stratified log-rank P value was 0.00973, which crossed the prespecified stopping boundary (P = 0.01018) — and the trial’s ClinicalTrials.gov results posting ( NCT02278120 ) posts the same analysis with p = 0.00973 and the annotation One-sided stratified log-rank test .",
@@ -7320,7 +7640,15 @@
         }
       ],
       "bound_on": "2026-09-13",
-      "bound_why": "S007-WALL-001: the paper's own statement; the registry posts the same p"
+      "bound_why": "S007-WALL-001: the paper's own statement; the registry posts the same p",
+      "check_flags": [
+        {
+          "check": "B5",
+          "verdict": "truncated",
+          "why": "the span stops immediately before 'to' — the document continues: 'The one-sided stratified log-rank P value was 0.00973, which crossed the prespecified stopping boundary (P = 0.01018) to claim superior efficacy of ribociclib. The median overall survival'"
+        }
+      ],
+      "checked_on": "2026-10-20"
     },
     "5bc0adc26ad05986": {
       "sentence": "The ASCO 2019 abstract of the same analysis — “statistical comparison was made by 1-sided stratified log-rank test” — is how this page confirmed the direction while the paper stood unread here; the paper now states it itself.",
@@ -7343,7 +7671,15 @@
       "first_seen": "2026-09-13",
       "on_page": true,
       "bound_on": "2026-09-13",
-      "bound_why": "S007-WALL-001: the abstract's own words, held (S023)"
+      "bound_why": "S007-WALL-001: the abstract's own words, held (S023)",
+      "check_flags": [
+        {
+          "check": "B6",
+          "verdict": "unmapped scope word",
+          "why": "confirmed — the sentence says 'confirmed' and the span contains no word carrying that force"
+        }
+      ],
+      "checked_on": "2026-10-20"
     },
     "211c5c4227f601e3": {
       "sentence": "The paper prints 0.71; the more precise 0.712 is the Cox hazard ratio in the registry posting (95% CI 0.535–0.948), and does not appear in the paper.",
@@ -7372,7 +7708,9 @@
         }
       ],
       "bound_on": "2026-09-13",
-      "bound_why": "0.71 in S007; 0.712 (0.535-0.948) in S022"
+      "bound_why": "0.71 in S007; 0.712 (0.535-0.948) in S022",
+      "check_flags": [],
+      "checked_on": "2026-10-20"
     },
     "93b31c0f41de597a": {
       "sentence": "Comparison P-VERIFY — real-world progression-free survival of first-line CDK4/6 inhibitors plus an aromatase inhibitor.",
@@ -7393,7 +7731,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-13",
-      "on_page": true
+      "on_page": true,
+      "check_flags": []
     },
     "c623f87c4bb01ddb": {
       "sentence": "ESMO Open 2025 The second paper from the same Flatiron cohort, on progression rather than survival: ribociclib and abemaciclib each against palbociclib, no significant difference found.",
@@ -7414,7 +7753,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-13",
-      "on_page": true
+      "on_page": true,
+      "check_flags": []
     },
     "f16bf16349d0edab": {
       "sentence": "The body links it by its PubMed record (PMID 40896879); the document we hold is the PMC full text.",
@@ -7438,7 +7778,9 @@
       "on_page": true,
       "also_rests_on": [],
       "bound_on": "2026-09-13",
-      "bound_why": "SRC-LIST-002: the held S027 XML carries its own PMCID and PMID"
+      "bound_why": "SRC-LIST-002: the held S027 XML carries its own PMCID and PMID",
+      "check_flags": [],
+      "checked_on": "2026-10-20"
     },
     "336412521d031c8d": {
       "sentence": "Registry PALMARES-2 — ClinicalTrials.gov record.",
@@ -7459,7 +7801,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-13",
-      "on_page": true
+      "on_page": true,
+      "check_flags": []
     },
     "91d2bcf5d9383c92": {
       "sentence": "NCT06805812 Read for what the study’s registration says it is — observational, still recruiting toward an estimated 3,500 patients, overall survival its primary outcome — and for what it does not have: no results are posted.",
@@ -7496,7 +7839,15 @@
         }
       ],
       "bound_on": "2026-09-13",
-      "bound_why": "SRC-LIST-002: the registry record's own fields"
+      "bound_why": "SRC-LIST-002: the registry record's own fields",
+      "check_flags": [
+        {
+          "check": "B6",
+          "verdict": "unmapped scope word",
+          "why": "no — the sentence says 'no' and the span contains no word carrying that force"
+        }
+      ],
+      "checked_on": "2026-10-20"
     },
     "0c172b91e8799b32": {
       "sentence": "That absence is why this page does not print PALMARES-2’s survival figures; the paper’s full text did not open to us and the registry has nothing to fall back on.",
@@ -7517,7 +7868,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-13",
-      "on_page": true
+      "on_page": true,
+      "check_flags": []
     },
     "1be1cae443a494ef": {
       "sentence": "Corrigendum Corrigendum to MONARCH 3 — final overall survival.",
@@ -7538,7 +7890,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-13",
-      "on_page": true
+      "on_page": true,
+      "check_flags": []
     },
     "0c6768acfaefa000": {
       "sentence": "Ann Oncol 2025;36:1556 The formal correction to the paper above, held in full since 1 September 2026 and read.",
@@ -7562,7 +7915,9 @@
       "on_page": true,
       "also_rests_on": [],
       "bound_on": "2026-09-13",
-      "bound_why": "SRC-LIST-002: the corrigendum's own folio and DOI"
+      "bound_why": "SRC-LIST-002: the corrigendum's own folio and DOI",
+      "check_flags": [],
+      "checked_on": "2026-10-20"
     },
     "680c7f0c8596838b": {
       "sentence": "It corrects one number — the placebo-arm event count in the chemotherapy-free survival analysis of Figure 4, 162 to 132 — and republishes the figure.",
@@ -7586,7 +7941,9 @@
       "on_page": true,
       "also_rests_on": [],
       "bound_on": "2026-09-13",
-      "bound_why": "SRC-LIST-002: the notice's own statement"
+      "bound_why": "SRC-LIST-002: the notice's own statement",
+      "check_flags": [],
+      "checked_on": "2026-10-20"
     },
     "e8b62d36994dca83": {
       "sentence": "PALMARES-2 ( Annals of Oncology, April 2025 ) followed 1,982 patients in a multicentre Italian cohort and weighted them the same way.",
@@ -7619,7 +7976,9 @@
         }
       ],
       "bound_on": "2026-09-13",
-      "bound_why": "PALM-END-001 / PALM-FIG-001: PALMARES-2's figures as reported by held S027; its presentation as recorded by held S016"
+      "bound_why": "PALM-END-001 / PALM-FIG-001: PALMARES-2's figures as reported by held S027; its presentation as recorded by held S016",
+      "check_flags": [],
+      "checked_on": "2026-10-20"
     },
     "f2c3281c114bc1e1": {
       "sentence": "On real-world progression-free survival it found abemaciclib ahead of palbociclib at an adjusted hazard ratio of 0.76 (0.63–0.92), p = 0.004 , and ribociclib ahead of palbociclib at 0.83 (0.73–0.95), p = 0.007 — figures this page takes from the second P-VERIFY paper’s account of PALMARES-2 ( ESMO Open 2025), which we hold; the PALMARES-2 paper itself we do not.",
@@ -7643,7 +8002,9 @@
       "on_page": true,
       "also_rests_on": [],
       "bound_on": "2026-09-13",
-      "bound_why": "PALM-END-001 / PALM-FIG-001: PALMARES-2's figures as reported by held S027; its presentation as recorded by held S016"
+      "bound_why": "PALM-END-001 / PALM-FIG-001: PALMARES-2's figures as reported by held S027; its presentation as recorded by held S016",
+      "check_flags": [],
+      "checked_on": "2026-10-20"
     },
     "ce7bddf071b5b6b2": {
       "sentence": "The one held account of the study’s 2024 presentation, in the P-VERIFY survival paper, records comparative overall survival as not reported; the 2025 publication we could not obtain — every script-level route returned 403 and no browser was connected to attempt the rest — so whether it reports one this page cannot say.",
@@ -7667,7 +8028,15 @@
       "on_page": true,
       "also_rests_on": [],
       "bound_on": "2026-09-13",
-      "bound_why": "PALM-END-001 / PALM-FIG-001: PALMARES-2's figures as reported by held S027; its presentation as recorded by held S016"
+      "bound_why": "PALM-END-001 / PALM-FIG-001: PALMARES-2's figures as reported by held S027; its presentation as recorded by held S016",
+      "check_flags": [
+        {
+          "check": "B6",
+          "verdict": "unmapped scope word",
+          "why": "every — the sentence says 'every' and the span contains no word carrying that force"
+        }
+      ],
+      "checked_on": "2026-10-20"
     },
     "3d4fc231e4ef6347": {
       "sentence": "Its ClinicalTrials.gov record (NCT06805812, which posts an estimated enrolment of 3,500 and still shows the study recruiting) has no results posted, though the paper itself already reports on 1,982; and a figure we cannot attribute to a document we hold is a figure this page does not carry.",
@@ -7704,7 +8073,20 @@
         }
       ],
       "bound_on": "2026-09-13",
-      "bound_why": "PALM-END-001 / PALM-FIG-001: PALMARES-2's figures as reported by held S027; its presentation as recorded by held S016"
+      "bound_why": "PALM-END-001 / PALM-FIG-001: PALMARES-2's figures as reported by held S027; its presentation as recorded by held S016",
+      "check_flags": [
+        {
+          "check": "B6",
+          "verdict": "unmapped scope word",
+          "why": "shows — the sentence says 'shows' and the span contains no word carrying that force"
+        },
+        {
+          "check": "B6",
+          "verdict": "unmapped scope word",
+          "why": "no — the sentence says 'no' and the span contains no word carrying that force"
+        }
+      ],
+      "checked_on": "2026-10-20"
     },
     "8572e71f613ccef9": {
       "sentence": "The smaller one finds palbociclib behind on real-world progression-free survival, on intervals that exclude the no-effect line — abemaciclib’s by 0.08 and ribociclib’s by 0.05, which is significant but not comfortably so.",
@@ -7736,7 +8118,9 @@
         }
       ],
       "step": "Arithmetic on S027's account of PALMARES-2: 0.92 (upper bound, abemaciclib vs palbociclib) is 0.08 below 1.0; 0.95 (ribociclib vs palbociclib) is 0.05 below; both intervals exclude the no-effect line. 'Contradict each other' contrasts S027's PALMARES-2 figures (significant, palbociclib behind on rwPFS) with S027's own finding of no significant difference in the Flatiron cohort. Judged by the advisor, directive of 13 September 2026.",
-      "judge": "the advisor, directive of 13 September 2026"
+      "judge": "the advisor, directive of 13 September 2026",
+      "check_flags": [],
+      "checked_on": "2026-10-20"
     },
     "9f49ddf8440914c8": {
       "sentence": "This page can source the second claim no better than the first: the one held account of PALMARES-2’s 2024 presentation records no comparative survival result, and the 2025 paper we could not obtain.",
@@ -7760,7 +8144,9 @@
       "on_page": true,
       "also_rests_on": [],
       "bound_on": "2026-09-13",
-      "bound_why": "PALM-END-001 / PALM-FIG-001: PALMARES-2's figures as reported by held S027; its presentation as recorded by held S016"
+      "bound_why": "PALM-END-001 / PALM-FIG-001: PALMARES-2's figures as reported by held S027; its presentation as recorded by held S016",
+      "check_flags": [],
+      "checked_on": "2026-10-20"
     },
     "f9d89827e38a4e18": {
       "sentence": "And PALMARES-2 — the study that did separate palbociclib, on real-world progression-free survival — puts this pairing, on real-world progression-free survival, at an adjusted hazard ratio of 0.91, on 0.73 to 1.14 , p = 0.425.",
@@ -7784,7 +8170,9 @@
       "on_page": true,
       "also_rests_on": [],
       "bound_on": "2026-09-13",
-      "bound_why": "PALM-END-001 / PALM-FIG-001: PALMARES-2's figures as reported by held S027; its presentation as recorded by held S016"
+      "bound_why": "PALM-END-001 / PALM-FIG-001: PALMARES-2's figures as reported by held S027; its presentation as recorded by held S016",
+      "check_flags": [],
+      "checked_on": "2026-10-20"
     },
     "c7fc881cc21ec52f": {
       "sentence": "No PALMARES-2 survival figure for this pairing is in any document we hold, so on that pairing the survival evidence here is P-VERIFY’s and the meta-analysis’s.",
@@ -7808,7 +8196,9 @@
       "on_page": true,
       "also_rests_on": [],
       "bound_on": "2026-09-13",
-      "bound_why": "PALM-END-001 / PALM-FIG-001"
+      "bound_why": "PALM-END-001 / PALM-FIG-001",
+      "check_flags": [],
+      "checked_on": "2026-10-20"
     },
     "974ef5035c6b72d0": {
       "sentence": "What PALMARES-2 reports on survival this page cannot say from any document it holds; P-VERIFY is larger and is funded by palbociclib’s manufacturer.",
@@ -7837,7 +8227,15 @@
         }
       ],
       "bound_on": "2026-09-13",
-      "bound_why": "PALM-END-001 / PALM-FIG-001"
+      "bound_why": "PALM-END-001 / PALM-FIG-001",
+      "check_flags": [
+        {
+          "check": "B6",
+          "verdict": "unmapped scope word",
+          "why": "any — the sentence says 'any' and the span contains no word carrying that force"
+        }
+      ],
+      "checked_on": "2026-10-20"
     },
     "c9a7fe9eeb8f40e3": {
       "sentence": "Ann Oncol , April 2025 1,982 patients, a multicentre Italian real-world cohort, inverse-probability weighting.",
@@ -7866,7 +8264,9 @@
         }
       ],
       "bound_on": "2026-09-13",
-      "bound_why": "PALM-END-001 / PALM-FIG-001"
+      "bound_why": "PALM-END-001 / PALM-FIG-001",
+      "check_flags": [],
+      "checked_on": "2026-10-20"
     },
     "603d9904a32c4c9e": {
       "sentence": "Real-world progression-free survival, adjusted hazard ratios: abemaciclib vs palbociclib 0.76 (0.63–0.92), p = 0.004; ribociclib vs palbociclib 0.83 (0.73–0.95), p = 0.007; abemaciclib vs ribociclib 0.91 (0.73–1.14), p = 0.425 .",
@@ -7890,7 +8290,9 @@
       "on_page": true,
       "also_rests_on": [],
       "bound_on": "2026-09-13",
-      "bound_why": "PALM-END-001 / PALM-FIG-001: PALMARES-2's figures as reported by held S027; its presentation as recorded by held S016"
+      "bound_why": "PALM-END-001 / PALM-FIG-001: PALMARES-2's figures as reported by held S027; its presentation as recorded by held S016",
+      "check_flags": [],
+      "checked_on": "2026-10-20"
     },
     "4962b9d16877fbc2": {
       "sentence": "We could not obtain PALMARES-2 itself.",
@@ -7914,7 +8316,8 @@
       "on_page": true,
       "rests_on_store": [
         "S011"
-      ]
+      ],
+      "check_flags": []
     },
     "8d1c0e2f56d458c4": {
       "sentence": "Script-level attempts returned HTTP 403 and no browser was connected to attempt the rest.",
@@ -7935,7 +8338,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-13",
-      "on_page": true
+      "on_page": true,
+      "check_flags": []
     },
     "959ef49cae317505": {
       "sentence": "What we have is the second P-VERIFY paper’s account of it ( ESMO Open 2025, held in full), which is where the figures above are read from.",
@@ -7956,7 +8360,8 @@
         "warranted": null
       },
       "first_seen": "2026-09-13",
-      "on_page": true
+      "on_page": true,
+      "check_flags": []
     },
     "da96a988c4115954": {
       "sentence": "Presented at ASCO 2024 ( J Clin Oncol 2024;42(suppl 16):1014) and published in Annals of Oncology 2025;36(7):762–774, both as cited in documents we hold.",
@@ -7985,7 +8390,9 @@
         }
       ],
       "bound_on": "2026-09-13",
-      "bound_why": "PALM-END-001 / PALM-FIG-001: PALMARES-2's figures as reported by held S027; its presentation as recorded by held S016"
+      "bound_why": "PALM-END-001 / PALM-FIG-001: PALMARES-2's figures as reported by held S027; its presentation as recorded by held S016",
+      "check_flags": [],
+      "checked_on": "2026-10-20"
     },
     "95d5747b2e3c7673": {
       "sentence": "The one held account of the 2024 presentation, the P-VERIFY survival paper, records comparative overall survival as not reported; whether the 2025 publication reports one we could not check.",
@@ -8009,7 +8416,9 @@
       "on_page": true,
       "also_rests_on": [],
       "bound_on": "2026-09-13",
-      "bound_why": "PALM-END-001 / PALM-FIG-001: PALMARES-2's figures as reported by held S027; its presentation as recorded by held S016"
+      "bound_why": "PALM-END-001 / PALM-FIG-001: PALMARES-2's figures as reported by held S027; its presentation as recorded by held S016",
+      "check_flags": [],
+      "checked_on": "2026-10-20"
     },
     "52fc73c42cb69944": {
       "sentence": "This page prints no PALMARES-2 survival figure.",
@@ -8033,7 +8442,9 @@
       "on_page": true,
       "also_rests_on": [],
       "bound_on": "2026-09-13",
-      "bound_why": "PALM-END-001 / PALM-FIG-001"
+      "bound_why": "PALM-END-001 / PALM-FIG-001",
+      "check_flags": [],
+      "checked_on": "2026-10-20"
     },
     "9fa3cd398ee62444": {
       "sentence": "This is the study that separates palbociclib from the other two, on real-world progression-free survival.",
@@ -8065,7 +8476,9 @@
         }
       ],
       "step": "S027's account: both palbociclib comparisons have intervals excluding 1.0 (0.63-0.92; 0.73-0.95) with P < 0.05; the abemaciclib-ribociclib comparison does not (0.73-1.14, P = 0.425). 'Separates palbociclib from the other two, on real-world progression-free survival' is that reading and no more. Judged by the advisor, 13 September 2026.",
-      "judge": "the advisor, directive of 13 September 2026"
+      "judge": "the advisor, directive of 13 September 2026",
+      "check_flags": [],
+      "checked_on": "2026-10-20"
     }
   }
 }
