@@ -98,10 +98,17 @@ def norm(t: str) -> str:
     return " ".join(t.split())
 
 
+class NoCaseDir(LookupError):
+    """No issues/WHU-*-<slug> directory. An ordinary exception, NOT SystemExit
+    (2026-10-20): this is library code, and a SystemExit here went through
+    publish.registry_overturns' `except Exception` and killed a study preflight
+    whose page had resolved to slug None."""
+
+
 def case_dir(slug: str) -> Path:
     hits = sorted(CASES.glob(f"WHU-*-{slug}"))
     if not hits:
-        raise SystemExit(f"no case directory for {slug!r}")
+        raise NoCaseDir(f"no case directory for {slug!r}")
     return hits[0]
 
 

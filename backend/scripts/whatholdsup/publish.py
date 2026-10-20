@@ -534,6 +534,15 @@ def slug_for(target: Path) -> str | None:
     for slug, cfg in ISSUES.items():
         if rel in (cfg.get("page"), cfg.get("email_html")):
             return slug
+    # A study issue's page (2026-10-20): resolved through issue_cfg, as every
+    # other study path is. Until then a study page resolved to None here, and
+    # registry_overturns(None, ...) ended the preflight.
+    for slug in study_slugs():
+        try:
+            if rel == issue_cfg(slug).get("page") or str(target) == str(ROOT / issue_cfg(slug)["page"]):
+                return slug
+        except KeyError:
+            continue
     return None
 
 
@@ -1910,7 +1919,7 @@ def preflight(slug: str, *, for_email: bool,
     try:
         out.extend(registry_figures.preflight_rows(slug, page.read_text(encoding="utf-8")))
         out.extend(registry_facts.preflight_rows(slug, page.read_text(encoding="utf-8")))
-    except SystemExit as e:
+    except (SystemExit, LookupError) as e:          # LookupError: registry_*.NoCaseDir
         out.append(("registry figures", BAD, str(e)))
     # Contradiction only, never age: see sweep_registry.preflight_rows.
     try:

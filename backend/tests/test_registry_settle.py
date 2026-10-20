@@ -235,7 +235,9 @@ def test_the_settler_survives_a_systemexit_from_the_case_lookup():
     than it saved, in the most literal way available.
     """
     s = rs.Settler("no-such-issue-anywhere", "<p>nothing</p>")
-    assert s.error and "SystemExit" in s.error
+    # Since 2026-10-20 case_dir raises registry_figures.NoCaseDir, an ordinary
+    # exception; the settler must survive it just the same.
+    assert s.error and "NoCaseDir" in s.error
     assert s.settles("HR 0.712", "x", "y — NCT05207709") is None
     assert "did not run" in s.summary()
 

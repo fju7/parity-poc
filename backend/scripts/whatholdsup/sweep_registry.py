@@ -825,7 +825,7 @@ def preflight_rows(slug: str, page_html: str) -> list[tuple[str, str, str]]:
     is none. Class 3 does not block: 2026-09-12-modest-promise-ruling.md."""
     try:
         d = RF.case_dir(slug)
-    except SystemExit as exc:
+    except (SystemExit, LookupError) as exc:       # LookupError: registry_facts.NoCaseDir
         return [(ROW, WARN, "not checked: %s" % exc)]
     reg = registry_state(d)
     if not reg:
