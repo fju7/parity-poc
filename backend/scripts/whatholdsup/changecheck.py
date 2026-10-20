@@ -447,6 +447,9 @@ def main() -> int:
         print("  WITHHELD (%s): %r" % (w["reason"], w["sentence"]))
     if withheld:
         print()
+    if not a.no_model and new:
+        import stage_cap
+        stage_cap.guard("changecheck", a.slug, 1)           # before the paid call
     found = deterministic(a.slug, new)
     if not a.no_model and new:
         found += review(a.slug, new, after)

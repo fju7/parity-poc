@@ -335,6 +335,7 @@ def judge(slug: str, *, ask=None, today: str | None = None) -> dict:
     `ask(system, user) -> reply` is the model call; by default
     factcheck_draft.call(search=False) under the issue's cap. Tests pass a stub.
     """
+    real = ask is None
     if ask is None:
         fc = _factcheck()
         fc.enter_issue(slug)
@@ -346,6 +347,9 @@ def judge(slug: str, *, ask=None, today: str | None = None) -> dict:
     review = load_review(slug)
     rows = judged_rows(_bindings_doc(slug))
     to_judge, keep = plan(review, rows)
+    if to_judge and real:
+        import stage_cap
+        stage_cap.guard("conclusions", slug, len(to_judge))     # before the first paid call
     if to_judge:
         states = access_states(slug)
         text = page_text(slug)

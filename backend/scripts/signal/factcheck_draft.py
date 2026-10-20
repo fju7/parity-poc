@@ -2469,6 +2469,20 @@ def dry_run_plan(selection: dict, recency_carried: bool = False) -> tuple[list[s
     return lines, est
 
 
+def _stage_guard(stage: str, slug: str, units: int) -> None:
+    """Before the gate's first paid call: refuse to start if the run's
+    estimate, from measured gate costs, exceeds the cap left today or on the
+    issue (whatholdsup/stage_cap.py). Exits 3, as the cap check below does."""
+    if _spend is None:
+        return
+    import importlib.util as _ilu3
+    _sp = _ilu3.spec_from_file_location(
+        "stage_cap", Path(__file__).resolve().parents[1] / "whatholdsup" / "stage_cap.py")
+    _sc = _ilu3.module_from_spec(_sp)
+    _sp.loader.exec_module(_sc)
+    _sc.guard(stage, slug, units)
+
+
 def main():
     ap = argparse.ArgumentParser(description="Pre-publication fact-check gate.")
     ap.add_argument("draft", nargs="?", help="Path to the draft (HTML or text).")
@@ -2686,6 +2700,7 @@ def main():
 
     narrow = None
     if mode == "full":
+        _stage_guard("gate-full", issue_slug_for(args.draft), 1)
         claims = extract_claims(draft)
         if claims is None:
             print("\n[BLOCKED] Could not extract claims. Nothing was checked.")
@@ -2702,6 +2717,9 @@ def main():
         claims = narrow["claims"]
         print("      %d undetermined claim(s) of %d considered"
               % (len(claims), narrow.get("considered", 0)))
+        # one call per attributed source group, plus recency (counted even if
+        # a --since report would carry it: the estimate errs high)
+        _stage_guard("gate-narrow", issue_slug_for(args.draft), len(source_groups(claims)) + 1)
 
     prior = load_prior(args.since)
     if prior and (prior.get("mode") or "full") != mode:

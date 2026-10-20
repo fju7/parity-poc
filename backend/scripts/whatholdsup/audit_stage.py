@@ -1149,6 +1149,13 @@ def preflight_rows(slug: str, record_rows: list[dict] | None = None, *, current:
     return [(ROW_LABEL, OK, "every one of %d sentences is settled in audit run %s" % (len(us), run_dir.name))]
 
 
+def _stage_guard(issue: str, n_units: int) -> None:
+    """Before the run's first paid call (stage_cap.py): refuse to start if the
+    estimate from measured audit runs exceeds the cap left today or on the issue."""
+    import stage_cap
+    stage_cap.guard("audit", issue, n_units)
+
+
 def main(argv=None) -> int:
     ap = argparse.ArgumentParser()
     sub = ap.add_subparsers(dest="cmd", required=True)
@@ -1181,6 +1188,9 @@ def main(argv=None) -> int:
                              "give no --dry-run, --out or --limit")
         out = Path(a.resume)
         prior = json.loads((out / "manifest.json").read_text(encoding="utf-8"))
+        done = len(((prior.get("progress") or {}).get("done")) or {})
+        _stage_guard(a.ledger_issue or prior.get("ledger_issue") or a.slug,
+                     max(0, (prior.get("units") or 0) - done))
         m = run(a.slug, out_dir=out, limit=prior.get("limit"), cap=a.cap,
                 ledger_issue=a.ledger_issue or prior.get("ledger_issue"), resume=True)
         print(json.dumps({k: m.get(k) for k in ("status", "failure", "units", "usd", "second_read", "resumed")},
@@ -1194,6 +1204,8 @@ def main(argv=None) -> int:
             raise SystemExit("--dry-run --out must be outside issues/")
     else:
         out = audit_root(a.slug) / datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
+    n = len(units(a.slug))
+    _stage_guard(a.ledger_issue or a.slug, min(n, a.limit) if (a.dry_run and a.limit) else n)
     m = run(a.slug, out_dir=out, limit=a.limit if a.dry_run else None, cap=a.cap,
             ledger_issue=a.ledger_issue)
     print(json.dumps({k: m.get(k) for k in ("status", "failure", "units", "usd", "second_read")}, indent=1))

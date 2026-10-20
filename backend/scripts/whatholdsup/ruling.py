@@ -549,6 +549,44 @@ def rule_dangling(slug: str, call, *, P=None, rows: dict | None = None, held: di
     return done
 
 
+def pending(mode: str, slug: str, P=None) -> int:
+    """How many items MODE would rule now: the units of the stage cap check,
+    counted as each rule_* function selects them, without a call."""
+    import source_store as store
+    P = P or _publish()
+    case = store.case_dir(slug)
+    if mode == "gate":
+        import findings as F
+        page = P.ROOT / P.issue_cfg(slug)["page"]
+        report = json.loads(page.with_suffix(page.suffix + ".gate.json").read_text(encoding="utf-8"))
+        return len(gate_items(report, F.load(slug)))
+    if mode == "conclusions":
+        import conclusion_judge as CJ
+        return sum(1 for e in (CJ.load_review(slug).get("sentences") or {}).values()
+                   if e.get("flagged") and not CJ.decided(e))
+    if mode == "changecheck":
+        import changecheck as C
+        html = (P.ROOT / P.issue_cfg(slug)["page"]).read_text(encoding="utf-8")
+        doc = C.load_reviews(slug)
+        mine = [r for r in doc.get("reviews") or [] if r.get("sha") == C.page_sha(html)]
+        have = {d.get("key") for d in doc.get("dispositions") or []}
+        return sum(1 for f in ((mine[-1].get("findings") or []) if mine else [])
+                   if C.finding_key(f) not in have and (f.get("sentence") or "").strip())
+    if mode == "advocate":
+        return len(advocate_items(slug))
+    if mode == "dangling":
+        import applied_check as AC
+        html = (P.ROOT / P.issue_cfg(slug)["page"]).read_text(encoding="utf-8")
+        before = set()
+        lp = case / "rulings" / "rulings.jsonl"
+        for line in (lp.read_text(encoding="utf-8").splitlines() if lp.exists() else []):
+            r = json.loads(line) if line.strip() else {}
+            if r.get("ruling_kind") == "dangling":
+                before.add((r.get("term"), (r.get("inputs") or {}).get("sentence")))
+        return sum(1 for f in AC.dangling(case, html) if (f["term"], f["later_sentence"]) not in before)
+    raise ValueError(mode)
+
+
 def main(argv=None) -> int:
     ap = argparse.ArgumentParser(description=__doc__.split("\n\n")[0])
     sub = ap.add_subparsers(dest="cmd", required=True)
@@ -558,6 +596,9 @@ def main(argv=None) -> int:
         s.add_argument("--cap", type=float, default=50.0,
                        help="this run's own ceiling; the issue cap and the day cap also apply")
     a = ap.parse_args(argv)
+    require_study(a.slug)
+    import stage_cap
+    stage_cap.guard("rulings", a.slug, pending(a.cmd, a.slug))   # before the first paid call
     import audit_stage as A
     call = A.Caller(cap=a.cap, ledger_issue=a.slug)
     fn = {"gate": rule_gate, "conclusions": rule_conclusions,
