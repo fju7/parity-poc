@@ -203,6 +203,81 @@ Ask it, and make it specific to what the page actually claims.
 """
 
 
+REQUOTE_SYSTEM = """You are {principal}. Earlier you raised an objection to a
+publication's page and quoted your own document in support of it. That
+quotation is not in your document as the publication holds it, word for word.
+
+Below is the objection and your document's text as held. Quote the passage
+that supports your objection EXACTLY as it appears in that text, character for
+character, with no quote marks of your own. If the held text contains no such
+passage, return source_says empty and say in could_not_find what you looked
+for. Do not paraphrase and do not search the web.
+
+RETURN ONLY a JSON object:
+{{"source_says": "...", "locator": "...", "could_not_find": "..."}}
+"""
+
+QUOTE_NOTE = "the quotation is not in the held text"
+
+
+def check_quotations(slug: str, briefs: list[dict], held: dict[str, str], ask=None,
+                     log=None) -> list[dict]:
+    """Check every advocate quotation against the held text of its source
+    (reading order; audit_stage.quoted_in), when it is written (GAP-018).
+
+    A failing quotation gets ONE re-ask of the advocate, for that objection
+    only, with the held text it must quote from. If it still fails, the
+    objection keeps the true note QUOTE_NOTE for the ruling model, and the
+    advocate's own words stay on the record. Every quotation checked is logged
+    raw through `log` (advocate/quote_checks.jsonl: source text, never
+    committed). `ask(brief, objection, text)` returns the advocate's reply; by
+    default it is a metered call."""
+    import audit_stage as A
+    ask = ask or _requote
+    out = []
+    for b in briefs:
+        if b.get("mode") != "objections":
+            continue
+        text = held.get(b["source"]) or ""
+        for o in b.get("objections") or []:
+            says = (o.get("source_says") or "").strip()
+            if not says:
+                continue
+            rec = {"source": b["source"], "claim_quoted": o.get("claim_quoted"), "first": says}
+            if A.quoted_in(says, text):
+                o["quotation_check"] = {"in_held_text": True, "asked": 1}
+                rec["result"] = "in the held text"
+            else:
+                got = ask(b, o, text) or {}
+                again = (got.get("source_says") or "").strip()
+                rec["re_ask"] = again
+                if again and A.quoted_in(again, text):
+                    o["source_says_first"] = says
+                    o["source_says"] = again
+                    if got.get("locator"):
+                        o["locator"] = got["locator"]
+                    o["quotation_check"] = {"in_held_text": True, "asked": 2}
+                    rec["result"] = "in the held text after one re-ask"
+                else:
+                    o["quotation_check"] = {"in_held_text": False, "asked": 2, "note": QUOTE_NOTE}
+                    rec["result"] = QUOTE_NOTE
+            if log:
+                log(rec)
+            out.append(rec)
+    return out
+
+
+def _requote(b: dict, o: dict, text: str) -> dict:
+    import audit_stage as A
+    doc, _cut = A.trim(text, [w for w in re.findall(r"[A-Za-z][A-Za-z'-]{6,}|\d[\d.,]*%?",
+                                                    (o.get("source_says") or "") + " " + (o.get("objection") or ""))])
+    user = json.dumps({"objection": {k: o.get(k) for k in ("claim_quoted", "objection", "source_says")},
+                       "your_document_as_held": doc}, ensure_ascii=False)
+    got = fc.call(REQUOTE_SYSTEM.format(principal=b.get("principal") or "the source's author"), user,
+                  search=False, label="advocate-requote:%s" % b["source"])
+    return got if isinstance(got, dict) else {}
+
+
 def mentions(page_text: str, src: dict) -> list[str]:
     ids = sl.identifiers(src)
     if not ids:
@@ -567,6 +642,18 @@ def cmd_run(args) -> int:
                     if b.get("source") not in ran]
         except Exception:
             keep = []
+    # EVERY QUOTATION CHECKED WHEN WRITTEN (GAP-018, 2026-10-20). On WHU-P02 22
+    # of 29 were not in their source even in the reading-order text, and none
+    # was checked until the ruling model was told otherwise.
+    import audit_stage as A
+    held = A.held_for_audit(args.slug)
+    qlog = bp.parent / "quote_checks.jsonl"
+    with open(qlog, "a", encoding="utf-8") as f:
+        checked = check_quotations(args.slug, briefs, held,
+                                   log=lambda r: f.write(json.dumps(dict(r, day=day), ensure_ascii=False) + "\n"))
+    bad = sum(1 for r in checked if r["result"] == QUOTE_NOTE)
+    print(f"  quotations  {len(checked)} checked against the held text; {bad} still not in it "
+          f"after one re-ask (log: {qlog.relative_to(ROOT)}, never committed)")
     briefs = sorted(keep + briefs, key=lambda b: b.get("source") or "")
     bp.write_text(
         json.dumps(briefs, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")

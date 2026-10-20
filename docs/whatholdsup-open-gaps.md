@@ -3978,3 +3978,9 @@ Rulings are applied one sentence at a time, so a ruling can remove a name or ter
 **Fix when** before the reliability study is frozen.
 
 The sentence splitter folds a source-list tag (e.g. 'Methods') into the entry, so the audit reads the tag as part of the sentence (WHU-P02 u70: tag removed by a ruling).
+
+## GAP-018 — the source advocate's quotations were never checked when written
+
+**Raised by** advisor, 2026-10-20 (WHU-P02 practice run).
+
+The source advocate's quotations were never checked when written; on WHU-P02, 22 of 29 are not in their source even in the reading-order text.
