@@ -1891,7 +1891,14 @@ def preflight(slug: str, *, for_email: bool,
                     % str(exc)[:120]))
     out.extend(inherited.preflight_rows(slug, _ptext))
     try:
-        out.extend(corrections_check.preflight_rows(slug))
+        if study:
+            # B18 reads the page's own correction history, and a study answer has
+            # none: it is never published, so nothing on it was ever corrected.
+            out.append(("the correction history is checked", OK,
+                        "SKIPPED — a study answer is never published, so it has no "
+                        "correction history (protocol rev 27)"))
+        else:
+            out.extend(corrections_check.preflight_rows(slug))
     except BaseException as exc:
         out.append(("the correction history is checked", BAD,
                     "the check did not run: %s — an unrun check is not a pass"

@@ -77,4 +77,7 @@ def test_the_real_preflight_runs_on_a_synthetic_study_issue(synthetic):
     assert "registry figures" in by and by["registry figures"][0] == P.OK
     assert by["contrarianism guard"] == (P.OK, "SKIPPED — the study's questions are chosen by the "
                                                "protocol, not by WHU (protocol rev 27)")
+    assert by["the correction history is checked"] == (
+        P.OK, "SKIPPED — a study answer is never published, so it has no correction history "
+              "(protocol rev 27)")
     assert not any(l.startswith(("email", "live page", "masthead")) for l in by)
