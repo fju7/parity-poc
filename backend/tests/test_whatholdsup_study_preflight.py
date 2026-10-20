@@ -40,6 +40,7 @@ def synthetic(monkeypatch):
                                                      "study": True}))
         (CASE / "draft" / ("%s.html" % SLUG)).write_text(PAGE)
         (CASE / "sources.json").write_text(json.dumps({"sources": []}))
+        (CASE / "premise.json").write_text(json.dumps({"direction": {"value": "corrects"}}))
 
         def refused(*a, **k):
             raise OSError("network refused in this test")
@@ -74,4 +75,6 @@ def test_the_real_preflight_runs_on_a_synthetic_study_issue(synthetic):
     for label in ("outside review", "adjudication verification", "operator acceptance", "publication"):
         assert by[label][1].startswith("SKIPPED — excluded from the frozen process"), label
     assert "registry figures" in by and by["registry figures"][0] == P.OK
+    assert by["contrarianism guard"] == (P.OK, "SKIPPED — the study's questions are chosen by the "
+                                               "protocol, not by WHU (protocol rev 27)")
     assert not any(l.startswith(("email", "live page", "masthead")) for l in by)

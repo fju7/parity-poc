@@ -220,6 +220,19 @@ def contrarianism_guard() -> tuple[str, str]:
                  "holds is overdue, or the selection is picking for the answer." % n)
 
 
+STUDY_GUARD_SKIP = ("SKIPPED — the study's questions are chosen by the protocol, not by WHU "
+                    "(protocol rev 27)")
+
+
+def is_study(slug: str) -> bool:
+    """The issue's issue.json says "study": true (protocol rev 27)."""
+    try:
+        f = case_dir(slug) / "issue.json"
+        return json.loads(f.read_text(encoding="utf-8")).get("study") is True
+    except (Exception, SystemExit):
+        return False
+
+
 def preflight_rows(slug: str, *, already_published: bool = False) -> list[tuple[str, str, str]]:
     """Rows for the board.
 
@@ -258,8 +271,14 @@ def preflight_rows(slug: str, *, already_published: bool = False) -> list[tuple[
     rows.append(("direction recorded", OK if dirv in ("corrects", "confirms", "narrows") else lvl,
                  dirv or "must be corrects, confirms or narrows — the contrarianism guard counts it"))
 
-    st, detail = contrarianism_guard()
-    rows.append(("contrarianism guard", st if not already_published else WARN, detail))
+    # The guard asks whether WHU picks subjects for the answer. A study
+    # question is not WHU's pick: the protocol drew it. So on a study issue the
+    # cross-issue guard is SKIPPED, on this board and in the preflight alike.
+    if is_study(slug):
+        rows.append(("contrarianism guard", OK, STUDY_GUARD_SKIP))
+    else:
+        st, detail = contrarianism_guard()
+        rows.append(("contrarianism guard", st if not already_published else WARN, detail))
 
     rows.append(("reader with a decision", OK if _filled(d.get("reader_with_a_decision")) else lvl,
                  str(d.get("reader_with_a_decision"))[:90]
