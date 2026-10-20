@@ -3902,3 +3902,24 @@ line fragments while condition (d) tests whole flattened sentences, so the
 test would be containment, and a row bundling a signed nav change with an
 unsigned later edit would be rescued on the signed fragment. It needs a design
 and its own counterfactual test, not a fourth limb appended.
+
+## GAP-008 — the dates test pins the latest update date
+
+**Raised by** advisor, 2026-10-20 (deskilling corrections).
+**Fix when** before the next republish of any issue.
+
+The dates test pins the latest update date and must be edited on every republish; it should derive the expected date from the publication record.
+
+## GAP-009 — changecheck reads only the page body
+
+**Raised by** advisor, 2026-10-20 (deskilling corrections).
+**Fix when** after the Q2 practice run, before the reliability study is frozen.
+
+changecheck reads only the page body: it skips the change-history footer, the homepage card and the meta description, and it counts a row as bound only with a span or premises, so rows bound to a committed record raise NEW_AND_UNBOUND although preflight rule 1 accepts them. The binding check also has no form for commit times.
+
+## GAP-010 — signed fields on binding rows name Fred Ugast, but agents wrote them
+
+**Raised by** advisor, 2026-10-20 (deskilling corrections).
+**Fix when** before the next publication of any issue.
+
+Signed fields (locatable, faithful, warranted) on binding rows name Fred Ugast, but agents wrote them; see the investigation of 2026-10-20.
