@@ -1,0 +1,84 @@
+{
+  "what_this_is": "Where each document we do not hold can be got. Every route here was title-checked against our own record for that source, because the first hand-typed attempt at this returned three wrong papers from three wrong DOIs.",
+  "checked": "2026-10-20",
+  "sources": {
+    "S002": {
+      "ids": {
+        "pmcid": "PMC7946062"
+      },
+      "routes": [],
+      "notes": [
+        "Europe PMC has no record for pmcid PMC7946062",
+        "no DOI could be taken from the url we hold; nothing was guessed"
+      ],
+      "verified_title": ""
+    },
+    "S003": {
+      "ids": {
+        "pmcid": "PMC7959109"
+      },
+      "routes": [],
+      "notes": [
+        "Europe PMC has no record for pmcid PMC7959109",
+        "no DOI could be taken from the url we hold; nothing was guessed"
+      ],
+      "verified_title": ""
+    },
+    "S004": {
+      "ids": {
+        "pmid": "33027677"
+      },
+      "routes": [
+        [
+          "Europe PMC: Unpaywall",
+          "pdf",
+          "http://www.cell.com/article/S1550413120304277/pdf"
+        ]
+      ],
+      "notes": [
+        "identifier pmid=33027677 came from the url we already hold, not a search",
+        "resolved title: 'Ultra-Processed Diets Cause Excess Calorie Intake and Weight Gain: An In'"
+      ],
+      "verified_title": "Ultra-Processed Diets Cause Excess Calorie Intake and Weight Gain: An Inpatient Randomized Controlled Trial of Ad Libitum Food Intake."
+    },
+    "S008": {
+      "ids": {
+        "pmcid": "PMC10300524"
+      },
+      "routes": [],
+      "notes": [
+        "Europe PMC has no record for pmcid PMC10300524",
+        "no DOI could be taken from the url we hold; nothing was guessed"
+      ],
+      "verified_title": ""
+    },
+    "S012": {
+      "ids": {
+        "pmcid": "PMC10260459"
+      },
+      "routes": [],
+      "notes": [
+        "Europe PMC has no record for pmcid PMC10260459",
+        "no DOI could be taken from the url we hold; nothing was guessed"
+      ],
+      "verified_title": ""
+    },
+    "S013": {
+      "ids": {
+        "doi": "10.1016/S0140-6736(25)01565-X"
+      },
+      "routes": [
+        [
+          "Unpaywall: repository",
+          "submittedVersion",
+          "https://edepot.wur.nl/706773"
+        ]
+      ],
+      "notes": [
+        "identifier doi=10.1016/S0140-6736(25)01565-X came from the url we already hold, not a search",
+        "resolved title: 'Ultra-processed foods and human health: the main thesis and the evidence'"
+      ],
+      "verified_title": "Ultra-processed foods and human health: the main thesis and the evidence."
+    }
+  }
+}

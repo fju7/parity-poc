@@ -1,0 +1,60 @@
+{
+  "what_this_is": "First-author checks for every named author on the WHU-P02 study draft, read from the held bytes.",
+  "verified": [
+    {
+      "name": "Lane",
+      "paper": "Ultra-processed food exposure and adverse health outcomes: umbrella review (BMJ 2024)",
+      "first_author": "Lane Melissa M",
+      "source_id": "S001",
+      "author_list_read": true,
+      "checked_against": "held bytes of S001 (Europe PMC full-text XML front matter)",
+      "by": "Claude Code (session 8ff8c296-6467-4a56-8913-ec300d4b7c38)",
+      "on": "2026-10-20",
+      "page_form": "Lane and colleagues"
+    },
+    {
+      "name": "Monteiro",
+      "paper": "Ultra-processed foods and human health: the main thesis and the evidence (Lancet 2025)",
+      "first_author": "Monteiro Carlos A",
+      "source_id": "S013",
+      "author_list_read": true,
+      "checked_against": "held bytes of S013 (repository PDF, author line under the title)",
+      "by": "Claude Code (session 8ff8c296-6467-4a56-8913-ec300d4b7c38)",
+      "on": "2026-10-20",
+      "page_form": "led by Carlos Monteiro"
+    },
+    {
+      "name": "Hall",
+      "paper": "Ultra-processed diets cause excess calorie intake and weight gain (Cell Metab 2019)",
+      "first_author": "Hall Kevin D",
+      "source_id": "S002",
+      "author_list_read": true,
+      "checked_against": "held bytes of S002 (author manuscript PDF, author line)",
+      "by": "Claude Code (session 8ff8c296-6467-4a56-8913-ec300d4b7c38)",
+      "on": "2026-10-20",
+      "page_form": "Kevin Hall's team"
+    },
+    {
+      "name": "Dicken",
+      "paper": "The role of diet quality in mediating the association... (Nutrients 2021)",
+      "first_author": "Dicken Samuel J",
+      "source_id": "S010",
+      "author_list_read": true,
+      "checked_against": "held bytes of S010 (Europe PMC full-text XML front matter; second and last author Batterham Rachel L)",
+      "by": "Claude Code (session 8ff8c296-6467-4a56-8913-ec300d4b7c38)",
+      "on": "2026-10-20",
+      "page_form": "Dicken and Batterham"
+    },
+    {
+      "name": "Robinson",
+      "paper": "Causality or confounding? Applying E values... (Int J Obes 2024)",
+      "first_author": "Robinson Eric",
+      "source_id": "S014",
+      "author_list_read": true,
+      "checked_against": "held bytes of S014 (Europe PMC full-text XML front matter; second author Jones Andrew)",
+      "by": "Claude Code (session 8ff8c296-6467-4a56-8913-ec300d4b7c38)",
+      "on": "2026-10-20",
+      "page_form": "Robinson and Jones"
+    }
+  ]
+}

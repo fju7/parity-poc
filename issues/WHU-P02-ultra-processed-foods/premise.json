@@ -3,18 +3,49 @@
   "belief": {
     "_note": "What the reader already believes, stated as they would state it. If you cannot write this sentence, there is nothing to correct and no subject -- which is how the tobacco-analogy candidate died.",
     "statement": "Ultra-processed foods are bad for you: eating more of them causes weight gain, heart disease, type 2 diabetes, cancer, depression and earlier death, and it is the processing itself, not just the sugar, salt and fat in them, that does the harm.",
-    "how_we_know_they_believe_it": "TO BE FILLED IN RESEARCH (stage 2) from coverage actually read. Written before any source was opened, so no outlet is named here yet; naming one from memory would be an unverified citation.",
-    "carried_by": []
+    "how_we_know_they_believe_it": "General coverage of the 2024 BMJ umbrella review and the 2025 Lancet series states the harm in causal or organ-by-organ terms; three pieces checked from their page bytes (S015-S017).",
+    "carried_by": [
+      {
+        "outlet": "FOX6 Milwaukee",
+        "url": "https://www.fox6now.com/news/ultra-processed-foods-higher-risk-cancer-heart-disease-early-death-study-2024",
+        "date": "2024-03-01",
+        "what_it_said": "the BMJ study 'suggests that ultra-processed foods can lead to a higher risk of 32 different damaging health outcomes'"
+      },
+      {
+        "outlet": "LBC",
+        "url": "https://www.lbc.co.uk/news/health/ultra-processed-food-harm-organ-threat",
+        "date": "2025-11-19",
+        "what_it_said": "headline: ultra-processed food linked to harm in every human organ"
+      },
+      {
+        "outlet": "Daily Maverick",
+        "url": "https://www.dailymaverick.co.za/article/2025-11-24-new-lancet-series-warns-ultraprocessed-fd-foods-are-reshaping-diets-and-fuelling/",
+        "date": "2025-11-24",
+        "what_it_said": "quotes Monteiro that ultra-processed foods harm every major organ system"
+      }
+    ]
   },
   "what_the_sources_show": {
     "_note": "What the primary sources actually support, and which sources.",
-    "statement": "",
-    "sources": [],
+    "statement": "Higher UPF intake is consistently associated with worse outcomes in cohort studies, most firmly for type 2 diabetes, cardiovascular death and common mental disorders, but most of that evidence is graded low or very low quality. Randomised evidence is two feeding trials on intake and weight, none on disease. Associations differ by subgroup: processed meat and sweetened drinks carry them, while some UPF groups (wholegrain breads, cereals, yoghurt) show none or lower risk. Whether processing itself, rather than nutrient content and diet quality, does the harm is unresolved (SACN 2025).",
+    "sources": [
+      "S001",
+      "S002",
+      "S005",
+      "S006",
+      "S007",
+      "S008",
+      "S009",
+      "S010",
+      "S011",
+      "S013",
+      "S014"
+    ],
     "_expected_before_research": "Written before research, as a prediction to be tested, not a finding: consistent observational associations between higher UPF intake and several outcomes; little randomised evidence, none on hard outcomes; whether processing itself (rather than nutrient profile or energy density) is the cause is not settled; associations may differ between UPF subgroups."
   },
   "direction": {
-    "_note": "CORRECTS, CONFIRMS or NARROWS. This field exists so the contrarianism guard can count. A publication whose answer is always CORRECTS is performing scepticism rather than assessing evidence, and is not to be trusted.",
-    "value": "",
+    "_note": "The association and the trial evidence on overeating stand; the belief's scope (every UPF, every outcome) and its mechanism (processing itself) do not.",
+    "value": "narrows",
     "_values": [
       "corrects",
       "confirms",
@@ -25,24 +56,27 @@
   "reader_with_a_decision": "An adult deciding what to buy and eat for themselves or their family, who has read that ultra-processed food is harmful and wants to know how strong that evidence is and whether it applies to everything labelled ultra-processed (wholemeal bread, yoghurt, breakfast cereal) or to particular foods.",
   "public_record_check": {
     "_note": "NOT 'has anybody published this'. On any contested question, somebody has. The question is whether it has been carried WHERE THIS READER WOULD FIND IT. Run the counterexample hunter on the belief statement, not on the finding.",
-    "prior_art_found": [],
-    "carried_in_general_coverage": "",
-    "our_contribution": "translation, extension, or correction of the prior art -- say which"
+    "prior_art_found": [
+      "SACN 2025 rapid evidence update (S011)",
+      "Robinson & Jones 2024 E-value analysis (S014)"
+    ],
+    "carried_in_general_coverage": "The three pieces checked carry the harm without the subgroup heterogeneity or the open question of whether processing itself is the cause; SACN's caveat sits in an expert-committee report rather than in that coverage.",
+    "our_contribution": "translation"
   },
-  "sources_are_open": "expected yes -- journal articles, many open access; to be confirmed in research",
-  "evidence_base_is_bounded": "expected yes if bounded to systematic reviews / umbrella reviews, the randomised feeding trials, and the major cohort analyses; to be confirmed in research",
+  "sources_are_open": "yes -- all 17 held; five obtained by the operator in a browser (S002, S003, S004, S008, S012)",
+  "evidence_base_is_bounded": "yes for this answer -- one umbrella review, two feeding trials, four cohort analyses, two reviews, one committee report",
   "kill_condition": "There is no 'narrows' story, and the answer is CONFIRMS, if the primary sources establish that ultra-processed food as a class causes harm to health beyond its nutrient content: randomised evidence on health outcomes (not only short-term intake), or a body of studies that adjust for nutrient profile and diet quality and still find the harm, across UPF subgroups rather than in a few. The premise also dies if the reader does not hold the belief (no general coverage states it), or if general coverage already carries the evidence's limits as prominently as the claim.",
   "kill_condition_tested": {
     "_note": "Filled in AFTER going to look, by whoever looked.",
-    "by": "",
-    "on": "",
-    "result": "",
+    "by": "Claude Code (session drafting WHU-P02, 2026-10-20)",
+    "on": "2026-10-20",
+    "result": "narrowed",
     "_result_values": [
       "survived",
       "narrowed",
       "killed"
     ],
-    "note": ""
+    "note": "No randomised evidence on disease outcomes; subgroup analyses (S006, S007, S008, S009) diverge; SACN (S011) finds it unclear whether processing itself explains the associations. The CONFIRMS condition was not met."
   },
   "lead_came_from": "the reliability study's practice question Q2, given as a question only (issue.json)",
   "_written": "Belief and kill condition written 2026-10-20 by Claude Code (session drafting WHU-P02), before any source was opened; committed before research starts (RUN.md stage 1)."

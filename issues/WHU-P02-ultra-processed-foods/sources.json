@@ -1,0 +1,400 @@
+{
+  "what_this_is": "Source register for WHU-P02 (reliability-study practice issue; never published).",
+  "sources": [
+    {
+      "id": "S001",
+      "type": "synthesis",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10899807/",
+      "title": "Lane MM et al. — Ultra-processed food exposure and adverse health outcomes: umbrella review of epidemiological meta-analyses (BMJ 2024;384:e077310)",
+      "also_called": [
+        "Lane",
+        "the BMJ umbrella review"
+      ],
+      "used_for": "Which outcomes are associated with UPF exposure, size of associations, credibility and GRADE ratings.",
+      "access": {
+        "state": "full_text_held",
+        "held": {
+          "file": "docs/45/45154cac70401515cd7f07cff88d9fdcd460a92d6ebc23fed3d28aa4d56da184.xml",
+          "sha256": "45154cac70401515cd7f07cff88d9fdcd460a92d6ebc23fed3d28aa4d56da184",
+          "bytes": 201187,
+          "identified_by": "contains its identifier PMC10899807 — 90464 characters, reference list and discussion/introduction present"
+        },
+        "on": "2026-10-20"
+      },
+      "identifier": {
+        "kind": "pmid",
+        "value": "38418082",
+        "resolved_by": "Europe PMC search, 2026-10-20, Claude Code",
+        "resolved_on": "2026-10-20",
+        "pmcid": "PMC10899807",
+        "doi": "10.1136/bmj-2023-077310"
+      }
+    },
+    {
+      "id": "S002",
+      "type": "primary",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7946062/",
+      "title": "Hall KD et al. — Ultra-Processed Diets Cause Excess Calorie Intake and Weight Gain: An Inpatient Randomized Controlled Trial of Ad Libitum Food Intake (Cell Metab 2019;30:67-77)",
+      "also_called": [
+        "Hall",
+        "the NIH inpatient trial"
+      ],
+      "used_for": "The randomised inpatient feeding trial: energy intake and weight change on UPF vs unprocessed diets.",
+      "access": {},
+      "identifier": {
+        "kind": "pmid",
+        "value": "31105044",
+        "resolved_by": "Europe PMC search, 2026-10-20, Claude Code",
+        "resolved_on": "2026-10-20",
+        "pmcid": "PMC7946062",
+        "doi": "10.1016/j.cmet.2019.05.008"
+      }
+    },
+    {
+      "id": "S003",
+      "type": "corrigendum",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7959109/",
+      "title": "Erratum/notice on Hall et al., Cell Metab 2019 (10.1016/j.cmet.2019.05.020)",
+      "also_called": [],
+      "used_for": "Errata check on S002.",
+      "access": {},
+      "identifier": {
+        "kind": "pmid",
+        "value": "31269427",
+        "resolved_by": "Europe PMC search, 2026-10-20, Claude Code",
+        "resolved_on": "2026-10-20",
+        "pmcid": "PMC7959109",
+        "doi": "10.1016/j.cmet.2019.05.020"
+      }
+    },
+    {
+      "id": "S004",
+      "type": "corrigendum",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/33027677/",
+      "title": "Correction on Hall et al., Cell Metab 2020 (10.1016/j.cmet.2020.08.014)",
+      "also_called": [],
+      "used_for": "Errata check on S002.",
+      "access": {},
+      "identifier": {
+        "kind": "pmid",
+        "value": "33027677",
+        "resolved_by": "Europe PMC search, 2026-10-20, Claude Code",
+        "resolved_on": "2026-10-20",
+        "doi": "10.1016/j.cmet.2020.08.014"
+      }
+    },
+    {
+      "id": "S005",
+      "type": "primary",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12532614/",
+      "title": "Dicken SJ et al. — Ultraprocessed or minimally processed diets following healthy dietary guidelines on weight and cardiometabolic health: a randomized, crossover trial (Nat Med 2025)",
+      "also_called": [
+        "Dicken",
+        "the UPDATE trial"
+      ],
+      "used_for": "Randomised crossover trial in free-living adults: weight and cardiometabolic outcomes on UPF vs minimally processed diets matched to guidelines.",
+      "access": {
+        "state": "full_text_held",
+        "held": {
+          "file": "docs/0d/0de46b6fa35d993b50f3ce0b6c8277189d8718896b69ed3254b7f10c804ba6c3.xml",
+          "sha256": "0de46b6fa35d993b50f3ce0b6c8277189d8718896b69ed3254b7f10c804ba6c3",
+          "bytes": 221330,
+          "identified_by": "contains its identifier PMC12532614 — 101134 characters, reference list and discussion present"
+        },
+        "on": "2026-10-20"
+      },
+      "identifier": {
+        "kind": "pmid",
+        "value": "40760353",
+        "resolved_by": "Europe PMC search, 2026-10-20, Claude Code",
+        "resolved_on": "2026-10-20",
+        "pmcid": "PMC12532614",
+        "doi": "10.1038/s41591-025-03842-0"
+      }
+    },
+    {
+      "id": "S006",
+      "type": "primary",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11077436/",
+      "title": "Fang Z et al. — Association of ultra-processed food consumption with all cause and cause specific mortality: population based cohort study (BMJ 2024;385:e078476)",
+      "also_called": [
+        "Fang",
+        "the Nurses' Health Study / HPFS mortality analysis"
+      ],
+      "used_for": "Mortality associations, subgroup heterogeneity, role of diet quality.",
+      "access": {
+        "state": "full_text_held",
+        "held": {
+          "file": "docs/ea/ea6d66e8a503efd5a0948a97d1dbf4682530b6ad4795882a31adfe047ee4b4c5.xml",
+          "sha256": "ea6d66e8a503efd5a0948a97d1dbf4682530b6ad4795882a31adfe047ee4b4c5",
+          "bytes": 189552,
+          "identified_by": "contains its identifier PMC11077436 — 64086 characters, reference list and discussion/introduction present"
+        },
+        "on": "2026-10-20"
+      },
+      "identifier": {
+        "kind": "pmid",
+        "value": "38719536",
+        "resolved_by": "Europe PMC search, 2026-10-20, Claude Code",
+        "resolved_on": "2026-10-20",
+        "pmcid": "PMC11077436",
+        "doi": "10.1136/bmj-2023-078476"
+      }
+    },
+    {
+      "id": "S007",
+      "type": "primary",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10730313/",
+      "title": "Cordova R et al. — Consumption of ultra-processed foods and risk of multimorbidity of cancer and cardiometabolic diseases: a multinational cohort study (Lancet Reg Health Eur 2023)",
+      "also_called": [
+        "Cordova",
+        "the EPIC multimorbidity analysis"
+      ],
+      "used_for": "Multimorbidity associations and which UPF subgroups carry them.",
+      "access": {
+        "state": "full_text_held",
+        "held": {
+          "file": "docs/92/925395dc67329b851eafa2d73b1d1eba50055d9da2b328821a5c1de167c203cf.xml",
+          "sha256": "925395dc67329b851eafa2d73b1d1eba50055d9da2b328821a5c1de167c203cf",
+          "bytes": 148412,
+          "identified_by": "contains its identifier PMC10730313 — 65908 characters, reference list and discussion/introduction present"
+        },
+        "on": "2026-10-20"
+      },
+      "identifier": {
+        "kind": "pmid",
+        "value": "38115963",
+        "resolved_by": "Europe PMC search, 2026-10-20, Claude Code",
+        "resolved_on": "2026-10-20",
+        "pmcid": "PMC10730313",
+        "doi": "10.1016/j.lanepe.2023.100771"
+      }
+    },
+    {
+      "id": "S008",
+      "type": "primary",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10300524/",
+      "title": "Chen Z et al. — Ultra-Processed Food Consumption and Risk of Type 2 Diabetes: Three Large Prospective U.S. Cohort Studies (Diabetes Care 2023;46:1335-1344)",
+      "also_called": [
+        "Chen"
+      ],
+      "used_for": "Type 2 diabetes association and UPF subgroups that go in different directions.",
+      "access": {},
+      "identifier": {
+        "kind": "pmid",
+        "value": "36854188",
+        "resolved_by": "Europe PMC search, 2026-10-20, Claude Code",
+        "resolved_on": "2026-10-20",
+        "pmcid": "PMC10300524",
+        "doi": "10.2337/dc22-1993"
+      }
+    },
+    {
+      "id": "S009",
+      "type": "primary",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11403639/",
+      "title": "Mendoza K et al. — Ultra-processed foods and cardiovascular disease: analysis of three large US prospective cohorts and a systematic review and meta-analysis of prospective cohort studies (Lancet Reg Health Am 2024)",
+      "also_called": [
+        "Mendoza"
+      ],
+      "used_for": "Cardiovascular disease association and subgroup heterogeneity.",
+      "access": {
+        "state": "full_text_held",
+        "held": {
+          "file": "docs/8d/8d97cbac4f67ae656218959a311e8900e6ab149ef0d2a842faaa4c5f395cf80e.xml",
+          "sha256": "8d97cbac4f67ae656218959a311e8900e6ab149ef0d2a842faaa4c5f395cf80e",
+          "bytes": 240023,
+          "identified_by": "contains its identifier PMC11403639 — 87281 characters, reference list and discussion/introduction present"
+        },
+        "on": "2026-10-20"
+      },
+      "identifier": {
+        "kind": "pmid",
+        "value": "39286398",
+        "resolved_by": "Europe PMC search, 2026-10-20, Claude Code",
+        "resolved_on": "2026-10-20",
+        "pmcid": "PMC11403639",
+        "doi": "10.1016/j.lana.2024.100859"
+      }
+    },
+    {
+      "id": "S010",
+      "type": "review",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8747015/",
+      "title": "Dicken SJ, Batterham RL — The Role of Diet Quality in Mediating the Association between Ultra-Processed Food Intake, Obesity and Health-Related Outcomes: A Review of Prospective Cohort Studies (Nutrients 2021;14:23)",
+      "also_called": [
+        "Dicken and Batterham"
+      ],
+      "used_for": "Whether adjusting for diet quality removes the UPF associations.",
+      "access": {
+        "state": "full_text_held",
+        "held": {
+          "file": "docs/40/407c60e8528e2470d6969b99daa80125d79fca516d523f76b3f548706c0e55dc.xml",
+          "sha256": "407c60e8528e2470d6969b99daa80125d79fca516d523f76b3f548706c0e55dc",
+          "bytes": 476307,
+          "identified_by": "contains its identifier PMC8747015 — 159788 characters, reference list and discussion/introduction present"
+        },
+        "on": "2026-10-20"
+      },
+      "identifier": {
+        "kind": "pmid",
+        "value": "35010898",
+        "resolved_by": "Europe PMC search, 2026-10-20, Claude Code",
+        "resolved_on": "2026-10-20",
+        "pmcid": "PMC8747015",
+        "doi": "10.3390/nu14010023"
+      }
+    },
+    {
+      "id": "S011",
+      "type": "review",
+      "url": "https://assets.publishing.service.gov.uk/media/67ea98e4ba01abac8e9fe963/sacn-processed-foods-review.pdf",
+      "title": "Scientific Advisory Committee on Nutrition — Processed foods and health: SACN's rapid evidence update (2025)",
+      "also_called": [
+        "SACN",
+        "the UK Scientific Advisory Committee on Nutrition"
+      ],
+      "used_for": "An expert committee's assessment of the evidence, its limits and whether processing itself is the cause.",
+      "access": {
+        "state": "full_text_held",
+        "held": {
+          "file": "docs/47/47d4a5886b3c19172b99b6c0eb62ce59c3d7d286bc20a90c4d9cafc424afc9d0.pdf",
+          "sha256": "47d4a5886b3c19172b99b6c0eb62ce59c3d7d286bc20a90c4d9cafc424afc9d0",
+          "bytes": 568558,
+          "identified_by": "contains 11 of 11 distinctive title words — 159009 characters, reference list and discussion/introduction present"
+        },
+        "on": "2026-10-20"
+      }
+    },
+    {
+      "id": "S012",
+      "type": "reference",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10260459/",
+      "title": "Monteiro CA et al. — Ultra-processed foods: what they are and how to identify them (Public Health Nutr 2019;22:936-941)",
+      "also_called": [
+        "NOVA",
+        "Monteiro 2019"
+      ],
+      "used_for": "The NOVA definition of ultra-processed food.",
+      "access": {},
+      "identifier": {
+        "kind": "pmid",
+        "value": "30744710",
+        "resolved_by": "Europe PMC search, 2026-10-20, Claude Code",
+        "resolved_on": "2026-10-20",
+        "pmcid": "PMC10260459",
+        "doi": "10.1017/s1368980018003762"
+      }
+    },
+    {
+      "id": "S013",
+      "type": "review",
+      "url": "https://doi.org/10.1016/S0140-6736(25)01565-X",
+      "title": "Monteiro CA et al. — Ultra-processed foods and human health: the main thesis and the evidence (Lancet 2025) — submitted manuscript",
+      "also_called": [
+        "the Lancet series"
+      ],
+      "used_for": "The 2025 Lancet series' case that UPF harms health, and the evidence it rests on.",
+      "access": {
+        "state": "full_text_held",
+        "held": {
+          "file": "docs/82/829a14b85cbbcae7c948cacb94c2351cfae34109c1db75cf1fd433a47502fa58.pdf",
+          "sha256": "829a14b85cbbcae7c948cacb94c2351cfae34109c1db75cf1fd433a47502fa58",
+          "bytes": 1257441,
+          "identified_by": "contains its identifier 10.1016/S0140-6736(25)01565-X — 1003201 characters, reference list and introduction present"
+        },
+        "on": "2026-10-20",
+        "version_held": "submitted manuscript (Unpaywall repository copy, edepot.wur.nl/706773), NOT the published Lancet version; the published PDF was not fetched (operator, 2026-10-20). Anything attributed to S013 is attributed to the submitted manuscript."
+      },
+      "identifier": {
+        "kind": "doi",
+        "value": "10.1016/s0140-6736(25)01565-x",
+        "resolved_by": "Europe PMC search, 2026-10-20, Claude Code",
+        "resolved_on": "2026-10-20",
+        "doi": "10.1016/s0140-6736(25)01565-x"
+      }
+    },
+    {
+      "id": "S014",
+      "type": "methods",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11347361/",
+      "title": "Causality or confounding? Applying E values to examine associations between ultra-processed food consumption and risk of weight gain and obesity (Int J Obes 2024)",
+      "also_called": [
+        "the E-value analysis"
+      ],
+      "used_for": "How strong unmeasured confounding would need to be to explain away cohort associations.",
+      "access": {
+        "state": "full_text_held",
+        "held": {
+          "file": "docs/0e/0e3233d2f88149c5bf85374f2bd4bbeb5c5f1f3c57d53fbd3a0d69f9eb50a773.xml",
+          "sha256": "0e3233d2f88149c5bf85374f2bd4bbeb5c5f1f3c57d53fbd3a0d69f9eb50a773",
+          "bytes": 77885,
+          "identified_by": "contains its identifier PMC11347361 — 37766 characters, reference list and discussion/introduction present"
+        },
+        "on": "2026-10-20"
+      },
+      "identifier": {
+        "kind": "pmid",
+        "value": "38879728",
+        "resolved_by": "Europe PMC search, 2026-10-20, Claude Code",
+        "resolved_on": "2026-10-20",
+        "pmcid": "PMC11347361",
+        "doi": "10.1038/s41366-024-01566-8"
+      }
+    },
+    {
+      "id": "S015",
+      "type": "carrier",
+      "url": "https://www.lbc.co.uk/news/health/ultra-processed-food-harm-organ-threat",
+      "title": "LBC — Ultra-processed food linked to harm in every human organ - as experts warn of 'seismic threat' (19 Nov 2025)",
+      "also_called": [],
+      "used_for": "The belief as carried in general coverage.",
+      "access": {
+        "state": "full_text_held",
+        "held": {
+          "file": "docs/71/71c78ec942a2b4ebca91921b26a101b54c3e466d82ac6ad1def23024c0d4e660.html",
+          "sha256": "71c78ec942a2b4ebca91921b26a101b54c3e466d82ac6ad1def23024c0d4e660",
+          "bytes": 97523,
+          "identified_by": "contains 10 of 11 distinctive title words"
+        },
+        "on": "2026-10-20"
+      }
+    },
+    {
+      "id": "S016",
+      "type": "carrier",
+      "url": "https://www.fox6now.com/news/ultra-processed-foods-higher-risk-cancer-heart-disease-early-death-study-2024",
+      "title": "FOX6 Milwaukee — Ultra-processed foods linked to higher risk of cancer, heart disease, early death, study says (1 Mar 2024)",
+      "also_called": [],
+      "used_for": "The belief as carried in general coverage.",
+      "access": {
+        "state": "full_text_held",
+        "held": {
+          "file": "docs/58/585f34c4ecef4db3df042c7473ea38a368627e2539fcd3437f470d5f03824737.html",
+          "sha256": "585f34c4ecef4db3df042c7473ea38a368627e2539fcd3437f470d5f03824737",
+          "bytes": 170178,
+          "identified_by": "contains 12 of 12 distinctive title words"
+        },
+        "on": "2026-10-20"
+      }
+    },
+    {
+      "id": "S017",
+      "type": "carrier",
+      "url": "https://www.dailymaverick.co.za/article/2025-11-24-new-lancet-series-warns-ultraprocessed-fd-foods-are-reshaping-diets-and-fuelling/",
+      "title": "Daily Maverick — New Lancet series warns ultra-processed foods are reshaping diets and fuelling global burden of disease (24 Nov 2025)",
+      "also_called": [],
+      "used_for": "The belief as carried in general coverage.",
+      "access": {
+        "state": "full_text_held",
+        "held": {
+          "file": "docs/43/433fb897ba2d2c04a5051d441d9610b537028853aa8805ab20f17ccc683e2d98.html",
+          "sha256": "433fb897ba2d2c04a5051d441d9610b537028853aa8805ab20f17ccc683e2d98",
+          "bytes": 363220,
+          "identified_by": "contains 12 of 12 distinctive title words"
+        },
+        "on": "2026-10-20"
+      }
+    }
+  ]
+}
