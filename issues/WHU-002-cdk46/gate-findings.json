@@ -255,6 +255,18 @@
         "tested": "is the attacked sentence still on the page",
         "result": "yes; whether the two sentences still conflict is a reading, not a string test"
       }
+    },
+    {
+      "id": "rec-5",
+      "kind": "recency",
+      "gate_verdict": "SUPERSEDED",
+      "gate_said": "Network meta-analysis of CDK4/6 inhibitors (7 phase III RCTs, 4,415 patients, 73.3 months median follow-up) is SUPERSEDED: the draft uses No statistically significant difference in OS between any pair of the three CDK4/6 inhibitors; 7 phase III RCTs, 4,415 patients, 73.3 months median follow-up; the latest known is Scientific Reports, February 2024 (Comparative overall survival of CDK4/6 inhibitor",
+      "decision": "rejected",
+      "source_id": "S015",
+      "quote": "Reported HR for OS 0.956 0.76 0.76 0.804 0.814 0.73 0.757",
+      "why": "The gate said the network meta-analysis (S015) used MONARCH 3's interim result (HR 0.754). S015's Table 1 gives HR 0.804 (0.637–1.015) with 'Year of updated data' 2023, its reference list cites the SABCS 2023 final overall-survival abstract, and 0.754 does not appear in the held text. The page already says the input is the final result.",
+      "by": "advisor ruling, relayed by Fred, 2026-10-20",
+      "on": "2026-10-20"
     }
   ]
 }
