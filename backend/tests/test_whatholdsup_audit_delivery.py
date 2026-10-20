@@ -134,3 +134,47 @@ def test_a_finding_that_says_its_document_was_empty_never_reaches_the_ruling_mod
 ])
 def test_what_counts_as_saying_a_document_was_missing(reason, hit):
     assert A.says_document_missing({"kind": "Overstated", "reason": reason}) is hit
+
+
+# --- the reader is shown the text the bindings were checked against (2026-10-20) ---
+
+def test_a_bound_span_absent_from_the_held_text_stops_the_run(tmp_path):
+    # The binding was checked against one extraction and the reader would be
+    # shown another that lacks the span: fail closed, before any call.
+    held = {"demo:S021": T.DOC.replace("226 detected an adenoma (28.4%)", "226 de- tected an adenoma (28.4%)")}
+    fake = T.FakeModel()
+    m = _run(tmp_path, fake, held=held)
+    assert fake.prompts == [] and m["failure"].startswith("DOCUMENT_NOT_DELIVERED")
+    assert m["deliveries"][0]["spans_inside"] is False
+
+
+def test_the_audit_reads_the_extraction_the_binding_checks_use(monkeypatch):
+    import source_store
+    import spancheck
+    monkeypatch.setattr(source_store, "held", lambda slug: {"S1": {}, "S2": {}})
+    monkeypatch.setattr(spancheck, "_text", lambda slug, sid: {"S1": "reading-order text"}.get(sid))
+    assert A.held_for_audit("demo") == {"S1": "reading-order text"}
+
+
+def _p02_case():
+    """WHU-P02's u23/u41 and S008, only where they exist (held documents and a
+    study issue's bindings are private and never committed)."""
+    try:
+        us = [u for u in A.units("ultra-processed-foods") if u["id"] in ("u23", "u41")]
+    except BaseException:
+        return None
+    spans = [x["span"] for u in us for x in [u["row"] or {}] + ((u["row"] or {}).get("also_rests_on") or [])
+             + ((u["row"] or {}).get("premises") or []) if x.get("source_id") == "S008" and x.get("span")]
+    return spans or None
+
+
+def test_the_real_case_s008_spans_are_in_the_audit_text_and_not_in_the_layout_text():
+    spans = _p02_case()
+    if not spans:
+        pytest.skip("WHU-P02's bindings or S008 are not held here")
+    import reachability
+    audit = A.held_for_audit("ultra-processed-foods").get("S008") or ""
+    layout = next((v for k, v in reachability.held_text("ultra-processed-foods", cache=False).items()
+                   if k.split(":")[-1] == "S008"), "")
+    assert audit and all(A.norm(s) in A.norm(audit) for s in spans)        # the fix
+    assert not any(A.norm(s) in A.norm(layout) for s in spans)              # the defect, -layout

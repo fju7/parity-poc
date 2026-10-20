@@ -328,6 +328,33 @@ def trim(text: str, wanted: list[str], must: list[str] | tuple = ()) -> tuple[st
     return DOC_SEP.join(text[a:b] for a, b, _h in chosen), True
 
 
+def held_for_audit(slug: str) -> dict[str, str]:
+    """{source id: text} for every document held for this issue, extracted the
+    way the binding checks extract it (spancheck._text: source_store.text_of,
+    reading order, entities unescaped), so the reader is shown the text the
+    bound spans were checked against.
+
+    WHY NOT reachability.held_text (2026-10-20, WHU-P02 practice run). That
+    runs `pdftotext -layout`, which keeps the page's physical line order: S008's
+    margin lines ("Boston, MA", "Received 13 October 2022 and accepted ...") came
+    out spliced into the middle of abstract sentences, and line-end hyphens
+    stayed split ("haz- ard"). The reader quoted the sentence as the paper reads
+    it, the quotation was not a run of the -layout text, and the quotation was
+    rejected; none of the three spans u23 and u41 are bound to occurred in the
+    -layout text at all. Matching is unchanged; only what the reader is shown."""
+    import spancheck as SC
+    import source_store as store
+    out = {}
+    for sid in sorted((store.held(slug) or {})):
+        try:
+            t = SC._text(slug, sid)
+        except Exception:
+            t = None
+        if t is not None:
+            out[sid] = t
+    return out
+
+
 class DocumentNotDelivered(AuditFailure):
     """A held document reached the reader empty, or without a span its batch's
     sentences are bound to. Never sent on; the run stops (fail closed)."""
@@ -350,7 +377,10 @@ def delivery_report(slug: str, batch: list[dict], held: dict[str, str], docs: di
             for x in [row] + (row.get("also_rests_on") or []) + (row.get("premises") or []):
                 if x.get("source_id") == sid and x.get("span"):
                     spans.append(x["span"])
-        missing = [s for s in spans if norm(s) in norm(text) and norm(s) not in norm(delivered)]
+        # Every bound span must be in what was delivered. A span not even in the
+        # held text means the reader is shown a different text from the one the
+        # binding was checked against: that fails closed too (2026-10-20).
+        missing = [s for s in spans if norm(s) not in norm(delivered)]
         out.append({"source": sid, "units": [u["id"] for u in batch], "held_chars": len(text),
                     "delivered_chars": len(delivered), "bound_spans": len(spans),
                     "spans_inside": not missing, "missing_spans": [m[:120] for m in missing]})
@@ -720,8 +750,7 @@ def run(slug: str, *, out_dir: Path, limit: int | None = None, cap: float = 40.0
     if limit:
         us = us[:limit]
     if held is None:
-        import reachability
-        held = reachability.held_text(slug, cache=False)
+        held = held_for_audit(slug)
     lic = frozenset(licensed if licensed is not None else licensed_ids(slug))
     # A licensed source's text is dropped from what this run holds before
     # anything is built, so no code path below can put it in a prompt.
