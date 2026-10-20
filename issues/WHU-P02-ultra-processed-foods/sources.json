@@ -95,7 +95,9 @@
         "resolved_on": "2026-10-20",
         "pmcid": "PMC7959109",
         "doi": "10.1016/j.cmet.2019.05.020"
-      }
+      },
+      "amends": "S002",
+      "effect_on_page": "Read in full by Claude Code (session 8ff8c296-6467-4a56-8913-ec300d4b7c38), 2026-10-20. It corrects the diet differences at breakfast, lunch and dinner; it states the primary outcome (total daily ad libitum energy intake) and snack intake were not affected. The page cites only total daily intake and weight change from S002, and states the correction in one sentence; no figure on the page changes."
     },
     {
       "id": "S004",
@@ -127,7 +129,9 @@
         "resolved_by": "Europe PMC search, 2026-10-20, Claude Code",
         "resolved_on": "2026-10-20",
         "doi": "10.1016/j.cmet.2020.08.014"
-      }
+      },
+      "amends": "S002",
+      "effect_on_page": "Read in full by Claude Code (session 8ff8c296-6467-4a56-8913-ec300d4b7c38), 2026-10-20. It corrects the diet differences at breakfast, lunch and dinner; it states the primary outcome (total daily ad libitum energy intake) and snack intake were not affected. The page cites only total daily intake and weight change from S002, and states the correction in one sentence; no figure on the page changes."
     },
     {
       "id": "S005",

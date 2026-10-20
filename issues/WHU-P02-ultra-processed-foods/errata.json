@@ -1,0 +1,290 @@
+{
+  "_what_this_is": "For every source, whether its bibliographic record names a correction, erratum, retraction or expression of concern -- and, when the lookup failed, that it failed. 'checked, none' and 'could not check' are different states and this file never merges them.",
+  "checked": {
+    "S001": {
+      "source": "S001",
+      "title": "Lane MM et al. — Ultra-processed food exposure and adverse health outcomes: umbrella review of epidemiological meta-anal",
+      "checked_on": "2026-10-20",
+      "identifier": "PMCID PMC10899807",
+      "identifier_from": "the source URL",
+      "resolved_title": "Ultra-processed food exposure and adverse health outcomes: umbrella review of epidemiological meta-analyses.",
+      "identity": "resolved title shares 12 word(s) with ours: adverse, analyses, epidemiological, exposure, food, health, meta, outcomes, proc",
+      "amendments": [],
+      "comments": [
+        {
+          "source": "MED",
+          "id": "38418096",
+          "reference": "BMJ. 2024 Feb 28;384:q439. doi: 10.1136/bmj.q439",
+          "type": "Comment in",
+          "orderIn": 1
+        },
+        {
+          "source": "MED",
+          "id": "38531598",
+          "reference": "BMJ. 2024 Mar 26;384:q747. doi: 10.1136/bmj.q747",
+          "type": "Comment in",
+          "orderIn": 2
+        },
+        {
+          "source": "MED",
+          "id": "38548281",
+          "reference": "BMJ. 2024 Mar 28;384:q748. doi: 10.1136/bmj.q748",
+          "type": "Comment in",
+          "orderIn": 3
+        }
+      ],
+      "state": "CLEAN",
+      "why": "matched on PMCID PMC10899807"
+    },
+    "S002": {
+      "source": "S002",
+      "title": "Hall KD et al. — Ultra-Processed Diets Cause Excess Calorie Intake and Weight Gain: An Inpatient Randomized Controlled T",
+      "checked_on": "2026-10-20",
+      "identifier": "PMCID PMC7946062",
+      "identifier_from": "the source URL",
+      "resolved_title": "Ultra-Processed Diets Cause Excess Calorie Intake and Weight Gain: An Inpatient Randomized Controlled Trial of Ad Libitum Food Intake.",
+      "identity": "resolved title shares 15 word(s) with ours: calorie, cause, controlled, diets, excess, food, gain, inpatient, intake, libitu",
+      "amendments": [
+        {
+          "source": "MED",
+          "id": "31269427",
+          "reference": "Cell Metab. 2019 Jul 2;30(1):226. doi: 10.1016/j.cmet.2019.05.020.",
+          "type": "Erratum in",
+          "orderIn": 3
+        },
+        {
+          "source": "MED",
+          "id": "33027677",
+          "reference": "Cell Metab. 2020 Oct 6;32(4):690. doi: 10.1016/j.cmet.2020.08.014.",
+          "type": "Erratum in",
+          "orderIn": 5
+        }
+      ],
+      "comments": [
+        {
+          "source": "MED",
+          "id": "31230986",
+          "reference": "Cell Metab. 2019 Jul 2;30(1):5-6. doi: 10.1016/j.cmet.2019.06.006.",
+          "type": "Comment in",
+          "orderIn": 1
+        },
+        {
+          "source": "MED",
+          "id": "31230987",
+          "reference": "Cell Metab. 2019 Jul 2;30(1):3-4. doi: 10.1016/j.cmet.2019.06.004.",
+          "type": "Comment in",
+          "orderIn": 2
+        },
+        {
+          "source": "MED",
+          "id": "31272848",
+          "reference": "Cell Metab. 2019 Aug 6;30(2):227-228. doi: 10.1016/j.cmet.2019.06.015.",
+          "type": "Comment in",
+          "orderIn": 4
+        }
+      ],
+      "state": "AMENDED",
+      "why": "matched on PMCID PMC7946062"
+    },
+    "S003": {
+      "source": "S003",
+      "title": "Erratum/notice on Hall et al., Cell Metab 2019 (10.1016/j.cmet.2019.05.020)",
+      "checked_on": "2026-10-20",
+      "identifier": "PMCID PMC7959109",
+      "identifier_from": "the source URL",
+      "resolved_title": "Ultra-Processed Diets Cause Excess Calorie Intake and Weight Gain: An Inpatient Randomized Controlled Trial of Ad Libitum Food Intake.",
+      "state": "UNCHECKED",
+      "why": "lookup on PMCID PMC7959109 resolved to a DIFFERENT document: 'Ultra-Processed Diets Cause Excess Calorie Intake and Weight Gain: An ' shares nothing distinctive with 'Erratum/notice on Hall et al., Cell Metab 2019 (10.1016/j.cmet.2019.05'",
+      "amendments": [],
+      "comments": []
+    },
+    "S004": {
+      "source": "S004",
+      "title": "Correction on Hall et al., Cell Metab 2020 (10.1016/j.cmet.2020.08.014)",
+      "checked_on": "2026-10-20",
+      "identifier": "PMID 33027677",
+      "identifier_from": "the source URL",
+      "resolved_title": "Ultra-Processed Diets Cause Excess Calorie Intake and Weight Gain: An Inpatient Randomized Controlled Trial of Ad Libitum Food Intake.",
+      "state": "UNCHECKED",
+      "why": "lookup on PMID 33027677 resolved to a DIFFERENT document: 'Ultra-Processed Diets Cause Excess Calorie Intake and Weight Gain: An ' shares nothing distinctive with 'Correction on Hall et al., Cell Metab 2020 (10.1016/j.cmet.2020.08.014'",
+      "amendments": [],
+      "comments": []
+    },
+    "S005": {
+      "source": "S005",
+      "title": "Dicken SJ et al. — Ultraprocessed or minimally processed diets following healthy dietary guidelines on weight and cardio",
+      "checked_on": "2026-10-20",
+      "identifier": "PMCID PMC12532614",
+      "identifier_from": "the source URL",
+      "resolved_title": "Ultraprocessed or minimally processed diets following healthy dietary guidelines on weight and cardiometabolic health: a randomized, crossover trial.",
+      "identity": "resolved title shares 14 word(s) with ours: cardiometabolic, crossover, dietary, diets, following, guidelines, health, healt",
+      "amendments": [],
+      "comments": [],
+      "state": "CLEAN",
+      "why": "matched on PMCID PMC12532614"
+    },
+    "S006": {
+      "source": "S006",
+      "title": "Fang Z et al. — Association of ultra-processed food consumption with all cause and cause specific mortality: population ",
+      "checked_on": "2026-10-20",
+      "identifier": "PMCID PMC11077436",
+      "identifier_from": "the source URL",
+      "resolved_title": "Association of ultra-processed food consumption with all cause and cause specific mortality: population based cohort study.",
+      "identity": "resolved title shares 12 word(s) with ours: association, based, cause, cohort, consumption, food, mortality, population, pro",
+      "amendments": [],
+      "comments": [
+        {
+          "source": "MED",
+          "id": "38991698",
+          "reference": "BMJ. 2024 Jul 11;386:q1517. doi: 10.1136/bmj.q1517",
+          "type": "Comment in",
+          "orderIn": 1
+        }
+      ],
+      "state": "CLEAN",
+      "why": "matched on PMCID PMC11077436"
+    },
+    "S007": {
+      "source": "S007",
+      "title": "Cordova R et al. — Consumption of ultra-processed foods and risk of multimorbidity of cancer and cardiometabolic disease",
+      "checked_on": "2026-10-20",
+      "identifier": "PMCID PMC10730313",
+      "identifier_from": "the source URL",
+      "resolved_title": "Consumption of ultra-processed foods and risk of multimorbidity of cancer and cardiometabolic diseases: a multinational cohort study.",
+      "identity": "resolved title shares 12 word(s) with ours: cancer, cardiometabolic, cohort, consumption, diseases, foods, multimorbidity, m",
+      "amendments": [],
+      "comments": [],
+      "state": "CLEAN",
+      "why": "matched on PMCID PMC10730313"
+    },
+    "S008": {
+      "source": "S008",
+      "title": "Chen Z et al. — Ultra-Processed Food Consumption and Risk of Type 2 Diabetes: Three Large Prospective U.S. Cohort Studie",
+      "checked_on": "2026-10-20",
+      "identifier": "PMCID PMC10300524",
+      "identifier_from": "the source URL",
+      "resolved_title": "Ultra-Processed Food Consumption and Risk of Type 2 Diabetes: Three Large Prospective U.S. Cohort Studies.",
+      "identity": "resolved title shares 12 word(s) with ours: cohort, consumption, diabetes, food, large, processed, prospective, risk, studie",
+      "amendments": [],
+      "comments": [
+        {
+          "source": "MED",
+          "id": "37339348",
+          "reference": "Diabetes Care. 2023 Jul 1;46(7):1327-1329. doi: 10.2337/dci23-0018.",
+          "type": "Comment in",
+          "orderIn": 1
+        },
+        {
+          "source": "MED",
+          "id": "38241498",
+          "reference": "Diabetes Care. 2024 Feb 1;47(2):e22-e23. doi: 10.2337/dc23-1837.",
+          "type": "Comment in",
+          "orderIn": 2
+        }
+      ],
+      "state": "CLEAN",
+      "why": "matched on PMCID PMC10300524"
+    },
+    "S009": {
+      "source": "S009",
+      "title": "Mendoza K et al. — Ultra-processed foods and cardiovascular disease: analysis of three large US prospective cohorts and ",
+      "checked_on": "2026-10-20",
+      "identifier": "PMCID PMC11403639",
+      "identifier_from": "the source URL",
+      "resolved_title": "Ultra-processed foods and cardiovascular disease: analysis of three large US prospective cohorts and a systematic review and meta-analysis of prospective cohort",
+      "identity": "resolved title shares 15 word(s) with ours: analysis, cardiovascular, cohort, cohorts, disease, foods, large, meta, processe",
+      "amendments": [],
+      "comments": [],
+      "state": "CLEAN",
+      "why": "matched on PMCID PMC11403639"
+    },
+    "S010": {
+      "source": "S010",
+      "title": "Dicken SJ, Batterham RL — The Role of Diet Quality in Mediating the Association between Ultra-Processed Food Intake, Obe",
+      "checked_on": "2026-10-20",
+      "identifier": "PMCID PMC8747015",
+      "identifier_from": "the source URL",
+      "resolved_title": "The Role of Diet Quality in Mediating the Association between Ultra-Processed Food Intake, Obesity and Health-Related Outcomes: A Review of Prospective Cohort S",
+      "identity": "resolved title shares 18 word(s) with ours: association, between, cohort, diet, food, health, intake, mediating, obesity, ou",
+      "amendments": [],
+      "comments": [],
+      "state": "CLEAN",
+      "why": "matched on PMCID PMC8747015"
+    },
+    "S011": {
+      "source": "S011",
+      "title": "Scientific Advisory Committee on Nutrition — Processed foods and health: SACN's rapid evidence update (2025)",
+      "checked_on": "2026-10-20",
+      "state": "UNCHECKABLE",
+      "why": "no DOI, PMID, PMCID or PII can be parsed from the URL we hold; nothing is typed from memory, so this source cannot be looked up automatically",
+      "amendments": [],
+      "comments": []
+    },
+    "S012": {
+      "source": "S012",
+      "title": "Monteiro CA et al. — Ultra-processed foods: what they are and how to identify them (Public Health Nutr 2019;22:936-941)",
+      "checked_on": "2026-10-20",
+      "identifier": "PMCID PMC10260459",
+      "identifier_from": "the source URL",
+      "resolved_title": "Ultra-processed foods: what they are and how to identify them.",
+      "identity": "resolved title shares 7 word(s) with ours: foods, identify, processed, them, they, ultra, what",
+      "amendments": [],
+      "comments": [],
+      "state": "CLEAN",
+      "why": "matched on PMCID PMC10260459"
+    },
+    "S013": {
+      "source": "S013",
+      "title": "Monteiro CA et al. — Ultra-processed foods and human health: the main thesis and the evidence (Lancet 2025;406:2667-2684",
+      "checked_on": "2026-10-20",
+      "identifier": "DOI 10.1016/S0140-6736(25)01565-X",
+      "identifier_from": "the source URL",
+      "resolved_title": "Ultra-processed foods and human health: the main thesis and the evidence.",
+      "identity": "resolved title shares 8 word(s) with ours: evidence, foods, health, human, main, processed, thesis, ultra",
+      "amendments": [],
+      "comments": [],
+      "state": "CLEAN",
+      "why": "matched on DOI 10.1016/S0140-6736(25)01565-X"
+    },
+    "S014": {
+      "source": "S014",
+      "title": "Causality or confounding? Applying E values to examine associations between ultra-processed food consumption and risk of",
+      "checked_on": "2026-10-20",
+      "identifier": "PMCID PMC11347361",
+      "identifier_from": "the source URL",
+      "resolved_title": "Causality or confounding? Applying E values to examine associations between ultra-processed food consumption and risk of weight gain.",
+      "identity": "resolved title shares 14 word(s) with ours: applying, associations, between, causality, confounding, consumption, examine, f",
+      "amendments": [],
+      "comments": [],
+      "state": "CLEAN",
+      "why": "matched on PMCID PMC11347361"
+    },
+    "S015": {
+      "source": "S015",
+      "title": "LBC — Ultra-processed food linked to harm in every human organ - as experts warn of 'seismic threat' (19 Nov 2025)",
+      "checked_on": "2026-10-20",
+      "state": "UNCHECKABLE",
+      "why": "no DOI, PMID, PMCID or PII can be parsed from the URL we hold; nothing is typed from memory, so this source cannot be looked up automatically",
+      "amendments": [],
+      "comments": []
+    },
+    "S016": {
+      "source": "S016",
+      "title": "FOX6 Milwaukee — Ultra-processed foods linked to higher risk of cancer, heart disease, early death, study says (1 Mar 20",
+      "checked_on": "2026-10-20",
+      "state": "UNCHECKABLE",
+      "why": "no DOI, PMID, PMCID or PII can be parsed from the URL we hold; nothing is typed from memory, so this source cannot be looked up automatically",
+      "amendments": [],
+      "comments": []
+    },
+    "S017": {
+      "source": "S017",
+      "title": "Daily Maverick — New Lancet series warns ultra-processed foods are reshaping diets and fuelling global burden of disease",
+      "checked_on": "2026-10-20",
+      "state": "UNCHECKABLE",
+      "why": "no DOI, PMID, PMCID or PII can be parsed from the URL we hold; nothing is typed from memory, so this source cannot be looked up automatically",
+      "amendments": [],
+      "comments": []
+    }
+  }
+}
