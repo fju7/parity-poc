@@ -1,0 +1,125 @@
+{
+ "frame_file": "frames/ipcc-ar5-practice.json",
+ "frame_sha256": "728652c54a4f02667c098c5c08e404aa4bca5c8442c9d2f8f156cbd2befb32c1",
+ "seed": 20261022,
+ "procedure": "random.Random(seed).shuffle of the candidate numbers n; the first eligible candidate in that order is the draw",
+ "shuffled_order_first_50": [
+  141,
+  72,
+  35,
+  14,
+  24,
+  78,
+  128,
+  139,
+  147,
+  20,
+  74,
+  71,
+  109,
+  11,
+  103,
+  93,
+  75,
+  96,
+  133,
+  125,
+  9,
+  92,
+  120,
+  88,
+  104,
+  162,
+  70,
+  127,
+  54,
+  89,
+  145,
+  19,
+  57,
+  150,
+  41,
+  44,
+  99,
+  12,
+  160,
+  130,
+  148,
+  55,
+  26,
+  52,
+  138,
+  123,
+  53,
+  18,
+  32,
+  164
+ ],
+ "candidates": 175,
+ "checked": 6,
+ "drawn": {
+  "n": 78,
+  "id": "AR5-WGIII-3#1",
+  "report": "Climate Change 2014: Mitigation of Climate Change",
+  "year": 2014,
+  "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/ipcc_wg3_ar5_summary-for-policymakers.pdf",
+  "section": "3",
+  "level": "headline",
+  "statement_sha256": "0d77644b33a74beb8a4f7ffaaa359e0483ea5ced30b0277a6df3bd48b7972f6c"
+ },
+ "drawn_at": "2026-10-21T18:45:32+00:00",
+ "log": [
+  {
+   "checked": 1,
+   "n": 141,
+   "id": "AR5-WGIII-5.1#6",
+   "eligible": false,
+   "failed": [
+    "states_a_certainty_grade"
+   ]
+  },
+  {
+   "checked": 2,
+   "n": 72,
+   "id": "AR5-WGIII-2#4",
+   "eligible": false,
+   "failed": [
+    "states_a_certainty_grade"
+   ]
+  },
+  {
+   "checked": 3,
+   "n": 35,
+   "id": "AR5-WGII-B-1#1",
+   "eligible": false,
+   "failed": [
+    "states_a_certainty_grade"
+   ]
+  },
+  {
+   "checked": 4,
+   "n": 14,
+   "id": "AR5-WGI-E.2#1",
+   "eligible": false,
+   "failed": [
+    "states_a_certainty_grade"
+   ]
+  },
+  {
+   "checked": 5,
+   "n": 24,
+   "id": "AR5-WGII-A-1#5",
+   "eligible": false,
+   "failed": [
+    "states_a_certainty_grade"
+   ]
+  },
+  {
+   "checked": 6,
+   "n": 78,
+   "id": "AR5-WGIII-3#1",
+   "eligible": true,
+   "failed": []
+  }
+ ]
+}

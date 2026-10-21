@@ -640,6 +640,8 @@ So with conversion defects removed, each system is still told apart by its writi
 
 ### Sampling frames (no draw for the study)
 
+**Superseded in part (protocol rev 34, 21 October 2026):** the counts below are rev 33's. The IPCC unit, the vitamin D exclusion and the National Academies lists were changed, and the National Academies frame was dropped; see "Frame fixes, the dropped frame and the practice redraw" below.
+
 Built by `scripts/frames.py` and committed as numbered files in `frames/`, each with its queries (URL, UTC date, HTTP status, sha256 of the reply) and every candidate's result on every test. No drafting session reads them (RUN.md, "Do not read"). Tests: `backend/tests/test_whu_study_frames.py`. All queries were made on 21 October 2026. A rebuild re-logs a cached reply under the rebuild's time.
 
 | Frame | Registry and query | Candidates | Eligible |
@@ -692,8 +694,117 @@ Each file logs every listing query (URL, UTC time, HTTP status, sha256), all mad
 
 The question, written from the report's subject without naming it, is in `issues/WHU-P03-antimalarial-prophylaxis/issue.json`. The report itself is named only below.
 
+## Frame fixes, the dropped frame and the practice redraw (21 October 2026, protocol rev 34)
+
+Rev 34 and its amendments of the same day (advisor rulings, recorded in `scripts/frames.py` where each rule is applied). All queries were made on 21 October 2026. No paid calls.
+
+### Study draw plan
+
+| Frame | Questions | File |
+|---|---|---|
+| Cochrane | 1 | `frames/cochrane.json` |
+| Campbell | 1 | `frames/campbell.json` |
+| IPCC AR6 | 2 | `frames/ipcc.json` |
+
+**National Academies frame dropped** (rev 34, amended): outside health, its reports do not grade conclusions on an evidence scale, so the frame is empty under the grade test. `STUDY_DRAW_PLAN` and `DROPPED_FRAMES` in `frames.py`. Nothing is drawn for the study yet.
+
+### IPCC AR6: the unit is a numbered SPM statement
+
+A statement is a headline (A.1) or a numbered sub-statement (A.1.1) in the Summary for Policymakers of AR6 WGI, WGII, WGIII or the Synthesis Report, read from each SPM chapter page on ipcc.ch: the paragraph that opens with the statement's number, without the "Expand" control, the chapter links or the `{…}` references. It is eligible when the statement itself carries calibrated language (a confidence level or a likelihood term). No numbering gaps in any report.
+
+| Report | Statements | Headlines | Eligible | Eligible headlines |
+|---|---|---|---|---|
+| WGI | 83 | 14 | 67 | 2 |
+| WGII | 90 | 16 | 89 | 16 |
+| WGIII | 145 | 28 | 145 | 28 |
+| Synthesis Report | 101 | 18 | 99 | 18 |
+| **Total** | **419** | 76 | **400** | 64 |
+
+Three statements pass on "likely" alone (AR6-WGI-D.1.2, AR6-SYR-A.1.2, AR6-SYR-B.5.2). In ordinary use "likely" may not be the calibrated term. They are counted as the rule is written; **a ruling may be wanted.**
+
+### Vitamin D exclusion narrowed
+
+T04 now excludes only reviews of vitamin D in older adults: the title names vitamin D (or cholecalciferol and the like) and an older population (older adults or people, elderly, aged or over 60, 65 or 70, later life, seniors, geriatric, care or nursing homes, long-term care). All six previously excluded vitamin D reviews return (none is about older adults). Cochrane: **724 eligible** (was 718). Campbell unchanged at 24.
+
+### National Academies: health and medicine units excluded (record of the dropped frame)
+
+Rule (rev 34, extended 2026-10-21): a report of the Health and Medicine Division is not a candidate, nor is a report listed under any catalogue unit whose remit is human health or medicine. A report listed under several units is excluded if any one of them is excluded. **How it is recorded:** the catalogue's own "unit" filter (`publications/all?unit[]=<code>`, with the year filter), one listing query per unit. Each build re-reads the filter. Every unit whose name contains "Health" or "Medicine" is queried and classified (`division_exclusion.units[code].classification`). A report on an excluded unit's listing is excluded, and its units are recorded with it (`excluded_reports`). A Health/Medicine unit not yet classified would be reported as unclassified; there were none.
+
+| Unit | Code | Ruling | 2017–2023: consensus reports listed | left in frame | 2024–2026: listed | left |
+|---|---|---|---|---|---|---|
+| Health and Medicine Division | HMD | excluded (rev 34) | 145 | 0 | 48 | 0 |
+| Board on Global Health | BGH | excluded (rev 34) | 14 | 0 | 4 | 0 |
+| Board on Health Care Services | HCS | excluded (rev 34) | 42 | 0 | 22 | 0 |
+| Board on Health Promotion and Disease Prevention | HPDP | excluded (rev 34) | 0 | 0 | 0 | 0 |
+| Board on Health Sciences Policy | HSP | excluded (rev 34) | 36 | 0 | 13 | 0 |
+| Board on Neuroscience and Behavioral Health | NBH | excluded (rev 34) | 0 | 0 | 0 | 0 |
+| Board on Population Health and Public Health Practice | BPH | excluded (rev 34) | 38 | 0 | 14 | 0 |
+| Board on the Health of Select Populations | BSP | excluded (rev 34) | 9 | 0 | 0 | 0 |
+| Food and Nutrition Board | FNB | excluded (rev 34) | 19 | 0 | 7 | 0 |
+| HMD Executive Office | EO | excluded (rev 34) | 0 | 0 | 0 | 0 |
+| Medical Follow-Up Agency | MFUA | excluded (rev 34) | 0 | 0 | 0 | 0 |
+| National Cancer Policy Board | NCPB | excluded (rev 34) | 0 | 0 | 0 | 0 |
+| Center for Health, People, and Places | CHPP | excluded (extended) | 199 | 0 | 119 | 0 |
+| Biomedical and Health Sciences Program Area | BHS | excluded (extended) | 35 | 0 | 16 | 0 |
+| Health Care and Public Health Program Area | HCPH | excluded (extended) | 44 | 0 | 44 | 0 |
+| CHPP Executive Office | CHPP EO | excluded (extended) | 2 | 0 | 1 | 0 |
+| Institute of Medicine | IOM | excluded (extended) | 0 | 0 | 0 | 0 |
+| Board on Military and Veterans Health | BMVH | excluded (extended) | 0 | 0 | 0 | 0 |
+| National Academy of Medicine | NAM | excluded (extended) | 7 | 0 | 1 | 0 |
+| NAM Endowments, Executive Office, Leadership Consortium, Membership Office, Programs | NAMEND, NAMEO, LC, NAMMO, NAM PRGM | excluded (extended) | 0 | 0 | 0 | 0 |
+| NAM President's Office | NAMPO | excluded (extended) | 2 | 0 | 1 | 0 |
+| Health Policy Fellowships and Leadership Programs | HPFLP | excluded (extended) | 0 | 0 | 0 | 0 |
+| Gulf Health and Resilience Board | GHRB | excluded (extended) | 2 | 0 | 1 | 0 |
+| Committee on Science, Engineering, Medicine, and Public Policy | COSEMPUP | kept | 4 | 3 | 1 | 1 |
+| Committee on Women in Science, Engineering, and Medicine | CWSE | kept | 5 | 5 | 0 | 0 |
+| Board on Animal Health Sciences, Conservation, and Research | BAHSCR | kept | 0 | 0 | 1 | 0 |
+
+The Center's other program areas (earth systems, food and agriculture, life sciences, social and economic systems) are kept; their names carry neither word, so they are not queried. The counts overlap: one report is often listed under several units.
+
+| List | Consensus Study Reports | Excluded | Candidates | File |
+|---|---|---|---|---|
+| Practice, 2017–2023 | 524 | 262 | **262** | `frames/nasem-practice.json` (sha256 `695639d0…`) |
+| Study, 2024–2026 | 186 | 120 | **66** | `frames/nasem.json` (sha256 `88c162c1…`) |
+
+**The stopped redraw.** `draw-nasem-practice --seed 20261022` ran on the corrected 2017–2023 list. It was stopped on the ruling after 227 of 262 candidates, none eligible:
+- 204 failed "states a certainty grade" (no graded evidence scale in the Summary chapter);
+- 23 were undetermined (no Summary chapter found: translations, letter reports, unclassified summaries and the like).
+
+Log: `frames/draws/nasem-practice-seed20261022.json` (sha256 `01d87a67…`), with `stopped` and every OpenBook read in `queries_logged`. The site rate-limited the live run heavily (waits of up to 8 minutes per page). Stopping it lost the in-memory log, so the log was rewritten from the fetch cache with no network (`--offline --stop-after 227`, recorded as `offline_replay`). The replay gave every candidate the same result as the live run, line for line. Two pages the live run did not cache (one undetermined candidate's chapters 1 and 2) are logged with status 0 in the replay; that candidate is undetermined in both runs.
+
+### WHU-P03 withdrawn
+
+Status: "withdrawn: drawn from a frame that wrongly included Health and Medicine Division reports (protocol rev 34)". Report 25688 is on the HMD and BPH listings. Its draw log is kept.
+
+### Practice frame: IPCC AR5 statements, and the practice draw (WHU-P04)
+
+**Frame** (rev 34, amended): the numbered statements in the Summaries for Policymakers of AR5 WGI, WGII, WGIII and the AR5 Synthesis Report that carry IPCC calibrated language. Built from the four SPM PDFs on ipcc.ch (no crawl), read with poppler's `pdftohtml -xml`. `frames.py ipcc-ar5-practice`; file `frames/ipcc-ar5-practice.json` (sha256 `728652c5…`); each PDF's sha256 is in `query.per_report`.
+
+**How a statement is read.** AR5 numbers its SPM sections, not its statements. A statement is a bold summary statement in the body text, labelled by the numbered section it sits in ("SYR 1.1", "WGI B.1", "WGII A-1", "WGIII 4.2.3"), with `#k` where a section holds several.
+- **Headline or sub-statement:** under a top-level section (SYR "SPM 1.", WGI "B.", WGIII "SPM.3") it is a headline; under a numbered subsection, a sub-statement. WGII has no top-level statements, so all of its statements are sub-statements.
+- **Where a statement ends:** where the bold text stops mid-sentence (WGII and WGIII put "(high confidence)." in plain type), the statement runs to the end of that sentence.
+- **What is not a statement:** figure and table text, box titles and headings. A statement is followed by its own paragraph's left margin and line spacing, so a neighbouring column or a figure is not read into it.
+- **Eligibility:** the same tests as AR6. The statement itself must carry a confidence level or a likelihood term. AR5's evidence-and-agreement terms ("robust evidence, high agreement") do not count by themselves: the AR6 rule names confidence and likelihood only.
+
+| Report | Statements | Headlines | Sub-statements | Eligible |
+|---|---|---|---|---|
+| WGI | 19 | 4 | 15 | 10 |
+| WGII | 49 | 0 | 49 | 34 |
+| WGIII | 86 | 15 | 71 | 27 |
+| Synthesis Report | 21 | 4 | 17 | 5 |
+| **Total** | **175** | 23 | 152 | **76** |
+
+Known reading limits, found by printing every statement by report and reading the list:
+- Subscripts are dropped ("CO2" reads "CO"). No test changes.
+- One WGIII statement (AR5-WGIII-4.1#4, n=87, on temporary overshoot) is read without its closing "(high confidence)". It is therefore counted ineligible, though it should pass: the true eligible count is probably 77. The draw never reached n=87, so the draw is unaffected. The frame is left as built, because a frame is not edited after its draw.
+
+**Draw:** `frames.py draw-ipcc-ar5-practice --seed 20261022`, against the frame above (sha256 `728652c54a4f02667c098c5c08e404aa4bca5c8442c9d2f8f156cbd2befb32c1`). Log: `frames/draws/ipcc-ar5-practice-seed20261022.json`. Six candidates were checked. The first five failed "states a certainty grade"; the sixth is eligible and is the draw.
+
+The question, written in plain words without naming the IPCC or the report, is in `issues/WHU-P04-greenhouse-gas-emissions-growth/issue.json`. The statement is identified only below.
+
 ## Private notes (not for a drafting session)
 
 A drafting session does not read this section (RUN.md, "Do not read").
 
 - **WHU-P03's source report:** National Academies of Sciences, Engineering, and Medicine (2020), *Assessment of Long-Term Health Effects of Antimalarial Drugs When Used for Prophylaxis*, doi:10.17226/25688, publication id 25688 (candidate n=258 in `frames/nasem-practice.json`).
+- **WHU-P04's source statement:** IPCC (2014), *Climate Change 2014: Mitigation of Climate Change*, Working Group III contribution to AR5, Summary for Policymakers, section SPM.3, first statement (frame id AR5-WGIII-3#1, n=78 in `frames/ipcc-ar5-practice.json`; statement sha256 `0d77644b…`). Calibrated term: "high confidence".

@@ -1,0 +1,5530 @@
+{
+ "frame": "ipcc-ar5-practice",
+ "built_at": "2026-10-21T18:45:32+00:00",
+ "script": "study/whu-reliability/scripts/frames.py",
+ "query": {
+  "pages": [
+   "https://www.ipcc.ch/site/assets/uploads/2018/02/WG1AR5_SPM_FINAL.pdf",
+   "https://www.ipcc.ch/site/assets/uploads/2018/02/ar5_wgII_spm_en.pdf",
+   "https://www.ipcc.ch/site/assets/uploads/2018/02/ipcc_wg3_ar5_summary-for-policymakers.pdf",
+   "https://www.ipcc.ch/site/assets/uploads/2018/02/AR5_SYR_FINAL_SPM.pdf"
+  ],
+  "protocol": "rev 34 (amended 2026-10-21)",
+  "api": "none: the four AR5 Summary for Policymakers PDFs on ipcc.ch, read with poppler's pdftohtml",
+  "pdftohtml": "pdftohtml version 26.08.0",
+  "per_report": {
+   "WGI": {
+    "http_status": 200,
+    "pdf_sha256": "92c996def24060809394bc65885b1227b4ca53adf34d1165b5c23161c4fa4ac4",
+    "statements": 19,
+    "headlines": 4,
+    "sub_statements": 15,
+    "eligible": 10,
+    "sections": [
+     "B",
+     "B.1",
+     "B.2",
+     "B.3",
+     "B.4",
+     "B.5",
+     "C",
+     "D",
+     "D.1",
+     "D.2",
+     "D.3",
+     "E",
+     "E.1",
+     "E.2",
+     "E.4",
+     "E.5",
+     "E.6",
+     "E.7",
+     "E.8"
+    ]
+   },
+   "WGII": {
+    "http_status": 200,
+    "pdf_sha256": "a1c07f0c11df08cac7880e8db044c15a56390315d0f472a93adb864436768e74",
+    "statements": 49,
+    "headlines": 0,
+    "sub_statements": 49,
+    "eligible": 34,
+    "sections": [
+     "A-1",
+     "A-2",
+     "A-3",
+     "B-1",
+     "B-2",
+     "C-1",
+     "C-2"
+    ]
+   },
+   "WGIII": {
+    "http_status": 200,
+    "pdf_sha256": "49dbec3db572232217ecebddc1afb05789f140ad0de485cfd289070ce1e370da",
+    "statements": 86,
+    "headlines": 15,
+    "sub_statements": 71,
+    "eligible": 27,
+    "sections": [
+     "2",
+     "3",
+     "4.1",
+     "4.2",
+     "4.2.1",
+     "4.2.2",
+     "4.2.3",
+     "4.2.4",
+     "4.2.5",
+     "5.1",
+     "5.2"
+    ]
+   },
+   "SYR": {
+    "http_status": 200,
+    "pdf_sha256": "9dcc9c7e431048f64c04b0b076bd5594e269d506f13de0d053a8870d107ab6cb",
+    "statements": 21,
+    "headlines": 4,
+    "sub_statements": 17,
+    "eligible": 5,
+    "sections": [
+     "1",
+     "1.1",
+     "1.2",
+     "1.3",
+     "1.4",
+     "2",
+     "2.1",
+     "2.2",
+     "2.3",
+     "2.4",
+     "3",
+     "3.1",
+     "3.2",
+     "3.3",
+     "3.4",
+     "4",
+     "4.1",
+     "4.2",
+     "4.3",
+     "4.4",
+     "4.5"
+    ]
+   }
+  }
+ },
+ "tests": {
+  "states_a_certainty_grade": "the statement itself carries IPCC calibrated language: a confidence level ('high confidence') or a likelihood term ('very likely'); the same test as the AR6 frame",
+  "public_abstract": "IPCC publishes every Summary for Policymakers in full",
+  "not_a_whu_topic": "the statement matches none of the excluded-topic patterns (EXCLUDED_TOPICS)"
+ },
+ "excluded_topics": {
+  "WHU-001 melanoma (personalised mRNA cancer vaccine)": "\\bmelanoma|\\bm?RNA[- ](?:based )?(?:cancer )?vaccin|personali[sz]ed (?:cancer )?vaccin",
+  "WHU-002 cdk46 (CDK4/6 inhibitors)": "\\bCDK ?4/6|\\bCDK4\\b|palbociclib|ribociclib|abemaciclib|cyclin[- ]dependent kinase 4",
+  "WHU-003 deskilling (AI use and human cognition)": "(?:artificial intelligence|\\bAI\\b|large language model|\\bLLMs?\\b|chatbot|ChatGPT|generative).{0,80}(?:cogniti|critical thinking|deskill|skill|learning|memory|reasoning)|(?:cogniti|critical thinking|deskill)\\w*.{0,80}(?:artificial intelligence|\\bAI\\b|large language model|chatbot)",
+  "T01 exercise and depression": "(?:exercise|physical activity|physical training|yoga|walking).{0,80}depress|depress\\w*.{0,80}(?:exercise|physical activity)",
+  "T02 / WHU-P02 ultra-processed foods": "ultra-?processed|\\bprocessed foods?\\b|\\bNOVA\\b",
+  "T03 intermittent fasting": "intermittent fasting|time-restricted (?:eating|feeding)|alternate[- ]day fasting|\\b5:2\\b|periodic fasting",
+  "T04 vitamin D (supplementation in older adults)": "^(?=.*\\b(?:vitamin D|cholecalciferol|ergocalciferol|calcifediol|calcitriol)\\b)(?=.*\\b(?:older (?:adults?|people|persons?|women|men|individuals|patients)|elderly|aged (?:60|65|70)|over (?:60|65|70)|(?:60|65|70) years (?:and|or) (?:over|older)|later life|old age|seniors?|geriatric|nursing homes?|care homes?|long-term care))"
+ },
+ "candidates": 175,
+ "eligible_count": 76,
+ "test_counts": {
+  "states_a_certainty_grade": {
+   "pass": 76,
+   "fail": 99,
+   "undetermined": 0
+  },
+  "public_abstract": {
+   "pass": 175,
+   "fail": 0,
+   "undetermined": 0
+  },
+  "not_a_whu_topic": {
+   "pass": 175,
+   "fail": 0,
+   "undetermined": 0
+  }
+ },
+ "eligible": [
+  {
+   "k": 1,
+   "n": 2,
+   "id": "AR5-WGI-B.1#1",
+   "year": 2013
+  },
+  {
+   "k": 2,
+   "n": 3,
+   "id": "AR5-WGI-B.2#1",
+   "year": 2013
+  },
+  {
+   "k": 3,
+   "n": 4,
+   "id": "AR5-WGI-B.3#1",
+   "year": 2013
+  },
+  {
+   "k": 4,
+   "n": 5,
+   "id": "AR5-WGI-B.4#1",
+   "year": 2013
+  },
+  {
+   "k": 5,
+   "n": 9,
+   "id": "AR5-WGI-D.1#1",
+   "year": 2013
+  },
+  {
+   "k": 6,
+   "n": 11,
+   "id": "AR5-WGI-D.3#1",
+   "year": 2013
+  },
+  {
+   "k": 7,
+   "n": 13,
+   "id": "AR5-WGI-E.1#1",
+   "year": 2013
+  },
+  {
+   "k": 8,
+   "n": 16,
+   "id": "AR5-WGI-E.5#1",
+   "year": 2013
+  },
+  {
+   "k": 9,
+   "n": 17,
+   "id": "AR5-WGI-E.6#1",
+   "year": 2013
+  },
+  {
+   "k": 10,
+   "n": 18,
+   "id": "AR5-WGI-E.7#1",
+   "year": 2013
+  },
+  {
+   "k": 11,
+   "n": 21,
+   "id": "AR5-WGII-A-1#2",
+   "year": 2014
+  },
+  {
+   "k": 12,
+   "n": 22,
+   "id": "AR5-WGII-A-1#3",
+   "year": 2014
+  },
+  {
+   "k": 13,
+   "n": 23,
+   "id": "AR5-WGII-A-1#4",
+   "year": 2014
+  },
+  {
+   "k": 14,
+   "n": 25,
+   "id": "AR5-WGII-A-1#6",
+   "year": 2014
+  },
+  {
+   "k": 15,
+   "n": 26,
+   "id": "AR5-WGII-A-1#7",
+   "year": 2014
+  },
+  {
+   "k": 16,
+   "n": 27,
+   "id": "AR5-WGII-A-1#8",
+   "year": 2014
+  },
+  {
+   "k": 17,
+   "n": 29,
+   "id": "AR5-WGII-A-2#1",
+   "year": 2014
+  },
+  {
+   "k": 18,
+   "n": 30,
+   "id": "AR5-WGII-A-2#2",
+   "year": 2014
+  },
+  {
+   "k": 19,
+   "n": 31,
+   "id": "AR5-WGII-A-3#1",
+   "year": 2014
+  },
+  {
+   "k": 20,
+   "n": 32,
+   "id": "AR5-WGII-A-3#2",
+   "year": 2014
+  },
+  {
+   "k": 21,
+   "n": 34,
+   "id": "AR5-WGII-A-3#4",
+   "year": 2014
+  },
+  {
+   "k": 22,
+   "n": 36,
+   "id": "AR5-WGII-B-1#2",
+   "year": 2014
+  },
+  {
+   "k": 23,
+   "n": 41,
+   "id": "AR5-WGII-B-2#3",
+   "year": 2014
+  },
+  {
+   "k": 24,
+   "n": 42,
+   "id": "AR5-WGII-B-2#4",
+   "year": 2014
+  },
+  {
+   "k": 25,
+   "n": 43,
+   "id": "AR5-WGII-B-2#5",
+   "year": 2014
+  },
+  {
+   "k": 26,
+   "n": 44,
+   "id": "AR5-WGII-B-2#6",
+   "year": 2014
+  },
+  {
+   "k": 27,
+   "n": 45,
+   "id": "AR5-WGII-B-2#7",
+   "year": 2014
+  },
+  {
+   "k": 28,
+   "n": 46,
+   "id": "AR5-WGII-B-2#8",
+   "year": 2014
+  },
+  {
+   "k": 29,
+   "n": 47,
+   "id": "AR5-WGII-B-2#9",
+   "year": 2014
+  },
+  {
+   "k": 30,
+   "n": 48,
+   "id": "AR5-WGII-B-2#10",
+   "year": 2014
+  },
+  {
+   "k": 31,
+   "n": 51,
+   "id": "AR5-WGII-B-2#13",
+   "year": 2014
+  },
+  {
+   "k": 32,
+   "n": 53,
+   "id": "AR5-WGII-B-2#15",
+   "year": 2014
+  },
+  {
+   "k": 33,
+   "n": 55,
+   "id": "AR5-WGII-B-2#17",
+   "year": 2014
+  },
+  {
+   "k": 34,
+   "n": 56,
+   "id": "AR5-WGII-C-1#1",
+   "year": 2014
+  },
+  {
+   "k": 35,
+   "n": 57,
+   "id": "AR5-WGII-C-1#2",
+   "year": 2014
+  },
+  {
+   "k": 36,
+   "n": 58,
+   "id": "AR5-WGII-C-1#3",
+   "year": 2014
+  },
+  {
+   "k": 37,
+   "n": 59,
+   "id": "AR5-WGII-C-1#4",
+   "year": 2014
+  },
+  {
+   "k": 38,
+   "n": 61,
+   "id": "AR5-WGII-C-1#6",
+   "year": 2014
+  },
+  {
+   "k": 39,
+   "n": 62,
+   "id": "AR5-WGII-C-1#7",
+   "year": 2014
+  },
+  {
+   "k": 40,
+   "n": 64,
+   "id": "AR5-WGII-C-1#9",
+   "year": 2014
+  },
+  {
+   "k": 41,
+   "n": 65,
+   "id": "AR5-WGII-C-1#10",
+   "year": 2014
+  },
+  {
+   "k": 42,
+   "n": 66,
+   "id": "AR5-WGII-C-2#1",
+   "year": 2014
+  },
+  {
+   "k": 43,
+   "n": 67,
+   "id": "AR5-WGII-C-2#2",
+   "year": 2014
+  },
+  {
+   "k": 44,
+   "n": 68,
+   "id": "AR5-WGII-C-2#3",
+   "year": 2014
+  },
+  {
+   "k": 45,
+   "n": 78,
+   "id": "AR5-WGIII-3#1",
+   "year": 2014
+  },
+  {
+   "k": 46,
+   "n": 79,
+   "id": "AR5-WGIII-3#2",
+   "year": 2014
+  },
+  {
+   "k": 47,
+   "n": 80,
+   "id": "AR5-WGIII-3#3",
+   "year": 2014
+  },
+  {
+   "k": 48,
+   "n": 81,
+   "id": "AR5-WGIII-3#4",
+   "year": 2014
+  },
+  {
+   "k": 49,
+   "n": 82,
+   "id": "AR5-WGIII-3#5",
+   "year": 2014
+  },
+  {
+   "k": 50,
+   "n": 83,
+   "id": "AR5-WGIII-3#6",
+   "year": 2014
+  },
+  {
+   "k": 51,
+   "n": 85,
+   "id": "AR5-WGIII-4.1#2",
+   "year": 2014
+  },
+  {
+   "k": 52,
+   "n": 86,
+   "id": "AR5-WGIII-4.1#3",
+   "year": 2014
+  },
+  {
+   "k": 53,
+   "n": 88,
+   "id": "AR5-WGIII-4.1#5",
+   "year": 2014
+  },
+  {
+   "k": 54,
+   "n": 89,
+   "id": "AR5-WGIII-4.1#6",
+   "year": 2014
+  },
+  {
+   "k": 55,
+   "n": 90,
+   "id": "AR5-WGIII-4.1#7",
+   "year": 2014
+  },
+  {
+   "k": 56,
+   "n": 91,
+   "id": "AR5-WGIII-4.1#8",
+   "year": 2014
+  },
+  {
+   "k": 57,
+   "n": 92,
+   "id": "AR5-WGIII-4.1#9",
+   "year": 2014
+  },
+  {
+   "k": 58,
+   "n": 93,
+   "id": "AR5-WGIII-4.1#10",
+   "year": 2014
+  },
+  {
+   "k": 59,
+   "n": 94,
+   "id": "AR5-WGIII-4.2#1",
+   "year": 2014
+  },
+  {
+   "k": 60,
+   "n": 96,
+   "id": "AR5-WGIII-4.2#3",
+   "year": 2014
+  },
+  {
+   "k": 61,
+   "n": 98,
+   "id": "AR5-WGIII-4.2.1#2",
+   "year": 2014
+  },
+  {
+   "k": 62,
+   "n": 111,
+   "id": "AR5-WGIII-4.2.3#3",
+   "year": 2014
+  },
+  {
+   "k": 63,
+   "n": 112,
+   "id": "AR5-WGIII-4.2.3#4",
+   "year": 2014
+  },
+  {
+   "k": 64,
+   "n": 113,
+   "id": "AR5-WGIII-4.2.3#5",
+   "year": 2014
+  },
+  {
+   "k": 65,
+   "n": 114,
+   "id": "AR5-WGIII-4.2.3#6",
+   "year": 2014
+  },
+  {
+   "k": 66,
+   "n": 139,
+   "id": "AR5-WGIII-5.1#4",
+   "year": 2014
+  },
+  {
+   "k": 67,
+   "n": 143,
+   "id": "AR5-WGIII-5.1#8",
+   "year": 2014
+  },
+  {
+   "k": 68,
+   "n": 144,
+   "id": "AR5-WGIII-5.1#9",
+   "year": 2014
+  },
+  {
+   "k": 69,
+   "n": 146,
+   "id": "AR5-WGIII-5.1#11",
+   "year": 2014
+  },
+  {
+   "k": 70,
+   "n": 147,
+   "id": "AR5-WGIII-5.1#12",
+   "year": 2014
+  },
+  {
+   "k": 71,
+   "n": 154,
+   "id": "AR5-WGIII-5.2#6",
+   "year": 2014
+  },
+  {
+   "k": 72,
+   "n": 157,
+   "id": "AR5-SYR-1.2#1",
+   "year": 2014
+  },
+  {
+   "k": 73,
+   "n": 162,
+   "id": "AR5-SYR-2.2#1",
+   "year": 2014
+  },
+  {
+   "k": 74,
+   "n": 167,
+   "id": "AR5-SYR-3.2#1",
+   "year": 2014
+  },
+  {
+   "k": 75,
+   "n": 169,
+   "id": "AR5-SYR-3.4#1",
+   "year": 2014
+  },
+  {
+   "k": 76,
+   "n": 175,
+   "id": "AR5-SYR-4.5#1",
+   "year": 2014
+  }
+ ],
+ "queries_logged": [
+  {
+   "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/WG1AR5_SPM_FINAL.pdf",
+   "at": "2026-10-21T18:45:31+00:00",
+   "status": 200,
+   "bytes": 2297508,
+   "sha256": "92c996def24060809394bc65885b1227b4ca53adf34d1165b5c23161c4fa4ac4",
+   "kind": "ipcc-pdf"
+  },
+  {
+   "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/ar5_wgII_spm_en.pdf",
+   "at": "2026-10-21T18:45:31+00:00",
+   "status": 200,
+   "bytes": 9106842,
+   "sha256": "a1c07f0c11df08cac7880e8db044c15a56390315d0f472a93adb864436768e74",
+   "kind": "ipcc-pdf"
+  },
+  {
+   "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/ipcc_wg3_ar5_summary-for-policymakers.pdf",
+   "at": "2026-10-21T18:45:32+00:00",
+   "status": 200,
+   "bytes": 2142034,
+   "sha256": "49dbec3db572232217ecebddc1afb05789f140ad0de485cfd289070ce1e370da",
+   "kind": "ipcc-pdf"
+  },
+  {
+   "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/AR5_SYR_FINAL_SPM.pdf",
+   "at": "2026-10-21T18:45:32+00:00",
+   "status": 200,
+   "bytes": 3335898,
+   "sha256": "9dcc9c7e431048f64c04b0b076bd5594e269d506f13de0d053a8870d107ab6cb",
+   "kind": "ipcc-pdf"
+  }
+ ],
+ "rows": [
+  {
+   "id": "AR5-WGI-B#1",
+   "report": "Climate Change 2013: The Physical Science Basis",
+   "year": 2013,
+   "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/WG1AR5_SPM_FINAL.pdf",
+   "section": "B",
+   "level": "headline",
+   "statement_chars": 347,
+   "statement_sha256": "190b148a94361d2bbfda309697db6605547ad37d263db76dc9cbe40010967954",
+   "first_words": "Warming of the climate system is unequivocal, and since the",
+   "tests": {
+    "states_a_certainty_grade": {
+     "pass": false,
+     "why": "no calibrated confidence or likelihood term in the statement"
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the Summary for Policymakers is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": false,
+   "n": 1
+  },
+  {
+   "id": "AR5-WGI-B.1#1",
+   "report": "Climate Change 2013: The Physical Science Basis",
+   "year": 2013,
+   "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/WG1AR5_SPM_FINAL.pdf",
+   "section": "B.1",
+   "level": "sub-statement",
+   "statement_chars": 259,
+   "statement_sha256": "fec0bdbd0b7209a7898081c5cd7981de61ed2f0f2031e9f002348cab2bfc82e7",
+   "first_words": "Each of the last three decades has been successively warmer",
+   "tests": {
+    "states_a_certainty_grade": {
+     "pass": true,
+     "why": [
+      "likely",
+      "medium confidence"
+     ]
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the Summary for Policymakers is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": true,
+   "n": 2
+  },
+  {
+   "id": "AR5-WGI-B.2#1",
+   "report": "Climate Change 2013: The Physical Science Basis",
+   "year": 2013,
+   "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/WG1AR5_SPM_FINAL.pdf",
+   "section": "B.2",
+   "level": "sub-statement",
+   "statement_chars": 321,
+   "statement_sha256": "aff5db12218ef69b05df0bda979c892702aded36b82f3ebd8720946e265402ec",
+   "first_words": "Ocean warming dominates the increase in energy stored in the",
+   "tests": {
+    "states_a_certainty_grade": {
+     "pass": true,
+     "why": [
+      "high confidence",
+      "likely",
+      "virtually certain"
+     ]
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the Summary for Policymakers is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": true,
+   "n": 3
+  },
+  {
+   "id": "AR5-WGI-B.3#1",
+   "report": "Climate Change 2013: The Physical Science Basis",
+   "year": 2013,
+   "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/WG1AR5_SPM_FINAL.pdf",
+   "section": "B.3",
+   "level": "sub-statement",
+   "statement_chars": 276,
+   "statement_sha256": "cb2230c732ad9ad3b6275b8eb1d55c8a93317a63f21f5b00fe82fb4583c1137f",
+   "first_words": "Over the last two decades, the Greenland and Antarctic ice",
+   "tests": {
+    "states_a_certainty_grade": {
+     "pass": true,
+     "why": [
+      "high confidence"
+     ]
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the Summary for Policymakers is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": true,
+   "n": 4
+  },
+  {
+   "id": "AR5-WGI-B.4#1",
+   "report": "Climate Change 2013: The Physical Science Basis",
+   "year": 2013,
+   "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/WG1AR5_SPM_FINAL.pdf",
+   "section": "B.4",
+   "level": "sub-statement",
+   "statement_chars": 243,
+   "statement_sha256": "e5fce9e9107d038d35efe0a909b623c1eb65fb156decd059aec39a0a3417e5f7",
+   "first_words": "The rate of sea level rise since the mid-19th century",
+   "tests": {
+    "states_a_certainty_grade": {
+     "pass": true,
+     "why": [
+      "high confidence"
+     ]
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the Summary for Policymakers is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": true,
+   "n": 5
+  },
+  {
+   "id": "AR5-WGI-B.5#1",
+   "report": "Climate Change 2013: The Physical Science Basis",
+   "year": 2013,
+   "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/WG1AR5_SPM_FINAL.pdf",
+   "section": "B.5",
+   "level": "sub-statement",
+   "statement_chars": 446,
+   "statement_sha256": "ad4b3bc50de84dcb66708a9047973492d803870054610d3f3bac7ea26122e6f3",
+   "first_words": "The atmospheric concentrations of carbon dioxide, methane, and nitrous oxide",
+   "tests": {
+    "states_a_certainty_grade": {
+     "pass": false,
+     "why": "no calibrated confidence or likelihood term in the statement"
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the Summary for Policymakers is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": false,
+   "n": 6
+  },
+  {
+   "id": "AR5-WGI-C#1",
+   "report": "Climate Change 2013: The Physical Science Basis",
+   "year": 2013,
+   "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/WG1AR5_SPM_FINAL.pdf",
+   "section": "C",
+   "level": "headline",
+   "statement_chars": 242,
+   "statement_sha256": "0f8fe17262143c208dc7586fd801985451310865eeff4703c9f5b930296579df",
+   "first_words": "Total radiative forcing is positive, and has led to an",
+   "tests": {
+    "states_a_certainty_grade": {
+     "pass": false,
+     "why": "no calibrated confidence or likelihood term in the statement"
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the Summary for Policymakers is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": false,
+   "n": 7
+  },
+  {
+   "id": "AR5-WGI-D#1",
+   "report": "Climate Change 2013: The Physical Science Basis",
+   "year": 2013,
+   "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/WG1AR5_SPM_FINAL.pdf",
+   "section": "D",
+   "level": "headline",
+   "statement_chars": 219,
+   "statement_sha256": "cba04dc63dcd7004d888c3eb14c4ee405c1b5a74f09a8a0ecbf4e436aa97aee0",
+   "first_words": "Human influence on the climate system is clear. This is",
+   "tests": {
+    "states_a_certainty_grade": {
+     "pass": false,
+     "why": "no calibrated confidence or likelihood term in the statement"
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the Summary for Policymakers is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": false,
+   "n": 8
+  },
+  {
+   "id": "AR5-WGI-D.1#1",
+   "report": "Climate Change 2013: The Physical Science Basis",
+   "year": 2013,
+   "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/WG1AR5_SPM_FINAL.pdf",
+   "section": "D.1",
+   "level": "sub-statement",
+   "statement_chars": 292,
+   "statement_sha256": "41f69aae001bfae3acc6e52e19792898341ab287d10adb2949e520a7e6263c23",
+   "first_words": "Climate models have improved since the AR4. Models reproduce observed",
+   "tests": {
+    "states_a_certainty_grade": {
+     "pass": true,
+     "why": [
+      "very high confidence"
+     ]
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the Summary for Policymakers is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": true,
+   "n": 9
+  },
+  {
+   "id": "AR5-WGI-D.2#1",
+   "report": "Climate Change 2013: The Physical Science Basis",
+   "year": 2013,
+   "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/WG1AR5_SPM_FINAL.pdf",
+   "section": "D.2",
+   "level": "sub-statement",
+   "statement_chars": 216,
+   "statement_sha256": "2b0cc0ffd93574cc8c2527e5dd9bb19f70e9cd23671a684bd1303535efed8caa",
+   "first_words": "Observational and model studies of temperature change, climate feedbacks and",
+   "tests": {
+    "states_a_certainty_grade": {
+     "pass": false,
+     "why": "no calibrated confidence or likelihood term in the statement"
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the Summary for Policymakers is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": false,
+   "n": 10
+  },
+  {
+   "id": "AR5-WGI-D.3#1",
+   "report": "Climate Change 2013: The Physical Science Basis",
+   "year": 2013,
+   "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/WG1AR5_SPM_FINAL.pdf",
+   "section": "D.3",
+   "level": "sub-statement",
+   "statement_chars": 432,
+   "statement_sha256": "d1767cc94426b7f606e064f848e81ab724685378e676c4b2e982aec7c548a394",
+   "first_words": "Human influence has been detected in warming of the atmosphere",
+   "tests": {
+    "states_a_certainty_grade": {
+     "pass": true,
+     "why": [
+      "extremely likely"
+     ]
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the Summary for Policymakers is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": true,
+   "n": 11
+  },
+  {
+   "id": "AR5-WGI-E#1",
+   "report": "Climate Change 2013: The Physical Science Basis",
+   "year": 2013,
+   "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/WG1AR5_SPM_FINAL.pdf",
+   "section": "E",
+   "level": "headline",
+   "statement_chars": 222,
+   "statement_sha256": "9a2995fbc2fd923aa5bf7d5a83cccd004ff3bfe34c0aa122dde28f0945aacede",
+   "first_words": "Continued emissions of greenhouse gases will cause further warming and",
+   "tests": {
+    "states_a_certainty_grade": {
+     "pass": false,
+     "why": "no calibrated confidence or likelihood term in the statement"
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the Summary for Policymakers is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": false,
+   "n": 12
+  },
+  {
+   "id": "AR5-WGI-E.1#1",
+   "report": "Climate Change 2013: The Physical Science Basis",
+   "year": 2013,
+   "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/WG1AR5_SPM_FINAL.pdf",
+   "section": "E.1",
+   "level": "sub-statement",
+   "statement_chars": 461,
+   "statement_sha256": "37ee2fbf6ef95b7c305d74f8169d8e5d520cfdd06a3f649b7e7e9c7d41c3c65a",
+   "first_words": "Global surface temperature change for the end of the 21st",
+   "tests": {
+    "states_a_certainty_grade": {
+     "pass": true,
+     "why": [
+      "likely",
+      "more likely than not"
+     ]
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the Summary for Policymakers is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": true,
+   "n": 13
+  },
+  {
+   "id": "AR5-WGI-E.2#1",
+   "report": "Climate Change 2013: The Physical Science Basis",
+   "year": 2013,
+   "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/WG1AR5_SPM_FINAL.pdf",
+   "section": "E.2",
+   "level": "sub-statement",
+   "statement_chars": 270,
+   "statement_sha256": "92749461c39060d10d33de8e0032cae22cb3531edd06a2854543c3d009aaadaa",
+   "first_words": "Changes in the global water cycle in response to the",
+   "tests": {
+    "states_a_certainty_grade": {
+     "pass": false,
+     "why": "no calibrated confidence or likelihood term in the statement"
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the Summary for Policymakers is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": false,
+   "n": 14
+  },
+  {
+   "id": "AR5-WGI-E.4#1",
+   "report": "Climate Change 2013: The Physical Science Basis",
+   "year": 2013,
+   "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/WG1AR5_SPM_FINAL.pdf",
+   "section": "E.4",
+   "level": "sub-statement",
+   "statement_chars": 148,
+   "statement_sha256": "ba811ad810b985101c076bb09a9e6b765c087a4bc9b06f6d66140a422e0652a1",
+   "first_words": "The global ocean will continue to warm during the 21st",
+   "tests": {
+    "states_a_certainty_grade": {
+     "pass": false,
+     "why": "no calibrated confidence or likelihood term in the statement"
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the Summary for Policymakers is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": false,
+   "n": 15
+  },
+  {
+   "id": "AR5-WGI-E.5#1",
+   "report": "Climate Change 2013: The Physical Science Basis",
+   "year": 2013,
+   "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/WG1AR5_SPM_FINAL.pdf",
+   "section": "E.5",
+   "level": "sub-statement",
+   "statement_chars": 252,
+   "statement_sha256": "00debcac9ce97bf55d604f7cbce9ed4630b7ea46020ec167788fa6107fe1c243",
+   "first_words": "It is very likely that the Arctic sea ice cover",
+   "tests": {
+    "states_a_certainty_grade": {
+     "pass": true,
+     "why": [
+      "very likely"
+     ]
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the Summary for Policymakers is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": true,
+   "n": 16
+  },
+  {
+   "id": "AR5-WGI-E.6#1",
+   "report": "Climate Change 2013: The Physical Science Basis",
+   "year": 2013,
+   "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/WG1AR5_SPM_FINAL.pdf",
+   "section": "E.6",
+   "level": "sub-statement",
+   "statement_chars": 285,
+   "statement_sha256": "8c70c8704b3d2e7386077a8b7a72c342248367f2a9e2bd43201483aade804632",
+   "first_words": "Global mean sea level will continue to rise during the",
+   "tests": {
+    "states_a_certainty_grade": {
+     "pass": true,
+     "why": [
+      "very likely"
+     ]
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the Summary for Policymakers is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": true,
+   "n": 17
+  },
+  {
+   "id": "AR5-WGI-E.7#1",
+   "report": "Climate Change 2013: The Physical Science Basis",
+   "year": 2013,
+   "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/WG1AR5_SPM_FINAL.pdf",
+   "section": "E.7",
+   "level": "sub-statement",
+   "statement_chars": 208,
+   "statement_sha256": "7e5c21229ec885c492636ae95397bc24bd5d69502e8d72b9a3b1decf642c89b0",
+   "first_words": "Climate change will affect carbon cycle processes in a way",
+   "tests": {
+    "states_a_certainty_grade": {
+     "pass": true,
+     "why": [
+      "high confidence"
+     ]
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the Summary for Policymakers is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": true,
+   "n": 18
+  },
+  {
+   "id": "AR5-WGI-E.8#1",
+   "report": "Climate Change 2013: The Physical Science Basis",
+   "year": 2013,
+   "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/WG1AR5_SPM_FINAL.pdf",
+   "section": "E.8",
+   "level": "sub-statement",
+   "statement_chars": 352,
+   "statement_sha256": "9463c4ce88880d38ba9abe7655c088232af415b3bd11a175f43d47a505f374bb",
+   "first_words": "Cumulative emissions of CO largely determine global mean surface warming",
+   "tests": {
+    "states_a_certainty_grade": {
+     "pass": false,
+     "why": "no calibrated confidence or likelihood term in the statement"
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the Summary for Policymakers is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": false,
+   "n": 19
+  },
+  {
+   "id": "AR5-WGII-A-1#1",
+   "report": "Climate Change 2014: Impacts, Adaptation, and Vulnerability",
+   "year": 2014,
+   "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/ar5_wgII_spm_en.pdf",
+   "section": "A-1",
+   "level": "sub-statement",
+   "statement_chars": 127,
+   "statement_sha256": "916678a4d5e760a217ab9dd50dc4a2993e1ae174986586e756553fa3b4986f88",
+   "first_words": "In recent decades, changes in climate have caused impacts on",
+   "tests": {
+    "states_a_certainty_grade": {
+     "pass": false,
+     "why": "no calibrated confidence or likelihood term in the statement"
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the Summary for Policymakers is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": false,
+   "n": 20
+  },
+  {
+   "id": "AR5-WGII-A-1#2",
+   "report": "Climate Change 2014: Impacts, Adaptation, and Vulnerability",
+   "year": 2014,
+   "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/ar5_wgII_spm_en.pdf",
+   "section": "A-1",
+   "level": "sub-statement",
+   "statement_chars": 178,
+   "statement_sha256": "143e0be7ef2a48cf957b8e9b0b28d2a68811e39f32044ff5c68e444e67c675d5",
+   "first_words": "In many regions, changing precipitation or melting snow and ice",
+   "tests": {
+    "states_a_certainty_grade": {
+     "pass": true,
+     "why": [
+      "medium confidence"
+     ]
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the Summary for Policymakers is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": true,
+   "n": 21
+  },
+  {
+   "id": "AR5-WGII-A-1#3",
+   "report": "Climate Change 2014: Impacts, Adaptation, and Vulnerability",
+   "year": 2014,
+   "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/ar5_wgII_spm_en.pdf",
+   "section": "A-1",
+   "level": "sub-statement",
+   "statement_chars": 221,
+   "statement_sha256": "ac5cc1fccf39a6e17dfa31ebc16f106d7c71be2a4a11511791c6c0f5c0b768a0",
+   "first_words": "Many terrestrial, freshwater, and marine species have shifted their geographic",
+   "tests": {
+    "states_a_certainty_grade": {
+     "pass": true,
+     "why": [
+      "high confidence"
+     ]
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the Summary for Policymakers is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": true,
+   "n": 22
+  },
+  {
+   "id": "AR5-WGII-A-1#4",
+   "report": "Climate Change 2014: Impacts, Adaptation, and Vulnerability",
+   "year": 2014,
+   "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/ar5_wgII_spm_en.pdf",
+   "section": "A-1",
+   "level": "sub-statement",
+   "statement_chars": 178,
+   "statement_sha256": "b4786a0f83bd0ad8863d0079ae58854fe5a6a2661a621b10d32776e2e98d27e5",
+   "first_words": "Based on many studies covering a wide range of regions",
+   "tests": {
+    "states_a_certainty_grade": {
+     "pass": true,
+     "why": [
+      "high confidence"
+     ]
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the Summary for Policymakers is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": true,
+   "n": 23
+  },
+  {
+   "id": "AR5-WGII-A-1#5",
+   "report": "Climate Change 2014: Impacts, Adaptation, and Vulnerability",
+   "year": 2014,
+   "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/ar5_wgII_spm_en.pdf",
+   "section": "A-1",
+   "level": "sub-statement",
+   "statement_chars": 160,
+   "statement_sha256": "0581239d5c9aa5e44d16aa3cbcb833b70df0a38507715450ef6f6c3d285859dc",
+   "first_words": "At present the worldwide burden of human ill-health from climate",
+   "tests": {
+    "states_a_certainty_grade": {
+     "pass": false,
+     "why": "no calibrated confidence or likelihood term in the statement"
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the Summary for Policymakers is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": false,
+   "n": 24
+  },
+  {
+   "id": "AR5-WGII-A-1#6",
+   "report": "Climate Change 2014: Impacts, Adaptation, and Vulnerability",
+   "year": 2014,
+   "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/ar5_wgII_spm_en.pdf",
+   "section": "A-1",
+   "level": "sub-statement",
+   "statement_chars": 247,
+   "statement_sha256": "8ee269f45e398ecc6bcda923d2c3f12dcd1eb50c4316fe89645467d4a4e8a00e",
+   "first_words": "Differences in vulnerability and exposure arise from non-climatic factors and",
+   "tests": {
+    "states_a_certainty_grade": {
+     "pass": true,
+     "why": [
+      "very high confidence"
+     ]
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the Summary for Policymakers is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": true,
+   "n": 25
+  },
+  {
+   "id": "AR5-WGII-A-1#7",
+   "report": "Climate Change 2014: Impacts, Adaptation, and Vulnerability",
+   "year": 2014,
+   "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/ar5_wgII_spm_en.pdf",
+   "section": "A-1",
+   "level": "sub-statement",
+   "statement_chars": 251,
+   "statement_sha256": "ebbdc41845907e4cea132e15c7bbe309764c4766879bed97087975e76d26019e",
+   "first_words": "Impacts from recent climate-related extremes, such as heat waves, droughts,",
+   "tests": {
+    "states_a_certainty_grade": {
+     "pass": true,
+     "why": [
+      "very high confidence"
+     ]
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the Summary for Policymakers is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": true,
+   "n": 26
+  },
+  {
+   "id": "AR5-WGII-A-1#8",
+   "report": "Climate Change 2014: Impacts, Adaptation, and Vulnerability",
+   "year": 2014,
+   "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/ar5_wgII_spm_en.pdf",
+   "section": "A-1",
+   "level": "sub-statement",
+   "statement_chars": 156,
+   "statement_sha256": "6a10299bf260bd2521f55401f901b97f34fc77cf13b297a3bbe84f6e12d960bd",
+   "first_words": "Climate-related hazards exacerbate other stressors, often with negative outcomes for",
+   "tests": {
+    "states_a_certainty_grade": {
+     "pass": true,
+     "why": [
+      "high confidence"
+     ]
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the Summary for Policymakers is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": true,
+   "n": 27
+  },
+  {
+   "id": "AR5-WGII-A-1#9",
+   "report": "Climate Change 2014: Impacts, Adaptation, and Vulnerability",
+   "year": 2014,
+   "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/ar5_wgII_spm_en.pdf",
+   "section": "A-1",
+   "level": "sub-statement",
+   "statement_chars": 93,
+   "statement_sha256": "e82a05eb40f38ba223f7be9e73bdb8e6f4ceda5f11366849a15ebde2e940b536",
+   "first_words": "Violent conflict increases vulnerability to climate change (medium evidence, high",
+   "tests": {
+    "states_a_certainty_grade": {
+     "pass": false,
+     "why": "no calibrated confidence or likelihood term in the statement"
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the Summary for Policymakers is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": false,
+   "n": 28
+  },
+  {
+   "id": "AR5-WGII-A-2#1",
+   "report": "Climate Change 2014: Impacts, Adaptation, and Vulnerability",
+   "year": 2014,
+   "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/ar5_wgII_spm_en.pdf",
+   "section": "A-2",
+   "level": "sub-statement",
+   "statement_chars": 124,
+   "statement_sha256": "e1d010c23dadc23bdb92722dbc0194a2ac8403247ad19b7c665726f0d7cce292",
+   "first_words": "Adaptation is becoming embedded in some planning processes, with more",
+   "tests": {
+    "states_a_certainty_grade": {
+     "pass": true,
+     "why": [
+      "high confidence"
+     ]
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the Summary for Policymakers is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": true,
+   "n": 29
+  },
+  {
+   "id": "AR5-WGII-A-2#2",
+   "report": "Climate Change 2014: Impacts, Adaptation, and Vulnerability",
+   "year": 2014,
+   "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/ar5_wgII_spm_en.pdf",
+   "section": "A-2",
+   "level": "sub-statement",
+   "statement_chars": 290,
+   "statement_sha256": "9ae0185711f5b9fe04d9a12b8e2d091b0674a33ad8b25760e03e9700ad42f132",
+   "first_words": "Adaptation experience is accumulating across regions in the public and",
+   "tests": {
+    "states_a_certainty_grade": {
+     "pass": true,
+     "why": [
+      "high confidence"
+     ]
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the Summary for Policymakers is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": true,
+   "n": 30
+  },
+  {
+   "id": "AR5-WGII-A-3#1",
+   "report": "Climate Change 2014: Impacts, Adaptation, and Vulnerability",
+   "year": 2014,
+   "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/ar5_wgII_spm_en.pdf",
+   "section": "A-3",
+   "level": "sub-statement",
+   "statement_chars": 235,
+   "statement_sha256": "b23fff57dcdaa2adc88b5762b53fbc372bc7336ba554ff22e41014a103760da8",
+   "first_words": "Responding to climate-related risks involves decision making in a changing",
+   "tests": {
+    "states_a_certainty_grade": {
+     "pass": true,
+     "why": [
+      "high confidence"
+     ]
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the Summary for Policymakers is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": true,
+   "n": 31
+  },
+  {
+   "id": "AR5-WGII-A-3#2",
+   "report": "Climate Change 2014: Impacts, Adaptation, and Vulnerability",
+   "year": 2014,
+   "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/ar5_wgII_spm_en.pdf",
+   "section": "A-3",
+   "level": "sub-statement",
+   "statement_chars": 137,
+   "statement_sha256": "78d52435f689313c90974943fa9bd1f6247b916d893724bef1eb429cf7c02a6e",
+   "first_words": "Adaptation and mitigation choices in the near term will affect",
+   "tests": {
+    "states_a_certainty_grade": {
+     "pass": true,
+     "why": [
+      "high confidence"
+     ]
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the Summary for Policymakers is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": true,
+   "n": 32
+  },
+  {
+   "id": "AR5-WGII-A-3#3",
+   "report": "Climate Change 2014: Impacts, Adaptation, and Vulnerability",
+   "year": 2014,
+   "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/ar5_wgII_spm_en.pdf",
+   "section": "A-3",
+   "level": "sub-statement",
+   "statement_chars": 145,
+   "statement_sha256": "4f61dad4d5e9d70fdfa08e1e421f18d7a311afa63883d71933662cdc28817431",
+   "first_words": "Assessment of risks in the WGII AR5 relies on diverse",
+   "tests": {
+    "states_a_certainty_grade": {
+     "pass": false,
+     "why": "no calibrated confidence or likelihood term in the statement"
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the Summary for Policymakers is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": false,
+   "n": 33
+  },
+  {
+   "id": "AR5-WGII-A-3#4",
+   "report": "Climate Change 2014: Impacts, Adaptation, and Vulnerability",
+   "year": 2014,
+   "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/ar5_wgII_spm_en.pdf",
+   "section": "A-3",
+   "level": "sub-statement",
+   "statement_chars": 228,
+   "statement_sha256": "72aaf58957551902480039a33bf89134079b1ed810cfdfb1ccf8b70e52130bbf",
+   "first_words": "Uncertainties about future vulnerability, exposure, and responses of interlinked human",
+   "tests": {
+    "states_a_certainty_grade": {
+     "pass": true,
+     "why": [
+      "high confidence"
+     ]
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the Summary for Policymakers is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": true,
+   "n": 34
+  },
+  {
+   "id": "AR5-WGII-B-1#1",
+   "report": "Climate Change 2014: Impacts, Adaptation, and Vulnerability",
+   "year": 2014,
+   "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/ar5_wgII_spm_en.pdf",
+   "section": "B-1",
+   "level": "sub-statement",
+   "statement_chars": 117,
+   "statement_sha256": "6d79468eb80f839f0202740fab5d828b40473c5a3208f84964ce9acc06385696",
+   "first_words": "Five integrative reasons for concern (RFCs) provide a framework for",
+   "tests": {
+    "states_a_certainty_grade": {
+     "pass": false,
+     "why": "no calibrated confidence or likelihood term in the statement"
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the Summary for Policymakers is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": false,
+   "n": 35
+  },
+  {
+   "id": "AR5-WGII-B-1#2",
+   "report": "Climate Change 2014: Impacts, Adaptation, and Vulnerability",
+   "year": 2014,
+   "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/ar5_wgII_spm_en.pdf",
+   "section": "B-1",
+   "level": "sub-statement",
+   "statement_chars": 159,
+   "statement_sha256": "f0ca194053051e90e086b11270a9f8771a42a29cedfb317aff3b7b90910c1f40",
+   "first_words": "The key risks that follow, all of which are identified",
+   "tests": {
+    "states_a_certainty_grade": {
+     "pass": true,
+     "why": [
+      "high confidence"
+     ]
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the Summary for Policymakers is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": true,
+   "n": 36
+  },
+  {
+   "id": "AR5-WGII-B-1#3",
+   "report": "Climate Change 2014: Impacts, Adaptation, and Vulnerability",
+   "year": 2014,
+   "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/ar5_wgII_spm_en.pdf",
+   "section": "B-1",
+   "level": "sub-statement",
+   "statement_chars": 104,
+   "statement_sha256": "249fbb2857f1666cbfed47c88546f2c0b7163adb17d6f88d92106ffb762b30be",
+   "first_words": "Increasing magnitudes of warming increase the likelihood of severe, pervasive,",
+   "tests": {
+    "states_a_certainty_grade": {
+     "pass": false,
+     "why": "no calibrated confidence or likelihood term in the statement"
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the Summary for Policymakers is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": false,
+   "n": 37
+  },
+  {
+   "id": "AR5-WGII-B-1#4",
+   "report": "Climate Change 2014: Impacts, Adaptation, and Vulnerability",
+   "year": 2014,
+   "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/ar5_wgII_spm_en.pdf",
+   "section": "B-1",
+   "level": "sub-statement",
+   "statement_chars": 112,
+   "statement_sha256": "75a282be27987e19eeaeda0c870df525ea581ec1138cd7570e1e54138d193316",
+   "first_words": "The overall risks of climate change impacts can be reduced",
+   "tests": {
+    "states_a_certainty_grade": {
+     "pass": false,
+     "why": "no calibrated confidence or likelihood term in the statement"
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the Summary for Policymakers is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": false,
+   "n": 38
+  },
+  {
+   "id": "AR5-WGII-B-2#1",
+   "report": "Climate Change 2014: Impacts, Adaptation, and Vulnerability",
+   "year": 2014,
+   "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/ar5_wgII_spm_en.pdf",
+   "section": "B-2",
+   "level": "sub-statement",
+   "statement_chars": 146,
+   "statement_sha256": "ea435bdc9861eefc9ed80e3ec1066d9939951228966038928d1f6d89a5e41515",
+   "first_words": "Freshwater-related risks of climate change increase significantly with increasing greenhouse",
+   "tests": {
+    "states_a_certainty_grade": {
+     "pass": false,
+     "why": "no calibrated confidence or likelihood term in the statement"
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the Summary for Policymakers is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": false,
+   "n": 39
+  },
+  {
+   "id": "AR5-WGII-B-2#2",
+   "report": "Climate Change 2014: Impacts, Adaptation, and Vulnerability",
+   "year": 2014,
+   "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/ar5_wgII_spm_en.pdf",
+   "section": "B-2",
+   "level": "sub-statement",
+   "statement_chars": 277,
+   "statement_sha256": "4a33bb6f70485403c305448c7c20566c340fca6a513fadbfa9046f777b0a9ef7",
+   "first_words": "Climate change over the 21st century is projected to reduce",
+   "tests": {
+    "states_a_certainty_grade": {
+     "pass": false,
+     "why": "no calibrated confidence or likelihood term in the statement"
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the Summary for Policymakers is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": false,
+   "n": 40
+  },
+  {
+   "id": "AR5-WGII-B-2#3",
+   "report": "Climate Change 2014: Impacts, Adaptation, and Vulnerability",
+   "year": 2014,
+   "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/ar5_wgII_spm_en.pdf",
+   "section": "B-2",
+   "level": "sub-statement",
+   "statement_chars": 321,
+   "statement_sha256": "5de59f96edea9493326bd3426d116c4394989a7343aa251e2b5efd77ba6ac3fe",
+   "first_words": "Within this century, magnitudes and rates of climate change associated",
+   "tests": {
+    "states_a_certainty_grade": {
+     "pass": true,
+     "why": [
+      "medium confidence"
+     ]
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the Summary for Policymakers is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": true,
+   "n": 41
+  },
+  {
+   "id": "AR5-WGII-B-2#4",
+   "report": "Climate Change 2014: Impacts, Adaptation, and Vulnerability",
+   "year": 2014,
+   "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/ar5_wgII_spm_en.pdf",
+   "section": "B-2",
+   "level": "sub-statement",
+   "statement_chars": 235,
+   "statement_sha256": "b6c82b5244b6e2fbffee52a1243b81a16f8b58a29e22925cc5772312391f7e67",
+   "first_words": "Due to sea level rise projected throughout the 21st century",
+   "tests": {
+    "states_a_certainty_grade": {
+     "pass": true,
+     "why": [
+      "very high confidence"
+     ]
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the Summary for Policymakers is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": true,
+   "n": 42
+  },
+  {
+   "id": "AR5-WGII-B-2#5",
+   "report": "Climate Change 2014: Impacts, Adaptation, and Vulnerability",
+   "year": 2014,
+   "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/ar5_wgII_spm_en.pdf",
+   "section": "B-2",
+   "level": "sub-statement",
+   "statement_chars": 272,
+   "statement_sha256": "e05786e9951cac369f70a43981fca88421f60b68d1a9109d858089c27fb61908",
+   "first_words": "Due to projected climate change by the mid 21st century",
+   "tests": {
+    "states_a_certainty_grade": {
+     "pass": true,
+     "why": [
+      "high confidence"
+     ]
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the Summary for Policymakers is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": true,
+   "n": 43
+  },
+  {
+   "id": "AR5-WGII-B-2#6",
+   "report": "Climate Change 2014: Impacts, Adaptation, and Vulnerability",
+   "year": 2014,
+   "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/ar5_wgII_spm_en.pdf",
+   "section": "B-2",
+   "level": "sub-statement",
+   "statement_chars": 329,
+   "statement_sha256": "912cf90438349eb0e5cabd9e33e087ee0357d21e464f23748a2116dca32e3d4b",
+   "first_words": "For mediumto high-emission scenarios (RCP4.5, 6.0, and 8.5), ocean acidification",
+   "tests": {
+    "states_a_certainty_grade": {
+     "pass": true,
+     "why": [
+      "high confidence"
+     ]
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the Summary for Policymakers is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": true,
+   "n": 44
+  },
+  {
+   "id": "AR5-WGII-B-2#7",
+   "report": "Climate Change 2014: Impacts, Adaptation, and Vulnerability",
+   "year": 2014,
+   "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/ar5_wgII_spm_en.pdf",
+   "section": "B-2",
+   "level": "sub-statement",
+   "statement_chars": 300,
+   "statement_sha256": "ca77fdcfd1d96dc25b6c73f80d7a55ed0805c221815520eb97b010981880cf0f",
+   "first_words": "For the major crops (wheat, rice, and maize) in tropical",
+   "tests": {
+    "states_a_certainty_grade": {
+     "pass": true,
+     "why": [
+      "medium confidence"
+     ]
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the Summary for Policymakers is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": true,
+   "n": 45
+  },
+  {
+   "id": "AR5-WGII-B-2#8",
+   "report": "Climate Change 2014: Impacts, Adaptation, and Vulnerability",
+   "year": 2014,
+   "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/ar5_wgII_spm_en.pdf",
+   "section": "B-2",
+   "level": "sub-statement",
+   "statement_chars": 147,
+   "statement_sha256": "b1eaf8d442d7ed1f6a88f42d762886ba1f1531b337b4e3e594fb50673d361178",
+   "first_words": "All aspects of food security are potentially affected by climate",
+   "tests": {
+    "states_a_certainty_grade": {
+     "pass": true,
+     "why": [
+      "high confidence"
+     ]
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the Summary for Policymakers is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": true,
+   "n": 46
+  },
+  {
+   "id": "AR5-WGII-B-2#9",
+   "report": "Climate Change 2014: Impacts, Adaptation, and Vulnerability",
+   "year": 2014,
+   "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/ar5_wgII_spm_en.pdf",
+   "section": "B-2",
+   "level": "sub-statement",
+   "statement_chars": 213,
+   "statement_sha256": "75eb0c126ffa632b35949c9616537755874cb2bfeb103a0d7a3bc7860a2e93aa",
+   "first_words": "Many global risks of climate change are concentrated in urban",
+   "tests": {
+    "states_a_certainty_grade": {
+     "pass": true,
+     "why": [
+      "medium confidence"
+     ]
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the Summary for Policymakers is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": true,
+   "n": 47
+  },
+  {
+   "id": "AR5-WGII-B-2#10",
+   "report": "Climate Change 2014: Impacts, Adaptation, and Vulnerability",
+   "year": 2014,
+   "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/ar5_wgII_spm_en.pdf",
+   "section": "B-2",
+   "level": "sub-statement",
+   "statement_chars": 258,
+   "statement_sha256": "daf09b184a881e418ea6d60c9a3f1e47cd80db968a8f990b8ca89dda8a598fbb",
+   "first_words": "Major future rural impacts are expected in the near term",
+   "tests": {
+    "states_a_certainty_grade": {
+     "pass": true,
+     "why": [
+      "high confidence"
+     ]
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the Summary for Policymakers is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": true,
+   "n": 48
+  },
+  {
+   "id": "AR5-WGII-B-2#11",
+   "report": "Climate Change 2014: Impacts, Adaptation, and Vulnerability",
+   "year": 2014,
+   "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/ar5_wgII_spm_en.pdf",
+   "section": "B-2",
+   "level": "sub-statement",
+   "statement_chars": 273,
+   "statement_sha256": "77800e569f7f8899569f8f5b36ab07486c07eae2decc3a8983e03b45d1a6e50c",
+   "first_words": "For most economic sectors, the impacts of drivers such as",
+   "tests": {
+    "states_a_certainty_grade": {
+     "pass": false,
+     "why": "no calibrated confidence or likelihood term in the statement"
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the Summary for Policymakers is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": false,
+   "n": 49
+  },
+  {
+   "id": "AR5-WGII-B-2#12",
+   "report": "Climate Change 2014: Impacts, Adaptation, and Vulnerability",
+   "year": 2014,
+   "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/ar5_wgII_spm_en.pdf",
+   "section": "B-2",
+   "level": "sub-statement",
+   "statement_chars": 70,
+   "statement_sha256": "535072f07ee09d8d84828019061952d573c2f445bf6ff15639014a2b2347b48d",
+   "first_words": "Global economic impacts from climate change are difficult to estimate.",
+   "tests": {
+    "states_a_certainty_grade": {
+     "pass": false,
+     "why": "no calibrated confidence or likelihood term in the statement"
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the Summary for Policymakers is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": false,
+   "n": 50
+  },
+  {
+   "id": "AR5-WGII-B-2#13",
+   "report": "Climate Change 2014: Impacts, Adaptation, and Vulnerability",
+   "year": 2014,
+   "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/ar5_wgII_spm_en.pdf",
+   "section": "B-2",
+   "level": "sub-statement",
+   "statement_chars": 381,
+   "statement_sha256": "687a04f921d9d41b19470ab81d4b6191a73645246132905d492dd64957ec9614",
+   "first_words": "Until mid-century, projected climate change will impact human health mainly",
+   "tests": {
+    "states_a_certainty_grade": {
+     "pass": true,
+     "why": [
+      "high confidence",
+      "very high confidence"
+     ]
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the Summary for Policymakers is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": true,
+   "n": 51
+  },
+  {
+   "id": "AR5-WGII-B-2#14",
+   "report": "Climate Change 2014: Impacts, Adaptation, and Vulnerability",
+   "year": 2014,
+   "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/ar5_wgII_spm_en.pdf",
+   "section": "B-2",
+   "level": "sub-statement",
+   "statement_chars": 119,
+   "statement_sha256": "621d706ec50a65776c9d6f474b2a2de8184e5d6ae0f16ba341b974d47458e0c0",
+   "first_words": "Climate change over the 21st century is projected to increase",
+   "tests": {
+    "states_a_certainty_grade": {
+     "pass": false,
+     "why": "no calibrated confidence or likelihood term in the statement"
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the Summary for Policymakers is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": false,
+   "n": 52
+  },
+  {
+   "id": "AR5-WGII-B-2#15",
+   "report": "Climate Change 2014: Impacts, Adaptation, and Vulnerability",
+   "year": 2014,
+   "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/ar5_wgII_spm_en.pdf",
+   "section": "B-2",
+   "level": "sub-statement",
+   "statement_chars": 229,
+   "statement_sha256": "3acda8150c338be93a9b59662af122a6072b1b3f376e084f76549b134a4389fd",
+   "first_words": "Climate change can indirectly increase risks of violent conflicts in",
+   "tests": {
+    "states_a_certainty_grade": {
+     "pass": true,
+     "why": [
+      "medium confidence"
+     ]
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the Summary for Policymakers is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": true,
+   "n": 53
+  },
+  {
+   "id": "AR5-WGII-B-2#16",
+   "report": "Climate Change 2014: Impacts, Adaptation, and Vulnerability",
+   "year": 2014,
+   "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/ar5_wgII_spm_en.pdf",
+   "section": "B-2",
+   "level": "sub-statement",
+   "statement_chars": 191,
+   "statement_sha256": "5f817f39717b4122cbcb4dd53919cd828fb7c62dcabccafff2dafe97d72ff1c3",
+   "first_words": "The impacts of climate change on the critical infrastructure and",
+   "tests": {
+    "states_a_certainty_grade": {
+     "pass": false,
+     "why": "no calibrated confidence or likelihood term in the statement"
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the Summary for Policymakers is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": false,
+   "n": 54
+  },
+  {
+   "id": "AR5-WGII-B-2#17",
+   "report": "Climate Change 2014: Impacts, Adaptation, and Vulnerability",
+   "year": 2014,
+   "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/ar5_wgII_spm_en.pdf",
+   "section": "B-2",
+   "level": "sub-statement",
+   "statement_chars": 306,
+   "statement_sha256": "d767c9727e7b051a8ad1b07c3487d0265f550bbee11a5afe3fe83893a4943c6b",
+   "first_words": "Throughout the 21st century, climate-change impacts are projected to slow",
+   "tests": {
+    "states_a_certainty_grade": {
+     "pass": true,
+     "why": [
+      "medium confidence"
+     ]
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the Summary for Policymakers is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": true,
+   "n": 55
+  },
+  {
+   "id": "AR5-WGII-C-1#1",
+   "report": "Climate Change 2014: Impacts, Adaptation, and Vulnerability",
+   "year": 2014,
+   "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/ar5_wgII_spm_en.pdf",
+   "section": "C-1",
+   "level": "sub-statement",
+   "statement_chars": 134,
+   "statement_sha256": "8a588d48412b27419ac36f723393564c6c96bcb2889020135fc856473ea6c00d",
+   "first_words": "Adaptation is placeand context-specific, with no single approach for reducing",
+   "tests": {
+    "states_a_certainty_grade": {
+     "pass": true,
+     "why": [
+      "high confidence"
+     ]
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the Summary for Policymakers is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": true,
+   "n": 56
+  },
+  {
+   "id": "AR5-WGII-C-1#2",
+   "report": "Climate Change 2014: Impacts, Adaptation, and Vulnerability",
+   "year": 2014,
+   "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/ar5_wgII_spm_en.pdf",
+   "section": "C-1",
+   "level": "sub-statement",
+   "statement_chars": 150,
+   "statement_sha256": "bee21f70fd17d40db4225c8b2afcbb5101fc296deebfed82a719bf3220c4ddef",
+   "first_words": "Adaptation planning and implementation can be enhanced through complementary actions",
+   "tests": {
+    "states_a_certainty_grade": {
+     "pass": true,
+     "why": [
+      "high confidence"
+     ]
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the Summary for Policymakers is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": true,
+   "n": 57
+  },
+  {
+   "id": "AR5-WGII-C-1#3",
+   "report": "Climate Change 2014: Impacts, Adaptation, and Vulnerability",
+   "year": 2014,
+   "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/ar5_wgII_spm_en.pdf",
+   "section": "C-1",
+   "level": "sub-statement",
+   "statement_chars": 211,
+   "statement_sha256": "daa9325025206eb07be76450f9434b2d1774da7ad6c8acfca19d83b8ef589118",
+   "first_words": "A first step towards adaptation to future climate change is",
+   "tests": {
+    "states_a_certainty_grade": {
+     "pass": true,
+     "why": [
+      "high confidence"
+     ]
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the Summary for Policymakers is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": true,
+   "n": 58
+  },
+  {
+   "id": "AR5-WGII-C-1#4",
+   "report": "Climate Change 2014: Impacts, Adaptation, and Vulnerability",
+   "year": 2014,
+   "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/ar5_wgII_spm_en.pdf",
+   "section": "C-1",
+   "level": "sub-statement",
+   "statement_chars": 284,
+   "statement_sha256": "baaffe091bd5de2d11a99ed663b25d7e6d25a0b9e825e94226547dd3573dcec8",
+   "first_words": "Adaptation planning and implementation at all levels of governance are",
+   "tests": {
+    "states_a_certainty_grade": {
+     "pass": true,
+     "why": [
+      "high confidence"
+     ]
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the Summary for Policymakers is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": true,
+   "n": 59
+  },
+  {
+   "id": "AR5-WGII-C-1#5",
+   "report": "Climate Change 2014: Impacts, Adaptation, and Vulnerability",
+   "year": 2014,
+   "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/ar5_wgII_spm_en.pdf",
+   "section": "C-1",
+   "level": "sub-statement",
+   "statement_chars": 177,
+   "statement_sha256": "238c2e527598ebe02a180b5f3f3021a20a10caadfea1be864d3072d3e84b0782",
+   "first_words": "Decision support is most effective when it is sensitive to",
+   "tests": {
+    "states_a_certainty_grade": {
+     "pass": false,
+     "why": "no calibrated confidence or likelihood term in the statement"
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the Summary for Policymakers is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": false,
+   "n": 60
+  },
+  {
+   "id": "AR5-WGII-C-1#6",
+   "report": "Climate Change 2014: Impacts, Adaptation, and Vulnerability",
+   "year": 2014,
+   "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/ar5_wgII_spm_en.pdf",
+   "section": "C-1",
+   "level": "sub-statement",
+   "statement_chars": 147,
+   "statement_sha256": "31632c4dcee1ae9559200b49b61a3651551e3c1ee27bf4d4e849f58899f5b345",
+   "first_words": "Existing and emerging economic instruments can foster adaptation by providing",
+   "tests": {
+    "states_a_certainty_grade": {
+     "pass": true,
+     "why": [
+      "medium confidence"
+     ]
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the Summary for Policymakers is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": true,
+   "n": 61
+  },
+  {
+   "id": "AR5-WGII-C-1#7",
+   "report": "Climate Change 2014: Impacts, Adaptation, and Vulnerability",
+   "year": 2014,
+   "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/ar5_wgII_spm_en.pdf",
+   "section": "C-1",
+   "level": "sub-statement",
+   "statement_chars": 92,
+   "statement_sha256": "7b06b6220cf5a547cc7a58865398aac328452ecf42a27f5ad1b838aa827be4bb",
+   "first_words": "Constraints can interact to impede adaptation planning and implementation (high",
+   "tests": {
+    "states_a_certainty_grade": {
+     "pass": true,
+     "why": [
+      "high confidence"
+     ]
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the Summary for Policymakers is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": true,
+   "n": 62
+  },
+  {
+   "id": "AR5-WGII-C-1#8",
+   "report": "Climate Change 2014: Impacts, Adaptation, and Vulnerability",
+   "year": 2014,
+   "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/ar5_wgII_spm_en.pdf",
+   "section": "C-1",
+   "level": "sub-statement",
+   "statement_chars": 165,
+   "statement_sha256": "32ea1c44a4512a3ba64d34f367df1345f40fbc0bc080d02706cac0c84e219db2",
+   "first_words": "Poor planning, overemphasizing short-term outcomes, or failing to sufficiently anticipate",
+   "tests": {
+    "states_a_certainty_grade": {
+     "pass": false,
+     "why": "no calibrated confidence or likelihood term in the statement"
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the Summary for Policymakers is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": false,
+   "n": 63
+  },
+  {
+   "id": "AR5-WGII-C-1#9",
+   "report": "Climate Change 2014: Impacts, Adaptation, and Vulnerability",
+   "year": 2014,
+   "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/ar5_wgII_spm_en.pdf",
+   "section": "C-1",
+   "level": "sub-statement",
+   "statement_chars": 124,
+   "statement_sha256": "6bd1dd911590816e101a3b58efc3b0ad1ef1876be4fd8941357919d781213e83",
+   "first_words": "Limited evidence indicates a gap between global adaptation needs and",
+   "tests": {
+    "states_a_certainty_grade": {
+     "pass": true,
+     "why": [
+      "medium confidence"
+     ]
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the Summary for Policymakers is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": true,
+   "n": 64
+  },
+  {
+   "id": "AR5-WGII-C-1#10",
+   "report": "Climate Change 2014: Impacts, Adaptation, and Vulnerability",
+   "year": 2014,
+   "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/ar5_wgII_spm_en.pdf",
+   "section": "C-1",
+   "level": "sub-statement",
+   "statement_chars": 206,
+   "statement_sha256": "9eff03ee114aa2769fe8f043d9ab6ff40a93ff601f473ede8d0542a4df541052",
+   "first_words": "Significant co-benefits, synergies, and trade-offs exist between mitigation and adaptation",
+   "tests": {
+    "states_a_certainty_grade": {
+     "pass": true,
+     "why": [
+      "very high confidence"
+     ]
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the Summary for Policymakers is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": true,
+   "n": 65
+  },
+  {
+   "id": "AR5-WGII-C-2#1",
+   "report": "Climate Change 2014: Impacts, Adaptation, and Vulnerability",
+   "year": 2014,
+   "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/ar5_wgII_spm_en.pdf",
+   "section": "C-2",
+   "level": "sub-statement",
+   "statement_chars": 175,
+   "statement_sha256": "9fee6bce7027ff98ee69211c658597ed3b8e678ca60147219ab202752212be97",
+   "first_words": "Prospects for climate-resilient pathways for sustainable development are related fundamentally",
+   "tests": {
+    "states_a_certainty_grade": {
+     "pass": true,
+     "why": [
+      "high confidence"
+     ]
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the Summary for Policymakers is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": true,
+   "n": 66
+  },
+  {
+   "id": "AR5-WGII-C-2#2",
+   "report": "Climate Change 2014: Impacts, Adaptation, and Vulnerability",
+   "year": 2014,
+   "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/ar5_wgII_spm_en.pdf",
+   "section": "C-2",
+   "level": "sub-statement",
+   "statement_chars": 119,
+   "statement_sha256": "63ad10dc8b31f041dbbdf6f3b307853b54730d925a88cd2c223706513d176fc9",
+   "first_words": "Greater rates and magnitude of climate change increase the likelihood",
+   "tests": {
+    "states_a_certainty_grade": {
+     "pass": true,
+     "why": [
+      "high confidence"
+     ]
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the Summary for Policymakers is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": true,
+   "n": 67
+  },
+  {
+   "id": "AR5-WGII-C-2#3",
+   "report": "Climate Change 2014: Impacts, Adaptation, and Vulnerability",
+   "year": 2014,
+   "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/ar5_wgII_spm_en.pdf",
+   "section": "C-2",
+   "level": "sub-statement",
+   "statement_chars": 144,
+   "statement_sha256": "1df5445ee786e1e53fa49c70c257ade7f7e89b5c7ef8b067ab670792ec3bcfb2",
+   "first_words": "Transformations in economic, social, technological, and political decisions and actions",
+   "tests": {
+    "states_a_certainty_grade": {
+     "pass": true,
+     "why": [
+      "high confidence"
+     ]
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the Summary for Policymakers is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": true,
+   "n": 68
+  },
+  {
+   "id": "AR5-WGIII-2#1",
+   "report": "Climate Change 2014: Mitigation of Climate Change",
+   "year": 2014,
+   "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/ipcc_wg3_ar5_summary-for-policymakers.pdf",
+   "section": "2",
+   "level": "headline",
+   "statement_chars": 98,
+   "statement_sha256": "bcc6e0552f0ca90945fa0a2fce1359a6cd9fcc38127a847e092c9ce0926766cd",
+   "first_words": "Mitigation is a human intervention to reduce the sources or",
+   "tests": {
+    "states_a_certainty_grade": {
+     "pass": false,
+     "why": "no calibrated confidence or likelihood term in the statement"
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the Summary for Policymakers is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": false,
+   "n": 69
+  },
+  {
+   "id": "AR5-WGIII-2#2",
+   "report": "Climate Change 2014: Mitigation of Climate Change",
+   "year": 2014,
+   "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/ipcc_wg3_ar5_summary-for-policymakers.pdf",
+   "section": "2",
+   "level": "headline",
+   "statement_chars": 148,
+   "statement_sha256": "2722e0221271e058b4ba29de9fcbb0b3a09cc0e6b600f0c88fdf11475a0ef166",
+   "first_words": "Sustainable development and equity provide a basis for assessing climate",
+   "tests": {
+    "states_a_certainty_grade": {
+     "pass": false,
+     "why": "no calibrated confidence or likelihood term in the statement"
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the Summary for Policymakers is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": false,
+   "n": 70
+  },
+  {
+   "id": "AR5-WGIII-2#3",
+   "report": "Climate Change 2014: Mitigation of Climate Change",
+   "year": 2014,
+   "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/ipcc_wg3_ar5_summary-for-policymakers.pdf",
+   "section": "2",
+   "level": "headline",
+   "statement_chars": 105,
+   "statement_sha256": "386b1bc6ee1e4052d89b5980c5a2ff929d1a01c4d9da4e242dcf24943c7579ca",
+   "first_words": "Effective mitigation will not be achieved if individual agents advance",
+   "tests": {
+    "states_a_certainty_grade": {
+     "pass": false,
+     "why": "no calibrated confidence or likelihood term in the statement"
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the Summary for Policymakers is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": false,
+   "n": 71
+  },
+  {
+   "id": "AR5-WGIII-2#4",
+   "report": "Climate Change 2014: Mitigation of Climate Change",
+   "year": 2014,
+   "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/ipcc_wg3_ar5_summary-for-policymakers.pdf",
+   "section": "2",
+   "level": "headline",
+   "statement_chars": 88,
+   "statement_sha256": "32ca34d2e77db4db7405b40f3417a9a81fcf8521960f2e748f6245bf7e6a669d",
+   "first_words": "Issues of equity, justice, and fairness arise with respect to",
+   "tests": {
+    "states_a_certainty_grade": {
+     "pass": false,
+     "why": "no calibrated confidence or likelihood term in the statement"
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the Summary for Policymakers is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": false,
+   "n": 72
+  },
+  {
+   "id": "AR5-WGIII-2#5",
+   "report": "Climate Change 2014: Mitigation of Climate Change",
+   "year": 2014,
+   "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/ipcc_wg3_ar5_summary-for-policymakers.pdf",
+   "section": "2",
+   "level": "headline",
+   "statement_chars": 88,
+   "statement_sha256": "2e434437ba20791129afbb5a2b0828e865461965c2c329208e4f2334526373f1",
+   "first_words": "Many areas of climate policy-making involve value judgements and ethical",
+   "tests": {
+    "states_a_certainty_grade": {
+     "pass": false,
+     "why": "no calibrated confidence or likelihood term in the statement"
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the Summary for Policymakers is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": false,
+   "n": 73
+  },
+  {
+   "id": "AR5-WGIII-2#6",
+   "report": "Climate Change 2014: Mitigation of Climate Change",
+   "year": 2014,
+   "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/ipcc_wg3_ar5_summary-for-policymakers.pdf",
+   "section": "2",
+   "level": "headline",
+   "statement_chars": 90,
+   "statement_sha256": "b2b04198359a426d5d816d3ad1c1c8feb05ffcddfaf608defda8779c513f44c1",
+   "first_words": "Among other methods, economic evaluation is commonly used to inform",
+   "tests": {
+    "states_a_certainty_grade": {
+     "pass": false,
+     "why": "no calibrated confidence or likelihood term in the statement"
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the Summary for Policymakers is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": false,
+   "n": 74
+  },
+  {
+   "id": "AR5-WGIII-2#7",
+   "report": "Climate Change 2014: Mitigation of Climate Change",
+   "year": 2014,
+   "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/ipcc_wg3_ar5_summary-for-policymakers.pdf",
+   "section": "2",
+   "level": "headline",
+   "statement_chars": 210,
+   "statement_sha256": "98ee61c4fe11728cbeed029762cbf813691d147e0a7a80b4fa842659b832dfca",
+   "first_words": "Climate policy intersects with other societal goals creating the possibility",
+   "tests": {
+    "states_a_certainty_grade": {
+     "pass": false,
+     "why": "no calibrated confidence or likelihood term in the statement"
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the Summary for Policymakers is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": false,
+   "n": 75
+  },
+  {
+   "id": "AR5-WGIII-2#8",
+   "report": "Climate Change 2014: Mitigation of Climate Change",
+   "year": 2014,
+   "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/ipcc_wg3_ar5_summary-for-policymakers.pdf",
+   "section": "2",
+   "level": "headline",
+   "statement_chars": 236,
+   "statement_sha256": "f59a244ccb21920a8c86a566ed51695c926daf0e1f15d23b86d95d777172abc3",
+   "first_words": "Climate policy may be informed by a consideration of a",
+   "tests": {
+    "states_a_certainty_grade": {
+     "pass": false,
+     "why": "no calibrated confidence or likelihood term in the statement"
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the Summary for Policymakers is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": false,
+   "n": 76
+  },
+  {
+   "id": "AR5-WGIII-2#9",
+   "report": "Climate Change 2014: Mitigation of Climate Change",
+   "year": 2014,
+   "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/ipcc_wg3_ar5_summary-for-policymakers.pdf",
+   "section": "2",
+   "level": "headline",
+   "statement_chars": 140,
+   "statement_sha256": "81e7d14a763d7d18055034fc7e29733b8d6590361c94d1dd6d4ac6f4e54df2b6",
+   "first_words": "The design of climate policy is influenced by how individuals",
+   "tests": {
+    "states_a_certainty_grade": {
+     "pass": false,
+     "why": "no calibrated confidence or likelihood term in the statement"
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the Summary for Policymakers is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": false,
+   "n": 77
+  },
+  {
+   "id": "AR5-WGIII-3#1",
+   "report": "Climate Change 2014: Mitigation of Climate Change",
+   "year": 2014,
+   "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/ipcc_wg3_ar5_summary-for-policymakers.pdf",
+   "section": "3",
+   "level": "headline",
+   "statement_chars": 166,
+   "statement_sha256": "0d77644b33a74beb8a4f7ffaaa359e0483ea5ced30b0277a6df3bd48b7972f6c",
+   "first_words": "Total anthropogenic GHG emissions have continued to increase over 1970",
+   "tests": {
+    "states_a_certainty_grade": {
+     "pass": true,
+     "why": [
+      "high confidence"
+     ]
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the Summary for Policymakers is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": true,
+   "n": 78
+  },
+  {
+   "id": "AR5-WGIII-3#2",
+   "report": "Climate Change 2014: Mitigation of Climate Change",
+   "year": 2014,
+   "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/ipcc_wg3_ar5_summary-for-policymakers.pdf",
+   "section": "3",
+   "level": "headline",
+   "statement_chars": 227,
+   "statement_sha256": "585bbb586cfe2bf6ad5663f0999ab71c6613c3cf3c8b07d817dfdfc9f933561e",
+   "first_words": "CO emissions from fossil fuel combustion and industrial processes contributed",
+   "tests": {
+    "states_a_certainty_grade": {
+     "pass": true,
+     "why": [
+      "high confidence"
+     ]
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the Summary for Policymakers is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": true,
+   "n": 79
+  },
+  {
+   "id": "AR5-WGIII-3#3",
+   "report": "Climate Change 2014: Mitigation of Climate Change",
+   "year": 2014,
+   "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/ipcc_wg3_ar5_summary-for-policymakers.pdf",
+   "section": "3",
+   "level": "headline",
+   "statement_chars": 127,
+   "statement_sha256": "7219b3009cf328c7d8dde48e4e0c9b82e562dd323bf720903ee493be169710b6",
+   "first_words": "About half of cumulative anthropogenic CO emissions between 1750 and",
+   "tests": {
+    "states_a_certainty_grade": {
+     "pass": true,
+     "why": [
+      "high confidence"
+     ]
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the Summary for Policymakers is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": true,
+   "n": 80
+  },
+  {
+   "id": "AR5-WGIII-3#4",
+   "report": "Climate Change 2014: Mitigation of Climate Change",
+   "year": 2014,
+   "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/ipcc_wg3_ar5_summary-for-policymakers.pdf",
+   "section": "3",
+   "level": "headline",
+   "statement_chars": 231,
+   "statement_sha256": "779d7ba1efaa4dce44522bfaf45f0f62d4e561765e47b41e59543698799a0b8a",
+   "first_words": "Annual anthropogenic GHG emissions have increased by 10 GtCO eq",
+   "tests": {
+    "states_a_certainty_grade": {
+     "pass": true,
+     "why": [
+      "medium confidence"
+     ]
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the Summary for Policymakers is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": true,
+   "n": 81
+  },
+  {
+   "id": "AR5-WGIII-3#5",
+   "report": "Climate Change 2014: Mitigation of Climate Change",
+   "year": 2014,
+   "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/ipcc_wg3_ar5_summary-for-policymakers.pdf",
+   "section": "3",
+   "level": "headline",
+   "statement_chars": 337,
+   "statement_sha256": "339813dbd52fd94e4ca1d158ce376dc1efe12acedd26de1324a59cc0626ef7df",
+   "first_words": "Globally, economic and population growth continue to be the most",
+   "tests": {
+    "states_a_certainty_grade": {
+     "pass": true,
+     "why": [
+      "high confidence"
+     ]
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the Summary for Policymakers is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": true,
+   "n": 82
+  },
+  {
+   "id": "AR5-WGIII-3#6",
+   "report": "Climate Change 2014: Mitigation of Climate Change",
+   "year": 2014,
+   "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/ipcc_wg3_ar5_summary-for-policymakers.pdf",
+   "section": "3",
+   "level": "headline",
+   "statement_chars": 498,
+   "statement_sha256": "9573b624037fedeab88a4a519989c5fafac9350aba6ad73e1ca33acde10f175f",
+   "first_words": "Without additional efforts to reduce GHG emissions beyond those in",
+   "tests": {
+    "states_a_certainty_grade": {
+     "pass": true,
+     "why": [
+      "high confidence"
+     ]
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the Summary for Policymakers is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": true,
+   "n": 83
+  },
+  {
+   "id": "AR5-WGIII-4.1#1",
+   "report": "Climate Change 2014: Mitigation of Climate Change",
+   "year": 2014,
+   "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/ipcc_wg3_ar5_summary-for-policymakers.pdf",
+   "section": "4.1",
+   "level": "sub-statement",
+   "statement_chars": 216,
+   "statement_sha256": "4bd63e1dc7f02f661119980b40954bc44b3c023eded7437ef246e52f0ebd0dae",
+   "first_words": "There are multiple scenarios with a range of technological and",
+   "tests": {
+    "states_a_certainty_grade": {
+     "pass": false,
+     "why": "no calibrated confidence or likelihood term in the statement"
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the Summary for Policymakers is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": false,
+   "n": 84
+  },
+  {
+   "id": "AR5-WGIII-4.1#2",
+   "report": "Climate Change 2014: Mitigation of Climate Change",
+   "year": 2014,
+   "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/ipcc_wg3_ar5_summary-for-policymakers.pdf",
+   "section": "4.1",
+   "level": "sub-statement",
+   "statement_chars": 270,
+   "statement_sha256": "e7ce912be8175b07996153cab2f0057a67e0a0acdac92138983357e2ed6cd445",
+   "first_words": "Mitigation scenarios in which it is likely that the temperature",
+   "tests": {
+    "states_a_certainty_grade": {
+     "pass": true,
+     "why": [
+      "high confidence",
+      "likely"
+     ]
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the Summary for Policymakers is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": true,
+   "n": 85
+  },
+  {
+   "id": "AR5-WGIII-4.1#3",
+   "report": "Climate Change 2014: Mitigation of Climate Change",
+   "year": 2014,
+   "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/ipcc_wg3_ar5_summary-for-policymakers.pdf",
+   "section": "4.1",
+   "level": "sub-statement",
+   "statement_chars": 349,
+   "statement_sha256": "db22c52258284dd2ee62cb38d7c719d219c3df22e1a9ef590ee6e8b325603490",
+   "first_words": "Scenarios reaching atmospheric concentration levels of about 450 ppm CO",
+   "tests": {
+    "states_a_certainty_grade": {
+     "pass": true,
+     "why": [
+      "high confidence",
+      "likely"
+     ]
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the Summary for Policymakers is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": true,
+   "n": 86
+  },
+  {
+   "id": "AR5-WGIII-4.1#4",
+   "report": "Climate Change 2014: Mitigation of Climate Change",
+   "year": 2014,
+   "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/ipcc_wg3_ar5_summary-for-policymakers.pdf",
+   "section": "4.1",
+   "level": "sub-statement",
+   "statement_chars": 595,
+   "statement_sha256": "9bb9823b9acee66957fef7ba41ba64c1284e0d286f62071e900a935a5bf0fe75",
+   "first_words": "Mitigation scenarios reaching about 450 ppm CO eq in 2100",
+   "tests": {
+    "states_a_certainty_grade": {
+     "pass": false,
+     "why": "no calibrated confidence or likelihood term in the statement"
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the Summary for Policymakers is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": false,
+   "n": 87
+  },
+  {
+   "id": "AR5-WGIII-4.1#5",
+   "report": "Climate Change 2014: Mitigation of Climate Change",
+   "year": 2014,
+   "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/ipcc_wg3_ar5_summary-for-policymakers.pdf",
+   "section": "4.1",
+   "level": "sub-statement",
+   "statement_chars": 388,
+   "statement_sha256": "9fb026bcf3ce6b8349adf0c487ad724fe7b6b29bb48e9f9f1c8856449c57e47c",
+   "first_words": "Estimated global GHG emissions levels in 2020 based on the",
+   "tests": {
+    "states_a_certainty_grade": {
+     "pass": true,
+     "why": [
+      "about as likely as not",
+      "high confidence"
+     ]
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the Summary for Policymakers is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": true,
+   "n": 88
+  },
+  {
+   "id": "AR5-WGIII-4.1#6",
+   "report": "Climate Change 2014: Mitigation of Climate Change",
+   "year": 2014,
+   "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/ipcc_wg3_ar5_summary-for-policymakers.pdf",
+   "section": "4.1",
+   "level": "sub-statement",
+   "statement_chars": 319,
+   "statement_sha256": "41b4bda7f6ca88e09c19d9ecddce61d64bb35335aa0f815ab6cd0fdef4233634",
+   "first_words": "Delaying mitigation efforts beyond those in place today through 2030",
+   "tests": {
+    "states_a_certainty_grade": {
+     "pass": true,
+     "why": [
+      "high confidence"
+     ]
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the Summary for Policymakers is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": true,
+   "n": 89
+  },
+  {
+   "id": "AR5-WGIII-4.1#7",
+   "report": "Climate Change 2014: Mitigation of Climate Change",
+   "year": 2014,
+   "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/ipcc_wg3_ar5_summary-for-policymakers.pdf",
+   "section": "4.1",
+   "level": "sub-statement",
+   "statement_chars": 262,
+   "statement_sha256": "cd5138cbd98378bf20c2f471dea6f0b33520de8e646191995010d026bcdfe22e",
+   "first_words": "Estimates of the aggregate economic costs of mitigation vary widely",
+   "tests": {
+    "states_a_certainty_grade": {
+     "pass": true,
+     "why": [
+      "high confidence"
+     ]
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the Summary for Policymakers is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": true,
+   "n": 90
+  },
+  {
+   "id": "AR5-WGIII-4.1#8",
+   "report": "Climate Change 2014: Mitigation of Climate Change",
+   "year": 2014,
+   "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/ipcc_wg3_ar5_summary-for-policymakers.pdf",
+   "section": "4.1",
+   "level": "sub-statement",
+   "statement_chars": 166,
+   "statement_sha256": "2410bc773b24af1b955e0c50ae3ad86c338fcc116ceee7838034132afd878862",
+   "first_words": "There is a wide range of possible adverse side-effects as",
+   "tests": {
+    "states_a_certainty_grade": {
+     "pass": true,
+     "why": [
+      "high confidence"
+     ]
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the Summary for Policymakers is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": true,
+   "n": 91
+  },
+  {
+   "id": "AR5-WGIII-4.1#9",
+   "report": "Climate Change 2014: Mitigation of Climate Change",
+   "year": 2014,
+   "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/ipcc_wg3_ar5_summary-for-policymakers.pdf",
+   "section": "4.1",
+   "level": "sub-statement",
+   "statement_chars": 208,
+   "statement_sha256": "272b3cf827a38585bf3392b2d9c3f5c773e5954c8c7b04b9c067f8a7a9b12f52",
+   "first_words": "Mitigation efforts and associated costs vary between countries in mitigation",
+   "tests": {
+    "states_a_certainty_grade": {
+     "pass": true,
+     "why": [
+      "high confidence"
+     ]
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the Summary for Policymakers is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": true,
+   "n": 92
+  },
+  {
+   "id": "AR5-WGIII-4.1#10",
+   "report": "Climate Change 2014: Mitigation of Climate Change",
+   "year": 2014,
+   "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/ipcc_wg3_ar5_summary-for-policymakers.pdf",
+   "section": "4.1",
+   "level": "sub-statement",
+   "statement_chars": 164,
+   "statement_sha256": "d5280113d40b7ca5b4672c8fa633ae468574bc51d19cc0e9971f5cf73408fa97",
+   "first_words": "Mitigation policy could devalue fossil fuel assets and reduce revenues",
+   "tests": {
+    "states_a_certainty_grade": {
+     "pass": true,
+     "why": [
+      "high confidence"
+     ]
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the Summary for Policymakers is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": true,
+   "n": 93
+  },
+  {
+   "id": "AR5-WGIII-4.2#1",
+   "report": "Climate Change 2014: Mitigation of Climate Change",
+   "year": 2014,
+   "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/ipcc_wg3_ar5_summary-for-policymakers.pdf",
+   "section": "4.2",
+   "level": "sub-statement",
+   "statement_chars": 277,
+   "statement_sha256": "85cbfe9bf17f5fc9932b04e6f284b1bd8d197f905f6c0431daa459779b975910",
+   "first_words": "Only a limited number of studies have explored scenarios that",
+   "tests": {
+    "states_a_certainty_grade": {
+     "pass": true,
+     "why": [
+      "high confidence",
+      "more likely than not"
+     ]
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the Summary for Policymakers is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": true,
+   "n": 94
+  },
+  {
+   "id": "AR5-WGIII-4.2#2",
+   "report": "Climate Change 2014: Mitigation of Climate Change",
+   "year": 2014,
+   "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/ipcc_wg3_ar5_summary-for-policymakers.pdf",
+   "section": "4.2",
+   "level": "sub-statement",
+   "statement_chars": 159,
+   "statement_sha256": "eb56200cd495d942dbb20bbe7edc0c4a03177ee13e43b9a246ddd98753b29d26",
+   "first_words": "In baseline scenarios, GHG emissions are projected to grow in",
+   "tests": {
+    "states_a_certainty_grade": {
+     "pass": false,
+     "why": "no calibrated confidence or likelihood term in the statement"
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the Summary for Policymakers is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": false,
+   "n": 95
+  },
+  {
+   "id": "AR5-WGIII-4.2#3",
+   "report": "Climate Change 2014: Mitigation of Climate Change",
+   "year": 2014,
+   "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/ipcc_wg3_ar5_summary-for-policymakers.pdf",
+   "section": "4.2",
+   "level": "sub-statement",
+   "statement_chars": 375,
+   "statement_sha256": "24dc63a62e5d687c125b6b8a1beba15e63e981d1ec4f82fd1af9112f2c7208e4",
+   "first_words": "Mitigation scenarios reaching about 450 to about 500 ppm CO",
+   "tests": {
+    "states_a_certainty_grade": {
+     "pass": true,
+     "why": [
+      "medium confidence"
+     ]
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the Summary for Policymakers is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": true,
+   "n": 96
+  },
+  {
+   "id": "AR5-WGIII-4.2.1#1",
+   "report": "Climate Change 2014: Mitigation of Climate Change",
+   "year": 2014,
+   "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/ipcc_wg3_ar5_summary-for-policymakers.pdf",
+   "section": "4.2.1",
+   "level": "sub-statement",
+   "statement_chars": 255,
+   "statement_sha256": "29a010e92789802c044c1fd44a4e124afe2f5bf4ca531533cd052b2e445c7c06",
+   "first_words": "Infrastructure developments and long-lived products that lock societies into GHG-intensive",
+   "tests": {
+    "states_a_certainty_grade": {
+     "pass": false,
+     "why": "no calibrated confidence or likelihood term in the statement"
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the Summary for Policymakers is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": false,
+   "n": 97
+  },
+  {
+   "id": "AR5-WGIII-4.2.1#2",
+   "report": "Climate Change 2014: Mitigation of Climate Change",
+   "year": 2014,
+   "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/ipcc_wg3_ar5_summary-for-policymakers.pdf",
+   "section": "4.2.1",
+   "level": "sub-statement",
+   "statement_chars": 202,
+   "statement_sha256": "5db794ae0950a9cf821d462c125c2ab0122d5811e9afb2a34ea1a8ec0177fcfe",
+   "first_words": "There are strong interdependencies in mitigation scenarios between the pace",
+   "tests": {
+    "states_a_certainty_grade": {
+     "pass": true,
+     "why": [
+      "high confidence"
+     ]
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the Summary for Policymakers is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": true,
+   "n": 98
+  },
+  {
+   "id": "AR5-WGIII-4.2.1#3",
+   "report": "Climate Change 2014: Mitigation of Climate Change",
+   "year": 2014,
+   "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/ipcc_wg3_ar5_summary-for-policymakers.pdf",
+   "section": "4.2.1",
+   "level": "sub-statement",
+   "statement_chars": 168,
+   "statement_sha256": "9a12d779c4d65d25947d363dd497d0ed4004dd340f6c6aa3740974dcb1e973ac",
+   "first_words": "Mitigation scenarios reaching around 450 ppm CO eq concentrations by",
+   "tests": {
+    "states_a_certainty_grade": {
+     "pass": false,
+     "why": "no calibrated confidence or likelihood term in the statement"
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the Summary for Policymakers is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": false,
+   "n": 99
+  },
+  {
+   "id": "AR5-WGIII-4.2.1#4",
+   "report": "Climate Change 2014: Mitigation of Climate Change",
+   "year": 2014,
+   "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/ipcc_wg3_ar5_summary-for-policymakers.pdf",
+   "section": "4.2.1",
+   "level": "sub-statement",
+   "statement_chars": 304,
+   "statement_sha256": "a973fcdd4bf2f5fd0aad3cbe85b12de91186fbecdf780dccf1650eb9e1a5a101",
+   "first_words": "Efficiency enhancements and behavioural changes, in order to reduce energy",
+   "tests": {
+    "states_a_certainty_grade": {
+     "pass": false,
+     "why": "no calibrated confidence or likelihood term in the statement"
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the Summary for Policymakers is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": false,
+   "n": 100
+  },
+  {
+   "id": "AR5-WGIII-4.2.1#5",
+   "report": "Climate Change 2014: Mitigation of Climate Change",
+   "year": 2014,
+   "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/ipcc_wg3_ar5_summary-for-policymakers.pdf",
+   "section": "4.2.1",
+   "level": "sub-statement",
+   "statement_chars": 256,
+   "statement_sha256": "b9f5d778cad4c9b652e952f26ce020c174119b69ae9f21c4138551ef2c8fd53b",
+   "first_words": "Behaviour, lifestyle and culture have a considerable influence on energy",
+   "tests": {
+    "states_a_certainty_grade": {
+     "pass": false,
+     "why": "no calibrated confidence or likelihood term in the statement"
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the Summary for Policymakers is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": false,
+   "n": 101
+  },
+  {
+   "id": "AR5-WGIII-4.2.2#1",
+   "report": "Climate Change 2014: Mitigation of Climate Change",
+   "year": 2014,
+   "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/ipcc_wg3_ar5_summary-for-policymakers.pdf",
+   "section": "4.2.2",
+   "level": "sub-statement",
+   "statement_chars": 338,
+   "statement_sha256": "41d9113df956d9f9b7c75f847546ed97e7db5328ee019771db64a1f424c12224",
+   "first_words": "In the baseline scenarios assessed in AR5, direct CO emissions",
+   "tests": {
+    "states_a_certainty_grade": {
+     "pass": false,
+     "why": "no calibrated confidence or likelihood term in the statement"
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the Summary for Policymakers is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": false,
+   "n": 102
+  },
+  {
+   "id": "AR5-WGIII-4.2.2#2",
+   "report": "Climate Change 2014: Mitigation of Climate Change",
+   "year": 2014,
+   "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/ipcc_wg3_ar5_summary-for-policymakers.pdf",
+   "section": "4.2.2",
+   "level": "sub-statement",
+   "statement_chars": 404,
+   "statement_sha256": "db5be9f610eb4e906b4503f8d4ffc71f7bfcce3cabe4096e7008466b6c5bb557",
+   "first_words": "Decarbonizing (i. e. reducing the carbon intensity of) electricity generation",
+   "tests": {
+    "states_a_certainty_grade": {
+     "pass": false,
+     "why": "no calibrated confidence or likelihood term in the statement"
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the Summary for Policymakers is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": false,
+   "n": 103
+  },
+  {
+   "id": "AR5-WGIII-4.2.2#3",
+   "report": "Climate Change 2014: Mitigation of Climate Change",
+   "year": 2014,
+   "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/ipcc_wg3_ar5_summary-for-policymakers.pdf",
+   "section": "4.2.2",
+   "level": "sub-statement",
+   "statement_chars": 258,
+   "statement_sha256": "ff9bb5d6a18d18f8fbdbb65b983e0ec8a75b35a54a0b844f70aff68e34f2e002",
+   "first_words": "Since AR4, many RE technologies have demonstrated substantial performance improvements",
+   "tests": {
+    "states_a_certainty_grade": {
+     "pass": false,
+     "why": "no calibrated confidence or likelihood term in the statement"
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the Summary for Policymakers is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": false,
+   "n": 104
+  },
+  {
+   "id": "AR5-WGIII-4.2.2#4",
+   "report": "Climate Change 2014: Mitigation of Climate Change",
+   "year": 2014,
+   "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/ipcc_wg3_ar5_summary-for-policymakers.pdf",
+   "section": "4.2.2",
+   "level": "sub-statement",
+   "statement_chars": 307,
+   "statement_sha256": "f23bd335d1247482b553aa194d213b6cc13bf194478244ea63ec32191a7fc56d",
+   "first_words": "Nuclear energy is a mature low-GHG emission source of baseload",
+   "tests": {
+    "states_a_certainty_grade": {
+     "pass": false,
+     "why": "no calibrated confidence or likelihood term in the statement"
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the Summary for Policymakers is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": false,
+   "n": 105
+  },
+  {
+   "id": "AR5-WGIII-4.2.2#5",
+   "report": "Climate Change 2014: Mitigation of Climate Change",
+   "year": 2014,
+   "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/ipcc_wg3_ar5_summary-for-policymakers.pdf",
+   "section": "4.2.2",
+   "level": "sub-statement",
+   "statement_chars": 385,
+   "statement_sha256": "7432ee1b3c2be6ef1cf2eb4120645d10a6a43757df4bad69ecd181f0ebd0a4e6",
+   "first_words": "GHG emissions from energy supply can be reduced significantly by",
+   "tests": {
+    "states_a_certainty_grade": {
+     "pass": false,
+     "why": "no calibrated confidence or likelihood term in the statement"
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the Summary for Policymakers is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": false,
+   "n": 106
+  },
+  {
+   "id": "AR5-WGIII-4.2.2#6",
+   "report": "Climate Change 2014: Mitigation of Climate Change",
+   "year": 2014,
+   "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/ipcc_wg3_ar5_summary-for-policymakers.pdf",
+   "section": "4.2.2",
+   "level": "sub-statement",
+   "statement_chars": 159,
+   "statement_sha256": "e0f23714ccbf26b7425d83813f170c79f22e614fdcba57e6fbf1966c71f8f5c6",
+   "first_words": "Carbon dioxide capture and storage (CCS) technologies could reduce the",
+   "tests": {
+    "states_a_certainty_grade": {
+     "pass": false,
+     "why": "no calibrated confidence or likelihood term in the statement"
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the Summary for Policymakers is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": false,
+   "n": 107
+  },
+  {
+   "id": "AR5-WGIII-4.2.2#7",
+   "report": "Climate Change 2014: Mitigation of Climate Change",
+   "year": 2014,
+   "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/ipcc_wg3_ar5_summary-for-policymakers.pdf",
+   "section": "4.2.2",
+   "level": "sub-statement",
+   "statement_chars": 256,
+   "statement_sha256": "eddc9b918fd1ee7ec2174af25ab8b1d9fb6627672ae74f1c68f4c44a4354e6cd",
+   "first_words": "Combining bioenergy with CCS (BECCS) offers the prospect of energy",
+   "tests": {
+    "states_a_certainty_grade": {
+     "pass": false,
+     "why": "no calibrated confidence or likelihood term in the statement"
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the Summary for Policymakers is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": false,
+   "n": 108
+  },
+  {
+   "id": "AR5-WGIII-4.2.3#1",
+   "report": "Climate Change 2014: Mitigation of Climate Change",
+   "year": 2014,
+   "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/ipcc_wg3_ar5_summary-for-policymakers.pdf",
+   "section": "4.2.3",
+   "level": "sub-statement",
+   "statement_chars": 204,
+   "statement_sha256": "1c40ffc8cc810dd3731ae65f3b2fc3a2275dd75c5e9d82ef261e7cc8ac7776af",
+   "first_words": "The transport sector accounted for 27 % of final energy",
+   "tests": {
+    "states_a_certainty_grade": {
+     "pass": false,
+     "why": "no calibrated confidence or likelihood term in the statement"
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the Summary for Policymakers is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": false,
+   "n": 109
+  },
+  {
+   "id": "AR5-WGIII-4.2.3#2",
+   "report": "Climate Change 2014: Mitigation of Climate Change",
+   "year": 2014,
+   "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/ipcc_wg3_ar5_summary-for-policymakers.pdf",
+   "section": "4.2.3",
+   "level": "sub-statement",
+   "statement_chars": 321,
+   "statement_sha256": "f73a31ed98179292bb65e6333135f98feac91a7f5b6f852fa6780458819fdb79",
+   "first_words": "Technical and behavioural mitigation measures for all transport modes, plus",
+   "tests": {
+    "states_a_certainty_grade": {
+     "pass": false,
+     "why": "no calibrated confidence or likelihood term in the statement"
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the Summary for Policymakers is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": false,
+   "n": 110
+  },
+  {
+   "id": "AR5-WGIII-4.2.3#3",
+   "report": "Climate Change 2014: Mitigation of Climate Change",
+   "year": 2014,
+   "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/ipcc_wg3_ar5_summary-for-policymakers.pdf",
+   "section": "4.2.3",
+   "level": "sub-statement",
+   "statement_chars": 243,
+   "statement_sha256": "83d119ddd3041f548b98362e102cca3f1688d31a2c5a328dbfddb2a869b707f9",
+   "first_words": "Strategies to reduce the carbon intensities of fuel and the",
+   "tests": {
+    "states_a_certainty_grade": {
+     "pass": true,
+     "why": [
+      "medium confidence"
+     ]
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the Summary for Policymakers is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": true,
+   "n": 111
+  },
+  {
+   "id": "AR5-WGIII-4.2.3#4",
+   "report": "Climate Change 2014: Mitigation of Climate Change",
+   "year": 2014,
+   "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/ipcc_wg3_ar5_summary-for-policymakers.pdf",
+   "section": "4.2.3",
+   "level": "sub-statement",
+   "statement_chars": 162,
+   "statement_sha256": "4aea3dc757e0d2797bd1290194a0021e545a2f4d5d4d6d7f21ea255fbd63ef6d",
+   "first_words": "The cost-effectiveness of different carbon reduction measures in the transport",
+   "tests": {
+    "states_a_certainty_grade": {
+     "pass": true,
+     "why": [
+      "high confidence"
+     ]
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the Summary for Policymakers is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": true,
+   "n": 112
+  },
+  {
+   "id": "AR5-WGIII-4.2.3#5",
+   "report": "Climate Change 2014: Mitigation of Climate Change",
+   "year": 2014,
+   "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/ipcc_wg3_ar5_summary-for-policymakers.pdf",
+   "section": "4.2.3",
+   "level": "sub-statement",
+   "statement_chars": 92,
+   "statement_sha256": "bea65f35e6757ba3056947cd6a7adb2639069b45ed4c3a03f9cf2ca4faa9f89a",
+   "first_words": "Regional differences influence the choice of transport mitigation options (high",
+   "tests": {
+    "states_a_certainty_grade": {
+     "pass": true,
+     "why": [
+      "high confidence"
+     ]
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the Summary for Policymakers is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": true,
+   "n": 113
+  },
+  {
+   "id": "AR5-WGIII-4.2.3#6",
+   "report": "Climate Change 2014: Mitigation of Climate Change",
+   "year": 2014,
+   "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/ipcc_wg3_ar5_summary-for-policymakers.pdf",
+   "section": "4.2.3",
+   "level": "sub-statement",
+   "statement_chars": 189,
+   "statement_sha256": "6f99678a9fffbc6292bd1a2f518acc46d18b83b2b1b2d82c3ea923b56bc48972",
+   "first_words": "Mitigation strategies, when associated with non-climate policies at all government",
+   "tests": {
+    "states_a_certainty_grade": {
+     "pass": true,
+     "why": [
+      "medium confidence"
+     ]
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the Summary for Policymakers is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": true,
+   "n": 114
+  },
+  {
+   "id": "AR5-WGIII-4.2.3#7",
+   "report": "Climate Change 2014: Mitigation of Climate Change",
+   "year": 2014,
+   "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/ipcc_wg3_ar5_summary-for-policymakers.pdf",
+   "section": "4.2.3",
+   "level": "sub-statement",
+   "statement_chars": 307,
+   "statement_sha256": "c0911822a529ee837b0f707d0706ed09fc006462794f01c58c0fce9b04baceaa",
+   "first_words": "In 2010, the buildings sector accounted for around 32 %",
+   "tests": {
+    "states_a_certainty_grade": {
+     "pass": false,
+     "why": "no calibrated confidence or likelihood term in the statement"
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the Summary for Policymakers is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": false,
+   "n": 115
+  },
+  {
+   "id": "AR5-WGIII-4.2.3#8",
+   "report": "Climate Change 2014: Mitigation of Climate Change",
+   "year": 2014,
+   "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/ipcc_wg3_ar5_summary-for-policymakers.pdf",
+   "section": "4.2.3",
+   "level": "sub-statement",
+   "statement_chars": 184,
+   "statement_sha256": "13ba70d11954c5da5b9a2bed2b874394a51147f7123e858b3f294e7b6a4b4d7c",
+   "first_words": "Recent advances in technologies, know-how and policies provide opportunities to",
+   "tests": {
+    "states_a_certainty_grade": {
+     "pass": false,
+     "why": "no calibrated confidence or likelihood term in the statement"
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the Summary for Policymakers is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": false,
+   "n": 116
+  },
+  {
+   "id": "AR5-WGIII-4.2.3#9",
+   "report": "Climate Change 2014: Mitigation of Climate Change",
+   "year": 2014,
+   "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/ipcc_wg3_ar5_summary-for-policymakers.pdf",
+   "section": "4.2.3",
+   "level": "sub-statement",
+   "statement_chars": 124,
+   "statement_sha256": "5bd4cb8630543ec4ae11b7e29dfdfff8e3e28b34f49b85cac5d0cee841889017",
+   "first_words": "Lifestyle, culture and behaviour significantly influence energy consumption in buildings",
+   "tests": {
+    "states_a_certainty_grade": {
+     "pass": false,
+     "why": "no calibrated confidence or likelihood term in the statement"
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the Summary for Policymakers is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": false,
+   "n": 117
+  },
+  {
+   "id": "AR5-WGIII-4.2.3#10",
+   "report": "Climate Change 2014: Mitigation of Climate Change",
+   "year": 2014,
+   "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/ipcc_wg3_ar5_summary-for-policymakers.pdf",
+   "section": "4.2.3",
+   "level": "sub-statement",
+   "statement_chars": 149,
+   "statement_sha256": "9e0a5e5248c3d0072f2c0cba0d961a66fdef0713097160df8090c62444896a47",
+   "first_words": "Most mitigation options for buildings have considerable and diverse co-benefits",
+   "tests": {
+    "states_a_certainty_grade": {
+     "pass": false,
+     "why": "no calibrated confidence or likelihood term in the statement"
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the Summary for Policymakers is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": false,
+   "n": 118
+  },
+  {
+   "id": "AR5-WGIII-4.2.3#11",
+   "report": "Climate Change 2014: Mitigation of Climate Change",
+   "year": 2014,
+   "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/ipcc_wg3_ar5_summary-for-policymakers.pdf",
+   "section": "4.2.3",
+   "level": "sub-statement",
+   "statement_chars": 207,
+   "statement_sha256": "9283a673d7f49878200aeee37a0c342ff772f6bad19a4fff2289e7737651db70",
+   "first_words": "Strong barriers, such as split incentives (e. g., tenants and",
+   "tests": {
+    "states_a_certainty_grade": {
+     "pass": false,
+     "why": "no calibrated confidence or likelihood term in the statement"
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the Summary for Policymakers is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": false,
+   "n": 119
+  },
+  {
+   "id": "AR5-WGIII-4.2.3#12",
+   "report": "Climate Change 2014: Mitigation of Climate Change",
+   "year": 2014,
+   "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/ipcc_wg3_ar5_summary-for-policymakers.pdf",
+   "section": "4.2.3",
+   "level": "sub-statement",
+   "statement_chars": 326,
+   "statement_sha256": "04ec9513b930fb1915073d7be6f0199938b83050c0efb346022c1d048acc6ad8",
+   "first_words": "The development of portfolios of energy efficiency policies and their",
+   "tests": {
+    "states_a_certainty_grade": {
+     "pass": false,
+     "why": "no calibrated confidence or likelihood term in the statement"
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the Summary for Policymakers is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": false,
+   "n": 120
+  },
+  {
+   "id": "AR5-WGIII-4.2.3#13",
+   "report": "Climate Change 2014: Mitigation of Climate Change",
+   "year": 2014,
+   "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/ipcc_wg3_ar5_summary-for-policymakers.pdf",
+   "section": "4.2.3",
+   "level": "sub-statement",
+   "statement_chars": 375,
+   "statement_sha256": "1c4491420af29496e1995760f731b6967ec2638dedc2b280394ea72bea7e26d8",
+   "first_words": "In 2010, the industry sector accounted for around 28 %",
+   "tests": {
+    "states_a_certainty_grade": {
+     "pass": false,
+     "why": "no calibrated confidence or likelihood term in the statement"
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the Summary for Policymakers is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": false,
+   "n": 121
+  },
+  {
+   "id": "AR5-WGIII-4.2.3#14",
+   "report": "Climate Change 2014: Mitigation of Climate Change",
+   "year": 2014,
+   "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/ipcc_wg3_ar5_summary-for-policymakers.pdf",
+   "section": "4.2.3",
+   "level": "sub-statement",
+   "statement_chars": 333,
+   "statement_sha256": "db45b9127e9093dbf371b0a4a82b01b9d75d9186e8b70bfa4fd060681f6c4cb9",
+   "first_words": "The energy intensity of the industry sector could be directly",
+   "tests": {
+    "states_a_certainty_grade": {
+     "pass": false,
+     "why": "no calibrated confidence or likelihood term in the statement"
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the Summary for Policymakers is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": false,
+   "n": 122
+  },
+  {
+   "id": "AR5-WGIII-4.2.3#15",
+   "report": "Climate Change 2014: Mitigation of Climate Change",
+   "year": 2014,
+   "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/ipcc_wg3_ar5_summary-for-policymakers.pdf",
+   "section": "4.2.3",
+   "level": "sub-statement",
+   "statement_chars": 386,
+   "statement_sha256": "b7b3cc414eaaae69cf86c97a0d041e8f6fea793978ee80158cd8c6333dad31ad",
+   "first_words": "Improvements in GHG emission efficiency and in the efficiency of",
+   "tests": {
+    "states_a_certainty_grade": {
+     "pass": false,
+     "why": "no calibrated confidence or likelihood term in the statement"
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the Summary for Policymakers is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": false,
+   "n": 123
+  },
+  {
+   "id": "AR5-WGIII-4.2.3#16",
+   "report": "Climate Change 2014: Mitigation of Climate Change",
+   "year": 2014,
+   "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/ipcc_wg3_ar5_summary-for-policymakers.pdf",
+   "section": "4.2.3",
+   "level": "sub-statement",
+   "statement_chars": 158,
+   "statement_sha256": "00cfc88db105c5bdf703a138e9a8dfee6c7245bd0988a28b2620f77ce635413c",
+   "first_words": "CO emissions dominate GHG emissions from industry, but there are",
+   "tests": {
+    "states_a_certainty_grade": {
+     "pass": false,
+     "why": "no calibrated confidence or likelihood term in the statement"
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the Summary for Policymakers is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": false,
+   "n": 124
+  },
+  {
+   "id": "AR5-WGIII-4.2.3#17",
+   "report": "Climate Change 2014: Mitigation of Climate Change",
+   "year": 2014,
+   "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/ipcc_wg3_ar5_summary-for-policymakers.pdf",
+   "section": "4.2.3",
+   "level": "sub-statement",
+   "statement_chars": 178,
+   "statement_sha256": "f495f0d4ef5c4c7750fc71df0536a1b18f6ad914d133f65d4ef801c121f9c71e",
+   "first_words": "Systemic approaches and collaborative activities across companies and sectors can",
+   "tests": {
+    "states_a_certainty_grade": {
+     "pass": false,
+     "why": "no calibrated confidence or likelihood term in the statement"
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the Summary for Policymakers is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": false,
+   "n": 125
+  },
+  {
+   "id": "AR5-WGIII-4.2.3#18",
+   "report": "Climate Change 2014: Mitigation of Climate Change",
+   "year": 2014,
+   "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/ipcc_wg3_ar5_summary-for-policymakers.pdf",
+   "section": "4.2.3",
+   "level": "sub-statement",
+   "statement_chars": 158,
+   "statement_sha256": "c06e6a52990458d1f1bf50d5731e3d74bbb0cbf860710fd71d56b663f5d4d373",
+   "first_words": "Important options for mitigation in waste management are waste reduction,",
+   "tests": {
+    "states_a_certainty_grade": {
+     "pass": false,
+     "why": "no calibrated confidence or likelihood term in the statement"
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the Summary for Policymakers is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": false,
+   "n": 126
+  },
+  {
+   "id": "AR5-WGIII-4.2.4#1",
+   "report": "Climate Change 2014: Mitigation of Climate Change",
+   "year": 2014,
+   "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/ipcc_wg3_ar5_summary-for-policymakers.pdf",
+   "section": "4.2.4",
+   "level": "sub-statement",
+   "statement_chars": 450,
+   "statement_sha256": "7c9b047f3e0703f76d65eb9762bfba32edb564703570867d6d936ef53abb909f",
+   "first_words": "AFOLU plays a central role for food security and sustainable",
+   "tests": {
+    "states_a_certainty_grade": {
+     "pass": false,
+     "why": "no calibrated confidence or likelihood term in the statement"
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the Summary for Policymakers is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": false,
+   "n": 127
+  },
+  {
+   "id": "AR5-WGIII-4.2.4#2",
+   "report": "Climate Change 2014: Mitigation of Climate Change",
+   "year": 2014,
+   "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/ipcc_wg3_ar5_summary-for-policymakers.pdf",
+   "section": "4.2.4",
+   "level": "sub-statement",
+   "statement_chars": 146,
+   "statement_sha256": "6a613d9aeb50a4fd0081d10a19c33905cc0a0153b4fb5a4e73ab8b26e622f351",
+   "first_words": "Policies governing agricultural practices and forest conservation and management are",
+   "tests": {
+    "states_a_certainty_grade": {
+     "pass": false,
+     "why": "no calibrated confidence or likelihood term in the statement"
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the Summary for Policymakers is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": false,
+   "n": 128
+  },
+  {
+   "id": "AR5-WGIII-4.2.4#3",
+   "report": "Climate Change 2014: Mitigation of Climate Change",
+   "year": 2014,
+   "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/ipcc_wg3_ar5_summary-for-policymakers.pdf",
+   "section": "4.2.4",
+   "level": "sub-statement",
+   "statement_chars": 238,
+   "statement_sha256": "335bfa48506ae6dff8fec830d6a1e84ade0e301d97747b25c0f1a137804198df",
+   "first_words": "Bioenergy can play a critical role for mitigation, but there",
+   "tests": {
+    "states_a_certainty_grade": {
+     "pass": false,
+     "why": "no calibrated confidence or likelihood term in the statement"
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the Summary for Policymakers is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": false,
+   "n": 129
+  },
+  {
+   "id": "AR5-WGIII-4.2.5#1",
+   "report": "Climate Change 2014: Mitigation of Climate Change",
+   "year": 2014,
+   "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/ipcc_wg3_ar5_summary-for-policymakers.pdf",
+   "section": "4.2.5",
+   "level": "sub-statement",
+   "statement_chars": 201,
+   "statement_sha256": "64f9230d14e523f400160e2ed58ad951a91376f0a5abb539aa815b7bf865d1ac",
+   "first_words": "Urbanization is a global trend and is associated with increases",
+   "tests": {
+    "states_a_certainty_grade": {
+     "pass": false,
+     "why": "no calibrated confidence or likelihood term in the statement"
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the Summary for Policymakers is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": false,
+   "n": 130
+  },
+  {
+   "id": "AR5-WGIII-4.2.5#2",
+   "report": "Climate Change 2014: Mitigation of Climate Change",
+   "year": 2014,
+   "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/ipcc_wg3_ar5_summary-for-policymakers.pdf",
+   "section": "4.2.5",
+   "level": "sub-statement",
+   "statement_chars": 202,
+   "statement_sha256": "f284029673215c092f38579f80f108521fd2fa0edc9cd1da1598b55849e9e8eb",
+   "first_words": "The next two decades present a window of opportunity for",
+   "tests": {
+    "states_a_certainty_grade": {
+     "pass": false,
+     "why": "no calibrated confidence or likelihood term in the statement"
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the Summary for Policymakers is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": false,
+   "n": 131
+  },
+  {
+   "id": "AR5-WGIII-4.2.5#3",
+   "report": "Climate Change 2014: Mitigation of Climate Change",
+   "year": 2014,
+   "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/ipcc_wg3_ar5_summary-for-policymakers.pdf",
+   "section": "4.2.5",
+   "level": "sub-statement",
+   "statement_chars": 176,
+   "statement_sha256": "50754f55e25abeb0cf84fc6196cd6f03509d8a8079b01a7180382b49e4a22627",
+   "first_words": "Mitigation options in urban areas vary by urbanization trajectories and",
+   "tests": {
+    "states_a_certainty_grade": {
+     "pass": false,
+     "why": "no calibrated confidence or likelihood term in the statement"
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the Summary for Policymakers is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": false,
+   "n": 132
+  },
+  {
+   "id": "AR5-WGIII-4.2.5#4",
+   "report": "Climate Change 2014: Mitigation of Climate Change",
+   "year": 2014,
+   "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/ipcc_wg3_ar5_summary-for-policymakers.pdf",
+   "section": "4.2.5",
+   "level": "sub-statement",
+   "statement_chars": 289,
+   "statement_sha256": "8faa0bafa8fe7a4373ad715a0e0e7a2735110ad3d8b590bce89c85fa83a0f5d4",
+   "first_words": "The largest mitigation opportunities with respect to human settlements are",
+   "tests": {
+    "states_a_certainty_grade": {
+     "pass": false,
+     "why": "no calibrated confidence or likelihood term in the statement"
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the Summary for Policymakers is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": false,
+   "n": 133
+  },
+  {
+   "id": "AR5-WGIII-4.2.5#5",
+   "report": "Climate Change 2014: Mitigation of Climate Change",
+   "year": 2014,
+   "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/ipcc_wg3_ar5_summary-for-policymakers.pdf",
+   "section": "4.2.5",
+   "level": "sub-statement",
+   "statement_chars": 151,
+   "statement_sha256": "ae6bea8289932986d3379a2aeef0d3978233d231853698b50d95c5e4f60a5782",
+   "first_words": "Thousands of cities are undertaking climate action plans, but their",
+   "tests": {
+    "states_a_certainty_grade": {
+     "pass": false,
+     "why": "no calibrated confidence or likelihood term in the statement"
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the Summary for Policymakers is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": false,
+   "n": 134
+  },
+  {
+   "id": "AR5-WGIII-4.2.5#6",
+   "report": "Climate Change 2014: Mitigation of Climate Change",
+   "year": 2014,
+   "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/ipcc_wg3_ar5_summary-for-policymakers.pdf",
+   "section": "4.2.5",
+   "level": "sub-statement",
+   "statement_chars": 136,
+   "statement_sha256": "0a080406fbbe87b2bd9d65c5b5f4371364ca689fe8df0df2b28d7915dbff1fb2",
+   "first_words": "Successful implementation of urban-scale climate change mitigation strategies can provide",
+   "tests": {
+    "states_a_certainty_grade": {
+     "pass": false,
+     "why": "no calibrated confidence or likelihood term in the statement"
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the Summary for Policymakers is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": false,
+   "n": 135
+  },
+  {
+   "id": "AR5-WGIII-5.1#1",
+   "report": "Climate Change 2014: Mitigation of Climate Change",
+   "year": 2014,
+   "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/ipcc_wg3_ar5_summary-for-policymakers.pdf",
+   "section": "5.1",
+   "level": "sub-statement",
+   "statement_chars": 87,
+   "statement_sha256": "f459a24e5781ac69aba8a481f6e71f7a681675ca3c8ef2651af343241744ab58",
+   "first_words": "Substantial reductions in emissions would require large changes in investment",
+   "tests": {
+    "states_a_certainty_grade": {
+     "pass": false,
+     "why": "no calibrated confidence or likelihood term in the statement"
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the Summary for Policymakers is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": false,
+   "n": 136
+  },
+  {
+   "id": "AR5-WGIII-5.1#2",
+   "report": "Climate Change 2014: Mitigation of Climate Change",
+   "year": 2014,
+   "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/ipcc_wg3_ar5_summary-for-policymakers.pdf",
+   "section": "5.1",
+   "level": "sub-statement",
+   "statement_chars": 182,
+   "statement_sha256": "9974940982594529d10a816eac0d5ce2d2d85a04d5a4c447af7511630b4d7b8b",
+   "first_words": "There is no widely agreed definition of what constitutes climate",
+   "tests": {
+    "states_a_certainty_grade": {
+     "pass": false,
+     "why": "no calibrated confidence or likelihood term in the statement"
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the Summary for Policymakers is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": false,
+   "n": 137
+  },
+  {
+   "id": "AR5-WGIII-5.1#3",
+   "report": "Climate Change 2014: Mitigation of Climate Change",
+   "year": 2014,
+   "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/ipcc_wg3_ar5_summary-for-policymakers.pdf",
+   "section": "5.1",
+   "level": "sub-statement",
+   "statement_chars": 110,
+   "statement_sha256": "835711f2191347210e845708d27ec2f5cfd822803f3679ff7abd3832062a668f",
+   "first_words": "There has been a considerable increase in national and sub-national",
+   "tests": {
+    "states_a_certainty_grade": {
+     "pass": false,
+     "why": "no calibrated confidence or likelihood term in the statement"
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the Summary for Policymakers is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": false,
+   "n": 138
+  },
+  {
+   "id": "AR5-WGIII-5.1#4",
+   "report": "Climate Change 2014: Mitigation of Climate Change",
+   "year": 2014,
+   "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/ipcc_wg3_ar5_summary-for-policymakers.pdf",
+   "section": "5.1",
+   "level": "sub-statement",
+   "statement_chars": 171,
+   "statement_sha256": "7bac0aef76adecc2dd8e51842a458bb483dd2629ae3838686630671f9c042727",
+   "first_words": "Since AR4, there has been an increased focus on policies",
+   "tests": {
+    "states_a_certainty_grade": {
+     "pass": true,
+     "why": [
+      "high confidence"
+     ]
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the Summary for Policymakers is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": true,
+   "n": 139
+  },
+  {
+   "id": "AR5-WGIII-5.1#5",
+   "report": "Climate Change 2014: Mitigation of Climate Change",
+   "year": 2014,
+   "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/ipcc_wg3_ar5_summary-for-policymakers.pdf",
+   "section": "5.1",
+   "level": "sub-statement",
+   "statement_chars": 113,
+   "statement_sha256": "b402d370fcfd08d438173c8058292be46cf3940ffd7e64b56c2a89f5fe8387ba",
+   "first_words": "Sector-specific policies have been more widely used than economy-wide policies",
+   "tests": {
+    "states_a_certainty_grade": {
+     "pass": false,
+     "why": "no calibrated confidence or likelihood term in the statement"
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the Summary for Policymakers is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": false,
+   "n": 140
+  },
+  {
+   "id": "AR5-WGIII-5.1#6",
+   "report": "Climate Change 2014: Mitigation of Climate Change",
+   "year": 2014,
+   "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/ipcc_wg3_ar5_summary-for-policymakers.pdf",
+   "section": "5.1",
+   "level": "sub-statement",
+   "statement_chars": 140,
+   "statement_sha256": "46b6a6051c9b636baa7144b62784137acf92ee6d723a28f114a1f40f3c8fbeb4",
+   "first_words": "Regulatory approaches and information measures are widely used, and are",
+   "tests": {
+    "states_a_certainty_grade": {
+     "pass": false,
+     "why": "no calibrated confidence or likelihood term in the statement"
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the Summary for Policymakers is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": false,
+   "n": 141
+  },
+  {
+   "id": "AR5-WGIII-5.1#7",
+   "report": "Climate Change 2014: Mitigation of Climate Change",
+   "year": 2014,
+   "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/ipcc_wg3_ar5_summary-for-policymakers.pdf",
+   "section": "5.1",
+   "level": "sub-statement",
+   "statement_chars": 267,
+   "statement_sha256": "977dbb93b434bcd39481ceb9875eaf53216059d6e96ddb442bb47f8df34446e0",
+   "first_words": "Since AR4, cap and trade systems for GHGs have been",
+   "tests": {
+    "states_a_certainty_grade": {
+     "pass": false,
+     "why": "no calibrated confidence or likelihood term in the statement"
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the Summary for Policymakers is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": false,
+   "n": 142
+  },
+  {
+   "id": "AR5-WGIII-5.1#8",
+   "report": "Climate Change 2014: Mitigation of Climate Change",
+   "year": 2014,
+   "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/ipcc_wg3_ar5_summary-for-policymakers.pdf",
+   "section": "5.1",
+   "level": "sub-statement",
+   "statement_chars": 202,
+   "statement_sha256": "0685f162c6b0fc458d3331d7d7384548887bb4c546d5b86da2bf5ffb7db21352",
+   "first_words": "In some countries, tax-based policies specifically aimed at reducing GHG",
+   "tests": {
+    "states_a_certainty_grade": {
+     "pass": true,
+     "why": [
+      "high confidence"
+     ]
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the Summary for Policymakers is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": true,
+   "n": 143
+  },
+  {
+   "id": "AR5-WGIII-5.1#9",
+   "report": "Climate Change 2014: Mitigation of Climate Change",
+   "year": 2014,
+   "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/ipcc_wg3_ar5_summary-for-policymakers.pdf",
+   "section": "5.1",
+   "level": "sub-statement",
+   "statement_chars": 169,
+   "statement_sha256": "6ef98bcadd3531e3a02d35d64872d2a02ed3f81711c890b6e840621d5a137e91",
+   "first_words": "The reduction of subsidies for GHG-related activities in various sectors",
+   "tests": {
+    "states_a_certainty_grade": {
+     "pass": true,
+     "why": [
+      "high confidence"
+     ]
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the Summary for Policymakers is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": true,
+   "n": 144
+  },
+  {
+   "id": "AR5-WGIII-5.1#10",
+   "report": "Climate Change 2014: Mitigation of Climate Change",
+   "year": 2014,
+   "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/ipcc_wg3_ar5_summary-for-policymakers.pdf",
+   "section": "5.1",
+   "level": "sub-statement",
+   "statement_chars": 156,
+   "statement_sha256": "0d1b2ad3544e6d80cc1f32182cc255aeac6b04547e835d8939cde08d59916e6d",
+   "first_words": "Interactions between or among mitigation policies may be synergistic or",
+   "tests": {
+    "states_a_certainty_grade": {
+     "pass": false,
+     "why": "no calibrated confidence or likelihood term in the statement"
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the Summary for Policymakers is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": false,
+   "n": 145
+  },
+  {
+   "id": "AR5-WGIII-5.1#11",
+   "report": "Climate Change 2014: Mitigation of Climate Change",
+   "year": 2014,
+   "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/ipcc_wg3_ar5_summary-for-policymakers.pdf",
+   "section": "5.1",
+   "level": "sub-statement",
+   "statement_chars": 196,
+   "statement_sha256": "97acb7865b0c67ce0208d8fc02b101175e4467a06001f511d8cfb9615b8b72ee",
+   "first_words": "Some mitigation policies raise the prices for some energy services",
+   "tests": {
+    "states_a_certainty_grade": {
+     "pass": true,
+     "why": [
+      "low confidence"
+     ]
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the Summary for Policymakers is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": true,
+   "n": 146
+  },
+  {
+   "id": "AR5-WGIII-5.1#12",
+   "report": "Climate Change 2014: Mitigation of Climate Change",
+   "year": 2014,
+   "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/ipcc_wg3_ar5_summary-for-policymakers.pdf",
+   "section": "5.1",
+   "level": "sub-statement",
+   "statement_chars": 74,
+   "statement_sha256": "e844216e990aa40dabc0c6ca55760d52b723640cf07e4c099aa7d9bdbb2ec181",
+   "first_words": "Technology policy complements other mitigation policies (high confidence).",
+   "tests": {
+    "states_a_certainty_grade": {
+     "pass": true,
+     "why": [
+      "high confidence"
+     ]
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the Summary for Policymakers is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": true,
+   "n": 147
+  },
+  {
+   "id": "AR5-WGIII-5.1#13",
+   "report": "Climate Change 2014: Mitigation of Climate Change",
+   "year": 2014,
+   "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/ipcc_wg3_ar5_summary-for-policymakers.pdf",
+   "section": "5.1",
+   "level": "sub-statement",
+   "statement_chars": 301,
+   "statement_sha256": "f16b896307bcf409c33b60b47c505bc7b63e0b6ca5128da2f16d2c71815a450b",
+   "first_words": "In many countries, the private sector plays central roles in",
+   "tests": {
+    "states_a_certainty_grade": {
+     "pass": false,
+     "why": "no calibrated confidence or likelihood term in the statement"
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the Summary for Policymakers is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": false,
+   "n": 148
+  },
+  {
+   "id": "AR5-WGIII-5.2#1",
+   "report": "Climate Change 2014: Mitigation of Climate Change",
+   "year": 2014,
+   "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/ipcc_wg3_ar5_summary-for-policymakers.pdf",
+   "section": "5.2",
+   "level": "sub-statement",
+   "statement_chars": 172,
+   "statement_sha256": "8951517dc011bcb3f0a509878979432d6e9aef80a3532a8bb9e475bf00ab1b4d",
+   "first_words": "The United Nations Framework Convention on Climate Change (UNFCCC) is",
+   "tests": {
+    "states_a_certainty_grade": {
+     "pass": false,
+     "why": "no calibrated confidence or likelihood term in the statement"
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the Summary for Policymakers is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": false,
+   "n": 149
+  },
+  {
+   "id": "AR5-WGIII-5.2#2",
+   "report": "Climate Change 2014: Mitigation of Climate Change",
+   "year": 2014,
+   "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/ipcc_wg3_ar5_summary-for-policymakers.pdf",
+   "section": "5.2",
+   "level": "sub-statement",
+   "statement_chars": 142,
+   "statement_sha256": "75c01974a51d3acd0a8eadc31a1cc5862ba27abf5454a1a09fb8d241145375ea",
+   "first_words": "Existing and proposed international climate change cooperation arrangements vary in",
+   "tests": {
+    "states_a_certainty_grade": {
+     "pass": false,
+     "why": "no calibrated confidence or likelihood term in the statement"
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the Summary for Policymakers is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": false,
+   "n": 150
+  },
+  {
+   "id": "AR5-WGIII-5.2#3",
+   "report": "Climate Change 2014: Mitigation of Climate Change",
+   "year": 2014,
+   "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/ipcc_wg3_ar5_summary-for-policymakers.pdf",
+   "section": "5.2",
+   "level": "sub-statement",
+   "statement_chars": 239,
+   "statement_sha256": "39134dad57ce7d97113c95e82e3afba46bd2631c6ddf18b772c354dea3dae6c2",
+   "first_words": "The Kyoto Protocol offers lessons towards achieving the ultimate objective",
+   "tests": {
+    "states_a_certainty_grade": {
+     "pass": false,
+     "why": "no calibrated confidence or likelihood term in the statement"
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the Summary for Policymakers is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": false,
+   "n": 151
+  },
+  {
+   "id": "AR5-WGIII-5.2#4",
+   "report": "Climate Change 2014: Mitigation of Climate Change",
+   "year": 2014,
+   "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/ipcc_wg3_ar5_summary-for-policymakers.pdf",
+   "section": "5.2",
+   "level": "sub-statement",
+   "statement_chars": 146,
+   "statement_sha256": "e9610b4d97ba4648580ab3d96a37d22c96b5df62590fffdf6e9ff333116bdb7e",
+   "first_words": "UNFCCC activities since 2007 have led to an increasing number",
+   "tests": {
+    "states_a_certainty_grade": {
+     "pass": false,
+     "why": "no calibrated confidence or likelihood term in the statement"
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the Summary for Policymakers is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": false,
+   "n": 152
+  },
+  {
+   "id": "AR5-WGIII-5.2#5",
+   "report": "Climate Change 2014: Mitigation of Climate Change",
+   "year": 2014,
+   "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/ipcc_wg3_ar5_summary-for-policymakers.pdf",
+   "section": "5.2",
+   "level": "sub-statement",
+   "statement_chars": 178,
+   "statement_sha256": "daee984c90f0f53b7dd8767b5a8307dc55ed3d2ec738ab0d5e10d14709a58a0e",
+   "first_words": "Policy linkages among regional, national, and sub-national climate policies offer",
+   "tests": {
+    "states_a_certainty_grade": {
+     "pass": false,
+     "why": "no calibrated confidence or likelihood term in the statement"
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the Summary for Policymakers is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": false,
+   "n": 153
+  },
+  {
+   "id": "AR5-WGIII-5.2#6",
+   "report": "Climate Change 2014: Mitigation of Climate Change",
+   "year": 2014,
+   "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/ipcc_wg3_ar5_summary-for-policymakers.pdf",
+   "section": "5.2",
+   "level": "sub-statement",
+   "statement_chars": 194,
+   "statement_sha256": "e7739f4491969ef237dff1069cde815119722037bdb3172f6ee069ca2358b106",
+   "first_words": "Various regional initiatives between the national and global scales are",
+   "tests": {
+    "states_a_certainty_grade": {
+     "pass": true,
+     "why": [
+      "medium confidence"
+     ]
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the Summary for Policymakers is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": true,
+   "n": 154
+  },
+  {
+   "id": "AR5-SYR-1#1",
+   "report": "Climate Change 2014: Synthesis Report",
+   "year": 2014,
+   "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/AR5_SYR_FINAL_SPM.pdf",
+   "section": "1",
+   "level": "headline",
+   "statement_chars": 211,
+   "statement_sha256": "4b8c9d30baa7462fc86f9a24f0907f35727f2cec77c1c398539c2cd310eb9701",
+   "first_words": "Human influence on the climate system is clear, and recent",
+   "tests": {
+    "states_a_certainty_grade": {
+     "pass": false,
+     "why": "no calibrated confidence or likelihood term in the statement"
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the Summary for Policymakers is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": false,
+   "n": 155
+  },
+  {
+   "id": "AR5-SYR-1.1#1",
+   "report": "Climate Change 2014: Synthesis Report",
+   "year": 2014,
+   "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/AR5_SYR_FINAL_SPM.pdf",
+   "section": "1.1",
+   "level": "sub-statement",
+   "statement_chars": 248,
+   "statement_sha256": "e41b3eaf419be858492d497ee0f72e588ad1c324cd3c37b42c1be6efbce135b5",
+   "first_words": "Warming of the climate system is unequivocal, and since the",
+   "tests": {
+    "states_a_certainty_grade": {
+     "pass": false,
+     "why": "no calibrated confidence or likelihood term in the statement"
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the Summary for Policymakers is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": false,
+   "n": 156
+  },
+  {
+   "id": "AR5-SYR-1.2#1",
+   "report": "Climate Change 2014: Synthesis Report",
+   "year": 2014,
+   "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/AR5_SYR_FINAL_SPM.pdf",
+   "section": "1.2",
+   "level": "sub-statement",
+   "statement_chars": 535,
+   "statement_sha256": "c8b911df70151fdfd567488866cfd42629975c4c0b16841eb2193c049f49dd92",
+   "first_words": "Anthropogenic greenhouse gas emissions have increased since the pre-industrial era,",
+   "tests": {
+    "states_a_certainty_grade": {
+     "pass": true,
+     "why": [
+      "extremely likely"
+     ]
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the Summary for Policymakers is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": true,
+   "n": 157
+  },
+  {
+   "id": "AR5-SYR-1.3#1",
+   "report": "Climate Change 2014: Synthesis Report",
+   "year": 2014,
+   "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/AR5_SYR_FINAL_SPM.pdf",
+   "section": "1.3",
+   "level": "sub-statement",
+   "statement_chars": 275,
+   "statement_sha256": "37f2db3ee570fba61f166cfb83df6880d3eaf7bbc1417ca03d526dab01a82376",
+   "first_words": "In recent decades, changes in climate have caused impacts on",
+   "tests": {
+    "states_a_certainty_grade": {
+     "pass": false,
+     "why": "no calibrated confidence or likelihood term in the statement"
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the Summary for Policymakers is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": false,
+   "n": 158
+  },
+  {
+   "id": "AR5-SYR-1.4#1",
+   "report": "Climate Change 2014: Synthesis Report",
+   "year": 2014,
+   "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/AR5_SYR_FINAL_SPM.pdf",
+   "section": "1.4",
+   "level": "sub-statement",
+   "statement_chars": 363,
+   "statement_sha256": "91cd13da26ea0c7d7ea1784aabeb27c275e51198d97811b411c4e4885111e921",
+   "first_words": "Changes in many extreme weather and climate events have been",
+   "tests": {
+    "states_a_certainty_grade": {
+     "pass": false,
+     "why": "no calibrated confidence or likelihood term in the statement"
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the Summary for Policymakers is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": false,
+   "n": 159
+  },
+  {
+   "id": "AR5-SYR-2#1",
+   "report": "Climate Change 2014: Synthesis Report",
+   "year": 2014,
+   "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/AR5_SYR_FINAL_SPM.pdf",
+   "section": "2",
+   "level": "headline",
+   "statement_chars": 398,
+   "statement_sha256": "217da1be4e05ccd622feda895547bdf272cac5b083a5cdf81b9343c1395251b4",
+   "first_words": "Continued emission of greenhouse gases will cause further warming and",
+   "tests": {
+    "states_a_certainty_grade": {
+     "pass": false,
+     "why": "no calibrated confidence or likelihood term in the statement"
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the Summary for Policymakers is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": false,
+   "n": 160
+  },
+  {
+   "id": "AR5-SYR-2.1#1",
+   "report": "Climate Change 2014: Synthesis Report",
+   "year": 2014,
+   "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/AR5_SYR_FINAL_SPM.pdf",
+   "section": "2.1",
+   "level": "sub-statement",
+   "statement_chars": 238,
+   "statement_sha256": "acfaceeea6e624cb43516b79b33c45c10fa0d4f44dbee968a5ab4cb47c958d1c",
+   "first_words": "Cumulative emissions of CO largely determine global mean surface warming",
+   "tests": {
+    "states_a_certainty_grade": {
+     "pass": false,
+     "why": "no calibrated confidence or likelihood term in the statement"
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the Summary for Policymakers is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": false,
+   "n": 161
+  },
+  {
+   "id": "AR5-SYR-2.2#1",
+   "report": "Climate Change 2014: Synthesis Report",
+   "year": 2014,
+   "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/AR5_SYR_FINAL_SPM.pdf",
+   "section": "2.2",
+   "level": "sub-statement",
+   "statement_chars": 347,
+   "statement_sha256": "1cb7955d76929419e36c458b0a8f974ce1014a77ffd78e7885ff6b27a083baea",
+   "first_words": "Surface temperature is projected to rise over the 21st century",
+   "tests": {
+    "states_a_certainty_grade": {
+     "pass": true,
+     "why": [
+      "very likely"
+     ]
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the Summary for Policymakers is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": true,
+   "n": 162
+  },
+  {
+   "id": "AR5-SYR-2.3#1",
+   "report": "Climate Change 2014: Synthesis Report",
+   "year": 2014,
+   "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/AR5_SYR_FINAL_SPM.pdf",
+   "section": "2.3",
+   "level": "sub-statement",
+   "statement_chars": 235,
+   "statement_sha256": "f552d7b5ee346fa03c9ce6b940bc16f11a4a75d9f81771b26d2dc12205a6f83e",
+   "first_words": "Climate change will amplify existing risks and create new risks",
+   "tests": {
+    "states_a_certainty_grade": {
+     "pass": false,
+     "why": "no calibrated confidence or likelihood term in the statement"
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the Summary for Policymakers is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": false,
+   "n": 163
+  },
+  {
+   "id": "AR5-SYR-2.4#1",
+   "report": "Climate Change 2014: Synthesis Report",
+   "year": 2014,
+   "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/AR5_SYR_FINAL_SPM.pdf",
+   "section": "2.4",
+   "level": "sub-statement",
+   "statement_chars": 243,
+   "statement_sha256": "9a405aa07bc977d351c939614127e9f1e07bb49ea691f2e39f6b80b04ba3cb3b",
+   "first_words": "Many aspects of climate change and associated impacts will continue",
+   "tests": {
+    "states_a_certainty_grade": {
+     "pass": false,
+     "why": "no calibrated confidence or likelihood term in the statement"
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the Summary for Policymakers is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": false,
+   "n": 164
+  },
+  {
+   "id": "AR5-SYR-3#1",
+   "report": "Climate Change 2014: Synthesis Report",
+   "year": 2014,
+   "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/AR5_SYR_FINAL_SPM.pdf",
+   "section": "3",
+   "level": "headline",
+   "statement_chars": 409,
+   "statement_sha256": "e44d54926204b5ae1073c78cd6ea1b693d62e793e8c4e77e51358045524fff7e",
+   "first_words": "Adaptation and mitigation are complementary strategies for reducing and managing",
+   "tests": {
+    "states_a_certainty_grade": {
+     "pass": false,
+     "why": "no calibrated confidence or likelihood term in the statement"
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the Summary for Policymakers is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": false,
+   "n": 165
+  },
+  {
+   "id": "AR5-SYR-3.1#1",
+   "report": "Climate Change 2014: Synthesis Report",
+   "year": 2014,
+   "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/AR5_SYR_FINAL_SPM.pdf",
+   "section": "3.1",
+   "level": "sub-statement",
+   "statement_chars": 337,
+   "statement_sha256": "dfba5ae0a12eba43c893e79c26393b86131c657994d8e25ca97023fc62f061bb",
+   "first_words": "Effective decision-making to limit climate change and its effects can",
+   "tests": {
+    "states_a_certainty_grade": {
+     "pass": false,
+     "why": "no calibrated confidence or likelihood term in the statement"
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the Summary for Policymakers is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": false,
+   "n": 166
+  },
+  {
+   "id": "AR5-SYR-3.2#1",
+   "report": "Climate Change 2014: Synthesis Report",
+   "year": 2014,
+   "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/AR5_SYR_FINAL_SPM.pdf",
+   "section": "3.2",
+   "level": "sub-statement",
+   "statement_chars": 518,
+   "statement_sha256": "86e6cd5565cdcc6ed6657a94937e63c6eb887d82db11d8fa4891dd089b2ee3b1",
+   "first_words": "Without additional mitigation efforts beyond those in place today, and",
+   "tests": {
+    "states_a_certainty_grade": {
+     "pass": true,
+     "why": [
+      "high confidence"
+     ]
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the Summary for Policymakers is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": true,
+   "n": 167
+  },
+  {
+   "id": "AR5-SYR-3.3#1",
+   "report": "Climate Change 2014: Synthesis Report",
+   "year": 2014,
+   "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/AR5_SYR_FINAL_SPM.pdf",
+   "section": "3.3",
+   "level": "sub-statement",
+   "statement_chars": 356,
+   "statement_sha256": "b107a66ab982e9732847a330e45f3df62d08303631d231fb526951f596c54320",
+   "first_words": "Adaptation can reduce the risks of climate change impacts, but",
+   "tests": {
+    "states_a_certainty_grade": {
+     "pass": false,
+     "why": "no calibrated confidence or likelihood term in the statement"
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the Summary for Policymakers is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": false,
+   "n": 168
+  },
+  {
+   "id": "AR5-SYR-3.4#1",
+   "report": "Climate Change 2014: Synthesis Report",
+   "year": 2014,
+   "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/AR5_SYR_FINAL_SPM.pdf",
+   "section": "3.4",
+   "level": "sub-statement",
+   "statement_chars": 606,
+   "statement_sha256": "f17ecfec5ecffde96c6108538d53c5b55e2e7882499629a41726620ed0c298e6",
+   "first_words": "There are multiple mitigation pathways that are likely to limit",
+   "tests": {
+    "states_a_certainty_grade": {
+     "pass": true,
+     "why": [
+      "likely"
+     ]
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the Summary for Policymakers is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": true,
+   "n": 169
+  },
+  {
+   "id": "AR5-SYR-4#1",
+   "report": "Climate Change 2014: Synthesis Report",
+   "year": 2014,
+   "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/AR5_SYR_FINAL_SPM.pdf",
+   "section": "4",
+   "level": "headline",
+   "statement_chars": 309,
+   "statement_sha256": "3e59790d51e9c201cfb9193a4d2c51b912264b84edc9de7f35d0069e98d27d9e",
+   "first_words": "Many adaptation and mitigation options can help address climate change,",
+   "tests": {
+    "states_a_certainty_grade": {
+     "pass": false,
+     "why": "no calibrated confidence or likelihood term in the statement"
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the Summary for Policymakers is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": false,
+   "n": 170
+  },
+  {
+   "id": "AR5-SYR-4.1#1",
+   "report": "Climate Change 2014: Synthesis Report",
+   "year": 2014,
+   "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/AR5_SYR_FINAL_SPM.pdf",
+   "section": "4.1",
+   "level": "sub-statement",
+   "statement_chars": 280,
+   "statement_sha256": "105dae350fcbe9ea0d86f466d91f59ff907157fb5afd82d7d570ad64860168be",
+   "first_words": "Adaptation and mitigation responses are underpinned by common enabling factors.",
+   "tests": {
+    "states_a_certainty_grade": {
+     "pass": false,
+     "why": "no calibrated confidence or likelihood term in the statement"
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the Summary for Policymakers is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": false,
+   "n": 171
+  },
+  {
+   "id": "AR5-SYR-4.2#1",
+   "report": "Climate Change 2014: Synthesis Report",
+   "year": 2014,
+   "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/AR5_SYR_FINAL_SPM.pdf",
+   "section": "4.2",
+   "level": "sub-statement",
+   "statement_chars": 324,
+   "statement_sha256": "33bd9be0357d7e3b1d0fbff97c85d0868110043712795dc1f2165c9e2b8ff98e",
+   "first_words": "Adaptation options exist in all sectors, but their context for",
+   "tests": {
+    "states_a_certainty_grade": {
+     "pass": false,
+     "why": "no calibrated confidence or likelihood term in the statement"
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the Summary for Policymakers is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": false,
+   "n": 172
+  },
+  {
+   "id": "AR5-SYR-4.3#1",
+   "report": "Climate Change 2014: Synthesis Report",
+   "year": 2014,
+   "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/AR5_SYR_FINAL_SPM.pdf",
+   "section": "4.3",
+   "level": "sub-statement",
+   "statement_chars": 318,
+   "statement_sha256": "b7ff6c4bda8683a1f09a75fcf4f76ae9b7657892ace491767b69b63f800af5fe",
+   "first_words": "Mitigation options are available in every major sector. Mitigation can",
+   "tests": {
+    "states_a_certainty_grade": {
+     "pass": false,
+     "why": "no calibrated confidence or likelihood term in the statement"
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the Summary for Policymakers is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": false,
+   "n": 173
+  },
+  {
+   "id": "AR5-SYR-4.4#1",
+   "report": "Climate Change 2014: Synthesis Report",
+   "year": 2014,
+   "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/AR5_SYR_FINAL_SPM.pdf",
+   "section": "4.4",
+   "level": "sub-statement",
+   "statement_chars": 402,
+   "statement_sha256": "1a76561e4b1fa131d6a2d3edb1f56b61ccffa926e42d4ccbb117ac7d0f721223",
+   "first_words": "Effective adaptation and mitigation responses will depend on policies and",
+   "tests": {
+    "states_a_certainty_grade": {
+     "pass": false,
+     "why": "no calibrated confidence or likelihood term in the statement"
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the Summary for Policymakers is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": false,
+   "n": 174
+  },
+  {
+   "id": "AR5-SYR-4.5#1",
+   "report": "Climate Change 2014: Synthesis Report",
+   "year": 2014,
+   "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/AR5_SYR_FINAL_SPM.pdf",
+   "section": "4.5",
+   "level": "sub-statement",
+   "statement_chars": 357,
+   "statement_sha256": "2bac32187ddfc448b72073b1f403cf7e8d83eaef5dc2b754e0d5018a2af6836c",
+   "first_words": "Climate change is a threat to sustainable development. Nonetheless, there",
+   "tests": {
+    "states_a_certainty_grade": {
+     "pass": true,
+     "why": [
+      "high confidence",
+      "medium confidence"
+     ]
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the Summary for Policymakers is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": true,
+   "n": 175
+  }
+ ]
+}

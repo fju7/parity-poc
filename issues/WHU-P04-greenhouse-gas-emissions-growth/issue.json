@@ -1,0 +1,9 @@
+{
+  "id": "WHU-P04",
+  "slug": "greenhouse-gas-emissions-growth",
+  "title": "Have the world's greenhouse gas emissions grown faster in recent decades than in earlier ones?",
+  "question": "Have the world's greenhouse gas emissions grown faster in recent decades than in earlier ones?",
+  "study": true,
+  "status": "draft",
+  "_study_note": "The reliability study's practice question under protocol rev 34 (amended 2026-10-21), replacing the withdrawn WHU-P03. Drawn on 21 October 2026 with seed 20261022 from the IPCC AR5 practice frame (study/whu-reliability/frames/ipcc-ar5-practice.json; draw log frames/draws/ipcc-ar5-practice-seed20261022.json; study README, \"Practice draw (WHU-P04)\"). The question is written in plain words from the drawn statement's subject; the statement is identified only in the study README's private notes, which a drafting session does not read (study/whu-reliability/RUN.md). A study issue is never published: publish, update and announce refuse it, and its preflight records outside review, adjudication verification, operator acceptance and publication as SKIPPED. Cap: caps.json study_per_issue. Created 2026-10-21; nothing else is written here until drafting starts."
+}
