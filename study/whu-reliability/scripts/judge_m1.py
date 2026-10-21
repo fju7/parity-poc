@@ -96,7 +96,9 @@ CONSISTENCY_SEED = 20261020
 REPEAT_SUFFIX = "_repeat"
 
 CLAUDE_MODEL = "claude-opus-5-5"
-CLAUDE_MAX_OUT = 1024
+# 2,048 since 2026-10-21 (was 1,024: one M2 v2 reason was cut off at the limit).
+# A runner setting; the prompts and their sha256 are unchanged.
+CLAUDE_MAX_OUT = 2048
 OPENAI_MODEL = "gpt-6-astra"
 OPENAI_MAX_OUT = 6000           # reasoning tokens count as output
 # Standard tier, checked 2026-10-19 at developers.openai.com/api/docs/pricing.
