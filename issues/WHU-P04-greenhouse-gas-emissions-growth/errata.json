@@ -1,0 +1,125 @@
+{
+  "_what_this_is": "For every source, whether its bibliographic record names a correction, erratum, retraction or expression of concern -- and, when the lookup failed, that it failed. 'checked, none' and 'could not check' are different states and this file never merges them.",
+  "checked": {
+    "S001": {
+      "source": "S001",
+      "title": "IPCC — Summary for Policymakers, Climate Change 2022: Mitigation of Climate Change (AR6 Working Group III)",
+      "checked_on": "2026-10-21",
+      "identifier": "DOI 10.1017/9781009157926.001",
+      "identifier_from": "the held document",
+      "identity": "resolved title shares 2 word(s) with ours: policymakers, summary",
+      "resolved_title": "Summary for Policymakers",
+      "index": "Crossref",
+      "update_policy": null,
+      "amendments": [],
+      "comments": [],
+      "state": "UNCHECKED",
+      "why": "matched on DOI 10.1017/9781009157926.001 at Crossref; not in Europe PMC, and the publisher registers NO update policy — so Crossref would not know of a correction even if one existed. This is not a pass"
+    },
+    "S002": {
+      "source": "S002",
+      "title": "Dhakal S et al. — Chapter 2: Emissions Trends and Drivers, in Climate Change 2022: Mitigation of Climate Change (IPCC AR",
+      "checked_on": "2026-10-21",
+      "identifier": "DOI 10.1017/9781009157926.004",
+      "identifier_from": "the held document",
+      "identity": "resolved title shares 3 word(s) with ours: drivers, emissions, trends",
+      "resolved_title": "Emissions Trends and Drivers",
+      "index": "Crossref",
+      "update_policy": null,
+      "amendments": [],
+      "comments": [],
+      "state": "UNCHECKED",
+      "why": "matched on DOI 10.1017/9781009157926.004 at Crossref; not in Europe PMC, and the publisher registers NO update policy — so Crossref would not know of a correction even if one existed. This is not a pass"
+    },
+    "S003": {
+      "source": "S003",
+      "title": "IPCC — Summary for Policymakers, Climate Change 2014: Mitigation of Climate Change (AR5 Working Group III)",
+      "checked_on": "2026-10-21",
+      "state": "UNCHECKABLE",
+      "why": "no DOI, PMID, PMCID or PII can be parsed from the URL we hold; nothing is typed from memory, so this source cannot be looked up automatically",
+      "amendments": [],
+      "comments": []
+    },
+    "S004": {
+      "source": "S004",
+      "title": "Minx JC et al. — A comprehensive and synthetic dataset for global, regional, and national greenhouse gas emissions by se",
+      "checked_on": "2026-10-21",
+      "identifier": "DOI 10.5194/essd-13-5213-2021",
+      "identifier_from": "the held document",
+      "identity": "resolved title shares 13 word(s) with ours: 1970, 2018, 2019, comprehensive, dataset, emissions, extension, global, greenhou",
+      "resolved_title": "A comprehensive and synthetic dataset for global, regional, and national greenhouse gas emissions by sector 1970–2018 with an extension to 2019",
+      "index": "Crossref",
+      "update_policy": null,
+      "amendments": [],
+      "comments": [],
+      "state": "UNCHECKED",
+      "why": "matched on DOI 10.5194/essd-13-5213-2021 at Crossref; not in Europe PMC, and the publisher registers NO update policy — so Crossref would not know of a correction even if one existed. This is not a pass"
+    },
+    "S005": {
+      "source": "S005",
+      "title": "Friedlingstein P et al. — Global Carbon Budget 2025 (Earth Syst Sci Data 2026;18:3211)",
+      "checked_on": "2026-10-21",
+      "identifier": "DOI 10.5194/essd-18-3211-2026",
+      "identifier_from": "the held document",
+      "identity": "resolved title shares 4 word(s) with ours: 2025, budget, carbon, global",
+      "resolved_title": "Global Carbon Budget 2025",
+      "index": "Crossref",
+      "update_policy": null,
+      "amendments": [],
+      "comments": [],
+      "state": "UNCHECKED",
+      "why": "matched on DOI 10.5194/essd-18-3211-2026 at Crossref; not in Europe PMC, and the publisher registers NO update policy — so Crossref would not know of a correction even if one existed. This is not a pass"
+    },
+    "S006": {
+      "source": "S006",
+      "title": "Forster PM et al. — Indicators of Global Climate Change 2025: annual update of key indicators of the state of the climat",
+      "checked_on": "2026-10-21",
+      "identifier": "DOI 10.5194/essd-18-3889-2026",
+      "identifier_from": "the held document",
+      "identity": "resolved title shares 11 word(s) with ours: 2025, annual, change, climate, global, human, indicators, influence, state, syst",
+      "resolved_title": "Indicators of Global Climate Change 2025:  annual update of key indicators of the state   of the climate system and human influence",
+      "index": "Crossref",
+      "update_policy": null,
+      "amendments": [],
+      "comments": [],
+      "state": "UNCHECKED",
+      "why": "matched on DOI 10.5194/essd-18-3889-2026 at Crossref; not in Europe PMC, and the publisher registers NO update policy — so Crossref would not know of a correction even if one existed. This is not a pass"
+    },
+    "S007": {
+      "source": "S007",
+      "title": "UNEP — Emissions Gap Report 2025: Off Target (Nairobi, November 2025)",
+      "checked_on": "2026-10-21",
+      "state": "UNCHECKABLE",
+      "why": "no DOI, PMID, PMCID or PII can be parsed from the URL we hold; nothing is typed from memory, so this source cannot be looked up automatically",
+      "amendments": [],
+      "comments": []
+    },
+    "S008": {
+      "source": "S008",
+      "title": "IPCC newsroom — IPCC: Greenhouse gas emissions accelerate despite reduction efforts (Berlin, 13 April 2014)",
+      "checked_on": "2026-10-21",
+      "state": "UNCHECKABLE",
+      "why": "no DOI, PMID, PMCID or PII can be parsed from the URL we hold; nothing is typed from memory, so this source cannot be looked up automatically",
+      "amendments": [],
+      "comments": []
+    },
+    "S009": {
+      "source": "S009",
+      "title": "C4S Courses — UNEP Emissions Gap Report 2025 (6 Nov 2025)",
+      "checked_on": "2026-10-21",
+      "state": "UNCHECKABLE",
+      "why": "no DOI, PMID, PMCID or PII can be parsed from the URL we hold; nothing is typed from memory, so this source cannot be looked up automatically",
+      "amendments": [],
+      "comments": []
+    },
+    "S010": {
+      "source": "S010",
+      "title": "Jamaica Gleaner — Earth Today: Countries failing (4 Dec 2025)",
+      "checked_on": "2026-10-21",
+      "state": "UNCHECKABLE",
+      "why": "no DOI, PMID, PMCID or PII can be parsed from the URL we hold; nothing is typed from memory, so this source cannot be looked up automatically",
+      "amendments": [],
+      "comments": []
+    }
+  }
+}

@@ -1,0 +1,250 @@
+{
+  "what_this_is": "Source register for WHU-P04 (reliability-study practice issue; never published).",
+  "sources": [
+    {
+      "id": "S001",
+      "type": "synthesis",
+      "url": "https://www.ipcc.ch/report/ar6/wg3/downloads/report/IPCC_AR6_WGIII_SPM.pdf",
+      "title": "IPCC — Summary for Policymakers, Climate Change 2022: Mitigation of Climate Change (AR6 Working Group III)",
+      "also_called": [
+        "IPCC AR6 WGIII SPM",
+        "the 2022 IPCC mitigation summary"
+      ],
+      "used_for": "Assessed total GHG emissions 1990-2019, decadal average levels and growth rates (2000-2009 vs 2010-2019), uncertainty.",
+      "access": {
+        "state": "full_text_held",
+        "held": {
+          "file": "docs/0a/0a3b9f671d7150c69a3088e006b7fab84e41ed90fc4eefdf92d076b2d3c8ce84.pdf",
+          "sha256": "0a3b9f671d7150c69a3088e006b7fab84e41ed90fc4eefdf92d076b2d3c8ce84",
+          "bytes": 2159848,
+          "identified_by": "contains 8 of 8 distinctive title words — 225501 characters, reference list and introduction present"
+        },
+        "on": "2026-10-21"
+      },
+      "identifier": {
+        "kind": "doi",
+        "value": "10.1017/9781009157926.001",
+        "resolved_by": "Crossref, 2026-10-21, Claude Code",
+        "resolved_on": "2026-10-21"
+      }
+    },
+    {
+      "id": "S002",
+      "type": "synthesis",
+      "url": "https://www.ipcc.ch/report/ar6/wg3/downloads/report/IPCC_AR6_WGIII_Chapter02.pdf",
+      "title": "Dhakal S et al. — Chapter 2: Emissions Trends and Drivers, in Climate Change 2022: Mitigation of Climate Change (IPCC AR6 WGIII)",
+      "also_called": [
+        "IPCC AR6 WGIII Chapter 2",
+        "Emissions Trends and Drivers"
+      ],
+      "used_for": "Decade-by-decade growth by gas and with/without land use, 1970-2019; uncertainty by gas; drivers.",
+      "access": {
+        "state": "full_text_held",
+        "held": {
+          "file": "docs/b0/b08dcc7c7293e773bea4c7efac3833d165b36580cd02b67806a6b4dc8c00f9a2.pdf",
+          "sha256": "b08dcc7c7293e773bea4c7efac3833d165b36580cd02b67806a6b4dc8c00f9a2",
+          "bytes": 2679979,
+          "identified_by": "contains 9 of 10 distinctive title words — 439227 characters, reference list and discussion/introduction present"
+        },
+        "on": "2026-10-21"
+      },
+      "identifier": {
+        "kind": "doi",
+        "value": "10.1017/9781009157926.004",
+        "resolved_by": "Crossref, 2026-10-21, Claude Code",
+        "resolved_on": "2026-10-21"
+      }
+    },
+    {
+      "id": "S003",
+      "type": "synthesis",
+      "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/ipcc_wg3_ar5_summary-for-policymakers.pdf",
+      "title": "IPCC — Summary for Policymakers, Climate Change 2014: Mitigation of Climate Change (AR5 Working Group III)",
+      "also_called": [
+        "IPCC AR5 WGIII SPM",
+        "the 2014 IPCC mitigation summary"
+      ],
+      "used_for": "Growth rates 1970-2000 vs 2000-2010; the earlier assessment that emissions growth had accelerated.",
+      "access": {
+        "state": "full_text_held",
+        "held": {
+          "file": "docs/49/49dbec3db572232217ecebddc1afb05789f140ad0de485cfd289070ce1e370da.pdf",
+          "sha256": "49dbec3db572232217ecebddc1afb05789f140ad0de485cfd289070ce1e370da",
+          "bytes": 2142034,
+          "identified_by": "contains 8 of 8 distinctive title words — 112167 characters, reference list and discussion/introduction present"
+        },
+        "on": "2026-10-21"
+      },
+      "identifier": {
+        "kind": "doi",
+        "value": "10.1017/CBO9781107415416.005",
+        "resolved_by": "Crossref, 2026-10-21, Claude Code",
+        "resolved_on": "2026-10-21"
+      }
+    },
+    {
+      "id": "S004",
+      "type": "primary",
+      "url": "https://essd.copernicus.org/articles/13/5213/2021/essd-13-5213-2021.pdf",
+      "title": "Minx JC et al. — A comprehensive and synthetic dataset for global, regional, and national greenhouse gas emissions by sector 1970–2018 with an extension to 2019 (Earth Syst Sci Data 2021;13:5213-5252)",
+      "also_called": [
+        "Minx",
+        "the AR6 emissions dataset"
+      ],
+      "used_for": "The dataset behind AR6 WGIII: decadal growth rates, by gas, and uncertainty.",
+      "access": {
+        "state": "full_text_held",
+        "held": {
+          "file": "docs/f7/f7e6d5addfdc7a0e7424bf74396b7dbea07072842283ca62dc4e53e94a9286d3.pdf",
+          "sha256": "f7e6d5addfdc7a0e7424bf74396b7dbea07072842283ca62dc4e53e94a9286d3",
+          "bytes": 7243436,
+          "identified_by": "contains 12 of 12 distinctive title words — 198137 characters, reference list and discussion/introduction present"
+        },
+        "on": "2026-10-21"
+      },
+      "identifier": {
+        "kind": "doi",
+        "value": "10.5194/essd-13-5213-2021",
+        "resolved_by": "Crossref, 2026-10-21, Claude Code",
+        "resolved_on": "2026-10-21"
+      }
+    },
+    {
+      "id": "S005",
+      "type": "primary",
+      "url": "https://essd.copernicus.org/articles/18/3211/2026/essd-18-3211-2026.pdf",
+      "title": "Friedlingstein P et al. — Global Carbon Budget 2025 (Earth Syst Sci Data 2026;18:3211)",
+      "also_called": [
+        "Global Carbon Budget 2025",
+        "Friedlingstein"
+      ],
+      "used_for": "CO2 emissions (fossil and land-use change) by decade through 2024/2025; growth rates of the last decade vs the one before.",
+      "access": {
+        "state": "full_text_held",
+        "held": {
+          "file": "docs/16/166e10a66b4dfb1e3396be57dc0596a9e3de6c17a293a2f0b933d5f30572df12.pdf",
+          "sha256": "166e10a66b4dfb1e3396be57dc0596a9e3de6c17a293a2f0b933d5f30572df12",
+          "bytes": 13426392,
+          "identified_by": "contains 7 of 7 distinctive title words — 426297 characters, reference list and discussion/introduction present"
+        },
+        "on": "2026-10-21"
+      },
+      "identifier": {
+        "kind": "doi",
+        "value": "10.5194/essd-18-3211-2026",
+        "resolved_by": "Crossref, 2026-10-21, Claude Code",
+        "resolved_on": "2026-10-21"
+      }
+    },
+    {
+      "id": "S006",
+      "type": "primary",
+      "url": "https://essd.copernicus.org/articles/18/3889/2026/essd-18-3889-2026.pdf",
+      "title": "Forster PM et al. — Indicators of Global Climate Change 2025: annual update of key indicators of the state of the climate system and human influence (Earth Syst Sci Data 2026;18:3889-3933)",
+      "also_called": [
+        "Indicators of Global Climate Change 2025",
+        "Forster"
+      ],
+      "used_for": "Total GHG emissions to 2024 in the AR6 framework; decadal averages and recent growth.",
+      "access": {
+        "state": "full_text_held",
+        "held": {
+          "file": "docs/79/795eb30a2ed5defdffb78499b0c3eac2314eac3a4ab5d7e9f093bef336acafeb.pdf",
+          "sha256": "795eb30a2ed5defdffb78499b0c3eac2314eac3a4ab5d7e9f093bef336acafeb",
+          "bytes": 9736703,
+          "identified_by": "contains 10 of 10 distinctive title words — 215129 characters, reference list and discussion/introduction present"
+        },
+        "on": "2026-10-21"
+      },
+      "identifier": {
+        "kind": "doi",
+        "value": "10.5194/essd-18-3889-2026",
+        "resolved_by": "Crossref, 2026-10-21, Claude Code",
+        "resolved_on": "2026-10-21"
+      }
+    },
+    {
+      "id": "S007",
+      "type": "synthesis",
+      "url": "https://wedocs.unep.org/handle/20.500.11822/48854",
+      "title": "UNEP — Emissions Gap Report 2025: Off target (Nairobi, November 2025)",
+      "also_called": [
+        "Emissions Gap Report 2025",
+        "UNEP"
+      ],
+      "used_for": "Total GHG emissions in 2024 and growth compared with the 2000s and 2010s averages.",
+      "access": {
+        "state": "full_text_held",
+        "by": "Fred Ugast (browser download, content.pdf); added to the store by Claude Code (session e1161f9e-f686-4e13-83bb-4e0ab8d2dbab)",
+        "on": "2026-10-21",
+        "held": {
+          "file": "docs/d5/d5364c4761df1a88a39b942a982e24c6bfe205ad49ff3ed8b2af7a728992ff30.pdf",
+          "sha256": "d5364c4761df1a88a39b942a982e24c6bfe205ad49ff3ed8b2af7a728992ff30",
+          "bytes": 4115807,
+          "identified_by": "source_store add: 5 of 6 distinctive title words, 218263 characters; the file's own front matter carries 'Emissions Gap Report 2025: Off target', '© 2025 United Nations Environment Programme' and DOI 10.59117/20.500.11822/48854"
+        },
+        "note": "state recorded by the drafting session: source_store add stored the bytes but did not write the ledger entry (same as WHU-P02)"
+      },
+      "identifier": {
+        "kind": "doi",
+        "value": "10.59117/20.500.11822/48854",
+        "resolved_by": "Crossref, 2026-10-21, Claude Code",
+        "resolved_on": "2026-10-21"
+      }
+    },
+    {
+      "id": "S008",
+      "type": "carrier",
+      "url": "https://www.ipcc.ch/2014/04/13/ipcc-greenhouse-gas-emissions-accelerate-despite-reduction-efforts/",
+      "title": "IPCC newsroom — IPCC: Greenhouse gas emissions accelerate despite reduction efforts (Berlin, 13 April 2014)",
+      "also_called": [],
+      "used_for": "The belief as carried: the 2014 headline that emissions accelerate.",
+      "access": {
+        "state": "full_text_held",
+        "held": {
+          "file": "docs/6c/6c88ab8e1c0abf5ffda912e8dad7a2b18871f6a5ffda7d1cdb52cedeb6682d19.html",
+          "sha256": "6c88ab8e1c0abf5ffda912e8dad7a2b18871f6a5ffda7d1cdb52cedeb6682d19",
+          "bytes": 49043,
+          "identified_by": "contains 10 of 10 distinctive title words"
+        },
+        "on": "2026-10-21"
+      }
+    },
+    {
+      "id": "S009",
+      "type": "carrier",
+      "url": "https://c4scourses.in/national-affairs/unep-emissions-gap-report-2025/",
+      "title": "C4S Courses — UNEP Emissions Gap Report 2025 (6 Nov 2025)",
+      "also_called": [],
+      "used_for": "The belief as carried: 'accelerating global greenhouse gas emissions', 'Acceleration Trend'.",
+      "access": {
+        "state": "full_text_held",
+        "held": {
+          "file": "docs/29/294849d1947b484b29a36f3de16274d9fcbd29fa615e9d742e84bfc76aa92eb9.html",
+          "sha256": "294849d1947b484b29a36f3de16274d9fcbd29fa615e9d742e84bfc76aa92eb9",
+          "bytes": 144170,
+          "identified_by": "contains 4 of 4 distinctive title words"
+        },
+        "on": "2026-10-21"
+      }
+    },
+    {
+      "id": "S010",
+      "type": "coverage",
+      "url": "https://jamaica-gleaner.com/index%2Ephp/article/news/20251204/earth-today-countries-failing",
+      "title": "Jamaica Gleaner — Earth Today: Countries failing (4 Dec 2025)",
+      "also_called": [],
+      "used_for": "Public-record check: general coverage that does carry the 2000s vs 2010s comparison.",
+      "access": {
+        "state": "full_text_held",
+        "held": {
+          "file": "docs/c4/c46605afbcc6c2061404c6c3f25fb1c4388d632733dfa50b3cc471bc35b2209a.html",
+          "sha256": "c46605afbcc6c2061404c6c3f25fb1c4388d632733dfa50b3cc471bc35b2209a",
+          "bytes": 225198,
+          "identified_by": "contains 6 of 6 distinctive title words"
+        },
+        "on": "2026-10-21"
+      }
+    }
+  ]
+}

@@ -3,25 +3,39 @@
   "belief": {
     "_note": "What the reader already believes, stated as they would state it. If you cannot write this sentence, there is nothing to correct and no subject -- which is how the tobacco-analogy candidate died.",
     "statement": "The world's greenhouse gas emissions are not just rising but rising faster and faster: each recent decade has added more, and grown more quickly, than the decades before it.",
-    "how_we_know_they_believe_it": "To be checked from page bytes of general coverage during research; not yet looked at (written before any source was opened).",
+    "how_we_know_they_believe_it": "The IPCC's own 2014 release headlined that emissions 'accelerate', and 2025 coverage of the UNEP Emissions Gap Report described 'accelerating' emissions; checked from page bytes (S008, S009).",
     "carried_by": [
       {
-        "outlet": "",
-        "url": "",
-        "date": "",
-        "what_it_said": ""
+        "outlet": "IPCC newsroom (press release)",
+        "url": "https://www.ipcc.ch/2014/04/13/ipcc-greenhouse-gas-emissions-accelerate-despite-reduction-efforts/",
+        "date": "2014-04-13",
+        "what_it_said": "headline: 'Greenhouse gas emissions accelerate despite reduction efforts'; 'Emissions grew more quickly between 2000 and 2010 than in each of the three previous decades.'"
+      },
+      {
+        "outlet": "C4S Courses (exam-preparation news summary)",
+        "url": "https://c4scourses.in/national-affairs/unep-emissions-gap-report-2025/",
+        "date": "2025-11-06",
+        "what_it_said": "the report 'highlights accelerating global greenhouse gas (GHG) emissions'; 'Acceleration Trend: This growth rate is nearly four times higher than the 2010s' average'"
       }
     ]
   },
   "what_the_sources_show": {
     "_note": "What the primary sources actually support, and which sources.",
-    "statement": "",
-    "sources": [],
+    "statement": "Average annual emissions have been higher every decade and reached a record in 2015–2024; the step from the 2000s to the 2010s was the largest increase in decadal average on record. But the percentage growth rate was highest in the 2000s (2.1–2.4% a year for all GHGs) and fell in the 2010s (1.2–1.3%) and again in 2015–2024 (total CO2 0.3% a year; fossil CO2 0.8%). Before 2000 the rate had fallen from the 1970s to the 1990s. 2024 alone grew 2.3%, comparable to the 2000s average. Land-use CO2 is too uncertain for a significant trend; the 2019 total is ±11% (90% CI).",
+    "sources": [
+      "S001",
+      "S002",
+      "S003",
+      "S004",
+      "S005",
+      "S006",
+      "S007"
+    ],
     "_expected_before_research": "Written before research, as a prediction to be tested, not a finding: total emissions (and annual emissions levels) have kept rising, and the 2000s grew faster than 1970-2000; the 2010s grew more slowly than the 2000s while still reaching the highest levels on record; the answer depends on which decades are compared, which gases and whether land-use emissions are counted, and on uncertainty in the non-CO2 and land-use estimates."
   },
   "direction": {
-    "_note": "CORRECTS, CONFIRMS or NARROWS. This field exists so the contrarianism guard can count. A publication whose answer is always CORRECTS is performing scepticism rather than assessing evidence, and is not to be trusted.",
-    "value": "",
+    "_note": "The belief holds for the 2000s and for absolute amounts (each decade higher, the largest step into the 2010s); it does not hold for growth rates since 2010, which slowed.",
+    "value": "narrows",
     "_values": [
       "corrects",
       "confirms",
@@ -32,24 +46,27 @@
   "reader_with_a_decision": "A voter, teacher or local official who has read that emissions are 'accelerating' and must decide what to say or support -- for example whether climate policy so far has made any difference to the trend -- and who wants to know whether emissions growth has in fact sped up, slowed, or reversed in recent decades, and how sure the measurements are.",
   "public_record_check": {
     "_note": "NOT 'has anybody published this'. On any contested question, somebody has. The question is whether it has been carried WHERE THIS READER WOULD FIND IT. Run the counterexample hunter on the belief statement, not on the finding.",
-    "prior_art_found": [],
-    "carried_in_general_coverage": "",
-    "our_contribution": "translation, extension, or correction of the prior art -- say which"
+    "prior_art_found": [
+      "IPCC AR6 WGIII SPM and Chapter 2 (S001, S002): the slowdown of the growth rate in 2010-2019",
+      "Global Carbon Budget 2025 (S005): slower growth over 2015-2024"
+    ],
+    "carried_in_general_coverage": "Partly. The Jamaica Gleaner (S010) quoted UNEP's comparison of 2024 with both the 2010s and the 2000s, but the two carriers checked present 'accelerating' without saying that the 2010s rate fell; the decade-by-decade slowdown sits in the assessment reports rather than in that coverage.",
+    "our_contribution": "translation"
   },
-  "sources_are_open": "",
-  "evidence_base_is_bounded": "",
+  "sources_are_open": "yes -- all 10 held; one (S007, UNEP) obtained by the operator in a browser",
+  "evidence_base_is_bounded": "yes for this answer -- two IPCC assessments (2014, 2022, with the chapter behind the second), the dataset behind AR6, the Global Carbon Budget 2025, the 2025 climate-indicators update and the UNEP Emissions Gap Report 2025",
   "kill_condition": "There is no 'narrows' story, and the answer is CONFIRMS, if the primary emissions inventories and assessments show that global greenhouse gas emissions grew faster in each recent decade than in the one before, including the 2010s, on the main totals (all gases, with and without land use) and outside their stated uncertainty. The answer is CORRECTS if they show recent decades grew no faster than earlier ones on every comparison. The premise also dies if the reader does not hold the belief (no general coverage states acceleration), or if general coverage already carries the decade-by-decade growth rates and their uncertainty as prominently as the rising totals.",
   "kill_condition_tested": {
     "_note": "Filled in AFTER going to look, by whoever looked.",
-    "by": "",
-    "on": "",
-    "result": "",
+    "by": "Claude Code (session e1161f9e-f686-4e13-83bb-4e0ab8d2dbab)",
+    "on": "2026-10-21",
+    "result": "narrowed",
     "_result_values": [
       "survived",
       "narrowed",
       "killed"
     ],
-    "note": ""
+    "note": "CONFIRMS needed each recent decade, including the 2010s, to grow faster than the one before; S001, S004 and S005 all report a slower rate in the 2010s and S005 slower again over 2015-2024. CORRECTS needed no recent decade to be faster; the 2000s were faster than 1970-2000 (S003, S004). Neither condition met: narrowed."
   },
   "lead_came_from": "Reliability study practice draw WHU-P04 (study/whu-reliability), question as written in issue.json."
 }
