@@ -1,0 +1,2829 @@
+{
+ "frame": "ipcc",
+ "built_at": "2026-10-21T11:25:11+00:00",
+ "script": "study/whu-reliability/scripts/frames.py",
+ "query": {
+  "pages": [
+   "https://www.ipcc.ch/report/ar6/wg1/resources/spm-headline-statements/",
+   "https://www.ipcc.ch/report/ar6/wg2/resources/spm-headline-statements/",
+   "https://www.ipcc.ch/report/ar6/wg3/resources/spm-headline-statements/",
+   "https://www.ipcc.ch/report/ar6/syr/resources/spm-headline-statements/"
+  ],
+  "api": "none: IPCC publishes no API; the official headline-statement pages are fetched"
+ },
+ "tests": {
+  "published_in_window": "AR6 report year, 2021 to 2023",
+  "states_a_certainty_grade": "the headline statement itself carries IPCC calibrated language: a confidence level ('high confidence') or a likelihood term ('very likely'); 'unequivocal' alone does not count",
+  "public_abstract": "IPCC publishes every headline statement in full",
+  "not_a_whu_topic": "the statement matches none of the excluded-topic patterns (EXCLUDED_TOPICS)"
+ },
+ "excluded_topics": {
+  "WHU-001 melanoma (personalised mRNA cancer vaccine)": "\\bmelanoma|\\bm?RNA[- ](?:based )?(?:cancer )?vaccin|personali[sz]ed (?:cancer )?vaccin",
+  "WHU-002 cdk46 (CDK4/6 inhibitors)": "\\bCDK ?4/6|\\bCDK4\\b|palbociclib|ribociclib|abemaciclib|cyclin[- ]dependent kinase 4",
+  "WHU-003 deskilling (AI use and human cognition)": "(?:artificial intelligence|\\bAI\\b|large language model|\\bLLMs?\\b|chatbot|ChatGPT|generative).{0,80}(?:cogniti|critical thinking|deskill|skill|learning|memory|reasoning)|(?:cogniti|critical thinking|deskill)\\w*.{0,80}(?:artificial intelligence|\\bAI\\b|large language model|chatbot)",
+  "T01 exercise and depression": "(?:exercise|physical activity|physical training|yoga|walking).{0,80}depress|depress\\w*.{0,80}(?:exercise|physical activity)",
+  "T02 / WHU-P02 ultra-processed foods": "ultra-?processed|\\bprocessed foods?\\b|\\bNOVA\\b",
+  "T03 intermittent fasting": "intermittent fasting|time-restricted (?:eating|feeding)|alternate[- ]day fasting|\\b5:2\\b|periodic fasting",
+  "T04 vitamin D (over 60)": "vitamin D|cholecalciferol|ergocalciferol|calcifediol|calcitriol"
+ },
+ "candidates": 76,
+ "eligible_count": 64,
+ "test_counts": {
+  "published_in_window": {
+   "pass": 76,
+   "fail": 0,
+   "undetermined": 0
+  },
+  "states_a_certainty_grade": {
+   "pass": 64,
+   "fail": 12,
+   "undetermined": 0
+  },
+  "public_abstract": {
+   "pass": 76,
+   "fail": 0,
+   "undetermined": 0
+  },
+  "not_a_whu_topic": {
+   "pass": 76,
+   "fail": 0,
+   "undetermined": 0
+  }
+ },
+ "eligible": [
+  {
+   "k": 1,
+   "n": 12,
+   "id": "AR6-WGI-C.3",
+   "year": 2021
+  },
+  {
+   "k": 2,
+   "n": 14,
+   "id": "AR6-WGI-D.2",
+   "year": 2021
+  },
+  {
+   "k": 3,
+   "n": 15,
+   "id": "AR6-WGII-B.1",
+   "year": 2022
+  },
+  {
+   "k": 4,
+   "n": 16,
+   "id": "AR6-WGII-B.2",
+   "year": 2022
+  },
+  {
+   "k": 5,
+   "n": 17,
+   "id": "AR6-WGII-B.3",
+   "year": 2022
+  },
+  {
+   "k": 6,
+   "n": 18,
+   "id": "AR6-WGII-B.4",
+   "year": 2022
+  },
+  {
+   "k": 7,
+   "n": 19,
+   "id": "AR6-WGII-B.5",
+   "year": 2022
+  },
+  {
+   "k": 8,
+   "n": 20,
+   "id": "AR6-WGII-B.6",
+   "year": 2022
+  },
+  {
+   "k": 9,
+   "n": 21,
+   "id": "AR6-WGII-C.1",
+   "year": 2022
+  },
+  {
+   "k": 10,
+   "n": 22,
+   "id": "AR6-WGII-C.2",
+   "year": 2022
+  },
+  {
+   "k": 11,
+   "n": 23,
+   "id": "AR6-WGII-C.3",
+   "year": 2022
+  },
+  {
+   "k": 12,
+   "n": 24,
+   "id": "AR6-WGII-C.4",
+   "year": 2022
+  },
+  {
+   "k": 13,
+   "n": 25,
+   "id": "AR6-WGII-C.5",
+   "year": 2022
+  },
+  {
+   "k": 14,
+   "n": 26,
+   "id": "AR6-WGII-D.1",
+   "year": 2022
+  },
+  {
+   "k": 15,
+   "n": 27,
+   "id": "AR6-WGII-D.2",
+   "year": 2022
+  },
+  {
+   "k": 16,
+   "n": 28,
+   "id": "AR6-WGII-D.3",
+   "year": 2022
+  },
+  {
+   "k": 17,
+   "n": 29,
+   "id": "AR6-WGII-D.4",
+   "year": 2022
+  },
+  {
+   "k": 18,
+   "n": 30,
+   "id": "AR6-WGII-D.5",
+   "year": 2022
+  },
+  {
+   "k": 19,
+   "n": 31,
+   "id": "AR6-WGIII-B.1",
+   "year": 2022
+  },
+  {
+   "k": 20,
+   "n": 32,
+   "id": "AR6-WGIII-B.2",
+   "year": 2022
+  },
+  {
+   "k": 21,
+   "n": 33,
+   "id": "AR6-WGIII-B.3",
+   "year": 2022
+  },
+  {
+   "k": 22,
+   "n": 34,
+   "id": "AR6-WGIII-B.4",
+   "year": 2022
+  },
+  {
+   "k": 23,
+   "n": 35,
+   "id": "AR6-WGIII-B.5",
+   "year": 2022
+  },
+  {
+   "k": 24,
+   "n": 36,
+   "id": "AR6-WGIII-B.6",
+   "year": 2022
+  },
+  {
+   "k": 25,
+   "n": 37,
+   "id": "AR6-WGIII-B.7",
+   "year": 2022
+  },
+  {
+   "k": 26,
+   "n": 38,
+   "id": "AR6-WGIII-C.1",
+   "year": 2022
+  },
+  {
+   "k": 27,
+   "n": 39,
+   "id": "AR6-WGIII-C.2",
+   "year": 2022
+  },
+  {
+   "k": 28,
+   "n": 40,
+   "id": "AR6-WGIII-C.3",
+   "year": 2022
+  },
+  {
+   "k": 29,
+   "n": 41,
+   "id": "AR6-WGIII-C.4",
+   "year": 2022
+  },
+  {
+   "k": 30,
+   "n": 42,
+   "id": "AR6-WGIII-C.5",
+   "year": 2022
+  },
+  {
+   "k": 31,
+   "n": 43,
+   "id": "AR6-WGIII-C.6",
+   "year": 2022
+  },
+  {
+   "k": 32,
+   "n": 44,
+   "id": "AR6-WGIII-C.7",
+   "year": 2022
+  },
+  {
+   "k": 33,
+   "n": 45,
+   "id": "AR6-WGIII-C.8",
+   "year": 2022
+  },
+  {
+   "k": 34,
+   "n": 46,
+   "id": "AR6-WGIII-C.9",
+   "year": 2022
+  },
+  {
+   "k": 35,
+   "n": 47,
+   "id": "AR6-WGIII-C.10",
+   "year": 2022
+  },
+  {
+   "k": 36,
+   "n": 48,
+   "id": "AR6-WGIII-C.11",
+   "year": 2022
+  },
+  {
+   "k": 37,
+   "n": 49,
+   "id": "AR6-WGIII-C.12",
+   "year": 2022
+  },
+  {
+   "k": 38,
+   "n": 50,
+   "id": "AR6-WGIII-D.1",
+   "year": 2022
+  },
+  {
+   "k": 39,
+   "n": 51,
+   "id": "AR6-WGIII-D.2",
+   "year": 2022
+  },
+  {
+   "k": 40,
+   "n": 52,
+   "id": "AR6-WGIII-D.3",
+   "year": 2022
+  },
+  {
+   "k": 41,
+   "n": 53,
+   "id": "AR6-WGIII-E.1",
+   "year": 2022
+  },
+  {
+   "k": 42,
+   "n": 54,
+   "id": "AR6-WGIII-E.2",
+   "year": 2022
+  },
+  {
+   "k": 43,
+   "n": 55,
+   "id": "AR6-WGIII-E.3",
+   "year": 2022
+  },
+  {
+   "k": 44,
+   "n": 56,
+   "id": "AR6-WGIII-E.4",
+   "year": 2022
+  },
+  {
+   "k": 45,
+   "n": 57,
+   "id": "AR6-WGIII-E.5",
+   "year": 2022
+  },
+  {
+   "k": 46,
+   "n": 58,
+   "id": "AR6-WGIII-E.6",
+   "year": 2022
+  },
+  {
+   "k": 47,
+   "n": 59,
+   "id": "AR6-SYR-A.1",
+   "year": 2023
+  },
+  {
+   "k": 48,
+   "n": 60,
+   "id": "AR6-SYR-A.2",
+   "year": 2023
+  },
+  {
+   "k": 49,
+   "n": 61,
+   "id": "AR6-SYR-A.3",
+   "year": 2023
+  },
+  {
+   "k": 50,
+   "n": 62,
+   "id": "AR6-SYR-A.4",
+   "year": 2023
+  },
+  {
+   "k": 51,
+   "n": 63,
+   "id": "AR6-SYR-B.1",
+   "year": 2023
+  },
+  {
+   "k": 52,
+   "n": 64,
+   "id": "AR6-SYR-B.2",
+   "year": 2023
+  },
+  {
+   "k": 53,
+   "n": 65,
+   "id": "AR6-SYR-B.3",
+   "year": 2023
+  },
+  {
+   "k": 54,
+   "n": 66,
+   "id": "AR6-SYR-B.4",
+   "year": 2023
+  },
+  {
+   "k": 55,
+   "n": 67,
+   "id": "AR6-SYR-B.5",
+   "year": 2023
+  },
+  {
+   "k": 56,
+   "n": 68,
+   "id": "AR6-SYR-B.6",
+   "year": 2023
+  },
+  {
+   "k": 57,
+   "n": 69,
+   "id": "AR6-SYR-B.7",
+   "year": 2023
+  },
+  {
+   "k": 58,
+   "n": 70,
+   "id": "AR6-SYR-C.1",
+   "year": 2023
+  },
+  {
+   "k": 59,
+   "n": 71,
+   "id": "AR6-SYR-C.2",
+   "year": 2023
+  },
+  {
+   "k": 60,
+   "n": 72,
+   "id": "AR6-SYR-C.3",
+   "year": 2023
+  },
+  {
+   "k": 61,
+   "n": 73,
+   "id": "AR6-SYR-C.4",
+   "year": 2023
+  },
+  {
+   "k": 62,
+   "n": 74,
+   "id": "AR6-SYR-C.5",
+   "year": 2023
+  },
+  {
+   "k": 63,
+   "n": 75,
+   "id": "AR6-SYR-C.6",
+   "year": 2023
+  },
+  {
+   "k": 64,
+   "n": 76,
+   "id": "AR6-SYR-C.7",
+   "year": 2023
+  }
+ ],
+ "queries_logged": [
+  {
+   "url": "https://www.ipcc.ch/report/ar6/wg1/resources/spm-headline-statements/",
+   "at": "2026-10-21T11:25:10+00:00",
+   "status": 200,
+   "bytes": 293940,
+   "sha256": "0a9d5d66164df3c2aa44bd49169089b0e3e564533b20f6af59d9f5170a21be98",
+   "kind": "ipcc"
+  },
+  {
+   "url": "https://www.ipcc.ch/report/ar6/wg2/resources/spm-headline-statements/",
+   "at": "2026-10-21T11:25:10+00:00",
+   "status": 200,
+   "bytes": 309932,
+   "sha256": "287b7885f5d1b31a955c49a78cd3165c191ca2fc67ffda728e4b62e3a2bcac72",
+   "kind": "ipcc"
+  },
+  {
+   "url": "https://www.ipcc.ch/report/ar6/wg3/resources/spm-headline-statements/",
+   "at": "2026-10-21T11:25:11+00:00",
+   "status": 200,
+   "bytes": 318654,
+   "sha256": "a8a77ee1c441786e5aed808c08fef1ab88ffbbd4e8069ca8dde2982736cb408b",
+   "kind": "ipcc"
+  },
+  {
+   "url": "https://www.ipcc.ch/report/ar6/syr/resources/spm-headline-statements/",
+   "at": "2026-10-21T11:25:11+00:00",
+   "status": 200,
+   "bytes": 291591,
+   "sha256": "497e0e672ccf6253fbdb369df54bb78ffc09177fc575de00ab2d8b80f1b7a6de",
+   "kind": "ipcc"
+  }
+ ],
+ "rows": [
+  {
+   "id": "AR6-WGI-A.1",
+   "report": "Climate Change 2021: The Physical Science Basis",
+   "year": 2021,
+   "url": "https://www.ipcc.ch/report/ar6/wg1/resources/spm-headline-statements/",
+   "statement_chars": 176,
+   "statement_sha256": "2e657135eb63407b802f3c2f2380d18e488068208b8484e17fe989e03d13f56e",
+   "first_words": "It is unequivocal that human influence has warmed the atmosphere,",
+   "tests": {
+    "published_in_window": {
+     "pass": true,
+     "why": "AR6 WGI, 2021"
+    },
+    "states_a_certainty_grade": {
+     "pass": false,
+     "why": "no calibrated confidence or likelihood term in the statement"
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the headline statement is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": false,
+   "n": 1
+  },
+  {
+   "id": "AR6-WGI-A.2",
+   "report": "Climate Change 2021: The Physical Science Basis",
+   "year": 2021,
+   "url": "https://www.ipcc.ch/report/ar6/wg1/resources/spm-headline-statements/",
+   "statement_chars": 194,
+   "statement_sha256": "80ea990c4553aa78a4e33df439643460407103b79d62b4301e5cd70d876480cc",
+   "first_words": "The scale of recent changes across the climate system as",
+   "tests": {
+    "published_in_window": {
+     "pass": true,
+     "why": "AR6 WGI, 2021"
+    },
+    "states_a_certainty_grade": {
+     "pass": false,
+     "why": "no calibrated confidence or likelihood term in the statement"
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the headline statement is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": false,
+   "n": 2
+  },
+  {
+   "id": "AR6-WGI-A.3",
+   "report": "Climate Change 2021: The Physical Science Basis",
+   "year": 2021,
+   "url": "https://www.ipcc.ch/report/ar6/wg1/resources/spm-headline-statements/",
+   "statement_chars": 317,
+   "statement_sha256": "3693abad5a9e291f06d323d0f0d9c37a4ad79d01c8f72cc9fbcbe8ec8d10c14c",
+   "first_words": "Human-induced climate change is already affecting many weather and climate",
+   "tests": {
+    "published_in_window": {
+     "pass": true,
+     "why": "AR6 WGI, 2021"
+    },
+    "states_a_certainty_grade": {
+     "pass": false,
+     "why": "no calibrated confidence or likelihood term in the statement"
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the headline statement is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": false,
+   "n": 3
+  },
+  {
+   "id": "AR6-WGI-A.4",
+   "report": "Climate Change 2021: The Physical Science Basis",
+   "year": 2021,
+   "url": "https://www.ipcc.ch/report/ar6/wg1/resources/spm-headline-statements/",
+   "statement_chars": 265,
+   "statement_sha256": "a6f521148359b8252ef91513cc70a9d117b6eca5ae7fabd43044fb74472cffff",
+   "first_words": "Improved knowledge of climate processes, paleoclimate evidence and the response",
+   "tests": {
+    "published_in_window": {
+     "pass": true,
+     "why": "AR6 WGI, 2021"
+    },
+    "states_a_certainty_grade": {
+     "pass": false,
+     "why": "no calibrated confidence or likelihood term in the statement"
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the headline statement is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": false,
+   "n": 4
+  },
+  {
+   "id": "AR6-WGI-B.1",
+   "report": "Climate Change 2021: The Physical Science Basis",
+   "year": 2021,
+   "url": "https://www.ipcc.ch/report/ar6/wg1/resources/spm-headline-statements/",
+   "statement_chars": 307,
+   "statement_sha256": "4e9f98c9e24907a4174498033802700d915eed40b0e719380f63679eddc04beb",
+   "first_words": "Global surface temperature will continue to increase until at least",
+   "tests": {
+    "published_in_window": {
+     "pass": true,
+     "why": "AR6 WGI, 2021"
+    },
+    "states_a_certainty_grade": {
+     "pass": false,
+     "why": "no calibrated confidence or likelihood term in the statement"
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the headline statement is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": false,
+   "n": 5
+  },
+  {
+   "id": "AR6-WGI-B.2",
+   "report": "Climate Change 2021: The Physical Science Basis",
+   "year": 2021,
+   "url": "https://www.ipcc.ch/report/ar6/wg1/resources/spm-headline-statements/",
+   "statement_chars": 388,
+   "statement_sha256": "61b0d6f89289bdf041ac740736c514ba3612228eac49e90562bc4d69eb7fa3c8",
+   "first_words": "Many changes in the climate system become larger in direct",
+   "tests": {
+    "published_in_window": {
+     "pass": true,
+     "why": "AR6 WGI, 2021"
+    },
+    "states_a_certainty_grade": {
+     "pass": false,
+     "why": "no calibrated confidence or likelihood term in the statement"
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the headline statement is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": false,
+   "n": 6
+  },
+  {
+   "id": "AR6-WGI-B.3",
+   "report": "Climate Change 2021: The Physical Science Basis",
+   "year": 2021,
+   "url": "https://www.ipcc.ch/report/ar6/wg1/resources/spm-headline-statements/",
+   "statement_chars": 178,
+   "statement_sha256": "e45818574462c650b11b5308f8793648f2b2cf2c8711954af7eac80de6774c37",
+   "first_words": "Continued global warming is projected to further intensify the global",
+   "tests": {
+    "published_in_window": {
+     "pass": true,
+     "why": "AR6 WGI, 2021"
+    },
+    "states_a_certainty_grade": {
+     "pass": false,
+     "why": "no calibrated confidence or likelihood term in the statement"
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the headline statement is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": false,
+   "n": 7
+  },
+  {
+   "id": "AR6-WGI-B.4",
+   "report": "Climate Change 2021: The Physical Science Basis",
+   "year": 2021,
+   "url": "https://www.ipcc.ch/report/ar6/wg1/resources/spm-headline-statements/",
+   "statement_chars": 169,
+   "statement_sha256": "8558fffc6a15543e34fde42b97e67cd92457f2cb2aa08805c39da52d132f7389",
+   "first_words": "Under scenarios with increasing CO 2 emissions, the ocean and",
+   "tests": {
+    "published_in_window": {
+     "pass": true,
+     "why": "AR6 WGI, 2021"
+    },
+    "states_a_certainty_grade": {
+     "pass": false,
+     "why": "no calibrated confidence or likelihood term in the statement"
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the headline statement is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": false,
+   "n": 8
+  },
+  {
+   "id": "AR6-WGI-B.5",
+   "report": "Climate Change 2021: The Physical Science Basis",
+   "year": 2021,
+   "url": "https://www.ipcc.ch/report/ar6/wg1/resources/spm-headline-statements/",
+   "statement_chars": 238,
+   "statement_sha256": "93bccda29e2b5a1b5db6d8251d3cd9ce123f465c932a81103937ed5a5859d1fa",
+   "first_words": "Many changes due to past and future greenhouse gas emissions",
+   "tests": {
+    "published_in_window": {
+     "pass": true,
+     "why": "AR6 WGI, 2021"
+    },
+    "states_a_certainty_grade": {
+     "pass": false,
+     "why": "no calibrated confidence or likelihood term in the statement"
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the headline statement is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": false,
+   "n": 9
+  },
+  {
+   "id": "AR6-WGI-C.1",
+   "report": "Climate Change 2021: The Physical Science Basis",
+   "year": 2021,
+   "url": "https://www.ipcc.ch/report/ar6/wg1/resources/spm-headline-statements/",
+   "statement_chars": 273,
+   "statement_sha256": "48b105fa23c14f17a2746cb90a6ac37450fb56926fcaa225fb1586834daa8205",
+   "first_words": "Natural drivers and internal variability will modulate human-caused changes, especially",
+   "tests": {
+    "published_in_window": {
+     "pass": true,
+     "why": "AR6 WGI, 2021"
+    },
+    "states_a_certainty_grade": {
+     "pass": false,
+     "why": "no calibrated confidence or likelihood term in the statement"
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the headline statement is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": false,
+   "n": 10
+  },
+  {
+   "id": "AR6-WGI-C.2",
+   "report": "Climate Change 2021: The Physical Science Basis",
+   "year": 2021,
+   "url": "https://www.ipcc.ch/report/ar6/wg1/resources/spm-headline-statements/",
+   "statement_chars": 319,
+   "statement_sha256": "e541cd838bbcf16e50b3559f1afbb25c187c8d5756d5901e5a32e5e1150af97f",
+   "first_words": "With further global warming, every region is projected to increasingly",
+   "tests": {
+    "published_in_window": {
+     "pass": true,
+     "why": "AR6 WGI, 2021"
+    },
+    "states_a_certainty_grade": {
+     "pass": false,
+     "why": "no calibrated confidence or likelihood term in the statement"
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the headline statement is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": false,
+   "n": 11
+  },
+  {
+   "id": "AR6-WGI-C.3",
+   "report": "Climate Change 2021: The Physical Science Basis",
+   "year": 2021,
+   "url": "https://www.ipcc.ch/report/ar6/wg1/resources/spm-headline-statements/",
+   "statement_chars": 291,
+   "statement_sha256": "efa27d329e85dedb0e4595961f8a43541fae2dbfd4de144d1b5850b013df7595",
+   "first_words": "Low-likelihood outcomes, such as ice-sheet collapse, abrupt ocean circulation changes,",
+   "tests": {
+    "published_in_window": {
+     "pass": true,
+     "why": "AR6 WGI, 2021"
+    },
+    "states_a_certainty_grade": {
+     "pass": true,
+     "why": [
+      "very likely"
+     ]
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the headline statement is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": true,
+   "n": 12
+  },
+  {
+   "id": "AR6-WGI-D.1",
+   "report": "Climate Change 2021: The Physical Science Basis",
+   "year": 2021,
+   "url": "https://www.ipcc.ch/report/ar6/wg1/resources/spm-headline-statements/",
+   "statement_chars": 413,
+   "statement_sha256": "2fa8e08d13e31f38a945c6adebd2d6975b3be83617dc241b2c04778548c42e3e",
+   "first_words": "From a physical science perspective, limiting human-induced global warming to",
+   "tests": {
+    "published_in_window": {
+     "pass": true,
+     "why": "AR6 WGI, 2021"
+    },
+    "states_a_certainty_grade": {
+     "pass": false,
+     "why": "no calibrated confidence or likelihood term in the statement"
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the headline statement is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": false,
+   "n": 13
+  },
+  {
+   "id": "AR6-WGI-D.2",
+   "report": "Climate Change 2021: The Physical Science Basis",
+   "year": 2021,
+   "url": "https://www.ipcc.ch/report/ar6/wg1/resources/spm-headline-statements/",
+   "statement_chars": 872,
+   "statement_sha256": "6d05c7d17941c2365f713ea7b8ed91df0b208334fa778c37f11e51886c7d7b34",
+   "first_words": "Scenarios with very low or low greenhouse gas (GHG) emissions",
+   "tests": {
+    "published_in_window": {
+     "pass": true,
+     "why": "AR6 WGI, 2021"
+    },
+    "states_a_certainty_grade": {
+     "pass": true,
+     "why": [
+      "high confidence"
+     ]
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the headline statement is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": true,
+   "n": 14
+  },
+  {
+   "id": "AR6-WGII-B.1",
+   "report": "Climate Change 2022: Impacts, Adaptation and Vulnerability",
+   "year": 2022,
+   "url": "https://www.ipcc.ch/report/ar6/wg2/resources/spm-headline-statements/",
+   "statement_chars": 559,
+   "statement_sha256": "8c7e8e31e7f5be1dcd45b36785d3611c4486bc51fb9102317bb70592e4de7b7e",
+   "first_words": "Human-induced climate change, including more frequent and intense extreme events,",
+   "tests": {
+    "published_in_window": {
+     "pass": true,
+     "why": "AR6 WGII, 2022"
+    },
+    "states_a_certainty_grade": {
+     "pass": true,
+     "why": [
+      "high confidence"
+     ]
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the headline statement is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": true,
+   "n": 15
+  },
+  {
+   "id": "AR6-WGII-B.2",
+   "report": "Climate Change 2022: Impacts, Adaptation and Vulnerability",
+   "year": 2022,
+   "url": "https://www.ipcc.ch/report/ar6/wg2/resources/spm-headline-statements/",
+   "statement_chars": 765,
+   "statement_sha256": "3a5321d8c71dfb3cd600b2464961c041bf539203de7f2697dbb368a7f432f3ca",
+   "first_words": "Vulnerability of ecosystems and people to climate change differs substantially",
+   "tests": {
+    "published_in_window": {
+     "pass": true,
+     "why": "AR6 WGII, 2022"
+    },
+    "states_a_certainty_grade": {
+     "pass": true,
+     "why": [
+      "high confidence",
+      "very high confidence"
+     ]
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the headline statement is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": true,
+   "n": 16
+  },
+  {
+   "id": "AR6-WGII-B.3",
+   "report": "Climate Change 2022: Impacts, Adaptation and Vulnerability",
+   "year": 2022,
+   "url": "https://www.ipcc.ch/report/ar6/wg2/resources/spm-headline-statements/",
+   "statement_chars": 616,
+   "statement_sha256": "73b9d8c65418eaadbd0b46dd596cc03e5d45f04a3078eab77a62a8165b9dd996",
+   "first_words": "Global warming, reaching 1.5°C in the near-term, would cause unavoidable",
+   "tests": {
+    "published_in_window": {
+     "pass": true,
+     "why": "AR6 WGII, 2022"
+    },
+    "states_a_certainty_grade": {
+     "pass": true,
+     "why": [
+      "high confidence",
+      "very high confidence"
+     ]
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the headline statement is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": true,
+   "n": 17
+  },
+  {
+   "id": "AR6-WGII-B.4",
+   "report": "Climate Change 2022: Impacts, Adaptation and Vulnerability",
+   "year": 2022,
+   "url": "https://www.ipcc.ch/report/ar6/wg2/resources/spm-headline-statements/",
+   "statement_chars": 555,
+   "statement_sha256": "82b2f45a2da5444097e39530453d630cdc9f1d52c9de36629354a3b786706c62",
+   "first_words": "Beyond 2040 and depending on the level of global warming,",
+   "tests": {
+    "published_in_window": {
+     "pass": true,
+     "why": "AR6 WGII, 2022"
+    },
+    "states_a_certainty_grade": {
+     "pass": true,
+     "why": [
+      "high confidence",
+      "very high confidence"
+     ]
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the headline statement is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": true,
+   "n": 18
+  },
+  {
+   "id": "AR6-WGII-B.5",
+   "report": "Climate Change 2022: Impacts, Adaptation and Vulnerability",
+   "year": 2022,
+   "url": "https://www.ipcc.ch/report/ar6/wg2/resources/spm-headline-statements/",
+   "statement_chars": 380,
+   "statement_sha256": "43d79e91909383f445730dfdd563fb567e3271a5287ccef07f5f7431f4f8c5af",
+   "first_words": "Climate change impacts and risks are becoming increasingly complex and",
+   "tests": {
+    "published_in_window": {
+     "pass": true,
+     "why": "AR6 WGII, 2022"
+    },
+    "states_a_certainty_grade": {
+     "pass": true,
+     "why": [
+      "high confidence"
+     ]
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the headline statement is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": true,
+   "n": 19
+  },
+  {
+   "id": "AR6-WGII-B.6",
+   "report": "Climate Change 2022: Impacts, Adaptation and Vulnerability",
+   "year": 2022,
+   "url": "https://www.ipcc.ch/report/ar6/wg2/resources/spm-headline-statements/",
+   "statement_chars": 477,
+   "statement_sha256": "8f4f23e8758e60d6393864ec310983d8ea47efd0d1cc9e1dd5695452812ebde5",
+   "first_words": "If global warming transiently exceeds 1.5°C in the coming decades",
+   "tests": {
+    "published_in_window": {
+     "pass": true,
+     "why": "AR6 WGII, 2022"
+    },
+    "states_a_certainty_grade": {
+     "pass": true,
+     "why": [
+      "high confidence",
+      "medium confidence"
+     ]
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the headline statement is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": true,
+   "n": 20
+  },
+  {
+   "id": "AR6-WGII-C.1",
+   "report": "Climate Change 2022: Impacts, Adaptation and Vulnerability",
+   "year": 2022,
+   "url": "https://www.ipcc.ch/report/ar6/wg2/resources/spm-headline-statements/",
+   "statement_chars": 418,
+   "statement_sha256": "9a46ab00edb3ba35093618da09c8f06ff345f8ae47a0b237c0f263c7e0fe8efb",
+   "first_words": "Progress in adaptation planning and implementation has been observed across",
+   "tests": {
+    "published_in_window": {
+     "pass": true,
+     "why": "AR6 WGII, 2022"
+    },
+    "states_a_certainty_grade": {
+     "pass": true,
+     "why": [
+      "high confidence",
+      "very high confidence"
+     ]
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the headline statement is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": true,
+   "n": 21
+  },
+  {
+   "id": "AR6-WGII-C.2",
+   "report": "Climate Change 2022: Impacts, Adaptation and Vulnerability",
+   "year": 2022,
+   "url": "https://www.ipcc.ch/report/ar6/wg2/resources/spm-headline-statements/",
+   "statement_chars": 657,
+   "statement_sha256": "8f31fc2c68859d1d32b531b586b52c47e3c64c4d1535e26ef04bb19fb7a4e092",
+   "first_words": "There are feasible and effective adaptation options which can reduce",
+   "tests": {
+    "published_in_window": {
+     "pass": true,
+     "why": "AR6 WGII, 2022"
+    },
+    "states_a_certainty_grade": {
+     "pass": true,
+     "why": [
+      "high confidence",
+      "very high confidence"
+     ]
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the headline statement is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": true,
+   "n": 22
+  },
+  {
+   "id": "AR6-WGII-C.3",
+   "report": "Climate Change 2022: Impacts, Adaptation and Vulnerability",
+   "year": 2022,
+   "url": "https://www.ipcc.ch/report/ar6/wg2/resources/spm-headline-statements/",
+   "statement_chars": 444,
+   "statement_sha256": "13344198c0f7805e091476b58ea380e969c9a8e54277001f0bbb42db60755b04",
+   "first_words": "Soft limits to some human adaptation have been reached, but",
+   "tests": {
+    "published_in_window": {
+     "pass": true,
+     "why": "AR6 WGII, 2022"
+    },
+    "states_a_certainty_grade": {
+     "pass": true,
+     "why": [
+      "high confidence"
+     ]
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the headline statement is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": true,
+   "n": 23
+  },
+  {
+   "id": "AR6-WGII-C.4",
+   "report": "Climate Change 2022: Impacts, Adaptation and Vulnerability",
+   "year": 2022,
+   "url": "https://www.ipcc.ch/report/ar6/wg2/resources/spm-headline-statements/",
+   "statement_chars": 464,
+   "statement_sha256": "ddaa66f27277d6fb98ac5acd46c53973d9b4682d71b64d25b31cc090390c1fee",
+   "first_words": "There is increased evidence of maladaptation across many sectors and",
+   "tests": {
+    "published_in_window": {
+     "pass": true,
+     "why": "AR6 WGII, 2022"
+    },
+    "states_a_certainty_grade": {
+     "pass": true,
+     "why": [
+      "high confidence"
+     ]
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the headline statement is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": true,
+   "n": 24
+  },
+  {
+   "id": "AR6-WGII-C.5",
+   "report": "Climate Change 2022: Impacts, Adaptation and Vulnerability",
+   "year": 2022,
+   "url": "https://www.ipcc.ch/report/ar6/wg2/resources/spm-headline-statements/",
+   "statement_chars": 477,
+   "statement_sha256": "703b973f85f9682cfd3300e6a594aa8c5a5eb5ec3a9849471a0c5ee30c63f631",
+   "first_words": "Enabling conditions are key for implementing, accelerating and sustaining adaptation",
+   "tests": {
+    "published_in_window": {
+     "pass": true,
+     "why": "AR6 WGII, 2022"
+    },
+    "states_a_certainty_grade": {
+     "pass": true,
+     "why": [
+      "high confidence"
+     ]
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the headline statement is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": true,
+   "n": 25
+  },
+  {
+   "id": "AR6-WGII-D.1",
+   "report": "Climate Change 2022: Impacts, Adaptation and Vulnerability",
+   "year": 2022,
+   "url": "https://www.ipcc.ch/report/ar6/wg2/resources/spm-headline-statements/",
+   "statement_chars": 407,
+   "statement_sha256": "12e381a3b3eba861df3de582b598eec7ebabdd31b842fbed8ba281704f2c240c",
+   "first_words": "Evidence of observed impacts, projected risks, levels and trends in",
+   "tests": {
+    "published_in_window": {
+     "pass": true,
+     "why": "AR6 WGII, 2022"
+    },
+    "states_a_certainty_grade": {
+     "pass": true,
+     "why": [
+      "very high confidence"
+     ]
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the headline statement is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": true,
+   "n": 26
+  },
+  {
+   "id": "AR6-WGII-D.2",
+   "report": "Climate Change 2022: Impacts, Adaptation and Vulnerability",
+   "year": 2022,
+   "url": "https://www.ipcc.ch/report/ar6/wg2/resources/spm-headline-statements/",
+   "statement_chars": 960,
+   "statement_sha256": "99534e393c553d3e95946bfcbb58b50f5afe19dbdde3e3b084fa200fe5579357",
+   "first_words": "Climate resilient development is enabled when governments, civil society and",
+   "tests": {
+    "published_in_window": {
+     "pass": true,
+     "why": "AR6 WGII, 2022"
+    },
+    "states_a_certainty_grade": {
+     "pass": true,
+     "why": [
+      "high confidence",
+      "very high confidence"
+     ]
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the headline statement is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": true,
+   "n": 27
+  },
+  {
+   "id": "AR6-WGII-D.3",
+   "report": "Climate Change 2022: Impacts, Adaptation and Vulnerability",
+   "year": 2022,
+   "url": "https://www.ipcc.ch/report/ar6/wg2/resources/spm-headline-statements/",
+   "statement_chars": 1085,
+   "statement_sha256": "616a9bd2c5192d7521d3fc9ab95e87b08957c71119a3c4eaf4fb8e956ad3f432",
+   "first_words": "Interactions between changing urban form, exposure and vulnerability can create",
+   "tests": {
+    "published_in_window": {
+     "pass": true,
+     "why": "AR6 WGII, 2022"
+    },
+    "states_a_certainty_grade": {
+     "pass": true,
+     "why": [
+      "high confidence",
+      "medium confidence"
+     ]
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the headline statement is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": true,
+   "n": 28
+  },
+  {
+   "id": "AR6-WGII-D.4",
+   "report": "Climate Change 2022: Impacts, Adaptation and Vulnerability",
+   "year": 2022,
+   "url": "https://www.ipcc.ch/report/ar6/wg2/resources/spm-headline-statements/",
+   "statement_chars": 554,
+   "statement_sha256": "4d91768f9dde6e030ead6a352ecf8b6c9cdd98bf4c115d61fc8da7e4102d7a9a",
+   "first_words": "Safeguarding biodiversity and ecosystems is fundamental to climate resilient development,",
+   "tests": {
+    "published_in_window": {
+     "pass": true,
+     "why": "AR6 WGII, 2022"
+    },
+    "states_a_certainty_grade": {
+     "pass": true,
+     "why": [
+      "high confidence",
+      "very high confidence"
+     ]
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the headline statement is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": true,
+   "n": 29
+  },
+  {
+   "id": "AR6-WGII-D.5",
+   "report": "Climate Change 2022: Impacts, Adaptation and Vulnerability",
+   "year": 2022,
+   "url": "https://www.ipcc.ch/report/ar6/wg2/resources/spm-headline-statements/",
+   "statement_chars": 1258,
+   "statement_sha256": "c3001cd02e9208d39069245618371fde85a35fe6739856beaadfbb839c029756",
+   "first_words": "It is unequivocal that climate change has already disrupted human",
+   "tests": {
+    "published_in_window": {
+     "pass": true,
+     "why": "AR6 WGII, 2022"
+    },
+    "states_a_certainty_grade": {
+     "pass": true,
+     "why": [
+      "high confidence",
+      "very high confidence"
+     ]
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the headline statement is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": true,
+   "n": 30
+  },
+  {
+   "id": "AR6-WGIII-B.1",
+   "report": "Climate Change 2022: Mitigation of Climate Change",
+   "year": 2022,
+   "url": "https://www.ipcc.ch/report/ar6/wg3/resources/spm-headline-statements/",
+   "statement_chars": 1363,
+   "statement_sha256": "65ebf1c6a8280972ffd5a33fc766aa20521cf6bae02d427af23fa97040172055",
+   "first_words": "Total net anthropogenic GHG emissions 6 have continued to rise",
+   "tests": {
+    "published_in_window": {
+     "pass": true,
+     "why": "AR6 WGIII, 2022"
+    },
+    "states_a_certainty_grade": {
+     "pass": true,
+     "why": [
+      "high confidence"
+     ]
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the headline statement is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": true,
+   "n": 31
+  },
+  {
+   "id": "AR6-WGIII-B.2",
+   "report": "Climate Change 2022: Mitigation of Climate Change",
+   "year": 2022,
+   "url": "https://www.ipcc.ch/report/ar6/wg3/resources/spm-headline-statements/",
+   "statement_chars": 471,
+   "statement_sha256": "81e71ce80e86189ffc7e1881a3e5e591baad8d57b9cf8d62158919cc1030c937",
+   "first_words": "Net anthropogenic GHG emissions have increased since 2010 across all",
+   "tests": {
+    "published_in_window": {
+     "pass": true,
+     "why": "AR6 WGIII, 2022"
+    },
+    "states_a_certainty_grade": {
+     "pass": true,
+     "why": [
+      "high confidence"
+     ]
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the headline statement is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": true,
+   "n": 32
+  },
+  {
+   "id": "AR6-WGIII-B.3",
+   "report": "Climate Change 2022: Mitigation of Climate Change",
+   "year": 2022,
+   "url": "https://www.ipcc.ch/report/ar6/wg3/resources/spm-headline-statements/",
+   "statement_chars": 576,
+   "statement_sha256": "8a571d18678d8ef509ddee6ec2306a4fcd4928c5bd3f87203dec56da66c7cec7",
+   "first_words": "Regional contributions 17 to global GHG emissions continue to differ",
+   "tests": {
+    "published_in_window": {
+     "pass": true,
+     "why": "AR6 WGIII, 2022"
+    },
+    "states_a_certainty_grade": {
+     "pass": true,
+     "why": [
+      "high confidence"
+     ]
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the headline statement is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": true,
+   "n": 33
+  },
+  {
+   "id": "AR6-WGIII-B.4",
+   "report": "Climate Change 2022: Mitigation of Climate Change",
+   "year": 2022,
+   "url": "https://www.ipcc.ch/report/ar6/wg3/resources/spm-headline-statements/",
+   "statement_chars": 623,
+   "statement_sha256": "e1e82d9e29f2b9173d1ddb81091a7693829de98b06cf266f68fd5b3bfac622da",
+   "first_words": "The unit costs of several low-emission technologies have fallen continuously",
+   "tests": {
+    "published_in_window": {
+     "pass": true,
+     "why": "AR6 WGIII, 2022"
+    },
+    "states_a_certainty_grade": {
+     "pass": true,
+     "why": [
+      "high confidence"
+     ]
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the headline statement is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": true,
+   "n": 34
+  },
+  {
+   "id": "AR6-WGIII-B.5",
+   "report": "Climate Change 2022: Mitigation of Climate Change",
+   "year": 2022,
+   "url": "https://www.ipcc.ch/report/ar6/wg3/resources/spm-headline-statements/",
+   "statement_chars": 499,
+   "statement_sha256": "59fd1fc3410154bd691e6d6a185aa6033f5405820642d4cac761127bca1cc8e8",
+   "first_words": "There has been a consistent expansion of policies and laws",
+   "tests": {
+    "published_in_window": {
+     "pass": true,
+     "why": "AR6 WGIII, 2022"
+    },
+    "states_a_certainty_grade": {
+     "pass": true,
+     "why": [
+      "high confidence"
+     ]
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the headline statement is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": true,
+   "n": 35
+  },
+  {
+   "id": "AR6-WGIII-B.6",
+   "report": "Climate Change 2022: Mitigation of Climate Change",
+   "year": 2022,
+   "url": "https://www.ipcc.ch/report/ar6/wg3/resources/spm-headline-statements/",
+   "statement_chars": 1476,
+   "statement_sha256": "392f3abd98f98997c1f2c198525cac33a2ba955cf638586d88debe79e4c45127",
+   "first_words": "Global GHG emissions in 2030 associated with the implementation of",
+   "tests": {
+    "published_in_window": {
+     "pass": true,
+     "why": "AR6 WGIII, 2022"
+    },
+    "states_a_certainty_grade": {
+     "pass": true,
+     "why": [
+      "high confidence",
+      "likely"
+     ]
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the headline statement is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": true,
+   "n": 36
+  },
+  {
+   "id": "AR6-WGIII-B.7",
+   "report": "Climate Change 2022: Mitigation of Climate Change",
+   "year": 2022,
+   "url": "https://www.ipcc.ch/report/ar6/wg3/resources/spm-headline-statements/",
+   "statement_chars": 455,
+   "statement_sha256": "75f67be820d1cfb9c24891f5747b1c186518401de044d27d8c48027928b6ac8b",
+   "first_words": "Projected cumulative future CO2 emissions over the lifetime of existing",
+   "tests": {
+    "published_in_window": {
+     "pass": true,
+     "why": "AR6 WGIII, 2022"
+    },
+    "states_a_certainty_grade": {
+     "pass": true,
+     "why": [
+      "high confidence"
+     ]
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the headline statement is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": true,
+   "n": 37
+  },
+  {
+   "id": "AR6-WGIII-C.1",
+   "report": "Climate Change 2022: Mitigation of Climate Change",
+   "year": 2022,
+   "url": "https://www.ipcc.ch/report/ar6/wg3/resources/spm-headline-statements/",
+   "statement_chars": 1301,
+   "statement_sha256": "38bd25e3e2c3e262ff4b4b88784e1a199a8f3fd359e091b561b19eb9b77f51dd",
+   "first_words": "Global GHG emissions are projected to peak between 2020 and",
+   "tests": {
+    "published_in_window": {
+     "pass": true,
+     "why": "AR6 WGIII, 2022"
+    },
+    "states_a_certainty_grade": {
+     "pass": true,
+     "why": [
+      "high confidence",
+      "medium confidence"
+     ]
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the headline statement is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": true,
+   "n": 38
+  },
+  {
+   "id": "AR6-WGIII-C.2",
+   "report": "Climate Change 2022: Mitigation of Climate Change",
+   "year": 2022,
+   "url": "https://www.ipcc.ch/report/ar6/wg3/resources/spm-headline-statements/",
+   "statement_chars": 940,
+   "statement_sha256": "24b642487ee03640b862c86f71fb350eb635369279b1f34e77c0cfef44263246",
+   "first_words": "Global net zero CO2 emissions are reached in the early",
+   "tests": {
+    "published_in_window": {
+     "pass": true,
+     "why": "AR6 WGIII, 2022"
+    },
+    "states_a_certainty_grade": {
+     "pass": true,
+     "why": [
+      "high confidence"
+     ]
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the headline statement is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": true,
+   "n": 39
+  },
+  {
+   "id": "AR6-WGIII-C.3",
+   "report": "Climate Change 2022: Mitigation of Climate Change",
+   "year": 2022,
+   "url": "https://www.ipcc.ch/report/ar6/wg3/resources/spm-headline-statements/",
+   "statement_chars": 756,
+   "statement_sha256": "05cd35e2ce4b2c2232b519319f116bc5c34971d0fb95b924f21e0af409d7df1f",
+   "first_words": "All global modelled pathways that limit warming to 1.5°C (>50%)",
+   "tests": {
+    "published_in_window": {
+     "pass": true,
+     "why": "AR6 WGIII, 2022"
+    },
+    "states_a_certainty_grade": {
+     "pass": true,
+     "why": [
+      "high confidence"
+     ]
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the headline statement is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": true,
+   "n": 40
+  },
+  {
+   "id": "AR6-WGIII-C.4",
+   "report": "Climate Change 2022: Mitigation of Climate Change",
+   "year": 2022,
+   "url": "https://www.ipcc.ch/report/ar6/wg3/resources/spm-headline-statements/",
+   "statement_chars": 700,
+   "statement_sha256": "9e7efd9877b70ecc081bdcd2bcb234c46d1f49ed496aabd1181053e2e36c5cc2",
+   "first_words": "Reducing GHG emissions across the full energy sector requires major",
+   "tests": {
+    "published_in_window": {
+     "pass": true,
+     "why": "AR6 WGIII, 2022"
+    },
+    "states_a_certainty_grade": {
+     "pass": true,
+     "why": [
+      "high confidence"
+     ]
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the headline statement is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": true,
+   "n": 41
+  },
+  {
+   "id": "AR6-WGIII-C.5",
+   "report": "Climate Change 2022: Mitigation of Climate Change",
+   "year": 2022,
+   "url": "https://www.ipcc.ch/report/ar6/wg3/resources/spm-headline-statements/",
+   "statement_chars": 585,
+   "statement_sha256": "0e77e845870d0e8025b3b6699915c63dd11b2397bff13f942161c2c2679fa1e9",
+   "first_words": "Net-zero CO2 emissions from the industrial sector are challenging but",
+   "tests": {
+    "published_in_window": {
+     "pass": true,
+     "why": "AR6 WGIII, 2022"
+    },
+    "states_a_certainty_grade": {
+     "pass": true,
+     "why": [
+      "high confidence"
+     ]
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the headline statement is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": true,
+   "n": 42
+  },
+  {
+   "id": "AR6-WGIII-C.6",
+   "report": "Climate Change 2022: Mitigation of Climate Change",
+   "year": 2022,
+   "url": "https://www.ipcc.ch/report/ar6/wg3/resources/spm-headline-statements/",
+   "statement_chars": 727,
+   "statement_sha256": "91614db6a94030a35c31b452e11ea1fc72482dfcb9fdfe9a2f8a3a7a25d6bb60",
+   "first_words": "Urban areas can create opportunities to increase resource efficiency and",
+   "tests": {
+    "published_in_window": {
+     "pass": true,
+     "why": "AR6 WGIII, 2022"
+    },
+    "states_a_certainty_grade": {
+     "pass": true,
+     "why": [
+      "very high confidence"
+     ]
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the headline statement is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": true,
+   "n": 43
+  },
+  {
+   "id": "AR6-WGIII-C.7",
+   "report": "Climate Change 2022: Mitigation of Climate Change",
+   "year": 2022,
+   "url": "https://www.ipcc.ch/report/ar6/wg3/resources/spm-headline-statements/",
+   "statement_chars": 678,
+   "statement_sha256": "ee9e98a5861121a7d9755f3299a71f243b0a2d56e58aa144cd7ccffd542b1f9e",
+   "first_words": "In modelled global scenarios, existing buildings, if retrofitted, and buildings",
+   "tests": {
+    "published_in_window": {
+     "pass": true,
+     "why": "AR6 WGIII, 2022"
+    },
+    "states_a_certainty_grade": {
+     "pass": true,
+     "why": [
+      "high confidence"
+     ]
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the headline statement is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": true,
+   "n": 44
+  },
+  {
+   "id": "AR6-WGIII-C.8",
+   "report": "Climate Change 2022: Mitigation of Climate Change",
+   "year": 2022,
+   "url": "https://www.ipcc.ch/report/ar6/wg3/resources/spm-headline-statements/",
+   "statement_chars": 1175,
+   "statement_sha256": "9e99ff2f1bb3364413fa80a2a7791269acbc01b797c3517eea3aa80a8c8dc05a",
+   "first_words": "Demand-side options and low-GHG emissions technologies can reduce transport sector",
+   "tests": {
+    "published_in_window": {
+     "pass": true,
+     "why": "AR6 WGIII, 2022"
+    },
+    "states_a_certainty_grade": {
+     "pass": true,
+     "why": [
+      "high confidence",
+      "medium confidence"
+     ]
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the headline statement is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": true,
+   "n": 45
+  },
+  {
+   "id": "AR6-WGIII-C.9",
+   "report": "Climate Change 2022: Mitigation of Climate Change",
+   "year": 2022,
+   "url": "https://www.ipcc.ch/report/ar6/wg3/resources/spm-headline-statements/",
+   "statement_chars": 798,
+   "statement_sha256": "ddd3bc6d1ccde9dacac77b986eda51e97f84796aea522008d0cb575bcc68818b",
+   "first_words": "AFOLU mitigation options, when sustainably implemented, can deliver large-scale GHG",
+   "tests": {
+    "published_in_window": {
+     "pass": true,
+     "why": "AR6 WGIII, 2022"
+    },
+    "states_a_certainty_grade": {
+     "pass": true,
+     "why": [
+      "high confidence"
+     ]
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the headline statement is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": true,
+   "n": 46
+  },
+  {
+   "id": "AR6-WGIII-C.10",
+   "report": "Climate Change 2022: Mitigation of Climate Change",
+   "year": 2022,
+   "url": "https://www.ipcc.ch/report/ar6/wg3/resources/spm-headline-statements/",
+   "statement_chars": 501,
+   "statement_sha256": "5ef012963f06b0f65c65529836f8a242b39c589594ac278136ed41ae5c730bcd",
+   "first_words": "Demand-side mitigation encompasses changes in infrastructure use, end-use technology adoption,",
+   "tests": {
+    "published_in_window": {
+     "pass": true,
+     "why": "AR6 WGIII, 2022"
+    },
+    "states_a_certainty_grade": {
+     "pass": true,
+     "why": [
+      "high confidence"
+     ]
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the headline statement is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": true,
+   "n": 47
+  },
+  {
+   "id": "AR6-WGIII-C.11",
+   "report": "Climate Change 2022: Mitigation of Climate Change",
+   "year": 2022,
+   "url": "https://www.ipcc.ch/report/ar6/wg3/resources/spm-headline-statements/",
+   "statement_chars": 435,
+   "statement_sha256": "e79a3079d7f58e6fc8c996e4ca0f06cfa313b2898e765b9b1a2dd8d75bcc51ba",
+   "first_words": "The deployment of CDR to counterbalance hard-to-abate residual emissions is",
+   "tests": {
+    "published_in_window": {
+     "pass": true,
+     "why": "AR6 WGIII, 2022"
+    },
+    "states_a_certainty_grade": {
+     "pass": true,
+     "why": [
+      "high confidence"
+     ]
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the headline statement is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": true,
+   "n": 48
+  },
+  {
+   "id": "AR6-WGIII-C.12",
+   "report": "Climate Change 2022: Mitigation of Climate Change",
+   "year": 2022,
+   "url": "https://www.ipcc.ch/report/ar6/wg3/resources/spm-headline-statements/",
+   "statement_chars": 752,
+   "statement_sha256": "0ad9a53110386484aefb9d70ac8117228794bdf39d3d54cc0a144c8d4322a49b",
+   "first_words": "Mitigation options costing USD100 tCO2-eq-1 or less could reduce global",
+   "tests": {
+    "published_in_window": {
+     "pass": true,
+     "why": "AR6 WGIII, 2022"
+    },
+    "states_a_certainty_grade": {
+     "pass": true,
+     "why": [
+      "high confidence",
+      "medium confidence"
+     ]
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the headline statement is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": true,
+   "n": 49
+  },
+  {
+   "id": "AR6-WGIII-D.1",
+   "report": "Climate Change 2022: Mitigation of Climate Change",
+   "year": 2022,
+   "url": "https://www.ipcc.ch/report/ar6/wg3/resources/spm-headline-statements/",
+   "statement_chars": 489,
+   "statement_sha256": "a457318069a65444264f56f91545fee53183b7cc55184c26a25df77d0d461003",
+   "first_words": "Accelerated and equitable climate action in mitigating, and adapting to,",
+   "tests": {
+    "published_in_window": {
+     "pass": true,
+     "why": "AR6 WGIII, 2022"
+    },
+    "states_a_certainty_grade": {
+     "pass": true,
+     "why": [
+      "high confidence"
+     ]
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the headline statement is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": true,
+   "n": 50
+  },
+  {
+   "id": "AR6-WGIII-D.2",
+   "report": "Climate Change 2022: Mitigation of Climate Change",
+   "year": 2022,
+   "url": "https://www.ipcc.ch/report/ar6/wg3/resources/spm-headline-statements/",
+   "statement_chars": 723,
+   "statement_sha256": "a5e785262edcff23607345fd3ca5c9540972e4467a974ac888faceb5de6c04f9",
+   "first_words": "There is a strong link between sustainable development, vulnerability and",
+   "tests": {
+    "published_in_window": {
+     "pass": true,
+     "why": "AR6 WGIII, 2022"
+    },
+    "states_a_certainty_grade": {
+     "pass": true,
+     "why": [
+      "high confidence",
+      "medium confidence"
+     ]
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the headline statement is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": true,
+   "n": 51
+  },
+  {
+   "id": "AR6-WGIII-D.3",
+   "report": "Climate Change 2022: Mitigation of Climate Change",
+   "year": 2022,
+   "url": "https://www.ipcc.ch/report/ar6/wg3/resources/spm-headline-statements/",
+   "statement_chars": 405,
+   "statement_sha256": "7578bf3c63c6cafa80e49d10fec98feff21a79a110c1412b1e52b2ddd11c9ec7",
+   "first_words": "Enhanced mitigation and broader action to shift development pathways towards",
+   "tests": {
+    "published_in_window": {
+     "pass": true,
+     "why": "AR6 WGIII, 2022"
+    },
+    "states_a_certainty_grade": {
+     "pass": true,
+     "why": [
+      "high confidence"
+     ]
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the headline statement is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": true,
+   "n": 52
+  },
+  {
+   "id": "AR6-WGIII-E.1",
+   "report": "Climate Change 2022: Mitigation of Climate Change",
+   "year": 2022,
+   "url": "https://www.ipcc.ch/report/ar6/wg3/resources/spm-headline-statements/",
+   "statement_chars": 1632,
+   "statement_sha256": "20e70c29b5cc3ae5c4be9feb8fadad5dee278bd8d836542a86ae8709a8d09e45",
+   "first_words": "There are mitigation options which are feasible 72 to deploy",
+   "tests": {
+    "published_in_window": {
+     "pass": true,
+     "why": "AR6 WGIII, 2022"
+    },
+    "states_a_certainty_grade": {
+     "pass": true,
+     "why": [
+      "high confidence"
+     ]
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the headline statement is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": true,
+   "n": 53
+  },
+  {
+   "id": "AR6-WGIII-E.2",
+   "report": "Climate Change 2022: Mitigation of Climate Change",
+   "year": 2022,
+   "url": "https://www.ipcc.ch/report/ar6/wg3/resources/spm-headline-statements/",
+   "statement_chars": 519,
+   "statement_sha256": "5242c9bd76b39d71621fa753ae033c4776f3ea1a60e6cc485095efd4d783782c",
+   "first_words": "In all countries, mitigation efforts embedded within the wider development",
+   "tests": {
+    "published_in_window": {
+     "pass": true,
+     "why": "AR6 WGIII, 2022"
+    },
+    "states_a_certainty_grade": {
+     "pass": true,
+     "why": [
+      "high confidence",
+      "medium confidence"
+     ]
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the headline statement is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": true,
+   "n": 54
+  },
+  {
+   "id": "AR6-WGIII-E.3",
+   "report": "Climate Change 2022: Mitigation of Climate Change",
+   "year": 2022,
+   "url": "https://www.ipcc.ch/report/ar6/wg3/resources/spm-headline-statements/",
+   "statement_chars": 687,
+   "statement_sha256": "5a8686db8311f868a7f15a8815d8c5e40e3746c46a34dc1f3248c7280e223824",
+   "first_words": "Climate governance, acting through laws, strategies and institutions, based on",
+   "tests": {
+    "published_in_window": {
+     "pass": true,
+     "why": "AR6 WGIII, 2022"
+    },
+    "states_a_certainty_grade": {
+     "pass": true,
+     "why": [
+      "high confidence",
+      "medium confidence"
+     ]
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the headline statement is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": true,
+   "n": 55
+  },
+  {
+   "id": "AR6-WGIII-E.4",
+   "report": "Climate Change 2022: Mitigation of Climate Change",
+   "year": 2022,
+   "url": "https://www.ipcc.ch/report/ar6/wg3/resources/spm-headline-statements/",
+   "statement_chars": 671,
+   "statement_sha256": "f9d2940f31e7e164b83642c597897d6554505ea5e9cceec06f0a06bd338f7d95",
+   "first_words": "Many regulatory and economic instruments have already been deployed successfully.",
+   "tests": {
+    "published_in_window": {
+     "pass": true,
+     "why": "AR6 WGIII, 2022"
+    },
+    "states_a_certainty_grade": {
+     "pass": true,
+     "why": [
+      "high confidence",
+      "medium confidence"
+     ]
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the headline statement is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": true,
+   "n": 56
+  },
+  {
+   "id": "AR6-WGIII-E.5",
+   "report": "Climate Change 2022: Mitigation of Climate Change",
+   "year": 2022,
+   "url": "https://www.ipcc.ch/report/ar6/wg3/resources/spm-headline-statements/",
+   "statement_chars": 595,
+   "statement_sha256": "62e56968cce6dbb6561b5fa7dd2f73407a45238ee95551eb168df6bc0bc9555c",
+   "first_words": "Tracked financial flows fall short of the levels needed to",
+   "tests": {
+    "published_in_window": {
+     "pass": true,
+     "why": "AR6 WGIII, 2022"
+    },
+    "states_a_certainty_grade": {
+     "pass": true,
+     "why": [
+      "high confidence"
+     ]
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the headline statement is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": true,
+   "n": 57
+  },
+  {
+   "id": "AR6-WGIII-E.6",
+   "report": "Climate Change 2022: Mitigation of Climate Change",
+   "year": 2022,
+   "url": "https://www.ipcc.ch/report/ar6/wg3/resources/spm-headline-statements/",
+   "statement_chars": 788,
+   "statement_sha256": "4efba8388d221543464c6261b3b4221206261b5c94fcb3f4614fd67453820c6e",
+   "first_words": "International cooperation is a critical enabler for achieving ambitious climate",
+   "tests": {
+    "published_in_window": {
+     "pass": true,
+     "why": "AR6 WGIII, 2022"
+    },
+    "states_a_certainty_grade": {
+     "pass": true,
+     "why": [
+      "high confidence"
+     ]
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the headline statement is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": true,
+   "n": 58
+  },
+  {
+   "id": "AR6-SYR-A.1",
+   "report": "Climate Change 2023: Synthesis Report",
+   "year": 2023,
+   "url": "https://www.ipcc.ch/report/ar6/syr/resources/spm-headline-statements/",
+   "statement_chars": 509,
+   "statement_sha256": "9fea2d6b5ce6355c9f1e80f1431c7151d73551a528d4b23f9b904b1d5f93145a",
+   "first_words": "Human activities, principally through emissions of greenhouse gases, have unequivocally",
+   "tests": {
+    "published_in_window": {
+     "pass": true,
+     "why": "AR6 SYR, 2023"
+    },
+    "states_a_certainty_grade": {
+     "pass": true,
+     "why": [
+      "high confidence"
+     ]
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the headline statement is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": true,
+   "n": 59
+  },
+  {
+   "id": "AR6-SYR-A.2",
+   "report": "Climate Change 2023: Synthesis Report",
+   "year": 2023,
+   "url": "https://www.ipcc.ch/report/ar6/syr/resources/spm-headline-statements/",
+   "statement_chars": 582,
+   "statement_sha256": "a84c3616fda28f0f903019d249ca228fa32acae5668988659035c0783142d299",
+   "first_words": "Widespread and rapid changes in the atmosphere, ocean, cryosphere and",
+   "tests": {
+    "published_in_window": {
+     "pass": true,
+     "why": "AR6 SYR, 2023"
+    },
+    "states_a_certainty_grade": {
+     "pass": true,
+     "why": [
+      "high confidence"
+     ]
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the headline statement is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": true,
+   "n": 60
+  },
+  {
+   "id": "AR6-SYR-A.3",
+   "report": "Climate Change 2023: Synthesis Report",
+   "year": 2023,
+   "url": "https://www.ipcc.ch/report/ar6/syr/resources/spm-headline-statements/",
+   "statement_chars": 558,
+   "statement_sha256": "11e23dfb1bb1815bf9b5ae329dc4d6b5451151a1943b0b516edc3d69d9d1bf43",
+   "first_words": "Adaptation planning and implementation has progressed across all sectors and",
+   "tests": {
+    "published_in_window": {
+     "pass": true,
+     "why": "AR6 SYR, 2023"
+    },
+    "states_a_certainty_grade": {
+     "pass": true,
+     "why": [
+      "high confidence"
+     ]
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the headline statement is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": true,
+   "n": 61
+  },
+  {
+   "id": "AR6-SYR-A.4",
+   "report": "Climate Change 2023: Synthesis Report",
+   "year": 2023,
+   "url": "https://www.ipcc.ch/report/ar6/syr/resources/spm-headline-statements/",
+   "statement_chars": 630,
+   "statement_sha256": "6cc71099e93314f9b9483a2d406b9e520f3c12128b2c1243576df37e168dc7fb",
+   "first_words": "Policies and laws addressing mitigation have consistently expanded since AR5.",
+   "tests": {
+    "published_in_window": {
+     "pass": true,
+     "why": "AR6 SYR, 2023"
+    },
+    "states_a_certainty_grade": {
+     "pass": true,
+     "why": [
+      "high confidence",
+      "likely"
+     ]
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the headline statement is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": true,
+   "n": 62
+  },
+  {
+   "id": "AR6-SYR-B.1",
+   "report": "Climate Change 2023: Synthesis Report",
+   "year": 2023,
+   "url": "https://www.ipcc.ch/report/ar6/syr/resources/spm-headline-statements/",
+   "statement_chars": 673,
+   "statement_sha256": "3a3586d63a777b75ceb66f73f0cb579abfeb12221a293369a3583233d08b15c0",
+   "first_words": "Continued greenhouse gas emissions will lead to increasing global warming,",
+   "tests": {
+    "published_in_window": {
+     "pass": true,
+     "why": "AR6 SYR, 2023"
+    },
+    "states_a_certainty_grade": {
+     "pass": true,
+     "why": [
+      "high confidence"
+     ]
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the headline statement is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": true,
+   "n": 63
+  },
+  {
+   "id": "AR6-SYR-B.2",
+   "report": "Climate Change 2023: Synthesis Report",
+   "year": 2023,
+   "url": "https://www.ipcc.ch/report/ar6/syr/resources/spm-headline-statements/",
+   "statement_chars": 685,
+   "statement_sha256": "56e670897da6976c6ee0fd5a0ad5ffeab473df9ca035315f5ced621d770f2c1a",
+   "first_words": "For any given future warming level, many climate-related risks are",
+   "tests": {
+    "published_in_window": {
+     "pass": true,
+     "why": "AR6 SYR, 2023"
+    },
+    "states_a_certainty_grade": {
+     "pass": true,
+     "why": [
+      "high confidence",
+      "very high confidence"
+     ]
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the headline statement is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": true,
+   "n": 64
+  },
+  {
+   "id": "AR6-SYR-B.3",
+   "report": "Climate Change 2023: Synthesis Report",
+   "year": 2023,
+   "url": "https://www.ipcc.ch/report/ar6/syr/resources/spm-headline-statements/",
+   "statement_chars": 418,
+   "statement_sha256": "30d4bc5d0aba8d8ec8071033c16e6f8a01ba9c1470ff5e8b680e0bc79d7ac2a5",
+   "first_words": "Some future changes are unavoidable and/or irreversible but can be",
+   "tests": {
+    "published_in_window": {
+     "pass": true,
+     "why": "AR6 SYR, 2023"
+    },
+    "states_a_certainty_grade": {
+     "pass": true,
+     "why": [
+      "high confidence"
+     ]
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the headline statement is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": true,
+   "n": 65
+  },
+  {
+   "id": "AR6-SYR-B.4",
+   "report": "Climate Change 2023: Synthesis Report",
+   "year": 2023,
+   "url": "https://www.ipcc.ch/report/ar6/syr/resources/spm-headline-statements/",
+   "statement_chars": 463,
+   "statement_sha256": "56b625863f2ba50c90895708fed767ccc338d53e357d3a50f0e8553a2e5c0822",
+   "first_words": "Adaptation options that are feasible and effective today will become",
+   "tests": {
+    "published_in_window": {
+     "pass": true,
+     "why": "AR6 SYR, 2023"
+    },
+    "states_a_certainty_grade": {
+     "pass": true,
+     "why": [
+      "high confidence"
+     ]
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the headline statement is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": true,
+   "n": 66
+  },
+  {
+   "id": "AR6-SYR-B.5",
+   "report": "Climate Change 2023: Synthesis Report",
+   "year": 2023,
+   "url": "https://www.ipcc.ch/report/ar6/syr/resources/spm-headline-statements/",
+   "statement_chars": 469,
+   "statement_sha256": "6c49d39e69368a342be9a5b617addda1a1ab2660a6f920605418878cdbd34fba",
+   "first_words": "Limiting human-caused global warming requires net zero CO2 emissions. Cumulative",
+   "tests": {
+    "published_in_window": {
+     "pass": true,
+     "why": "AR6 SYR, 2023"
+    },
+    "states_a_certainty_grade": {
+     "pass": true,
+     "why": [
+      "high confidence"
+     ]
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the headline statement is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": true,
+   "n": 67
+  },
+  {
+   "id": "AR6-SYR-B.6",
+   "report": "Climate Change 2023: Synthesis Report",
+   "year": 2023,
+   "url": "https://www.ipcc.ch/report/ar6/syr/resources/spm-headline-statements/",
+   "statement_chars": 518,
+   "statement_sha256": "345ca058789eb2bc549d13ca848fb4705973d65e94c9d182ff0a8b2cb91ebc1d",
+   "first_words": "All global modelled pathways that limit warming to 1.5°C (>50%)",
+   "tests": {
+    "published_in_window": {
+     "pass": true,
+     "why": "AR6 SYR, 2023"
+    },
+    "states_a_certainty_grade": {
+     "pass": true,
+     "why": [
+      "high confidence"
+     ]
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the headline statement is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": true,
+   "n": 68
+  },
+  {
+   "id": "AR6-SYR-B.7",
+   "report": "Climate Change 2023: Synthesis Report",
+   "year": 2023,
+   "url": "https://www.ipcc.ch/report/ar6/syr/resources/spm-headline-statements/",
+   "statement_chars": 619,
+   "statement_sha256": "7dac7cfedad60fe6586b8b15f8ce13eb2806b0d716c080f3907ffc610393c534",
+   "first_words": "If warming exceeds a specified level such as 1.5°C, it",
+   "tests": {
+    "published_in_window": {
+     "pass": true,
+     "why": "AR6 SYR, 2023"
+    },
+    "states_a_certainty_grade": {
+     "pass": true,
+     "why": [
+      "high confidence"
+     ]
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the headline statement is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": true,
+   "n": 69
+  },
+  {
+   "id": "AR6-SYR-C.1",
+   "report": "Climate Change 2023: Synthesis Report",
+   "year": 2023,
+   "url": "https://www.ipcc.ch/report/ar6/syr/resources/spm-headline-statements/",
+   "statement_chars": 839,
+   "statement_sha256": "362ef5fb0b2d1baa96dc7495989c6383b98f9575be19e628495ab61ed98268ef",
+   "first_words": "Climate change is a threat to human well-being and planetary",
+   "tests": {
+    "published_in_window": {
+     "pass": true,
+     "why": "AR6 SYR, 2023"
+    },
+    "states_a_certainty_grade": {
+     "pass": true,
+     "why": [
+      "high confidence",
+      "very high confidence"
+     ]
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the headline statement is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": true,
+   "n": 70
+  },
+  {
+   "id": "AR6-SYR-C.2",
+   "report": "Climate Change 2023: Synthesis Report",
+   "year": 2023,
+   "url": "https://www.ipcc.ch/report/ar6/syr/resources/spm-headline-statements/",
+   "statement_chars": 779,
+   "statement_sha256": "018d4debbe8fe52636dad881916d17e33c742a926ac46eb18033acce36429173",
+   "first_words": "Deep, rapid and sustained mitigation and accelerated implementation of adaptation",
+   "tests": {
+    "published_in_window": {
+     "pass": true,
+     "why": "AR6 SYR, 2023"
+    },
+    "states_a_certainty_grade": {
+     "pass": true,
+     "why": [
+      "high confidence",
+      "very high confidence"
+     ]
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the headline statement is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": true,
+   "n": 71
+  },
+  {
+   "id": "AR6-SYR-C.3",
+   "report": "Climate Change 2023: Synthesis Report",
+   "year": 2023,
+   "url": "https://www.ipcc.ch/report/ar6/syr/resources/spm-headline-statements/",
+   "statement_chars": 546,
+   "statement_sha256": "9b2207f4cb268e59e245aca460aec38e937805efbb3efe0227033fcf742ade05",
+   "first_words": "Rapid and far-reaching transitions across all sectors and systems are",
+   "tests": {
+    "published_in_window": {
+     "pass": true,
+     "why": "AR6 SYR, 2023"
+    },
+    "states_a_certainty_grade": {
+     "pass": true,
+     "why": [
+      "high confidence"
+     ]
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the headline statement is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": true,
+   "n": 72
+  },
+  {
+   "id": "AR6-SYR-C.4",
+   "report": "Climate Change 2023: Synthesis Report",
+   "year": 2023,
+   "url": "https://www.ipcc.ch/report/ar6/syr/resources/spm-headline-statements/",
+   "statement_chars": 389,
+   "statement_sha256": "153693e21ce950a68844d32ed74fd1586bb95c4084ef5474604bd890f2e7c9af",
+   "first_words": "Accelerated and equitable action in mitigating and adapting to climate",
+   "tests": {
+    "published_in_window": {
+     "pass": true,
+     "why": "AR6 SYR, 2023"
+    },
+    "states_a_certainty_grade": {
+     "pass": true,
+     "why": [
+      "high confidence"
+     ]
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the headline statement is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": true,
+   "n": 73
+  },
+  {
+   "id": "AR6-SYR-C.5",
+   "report": "Climate Change 2023: Synthesis Report",
+   "year": 2023,
+   "url": "https://www.ipcc.ch/report/ar6/syr/resources/spm-headline-statements/",
+   "statement_chars": 619,
+   "statement_sha256": "f54d14399d532485375f8530a622d1f2a7ff9cf11e0bdf8f98bebbab919ac37c",
+   "first_words": "Prioritising equity, climate justice, social justice, inclusion and just transition",
+   "tests": {
+    "published_in_window": {
+     "pass": true,
+     "why": "AR6 SYR, 2023"
+    },
+    "states_a_certainty_grade": {
+     "pass": true,
+     "why": [
+      "high confidence"
+     ]
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the headline statement is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": true,
+   "n": 74
+  },
+  {
+   "id": "AR6-SYR-C.6",
+   "report": "Climate Change 2023: Synthesis Report",
+   "year": 2023,
+   "url": "https://www.ipcc.ch/report/ar6/syr/resources/spm-headline-statements/",
+   "statement_chars": 626,
+   "statement_sha256": "da552597c0ea5b5b9a4bd5b8ccd6ab268de20c743d877d6df767997dfb927fb3",
+   "first_words": "Effective climate action is enabled by political commitment, well-aligned multilevel",
+   "tests": {
+    "published_in_window": {
+     "pass": true,
+     "why": "AR6 SYR, 2023"
+    },
+    "states_a_certainty_grade": {
+     "pass": true,
+     "why": [
+      "high confidence"
+     ]
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the headline statement is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": true,
+   "n": 75
+  },
+  {
+   "id": "AR6-SYR-C.7",
+   "report": "Climate Change 2023: Synthesis Report",
+   "year": 2023,
+   "url": "https://www.ipcc.ch/report/ar6/syr/resources/spm-headline-statements/",
+   "statement_chars": 572,
+   "statement_sha256": "609dbf75037e16f02a08af5a36b233eaa82d37956ac6bae8e52c18ff5c8d4b46",
+   "first_words": "Finance, technology and international cooperation are critical enablers for accelerated",
+   "tests": {
+    "published_in_window": {
+     "pass": true,
+     "why": "AR6 SYR, 2023"
+    },
+    "states_a_certainty_grade": {
+     "pass": true,
+     "why": [
+      "high confidence"
+     ]
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "the headline statement is published in full on ipcc.ch"
+    },
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    }
+   },
+   "eligible": true,
+   "n": 76
+  }
+ ]
+}

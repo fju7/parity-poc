@@ -1,0 +1,5378 @@
+{
+ "frame": "nasem-practice",
+ "kind": "candidate list (no eligibility tested; see draw)",
+ "built_at": "2026-10-21T13:11:08+00:00",
+ "script": "study/whu-reliability/scripts/frames.py",
+ "window": {
+  "from": "2017-01-01",
+  "to": "2023-12-31"
+ },
+ "query": {
+  "api": "none: the National Academies publish no API; their catalogue listing is read",
+  "listing": [
+   "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2017&publication_date%5Bto%5D=2023&page=<n>"
+  ],
+  "listing_pages": 143,
+  "listing_cards": 2342
+ },
+ "listing_cards_by_type": {
+  "(no label)": 1127,
+  "Proceedings": 655,
+  "Consensus Study Report": 524,
+  "Annual Report": 17,
+  "NAM Special Publication": 15,
+  "Issue Paper": 4
+ },
+ "candidates": 524,
+ "order": "by National Academies publication id, ascending",
+ "note": "",
+ "excluded_topics": {
+  "WHU-001 melanoma (personalised mRNA cancer vaccine)": "\\bmelanoma|\\bm?RNA[- ](?:based )?(?:cancer )?vaccin|personali[sz]ed (?:cancer )?vaccin",
+  "WHU-002 cdk46 (CDK4/6 inhibitors)": "\\bCDK ?4/6|\\bCDK4\\b|palbociclib|ribociclib|abemaciclib|cyclin[- ]dependent kinase 4",
+  "WHU-003 deskilling (AI use and human cognition)": "(?:artificial intelligence|\\bAI\\b|large language model|\\bLLMs?\\b|chatbot|ChatGPT|generative).{0,80}(?:cogniti|critical thinking|deskill|skill|learning|memory|reasoning)|(?:cogniti|critical thinking|deskill)\\w*.{0,80}(?:artificial intelligence|\\bAI\\b|large language model|chatbot)",
+  "T01 exercise and depression": "(?:exercise|physical activity|physical training|yoga|walking).{0,80}depress|depress\\w*.{0,80}(?:exercise|physical activity)",
+  "T02 / WHU-P02 ultra-processed foods": "ultra-?processed|\\bprocessed foods?\\b|\\bNOVA\\b",
+  "T03 intermittent fasting": "intermittent fasting|time-restricted (?:eating|feeding)|alternate[- ]day fasting|\\b5:2\\b|periodic fasting",
+  "T04 vitamin D (over 60)": "vitamin D|cholecalciferol|ergocalciferol|calcifediol|calcitriol"
+ },
+ "queries_logged": [
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2017&publication_date%5Bto%5D=2023&page=1",
+   "at": "2026-10-21T12:19:37+00:00",
+   "status": 200,
+   "bytes": 1341648,
+   "sha256": "ce3c7c7f8b66711cf92907bedb08d037fa2023c67e0c30975621ed6cfb384154",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2017&publication_date%5Bto%5D=2023&page=2",
+   "at": "2026-10-21T12:19:59+00:00",
+   "status": 200,
+   "bytes": 1341293,
+   "sha256": "542ca17e86a47e9ce6ce46977de39b6e19901da74ecb0445f44fb0e4f98c0a5b",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2017&publication_date%5Bto%5D=2023&page=3",
+   "at": "2026-10-21T12:20:21+00:00",
+   "status": 200,
+   "bytes": 1340816,
+   "sha256": "f7ac6e949533e8fbba84fe9771a32b9a44fd1afbe218c6ea6331d0494d42bba0",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2017&publication_date%5Bto%5D=2023&page=4",
+   "at": "2026-10-21T12:20:42+00:00",
+   "status": 200,
+   "bytes": 1340637,
+   "sha256": "deb9f8e910662f4884e9e48759571c63b16aceea7b9041cb1b2f9882558ed38d",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2017&publication_date%5Bto%5D=2023&page=5",
+   "at": "2026-10-21T12:21:03+00:00",
+   "status": 200,
+   "bytes": 1341398,
+   "sha256": "f9c1ee06aef58dfac10a354e249da5a9c2a81917437cc353c2c10b8f6e78b2e2",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2017&publication_date%5Bto%5D=2023&page=6",
+   "at": "2026-10-21T12:21:25+00:00",
+   "status": 200,
+   "bytes": 1340257,
+   "sha256": "03082cbca661d49b8eb43627775f86ac0422b2f886b7495cb5869e62c27dfb57",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2017&publication_date%5Bto%5D=2023&page=7",
+   "at": "2026-10-21T12:21:46+00:00",
+   "status": 200,
+   "bytes": 1341440,
+   "sha256": "9e7931f25f160397ea2578c0eed57d660ed2bb15c495c7d7bed93540c77e4945",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2017&publication_date%5Bto%5D=2023&page=8",
+   "at": "2026-10-21T12:22:07+00:00",
+   "status": 200,
+   "bytes": 1340684,
+   "sha256": "2ae3ecdb591647c7053280e4e62882b7b6d7107b27e9ff3cf95586e9c609659a",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2017&publication_date%5Bto%5D=2023&page=9",
+   "at": "2026-10-21T12:22:29+00:00",
+   "status": 200,
+   "bytes": 1341340,
+   "sha256": "406d61a05538953808a1c1d7f2e47d1d3f745b6e511473487f6a6ce807b0d0c9",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2017&publication_date%5Bto%5D=2023&page=10",
+   "at": "2026-10-21T12:22:50+00:00",
+   "status": 200,
+   "bytes": 1341978,
+   "sha256": "75f897f4d59373b4675aad541fb06b426c9e2493d48bce4af233c9d049bacc35",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2017&publication_date%5Bto%5D=2023&page=11",
+   "at": "2026-10-21T12:23:12+00:00",
+   "status": 200,
+   "bytes": 1341117,
+   "sha256": "c9d23b9574b09898beb5bfac55069bed0e6cef5a335802f72ed6b3b5652f926e",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2017&publication_date%5Bto%5D=2023&page=12",
+   "at": "2026-10-21T12:23:33+00:00",
+   "status": 200,
+   "bytes": 1342039,
+   "sha256": "d1529e956ab36f1a6d65d6d2c5dc2d9f035120362afb6ef2b93f876a3ae843ee",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2017&publication_date%5Bto%5D=2023&page=13",
+   "at": "2026-10-21T12:23:55+00:00",
+   "status": 200,
+   "bytes": 1342041,
+   "sha256": "95c0c07c32385e12ff0d5e32f2537708843a5a8384638657ad04f81f40a2f9cc",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2017&publication_date%5Bto%5D=2023&page=14",
+   "at": "2026-10-21T12:24:17+00:00",
+   "status": 200,
+   "bytes": 1342081,
+   "sha256": "7b7210f0d94aa4f9c872f0d496071168e87258680ef3f395814939182936ad8e",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2017&publication_date%5Bto%5D=2023&page=15",
+   "at": "2026-10-21T12:24:39+00:00",
+   "status": 200,
+   "bytes": 1340172,
+   "sha256": "c0e628b16c4c8a3a1d7d9741d59f322c63383c47d377a349e574297e7680d599",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2017&publication_date%5Bto%5D=2023&page=16",
+   "at": "2026-10-21T12:25:01+00:00",
+   "status": 200,
+   "bytes": 1339680,
+   "sha256": "2bdc1239c40b7ff94ed0932c07bf445eec81bbde62b7ae964de4435abddf6cb2",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2017&publication_date%5Bto%5D=2023&page=17",
+   "at": "2026-10-21T12:25:23+00:00",
+   "status": 200,
+   "bytes": 1340085,
+   "sha256": "57f18a23c826b9b8e1a6d163fa050d8017639f04fa5c00509ede3357bfb803c0",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2017&publication_date%5Bto%5D=2023&page=18",
+   "at": "2026-10-21T12:25:45+00:00",
+   "status": 200,
+   "bytes": 1341328,
+   "sha256": "5935a7876927ace3c646ba29c7d911878b319b5c71d5f456186c38eabbc34447",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2017&publication_date%5Bto%5D=2023&page=19",
+   "at": "2026-10-21T12:26:07+00:00",
+   "status": 200,
+   "bytes": 1340130,
+   "sha256": "a9f903c28d39d3d26c93182eb0af2838948cbcd4bb18a3c9f5c8c0ff073097a5",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2017&publication_date%5Bto%5D=2023&page=20",
+   "at": "2026-10-21T12:26:28+00:00",
+   "status": 200,
+   "bytes": 1341180,
+   "sha256": "7e5196161810e32a44e2e277dc9b1c9ea4c3e4253dd2b0c95a9429239a1de3fe",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2017&publication_date%5Bto%5D=2023&page=21",
+   "at": "2026-10-21T12:26:50+00:00",
+   "status": 200,
+   "bytes": 1340790,
+   "sha256": "56d0a0a98bc5e7d8cabe5c7b6d6f16f564c7ba7699299d41d86a55ce33e6065e",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2017&publication_date%5Bto%5D=2023&page=22",
+   "at": "2026-10-21T12:27:12+00:00",
+   "status": 200,
+   "bytes": 1341103,
+   "sha256": "073915109880c0d85f324a901f08784f3c7ba72df7cb3cd3422b37c8c410141e",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2017&publication_date%5Bto%5D=2023&page=23",
+   "at": "2026-10-21T12:27:34+00:00",
+   "status": 200,
+   "bytes": 1342205,
+   "sha256": "01d26fd528d468d8f3f87e20d937e335c2490ef6b6b9a82cb5b9f5402f1168e5",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2017&publication_date%5Bto%5D=2023&page=24",
+   "at": "2026-10-21T12:27:56+00:00",
+   "status": 200,
+   "bytes": 1340542,
+   "sha256": "63df9edd39a2ed37a9144a02249b976bb3dfae6da037117e686b7d0dc6ba177d",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2017&publication_date%5Bto%5D=2023&page=25",
+   "at": "2026-10-21T12:28:18+00:00",
+   "status": 200,
+   "bytes": 1340038,
+   "sha256": "8cfc6da7f80e8e0af8d2c365bfbe29ea60fb2fc15bb556ec1ee5d7ff5112b51a",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2017&publication_date%5Bto%5D=2023&page=26",
+   "at": "2026-10-21T12:28:39+00:00",
+   "status": 200,
+   "bytes": 1341470,
+   "sha256": "a2bc97499d31a663f930f86611d61693017bad58ece69d43df16d91751c69ee1",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2017&publication_date%5Bto%5D=2023&page=27",
+   "at": "2026-10-21T12:29:01+00:00",
+   "status": 200,
+   "bytes": 1343008,
+   "sha256": "08bfa5da5a64fe2254493523dead353b86558c6330d7edff13cc1cc9de954954",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2017&publication_date%5Bto%5D=2023&page=28",
+   "at": "2026-10-21T12:29:23+00:00",
+   "status": 200,
+   "bytes": 1341352,
+   "sha256": "ad68f9f0f56573dcd0e04fcbe6135011c0f09929e9ce2ce822f2772b3df836ef",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2017&publication_date%5Bto%5D=2023&page=29",
+   "at": "2026-10-21T12:29:45+00:00",
+   "status": 200,
+   "bytes": 1340371,
+   "sha256": "3b96206e4c75c51f8325c7ebac4138dc0ff82fb9317827eb88591a24715965c0",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2017&publication_date%5Bto%5D=2023&page=30",
+   "at": "2026-10-21T12:30:06+00:00",
+   "status": 200,
+   "bytes": 1341388,
+   "sha256": "6bc9854ce76bcd40bb8334269a7ed3ed1c09ddee7629876aeef3454fab582f65",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2017&publication_date%5Bto%5D=2023&page=31",
+   "at": "2026-10-21T12:30:28+00:00",
+   "status": 200,
+   "bytes": 1341631,
+   "sha256": "bb54acd89b76d69a556d743d7d7ede5fa5a27c4cbd59eecedf24f459d18ee476",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2017&publication_date%5Bto%5D=2023&page=32",
+   "at": "2026-10-21T12:30:50+00:00",
+   "status": 200,
+   "bytes": 1341158,
+   "sha256": "d6fa018b37990ffb38ba7dae7d72250e623c1165b51dc713238c038c1bd6e089",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2017&publication_date%5Bto%5D=2023&page=33",
+   "at": "2026-10-21T12:31:11+00:00",
+   "status": 200,
+   "bytes": 1341341,
+   "sha256": "c9619c3a36b13217a6a8ad6c9ea8d16e1ea94b74633497db101f3c80f7c02f4b",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2017&publication_date%5Bto%5D=2023&page=34",
+   "at": "2026-10-21T12:31:33+00:00",
+   "status": 200,
+   "bytes": 1341834,
+   "sha256": "3c569038cba6998865215189fedf4357ad6d626497f9dcb4866a6a731eadae1e",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2017&publication_date%5Bto%5D=2023&page=35",
+   "at": "2026-10-21T12:31:55+00:00",
+   "status": 200,
+   "bytes": 1342779,
+   "sha256": "c0098c9dd983308e13ba604b2616adf04043838213e445e91507a531e7f164bc",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2017&publication_date%5Bto%5D=2023&page=36",
+   "at": "2026-10-21T12:32:17+00:00",
+   "status": 200,
+   "bytes": 1342062,
+   "sha256": "5483c976feb9bef534c72645972e74a2622900a4a6dcf32159990728569dee7a",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2017&publication_date%5Bto%5D=2023&page=37",
+   "at": "2026-10-21T12:32:38+00:00",
+   "status": 200,
+   "bytes": 1340624,
+   "sha256": "9663f4087f65cc06c426e99735ce3b35cd70d983eff7e855f8db16ee4743eb55",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2017&publication_date%5Bto%5D=2023&page=38",
+   "at": "2026-10-21T12:32:59+00:00",
+   "status": 200,
+   "bytes": 1341392,
+   "sha256": "8ddc4f4477d2b41ad532430ebcbe75c7d6f063a1663a14735fe1cd7e2ee8c517",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2017&publication_date%5Bto%5D=2023&page=39",
+   "at": "2026-10-21T12:33:21+00:00",
+   "status": 200,
+   "bytes": 1341163,
+   "sha256": "e56a98e46aad7e16f90209fa76b91f33207df701e77c27c868307c35f19ea7a8",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2017&publication_date%5Bto%5D=2023&page=40",
+   "at": "2026-10-21T12:33:42+00:00",
+   "status": 200,
+   "bytes": 1341410,
+   "sha256": "db1b34a826f0f54a34ee905fc960a536d5b87aff14688078b1f2143e9ef8088e",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2017&publication_date%5Bto%5D=2023&page=41",
+   "at": "2026-10-21T12:34:29+00:00",
+   "status": 200,
+   "bytes": 1341086,
+   "sha256": "1585a316bcf29b552707c18f7af737ca2853bcb8952b4464d4d845dd7a70be22",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2017&publication_date%5Bto%5D=2023&page=42",
+   "at": "2026-10-21T12:34:51+00:00",
+   "status": 200,
+   "bytes": 1342203,
+   "sha256": "1dd45bcac5eb859c90b0a3e71b0516816cf47a4c521ee2bb2eba85be51a58690",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2017&publication_date%5Bto%5D=2023&page=43",
+   "at": "2026-10-21T12:35:12+00:00",
+   "status": 200,
+   "bytes": 1341898,
+   "sha256": "1a12d4036ab60c72b7ab5ab8c9443738975b5b6a9688e361d31675aa6616cb53",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2017&publication_date%5Bto%5D=2023&page=44",
+   "at": "2026-10-21T12:35:34+00:00",
+   "status": 200,
+   "bytes": 1340790,
+   "sha256": "c97e610b678c03386dc0c0cea95d708b0ea4dae6294bf6649f14e782ed666be2",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2017&publication_date%5Bto%5D=2023&page=45",
+   "at": "2026-10-21T12:35:55+00:00",
+   "status": 200,
+   "bytes": 1341680,
+   "sha256": "aa4102f48d4071b10995fc75ce51207da0e96078ecca2aed4d4709de1ab57db7",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2017&publication_date%5Bto%5D=2023&page=46",
+   "at": "2026-10-21T12:36:17+00:00",
+   "status": 200,
+   "bytes": 1340684,
+   "sha256": "47c74da2aca03d3db0eef1e25099a096aedb06e27471df7cf15b226ee22cf0a6",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2017&publication_date%5Bto%5D=2023&page=47",
+   "at": "2026-10-21T12:36:38+00:00",
+   "status": 200,
+   "bytes": 1342066,
+   "sha256": "faec8d048d6d1e9c7d58227cfa549a778a560e45d66f19ff2f2a655d402f3420",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2017&publication_date%5Bto%5D=2023&page=48",
+   "at": "2026-10-21T12:37:00+00:00",
+   "status": 200,
+   "bytes": 1341626,
+   "sha256": "206fadf3713846f390a55d0925b9840041365df46a1d2c5f8c36d86150d74b51",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2017&publication_date%5Bto%5D=2023&page=49",
+   "at": "2026-10-21T12:37:21+00:00",
+   "status": 200,
+   "bytes": 1341665,
+   "sha256": "77fe50c09e88615d13502d331c5ed7230c296aa979ef48d9a7096ab0f6029ed4",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2017&publication_date%5Bto%5D=2023&page=50",
+   "at": "2026-10-21T12:37:43+00:00",
+   "status": 200,
+   "bytes": 1342221,
+   "sha256": "6f10a9f65d22029ccbbd1140827ae1a7708695f50ad382161a0941050ff26426",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2017&publication_date%5Bto%5D=2023&page=51",
+   "at": "2026-10-21T12:38:04+00:00",
+   "status": 200,
+   "bytes": 1342158,
+   "sha256": "19bec6d720b5d24decc45c21bbaaaf7fba9605a0b4ee5911662760d607dba023",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2017&publication_date%5Bto%5D=2023&page=52",
+   "at": "2026-10-21T12:38:25+00:00",
+   "status": 200,
+   "bytes": 1340820,
+   "sha256": "75b680a7d20d4ca1ed4b913a34ffe9554987f27b5af75ff6ceba7e3d597143b6",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2017&publication_date%5Bto%5D=2023&page=53",
+   "at": "2026-10-21T12:38:47+00:00",
+   "status": 200,
+   "bytes": 1341020,
+   "sha256": "2f01c0f1c0a004fadbcad19051e8707ff76a319a800fe998dbc8da7b2ab80003",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2017&publication_date%5Bto%5D=2023&page=54",
+   "at": "2026-10-21T12:39:08+00:00",
+   "status": 200,
+   "bytes": 1341332,
+   "sha256": "1cca856d7458f90d2b47ee3f121535d78e1f5549975b9c1de03f3b10e4c9c3cc",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2017&publication_date%5Bto%5D=2023&page=55",
+   "at": "2026-10-21T12:39:30+00:00",
+   "status": 200,
+   "bytes": 1342574,
+   "sha256": "1c512fbc24e25c7d27fac71fff56f40e50b0d2d11bcddf62f438f6f9a02dae2a",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2017&publication_date%5Bto%5D=2023&page=56",
+   "at": "2026-10-21T12:39:51+00:00",
+   "status": 200,
+   "bytes": 1341767,
+   "sha256": "75b1c68b6823d73697c0caf6bb4c70a54d478d0d7b4446dd053bebc1aedd3bc0",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2017&publication_date%5Bto%5D=2023&page=57",
+   "at": "2026-10-21T12:40:12+00:00",
+   "status": 200,
+   "bytes": 1341849,
+   "sha256": "f00bdc1413cc2fbe70475f02840a332619e6e43b53bfc5eded777e407cdf9f98",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2017&publication_date%5Bto%5D=2023&page=58",
+   "at": "2026-10-21T12:40:34+00:00",
+   "status": 200,
+   "bytes": 1341152,
+   "sha256": "7854f4fbf504faf726ba1989412dc269b60fdfe136f13be519ab95444f79eb92",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2017&publication_date%5Bto%5D=2023&page=59",
+   "at": "2026-10-21T12:40:55+00:00",
+   "status": 200,
+   "bytes": 1341599,
+   "sha256": "3b31ad7fa17918313f573a20e8ccde7ffce1c8860d7c06e0d12ebeea29db2de0",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2017&publication_date%5Bto%5D=2023&page=60",
+   "at": "2026-10-21T12:41:17+00:00",
+   "status": 200,
+   "bytes": 1341541,
+   "sha256": "e962451193d1cc3875b128d8f6d13b17e5ad269607858d234e69efd0e4ac9003",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2017&publication_date%5Bto%5D=2023&page=61",
+   "at": "2026-10-21T12:41:38+00:00",
+   "status": 200,
+   "bytes": 1342096,
+   "sha256": "3586c57d69942f9dae4f540999db3b01b56103b74a010672c0e2a04910ef7d2b",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2017&publication_date%5Bto%5D=2023&page=62",
+   "at": "2026-10-21T12:42:00+00:00",
+   "status": 200,
+   "bytes": 1341089,
+   "sha256": "e847d4e46078577f222f392673b70037613f387e257eb0e86be975346e6476b9",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2017&publication_date%5Bto%5D=2023&page=63",
+   "at": "2026-10-21T12:42:21+00:00",
+   "status": 200,
+   "bytes": 1341985,
+   "sha256": "1ee4da26a92bca2afb738b123697003b73fe027f1138bdd26a726041f826591a",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2017&publication_date%5Bto%5D=2023&page=64",
+   "at": "2026-10-21T12:42:42+00:00",
+   "status": 200,
+   "bytes": 1341934,
+   "sha256": "53a44089e852f735b864cadfd4a696fdf6fcc64cc4abe13c38d669d8833f33f4",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2017&publication_date%5Bto%5D=2023&page=65",
+   "at": "2026-10-21T12:43:04+00:00",
+   "status": 200,
+   "bytes": 1340509,
+   "sha256": "13e106b24424c2d7164a1fa66fd12e4cdc5dba294fc4a4464d96468c15c8dde0",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2017&publication_date%5Bto%5D=2023&page=66",
+   "at": "2026-10-21T12:43:25+00:00",
+   "status": 200,
+   "bytes": 1340986,
+   "sha256": "dce8d2719b6643c336e4c6d2c0e0a52a0be5f656a9670e272fd5385b9535648a",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2017&publication_date%5Bto%5D=2023&page=67",
+   "at": "2026-10-21T12:43:47+00:00",
+   "status": 200,
+   "bytes": 1340520,
+   "sha256": "bfe11cb4043b319ee8b3d198098ce1bff0748ecb31138d8a902243e12c8569a0",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2017&publication_date%5Bto%5D=2023&page=68",
+   "at": "2026-10-21T12:44:08+00:00",
+   "status": 200,
+   "bytes": 1342312,
+   "sha256": "ac3c0d1d58d5f8597c3dacf74f920aa230eb2560b315be50f18a4df4b7a3c685",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2017&publication_date%5Bto%5D=2023&page=69",
+   "at": "2026-10-21T12:44:29+00:00",
+   "status": 200,
+   "bytes": 1341770,
+   "sha256": "38b5764b6e97ce6a1318c92f03b14527ae60f1f756db6412c2e74043bc8073fc",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2017&publication_date%5Bto%5D=2023&page=70",
+   "at": "2026-10-21T12:44:51+00:00",
+   "status": 200,
+   "bytes": 1341473,
+   "sha256": "93f8e92d27e6d42939c57520f11872dc62aeae42220fb73697b62e366ea22fcb",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2017&publication_date%5Bto%5D=2023&page=71",
+   "at": "2026-10-21T12:45:12+00:00",
+   "status": 200,
+   "bytes": 1341581,
+   "sha256": "dd1730323304b5988a06e75d1b1346297a3f102337514db5d521ee495e52b5d5",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2017&publication_date%5Bto%5D=2023&page=72",
+   "at": "2026-10-21T12:45:33+00:00",
+   "status": 200,
+   "bytes": 1341421,
+   "sha256": "c7a17fd004c6a283b59fd96d1fdfdff30825076e1fe329b57669c6bf72a12368",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2017&publication_date%5Bto%5D=2023&page=73",
+   "at": "2026-10-21T12:45:55+00:00",
+   "status": 200,
+   "bytes": 1341669,
+   "sha256": "f2d6f80617d76c49ef2552f34e8c2093d95c2352980ab1c4d4311a6b1da782df",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2017&publication_date%5Bto%5D=2023&page=74",
+   "at": "2026-10-21T12:46:16+00:00",
+   "status": 200,
+   "bytes": 1340767,
+   "sha256": "a1b93fd88aa1825d0fedcb7735a79abf790aa8010b73cf31e0b66cccb5a5a308",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2017&publication_date%5Bto%5D=2023&page=75",
+   "at": "2026-10-21T12:46:38+00:00",
+   "status": 200,
+   "bytes": 1341976,
+   "sha256": "d206b8ef0cfeaa08328f04298367df8023c1dc6b2411e7eb2ae2513347623217",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2017&publication_date%5Bto%5D=2023&page=76",
+   "at": "2026-10-21T12:46:59+00:00",
+   "status": 200,
+   "bytes": 1340760,
+   "sha256": "bd15159715e3bb36bf4e87cff91abbec70e64733a978866f7a291dc49a725319",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2017&publication_date%5Bto%5D=2023&page=77",
+   "at": "2026-10-21T12:47:21+00:00",
+   "status": 200,
+   "bytes": 1340904,
+   "sha256": "2f153e03855e272860e8d7b5bd23238d6bf358ea57e7489f5d3d0bdc77b18332",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2017&publication_date%5Bto%5D=2023&page=78",
+   "at": "2026-10-21T12:47:42+00:00",
+   "status": 200,
+   "bytes": 1340314,
+   "sha256": "bb5eca2a6c18fdddf6128d5af6e759aaa670013c781e915983de6d4a6c5b16ca",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2017&publication_date%5Bto%5D=2023&page=79",
+   "at": "2026-10-21T12:48:04+00:00",
+   "status": 200,
+   "bytes": 1341274,
+   "sha256": "ea3195072b74aa8c34ba1edeb810fb530e0bd17b0e6949176c0e81bd922fd377",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2017&publication_date%5Bto%5D=2023&page=80",
+   "at": "2026-10-21T12:48:26+00:00",
+   "status": 200,
+   "bytes": 1341335,
+   "sha256": "dac3f7915beb521de29cdb9fd3f4a3920bcd4b570196157cb0209a6be3632f54",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2017&publication_date%5Bto%5D=2023&page=81",
+   "at": "2026-10-21T12:48:47+00:00",
+   "status": 200,
+   "bytes": 1340892,
+   "sha256": "17bbcf7a378de80c9666fe8fe23a10df48a84f0a9149716c2e999b6958358e5e",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2017&publication_date%5Bto%5D=2023&page=82",
+   "at": "2026-10-21T12:49:10+00:00",
+   "status": 200,
+   "bytes": 1341025,
+   "sha256": "23bd9d9ce15f9aa89129a3d234cf904164cb7371f1198a0918b4da67ccd6e54e",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2017&publication_date%5Bto%5D=2023&page=83",
+   "at": "2026-10-21T12:49:32+00:00",
+   "status": 200,
+   "bytes": 1342125,
+   "sha256": "830ddab3c1e228bab2f41ed4c10e87a47d1ec92b253e019c4bcfbb2bb44f5476",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2017&publication_date%5Bto%5D=2023&page=84",
+   "at": "2026-10-21T12:49:53+00:00",
+   "status": 200,
+   "bytes": 1341591,
+   "sha256": "0bdff76694329501755bfd547af07608956d1f0ff72e83ecad075f7c0a8a8586",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2017&publication_date%5Bto%5D=2023&page=85",
+   "at": "2026-10-21T12:50:15+00:00",
+   "status": 200,
+   "bytes": 1342327,
+   "sha256": "7d969e4126fd36da61637ac9db6edb2f15eced01f47e6d63dfd865a5bdad1f98",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2017&publication_date%5Bto%5D=2023&page=86",
+   "at": "2026-10-21T12:50:36+00:00",
+   "status": 200,
+   "bytes": 1341342,
+   "sha256": "9041df84aa486fc374c455d477bac03cfe34f225a248dd5ec9e158eab99b4bb1",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2017&publication_date%5Bto%5D=2023&page=87",
+   "at": "2026-10-21T12:50:57+00:00",
+   "status": 200,
+   "bytes": 1340073,
+   "sha256": "caa45347c6e6cf8901ad3b1a8257db132341cd335eb1a6a02fe6f7d103cf2ded",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2017&publication_date%5Bto%5D=2023&page=88",
+   "at": "2026-10-21T12:51:19+00:00",
+   "status": 200,
+   "bytes": 1340459,
+   "sha256": "305fab063e376282141b37cb9da309430d1a883836e47473d8a5e78101e54079",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2017&publication_date%5Bto%5D=2023&page=89",
+   "at": "2026-10-21T12:51:40+00:00",
+   "status": 200,
+   "bytes": 1341937,
+   "sha256": "b31cab997dfc3abe9c368c357625146a8fb38e76bb3556b029c7a2b5225278b7",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2017&publication_date%5Bto%5D=2023&page=90",
+   "at": "2026-10-21T12:52:02+00:00",
+   "status": 200,
+   "bytes": 1341530,
+   "sha256": "2e33cd8fe172cdf9f3ac50e2cc7fd04a1d707ba5b76a566864ba4eafe4321070",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2017&publication_date%5Bto%5D=2023&page=91",
+   "at": "2026-10-21T12:52:23+00:00",
+   "status": 200,
+   "bytes": 1340409,
+   "sha256": "50cadca1371ce8b0c6633f1d0e1dab855c1fbe66d13f35664f14c3288df93b13",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2017&publication_date%5Bto%5D=2023&page=92",
+   "at": "2026-10-21T12:52:44+00:00",
+   "status": 200,
+   "bytes": 1340924,
+   "sha256": "9beb79df0391d90bde57e5b1a70c23f1011d0776275fd317cdfcbdbce32c4d55",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2017&publication_date%5Bto%5D=2023&page=93",
+   "at": "2026-10-21T12:53:06+00:00",
+   "status": 200,
+   "bytes": 1341251,
+   "sha256": "c8ada17b98e3ee574603faa73c1fbea6ce1c8c5336fd09ac78fc4b3ea766675b",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2017&publication_date%5Bto%5D=2023&page=94",
+   "at": "2026-10-21T12:53:27+00:00",
+   "status": 200,
+   "bytes": 1341219,
+   "sha256": "176d0d9f0d2071e9019f59df9862cb011c0b669b0951c73685906851833931b2",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2017&publication_date%5Bto%5D=2023&page=95",
+   "at": "2026-10-21T12:53:48+00:00",
+   "status": 200,
+   "bytes": 1340267,
+   "sha256": "6abee6a28e91efe2b4178954551b77210521dfb4b83fbbb0b95bebb985bff5a9",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2017&publication_date%5Bto%5D=2023&page=96",
+   "at": "2026-10-21T12:54:10+00:00",
+   "status": 200,
+   "bytes": 1341674,
+   "sha256": "5b0ffc7d928b5490810fe619f02f61387e15f2221ec9bf8d0d2bf130b0833106",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2017&publication_date%5Bto%5D=2023&page=97",
+   "at": "2026-10-21T12:54:31+00:00",
+   "status": 200,
+   "bytes": 1341457,
+   "sha256": "aeb2c055eb737acab91cf3a695e0a4d88451a4fe9ae5d85ddadf0703af67b154",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2017&publication_date%5Bto%5D=2023&page=98",
+   "at": "2026-10-21T12:54:53+00:00",
+   "status": 200,
+   "bytes": 1341774,
+   "sha256": "5d6adbc4c18ff3967bd59dc719a178e8cbffa23bb99aa511a81bac2031069397",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2017&publication_date%5Bto%5D=2023&page=99",
+   "at": "2026-10-21T12:55:14+00:00",
+   "status": 200,
+   "bytes": 1341095,
+   "sha256": "e73750089bcd63ab8122ba812992097914fabc5c99bcdfb104901aa74119b55f",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2017&publication_date%5Bto%5D=2023&page=100",
+   "at": "2026-10-21T12:55:35+00:00",
+   "status": 200,
+   "bytes": 1341309,
+   "sha256": "b049948abf0ed982f46c129e5f133bec37294c056791fe5679e5a559982a438e",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2017&publication_date%5Bto%5D=2023&page=101",
+   "at": "2026-10-21T12:55:57+00:00",
+   "status": 200,
+   "bytes": 1341297,
+   "sha256": "b34ccfb17e3daa6ff6022765f9db254617ce749a382c919ce833911cdd1ab915",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2017&publication_date%5Bto%5D=2023&page=102",
+   "at": "2026-10-21T12:56:18+00:00",
+   "status": 200,
+   "bytes": 1342043,
+   "sha256": "c350cd543d28cfa6befeee50907d6d207062f760d4f0e68b83ffd935f12f3f38",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2017&publication_date%5Bto%5D=2023&page=103",
+   "at": "2026-10-21T12:56:40+00:00",
+   "status": 200,
+   "bytes": 1341062,
+   "sha256": "ad45d9b8cc8075fc526ee2e782a2d0224ccfecf456d1e69af297dddb230ebd17",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2017&publication_date%5Bto%5D=2023&page=104",
+   "at": "2026-10-21T12:57:01+00:00",
+   "status": 200,
+   "bytes": 1341168,
+   "sha256": "cb2086df3a9c33147e651ba3bd081734e0efed11e378f68f783b1f6acdfed8f7",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2017&publication_date%5Bto%5D=2023&page=105",
+   "at": "2026-10-21T12:57:23+00:00",
+   "status": 200,
+   "bytes": 1340395,
+   "sha256": "d3cfaea565de3a28b7014c8b7f5bfa1e28caa844d7c9d964d95a1e161ca948fe",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2017&publication_date%5Bto%5D=2023&page=106",
+   "at": "2026-10-21T12:57:44+00:00",
+   "status": 200,
+   "bytes": 1342222,
+   "sha256": "d93a9a5754cbcf1e1daab8cbc6ce2d8986e080ed09ca1c27465c9ec780e42b24",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2017&publication_date%5Bto%5D=2023&page=107",
+   "at": "2026-10-21T12:58:06+00:00",
+   "status": 200,
+   "bytes": 1341947,
+   "sha256": "7dbec4597c69ef84f91e61d1627909b988e4f6439ad0878bccd06df8a9d853ac",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2017&publication_date%5Bto%5D=2023&page=108",
+   "at": "2026-10-21T12:58:27+00:00",
+   "status": 200,
+   "bytes": 1340700,
+   "sha256": "0760ca109a704878f74ac889d48047279bbbd5387ec8d5198c42e84a03a1af71",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2017&publication_date%5Bto%5D=2023&page=109",
+   "at": "2026-10-21T12:58:49+00:00",
+   "status": 200,
+   "bytes": 1339859,
+   "sha256": "2f037d24191aa2d4050708ba1aaecb2ffab85ad659ab442144a0b7d00c17724d",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2017&publication_date%5Bto%5D=2023&page=110",
+   "at": "2026-10-21T12:59:10+00:00",
+   "status": 200,
+   "bytes": 1341710,
+   "sha256": "570f8377d6bcd2b10b7a5cc820f1773c28eb2ee2723e05cf7ca974cfd98d2be4",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2017&publication_date%5Bto%5D=2023&page=111",
+   "at": "2026-10-21T12:59:31+00:00",
+   "status": 200,
+   "bytes": 1340895,
+   "sha256": "e918675d9429b8c8268840ce6bafe9237b8d5cfe45e8138e82bdd95dae3706c9",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2017&publication_date%5Bto%5D=2023&page=112",
+   "at": "2026-10-21T12:59:53+00:00",
+   "status": 200,
+   "bytes": 1341753,
+   "sha256": "f25bd7a2066dabc26fad97ff045fdc0ed8df1db77d1f1b609dd6d8b61c13fd01",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2017&publication_date%5Bto%5D=2023&page=113",
+   "at": "2026-10-21T13:00:14+00:00",
+   "status": 200,
+   "bytes": 1340154,
+   "sha256": "1411ccb89c3e6f3efd13e2ed5662bb8be9b0071503170042d09378a70cab2848",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2017&publication_date%5Bto%5D=2023&page=114",
+   "at": "2026-10-21T13:00:36+00:00",
+   "status": 200,
+   "bytes": 1341499,
+   "sha256": "e16e744922e69cdefad0cec5e60f10d2abcb1014e6b89fec2c2031db70d7795e",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2017&publication_date%5Bto%5D=2023&page=115",
+   "at": "2026-10-21T13:00:57+00:00",
+   "status": 200,
+   "bytes": 1341457,
+   "sha256": "dded51b1409c69f18511b31b61203e4abdd48b2dc88e239c41952656727a0aa2",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2017&publication_date%5Bto%5D=2023&page=116",
+   "at": "2026-10-21T13:01:18+00:00",
+   "status": 200,
+   "bytes": 1340937,
+   "sha256": "cc570e8b79808ac0834565d43fe3e56abe2dd36c1968edf108d4af34a2518550",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2017&publication_date%5Bto%5D=2023&page=117",
+   "at": "2026-10-21T13:01:41+00:00",
+   "status": 200,
+   "bytes": 1341768,
+   "sha256": "9cb7775cf52ee6742d0fffe81e5cb5a9f8556a5d64cd7bb23607a113deb21cd9",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2017&publication_date%5Bto%5D=2023&page=118",
+   "at": "2026-10-21T13:02:02+00:00",
+   "status": 200,
+   "bytes": 1342676,
+   "sha256": "42b67374ce28a8bcf4d092ee40931a3340ee8b67d5ceea1b4e918bb9ae36f434",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2017&publication_date%5Bto%5D=2023&page=119",
+   "at": "2026-10-21T13:02:23+00:00",
+   "status": 200,
+   "bytes": 1341481,
+   "sha256": "42af01a1b1d9daad90e8db5d02e2294c9584c73b333ed36a409da8d8763ca221",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2017&publication_date%5Bto%5D=2023&page=120",
+   "at": "2026-10-21T13:02:45+00:00",
+   "status": 200,
+   "bytes": 1341082,
+   "sha256": "b7fd76365038e0c35d5d78541865d4703004885a1f930d88f7d00d3c55be7047",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2017&publication_date%5Bto%5D=2023&page=121",
+   "at": "2026-10-21T13:03:06+00:00",
+   "status": 200,
+   "bytes": 1341449,
+   "sha256": "1c946d63cdb7b9aa73816b5b5594aed8d94bd65871c2a85a5be42e7e46c6ae01",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2017&publication_date%5Bto%5D=2023&page=122",
+   "at": "2026-10-21T13:03:28+00:00",
+   "status": 200,
+   "bytes": 1341493,
+   "sha256": "07e21ba01519de27a7e5dacef42c6ecd48a58fe1bd2f5f34ebff1cbaece28e55",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2017&publication_date%5Bto%5D=2023&page=123",
+   "at": "2026-10-21T13:03:49+00:00",
+   "status": 200,
+   "bytes": 1341576,
+   "sha256": "2b4eaebc5f09e8f311d116f8f743e6c3b893a1b7f0a013f4c92265265fc56150",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2017&publication_date%5Bto%5D=2023&page=124",
+   "at": "2026-10-21T13:04:11+00:00",
+   "status": 200,
+   "bytes": 1341837,
+   "sha256": "1d59b1fd4191027fe8a85fd987260669d335e360e19b9bade542a79a777b95b9",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2017&publication_date%5Bto%5D=2023&page=125",
+   "at": "2026-10-21T13:04:42+00:00",
+   "status": 200,
+   "bytes": 1341056,
+   "sha256": "56ab4015fa6454972246bf4e6bff548d311d615d9e9bcca83c050a2b27d6f417",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2017&publication_date%5Bto%5D=2023&page=126",
+   "at": "2026-10-21T13:05:04+00:00",
+   "status": 200,
+   "bytes": 1340199,
+   "sha256": "891c98c8c690d1d356d55ecf03b4bc52c50485ae36df921560b0a4ff48a459a1",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2017&publication_date%5Bto%5D=2023&page=127",
+   "at": "2026-10-21T13:05:25+00:00",
+   "status": 200,
+   "bytes": 1341615,
+   "sha256": "0e8f8526a069f076390615a924b72100282aaf9f616dc10c885070a85b76b790",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2017&publication_date%5Bto%5D=2023&page=128",
+   "at": "2026-10-21T13:05:47+00:00",
+   "status": 200,
+   "bytes": 1341687,
+   "sha256": "ff256ae53a9816fefd47467830c43161492afdfaa3a1f9e5a220789a4959ecf6",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2017&publication_date%5Bto%5D=2023&page=129",
+   "at": "2026-10-21T13:06:08+00:00",
+   "status": 200,
+   "bytes": 1341583,
+   "sha256": "e060cc7d05d78f0d458f0114b23f7eab0c8276903a4ac379e27c58856325d02f",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2017&publication_date%5Bto%5D=2023&page=130",
+   "at": "2026-10-21T13:06:29+00:00",
+   "status": 200,
+   "bytes": 1342132,
+   "sha256": "a88abf2af1103ccb739f8d3c2fedaae9c3ef945bb6cab61ec18e84ae50d11849",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2017&publication_date%5Bto%5D=2023&page=131",
+   "at": "2026-10-21T13:06:51+00:00",
+   "status": 200,
+   "bytes": 1341467,
+   "sha256": "9eca6b0f1775d1d41919b93255e8b94dd51b86a660ee0d70651c6319dc23321c",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2017&publication_date%5Bto%5D=2023&page=132",
+   "at": "2026-10-21T13:07:13+00:00",
+   "status": 200,
+   "bytes": 1340989,
+   "sha256": "29e06516d909ab7a4e73aba5e1a3119f3bca47a660001eac2b1cb377dece3483",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2017&publication_date%5Bto%5D=2023&page=133",
+   "at": "2026-10-21T13:07:34+00:00",
+   "status": 200,
+   "bytes": 1341203,
+   "sha256": "57184859f3f9333b2607df77e18904a688923997e484ef93530254e1ab3269aa",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2017&publication_date%5Bto%5D=2023&page=134",
+   "at": "2026-10-21T13:07:56+00:00",
+   "status": 200,
+   "bytes": 1341313,
+   "sha256": "98bf12600498b7a3ed0a9d840f248c25f98d57ced5ac5441c5deddb087e2a538",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2017&publication_date%5Bto%5D=2023&page=135",
+   "at": "2026-10-21T13:08:17+00:00",
+   "status": 200,
+   "bytes": 1341705,
+   "sha256": "1e07df3ec85c10f4d0c6a9dd3a20e63eb21dbc9802f4f0961bcce7eea6f2f194",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2017&publication_date%5Bto%5D=2023&page=136",
+   "at": "2026-10-21T13:08:38+00:00",
+   "status": 200,
+   "bytes": 1341527,
+   "sha256": "c68908798169e70bad0cbb78f21947d6b8b79450c1bf4803359daf41e91cad38",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2017&publication_date%5Bto%5D=2023&page=137",
+   "at": "2026-10-21T13:09:00+00:00",
+   "status": 200,
+   "bytes": 1341168,
+   "sha256": "a8534e671340af3bf7dbf4e99fe73b94f4090ea33b95a8dcb0b3e69cda2db46e",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2017&publication_date%5Bto%5D=2023&page=138",
+   "at": "2026-10-21T13:09:21+00:00",
+   "status": 200,
+   "bytes": 1340795,
+   "sha256": "ab251406891c0c0a9ff6bbf8213f5f50eaf6d618c22d2f5e78cddd17dc6a52ab",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2017&publication_date%5Bto%5D=2023&page=139",
+   "at": "2026-10-21T13:09:42+00:00",
+   "status": 200,
+   "bytes": 1340408,
+   "sha256": "93aa2b82822658fb2d2d3d63880c1dd77b9e53fcb98ad5f0611264fbd728719d",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2017&publication_date%5Bto%5D=2023&page=140",
+   "at": "2026-10-21T13:10:04+00:00",
+   "status": 200,
+   "bytes": 1341434,
+   "sha256": "7118a29c922ca91fa9bd6db46208eb3f631f679f32c0c25d4323d0d9f11945d1",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2017&publication_date%5Bto%5D=2023&page=141",
+   "at": "2026-10-21T13:10:25+00:00",
+   "status": 200,
+   "bytes": 1341151,
+   "sha256": "7818c78c17b0ee2da3adacb694d23b0defacad375782757bf0fe2cc1023fdab0",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2017&publication_date%5Bto%5D=2023&page=142",
+   "at": "2026-10-21T13:10:47+00:00",
+   "status": 200,
+   "bytes": 1340547,
+   "sha256": "9583d11b17af06a634d57892f7b13810247cffa3437aa983d544f7c74c188040",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2017&publication_date%5Bto%5D=2023&page=143",
+   "at": "2026-10-21T13:11:08+00:00",
+   "status": 200,
+   "bytes": 1339909,
+   "sha256": "08f33f3d02709dbec7cd558f793dee256f6f1b2968c623d7ae7a975174e84d4b",
+   "kind": "nap-listing"
+  }
+ ],
+ "rows": [
+  {
+   "n": 1,
+   "id": "10498",
+   "doi": "10.17226/10498",
+   "title": "Guide for the Care and Use of Laboratory Animals -- Russian Version",
+   "year": 2018,
+   "url": "https://www.nationalacademies.org/publications/10498"
+  },
+  {
+   "n": 2,
+   "id": "10929",
+   "doi": "10.17226/10929",
+   "title": "Guide for the Care and Use of Laboratory Animals -- Spanish Version",
+   "year": 2017,
+   "url": "https://www.nationalacademies.org/publications/10929"
+  },
+  {
+   "n": 3,
+   "id": "21896",
+   "doi": "10.17226/21896",
+   "title": "Fostering Integrity in Research",
+   "year": 2017,
+   "url": "https://www.nationalacademies.org/publications/21896"
+  },
+  {
+   "n": 4,
+   "id": "23402",
+   "doi": "10.17226/23402",
+   "title": "Engineering Technology Education in the United States",
+   "year": 2017,
+   "url": "https://www.nationalacademies.org/publications/23402"
+  },
+  {
+   "n": 5,
+   "id": "23409",
+   "doi": "10.17226/23409",
+   "title": "Evaluation of the Achievement Levels for Mathematics and Reading on the National Assessment of Educational Progress",
+   "year": 2017,
+   "url": "https://www.nationalacademies.org/publications/23409"
+  },
+  {
+   "n": 6,
+   "id": "23472",
+   "doi": "10.17226/23472",
+   "title": "Building America's Skilled Technical Workforce",
+   "year": 2017,
+   "url": "https://www.nationalacademies.org/publications/23472"
+  },
+  {
+   "n": 7,
+   "id": "23479",
+   "doi": "10.17226/23479",
+   "title": "Approaches to Understanding the Cumulative Effects of Stressors on Marine Mammals",
+   "year": 2017,
+   "url": "https://www.nationalacademies.org/publications/23479"
+  },
+  {
+   "n": 8,
+   "id": "23550",
+   "doi": "10.17226/23550",
+   "title": "The Economic and Fiscal Consequences of Immigration",
+   "year": 2017,
+   "url": "https://www.nationalacademies.org/publications/23550"
+  },
+  {
+   "n": 9,
+   "id": "23635",
+   "doi": "10.17226/23635",
+   "title": "Accounting for Social Risk Factors in Medicare Payment",
+   "year": 2017,
+   "url": "https://www.nationalacademies.org/publications/23635"
+  },
+  {
+   "n": 10,
+   "id": "23647",
+   "doi": "10.17226/23647",
+   "title": "Microbiomes of the Built Environment: A Research Agenda for Indoor Microbiology, Human Health, and Buildings",
+   "year": 2017,
+   "url": "https://www.nationalacademies.org/publications/23647"
+  },
+  {
+   "n": 11,
+   "id": "23655",
+   "doi": "10.17226/23655",
+   "title": "Review of WIC Food Packages: Improving Balance and Choice: Final Report",
+   "year": 2017,
+   "url": "https://www.nationalacademies.org/publications/23655"
+  },
+  {
+   "n": 12,
+   "id": "23658",
+   "doi": "10.17226/23658",
+   "title": "Finding a Path to Safety in Food Allergy: Assessment of the Global Burden, Causes, Prevention, Management, and Public Policy",
+   "year": 2017,
+   "url": "https://www.nationalacademies.org/publications/23658"
+  },
+  {
+   "n": 13,
+   "id": "23670",
+   "doi": "10.17226/23670",
+   "title": "Strengthening Data Science Methods for Department of Defense Personnel and Readiness Missions",
+   "year": 2017,
+   "url": "https://www.nationalacademies.org/publications/23670"
+  },
+  {
+   "n": 14,
+   "id": "23674",
+   "doi": "10.17226/23674",
+   "title": "Communicating Science Effectively: A Research Agenda",
+   "year": 2017,
+   "url": "https://www.nationalacademies.org/publications/23674"
+  },
+  {
+   "n": 15,
+   "id": "23677",
+   "doi": "10.17226/23677",
+   "title": "Assessment of the Department of Veterans Affairs Airborne Hazards and Open Burn Pit Registry",
+   "year": 2017,
+   "url": "https://www.nationalacademies.org/publications/23677"
+  },
+  {
+   "n": 16,
+   "id": "23678",
+   "doi": "10.17226/23678",
+   "title": "Review of NASA's Evidence Reports on Human Health Risks: 2016 Letter Report",
+   "year": 2017,
+   "url": "https://www.nationalacademies.org/publications/23678"
+  },
+  {
+   "n": 17,
+   "id": "23685",
+   "doi": "10.17226/23685",
+   "title": "Review of the Edwards Aquifer Habitat Conservation Plan: Report 2",
+   "year": 2017,
+   "url": "https://www.nationalacademies.org/publications/23685"
+  },
+  {
+   "n": 18,
+   "id": "24617",
+   "doi": "10.17226/24617",
+   "title": "The Role of Science, Technology, Innovation, and Partnerships in the Future of USAID",
+   "year": 2017,
+   "url": "https://www.nationalacademies.org/publications/24617"
+  },
+  {
+   "n": 19,
+   "id": "24618",
+   "doi": "10.17226/24618",
+   "title": "Controlled Human Inhalation-Exposure Studies at EPA",
+   "year": 2017,
+   "url": "https://www.nationalacademies.org/publications/24618"
+  },
+  {
+   "n": 20,
+   "id": "24619",
+   "doi": "10.17226/24619",
+   "title": "Assessment of Solid-State Lighting, Phase Two",
+   "year": 2017,
+   "url": "https://www.nationalacademies.org/publications/24619"
+  },
+  {
+   "n": 21,
+   "id": "24622",
+   "doi": "10.17226/24622",
+   "title": "Undergraduate Research Experiences for STEM Students: Successes, Challenges, and Opportunities",
+   "year": 2017,
+   "url": "https://www.nationalacademies.org/publications/24622"
+  },
+  {
+   "n": 22,
+   "id": "24624",
+   "doi": "10.17226/24624",
+   "title": "Communities in Action: Pathways to Health Equity",
+   "year": 2017,
+   "url": "https://www.nationalacademies.org/publications/24624"
+  },
+  {
+   "n": 23,
+   "id": "24625",
+   "doi": "10.17226/24625",
+   "title": "The Health Effects of Cannabis and Cannabinoids: The Current State of Evidence and Recommendations for Research",
+   "year": 2017,
+   "url": "https://www.nationalacademies.org/publications/24625"
+  },
+  {
+   "n": 24,
+   "id": "24632",
+   "doi": "10.17226/24632",
+   "title": "An Evidence Framework for Genetic Testing",
+   "year": 2017,
+   "url": "https://www.nationalacademies.org/publications/24632"
+  },
+  {
+   "n": 25,
+   "id": "24635",
+   "doi": "10.17226/24635",
+   "title": "Using 21st Century Science to Improve Risk-Related Evaluations",
+   "year": 2017,
+   "url": "https://www.nationalacademies.org/publications/24635"
+  },
+  {
+   "n": 26,
+   "id": "24637",
+   "doi": "10.17226/24637",
+   "title": "Optimizing the Process for Establishing the Dietary Guidelines for Americans: The Selection Process",
+   "year": 2017,
+   "url": "https://www.nationalacademies.org/publications/24637"
+  },
+  {
+   "n": 27,
+   "id": "24640",
+   "doi": "10.17226/24640",
+   "title": "Review of the Marine Recreational Information Program",
+   "year": 2017,
+   "url": "https://www.nationalacademies.org/publications/24640"
+  },
+  {
+   "n": 28,
+   "id": "24649",
+   "doi": "10.17226/24649",
+   "title": "Information Technology and the U.S. Workforce: Where Are We and Where Do We Go from Here?",
+   "year": 2017,
+   "url": "https://www.nationalacademies.org/publications/24649"
+  },
+  {
+   "n": 29,
+   "id": "24651",
+   "doi": "10.17226/24651",
+   "title": "Valuing Climate Damages: Updating Estimation of the Social Cost of Carbon Dioxide",
+   "year": 2017,
+   "url": "https://www.nationalacademies.org/publications/24651"
+  },
+  {
+   "n": 30,
+   "id": "24652",
+   "doi": "10.17226/24652",
+   "title": "Innovations in Federal Statistics: Combining Data Sources While Protecting Privacy",
+   "year": 2017,
+   "url": "https://www.nationalacademies.org/publications/24652"
+  },
+  {
+   "n": 31,
+   "id": "24666",
+   "doi": "10.17226/24666",
+   "title": "Assessment of the National Science Foundation's 2015 Geospace Portfolio Review",
+   "year": 2017,
+   "url": "https://www.nationalacademies.org/publications/24666"
+  },
+  {
+   "n": 32,
+   "id": "24670",
+   "doi": "10.17226/24670",
+   "title": "Accomplishments of the U.S. Global Change Research Program",
+   "year": 2017,
+   "url": "https://www.nationalacademies.org/publications/24670"
+  },
+  {
+   "n": 33,
+   "id": "24676",
+   "doi": "10.17226/24676",
+   "title": "Foundational Cybersecurity Research: Improving Science, Engineering, and Institutions",
+   "year": 2017,
+   "url": "https://www.nationalacademies.org/publications/24676"
+  },
+  {
+   "n": 34,
+   "id": "24677",
+   "doi": "10.17226/24677",
+   "title": "Promoting the Educational Success of Children and Youth Learning English: Promising Futures",
+   "year": 2017,
+   "url": "https://www.nationalacademies.org/publications/24677"
+  },
+  {
+   "n": 35,
+   "id": "24697",
+   "doi": "10.17226/24697",
+   "title": "Supporting Students' College Success: The Role of Assessment of Intrapersonal and Interpersonal Competencies",
+   "year": 2017,
+   "url": "https://www.nationalacademies.org/publications/24697"
+  },
+  {
+   "n": 36,
+   "id": "24712",
+   "doi": "10.17226/24712",
+   "title": "Review of the Draft Climate Science Special Report",
+   "year": 2017,
+   "url": "https://www.nationalacademies.org/publications/24712"
+  },
+  {
+   "n": 37,
+   "id": "24717",
+   "doi": "10.17226/24717",
+   "title": "Review of the Research Program of the U.S. DRIVE Partnership: Fifth Report",
+   "year": 2017,
+   "url": "https://www.nationalacademies.org/publications/24717"
+  },
+  {
+   "n": 38,
+   "id": "24731",
+   "doi": "10.17226/24731",
+   "title": "A National Strategy for the Elimination of Hepatitis B and C: Phase Two Report",
+   "year": 2017,
+   "url": "https://www.nationalacademies.org/publications/24731"
+  },
+  {
+   "n": 39,
+   "id": "24737",
+   "doi": "10.17226/24737",
+   "title": "Global Health and the Future Role of the United States",
+   "year": 2017,
+   "url": "https://www.nationalacademies.org/publications/24737"
+  },
+  {
+   "n": 40,
+   "id": "24739",
+   "doi": "10.17226/24739",
+   "title": "Integrating Clinical Research into Epidemic Response: The Ebola Experience",
+   "year": 2017,
+   "url": "https://www.nationalacademies.org/publications/24739"
+  },
+  {
+   "n": 41,
+   "id": "24740",
+   "doi": "10.17226/24740",
+   "title": "The Promise of Assistive Technology to Enhance Activity and Work Participation",
+   "year": 2017,
+   "url": "https://www.nationalacademies.org/publications/24740"
+  },
+  {
+   "n": 42,
+   "id": "24747",
+   "doi": "10.17226/24747",
+   "title": "Counter-Unmanned Aircraft System (CUAS) Capability for Battalion-and-Below Operations: Abbreviated Version of a Restricted Report",
+   "year": 2018,
+   "url": "https://www.nationalacademies.org/publications/24747"
+  },
+  {
+   "n": 43,
+   "id": "24749",
+   "doi": "10.17226/24749",
+   "title": "Report 1 on Tracking and Assessing Governance and Management Reform in the Nuclear Security Enterprise",
+   "year": 2017,
+   "url": "https://www.nationalacademies.org/publications/24749"
+  },
+  {
+   "n": 44,
+   "id": "24750",
+   "doi": "10.17226/24750",
+   "title": "Revisiting Brucellosis in the Greater Yellowstone Area",
+   "year": 2020,
+   "url": "https://www.nationalacademies.org/publications/24750"
+  },
+  {
+   "n": 45,
+   "id": "24757",
+   "doi": "10.17226/24757",
+   "title": "A Review of the Environmental Protection Agency's Science to Achieve Results Research Program",
+   "year": 2017,
+   "url": "https://www.nationalacademies.org/publications/24757"
+  },
+  {
+   "n": 46,
+   "id": "24758",
+   "doi": "10.17226/24758",
+   "title": "Application of Systematic Review Methods in an Overall Strategy for Evaluating Low-Dose Toxicity from Endocrine Active Chemicals",
+   "year": 2017,
+   "url": "https://www.nationalacademies.org/publications/24758"
+  },
+  {
+   "n": 47,
+   "id": "24759",
+   "doi": "10.17226/24759",
+   "title": "Review of the Restructured Research and Analysis Programs of NASA's Planetary Science Division",
+   "year": 2017,
+   "url": "https://www.nationalacademies.org/publications/24759"
+  },
+  {
+   "n": 48,
+   "id": "24761",
+   "doi": "10.17226/24761",
+   "title": "Dual Use Research of Concern in the Life Sciences: Current Issues and Controversies",
+   "year": 2017,
+   "url": "https://www.nationalacademies.org/publications/24761"
+  },
+  {
+   "n": 49,
+   "id": "24767",
+   "doi": "10.17226/24767",
+   "title": "A New Vision for Center-Based Engineering Research",
+   "year": 2017,
+   "url": "https://www.nationalacademies.org/publications/24767"
+  },
+  {
+   "n": 50,
+   "id": "24778",
+   "doi": "10.17226/24778",
+   "title": "An Assessment of ARPA-E",
+   "year": 2017,
+   "url": "https://www.nationalacademies.org/publications/24778"
+  },
+  {
+   "n": 51,
+   "id": "24781",
+   "doi": "10.17226/24781",
+   "title": "Pain Management and the Opioid Epidemic: Balancing Societal and Individual Benefits and Risks of Prescription Opioid Use",
+   "year": 2017,
+   "url": "https://www.nationalacademies.org/publications/24781"
+  },
+  {
+   "n": 52,
+   "id": "24782",
+   "doi": "10.17226/24782",
+   "title": "Preventing Cognitive Decline and Dementia: A Way Forward",
+   "year": 2017,
+   "url": "https://www.nationalacademies.org/publications/24782"
+  },
+  {
+   "n": 53,
+   "id": "24783",
+   "doi": "10.17226/24783",
+   "title": "How People Learn II: Learners, Contexts, and Cultures",
+   "year": 2018,
+   "url": "https://www.nationalacademies.org/publications/24783"
+  },
+  {
+   "n": 54,
+   "id": "24790",
+   "doi": "10.17226/24790",
+   "title": "The Value of Social, Behavioral, and Economic Sciences to National Priorities: A Report for the National Science Foundation",
+   "year": 2017,
+   "url": "https://www.nationalacademies.org/publications/24790"
+  },
+  {
+   "n": 55,
+   "id": "24809",
+   "doi": "10.17226/24809",
+   "title": "The Goals, Rationales, and Definition of Planetary Protection: Interim Report",
+   "year": 2017,
+   "url": "https://www.nationalacademies.org/publications/24809"
+  },
+  {
+   "n": 56,
+   "id": "24810",
+   "doi": "10.17226/24810",
+   "title": "Principles and Practices for a Federal Statistical Agency: Sixth Edition",
+   "year": 2017,
+   "url": "https://www.nationalacademies.org/publications/24810"
+  },
+  {
+   "n": 57,
+   "id": "24811",
+   "doi": "10.17226/24811",
+   "title": "An Assessment of ARPA-E: Summary",
+   "year": 2017,
+   "url": "https://www.nationalacademies.org/publications/24811"
+  },
+  {
+   "n": 58,
+   "id": "24818",
+   "doi": "10.17226/24818",
+   "title": "Improving Motor Carrier Safety Measurement",
+   "year": 2017,
+   "url": "https://www.nationalacademies.org/publications/24818"
+  },
+  {
+   "n": 59,
+   "id": "24823",
+   "doi": "10.17226/24823",
+   "title": "Understanding and Predicting the Gulf of Mexico Loop Current: Critical Gaps and Recommendations",
+   "year": 2018,
+   "url": "https://www.nationalacademies.org/publications/24823"
+  },
+  {
+   "n": 60,
+   "id": "24825",
+   "doi": "10.17226/24825",
+   "title": "Utilizing the Energy Resource Potential of DOE Lands",
+   "year": 2017,
+   "url": "https://www.nationalacademies.org/publications/24825"
+  },
+  {
+   "n": 61,
+   "id": "24827",
+   "doi": "10.17226/24827",
+   "title": "Strengthening the Disaster Resilience of the Academic Biomedical Research Community: Protecting the Nation's Investment",
+   "year": 2017,
+   "url": "https://www.nationalacademies.org/publications/24827"
+  },
+  {
+   "n": 62,
+   "id": "24828",
+   "doi": "10.17226/24828",
+   "title": "Guiding Principles for Developing Dietary Reference Intakes Based on Chronic Disease",
+   "year": 2017,
+   "url": "https://www.nationalacademies.org/publications/24828"
+  },
+  {
+   "n": 63,
+   "id": "24832",
+   "doi": "10.17226/24832",
+   "title": "A Proposed Framework for Identifying Potential Biodefense Vulnerabilities Posed by Synthetic Biology: Interim Report",
+   "year": 2017,
+   "url": "https://www.nationalacademies.org/publications/24832"
+  },
+  {
+   "n": 64,
+   "id": "24835",
+   "doi": "10.17226/24835",
+   "title": "A Smarter National Surveillance System for Occupational Safety and Health in the 21st Century",
+   "year": 2018,
+   "url": "https://www.nationalacademies.org/publications/24835"
+  },
+  {
+   "n": 65,
+   "id": "24836",
+   "doi": "10.17226/24836",
+   "title": "Enhancing the Resilience of the Nation's Electricity System",
+   "year": 2017,
+   "url": "https://www.nationalacademies.org/publications/24836"
+  },
+  {
+   "n": 66,
+   "id": "24857",
+   "doi": "10.17226/24857",
+   "title": "Powering Science: NASA's Large Strategic Science Missions",
+   "year": 2017,
+   "url": "https://www.nationalacademies.org/publications/24857"
+  },
+  {
+   "n": 67,
+   "id": "24862",
+   "doi": "10.17226/24862",
+   "title": "Reducing the Threat of Improvised Explosive Device Attacks by Restricting Access to Explosive Precursor Chemicals",
+   "year": 2018,
+   "url": "https://www.nationalacademies.org/publications/24862"
+  },
+  {
+   "n": 68,
+   "id": "24864",
+   "doi": "10.17226/24864",
+   "title": "The 2014 Redesign of the Survey of Income and Program Participation: An Assessment",
+   "year": 2018,
+   "url": "https://www.nationalacademies.org/publications/24864"
+  },
+  {
+   "n": 69,
+   "id": "24865",
+   "doi": "10.17226/24865",
+   "title": "Integrating Social and Behavioral Sciences Within the Weather Enterprise",
+   "year": 2018,
+   "url": "https://www.nationalacademies.org/publications/24865"
+  },
+  {
+   "n": 70,
+   "id": "24883",
+   "doi": "10.17226/24883",
+   "title": "Redesigning the Process for Establishing the Dietary Guidelines for Americans",
+   "year": 2017,
+   "url": "https://www.nationalacademies.org/publications/24883"
+  },
+  {
+   "n": 71,
+   "id": "24884",
+   "doi": "10.17226/24884",
+   "title": "Opportunities for Organ Donor Intervention Research: Saving Lives by Improving the Quality and Quantity of Organs for Transplantation",
+   "year": 2017,
+   "url": "https://www.nationalacademies.org/publications/24884"
+  },
+  {
+   "n": 72,
+   "id": "24886",
+   "doi": "10.17226/24886",
+   "title": "Envisioning the Data Science Discipline: The Undergraduate Perspective: Interim Report",
+   "year": 2018,
+   "url": "https://www.nationalacademies.org/publications/24886"
+  },
+  {
+   "n": 73,
+   "id": "24890",
+   "doi": "10.17226/24890",
+   "title": "Biodefense in the Age of Synthetic Biology",
+   "year": 2018,
+   "url": "https://www.nationalacademies.org/publications/24890"
+  },
+  {
+   "n": 74,
+   "id": "24892",
+   "doi": "10.17226/24892",
+   "title": "Improving Crop Estimates by Integrating Multiple Data Sources",
+   "year": 2017,
+   "url": "https://www.nationalacademies.org/publications/24892"
+  },
+  {
+   "n": 75,
+   "id": "24893",
+   "doi": "10.17226/24893",
+   "title": "Federal Statistics, Multiple Data Sources, and Privacy Protection: Next Steps",
+   "year": 2017,
+   "url": "https://www.nationalacademies.org/publications/24893"
+  },
+  {
+   "n": 76,
+   "id": "24898",
+   "doi": "10.17226/24898",
+   "title": "Investigative Strategies for Lead-Source Attribution at Superfund Sites Associated with Mining Activities",
+   "year": 2017,
+   "url": "https://www.nationalacademies.org/publications/24898"
+  },
+  {
+   "n": 77,
+   "id": "24899",
+   "doi": "10.17226/24899",
+   "title": "Views of the U.S. National Academies of Sciences, Engineering, and Medicine on Agenda Items of Interest to the Science Services at the World Radiocommunication Conference 2019",
+   "year": 2017,
+   "url": "https://www.nationalacademies.org/publications/24899"
+  },
+  {
+   "n": 78,
+   "id": "24915",
+   "doi": "10.17226/24915",
+   "title": "Evaluation of the Department of Veterans Affairs Mental Health Services",
+   "year": 2018,
+   "url": "https://www.nationalacademies.org/publications/24915"
+  },
+  {
+   "n": 79,
+   "id": "24919",
+   "doi": "10.17226/24919",
+   "title": "Sustaining Ocean Observations to Understand Future Changes in Earth's Climate",
+   "year": 2017,
+   "url": "https://www.nationalacademies.org/publications/24919"
+  },
+  {
+   "n": 80,
+   "id": "24926",
+   "doi": "10.17226/24926",
+   "title": "Assessing and Responding to the Growth of Computer Science Undergraduate Enrollments",
+   "year": 2018,
+   "url": "https://www.nationalacademies.org/publications/24926"
+  },
+  {
+   "n": 81,
+   "id": "24928",
+   "doi": "10.17226/24928",
+   "title": "Proactive Policing: Effects on Crime and Communities",
+   "year": 2018,
+   "url": "https://www.nationalacademies.org/publications/24928"
+  },
+  {
+   "n": 82,
+   "id": "24935",
+   "doi": "10.17226/24935",
+   "title": "Emergency Alert and Warning Systems: Current Knowledge and Future Research Directions",
+   "year": 2018,
+   "url": "https://www.nationalacademies.org/publications/24935"
+  },
+  {
+   "n": 83,
+   "id": "24936",
+   "doi": "10.17226/24936",
+   "title": "Airport Passenger Screening Using Millimeter Wave Machines: Compliance with Guidelines",
+   "year": 2017,
+   "url": "https://www.nationalacademies.org/publications/24936"
+  },
+  {
+   "n": 84,
+   "id": "24937",
+   "doi": "10.17226/24937",
+   "title": "Report of the Committee on Proposal Evaluation for Allocation of Supercomputing Time for the Study of Molecular Dynamics: Eighth Round",
+   "year": 2017,
+   "url": "https://www.nationalacademies.org/publications/24937"
+  },
+  {
+   "n": 85,
+   "id": "24938",
+   "doi": "10.17226/24938",
+   "title": "Thriving on Our Changing Planet: A Decadal Strategy for Earth Observation from Space",
+   "year": 2018,
+   "url": "https://www.nationalacademies.org/publications/24938"
+  },
+  {
+   "n": 86,
+   "id": "24939",
+   "doi": "10.17226/24939",
+   "title": "Opportunities in Intense Ultrafast Lasers: Reaching for the Brightest Light",
+   "year": 2018,
+   "url": "https://www.nationalacademies.org/publications/24939"
+  },
+  {
+   "n": 87,
+   "id": "24942",
+   "doi": "10.17226/24942",
+   "title": "Defending Forward-Deployed U.S. Navy Platforms from Potential Enemy Missile and Rocket Attacks: Abbreviated Version of a Classified Report",
+   "year": 2017,
+   "url": "https://www.nationalacademies.org/publications/24942"
+  },
+  {
+   "n": 88,
+   "id": "24943",
+   "doi": "10.17226/24943",
+   "title": "Indicators for Monitoring Undergraduate STEM Education",
+   "year": 2018,
+   "url": "https://www.nationalacademies.org/publications/24943"
+  },
+  {
+   "n": 89,
+   "id": "24946",
+   "doi": "10.17226/24946",
+   "title": "Making Medicines Affordable: A National Imperative",
+   "year": 2018,
+   "url": "https://www.nationalacademies.org/publications/24946"
+  },
+  {
+   "n": 90,
+   "id": "24949",
+   "doi": "10.17226/24949",
+   "title": "Additional Observations on Foundational Cybersecurity Research: Improving Science, Engineering, and Institutions: An Annex: Unclassified Abbreviated Version of a Classified Report",
+   "year": 2017,
+   "url": "https://www.nationalacademies.org/publications/24949"
+  },
+  {
+   "n": 91,
+   "id": "24950",
+   "doi": "10.17226/24950",
+   "title": "The Safety and Quality of Abortion Care in the United States",
+   "year": 2018,
+   "url": "https://www.nationalacademies.org/publications/24950"
+  },
+  {
+   "n": 92,
+   "id": "24951",
+   "doi": "10.17226/24951",
+   "title": "Getting to Zero Alcohol-Impaired Driving Fatalities: A Comprehensive Approach to a Persistent Problem",
+   "year": 2018,
+   "url": "https://www.nationalacademies.org/publications/24951"
+  },
+  {
+   "n": 93,
+   "id": "24952",
+   "doi": "10.17226/24952",
+   "title": "Public Health Consequences of E-Cigarettes",
+   "year": 2018,
+   "url": "https://www.nationalacademies.org/publications/24952"
+  },
+  {
+   "n": 94,
+   "id": "24953",
+   "doi": "10.17226/24953",
+   "title": "Review of NASA's Evidence Reports on Human Health Risks: 2017 Letter Report",
+   "year": 2018,
+   "url": "https://www.nationalacademies.org/publications/24953"
+  },
+  {
+   "n": 95,
+   "id": "24960",
+   "doi": "10.17226/24960",
+   "title": "Environmental Chemicals, the Human Microbiome, and Health Risk: A Research Strategy",
+   "year": 2018,
+   "url": "https://www.nationalacademies.org/publications/24960"
+  },
+  {
+   "n": 96,
+   "id": "24962",
+   "doi": "10.17226/24962",
+   "title": "In-Time Aviation Safety Management: Challenges and Research for an Evolving Aviation System",
+   "year": 2018,
+   "url": "https://www.nationalacademies.org/publications/24962"
+  },
+  {
+   "n": 97,
+   "id": "24964",
+   "doi": "10.17226/24964",
+   "title": "Regional Ballistic Missile Defense in the Context of Strategic Stability",
+   "year": 2021,
+   "url": "https://www.nationalacademies.org/publications/24964"
+  },
+  {
+   "n": 98,
+   "id": "24966",
+   "doi": "10.17226/24966",
+   "title": "A Midterm Assessment of Implementation of the Decadal Survey on Life and Physical Sciences Research at NASA",
+   "year": 2018,
+   "url": "https://www.nationalacademies.org/publications/24966"
+  },
+  {
+   "n": 99,
+   "id": "24968",
+   "doi": "10.17226/24968",
+   "title": "Measuring the 21st Century Science and Engineering Workforce Population: Evolving Needs",
+   "year": 2018,
+   "url": "https://www.nationalacademies.org/publications/24968"
+  },
+  {
+   "n": 100,
+   "id": "24969",
+   "doi": "10.17226/24969",
+   "title": "Health-Care Utilization as a Proxy in Disability Determination",
+   "year": 2018,
+   "url": "https://www.nationalacademies.org/publications/24969"
+  },
+  {
+   "n": 101,
+   "id": "24971",
+   "doi": "10.17226/24971",
+   "title": "Interim Report of the Committee on a Strategic Plan for U.S. Burning Plasma Research",
+   "year": 2018,
+   "url": "https://www.nationalacademies.org/publications/24971"
+  },
+  {
+   "n": 102,
+   "id": "24975",
+   "doi": "10.17226/24975",
+   "title": "An Assessment of the National Institute of Standards and Technology Material Measurement Laboratory: Fiscal Year 2017",
+   "year": 2017,
+   "url": "https://www.nationalacademies.org/publications/24975"
+  },
+  {
+   "n": 103,
+   "id": "24976",
+   "doi": "10.17226/24976",
+   "title": "An Assessment of the Smart Manufacturing Activities at the National Institute of Standards and Technology Engineering Laboratory: Fiscal Year 2017",
+   "year": 2017,
+   "url": "https://www.nationalacademies.org/publications/24976"
+  },
+  {
+   "n": 104,
+   "id": "24984",
+   "doi": "10.17226/24984",
+   "title": "Transforming the Financing of Early Care and Education",
+   "year": 2018,
+   "url": "https://www.nationalacademies.org/publications/24984"
+  },
+  {
+   "n": 105,
+   "id": "24987",
+   "doi": "10.17226/24987",
+   "title": "Improving Characterization of Anthropogenic Methane Emissions in the United States",
+   "year": 2018,
+   "url": "https://www.nationalacademies.org/publications/24987"
+  },
+  {
+   "n": 106,
+   "id": "24988",
+   "doi": "10.17226/24988",
+   "title": "The Integration of the Humanities and Arts with Sciences, Engineering, and Medicine in Higher Education: Branches from the Same Tree",
+   "year": 2018,
+   "url": "https://www.nationalacademies.org/publications/24988"
+  },
+  {
+   "n": 107,
+   "id": "24993",
+   "doi": "10.17226/24993",
+   "title": "Testing at the Speed of Light: The State of U.S. Electronic Parts Space Radiation Testing Infrastructure",
+   "year": 2018,
+   "url": "https://www.nationalacademies.org/publications/24993"
+  },
+  {
+   "n": 108,
+   "id": "25008",
+   "doi": "10.17226/25008",
+   "title": "The Next Generation of Biomedical and Behavioral Sciences Researchers: Breaking Through",
+   "year": 2018,
+   "url": "https://www.nationalacademies.org/publications/25008"
+  },
+  {
+   "n": 109,
+   "id": "25010",
+   "doi": "10.17226/25010",
+   "title": "Decrypting the Encryption Debate: A Framework for Decision Makers",
+   "year": 2018,
+   "url": "https://www.nationalacademies.org/publications/25010"
+  },
+  {
+   "n": 110,
+   "id": "25013",
+   "doi": "10.17226/25013",
+   "title": "Review of the Draft Fourth National Climate Assessment",
+   "year": 2018,
+   "url": "https://www.nationalacademies.org/publications/25013"
+  },
+  {
+   "n": 111,
+   "id": "25025",
+   "doi": "10.17226/25025",
+   "title": "Review of Report and Approach to Evaluating Long-Term Health Effects in Army Test Subjects: Interim Report",
+   "year": 2018,
+   "url": "https://www.nationalacademies.org/publications/25025"
+  },
+  {
+   "n": 112,
+   "id": "25026",
+   "doi": "10.17226/25026",
+   "title": "A Review of the Citrus Greening Research and Development Efforts Supported by the Citrus Research and Development Foundation: Fighting a Ravaging Disease",
+   "year": 2018,
+   "url": "https://www.nationalacademies.org/publications/25026"
+  },
+  {
+   "n": 113,
+   "id": "25028",
+   "doi": "10.17226/25028",
+   "title": "Opportunities for Improving Programs and Services for Children with Disabilities",
+   "year": 2018,
+   "url": "https://www.nationalacademies.org/publications/25028"
+  },
+  {
+   "n": 114,
+   "id": "25032",
+   "doi": "10.17226/25032",
+   "title": "High-Performance Bolting Technology for Offshore Oil and Natural Gas Operations",
+   "year": 2018,
+   "url": "https://www.nationalacademies.org/publications/25032"
+  },
+  {
+   "n": 115,
+   "id": "25035",
+   "doi": "10.17226/25035",
+   "title": "Modernizing Crime Statistics: Report 2: New Systems for Measuring Crime",
+   "year": 2018,
+   "url": "https://www.nationalacademies.org/publications/25035"
+  },
+  {
+   "n": 116,
+   "id": "25038",
+   "doi": "10.17226/25038",
+   "title": "Graduate STEM Education for the 21st Century",
+   "year": 2018,
+   "url": "https://www.nationalacademies.org/publications/25038"
+  },
+  {
+   "n": 117,
+   "id": "25040",
+   "doi": "10.17226/25040",
+   "title": "Report 2 on Tracking and Assessing Governance and Management Reform in the Nuclear Security Enterprise",
+   "year": 2018,
+   "url": "https://www.nationalacademies.org/publications/25040"
+  },
+  {
+   "n": 118,
+   "id": "25045",
+   "doi": "10.17226/25045",
+   "title": "Review of the Draft Second State of the Carbon Cycle Report (SOCCR2)",
+   "year": 2018,
+   "url": "https://www.nationalacademies.org/publications/25045"
+  },
+  {
+   "n": 119,
+   "id": "25059",
+   "doi": "10.17226/25059",
+   "title": "Science Breakthroughs to Advance Food and Agricultural Research by 2030",
+   "year": 2019,
+   "url": "https://www.nationalacademies.org/publications/25059"
+  },
+  {
+   "n": 120,
+   "id": "25065",
+   "doi": "10.17226/25065",
+   "title": "Review of Report and Approach to Evaluating Long-Term Health Effects in Army Test Subjects",
+   "year": 2018,
+   "url": "https://www.nationalacademies.org/publications/25065"
+  },
+  {
+   "n": 121,
+   "id": "25086",
+   "doi": "10.17226/25086",
+   "title": "Progress Toward Transforming the Integrated Risk Information System (IRIS) Program: A 2018 Evaluation",
+   "year": 2018,
+   "url": "https://www.nationalacademies.org/publications/25086"
+  },
+  {
+   "n": 122,
+   "id": "25093",
+   "doi": "10.17226/25093",
+   "title": "Review of the Analysis of Supplemental Treatment Approaches of Low-Activity Waste at the Hanford Nuclear Reservation: Review #1",
+   "year": 2018,
+   "url": "https://www.nationalacademies.org/publications/25093"
+  },
+  {
+   "n": 123,
+   "id": "25094",
+   "doi": "10.17226/25094",
+   "title": "Returning Individual Research Results to Participants: Guidance for a New Research Paradigm",
+   "year": 2018,
+   "url": "https://www.nationalacademies.org/publications/25094"
+  },
+  {
+   "n": 124,
+   "id": "25098",
+   "doi": "10.17226/25098",
+   "title": "Reengineering the Census Bureau's Annual Economic Surveys",
+   "year": 2018,
+   "url": "https://www.nationalacademies.org/publications/25098"
+  },
+  {
+   "n": 125,
+   "id": "25104",
+   "doi": "10.17226/25104",
+   "title": "Data Science for Undergraduates: Opportunities and Options",
+   "year": 2018,
+   "url": "https://www.nationalacademies.org/publications/25104"
+  },
+  {
+   "n": 126,
+   "id": "25108",
+   "doi": "10.17226/25108",
+   "title": "Understanding the Long-Term Evolution of the Coupled Natural-Human Coastal System: The Future of the U.S. Gulf Coast",
+   "year": 2018,
+   "url": "https://www.nationalacademies.org/publications/25108"
+  },
+  {
+   "n": 127,
+   "id": "25111",
+   "doi": "10.17226/25111",
+   "title": "Monitoring and Sampling Approaches to Assess Underground Coal Mine Dust Exposures",
+   "year": 2018,
+   "url": "https://www.nationalacademies.org/publications/25111"
+  },
+  {
+   "n": 128,
+   "id": "25116",
+   "doi": "10.17226/25116",
+   "title": "Open Science by Design: Realizing a Vision for 21st Century Research",
+   "year": 2018,
+   "url": "https://www.nationalacademies.org/publications/25116"
+  },
+  {
+   "n": 129,
+   "id": "25120",
+   "doi": "10.17226/25120",
+   "title": "Securing the Vote: Protecting American Democracy",
+   "year": 2018,
+   "url": "https://www.nationalacademies.org/publications/25120"
+  },
+  {
+   "n": 130,
+   "id": "25121",
+   "doi": "10.17226/25121",
+   "title": "Environmental Engineering for the 21st Century: Addressing Grand Challenges",
+   "year": 2019,
+   "url": "https://www.nationalacademies.org/publications/25121"
+  },
+  {
+   "n": 131,
+   "id": "25133",
+   "doi": "10.17226/25133",
+   "title": "Permanent Supportive Housing: Evaluating the Evidence for Improving Health Outcomes Among People Experiencing Chronic Homelessness",
+   "year": 2018,
+   "url": "https://www.nationalacademies.org/publications/25133"
+  },
+  {
+   "n": 132,
+   "id": "25134",
+   "doi": "10.17226/25134",
+   "title": "Future Water Priorities for the Nation: Directions for the U.S. Geological Survey Water Mission Area",
+   "year": 2018,
+   "url": "https://www.nationalacademies.org/publications/25134"
+  },
+  {
+   "n": 133,
+   "id": "25137",
+   "doi": "10.17226/25137",
+   "title": "Veterans and Agent Orange: Update 11 (2018)",
+   "year": 2018,
+   "url": "https://www.nationalacademies.org/publications/25137"
+  },
+  {
+   "n": 134,
+   "id": "25140",
+   "doi": "10.17226/25140",
+   "title": "Alternatives for the Demilitarization of Conventional Munitions",
+   "year": 2019,
+   "url": "https://www.nationalacademies.org/publications/25140"
+  },
+  {
+   "n": 135,
+   "id": "25141",
+   "doi": "10.17226/25141",
+   "title": "Future Directions for the U.S. Geological Survey's Energy Resources Program",
+   "year": 2018,
+   "url": "https://www.nationalacademies.org/publications/25141"
+  },
+  {
+   "n": 136,
+   "id": "25143",
+   "doi": "10.17226/25143",
+   "title": "Assessing the Risks of Integrating Unmanned Aircraft Systems (UAS) into the National Airspace System",
+   "year": 2018,
+   "url": "https://www.nationalacademies.org/publications/25143"
+  },
+  {
+   "n": 137,
+   "id": "25148",
+   "doi": "10.17226/25148",
+   "title": "Harmonization of Approaches to Nutrient Reference Values: Applications to Young Children and Women of Reproductive Age",
+   "year": 2018,
+   "url": "https://www.nationalacademies.org/publications/25148"
+  },
+  {
+   "n": 138,
+   "id": "25152",
+   "doi": "10.17226/25152",
+   "title": "Crossing the Global Quality Chasm: Improving Health Care Worldwide",
+   "year": 2018,
+   "url": "https://www.nationalacademies.org/publications/25152"
+  },
+  {
+   "n": 139,
+   "id": "25161",
+   "doi": "10.17226/25161",
+   "title": "The Use of Dispersants in Marine Oil Spill Response",
+   "year": 2020,
+   "url": "https://www.nationalacademies.org/publications/25161"
+  },
+  {
+   "n": 140,
+   "id": "25162",
+   "doi": "10.17226/25162",
+   "title": "Gulf War and Health: Volume 11: Generational Health Effects of Serving in the Gulf War",
+   "year": 2018,
+   "url": "https://www.nationalacademies.org/publications/25162"
+  },
+  {
+   "n": 141,
+   "id": "25171",
+   "doi": "10.17226/25171",
+   "title": "An Assessment of U.S.-Based Electron-Ion Collider Science",
+   "year": 2018,
+   "url": "https://www.nationalacademies.org/publications/25171"
+  },
+  {
+   "n": 142,
+   "id": "25172",
+   "doi": "10.17226/25172",
+   "title": "Review and Assessment of Planetary Protection Policy Development Processes",
+   "year": 2018,
+   "url": "https://www.nationalacademies.org/publications/25172"
+  },
+  {
+   "n": 143,
+   "id": "25182",
+   "doi": "10.17226/25182",
+   "title": "English Learners in STEM Subjects: Transforming Classrooms, Schools, and Lives",
+   "year": 2018,
+   "url": "https://www.nationalacademies.org/publications/25182"
+  },
+  {
+   "n": 144,
+   "id": "25183",
+   "doi": "10.17226/25183",
+   "title": "Learning Through Citizen Science: Enhancing Opportunities by Design",
+   "year": 2018,
+   "url": "https://www.nationalacademies.org/publications/25183"
+  },
+  {
+   "n": 145,
+   "id": "25186",
+   "doi": "10.17226/25186",
+   "title": "Visions into Voyages for Planetary Science in the Decade 2013-2022: A Midterm Review",
+   "year": 2018,
+   "url": "https://www.nationalacademies.org/publications/25186"
+  },
+  {
+   "n": 146,
+   "id": "25187",
+   "doi": "10.17226/25187",
+   "title": "Exoplanet Science Strategy",
+   "year": 2018,
+   "url": "https://www.nationalacademies.org/publications/25187"
+  },
+  {
+   "n": 147,
+   "id": "25196",
+   "doi": "10.17226/25196",
+   "title": "Quantum Computing: Progress and Prospects",
+   "year": 2019,
+   "url": "https://www.nationalacademies.org/publications/25196"
+  },
+  {
+   "n": 148,
+   "id": "25200",
+   "doi": "10.17226/25200",
+   "title": "Review of the Edwards Aquifer Habitat Conservation Plan: Report 3",
+   "year": 2018,
+   "url": "https://www.nationalacademies.org/publications/25200"
+  },
+  {
+   "n": 149,
+   "id": "25201",
+   "doi": "10.17226/25201",
+   "title": "Fostering Healthy Mental, Emotional, and Behavioral Development in Children and Youth: A National Agenda",
+   "year": 2019,
+   "url": "https://www.nationalacademies.org/publications/25201"
+  },
+  {
+   "n": 150,
+   "id": "25215",
+   "doi": "10.17226/25215",
+   "title": "Letter Report on the 2020 Census",
+   "year": 2018,
+   "url": "https://www.nationalacademies.org/publications/25215"
+  },
+  {
+   "n": 151,
+   "id": "25216",
+   "doi": "10.17226/25216",
+   "title": "Science and Engineering for Grades 6-12: Investigation and Design at the Center",
+   "year": 2019,
+   "url": "https://www.nationalacademies.org/publications/25216"
+  },
+  {
+   "n": 152,
+   "id": "25217",
+   "doi": "10.17226/25217",
+   "title": "Open Source Software Policy Options for NASA Earth and Space Sciences",
+   "year": 2018,
+   "url": "https://www.nationalacademies.org/publications/25217"
+  },
+  {
+   "n": 153,
+   "id": "25218",
+   "doi": "10.17226/25218",
+   "title": "Review of the New York City Department of Environmental Protection Operations Support Tool for Water Supply",
+   "year": 2018,
+   "url": "https://www.nationalacademies.org/publications/25218"
+  },
+  {
+   "n": 154,
+   "id": "25221",
+   "doi": "10.17226/25221",
+   "title": "Forest Health and Biotechnology: Possibilities and Considerations",
+   "year": 2019,
+   "url": "https://www.nationalacademies.org/publications/25221"
+  },
+  {
+   "n": 155,
+   "id": "25232",
+   "doi": "10.17226/25232",
+   "title": "Gaseous Carbon Waste Streams Utilization: Status and Research Needs",
+   "year": 2019,
+   "url": "https://www.nationalacademies.org/publications/25232"
+  },
+  {
+   "n": 156,
+   "id": "25236",
+   "doi": "10.17226/25236",
+   "title": "Review of the Draft Analysis of Supplemental Treatment Approaches of Low-Activity Waste at the Hanford Nuclear Reservation: Review #2",
+   "year": 2018,
+   "url": "https://www.nationalacademies.org/publications/25236"
+  },
+  {
+   "n": 157,
+   "id": "25244",
+   "doi": "10.17226/25244",
+   "title": "Frontiers of Materials Research: A Decadal Survey",
+   "year": 2019,
+   "url": "https://www.nationalacademies.org/publications/25244"
+  },
+  {
+   "n": 158,
+   "id": "25246",
+   "doi": "10.17226/25246",
+   "title": "A Roadmap to Reducing Child Poverty",
+   "year": 2019,
+   "url": "https://www.nationalacademies.org/publications/25246"
+  },
+  {
+   "n": 159,
+   "id": "25252",
+   "doi": "10.17226/25252",
+   "title": "An Astrobiology Strategy for the Search for Life in the Universe",
+   "year": 2019,
+   "url": "https://www.nationalacademies.org/publications/25252"
+  },
+  {
+   "n": 160,
+   "id": "25257",
+   "doi": "10.17226/25257",
+   "title": "Minority Serving Institutions: America's Underutilized Resource for Strengthening the STEM Workforce",
+   "year": 2019,
+   "url": "https://www.nationalacademies.org/publications/25257"
+  },
+  {
+   "n": 161,
+   "id": "25259",
+   "doi": "10.17226/25259",
+   "title": "Negative Emissions Technologies and Reliable Sequestration: A Research Agenda",
+   "year": 2019,
+   "url": "https://www.nationalacademies.org/publications/25259"
+  },
+  {
+   "n": 162,
+   "id": "25260",
+   "doi": "10.17226/25260",
+   "title": "Improving Data Collection and Measurement of Complex Farms",
+   "year": 2019,
+   "url": "https://www.nationalacademies.org/publications/25260"
+  },
+  {
+   "n": 163,
+   "id": "25270",
+   "doi": "10.17226/25270",
+   "title": "Report of the Committee on Proposal Evaluation for Allocation of Supercomputing Time for the Study of Molecular Dynamics: Ninth Round",
+   "year": 2018,
+   "url": "https://www.nationalacademies.org/publications/25270"
+  },
+  {
+   "n": 164,
+   "id": "25272",
+   "doi": "10.17226/25272",
+   "title": "Disposal of Surplus Plutonium at the Waste Isolation Pilot Plant: Interim Report",
+   "year": 2018,
+   "url": "https://www.nationalacademies.org/publications/25272"
+  },
+  {
+   "n": 165,
+   "id": "25279",
+   "doi": "10.17226/25279",
+   "title": "A Research Review of Interventions to Increase the Persistence and Resilience of Coral Reefs",
+   "year": 2019,
+   "url": "https://www.nationalacademies.org/publications/25279"
+  },
+  {
+   "n": 166,
+   "id": "25281",
+   "doi": "10.17226/25281",
+   "title": "An Assessment of Four Divisions of the Physical Measurement Laboratory at the National Institute of Standards and Technology: Fiscal Year 2018",
+   "year": 2018,
+   "url": "https://www.nationalacademies.org/publications/25281"
+  },
+  {
+   "n": 167,
+   "id": "25282",
+   "doi": "10.17226/25282",
+   "title": "An Assessment of the Center for Neutron Research at the National Institute of Standards and Technology: Fiscal Year 2018",
+   "year": 2018,
+   "url": "https://www.nationalacademies.org/publications/25282"
+  },
+  {
+   "n": 168,
+   "id": "25283",
+   "doi": "10.17226/25283",
+   "title": "An Assessment of Four Divisions of the Information Technology Laboratory at the National Institute of Standards and Technology: Fiscal Year 2018",
+   "year": 2018,
+   "url": "https://www.nationalacademies.org/publications/25283"
+  },
+  {
+   "n": 169,
+   "id": "25284",
+   "doi": "10.17226/25284",
+   "title": "Understanding the Educational and Career Pathways of Engineers",
+   "year": 2018,
+   "url": "https://www.nationalacademies.org/publications/25284"
+  },
+  {
+   "n": 170,
+   "id": "25303",
+   "doi": "10.17226/25303",
+   "title": "Reproducibility and Replicability in Science",
+   "year": 2019,
+   "url": "https://www.nationalacademies.org/publications/25303"
+  },
+  {
+   "n": 171,
+   "id": "25310",
+   "doi": "10.17226/25310",
+   "title": "Medications for Opioid Use Disorder Save Lives",
+   "year": 2019,
+   "url": "https://www.nationalacademies.org/publications/25310"
+  },
+  {
+   "n": 172,
+   "id": "25312",
+   "doi": "10.17226/25312",
+   "title": "Strategic Investments in Instrumentation and Facilities for Extraterrestrial Sample Curation and Analysis",
+   "year": 2019,
+   "url": "https://www.nationalacademies.org/publications/25312"
+  },
+  {
+   "n": 173,
+   "id": "25317",
+   "doi": "10.17226/25317",
+   "title": "Evaluation of the Disability Determination Process for Traumatic Brain Injury in Veterans",
+   "year": 2019,
+   "url": "https://www.nationalacademies.org/publications/25317"
+  },
+  {
+   "n": 174,
+   "id": "25326",
+   "doi": "10.17226/25326",
+   "title": "Considerations for the Design of a Systematic Review of Care Interventions for Individuals with Dementia and Their Caregivers: Letter Report",
+   "year": 2018,
+   "url": "https://www.nationalacademies.org/publications/25326"
+  },
+  {
+   "n": 175,
+   "id": "25331",
+   "doi": "10.17226/25331",
+   "title": "Final Report of the Committee on a Strategic Plan for U.S. Burning Plasma Research",
+   "year": 2019,
+   "url": "https://www.nationalacademies.org/publications/25331"
+  },
+  {
+   "n": 176,
+   "id": "25335",
+   "doi": "10.17226/25335",
+   "title": "A Decadal Survey of the Social and Behavioral Sciences: A Research Agenda for Advancing Intelligence Analysis",
+   "year": 2019,
+   "url": "https://www.nationalacademies.org/publications/25335"
+  },
+  {
+   "n": 177,
+   "id": "25337",
+   "doi": "10.17226/25337",
+   "title": "Acquisition Strategies for Future Space-Based Optics: Unclassified Summary",
+   "year": 2019,
+   "url": "https://www.nationalacademies.org/publications/25337"
+  },
+  {
+   "n": 178,
+   "id": "25338",
+   "doi": "10.17226/25338",
+   "title": "Independent Assessment of Science and Technology for the Department of Energy's Defense Environmental Cleanup Program",
+   "year": 2019,
+   "url": "https://www.nationalacademies.org/publications/25338"
+  },
+  {
+   "n": 179,
+   "id": "25351",
+   "doi": "10.17226/25351",
+   "title": "Evaluating the Taxonomic Status of the Mexican Gray Wolf and the Red Wolf",
+   "year": 2019,
+   "url": "https://www.nationalacademies.org/publications/25351"
+  },
+  {
+   "n": 180,
+   "id": "25353",
+   "doi": "10.17226/25353",
+   "title": "Dietary Reference Intakes for Sodium and Potassium",
+   "year": 2019,
+   "url": "https://www.nationalacademies.org/publications/25353"
+  },
+  {
+   "n": 181,
+   "id": "25355",
+   "doi": "10.17226/25355",
+   "title": "Improving the EPA Multi-Sector General Permit for Industrial Stormwater Discharges",
+   "year": 2019,
+   "url": "https://www.nationalacademies.org/publications/25355"
+  },
+  {
+   "n": 182,
+   "id": "25357",
+   "doi": "10.17226/25357",
+   "title": "Planetary Protection Classification of Sample Return Missions from the Martian Moons",
+   "year": 2019,
+   "url": "https://www.nationalacademies.org/publications/25357"
+  },
+  {
+   "n": 183,
+   "id": "25376",
+   "doi": "10.17226/25376",
+   "title": "Functional Assessment for Adults with Disabilities",
+   "year": 2019,
+   "url": "https://www.nationalacademies.org/publications/25376"
+  },
+  {
+   "n": 184,
+   "id": "25380",
+   "doi": "10.17226/25380",
+   "title": "Strengthening the Military Family Readiness System for a Changing American Society",
+   "year": 2019,
+   "url": "https://www.nationalacademies.org/publications/25380"
+  },
+  {
+   "n": 185,
+   "id": "25381",
+   "doi": "10.17226/25381",
+   "title": "Framing the Challenge of Urban Flooding in the United States",
+   "year": 2019,
+   "url": "https://www.nationalacademies.org/publications/25381"
+  },
+  {
+   "n": 186,
+   "id": "25383",
+   "doi": "10.17226/25383",
+   "title": "Building and Measuring Community Resilience: Actions for Communities and the Gulf Research Program",
+   "year": 2019,
+   "url": "https://www.nationalacademies.org/publications/25383"
+  },
+  {
+   "n": 187,
+   "id": "25388",
+   "doi": "10.17226/25388",
+   "title": "The Promise of Adolescence: Realizing Opportunity for All Youth",
+   "year": 2019,
+   "url": "https://www.nationalacademies.org/publications/25388"
+  },
+  {
+   "n": 188,
+   "id": "25389",
+   "doi": "10.17226/25389",
+   "title": "Monitoring Educational Equity",
+   "year": 2019,
+   "url": "https://www.nationalacademies.org/publications/25389"
+  },
+  {
+   "n": 189,
+   "id": "25390",
+   "doi": "10.17226/25390",
+   "title": "Metrics for Successful Supercritical Water Oxidation System Operation at the Blue Grass Chemical Agent Destruction Pilot Plant",
+   "year": 2019,
+   "url": "https://www.nationalacademies.org/publications/25390"
+  },
+  {
+   "n": 190,
+   "id": "25392",
+   "doi": "10.17226/25392",
+   "title": "Report 3 on Tracking and Assessing Governance and Management Reform in the Nuclear Security Enterprise",
+   "year": 2019,
+   "url": "https://www.nationalacademies.org/publications/25392"
+  },
+  {
+   "n": 191,
+   "id": "25394",
+   "doi": "10.17226/25394",
+   "title": "Traumatic Brain Injury: A Roadmap for Accelerating Progress",
+   "year": 2022,
+   "url": "https://www.nationalacademies.org/publications/25394"
+  },
+  {
+   "n": 192,
+   "id": "25412",
+   "doi": "10.17226/25412",
+   "title": "A Class Approach to Hazard Assessment of Organohalogen Flame Retardants",
+   "year": 2019,
+   "url": "https://www.nationalacademies.org/publications/25412"
+  },
+  {
+   "n": 193,
+   "id": "25417",
+   "doi": "10.17226/25417",
+   "title": "Strategic Long-Term Participation by DoD in Its Manufacturing USA Institutes",
+   "year": 2019,
+   "url": "https://www.nationalacademies.org/publications/25417"
+  },
+  {
+   "n": 194,
+   "id": "25421",
+   "doi": "10.17226/25421",
+   "title": "A Research Agenda for Transforming Separation Science",
+   "year": 2019,
+   "url": "https://www.nationalacademies.org/publications/25421"
+  },
+  {
+   "n": 195,
+   "id": "25424",
+   "doi": "10.17226/25424",
+   "title": "A Decision Framework for Interventions to Increase the Persistence and Resilience of Coral Reefs",
+   "year": 2019,
+   "url": "https://www.nationalacademies.org/publications/25424"
+  },
+  {
+   "n": 196,
+   "id": "25426",
+   "doi": "10.17226/25426",
+   "title": "Assessment of the Information Sciences Directorate at the Army Research Office",
+   "year": 2019,
+   "url": "https://www.nationalacademies.org/publications/25426"
+  },
+  {
+   "n": 197,
+   "id": "25429",
+   "doi": "10.17226/25429",
+   "title": "Evaluating the Taxonomic Status of the Mexican Gray Wolf and the Red Wolf: Spanish-Language Summary",
+   "year": 2019,
+   "url": "https://www.nationalacademies.org/publications/25429"
+  },
+  {
+   "n": 198,
+   "id": "25434",
+   "doi": "10.17226/25434",
+   "title": "Leveraging Commercial and Other Innovation for Future U.S. Navy Data Warfare Needs: Abbreviated Version of Full Report",
+   "year": 2020,
+   "url": "https://www.nationalacademies.org/publications/25434"
+  },
+  {
+   "n": 199,
+   "id": "25437",
+   "doi": "10.17226/25437",
+   "title": "Thriving on Our Changing Planet: A Decadal Strategy for Earth Observation from Space: An Overview for Decision Makers and the Public",
+   "year": 2019,
+   "url": "https://www.nationalacademies.org/publications/25437"
+  },
+  {
+   "n": 200,
+   "id": "25438",
+   "doi": "10.17226/25438",
+   "title": "Guiding Cancer Control: A Path to Transformation",
+   "year": 2019,
+   "url": "https://www.nationalacademies.org/publications/25438"
+  },
+  {
+   "n": 201,
+   "id": "25444",
+   "doi": "10.17226/25444",
+   "title": "Implementing Strategies to Enhance Public Health Surveillance of Physical Activity in the United States",
+   "year": 2019,
+   "url": "https://www.nationalacademies.org/publications/25444"
+  },
+  {
+   "n": 202,
+   "id": "25454",
+   "doi": "10.17226/25454",
+   "title": "Facilities Staffing Requirements for the Veterans Health Administration—Resource Planning and Methodology for the Future",
+   "year": 2020,
+   "url": "https://www.nationalacademies.org/publications/25454"
+  },
+  {
+   "n": 203,
+   "id": "25455",
+   "doi": "10.17226/25455",
+   "title": "Facilities Staffing Requirements for the Veterans Health Administration—Resource Planning and Methodology for the Future: Interim Report",
+   "year": 2019,
+   "url": "https://www.nationalacademies.org/publications/25455"
+  },
+  {
+   "n": 204,
+   "id": "25466",
+   "doi": "10.17226/25466",
+   "title": "Vibrant and Healthy Kids: Aligning Science, Practice, and Policy to Advance Health Equity",
+   "year": 2019,
+   "url": "https://www.nationalacademies.org/publications/25466"
+  },
+  {
+   "n": 205,
+   "id": "25467",
+   "doi": "10.17226/25467",
+   "title": "Integrating Social Care into the Delivery of Health Care: Moving Upstream to Improve the Nation's Health",
+   "year": 2019,
+   "url": "https://www.nationalacademies.org/publications/25467"
+  },
+  {
+   "n": 206,
+   "id": "25474",
+   "doi": "10.17226/25474",
+   "title": "Management of Legionella in Water Systems",
+   "year": 2020,
+   "url": "https://www.nationalacademies.org/publications/25474"
+  },
+  {
+   "n": 207,
+   "id": "25475",
+   "doi": "10.17226/25475",
+   "title": "The Growing Threat to Air Force Mission-Critical Electronics: Lethality at Risk: Unclassified Summary",
+   "year": 2019,
+   "url": "https://www.nationalacademies.org/publications/25475"
+  },
+  {
+   "n": 208,
+   "id": "25476",
+   "doi": "10.17226/25476",
+   "title": "Finding Hazardous Asteroids Using Infrared and Visible Wavelength Telescopes",
+   "year": 2019,
+   "url": "https://www.nationalacademies.org/publications/25476"
+  },
+  {
+   "n": 209,
+   "id": "25482",
+   "doi": "10.17226/25482",
+   "title": "Evaluation of the Minerva Research Initiative",
+   "year": 2020,
+   "url": "https://www.nationalacademies.org/publications/25482"
+  },
+  {
+   "n": 210,
+   "id": "25483",
+   "doi": "10.17226/25483",
+   "title": "Managing the NIH Bethesda Campus Capital Assets for Success in a Highly Competitive Global Biomedical Research Environment",
+   "year": 2019,
+   "url": "https://www.nationalacademies.org/publications/25483"
+  },
+  {
+   "n": 211,
+   "id": "25490",
+   "doi": "10.17226/25490",
+   "title": "Strengthening Post-Hurricane Supply Chain Resilience: Observations from Hurricanes Harvey, Irma, and Maria",
+   "year": 2020,
+   "url": "https://www.nationalacademies.org/publications/25490"
+  },
+  {
+   "n": 212,
+   "id": "25509",
+   "doi": "10.17226/25509",
+   "title": "Review of the Final Draft Analysis of Supplemental Treatment Approaches of Low-Activity Waste at the Hanford Nuclear Reservation: Review #3",
+   "year": 2019,
+   "url": "https://www.nationalacademies.org/publications/25509"
+  },
+  {
+   "n": 213,
+   "id": "25521",
+   "doi": "10.17226/25521",
+   "title": "Taking Action Against Clinician Burnout: A Systems Approach to Professional Well-Being",
+   "year": 2019,
+   "url": "https://www.nationalacademies.org/publications/25521"
+  },
+  {
+   "n": 214,
+   "id": "25524",
+   "doi": "10.17226/25524",
+   "title": "Assuring Data Quality at U.S. Geological Survey Laboratories",
+   "year": 2019,
+   "url": "https://www.nationalacademies.org/publications/25524"
+  },
+  {
+   "n": 215,
+   "id": "25525",
+   "doi": "10.17226/25525",
+   "title": "Safeguarding the Bioeconomy",
+   "year": 2020,
+   "url": "https://www.nationalacademies.org/publications/25525"
+  },
+  {
+   "n": 216,
+   "id": "25531",
+   "doi": "10.17226/25531",
+   "title": "Criteria for Selecting the Leading Health Indicators for Healthy People 2030",
+   "year": 2019,
+   "url": "https://www.nationalacademies.org/publications/25531"
+  },
+  {
+   "n": 217,
+   "id": "25532",
+   "doi": "10.17226/25532",
+   "title": "An Approach to Evaluate the Effects of Concomitant Prescribing of Opioids and Benzodiazepines on Veteran Deaths and Suicides",
+   "year": 2019,
+   "url": "https://www.nationalacademies.org/publications/25532"
+  },
+  {
+   "n": 218,
+   "id": "25542",
+   "doi": "10.17226/25542",
+   "title": "Reducing Fuel Consumption and Greenhouse Gas Emissions of Medium- and Heavy-Duty Vehicles, Phase Two: Final Report",
+   "year": 2020,
+   "url": "https://www.nationalacademies.org/publications/25542"
+  },
+  {
+   "n": 219,
+   "id": "25546",
+   "doi": "10.17226/25546",
+   "title": "Shaping Summertime Experiences: Opportunities to Promote Healthy Development and Well-Being for Children and Youth",
+   "year": 2019,
+   "url": "https://www.nationalacademies.org/publications/25546"
+  },
+  {
+   "n": 220,
+   "id": "25552",
+   "doi": "10.17226/25552",
+   "title": "Promoting Positive Adolescent Health Behaviors and Outcomes: Thriving in the 21st Century",
+   "year": 2020,
+   "url": "https://www.nationalacademies.org/publications/25552"
+  },
+  {
+   "n": 221,
+   "id": "25555",
+   "doi": "10.17226/25555",
+   "title": "Framing Opioid Prescribing Guidelines for Acute Pain: Developing the Evidence",
+   "year": 2020,
+   "url": "https://www.nationalacademies.org/publications/25555"
+  },
+  {
+   "n": 222,
+   "id": "25558",
+   "doi": "10.17226/25558",
+   "title": "Review of EPA's Updated Problem Formulation and Protocol for the Inorganic Arsenic IRIS Assessment",
+   "year": 2019,
+   "url": "https://www.nationalacademies.org/publications/25558"
+  },
+  {
+   "n": 223,
+   "id": "25568",
+   "doi": "10.17226/25568",
+   "title": "The Science of Effective Mentorship in STEMM",
+   "year": 2019,
+   "url": "https://www.nationalacademies.org/publications/25568"
+  },
+  {
+   "n": 224,
+   "id": "25569",
+   "doi": "10.17226/25569",
+   "title": "NASA's Science Activation Program: Achievements and Opportunities",
+   "year": 2020,
+   "url": "https://www.nationalacademies.org/publications/25569"
+  },
+  {
+   "n": 225,
+   "id": "25577",
+   "doi": "10.17226/25577",
+   "title": "Report of the Committee on Proposal Evaluation for Allocation of Supercomputing Time for the Study of Molecular Dynamics: Tenth Round",
+   "year": 2019,
+   "url": "https://www.nationalacademies.org/publications/25577"
+  },
+  {
+   "n": 226,
+   "id": "25587",
+   "doi": "10.17226/25587",
+   "title": "Review of the Draft 2019 Science Mission Directorate Science Plan",
+   "year": 2019,
+   "url": "https://www.nationalacademies.org/publications/25587"
+  },
+  {
+   "n": 227,
+   "id": "25592",
+   "doi": "10.17226/25592",
+   "title": "Biological Collections: Ensuring Critical Research and Education for the 21st Century",
+   "year": 2020,
+   "url": "https://www.nationalacademies.org/publications/25592"
+  },
+  {
+   "n": 228,
+   "id": "25593",
+   "doi": "10.17226/25593",
+   "title": "Review of the Department of Energy's Plans for Disposal of Surplus Plutonium in the Waste Isolation Pilot Plant",
+   "year": 2020,
+   "url": "https://www.nationalacademies.org/publications/25593"
+  },
+  {
+   "n": 229,
+   "id": "25594",
+   "doi": "10.17226/25594",
+   "title": "Regulating Medicines in a Globalized World: The Need for Increased Reliance Among Regulators",
+   "year": 2020,
+   "url": "https://www.nationalacademies.org/publications/25594"
+  },
+  {
+   "n": 230,
+   "id": "25600",
+   "doi": "10.17226/25600",
+   "title": "Review of the Bureau of Ocean Energy Management \"Air Quality Modeling in the Gulf of Mexico Region\" Study",
+   "year": 2019,
+   "url": "https://www.nationalacademies.org/publications/25600"
+  },
+  {
+   "n": 231,
+   "id": "25602",
+   "doi": "10.17226/25602",
+   "title": "An Assessment of the Communications Technology Laboratory at the National Institute of Standards and Technology: Fiscal Year 2019",
+   "year": 2019,
+   "url": "https://www.nationalacademies.org/publications/25602"
+  },
+  {
+   "n": 232,
+   "id": "25603",
+   "doi": "10.17226/25603",
+   "title": "Changing Expectations for the K-12 Teacher Workforce: Policies, Preservice Education, Professional Development, and the Workplace",
+   "year": 2020,
+   "url": "https://www.nationalacademies.org/publications/25603"
+  },
+  {
+   "n": 233,
+   "id": "25610",
+   "doi": "10.17226/25610",
+   "title": "Review of DOD's Approach to Deriving an Occupational Exposure Level for Trichloroethylene",
+   "year": 2019,
+   "url": "https://www.nationalacademies.org/publications/25610"
+  },
+  {
+   "n": 234,
+   "id": "25611",
+   "doi": "10.17226/25611",
+   "title": "Assessment of the In-House Laboratory Independent Research at the Army's Research, Development, and Engineering Centers",
+   "year": 2020,
+   "url": "https://www.nationalacademies.org/publications/25611"
+  },
+  {
+   "n": 235,
+   "id": "25612",
+   "doi": "10.17226/25612",
+   "title": "Building Capacity for Teaching Engineering in K-12 Education",
+   "year": 2020,
+   "url": "https://www.nationalacademies.org/publications/25612"
+  },
+  {
+   "n": 236,
+   "id": "25613",
+   "doi": "10.17226/25613",
+   "title": "Manipulating Quantum Systems: An Assessment of Atomic, Molecular, and Optical Physics in the United States",
+   "year": 2020,
+   "url": "https://www.nationalacademies.org/publications/25613"
+  },
+  {
+   "n": 237,
+   "id": "25626",
+   "doi": "10.17226/25626",
+   "title": "Opportunities to Improve Opioid Use Disorder and Infectious Disease Services: Integrating Responses to a Dual Epidemic",
+   "year": 2020,
+   "url": "https://www.nationalacademies.org/publications/25626"
+  },
+  {
+   "n": 238,
+   "id": "25630",
+   "doi": "10.17226/25630",
+   "title": "Advanced Technologies for Gas Turbines",
+   "year": 2020,
+   "url": "https://www.nationalacademies.org/publications/25630"
+  },
+  {
+   "n": 239,
+   "id": "25632",
+   "doi": "10.17226/25632",
+   "title": "Addressing Sickle Cell Disease: A Strategic Plan and Blueprint for Action",
+   "year": 2020,
+   "url": "https://www.nationalacademies.org/publications/25632"
+  },
+  {
+   "n": 240,
+   "id": "25636",
+   "doi": "10.17226/25636",
+   "title": "Birth Settings in America: Outcomes, Quality, Access, and Choice",
+   "year": 2020,
+   "url": "https://www.nationalacademies.org/publications/25636"
+  },
+  {
+   "n": 241,
+   "id": "25639",
+   "doi": "10.17226/25639",
+   "title": "Life-Cycle Decisions for Biomedical Data: The Challenge of Forecasting Costs",
+   "year": 2020,
+   "url": "https://www.nationalacademies.org/publications/25639"
+  },
+  {
+   "n": 242,
+   "id": "25646",
+   "doi": "10.17226/25646",
+   "title": "Advancing Aerial Mobility: A National Blueprint",
+   "year": 2020,
+   "url": "https://www.nationalacademies.org/publications/25646"
+  },
+  {
+   "n": 243,
+   "id": "25650",
+   "doi": "10.17226/25650",
+   "title": "Evidence-Based Practice for Public Health Emergency Preparedness and Response",
+   "year": 2020,
+   "url": "https://www.nationalacademies.org/publications/25650"
+  },
+  {
+   "n": 244,
+   "id": "25651",
+   "doi": "10.17226/25651",
+   "title": "Stronger Food and Drug Regulatory Systems Abroad",
+   "year": 2020,
+   "url": "https://www.nationalacademies.org/publications/25651"
+  },
+  {
+   "n": 245,
+   "id": "25652",
+   "doi": "10.17226/25652",
+   "title": "Temporomandibular Disorders: Priorities for Research and Care",
+   "year": 2020,
+   "url": "https://www.nationalacademies.org/publications/25652"
+  },
+  {
+   "n": 246,
+   "id": "25657",
+   "doi": "10.17226/25657",
+   "title": "A Consumer Food Data System for 2030 and Beyond",
+   "year": 2020,
+   "url": "https://www.nationalacademies.org/publications/25657"
+  },
+  {
+   "n": 247,
+   "id": "25658",
+   "doi": "10.17226/25658",
+   "title": "Effectiveness and Impacts of Dust Control Measures for Owens Lake",
+   "year": 2020,
+   "url": "https://www.nationalacademies.org/publications/25658"
+  },
+  {
+   "n": 248,
+   "id": "25661",
+   "doi": "10.17226/25661",
+   "title": "Evaluation of Applications to Carry Out Research to Determine the Taxonomy of Wild Canids in the Southeastern United States",
+   "year": 2020,
+   "url": "https://www.nationalacademies.org/publications/25661"
+  },
+  {
+   "n": 249,
+   "id": "25662",
+   "doi": "10.17226/25662",
+   "title": "Selected Health Conditions and Likelihood of Improvement with Treatment",
+   "year": 2020,
+   "url": "https://www.nationalacademies.org/publications/25662"
+  },
+  {
+   "n": 250,
+   "id": "25663",
+   "doi": "10.17226/25663",
+   "title": "Social Isolation and Loneliness in Older Adults: Opportunities for the Health Care System",
+   "year": 2020,
+   "url": "https://www.nationalacademies.org/publications/25663"
+  },
+  {
+   "n": 251,
+   "id": "25665",
+   "doi": "10.17226/25665",
+   "title": "Heritable Human Genome Editing",
+   "year": 2020,
+   "url": "https://www.nationalacademies.org/publications/25665"
+  },
+  {
+   "n": 252,
+   "id": "25668",
+   "doi": "10.17226/25668",
+   "title": "Progress Toward Implementation of the 2013 Decadal Survey for Solar and Space Physics: A Midterm Assessment",
+   "year": 2020,
+   "url": "https://www.nationalacademies.org/publications/25668"
+  },
+  {
+   "n": 253,
+   "id": "25674",
+   "doi": "10.17226/25674",
+   "title": "Review of the SBIR and STTR Programs at the Department of Energy",
+   "year": 2020,
+   "url": "https://www.nationalacademies.org/publications/25674"
+  },
+  {
+   "n": 254,
+   "id": "25681",
+   "doi": "10.17226/25681",
+   "title": "A Strategic Vision for Biological Threat Reduction: The U.S. Department of Defense and Beyond",
+   "year": 2020,
+   "url": "https://www.nationalacademies.org/publications/25681"
+  },
+  {
+   "n": 255,
+   "id": "25682",
+   "doi": "10.17226/25682",
+   "title": "Leading Health Indicators 2030: Advancing Health, Equity, and Well-Being",
+   "year": 2020,
+   "url": "https://www.nationalacademies.org/publications/25682"
+  },
+  {
+   "n": 256,
+   "id": "25683",
+   "doi": "10.17226/25683",
+   "title": "Review of the Department of Defense Biokinetic Modeling Approach in Support of Establishing an Airborne Lead Exposure Limit",
+   "year": 2020,
+   "url": "https://www.nationalacademies.org/publications/25683"
+  },
+  {
+   "n": 257,
+   "id": "25687",
+   "doi": "10.17226/25687",
+   "title": "Evaluation of PEPFAR's Contribution (2012-2017) to Rwanda's Human Resources for Health Program",
+   "year": 2020,
+   "url": "https://www.nationalacademies.org/publications/25687"
+  },
+  {
+   "n": 258,
+   "id": "25688",
+   "doi": "10.17226/25688",
+   "title": "Assessment of Long-Term Health Effects of Antimalarial Drugs When Used for Prophylaxis",
+   "year": 2020,
+   "url": "https://www.nationalacademies.org/publications/25688"
+  },
+  {
+   "n": 259,
+   "id": "25689",
+   "doi": "10.17226/25689",
+   "title": "Compounded Topical Pain Creams: Review of Select Ingredients for Safety, Effectiveness, and Use",
+   "year": 2020,
+   "url": "https://www.nationalacademies.org/publications/25689"
+  },
+  {
+   "n": 260,
+   "id": "25710",
+   "doi": "10.17226/25710",
+   "title": "Final Review of the Study on Supplemental Treatment Approaches of Low-Activity Waste at the Hanford Nuclear Reservation: Review #4",
+   "year": 2020,
+   "url": "https://www.nationalacademies.org/publications/25710"
+  },
+  {
+   "n": 261,
+   "id": "25715",
+   "doi": "10.17226/25715",
+   "title": "Review of the Draft NTP Monograph: Systematic Review of Fluoride Exposure and Neurodevelopmental and Cognitive Health Effects",
+   "year": 2020,
+   "url": "https://www.nationalacademies.org/publications/25715"
+  },
+  {
+   "n": 262,
+   "id": "25721",
+   "doi": "10.17226/25721",
+   "title": "Initial Closure Planning for the Blue Grass and Pueblo Chemical Agent Destruction Pilot Plants: Letter Report",
+   "year": 2020,
+   "url": "https://www.nationalacademies.org/publications/25721"
+  },
+  {
+   "n": 263,
+   "id": "25729",
+   "doi": "10.17226/25729",
+   "title": "A Quadrennial Review of the National Nanotechnology Initiative: Nanoscience, Applications, and Commercialization",
+   "year": 2020,
+   "url": "https://www.nationalacademies.org/publications/25729"
+  },
+  {
+   "n": 264,
+   "id": "25730",
+   "doi": "10.17226/25730",
+   "title": "Report 4 on Tracking and Assessing Governance and Management Reform in the Nuclear Security Enterprise",
+   "year": 2020,
+   "url": "https://www.nationalacademies.org/publications/25730"
+  },
+  {
+   "n": 265,
+   "id": "25745",
+   "doi": "10.17226/25745",
+   "title": "Measuring Success in Substance Use Grant Programs: Outcomes and Metrics for Improvement",
+   "year": 2020,
+   "url": "https://www.nationalacademies.org/publications/25745"
+  },
+  {
+   "n": 266,
+   "id": "25747",
+   "doi": "10.17226/25747",
+   "title": "Feeding Infants and Children from Birth to 24 Months: Summarizing Existing Guidance",
+   "year": 2020,
+   "url": "https://www.nationalacademies.org/publications/25747"
+  },
+  {
+   "n": 267,
+   "id": "25748",
+   "doi": "10.17226/25748",
+   "title": "A Principled Approach to Language Assessment: Considerations for the U.S. Foreign Service Institute",
+   "year": 2020,
+   "url": "https://www.nationalacademies.org/publications/25748"
+  },
+  {
+   "n": 268,
+   "id": "25756",
+   "doi": "10.17226/25756",
+   "title": "Weapons System Sustainment Planning Early in the Development Life Cycle",
+   "year": 2020,
+   "url": "https://www.nationalacademies.org/publications/25756"
+  },
+  {
+   "n": 269,
+   "id": "25761",
+   "doi": "10.17226/25761",
+   "title": "A Vision for NSF Earth Sciences 2020-2030: Earth in Time",
+   "year": 2020,
+   "url": "https://www.nationalacademies.org/publications/25761"
+  },
+  {
+   "n": 270,
+   "id": "25762",
+   "doi": "10.17226/25762",
+   "title": "Reflecting Sunlight: Recommendations for Solar Geoengineering Research and Research Governance",
+   "year": 2021,
+   "url": "https://www.nationalacademies.org/publications/25762"
+  },
+  {
+   "n": 271,
+   "id": "25772",
+   "doi": "10.17226/25772",
+   "title": "Necessity, Use, and Care of Laboratory Dogs at the U.S. Department of Veterans Affairs",
+   "year": 2020,
+   "url": "https://www.nationalacademies.org/publications/25772"
+  },
+  {
+   "n": 272,
+   "id": "25773",
+   "doi": "10.17226/25773",
+   "title": "Assessment of the Report of NASA's Planetary Protection Independent Review Board",
+   "year": 2020,
+   "url": "https://www.nationalacademies.org/publications/25773"
+  },
+  {
+   "n": 273,
+   "id": "25791",
+   "doi": "10.17226/25791",
+   "title": "The Clinical Utility of Compounded Bioidentical Hormone Therapy: A Review of Safety, Effectiveness, and Use",
+   "year": 2020,
+   "url": "https://www.nationalacademies.org/publications/25791"
+  },
+  {
+   "n": 274,
+   "id": "25796",
+   "doi": "10.17226/25796",
+   "title": "Are Generational Categories Meaningful Distinctions for Workforce Management?",
+   "year": 2020,
+   "url": "https://www.nationalacademies.org/publications/25796"
+  },
+  {
+   "n": 275,
+   "id": "25801",
+   "doi": "10.17226/25801",
+   "title": "Guide for the Care and Use of Laboratory Animals: Eighth Edition -- Tamil Version",
+   "year": 2020,
+   "url": "https://www.nationalacademies.org/publications/25801"
+  },
+  {
+   "n": 276,
+   "id": "25802",
+   "doi": "10.17226/25802",
+   "title": "Plasma Science: Enabling Technology, Sustainability, Security, and Exploration",
+   "year": 2021,
+   "url": "https://www.nationalacademies.org/publications/25802"
+  },
+  {
+   "n": 277,
+   "id": "25806",
+   "doi": "10.17226/25806",
+   "title": "Nutrient Requirements of Dairy Cattle: Eighth Revised Edition",
+   "year": 2021,
+   "url": "https://www.nationalacademies.org/publications/25806"
+  },
+  {
+   "n": 278,
+   "id": "25817",
+   "doi": "10.17226/25817",
+   "title": "Air Force Software Sustainment and Maintenance of Weapons Systems",
+   "year": 2020,
+   "url": "https://www.nationalacademies.org/publications/25817"
+  },
+  {
+   "n": 279,
+   "id": "25818",
+   "doi": "10.17226/25818",
+   "title": "Multilingual Summary for Evaluation of PEPFAR's Contribution (2012-2017) to Rwanda's Human Resources for Health Program",
+   "year": 2020,
+   "url": "https://www.nationalacademies.org/publications/25818"
+  },
+  {
+   "n": 280,
+   "id": "25821",
+   "doi": "10.17226/25821",
+   "title": "Strengthening Sustainability Programs and Curricula at the Undergraduate and Graduate Levels",
+   "year": 2020,
+   "url": "https://www.nationalacademies.org/publications/25821"
+  },
+  {
+   "n": 281,
+   "id": "25822",
+   "doi": "10.17226/25822",
+   "title": "Measuring Alternative Work Arrangements for Research and Policy",
+   "year": 2020,
+   "url": "https://www.nationalacademies.org/publications/25822"
+  },
+  {
+   "n": 282,
+   "id": "25828",
+   "doi": "10.17226/25828",
+   "title": "Strengthening U.S. Air Force Human Capital Management: A Flight Plan for 2020-2030",
+   "year": 2021,
+   "url": "https://www.nationalacademies.org/publications/25828"
+  },
+  {
+   "n": 283,
+   "id": "25830",
+   "doi": "10.17226/25830",
+   "title": "Assessment of the Physical Sciences Directorate at the Army Research Office",
+   "year": 2020,
+   "url": "https://www.nationalacademies.org/publications/25830"
+  },
+  {
+   "n": 284,
+   "id": "25837",
+   "doi": "10.17226/25837",
+   "title": "Respiratory Health Effects of Airborne Hazards Exposures in the Southwest Asia Theater of Military Operations",
+   "year": 2020,
+   "url": "https://www.nationalacademies.org/publications/25837"
+  },
+  {
+   "n": 285,
+   "id": "25851",
+   "doi": "10.17226/25851",
+   "title": "Review of the New York City Watershed Protection Program",
+   "year": 2020,
+   "url": "https://www.nationalacademies.org/publications/25851"
+  },
+  {
+   "n": 286,
+   "id": "25858",
+   "doi": "10.17226/25858",
+   "title": "Reopening K-12 Schools During the COVID-19 Pandemic: Prioritizing Health, Equity, and Communities",
+   "year": 2020,
+   "url": "https://www.nationalacademies.org/publications/25858"
+  },
+  {
+   "n": 287,
+   "id": "25859",
+   "doi": "10.17226/25859",
+   "title": "An Assessment of the Need for Native Seeds and the Capacity for Their Supply: Interim Report",
+   "year": 2020,
+   "url": "https://www.nationalacademies.org/publications/25859"
+  },
+  {
+   "n": 288,
+   "id": "25863",
+   "doi": "10.17226/25863",
+   "title": "A Framework for Assessing Mortality and Morbidity After Large-Scale Disasters",
+   "year": 2020,
+   "url": "https://www.nationalacademies.org/publications/25863"
+  },
+  {
+   "n": 289,
+   "id": "25876",
+   "doi": "10.17226/25876",
+   "title": "A National Strategy to Reduce Food Waste at the Consumer Level",
+   "year": 2020,
+   "url": "https://www.nationalacademies.org/publications/25876"
+  },
+  {
+   "n": 290,
+   "id": "25877",
+   "doi": "10.17226/25877",
+   "title": "Understanding the Well-Being of LGBTQI+ Populations",
+   "year": 2020,
+   "url": "https://www.nationalacademies.org/publications/25877"
+  },
+  {
+   "n": 291,
+   "id": "25879",
+   "doi": "10.17226/25879",
+   "title": "Genomic Epidemiology Data Infrastructure Needs for SARS-CoV-2: Modernizing Pandemic Response Strategies",
+   "year": 2020,
+   "url": "https://www.nationalacademies.org/publications/25879"
+  },
+  {
+   "n": 292,
+   "id": "25885",
+   "doi": "10.17226/25885",
+   "title": "Principles and Practices for a Federal Statistical Agency: Seventh Edition",
+   "year": 2021,
+   "url": "https://www.nationalacademies.org/publications/25885"
+  },
+  {
+   "n": 293,
+   "id": "25891",
+   "doi": "10.17226/25891",
+   "title": "A Research Strategy to Examine the Taxonomy of the Red Wolf",
+   "year": 2020,
+   "url": "https://www.nationalacademies.org/publications/25891"
+  },
+  {
+   "n": 294,
+   "id": "25910",
+   "doi": "10.17226/25910",
+   "title": "Report of the Committee on Proposal Evaluation for Allocation of Supercomputing Time for the Study of Molecular Dynamics: Eleventh Round",
+   "year": 2020,
+   "url": "https://www.nationalacademies.org/publications/25910"
+  },
+  {
+   "n": 295,
+   "id": "25911",
+   "doi": "10.17226/25911",
+   "title": "Medications in Single-Dose Vials: Implications of Discarded Drugs",
+   "year": 2021,
+   "url": "https://www.nationalacademies.org/publications/25911"
+  },
+  {
+   "n": 296,
+   "id": "25912",
+   "doi": "10.17226/25912",
+   "title": "Cultivating Interest and Competencies in Computing: Authentic Experiences and Design Factors",
+   "year": 2021,
+   "url": "https://www.nationalacademies.org/publications/25912"
+  },
+  {
+   "n": 297,
+   "id": "25917",
+   "doi": "10.17226/25917",
+   "title": "Framework for Equitable Allocation of COVID-19 Vaccine",
+   "year": 2020,
+   "url": "https://www.nationalacademies.org/publications/25917"
+  },
+  {
+   "n": 298,
+   "id": "25932",
+   "doi": "10.17226/25932",
+   "title": "Accelerating Decarbonization of the U.S. Energy System",
+   "year": 2021,
+   "url": "https://www.nationalacademies.org/publications/25932"
+  },
+  {
+   "n": 299,
+   "id": "25933",
+   "doi": "10.17226/25933",
+   "title": "Governance and Management of the Nuclear Security Enterprise",
+   "year": 2020,
+   "url": "https://www.nationalacademies.org/publications/25933"
+  },
+  {
+   "n": 300,
+   "id": "25943",
+   "doi": "10.17226/25943",
+   "title": "Scanning for New Evidence on the Nutrient Content of Human Milk: A Process Model for Determining Age-Specific Nutrient Requirements",
+   "year": 2020,
+   "url": "https://www.nationalacademies.org/publications/25943"
+  },
+  {
+   "n": 301,
+   "id": "25944",
+   "doi": "10.17226/25944",
+   "title": "Childhood Cancer and Functional Impacts Across the Care Continuum",
+   "year": 2021,
+   "url": "https://www.nationalacademies.org/publications/25944"
+  },
+  {
+   "n": 302,
+   "id": "25949",
+   "doi": "10.17226/25949",
+   "title": "A Review of Methods for Detecting Soreness in Horses",
+   "year": 2021,
+   "url": "https://www.nationalacademies.org/publications/25949"
+  },
+  {
+   "n": 303,
+   "id": "25952",
+   "doi": "10.17226/25952",
+   "title": "The Use of Systematic Review in EPA's Toxic Substances Control Act Risk Evaluations",
+   "year": 2021,
+   "url": "https://www.nationalacademies.org/publications/25952"
+  },
+  {
+   "n": 304,
+   "id": "25955",
+   "doi": "10.17226/25955",
+   "title": "Sexually Transmitted Infections: Adopting a Sexual Health Paradigm",
+   "year": 2021,
+   "url": "https://www.nationalacademies.org/publications/25955"
+  },
+  {
+   "n": 305,
+   "id": "25956",
+   "doi": "10.17226/25956",
+   "title": "Diagnosing and Treating Adult Cancers and Associated Impairments",
+   "year": 2021,
+   "url": "https://www.nationalacademies.org/publications/25956"
+  },
+  {
+   "n": 306,
+   "id": "25961",
+   "doi": "10.17226/25961",
+   "title": "Information Technology Innovation: Resurgence, Confluence, and Continuing Impact",
+   "year": 2020,
+   "url": "https://www.nationalacademies.org/publications/25961"
+  },
+  {
+   "n": 307,
+   "id": "25964",
+   "doi": "10.17226/25964",
+   "title": "Peer Review of a Report Commissioned by the Social Security Administration on Selected Occupational Requirements",
+   "year": 2020,
+   "url": "https://www.nationalacademies.org/publications/25964"
+  },
+  {
+   "n": 308,
+   "id": "25968",
+   "doi": "10.17226/25968",
+   "title": "The Future of Electric Power in the United States",
+   "year": 2021,
+   "url": "https://www.nationalacademies.org/publications/25968"
+  },
+  {
+   "n": 309,
+   "id": "25976",
+   "doi": "10.17226/25976",
+   "title": "High and Rising Mortality Rates Among Working-Age Adults",
+   "year": 2021,
+   "url": "https://www.nationalacademies.org/publications/25976"
+  },
+  {
+   "n": 310,
+   "id": "25977",
+   "doi": "10.17226/25977",
+   "title": "Space Nuclear Propulsion for Human Mars Exploration",
+   "year": 2021,
+   "url": "https://www.nationalacademies.org/publications/25977"
+  },
+  {
+   "n": 311,
+   "id": "25979",
+   "doi": "10.17226/25979",
+   "title": "Empowering the Defense Acquisition Workforce to Improve Mission Outcomes Using Data Science",
+   "year": 2021,
+   "url": "https://www.nationalacademies.org/publications/25979"
+  },
+  {
+   "n": 312,
+   "id": "25982",
+   "doi": "10.17226/25982",
+   "title": "The Future of Nursing 2020-2030: Charting a Path to Achieve Health Equity",
+   "year": 2021,
+   "url": "https://www.nationalacademies.org/publications/25982"
+  },
+  {
+   "n": 313,
+   "id": "25983",
+   "doi": "10.17226/25983",
+   "title": "Implementing High-Quality Primary Care: Rebuilding the Foundation of Health Care",
+   "year": 2021,
+   "url": "https://www.nationalacademies.org/publications/25983"
+  },
+  {
+   "n": 314,
+   "id": "25991",
+   "doi": "10.17226/25991",
+   "title": "Bringing Fusion to the U.S. Grid",
+   "year": 2021,
+   "url": "https://www.nationalacademies.org/publications/25991"
+  },
+  {
+   "n": 315,
+   "id": "25992",
+   "doi": "10.17226/25992",
+   "title": "Review of Methods Used by the U.S. Department of Energy in Setting Appliance and Equipment Standards",
+   "year": 2021,
+   "url": "https://www.nationalacademies.org/publications/25992"
+  },
+  {
+   "n": 316,
+   "id": "25996",
+   "doi": "10.17226/25996",
+   "title": "Assessing NASA's University Leadership Initiative",
+   "year": 2021,
+   "url": "https://www.nationalacademies.org/publications/25996"
+  },
+  {
+   "n": 317,
+   "id": "26000",
+   "doi": "10.17226/26000",
+   "title": "Effectiveness and Efficiency of Defense Environmental Cleanup Activities of DOE's Office of Environmental Management: Report 1",
+   "year": 2021,
+   "url": "https://www.nationalacademies.org/publications/26000"
+  },
+  {
+   "n": 318,
+   "id": "26006",
+   "doi": "10.17226/26006",
+   "title": "Advancing Commercialization of Digital Products from Federal Laboratories",
+   "year": 2021,
+   "url": "https://www.nationalacademies.org/publications/26006"
+  },
+  {
+   "n": 319,
+   "id": "26009",
+   "doi": "10.17226/26009",
+   "title": "Innovations in Pharmaceutical Manufacturing on the Horizon: Technical Challenges, Regulatory Issues, and Recommendations",
+   "year": 2021,
+   "url": "https://www.nationalacademies.org/publications/26009"
+  },
+  {
+   "n": 320,
+   "id": "26015",
+   "doi": "10.17226/26015",
+   "title": "Mental Health, Substance Use, and Wellbeing in Higher Education: Supporting the Whole Student",
+   "year": 2021,
+   "url": "https://www.nationalacademies.org/publications/26015"
+  },
+  {
+   "n": 321,
+   "id": "26026",
+   "doi": "10.17226/26026",
+   "title": "Meeting the Challenge of Caring for Persons Living with Dementia and Their Care Partners and Caregivers: A Way Forward",
+   "year": 2021,
+   "url": "https://www.nationalacademies.org/publications/26026"
+  },
+  {
+   "n": 322,
+   "id": "26030",
+   "doi": "10.17226/26030",
+   "title": "Review of the Revised NTP Monograph on the Systematic Review of Fluoride Exposure and Neurodevelopmental and Cognitive Health Effects: A Letter Report",
+   "year": 2021,
+   "url": "https://www.nationalacademies.org/publications/26030"
+  },
+  {
+   "n": 323,
+   "id": "26039",
+   "doi": "10.17226/26039",
+   "title": "Letter Report on Review of Department of Veterans Affairs Monograph on Potential Therapeutic Effects of Service and Emotional Support Dogs on Veterans with Post Traumatic Stress Disorder",
+   "year": 2021,
+   "url": "https://www.nationalacademies.org/publications/26039"
+  },
+  {
+   "n": 324,
+   "id": "26042",
+   "doi": "10.17226/26042",
+   "title": "Next Generation Earth Systems Science at the National Science Foundation",
+   "year": 2022,
+   "url": "https://www.nationalacademies.org/publications/26042"
+  },
+  {
+   "n": 325,
+   "id": "26048",
+   "doi": "10.17226/26048",
+   "title": "An Assessment of the Material Measurement Laboratory at the National Institute of Standards and Technology: Fiscal Year 2020",
+   "year": 2021,
+   "url": "https://www.nationalacademies.org/publications/26048"
+  },
+  {
+   "n": 326,
+   "id": "26051",
+   "doi": "10.17226/26051",
+   "title": "An Assessment of Selected Programs at the National Institute of Standards and Technology Engineering Laboratory: Fiscal Year 2020",
+   "year": 2021,
+   "url": "https://www.nationalacademies.org/publications/26051"
+  },
+  {
+   "n": 327,
+   "id": "26055",
+   "doi": "10.17226/26055",
+   "title": "Global Change Research Needs and Opportunities for 2022-2031",
+   "year": 2021,
+   "url": "https://www.nationalacademies.org/publications/26055"
+  },
+  {
+   "n": 328,
+   "id": "26057",
+   "doi": "10.17226/26057",
+   "title": "Evaluating Hearing Loss for Individuals with Cochlear Implants",
+   "year": 2021,
+   "url": "https://www.nationalacademies.org/publications/26057"
+  },
+  {
+   "n": 329,
+   "id": "26060",
+   "doi": "10.17226/26060",
+   "title": "Progress of Four Programs from the Comprehensive Addiction and Recovery Act",
+   "year": 2021,
+   "url": "https://www.nationalacademies.org/publications/26060"
+  },
+  {
+   "n": 330,
+   "id": "26061",
+   "doi": "10.17226/26061",
+   "title": "The Impact of COVID-19 on the Careers of Women in Academic Sciences, Engineering, and Medicine",
+   "year": 2021,
+   "url": "https://www.nationalacademies.org/publications/26061"
+  },
+  {
+   "n": 331,
+   "id": "26070",
+   "doi": "10.17226/26070",
+   "title": "Advancing United States-Mexico Binational Sustainability Partnerships",
+   "year": 2021,
+   "url": "https://www.nationalacademies.org/publications/26070"
+  },
+  {
+   "n": 332,
+   "id": "26078",
+   "doi": "10.17226/26078",
+   "title": "The Emerging Field of Human Neural Organoids, Transplants, and Chimeras: Science, Ethics, and Governance",
+   "year": 2021,
+   "url": "https://www.nationalacademies.org/publications/26078"
+  },
+  {
+   "n": 333,
+   "id": "26079",
+   "doi": "10.17226/26079",
+   "title": "Airborne Platforms to Advance NASA Earth System Science Priorities: Assessing the Future Need for a Large Aircraft",
+   "year": 2021,
+   "url": "https://www.nationalacademies.org/publications/26079"
+  },
+  {
+   "n": 334,
+   "id": "26088",
+   "doi": "10.17226/26088",
+   "title": "Nuclear Proliferation and Arms Control Monitoring, Detection, and Verification: A National Security Priority: Interim Report",
+   "year": 2021,
+   "url": "https://www.nationalacademies.org/publications/26088"
+  },
+  {
+   "n": 335,
+   "id": "26092",
+   "doi": "10.17226/26092",
+   "title": "Assessment of Technologies for Improving Light-Duty Vehicle Fuel Economy—2025-2035",
+   "year": 2021,
+   "url": "https://www.nationalacademies.org/publications/26092"
+  },
+  {
+   "n": 336,
+   "id": "26101",
+   "doi": "10.17226/26101",
+   "title": "A Satellite Account to Measure the Retail Transformation: Organizational, Conceptual, and Data Foundations",
+   "year": 2021,
+   "url": "https://www.nationalacademies.org/publications/26101"
+  },
+  {
+   "n": 337,
+   "id": "26105",
+   "doi": "10.17226/26105",
+   "title": "Looking Ahead at the Cybersecurity Workforce at the Federal Aviation Administration",
+   "year": 2021,
+   "url": "https://www.nationalacademies.org/publications/26105"
+  },
+  {
+   "n": 338,
+   "id": "26106",
+   "doi": "10.17226/26106",
+   "title": "Rental Eviction and the COVID-19 Pandemic: Averting a Looming Crisis",
+   "year": 2022,
+   "url": "https://www.nationalacademies.org/publications/26106"
+  },
+  {
+   "n": 339,
+   "id": "26121",
+   "doi": "10.17226/26121",
+   "title": "Radioactive Sources: Applications and Alternative Technologies",
+   "year": 2021,
+   "url": "https://www.nationalacademies.org/publications/26121"
+  },
+  {
+   "n": 340,
+   "id": "26123",
+   "doi": "10.17226/26123",
+   "title": "Enhancing Community Resilience through Social Capital and Connectedness: Stronger Together!",
+   "year": 2021,
+   "url": "https://www.nationalacademies.org/publications/26123"
+  },
+  {
+   "n": 341,
+   "id": "26129",
+   "doi": "10.17226/26129",
+   "title": "Assessing the Feasibility of the Strategic Long Range Cannon: Unclassified Summary",
+   "year": 2022,
+   "url": "https://www.nationalacademies.org/publications/26129"
+  },
+  {
+   "n": 342,
+   "id": "26132",
+   "doi": "10.17226/26132",
+   "title": "Reckoning with the U.S. Role in Global Ocean Plastic Waste",
+   "year": 2022,
+   "url": "https://www.nationalacademies.org/publications/26132"
+  },
+  {
+   "n": 343,
+   "id": "26136",
+   "doi": "10.17226/26136",
+   "title": "Peer Review of a Report on Strategies to Improve Patient Safety",
+   "year": 2021,
+   "url": "https://www.nationalacademies.org/publications/26136"
+  },
+  {
+   "n": 344,
+   "id": "26141",
+   "doi": "10.17226/26141",
+   "title": "Pathways to Discovery in Astronomy and Astrophysics for the 2020s",
+   "year": 2023,
+   "url": "https://www.nationalacademies.org/publications/26141"
+  },
+  {
+   "n": 345,
+   "id": "26144",
+   "doi": "10.17226/26144",
+   "title": "Global Roadmap for Healthy Longevity",
+   "year": 2022,
+   "url": "https://www.nationalacademies.org/publications/26144"
+  },
+  {
+   "n": 346,
+   "id": "26149",
+   "doi": "10.17226/26149",
+   "title": "DoD Engagement with Its Manufacturing Innovation Institutes: Phase 2 Study Interim Report",
+   "year": 2021,
+   "url": "https://www.nationalacademies.org/publications/26149"
+  },
+  {
+   "n": 347,
+   "id": "26152",
+   "doi": "10.17226/26152",
+   "title": "Call to Action for Science Education: Building Opportunity for the Future",
+   "year": 2021,
+   "url": "https://www.nationalacademies.org/publications/26152"
+  },
+  {
+   "n": 348,
+   "id": "26155",
+   "doi": "10.17226/26155",
+   "title": "Space Radiation and Astronaut Health: Managing and Communicating Cancer Risks",
+   "year": 2021,
+   "url": "https://www.nationalacademies.org/publications/26155"
+  },
+  {
+   "n": 349,
+   "id": "26156",
+   "doi": "10.17226/26156",
+   "title": "Guidance on PFAS Exposure, Testing, and Clinical Follow-Up",
+   "year": 2022,
+   "url": "https://www.nationalacademies.org/publications/26156"
+  },
+  {
+   "n": 350,
+   "id": "26167",
+   "doi": "10.17226/26167",
+   "title": "Restoring and Improving Nuclear Forensics to Support Attribution and Deterrence: Public Summary",
+   "year": 2021,
+   "url": "https://www.nationalacademies.org/publications/26167"
+  },
+  {
+   "n": 351,
+   "id": "26168",
+   "doi": "10.17226/26168",
+   "title": "Cryptography and the Intelligence Community: The Future of Encryption",
+   "year": 2022,
+   "url": "https://www.nationalacademies.org/publications/26168"
+  },
+  {
+   "n": 352,
+   "id": "26173",
+   "doi": "10.17226/26173",
+   "title": "Understanding the Aging Workforce: Defining a Research Agenda",
+   "year": 2022,
+   "url": "https://www.nationalacademies.org/publications/26173"
+  },
+  {
+   "n": 353,
+   "id": "26175",
+   "doi": "10.17226/26175",
+   "title": "Reducing the Impact of Dementia in America: A Decadal Survey of the Behavioral and Social Sciences",
+   "year": 2021,
+   "url": "https://www.nationalacademies.org/publications/26175"
+  },
+  {
+   "n": 354,
+   "id": "26181",
+   "doi": "10.17226/26181",
+   "title": "Necessary DoD Range Capabilities to Ensure Operational Superiority of U.S. Defense Systems: Testing for the Future Fight",
+   "year": 2021,
+   "url": "https://www.nationalacademies.org/publications/26181"
+  },
+  {
+   "n": 355,
+   "id": "26183",
+   "doi": "10.17226/26183",
+   "title": "Energizing Data-Driven Operations at the Tactical Edge: Challenges and Concerns",
+   "year": 2021,
+   "url": "https://www.nationalacademies.org/publications/26183"
+  },
+  {
+   "n": 356,
+   "id": "26185",
+   "doi": "10.17226/26185",
+   "title": "Data and Management Strategies for Recreational Fisheries with Annual Catch Limits",
+   "year": 2021,
+   "url": "https://www.nationalacademies.org/publications/26185"
+  },
+  {
+   "n": 357,
+   "id": "26186",
+   "doi": "10.17226/26186",
+   "title": "The Use of Limited Access Privilege Programs in Mixed-Use Fisheries",
+   "year": 2021,
+   "url": "https://www.nationalacademies.org/publications/26186"
+  },
+  {
+   "n": 358,
+   "id": "26188",
+   "doi": "10.17226/26188",
+   "title": "Scanning for New Evidence on Riboflavin to Support a Dietary Reference Intake Review",
+   "year": 2021,
+   "url": "https://www.nationalacademies.org/publications/26188"
+  },
+  {
+   "n": 359,
+   "id": "26211",
+   "doi": "10.17226/26211",
+   "title": "Peer Review of Interim Report on Computational Fluid Dynamics Model for Predicting Wellhead Oil-Burning Efficiency at Bench and Intermediate Scales",
+   "year": 2021,
+   "url": "https://www.nationalacademies.org/publications/26211"
+  },
+  {
+   "n": 360,
+   "id": "26215",
+   "doi": "10.17226/26215",
+   "title": "Science and Engineering in Preschool Through Elementary Grades: The Brilliance of Children and the Strengths of Educators",
+   "year": 2022,
+   "url": "https://www.nationalacademies.org/publications/26215"
+  },
+  {
+   "n": 361,
+   "id": "26217",
+   "doi": "10.17226/26217",
+   "title": "Policing to Promote the Rule of Law and Protect the Population: An Evidence-Based Approach",
+   "year": 2022,
+   "url": "https://www.nationalacademies.org/publications/26217"
+  },
+  {
+   "n": 362,
+   "id": "26228",
+   "doi": "10.17226/26228",
+   "title": "Why Indoor Chemistry Matters",
+   "year": 2022,
+   "url": "https://www.nationalacademies.org/publications/26228"
+  },
+  {
+   "n": 363,
+   "id": "26261",
+   "doi": "10.17226/26261",
+   "title": "Motivating Local Climate Adaptation and Strengthening Resilience: Making Local Data Trusted, Useful, and Used",
+   "year": 2021,
+   "url": "https://www.nationalacademies.org/publications/26261"
+  },
+  {
+   "n": 364,
+   "id": "26278",
+   "doi": "10.17226/26278",
+   "title": "A Research Strategy for Ocean-based Carbon Dioxide Removal and Sequestration",
+   "year": 2022,
+   "url": "https://www.nationalacademies.org/publications/26278"
+  },
+  {
+   "n": 365,
+   "id": "26282",
+   "doi": "10.17226/26282",
+   "title": "Vaccine Research and Development to Advance Pandemic and Seasonal Influenza Preparedness and Response: Lessons from COVID-19",
+   "year": 2022,
+   "url": "https://www.nationalacademies.org/publications/26282"
+  },
+  {
+   "n": 366,
+   "id": "26283",
+   "doi": "10.17226/26283",
+   "title": "Public Health Lessons for Non-Vaccine Influenza Interventions: Looking Past COVID-19",
+   "year": 2022,
+   "url": "https://www.nationalacademies.org/publications/26283"
+  },
+  {
+   "n": 367,
+   "id": "26284",
+   "doi": "10.17226/26284",
+   "title": "Countering the Pandemic Threat Through Global Coordination on Vaccines: The Influenza Imperative",
+   "year": 2022,
+   "url": "https://www.nationalacademies.org/publications/26284"
+  },
+  {
+   "n": 368,
+   "id": "26285",
+   "doi": "10.17226/26285",
+   "title": "Globally Resilient Supply Chains for Seasonal and Pandemic Influenza Vaccines",
+   "year": 2022,
+   "url": "https://www.nationalacademies.org/publications/26285"
+  },
+  {
+   "n": 369,
+   "id": "26289",
+   "doi": "10.17226/26289",
+   "title": "Review of U.S. EPA's ORD Staff Handbook for Developing IRIS Assessments: 2020 Version",
+   "year": 2022,
+   "url": "https://www.nationalacademies.org/publications/26289"
+  },
+  {
+   "n": 370,
+   "id": "26297",
+   "doi": "10.17226/26297",
+   "title": "Building Data Capacity for Patient-Centered Outcomes Research: Interim Report 1 - Looking Ahead at Data Needs",
+   "year": 2021,
+   "url": "https://www.nationalacademies.org/publications/26297"
+  },
+  {
+   "n": 371,
+   "id": "26298",
+   "doi": "10.17226/26298",
+   "title": "Building Data Capacity for Patient-Centered Outcomes Research: Interim Report 2–Data Standards, Methods, and Policy",
+   "year": 2022,
+   "url": "https://www.nationalacademies.org/publications/26298"
+  },
+  {
+   "n": 372,
+   "id": "26312",
+   "doi": "10.17226/26312",
+   "title": "An Assessment of Selected Divisions of the Physical Measurement Laboratory at the National Institute of Standards and Technology: Fiscal Year 2021",
+   "year": 2021,
+   "url": "https://www.nationalacademies.org/publications/26312"
+  },
+  {
+   "n": 373,
+   "id": "26315",
+   "doi": "10.17226/26315",
+   "title": "Defense Research at Historically Black Colleges and Universities and Other Minority Institutions: Interim Report",
+   "year": 2021,
+   "url": "https://www.nationalacademies.org/publications/26315"
+  },
+  {
+   "n": 374,
+   "id": "26317",
+   "doi": "10.17226/26317",
+   "title": "Report of the Committee on Proposal Evaluation for Allocation of Supercomputing Time for the Study of Molecular Dynamics: Twelfth Round",
+   "year": 2021,
+   "url": "https://www.nationalacademies.org/publications/26317"
+  },
+  {
+   "n": 375,
+   "id": "26324",
+   "doi": "10.17226/26324",
+   "title": "2018-2020 Assessment of the Army Research Office",
+   "year": 2021,
+   "url": "https://www.nationalacademies.org/publications/26324"
+  },
+  {
+   "n": 376,
+   "id": "26329",
+   "doi": "10.17226/26329",
+   "title": "DoD Engagement with Its Manufacturing Innovation Institutes: Phase 2 Study Final Report",
+   "year": 2021,
+   "url": "https://www.nationalacademies.org/publications/26329"
+  },
+  {
+   "n": 377,
+   "id": "26335",
+   "doi": "10.17226/26335",
+   "title": "An Approach for Assessing U.S. Gulf Coast Ecosystem Restoration: A Gulf Research Program Environmental Monitoring Report",
+   "year": 2022,
+   "url": "https://www.nationalacademies.org/publications/26335"
+  },
+  {
+   "n": 378,
+   "id": "26338",
+   "doi": "10.17226/26338",
+   "title": "Mid-Term Assessment of Progress on the 2015 Strategic Vision for Antarctic and Southern Ocean Research",
+   "year": 2021,
+   "url": "https://www.nationalacademies.org/publications/26338"
+  },
+  {
+   "n": 379,
+   "id": "26342",
+   "doi": "10.17226/26342",
+   "title": "New Directions for Chemical Engineering",
+   "year": 2022,
+   "url": "https://www.nationalacademies.org/publications/26342"
+  },
+  {
+   "n": 380,
+   "id": "26350",
+   "doi": "10.17226/26350",
+   "title": "Combating Antimicrobial Resistance and Protecting the Miracle of Modern Medicine",
+   "year": 2022,
+   "url": "https://www.nationalacademies.org/publications/26350"
+  },
+  {
+   "n": 381,
+   "id": "26351",
+   "doi": "10.17226/26351",
+   "title": "Closing Evidence Gaps in Clinical Prevention",
+   "year": 2022,
+   "url": "https://www.nationalacademies.org/publications/26351"
+  },
+  {
+   "n": 382,
+   "id": "26353",
+   "doi": "10.17226/26353",
+   "title": "Letter Report on Review of Department of Veterans Affairs Monograph on the Economic Impact and Cost Effectiveness of Service Dogs on Veterans with Post Traumatic Stress Disorder",
+   "year": 2021,
+   "url": "https://www.nationalacademies.org/publications/26353"
+  },
+  {
+   "n": 383,
+   "id": "26354",
+   "doi": "10.17226/26354",
+   "title": "An Assessment of Selected Divisions of the Information Technology Laboratory at the National Institute of Standards and Technology: Fiscal Year 2021",
+   "year": 2021,
+   "url": "https://www.nationalacademies.org/publications/26354"
+  },
+  {
+   "n": 384,
+   "id": "26355",
+   "doi": "10.17226/26355",
+   "title": "Human-AI Teaming: State-of-the-Art and Research Needs",
+   "year": 2022,
+   "url": "https://www.nationalacademies.org/publications/26355"
+  },
+  {
+   "n": 385,
+   "id": "26360",
+   "doi": "10.17226/26360",
+   "title": "Transparency in Statistical Information for the National Center for Science and Engineering Statistics and All Federal Statistical Agencies",
+   "year": 2022,
+   "url": "https://www.nationalacademies.org/publications/26360"
+  },
+  {
+   "n": 386,
+   "id": "26363",
+   "doi": "10.17226/26363",
+   "title": "Cross-Cutting Themes for U.S. Contributions to the UN Ocean Decade",
+   "year": 2022,
+   "url": "https://www.nationalacademies.org/publications/26363"
+  },
+  {
+   "n": 387,
+   "id": "26364",
+   "doi": "10.17226/26364",
+   "title": "Realizing the Promise of Equity in the Organ Transplantation System",
+   "year": 2022,
+   "url": "https://www.nationalacademies.org/publications/26364"
+  },
+  {
+   "n": 388,
+   "id": "26368",
+   "doi": "10.17226/26368",
+   "title": "Attributes of a First-in-Class Environmental Program: A Letter Report Prepared for the Bureau of Ocean Energy Management",
+   "year": 2022,
+   "url": "https://www.nationalacademies.org/publications/26368"
+  },
+  {
+   "n": 389,
+   "id": "26372",
+   "doi": "10.17226/26372",
+   "title": "Frameworks for Protecting Workers and the Public from Inhalation Hazards",
+   "year": 2022,
+   "url": "https://www.nationalacademies.org/publications/26372"
+  },
+  {
+   "n": 390,
+   "id": "26373",
+   "doi": "10.17226/26373",
+   "title": "Ensuring an Effective Public Health Emergency Medical Countermeasures Enterprise",
+   "year": 2021,
+   "url": "https://www.nationalacademies.org/publications/26373"
+  },
+  {
+   "n": 391,
+   "id": "26376",
+   "doi": "10.17226/26376",
+   "title": "Assessment of the SBIR and STTR Programs at the National Institutes of Health",
+   "year": 2022,
+   "url": "https://www.nationalacademies.org/publications/26376"
+  },
+  {
+   "n": 392,
+   "id": "26380",
+   "doi": "10.17226/26380",
+   "title": "Leveraging Commercial Space for Earth and Ocean Remote Sensing",
+   "year": 2022,
+   "url": "https://www.nationalacademies.org/publications/26380"
+  },
+  {
+   "n": 393,
+   "id": "26381",
+   "doi": "10.17226/26381",
+   "title": "Review of Fate, Exposure, and Effects of Sunscreens in Aquatic Environments and Implications for Sunscreen Usage and Human Health",
+   "year": 2022,
+   "url": "https://www.nationalacademies.org/publications/26381"
+  },
+  {
+   "n": 394,
+   "id": "26384",
+   "doi": "10.17226/26384",
+   "title": "Biodiversity at Risk: Today's Choices Matter",
+   "year": 2022,
+   "url": "https://www.nationalacademies.org/publications/26384"
+  },
+  {
+   "n": 395,
+   "id": "26385",
+   "doi": "10.17226/26385",
+   "title": "Advancing Diversity, Equity, Inclusion, and Accessibility in the Leadership of Competed Space Missions",
+   "year": 2022,
+   "url": "https://www.nationalacademies.org/publications/26385"
+  },
+  {
+   "n": 396,
+   "id": "26392",
+   "doi": "10.17226/26392",
+   "title": "A Vision and Roadmap for Education Statistics",
+   "year": 2022,
+   "url": "https://www.nationalacademies.org/publications/26392"
+  },
+  {
+   "n": 397,
+   "id": "26396",
+   "doi": "10.17226/26396",
+   "title": "Building Data Capacity for Patient-Centered Outcomes Research: Interim Report 3 - A Comprehensive Ecosystem for PCOR",
+   "year": 2022,
+   "url": "https://www.nationalacademies.org/publications/26396"
+  },
+  {
+   "n": 398,
+   "id": "26399",
+   "doi": "10.17226/26399",
+   "title": "Defense Research Capacity at Historically Black Colleges and Universities and Other Minority Institutions: Transitioning from Good Intentions to Measurable Outcomes",
+   "year": 2022,
+   "url": "https://www.nationalacademies.org/publications/26399"
+  },
+  {
+   "n": 399,
+   "id": "26402",
+   "doi": "10.17226/26402",
+   "title": "Current Methods for Life-Cycle Analyses of Low-Carbon Transportation Fuels in the United States",
+   "year": 2022,
+   "url": "https://www.nationalacademies.org/publications/26402"
+  },
+  {
+   "n": 400,
+   "id": "26403",
+   "doi": "10.17226/26403",
+   "title": "Physics of Life",
+   "year": 2022,
+   "url": "https://www.nationalacademies.org/publications/26403"
+  },
+  {
+   "n": 401,
+   "id": "26406",
+   "doi": "10.17226/26406",
+   "title": "Evaluating the Process to Develop the Dietary Guidelines for Americans, 2020-2025: A Midcourse Report",
+   "year": 2022,
+   "url": "https://www.nationalacademies.org/publications/26406"
+  },
+  {
+   "n": 402,
+   "id": "26410",
+   "doi": "10.17226/26410",
+   "title": "Oil in the Sea IV: Inputs, Fates, and Effects",
+   "year": 2022,
+   "url": "https://www.nationalacademies.org/publications/26410"
+  },
+  {
+   "n": 403,
+   "id": "26413",
+   "doi": "10.17226/26413",
+   "title": "U.S. Army Futures Command Research Program Realignment",
+   "year": 2022,
+   "url": "https://www.nationalacademies.org/publications/26413"
+  },
+  {
+   "n": 404,
+   "id": "26418",
+   "doi": "10.17226/26418",
+   "title": "An Assessment of the Center for Neutron Research at the National Institute of Standards and Technology: Fiscal Year 2021",
+   "year": 2022,
+   "url": "https://www.nationalacademies.org/publications/26418"
+  },
+  {
+   "n": 405,
+   "id": "26419",
+   "doi": "10.17226/26419",
+   "title": "Avances de las alianzas binacionales para la sostenibilidad entre Estados Unidos y México",
+   "year": 2021,
+   "url": "https://www.nationalacademies.org/publications/26419"
+  },
+  {
+   "n": 406,
+   "id": "26420",
+   "doi": "10.17226/26420",
+   "title": "Building Resilience into the Nation's Medical Product Supply Chains",
+   "year": 2022,
+   "url": "https://www.nationalacademies.org/publications/26420"
+  },
+  {
+   "n": 407,
+   "id": "26421",
+   "doi": "10.17226/26421",
+   "title": "Premium Cigars: Patterns of Use, Marketing, and Health Effects",
+   "year": 2022,
+   "url": "https://www.nationalacademies.org/publications/26421"
+  },
+  {
+   "n": 408,
+   "id": "26423",
+   "doi": "10.17226/26423",
+   "title": "Review of the Continued Analysis of the Supplemental Treatment Approaches of Low-Activity Waste at the Hanford Nuclear Reservation: Review #1",
+   "year": 2022,
+   "url": "https://www.nationalacademies.org/publications/26423"
+  },
+  {
+   "n": 409,
+   "id": "26424",
+   "doi": "10.17226/26424",
+   "title": "Measuring Sex, Gender Identity, and Sexual Orientation",
+   "year": 2022,
+   "url": "https://www.nationalacademies.org/publications/26424"
+  },
+  {
+   "n": 410,
+   "id": "26427",
+   "doi": "10.17226/26427",
+   "title": "A Pragmatic Future for NAEP: Containing Costs and Updating Technologies",
+   "year": 2022,
+   "url": "https://www.nationalacademies.org/publications/26427"
+  },
+  {
+   "n": 411,
+   "id": "26428",
+   "doi": "10.17226/26428",
+   "title": "The Future of Education Research at IES: Advancing an Equity-Oriented Science",
+   "year": 2022,
+   "url": "https://www.nationalacademies.org/publications/26428"
+  },
+  {
+   "n": 412,
+   "id": "26430",
+   "doi": "10.17226/26430",
+   "title": "Wind Turbine Generator Impacts to Marine Vessel Radar",
+   "year": 2022,
+   "url": "https://www.nationalacademies.org/publications/26430"
+  },
+  {
+   "n": 413,
+   "id": "26431",
+   "doi": "10.17226/26431",
+   "title": "Selected Heritable Disorders of Connective Tissue and Disability",
+   "year": 2022,
+   "url": "https://www.nationalacademies.org/publications/26431"
+  },
+  {
+   "n": 414,
+   "id": "26434",
+   "doi": "10.17226/26434",
+   "title": "Leveraging Advances in Modern Science to Revitalize Low-Dose Radiation Research in the United States",
+   "year": 2022,
+   "url": "https://www.nationalacademies.org/publications/26434"
+  },
+  {
+   "n": 415,
+   "id": "26452",
+   "doi": "10.17226/26452",
+   "title": "Radioactive Sources: Applications and Alternative Technologies: Chinese Version",
+   "year": 2022,
+   "url": "https://www.nationalacademies.org/publications/26452"
+  },
+  {
+   "n": 416,
+   "id": "26453",
+   "doi": "10.17226/26453",
+   "title": "Radioactive Sources: Applications and Alternative Technologies: Arabic Version",
+   "year": 2022,
+   "url": "https://www.nationalacademies.org/publications/26453"
+  },
+  {
+   "n": 417,
+   "id": "26454",
+   "doi": "10.17226/26454",
+   "title": "Radioactive Sources: Applications and Alternative Technologies: French Version",
+   "year": 2022,
+   "url": "https://www.nationalacademies.org/publications/26454"
+  },
+  {
+   "n": 418,
+   "id": "26455",
+   "doi": "10.17226/26455",
+   "title": "Radioactive Sources: Applications and Alternative Technologies: Russian Version",
+   "year": 2022,
+   "url": "https://www.nationalacademies.org/publications/26455"
+  },
+  {
+   "n": 419,
+   "id": "26456",
+   "doi": "10.17226/26456",
+   "title": "Radioactive Sources: Applications and Alternative Technologies: Spanish Version",
+   "year": 2022,
+   "url": "https://www.nationalacademies.org/publications/26456"
+  },
+  {
+   "n": 420,
+   "id": "26459",
+   "doi": "10.17226/26459",
+   "title": "The Limits of Recidivism: Measuring Success After Prison",
+   "year": 2022,
+   "url": "https://www.nationalacademies.org/publications/26459"
+  },
+  {
+   "n": 421,
+   "id": "26460",
+   "doi": "10.17226/26460",
+   "title": "The Chemistry of Fires at the Wildland-Urban Interface",
+   "year": 2022,
+   "url": "https://www.nationalacademies.org/publications/26460"
+  },
+  {
+   "n": 422,
+   "id": "26464",
+   "doi": "10.17226/26464",
+   "title": "Ontologies in the Behavioral Sciences: Accelerating Research and the Spread of Knowledge",
+   "year": 2022,
+   "url": "https://www.nationalacademies.org/publications/26464"
+  },
+  {
+   "n": 423,
+   "id": "26466",
+   "doi": "10.17226/26466",
+   "title": "Addressing Inaccurate and Misleading Information About Biological Threats Through Scientific Collaboration and Communication in Southeast Asia",
+   "year": 2022,
+   "url": "https://www.nationalacademies.org/publications/26466"
+  },
+  {
+   "n": 424,
+   "id": "26467",
+   "doi": "10.17226/26467",
+   "title": "Police Training to Promote the Rule of Law and Protect the Population",
+   "year": 2022,
+   "url": "https://www.nationalacademies.org/publications/26467"
+  },
+  {
+   "n": 425,
+   "id": "26479",
+   "doi": "10.17226/26479",
+   "title": "Improving Representation in Clinical Trials and Research: Building Research Equity for Women and Underrepresented Groups",
+   "year": 2022,
+   "url": "https://www.nationalacademies.org/publications/26479"
+  },
+  {
+   "n": 426,
+   "id": "26485",
+   "doi": "10.17226/26485",
+   "title": "Modernizing the Consumer Price Index for the 21st Century",
+   "year": 2022,
+   "url": "https://www.nationalacademies.org/publications/26485"
+  },
+  {
+   "n": 427,
+   "id": "26489",
+   "doi": "10.17226/26489",
+   "title": "Building Data Capacity for Patient-Centered Outcomes Research: Priorities for the Next Decade",
+   "year": 2022,
+   "url": "https://www.nationalacademies.org/publications/26489"
+  },
+  {
+   "n": 428,
+   "id": "26493",
+   "doi": "10.17226/26493",
+   "title": "Enhancing Operational Effectiveness of U.S. Naval Forces in Highly Degraded Environments: Autonomy and Artificial Intelligence in Unmanned Aircraft Systems: Abbreviated Version of Full Report",
+   "year": 2022,
+   "url": "https://www.nationalacademies.org/publications/26493"
+  },
+  {
+   "n": 429,
+   "id": "26499",
+   "doi": "10.17226/26499",
+   "title": "Lessons Learned in the Implementation of NASA's Earth Venture Class",
+   "year": 2022,
+   "url": "https://www.nationalacademies.org/publications/26499"
+  },
+  {
+   "n": 430,
+   "id": "26500",
+   "doi": "10.17226/26500",
+   "title": "Merits and Viability of Different Nuclear Fuel Cycles and Technology Options and the Waste Aspects of Advanced Nuclear Reactors",
+   "year": 2023,
+   "url": "https://www.nationalacademies.org/publications/26500"
+  },
+  {
+   "n": 431,
+   "id": "26507",
+   "doi": "10.17226/26507",
+   "title": "Fostering Responsible Computing Research: Foundations and Practices",
+   "year": 2022,
+   "url": "https://www.nationalacademies.org/publications/26507"
+  },
+  {
+   "n": 432,
+   "id": "26519",
+   "doi": "10.17226/26519",
+   "title": "Evaluation of the Transport Airplane Risk Assessment Methodology",
+   "year": 2022,
+   "url": "https://www.nationalacademies.org/publications/26519"
+  },
+  {
+   "n": 433,
+   "id": "26522",
+   "doi": "10.17226/26522",
+   "title": "Origins, Worlds, and Life: A Decadal Strategy for Planetary Science and Astrobiology 2023-2032",
+   "year": 2023,
+   "url": "https://www.nationalacademies.org/publications/26522"
+  },
+  {
+   "n": 434,
+   "id": "26525",
+   "doi": "10.17226/26525",
+   "title": "Advanced Battle Management System: Needs, Progress, Challenges, and Opportunities Facing the Department of the Air Force",
+   "year": 2022,
+   "url": "https://www.nationalacademies.org/publications/26525"
+  },
+  {
+   "n": 435,
+   "id": "26526",
+   "doi": "10.17226/26526",
+   "title": "The National Imperative to Improve Nursing Home Quality: Honoring Our Commitment to Residents, Families, and Staff",
+   "year": 2022,
+   "url": "https://www.nationalacademies.org/publications/26526"
+  },
+  {
+   "n": 436,
+   "id": "26529",
+   "doi": "10.17226/26529",
+   "title": "Understanding the Quality of the 2020 Census: Interim Report",
+   "year": 2022,
+   "url": "https://www.nationalacademies.org/publications/26529"
+  },
+  {
+   "n": 437,
+   "id": "26532",
+   "doi": "10.17226/26532",
+   "title": "Automated Research Workflows for Accelerated Discovery: Closing the Knowledge Discovery Loop",
+   "year": 2022,
+   "url": "https://www.nationalacademies.org/publications/26532"
+  },
+  {
+   "n": 438,
+   "id": "26544",
+   "doi": "10.17226/26544",
+   "title": "Improving the Intelligence Community's Leveraging of the Full Science and Technology Ecosystem",
+   "year": 2022,
+   "url": "https://www.nationalacademies.org/publications/26544"
+  },
+  {
+   "n": 439,
+   "id": "26554",
+   "doi": "10.17226/26554",
+   "title": "Enhancing NIH Research on Autoimmune Disease",
+   "year": 2022,
+   "url": "https://www.nationalacademies.org/publications/26554"
+  },
+  {
+   "n": 440,
+   "id": "26558",
+   "doi": "10.17226/26558",
+   "title": "Nuclear Proliferation and Arms Control Monitoring, Detection, and Verification: A National Security Priority: Summary of the Final Report",
+   "year": 2023,
+   "url": "https://www.nationalacademies.org/publications/26558"
+  },
+  {
+   "n": 441,
+   "id": "26568",
+   "doi": "10.17226/26568",
+   "title": "The Importance of Chemical Research to the U.S. Economy",
+   "year": 2022,
+   "url": "https://www.nationalacademies.org/publications/26568"
+  },
+  {
+   "n": 442,
+   "id": "26575",
+   "doi": "10.17226/26575",
+   "title": "Foundations of a Healthy and Vital Research Community for NASA Science",
+   "year": 2022,
+   "url": "https://www.nationalacademies.org/publications/26575"
+  },
+  {
+   "n": 443,
+   "id": "26579",
+   "doi": "10.17226/26579",
+   "title": "Communication and Information Transmission Using Biotechnology: Abridged Version",
+   "year": 2022,
+   "url": "https://www.nationalacademies.org/publications/26579"
+  },
+  {
+   "n": 444,
+   "id": "26581",
+   "doi": "10.17226/26581",
+   "title": "Evaluation of Compensation Data Collected Through the EEO-1 Form",
+   "year": 2023,
+   "url": "https://www.nationalacademies.org/publications/26581"
+  },
+  {
+   "n": 445,
+   "id": "26582",
+   "doi": "10.17226/26582",
+   "title": "Policies and Practices to Minimize Police Use of Force Internationally",
+   "year": 2022,
+   "url": "https://www.nationalacademies.org/publications/26582"
+  },
+  {
+   "n": 446,
+   "id": "26595",
+   "doi": "10.17226/26595",
+   "title": "Selected Immune Disorders and Disability",
+   "year": 2022,
+   "url": "https://www.nationalacademies.org/publications/26595"
+  },
+  {
+   "n": 447,
+   "id": "26599",
+   "doi": "10.17226/26599",
+   "title": "Improving the CDC Quarantine Station Network's Response to Emerging Threats",
+   "year": 2022,
+   "url": "https://www.nationalacademies.org/publications/26599"
+  },
+  {
+   "n": 448,
+   "id": "26602",
+   "doi": "10.17226/26602",
+   "title": "Transforming EPA Science to Meet Today's and Tomorrow's Challenges",
+   "year": 2023,
+   "url": "https://www.nationalacademies.org/publications/26602"
+  },
+  {
+   "n": 449,
+   "id": "26607",
+   "doi": "10.17226/26607",
+   "title": "Enabling DoD's Test Ranges and Infrastructure to Meet Threats and Operational Needs in the 21st Century: Unclassified Summary",
+   "year": 2022,
+   "url": "https://www.nationalacademies.org/publications/26607"
+  },
+  {
+   "n": 450,
+   "id": "26608",
+   "doi": "10.17226/26608",
+   "title": "Review of the U.S. Global Change Research Program's Draft Decadal Strategic Plan, 2022-2031",
+   "year": 2022,
+   "url": "https://www.nationalacademies.org/publications/26608"
+  },
+  {
+   "n": 451,
+   "id": "26609",
+   "doi": "10.17226/26609",
+   "title": "Risk Analysis Methods for Nuclear War and Nuclear Terrorism",
+   "year": 2023,
+   "url": "https://www.nationalacademies.org/publications/26609"
+  },
+  {
+   "n": 452,
+   "id": "26610",
+   "doi": "10.17226/26610",
+   "title": "Effectiveness and Efficiency of Defense Environmental Cleanup Activities of the Department of Energy's Office of Environmental Management: Report 2",
+   "year": 2022,
+   "url": "https://www.nationalacademies.org/publications/26610"
+  },
+  {
+   "n": 453,
+   "id": "26611",
+   "doi": "10.17226/26611",
+   "title": "Analysis of Potential Interference Issues Related to FCC Order 20-48",
+   "year": 2023,
+   "url": "https://www.nationalacademies.org/publications/26611"
+  },
+  {
+   "n": 454,
+   "id": "26612",
+   "doi": "10.17226/26612",
+   "title": "Advancing the Framework for Assessing Causality of Health and Welfare Effects to Inform National Ambient Air Quality Standard Reviews",
+   "year": 2022,
+   "url": "https://www.nationalacademies.org/publications/26612"
+  },
+  {
+   "n": 455,
+   "id": "26618",
+   "doi": "10.17226/26618",
+   "title": "An Assessment of Native Seed Needs and the Capacity for Their Supply: Final Report",
+   "year": 2023,
+   "url": "https://www.nationalacademies.org/publications/26618"
+  },
+  {
+   "n": 456,
+   "id": "26620",
+   "doi": "10.17226/26620",
+   "title": "The Future of Water Quality in Coeur d'Alene Lake",
+   "year": 2022,
+   "url": "https://www.nationalacademies.org/publications/26620"
+  },
+  {
+   "n": 457,
+   "id": "26630",
+   "doi": "10.17226/26630",
+   "title": "Laying the Foundation for New and Advanced Nuclear Reactors in the United States",
+   "year": 2023,
+   "url": "https://www.nationalacademies.org/publications/26630"
+  },
+  {
+   "n": 458,
+   "id": "26632",
+   "doi": "10.17226/26632",
+   "title": "Review of the Continued Analysis of Supplemental Treatment Approaches of Low-Activity Waste at the Hanford Nuclear Reservation: Review #2",
+   "year": 2022,
+   "url": "https://www.nationalacademies.org/publications/26632"
+  },
+  {
+   "n": 459,
+   "id": "26633",
+   "doi": "10.17226/26633",
+   "title": "Equitable and Resilient Infrastructure Investments",
+   "year": 2022,
+   "url": "https://www.nationalacademies.org/publications/26633"
+  },
+  {
+   "n": 460,
+   "id": "26640",
+   "doi": "10.17226/26640",
+   "title": "Enhancing Coordination and Collaboration Across the Land-Grant System",
+   "year": 2022,
+   "url": "https://www.nationalacademies.org/publications/26640"
+  },
+  {
+   "n": 461,
+   "id": "26641",
+   "doi": "10.17226/26641",
+   "title": "Greenhouse Gas Emissions Information for Decision Making: A Framework Going Forward",
+   "year": 2022,
+   "url": "https://www.nationalacademies.org/publications/26641"
+  },
+  {
+   "n": 462,
+   "id": "26647",
+   "doi": "10.17226/26647",
+   "title": "Protecting U.S. Technological Advantage",
+   "year": 2022,
+   "url": "https://www.nationalacademies.org/publications/26647"
+  },
+  {
+   "n": 463,
+   "id": "26649",
+   "doi": "10.17226/26649",
+   "title": "Review of the Inland Estimated Recovery System Potential (ERSP) Prototype Calculator",
+   "year": 2022,
+   "url": "https://www.nationalacademies.org/publications/26649"
+  },
+  {
+   "n": 464,
+   "id": "26653",
+   "doi": "10.17226/26653",
+   "title": "Evaluating the Process to Develop the Dietary Guidelines for Americans, 2020-2025: Final Report",
+   "year": 2023,
+   "url": "https://www.nationalacademies.org/publications/26653"
+  },
+  {
+   "n": 465,
+   "id": "26654",
+   "doi": "10.17226/26654",
+   "title": "Operationalizing Sustainable Development to Benefit People and the Planet",
+   "year": 2022,
+   "url": "https://www.nationalacademies.org/publications/26654"
+  },
+  {
+   "n": 466,
+   "id": "26659",
+   "doi": "10.17226/26659",
+   "title": "Resilience for Compounding and Cascading Events",
+   "year": 2022,
+   "url": "https://www.nationalacademies.org/publications/26659"
+  },
+  {
+   "n": 467,
+   "id": "26678",
+   "doi": "10.17226/26678",
+   "title": "Developing Policing Practices that Build Legitimacy",
+   "year": 2022,
+   "url": "https://www.nationalacademies.org/publications/26678"
+  },
+  {
+   "n": 468,
+   "id": "26684",
+   "doi": "10.17226/26684",
+   "title": "Technical Assessment of the Capital Facility Needs of the National Institute of Standards and Technology",
+   "year": 2023,
+   "url": "https://www.nationalacademies.org/publications/26684"
+  },
+  {
+   "n": 469,
+   "id": "26686",
+   "doi": "10.17226/26686",
+   "title": "Corrosion of Buried Steel at New and In-Service Infrastructure",
+   "year": 2023,
+   "url": "https://www.nationalacademies.org/publications/26686"
+  },
+  {
+   "n": 470,
+   "id": "26703",
+   "doi": "10.17226/26703",
+   "title": "Carbon Dioxide Utilization Markets and Infrastructure: Status and Opportunities: A First Report",
+   "year": 2023,
+   "url": "https://www.nationalacademies.org/publications/26703"
+  },
+  {
+   "n": 471,
+   "id": "26704",
+   "doi": "10.17226/26704",
+   "title": "The Role of Net Metering in the Evolving Electricity System",
+   "year": 2023,
+   "url": "https://www.nationalacademies.org/publications/26704"
+  },
+  {
+   "n": 472,
+   "id": "26705",
+   "doi": "10.17226/26705",
+   "title": "Reducing Racial Inequality in Crime and Justice: Science, Practice, and Policy",
+   "year": 2023,
+   "url": "https://www.nationalacademies.org/publications/26705"
+  },
+  {
+   "n": 473,
+   "id": "26723",
+   "doi": "10.17226/26723",
+   "title": "NSF Efforts to Achieve the Nation's Vision for the Materials Genome Initiative: Designing Materials to Revolutionize and Engineer Our Future (DMREF)",
+   "year": 2023,
+   "url": "https://www.nationalacademies.org/publications/26723"
+  },
+  {
+   "n": 474,
+   "id": "26728",
+   "doi": "10.17226/26728",
+   "title": "Fundamental Research in High Energy Density Science",
+   "year": 2023,
+   "url": "https://www.nationalacademies.org/publications/26728"
+  },
+  {
+   "n": 475,
+   "id": "26729",
+   "doi": "10.17226/26729",
+   "title": "Reassessment of the Department of Veterans Affairs Airborne Hazards and Open Burn Pit Registry",
+   "year": 2022,
+   "url": "https://www.nationalacademies.org/publications/26729"
+  },
+  {
+   "n": 476,
+   "id": "26733",
+   "doi": "10.17226/26733",
+   "title": "Defining Populations for Dietary Reference Intake Recommendations: A Letter Report",
+   "year": 2022,
+   "url": "https://www.nationalacademies.org/publications/26733"
+  },
+  {
+   "n": 477,
+   "id": "26743",
+   "doi": "10.17226/26743",
+   "title": "Closing the Opportunity Gap for Young Children",
+   "year": 2023,
+   "url": "https://www.nationalacademies.org/publications/26743"
+  },
+  {
+   "n": 478,
+   "id": "26746",
+   "doi": "10.17226/26746",
+   "title": "Report of the Committee on Proposal Evaluation for Allocation of Supercomputing Time for the Study of Molecular Dynamics: Thirteenth Round",
+   "year": 2022,
+   "url": "https://www.nationalacademies.org/publications/26746"
+  },
+  {
+   "n": 479,
+   "id": "26747",
+   "doi": "10.17226/26747",
+   "title": "Confucius Institutes at U.S. Institutions of Higher Education: Waiver Criteria for the Department of Defense",
+   "year": 2023,
+   "url": "https://www.nationalacademies.org/publications/26747"
+  },
+  {
+   "n": 480,
+   "id": "26750",
+   "doi": "10.17226/26750",
+   "title": "Thriving in Space: Ensuring the Future of Biological and Physical Sciences Research: A Decadal Survey for 2023-2032",
+   "year": 2023,
+   "url": "https://www.nationalacademies.org/publications/26750"
+  },
+  {
+   "n": 481,
+   "id": "26757",
+   "doi": "10.17226/26757",
+   "title": "Review of the Draft Fifth National Climate Assessment",
+   "year": 2023,
+   "url": "https://www.nationalacademies.org/publications/26757"
+  },
+  {
+   "n": 482,
+   "id": "26767",
+   "doi": "10.17226/26767",
+   "title": "Wastewater-based Disease Surveillance for Public Health Action",
+   "year": 2023,
+   "url": "https://www.nationalacademies.org/publications/26767"
+  },
+  {
+   "n": 483,
+   "id": "26773",
+   "doi": "10.17226/26773",
+   "title": "Infusing Advanced Manufacturing into Undergraduate Engineering Education",
+   "year": 2023,
+   "url": "https://www.nationalacademies.org/publications/26773"
+  },
+  {
+   "n": 484,
+   "id": "26778",
+   "doi": "10.17226/26778",
+   "title": "2022 Assessment of the National Institute of Standards and Technology's Communications Technology Laboratory",
+   "year": 2023,
+   "url": "https://www.nationalacademies.org/publications/26778"
+  },
+  {
+   "n": 485,
+   "id": "26780",
+   "doi": "10.17226/26780",
+   "title": "Review of ICCOPR's 2022-2027 Oil Pollution Research and Technology Plan",
+   "year": 2023,
+   "url": "https://www.nationalacademies.org/publications/26780"
+  },
+  {
+   "n": 486,
+   "id": "26781",
+   "doi": "10.17226/26781",
+   "title": "Police Strategies to Control High-Level Corruption: A Global Perspective",
+   "year": 2022,
+   "url": "https://www.nationalacademies.org/publications/26781"
+  },
+  {
+   "n": 487,
+   "id": "26782",
+   "doi": "10.17226/26782",
+   "title": "Evidence to Advance Reform in the Global Security and Justice Sectors: Compilation of Reports",
+   "year": 2022,
+   "url": "https://www.nationalacademies.org/publications/26782"
+  },
+  {
+   "n": 488,
+   "id": "26803",
+   "doi": "10.17226/26803",
+   "title": "Advancing Antiracism, Diversity, Equity, and Inclusion in STEMM Organizations: Beyond Broadening Participation",
+   "year": 2023,
+   "url": "https://www.nationalacademies.org/publications/26803"
+  },
+  {
+   "n": 489,
+   "id": "26809",
+   "doi": "10.17226/26809",
+   "title": "Addressing the Long-Term Effects of the COVID-19 Pandemic on Children and Families",
+   "year": 2023,
+   "url": "https://www.nationalacademies.org/publications/26809"
+  },
+  {
+   "n": 490,
+   "id": "26818",
+   "doi": "10.17226/26818",
+   "title": "Dietary Reference Intakes for Energy",
+   "year": 2023,
+   "url": "https://www.nationalacademies.org/publications/26818"
+  },
+  {
+   "n": 491,
+   "id": "26831",
+   "doi": "10.17226/26831",
+   "title": "Review of Four CARA Programs and Preparing for Future Evaluations",
+   "year": 2023,
+   "url": "https://www.nationalacademies.org/publications/26831"
+  },
+  {
+   "n": 492,
+   "id": "26834",
+   "doi": "10.17226/26834",
+   "title": "Federal Policy to Advance Racial, Ethnic, and Tribal Health Equity",
+   "year": 2023,
+   "url": "https://www.nationalacademies.org/publications/26834"
+  },
+  {
+   "n": 493,
+   "id": "26850",
+   "doi": "10.17226/26850",
+   "title": "Advancing Chemistry and Quantum Information Science: An Assessment of Research Opportunities at the Interface of Chemistry and Quantum Information Science in the United States",
+   "year": 2023,
+   "url": "https://www.nationalacademies.org/publications/26850"
+  },
+  {
+   "n": 494,
+   "id": "26854",
+   "doi": "10.17226/26854",
+   "title": "Achieving Whole Health: A New Approach for Veterans and the Nation",
+   "year": 2023,
+   "url": "https://www.nationalacademies.org/publications/26854"
+  },
+  {
+   "n": 495,
+   "id": "26857",
+   "doi": "10.17226/26857",
+   "title": "Nonhuman Primate Models in Biomedical Research: State of the Science and Future Needs",
+   "year": 2023,
+   "url": "https://www.nationalacademies.org/publications/26857"
+  },
+  {
+   "n": 496,
+   "id": "26872",
+   "doi": "10.17226/26872",
+   "title": "Review of the Continued Analysis of Supplemental Treatment Approaches of Low-Activity Waste at the Hanford Nuclear Reservation: Review #3",
+   "year": 2023,
+   "url": "https://www.nationalacademies.org/publications/26872"
+  },
+  {
+   "n": 497,
+   "id": "26873",
+   "doi": "10.17226/26873",
+   "title": "Advancing Understanding of Offshore Oil and Gas Systemic Risk in the U.S. Gulf of Mexico: Current State and Safety Reforms Since the Macondo Well–Deepwater Horizon Blowout",
+   "year": 2023,
+   "url": "https://www.nationalacademies.org/publications/26873"
+  },
+  {
+   "n": 498,
+   "id": "26874",
+   "doi": "10.17226/26874",
+   "title": "Behavioral Economics: Policy Impact and Future Directions",
+   "year": 2023,
+   "url": "https://www.nationalacademies.org/publications/26874"
+  },
+  {
+   "n": 499,
+   "id": "26880",
+   "doi": "10.17226/26880",
+   "title": "Strengthening Equitable Community Resilience: Criteria and Guiding Principles for the Gulf Research Program's Enhancing Community Resilience (EnCoRe) Initiative",
+   "year": 2023,
+   "url": "https://www.nationalacademies.org/publications/26880"
+  },
+  {
+   "n": 500,
+   "id": "26881",
+   "doi": "10.17226/26881",
+   "title": "Health Risk Considerations for the Use of Unencapsulated Steel Slag",
+   "year": 2023,
+   "url": "https://www.nationalacademies.org/publications/26881"
+  },
+  {
+   "n": 501,
+   "id": "26884",
+   "doi": "10.17226/26884",
+   "title": "Review of the SBIR and STTR Programs at the National Science Foundation",
+   "year": 2023,
+   "url": "https://www.nationalacademies.org/publications/26884"
+  },
+  {
+   "n": 502,
+   "id": "26902",
+   "doi": "10.17226/26902",
+   "title": "Using Population Descriptors in Genetics and Genomics Research: A New Framework for an Evolving Field",
+   "year": 2023,
+   "url": "https://www.nationalacademies.org/publications/26902"
+  },
+  {
+   "n": 503,
+   "id": "26906",
+   "doi": "10.17226/26906",
+   "title": "Building Confidence in New Evidence Streams for Human Health Risk Assessment: Lessons Learned from Laboratory Mammalian Toxicity Tests",
+   "year": 2023,
+   "url": "https://www.nationalacademies.org/publications/26906"
+  },
+  {
+   "n": 504,
+   "id": "26915",
+   "doi": "10.17226/26915",
+   "title": "Report to the California Department of Food and Agriculture Pierce's Disease/Glassy-Winged Sharpshooter Board on the Review of Research Proposals on Grapevine Virus Diseases and Their Vectors",
+   "year": 2023,
+   "url": "https://www.nationalacademies.org/publications/26915"
+  },
+  {
+   "n": 505,
+   "id": "26916",
+   "doi": "10.17226/26916",
+   "title": "Charting a Path in a Shifting Technical and Geopolitical Landscape: Post-Exascale Computing for the National Nuclear Security Administration",
+   "year": 2023,
+   "url": "https://www.nationalacademies.org/publications/26916"
+  },
+  {
+   "n": 506,
+   "id": "26941",
+   "doi": "10.17226/26941",
+   "title": "Advances in the Diagnosis and Evaluation of Disabling Physical Health Conditions",
+   "year": 2023,
+   "url": "https://www.nationalacademies.org/publications/26941"
+  },
+  {
+   "n": 507,
+   "id": "27023",
+   "doi": "10.17226/27023",
+   "title": "Harnessing Innovative Biotechnologies for National Security in Material and Human Dimensions: Abridged Version",
+   "year": 2023,
+   "url": "https://www.nationalacademies.org/publications/27023"
+  },
+  {
+   "n": 508,
+   "id": "27025",
+   "doi": "10.17226/27025",
+   "title": "Substance Misuse Programs in Commercial Aviation: Safety First",
+   "year": 2023,
+   "url": "https://www.nationalacademies.org/publications/27025"
+  },
+  {
+   "n": 509,
+   "id": "27031",
+   "doi": "10.17226/27031",
+   "title": "Using Systematic Reviews to Support Future Dietary Reference Intakes: A Letter Report",
+   "year": 2023,
+   "url": "https://www.nationalacademies.org/publications/27031"
+  },
+  {
+   "n": 510,
+   "id": "27052",
+   "doi": "10.17226/27052",
+   "title": "Pratiques prometteuses pour remédier à la sous-représentation des femmes dans les domaines des sciences, de l'ingénierie et de la médecine: Ouvrir les portes",
+   "year": 2020,
+   "url": "https://www.nationalacademies.org/publications/27052"
+  },
+  {
+   "n": 511,
+   "id": "27057",
+   "doi": "10.17226/27057",
+   "title": "Advancing Health and Resilience in the Gulf of Mexico Region: A Roadmap for Progress",
+   "year": 2023,
+   "url": "https://www.nationalacademies.org/publications/27057"
+  },
+  {
+   "n": 512,
+   "id": "27065",
+   "doi": "10.17226/27065",
+   "title": "Foreign-Funded Language and Culture Institutes at U.S. Institutions of Higher Education: Practices to Assess and Mitigate Risk",
+   "year": 2023,
+   "url": "https://www.nationalacademies.org/publications/27065"
+  },
+  {
+   "n": 513,
+   "id": "27084",
+   "doi": "10.17226/27084",
+   "title": "On Being a Scientist: Vietnamese Version",
+   "year": 2021,
+   "url": "https://www.nationalacademies.org/publications/27084"
+  },
+  {
+   "n": 514,
+   "id": "27092",
+   "doi": "10.17226/27092",
+   "title": "Test and Evaluation Challenges in Artificial Intelligence-Enabled Systems for the Department of the Air Force",
+   "year": 2023,
+   "url": "https://www.nationalacademies.org/publications/27092"
+  },
+  {
+   "n": 515,
+   "id": "27145",
+   "doi": "10.17226/27145",
+   "title": "A Critique of the California Department of Food and Agriculture Pierce's Disease/Glassy-Winged Sharpshooter Board's Request for Proposals: Critique of RFP Letter Report",
+   "year": 2023,
+   "url": "https://www.nationalacademies.org/publications/27145"
+  },
+  {
+   "n": 516,
+   "id": "27148",
+   "doi": "10.17226/27148",
+   "title": "Acquisition Strategies for Future Space-Based Optics Follow On Letter Report: Unclassified Summary",
+   "year": 2023,
+   "url": "https://www.nationalacademies.org/publications/27148"
+  },
+  {
+   "n": 517,
+   "id": "27150",
+   "doi": "10.17226/27150",
+   "title": "Assessing the 2020 Census: Final Report",
+   "year": 2023,
+   "url": "https://www.nationalacademies.org/publications/27150"
+  },
+  {
+   "n": 518,
+   "id": "27153",
+   "doi": "10.17226/27153",
+   "title": "Review of EPA's 2022 Draft Formaldehyde Assessment",
+   "year": 2023,
+   "url": "https://www.nationalacademies.org/publications/27153"
+  },
+  {
+   "n": 519,
+   "id": "27166",
+   "doi": "10.17226/27166",
+   "title": "Review of the Department of Veterans Affairs Presumption Decision Process",
+   "year": 2023,
+   "url": "https://www.nationalacademies.org/publications/27166"
+  },
+  {
+   "n": 520,
+   "id": "27184",
+   "doi": "10.17226/27184",
+   "title": "Toward Equitable Innovation in Health and Medicine: A Framework",
+   "year": 2023,
+   "url": "https://www.nationalacademies.org/publications/27184"
+  },
+  {
+   "n": 521,
+   "id": "27207",
+   "doi": "10.17226/27207",
+   "title": "The Future Pediatric Subspecialty Physician Workforce: Meeting the Needs of Infants, Children, and Adolescents",
+   "year": 2023,
+   "url": "https://www.nationalacademies.org/publications/27207"
+  },
+  {
+   "n": 522,
+   "id": "27239",
+   "doi": "10.17226/27239",
+   "title": "Complementary Feeding Interventions for Infants and Young Children Under Age 2: Scoping of Promising Interventions to Implement at the Community or State Level",
+   "year": 2023,
+   "url": "https://www.nationalacademies.org/publications/27239"
+  },
+  {
+   "n": 523,
+   "id": "27257",
+   "doi": "10.17226/27257",
+   "title": "An Assessment of the Material Measurement Laboratory at the National Institute of Standards and Technology: Fiscal Year 2023",
+   "year": 2023,
+   "url": "https://www.nationalacademies.org/publications/27257"
+  },
+  {
+   "n": 524,
+   "id": "27393",
+   "doi": "10.17226/27393",
+   "title": "Risk Analysis Methods for Nuclear War and Nuclear Terrorism: Phase II (Abbreviated Report of the CUI Version)",
+   "year": 2023,
+   "url": "https://www.nationalacademies.org/publications/27393"
+  }
+ ]
+}

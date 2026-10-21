@@ -637,3 +637,47 @@ So with conversion defects removed, each system is still told apart by its writi
 - The other nine had mixed v1 reasons (descriptors together with certainty wording).
 
 **Runner note, not changed:** the Claude judge's output limit (1,024 tokens) cut off one reason in 48. Raising it is a runner change for Fred to rule on.
+
+### Sampling frames (no draw for the study)
+
+Built by `scripts/frames.py` and committed as numbered files in `frames/`, each with its queries (URL, UTC date, HTTP status, sha256 of the reply) and every candidate's result on every test. No drafting session reads them (RUN.md, "Do not read"). Tests: `backend/tests/test_whu_study_frames.py`. All queries were made on 21 October 2026. A rebuild re-logs a cached reply under the rebuild's time.
+
+| Frame | Registry and query | Candidates | Eligible |
+|---|---|---|---|
+| Cochrane | PubMed E-utilities: `"Cochrane Database Syst Rev"[ta] AND 2024/01/01:2026/09/30[dp]`, then efetch | 1,054 | **718** |
+| Campbell | PubMed E-utilities: `"Campbell Syst Rev"[ta] AND 2024/01/01:2026/09/30[dp]` | 200 | **24** |
+| IPCC AR6 headline statements | no API; the four official "SPM headline statements" pages on ipcc.ch, one entry per statement | 76 | **64** |
+| National Academies, 2024-01 to 2026-09 | no API; the catalogue's listing pages, filtered by year | candidate list only (below) | drawn by the draw procedure |
+
+**How each test is applied** (the text is in each file's `tests`):
+- **A review, not something else** (Cochrane, Campbell). Excluded on title, publication type or the abstract's first words:
+  - protocols (314 of Cochrane's candidates are protocols: "This is a protocol for a Cochrane Review"; 140 Campbell entries are protocols, evidence and gap maps, title registrations, editorials, corrections or scoping reviews);
+  - withdrawn or retracted reviews.
+- **Published in the window.** PubMed's electronic publication date (else the issue date); the AR6 report's year (2021–2023).
+- **States a certainty grade.**
+  - Cochrane and Campbell: the PubMed abstract carries a GRADE certainty or quality term ("low-certainty", "certainty of the evidence", "GRADE", "strength of evidence"). Fails among the reviews: 14 of 740 Cochrane, 36 of 60 Campbell (many Campbell abstracts give no grade).
+  - IPCC: the headline statement itself carries calibrated language (a confidence level or a likelihood term). 12 of WGI's 14 headline statements carry none: in WGI the calibrated terms sit in the sub-paragraphs (A.1.1 …), not in the headline sentence, so they fail. That is the rule as written. **This needs a ruling** if WGI should be represented.
+- **Public abstract.** PubMed holds an abstract. Among the reviews, every Cochrane review has one and one Campbell review does not; the other records with no abstract were already excluded (editorials, corrections and the like). The IPCC statements are published in full.
+- **Not a WHU topic.** The title (IPCC: the statement) matches none of the patterns in `EXCLUDED_TOPICS`: melanoma and mRNA cancer vaccines; CDK4/6 inhibitors; AI use and cognition; exercise and depression; ultra-processed food; intermittent fasting; vitamin D. These exclude 8 Cochrane reviews: "Exercise for depression", "Intermittent fasting for adults with overweight or obesity", and six on vitamin D. Excluding every vitamin D review, not only those on people over 60, is a choice. **It needs confirming.**
+- **Not tested here:** "can be put as one plain question". The protocol leaves that to the closer reading after the draw.
+
+**What could not be determined:** the PubMed records are as of the query date (recent Cochrane reviews may not yet be indexed). For the National Academies, nothing is tested on the list: each test runs at the draw, one candidate at a time.
+
+### Draw procedure, for a frame with no full eligible list
+
+Ruled 21 October 2026, after the National Academies site rate-limited a full crawl (HTTP 429 after a few requests, with no Retry-After header). It applies to any frame whose eligible list was not built in full. Code: `frames.py draw-<frame> --seed N`.
+1. Take the frame's candidate list, numbered `n` in its fixed order (National Academies: by publication id).
+2. Shuffle the numbers with the seed: `random.Random(seed).shuffle(order)`.
+3. Test eligibility in that order (the same tests as above; a National Academies report "states a certainty grade" when its OpenBook Summary chapter uses at least three levels of one evidence scale, or two levels of confidence or certainty language).
+4. **The first eligible candidate is the draw.**
+5. A candidate whose test could not be completed (a page not fetched) is logged as undetermined and passed over, never drawn.
+6. Every candidate checked is logged, with each test's result and reason, in `frames/draws/<frame>-seed<N>.json`, with the frame file's sha256. A draw is made once; the script refuses a second draw with the same seed.
+
+**National Academies candidate lists** (the catalogue's "Consensus Study Report" label, from the listing pages alone; 20 s between requests, backing off on 429):
+
+| List | Listing query (year filter) | Listing pages | Catalogue entries | Consensus Study Reports (candidates) | File |
+|---|---|---|---|---|---|
+| Study, 2024-01 to 2026-09 | `publications/all?publication_date[from]=2024&publication_date[to]=2026` | 52 | 872 | **186** | `frames/nasem.json` |
+| Practice, 2017–2023 | `publications/all?publication_date[from]=2017&publication_date[to]=2023` | 143 | 2,342 | **524** | `frames/nasem-practice.json` |
+
+Each file logs every listing query (URL, UTC time, HTTP status, sha256), all made on 21 October 2026, and the count of cards by label. The other cards are proceedings (235; 655), annual reports, special publications, issue papers, rapid expert consultations, and 421 and 1,127 cards with no label. The catalogue gives a year, not a date, so a 2026 report published after 30 September is caught by the draw's date test (Crossref's month). The site returned HTTP 429 four times during the build; each was waited out and the page fetched.
