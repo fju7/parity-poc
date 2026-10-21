@@ -1,0 +1,55 @@
+{
+  "_what_this_is": "The entry gate, answered BEFORE drafting. The threshold question is whether a well-informed non-expert would confidently believe something the primary sources do not support.",
+  "belief": {
+    "_note": "What the reader already believes, stated as they would state it. If you cannot write this sentence, there is nothing to correct and no subject -- which is how the tobacco-analogy candidate died.",
+    "statement": "The world's greenhouse gas emissions are not just rising but rising faster and faster: each recent decade has added more, and grown more quickly, than the decades before it.",
+    "how_we_know_they_believe_it": "To be checked from page bytes of general coverage during research; not yet looked at (written before any source was opened).",
+    "carried_by": [
+      {
+        "outlet": "",
+        "url": "",
+        "date": "",
+        "what_it_said": ""
+      }
+    ]
+  },
+  "what_the_sources_show": {
+    "_note": "What the primary sources actually support, and which sources.",
+    "statement": "",
+    "sources": [],
+    "_expected_before_research": "Written before research, as a prediction to be tested, not a finding: total emissions (and annual emissions levels) have kept rising, and the 2000s grew faster than 1970-2000; the 2010s grew more slowly than the 2000s while still reaching the highest levels on record; the answer depends on which decades are compared, which gases and whether land-use emissions are counted, and on uncertainty in the non-CO2 and land-use estimates."
+  },
+  "direction": {
+    "_note": "CORRECTS, CONFIRMS or NARROWS. This field exists so the contrarianism guard can count. A publication whose answer is always CORRECTS is performing scepticism rather than assessing evidence, and is not to be trusted.",
+    "value": "",
+    "_values": [
+      "corrects",
+      "confirms",
+      "narrows"
+    ],
+    "_expected_before_research": "narrows (prediction; the recorded value is set after research)"
+  },
+  "reader_with_a_decision": "A voter, teacher or local official who has read that emissions are 'accelerating' and must decide what to say or support -- for example whether climate policy so far has made any difference to the trend -- and who wants to know whether emissions growth has in fact sped up, slowed, or reversed in recent decades, and how sure the measurements are.",
+  "public_record_check": {
+    "_note": "NOT 'has anybody published this'. On any contested question, somebody has. The question is whether it has been carried WHERE THIS READER WOULD FIND IT. Run the counterexample hunter on the belief statement, not on the finding.",
+    "prior_art_found": [],
+    "carried_in_general_coverage": "",
+    "our_contribution": "translation, extension, or correction of the prior art -- say which"
+  },
+  "sources_are_open": "",
+  "evidence_base_is_bounded": "",
+  "kill_condition": "There is no 'narrows' story, and the answer is CONFIRMS, if the primary emissions inventories and assessments show that global greenhouse gas emissions grew faster in each recent decade than in the one before, including the 2010s, on the main totals (all gases, with and without land use) and outside their stated uncertainty. The answer is CORRECTS if they show recent decades grew no faster than earlier ones on every comparison. The premise also dies if the reader does not hold the belief (no general coverage states acceleration), or if general coverage already carries the decade-by-decade growth rates and their uncertainty as prominently as the rising totals.",
+  "kill_condition_tested": {
+    "_note": "Filled in AFTER going to look, by whoever looked.",
+    "by": "",
+    "on": "",
+    "result": "",
+    "_result_values": [
+      "survived",
+      "narrowed",
+      "killed"
+    ],
+    "note": ""
+  },
+  "lead_came_from": "Reliability study practice draw WHU-P04 (study/whu-reliability), question as written in issue.json."
+}
