@@ -1,5 +1,4 @@
-6752b7fbd5d8d2464d5845834fdef9432fb4d81b51037cd3358c575ca153d59d  ./audit5.log
-d1080a3bdd8129ca964cfa9121cb40ff799e097e707db6aae7fde7c782469f6f  ./gate3.log
+47c1017488d8507cc98cd14a05bf764bcf94a0d50da84e94b762c805ac276e68  ./gate3b.log
 69ae8bf4b59fb81101918da1317fe3b06a82db9f93f299e563d9c2de80e869cc  ./issues/WHU-P02-ultra-processed-foods/advocate/2026-10-20-adjudication.md
 13e195578f3cf91d05ef921c830cec4f680ccf46e1e479214b69b7c36c05a9ff  ./issues/WHU-P02-ultra-processed-foods/advocate/2026-10-20-briefs.json
 0a935ee1887821354f30aa6e9024d0f2c37ccc7b26d52d5c68cb61b074fe12b3  ./issues/WHU-P02-ultra-processed-foods/advocate/20261020T2027Z-stopped-by-day-cap-quote_checks.jsonl
@@ -40,13 +39,14 @@ e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  ./issues/WHU-P
 331c8c3a97e1caf635d01cd867ead297e9591c99c126904da22abde99fb51a51  ./issues/WHU-P02-ultra-processed-foods/audit/20261021T010047Z/second_reads.jsonl
 e660ed0b3e6e0cdcadfc87a66c662a965d4c396b543df1deeb60805cfbf940fb  ./issues/WHU-P02-ultra-processed-foods/audit/20261021T010047Z/verdicts.jsonl
 3d9c84577a7176928fb66f7b736650d0a7968d84320e83d80861a4b7c3dd2be8  ./issues/WHU-P02-ultra-processed-foods/bindings.json
-105c2eb2d703f3c622ed60a5f905b630c0d8a662b7dd1b1d8ca6768964f05244  ./issues/WHU-P02-ultra-processed-foods/change-reviews.json
+6e483c8441aa9d98d378533e400e561148c6a041408e4870693cffedec579b1d  ./issues/WHU-P02-ultra-processed-foods/change-reviews.json
 e8acc8881d67b39158dcb6f2d64557fecca49925f064a9c2db033859eb356621  ./issues/WHU-P02-ultra-processed-foods/conclusion-review.json
-60d69b7a6e744aafb82c641df5c67ec6dcbabae67676c860b4fc780c982f07a9  ./issues/WHU-P02-ultra-processed-foods/draft/ultra-processed-foods.html.gate.json
-0e09942ebe8c312642953db96fe12a6f2cf50a8dbe6024e2027b66b0d19e4531  ./issues/WHU-P02-ultra-processed-foods/draft/ultra-processed-foods.html.gate.json.runs.json
+1a841472a5f9a91975f005f465b01c783ddaed998132f3ffb47fa138ed9e8e9a  ./issues/WHU-P02-ultra-processed-foods/draft/ultra-processed-foods.html.gate.json
+1b2c4dae151ba3eff85dedfeaab17e950b17d51a25f483d3babf845f8e3397b0  ./issues/WHU-P02-ultra-processed-foods/draft/ultra-processed-foods.html.gate.json.runs.json
 c59655df37025d8ecc140efe8ce7d6500f5f5e99c762366264812b5ab7747ce6  ./issues/WHU-P02-ultra-processed-foods/export/spec.json
 80af3a7829fa2eb539a26aae19a6c59dbf9b0715d9a99a696cb7bc363ab0bd67  ./issues/WHU-P02-ultra-processed-foods/gate-findings.json
-23cc7633cf2563aa17c19cb4afe9111288aac354c067f163a03cc10ce8d6c5a7  ./issues/WHU-P02-ultra-processed-foods/rulings/applied_check.jsonl
+c601b517a280f0403cdaac35f749065ad5c05b4af6c988a72b99070e99ab88a8  ./issues/WHU-P02-ultra-processed-foods/rulings/applied_check.jsonl
+0db9e422d8ca32b1a0bc3854f7d8e595e9ef860c353fb480b67b545b7edc2ec1  ./issues/WHU-P02-ultra-processed-foods/rulings/consistency.jsonl
 c71b8f2ee202e3f8bd16f06eb64660ddd293b5dc927c59d70a5245944d423c91  ./issues/WHU-P02-ultra-processed-foods/rulings/rulings.jsonl
 db11659b31572fa21e52e5504a46923440e836771004ee777952e5433143b98d  ./issues/WHU-P02-ultra-processed-foods/rulings/superseded/20261020T2025Z-applied_check.jsonl
 ad06a0bebb97ff632370d20a9777b1f0b7634f477449df10c83698827d76cb8f  ./issues/WHU-P02-ultra-processed-foods/rulings/superseded/20261020T2025Z-change-reviews.json
@@ -55,4 +55,4 @@ e8fb6fbc0ce69330e782378cdc1c0329a27e4b4fdc33e1c1a6e7a4990f3003c8  ./issues/WHU-P
 2b638be5edb5c9fbc703d6d1a678a865cc9862366976dbeff6a8ce6fb85ddece  ./issues/WHU-P02-ultra-processed-foods/rulings/superseded/20261020T2025Z-rulings.jsonl
 de412aaae8fc1d9500807432e416417f925eb07f8b397596a90da44088ae7e16  ./issues/WHU-P02-ultra-processed-foods/rulings/superseded/20261021T0054Z-rulings.jsonl
 933d1df40ef61fcb7bf75d64337f00a73b97089168dcaff83f58ef54f52358da  ./issues/WHU-P02-ultra-processed-foods/rulings/superseded/README.txt
-c4cc1aa7154338d3338f830c6773961f19eb7b1c1f03d2e9154b961dc1fa9b7f  ./preflight_clean.txt
+b71ea575877812195bf3f33d9887fad6602e7322d2fbb18c2157b2400ab3049f  ./preflight_done.txt
