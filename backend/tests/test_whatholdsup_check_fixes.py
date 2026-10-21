@@ -48,6 +48,9 @@ def held(monkeypatch):
 
 
 def page(monkeypatch, html):
+    # _marked_page caches by (slug, id(_page_html)); a freed lambda's id can be
+    # reused by the next test's, which then read the previous test's page.
+    monkeypatch.setattr(B, "_MARKED_CACHE", {})
     monkeypatch.setattr(B, "_page_html", lambda slug: html)
 
 
