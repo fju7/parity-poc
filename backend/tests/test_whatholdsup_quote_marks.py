@@ -44,13 +44,19 @@ def test_the_audit_verbatim_check_accepts_an_enclosed_quotation():
 def test_the_real_cases_s004_08_and_s010_14():
     """WHU-P02's advocate quotations, only where the private files exist."""
     import ruling as R
-    # The 2026-10-20 briefs: in place, or moved aside by the clean re-run's
-    # supersession (advocate/superseded/, each brief stamped, order kept), or
-    # in the private archive. All private; none is committed.
+    # The 2026-10-20 run's briefs, found by that run's ID and never by an
+    # in-place date-named file: a later run on the same date wrote its own
+    # advocate/2026-10-20-briefs.json (2026-10-21, 00:02Z), with different
+    # numbering. That run predates run IDs; the clean re-run's supersession
+    # (supersede.py, 20261020T2025Z) moved it to advocate/superseded/ under the
+    # name below, which is its ID. In place there, or in the private archive.
+    # All private; none is committed.
+    run_id = "20261020T2025Z-2026-10-20"
     adv = WHU.parents[2] / "issues" / "WHU-P02-ultra-processed-foods" / "advocate"
     arch = Path.home() / "Projects" / "whu-study-private" / "WHU-P02-ultra-processed-foods"
-    found = ([adv / "2026-10-20-briefs.json"] + sorted(adv.glob("superseded/*-2026-10-20-briefs.json")) +
-             sorted(arch.glob("*/issues/WHU-P02-ultra-processed-foods/advocate/2026-10-20-briefs.json")))
+    found = ([adv / "superseded" / ("%s-briefs.json" % run_id)] +
+             sorted(arch.glob("*/issues/WHU-P02-ultra-processed-foods/advocate/superseded/%s-briefs.json"
+                              % run_id)))
     case = next((c for c in found if c.exists()), None)
     if case is None:
         pytest.skip("WHU-P02's advocate briefs are not here")
