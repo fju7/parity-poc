@@ -1,0 +1,1137 @@
+{
+ "frame_file": "frames/nasem-practice.json",
+ "frame_sha256": "a22731cd899e274fd0dd8b46987cb14a7f4e080c37cba67975ae9eeaa15faa49",
+ "seed": 20261021,
+ "procedure": "random.Random(seed).shuffle of the candidate numbers n; eligibility tested in that order; the first eligible candidate is the draw",
+ "shuffled_order_first_50": [
+  222,
+  86,
+  455,
+  463,
+  147,
+  94,
+  180,
+  297,
+  514,
+  300,
+  127,
+  506,
+  354,
+  198,
+  384,
+  276,
+  278,
+  74,
+  310,
+  290,
+  164,
+  153,
+  419,
+  242,
+  361,
+  46,
+  240,
+  398,
+  373,
+  432,
+  274,
+  469,
+  258,
+  388,
+  126,
+  325,
+  157,
+  481,
+  404,
+  216,
+  116,
+  142,
+  160,
+  524,
+  165,
+  51,
+  254,
+  460,
+  518,
+  491
+ ],
+ "candidates": 524,
+ "checked": 33,
+ "drawn": {
+  "n": 258,
+  "id": "25688",
+  "doi": "10.17226/25688",
+  "title": "Assessment of Long-Term Health Effects of Antimalarial Drugs When Used for Prophylaxis",
+  "year": 2020,
+  "url": "https://www.nationalacademies.org/publications/25688"
+ },
+ "drawn_at": "2026-10-21T13:24:33+00:00",
+ "log": [
+  {
+   "checked": 1,
+   "n": 222,
+   "id": "25558",
+   "title": "Review of EPA's Updated Problem Formulation and Protocol for the Inorganic Arsenic IRIS Assessment",
+   "year": 2019,
+   "eligible": false,
+   "undetermined": [],
+   "tests": {
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    },
+    "published_in_window": {
+     "pass": true,
+     "why": "catalogue year 2019"
+    },
+    "states_a_certainty_grade": {
+     "pass": false,
+     "why": {
+      "summary_chapter": 2,
+      "evidence_levels": [
+       "moderate"
+      ],
+      "confidence_levels": []
+     }
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "its Summary chapter is free to read online (OpenBook, 10886 characters, sha256 099f5d0abefa4bfc)"
+    }
+   },
+   "at": "2026-10-21T13:11:41+00:00"
+  },
+  {
+   "checked": 2,
+   "n": 86,
+   "id": "24939",
+   "title": "Opportunities in Intense Ultrafast Lasers: Reaching for the Brightest Light",
+   "year": 2018,
+   "eligible": false,
+   "undetermined": [],
+   "tests": {
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    },
+    "published_in_window": {
+     "pass": true,
+     "why": "catalogue year 2018"
+    },
+    "states_a_certainty_grade": {
+     "pass": false,
+     "why": {
+      "summary_chapter": 2,
+      "evidence_levels": [],
+      "confidence_levels": []
+     }
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "its Summary chapter is free to read online (OpenBook, 17503 characters, sha256 bce5f876badef5fa)"
+    }
+   },
+   "at": "2026-10-21T13:12:02+00:00"
+  },
+  {
+   "checked": 3,
+   "n": 455,
+   "id": "26618",
+   "title": "An Assessment of Native Seed Needs and the Capacity for Their Supply: Final Report",
+   "year": 2023,
+   "eligible": false,
+   "undetermined": [],
+   "tests": {
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    },
+    "published_in_window": {
+     "pass": true,
+     "why": "catalogue year 2023"
+    },
+    "states_a_certainty_grade": {
+     "pass": false,
+     "why": {
+      "summary_chapter": 2,
+      "evidence_levels": [],
+      "confidence_levels": []
+     }
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "its Summary chapter is free to read online (OpenBook, 51327 characters, sha256 256fce87549f5edd)"
+    }
+   },
+   "at": "2026-10-21T13:12:23+00:00"
+  },
+  {
+   "checked": 4,
+   "n": 463,
+   "id": "26649",
+   "title": "Review of the Inland Estimated Recovery System Potential (ERSP) Prototype Calculator",
+   "year": 2022,
+   "eligible": false,
+   "undetermined": [],
+   "tests": {
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    },
+    "published_in_window": {
+     "pass": true,
+     "why": "catalogue year 2022"
+    },
+    "states_a_certainty_grade": {
+     "pass": false,
+     "why": {
+      "summary_chapter": 2,
+      "evidence_levels": [],
+      "confidence_levels": []
+     }
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "its Summary chapter is free to read online (OpenBook, 17726 characters, sha256 8a4a4a38fd6f16bf)"
+    }
+   },
+   "at": "2026-10-21T13:12:44+00:00"
+  },
+  {
+   "checked": 5,
+   "n": 147,
+   "id": "25196",
+   "title": "Quantum Computing: Progress and Prospects",
+   "year": 2019,
+   "eligible": false,
+   "undetermined": [],
+   "tests": {
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    },
+    "published_in_window": {
+     "pass": true,
+     "why": "catalogue year 2019"
+    },
+    "states_a_certainty_grade": {
+     "pass": false,
+     "why": {
+      "summary_chapter": 2,
+      "evidence_levels": [],
+      "confidence_levels": []
+     }
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "its Summary chapter is free to read online (OpenBook, 37315 characters, sha256 35574d5e5e15b80e)"
+    }
+   },
+   "at": "2026-10-21T13:13:05+00:00"
+  },
+  {
+   "checked": 6,
+   "n": 94,
+   "id": "24953",
+   "title": "Review of NASA's Evidence Reports on Human Health Risks: 2017 Letter Report",
+   "year": 2018,
+   "eligible": false,
+   "undetermined": [],
+   "tests": {
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    },
+    "published_in_window": {
+     "pass": true,
+     "why": "catalogue year 2018"
+    },
+    "states_a_certainty_grade": {
+     "pass": false,
+     "why": {
+      "summary_chapter": 10,
+      "evidence_levels": [],
+      "confidence_levels": []
+     }
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "its Summary chapter is free to read online (OpenBook, 12473 characters, sha256 4b47fa78d1a1310e)"
+    }
+   },
+   "at": "2026-10-21T13:14:07+00:00"
+  },
+  {
+   "checked": 7,
+   "n": 180,
+   "id": "25353",
+   "title": "Dietary Reference Intakes for Sodium and Potassium",
+   "year": 2019,
+   "eligible": false,
+   "undetermined": [],
+   "tests": {
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    },
+    "published_in_window": {
+     "pass": true,
+     "why": "catalogue year 2019"
+    },
+    "states_a_certainty_grade": {
+     "pass": false,
+     "why": {
+      "summary_chapter": 2,
+      "evidence_levels": [
+       "insufficient",
+       "sufficient"
+      ],
+      "confidence_levels": []
+     }
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "its Summary chapter is free to read online (OpenBook, 50510 characters, sha256 062dbcf10a5249c0)"
+    }
+   },
+   "at": "2026-10-21T13:14:28+00:00"
+  },
+  {
+   "checked": 8,
+   "n": 297,
+   "id": "25917",
+   "title": "Framework for Equitable Allocation of COVID-19 Vaccine",
+   "year": 2020,
+   "eligible": false,
+   "undetermined": [],
+   "tests": {
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    },
+    "published_in_window": {
+     "pass": true,
+     "why": "catalogue year 2020"
+    },
+    "states_a_certainty_grade": {
+     "pass": false,
+     "why": {
+      "summary_chapter": 2,
+      "evidence_levels": [],
+      "confidence_levels": []
+     }
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "its Summary chapter is free to read online (OpenBook, 66272 characters, sha256 e48c10d08c26c4fe)"
+    }
+   },
+   "at": "2026-10-21T13:14:49+00:00"
+  },
+  {
+   "checked": 9,
+   "n": 514,
+   "id": "27092",
+   "title": "Test and Evaluation Challenges in Artificial Intelligence-Enabled Systems for the Department of the Air Force",
+   "year": 2023,
+   "eligible": false,
+   "undetermined": [],
+   "tests": {
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    },
+    "published_in_window": {
+     "pass": true,
+     "why": "catalogue year 2023"
+    },
+    "states_a_certainty_grade": {
+     "pass": false,
+     "why": {
+      "summary_chapter": 2,
+      "evidence_levels": [],
+      "confidence_levels": []
+     }
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "its Summary chapter is free to read online (OpenBook, 56040 characters, sha256 b569ef7fe4c0c32f)"
+    }
+   },
+   "at": "2026-10-21T13:15:10+00:00"
+  },
+  {
+   "checked": 10,
+   "n": 300,
+   "id": "25943",
+   "title": "Scanning for New Evidence on the Nutrient Content of Human Milk: A Process Model for Determining Age-Specific Nutrient Requirements",
+   "year": 2020,
+   "eligible": false,
+   "undetermined": [],
+   "tests": {
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    },
+    "published_in_window": {
+     "pass": true,
+     "why": "catalogue year 2020"
+    },
+    "states_a_certainty_grade": {
+     "pass": false,
+     "why": {
+      "summary_chapter": 2,
+      "evidence_levels": [],
+      "confidence_levels": []
+     }
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "its Summary chapter is free to read online (OpenBook, 13216 characters, sha256 dee78d36ea05d11a)"
+    }
+   },
+   "at": "2026-10-21T13:15:30+00:00"
+  },
+  {
+   "checked": 11,
+   "n": 127,
+   "id": "25111",
+   "title": "Monitoring and Sampling Approaches to Assess Underground Coal Mine Dust Exposures",
+   "year": 2018,
+   "eligible": false,
+   "undetermined": [],
+   "tests": {
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    },
+    "published_in_window": {
+     "pass": true,
+     "why": "catalogue year 2018"
+    },
+    "states_a_certainty_grade": {
+     "pass": false,
+     "why": {
+      "summary_chapter": 2,
+      "evidence_levels": [],
+      "confidence_levels": []
+     }
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "its Summary chapter is free to read online (OpenBook, 47821 characters, sha256 5a07e1fd9f923552)"
+    }
+   },
+   "at": "2026-10-21T13:15:51+00:00"
+  },
+  {
+   "checked": 12,
+   "n": 506,
+   "id": "26941",
+   "title": "Advances in the Diagnosis and Evaluation of Disabling Physical Health Conditions",
+   "year": 2023,
+   "eligible": false,
+   "undetermined": [],
+   "tests": {
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    },
+    "published_in_window": {
+     "pass": true,
+     "why": "catalogue year 2023"
+    },
+    "states_a_certainty_grade": {
+     "pass": false,
+     "why": {
+      "summary_chapter": 2,
+      "evidence_levels": [
+       "insufficient"
+      ],
+      "confidence_levels": []
+     }
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "its Summary chapter is free to read online (OpenBook, 43769 characters, sha256 1f0657b9074974d8)"
+    }
+   },
+   "at": "2026-10-21T13:16:12+00:00"
+  },
+  {
+   "checked": 13,
+   "n": 354,
+   "id": "26181",
+   "title": "Necessary DoD Range Capabilities to Ensure Operational Superiority of U.S. Defense Systems: Testing for the Future Fight",
+   "year": 2021,
+   "eligible": false,
+   "undetermined": [],
+   "tests": {
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    },
+    "published_in_window": {
+     "pass": true,
+     "why": "catalogue year 2021"
+    },
+    "states_a_certainty_grade": {
+     "pass": false,
+     "why": {
+      "summary_chapter": 2,
+      "evidence_levels": [],
+      "confidence_levels": []
+     }
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "its Summary chapter is free to read online (OpenBook, 25784 characters, sha256 93879e509040a43e)"
+    }
+   },
+   "at": "2026-10-21T13:16:33+00:00"
+  },
+  {
+   "checked": 14,
+   "n": 198,
+   "id": "25434",
+   "title": "Leveraging Commercial and Other Innovation for Future U.S. Navy Data Warfare Needs: Abbreviated Version of Full Report",
+   "year": 2020,
+   "eligible": false,
+   "undetermined": [
+    "states_a_certainty_grade"
+   ],
+   "tests": {
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    },
+    "published_in_window": {
+     "pass": true,
+     "why": "catalogue year 2020"
+    },
+    "states_a_certainty_grade": {
+     "pass": false,
+     "why": "no Summary chapter in the OpenBook contents",
+     "undetermined": true
+    },
+    "public_abstract": {
+     "pass": false,
+     "why": "no Summary chapter read online"
+    }
+   },
+   "at": "2026-10-21T13:17:15+00:00"
+  },
+  {
+   "checked": 15,
+   "n": 384,
+   "id": "26355",
+   "title": "Human-AI Teaming: State-of-the-Art and Research Needs",
+   "year": 2022,
+   "eligible": false,
+   "undetermined": [],
+   "tests": {
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    },
+    "published_in_window": {
+     "pass": true,
+     "why": "catalogue year 2022"
+    },
+    "states_a_certainty_grade": {
+     "pass": false,
+     "why": {
+      "summary_chapter": 2,
+      "evidence_levels": [],
+      "confidence_levels": []
+     }
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "its Summary chapter is free to read online (OpenBook, 22531 characters, sha256 82630a49d189b6ce)"
+    }
+   },
+   "at": "2026-10-21T13:17:35+00:00"
+  },
+  {
+   "checked": 16,
+   "n": 276,
+   "id": "25802",
+   "title": "Plasma Science: Enabling Technology, Sustainability, Security, and Exploration",
+   "year": 2021,
+   "eligible": false,
+   "undetermined": [],
+   "tests": {
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    },
+    "published_in_window": {
+     "pass": true,
+     "why": "catalogue year 2021"
+    },
+    "states_a_certainty_grade": {
+     "pass": false,
+     "why": {
+      "summary_chapter": 2,
+      "evidence_levels": [],
+      "confidence_levels": []
+     }
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "its Summary chapter is free to read online (OpenBook, 38859 characters, sha256 190c2c3c1d80af3e)"
+    }
+   },
+   "at": "2026-10-21T13:17:56+00:00"
+  },
+  {
+   "checked": 17,
+   "n": 278,
+   "id": "25817",
+   "title": "Air Force Software Sustainment and Maintenance of Weapons Systems",
+   "year": 2020,
+   "eligible": false,
+   "undetermined": [],
+   "tests": {
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    },
+    "published_in_window": {
+     "pass": true,
+     "why": "catalogue year 2020"
+    },
+    "states_a_certainty_grade": {
+     "pass": false,
+     "why": {
+      "summary_chapter": 2,
+      "evidence_levels": [],
+      "confidence_levels": []
+     }
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "its Summary chapter is free to read online (OpenBook, 19268 characters, sha256 6bda42df9c535132)"
+    }
+   },
+   "at": "2026-10-21T13:18:17+00:00"
+  },
+  {
+   "checked": 18,
+   "n": 74,
+   "id": "24892",
+   "title": "Improving Crop Estimates by Integrating Multiple Data Sources",
+   "year": 2017,
+   "eligible": false,
+   "undetermined": [],
+   "tests": {
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    },
+    "published_in_window": {
+     "pass": true,
+     "why": "catalogue year 2017"
+    },
+    "states_a_certainty_grade": {
+     "pass": false,
+     "why": {
+      "summary_chapter": 2,
+      "evidence_levels": [],
+      "confidence_levels": []
+     }
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "its Summary chapter is free to read online (OpenBook, 16462 characters, sha256 6bcebf2a9ea7e800)"
+    }
+   },
+   "at": "2026-10-21T13:18:38+00:00"
+  },
+  {
+   "checked": 19,
+   "n": 310,
+   "id": "25977",
+   "title": "Space Nuclear Propulsion for Human Mars Exploration",
+   "year": 2021,
+   "eligible": false,
+   "undetermined": [],
+   "tests": {
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    },
+    "published_in_window": {
+     "pass": true,
+     "why": "catalogue year 2021"
+    },
+    "states_a_certainty_grade": {
+     "pass": false,
+     "why": {
+      "summary_chapter": 2,
+      "evidence_levels": [],
+      "confidence_levels": []
+     }
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "its Summary chapter is free to read online (OpenBook, 13134 characters, sha256 4efcc3bd2a3b27cf)"
+    }
+   },
+   "at": "2026-10-21T13:18:59+00:00"
+  },
+  {
+   "checked": 20,
+   "n": 290,
+   "id": "25877",
+   "title": "Understanding the Well-Being of LGBTQI+ Populations",
+   "year": 2020,
+   "eligible": false,
+   "undetermined": [],
+   "tests": {
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    },
+    "published_in_window": {
+     "pass": true,
+     "why": "catalogue year 2020"
+    },
+    "states_a_certainty_grade": {
+     "pass": false,
+     "why": {
+      "summary_chapter": 2,
+      "evidence_levels": [],
+      "confidence_levels": []
+     }
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "its Summary chapter is free to read online (OpenBook, 46783 characters, sha256 d32c56d1bc4c7e37)"
+    }
+   },
+   "at": "2026-10-21T13:19:20+00:00"
+  },
+  {
+   "checked": 21,
+   "n": 164,
+   "id": "25272",
+   "title": "Disposal of Surplus Plutonium at the Waste Isolation Pilot Plant: Interim Report",
+   "year": 2018,
+   "eligible": false,
+   "undetermined": [],
+   "tests": {
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    },
+    "published_in_window": {
+     "pass": true,
+     "why": "catalogue year 2018"
+    },
+    "states_a_certainty_grade": {
+     "pass": false,
+     "why": {
+      "summary_chapter": 2,
+      "evidence_levels": [],
+      "confidence_levels": []
+     }
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "its Summary chapter is free to read online (OpenBook, 25926 characters, sha256 9d51dc60130468d1)"
+    }
+   },
+   "at": "2026-10-21T13:19:40+00:00"
+  },
+  {
+   "checked": 22,
+   "n": 153,
+   "id": "25218",
+   "title": "Review of the New York City Department of Environmental Protection Operations Support Tool for Water Supply",
+   "year": 2018,
+   "eligible": false,
+   "undetermined": [],
+   "tests": {
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    },
+    "published_in_window": {
+     "pass": true,
+     "why": "catalogue year 2018"
+    },
+    "states_a_certainty_grade": {
+     "pass": false,
+     "why": {
+      "summary_chapter": 2,
+      "evidence_levels": [],
+      "confidence_levels": []
+     }
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "its Summary chapter is free to read online (OpenBook, 41053 characters, sha256 de160707a14af540)"
+    }
+   },
+   "at": "2026-10-21T13:20:01+00:00"
+  },
+  {
+   "checked": 23,
+   "n": 419,
+   "id": "26456",
+   "title": "Radioactive Sources: Applications and Alternative Technologies: Spanish Version",
+   "year": 2022,
+   "eligible": false,
+   "undetermined": [
+    "states_a_certainty_grade"
+   ],
+   "tests": {
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    },
+    "published_in_window": {
+     "pass": true,
+     "why": "catalogue year 2022"
+    },
+    "states_a_certainty_grade": {
+     "pass": false,
+     "why": "no Summary chapter in the OpenBook contents",
+     "undetermined": true
+    },
+    "public_abstract": {
+     "pass": false,
+     "why": "no Summary chapter read online"
+    }
+   },
+   "at": "2026-10-21T13:20:43+00:00"
+  },
+  {
+   "checked": 24,
+   "n": 242,
+   "id": "25646",
+   "title": "Advancing Aerial Mobility: A National Blueprint",
+   "year": 2020,
+   "eligible": false,
+   "undetermined": [],
+   "tests": {
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    },
+    "published_in_window": {
+     "pass": true,
+     "why": "catalogue year 2020"
+    },
+    "states_a_certainty_grade": {
+     "pass": false,
+     "why": {
+      "summary_chapter": 2,
+      "evidence_levels": [],
+      "confidence_levels": []
+     }
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "its Summary chapter is free to read online (OpenBook, 46381 characters, sha256 bbe5b1cd58a390e2)"
+    }
+   },
+   "at": "2026-10-21T13:21:04+00:00"
+  },
+  {
+   "checked": 25,
+   "n": 361,
+   "id": "26217",
+   "title": "Policing to Promote the Rule of Law and Protect the Population: An Evidence-Based Approach",
+   "year": 2022,
+   "eligible": false,
+   "undetermined": [],
+   "tests": {
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    },
+    "published_in_window": {
+     "pass": true,
+     "why": "catalogue year 2022"
+    },
+    "states_a_certainty_grade": {
+     "pass": false,
+     "why": {
+      "summary_chapter": 2,
+      "evidence_levels": [],
+      "confidence_levels": []
+     }
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "its Summary chapter is free to read online (OpenBook, 41446 characters, sha256 28fd1a7a27e9977d)"
+    }
+   },
+   "at": "2026-10-21T13:21:25+00:00"
+  },
+  {
+   "checked": 26,
+   "n": 46,
+   "id": "24758",
+   "title": "Application of Systematic Review Methods in an Overall Strategy for Evaluating Low-Dose Toxicity from Endocrine Active Chemicals",
+   "year": 2017,
+   "eligible": false,
+   "undetermined": [],
+   "tests": {
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    },
+    "published_in_window": {
+     "pass": true,
+     "why": "catalogue year 2017"
+    },
+    "states_a_certainty_grade": {
+     "pass": false,
+     "why": {
+      "summary_chapter": 2,
+      "evidence_levels": [],
+      "confidence_levels": []
+     }
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "its Summary chapter is free to read online (OpenBook, 50051 characters, sha256 ef437614f4b361cc)"
+    }
+   },
+   "at": "2026-10-21T13:21:46+00:00"
+  },
+  {
+   "checked": 27,
+   "n": 240,
+   "id": "25636",
+   "title": "Birth Settings in America: Outcomes, Quality, Access, and Choice",
+   "year": 2020,
+   "eligible": false,
+   "undetermined": [],
+   "tests": {
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    },
+    "published_in_window": {
+     "pass": true,
+     "why": "catalogue year 2020"
+    },
+    "states_a_certainty_grade": {
+     "pass": false,
+     "why": {
+      "summary_chapter": 2,
+      "evidence_levels": [],
+      "confidence_levels": []
+     }
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "its Summary chapter is free to read online (OpenBook, 48431 characters, sha256 51c12f6c853fa379)"
+    }
+   },
+   "at": "2026-10-21T13:22:07+00:00"
+  },
+  {
+   "checked": 28,
+   "n": 398,
+   "id": "26399",
+   "title": "Defense Research Capacity at Historically Black Colleges and Universities and Other Minority Institutions: Transitioning from Good Intentions to Measurable Outcomes",
+   "year": 2022,
+   "eligible": false,
+   "undetermined": [],
+   "tests": {
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    },
+    "published_in_window": {
+     "pass": true,
+     "why": "catalogue year 2022"
+    },
+    "states_a_certainty_grade": {
+     "pass": false,
+     "why": {
+      "summary_chapter": 2,
+      "evidence_levels": [],
+      "confidence_levels": []
+     }
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "its Summary chapter is free to read online (OpenBook, 56937 characters, sha256 c9cec5a542366d1a)"
+    }
+   },
+   "at": "2026-10-21T13:22:28+00:00"
+  },
+  {
+   "checked": 29,
+   "n": 373,
+   "id": "26315",
+   "title": "Defense Research at Historically Black Colleges and Universities and Other Minority Institutions: Interim Report",
+   "year": 2021,
+   "eligible": false,
+   "undetermined": [
+    "states_a_certainty_grade"
+   ],
+   "tests": {
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    },
+    "published_in_window": {
+     "pass": true,
+     "why": "catalogue year 2021"
+    },
+    "states_a_certainty_grade": {
+     "pass": false,
+     "why": "no Summary chapter in the OpenBook contents",
+     "undetermined": true
+    },
+    "public_abstract": {
+     "pass": false,
+     "why": "no Summary chapter read online"
+    }
+   },
+   "at": "2026-10-21T13:23:10+00:00"
+  },
+  {
+   "checked": 30,
+   "n": 432,
+   "id": "26519",
+   "title": "Evaluation of the Transport Airplane Risk Assessment Methodology",
+   "year": 2022,
+   "eligible": false,
+   "undetermined": [],
+   "tests": {
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    },
+    "published_in_window": {
+     "pass": true,
+     "why": "catalogue year 2022"
+    },
+    "states_a_certainty_grade": {
+     "pass": false,
+     "why": {
+      "summary_chapter": 2,
+      "evidence_levels": [],
+      "confidence_levels": []
+     }
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "its Summary chapter is free to read online (OpenBook, 30853 characters, sha256 2bad701712004b58)"
+    }
+   },
+   "at": "2026-10-21T13:23:31+00:00"
+  },
+  {
+   "checked": 31,
+   "n": 274,
+   "id": "25796",
+   "title": "Are Generational Categories Meaningful Distinctions for Workforce Management?",
+   "year": 2020,
+   "eligible": false,
+   "undetermined": [],
+   "tests": {
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    },
+    "published_in_window": {
+     "pass": true,
+     "why": "catalogue year 2020"
+    },
+    "states_a_certainty_grade": {
+     "pass": false,
+     "why": {
+      "summary_chapter": 2,
+      "evidence_levels": [],
+      "confidence_levels": []
+     }
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "its Summary chapter is free to read online (OpenBook, 47643 characters, sha256 292ed1e6cc1d0058)"
+    }
+   },
+   "at": "2026-10-21T13:23:52+00:00"
+  },
+  {
+   "checked": 32,
+   "n": 469,
+   "id": "26686",
+   "title": "Corrosion of Buried Steel at New and In-Service Infrastructure",
+   "year": 2023,
+   "eligible": false,
+   "undetermined": [],
+   "tests": {
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    },
+    "published_in_window": {
+     "pass": true,
+     "why": "catalogue year 2023"
+    },
+    "states_a_certainty_grade": {
+     "pass": false,
+     "why": {
+      "summary_chapter": 2,
+      "evidence_levels": [],
+      "confidence_levels": []
+     }
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "its Summary chapter is free to read online (OpenBook, 48514 characters, sha256 a58a710207b1d62c)"
+    }
+   },
+   "at": "2026-10-21T13:24:13+00:00"
+  },
+  {
+   "checked": 33,
+   "n": 258,
+   "id": "25688",
+   "title": "Assessment of Long-Term Health Effects of Antimalarial Drugs When Used for Prophylaxis",
+   "year": 2020,
+   "eligible": true,
+   "undetermined": [],
+   "tests": {
+    "not_a_whu_topic": {
+     "pass": true,
+     "why": "no match"
+    },
+    "published_in_window": {
+     "pass": true,
+     "why": "catalogue year 2020"
+    },
+    "states_a_certainty_grade": {
+     "pass": true,
+     "why": {
+      "summary_chapter": 2,
+      "evidence_levels": [
+       "inadequate",
+       "insufficient",
+       "limited",
+       "sufficient"
+      ],
+      "confidence_levels": []
+     }
+    },
+    "public_abstract": {
+     "pass": true,
+     "why": "its Summary chapter is free to read online (OpenBook, 63798 characters, sha256 8b71e2ee9bef5053)"
+    }
+   },
+   "at": "2026-10-21T13:24:33+00:00"
+  }
+ ],
+ "queries_logged": []
+}

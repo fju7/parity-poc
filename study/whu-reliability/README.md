@@ -681,3 +681,19 @@ Ruled 21 October 2026, after the National Academies site rate-limited a full cra
 | Practice, 2017–2023 | `publications/all?publication_date[from]=2017&publication_date[to]=2023` | 143 | 2,342 | **524** | `frames/nasem-practice.json` |
 
 Each file logs every listing query (URL, UTC time, HTTP status, sha256), all made on 21 October 2026, and the count of cards by label. The other cards are proceedings (235; 655), annual reports, special publications, issue papers, rapid expert consultations, and 421 and 1,127 cards with no label. The catalogue gives a year, not a date, so a 2026 report published after 30 September is caught by the draw's date test (Crossref's month). The site returned HTTP 429 four times during the build; each was waited out and the page fetched.
+
+### Practice draw (WHU-P03), 21 October 2026
+
+`frames.py draw-nasem-practice --seed 20261021`, against `frames/nasem-practice.json` (sha256 `a22731cd…`). Log: `frames/draws/nasem-practice-seed20261021.json`.
+- 33 of 524 candidates were checked; the 33rd was eligible and is the draw.
+- Of the 32 passed over, 29 failed "states a certainty grade" (their Summary chapter has no graded evidence scale, or uses fewer than three levels of one) and 3 were undetermined: no Summary chapter found in the OpenBook contents (one is a Spanish translation). None failed on topic or date.
+- The drawn report's Summary uses four levels of one evidence scale and is free to read online.
+- **Known gap in this log:** the Summary-chapter reads made during this draw were not written to `queries_logged` (the fetch was made with logging off, a leftover of the full-crawl code). Each candidate's result and reason are logged; the URLs, times and statuses of those reads are not. Fixed after the draw (`kind="openbook"`, with a test); the study draw will log them. The practice draw is not re-run: a draw is made once.
+
+The question, written from the report's subject without naming it, is in `issues/WHU-P03-antimalarial-prophylaxis/issue.json`. The report itself is named only below.
+
+## Private notes (not for a drafting session)
+
+A drafting session does not read this section (RUN.md, "Do not read").
+
+- **WHU-P03's source report:** National Academies of Sciences, Engineering, and Medicine (2020), *Assessment of Long-Term Health Effects of Antimalarial Drugs When Used for Prophylaxis*, doi:10.17226/25688, publication id 25688 (candidate n=258 in `frames/nasem-practice.json`).
