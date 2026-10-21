@@ -55,6 +55,11 @@ _spec.loader.exec_module(J1)
 S = J1.S
 
 PROMPT = STUDY / "prompts" / "m2_conclusion_calibration.md"
+# M2 v2, frozen 2026-10-21 (advisor ruling on the framing paragraph; behaviour
+# check: judges agree 45 of 48). A changed prompt is refused. v1 is kept as
+# prompts/m2_conclusion_calibration_v1.md (sha256 aebfffc1...), with its replies.
+PROMPT_SHA256 = "64a5a5b667e697b55e4f42f2473b3b5516c5e9ceec0f0d88a878cdc9eb38bb33"
+PROMPT_VERSION = "v2"
 LABELS = ["Matches", "Overstates", "Understates", "Contradicts", "Omits"]
 REFUSED = "REFUSED"
 SCRIPT = "study/whu-reliability/judge_m2.py"
@@ -169,6 +174,9 @@ def judge(a) -> int:
     raw = anthropic.Anthropic(api_key=keys["ANTHROPIC_API_KEY"])
     client = S.metered(raw, script=SCRIPT, issue=a.ledger_issue, role="m2-judge-claude")
     prompt_sha = hashlib.sha256(PROMPT.read_bytes()).hexdigest()
+    if prompt_sha != PROMPT_SHA256:
+        print("STOP: %s has sha256 %s, not the frozen M2 %s %s" % (PROMPT, prompt_sha, PROMPT_VERSION, PROMPT_SHA256))
+        return 6
     # One answer's conclusions in a row, so the cached answer block is reused.
     items = sorted(items, key=lambda i: (i["answer"], i["item"]))
     for it in items:
@@ -217,7 +225,7 @@ def judge(a) -> int:
             label = REFUSED if refused else (obj or {}).get("label")
             rec = {"item": it["item"], "judge": jd, "model": last["usage"].get("model"),
                    "at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
-                   "prompt_sha256": prompt_sha, "answer": it["answer"], "conclusion": it["conclusion"],
+                   "prompt_sha256": prompt_sha, "prompt_version": PROMPT_VERSION, "answer": it["answer"], "conclusion": it["conclusion"],
                    "from_answer": c.get("from_answer"), "input_tokens_counted": n_in,
                    "attempts": attempts, "usd": round(sum(x["usd"] for x in attempts), 6),
                    "judge_label": (obj or {}).get("label"), "label": label, "parsed": obj,

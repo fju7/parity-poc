@@ -606,3 +606,34 @@ So with conversion defects removed, each system is still told apart by its writi
 - These conclusions are not review conclusions; they come from the answers themselves.
 - A Claude instance wrote them, and only the ChatGPT judge departs from Matches on them.
 - The ChatGPT judge got no cache hits even with a `prompt_cache_key` per answer, as in prep round 3. M2 on OpenAI is priced uncached.
+
+### M2 v2: frozen (advisor ruling on the framing paragraph, 21 October 2026)
+
+**The change.** Line 23 of `prompts/m2_conclusion_calibration.md` (the framing paragraph) is replaced word for word by the advisor's ruling: "Judge certainty, not vocabulary", with what counts as Overstates and what does not, including study descriptors, framing caveated in the same passage, and framing no stronger than the review's own certainty language. v1 is kept as `prompts/m2_conclusion_calibration_v1.md` (sha256 `aebfffc1…`); its replies stay in `runs/prefreeze/m2/replies/`.
+
+**Frozen: M2 v2, sha256 `64a5a5b667e697b55e4f42f2473b3b5516c5e9ceec0f0d88a878cdc9eb38bb33`.** It is pinned in `judge_m2.py` (`PROMPT_SHA256`), which refuses a changed prompt; the test is `backend/tests/test_whu_study_judge_m2.py`.
+
+**Re-run.** The same 48 items, both judges, one read each, into `replies_v2/`. Spend $4.10 (Claude judge $0.94, ChatGPT judge $3.16), of the $5 authorised.
+
+| | Claude judge | ChatGPT judge |
+|---|---|---|
+| Valid JSON | 47/48 (one reply cut off at the 1,024-token output limit) | 48/48 |
+| Quotation verbatim | 47/47 | 48/48 |
+| Refusals | 0 | 0 |
+| Labels: Matches / Overstates / Understates | 30 / 11 / 6 (+1 unparsed) | 30 / 13 / 5 |
+| Own-answer conclusion labelled Matches | 12/12 | 12/12 |
+
+**Agreement between the judges: 45 of 48** (35 under v1); the freeze rule needed 42. The three disagreements:
+- the cut-off reply (D3 against answer A): its visible label is Matches, the same as the ChatGPT judge's;
+- B1 against answer C, Matches against Overstates;
+- D2 against answer C, Understates against Overstates, the same split as under v1.
+
+**A1 against answer B** (the answer gives a type 2 diabetes association "GRADE moderate" where the conclusion has very low to low): **Overstates from both judges** (v1: Matches from Claude, Overstates from ChatGPT).
+
+**Did anything move from Overstates to Matches only because of a study descriptor?** Yes, three of the ChatGPT judge's labels: B3, C3 and D3 against answer C. Under v1 each reason named only "first" and "landmark".
+- **C3 and D3:** the conclusions are themselves "causally demonstrated" and "confirm", so the v2 exemptions apply twice over.
+- **B3 against answer C** is the one to look at: B3's conclusion has moderate certainty, and the answer also says the trials "causally demonstrated" and "uniquely demonstrate" the effect. Both judges now say Matches.
+- Another three moved because a ranking was caveated in the same passage ("the strongest causal evidence, but it has limits"): A3 and B3 against answer B, C3 against answer B.
+- The other nine had mixed v1 reasons (descriptors together with certainty wording).
+
+**Runner note, not changed:** the Claude judge's output limit (1,024 tokens) cut off one reason in 48. Raising it is a runner change for Fred to rule on.

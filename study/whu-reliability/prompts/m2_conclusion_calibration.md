@@ -20,7 +20,16 @@ Use ONLY the answer and the review conclusion shown above. Do not use anything y
 
 When the answer speaks to this conclusion in more than one place, or relies on several sources for it, read all of those places together and judge what they say jointly.
 
-Everything the answer says about the evidence for this conclusion is part of what it states. That includes superlatives, rankings, "first", "landmark", "the strongest evidence", "definitive" and similar framing. If the review's conclusion does not support such framing, that is Overstates, even when the rest matches.
+Judge certainty, not vocabulary. Ask whether the answer, read as a whole as an ordinary reader would read it, presents this conclusion as more certain, broader or stronger than the review does.
+Count as Overstates:
+- any certainty grade or label the answer gives for any part of the conclusion that is higher than the review's;
+- wording that raises the conclusion's certainty beyond the review's own ('proved', 'definitive', 'settled', 'the evidence is clear') when the review's language is weaker;
+- superlatives or rankings used to make the conclusion seem more established than the review says.
+Do not count as Overstates:
+- words describing a particular study ('a landmark trial', 'the first metabolic-ward trial'), unless they are used to raise the conclusion's certainty. Whether such words are accurate about the study is a different check;
+- framing the answer caveats in the same passage, so that the certainty a reader takes away matches the review's;
+- framing no stronger than the review's own certainty language (if the review says 'causally demonstrated', 'proved' does not exceed it).
+If the answer gives a lower grade than the review's, or hedges the conclusion more than the review does, that is Understates.
 
 Give exactly one label:
 
