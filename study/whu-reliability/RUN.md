@@ -12,7 +12,9 @@ All commands run from the repository root with `backend/venv/bin/python3` (writt
 - `study/whu-reliability/archive/` (the earlier T02 run on this question);
 - `~/Downloads/Citation Pilot 2026-10-16/` (the pilot: answer key, the three tools' answers, the T0x exports);
 - any judge output (`study/whu-reliability/runs/`, any `replies*` directory, any M1/M2 score);
-- the T02 sentences in `docs/whatholdsup-conclusion-judge.md` (its calibration sections).
+- the T02 sentences in `docs/whatholdsup-conclusion-judge.md` (its calibration sections);
+- the sampling frames, `study/whu-reliability/frames/` (every candidate review for the study's draw and for the WHU-P03 practice draw), and the script that builds them, `study/whu-reliability/scripts/frames.py`;
+- the report the WHU-P03 practice question came from, recorded only in the study README's "Private notes (not for a drafting session)" section (`study/whu-reliability/README.md`). A drafting session on WHU-P03 starts from `issues/WHU-P03-*/issue.json`'s question alone.
 
 The library still holds T02's nine documents. Research starts from the question, not from the library's list.
 
