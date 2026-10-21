@@ -572,3 +572,37 @@ The same in run 2 and run 3: **every system identified 20 of 20** (chance 25%; P
 - **Gemini:** ornate, florid mechanistic vocabulary ("engineered hyper-palatability", "intrinsic cellular matrix", "totality of … evidence demonstrates"), title-case evidence tables with class and GRADE columns.
 
 So with conversion defects removed, each system is still told apart by its writing, which the rules forbid rewording. The gate remains the bias test (passed in prep round 3).
+
+### M2 behaviour check: not frozen
+
+**What ran.** `scripts/judge_m2.py` (new; built on judge_m1's API calls, metering and refusal rule) ran the M2 prompt (`prompts/m2_conclusion_calibration.md`, sha256 `aebfffc11d659a5fff6d594218856a90ff4d1ed7ffd979a5dca511661b6bbe78`, unchanged since d3a5b05) with both judges (Opus 5.5, gpt-6-astra), one read each.
+- **Answers:** the four blinded answers to Q2 (WHU-P02, Claude, ChatGPT, Gemini), labelled A–D for the judges.
+- **Conclusions:** Q2 has no review-based answer key, so the conclusions are the answers' own. There are three per answer: its overall verdict, whether processing itself causes harm (Gemini: that not all foods in the category are equally harmful), and the feeding-trial evidence. Claude Code wrote each in the key's fields, quoting the answer verbatim.
+- **Items:** every conclusion judged against every answer, 12 × 4 = 48 items, 96 calls. An answer judged against its own conclusion should come back Matches.
+- Data in `runs/prefreeze/m2/`, not committed.
+
+| | Claude judge | ChatGPT judge |
+|---|---|---|
+| Valid JSON, in the required form | 48/48 | 48/48 |
+| Quotation verbatim in the answer | 48/48 | 48/48 |
+| Refusals | 0 | 0 |
+| Labels: Matches / Overstates / Understates / Contradicts / Omits | 29 / 13 / 6 / 0 / 0 | 18 / 26 / 4 / 0 / 0 |
+| Own-answer conclusion labelled Matches | 12/12 | 7/12 |
+| Calls with a cache hit | 44/48 | 0/48 |
+| Cost per call: mean, median, max | $0.019, $0.016, $0.075 | $0.065, $0.067, $0.092 |
+| Cost | $0.91 | $3.10 |
+
+**Agreement between the judges: 35 of 48 (73%).** All 13 disagreements go one way: the ChatGPT judge says Overstates where the Claude judge says Matches (11) or Understates (2).
+
+**What failed: the framing rule is applied two ways.** In 12 of the 13 disagreements, the ChatGPT judge's reason is the prompt's framing paragraph:
+- The answer calls a trial "landmark" or "the first", or ranks a body of evidence "the strongest causal evidence", and the conclusion does not support that framing, so it says Overstates. That follows the prompt's wording: "If the review's conclusion does not support such framing, that is Overstates, even when the rest matches."
+- The Claude judge sees the same words and reads them in context: relative to the weaker observational evidence, or within the conclusion's own certainty ("confirm", "demonstrates"). It says Matches.
+- The ChatGPT judge's five Overstates on own-answer conclusions have the same cause. The conclusion fields carried the answer's verdict but not its "landmark" or "strongest" wording, so those words count against it.
+- The thirteenth disagreement (Gemini's subgroup conclusion against ChatGPT's answer) is a real reading difference: Understates against Overstates on an answer that is inconsistent about subgroups.
+
+**Not frozen.** The form is clean, but the two judges split systematically on one paragraph of the prompt. At this rate about a quarter of M2 items would go to people, every one in the same direction. The ambiguity is when a review conclusion "supports" a framing word, especially one the answer attaches to a study rather than to the conclusion ("a landmark trial") or uses comparatively ("the strongest evidence is about overeating"). That needs a ruling, then a re-test, before M2 is frozen.
+
+**Caveats.**
+- These conclusions are not review conclusions; they come from the answers themselves.
+- A Claude instance wrote them, and only the ChatGPT judge departs from Matches on them.
+- The ChatGPT judge got no cache hits even with a `prompt_cache_key` per answer, as in prep round 3. M2 on OpenAI is priced uncached.
