@@ -7,8 +7,11 @@
       "url": "https://www.ipcc.ch/report/ar6/wg3/downloads/report/IPCC_AR6_WGIII_SPM.pdf",
       "title": "IPCC — Summary for Policymakers, Climate Change 2022: Mitigation of Climate Change (AR6 Working Group III)",
       "also_called": [
-        "IPCC AR6 WGIII SPM",
-        "the 2022 IPCC mitigation summary"
+        "IPCC's next assessment, in 2022",
+        "which the IPCC calls",
+        "The IPCC gives its 2019",
+        "The average annual rate of growth slowed",
+        "Climate Change 2022: Mitigation"
       ],
       "used_for": "Assessed total GHG emissions 1990-2019, decadal average levels and growth rates (2000-2009 vs 2010-2019), uncertainty.",
       "access": {
@@ -34,8 +37,8 @@
       "url": "https://www.ipcc.ch/report/ar6/wg3/downloads/report/IPCC_AR6_WGIII_Chapter02.pdf",
       "title": "Dhakal S et al. — Chapter 2: Emissions Trends and Drivers, in Climate Change 2022: Mitigation of Climate Change (IPCC AR6 WGIII)",
       "also_called": [
-        "IPCC AR6 WGIII Chapter 2",
-        "Emissions Trends and Drivers"
+        "Emissions Trends and Drivers",
+        "For land-use carbon dioxide, it found"
       ],
       "used_for": "Decade-by-decade growth by gas and with/without land use, 1970-2019; uncertainty by gas; drivers.",
       "access": {
@@ -61,8 +64,8 @@
       "url": "https://www.ipcc.ch/site/assets/uploads/2018/02/ipcc_wg3_ar5_summary-for-policymakers.pdf",
       "title": "IPCC — Summary for Policymakers, Climate Change 2014: Mitigation of Climate Change (AR5 Working Group III)",
       "also_called": [
-        "IPCC AR5 WGIII SPM",
-        "the 2014 IPCC mitigation summary"
+        "IPCC's 2014 assessment",
+        "Climate Change 2014: Mitigation"
       ],
       "used_for": "Growth rates 1970-2000 vs 2000-2010; the earlier assessment that emissions growth had accelerated.",
       "access": {
@@ -88,8 +91,8 @@
       "url": "https://essd.copernicus.org/articles/13/5213/2021/essd-13-5213-2021.pdf",
       "title": "Minx JC et al. — A comprehensive and synthetic dataset for global, regional, and national greenhouse gas emissions by sector 1970–2018 with an extension to 2019 (Earth Syst Sci Data 2021;13:5213-5252)",
       "also_called": [
-        "Minx",
-        "the AR6 emissions dataset"
+        "Jan Minx",
+        "Minx JC, Lamb"
       ],
       "used_for": "The dataset behind AR6 WGIII: decadal growth rates, by gas, and uncertainty.",
       "access": {
@@ -116,6 +119,7 @@
       "title": "Friedlingstein P et al. — Global Carbon Budget 2025 (Earth Syst Sci Data 2026;18:3211)",
       "also_called": [
         "Global Carbon Budget 2025",
+        "For fossil carbon dioxide alone",
         "Friedlingstein"
       ],
       "used_for": "CO2 emissions (fossil and land-use change) by decade through 2024/2025; growth rates of the last decade vs the one before.",
@@ -142,8 +146,9 @@
       "url": "https://essd.copernicus.org/articles/18/3889/2026/essd-18-3889-2026.pdf",
       "title": "Forster PM et al. — Indicators of Global Climate Change 2025: annual update of key indicators of the state of the climate system and human influence (Earth Syst Sci Data 2026;18:3889-3933)",
       "also_called": [
+        "IPCC's climate indicators",
         "Indicators of Global Climate Change 2025",
-        "Forster"
+        "Forster PM"
       ],
       "used_for": "Total GHG emissions to 2024 in the AR6 framework; decadal averages and recent growth.",
       "access": {
@@ -169,8 +174,9 @@
       "url": "https://wedocs.unep.org/handle/20.500.11822/48854",
       "title": "UNEP — Emissions Gap Report 2025: Off target (Nairobi, November 2025)",
       "also_called": [
-        "Emissions Gap Report 2025",
-        "UNEP"
+        "UN Environment Programme reported",
+        "Emissions Gap Report 2025: Off target",
+        "United Nations Environment Programme"
       ],
       "used_for": "Total GHG emissions in 2024 and growth compared with the 2000s and 2010s averages.",
       "access": {
@@ -197,7 +203,11 @@
       "type": "carrier",
       "url": "https://www.ipcc.ch/2014/04/13/ipcc-greenhouse-gas-emissions-accelerate-despite-reduction-efforts/",
       "title": "IPCC newsroom — IPCC: Greenhouse gas emissions accelerate despite reduction efforts (Berlin, 13 April 2014)",
-      "also_called": [],
+      "also_called": [
+        "In April 2014 the IPCC announced",
+        "Its release said",
+        "IPCC: Greenhouse gas emissions accelerate"
+      ],
       "used_for": "The belief as carried: the 2014 headline that emissions accelerate.",
       "access": {
         "state": "full_text_held",
@@ -215,7 +225,10 @@
       "type": "carrier",
       "url": "https://c4scourses.in/national-affairs/unep-emissions-gap-report-2025/",
       "title": "C4S Courses — UNEP Emissions Gap Report 2025 (6 Nov 2025)",
-      "also_called": [],
+      "also_called": [
+        "A November 2025 summary",
+        "C4S Courses"
+      ],
       "used_for": "The belief as carried: 'accelerating global greenhouse gas emissions', 'Acceleration Trend'.",
       "access": {
         "state": "full_text_held",
@@ -233,7 +246,9 @@
       "type": "coverage",
       "url": "https://jamaica-gleaner.com/index%2Ephp/article/news/20251204/earth-today-countries-failing",
       "title": "Jamaica Gleaner — Earth Today: Countries failing (4 Dec 2025)",
-      "also_called": [],
+      "also_called": [
+        "Jamaica Gleaner"
+      ],
       "used_for": "Public-record check: general coverage that does carry the 2000s vs 2010s comparison.",
       "access": {
         "state": "full_text_held",

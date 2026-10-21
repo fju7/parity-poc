@@ -11,6 +11,17 @@
       "by": "Claude Code (session e1161f9e-f686-4e13-83bb-4e0ab8d2dbab)",
       "on": "2026-10-21",
       "page_form": "by Jan Minx and colleagues"
+    },
+    {
+      "name": "Forster",
+      "paper": "Indicators of Global Climate Change 2025 (Earth Syst Sci Data 2026;18:3889-3933)",
+      "first_author": "Forster Piers M",
+      "source_id": "S006",
+      "author_list_read": true,
+      "checked_against": "held bytes of S006 (ESSD PDF, author line under the title: 'Piers M. Forster1 , Tristram Walsh2,3 , ...')",
+      "by": "Claude Code (session e1161f9e-f686-4e13-83bb-4e0ab8d2dbab)",
+      "on": "2026-10-21",
+      "page_form": "by Forster et al."
     }
   ]
 }
