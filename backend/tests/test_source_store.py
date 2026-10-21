@@ -497,3 +497,52 @@ def test_an_empty_also_held_reason_is_refused_and_nothing_is_written(issue, monk
     assert "REFUSED" in capsys.readouterr().out
     assert store.held("t") == {} or "S002" not in store.held("t")
     assert not (store.LIB / "docs").exists()
+
+
+# --- the add writes the ledger entry (2026-10-21) ---------------------------
+
+PALOMA = b"<html><head><title>Palbociclib letrozole PALOMA advanced breast cancer</title></head>"
+
+
+def _add(issue, monkeypatch, sid, body, name, *extra):
+    body = PALOMA + body
+    f = issue / name
+    f.write_bytes(body if isinstance(body, bytes) else body.encode("utf-8"))
+    monkeypatch.setattr(sys, "argv", ["source_store.py", "t", "add", sid, str(f),
+                                      "--url", "https://example.org/b",
+                                      "--via", "browser download by the operator", *extra])
+    return store.main()
+
+
+def _access(issue, sid):
+    srcs = json.loads((issue / "issues" / "WHU-999-t" / "sources.json").read_text())["sources"]
+    return next(s for s in srcs if s["id"] == sid)["access"]
+
+
+def test_add_writes_the_ledger_entry_so_no_one_writes_it_by_hand(issue, monkeypatch):
+    """WHU-P02: two entries say "source_store add stored the bytes but did not
+    write the ledger entry" -- they were written by hand afterwards."""
+    assert _add(issue, monkeypatch, "S002", FULL, "paloma.html") == 0
+    a = _access(issue, "S002")
+    row = store.held("t")["S002"]
+    assert a["state"] == "full_text_held"
+    assert a["by"] == "browser download by the operator"              # how it was held, verbatim
+    assert a["on"] == row["held"]                                     # when
+    assert a["held"]["sha256"] == row["sha256"] and a["held"]["file"] == row["file"]
+    assert a["held"]["kind"] == "full_text" and a["held"]["identified_by"]
+    assert a["held"]["recorded_by"] == "source_store add"
+
+
+def test_an_abstract_is_entered_as_abstract_held(issue, monkeypatch):
+    assert _add(issue, monkeypatch, "S002", ABSTRACT_PAGE, "paloma-abs.html") == 0
+    assert _access(issue, "S002")["state"] == "abstract_held"
+
+
+def test_a_licence_flag_and_human_read_survive_the_add(issue, monkeypatch):
+    p = issue / "issues" / "WHU-999-t" / "sources.json"
+    doc = json.loads(p.read_text())
+    doc["sources"][1]["access"] = {"state": "human_read", store.LICENCE_KEY: True}
+    p.write_text(json.dumps(doc))
+    assert _add(issue, monkeypatch, "S002", FULL, "paloma.html") == 0
+    a = _access(issue, "S002")
+    assert a["state"] == "human_read" and a[store.LICENCE_KEY] is True

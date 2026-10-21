@@ -717,6 +717,53 @@ def put_file(slug: str, sid: str, path: Path, *, url: str, via: str,
                content_type=ct or "", title=title, note=note, also_held=also_held)
 
 
+# THE LEDGER ENTRY IS WRITTEN BY THE ADD (2026-10-21).
+#
+# `add` stored the bytes and the store index and left sources.json alone, so
+# every document a person supplied needed its ledger entry written by hand
+# afterwards: on WHU-P02 two entries carry the note "source_store add stored
+# the bytes but did not write the ledger entry". Now the add writes it: the
+# state the substance check supports, how the document was held (--via, the
+# file, its sha256, how its identity was established), and when.
+
+KIND_STATE = {"full_text": "full_text_held", "document": "full_text_held",
+              "full_page": "full_text_held", "abstract": "abstract_held"}
+
+
+def state_for(kind: str) -> str:
+    """The ledger state a substance kind supports. Anything that is not shown
+    to be the document (landing, stub, shell, undetermined) is a fragment."""
+    return KIND_STATE.get(kind, "fragment_only")
+
+
+def record_held(slug: str, sid: str, row: dict, *, via: str, identified_by: str) -> dict:
+    """Write SID's access entry in sources.json for the bytes `put` just
+    stored (ROW). A licence flag already on the entry is kept, and so is the
+    human_read state it requires. Returns the entry written."""
+    p = case_dir(slug) / "sources.json"
+    raw = json.loads(p.read_text(encoding="utf-8"))
+    srcs = raw.get("sources", raw) if isinstance(raw, dict) else raw
+    src = next((x for x in srcs if x.get("id") == sid), None)
+    if src is None:
+        raise ValueError("no source %r in %s" % (sid, p))
+    prior = src.get("access") if isinstance(src.get("access"), dict) else {}
+    acc = {"state": "human_read" if prior.get("state") == "human_read" else state_for(row["kind"]),
+           "by": via, "on": row["retrieved"],
+           "held": {"file": row["file"], "sha256": row["sha256"], "bytes": row["bytes"],
+                    "url": row.get("url") or "", "identified_by": identified_by,
+                    "kind": row["kind"], "kind_why": row["kind_why"],
+                    "recorded_by": "source_store add"}}
+    if (prior.get("held") or {}).get("sha256") == row["sha256"]:
+        for k in ("sections", "not_read", "note"):
+            if k in prior:
+                acc[k] = prior[k]
+    if prior.get(LICENCE_KEY):
+        acc[LICENCE_KEY] = prior[LICENCE_KEY]
+    src["access"] = acc
+    p.write_text(json.dumps(raw, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    return acc
+
+
 def held(slug: str) -> dict:
     return load_issue_index(slug).get("sources") or {}
 
@@ -1054,13 +1101,19 @@ def main() -> int:
         row = put_file(args.slug, args.sid, Path(args.path), url=args.url, via=args.via,
                        title=src.get("title", ""), note=args.note,
                        also_held=(args.also_held.strip() if args.also_held is not None else None))
+        identity = why if ok else "stored with --force, identity NOT confirmed"
         print("\n  held %s -> %s  (%d bytes, sha %s)\n  identity:  %s\n  substance: %s — %s\n"
               % (args.sid, row["file"], row["bytes"], row["sha256"][:16],
-                 why if ok else "stored with --force, identity NOT confirmed",
-                 row["kind"], row["kind_why"]))
-        if row["kind"] != "full_text" and src.get("type") in ARTICLE_TYPES:
-            print("  The ledger state for %s is %s_held, NOT full_text_held.\n"
-                  % (args.sid, row["kind"]))
+                 identity, row["kind"], row["kind_why"]))
+        if row.get("also_held_of"):
+            print("  ledger:    unchanged — another representation of the held document\n")
+            return 0
+        if not src:
+            print("  ledger:    NOT WRITTEN — %s has no entry in sources.json; add one, then "
+                  "run add again\n" % args.sid)
+            return 1
+        acc = record_held(args.slug, args.sid, row, via=args.via, identified_by=identity)
+        print("  ledger:    %s, %s (by %s)\n" % (acc["state"], acc["on"], acc["by"]))
         return 0
 
     if args.cmd == "ingest":
