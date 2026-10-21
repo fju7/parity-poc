@@ -33,6 +33,18 @@ whitespace collapsed (two rejects, both with no text, agree). A second reply
 that is not usable is logged as such and counted apart, not as a
 disagreement. The report gives, per step and for the issue, how many pairs
 agree on decision and text, and on decision alone.
+
+CURRENT AND SUPERSEDED (2026-10-21). supersede.py moves ruling logs aside but
+leaves consistency.jsonl in place, so a pair can measure a ruling that no
+longer stands. The report sorts each pair by the ruling it re-asked: CURRENT
+(in rulings/rulings.jsonl, or in an audit run that is not withdrawn),
+SUPERSEDED (in rulings/superseded/*-rulings.jsonl, or in a withdrawn audit
+run) or NOT FOUND. The issue's figures are the current pairs'; the others are
+shown apart. A pair is matched by its ruling's id. A pair logged with no id
+(before ruling.py records carried one) is matched by its payload sha256 and its
+first decision and text; if a current ruling matches, it is current, since it
+measures a ruling that stands, and the report counts how many were matched
+that way.
 """
 from __future__ import annotations
 
@@ -122,32 +134,106 @@ def load(log: Path) -> list[dict]:
     return [json.loads(l) for l in log.read_text(encoding="utf-8").splitlines() if l.strip()]
 
 
-def report(log: Path) -> dict:
-    """{"steps": {step: rates}, "issue": rates}, from the pairs logged."""
-    pairs = [r for r in load(log) if r.get("type") == "pair"]
+STANDINGS = ("current", "superseded", "not found")
+
+
+def _content_key(r: dict) -> tuple:
+    return (r.get("inputs_sha256") or r.get("payload_sha256"), r.get("ruling"), _norm(r.get("text")))
+
+
+def ruling_index(case: Path) -> dict:
+    """The ids and content keys of the rulings that stand and of those that do
+    not: {"current": {"ids", "keys"}, "superseded": {"ids", "keys"}}."""
+    import applied_check as AC
+    logs = {"current": [case / "rulings" / "rulings.jsonl"],
+            "superseded": sorted((case / "rulings" / "superseded").glob("*-rulings.jsonl"))}
+    for run in sorted((case / "audit").glob("*/")):
+        logs["superseded" if AC._withdrawn(run) else "current"].append(run / "rulings.jsonl")
+    out = {}
+    for standing, files in logs.items():
+        recs = [r for f in files for r in load(f)]
+        out[standing] = {"ids": {record_id(r) for r in recs}, "keys": {_content_key(r) for r in recs}}
+    return out
+
+
+def standing(p: dict, index: dict) -> tuple[str, bool]:
+    """(where the pair's ruling stands, whether it was matched by content)."""
+    if p.get("ruling_id"):
+        for s in ("current", "superseded"):
+            if p["ruling_id"] in index[s]["ids"]:
+                return s, False
+        return "not found", False
+    first = p.get("first") or {}
+    k = (p.get("inputs_sha256"), first.get("ruling"), _norm(first.get("text")))
+    for s in ("current", "superseded"):
+        if k in index[s]["keys"]:
+            return s, True
+    return "not found", True
+
+
+def _by_step(pairs: list[dict]) -> dict:
     steps: dict = {}
     for p in pairs:
         steps.setdefault(p["step"], []).append(p)
-    return {"steps": {s: dict(_rates(ps), kind=ps[0].get("kind"), seed=ps[0].get("seed"))
-                      for s, ps in steps.items()},
-            "issue": _rates(pairs)}
+    return {s: dict(_rates(ps), kind=ps[0].get("kind"), seed=ps[0].get("seed")) for s, ps in steps.items()}
+
+
+def report(log: Path, case: Path | None = None) -> dict:
+    """{"steps": {step: rates}, "issue": rates}, from the pairs logged. With
+    the issue's CASE folder, the pairs are split by where their ruling stands:
+    "steps" and "issue" are the current pairs', and "superseded" and
+    "not found" hold the others, each {"steps", "rates"}; "matched_by_content"
+    counts pairs with no ruling id, per standing."""
+    pairs = [r for r in load(log) if r.get("type") == "pair"]
+    if case is None:
+        return {"steps": _by_step(pairs), "issue": _rates(pairs)}
+    index = ruling_index(case)
+    split = {s: [] for s in STANDINGS}
+    by_content = {s: 0 for s in STANDINGS}
+    for p in pairs:
+        s, content = standing(p, index)
+        split[s].append(p)
+        by_content[s] += content
+    return {"steps": _by_step(split["current"]), "issue": _rates(split["current"]),
+            **{s: {"steps": _by_step(split[s]), "rates": _rates(split[s])} for s in STANDINGS[1:]},
+            "matched_by_content": by_content}
 
 
 def _pct(x) -> str:
     return "n/a" if x is None else "%.0f%%" % (100 * x)
 
 
-def print_report(slug: str, log: Path) -> None:
-    rep = report(log)
-    print("\n  Ruling-model consistency, %s (%s)\n" % (slug, log))
-    for s, r in rep["steps"].items():
+def _print_steps(steps: dict) -> None:
+    for s, r in steps.items():
         print("  %-40s %d pair(s), %d usable: %d agree (%s); decision alone %d (%s); seed %s"
               % (s, r["pairs"], r["usable"], r["agree"], _pct(r["agreement"]), r["agree_decision"],
                  _pct(r["decision_agreement"]), r["seed"]))
-    i = rep["issue"]
-    print("\n  issue: %d pair(s), %d usable: %d agree (%s); decision alone %d (%s)\n"
-          % (i["pairs"], i["usable"], i["agree"], _pct(i["agreement"]), i["agree_decision"],
-             _pct(i["decision_agreement"])))
+
+
+def _rates_line(r: dict) -> str:
+    return ("%d pair(s), %d usable: %d agree (%s); decision alone %d (%s)"
+            % (r["pairs"], r["usable"], r["agree"], _pct(r["agreement"]), r["agree_decision"],
+               _pct(r["decision_agreement"])))
+
+
+def print_report(slug: str, log: Path, case: Path | None = None) -> None:
+    rep = report(log, case)
+    print("\n  Ruling-model consistency, %s (%s)\n" % (slug, log))
+    if case is not None:
+        print("  CURRENT rulings\n")
+    _print_steps(rep["steps"])
+    print("\n  issue: %s\n" % _rates_line(rep["issue"]))
+    if case is None:
+        return
+    for s in STANDINGS[1:]:
+        if rep[s]["rates"]["pairs"]:
+            print("  %s rulings (not counted above)\n" % s.upper())
+            _print_steps(rep[s]["steps"])
+            print("\n  %s: %s\n" % (s, _rates_line(rep[s]["rates"])))
+    n = {s: c for s, c in rep["matched_by_content"].items() if c}
+    if n:
+        print("  pairs logged with no ruling id, matched by payload and first ruling: %s\n"
+              % ", ".join("%d %s" % (c, s) for s, c in n.items()))
 
 
 # ---------------------------------------------------------------------------
@@ -230,7 +316,7 @@ def cmd_audit(a) -> int:
     line = sample_step(step, a.slug, "audit", recs, audit_reask(call), log_path(a.slug), seed=a.seed)
     print("  sampled %d of %d audit ruling(s), seed %d: %d of %d usable pair(s) agree"
           % (line["sampled"], line["rulings"], line["seed"], line["agree"], line["usable"]))
-    print_report(a.slug, log_path(a.slug))
+    print_report(a.slug, log_path(a.slug), store.case_dir(a.slug))
     return 0
 
 
@@ -247,7 +333,8 @@ def main(argv=None) -> int:
     a = ap.parse_args(argv)
     if a.cmd == "report":
         _require_study(a.slug)
-        print_report(a.slug, log_path(a.slug))
+        import source_store as store
+        print_report(a.slug, log_path(a.slug), store.case_dir(a.slug))
         return 0
     return cmd_audit(a)
 

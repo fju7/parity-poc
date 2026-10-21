@@ -521,3 +521,9 @@ Per protocol rev 24 this is reported, not a gate. Spend: **$0.17 of $5**, ledger
 - **Gemini:** ornate, grandiose mechanistic vocabulary, and converter leftovers: "Lane et al.3" glued numerals in table rows and a surviving "[cite: 5]".
 
 **Not changed** (each needs a ruling): the phrase list (British spellings, "on this report"), and the converter defects named above.
+
+### Consistency report: current and superseded pairs
+
+`consistency.py report` now sorts each pair by the ruling it re-asked: **current** (in `rulings/rulings.jsonl` or an audit run that is not withdrawn), **superseded** (in `rulings/superseded/*-rulings.jsonl` or a withdrawn audit run) or **not found**. The issue's rate counts current pairs only; the others are shown apart. A pair logged with no ruling id is matched by its payload sha256 and first decision and text, and the report counts those. WHU-P02: 6 pairs, all current (all six logged with no id, matched by content): 4 of 6 agree on decision and text (67%), 5 of 6 on decision alone (83%), as in the study log.
+
+**Ids.** `ruling.py` has one writer to the ruling log, `rule()`, and it sets `id` on every record before writing (test added). No `ruling.py` record has been made on any issue since c625411 (2026-10-21 01:21Z): WHU-P02's 21 current rulings were made 00:55–01:05Z, before it, and carry no id; they are the only `ruling.py` records in `issues/`.

@@ -205,3 +205,72 @@ def test_ruling_py_runs_the_sample_after_every_mode_and_counts_it_in_the_stage_c
     src = inspect.getsource(R.main)
     assert "consistency_sample(" in src and "n + CS.sample_size(n)" in src
     assert src.index("done = fn(a.slug, call)") < src.index("consistency_sample(")
+
+
+# --- current and superseded pairs are reported apart (2026-10-21) ---------
+
+def test_pairs_from_superseded_rulings_are_shown_apart_from_current_ones(study, monkeypatch, capsys):
+    d, P = study
+    import supersede as SU
+    _changecheck_step(d, P, monkeypatch, 5, lambda pr, n: {"ruling": "reject", "text": None, "reason": "r"})
+    SU.supersede(d, "re-ruled", "Claude Code (session test)", only=["rulings"])
+    assert not (d / "rulings" / "rulings.jsonl").exists()
+    (d / "change-reviews.json").unlink()                                   # a fresh changecheck step
+    _changecheck_step(d, P, monkeypatch, 5, lambda pr, n: {"ruling": "amend", "text": "T.", "reason": "r"} if n <= 5
+                      else {"ruling": "reject", "text": None, "reason": "r"})
+    log = d / "rulings" / "consistency.jsonl"
+    assert CS.report(log)["issue"]["pairs"] == 2                          # without the case: every pair
+    rep = CS.report(log, d)
+    assert rep["issue"]["pairs"] == 1 and rep["issue"]["agree_decision"] == 0     # the current step only
+    assert rep["superseded"]["rates"]["pairs"] == 1 and rep["superseded"]["rates"]["agreement"] == 1.0
+    assert rep["not found"]["rates"]["pairs"] == 0
+    assert rep["matched_by_content"] == {"current": 0, "superseded": 0, "not found": 0}
+    CS.print_report("xq", log, d)
+    out = capsys.readouterr().out
+    assert "CURRENT rulings" in out and "SUPERSEDED rulings (not counted above)" in out
+    assert out.index("issue: 1 pair(s)") < out.index("superseded: 1 pair(s)")
+
+
+def test_a_pair_logged_with_no_ruling_id_is_matched_by_payload_and_first_ruling(study, monkeypatch):
+    d, P = study
+    _changecheck_step(d, P, monkeypatch, 1, lambda pr, n: {"ruling": "reject", "text": None, "reason": "r"})
+    log = d / "rulings" / "consistency.jsonl"
+    rows = CS.load(log)
+    for r in rows:                                                         # as the retroactive sample logged them
+        if r["type"] == "pair":
+            r["ruling_id"] = None
+    log.write_text("".join(json.dumps(r) + "\n" for r in rows))
+    rep = CS.report(log, d)
+    assert rep["issue"]["pairs"] == 1 and rep["matched_by_content"]["current"] == 1
+    rows[0]["first"] = {"ruling": "accept", "text": "Other."}             # no ruling made that decision
+    log.write_text("".join(json.dumps(r) + "\n" for r in rows))
+    rep = CS.report(log, d)
+    assert rep["issue"]["pairs"] == 0 and rep["not found"]["rates"]["pairs"] == 1
+
+
+def test_a_withdrawn_audit_runs_pairs_are_superseded(study):
+    d, P = study
+    run = d / "audit" / "20261021T030000Z"
+    run.mkdir(parents=True)
+    rec = {"unit": "u1", "round": 1, "at": "t", "inputs": {"sentence": "s"}, "ruling": "reject", "text": None}
+    (run / "rulings.jsonl").write_text(json.dumps(rec) + "\n")
+    (run / "manifest.json").write_text(json.dumps({"withdrawn": {"reason": "bad run"}}))
+    log = d / "rulings" / "consistency.jsonl"
+    log.parent.mkdir(parents=True)
+    log.write_text(json.dumps({"type": "pair", "step": "audit-20261021T030000Z", "kind": "audit",
+                               "ruling_id": CS.record_id(rec), "usable": True, "agree": True,
+                               "agree_decision": True}) + "\n")
+    rep = CS.report(log, d)
+    assert rep["issue"]["pairs"] == 0 and rep["superseded"]["rates"]["pairs"] == 1
+
+
+def test_every_record_ruling_py_logs_carries_an_id():
+    """One writer appends to the ruling log, and it sets the id first."""
+    import ast
+    import inspect
+    tree = ast.parse(inspect.getsource(R))
+    appends = [n for n in ast.walk(tree) if isinstance(n, ast.Call) and getattr(n.func, "id", "") == "open"
+               and len(n.args) > 1 and getattr(n.args[1], "value", "") == "a"]
+    assert len(appends) == 1
+    src = inspect.getsource(R.rule)
+    assert src.index('rec["id"] = ') < src.index('open(log, "a"')
