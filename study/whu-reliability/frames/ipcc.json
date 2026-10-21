@@ -1,6 +1,6 @@
 {
  "frame": "ipcc",
- "built_at": "2026-10-21T13:52:24+00:00",
+ "built_at": "2026-10-21T19:00:36+00:00",
  "script": "study/whu-reliability/scripts/frames.py",
  "query": {
   "pages": [
@@ -48,11 +48,23 @@
     "eligible_headlines": 18,
     "numbering_gaps": []
    }
+  },
+  "italic_check": {
+   "WGI": {
+    "pdf": "https://www.ipcc.ch/report/ar6/wg1/downloads/report/IPCC_AR6_WGI_SPM.pdf",
+    "http_status": 200,
+    "pdf_sha256": "37c9fa760757524c8d69630a89cecab9ebcacb66786970a3439da0619875e446"
+   },
+   "SYR": {
+    "pdf": "https://www.ipcc.ch/report/ar6/syr/downloads/report/IPCC_AR6_SYR_SPM.pdf",
+    "http_status": 200,
+    "pdf_sha256": "3e347d04913c8fcc180c10efec372681554f3d735a7f0b2e6c7d991ddbb29c11"
+   }
   }
  },
  "tests": {
   "published_in_window": "AR6 report year, 2021 to 2023",
-  "states_a_certainty_grade": "the numbered statement itself (headline or sub-statement) carries IPCC calibrated language: a confidence level ('high confidence') or a likelihood term ('very likely'); 'unequivocal' alone does not count (protocol rev 34)",
+  "states_a_certainty_grade": "the numbered statement itself (headline or sub-statement) carries IPCC calibrated language: a confidence level ('high confidence') or a likelihood term ('very likely'); 'unequivocal' alone does not count (protocol rev 34). A likelihood term counts only where IPCC sets it as calibrated, in italics: a statement whose only calibrated language is a likelihood term is checked in the report's SPM PDF (protocol rev 34, 2026-10-21)",
   "public_abstract": "IPCC publishes every Summary for Policymakers in full",
   "not_a_whu_topic": "the statement matches none of the excluded-topic patterns (EXCLUDED_TOPICS)"
  },
@@ -2494,15 +2506,23 @@
  "queries_logged": [
   {
    "url": "https://www.ipcc.ch/report/ar6/wg1/chapter/summary-for-policymakers/",
-   "at": "2026-10-21T13:52:23+00:00",
+   "at": "2026-10-21T19:00:36+00:00",
    "status": 200,
    "bytes": 534307,
    "sha256": "917618385f6ee247ab08545f941f4ddf1433e17d711c7927662c2d862a0b356d",
    "kind": "ipcc"
   },
   {
+   "url": "https://www.ipcc.ch/report/ar6/wg1/downloads/report/IPCC_AR6_WGI_SPM.pdf",
+   "at": "2026-10-21T19:00:36+00:00",
+   "status": 200,
+   "bytes": 3361797,
+   "sha256": "37c9fa760757524c8d69630a89cecab9ebcacb66786970a3439da0619875e446",
+   "kind": "ipcc-pdf"
+  },
+  {
    "url": "https://www.ipcc.ch/report/ar6/wg2/chapter/summary-for-policymakers/",
-   "at": "2026-10-21T13:52:23+00:00",
+   "at": "2026-10-21T19:00:36+00:00",
    "status": 200,
    "bytes": 578903,
    "sha256": "6082bbf9e505af2cf7ae0c768dac7ea5dc40733770d7e99c4f79410397422be3",
@@ -2510,7 +2530,7 @@
   },
   {
    "url": "https://www.ipcc.ch/report/ar6/wg3/chapter/summary-for-policymakers/",
-   "at": "2026-10-21T13:52:24+00:00",
+   "at": "2026-10-21T19:00:36+00:00",
    "status": 200,
    "bytes": 784224,
    "sha256": "96d6249ea25a1ae84490e2488840885d114ac74bd139edf2cae7bf881893db64",
@@ -2518,11 +2538,19 @@
   },
   {
    "url": "https://www.ipcc.ch/report/ar6/syr/summary-for-policymakers/",
-   "at": "2026-10-21T13:52:24+00:00",
+   "at": "2026-10-21T19:00:36+00:00",
    "status": 200,
    "bytes": 530861,
    "sha256": "081922d9870fc0d20534474d2d677049f8aaba5075bf65840bbf964fe147dc9c",
    "kind": "ipcc"
+  },
+  {
+   "url": "https://www.ipcc.ch/report/ar6/syr/downloads/report/IPCC_AR6_SYR_SPM.pdf",
+   "at": "2026-10-21T19:00:36+00:00",
+   "status": 200,
+   "bytes": 5552060,
+   "sha256": "3e347d04913c8fcc180c10efec372681554f3d735a7f0b2e6c7d991ddbb29c11",
+   "kind": "ipcc-pdf"
   }
  ],
  "rows": [
@@ -2634,6 +2662,27 @@
     },
     "states_a_certainty_grade": {
      "pass": true,
+     "italic_check": {
+      "found": true,
+      "terms": [
+       {
+        "term": "likely",
+        "italic": true
+       },
+       {
+        "term": "likely",
+        "italic": true
+       },
+       {
+        "term": "very likely",
+        "italic": true
+       },
+       {
+        "term": "extremely likely",
+        "italic": true
+       }
+      ]
+     },
      "why": [
       "extremely likely",
       "likely",
@@ -2703,6 +2752,23 @@
     },
     "states_a_certainty_grade": {
      "pass": true,
+     "italic_check": {
+      "found": true,
+      "terms": [
+       {
+        "term": "very likely",
+        "italic": true
+       },
+       {
+        "term": "very likely",
+        "italic": true
+       },
+       {
+        "term": "very likely",
+        "italic": true
+       }
+      ]
+     },
      "why": [
       "very likely"
      ]
@@ -3423,6 +3489,35 @@
     },
     "states_a_certainty_grade": {
      "pass": true,
+     "italic_check": {
+      "found": true,
+      "terms": [
+       {
+        "term": "extremely likely",
+        "italic": true
+       },
+       {
+        "term": "extremely unlikely",
+        "italic": true
+       },
+       {
+        "term": "unlikely",
+        "italic": true
+       },
+       {
+        "term": "very likely",
+        "italic": true
+       },
+       {
+        "term": "likely",
+        "italic": true
+       },
+       {
+        "term": "more likely than not",
+        "italic": true
+       }
+      ]
+     },
      "why": [
       "extremely likely",
       "extremely unlikely",
@@ -3460,6 +3555,31 @@
     },
     "states_a_certainty_grade": {
      "pass": true,
+     "italic_check": {
+      "found": true,
+      "terms": [
+       {
+        "term": "very likely",
+        "italic": true
+       },
+       {
+        "term": "likely",
+        "italic": true
+       },
+       {
+        "term": "more likely than not",
+        "italic": true
+       },
+       {
+        "term": "more likely than not",
+        "italic": true
+       },
+       {
+        "term": "more likely than not",
+        "italic": true
+       }
+      ]
+     },
      "why": [
       "likely",
       "more likely than not",
@@ -4615,6 +4735,15 @@
     },
     "states_a_certainty_grade": {
      "pass": true,
+     "italic_check": {
+      "found": true,
+      "terms": [
+       {
+        "term": "very likely",
+        "italic": true
+       }
+      ]
+     },
      "why": [
       "very likely"
      ]
@@ -4873,6 +5002,15 @@
     },
     "states_a_certainty_grade": {
      "pass": true,
+     "italic_check": {
+      "found": true,
+      "terms": [
+       {
+        "term": "likely",
+        "italic": true
+       }
+      ]
+     },
      "why": [
       "likely"
      ]
@@ -12960,6 +13098,19 @@
     },
     "states_a_certainty_grade": {
      "pass": true,
+     "italic_check": {
+      "found": true,
+      "terms": [
+       {
+        "term": "likely",
+        "italic": true
+       },
+       {
+        "term": "likely",
+        "italic": true
+       }
+      ]
+     },
      "why": [
       "likely"
      ]
@@ -13812,6 +13963,23 @@
     },
     "states_a_certainty_grade": {
      "pass": true,
+     "italic_check": {
+      "found": true,
+      "terms": [
+       {
+        "term": "more likely than not",
+        "italic": true
+       },
+       {
+        "term": "likely",
+        "italic": true
+       },
+       {
+        "term": "very likely",
+        "italic": true
+       }
+      ]
+     },
      "why": [
       "likely",
       "more likely than not",
@@ -14471,6 +14639,15 @@
     },
     "states_a_certainty_grade": {
      "pass": true,
+     "italic_check": {
+      "found": true,
+      "terms": [
+       {
+        "term": "likely",
+        "italic": true
+       }
+      ]
+     },
      "why": [
       "likely"
      ]

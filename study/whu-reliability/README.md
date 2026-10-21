@@ -720,7 +720,18 @@ A statement is a headline (A.1) or a numbered sub-statement (A.1.1) in the Summa
 | Synthesis Report | 101 | 18 | 99 | 18 |
 | **Total** | **419** | 76 | **400** | 64 |
 
-Three statements pass on "likely" alone (AR6-WGI-D.1.2, AR6-SYR-A.1.2, AR6-SYR-B.5.2). In ordinary use "likely" may not be the calibrated term. They are counted as the rule is written; **a ruling may be wanted.**
+**A likelihood term counts only where IPCC sets it as calibrated, in italics** (protocol rev 34, advisor ruling, 21 October 2026). The chapter pages carry no reliable typography, so the check reads the report's SPM PDF on ipcc.ch with poppler's `pdftohtml -xml`. A term is italic when it is marked `<i>`, or set in a font whose family name contains "Ita", "Italic" or "Oblique".
+- **Which statements are checked:** every statement whose only calibrated language is a likelihood term. A confidence level needs no check.
+- **How a statement is found in the PDF:** by its first 60 letters and digits, in the PDF's own content order (the SPM pages run in two columns).
+- **When it is not found:** the statement is undetermined and not eligible.
+- **Record:** each checked statement carries `italic_check` (every term, italic or not), and `query.italic_check` holds each PDF's URL and sha256.
+
+The ruling named three statements that passed on "likely" alone. In each, every "likely" is italic, so all three are kept:
+- AR6-WGI-D.1.2: one "likely", set in FrutigerLTPro-CondensedIta (the body text is FrutigerLTPro-Condensed). Kept.
+- AR6-SYR-A.1.2: two "likely"s, both italic. Kept.
+- AR6-SYR-B.5.2: one "likely", italic. Kept.
+
+The rule also checks six other statements whose calibrated terms are all likelihood terms (AR6-WGI-A.1.3, A.1.5, B.1.2, B.1.3, C.3; AR6-SYR-B.1.1). Every term in them is italic. No statement changes eligibility: 400 of 419 stand.
 
 ### Vitamin D exclusion narrowed
 

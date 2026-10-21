@@ -244,3 +244,18 @@ def test_a_listed_draw_takes_the_first_eligible_in_seeded_order(tmp_path, monkey
     res = FR.draw_listed(f, 5)
     assert res["drawn"]["n"] == first and res["checked"] == order.index(first) + 1
     assert all(x["failed"] == ["states_a_certainty_grade"] for x in res["log"][:-1])
+
+
+def test_a_likelihood_term_counts_only_in_italics():
+    # protocol rev 34 (2026-10-21): IPCC sets its calibrated likelihood terms in italics
+    xml = ('<fontspec id="1" size="14" family="X+Frutiger-Condensed" color="#000"/>'
+           '<fontspec id="2" size="14" family="X+Frutiger-CondensedIta" color="#000"/><page number="1">'
+           '<text top="10" left="5" width="9" height="9" font="1">A.1.2 Warming of 2390 GtCO</text>'
+           '<text top="10" left="90" width="9" height="9" font="1">2 was emitted (</text>'
+           '<text top="10" left="190" width="9" height="9" font="2">likely</text>'
+           '<text top="10" left="240" width="9" height="9" font="1"> range) and it is likely to rise, <i>very likely</i> so.</text>')
+    chars = FR.pdf_chars(xml)
+    chk = FR.italic_likelihood("Warming of 2390 GtCO 2 was emitted ( likely range) and it is likely to rise, very likely so.", chars)
+    assert chk["found"] and [(x["term"], x["italic"]) for x in chk["terms"]] == [
+        ("likely", True), ("likely", False), ("very likely", True)]
+    assert not FR.italic_likelihood("A statement that is not in the document at all, anywhere.", chars)["found"]

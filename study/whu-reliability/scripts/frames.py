@@ -490,6 +490,64 @@ IPCC_REPORTS = [
     ("WGIII", "Climate Change 2022: Mitigation of Climate Change", 2022, "https://www.ipcc.ch/report/ar6/wg3/chapter/summary-for-policymakers/"),
     ("SYR", "Climate Change 2023: Synthesis Report", 2023, "https://www.ipcc.ch/report/ar6/syr/summary-for-policymakers/"),
 ]
+# Protocol rev 34 (2026-10-21, advisor ruling): a likelihood term counts only
+# where IPCC sets it as calibrated, in italics. The chapter pages carry no
+# reliable typography, so a statement whose only calibrated language is a
+# likelihood term is checked in the report's SPM PDF: the term must be set in
+# an italic face there (pdftohtml <i>, or a font family named "...Ita..."). A
+# confidence level needs no check. A statement the PDF check cannot locate is
+# undetermined and not eligible.
+IPCC_SPM_PDFS = {
+    "WGI": "https://www.ipcc.ch/report/ar6/wg1/downloads/report/IPCC_AR6_WGI_SPM.pdf",
+    "WGII": "https://www.ipcc.ch/report/ar6/wg2/downloads/report/IPCC_AR6_WGII_SummaryForPolicymakers.pdf",
+    "WGIII": "https://www.ipcc.ch/report/ar6/wg3/downloads/report/IPCC_AR6_WGIII_SummaryForPolicymakers.pdf",
+    "SYR": "https://www.ipcc.ch/report/ar6/syr/downloads/report/IPCC_AR6_SYR_SPM.pdf",
+}
+LIKELIHOOD = re.compile(r"\b(?:virtually certain|extremely likely|very likely|likely|more likely than not|about as likely as not"
+                        r"|unlikely|very unlikely|extremely unlikely|exceptionally unlikely)\b", re.I)
+
+
+def pdf_chars(xml: str) -> tuple[str, list[bool]]:
+    """The PDF's text as letters and digits only, lower case, in content order,
+    with a parallel list: is each character set in an italic face."""
+    spec: dict = {}
+    lines, pg = [], 0
+    for m in re.finditer(r'<fontspec id="(\d+)" size="(-?\d+)" family="([^"]+)"|<page number="(\d+)"'
+                         r'|<text top="(\d+)" left="(\d+)"[^>]*font="(\d+)">(.*?)</text>', xml, re.S):
+        if m.group(1):
+            spec[m.group(1)] = bool(re.search(r"Ita|Italic|Oblique", m.group(3)))
+        elif m.group(4):
+            pg = int(m.group(4))
+        else:
+            lines.append((pg, int(m.group(5)), int(m.group(6)), spec.get(m.group(7), False), m.group(8)))
+    text, ital = [], []
+    for _pg, _t, _l, fit, raw in lines:      # the PDF's own content order: SPM pages run in two columns
+        for seg in re.finditer(r"(<i>)?((?:(?!</?i>).)*)(</i>)?", raw, re.S):
+            it = fit or bool(seg.group(1))
+            for ch in H.unescape(re.sub(r"<[^>]+>", "", seg.group(2))).lower():
+                if ch.isalnum():
+                    text.append(ch)
+                    ital.append(it)
+    return "".join(text), ital
+
+
+def italic_likelihood(statement: str, chars: tuple[str, list[bool]]) -> dict:
+    """Each likelihood term of the statement, and whether the SPM PDF sets it in
+    italics. The statement is found in the PDF by its first 60 letters and digits."""
+    text, ital = chars
+    norm = re.sub(r"[^a-z0-9]", "", statement.lower())
+    at = text.find(norm[:60])
+    if at < 0:
+        return {"found": False}
+    terms = []
+    for m in LIKELIHOOD.finditer(statement):
+        key = re.sub(r"[^a-z0-9]", "", m.group(0).lower())
+        pre = re.sub(r"[^a-z0-9]", "", statement[:m.start()].lower())
+        j = text.find(key, at + max(0, len(pre) - 3))   # the PDF only adds (footnote marks), so the term is at or after
+        terms.append({"term": m.group(0).lower(), "italic": j >= 0 and j < at + len(norm) + 40 and all(ital[j:j + len(key)])})
+    return {"found": True, "terms": terms}
+
+
 SPM_LABEL = re.compile(r"(?:SPM\.)?([A-E]\.\d{1,2}(?:\.\d{1,2})?)\.?\s*(?=[A-Z(])")
 
 
@@ -530,14 +588,28 @@ def ipcc_frame(F: Fetcher, name: str) -> dict:
     rows, query = [], {"pages": [r[3] for r in IPCC_REPORTS], "protocol": "rev 34",
                        "api": "none: IPCC publishes no API; each report's Summary for Policymakers chapter page is fetched",
                        "per_report": {}}
+    query["italic_check"] = {}
     for wg, title, year, url in IPCC_REPORTS:
         code, body = F.get(url, kind="ipcc")
         sts = spm_statements(body) if code == 200 else {}
-        n0 = len(rows)
+        n0, chars = len(rows), None
         for lab, s in sts.items():
             cal = sorted({c.group(0).lower() for c in IPCC_CALIBRATED.finditer(s)})
+            grade = {"pass": bool(cal), "why": cal or "no calibrated confidence or likelihood term in the statement"}
+            if cal and all(LIKELIHOOD.fullmatch(c) for c in cal):
+                if chars is None:
+                    pcode, pdf = F.get(IPCC_SPM_PDFS[wg], kind="ipcc-pdf")
+                    chars = pdf_chars(pdf_xml(pdf)) if pcode == 200 else ("", [])
+                    query["italic_check"][wg] = {"pdf": IPCC_SPM_PDFS[wg], "http_status": pcode, "pdf_sha256": sha(pdf)}
+                chk = italic_likelihood(s, chars)
+                kept = sorted({t["term"] for t in chk.get("terms", []) if t["italic"]})
+                grade = {"pass": bool(kept), "italic_check": chk,
+                         "why": (kept if kept else "a likelihood term only, not set in italics (IPCC's calibrated term) "
+                                                   "in the SPM PDF") if chk["found"] else
+                                "a likelihood term only, and the statement was not found in the SPM PDF",
+                         **({} if chk["found"] else {"undetermined": True})}
             tests = {"published_in_window": {"pass": 2021 <= year <= 2023, "why": "AR6 %s, %d" % (wg, year)},
-                     "states_a_certainty_grade": {"pass": bool(cal), "why": cal or "no calibrated confidence or likelihood term in the statement"},
+                     "states_a_certainty_grade": grade,
                      "public_abstract": {"pass": True, "why": "the Summary for Policymakers is published in full on ipcc.ch"},
                      "not_a_whu_topic": {"pass": not topic_exclusion(s), "why": topic_exclusion(s) or "no match"}}
             rows.append({"id": "AR6-%s-%s" % (wg, lab), "report": title, "year": year, "url": url,
@@ -556,7 +628,9 @@ def ipcc_frame(F: Fetcher, name: str) -> dict:
         "published_in_window": "AR6 report year, 2021 to 2023",
         "states_a_certainty_grade": "the numbered statement itself (headline or sub-statement) carries IPCC calibrated language: "
                                     "a confidence level ('high confidence') or a likelihood term ('very likely'); 'unequivocal' "
-                                    "alone does not count (protocol rev 34)",
+                                    "alone does not count (protocol rev 34). A likelihood term counts only where IPCC sets "
+                                    "it as calibrated, in italics: a statement whose only calibrated language is a "
+                                    "likelihood term is checked in the report's SPM PDF (protocol rev 34, 2026-10-21)",
         "public_abstract": "IPCC publishes every Summary for Policymakers in full",
         "not_a_whu_topic": "the statement matches none of the excluded-topic patterns (EXCLUDED_TOPICS)"})
 
