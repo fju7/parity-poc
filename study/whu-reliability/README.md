@@ -19,6 +19,14 @@ This directory holds the study's code, prompts and blinding list. Data the study
 Recorded on every study issue as the WHU run produces it, alongside the judged measures (M1, M2):
 
 - **Ruling-model consistency (added 2026-10-21).** After each ruling step, a seeded random 20% of that step's rulings (at least one) is re-run with the identical payload and prompt; the second ruling is logged and never applied. Reported per step and per issue: the share of pairs with the same decision and text, and with the same decision alone (unusable second replies counted apart). Code: `backend/scripts/whatholdsup/consistency.py` (called by `ruling.py`; `consistency.py audit` for audit runs; `consistency.py report`). Log: each issue's `rulings/consistency.jsonl`, not committed. See RUN.md.
+- **Advocate quotation rate (added 2026-10-21).** Of the source advocate's objections that quote their source, how many quotations are in the held text on the first try, after the one re-ask, and still absent after it (GAP-018). Reported per question. Log: each issue's `advocate/quote_checks.jsonl` (`result`: "in the held text", "in the held text after one re-ask", "the quotation is not in the held text"), not committed.
+
+  | Question | Objections with a quotation | Present first try | Present after re-ask | Still absent |
+  |---|---|---|---|---|
+  | WHU-P02 | 28 | 5 | 20 | 3 |
+  | WHU-P04 | 23 | not reported here | not reported here | 12 |
+
+  WHU-P04's split between first try and re-ask is not stated in the figures this entry was written from; its 11 present quotations are the two together.
 
 ## Prep round 1 (19 October 2026)
 
