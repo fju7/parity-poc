@@ -23,7 +23,16 @@ Each file in RECORDS that exists is stamped and moved to its folder as
   a .json list     every object in it gets "superseded"
   a .md file       a first line says it is superseded, why, on, by
 
-and the folder's README.txt gets a line. Nothing is deleted. Audit runs are
+and the folder's README.txt gets a line. Nothing is deleted.
+
+AN ADVOCATE ADJUDICATION FILE IS REPLACED BY A BLANK ONE (2026-10-21). When
+<name>-adjudication.md is superseded and its briefs file <name>-briefs.json
+stays in place, a fresh blank template is written in its place with
+source_advocate.write_template, from those briefs, under the same name and the
+same day as the old heading: every item open again, so `ruling.py advocate`
+finds them. That was done by hand on WHU-P02 on 2026-10-21 (GAP-019 re-rule).
+When the briefs are superseded too, nothing is left to adjudicate and no
+template is written. Audit runs are
 not touched: they are withdrawn with `audit_stage.py withdraw`. `--only` limits
 the run to the named files (as RECORDS names them).
 
@@ -94,9 +103,34 @@ def check_by(by: str, signature: str | None) -> None:
         raise SystemExit("signature refused: %s" % why)
 
 
+def _heading_day(text: str, name: str) -> str:
+    import re
+    m = re.match(r"#[^\n]*source advocate, (\d{4}-\d{2}-\d{2})", text)
+    if m:
+        return m.group(1)
+    return name[:10] if re.match(r"\d{4}-\d{2}-\d{2}$", name[:10]) else \
+        datetime.now(timezone.utc).date().isoformat()
+
+
+def blank_template(case: Path, slug: str, name: str, day: str) -> Path:
+    """A fresh adjudication template for <name>-briefs.json, in place."""
+    import source_advocate as SA
+    briefs = json.loads((case / "advocate" / ("%s-briefs.json" % name)).read_text(encoding="utf-8"))
+    want = case / "advocate" / ("%s-adjudication.md" % name)
+    if SA.sl.case_dir(slug).resolve() != case.resolve():
+        raise SystemExit("refusing to write a template: %s is not %s's case directory" % (case, slug))
+    p = SA.write_template(slug, day, briefs, name=None if name == day else name)
+    assert p.resolve() == want.resolve(), (p, want)
+    return p
+
+
 def supersede(case: Path, reason: str, by: str, *, only=None, on: str | None = None,
-              now: datetime | None = None) -> list[tuple[str, str]]:
-    """Stamp and move every record present; return [(from, to)] relative to CASE."""
+              now: datetime | None = None, slug: str | None = None,
+              templates: list | None = None) -> list[tuple[str, str]]:
+    """Stamp and move every record present; return [(from, to)] relative to CASE.
+    With SLUG, a superseded advocate adjudication file whose briefs stay in
+    place is replaced by a blank template; each one written is appended to
+    TEMPLATES (relative to CASE)."""
     if not (reason or "").strip():
         raise ValueError("superseding needs a reason")
     now = now or datetime.now(timezone.utc)
@@ -107,15 +141,24 @@ def supersede(case: Path, reason: str, by: str, *, only=None, on: str | None = N
         bad = set(only) - names
         if bad:
             raise ValueError("unknown record(s): %s (one of %s)" % (", ".join(sorted(bad)), ", ".join(sorted(names))))
-    moved, folders = [], set()
+    moved, folders, adjudications = [], set(), []
     for name, pattern, folder in RECORDS:
         if only and name not in only:
             continue
         for src in sorted(case.glob(pattern)):
             dst = case / folder / ("%s-%s" % (prefix, src.name))
+            if name == "advocate-adjudication":
+                adjudications.append((src.name[:-len("-adjudication.md")],
+                                      _heading_day(src.read_text(encoding="utf-8"), src.name)))
             stamp_file(src, dst, mark)
             moved.append((str(src.relative_to(case)), str(dst.relative_to(case))))
             folders.add(folder)
+    if slug:
+        for stem, day in adjudications:
+            if (case / "advocate" / ("%s-briefs.json" % stem)).exists():
+                p = blank_template(case, slug, stem, day)
+                if templates is not None:
+                    templates.append(str(p.relative_to(case)))
     for folder in sorted(folders):
         with open(case / folder / "README.txt", "a", encoding="utf-8") as f:
             f.write("Superseded %s by %s: %s. Files prefixed %s. No current tool reads this folder.\n"
@@ -138,9 +181,13 @@ def main(argv=None) -> int:
         raise SystemExit("%s is not a study issue (issue.json \"study\": true); a published "
                          "issue's records are corrected, not superseded" % a.slug)
     check_by(a.by, a.signature)
-    moved = supersede(store.case_dir(a.slug), a.reason, a.by, only=a.only)
+    templates: list = []
+    moved = supersede(store.case_dir(a.slug), a.reason, a.by, only=a.only, slug=a.slug,
+                      templates=templates)
     for frm, to in moved:
         print("  superseded  %s  ->  %s" % (frm, to))
+    for t in templates:
+        print("  blank       %s  (a fresh adjudication template, every item open)" % t)
     print("\n  %d file(s) superseded\n" % len(moved))
     return 0
 

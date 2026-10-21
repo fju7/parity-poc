@@ -92,3 +92,72 @@ def test_a_published_issue_is_refused(monkeypatch):
     with pytest.raises(SystemExit) as e:
         SU.main(["melanoma", "--reason", "r", "--by", BY])
     assert "not a study issue" in str(e.value)
+
+
+# --- a superseded adjudication file is replaced by a blank template (2026-10-21) --
+
+BRIEFS = [{"source": "S1", "title": "T", "principal": "p", "state": "machine-readable", "mode": "objections",
+           "objections": [{"severity": "SERIOUS", "claim_quoted": "a", "objection": "o1", "why": "w"},
+                          {"severity": "MINOR", "claim_quoted": "b", "objection": "o2", "why": "w"}]}]
+
+
+@pytest.fixture
+def adv_case(case, monkeypatch):
+    import source_advocate as SA
+    monkeypatch.setattr(SA.sl, "case_dir", lambda slug: case)
+    (case / "advocate" / "2026-10-20-briefs.json").write_text(json.dumps(BRIEFS))
+    SA.write_template("demo", "2026-10-20", BRIEFS)
+    adj = case / "advocate" / "2026-10-20-adjudication.md"
+    adj.write_text(adj.read_text().replace("MERIT:  \n", "MERIT:  no — ruled\n", 1)
+                   .replace("EFFECT: \n", "EFFECT: none\n", 1))            # one item closed
+    return case, SA
+
+
+def test_superseding_the_adjudication_leaves_a_blank_template_the_ruling_model_finds(adv_case):
+    case, SA = adv_case
+    import ruling as R
+    assert [i["head"] for i in R.advocate_items("demo", case)] == ["S1-02"]
+    written = []
+    moved = SU.supersede(case, "re-ruled grouped by sentence (GAP-019)", BY, only=["advocate-adjudication"],
+                         now=NOW, slug="demo", templates=written)
+    assert moved == [("advocate/2026-10-20-adjudication.md",
+                      "advocate/superseded/20261021T0102Z-2026-10-20-adjudication.md")]
+    assert written == ["advocate/2026-10-20-adjudication.md"]
+    fresh = (case / "advocate" / "2026-10-20-adjudication.md").read_text()
+    assert fresh.startswith("# demo — source advocate, 2026-10-20\n")    # the old heading's day
+    assert "MERIT:  no" not in fresh and "SUPERSEDED" not in fresh
+    assert [i["head"] for i in R.advocate_items("demo", case)] == ["S1-01", "S1-02"]   # every item open again
+    old = (case / "advocate/superseded/20261021T0102Z-2026-10-20-adjudication.md").read_text()
+    assert old.startswith("SUPERSEDED on 2026-10-21") and "MERIT:  no — ruled" in old   # nothing lost
+    assert (case / "advocate" / "2026-10-20-briefs.json").exists()
+
+
+def test_no_template_when_the_briefs_are_superseded_too(adv_case):
+    case, SA = adv_case
+    written = []
+    SU.supersede(case, "r", BY, only=["advocate-briefs", "advocate-adjudication"], now=NOW, slug="demo",
+                 templates=written)
+    assert written == [] and not list((case / "advocate").glob("*-adjudication.md"))
+
+
+def test_without_a_slug_no_template_is_written(adv_case):
+    case, SA = adv_case
+    SU.supersede(case, "r", BY, only=["advocate-adjudication"], now=NOW)
+    assert not (case / "advocate" / "2026-10-20-adjudication.md").exists()
+
+
+def test_a_template_is_never_written_into_another_issues_folder(adv_case, monkeypatch, tmp_path):
+    case, SA = adv_case
+    monkeypatch.setattr(SA.sl, "case_dir", lambda slug: tmp_path / "elsewhere")
+    with pytest.raises(SystemExit):
+        SU.supersede(case, "r", BY, only=["advocate-adjudication"], now=NOW, slug="demo")
+
+
+def test_main_passes_the_slug(monkeypatch, case):
+    import publish, source_store
+    seen = {}
+    monkeypatch.setattr(publish, "is_study", lambda slug: True)
+    monkeypatch.setattr(source_store, "case_dir", lambda slug: case)
+    monkeypatch.setattr(SU, "supersede", lambda *a, **k: seen.update(k) or [])
+    SU.main(["demo", "--reason", "r", "--by", BY])
+    assert seen["slug"] == "demo"
