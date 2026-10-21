@@ -527,3 +527,48 @@ Per protocol rev 24 this is reported, not a gate. Spend: **$0.17 of $5**, ledger
 `consistency.py report` now sorts each pair by the ruling it re-asked: **current** (in `rulings/rulings.jsonl` or an audit run that is not withdrawn), **superseded** (in `rulings/superseded/*-rulings.jsonl` or a withdrawn audit run) or **not found**. The issue's rate counts current pairs only; the others are shown apart. A pair logged with no ruling id is matched by its payload sha256 and first decision and text, and the report counts those. WHU-P02: 6 pairs, all current (all six logged with no id, matched by content): 4 of 6 agree on decision and text (67%), 5 of 6 on decision alone (83%), as in the study log.
 
 **Ids.** `ruling.py` has one writer to the ruling log, `rule()`, and it sets `id` on every record before writing (test added). No `ruling.py` record has been made on any issue since c625411 (2026-10-21 01:21Z): WHU-P02's 21 current rulings were made 00:55–01:05Z, before it, and carry no id; they are the only `ruling.py` records in `issues/`.
+
+## Pre-freeze build (21 October 2026, protocol rev 33)
+
+Rulings: protocol rev 33, "Pre-freeze rulings". Spend under ledger issue `whu-reliability-prefreeze2`, cap $8 for the round. Data under `runs/prefreeze/`, not committed.
+
+### Blinding: conversion defects fixed, for every system alike
+
+`blind.py` and `blind_phrases.json`; tests `backend/tests/test_whu_study_blinding.py` (25, one or more per rule).
+
+**Leftover markup removed:**
+- **Site-name chips.** A link is a citation marker when its text is its own URL, or one word (optionally followed by "+2") that the URL's host contains, ignoring case and hyphens. That catches "Wikipedia" (en.wikipedia.org) and "cacfp +2" (cacfp.org), which the old lowercase-only rule missed, and they now become `[n]` inside the full stop, also after a closing quote. A link whose text is prose keeps its text.
+- **URLs holding parentheses** ("…/S1550-4131(19)30248-7") no longer leave "30248-7)" in the text.
+- **"[cite: n]"** escaped as `\[cite: 5\]` in a markdown table is now read as a marker.
+- **Numerals glued to "et al."** ("Lane et al.3") become "Lane et al. [3]" for every system; after a closing quote ('"limited"47') too, in the Gemini pass.
+- **"<" before a number** ("<20%") is text. The old tag-stripper read it as the start of a tag and deleted everything up to the next ">", here into ChatGPT's diagram; it now strips only tags that start with a letter or "/". Fenced code blocks (ChatGPT's mermaid diagrams) are dropped as markup.
+- **Runs of empty table cells** (" ; ; ; ;", where Gemini's export lost a value) collapse to one separator.
+
+**Approximation signs:** N01a turns "a ~15%" into "a roughly 15%" (never "a about"); N01b turns "HR≈1.62" into "HR about 1.62"; N01 is unchanged for the rest.
+
+**"on this page" is deleted** (W15a at a sentence's start, W15b elsewhere), not rewritten to "on this report". "This page" alone still becomes "this report" (W15).
+
+**Spelling:** the British-to-American list moved out of `blind_phrases.json` into `blinding/spelling_us.json`, 360 words (109 before), sha256 `6a0eec29ed625c9e70770588298a541448253d1faeadf87302debb2e3d3db0ad`, pinned in `blind.py` as `SPELLING_SHA256`; a changed list is refused. Whole words, lowercase forms only, as before.
+
+**Unchanged:** every other rule; first person, sentence length and tone ("on its own criteria" stays, as ruled).
+
+### Identifiability check, re-run (reported, not a gate)
+
+Same material as the last round (WHU-P02's export and the pilot's three Q2 answers), same seed 20261019, 20 claim-like sentences per system, Opus 5.5 guessing. Run 2 after the listed fixes found four further conversion defects in the guesser's clues (the parenthesised URL, the "<" deletion, the glued numeral after a quote, the empty cells); they were fixed and the check was run a third time. Spend: $0.16 and $0.16.
+
+| True system (rows) → guess | WHU | Claude | ChatGPT | Gemini |
+|---|---|---|---|---|
+| WHU | **20** | 0 | 0 | 0 |
+| Claude | 0 | **20** | 0 | 0 |
+| ChatGPT | 0 | 0 | **20** | 0 |
+| Gemini | 0 | 0 | 0 | **20** |
+
+The same in run 2 and run 3: **every system identified 20 of 20** (chance 25%; P = 9.1 × 10⁻¹³ each). The guesser called its WHU guesses "high" confidence 15 of 20 times last round, 13 in run 2 and 8 in run 3; WHU's 20 sentences were identical in runs 2 and 3, so that fall is at least partly run-to-run variation, not the fixes.
+
+**What the guesser said gave each system away (run 3).** No clue names a converter leftover any more except Gemini's lost-value table rows ("garbled table").
+- **WHU:** a plain, measured, hedged register; full confidence-interval wording; naming where sources disagree and quoting both; critiques of media headlines and causal language; "the cohorts here", "on its own criteria" (the system's voice, which stays).
+- **Claude:** terse bullets, "Results:" and "How to read this" style, policy timelines, high and paired citation numbers.
+- **ChatGPT:** no bracket citations (author-year inline, or none), summary tables with a limitations column, "about"/"roughly" values, "For example", "e.g." lists.
+- **Gemini:** ornate, florid mechanistic vocabulary ("engineered hyper-palatability", "intrinsic cellular matrix", "totality of … evidence demonstrates"), title-case evidence tables with class and GRADE columns.
+
+So with conversion defects removed, each system is still told apart by its writing, which the rules forbid rewording. The gate remains the bias test (passed in prep round 3).

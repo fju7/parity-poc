@@ -24,6 +24,7 @@ what measures whether what is left is enough to identify a system.
 from __future__ import annotations
 
 import argparse
+import hashlib
 import html as H
 import json
 import re
@@ -32,6 +33,23 @@ from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
 PHRASES = json.loads((HERE / "blind_phrases.json").read_text(encoding="utf-8"))
+
+# The British-to-American spelling list (pre-freeze ruling, protocol rev 33): a
+# fixed word list identified by its sha256. A changed list is refused, so the
+# list a blinded answer went through is always the one named here.
+SPELLING_FILE = HERE / "spelling_us.json"
+SPELLING_SHA256 = "6a0eec29ed625c9e70770588298a541448253d1faeadf87302debb2e3d3db0ad"
+
+
+def load_spelling() -> dict[str, str]:
+    raw = SPELLING_FILE.read_bytes()
+    got = hashlib.sha256(raw).hexdigest()
+    if got != SPELLING_SHA256:
+        raise SystemExit("spelling_us.json has sha256 %s, not the pinned %s" % (got, SPELLING_SHA256))
+    return json.loads(raw.decode("utf-8"))["words"]
+
+
+SPELLING = load_spelling()
 
 # WHU page furniture that a reader sees around the answer, not the answer:
 # the masthead and kicker, the corrections notice, the change history.
@@ -82,7 +100,31 @@ def from_html(raw: str) -> tuple[str, list[str]]:
 # Kept as an invisible token so the sentence can be marked not samplable, then
 # removed from what a judge would read.
 LOST = "\u2063LOST\u2063"
-CHIP = re.compile(r"^[a-z0-9][a-z0-9.-]{1,39}$")      # a link whose text is a site name
+# A URL may hold one level of parentheses ("…/S1550-4131(19)30248-7").
+URL = r"https?://(?:[^()\s]|\([^()\s]*\))+"
+LINK = r"\[[^\]\n]{1,60}\]\(" + URL + r"\)"
+
+
+def empty_cells(t: str) -> str:
+    """Runs of empty table cells (" ; ; ; ;", left where a lost value stood)
+    become one separator."""
+    return re.sub(r";(?:[ \t]*;)+", ";", t)
+
+
+def is_chip(text: str, url: str) -> bool:
+    """A link that is a citation marker, not prose: its text is its own URL, or
+    a site's name -- one word (an optional " +2", "two more sources", after it)
+    that the URL's host contains, ignoring case and hyphens ("Wikipedia" for
+    en.wikipedia.org, "sciencedaily +2", "news-medical"). The same test for
+    every system's answer (pre-freeze ruling, protocol rev 33)."""
+    t = text.replace("\\", "").strip()
+    if re.match(r"^https?://", t) or t == url:
+        return True
+    core = re.sub(r"\s*\+\d+$", "", t)
+    if not core or re.search(r"\s", core) or len(core) > 40:
+        return False
+    host = re.sub(r"^https?://", "", url).split("/")[0].lower().replace("-", "")
+    return core.lower().replace("-", "") in host
 
 
 def from_markdown(raw: str) -> tuple[str, list[str]]:
@@ -99,11 +141,17 @@ def from_markdown(raw: str) -> tuple[str, list[str]]:
     t = re.sub(r"<!--.*?-->", " ", raw, flags=re.S)                         # capture metadata
     # Private-use glyphs: Claude's citation chips carry one ("nih\ue015").
     t = re.sub("[\ue000-\uf8ff]", "", t)
+    # Escaped brackets ("\\[cite: 5\\]" in a markdown table) are brackets.
+    t = re.sub(r"\\([\[\]])", r"\1", t)
+    # A fenced code block (ChatGPT's mermaid diagrams) is markup, not prose.
+    t = re.sub(r"(?ms)^[ \t]*```.*?^[ \t]*```[ \t]*$", "\n", t)
     # HTML left in an export (ChatGPT's tables and figures): cells become
-    # " ; ", as markdown table cells do; every other tag goes.
+    # " ; ", as markdown table cells do; every other tag goes. A tag starts
+    # with a letter or "/": "<20%" is text, and must not swallow everything
+    # up to the next ">".
     t = re.sub(r"</t[dh]>\s*<t[dh][^>]*>", " ; ", t, flags=re.I)
     t = re.sub(r"</?(tr|table|thead|tbody|p|div|br|figure|figcaption|li|ul|ol)\b[^>]*>", "\n", t, flags=re.I)
-    t = re.sub(r"<[^>]+>", " ", t)
+    t = re.sub(r"</?[A-Za-z][^<>]*>", " ", t)
     # Gemini's "[cite: 11, 22]" is a citation marker like any other.
     t = re.sub(r"\[cite:\s*([\d,\s]+)\]", lambda m: "".join("[%s]" % x.strip() for x in m.group(1).split(",") if x.strip()), t)
     if gemini:
@@ -121,23 +169,31 @@ def from_markdown(raw: str) -> tuple[str, list[str]]:
         return index[url]
     t = re.sub(r"!\[\]\[image\d+\]", LOST, t)                                  # Gemini's lost formulas
     t = re.sub(r"!\[[^\]]*\]\([^)]*\)", " ", t)                               # images
-    # Chips after a full stop move inside it: "x. [site](u) [site2](u2)" -> "x [1][2]."
-    t = re.sub(r"([.!?])((?:\s*\[[a-z0-9][a-z0-9.-]{1,39}\]\(https?://[^)\s]+\))+)",
-               lambda m: " " + "".join("[%d]" % num(u) for u in re.findall(r"\]\((https?://[^)\s]+)\)", m.group(2))) + m.group(1),
-               t)
+    # Chips after a full stop (and any closing quote) move inside it:
+    # "x." [site](u) [site2](u2)" -> "x [1][2]."".
+    def chips_inside(m):
+        links = re.findall(r"\[([^\]\n]{1,60})\]\((" + URL + r")\)", m.group(2))
+        if not all(is_chip(tx, u) for tx, u in links):
+            return m.group(0)
+        return " " + "".join("[%d]" % num(u) for _tx, u in links) + m.group(1)
+    t = re.sub(r"([.!?]['\"”’)]*)((?:[ \t]*" + LINK + r")+)", chips_inside, t)
 
     def link(m):
         text, url = m.group(1), m.group(2)
-        if CHIP.match(text):
+        if is_chip(text, url):
             return "[%d]" % num(url)
         return "%s [%d]" % (text, num(url))
-    t = re.sub(r"\[([^\]]+)\]\((https?://[^)\s]+)[^)]*\)", link, t)
+    t = re.sub(r"\[([^\]]+)\]\((" + URL + r")[^)]*\)", link, t)
     t = re.sub(r"(\*\*|__|\*|_)(\S.*?\S|\S)\1", r"\2", t)                     # emphasis
+    # A citation numeral glued to "et al." ("Lane et al.3", "et al.1,4"), for
+    # every system: "et al. [3]".
+    t = re.sub(r"\bet al\.(\d{1,2}(?:,\d{1,2})*)(?![\d.]\d)",
+               lambda m: "et al. " + "".join("[%s]" % x for x in m.group(1).split(",")), t)
     if gemini:
-        # Glued citation numerals: after a lowercase word or a closing
-        # bracket, before punctuation or a space. Not after a capital (MUC2,
-        # D3), so names with digits are left alone.
-        t = re.sub(r"(?:(?<=[a-z]{3})|(?<=[)\]]))(\d{1,2}(?:,\d{1,2})*)(?=[\s.,;:]|$)",
+        # Glued citation numerals: after a lowercase word, a closing bracket
+        # or a closing quote ('"limited"47'), before punctuation or a space.
+        # Not after a capital (MUC2, D3), so names with digits are left alone.
+        t = re.sub(r"(?:(?<=[a-z]{3})|(?<=[)\]])|(?<=[a-z][\"”’]))(\d{1,2}(?:,\d{1,2})*)(?=[\s.,;:]|$)",
                    lambda m: " " + "".join("[%s]" % x for x in m.group(1).split(",")), t)
         t = re.sub(r"(?<=[a-z]) (\[\d+\](?:\[\d+\])*)([.,;:])", r" \1\2", t)
     t = re.sub(r"(?m)^\s*([-*+]|\d+\.)\s+", "", t)                            # list markers
@@ -157,7 +213,7 @@ def apply_rules(t: str) -> tuple[str, dict[str, int]]:
             t, n = re.subn(r["pattern"], r["replace"], t)
         if n:
             fired[r["id"]] = n
-    sp = {k: v for k, v in PHRASES["spelling"].items() if not k.startswith("_")}
+    sp = SPELLING
     n_sp = 0
 
     def swap(m):
@@ -190,7 +246,7 @@ def blind(path: Path, keep_lost: bool = False) -> tuple[str, dict[str, int]]:
     body = re.sub(r" *\n[ \n]*", "\n\n", body).strip()
     body, fired = apply_rules(body)
     if not keep_lost:
-        body = re.sub(r" ?" + LOST + r" ?", " ", body)
+        body = empty_cells(re.sub(r" ?" + LOST + r" ?", " ", body))
     if refs:
         refs_t, _ = apply_rules(_typography("\n".join(refs)))
         body += "\n\nReferences\n" + "\n".join("[%d] %s" % (i + 1, r) for i, r in enumerate(refs_t.splitlines()))
@@ -251,7 +307,7 @@ def sentence_rows(path: Path, system: str, context_chars: int = 400) -> list[dic
     for i, (s, pre) in enumerate(pairs):
         lost = LOST in s or re.search(r"\(\s*(to|-|,|;|vs\.?)?\s*\)", s)
         why = pre or ("value_not_captured" if lost else "") or process_reason(s)
-        s = " ".join(s.replace(LOST, " ").split())
+        s = empty_cells(" ".join(s.replace(LOST, " ").split()))
         rows.append({"system": system, "doc": path.name, "idx": i, "text": s,
                      "context": so_far[-context_chars:], "samplable": not why, "not_samplable_why": why})
         so_far += " " + s
