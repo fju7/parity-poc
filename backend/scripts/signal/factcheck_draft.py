@@ -1042,12 +1042,49 @@ def _record_issue_override(report: str, lifetime: int, why: str, flag: str) -> N
         pass
 
 
+def report_is_study(report: str) -> bool:
+    """Is the draft this report belongs to a study issue (issue.json "study":
+    true)? Resolved through issue_slug_for, as the spend ledger resolves it."""
+    try:
+        draft = report[:-len(".gate.json")] if report.endswith(".gate.json") else report
+        return bool(_spend is not None and _spend.is_study_issue(issue_slug_for(draft)))
+    except Exception:
+        return False
+
+
+def _study_check(report: str, st: dict, lifetime: int, past_cap, past_issue_cap, new_cycle) -> bool:
+    """A STUDY ISSUE: RULING 2 IS THE WHOLE LIMIT (2026-10-21).
+
+    The study's ruling 2 (advisor, 2026-10-20; study/whu-reliability/RUN.md
+    step 4) allows at most three gate runs per study issue. That is the only
+    limit: there is no per-cycle cap below it. WHU-P02's re-gate after the
+    clean re-run was its third run and was refused by RUNS_PER_CYCLE, which
+    belongs to published issues. A fourth run is refused, and on a study issue
+    nothing lifts that: --past-cap and --past-issue-cap are not honoured, as
+    no spend override is."""
+    if lifetime >= RUNS_PER_ISSUE:
+        print()
+        print("  STOP. This study issue has been gated %d times; ruling 2 allows %d."
+              % (lifetime, RUNS_PER_ISSUE))
+        if past_cap or past_issue_cap:
+            print("  A study issue has no override: --past-cap / --past-issue-cap are not honoured.")
+        print()
+        return False
+    if new_cycle:
+        st = {"cycle": st.get("cycle", 1) + 1, "runs": [], "closed": all_runs(st), "reason": None}
+        _cycle_path(report).write_text(json.dumps(st, indent=2), encoding="utf-8")
+    print("  Study issue: gate run %d of %d (ruling 2; no per-cycle cap)." % (lifetime + 1, RUNS_PER_ISSUE))
+    return True
+
+
 def cycle_check(report: str, past_cap: str | None, new_cycle: bool,
-                past_issue_cap: str | None = None) -> bool:
+                past_issue_cap: str | None = None, study: bool | None = None) -> bool:
     """False means stop. Prints why.
 
     past_issue_cap lifts RUNS_PER_ISSUE -- the lifetime budget -- and nothing
-    else; the per-cycle cap still needs --past-cap or a new cycle."""
+    else; the per-cycle cap still needs --past-cap or a new cycle. On a study
+    issue (study=None: decided from the report's issue) the limit is ruling
+    2's RUNS_PER_ISSUE alone, with no override (_study_check)."""
     if not report:
         return True
     if past_issue_cap is not None and not (past_issue_cap or "").strip():
@@ -1056,6 +1093,10 @@ def cycle_check(report: str, past_cap: str | None, new_cycle: bool,
     p = _cycle_path(report)
     st = cycle_state(report)
     lifetime = len(all_runs(st))
+    if study is None:
+        study = report_is_study(report)
+    if study:
+        return _study_check(report, st, lifetime, past_cap, past_issue_cap, new_cycle)
     over_issue = lifetime >= RUNS_PER_ISSUE
     if over_issue and past_issue_cap:
         print("  Past the issue's gate budget of %d, on the record: %s" % (RUNS_PER_ISSUE, past_issue_cap))
