@@ -57,7 +57,9 @@ def case(tmp_path, monkeypatch):
     monkeypatch.setattr(SA.sl, "case_dir", lambda slug: d)
     monkeypatch.setattr(SA.sl, "load", lambda slug: doc)
     monkeypatch.setattr(SA.sl, "access_of", lambda s: {"state": "machine-readable"})
-    monkeypatch.setattr(SA, "mentions", lambda text, s: ["a sentence about " + s["id"]])
+    monkeypatch.setattr(SA, "binding_rows", lambda slug: {})
+    monkeypatch.setattr(SA, "route", lambda text, rows: (
+        {s: ["a sentence about " + s] for s in ("S1", "S2", "S3")}, []))
     import audit_stage, stage_cap
     monkeypatch.setattr(audit_stage, "held_for_audit", lambda slug: dict(HELD))
     guarded = []

@@ -298,21 +298,59 @@ def _requote(b: dict, o: dict, text: str) -> dict:
     return got if isinstance(got, dict) else {}
 
 
-def mentions(page_text: str, src: dict) -> list[str]:
-    ids = sl.identifiers(src)
-    if not ids:
-        return []
-    out = []
+# ---------------------------------------------------------------------------
+# which sentences reach which source: the binding, never the wording (GAP-020)
+# ---------------------------------------------------------------------------
+#
+# The advocate used to hand a source every page sentence containing one of the
+# source's "identifiers" (words from its title, as sources.json spells it). On
+# WHU-P04 that misrouted silently: a sentence bound to one document but naming
+# another's publisher went to the wrong counsel, and a sentence bound to a
+# source whose title words it never used reached nobody. Now a sentence goes to
+# the sources its binding row rests on -- the span's source, also_rests_on and
+# premises (audit_stage.sources_of) -- and to no other. A sentence with no row,
+# or a row that rests on no source, reaches no source, and the run says so.
+
+NO_ROW = "no binding row"
+NO_SOURCE = "its binding row rests on no source"
+
+
+def binding_rows(slug: str) -> dict:
+    import bindings as B
+    return B.load(slug).get("bindings") or {}
+
+
+def route(page_text: str, rows: dict) -> tuple[dict[str, list[str]], list[dict]]:
+    """({source id: [sentences]}, [unrouted]) for every sentence of the page.
+    A row is found by the sentence's fingerprint (bindings.fingerprint), or by
+    the fingerprint of the sentence the row records."""
+    import audit_stage as A
+    fp = A.fingerprint
+    by_fp = dict(rows)
+    for k, v in rows.items():
+        if isinstance(v, dict) and v.get("sentence"):
+            by_fp.setdefault(fp(v["sentence"]), v)
+    routed: dict[str, list[str]] = {}
+    unrouted = []
     for s in sl.sentences(page_text):
-        if any(i.lower() in s.lower() for i in ids):
-            out.append(s)
-    return out
+        s = " ".join(s.split())
+        if not s:
+            continue
+        row = by_fp.get(fp(s))
+        ids = A.sources_of(row)
+        if not ids:
+            unrouted.append({"sentence": s, "why": NO_ROW if row is None else NO_SOURCE})
+            continue
+        for i in ids:
+            if s not in routed.setdefault(i, []):
+                routed[i].append(s)
+    return routed, unrouted
 
 
-def brief_for(slug: str, src: dict, page_text: str) -> dict | None:
+def brief_for(slug: str, src: dict, sents: list[str]) -> dict | None:
+    """SENTS: the page sentences bound to this source (route())."""
     acc = sl.access_of(src)
     state = acc.get("state")
-    sents = mentions(page_text, src)
     if not sents:
         return None
 
@@ -651,12 +689,14 @@ def _sha(s: str) -> str:
     return hashlib.sha256((s or "").encode("utf-8")).hexdigest()
 
 
-def run_inputs(args, text: str, srcs: list[dict], held: dict[str, str], day: str, only) -> dict:
+def run_inputs(args, text: str, srcs: list[dict], held: dict[str, str], day: str, only,
+               rows: dict | None = None) -> dict:
     """Everything a run's output depends on. A resume refuses if any of it
     (the day aside) differs from the stopped run's."""
     return {"slug": args.slug, "page": args.page, "page_body_sha256": _sha(text),
             "sources_sha256": _sha(json.dumps(srcs, sort_keys=True, ensure_ascii=False)),
             "held_sha256": {s["id"]: _sha(held.get(s["id"]) or "") for s in srcs},
+            "bindings_sha256": _sha(json.dumps(rows or {}, sort_keys=True, ensure_ascii=False)),
             "only": sorted(only) if only else None,
             "prompts_sha256": {"advocate": _sha(ADVOCATE_SYSTEM), "questions": _sha(QUESTIONS_SYSTEM),
                                "requote": _sha(REQUOTE_SYSTEM)},
@@ -686,9 +726,9 @@ def is_cap_stop(exc: BaseException) -> bool:
     return any(c.__name__ in ("OverCap", "OverIssueCap") for c in type(exc).__mro__)
 
 
-def would_call(s: dict, text: str) -> bool:
+def would_call(s: dict, routed: dict[str, list[str]]) -> bool:
     st = sl.access_of(s).get("state")
-    return st not in (sl.NOT_OPENED, sl.BLOCKED) and bool(mentions(text, s))
+    return st not in (sl.NOT_OPENED, sl.BLOCKED) and bool(routed.get(s["id"]))
 
 
 def cmd_run(args) -> int:
@@ -724,7 +764,9 @@ def cmd_run(args) -> int:
     srcs = doc.get("sources", [])
     if only:
         srcs = [s for s in srcs if s["id"] in set(only)]
-    inputs = run_inputs(args, text, srcs, held, day, only)
+    rows = binding_rows(args.slug)
+    routed, unrouted = route(text, rows)
+    inputs = run_inputs(args, text, srcs, held, day, only, rows)
     if resume:
         changed = sorted(k for k in inputs if k != "day" and inputs[k] != saved.get(k))
         if changed:
@@ -737,7 +779,7 @@ def cmd_run(args) -> int:
     # read are estimated to cost more than is left today or on the issue.
     import stage_cap
     stage_cap.guard("advocate", args.slug,
-                    sum(1 for s in srcs if s["id"] not in done_briefs and would_call(s, text)))
+                    sum(1 for s in srcs if s["id"] not in done_briefs and would_call(s, routed)))
     if not resume:
         stamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
         rd, n = runs_dir(args.slug) / stamp, 1
@@ -750,6 +792,20 @@ def cmd_run(args) -> int:
     _state(rd, status="running", resumed=bool(resume))
     print("  run         %s%s" % (rd.relative_to(ROOT), " (resumed: %d brief(s), %d quotation check(s) "
                                   "saved)" % (len(done_briefs), len(done_checks)) if resume else ""))
+
+    # WHAT REACHED NO SOURCE (GAP-020): every sentence with no binding to a
+    # source, reported and saved with the run, never dropped silently.
+    held_ids = {s["id"] for s in srcs}
+    (rd / "routing.json").write_text(json.dumps({
+        "routed": {k: v for k, v in sorted(routed.items()) if k in held_ids},
+        "bound_to_sources_not_in_this_run": sorted(k for k in routed if k not in held_ids),
+        "unrouted": unrouted}, indent=1, ensure_ascii=False) + "\n", encoding="utf-8")
+    print("  routing     %d sentence(s) reach a source by their binding; %d reach none "
+          "(%d with no binding row, %d whose row rests on no source; %s)"
+          % (len({x for v in routed.values() for x in v}), len(unrouted),
+             sum(1 for u in unrouted if u["why"] == NO_ROW),
+             sum(1 for u in unrouted if u["why"] == NO_SOURCE),
+             (rd / "routing.json").relative_to(ROOT)))
 
     run_id = rd.name
     bp = briefs_path(args.slug, run_id)
@@ -771,7 +827,7 @@ def cmd_run(args) -> int:
                       f"{done_briefs[s['id']]['mode']} (from the stopped run)")
                 continue
             print(f"  {s['id']:5} {st:12} {principal(s)[:58]}")
-            b = brief_for(args.slug, s, text)
+            b = brief_for(args.slug, s, routed.get(s["id"]) or [])
             if b:
                 briefs.append(b)
                 if not b.get("failed"):

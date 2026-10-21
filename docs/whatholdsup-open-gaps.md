@@ -3996,3 +3996,10 @@ The source advocate's quotations were never checked when written; on WHU-P02, 22
 On WHU-P02 the advocate's objections S005-11 and S005-12 were on one sentence and were ruled in two calls; the two rulings could each return a text for that sentence, and only one can be on the page.
 
 The audit stage's own rulings (`audit_stage.py`, audit and second-reader) are not ruling.py's and are not changed: the audit already reads and rules one sentence unit at a time.
+
+## GAP-020 — The advocate routed sentences by source names, so a name mismatch silently misrouted them
+
+**Raised by** advisor, 2026-10-21 (WHU-P04 practice run).
+**Status:** fixed in the commit that adds this entry (`git log -1 --format=%h -S"GAP-020 — The advocate" -- docs/whatholdsup-open-gaps.md`). `source_advocate run` routes each page sentence to the sources its binding row rests on (the span's source, `also_rests_on` and `premises`; `audit_stage.sources_of`), found by the sentence's fingerprint, and to no other. A sentence with no binding row, or whose row rests on no source, reaches no source; the run prints how many and writes them to `advocate/runs/<run id>/routing.json` (`unrouted`, each with why). The bindings' sha256 is one of the run's inputs, so a resume refuses if the bindings changed. Test: `backend/tests/test_whatholdsup_advocate_routing.py`.
+
+The advocate used to hand a source every sentence containing a word from that source's title as `sources.json` spells it. A sentence bound to one source that never used its title words reached no counsel, and a sentence naming another source's author (a sentence with "IPCC" in it, bound to a different document) went to that author's counsel. Neither was reported.
