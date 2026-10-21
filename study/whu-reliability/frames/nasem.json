@@ -1,7 +1,8 @@
 {
  "frame": "nasem",
  "kind": "candidate list (no eligibility tested; see draw)",
- "built_at": "2026-10-21T12:19:16+00:00",
+ "protocol": "rev 34",
+ "built_at": "2026-10-21T16:53:54+00:00",
  "script": "study/whu-reliability/scripts/frames.py",
  "window": {
   "from": "2024-01-01",
@@ -24,7 +25,1457 @@
   "Issue Paper": 6,
   "Rapid Expert Consultation": 6
  },
- "candidates": 186,
+ "consensus_reports": 186,
+ "division_exclusion": {
+  "rule": "protocol rev 34: a report of the Health and Medicine Division is not a candidate; protocol rev 34 (extended 2026-10-21): nor is a report listed under any unit whose remit is human health or medicine; a report listed under several units is excluded if any one of them is excluded",
+  "how_recorded": "the catalogue's own 'unit' filter, one listing query per unit; every unit of the Health and Medicine Division and every unit whose name contains 'Health' or 'Medicine' is queried and classified (units[code].classification); a report on any excluded unit's listing is excluded and the units are recorded with it",
+  "kept_units": [
+   "BAHSCR",
+   "COSEMPUP",
+   "CWSE"
+  ],
+  "unclassified_units": [],
+  "units": {
+   "HMD": {
+    "name": "Health and Medicine Division",
+    "group": "Health and Medicine Division",
+    "excluded": true,
+    "classification": "excluded: protocol rev 34",
+    "listing": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=HMD&page=<n>",
+    "listing_pages": 10,
+    "listing_cards": 151,
+    "consensus_reports_listed": 48
+   },
+   "BGH": {
+    "name": "Board on Global Health",
+    "group": "Health and Medicine Division",
+    "excluded": true,
+    "classification": "excluded: protocol rev 34",
+    "listing": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=BGH&page=<n>",
+    "listing_pages": 13,
+    "listing_cards": 172,
+    "consensus_reports_listed": 4
+   },
+   "HCS": {
+    "name": "Board on Health Care Services",
+    "group": "Health and Medicine Division",
+    "excluded": true,
+    "classification": "excluded: protocol rev 34",
+    "listing": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=HCS&page=<n>",
+    "listing_pages": 16,
+    "listing_cards": 269,
+    "consensus_reports_listed": 22
+   },
+   "HPDP": {
+    "name": "Board on Health Promotion and Disease Prevention",
+    "group": "Health and Medicine Division",
+    "excluded": true,
+    "classification": "excluded: protocol rev 34",
+    "listing": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=HPDP&page=<n>",
+    "listing_pages": 3,
+    "listing_cards": 38,
+    "consensus_reports_listed": 0
+   },
+   "HSP": {
+    "name": "Board on Health Sciences Policy",
+    "group": "Health and Medicine Division",
+    "excluded": true,
+    "classification": "excluded: protocol rev 34",
+    "listing": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=HSP&page=<n>",
+    "listing_pages": 28,
+    "listing_cards": 403,
+    "consensus_reports_listed": 13
+   },
+   "NBH": {
+    "name": "Board on Neuroscience and Behavioral Health",
+    "group": "Health and Medicine Division",
+    "excluded": true,
+    "classification": "excluded: protocol rev 34",
+    "listing": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=NBH&page=<n>",
+    "listing_pages": 1,
+    "listing_cards": 7,
+    "consensus_reports_listed": 0
+   },
+   "BPH": {
+    "name": "Board on Population Health and Public Health Practice",
+    "group": "Health and Medicine Division",
+    "excluded": true,
+    "classification": "excluded: protocol rev 34",
+    "listing": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=BPH&page=<n>",
+    "listing_pages": 19,
+    "listing_cards": 309,
+    "consensus_reports_listed": 14
+   },
+   "BSP": {
+    "name": "Board on the Health of Select Populations",
+    "group": "Health and Medicine Division",
+    "excluded": true,
+    "classification": "excluded: protocol rev 34",
+    "listing": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=BSP&page=<n>",
+    "listing_pages": 4,
+    "listing_cards": 58,
+    "consensus_reports_listed": 0
+   },
+   "FNB": {
+    "name": "Food and Nutrition Board",
+    "group": "Health and Medicine Division",
+    "excluded": true,
+    "classification": "excluded: protocol rev 34",
+    "listing": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=FNB&page=<n>",
+    "listing_pages": 13,
+    "listing_cards": 200,
+    "consensus_reports_listed": 7
+   },
+   "EO": {
+    "name": "Health and Medicine Division Executive Office",
+    "group": "Health and Medicine Division",
+    "excluded": true,
+    "classification": "excluded: protocol rev 34",
+    "listing": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=EO&page=<n>",
+    "listing_pages": 3,
+    "listing_cards": 40,
+    "consensus_reports_listed": 0
+   },
+   "MFUA": {
+    "name": "Medical Follow-Up Agency",
+    "group": "Health and Medicine Division",
+    "excluded": true,
+    "classification": "excluded: protocol rev 34",
+    "listing": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=MFUA&page=<n>",
+    "listing_pages": 1,
+    "listing_cards": 16,
+    "consensus_reports_listed": 0
+   },
+   "NCPB": {
+    "name": "National Cancer Policy Board",
+    "group": "Health and Medicine Division",
+    "excluded": true,
+    "classification": "excluded: protocol rev 34",
+    "listing": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=NCPB&page=<n>",
+    "listing_pages": 1,
+    "listing_cards": 15,
+    "consensus_reports_listed": 0
+   },
+   "CHPP": {
+    "name": "Center for Health, People, and Places",
+    "group": "Center for Health, People, and Places",
+    "excluded": true,
+    "classification": "excluded: protocol rev 34 (extended 2026-10-21)",
+    "listing": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=CHPP&page=<n>",
+    "listing_pages": 18,
+    "listing_cards": 277,
+    "consensus_reports_listed": 119
+   },
+   "BHS": {
+    "name": "Biomedical and Health Sciences Program Area",
+    "group": "Center for Health, People, and Places",
+    "excluded": true,
+    "classification": "excluded: protocol rev 34 (extended 2026-10-21)",
+    "listing": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=BHS&page=<n>",
+    "listing_pages": 36,
+    "listing_cards": 506,
+    "consensus_reports_listed": 16
+   },
+   "HCPH": {
+    "name": "Health Care and Public Health Program Area",
+    "group": "Center for Health, People, and Places",
+    "excluded": true,
+    "classification": "excluded: protocol rev 34 (extended 2026-10-21)",
+    "listing": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=HCPH&page=<n>",
+    "listing_pages": 40,
+    "listing_cards": 604,
+    "consensus_reports_listed": 44
+   },
+   "CHPP EO": {
+    "name": "Center for Health, People, and Places Executive Office",
+    "group": "Center for Health, People, and Places",
+    "excluded": true,
+    "classification": "excluded: protocol rev 34 (extended 2026-10-21)",
+    "listing": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=CHPP+EO&page=<n>",
+    "listing_pages": 2,
+    "listing_cards": 8,
+    "consensus_reports_listed": 1
+   },
+   "IOM": {
+    "name": "Institute of Medicine",
+    "group": "Institute of Medicine",
+    "excluded": true,
+    "classification": "excluded: protocol rev 34 (extended 2026-10-21)",
+    "listing": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=IOM&page=<n>",
+    "listing_pages": 1,
+    "listing_cards": 0,
+    "consensus_reports_listed": 0
+   },
+   "BMVH": {
+    "name": "Board on Military and Veterans Health",
+    "group": "Institute of Medicine",
+    "excluded": true,
+    "classification": "excluded: protocol rev 34 (extended 2026-10-21)",
+    "listing": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=BMVH&page=<n>",
+    "listing_pages": 1,
+    "listing_cards": 6,
+    "consensus_reports_listed": 0
+   },
+   "NAM": {
+    "name": "National Academy of Medicine",
+    "group": "National Academy of Medicine",
+    "excluded": true,
+    "classification": "excluded: protocol rev 34 (extended 2026-10-21)",
+    "listing": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=NAM&page=<n>",
+    "listing_pages": 1,
+    "listing_cards": 9,
+    "consensus_reports_listed": 1
+   },
+   "NAMEND": {
+    "name": "National Academy of Medicine Endowments",
+    "group": "National Academy of Medicine",
+    "excluded": true,
+    "classification": "excluded: protocol rev 34 (extended 2026-10-21)",
+    "listing": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=NAMEND&page=<n>",
+    "listing_pages": 1,
+    "listing_cards": 0,
+    "consensus_reports_listed": 0
+   },
+   "NAMEO": {
+    "name": "National Academy of Medicine Executive Office",
+    "group": "National Academy of Medicine",
+    "excluded": true,
+    "classification": "excluded: protocol rev 34 (extended 2026-10-21)",
+    "listing": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=NAMEO&page=<n>",
+    "listing_pages": 2,
+    "listing_cards": 22,
+    "consensus_reports_listed": 0
+   },
+   "LC": {
+    "name": "National Academy of Medicine Leadership Consortium",
+    "group": "National Academy of Medicine",
+    "excluded": true,
+    "classification": "excluded: protocol rev 34 (extended 2026-10-21)",
+    "listing": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=LC&page=<n>",
+    "listing_pages": 1,
+    "listing_cards": 1,
+    "consensus_reports_listed": 0
+   },
+   "NAMMO": {
+    "name": "National Academy of Medicine Membership Office",
+    "group": "National Academy of Medicine",
+    "excluded": true,
+    "classification": "excluded: protocol rev 34 (extended 2026-10-21)",
+    "listing": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=NAMMO&page=<n>",
+    "listing_pages": 1,
+    "listing_cards": 0,
+    "consensus_reports_listed": 0
+   },
+   "NAMPO": {
+    "name": "National Academy of Medicine President's Office",
+    "group": "National Academy of Medicine",
+    "excluded": true,
+    "classification": "excluded: protocol rev 34 (extended 2026-10-21)",
+    "listing": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=NAMPO&page=<n>",
+    "listing_pages": 1,
+    "listing_cards": 7,
+    "consensus_reports_listed": 1
+   },
+   "NAM PRGM": {
+    "name": "National Academy of Medicine Programs",
+    "group": "National Academy of Medicine",
+    "excluded": true,
+    "classification": "excluded: protocol rev 34 (extended 2026-10-21)",
+    "listing": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=NAM+PRGM&page=<n>",
+    "listing_pages": 1,
+    "listing_cards": 2,
+    "consensus_reports_listed": 0
+   },
+   "HPFLP": {
+    "name": "Health Policy Fellowships and Leadership Programs",
+    "group": "National Academy of Medicine",
+    "excluded": true,
+    "classification": "excluded: protocol rev 34 (extended 2026-10-21)",
+    "listing": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=HPFLP&page=<n>",
+    "listing_pages": 1,
+    "listing_cards": 0,
+    "consensus_reports_listed": 0
+   },
+   "GHRB": {
+    "name": "Gulf Health and Resilience Board",
+    "group": "Gulf Research Program",
+    "excluded": true,
+    "classification": "excluded: protocol rev 34 (extended 2026-10-21)",
+    "listing": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=GHRB&page=<n>",
+    "listing_pages": 1,
+    "listing_cards": 9,
+    "consensus_reports_listed": 1
+   },
+   "COSEMPUP": {
+    "name": "Committee on Science, Engineering, Medicine, and Public Policy",
+    "group": "Policy and Global Affairs",
+    "excluded": false,
+    "classification": "kept: protocol rev 34 (extended 2026-10-21)",
+    "listing": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=COSEMPUP&page=<n>",
+    "listing_pages": 4,
+    "listing_cards": 69,
+    "consensus_reports_listed": 1,
+    "of_these_left_in_frame": 1
+   },
+   "CWSE": {
+    "name": "Committee on Women in Science, Engineering, and Medicine",
+    "group": "Policy and Global Affairs",
+    "excluded": false,
+    "classification": "kept: protocol rev 34 (extended 2026-10-21)",
+    "listing": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=CWSE&page=<n>",
+    "listing_pages": 3,
+    "listing_cards": 31,
+    "consensus_reports_listed": 0,
+    "of_these_left_in_frame": 0
+   },
+   "BAHSCR": {
+    "name": "Board on Animal Health Sciences, Conservation, and Research",
+    "group": "Division on Earth and Life Studies",
+    "excluded": false,
+    "classification": "kept: protocol rev 34 (extended 2026-10-21)",
+    "listing": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=BAHSCR&page=<n>",
+    "listing_pages": 1,
+    "listing_cards": 4,
+    "consensus_reports_listed": 1,
+    "of_these_left_in_frame": 0
+   }
+  },
+  "excluded": 120,
+  "excluded_reports": [
+   {
+    "id": "25395",
+    "title": "Nutrient Requirements of Poultry: Tenth Revised Edition",
+    "year": 2026,
+    "units": [
+     "CHPP"
+    ]
+   },
+   {
+    "id": "26894",
+    "title": "Foundational Research Gaps and Future Directions for Digital Twins",
+    "year": 2024,
+    "units": [
+     "CHPP"
+    ]
+   },
+   {
+    "id": "27058",
+    "title": "Reducing Intergenerational Poverty",
+    "year": 2024,
+    "units": [
+     "CHPP"
+    ]
+   },
+   {
+    "id": "27154",
+    "title": "Potential Hydrodynamic Impacts of Offshore Wind Energy on Nantucket Shoals Regional Ecology: An Evaluation from Wind to Whales",
+    "year": 2024,
+    "units": [
+     "CHPP"
+    ]
+   },
+   {
+    "id": "27157",
+    "title": "A Research Agenda Toward Atmospheric Methane Removal",
+    "year": 2024,
+    "units": [
+     "CHPP"
+    ]
+   },
+   {
+    "id": "27159",
+    "title": "Chemical Terrorism: Assessment of U.S. Strategies in the Era of Great Power Competition",
+    "year": 2024,
+    "units": [
+     "CHPP"
+    ]
+   },
+   {
+    "id": "27165",
+    "title": "Charting a Future for Sequencing RNA and Its Modifications: A New Era for Biology and Medicine",
+    "year": 2024,
+    "units": [
+     "HMD",
+     "HSP",
+     "CHPP",
+     "BHS"
+    ]
+   },
+   {
+    "id": "27169",
+    "title": "A Roadmap for Disclosure Avoidance in the Survey of Income and Program Participation",
+    "year": 2024,
+    "units": [
+     "CHPP"
+    ]
+   },
+   {
+    "id": "27170",
+    "title": "Compounding Disasters in Gulf Coast Communities 2020-2021: Impacts, Findings, and Lessons Learned",
+    "year": 2024,
+    "units": [
+     "GHRB"
+    ]
+   },
+   {
+    "id": "27213",
+    "title": "Community-Driven Relocation: Recommendations for the U.S. Gulf Coast Region and Beyond",
+    "year": 2024,
+    "units": [
+     "CHPP"
+    ]
+   },
+   {
+    "id": "27285",
+    "title": "A Vision for Continental-Scale Biology: Research Across Multiple Scales",
+    "year": 2025,
+    "units": [
+     "CHPP"
+    ]
+   },
+   {
+    "id": "27313",
+    "title": "Assessing Equity in the Distribution of Fisheries Management Benefits: Data and Information Availability",
+    "year": 2024,
+    "units": [
+     "CHPP"
+    ]
+   },
+   {
+    "id": "27317",
+    "title": "Constructing Valid Geospatial Tools for Environmental Justice",
+    "year": 2024,
+    "units": [
+     "CHPP"
+    ]
+   },
+   {
+    "id": "27333",
+    "title": "Creating an Integrated System of Data and Statistics on Household Income, Consumption, and Wealth: Time to Build",
+    "year": 2024,
+    "units": [
+     "CHPP"
+    ]
+   },
+   {
+    "id": "27337",
+    "title": "Ocean Acoustics Education and Expertise",
+    "year": 2025,
+    "units": [
+     "CHPP"
+    ]
+   },
+   {
+    "id": "27375",
+    "title": "Low Birth Weight Babies and Disability",
+    "year": 2024,
+    "units": [
+     "HMD",
+     "HCS",
+     "CHPP",
+     "HCPH"
+    ]
+   },
+   {
+    "id": "27396",
+    "title": "Social Media and Adolescent Health",
+    "year": 2024,
+    "units": [
+     "HMD",
+     "BPH",
+     "CHPP",
+     "HCPH"
+    ]
+   },
+   {
+    "id": "27414",
+    "title": "Progress and Priorities in Ocean Drilling: In Search of Earth's Past and Future",
+    "year": 2024,
+    "units": [
+     "CHPP"
+    ]
+   },
+   {
+    "id": "27425",
+    "title": "Essential Health Care Services Addressing Intimate Partner Violence",
+    "year": 2024,
+    "units": [
+     "HMD",
+     "HCS",
+     "HSP",
+     "BPH",
+     "CHPP",
+     "HCPH"
+    ]
+   },
+   {
+    "id": "27429",
+    "title": "A New Vision for High-Quality Preschool Curriculum",
+    "year": 2024,
+    "units": [
+     "CHPP"
+    ]
+   },
+   {
+    "id": "27440",
+    "title": "Enhancing EPA Science Capability for a Complex Future: Recommendations for Use of Title 42 Special Hiring Authority",
+    "year": 2024,
+    "units": [
+     "CHPP"
+    ]
+   },
+   {
+    "id": "27449",
+    "title": "State of Knowledge Regarding Transmission, Spread, and Management of Chronic Wasting Disease in U.S. Captive and Free-Ranging Cervid Populations",
+    "year": 2025,
+    "units": [
+     "CHPP"
+    ]
+   },
+   {
+    "id": "27459",
+    "title": "Exploring Linkages Between Soil Health and Human Health",
+    "year": 2024,
+    "units": [
+     "HMD",
+     "FNB",
+     "CHPP"
+    ]
+   },
+   {
+    "id": "27460",
+    "title": "Modernizing Probable Maximum Precipitation Estimation",
+    "year": 2024,
+    "units": [
+     "CHPP"
+    ]
+   },
+   {
+    "id": "27472",
+    "title": "Advancing Vineyard Health: Insights and Innovations for Combating Grapevine Red Blotch and Leafroll Diseases",
+    "year": 2025,
+    "units": [
+     "CHPP"
+    ]
+   },
+   {
+    "id": "27515",
+    "title": "Potential Environmental Effects of Nuclear War",
+    "year": 2025,
+    "units": [
+     "CHPP"
+    ]
+   },
+   {
+    "id": "27516",
+    "title": "Increasing the Utility of Wastewater-based Disease Surveillance for Public Health Action: A Phase 2 Report",
+    "year": 2024,
+    "units": [
+     "HMD",
+     "BPH",
+     "CHPP",
+     "HCPH"
+    ]
+   },
+   {
+    "id": "27595",
+    "title": "Advancing Clinical Research with Pregnant and Lactating Populations: Overcoming Real and Perceived Liability Risks",
+    "year": 2024,
+    "units": [
+     "HMD",
+     "HSP",
+     "CHPP",
+     "BHS"
+    ]
+   },
+   {
+    "id": "27623",
+    "title": "The Role of Seafood Consumption in Child Growth and Development",
+    "year": 2024,
+    "units": [
+     "HMD",
+     "FNB",
+     "CHPP"
+    ]
+   },
+   {
+    "id": "27652",
+    "title": "Future State of Smallpox Medical Countermeasures",
+    "year": 2024,
+    "units": [
+     "HMD",
+     "BGH",
+     "HSP",
+     "CHPP",
+     "BHS",
+     "HCPH"
+    ]
+   },
+   {
+    "id": "27734",
+    "title": "Myopia: Causes, Prevention, and Treatment of an Increasingly Common Disease",
+    "year": 2024,
+    "units": [
+     "CHPP",
+     "BHS"
+    ]
+   },
+   {
+    "id": "27739",
+    "title": "Living with ALS",
+    "year": 2024,
+    "units": [
+     "HMD",
+     "HCS",
+     "HSP",
+     "CHPP",
+     "BHS",
+     "HCPH"
+    ]
+   },
+   {
+    "id": "27746",
+    "title": "Evidence Review of the Adverse Effects of COVID-19 Vaccination and Intramuscular Vaccine Administration",
+    "year": 2024,
+    "units": [
+     "HMD",
+     "BPH",
+     "CHPP",
+     "HCPH"
+    ]
+   },
+   {
+    "id": "27750",
+    "title": "Heritable Genetic Modification in Food Animals",
+    "year": 2025,
+    "units": [
+     "HMD",
+     "FNB",
+     "CHPP"
+    ]
+   },
+   {
+    "id": "27756",
+    "title": "Long-Term Health Effects of COVID-19: Disability and Function Following SARS-CoV-2 Infection",
+    "year": 2024,
+    "units": [
+     "HMD",
+     "HCS",
+     "CHPP",
+     "HCPH"
+    ]
+   },
+   {
+    "id": "27757",
+    "title": "Advancing Research on Chronic Conditions in Women",
+    "year": 2024,
+    "units": [
+     "HMD",
+     "HCS",
+     "BPH",
+     "CHPP",
+     "HCPH"
+    ]
+   },
+   {
+    "id": "27759",
+    "title": "Expanding Behavioral Health Care Workforce Participation in Medicare, Medicaid, and Marketplace Plans",
+    "year": 2024,
+    "units": [
+     "HMD",
+     "HCS",
+     "CHPP",
+     "HCPH"
+    ]
+   },
+   {
+    "id": "27765",
+    "title": "Challenges in Supply, Market Competition, and Regulation of Infant Formula in the United States",
+    "year": 2024,
+    "units": [
+     "HMD",
+     "BGH",
+     "FNB",
+     "CHPP"
+    ]
+   },
+   {
+    "id": "27766",
+    "title": "Cannabis Policy Impacts Public Health and Health Equity",
+    "year": 2024,
+    "units": [
+     "HMD",
+     "BPH",
+     "CHPP",
+     "HCPH"
+    ]
+   },
+   {
+    "id": "27768",
+    "title": "A Long COVID Definition: A Chronic, Systemic Disease State with Profound Consequences",
+    "year": 2024,
+    "units": [
+     "HMD",
+     "BGH",
+     "HSP",
+     "CHPP",
+     "BHS",
+     "HCPH"
+    ]
+   },
+   {
+    "id": "27775",
+    "title": "Sex and Gender Identification and Implications for Disability Evaluation",
+    "year": 2024,
+    "units": [
+     "HMD",
+     "HCS",
+     "CHPP",
+     "HCPH"
+    ]
+   },
+   {
+    "id": "27796",
+    "title": "Biodiversity and Climate Change Assessment: Review of Draft Chapters",
+    "year": 2025,
+    "units": [
+     "CHPP"
+    ]
+   },
+   {
+    "id": "27820",
+    "title": "Ending Unequal Treatment: Strategies to Achieve Equitable Health Care and Optimal Health for All",
+    "year": 2024,
+    "units": [
+     "HMD",
+     "HCS",
+     "BPH",
+     "CHPP",
+     "HCPH",
+     "NAM",
+     "NAMPO"
+    ]
+   },
+   {
+    "id": "27833",
+    "title": "The Future of Youth Development: Building Systems and Strengthening Programs",
+    "year": 2025,
+    "units": [
+     "CHPP"
+    ]
+   },
+   {
+    "id": "27835",
+    "title": "Launching Lifelong Health by Improving Health Care for Children, Youth, and Families",
+    "year": 2024,
+    "units": [
+     "HMD",
+     "HCS",
+     "CHPP",
+     "HCPH"
+    ]
+   },
+   {
+    "id": "27846",
+    "title": "Forecasting the Ocean: The 2025–2035 Decade of Ocean Science",
+    "year": 2025,
+    "units": [
+     "CHPP"
+    ]
+   },
+   {
+    "id": "27875",
+    "title": "Progress Toward Restoring the Everglades: The Tenth Biennial Review - 2024",
+    "year": 2024,
+    "units": [
+     "CHPP"
+    ]
+   },
+   {
+    "id": "27913",
+    "title": "Rethinking Race and Ethnicity in Biomedical Research",
+    "year": 2025,
+    "units": [
+     "HMD",
+     "HCS",
+     "HSP",
+     "BPH",
+     "CHPP",
+     "BHS"
+    ]
+   },
+   {
+    "id": "27923",
+    "title": "Developing a Strategy to Evaluate the National Climate Assessment",
+    "year": 2024,
+    "units": [
+     "CHPP"
+    ]
+   },
+   {
+    "id": "27929",
+    "title": "Response to the Pay PCPs Act of 2024 Request for Information",
+    "year": 2024,
+    "units": [
+     "HMD",
+     "HCS",
+     "CHPP",
+     "HCPH"
+    ]
+   },
+   {
+    "id": "27934",
+    "title": "Principles and Practices for a Federal Statistical Agency: Eighth Edition",
+    "year": 2025,
+    "units": [
+     "CHPP"
+    ]
+   },
+   {
+    "id": "27955",
+    "title": "Women's Empowerment, Population Dynamics, and Socioeconomic Development",
+    "year": 2025,
+    "units": [
+     "CHPP"
+    ]
+   },
+   {
+    "id": "27957",
+    "title": "Rethinking the Acceptable Macronutrient Distribution Range for the 21st Century: A Letter Report",
+    "year": 2024,
+    "units": [
+     "HMD",
+     "FNB",
+     "CHPP"
+    ]
+   },
+   {
+    "id": "27958",
+    "title": "Off-Lake Sources of Airborne Dust in Owens Valley, California",
+    "year": 2025,
+    "units": [
+     "CHPP"
+    ]
+   },
+   {
+    "id": "27959",
+    "title": "Adult Learning in the Military Context",
+    "year": 2024,
+    "units": [
+     "CHPP"
+    ]
+   },
+   {
+    "id": "27968",
+    "title": "Regulatory Processes for Rare Disease Drugs in the United States and European Union: Flexibilities and Collaborative Opportunities",
+    "year": 2024,
+    "units": [
+     "HMD",
+     "HSP",
+     "CHPP",
+     "BHS"
+    ]
+   },
+   {
+    "id": "27971",
+    "title": "Strategic Report on Research and Development in Biotechnology for Defense Innovation",
+    "year": 2025,
+    "units": [
+     "CHPP"
+    ]
+   },
+   {
+    "id": "27978",
+    "title": "Municipal Solid Waste Recycling in the United States: Analysis of Current and Alternative Approaches",
+    "year": 2025,
+    "units": [
+     "CHPP"
+    ]
+   },
+   {
+    "id": "27985",
+    "title": "Response to the Centers for Medicare & Medicaid Services CY 2025 Advanced Primary Care Hybrid Payment Request for Information",
+    "year": 2024,
+    "units": [
+     "HMD",
+     "HCS",
+     "CHPP",
+     "HCPH"
+    ]
+   },
+   {
+    "id": "28456",
+    "title": "Economic and Social Mobility: New Directions for Data, Research, and Policy",
+    "year": 2025,
+    "units": [
+     "CHPP"
+    ]
+   },
+   {
+    "id": "28577",
+    "title": "Blueprint for a National Prevention Infrastructure for Mental, Emotional, and Behavioral Disorders",
+    "year": 2025,
+    "units": [
+     "HMD",
+     "BPH",
+     "CHPP",
+     "HCPH"
+    ]
+   },
+   {
+    "id": "28578",
+    "title": "Charting a Path Toward New Treatments for Lyme Infection-Associated Chronic Illnesses",
+    "year": 2025,
+    "units": [
+     "HMD",
+     "BGH",
+     "HSP",
+     "CHPP",
+     "BHS",
+     "HCPH"
+    ]
+   },
+   {
+    "id": "28580",
+    "title": "Advancing Face and Hand Transplantation: Principles and Framework for Developing Standardized Protocols",
+    "year": 2025,
+    "units": [
+     "HMD",
+     "HCS",
+     "HSP",
+     "CHPP",
+     "HCPH"
+    ]
+   },
+   {
+    "id": "28582",
+    "title": "Review of Evidence on Alcohol and Health",
+    "year": 2025,
+    "units": [
+     "HMD",
+     "FNB",
+     "CHPP"
+    ]
+   },
+   {
+    "id": "28584",
+    "title": "Veterans, Prescription Opioids and Benzodiazepines, and Mortality, 2007–2019: Three Target Trial Emulations",
+    "year": 2025,
+    "units": [
+     "HMD",
+     "BPH",
+     "CHPP",
+     "HCPH"
+    ]
+   },
+   {
+    "id": "28585",
+    "title": "Evaluation of Manhattan Project Records for Veteran Health and Exposure Assessments",
+    "year": 2025,
+    "units": [
+     "HMD",
+     "BPH",
+     "CHPP",
+     "HCPH"
+    ]
+   },
+   {
+    "id": "28586",
+    "title": "A New Vision for Women's Health Research: Transformative Change at the National Institutes of Health",
+    "year": 2025,
+    "units": [
+     "HMD",
+     "BPH",
+     "CHPP",
+     "HCPH"
+    ]
+   },
+   {
+    "id": "28588",
+    "title": "Preventing and Treating Dementia: Research Priorities to Accelerate Progress",
+    "year": 2025,
+    "units": [
+     "HMD",
+     "HSP",
+     "CHPP",
+     "BHS"
+    ]
+   },
+   {
+    "id": "28590",
+    "title": "Attribution of Extreme Weather and Climate Events and Their Impacts",
+    "year": 2026,
+    "units": [
+     "CHPP"
+    ]
+   },
+   {
+    "id": "28592",
+    "title": "Review of Texas Commission on Environmental Quality's Ethylene Oxide Development Support Document",
+    "year": 2025,
+    "units": [
+     "CHPP"
+    ]
+   },
+   {
+    "id": "28868",
+    "title": "The Age of AI in the Life Sciences: Benefits and Biosecurity Considerations",
+    "year": 2025,
+    "units": [
+     "CHPP"
+    ]
+   },
+   {
+    "id": "29043",
+    "title": "The Science and Practice of Team Science",
+    "year": 2025,
+    "units": [
+     "CHPP"
+    ]
+   },
+   {
+    "id": "29048",
+    "title": "Cybercrime Classification and Measurement",
+    "year": 2025,
+    "units": [
+     "CHPP"
+    ]
+   },
+   {
+    "id": "29057",
+    "title": "Managing Highway Stormwater Quality: Driving Progress",
+    "year": 2026,
+    "units": [
+     "CHPP"
+    ]
+   },
+   {
+    "id": "29065",
+    "title": "Protein Quality and Growth Monitoring Studies: Quality Factor Requirements for Infant Formula",
+    "year": 2025,
+    "units": [
+     "HMD",
+     "FNB",
+     "CHPP"
+    ]
+   },
+   {
+    "id": "29068",
+    "title": "Meeting Future U.S. Mineral Resource Needs: The Role of the U.S. Geological Survey Mineral Resources Program",
+    "year": 2025,
+    "units": [
+     "CHPP"
+    ]
+   },
+   {
+    "id": "29069",
+    "title": "Improving Primary Care Valuation Processes to Inform the Physician Fee Schedule",
+    "year": 2025,
+    "units": [
+     "HMD",
+     "HCS",
+     "CHPP",
+     "HCPH"
+    ]
+   },
+   {
+    "id": "29092",
+    "title": "Fulfilling the Public Mission of the Land-Grant System: Building Platforms for Collaboration and Impact",
+    "year": 2025,
+    "units": [
+     "CHPP"
+    ]
+   },
+   {
+    "id": "29102",
+    "title": "Newborn Screening in the United States: A Vision for Sustaining and Advancing Excellence",
+    "year": 2025,
+    "units": [
+     "HMD",
+     "HSP",
+     "CHPP",
+     "BHS"
+    ]
+   },
+   {
+    "id": "29104",
+    "title": "Measuring Meaningful Outcomes for Adult Hearing Health Interventions",
+    "year": 2025,
+    "units": [
+     "HMD",
+     "HCS",
+     "CHPP",
+     "HCPH"
+    ]
+   },
+   {
+    "id": "29105",
+    "title": "School Active Shooter Drills: Mitigating Risks to Mental, Emotional, and Behavioral Health",
+    "year": 2025,
+    "units": [
+     "CHPP"
+    ]
+   },
+   {
+    "id": "29118",
+    "title": "Breastfeeding in the United States: Strategies to Support Families and Achieve National Goals",
+    "year": 2025,
+    "units": [
+     "CHPP",
+     "HCPH"
+    ]
+   },
+   {
+    "id": "29124",
+    "title": "Visual Field Assessment and Disability Evaluation",
+    "year": 2025,
+    "units": [
+     "HMD",
+     "HCS",
+     "CHPP",
+     "HCPH"
+    ]
+   },
+   {
+    "id": "29130",
+    "title": "Review of the Long-Term Operations of the Central Valley Project and the State Water Project",
+    "year": 2026,
+    "units": [
+     "CHPP"
+    ]
+   },
+   {
+    "id": "29137",
+    "title": "Sickle Cell Disease in Social Security Disability Evaluations: Pain and Treatment Settings",
+    "year": 2025,
+    "units": [
+     "HMD",
+     "HCS",
+     "CHPP",
+     "HCPH"
+    ]
+   },
+   {
+    "id": "29139",
+    "title": "The Comprehensive Autism Care Demonstration: Solutions for Military Families",
+    "year": 2025,
+    "units": [
+     "HMD",
+     "HCS",
+     "CHPP",
+     "HCPH"
+    ]
+   },
+   {
+    "id": "29157",
+    "title": "Aligning Investments in Therapeutic Development with Therapeutic Need: Closing the Gap",
+    "year": 2025,
+    "units": [
+     "HMD",
+     "HCS",
+     "CHPP",
+     "HCPH"
+    ]
+   },
+   {
+    "id": "29163",
+    "title": "Pathways to Reduce Child Poverty: Impacts of Federal Tax Credits",
+    "year": 2026,
+    "units": [
+     "CHPP"
+    ]
+   },
+   {
+    "id": "29182",
+    "title": "State of the Science and the Future of Cumulative Impact Assessment",
+    "year": 2025,
+    "units": [
+     "CHPP",
+     "HCPH"
+    ]
+   },
+   {
+    "id": "29213",
+    "title": "Strengthening Alcohol Policies and Supporting Safety and Health in the Maritime Industry",
+    "year": 2026,
+    "units": [
+     "CHPP",
+     "HCPH",
+     "CHPP EO"
+    ]
+   },
+   {
+    "id": "29217",
+    "title": "Improving Future U.S. Drought Assessment",
+    "year": 2026,
+    "units": [
+     "CHPP"
+    ]
+   },
+   {
+    "id": "29219",
+    "title": "Exploring Military Exposures and Mental, Behavioral, and Neurologic Health Outcomes Among Post-9/11 Veterans",
+    "year": 2025,
+    "units": [
+     "HMD",
+     "BPH",
+     "CHPP",
+     "BHS"
+    ]
+   },
+   {
+    "id": "29226",
+    "title": "Building a Workforce to Develop and Sustain Interprofessional Primary Care Teams",
+    "year": 2025,
+    "units": [
+     "HMD",
+     "HCS",
+     "CHPP",
+     "HCPH"
+    ]
+   },
+   {
+    "id": "29234",
+    "title": "Early Relational Health: Building Foundations for Child, Family, and Community Well-Being",
+    "year": 2025,
+    "units": [
+     "CHPP",
+     "HCPH"
+    ]
+   },
+   {
+    "id": "29239",
+    "title": "Effects of Human-Caused Greenhouse Gas Emissions on U.S. Climate, Health, and Welfare",
+    "year": 2025,
+    "units": [
+     "HMD",
+     "HSP",
+     "CHPP",
+     "BHS"
+    ]
+   },
+   {
+    "id": "29240",
+    "title": "Vaccine Risk Monitoring and Evaluation at the Centers for Disease Control and Prevention",
+    "year": 2025,
+    "units": [
+     "HMD",
+     "BPH",
+     "CHPP",
+     "HCPH"
+    ]
+   },
+   {
+    "id": "29255",
+    "title": "Offshore Renewable Energy Development on the West Coast: Understanding Effects on Shipping, Fisheries, and Maritime Activities",
+    "year": 2026,
+    "units": [
+     "CHPP"
+    ]
+   },
+   {
+    "id": "29259",
+    "title": "Response to the Centers for Medicare & Medicaid Services CY 2026 Physician Fee Schedule and Other Changes to Part B Payment and Coverage Policies Proposed Rule",
+    "year": 2025,
+    "units": [
+     "HMD",
+     "HCS",
+     "CHPP",
+     "HCPH"
+    ]
+   },
+   {
+    "id": "29261",
+    "title": "Assessing Radiation Exposure, Health Outcomes, and Mitigation Strategies for Flight Crewmembers",
+    "year": 2026,
+    "units": [
+     "CHPP",
+     "BHS"
+    ]
+   },
+   {
+    "id": "29282",
+    "title": "Promoting the Quality of Data on Marine Recreational Fishing",
+    "year": 2026,
+    "units": [
+     "CHPP"
+    ]
+   },
+   {
+    "id": "29290",
+    "title": "A Synthesis Center for Paleoenvironmental Records of Extreme Events",
+    "year": 2026,
+    "units": [
+     "CHPP"
+    ]
+   },
+   {
+    "id": "29319",
+    "title": "Sickle Cell Disease in Social Security Disability Evaluations",
+    "year": 2025,
+    "units": [
+     "HMD",
+     "HCS",
+     "CHPP",
+     "HCPH"
+    ]
+   },
+   {
+    "id": "29325",
+    "title": "Supporting Responsible Innovation of Synthetic Cells: Biosafety, Biosecurity, and Environmental Considerations",
+    "year": 2026,
+    "units": [
+     "CHPP"
+    ]
+   },
+   {
+    "id": "29329",
+    "title": "Review of the SBIR and STTR Programs at the Department of Defense",
+    "year": 2026,
+    "units": [
+     "CHPP"
+    ]
+   },
+   {
+    "id": "29343",
+    "title": "Technologies and Practices for Plugging and Remediating Orphan Oil and Gas Wells",
+    "year": 2026,
+    "units": [
+     "CHPP"
+    ]
+   },
+   {
+    "id": "29346",
+    "title": "Strategies to Enhance NIH-Funded Pediatric Research: Optimizing Child Health",
+    "year": 2026,
+    "units": [
+     "CHPP",
+     "HCPH"
+    ]
+   },
+   {
+    "id": "29347",
+    "title": "Enabling DOE Regional Energy–Water Technology Pilots",
+    "year": 2026,
+    "units": [
+     "CHPP"
+    ]
+   },
+   {
+    "id": "29365",
+    "title": "A Data Infrastructure for Measuring the Care Economy",
+    "year": 2026,
+    "units": [
+     "CHPP"
+    ]
+   },
+   {
+    "id": "29381",
+    "title": "Review of the SBIR and STTR Programs at NASA",
+    "year": 2026,
+    "units": [
+     "CHPP"
+    ]
+   },
+   {
+    "id": "29399",
+    "title": "Evaluation of ARPA-E's Mission and Goals",
+    "year": 2026,
+    "units": [
+     "CHPP"
+    ]
+   },
+   {
+    "id": "29404",
+    "title": "Clinical Follow-Up and Care for Those Impacted by the JP-5 Releases at Red Hill",
+    "year": 2026,
+    "units": [
+     "CHPP",
+     "BHS",
+     "HCPH"
+    ]
+   },
+   {
+    "id": "29411",
+    "title": "Review of the Draft U.S. National Assessment by The Nature Record",
+    "year": 2026,
+    "units": [
+     "CHPP"
+    ]
+   },
+   {
+    "id": "29422",
+    "title": "Progress Toward Restoring the Everglades: The Eleventh Biennial Review - 2026",
+    "year": 2026,
+    "units": [
+     "CHPP"
+    ]
+   },
+   {
+    "id": "29425",
+    "title": "Protecting Maternal Heart Health: Prevention and Care Before, During, and After Pregnancy",
+    "year": 2026,
+    "units": [
+     "CHPP",
+     "HCPH"
+    ]
+   },
+   {
+    "id": "29439",
+    "title": "Using Community Partnerships to Inform the Prevention Strategy of the Center for Medicare and Medicaid Innovation",
+    "year": 2026,
+    "units": [
+     "CHPP",
+     "HCPH"
+    ]
+   },
+   {
+    "id": "29444",
+    "title": "Using Mobile Apps and Wearable Technology in Primary Care Settings to Inform the Prevention Strategy of the Center for Medicare and Medicaid Innovation",
+    "year": 2026,
+    "units": [
+     "CHPP",
+     "HCPH"
+    ]
+   },
+   {
+    "id": "29453",
+    "title": "Improving Disability Evaluations for Veterans Who Have Experienced Military Sexual Trauma",
+    "year": 2026,
+    "units": [
+     "CHPP",
+     "HCPH"
+    ]
+   },
+   {
+    "id": "29472",
+    "title": "Health and Safety Impacts of Aircraft Cabin Temperatures",
+    "year": 2026,
+    "units": [
+     "CHPP",
+     "BHS"
+    ]
+   },
+   {
+    "id": "29554",
+    "title": "Response to the Centers for Medicare & Medicaid Services CY 2027 Payment Policies under the Physician Fee Schedule and Other Changes to Part B Payment and Coverage Policies Proposed Rule",
+    "year": 2026,
+    "units": [
+     "CHPP",
+     "HCPH"
+    ]
+   },
+   {
+    "id": "29579",
+    "title": "Assessment of the SBIR and STTR Programs at the Department of Energy",
+    "year": 2026,
+    "units": [
+     "CHPP"
+    ]
+   }
+  ]
+ },
+ "candidates": 66,
  "order": "by National Academies publication id, ascending",
  "note": "the catalogue gives a year, not a date: a candidate dated after 2026-09-30 within 2026 is caught by the draw's date test",
  "excluded_topics": {
@@ -34,12 +1485,12 @@
   "T01 exercise and depression": "(?:exercise|physical activity|physical training|yoga|walking).{0,80}depress|depress\\w*.{0,80}(?:exercise|physical activity)",
   "T02 / WHU-P02 ultra-processed foods": "ultra-?processed|\\bprocessed foods?\\b|\\bNOVA\\b",
   "T03 intermittent fasting": "intermittent fasting|time-restricted (?:eating|feeding)|alternate[- ]day fasting|\\b5:2\\b|periodic fasting",
-  "T04 vitamin D (over 60)": "vitamin D|cholecalciferol|ergocalciferol|calcifediol|calcitriol"
+  "T04 vitamin D (supplementation in older adults)": "^(?=.*\\b(?:vitamin D|cholecalciferol|ergocalciferol|calcifediol|calcitriol)\\b)(?=.*\\b(?:older (?:adults?|people|persons?|women|men|individuals|patients)|elderly|aged (?:60|65|70)|over (?:60|65|70)|(?:60|65|70) years (?:and|or) (?:over|older)|later life|old age|seniors?|geriatric|nursing homes?|care homes?|long-term care))"
  },
  "queries_logged": [
   {
    "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&page=1",
-   "at": "2026-10-21T11:54:15+00:00",
+   "at": "2026-10-21T16:02:40+00:00",
    "status": 200,
    "bytes": 1316154,
    "sha256": "483d1ec8c464400a7b792e6466215cfc29ac35a5c87e9d02c008ff8df0d56b94",
@@ -47,7 +1498,7 @@
   },
   {
    "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&page=2",
-   "at": "2026-10-21T11:54:15+00:00",
+   "at": "2026-10-21T16:02:40+00:00",
    "status": 200,
    "bytes": 1317177,
    "sha256": "e5ebed095c1d671d5157e953028e9d7d7d3c9f8f043022a8e0e93dfff56b7ef2",
@@ -55,7 +1506,7 @@
   },
   {
    "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&page=3",
-   "at": "2026-10-21T11:54:15+00:00",
+   "at": "2026-10-21T16:02:40+00:00",
    "status": 200,
    "bytes": 1316935,
    "sha256": "5d8cb7e3b957f38f853a9cccc1be13a9d8a856d19f465b836930eb7b3dff3caa",
@@ -63,7 +1514,7 @@
   },
   {
    "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&page=4",
-   "at": "2026-10-21T12:02:08+00:00",
+   "at": "2026-10-21T16:02:40+00:00",
    "status": 200,
    "bytes": 1316768,
    "sha256": "02c14f372c006460877342a9d9e0a0ff5d3ef43134de614305bfd4e692d965c9",
@@ -71,7 +1522,7 @@
   },
   {
    "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&page=5",
-   "at": "2026-10-21T12:02:29+00:00",
+   "at": "2026-10-21T16:02:40+00:00",
    "status": 200,
    "bytes": 1317042,
    "sha256": "cd0d2c00fcb09b8078aa0774d153bb2f18ae7bcb6d34108ae64c770fc009bc2b",
@@ -79,7 +1530,7 @@
   },
   {
    "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&page=6",
-   "at": "2026-10-21T12:02:51+00:00",
+   "at": "2026-10-21T16:02:40+00:00",
    "status": 200,
    "bytes": 1318002,
    "sha256": "e066a341466241a65ece4b98b8ede545f6ea26cdb410d0eed34235410e0de674",
@@ -87,7 +1538,7 @@
   },
   {
    "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&page=7",
-   "at": "2026-10-21T12:03:12+00:00",
+   "at": "2026-10-21T16:02:40+00:00",
    "status": 200,
    "bytes": 1317099,
    "sha256": "0e1cbb4a96d34bf954320a6e117677f97c98c312d897203a66e82d133565cc7e",
@@ -95,7 +1546,7 @@
   },
   {
    "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&page=8",
-   "at": "2026-10-21T12:03:33+00:00",
+   "at": "2026-10-21T16:02:40+00:00",
    "status": 200,
    "bytes": 1316038,
    "sha256": "9be89792eaaf3467ed5f814f1bc7e89bca4c4c43c821b675f1b0e213dadaa4f0",
@@ -103,7 +1554,7 @@
   },
   {
    "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&page=9",
-   "at": "2026-10-21T12:03:55+00:00",
+   "at": "2026-10-21T16:02:40+00:00",
    "status": 200,
    "bytes": 1316337,
    "sha256": "7a77a2aa348c6112e08292383442a7a826e128f57ea8ff149cd6a81fb97dc354",
@@ -111,7 +1562,7 @@
   },
   {
    "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&page=10",
-   "at": "2026-10-21T12:04:16+00:00",
+   "at": "2026-10-21T16:02:40+00:00",
    "status": 200,
    "bytes": 1317425,
    "sha256": "1f24430e00a69568ca47eb7b20c80b41de9b95e880ce2f837d0cc288a4419cf2",
@@ -119,7 +1570,7 @@
   },
   {
    "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&page=11",
-   "at": "2026-10-21T12:04:38+00:00",
+   "at": "2026-10-21T16:02:40+00:00",
    "status": 200,
    "bytes": 1316999,
    "sha256": "77e0fbb7f2477c2e4488ca247f9aa0986061ed95bd8df12bb3ba55b591bf7458",
@@ -127,7 +1578,7 @@
   },
   {
    "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&page=12",
-   "at": "2026-10-21T12:04:59+00:00",
+   "at": "2026-10-21T16:02:40+00:00",
    "status": 200,
    "bytes": 1317111,
    "sha256": "d3032055a886b7450a685c4abab91dd3c81461eb2e649b938b574eca14cd5611",
@@ -135,7 +1586,7 @@
   },
   {
    "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&page=13",
-   "at": "2026-10-21T12:05:21+00:00",
+   "at": "2026-10-21T16:02:40+00:00",
    "status": 200,
    "bytes": 1316060,
    "sha256": "e6eefcda980df1a3546107beac486c905322620efae9469904e9b071b4f4e956",
@@ -143,7 +1594,7 @@
   },
   {
    "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&page=14",
-   "at": "2026-10-21T12:05:42+00:00",
+   "at": "2026-10-21T16:02:40+00:00",
    "status": 200,
    "bytes": 1318196,
    "sha256": "f40a116511c120d7be9741aa45f5cb3ac4a15d3fbf86db4e1bf0824b5d156d18",
@@ -151,7 +1602,7 @@
   },
   {
    "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&page=15",
-   "at": "2026-10-21T12:06:04+00:00",
+   "at": "2026-10-21T16:02:40+00:00",
    "status": 200,
    "bytes": 1318427,
    "sha256": "0af7739aa135fe941e6d722218ac1f30794b05fc9569896e3ca585e9683e5a3e",
@@ -159,7 +1610,7 @@
   },
   {
    "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&page=16",
-   "at": "2026-10-21T12:06:25+00:00",
+   "at": "2026-10-21T16:02:40+00:00",
    "status": 200,
    "bytes": 1316573,
    "sha256": "3e6304bfb2dc1dde00d2b484f93853ddadf9c720e06c516b565ac0a259318f1d",
@@ -167,7 +1618,7 @@
   },
   {
    "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&page=17",
-   "at": "2026-10-21T12:06:47+00:00",
+   "at": "2026-10-21T16:02:40+00:00",
    "status": 200,
    "bytes": 1317346,
    "sha256": "116289d40387c52a13f5e76da4c30899d0a627d9f4ea508953c740a0b89a8da9",
@@ -175,7 +1626,7 @@
   },
   {
    "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&page=18",
-   "at": "2026-10-21T12:07:08+00:00",
+   "at": "2026-10-21T16:02:40+00:00",
    "status": 200,
    "bytes": 1318146,
    "sha256": "3e754b6651cd4cd1003bf008c05f0816d3eddf1d792cf8ab5a06b8586facc3ae",
@@ -183,7 +1634,7 @@
   },
   {
    "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&page=19",
-   "at": "2026-10-21T12:07:29+00:00",
+   "at": "2026-10-21T16:02:40+00:00",
    "status": 200,
    "bytes": 1317320,
    "sha256": "e4d19e9c716f3f1d937f638ff947c1fa769fa0ca38389e5f32f6cea7bf8a9d78",
@@ -191,7 +1642,7 @@
   },
   {
    "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&page=20",
-   "at": "2026-10-21T12:07:51+00:00",
+   "at": "2026-10-21T16:02:40+00:00",
    "status": 200,
    "bytes": 1317224,
    "sha256": "e84447310678ed0e9025c9a08de0ca6bc63e9b8c14d8c770ab99f35d88aae857",
@@ -199,7 +1650,7 @@
   },
   {
    "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&page=21",
-   "at": "2026-10-21T12:08:12+00:00",
+   "at": "2026-10-21T16:02:40+00:00",
    "status": 200,
    "bytes": 1317840,
    "sha256": "1f5af650c5991a56c4a8b08ccc4f125f2a0c220e22ebb582eae7a7fb23324305",
@@ -207,7 +1658,7 @@
   },
   {
    "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&page=22",
-   "at": "2026-10-21T12:08:33+00:00",
+   "at": "2026-10-21T16:02:40+00:00",
    "status": 200,
    "bytes": 1318144,
    "sha256": "6b3b84ce014dac7d717048694f7707d6af081784eb2f9758c0e726ac9f8223c8",
@@ -215,7 +1666,7 @@
   },
   {
    "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&page=23",
-   "at": "2026-10-21T12:08:55+00:00",
+   "at": "2026-10-21T16:02:40+00:00",
    "status": 200,
    "bytes": 1317811,
    "sha256": "17b51e48acbb7978c658c3b2838501e4d78e6935e7d9031f6c84094e88de4654",
@@ -223,7 +1674,7 @@
   },
   {
    "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&page=24",
-   "at": "2026-10-21T12:09:16+00:00",
+   "at": "2026-10-21T16:02:40+00:00",
    "status": 200,
    "bytes": 1318525,
    "sha256": "086c810a2e0a285a8a68af5a7813620351d7d5d9ced1da41fd4143ae9b0669ce",
@@ -231,7 +1682,7 @@
   },
   {
    "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&page=25",
-   "at": "2026-10-21T12:09:38+00:00",
+   "at": "2026-10-21T16:02:40+00:00",
    "status": 200,
    "bytes": 1317354,
    "sha256": "184f2a8a3286708d5aa02c2445736de12c8ef1ae55a38aaabd281d87774589d8",
@@ -239,7 +1690,7 @@
   },
   {
    "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&page=26",
-   "at": "2026-10-21T12:09:59+00:00",
+   "at": "2026-10-21T16:02:40+00:00",
    "status": 200,
    "bytes": 1317430,
    "sha256": "8eec789713fda560d1edf9b0969407893f943ba3b2d14c8e20729b1bfa991459",
@@ -247,7 +1698,7 @@
   },
   {
    "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&page=27",
-   "at": "2026-10-21T12:10:21+00:00",
+   "at": "2026-10-21T16:02:40+00:00",
    "status": 200,
    "bytes": 1318790,
    "sha256": "9549f225709c40e13ad31db128e8b011a315d5a824946c93edf54d5746939356",
@@ -255,7 +1706,7 @@
   },
   {
    "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&page=28",
-   "at": "2026-10-21T12:10:42+00:00",
+   "at": "2026-10-21T16:02:40+00:00",
    "status": 200,
    "bytes": 1317951,
    "sha256": "b94db11cb4ea9a10a95430c7f0d797def24e9a043afd62adbe10fde463f2a0d3",
@@ -263,7 +1714,7 @@
   },
   {
    "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&page=29",
-   "at": "2026-10-21T12:11:03+00:00",
+   "at": "2026-10-21T16:02:40+00:00",
    "status": 200,
    "bytes": 1317732,
    "sha256": "c37d2b2d80ed27b12c4a17cc048b2eeea41bdeabf713791f9f2a6ab49d5e1993",
@@ -271,7 +1722,7 @@
   },
   {
    "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&page=30",
-   "at": "2026-10-21T12:11:25+00:00",
+   "at": "2026-10-21T16:02:40+00:00",
    "status": 200,
    "bytes": 1317999,
    "sha256": "d547df6c9d227caf5301ebc0a2d14f9fbd4e2cfe4f754f65e0d8fbe85245265f",
@@ -279,7 +1730,7 @@
   },
   {
    "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&page=31",
-   "at": "2026-10-21T12:11:46+00:00",
+   "at": "2026-10-21T16:02:40+00:00",
    "status": 200,
    "bytes": 1317703,
    "sha256": "7cb8b1646a8628aa09636219e3aaa7371711b80ebc3cacc0440e2a0b1b51c3b5",
@@ -287,7 +1738,7 @@
   },
   {
    "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&page=32",
-   "at": "2026-10-21T12:12:07+00:00",
+   "at": "2026-10-21T16:02:40+00:00",
    "status": 200,
    "bytes": 1318342,
    "sha256": "16eb34c7be72fc4f20435b3e571ada53978a0ee32af76d2a960ca1b904d5e40f",
@@ -295,7 +1746,7 @@
   },
   {
    "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&page=33",
-   "at": "2026-10-21T12:12:29+00:00",
+   "at": "2026-10-21T16:02:40+00:00",
    "status": 200,
    "bytes": 1317641,
    "sha256": "abf4a33b731a558e6e9a7ce699412cd21d35d789b9adf931a42f8f44b94a47f2",
@@ -303,7 +1754,7 @@
   },
   {
    "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&page=34",
-   "at": "2026-10-21T12:12:50+00:00",
+   "at": "2026-10-21T16:02:40+00:00",
    "status": 200,
    "bytes": 1318650,
    "sha256": "e493f83ac19e661104400a0236049a9473277c931324b7f9741041d5ba425447",
@@ -311,7 +1762,7 @@
   },
   {
    "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&page=35",
-   "at": "2026-10-21T12:13:12+00:00",
+   "at": "2026-10-21T16:02:40+00:00",
    "status": 200,
    "bytes": 1316899,
    "sha256": "88d0697dcece4a86bdf18a4854c80600adf127f055f563dfa705a378686b77b7",
@@ -319,7 +1770,7 @@
   },
   {
    "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&page=36",
-   "at": "2026-10-21T12:13:33+00:00",
+   "at": "2026-10-21T16:02:40+00:00",
    "status": 200,
    "bytes": 1317067,
    "sha256": "0724577a7ef5ca6fee63999eb3f9044f38cbe2a8ff634ea8948d50e690fc2f56",
@@ -327,7 +1778,7 @@
   },
   {
    "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&page=37",
-   "at": "2026-10-21T12:13:55+00:00",
+   "at": "2026-10-21T16:02:40+00:00",
    "status": 200,
    "bytes": 1318277,
    "sha256": "dabbba9d3a45c1aff1b2866b884dea5bae0864abe0eb360282fad63de7608cfb",
@@ -335,7 +1786,7 @@
   },
   {
    "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&page=38",
-   "at": "2026-10-21T12:14:16+00:00",
+   "at": "2026-10-21T16:02:40+00:00",
    "status": 200,
    "bytes": 1317533,
    "sha256": "096736a6789ee153e48eb6911542823aec07a46facab4bdb653b2f290a9c2b24",
@@ -343,7 +1794,7 @@
   },
   {
    "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&page=39",
-   "at": "2026-10-21T12:14:38+00:00",
+   "at": "2026-10-21T16:02:40+00:00",
    "status": 200,
    "bytes": 1317569,
    "sha256": "a4a224ee6e4d025ebf75db84a1a6fdc6d789855290f2241819169ed7b9ed07e1",
@@ -351,7 +1802,7 @@
   },
   {
    "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&page=40",
-   "at": "2026-10-21T12:14:59+00:00",
+   "at": "2026-10-21T16:02:40+00:00",
    "status": 200,
    "bytes": 1317092,
    "sha256": "4708456689f8c193d9abafa13cfac4b39fedf56735e6c052ced5bc5df06a5420",
@@ -359,7 +1810,7 @@
   },
   {
    "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&page=41",
-   "at": "2026-10-21T12:15:20+00:00",
+   "at": "2026-10-21T16:02:40+00:00",
    "status": 200,
    "bytes": 1317300,
    "sha256": "7beedca98b6a713cdc49b6bcd567c397f0a046c9b7cbed06b2535a05d1048f7b",
@@ -367,7 +1818,7 @@
   },
   {
    "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&page=42",
-   "at": "2026-10-21T12:15:42+00:00",
+   "at": "2026-10-21T16:02:40+00:00",
    "status": 200,
    "bytes": 1316708,
    "sha256": "ca4b15b9eb97f435e9dddd0233a52ee356cfb7cbe0d66e2b16b749492fc0c35f",
@@ -375,7 +1826,7 @@
   },
   {
    "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&page=43",
-   "at": "2026-10-21T12:16:03+00:00",
+   "at": "2026-10-21T16:02:40+00:00",
    "status": 200,
    "bytes": 1317563,
    "sha256": "f0367a526bef0b69982b5a06d5369e916ea351647ad66dadd34627f40c89e1c0",
@@ -383,7 +1834,7 @@
   },
   {
    "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&page=44",
-   "at": "2026-10-21T12:16:25+00:00",
+   "at": "2026-10-21T16:02:40+00:00",
    "status": 200,
    "bytes": 1316837,
    "sha256": "da02f48738ff3c38ea53f077c4a6a5860c2523ae2c1017565caf531d99adb52d",
@@ -391,7 +1842,7 @@
   },
   {
    "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&page=45",
-   "at": "2026-10-21T12:16:47+00:00",
+   "at": "2026-10-21T16:02:40+00:00",
    "status": 200,
    "bytes": 1318210,
    "sha256": "5a0116d4a4b4d1ad5ef701a5f6a82128a2e0156302a68165e96166561b04c1c8",
@@ -399,7 +1850,7 @@
   },
   {
    "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&page=46",
-   "at": "2026-10-21T12:17:08+00:00",
+   "at": "2026-10-21T16:02:40+00:00",
    "status": 200,
    "bytes": 1317770,
    "sha256": "55e9018ae3e2d506debd927363e64f34b4853407c3d7300de020370935abd8aa",
@@ -407,7 +1858,7 @@
   },
   {
    "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&page=47",
-   "at": "2026-10-21T12:17:29+00:00",
+   "at": "2026-10-21T16:02:40+00:00",
    "status": 200,
    "bytes": 1317900,
    "sha256": "a7315dd897bc763b443dee64a9a70d89c43be4349abe456fc0da84d043a203ef",
@@ -415,7 +1866,7 @@
   },
   {
    "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&page=48",
-   "at": "2026-10-21T12:17:51+00:00",
+   "at": "2026-10-21T16:02:40+00:00",
    "status": 200,
    "bytes": 1317250,
    "sha256": "04aab9c76058a9686db1cc843cd6cf0db360b50b6733c99c09fc89b2bd022a09",
@@ -423,7 +1874,7 @@
   },
   {
    "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&page=49",
-   "at": "2026-10-21T12:18:12+00:00",
+   "at": "2026-10-21T16:02:40+00:00",
    "status": 200,
    "bytes": 1318506,
    "sha256": "91ddff98895e2714d9eb0a72b026fdf3e98e1f4163e270ab4d35af740a1632ab",
@@ -431,7 +1882,7 @@
   },
   {
    "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&page=50",
-   "at": "2026-10-21T12:18:33+00:00",
+   "at": "2026-10-21T16:02:40+00:00",
    "status": 200,
    "bytes": 1316776,
    "sha256": "69050ed4b9ea1abfaba78cd34b18c6454ba5bce676ee4bc2313f5c99786f050b",
@@ -439,7 +1890,7 @@
   },
   {
    "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&page=51",
-   "at": "2026-10-21T12:18:55+00:00",
+   "at": "2026-10-21T16:02:40+00:00",
    "status": 200,
    "bytes": 1317804,
    "sha256": "b2a9744804d4e83e593b4b462a03457dda6a9c80ac627798c89fa861f60957b5",
@@ -447,24 +1898,1848 @@
   },
   {
    "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&page=52",
-   "at": "2026-10-21T12:19:16+00:00",
+   "at": "2026-10-21T16:02:40+00:00",
    "status": 200,
    "bytes": 1244678,
    "sha256": "c088761e5782031bb75eded72f220d6cb5cfa7043788e41c1cce965677574895",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&page=1",
+   "at": "2026-10-21T16:02:40+00:00",
+   "status": 200,
+   "bytes": 1316154,
+   "sha256": "483d1ec8c464400a7b792e6466215cfc29ac35a5c87e9d02c008ff8df0d56b94",
+   "kind": "nap-unit-filter"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=HMD&page=1",
+   "at": "2026-10-21T16:02:40+00:00",
+   "status": 200,
+   "bytes": 1311461,
+   "sha256": "6755e7637820ce714b6926c578c8ecc694cc32abf49a49438420deb504b2ac95",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=HMD&page=2",
+   "at": "2026-10-21T16:02:40+00:00",
+   "status": 200,
+   "bytes": 1311714,
+   "sha256": "9003bea4b4bc4822f72f1186d0213c00b3f3c23dcca77a3aad860d849a1917ad",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=HMD&page=3",
+   "at": "2026-10-21T16:02:40+00:00",
+   "status": 200,
+   "bytes": 1311632,
+   "sha256": "95481a53cb4d2b26dc108e00b61d5de4494b1ff1a5b160a1c5e13603a39ccfd1",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=HMD&page=4",
+   "at": "2026-10-21T16:02:40+00:00",
+   "status": 200,
+   "bytes": 1311677,
+   "sha256": "0c9d12aeeb070d5a5c4379a2daae2cf8dc827cbf4296ae170ded2cce8c3cfbbb",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=HMD&page=5",
+   "at": "2026-10-21T16:02:40+00:00",
+   "status": 200,
+   "bytes": 1311274,
+   "sha256": "5975aafa029c0c22e7673a6c799ed9d36d68b1e25c0661d7b65b37d005d402ce",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=HMD&page=6",
+   "at": "2026-10-21T16:02:40+00:00",
+   "status": 200,
+   "bytes": 1311506,
+   "sha256": "9330f3176e081a4378a0b86572a240edbd87cf84877d3bb4cd9ab2ff800ab146",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=HMD&page=7",
+   "at": "2026-10-21T16:02:40+00:00",
+   "status": 200,
+   "bytes": 1311302,
+   "sha256": "596f2dad981bc694a5a4076113a46b22c0356aa69f012ecee5bb790312197eed",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=HMD&page=8",
+   "at": "2026-10-21T16:02:40+00:00",
+   "status": 200,
+   "bytes": 1311437,
+   "sha256": "fb3065453cf5cb418934ffd2d27dd54926951e108c8489c96d0205ff5670b176",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=HMD&page=9",
+   "at": "2026-10-21T16:02:40+00:00",
+   "status": 200,
+   "bytes": 1311704,
+   "sha256": "8f3ee1515872af8ea7d84a191569e34fefd407aa1b4433bdceeafaf90942ebd2",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=HMD&page=10",
+   "at": "2026-10-21T16:02:40+00:00",
+   "status": 200,
+   "bytes": 1292786,
+   "sha256": "04ac58e1f136332f59225e53d46d723c801c1f91e4889dc09f29aac8d66f385e",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=BGH&page=1",
+   "at": "2026-10-21T16:02:40+00:00",
+   "status": 200,
+   "bytes": 1312096,
+   "sha256": "21709609dd2610b21d1e4e7b3cc243236916d9d441d558e3d5fdd34916005d4c",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=BGH&page=2",
+   "at": "2026-10-21T16:02:40+00:00",
+   "status": 200,
+   "bytes": 1312106,
+   "sha256": "5bbfec35a5913cebfbe2074ba9ae990c4e9c44737bf4e4e1d05e165b9b5fb756",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=BGH&page=3",
+   "at": "2026-10-21T16:02:40+00:00",
+   "status": 200,
+   "bytes": 1312338,
+   "sha256": "8e5ccd7ae74022dbb99c7a9d7a801b7b900206d0f83064c1872a61f1c321cdd4",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=BGH&page=4",
+   "at": "2026-10-21T16:02:40+00:00",
+   "status": 200,
+   "bytes": 1311980,
+   "sha256": "e00c356a13e5324db3e902d0a58a9de2774b9d10d31908183da78d3674642671",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=BGH&page=5",
+   "at": "2026-10-21T16:02:40+00:00",
+   "status": 200,
+   "bytes": 1311476,
+   "sha256": "e400ec7a8e4251853e5c985d896f385fb905f3332d1324d5eb0f4e04e9cfa9eb",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=BGH&page=6",
+   "at": "2026-10-21T16:02:40+00:00",
+   "status": 200,
+   "bytes": 1311593,
+   "sha256": "19c8dc9dbe14a79e057f6eebb482a6e3bedd891944319989a2e4df507ac3d869",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=BGH&page=7",
+   "at": "2026-10-21T16:02:40+00:00",
+   "status": 200,
+   "bytes": 1312217,
+   "sha256": "81ed42ab5cba1d162c29ee4b7bfff4e8638870c3ea6c6cafa3bf008a5279cf99",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=BGH&page=8",
+   "at": "2026-10-21T16:02:40+00:00",
+   "status": 200,
+   "bytes": 1312209,
+   "sha256": "985e46ffbc6a87ce37688d314532465ebc3dfcbf9acc948a86e46d2aa9d3cd84",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=BGH&page=9",
+   "at": "2026-10-21T16:02:40+00:00",
+   "status": 200,
+   "bytes": 1311994,
+   "sha256": "bade2a3f95d56d16bbaaf448171c5d2d6da1c760aaad10b1fd181384c4cde84e",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=BGH&page=10",
+   "at": "2026-10-21T16:02:40+00:00",
+   "status": 200,
+   "bytes": 1311562,
+   "sha256": "24017ea21f22fe9f81526672875fe4b45f91a164f16b6ed0234a2b089274708d",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=BGH&page=11",
+   "at": "2026-10-21T16:02:40+00:00",
+   "status": 200,
+   "bytes": 1311739,
+   "sha256": "edf47c51334196fdf40fd5e79a7fdd8c1f4d7d9436939ec48425268a4a4ceaf3",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=BGH&page=12",
+   "at": "2026-10-21T16:02:40+00:00",
+   "status": 200,
+   "bytes": 1311382,
+   "sha256": "53a6a29bf4d92b449d75327f87a9c79a319596c23a158eb34660a3d0abbbb68d",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=BGH&page=13",
+   "at": "2026-10-21T16:02:40+00:00",
+   "status": 200,
+   "bytes": 1274589,
+   "sha256": "ba4ef745206aad32d649b87ac5fb3ba1996a2f069a36ac4a7cdb314e00941086",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=HCS&page=1",
+   "at": "2026-10-21T16:02:40+00:00",
+   "status": 200,
+   "bytes": 1313219,
+   "sha256": "a9dbebdfb0d98714c3ad054edae5bb6c7552933d277001864f2e2996509cab7e",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=HCS&page=2",
+   "at": "2026-10-21T16:02:40+00:00",
+   "status": 200,
+   "bytes": 1313230,
+   "sha256": "bfdf77440761973196bf1940aaac4fac5b1136f1526ca7f584e62bfa3210e7f4",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=HCS&page=3",
+   "at": "2026-10-21T16:02:40+00:00",
+   "status": 200,
+   "bytes": 1313265,
+   "sha256": "4bf891f62255f05eedefde8dc9dd6f5f9dab1de5441a65b1437977ddd2278d5a",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=HCS&page=4",
+   "at": "2026-10-21T16:02:40+00:00",
+   "status": 200,
+   "bytes": 1313374,
+   "sha256": "373a3a373325d8158df279a408df20ca6be6ee30ac8a0c7a6ccbffd778860f3d",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=HCS&page=5",
+   "at": "2026-10-21T16:02:40+00:00",
+   "status": 200,
+   "bytes": 1313323,
+   "sha256": "bb5ad0d9c4fcda087a862ff628474648c07e70c149fe9a1f72c9e9c88f3faa5e",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=HCS&page=6",
+   "at": "2026-10-21T16:02:40+00:00",
+   "status": 200,
+   "bytes": 1313248,
+   "sha256": "84dc8dddca89a17ba388b3e67439922202995ba334c4c3de466d36cca9e5ff81",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=HCS&page=7",
+   "at": "2026-10-21T16:02:40+00:00",
+   "status": 200,
+   "bytes": 1313290,
+   "sha256": "3182a87c3c01ab239a5d6684f0c1334365f3ddb9b6ac91a4309a206bef9e5b1f",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=HCS&page=8",
+   "at": "2026-10-21T16:02:40+00:00",
+   "status": 200,
+   "bytes": 1313303,
+   "sha256": "24351b3faedf2a32ce39b3336806a3cd4179abe52c33cd8984d0fcce2b7ad8de",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=HCS&page=9",
+   "at": "2026-10-21T16:02:40+00:00",
+   "status": 200,
+   "bytes": 1312874,
+   "sha256": "4b3fe2e7bed4519bd452cb82264fee247dd1b14e2aed58507b469908a624cfaf",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=HCS&page=10",
+   "at": "2026-10-21T16:02:40+00:00",
+   "status": 200,
+   "bytes": 1312193,
+   "sha256": "6af612fcf398334fea79004584c50e505449d1862319eac41cc025b9cfa3e685",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=HCS&page=11",
+   "at": "2026-10-21T16:02:40+00:00",
+   "status": 200,
+   "bytes": 1312721,
+   "sha256": "9bcaa5d6c136a506770f2ec613550720dc98804c151cf497ab5f4a137ad85da0",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=HCS&page=12",
+   "at": "2026-10-21T16:02:40+00:00",
+   "status": 200,
+   "bytes": 1312011,
+   "sha256": "6d42ec77c74e26a973b1e7715bcdb8644b0e618dd0ef93b9011b1d7491c89106",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=HCS&page=13",
+   "at": "2026-10-21T16:02:40+00:00",
+   "status": 200,
+   "bytes": 1312079,
+   "sha256": "a80d32a3a3d8c0c1094296a7db07b9b56ba013e429d0cc1df23b73adfa2703af",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=HCS&page=14",
+   "at": "2026-10-21T16:02:40+00:00",
+   "status": 200,
+   "bytes": 1311841,
+   "sha256": "1ba7b36bcbbdffce52b458ce0ec61e4df1d89088401c4b5d1e9dcb74d8aea049",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=HCS&page=15",
+   "at": "2026-10-21T16:02:40+00:00",
+   "status": 200,
+   "bytes": 1311389,
+   "sha256": "e836f578c12f47406ec79d3b87fe35fe12c11847089131be570cf27bcf13ca23",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=HCS&page=16",
+   "at": "2026-10-21T16:02:40+00:00",
+   "status": 200,
+   "bytes": 1293214,
+   "sha256": "ee7111b6d4e38db237c331fc1e01dad9001eba6be42bd7263fc9c9f6ec15d536",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=HPDP&page=1",
+   "at": "2026-10-21T16:02:40+00:00",
+   "status": 200,
+   "bytes": 1306796,
+   "sha256": "63d78844b3d356bfd5d5e57c9a23a4296e0ded3de15474e371b53061499a39cd",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=HPDP&page=2",
+   "at": "2026-10-21T16:02:40+00:00",
+   "status": 200,
+   "bytes": 1307741,
+   "sha256": "1f592dc90ae0d147010e6f554d84e6e41efdcf887a1fdb2d70622bb3b2d7538f",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=HPDP&page=3",
+   "at": "2026-10-21T16:02:40+00:00",
+   "status": 200,
+   "bytes": 1210330,
+   "sha256": "02c034430476bb6ef021215de312170af867fcce099c26ed6a7eb911375f6ae6",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=HSP&page=1",
+   "at": "2026-10-21T16:02:40+00:00",
+   "status": 200,
+   "bytes": 1316624,
+   "sha256": "d3e50249d72b5c57908ce34d10a55681d7744b2bda8c7a2204c184ef2da7ff6a",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=HSP&page=2",
+   "at": "2026-10-21T16:02:40+00:00",
+   "status": 200,
+   "bytes": 1316705,
+   "sha256": "9f43caa4b1633ab08f1d108b4e9402e7e5a86d96c230032d416aba05160d2aee",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=HSP&page=3",
+   "at": "2026-10-21T16:02:40+00:00",
+   "status": 200,
+   "bytes": 1316711,
+   "sha256": "3ec8e44889d0e40f794f78e08381ab195fb18d5c495f3e50eff68bacb467679f",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=HSP&page=4",
+   "at": "2026-10-21T16:02:40+00:00",
+   "status": 200,
+   "bytes": 1317009,
+   "sha256": "a062a20b595d4d60162de8cb147cdce8e5ab857da86ec71add002930e0ede5ef",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=HSP&page=5",
+   "at": "2026-10-21T16:02:40+00:00",
+   "status": 200,
+   "bytes": 1315689,
+   "sha256": "0e5468d7e155d0f01e1721765944f70dd2c6d9051374e8c7392e557cd1cc20d3",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=HSP&page=6",
+   "at": "2026-10-21T16:02:40+00:00",
+   "status": 200,
+   "bytes": 1316564,
+   "sha256": "40dd092b2772ee0c4a2fe0b62c3cfd7ef4859064f22b21fd653658fd2ad81717",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=HSP&page=7",
+   "at": "2026-10-21T16:02:40+00:00",
+   "status": 200,
+   "bytes": 1315087,
+   "sha256": "62237e8f1c41f0ca75745bb24b46dfd1ca75b09e39090e32c7e6b7852d11b320",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=HSP&page=8",
+   "at": "2026-10-21T16:02:40+00:00",
+   "status": 200,
+   "bytes": 1316806,
+   "sha256": "2398bde3cee49fecc4bb17dadef612562a0e303c064203d31debf29af94fe208",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=HSP&page=9",
+   "at": "2026-10-21T16:02:40+00:00",
+   "status": 200,
+   "bytes": 1316227,
+   "sha256": "38febcb75a05897ac74ffd95dfc244962ac414856e8b502234ace0566d283938",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=HSP&page=10",
+   "at": "2026-10-21T16:02:40+00:00",
+   "status": 200,
+   "bytes": 1316203,
+   "sha256": "d0aa893454cc73d3311ec9a1939794eb12ecc0f42ab396d89908da3ce786e71d",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=HSP&page=11",
+   "at": "2026-10-21T16:02:40+00:00",
+   "status": 200,
+   "bytes": 1316642,
+   "sha256": "753ac0936bb5033e71870119d86780279e3fd9ef234cea3eb9abc0b0c55e6ce8",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=HSP&page=12",
+   "at": "2026-10-21T16:02:40+00:00",
+   "status": 200,
+   "bytes": 1315431,
+   "sha256": "e1042818448b23eb4e196dca903c3ca45582eddfb611f26b7117a0bb27434e49",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=HSP&page=13",
+   "at": "2026-10-21T16:02:40+00:00",
+   "status": 200,
+   "bytes": 1316050,
+   "sha256": "54427171d6826bc52090dd7d9054c638fc9aa8524a5e97b6a11bd436c2f88cc0",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=HSP&page=14",
+   "at": "2026-10-21T16:02:40+00:00",
+   "status": 200,
+   "bytes": 1316586,
+   "sha256": "107cc095c108fe5df7aa0ebfc3f0b039d73191c09eac0ddce304946aa6a52c05",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=HSP&page=15",
+   "at": "2026-10-21T16:02:40+00:00",
+   "status": 200,
+   "bytes": 1315586,
+   "sha256": "69fa1250ec2c1966c0b4bec5f38f10b715e79245127219e1cac232a509ed582e",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=HSP&page=16",
+   "at": "2026-10-21T16:02:40+00:00",
+   "status": 200,
+   "bytes": 1315302,
+   "sha256": "89b79c1d1be56f4e9ff0c88e867768b088dd46e7eda1cfd5e5ff1b797016d7ad",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=HSP&page=17",
+   "at": "2026-10-21T16:02:40+00:00",
+   "status": 200,
+   "bytes": 1316327,
+   "sha256": "e3605c3f98343ae62b23056d921b2378a3389a9a13b0b46e0ffd7c3a23d44c25",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=HSP&page=18",
+   "at": "2026-10-21T16:02:40+00:00",
+   "status": 200,
+   "bytes": 1315622,
+   "sha256": "61c101f755f969d5c731156b27ae415063c8289934c6b43456fe1a66bf4232ee",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=HSP&page=19",
+   "at": "2026-10-21T16:02:40+00:00",
+   "status": 200,
+   "bytes": 1315608,
+   "sha256": "4f04930d0457d04855b242327ebdb9718bec661d1d0b276a173d19b9884a037a",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=HSP&page=20",
+   "at": "2026-10-21T16:02:40+00:00",
+   "status": 200,
+   "bytes": 1316198,
+   "sha256": "878055e5a54a0b3b007c6dc64a4a3b6492703db0fe942fbda52d09b341074118",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=HSP&page=21",
+   "at": "2026-10-21T16:02:40+00:00",
+   "status": 200,
+   "bytes": 1315090,
+   "sha256": "4085e92672fb29c6539736937348176eb8e99c6c843f1d57a55e6c2692d27f38",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=HSP&page=22",
+   "at": "2026-10-21T16:02:40+00:00",
+   "status": 200,
+   "bytes": 1315518,
+   "sha256": "e4b919e486a1678e124922d75094573850b2fcef6fa1cab38d7c3311a399d2ff",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=HSP&page=23",
+   "at": "2026-10-21T16:02:40+00:00",
+   "status": 200,
+   "bytes": 1315549,
+   "sha256": "8dac02ebfe4742e67d9e826ad98c834be45349efb24c36a2072b1917a3569c36",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=HSP&page=24",
+   "at": "2026-10-21T16:02:40+00:00",
+   "status": 200,
+   "bytes": 1315440,
+   "sha256": "091ab15a8aabf03a1bf97dbcdb2b4c04783af4ffa141ab9a804071f35f2f4f45",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=HSP&page=25",
+   "at": "2026-10-21T16:02:40+00:00",
+   "status": 200,
+   "bytes": 1315823,
+   "sha256": "631b26aa96fef8de993fd21381e22a3f2e45a8867e5a299baa23af4110651d78",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=HSP&page=26",
+   "at": "2026-10-21T16:02:40+00:00",
+   "status": 200,
+   "bytes": 1314985,
+   "sha256": "148fe69bb26425c61334802037266506007eec2e4215c9a3c15f233ae3f31a77",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=HSP&page=27",
+   "at": "2026-10-21T16:02:40+00:00",
+   "status": 200,
+   "bytes": 1315569,
+   "sha256": "a3668e05f889ecb1bc24809cb1f06024db4608810032f430080d7d17f856189a",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=HSP&page=28",
+   "at": "2026-10-21T16:02:40+00:00",
+   "status": 200,
+   "bytes": 1260149,
+   "sha256": "eecd08a956c3639a7b91687db813adf681eec7669385de505a32d894981c11a5",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=NBH&page=1",
+   "at": "2026-10-21T16:02:40+00:00",
+   "status": 200,
+   "bytes": 1236368,
+   "sha256": "413336fb765f8da8bf654a5a69f3953231d3b71743d7b1fc0af1ea44d7caf7f0",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=BPH&page=1",
+   "at": "2026-10-21T16:02:40+00:00",
+   "status": 200,
+   "bytes": 1314151,
+   "sha256": "4d400e2c294e50590f25b52cd96e64edcf488b1c059b5135d14c1bba3910d458",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=BPH&page=2",
+   "at": "2026-10-21T16:02:40+00:00",
+   "status": 200,
+   "bytes": 1314017,
+   "sha256": "d91e5b6f2f84e6820104254d041b0a960e6afab8f525c38d050700cf296cf201",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=BPH&page=3",
+   "at": "2026-10-21T16:02:40+00:00",
+   "status": 200,
+   "bytes": 1313904,
+   "sha256": "e1c5b336d1a8dd7b93d0f833b4137a52fb6a7dbbfe00d610ef865a02c80d42c5",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=BPH&page=4",
+   "at": "2026-10-21T16:02:40+00:00",
+   "status": 200,
+   "bytes": 1313897,
+   "sha256": "39cac466727a2a2c7271ee150e7c6cb976c98bfbca86a8c12b6c3a6f9c47ae34",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=BPH&page=5",
+   "at": "2026-10-21T16:02:40+00:00",
+   "status": 200,
+   "bytes": 1313366,
+   "sha256": "2210348a6446a5caf9314b826695a6458364804c67ae49b4bb9b776e3fe67341",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=BPH&page=6",
+   "at": "2026-10-21T16:02:40+00:00",
+   "status": 200,
+   "bytes": 1313741,
+   "sha256": "35954d31c4d5d9efbd712408bf551faa920f3a1858b64262a364c79922e5e8ca",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=BPH&page=7",
+   "at": "2026-10-21T16:02:40+00:00",
+   "status": 200,
+   "bytes": 1313683,
+   "sha256": "038162ebb7a300c709d1b61cc943a31e458f0732add910ee3269dbf222ed110a",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=BPH&page=8",
+   "at": "2026-10-21T16:02:40+00:00",
+   "status": 200,
+   "bytes": 1313495,
+   "sha256": "249875938f8b89524a79456c6f4be4b824058b3183b902a68b3080d8f3e442b7",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=BPH&page=9",
+   "at": "2026-10-21T16:02:40+00:00",
+   "status": 200,
+   "bytes": 1313704,
+   "sha256": "9f945317baba8e1029554a723a41f34555adcfcaa17f190985ac920d5e8814d0",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=BPH&page=10",
+   "at": "2026-10-21T16:02:40+00:00",
+   "status": 200,
+   "bytes": 1313308,
+   "sha256": "2918a577311a25b9ef20e579f4c45502da351cbb9c5fa665eec0b3b0bc75ec92",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=BPH&page=11",
+   "at": "2026-10-21T16:02:40+00:00",
+   "status": 200,
+   "bytes": 1313368,
+   "sha256": "e086dccd1981ec5a1f7576d7c225de8c81ad655b45f1ccd5833c01b7402ad058",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=BPH&page=12",
+   "at": "2026-10-21T16:02:40+00:00",
+   "status": 200,
+   "bytes": 1313654,
+   "sha256": "3c9126b6bef583453d0657a40525d98f8925e97d31c8a7b4b302e404ea333b69",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=BPH&page=13",
+   "at": "2026-10-21T16:02:40+00:00",
+   "status": 200,
+   "bytes": 1313385,
+   "sha256": "38ef5a5b55ed0a1d2f18530e289f6090ef00f766a22ef4675d70822445b69be1",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=BPH&page=14",
+   "at": "2026-10-21T16:02:40+00:00",
+   "status": 200,
+   "bytes": 1313166,
+   "sha256": "843bf82ad89e8d20300707fe6fbebffb8543670fc42b691da144c5d38a0b4434",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=BPH&page=15",
+   "at": "2026-10-21T16:02:40+00:00",
+   "status": 200,
+   "bytes": 1313031,
+   "sha256": "47082cbaba92c4c9b7c33c7fa490445ede90618ec25c004ff1c186ad53d38e85",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=BPH&page=16",
+   "at": "2026-10-21T16:03:02+00:00",
+   "status": 200,
+   "bytes": 1313236,
+   "sha256": "3cb5bffb6a08e0686c23d1ee803630cee5f13b8c7d596e3d286f93f13622612b",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=BPH&page=17",
+   "at": "2026-10-21T16:03:23+00:00",
+   "status": 200,
+   "bytes": 1312939,
+   "sha256": "4340f4831ff6de0a8f67661b4777936e6ca587e24ffa2405323ff81f55597967",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=BPH&page=18",
+   "at": "2026-10-21T16:03:45+00:00",
+   "status": 200,
+   "bytes": 1312539,
+   "sha256": "591508d6ecd6341261fd7c2482d70d44e23cc4b7da35e2518880c88ed86bd686",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=BPH&page=19",
+   "at": "2026-10-21T16:04:06+00:00",
+   "status": 200,
+   "bytes": 1307145,
+   "sha256": "5b9abb1358f7ac6e20b4cfa1a2a2bce086181e3aebb89dfec392c3f45624c746",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=BSP&page=1",
+   "at": "2026-10-21T16:04:28+00:00",
+   "status": 200,
+   "bytes": 1309120,
+   "sha256": "0d666c6fa4afbc76070e7b4f35c9d82242921ebf926c734e6bb1b7bcbd194e41",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=BSP&page=2",
+   "at": "2026-10-21T16:04:49+00:00",
+   "status": 200,
+   "bytes": 1308569,
+   "sha256": "0362cec367feb82e99fef4c2b1f085efd6c3a7944bd42fb2ed431cb86739da21",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=BSP&page=3",
+   "at": "2026-10-21T16:05:10+00:00",
+   "status": 200,
+   "bytes": 1308722,
+   "sha256": "d6cb6faec096ac8661ed94ffb6ebb7a28c527220357046e8fcf9358e95300f22",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=BSP&page=4",
+   "at": "2026-10-21T16:05:32+00:00",
+   "status": 200,
+   "bytes": 1223264,
+   "sha256": "af80e2107e6c420a80b907276ee4cc3cdc985d6c8de49d94576a545d0e6f8a44",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=FNB&page=1",
+   "at": "2026-10-21T16:05:53+00:00",
+   "status": 200,
+   "bytes": 1312267,
+   "sha256": "c389b934d1fb57fba705f75e6d9b655ebb38d57fb023e3728ec5dd2fa76dd7ee",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=FNB&page=2",
+   "at": "2026-10-21T16:06:15+00:00",
+   "status": 200,
+   "bytes": 1312663,
+   "sha256": "c6d8228751a6329295bc83297aa87c68b621712fbed4ae381407c4ed063ad2fa",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=FNB&page=3",
+   "at": "2026-10-21T16:06:37+00:00",
+   "status": 200,
+   "bytes": 1312587,
+   "sha256": "524f72c9bf22ced0897c8d88125b4583e172d2d77a73085541ee4362064b0ab4",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=FNB&page=4",
+   "at": "2026-10-21T16:06:59+00:00",
+   "status": 200,
+   "bytes": 1311984,
+   "sha256": "585cda40c1a217a2ffa209c7d05e76de12e9138ea322f561b459fe604f457907",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=FNB&page=5",
+   "at": "2026-10-21T16:07:20+00:00",
+   "status": 200,
+   "bytes": 1312239,
+   "sha256": "afe211e1b6ba45713e64330c36addd7a0849d32796ee293949891551f953c567",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=FNB&page=6",
+   "at": "2026-10-21T16:07:42+00:00",
+   "status": 200,
+   "bytes": 1311968,
+   "sha256": "43dd71c3ce060c3550712ba7d8896b985bce4d6dc93af59eedc497970a406ef4",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=FNB&page=7",
+   "at": "2026-10-21T16:08:03+00:00",
+   "status": 200,
+   "bytes": 1311783,
+   "sha256": "307238c0ba802a858cbeeb0e7b99c078f76f674398961367e6823f575b518891",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=FNB&page=8",
+   "at": "2026-10-21T16:08:25+00:00",
+   "status": 200,
+   "bytes": 1310804,
+   "sha256": "7f63f3dc95d3bea024aca3daf7cb5b2db9ae271cb388478f20534a3942b2ffcf",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=FNB&page=9",
+   "at": "2026-10-21T16:08:46+00:00",
+   "status": 200,
+   "bytes": 1311048,
+   "sha256": "d091e8ac75d01b5c6f5122d6fd4fcfe603e088e93f2f6f8788e623d33966e708",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=FNB&page=10",
+   "at": "2026-10-21T16:09:07+00:00",
+   "status": 200,
+   "bytes": 1310973,
+   "sha256": "34ce097f5896d7ea1750f849d303181cd1fc935119f2536acfe6a38f2830e473",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=FNB&page=11",
+   "at": "2026-10-21T16:09:29+00:00",
+   "status": 200,
+   "bytes": 1311200,
+   "sha256": "6a17d59d869f46b525db113a61d9a755081f9a729441eb91e09f90c93fd343a8",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=FNB&page=12",
+   "at": "2026-10-21T16:09:50+00:00",
+   "status": 200,
+   "bytes": 1310691,
+   "sha256": "bcb9b66b1b48e3bf7c98de0101cd2cfa1ba8b9c88cde52cf86b699bd4bd27b23",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=FNB&page=13",
+   "at": "2026-10-21T16:10:12+00:00",
+   "status": 200,
+   "bytes": 1236966,
+   "sha256": "edb1deb62c516568695732e9fd7683513d5e1ed62e6d97516454ec0ec67a42fe",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=EO&page=1",
+   "at": "2026-10-21T16:10:33+00:00",
+   "status": 200,
+   "bytes": 1305329,
+   "sha256": "dd9e379941047fb6b3315d5303d6fd9db6997b21a934a255c02a63773998ec5f",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=EO&page=2",
+   "at": "2026-10-21T16:10:55+00:00",
+   "status": 200,
+   "bytes": 1305426,
+   "sha256": "e2d05834e4e5e029f44beb62fc890ba982086ad2701d348b64c1c1f8a8debc18",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=EO&page=3",
+   "at": "2026-10-21T16:11:16+00:00",
+   "status": 200,
+   "bytes": 1234480,
+   "sha256": "8563dd9388fb2c00c421d970d5e775bf82e717a6e5d6b07c8d4841f30e8b74df",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=MFUA&page=1",
+   "at": "2026-10-21T16:11:38+00:00",
+   "status": 200,
+   "bytes": 1290526,
+   "sha256": "1d11afadc1440cfcc45d6b3d24d379c6e31aedb6ffb346c66476a4f3c19cfddd",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=NCPB&page=1",
+   "at": "2026-10-21T16:11:59+00:00",
+   "status": 200,
+   "bytes": 1284842,
+   "sha256": "adc16b51b980ecff083ff791dbaa6622bbcb484720307cd4020f6733894222ad",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=CHPP&page=1",
+   "at": "2026-10-21T16:12:21+00:00",
+   "status": 200,
+   "bytes": 1313420,
+   "sha256": "fa8f99d77bb6b3d7e1f3ff1e291b98006a81656f598bf435e38decace6e2180c",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=CHPP&page=2",
+   "at": "2026-10-21T16:12:42+00:00",
+   "status": 200,
+   "bytes": 1313839,
+   "sha256": "50baf9fe81da2184c62b9fe73de6d68a7e8853656098dd2bd2f71f15f6ff77f3",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=CHPP&page=3",
+   "at": "2026-10-21T16:13:04+00:00",
+   "status": 200,
+   "bytes": 1313623,
+   "sha256": "35af7b7f5d7385cc2d0d9e56c88e7ec103b3ace2e4c8dadf0ae8ea6244b52416",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=CHPP&page=4",
+   "at": "2026-10-21T16:13:25+00:00",
+   "status": 200,
+   "bytes": 1313518,
+   "sha256": "7c563171e1189b4368f2742975e2e8c3dc4339ae6b0577375db6a973a4310e69",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=CHPP&page=5",
+   "at": "2026-10-21T16:13:47+00:00",
+   "status": 200,
+   "bytes": 1313985,
+   "sha256": "33d9226a8c90a4ddaf0803623fec953b20998b3fae9340e18f969d4a19b44870",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=CHPP&page=6",
+   "at": "2026-10-21T16:14:09+00:00",
+   "status": 200,
+   "bytes": 1314044,
+   "sha256": "bf1a51e0ffb8bb507a20e9e0cff1f016f027f4d69ea1da69ba49693b8d29f5e4",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=CHPP&page=7",
+   "at": "2026-10-21T16:14:30+00:00",
+   "status": 200,
+   "bytes": 1314036,
+   "sha256": "df70ebf13f56edea54f04af3ae658fe8f06a1f56ca816d07f54ba14339df8471",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=CHPP&page=8",
+   "at": "2026-10-21T16:14:52+00:00",
+   "status": 200,
+   "bytes": 1313978,
+   "sha256": "cc738ef905ccb02e90d49800804bca5fdf3cb5bef775a375956a1d1b562c3a8d",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=CHPP&page=9",
+   "at": "2026-10-21T16:15:13+00:00",
+   "status": 200,
+   "bytes": 1314027,
+   "sha256": "ec162ebb34868d541b6767559b9845a0e694931c8a600229b20fba9feb79a11e",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=CHPP&page=10",
+   "at": "2026-10-21T16:15:35+00:00",
+   "status": 200,
+   "bytes": 1313853,
+   "sha256": "e425768f286b444b53f15cc4f0b00d8945bcbe423d853b4d2a9e117a40cececb",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=CHPP&page=11",
+   "at": "2026-10-21T16:15:57+00:00",
+   "status": 200,
+   "bytes": 1314063,
+   "sha256": "5f2ba3aa367f706762129e4f8817a36c82dca051969a9dc30e1b727e11dc91c0",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=CHPP&page=12",
+   "at": "2026-10-21T16:16:18+00:00",
+   "status": 200,
+   "bytes": 1313732,
+   "sha256": "d29a64fc580d0283bc0172acdb29b150e835c7ef34d6391fbf0f0afede7a56d1",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=CHPP&page=13",
+   "at": "2026-10-21T16:16:40+00:00",
+   "status": 200,
+   "bytes": 1313931,
+   "sha256": "76a860fab1e930a9ebc683587420dda4cc5be61a69d43b470e9ab82eaf2b525f",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=CHPP&page=14",
+   "at": "2026-10-21T16:17:01+00:00",
+   "status": 200,
+   "bytes": 1314017,
+   "sha256": "0b8b13470b877a39f4305012a220321aec22c06cff3ca6a9909742357e49f878",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=CHPP&page=15",
+   "at": "2026-10-21T16:17:23+00:00",
+   "status": 200,
+   "bytes": 1313965,
+   "sha256": "308fb063ad459c8f77fb7e060f03dacdf2ec4d8c22d86779f40ef411ca943b8d",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=CHPP&page=16",
+   "at": "2026-10-21T16:17:44+00:00",
+   "status": 200,
+   "bytes": 1314063,
+   "sha256": "88618a11198cc02924e84d820397eb4c3cb4df2fd1bfca63b1da54af5998ce8a",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=CHPP&page=17",
+   "at": "2026-10-21T16:18:06+00:00",
+   "status": 200,
+   "bytes": 1314106,
+   "sha256": "ce5a24e00d9278715ad75e8293fad2a31afef418cbd7a197b07bfc015ed9cb5c",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=CHPP&page=18",
+   "at": "2026-10-21T16:18:27+00:00",
+   "status": 200,
+   "bytes": 1208699,
+   "sha256": "7e4c494ddddb16049e9bc702c6d2263b66087280282e4d00c5386e86a7c527a4",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=BHS&page=1",
+   "at": "2026-10-21T16:18:49+00:00",
+   "status": 200,
+   "bytes": 1318193,
+   "sha256": "d10f3b1e954887b913ea5de2297a732d50d5b0a65f34f582ef341e2ed54aa649",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=BHS&page=2",
+   "at": "2026-10-21T16:19:10+00:00",
+   "status": 200,
+   "bytes": 1318352,
+   "sha256": "5b15f50ca6fb2329b800acd6826e4f4f7bc0a9a406ecb40d37e81b0511385f22",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=BHS&page=3",
+   "at": "2026-10-21T16:19:32+00:00",
+   "status": 200,
+   "bytes": 1319006,
+   "sha256": "6da5afae07abd9ca9cbbc8fe171b162926eccc28cce17561c51c1405c6d9c987",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=BHS&page=4",
+   "at": "2026-10-21T16:19:53+00:00",
+   "status": 200,
+   "bytes": 1318716,
+   "sha256": "4636e224d1429eee31997a95a945558e583d2200f3f11cbef54e7f592cbb99c0",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=BHS&page=5",
+   "at": "2026-10-21T16:20:15+00:00",
+   "status": 200,
+   "bytes": 1319052,
+   "sha256": "052c204880942dee4a79952ee92a81216a8f6fc17cc83e3c833628a9f6a2fee0",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=BHS&page=6",
+   "at": "2026-10-21T16:20:37+00:00",
+   "status": 200,
+   "bytes": 1318921,
+   "sha256": "e117084b9aee99abe13c3f2e53a010b56818e0f0bf9093eb171fd08c06bc1abe",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=BHS&page=7",
+   "at": "2026-10-21T16:20:58+00:00",
+   "status": 200,
+   "bytes": 1318385,
+   "sha256": "923d4e1421625150c6e287cfd38f1163e5238b30977e62efdf51ab99cc989a3f",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=BHS&page=8",
+   "at": "2026-10-21T16:21:20+00:00",
+   "status": 200,
+   "bytes": 1318889,
+   "sha256": "49e58af7c342114b4f32cba9d627ec91a30fde4a27f36cad6a1733fb8880cd4a",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=BHS&page=9",
+   "at": "2026-10-21T16:21:41+00:00",
+   "status": 200,
+   "bytes": 1318258,
+   "sha256": "74f6d098fea46114a53e6ffef638c99f41deb6cd7b540356f68ba47a1c5a5a78",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=BHS&page=10",
+   "at": "2026-10-21T16:22:03+00:00",
+   "status": 200,
+   "bytes": 1318396,
+   "sha256": "ff3d0a11cad600ceff26f57e17cc0283806e9fd8507eeed3a0d49235c4fe671c",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=BHS&page=11",
+   "at": "2026-10-21T16:22:25+00:00",
+   "status": 200,
+   "bytes": 1318947,
+   "sha256": "8028cca8cef312bb1d84d15dc31a531369261754cec58b4541bb77ae21ee1f60",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=BHS&page=12",
+   "at": "2026-10-21T16:22:46+00:00",
+   "status": 200,
+   "bytes": 1318814,
+   "sha256": "c78638a3d72db684af63884b0f0aa112ce58cecf93c4ebfba426026ecfef2e8e",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=BHS&page=13",
+   "at": "2026-10-21T16:23:08+00:00",
+   "status": 200,
+   "bytes": 1318543,
+   "sha256": "195df7d82787b1db8758a0e2b0829274ed5250ed5682da8e7d36b373b11b9858",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=BHS&page=14",
+   "at": "2026-10-21T16:23:30+00:00",
+   "status": 200,
+   "bytes": 1318257,
+   "sha256": "3cde347a3f3546bd49a2b43a1de54d1943b42bb346a20c1bf8e994c526f44908",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=BHS&page=15",
+   "at": "2026-10-21T16:23:52+00:00",
+   "status": 200,
+   "bytes": 1318654,
+   "sha256": "569dd39825ab7e289bdf7ad048cb78abb85743e1497a3c7e0220b970df06e3bc",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=BHS&page=16",
+   "at": "2026-10-21T16:24:14+00:00",
+   "status": 200,
+   "bytes": 1318467,
+   "sha256": "8b3ac1dc6a59532759320e2a13f86d1e1686f33a8a82bc1bb809485a4ddaa7df",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=BHS&page=17",
+   "at": "2026-10-21T16:24:36+00:00",
+   "status": 200,
+   "bytes": 1318463,
+   "sha256": "02dfb1e3215193ff7c6645774133482c054cf5c12af879800fc36d1e166c4735",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=BHS&page=18",
+   "at": "2026-10-21T16:24:57+00:00",
+   "status": 200,
+   "bytes": 1318825,
+   "sha256": "eacd77b3c0fa5d23e346aa723a7e28a05b8d3d151aa911f415ce769f1c831651",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=BHS&page=19",
+   "at": "2026-10-21T16:25:19+00:00",
+   "status": 200,
+   "bytes": 1318502,
+   "sha256": "a9c1ac124a4756fe1a7d7ac4ac92f43daf319e84013dd21ee8696ecf07fe72fb",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=BHS&page=20",
+   "at": "2026-10-21T16:25:41+00:00",
+   "status": 200,
+   "bytes": 1318539,
+   "sha256": "dd16a4dcf7aca4244b538259995fb863d3d7a31949c8e67720da270cad4357bb",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=BHS&page=21",
+   "at": "2026-10-21T16:26:03+00:00",
+   "status": 200,
+   "bytes": 1318638,
+   "sha256": "95aa9c4853b1e689dfe32b566db370e6cd5863a7ee0cbcc5394580544f0784d5",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=BHS&page=22",
+   "at": "2026-10-21T16:26:26+00:00",
+   "status": 200,
+   "bytes": 1318410,
+   "sha256": "cd557463595df6008109f68edf5099eaa04074950bdece5bcaacde9196c5f738",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=BHS&page=23",
+   "at": "2026-10-21T16:26:48+00:00",
+   "status": 200,
+   "bytes": 1318316,
+   "sha256": "5900ba2f625d152fb5643a504b6d0b2ca39f96bae1db129f9e8a5305cd180ef0",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=BHS&page=24",
+   "at": "2026-10-21T16:27:10+00:00",
+   "status": 200,
+   "bytes": 1318400,
+   "sha256": "6eb0505267a5477cb74c526bd320944834556269cba6a4689b1a68ff183450ec",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=BHS&page=25",
+   "at": "2026-10-21T16:27:32+00:00",
+   "status": 200,
+   "bytes": 1318407,
+   "sha256": "86a7eb46d4c059894919aa0c2cf01989308dc1a04360869bd8b2bd31f6014a76",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=BHS&page=26",
+   "at": "2026-10-21T16:27:54+00:00",
+   "status": 200,
+   "bytes": 1318421,
+   "sha256": "dd30bd99a46c5cc682f80085eb4c963e1920818c1fd22a7cc63c11560b824447",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=BHS&page=27",
+   "at": "2026-10-21T16:28:16+00:00",
+   "status": 200,
+   "bytes": 1317931,
+   "sha256": "8c3f6f99f1877fe8762353cff5b5e27e3081fc78b05f6ed8703cd5985d26feb8",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=BHS&page=28",
+   "at": "2026-10-21T16:28:37+00:00",
+   "status": 200,
+   "bytes": 1318451,
+   "sha256": "25b2a629cdcb32549e075bd3e88831ac7834936e83df523acc89699fa98194dd",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=BHS&page=29",
+   "at": "2026-10-21T16:28:59+00:00",
+   "status": 200,
+   "bytes": 1318506,
+   "sha256": "e9790b31e67e9dbe633c0ba5ad6280d3afbb8aa7f8a28eec61745d798d10df79",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=BHS&page=30",
+   "at": "2026-10-21T16:29:21+00:00",
+   "status": 200,
+   "bytes": 1317881,
+   "sha256": "cfd6cec962af62addc4831df748ec75215f611816247848635f363bd45a05ac0",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=BHS&page=31",
+   "at": "2026-10-21T16:29:42+00:00",
+   "status": 200,
+   "bytes": 1318079,
+   "sha256": "46d08d47f3ce712c597feb98d7294f4d8f9c2602aa0f47763db3573c8d7d6e8e",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=BHS&page=32",
+   "at": "2026-10-21T16:30:04+00:00",
+   "status": 200,
+   "bytes": 1317938,
+   "sha256": "756e316b610f34ca9d60e8db69b81ac8b4269ff1cb20a1bb80369e9230cc709d",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=BHS&page=33",
+   "at": "2026-10-21T16:30:26+00:00",
+   "status": 200,
+   "bytes": 1317391,
+   "sha256": "7483a8e1a699b1e18593de755a0775c9bfc67feb99dba0ada5833b60a23dd572",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=BHS&page=34",
+   "at": "2026-10-21T16:30:48+00:00",
+   "status": 200,
+   "bytes": 1317587,
+   "sha256": "0f8150ef1f51e1147a633b7263e2b82046581e808bb49d125ceb6ff1b0927167",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=BHS&page=35",
+   "at": "2026-10-21T16:31:10+00:00",
+   "status": 200,
+   "bytes": 1317954,
+   "sha256": "8a0f90914c32eb547d512f7f50fb8332073a5c139291128fc0b1d2e86e4fbdb0",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=BHS&page=36",
+   "at": "2026-10-21T16:31:31+00:00",
+   "status": 200,
+   "bytes": 1274694,
+   "sha256": "c825fd929d6c8a39ced63a06f65c1e65dd3045daf33aa487aeb6aa7f3408f14a",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=HCPH&page=1",
+   "at": "2026-10-21T16:31:53+00:00",
+   "status": 200,
+   "bytes": 1320112,
+   "sha256": "07996bdc778eb0e3ac542658471b981bca251feeb9021d71bf2d14b613ec2b43",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=HCPH&page=2",
+   "at": "2026-10-21T16:32:15+00:00",
+   "status": 200,
+   "bytes": 1319993,
+   "sha256": "e6fd6746671445dd8e48e566a4c85282f557c07a22ade8dd85888e4457137f1d",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=HCPH&page=3",
+   "at": "2026-10-21T16:32:36+00:00",
+   "status": 200,
+   "bytes": 1319982,
+   "sha256": "b99fc19bf746a0e6a6a3c05418d43758c1e72e79b99851def1b1ec9057039398",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=HCPH&page=4",
+   "at": "2026-10-21T16:32:58+00:00",
+   "status": 200,
+   "bytes": 1320290,
+   "sha256": "01dd2e24015c6817e51c96b7fc7aabfc24a098137f05dc640daad1c71b03fa36",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=HCPH&page=5",
+   "at": "2026-10-21T16:33:19+00:00",
+   "status": 200,
+   "bytes": 1319895,
+   "sha256": "818af438b1a25d9eef6746ad59283da999c0fe86c1d0ddb4afec8cfec4d66320",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=HCPH&page=6",
+   "at": "2026-10-21T16:33:41+00:00",
+   "status": 200,
+   "bytes": 1319840,
+   "sha256": "638cba03f2fe3d8fcf0fa4ee998dcd24239c3c2deaaf5a748320547ef95153ce",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=HCPH&page=7",
+   "at": "2026-10-21T16:34:02+00:00",
+   "status": 200,
+   "bytes": 1320070,
+   "sha256": "901858c0e9d5f9a9609d0756e958ce83dffafd118b974c7d269bd031da13e0df",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=HCPH&page=8",
+   "at": "2026-10-21T16:34:24+00:00",
+   "status": 200,
+   "bytes": 1319884,
+   "sha256": "2df15d4b0280a5b2c1a0766a825bfb2bc8f67fa82dae4f2b3058f0a8e363fc6c",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=HCPH&page=9",
+   "at": "2026-10-21T16:34:46+00:00",
+   "status": 200,
+   "bytes": 1319848,
+   "sha256": "d2ee1823cf3bf95a120ce816ce594eec313f7952f55f69a085529ba4c181b3e4",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=HCPH&page=10",
+   "at": "2026-10-21T16:35:08+00:00",
+   "status": 200,
+   "bytes": 1320353,
+   "sha256": "811c76d927ce0a6d0448497edadcdb389b292cb0d976d8e10b1a22c219ff7933",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=HCPH&page=11",
+   "at": "2026-10-21T16:35:29+00:00",
+   "status": 200,
+   "bytes": 1319690,
+   "sha256": "05aa9aa434700cac4598b57d1d42ea09723e1579cce2a8e443eefb006757bfb8",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=HCPH&page=12",
+   "at": "2026-10-21T16:35:51+00:00",
+   "status": 200,
+   "bytes": 1319797,
+   "sha256": "217f8b9828d665e5e5331d7f6cb43e31ed2d7079f4a0a7cb4ba016e8113c454e",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=HCPH&page=13",
+   "at": "2026-10-21T16:36:12+00:00",
+   "status": 200,
+   "bytes": 1319923,
+   "sha256": "2565102cd2d6b27fe169db1e901849a061cfe45f9909731222e4fcb95c0caa6d",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=HCPH&page=14",
+   "at": "2026-10-21T16:36:35+00:00",
+   "status": 200,
+   "bytes": 1320108,
+   "sha256": "8cbbc8b167b1f2e9fca2995149e26cdaa5e6db3e2bc4fe87f9abc8daeacd4370",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=HCPH&page=15",
+   "at": "2026-10-21T16:36:56+00:00",
+   "status": 200,
+   "bytes": 1319602,
+   "sha256": "91cfa8995d9fd8212ce09fc7304e12d66b1473ac745ca30c7d4492765ee096c8",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=HCPH&page=16",
+   "at": "2026-10-21T16:37:18+00:00",
+   "status": 200,
+   "bytes": 1319287,
+   "sha256": "3913456c32a0bd2912489e71e77d0d939841d95712a6d79f6687512e921d2e0b",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=HCPH&page=17",
+   "at": "2026-10-21T16:37:40+00:00",
+   "status": 200,
+   "bytes": 1318946,
+   "sha256": "82ad9e7c6f4626d0e5bf334d1549c79029a9b475e5070e2f291c7f8d75f14832",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=HCPH&page=18",
+   "at": "2026-10-21T16:38:01+00:00",
+   "status": 200,
+   "bytes": 1319562,
+   "sha256": "32b8961521fd1354475b3c1542bad487a3a0edbb7c994c1471b9569630bd88f8",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=HCPH&page=19",
+   "at": "2026-10-21T16:38:23+00:00",
+   "status": 200,
+   "bytes": 1319162,
+   "sha256": "6cb1b01c2b9d9f8668777718a0d466e8ec9933ee384788190f094288cd39209f",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=HCPH&page=20",
+   "at": "2026-10-21T16:38:45+00:00",
+   "status": 200,
+   "bytes": 1319507,
+   "sha256": "19ef4a26fb1be0951ec27904ad075c68d7c0fa7b1d2a8410b7223262e46c1dfa",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=HCPH&page=21",
+   "at": "2026-10-21T16:39:07+00:00",
+   "status": 200,
+   "bytes": 1319655,
+   "sha256": "9493857eb4906efcb658b90645149a6f3298060f93862771e92f19f48e14b3b3",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=HCPH&page=22",
+   "at": "2026-10-21T16:39:28+00:00",
+   "status": 200,
+   "bytes": 1319275,
+   "sha256": "3beb233af3bb97eaad776ea1ce217fef2fd7484952d0c6812509ed79bddff8ce",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=HCPH&page=23",
+   "at": "2026-10-21T16:39:50+00:00",
+   "status": 200,
+   "bytes": 1319748,
+   "sha256": "27b32d23bb18097f103ab79e390d5b3a340f8cfe7121b2d941d61197f45893d2",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=HCPH&page=24",
+   "at": "2026-10-21T16:40:12+00:00",
+   "status": 200,
+   "bytes": 1319678,
+   "sha256": "f57c5ef08d53893d713508a53152d03eef6e15025fb9ff7a61f2dc233c0773f3",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=HCPH&page=25",
+   "at": "2026-10-21T16:40:34+00:00",
+   "status": 200,
+   "bytes": 1319371,
+   "sha256": "7dfbcfeae3d18eef0ea6fe15cf8f9830c1f8e05dd9b51981984df2337493b6fc",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=HCPH&page=26",
+   "at": "2026-10-21T16:40:55+00:00",
+   "status": 200,
+   "bytes": 1319501,
+   "sha256": "da9a716bb23e525912be594e61492d493a2187097080702e51b40cf09d590509",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=HCPH&page=27",
+   "at": "2026-10-21T16:41:17+00:00",
+   "status": 200,
+   "bytes": 1319173,
+   "sha256": "3d6aca8b80b211803c51114c1632f4086aa51b2c550190cdfcd247c5f486651f",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=HCPH&page=28",
+   "at": "2026-10-21T16:41:38+00:00",
+   "status": 200,
+   "bytes": 1319045,
+   "sha256": "d3357067f0555b9351b4db4d8e228c74d79390e5f5782346897c7ea829110611",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=HCPH&page=29",
+   "at": "2026-10-21T16:42:01+00:00",
+   "status": 200,
+   "bytes": 1318723,
+   "sha256": "5be6e6d7c9c83f8fc33fdfc3b026df2a0ef03bf19a0ecf1712486034d2cb8e5d",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=HCPH&page=30",
+   "at": "2026-10-21T16:42:22+00:00",
+   "status": 200,
+   "bytes": 1319246,
+   "sha256": "569b22873c58f779fac695a37bc25aa336f6fdd986c725eb31f5378fb659bc0e",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=HCPH&page=31",
+   "at": "2026-10-21T16:42:45+00:00",
+   "status": 200,
+   "bytes": 1318804,
+   "sha256": "45d40a2f48b0f6f1e395256b831ed1edd29c088cf3051f9dea7eb42670f0c0d9",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=HCPH&page=32",
+   "at": "2026-10-21T16:43:06+00:00",
+   "status": 200,
+   "bytes": 1318932,
+   "sha256": "51f82c1eac69e1a6f59dc78710e35da16397761f96b5663e4ff5470b38f045ad",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=HCPH&page=33",
+   "at": "2026-10-21T16:43:28+00:00",
+   "status": 200,
+   "bytes": 1319182,
+   "sha256": "8025b9dcc5bb005259303ba238be49cde2a91f683f00841dd19360228f1386b5",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=HCPH&page=34",
+   "at": "2026-10-21T16:43:49+00:00",
+   "status": 200,
+   "bytes": 1318995,
+   "sha256": "37f1a9989da5472e06fd816312e4524ea3a4c10d2e2b98b4c72069f1e9ab1f60",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=HCPH&page=35",
+   "at": "2026-10-21T16:44:11+00:00",
+   "status": 200,
+   "bytes": 1318769,
+   "sha256": "71a0bc4ef60fb541ae2f01e62add744356bc821aff7f6a6c9cf5dafd93fa3508",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=HCPH&page=36",
+   "at": "2026-10-21T16:44:33+00:00",
+   "status": 200,
+   "bytes": 1318678,
+   "sha256": "375ff52382be248cccfb05aa9a315e765decd2ad7804ec654bd6f2e76e9a0281",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=HCPH&page=37",
+   "at": "2026-10-21T16:44:55+00:00",
+   "status": 200,
+   "bytes": 1318973,
+   "sha256": "9e7b090f11232f7abbcc5363ccf7af614f9cb46a21492539f4868782b9f471f7",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=HCPH&page=38",
+   "at": "2026-10-21T16:45:17+00:00",
+   "status": 200,
+   "bytes": 1317932,
+   "sha256": "e32dcb9caee4274eba39bd98d5f303b6da6ef1707c25e8602ab51874d32d2ea4",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=HCPH&page=39",
+   "at": "2026-10-21T16:45:38+00:00",
+   "status": 200,
+   "bytes": 1318660,
+   "sha256": "bf488c33726f6ff82aad8cdd80ab3043efd08b902b1340533051488550680303",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=HCPH&page=40",
+   "at": "2026-10-21T16:46:00+00:00",
+   "status": 200,
+   "bytes": 1226903,
+   "sha256": "505e74ddaa175694bba1cb5233bc8dadc72c3625490468f676cbb3df79191d1a",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=CHPP+EO&page=1",
+   "at": "2026-10-21T16:46:22+00:00",
+   "status": 200,
+   "bytes": 1309479,
+   "sha256": "afcdeb6ebb3878f5c20a4e3481351d107eda446b0b3a85115d0baf44c2fa5141",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=CHPP+EO&page=2",
+   "at": "2026-10-21T16:46:44+00:00",
+   "status": 200,
+   "bytes": 1284956,
+   "sha256": "97872167b2a48363a95e0ce2693e35ab7ea7b9b2b7ffa951e1da1edc8a1633c0",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=IOM&page=1",
+   "at": "2026-10-21T16:47:05+00:00",
+   "status": 200,
+   "bytes": 1192436,
+   "sha256": "0a71041de63649010437d435aac6b0b09e546b11149d3c6ee9aaa2c74a3e94e7",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=BMVH&page=1",
+   "at": "2026-10-21T16:47:27+00:00",
+   "status": 200,
+   "bytes": 1230235,
+   "sha256": "92d70d452cbcf05992bd9e186de07ee45ecf2ddadad53ba2f95673869af506c9",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=NAM&page=1",
+   "at": "2026-10-21T16:47:48+00:00",
+   "status": 200,
+   "bytes": 1248914,
+   "sha256": "43eb53a8c3d4d70aa3a8bc7e6aadba62bc9343fb47fde0b64663f1ad612db985",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=NAMEND&page=1",
+   "at": "2026-10-21T16:48:10+00:00",
+   "status": 200,
+   "bytes": 1192481,
+   "sha256": "f25d73fb5045b26b10a427e50688c52463824daeebace704c9a29793ed618d42",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=NAMEO&page=1",
+   "at": "2026-10-21T16:48:31+00:00",
+   "status": 200,
+   "bytes": 1309495,
+   "sha256": "ce953e1b3924bccaa00de37771f2b3e99a5892ae8183cacd837c52938dd54464",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=NAMEO&page=2",
+   "at": "2026-10-21T16:48:53+00:00",
+   "status": 200,
+   "bytes": 1223019,
+   "sha256": "d78a65fd6262a4c04f470ffae3bd66967a67e6bfe99f58b9857dbce567fd8f1c",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=LC&page=1",
+   "at": "2026-10-21T16:49:14+00:00",
+   "status": 200,
+   "bytes": 1199908,
+   "sha256": "cc147e336b753d72e3d5d4aca3172173a1cae37f2b2b770e775d43632395e288",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=NAMMO&page=1",
+   "at": "2026-10-21T16:49:35+00:00",
+   "status": 200,
+   "bytes": 1192479,
+   "sha256": "090b1d62cd81800354900c28272684259227c034a372c81c4882cd192050c8d7",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=NAMPO&page=1",
+   "at": "2026-10-21T16:49:57+00:00",
+   "status": 200,
+   "bytes": 1242990,
+   "sha256": "3d1615cc84ea1d5596743770fbe8842f4971825f49be7ee27b687929308fd766",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=NAM+PRGM&page=1",
+   "at": "2026-10-21T16:50:18+00:00",
+   "status": 200,
+   "bytes": 1206087,
+   "sha256": "12447d94a7acacf4b237d99f464884e707bfc56532bc46b125a18ef555899d25",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=HPFLP&page=1",
+   "at": "2026-10-21T16:50:40+00:00",
+   "status": 200,
+   "bytes": 1192482,
+   "sha256": "440b5639439f0ef0dc650eac7e1a49ee97734728f87e4020c8c68d455f8e5212",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=GHRB&page=1",
+   "at": "2026-10-21T16:51:01+00:00",
+   "status": 200,
+   "bytes": 1249120,
+   "sha256": "cd9d0d500d06b1330f4a22a66705c28b237a8616e4e84890ada77d042b53e70c",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=COSEMPUP&page=1",
+   "at": "2026-10-21T16:51:23+00:00",
+   "status": 200,
+   "bytes": 1309450,
+   "sha256": "48379ba030059bd7149bd18996accd9c0f35c2fdef6746f5bb5c59e1d8f75a6d",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=COSEMPUP&page=2",
+   "at": "2026-10-21T16:51:45+00:00",
+   "status": 200,
+   "bytes": 1308993,
+   "sha256": "bf96286565f188f6bc6ed9ffeaf454d12aa4e158de9021cc259994fc81802516",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=COSEMPUP&page=3",
+   "at": "2026-10-21T16:52:06+00:00",
+   "status": 200,
+   "bytes": 1307140,
+   "sha256": "14b39df67a06e26a6435e426ea34c392939a6265be46f094307d36f747d9badb",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=COSEMPUP&page=4",
+   "at": "2026-10-21T16:52:28+00:00",
+   "status": 200,
+   "bytes": 1289344,
+   "sha256": "7840ba93db7438d123ddb7d34979dd775addbe2500dd39daf506d62d02258a5a",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=CWSE&page=1",
+   "at": "2026-10-21T16:52:49+00:00",
+   "status": 200,
+   "bytes": 1309260,
+   "sha256": "34795f223815df0e99872997387f30adf17d8e2ebb41b0e9642358d21c5bf0e0",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=CWSE&page=2",
+   "at": "2026-10-21T16:53:11+00:00",
+   "status": 200,
+   "bytes": 1309233,
+   "sha256": "97e0aad9b59d61ecb6f16c7504aad651dc548bbcf3b4fbdd7d937d1b299b734f",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=CWSE&page=3",
+   "at": "2026-10-21T16:53:32+00:00",
+   "status": 200,
+   "bytes": 1240783,
+   "sha256": "aa27db81bbffd981d33259da486d8cdc569d45a3ae38ad6bfa061022999a1103",
+   "kind": "nap-listing"
+  },
+  {
+   "url": "https://www.nationalacademies.org/publications/all?publication_date%5Bfrom%5D=2024&publication_date%5Bto%5D=2026&unit%5B%5D=BAHSCR&page=1",
+   "at": "2026-10-21T16:53:54+00:00",
+   "status": 200,
+   "bytes": 1218616,
+   "sha256": "ab3f7799d03d96d381c5b02ec76e4ef93d346ebfb66a26c149f0902ee4571b99",
    "kind": "nap-listing"
   }
  ],
  "rows": [
   {
    "n": 1,
-   "id": "25395",
-   "doi": "10.17226/25395",
-   "title": "Nutrient Requirements of Poultry: Tenth Revised Edition",
-   "year": 2026,
-   "url": "https://www.nationalacademies.org/publications/25395"
-  },
-  {
-   "n": 2,
    "id": "25931",
    "doi": "10.17226/25931",
    "title": "Accelerating Decarbonization in the United States: Technology, Policy, and Societal Dimensions",
@@ -472,7 +3747,7 @@
    "url": "https://www.nationalacademies.org/publications/25931"
   },
   {
-   "n": 3,
+   "n": 2,
    "id": "26859",
    "doi": "10.17226/26859",
    "title": "Equity in K-12 STEM Education: Framing Decisions for the Future",
@@ -480,15 +3755,7 @@
    "url": "https://www.nationalacademies.org/publications/26859"
   },
   {
-   "n": 4,
-   "id": "26894",
-   "doi": "10.17226/26894",
-   "title": "Foundational Research Gaps and Future Directions for Digital Twins",
-   "year": 2024,
-   "url": "https://www.nationalacademies.org/publications/26894"
-  },
-  {
-   "n": 5,
+   "n": 3,
    "id": "26931",
    "doi": "10.17226/26931",
    "title": "2022 Assessment of the DEVCOM Army Research Laboratory",
@@ -496,7 +3763,7 @@
    "url": "https://www.nationalacademies.org/publications/26931"
   },
   {
-   "n": 6,
+   "n": 4,
    "id": "26982",
    "doi": "10.17226/26982",
    "title": "Failure Analysis of the Arecibo Observatory 305-Meter Telescope Collapse",
@@ -504,71 +3771,7 @@
    "url": "https://www.nationalacademies.org/publications/26982"
   },
   {
-   "n": 7,
-   "id": "27058",
-   "doi": "10.17226/27058",
-   "title": "Reducing Intergenerational Poverty",
-   "year": 2024,
-   "url": "https://www.nationalacademies.org/publications/27058"
-  },
-  {
-   "n": 8,
-   "id": "27154",
-   "doi": "10.17226/27154",
-   "title": "Potential Hydrodynamic Impacts of Offshore Wind Energy on Nantucket Shoals Regional Ecology: An Evaluation from Wind to Whales",
-   "year": 2024,
-   "url": "https://www.nationalacademies.org/publications/27154"
-  },
-  {
-   "n": 9,
-   "id": "27157",
-   "doi": "10.17226/27157",
-   "title": "A Research Agenda Toward Atmospheric Methane Removal",
-   "year": 2024,
-   "url": "https://www.nationalacademies.org/publications/27157"
-  },
-  {
-   "n": 10,
-   "id": "27159",
-   "doi": "10.17226/27159",
-   "title": "Chemical Terrorism: Assessment of U.S. Strategies in the Era of Great Power Competition",
-   "year": 2024,
-   "url": "https://www.nationalacademies.org/publications/27159"
-  },
-  {
-   "n": 11,
-   "id": "27165",
-   "doi": "10.17226/27165",
-   "title": "Charting a Future for Sequencing RNA and Its Modifications: A New Era for Biology and Medicine",
-   "year": 2024,
-   "url": "https://www.nationalacademies.org/publications/27165"
-  },
-  {
-   "n": 12,
-   "id": "27169",
-   "doi": "10.17226/27169",
-   "title": "A Roadmap for Disclosure Avoidance in the Survey of Income and Program Participation",
-   "year": 2024,
-   "url": "https://www.nationalacademies.org/publications/27169"
-  },
-  {
-   "n": 13,
-   "id": "27170",
-   "doi": "10.17226/27170",
-   "title": "Compounding Disasters in Gulf Coast Communities 2020-2021: Impacts, Findings, and Lessons Learned",
-   "year": 2024,
-   "url": "https://www.nationalacademies.org/publications/27170"
-  },
-  {
-   "n": 14,
-   "id": "27213",
-   "doi": "10.17226/27213",
-   "title": "Community-Driven Relocation: Recommendations for the U.S. Gulf Coast Region and Beyond",
-   "year": 2024,
-   "url": "https://www.nationalacademies.org/publications/27213"
-  },
-  {
-   "n": 15,
+   "n": 5,
    "id": "27215",
    "doi": "10.17226/27215",
    "title": "Nuclear Terrorism: Assessment of U.S. Strategies to Prevent, Counter, and Respond to Weapons of Mass Destruction",
@@ -576,7 +3779,7 @@
    "url": "https://www.nationalacademies.org/publications/27215"
   },
   {
-   "n": 16,
+   "n": 6,
    "id": "27260",
    "doi": "10.17226/27260",
    "title": "Options for a National Plan for Smart Manufacturing",
@@ -584,47 +3787,7 @@
    "url": "https://www.nationalacademies.org/publications/27260"
   },
   {
-   "n": 17,
-   "id": "27285",
-   "doi": "10.17226/27285",
-   "title": "A Vision for Continental-Scale Biology: Research Across Multiple Scales",
-   "year": 2025,
-   "url": "https://www.nationalacademies.org/publications/27285"
-  },
-  {
-   "n": 18,
-   "id": "27313",
-   "doi": "10.17226/27313",
-   "title": "Assessing Equity in the Distribution of Fisheries Management Benefits: Data and Information Availability",
-   "year": 2024,
-   "url": "https://www.nationalacademies.org/publications/27313"
-  },
-  {
-   "n": 19,
-   "id": "27317",
-   "doi": "10.17226/27317",
-   "title": "Constructing Valid Geospatial Tools for Environmental Justice",
-   "year": 2024,
-   "url": "https://www.nationalacademies.org/publications/27317"
-  },
-  {
-   "n": 20,
-   "id": "27333",
-   "doi": "10.17226/27333",
-   "title": "Creating an Integrated System of Data and Statistics on Household Income, Consumption, and Wealth: Time to Build",
-   "year": 2024,
-   "url": "https://www.nationalacademies.org/publications/27333"
-  },
-  {
-   "n": 21,
-   "id": "27337",
-   "doi": "10.17226/27337",
-   "title": "Ocean Acoustics Education and Expertise",
-   "year": 2025,
-   "url": "https://www.nationalacademies.org/publications/27337"
-  },
-  {
-   "n": 22,
+   "n": 7,
    "id": "27338",
    "doi": "10.17226/27338",
    "title": "An Assessment of the Divisions of the Physical Measurement Laboratory at the National Institute of Standards and Technology Located in Boulder, Colorado: Fiscal Year 2023",
@@ -632,7 +3795,7 @@
    "url": "https://www.nationalacademies.org/publications/27338"
   },
   {
-   "n": 23,
+   "n": 8,
    "id": "27341",
    "doi": "10.17226/27341",
    "title": "Health Risks of Indoor Exposure to Fine Particulate Matter and Practical Mitigation Solutions",
@@ -640,23 +3803,7 @@
    "url": "https://www.nationalacademies.org/publications/27341"
   },
   {
-   "n": 24,
-   "id": "27375",
-   "doi": "10.17226/27375",
-   "title": "Low Birth Weight Babies and Disability",
-   "year": 2024,
-   "url": "https://www.nationalacademies.org/publications/27375"
-  },
-  {
-   "n": 25,
-   "id": "27396",
-   "doi": "10.17226/27396",
-   "title": "Social Media and Adolescent Health",
-   "year": 2024,
-   "url": "https://www.nationalacademies.org/publications/27396"
-  },
-  {
-   "n": 26,
+   "n": 9,
    "id": "27397",
    "doi": "10.17226/27397",
    "title": "Facial Recognition Technology: Current Capabilities, Future Prospects, and Governance",
@@ -664,31 +3811,7 @@
    "url": "https://www.nationalacademies.org/publications/27397"
   },
   {
-   "n": 27,
-   "id": "27414",
-   "doi": "10.17226/27414",
-   "title": "Progress and Priorities in Ocean Drilling: In Search of Earth's Past and Future",
-   "year": 2024,
-   "url": "https://www.nationalacademies.org/publications/27414"
-  },
-  {
-   "n": 28,
-   "id": "27425",
-   "doi": "10.17226/27425",
-   "title": "Essential Health Care Services Addressing Intimate Partner Violence",
-   "year": 2024,
-   "url": "https://www.nationalacademies.org/publications/27425"
-  },
-  {
-   "n": 29,
-   "id": "27429",
-   "doi": "10.17226/27429",
-   "title": "A New Vision for High-Quality Preschool Curriculum",
-   "year": 2024,
-   "url": "https://www.nationalacademies.org/publications/27429"
-  },
-  {
-   "n": 30,
+   "n": 10,
    "id": "27430",
    "doi": "10.17226/27430",
    "title": "An Assessment of Selected Divisions of the National Institute of Standards and Technology Information Technology Laboratory: Fiscal Year 2024",
@@ -696,7 +3819,7 @@
    "url": "https://www.nationalacademies.org/publications/27430"
   },
   {
-   "n": 31,
+   "n": 11,
    "id": "27431",
    "doi": "10.17226/27431",
    "title": "An Assessment of the National Institute of Standards and Technology Center for Neutron Research: Fiscal Year 2023",
@@ -704,15 +3827,7 @@
    "url": "https://www.nationalacademies.org/publications/27431"
   },
   {
-   "n": 32,
-   "id": "27440",
-   "doi": "10.17226/27440",
-   "title": "Enhancing EPA Science Capability for a Complex Future: Recommendations for Use of Title 42 Special Hiring Authority",
-   "year": 2024,
-   "url": "https://www.nationalacademies.org/publications/27440"
-  },
-  {
-   "n": 33,
+   "n": 12,
    "id": "27444",
    "doi": "10.17226/27444",
    "title": "An Assessment of Selected Research Programs and Goals of the Engineering Laboratory at the National Institute of Standards and Technology: Fiscal Year 2024",
@@ -720,31 +3835,7 @@
    "url": "https://www.nationalacademies.org/publications/27444"
   },
   {
-   "n": 34,
-   "id": "27449",
-   "doi": "10.17226/27449",
-   "title": "State of Knowledge Regarding Transmission, Spread, and Management of Chronic Wasting Disease in U.S. Captive and Free-Ranging Cervid Populations",
-   "year": 2025,
-   "url": "https://www.nationalacademies.org/publications/27449"
-  },
-  {
-   "n": 35,
-   "id": "27459",
-   "doi": "10.17226/27459",
-   "title": "Exploring Linkages Between Soil Health and Human Health",
-   "year": 2024,
-   "url": "https://www.nationalacademies.org/publications/27459"
-  },
-  {
-   "n": 36,
-   "id": "27460",
-   "doi": "10.17226/27460",
-   "title": "Modernizing Probable Maximum Precipitation Estimation",
-   "year": 2024,
-   "url": "https://www.nationalacademies.org/publications/27460"
-  },
-  {
-   "n": 37,
+   "n": 13,
    "id": "27471",
    "doi": "10.17226/27471",
    "title": "Review of the U.S. Farmers and Ranchers in Action White Paper on Building a Scientific Roadmap to a Carbon-Negative Agricultural System",
@@ -752,15 +3843,7 @@
    "url": "https://www.nationalacademies.org/publications/27471"
   },
   {
-   "n": 38,
-   "id": "27472",
-   "doi": "10.17226/27472",
-   "title": "Advancing Vineyard Health: Insights and Innovations for Combating Grapevine Red Blotch and Leafroll Diseases",
-   "year": 2025,
-   "url": "https://www.nationalacademies.org/publications/27472"
-  },
-  {
-   "n": 39,
+   "n": 14,
    "id": "27503",
    "doi": "10.17226/27503",
    "title": "2023 Assessment of the DEVCOM Army Research Laboratory",
@@ -768,23 +3851,7 @@
    "url": "https://www.nationalacademies.org/publications/27503"
   },
   {
-   "n": 40,
-   "id": "27515",
-   "doi": "10.17226/27515",
-   "title": "Potential Environmental Effects of Nuclear War",
-   "year": 2025,
-   "url": "https://www.nationalacademies.org/publications/27515"
-  },
-  {
-   "n": 41,
-   "id": "27516",
-   "doi": "10.17226/27516",
-   "title": "Increasing the Utility of Wastewater-based Disease Surveillance for Public Health Action: A Phase 2 Report",
-   "year": 2024,
-   "url": "https://www.nationalacademies.org/publications/27516"
-  },
-  {
-   "n": 42,
+   "n": 15,
    "id": "27519",
    "doi": "10.17226/27519",
    "title": "NASA at a Crossroads: Maintaining Workforce, Infrastructure, and Technology Preeminence in the Coming Decades",
@@ -792,23 +3859,7 @@
    "url": "https://www.nationalacademies.org/publications/27519"
   },
   {
-   "n": 43,
-   "id": "27595",
-   "doi": "10.17226/27595",
-   "title": "Advancing Clinical Research with Pregnant and Lactating Populations: Overcoming Real and Perceived Liability Risks",
-   "year": 2024,
-   "url": "https://www.nationalacademies.org/publications/27595"
-  },
-  {
-   "n": 44,
-   "id": "27623",
-   "doi": "10.17226/27623",
-   "title": "The Role of Seafood Consumption in Child Growth and Development",
-   "year": 2024,
-   "url": "https://www.nationalacademies.org/publications/27623"
-  },
-  {
-   "n": 45,
+   "n": 16,
    "id": "27624",
    "doi": "10.17226/27624",
    "title": "Strategies to Enable Assured Access to Semiconductors for the Department of Defense",
@@ -816,7 +3867,7 @@
    "url": "https://www.nationalacademies.org/publications/27624"
   },
   {
-   "n": 46,
+   "n": 17,
    "id": "27644",
    "doi": "10.17226/27644",
    "title": "Artificial Intelligence and the Future of Work",
@@ -824,15 +3875,7 @@
    "url": "https://www.nationalacademies.org/publications/27644"
   },
   {
-   "n": 47,
-   "id": "27652",
-   "doi": "10.17226/27652",
-   "title": "Future State of Smallpox Medical Countermeasures",
-   "year": 2024,
-   "url": "https://www.nationalacademies.org/publications/27652"
-  },
-  {
-   "n": 48,
+   "n": 18,
    "id": "27732",
    "doi": "10.17226/27732",
    "title": "Carbon Utilization Infrastructure, Markets, and Research and Development: A Final Report",
@@ -840,23 +3883,7 @@
    "url": "https://www.nationalacademies.org/publications/27732"
   },
   {
-   "n": 49,
-   "id": "27734",
-   "doi": "10.17226/27734",
-   "title": "Myopia: Causes, Prevention, and Treatment of an Increasingly Common Disease",
-   "year": 2024,
-   "url": "https://www.nationalacademies.org/publications/27734"
-  },
-  {
-   "n": 50,
-   "id": "27739",
-   "doi": "10.17226/27739",
-   "title": "Living with ALS",
-   "year": 2024,
-   "url": "https://www.nationalacademies.org/publications/27739"
-  },
-  {
-   "n": 51,
+   "n": 19,
    "id": "27743",
    "doi": "10.17226/27743",
    "title": "Thriving on Our Changing Planet: A Midterm Assessment of Progress Toward Implementation of the Decadal Survey",
@@ -864,7 +3891,7 @@
    "url": "https://www.nationalacademies.org/publications/27743"
   },
   {
-   "n": 52,
+   "n": 20,
    "id": "27745",
    "doi": "10.17226/27745",
    "title": "Risk Analysis Methods for Nuclear War and Nuclear Terrorism: Phase II (Expanded Abbreviated Report of the CUI Version)",
@@ -872,79 +3899,7 @@
    "url": "https://www.nationalacademies.org/publications/27745"
   },
   {
-   "n": 53,
-   "id": "27746",
-   "doi": "10.17226/27746",
-   "title": "Evidence Review of the Adverse Effects of COVID-19 Vaccination and Intramuscular Vaccine Administration",
-   "year": 2024,
-   "url": "https://www.nationalacademies.org/publications/27746"
-  },
-  {
-   "n": 54,
-   "id": "27750",
-   "doi": "10.17226/27750",
-   "title": "Heritable Genetic Modification in Food Animals",
-   "year": 2025,
-   "url": "https://www.nationalacademies.org/publications/27750"
-  },
-  {
-   "n": 55,
-   "id": "27756",
-   "doi": "10.17226/27756",
-   "title": "Long-Term Health Effects of COVID-19: Disability and Function Following SARS-CoV-2 Infection",
-   "year": 2024,
-   "url": "https://www.nationalacademies.org/publications/27756"
-  },
-  {
-   "n": 56,
-   "id": "27757",
-   "doi": "10.17226/27757",
-   "title": "Advancing Research on Chronic Conditions in Women",
-   "year": 2024,
-   "url": "https://www.nationalacademies.org/publications/27757"
-  },
-  {
-   "n": 57,
-   "id": "27759",
-   "doi": "10.17226/27759",
-   "title": "Expanding Behavioral Health Care Workforce Participation in Medicare, Medicaid, and Marketplace Plans",
-   "year": 2024,
-   "url": "https://www.nationalacademies.org/publications/27759"
-  },
-  {
-   "n": 58,
-   "id": "27765",
-   "doi": "10.17226/27765",
-   "title": "Challenges in Supply, Market Competition, and Regulation of Infant Formula in the United States",
-   "year": 2024,
-   "url": "https://www.nationalacademies.org/publications/27765"
-  },
-  {
-   "n": 59,
-   "id": "27766",
-   "doi": "10.17226/27766",
-   "title": "Cannabis Policy Impacts Public Health and Health Equity",
-   "year": 2024,
-   "url": "https://www.nationalacademies.org/publications/27766"
-  },
-  {
-   "n": 60,
-   "id": "27768",
-   "doi": "10.17226/27768",
-   "title": "A Long COVID Definition: A Chronic, Systemic Disease State with Profound Consequences",
-   "year": 2024,
-   "url": "https://www.nationalacademies.org/publications/27768"
-  },
-  {
-   "n": 61,
-   "id": "27775",
-   "doi": "10.17226/27775",
-   "title": "Sex and Gender Identification and Implications for Disability Evaluation",
-   "year": 2024,
-   "url": "https://www.nationalacademies.org/publications/27775"
-  },
-  {
-   "n": 62,
+   "n": 21,
    "id": "27787",
    "doi": "10.17226/27787",
    "title": "International Talent Programs in the Changing Global Environment",
@@ -952,15 +3907,7 @@
    "url": "https://www.nationalacademies.org/publications/27787"
   },
   {
-   "n": 63,
-   "id": "27796",
-   "doi": "10.17226/27796",
-   "title": "Biodiversity and Climate Change Assessment: Review of Draft Chapters",
-   "year": 2025,
-   "url": "https://www.nationalacademies.org/publications/27796"
-  },
-  {
-   "n": 64,
+   "n": 22,
    "id": "27804",
    "doi": "10.17226/27804",
    "title": "Tackling the Road Safety Crisis: Saving Lives Through Research and Action",
@@ -968,7 +3915,7 @@
    "url": "https://www.nationalacademies.org/publications/27804"
   },
   {
-   "n": 65,
+   "n": 23,
    "id": "27805",
    "doi": "10.17226/27805",
    "title": "Emerging Hazards in Commercial Aviation—Report 2: Ensuring Safety During Transformative Changes",
@@ -976,7 +3923,7 @@
    "url": "https://www.nationalacademies.org/publications/27805"
   },
   {
-   "n": 66,
+   "n": 24,
    "id": "27807",
    "doi": "10.17226/27807",
    "title": "Long Freight Trains: Ensuring Safe Operations, Mitigating Adverse Impacts",
@@ -984,15 +3931,7 @@
    "url": "https://www.nationalacademies.org/publications/27807"
   },
   {
-   "n": 67,
-   "id": "27820",
-   "doi": "10.17226/27820",
-   "title": "Ending Unequal Treatment: Strategies to Achieve Equitable Health Care and Optimal Health for All",
-   "year": 2024,
-   "url": "https://www.nationalacademies.org/publications/27820"
-  },
-  {
-   "n": 68,
+   "n": 25,
    "id": "27830",
    "doi": "10.17226/27830",
    "title": "The Current Status and Future Direction of High-Magnetic-Field Science and Technology in the United States",
@@ -1000,23 +3939,7 @@
    "url": "https://www.nationalacademies.org/publications/27830"
   },
   {
-   "n": 69,
-   "id": "27833",
-   "doi": "10.17226/27833",
-   "title": "The Future of Youth Development: Building Systems and Strengthening Programs",
-   "year": 2025,
-   "url": "https://www.nationalacademies.org/publications/27833"
-  },
-  {
-   "n": 70,
-   "id": "27835",
-   "doi": "10.17226/27835",
-   "title": "Launching Lifelong Health by Improving Health Care for Children, Youth, and Families",
-   "year": 2024,
-   "url": "https://www.nationalacademies.org/publications/27835"
-  },
-  {
-   "n": 71,
+   "n": 26,
    "id": "27838",
    "doi": "10.17226/27838",
    "title": "A Plan to Promote Defense Research at Minority-Serving Institutions",
@@ -1024,15 +3947,7 @@
    "url": "https://www.nationalacademies.org/publications/27838"
   },
   {
-   "n": 72,
-   "id": "27846",
-   "doi": "10.17226/27846",
-   "title": "Forecasting the Ocean: The 2025–2035 Decade of Ocean Science",
-   "year": 2025,
-   "url": "https://www.nationalacademies.org/publications/27846"
-  },
-  {
-   "n": 73,
+   "n": 27,
    "id": "27862",
    "doi": "10.17226/27862",
    "title": "Pathways to Doctoral Degrees in Computing",
@@ -1040,7 +3955,7 @@
    "url": "https://www.nationalacademies.org/publications/27862"
   },
   {
-   "n": 74,
+   "n": 28,
    "id": "27873",
    "doi": "10.17226/27873",
    "title": "Impacts of National Science Foundation Engineering Research Support on Society",
@@ -1048,15 +3963,7 @@
    "url": "https://www.nationalacademies.org/publications/27873"
   },
   {
-   "n": 75,
-   "id": "27875",
-   "doi": "10.17226/27875",
-   "title": "Progress Toward Restoring the Everglades: The Tenth Biennial Review - 2024",
-   "year": 2024,
-   "url": "https://www.nationalacademies.org/publications/27875"
-  },
-  {
-   "n": 76,
+   "n": 29,
    "id": "27892",
    "doi": "10.17226/27892",
    "title": "Pay and Working Conditions in the Long-Distance Truck and Bus Industries: Assessing for Effects on Driver Safety and Retention",
@@ -1064,7 +3971,7 @@
    "url": "https://www.nationalacademies.org/publications/27892"
   },
   {
-   "n": 77,
+   "n": 30,
    "id": "27894",
    "doi": "10.17226/27894",
    "title": "Understanding and Addressing Misinformation About Science",
@@ -1072,39 +3979,7 @@
    "url": "https://www.nationalacademies.org/publications/27894"
   },
   {
-   "n": 78,
-   "id": "27913",
-   "doi": "10.17226/27913",
-   "title": "Rethinking Race and Ethnicity in Biomedical Research",
-   "year": 2025,
-   "url": "https://www.nationalacademies.org/publications/27913"
-  },
-  {
-   "n": 79,
-   "id": "27923",
-   "doi": "10.17226/27923",
-   "title": "Developing a Strategy to Evaluate the National Climate Assessment",
-   "year": 2024,
-   "url": "https://www.nationalacademies.org/publications/27923"
-  },
-  {
-   "n": 80,
-   "id": "27929",
-   "doi": "10.17226/27929",
-   "title": "Response to the Pay PCPs Act of 2024 Request for Information",
-   "year": 2024,
-   "url": "https://www.nationalacademies.org/publications/27929"
-  },
-  {
-   "n": 81,
-   "id": "27934",
-   "doi": "10.17226/27934",
-   "title": "Principles and Practices for a Federal Statistical Agency: Eighth Edition",
-   "year": 2025,
-   "url": "https://www.nationalacademies.org/publications/27934"
-  },
-  {
-   "n": 82,
+   "n": 31,
    "id": "27938",
    "doi": "10.17226/27938",
    "title": "The Next Decade of Discovery in Solar and Space Physics: Exploring and Safeguarding Humanity's Home in Space",
@@ -1112,7 +3987,7 @@
    "url": "https://www.nationalacademies.org/publications/27938"
   },
   {
-   "n": 83,
+   "n": 32,
    "id": "27950",
    "doi": "10.17226/27950",
    "title": "Scaling and Sustaining Pre-K-12 STEM Education Innovations: Systemic Challenges, Systemic Responses",
@@ -1120,47 +3995,7 @@
    "url": "https://www.nationalacademies.org/publications/27950"
   },
   {
-   "n": 84,
-   "id": "27955",
-   "doi": "10.17226/27955",
-   "title": "Women's Empowerment, Population Dynamics, and Socioeconomic Development",
-   "year": 2025,
-   "url": "https://www.nationalacademies.org/publications/27955"
-  },
-  {
-   "n": 85,
-   "id": "27957",
-   "doi": "10.17226/27957",
-   "title": "Rethinking the Acceptable Macronutrient Distribution Range for the 21st Century: A Letter Report",
-   "year": 2024,
-   "url": "https://www.nationalacademies.org/publications/27957"
-  },
-  {
-   "n": 86,
-   "id": "27958",
-   "doi": "10.17226/27958",
-   "title": "Off-Lake Sources of Airborne Dust in Owens Valley, California",
-   "year": 2025,
-   "url": "https://www.nationalacademies.org/publications/27958"
-  },
-  {
-   "n": 87,
-   "id": "27959",
-   "doi": "10.17226/27959",
-   "title": "Adult Learning in the Military Context",
-   "year": 2024,
-   "url": "https://www.nationalacademies.org/publications/27959"
-  },
-  {
-   "n": 88,
-   "id": "27968",
-   "doi": "10.17226/27968",
-   "title": "Regulatory Processes for Rare Disease Drugs in the United States and European Union: Flexibilities and Collaborative Opportunities",
-   "year": 2024,
-   "url": "https://www.nationalacademies.org/publications/27968"
-  },
-  {
-   "n": 89,
+   "n": 33,
    "id": "27970",
    "doi": "10.17226/27970",
    "title": "Machine Learning for Safety-Critical Applications: Opportunities, Challenges, and a Research Agenda",
@@ -1168,31 +4003,7 @@
    "url": "https://www.nationalacademies.org/publications/27970"
   },
   {
-   "n": 90,
-   "id": "27971",
-   "doi": "10.17226/27971",
-   "title": "Strategic Report on Research and Development in Biotechnology for Defense Innovation",
-   "year": 2025,
-   "url": "https://www.nationalacademies.org/publications/27971"
-  },
-  {
-   "n": 91,
-   "id": "27978",
-   "doi": "10.17226/27978",
-   "title": "Municipal Solid Waste Recycling in the United States: Analysis of Current and Alternative Approaches",
-   "year": 2025,
-   "url": "https://www.nationalacademies.org/publications/27978"
-  },
-  {
-   "n": 92,
-   "id": "27985",
-   "doi": "10.17226/27985",
-   "title": "Response to the Centers for Medicare & Medicaid Services CY 2025 Advanced Primary Care Hybrid Payment Request for Information",
-   "year": 2024,
-   "url": "https://www.nationalacademies.org/publications/27985"
-  },
-  {
-   "n": 93,
+   "n": 34,
    "id": "27989",
    "doi": "10.17226/27989",
    "title": "Assessing NASA Science Activation 2.0: Progress, Achievements, and Strategic Recommendations",
@@ -1200,7 +4011,7 @@
    "url": "https://www.nationalacademies.org/publications/27989"
   },
   {
-   "n": 94,
+   "n": 35,
    "id": "27998",
    "doi": "10.17226/27998",
    "title": "Proposed Science Themes for NASA's Fifth New Frontiers Mission",
@@ -1208,7 +4019,7 @@
    "url": "https://www.nationalacademies.org/publications/27998"
   },
   {
-   "n": 95,
+   "n": 36,
    "id": "28268",
    "doi": "10.17226/28268",
    "title": "Transforming Undergraduate STEM Education: Supporting Equitable and Effective Teaching",
@@ -1216,7 +4027,7 @@
    "url": "https://www.nationalacademies.org/publications/28268"
   },
   {
-   "n": 96,
+   "n": 37,
    "id": "28269",
    "doi": "10.17226/28269",
    "title": "K-12 STEM Education and Workforce Development in Rural Areas",
@@ -1224,87 +4035,7 @@
    "url": "https://www.nationalacademies.org/publications/28269"
   },
   {
-   "n": 97,
-   "id": "28456",
-   "doi": "10.17226/28456",
-   "title": "Economic and Social Mobility: New Directions for Data, Research, and Policy",
-   "year": 2025,
-   "url": "https://www.nationalacademies.org/publications/28456"
-  },
-  {
-   "n": 98,
-   "id": "28577",
-   "doi": "10.17226/28577",
-   "title": "Blueprint for a National Prevention Infrastructure for Mental, Emotional, and Behavioral Disorders",
-   "year": 2025,
-   "url": "https://www.nationalacademies.org/publications/28577"
-  },
-  {
-   "n": 99,
-   "id": "28578",
-   "doi": "10.17226/28578",
-   "title": "Charting a Path Toward New Treatments for Lyme Infection-Associated Chronic Illnesses",
-   "year": 2025,
-   "url": "https://www.nationalacademies.org/publications/28578"
-  },
-  {
-   "n": 100,
-   "id": "28580",
-   "doi": "10.17226/28580",
-   "title": "Advancing Face and Hand Transplantation: Principles and Framework for Developing Standardized Protocols",
-   "year": 2025,
-   "url": "https://www.nationalacademies.org/publications/28580"
-  },
-  {
-   "n": 101,
-   "id": "28582",
-   "doi": "10.17226/28582",
-   "title": "Review of Evidence on Alcohol and Health",
-   "year": 2025,
-   "url": "https://www.nationalacademies.org/publications/28582"
-  },
-  {
-   "n": 102,
-   "id": "28584",
-   "doi": "10.17226/28584",
-   "title": "Veterans, Prescription Opioids and Benzodiazepines, and Mortality, 2007–2019: Three Target Trial Emulations",
-   "year": 2025,
-   "url": "https://www.nationalacademies.org/publications/28584"
-  },
-  {
-   "n": 103,
-   "id": "28585",
-   "doi": "10.17226/28585",
-   "title": "Evaluation of Manhattan Project Records for Veteran Health and Exposure Assessments",
-   "year": 2025,
-   "url": "https://www.nationalacademies.org/publications/28585"
-  },
-  {
-   "n": 104,
-   "id": "28586",
-   "doi": "10.17226/28586",
-   "title": "A New Vision for Women's Health Research: Transformative Change at the National Institutes of Health",
-   "year": 2025,
-   "url": "https://www.nationalacademies.org/publications/28586"
-  },
-  {
-   "n": 105,
-   "id": "28588",
-   "doi": "10.17226/28588",
-   "title": "Preventing and Treating Dementia: Research Priorities to Accelerate Progress",
-   "year": 2025,
-   "url": "https://www.nationalacademies.org/publications/28588"
-  },
-  {
-   "n": 106,
-   "id": "28590",
-   "doi": "10.17226/28590",
-   "title": "Attribution of Extreme Weather and Climate Events and Their Impacts",
-   "year": 2026,
-   "url": "https://www.nationalacademies.org/publications/28590"
-  },
-  {
-   "n": 107,
+   "n": 38,
    "id": "28591",
    "doi": "10.17226/28591",
    "title": "An Assessment of Data, Tools, and Metrics for Equity in Decisions About Surface Transportation Investments",
@@ -1312,15 +4043,7 @@
    "url": "https://www.nationalacademies.org/publications/28591"
   },
   {
-   "n": 108,
-   "id": "28592",
-   "doi": "10.17226/28592",
-   "title": "Review of Texas Commission on Environmental Quality's Ethylene Oxide Development Support Document",
-   "year": 2025,
-   "url": "https://www.nationalacademies.org/publications/28592"
-  },
-  {
-   "n": 109,
+   "n": 39,
    "id": "28594",
    "doi": "10.17226/28594",
    "title": "A Science Strategy for the Human Exploration of Mars",
@@ -1328,7 +4051,7 @@
    "url": "https://www.nationalacademies.org/publications/28594"
   },
   {
-   "n": 110,
+   "n": 40,
    "id": "28596",
    "doi": "10.17226/28596",
    "title": "Views of the U.S. National Academies of Sciences, Engineering, and Medicine on Agenda Items at Issue at the World Radiocommunication Conference 2027",
@@ -1336,7 +4059,7 @@
    "url": "https://www.nationalacademies.org/publications/28596"
   },
   {
-   "n": 111,
+   "n": 41,
    "id": "28836",
    "doi": "10.17226/28836",
    "title": "Preventing Technology Surprise: The Army's Leading-Edge Research Programs and the Subject-Matter Expertise That Fuels Them",
@@ -1344,7 +4067,7 @@
    "url": "https://www.nationalacademies.org/publications/28836"
   },
   {
-   "n": 112,
+   "n": 42,
    "id": "28839",
    "doi": "10.17226/28839",
    "title": "Elementary Particle Physics: The Higgs and Beyond",
@@ -1352,31 +4075,7 @@
    "url": "https://www.nationalacademies.org/publications/28839"
   },
   {
-   "n": 113,
-   "id": "28868",
-   "doi": "10.17226/28868",
-   "title": "The Age of AI in the Life Sciences: Benefits and Biosecurity Considerations",
-   "year": 2025,
-   "url": "https://www.nationalacademies.org/publications/28868"
-  },
-  {
-   "n": 114,
-   "id": "29043",
-   "doi": "10.17226/29043",
-   "title": "The Science and Practice of Team Science",
-   "year": 2025,
-   "url": "https://www.nationalacademies.org/publications/29043"
-  },
-  {
-   "n": 115,
-   "id": "29048",
-   "doi": "10.17226/29048",
-   "title": "Cybercrime Classification and Measurement",
-   "year": 2025,
-   "url": "https://www.nationalacademies.org/publications/29048"
-  },
-  {
-   "n": 116,
+   "n": 43,
    "id": "29056",
    "doi": "10.17226/29056",
    "title": "Cyber Hard Problems: Focused Steps Toward a Resilient Digital Future",
@@ -1384,15 +4083,7 @@
    "url": "https://www.nationalacademies.org/publications/29056"
   },
   {
-   "n": 117,
-   "id": "29057",
-   "doi": "10.17226/29057",
-   "title": "Managing Highway Stormwater Quality: Driving Progress",
-   "year": 2026,
-   "url": "https://www.nationalacademies.org/publications/29057"
-  },
-  {
-   "n": 118,
+   "n": 44,
    "id": "29063",
    "doi": "10.17226/29063",
    "title": "Quadrennial Review of the National Nanotechnology Initiative (2025): Securing U.S. Global Leadership Through Renewed and Expanded Infrastructure",
@@ -1400,31 +4091,7 @@
    "url": "https://www.nationalacademies.org/publications/29063"
   },
   {
-   "n": 119,
-   "id": "29065",
-   "doi": "10.17226/29065",
-   "title": "Protein Quality and Growth Monitoring Studies: Quality Factor Requirements for Infant Formula",
-   "year": 2025,
-   "url": "https://www.nationalacademies.org/publications/29065"
-  },
-  {
-   "n": 120,
-   "id": "29068",
-   "doi": "10.17226/29068",
-   "title": "Meeting Future U.S. Mineral Resource Needs: The Role of the U.S. Geological Survey Mineral Resources Program",
-   "year": 2025,
-   "url": "https://www.nationalacademies.org/publications/29068"
-  },
-  {
-   "n": 121,
-   "id": "29069",
-   "doi": "10.17226/29069",
-   "title": "Improving Primary Care Valuation Processes to Inform the Physician Fee Schedule",
-   "year": 2025,
-   "url": "https://www.nationalacademies.org/publications/29069"
-  },
-  {
-   "n": 122,
+   "n": 45,
    "id": "29070",
    "doi": "10.17226/29070",
    "title": "Peer Review of the Federal Aviation Administration's Study of the Effects of Passenger Seat Width and Pitch on Airplane Evacuation Performance",
@@ -1432,7 +4099,7 @@
    "url": "https://www.nationalacademies.org/publications/29070"
   },
   {
-   "n": 123,
+   "n": 46,
    "id": "29073",
    "doi": "10.17226/29073",
    "title": "Developing a Research Agenda on Contrails and Their Climate Impacts",
@@ -1440,39 +4107,7 @@
    "url": "https://www.nationalacademies.org/publications/29073"
   },
   {
-   "n": 124,
-   "id": "29092",
-   "doi": "10.17226/29092",
-   "title": "Fulfilling the Public Mission of the Land-Grant System: Building Platforms for Collaboration and Impact",
-   "year": 2025,
-   "url": "https://www.nationalacademies.org/publications/29092"
-  },
-  {
-   "n": 125,
-   "id": "29102",
-   "doi": "10.17226/29102",
-   "title": "Newborn Screening in the United States: A Vision for Sustaining and Advancing Excellence",
-   "year": 2025,
-   "url": "https://www.nationalacademies.org/publications/29102"
-  },
-  {
-   "n": 126,
-   "id": "29104",
-   "doi": "10.17226/29104",
-   "title": "Measuring Meaningful Outcomes for Adult Hearing Health Interventions",
-   "year": 2025,
-   "url": "https://www.nationalacademies.org/publications/29104"
-  },
-  {
-   "n": 127,
-   "id": "29105",
-   "doi": "10.17226/29105",
-   "title": "School Active Shooter Drills: Mitigating Risks to Mental, Emotional, and Behavioral Health",
-   "year": 2025,
-   "url": "https://www.nationalacademies.org/publications/29105"
-  },
-  {
-   "n": 128,
+   "n": 47,
    "id": "29112",
    "doi": "10.17226/29112",
    "title": "The Air Traffic Controller Workforce Imperative: Staffing Models and Their Implementation to Ensure Safe and Efficient Airspace Operations",
@@ -1480,23 +4115,7 @@
    "url": "https://www.nationalacademies.org/publications/29112"
   },
   {
-   "n": 129,
-   "id": "29118",
-   "doi": "10.17226/29118",
-   "title": "Breastfeeding in the United States: Strategies to Support Families and Achieve National Goals",
-   "year": 2025,
-   "url": "https://www.nationalacademies.org/publications/29118"
-  },
-  {
-   "n": 130,
-   "id": "29124",
-   "doi": "10.17226/29124",
-   "title": "Visual Field Assessment and Disability Evaluation",
-   "year": 2025,
-   "url": "https://www.nationalacademies.org/publications/29124"
-  },
-  {
-   "n": 131,
+   "n": 48,
    "id": "29129",
    "doi": "10.17226/29129",
    "title": "Defense Software for a Contested Future: Agility, Assurance, and Incentives",
@@ -1504,55 +4123,7 @@
    "url": "https://www.nationalacademies.org/publications/29129"
   },
   {
-   "n": 132,
-   "id": "29130",
-   "doi": "10.17226/29130",
-   "title": "Review of the Long-Term Operations of the Central Valley Project and the State Water Project",
-   "year": 2026,
-   "url": "https://www.nationalacademies.org/publications/29130"
-  },
-  {
-   "n": 133,
-   "id": "29137",
-   "doi": "10.17226/29137",
-   "title": "Sickle Cell Disease in Social Security Disability Evaluations: Pain and Treatment Settings",
-   "year": 2025,
-   "url": "https://www.nationalacademies.org/publications/29137"
-  },
-  {
-   "n": 134,
-   "id": "29139",
-   "doi": "10.17226/29139",
-   "title": "The Comprehensive Autism Care Demonstration: Solutions for Military Families",
-   "year": 2025,
-   "url": "https://www.nationalacademies.org/publications/29139"
-  },
-  {
-   "n": 135,
-   "id": "29157",
-   "doi": "10.17226/29157",
-   "title": "Aligning Investments in Therapeutic Development with Therapeutic Need: Closing the Gap",
-   "year": 2025,
-   "url": "https://www.nationalacademies.org/publications/29157"
-  },
-  {
-   "n": 136,
-   "id": "29163",
-   "doi": "10.17226/29163",
-   "title": "Pathways to Reduce Child Poverty: Impacts of Federal Tax Credits",
-   "year": 2026,
-   "url": "https://www.nationalacademies.org/publications/29163"
-  },
-  {
-   "n": 137,
-   "id": "29182",
-   "doi": "10.17226/29182",
-   "title": "State of the Science and the Future of Cumulative Impact Assessment",
-   "year": 2025,
-   "url": "https://www.nationalacademies.org/publications/29182"
-  },
-  {
-   "n": 138,
+   "n": 49,
    "id": "29198",
    "doi": "10.17226/29198",
    "title": "Digital Transformation in the Department of the Air Force",
@@ -1560,7 +4131,7 @@
    "url": "https://www.nationalacademies.org/publications/29198"
   },
   {
-   "n": 139,
+   "n": 50,
    "id": "29212",
    "doi": "10.17226/29212",
    "title": "Foundation Models for Scientific Discovery and Innovation: Opportunities Across the Department of Energy and the Scientific Enterprise",
@@ -1568,39 +4139,7 @@
    "url": "https://www.nationalacademies.org/publications/29212"
   },
   {
-   "n": 140,
-   "id": "29213",
-   "doi": "10.17226/29213",
-   "title": "Strengthening Alcohol Policies and Supporting Safety and Health in the Maritime Industry",
-   "year": 2026,
-   "url": "https://www.nationalacademies.org/publications/29213"
-  },
-  {
-   "n": 141,
-   "id": "29217",
-   "doi": "10.17226/29217",
-   "title": "Improving Future U.S. Drought Assessment",
-   "year": 2026,
-   "url": "https://www.nationalacademies.org/publications/29217"
-  },
-  {
-   "n": 142,
-   "id": "29219",
-   "doi": "10.17226/29219",
-   "title": "Exploring Military Exposures and Mental, Behavioral, and Neurologic Health Outcomes Among Post-9/11 Veterans",
-   "year": 2025,
-   "url": "https://www.nationalacademies.org/publications/29219"
-  },
-  {
-   "n": 143,
-   "id": "29226",
-   "doi": "10.17226/29226",
-   "title": "Building a Workforce to Develop and Sustain Interprofessional Primary Care Teams",
-   "year": 2025,
-   "url": "https://www.nationalacademies.org/publications/29226"
-  },
-  {
-   "n": 144,
+   "n": 51,
    "id": "29231",
    "doi": "10.17226/29231",
    "title": "Simplifying Research Regulations and Policies: Optimizing American Science",
@@ -1608,7 +4147,7 @@
    "url": "https://www.nationalacademies.org/publications/29231"
   },
   {
-   "n": 145,
+   "n": 52,
    "id": "29232",
    "doi": "10.17226/29232",
    "title": "Strengthening the U.S. Medicolegal Death Investigation System: Lessons from Deaths in Custody",
@@ -1616,55 +4155,7 @@
    "url": "https://www.nationalacademies.org/publications/29232"
   },
   {
-   "n": 146,
-   "id": "29234",
-   "doi": "10.17226/29234",
-   "title": "Early Relational Health: Building Foundations for Child, Family, and Community Well-Being",
-   "year": 2025,
-   "url": "https://www.nationalacademies.org/publications/29234"
-  },
-  {
-   "n": 147,
-   "id": "29239",
-   "doi": "10.17226/29239",
-   "title": "Effects of Human-Caused Greenhouse Gas Emissions on U.S. Climate, Health, and Welfare",
-   "year": 2025,
-   "url": "https://www.nationalacademies.org/publications/29239"
-  },
-  {
-   "n": 148,
-   "id": "29240",
-   "doi": "10.17226/29240",
-   "title": "Vaccine Risk Monitoring and Evaluation at the Centers for Disease Control and Prevention",
-   "year": 2025,
-   "url": "https://www.nationalacademies.org/publications/29240"
-  },
-  {
-   "n": 149,
-   "id": "29255",
-   "doi": "10.17226/29255",
-   "title": "Offshore Renewable Energy Development on the West Coast: Understanding Effects on Shipping, Fisheries, and Maritime Activities",
-   "year": 2026,
-   "url": "https://www.nationalacademies.org/publications/29255"
-  },
-  {
-   "n": 150,
-   "id": "29259",
-   "doi": "10.17226/29259",
-   "title": "Response to the Centers for Medicare & Medicaid Services CY 2026 Physician Fee Schedule and Other Changes to Part B Payment and Coverage Policies Proposed Rule",
-   "year": 2025,
-   "url": "https://www.nationalacademies.org/publications/29259"
-  },
-  {
-   "n": 151,
-   "id": "29261",
-   "doi": "10.17226/29261",
-   "title": "Assessing Radiation Exposure, Health Outcomes, and Mitigation Strategies for Flight Crewmembers",
-   "year": 2026,
-   "url": "https://www.nationalacademies.org/publications/29261"
-  },
-  {
-   "n": 152,
+   "n": 53,
    "id": "29262",
    "doi": "10.17226/29262",
    "title": "Research and Technology Coordinating Committee Letter Report: September 2025",
@@ -1672,7 +4163,7 @@
    "url": "https://www.nationalacademies.org/publications/29262"
   },
   {
-   "n": 153,
+   "n": 54,
    "id": "29272",
    "doi": "10.17226/29272",
    "title": "PFAS in Agricultural Systems: Guidance for Conservation Programs at USDA",
@@ -1680,7 +4171,7 @@
    "url": "https://www.nationalacademies.org/publications/29272"
   },
   {
-   "n": 154,
+   "n": 55,
    "id": "29280",
    "doi": "10.17226/29280",
    "title": "An Assessment of the National Institute of Standards and Technology Center for Neutron Research: Fiscal Year 2025",
@@ -1688,23 +4179,7 @@
    "url": "https://www.nationalacademies.org/publications/29280"
   },
   {
-   "n": 155,
-   "id": "29282",
-   "doi": "10.17226/29282",
-   "title": "Promoting the Quality of Data on Marine Recreational Fishing",
-   "year": 2026,
-   "url": "https://www.nationalacademies.org/publications/29282"
-  },
-  {
-   "n": 156,
-   "id": "29290",
-   "doi": "10.17226/29290",
-   "title": "A Synthesis Center for Paleoenvironmental Records of Extreme Events",
-   "year": 2026,
-   "url": "https://www.nationalacademies.org/publications/29290"
-  },
-  {
-   "n": 157,
+   "n": 56,
    "id": "29292",
    "doi": "10.17226/29292",
    "title": "Frontiers of Statistics in Science and Engineering: 2035 and Beyond",
@@ -1712,7 +4187,7 @@
    "url": "https://www.nationalacademies.org/publications/29292"
   },
   {
-   "n": 158,
+   "n": 57,
    "id": "29293",
    "doi": "10.17226/29293",
    "title": "An Assessment of the National Institute of Standards and Technology Communications Technology Laboratory: Fiscal Year 2025",
@@ -1720,7 +4195,7 @@
    "url": "https://www.nationalacademies.org/publications/29293"
   },
   {
-   "n": 159,
+   "n": 58,
    "id": "29294",
    "doi": "10.17226/29294",
    "title": "An Assessment of the National Institute of Standards and Technology Physical Measurement Laboratory: Fiscal Year 2025",
@@ -1728,7 +4203,7 @@
    "url": "https://www.nationalacademies.org/publications/29294"
   },
   {
-   "n": 160,
+   "n": 59,
    "id": "29295",
    "doi": "10.17226/29295",
    "title": "A Vision for the Manufacturing USA Program in 2030 and 2035",
@@ -1736,7 +4211,7 @@
    "url": "https://www.nationalacademies.org/publications/29295"
   },
   {
-   "n": 161,
+   "n": 60,
    "id": "29303",
    "doi": "10.17226/29303",
    "title": "Data and Computing in K–12 Education: Foundational Competencies",
@@ -1744,23 +4219,7 @@
    "url": "https://www.nationalacademies.org/publications/29303"
   },
   {
-   "n": 162,
-   "id": "29319",
-   "doi": "10.17226/29319",
-   "title": "Sickle Cell Disease in Social Security Disability Evaluations",
-   "year": 2025,
-   "url": "https://www.nationalacademies.org/publications/29319"
-  },
-  {
-   "n": 163,
-   "id": "29325",
-   "doi": "10.17226/29325",
-   "title": "Supporting Responsible Innovation of Synthetic Cells: Biosafety, Biosecurity, and Environmental Considerations",
-   "year": 2026,
-   "url": "https://www.nationalacademies.org/publications/29325"
-  },
-  {
-   "n": 164,
+   "n": 61,
    "id": "29328",
    "doi": "10.17226/29328",
    "title": "Innovative Materials in Water Resources Infrastructure: Opportunities for the Corps of Engineers",
@@ -1768,63 +4227,7 @@
    "url": "https://www.nationalacademies.org/publications/29328"
   },
   {
-   "n": 165,
-   "id": "29329",
-   "doi": "10.17226/29329",
-   "title": "Review of the SBIR and STTR Programs at the Department of Defense",
-   "year": 2026,
-   "url": "https://www.nationalacademies.org/publications/29329"
-  },
-  {
-   "n": 166,
-   "id": "29343",
-   "doi": "10.17226/29343",
-   "title": "Technologies and Practices for Plugging and Remediating Orphan Oil and Gas Wells",
-   "year": 2026,
-   "url": "https://www.nationalacademies.org/publications/29343"
-  },
-  {
-   "n": 167,
-   "id": "29346",
-   "doi": "10.17226/29346",
-   "title": "Strategies to Enhance NIH-Funded Pediatric Research: Optimizing Child Health",
-   "year": 2026,
-   "url": "https://www.nationalacademies.org/publications/29346"
-  },
-  {
-   "n": 168,
-   "id": "29347",
-   "doi": "10.17226/29347",
-   "title": "Enabling DOE Regional Energy–Water Technology Pilots",
-   "year": 2026,
-   "url": "https://www.nationalacademies.org/publications/29347"
-  },
-  {
-   "n": 169,
-   "id": "29365",
-   "doi": "10.17226/29365",
-   "title": "A Data Infrastructure for Measuring the Care Economy",
-   "year": 2026,
-   "url": "https://www.nationalacademies.org/publications/29365"
-  },
-  {
-   "n": 170,
-   "id": "29381",
-   "doi": "10.17226/29381",
-   "title": "Review of the SBIR and STTR Programs at NASA",
-   "year": 2026,
-   "url": "https://www.nationalacademies.org/publications/29381"
-  },
-  {
-   "n": 171,
-   "id": "29399",
-   "doi": "10.17226/29399",
-   "title": "Evaluation of ARPA-E's Mission and Goals",
-   "year": 2026,
-   "url": "https://www.nationalacademies.org/publications/29399"
-  },
-  {
-   "n": 172,
+   "n": 62,
    "id": "29401",
    "doi": "10.17226/29401",
    "title": "Human Exploration Across the Moon",
@@ -1832,23 +4235,7 @@
    "url": "https://www.nationalacademies.org/publications/29401"
   },
   {
-   "n": 173,
-   "id": "29404",
-   "doi": "10.17226/29404",
-   "title": "Clinical Follow-Up and Care for Those Impacted by the JP-5 Releases at Red Hill",
-   "year": 2026,
-   "url": "https://www.nationalacademies.org/publications/29404"
-  },
-  {
-   "n": 174,
-   "id": "29411",
-   "doi": "10.17226/29411",
-   "title": "Review of the Draft U.S. National Assessment by The Nature Record",
-   "year": 2026,
-   "url": "https://www.nationalacademies.org/publications/29411"
-  },
-  {
-   "n": 175,
+   "n": 63,
    "id": "29420",
    "doi": "10.17226/29420",
    "title": "Emerging Hazards in Commercial Aviation—Report 3: The Human Contribution to Safety",
@@ -1856,23 +4243,7 @@
    "url": "https://www.nationalacademies.org/publications/29420"
   },
   {
-   "n": 176,
-   "id": "29422",
-   "doi": "10.17226/29422",
-   "title": "Progress Toward Restoring the Everglades: The Eleventh Biennial Review - 2026",
-   "year": 2026,
-   "url": "https://www.nationalacademies.org/publications/29422"
-  },
-  {
-   "n": 177,
-   "id": "29425",
-   "doi": "10.17226/29425",
-   "title": "Protecting Maternal Heart Health: Prevention and Care Before, During, and After Pregnancy",
-   "year": 2026,
-   "url": "https://www.nationalacademies.org/publications/29425"
-  },
-  {
-   "n": 178,
+   "n": 64,
    "id": "29429",
    "doi": "10.17226/29429",
    "title": "21st Century Tools at the Interface of Atomic, Molecular, and Optical Science and Quantum Information Science: Report Series",
@@ -1880,39 +4251,7 @@
    "url": "https://www.nationalacademies.org/publications/29429"
   },
   {
-   "n": 179,
-   "id": "29439",
-   "doi": "10.17226/29439",
-   "title": "Using Community Partnerships to Inform the Prevention Strategy of the Center for Medicare and Medicaid Innovation",
-   "year": 2026,
-   "url": "https://www.nationalacademies.org/publications/29439"
-  },
-  {
-   "n": 180,
-   "id": "29444",
-   "doi": "10.17226/29444",
-   "title": "Using Mobile Apps and Wearable Technology in Primary Care Settings to Inform the Prevention Strategy of the Center for Medicare and Medicaid Innovation",
-   "year": 2026,
-   "url": "https://www.nationalacademies.org/publications/29444"
-  },
-  {
-   "n": 181,
-   "id": "29453",
-   "doi": "10.17226/29453",
-   "title": "Improving Disability Evaluations for Veterans Who Have Experienced Military Sexual Trauma",
-   "year": 2026,
-   "url": "https://www.nationalacademies.org/publications/29453"
-  },
-  {
-   "n": 182,
-   "id": "29472",
-   "doi": "10.17226/29472",
-   "title": "Health and Safety Impacts of Aircraft Cabin Temperatures",
-   "year": 2026,
-   "url": "https://www.nationalacademies.org/publications/29472"
-  },
-  {
-   "n": 183,
+   "n": 65,
    "id": "29488",
    "doi": "10.17226/29488",
    "title": "On Being a Scientist: A Guide to the Responsible and Ethical Conduct of Research: Fourth Edition",
@@ -1920,28 +4259,12 @@
    "url": "https://www.nationalacademies.org/publications/29488"
   },
   {
-   "n": 184,
-   "id": "29554",
-   "doi": "10.17226/29554",
-   "title": "Response to the Centers for Medicare & Medicaid Services CY 2027 Payment Policies under the Physician Fee Schedule and Other Changes to Part B Payment and Coverage Policies Proposed Rule",
-   "year": 2026,
-   "url": "https://www.nationalacademies.org/publications/29554"
-  },
-  {
-   "n": 185,
+   "n": 66,
    "id": "29571",
    "doi": "10.17226/29571",
    "title": "Sobre ser científico: Guía para la conducta responsable y ética en la investigación: Cuarta edición",
    "year": 2026,
    "url": "https://www.nationalacademies.org/publications/29571"
-  },
-  {
-   "n": 186,
-   "id": "29579",
-   "doi": "10.17226/29579",
-   "title": "Assessment of the SBIR and STTR Programs at the Department of Energy",
-   "year": 2026,
-   "url": "https://www.nationalacademies.org/publications/29579"
   }
  ]
 }
