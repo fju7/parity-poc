@@ -2,23 +2,26 @@
 """The paid identifiability check (blinding ruling, 19 October 2026).
 
 A model sees blinded sentences and guesses which of the four systems wrote
-each. With four systems chance is 25%; if WHU is identified more than 50% of
-the time, the blinding is not good enough.
+each. With four systems chance is 25%. Since protocol rev 24 ("Rulings from
+prep round 2") the result is reported, not a gate: the bias test replaced the
+50% threshold. The result still says whether WHU was identified more than half
+the time, and how far each system's rate is from chance (a one-sided binomial
+tail).
 
 Usage:
     identifiability.py SENTENCES_DIR OUT_DIR [--n 20] [--seed 20261019]
                        [--batch 20] [--cap 25] [--ledger-issue NAME]
 
 SENTENCES_DIR holds the *.sentences.blind.jsonl files blind.py --sentences
-wrote, one row per sentence with its system. For each system, N sentences are
-drawn at random (fixed seed) from those that may be sampled and are claim-like
+wrote, one row per sentence with its system. For each system, N sentences (or all
+of them, if it has fewer) are drawn at random (fixed seed) from those that may be sampled and are claim-like
 (a number or a citation marker, 8 to 70 words): what M1 samples. Each is shown
-as an M1 judge sees it, with the ~400 characters before it. All N x 4 are
+as an M1 judge sees it, with the ~400 characters before it. All of them are
 shuffled together and sent in batches.
 
 Writes OUT_DIR/sample.json, OUT_DIR/replies/*.json and OUT_DIR/result.json
-(the confusion table, each system's identification rate, and the clues the
-guesser named).
+(the confusion table, each system's identification rate against chance, and
+the clues the guesser named for each system it identified).
 """
 from __future__ import annotations
 
@@ -26,6 +29,7 @@ import argparse
 import hashlib
 import importlib.util
 import json
+import math
 import random
 import re
 import sys
@@ -84,13 +88,50 @@ def draw(sent_dir: Path, n: int, seed: int) -> list[dict]:
     out = []
     for s in SYSTEMS:
         pool = pools[s]
-        if len(pool) < n:
-            raise SystemExit("%s has only %d claim-like samplable sentences" % (s, len(pool)))
-        out += rng.sample(pool, n)
+        if not pool:
+            raise SystemExit("%s has no claim-like samplable sentences" % s)
+        out += rng.sample(pool, min(n, len(pool)))
     rng.shuffle(out)
     for i, r in enumerate(out, 1):
         r["id"] = "X%02d" % i
     return out
+
+
+def binom_tail(k: int, n: int, p: float = 0.25) -> float:
+    """P(X >= k) for X ~ Binomial(n, p): how likely k or more correct guesses
+    of n would be by chance."""
+    return sum(math.comb(n, i) * p ** i * (1 - p) ** (n - i) for i in range(k, n + 1))
+
+
+def tally(sample: list[dict], guesses: dict[str, dict]) -> dict:
+    """The confusion table and, per system, its identification rate against
+    chance and the clues the guesser gave when it identified that system."""
+    conf = {s: Counter() for s in SYSTEMS}
+    n = Counter(r["system"] for r in sample)
+    identified_clues = {s: [] for s in SYSTEMS}
+    all_clues = {s: [] for s in SYSTEMS}
+    for r in sample:
+        g = guesses.get(r["id"], {})
+        conf[r["system"]][g.get("guess", "(none)")] += 1
+        all_clues[r["system"]].append({"id": r["id"], "guess": g.get("guess"), "confidence": g.get("confidence"),
+                                       "clue": g.get("clue", "")})
+        if g.get("guess") == r["system"]:
+            identified_clues[r["system"]].append(g.get("clue", ""))
+    rates = {s: {"identified": conf[s][s], "n": n[s], "rate": round(conf[s][s] / n[s], 3) if n[s] else None,
+                 "p_by_chance": float("%.3g" % binom_tail(conf[s][s], n[s])) if n[s] else None,
+                 "guessed_as_this": sum(c[s] for c in conf.values())}
+             for s in SYSTEMS}
+    total = sum(n.values())
+    return {"n_per_system": {s: n[s] for s in SYSTEMS},
+            "confusion_rows_true_cols_guess": {s: dict(conf[s]) for s in SYSTEMS},
+            "rates": rates, "chance": 0.25,
+            "whu_identification_rate": rates["WHU"]["rate"],
+            "whu_precision": "%d/%d" % (conf["WHU"]["WHU"], rates["WHU"]["guessed_as_this"]),
+            "overall_accuracy": round(sum(conf[s][s] for s in SYSTEMS) / total, 3) if total else None,
+            "whu_above_half": bool(n["WHU"]) and conf["WHU"]["WHU"] / n["WHU"] > 0.5,
+            "gate": False, "note": "reported, not a gate (protocol rev 24)",
+            "clues_when_identified": identified_clues,
+            "all_clues_by_true_system": all_clues}
 
 
 def main() -> int:
@@ -134,27 +175,10 @@ def main() -> int:
         m = re.search(r"\[.*\]", rep["raw"], re.S)
         for g in json.loads(m.group(0)) if m else []:
             guesses[g["id"]] = g
-    conf = {s: Counter() for s in SYSTEMS}
-    clues = {s: [] for s in SYSTEMS}
-    for r in sample:
-        g = guesses.get(r["id"], {})
-        conf[r["system"]][g.get("guess", "(none)")] += 1
-        if g.get("guess") == "WHU":
-            clues[r["system"]].append(g.get("clue", ""))
-    rate = {s: "%d/%d" % (conf[s][s], a.n) for s in SYSTEMS}
-    guessed_whu = sum(c["WHU"] for c in conf.values())
-    res = {"model": MODEL, "seed": a.seed, "n_per_system": a.n,
-           "confusion_rows_true_cols_guess": {s: dict(conf[s]) for s in SYSTEMS},
-           "identified": rate,
-           "whu_identification_rate": round(conf["WHU"]["WHU"] / a.n, 3),
-           "whu_precision": "%d/%d" % (conf["WHU"]["WHU"], guessed_whu),
-           "overall_accuracy": round(sum(conf[s][s] for s in SYSTEMS) / (a.n * 4), 3),
-           "blinding_fails": conf["WHU"]["WHU"] / a.n > 0.5,
-           "clues_when_guessing_WHU": clues,
-           "all_clues_for_true_WHU": [guesses.get(r["id"], {}).get("clue", "") for r in sample if r["system"] == "WHU"]}
+    res = dict({"model": MODEL, "seed": a.seed, "n_asked_per_system": a.n}, **tally(sample, guesses))
     (out / "result.json").write_text(json.dumps(res, indent=1, ensure_ascii=False), encoding="utf-8")
-    print(json.dumps({k: res[k] for k in ("confusion_rows_true_cols_guess", "identified", "whu_identification_rate",
-                                          "whu_precision", "overall_accuracy", "blinding_fails")}, indent=1))
+    print(json.dumps({k: res[k] for k in ("n_per_system", "confusion_rows_true_cols_guess", "rates",
+                                          "whu_precision", "overall_accuracy", "whu_above_half", "note")}, indent=1))
     return 0
 
 

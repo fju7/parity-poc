@@ -489,3 +489,35 @@ The other per-question parts are reading $21.29, ruling $1.98, the paid gate $4.
 - A reading call's cost is mostly its held documents, so cost follows the number of batches more than the number of sentences.
 - The dry run's 7 second reads took 3 calls, about 2 sentences a call. A full run's second-read batches would hold up to 20, so $0.091 is probably an upper bound.
 - The practice run is where this is first measured. If its measured cost would put the study over $300, Fred decides before the full run (protocol, "Budget ruling").
+
+## Pre-freeze round (21 October 2026)
+
+### Identifiability check, same topic
+
+Per protocol rev 24 this is reported, not a gate. Spend: **$0.17 of $5**, ledger issue `whu-reliability-prefreeze`, 4 calls (Opus 5.5). Data under `runs/prefreeze/identifiability/`, not committed.
+
+**What went in.** All four answers are to the same question, Q2 ("Do ultra-processed foods harm your health?"), so topic no longer separates WHU from the tools as it did in prep round 2.
+- **WHU:** WHU-P02's page, exported by `export_whu.py` (markers from its bindings; 42 sentences, all bound, all with markers, all samplable and claim-like), then `blind.py` (the rewrite and deletion list; process sentences not sampled).
+- **Tools:** the pilot's Claude, ChatGPT and Gemini answers to Q2 through `blind.py`. Claim-like samplable sentences: Claude 117, ChatGPT 48, Gemini 102.
+- 20 per system (every system had at least 20), seed 20261019, shuffled, four batches of 20, each sentence with the ~400 characters before it.
+
+**`identifiability.py` changes:** a system with fewer than N sentences is sampled whole rather than refused; each system's rate is reported against chance (25%) with a one-sided binomial tail; the clues are kept for every system; the result says "reported, not a gate" instead of the old pass/fail field.
+
+**Confusion table** (rows: true system; columns: the guess):
+
+| | WHU | Claude | ChatGPT | Gemini |
+|---|---|---|---|---|
+| WHU | **20** | 0 | 0 | 0 |
+| Claude | 0 | **20** | 0 | 0 |
+| ChatGPT | 0 | 0 | **20** | 0 |
+| Gemini | 0 | 0 | 0 | **20** |
+
+**WHU was identified 20 of 20 times (100%), against 25% by chance** (P(20 of 20 by chance) = 9.1 × 10⁻¹³). Every system was. Precision for WHU 20/20. With the topic held constant the result is the same as prep round 2's: what identifies a system is its form, not its subject.
+
+**What the guesser said gave each system away** (its own clue words, summarised):
+- **WHU:** a measured, hedged register and editorial moves: naming where sources disagree and quoting both, critiquing causal language and media coverage, close trial caveats, full confidence-interval wording, one or two bracket references per sentence. Phrase-level leftovers: "on its own criteria", "the cohorts here", "on this report" (the rule that turns "this page" into "this report" leaves "on this report"), and British spellings the list does not cover ("yoghurt", "savoury").
+- **Claude:** terse bullet and timeline entries, class-and-GRADE notes, paired high-numbered citations, and converter leftovers: "Wikipedia" tags and site-chip fragments ("cacfp +2").
+- **ChatGPT:** no bracket citations (author-year or none), approximate values in flattened tables, and leftovers: "≈" glued to a label ("HR≈1.62", "N≈44,000"), which rule N01 does not match because a letter precedes it; "a about 15%" (N01 turning "a ~15%" into "a about"); a Mermaid diagram's text; a garbled table cell.
+- **Gemini:** ornate, grandiose mechanistic vocabulary, and converter leftovers: "Lane et al.3" glued numerals in table rows and a surviving "[cite: 5]".
+
+**Not changed** (each needs a ruling): the phrase list (British spellings, "on this report"), and the converter defects named above.
