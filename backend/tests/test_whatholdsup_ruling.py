@@ -100,16 +100,19 @@ def test_a_gate_finding_is_ruled_with_only_the_allowed_inputs_and_recorded(study
          "decision": ""}]})
     fake = Fake({"ruling": "reject", "text": None, "reason": "Quotation 1 says 2 kg.", "quotation": 1})
     done = R.rule_gate("xq", fake, P=P, report=report, rows={"k1": ROW}, held=HELD)
-    assert len(done) == 2 and len(fake.prompts) == 2
+    # Both findings are on the one sentence: one call, one ruling for both (GAP-019).
+    assert len(done) == 2 and len(fake.prompts) == 1
     _no_leaks(fake.prompts)
     for f in F.load("xq")["findings"]:
         assert f["decision"] == "rejected" and f["source_id"] == "S-SECRET-7" and f["quote"] == SPAN
         assert f["by"] == "ruling model claude-opus-5-5" and "_fill_in" not in f
-    for rec in _log(d):
-        assert rec["by"] == "ruling model claude-opus-5-5" and rec["model"] == "claude-opus-5-5"
-        assert rec["at"] and rec["ruling_kind"] == "gate"
-        assert rec["prompt_sha256"] == hashlib.sha256((WHU / "audit_prompts" / "rule_cite.md").read_bytes()).hexdigest()
-        assert tuple(rec["inputs"]) == R.RULE_FIELDS
+        assert f["ruled_together"] == ["c1", "obj-1"]
+    [rec] = _log(d)
+    assert rec["by"] == "ruling model claude-opus-5-5" and rec["model"] == "claude-opus-5-5"
+    assert rec["at"] and rec["ruling_kind"] == "gate"
+    assert rec["prompt_sha256"] == hashlib.sha256((WHU / "audit_prompts" / "rule_group_cite.md").read_bytes()).hexdigest()
+    assert tuple(rec["inputs"]) == R.GROUP_FIELDS
+    assert [c["finding_id"] for c in rec["covers"]] == ["c1", "obj-1"]
 
 
 def test_a_gate_ruling_that_cites_no_quotation_is_a_judgement(study):

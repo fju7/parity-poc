@@ -3987,3 +3987,12 @@ The sentence splitter folds a source-list tag (e.g. 'Methods') into the entry, s
 **Status:** fixed in 183d786. `source_advocate run` checks every quotation against the held reading-order text as it is written; one not found is re-asked once with the held text, and still-unfound quotations carry the note "the quotation is not in the held text". Every check is logged in `advocate/quote_checks.jsonl`.
 
 The source advocate's quotations were never checked when written; on WHU-P02, 22 of 29 are not in their source even in the reading-order text.
+
+## GAP-019 — Findings on the same sentence were ruled separately and could return conflicting texts
+
+**Raised by** advisor, 2026-10-21 (WHU-P02 practice run).
+**Status:** fixed in the commit that adds this entry (`git log -1 --format=%h -S"GAP-019 — Findings" -- docs/whatholdsup-open-gaps.md`). Every `ruling.py` mode (gate, conclusions, changecheck, advocate, dangling) groups its open findings by the sentence they target (the binding row, or with no row the sentence's text) and rules each sentence in one call that returns one decision and one text. A sentence with one finding is ruled as before, with `rule.md` / `rule_cite.md` unchanged; a sentence with several uses `audit_prompts/rule_group.md` (`rule_group_cite.md` for the gate), whose payload lists each finding (kind, reason, proposed text, the numbers of the quotations it rests on) and every quotation once, in context, and asks for one text that settles all of them, or a reject. Their sha256 are frozen in `ruling.GROUP_PROMPT_SHA256` (rule_group.md `68a0fd06…`, rule_group_cite.md `82d440f6…`) and recorded on every ruling. Each log record's `covers` names the findings it settles; each finding is recorded with the one decision and text (`ruled_together` on gate findings and changecheck dispositions; the advocate's DID line says so), so `applied_check.py` expects one text per sentence. The stage cap counts one unit per sentence. Test: `backend/tests/test_whatholdsup_ruling_group.py`.
+
+On WHU-P02 the advocate's objections S005-11 and S005-12 were on one sentence and were ruled in two calls; the two rulings could each return a text for that sentence, and only one can be on the page.
+
+The audit stage's own rulings (`audit_stage.py`, audit and second-reader) are not ruling.py's and are not changed: the audit already reads and rules one sentence unit at a time.

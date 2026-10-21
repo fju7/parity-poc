@@ -40,6 +40,17 @@ model is never shown a source id, so it names the quotation's number and the id
 is looked up here. Every ruling is logged with its time, model, prompt sha256
 and its inputs, and is attributed "ruling model claude-opus-5-5".
 
+ONE RULING PER SENTENCE (GAP-019, 2026-10-21). In every mode, the open
+findings are grouped by the sentence they target, and each sentence is ruled
+in one call that returns one decision and one text. A sentence with one finding
+is ruled as before, with the prompt above; a sentence with several is ruled with
+audit_prompts/rule_group.md (rule_group_cite.md for the gate: the same plus
+"quotation"), whose payload is GROUP_FIELDS: the sentence, every finding (kind,
+reason, proposed text, the numbers of the quotations it rests on) and every
+quotation once, in context. Their sha256 are frozen in GROUP_PROMPT_SHA256.
+Each log record's "covers" names the findings its ruling settles, and every
+one of them is recorded with that one decision and text.
+
 Changecheck findings and source-advocate objections (added 2026-10-20) use
 rule.md too: their records need no source and quotation. An advocate's own
 quotation of its document is shown as a quotation ONLY if it is in the held text
@@ -89,6 +100,16 @@ PROMPTS = {
     "advocate": HERE / "audit_prompts" / "rule.md",
     "dangling": HERE / "audit_prompts" / "rule.md",
 }
+# Several findings on one sentence, ruled in one call (GAP-019).
+GROUP_FIELDS = ("sentence", "findings", "quoted_source_text")
+GROUP_PROMPTS = {k: HERE / "audit_prompts" / ("rule_group_cite.md" if k == "gate" else "rule_group.md")
+                 for k in PROMPTS}
+# Frozen as the prompts are frozen: by sha256, on every ruling and here
+# (test_whatholdsup_ruling_group.py checks the files against these).
+GROUP_PROMPT_SHA256 = {
+    "rule_group.md": "68a0fd068ff518820dfbaeab58eeba4a571fa7928e231b80dbf0112c01d39a62",
+    "rule_group_cite.md": "82d440f6a68192763882744323b64eb83a95baebb2f9e8c0395193c98faeb84d",
+}
 
 
 class RulingError(Exception):
@@ -99,8 +120,8 @@ def sha(text: str) -> str:
     return hashlib.sha256(text.encode("utf-8")).hexdigest()
 
 
-def prompt_sha(kind: str) -> str:
-    return sha(PROMPTS[kind].read_text(encoding="utf-8"))
+def prompt_sha(kind: str, grouped: bool = False) -> str:
+    return sha((GROUP_PROMPTS if grouped else PROMPTS)[kind].read_text(encoding="utf-8"))
 
 
 def _norm(s: str) -> str:
@@ -133,6 +154,14 @@ def payload(sentence: str, kind: str, reason: str, proposed_text: str,
             quotes: list[tuple[str, str]], held: dict[str, str]) -> dict:
     """Exactly RULE_FIELDS. Each quotation is shown with QUOTE_AROUND characters
     of its document either side, labelled by position only."""
+    p = {"sentence": " ".join((sentence or "").split()), "kind": kind or "",
+         "reason": reason or "", "proposed_text": proposed_text or "",
+         "quoted_source_text": _shown(quotes, held)}
+    assert tuple(p) == RULE_FIELDS
+    return p
+
+
+def _shown(quotes: list[tuple[str, str]], held: dict[str, str]) -> str:
     shown = []
     for n, (sid, q) in enumerate(quotes, 1):
         # Located as the audit compares a quotation (audit_stage.locate: norm(),
@@ -142,16 +171,34 @@ def payload(sentence: str, kind: str, reason: str, proposed_text: str,
         import audit_stage as A
         around = A.in_context(q, held.get(sid) or "", QUOTE_AROUND)
         shown.append("Quotation %d: \"%s\"\nIn its document: ...%s..." % (n, q, " ".join(around.split())))
-    p = {"sentence": " ".join((sentence or "").split()), "kind": kind or "",
-         "reason": reason or "", "proposed_text": proposed_text or "",
-         "quoted_source_text": "\n\n".join(shown) or "(no source text is quoted for this sentence)"}
-    assert tuple(p) == RULE_FIELDS
-    return p
+    return "\n\n".join(shown) or "(no source text is quoted for this sentence)"
 
 
-def build_prompt(kind: str, p: dict) -> str:
-    t = PROMPTS[kind].read_text(encoding="utf-8")
-    for k in RULE_FIELDS:
+def group_payload(sentence: str, findings: list[dict], held: dict[str, str]) -> tuple[dict, list]:
+    """Exactly GROUP_FIELDS, for several findings on one sentence: each finding
+    (kind, reason, proposed text, and the numbers of the quotations it rests
+    on) and every quotation once, numbered across the group. Returns the
+    payload and the numbered quotations."""
+    quotes: list[tuple[str, str]] = []
+    for f in findings:
+        for q in f["quotes"]:
+            if q not in quotes:
+                quotes.append(q)
+    parts = []
+    for n, f in enumerate(findings, 1):
+        nums = ", ".join(str(quotes.index(q) + 1) for q in f["quotes"]) or "none"
+        parts.append("Finding %d\nKind: %s\nReader's reason: %s\nReader's proposed text: %s\n"
+                     "Quotations it rests on: %s" % (n, f.get("kind") or "", f.get("reason") or "",
+                                                     f.get("proposed") or "", nums))
+    p = {"sentence": " ".join((sentence or "").split()), "findings": "\n\n".join(parts),
+         "quoted_source_text": _shown(quotes, held)}
+    assert tuple(p) == GROUP_FIELDS
+    return p, quotes
+
+
+def build_prompt(kind: str, p: dict, grouped: bool = False) -> str:
+    t = (GROUP_PROMPTS if grouped else PROMPTS)[kind].read_text(encoding="utf-8")
+    for k in (GROUP_FIELDS if grouped else RULE_FIELDS):
         t = t.replace("{%s}" % k, p[k])
     return t
 
@@ -174,20 +221,71 @@ def parse(kind: str, text: str, n_quotes: int) -> dict:
     return got
 
 
-def rule(kind: str, p: dict, n_quotes: int, call, log: Path, ref: dict) -> dict:
+def rule(kind: str, p: dict, n_quotes: int, call, log: Path, ref: dict, grouped: bool = False) -> dict:
     """One ruling: prompt, call, check, log. `call(prompt, max_tokens, role)`
     returns (text, usage) -- audit_stage.Caller, metered and capped, or a fake."""
-    prompt = build_prompt(kind, p)
+    prompt = build_prompt(kind, p, grouped)
     text, usage = call(prompt, MAX_OUT, "rule-%s" % kind)
     got = parse(kind, text, n_quotes)
+    path = (GROUP_PROMPTS if grouped else PROMPTS)[kind]
     rec = {"at": datetime.now(timezone.utc).isoformat(timespec="seconds"), "by": BY,
-           "model": MODEL, "ruling_kind": kind, "prompt": str(PROMPTS[kind].relative_to(HERE)),
-           "prompt_sha256": prompt_sha(kind), "inputs": p, "inputs_sha256": sha(json.dumps(p)),
+           "model": MODEL, "ruling_kind": kind, "prompt": str(path.relative_to(HERE)),
+           "prompt_sha256": prompt_sha(kind, grouped), "inputs": p, "inputs_sha256": sha(json.dumps(p)),
            **ref, **got, "usage": usage}
     log.parent.mkdir(parents=True, exist_ok=True)
     with open(log, "a", encoding="utf-8") as f:
         f.write(json.dumps(rec, ensure_ascii=False) + "\n")
     return got
+
+
+# ---------------------------------------------------------------------------
+# one ruling per sentence (GAP-019)
+# ---------------------------------------------------------------------------
+#
+# Until 2026-10-21 every finding was ruled in its own call. On WHU-P02 two
+# advocate objections on one sentence (S005-11 and S005-12) were ruled
+# separately and could come back with two different texts for the same
+# sentence, of which only one can be on the page. Now the findings of a run are
+# grouped by the sentence they target -- its binding row, or, with no row, the
+# sentence's text -- and each sentence is ruled once: one finding with the
+# prompt it always had (rule.md / rule_cite.md, unchanged), several with
+# rule_group.md / rule_group_cite.md, which list every finding and ask for one
+# decision and one text that settles all of them. Every log record names the
+# findings its ruling covers ("covers"), so applied_check expects one text per
+# sentence.
+
+def sentence_key(hit, sentence: str) -> tuple:
+    return ("row", hit[0]) if hit else ("text", _norm(sentence))
+
+
+def by_sentence(items: list[dict]) -> list[list[dict]]:
+    """Items grouped by their "key", in the order each sentence first appears."""
+    groups: dict = {}
+    for it in items:
+        groups.setdefault(it["key"], []).append(it)
+    return list(groups.values())
+
+
+def rule_sentence(kind: str, group: list[dict], held: dict, call, log: Path,
+                  extra: dict | None = None) -> tuple[dict, list, str]:
+    """Rule every finding in GROUP (all on one sentence) in one call. Each item
+    carries sentence, kind, reason, proposed, quotes, ref. Returns (ruling,
+    the numbered quotations it may cite, the prompt's sha256)."""
+    if len(group) == 1:
+        it = group[0]
+        p = payload(it["sentence"], it["kind"], it["reason"], it["proposed"], it["quotes"], held)
+        got = rule(kind, p, len(it["quotes"]), call, log,
+                   dict(it["ref"], covers=[it["ref"]], **(extra or {})))
+        return got, it["quotes"], prompt_sha(kind)
+    p, quotes = group_payload(group[0]["sentence"], group, held)
+    got = rule(kind, p, len(quotes), call, log,
+               dict(covers=[it["ref"] for it in group], **(extra or {})), grouped=True)
+    return got, quotes, prompt_sha(kind, True)
+
+
+def _together(group: list[dict], name) -> list:
+    """What the other findings ruled in the same call are called, for the record."""
+    return [name(it) for it in group] if len(group) > 1 else []
 
 
 # ---------------------------------------------------------------------------
@@ -291,9 +389,25 @@ def gate_items(report: dict, findings_doc: dict) -> list[dict]:
     return out
 
 
+def _gate_items(rows: dict, report: dict, doc: dict, held: dict) -> list[dict]:
+    out = []
+    for it in gate_items(report, doc):
+        f = it["finding"]
+        hit = _row_for(rows, it["text"]) or (_row_for(rows, it["alt"]) if it.get("alt") else None)
+        sentence = hit[1]["sentence"] if hit else it["text"]
+        out.append({"key": sentence_key(hit, sentence), "sentence": sentence, "finding": f,
+                    "kind": "gate %s finding (%s)" % (f.get("kind"), f.get("gate_verdict")),
+                    "reason": f.get("gate_said") or "", "proposed": it["fix"],
+                    "quotes": quotations(hit[1], held) if hit else [],
+                    "ref": {"finding_id": f.get("id"), "row": hit[0] if hit else None,
+                            "sentence_found": bool(hit)}})
+    return out
+
+
 def rule_gate(slug: str, call, *, P=None, report: dict | None = None, rows: dict | None = None,
               held: dict | None = None) -> list[dict]:
-    """Rule every undecided gate finding and record each in gate-findings.json."""
+    """Rule every undecided gate finding, one call per sentence, and record each
+    in gate-findings.json."""
     import findings as F
     P = P or _publish()
     require_study(slug, P)
@@ -307,36 +421,47 @@ def rule_gate(slug: str, call, *, P=None, report: dict | None = None, rows: dict
         held = held_texts(slug)
     doc = F.load(slug)
     done = []
-    for it in gate_items(report, doc):
-        f = it["finding"]
-        hit = _row_for(rows, it["text"]) or (_row_for(rows, it["alt"]) if it.get("alt") else None)
-        sentence = hit[1]["sentence"] if hit else it["text"]
-        quotes = quotations(hit[1], held) if hit else []
-        p = payload(sentence, "gate %s finding (%s)" % (f.get("kind"), f.get("gate_verdict")),
-                    f.get("gate_said") or "", it["fix"], quotes, held)
-        got = rule("gate", p, len(quotes), call, log_path(slug),
-                   {"finding_id": f.get("id"), "row": hit[0] if hit else None,
-                    "sentence_found": bool(hit)})
+    for group in by_sentence(_gate_items(rows, report, doc, held)):
+        got, quotes, psha = rule_sentence("gate", group, held, call, log_path(slug))
         q = got.get("quotation")
         sid, quote = (quotes[q - 1] if q else ("", ""))
         if not q:
             decision = "judgement"
         else:
             decision = "rejected" if got["ruling"] == "reject" else "accepted"
-        f.update({"decision": decision, "source_id": sid, "quote": quote,
-                  "why": got.get("reason") or "", "by": BY, "on": date.today().isoformat(),
-                  "ruling": got["ruling"], "ruling_text": got.get("text"),
-                  "ruled": "ruling.py gate, prompt %s" % prompt_sha("gate")[:12]})
-        f.pop("_fill_in", None)
-        done.append(f)
+        together = _together(group, lambda it: it["finding"].get("id"))
+        for it in group:
+            f = it["finding"]
+            f.update({"decision": decision, "source_id": sid, "quote": quote,
+                      "why": got.get("reason") or "", "by": BY, "on": date.today().isoformat(),
+                      "ruling": got["ruling"], "ruling_text": got.get("text"),
+                      "ruled": "ruling.py gate, prompt %s" % psha[:12]})
+            if together:
+                f["ruled_together"] = together
+            f.pop("_fill_in", None)
+            done.append(f)
     F.save(slug, doc)
     return done
+
+
+def _conclusion_items(review: dict, rows: dict, held: dict) -> list[dict]:
+    import conclusion_judge as CJ
+    out = []
+    for k, e in sorted((review.get("sentences") or {}).items()):
+        if not e.get("flagged") or CJ.decided(e):
+            continue
+        out.append({"key": ("row", k), "sentence": e.get("sentence") or "", "entry": e,
+                    "kind": "conclusion judge: %s" % e.get("label"), "reason": e.get("reason") or "",
+                    "proposed": "", "quotes": quotations(rows.get(k) or {}, held),
+                    "ref": {"review_key": k, "sentence_sha": e.get("sentence_sha")}})
+    return out
 
 
 def rule_conclusions(slug: str, call, *, P=None, rows: dict | None = None,
                      held: dict | None = None) -> list[dict]:
     """Rule every flagged, undecided conclusion-judge entry and record it with
-    conclusion_judge.decide."""
+    conclusion_judge.decide. The review holds one entry per sentence, so each
+    sentence is one call already; it goes through the same grouping."""
     import conclusion_judge as CJ
     P = P or _publish()
     require_study(slug, P)
@@ -347,27 +472,46 @@ def rule_conclusions(slug: str, call, *, P=None, rows: dict | None = None,
         held = held_texts(slug)
     review = CJ.load_review(slug)
     done = []
-    for k, e in sorted((review.get("sentences") or {}).items()):
-        if not e.get("flagged") or CJ.decided(e):
-            continue
-        row = rows.get(k) or {}
-        quotes = quotations(row, held)
-        p = payload(e.get("sentence") or "", "conclusion judge: %s" % e.get("label"),
-                    e.get("reason") or "", "", quotes, held)
-        got = rule("conclusion", p, len(quotes), call, log_path(slug),
-                   {"review_key": k, "sentence_sha": e.get("sentence_sha")})
+    for group in by_sentence(_conclusion_items(review, rows, held)):
+        got, _q, _s = rule_sentence("conclusion", group, held, call, log_path(slug))
         decision = "rejected" if got["ruling"] == "reject" else "accepted"
         why = got.get("reason") or ""
         if decision == "accepted":
             why += " New text: %s" % json.dumps(got.get("text"), ensure_ascii=False)
-        done.append(CJ.decide(slug, e["sentence_sha"], decision, BY, why))
+        for it in group:
+            done.append(CJ.decide(slug, it["entry"]["sentence_sha"], decision, BY, why))
     return done
+
+
+def _changecheck_items(slug: str, rows: dict, held: dict, page_html: str):
+    import changecheck as C
+    doc = C.load_reviews(slug)
+    mine = [r for r in doc.get("reviews") or [] if r.get("sha") == C.page_sha(page_html)]
+    if not mine:
+        return doc, None
+    have = {d.get("key") for d in doc.get("dispositions") or []}
+    out, seen = [], set()
+    for f in mine[-1].get("findings") or []:
+        key = C.finding_key(f)
+        if key in have or key in seen or not (f.get("sentence") or "").strip():
+            continue                         # decided already, or UNRUN (nothing to rule on)
+        seen.add(key)
+        hit = _row_for(rows, f["sentence"])
+        reason = f.get("why") or ""
+        if (f.get("other") or "").strip():
+            reason += " Against: %s" % " ".join(f["other"].split())
+        out.append({"key": sentence_key(hit, f["sentence"]), "sentence": f["sentence"], "finding": f,
+                    "finding_key": key, "kind": "changecheck: %s" % f.get("kind"), "reason": reason,
+                    "proposed": "", "quotes": quotations(hit[1], held) if hit else [],
+                    "ref": {"finding_key": key, "row": hit[0] if hit else None}})
+    return doc, out
 
 
 def rule_changecheck(slug: str, call, *, P=None, rows: dict | None = None,
                      held: dict | None = None, page_html: str | None = None) -> list[dict]:
     """Rule every finding of the latest changecheck review of the current page
-    that has no disposition, and record each as a disposition."""
+    that has no disposition, one call per sentence, and record each as a
+    disposition."""
     import changecheck as C
     P = P or _publish()
     require_study(slug, P)
@@ -378,32 +522,24 @@ def rule_changecheck(slug: str, call, *, P=None, rows: dict | None = None,
         rows = B.load(slug).get("bindings") or {}
     if held is None:
         held = held_texts(slug)
-    doc = C.load_reviews(slug)
-    mine = [r for r in doc.get("reviews") or [] if r.get("sha") == C.page_sha(page_html)]
-    if not mine:
+    doc, items = _changecheck_items(slug, rows, held, page_html)
+    if items is None:
         raise SystemExit("no changecheck review of the current page; run changecheck.py first")
-    have = {d.get("key") for d in doc.get("dispositions") or []}
     done = []
-    for f in mine[-1].get("findings") or []:
-        key = C.finding_key(f)
-        if key in have or not (f.get("sentence") or "").strip():
-            continue                         # decided already, or UNRUN (nothing to rule on)
-        hit = _row_for(rows, f["sentence"])
-        quotes = quotations(hit[1], held) if hit else []
-        reason = f.get("why") or ""
-        if (f.get("other") or "").strip():
-            reason += " Against: %s" % " ".join(f["other"].split())
-        p = payload(f["sentence"], "changecheck: %s" % f.get("kind"), reason, "", quotes, held)
-        got = rule("changecheck", p, len(quotes), call, log_path(slug),
-                   {"finding_key": key, "row": hit[0] if hit else None})
-        d = {"key": key, "kind": f.get("kind"), "sentence": f["sentence"],
-             "decision": "reject" if got["ruling"] == "reject" else "accept",
-             "by": BY, "on": date.today().isoformat(), "reason": got.get("reason") or "",
-             "ruling": got["ruling"], "ruling_text": got.get("text"),
-             "ruled": "ruling.py changecheck, prompt %s" % prompt_sha("changecheck")[:12]}
-        doc.setdefault("dispositions", []).append(d)
-        have.add(key)
-        done.append(d)
+    for group in by_sentence(items):
+        got, _q, psha = rule_sentence("changecheck", group, held, call, log_path(slug))
+        together = _together(group, lambda it: it["finding_key"])
+        for it in group:
+            f = it["finding"]
+            d = {"key": it["finding_key"], "kind": f.get("kind"), "sentence": f["sentence"],
+                 "decision": "reject" if got["ruling"] == "reject" else "accept",
+                 "by": BY, "on": date.today().isoformat(), "reason": got.get("reason") or "",
+                 "ruling": got["ruling"], "ruling_text": got.get("text"),
+                 "ruled": "ruling.py changecheck, prompt %s" % psha[:12]}
+            if together:
+                d["ruled_together"] = together
+            doc.setdefault("dispositions", []).append(d)
+            done.append(d)
     C.record_path(slug).write_text(json.dumps(doc, indent=2, ensure_ascii=False) + "\n",
                                    encoding="utf-8")
     return done
@@ -419,7 +555,7 @@ def advocate_items(slug: str, case: Path | None = None) -> list[dict]:
     for bf in sorted(d.glob("*-briefs.json")) if d.exists() else []:
         if "TEST" in bf.name:
             continue
-        adj = d / ("%s-adjudication.md" % bf.name[:10])
+        adj = bf.with_name(bf.name[:-len("-briefs.json")] + "-adjudication.md")
         if not adj.exists():
             continue
         chunks = {c.splitlines()[0][4:].split(" ")[0]: c
@@ -459,17 +595,8 @@ def _close_item(path: Path, head: str, merit: str, effect: str, did: str) -> Non
     path.write_text("".join(parts), encoding="utf-8")
 
 
-def rule_advocate(slug: str, call, *, P=None, rows: dict | None = None,
-                  held: dict | None = None, case: Path | None = None) -> list[dict]:
-    """Rule every open source-advocate objection and close its item."""
-    P = P or _publish()
-    require_study(slug, P)
-    if rows is None:
-        import bindings as B
-        rows = B.load(slug).get("bindings") or {}
-    if held is None:
-        held = held_texts(slug)
-    done = []
+def _advocate_items(slug: str, rows: dict, held: dict, case: Path | None = None) -> list[dict]:
+    out = []
     for it in advocate_items(slug, case):
         o = it["objection"]
         claim = o.get("claim_quoted") or ""
@@ -487,23 +614,77 @@ def rule_advocate(slug: str, call, *, P=None, rows: dict | None = None,
             else:
                 reason += (" The objection quotes its document, but that quotation is not in "
                            "the held text of the document.")
-        p = payload(sentence, "source advocate objection (%s)" % (o.get("severity") or "?"),
-                    reason, "", quotes, held)
-        got = rule("advocate", p, len(quotes), call, log_path(slug),
-                   {"advocate_item": it["head"], "file": it["file"].name,
-                    "row": hit[0] if hit else None})
-        tag = "ruled by %s, prompt %s" % (BY, prompt_sha("advocate")[:12])
-        if got["ruling"] == "reject":
-            _close_item(it["file"], it["head"], "no — %s" % (got.get("reason") or ""), "none",
-                        "nothing; %s" % tag)
-        else:
-            text = got.get("text") or ""
-            _close_item(it["file"], it["head"], "yes — %s" % (got.get("reason") or ""), "corrects",
-                        ("the sentence is to be replaced word for word with: %s; %s"
-                         % (json.dumps(text, ensure_ascii=False), tag)) if text else
-                        "the sentence is to be cut; %s" % tag)
-        done.append({"item": it["head"], **got})
+        out.append({"key": sentence_key(hit, sentence), "sentence": sentence, "item": it,
+                    "kind": "source advocate objection (%s)" % (o.get("severity") or "?"),
+                    "reason": reason, "proposed": "", "quotes": quotes,
+                    "ref": {"advocate_item": it["head"], "file": it["file"].name,
+                            "row": hit[0] if hit else None}})
+    return out
+
+
+def rule_advocate(slug: str, call, *, P=None, rows: dict | None = None,
+                  held: dict | None = None, case: Path | None = None) -> list[dict]:
+    """Rule every open source-advocate objection, one call per sentence, and
+    close its item."""
+    P = P or _publish()
+    require_study(slug, P)
+    if rows is None:
+        import bindings as B
+        rows = B.load(slug).get("bindings") or {}
+    if held is None:
+        held = held_texts(slug)
+    done = []
+    for group in by_sentence(_advocate_items(slug, rows, held, case)):
+        got, _q, psha = rule_sentence("advocate", group, held, call, log_path(slug))
+        tag = "ruled by %s, prompt %s" % (BY, psha[:12])
+        together = _together(group, lambda it: it["item"]["head"])
+        if together:
+            tag += ", together with every finding on this sentence (%s)" % ", ".join(together)
+        for it in group:
+            if got["ruling"] == "reject":
+                _close_item(it["item"]["file"], it["item"]["head"], "no — %s" % (got.get("reason") or ""),
+                            "none", "nothing; %s" % tag)
+            else:
+                text = got.get("text") or ""
+                _close_item(it["item"]["file"], it["item"]["head"], "yes — %s" % (got.get("reason") or ""),
+                            "corrects",
+                            ("the sentence is to be replaced word for word with: %s; %s"
+                             % (json.dumps(text, ensure_ascii=False), tag)) if text else
+                            "the sentence is to be cut; %s" % tag)
+            done.append({"item": it["item"]["head"], **got})
     return done
+
+
+def _dangling_ruled(lp: Path) -> set:
+    """(term, sentence) pairs already ruled: one per record, or one per finding
+    a grouped record covers."""
+    out = set()
+    for line in (lp.read_text(encoding="utf-8").splitlines() if lp.exists() else []):
+        r = json.loads(line) if line.strip() else {}
+        if r.get("ruling_kind") != "dangling":
+            continue
+        s = (r.get("inputs") or {}).get("sentence")
+        for c in r.get("covers") or [{"term": r.get("term")}]:
+            out.add((c.get("term"), s))
+    return out
+
+
+def _dangling_items(case: Path, page_html: str, rows: dict, held: dict) -> list[dict]:
+    import applied_check as AC
+    before = _dangling_ruled(case / "rulings" / "rulings.jsonl")
+    out = []
+    for f in AC.dangling(case, page_html):
+        if (f["term"], f["later_sentence"]) in before:
+            continue
+        hit = _row_for(rows, f["later_sentence"])
+        reason = ("It uses %r, which no earlier sentence on the page now introduces: a ruling "
+                  "changed the sentence that did, which now reads: %s"
+                  % (f["term"], json.dumps(f["applied_sentence"], ensure_ascii=False)))
+        out.append({"key": sentence_key(hit, f["later_sentence"]), "sentence": f["later_sentence"],
+                    "kind": "dangling reference", "reason": reason, "proposed": "",
+                    "quotes": quotations(hit[1], held) if hit else [], "term": f["term"],
+                    "ref": {"term": f["term"], "after_ruling": f["log"], "row": hit[0] if hit else None}})
+    return out
 
 
 def rule_dangling(slug: str, call, *, P=None, rows: dict | None = None, held: dict | None = None,
@@ -512,9 +693,8 @@ def rule_dangling(slug: str, call, *, P=None, rows: dict | None = None, held: di
     uses while no earlier sentence now introduces it (applied_check.dangling).
     The model gets the later sentence, the finding (both sentences: the later
     one, and the applied text that no longer introduces the term) and the
-    later sentence's bound passages. A (term, sentence) already ruled is not
-    ruled again."""
-    import applied_check as AC
+    later sentence's bound passages; several terms on one later sentence are
+    one call. A (term, sentence) already ruled is not ruled again."""
     import source_store as store
     P = P or _publish()
     require_study(slug, P)
@@ -526,65 +706,42 @@ def rule_dangling(slug: str, call, *, P=None, rows: dict | None = None, held: di
         rows = B.load(slug).get("bindings") or {}
     if held is None:
         held = held_texts(slug)
-    done_before = set()
-    lp = case / "rulings" / "rulings.jsonl"
-    if lp.exists():
-        for line in lp.read_text(encoding="utf-8").splitlines():
-            r = json.loads(line) if line.strip() else {}
-            if r.get("ruling_kind") == "dangling":
-                done_before.add((r.get("term"), (r.get("inputs") or {}).get("sentence")))
     done = []
-    for f in AC.dangling(case, page_html):
-        if (f["term"], f["later_sentence"]) in done_before:
-            continue
-        hit = _row_for(rows, f["later_sentence"])
-        quotes = quotations(hit[1], held) if hit else []
-        reason = ("It uses %r, which no earlier sentence on the page now introduces: a ruling "
-                  "changed the sentence that did, which now reads: %s"
-                  % (f["term"], json.dumps(f["applied_sentence"], ensure_ascii=False)))
-        p = payload(f["later_sentence"], "dangling reference", reason, "", quotes, held)
-        got = rule("dangling", p, len(quotes), call, lp,
-                   {"term": f["term"], "after_ruling": f["log"], "row": hit[0] if hit else None})
-        done.append({"term": f["term"], **got})
+    for group in by_sentence(_dangling_items(case, page_html, rows, held)):
+        got, _q, _s = rule_sentence("dangling", group, held, call, case / "rulings" / "rulings.jsonl")
+        for it in group:
+            done.append({"term": it["term"], **got})
     return done
 
 
 def pending(mode: str, slug: str, P=None) -> int:
-    """How many items MODE would rule now: the units of the stage cap check,
-    counted as each rule_* function selects them, without a call."""
+    """How many calls MODE would make now -- one per sentence with findings --
+    the units of the stage cap check, selected and grouped as each rule_*
+    function selects and groups them, without a call."""
     import source_store as store
     P = P or _publish()
     case = store.case_dir(slug)
+    import bindings as B
+    rows = B.load(slug).get("bindings") or {}
     if mode == "gate":
         import findings as F
         page = P.ROOT / P.issue_cfg(slug)["page"]
         report = json.loads(page.with_suffix(page.suffix + ".gate.json").read_text(encoding="utf-8"))
-        return len(gate_items(report, F.load(slug)))
-    if mode == "conclusions":
+        items = _gate_items(rows, report, F.load(slug), {})
+    elif mode == "conclusions":
         import conclusion_judge as CJ
-        return sum(1 for e in (CJ.load_review(slug).get("sentences") or {}).values()
-                   if e.get("flagged") and not CJ.decided(e))
-    if mode == "changecheck":
-        import changecheck as C
+        items = _conclusion_items(CJ.load_review(slug), rows, {})
+    elif mode == "changecheck":
         html = (P.ROOT / P.issue_cfg(slug)["page"]).read_text(encoding="utf-8")
-        doc = C.load_reviews(slug)
-        mine = [r for r in doc.get("reviews") or [] if r.get("sha") == C.page_sha(html)]
-        have = {d.get("key") for d in doc.get("dispositions") or []}
-        return sum(1 for f in ((mine[-1].get("findings") or []) if mine else [])
-                   if C.finding_key(f) not in have and (f.get("sentence") or "").strip())
-    if mode == "advocate":
-        return len(advocate_items(slug))
-    if mode == "dangling":
-        import applied_check as AC
+        items = _changecheck_items(slug, rows, {}, html)[1] or []
+    elif mode == "advocate":
+        items = _advocate_items(slug, rows, {})
+    elif mode == "dangling":
         html = (P.ROOT / P.issue_cfg(slug)["page"]).read_text(encoding="utf-8")
-        before = set()
-        lp = case / "rulings" / "rulings.jsonl"
-        for line in (lp.read_text(encoding="utf-8").splitlines() if lp.exists() else []):
-            r = json.loads(line) if line.strip() else {}
-            if r.get("ruling_kind") == "dangling":
-                before.add((r.get("term"), (r.get("inputs") or {}).get("sentence")))
-        return sum(1 for f in AC.dangling(case, html) if (f["term"], f["later_sentence"]) not in before)
-    raise ValueError(mode)
+        items = _dangling_items(case, html, rows, {})
+    else:
+        raise ValueError(mode)
+    return len(by_sentence(items))
 
 
 def main(argv=None) -> int:
