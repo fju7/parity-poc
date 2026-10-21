@@ -71,7 +71,7 @@ import importlib.util
 import json
 import re
 import sys
-from datetime import date, datetime, timezone
+from datetime import datetime, timezone
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[3]
@@ -357,16 +357,25 @@ def brief_for(slug: str, src: dict, page_text: str) -> dict | None:
 # adjudication
 # ---------------------------------------------------------------------------
 
-def adjudication_path(slug: str, day: str) -> Path:
+# OUTPUT FILES ARE NAMED BY RUN ID (2026-10-21): <run id>-briefs.json and
+# <run id>-adjudication.md, the run ID being the run directory's UTC stamp
+# (advocate/runs/<run id>/). They were named by date.today(), the LOCAL date:
+# WHU-P02's run of 2026-10-21 00:02Z wrote advocate/2026-10-20-briefs.json,
+# the name of the run before it, whose briefs number their objections
+# differently. Two runs never share a name now. Files written before keep
+# their date names; every reader globs "*-briefs.json" / "*-adjudication.md"
+# and pairs the two by the whole name before the suffix.
+
+def adjudication_path(slug: str, name: str) -> Path:
     d = sl.case_dir(slug) / "advocate"
     d.mkdir(exist_ok=True)
-    return d / f"{day}-adjudication.md"
+    return d / f"{name}-adjudication.md"
 
 
-def briefs_path(slug: str, day: str) -> Path:
+def briefs_path(slug: str, name: str) -> Path:
     d = sl.case_dir(slug) / "advocate"
     d.mkdir(exist_ok=True)
-    return d / f"{day}-briefs.json"
+    return d / f"{name}-briefs.json"
 
 
 VERDICT = re.compile(r"^\s*MERIT:\s*(yes|partly|no)\b", re.I | re.M)
@@ -438,9 +447,11 @@ def unrecognised_effect(chunk: str) -> str | None:
     return None if word.lower() in EFFECT_WORDS else word
 
 
-def write_template(slug: str, day: str, briefs: list[dict]) -> Path:
-    p = adjudication_path(slug, day)
-    lines = [f"# {slug} — source advocate, {day}", "",
+def write_template(slug: str, day: str, briefs: list[dict], name: str | None = None) -> Path:
+    """The adjudication file, named NAME (the run ID; the day for a caller
+    that gives none)."""
+    p = adjudication_path(slug, name or day)
+    lines = [f"# {slug} — source advocate, {day}" + (f", run {name}" if name else ""), "",
              "One section per item. Each must be closed before this issue can",
              "publish. An open item blocks; an item closed \"no merit\", with the",
              "reason on the record, does not.", "",
@@ -586,7 +597,7 @@ def preflight_rows(slug: str) -> list[tuple[str, str, str]]:
                  "this page characterises")]
     objs, qs = open_items(slug)
     rows = [("source advocate", OK,
-             f"{len(briefs)} run(s), latest {briefs[-1].name[:10]}")]
+             f"{len(briefs)} run(s), latest {briefs[-1].name[:-len('-briefs.json')]}")]
     rows.append(("advocate objections closed", OK if not objs else BAD,
                  "every objection carries a written verdict and effect"
                  if not objs else
@@ -708,7 +719,7 @@ def cmd_run(args) -> int:
             raise SystemExit("--resume takes --only and --day from the stopped run; give neither")
         day, only = saved["day"], saved.get("only")
     else:
-        day = args.day or date.today().isoformat()
+        day = args.day or datetime.now(timezone.utc).date().isoformat()
         only = args.only
     srcs = doc.get("sources", [])
     if only:
@@ -728,7 +739,11 @@ def cmd_run(args) -> int:
     stage_cap.guard("advocate", args.slug,
                     sum(1 for s in srcs if s["id"] not in done_briefs and would_call(s, text)))
     if not resume:
-        rd = runs_dir(args.slug) / datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
+        stamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
+        rd, n = runs_dir(args.slug) / stamp, 1
+        while rd.exists():                          # two runs in one second: never one ID
+            n += 1
+            rd = runs_dir(args.slug) / ("%s-%d" % (stamp, n))
         rd.mkdir(parents=True, exist_ok=False)
         (rd / "inputs.json").write_text(json.dumps(inputs, indent=1, ensure_ascii=False) + "\n",
                                         encoding="utf-8")
@@ -736,7 +751,11 @@ def cmd_run(args) -> int:
     print("  run         %s%s" % (rd.relative_to(ROOT), " (resumed: %d brief(s), %d quotation check(s) "
                                   "saved)" % (len(done_briefs), len(done_checks)) if resume else ""))
 
-    bp = briefs_path(args.slug, day)
+    run_id = rd.name
+    bp = briefs_path(args.slug, run_id)
+    if bp.exists():
+        raise SystemExit("refusing to overwrite %s: run %s has already written its briefs"
+                         % (bp, run_id))
     qlog = bp.parent / "quote_checks.jsonl"
     briefs = []
     try:
@@ -765,7 +784,7 @@ def cmd_run(args) -> int:
 
         def log(r):
             _append(rd / "quote_checks.jsonl", r)
-            _append(qlog, dict(r, day=day))
+            _append(qlog, dict(r, day=day, run=run_id))
         checked = check_quotations(args.slug, briefs, held, log=log, done=done_checks)
     except Exception as exc:
         if not is_cap_stop(exc):
@@ -781,30 +800,20 @@ def cmd_run(args) -> int:
     bad = sum(1 for r in checked if r["result"] == QUOTE_NOTE)
     print(f"  quotations  {len(checked)} checked against the held text; {bad} still not in it "
           f"after one re-ask (log: {qlog.relative_to(ROOT)}, never committed)")
-    # A PARTIAL RUN MERGES. It used to overwrite.
+    # A PARTIAL RUN NEVER OVERWRITES ANOTHER RUN'S BRIEFS.
     #
-    # --only is documented as "source ids, for a cheap partial run", and it
-    # wrote the day's brief file from the sources it had just run -- deleting
-    # the briefs for every source it had not. Running the advocate over eleven
-    # sources three at a time, which is the only way to run it where each call
-    # is time-limited, would have left the briefs for the last three and a file
-    # claiming that was the whole review. The adjudication template is built
-    # from that file, so the objections would have gone with it.
-    keep = []
-    if bp.exists():
-        try:
-            ran = {b.get("source") for b in briefs}
-            keep = [b for b in json.loads(bp.read_text(encoding="utf-8"))
-                    if b.get("source") not in ran]
-        except Exception:
-            keep = []
-    briefs = sorted(keep + briefs, key=lambda b: b.get("source") or "")
+    # --only is documented as "source ids, for a cheap partial run". It once
+    # wrote the day's brief file from the sources it had just run, deleting the
+    # briefs for every source it had not; then it merged into the day's file.
+    # Now each run writes its own files under its own ID, holding the sources
+    # it ran, and every reader reads all runs' files, so nothing is lost.
+    briefs = sorted(briefs, key=lambda b: b.get("source") or "")
     bp.write_text(
         json.dumps(briefs, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
-    p = write_template(args.slug, day, briefs)
+    p = write_template(args.slug, day, briefs, name=run_id)
     _state(rd, status="complete", resumed=bool(resume))
     print()
-    print(f"  briefs      {briefs_path(args.slug, day).relative_to(ROOT)}")
+    print(f"  briefs      {bp.relative_to(ROOT)}")
     print(f"  adjudicate  {p.relative_to(ROOT)}")
     print(f"  {sum(len(b.get('objections') or []) for b in briefs)} item(s) need a "
           f"MERIT and an EFFECT line before this issue can publish.")
@@ -826,7 +835,8 @@ def main() -> int:
     r.add_argument("slug")
     r.add_argument("--page", required=True)
     r.add_argument("--only", nargs="*", help="source ids, for a cheap partial run")
-    r.add_argument("--day", help="ISO date for the output files")
+    r.add_argument("--day", help="ISO date shown in the adjudication file's heading (default: "
+                                 "today, UTC); the files are named by the run ID")
     r.add_argument("--resume", metavar="RUN_DIR",
                    help="carry on a run a spend cap stopped (advocate/runs/<stamp>); refuses if "
                         "any input changed, and never redoes a saved brief or quotation check")

@@ -89,17 +89,17 @@ def test_a_cap_stop_in_the_quotation_check_resumes_without_redoing_anything(case
     assert [b["source"] for b in saved] == ["S1", "S2", "S3"]              # every objection kept
     checks = [json.loads(l) for l in (rd / "quote_checks.jsonl").read_text().splitlines()]
     assert [c["key"] for c in checks] == ["S1#0"]                          # the one decided before the stop
-    assert not (case.dir / "advocate" / "2026-10-21-briefs.json").exists()
+    assert not (case.dir / "advocate" / ("%s-briefs.json" % rd.name)).exists()
     # resume: only the S2 re-ask is paid for; nothing saved is asked again
     m2 = Model(budget=10)
     assert _run(monkeypatch, m2, day=None, resume=str(rd)) == 0
     assert m2.calls == ["advocate-requote:S2"]
     assert case.guarded[-1] == ("advocate", 0)                             # no source left to read
-    out = json.loads((case.dir / "advocate" / "2026-10-21-briefs.json").read_text())
+    out = json.loads((case.dir / "advocate" / ("%s-briefs.json" % rd.name)).read_text())   # by run ID
     qc = {b["source"]: b["objections"][0]["quotation_check"] for b in out}
     assert qc["S1"] == {"in_held_text": True, "asked": 1}                  # carried from the saved check
     assert qc["S2"]["in_held_text"] is True and qc["S2"]["asked"] == 2
-    assert (case.dir / "advocate" / "2026-10-21-adjudication.md").exists()
+    assert (case.dir / "advocate" / ("%s-adjudication.md" % rd.name)).exists()
     assert json.loads((rd / "state.json").read_text())["status"] == "complete"
 
 
@@ -143,3 +143,40 @@ def test_another_failure_is_not_a_stop(case, monkeypatch):
     with pytest.raises(ValueError):
         SA.cmd_run(_args())
     assert json.loads((_run_dir(case) / "state.json").read_text())["status"] == "failed"
+
+
+def test_two_runs_on_the_same_date_do_not_collide(case, monkeypatch):
+    """Output files are named by run ID (the run directory's UTC stamp), not by
+    the date: a second run that day writes its own files and leaves the first
+    run's as they were (2026-10-21: a run at 00:02Z wrote over the name of the
+    run before it)."""
+    assert _run(monkeypatch, Model(budget=10)) == 0
+    assert _run(monkeypatch, Model(budget=10), only=["S1"]) == 0          # same day, same second
+    runs = sorted((case.dir / "advocate" / "runs").iterdir())
+    assert len(runs) == 2 and runs[0].name != runs[1].name
+    adv = case.dir / "advocate"
+    first, second = (json.loads((adv / ("%s-briefs.json" % r.name)).read_text()) for r in runs)
+    assert [b["source"] for b in first] == ["S1", "S2", "S3"]               # untouched by the second run
+    assert [b["source"] for b in second] == ["S1"]
+    for r in runs:
+        assert (adv / ("%s-adjudication.md" % r.name)).exists()
+    assert not list(adv.glob("2026-10-21-*"))                               # nothing named by date
+    import ruling as R
+    assert sorted({i["file"].name for i in R.advocate_items("demo", case.dir)}) == \
+        sorted("%s-adjudication.md" % r.name for r in runs)                 # each run's own items
+    checks = [json.loads(l) for l in (adv / "quote_checks.jsonl").read_text().splitlines()]
+    assert {c["run"] for c in checks} == {r.name for r in runs}
+
+
+def test_files_written_before_keep_their_date_names(case, monkeypatch):
+    adv = case.dir / "advocate"
+    adv.mkdir(exist_ok=True)
+    old = [{"source": "S9", "mode": "objections", "objections": [{"claim_quoted": "x", "objection": "o"}]}]
+    (adv / "2026-10-20-briefs.json").write_text(json.dumps(old))
+    SA.write_template("demo", "2026-10-20", old)
+    before = {p.name: p.read_bytes() for p in adv.iterdir() if p.is_file()}
+    assert _run(monkeypatch, Model(budget=10)) == 0
+    for name, data in before.items():
+        assert (adv / name).read_bytes() == data, name
+    import ruling as R
+    assert "2026-10-20-adjudication.md" in {i["file"].name for i in R.advocate_items("demo", case.dir)}
