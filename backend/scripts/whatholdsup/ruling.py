@@ -232,6 +232,7 @@ def rule(kind: str, p: dict, n_quotes: int, call, log: Path, ref: dict, grouped:
            "model": MODEL, "ruling_kind": kind, "prompt": str(path.relative_to(HERE)),
            "prompt_sha256": prompt_sha(kind, grouped), "inputs": p, "inputs_sha256": sha(json.dumps(p)),
            **ref, **got, "usage": usage}
+    rec["id"] = sha(json.dumps(rec, sort_keys=True, ensure_ascii=False))[:16]
     log.parent.mkdir(parents=True, exist_ok=True)
     with open(log, "a", encoding="utf-8") as f:
         f.write(json.dumps(rec, ensure_ascii=False) + "\n")
@@ -752,19 +753,49 @@ def main(argv=None) -> int:
         s.add_argument("slug")
         s.add_argument("--cap", type=float, default=50.0,
                        help="this run's own ceiling; the issue cap and the day cap also apply")
+        s.add_argument("--seed", type=int,
+                       help="the consistency sample's seed (default: derived from the step id; logged)")
     a = ap.parse_args(argv)
     require_study(a.slug)
+    import consistency as CS
     import stage_cap
-    stage_cap.guard("rulings", a.slug, pending(a.cmd, a.slug))   # before the first paid call
+    n = pending(a.cmd, a.slug)
+    # before the first paid call; the units include the consistency sample
+    stage_cap.guard("rulings", a.slug, n + CS.sample_size(n))
     import audit_stage as A
     call = A.Caller(cap=a.cap, ledger_issue=a.slug)
     fn = {"gate": rule_gate, "conclusions": rule_conclusions,
           "changecheck": rule_changecheck, "advocate": rule_advocate,
           "dangling": rule_dangling}[a.cmd]
+    step = "%s-%s" % (a.cmd, datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ"))
+    before = _log_lines(log_path(a.slug))
     done = fn(a.slug, call)
     print("  %d ruling(s) recorded; log: %s" % (len(done), log_path(a.slug)))
+    consistency_sample(a.slug, step, log_path(a.slug), before, call, seed=a.seed)
     print("  usd this run: %.4f" % sum((c.get("usd") or 0) for c in call.calls))
     return 0
+
+
+def _log_lines(log: Path) -> int:
+    return len(log.read_text(encoding="utf-8").splitlines()) if log.exists() else 0
+
+
+def consistency_sample(slug: str, step: str, log: Path, before: int, call, seed=None) -> dict | None:
+    """The ruling-model consistency sample (consistency.py) over the rulings
+    this step appended to LOG after line BEFORE: a seeded 20%, at least 1,
+    re-run with the identical payload, logged, never applied."""
+    import consistency as CS
+    lines = log.read_text(encoding="utf-8").splitlines()[before:] if log.exists() else []
+    recs = [json.loads(l) for l in lines if l.strip()]
+    if not recs:
+        return None
+    kind = recs[0].get("ruling_kind")
+    line = CS.sample_step(step, slug, kind, recs, CS.ruling_reask(call), log.parent / "consistency.jsonl",
+                          seed=seed)
+    print("  consistency: re-ran %d of %d ruling(s) (seed %d): %d of %d usable pair(s) agree "
+          "on decision and text; never applied" % (line["sampled"], line["rulings"], line["seed"],
+                                                   line["agree"], line["usable"]))
+    return line
 
 
 if __name__ == "__main__":

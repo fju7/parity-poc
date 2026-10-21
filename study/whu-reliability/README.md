@@ -14,6 +14,12 @@ This directory holds the study's code, prompts and blinding list. Data the study
 | `blinding/blind_phrases.json` | The fixed rewrite list: house phrases, tool signatures, and British-to-American spelling. Also the residual "tells" the check counts. |
 | `blinding/blind.py` | Converts an answer to one plain format, applies the list, and reports the residual tells. Free. |
 
+## Measures of the WHU process
+
+Recorded on every study issue as the WHU run produces it, alongside the judged measures (M1, M2):
+
+- **Ruling-model consistency (added 2026-10-21).** After each ruling step, a seeded random 20% of that step's rulings (at least one) is re-run with the identical payload and prompt; the second ruling is logged and never applied. Reported per step and per issue: the share of pairs with the same decision and text, and with the same decision alone (unusable second replies counted apart). Code: `backend/scripts/whatholdsup/consistency.py` (called by `ruling.py`; `consistency.py audit` for audit runs; `consistency.py report`). Log: each issue's `rulings/consistency.jsonl`, not committed. See RUN.md.
+
 ## Prep round 1 (19 October 2026)
 
 **Pilot location.** The October pilot is not in this repository or in `fju7/ai-research-reliability`. It is a local archive, `~/Downloads/Citation Pilot 2026-10-16/`:
