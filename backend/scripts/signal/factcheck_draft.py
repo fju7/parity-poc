@@ -2470,6 +2470,49 @@ def narrow_selection(slug: str, page_text: str) -> dict | None:
         return None
 
 
+def _narrow_module():
+    import importlib.util as _ilu
+    sp = _ilu.spec_from_file_location("narrow_gate", NARROW_SELECTOR)
+    mod = _ilu.module_from_spec(sp)
+    sp.loader.exec_module(mod)
+    return mod
+
+
+def page_state(slug: str, page_text: str) -> dict | None:
+    """narrow_gate.page_state, or None if it could not run."""
+    try:
+        return _narrow_module().page_state(slug, page_text)
+    except KeyboardInterrupt:
+        raise
+    except BaseException as exc:          # noqa: BLE001 - SystemExit included
+        print("[ERROR] the page state could not be read (%s: %s)" % (type(exc).__name__, exc))
+        return None
+
+
+def changed_since(report_path: str, slug: str, page_text: str) -> dict:
+    """For --changed-since: {"prior": report, "sentences": set, "quotations":
+    set, "now": page state}. Exits 2 (fail closed) if the report is missing,
+    unreadable, or predates the record of what its run saw of the page; a
+    run that cannot tell what changed does not guess."""
+    p = Path(report_path)
+    try:
+        prior = json.loads(p.read_text(encoding="utf-8"))
+    except Exception as exc:
+        print("\n[BLOCKED] --changed-since %s cannot be read (%s). Nothing was checked." % (p, exc))
+        sys.exit(2)
+    seen = (prior.get("narrow") or {}).get("page")
+    if not isinstance(seen, dict):
+        print("\n[BLOCKED] --changed-since %s does not record what its run saw of the page "
+              "(narrow.page), so what changed cannot be told. Nothing was checked." % p)
+        sys.exit(2)
+    now = page_state(slug, page_text)
+    if now is None:
+        print("\n[BLOCKED] the page state did not run. Nothing was checked.")
+        sys.exit(2)
+    sents, quotes = _narrow_module().changed(seen, now)
+    return {"prior": prior, "sentences": sents, "quotations": quotes, "now": now}
+
+
 def source_groups(claims: list[dict]) -> dict[str, list[dict]]:
     """The calls audit_sources() would make: one per attributed source."""
     groups: dict[str, list[dict]] = {}
@@ -2568,6 +2611,12 @@ def main():
                          "our wording. ADVOCATE and INFERENCE always re-run: they are the "
                          "whole-document readers and scoping them to the diff is how a "
                          "fixed sentence breaks a distant one.")
+    ap.add_argument("--changed-since", metavar="REPORT",
+                    help="Narrow only. Gate only the sentences changed (and quotations added) "
+                         "since the run that wrote REPORT, which must record what it saw of the "
+                         "page. If nothing changed, nothing runs, no call is made and no run is "
+                         "counted (exit 0, 'SKIPPED'). Implies --since REPORT unless --since is "
+                         "given, so recency is carried if recent.")
     ap.add_argument("--full", action="store_true",
                     help="Run every role: extract, source over every extracted claim, "
                          "recency, advocate, inference and coverage. Without it the "
@@ -2685,6 +2734,8 @@ def main():
         ap.error("a draft path is required (or use --verify / --known-errors / --survey)")
 
     mode = "full" if args.full else "narrow"
+    if args.changed_since and mode == "full":
+        ap.error("--changed-since is for the narrow gate; it cannot be used with --full")
     if args.dry_run:
         if mode == "full":
             print("A dry run of --full cannot list its claims: they come from the "
@@ -2696,9 +2747,35 @@ def main():
         if sel is None:
             print("\n[BLOCKED] The narrow-gate selection did not run.")
             sys.exit(2)
+        if args.changed_since:
+            ch = changed_since(args.changed_since, issue_slug_for(args.draft),
+                               Path(args.draft).read_text(encoding="utf-8"))
+            if not ch["sentences"] and not ch["quotations"]:
+                print("SKIPPED: no sentence changed since the gate run that wrote %s; a run "
+                      "would make no call and is not counted." % args.changed_since)
+                sys.exit(0)
+            sel = dict(sel, claims=_narrow_module().only_changed(
+                sel.get("claims") or [], ch["sentences"], ch["quotations"]))
         lines, _est = dry_run_plan(sel)
         print("\n".join(lines))
         sys.exit(0)
+
+    # THE FINAL NARROW GATE (study RUN.md step 8a, 2026-10-22): only the
+    # sentences changed since the last gate run. Decided before any cap check
+    # or run count, so a gate with nothing to read spends nothing and uses
+    # none of the issue's three runs.
+    changes = None
+    if args.changed_since:
+        changes = changed_since(args.changed_since, issue_slug_for(args.draft),
+                                Path(args.draft).read_text(encoding="utf-8"))
+        if not changes["sentences"] and not changes["quotations"]:
+            print("\nSKIPPED: no sentence changed since the gate run that wrote %s. No call "
+                  "was made and no gate run is counted." % args.changed_since)
+            sys.exit(0)
+        print("\n  changed since %s: %d sentence(s), %d new quotation(s)"
+              % (args.changed_since, len(changes["sentences"]), len(changes["quotations"])))
+        if not args.since:
+            args.since = args.changed_since
 
     # THE CAP, ENFORCED RATHER THAN REPORTED.
     #
@@ -2756,6 +2833,23 @@ def main():
                   "checked; an unrun selection is not an empty one.")
             sys.exit(2)
         claims = narrow["claims"]
+        if changes is not None:
+            kept = _narrow_module().only_changed(claims, changes["sentences"], changes["quotations"])
+            narrow["changed_since"] = {
+                "report": args.changed_since,
+                "report_sha256": changes["prior"].get("sha256"),
+                "changed_sentences": sorted(changes["sentences"]),
+                "new_quotations": len(changes["quotations"]),
+                "undetermined_on_unchanged_sentences_not_sent": len(claims) - len(kept)}
+            # FRESH IDS. A run numbers its claims n1, n2, ... and findings.py
+            # skips an id it already holds, so a changed sentence's finding
+            # would read as the earlier run's, already decided. These claims
+            # are named by the draft they were selected from.
+            tag = hashlib.sha256(path.read_bytes()).hexdigest()[:8]
+            for i, c in enumerate(kept, 1):
+                c["selected_as"] = c.get("id")
+                c["id"] = "f%s-%d" % (tag, i)
+            claims = narrow["claims"] = kept
         print("      %d undetermined claim(s) of %d considered"
               % (len(claims), narrow.get("considered", 0)))
         # one call per attributed source group, plus recency (counted even if
@@ -2923,7 +3017,11 @@ def main():
                 "selector": "backend/scripts/whatholdsup/narrow_gate.py",
                 "considered": narrow.get("considered", 0),
                 "source_checked": [c["id"] for c in claims],
-                "excluded": narrow.get("excluded") or []},
+                "excluded": narrow.get("excluded") or [],
+                # What this run saw of the page, for a later --changed-since.
+                "page": (changes["now"] if changes is not None else
+                         page_state(issue_slug_for(args.draft), path.read_text(encoding="utf-8"))),
+                **({"changed_since": narrow["changed_since"]} if narrow.get("changed_since") else {})},
             "usage": usage_summary(),
             "claims": claims, "verdicts": verdicts,
             "recency": recency, "objections": objections,

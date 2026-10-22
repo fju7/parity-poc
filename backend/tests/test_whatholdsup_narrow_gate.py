@@ -301,3 +301,58 @@ def test_quotations_unheld_are_sent_held_and_sourceless_are_not(lib):
     got = NG.select("t")
     assert [c["quotation_id"] for c in got["claims"]] == ["Q-1"]
     assert [x["quotation"] for x in got["excluded"]] == ["Q-3"]
+
+
+# --- the final narrow gate: only what changed since the last run (2026-10-22) ---
+
+PAGE_BEFORE = {"sentence_shas": ["aaa", "bbb"], "quotations": []}
+
+
+def _prior(tmp_path, page=PAGE_BEFORE):
+    p = tmp_path / "prior.gate.json"
+    p.write_text(json.dumps({"sha256": "f" * 64, "mode": "narrow", "claims": [], "verdicts": {},
+                             "narrow": ({"page": page} if page is not None else {})}))
+    return str(p)
+
+
+def test_nothing_changed_skips_spends_nothing_and_counts_no_run(run, monkeypatch, tmp_path):
+    monkeypatch.setattr(FC, "page_state", lambda slug, text: dict(PAGE_BEFORE))
+    calls, rep, code = run({"claims": [dict(UNDET, sentence_sha="aaa")]},
+                           "--changed-since", _prior(tmp_path))
+    assert code == 0 and rep is None
+    assert calls == []                                   # no selection, no call, no recency
+
+
+def test_only_claims_on_changed_sentences_are_sent(run, monkeypatch, tmp_path):
+    now = {"sentence_shas": ["aaa", "ccc"], "quotations": []}
+    monkeypatch.setattr(FC, "page_state", lambda slug, text: now)
+    sel = {"claims": [dict(UNDET, id="n1", sentence_sha="aaa"), dict(UNDET, id="n2", sentence_sha="ccc")],
+           "considered": 2, "excluded": []}
+    calls, rep, code = run(sel, "--changed-since", _prior(tmp_path))
+    assert code == 0 and "source" in calls
+    [cid] = rep["narrow"]["source_checked"]
+    assert cid.startswith("f") and cid.endswith("-1") and list(rep["verdicts"]) == [cid]
+    assert rep["claims"][0]["selected_as"] == "n2"           # fresh id: findings.py cannot mistake it
+    cs = rep["narrow"]["changed_since"]
+    assert cs["changed_sentences"] == ["ccc"] and cs["undetermined_on_unchanged_sentences_not_sent"] == 1
+    assert rep["narrow"]["page"] == now                  # recorded for the next run
+
+
+def test_a_report_that_did_not_record_the_page_blocks(run, monkeypatch, tmp_path):
+    monkeypatch.setattr(FC, "page_state", lambda slug, text: dict(PAGE_BEFORE))
+    calls, rep, code = run({"claims": []}, "--changed-since", _prior(tmp_path, page=None))
+    assert code == 2 and calls == [] and rep is None
+
+
+def test_changed_since_is_refused_with_full(run, tmp_path):
+    calls, rep, code = run({"claims": []}, "--full", "--changed-since", _prior(tmp_path))
+    assert code == 2 and calls == [] and rep is None
+
+
+def test_a_new_quotation_counts_as_a_change():
+    NG = _load("narrow_gate_changed_t", WHU / "narrow_gate.py")
+    s, q = NG.changed({"sentence_shas": ["a"], "quotations": ["x"]},
+                      {"sentence_shas": ["a"], "quotations": ["x", "y"]})
+    assert s == set() and q == {"y"}
+    assert [c["id"] for c in NG.only_changed([{"id": "q1", "quote_key": "y"}, {"id": "q2", "quote_key": "x"}],
+                                             s, q)] == ["q1"]

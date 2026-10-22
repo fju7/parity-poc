@@ -157,10 +157,32 @@ def select(slug: str, page_text: str | None = None) -> dict:
             "claim": "quoted on the page as the words of %s" % sid,
             "attributed_to": label(sid),
             "scope": "external", "quotation_id": r.get("id"), "source_id": sid,
+            "quote_key": Q.norm(q),
             "access": _state(srcs.get(sid) or {}),
             "undetermined_because": "%s is not held, so the quotation cannot be "
                                     "matched against its bytes" % (sid or "no source")})
     return {"claims": claims, "considered": considered, "excluded": excluded}
+
+
+def page_state(slug: str, page_text: str) -> dict:
+    """What a gate run saw of the page, so a later run can tell what changed:
+    the fingerprint of every page sentence (bindings.page_sentences, the keys
+    binding rows use) and every quotation on it (quotations.norm)."""
+    import quotations as Q
+    return {"sentence_shas": sorted({B.fingerprint(x) for x in B.page_sentences(slug)}),
+            "quotations": sorted({Q.norm(q) for q in Q.extract(page_text)})}
+
+
+def changed(prior: dict, now: dict) -> tuple[set, set]:
+    """(sentence fingerprints, quotations) on the page NOW and not in PRIOR."""
+    return (set(now.get("sentence_shas") or []) - set(prior.get("sentence_shas") or []),
+            set(now.get("quotations") or []) - set(prior.get("quotations") or []))
+
+
+def only_changed(claims: list[dict], sentences: set, quotations: set) -> list[dict]:
+    """The claims about a changed sentence or a new quotation."""
+    return [c for c in claims
+            if (c.get("sentence_sha") in sentences) or (c.get("quote_key") in quotations)]
 
 
 def main() -> int:
