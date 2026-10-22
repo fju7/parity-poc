@@ -1,0 +1,17 @@
+5b0a4343ac1357f7a35fcee70b047c5d32f1920438bff9b10052dd973f9f6273  ./issues/WHU-S02-teen-depression-therapy-format/advocate/20261022T123813Z-adjudication.md
+79dee1dea6e954d08d66fb4c7c4242268c47334d0d8517428f844f025d07a3a3  ./issues/WHU-S02-teen-depression-therapy-format/advocate/20261022T123813Z-briefs.json
+35e642b523ee3f41f1d863d4ce47b8ccdc2e3ae9481b8cd65c0d4a3f63ad9b8f  ./issues/WHU-S02-teen-depression-therapy-format/advocate/quote_checks.jsonl
+280b495ef6c1fa3ac8505751e87c5ad9eeeb811a0c2b7d39531bf451bf431ad0  ./issues/WHU-S02-teen-depression-therapy-format/advocate/runs/20261022T123813Z/briefs.jsonl
+2ac804bdb737f0bc140c09774eb9d837015094f126dcf3110907d113e0776425  ./issues/WHU-S02-teen-depression-therapy-format/advocate/runs/20261022T123813Z/inputs.json
+1a5227e5dbc4a1ff5a36710fc5f5204417c38dc39783c18a18dcec267d0ffb50  ./issues/WHU-S02-teen-depression-therapy-format/advocate/runs/20261022T123813Z/quote_checks.jsonl
+f65c95ffc3c212260dc2f1781915ea749d2251d598bb5765210746f96e5b7fef  ./issues/WHU-S02-teen-depression-therapy-format/advocate/runs/20261022T123813Z/routing.json
+78d893e6ed31c06dd5e5c8a6fc76196cba23a6a05d41b0f96ab503e64bfca13b  ./issues/WHU-S02-teen-depression-therapy-format/advocate/runs/20261022T123813Z/state.json
+f1cbb8dbb574fd82eab57af4d15dda72989efa175137ae393ea481caca23987d  ./issues/WHU-S02-teen-depression-therapy-format/bindings.json
+13fdd785504e6b5388f20fbb64f66d47f7c34cf311dab04103cca54cb3967097  ./issues/WHU-S02-teen-depression-therapy-format/conclusion-review.json
+1233fb583f333664b266087cbd03d4c0e69d5e6e4eff33f2d9f93f2913e00c74  ./issues/WHU-S02-teen-depression-therapy-format/draft/teen-depression-therapy-format.html.gate.json
+1e89a0ca64c2e9ea292ed42ea3fc52b9b061d8d968987d1d3f1200a5986290a7  ./issues/WHU-S02-teen-depression-therapy-format/draft/teen-depression-therapy-format.html.gate.json.runs.json
+06746467329f3a4e052f1562e8ec4292228843a6838503c3a67e68294328fd12  ./issues/WHU-S02-teen-depression-therapy-format/gate-findings.json
+b102974534ee247c44d3f3bce38e9d5c5bdc3c6dc72ac20b42c292426a14ff8d  ./issues/WHU-S02-teen-depression-therapy-format/quotations.json
+8a1421a73f233ca880378b217fe8afe854c2920eda4c115364d8effc44aabc5c  ./issues/WHU-S02-teen-depression-therapy-format/rulings/applied_check.jsonl
+4f9183b790cdb6b81b476ef7ef76cff31067f0039acc7af32790a7f3d80fc150  ./issues/WHU-S02-teen-depression-therapy-format/rulings/consistency.jsonl
+ba5f8961e6d8ef7d154e840d3d12144ad37a4f0ae7937eb84575b1a309a27709  ./issues/WHU-S02-teen-depression-therapy-format/rulings/rulings.jsonl
