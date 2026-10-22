@@ -32,7 +32,21 @@ import sys
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
-PHRASES = json.loads((HERE / "blind_phrases.json").read_text(encoding="utf-8"))
+# The blinding list, pinned by sha256 as the spelling map is (protocol rev 38):
+# a changed list is refused.
+PHRASES_FILE = HERE / "blind_phrases.json"
+PHRASES_SHA256 = "ccb61c7f0639cdc332a258beecc723ec432702e56a2316816909d42ae9c39757"
+
+
+def load_phrases() -> dict:
+    raw = PHRASES_FILE.read_bytes()
+    got = hashlib.sha256(raw).hexdigest()
+    if got != PHRASES_SHA256:
+        raise SystemExit("blind_phrases.json has sha256 %s, not the pinned %s" % (got, PHRASES_SHA256))
+    return json.loads(raw.decode("utf-8"))
+
+
+PHRASES = load_phrases()
 
 # The British-to-American spelling list (pre-freeze ruling, protocol rev 33): a
 # fixed word list identified by its sha256. A changed list is refused, so the

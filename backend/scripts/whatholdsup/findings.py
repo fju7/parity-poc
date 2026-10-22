@@ -264,9 +264,39 @@ def recency_findings(report: dict) -> list[dict]:
             s.get("name") or "a study", s.get("status") or "not established as current",
             s.get("draft_uses") or "?", s.get("latest_known") or "?",
             ("; what changes: %s" % s["what_changed"]) if s.get("what_changed") else "")
-        out.append({"id": "rec-%d" % i, "kind": "recency", "verdict": s.get("status") or "UNKNOWN",
-                    "what": what[:400]})
+        out.append({"id": recency_id(report, i), "legacy_id": "rec-%d" % i, "kind": "recency",
+                    "verdict": s.get("status") or "UNKNOWN", "what": what[:400]})
     return out
+
+
+# RECENCY IDS NAME THEIR DRAFT (2026-10-22, protocol rev 38): f<draft sha>-rec-N,
+# as a --changed-since run names its claims. A gate run numbers its recency
+# studies rec-1, rec-2, ... afresh, and scan() skips an id it already holds,
+# so a later run's rec-1 would have read as the earlier run's, already decided.
+REC_ID = re.compile(r"^(?:f[0-9a-f]{8}-)?rec-(\d+)$")
+
+
+def recency_id(report: dict, i: int) -> str:
+    d = (report.get("sha256") or "")[:8]
+    return ("f%s-rec-%d" % (d, i)) if re.fullmatch(r"[0-9a-f]{8}", d) else "rec-%d" % i
+
+
+def recency_index(fid: str) -> int | None:
+    """N of rec-N or f<sha>-rec-N, else None."""
+    m = REC_ID.match(fid or "")
+    return int(m.group(1)) if m else None
+
+
+def record_for(have: dict, f: dict) -> dict | None:
+    """The record for finding F: by its id; for a recency finding, else by the
+    pre-2026-10-22 id rec-N when that record is about the same text (the same
+    finding, recorded before ids named their draft)."""
+    r = have.get(f["id"])
+    if r is None and f.get("legacy_id"):
+        old = have.get(f["legacy_id"])
+        if old is not None and (old.get("gate_said") or "") == (f.get("what") or ""):
+            r = old
+    return r
 
 
 def _opens(slug: str, report: dict) -> list[dict]:
@@ -298,7 +328,7 @@ def check(slug: str, report: dict) -> list[tuple[str, str, str]]:
     missing, unsettled, unverified, judged, unevaluable, partly = [], [], [], [], [], []
     undecided = []
     for f in opens:
-        r = have.get(f["id"])
+        r = record_for(have, f)
         if not r or r.get("decision") not in DECISIONS:
             # AUTO-CLOSE BY ATTESTATION, DURABLY. A finding about a licence-
             # barred source that an operator answer already covers is closed
@@ -422,9 +452,9 @@ def check(slug: str, report: dict) -> list[tuple[str, str, str]]:
 
 def scan(slug: str, report: dict) -> dict:
     doc = load(slug)
-    have = {f.get("id") for f in (doc.get("findings") or [])}
+    have = {f.get("id"): f for f in (doc.get("findings") or [])}
     for f in _opens(slug, report):
-        if f["id"] in have:
+        if record_for(have, f) is not None:
             continue
         doc["findings"].append({
             "id": f["id"], "kind": f["kind"], "gate_verdict": f["verdict"],
@@ -521,7 +551,7 @@ def retest(slug: str, report: dict, write: bool = True) -> dict:
     out = {"closed": [], "attested": [], "live": [], "partly": [], "moot": [], "operator": []}
     today = date.today().isoformat()
     for f in _opens(slug, report):
-        rec = have.get(f["id"])
+        rec = record_for(have, f)
         if rec and rec.get("decision") in DECISIONS:
             continue
         if rec is None:

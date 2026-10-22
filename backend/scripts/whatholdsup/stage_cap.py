@@ -88,6 +88,21 @@ class StageOverCap(Exception):
     """A stage whose estimate exceeds the cap remaining today or on the issue."""
 
 
+
+def _load_frozen():
+    """frozen.py, by its path beside this file (callers load this module by path)."""
+    import importlib.util as _u
+    m = sys.modules.get("frozen")
+    if m is None:
+        sp = _u.spec_from_file_location("frozen", Path(__file__).resolve().parent / "frozen.py")
+        m = _u.module_from_spec(sp)
+        sys.modules["frozen"] = m
+        sp.loader.exec_module(m)
+    return m
+
+
+_frozen = _load_frozen
+
 def _gate_calls(es):
     return [e for e in es if e.get("script") == "factcheck_draft.py"]
 
@@ -214,6 +229,15 @@ def _d(x) -> str:
 def guard(stage: str, issue: str, units: int) -> None:
     """check(), printing the refusal and exiting 3 (the gate's 'stopped before
     spending' code) instead of raising: for a script's entry point."""
+    # THE FROZEN FILES (protocol rev 38): no paid stage of a study issue starts
+    # if RUN.md or a frozen prompt is not the one recorded in frozen.py.
+    frozen = _frozen()
+    if frozen.is_study(issue):
+        try:
+            frozen.verify_all()
+        except frozen.FrozenFileChanged as e:
+            print("\n  NOT STARTED: %s.\n  %s\n" % (NAMES[stage], e), file=sys.stderr)
+            raise SystemExit(6)
     try:
         r = check(stage, issue, units)
     except (StageOverCap, S.OverCap) as e:                 # S.OverCap: already past a cap

@@ -120,6 +120,18 @@ class AuditFailure(RuntimeError):
     """The run stops. Nothing downstream may treat a partial run as complete."""
 
 
+
+def _load_frozen():
+    """frozen.py, by its path beside this file (callers load this module by path)."""
+    import importlib.util as _u
+    m = sys.modules.get("frozen")
+    if m is None:
+        sp = _u.spec_from_file_location("frozen", Path(__file__).resolve().parent / "frozen.py")
+        m = _u.module_from_spec(sp)
+        sys.modules["frozen"] = m
+        sp.loader.exec_module(m)
+    return m
+
 def sha(text: str) -> str:
     return hashlib.sha256(text.encode("utf-8")).hexdigest()
 
@@ -144,6 +156,11 @@ def norm(s: str) -> str:
 def _B():
     import bindings as B
     return B
+
+
+def _frozen():
+    """frozen.py: a changed frozen prompt is refused when read (protocol rev 38)."""
+    return _load_frozen()
 
 
 def _ledger():
@@ -585,7 +602,7 @@ def binding_line(row: dict | None, licensed: frozenset = frozenset()) -> str:
 def build_summary_prompt(batch: list[dict], body: str) -> str:
     stext = "\n\n".join("[%s] (%s)\nSENTENCE: %s" % (u["id"], u["part"].replace("_", " "), u["sentence"])
                          for u in batch)
-    t = SUMMARY_PROMPT.read_text(encoding="utf-8")
+    t = _frozen().read_text(SUMMARY_PROMPT)
     return t.replace("{documents}", "<<<DOCUMENT PAGE\n%s\nDOCUMENT PAGE>>>" % body).replace("{sentences}", stext)
 
 
@@ -600,7 +617,7 @@ def build_read_prompt(batch: list[dict], docs: dict[str, str], records: dict[str
         % (u["id"], u["part"].replace("_", " "), u["sentence"], context.get(u["id"], ("", ""))[0] or "-",
            context.get(u["id"], ("", ""))[1] or "-", binding_line(u["row"], licensed))
         for u in batch)
-    t = READ_PROMPT.read_text(encoding="utf-8")
+    t = _frozen().read_text(READ_PROMPT)
     return t.replace("{documents}", "DOCUMENTS\n\n" + dtext).replace("{records}", "RECORDS\n\n" + rtext) \
             .replace("{sentences}", stext)
 
@@ -761,7 +778,7 @@ def ruling_payload(finding: dict, sentence: str, docs: dict[str, str], records: 
 
 
 def build_rule_prompt(payload: dict) -> str:
-    t = RULE_PROMPT.read_text(encoding="utf-8")
+    t = _frozen().read_text(RULE_PROMPT)
     for k in RULE_FIELDS:
         t = t.replace("{%s}" % k, payload[k])
     return t

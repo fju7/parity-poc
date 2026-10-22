@@ -83,12 +83,20 @@ def test_the_real_preflight_runs_on_a_synthetic_study_issue(synthetic):
     assert not any(l.startswith(("email", "live page", "masthead")) for l in by)
 
 
-def test_the_canary_row_is_skipped_on_a_study_issue_with_its_reason(synthetic, monkeypatch):
-    """canary.py is not a step of WHU's process (the process doc does not name
-    it), so a study issue records its row as SKIPPED, and canary is not run."""
+def test_the_canary_row_is_a_normal_check_on_a_study_issue(synthetic, monkeypatch):
+    """canary.py runs on study issues (RUN.md step 2c); its preflight row is the
+    ordinary check, not SKIPPED (protocol rev 38, undoing 6c4e575)."""
     P = synthetic
+    ran = []
     monkeypatch.setattr(P.canary, "preflight_rows",
-                        lambda slug: (_ for _ in ()).throw(AssertionError("canary ran on a study issue")))
+                        lambda slug: ran.append(slug) or [("checks can read the documents", P.OK, "1 of 1")])
     by = {l: (s, d) for l, s, d in P.preflight(SLUG, for_email=False)}
-    assert by["checks can read the documents"] == (P.OK, "SKIPPED — " + P.CANARY_STUDY_REASON)
-    assert "process" in P.CANARY_STUDY_REASON
+    assert ran == [SLUG]
+    assert by["checks can read the documents"] == (P.OK, "1 of 1")
+    assert not hasattr(P, "CANARY_STUDY_REASON")
+
+
+def test_the_study_preflight_checks_the_frozen_files(synthetic):
+    P = synthetic
+    by = {l: (s, d) for l, s, d in P.preflight(SLUG, for_email=False)}
+    assert by["frozen files unchanged"][0] == P.OK and "frozen.py" in by["frozen files unchanged"][1]

@@ -363,12 +363,6 @@ ISSUES = {
 # verification by a second session, operator acceptance and publication -- as
 # SKIPPED with STUDY_REASON, and runs every other row as it would for any issue.
 STUDY_REASON = "excluded from the frozen process for the study (protocol rev 27)"
-# canary.py (the round trip of each held document's own figures) is not a step
-# of WHU's process: docs/whatholdsup-process.md does not name it, no RUN.md
-# step runs it, and its row is a warning that never stops the preflight. So a
-# study issue records it as SKIPPED rather than as a warning (2026-10-22).
-CANARY_STUDY_REASON = ("canary.py is not a step of WHU's process (docs/whatholdsup-process.md "
-                       "does not require it before publication), so the study does not run it")
 
 
 def study_issue(slug: str) -> dict | None:
@@ -1978,13 +1972,23 @@ def preflight(slug: str, *, for_email: bool,
     except BaseException as exc:
         out.append(("text the page generates about itself", WARN,
                     "did not run: %s: %s" % (type(exc).__name__, exc)))
+    if study:
+        # THE FROZEN FILES (protocol rev 38): RUN.md and the ruling and audit
+        # prompts, each as recorded in frozen.py.
+        try:
+            import importlib.util as _u
+            _sp = _u.spec_from_file_location("frozen", Path(__file__).resolve().parent / "frozen.py")
+            _fz = _u.module_from_spec(_sp); _sp.loader.exec_module(_fz)
+            _bad = _fz.mismatches()
+            out.append(("frozen files unchanged", OK if not _bad else BAD,
+                        "%d file(s) as frozen (frozen.py)" % len(_fz.FROZEN_SHA256) if not _bad else
+                        "%d frozen file(s) changed: %s" % (len(_bad), "; ".join(r for r, _w, _g in _bad))))
+        except BaseException as exc:
+            out.append(("frozen files unchanged", BAD, "did not run: %s: %s" % (type(exc).__name__, exc)))
     for _mod, _name in ((errata, "errata check"), (bindings, "claim bindings"),
                         (coverage, "check coverage"),
                         (b13, "figures in held documents"),
                         (canary, "checks can read the documents")):
-        if study and _mod is canary:
-            out.append((_name, OK, "SKIPPED \u2014 " + CANARY_STUDY_REASON))
-            continue
         try:
             out.extend(_mod.preflight_rows(slug))
         except BaseException as exc:   # SystemExit is not an Exception

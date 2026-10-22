@@ -116,12 +116,31 @@ class RulingError(Exception):
     pass
 
 
+
+def _load_frozen():
+    """frozen.py, by its path beside this file (callers load this module by path)."""
+    import importlib.util as _u
+    m = sys.modules.get("frozen")
+    if m is None:
+        sp = _u.spec_from_file_location("frozen", Path(__file__).resolve().parent / "frozen.py")
+        m = _u.module_from_spec(sp)
+        sys.modules["frozen"] = m
+        sp.loader.exec_module(m)
+    return m
+
 def sha(text: str) -> str:
     return hashlib.sha256(text.encode("utf-8")).hexdigest()
 
 
 def prompt_sha(kind: str, grouped: bool = False) -> str:
     return sha((GROUP_PROMPTS if grouped else PROMPTS)[kind].read_text(encoding="utf-8"))
+
+
+def _rec_index(fid: str) -> int | None:
+    """N of a recency finding id, f<draft sha>-rec-N or the older rec-N
+    (findings.recency_id)."""
+    m = re.match(r"^(?:f[0-9a-f]{8}-)?rec-(\d+)$", fid or "")
+    return int(m.group(1)) if m else None
 
 
 def _norm(s: str) -> str:
@@ -197,7 +216,8 @@ def group_payload(sentence: str, findings: list[dict], held: dict[str, str]) -> 
 
 
 def build_prompt(kind: str, p: dict, grouped: bool = False) -> str:
-    t = (GROUP_PROMPTS if grouped else PROMPTS)[kind].read_text(encoding="utf-8")
+    frozen = _load_frozen()             # a changed frozen prompt is refused (protocol rev 38)
+    t = frozen.read_text((GROUP_PROMPTS if grouped else PROMPTS)[kind])
     for k in (GROUP_FIELDS if grouped else RULE_FIELDS):
         t = t.replace("{%s}" % k, p[k])
     return t
@@ -378,11 +398,12 @@ def gate_items(report: dict, findings_doc: dict) -> list[dict]:
             o = cov[int(fid[4:]) - 1]; text, fix = o.get("quote") or "", o.get("fix") or ""
         elif fid in claims:
             text = claims[fid].get("claim") or ""
-        elif fid.startswith("rec-") and fid[4:].isdigit() and int(fid[4:]) <= len(rec):
+        elif (_rec_index(fid) or 0) and _rec_index(fid) <= len(rec):
             # A recency study that is not CURRENT (GAP-014): the sentence is the
             # one that relies on that readout, found by the study's name or by
-            # the readout the gate says the draft uses.
-            s = rec[int(fid[4:]) - 1]
+            # the readout the gate says the draft uses. Its id is f<draft
+            # sha>-rec-N, or rec-N if recorded before 2026-10-22.
+            s = rec[_rec_index(fid) - 1]
             text = s.get("name") or ""
             out.append({"finding": f, "text": text, "fix": "", "alt": s.get("draft_uses") or ""})
             continue

@@ -353,3 +353,56 @@ def test_a_dangling_reference_goes_to_the_ruling_model_with_both_sentences(study
     assert rec["ruling_kind"] == "dangling" and rec["term"] == "UPDATE"
     # ruled once: the same (term, sentence) is not ruled again
     assert R.rule_dangling("xq", fake, P=P, rows=rows, held=HELD, page_html=page, case=d) == []
+
+
+# --- recency ids name their draft (2026-10-22, protocol rev 38) ---
+
+REPORT_REC_SHA = dict(REPORT_REC, sha256="ab12cd34" + "0" * 56)
+
+
+def test_a_recency_finding_id_is_prefixed_with_the_draft_sha(study):
+    d, P = study
+    import findings as F
+    (d / "issue.json").write_text(json.dumps({"slug": "xq", "study": True}))
+    assert [f["id"] for f in F._opens("xq", REPORT_REC_SHA)] == ["fab12cd34-rec-1"]
+    assert F.recency_index("fab12cd34-rec-1") == 1 and F.recency_index("rec-3") == 3
+    assert F.recency_index("n1") is None
+
+
+def test_a_later_runs_recency_finding_is_not_mistaken_for_an_earlier_decided_one(study):
+    d, P = study
+    import findings as F
+    (d / "issue.json").write_text(json.dumps({"slug": "xq", "study": True}))
+    F.scan("xq", REPORT_REC_SHA)
+    doc = F.load("xq")
+    doc["findings"][0]["decision"] = "rejected"
+    F.save("xq", doc)
+    later = dict(REPORT_REC_SHA, sha256="99ff00ee" + "0" * 56)
+    F.scan("xq", later)
+    ids = [f["id"] for f in F.load("xq")["findings"]]
+    assert ids == ["fab12cd34-rec-1", "f99ff00ee-rec-1"]                 # its own record, undecided
+    row = [r for r in F.check("xq", later) if r[0] == "gate findings settled"][0]
+    assert row[1] == F.BAD and "f99ff00ee-rec-1" in row[2]
+
+
+def test_a_rec_n_record_from_before_still_settles_the_same_finding(study):
+    d, P = study
+    import findings as F
+    (d / "issue.json").write_text(json.dumps({"slug": "xq", "study": True}))
+    F.scan("xq", REPORT_REC)                                             # no sha: the old id, rec-1
+    doc = F.load("xq")
+    assert doc["findings"][0]["id"] == "rec-1"
+    F.scan("xq", REPORT_REC_SHA)                                         # same text: the old record serves
+    assert [f["id"] for f in F.load("xq")["findings"]] == ["rec-1"]
+
+
+def test_a_prefixed_recency_finding_reaches_the_ruling_model_with_its_readout(study):
+    d, P = study
+    import findings as F
+    (d / "issue.json").write_text(json.dumps({"slug": "xq", "study": True}))
+    F.scan("xq", REPORT_REC_SHA)
+    row = dict(ROW, sentence="The trial showed the intervention cut weight by 2 kg in 12 weeks.")
+    fake = Fake({"ruling": "reject", "text": None, "reason": "Quotation 1 is the readout.", "quotation": 1})
+    done = R.rule_gate("xq", fake, P=P, report=REPORT_REC_SHA, rows={"k1": row}, held=HELD)
+    assert len(done) == 1 and done[0]["decision"] == "rejected"
+    assert "the 12-week readout" in fake.prompts[0]
