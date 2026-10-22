@@ -1,0 +1,16 @@
+# WHU reliability study: answer keys, sha256 manifest
+# Keys and the full texts they were drafted from are held outside the repository, at
+# ~/Projects/whu-study-private/keys/<question>/ (key.json; source/; sources.sha256 lists every
+# full-text file by sha256). Only these hashes are committed (protocol, frozen at 5d83e9b: Answer keys).
+# Drafted 2026-10-21 (US Eastern; 2026-10-22 UTC) by Claude Code (session bf265589-dacd-405f-9e74-cb1843d43010), key drafter.
+# Status: draft, not yet checked by the second instance; not frozen.
+#
+# sha256  path (relative to ~/Projects/whu-study-private/keys/)
+f838a175ac0824cbe544c5edd18eb8add8e44a76369d04e1189bb3d6fb0cc107  WHU-S01/key.json
+8e2df247e945b12262e2a3e92c339a1b657444a9f268c91d48f39715da041590  WHU-S01/sources.sha256
+7c2134598547ecfbf4bba4d084a27e4a82f86fa84f8a731869cbb59beea1660a  WHU-S02/key.json
+3aa3c9d6b3cfdf566562520726aae70dcad8690328f8ede51e6d97fc37f7e56b  WHU-S02/sources.sha256
+6bd551a42e8ea9bc9d2cd8e3464f3700685fec2dbbd8a1f8a90fdf473a96374a  WHU-S03/key.json
+7ebb44c291ceadacbef2a9993fb18c4e522195e7e9a112e5540ea0db7fc6a0d8  WHU-S03/sources.sha256
+3197a1ef8711d6ad3b98c87ebd2a9d44fbd441d933ceebfc236ec451e79d10da  WHU-S04/key.json
+ab8e2916b80b14be37de487ad6e92853e624259055f41faec5f2188cb3c92b38  WHU-S04/sources.sha256
