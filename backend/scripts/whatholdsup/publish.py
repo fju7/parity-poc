@@ -363,6 +363,12 @@ ISSUES = {
 # verification by a second session, operator acceptance and publication -- as
 # SKIPPED with STUDY_REASON, and runs every other row as it would for any issue.
 STUDY_REASON = "excluded from the frozen process for the study (protocol rev 27)"
+# canary.py (the round trip of each held document's own figures) is not a step
+# of WHU's process: docs/whatholdsup-process.md does not name it, no RUN.md
+# step runs it, and its row is a warning that never stops the preflight. So a
+# study issue records it as SKIPPED rather than as a warning (2026-10-22).
+CANARY_STUDY_REASON = ("canary.py is not a step of WHU's process (docs/whatholdsup-process.md "
+                       "does not require it before publication), so the study does not run it")
 
 
 def study_issue(slug: str) -> dict | None:
@@ -1976,6 +1982,9 @@ def preflight(slug: str, *, for_email: bool,
                         (coverage, "check coverage"),
                         (b13, "figures in held documents"),
                         (canary, "checks can read the documents")):
+        if study and _mod is canary:
+            out.append((_name, OK, "SKIPPED \u2014 " + CANARY_STUDY_REASON))
+            continue
         try:
             out.extend(_mod.preflight_rows(slug))
         except BaseException as exc:   # SystemExit is not an Exception

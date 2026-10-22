@@ -81,3 +81,14 @@ def test_the_real_preflight_runs_on_a_synthetic_study_issue(synthetic):
         P.OK, "SKIPPED — a study answer is never published, so it has no correction history "
               "(protocol rev 27)")
     assert not any(l.startswith(("email", "live page", "masthead")) for l in by)
+
+
+def test_the_canary_row_is_skipped_on_a_study_issue_with_its_reason(synthetic, monkeypatch):
+    """canary.py is not a step of WHU's process (the process doc does not name
+    it), so a study issue records its row as SKIPPED, and canary is not run."""
+    P = synthetic
+    monkeypatch.setattr(P.canary, "preflight_rows",
+                        lambda slug: (_ for _ in ()).throw(AssertionError("canary ran on a study issue")))
+    by = {l: (s, d) for l, s, d in P.preflight(SLUG, for_email=False)}
+    assert by["checks can read the documents"] == (P.OK, "SKIPPED — " + P.CANARY_STUDY_REASON)
+    assert "process" in P.CANARY_STUDY_REASON
