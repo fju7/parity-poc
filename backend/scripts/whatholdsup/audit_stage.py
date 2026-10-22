@@ -436,6 +436,17 @@ def held_for_audit(slug: str) -> dict[str, str]:
     return out
 
 
+class ReplyCutOff(AuditFailure):
+    """The reply reached its max_tokens and was cut off. It carries what the
+    call cost (`usage`), since it was paid for; `cut_off` lets a caller that
+    loaded this module under another name recognise it (ruling.py)."""
+    cut_off = True
+
+    def __init__(self, msg: str, usage: dict | None = None):
+        super().__init__(msg)
+        self.usage = usage or {}
+
+
 class DocumentNotDelivered(AuditFailure):
     """A held document reached the reader empty, or without a span its batch's
     sentences are bound to. Never sent on; the run stops (fail closed)."""
@@ -827,7 +838,10 @@ class Caller:
             if self._day_cap is not None:
                 self._day_cap(0.0)
             text, usage = self._ask(prompt, max_tokens)
+            stop = usage.pop("stop_reason", None) if isinstance(usage, dict) else None
             self.calls.append({"role": role, **usage})
+            if stop == "max_tokens":
+                raise ReplyCutOff("reply cut off at %d tokens (%s)" % (max_tokens, role), usage)
             return text, usage
         n_in = self._raw.messages.count_tokens(model=MODEL, messages=[{"role": "user", "content": prompt}]).input_tokens
         p = S.PRICES[MODEL]
@@ -843,13 +857,15 @@ class Caller:
                                          messages=[{"role": "user", "content": prompt}])
         if r.stop_reason == "refusal":
             raise AuditFailure("the model refused (%s)" % role)
-        if r.stop_reason == "max_tokens":
-            raise AuditFailure("reply cut off at %d tokens (%s)" % (max_tokens, role))
         text = "".join(getattr(b, "text", "") for b in r.content)
         usd, counts = S.price(r.model, r.usage)
         usage = {"input": counts["input"], "output": counts["output"], "usd": usd or 0.0,
                  "seconds": round(time.time() - t0, 1)}
         self.calls.append({"role": role, **usage})
+        if r.stop_reason == "max_tokens":
+            # Paid for, so counted above; the caller decides what a cut-off
+            # reply means (ruling.py retries once, 2026-10-22).
+            raise ReplyCutOff("reply cut off at %d tokens (%s)" % (max_tokens, role), usage)
         return text, usage
 
 

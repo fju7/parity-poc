@@ -91,7 +91,7 @@ def _pair(first: dict, second: dict | None) -> dict:
 
 
 def sample_step(step: str, issue: str, kind: str, records: list[dict], reask, log: Path,
-                seed: int | None = None, rate: float = RATE) -> dict:
+                seed: int | None = None, rate: float = RATE, carried: list | None = None) -> dict:
     """Re-run a seeded sample of RECORDS (one ruling step) with `reask(record)`,
     which returns (second ruling dict or None if unusable, usage, note).
     Logs every pair and a step line; returns the step line."""
@@ -113,7 +113,11 @@ def sample_step(step: str, issue: str, kind: str, records: list[dict], reask, lo
             f.write(json.dumps(p, ensure_ascii=False) + "\n")
     line = {"type": "step", "at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
             "step": step, "issue": issue, "kind": kind, "seed": seed, "rate": rate,
-            "rulings": len(records), "sampled": len(idx), "sampled_ids": ids, **_rates(pairs)}
+            "rulings": len(records), "sampled": len(idx), "sampled_ids": ids,
+            # every ruling the step covers (ruling.unsampled reads it), and those
+            # carried from a step that stopped before its sample (2026-10-22)
+            "ruling_ids": [r.get("id") for r in records], "carried_ids": list(carried or []),
+            **_rates(pairs)}
     with open(log, "a", encoding="utf-8") as f:
         f.write(json.dumps(line, ensure_ascii=False) + "\n")
     return line
@@ -251,7 +255,12 @@ def ruling_reask(call):
             raise SystemExit("consistency sample refused: the %s prompt changed since ruling %s"
                              % (kind, r.get("id")))
         n_quotes = len(re.findall(r"(?m)^Quotation \d+:", r["inputs"].get("quoted_source_text") or ""))
-        text, usage = call(R.build_prompt(kind, r["inputs"], grouped), R.MAX_OUT, "rule-%s-repeat" % kind)
+        try:
+            text, usage = call(R.build_prompt(kind, r["inputs"], grouped), R.MAX_OUT, "rule-%s-repeat" % kind)
+        except Exception as e:
+            if not getattr(e, "cut_off", False):
+                raise
+            return None, getattr(e, "usage", {}) or {}, "second reply cut off: %s" % e
         try:
             return R.parse(kind, text, n_quotes), usage, None
         except R.RulingError as e:

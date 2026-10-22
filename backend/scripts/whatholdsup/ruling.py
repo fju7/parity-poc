@@ -72,6 +72,15 @@ HOW A RULING IS RECORDED
               / "corrects", DID naming the text to apply. Questions about a
               source only a person may read are not ruled: they stay with a
               person (protocol rev 27, "Sentences that need a person").
+
+A REPLY CUT OFF (2026-10-22). The output limit is MAX_OUT, 4,000 tokens (1,500
+until a WHU-S01 ruling ran past it and stopped the step). A reply cut off at
+the limit is asked once more with the identical prompt; each cut-off attempt is
+logged in rulings/attempts.jsonl. Cut off again, a RULING_FAILED record there
+names the findings, they stay open (a later run rules them), and the step goes
+on to the next sentence; the mode exits 4 after its consistency sample.
+Rulings a step made before it stopped, unsampled, are carried into the sample
+of the run that resumes it (unsampled; each step line lists its ruling_ids).
 """
 from __future__ import annotations
 
@@ -90,7 +99,19 @@ MODEL = "claude-opus-5-5"
 BY = "ruling model %s" % MODEL
 RULE_FIELDS = ("sentence", "kind", "reason", "proposed_text", "quoted_source_text")
 QUOTE_AROUND = 600
-MAX_OUT = 1500
+# The ruling's output limit. 1,500 until 2026-10-22, when a WHU-S01 ruling
+# reply ran past it, the caller raised, and the step stopped mid-way.
+MAX_OUT = 4000
+# A reply cut off at MAX_OUT is asked once more with the same prompt; both
+# attempts are logged (attempts_log). Cut off again: RULING_FAILED.
+ATTEMPTS = 2
+RULING_FAILED = "RULING_FAILED"
+# The consistency sample began with commit c625411 (2026-10-21 01:21 UTC):
+# rulings before it were never sampled and are not carried into a sample.
+SAMPLED_SINCE = "2026-10-21T01:21:28+00:00"
+# Each mode's ruling_kind on its log records.
+MODE_KIND = {"gate": "gate", "conclusions": "conclusion", "changecheck": "changecheck",
+             "advocate": "advocate", "dangling": "dangling"}
 PROMPTS = {
     "audit": HERE / "audit_prompts" / "rule.md",
     "second-reader": HERE / "audit_prompts" / "rule.md",
@@ -114,6 +135,11 @@ GROUP_PROMPT_SHA256 = {
 
 class RulingError(Exception):
     pass
+
+
+class RulingFailed(RulingError):
+    """The reply was cut off at MAX_OUT on every attempt. The findings it
+    covers are logged RULING_FAILED and left open; the step goes on."""
 
 
 
@@ -241,21 +267,61 @@ def parse(kind: str, text: str, n_quotes: int) -> dict:
     return got
 
 
+def attempts_log(log: Path) -> Path:
+    """Cut-off attempts and RULING_FAILED records, beside the ruling log and
+    apart from it: nothing that reads rulings.jsonl (the consistency sample,
+    applied_check, the stage cap's per-ruling cost) mistakes one for a ruling."""
+    return log.parent / "attempts.jsonl"
+
+
+def _append(path: Path, rec: dict) -> dict:
+    rec["id"] = sha(json.dumps(rec, sort_keys=True, ensure_ascii=False))[:16]
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with open(path, "a", encoding="utf-8") as f:
+        f.write(json.dumps(rec, ensure_ascii=False) + "\n")
+    return rec
+
+
 def rule(kind: str, p: dict, n_quotes: int, call, log: Path, ref: dict, grouped: bool = False) -> dict:
     """One ruling: prompt, call, check, log. `call(prompt, max_tokens, role)`
-    returns (text, usage) -- audit_stage.Caller, metered and capped, or a fake."""
+    returns (text, usage) -- audit_stage.Caller, metered and capped, or a fake.
+
+    A reply cut off at MAX_OUT (audit_stage.ReplyCutOff) is logged in
+    attempts_log and asked once more with the identical prompt; a second
+    cut-off is logged there too, with a RULING_FAILED record naming the
+    findings, and raises RulingFailed for the caller to pass over."""
     prompt = build_prompt(kind, p, grouped)
-    text, usage = call(prompt, MAX_OUT, "rule-%s" % kind)
-    got = parse(kind, text, n_quotes)
     path = (GROUP_PROMPTS if grouped else PROMPTS)[kind]
+    base = {"by": BY, "model": MODEL, "ruling_kind": kind, "prompt": str(path.relative_to(HERE)),
+            "prompt_sha256": prompt_sha(kind, grouped), "inputs_sha256": sha(json.dumps(p))}
+    cut = []
+    for n in range(1, ATTEMPTS + 1):
+        try:
+            text, usage = call(prompt, MAX_OUT, "rule-%s" % kind + ("" if n == 1 else "-retry"))
+            break
+        except Exception as e:
+            if not getattr(e, "cut_off", False):
+                raise
+            cut.append(_append(attempts_log(log), {
+                "type": "cut_off", "at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+                **base, "inputs": p, **ref, "attempt": n, "of": ATTEMPTS, "max_tokens": MAX_OUT,
+                "error": str(e), "usage": getattr(e, "usage", {}) or {}})["id"])
+    else:
+        failed = _append(attempts_log(log), {
+            "type": RULING_FAILED, "status": RULING_FAILED,
+            "at": datetime.now(timezone.utc).isoformat(timespec="seconds"), **base, **ref,
+            "attempts": cut, "why": "the reply was cut off at %d tokens on all %d attempts; the "
+                                    "finding(s) stay open" % (MAX_OUT, ATTEMPTS)})
+        raise RulingFailed("%s: cut off at %d tokens on all %d attempts (record %s)"
+                           % (kind, MAX_OUT, ATTEMPTS, failed["id"]))
+    got = parse(kind, text, n_quotes)
     rec = {"at": datetime.now(timezone.utc).isoformat(timespec="seconds"), "by": BY,
            "model": MODEL, "ruling_kind": kind, "prompt": str(path.relative_to(HERE)),
            "prompt_sha256": prompt_sha(kind, grouped), "inputs": p, "inputs_sha256": sha(json.dumps(p)),
            **ref, **got, "usage": usage}
-    rec["id"] = sha(json.dumps(rec, sort_keys=True, ensure_ascii=False))[:16]
-    log.parent.mkdir(parents=True, exist_ok=True)
-    with open(log, "a", encoding="utf-8") as f:
-        f.write(json.dumps(rec, ensure_ascii=False) + "\n")
+    if cut:
+        rec["after_cut_off"] = cut          # the attempt(s) cut off before this reply
+    _append(log, rec)
     return got
 
 
@@ -307,6 +373,20 @@ def rule_sentence(kind: str, group: list[dict], held: dict, call, log: Path,
 def _together(group: list[dict], name) -> list:
     """What the other findings ruled in the same call are called, for the record."""
     return [name(it) for it in group] if len(group) > 1 else []
+
+
+def _try_sentence(kind: str, group: list[dict], held: dict, call, log: Path, failed: list | None,
+                  extra: dict | None = None):
+    """rule_sentence, or None if the ruling failed (RulingFailed): the failure
+    is logged in attempts_log, its findings stay open, it is added to FAILED,
+    and the step goes on to the next sentence."""
+    try:
+        return rule_sentence(kind, group, held, call, log, extra)
+    except RulingFailed as e:
+        print("  %s: %s -- left open" % (RULING_FAILED, e))
+        if failed is not None:
+            failed.append({"kind": kind, "refs": [it["ref"] for it in group], "why": str(e)})
+        return None
 
 
 # ---------------------------------------------------------------------------
@@ -427,7 +507,7 @@ def _gate_items(rows: dict, report: dict, doc: dict, held: dict) -> list[dict]:
 
 
 def rule_gate(slug: str, call, *, P=None, report: dict | None = None, rows: dict | None = None,
-              held: dict | None = None) -> list[dict]:
+              held: dict | None = None, failed: list | None = None) -> list[dict]:
     """Rule every undecided gate finding, one call per sentence, and record each
     in gate-findings.json."""
     import findings as F
@@ -444,7 +524,10 @@ def rule_gate(slug: str, call, *, P=None, report: dict | None = None, rows: dict
     doc = F.load(slug)
     done = []
     for group in by_sentence(_gate_items(rows, report, doc, held)):
-        got, quotes, psha = rule_sentence("gate", group, held, call, log_path(slug))
+        r = _try_sentence("gate", group, held, call, log_path(slug), failed)
+        if r is None:
+            continue
+        got, quotes, psha = r
         q = got.get("quotation")
         sid, quote = (quotes[q - 1] if q else ("", ""))
         if not q:
@@ -480,7 +563,7 @@ def _conclusion_items(review: dict, rows: dict, held: dict) -> list[dict]:
 
 
 def rule_conclusions(slug: str, call, *, P=None, rows: dict | None = None,
-                     held: dict | None = None) -> list[dict]:
+                     held: dict | None = None, failed: list | None = None) -> list[dict]:
     """Rule every flagged, undecided conclusion-judge entry and record it with
     conclusion_judge.decide. The review holds one entry per sentence, so each
     sentence is one call already; it goes through the same grouping."""
@@ -495,7 +578,10 @@ def rule_conclusions(slug: str, call, *, P=None, rows: dict | None = None,
     review = CJ.load_review(slug)
     done = []
     for group in by_sentence(_conclusion_items(review, rows, held)):
-        got, _q, _s = rule_sentence("conclusion", group, held, call, log_path(slug))
+        r = _try_sentence("conclusion", group, held, call, log_path(slug), failed)
+        if r is None:
+            continue
+        got, _q, _s = r
         decision = "rejected" if got["ruling"] == "reject" else "accepted"
         why = got.get("reason") or ""
         if decision == "accepted":
@@ -530,7 +616,8 @@ def _changecheck_items(slug: str, rows: dict, held: dict, page_html: str):
 
 
 def rule_changecheck(slug: str, call, *, P=None, rows: dict | None = None,
-                     held: dict | None = None, page_html: str | None = None) -> list[dict]:
+                     held: dict | None = None, page_html: str | None = None,
+                     failed: list | None = None) -> list[dict]:
     """Rule every finding of the latest changecheck review of the current page
     that has no disposition, one call per sentence, and record each as a
     disposition."""
@@ -549,7 +636,10 @@ def rule_changecheck(slug: str, call, *, P=None, rows: dict | None = None,
         raise SystemExit("no changecheck review of the current page; run changecheck.py first")
     done = []
     for group in by_sentence(items):
-        got, _q, psha = rule_sentence("changecheck", group, held, call, log_path(slug))
+        r = _try_sentence("changecheck", group, held, call, log_path(slug), failed)
+        if r is None:
+            continue
+        got, _q, psha = r
         together = _together(group, lambda it: it["finding_key"])
         for it in group:
             f = it["finding"]
@@ -645,7 +735,8 @@ def _advocate_items(slug: str, rows: dict, held: dict, case: Path | None = None)
 
 
 def rule_advocate(slug: str, call, *, P=None, rows: dict | None = None,
-                  held: dict | None = None, case: Path | None = None) -> list[dict]:
+                  held: dict | None = None, case: Path | None = None,
+                  failed: list | None = None) -> list[dict]:
     """Rule every open source-advocate objection, one call per sentence, and
     close its item."""
     P = P or _publish()
@@ -657,7 +748,10 @@ def rule_advocate(slug: str, call, *, P=None, rows: dict | None = None,
         held = held_texts(slug)
     done = []
     for group in by_sentence(_advocate_items(slug, rows, held, case)):
-        got, _q, psha = rule_sentence("advocate", group, held, call, log_path(slug))
+        r = _try_sentence("advocate", group, held, call, log_path(slug), failed)
+        if r is None:
+            continue
+        got, _q, psha = r
         tag = "ruled by %s, prompt %s" % (BY, psha[:12])
         together = _together(group, lambda it: it["item"]["head"])
         if together:
@@ -710,7 +804,8 @@ def _dangling_items(case: Path, page_html: str, rows: dict, held: dict) -> list[
 
 
 def rule_dangling(slug: str, call, *, P=None, rows: dict | None = None, held: dict | None = None,
-                  page_html: str | None = None, case: Path | None = None) -> list[dict]:
+                  page_html: str | None = None, case: Path | None = None,
+                  failed: list | None = None) -> list[dict]:
     """Rule every term an applied ruling removed that a later sentence still
     uses while no earlier sentence now introduces it (applied_check.dangling).
     The model gets the later sentence, the finding (both sentences: the later
@@ -730,7 +825,10 @@ def rule_dangling(slug: str, call, *, P=None, rows: dict | None = None, held: di
         held = held_texts(slug)
     done = []
     for group in by_sentence(_dangling_items(case, page_html, rows, held)):
-        got, _q, _s = rule_sentence("dangling", group, held, call, case / "rulings" / "rulings.jsonl")
+        r = _try_sentence("dangling", group, held, call, case / "rulings" / "rulings.jsonl", failed)
+        if r is None:
+            continue
+        got, _q, _s = r
         for it in group:
             done.append({"term": it["term"], **got})
     return done
@@ -780,9 +878,14 @@ def main(argv=None) -> int:
     require_study(a.slug)
     import consistency as CS
     import stage_cap
+    kind = MODE_KIND[a.cmd]
     n = pending(a.cmd, a.slug)
+    # Rulings of this kind that no completed step sampled: a step that
+    # stopped before its sample (a crash, a cap stop) is sampled by the run
+    # that resumes it, together with this run's own rulings.
+    carried = unsampled(log_path(a.slug), log_path(a.slug).parent / "consistency.jsonl", kind)
     # before the first paid call; the units include the consistency sample
-    stage_cap.guard("rulings", a.slug, n + CS.sample_size(n))
+    stage_cap.guard("rulings", a.slug, n + CS.sample_size(n + len(carried)))
     import audit_stage as A
     call = A.Caller(cap=a.cap, ledger_issue=a.slug)
     fn = {"gate": rule_gate, "conclusions": rule_conclusions,
@@ -790,10 +893,19 @@ def main(argv=None) -> int:
           "dangling": rule_dangling}[a.cmd]
     step = "%s-%s" % (a.cmd, datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ"))
     before = _log_lines(log_path(a.slug))
-    done = fn(a.slug, call)
+    if carried:
+        print("  %d ruling(s) from a step that stopped before its consistency sample are "
+              "carried into this step's sample" % len(carried))
+    failed: list = []
+    done = fn(a.slug, call, failed=failed)
     print("  %d ruling(s) recorded; log: %s" % (len(done), log_path(a.slug)))
-    consistency_sample(a.slug, step, log_path(a.slug), before, call, seed=a.seed)
+    consistency_sample(a.slug, step, log_path(a.slug), before, call, seed=a.seed, kind=kind,
+                       carried=carried)
     print("  usd this run: %.4f" % sum((c.get("usd") or 0) for c in call.calls))
+    if failed:
+        print("  %s: %d sentence(s), their findings left open (%s); run this step again"
+              % (RULING_FAILED, len(failed), attempts_log(log_path(a.slug))))
+        return 4
     return 0
 
 
@@ -801,18 +913,39 @@ def _log_lines(log: Path) -> int:
     return len(log.read_text(encoding="utf-8").splitlines()) if log.exists() else 0
 
 
-def consistency_sample(slug: str, step: str, log: Path, before: int, call, seed=None) -> dict | None:
+def unsampled(log: Path, cons: Path, kind: str) -> list[dict]:
+    """Rulings of KIND in LOG that no completed step sampled: made since the
+    sample began (SAMPLED_SINCE), named by no step line's ruling_ids, and
+    later than the last step line of KIND that predates ruling_ids (a step's
+    rulings are all logged before its step line)."""
+    import consistency as CS
+    steps = [s for s in CS.load(cons) if s.get("type") == "step" and s.get("kind") == kind]
+    covered = {i for s in steps for i in (s.get("ruling_ids") or [])}
+    legacy = max((s.get("at") or "" for s in steps if "ruling_ids" not in s), default="")
+    return [r for r in CS.load(log)
+            if r.get("ruling_kind") == kind and r.get("id") and r["id"] not in covered
+            and (r.get("at") or "") >= SAMPLED_SINCE and (r.get("at") or "") > legacy]
+
+
+def consistency_sample(slug: str, step: str, log: Path, before: int, call, seed=None,
+                       kind: str | None = None, carried: list | None = None) -> dict | None:
     """The ruling-model consistency sample (consistency.py) over the rulings
-    this step appended to LOG after line BEFORE: a seeded 20%, at least 1,
-    re-run with the identical payload, logged, never applied."""
+    this step appended to LOG after line BEFORE, and any CARRIED from a step of
+    the same kind that stopped before its sample (unsampled): a seeded 20%, at
+    least 1, re-run with the identical payload, logged, never applied."""
     import consistency as CS
     lines = log.read_text(encoding="utf-8").splitlines()[before:] if log.exists() else []
     recs = [json.loads(l) for l in lines if l.strip()]
+    if kind is not None:
+        recs = [r for r in recs if r.get("ruling_kind") == kind]
+    new_ids = {r.get("id") for r in recs}
+    carried = [r for r in (carried or []) if r.get("id") not in new_ids]
+    recs = carried + recs
     if not recs:
         return None
     kind = recs[0].get("ruling_kind")
     line = CS.sample_step(step, slug, kind, recs, CS.ruling_reask(call), log.parent / "consistency.jsonl",
-                          seed=seed)
+                          seed=seed, carried=[r.get("id") for r in carried])
     print("  consistency: re-ran %d of %d ruling(s) (seed %d): %d of %d usable pair(s) agree "
           "on decision and text; never applied" % (line["sampled"], line["rulings"], line["seed"],
                                                    line["agree"], line["usable"]))

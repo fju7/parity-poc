@@ -203,8 +203,8 @@ def test_an_audit_runs_rulings_are_sampled_through_the_audit_prompt(study, monke
 def test_ruling_py_runs_the_sample_after_every_mode_and_counts_it_in_the_stage_cap():
     import inspect
     src = inspect.getsource(R.main)
-    assert "consistency_sample(" in src and "n + CS.sample_size(n)" in src
-    assert src.index("done = fn(a.slug, call)") < src.index("consistency_sample(")
+    assert "consistency_sample(" in src and "n + CS.sample_size(n + len(carried))" in src
+    assert src.index("done = fn(a.slug, call, failed=failed)") < src.index("consistency_sample(")
 
 
 # --- current and superseded pairs are reported apart (2026-10-21) ---------
@@ -272,5 +272,6 @@ def test_every_record_ruling_py_logs_carries_an_id():
     appends = [n for n in ast.walk(tree) if isinstance(n, ast.Call) and getattr(n.func, "id", "") == "open"
                and len(n.args) > 1 and getattr(n.args[1], "value", "") == "a"]
     assert len(appends) == 1
-    src = inspect.getsource(R.rule)
-    assert src.index('rec["id"] = ') < src.index('open(log, "a"')
+    src = inspect.getsource(R._append)                     # the one writer, for both logs
+    assert src.index('rec["id"] = ') < src.index('open(path, "a"')
+    assert "_append(log, rec)" in inspect.getsource(R.rule)
