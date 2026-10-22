@@ -1,0 +1,38 @@
+# WHU reliability study: tool answers, sha256 manifest
+# The answers are held outside the repository, at ~/Projects/whu-study-private/answers/<question>/
+# (one <tool>.md per tool, claude, chatgpt and gemini, with the raw export it was taken from). Only these
+# hashes are committed. Hashed 2026-10-22 with shasum -a 256 by Claude Code; no answer file was opened.
+# All 12 tool runs took place on 2026-10-22 between 07:21 and 09:54 local time (America/New_York).
+# Gemini, WHU-S03 and WHU-S04: the exact copy is the machine-decoded HTML export (gemini.raw.html).
+# Not listed: WHU-S01/_not_research_mode/ exists and holds 4 files, the first WHU-S01 Claude and ChatGPT
+# runs (ordinary chats, not research mode), set aside unscored (deviations.md).
+#
+# sha256  path (relative to ~/Projects/whu-study-private/answers/)
+31b3412afc99124cee067669236d6eaea9b7431a5b3320b87c25acca9cc40039  WHU-S01/chatgpt.md
+6693d99e4acc1daa67adc01ae8ee6d03c52d26709fbee14788486cbfeabd0397  WHU-S01/chatgpt.raw.txt
+b5b360e64bcbe814d52a8a41905dd362db1c501d5248a746862f820db060c41d  WHU-S01/claude.md
+fc2e135ef53225796e9816fbc8e3f2f8f4fab0d87a16da4b177dbcee81799447  WHU-S01/claude.raw.txt
+e93a8ec7153aabab2c76a183ce61a549afdd224b4b53d77faf8edbc78cf1b7d1  WHU-S01/gemini.md
+3261a71ce9bdd2727f6a65d23d168f7a4c4eeab704779f2ab71b723bb8fb1d8b  WHU-S01/gemini.raw.txt
+015a430e5bd9f7166a3cdc61711159681e4243d66efacef5667a0e3ee2b91b8e  WHU-S02/chatgpt.md
+aefa9389af54a78541d47e621a1a695458819653f050c35b66d38b470aefdf98  WHU-S02/chatgpt.raw.txt
+08a8e59ec656798d8e6f2afb7bbb00e0ae02bd821015f589716d8b2313d51326  WHU-S02/claude.md
+8cb895318348fd11448b02db8032f046f78f2fa8b1d18428653e119e687dd72d  WHU-S02/claude.raw.txt
+4b728edce86716f938b11a508cbbc3c2249c9250d8ae14621b1da446e6bfa227  WHU-S02/gemini.md
+b6f1a36db1aae57248430c8fa0c2411acd86bf7c392a26a84d7ce34ce797b02e  WHU-S02/gemini.raw.txt
+09fb4aab549b5f21ef02c0633f3cc7c889fe5eeebd7316ca444da04ebad69697  WHU-S03/chatgpt.md
+b5fae1d9e30b9e14213cc344c3040377b5b1901e827486d2e6d748c6ce007e31  WHU-S03/chatgpt.raw.txt
+71aac6dadceb6cd33bedad50d7aee55420bcbb628cc5edb0649febcc8b3a0057  WHU-S03/claude.md
+c3a22594fb04b8eaf8fd86a1396b683245cb1eacdbb88c2e07e77a6fcc2f5f1f  WHU-S03/claude.raw.txt
+d48d89e3ea2b911a7ba963155afb5954452842532d8c73880dc8701657b2f680  WHU-S03/gemini.md
+3c841413ca98a7af6eb584304855cbd8420831d2e06296a705d53827e2cc8761  WHU-S03/gemini.raw.html
+bd065e37fb0c79cf085bdb4312f273c14574154b4aa85233f7a84282af4cbc06  WHU-S03/gemini.raw.txt
+022c242194dea6723d78d1e6b0dece1f2431aed5270defa607dd21267ea4ce58  WHU-S04/chatgpt.md
+b417e48d87099eafd42f12ad3d861c3acc10f21550cef5c9a8a6035de1a094fb  WHU-S04/chatgpt.raw.txt
+a9b633851bbd44bee17c232392f07cb538fc9d75f6b0cbc3b65da40c6e89744f  WHU-S04/claude.md
+0aaa5e1c5d0fefa9d95af30fb8f956f106980f281be25f9c204101df3ac65270  WHU-S04/claude.raw.txt
+13b3235b8648f79dd98b772b095bc4948acf2e524d56999e1b053f4f0375cce4  WHU-S04/gemini.export2.raw.html
+5a307535fa8b6014c0e8cbfd72e9fc3eeae6f9a9a4539993025e34ba68bdf8b5  WHU-S04/gemini.md
+22b6f38c707717c8d9b83a7882562af562c6444bf9814d30c5abaa8ecbb3efec  WHU-S04/gemini.raw.html
+7a1d822e7b03b14e3df762beca29cbadd0c2d89b9d0caf62a08230b98505a65d  WHU-S04/gemini.raw.txt
+579a3376d9de0138468e908a07d41410db6f17aa59998cb2ccff5088b2c5155c  run_record.md
