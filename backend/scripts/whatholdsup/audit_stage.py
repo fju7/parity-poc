@@ -62,6 +62,7 @@ read it and the narrow gate has run.
 from __future__ import annotations
 
 import argparse
+import functools
 import hashlib
 import importlib.util
 import json
@@ -273,59 +274,122 @@ def terms(texts: list[str]) -> set[str]:
     return out
 
 
-DOC_SEP = "\n[...]\n"
+DOC_SEP = "\n[… text omitted …]\n"
+MIN_CONTEXT = 1000               # characters either side of a bound passage, at the least
+MAX_CONTEXT = 2 * WINDOW         # and at the most, before term windows get the rest
+
+
+@functools.lru_cache(maxsize=8)
+def _norm_index(text: str) -> tuple[str, tuple[int, ...]]:
+    normed, offs = norm_map(text)
+    return normed, tuple(offs)
+
+
+def passages(text: str, must) -> list[tuple[int, int]]:
+    """(start, end) in TEXT of each bound passage in MUST, found as the
+    delivery check compares (norm()); a passage not in the text is left out
+    here and is caught by check_delivery."""
+    out, low = [], text.lower()
+    for m in must or ():
+        if not m:
+            continue
+        i = low.find(m.lower())
+        if i >= 0:
+            out.append((i, i + len(m)))
+            continue
+        nm = norm(m)
+        normed, offs = _norm_index(text)
+        k = normed.find(nm) if nm else -1
+        if k >= 0:
+            out.append((offs[k], offs[k + len(nm) - 1] + 1))
+    return sorted(set(out))
+
+
+def _merge(ws: list[tuple[int, int]]) -> list[tuple[int, int]]:
+    out: list[list[int]] = []
+    for a, b in sorted(ws):
+        if out and a <= out[-1][1]:
+            out[-1][1] = max(out[-1][1], b)
+        else:
+            out.append([a, b])
+    return [(a, b) for a, b in out]
+
+
+def _size(ws: list[tuple[int, int]]) -> int:
+    return sum(b - a for a, b in ws) + len(DOC_SEP) * max(0, len(ws) - 1)
+
+
+def _around(ps: list[tuple[int, int]], c: int, n: int) -> list[tuple[int, int]]:
+    return _merge([(max(0, a - c), min(n, b + c)) for a, b in ps])
+
+
+def passages_fit(text: str, must) -> bool:
+    """Whether every bound passage, each with MIN_CONTEXT either side, fits in
+    MAX_DOC_CHARS. When it does not, the batch is split (fit_batches)."""
+    if len(text) <= MAX_DOC_CHARS:
+        return True
+    return _size(_around(passages(text, must), MIN_CONTEXT, len(text))) <= MAX_DOC_CHARS
 
 
 def trim(text: str, wanted: list[str], must: list[str] | tuple = ()) -> tuple[str, bool]:
-    """A held text over MAX_DOC_CHARS is cut to windows around every place a
-    bound span (`must`) or a key term (`wanted`) occurs; the reader is told it
-    is seeing windows.
+    """A held text over MAX_DOC_CHARS is cut to windows, joined in document
+    order with DOC_SEP between them, so the reader sees where text is left out.
 
-    NEVER EMPTY FOR A NON-EMPTY TEXT (2026-10-20). The first version added
-    merged windows in document order and stopped at the first that did not
-    fit, so when every hit merged into one window longer than the limit -- a
-    159,009-character paper on the WHU-P02 practice run -- it returned "" and
-    the reader was shown an empty document. Now: an oversized window is cut to
-    the limit, centred on its bound span (else on the middle of its hits);
-    windows holding a bound span are kept first, then those covering the most
-    distinct terms; the kept windows are joined in document order; with no hit
-    at all the text's opening MAX_DOC_CHARS is kept."""
+    EVERY BOUND PASSAGE GETS ITS OWN WINDOW (2026-10-21). The version before
+    merged every window (passages and terms) into runs and, when one run was
+    longer than the limit, cut it around a single centre: on WHU-P04, S005's
+    passages at about 21,500 and 106,200 characters sat in one such run, and
+    the cut kept one of them. Now each passage in MUST is windowed on its
+    own; the space left is shared as context among those windows (the same
+    on every side, up to MAX_CONTEXT); only then do windows around the key
+    terms (WANTED) go in, while room is left. Windows that overlap are joined,
+    never cut. If the passages with MIN_CONTEXT do not fit, the caller splits
+    the batch (fit_batches); a passage is never dropped for size here.
+
+    NEVER EMPTY FOR A NON-EMPTY TEXT (2026-10-20): with no passage and no
+    term found, the text's opening MAX_DOC_CHARS is kept."""
     if len(text) <= MAX_DOC_CHARS:
         return text, False
+    n = len(text)
+    ps = passages(text, must)
+    chosen: list[tuple[int, int]] = []
+    if ps:
+        lo, hi = 0, MAX_CONTEXT                    # the largest context that fits
+        while lo < hi:
+            mid = (lo + hi + 1) // 2
+            if _size(_around(ps, mid, n)) <= MAX_DOC_CHARS:
+                lo = mid
+            else:
+                hi = mid - 1
+        chosen = _around(ps, lo, n)
     low = text.lower()
-    must_l = {m.lower() for m in must if m}
-    hits = []                                     # (position, is_bound_span, length, term)
-    for w in {x.lower() for x in wanted if x} | must_l:
+    hits = []
+    for w in {x.lower() for x in wanted if x}:
         for m in re.finditer(re.escape(w), low):
-            hits.append((m.start(), w in must_l, len(w), w))
-    if not hits:
-        return text[:MAX_DOC_CHARS], True
-    hits.sort()
-    spans = []                                    # [start, end, hits]
-    for h in hits:
-        a, b = max(0, h[0] - WINDOW), min(len(text), h[0] + h[2] + WINDOW)
-        if spans and a <= spans[-1][1]:
-            spans[-1][1] = max(spans[-1][1], b)
-            spans[-1][2].append(h)
+            hits.append((m.start(), m.end(), w))
+    clusters: list[list] = []                       # [start, end, {terms}, [hit positions]]
+    for a0, b0, w in sorted(hits):
+        a, b = max(0, a0 - WINDOW), min(n, b0 + WINDOW)
+        if clusters and a <= clusters[-1][1]:
+            clusters[-1][1] = max(clusters[-1][1], b)
+            clusters[-1][2].add(w); clusters[-1][3].append(a0)
         else:
-            spans.append([a, b, [h]])
-    for s in spans:
-        if s[1] - s[0] > MAX_DOC_CHARS:
-            pts = sorted(h[0] for h in s[2] if h[1]) or sorted(h[0] for h in s[2])
-            c = pts[len(pts) // 2]
-            a = max(s[0], min(c - MAX_DOC_CHARS // 2, s[1] - MAX_DOC_CHARS))
-            s[0], s[1] = a, a + MAX_DOC_CHARS
-            s[2] = [h for h in s[2] if a <= h[0] and h[0] + h[2] <= s[1]]
-    ranked = sorted(spans, key=lambda s: (-sum(1 for h in s[2] if h[1]),
-                                          -len({h[3] for h in s[2]}), s[0]))
-    chosen, total = [], 0
-    for s in ranked:
-        need = (s[1] - s[0]) + (len(DOC_SEP) if chosen else 0)
-        if total + need <= MAX_DOC_CHARS:
-            chosen.append(s)
-            total += need
-    chosen.sort(key=lambda s: s[0])
-    return DOC_SEP.join(text[a:b] for a, b, _h in chosen), True
+            clusters.append([a, b, {w}, [a0]])
+    for c in sorted(clusters, key=lambda c: (-len(c[2]), c[0])):
+        room = MAX_DOC_CHARS - _size(chosen) - (len(DOC_SEP) if chosen else 0)
+        if room <= 0:
+            break
+        a, b = c[0], c[1]
+        if b - a > room:                            # centred on the cluster's middle hit
+            mid = c[3][len(c[3]) // 2]
+            a = max(c[0], min(mid - room // 2, c[1] - room))
+            b = a + room
+        trial = _merge(chosen + [(a, b)])
+        if _size(trial) <= MAX_DOC_CHARS:
+            chosen = trial
+    if not chosen:
+        return text[:MAX_DOC_CHARS], True
+    return DOC_SEP.join(text[a:b] for a, b in chosen), True
 
 
 def held_for_audit(slug: str) -> dict[str, str]:
@@ -414,15 +478,14 @@ def says_document_missing(v: dict) -> bool:
     return bool(_SAYS_MISSING.search(" ".join(str(v.get(k) or "") for k in ("kind", "reason"))))
 
 
-def batch_inputs(slug: str, batch: list[dict], held: dict[str, str],
-                 licensed: frozenset = frozenset()) -> tuple[dict[str, str], dict[str, dict]]:
-    """(documents {id: text}, records {id: {path, text}}) for one batch. A
-    licensed source is never a document, whatever the held texts contain."""
-    docs: dict[str, str] = {}
+def doc_passages(slug: str, batch: list[dict], held: dict[str, str],
+                 licensed: frozenset = frozenset()) -> dict[str, tuple[str, list[str]]]:
+    """{source id: (held text, the batch's bound passages in it)} for every
+    document the batch's sentences rest on that may be sent."""
+    out: dict[str, tuple[str, list[str]]] = {}
     for u in batch:
-        row = u["row"] or {}
-        for sid in sources_of(row):
-            if sid in docs or sid in licensed:
+        for sid in sources_of(u["row"] or {}):
+            if sid in out or sid in licensed:
                 continue
             text = held.get("%s:%s" % (slug, sid)) or held.get(sid)
             if text is None:
@@ -431,8 +494,47 @@ def batch_inputs(slug: str, batch: list[dict], held: dict[str, str],
                     [b["row"] or {}] + ((b["row"] or {}).get("also_rests_on") or [])
                     + ((b["row"] or {}).get("premises") or [])
                     if x.get("source_id") == sid and x.get("span")]
-            wanted = [w[:60] for w in must] + sorted(terms([b["sentence"] for b in batch]))
-            docs[sid] = trim(text, wanted, [w[:60] for w in must])[0]
+            out[sid] = (text, must)
+    return out
+
+
+def batch_fits(slug: str, batch: list[dict], held: dict[str, str],
+               licensed: frozenset = frozenset()) -> bool:
+    if all(u["part"] in SUMMARY_PARTS for u in batch):
+        return True
+    return all(passages_fit(t, m) for t, m in doc_passages(slug, batch, held, licensed).values())
+
+
+def fit_batches(slug: str, bs: list[list[dict]], held: dict[str, str],
+                licensed: frozenset = frozenset(), splits: list | None = None) -> list[list[dict]]:
+    """BS with every batch whose bound passages (each with MIN_CONTEXT) do not
+    fit one document's MAX_DOC_CHARS split in halves until they do, or down to
+    one sentence, which trim() delivers whole whatever its size. A run never
+    fails on size alone (2026-10-21). Each split is noted in SPLITS."""
+    out = []
+
+    def go(b):
+        if len(b) <= 1 or batch_fits(slug, b, held, licensed):
+            out.append(b)
+            return
+        if splits is not None:
+            splits.append({"units": [u["id"] for u in b], "into": 2,
+                           "why": "bound passages with %d characters of context each exceed %d "
+                                  "characters of one document" % (MIN_CONTEXT, MAX_DOC_CHARS)})
+        h = len(b) // 2
+        go(b[:h]); go(b[h:])
+    for b in bs:
+        go(b)
+    return out
+
+
+def batch_inputs(slug: str, batch: list[dict], held: dict[str, str],
+                 licensed: frozenset = frozenset()) -> tuple[dict[str, str], dict[str, dict]]:
+    """(documents {id: text}, records {id: {path, text}}) for one batch. A
+    licensed source is never a document, whatever the held texts contain."""
+    terms_ = sorted(terms([b["sentence"] for b in batch]))
+    docs = {sid: trim(text, terms_, must)[0]
+            for sid, (text, must) in doc_passages(slug, batch, held, licensed).items()}
     records: dict[str, dict] = {}
     B = _B()
     for u in batch:
@@ -840,6 +942,8 @@ def run(slug: str, *, out_dir: Path, limit: int | None = None, cap: float = 40.0
         # Per document, per batch: held and delivered characters, and whether
         # every bound span was delivered (fail closed: check_delivery).
         "deliveries": [],
+        # Batches split because their bound passages did not fit one document.
+        "splits": [],
     }
     if B is not None:
         page = B._page_html(slug)
@@ -860,6 +964,7 @@ def run(slug: str, *, out_dir: Path, limit: int | None = None, cap: float = 40.0
                                % ", ".join(changed))
         manifest["started"] = prior["started"]
         manifest["deliveries"] = list(prior.get("deliveries") or [])
+        manifest["splits"] = list(prior.get("splits") or [])
         manifest["resumed"] = (prior.get("resumed") or []) + [
             {"at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
              "after": prior.get("failure"), "usd_before": prior.get("usd") or 0.0}]
@@ -911,7 +1016,8 @@ def run(slug: str, *, out_dir: Path, limit: int | None = None, cap: float = 40.0
                 if not prog["next"]:
                     break
                 prog["queue"], prog["next"] = prog["next"], []
-            for batch in batches([live(s) for s in prog["queue"]]):
+            for batch in fit_batches(slug, batches([live(s) for s in prog["queue"]]), held, lic,
+                                     manifest["splits"]):
                 vs, docs, records = read_batch(call, slug, batch, held, ctx, "read", lic, body,
                                                deliveries=manifest["deliveries"],
                                                on_reject=lambda r: log("quote_rejections", r))
@@ -983,7 +1089,8 @@ def run(slug: str, *, out_dir: Path, limit: int | None = None, cap: float = 40.0
             prog["second"] = {"seed": seed, "flagged": had_finding, "holds_pool": len(held_first),
                               "sampled": sampled, "todo": had_finding + sampled}
         sec = prog["second"]
-        for batch in batches([live(prog["done"][i]) for i in sec["todo"]]):
+        for batch in fit_batches(slug, batches([live(prog["done"][i]) for i in sec["todo"]]), held, lic,
+                                 manifest["splits"]):
             vs, docs, records = read_batch(call, slug, batch, held, ctx, "second-read", lic, body,
                                            deliveries=manifest["deliveries"],
                                            on_reject=lambda r: log("quote_rejections", r))
