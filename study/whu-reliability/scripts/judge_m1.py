@@ -83,6 +83,11 @@ S = importlib.util.module_from_spec(_spec)
 _spec.loader.exec_module(S)
 
 PROMPT = STUDY / "prompts" / "m1_citation_support.md"
+# M1 v3, pinned 2026-10-22 as M2 v2 is in judge_m2.py: the prompt as committed
+# in d3a5b05 (prep round 2), unchanged since. v2 is kept as
+# prompts/m1_citation_support_v2.md (sha256 73e055cb...), with its replies.
+PROMPT_SHA256 = "04efb531fc276373a85bef64cd01800d81e70a84e5778b2d1c3ee787926e6499"
+PROMPT_VERSION = "v3"
 LABELS = ["Supported", "Overstates", "Understates", "Absent", "Wrong source",
           "Contradicted", "Unreachable"]
 REFUSED = "REFUSED"
@@ -393,6 +398,12 @@ def main() -> int:
     ap.add_argument("--seed", type=int, default=CONSISTENCY_SEED,
                     help="seed for the consistency sample; logged with the sample")
     a = ap.parse_args()
+    # THE FROZEN PROMPT, CHECKED BEFORE ANYTHING ELSE: no key is read and no
+    # call is made with any other text.
+    if hashlib.sha256(PROMPT.read_bytes()).hexdigest() != PROMPT_SHA256:
+        print("STOP: %s has sha256 %s, not the frozen M1 %s %s"
+              % (PROMPT, hashlib.sha256(PROMPT.read_bytes()).hexdigest(), PROMPT_VERSION, PROMPT_SHA256))
+        return 6
     run = Path(a.run_dir)
     items = json.loads((run / "items.json").read_text())
     manifest = {r["url"]: r for r in json.loads((run / "sources" / "manifest.json").read_text())}
@@ -453,7 +464,7 @@ def main() -> int:
                         continue
                     out.parent.mkdir(parents=True, exist_ok=True)
                     out.write_text(json.dumps({
-                        "item": it["item"], "judge": judge, "prompt_version": "v3",
+                        "item": it["item"], "judge": judge, "prompt_version": PROMPT_VERSION,
                         "at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
                         "label": INCOMPLETE_SOURCES, "judge_label": None, "attempts": [], "usd": 0.0,
                         "sources": [{k: v for k, v in d.items() if k != "text"} for d in docs],
@@ -513,7 +524,7 @@ def main() -> int:
                 label = final_label((obj or {}).get("label"), refused, docs)
                 rec = {"item": it["item"], "judge": judge, "model": last["usage"].get("model"),
                        "at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
-                       "prompt_sha256": prompt_sha, "prompt_version": "v3", "author_line": a.author_line or None,
+                       "prompt_sha256": prompt_sha, "prompt_version": PROMPT_VERSION, "author_line": a.author_line or None,
                        "allow_incomplete": bool(a.allow_incomplete and unreachable),
                        "sources": [{k: v for k, v in d.items() if k != "text"} for d in docs],
                        "unreachable_sources": unreachable,

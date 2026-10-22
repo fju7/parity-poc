@@ -282,3 +282,21 @@ def test_an_item_whose_source_is_delivered_empty_is_incomplete_and_no_judge_is_c
         rec = json.loads((run / "replies" / j / "P01.json").read_text())
         assert rec["label"] == J.INCOMPLETE_SOURCES and rec["human_review"] is True
         assert "delivered empty" in rec["undelivered_sources"][0]["why"]
+
+
+def test_the_m1_prompt_is_the_frozen_v3():
+    """M1 v3 is pinned by sha256 in its runner, as M2 v2 is (2026-10-22)."""
+    import hashlib
+    assert J.PROMPT_VERSION == "v3"
+    assert hashlib.sha256(J.PROMPT.read_bytes()).hexdigest() == J.PROMPT_SHA256
+    v2 = (ROOT / "study" / "whu-reliability" / "prompts" / "m1_citation_support_v2.md").read_bytes()
+    assert hashlib.sha256(v2).hexdigest().startswith("73e055cb")          # v2 kept, and not v3
+
+
+def test_a_changed_m1_prompt_stops_before_any_key_or_call(tmp_path, monkeypatch):
+    changed = tmp_path / "m1.md"
+    changed.write_text(J.PROMPT.read_text(encoding="utf-8") + "\nOne more instruction.\n")
+    monkeypatch.setattr(J, "PROMPT", changed)
+    monkeypatch.setattr(J, "env_keys", lambda: (_ for _ in ()).throw(AssertionError("a key was read")))
+    monkeypatch.setattr(sys, "argv", ["judge_m1.py", str(tmp_path / "no-such-run")])
+    assert J.main() == 6
