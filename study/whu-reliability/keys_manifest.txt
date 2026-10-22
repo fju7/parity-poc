@@ -1,16 +1,22 @@
 # WHU reliability study: answer keys, sha256 manifest
 # Keys and the full texts they were drafted from are held outside the repository, at
-# ~/Projects/whu-study-private/keys/<question>/ (key.json; source/; sources.sha256 lists every
+# ~/Projects/whu-study-private/keys/<question>/ (key.json; check_log.md; source/; sources.sha256 lists every
 # full-text file by sha256). Only these hashes are committed (protocol, frozen at 5d83e9b: Answer keys).
 # Drafted 2026-10-21 (US Eastern; 2026-10-22 UTC) by Claude Code (session bf265589-dacd-405f-9e74-cb1843d43010), key drafter.
-# Status: draft, not yet checked by the second instance; not frozen.
+# Checked 2026-10-21 by Claude Code (session bee03c51-4bba-4198-b9e5-d094d34f303c), key checker, a separate instance;
+# every change is recorded in that question's check_log.md with the original wording and the reason.
+# Status: FROZEN. The drafted keys' hashes are in this file's previous version (2be746f).
 #
 # sha256  path (relative to ~/Projects/whu-study-private/keys/)
-f838a175ac0824cbe544c5edd18eb8add8e44a76369d04e1189bb3d6fb0cc107  WHU-S01/key.json
+4574730d8fad2bbd97db17bf3f748ef342a916d3e261b3766bee69c79a59dcb5  WHU-S01/key.json
+d04d979aa9ace5d3f993b042d7df4309976b3136773ce9e4b80001c1a164ff75  WHU-S01/check_log.md
 8e2df247e945b12262e2a3e92c339a1b657444a9f268c91d48f39715da041590  WHU-S01/sources.sha256
-7c2134598547ecfbf4bba4d084a27e4a82f86fa84f8a731869cbb59beea1660a  WHU-S02/key.json
+fa8ac7adad7ba9f3aeea08dff1194008ff4c9ab48cad819abdad0a2207b016b9  WHU-S02/key.json
+d639921cf0dc78d18b91ae00f655e74169cd5de33cade03d7c7d0ff4ccdbeab8  WHU-S02/check_log.md
 3aa3c9d6b3cfdf566562520726aae70dcad8690328f8ede51e6d97fc37f7e56b  WHU-S02/sources.sha256
-6bd551a42e8ea9bc9d2cd8e3464f3700685fec2dbbd8a1f8a90fdf473a96374a  WHU-S03/key.json
+58bf484792518dced0a9aaf69952cf9136896944a3823f17ff67d7fbd7484ab1  WHU-S03/key.json
+a67146620d761c6a9e8d4ee058b4d4ff184d2e726eca6bab9f1f52a8d82ea484  WHU-S03/check_log.md
 7ebb44c291ceadacbef2a9993fb18c4e522195e7e9a112e5540ea0db7fc6a0d8  WHU-S03/sources.sha256
-3197a1ef8711d6ad3b98c87ebd2a9d44fbd441d933ceebfc236ec451e79d10da  WHU-S04/key.json
+92eb473fc986bb01c4ed89e4448050954726f6ff0c876feb9c7a95b1069dd75c  WHU-S04/key.json
+76a05762b6247f5d24f95d3204856389ac57cdd44701894553f076432a04e2eb  WHU-S04/check_log.md
 ab8e2916b80b14be37de487ad6e92853e624259055f41faec5f2188cb3c92b38  WHU-S04/sources.sha256
