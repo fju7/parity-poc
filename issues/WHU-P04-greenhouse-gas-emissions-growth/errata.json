@@ -87,12 +87,18 @@
     },
     "S007": {
       "source": "S007",
-      "title": "UNEP — Emissions Gap Report 2025: Off Target (Nairobi, November 2025)",
+      "title": "UNEP — Emissions Gap Report 2025: Off target (Nairobi, November 2025)",
       "checked_on": "2026-10-21",
-      "state": "UNCHECKABLE",
-      "why": "no DOI, PMID, PMCID or PII can be parsed from the URL we hold; nothing is typed from memory, so this source cannot be looked up automatically",
+      "identifier": "DOI 10.59117/20.500.11822/48854",
+      "identifier_from": "the held document",
+      "identity": "resolved title shares 4 word(s) with ours: 2025, emissions, report, target",
+      "resolved_title": "Emissions Gap Report 2025: Off Target - Continued Collective inaction puts Global Temperature Goal at Risk",
+      "index": "Crossref",
+      "update_policy": null,
       "amendments": [],
-      "comments": []
+      "comments": [],
+      "state": "UNCHECKED",
+      "why": "matched on DOI 10.59117/20.500.11822/48854 at Crossref; not in Europe PMC, and the publisher registers NO update policy — so Crossref would not know of a correction even if one existed. This is not a pass"
     },
     "S008": {
       "source": "S008",
