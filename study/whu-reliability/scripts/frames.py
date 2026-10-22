@@ -5,6 +5,8 @@ rev 34 and rev 34 amended 2026-10-21).
     frames.py cochrane|campbell|ipcc [--out DIR]    the study frames (STUDY_DRAW_PLAN)
     frames.py ipcc-ar5-practice [--out DIR]          the practice frame (IPCC AR5 SPMs)
     frames.py draw-ipcc-ar5-practice --seed N        the practice draw
+    frames.py draw-cochrane|draw-campbell|draw-ipcc --commit HASH --cache DIR
+                                                     the study draw (protocol rev 38)
     frames.py nasem-list|nasem-practice-list         National Academies (dropped; kept for the record)
 
 Each frame is written to DIR/<frame>.json (default study/whu-reliability/frames/):
@@ -839,6 +841,125 @@ def draw_listed(frame_file: Path, seed: int) -> dict:
 
 
 # --------------------------------------------------------------------------
+# The study draw (protocol rev 38)
+# --------------------------------------------------------------------------
+#
+# seed = int(<full 40-character freeze commit hash>, 16). Each frame's
+# numbered eligible list (its "k" numbers) is shuffled with
+# random.Random(seed); the first entry that passes the draw-time test is the
+# draw. IPCC's second question is the next entry in the same shuffle that
+# passes and comes from a different AR6 report than the first. Every candidate
+# checked is logged.
+#
+# THE DRAW-TIME TEST: a candidate whose question would duplicate one WHU has
+# published or tested is ineligible, and why is logged. WHU's questions: the
+# three published issues, the pilot's four (T01-T04; T02 is WHU-P02's), and
+# WHU-P04. The frames already applied EXCLUDED_TOPICS to each title or
+# statement; the draw applies them again, and adds WHU-P04, to the statement's
+# FIRST SENTENCE (the claim a question is put from): on the whole statement
+# the WHU-P04 test also caught statements about something else that mention
+# past emissions in passing (AR6-WGIII-C.1.4, on 1.5 degC pathways).
+
+WHU_QUESTIONS = {
+    **{k: (v, "text") for k, v in EXCLUDED_TOPICS.items()},
+    "WHU-P04 (have the world's greenhouse gas emissions grown faster in recent decades than in earlier ones?)": (
+        r"(?=.*\b(?:greenhouse gas|GHG|CO ?2|CO₂|carbon dioxide)\b[^.]{0,60}\bemissions?\b"
+        r"[^.]{0,120}\b(?:ha(?:ve|s) (?:continued to )?(?:rise|risen|increased|grown)|grew|rose|growth|higher than in))"
+        r"(?=.*\b(?:since (?:18|19|20)\d\d|(?:19|20)\d\d\s*[–-]\s*(?:19|20)\d\d|(?:previous|past|last) decades?"
+        r"|between (?:19|20)\d\d and)\b)", "first sentence"),
+}
+STUDY_DRAW_FRAMES = ("cochrane", "campbell", "ipcc")
+SEED_RULE = "seed = int(<full 40-character freeze commit hash>, 16) (protocol rev 38)"
+
+
+def seed_from_commit(commit: str) -> int:
+    if not re.fullmatch(r"[0-9a-f]{40}", commit or ""):
+        raise ValueError("the seed needs the full 40-character commit hash, lower-case hex; got %r" % commit)
+    return int(commit, 16)
+
+
+def first_sentence(text: str) -> str:
+    return re.split(r"(?<=[.!?])\s+(?=[A-Z(])", (text or "").strip(), maxsplit=1)[0]
+
+
+def duplicates(text: str) -> list[str]:
+    """The WHU questions TEXT's question would duplicate (WHU_QUESTIONS)."""
+    out = []
+    for name, (pat, scope) in WHU_QUESTIONS.items():
+        if re.search(pat, first_sentence(text) if scope == "first sentence" else text, re.I | re.S):
+            out.append(name)
+    return out
+
+
+def ipcc_texts(F: "Fetcher") -> dict[str, str]:
+    """{statement id: text} from the four AR6 SPM pages, as ipcc_frame read them."""
+    out = {}
+    for wg, _title, _year, url in IPCC_REPORTS:
+        code, body = F.get(url, kind="ipcc")
+        for lab, st in (spm_statements(body) if code == 200 else {}).items():
+            out["AR6-%s-%s" % (wg, lab)] = st
+    return out
+
+
+def draw_study(frame_file: Path, commit: str, texts: dict[str, str] | None = None, n_draws: int = 1) -> dict:
+    """The study draw on one frame. TEXTS: {id: statement} for IPCC (each
+    checked against the frame's statement_sha256); Cochrane and Campbell are
+    tested on the title the frame holds."""
+    seed = seed_from_commit(commit)
+    frame = json.loads(frame_file.read_text(encoding="utf-8"))
+    rows = {r["n"]: r for r in frame["rows"]}
+    elig = {e["k"]: e for e in frame["eligible"]}
+    order = sorted(elig)
+    random.Random(seed).shuffle(order)
+    log, drawn = [], []
+    for i, k in enumerate(order, 1):
+        if len(drawn) >= n_draws:
+            break
+        r = rows[elig[k]["n"]]
+        rid = r.get("id") or r.get("pmid")
+        rec = {"checked": i, "k": k, "n": r["n"], "id": rid}
+        if texts is not None:
+            t = texts.get(rid)
+            if t is None or sha(t) != r.get("statement_sha256"):
+                rec.update(result="undetermined", why="the statement as fetched now is %s"
+                           % ("missing" if t is None else "not the one the frame hashed (sha256 differs)"))
+                log.append(rec)
+                continue
+        else:
+            t = r.get("title") or ""
+        rec["text_sha256"] = sha(t)
+        dup = duplicates(t)
+        if dup:
+            rec.update(result="ineligible", why="its question would duplicate one WHU has published or tested: "
+                                                 + "; ".join(dup))
+        elif drawn and r.get("report") and any(d.get("report") == r.get("report") for d in drawn):
+            rec.update(result="passed over", why="from the same AR6 report as an earlier draw (%s)" % r["report"])
+        else:
+            rec.update(result="drawn", draw=len(drawn) + 1)
+            drawn.append(r)
+        log.append(rec)
+    keep = ("n", "id", "pmid", "doi", "title", "date", "report", "year", "url", "level", "statement_sha256")
+    return {"frame_file": str(frame_file.relative_to(STUDY)) if frame_file.is_relative_to(STUDY) else str(frame_file),
+            "frame_sha256": sha(frame_file.read_bytes()), "commit": commit, "seed": seed, "seed_rule": SEED_RULE,
+            "procedure": "random.Random(seed).shuffle of the frame's eligible numbers k; in that order, each "
+                         "candidate is tested against WHU's published and tested questions; the first that "
+                         "passes is the draw" + ("; the next that passes from a different AR6 report is the "
+                                                 "second" if n_draws > 1 else ""),
+            "whu_questions": {k: {"pattern": v[0], "applied_to": v[1]} for k, v in WHU_QUESTIONS.items()},
+            "draws_wanted": n_draws, "eligible": len(order), "checked": len(log),
+            "drawn": [{x: d[x] for x in keep if x in d} for d in drawn], "drawn_at": now(), "log": log}
+
+
+def frame_at_commit(frame_file: Path, commit: str) -> str | None:
+    """sha256 of FRAME_FILE as committed in COMMIT, or None if the commit or
+    the file is not there."""
+    rel = frame_file.resolve().relative_to(STUDY.parents[1])
+    r = subprocess.run(["git", "-C", str(STUDY.parents[1]), "show", "%s:%s" % (commit, rel)],
+                       capture_output=True)
+    return sha(r.stdout) if r.returncode == 0 else None
+
+
+# --------------------------------------------------------------------------
 
 def finish(name: str, F: Fetcher, rows: list[dict], query: dict, tests: dict) -> dict:
     for i, r in enumerate(rows, 1):
@@ -1080,9 +1201,10 @@ def draw(F: Fetcher, frame_file: Path, seed: int, window: tuple[str, str], stop_
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("frame", choices=["cochrane", "campbell", "nasem", "ipcc", "nasem-practice", "ipcc-ar5-practice",
-                                      "draw-ipcc-ar5-practice",
+                                      "draw-ipcc-ar5-practice", "draw-cochrane", "draw-campbell", "draw-ipcc",
                                       "nasem-list", "nasem-practice-list", "draw-nasem-practice", "draw-nasem"])
-    ap.add_argument("--seed", type=int, help="for a draw")
+    ap.add_argument("--seed", type=int, help="for a practice draw")
+    ap.add_argument("--commit", help="for a study draw: the full 40-character freeze commit hash (the seed)")
     ap.add_argument("--out", default=str(OUT))
     ap.add_argument("--cache", required=True, help="scratch directory for fetched pages (never committed)")
     ap.add_argument("--stop-after", type=int, help="a draw stopped by a ruling: write the log after this many candidates")
@@ -1092,6 +1214,27 @@ def main() -> int:
     F = Fetcher(Path(a.cache), nap_pause=20.0)
     F.offline = a.offline
     out = Path(a.out)
+    if a.frame in ("draw-cochrane", "draw-campbell", "draw-ipcc"):
+        which = a.frame[len("draw-"):]
+        try:
+            seed_from_commit(a.commit or "")
+        except ValueError as e:
+            raise SystemExit(str(e))
+        ff = out / ("%s.json" % which)
+        # The frame drawn from must be the one the freeze commit holds.
+        if frame_at_commit(ff, a.commit) != sha(ff.read_bytes()):
+            raise SystemExit("%s is not as committed in %s (or that commit does not hold it): the draw uses "
+                             "the frozen frame" % (ff, a.commit))
+        f = out / "draws" / ("%s-%s.json" % (which, a.commit))
+        if f.exists():
+            raise SystemExit("%s exists: a draw is made once" % f)
+        res = draw_study(ff, a.commit, ipcc_texts(F) if which == "ipcc" else None, STUDY_DRAW_PLAN[which])
+        (out / "draws").mkdir(parents=True, exist_ok=True)
+        f.write_text(json.dumps(res, indent=1, ensure_ascii=False) + "\n", encoding="utf-8")
+        print("draw %s from commit %s: checked %d of %d eligible; drawn %s -> %s"
+              % (which, a.commit[:12], res["checked"], res["eligible"],
+                 ", ".join(str(d.get("id") or d.get("pmid")) for d in res["drawn"]) or "nothing", f))
+        return 0 if len(res["drawn"]) == STUDY_DRAW_PLAN[which] else 1
     if a.frame.startswith("draw-"):
         if a.seed is None:
             raise SystemExit("a draw needs --seed")
