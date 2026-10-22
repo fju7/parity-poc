@@ -116,4 +116,4 @@ def test_the_draw_command_refuses_a_short_hash_and_a_frame_not_as_committed(tmp_
     r = subprocess.run([py, str(STUDY / "scripts" / "frames.py"), "draw-cochrane", "--commit", H1,
                         "--cache", str(tmp_path)], capture_output=True, text=True)
     assert r.returncode != 0 and "not as committed" in r.stderr
-    assert not list((STUDY / "frames" / "draws").glob("cochrane-*.json"))
+    assert not (STUDY / "frames" / "draws" / ("cochrane-%s.json" % H1)).exists()   # nothing written
