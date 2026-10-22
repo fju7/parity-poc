@@ -1,0 +1,291 @@
+{
+  "_what_this_is": "For every source, whether its bibliographic record names a correction, erratum, retraction or expression of concern -- and, when the lookup failed, that it failed. 'checked, none' and 'could not check' are different states and this file never merges them.",
+  "checked": {
+    "S001": {
+      "source": "S001",
+      "title": "Otieno JA et al. — Impact of rapid nucleic acid amplification tests for tuberculosis on patient outcomes (Cochrane Datab",
+      "checked_on": "2026-10-22",
+      "identifier": "PMCID PMC12713157",
+      "identifier_from": "the source URL",
+      "resolved_title": "Impact of rapid nucleic acid amplification tests for tuberculosis on patient outcomes.",
+      "identity": "resolved title shares 9 word(s) with ours: acid, amplification, impact, nucleic, outcomes, patient, rapid, tests, tuberculo",
+      "amendments": [],
+      "comments": [],
+      "state": "CLEAN",
+      "why": "matched on PMCID PMC12713157"
+    },
+    "S002": {
+      "source": "S002",
+      "title": "Haraka F et al. — Impact of the diagnostic test Xpert MTB/RIF on patient outcomes for tuberculosis (Cochrane Database Sy",
+      "checked_on": "2026-10-22",
+      "identifier": "PMCID PMC8208889",
+      "identifier_from": "the source URL",
+      "resolved_title": "Impact of the diagnostic test Xpert MTB/RIF on patient outcomes for tuberculosis.",
+      "identity": "resolved title shares 7 word(s) with ours: diagnostic, impact, outcomes, patient, test, tuberculosis, xpert",
+      "amendments": [],
+      "comments": [],
+      "state": "CLEAN",
+      "why": "matched on PMCID PMC8208889"
+    },
+    "S003": {
+      "source": "S003",
+      "title": "Di Tanna GL et al. — Effect of Xpert MTB/RIF on clinical outcomes in routine care settings: individual patient data meta",
+      "checked_on": "2026-10-22",
+      "identifier": "PMCID PMC6366854",
+      "identifier_from": "the source URL",
+      "resolved_title": "Effect of Xpert MTB/RIF on clinical outcomes in routine care settings: individual patient data meta-analysis.",
+      "identity": "resolved title shares 12 word(s) with ours: analysis, care, clinical, data, effect, individual, meta, outcomes, patient, rou",
+      "amendments": [
+        {
+          "source": "MED",
+          "id": "30796002",
+          "reference": "Lancet Glob Health. 2019 Apr;7(4):e419. doi: 10.1016/S2214-109X(19)30046-4.",
+          "type": "Erratum in",
+          "orderIn": 2
+        }
+      ],
+      "comments": [
+        {
+          "source": "MED",
+          "id": "30683224",
+          "reference": "Lancet Glob Health. 2019 Feb;7(2):e161-e162. doi: 10.1016/S2214-109X(18)30493-5.",
+          "type": "Comment in",
+          "orderIn": 1
+        }
+      ],
+      "state": "AMENDED",
+      "why": "matched on PMCID PMC6366854"
+    },
+    "S004": {
+      "source": "S004",
+      "title": "Lee JH et al. — Impact of molecular diagnostic tests on diagnostic and treatment delays in tuberculosis: a systematic re",
+      "checked_on": "2026-10-22",
+      "identifier": "PMCID PMC9748908",
+      "identifier_from": "the source URL",
+      "resolved_title": "Impact of molecular diagnostic tests on diagnostic and treatment delays in tuberculosis: a systematic review and meta-analysis.",
+      "identity": "resolved title shares 11 word(s) with ours: analysis, delays, diagnostic, impact, meta, molecular, review, systematic, tests",
+      "amendments": [],
+      "comments": [],
+      "state": "CLEAN",
+      "why": "matched on PMCID PMC9748908"
+    },
+    "S005": {
+      "source": "S005",
+      "title": "Esmail A et al. — Comparison of two diagnostic intervention packages for community-based active case finding for tubercu",
+      "checked_on": "2026-10-22",
+      "identifier": "DOI 10.1038/s41591-023-02247-1",
+      "identifier_from": "the source URL",
+      "resolved_title": "Comparison of two diagnostic intervention packages for community-based active case finding for tuberculosis: an open-label randomized controlled trial.",
+      "identity": "resolved title shares 15 word(s) with ours: active, based, case, community, comparison, controlled, diagnostic, finding, int",
+      "amendments": [],
+      "comments": [],
+      "state": "CLEAN",
+      "why": "matched on DOI 10.1038/s41591-023-02247-1"
+    },
+    "S006": {
+      "source": "S006",
+      "title": "Cattamanchi A et al. — Multicomponent strategy with decentralized molecular testing for tuberculosis (N Engl J Med 2021;",
+      "checked_on": "2026-10-22",
+      "identifier": "PMCID PMC9212879",
+      "identifier_from": "the source URL",
+      "resolved_title": "Multicomponent Strategy with Decentralized Molecular Testing for Tuberculosis.",
+      "identity": "resolved title shares 6 word(s) with ours: decentralized, molecular, multicomponent, strategy, testing, tuberculosis",
+      "amendments": [],
+      "comments": [],
+      "state": "CLEAN",
+      "why": "matched on PMCID PMC9212879"
+    },
+    "S007": {
+      "source": "S007",
+      "title": "Katamba A et al. — Impact of a multicomponent strategy including decentralized molecular testing for tuberculosis on mor",
+      "checked_on": "2026-10-22",
+      "identifier": "PMCID PMC11629260",
+      "identifier_from": "the source URL",
+      "resolved_title": "Impact of a multicomponent strategy including decentralized molecular testing for tuberculosis on mortality: planned analysis of a cluster-randomized trial in U",
+      "identity": "resolved title shares 14 word(s) with ours: analysis, cluster, decentralized, impact, including, molecular, mortality, multi",
+      "amendments": [],
+      "comments": [],
+      "state": "CLEAN",
+      "why": "matched on PMCID PMC11629260"
+    },
+    "S008": {
+      "source": "S008",
+      "title": "Mukoka M et al. — Utility of Xpert MTB/RIF Ultra and digital chest radiography for the diagnosis and treatment of TB in ",
+      "checked_on": "2026-10-22",
+      "identifier": "PMCID PMC9808509",
+      "identifier_from": "the source URL",
+      "resolved_title": "Utility of Xpert MTB/RIF Ultra and digital chest radiography for the diagnosis and treatment of TB in people living with HIV: a randomised controlled trial (XAC",
+      "identity": "resolved title shares 14 word(s) with ours: chest, controlled, diagnosis, digital, living, people, radiography, randomised, ",
+      "amendments": [],
+      "comments": [],
+      "state": "CLEAN",
+      "why": "matched on PMCID PMC9808509"
+    },
+    "S009": {
+      "source": "S009",
+      "title": "Theron G et al. — Feasibility, accuracy, and clinical effect of point-of-care Xpert MTB/RIF testing for tuberculosis in ",
+      "checked_on": "2026-10-22",
+      "identifier": "DOI 10.1016/S0140-6736(13)62073-5",
+      "identifier_from": "the source URL",
+      "resolved_title": "Feasibility, accuracy, and clinical effect of point-of-care Xpert MTB/RIF testing for tuberculosis in primary-care settings in Africa: a multicentre, randomised",
+      "identity": "resolved title shares 16 word(s) with ours: accuracy, africa, care, clinical, controlled, effect, feasibility, multicentre, ",
+      "amendments": [],
+      "comments": [
+        {
+          "source": "MED",
+          "id": "24176145",
+          "reference": "Lancet. 2014 Feb 1;383(9915):388-90. doi: 10.1016/S0140-6736(13)62003-6",
+          "type": "Comment in",
+          "orderIn": 1
+        },
+        {
+          "source": "MED",
+          "id": "24766336",
+          "reference": "Pathog Glob Health. 2014 Apr;108(3):127. doi: 10.1179/2047772414Z.000000000200",
+          "type": "Comment in",
+          "orderIn": 2
+        }
+      ],
+      "state": "CLEAN",
+      "why": "matched on DOI 10.1016/S0140-6736(13)62073-5"
+    },
+    "S010": {
+      "source": "S010",
+      "title": "Churchyard GJ et al. — Xpert MTB/RIF versus sputum microscopy as the initial diagnostic test for tuberculosis: a cluster",
+      "checked_on": "2026-10-22",
+      "identifier": "DOI 10.1016/S2214-109X(15)00100-X",
+      "identifier_from": "the source URL",
+      "resolved_title": "Xpert MTB/RIF versus sputum microscopy as the initial diagnostic test for tuberculosis: a cluster-randomised trial embedded in South African roll-out of Xpert M",
+      "identity": "resolved title shares 14 word(s) with ours: african, cluster, diagnostic, embedded, initial, microscopy, randomised, roll, s",
+      "amendments": [],
+      "comments": [
+        {
+          "source": "MED",
+          "id": "26187481",
+          "reference": "Lancet Glob Health. 2015 Aug;3(8):e424-e425. doi: 10.1016/S2214-109X(15)00029-7.",
+          "type": "Comment in",
+          "orderIn": 1
+        },
+        {
+          "source": "MED",
+          "id": "27911589",
+          "reference": "Am J Respir Crit Care Med. 2017 Feb 15;195(4):530-532. doi: 10.1164/rccm.201608-1657RR.",
+          "type": "Comment in",
+          "orderIn": 2
+        },
+        {
+          "source": "MED",
+          "id": "29168808",
+          "reference": "Nature. 2017 Nov 16;551(7681):424-425. doi: 10.1038/nature.2017.23000.",
+          "type": "Comment in",
+          "orderIn": 3
+        }
+      ],
+      "state": "CLEAN",
+      "why": "matched on DOI 10.1016/S2214-109X(15)00100-X"
+    },
+    "S011": {
+      "source": "S011",
+      "title": "Cox HS et al. — Impact of Xpert MTB/RIF for TB diagnosis in a primary care clinic with high TB and HIV prevalence in Sou",
+      "checked_on": "2026-10-22",
+      "identifier": "PMCID PMC4244039",
+      "identifier_from": "the source URL",
+      "resolved_title": "Impact of Xpert MTB/RIF for TB diagnosis in a primary care clinic with high TB and HIV prevalence in South Africa: a pragmatic randomised trial.",
+      "identity": "resolved title shares 13 word(s) with ours: africa, care, clinic, diagnosis, high, impact, pragmatic, prevalence, primary, r",
+      "amendments": [],
+      "comments": [],
+      "state": "CLEAN",
+      "why": "matched on PMCID PMC4244039"
+    },
+    "S012": {
+      "source": "S012",
+      "title": "Durovni B et al. — Impact of replacing smear microscopy with Xpert MTB/RIF for diagnosing tuberculosis in Brazil: a step",
+      "checked_on": "2026-10-22",
+      "identifier": "PMCID PMC4260794",
+      "identifier_from": "the source URL",
+      "resolved_title": "Impact of replacing smear microscopy with Xpert MTB/RIF for diagnosing tuberculosis in Brazil: a stepped-wedge cluster-randomized trial.",
+      "identity": "resolved title shares 13 word(s) with ours: brazil, cluster, diagnosing, impact, microscopy, randomized, replacing, smear, s",
+      "amendments": [
+        {
+          "source": "MED",
+          "id": "26632815",
+          "reference": "PLoS Med. 2015 Dec 03;12(12):e1001928. doi: 10.1371/journal.pmed.1001928",
+          "type": "Erratum in",
+          "orderIn": 1
+        }
+      ],
+      "comments": [],
+      "state": "AMENDED",
+      "why": "matched on PMCID PMC4260794"
+    },
+    "S013": {
+      "source": "S013",
+      "title": "Correction: Impact of replacing smear microscopy with Xpert MTB/RIF for diagnosing tuberculosis in Brazil (PLoS Med 2015",
+      "checked_on": "2026-10-22",
+      "identifier": "PMCID PMC4669082",
+      "identifier_from": "the source URL",
+      "resolved_title": "Correction: Impact of Replacing Smear Microscopy with Xpert MTB/RIF for Diagnosing Tuberculosis in Brazil: A Stepped-Wedge Cluster-Randomized Trial.",
+      "identity": "resolved title shares 9 word(s) with ours: brazil, correction, diagnosing, impact, microscopy, replacing, smear, tuberculos",
+      "amendments": [],
+      "comments": [
+        {
+          "source": "MED",
+          "id": "25490549",
+          "reference": "PLoS Med. 2014 Dec 09;11(12):e1001766. doi: 10.1371/journal.pmed.1001766",
+          "type": "Erratum for",
+          "orderIn": 1
+        }
+      ],
+      "state": "CLEAN",
+      "why": "matched on PMCID PMC4669082"
+    },
+    "S014": {
+      "source": "S014",
+      "title": "Harvard Gazette — TB test offers rapid results (November 2012)",
+      "checked_on": "2026-10-22",
+      "state": "UNCHECKABLE",
+      "why": "no DOI, PMID, PMCID or PII can be parsed from the URL we hold; nothing is typed from memory, so this source cannot be looked up automatically",
+      "amendments": [],
+      "comments": []
+    },
+    "S015": {
+      "source": "S015",
+      "title": "Health-e News — 'Bazooka' against TB launched (24 March 2011)",
+      "checked_on": "2026-10-22",
+      "state": "UNCHECKABLE",
+      "why": "no DOI, PMID, PMCID or PII can be parsed from the URL we hold; nothing is typed from memory, so this source cannot be looked up automatically",
+      "amendments": [],
+      "comments": []
+    },
+    "S016": {
+      "source": "S016",
+      "title": "The Global Fund — news release on new rapid TB testing in 13 countries (16 June 2026)",
+      "checked_on": "2026-10-22",
+      "state": "UNCHECKABLE",
+      "why": "no DOI, PMID, PMCID or PII can be parsed from the URL we hold; nothing is typed from memory, so this source cannot be looked up automatically",
+      "amendments": [],
+      "comments": []
+    },
+    "S017": {
+      "source": "S017",
+      "title": "Correction to Lancet Glob Health 2019; 7: e191-99 (Di Tanna et al.) (Lancet Glob Health 2019)",
+      "checked_on": "2026-10-22",
+      "identifier": "DOI 10.1016/S2214-109X(19)30046-4",
+      "identifier_from": "the source URL",
+      "resolved_title": "Correction to Lancet Glob Health 2019; 7: e191-99.",
+      "identity": "resolved title shares 6 word(s) with ours: 2019, correction, e191, glob, health, lancet",
+      "amendments": [],
+      "comments": [
+        {
+          "source": "MED",
+          "id": "30683238",
+          "reference": "Lancet Glob Health. 2019 Feb;7(2):e191-e199. doi: 10.1016/S2214-109X(18)30458-3",
+          "type": "Erratum for",
+          "orderIn": 1
+        }
+      ],
+      "state": "CLEAN",
+      "why": "matched on DOI 10.1016/S2214-109X(19)30046-4"
+    }
+  }
+}

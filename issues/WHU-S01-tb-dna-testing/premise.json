@@ -3,24 +3,47 @@
   "belief": {
     "_note": "What the reader already believes, stated as they would state it. If you cannot write this sentence, there is nothing to correct and no subject -- which is how the tobacco-analogy candidate died.",
     "statement": "A rapid DNA (molecular) test for TB, such as the GeneXpert cartridge test, saves lives: because it finds TB faster and more accurately than looking at sputum under a microscope or waiting weeks for a culture, people start treatment sooner, more of them are cured and fewer of them die.",
-    "how_we_know_they_believe_it": "To be filled after research: named coverage checked from page bytes.",
+    "how_we_know_they_believe_it": "Coverage and releases state the benefit as lives saved; three pieces checked from their page bytes (S014-S016).",
     "carried_by": [
       {
-        "outlet": "",
-        "url": "",
-        "date": "",
-        "what_it_said": ""
+        "outlet": "Harvard Gazette",
+        "url": "https://news.harvard.edu/gazette/story/2012/11/tb-test-offers-rapid-results/",
+        "date": "2012-11-20",
+        "what_it_said": "a modelling study's estimate that replacing microscopy with Xpert 'would prevent an estimated 132,000 TB cases and 182,000 TB deaths in southern Africa over 10 years'"
+      },
+      {
+        "outlet": "Health-e News",
+        "url": "https://health-e.org.za/?p=2837",
+        "date": "2011-03-24",
+        "what_it_said": "KwaZulu-Natal's TB head: 'we can save patients lives by starting them on treatment immediately'"
+      },
+      {
+        "outlet": "The Global Fund (news release)",
+        "url": "https://www.theglobalfund.org/en/news/2026/2026-06-16-new-rapid-tb-testing-13-countries-lifesaving-diagnosis-closer-to-communities/",
+        "date": "2026-06-16",
+        "what_it_said": "headline: new rapid TB testing 'Bringing Lifesaving Diagnosis Closer to Communities'"
       }
     ]
   },
   "what_the_sources_show": {
     "_note": "What the primary sources actually support, and which sources.",
-    "statement": "",
-    "sources": []
+    "statement": "Randomised trials and their pooled analyses show that molecular testing (Xpert MTB/RIF and Xpert Ultra) increases bacteriological confirmation, probably reduces pre-treatment loss to follow-up, and in some trials shortens time to treatment; but the effect on all-cause mortality across everyone tested is inconclusive or little to none, with a probable reduction only in people with HIV, and cure or treatment success is uncertain or unmeasured.",
+    "sources": [
+      "S001",
+      "S002",
+      "S003",
+      "S004",
+      "S006",
+      "S007",
+      "S010",
+      "S011",
+      "S012",
+      "S013"
+    ]
   },
   "direction": {
-    "_note": "CORRECTS, CONFIRMS or NARROWS. This field exists so the contrarianism guard can count. A publication whose answer is always CORRECTS is performing scepticism rather than assessing evidence, and is not to be trusted.",
-    "value": "",
+    "_note": "Faster, more confirmed diagnosis holds; the belief's 'saves lives' and 'more are cured' do not hold across everyone tested (a probable mortality benefit only in people with HIV; cure barely measured).",
+    "value": "narrows",
     "_values": [
       "corrects",
       "confirms",
@@ -31,24 +54,28 @@
   "reader_with_a_decision": "A health-programme manager, funder or clinician in a country with a lot of TB deciding whether to spend scarce money replacing smear microscopy with molecular tests (machines, cartridges, staff, power), who has been told the test saves lives and needs to know what the trials actually showed for survival, cure and time to treatment; and a person being tested who wants to know what the test changes for them.",
   "public_record_check": {
     "_note": "NOT 'has anybody published this'. On any contested question, somebody has. The question is whether it has been carried WHERE THIS READER WOULD FIND IT. Run the counterexample hunter on the belief statement, not on the finding.",
-    "prior_art_found": [],
-    "carried_in_general_coverage": "",
-    "our_contribution": "translation, extension, or correction of the prior art -- say which"
+    "prior_art_found": [
+      "Haraka et al. 2021 Cochrane review (S002)",
+      "Otieno et al. 2025 Cochrane review (S001)",
+      "Di Tanna et al. 2019 IPD meta-analysis (S003)"
+    ],
+    "carried_in_general_coverage": "The three pieces checked carry the lives-saved expectation; the trials' inconclusive mortality results sit in Cochrane reviews and trial papers rather than in that coverage.",
+    "our_contribution": "translation"
   },
-  "sources_are_open": "",
-  "evidence_base_is_bounded": "",
+  "sources_are_open": "mostly -- 15 of 17 held in full (two via the operator in a browser: S006, S010; one correction notice fetched by script on the operator's machine: S017); S005 (abstract only) and S009 paywalled with no open-access copy, not cited",
+  "evidence_base_is_bounded": "yes for this answer -- two Cochrane reviews, one IPD meta-analysis, one delays meta-analysis, five trial reports and one correction",
   "kill_condition": "There is no 'narrows' story, and the answer is CONFIRMS, if randomised trials (or a pooled analysis of them) comparing DNA-based testing with microscopy or culture show a clear reduction in death and a clear improvement in cure or treatment success, not only faster diagnosis or more people started on treatment. It is CORRECTS if the trials show no benefit on any patient outcome, including time to treatment. And it dies as a story if general coverage already carries the trial results accurately where this reader would find them.",
   "kill_condition_tested": {
     "_note": "Filled in AFTER going to look, by whoever looked.",
-    "by": "",
-    "on": "",
-    "result": "",
+    "by": "Claude Code (session e22d1e36-4525-4c73-9ee7-ab5b8e77a1ce)",
+    "on": "2026-10-22",
+    "result": "narrowed",
     "_result_values": [
       "survived",
       "narrowed",
       "killed"
     ],
-    "note": ""
+    "note": "Looked for randomised evidence of a clear mortality reduction and improved cure: none across everyone tested (S002 RR 0.89, 0.75-1.05; S003 OR 0.88, 0.68-1.14; S001 Ultra RR 0.79, 0.61-1.01); a probable reduction in people with HIV (S002 OR 0.80, 0.67-0.96); cure unmeasured for Ultra (S001), uncertain for Xpert (S002). Faster or more treatment is shown in some trials, so the answer is not CORRECTS either."
   },
   "lead_came_from": "WHU reliability study draw (WHU-S01, issue.json); the question was given; the drawn source is not known to the drafting session.",
   "_written_before_research": {

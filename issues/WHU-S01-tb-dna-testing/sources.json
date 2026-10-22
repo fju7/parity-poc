@@ -1,0 +1,484 @@
+{
+ "what_this_is": "Source register for WHU-S01 (reliability-study issue; never published).",
+ "sources": [
+  {
+   "id": "S001",
+   "type": "synthesis",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12713157/",
+   "title": "Otieno JA et al. — Impact of rapid nucleic acid amplification tests for tuberculosis on patient outcomes (Cochrane Database Syst Rev 2025, CD016194)",
+   "also_called": [
+    "Otieno",
+    "the 2025 Cochrane review"
+   ],
+   "used_for": "The newest systematic review of randomised trials of rapid NAATs (Xpert Ultra and others) versus smear or culture on mortality, cure, loss to follow-up and time to diagnosis and treatment.",
+   "access": {
+    "state": "full_text_held",
+    "held": {
+     "file": "docs/c4/c498bfa48b5d992d0b8cf8d36a19717031ace27b6788943c423524e8c4c88e2d.xml",
+     "sha256": "c498bfa48b5d992d0b8cf8d36a19717031ace27b6788943c423524e8c4c88e2d",
+     "bytes": 194297,
+     "identified_by": "contains its identifier PMC12713157 — 107889 characters, reference list and discussion present"
+    },
+    "on": "2026-10-21"
+   },
+   "identifier": {
+    "kind": "pmid",
+    "value": "41410210",
+    "resolved_by": "Europe PMC search, 2026-10-22, Claude Code",
+    "resolved_on": "2026-10-22",
+    "pmcid": "PMC12713157",
+    "doi": "10.1002/14651858.cd016194"
+   }
+  },
+  {
+   "id": "S002",
+   "type": "synthesis",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8208889/",
+   "title": "Haraka F et al. — Impact of the diagnostic test Xpert MTB/RIF on patient outcomes for tuberculosis (Cochrane Database Syst Rev 2021, CD012972.pub2)",
+   "also_called": [
+    "Haraka",
+    "the 2021 Cochrane review"
+   ],
+   "used_for": "Pooled randomised-trial evidence for the original Xpert MTB/RIF versus smear: mortality overall and in people with HIV, treatment success, proportion treated, pre-treatment loss to follow-up.",
+   "access": {
+    "state": "full_text_held",
+    "held": {
+     "file": "docs/38/3845fa0eacb276680570bfd72e9664013fe69d742432098a608750e5852d11b2.xml",
+     "sha256": "3845fa0eacb276680570bfd72e9664013fe69d742432098a608750e5852d11b2",
+     "bytes": 332398,
+     "identified_by": "contains its identifier PMC8208889 — 137867 characters, reference list and discussion/introduction present"
+    },
+    "on": "2026-10-21"
+   },
+   "identifier": {
+    "kind": "pmid",
+    "value": "34097769",
+    "resolved_by": "Europe PMC search, 2026-10-22, Claude Code",
+    "resolved_on": "2026-10-22",
+    "pmcid": "PMC8208889",
+    "doi": "10.1002/14651858.cd012972.pub2"
+   }
+  },
+  {
+   "id": "S003",
+   "type": "synthesis",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6366854/",
+   "title": "Di Tanna GL et al. — Effect of Xpert MTB/RIF on clinical outcomes in routine care settings: individual patient data meta-analysis (Lancet Glob Health 2019;7:e191-e199)",
+   "also_called": [
+    "Di Tanna",
+    "the individual patient data meta-analysis"
+   ],
+   "used_for": "Six-month mortality pooled from patient-level data of five trials, overall and in HIV-positive people.",
+   "access": {
+    "state": "full_text_held",
+    "held": {
+     "file": "docs/47/477b8cd2fa66c6db64461eb505f7f630113cbf00d3b0df5ff07ddd6a8bde6591.xml",
+     "sha256": "477b8cd2fa66c6db64461eb505f7f630113cbf00d3b0df5ff07ddd6a8bde6591",
+     "bytes": 119530,
+     "identified_by": "contains its identifier PMC6366854 — 50690 characters, reference list and discussion/introduction present"
+    },
+    "on": "2026-10-21"
+   },
+   "identifier": {
+    "kind": "pmid",
+    "value": "30683238",
+    "resolved_by": "Europe PMC search, 2026-10-22, Claude Code",
+    "resolved_on": "2026-10-22",
+    "pmcid": "PMC6366854",
+    "doi": "10.1016/s2214-109x(18)30458-3"
+   }
+  },
+  {
+   "id": "S004",
+   "type": "synthesis",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9748908/",
+   "title": "Lee JH et al. — Impact of molecular diagnostic tests on diagnostic and treatment delays in tuberculosis: a systematic review and meta-analysis (BMC Infect Dis 2022;22:940)",
+   "also_called": [
+    "Lee",
+    "the 2022 delays meta-analysis"
+   ],
+   "used_for": "Whether molecular tests shorten the time to diagnosis and to treatment, across study designs.",
+   "access": {
+    "state": "full_text_held",
+    "held": {
+     "file": "docs/c0/c056b0004cbce7a2e0d461ff9464f5440ed35df9d621826b91f3cfb283a09102.xml",
+     "sha256": "c056b0004cbce7a2e0d461ff9464f5440ed35df9d621826b91f3cfb283a09102",
+     "bytes": 235934,
+     "identified_by": "contains its identifier PMC9748908 — 70890 characters, reference list and discussion/introduction present"
+    },
+    "on": "2026-10-21"
+   },
+   "identifier": {
+    "kind": "pmid",
+    "value": "36517736",
+    "resolved_by": "Europe PMC search, 2026-10-22, Claude Code",
+    "resolved_on": "2026-10-22",
+    "pmcid": "PMC9748908",
+    "doi": "10.1186/s12879-022-07855-9"
+   }
+  },
+  {
+   "id": "S005",
+   "type": "primary",
+   "url": "https://doi.org/10.1038/s41591-023-02247-1",
+   "title": "Esmail A et al. — Comparison of two diagnostic intervention packages for community-based active case finding for tuberculosis: an open-label randomized controlled trial (Nat Med 2023;29:1009-1016)",
+   "also_called": [
+    "Esmail",
+    "the South African community case-finding trial"
+   ],
+   "used_for": "Individually randomised trial of Xpert Ultra versus smear microscopy in community case finding: mortality at six and 18 months.",
+   "access": {
+    "state": "abstract_held",
+    "held": {
+     "file": "docs/cf/cf52ff4760a76db647ffb3f44c606b7cfac6a3fd4c816911c73cff63832aa177.html",
+     "sha256": "cf52ff4760a76db647ffb3f44c606b7cfac6a3fd4c816911c73cff63832aa177",
+     "identified_by": "contains its identifier 10.1038/s41591-023-02247-1; the publisher's abstract page, not the paper"
+    },
+    "reason": "full text paywalled; no open-access copy",
+    "checked_by": "advisor, on Fred Ugast's behalf (Unpaywall, OpenAlex and Europe PMC show closed access; no PMC copy); recorded by Claude Code",
+    "on": "2026-10-22",
+    "not_cited": "not cited or bound; its findings are used only as reported by held sources, attributed to them"
+   },
+   "identifier": {
+    "kind": "pmid",
+    "value": "36894651",
+    "resolved_by": "Europe PMC search, 2026-10-22, Claude Code",
+    "resolved_on": "2026-10-22",
+    "doi": "10.1038/s41591-023-02247-1"
+   }
+  },
+  {
+   "id": "S006",
+   "type": "primary",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9212879/",
+   "title": "Cattamanchi A et al. — Multicomponent strategy with decentralized molecular testing for tuberculosis (N Engl J Med 2021;385:2441-2450)",
+   "also_called": [
+    "Cattamanchi",
+    "XPEL-TB"
+   ],
+   "used_for": "Cluster-randomised trial in Ugandan health centres: on-site Xpert Ultra strategy versus smear microscopy with referral; treatment within 14 days, time to diagnosis and treatment.",
+   "access": {
+    "state": "full_text_held",
+    "by": "Fred Ugast, browser download of the NEJM author manuscript (PMC9212879); added by Claude Code",
+    "on": "2026-10-22",
+    "held": {
+     "file": "docs/0d/0da6489bd016703c83e23faf14f0f32a3a6c8fc584014f7217895e89c8ab4fdd.pdf",
+     "sha256": "0da6489bd016703c83e23faf14f0f32a3a6c8fc584014f7217895e89c8ab4fdd",
+     "bytes": 514850,
+     "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9212879/",
+     "identified_by": "contains 8 of 8 distinctive title words",
+     "kind": "full_text",
+     "kind_why": "43392 characters, reference list and discussion present",
+     "recorded_by": "source_store add"
+    }
+   },
+   "identifier": {
+    "kind": "pmid",
+    "value": "34936740",
+    "resolved_by": "Europe PMC search, 2026-10-22, Claude Code",
+    "resolved_on": "2026-10-22",
+    "pmcid": "PMC9212879",
+    "doi": "10.1056/nejmoa2105470"
+   }
+  },
+  {
+   "id": "S007",
+   "type": "primary",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11629260/",
+   "title": "Katamba A et al. — Impact of a multicomponent strategy including decentralized molecular testing for tuberculosis on mortality: planned analysis of a cluster-randomized trial (EClinicalMedicine 2024;78:102953)",
+   "also_called": [
+    "Katamba",
+    "the XPEL-TB mortality analysis"
+   ],
+   "used_for": "XPEL-TB's planned mortality analysis.",
+   "access": {
+    "state": "full_text_held",
+    "held": {
+     "file": "docs/e3/e3f4c2e6adc556520cf24b897d15018da47294bb58e76e0f382a8e852aaae68c.xml",
+     "sha256": "e3f4c2e6adc556520cf24b897d15018da47294bb58e76e0f382a8e852aaae68c",
+     "bytes": 79584,
+     "identified_by": "contains its identifier PMC11629260 — 38509 characters, reference list and discussion/introduction present"
+    },
+    "on": "2026-10-21"
+   },
+   "identifier": {
+    "kind": "pmid",
+    "value": "39659443",
+    "resolved_by": "Europe PMC search, 2026-10-22, Claude Code",
+    "resolved_on": "2026-10-22",
+    "pmcid": "PMC11629260",
+    "doi": "10.1016/j.eclinm.2024.102953"
+   }
+  },
+  {
+   "id": "S008",
+   "type": "primary",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9808509/",
+   "title": "Mukoka M et al. — Utility of Xpert MTB/RIF Ultra and digital chest radiography for the diagnosis and treatment of TB in people living with HIV: a randomised controlled trial (XACT-TB) (Trans R Soc Trop Med Hyg 2023;117:28-37)",
+   "also_called": [
+    "Mukoka",
+    "XACT-TB"
+   ],
+   "used_for": "Randomised trial in Malawi of Xpert Ultra with chest radiography in people with HIV: time to treatment.",
+   "access": {
+    "state": "full_text_held",
+    "held": {
+     "file": "docs/99/996b0f4b22e51d6206edcf54de07b3eb52bd723bdb66bf681fe7b34bf840ca4b.xml",
+     "sha256": "996b0f4b22e51d6206edcf54de07b3eb52bd723bdb66bf681fe7b34bf840ca4b",
+     "bytes": 89579,
+     "identified_by": "contains its identifier PMC9808509 — 43148 characters, reference list and discussion/introduction present"
+    },
+    "on": "2026-10-21"
+   },
+   "identifier": {
+    "kind": "pmid",
+    "value": "35963826",
+    "resolved_by": "Europe PMC search, 2026-10-22, Claude Code",
+    "resolved_on": "2026-10-22",
+    "pmcid": "PMC9808509",
+    "doi": "10.1093/trstmh/trac079"
+   }
+  },
+  {
+   "id": "S009",
+   "type": "primary",
+   "url": "https://doi.org/10.1016/S0140-6736(13)62073-5",
+   "title": "Theron G et al. — Feasibility, accuracy, and clinical effect of point-of-care Xpert MTB/RIF testing for tuberculosis in primary-care settings in Africa: a multicentre, randomised, controlled trial (Lancet 2014;383:424-435)",
+   "also_called": [
+    "Theron",
+    "TB-NEAT"
+   ],
+   "used_for": "Point-of-care Xpert versus smear in four African countries: same-day treatment, morbidity and mortality.",
+   "access": {
+    "state": "blocked",
+    "reason": "paywalled; no open-access copy",
+    "checked_by": "advisor, on Fred Ugast's behalf (Unpaywall, OpenAlex and Europe PMC show closed access; no PMC copy); recorded by Claude Code",
+    "on": "2026-10-22",
+    "not_cited": "not cited or bound; its findings are used only as reported by held sources, attributed to them"
+   },
+   "identifier": {
+    "kind": "pmid",
+    "value": "24176144",
+    "resolved_by": "Europe PMC search, 2026-10-22, Claude Code",
+    "resolved_on": "2026-10-22",
+    "doi": "10.1016/s0140-6736(13)62073-5"
+   }
+  },
+  {
+   "id": "S010",
+   "type": "primary",
+   "url": "https://doi.org/10.1016/S2214-109X(15)00100-X",
+   "title": "Churchyard GJ et al. — Xpert MTB/RIF versus sputum microscopy as the initial diagnostic test for tuberculosis: a cluster-randomised trial embedded in South African roll-out of Xpert MTB/RIF (Lancet Glob Health 2015;3:e450-e457)",
+   "also_called": [
+    "Churchyard",
+    "XTEND"
+   ],
+   "used_for": "Six-month mortality in the trial embedded in South Africa's national Xpert roll-out.",
+   "access": {
+    "state": "full_text_held",
+    "by": "Fred Ugast, browser download of the published Lancet Glob Health article; added by Claude Code",
+    "on": "2026-10-22",
+    "held": {
+     "file": "docs/4c/4c2090e4c0b8f0097ac1df4b0fb8a5cf3251fc0d8d3c3a4512c8c0a3dd0c1e12.pdf",
+     "sha256": "4c2090e4c0b8f0097ac1df4b0fb8a5cf3251fc0d8d3c3a4512c8c0a3dd0c1e12",
+     "bytes": 198594,
+     "url": "https://doi.org/10.1016/S2214-109X(15)00100-X",
+     "identified_by": "contains 12 of 12 distinctive title words",
+     "kind": "full_text",
+     "kind_why": "42698 characters, reference list and discussion/introduction present",
+     "recorded_by": "source_store add"
+    }
+   },
+   "identifier": {
+    "kind": "pmid",
+    "value": "26187490",
+    "resolved_by": "Europe PMC search, 2026-10-22, Claude Code",
+    "resolved_on": "2026-10-22",
+    "doi": "10.1016/s2214-109x(15)00100-x"
+   }
+  },
+  {
+   "id": "S011",
+   "type": "primary",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4244039/",
+   "title": "Cox HS et al. — Impact of Xpert MTB/RIF for TB diagnosis in a primary care clinic with high TB and HIV prevalence in South Africa: a pragmatic randomised trial (PLoS Med 2014;11:e1001760)",
+   "also_called": [
+    "Cox",
+    "the Khayelitsha trial"
+   ],
+   "used_for": "Individually randomised trial in a Cape Town clinic: proportion treated, time to treatment, mortality.",
+   "access": {
+    "state": "full_text_held",
+    "held": {
+     "file": "docs/22/22c9004b0346598e26d982d7b45e7b947b6f0da79b4ffefeb85caa15c4ec937b.xml",
+     "sha256": "22c9004b0346598e26d982d7b45e7b947b6f0da79b4ffefeb85caa15c4ec937b",
+     "bytes": 117535,
+     "identified_by": "contains its identifier PMC4244039 — 55311 characters, reference list and discussion/introduction present"
+    },
+    "on": "2026-10-21"
+   },
+   "identifier": {
+    "kind": "pmid",
+    "value": "25423041",
+    "resolved_by": "Europe PMC search, 2026-10-22, Claude Code",
+    "resolved_on": "2026-10-22",
+    "pmcid": "PMC4244039",
+    "doi": "10.1371/journal.pmed.1001760"
+   }
+  },
+  {
+   "id": "S012",
+   "type": "primary",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4260794/",
+   "title": "Durovni B et al. — Impact of replacing smear microscopy with Xpert MTB/RIF for diagnosing tuberculosis in Brazil: a stepped-wedge cluster-randomized trial (PLoS Med 2014;11:e1001766)",
+   "also_called": [
+    "Durovni",
+    "the Brazil stepped-wedge trial"
+   ],
+   "used_for": "Notifications, time to treatment and treatment outcomes when Brazil replaced smear with Xpert.",
+   "access": {
+    "state": "full_text_held",
+    "held": {
+     "file": "docs/69/691b0c9945a8072b7a6cfd02213cc4ef5c416f5444f075e176b4e4e591074f82.xml",
+     "sha256": "691b0c9945a8072b7a6cfd02213cc4ef5c416f5444f075e176b4e4e591074f82",
+     "bytes": 218832,
+     "identified_by": "contains its identifier PMC4260794 — 85217 characters, reference list and discussion/introduction present"
+    },
+    "on": "2026-10-21"
+   },
+   "identifier": {
+    "kind": "pmid",
+    "value": "25490549",
+    "resolved_by": "Europe PMC search, 2026-10-22, Claude Code",
+    "resolved_on": "2026-10-22",
+    "pmcid": "PMC4260794",
+    "doi": "10.1371/journal.pmed.1001766"
+   }
+  },
+  {
+   "id": "S013",
+   "type": "corrigendum",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4669082/",
+   "title": "Correction: Impact of replacing smear microscopy with Xpert MTB/RIF for diagnosing tuberculosis in Brazil (PLoS Med 2015;12:e1001928)",
+   "also_called": [
+    "the Durovni correction"
+   ],
+   "used_for": "Errata check on S012.",
+   "access": {
+    "state": "full_text_held",
+    "held": {
+     "file": "docs/bb/bb932bb75e467db0a082a7051eeddd424251cf7a9b8d2d5a56e800dba15407ef.xml",
+     "sha256": "bb932bb75e467db0a082a7051eeddd424251cf7a9b8d2d5a56e800dba15407ef",
+     "bytes": 15874,
+     "identified_by": "contains its identifier PMC4669082"
+    },
+    "on": "2026-10-21"
+   },
+   "identifier": {
+    "kind": "pmid",
+    "value": "26632815",
+    "resolved_by": "Europe PMC search, 2026-10-22, Claude Code",
+    "resolved_on": "2026-10-22",
+    "pmcid": "PMC4669082",
+    "doi": "10.1371/journal.pmed.1001928"
+   },
+   "amends": "S012",
+   "effect_on_page": "Read in full by Claude Code, 2026-10-22. After 147 duplicate entries were removed the authors re-analysed and published a revised Table 4 (notification rates); the primary-endpoint rate ratio moved from 1.59 (95% CI 1.31–1.88) to 1.60 (1.31–1.89), and the authors state the conclusions are unaffected. Any notification figure the page takes from S012 is taken from the revised table in S013."
+  },
+  {
+   "id": "S014",
+   "type": "carrier",
+   "url": "https://news.harvard.edu/gazette/story/2012/11/tb-test-offers-rapid-results/",
+   "title": "Harvard Gazette — TB test offers rapid results (November 2012)",
+   "also_called": [
+    "Harvard Gazette"
+   ],
+   "used_for": "The belief as carried in general coverage: a modelling projection of deaths averted.",
+   "access": {
+    "state": "full_text_held",
+    "held": {
+     "file": "docs/98/98c40185a88970499b57612faa852e2a36ebca298285284e8c570c25f2174d82.html",
+     "sha256": "98c40185a88970499b57612faa852e2a36ebca298285284e8c570c25f2174d82",
+     "bytes": 142366,
+     "identified_by": "contains 7 of 7 distinctive title words"
+    },
+    "on": "2026-10-21"
+   }
+  },
+  {
+   "id": "S015",
+   "type": "carrier",
+   "url": "https://health-e.org.za/?p=2837",
+   "title": "Health-e News — 'Bazooka' against TB launched (24 March 2011)",
+   "also_called": [
+    "Health-e"
+   ],
+   "used_for": "The belief as carried in general coverage: an official's statement that the test saves lives.",
+   "access": {
+    "state": "full_text_held",
+    "held": {
+     "file": "docs/ba/ba0225eac80d5197dfc76bca91ad095db4f051c7bba7be35185acf29885788b9.html",
+     "sha256": "ba0225eac80d5197dfc76bca91ad095db4f051c7bba7be35185acf29885788b9",
+     "bytes": 488558,
+     "identified_by": "contains 5 of 6 distinctive title words"
+    },
+    "on": "2026-10-21"
+   }
+  },
+  {
+   "id": "S016",
+   "type": "carrier",
+   "url": "https://www.theglobalfund.org/en/news/2026/2026-06-16-new-rapid-tb-testing-13-countries-lifesaving-diagnosis-closer-to-communities/",
+   "title": "The Global Fund — news release on new rapid TB testing in 13 countries (16 June 2026)",
+   "also_called": [
+    "the Global Fund"
+   ],
+   "used_for": "The belief as carried now: rapid molecular testing described as lifesaving.",
+   "access": {
+    "state": "full_text_held",
+    "held": {
+     "file": "docs/eb/eb8631128ebf387a675decd14fba4e0ec598f6fb02a0d1377cef89acd1710e53.html",
+     "sha256": "eb8631128ebf387a675decd14fba4e0ec598f6fb02a0d1377cef89acd1710e53",
+     "bytes": 42987,
+     "identified_by": "contains 8 of 8 distinctive title words"
+    },
+    "on": "2026-10-21"
+   }
+  },
+  {
+   "id": "S017",
+   "type": "corrigendum",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6800215/",
+   "title": "Correction to Lancet Glob Health 2019; 7: e191-99 (Di Tanna et al.) (Lancet Glob Health 2019)",
+   "also_called": [
+    "the Di Tanna correction"
+   ],
+   "used_for": "Errata check on S003.",
+   "access": {
+    "state": "full_text_held",
+    "by": "script fetch on Fred Ugast's Mac (PMC article page), placed by the advisor on Fred's behalf; added by Claude Code",
+    "on": "2026-10-22",
+    "held": {
+     "file": "docs/1a/1a51906416ec55b1fa6e8e474beb3b3d297a4b96f5e79d97cc3a4f16b003bd76.html",
+     "sha256": "1a51906416ec55b1fa6e8e474beb3b3d297a4b96f5e79d97cc3a4f16b003bd76",
+     "bytes": 88120,
+     "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6800215/",
+     "identified_by": "contains its identifier 10.1016/S2214-109X(19)30046-4",
+     "kind": "document",
+     "kind_why": "form 'notice' — 2794 characters held. The article test does not apply to this form",
+     "recorded_by": "source_store add"
+    }
+   },
+   "identifier": {
+    "kind": "pmid",
+    "value": "30796002",
+    "resolved_by": "Europe PMC search, 2026-10-22, Claude Code",
+    "resolved_on": "2026-10-22",
+    "pmcid": "PMC6800215",
+    "doi": "10.1016/s2214-109x(19)30046-4"
+   },
+   "amends": "S003",
+   "effect_on_page": "Read in full by Claude Code, 2026-10-22. It corrects two author names in the affiliation list (A Raza Khaki to A R Khaki; L Sodai Zijenah to L S Zijenah). No figure or finding is changed; nothing on the page is affected."
+  }
+ ]
+}

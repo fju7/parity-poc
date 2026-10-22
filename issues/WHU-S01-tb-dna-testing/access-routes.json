@@ -1,0 +1,60 @@
+{
+  "what_this_is": "Where each document we do not hold can be got. Every route here was title-checked against our own record for that source, because the first hand-typed attempt at this returned three wrong papers from three wrong DOIs.",
+  "checked": "2026-10-22",
+  "sources": {
+    "S009": {
+      "ids": {
+        "doi": "10.1016/S0140-6736(13)62073-5"
+      },
+      "routes": [],
+      "notes": [
+        "identifier doi=10.1016/S0140-6736(13)62073-5 came from the url we already hold, not a search",
+        "resolved title: 'Feasibility, accuracy, and clinical effect of point-of-care Xpert MTB/RI'",
+        "Unpaywall: no free version anywhere (is_oa false)"
+      ],
+      "verified_title": "Feasibility, accuracy, and clinical effect of point-of-care Xpert MTB/RIF testing for tuberculosis in primary-care settings in Africa: a multicentre, randomised, controlled trial."
+    },
+    "S017": {
+      "ids": {
+        "doi": "10.1016/S2214-109X(19)30046-4"
+      },
+      "routes": [
+        [
+          "Europe PMC: Europe_PMC",
+          "html",
+          "https://europepmc.org/articles/PMC6800215"
+        ],
+        [
+          "Europe PMC: Europe_PMC",
+          "pdf",
+          "https://europepmc.org/articles/PMC6800215?pdf=render"
+        ],
+        [
+          "Europe PMC: DOI",
+          "doi",
+          "https://doi.org/10.1016/s2214-109x(19)30046-4"
+        ],
+        [
+          "Europe PMC full-text XML",
+          "xml",
+          "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC6800215/fullTextXML"
+        ],
+        [
+          "Unpaywall: publisher",
+          "publishedVersion",
+          "http://www.thelancet.com/article/S2214109X19300464/pdf"
+        ],
+        [
+          "Unpaywall: repository",
+          "submittedVersion",
+          "https://www.ncbi.nlm.nih.gov/pmc/articles/6800215"
+        ]
+      ],
+      "notes": [
+        "identifier doi=10.1016/S2214-109X(19)30046-4 came from the url we already hold, not a search",
+        "resolved title: 'Correction to Lancet Glob Health 2019; 7: e191–99'"
+      ],
+      "verified_title": "Correction to Lancet Glob Health 2019; 7: e191-99."
+    }
+  }
+}
