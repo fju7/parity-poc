@@ -28,9 +28,11 @@ computed when the check runs, from the records of what was spent:
                  the source role (an extract call starts a run; runs under
                  $1.00 were aborted and are not counted). Units: 1.
   conclusions    per sentence: the mean conclusion-judge call in the ledger.
-  advocate       per source: the mean of the ledger's per-source totals
-                 (advocate, advocate-questions and advocate-requote calls for
-                 one source on one day).
+  advocate       per source: the higher of the mean of the ledger's per-
+                 source totals (advocate, advocate-questions and advocate-
+                 requote calls for one source on one day) and the cost per
+                 objection times the most objections per source of any run
+                 (2026-10-22; _advocate_per_source).
   audit          per sentence unit: total usd / total units over every audit
                  manifest in issues/*/audit/.
   changecheck    per run: the mean changecheck call in the ledger (one call).
@@ -132,13 +134,7 @@ def per_unit(stage: str, entries: list[dict] | None = None, issues_dir: Path | N
         vals = [e.get("usd") or 0 for e in fd if (e.get("role") or "").startswith("conclusion_judge/")]
         how = "mean of %d metered conclusion-judge call(s)"
     elif stage == "advocate":
-        per = defaultdict(float)
-        for e in fd:
-            m = re.match(r"advocate(?:-requote|-questions)?:(\S+)$", e.get("role") or "")
-            if m:
-                per[(e.get("issue"), (e.get("at") or "")[:10], m.group(1))] += e.get("usd") or 0
-        vals = list(per.values())
-        how = "mean over %d measured source(s)"
+        return _advocate_per_source(fd, idir)
     elif stage == "audit":
         u = usd = 0.0
         n = 0
@@ -172,6 +168,69 @@ def per_unit(stage: str, entries: list[dict] | None = None, issues_dir: Path | N
         return sum(vals) / len(vals), how % len(vals)
     f, src = FALLBACK[stage]
     return f, "nothing measured yet; %s" % src
+
+
+def _advocate_per_source(fd: list[dict], idir: Path) -> tuple[float, str]:
+    """The source advocate's cost per source: the HIGHER of two measures
+    (2026-10-22), from the study and practice issues' runs (WHU-P*, WHU-S*:
+    P02, P04, S01, S02 when this was written; every issue's, where none has
+    run).
+
+      per source     the mean of the ledger's per-source totals (advocate,
+                     advocate-questions and advocate-requote calls for one
+                     source on one day)
+      per objection  the issues' advocate spend over the objections in their
+                     briefs (superseded runs included: their spend is in the
+                     ledger), times the most objections per source any one
+                     run's briefs hold
+
+    The per-source mean alone was $0.46 over these issues' 62 sources (2026-10-22)
+    against WHU-S02's $0.72 per source and $0.89 by the per-objection measure:
+    the cost follows the objections (each is checked, and re-asked when its
+    quotation is not in the held text), and a question that draws many
+    objections per source costs more than the mean source did."""
+    per = defaultdict(float)
+    for e in fd:
+        m = re.match(r"advocate(?:-requote|-questions)?:(\S+)$", e.get("role") or "")
+        if m:
+            per[(e.get("issue"), (e.get("at") or "")[:10], m.group(1))] += e.get("usd") or 0
+    cases = {p.name.split("-", 2)[2]: p for p in idir.glob("WHU-[PS][0-9]*-*") if p.is_dir()
+             and len(p.name.split("-", 2)) == 3}
+    if any(k[0] in cases for k in per):
+        per = {k: v for k, v in per.items() if k[0] in cases}
+    if not per:
+        f, src = FALLBACK["advocate"]
+        return f, "nothing measured yet; %s" % src
+    a = sum(per.values()) / len(per)
+    spend = defaultdict(float)
+    for (iss, _d, _s), v in per.items():
+        spend[iss] += v
+    objections, rates = 0, []
+    for iss in spend:
+        case = cases.get(iss)
+        for bf in sorted(case.glob("advocate/**/*-briefs.json")) if case else []:
+            if "TEST" in bf.name:
+                continue
+            try:
+                briefs = json.loads(bf.read_text(encoding="utf-8"))
+            except Exception:
+                continue
+            n = sum(len(b.get("objections") or []) for b in briefs
+                    if b.get("mode", "objections") == "objections")
+            objections += n
+            if briefs:
+                rates.append((n / len(briefs), "%s %s" % (case.name, bf.name)))
+    how_a = "$%.4f mean over %d measured source(s) in %d issue(s)" % (a, len(per), len(spend))
+    if not objections or not rates:
+        return a, how_a
+    each = sum(spend[i] for i in spend if cases.get(i)) / objections
+    top, where = max(rates)
+    b = each * top
+    how_b = ("$%.4f per objection over %d objection(s) x %.2f objections per source (the most of any "
+             "run: %s) = $%.4f" % (each, objections, top, where, b))
+    if b > a:
+        return b, "the higher of: %s; %s" % (how_b, how_a)
+    return a, "the higher of: %s; %s" % (how_a, how_b)
 
 
 def remaining(issue: str) -> dict:

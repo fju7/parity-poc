@@ -110,3 +110,28 @@ def test_every_paid_stage_is_guarded_before_its_first_call():
     assert 'stage_cap.guard("changecheck"' in src["changecheck.py"]
     assert 'stage_cap.guard("advocate"' in src["source_advocate.py"]
     assert 'stage_cap.guard("rulings"' in src["ruling.py"]
+
+
+def test_the_advocate_estimate_is_the_higher_of_per_source_and_per_objection(ledger, tmp_path):
+    """2026-10-22: from the study and practice issues' runs; WHU-S02's many
+    objections per source cost more than the mean source did."""
+    issues = tmp_path / "issues"
+    for name, briefs in (("WHU-P98-few", [{"source": "S1", "objections": [{}]},
+                                          {"source": "S2", "objections": [{}]}]),
+                         ("WHU-S98-many", [{"source": "S1", "objections": [{}] * 6}])):
+        (issues / name / "advocate").mkdir(parents=True)
+        (issues / name / "advocate" / "20261022T000000Z-briefs.json").write_text(json.dumps(briefs))
+    ledger += [_e("advocate:S1", 0.20, issue="few", at="2026-10-21T01:00:00+00:00"),
+               _e("advocate:S2", 0.20, issue="few", at="2026-10-21T01:00:00+00:00"),
+               _e("advocate:S1", 0.30, issue="many", at="2026-10-22T01:00:00+00:00"),
+               _e("advocate-requote:S1", 0.70, issue="many", at="2026-10-22T02:00:00+00:00"),
+               _e("advocate:S9", 5.00, issue="published", at="2026-09-01T01:00:00+00:00")]
+    each, how = SC.per_unit("advocate", issues_dir=issues)
+    # per source: (0.20 + 0.20 + 1.00) / 3 = 0.4667 (the published issue's run is not counted)
+    # per objection: 1.40 / 8 = 0.175, x 6 objections per source (WHU-S98) = 1.05
+    assert each == pytest.approx(1.05)
+    assert "the higher of" in how and "0.4667 mean over 3 measured source(s)" in how
+    # with few objections per source, the per-source mean is the higher
+    (issues / "WHU-S98-many" / "advocate" / "20261022T000000Z-briefs.json").write_text(
+        json.dumps([{"source": "S1", "objections": [{}]}]))
+    assert SC.per_unit("advocate", issues_dir=issues)[0] == pytest.approx(1.40 / 3)
