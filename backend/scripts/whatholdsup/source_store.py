@@ -764,6 +764,86 @@ def record_held(slug: str, sid: str, row: dict, *, via: str, identified_by: str)
     return acc
 
 
+# A FETCHED RESPONSE IS HELD ONLY IF IT IS THE DOCUMENT (2026-10-22).
+#
+# acquire_sources asked the substance question of article types alone; every
+# other type that identified itself was promoted to full_text_held. On WHU-S01
+# it recorded a 2,606-byte Elsevier linking-hub redirect page -- a <title> of
+# "Redirecting", a meta refresh, hidden form fields and scripts, the article's
+# name only inside a script -- as the full text of a corrigendum. classify()
+# would have called it a stub (11 visible characters against the notice floor
+# of 600); nobody asked it. held_check is the question every fetched response
+# now answers before the ledger may call it held: identity (identifies), the
+# substance check `add` records (classify, by the source's form), and the
+# source's title in the document's VISIBLE text, not merely in its markup or
+# scripts. A response that fails any of the three is not fetched, with the
+# reason; nothing is stored.
+
+HELD_STATES = ("full_text_held", "abstract_held")
+
+
+def visible_text(data: bytes, content_type: str = "", pages: int = 8) -> str:
+    """The text a reader of the document sees: the <head> (title, meta tags),
+    scripts, styles and tags removed from HTML; a PDF's or a JSON record's text
+    as it is."""
+    raw, _how = text_of(data, content_type, pages=pages)
+    if data[:5] != b"%PDF-" and data[:1] not in (b"{", b"["):
+        raw = re.sub(r"<head[\s>].*?</head>", " ", raw, flags=re.S | re.I)
+        raw = re.sub(r"<(script|style|noscript)[^>]*>.*?</\1>", " ", raw, flags=re.S | re.I)
+        raw = re.sub(r"<!--.*?-->", " ", raw, flags=re.S)
+        raw = re.sub(r"<[^>]+>", " ", raw)
+    return " ".join(raw.split())
+
+
+def title_present(data: bytes, src: dict, content_type: str = "") -> tuple[bool, str]:
+    """Is the source's title in the document's visible text? At least half its
+    distinctive words (identifying_tokens' title words), and at least one."""
+    words = [w for w in re.findall(r"[A-Za-z][A-Za-z0-9'-]{3,}", src.get("title", ""))
+             if w.lower() not in STOP][:12]
+    if not words:
+        return False, "the source records no title to look for"
+    hay = visible_text(data, content_type).lower()
+    hits = [w for w in words if w.lower() in hay]
+    need = max(1, (len(words) + 1) // 2)
+    if len(hits) >= need:
+        return True, "title present (%d of %d title words in the visible text)" % (len(hits), len(words))
+    return False, ("the title is not in the document's visible text (%d of %d title words; "
+                   "what identified it was in markup or scripts)" % (len(hits), len(words)))
+
+
+def _looks_like(data: bytes) -> str:
+    """A description of what a refused response appears to be, for the reason
+    only: the decision is held_check's positive tests, never this."""
+    head = data[:6000].decode("utf-8", "replace").lower()
+    if re.search(r"<meta[^>]+http-equiv=[\"']?refresh", head) or "window.location" in head:
+        return "a redirect page"
+    if re.search(r"just a moment|checking your browser|captcha|challenge-platform", head):
+        return "a challenge page"
+    return "not the document"
+
+
+def held_check(slug: str, sid: str, src: dict, data: bytes,
+               content_type: str = "") -> tuple[bool, dict]:
+    """May these fetched bytes be recorded as held? (ok, {state, kind, why,
+    identified_by}). ok only if they identify themselves, classify() finds the
+    document (by the source's form, as `add` records it) and the title is in
+    the visible text."""
+    ok, id_why = identifies(data, src, content_type)
+    if not ok:
+        return False, {"state": None, "kind": None, "why": id_why, "identified_by": None}
+    kind, kind_why = classify(slug, sid, data, content_type)
+    state = state_for(kind)
+    if state not in HELD_STATES:
+        return False, {"state": state, "kind": kind, "identified_by": id_why,
+                       "why": "identified (%s), but %s: %s — %s" % (id_why, _looks_like(data), kind, kind_why)}
+    t_ok, t_why = title_present(data, src, content_type)
+    if not t_ok:
+        return False, {"state": state, "kind": kind, "identified_by": id_why,
+                       "why": "identified (%s), but %s: %s" % (id_why, _looks_like(data), t_why)}
+    return True, {"state": state, "kind": kind, "identified_by": id_why,
+                  "why": "%s — %s; %s" % (id_why, kind_why, t_why)}
+
+
 def held(slug: str) -> dict:
     return load_issue_index(slug).get("sources") or {}
 

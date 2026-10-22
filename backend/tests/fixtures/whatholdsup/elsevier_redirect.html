@@ -1,0 +1,55 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta charset="utf-8">
+<META http-equiv=Content-Type content="text/html">
+<meta HTTP-EQUIV="REFRESH" content="2; url='/retrieve/articleSelectPrefsTemp?Redirect=http%3A%2F%2Fwww.example-journal.com%2Fretrieve%2Fpii%2FS0000000X19000000&amp;key=0000000000000000000000000000000000000000'"/>
+<meta name="tdm-reservation" content="1" />
+<meta name="tdm-policy" content="https://www.example.com/tdm/tdmrep-policy.json" />
+<title>Redirecting</title>
+<script type="text/JavaScript" src="/retrieve/static/script/siteCatalystHelper.js"></script>
+<script src="https://assets.example.com/launch.min.js"></script>
+<script language=JavaScript type="text/javascript">
+var timerStart = Date.now();
+var pageName = "";
+if (pageName == "") {
+	pageName = "Auto Article Locator";
+}
+	function autoRedirectToURL() {
+		var url = '/retrieve/'+document.getElementById('resultName').value+'?Redirect='+document.getElementById('redirectURL').value+'&key='+document.getElementById('key').value
+	 window.location = url;
+	}
+</script>
+</head>
+<body onload="setTimeout(autoRedirectToURL, 2000)">
+<form name="redirectForm" method="get" action="/retrieve/articleSelectPrefsTemp">
+<input type="hidden" name="redirectURL" value="http%3A%2F%2Fwww.example-journal.com%2Fretrieve%2Fpii%2FS0000000X19000000" id="redirectURL"/>
+<input type="hidden" name="key" value="0000000000000000000000000000000000000000" id="key"/>
+<input type="hidden" name="id" value="0" id="id"/>
+<input type="hidden" name="resultName" value="articleSelectPrefsTemp" id="resultName"/>
+</form>
+<script>
+	if (typeof siteCatalyst !== 'undefined') {
+		siteCatalyst.pageDataLoad({
+			 businessUnit : 'ELS:RP:ST',
+			 environment : 'prod',
+			 language : 'en',
+			 loadTime : (Date.now() - timerStart).toString(),
+			 loadTimestamp : Date.now().toString(),
+			 name : pageName,
+			 productName : 'IH',
+			 type : 'ih:article',
+			 detail : 'examplejournal',
+			 format :"MIME-XHTML",
+			 accessType : 'ih:anon_guest',
+			 ipAddress : '192.0.2.1',
+			 identifierType : 'PII',
+			 identifierValue : 'S0000000X19000000',
+			 articleName : 'Correction to Example Glob Health 2019; 7: e101&ndash;09',
+			 location : "Linking Hub"
+		});
+	}
+</script>
+<!-- xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx -->
+</body>
+</html>

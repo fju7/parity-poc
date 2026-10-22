@@ -35,8 +35,12 @@ opens it and answers specific recorded questions, which is exactly how issue
 two's NCCN claims were established.
 
 It also does not judge what it got. A 403 page, a cookie wall and a real PDF are
-all "bytes"; the size and content-type checks below reject the obvious cases,
-and everything that passes is still only a candidate until somebody looks. A
+all "bytes". Every response must pass source_store.held_check -- it identifies
+itself, the substance check `source_store add` records finds the document for
+the source's form, and its title is in the visible text -- or it is not
+fetched, with the reason in the ledger entry's last_fetch (2026-10-22: a
+publisher redirect page had been recorded as a corrigendum's full text).
+Everything that passes is still only a candidate until somebody looks. A
 store full of paywall notices is worse than an empty one, because it would
 report full_text_held.
 """
@@ -48,6 +52,7 @@ import re
 import sys
 import urllib.error
 import urllib.request
+from datetime import date
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
@@ -96,7 +101,7 @@ def fetch(url: str, timeout: int = 45) -> tuple[bytes, str, str]:
         return r.read(), r.headers.get("Content-Type", ""), r.geturl()
 
 
-def main() -> int:
+def main(argv=None) -> int:
     ap = argparse.ArgumentParser(description=__doc__,
                                  formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("slug")
@@ -106,7 +111,7 @@ def main() -> int:
     ap.add_argument("--use-routes", action="store_true",
                     help="try the free routes find_access.py recorded, in order, "
                          "before the source's own url")
-    args = ap.parse_args()
+    args = ap.parse_args(argv)
     case = store.case_dir(args.slug)
 
     # The free routes found by find_access.py. A publisher url that 403s a
@@ -153,36 +158,41 @@ def main() -> int:
             continue
         targets = list(routes.get(sid) or []) + [acquisition_url(s)]
         data = ct = final = None
-        why, held_kind = "no route tried", "record"
+        why, check, tried = "no route tried", {}, []
         for target in targets:
             try:
                 data, ct, final = fetch(target)
             except urllib.error.HTTPError as e:
-                why = "HTTP %s at %s" % (e.code, target[:60]); data = None; continue
+                why = "HTTP %s at %s" % (e.code, target[:60]); data = None
+                tried.append({"url": target, "result": why}); continue
             except Exception as e:
-                why = "%s at %s" % (type(e).__name__, target[:60]); data = None; continue
-            ok, why = store.identifies(data, s, ct)
-            if ok and s.get("type") in store.ARTICLE_TYPES:
-                # Identity is not substance. A repository landing page carries
-                # the paper's title and DOI and passes the identity test; it is
-                # a page ABOUT the document. Two were stored as full text on
-                # 2026-09-01 before this existed.
-                kind, swhy = store.substance(data, ct)
-                if kind == "landing":
-                    why = "identified, but %s" % swhy; data = None; continue
-                held_kind, why = kind, "%s — %s" % (why, swhy)
-                break
+                why = "%s at %s" % (type(e).__name__, target[:60]); data = None
+                tried.append({"url": target, "result": why}); continue
+            # Identity is not substance, for EVERY type (2026-10-22). Until
+            # then only article types were asked whether the bytes are the
+            # document; any other type that identified itself was recorded as
+            # full text, and on WHU-S01 a 2,606-byte publisher redirect page
+            # was. source_store.held_check asks what `add` records -- the
+            # substance check by the source's form -- and that the title is
+            # in the visible text.
+            ok, check = store.held_check(args.slug, sid, s, data, ct)
+            why = check["why"]
             if ok:
-                held_kind = "record"
                 break
-            why = "%s (%s)" % (why, target[:60]); data = None
+            why = "%s (%d bytes at %s)" % (why, len(data), target[:60]); data = None
+            tried.append({"url": target, "result": why})
         if data is None:
+            # NOT FETCHED, and the ledger says why. The state is left as it was:
+            # nothing was stored, so nothing is claimed.
+            acc["last_fetch"] = {"on": date.today().isoformat(), "by": "acquire_sources.py",
+                                 "result": "not fetched", "why": why, "tried": tried}
             failed.append((sid, why, s.get("title", ""))); continue
         row = store.put(args.slug, sid, data, url=final, via="acquire_sources.py on the "
                         "operator's machine", content_type=ct, title=s.get("title", ""))
-        acc["state"] = ("abstract_held" if held_kind == "abstract" else "full_text_held")
+        acc["state"] = check["state"]
+        acc.pop("last_fetch", None)
         acc["held"] = {"file": row["file"], "sha256": row["sha256"], "bytes": row["bytes"],
-                       "identified_by": why}
+                       "identified_by": why, "kind": row["kind"], "kind_why": row["kind_why"]}
         acc.setdefault("on", row["retrieved"])
         got.append((sid, row["file"], row["bytes"]))
         print("  HELD     %-6s %-46s %8d B  (%s)"
