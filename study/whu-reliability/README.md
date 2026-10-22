@@ -6,6 +6,7 @@ This directory holds the study's code, prompts and blinding list. Data the study
 
 | Path | What |
 |---|---|
+| `deviations.md` | The deviations log the frozen protocol requires: every departure from it after the freeze (5d83e9b), with its date, what changed, why, and whether it was decided before or after any result was seen. |
 | `prompts/m1_citation_support.md` | M1 judge prompt (claim + about 400 characters of context + source snapshot → one of seven labels). Version 2 (see below). |
 | `prompts/m2_conclusion_calibration.md` | M2 judge prompt (blinded answer + one answer-key conclusion → Matches / Overstates / Understates / Contradicts / Omits). **Drafted, not tested**: there are no M2 items yet. It is tested later on the practice questions' answer keys. |
 | `scripts/snapshot.py` | Fetches each cited source once and saves the bytes, the text both judges read, sha256 and readable extent. Free. |
