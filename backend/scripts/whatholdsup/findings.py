@@ -265,8 +265,100 @@ def recency_findings(report: dict) -> list[dict]:
             s.get("draft_uses") or "?", s.get("latest_known") or "?",
             ("; what changes: %s" % s["what_changed"]) if s.get("what_changed") else "")
         out.append({"id": recency_id(report, i), "legacy_id": "rec-%d" % i, "kind": "recency",
-                    "verdict": s.get("status") or "UNKNOWN", "what": what[:400]})
+                    "verdict": s.get("status") or "UNKNOWN", "what": what[:400],
+                    "study": s.get("name") or ""})
     return out
+
+
+# A RECENCY FINDING IS ABOUT THE SENTENCES THAT USE THE SOURCE (2026-10-22).
+#
+# The gate's recency role names a study, not a sentence. ruling.py looked the
+# name up among the page's sentences, and the one that carries a study's name
+# is its title line in the source list -- so on WHU-S02 rec-1 was ruled on the
+# source-list line, with no bound passage, while the body sentences printing
+# the study's figures went unexamined. recency_targets finds the source(s) the
+# study names (the source-list entries whose lines name it, and sources.json
+# titles that contain it) and returns every body sentence whose binding rests
+# on one of them (its span, a premise, or also_rests_on). A source-list line is
+# never a target.
+
+def _fold(s: str) -> str:
+    return " ".join((s or "").split()).lower()
+
+
+def source_list_text(slug: str) -> list[str]:
+    """The plain text of each source-list entry (<div class="src">) on the
+    page, tag included; [] if the page cannot be read."""
+    try:
+        import bindings as B
+        import source_ledger as ledger
+        raw = B.HEAD.sub(" ", B._page_html(slug))
+    except Exception:
+        return []
+    return [_fold(ledger.plain(b)) for b in re.findall(r'<div class="src">(.*?)</div>', raw, re.S)]
+
+
+def _entry_sources(slug: str, srcs: list[dict]) -> list[tuple[str, list[str]]]:
+    """(entry text, the sources its links name) for each source-list entry."""
+    try:
+        import bibbind
+        lines = bibbind.lines(slug)
+    except Exception:
+        return []
+    return [(_fold(l["sentence"]), list(l.get("sources") or [])) for l in lines]
+
+
+def _rests_on(row: dict, sids: set) -> bool:
+    if row.get("source_id") in sids:
+        return True
+    return any(isinstance(x, dict) and x.get("source_id") in sids
+               for k in ("premises", "also_rests_on") for x in (row.get(k) or []))
+
+
+def recency_targets(slug: str, study: str, rows: dict, *, srcs: list[dict] | None = None,
+                    entries: list[str] | None = None,
+                    entry_sources: list[tuple[str, list[str]]] | None = None) -> tuple[list[str], list[str]]:
+    """(the sources STUDY names, the keys of every on-page body row whose
+    binding rests on one of them), in row order. With no source found, the
+    body rows whose sentence names the study. Never a source-list line."""
+    if srcs is None:
+        try:
+            srcs = store.sources(slug)
+        except (OSError, ValueError, SystemExit):
+            srcs = []
+    entries = source_list_text(slug) if entries is None else entries
+    entry_sources = _entry_sources(slug, srcs) if entry_sources is None else entry_sources
+    n = _fold(study)
+    if not n:
+        return [], []
+    # the name whole, or else every distinctive word of it (two at least):
+    # the gate writes "the MONALEESA-2 trial" for a title that says
+    # "Ribociclib ... (MONALEESA-2)"
+    words = [w for w in re.findall(r"[a-z0-9][a-z0-9'-]{2,}", n)
+             if w not in store.STOP and w not in ("trial", "study", "review", "the")]
+
+    def names(text: str) -> bool:
+        if n in text:
+            return True
+        toks = set(re.findall(r"[a-z0-9][a-z0-9'-]{2,}", text))
+        return len(words) >= 2 and all(w in toks for w in words) or (len(words) == 1 and words[0] in toks
+                                                                      and len(words[0]) >= 5)
+    sids: list[str] = []
+    for text, ids in entry_sources:
+        if names(text):
+            sids += [i for i in ids if i not in sids]
+    for s in srcs:
+        if names(_fold(s.get("title"))) and s.get("id") not in sids:
+            sids.append(s["id"])
+
+    def body(r):
+        sent = _fold(r.get("sentence"))
+        return r.get("on_page") and sent and not any(sent in e for e in entries)
+    if sids:
+        keys = [k for k, r in rows.items() if body(r) and _rests_on(r, set(sids))]
+    else:
+        keys = [k for k, r in rows.items() if body(r) and n in _fold(r.get("sentence"))]
+    return sids, keys
 
 
 # RECENCY IDS NAME THEIR DRAFT (2026-10-22, protocol rev 38): f<draft sha>-rec-N,
@@ -453,17 +545,30 @@ def check(slug: str, report: dict) -> list[tuple[str, str, str]]:
 def scan(slug: str, report: dict) -> dict:
     doc = load(slug)
     have = {f.get("id"): f for f in (doc.get("findings") or [])}
+    rows = None
     for f in _opens(slug, report):
         if record_for(have, f) is not None:
             continue
-        doc["findings"].append({
+        rec = {
             "id": f["id"], "kind": f["kind"], "gate_verdict": f["verdict"],
             "gate_said": f["what"],
             "decision": "", "source_id": "", "quote": "", "why": "",
             "by": "", "on": date.today().isoformat(),
             "_fill_in": "decision: %s. accepted/rejected need source_id AND a "
                         "quote that is in that document." % ", ".join(DECISIONS),
-        })
+        }
+        if f["kind"] == "recency":
+            # the body sentences it is about, recorded when it is opened
+            # (ruling.py recomputes them from the current rows)
+            if rows is None:
+                try:
+                    import bindings as B
+                    rows = B.load(slug).get("bindings") or {}
+                except Exception:
+                    rows = {}
+            sids, keys = recency_targets(slug, f.get("study") or "", rows)
+            rec["attached_to"] = {"study": f.get("study") or "", "sources": sids, "rows": keys}
+        doc["findings"].append(rec)
     save(slug, doc)
     return doc
 

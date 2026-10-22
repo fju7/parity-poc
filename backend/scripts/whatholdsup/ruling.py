@@ -485,16 +485,41 @@ def gate_items(report: dict, findings_doc: dict) -> list[dict]:
             # sha>-rec-N, or rec-N if recorded before 2026-10-22.
             s = rec[_rec_index(fid) - 1]
             text = s.get("name") or ""
-            out.append({"finding": f, "text": text, "fix": "", "alt": s.get("draft_uses") or ""})
+            out.append({"finding": f, "text": text, "fix": "", "alt": s.get("draft_uses") or "",
+                        "recency": True, "study": text})
             continue
         out.append({"finding": f, "text": text, "fix": fix})
     return out
 
 
-def _gate_items(rows: dict, report: dict, doc: dict, held: dict) -> list[dict]:
+def _recency_items(slug: str, it: dict, rows: dict, held: dict) -> list[dict]:
+    """One item per body sentence a recency finding is about
+    (findings.recency_targets: every on-page row whose binding rests on the
+    study's source; never the source-list line), each with the recency result
+    as its reason and the sentence's own bound passages. A sentence already
+    ruled for this finding (sentence_rulings) is not ruled again. With no such
+    sentence, one item with no row."""
+    import findings as F
+    f = it["finding"]
+    _sids, keys = F.recency_targets(slug, it["study"], rows)
+    done = {x.get("row") for x in f.get("sentence_rulings") or []}
+    base = {"finding": f, "kind": "gate %s finding (%s)" % (f.get("kind"), f.get("gate_verdict")),
+            "reason": f.get("gate_said") or "", "proposed": "", "recency": True, "study": it["study"]}
+    if not keys:
+        return [dict(base, key=sentence_key(None, it["text"]), sentence=it["text"], quotes=[],
+                     ref={"finding_id": f.get("id"), "row": None, "sentence_found": False})]
+    return [dict(base, key=("row", k), sentence=rows[k]["sentence"], quotes=quotations(rows[k], held),
+                 ref={"finding_id": f.get("id"), "row": k, "sentence_found": True})
+            for k in keys if k not in done]
+
+
+def _gate_items(rows: dict, report: dict, doc: dict, held: dict, slug: str | None = None) -> list[dict]:
     out = []
     for it in gate_items(report, doc):
         f = it["finding"]
+        if it.get("recency") and slug:
+            out += _recency_items(slug, it, rows, held)
+            continue
         hit = _row_for(rows, it["text"]) or (_row_for(rows, it["alt"]) if it.get("alt") else None)
         sentence = hit[1]["sentence"] if hit else it["text"]
         out.append({"key": sentence_key(hit, sentence), "sentence": sentence, "finding": f,
@@ -523,7 +548,8 @@ def rule_gate(slug: str, call, *, P=None, report: dict | None = None, rows: dict
         held = held_texts(slug)
     doc = F.load(slug)
     done = []
-    for group in by_sentence(_gate_items(rows, report, doc, held)):
+    recency: dict = {}
+    for group in by_sentence(_gate_items(rows, report, doc, held, slug)):
         r = _try_sentence("gate", group, held, call, log_path(slug), failed)
         if r is None:
             continue
@@ -537,6 +563,18 @@ def rule_gate(slug: str, call, *, P=None, report: dict | None = None, rows: dict
         together = _together(group, lambda it: it["finding"].get("id"))
         for it in group:
             f = it["finding"]
+            if it.get("recency") and it["ref"].get("row"):
+                # one ruling per body sentence; the finding is settled below,
+                # when every sentence it is about has one
+                sr = {"row": it["ref"]["row"], "sentence": it["sentence"], "decision": decision,
+                      "source_id": sid, "quote": quote, "why": got.get("reason") or "",
+                      "ruling": got["ruling"], "ruling_text": got.get("text"),
+                      "ruled": "ruling.py gate, prompt %s" % psha[:12], "on": date.today().isoformat()}
+                if together:
+                    sr["ruled_together"] = together
+                f.setdefault("sentence_rulings", []).append(sr)
+                recency[f.get("id")] = (f, it["study"])
+                continue
             f.update({"decision": decision, "source_id": sid, "quote": quote,
                       "why": got.get("reason") or "", "by": BY, "on": date.today().isoformat(),
                       "ruling": got["ruling"], "ruling_text": got.get("text"),
@@ -545,8 +583,41 @@ def rule_gate(slug: str, call, *, P=None, report: dict | None = None, rows: dict
                 f["ruled_together"] = together
             f.pop("_fill_in", None)
             done.append(f)
+    for f, study in recency.values():
+        if _settle_recency(slug, f, rows, study):
+            done.append(f)
     F.save(slug, doc)
     return done
+
+
+def _settle_recency(slug: str, f: dict, rows: dict, study: str) -> bool:
+    """Decide a recency finding once every body sentence it is about has a
+    ruling: accepted if any sentence's ruling accepts or amends (citing a
+    quotation), rejected if all reject (citing one), judgement where none
+    cites a quotation. The texts to apply are the sentences' own
+    (sentence_rulings, and each ruling's log record)."""
+    import findings as F
+    _sids, keys = F.recency_targets(slug, study, rows)
+    srs = f.get("sentence_rulings") or []
+    if set(keys) - {x["row"] for x in srs}:
+        return False                         # a sentence still to rule (RULING_FAILED)
+    changed = [x for x in srs if x["ruling"] in ("accept", "amend")]
+    pool = changed or srs
+    cited = next((x for x in pool if x["decision"] != "judgement"), None)
+    if changed:
+        decision = "accepted" if cited else "judgement"
+    else:
+        decision = "rejected" if cited else "judgement"
+    f.update({"decision": decision, "source_id": cited["source_id"] if cited else "",
+              "quote": cited["quote"] if cited else "",
+              "why": "; ".join("%s: %s" % (x["row"], x["why"]) for x in srs),
+              "by": BY, "on": date.today().isoformat(),
+              "ruling": "accept" if changed else "reject",
+              "ruling_text": None, "ruled": "ruling.py gate, one ruling per body sentence "
+                                            "(sentence_rulings)"})
+    f.pop("_fill_in", None)
+    return True
+
 
 
 def _conclusion_items(review: dict, rows: dict, held: dict) -> list[dict]:
@@ -847,7 +918,7 @@ def pending(mode: str, slug: str, P=None) -> int:
         import findings as F
         page = P.ROOT / P.issue_cfg(slug)["page"]
         report = json.loads(page.with_suffix(page.suffix + ".gate.json").read_text(encoding="utf-8"))
-        items = _gate_items(rows, report, F.load(slug), {})
+        items = _gate_items(rows, report, F.load(slug), {}, slug)
     elif mode == "conclusions":
         import conclusion_judge as CJ
         items = _conclusion_items(CJ.load_review(slug), rows, {})
