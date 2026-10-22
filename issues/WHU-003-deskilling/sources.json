@@ -922,7 +922,7 @@
       "used_for": "A position paper arguing that AI safety and alignment work has confined itself to discrimination, harmful content, information hazards and malicious use, while the public conversation is about cognition, mental health and over-reliance — 'deskilling associated with cognitive offloading and the atrophy of critical thinking... and addiction associated with attachment and dependence'. Their point: 'Such risks are rarely addressed, if at all, in the AI safety and alignment literature.'",
       "why_it_matters": "Independent confirmation, from inside the AI research community and accepted at FAccT, that this gap is real and recognised. Not a counterexample to our claim; a corroboration of the premise underneath it.",
       "access": {
-        "state": "full_text_held",
+        "state": "abstract_held",
         "by": "claude",
         "on": "2026-08-29",
         "sections": [
@@ -931,7 +931,7 @@
         "not_read": [
           "the paper"
         ],
-        "note": "Abstract only.\n\n2026-09-01: state migrated from `machine_read` to `fragment_only`. machine_read was abolished on issue two the same day: its only evidence was that this URL appeared in the citation list of a gate report, so an automated check reached it. Nothing checked what came back, or whether anything did. It sat in READ_STATES and licensed characterisation and adverse claims; fragment_only licenses neither. Nothing about what we know changed here — only what the ledger admits. Issues one and three kept the abolished state for a day because no check asked whether a state was one the ledger defines. One does now.",
+        "note": "Abstract only.\n\n2026-09-01: state migrated from `machine_read` to `fragment_only`. machine_read was abolished on issue two the same day: its only evidence was that this URL appeared in the citation list of a gate report, so an automated check reached it. Nothing checked what came back, or whether anything did. It sat in READ_STATES and licensed characterisation and adverse claims; fragment_only licenses neither. Nothing about what we know changed here — only what the ledger admits. Issues one and three kept the abolished state for a day because no check asked whether a state was one the ledger defines. One does now.\n\nHeld file is arXiv's abstract page (2605.03512), not the paper; corrected 2026-10-22 (advisor ruling). No binding rests on it.",
         "held": {
           "file": "docs/94/945bd6e22b82612820de84f4ba5835d653389fdf87259fd3c9b2f888d3b5610f.html",
           "sha256": "945bd6e22b82612820de84f4ba5835d653389fdf87259fd3c9b2f888d3b5610f",
