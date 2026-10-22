@@ -1,0 +1,9 @@
+{
+  "id": "WHU-S02",
+  "slug": "teen-depression-therapy-format",
+  "title": "For teenagers who are depressed, does it make a difference how CBT, a common talking therapy, is given: in a group, one to one, remotely, or as self-help with or without a therapist's guidance?",
+  "question": "For teenagers who are depressed, does it make a difference how CBT, a common talking therapy, is given: in a group, one to one, remotely, or as self-help with or without a therapist's guidance?",
+  "study": true,
+  "status": "draft",
+  "_study_note": "A WHU reliability study question (protocol frozen at 5d83e9b8025312923f3fb8ea2d5de3b47c212362), drawn on 22 October 2026 with the seed taken from that commit's hash. The question is written in plain words from the drawn source's stated objective or main claim; the source is identified only in the study README's private notes, which a drafting session does not read (study/whu-reliability/RUN.md). A study issue is never published: publish, update and announce refuse it, and its preflight records outside review, adjudication verification, operator acceptance and publication as SKIPPED. Cap: caps.json study_per_issue. Created 2026-10-22; nothing else is written here until drafting starts."
+}

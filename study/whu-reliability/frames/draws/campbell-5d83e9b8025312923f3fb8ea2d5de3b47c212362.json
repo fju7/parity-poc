@@ -62,5 +62,22 @@
    "result": "drawn",
    "draw": 1
   }
- ]
+ ],
+ "closer_reading": {
+  "protocol": "frozen at 5d83e9b8025312923f3fb8ea2d5de3b47c212362; Question selection, 'Eligible if the review' 1-5",
+  "by": "Claude Code (session 187dcad4-6322-4fa2-928f-614c638a40c4)",
+  "on": "2026-10-22",
+  "entries": {
+   "38188230": {
+    "read": "the PubMed abstract (sha256 matches the frame's abstract_sha256)",
+    "1_published_in_window": "pass: 2024-01-07",
+    "2_certainty_grade_on_main_conclusion": "pass: the review's primary aim is the relative efficacy of delivery modes, and its ranking of the modes is stated with a GRADE-style certainty ('very low certainty in treatment ranking'). Borderline: the abstract's closing conclusions carry no grade of their own; the graded statement is the one about the primary aim, so the test is taken as met",
+    "3_one_plain_question": "pass: whether the way a talking therapy is delivered makes a difference, for teenagers with depressive symptoms",
+    "4_public_abstract": "pass: full abstract in PubMed",
+    "5_not_a_whu_topic": "pass: the nearest WHU question is the pilot's T01 (exercise and depression); this review is about the delivery format of a psychological therapy, not exercise, so the question is a different one",
+    "result": "eligible on closer reading; the draw stands"
+   }
+  },
+  "next_in_shuffle_taken": false
+ }
 }

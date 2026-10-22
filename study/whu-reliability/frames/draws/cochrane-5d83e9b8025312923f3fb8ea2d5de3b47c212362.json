@@ -62,5 +62,22 @@
    "result": "drawn",
    "draw": 1
   }
- ]
+ ],
+ "closer_reading": {
+  "protocol": "frozen at 5d83e9b8025312923f3fb8ea2d5de3b47c212362; Question selection, 'Eligible if the review' 1-5",
+  "by": "Claude Code (session 187dcad4-6322-4fa2-928f-614c638a40c4)",
+  "on": "2026-10-22",
+  "entries": {
+   "41410210": {
+    "read": "the PubMed abstract (sha256 matches the frame's abstract_sha256)",
+    "1_published_in_window": "pass: 2025-12-18",
+    "2_certainty_grade_on_main_conclusion": "pass: the main conclusions carry GRADE certainty (high-certainty and moderate-certainty evidence)",
+    "3_one_plain_question": "pass: the objective (whether a class of diagnostic tests changes outcomes for people investigated for the disease, against the older tests) can be put as one plain question",
+    "4_public_abstract": "pass: full abstract in PubMed",
+    "5_not_a_whu_topic": "pass: no published, test or practice issue is on this topic",
+    "result": "eligible on closer reading; the draw stands"
+   }
+  },
+  "next_in_shuffle_taken": false
+ }
 }

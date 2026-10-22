@@ -1,0 +1,9 @@
+{
+  "id": "WHU-S01",
+  "slug": "tb-dna-testing",
+  "title": "For people being checked for TB, does DNA-based testing, used instead of the older microscope or lab-culture methods, change what happens to them, for example whether they survive, are cured, or start treatment sooner?",
+  "question": "For people being checked for TB, does DNA-based testing, used instead of the older microscope or lab-culture methods, change what happens to them, for example whether they survive, are cured, or start treatment sooner?",
+  "study": true,
+  "status": "draft",
+  "_study_note": "A WHU reliability study question (protocol frozen at 5d83e9b8025312923f3fb8ea2d5de3b47c212362), drawn on 22 October 2026 with the seed taken from that commit's hash. The question is written in plain words from the drawn source's stated objective or main claim; the source is identified only in the study README's private notes, which a drafting session does not read (study/whu-reliability/RUN.md). A study issue is never published: publish, update and announce refuse it, and its preflight records outside review, adjudication verification, operator acceptance and publication as SKIPPED. Cap: caps.json study_per_issue. Created 2026-10-22; nothing else is written here until drafting starts."
+}

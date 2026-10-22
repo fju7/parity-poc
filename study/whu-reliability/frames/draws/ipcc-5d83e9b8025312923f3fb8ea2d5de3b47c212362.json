@@ -82,5 +82,32 @@
    "result": "drawn",
    "draw": 2
   }
- ]
+ ],
+ "closer_reading": {
+  "protocol": "frozen at 5d83e9b8025312923f3fb8ea2d5de3b47c212362; Question selection, 'Eligible if the review' 1-5",
+  "by": "Claude Code (session 187dcad4-6322-4fa2-928f-614c638a40c4)",
+  "on": "2026-10-22",
+  "entries": {
+   "AR6-WGIII-E.3.3": {
+    "read": "the full statement from the SPM page (sha256 matches the frame's statement_sha256)",
+    "1_published_in_window": "pass: AR6 WGIII, 2022",
+    "2_certainty_grade_on_main_conclusion": "pass: the statement closes with a calibrated confidence level ('medium confidence') covering its claims",
+    "3_one_plain_question": "pass: its main claim (its first sentence) can be put as one plain question; the later sentences are subsidiary",
+    "4_public_abstract": "pass: the SPM is published in full",
+    "5_not_a_whu_topic": "pass",
+    "result": "eligible on closer reading; the draw stands"
+   },
+   "AR6-WGII-D.3.2": {
+    "read": "the full statement from the SPM page (sha256 matches the frame's statement_sha256)",
+    "1_published_in_window": "pass: AR6 WGII, 2022",
+    "2_certainty_grade_on_main_conclusion": "pass: the main claim (its first sentence) carries 'high confidence'",
+    "3_one_plain_question": "pass: its main claim can be put as one plain question",
+    "4_public_abstract": "pass: the SPM is published in full",
+    "5_not_a_whu_topic": "pass",
+    "different_ar6_report": "pass: Working Group II; the other IPCC draw is Working Group III",
+    "result": "eligible on closer reading; the draw stands"
+   }
+  },
+  "next_in_shuffle_taken": false
+ }
 }
