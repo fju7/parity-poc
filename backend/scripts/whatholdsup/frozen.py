@@ -39,8 +39,11 @@ FROZEN_SHA256 = {
         "6ea2f39f88794f68d8fd81bfe41b329d5531e8c8fa41461013930bb19db04792",
     "backend/scripts/whatholdsup/audit_prompts/summary.md":
         "1c7e7082472ee657c7014b4ce805ec62cf1ff16bd91cd0cf2548ca111764335a",
+    # Re-pinned 2026-10-22 on Fred's ruling (step 3 gains the quotations.py
+    # --init line); was 17e248432c128edaf747bd6f6fa808d48fa378d7cbb2c8097659ea8706cbe6c0
+    # at the freeze. study/whu-reliability/deviations.md records it.
     "study/whu-reliability/RUN.md":
-        "17e248432c128edaf747bd6f6fa808d48fa378d7cbb2c8097659ea8706cbe6c0",
+        "bbfd0a8b6d155e1fea3d6087994ca416b8b374036dca9c48ce1ee2ede86030c0",
 }
 # Pinned where they are read, and listed here so one report covers them all.
 ELSEWHERE = {

@@ -405,6 +405,13 @@ def interrupted_by(verbatim: str, body: str) -> str | None:
     return None
 
 
+def _rel(page: Path) -> str:
+    try:
+        return str(Path(page).resolve().relative_to(ROOT))
+    except ValueError:
+        return str(page)
+
+
 def preflight_rows(slug: str, page_text: str,
                    page: Path | None = None) -> list[tuple[str, str, str]]:
     on_page = extract(page_text)
@@ -416,8 +423,10 @@ def preflight_rows(slug: str, page_text: str,
         return [("quotation matcher", BAD,
                  "%d quoted passage(s) on the page and no quotations.json. Nothing "
                  "records what the sources actually say, so nothing can tell an "
-                 "accurate quotation from an altered one. "
-                 "publish.py quotations init %s" % (len(on_page), slug))]
+                 "accurate quotation from an altered one. Write it with: "
+                 "py backend/scripts/whatholdsup/quotations.py %s --page %s --init, then fill "
+                 "each quotation's source_id and verbatim (RUN.md step 3)"
+                 % (len(on_page), slug, _rel(page) if page else "<the page>"))]
 
     recs = _records(d)
     by_key = {norm(r.get("quote", "")): r for r in recs if r.get("quote")}
