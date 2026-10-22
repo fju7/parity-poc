@@ -1,0 +1,324 @@
+{
+ "what_this_is": "Source register for WHU-S02 (reliability-study issue; never published).",
+ "sources": [
+  {
+   "id": "S001",
+   "type": "synthesis",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10771715/",
+   "title": "Bjornstad G et al. — A comparison of the effectiveness of cognitive behavioural interventions based on delivery features for elevated symptoms of depression in adolescents: a systematic review (Campbell Systematic Reviews 2024;20:e1376)",
+   "also_called": [
+    "Bjornstad",
+    "the Campbell review"
+   ],
+   "used_for": "Network meta-analysis of randomised trials comparing group, individual, remote, guided self-help and unguided self-help CBT with each other and with controls for adolescents with elevated depressive symptoms: post-treatment and 6-12 month symptoms, and acceptability.",
+   "access": {
+    "state": "full_text_held",
+    "held": {
+     "file": "docs/f0/f0aa091dd7e207a25fbd5761e0cb215560d7619ba12364354c320315ac82aa0e.xml",
+     "sha256": "f0aa091dd7e207a25fbd5761e0cb215560d7619ba12364354c320315ac82aa0e",
+     "bytes": 966422,
+     "identified_by": "contains its identifier PMC10771715 — 328495 characters, reference list and discussion present; title present (12 of 12 title words in the visible text)",
+     "kind": "full_text",
+     "kind_why": "328495 characters, reference list and discussion present"
+    },
+    "on": "2026-10-22"
+   },
+   "identifier": {
+    "kind": "pmid",
+    "value": "38188230",
+    "resolved_by": "Europe PMC search, 2026-10-22, Claude Code",
+    "resolved_on": "2026-10-22",
+    "pmcid": "PMC10771715",
+    "doi": "10.1002/cl2.1376"
+   }
+  },
+  {
+   "id": "S002",
+   "type": "synthesis",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC13002926/",
+   "title": "Bevilacqua L et al. — Effectiveness of technology-assisted vs face-to-face cognitive behavioural therapy for anxiety and depression in children and young people: a systematic review and meta-analysis (Clin Child Psychol Psychiatry 2024)",
+   "also_called": [
+    "Bevilacqua",
+    "the technology-assisted review"
+   ],
+   "used_for": "Head-to-head trials of technology-assisted (online, app, phone, video) versus face-to-face CBT in children and young people, including depression.",
+   "access": {
+    "state": "full_text_held",
+    "held": {
+     "file": "docs/2c/2c5988c88d8481406b20a8534265894fef4e473e11b7131fd6a279e6d090e3f0.xml",
+     "sha256": "2c5988c88d8481406b20a8534265894fef4e473e11b7131fd6a279e6d090e3f0",
+     "bytes": 116353,
+     "identified_by": "contains its identifier PMC13002926 — 47839 characters, reference list and discussion/introduction present; title present (12 of 12 title words in the visible text)",
+     "kind": "full_text",
+     "kind_why": "47839 characters, reference list and discussion/introduction present"
+    },
+    "on": "2026-10-22"
+   },
+   "identifier": {
+    "kind": "pmid",
+    "value": "38870346",
+    "resolved_by": "Europe PMC search, 2026-10-22, Claude Code",
+    "resolved_on": "2026-10-22",
+    "pmcid": "PMC13002926",
+    "doi": "10.1177/13591045241259070"
+   }
+  },
+  {
+   "id": "S003",
+   "type": "synthesis",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9039813/",
+   "title": "Wickersham A et al. — Computerized cognitive behavioral therapy for treatment of depression and anxiety in adolescents: systematic review and meta-analysis (J Med Internet Res 2022;24:e29842)",
+   "also_called": [
+    "Wickersham",
+    "the computerised CBT review"
+   ],
+   "used_for": "Pooled effect of computerised CBT for adolescent depression versus controls, and its comparison with active treatments.",
+   "access": {
+    "state": "full_text_held",
+    "held": {
+     "file": "docs/e7/e7cbc146f7d0346a3a7136f5453a395a3468741cb618e23adc75bef931e043d9.xml",
+     "sha256": "e7cbc146f7d0346a3a7136f5453a395a3468741cb618e23adc75bef931e043d9",
+     "bytes": 153794,
+     "identified_by": "contains its identifier PMC9039813 — 53594 characters, reference list and discussion/introduction present; title present (12 of 12 title words in the visible text)",
+     "kind": "full_text",
+     "kind_why": "53594 characters, reference list and discussion/introduction present"
+    },
+    "on": "2026-10-22"
+   },
+   "identifier": {
+    "kind": "pmid",
+    "value": "35404263",
+    "resolved_by": "Europe PMC search, 2026-10-22, Claude Code",
+    "resolved_on": "2026-10-22",
+    "pmcid": "PMC9039813",
+    "doi": "10.2196/29842"
+   }
+  },
+  {
+   "id": "S004",
+   "type": "synthesis",
+   "url": "https://doi.org/10.1016/j.adolescence.2018.05.011",
+   "title": "Keles S, Idsoe T — A meta-analysis of group cognitive behavioral therapy (CBT) interventions for adolescents with depression (J Adolesc 2018;67:129-139)",
+   "also_called": [
+    "Keles and Idsoe",
+    "the group CBT meta-analysis"
+   ],
+   "used_for": "Pooled effect of group CBT for adolescent depression versus controls, after treatment and at follow-up.",
+   "access": {
+    "state": "blocked",
+    "reason": "paywalled; no open-access copy",
+    "checked_by": "advisor, on Fred Ugast's behalf (Unpaywall: closed, no OA location; publisher 403); recorded by Claude Code",
+    "on": "2026-10-22",
+    "not_cited": "not cited or bound; its findings are used only as reported by held sources, attributed to them",
+    "last_fetch": {
+     "on": "2026-10-22",
+     "by": "acquire_sources.py",
+     "result": "not fetched",
+     "why": "HTTP 403 at https://doi.org/10.1016/j.adolescence.2018.05.011",
+     "tried": [
+      {
+       "url": "https://doi.org/10.1016/j.adolescence.2018.05.011",
+       "result": "HTTP 403 at https://doi.org/10.1016/j.adolescence.2018.05.011"
+      }
+     ]
+    }
+   },
+   "identifier": {
+    "kind": "pmid",
+    "value": "29957492",
+    "resolved_by": "Europe PMC search, 2026-10-22, Claude Code",
+    "resolved_on": "2026-10-22",
+    "doi": "10.1016/j.adolescence.2018.05.011"
+   }
+  },
+  {
+   "id": "S005",
+   "type": "synthesis",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11380195/",
+   "title": "Ma Q et al. — Effectiveness of internet-based self-help interventions for depression in adolescents and young adults: a systematic review and meta-analysis (BMC Psychiatry 2024;24:604)",
+   "also_called": [
+    "Ma",
+    "the internet self-help review"
+   ],
+   "used_for": "Pooled effect of internet self-help for depression in adolescents and young adults, and whether therapist involvement moderates it.",
+   "access": {
+    "state": "full_text_held",
+    "held": {
+     "file": "docs/d9/d9f20d7b2b9185eb46114541d97bbd91884f2061a80ee36a8e405c7b19be44ba.xml",
+     "sha256": "d9f20d7b2b9185eb46114541d97bbd91884f2061a80ee36a8e405c7b19be44ba",
+     "bytes": 112285,
+     "identified_by": "contains its identifier PMC11380195 — 53449 characters, reference list and discussion/introduction present; title present (12 of 12 title words in the visible text)",
+     "kind": "full_text",
+     "kind_why": "53449 characters, reference list and discussion/introduction present"
+    },
+    "on": "2026-10-22"
+   },
+   "identifier": {
+    "kind": "pmid",
+    "value": "39243081",
+    "resolved_by": "Europe PMC search, 2026-10-22, Claude Code",
+    "resolved_on": "2026-10-22",
+    "pmcid": "PMC11380195",
+    "doi": "10.1186/s12888-024-06046-x"
+   }
+  },
+  {
+   "id": "S006",
+   "type": "synthesis",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9908674/",
+   "title": "Cuijpers P et al. — The effects of psychological treatments of depression in children and adolescents on response, reliable change, and deterioration: a systematic review and meta-analysis (Eur Child Adolesc Psychiatry 2023;32:177-192)",
+   "also_called": [
+    "Cuijpers",
+    "the response-rate meta-analysis"
+   ],
+   "used_for": "How many young people respond to psychotherapy for depression compared with controls; context for how large any format difference could be.",
+   "access": {
+    "state": "full_text_held",
+    "held": {
+     "file": "docs/21/21ddee8954c9dc8f548c44bea41fc1cc47249a9ea62c4b83c9ec5fc8167ee83c.xml",
+     "sha256": "21ddee8954c9dc8f548c44bea41fc1cc47249a9ea62c4b83c9ec5fc8167ee83c",
+     "bytes": 168302,
+     "identified_by": "contains its identifier PMC9908674 — 58481 characters, reference list and discussion/introduction present; title present (12 of 12 title words in the visible text)",
+     "kind": "full_text",
+     "kind_why": "58481 characters, reference list and discussion/introduction present"
+    },
+    "on": "2026-10-22"
+   },
+   "identifier": {
+    "kind": "pmid",
+    "value": "34611729",
+    "resolved_by": "Europe PMC search, 2026-10-22, Claude Code",
+    "resolved_on": "2026-10-22",
+    "pmcid": "PMC9908674",
+    "doi": "10.1007/s00787-021-01884-6"
+   }
+  },
+  {
+   "id": "S007",
+   "type": "primary",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC3330131/",
+   "title": "Merry SN et al. — The effectiveness of SPARX, a computerised self help intervention for adolescents seeking help for depression: randomised controlled non-inferiority trial (BMJ 2012;344:e2598)",
+   "also_called": [
+    "Merry",
+    "the SPARX trial"
+   ],
+   "used_for": "A head-to-head trial of a computerised CBT self-help programme against usual care (mostly face-to-face counselling) for adolescents seeking help for depression.",
+   "access": {
+    "state": "full_text_held",
+    "held": {
+     "file": "docs/36/36403a2cbae8245f61951963ec9a34148f26f854315e7e2da8b67d0450603aec.xml",
+     "sha256": "36403a2cbae8245f61951963ec9a34148f26f854315e7e2da8b67d0450603aec",
+     "bytes": 146037,
+     "identified_by": "contains its identifier PMC3330131 — 65913 characters, reference list and discussion/introduction present; title present (12 of 12 title words in the visible text)",
+     "kind": "full_text",
+     "kind_why": "65913 characters, reference list and discussion/introduction present"
+    },
+    "on": "2026-10-22"
+   },
+   "identifier": {
+    "kind": "pmid",
+    "value": "22517917",
+    "resolved_by": "Europe PMC search, 2026-10-22, Claude Code",
+    "resolved_on": "2026-10-22",
+    "pmcid": "PMC3330131",
+    "doi": "10.1136/bmj.e2598"
+   }
+  },
+  {
+   "id": "S008",
+   "type": "guideline",
+   "url": "https://www.nice.org.uk/guidance/ng134/chapter/Recommendations",
+   "title": "NICE guideline NG134 — Depression in children and young people: identification and management (Recommendations)",
+   "also_called": [
+    "NICE",
+    "NG134"
+   ],
+   "used_for": "What the English national guideline recommends for each format: digital CBT and group therapies for mild depression, individual therapy for moderate to severe.",
+   "access": {
+    "state": "full_text_held",
+    "held": {
+     "file": "docs/f5/f5eb09af86f547aec6755054c2ff8e1de22a984f4d155aab93740238ee6700a3.html",
+     "sha256": "f5eb09af86f547aec6755054c2ff8e1de22a984f4d155aab93740238ee6700a3",
+     "bytes": 118160,
+     "identified_by": "contains 10 of 10 distinctive title words — form 'record' — 49901 characters held. The article test does not apply to this form; title present (10 of 10 title words in the visible text)",
+     "kind": "document",
+     "kind_why": "form 'record' — 49901 characters held. The article test does not apply to this form"
+    },
+    "on": "2026-10-22"
+   }
+  },
+  {
+   "id": "S009",
+   "type": "carrier",
+   "url": "https://uea.ac.uk/about/news/article/technology-assisted-therapy-for-children-and-young-people-is-an-effective-alternative-to-traditional-face-to-face-therapy",
+   "title": "University of East Anglia news — Technology-assisted therapy for children and young people is an effective alternative to traditional face-to-face therapy (2024)",
+   "also_called": [
+    "UEA news release"
+   ],
+   "used_for": "The belief as carried: technology-delivered CBT 'just as effective' as face-to-face for young people.",
+   "access": {
+    "state": "full_text_held",
+    "held": {
+     "file": "docs/8e/8e68224295b88e80c5eb65b35e9092b57e46fd005ca2c8706e3f828788658a76.html",
+     "sha256": "8e68224295b88e80c5eb65b35e9092b57e46fd005ca2c8706e3f828788658a76",
+     "bytes": 85108,
+     "identified_by": "contains 12 of 12 distinctive title words — form 'page' — 17 prose sentence(s) over sixty characters, 828 words — this reads as the page itself; title present (12 of 12 title words in the visible text)",
+     "kind": "document",
+     "kind_why": "form 'page' — 17 prose sentence(s) over sixty characters, 828 words — this reads as the page itself"
+    },
+    "on": "2026-10-22"
+   }
+  },
+  {
+   "id": "S010",
+   "type": "carrier",
+   "url": "https://pharmaphorum.com/news/nice-backs-digital-cbt-for-youngsters-with-depression/",
+   "title": "pharmaphorum — NICE backs digital CBT for youngsters with depression",
+   "also_called": [
+    "pharmaphorum"
+   ],
+   "used_for": "The belief as carried in health-industry coverage of the 2019 guideline draft.",
+   "access": {
+    "state": "full_text_held",
+    "held": {
+     "file": "docs/96/9633de5db320fa48b8f3842296fb65cad58f96955c26dca45b051db23dbfd4a0.html",
+     "sha256": "9633de5db320fa48b8f3842296fb65cad58f96955c26dca45b051db23dbfd4a0",
+     "bytes": 90721,
+     "identified_by": "contains 6 of 6 distinctive title words — form 'page' — 29 prose sentence(s) over sixty characters, 1147 words — this reads as the page itself; title present (6 of 6 title words in the visible text)",
+     "kind": "document",
+     "kind_why": "form 'page' — 29 prose sentence(s) over sixty characters, 1147 words — this reads as the page itself"
+    },
+    "on": "2026-10-22"
+   }
+  },
+  {
+   "id": "S011",
+   "type": "carrier",
+   "url": "https://www.businesswire.com/news/home/20231026083262/en/First-Randomized-Controlled-Trial-Comparing-Woebot-to-Clinician-Led-Psychotherapy-Reveals-Digital-Mental-Health-Intervention-Is-Non-Inferior-in-Reducing-Depressive-Symptoms-Among-Teens",
+   "title": "Business Wire (Woebot Health release) — First randomized controlled trial comparing Woebot to clinician-led psychotherapy reveals digital mental health intervention is non-inferior in reducing depressive symptoms among teens (October 2023)",
+   "also_called": [
+    "Woebot release"
+   ],
+   "used_for": "The belief as carried by a company release: an app matching clinician-led group therapy for teens.",
+   "access": {
+    "state": "blocked",
+    "reason": "publisher blocks automated access",
+    "checked_by": "advisor, on Fred Ugast's behalf (Access Denied from script and browser); recorded by Claude Code",
+    "on": "2026-10-22",
+    "not_cited": "not cited or bound",
+    "last_fetch": {
+     "on": "2026-10-22",
+     "by": "acquire_sources.py",
+     "result": "not fetched",
+     "why": "HTTP 403 at https://www.businesswire.com/news/home/20231026083262/en/Fir",
+     "tried": [
+      {
+       "url": "https://www.businesswire.com/news/home/20231026083262/en/First-Randomized-Controlled-Trial-Comparing-Woebot-to-Clinician-Led-Psychotherapy-Reveals-Digital-Mental-Health-Intervention-Is-Non-Inferior-in-Reducing-Depressive-Symptoms-Among-Teens",
+       "result": "HTTP 403 at https://www.businesswire.com/news/home/20231026083262/en/Fir"
+      }
+     ]
+    }
+   }
+  }
+ ]
+}

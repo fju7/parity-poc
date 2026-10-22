@@ -3,24 +3,37 @@
   "belief": {
     "_note": "What the reader already believes, stated as they would state it. If you cannot write this sentence, there is nothing to correct and no subject -- which is how the tobacco-analogy candidate died.",
     "statement": "For a depressed teenager, CBT works whichever way it is given: a course of sessions with a therapist, a group, a video call or an app or online programme all help about as much, so a cheaper or quicker format such as a self-help app or a group is a fair substitute for one-to-one therapy.",
-    "how_we_know_they_believe_it": "To be filled from coverage found during research (named outlets, quoted headlines), checked from page bytes.",
+    "how_we_know_they_believe_it": "Coverage states format-equivalence as settled; two pieces checked from their page bytes (S009, S010). A third (S011, a Woebot Health release) could not be held: the publisher blocks automated access.",
     "carried_by": [
       {
-        "outlet": "",
-        "url": "",
-        "date": "",
-        "what_it_said": ""
+        "outlet": "University of East Anglia news",
+        "url": "https://uea.ac.uk/about/news/article/technology-assisted-therapy-for-children-and-young-people-is-an-effective-alternative-to-traditional-face-to-face-therapy",
+        "date": "2024",
+        "what_it_said": "CBT delivered through apps, online software, video games, phone calls and video conferencing 'is just as effective as face-to-face CBT for treating anxiety and depression for young people and children'"
+      },
+      {
+        "outlet": "pharmaphorum",
+        "url": "https://pharmaphorum.com/news/nice-backs-digital-cbt-for-youngsters-with-depression/",
+        "date": "2019-01-23",
+        "what_it_said": "NICE 'has recommended digital cognitive behavioural therapy (CBT) should be used as a first-line treatment for children and young people with mild depression', with group CBT, group IPT and 'group mindfulness' also first-line"
       }
     ]
   },
   "what_the_sources_show": {
     "_note": "What the primary sources actually support, and which sources.",
-    "statement": "",
-    "sources": []
+    "statement": "A 2024 network meta-analysis of 62 randomised trials found that every CBT format except remote CBT beat no intervention after treatment, but that no format was clearly better than, or shown equivalent to, any other (low to very low certainty); group and individual CBT were never compared head to head, guided self-help was tested only in 16- to 19-year-olds and never against another format, remote CBT rested on one small trial, and at 6-12 months effects shrank and no format beat no intervention. A meta-analysis of seven head-to-head trials found technology-assisted CBT not inferior to face-to-face CBT for depression, with a wide confidence interval. The English guideline still separates formats by severity: digital or group options first for mild depression, individual CBT for moderate to severe.",
+    "sources": [
+      "S001",
+      "S002",
+      "S003",
+      "S006",
+      "S007",
+      "S008"
+    ]
   },
   "direction": {
-    "_note": "CORRECTS, CONFIRMS or NARROWS. This field exists so the contrarianism guard can count. A publication whose answer is always CORRECTS is performing scepticism rather than assessing evidence, and is not to be trusted.",
-    "value": "",
+    "_note": "The belief that every format 'helps about as much' is not contradicted, but it is not shown either: the trials found no clear difference between formats, which is not the same as showing them equal, and several comparisons rest on little or no direct evidence; the guideline still reserves individual CBT for moderate to severe depression.",
+    "value": "narrows",
     "_values": [
       "corrects",
       "confirms",
@@ -31,24 +44,28 @@
   "reader_with_a_decision": "A parent of a depressed teenager, or a GP, school counsellor or commissioner of child mental-health services, choosing between a waiting list for one-to-one CBT and a quicker or cheaper format (a group, therapy by video, or a self-help app or online course with or without a therapist checking in), who needs to know whether the format changes how much it helps.",
   "public_record_check": {
     "_note": "NOT 'has anybody published this'. On any contested question, somebody has. The question is whether it has been carried WHERE THIS READER WOULD FIND IT. Run the counterexample hunter on the belief statement, not on the finding.",
-    "prior_art_found": [],
-    "carried_in_general_coverage": "",
-    "our_contribution": "translation, extension, or correction of the prior art -- say which"
+    "prior_art_found": [
+      "Bjornstad et al. 2024 Campbell systematic review (S001)",
+      "Bevilacqua et al. 2024 meta-analysis (S002)",
+      "NICE NG134 (S008)"
+    ],
+    "carried_in_general_coverage": "The two pieces checked carry format-equivalence ('just as effective'; digital CBT first-line) without the review's own caveat that no format was shown equivalent to another or the guideline's severity split.",
+    "our_contribution": "translation"
   },
-  "sources_are_open": "",
-  "evidence_base_is_bounded": "",
+  "sources_are_open": "mostly -- 9 of 11 held in full; S004 (paywalled; no open-access copy) and S011 (publisher blocks automated access) not held and not cited",
+  "evidence_base_is_bounded": "yes for this answer -- one network meta-analysis of 62 trials, three pairwise meta-analyses, one head-to-head trial and the national guideline",
   "kill_condition": "There is no 'narrows' story, and the answer is CONFIRMS, if randomised trials or pooled analyses comparing CBT formats for depressed adolescents show that group, individual, remote and self-help (guided and unguided) formats work about equally well, with no format clearly better or worse. It is CORRECTS if the evidence shows that the format clearly matters in a way the belief denies (for example, unguided self-help clearly no better than control, or one-to-one clearly better than every other format). And it dies as a story if general coverage already carries the format comparison accurately where this reader would find it.",
   "kill_condition_tested": {
     "_note": "Filled in AFTER going to look, by whoever looked.",
-    "by": "",
-    "on": "",
-    "result": "",
+    "by": "Claude Code (session 14a38a68-687f-45fb-baca-9732ccb3a360)",
+    "on": "2026-10-22",
+    "result": "narrowed",
     "_result_values": [
       "survived",
       "narrowed",
       "killed"
     ],
-    "note": ""
+    "note": "Looked for evidence that formats work equally well: S001 found no format clearly better than or equivalent to another, with no head-to-head group-versus-individual trial and one remote-CBT trial; S002's seven head-to-head trials gave SMD 0.12 (95% CI -0.42 to 0.46). Looked for evidence that format clearly matters: none at the comparison level (S001's pairwise and network estimates all cross zero). So neither CONFIRMS nor CORRECTS."
   },
   "lead_came_from": "WHU reliability study draw (WHU-S02, issue.json); the question was given; the drawn source is not known to the drafting session.",
   "_written_before_research": {

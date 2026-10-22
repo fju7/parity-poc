@@ -1,0 +1,147 @@
+{
+  "_what_this_is": "For every source, whether its bibliographic record names a correction, erratum, retraction or expression of concern -- and, when the lookup failed, that it failed. 'checked, none' and 'could not check' are different states and this file never merges them.",
+  "checked": {
+    "S001": {
+      "source": "S001",
+      "title": "Bjornstad G et al. — A comparison of the effectiveness of cognitive behavioural interventions based on delivery features",
+      "checked_on": "2026-10-22",
+      "identifier": "PMCID PMC10771715",
+      "identifier_from": "the source URL",
+      "resolved_title": "A comparison of the effectiveness of cognitive behavioural interventions based on delivery features for elevated symptoms of depression in adolescents: A system",
+      "identity": "resolved title shares 14 word(s) with ours: adolescents, based, behavioural, cognitive, comparison, delivery, depression, ef",
+      "amendments": [],
+      "comments": [],
+      "state": "CLEAN",
+      "why": "matched on PMCID PMC10771715"
+    },
+    "S002": {
+      "source": "S002",
+      "title": "Bevilacqua L et al. — Effectiveness of technology-assisted vs face-to-face cognitive behavioural therapy for anxiety and",
+      "checked_on": "2026-10-22",
+      "identifier": "PMCID PMC13002926",
+      "identifier_from": "the source URL",
+      "resolved_title": "Effectiveness of technology-assisted vs face-to-face cognitive behavioural therapy for anxiety and depression in children and young people: A systematic review ",
+      "identity": "resolved title shares 16 word(s) with ours: analysis, anxiety, assisted, behavioural, children, cognitive, depression, effec",
+      "amendments": [],
+      "comments": [],
+      "state": "CLEAN",
+      "why": "matched on PMCID PMC13002926"
+    },
+    "S003": {
+      "source": "S003",
+      "title": "Wickersham A et al. — Computerized cognitive behavioral therapy for treatment of depression and anxiety in adolescents: ",
+      "checked_on": "2026-10-22",
+      "identifier": "PMCID PMC9039813",
+      "identifier_from": "the source URL",
+      "resolved_title": "Computerized Cognitive Behavioral Therapy for Treatment of Depression and Anxiety in Adolescents: Systematic Review and Meta-analysis.",
+      "identity": "resolved title shares 12 word(s) with ours: adolescents, analysis, anxiety, behavioral, cognitive, computerized, depression,",
+      "amendments": [],
+      "comments": [],
+      "state": "CLEAN",
+      "why": "matched on PMCID PMC9039813"
+    },
+    "S004": {
+      "source": "S004",
+      "title": "Keles S, Idsoe T — A meta-analysis of group cognitive behavioral therapy (CBT) interventions for adolescents with depres",
+      "checked_on": "2026-10-22",
+      "identifier": "DOI 10.1016/j.adolescence.2018.05.011",
+      "identifier_from": "the source URL",
+      "resolved_title": "A meta-analysis of group Cognitive Behavioral Therapy (CBT) interventions for adolescents with depression.",
+      "identity": "resolved title shares 9 word(s) with ours: adolescents, analysis, behavioral, cognitive, depression, group, interventions, ",
+      "amendments": [],
+      "comments": [],
+      "state": "CLEAN",
+      "why": "matched on DOI 10.1016/j.adolescence.2018.05.011"
+    },
+    "S005": {
+      "source": "S005",
+      "title": "Ma Q et al. — Effectiveness of internet-based self-help interventions for depression in adolescents and young adults: a ",
+      "checked_on": "2026-10-22",
+      "identifier": "PMCID PMC11380195",
+      "identifier_from": "the source URL",
+      "resolved_title": "Effectiveness of internet-based self-help interventions for depression in adolescents and young adults: a systematic review and meta-analysis.",
+      "identity": "resolved title shares 14 word(s) with ours: adolescents, adults, analysis, based, depression, effectiveness, help, internet,",
+      "amendments": [],
+      "comments": [],
+      "state": "CLEAN",
+      "why": "matched on PMCID PMC11380195"
+    },
+    "S006": {
+      "source": "S006",
+      "title": "Cuijpers P et al. — The effects of psychological treatments of depression in children and adolescents on response, relia",
+      "checked_on": "2026-10-22",
+      "identifier": "PMCID PMC9908674",
+      "identifier_from": "the source URL",
+      "resolved_title": "The effects of psychological treatments of depression in children and adolescents on response, reliable change, and deterioration: a systematic review and meta-",
+      "identity": "resolved title shares 14 word(s) with ours: adolescents, analysis, change, children, depression, deterioration, effects, met",
+      "amendments": [],
+      "comments": [],
+      "state": "CLEAN",
+      "why": "matched on PMCID PMC9908674"
+    },
+    "S007": {
+      "source": "S007",
+      "title": "Merry SN et al. — The effectiveness of SPARX, a computerised self help intervention for adolescents seeking help for dep",
+      "checked_on": "2026-10-22",
+      "identifier": "PMCID PMC3330131",
+      "identifier_from": "the source URL",
+      "resolved_title": "The effectiveness of SPARX, a computerised self help intervention for adolescents seeking help for depression: randomised controlled non-inferiority trial.",
+      "identity": "resolved title shares 13 word(s) with ours: adolescents, computerised, controlled, depression, effectiveness, help, inferior",
+      "amendments": [],
+      "comments": [
+        {
+          "source": "MED",
+          "id": "22773784",
+          "reference": "Evid Based Ment Health. 2012 Nov;15(4):90. doi: 10.1136/ebmental-2012-100822.",
+          "type": "Comment in",
+          "orderIn": 1
+        },
+        {
+          "source": "MED",
+          "id": "23095695",
+          "reference": "J Pediatr. 2012 Nov;161(5):967-8. doi: 10.1016/j.jpeds.2012.08.050.",
+          "type": "Comment in",
+          "orderIn": 2
+        }
+      ],
+      "state": "CLEAN",
+      "why": "matched on PMCID PMC3330131"
+    },
+    "S008": {
+      "source": "S008",
+      "title": "NICE guideline NG134 — Depression in children and young people: identification and management (Recommendations)",
+      "checked_on": "2026-10-22",
+      "state": "NOT_APPLICABLE",
+      "why": "type 'guideline' is not a journal article; it has versions, not errata, and B11 covers those",
+      "amendments": [],
+      "comments": []
+    },
+    "S009": {
+      "source": "S009",
+      "title": "University of East Anglia news — Technology-assisted therapy for children and young people is an effective alternative t",
+      "checked_on": "2026-10-22",
+      "state": "UNCHECKABLE",
+      "why": "no DOI, PMID, PMCID or PII can be parsed from the URL we hold; nothing is typed from memory, so this source cannot be looked up automatically",
+      "amendments": [],
+      "comments": []
+    },
+    "S010": {
+      "source": "S010",
+      "title": "pharmaphorum — NICE backs digital CBT for youngsters with depression",
+      "checked_on": "2026-10-22",
+      "state": "UNCHECKABLE",
+      "why": "no DOI, PMID, PMCID or PII can be parsed from the URL we hold; nothing is typed from memory, so this source cannot be looked up automatically",
+      "amendments": [],
+      "comments": []
+    },
+    "S011": {
+      "source": "S011",
+      "title": "Business Wire (Woebot Health release) — First randomized controlled trial comparing Woebot to clinician-led psychotherap",
+      "checked_on": "2026-10-22",
+      "state": "UNCHECKABLE",
+      "why": "no DOI, PMID, PMCID or PII can be parsed from the URL we hold; nothing is typed from memory, so this source cannot be looked up automatically",
+      "amendments": [],
+      "comments": []
+    }
+  }
+}
