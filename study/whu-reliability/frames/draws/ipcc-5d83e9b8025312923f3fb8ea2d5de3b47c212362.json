@@ -1,0 +1,86 @@
+{
+ "frame_file": "frames/ipcc.json",
+ "frame_sha256": "93d99e21f3de01d59f9de458bbccb05f89747dd257e37543a04cff5e365180ee",
+ "commit": "5d83e9b8025312923f3fb8ea2d5de3b47c212362",
+ "seed": 533877899085291994276456906790697990170397975394,
+ "seed_rule": "seed = int(<full 40-character freeze commit hash>, 16) (protocol rev 38)",
+ "procedure": "random.Random(seed).shuffle of the frame's eligible numbers k; in that order, each candidate is tested against WHU's published and tested questions; the first that passes is the draw; the next that passes from a different AR6 report is the second",
+ "whu_questions": {
+  "WHU-001 melanoma (personalised mRNA cancer vaccine)": {
+   "pattern": "\\bmelanoma|\\bm?RNA[- ](?:based )?(?:cancer )?vaccin|personali[sz]ed (?:cancer )?vaccin",
+   "applied_to": "text"
+  },
+  "WHU-002 cdk46 (CDK4/6 inhibitors)": {
+   "pattern": "\\bCDK ?4/6|\\bCDK4\\b|palbociclib|ribociclib|abemaciclib|cyclin[- ]dependent kinase 4",
+   "applied_to": "text"
+  },
+  "WHU-003 deskilling (AI use and human cognition)": {
+   "pattern": "(?:artificial intelligence|\\bAI\\b|large language model|\\bLLMs?\\b|chatbot|ChatGPT|generative).{0,80}(?:cogniti|critical thinking|deskill|skill|learning|memory|reasoning)|(?:cogniti|critical thinking|deskill)\\w*.{0,80}(?:artificial intelligence|\\bAI\\b|large language model|chatbot)",
+   "applied_to": "text"
+  },
+  "T01 exercise and depression": {
+   "pattern": "(?:exercise|physical activity|physical training|yoga|walking).{0,80}depress|depress\\w*.{0,80}(?:exercise|physical activity)",
+   "applied_to": "text"
+  },
+  "T02 / WHU-P02 ultra-processed foods": {
+   "pattern": "ultra-?processed|\\bprocessed foods?\\b|\\bNOVA\\b",
+   "applied_to": "text"
+  },
+  "T03 intermittent fasting": {
+   "pattern": "intermittent fasting|time-restricted (?:eating|feeding)|alternate[- ]day fasting|\\b5:2\\b|periodic fasting",
+   "applied_to": "text"
+  },
+  "T04 vitamin D (supplementation in older adults)": {
+   "pattern": "^(?=.*\\b(?:vitamin D|cholecalciferol|ergocalciferol|calcifediol|calcitriol)\\b)(?=.*\\b(?:older (?:adults?|people|persons?|women|men|individuals|patients)|elderly|aged (?:60|65|70)|over (?:60|65|70)|(?:60|65|70) years (?:and|or) (?:over|older)|later life|old age|seniors?|geriatric|nursing homes?|care homes?|long-term care))",
+   "applied_to": "text"
+  },
+  "WHU-P04 (have the world's greenhouse gas emissions grown faster in recent decades than in earlier ones?)": {
+   "pattern": "(?=.*\\b(?:greenhouse gas|GHG|CO ?2|CO₂|carbon dioxide)\\b[^.]{0,60}\\bemissions?\\b[^.]{0,120}\\b(?:ha(?:ve|s) (?:continued to )?(?:rise|risen|increased|grown)|grew|rose|growth|higher than in))(?=.*\\b(?:since (?:18|19|20)\\d\\d|(?:19|20)\\d\\d\\s*[–-]\\s*(?:19|20)\\d\\d|(?:previous|past|last) decades?|between (?:19|20)\\d\\d and)\\b)",
+   "applied_to": "first sentence"
+  }
+ },
+ "draws_wanted": 2,
+ "eligible": 400,
+ "checked": 2,
+ "drawn": [
+  {
+   "n": 301,
+   "id": "AR6-WGIII-E.3.3",
+   "report": "Climate Change 2022: Mitigation of Climate Change",
+   "year": 2022,
+   "url": "https://www.ipcc.ch/report/ar6/wg3/chapter/summary-for-policymakers/",
+   "level": "sub-statement",
+   "statement_sha256": "9520856d6cb36cf32a17ce73aaba9b699e03e92b22166ae91ccc91a4c21d396f"
+  },
+  {
+   "n": 164,
+   "id": "AR6-WGII-D.3.2",
+   "report": "Climate Change 2022: Impacts, Adaptation and Vulnerability",
+   "year": 2022,
+   "url": "https://www.ipcc.ch/report/ar6/wg2/chapter/summary-for-policymakers/",
+   "level": "sub-statement",
+   "statement_sha256": "496f8fb7b7375e819dd83668d7d48777642e148450265492f3d0e71a7d403940"
+  }
+ ],
+ "drawn_at": "2026-10-22T00:58:42+00:00",
+ "log": [
+  {
+   "checked": 1,
+   "k": 284,
+   "n": 301,
+   "id": "AR6-WGIII-E.3.3",
+   "text_sha256": "9520856d6cb36cf32a17ce73aaba9b699e03e92b22166ae91ccc91a4c21d396f",
+   "result": "drawn",
+   "draw": 1
+  },
+  {
+   "checked": 2,
+   "k": 148,
+   "n": 164,
+   "id": "AR6-WGII-D.3.2",
+   "text_sha256": "496f8fb7b7375e819dd83668d7d48777642e148450265492f3d0e71a7d403940",
+   "result": "drawn",
+   "draw": 2
+  }
+ ]
+}
