@@ -1,0 +1,58 @@
+{
+  "_what_this_is": "The entry gate, answered BEFORE drafting. The threshold question is whether a well-informed non-expert would confidently believe something the primary sources do not support.",
+  "belief": {
+    "_note": "What the reader already believes, stated as they would state it. If you cannot write this sentence, there is nothing to correct and no subject -- which is how the tobacco-analogy candidate died.",
+    "statement": "Rapid urban growth, especially in Africa and Asia, is mainly a climate danger: more people crowd into flood-prone coasts, heat-trapping concrete and informal settlements, so every new city dweller adds to the exposure. A minority view says the opposite with equal confidence: because most of the cities of 2050 are not yet built, rapid urbanisation is a great opportunity to 'build resilience in from the start'.",
+    "how_we_know_they_believe_it": "To be filled after research from coverage checked from page bytes.",
+    "carried_by": [
+      {
+        "outlet": "",
+        "url": "",
+        "date": "",
+        "what_it_said": ""
+      }
+    ]
+  },
+  "what_the_sources_show": {
+    "_note": "What the primary sources actually support, and which sources.",
+    "statement": "",
+    "sources": []
+  },
+  "direction": {
+    "_note": "CORRECTS, CONFIRMS or NARROWS. This field exists so the contrarianism guard can count. A publication whose answer is always CORRECTS is performing scepticism rather than assessing evidence, and is not to be trusted.",
+    "value": "",
+    "_values": [
+      "corrects",
+      "confirms",
+      "narrows"
+    ],
+    "_expected_before_research": "narrows (prediction, written before any source was opened; the recorded value is set after research)"
+  },
+  "reader_with_a_decision": "A city or national planning official, development-bank or climate-adaptation-fund officer, or urban NGO deciding where to put money and planning effort for fast-growing cities (new-build standards and land-use rules on the urban edge vs retrofitting and protecting existing exposed districts), who needs to know whether growth itself is the risk or whether how the growth is planned decides the outcome.",
+  "public_record_check": {
+    "_note": "NOT 'has anybody published this'. On any contested question, somebody has. The question is whether it has been carried WHERE THIS READER WOULD FIND IT. Run the counterexample hunter on the belief statement, not on the finding.",
+    "prior_art_found": [],
+    "carried_in_general_coverage": "",
+    "our_contribution": "translation, extension, or correction of the prior art -- say which"
+  },
+  "sources_are_open": "",
+  "evidence_base_is_bounded": "",
+  "kill_condition": "There is no 'narrows' story, and the answer is CONFIRMS (risk), if the assessed evidence (IPCC AR6 WGII chapter 6 and peer-reviewed exposure studies) shows that urban growth raises climate risk largely regardless of how it is planned, with no measured cases where planned growth reduced exposure or vulnerability. It is CONFIRMS (opportunity) if the evidence shows growth is reliably being used to build lower-risk places. It is CORRECTS if both framings are shown wrong (e.g. urban growth does not measurably add exposure). And it dies as a story if general coverage already carries the evidence accurately - that the outcome depends on where and how growth happens - where this reader would find it.",
+  "kill_condition_tested": {
+    "_note": "Filled in AFTER going to look, by whoever looked.",
+    "by": "",
+    "on": "",
+    "result": "",
+    "_result_values": [
+      "survived",
+      "narrowed",
+      "killed"
+    ],
+    "note": ""
+  },
+  "lead_came_from": "WHU reliability study draw (WHU-S04, issue.json); the question was given; the drawn source is not known to the drafting session.",
+  "_written_before_research": {
+    "by": "Claude Code (drafting session, session 04988447-df83-4792-bbc4-5aa85185c376)",
+    "at": "2026-10-23T01:47:12Z"
+  }
+}
