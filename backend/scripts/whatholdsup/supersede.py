@@ -36,6 +36,17 @@ template is written. Audit runs are
 not touched: they are withdrawn with `audit_stage.py withdraw`. `--only` limits
 the run to the named files (as RECORDS names them).
 
+ONE RULING ROW, BY THE FINDING IT RULES (2026-10-22). `--ruling-for <finding
+id>` supersedes only the row(s) of rulings/rulings.jsonl that rule that finding
+(its finding_id, or one of the findings its covers name): each is stamped and
+moved to rulings/superseded/<UTC stamp>-ruling-for-<id>-rulings.jsonl, every
+other row stays where it is, untouched, and nothing else is moved. A row that
+also rules another finding is refused (superseding it would supersede that
+finding's ruling too). The consistency report reads rulings/superseded/
+*-rulings.jsonl, so a pair that re-asked the moved row counts as superseded.
+Made for WHU-S02's recency finding, ruled on the source-list line before the
+recency routing fix.
+
 WHO. --by names whoever runs it. An agent writes its own name
 (signers.AGENTS, optionally "(session <id>)"); a person's name needs
 --signature <path>:<line> of a committed acceptance line, checked by
@@ -166,6 +177,56 @@ def supersede(case: Path, reason: str, by: str, *, only=None, on: str | None = N
     return moved
 
 
+def _finding_ids(rec: dict) -> set:
+    ids = {rec.get("finding_id")} | {c.get("finding_id") for c in rec.get("covers") or []
+                                     if isinstance(c, dict)}
+    return {i for i in ids if i}
+
+
+def supersede_ruling_for(case: Path, finding_id: str, reason: str, by: str, *,
+                         on: str | None = None, now: datetime | None = None) -> tuple[str, list[str]]:
+    """Stamp and move the ruling row(s) that rule FINDING_ID; return (the file
+    they went to, relative to CASE; their ids). Every other row stays."""
+    if not (reason or "").strip():
+        raise ValueError("superseding needs a reason")
+    log = case / "rulings" / "rulings.jsonl"
+    if not log.exists():
+        raise ValueError("no %s" % log.relative_to(case))
+    now = now or datetime.now(timezone.utc)
+    mark = {"reason": reason.strip(), "on": on or now.date().isoformat(), "by": by.strip(),
+            "only": "the ruling row(s) for %s" % finding_id}
+    lines = [l for l in log.read_text(encoding="utf-8").splitlines() if l.strip()]
+    keep, move = [], []
+    for l in lines:
+        rec = json.loads(l)
+        ids = _finding_ids(rec)
+        if finding_id not in ids:
+            keep.append(l)
+            continue
+        if ids - {finding_id}:
+            raise ValueError("ruling %s also rules %s; superseding it would supersede those too "
+                             "(refused)" % (rec.get("id"), ", ".join(sorted(ids - {finding_id}))))
+        move.append(rec)
+    if not move:
+        raise ValueError("no ruling row in %s rules %s" % (log.relative_to(case), finding_id))
+    safe = "".join(c if c.isalnum() or c in "-_" else "_" for c in finding_id)
+    dst = case / "rulings" / "superseded" / ("%s-ruling-for-%s-rulings.jsonl"
+                                             % (now.strftime("%Y%m%dT%H%MZ"), safe))
+    if dst.exists():
+        raise SystemExit("refusing to overwrite %s" % dst)
+    dst.parent.mkdir(parents=True, exist_ok=True)
+    dst.write_text("".join(json.dumps(dict(r, superseded=mark), ensure_ascii=False) + "\n"
+                           for r in move), encoding="utf-8")
+    tmp = log.with_suffix(".jsonl.tmp")
+    tmp.write_text("".join(l + "\n" for l in keep), encoding="utf-8")
+    tmp.replace(log)
+    with open(dst.parent / "README.txt", "a", encoding="utf-8") as f:
+        f.write("Superseded %s by %s: %s. Only the ruling row(s) for %s (%s), in %s. No current "
+                "tool reads this folder.\n" % (mark["on"], mark["by"], mark["reason"], finding_id,
+                                               ", ".join(r.get("id") or "?" for r in move), dst.name))
+    return str(dst.relative_to(case)), [r.get("id") for r in move]
+
+
 def main(argv=None) -> int:
     ap = argparse.ArgumentParser(description=__doc__.split("\n\n")[0])
     ap.add_argument("slug")
@@ -174,13 +235,35 @@ def main(argv=None) -> int:
     ap.add_argument("--signature", help="<path>:<line> of a person's committed acceptance line")
     ap.add_argument("--only", nargs="*", help="limit to these records: %s"
                     % ", ".join(n for n, _p, _d in RECORDS))
+    ap.add_argument("--ruling-for", metavar="FINDING_ID",
+                    help="supersede only the ruling row(s) in rulings/rulings.jsonl that rule this finding")
     a = ap.parse_args(argv)
+    if a.ruling_for and a.only:
+        raise SystemExit("--ruling-for and --only are separate runs")
     import publish as P
     import source_store as store
     if not P.is_study(a.slug):
         raise SystemExit("%s is not a study issue (issue.json \"study\": true); a published "
                          "issue's records are corrected, not superseded" % a.slug)
     check_by(a.by, a.signature)
+    if a.ruling_for:
+        case = store.case_dir(a.slug)
+        try:
+            to, ids = supersede_ruling_for(case, a.ruling_for, a.reason, a.by)
+        except ValueError as e:
+            raise SystemExit(str(e))
+        print("  superseded  rulings/rulings.jsonl rows %s (for %s)  ->  %s"
+              % (", ".join(ids), a.ruling_for, to))
+        try:
+            import findings as F
+            f = next((x for x in F.load(a.slug).get("findings") or [] if x.get("id") == a.ruling_for), None)
+        except Exception:
+            f = None
+        if f and (f.get("decision") or "").strip():
+            print("  note        %s is still decided (%r) in gate-findings.json; not changed"
+                  % (a.ruling_for, f["decision"]))
+        print("\n  %d ruling row(s) superseded\n" % len(ids))
+        return 0
     templates: list = []
     moved = supersede(store.case_dir(a.slug), a.reason, a.by, only=a.only, slug=a.slug,
                       templates=templates)
