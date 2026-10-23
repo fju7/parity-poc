@@ -97,7 +97,12 @@ SCRIPT = "study/whu-reliability/judge_m1.py"
 CONTEXT_CHARS = 400
 MAX_SOURCE_TOKENS = 150_000
 CONSISTENCY_SHARE = 0.20
-CONSISTENCY_SEED = 20261020
+# The seed rule (protocol, "Freeze rulings"): the full 40-character hash of
+# the freeze commit, read as a hexadecimal integer. It seeds the question draw,
+# the sampler (prepare_scoring.py) and the bootstrap, and since 2026-10-23 the
+# repeat samples of both judge runners (was 20261020, a prep-round seed).
+FREEZE_COMMIT = "5d83e9b8025312923f3fb8ea2d5de3b47c212362"
+CONSISTENCY_SEED = int(FREEZE_COMMIT, 16)
 REPEAT_SUFFIX = "_repeat"
 
 CLAUDE_MODEL = "claude-opus-5-5"
@@ -396,7 +401,8 @@ def main() -> int:
     ap.add_argument("--consistency-share", type=float, default=CONSISTENCY_SHARE,
                     help="share of judged items each judge reads a second time (0 for none)")
     ap.add_argument("--seed", type=int, default=CONSISTENCY_SEED,
-                    help="seed for the consistency sample; logged with the sample")
+                    help="seed for the consistency sample (default: the freeze commit's hash as an "
+                         "integer); logged with the sample")
     a = ap.parse_args()
     # THE FROZEN PROMPT, CHECKED BEFORE ANYTHING ELSE: no key is read and no
     # call is made with any other text.

@@ -26,6 +26,7 @@ from __future__ import annotations
 import hashlib
 import html
 import json
+import os
 import re
 import sys
 from datetime import datetime, timezone
@@ -34,8 +35,16 @@ from pathlib import Path
 import requests
 
 ROOT = Path(__file__).resolve().parents[3]
+# macOS (2026-10-23): once a process has looked up the system proxy settings
+# (urllib does, for a plain-http address), every child it forks afterwards dies
+# on signal 11 -- curl, and pdftotext, whose text then reads as empty. Taking
+# proxy settings from the environment skips that lookup. This Mac has no system
+# proxy, so nothing is routed differently.
+if sys.platform == "darwin":
+    os.environ.setdefault("no_proxy", "*")
 sys.path.insert(0, str(ROOT / "backend" / "scripts" / "whatholdsup"))
 import source_store  # noqa: E402
+import tls  # noqa: E402
 
 UA = ("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 "
       "(KHTML, like Gecko) Chrome/141.0 Safari/537.36")
@@ -84,6 +93,34 @@ def extent(url: str, data: bytes, text: str, ctype: str) -> tuple[str, str]:
                                      "paragraph %d characters (the abstract): %s" % (longest, why))
         return "unreachable", "article record with neither abstract nor body: " + why
     return "full text", "not an article; the page is the whole document (%d characters)" % len(text)
+
+
+def fetch(url: str, timeout: int = 60) -> tuple[bytes, dict]:
+    """(bytes, row fields). Raises on HTTP >= 400 or a network failure.
+
+    A certificate failure is retried through tls.urlopen (2026-10-23), which
+    completes a chain a server sent without its intermediate from the leaf's
+    AIA URL and verifies it against the system trust store, as
+    acquire_sources and find_access do (WHU-S03: orbilu.uni.lu). Any other
+    certificate failure is raised by tls.urlopen unchanged."""
+    headers = {"User-Agent": UA, "Accept-Language": "en"}
+    try:
+        r = requests.get(url, headers=headers, timeout=timeout, allow_redirects=True)
+    except requests.exceptions.SSLError:
+        import urllib.error
+        import urllib.request
+        try:
+            with tls.urlopen(urllib.request.Request(url, headers=headers), timeout=timeout) as resp:
+                data = resp.read()
+                row = {"status": resp.status, "final_url": resp.geturl(),
+                       "content_type": resp.headers.get("Content-Type", ""), "tls": "chain completed by tls.py"}
+        except urllib.error.HTTPError as e:
+            raise RuntimeError("HTTP %d" % e.code)
+        return data, row
+    row = {"status": r.status_code, "final_url": r.url, "content_type": r.headers.get("content-type", "")}
+    if r.status_code >= 400:
+        raise RuntimeError("HTTP %d" % r.status_code)
+    return r.content, row
 
 
 def source_id(url: str) -> str:
@@ -140,13 +177,9 @@ def main() -> int:
                 row.update(fetched="reused", reused_from=str(old[url]))
             else:
                 row["fetched_at"] = datetime.now(timezone.utc).isoformat(timespec="seconds")
-                r = requests.get(url, headers={"User-Agent": UA, "Accept-Language": "en"},
-                                 timeout=60, allow_redirects=True)
-                row.update(fetched="fetched", status=r.status_code, final_url=r.url,
-                           content_type=r.headers.get("content-type", ""))
-                if r.status_code >= 400:
-                    raise RuntimeError("HTTP %d" % r.status_code)
-                data = r.content
+                row["fetched"] = "fetched"
+                data, got = fetch(url)
+                row.update(got)
             text = text_of(data)
             ext, why = extent(url, data, text, row.get("content_type", ""))
             row.update(raw_sha256=hashlib.sha256(data).hexdigest(), raw_bytes=len(data),

@@ -427,6 +427,31 @@ def do_snapshot(a) -> int:
     return snapshot_report()
 
 
+# The last answer of an automated fetch that a person's browser may well get
+# past: a refusal, a challenge page or an empty script shell.
+BLOCKED = ("HTTP 401", "HTTP 403", "HTTP 405", "HTTP 429", "HTTP 503", "bot wall", "readable characters",
+           "access-denied")
+
+
+def still_unreachable(m: dict) -> dict:
+    """A row for operator_fetch.json: what was tried, and the two marks."""
+    import snapshot as SN
+    r = m.get("retrieval") or {}
+    tried = r.get("tried") or []
+    last = [t for t in tried if t.get("route") in ("a", "b")] or [{"result": m.get("extent_why") or ""}]
+    texts = [" ".join(str(t.get(k) or "") for k in ("result", "why")) for t in last]
+    blocks = any(any(b in t for b in BLOCKED) for t in texts)
+    ev = r.get("oa_evidence") or {}
+    article = any(h in m["url"] for h in SN.ARTICLE_HOSTS) or bool((ev.get("ids") or {}))
+    free = ("yes: an open-access record (Unpaywall is_oa or Europe PMC free full text)"
+            if ev.get("is_oa") or ev.get("epmc_free") else
+            "likely: not an article record (an organisation, government or news page)" if not article else "unknown")
+    return {"source_id": m["source_id"], "url": m["url"], "why": m.get("extent_why"),
+            "tried": [{k: t.get(k) for k in ("route", "url", "result", "version") if t.get(k) is not None} for t in tried],
+            "blocks_automation": blocks, "free_to_read": free,
+            "free_to_read_but_blocks_automation": blocks and not free.startswith("unknown")}
+
+
 def snapshot_report() -> int:
     run = SCORING / "m1"
     items = json.loads((run / "items.json").read_text(encoding="utf-8"))
@@ -447,9 +472,9 @@ def snapshot_report() -> int:
             m = man[c["url"]]
             ext.append(m["extent"])
             if m["extent"] == "unreachable":
-                n = need.setdefault(c["url"], {"source_id": m["source_id"], "citation": cites.get(c["url"], ""),
-                                               "url": c["url"], "why": m.get("extent_why"), "items": []})
+                n = need.setdefault(c["url"], dict(still_unreachable(m), citation=cites.get(c["url"], ""), items=[]))
                 n["items"].append(it["item"])
+                p.setdefault("_unreachable", set()).add(c["url"])
         if "none" in ext:
             p["no_url"] += 1; p["incomplete"] += 1
         elif "unreachable" in ext:
@@ -466,20 +491,36 @@ def snapshot_report() -> int:
     rows = []
     for (q, s), p in sorted(per.items()):
         p["uncited"] = sum(1 for it in unc if keymap[it["item"]]["question"] == q and keymap[it["item"]]["system"] == s)
+        p["unreachable_sources"] = len(p.pop("_unreachable", ()))
         rows.append(dict(question=q, system=s, **p))
-        print("  %s %-7s cited items %2d: held %2d (abstract only %d), incomplete %2d (no URL %d); uncited %d"
-              % (q, s, p["items"], p["held"], p["abstract_only"], p["incomplete"], p["no_url"], p["uncited"]))
+        print("  %s %-7s cited items %2d: held %2d (abstract only %d), incomplete %2d (no URL %d); uncited %d; "
+              "unreachable sources %d" % (q, s, p["items"], p["held"], p["abstract_only"], p["incomplete"],
+                                          p["no_url"], p["uncited"], p["unreachable_sources"]))
     srcs = list(man.values())
-    lines = ["# WHU reliability study: M1 source snapshots, sha256 manifest (prepare_scoring.py snapshot, %s)" % now(),
+    lines = ["# WHU reliability study: M1 source snapshots, sha256 manifest (prepare_scoring.py snapshot-report)",
              "# Snapshots are held at ~/Projects/whu-study-private/scoring/m1/sources/<source_id>.txt.",
-             "#", "# source_id  extent  text_chars  text_sha256  raw_sha256"]
+             "# route: a script (TLS fix), b curl on the operator's Mac, c open-access location; '-' first fetch;",
+             "# 'a, bytes re-read': the first fetch's bytes, whose PDF text a crashed pdftotext had left empty.",
+             "#", "# source_id  extent  text_chars  text_sha256  raw_sha256  route  version"]
     for r in sorted(srcs, key=lambda r: r["source_id"]):
-        lines.append("%s  %-13s %8s  %s  %s" % (r["source_id"], r["extent"], r.get("text_chars", "-"),
-                                               r.get("text_sha256", "-"), r.get("raw_sha256", "-")))
+        rt = r.get("retrieval") or {}
+        lines.append("%s  %-13s %8s  %s  %s  %s  %s" % (r["source_id"], r["extent"], r.get("text_chars", "-"),
+                                                       r.get("text_sha256", "-"), r.get("raw_sha256", "-"),
+                                                       rt.get("route") or ("a, bytes re-read" if r.get("reextracted") else "-"),
+                                                       rt.get("version") or "-"))
     LOG.mkdir(parents=True, exist_ok=True)
     (LOG / "snapshots_manifest.txt").write_text("\n".join(lines) + "\n")
     write_json(LOG / "snapshot_counts.json", {"written": now(), "per_answer": rows,
-                                              "sources": {"distinct": len(srcs),
+                                              "routes": {k: sum(1 for r in srcs if (r.get("retrieval") or {}).get("route") == k)
+                                                     for k in ("a", "b", "c")},
+                                          "versions": {v: sum(1 for r in srcs if (r.get("retrieval") or {}).get("version") == v)
+                                                       for v in sorted({(r.get("retrieval") or {}).get("version")
+                                                                        for r in srcs} - {None})},
+                                          "first_fetch_bytes_reread_to_held": sum(
+                                              1 for r in srcs if r.get("reextracted") and r["extent"] != "unreachable"),
+                                          "still_unreachable_free_but_blocking": sum(
+                                              1 for n in need.values() if n["free_to_read_but_blocks_automation"]),
+                                          "sources": {"distinct": len(srcs),
                                                           "full_text": sum(r["extent"] == "full text" for r in srcs),
                                                           "abstract_only": sum(r["extent"] == "abstract only" for r in srcs),
                                                           "unreachable": sum(r["extent"] == "unreachable" for r in srcs)}})

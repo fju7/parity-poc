@@ -1,5 +1,5 @@
 {
- "written": "2026-10-23T12:27:44+00:00",
+ "written": "2026-10-23T12:50:01+00:00",
  "no_model_called": true,
  "inputs": {
   "chars_per_token": {
@@ -37,7 +37,7 @@
   },
   "repeat_share": 0.2,
   "max_source_tokens": 150000,
-  "pending_source_size_assumed_chars": 30018
+  "pending_source_size_assumed_chars": 45428
  },
  "rules": [
   "M1, Claude: first read = (prompt head + documents) at cache-write price + prompt after the documents at input price + output; the 20% repeat reads the documents from cache (cache-read price).",
@@ -55,35 +55,35 @@
     "held_items": 7,
     "claude_held": 0.4144,
     "openai_held": 0.542,
-    "claude_all": 1.1618,
-    "openai_all": 1.5066,
+    "claude_all": 1.4812,
+    "openai_all": 1.9052,
     "doc_tokens_held": 64663.3657
    },
    "WHU-S01/Claude": {
     "items": 14,
-    "held_items": 5,
-    "claude_held": 0.5331,
-    "openai_held": 0.6829,
-    "claude_all": 1.5103,
-    "openai_all": 1.9343,
-    "doc_tokens_held": 93224.2029
+    "held_items": 13,
+    "claude_held": 3.3844,
+    "openai_held": 4.2692,
+    "claude_all": 3.4826,
+    "openai_all": 4.3954,
+    "doc_tokens_held": 638890.416
    },
    "WHU-S01/Gemini": {
     "items": 20,
-    "held_items": 9,
-    "claude_held": 0.8203,
-    "openai_held": 1.0555,
-    "claude_all": 1.5816,
-    "openai_all": 2.0447,
-    "doc_tokens_held": 140173.007
+    "held_items": 10,
+    "claude_held": 1.5889,
+    "openai_held": 2.0182,
+    "claude_all": 2.5714,
+    "openai_all": 3.2798,
+    "doc_tokens_held": 290173.007
    },
    "WHU-S01/WHU": {
     "items": 20,
     "held_items": 19,
     "claude_held": 3.7279,
     "openai_held": 4.7192,
-    "claude_all": 3.7971,
-    "openai_all": 4.8091,
+    "claude_all": 3.8261,
+    "openai_all": 4.8454,
     "doc_tokens_held": 691993.7327
    },
    "WHU-S02/ChatGPT": {
@@ -91,27 +91,27 @@
     "held_items": 11,
     "claude_held": 2.1432,
     "openai_held": 2.7134,
-    "claude_all": 2.6716,
-    "openai_all": 3.3941,
+    "claude_all": 3.0826,
+    "openai_all": 3.9069,
     "doc_tokens_held": 397644.9256
    },
    "WHU-S02/Claude": {
     "items": 16,
-    "held_items": 6,
-    "claude_held": 2.1952,
-    "openai_held": 2.7605,
-    "claude_all": 2.8873,
-    "openai_all": 3.6597,
-    "doc_tokens_held": 420505.9343
+    "held_items": 7,
+    "claude_held": 2.3186,
+    "openai_held": 2.9181,
+    "claude_all": 3.2029,
+    "openai_all": 4.0535,
+    "doc_tokens_held": 442486.3935
    },
    "WHU-S02/Gemini": {
     "items": 19,
-    "held_items": 9,
-    "claude_held": 0.9698,
-    "openai_held": 1.2421,
-    "claude_all": 1.8595,
-    "openai_all": 2.3878,
-    "doc_tokens_held": 169834.6245
+    "held_items": 13,
+    "claude_held": 2.5321,
+    "openai_held": 3.2058,
+    "claude_all": 3.3773,
+    "openai_all": 4.2818,
+    "doc_tokens_held": 469795.3922
    },
    "WHU-S02/WHU": {
     "items": 20,
@@ -124,43 +124,43 @@
    },
    "WHU-S03/ChatGPT": {
     "items": 18,
-    "held_items": 17,
-    "claude_held": 0.6636,
-    "openai_held": 0.8886,
-    "claude_all": 0.7621,
-    "openai_all": 1.015,
-    "doc_tokens_held": 89025.6084
+    "held_items": 18,
+    "claude_held": 0.726,
+    "openai_held": 0.97,
+    "claude_all": 0.726,
+    "openai_all": 0.97,
+    "doc_tokens_held": 98897.4841
    },
    "WHU-S03/Claude": {
     "items": 16,
-    "held_items": 11,
-    "claude_held": 0.3051,
-    "openai_held": 0.4199,
-    "claude_all": 0.6512,
-    "openai_all": 0.8695,
-    "doc_tokens_held": 32941.1502
+    "held_items": 12,
+    "claude_held": 0.3334,
+    "openai_held": 0.4587,
+    "claude_all": 0.7264,
+    "openai_all": 0.9633,
+    "doc_tokens_held": 36046.0686
    },
    "WHU-S03/Gemini": {
     "items": 20,
-    "held_items": 12,
-    "claude_held": 2.7388,
-    "openai_held": 3.4602,
-    "claude_all": 3.4886,
-    "openai_all": 4.4242,
-    "doc_tokens_held": 513315.0872
+    "held_items": 16,
+    "claude_held": 4.6056,
+    "openai_held": 5.8037,
+    "claude_all": 4.9986,
+    "openai_all": 6.3083,
+    "doc_tokens_held": 873669.5838
    },
    "WHU-S03/WHU": {
     "items": 20,
-    "held_items": 5,
-    "claude_held": 0.5564,
-    "openai_held": 0.712,
-    "claude_all": 2.4429,
-    "openai_all": 3.1194,
-    "doc_tokens_held": 97844.9377
+    "held_items": 20,
+    "claude_held": 5.0651,
+    "openai_held": 6.3913,
+    "claude_all": 5.0651,
+    "openai_all": 6.3913,
+    "doc_tokens_held": 954811.3627
    }
   },
-  "held_only_usd": 51.3,
-  "all_items_usd": 69.01
+  "held_only_usd": 77.88,
+  "all_items_usd": 90.88
  },
  "m2": {
   "per_answer": {
@@ -264,10 +264,10 @@
   "usd": 4.57
  },
  "whu_s04_projected": {
-  "m1_usd": 23.0,
+  "m1_usd": 30.29,
   "m2_usd": 1.52
  },
- "judging_usd": 98.1,
+ "judging_usd": 127.25,
  "whu_measured_usd": {
   "WHU-S01": 11.67,
   "WHU-S02": 12.11,
@@ -275,6 +275,6 @@
   "WHU-S04": 8.47
  },
  "whu_s04_note": "WHU-S04 is still running; its figure is spend so far, not its final cost.",
- "study_total_usd": 141.56,
+ "study_total_usd": 170.71,
  "over_300": false
 }

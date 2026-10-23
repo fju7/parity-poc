@@ -18,8 +18,15 @@ that conclusion. Replies go to RUN_DIR/replies<tag>/<judge>/<item>.json.
 THE RUNNER, as judge_m1.py (protocol, "Rulings from prep round 1"):
   Refusal. Retried once, unchanged. Refused again, the label is REFUSED and
   the item goes to a person. The input is never reworded.
-  One read per judge (budget ruling, rev 26); this runner draws no repeat
-  sample, because the M2 behaviour check asks for one read each.
+  One read per judge, and a seeded 20% read twice (budget ruling, rev 26;
+  added 2026-10-23, as judge_m1.py does). The sample is drawn from every
+  item with judge_m1.consistency_sample (--consistency-share, --seed;
+  default seed the freeze commit's hash as an integer, judge_m1.CONSISTENCY_SEED)
+  and written to replies<tag>/consistency_sample.json before the first call;
+  an invocation that would draw a different sample stops. A sampled item's
+  second read follows its first straight away, into replies<tag>_repeat/,
+  while the answer block is still cached. The M2 behaviour check ran with
+  one read each (--consistency-share 0).
   Caching. The answer comes first in the prompt, so the ten conclusions of
   one answer share a cached block: on Claude with an explicit cache_control
   breakpoint after the answer, on OpenAI by prefix caching with a
@@ -179,67 +186,94 @@ def judge(a) -> int:
         return 6
     # One answer's conclusions in a row, so the cached answer block is reused.
     items = sorted(items, key=lambda i: (i["answer"], i["item"]))
+    pool = sorted(it["item"] for it in items)
+    sample = J1.consistency_sample(pool, a.consistency_share, a.seed)
+    if sample:
+        rec = {"seed": a.seed, "share": a.consistency_share, "pool": pool, "items": sample,
+               "judges": a.judges.split(","), "repeat_dir": "replies" + a.tag + J1.REPEAT_SUFFIX}
+        sf = run / ("replies" + a.tag) / "consistency_sample.json"
+        if sf.exists():
+            old = json.loads(sf.read_text())
+            if {k: old.get(k) for k in ("seed", "share", "pool", "items")} != \
+                    {k: rec[k] for k in ("seed", "share", "pool", "items")}:
+                print("STOP: %s records a different consistency sample (seed %s, %d items); "
+                      "this invocation would draw seed %s, %d items" % (sf, old.get("seed"), len(old.get("items") or []),
+                                                                       a.seed, len(sample)))
+                return 4
+        else:
+            sf.parent.mkdir(parents=True, exist_ok=True)
+            sf.write_text(json.dumps({**rec, "at": datetime.now(timezone.utc).isoformat(timespec="seconds")},
+                                     indent=1))
+        print("consistency sample (seed %d, %d of %d): %s" % (a.seed, len(sample), len(pool), ", ".join(sample)))
     for it in items:
-        answer, c = answers[it["answer"]], concl[it["conclusion"]]
-        prefix, rest = build(answer, c)
-        n_in = raw.messages.count_tokens(model=CLAUDE_MODEL,
-                                         messages=[{"role": "user", "content": prefix + rest}]).input_tokens
-        for jd in a.judges.split(","):
-            out = run / ("replies" + a.tag) / jd / (it["item"] + ".json")
-            if out.exists():
-                continue
-            attempts = []
-            for attempt in (1, 2):                    # the second only after a refusal
-                if jd == "claude":
-                    p = S.PRICES[CLAUDE_MODEL]
-                    worst = (n_in * p["cache_write"] + CLAUDE_MAX_OUT * p["output"]) / 1e6
-                else:
-                    worst = (n_in * OPENAI_PRICE["input"] + OPENAI_MAX_OUT * OPENAI_PRICE["output"]) / 1e6
-                so_far = J1.spent(a.ledger_issue)
-                if so_far + worst > a.cap:
-                    print("STOP: %s on %s could cost up to $%.3f; %s has spent $%.3f of $%.2f"
-                          % (jd, it["item"], worst, a.ledger_issue, so_far, a.cap))
-                    return 3
-                t0 = time.time()
-                for net in range(3):
-                    try:
-                        if jd == "claude":
-                            text, usage, usd, refused = call_claude(client, prefix, rest)
-                        else:
-                            text, usage, usd, refused = call_openai(keys["OPENAI_API_KEY"], prefix, rest,
-                                                                    a.ledger_issue)
-                        break
-                    except Exception as e:
-                        if net == 2:
-                            raise
-                        print("  network retry %s %s: %s" % (jd, it["item"], str(e)[:160]))
-                        time.sleep(10)
-                attempts.append({"attempt": attempt, "seconds": round(time.time() - t0, 1),
-                                 "usage": usage, "usd": round(usd, 6), "refused": refused, "raw": text})
-                if not refused:
-                    break
-            last = attempts[-1]
-            refused = last["refused"]
-            obj, problems = (None, []) if refused else parse(last["raw"])
-            span = (obj or {}).get("span") or ""
-            label = REFUSED if refused else (obj or {}).get("label")
-            rec = {"item": it["item"], "judge": jd, "model": last["usage"].get("model"),
-                   "at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
-                   "prompt_sha256": prompt_sha, "prompt_version": PROMPT_VERSION, "answer": it["answer"], "conclusion": it["conclusion"],
-                   "from_answer": c.get("from_answer"), "input_tokens_counted": n_in,
-                   "attempts": attempts, "usd": round(sum(x["usd"] for x in attempts), 6),
-                   "judge_label": (obj or {}).get("label"), "label": label, "parsed": obj,
-                   "form_problems": problems, "span_verbatim_in_answer": span_verbatim(span, answer),
-                   "human_review": label == REFUSED}
-            out.parent.mkdir(parents=True, exist_ok=True)
-            out.write_text(json.dumps(rec, indent=1, ensure_ascii=False), encoding="utf-8")
-            u = last["usage"]
-            print("%-12s %-7s %-12s $%.4f  in %6d cached %6d write %6d out %5d  %s%s" % (
-                it["item"], jd, label, rec["usd"], u.get("input", 0), u.get("cache_read", 0),
-                u.get("cache_write", 0), u.get("output", 0),
-                "span ok" if rec["span_verbatim_in_answer"] else ("-" if refused or label == "Omits" else "SPAN NOT VERBATIM"),
-                ("  FORM: " + "; ".join(problems)) if problems else ""))
+        for tag in [a.tag] + ([a.tag + J1.REPEAT_SUFFIX] if it["item"] in sample else []):
+            rc = judge_item(a, run, it, answers, concl, raw, client, keys, prompt_sha, tag)
+            if rc:
+                return rc
     print("%s spent: $%.4f" % (a.ledger_issue, J1.spent(a.ledger_issue)))
+    return 0
+
+
+def judge_item(a, run, it, answers, concl, raw, client, keys, prompt_sha, tag) -> int:
+    answer, c = answers[it["answer"]], concl[it["conclusion"]]
+    prefix, rest = build(answer, c)
+    n_in = raw.messages.count_tokens(model=CLAUDE_MODEL,
+                                     messages=[{"role": "user", "content": prefix + rest}]).input_tokens
+    for jd in a.judges.split(","):
+        out = run / ("replies" + tag) / jd / (it["item"] + ".json")
+        if out.exists():
+            continue
+        attempts = []
+        for attempt in (1, 2):                    # the second only after a refusal
+            if jd == "claude":
+                p = S.PRICES[CLAUDE_MODEL]
+                worst = (n_in * p["cache_write"] + CLAUDE_MAX_OUT * p["output"]) / 1e6
+            else:
+                worst = (n_in * OPENAI_PRICE["input"] + OPENAI_MAX_OUT * OPENAI_PRICE["output"]) / 1e6
+            so_far = J1.spent(a.ledger_issue)
+            if so_far + worst > a.cap:
+                print("STOP: %s on %s could cost up to $%.3f; %s has spent $%.3f of $%.2f"
+                      % (jd, it["item"], worst, a.ledger_issue, so_far, a.cap))
+                return 3
+            t0 = time.time()
+            for net in range(3):
+                try:
+                    if jd == "claude":
+                        text, usage, usd, refused = call_claude(client, prefix, rest)
+                    else:
+                        text, usage, usd, refused = call_openai(keys["OPENAI_API_KEY"], prefix, rest,
+                                                                a.ledger_issue)
+                    break
+                except Exception as e:
+                    if net == 2:
+                        raise
+                    print("  network retry %s %s: %s" % (jd, it["item"], str(e)[:160]))
+                    time.sleep(10)
+            attempts.append({"attempt": attempt, "seconds": round(time.time() - t0, 1),
+                             "usage": usage, "usd": round(usd, 6), "refused": refused, "raw": text})
+            if not refused:
+                break
+        last = attempts[-1]
+        refused = last["refused"]
+        obj, problems = (None, []) if refused else parse(last["raw"])
+        span = (obj or {}).get("span") or ""
+        label = REFUSED if refused else (obj or {}).get("label")
+        rec = {"item": it["item"], "judge": jd, "model": last["usage"].get("model"),
+               "at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+               "prompt_sha256": prompt_sha, "prompt_version": PROMPT_VERSION, "answer": it["answer"], "conclusion": it["conclusion"],
+               "from_answer": c.get("from_answer"), "input_tokens_counted": n_in,
+               "attempts": attempts, "usd": round(sum(x["usd"] for x in attempts), 6),
+               "judge_label": (obj or {}).get("label"), "label": label, "parsed": obj,
+               "form_problems": problems, "span_verbatim_in_answer": span_verbatim(span, answer),
+               "human_review": label == REFUSED}
+        out.parent.mkdir(parents=True, exist_ok=True)
+        out.write_text(json.dumps(rec, indent=1, ensure_ascii=False), encoding="utf-8")
+        u = last["usage"]
+        print("%-12s %-7s %-12s $%.4f  in %6d cached %6d write %6d out %5d  %s%s" % (
+            it["item"], jd, label, rec["usd"], u.get("input", 0), u.get("cache_read", 0),
+            u.get("cache_write", 0), u.get("output", 0),
+            "span ok" if rec["span_verbatim_in_answer"] else ("-" if refused or label == "Omits" else "SPAN NOT VERBATIM"),
+            ("  FORM: " + "; ".join(problems)) if problems else ""))
     return 0
 
 
@@ -288,6 +322,10 @@ def main() -> int:
     ap.add_argument("--tag", default="")
     ap.add_argument("--ledger-issue", default="whu-reliability-prefreeze2")
     ap.add_argument("--score", action="store_true")
+    ap.add_argument("--consistency-share", type=float, default=J1.CONSISTENCY_SHARE,
+                    help="share of items each judge reads a second time (0 for none)")
+    ap.add_argument("--seed", type=int, default=J1.CONSISTENCY_SEED,
+                    help="seed for the consistency sample (default: the freeze commit's hash as an integer)")
     a = ap.parse_args()
     if a.score:
         print(json.dumps(score(Path(a.run_dir), a.tag), indent=1))
