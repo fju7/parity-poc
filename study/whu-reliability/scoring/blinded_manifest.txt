@@ -1,0 +1,16 @@
+# WHU reliability study: blinded answers, sha256 manifest (prepare_scoring.py blind)
+# The blinded texts are held at ~/Projects/whu-study-private/scoring/blinded/<question>/<system>.blind.txt.
+#
+# sha256  question  system  record  chars  sentences  samplable  with-marker  references
+7dcef9bbc74fbbf4098c903249ce7c3b45f2dafb4b7a016ac55ae707977473c6  WHU-S01  WHU      tb-dna-testing.html  11362    41    41    41   13
+de7ed49271b339de68e1105a101fe76d313d16100d7e3c58252132ccf1f85a24  WHU-S01  Claude   claude.md           22411   123   122    51   38
+87d3a90501d81e0efb3663c877a598a4398b1e4ea6ea3d1dae5c737d1fdfbbd5  WHU-S01  ChatGPT  chatgpt.md          20757   113   113    46   19
+4d9590b212fd4ed8187f5d891a819e84e162cab5ff63cd6cf2c2eba0be4dba0d  WHU-S01  Gemini   gemini.md           29633   108   103    99   34
+78fa5a18886e15ab336eeeb89f70bd3913adc0d3b7682eeab1bad90bdaee3c97  WHU-S02  WHU      teen-depression-therapy-format.html  11261    52    52    52    8
+77e58ef2cdb42291ac6d75bcc57e58e24532b71179a97a2be12631f8635337c4  WHU-S02  Claude   claude.md           20864   147   147    52   43
+8a5020238516d750f6fc4e249400f178e7b45df0ea1949c6292c986e6cb4cf8e  WHU-S02  ChatGPT  chatgpt.md          13561    96    96    37   15
+aa1e5076b809a63a399a9cb179aa169b4164e4b89412457616ad6a605a622e05  WHU-S02  Gemini   gemini.md           21235    85    77    70   41
+28fd1ebe94eeae5e54a1ebdc2f37007dcbec0b6eef3757e694c8373e247313f9  WHU-S03  WHU      public-involvement-climate-policy.html   9293    37    37    37    8
+59fe43f143486a85fa8203b65f6fd7cef9a2c3c84de38e928b1713ef5f8f5f89  WHU-S03  Claude   claude.md           37276   213   213    89   90
+9c2458ea237039934faf024197aec897d4150cde5cb956278ccd15121bd671f1  WHU-S03  ChatGPT  chatgpt.md          23881   156   156    60   28
+352dd8ca43c780eb73b7a7c1065fbfc8f78913b16e7154b9e3083b591adbb967  WHU-S03  Gemini   gemini.raw.html     25952   104   104   102   29

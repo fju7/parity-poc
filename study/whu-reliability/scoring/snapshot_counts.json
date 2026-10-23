@@ -1,0 +1,131 @@
+{
+ "written": "2026-10-23T12:27:24+00:00",
+ "per_answer": [
+  {
+   "question": "WHU-S01",
+   "system": "ChatGPT",
+   "items": 16,
+   "held": 7,
+   "incomplete": 9,
+   "abstract_only": 0,
+   "no_url": 0,
+   "uncited": 4
+  },
+  {
+   "question": "WHU-S01",
+   "system": "Claude",
+   "items": 14,
+   "held": 5,
+   "incomplete": 9,
+   "abstract_only": 0,
+   "no_url": 0,
+   "uncited": 6
+  },
+  {
+   "question": "WHU-S01",
+   "system": "Gemini",
+   "items": 20,
+   "held": 9,
+   "incomplete": 11,
+   "abstract_only": 5,
+   "no_url": 0,
+   "uncited": 0
+  },
+  {
+   "question": "WHU-S01",
+   "system": "WHU",
+   "items": 20,
+   "held": 19,
+   "incomplete": 1,
+   "abstract_only": 0,
+   "no_url": 0,
+   "uncited": 0
+  },
+  {
+   "question": "WHU-S02",
+   "system": "ChatGPT",
+   "items": 17,
+   "held": 11,
+   "incomplete": 6,
+   "abstract_only": 0,
+   "no_url": 0,
+   "uncited": 3
+  },
+  {
+   "question": "WHU-S02",
+   "system": "Claude",
+   "items": 16,
+   "held": 6,
+   "incomplete": 10,
+   "abstract_only": 0,
+   "no_url": 0,
+   "uncited": 4
+  },
+  {
+   "question": "WHU-S02",
+   "system": "Gemini",
+   "items": 19,
+   "held": 9,
+   "incomplete": 10,
+   "abstract_only": 0,
+   "no_url": 0,
+   "uncited": 1
+  },
+  {
+   "question": "WHU-S02",
+   "system": "WHU",
+   "items": 20,
+   "held": 20,
+   "incomplete": 0,
+   "abstract_only": 0,
+   "no_url": 0,
+   "uncited": 0
+  },
+  {
+   "question": "WHU-S03",
+   "system": "ChatGPT",
+   "items": 18,
+   "held": 17,
+   "incomplete": 1,
+   "abstract_only": 2,
+   "no_url": 0,
+   "uncited": 2
+  },
+  {
+   "question": "WHU-S03",
+   "system": "Claude",
+   "items": 16,
+   "held": 11,
+   "incomplete": 5,
+   "abstract_only": 1,
+   "no_url": 0,
+   "uncited": 4
+  },
+  {
+   "question": "WHU-S03",
+   "system": "Gemini",
+   "items": 20,
+   "held": 12,
+   "incomplete": 8,
+   "abstract_only": 0,
+   "no_url": 0,
+   "uncited": 0
+  },
+  {
+   "question": "WHU-S03",
+   "system": "WHU",
+   "items": 20,
+   "held": 5,
+   "incomplete": 15,
+   "abstract_only": 1,
+   "no_url": 0,
+   "uncited": 0
+  }
+ ],
+ "sources": {
+  "distinct": 122,
+  "full_text": 66,
+  "abstract_only": 6,
+  "unreachable": 50
+ }
+}
