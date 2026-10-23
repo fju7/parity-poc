@@ -180,6 +180,20 @@ def _load_spend():
 
 
 _spend = _load_spend()
+
+
+def _load_jsonio():
+    """whatholdsup/jsonio.py, by PATH for the reason _load_spend gives. Its
+    strip_code_fence is the one fence stripper every model-reply parser uses."""
+    import importlib.util
+    p = Path(__file__).resolve().parents[1] / "whatholdsup" / "jsonio.py"
+    sp = importlib.util.spec_from_file_location("whu_jsonio", p)
+    m = importlib.util.module_from_spec(sp)
+    sp.loader.exec_module(m)
+    return m
+
+
+strip_code_fence = _load_jsonio().strip_code_fence
 _SPEND_RECORDED = False
 
 _unjudged = None
@@ -734,7 +748,7 @@ def call(system: str, user: str, *, search: bool,
         truncated = getattr(response, "stop_reason", None) == "max_tokens"
         text = _response_text(response)
         try:
-            parsed = json.loads(text)
+            parsed = json.loads(strip_code_fence(text))      # ```json ... ``` (WHU-S03)
             if truncated:
                 where = _dump_truncated(label, text, response)
                 print(f"  [ERROR] {label}: the answer was cut off at max_tokens "
@@ -2813,7 +2827,7 @@ def main():
         sys.exit(3)
 
     draft = read_draft(path)
-    today = args.today or time.strftime("%Y-%m-%d")
+    today = args.today or datetime.now(timezone.utc).date().isoformat()     # UTC (2026-10-22)
     print(f"\nFact-checking {path.name} ({len(draft):,} chars of prose) as of {today}\n")
 
     narrow = None

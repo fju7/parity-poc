@@ -52,12 +52,12 @@ import re
 import sys
 import urllib.error
 import urllib.request
-from datetime import date
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
 import source_store as store          # noqa: E402
+import tls                             # noqa: E402
 
 UA = {"User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
                     "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125 Safari/537.36",
@@ -97,7 +97,7 @@ def acquisition_url(src: dict) -> str:
 
 def fetch(url: str, timeout: int = 45) -> tuple[bytes, str, str]:
     req = urllib.request.Request(url, headers=UA)
-    with urllib.request.urlopen(req, timeout=timeout) as r:
+    with tls.urlopen(req, timeout=timeout) as r:      # completes a chain short of its intermediate
         return r.read(), r.headers.get("Content-Type", ""), r.geturl()
 
 
@@ -184,7 +184,7 @@ def main(argv=None) -> int:
         if data is None:
             # NOT FETCHED, and the ledger says why. The state is left as it was:
             # nothing was stored, so nothing is claimed.
-            acc["last_fetch"] = {"on": date.today().isoformat(), "by": "acquire_sources.py",
+            acc["last_fetch"] = {"on": store.utc_today(), "by": "acquire_sources.py",
                                  "result": "not fetched", "why": why, "tried": tried}
             failed.append((sid, why, s.get("title", ""))); continue
         row = store.put(args.slug, sid, data, url=final, via="acquire_sources.py on the "

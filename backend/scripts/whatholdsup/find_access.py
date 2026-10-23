@@ -49,6 +49,7 @@ from pathlib import Path
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
 import source_store as store          # noqa: E402
+import tls                             # noqa: E402
 
 MAIL = "fred.ugast@uspv.co"
 UA = {"User-Agent": "whatholdsup/1.0 (mailto:%s)" % MAIL}
@@ -58,8 +59,7 @@ STOP = {"the", "a", "an", "of", "and", "or", "in", "for", "with", "on", "to", "a
 
 
 def get(url: str, timeout: int = 30):
-    return json.load(urllib.request.urlopen(
-        urllib.request.Request(url, headers=UA), timeout=timeout))
+    return json.load(tls.urlopen(urllib.request.Request(url, headers=UA), timeout=timeout))
 
 
 def ids_from_url(url: str) -> dict:
@@ -212,7 +212,7 @@ def main() -> int:
                          "here was title-checked against our own record for that source, "
                          "because the first hand-typed attempt at this returned three "
                          "wrong papers from three wrong DOIs."),
-        "checked": time.strftime("%Y-%m-%d"), "sources": out},
+        "checked": store.utc_today(), "sources": out},
         indent=2, ensure_ascii=False), encoding="utf-8")
     print("  written to %s\n" % p.relative_to(store.ROOT))
     return 0

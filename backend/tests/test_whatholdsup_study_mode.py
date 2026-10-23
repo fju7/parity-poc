@@ -171,3 +171,14 @@ def test_the_audit_stage_checks_the_issue_cap_on_every_real_call(ledger, monkeyp
     with pytest.raises(SL.OverIssueCap):
         call("prompt", 1000, "read")
     assert created == []
+
+
+def test_the_spend_report_shows_a_study_issues_cap(ledger):
+    # it printed "of $40 cap" for a study issue (WHU-S03, 2026-10-22)
+    _spent(ledger, "xq", 10.0)
+    _spent(ledger, "notstudy", 10.0)
+    out = SL.report()
+    line = {l.split()[0]: l for l in out.splitlines() if l.startswith("    ") and "cap" in l}
+    assert "of $50 cap  (20%)" in line["xq"]
+    assert "of $40 cap  (25%)" in line["notstudy"]
+    assert "of $50 cap" in SL.report("xq")

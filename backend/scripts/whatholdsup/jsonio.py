@@ -58,6 +58,31 @@ def edit(path: str | Path, fn) -> dict:
 
 
 # ---------------------------------------------------------------------------
+# A MODEL'S JSON REPLY IN A CODE FENCE (2026-10-22, WHU-S03)
+#
+# Models wrap a JSON reply in ```json ... ``` although the prompt asks for bare
+# JSON. Every place that parses a model's JSON reply strips a SURROUNDING fence
+# first, with this one function, so no parser depends on a fallback salvage to
+# get past the fence. A fence in the middle of prose is not stripped here: that
+# is text around the JSON, and the callers' own salvage handles it.
+# ---------------------------------------------------------------------------
+
+_FENCE_OPEN = re.compile(r"\A```[A-Za-z0-9_-]*\s*")
+_FENCE_CLOSE = re.compile(r"\s*```\Z")
+
+
+def strip_code_fence(text: str) -> str:
+    """TEXT without a code fence around it: the reply stripped, then an opening
+    ``` line (with or without a language tag) and a closing ``` removed."""
+    s = (text or "").strip()
+    if not s.startswith("```"):
+        return s
+    s = _FENCE_OPEN.sub("", s, count=1)
+    s = _FENCE_CLOSE.sub("", s, count=1)
+    return s.strip()
+
+
+# ---------------------------------------------------------------------------
 # WHICH INTERPRETER IS RUNNING THIS
 #
 # On 2026-09-10 every command in a working session ran as

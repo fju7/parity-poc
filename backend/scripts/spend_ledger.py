@@ -283,11 +283,10 @@ def report(issue: str | None = None) -> str:
         by_script[e.get("script") or "?"] = by_script.get(e.get("script") or "?", 0) + u
         by_day[(e.get("at") or "")[:10]] = by_day.get((e.get("at") or "")[:10], 0) + u
     total = sum(e.get("usd") or 0 for e in es)
-    c = caps()
     lines = ["", "=" * 66, "SPEND", "=" * 66,
              "  %d priced call(s), $%.2f total" % (len(es), total), "", "  by issue:"]
     for k, v in sorted(by_issue.items(), key=lambda x: -x[1]):
-        cap = (c.get("per_issue") or {}).get(k, c.get("default_per_issue"))
+        cap = cap_for(None if k == "(none)" else k)    # a study issue's is study_per_issue
         tail = ("   of $%.0f cap  (%.0f%%)" % (float(cap), 100 * v / float(cap))) if cap else ""
         lines.append("    %-16s $%8.2f%s" % (k, v, tail))
     lines += ["", "  by script:"]

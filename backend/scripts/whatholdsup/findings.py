@@ -70,7 +70,6 @@ import argparse
 import json
 import re
 import sys
-from datetime import date
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
@@ -610,7 +609,7 @@ def check(slug: str, report: dict) -> list[tuple[str, str, str]]:
                                    "finding disputes. The gate could not see it: the licence "
                                    "forbids any automated reader opening %s. ANSWER: %s"
                                    % (a["qid"], a["by"], a["on"], a["sid"], a["answer"]),
-                            "by": "findings.attestation_for", "on": date.today().isoformat()})
+                            "by": "findings.attestation_for", "on": store.utc_today()})
                 if not r:
                     doc.setdefault("findings", []).append(rec)
                 save(slug, doc)
@@ -773,7 +772,7 @@ def scan(slug: str, report: dict) -> dict:
             "id": f["id"], "kind": f["kind"], "gate_verdict": f["verdict"],
             "gate_said": f["what"],
             "decision": "", "source_id": "", "quote": "", "why": "",
-            "by": "", "on": date.today().isoformat(),
+            "by": "", "on": store.utc_today(),
             "_fill_in": "decision: %s. accepted/rejected need source_id AND a "
                         "quote that is in that document." % ", ".join(DECISIONS),
         }
@@ -865,7 +864,7 @@ def retest(slug: str, report: dict, write: bool = True) -> dict:
     verd = report.get("verdicts") or {}
     page = _page_plain(slug)
     out = {"closed": [], "attested": [], "live": [], "partly": [], "moot": [], "operator": []}
-    today = date.today().isoformat()
+    today = store.utc_today()
     for f in _opens(slug, report):
         rec = record_for(have, f)
         if rec and rec.get("decision") in DECISIONS:

@@ -89,11 +89,12 @@ import hashlib
 import json
 import re
 import sys
-from datetime import date, datetime, timezone
+from datetime import datetime, timezone
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
+import jsonio  # noqa: E402
 
 MODEL = "claude-opus-5-5"
 BY = "ruling model %s" % MODEL
@@ -250,7 +251,7 @@ def build_prompt(kind: str, p: dict, grouped: bool = False) -> str:
 
 
 def parse(kind: str, text: str, n_quotes: int) -> dict:
-    s = (text or "").strip()
+    s = jsonio.strip_code_fence(text)
     m = re.search(r"\{.*\}", s, re.S)
     try:
         got = json.loads(m.group(0) if m else s)
@@ -569,14 +570,14 @@ def rule_gate(slug: str, call, *, P=None, report: dict | None = None, rows: dict
                 sr = {"row": it["ref"]["row"], "sentence": it["sentence"], "decision": decision,
                       "source_id": sid, "quote": quote, "why": got.get("reason") or "",
                       "ruling": got["ruling"], "ruling_text": got.get("text"),
-                      "ruled": "ruling.py gate, prompt %s" % psha[:12], "on": date.today().isoformat()}
+                      "ruled": "ruling.py gate, prompt %s" % psha[:12], "on": datetime.now(timezone.utc).date().isoformat()}
                 if together:
                     sr["ruled_together"] = together
                 f.setdefault("sentence_rulings", []).append(sr)
                 recency[f.get("id")] = (f, it["study"])
                 continue
             f.update({"decision": decision, "source_id": sid, "quote": quote,
-                      "why": got.get("reason") or "", "by": BY, "on": date.today().isoformat(),
+                      "why": got.get("reason") or "", "by": BY, "on": datetime.now(timezone.utc).date().isoformat(),
                       "ruling": got["ruling"], "ruling_text": got.get("text"),
                       "ruled": "ruling.py gate, prompt %s" % psha[:12]})
             if together:
@@ -611,7 +612,7 @@ def _settle_recency(slug: str, f: dict, rows: dict, study: str) -> bool:
     f.update({"decision": decision, "source_id": cited["source_id"] if cited else "",
               "quote": cited["quote"] if cited else "",
               "why": "; ".join("%s: %s" % (x["row"], x["why"]) for x in srs),
-              "by": BY, "on": date.today().isoformat(),
+              "by": BY, "on": datetime.now(timezone.utc).date().isoformat(),
               "ruling": "accept" if changed else "reject",
               "ruling_text": None, "ruled": "ruling.py gate, one ruling per body sentence "
                                             "(sentence_rulings)"})
@@ -716,7 +717,7 @@ def rule_changecheck(slug: str, call, *, P=None, rows: dict | None = None,
             f = it["finding"]
             d = {"key": it["finding_key"], "kind": f.get("kind"), "sentence": f["sentence"],
                  "decision": "reject" if got["ruling"] == "reject" else "accept",
-                 "by": BY, "on": date.today().isoformat(), "reason": got.get("reason") or "",
+                 "by": BY, "on": datetime.now(timezone.utc).date().isoformat(), "reason": got.get("reason") or "",
                  "ruling": got["ruling"], "ruling_text": got.get("text"),
                  "ruled": "ruling.py changecheck, prompt %s" % psha[:12]}
             if together:

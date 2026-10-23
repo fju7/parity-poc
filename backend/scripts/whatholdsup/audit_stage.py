@@ -77,6 +77,7 @@ from pathlib import Path
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parents[2]
 sys.path.insert(0, str(HERE))
+import jsonio  # noqa: E402
 _spec = importlib.util.spec_from_file_location("spend_ledger", ROOT / "backend" / "scripts" / "spend_ledger.py")
 S = importlib.util.module_from_spec(_spec)
 _spec.loader.exec_module(S)
@@ -694,8 +695,7 @@ def build_read_prompt(batch: list[dict], docs: dict[str, str], records: dict[str
 
 
 def parse_json(text: str) -> dict | list:
-    s = text.strip()
-    s = re.sub(r"^```(json)?\s*|\s*```$", "", s)
+    s = jsonio.strip_code_fence(text)
     try:
         return json.loads(s)
     except Exception:
