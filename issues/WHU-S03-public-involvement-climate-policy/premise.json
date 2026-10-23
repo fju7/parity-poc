@@ -1,0 +1,58 @@
+{
+  "_what_this_is": "The entry gate, answered BEFORE drafting. The threshold question is whether a well-informed non-expert would confidently believe something the primary sources do not support.",
+  "belief": {
+    "_note": "What the reader already believes, stated as they would state it. If you cannot write this sentence, there is nothing to correct and no subject -- which is how the tobacco-analogy candidate died.",
+    "statement": "Involving the wider public in making climate policy (community groups, businesses, young people, workers, Indigenous communities) makes the policies more popular and more likely to pass, and makes them work better: citizens' assemblies and consultation build buy-in, so participatory climate policy wins political backing and delivers bigger emissions cuts than policy made by governments and experts alone.",
+    "how_we_know_they_believe_it": "To be filled from research: named coverage that states participation as producing support and results, checked from page bytes.",
+    "carried_by": [
+      {
+        "outlet": "",
+        "url": "",
+        "date": "",
+        "what_it_said": ""
+      }
+    ]
+  },
+  "what_the_sources_show": {
+    "_note": "What the primary sources actually support, and which sources.",
+    "statement": "",
+    "sources": []
+  },
+  "direction": {
+    "_note": "CORRECTS, CONFIRMS or NARROWS. This field exists so the contrarianism guard can count. A publication whose answer is always CORRECTS is performing scepticism rather than assessing evidence, and is not to be trusted.",
+    "value": "",
+    "_values": [
+      "corrects",
+      "confirms",
+      "narrows"
+    ],
+    "_expected_before_research": "narrows (prediction, written before any source was opened; the recorded value is set after research)"
+  },
+  "reader_with_a_decision": "A city, regional or national climate-policy official, legislator's staffer, or NGO or funder deciding whether to spend time and money on a citizens' assembly, stakeholder consultation or co-design process for a climate policy, who needs to know whether that participation actually makes the policy more likely to be adopted and to cut emissions, or mainly builds legitimacy.",
+  "public_record_check": {
+    "_note": "NOT 'has anybody published this'. On any contested question, somebody has. The question is whether it has been carried WHERE THIS READER WOULD FIND IT. Run the counterexample hunter on the belief statement, not on the finding.",
+    "prior_art_found": [],
+    "carried_in_general_coverage": "",
+    "our_contribution": "translation, extension, or correction of the prior art -- say which"
+  },
+  "sources_are_open": "",
+  "evidence_base_is_bounded": "",
+  "kill_condition": "There is no 'narrows' story, and the answer is CONFIRMS, if studies of participatory climate policymaking (citizens' assemblies, consultations, co-design, stakeholder and Indigenous involvement) show that public involvement reliably raises political support for the policies, their adoption, and their measured outcomes such as emissions cuts. It is CORRECTS if the evidence shows public involvement makes no difference, or reduces support or effectiveness (for example, assembly recommendations routinely ignored, or participation delaying or diluting policy). And it dies as a story if general coverage already carries the evidence on participation and outcomes accurately where this reader would find it.",
+  "kill_condition_tested": {
+    "_note": "Filled in AFTER going to look, by whoever looked.",
+    "by": "",
+    "on": "",
+    "result": "",
+    "_result_values": [
+      "survived",
+      "narrowed",
+      "killed"
+    ],
+    "note": ""
+  },
+  "lead_came_from": "WHU reliability study draw (WHU-S03, issue.json); the question was given; the drawn source is not known to the drafting session.",
+  "_written_before_research": {
+    "by": "Claude Code (drafting session)",
+    "at": "2026-10-23T00:41:13Z"
+  }
+}
