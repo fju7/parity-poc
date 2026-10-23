@@ -19,6 +19,16 @@ SUPERSEDED when a later ruling took its text as the sentence it ruled on and
 accepted or amended it again: only the last text in such a chain is expected on
 the page. A "reject" leaves the sentence as written and expects nothing.
 
+CUT BY THE AUDIT. A sentence still failing after the audit's last round is cut
+(audit_stage.py: cuts.jsonl, with every round's finding). Its last ruling's
+text never reaches the page: the cut supersedes it. Such a ruling is reported
+"cut as ruled" when the cut sentence is ABSENT from the page -- neither its
+last ruled text, nor any text it was ruled on in that run -- and is a
+MISMATCH if any of them is still there. A cut record marked left_for_person (a
+card or meta wording) is not a cut of a page sentence and changes nothing
+here. (2026-10-23: WHU-S04 is the first issue where the audit cut a sentence;
+its u28 was reported as a mismatch for being absent.)
+
 WHAT "EQUALS" MEANS
 -------------------
 Normalised only as changecheck normalises (changecheck.sentences_of): the text
@@ -85,6 +95,33 @@ def _withdrawn(run_dir: Path) -> bool:
     return isinstance(w, dict) and bool(w.get("reason"))
 
 
+def load_cuts(case: Path) -> list[dict]:
+    """Every audit cut of a page sentence after its final round, from the runs
+    load_rulings reads, each tagged with its log and run directory."""
+    out = []
+    for p in sorted(p for p in (case / "audit").glob("*/cuts.jsonl") if not _withdrawn(p.parent)):
+        for n, line in enumerate(p.read_text(encoding="utf-8").splitlines(), 1):
+            if not line.strip():
+                continue
+            c = json.loads(line)
+            rounds = c.get("rounds") or []
+            if c.get("left_for_person") or not rounds or not (rounds[-1].get("text") or "").strip():
+                continue                        # not a page cut, or the ruling itself cut it ("")
+            c["_log"], c["_run"] = "%s:%d" % (p.relative_to(case), n), p.parent.name
+            out.append(c)
+    return out
+
+
+def _run_of(r: dict) -> str | None:
+    """The audit run directory a ruling's log is in, or None for rulings/."""
+    parts = r["_log"].split("/")
+    return parts[1] if parts[0] == "audit" and len(parts) > 2 else None
+
+
+def _n(text) -> str:
+    return " ".join((text or "").split())
+
+
 def _ruled_on(r: dict) -> str:
     """The sentence a ruling was about: its inputs (ruling.py, and the audit
     stage since 2026-10-20)."""
@@ -96,7 +133,9 @@ def check(case: Path, page_html: str) -> dict:
     rulings = load_rulings(case)
     page = set(page_sentences(page_html))
     applied = [r for r in rulings if r.get("ruling") in APPLIED]
-    out = {"checked": [], "mismatches": [], "superseded": [], "skipped": []}
+    out = {"checked": [], "mismatches": [], "superseded": [], "skipped": [], "cut": []}
+    cuts = {(c["_run"], c.get("unit"), _n(c.get("last_text")), _n(c["rounds"][-1]["text"])): c
+            for c in load_cuts(case)}
     for i, r in enumerate(applied):
         ref = {"log": r["_log"], "ruling": r.get("ruling"), "ruling_kind": r.get("ruling_kind") or "audit",
                "ruled_on": _ruled_on(r), "text": r.get("text")}
@@ -107,6 +146,19 @@ def check(case: Path, page_html: str) -> dict:
         later = [x for x in applied[i + 1:] if new and " ".join(_ruled_on(x).split()) == new]
         if later:
             out["superseded"].append(dict(ref, by=later[0]["_log"]))
+            continue
+        cut = cuts.get((_run_of(r), r.get("unit"), _n(_ruled_on(r)), new))
+        if cut:
+            # The cut supersedes this text, and the sentence must be gone in
+            # every wording the run ruled on.
+            chain = [x for x in rulings if _run_of(x) == cut["_run"] and x.get("unit") == cut.get("unit")]
+            gone = []
+            for t in [new] + [_ruled_on(x) for x in chain] + [x.get("text") for x in chain]:
+                gone += [s for s in norm_sentences(t) if s not in gone]
+            still = [s for s in gone if s in page]
+            row = dict(ref, expected="cut as ruled", cut=cut["_log"], unit=cut.get("unit"),
+                       why=cut.get("why"), still_on_page=still)
+            (out["mismatches"] if still else out["cut"]).append(row)
             continue
         if new:
             want = norm_sentences(new)
@@ -163,7 +215,7 @@ def dangling(case: Path, page_html: str) -> list[dict]:
     res = check(case, page_html)
     page = page_sentences(page_html)
     out, seen = [], set()
-    for r in res["checked"]:
+    for r in res["checked"] + [dict(c, text="") for c in res["cut"]]:
         old = " ".join((r.get("ruled_on") or "").split())
         new = " ".join((r.get("text") or "").split())
         removed = terms(old) - terms(new)
@@ -207,16 +259,23 @@ def main(argv=None) -> int:
     rec = {"at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
            "page_sha256": hashlib.sha256(page_html.encode("utf-8")).hexdigest(),
            "checked": len(res["checked"]), "mismatches": res["mismatches"],
-           "superseded": len(res["superseded"]), "skipped": res["skipped"]}
+           "superseded": len(res["superseded"]), "skipped": res["skipped"],
+           "cut_as_ruled": [{"log": c["log"], "unit": c["unit"], "cut": c["cut"]} for c in res["cut"]]}
     log = case / "rulings" / "applied_check.jsonl"
     log.parent.mkdir(parents=True, exist_ok=True)
     with open(log, "a", encoding="utf-8") as f:
         f.write(json.dumps(rec, ensure_ascii=False) + "\n")
-    print("\n  %d applied ruling(s) on the page as ruled, %d superseded, %d left for a person, "
-          "%d MISMATCH(ES)" % (len(res["checked"]), len(res["superseded"]), len(res["skipped"]),
-                               len(res["mismatches"])))
+    print("\n  %d applied ruling(s) on the page as ruled, %d cut as ruled, %d superseded, "
+          "%d left for a person, %d MISMATCH(ES)"
+          % (len(res["checked"]), len(res["cut"]), len(res["superseded"]), len(res["skipped"]),
+             len(res["mismatches"])))
+    for c in res["cut"]:
+        print("  CUT AS RULED  %s: %s cut by the audit (%s), absent from the page" % (c["log"], c["unit"], c["cut"]))
     for m in res["mismatches"]:
-        if m.get("expected") == "cut":
+        if m.get("expected") == "cut as ruled":
+            print("  MISMATCH  %s: %s cut by the audit (%s), still on the page: %r"
+                  % (m["log"], m["unit"], m["cut"], m["still_on_page"][0][:100]))
+        elif m.get("expected") == "cut":
             print("  MISMATCH  %s: ruled cut, still on the page: %r" % (m["log"], (m["still_on_page"] or [""])[0][:100]))
         else:
             print("  MISMATCH  %s: not on the page as ruled: %r" % (m["log"], (m["missing"] or [""])[0][:100]))

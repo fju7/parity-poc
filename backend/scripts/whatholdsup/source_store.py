@@ -316,6 +316,7 @@ TYPES = {
     "synthesis":     ("a systematic review or meta-analysis", "article"),
     # short journal items
     "corrigendum":   ("a correction or erratum notice", "notice"),
+    "correction":    ("a correction or erratum notice (an alias of corrigendum)", "notice"),
     "editorial":     ("an editorial or retraction notice", "notice"),
     # structured records
     "registry":      ("a trial registry record", "record"),
@@ -363,6 +364,16 @@ TYPES = {
 #   page     a web page -- journalism, a press release, an expert-reaction
 #            page, a newsletter
 FORMS = {"article", "notice", "record", "page"}
+
+# Another name for a type, and the type it is (2026-10-23). A source typed
+# with an alias is treated as the type it names everywhere a type decides
+# something; TYPES carries the alias too, so it is a declared type.
+TYPE_ALIASES = {"correction": "corrigendum"}
+
+
+def canonical_type(t: str | None) -> str:
+    """The type an alias names, or the type itself."""
+    return TYPE_ALIASES.get(t or "", t or "")
 FORM_FLOOR = {"notice": 600, "record": 2000, "page": 2000}
 
 
@@ -371,7 +382,7 @@ def form_of(src: dict) -> str | None:
     f = src.get("form")
     if f in FORMS:
         return f
-    return TYPES.get(src.get("type", ""), (None, None))[1]
+    return TYPES.get(canonical_type(src.get("type")), (None, None))[1]
 
 # DERIVED, NEVER WRITTEN TWICE.
 #
@@ -474,7 +485,7 @@ def classify(slug: str, sid: str, data: bytes,
     right one. So the type decides whether the question applies at all.
     """
     src = next((x for x in sources(slug) if x.get("id") == sid), {})
-    stype = src.get("type", "")
+    stype = canonical_type(src.get("type"))
     form = form_of(src)
     if form == "article":
         return substance(data, content_type)
@@ -1183,7 +1194,7 @@ def main() -> int:
             return 2
         ct, _ = mimetypes.guess_type(str(args.path))
         kind, kind_why = classify(args.slug, args.sid, data, ct or "")
-        if kind == "landing" and src.get("type") in ARTICLE_TYPES and not args.force:
+        if kind == "landing" and canonical_type(src.get("type")) in ARTICLE_TYPES and not args.force:
             print("\n  REFUSED: %s\n  It identifies itself as the right document, but it "
                   "is not the document.\n  Use --force only if you have opened the file "
                   "yourself and disagree.\n" % kind_why)

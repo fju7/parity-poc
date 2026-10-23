@@ -546,3 +546,30 @@ def test_a_licence_flag_and_human_read_survive_the_add(issue, monkeypatch):
     assert _add(issue, monkeypatch, "S002", FULL, "paloma.html") == 0
     a = _access(issue, "S002")
     assert a["state"] == "human_read" and a[store.LICENCE_KEY] is True
+
+
+
+def _load_as(name, alias):
+    sp = importlib.util.spec_from_file_location(
+        alias, ROOT / "backend" / "scripts" / "whatholdsup" / (name + ".py"))
+    m = importlib.util.module_from_spec(sp)
+    sp.loader.exec_module(m)
+    return m
+
+
+def test_correction_is_an_alias_of_corrigendum(issue, monkeypatch):
+    # 2026-10-23: "correction" is accepted as a source type, and is a
+    # corrigendum wherever a type decides something.
+    assert store.canonical_type("correction") == "corrigendum"
+    assert store.canonical_type("primary") == "primary" and store.canonical_type(None) == ""
+    assert "correction" in store.TYPES and "correction" not in store.ARTICLE_TYPES
+    assert store.form_of({"type": "correction"}) == store.form_of({"type": "corrigendum"}) == "notice"
+    assert "correction" in _load_as("coverage", "coverage_alias_t").TYPES          # a declared type
+    rc = _load_as("reconcile", "reconcile_alias_t").CLOSENESS
+    assert rc["correction"] == rc["corrigendum"]
+    # held to a notice's floor, as a corrigendum is: complete at 600 characters
+    note = ("<html><body><p>%s</p></body></html>" % ("Correction to the table. " * 40)).encode()
+    for t in ("corrigendum", "correction"):
+        monkeypatch.setattr(store, "sources", lambda slug, t=t: [{"id": "S001", "type": t}])
+        assert store.classify("t", "S001", note, "text/html")[0] == "document"
+        assert store.classify("t", "S001", note[:300], "text/html")[0] == "stub"

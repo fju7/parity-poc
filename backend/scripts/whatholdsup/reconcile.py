@@ -54,7 +54,7 @@ OK, BAD, WARN = "ok", "BLOCKED", "warn"
 # least a structured record filed under a regulator's rules, while a release is
 # written to be read a particular way. B8 must never offer one as a closer
 # source than the publication.
-CLOSENESS = {"primary": 0, "corrigendum": 0, "methods": 1, "comparison": 1,
+CLOSENESS = {"primary": 0, "corrigendum": 0, "correction": 0, "methods": 1, "comparison": 1,
              "review": 2, "conference": 3, "registry": 4, "guideline": 4,
              "label": 4, "coverage": 5, "secondary": 5, "critique": 5,
              "press_release": 6}

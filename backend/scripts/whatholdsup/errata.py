@@ -177,7 +177,7 @@ def identifier_from_held(slug: str, src: dict) -> tuple[str, str] | None:
         # Coverage has no errata. It has corrections, which are printed on the
         # article itself and need the document, not a bibliographic database.
         return None
-    if src.get("type") == "corrigendum":
+    if src.get("type") in ("corrigendum", "correction"):     # source_store.TYPE_ALIASES
         # A corrigendum prints the DOI of the article it corrects, prominently
         # and often first. Reading a DOI out of one and calling it that
         # document's own identifier resolves to the ORIGINAL PAPER, which then

@@ -211,3 +211,75 @@ def test_a_term_used_nowhere_later_is_not_dangling_and_a_cut_counts(tmp_path):
 def test_terms_are_acronyms_short_forms_and_names_not_sentence_starts():
     assert AC.terms("The UPDATE trial (UPF) was run by Hall and Monteiro in NOVA group 4.") == \
         {"UPDATE", "UPF", "NOVA", "Hall", "Monteiro"}
+
+
+# --- a sentence the audit cut after its final round (WHU-S04, 2026-10-23) ------
+
+LAST = "The trial found a 2 kg loss in 12 weeks."
+FINAL = "The trial found a 2 kg loss in 12 weeks, in one clinic."
+RUN = "audit/20261023T022615Z"
+
+
+def audit_cut(case, run=RUN, unit="u28", last_text=NEW, final=FINAL, **extra):
+    """The audit's three rounds on one unit, the last accepted and then cut."""
+    for n, (on, text) in enumerate([(OLD, NEW), (NEW, final)], 1):
+        ruling(case, text, ruled_on=on, kind="audit", at="2026-10-23T02:2%d:00+00:00" % n,
+               log=run + "/rulings.jsonl", unit=unit, round=n, ruling="amend" if n == 1 else "accept")
+    rec = {"unit": unit, "part": "page", "original_sha": "x", "last_text": last_text,
+           "rounds": [{"round": 1, "ruling": "amend", "text": NEW}, {"round": 2, "ruling": "accept", "text": final}],
+           "why": "still failing after 2 read-and-correct rounds", **extra}
+    p = case / run / "cuts.jsonl"
+    with open(p, "a") as f:
+        f.write(json.dumps(rec) + "\n")
+
+
+def test_a_sentence_the_audit_cut_and_the_page_left_out_is_cut_as_ruled(tmp_path):
+    audit_cut(tmp_path)
+    res = AC.check(tmp_path, page("Something else."))
+    assert res["mismatches"] == [] and res["checked"] == []
+    assert [(c["unit"], c["expected"], c["cut"]) for c in res["cut"]] == [("u28", "cut as ruled", RUN + "/cuts.jsonl:1")]
+    assert len(res["superseded"]) == 1                          # round 1, by round 2
+
+
+@pytest.mark.parametrize("on_page", [FINAL, NEW, OLD], ids=["last-ruled-text", "text-ruled-on", "original"])
+def test_a_sentence_the_audit_cut_still_on_the_page_is_a_mismatch(tmp_path, on_page):
+    audit_cut(tmp_path)
+    res = AC.check(tmp_path, page(on_page))
+    assert res["cut"] == [] and len(res["mismatches"]) == 1
+    m = res["mismatches"][0]
+    assert m["expected"] == "cut as ruled" and m["still_on_page"] == [on_page]
+
+
+def test_an_accepted_text_with_no_cut_still_requires_that_text_on_the_page(tmp_path):
+    audit_cut(tmp_path)
+    (tmp_path / RUN / "cuts.jsonl").write_text("")              # the same rulings, and no cut
+    res = AC.check(tmp_path, page("Something else."))
+    assert res["cut"] == [] and len(res["mismatches"]) == 1 and res["mismatches"][0]["missing"] == [FINAL]
+    assert AC.check(tmp_path, page(FINAL))["mismatches"] == []
+
+
+@pytest.mark.parametrize("cut", [{"unit": "u29"}, {"last_text": OLD}, {"rounds": [{"text": "Another wording."}]},
+                                 {"rounds": [{"text": ""}]}], ids=["unit", "ruled-on", "last-text", "ruled-cut"])
+def test_a_cut_covers_only_its_own_unit_and_wording(tmp_path, cut):
+    audit_cut(tmp_path)
+    rec = dict({"unit": "u28", "last_text": NEW, "rounds": [{"text": FINAL}]}, **cut)
+    (tmp_path / RUN / "cuts.jsonl").write_text(json.dumps(rec) + "\n")
+    res = AC.check(tmp_path, page("Something else."))
+    assert res["cut"] == [] and res["mismatches"][0]["missing"] == [FINAL]
+
+
+def test_a_cut_covers_only_its_own_run(tmp_path):
+    audit_cut(tmp_path)
+    other = tmp_path / "audit" / "20261024T000000Z"
+    other.mkdir()
+    (tmp_path / RUN / "cuts.jsonl").rename(other / "cuts.jsonl")
+    assert AC.check(tmp_path, page("Something else."))["cut"] == []
+
+
+def test_a_left_for_person_cut_and_a_withdrawn_runs_cut_change_nothing(tmp_path):
+    audit_cut(tmp_path / "a", left_for_person=True)
+    assert AC.check(tmp_path / "a", page("Something else."))["mismatches"][0]["missing"] == [FINAL]
+    audit_cut(tmp_path / "b")
+    (tmp_path / "b" / RUN / "manifest.json").write_text(json.dumps({"withdrawn": {"reason": "test"}}))
+    res = AC.check(tmp_path / "b", page("Something else."))
+    assert res["cut"] == [] and res["mismatches"] == [] and res["checked"] == []
