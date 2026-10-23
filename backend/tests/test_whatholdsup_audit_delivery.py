@@ -6,7 +6,8 @@ the ruling model cut the sentence. Now trim() is never empty for a non-empty
 text; every batch is checked before any call (held and delivered characters,
 every bound span inside what was delivered) and stops with
 DOCUMENT_NOT_DELIVERED otherwise; and a finding that says its document was
-empty or unavailable never reaches the ruling model.
+empty or unavailable stops the run only when the delivery record shows a
+fault (2026-10-22); with a clean record it is ruled as usual and tagged.
 """
 import importlib.util
 import json
@@ -100,10 +101,16 @@ def test_a_good_delivery_is_recorded_and_the_run_proceeds(tmp_path):
     assert d["delivered_chars"] == d["held_chars"] == len(T.DOC) and d["spans_inside"] is True
 
 
-# --- 3. ruling isolation ----------------------------------------------------------
+# --- 3. the delivery record decides (2026-10-22) -----------------------------------
+#
+# On WHU-S02 a reader wrote that "the source's claim Remote CBT was not shown";
+# the old pattern stopped the run as DOCUMENT_NOT_DELIVERED although the batch's
+# delivery record was clean. A reader's wording now stops the run only when the
+# delivery record shows a fault; otherwise the finding is ruled as usual and
+# tagged reader_claimed_missing_but_delivered.
 
 class SaysEmpty(T.FakeModel):
-    """A reader that reports its document as empty."""
+    """A reader that reports its document as empty; the ruling model rejects."""
 
     def __call__(self, prompt, max_tokens):
         self.prompts.append(prompt)
@@ -111,26 +118,59 @@ class SaysEmpty(T.FakeModel):
             import re
             ids = re.findall(r"^\[(u\d+)\]", prompt, re.M)
             out = {"verdicts": [{"id": i, "verdict": "finding", "kind": "Rested on a document we do not hold",
-                                 "evidence": [], "proposed_text": "",
-                                 "reason": "The document provided for S021 is empty, so nothing supports it."}
+                                 "evidence": [{"source": "S021", "quote": "226 detected an adenoma (28.4%)"}],
+                                 "proposed_text": "",
+                                 "reason": "The document provided is empty, so nothing supports it."}
                                 for i in ids]}
             return json.dumps(out), {"input": 1, "output": 1, "usd": 0.0}
-        raise AssertionError("the ruling model was called")
+        return json.dumps({"ruling": "reject", "text": None,
+                           "reason": "the delivered text carries the figure"}), {"input": 1, "output": 1, "usd": 0.0}
 
 
-def test_a_finding_that_says_its_document_was_empty_never_reaches_the_ruling_model(tmp_path):
+def test_a_claimed_empty_document_with_a_clean_delivery_is_ruled_and_tagged(tmp_path):
     fake = SaysEmpty()
     m = _run(tmp_path, fake)
-    assert m["status"] == "failed" and m["failure"].startswith("DOCUMENT_NOT_DELIVERED")
-    assert not any("THE FINDING:" in p for p in fake.prompts)
+    assert m["status"] == "complete", m.get("failure")              # not stopped
+    assert all(d["delivered_chars"] and d["spans_inside"] for d in m["deliveries"])
+    rule = [p for p in fake.prompts if "THE FINDING:" in p]
+    assert rule and "226 detected an adenoma (28.4%)" in rule[0]    # with its quoted passage, as usual
+    rulings = [json.loads(l) for l in (tmp_path / "rulings.jsonl").read_text().splitlines()]
+    assert rulings and all(r.get("tags") == [A.READER_CLAIMED_MISSING] for r in rulings)
+
+
+def test_a_claimed_empty_document_stops_when_the_delivery_record_shows_a_fault():
+    v = {"kind": "x", "reason": "The document provided is empty."}
+    u = {"id": "u1"}
+    empty = [{"source": "S021", "delivered_chars": 0, "spans_inside": True, "missing_spans": []}]
+    short = [{"source": "S021", "delivered_chars": 40, "spans_inside": False, "missing_spans": ["a"]}]
+    clean = [{"source": "S021", "delivered_chars": 40, "spans_inside": True, "missing_spans": []}]
+    for rep in (empty, short):
+        with pytest.raises(A.DocumentNotDelivered, match="delivery record shows S021"):
+            A._claimed_missing(v, u, "reader", rep)
+    assert A._claimed_missing(v, u, "second reader", clean) == {"tags": [A.READER_CLAIMED_MISSING]}
+    assert A._claimed_missing({"reason": "The paper reports 22.4%."}, u, "reader", empty) == {}
+
+
+def test_whu_s02_wording_is_not_a_claim_that_the_document_was_missing():
+    assert A.says_document_missing({"kind": "Overstated a finding or a source's claim",
+                                    "reason": "source's claim Remote CBT was not shown"}) is False
+    assert A.says_document_missing({"reason": "The source's claim Remote CBT was not shown."}) is False
 
 
 @pytest.mark.parametrize("reason,hit", [
     ("The document provided is empty.", True),
+    ("The document provided for S021 is empty, so nothing supports it.", True),
     ("The source text was not provided.", True),
+    ("Source text not provided.", True),
+    ("No text was provided.", True),
+    ("The full text is unavailable.", True),
+    ("The document could not be read.", True),
     ("Could not read the document.", True),
     ("The paper reports 22.4%, not 28.4%.", False),
     ("Overstates: the authors say the study is vulnerable to confounding.", False),
+    ("The abstract says nothing about remote delivery; the effect is not shown in the text.", False),
+    ("The source does not report this figure, which is missing from the trial.", False),
+    ("The text is silent; the comparison is not provided.", False),
 ])
 def test_what_counts_as_saying_a_document_was_missing(reason, hit):
     assert A.says_document_missing({"kind": "Overstated", "reason": reason}) is hit
@@ -183,3 +223,11 @@ def test_the_real_case_s008_spans_are_in_the_audit_text_and_not_in_the_layout_te
         layout = " ".join(subprocess.run([exe, "-layout", str(pdf), "-"], capture_output=True,
                                          text=True).stdout.split())
         assert not any(A.norm(s) in A.norm(layout) for s in spans)
+
+
+def test_an_actually_empty_delivery_still_stops_before_any_paid_call(tmp_path, monkeypatch):
+    monkeypatch.setattr(A, "trim", lambda text, wanted, must=(): ("", True))
+    fake = SaysEmpty()
+    m = _run(tmp_path, fake)
+    assert fake.prompts == []                                      # no reader, no ruling
+    assert m["status"] == "failed" and m["failure"].startswith("DOCUMENT_NOT_DELIVERED")

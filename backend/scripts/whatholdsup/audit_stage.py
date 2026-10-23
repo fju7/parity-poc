@@ -493,17 +493,77 @@ def check_delivery(report: list[dict]) -> None:
 
 
 # A finding that says the reader was given nothing to read is a fault in the
-# delivery, not a finding about the sentence. It never reaches the ruling model
-# (which would cut a sentence for the stage's own defect): the run stops.
+# delivery, not a finding about the sentence -- IF THE DELIVERY RECORD AGREES.
+#
+# THE DELIVERY RECORD DECIDES (2026-10-22). On WHU-S02 a reader wrote that "the
+# source's claim Remote CBT was not shown", and the old pattern (a document
+# word, then anything for 80 characters, then "was not shown") stopped the run
+# as DOCUMENT_NOT_DELIVERED although every document of the batch had been
+# delivered whole, with every bound passage in it. Now a reader's wording only
+# stops the run when the batch's delivery record (delivery_report) shows a
+# document delivered empty or a bound passage missing (delivery_fault). With a
+# clean record the finding is an ordinary finding: it goes to the ruling model
+# with its quoted passages as usual, and the ruling's log record carries the
+# tag "reader_claimed_missing_but_delivered". (check_delivery already stops a
+# batch whose record is not clean before the reader is called, so the stop
+# here is the second line, not the first.)
+#
+# _SAYS_MISSING matches only a statement about the document or text itself,
+# its subject next to the claim: "the document (provided) is empty", "the
+# source text was not provided", "no text was provided", "the full text is
+# unavailable", "the document could not be read", "could not open the paper".
+# A document word followed some words later by "was not shown" is not one.
+READER_CLAIMED_MISSING = "reader_claimed_missing_but_delivered"
+_DOC = r"(?:document|text|source|paper|article|abstract|passage|pdf|file)s?"
+_GONE = (r"(?:empty|blank|missing|unavailable|unreadable|illegible|"
+         r"not\s+(?:provided|available|included|given|delivered|supplied|attached|present|readable))")
 _SAYS_MISSING = re.compile(
-    r"\b(?:document|source|text|paper|article|abstract|passage)s?\b[^.]{0,80}?\b(?:is|was|were|are|appears?|"
-    r"seems?)\s+(?:empty|blank|missing|unavailable|not (?:provided|shown|available|included|present|given))"
-    r"|\b(?:empty|blank)\s+(?:document|source|text)\b|\bno (?:document|source) text\b"
-    r"|\bcould not (?:see|read|access|open) (?:the|any|this) (?:document|source|text|paper)\b", re.I)
+    # the [adjective] document [provided] is/was/appears (to be) empty|not provided|...
+    r"\b(?:the|this|that|its|any|a|an)\s+(?:[a-z-]+\s+)?" + _DOC
+    + r"(?:\s+(?:provided|given|supplied|delivered|attached))?(?:\s+(?:for|from)\s+S\d+)?"
+    r"\s+(?:itself\s+)?(?:is|was|were|are|appears?|seems?)(?:\s+to\s+be)?\s+" + _GONE + r"\b"
+    # source text not provided / document unavailable (no verb)
+    r"|\b(?:source|document|full)\s+" + _DOC + r"\s+(?:not\s+(?:provided|available|supplied|delivered)|unavailable)\b"
+    # an empty document / a blank text
+    r"|\b(?:an?|the)\s+(?:empty|blank)\s+" + _DOC + r"\b"
+    # no (document|source|full) text (was) provided / no document text
+    r"|\bno\s+(?:document\s+|source\s+|full\s+)?text\s+(?:was\s+|is\s+|has\s+been\s+)?"
+    r"(?:provided|given|supplied|delivered|available|included)\b"
+    r"|\bno\s+(?:document|source)\s+text\b"
+    # the document could not be read / could not read the document
+    r"|\b(?:the|this|that|its|any)\s+(?:[a-z-]+\s+)?" + _DOC
+    + r"\s+(?:could|can)\s*not\s+be\s+(?:read|opened|accessed|loaded|seen)\b"
+    r"|\b(?:could|can)\s*not\s+(?:see|read|access|open|load)\s+(?:the|any|this|that)\s+(?:[a-z-]+\s+)?"
+    + _DOC + r"\b", re.I)
 
 
 def says_document_missing(v: dict) -> bool:
     return bool(_SAYS_MISSING.search(" ".join(str(v.get(k) or "") for k in ("kind", "reason"))))
+
+
+def delivery_fault(rep: list[dict]) -> str | None:
+    """What the batch's delivery record shows went wrong (a document delivered
+    empty, a bound passage missing), or None when it is clean."""
+    for r in rep:
+        if not r.get("delivered_chars"):
+            return "%s delivered empty" % r.get("source")
+        if not r.get("spans_inside", True):
+            return "%s delivered without %d bound passage(s)" % (r.get("source"), len(r.get("missing_spans") or []))
+    return None
+
+
+def _claimed_missing(v: dict, u: dict, who: str, rep: list[dict]) -> dict:
+    """A finding whose wording says its document was missing: DOCUMENT_NOT_DELIVERED
+    if the batch's delivery record shows a fault, else the tag for its ruling's
+    log record ({} for an ordinary finding)."""
+    if not says_document_missing(v):
+        return {}
+    fault = delivery_fault(rep)
+    if fault:
+        raise DocumentNotDelivered("%s: the %s's finding says a document was empty or unavailable (%r) "
+                                   "and the delivery record shows %s; not sent to the ruling model"
+                                   % (u["id"], who, (v.get("reason") or "")[:160], fault))
+    return {"tags": [READER_CLAIMED_MISSING]}
 
 
 def doc_passages(slug: str, batch: list[dict], held: dict[str, str],
@@ -1065,10 +1125,7 @@ def run(slug: str, *, out_dir: Path, limit: int | None = None, cap: float = 40.0
                         prog["done"][u["id"]] = _snap(u, status=v["verdict"])
                         finish(u)
                         continue
-                    if says_document_missing(v):
-                        raise DocumentNotDelivered("%s: the reader's finding says a document was empty or "
-                                                   "unavailable (%r); not sent to the ruling model"
-                                                   % (u["id"], (v.get("reason") or "")[:160]))
+                    tags = _claimed_missing(v, u, "reader", delivery_report(slug, batch, held, docs, lic))
                     payload = ruling_payload(v, u["sentence"], docs, records)
                     rtext, _ru = call(build_rule_prompt(payload), RULE_MAX_OUT, "rule")
                     r = check_ruling(parse_json(rtext))
@@ -1077,7 +1134,7 @@ def run(slug: str, *, out_dir: Path, limit: int | None = None, cap: float = 40.0
                                     "by": "ruling model %s" % MODEL, "model": MODEL,
                                     "prompt_sha256": sha(RULE_PROMPT.read_text(encoding="utf-8")),
                                     "inputs": payload, "payload_sha256": sha(json.dumps(payload)),
-                                    **r})
+                                    **r, **tags})
                     if u["id"] not in flagged:
                         flagged.append(u["id"])
                     if r["ruling"] == "reject":
@@ -1142,10 +1199,8 @@ def run(slug: str, *, out_dir: Path, limit: int | None = None, cap: float = 40.0
                                      "why_read": "had a finding" if u["id"] in sec["flagged"] else
                                                  "seeded sample (seed %d)" % seed})
                 if not agree:
-                    if says_document_missing(v):
-                        raise DocumentNotDelivered("%s: the second reader's finding says a document was "
-                                                   "empty or unavailable (%r); not sent to the ruling model"
-                                                   % (u["id"], (v.get("reason") or "")[:160]))
+                    tags = _claimed_missing(v, u, "second reader",
+                                            delivery_report(slug, batch, held, docs, lic))
                     payload = ruling_payload(v, u["sentence"], docs, records)
                     rtext, _ru = call(build_rule_prompt(payload), RULE_MAX_OUT, "rule-second")
                     r = check_ruling(parse_json(rtext))
@@ -1157,7 +1212,7 @@ def run(slug: str, *, out_dir: Path, limit: int | None = None, cap: float = 40.0
                                     "at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
                                     "by": "ruling model %s" % MODEL, "model": MODEL,
                                     "prompt_sha256": sha(RULE_PROMPT.read_text(encoding="utf-8")),
-                                    "inputs": payload, "payload_sha256": sha(json.dumps(payload)), **r,
+                                    "inputs": payload, "payload_sha256": sha(json.dumps(payload)), **r, **tags,
                                     **({"apply": False, "left_for_person": True} if summary_bad else {})})
                     if r["ruling"] != "reject":
                         # Accepted on the second read: the sentence must change. It is
