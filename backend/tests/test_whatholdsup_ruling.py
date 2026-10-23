@@ -299,9 +299,18 @@ def test_no_model_facing_text_is_extracted_with_layout():
 # --- GAP-014: a recency study that is not CURRENT is a finding (study issues) ----
 
 REPORT_REC = {"recency": {"studies": [
-    {"name": "The trial", "status": "UNKNOWN", "draft_uses": "the 12-week readout",
+    {"name": "Lee et al. \u2014 intervention reduces weight over twelve weeks", "status": "UNKNOWN",
+     "draft_uses": "the 12-week readout",
      "latest_known": "could not establish", "what_changed": None},
     {"name": "Another study", "status": "CURRENT"}]}}
+
+
+def _rec_source(d):
+    # the study's source, by first author and title (findings.recency_match);
+    # its id never reaches a prompt
+    (d / "sources.json").write_text(json.dumps({"sources": [
+        {"id": "S-SECRET-7", "title": "Lee A et al. \u2014 An intervention reduces weight over twelve "
+                                     "weeks in adults"}]}))
 
 
 def test_a_recency_study_not_current_is_a_finding_on_every_issue(study):
@@ -318,6 +327,7 @@ def test_a_recency_study_not_current_is_a_finding_on_every_issue(study):
 
 def test_a_recency_finding_goes_to_the_ruling_model_with_the_sentence_and_the_bound_passages(study):
     d, P = study
+    _rec_source(d)
     import findings as F
     (d / "issue.json").write_text(json.dumps({"slug": "xq", "study": True}))
     F.scan("xq", REPORT_REC)
@@ -398,6 +408,7 @@ def test_a_rec_n_record_from_before_still_settles_the_same_finding(study):
 
 def test_a_prefixed_recency_finding_reaches_the_ruling_model_with_its_readout(study):
     d, P = study
+    _rec_source(d)
     import findings as F
     (d / "issue.json").write_text(json.dumps({"slug": "xq", "study": True}))
     F.scan("xq", REPORT_REC_SHA)

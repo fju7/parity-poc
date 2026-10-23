@@ -26,11 +26,11 @@ sys.path.insert(0, str(WHU))
 
 import ruling as R  # noqa: E402
 
-DOC1 = ("Long-term outcomes of the FOOBAR trial. Methods. At three years, mortality fell "
+DOC1 = ("Long-term survival in the FOOBAR trial of a new drug. Methods. At three years, mortality fell "
         "from 12% to 9% with the new drug. Relapse fell by a quarter, from 20% to 15%. More text.")
 DOC2 = "A different study. It found that 40% of patients stopped treatment early. Further text."
 HELD = {"S1": DOC1, "S2": DOC2}
-TITLE_LINE = "Long-term outcomes of the FOOBAR trial."
+TITLE_LINE = "Long-term survival in the FOOBAR trial of a new drug."
 BODY1 = "Mortality fell from 12% to 9% at three years."
 BODY2 = "Relapse fell from 20% to 15%, a drop of a quarter."
 BODY3 = "Elsewhere, 40% of patients stopped treatment early."
@@ -42,7 +42,7 @@ PAGE = ("<html><head><title>t</title></head><body><p>%s %s %s</p>"
         "</div></body></html>" % (BODY1, BODY2, BODY3, TITLE_LINE))
 ROWS = {
     "title": {"sentence": TITLE_LINE, "on_page": True, "source_id": "S1",
-              "span": "Long-term outcomes of the FOOBAR trial"},
+              "span": "Long-term survival in the FOOBAR trial of a new drug"},
     "b1": {"sentence": BODY1, "on_page": True, "source_id": "S1",
            "span": "At three years, mortality fell from 12% to 9% with the new drug"},
     "b2": {"sentence": BODY2, "on_page": True, "bucket": "judgement",
@@ -50,8 +50,9 @@ ROWS = {
     "b3": {"sentence": BODY3, "on_page": True, "source_id": "S2",
            "span": "40% of patients stopped treatment early"},
 }
+STUDY = "Smith, Jones et al. \u2014 Long-term survival in the FOOBAR trial"
 REPORT = {"sha256": "ab12cd34" + "0" * 56, "recency": {"studies": [
-    {"name": "FOOBAR", "status": "SUPERSEDED", "draft_uses": "the three-year readout",
+    {"name": STUDY, "status": "SUPERSEDED", "draft_uses": "the three-year readout",
      "latest_known": "the five-year readout, 2026", "what_changed": "mortality 12% to 10%"}]}}
 
 
@@ -72,7 +73,7 @@ def issue(tmp_path, monkeypatch):
     (d / "issue.json").write_text(json.dumps({"slug": "xq", "study": True}))
     (d / "sources.json").write_text(json.dumps({"sources": [
         {"id": "S1", "type": "primary", "url": "https://example.org/foobar",
-         "title": "Long-term outcomes of the FOOBAR trial"},
+         "title": "Long-term survival in the FOOBAR trial of a new drug"},
         {"id": "S2", "type": "primary", "url": "https://example.org/other", "title": "A different study"}]}))
     (d / "bindings.json").write_text(json.dumps({"bindings": ROWS}))
     import source_store
@@ -86,13 +87,13 @@ def issue(tmp_path, monkeypatch):
 
 def test_the_finding_is_attached_to_both_body_sentences_and_not_the_source_list_line(issue):
     import findings as F
-    sids, keys = F.recency_targets("xq", "FOOBAR", ROWS)
+    sids, keys = F.recency_targets("xq", STUDY, ROWS)
     assert sids == ["S1"]
     assert keys == ["b1", "b2"]                     # span and premise; not "title", not b3
     F.scan("xq", REPORT)
     rec = F.load("xq")["findings"][0]
     assert rec["id"] == "fab12cd34-rec-1"
-    assert rec["attached_to"] == {"study": "FOOBAR", "sources": ["S1"], "rows": ["b1", "b2"]}
+    assert rec["attached_to"] == {"study": STUDY, "sources": ["S1"], "rows": ["b1", "b2"]}
 
 
 def test_each_body_sentence_is_ruled_with_the_recency_result_and_its_own_passages(issue):

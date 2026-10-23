@@ -498,7 +498,8 @@ def _recency_items(slug: str, it: dict, rows: dict, held: dict) -> list[dict]:
     study's source; never the source-list line), each with the recency result
     as its reason and the sentence's own bound passages. A sentence already
     ruled for this finding (sentence_rulings) is not ruled again. With no such
-    sentence, one item with no row."""
+    sentence (findings.RECENCY_UNMATCHED), none: a finding with no target is
+    not ruled on the study's name; the preflight STOPs on it instead."""
     import findings as F
     f = it["finding"]
     _sids, keys = F.recency_targets(slug, it["study"], rows)
@@ -506,8 +507,7 @@ def _recency_items(slug: str, it: dict, rows: dict, held: dict) -> list[dict]:
     base = {"finding": f, "kind": "gate %s finding (%s)" % (f.get("kind"), f.get("gate_verdict")),
             "reason": f.get("gate_said") or "", "proposed": "", "recency": True, "study": it["study"]}
     if not keys:
-        return [dict(base, key=sentence_key(None, it["text"]), sentence=it["text"], quotes=[],
-                     ref={"finding_id": f.get("id"), "row": None, "sentence_found": False})]
+        return []          # RECENCY_UNMATCHED: not ruled; the preflight STOPs on it
     return [dict(base, key=("row", k), sentence=rows[k]["sentence"], quotes=quotations(rows[k], held),
                  ref={"finding_id": f.get("id"), "row": k, "sentence_found": True})
             for k in keys if k not in done]
@@ -599,7 +599,7 @@ def _settle_recency(slug: str, f: dict, rows: dict, study: str) -> bool:
     import findings as F
     _sids, keys = F.recency_targets(slug, study, rows)
     srs = f.get("sentence_rulings") or []
-    if set(keys) - {x["row"] for x in srs}:
+    if not keys or set(keys) - {x["row"] for x in srs}:
         return False                         # a sentence still to rule (RULING_FAILED)
     changed = [x for x in srs if x["ruling"] in ("accept", "amend")]
     pool = changed or srs

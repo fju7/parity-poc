@@ -274,16 +274,46 @@ def recency_findings(report: dict) -> list[dict]:
 #
 # The gate's recency role names a study, not a sentence. ruling.py looked the
 # name up among the page's sentences, and the one that carries a study's name
-# is its title line in the source list -- so on WHU-S02 rec-1 was ruled on the
-# source-list line, with no bound passage, while the body sentences printing
-# the study's figures went unexamined. recency_targets finds the source(s) the
-# study names (the source-list entries whose lines name it, and sources.json
-# titles that contain it) and returns every body sentence whose binding rests
-# on one of them (its span, a premise, or also_rests_on). A source-list line is
+# is its title line in the source list -- so on WHU-S02 the recency finding was
+# ruled on the source-list line, with no bound passage, while the body
+# sentences printing the study's figures went unexamined. recency_targets finds
+# the one source the study names and returns every body sentence whose binding
+# rests on it (its span, a premise, or also_rests_on). A source-list line is
 # never a target.
+#
+# THE STUDY IS MATCHED TO ONE SOURCE, AUTHORS AND TITLE TOGETHER (2026-10-22,
+# later). The gate writes a study as "Cuijpers, Karyotaki, Ciharova et al. --
+# Psychological treatments of depression in children and adolescents: ...",
+# and the page prints the entry as two lines, the authors and the title, so no
+# single line named it and WHU-S02's finding was attached to nothing. Each
+# candidate is now one unit: a source-list entry (its author line and title
+# line together, with the source its links name) or a sources.json record (its
+# authors, or the "Surname X et al. --" head of its title, with the rest of the
+# title). A unit matches when
+#   - its first author's surname (the family name before the first comma,
+#     "et al." and initials dropped, diacritics folded) is a word of the study
+#     name, and
+#   - the title words overlap strongly: at least TITLE_MIN_SHARED distinctive
+#     title words (not stop words, not GENERIC_TITLE words) in common, and
+#     shared / min(title words, study words) >= TITLE_OVERLAP.
+# The single best-scoring source is the match. No source matching, two sources
+# matching equally, or a match no body sentence rests on is RECENCY_UNMATCHED:
+# the finding carries no targets, ruling.py does not rule it, and the
+# preflight STOPs on it, naming the study, for a person to attach.
+
+RECENCY_UNMATCHED = "RECENCY_UNMATCHED"
+TITLE_OVERLAP = 0.6
+TITLE_MIN_SHARED = 3
+GENERIC_TITLE = {"trial", "study", "review", "systematic", "meta-analysis", "metaanalysis", "meta",
+                 "analysis", "effect", "effects", "effectiveness", "randomised", "randomized",
+                 "controlled", "results", "outcomes", "with", "among", "their", "this", "that"}
+
 
 def _fold(s: str) -> str:
-    return " ".join((s or "").split()).lower()
+    import unicodedata
+    s = unicodedata.normalize("NFKD", s or "")
+    s = "".join(c for c in s if not unicodedata.combining(c))
+    return " ".join(s.replace("—", " — ").split()).lower()
 
 
 def source_list_text(slug: str) -> list[str]:
@@ -298,14 +328,92 @@ def source_list_text(slug: str) -> list[str]:
     return [_fold(ledger.plain(b)) for b in re.findall(r'<div class="src">(.*?)</div>', raw, re.S)]
 
 
-def _entry_sources(slug: str, srcs: list[dict]) -> list[tuple[str, list[str]]]:
-    """(entry text, the sources its links name) for each source-list entry."""
+def _entry_sources(slug: str, srcs: list[dict]) -> list[tuple[str, str, list[str]]]:
+    """(author line, title line(s), the sources its links name) for each
+    source-list entry: bibbind's lines, an author line and the title lines
+    after it taken together."""
     try:
         import bibbind
         lines = bibbind.lines(slug)
     except Exception:
         return []
-    return [(_fold(l["sentence"]), list(l.get("sources") or [])) for l in lines]
+    out: list = []
+    for l in lines:
+        if l.get("kind") == "author" or not out:
+            out.append([_fold(l["sentence"]), "", list(l.get("sources") or [])])
+        else:
+            out[-1][1] = (out[-1][1] + " " + _fold(l["sentence"])).strip()
+    return [tuple(x) for x in out]
+
+
+def _words(text: str) -> set:
+    return {w for w in re.findall(r"[a-z0-9][a-z0-9'-]{2,}", _fold(text))
+            if w not in store.STOP and w not in GENERIC_TITLE}
+
+
+def first_surname(authors: str) -> str:
+    """The first author's family name: the text before the first comma (or
+    before "et al."), initials dropped; its last word. "" if none."""
+    a = _fold(authors).split(" — ")[0]
+    a = re.split(r",|\bet al\b|;", a)[0]
+    toks = [t for t in re.findall(r"[a-z][a-z'-]*", a)]
+    while len(toks) > 1 and len(toks[-1]) <= 2:
+        toks.pop()                                      # "cuijpers p", "merry sn"
+    return toks[-1] if toks else ""
+
+
+def _units(srcs: list[dict], entry_sources) -> list[tuple[str, str, str, str]]:
+    """(source id, author text, title text, where) for every candidate."""
+    out = []
+    for author, title, ids in entry_sources:
+        for i in ids:
+            out.append((i, author, title, "source-list entry"))
+    for s in srcs:
+        t = s.get("title") or ""
+        auth = s.get("authors") or s.get("author") or ""
+        if isinstance(auth, list):
+            auth = ", ".join(str(a) for a in auth)
+        if not auth and " — " in t:
+            auth, t = t.split(" — ", 1)
+        if s.get("id"):
+            out.append((s["id"], auth, t, "sources.json"))
+    return out
+
+
+def recency_match(study: str, srcs: list[dict], entry_sources) -> dict:
+    """{"status": "matched", "source": sid, "score", "why"} or
+    {"status": RECENCY_UNMATCHED, "why", "candidates"}: the one source STUDY
+    names, by first author's surname and title overlap together."""
+    name_words = set(re.findall(r"[a-z][a-z'-]*", _fold(study)))
+    sw = _words(study)
+    best: dict = {}
+    for sid, author, title, where in _units(srcs, entry_sources):
+        sur = first_surname(author)
+        if not sur or sur not in name_words:
+            continue
+        tw = _words(title) - {sur}
+        shared = tw & sw
+        if not tw or not sw or len(shared) < TITLE_MIN_SHARED:
+            continue
+        score = len(shared) / min(len(tw), len(sw))
+        if score < TITLE_OVERLAP:
+            continue
+        if score > best.get(sid, (0,))[0]:
+            best[sid] = (score, sur, len(shared), where)
+    if not best:
+        return {"status": RECENCY_UNMATCHED, "candidates": [],
+                "why": "no source's first author and title both match the study name (surname a "
+                       "word of the name; >= %d title words shared, overlap >= %.1f)"
+                       % (TITLE_MIN_SHARED, TITLE_OVERLAP)}
+    ranked = sorted(best.items(), key=lambda kv: -kv[1][0])
+    top = ranked[0][1][0]
+    tied = [sid for sid, v in ranked if v[0] == top]
+    if len(tied) > 1:
+        return {"status": RECENCY_UNMATCHED, "candidates": tied,
+                "why": "%d sources match equally (%s, overlap %.2f)" % (len(tied), ", ".join(tied), top)}
+    sid, (score, sur, n, where) = ranked[0]
+    return {"status": "matched", "source": sid, "score": round(score, 3),
+            "why": "first author %r and %d title words (overlap %.2f), %s" % (sur, n, score, where)}
 
 
 def _rests_on(row: dict, sids: set) -> bool:
@@ -315,12 +423,12 @@ def _rests_on(row: dict, sids: set) -> bool:
                for k in ("premises", "also_rests_on") for x in (row.get(k) or []))
 
 
-def recency_targets(slug: str, study: str, rows: dict, *, srcs: list[dict] | None = None,
-                    entries: list[str] | None = None,
-                    entry_sources: list[tuple[str, list[str]]] | None = None) -> tuple[list[str], list[str]]:
-    """(the sources STUDY names, the keys of every on-page body row whose
-    binding rests on one of them), in row order. With no source found, the
-    body rows whose sentence names the study. Never a source-list line."""
+def recency_attach(slug: str, study: str, rows: dict, *, srcs: list[dict] | None = None,
+                   entries: list[str] | None = None,
+                   entry_sources: list | None = None) -> dict:
+    """recency_match, plus the keys of every on-page body row whose binding
+    rests on the matched source ("rows"). A match no body row rests on is
+    RECENCY_UNMATCHED."""
     if srcs is None:
         try:
             srcs = store.sources(slug)
@@ -328,37 +436,27 @@ def recency_targets(slug: str, study: str, rows: dict, *, srcs: list[dict] | Non
             srcs = []
     entries = source_list_text(slug) if entries is None else entries
     entry_sources = _entry_sources(slug, srcs) if entry_sources is None else entry_sources
-    n = _fold(study)
-    if not n:
-        return [], []
-    # the name whole, or else every distinctive word of it (two at least):
-    # the gate writes "the MONALEESA-2 trial" for a title that says
-    # "Ribociclib ... (MONALEESA-2)"
-    words = [w for w in re.findall(r"[a-z0-9][a-z0-9'-]{2,}", n)
-             if w not in store.STOP and w not in ("trial", "study", "review", "the")]
-
-    def names(text: str) -> bool:
-        if n in text:
-            return True
-        toks = set(re.findall(r"[a-z0-9][a-z0-9'-]{2,}", text))
-        return len(words) >= 2 and all(w in toks for w in words) or (len(words) == 1 and words[0] in toks
-                                                                      and len(words[0]) >= 5)
-    sids: list[str] = []
-    for text, ids in entry_sources:
-        if names(text):
-            sids += [i for i in ids if i not in sids]
-    for s in srcs:
-        if names(_fold(s.get("title"))) and s.get("id") not in sids:
-            sids.append(s["id"])
+    m = recency_match(study, srcs, entry_sources)
+    m["rows"] = []
+    if m["status"] != "matched":
+        return m
 
     def body(r):
         sent = _fold(r.get("sentence"))
         return r.get("on_page") and sent and not any(sent in e for e in entries)
-    if sids:
-        keys = [k for k, r in rows.items() if body(r) and _rests_on(r, set(sids))]
-    else:
-        keys = [k for k, r in rows.items() if body(r) and n in _fold(r.get("sentence"))]
-    return sids, keys
+    m["rows"] = [k for k, r in rows.items() if body(r) and _rests_on(r, {m["source"]})]
+    if not m["rows"]:
+        return {"status": RECENCY_UNMATCHED, "candidates": [m["source"]], "rows": [],
+                "why": "matched %s (%s), but no body sentence's binding rests on it" % (m["source"], m["why"])}
+    return m
+
+
+def recency_targets(slug: str, study: str, rows: dict, **kw) -> tuple[list[str], list[str]]:
+    """([the source STUDY names], the keys of every on-page body row whose
+    binding rests on it), in row order; ([], []) when RECENCY_UNMATCHED.
+    Never a source-list line."""
+    m = recency_attach(slug, study, rows, **kw)
+    return ([m["source"]], m["rows"]) if m["status"] == "matched" else ([], [])
 
 
 # RECENCY IDS NAME THEIR DRAFT (2026-10-22, protocol rev 38): f<draft sha>-rec-N,
@@ -417,6 +515,7 @@ def check(slug: str, report: dict) -> list[tuple[str, str, str]]:
     doc = load(slug)
     have = {f.get("id"): f for f in (doc.get("findings") or [])}
     claims = {c.get("id"): c for c in (report.get("claims") or [])}
+    unmatched = _unmatched_recency(slug, opens, have)
     missing, unsettled, unverified, judged, unevaluable, partly = [], [], [], [], [], []
     undecided = []
     for f in opens:
@@ -514,6 +613,11 @@ def check(slug: str, report: dict) -> list[tuple[str, str, str]]:
         _detail = ("%d of %d open finding(s) carry no decision: %s"
                    % (len(blocked), len(opens), "; ".join(_bits)))
     rows = [("gate findings settled", OK if not blocked else BAD, _detail)]
+    if unmatched:
+        rows.append(("recency findings attached", BAD,
+                     "%d recency finding(s) %s: no body sentence to rule on, so none is ruled "
+                     "until a person attaches it: %s" % (len(unmatched), RECENCY_UNMATCHED,
+                                                         " || ".join(unmatched[:4]))))
     rows.append(("findings settled by a document", OK if not unsettled else BAD,
                  "every accepted or rejected finding names a source and a "
                  "quotation" if not unsettled else
@@ -542,12 +646,56 @@ def check(slug: str, report: dict) -> list[tuple[str, str, str]]:
     return rows
 
 
+def _unmatched_recency(slug: str, opens: list[dict], have: dict) -> list[str]:
+    """'<id>: <study> (why)' for every undecided recency finding that
+    recency_attach cannot attach to a body sentence, judged now from the
+    current page, sources and rows."""
+    out, rows = [], None
+    for f in opens:
+        if f["kind"] != "recency":
+            continue
+        r = record_for(have, f)
+        if r and (r.get("decision") or "").strip():
+            continue
+        if rows is None:
+            try:
+                import bindings as B
+                rows = B.load(slug).get("bindings") or {}
+            except Exception:
+                rows = {}
+        m = recency_attach(slug, f.get("study") or "", rows)
+        if m["status"] != "matched":
+            out.append("%s: %s (%s)" % (f["id"], f.get("study") or "a study", m["why"]))
+    return out
+
+
 def scan(slug: str, report: dict) -> dict:
     doc = load(slug)
     have = {f.get("id"): f for f in (doc.get("findings") or [])}
     rows = None
+
+    def attach(f):
+        # the body sentences it is about, recorded when it is opened and
+        # refreshed while it is undecided (ruling.py recomputes them from the
+        # current rows); RECENCY_UNMATCHED when there are none
+        nonlocal rows
+        if rows is None:
+            try:
+                import bindings as B
+                rows = B.load(slug).get("bindings") or {}
+            except Exception:
+                rows = {}
+        m = recency_attach(slug, f.get("study") or "", rows)
+        a = {"study": f.get("study") or "", "sources": [m["source"]] if m.get("source") else [],
+             "rows": m["rows"]}
+        if m["status"] != "matched":
+            a.update(status=RECENCY_UNMATCHED, why=m["why"])
+        return a
     for f in _opens(slug, report):
-        if record_for(have, f) is not None:
+        r = record_for(have, f)
+        if r is not None:
+            if f["kind"] == "recency" and not (r.get("decision") or "").strip():
+                r["attached_to"] = attach(f)
             continue
         rec = {
             "id": f["id"], "kind": f["kind"], "gate_verdict": f["verdict"],
@@ -558,16 +706,7 @@ def scan(slug: str, report: dict) -> dict:
                         "quote that is in that document." % ", ".join(DECISIONS),
         }
         if f["kind"] == "recency":
-            # the body sentences it is about, recorded when it is opened
-            # (ruling.py recomputes them from the current rows)
-            if rows is None:
-                try:
-                    import bindings as B
-                    rows = B.load(slug).get("bindings") or {}
-                except Exception:
-                    rows = {}
-            sids, keys = recency_targets(slug, f.get("study") or "", rows)
-            rec["attached_to"] = {"study": f.get("study") or "", "sources": sids, "rows": keys}
+            rec["attached_to"] = attach(f)
         doc["findings"].append(rec)
     save(slug, doc)
     return doc
