@@ -159,3 +159,60 @@ def test_a_matched_study_raises_no_stop_row(issue):
     assert F.load("xq")["findings"][0]["attached_to"] == {
         "study": "Smith, Jones — long-term survival in the FOOBAR trial", "sources": ["S1"], "rows": ["b1"]}
     assert not [r for r in F.check("xq", rep) if r[0] == "recency findings attached"]
+
+
+# --- a trial named by its acronym, with no author (2026-10-22, later) ----------
+
+TRIAL_ENTRIES = [
+    ("hortobagyi gn, et al.", "ribociclib as first-line therapy for hr-positive advanced breast "
+     "cancer (monaleesa-2).", ["S1"]),
+    ("im sa, et al.", "overall survival with ribociclib plus endocrine therapy in breast cancer "
+     "(monaleesa-7).", ["S2"]),
+]
+TRIAL_SRCS = [{"id": "S1", "title": "Hortobagyi GN et al. — Ribociclib as first-line therapy"},
+              {"id": "S2", "title": "Im SA et al. — Overall survival with ribociclib",
+               "notes": "the MONALEESA-7 final analysis; see also MONALEESA-2"},
+              {"id": "S3", "title": "Example Health news — a CDK4/6 inhibitor explained"}]
+
+
+def test_acronyms():
+    assert F.acronyms("the MONALEESA-2 trial (SPARX, NHS, CDK4/6, A1)") == ["MONALEESA-2", "SPARX", "NHS", "CDK4"]
+    assert F.acronyms("Cuijpers et al. — psychological treatments") == []
+
+
+def test_an_acronym_in_exactly_one_source_matches_it():
+    m = F.recency_match("the MONALEESA-7 trial", TRIAL_SRCS, TRIAL_ENTRIES)
+    assert m["status"] == "matched" and m["source"] == "S2", m
+    assert "MONALEESA-7" in m["why"]
+
+
+def test_an_acronym_in_two_sources_is_unmatched():
+    # S1's entry and S2's notes both carry MONALEESA-2
+    m = F.recency_match("the MONALEESA-2 trial", TRIAL_SRCS, TRIAL_ENTRIES)
+    assert m["status"] == F.RECENCY_UNMATCHED and m["candidates"] == ["S1", "S2"]
+
+
+def test_an_acronym_nowhere_is_unmatched():
+    m = F.recency_match("the PALOMA-3 trial", TRIAL_SRCS, TRIAL_ENTRIES)
+    assert m["status"] == F.RECENCY_UNMATCHED and m["candidates"] == []
+    assert "PALOMA-3 in no source" in m["why"]
+
+
+def test_the_acronym_must_be_a_whole_word():
+    m = F.recency_match("the MONALEESA trial", TRIAL_SRCS, TRIAL_ENTRIES)
+    assert m["status"] == F.RECENCY_UNMATCHED          # in both, as part of MONALEESA-2/-7
+
+
+def test_a_named_author_keeps_the_author_rule():
+    # Hortobagyi is S1's first author: the acronym rule does not apply, and the
+    # title words do not match, so it stays unmatched
+    m = F.recency_match("Hortobagyi et al. — MONALEESA-7", TRIAL_SRCS, TRIAL_ENTRIES)
+    assert m["status"] == F.RECENCY_UNMATCHED
+
+
+def test_an_unmatched_acronym_stops_the_preflight(issue):
+    rep = {"sha256": REPORT["sha256"], "recency": {"studies": [
+        {"name": "the PALOMA-3 trial", "status": "UNKNOWN"}]}}
+    F.scan("xq", rep)
+    stop = [r for r in F.check("xq", rep) if r[0] == "recency findings attached"]
+    assert stop and stop[0][1] == F.BAD and "the PALOMA-3 trial" in stop[0][2]

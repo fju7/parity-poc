@@ -300,6 +300,17 @@ def recency_findings(report: dict) -> list[dict]:
 # matching equally, or a match no body sentence rests on is RECENCY_UNMATCHED:
 # the finding carries no targets, ruling.py does not rule it, and the
 # preflight STOPs on it, naming the study, for a person to attach.
+#
+# A TRIAL NAMED BY ITS ACRONYM (2026-10-22, later). The gate also writes a
+# study as "the MONALEESA-2 trial", with no author. When no source's first
+# author is a word of the study name, each all-caps token of the name (3 or
+# more characters, uppercase letters or letters and digits, hyphen-joined
+# parts allowed: "MONALEESA-2", "SPARX") is looked for as a whole word,
+# case folded, in every source's text: its source-list entry (author and title
+# lines) and its sources.json title and notes. A token found in exactly one
+# source names it; tokens found in two or more sources name none. Exactly one
+# source named that way is the match; none, or two named by different tokens,
+# stays RECENCY_UNMATCHED.
 
 RECENCY_UNMATCHED = "RECENCY_UNMATCHED"
 TITLE_OVERLAP = 0.6
@@ -387,7 +398,8 @@ def recency_match(study: str, srcs: list[dict], entry_sources) -> dict:
     name_words = set(re.findall(r"[a-z][a-z'-]*", _fold(study)))
     sw = _words(study)
     best: dict = {}
-    for sid, author, title, where in _units(srcs, entry_sources):
+    units = _units(srcs, entry_sources)
+    for sid, author, title, where in units:
         sur = first_surname(author)
         if not sur or sur not in name_words:
             continue
@@ -400,6 +412,8 @@ def recency_match(study: str, srcs: list[dict], entry_sources) -> dict:
             continue
         if score > best.get(sid, (0,))[0]:
             best[sid] = (score, sur, len(shared), where)
+    if not best and not any(first_surname(a) in name_words for _s, a, _t, _w in units):
+        return acronym_match(study, srcs, entry_sources)
     if not best:
         return {"status": RECENCY_UNMATCHED, "candidates": [],
                 "why": "no source's first author and title both match the study name (surname a "
@@ -414,6 +428,64 @@ def recency_match(study: str, srcs: list[dict], entry_sources) -> dict:
     sid, (score, sur, n, where) = ranked[0]
     return {"status": "matched", "source": sid, "score": round(score, 3),
             "why": "first author %r and %d title words (overlap %.2f), %s" % (sur, n, score, where)}
+
+
+ACRONYM = re.compile(r"(?<![A-Za-z0-9])[A-Z0-9]+(?:-[A-Z0-9]+)*(?![A-Za-z0-9])")
+
+
+def acronyms(study: str) -> list[str]:
+    """The all-caps tokens of a study name: 3+ characters, at least one
+    letter, no lowercase letter."""
+    out = []
+    for m in ACRONYM.finditer(study or ""):
+        tok = m.group(0)
+        if len(tok.replace("-", "")) >= 3 and re.search(r"[A-Z]", tok) and tok not in out:
+            out.append(tok)
+    return out
+
+
+def _source_texts(srcs: list[dict], entry_sources) -> dict:
+    """{source id: its folded text}: source-list entry lines, sources.json
+    title and notes."""
+    out: dict = {}
+    for author, title, ids in entry_sources:
+        for i in ids:
+            out[i] = (out.get(i, "") + " " + author + " " + title).strip()
+    for s in srcs:
+        if s.get("id"):
+            extra = " ".join(str(s.get(k) or "") for k in ("title", "notes", "note"))
+            out[s["id"]] = (out.get(s["id"], "") + " " + _fold(extra)).strip()
+    return out
+
+
+def acronym_match(study: str, srcs: list[dict], entry_sources) -> dict:
+    """recency_match for a study named with no author: by a trial acronym
+    found as a whole word in exactly one source."""
+    toks = acronyms(study)
+    if not toks:
+        return {"status": RECENCY_UNMATCHED, "candidates": [],
+                "why": "no source's first author is named in the study, and the name has no "
+                       "all-caps trial acronym"}
+    texts = _source_texts(srcs, entry_sources)
+    named, seen = {}, {}
+    for tok in toks:
+        pat = re.compile(r"(?<![a-z0-9])%s(?![a-z0-9])" % re.escape(_fold(tok)))
+        hits = sorted(sid for sid, txt in texts.items() if pat.search(txt))
+        seen[tok] = hits
+        if len(hits) == 1:
+            named.setdefault(hits[0], []).append(tok)
+    if len(named) == 1:
+        sid, by = next(iter(named.items()))
+        return {"status": "matched", "source": sid, "score": None,
+                "why": "no author named; trial acronym %s found in %s alone" % (", ".join(by), sid)}
+    if named:
+        return {"status": RECENCY_UNMATCHED, "candidates": sorted(named),
+                "why": "acronyms name different sources (%s)"
+                       % "; ".join("%s: %s" % (t, ", ".join(h)) for t, h in seen.items() if h)}
+    return {"status": RECENCY_UNMATCHED,
+            "candidates": sorted({s for h in seen.values() for s in h}),
+            "why": "no author named; acronym %s" % "; ".join(
+                "%s in %s" % (t, ", ".join(h) if h else "no source") for t, h in seen.items())}
 
 
 def _rests_on(row: dict, sids: set) -> bool:
