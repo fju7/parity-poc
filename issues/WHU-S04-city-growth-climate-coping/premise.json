@@ -3,24 +3,37 @@
   "belief": {
     "_note": "What the reader already believes, stated as they would state it. If you cannot write this sentence, there is nothing to correct and no subject -- which is how the tobacco-analogy candidate died.",
     "statement": "Rapid urban growth, especially in Africa and Asia, is mainly a climate danger: more people crowd into flood-prone coasts, heat-trapping concrete and informal settlements, so every new city dweller adds to the exposure. A minority view says the opposite with equal confidence: because most of the cities of 2050 are not yet built, rapid urbanisation is a great opportunity to 'build resilience in from the start'.",
-    "how_we_know_they_believe_it": "To be filled after research from coverage checked from page bytes.",
+    "how_we_know_they_believe_it": "General coverage carries each framing on its own; two pieces checked from their page bytes (S007, S008).",
     "carried_by": [
       {
-        "outlet": "",
-        "url": "",
-        "date": "",
-        "what_it_said": ""
+        "outlet": "Down To Earth",
+        "url": "https://www.downtoearth.org.in/world/more-people-moved-into-high-flood-zones-exposing-larger-populations-to-water-disasters-world-bank-92201",
+        "date": "2023-10-09",
+        "what_it_said": "'Human settlement in the world's riskiest flood zones increased 122 per cent since 1985, making a lot more people vulnerable to water disasters from climate change' (risk framing; the piece also quotes a study author that smart planning can prevent some of the moves into the riskiest places)"
+      },
+      {
+        "outlet": "World Bank blog (Sustainable Cities)",
+        "url": "https://blogs.worldbank.org/en/sustainablecities/world-bank-has-new-climate-action-plan-whats-it-cities",
+        "date": "2016-05-13",
+        "what_it_said": "'Many countries are still in the early stages of the urbanization process, meaning they have a unique opportunity to develop sustainable cities right from the beginning' (opportunity framing)"
       }
     ]
   },
   "what_the_sources_show": {
     "_note": "What the primary sources actually support, and which sources.",
-    "statement": "",
-    "sources": []
+    "statement": "Both. The IPCC (high confidence) says interactions between changing urban form, exposure and vulnerability can create climate risks for cities, and that the global trend of urbanisation also offers a critical opportunity in the near term to advance climate resilient development; whether it is taken depends on planning, finance and who is served. What has measurably happened so far is mostly the risk side: settlements in the highest flood-hazard zones grew 122 percent from 1985 to 2015 against 85 percent for all settlements, driven by middle-income countries, while recent growth in high-income countries was relatively slow and safe (preprint); urban heat exposure nearly tripled, two-thirds of the increase from population growth; the IPCC finds the most rapid growth in urban exposure and vulnerability in unplanned and informal settlements where adaptive capacity is limited, and limited evidence of investment in informal settlements. Upgrading informal settlements can build resilience, but without more effective policies most urban population growth will be accommodated in informal settlements.",
+    "sources": [
+      "S001",
+      "S002",
+      "S004",
+      "S005",
+      "S006",
+      "S009"
+    ]
   },
   "direction": {
-    "_note": "CORRECTS, CONFIRMS or NARROWS. This field exists so the contrarianism guard can count. A publication whose answer is always CORRECTS is performing scepticism rather than assessing evidence, and is not to be trusted.",
-    "value": "",
+    "_note": "Neither framing is shown alone. Growth is not inherently risk: the assessed evidence names it an opportunity and the flood data show countries diverging, with some growing safely. But the opportunity is mostly not being taken where growth is fastest: measured exposure has grown faster than growth itself, and investment in the most vulnerable settlements is limited.",
+    "value": "narrows",
     "_values": [
       "corrects",
       "confirms",
@@ -31,24 +44,29 @@
   "reader_with_a_decision": "A city or national planning official, development-bank or climate-adaptation-fund officer, or urban NGO deciding where to put money and planning effort for fast-growing cities (new-build standards and land-use rules on the urban edge vs retrofitting and protecting existing exposed districts), who needs to know whether growth itself is the risk or whether how the growth is planned decides the outcome.",
   "public_record_check": {
     "_note": "NOT 'has anybody published this'. On any contested question, somebody has. The question is whether it has been carried WHERE THIS READER WOULD FIND IT. Run the counterexample hunter on the belief statement, not on the finding.",
-    "prior_art_found": [],
-    "carried_in_general_coverage": "",
-    "our_contribution": "translation, extension, or correction of the prior art -- say which"
+    "prior_art_found": [
+      "IPCC AR6 WGII SPM D.3 and chapter 6 (S001, S002)",
+      "Rentschler et al. 2023 / preprint 2022 (S003, S009)",
+      "Tuholske et al. 2021 (S004)",
+      "Satterthwaite et al. 2020 (S005)"
+    ],
+    "carried_in_general_coverage": "The two pieces checked each carry one framing: Down To Earth the risk (with one quoted line that planning can prevent some of it), the World Bank blog the opportunity, without the evidence that the opportunity is mostly not being taken where growth is fastest.",
+    "our_contribution": "translation"
   },
-  "sources_are_open": "",
-  "evidence_base_is_bounded": "",
+  "sources_are_open": "yes -- 9 of 10 held in full (S005 via the operator; S003 held as its abstract only, its authors' preprint held as S009)",
+  "evidence_base_is_bounded": "partly -- global exposure studies (flood, heat, coastal) and the IPCC assessment; no held source measures how often planned growth has actually reduced exposure, beyond the flood study's country contrasts and the review's upgrading cases",
   "kill_condition": "There is no 'narrows' story, and the answer is CONFIRMS (risk), if the assessed evidence (IPCC AR6 WGII chapter 6 and peer-reviewed exposure studies) shows that urban growth raises climate risk largely regardless of how it is planned, with no measured cases where planned growth reduced exposure or vulnerability. It is CONFIRMS (opportunity) if the evidence shows growth is reliably being used to build lower-risk places. It is CORRECTS if both framings are shown wrong (e.g. urban growth does not measurably add exposure). And it dies as a story if general coverage already carries the evidence accurately - that the outcome depends on where and how growth happens - where this reader would find it.",
   "kill_condition_tested": {
     "_note": "Filled in AFTER going to look, by whoever looked.",
-    "by": "",
-    "on": "",
-    "result": "",
+    "by": "Claude Code (session 04988447-df83-4792-bbc4-5aa85185c376)",
+    "on": "2026-10-23",
+    "result": "narrowed",
     "_result_values": [
       "survived",
       "narrowed",
       "killed"
     ],
-    "note": ""
+    "note": "Looked for evidence that growth adds risk regardless of planning: the flood study finds growth in high-income countries relatively slow and safe, and the IPCC names urbanisation an opportunity, so not CONFIRMS (risk). Looked for evidence that growth is reliably building lower-risk places: flood-zone settlement grew faster than settlement overall, exposure to heat rose mostly through population growth, and the IPCC finds the fastest rise in exposure in unplanned and informal settlements with limited investment there, so not CONFIRMS (opportunity). Nothing shows urban growth does not add exposure, so not CORRECTS. Coverage checked carries one framing at a time."
   },
   "lead_came_from": "WHU reliability study draw (WHU-S04, issue.json); the question was given; the drawn source is not known to the drafting session.",
   "_written_before_research": {

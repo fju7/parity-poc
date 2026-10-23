@@ -1,0 +1,149 @@
+{
+  "_what_this_is": "For every source, whether its bibliographic record names a correction, erratum, retraction or expression of concern -- and, when the lookup failed, that it failed. 'checked, none' and 'could not check' are different states and this file never merges them.",
+  "checked": {
+    "S001": {
+      "source": "S001",
+      "title": "IPCC — Summary for Policymakers, in Climate Change 2022: Impacts, Adaptation and Vulnerability (AR6 Working Group II)",
+      "checked_on": "2026-10-22",
+      "identifier": "DOI 10.1017/9781009325844.001",
+      "identifier_from": "the held document",
+      "identity": "resolved title shares 2 word(s) with ours: policymakers, summary",
+      "resolved_title": "Summary for Policymakers",
+      "index": "Crossref",
+      "update_policy": null,
+      "amendments": [],
+      "comments": [],
+      "state": "UNCHECKED",
+      "why": "matched on DOI 10.1017/9781009325844.001 at Crossref; not in Europe PMC, and the publisher registers NO update policy — so Crossref would not know of a correction even if one existed. This is not a pass"
+    },
+    "S002": {
+      "source": "S002",
+      "title": "Dodman D, Hayward B, Pelling M, et al. — Cities, Settlements and Key Infrastructure (IPCC AR6 WGII Chapter 6, 2022)",
+      "checked_on": "2026-10-22",
+      "identifier": "DOI 10.1017/9781009325844.008",
+      "identifier_from": "the held document",
+      "identity": "resolved title shares 3 word(s) with ours: cities, infrastructure, settlements",
+      "resolved_title": "Cities, Settlements and Key Infrastructure",
+      "index": "Crossref",
+      "update_policy": null,
+      "amendments": [],
+      "comments": [],
+      "state": "UNCHECKED",
+      "why": "matched on DOI 10.1017/9781009325844.008 at Crossref; not in Europe PMC, and the publisher registers NO update policy — so Crossref would not know of a correction even if one existed. This is not a pass"
+    },
+    "S003": {
+      "source": "S003",
+      "title": "Rentschler J, Avner P, Marconcini M, et al. — Global evidence of rapid urban growth in flood zones since 1985 (Nature 20",
+      "checked_on": "2026-10-22",
+      "identifier": "DOI 10.1038/s41586-023-06468-9",
+      "identifier_from": "the held document",
+      "resolved_title": "Global evidence of rapid urban growth in flood zones since 1985.",
+      "identity": "resolved title shares 9 word(s) with ours: 1985, evidence, flood, global, growth, rapid, since, urban, zones",
+      "amendments": [],
+      "comments": [],
+      "state": "CLEAN",
+      "why": "matched on DOI 10.1038/s41586-023-06468-9"
+    },
+    "S004": {
+      "source": "S004",
+      "title": "Tuholske C, Caylor K, Funk C, et al. — Global urban population exposure to extreme heat (PNAS 2021;118:e2024792118)",
+      "checked_on": "2026-10-22",
+      "identifier": "PMCID PMC8521713",
+      "identifier_from": "the source URL",
+      "resolved_title": "Global urban population exposure to extreme heat.",
+      "identity": "resolved title shares 6 word(s) with ours: exposure, extreme, global, heat, population, urban",
+      "amendments": [],
+      "comments": [],
+      "state": "CLEAN",
+      "why": "matched on PMCID PMC8521713"
+    },
+    "S005": {
+      "source": "S005",
+      "title": "Satterthwaite D, Archer D, Colenbrander S, et al. — Building resilience to climate change in informal settlements (One E",
+      "checked_on": "2026-10-22",
+      "identifier": "DOI 10.1016/j.oneear.2020.02.002",
+      "identifier_from": "the held document",
+      "identity": "resolved title shares 6 word(s) with ours: building, change, climate, informal, resilience, settlements",
+      "resolved_title": "Building Resilience to Climate Change in Informal Settlements",
+      "index": "Crossref",
+      "update_policy": "https://doi.org/10.1016/elsevier_cm_policy",
+      "amendments": [],
+      "comments": [],
+      "state": "CLEAN",
+      "why": "matched on DOI 10.1016/j.oneear.2020.02.002 at Crossref; not in Europe PMC. The publisher registers a Crossmark update policy, so a correction would have been deposited here"
+    },
+    "S006": {
+      "source": "S006",
+      "title": "Neumann B, Vafeidis AT, Zimmermann J, Nicholls RJ — Future coastal population growth and exposure to sea-level rise and ",
+      "checked_on": "2026-10-22",
+      "identifier": "DOI 10.1371/journal.pone.0118571",
+      "identifier_from": "the held document",
+      "resolved_title": "Future coastal population growth and exposure to sea-level rise and coastal flooding--a global assessment.",
+      "identity": "resolved title shares 10 word(s) with ours: assessment, coastal, exposure, flooding, future, global, growth, level, populati",
+      "amendments": [
+        {
+          "source": "MED",
+          "id": "26087056",
+          "reference": "PLoS One. 2015 Jun 18;10(6):e0131375. doi: 10.1371/journal.pone.0131375",
+          "type": "Erratum in",
+          "orderIn": 1
+        }
+      ],
+      "comments": [],
+      "state": "AMENDED",
+      "why": "matched on DOI 10.1371/journal.pone.0118571"
+    },
+    "S007": {
+      "source": "S007",
+      "title": "Down To Earth — More people moved into high flood zones, exposing larger populations to water disasters: World Bank (202",
+      "checked_on": "2026-10-22",
+      "state": "UNCHECKABLE",
+      "why": "no DOI, PMID, PMCID or PII can be parsed from the URL we hold; nothing is typed from memory, so this source cannot be looked up automatically",
+      "amendments": [],
+      "comments": []
+    },
+    "S008": {
+      "source": "S008",
+      "title": "World Bank blog (Sustainable Cities) — The World Bank Group has a new Climate Action Plan: what's in it for cities?",
+      "checked_on": "2026-10-22",
+      "state": "UNCHECKABLE",
+      "why": "no DOI, PMID, PMCID or PII can be parsed from the URL we hold; nothing is typed from memory, so this source cannot be looked up automatically",
+      "amendments": [],
+      "comments": []
+    },
+    "S009": {
+      "source": "S009",
+      "title": "Rentschler J, Avner P, Marconcini M, Su R, Strano E, Hallegatte S — Global evidence of rapid urban growth in flood zones",
+      "checked_on": "2026-10-22",
+      "identifier": "DOI 10.21203/rs.3.rs-1460344/v1",
+      "identifier_from": "the source URL",
+      "resolved_title": "Global evidence of rapid urban growth in flood zones since 1985",
+      "identity": "resolved title shares 9 word(s) with ours: 1985, evidence, flood, global, growth, rapid, since, urban, zones",
+      "amendments": [],
+      "comments": [],
+      "state": "CLEAN",
+      "why": "matched on DOI 10.21203/rs.3.rs-1460344/v1"
+    },
+    "S010": {
+      "source": "S010",
+      "title": "PLOS ONE Staff — Correction: Future coastal population growth and exposure to sea-level rise and coastal flooding — a gl",
+      "checked_on": "2026-10-22",
+      "identifier": "PMCID PMC4473734",
+      "identifier_from": "the source URL",
+      "resolved_title": "Correction: Future Coastal Population Growth and Exposure to Sea-Level Rise and Coastal Flooding--A Global Assessment.",
+      "identity": "resolved title shares 11 word(s) with ours: assessment, coastal, correction, exposure, flooding, future, global, growth, lev",
+      "amendments": [],
+      "comments": [
+        {
+          "source": "MED",
+          "id": "25760037",
+          "reference": "PLoS One. 2015 Mar 11;10(3):e0118571. doi: 10.1371/journal.pone.0118571",
+          "type": "Erratum for",
+          "orderIn": 1
+        }
+      ],
+      "state": "CLEAN",
+      "why": "matched on PMCID PMC4473734"
+    }
+  }
+}

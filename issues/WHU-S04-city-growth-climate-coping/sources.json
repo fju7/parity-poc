@@ -1,0 +1,278 @@
+{
+ "what_this_is": "Source register for WHU-S04 (reliability-study issue; never published).",
+ "sources": [
+  {
+   "id": "S001",
+   "type": "review",
+   "url": "https://www.ipcc.ch/report/ar6/wg2/downloads/report/IPCC_AR6_WGII_SummaryForPolicymakers.pdf",
+   "title": "IPCC — Summary for Policymakers, in Climate Change 2022: Impacts, Adaptation and Vulnerability (AR6 Working Group II)",
+   "also_called": [
+    "IPCC",
+    "the IPCC summary",
+    "AR6 WGII SPM"
+   ],
+   "used_for": "The assessed statements on urbanisation, exposure, vulnerability and the near-term opportunity for climate resilient development, with their confidence levels.",
+   "access": {
+    "state": "full_text_held",
+    "held": {
+     "file": "docs/dd/dde489125987b9d743b7df0849f7c90b497f81f3c4703c64cd6061a84693f9e5.pdf",
+     "sha256": "dde489125987b9d743b7df0849f7c90b497f81f3c4703c64cd6061a84693f9e5",
+     "bytes": 1389642,
+     "identified_by": "contains 10 of 10 distinctive title words — 163870 characters, reference list and introduction present; title present (10 of 10 title words in the visible text)",
+     "kind": "full_text",
+     "kind_why": "163870 characters, reference list and introduction present"
+    },
+    "on": "2026-10-23"
+   },
+   "identifier": {
+    "kind": "doi",
+    "value": "10.1017/9781009325844.001",
+    "shape": "DOI read out of the document we hold",
+    "resolved_by": "Crossref works/10.1017/9781009325844.001 exists; registered landing URL https://www.cambridge.org/core/product/identifier/9781009325844%23pre2/type/book_part",
+    "identity": "resolved title shares 2 word(s) with ours: policymakers, summary",
+    "resolved_on": "2026-10-22",
+    "resolved_title": "Summary for Policymakers",
+    "by": "sweep_sources.py resolve --write"
+   }
+  },
+  {
+   "id": "S002",
+   "type": "review",
+   "url": "https://www.ipcc.ch/report/ar6/wg2/downloads/report/IPCC_AR6_WGII_Chapter06.pdf",
+   "title": "Dodman D, Hayward B, Pelling M, et al. — Cities, Settlements and Key Infrastructure (IPCC AR6 WGII Chapter 6, 2022)",
+   "also_called": [
+    "IPCC chapter 6",
+    "Dodman"
+   ],
+   "used_for": "The assessment of how urban growth, informality and planning shape urban climate risk and adaptation.",
+   "access": {
+    "state": "full_text_held",
+    "held": {
+     "file": "docs/57/57e9bb6ec3f8b870899732dc73561bff007cf8c3b656fe97776ac688da0e12d7.pdf",
+     "sha256": "57e9bb6ec3f8b870899732dc73561bff007cf8c3b656fe97776ac688da0e12d7",
+     "bytes": 3651767,
+     "identified_by": "contains 8 of 9 distinctive title words — 913627 characters, reference list and discussion/introduction present; title present (8 of 9 title words in the visible text)",
+     "kind": "full_text",
+     "kind_why": "913627 characters, reference list and discussion/introduction present"
+    },
+    "on": "2026-10-23"
+   },
+   "identifier": {
+    "kind": "doi",
+    "value": "10.1017/9781009325844.008",
+    "shape": "DOI read out of the document we hold",
+    "resolved_by": "Crossref works/10.1017/9781009325844.008 exists; registered landing URL https://www.cambridge.org/core/product/identifier/9781009325844%23c6/type/book_part",
+    "identity": "resolved title shares 3 word(s) with ours: cities, infrastructure, settlements",
+    "resolved_on": "2026-10-22",
+    "resolved_title": "Cities, Settlements and Key Infrastructure",
+    "by": "sweep_sources.py resolve --write"
+   }
+  },
+  {
+   "id": "S003",
+   "type": "primary",
+   "url": "https://www.nature.com/articles/s41586-023-06468-9",
+   "title": "Rentschler J, Avner P, Marconcini M, et al. — Global evidence of rapid urban growth in flood zones since 1985 (Nature 2023;622:87-92)",
+   "also_called": [
+    "Rentschler"
+   ],
+   "used_for": "Satellite measurement of settlement growth in flood zones compared with safe zones, 1985-2015.",
+   "access": {
+    "state": "abstract_held",
+    "held": {
+     "file": "docs/31/318c540691f2a52642992854670f2832b8e2f6196d8febac806eecd6244475bf.html",
+     "sha256": "318c540691f2a52642992854670f2832b8e2f6196d8febac806eecd6244475bf",
+     "bytes": 361371,
+     "identified_by": "contains 12 of 12 distinctive title words — 20972 characters, abstract present but no reference list or discussion — this is the abstract, not the paper; title present (12 of 12 title words in the visible text)",
+     "kind": "abstract",
+     "kind_why": "20972 characters, abstract present but no reference list or discussion — this is the abstract, not the paper"
+    },
+    "on": "2026-10-23"
+   },
+   "identifier": {
+    "kind": "doi",
+    "value": "10.1038/s41586-023-06468-9",
+    "shape": "nature.com slug s41586-023-06468-9 in the held URL",
+    "resolved_by": "Crossref works/10.1038/s41586-023-06468-9 exists; registered landing URL https://www.nature.com/articles/s41586-023-06468-9",
+    "identity": "Crossref's landing URL equals the held URL",
+    "resolved_on": "2026-10-22",
+    "resolved_title": "Global evidence of rapid urban growth in flood zones since 1985",
+    "by": "sweep_sources.py resolve --write"
+   }
+  },
+  {
+   "id": "S004",
+   "type": "primary",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8521713/",
+   "title": "Tuholske C, Caylor K, Funk C, et al. — Global urban population exposure to extreme heat (PNAS 2021;118:e2024792118)",
+   "also_called": [
+    "Tuholske"
+   ],
+   "used_for": "How much of the rise in urban extreme-heat exposure comes from population growth versus warming.",
+   "access": {
+    "state": "full_text_held",
+    "held": {
+     "file": "docs/64/649f1b6b7334966ab326facd8eb29dbf9bd9395f1d1623e7b04d022da6e522ef.xml",
+     "sha256": "649f1b6b7334966ab326facd8eb29dbf9bd9395f1d1623e7b04d022da6e522ef",
+     "bytes": 144706,
+     "identified_by": "contains its identifier PMC8521713 — 58309 characters, reference list and discussion present; title present (11 of 11 title words in the visible text)",
+     "kind": "full_text",
+     "kind_why": "58309 characters, reference list and discussion present"
+    },
+    "on": "2026-10-23"
+   },
+   "identifier": {
+    "kind": "pmid",
+    "value": "34607944",
+    "shape": "PMCID PMC8521713 in the held URL",
+    "resolved_by": "Europe PMC search PMCID:PMC8521713 -> MED/34607944",
+    "identity": "the PMCID is literally in the URL we hold",
+    "resolved_on": "2026-10-22",
+    "resolved_title": "Global urban population exposure to extreme heat.",
+    "by": "sweep_sources.py resolve --write",
+    "pmcid": "PMC8521713",
+    "doi": "10.1073/pnas.2024792118"
+   }
+  },
+  {
+   "id": "S005",
+   "type": "primary",
+   "url": "https://doi.org/10.1016/j.oneear.2020.02.002",
+   "title": "Satterthwaite D, Archer D, Colenbrander S, et al. — Building resilience to climate change in informal settlements (One Earth 2020;2:143-156)",
+   "also_called": [
+    "Satterthwaite"
+   ],
+   "used_for": "Evidence on informal settlements, their exposure, and upgrading as a route to resilience.",
+   "access": {
+    "state": "full_text_held",
+    "by": "Fred, browser download from cell.com (publisher open access, CC BY-NC-ND), 2026-10-23; passed on by the advisor; identified from its bytes by Claude Code (title, authors, DOI 10.1016/j.oneear.2020.02.002 on page 1)",
+    "on": "2026-10-23",
+    "held": {
+     "file": "docs/a5/a5085a645c7063a80928946d3103c5d3531068172f086709c2668ca934720738.pdf",
+     "sha256": "a5085a645c7063a80928946d3103c5d3531068172f086709c2668ca934720738",
+     "bytes": 4210670,
+     "url": "https://www.cell.com/one-earth/fulltext/S2590-3322(20)30050-6",
+     "identified_by": "contains its identifier 10.1016/j.oneear.2020.02.002",
+     "kind": "full_text",
+     "kind_why": "83751 characters, reference list and discussion present",
+     "recorded_by": "source_store add"
+    }
+   }
+  },
+  {
+   "id": "S006",
+   "type": "primary",
+   "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0118571",
+   "title": "Neumann B, Vafeidis AT, Zimmermann J, Nicholls RJ — Future coastal population growth and exposure to sea-level rise and coastal flooding: a global assessment (PLoS ONE 2015;10:e0118571)",
+   "also_called": [
+    "Neumann"
+   ],
+   "used_for": "Projected growth of population in the low-elevation coastal zone and its exposure to coastal flooding.",
+   "access": {
+    "state": "full_text_held",
+    "held": {
+     "file": "docs/a6/a6b9e8ba3399917b2101f7ec70f13756e70677e8c8e69078f238f28e5ed7a377.html",
+     "sha256": "a6b9e8ba3399917b2101f7ec70f13756e70677e8c8e69078f238f28e5ed7a377",
+     "bytes": 311590,
+     "identified_by": "contains its identifier 10.1371/journal.pone.0118571 — 100258 characters, reference list and discussion/introduction present; title present (12 of 12 title words in the visible text)",
+     "kind": "full_text",
+     "kind_why": "100258 characters, reference list and discussion/introduction present"
+    },
+    "on": "2026-10-23"
+   }
+  },
+  {
+   "id": "S007",
+   "type": "carrier",
+   "url": "https://www.downtoearth.org.in/world/more-people-moved-into-high-flood-zones-exposing-larger-populations-to-water-disasters-world-bank-92201",
+   "title": "Zumbish — More people moved into high flood zones, exposing larger populations to water disasters: World Bank (Down To Earth, 9 October 2023)",
+   "also_called": [
+    "Down To Earth"
+   ],
+   "used_for": "General coverage carrying the risk framing of urban growth.",
+   "access": {
+    "state": "full_text_held",
+    "held": {
+     "file": "docs/88/8871dcdbd90ce7f137c03ccf984a014245f0773fd1ccbb53c9e82d54128fdc90.html",
+     "sha256": "8871dcdbd90ce7f137c03ccf984a014245f0773fd1ccbb53c9e82d54128fdc90",
+     "bytes": 872126,
+     "identified_by": "contains 12 of 12 distinctive title words — form 'page' — 19 prose sentence(s) over sixty characters, 763 words — this reads as the page itself; title present (12 of 12 title words in the visible text)",
+     "kind": "document",
+     "kind_why": "form 'page' — 19 prose sentence(s) over sixty characters, 763 words — this reads as the page itself"
+    },
+    "on": "2026-10-23"
+   }
+  },
+  {
+   "id": "S008",
+   "type": "carrier",
+   "url": "https://blogs.worldbank.org/en/sustainablecities/world-bank-has-new-climate-action-plan-whats-it-cities",
+   "title": "Ijjasz-Vasquez E, Van Bronkhorst B — The World Bank has a new Climate Action Plan. What's in it for cities? (World Bank blog, Sustainable Cities, 13 May 2016)",
+   "also_called": [
+    "the World Bank blog"
+   ],
+   "used_for": "General coverage carrying the opportunity framing of urban growth.",
+   "access": {
+    "state": "full_text_held",
+    "held": {
+     "file": "docs/00/008e001194aeb7a2aa260b64f73942545f9a68e234e4edc40e6399be891da525.html",
+     "sha256": "008e001194aeb7a2aa260b64f73942545f9a68e234e4edc40e6399be891da525",
+     "bytes": 62752,
+     "identified_by": "contains 10 of 10 distinctive title words — form 'page' — 22 prose sentence(s) over sixty characters, 652 words — this reads as the page itself; title present (11 of 12 title words in the visible text)",
+     "kind": "document",
+     "kind_why": "form 'page' — 22 prose sentence(s) over sixty characters, 652 words — this reads as the page itself"
+    },
+    "on": "2026-10-23"
+   }
+  },
+  {
+   "id": "S009",
+   "type": "primary",
+   "url": "https://doi.org/10.21203/rs.3.rs-1460344/v1",
+   "title": "Rentschler J, Avner P, Marconcini M, Su R, Strano E, Hallegatte S — Global evidence of rapid urban growth in flood zones since 1985 (preprint, Research Square rs-1460344 v1, posted 22 March 2022; CC BY 4.0)",
+   "also_called": [
+    "the Rentschler preprint"
+   ],
+   "used_for": "The authors' preprint of S003 (the Nature 2023 paper, held here only as its abstract). Recorded as the preprint, never as the published paper: figures from it are the preprint's.",
+   "preprint_of": "S003",
+   "access": {
+    "state": "full_text_held",
+    "by": "advisor on Fred's behalf, Research Square preprint download (CC BY 4.0), 2026-10-23; identified from its bytes by Claude Code (title, authors, preprint DOI on page 1); held as the preprint, not as the Nature paper S003",
+    "on": "2026-10-23",
+    "held": {
+     "file": "docs/17/172fa2b11c6e83d0b689af80237564730dc9ed03bc957fac4ec5bd0072b27756.pdf",
+     "sha256": "172fa2b11c6e83d0b689af80237564730dc9ed03bc957fac4ec5bd0072b27756",
+     "bytes": 3115961,
+     "url": "https://doi.org/10.21203/rs.3.rs-1460344/v1",
+     "identified_by": "contains its identifier 10.21203/rs.3.rs-1460344/v1",
+     "kind": "full_text",
+     "kind_why": "47864 characters, reference list and discussion/introduction present",
+     "recorded_by": "source_store add"
+    }
+   }
+  },
+  {
+   "id": "S010",
+   "type": "corrigendum",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4473734/",
+   "title": "PLOS ONE Staff — Correction: Future coastal population growth and exposure to sea-level rise and coastal flooding — a global assessment (PLoS ONE 2015;10:e0131375)",
+   "also_called": [
+    "the Neumann correction"
+   ],
+   "used_for": "The published correction to S006, read to know whether it touches any figure used from S006.",
+   "amends": "S006",
+   "access": {
+    "state": "full_text_held",
+    "held": {
+     "file": "docs/2b/2b4e2f80b13424d30e0d234d34abedb42ebb52541535f9ceef9f08dba6fbe781.xml",
+     "sha256": "2b4e2f80b13424d30e0d234d34abedb42ebb52541535f9ceef9f08dba6fbe781",
+     "bytes": 5476,
+     "identified_by": "contains its identifier PMC4473734 — form 'notice' — 1878 characters held. The article test does not apply to this form; title present (12 of 12 title words in the visible text)",
+     "kind": "document",
+     "kind_why": "form 'notice' — 1878 characters held. The article test does not apply to this form"
+    },
+    "on": "2026-10-23"
+   }
+  }
+ ]
+}

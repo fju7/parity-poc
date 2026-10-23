@@ -1,0 +1,113 @@
+{
+  "_what_this_is": "Whether the span checks can read each held document at all. A figure taken out of a document must be findable in it through the same pipeline the checks use. Where it is not, an absence reported against that document means 'could not determine'.",
+  "checked": {
+    "S001": {
+      "source": "S001",
+      "state": "READABLE",
+      "tried": [
+        "10.1017",
+        "9781009325844.001",
+        "1.09",
+        "0.95",
+        "1.20",
+        "0.19"
+      ],
+      "why": "6 figures round-tripped"
+    },
+    "S002": {
+      "source": "S002",
+      "state": "READABLE",
+      "tried": [
+        "10.1017",
+        "9781009325844.008",
+        "6.10",
+        "6.11",
+        "4.96",
+        "0.96"
+      ],
+      "why": "6 figures round-tripped"
+    },
+    "S003": {
+      "source": "S003",
+      "state": "READABLE",
+      "tried": [
+        "32.99",
+        "199.00",
+        "3.90",
+        "39.95",
+        "10.5281",
+        "10.1596"
+      ],
+      "why": "6 figures round-tripped"
+    },
+    "S004": {
+      "source": "S004",
+      "state": "READABLE",
+      "tried": [
+        "10.1073",
+        "0.05",
+        "0.45",
+        "32.29",
+        "0.25",
+        "0.625"
+      ],
+      "why": "6 figures round-tripped"
+    },
+    "S005": {
+      "source": "S005",
+      "state": "READABLE",
+      "tried": [
+        "10.1016",
+        "2008.40",
+        "7.78",
+        "10.24943",
+        "10.2139"
+      ],
+      "why": "5 figures round-tripped"
+    },
+    "S006": {
+      "source": "S006",
+      "state": "READABLE",
+      "tried": [
+        "10.1371",
+        "0.001",
+        "3.51",
+        "3.55",
+        "10.1073",
+        "10.1016"
+      ],
+      "why": "6 figures round-tripped"
+    },
+    "S007": {
+      "source": "S007",
+      "state": "NO_FIGURES",
+      "why": "no decimal figures to round-trip; the checks cannot be shown to read this document, only assumed to"
+    },
+    "S008": {
+      "source": "S008",
+      "state": "NO_FIGURES",
+      "why": "no decimal figures to round-trip; the checks cannot be shown to read this document, only assumed to"
+    },
+    "S009": {
+      "source": "S009",
+      "state": "READABLE",
+      "tried": [
+        "10.21203",
+        "10.1038",
+        "1.28",
+        "0.15",
+        "0.69",
+        "0.59"
+      ],
+      "why": "6 figures round-tripped"
+    },
+    "S010": {
+      "source": "S010",
+      "state": "READABLE",
+      "tried": [
+        "10.1371"
+      ],
+      "why": "1 figures round-tripped"
+    }
+  }
+}
