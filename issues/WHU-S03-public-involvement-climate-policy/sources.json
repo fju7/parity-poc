@@ -1,0 +1,218 @@
+{
+ "what_this_is": "Source register for WHU-S03 (reliability-study issue; never published).",
+ "sources": [
+  {
+   "id": "S001",
+   "type": "comparison",
+   "url": "https://cdn.prod.website-files.com/65b77644e6021e9021de8916/68627aa486c48ed7c60064d4_Policy%20impact%20of%20the%20French%20Citizens_WITH%20EXECUTIVE%20(19.06.25)-kombineret%20(1).pdf",
+   "title": "Averchenkova A, Koehl M, Smith G — Policy impact of the French Citizens' Convention for the Climate: untangling the fate of the citizens' recommendations (KNOCA briefing, 2025)",
+   "also_called": [
+    "Averchenkova",
+    "the KNOCA briefing"
+   ],
+   "used_for": "Tracking of what happened to each of the French Citizens' Convention for the Climate's recommendations: implemented, modified, not implemented.",
+   "access": {
+    "state": "full_text_held",
+    "held": {
+     "file": "docs/bb/bbac407e99579e5ca863ab0861bd711c555cfda1ca396e00ccc3e8339c19bfd3.pdf",
+     "sha256": "bbac407e99579e5ca863ab0861bd711c555cfda1ca396e00ccc3e8339c19bfd3",
+     "bytes": 1341321,
+     "identified_by": "contains 10 of 11 distinctive title words — 64239 characters, reference list and discussion/introduction present; title present (10 of 12 title words in the visible text)",
+     "kind": "full_text",
+     "kind_why": "64239 characters, reference list and discussion/introduction present"
+    },
+    "on": "2026-10-22"
+   }
+  },
+  {
+   "id": "S002",
+   "type": "primary",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9214676/",
+   "title": "Giraudet LG et al. — \"Co-construction\" in deliberative democracy: lessons from the French Citizens' Convention for Climate (Humanit Soc Sci Commun 2022;9:207)",
+   "also_called": [
+    "Giraudet"
+   ],
+   "used_for": "Observation of the French convention's process and of how its proposals fared in the government's response and the law that followed.",
+   "access": {
+    "state": "full_text_held",
+    "held": {
+     "file": "docs/02/025f93af204c843ae9b6f52ae161bcc8108557ba7fdfbd171cce27f811267c15.xml",
+     "sha256": "025f93af204c843ae9b6f52ae161bcc8108557ba7fdfbd171cce27f811267c15",
+     "bytes": 163095,
+     "identified_by": "contains its identifier PMC9214676 — 98802 characters, reference list and discussion/introduction present; title present (10 of 11 title words in the visible text)",
+     "kind": "full_text",
+     "kind_why": "98802 characters, reference list and discussion/introduction present"
+    },
+    "on": "2026-10-22"
+   },
+   "identifier": {
+    "kind": "doi",
+    "value": "10.1057/s41599-022-01212-6",
+    "resolved_by": "Crossref works lookup, 2026-10-23, Claude Code",
+    "resolved_on": "2026-10-23",
+    "pmcid": "PMC9214676"
+   }
+  },
+  {
+   "id": "S003",
+   "type": "primary",
+   "url": "https://orbilu.uni.lu/bitstream/10993/65437/1/ESP_2025.pdf",
+   "title": "Paulis E, Pilet J-B, Vittori D, Rojon S — When climate assemblies call for stringent climate mitigation policies: unlocking public acceptance or fighting a losing battle? (Environ Sci Policy 2025;171:104159)",
+   "also_called": [
+    "Paulis"
+   ],
+   "used_for": "Survey of the wider public's acceptance of a climate assembly's proposals (Luxembourg), by agreement with the proposals and perceived legitimacy of the process.",
+   "access": {
+    "state": "full_text_held",
+    "by": "advisor on Fred's behalf, browser-equivalent fetch on Fred's Mac with full TLS verification (missing GEANT TLS RSA 1 intermediate supplied from crt.harica.gr AIA), 2026-10-23; ORBilu open repository copy; published version (Elsevier typeset, ESP 171 (2025) 104159, received/accepted dates and copyright line present)",
+    "on": "2026-10-22",
+    "held": {
+     "file": "docs/fc/fc184364c0b104b7a9c7381013bdfff58a7b0e91f28584ff44cefe314f92f21a.pdf",
+     "sha256": "fc184364c0b104b7a9c7381013bdfff58a7b0e91f28584ff44cefe314f92f21a",
+     "bytes": 2277756,
+     "url": "https://orbilu.uni.lu/bitstream/10993/65437/1/ESP_2025.pdf",
+     "identified_by": "contains 11 of 11 distinctive title words",
+     "kind": "full_text",
+     "kind_why": "90118 characters, reference list and discussion/introduction present",
+     "recorded_by": "source_store add"
+    }
+   },
+   "identifier": {
+    "kind": "doi",
+    "value": "10.1016/j.envsci.2025.104159",
+    "resolved_by": "Crossref works lookup, 2026-10-23, Claude Code",
+    "resolved_on": "2026-10-23"
+   }
+  },
+  {
+   "id": "S004",
+   "type": "primary",
+   "url": "https://doras.dcu.ie/30736/1/Saude_2025_Climate.pdf",
+   "title": "Suiter J, Saude K, McNally B — Climate change assemblies as spaces for the potential mitigation of climate policy misperceptions: a survey experiment (Environ Sci Policy 2025;164:103995)",
+   "also_called": [
+    "Suiter"
+   ],
+   "used_for": "Survey experiment: whether telling the public about a climate assembly changes their views of climate policy.",
+   "access": {
+    "state": "full_text_held",
+    "held": {
+     "file": "docs/fe/fe2c1b967e640d319157b8043300cb5c3186dcf389958fa9906fa257c8001f8a.pdf",
+     "sha256": "fe2c1b967e640d319157b8043300cb5c3186dcf389958fa9906fa257c8001f8a",
+     "bytes": 2028948,
+     "identified_by": "contains 11 of 11 distinctive title words — 64406 characters, reference list and discussion/introduction present; title present (12 of 12 title words in the visible text)",
+     "kind": "full_text",
+     "kind_why": "64406 characters, reference list and discussion/introduction present"
+    },
+    "on": "2026-10-22"
+   },
+   "identifier": {
+    "kind": "doi",
+    "value": "10.1016/j.envsci.2025.103995",
+    "resolved_by": "Crossref works lookup, 2026-10-23, Claude Code",
+    "resolved_on": "2026-10-23"
+   }
+  },
+  {
+   "id": "S005",
+   "type": "primary",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11519151/",
+   "title": "Ainscough J, Lewis P, Farrow L — Distrust and reflexive impotence in the net zero transition: findings from a longitudinal deliberative mini-public (Climatic Change 2024)",
+   "also_called": [
+    "Ainscough"
+   ],
+   "used_for": "Longitudinal follow-up of participants in a UK climate mini-public: trust and views on net zero policy.",
+   "access": {
+    "state": "full_text_held",
+    "held": {
+     "file": "docs/36/365226bb3e1558fa1b7fc94460fcbf413ca2938c8c6c27879c3f208cb40564d8.xml",
+     "sha256": "365226bb3e1558fa1b7fc94460fcbf413ca2938c8c6c27879c3f208cb40564d8",
+     "bytes": 116143,
+     "identified_by": "contains its identifier PMC11519151 — 74006 characters, reference list and discussion/introduction present; title present (12 of 12 title words in the visible text)",
+     "kind": "full_text",
+     "kind_why": "74006 characters, reference list and discussion/introduction present"
+    },
+    "on": "2026-10-22"
+   },
+   "identifier": {
+    "kind": "doi",
+    "value": "10.1007/s10584-024-03806-2",
+    "resolved_by": "Crossref works lookup, 2026-10-23, Claude Code",
+    "resolved_on": "2026-10-23",
+    "pmcid": "PMC11519151"
+   }
+  },
+  {
+   "id": "S006",
+   "type": "review",
+   "url": "https://www.ipcc.ch/report/ar6/wg3/downloads/report/IPCC_AR6_WGIII_Chapter13.pdf",
+   "title": "IPCC AR6 Working Group III, Chapter 13 — National and sub-national policies and institutions (Dubash NK, Mitchell C et al., 2022)",
+   "also_called": [
+    "IPCC",
+    "the IPCC chapter"
+   ],
+   "used_for": "The IPCC assessment of what is known about participation, stakeholder and public engagement, and the effect on climate policy.",
+   "access": {
+    "state": "full_text_held",
+    "held": {
+     "file": "docs/cb/cbdb11c379de66e11c39f550a61d5cef52e0953db454f615c291ff5a6e638123.pdf",
+     "sha256": "cbdb11c379de66e11c39f550a61d5cef52e0953db454f615c291ff5a6e638123",
+     "bytes": 1185829,
+     "identified_by": "contains 10 of 10 distinctive title words — 617783 characters, reference list and discussion/introduction present; title present (10 of 10 title words in the visible text)",
+     "kind": "full_text",
+     "kind_why": "617783 characters, reference list and discussion/introduction present"
+    },
+    "on": "2026-10-22"
+   },
+   "identifier": {
+    "kind": "doi",
+    "value": "10.1017/9781009157926.015",
+    "resolved_by": "Crossref works lookup, 2026-10-23, Claude Code",
+    "resolved_on": "2026-10-23"
+   }
+  },
+  {
+   "id": "S007",
+   "type": "carrier",
+   "url": "https://www.advancedsciencenews.com/engaging-the-public-in-climate-policymaking/",
+   "title": "Advanced Science News — Engaging the public in climate policymaking",
+   "also_called": [
+    "Advanced Science News"
+   ],
+   "used_for": "Coverage that carries the claim that public input builds support for climate policy.",
+   "access": {
+    "state": "full_text_held",
+    "held": {
+     "file": "docs/88/8843c83b2331546029b77419c5bb2dc322286f6224c6d8f7cc343e5849eb2075.html",
+     "sha256": "8843c83b2331546029b77419c5bb2dc322286f6224c6d8f7cc343e5849eb2075",
+     "bytes": 108508,
+     "identified_by": "contains 7 of 7 distinctive title words — form 'page' — 40 prose sentence(s) over sixty characters, 1020 words — this reads as the page itself; title present (7 of 7 title words in the visible text)",
+     "kind": "document",
+     "kind_why": "form 'page' — 40 prose sentence(s) over sixty characters, 1020 words — this reads as the page itself"
+    },
+    "on": "2026-10-22"
+   }
+  },
+  {
+   "id": "S008",
+   "type": "carrier",
+   "url": "https://www.uk100.org/campaigns/local-climate-engagement-building",
+   "title": "UK100 — Local Climate Engagement: building public consent for climate action",
+   "also_called": [
+    "UK100"
+   ],
+   "used_for": "Local-government campaign material carrying the claim that public engagement builds consent for climate action.",
+   "access": {
+    "state": "full_text_held",
+    "held": {
+     "file": "docs/67/67e3c991ed99a163a1615128cc60b73b8797075eeca60a4013f26feb3bec3399.html",
+     "sha256": "67e3c991ed99a163a1615128cc60b73b8797075eeca60a4013f26feb3bec3399",
+     "bytes": 95936,
+     "identified_by": "contains 8 of 8 distinctive title words — form 'page' — 50 prose sentence(s) over sixty characters, 1712 words — this reads as the page itself; title present (9 of 9 title words in the visible text)",
+     "kind": "document",
+     "kind_why": "form 'page' — 50 prose sentence(s) over sixty characters, 1712 words — this reads as the page itself"
+    },
+    "on": "2026-10-22"
+   }
+  }
+ ]
+}

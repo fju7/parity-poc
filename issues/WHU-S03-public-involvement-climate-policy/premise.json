@@ -3,24 +3,37 @@
   "belief": {
     "_note": "What the reader already believes, stated as they would state it. If you cannot write this sentence, there is nothing to correct and no subject -- which is how the tobacco-analogy candidate died.",
     "statement": "Involving the wider public in making climate policy (community groups, businesses, young people, workers, Indigenous communities) makes the policies more popular and more likely to pass, and makes them work better: citizens' assemblies and consultation build buy-in, so participatory climate policy wins political backing and delivers bigger emissions cuts than policy made by governments and experts alone.",
-    "how_we_know_they_believe_it": "To be filled from research: named coverage that states participation as producing support and results, checked from page bytes.",
+    "how_we_know_they_believe_it": "Coverage states public participation as building support for climate action; two pieces checked from their page bytes (S007, S008).",
     "carried_by": [
       {
-        "outlet": "",
-        "url": "",
-        "date": "",
-        "what_it_said": ""
+        "outlet": "UK100",
+        "url": "https://www.uk100.org/campaigns/local-climate-engagement-building",
+        "date": "2025",
+        "what_it_said": "its Local Climate Engagement programme 'demonstrated that when local authorities receive proper support, they can transform their approach to community engagement and build genuine public support for climate action'"
+      },
+      {
+        "outlet": "Advanced Science News (Wiley)",
+        "url": "https://www.advancedsciencenews.com/engaging-the-public-in-climate-policymaking/",
+        "date": "2021-11-24",
+        "what_it_said": "'Incorporating public input might in turn lead to better decisions and increase popular support for climate policies' (hedged; the same piece warns participation can polarise or be 'fake participation')"
       }
     ]
   },
   "what_the_sources_show": {
     "_note": "What the primary sources actually support, and which sources.",
-    "statement": "",
-    "sources": []
+    "statement": "The held evidence is about citizens' assemblies and consultation, not about measured emissions results. France's Citizens' Convention for the Climate saw over 70 percent of its 149 recommendations followed up in some form (20 percent in full, 51 percent partially or modified) five years on, with the government favouring incentives over regulations, and the authors cannot attribute that to the Convention alone; observers found it failed to generate significant support among the broader public. In Luxembourg, a majority of the public opposed implementing its climate assembly's stricter proposals; agreement with the content was the strongest predictor of acceptance, with perceived fairness of the process raising acceptance among those who disagreed. In a five-country survey experiment, reading about a climate assembly made little difference for most people. The IPCC says participatory forms can help enhance legitimacy while facing practical challenges, and that few case studies measure the direct effect of participation on climate outcomes.",
+    "sources": [
+      "S001",
+      "S002",
+      "S003",
+      "S004",
+      "S005",
+      "S006"
+    ]
   },
   "direction": {
-    "_note": "CORRECTS, CONFIRMS or NARROWS. This field exists so the contrarianism guard can count. A publication whose answer is always CORRECTS is performing scepticism rather than assessing evidence, and is not to be trusted.",
-    "value": "",
+    "_note": "Participation is not shown to be useless: France's assembly shaped a good share of later law, and a fair process softened opposition among people who disagreed. But the belief that involving the public reliably wins backing and delivers bigger emissions cuts is not shown: content, not process, drove acceptance; telling the public about an assembly changed little; and no held source measures emissions results.",
+    "value": "narrows",
     "_values": [
       "corrects",
       "confirms",
@@ -31,24 +44,29 @@
   "reader_with_a_decision": "A city, regional or national climate-policy official, legislator's staffer, or NGO or funder deciding whether to spend time and money on a citizens' assembly, stakeholder consultation or co-design process for a climate policy, who needs to know whether that participation actually makes the policy more likely to be adopted and to cut emissions, or mainly builds legitimacy.",
   "public_record_check": {
     "_note": "NOT 'has anybody published this'. On any contested question, somebody has. The question is whether it has been carried WHERE THIS READER WOULD FIND IT. Run the counterexample hunter on the belief statement, not on the finding.",
-    "prior_art_found": [],
-    "carried_in_general_coverage": "",
-    "our_contribution": "translation, extension, or correction of the prior art -- say which"
+    "prior_art_found": [
+      "Averchenkova, Koehl, Smith 2025 KNOCA briefing (S001)",
+      "Paulis et al. 2025 (S003)",
+      "Suiter et al. 2025 (S004)",
+      "IPCC AR6 WGIII ch. 13 (S006)"
+    ],
+    "carried_in_general_coverage": "The two pieces checked carry participation-builds-support (UK100 as an achievement claim; Advanced Science News hedged) without the measured findings: content-driven acceptance, little effect of hearing about an assembly, and no measured emissions effect.",
+    "our_contribution": "translation"
   },
-  "sources_are_open": "",
-  "evidence_base_is_bounded": "",
+  "sources_are_open": "yes -- 8 of 8 held in full (S003 via the operator, from an open repository copy)",
+  "evidence_base_is_bounded": "partly -- the held evidence covers climate citizens' assemblies in Europe (France, Luxembourg, a five-country experiment, a UK mini-public) and the IPCC assessment; it does not cover involvement of businesses, workers, young people or Indigenous communities as distinct groups, nor any measured emissions outcome",
   "kill_condition": "There is no 'narrows' story, and the answer is CONFIRMS, if studies of participatory climate policymaking (citizens' assemblies, consultations, co-design, stakeholder and Indigenous involvement) show that public involvement reliably raises political support for the policies, their adoption, and their measured outcomes such as emissions cuts. It is CORRECTS if the evidence shows public involvement makes no difference, or reduces support or effectiveness (for example, assembly recommendations routinely ignored, or participation delaying or diluting policy). And it dies as a story if general coverage already carries the evidence on participation and outcomes accurately where this reader would find it.",
   "kill_condition_tested": {
     "_note": "Filled in AFTER going to look, by whoever looked.",
-    "by": "",
-    "on": "",
-    "result": "",
+    "by": "Claude Code (session 2ccb4707-d22a-4b3c-8dfc-be6c65952f4a)",
+    "on": "2026-10-23",
+    "result": "narrowed",
     "_result_values": [
       "survived",
       "narrowed",
       "killed"
     ],
-    "note": ""
+    "note": "Looked for evidence that involvement reliably raises backing and results: S001 found 70+ percent of the French recommendations followed up in some form but not attributable to the Convention alone; S003 found agreement with content, not the process, drove acceptance; S004 found little effect for most people; S006 notes few studies measure climate outcomes. Looked for evidence that involvement makes no difference or harms: S002 found the French process failed to generate significant broader support, but S003 found a fair process raised acceptance among those who disagreed and S001 found real policy uptake. So neither CONFIRMS nor CORRECTS."
   },
   "lead_came_from": "WHU reliability study draw (WHU-S03, issue.json); the question was given; the drawn source is not known to the drafting session.",
   "_written_before_research": {

@@ -1,0 +1,105 @@
+{
+  "_what_this_is": "For every source, whether its bibliographic record names a correction, erratum, retraction or expression of concern -- and, when the lookup failed, that it failed. 'checked, none' and 'could not check' are different states and this file never merges them.",
+  "checked": {
+    "S001": {
+      "source": "S001",
+      "title": "Averchenkova A, Koehl M, Smith G — Policy impact of the French Citizens' Convention for the Climate: untangling the fate",
+      "checked_on": "2026-10-22",
+      "identifier": "DOI 10.1111/14756765.12248",
+      "identifier_from": "the held document",
+      "state": "UNCHECKED",
+      "why": "Europe PMC has no record for DOI 10.1111/14756765.12248; HTTP 404 from Crossref",
+      "amendments": [],
+      "comments": []
+    },
+    "S002": {
+      "source": "S002",
+      "title": "Giraudet LG et al. — \"Co-construction\" in deliberative democracy: lessons from the French Citizens' Convention for Clima",
+      "checked_on": "2026-10-22",
+      "identifier": "PMCID PMC9214676",
+      "identifier_from": "the source URL",
+      "resolved_title": "\"Co-construction\" in deliberative democracy: lessons from the French Citizens' Convention for Climate.",
+      "identity": "resolved title shares 8 word(s) with ours: citizens, climate, construction, convention, deliberative, democracy, french, le",
+      "amendments": [],
+      "comments": [],
+      "state": "CLEAN",
+      "why": "matched on PMCID PMC9214676"
+    },
+    "S003": {
+      "source": "S003",
+      "title": "Paulis E, Pilet J-B, Vittori D, Rojon S — When climate assemblies call for stringent climate mitigation policies: unlock",
+      "checked_on": "2026-10-22",
+      "identifier": "DOI 10.1016/j.envsci.2025.104159",
+      "identifier_from": "the held document",
+      "identity": "resolved title shares 13 word(s) with ours: acceptance, assemblies, battle, call, climate, fighting, losing, mitigation, pol",
+      "resolved_title": "When climate assemblies call for stringent climate mitigation policies: Unlocking public acceptance or fighting a losing battle?",
+      "index": "Crossref",
+      "update_policy": "https://doi.org/10.1016/elsevier_cm_policy",
+      "amendments": [],
+      "comments": [],
+      "state": "CLEAN",
+      "why": "matched on DOI 10.1016/j.envsci.2025.104159 at Crossref; not in Europe PMC. The publisher registers a Crossmark update policy, so a correction would have been deposited here"
+    },
+    "S004": {
+      "source": "S004",
+      "title": "Suiter J, Saude K, McNally B — Climate change assemblies as spaces for the potential mitigation of climate policy misper",
+      "checked_on": "2026-10-22",
+      "identifier": "DOI 10.1016/j.envsci.2025.103995",
+      "identifier_from": "the held document",
+      "identity": "resolved title shares 10 word(s) with ours: assemblies, change, climate, experiment, misperceptions, mitigation, policy, pot",
+      "resolved_title": "Climate change assemblies as spaces for the potential mitigation of climate policy misperceptions: A survey experiment",
+      "index": "Crossref",
+      "update_policy": "https://doi.org/10.1016/elsevier_cm_policy",
+      "amendments": [],
+      "comments": [],
+      "state": "CLEAN",
+      "why": "matched on DOI 10.1016/j.envsci.2025.103995 at Crossref; not in Europe PMC. The publisher registers a Crossmark update policy, so a correction would have been deposited here"
+    },
+    "S005": {
+      "source": "S005",
+      "title": "Ainscough J, Lewis P, Farrow L — Distrust and reflexive impotence in the net zero transition: findings from a longitudin",
+      "checked_on": "2026-10-22",
+      "identifier": "PMCID PMC11519151",
+      "identifier_from": "the source URL",
+      "resolved_title": "Distrust and reflexive impotence in the net zero transition: findings from a longitudinal deliberative mini-public.",
+      "identity": "resolved title shares 10 word(s) with ours: deliberative, distrust, findings, impotence, longitudinal, mini, public, reflexi",
+      "amendments": [],
+      "comments": [],
+      "state": "CLEAN",
+      "why": "matched on PMCID PMC11519151"
+    },
+    "S006": {
+      "source": "S006",
+      "title": "IPCC AR6 Working Group III, Chapter 13 — National and sub-national policies and institutions (Dubash NK, Mitchell C et a",
+      "checked_on": "2026-10-22",
+      "identifier": "DOI 10.1017/9781009157926.015",
+      "identifier_from": "the held document",
+      "identity": "resolved title shares 3 word(s) with ours: institutions, national, policies",
+      "resolved_title": "National and Sub-national Policies and Institutions",
+      "index": "Crossref",
+      "update_policy": null,
+      "amendments": [],
+      "comments": [],
+      "state": "UNCHECKED",
+      "why": "matched on DOI 10.1017/9781009157926.015 at Crossref; not in Europe PMC, and the publisher registers NO update policy — so Crossref would not know of a correction even if one existed. This is not a pass"
+    },
+    "S007": {
+      "source": "S007",
+      "title": "Advanced Science News — Engaging the public in climate policymaking",
+      "checked_on": "2026-10-22",
+      "state": "UNCHECKABLE",
+      "why": "no DOI, PMID, PMCID or PII can be parsed from the URL we hold; nothing is typed from memory, so this source cannot be looked up automatically",
+      "amendments": [],
+      "comments": []
+    },
+    "S008": {
+      "source": "S008",
+      "title": "UK100 — Local Climate Engagement: building public consent for climate action",
+      "checked_on": "2026-10-22",
+      "state": "UNCHECKABLE",
+      "why": "no DOI, PMID, PMCID or PII can be parsed from the URL we hold; nothing is typed from memory, so this source cannot be looked up automatically",
+      "amendments": [],
+      "comments": []
+    }
+  }
+}

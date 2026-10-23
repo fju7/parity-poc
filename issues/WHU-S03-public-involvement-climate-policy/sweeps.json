@@ -1,0 +1,23 @@
+{
+  "what_this_is": "Baselines for sweep_sources.py. Which citations and which correction notices we had already seen, so a later run can report what is NEW rather than re-reporting the world.",
+  "citations": {},
+  "status": {},
+  "runs": [
+    {
+      "on": "2026-10-22",
+      "command": "resolve --write",
+      "resolved": [],
+      "refused": [
+        {
+          "id": "S001",
+          "why": "could not confirm DOI 10.1111/14756765.12248: not registered at Crossref (a DataCite DOI, e.g. arXiv, would be) and not in Europe PMC. Not written."
+        }
+      ],
+      "failed": [],
+      "unsweepable": [
+        "S007",
+        "S008"
+      ]
+    }
+  ]
+}
