@@ -1,0 +1,19 @@
+{
+  "_what_this_is": "Names printed on the page, each recorded as checked against the author list in the held document.",
+  "verified": [
+    {
+      "name": "Duranton and Turner",
+      "source_id": "S007",
+      "checked_against": "the byline of the held text (sha256 b27996d1c03af7b66161678482332989f4687fcefb47881575905df87b5ecbfb): 'Gilles Duranton' and 'Matthew A. Turner'",
+      "by": "Claude Code (session 5ad074c0-3585-4e1b-af2c-119ffa161e8b)",
+      "on": "2026-10-24"
+    },
+    {
+      "name": "Creutzig",
+      "source_id": "S008",
+      "checked_against": "the byline of the held text (sha256 d489cac93d08d6bcad28efc1b743e42e6ffedc1d918de89f981ff88be3313eab): 'Felix Creutzig', first of five authors",
+      "by": "Claude Code (session 5ad074c0-3585-4e1b-af2c-119ffa161e8b)",
+      "on": "2026-10-24"
+    }
+  ]
+}

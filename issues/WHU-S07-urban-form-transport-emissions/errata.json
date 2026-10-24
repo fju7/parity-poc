@@ -1,0 +1,151 @@
+{
+  "_what_this_is": "For every source, whether its bibliographic record names a correction, erratum, retraction or expression of concern -- and, when the lookup failed, that it failed. 'checked, none' and 'could not check' are different states and this file never merges them.",
+  "checked": {
+    "S001": {
+      "source": "S001",
+      "title": "Lwasa S, Seto KC, et al. 2022. Chapter 8: Urban systems and other settlements. In: IPCC, Climate Change 2022: Mitigation",
+      "checked_on": "2026-10-24",
+      "identifier": "DOI 10.1017/9781009157926.010",
+      "identifier_from": "the held document",
+      "identity": "resolved title shares 4 word(s) with ours: other, settlements, systems, urban",
+      "resolved_title": "Urban Systems and Other Settlements",
+      "index": "Crossref",
+      "update_policy": null,
+      "amendments": [],
+      "comments": [],
+      "state": "UNCHECKED",
+      "why": "matched on DOI 10.1017/9781009157926.010 at Crossref; not in Europe PMC, and the publisher registers NO update policy — so Crossref would not know of a correction even if one existed. This is not a pass"
+    },
+    "S002": {
+      "source": "S002",
+      "title": "Jaramillo P, Kahn Ribeiro S, et al. 2022. Chapter 10: Transport. In: IPCC, Climate Change 2022: Mitigation of Climate Ch",
+      "checked_on": "2026-10-24",
+      "identifier": "DOI 10.1017/9781009157926.012",
+      "identifier_from": "the held document",
+      "state": "UNCHECKED",
+      "why": "Europe PMC has no record for DOI 10.1017/9781009157926.012; Crossref resolved to a DIFFERENT document: 'Transport' shares nothing distinctive with 'Jaramillo P, Kahn Ribeiro S, et al. 2022. Chapter 10: Transport. In: I'",
+      "amendments": [],
+      "comments": []
+    },
+    "S003": {
+      "source": "S003",
+      "title": "IPCC 2022. Summary for Policymakers. In: Climate Change 2022: Mitigation of Climate Change (AR6 WGIII)",
+      "checked_on": "2026-10-24",
+      "identifier": "DOI 10.1017/9781009157926.001",
+      "identifier_from": "the held document",
+      "identity": "resolved title shares 2 word(s) with ours: policymakers, summary",
+      "resolved_title": "Summary for Policymakers",
+      "index": "Crossref",
+      "update_policy": null,
+      "amendments": [],
+      "comments": [],
+      "state": "UNCHECKED",
+      "why": "matched on DOI 10.1017/9781009157926.001 at Crossref; not in Europe PMC, and the publisher registers NO update policy — so Crossref would not know of a correction even if one existed. This is not a pass"
+    },
+    "S004": {
+      "source": "S004",
+      "title": "Transportation Research Board and National Research Council 2009. Driving and the Built Environment: The Effects of Comp",
+      "checked_on": "2026-10-24",
+      "identifier": "DOI 10.17226/12747",
+      "identifier_from": "the held document",
+      "identity": "resolved title shares 3 word(s) with ours: built, driving, environment",
+      "resolved_title": "Driving and the Built Environment",
+      "index": "Crossref",
+      "update_policy": null,
+      "amendments": [],
+      "comments": [],
+      "state": "UNCHECKED",
+      "why": "matched on DOI 10.17226/12747 at Crossref; not in Europe PMC, and the publisher registers NO update policy — so Crossref would not know of a correction even if one existed. This is not a pass"
+    },
+    "S007": {
+      "source": "S007",
+      "title": "Duranton G, Turner MA. Urban form and driving: Evidence from US cities (working paper version; published in Journal of U",
+      "checked_on": "2026-10-24",
+      "state": "UNCHECKABLE",
+      "why": "no DOI, PMID, PMCID or PII can be parsed from the URL we hold; nothing is typed from memory, so this source cannot be looked up automatically",
+      "amendments": [],
+      "comments": []
+    },
+    "S008": {
+      "source": "S008",
+      "title": "Creutzig F, Baiocchi G, Bierkandt R, Pichler PP, Seto KC. 2015. Global typology of urban energy use and potentials for a",
+      "checked_on": "2026-10-24",
+      "identifier": "DOI 10.1073/pnas.1315545112",
+      "identifier_from": "the source URL",
+      "resolved_title": "Global typology of urban energy use and potentials for an urbanization mitigation wedge.",
+      "identity": "resolved title shares 8 word(s) with ours: energy, global, mitigation, potentials, typology, urban, urbanization, wedge",
+      "amendments": [],
+      "comments": [],
+      "state": "CLEAN",
+      "why": "matched on DOI 10.1073/pnas.1315545112"
+    },
+    "S009": {
+      "source": "S009",
+      "title": "Kuss P, Nicholas KA. 2022. A dozen effective interventions to reduce car use in European cities: Lessons learned from a ",
+      "checked_on": "2026-10-24",
+      "identifier": "DOI 10.1016/j.cstp.2022.02.001",
+      "identifier_from": "the held document",
+      "identity": "resolved title shares 12 word(s) with ours: analysis, cities, dozen, effective, european, interventions, learned, lessons, m",
+      "resolved_title": "A dozen effective interventions to reduce car use in European cities: Lessons learned from a meta-analysis and transition management",
+      "index": "Crossref",
+      "update_policy": "https://doi.org/10.1016/elsevier_cm_policy",
+      "amendments": [],
+      "comments": [],
+      "state": "CLEAN",
+      "why": "matched on DOI 10.1016/j.cstp.2022.02.001 at Crossref; not in Europe PMC. The publisher registers a Crossmark update policy, so a correction would have been deposited here"
+    },
+    "S010": {
+      "source": "S010",
+      "title": "Koch N, Naumann L, Pretis F, Ritter N, Schwarz M. 2022. Attributing agnostically detected large reductions in road CO2 e",
+      "checked_on": "2026-10-24",
+      "identifier": "DOI 10.1038/s41560-022-01095-6",
+      "identifier_from": "the held document",
+      "identity": "resolved title shares 9 word(s) with ours: agnostically, attributing, detected, emissions, large, mixes, policy, reductions",
+      "resolved_title": "Attributing agnostically detected large reductions in road CO2 emissions to policy mixes",
+      "index": "Crossref",
+      "update_policy": "https://doi.org/10.1007/springer_crossmark_policy",
+      "amendments": [],
+      "comments": [],
+      "state": "CLEAN",
+      "why": "matched on DOI 10.1038/s41560-022-01095-6 at Crossref; not in Europe PMC. The publisher registers a Crossmark update policy, so a correction would have been deposited here"
+    },
+    "S012": {
+      "source": "S012",
+      "title": "Reuters, republished by The Jakarta Post, 9 December 2021: Electric vehicle and 'compact' city combo could reach emissio",
+      "checked_on": "2026-10-24",
+      "state": "UNCHECKABLE",
+      "why": "no DOI, PMID, PMCID or PII can be parsed from the URL we hold; nothing is typed from memory, so this source cannot be looked up automatically",
+      "amendments": [],
+      "comments": []
+    },
+    "S013": {
+      "source": "S013",
+      "title": "Popular Science: Urban sprawl defines unsustainable cities, but it can be undone",
+      "checked_on": "2026-10-24",
+      "state": "UNCHECKABLE",
+      "why": "no DOI, PMID, PMCID or PII can be parsed from the URL we hold; nothing is typed from memory, so this source cannot be looked up automatically",
+      "amendments": [],
+      "comments": []
+    },
+    "S014": {
+      "source": "S014",
+      "title": "CleanTechnica, 19 January 2015: Instead Of Tripling, Cut City Energy Use 25% By 2050?",
+      "checked_on": "2026-10-24",
+      "state": "UNCHECKABLE",
+      "why": "no DOI, PMID, PMCID or PII can be parsed from the URL we hold; nothing is typed from memory, so this source cannot be looked up automatically",
+      "amendments": [],
+      "comments": []
+    },
+    "S015": {
+      "source": "S015",
+      "title": "Börjesson M, Kristoffersson I. 2017. The Swedish Congestion Charges: Ten Years On - and Effects of Increasing Charging L",
+      "checked_on": "2026-10-24",
+      "identifier": "DOI 10.1093/reep/req019",
+      "identifier_from": "the held document",
+      "state": "UNCHECKED",
+      "why": "Europe PMC has no record for DOI 10.1093/reep/req019; Crossref resolved to a DIFFERENT document: 'Reducing Urban Road Transportation Externalities: Road Pricing in Theo' shares nothing distinctive with 'Börjesson M, Kristoffersson I. 2017. The Swedish Congestion Charges: T'",
+      "amendments": [],
+      "comments": []
+    }
+  }
+}

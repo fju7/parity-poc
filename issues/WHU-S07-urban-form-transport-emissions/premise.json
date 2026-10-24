@@ -1,0 +1,75 @@
+{
+  "_what_this_is": "The entry gate, answered BEFORE drafting. The threshold question is whether a well-informed non-expert would confidently believe something the primary sources do not support.",
+  "belief": {
+    "_note": "What the reader already believes, stated as they would state it. If you cannot write this sentence, there is nothing to correct and no subject -- which is how the tobacco-analogy candidate died.",
+    "statement": "Building cities denser, with homes, shops and jobs mixed together and good public transport, and charging drivers for road use, cuts the greenhouse gas emissions from transport a lot: people drive less, so emissions fall.",
+    "how_we_know_they_believe_it": "General coverage presents compact cities as a large climate lever; two pieces checked from their held page bytes (S012, S014).",
+    "carried_by": [
+      {
+        "outlet": "Reuters, republished by The Jakarta Post",
+        "url": "https://www.thejakartapost.com/business/2021/12/09/electric-vehicle-and-compact-city-combo-could-reach-emissions-targets",
+        "date": "2021-12-09",
+        "what_it_said": "headline: EVs and 'compact' city combo could reach emissions targets"
+      },
+      {
+        "outlet": "CleanTechnica",
+        "url": "https://cleantechnica.com/2015/01/19/instead-tripling-cut-city-energy-25-2050/",
+        "date": "2015-01-19",
+        "what_it_said": "headline: Instead Of Tripling, Cut City Energy Use 25% By 2050?"
+      }
+    ]
+  },
+  "what_the_sources_show": {
+    "_note": "What the primary sources actually support, and which sources.",
+    "statement": "The IPCC states with high confidence that urban form changes combined with programmes such as transport pricing could reduce transport emissions in developed countries and slow their growth in developing ones (S003). Its 23-26% figure is a 2050 scenario attached mainly to the layout of emerging urbanisation (S001, S008). For existing cities, the US NRC puts the 2050 cut from compact development at under 1% to 11%, the committee split on the high end (S004), and a causal US study finds a density elasticity of driving near -0.08 and tiny aggregate effects from realistic densification (S007). Pricing has measured effects: about 20% less cordon traffic in Stockholm, 12% in Gothenburg (S015), 33% in London (S009), and 8-26% road CO2 cuts from fuel or carbon tax mixes (S010).",
+    "sources": [
+      "S001",
+      "S002",
+      "S003",
+      "S004",
+      "S007",
+      "S008",
+      "S009",
+      "S010",
+      "S015"
+    ],
+    "_expected_before_research": "Written before research, as a prediction to be tested, not a finding: cross-sectional studies consistently find less driving and lower transport emissions per person in denser, mixed, better-connected places, but each element's effect on driving is small (elasticities well under 1), partly reflects who chooses to live there, and builds up only as the building stock turns over, over decades; pricing (congestion charges, fuel and carbon prices) has quasi-experimental evidence of fairly prompt traffic and emission cuts; assessments such as the IPCC's say combining urban form with pricing and transit gives larger cuts than any one measure; the size of the combined cut, and how much of it is from urban form rather than vehicle technology, is uncertain."
+  },
+  "direction": {
+    "_note": "The combined claim stands as a possibility; the size and speed of the urban-form share do not, and most measured effect comes from pricing.",
+    "value": "narrows",
+    "_values": [
+      "corrects",
+      "confirms",
+      "narrows"
+    ],
+    "_expected_before_research": "narrows (prediction; the recorded value is set after research)"
+  },
+  "reader_with_a_decision": "A city or regional councillor, planner or voter weighing a zoning reform, a transit investment or a road-pricing scheme partly on the promise that it will cut transport emissions, who wants to know how large and how fast that cut is likely to be and which of the measures carries it.",
+  "public_record_check": {
+    "_note": "NOT 'has anybody published this'. On any contested question, somebody has. The question is whether it has been carried WHERE THIS READER WOULD FIND IT. Run the counterexample hunter on the belief statement, not on the finding.",
+    "prior_art_found": [
+      "IPCC AR6 WGIII SPM C.8.2 (S003)",
+      "NRC Special Report 298 (S004)",
+      "Duranton and Turner (S007)"
+    ],
+    "carried_in_general_coverage": "The coverage held (S012, S014) carries the large-lever framing, not the NRC range or the density elasticities.",
+    "our_contribution": "translation: putting the assessments' scenario figures beside the measured effects of density and of pricing"
+  },
+  "sources_are_open": "10 of the 12 listed sources are held; S005 and S006 (paywalled) were dropped by Fred's ruling and are not relied on; S008 and S010 are used for their abstracts only.",
+  "evidence_base_is_bounded": "Bounded to two IPCC chapters and the summary, one national assessment (NRC 2009), one causal US study, one global city study, one European review, one European emissions study and one congestion-charge evaluation.",
+  "kill_condition": "No story if: the primary sources support a large, prompt cut from urban form alone as readers believe (then the answer confirms and is short); or readers do not actually believe urban form and pricing cut transport emissions; or the size and timing caveats are already carried where this reader would find them.",
+  "kill_condition_tested": {
+    "_note": "Filled in AFTER going to look, by whoever looked.",
+    "by": "Claude Code (session 5ad074c0-3585-4e1b-af2c-119ffa161e8b)",
+    "on": "2026-10-24",
+    "result": "narrowed",
+    "_result_values": [
+      "survived",
+      "narrowed",
+      "killed"
+    ],
+    "note": "The sources do not support a large, prompt cut from urban form alone in existing cities (S004, S007), so the story is not killed by confirmation; the combined claim holds as a scenario."
+  },
+  "lead_came_from": "WHU reliability study question WHU-S07 (issue.json); the drawn source is not known to the drafting session."
+}

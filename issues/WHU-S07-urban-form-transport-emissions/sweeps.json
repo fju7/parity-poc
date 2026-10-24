@@ -1,0 +1,74 @@
+{
+  "what_this_is": "Baselines for sweep_sources.py. Which citations and which correction notices we had already seen, so a later run can report what is NEW rather than re-reporting the world.",
+  "citations": {},
+  "status": {},
+  "runs": [
+    {
+      "on": "2026-10-24",
+      "command": "resolve --write",
+      "resolved": [
+        "S001",
+        "S003",
+        "S009"
+      ],
+      "refused": [
+        {
+          "id": "S002",
+          "why": "Crossref has DOI 10.1017/9781009157926.012 but it resolves to a different document (landing https://www.cambridge.org/core/product/identifier/9781009157926%23c10/type/book_part; resolved to a DIFFERENT document: 'Transport' shares nothing distinctive with 'Jaramillo P, Kahn Ribeiro S, et al. 2022. Chapter 10: Transport. In: I')"
+        },
+        {
+          "id": "S015",
+          "why": "Crossref has DOI 10.1093/reep/req019 but it resolves to a different document (landing https://www.journals.uchicago.edu/doi/10.1093/reep/req019; resolved to a DIFFERENT document: 'Reducing Urban Road Transportation Externalities: Road Pricing in Theo' shares nothing distinctive with 'Börjesson M, Kristoffersson I. 2017. The Swedish Congestion Charges: T')"
+        }
+      ],
+      "failed": [],
+      "unsweepable": [
+        "S012",
+        "S013",
+        "S014"
+      ]
+    },
+    {
+      "on": "2026-10-24",
+      "command": "resolve --write",
+      "resolved": [],
+      "refused": [
+        {
+          "id": "S002",
+          "why": "Crossref has DOI 10.1017/9781009157926.012 but it resolves to a different document (landing https://www.cambridge.org/core/product/identifier/9781009157926%23c10/type/book_part; resolved to a DIFFERENT document: 'Transport' shares nothing distinctive with 'Jaramillo P, Kahn Ribeiro S, et al. 2022. Chapter 10: Transport. In: I')"
+        },
+        {
+          "id": "S015",
+          "why": "Crossref has DOI 10.1093/reep/req019 but it resolves to a different document (landing https://www.journals.uchicago.edu/doi/10.1093/reep/req019; resolved to a DIFFERENT document: 'Reducing Urban Road Transportation Externalities: Road Pricing in Theo' shares nothing distinctive with 'Börjesson M, Kristoffersson I. 2017. The Swedish Congestion Charges: T')"
+        }
+      ],
+      "failed": [],
+      "unsweepable": [
+        "S012",
+        "S013",
+        "S014"
+      ]
+    },
+    {
+      "on": "2026-10-24",
+      "command": "resolve --write",
+      "resolved": [],
+      "refused": [
+        {
+          "id": "S002",
+          "why": "Crossref has DOI 10.1017/9781009157926.012 but it resolves to a different document (landing https://www.cambridge.org/core/product/identifier/9781009157926%23c10/type/book_part; resolved to a DIFFERENT document: 'Transport' shares nothing distinctive with 'Jaramillo P, Kahn Ribeiro S, et al. 2022. Chapter 10: Transport. In: I')"
+        },
+        {
+          "id": "S015",
+          "why": "Crossref has DOI 10.1093/reep/req019 but it resolves to a different document (landing https://www.journals.uchicago.edu/doi/10.1093/reep/req019; resolved to a DIFFERENT document: 'Reducing Urban Road Transportation Externalities: Road Pricing in Theo' shares nothing distinctive with 'Börjesson M, Kristoffersson I. 2017. The Swedish Congestion Charges: T')"
+        }
+      ],
+      "failed": [],
+      "unsweepable": [
+        "S012",
+        "S013",
+        "S014"
+      ]
+    }
+  ]
+}

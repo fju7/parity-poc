@@ -1,0 +1,366 @@
+{
+  "issue": "urban-form-transport-emissions",
+  "sources": [
+    {
+      "id": "S001",
+      "type": "synthesis",
+      "form": "article",
+      "title": "Lwasa S, Seto KC, et al. 2022. Chapter 8: Urban systems and other settlements. In: IPCC, Climate Change 2022: Mitigation of Climate Change (AR6 WGIII)",
+      "url": "https://www.ipcc.ch/report/ar6/wg3/downloads/report/IPCC_AR6_WGIII_Chapter08.pdf",
+      "used_for": "assessment of urban form, spatial planning and urban mitigation potential",
+      "access": {
+        "state": "full_text_held",
+        "held": {
+          "file": "docs/16/164a4fb9c42c20af7c3fc7fb2e43bf7449f6360222c06baf88fed2d9b9a8e76d.pdf",
+          "sha256": "164a4fb9c42c20af7c3fc7fb2e43bf7449f6360222c06baf88fed2d9b9a8e76d",
+          "bytes": 9548259,
+          "identified_by": "contains 11 of 11 distinctive title words — 524207 characters, reference list and discussion/introduction present; title present (12 of 12 title words in the visible text)",
+          "kind": "full_text",
+          "kind_why": "524207 characters, reference list and discussion/introduction present"
+        },
+        "on": "2026-10-24"
+      },
+      "identifier": {
+        "kind": "doi",
+        "value": "10.1017/9781009157926.010",
+        "shape": "DOI read out of the document we hold",
+        "resolved_by": "Crossref works/10.1017/9781009157926.010 exists; registered landing URL https://www.cambridge.org/core/product/identifier/9781009157926%23c8/type/book_part",
+        "identity": "resolved title shares 4 word(s) with ours: other, settlements, systems, urban",
+        "resolved_on": "2026-10-24",
+        "resolved_title": "Urban Systems and Other Settlements",
+        "by": "sweep_sources.py resolve --write"
+      }
+    },
+    {
+      "id": "S002",
+      "type": "synthesis",
+      "form": "article",
+      "title": "Jaramillo P, Kahn Ribeiro S, et al. 2022. Chapter 10: Transport. In: IPCC, Climate Change 2022: Mitigation of Climate Change (AR6 WGIII)",
+      "url": "https://www.ipcc.ch/report/ar6/wg3/downloads/report/IPCC_AR6_WGIII_Chapter10.pdf",
+      "used_for": "assessment of transport demand measures, pricing and land use",
+      "access": {
+        "state": "full_text_held",
+        "held": {
+          "file": "docs/6e/6e96d0d324200c244f624acc1514f0d10e939fecf3f8c81c46ae42e685379533.pdf",
+          "sha256": "6e96d0d324200c244f624acc1514f0d10e939fecf3f8c81c46ae42e685379533",
+          "bytes": 3394328,
+          "identified_by": "contains 9 of 10 distinctive title words — 605348 characters, reference list and discussion/introduction present; title present (11 of 12 title words in the visible text)",
+          "kind": "full_text",
+          "kind_why": "605348 characters, reference list and discussion/introduction present"
+        },
+        "on": "2026-10-24"
+      }
+    },
+    {
+      "id": "S003",
+      "type": "synthesis",
+      "form": "article",
+      "title": "IPCC 2022. Summary for Policymakers. In: Climate Change 2022: Mitigation of Climate Change (AR6 WGIII)",
+      "url": "https://www.ipcc.ch/report/ar6/wg3/downloads/report/IPCC_AR6_WGIII_SPM.pdf",
+      "used_for": "the summary statements on urban and transport mitigation",
+      "access": {
+        "state": "full_text_held",
+        "held": {
+          "file": "docs/0a/0a3b9f671d7150c69a3088e006b7fab84e41ed90fc4eefdf92d076b2d3c8ce84.pdf",
+          "sha256": "0a3b9f671d7150c69a3088e006b7fab84e41ed90fc4eefdf92d076b2d3c8ce84",
+          "bytes": 2159848,
+          "identified_by": "contains 7 of 7 distinctive title words — 225501 characters, reference list and introduction present; title present (9 of 9 title words in the visible text)",
+          "kind": "full_text",
+          "kind_why": "225501 characters, reference list and introduction present"
+        },
+        "on": "2026-10-24"
+      },
+      "identifier": {
+        "kind": "doi",
+        "value": "10.1017/9781009157926.001",
+        "shape": "DOI read out of the document we hold",
+        "resolved_by": "Crossref works/10.1017/9781009157926.001 exists; registered landing URL https://www.cambridge.org/core/product/identifier/9781009157926%23pre2/type/book_part",
+        "identity": "resolved title shares 2 word(s) with ours: policymakers, summary",
+        "resolved_on": "2026-10-24",
+        "resolved_title": "Summary for Policymakers",
+        "by": "sweep_sources.py resolve --write"
+      }
+    },
+    {
+      "id": "S004",
+      "type": "synthesis",
+      "form": "article",
+      "title": "Transportation Research Board and National Research Council 2009. Driving and the Built Environment: The Effects of Compact Development on Motorized Travel, Energy Use, and CO2 Emissions. Special Report 298",
+      "url": "https://nap.nationalacademies.org/catalog/12747",
+      "used_for": "US estimate of VMT, energy and CO2 cuts from compact development by 2030 and 2050",
+      "doi": "10.17226/12747",
+      "access": {
+        "state": "full_text_held",
+        "by": "NAP free PDF download, by Fred Ugast",
+        "on": "2026-10-24",
+        "held": {
+          "file": "docs/87/871109eb7b0ac8224000e0f7d564355de4c56613756217effd143b40a23ea5b8.pdf",
+          "sha256": "871109eb7b0ac8224000e0f7d564355de4c56613756217effd143b40a23ea5b8",
+          "bytes": 3842111,
+          "url": "https://nap.nationalacademies.org/catalog/12747",
+          "identified_by": "contains 11 of 11 distinctive title words",
+          "kind": "full_text",
+          "kind_why": "547803 characters, reference list and discussion/introduction present",
+          "recorded_by": "source_store add"
+        }
+      }
+    },
+    {
+      "id": "S007",
+      "type": "primary",
+      "form": "article",
+      "title": "Duranton G, Turner MA. Urban form and driving: Evidence from US cities (working paper version; published in Journal of Urban Economics 108:170-191, 2018)",
+      "url": "https://faculty.wharton.upenn.edu/wp-content/uploads/2016/01/UFD.pdf",
+      "used_for": "causal estimate of density on driving, and aggregate effect",
+      "doi": "10.1016/j.jue.2018.10.003",
+      "access": {
+        "state": "full_text_held",
+        "held": {
+          "file": "docs/b2/b27996d1c03af7b66161678482332989f4687fcefb47881575905df87b5ecbfb.pdf",
+          "sha256": "b27996d1c03af7b66161678482332989f4687fcefb47881575905df87b5ecbfb",
+          "bytes": 5648032,
+          "identified_by": "contains 6 of 12 distinctive title words — 5638633 characters, reference list and discussion/introduction present; title present (6 of 12 title words in the visible text)",
+          "kind": "full_text",
+          "kind_why": "5638633 characters, reference list and discussion/introduction present"
+        },
+        "on": "2026-10-24"
+      }
+    },
+    {
+      "id": "S008",
+      "type": "primary",
+      "form": "article",
+      "title": "Creutzig F, Baiocchi G, Bierkandt R, Pichler PP, Seto KC. 2015. Global typology of urban energy use and potentials for an urbanization mitigation wedge. PNAS 112(20):6283-6288",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4443311/",
+      "used_for": "urban form, fuel prices and urban transport energy across 274 cities",
+      "doi": "10.1073/pnas.1315545112",
+      "access": {
+        "state": "abstract_held",
+        "by": "PMC PDF, by Fred Ugast",
+        "on": "2026-10-24",
+        "held": {
+          "file": "docs/d4/d489cac93d08d6bcad28efc1b743e42e6ffedc1d918de89f981ff88be3313eab.pdf",
+          "sha256": "d489cac93d08d6bcad28efc1b743e42e6ffedc1d918de89f981ff88be3313eab",
+          "bytes": 977003,
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4443311/",
+          "identified_by": "contains its identifier 10.1073/pnas.1315545112",
+          "kind": "abstract",
+          "kind_why": "40463 characters, abstract present but no reference list or discussion — this is the abstract, not the paper",
+          "recorded_by": "source_store add"
+        }
+      }
+    },
+    {
+      "id": "S009",
+      "type": "synthesis",
+      "form": "article",
+      "title": "Kuss P, Nicholas KA. 2022. A dozen effective interventions to reduce car use in European cities: Lessons learned from a meta-analysis and transition management. Case Studies on Transport Policy 10:1494-1513",
+      "url": "https://n-somerset.gov.uk/sites/default/files/2022-11/CD10.27%20Kuss%20P%20and%20Nicholas%20KA%202022%20Interventions%20to%20reduce%20car%20use.pdf",
+      "used_for": "measured car-use reductions from city interventions, pricing included",
+      "access": {
+        "state": "full_text_held",
+        "held": {
+          "file": "docs/76/76841549b31328d8acf66728b88cfefb104a7d35ca9c027911708f0408cb57ee.pdf",
+          "sha256": "76841549b31328d8acf66728b88cfefb104a7d35ca9c027911708f0408cb57ee",
+          "bytes": 1782261,
+          "identified_by": "contains 12 of 12 distinctive title words — 1770669 characters, reference list and discussion/introduction present; title present (12 of 12 title words in the visible text)",
+          "kind": "full_text",
+          "kind_why": "1770669 characters, reference list and discussion/introduction present"
+        },
+        "on": "2026-10-24"
+      },
+      "identifier": {
+        "kind": "doi",
+        "value": "10.1016/j.cstp.2022.02.001",
+        "shape": "DOI read out of the document we hold",
+        "resolved_by": "Crossref works/10.1016/j.cstp.2022.02.001 exists; registered landing URL https://linkinghub.elsevier.com/retrieve/pii/S2213624X22000281",
+        "identity": "resolved title shares 12 word(s) with ours: analysis, cities, dozen, effective, european, interventions, learned, lessons, m",
+        "resolved_on": "2026-10-24",
+        "resolved_title": "A dozen effective interventions to reduce car use in European cities: Lessons learned from a meta-analysis and transition management",
+        "by": "sweep_sources.py resolve --write"
+      }
+    },
+    {
+      "id": "S010",
+      "type": "primary",
+      "form": "article",
+      "title": "Koch N, Naumann L, Pretis F, Ritter N, Schwarz M. 2022. Attributing agnostically detected large reductions in road CO2 emissions to policy mixes. Nature Energy 7:844-853",
+      "url": "https://doi.org/10.1038/s41560-022-01095-6",
+      "used_for": "which policy mixes produced large road CO2 cuts",
+      "doi": "10.1038/s41560-022-01095-6",
+      "access": {
+        "state": "full_text_held",
+        "held": {
+          "file": "docs/52/5296a3262fba4f49ab0a858f435551be66dc850aa4829506b7a47edbf7b7f613.html",
+          "sha256": "5296a3262fba4f49ab0a858f435551be66dc850aa4829506b7a47edbf7b7f613",
+          "bytes": 303482,
+          "identified_by": "contains its identifier 10.1038/s41560-022-01095-6 — 16584 characters, reference list and discussion present; title present (12 of 12 title words in the visible text)",
+          "kind": "full_text",
+          "kind_why": "16584 characters, reference list and discussion present"
+        },
+        "on": "2026-10-24"
+      }
+    },
+    {
+      "id": "S012",
+      "type": "coverage",
+      "form": "page",
+      "title": "Reuters, republished by The Jakarta Post, 9 December 2021: Electric vehicle and 'compact' city combo could reach emissions targets",
+      "url": "https://www.thejakartapost.com/business/2021/12/09/electric-vehicle-and-compact-city-combo-could-reach-emissions-targets",
+      "used_for": "the belief, as carried in general coverage",
+      "access": {
+        "state": "full_text_held",
+        "held": {
+          "file": "docs/09/09c220036b49b1720dc9dba23bdf013237b1b3f3c3410846089db11b54b3ddc1.html",
+          "sha256": "09c220036b49b1720dc9dba23bdf013237b1b3f3c3410846089db11b54b3ddc1",
+          "bytes": 140051,
+          "identified_by": "contains 10 of 12 distinctive title words — form 'page' — 48 prose sentence(s) over sixty characters, 1852 words — this reads as the page itself; title present (10 of 12 title words in the visible text)",
+          "kind": "document",
+          "kind_why": "form 'page' — 48 prose sentence(s) over sixty characters, 1852 words — this reads as the page itself"
+        },
+        "on": "2026-10-24"
+      }
+    },
+    {
+      "id": "S013",
+      "type": "coverage",
+      "form": "page",
+      "title": "Popular Science: Urban sprawl defines unsustainable cities, but it can be undone",
+      "url": "https://www.popsci.com/environment/urban-sprawl-cities-sustainable/",
+      "used_for": "the belief, as carried in general coverage",
+      "access": {
+        "state": "full_text_held",
+        "held": {
+          "file": "docs/28/285bfe2806d1f83c102a90d61b44c40cd74154bfec4e4bd2ba21e7d73d704467.html",
+          "sha256": "285bfe2806d1f83c102a90d61b44c40cd74154bfec4e4bd2ba21e7d73d704467",
+          "bytes": 164249,
+          "identified_by": "contains 8 of 8 distinctive title words — form 'page' — 81 prose sentence(s) over sixty characters, 2713 words — this reads as the page itself; title present (8 of 8 title words in the visible text)",
+          "kind": "document",
+          "kind_why": "form 'page' — 81 prose sentence(s) over sixty characters, 2713 words — this reads as the page itself"
+        },
+        "on": "2026-10-24"
+      }
+    },
+    {
+      "id": "S014",
+      "type": "coverage",
+      "form": "page",
+      "title": "CleanTechnica, 19 January 2015: Instead Of Tripling, Cut City Energy Use 25% By 2050?",
+      "url": "https://cleantechnica.com/2015/01/19/instead-tripling-cut-city-energy-25-2050/",
+      "used_for": "the belief, as carried in general coverage",
+      "access": {
+        "state": "full_text_held",
+        "held": {
+          "file": "docs/aa/aa73497304c57b303c819495e68d851fb5aba567856c75ad10e24fe69b637e70.html",
+          "sha256": "aa73497304c57b303c819495e68d851fb5aba567856c75ad10e24fe69b637e70",
+          "bytes": 111952,
+          "identified_by": "contains 6 of 6 distinctive title words — form 'page' — 34 prose sentence(s) over sixty characters, 1027 words — this reads as the page itself; title present (6 of 6 title words in the visible text)",
+          "kind": "document",
+          "kind_why": "form 'page' — 34 prose sentence(s) over sixty characters, 1027 words — this reads as the page itself"
+        },
+        "on": "2026-10-24"
+      }
+    },
+    {
+      "id": "S015",
+      "type": "primary",
+      "form": "article",
+      "title": "Börjesson M, Kristoffersson I. 2017. The Swedish Congestion Charges: Ten Years On - and Effects of Increasing Charging Levels (CTS Working Paper 2017:2)",
+      "url": "https://www.transportportal.se/swopec/cts2017-2.pdf",
+      "used_for": "measured traffic effect of the Stockholm (and Gothenburg) congestion charges over ten years; replaces S011",
+      "replaces": "S011",
+      "access": {
+        "state": "full_text_held",
+        "held": {
+          "file": "docs/36/366ef103af1eec3167919a3e10273f5841f0aaa137177ad4a270ca183be86ed1.pdf",
+          "sha256": "366ef103af1eec3167919a3e10273f5841f0aaa137177ad4a270ca183be86ed1",
+          "bytes": 1930434,
+          "identified_by": "contains 12 of 12 distinctive title words — 76067 characters, reference list and discussion/introduction present; title present (12 of 12 title words in the visible text)",
+          "kind": "full_text",
+          "kind_why": "76067 characters, reference list and discussion/introduction present"
+        },
+        "on": "2026-10-24"
+      }
+    }
+  ],
+  "_not_held_note": "Sources taken out of the issue's source list, with the reason. No tool reads this list; it is the record.",
+  "not_held": [
+    {
+      "id": "S005",
+      "type": "synthesis",
+      "form": "article",
+      "title": "Ewing R, Cervero R. 2010. Travel and the Built Environment: A Meta-Analysis. Journal of the American Planning Association 76(3)",
+      "url": "https://doi.org/10.1080/01944361003766766",
+      "used_for": "elasticities of travel with respect to built-environment variables",
+      "doi": "10.1080/01944361003766766",
+      "access": {
+        "last_fetch": {
+          "on": "2026-10-24",
+          "by": "acquire_sources.py",
+          "result": "not fetched",
+          "why": "HTTP 403 at https://doi.org/10.1080/01944361003766766",
+          "tried": [
+            {
+              "url": "https://doi.org/10.1080/01944361003766766",
+              "result": "HTTP 403 at https://doi.org/10.1080/01944361003766766"
+            }
+          ]
+        }
+      },
+      "not_held_reason": "DROPPED (Fred's ruling, 2026-10-24): paywalled, Fred has no library access; find_access.py found no free route. Not held; the draft does not rely on it or characterise its findings.",
+      "recorded_on": "2026-10-24",
+      "recorded_by": "Claude Code (WHU-S07 drafting session)"
+    },
+    {
+      "id": "S006",
+      "type": "synthesis",
+      "form": "article",
+      "title": "Stevens MR. 2017. Does Compact Development Make People Drive Less? Journal of the American Planning Association 83(1):7-18",
+      "url": "https://doi.org/10.1080/01944363.2016.1240044",
+      "used_for": "meta-regression of compact development and driving",
+      "doi": "10.1080/01944363.2016.1240044",
+      "access": {
+        "last_fetch": {
+          "on": "2026-10-24",
+          "by": "acquire_sources.py",
+          "result": "not fetched",
+          "why": "HTTP 403 at https://doi.org/10.1080/01944363.2016.1240044",
+          "tried": [
+            {
+              "url": "https://doi.org/10.1080/01944363.2016.1240044",
+              "result": "HTTP 403 at https://doi.org/10.1080/01944363.2016.1240044"
+            }
+          ]
+        }
+      },
+      "not_held_reason": "DROPPED (Fred's ruling, 2026-10-24): paywalled, Fred has no library access; find_access.py found no free route. Not held; the draft does not rely on it or characterise its findings.",
+      "recorded_on": "2026-10-24",
+      "recorded_by": "Claude Code (WHU-S07 drafting session)"
+    },
+    {
+      "id": "S011",
+      "type": "primary",
+      "form": "article",
+      "title": "Börjesson M, Eliasson J, Hugosson MB, Brundell-Freij K. 2012. The Stockholm congestion charges - five years on. Effects, acceptability and lessons learnt (CTS Working Paper 2012:3)",
+      "url": "https://www.transportportal.se/SWoPEc/CTS2012-3.pdf",
+      "used_for": "measured traffic effect of a congestion charge over five years",
+      "access": {
+        "last_fetch": {
+          "on": "2026-10-24",
+          "by": "acquire_sources.py",
+          "result": "not fetched",
+          "why": "no text could be extracted from this PDF (pdftotext at /opt/homebrew/bin/pdftotext failed on it), so identity could not be checked either way — look at it yourself and use --force if it is right (1677177 bytes at https://www.transportportal.se/SWoPEc/CTS2012-3.pdf)",
+          "tried": [
+            {
+              "url": "https://www.transportportal.se/SWoPEc/CTS2012-3.pdf",
+              "result": "no text could be extracted from this PDF (pdftotext at /opt/homebrew/bin/pdftotext failed on it), so identity could not be checked either way — look at it yourself and use --force if it is right (1677177 bytes at https://www.transportportal.se/SWoPEc/CTS2012-3.pdf)"
+            }
+          ]
+        }
+      },
+      "not_held_reason": "REPLACED by S015 (Fred's ruling, 2026-10-24): the PDF at the url was fetched but pdftotext could not extract text from it, so it could not be identified or read by the checks; Fred will not fetch it. Not held; the draft does not rely on it.",
+      "recorded_on": "2026-10-24",
+      "recorded_by": "Claude Code (WHU-S07 drafting session)"
+    }
+  ]
+}

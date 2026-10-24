@@ -1,0 +1,57 @@
+{
+  "what_this_is": "Where each document we do not hold can be got. Every route here was title-checked against our own record for that source, because the first hand-typed attempt at this returned three wrong papers from three wrong DOIs.",
+  "checked": "2026-10-24",
+  "sources": {
+    "S004": {
+      "ids": {},
+      "routes": [],
+      "notes": [
+        "no DOI could be taken from the url we hold; nothing was guessed"
+      ],
+      "verified_title": ""
+    },
+    "S005": {
+      "ids": {
+        "doi": "10.1080/01944361003766766"
+      },
+      "routes": [],
+      "notes": [
+        "Europe PMC has no record for doi 10.1080/01944361003766766",
+        "resolved title: 'Travel and the Built Environment'",
+        "Unpaywall: no free version anywhere (is_oa false)"
+      ],
+      "verified_title": ""
+    },
+    "S006": {
+      "ids": {
+        "doi": "10.1080/01944363.2016.1240044"
+      },
+      "routes": [],
+      "notes": [
+        "Europe PMC has no record for doi 10.1080/01944363.2016.1240044",
+        "resolved title: 'Does Compact Development Make People Drive Less?'",
+        "Unpaywall: no free version anywhere (is_oa false)"
+      ],
+      "verified_title": ""
+    },
+    "S008": {
+      "ids": {
+        "pmcid": "PMC4443311"
+      },
+      "routes": [],
+      "notes": [
+        "Europe PMC has no record for pmcid PMC4443311",
+        "no DOI could be taken from the url we hold; nothing was guessed"
+      ],
+      "verified_title": ""
+    },
+    "S011": {
+      "ids": {},
+      "routes": [],
+      "notes": [
+        "no DOI could be taken from the url we hold; nothing was guessed"
+      ],
+      "verified_title": ""
+    }
+  }
+}
