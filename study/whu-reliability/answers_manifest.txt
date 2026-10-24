@@ -41,16 +41,19 @@ a9b633851bbd44bee17c232392f07cb538fc9d75f6b0cbc3b65da40c6e89744f  WHU-S04/claude
 # All six runs took place on 2026-10-24 between 12:49 and 13:29 local time (America/New_York); each question's three runs fall within 48 hours.
 # Route: each tool's own export (Claude Download as Markdown; ChatGPT Export to Markdown; Gemini Export to Docs then Docs Download > Markdown),
 # copied byte for byte to <tool>.raw.txt; <tool>.md is the capture file built by script around it and checked with blinding/adapt.report_section.
-# ChatGPT WHU-S07 and WHU-S08: the report header showed '0 citations · 0 searches' and the exports hold no URLs; recorded in run_record_S05-S08.md, not rerun.
+# ChatGPT WHU-S07 and WHU-S08: the first runs (13:10-13:20) showed '0 citations · 0 searches' with no URLs in the export; treated as a technical failure
+# on Fred's ruling, set aside unscored in WHU-S0N/_zero_searches_set_aside/ (not listed; their capture-time hashes are in run_record_S05-S08.md),
+# and rerun once (13:56-14:05). The reruns also show '0 citations · 0 searches' and their exports hold no URLs; they stand as the answers.
+# The ChatGPT lines below are the reruns' files.
 # Not listed: WHU-S07/_unverified_claude_capture/ (1 file, byte-identical to WHU-S07/claude.raw.txt).
-5947a261e4c2bb1952b51ef4e3d09b408f6f4406c43c305d3573c23364aff783  WHU-S07/chatgpt.md
-5838f7d5eb97cef17fbdd73e72afbbf531801c393e111053a5050923e5160a30  WHU-S07/chatgpt.raw.txt
+63cf57de85ad6bb50fe66a87d4f034419989870e9c69422ad6481646c679f2a8  WHU-S07/chatgpt.md
+705ad383b6b74cf27e7a976c13d5622e1adf4822faceb14a234a6013a0c51eac  WHU-S07/chatgpt.raw.txt
 5cc8230ba118eaefe145ff390f2d386807150380971d7564ff3d3f48c97f23cd  WHU-S07/claude.md
 f2d15bfbae7f2acee42d856beb5bbf0216c55a78a56f5340ac8cd5e9ffe429fb  WHU-S07/claude.raw.txt
 a0408845c6734c3876d3c53672bb90d9010a7fd249524d98116c2c7fede3547c  WHU-S07/gemini.md
 3b98f3f2c64eac024e458cd2a61d4818b7e00cf123df1b60705641622daa5be6  WHU-S07/gemini.raw.txt
-b08ab6a9b43b7a84cacf220ce550930d7b7b8ac45e08a108bfdc010fd890c662  WHU-S08/chatgpt.md
-55a8038f452603eef038477c5717f3b27ee734294c53a43a4f596c10d50e5cb3  WHU-S08/chatgpt.raw.txt
+f04a2d73772b664f6716c806471de6dcc15568ab0345d0b0bb2b5446ec90aafb  WHU-S08/chatgpt.md
+1c374a539d6f06cebabf1e7a000c5d9ac477864c00a8d8761b38130b5c312472  WHU-S08/chatgpt.raw.txt
 bfa48682f2b17348806c7896cd6a0982284b029cc4ce1bdf2e03b9b5291f47ab  WHU-S08/claude.md
 e6c5c865113c43e5f09a358ad4f07c3ed39ed759d03eb39a309283af19205b52  WHU-S08/claude.raw.txt
 72677c3d8f4911b06ab0e16a31318a483e263c275f3e29e9c76bed2886f486aa  WHU-S08/gemini.md
