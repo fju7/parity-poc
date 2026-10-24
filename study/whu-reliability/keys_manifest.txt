@@ -22,9 +22,13 @@ a67146620d761c6a9e8d4ee058b4d4ff184d2e726eca6bab9f1f52a8d82ea484  WHU-S03/check_
 ab8e2916b80b14be37de487ad6e92853e624259055f41faec5f2188cb3c92b38  WHU-S04/sources.sha256
 
 # Extension draw (protocol Analysis plan; seed from 294458aa073d3bae5d5922ea260362a9986f44c3): WHU-S05 to WHU-S08.
-# Drafted 2026-10-24 by Claude Code (session 4c25ed39-5ffe-4a6b-b01d-7c5a591c5060), key drafter. Status: DRAFT, not checked, not frozen.
+# Drafted 2026-10-24 by Claude Code (session 4c25ed39-5ffe-4a6b-b01d-7c5a591c5060), key drafter.
+# WHU-S07 and WHU-S08 checked 2026-10-24 by Claude Code (session 59c3dec4-a4a5-427a-9c54-d41f55870024), key checker, a separate instance;
+# every change is recorded in that question's check_log.md with the original wording and the reason.
+# Status: WHU-S07 and WHU-S08 FROZEN. The drafted keys' hashes are in this file's previous version (e12c1ba).
 # WHU-S05 and WHU-S06: no key yet (full text not held; see the drafting report).
-29013ace95db0b5c008fd709850f85981f184aec155ac5bdb520eb4bcc47446e  WHU-S07/key.json
+3185bcf8e5a4669991f4483e57df2c68d1ec5122ba7b13bcdb31e5e8701142a0  WHU-S07/key.json
+8c7e517708836bd6e4a46eb6183cbfb671c1cda2d56d3fa59c360c7d0e63eef2  WHU-S07/check_log.md
 66de361818a87649bc9b02624496b25720fba0bbc08a30aa6fb09ee8d23dc2f9  WHU-S07/sources.sha256
 fdec68c55cbf64ddf2d65c468f9125c1111413fcc35aa01c94810e4548e6c778  WHU-S07/source/IPCC_AR6_WGIII_SummaryForPolicymakers.pdf
 924734f2abe7c68db9e6b34f395ac9280fdab0a679ea33c9b82e0456a86008e0  WHU-S07/source/chapters/IPCC_AR6_WGIII_Chapter05.pdf
@@ -34,7 +38,8 @@ bb9e6235dc63a6c06ad932fd9d54c5bb4f9e04026157fdca78d20c77521de74a  WHU-S07/source
 7ffa2c2a0ce6d6cc70b1dafc0af4a8901ed84db42339a684f4763f7c2707af2c  WHU-S07/source/spm.html
 e16c9d420e5eb60c1d83d3a6a0630932f38fccc9cd8b6a6180b67f233793f0f0  WHU-S07/source/spm.raw.txt
 484e6c1103eed476bcb7abce3ed9ea18b33307a7514fc7897caa6ff8708ff9bf  WHU-S07/source/statement.txt
-db1cd14aed8364f004fee12781f609815bdd53f669d9d17dd6c7e856a612774f  WHU-S08/key.json
+8158ded6a568d2543c99f3963939e4d1ab97df49e4470b25eff2ac93f0a2764e  WHU-S08/key.json
+f0b7dcc24708f96636269def86b68e88b708581bfc4b14fb5a046f28bb3df497  WHU-S08/check_log.md
 c800be5bbfea8c77cad075bcf573e4c7670ff9547fa10208bc9faa6989cebf34  WHU-S08/sources.sha256
 dde489125987b9d743b7df0849f7c90b497f81f3c4703c64cd6061a84693f9e5  WHU-S08/source/IPCC_AR6_WGII_SummaryForPolicymakers.pdf
 6f0fa9e28f54ed6319d0f7c59f0e3ce35dd5838aee946c2f3e36526ddf48ccc7  WHU-S08/source/chapters/CCP2.raw.txt
