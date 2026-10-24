@@ -42,7 +42,7 @@ Drawn on 24 October 2026 under the protocol's extension rule (`deviations.md`). 
 
 **WHU-S05**
 ```
-For people who have had a kidney transplant, does avoiding steroid medicines from the start, or stopping them later, change what happens to them, for example whether they survive, keep the new kidney, have rejection episodes or develop diabetes? Please research this and give me a well-sourced answer with citations.
+Are people who are undernourished, whether adults or children, more likely to go on to develop TB disease? Please research this and give me a well-sourced answer with citations.
 ```
 
 **WHU-S06**

@@ -66,8 +66,11 @@ e507c14a06311cfc296117d5e1f3a030ccbbabc3eb65629af7c3bc29c1c7695f  WHU-S08/source
 c30da5803e9ea9f678bd93aba2de3e64f31bd96b6313122a6f2294904ce6d285  WHU-S08/source/spm.raw.txt
 4af46b8b45ecd5ed792276bb19509e65d3ae7c2208fc87bf5a9ea18997d0e26d  WHU-S08/source/statement.txt
 
-# WHU-S06 drafted 2026-10-24 by Claude Code (session 4c25ed39-5ffe-4a6b-b01d-7c5a591c5060), key drafter, from the publisher PDF saved by Fred Ugast. Status: DRAFT, not checked, not frozen. WHU-S05: no key (being re-drawn).
-412fa2d2fcec09eaf14981eeccd272aff72bde0dd83c4d8cb27f7ea3373df792  WHU-S06/key.json
+# WHU-S06 drafted 2026-10-24 by Claude Code (session 4c25ed39-5ffe-4a6b-b01d-7c5a591c5060), key drafter, from the publisher PDF saved by Fred Ugast. WHU-S05: no key (being re-drawn).
+# WHU-S06 checked 2026-10-24 by Claude Code (session 59c3dec4-a4a5-427a-9c54-d41f55870024), key checker, a separate instance;
+# no content changes; see WHU-S06/check_log.md. Status: WHU-S06 FROZEN. The drafted key's hash is in this file's version at 64be768.
+30cc14d1818a8f2e98d089dd51da548d9c6941304cacc09bbebd71d0bc0efec7  WHU-S06/key.json
+b449d105f16b13e815223e11e75f6f1d332434462174a5f91c910d4dfc681b13  WHU-S06/check_log.md
 73f6cd017a3764e1e7b8f23994d714c72b34ce11905ac9d41d0f63f55b8d0b20  WHU-S06/sources.sha256
 5644ca80bb0eecd24652bd7d896ac1c2320cf9da5a7d45d643eada7ad2b4940d  WHU-S06/source/cl2.1377.pdf
 0054c36f65ef382eee88bb90a525b42184eea3320c155ff5e1c33147cbf155bb  WHU-S06/source/cl2.1377.pdf.txt

@@ -1,0 +1,9 @@
+{
+  "id": "WHU-S05",
+  "slug": "undernutrition-tb-risk",
+  "title": "Are people who are undernourished, whether adults or children, more likely to go on to develop TB disease?",
+  "question": "Are people who are undernourished, whether adults or children, more likely to go on to develop TB disease?",
+  "study": true,
+  "status": "draft",
+  "_study_note": "A WHU reliability study question (protocol frozen at 5d83e9b8025312923f3fb8ea2d5de3b47c212362), one of the four drawn under the protocol's extension rule on 24 October 2026 (re-drawn the same day from the same shuffle after the first WHU-S05 draw failed closer reading) with the seed taken from the hash of 294458aa073d3bae5d5922ea260362a9986f44c3, the commit that records the first (Stage 1) results. The question is written in plain words from the drawn source's stated objective or main claim; the source is identified only in the draw logs (study/whu-reliability/frames/draws/) and the study README's private notes, which a drafting session does not read (study/whu-reliability/RUN.md). A study issue is never published: publish, update and announce refuse it, and its preflight records outside review, adjudication verification, operator acceptance and publication as SKIPPED. Cap: caps.json study_per_issue. Created 2026-10-24; nothing else is written here until drafting starts."
+}

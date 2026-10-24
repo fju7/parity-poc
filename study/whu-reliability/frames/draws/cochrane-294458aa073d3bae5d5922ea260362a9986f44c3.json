@@ -78,6 +78,257 @@
     "result": "eligible on closer reading; the draw stands"
    }
   },
-  "next_in_shuffle_taken": false
+  "next_in_shuffle_taken": true
+ },
+ "redraw_s05": {
+  "on": "2026-10-24",
+  "by": "Claude Code (session 317f5c17-2a9b-4755-80cc-45057fcd64e8)",
+  "same_seed": "294458aa073d3bae5d5922ea260362a9986f44c3",
+  "same_shuffle": "random.Random(seed).shuffle of the frame's eligible numbers k, as in the original draw; first entry k=644 reproduced",
+  "ruling_closer_reading": "WHU-S05's drawn review (Cochrane CD005632.pub4) fails closer reading. Its full text is not openly available, and the Cochrane Library / Wiley terms (https://onlinelibrary.wiley.com/terms-and-conditions) forbid using AI tools to ingest, analyse or process material from the site. So no answer key can lawfully be drafted from it. The protocol's rule applies: \"If a drawn entry fails eligibility on closer reading, the next in the shuffle is taken, and the reason is logged.\"",
+  "ruling_openness_check": "OPTION 2. Openness is established by Europe PMC metadata, not by Crossref or any Wiley page. The rule, fixed before any candidate is checked: an entry is eligible for the S05 re-draw only if (i) Europe PMC lists the review with an open licence (CC BY, CC BY-NC or CC BY-NC-ND) in its license field, AND (ii) Europe PMC's fullTextXML service returns the full text. Check (ii) by HTTP status and content type only; do not read or save the text. (iii) The entry must also pass eligibility criteria 1-5 as before.",
+  "openness_check_note": "Changed from the first ruling's check (Cochrane Library page or Crossref licence field): Crossref's licence field is empty for every Cochrane review checked (the first 25 in this shuffle, and WHU-S01's review, which Europe PMC lists as CC BY-NC), and the Cochrane Library pages are on the Wiley site whose terms the ruling rests on. The rule was fixed before any candidate was evaluated against it. No Wiley or Cochrane Library page was accessed. fullTextXML was checked with an HTTP HEAD request (status and content type only); no text was read or saved.",
+  "europepmc_search": "https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=EXT_ID:<pmid> AND SRC:MED&resultType=core&format=json",
+  "log": [
+   {
+    "checked": 1,
+    "k": 644,
+    "n": 921,
+    "id": "42187003",
+    "doi": "10.1002/14651858.CD005632.pub4",
+    "europepmc_license": null,
+    "pmcid": null,
+    "open_check": "fail: Europe PMC license None, not in PMC",
+    "result": "withdrawn",
+    "why": "fails closer reading by the advisor's ruling (no open full text; Wiley terms)"
+   },
+   {
+    "checked": 2,
+    "k": 345,
+    "n": 453,
+    "id": "40145528",
+    "doi": "10.1002/14651858.CD016039",
+    "europepmc_license": null,
+    "pmcid": "PMC11948482",
+    "open_check": "fail: Europe PMC license None",
+    "result": "skipped",
+    "why": "fail: Europe PMC license None"
+   },
+   {
+    "checked": 3,
+    "k": 646,
+    "n": 923,
+    "id": "42206643",
+    "doi": "10.1002/14651858.CD004631.pub6",
+    "europepmc_license": null,
+    "pmcid": null,
+    "open_check": "fail: Europe PMC license None, not in PMC",
+    "result": "skipped",
+    "why": "fail: Europe PMC license None, not in PMC"
+   },
+   {
+    "checked": 4,
+    "k": 467,
+    "n": 637,
+    "id": "40757552",
+    "doi": "10.1002/14651858.CD015824.pub2",
+    "europepmc_license": null,
+    "pmcid": "PMC12320213",
+    "open_check": "fail: Europe PMC license None",
+    "result": "skipped",
+    "why": "fail: Europe PMC license None"
+   },
+   {
+    "checked": 5,
+    "k": 220,
+    "n": 267,
+    "id": "39382091",
+    "doi": "10.1002/14651858.CD013344.pub2",
+    "europepmc_license": null,
+    "pmcid": "PMC11462636",
+    "open_check": "fail: Europe PMC license None",
+    "result": "skipped",
+    "why": "fail: Europe PMC license None"
+   },
+   {
+    "checked": 6,
+    "k": 337,
+    "n": 441,
+    "id": "40110896",
+    "doi": "10.1002/14651858.CD013835.pub2",
+    "europepmc_license": null,
+    "pmcid": "PMC12043200",
+    "open_check": "fail: Europe PMC license None",
+    "result": "skipped",
+    "why": "fail: Europe PMC license None"
+   },
+   {
+    "checked": 7,
+    "k": 66,
+    "n": 69,
+    "id": "38470162",
+    "doi": "10.1002/14651858.CD015331.pub2",
+    "europepmc_license": null,
+    "pmcid": "PMC10929366",
+    "open_check": "fail: Europe PMC license None",
+    "result": "skipped",
+    "why": "fail: Europe PMC license None"
+   },
+   {
+    "checked": 8,
+    "k": 47,
+    "n": 49,
+    "id": "38353301",
+    "doi": "10.1002/14651858.CD001797.pub4",
+    "europepmc_license": null,
+    "pmcid": "PMC10865446",
+    "open_check": "fail: Europe PMC license None",
+    "result": "skipped",
+    "why": "fail: Europe PMC license None"
+   },
+   {
+    "checked": 9,
+    "k": 302,
+    "n": 392,
+    "id": "39912435",
+    "doi": "10.1002/14651858.CD006606.pub5",
+    "europepmc_license": null,
+    "pmcid": "PMC11800328",
+    "open_check": "fail: Europe PMC license None",
+    "result": "skipped",
+    "why": "fail: Europe PMC license None"
+   },
+   {
+    "checked": 10,
+    "k": 441,
+    "n": 598,
+    "id": "40607605",
+    "doi": "10.1002/14651858.CD014574.pub2",
+    "europepmc_license": null,
+    "pmcid": "PMC12224225",
+    "open_check": "fail: Europe PMC license None",
+    "result": "skipped",
+    "why": "fail: Europe PMC license None"
+   },
+   {
+    "checked": 11,
+    "k": 245,
+    "n": 306,
+    "id": "39564892",
+    "doi": "10.1002/14651858.CD014803.pub2",
+    "europepmc_license": null,
+    "pmcid": "PMC11577543",
+    "open_check": "fail: Europe PMC license None",
+    "result": "skipped",
+    "why": "fail: Europe PMC license None"
+   },
+   {
+    "checked": 12,
+    "k": 714,
+    "n": 1033,
+    "id": "42754260",
+    "doi": "10.1002/14651858.CD001800.pub5",
+    "europepmc_license": null,
+    "pmcid": null,
+    "open_check": "fail: Europe PMC license None, not in PMC",
+    "result": "skipped",
+    "why": "fail: Europe PMC license None, not in PMC"
+   },
+   {
+    "checked": 13,
+    "k": 363,
+    "n": 479,
+    "id": "40231786",
+    "doi": "10.1002/14651858.CD014844.pub2",
+    "europepmc_license": null,
+    "pmcid": "PMC11998640",
+    "open_check": "fail: Europe PMC license None",
+    "result": "skipped",
+    "why": "fail: Europe PMC license None"
+   },
+   {
+    "checked": 14,
+    "k": 328,
+    "n": 429,
+    "id": "40058767",
+    "doi": "10.1002/14651858.CD001703.pub4",
+    "europepmc_license": null,
+    "pmcid": "PMC11890917",
+    "open_check": "fail: Europe PMC license None",
+    "result": "skipped",
+    "why": "fail: Europe PMC license None"
+   },
+   {
+    "checked": 15,
+    "k": 318,
+    "n": 416,
+    "id": "39991882",
+    "doi": "10.1002/14651858.CD013745.pub2",
+    "europepmc_license": null,
+    "pmcid": "PMC11848970",
+    "open_check": "fail: Europe PMC license None",
+    "result": "skipped",
+    "why": "fail: Europe PMC license None"
+   },
+   {
+    "checked": 16,
+    "k": 201,
+    "n": 243,
+    "id": "39282765",
+    "doi": "10.1002/14651858.CD012850.pub2",
+    "europepmc_license": null,
+    "pmcid": "PMC11403706",
+    "open_check": "fail: Europe PMC license None",
+    "result": "skipped",
+    "why": "fail: Europe PMC license None"
+   },
+   {
+    "checked": 17,
+    "k": 216,
+    "n": 263,
+    "id": "39360568",
+    "doi": "10.1002/14651858.CD013480.pub2",
+    "europepmc_license": null,
+    "pmcid": "PMC11448480",
+    "open_check": "fail: Europe PMC license None",
+    "result": "skipped",
+    "why": "fail: Europe PMC license None"
+   },
+   {
+    "checked": 18,
+    "k": 147,
+    "n": 164,
+    "id": "38860538",
+    "doi": "10.1002/14651858.CD015890.pub2",
+    "europepmc_license": "cc by",
+    "pmcid": "PMC11165671",
+    "fulltextxml_method": "HEAD",
+    "fulltextxml": "200 application/xml",
+    "open_check": "pass",
+    "abstract_sha256_matches_frame": true,
+    "result": "drawn",
+    "draw": 1
+   }
+  ],
+  "drawn": {
+   "n": 164,
+   "pmid": "38860538",
+   "doi": "10.1002/14651858.CD015890.pub2",
+   "title": "Undernutrition as a risk factor for tuberculosis disease.",
+   "date": "2024-06-11",
+   "europepmc_license": "cc by",
+   "pmcid": "PMC11165671"
+  },
+  "closer_reading": {
+   "38860538": {
+    "read": "the PubMed abstract (sha256 matches the frame's abstract_sha256); Europe PMC metadata",
+    "1_published_in_window": "pass: 2024-06-11",
+    "2_certainty_grade_on_main_conclusion": "pass: the main conclusion carries GRADE certainty ('probably increases the risk of TB two-fold in the short term', moderate certainty; low certainty overall and long term)",
+    "3_one_plain_question": "pass: the objective (whether undernutrition predicts TB disease) can be put as one plain question",
+    "4_public_abstract": "pass: full abstract in PubMed; full text open (CC BY) in Europe PMC",
+    "5_not_a_whu_topic": "pass under the protocol's list (published issues, test issues, practice issues). Noted, not a test the protocol sets: the same disease as study question WHU-S01 (TB diagnostic testing), a different question (undernutrition as a risk factor)",
+    "result": "eligible on closer reading; the draw stands"
+   }
+  }
  }
 }
