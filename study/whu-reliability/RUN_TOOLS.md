@@ -36,6 +36,30 @@ Does involving the wider public, such as community groups, businesses, young peo
 Is the fast growth of cities around the world a chance to make places better able to cope with a warming climate, or mainly a source of added risk? Please research this and give me a well-sourced answer with citations.
 ```
 
+## The four extension questions (WHU-S05 to WHU-S08): paste exactly this
+
+Drawn on 24 October 2026 under the protocol's extension rule (`deviations.md`). Run them exactly as the first four: same tools, same account, same settings, the same 48-hour rule for each question, and every step below. Record them in `~/Projects/whu-study-private/answers/run_record_S05-S08.md` (same columns as `run_record.md`), and save each answer in `answers/WHU-S05/` to `answers/WHU-S08/`. The fingerprint line at the end of each question uses that question's folder (for example `WHU-S05`). When all twelve extension runs are done, tell Claude Code: "the extension tool runs are saved."
+
+**WHU-S05**
+```
+For people who have had a kidney transplant, does avoiding steroid medicines from the start, or stopping them later, change what happens to them, for example whether they survive, keep the new kidney, have rejection episodes or develop diabetes? Please research this and give me a well-sourced answer with citations.
+```
+
+**WHU-S06**
+```
+For children and young people who are at risk of offending, or who have already offended, do arts programmes reduce offending or improve their behaviour and wellbeing? Please research this and give me a well-sourced answer with citations.
+```
+
+**WHU-S07**
+```
+Could changing how cities are laid out, for example making them denser, more mixed and better connected, together with measures such as transport pricing, cut greenhouse gas emissions from transport? Please research this and give me a well-sourced answer with citations.
+```
+
+**WHU-S08**
+```
+Does taking climate change into account when designing and planning towns, rural areas and infrastructure make them better able to cope and improve people's wellbeing? Please research this and give me a well-sourced answer with citations.
+```
+
 ## For every run: what to write in `run_record.md`
 
 One row per run, written as you go:
