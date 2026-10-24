@@ -305,11 +305,14 @@ def review_list(rows, measure: str) -> list[dict]:
             continue
         why = []
         labs = {j: (r["raw"].get(j) or {}).get("label") for j in JUDGES}
-        if INCOMPLETE in labs.values():
-            why.append("source not held (INCOMPLETE_SOURCES)")
+        if measure == "M1" and not r["raw"]:
+            why.append("no cited source held (not sent to a judge)")
+        elif INCOMPLETE in labs.values():
+            why.append("source held but not delivered whole (INCOMPLETE_SOURCES)" if undelivered(r)
+                       else "source not held (INCOMPLETE_SOURCES)")
         if REFUSED in labs.values():
             why.append("refused after one unchanged retry")
-        if any(l is None for l in labs.values()) or any(
+        if r["raw"] and any(l is None for l in labs.values()) or any(
                 (r["raw"].get(j) or {}).get("label") not in (REFUSED, INCOMPLETE) and not (r["raw"].get(j) or {}).get("judge_label")
                 for j in JUDGES if j in r["raw"]):
             why.append("missing or unusable reply")
@@ -342,6 +345,13 @@ def spend() -> dict:
     return {"usd": round(sum(float(e.get("usd") or 0) for e in rows), 2), "calls": len(rows), "by_role": by}
 
 
+def undelivered(r: dict) -> bool:
+    """INCOMPLETE_SOURCES because the runner could not pass a held source on
+    whole (its delivery check), not because a cited source was not held."""
+    return any((r["raw"].get(j) or {}).get("undelivered_sources")
+               and not (r["raw"].get(j) or {}).get("unreachable_sources") for j in JUDGES)
+
+
 def main() -> int:
     m1, m2 = items_m1(), items_m2()
     v1, v2 = view_scores(m1, M1_FAIL, M1_PASS), view_scores(m2, M2_FAIL, M2_PASS)
@@ -352,11 +362,17 @@ def main() -> int:
         lab = lambda r: {(r["raw"].get(j) or {}).get("label") for j in JUDGES}
         counts_m1[s] = {"drawn": len(rs), "uncited": sum(r["uncited"] for r in rs),
                         "cited": sum(not r["uncited"] for r in rs),
-                        "incomplete_sources_unreachable": sum(INCOMPLETE in lab(r) for r in rs),
+                        # No cited source held: the runner sends no judge and writes no reply.
+                        "no_source_held": sum(not r["uncited"] and not r["raw"] for r in rs),
+                        "incomplete_sources_unreachable": sum(INCOMPLETE in lab(r) and not undelivered(r) for r in rs),
+                        # A source held but too long to pass on whole: the chunk sent would
+                        # have left out a key word of the claim, so it was not judged.
+                        "incomplete_sources_undelivered": sum(INCOMPLETE in lab(r) and undelivered(r) for r in rs),
                         "judge_said_unreachable_any": sum("Unreachable" in lab(r) for r in rs),
                         "not_verifiable_abstract_any": sum(NVA in lab(r) for r in rs)}
         d = counts_m1[s]
-        d["unreachable_share_of_cited"] = r4((d["incomplete_sources_unreachable"] + d["judge_said_unreachable_any"])
+        d["unreachable_share_of_cited"] = r4((d["no_source_held"] + d["incomplete_sources_unreachable"]
+                                              + d["judge_said_unreachable_any"])
                                              / d["cited"] if d["cited"] else None)
         d["flag_unreachable_over_20pct"] = bool(d["unreachable_share_of_cited"] and d["unreachable_share_of_cited"] > 0.2)
         d["not_verifiable_share_of_cited"] = r4(d["not_verifiable_abstract_any"] / d["cited"] if d["cited"] else None)

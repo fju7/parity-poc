@@ -72,3 +72,16 @@ def test_the_review_list_names_items_only_and_audits_a_fifth_of_agreed():
     audit = [x for x in lst if x["reasons"] == ["random 20% audit of agreed items"]]
     assert len(audit) == 8 + 8 + 8 + 8 and audit == [x for x in A.review_list(rows, "M1")
                                                       if x["reasons"] == ["random 20% audit of agreed items"]]
+
+
+def test_no_source_held_and_undelivered_are_named_apart_from_unreachable():
+    rows = _rows(2, 2)
+    rows[0]["raw"] = {}
+    inc = lambda **k: {**_rep("INCOMPLETE_SOURCES"), "unreachable_sources": [], "undelivered_sources": [], **k}
+    rows[1]["raw"] = {j: inc(undelivered_sources=[{"source_id": "S1"}]) for j in A.JUDGES}
+    rows[2]["raw"] = {j: inc(unreachable_sources=[{"url": None}]) for j in A.JUDGES}
+    assert [A.undelivered(r) for r in rows[1:3]] == [True, False]
+    why = {x["item"]: x["reasons"] for x in A.review_list(rows, "M1")}
+    assert why[rows[0]["item"]] == ["no cited source held (not sent to a judge)"]
+    assert why[rows[1]["item"]] == ["source held but not delivered whole (INCOMPLETE_SOURCES)"]
+    assert why[rows[2]["item"]] == ["source not held (INCOMPLETE_SOURCES)"]
