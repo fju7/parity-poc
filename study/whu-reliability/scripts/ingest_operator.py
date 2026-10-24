@@ -79,7 +79,10 @@ def ingest(row: dict, e: dict, incoming: Path) -> dict:
         ctype = CTYPE.get(f.suffix.lower(), "")
         text = SN.text_of(data)
         ext, why = SN.extent(row["url"], data, text, ctype)
-        rec["tried"][0].update(result=ext, why=why, sha256=e["sha256"], bytes=e["bytes"])
+        rendered = f.suffix.lower() in (".html", ".htm") and "outerhtml" in (e.get("method") or "").lower()
+        rec["tried"][0].update(result=ext, why=why, sha256=e["sha256"], bytes=e["bytes"],
+                               form="browser-rendered HTML (the page's DOM as the browser built it)"
+                               if rendered else "file as served")
         if ext != "unreachable":
             (RUN / "sources" / (row["source_id"] + ".raw")).write_bytes(data)
             (RUN / "sources" / (row["source_id"] + ".txt")).write_text(text, encoding="utf-8")
@@ -89,6 +92,8 @@ def ingest(row: dict, e: dict, incoming: Path) -> dict:
                        raw_sha256=e["sha256"], raw_bytes=len(data),
                        text_sha256=hashlib.sha256(text.encode()).hexdigest(), text_chars=len(text),
                        extent=ext, extent_why=why, abstract_only=(ext == "abstract only"))
+    if row["extent"] == "unreachable" and e.get("outcome") != "held":
+        row["extent_why"] = "advisor's browser: %s (%s)" % (e.get("outcome"), (e.get("reason") or e.get("method") or "")[:240])
     if row.get("retrieval"):
         rec["earlier_passes"] = row["retrieval"].pop("earlier_passes", []) + [row["retrieval"]]
     row["retrieval"] = rec
@@ -98,9 +103,20 @@ def ingest(row: dict, e: dict, incoming: Path) -> dict:
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--incoming", default=str(RUN / "operator_incoming"))
+    ap.add_argument("--only", help="source ids to take in (the log keeps earlier rounds' entries)")
+    ap.add_argument("--reason", action="append", default=[], metavar="ID=TEXT",
+                    help="the reason recorded for an entry not held")
     a = ap.parse_args()
     incoming = Path(a.incoming)
     entries = json.loads((incoming / "fetch_log.json").read_text())["entries"]
+    if a.only:
+        keep = set(a.only.split(","))
+        entries = [e for e in entries if e["id"] in keep]
+        if {e["id"] for e in entries} != keep:
+            print("STOP: not in the log: %s" % ", ".join(sorted(keep - {e["id"] for e in entries})))
+            return 2
+    reasons = dict(r.split("=", 1) for r in a.reason)
+    entries = [dict(e, reason=reasons[e["id"]]) if e["id"] in reasons else e for e in entries]
     mf = RUN / "sources" / "manifest.json"
     rows = json.loads(mf.read_text())
     by = {r["source_id"]: i for i, r in enumerate(rows)}

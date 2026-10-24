@@ -153,3 +153,16 @@ def test_reachability_counts_script_operator_and_unreachable_items():
     assert (r["items_all_sources_by_script"], r["items_needing_operator_fetch"], r["items_unreachable"]) == (1, 1, 2)
     assert r["share_unreachable"] == 0.5 and r["flag_unreachable_over_20pct"]
     assert r["sources"] == {"distinct": 3, "by_script": 1, "by_operator_fetch": 1, "unreachable": 1}
+
+
+def test_a_rendered_page_is_recorded_as_such_and_a_failure_keeps_its_reason(tmp_path, monkeypatch):
+    IO = _io()
+    d, e = _incoming(tmp_path)
+    monkeypatch.setattr(IO, "RUN", tmp_path)
+    (tmp_path / "sources").mkdir()
+    row = {"source_id": "S1", "url": "https://www.agency.gov/page", "extent": "unreachable", "extent_why": "HTTP 403"}
+    r = IO.ingest(row, dict(e, method="built-in browser; document.documentElement.outerHTML"), d)
+    assert r["retrieval"]["tried"][0]["form"].startswith("browser-rendered HTML")
+    row2 = {"source_id": "S2", "url": "https://x.org/a", "extent": "unreachable", "extent_why": "HTTP 403"}
+    r2 = IO.ingest(row2, {"id": "S2", "outcome": "failed", "reason": "repository server error (HTTP 502)"}, d)
+    assert r2["extent"] == "unreachable" and "repository server error" in r2["extent_why"]

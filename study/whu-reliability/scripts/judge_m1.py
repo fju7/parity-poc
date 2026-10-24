@@ -133,6 +133,40 @@ def spent(issue: str) -> float:
     return sum(float(e.get("usd") or 0) for e in S.entries() if e.get("issue") == issue)
 
 
+# THE JUDGING DAY CAP (advisor ruling, 2026-10-23). The judge runners check
+# their own daily cap, caps.json "study_judging_per_day", summed over the
+# judging ledger issues only (whu-reliability-judging*), and the per-run --cap.
+# Not WHU's $25 day cap, and not any WHU issue cap. Fails closed: no key, or a
+# judging line today with no established cost, stops the run.
+JUDGING_ISSUE_PREFIX = "whu-reliability-judging"
+DAY_CAP_KEY = "study_judging_per_day"
+
+
+def judging_today(now: datetime | None = None) -> float:
+    today = (now or datetime.now(timezone.utc)).strftime("%Y-%m-%d")
+    rows = [e for e in S.entries() if (e.get("issue") or "").startswith(JUDGING_ISSUE_PREFIX)
+            and (e.get("at") or "").startswith(today)]
+    if any(e.get("usd") is None for e in rows):
+        raise S.OverCap("a judging ledger line today has no established cost; the day cap cannot be computed")
+    return sum(float(e["usd"]) for e in rows)
+
+
+def day_cap_stop(worst: float, now: datetime | None = None) -> str | None:
+    """None if a call costing up to WORST fits under today's judging cap, else
+    the reason to stop."""
+    limit = S.caps().get(DAY_CAP_KEY)
+    if limit is None:
+        return "caps.json has no %r; judging does not run without its day cap" % DAY_CAP_KEY
+    try:
+        today = judging_today(now)
+    except S.OverCap as e:
+        return str(e)
+    if today + worst > float(limit):
+        return ("DAY CAP: judging has spent $%.3f today (UTC) of its $%.2f daily cap, and the next call could "
+                "cost up to $%.3f; resume after 00:00 UTC" % (today, float(limit), worst))
+    return None
+
+
 # --------------------------------------------------------------------------
 # Long sources
 # --------------------------------------------------------------------------
@@ -394,7 +428,7 @@ def main() -> int:
     ap.add_argument("--only")
     ap.add_argument("--judges", default="claude,openai")
     ap.add_argument("--tag", default="")
-    ap.add_argument("--ledger-issue", default="whu-reliability-prep2")
+    ap.add_argument("--ledger-issue", default="whu-reliability-prep2")   # the study's judging: whu-reliability-judging
     ap.add_argument("--allow-incomplete", action="store_true")
     ap.add_argument("--author-line", default="",
                     help="bias test: a line placed after the documents and before the claim")
@@ -500,6 +534,10 @@ def main() -> int:
                         worst = (n_in * p["cache_write"] + CLAUDE_MAX_OUT * p["output"]) / 1e6
                     else:
                         worst = (n_in * OPENAI_PRICE["input"] + OPENAI_MAX_OUT * OPENAI_PRICE["output"]) / 1e6
+                    why = day_cap_stop(worst)
+                    if why:
+                        print("STOP: " + why)
+                        return 3
                     so_far = spent(a.ledger_issue)
                     if so_far + worst > a.cap:
                         print("STOP: %s on %s could cost up to $%.3f; %s has spent $%.3f of $%.2f"

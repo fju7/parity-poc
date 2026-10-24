@@ -230,6 +230,10 @@ def judge_item(a, run, it, answers, concl, raw, client, keys, prompt_sha, tag) -
                 worst = (n_in * p["cache_write"] + CLAUDE_MAX_OUT * p["output"]) / 1e6
             else:
                 worst = (n_in * OPENAI_PRICE["input"] + OPENAI_MAX_OUT * OPENAI_PRICE["output"]) / 1e6
+            why = J1.day_cap_stop(worst)
+            if why:
+                print("STOP: " + why)
+                return 3
             so_far = J1.spent(a.ledger_issue)
             if so_far + worst > a.cap:
                 print("STOP: %s on %s could cost up to $%.3f; %s has spent $%.3f of $%.2f"
