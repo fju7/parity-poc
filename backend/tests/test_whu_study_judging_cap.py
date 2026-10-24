@@ -1,5 +1,5 @@
 """The judging day cap (advisor ruling 2026-10-23): judge_m1.py and judge_m2.py
-check caps.json "study_judging_per_day" ($50), summed over the judging ledger
+check caps.json "study_judging_per_day" ($50; $150 from 2026-10-24, operator), summed over the judging ledger
 issues only, before every call, as well as the per-run cap. Offline."""
 import importlib.util
 import json
@@ -20,9 +20,9 @@ def _ledger(monkeypatch, rows, cap=50):
                                                                         "default_per_day": 25})
 
 
-def test_the_cap_is_fifty_dollars_in_caps_json_apart_from_the_whu_day_cap():
+def test_the_judging_cap_is_150_dollars_in_caps_json_apart_from_the_whu_day_cap():
     c = json.loads((ROOT / "backend" / "data" / "spend" / "caps.json").read_text())
-    assert c["study_judging_per_day"] == 50 and c["default_per_day"] == 25
+    assert c["study_judging_per_day"] == 150 and c["default_per_day"] == 25
 
 
 def test_only_todays_judging_counts(monkeypatch):
