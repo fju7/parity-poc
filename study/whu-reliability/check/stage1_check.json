@@ -1,0 +1,659 @@
+{
+  "freeze_commit": "5d83e9b8025312923f3fb8ea2d5de3b47c212362",
+  "n_boot": 10000,
+  "consistency_checks": {
+    "m1": {
+      "parsed==judge_label": 460,
+      "mine==stored_label": 454,
+      "unreachable_no_reply": 40,
+      "unreachable_reply_INCOMPLETE_SOURCES": 4,
+      "mine!=stored_label": 6
+    },
+    "m2": {
+      "parsed==judge_label": 104
+    }
+  },
+  "m1_composition": {
+    "WHU": {
+      "sampled": 80,
+      "kinds": {
+        "judged": 77,
+        "undelivered": 3
+      },
+      "labels_by_judge": {
+        "claude": {
+          "Supported": 73,
+          "Absent": 1,
+          "Contradicted": 1,
+          "NOT_VERIFIABLE_ABSTRACT": 2
+        },
+        "openai": {
+          "Overstates": 3,
+          "Supported": 70,
+          "Absent": 1,
+          "Contradicted": 1,
+          "NOT_VERIFIABLE_ABSTRACT": 2
+        }
+      },
+      "cited": 80
+    },
+    "Claude": {
+      "sampled": 80,
+      "kinds": {
+        "judged": 47,
+        "uncited": 23,
+        "undelivered": 1,
+        "unreachable": 9
+      },
+      "labels_by_judge": {
+        "claude": {
+          "Supported": 42,
+          "Overstates": 3,
+          "Contradicted": 2
+        },
+        "openai": {
+          "Overstates": 12,
+          "Supported": 31,
+          "Contradicted": 3,
+          "Absent": 1
+        }
+      },
+      "cited": 57
+    },
+    "ChatGPT": {
+      "sampled": 80,
+      "kinds": {
+        "judged": 51,
+        "unreachable": 12,
+        "uncited": 17
+      },
+      "labels_by_judge": {
+        "claude": {
+          "Supported": 31,
+          "Overstates": 13,
+          "Contradicted": 1,
+          "Absent": 6
+        },
+        "openai": {
+          "Supported": 11,
+          "Overstates": 24,
+          "Contradicted": 5,
+          "Absent": 11
+        }
+      },
+      "cited": 63
+    },
+    "Gemini": {
+      "sampled": 80,
+      "kinds": {
+        "unreachable": 23,
+        "judged": 55,
+        "undelivered": 1,
+        "uncited": 1
+      },
+      "labels_by_judge": {
+        "claude": {
+          "Overstates": 19,
+          "Supported": 16,
+          "NOT_VERIFIABLE_ABSTRACT": 1,
+          "Absent": 15,
+          "Wrong source": 2,
+          "Contradicted": 2
+        },
+        "openai": {
+          "Overstates": 28,
+          "NOT_VERIFIABLE_ABSTRACT": 2,
+          "Supported": 6,
+          "Absent": 16,
+          "Wrong source": 1,
+          "Contradicted": 2
+        }
+      },
+      "cited": 79
+    }
+  },
+  "m1_rates": {
+    "WHU": {
+      "failure_rate_pct": 4.67,
+      "n": 75,
+      "failure_sum": 3.5,
+      "cited_only_failure_rate_pct": 4.67,
+      "cited_only_n": 75,
+      "uncited_share_of_sampled_pct": 0.0,
+      "uncited_share_of_rate_denominator_pct": 0.0,
+      "unreachable_items": 0,
+      "unreachable_share_of_cited_items_pct": 0.0,
+      "reachability_of_cited_items_pct": 100.0,
+      "unreachable_flag_over_20pct": false,
+      "judge_claude_failure_rate_pct": 2.67,
+      "judge_claude_n": 75,
+      "judge_openai_failure_rate_pct": 6.67,
+      "judge_openai_n": 75,
+      "sens_either_excludes_failure_rate_pct": 4.67
+    },
+    "Claude": {
+      "failure_rate_pct": 47.86,
+      "n": 70,
+      "failure_sum": 33.5,
+      "cited_only_failure_rate_pct": 22.34,
+      "cited_only_n": 47,
+      "uncited_share_of_sampled_pct": 28.75,
+      "uncited_share_of_rate_denominator_pct": 32.86,
+      "unreachable_items": 9,
+      "unreachable_share_of_cited_items_pct": 15.79,
+      "reachability_of_cited_items_pct": 84.21,
+      "unreachable_flag_over_20pct": false,
+      "judge_claude_failure_rate_pct": 40.0,
+      "judge_claude_n": 70,
+      "judge_openai_failure_rate_pct": 55.71,
+      "judge_openai_n": 70,
+      "sens_either_excludes_failure_rate_pct": 47.86
+    },
+    "ChatGPT": {
+      "failure_rate_pct": 69.12,
+      "n": 68,
+      "failure_sum": 47.0,
+      "cited_only_failure_rate_pct": 58.82,
+      "cited_only_n": 51,
+      "uncited_share_of_sampled_pct": 21.25,
+      "uncited_share_of_rate_denominator_pct": 25.0,
+      "unreachable_items": 12,
+      "unreachable_share_of_cited_items_pct": 19.05,
+      "reachability_of_cited_items_pct": 80.95,
+      "unreachable_flag_over_20pct": false,
+      "judge_claude_failure_rate_pct": 54.41,
+      "judge_claude_n": 68,
+      "judge_openai_failure_rate_pct": 83.82,
+      "judge_openai_n": 68,
+      "sens_either_excludes_failure_rate_pct": 69.12
+    },
+    "Gemini": {
+      "failure_rate_pct": 79.09,
+      "n": 55,
+      "failure_sum": 43.5,
+      "cited_only_failure_rate_pct": 78.7,
+      "cited_only_n": 54,
+      "uncited_share_of_sampled_pct": 1.25,
+      "uncited_share_of_rate_denominator_pct": 1.82,
+      "unreachable_items": 23,
+      "unreachable_share_of_cited_items_pct": 29.11,
+      "reachability_of_cited_items_pct": 70.89,
+      "unreachable_flag_over_20pct": true,
+      "judge_claude_failure_rate_pct": 70.91,
+      "judge_claude_n": 55,
+      "judge_openai_failure_rate_pct": 88.89,
+      "judge_openai_n": 54,
+      "sens_either_excludes_failure_rate_pct": 80.56
+    }
+  },
+  "source_level": {
+    "WHU": {
+      "distinct": 35,
+      "unreachable": 0,
+      "unreachable_pct": 0.0
+    },
+    "Claude": {
+      "distinct": 55,
+      "unreachable": 9,
+      "unreachable_pct": 16.36
+    },
+    "Gemini": {
+      "distinct": 50,
+      "unreachable": 12,
+      "unreachable_pct": 24.0
+    },
+    "ChatGPT": {
+      "distinct": 24,
+      "unreachable": 3,
+      "unreachable_pct": 12.5
+    }
+  },
+  "m2_rates": {
+    "WHU": {
+      "failure_rate_pct": 23.08,
+      "n": 13,
+      "failure_sum": 3.0,
+      "labels_by_judge": {
+        "claude": {
+          "Matches": 10,
+          "Understates": 2,
+          "Omits": 1
+        },
+        "openai": {
+          "Matches": 10,
+          "Understates": 2,
+          "Omits": 1
+        }
+      },
+      "judge_claude_failure_rate_pct": 23.08,
+      "judge_openai_failure_rate_pct": 23.08
+    },
+    "Claude": {
+      "failure_rate_pct": 50.0,
+      "n": 13,
+      "failure_sum": 6.5,
+      "labels_by_judge": {
+        "claude": {
+          "Matches": 10,
+          "Overstates": 2,
+          "Contradicts": 1
+        },
+        "openai": {
+          "Overstates": 8,
+          "Contradicts": 1,
+          "Understates": 1,
+          "Matches": 3
+        }
+      },
+      "judge_claude_failure_rate_pct": 23.08,
+      "judge_openai_failure_rate_pct": 76.92
+    },
+    "ChatGPT": {
+      "failure_rate_pct": 80.77,
+      "n": 13,
+      "failure_sum": 10.5,
+      "labels_by_judge": {
+        "claude": {
+          "Matches": 3,
+          "Understates": 2,
+          "Overstates": 4,
+          "Contradicts": 4
+        },
+        "openai": {
+          "Overstates": 5,
+          "Understates": 1,
+          "Contradicts": 5,
+          "Matches": 2
+        }
+      },
+      "judge_claude_failure_rate_pct": 76.92,
+      "judge_openai_failure_rate_pct": 84.62
+    },
+    "Gemini": {
+      "failure_rate_pct": 92.31,
+      "n": 13,
+      "failure_sum": 12.0,
+      "labels_by_judge": {
+        "claude": {
+          "Overstates": 7,
+          "Contradicts": 4,
+          "Matches": 2
+        },
+        "openai": {
+          "Overstates": 9,
+          "Contradicts": 4
+        }
+      },
+      "judge_claude_failure_rate_pct": 84.62,
+      "judge_openai_failure_rate_pct": 100.0
+    }
+  },
+  "H1_M1_WHU_vs_Claude": {
+    "rate_WHU": 4.67,
+    "rate_Claude": 47.86,
+    "difference_pts": -43.19,
+    "difference_95ci_pts": [
+      -50.8,
+      -33.46
+    ],
+    "ratio": 0.0975,
+    "ratio_95ci": [
+      0.0514,
+      0.1559
+    ],
+    "ratio_resamples_undefined": 0,
+    "exact_bootstrap_difference_95ci_pts": [
+      -50.8,
+      -33.46
+    ],
+    "exact_bootstrap_ratio_95ci": [
+      0.0514,
+      0.1559
+    ],
+    "half_threshold_met": true,
+    "interval_excludes_zero_below": true,
+    "holds": true
+  },
+  "H2_M2_WHU_vs_Claude": {
+    "rate_WHU": 23.08,
+    "rate_Claude": 50.0,
+    "difference_pts": -26.92,
+    "difference_95ci_pts": [
+      -62.5,
+      18.75
+    ],
+    "ratio": 0.4615,
+    "ratio_95ci": [
+      0.0,
+      1.4286
+    ],
+    "ratio_resamples_undefined": 0,
+    "exact_bootstrap_difference_95ci_pts": [
+      -62.5,
+      18.75
+    ],
+    "exact_bootstrap_ratio_95ci": [
+      0.0,
+      1.4286
+    ],
+    "half_threshold_met": true,
+    "interval_excludes_zero_below": false,
+    "holds": false
+  },
+  "H4_secondary": {
+    "M1_WHU_vs_ChatGPT": {
+      "rate_WHU": 4.67,
+      "rate_ChatGPT": 69.12,
+      "difference_pts": -64.45,
+      "difference_95ci_pts": [
+        -71.48,
+        -57.18
+      ],
+      "ratio": 0.0675,
+      "ratio_95ci": [
+        0.0374,
+        0.1059
+      ],
+      "ratio_resamples_undefined": 0,
+      "exact_bootstrap_difference_95ci_pts": [
+        -71.48,
+        -57.18
+      ],
+      "exact_bootstrap_ratio_95ci": [
+        0.0374,
+        0.1059
+      ],
+      "half_threshold_met": true,
+      "interval_excludes_zero_below": true,
+      "holds": true
+    },
+    "M1_WHU_vs_Gemini": {
+      "rate_WHU": 4.67,
+      "rate_Gemini": 79.09,
+      "difference_pts": -74.42,
+      "difference_95ci_pts": [
+        -81.77,
+        -67.18
+      ],
+      "ratio": 0.059,
+      "ratio_95ci": [
+        0.036,
+        0.0834
+      ],
+      "ratio_resamples_undefined": 0,
+      "exact_bootstrap_difference_95ci_pts": [
+        -81.77,
+        -67.18
+      ],
+      "exact_bootstrap_ratio_95ci": [
+        0.036,
+        0.0834
+      ],
+      "half_threshold_met": true,
+      "interval_excludes_zero_below": true,
+      "holds": true
+    },
+    "M2_WHU_vs_ChatGPT": {
+      "rate_WHU": 23.08,
+      "rate_ChatGPT": 80.77,
+      "difference_pts": -57.69,
+      "difference_95ci_pts": [
+        -90.0,
+        16.67
+      ],
+      "ratio": 0.2857,
+      "ratio_95ci": [
+        0.0,
+        2.0
+      ],
+      "ratio_resamples_undefined": 49,
+      "exact_bootstrap_difference_95ci_pts": [
+        -90.0,
+        16.67
+      ],
+      "exact_bootstrap_ratio_95ci": [
+        0.0,
+        2.0
+      ],
+      "half_threshold_met": true,
+      "interval_excludes_zero_below": false,
+      "holds": false
+    },
+    "M2_WHU_vs_Gemini": {
+      "rate_WHU": 23.08,
+      "rate_Gemini": 92.31,
+      "difference_pts": -69.23,
+      "difference_95ci_pts": [
+        -93.75,
+        -31.25
+      ],
+      "ratio": 0.25,
+      "ratio_95ci": [
+        0.0,
+        0.6667
+      ],
+      "ratio_resamples_undefined": 0,
+      "exact_bootstrap_difference_95ci_pts": [
+        -93.75,
+        -31.25
+      ],
+      "exact_bootstrap_ratio_95ci": [
+        0.0,
+        0.6667
+      ],
+      "half_threshold_met": true,
+      "interval_excludes_zero_below": true,
+      "holds": true
+    }
+  },
+  "per_judge": {
+    "claude": {
+      "H1": {
+        "rate_WHU": 2.67,
+        "rate_Claude": 40.0,
+        "difference_pts": -37.33,
+        "difference_95ci_pts": [
+          -50.0,
+          -25.98
+        ],
+        "ratio": 0.0667,
+        "ratio_95ci": [
+          0.0,
+          0.1531
+        ],
+        "ratio_resamples_undefined": 0,
+        "exact_bootstrap_difference_95ci_pts": [
+          -50.0,
+          -25.98
+        ],
+        "exact_bootstrap_ratio_95ci": [
+          0.0,
+          0.1531
+        ],
+        "half_threshold_met": true,
+        "interval_excludes_zero_below": true,
+        "holds": true
+      },
+      "H2": {
+        "rate_WHU": 23.08,
+        "rate_Claude": 23.08,
+        "difference_pts": 0.0,
+        "difference_95ci_pts": [
+          -31.25,
+          50.0
+        ],
+        "ratio": 1.0,
+        "ratio_95ci": [
+          0.0,
+          4.0
+        ],
+        "ratio_resamples_undefined": 612,
+        "exact_bootstrap_difference_95ci_pts": [
+          -31.25,
+          50.0
+        ],
+        "exact_bootstrap_ratio_95ci": [
+          0.0,
+          4.0
+        ],
+        "half_threshold_met": false,
+        "interval_excludes_zero_below": false,
+        "holds": false
+      }
+    },
+    "openai": {
+      "H1": {
+        "rate_WHU": 6.67,
+        "rate_Claude": 55.71,
+        "difference_pts": -49.05,
+        "difference_95ci_pts": [
+          -57.63,
+          -37.86
+        ],
+        "ratio": 0.1197,
+        "ratio_95ci": [
+          0.0848,
+          0.1599
+        ],
+        "ratio_resamples_undefined": 0,
+        "exact_bootstrap_difference_95ci_pts": [
+          -57.63,
+          -37.86
+        ],
+        "exact_bootstrap_ratio_95ci": [
+          0.0848,
+          0.1599
+        ],
+        "half_threshold_met": true,
+        "interval_excludes_zero_below": true,
+        "holds": true
+      },
+      "H2": {
+        "rate_WHU": 23.08,
+        "rate_Claude": 76.92,
+        "difference_pts": -53.85,
+        "difference_95ci_pts": [
+          -93.75,
+          -16.67
+        ],
+        "ratio": 0.3,
+        "ratio_95ci": [
+          0.0,
+          0.75
+        ],
+        "ratio_resamples_undefined": 0,
+        "exact_bootstrap_difference_95ci_pts": [
+          -93.75,
+          -16.67
+        ],
+        "exact_bootstrap_ratio_95ci": [
+          0.0,
+          0.75
+        ],
+        "half_threshold_met": true,
+        "interval_excludes_zero_below": true,
+        "holds": true
+      }
+    }
+  },
+  "sens_either_excludes_H1": {
+    "rate_WHU": 4.67,
+    "rate_Claude": 47.86,
+    "difference_pts": -43.19,
+    "difference_95ci_pts": [
+      -50.8,
+      -33.46
+    ],
+    "ratio": 0.0975,
+    "ratio_95ci": [
+      0.0514,
+      0.1559
+    ],
+    "ratio_resamples_undefined": 0,
+    "exact_bootstrap_difference_95ci_pts": [
+      -50.8,
+      -33.46
+    ],
+    "exact_bootstrap_ratio_95ci": [
+      0.0514,
+      0.1559
+    ],
+    "half_threshold_met": true,
+    "interval_excludes_zero_below": true,
+    "holds": true
+  },
+  "sens_undelivered_WHU_as_failures": {
+    "undelivered_by_system": {
+      "WHU": 3,
+      "Claude": 1,
+      "ChatGPT": 0,
+      "Gemini": 1
+    },
+    "H1": {
+      "rate_WHU": 8.33,
+      "rate_Claude": 47.86,
+      "difference_pts": -39.52,
+      "difference_95ci_pts": [
+        -47.37,
+        -30.94
+      ],
+      "ratio": 0.1741,
+      "ratio_95ci": [
+        0.075,
+        0.284
+      ],
+      "ratio_resamples_undefined": 0,
+      "exact_bootstrap_difference_95ci_pts": [
+        -47.37,
+        -30.94
+      ],
+      "exact_bootstrap_ratio_95ci": [
+        0.075,
+        0.284
+      ],
+      "half_threshold_met": true,
+      "interval_excludes_zero_below": true,
+      "holds": true
+    }
+  },
+  "sens_abstract_any_rule": {
+    "m1_failure_rate_pct": {
+      "WHU": 4.67,
+      "Claude": 47.86,
+      "ChatGPT": 67.42,
+      "Gemini": 79.09
+    },
+    "m1_n": {
+      "WHU": 75,
+      "Claude": 70,
+      "ChatGPT": 66,
+      "Gemini": 55
+    },
+    "H1": {
+      "rate_WHU": 4.67,
+      "rate_Claude": 47.86,
+      "difference_pts": -43.19,
+      "difference_95ci_pts": [
+        -50.8,
+        -33.46
+      ],
+      "ratio": 0.0975,
+      "ratio_95ci": [
+        0.0514,
+        0.1559
+      ],
+      "ratio_resamples_undefined": 0,
+      "exact_bootstrap_difference_95ci_pts": [
+        -50.8,
+        -33.46
+      ],
+      "exact_bootstrap_ratio_95ci": [
+        0.0514,
+        0.1559
+      ],
+      "half_threshold_met": true,
+      "interval_excludes_zero_below": true,
+      "holds": true
+    }
+  }
+}
