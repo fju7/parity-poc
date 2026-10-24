@@ -1,0 +1,277 @@
+{
+ "label": "Machine-only spec (a), quote-checked M1 re-judge, WHU only (Option B): AI judges only",
+ "scope": "WHU M1 items with a Stage 1 first read from both judges; Claude Research as labelled in Stage 1",
+ "items": 77,
+ "appended_instruction_sha256": "f2310ff253c1540b294620101e84ad5bc0e8f071e12b6bec2ef8725946bfdded",
+ "seed": "533877899085291994276456906790697990170397975394",
+ "bootstrap_resamples": 10000,
+ "label_counts_rejudge": {
+  "claude": {
+   "Supported": 73,
+   "NOT_VERIFIABLE_ABSTRACT": 2,
+   "Contradicted": 1,
+   "Absent": 1
+  },
+  "openai": {
+   "Supported": 69,
+   "Overstates": 4,
+   "NOT_VERIFIABLE_ABSTRACT": 2,
+   "Contradicted": 1,
+   "Absent": 1
+  }
+ },
+ "labels_differing_from_stage1": {
+  "claude": 0,
+  "openai": 1
+ },
+ "passages_on_supported_labels": {
+  "checked": 244,
+  "found": 238,
+  "not_found": 6,
+  "not_found_with_ellipsis": 2,
+  "found_with_ellipsis": 0,
+  "not_found_but_found_under_judge_m1_norm": 0,
+  "over_60_words": 0,
+  "replies_over_3_passages": 0
+ },
+ "evidence_problems_on_supported_labels": {
+  "missing": 14
+ },
+ "downgraded_to_support_not_demonstrated": {
+  "by_judge": {
+   "claude": 15,
+   "openai": 0
+  },
+  "by_reason": {
+   "no passage found": 1,
+   "evidence missing": 14,
+   "evidence unparseable": 0
+  }
+ },
+ "rates": {
+  "stage1": {
+   "refusal_fallbacks_WHU_or_Claude": 0,
+   "two_judge_combined": {
+    "WHU": {
+     "failures": 3.5,
+     "countable": 75,
+     "rate": 0.0467,
+     "ci95": [
+      0.027,
+      0.0704
+     ]
+    },
+    "Claude": {
+     "failures": 33.5,
+     "countable": 70,
+     "rate": 0.4786,
+     "ci95": [
+      0.3784,
+      0.5469
+     ]
+    },
+    "H1_WHU_vs_Claude": {
+     "difference_whu_minus": -0.4319,
+     "difference_ci95": [
+      -0.508,
+      -0.3346
+     ],
+     "ratio_whu_over": 0.0976,
+     "ratio_ci95": [
+      0.0514,
+      0.1559
+     ],
+     "whu_at_most_half": true,
+     "difference_ci_excludes_zero": true,
+     "holds": true
+    }
+   },
+   "cross_company_openai_judge": {
+    "WHU": {
+     "failures": 5.0,
+     "countable": 75,
+     "rate": 0.0667,
+     "ci95": [
+      0.05,
+      0.0946
+     ]
+    },
+    "Claude": {
+     "failures": 39.0,
+     "countable": 70,
+     "rate": 0.5571,
+     "ci95": [
+      0.4412,
+      0.6471
+     ]
+    },
+    "H1_WHU_vs_Claude": {
+     "difference_whu_minus": -0.4904,
+     "difference_ci95": [
+      -0.5763,
+      -0.3786
+     ],
+     "ratio_whu_over": 0.1197,
+     "ratio_ci95": [
+      0.0848,
+      0.1599
+     ],
+     "whu_at_most_half": true,
+     "difference_ci_excludes_zero": true,
+     "holds": true
+    }
+   }
+  },
+  "labelled": {
+   "refusal_fallbacks_WHU_or_Claude": 0,
+   "two_judge_combined": {
+    "WHU": {
+     "failures": 4.0,
+     "countable": 75,
+     "rate": 0.0533,
+     "ci95": [
+      0.027,
+      0.0915
+     ]
+    },
+    "Claude": {
+     "failures": 33.5,
+     "countable": 70,
+     "rate": 0.4786,
+     "ci95": [
+      0.3784,
+      0.5469
+     ]
+    },
+    "H1_WHU_vs_Claude": {
+     "difference_whu_minus": -0.4253,
+     "difference_ci95": [
+      -0.5007,
+      -0.3346
+     ],
+     "ratio_whu_over": 0.1114,
+     "ratio_ci95": [
+      0.0514,
+      0.1871
+     ],
+     "whu_at_most_half": true,
+     "difference_ci_excludes_zero": true,
+     "holds": true
+    }
+   },
+   "cross_company_openai_judge": {
+    "WHU": {
+     "failures": 6.0,
+     "countable": 75,
+     "rate": 0.08,
+     "ci95": [
+      0.05,
+      0.1351
+     ]
+    },
+    "Claude": {
+     "failures": 39.0,
+     "countable": 70,
+     "rate": 0.5571,
+     "ci95": [
+      0.4412,
+      0.6471
+     ]
+    },
+    "H1_WHU_vs_Claude": {
+     "difference_whu_minus": -0.4771,
+     "difference_ci95": [
+      -0.5717,
+      -0.3786
+     ],
+     "ratio_whu_over": 0.1436,
+     "ratio_ci95": [
+      0.0848,
+      0.2284
+     ],
+     "whu_at_most_half": true,
+     "difference_ci_excludes_zero": true,
+     "holds": true
+    }
+   }
+  },
+  "checked": {
+   "refusal_fallbacks_WHU_or_Claude": 0,
+   "two_judge_combined": {
+    "WHU": {
+     "failures": 11.5,
+     "countable": 75,
+     "rate": 0.1533,
+     "ci95": [
+      0.1081,
+      0.1974
+     ]
+    },
+    "Claude": {
+     "failures": 33.5,
+     "countable": 70,
+     "rate": 0.4786,
+     "ci95": [
+      0.3784,
+      0.5469
+     ]
+    },
+    "H1_WHU_vs_Claude": {
+     "difference_whu_minus": -0.3253,
+     "difference_ci95": [
+      -0.4182,
+      -0.2034
+     ],
+     "ratio_whu_over": 0.3203,
+     "ratio_ci95": [
+      0.2054,
+      0.4678
+     ],
+     "whu_at_most_half": true,
+     "difference_ci_excludes_zero": true,
+     "holds": true
+    }
+   },
+   "cross_company_openai_judge": {
+    "WHU": {
+     "failures": 6.0,
+     "countable": 75,
+     "rate": 0.08,
+     "ci95": [
+      0.05,
+      0.1351
+     ]
+    },
+    "Claude": {
+     "failures": 39.0,
+     "countable": 70,
+     "rate": 0.5571,
+     "ci95": [
+      0.4412,
+      0.6471
+     ]
+    },
+    "H1_WHU_vs_Claude": {
+     "difference_whu_minus": -0.4771,
+     "difference_ci95": [
+      -0.5717,
+      -0.3786
+     ],
+     "ratio_whu_over": 0.1436,
+     "ratio_ci95": [
+      0.0848,
+      0.2284
+     ],
+     "whu_at_most_half": true,
+     "difference_ci_excludes_zero": true,
+     "holds": true
+    }
+   }
+  }
+ },
+ "spend": {
+  "ledger_issue": "whu-reliability-judging-quotecheck",
+  "usd": 32.8988,
+  "calls": 154
+ }
+}
