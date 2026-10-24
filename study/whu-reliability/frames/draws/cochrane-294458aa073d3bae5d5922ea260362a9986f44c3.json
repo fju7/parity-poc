@@ -1,0 +1,83 @@
+{
+ "frame_file": "frames/cochrane.json",
+ "frame_sha256": "2122300fbc0d52704fdda7310448dc60788662964488f199a34bb233dd62e484",
+ "commit": "294458aa073d3bae5d5922ea260362a9986f44c3",
+ "seed": 235592796016064410884048813226382006769402463427,
+ "seed_rule": "seed = int(<full 40-character freeze commit hash>, 16) (protocol rev 38)",
+ "procedure": "random.Random(seed).shuffle of the frame's eligible numbers k; in that order, each candidate is tested against WHU's published and tested questions; the first that passes is the draw",
+ "whu_questions": {
+  "WHU-001 melanoma (personalised mRNA cancer vaccine)": {
+   "pattern": "\\bmelanoma|\\bm?RNA[- ](?:based )?(?:cancer )?vaccin|personali[sz]ed (?:cancer )?vaccin",
+   "applied_to": "text"
+  },
+  "WHU-002 cdk46 (CDK4/6 inhibitors)": {
+   "pattern": "\\bCDK ?4/6|\\bCDK4\\b|palbociclib|ribociclib|abemaciclib|cyclin[- ]dependent kinase 4",
+   "applied_to": "text"
+  },
+  "WHU-003 deskilling (AI use and human cognition)": {
+   "pattern": "(?:artificial intelligence|\\bAI\\b|large language model|\\bLLMs?\\b|chatbot|ChatGPT|generative).{0,80}(?:cogniti|critical thinking|deskill|skill|learning|memory|reasoning)|(?:cogniti|critical thinking|deskill)\\w*.{0,80}(?:artificial intelligence|\\bAI\\b|large language model|chatbot)",
+   "applied_to": "text"
+  },
+  "T01 exercise and depression": {
+   "pattern": "(?:exercise|physical activity|physical training|yoga|walking).{0,80}depress|depress\\w*.{0,80}(?:exercise|physical activity)",
+   "applied_to": "text"
+  },
+  "T02 / WHU-P02 ultra-processed foods": {
+   "pattern": "ultra-?processed|\\bprocessed foods?\\b|\\bNOVA\\b",
+   "applied_to": "text"
+  },
+  "T03 intermittent fasting": {
+   "pattern": "intermittent fasting|time-restricted (?:eating|feeding)|alternate[- ]day fasting|\\b5:2\\b|periodic fasting",
+   "applied_to": "text"
+  },
+  "T04 vitamin D (supplementation in older adults)": {
+   "pattern": "^(?=.*\\b(?:vitamin D|cholecalciferol|ergocalciferol|calcifediol|calcitriol)\\b)(?=.*\\b(?:older (?:adults?|people|persons?|women|men|individuals|patients)|elderly|aged (?:60|65|70)|over (?:60|65|70)|(?:60|65|70) years (?:and|or) (?:over|older)|later life|old age|seniors?|geriatric|nursing homes?|care homes?|long-term care))",
+   "applied_to": "text"
+  },
+  "WHU-P04 (have the world's greenhouse gas emissions grown faster in recent decades than in earlier ones?)": {
+   "pattern": "(?=.*\\b(?:greenhouse gas|GHG|CO ?2|CO₂|carbon dioxide)\\b[^.]{0,60}\\bemissions?\\b[^.]{0,120}\\b(?:ha(?:ve|s) (?:continued to )?(?:rise|risen|increased|grown)|grew|rose|growth|higher than in))(?=.*\\b(?:since (?:18|19|20)\\d\\d|(?:19|20)\\d\\d\\s*[–-]\\s*(?:19|20)\\d\\d|(?:previous|past|last) decades?|between (?:19|20)\\d\\d and)\\b)",
+   "applied_to": "first sentence"
+  }
+ },
+ "draws_wanted": 1,
+ "eligible": 724,
+ "checked": 1,
+ "drawn": [
+  {
+   "n": 921,
+   "pmid": "42187003",
+   "doi": "10.1002/14651858.CD005632.pub4",
+   "title": "Steroid avoidance or withdrawal for kidney transplant recipients.",
+   "date": "2026-05-26"
+  }
+ ],
+ "drawn_at": "2026-10-24T15:44:37+00:00",
+ "log": [
+  {
+   "checked": 1,
+   "k": 644,
+   "n": 921,
+   "id": "42187003",
+   "text_sha256": "a29e87dc600ca336dbd5d728fb59fbdab0e5c22a5d9441dc40921364a321dc39",
+   "result": "drawn",
+   "draw": 1
+  }
+ ],
+ "closer_reading": {
+  "protocol": "frozen at 5d83e9b8025312923f3fb8ea2d5de3b47c212362; Question selection, 'Eligible if the review' 1-5; extension rule (Analysis plan), seed from 294458aa073d3bae5d5922ea260362a9986f44c3, the commit that records the first (Stage 1) results",
+  "by": "Claude Code (session 317f5c17-2a9b-4755-80cc-45057fcd64e8)",
+  "on": "2026-10-24",
+  "entries": {
+   "42187003": {
+    "read": "the PubMed abstract (sha256 matches the frame's abstract_sha256)",
+    "1_published_in_window": "pass: 2026-05-26",
+    "2_certainty_grade_on_main_conclusion": "pass: each main conclusion (death, graft loss, biopsy-proven acute rejection, post-transplant diabetes) carries a GRADE certainty (moderate, low or very low)",
+    "3_one_plain_question": "pass: the objective (the benefits and harms of avoiding or withdrawing steroids for kidney transplant recipients) can be put as one plain question",
+    "4_public_abstract": "pass: full abstract in PubMed",
+    "5_not_a_whu_topic": "pass: no published, pilot or practice WHU question is on transplantation or steroids",
+    "result": "eligible on closer reading; the draw stands"
+   }
+  },
+  "next_in_shuffle_taken": false
+ }
+}

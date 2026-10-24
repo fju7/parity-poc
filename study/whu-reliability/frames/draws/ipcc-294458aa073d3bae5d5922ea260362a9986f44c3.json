@@ -1,0 +1,113 @@
+{
+ "frame_file": "frames/ipcc.json",
+ "frame_sha256": "93d99e21f3de01d59f9de458bbccb05f89747dd257e37543a04cff5e365180ee",
+ "commit": "294458aa073d3bae5d5922ea260362a9986f44c3",
+ "seed": 235592796016064410884048813226382006769402463427,
+ "seed_rule": "seed = int(<full 40-character freeze commit hash>, 16) (protocol rev 38)",
+ "procedure": "random.Random(seed).shuffle of the frame's eligible numbers k; in that order, each candidate is tested against WHU's published and tested questions; the first that passes is the draw; the next that passes from a different AR6 report is the second",
+ "whu_questions": {
+  "WHU-001 melanoma (personalised mRNA cancer vaccine)": {
+   "pattern": "\\bmelanoma|\\bm?RNA[- ](?:based )?(?:cancer )?vaccin|personali[sz]ed (?:cancer )?vaccin",
+   "applied_to": "text"
+  },
+  "WHU-002 cdk46 (CDK4/6 inhibitors)": {
+   "pattern": "\\bCDK ?4/6|\\bCDK4\\b|palbociclib|ribociclib|abemaciclib|cyclin[- ]dependent kinase 4",
+   "applied_to": "text"
+  },
+  "WHU-003 deskilling (AI use and human cognition)": {
+   "pattern": "(?:artificial intelligence|\\bAI\\b|large language model|\\bLLMs?\\b|chatbot|ChatGPT|generative).{0,80}(?:cogniti|critical thinking|deskill|skill|learning|memory|reasoning)|(?:cogniti|critical thinking|deskill)\\w*.{0,80}(?:artificial intelligence|\\bAI\\b|large language model|chatbot)",
+   "applied_to": "text"
+  },
+  "T01 exercise and depression": {
+   "pattern": "(?:exercise|physical activity|physical training|yoga|walking).{0,80}depress|depress\\w*.{0,80}(?:exercise|physical activity)",
+   "applied_to": "text"
+  },
+  "T02 / WHU-P02 ultra-processed foods": {
+   "pattern": "ultra-?processed|\\bprocessed foods?\\b|\\bNOVA\\b",
+   "applied_to": "text"
+  },
+  "T03 intermittent fasting": {
+   "pattern": "intermittent fasting|time-restricted (?:eating|feeding)|alternate[- ]day fasting|\\b5:2\\b|periodic fasting",
+   "applied_to": "text"
+  },
+  "T04 vitamin D (supplementation in older adults)": {
+   "pattern": "^(?=.*\\b(?:vitamin D|cholecalciferol|ergocalciferol|calcifediol|calcitriol)\\b)(?=.*\\b(?:older (?:adults?|people|persons?|women|men|individuals|patients)|elderly|aged (?:60|65|70)|over (?:60|65|70)|(?:60|65|70) years (?:and|or) (?:over|older)|later life|old age|seniors?|geriatric|nursing homes?|care homes?|long-term care))",
+   "applied_to": "text"
+  },
+  "WHU-P04 (have the world's greenhouse gas emissions grown faster in recent decades than in earlier ones?)": {
+   "pattern": "(?=.*\\b(?:greenhouse gas|GHG|CO ?2|CO₂|carbon dioxide)\\b[^.]{0,60}\\bemissions?\\b[^.]{0,120}\\b(?:ha(?:ve|s) (?:continued to )?(?:rise|risen|increased|grown)|grew|rose|growth|higher than in))(?=.*\\b(?:since (?:18|19|20)\\d\\d|(?:19|20)\\d\\d\\s*[–-]\\s*(?:19|20)\\d\\d|(?:previous|past|last) decades?|between (?:19|20)\\d\\d and)\\b)",
+   "applied_to": "first sentence"
+  }
+ },
+ "draws_wanted": 2,
+ "eligible": 400,
+ "checked": 2,
+ "drawn": [
+  {
+   "n": 247,
+   "id": "AR6-WGIII-C.8.2",
+   "report": "Climate Change 2022: Mitigation of Climate Change",
+   "year": 2022,
+   "url": "https://www.ipcc.ch/report/ar6/wg3/chapter/summary-for-policymakers/",
+   "level": "sub-statement",
+   "statement_sha256": "484e6c1103eed476bcb7abce3ed9ea18b33307a7514fc7897caa6ff8708ff9bf"
+  },
+  {
+   "n": 128,
+   "id": "AR6-WGII-C.2.6",
+   "report": "Climate Change 2022: Impacts, Adaptation and Vulnerability",
+   "year": 2022,
+   "url": "https://www.ipcc.ch/report/ar6/wg2/chapter/summary-for-policymakers/",
+   "level": "sub-statement",
+   "statement_sha256": "4af46b8b45ecd5ed792276bb19509e65d3ae7c2208fc87bf5a9ea18997d0e26d"
+  }
+ ],
+ "drawn_at": "2026-10-24T15:44:40+00:00",
+ "log": [
+  {
+   "checked": 1,
+   "k": 230,
+   "n": 247,
+   "id": "AR6-WGIII-C.8.2",
+   "text_sha256": "484e6c1103eed476bcb7abce3ed9ea18b33307a7514fc7897caa6ff8708ff9bf",
+   "result": "drawn",
+   "draw": 1
+  },
+  {
+   "checked": 2,
+   "k": 112,
+   "n": 128,
+   "id": "AR6-WGII-C.2.6",
+   "text_sha256": "4af46b8b45ecd5ed792276bb19509e65d3ae7c2208fc87bf5a9ea18997d0e26d",
+   "result": "drawn",
+   "draw": 2
+  }
+ ],
+ "closer_reading": {
+  "protocol": "frozen at 5d83e9b8025312923f3fb8ea2d5de3b47c212362; Question selection, 'Eligible if the review' 1-5; extension rule (Analysis plan), seed from 294458aa073d3bae5d5922ea260362a9986f44c3, the commit that records the first (Stage 1) results",
+  "by": "Claude Code (session 317f5c17-2a9b-4755-80cc-45057fcd64e8)",
+  "on": "2026-10-24",
+  "entries": {
+   "AR6-WGIII-C.8.2": {
+    "read": "the full statement from the SPM page (sha256 matches the frame's statement_sha256)",
+    "1_published_in_window": "pass: AR6 WGIII, 2022",
+    "2_certainty_grade_on_main_conclusion": "pass: the main claim (its first sentence) carries 'high confidence'",
+    "3_one_plain_question": "pass: its main claim (urban form with demand measures could reduce transport emissions) can be put as one plain question; the later sentences are subsidiary",
+    "4_public_abstract": "pass: the SPM is published in full",
+    "5_not_a_whu_topic": "pass: the nearest WHU question is WHU-P04 (growth of global greenhouse gas emissions over time); this statement is about reducing transport emissions through urban form, a different question",
+    "result": "eligible on closer reading; the draw stands"
+   },
+   "AR6-WGII-C.2.6": {
+    "read": "the full statement from the SPM page (sha256 matches the frame's statement_sha256)",
+    "1_published_in_window": "pass: AR6 WGII, 2022",
+    "2_certainty_grade_on_main_conclusion": "pass: the main claim (its first sentence) carries 'high confidence'",
+    "3_one_plain_question": "pass: its main claim (considering climate risks in planning settlements and infrastructure is critical for resilience and well-being) can be put as one plain question",
+    "4_public_abstract": "pass: the SPM is published in full",
+    "5_not_a_whu_topic": "pass under the protocol's list (published issues, test issues, practice issues). Noted, not a test the protocol sets: the topic is near study question WHU-S04 (AR6-WGII-D.3.2, city growth and climate resilience); study questions are not on the list",
+    "different_ar6_report": "pass: Working Group II; the other IPCC draw is Working Group III",
+    "result": "eligible on closer reading; the draw stands"
+   }
+  },
+  "next_in_shuffle_taken": false
+ }
+}
