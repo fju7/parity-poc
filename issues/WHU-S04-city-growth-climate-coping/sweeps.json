@@ -18,6 +18,19 @@
         "S007",
         "S008"
       ]
+    },
+    {
+      "on": "2026-10-23",
+      "command": "resolve --write",
+      "resolved": [
+        "S010"
+      ],
+      "refused": [],
+      "failed": [],
+      "unsweepable": [
+        "S007",
+        "S008"
+      ]
     }
   ]
 }

@@ -272,6 +272,18 @@
      "kind_why": "form 'notice' — 1878 characters held. The article test does not apply to this form"
     },
     "on": "2026-10-23"
+   },
+   "identifier": {
+    "kind": "pmid",
+    "value": "26087056",
+    "shape": "PMCID PMC4473734 in the held URL",
+    "resolved_by": "Europe PMC search PMCID:PMC4473734 -> MED/26087056",
+    "identity": "the PMCID is literally in the URL we hold",
+    "resolved_on": "2026-10-23",
+    "resolved_title": "Correction: Future Coastal Population Growth and Exposure to Sea-Level Rise and Coastal Flooding--A Global Assessment.",
+    "by": "sweep_sources.py resolve --write",
+    "pmcid": "PMC4473734",
+    "doi": "10.1371/journal.pone.0131375"
    }
   }
  ]
