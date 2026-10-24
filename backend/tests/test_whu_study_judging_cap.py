@@ -66,9 +66,10 @@ def test_a_rate_limit_is_waited_out_but_a_quota_error_is_not(monkeypatch):
     waits = []
     monkeypatch.setattr(J1.httpx, "post", lambda *a, **k: seq.pop(0))
     assert J1.post_openai({}, "k", sleep=waits.append).status_code == 200 and waits == [30.0]
-    monkeypatch.setattr(J1.httpx, "post", lambda *a, **k: _R(429, {"error": {"code": "insufficient_quota"}}))
-    waits.clear()
     import pytest
-    with pytest.raises(RuntimeError):
-        J1.post_openai({}, "k", sleep=waits.append)
-    assert waits == []
+    for code in ("insufficient_quota", "credit_balance_exhausted"):
+        monkeypatch.setattr(J1.httpx, "post", lambda *a, _c=code, **k: _R(429, {"error": {"code": _c}}))
+        waits.clear()
+        with pytest.raises(J1.OutOfCredit):
+            J1.post_openai({}, "k", sleep=waits.append)
+        assert waits == []

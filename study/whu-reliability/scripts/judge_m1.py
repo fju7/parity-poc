@@ -367,14 +367,21 @@ def call_claude(client, prefix: str, rest: str, model: str) -> tuple[str, dict, 
 
 
 RATE_LIMIT_WAITS = 8
+OUT_OF_CREDIT = ("insufficient_quota", "credit_balance_exhausted")
+
+
+class OutOfCredit(RuntimeError):
+    """OpenAI says the account has no credit left: waiting cannot help, so the
+    run stops at once (exit 7) and is resumed once credit is added."""
 
 
 def post_openai(payload: dict, key: str, sleep=time.sleep):
     """POST to the Responses API, waiting out a rate limit (HTTP 429): the
     retry-after header if given, else 30 s more each time, up to
     RATE_LIMIT_WAITS waits. A 429 that says the quota is used up is not waited
-    on (added 2026-10-24: the study's long sources ran into OpenAI's
-    tokens-per-minute limit). A refused or failed call is not billed."""
+    on: it raises OutOfCredit (added 2026-10-23: the study's long sources ran
+    into OpenAI's tokens-per-minute limit, then into the account's credit).
+    A refused or failed call is not billed."""
     for n in range(RATE_LIMIT_WAITS + 1):
         resp = httpx.post("https://api.openai.com/v1/responses", timeout=600,
                           headers={"Authorization": "Bearer " + key}, json=payload)
@@ -384,8 +391,8 @@ def post_openai(payload: dict, key: str, sleep=time.sleep):
             code = ((resp.json() or {}).get("error") or {}).get("code") or ""
         except Exception:
             code = ""
-        if code == "insufficient_quota":
-            break
+        if code in OUT_OF_CREDIT:
+            raise OutOfCredit("OpenAI 429 %s" % code)
         try:
             wait = float(resp.headers.get("retry-after") or 0)
         except ValueError:
@@ -579,6 +586,10 @@ def main() -> int:
                             else:
                                 text, usage, usd, refused = call_openai(keys["OPENAI_API_KEY"], prefix, rest, a.ledger_issue)
                             break
+                        except OutOfCredit as e:
+                            print("STOP: OUT OF CREDIT at %s (%s); judged items are kept, rerun to resume"
+                                  % (it["item"], e))
+                            return 7
                         except Exception as e:
                             if net == 2:
                                 raise

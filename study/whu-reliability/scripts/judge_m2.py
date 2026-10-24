@@ -245,6 +245,10 @@ def judge_item(a, run, it, answers, concl, raw, client, keys, prompt_sha, tag) -
                         text, usage, usd, refused = call_openai(keys["OPENAI_API_KEY"], prefix, rest,
                                                                 a.ledger_issue)
                     break
+                except J1.OutOfCredit as e:
+                    print("STOP: OUT OF CREDIT at %s (%s); judged items are kept, rerun to resume"
+                          % (it["item"], e))
+                    return 7
                 except Exception as e:
                     if net == 2:
                         raise
