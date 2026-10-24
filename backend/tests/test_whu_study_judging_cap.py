@@ -47,3 +47,28 @@ def test_both_runners_check_it_before_the_per_run_cap():
     for f in ("judge_m1.py", "judge_m2.py"):
         src = (SC / f).read_text()
         assert src.index("day_cap_stop(worst)") < src.index("so_far + worst > a.cap"), f
+
+
+class _R:
+    def __init__(self, code, body=None, headers=None):
+        self.status_code, self._b, self.headers = code, body or {}, headers or {}
+
+    def json(self):
+        return self._b
+
+    def raise_for_status(self):
+        if self.status_code >= 400:
+            raise RuntimeError("HTTP %d" % self.status_code)
+
+
+def test_a_rate_limit_is_waited_out_but_a_quota_error_is_not(monkeypatch):
+    seq = [_R(429, {"error": {"code": "rate_limit_exceeded"}}, {"retry-after": "5"}), _R(200)]
+    waits = []
+    monkeypatch.setattr(J1.httpx, "post", lambda *a, **k: seq.pop(0))
+    assert J1.post_openai({}, "k", sleep=waits.append).status_code == 200 and waits == [30.0]
+    monkeypatch.setattr(J1.httpx, "post", lambda *a, **k: _R(429, {"error": {"code": "insufficient_quota"}}))
+    waits.clear()
+    import pytest
+    with pytest.raises(RuntimeError):
+        J1.post_openai({}, "k", sleep=waits.append)
+    assert waits == []

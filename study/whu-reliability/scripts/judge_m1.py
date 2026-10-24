@@ -366,13 +366,41 @@ def call_claude(client, prefix: str, rest: str, model: str) -> tuple[str, dict, 
     return text, {**counts, "model": r.model, "stop": r.stop_reason}, usd or 0.0, r.stop_reason == "refusal"
 
 
-def call_openai(key: str, prefix: str, rest: str, issue: str) -> tuple[str, dict, float, bool]:
-    resp = httpx.post("https://api.openai.com/v1/responses", timeout=600,
-                      headers={"Authorization": "Bearer " + key},
-                      json={"model": OPENAI_MODEL, "input": prefix + rest,
-                            "max_output_tokens": OPENAI_MAX_OUT,
-                            "prompt_cache_key": "m1-" + hashlib.sha256(prefix.encode()).hexdigest()[:40]})
+RATE_LIMIT_WAITS = 8
+
+
+def post_openai(payload: dict, key: str, sleep=time.sleep):
+    """POST to the Responses API, waiting out a rate limit (HTTP 429): the
+    retry-after header if given, else 30 s more each time, up to
+    RATE_LIMIT_WAITS waits. A 429 that says the quota is used up is not waited
+    on (added 2026-10-24: the study's long sources ran into OpenAI's
+    tokens-per-minute limit). A refused or failed call is not billed."""
+    for n in range(RATE_LIMIT_WAITS + 1):
+        resp = httpx.post("https://api.openai.com/v1/responses", timeout=600,
+                          headers={"Authorization": "Bearer " + key}, json=payload)
+        if resp.status_code != 429 or n == RATE_LIMIT_WAITS:
+            break
+        try:
+            code = ((resp.json() or {}).get("error") or {}).get("code") or ""
+        except Exception:
+            code = ""
+        if code == "insufficient_quota":
+            break
+        try:
+            wait = float(resp.headers.get("retry-after") or 0)
+        except ValueError:
+            wait = 0
+        wait = max(wait, 30.0 * (n + 1))
+        print("  rate limited (429 %s); waiting %.0f s" % (code or "-", wait), flush=True)
+        sleep(wait)
     resp.raise_for_status()
+    return resp
+
+
+def call_openai(key: str, prefix: str, rest: str, issue: str) -> tuple[str, dict, float, bool]:
+    resp = post_openai({"model": OPENAI_MODEL, "input": prefix + rest,
+                        "max_output_tokens": OPENAI_MAX_OUT,
+                        "prompt_cache_key": "m1-" + hashlib.sha256(prefix.encode()).hexdigest()[:40]}, key)
     d = resp.json()
     refused = False
     texts = []

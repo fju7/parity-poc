@@ -132,12 +132,9 @@ def call_claude(client, prefix: str, rest: str) -> tuple[str, dict, float, bool]
 
 
 def call_openai(key: str, prefix: str, rest: str, issue: str) -> tuple[str, dict, float, bool]:
-    resp = httpx.post("https://api.openai.com/v1/responses", timeout=600,
-                      headers={"Authorization": "Bearer " + key},
-                      json={"model": OPENAI_MODEL, "input": prefix + rest,
-                            "max_output_tokens": OPENAI_MAX_OUT,
-                            "prompt_cache_key": "m2-" + hashlib.sha256(prefix.encode()).hexdigest()[:40]})
-    resp.raise_for_status()
+    resp = J1.post_openai({"model": OPENAI_MODEL, "input": prefix + rest,
+                           "max_output_tokens": OPENAI_MAX_OUT,
+                           "prompt_cache_key": "m2-" + hashlib.sha256(prefix.encode()).hexdigest()[:40]}, key)
     d = resp.json()
     refused, texts = False, []
     for o in d.get("output", []):
