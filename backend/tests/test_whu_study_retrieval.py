@@ -93,3 +93,63 @@ def test_on_macos_proxy_settings_come_from_the_environment():
     assert os.environ.get("no_proxy")
     src = (SC / "retrieve_sources.py").read_text()
     assert "close_fds=False" in src and '"/usr/bin/curl"' in src
+
+
+# --- Round 3 (2026-10-23): the advisor's fetches (route d) and reachability ---
+
+def _io():
+    spec = importlib.util.spec_from_file_location("ingest_operator_t", SC / "ingest_operator.py")
+    m = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(m)
+    return m
+
+
+def _incoming(tmp_path, data=b"<html><body>" + b"An ordinary agency page about the topic. " * 80 + b"</body></html>"):
+    import hashlib
+    d = tmp_path / "incoming"
+    d.mkdir()
+    (d / "S1.html").write_bytes(data)
+    return d, {"id": "S1", "outcome": "held", "version_held": "web page as rendered (agency page)",
+               "bytes": len(data), "sha256": hashlib.sha256(data).hexdigest(), "method": "browser"}
+
+
+def test_an_advisor_file_that_differs_from_its_log_stops(tmp_path):
+    IO = _io()
+    d, e = _incoming(tmp_path)
+    assert IO.check([e], d) == []
+    assert IO.check([dict(e, sha256="0" * 64)], d)                    # hash
+    assert IO.check([dict(e, bytes=e["bytes"] + 1)], d)               # size
+    assert IO.check([dict(e, id="S2")], d)                            # no file
+    assert IO.check([{"id": "S9", "outcome": "challenge"}], d) == []  # nothing held, nothing to check
+
+
+def test_an_advisor_file_is_held_by_the_same_extent_rule_with_route_d(tmp_path, monkeypatch):
+    IO = _io()
+    d, e = _incoming(tmp_path)
+    monkeypatch.setattr(IO, "RUN", tmp_path)
+    (tmp_path / "sources").mkdir()
+    row = {"source_id": "S1", "url": "https://www.agency.gov/page", "extent": "unreachable", "extent_why": "HTTP 403",
+           "retrieval": {"tried": [{"route": "a", "result": "HTTP 403"}], "route": None}}
+    r = IO.ingest(row, e, d)
+    assert r["extent"] == "full text" and r["retrieval"]["route"] == "d"
+    assert r["retrieval"]["version"] == "web page as rendered" and r["raw_sha256"] == e["sha256"]
+    assert r["retrieval"]["earlier_passes"][0]["tried"][0]["route"] == "a"   # the earlier pass is kept
+    assert (tmp_path / "sources" / "S1.txt").read_text().startswith("An ordinary")
+    # A challenge stays unreachable, with the advisor's outcome recorded.
+    row2 = {"source_id": "S2", "url": "https://x.org/a", "extent": "unreachable", "extent_why": "HTTP 403"}
+    r2 = IO.ingest(row2, {"id": "S2", "outcome": "challenge", "method": "browser"}, d)
+    assert r2["extent"] == "unreachable" and r2["retrieval"]["route"] is None
+    assert _ps().still_unreachable(r2)["advisor_tried"] == "challenge"
+
+
+def test_reachability_counts_script_operator_and_unreachable_items():
+    P = _ps()
+    man = {"u1": {"extent": "full text", "retrieval": None}, "u2": {"extent": "full text", "retrieval": {"route": "d"}},
+           "u3": {"extent": "unreachable"}}
+    items = [{"item": "i1", "citations": [{"url": "u1"}]}, {"item": "i2", "citations": [{"url": "u1"}, {"url": "u2"}]},
+             {"item": "i3", "citations": [{"url": "u2"}, {"url": "u3"}]}, {"item": "i4", "citations": [{"url": None}]}]
+    km = {i: {"system": "Claude"} for i in ("i1", "i2", "i3", "i4")}
+    r = P.reachability(items, km, man)["Claude"]
+    assert (r["items_all_sources_by_script"], r["items_needing_operator_fetch"], r["items_unreachable"]) == (1, 1, 2)
+    assert r["share_unreachable"] == 0.5 and r["flag_unreachable_over_20pct"]
+    assert r["sources"] == {"distinct": 3, "by_script": 1, "by_operator_fetch": 1, "unreachable": 1}

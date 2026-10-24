@@ -437,7 +437,8 @@ def still_unreachable(m: dict) -> dict:
     """A row for operator_fetch.json: what was tried, and the two marks."""
     import snapshot as SN
     r = m.get("retrieval") or {}
-    tried = r.get("tried") or []
+    tried = [t for x in (r.get("earlier_passes") or []) + [r] for t in (x.get("tried") or [])]
+    advisor = [t for t in tried if t.get("route") == "d" and t.get("by")]   # not the "not tried" marks
     last = [t for t in tried if t.get("route") in ("a", "b")] or [{"result": m.get("extent_why") or ""}]
     texts = [" ".join(str(t.get(k) or "") for k in ("result", "why")) for t in last]
     blocks = any(any(b in t for b in BLOCKED) for t in texts)
@@ -449,7 +450,56 @@ def still_unreachable(m: dict) -> dict:
     return {"source_id": m["source_id"], "url": m["url"], "why": m.get("extent_why"),
             "tried": [{k: t.get(k) for k in ("route", "url", "result", "version") if t.get(k) is not None} for t in tried],
             "blocks_automation": blocks, "free_to_read": free,
-            "free_to_read_but_blocks_automation": blocks and not free.startswith("unknown")}
+            "free_to_read_but_blocks_automation": blocks and not free.startswith("unknown"),
+            "advisor_tried": advisor[-1].get("result") if advisor else None}
+
+
+def how_held(m: dict | None) -> str:
+    """"script" (the uniform scripted route: first fetch, a, b or c), "operator"
+    (route d, the advisor's browser) or "unreachable"."""
+    if not m or m["extent"] == "unreachable":
+        return "unreachable"
+    return "operator" if (m.get("retrieval") or {}).get("route") == "d" else "script"
+
+
+def reachability(items: list[dict], keymap: dict, man: dict) -> dict:
+    """Citation reachability per system (round 3): of the drawn cited items, how
+    many have every cited source held by script, how many need a source the
+    advisor fetched, and how many are still incomplete; and the same for the
+    distinct sources each system's drawn items cite. A system whose unreachable
+    share of cited items is above 20% is flagged (protocol M1, Unreachable)."""
+    per = {}
+    for it in items:
+        s = keymap[it["item"]]["system"]
+        p = per.setdefault(s, {"cited_items": 0, "items_all_sources_by_script": 0, "items_needing_operator_fetch": 0,
+                               "items_unreachable": 0, "_src": {}})
+        hs = [how_held(man.get(c["url"])) if c.get("url") else "unreachable" for c in it["citations"]]
+        for c, h in zip(it["citations"], hs):
+            if c.get("url"):
+                p["_src"][c["url"]] = h
+        p["cited_items"] += 1
+        if "unreachable" in hs:
+            p["items_unreachable"] += 1
+        elif "operator" in hs:
+            p["items_needing_operator_fetch"] += 1
+        else:
+            p["items_all_sources_by_script"] += 1
+    out = {}
+    for s in SYSTEMS:
+        p = per.get(s)
+        if not p:
+            continue
+        src = p.pop("_src")
+        n = p["cited_items"]
+        p.update({"share_reachable_by_script": round(p["items_all_sources_by_script"] / n, 4),
+                  "share_reachable_after_operator_fetch": round((n - p["items_unreachable"]) / n, 4),
+                  "share_unreachable": round(p["items_unreachable"] / n, 4),
+                  "flag_unreachable_over_20pct": p["items_unreachable"] / n > 0.20,
+                  "sources": {"distinct": len(src), "by_script": sum(v == "script" for v in src.values()),
+                              "by_operator_fetch": sum(v == "operator" for v in src.values()),
+                              "unreachable": sum(v == "unreachable" for v in src.values())}})
+        out[s] = p
+    return out
 
 
 def snapshot_report() -> int:
@@ -483,6 +533,7 @@ def snapshot_report() -> int:
             p["held"] += 1
             p["abstract_only"] += any(e == "abstract only" for e in ext)
     write_json(run / "operator_fetch.json", sorted(need.values(), key=lambda r: r["source_id"]))
+    reach = reachability(items, keymap, man)
     unc = json.loads((run / "uncited.json").read_text(encoding="utf-8"))
     for it in unc:
         km = keymap[it["item"]]
@@ -500,7 +551,8 @@ def snapshot_report() -> int:
     lines = ["# WHU reliability study: M1 source snapshots, sha256 manifest (prepare_scoring.py snapshot-report)",
              "# Snapshots are held at ~/Projects/whu-study-private/scoring/m1/sources/<source_id>.txt.",
              "# route: a script (TLS fix), b curl on the operator's Mac, c open-access location; '-' first fetch;",
-             "# 'a, bytes re-read': the first fetch's bytes, whose PDF text a crashed pdftotext had left empty.",
+             "# 'a, bytes re-read': the first fetch's bytes, whose PDF text a crashed pdftotext had left empty;",
+             "# d: fetched by the advisor in the desktop app's built-in browser (free pages only; round 3).",
              "#", "# source_id  extent  text_chars  text_sha256  raw_sha256  route  version"]
     for r in sorted(srcs, key=lambda r: r["source_id"]):
         rt = r.get("retrieval") or {}
@@ -512,7 +564,8 @@ def snapshot_report() -> int:
     (LOG / "snapshots_manifest.txt").write_text("\n".join(lines) + "\n")
     write_json(LOG / "snapshot_counts.json", {"written": now(), "per_answer": rows,
                                               "routes": {k: sum(1 for r in srcs if (r.get("retrieval") or {}).get("route") == k)
-                                                     for k in ("a", "b", "c")},
+                                                     for k in ("a", "b", "c", "d")},
+                                          "reachability": reach,
                                           "versions": {v: sum(1 for r in srcs if (r.get("retrieval") or {}).get("version") == v)
                                                        for v in sorted({(r.get("retrieval") or {}).get("version")
                                                                         for r in srcs} - {None})},
@@ -520,6 +573,9 @@ def snapshot_report() -> int:
                                               1 for r in srcs if r.get("reextracted") and r["extent"] != "unreachable"),
                                           "still_unreachable_free_but_blocking": sum(
                                               1 for n in need.values() if n["free_to_read_but_blocks_automation"]),
+                                          "still_unreachable_free_but_blocking_not_tried_by_advisor": sum(
+                                              1 for n in need.values() if n["free_to_read_but_blocks_automation"]
+                                              and not n["advisor_tried"]),
                                           "sources": {"distinct": len(srcs),
                                                           "full_text": sum(r["extent"] == "full text" for r in srcs),
                                                           "abstract_only": sum(r["extent"] == "abstract only" for r in srcs),
