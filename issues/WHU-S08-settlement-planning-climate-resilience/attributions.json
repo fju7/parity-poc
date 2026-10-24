@@ -1,0 +1,8 @@
+{
+  "_what_this_is": "Names the page attributes work to, each checked against the author list in the held document. Recorded by the drafting session.",
+  "verified": [
+    {"name": "Berrang-Ford", "source_id": "S001", "checked_against": "held S001: repository cover line 'Berrang-Ford, L. et al. (2021)' and author list, first author Lea Berrang-Ford", "by": "Claude Code (session 418b2fea)", "on": "2026-10-24"},
+    {"name": "Scheelbeek", "source_id": "S002", "checked_against": "held S002 (PMC XML): first contributor Scheelbeek Pauline F D", "by": "Claude Code (session 418b2fea)", "on": "2026-10-24"},
+    {"name": "Frimpong", "source_id": "S004", "checked_against": "held S004: title page, first author Eugene Frimpong", "by": "Claude Code (session 418b2fea)", "on": "2026-10-24"}
+  ]
+}

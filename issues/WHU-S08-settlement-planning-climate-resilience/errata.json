@@ -1,0 +1,57 @@
+{
+  "_what_this_is": "For every source, whether its bibliographic record names a correction, erratum, retraction or expression of concern -- and, when the lookup failed, that it failed. 'checked, none' and 'could not check' are different states and this file never merges them.",
+  "checked": {
+    "S001": {
+      "source": "S001",
+      "title": "A systematic global stocktake of evidence on human adaptation to climate change",
+      "checked_on": "2026-10-24",
+      "identifier": "DOI 10.1038/s41558-021-01170-y",
+      "identifier_from": "the held document",
+      "identity": "resolved title shares 8 word(s) with ours: adaptation, change, climate, evidence, global, human, stocktake, systematic",
+      "resolved_title": "A systematic global stocktake of evidence on human adaptation to climate change",
+      "index": "Crossref",
+      "update_policy": "https://doi.org/10.1007/springer_crossmark_policy",
+      "amendments": [],
+      "comments": [],
+      "state": "CLEAN",
+      "why": "matched on DOI 10.1038/s41558-021-01170-y at Crossref; not in Europe PMC. The publisher registers a Crossmark update policy, so a correction would have been deposited here"
+    },
+    "S002": {
+      "source": "S002",
+      "title": "The effects on public health of climate change adaptation responses: a systematic review of evidence from low- and middl",
+      "checked_on": "2026-10-24",
+      "identifier": "PMCID PMC8276060",
+      "identifier_from": "the source URL",
+      "resolved_title": "The effects on public health of climate change adaptation responses: a systematic review of evidence from low- and middle-income countries.",
+      "identity": "resolved title shares 13 word(s) with ours: adaptation, change, climate, countries, effects, evidence, health, income, middl",
+      "amendments": [],
+      "comments": [],
+      "state": "CLEAN",
+      "why": "matched on PMCID PMC8276060"
+    },
+    "S003": {
+      "source": "S003",
+      "title": "Cities, Settlements and Key Infrastructure",
+      "checked_on": "2026-10-24",
+      "identifier": "DOI 10.1017/9781009325844.008",
+      "identifier_from": "the held document",
+      "identity": "resolved title shares 3 word(s) with ours: cities, infrastructure, settlements",
+      "resolved_title": "Cities, Settlements and Key Infrastructure",
+      "index": "Crossref",
+      "update_policy": null,
+      "amendments": [],
+      "comments": [],
+      "state": "UNCHECKED",
+      "why": "matched on DOI 10.1017/9781009325844.008 at Crossref; not in Europe PMC, and the publisher registers NO update policy — so Crossref would not know of a correction even if one existed. This is not a pass"
+    },
+    "S004": {
+      "source": "S004",
+      "title": "Flood Insurance and Claims: The Impact of the Community Rating System",
+      "checked_on": "2026-10-24",
+      "state": "UNCHECKABLE",
+      "why": "no DOI, PMID, PMCID or PII can be parsed from the URL we hold; nothing is typed from memory, so this source cannot be looked up automatically",
+      "amendments": [],
+      "comments": []
+    }
+  }
+}

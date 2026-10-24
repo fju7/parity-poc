@@ -1,0 +1,56 @@
+{
+  "_what_this_is": "The entry gate, answered BEFORE drafting. The threshold question is whether a well-informed non-expert would confidently believe something the primary sources do not support.",
+  "belief": {
+    "_note": "What the reader already believes, stated as they would state it. If you cannot write this sentence, there is nothing to correct and no subject -- which is how the tobacco-analogy candidate died.",
+    "statement": "Planning towns, rural areas and infrastructure with climate change in mind (flood-aware zoning, green space and tree cover against heat, drainage and building standards designed for future weather) is known to make places cope better with floods, heat and storms, and so to leave the people living there safer and better off.",
+    "how_we_know_they_believe_it": "General coverage presents better planning, drainage and green infrastructure as what makes a city resilient, without asking whether such measures have been shown to work: e.g. Thomson Reuters Foundation's piece carried by Eco-Business, 21 April 2023, on 'sponge cities' after the Durban floods.",
+    "carried_by": [
+      {
+        "outlet": "Eco-Business (Thomson Reuters Foundation)",
+        "url": "https://www.eco-business.com/news/are-sponge-cities-enough-to-curb-climate-fuelled-floods/",
+        "date": "2023-04-21",
+        "what_it_said": "Paraphrase: experts say a city's ability to absorb water, together with better drainage, improved urban planning and good governance, is key to withstanding climate shocks; no evaluation of whether such planning has reduced harm is cited."
+      }
+    ]
+  },
+  "what_the_sources_show": {
+    "_note": "What the primary sources actually support, and which sources.",
+    "statement": "The literature on implemented adaptation mostly assumes rather than measures risk reduction: a stocktake of 1,682 studies found 58 (3.4%) that formally assessed risk reduction after implementation. IPCC AR6 finds zoning and land use for adaptation rarely implemented, with limited evidence from a few cities that it protects green cover against pluvial flooding and urban heat, and monitoring and evaluation slow to take up. A health-outcome review of adaptation in low- and middle-income countries found some reported health benefits but a paucity of evidence, only two formal evaluations and likely reporting bias. One quantitative US evaluation found reduced flood claims only in communities with the highest level of participation in a floodplain-management scheme.",
+    "sources": [
+      "S001",
+      "S002",
+      "S003",
+      "S004"
+    ]
+  },
+  "direction": {
+    "_note": "CORRECTS, CONFIRMS or NARROWS. This field exists so the contrarianism guard can count. A publication whose answer is always CORRECTS is performing scepticism rather than assessing evidence, and is not to be trusted.",
+    "value": "narrows",
+    "_values": [
+      "corrects",
+      "confirms",
+      "narrows"
+    ]
+  },
+  "reader_with_a_decision": "A local-authority planning officer or councillor deciding how far to require climate-adaptation measures in a local plan or a major development (and what to spend on them), who bears the cost of a requirement that does not deliver, or of omitting one that would have, and has no time to read the evaluation literature.",
+  "public_record_check": {
+    "_note": "NOT 'has anybody published this'. On any contested question, somebody has. The question is whether it has been carried WHERE THIS READER WOULD FIND IT. Run the counterexample hunter on the belief statement, not on the finding.",
+    "prior_art_found": [
+      "Berrang-Ford et al. 2021, Nature Climate Change (the stocktake itself states the evidence gap)",
+      "IPCC AR6 WGII Chapter 6 (2022)"
+    ],
+    "carried_in_general_coverage": "Searched on 2026-10-24 for general coverage (Carbon Brief, the Guardian, news) of the stocktake's finding of negligible evidence of risk reduction: none found. The finding sits in the journal and IPCC literature, not where a planning officer would meet it.",
+    "our_contribution": "translation: putting what the assessments say about the evidence for planning-based adaptation in front of the reader who decides on it"
+  },
+  "sources_are_open": "yes: S001 accepted manuscript (Glasgow Enlighten), S002 open access (IOP), S003 IPCC report PDF, S004 working paper (AgEcon Search)",
+  "evidence_base_is_bounded": "yes: two systematic syntheses, one assessment chapter, one quantitative evaluation",
+  "kill_condition": "Any one of: (1) the primary sources include controlled or quasi-experimental evaluations, or systematic reviews of them, showing that climate-informed planning improves both how places cope (e.g. flood or heat damage, service disruption) and people's wellbeing (health, income, quality of life), so the belief stands as stated; (2) a well-informed non-expert does not in fact hold the belief; or (3) what the evidence does and does not show has already been carried in general coverage where this reader would meet it.",
+  "kill_condition_tested": {
+    "_note": "Filled in AFTER going to look, by whoever looked.",
+    "by": "Claude Code (session 418b2fea)",
+    "on": "2026-10-24",
+    "result": "narrowed",
+    "note": "Belief stated before sources were opened. Went looking: no controlled or quasi-experimental evidence that climate-informed planning improves both coping and wellbeing was found in the assessments read; the measured evidence is a small minority of the literature; the gap is not carried in general coverage found. The belief is narrowed, not killed: some measured reductions in hazard (heat island, pluvial flooding, flood claims at the highest participation level) are reported."
+  },
+  "lead_came_from": "WHU reliability study: question WHU-S08, drawn under the protocol's extension rule (issue.json); not chosen by WHU."
+}

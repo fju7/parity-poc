@@ -1,0 +1,119 @@
+{
+  "sources": [
+    {
+      "id": "S001",
+      "type": "synthesis",
+      "title": "A systematic global stocktake of evidence on human adaptation to climate change",
+      "authors": "Berrang-Ford L, Siders AR, Lesnikowski A, et al.",
+      "year": 2021,
+      "venue": "Nature Climate Change 11(11):989-1000",
+      "doi": "10.1038/s41558-021-01170-y",
+      "url": "https://eprints.gla.ac.uk/257975/2/257975.pdf",
+      "version": "accepted manuscript deposited in University of Glasgow Enlighten, 29 October 2021",
+      "used_for": "how much of the literature on implemented adaptation measures whether risk was reduced",
+      "access": {
+        "state": "full_text_held",
+        "held": {
+          "file": "docs/2b/2b2751e3b773b7f8cbdaba523e40d54e8fcd2f47e59b0fdd1a0cf7ff5b3c41aa.pdf",
+          "sha256": "2b2751e3b773b7f8cbdaba523e40d54e8fcd2f47e59b0fdd1a0cf7ff5b3c41aa",
+          "bytes": 375866,
+          "identified_by": "contains 8 of 8 distinctive title words — 97098 characters, reference list and discussion/introduction present; title present (8 of 8 title words in the visible text)",
+          "kind": "full_text",
+          "kind_why": "97098 characters, reference list and discussion/introduction present"
+        },
+        "on": "2026-10-24"
+      },
+      "document_class": "document"
+    },
+    {
+      "id": "S002",
+      "type": "synthesis",
+      "title": "The effects on public health of climate change adaptation responses: a systematic review of evidence from low- and middle-income countries",
+      "authors": "Scheelbeek PFD, Dangour AD, Jarmul S, et al.",
+      "year": 2021,
+      "venue": "Environmental Research Letters 16:073001",
+      "doi": "10.1088/1748-9326/ac092c",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8276060/",
+      "used_for": "what is known about health and wellbeing effects of adaptation responses",
+      "access": {
+        "state": "full_text_held",
+        "held": {
+          "file": "docs/1e/1ea5aeba767c8ef8451fdc9e40d363ba28a55a512ae8cac99826ca467f521f0b.xml",
+          "sha256": "1ea5aeba767c8ef8451fdc9e40d363ba28a55a512ae8cac99826ca467f521f0b",
+          "bytes": 122873,
+          "identified_by": "contains its identifier PMC8276060 — 55233 characters, reference list and discussion/introduction present; title present (12 of 12 title words in the visible text)",
+          "kind": "full_text",
+          "kind_why": "55233 characters, reference list and discussion/introduction present"
+        },
+        "on": "2026-10-24"
+      },
+      "document_class": "document"
+    },
+    {
+      "id": "S003",
+      "type": "review",
+      "title": "Cities, Settlements and Key Infrastructure",
+      "authors": "Dodman D, Hayward B, Pelling M, et al. (IPCC AR6 Working Group II, Chapter 6)",
+      "year": 2022,
+      "venue": "Climate Change 2022: Impacts, Adaptation and Vulnerability. Contribution of Working Group II to the Sixth Assessment Report of the IPCC, pp. 907-1040",
+      "doi": "10.1017/9781009325844.008",
+      "url": "https://www.ipcc.ch/report/ar6/wg2/downloads/report/IPCC_AR6_WGII_Chapter06.pdf",
+      "used_for": "the assessed evidence on land use planning and zoning for adaptation, its implementation, and monitoring and evaluation",
+      "access": {
+        "state": "full_text_held",
+        "held": {
+          "file": "docs/57/57e9bb6ec3f8b870899732dc73561bff007cf8c3b656fe97776ac688da0e12d7.pdf",
+          "sha256": "57e9bb6ec3f8b870899732dc73561bff007cf8c3b656fe97776ac688da0e12d7",
+          "bytes": 3651767,
+          "identified_by": "contains 3 of 3 distinctive title words — 913627 characters, reference list and discussion/introduction present; title present (3 of 3 title words in the visible text)",
+          "kind": "full_text",
+          "kind_why": "913627 characters, reference list and discussion/introduction present"
+        },
+        "on": "2026-10-24"
+      },
+      "document_class": "document"
+    },
+    {
+      "id": "S004",
+      "type": "primary",
+      "title": "Flood Insurance and Claims: The Impact of the Community Rating System",
+      "authors": "Frimpong E, Petrolia DR, Harri A, Cartwright JH",
+      "year": 2019,
+      "venue": "Mississippi State University Department of Agricultural Economics Working Paper 19-1 (March 2019)",
+      "url": "https://ageconsearch.umn.edu/record/284989/files/Manuscript_Frimpong_19-1.pdf",
+      "used_for": "a quantitative evaluation of community floodplain management and flood damage claims",
+      "access": {
+        "state": "full_text_held",
+        "held": {
+          "file": "docs/75/758659ee8d3584ffc78f8a14f4123fc2bd97396cb879ad9772632b3285befe45.pdf",
+          "sha256": "758659ee8d3584ffc78f8a14f4123fc2bd97396cb879ad9772632b3285befe45",
+          "bytes": 417601,
+          "identified_by": "contains 7 of 7 distinctive title words — 52890 characters, reference list and discussion/introduction present; title present (7 of 7 title words in the visible text)",
+          "kind": "full_text",
+          "kind_why": "52890 characters, reference list and discussion/introduction present"
+        },
+        "on": "2026-10-24"
+      },
+      "version": "the March 2019 working paper (held); published as Frimpong E, Petrolia DR, Harri A, Cartwright JH, Applied Economic Perspectives and Policy 42(2):245-262, doi 10.1093/aepp/ppz013 (online 26 July 2019). Crossref's abstract for the published article is word for word the working paper's abstract; Crossref records no update relation for it (checked 2026-10-24 by Claude Code).",
+      "document_class": "document"
+    },
+    {
+      "id": "S005",
+      "type": "primary",
+      "title": "Flood Insurance and Claims: The Impact of the Community Rating System",
+      "form": "article",
+      "url": "https://doi.org/10.1093/aepp/ppz013",
+      "also_called": [],
+      "used_for": "the journal version of S004 (Applied Economic Perspectives and Policy 42(2):245-262); named in the source list, not held; Crossref's abstract for it matches S004's word for word",
+      "access": {
+        "state": "not_opened",
+        "by": "Claude Code (session 418b2fea)",
+        "on": "2026-10-24",
+        "not_read": [
+          "all -- not held"
+        ]
+      },
+      "document_class": "document"
+    }
+  ]
+}
