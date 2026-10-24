@@ -1,5 +1,5 @@
 {
- "written": "2026-10-23T12:50:01+00:00",
+ "written": "2026-10-24T00:33:24+00:00",
  "no_model_called": true,
  "inputs": {
   "chars_per_token": {
@@ -37,7 +37,7 @@
   },
   "repeat_share": 0.2,
   "max_source_tokens": 150000,
-  "pending_source_size_assumed_chars": 45428
+  "pending_source_size_assumed_chars": 45335
  },
  "rules": [
   "M1, Claude: first read = (prompt head + documents) at cache-write price + prompt after the documents at input price + output; the 20% repeat reads the documents from cache (cache-read price).",
@@ -52,66 +52,66 @@
   "per_answer": {
    "WHU-S01/ChatGPT": {
     "items": 16,
-    "held_items": 7,
-    "claude_held": 0.4144,
-    "openai_held": 0.542,
-    "claude_all": 1.4812,
-    "openai_all": 1.9052,
-    "doc_tokens_held": 64663.3657
+    "held_items": 9,
+    "claude_held": 0.4802,
+    "openai_held": 0.6312,
+    "claude_all": 1.3376,
+    "openai_all": 1.726,
+    "doc_tokens_held": 72703.848
    },
    "WHU-S01/Claude": {
     "items": 14,
-    "held_items": 13,
-    "claude_held": 3.3844,
-    "openai_held": 4.2692,
-    "claude_all": 3.4826,
-    "openai_all": 4.3954,
-    "doc_tokens_held": 638890.416
+    "held_items": 14,
+    "claude_held": 3.4958,
+    "openai_held": 4.4118,
+    "claude_all": 3.4958,
+    "openai_all": 4.4118,
+    "doc_tokens_held": 658490.9612
    },
    "WHU-S01/Gemini": {
     "items": 20,
-    "held_items": 10,
-    "claude_held": 1.5889,
-    "openai_held": 2.0182,
-    "claude_all": 2.5714,
-    "openai_all": 3.2798,
-    "doc_tokens_held": 290173.007
+    "held_items": 12,
+    "claude_held": 1.7579,
+    "openai_held": 2.2362,
+    "claude_all": 2.5426,
+    "openai_all": 3.2437,
+    "doc_tokens_held": 318693.8362
    },
    "WHU-S01/WHU": {
     "items": 20,
-    "held_items": 19,
-    "claude_held": 3.7279,
-    "openai_held": 4.7192,
-    "claude_all": 3.8261,
-    "openai_all": 4.8454,
-    "doc_tokens_held": 691993.7327
+    "held_items": 20,
+    "claude_held": 3.8217,
+    "openai_held": 4.8398,
+    "claude_all": 3.8217,
+    "openai_all": 4.8398,
+    "doc_tokens_held": 708093.0188
    },
    "WHU-S02/ChatGPT": {
     "items": 17,
-    "held_items": 11,
-    "claude_held": 2.1432,
-    "openai_held": 2.7134,
-    "claude_all": 3.0826,
-    "openai_all": 3.9069,
-    "doc_tokens_held": 397644.9256
+    "held_items": 12,
+    "claude_held": 2.3287,
+    "openai_held": 2.9484,
+    "claude_all": 3.1688,
+    "openai_all": 4.0144,
+    "doc_tokens_held": 431941.1124
    },
    "WHU-S02/Claude": {
     "items": 16,
-    "held_items": 7,
-    "claude_held": 2.3186,
-    "openai_held": 2.9181,
-    "claude_all": 3.2029,
-    "openai_all": 4.0535,
-    "doc_tokens_held": 442486.3935
+    "held_items": 11,
+    "claude_held": 2.8682,
+    "openai_held": 3.6181,
+    "claude_all": 3.3586,
+    "openai_all": 4.2478,
+    "doc_tokens_held": 541496.4233
    },
    "WHU-S02/Gemini": {
     "items": 19,
-    "held_items": 13,
-    "claude_held": 2.5321,
-    "openai_held": 3.2058,
-    "claude_all": 3.3773,
-    "openai_all": 4.2818,
-    "doc_tokens_held": 469795.3922
+    "held_items": 16,
+    "claude_held": 3.4813,
+    "openai_held": 4.4008,
+    "claude_all": 4.8808,
+    "openai_all": 6.1578,
+    "doc_tokens_held": 650592.5772
    },
    "WHU-S02/WHU": {
     "items": 20,
@@ -133,21 +133,21 @@
    },
    "WHU-S03/Claude": {
     "items": 16,
-    "held_items": 12,
-    "claude_held": 0.3334,
-    "openai_held": 0.4587,
-    "claude_all": 0.7264,
-    "openai_all": 0.9633,
-    "doc_tokens_held": 36046.0686
+    "held_items": 14,
+    "claude_held": 0.5046,
+    "openai_held": 0.6794,
+    "claude_all": 0.7007,
+    "openai_all": 0.9313,
+    "doc_tokens_held": 64986.4208
    },
    "WHU-S03/Gemini": {
     "items": 20,
-    "held_items": 16,
-    "claude_held": 4.6056,
-    "openai_held": 5.8037,
-    "claude_all": 4.9986,
-    "openai_all": 6.3083,
-    "doc_tokens_held": 873669.5838
+    "held_items": 18,
+    "claude_held": 4.9675,
+    "openai_held": 6.2624,
+    "claude_all": 5.1636,
+    "openai_all": 6.5143,
+    "doc_tokens_held": 940452.9985
    },
    "WHU-S03/WHU": {
     "items": 20,
@@ -157,10 +157,46 @@
     "claude_all": 5.0651,
     "openai_all": 6.3913,
     "doc_tokens_held": 954811.3627
+   },
+   "WHU-S04/ChatGPT": {
+    "items": 12,
+    "held_items": 12,
+    "claude_held": 0.8824,
+    "openai_held": 1.1438,
+    "claude_all": 0.8824,
+    "openai_all": 1.1438,
+    "doc_tokens_held": 144977.3298
+   },
+   "WHU-S04/Claude": {
+    "items": 11,
+    "held_items": 8,
+    "claude_held": 0.7998,
+    "openai_held": 1.0264,
+    "claude_all": 1.114,
+    "openai_all": 1.4292,
+    "doc_tokens_held": 138616.4348
+   },
+   "WHU-S04/Gemini": {
+    "items": 20,
+    "held_items": 9,
+    "claude_held": 3.919,
+    "openai_held": 4.9221,
+    "claude_all": 4.9979,
+    "openai_all": 6.3074,
+    "doc_tokens_held": 755000.6654
+   },
+   "WHU-S04/WHU": {
+    "items": 20,
+    "held_items": 20,
+    "claude_held": 5.7943,
+    "openai_held": 7.3012,
+    "claude_all": 5.7943,
+    "openai_all": 7.3012,
+    "doc_tokens_held": 1099495.1481
    }
   },
-  "held_only_usd": 77.88,
-  "all_items_usd": 90.88
+  "held_only_usd": 109.71,
+  "all_items_usd": 123.71
  },
  "m2": {
   "per_answer": {
@@ -259,22 +295,51 @@
     "answer_tokens": 3537,
     "claude": 0.0396,
     "openai": 0.0479
+   },
+   "A-cee70507cb": {
+    "question": "WHU-S04",
+    "system": "ChatGPT",
+    "conclusions": 2,
+    "answer_tokens": 10023,
+    "claude": 0.0923,
+    "openai": 0.171
+   },
+   "A-5264b108fb": {
+    "question": "WHU-S04",
+    "system": "Claude",
+    "conclusions": 2,
+    "answer_tokens": 9543,
+    "claude": 0.0898,
+    "openai": 0.165
+   },
+   "A-b757a29dec": {
+    "question": "WHU-S04",
+    "system": "Gemini",
+    "conclusions": 2,
+    "answer_tokens": 14288,
+    "claude": 0.1148,
+    "openai": 0.2247
+   },
+   "A-15b33d480f": {
+    "question": "WHU-S04",
+    "system": "WHU",
+    "conclusions": 2,
+    "answer_tokens": 3419,
+    "claude": 0.0574,
+    "openai": 0.088
    }
   },
-  "usd": 4.57
+  "usd": 5.57
  },
- "whu_s04_projected": {
-  "m1_usd": 30.29,
-  "m2_usd": 1.52
- },
- "judging_usd": 127.25,
+ "whu_s04_projected": null,
+ "judging_usd": 129.28,
  "whu_measured_usd": {
   "WHU-S01": 11.67,
   "WHU-S02": 12.11,
   "WHU-S03": 11.21,
-  "WHU-S04": 8.47
+  "WHU-S04": 11.4
  },
  "whu_s04_note": "WHU-S04 is still running; its figure is spend so far, not its final cost.",
- "study_total_usd": 170.71,
+ "study_total_usd": 175.67,
  "over_300": false
 }

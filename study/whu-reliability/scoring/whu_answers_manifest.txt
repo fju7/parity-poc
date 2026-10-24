@@ -1,7 +1,8 @@
 # WHU reliability study: WHU's answers, sha256 manifest (written by prepare_scoring.py verify)
-# WHU's answer is the issue page as committed. WHU-S04 is still running and is not listed yet.
+# WHU's answer is the issue page as committed, once the run is at "ready for operator acceptance".
 #
-# sha256  question  page  (last commit touching the page)
-b0504bb42d47688f5427f43dbdc0799036dc3bc27cb4d028b07a388ffa1bd933  WHU-S01  issues/WHU-S01-tb-dna-testing/draft/tb-dna-testing.html  (commit b5040db1abcaf2eecfc69910cb467f37c1ec1484)
-423a6035b4d327373e679a76af13c5f34060d74f9b12ff5a557feacdde68a25f  WHU-S02  issues/WHU-S02-teen-depression-therapy-format/draft/teen-depression-therapy-format.html  (commit 26e57dd8162e068bbd62ad10b822e4572547af89)
-5abb74152548979b32100fdcf5fe8cba0939dbebd34fbf58b650c85b338b13a8  WHU-S03  issues/WHU-S03-public-involvement-climate-policy/draft/public-involvement-climate-policy.html  (commit 866b8efd2884086cfaf7a00674787e2a113529ad)
+# sha256  question  page  (last commit touching the page; last commit touching the issue)
+b0504bb42d47688f5427f43dbdc0799036dc3bc27cb4d028b07a388ffa1bd933  WHU-S01  issues/WHU-S01-tb-dna-testing/draft/tb-dna-testing.html  (commit b5040db1abcaf2eecfc69910cb467f37c1ec1484; issue at d92636abd31797b966e1d04d8d6d2717977be4dc)
+423a6035b4d327373e679a76af13c5f34060d74f9b12ff5a557feacdde68a25f  WHU-S02  issues/WHU-S02-teen-depression-therapy-format/draft/teen-depression-therapy-format.html  (commit 26e57dd8162e068bbd62ad10b822e4572547af89; issue at 7d26b999b6256a6f5d855daeffe03a123e1318e6)
+5abb74152548979b32100fdcf5fe8cba0939dbebd34fbf58b650c85b338b13a8  WHU-S03  issues/WHU-S03-public-involvement-climate-policy/draft/public-involvement-climate-policy.html  (commit 866b8efd2884086cfaf7a00674787e2a113529ad; issue at 125a7a4909e5c342d0abd7a3b0e01b3b39ce6070)
+e6b71b8c11803d6beb175663a75c2218e27a57a76aa053b9ac6ef3ee91a2f377  WHU-S04  issues/WHU-S04-city-growth-climate-coping/draft/city-growth-climate-coping.html  (commit ee627cab0cf250e4a7ed0df7d79bacc43be20f45; issue at 50665bf333d32a529801caa60b324a2dd3dd8f54)

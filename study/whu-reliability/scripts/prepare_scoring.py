@@ -166,7 +166,10 @@ def verify(a) -> int:
         dirty = subprocess.run(["git", "diff", "--quiet", "HEAD", "--", rel], cwd=ROOT).returncode != 0
         if dirty or not commit:
             bad.append("%s: WHU page %s %s" % (q, rel, "differs from its last commit" if dirty else "is not committed"))
-        whu.append("%s  %s  %s  (commit %s)" % (sha(page.read_bytes()), q, rel, commit))
+        issue_dir = str(page.parent.parent.relative_to(ROOT))
+        at = subprocess.run(["git", "log", "-1", "--format=%H", "--", issue_dir], cwd=ROOT,
+                            capture_output=True, text=True).stdout.strip()
+        whu.append("%s  %s  %s  (commit %s; issue at %s)" % (sha(page.read_bytes()), q, rel, commit, at))
     for label, n in rows:
         print("  %-45s %3d ok" % (label, n))
     if bad:
@@ -177,8 +180,9 @@ def verify(a) -> int:
     LOG.mkdir(parents=True, exist_ok=True)
     (LOG / "whu_answers_manifest.txt").write_text(
         "# WHU reliability study: WHU's answers, sha256 manifest (written by prepare_scoring.py verify)\n"
-        "# WHU's answer is the issue page as committed. WHU-S04 is still running and is not listed yet.\n"
-        "#\n# sha256  question  page  (last commit touching the page)\n" + "\n".join(whu) + "\n")
+        "# WHU's answer is the issue page as committed, once the run is at \"ready for operator acceptance\".\n"
+        "#\n# sha256  question  page  (last commit touching the page; last commit touching the issue)\n"
+        + "\n".join(whu) + "\n")
     print("  %-45s %3d written to scoring/whu_answers_manifest.txt" % ("WHU pages", len(whu)))
     return 0
 
@@ -414,14 +418,17 @@ def do_snapshot(a) -> int:
     have = set()
     mf = run / "sources" / "manifest.json"
     if mf.exists():
-        have = {r["url"] for r in json.loads(mf.read_text()) if r["extent"] != "unreachable"}
+        # Every address with a row, held or not: one still unreachable has been
+        # through retrieve_sources.py's routes, and its record is kept, not
+        # replaced by a fresh first fetch (round 3, WHU-S04).
+        have = {r["url"] for r in json.loads(mf.read_text())}
     todo = [{"item": "U%03d" % i, "urls": [u]} for i, u in enumerate(urls) if u not in have]
     if todo:
         write_json(run / "fetch_list.json", todo)
         old = json.loads(mf.read_text()) if mf.exists() else []
         subprocess.run([sys.executable, str(HERE / "snapshot.py"), str(run / "fetch_list.json"), str(run)], check=True)
         new = json.loads(mf.read_text())
-        by = {r["url"]: r for r in old if r["extent"] != "unreachable"}
+        by = {r["url"]: r for r in old}
         by.update({r["url"]: r for r in new})
         write_json(mf, [by[u] for u in urls if u in by])
     return snapshot_report()

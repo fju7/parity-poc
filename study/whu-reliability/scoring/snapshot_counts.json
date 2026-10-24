@@ -1,5 +1,5 @@
 {
- "written": "2026-10-24T00:28:38+00:00",
+ "written": "2026-10-24T00:33:14+00:00",
  "per_answer": [
   {
    "question": "WHU-S01",
@@ -132,77 +132,121 @@
    "no_url": 0,
    "uncited": 0,
    "unreachable_sources": 0
+  },
+  {
+   "question": "WHU-S04",
+   "system": "ChatGPT",
+   "items": 12,
+   "held": 12,
+   "incomplete": 0,
+   "abstract_only": 4,
+   "no_url": 0,
+   "uncited": 8,
+   "unreachable_sources": 0
+  },
+  {
+   "question": "WHU-S04",
+   "system": "Claude",
+   "items": 11,
+   "held": 8,
+   "incomplete": 3,
+   "abstract_only": 1,
+   "no_url": 0,
+   "uncited": 9,
+   "unreachable_sources": 3
+  },
+  {
+   "question": "WHU-S04",
+   "system": "Gemini",
+   "items": 20,
+   "held": 9,
+   "incomplete": 11,
+   "abstract_only": 0,
+   "no_url": 0,
+   "uncited": 0,
+   "unreachable_sources": 5
+  },
+  {
+   "question": "WHU-S04",
+   "system": "WHU",
+   "items": 20,
+   "held": 20,
+   "incomplete": 0,
+   "abstract_only": 2,
+   "no_url": 0,
+   "uncited": 0,
+   "unreachable_sources": 0
   }
  ],
  "routes": {
   "a": 1,
   "b": 0,
-  "c": 8,
+  "c": 9,
   "d": 14
  },
  "reachability": {
   "WHU": {
-   "cited_items": 60,
-   "items_all_sources_by_script": 59,
+   "cited_items": 80,
+   "items_all_sources_by_script": 79,
    "items_needing_operator_fetch": 1,
    "items_unreachable": 0,
-   "share_reachable_by_script": 0.9833,
+   "share_reachable_by_script": 0.9875,
    "share_reachable_after_operator_fetch": 1.0,
    "share_unreachable": 0.0,
    "flag_unreachable_over_20pct": false,
    "sources": {
-    "distinct": 27,
-    "by_script": 26,
+    "distinct": 35,
+    "by_script": 34,
     "by_operator_fetch": 1,
     "unreachable": 0
    }
   },
   "Claude": {
-   "cited_items": 46,
-   "items_all_sources_by_script": 32,
+   "cited_items": 57,
+   "items_all_sources_by_script": 40,
    "items_needing_operator_fetch": 7,
-   "items_unreachable": 7,
-   "share_reachable_by_script": 0.6957,
-   "share_reachable_after_operator_fetch": 0.8478,
-   "share_unreachable": 0.1522,
+   "items_unreachable": 10,
+   "share_reachable_by_script": 0.7018,
+   "share_reachable_after_operator_fetch": 0.8246,
+   "share_unreachable": 0.1754,
    "flag_unreachable_over_20pct": false,
    "sources": {
-    "distinct": 42,
-    "by_script": 28,
+    "distinct": 55,
+    "by_script": 38,
     "by_operator_fetch": 7,
-    "unreachable": 7
+    "unreachable": 10
    }
   },
   "ChatGPT": {
-   "cited_items": 51,
-   "items_all_sources_by_script": 36,
+   "cited_items": 63,
+   "items_all_sources_by_script": 48,
    "items_needing_operator_fetch": 3,
    "items_unreachable": 12,
-   "share_reachable_by_script": 0.7059,
-   "share_reachable_after_operator_fetch": 0.7647,
-   "share_unreachable": 0.2353,
-   "flag_unreachable_over_20pct": true,
+   "share_reachable_by_script": 0.7619,
+   "share_reachable_after_operator_fetch": 0.8095,
+   "share_unreachable": 0.1905,
+   "flag_unreachable_over_20pct": false,
    "sources": {
-    "distinct": 19,
-    "by_script": 14,
+    "distinct": 24,
+    "by_script": 19,
     "by_operator_fetch": 2,
     "unreachable": 3
    }
   },
   "Gemini": {
-   "cited_items": 59,
-   "items_all_sources_by_script": 39,
+   "cited_items": 79,
+   "items_all_sources_by_script": 48,
    "items_needing_operator_fetch": 7,
-   "items_unreachable": 13,
-   "share_reachable_by_script": 0.661,
-   "share_reachable_after_operator_fetch": 0.7797,
-   "share_unreachable": 0.2203,
+   "items_unreachable": 24,
+   "share_reachable_by_script": 0.6076,
+   "share_reachable_after_operator_fetch": 0.6962,
+   "share_unreachable": 0.3038,
    "flag_unreachable_over_20pct": true,
    "sources": {
-    "distinct": 40,
-    "by_script": 28,
+    "distinct": 50,
+    "by_script": 33,
     "by_operator_fetch": 4,
-    "unreachable": 8
+    "unreachable": 13
    }
   }
  },
@@ -210,16 +254,16 @@
   "acceptedVersion": 2,
   "as cited": 1,
   "publishedVersion": 16,
-  "submittedVersion": 2,
+  "submittedVersion": 3,
   "web page as rendered": 2
  },
  "first_fetch_bytes_reread_to_held": 10,
- "still_unreachable_free_but_blocking": 1,
- "still_unreachable_free_but_blocking_not_tried_by_advisor": 0,
+ "still_unreachable_free_but_blocking": 4,
+ "still_unreachable_free_but_blocking_not_tried_by_advisor": 3,
  "sources": {
-  "distinct": 122,
-  "full_text": 97,
-  "abstract_only": 8,
-  "unreachable": 17
+  "distinct": 157,
+  "full_text": 121,
+  "abstract_only": 11,
+  "unreachable": 25
  }
 }

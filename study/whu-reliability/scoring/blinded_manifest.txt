@@ -14,3 +14,7 @@ aa1e5076b809a63a399a9cb179aa169b4164e4b89412457616ad6a605a622e05  WHU-S02  Gemin
 59fe43f143486a85fa8203b65f6fd7cef9a2c3c84de38e928b1713ef5f8f5f89  WHU-S03  Claude   claude.md           37276   213   213    89   90
 9c2458ea237039934faf024197aec897d4150cde5cb956278ccd15121bd671f1  WHU-S03  ChatGPT  chatgpt.md          23881   156   156    60   28
 352dd8ca43c780eb73b7a7c1065fbfc8f78913b16e7154b9e3083b591adbb967  WHU-S03  Gemini   gemini.raw.html     25952   104   104   102   29
+9cc4455c49b7c2c982c485434754580bffa80a3543e63b337d1133dca4300885  WHU-S04  WHU      city-growth-climate-coping.html   8977    29    29    29    9
+bfc0020d2b5ce90771a2c3fbe40ad03728ddd743aecbb7de5f21a760476c5c8a  WHU-S04  Claude   claude.md           25357   177   176    59   49
+de6c2f621c50a3b09a280ca618356929a4b3e0fc20802a3fca016c5589166acb  WHU-S04  ChatGPT  chatgpt.md          26640   195   195    32   14
+ae9078f3438c3e6fbc2945a256585d827c9453e49f258efe2bdd74f7c68deefc  WHU-S04  Gemini   gemini.raw.html     38047   162   149   130   47
