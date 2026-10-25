@@ -124,7 +124,11 @@
           "kind_why": "5638633 characters, reference list and discussion/introduction present"
         },
         "on": "2026-10-24"
-      }
+      },
+      "also_called": [
+        "Duranton and Turner",
+        "Duranton"
+      ]
     },
     {
       "id": "S008",
@@ -178,7 +182,11 @@
         "resolved_on": "2026-10-24",
         "resolved_title": "A dozen effective interventions to reduce car use in European cities: Lessons learned from a meta-analysis and transition management",
         "by": "sweep_sources.py resolve --write"
-      }
+      },
+      "also_called": [
+        "review of European interventions",
+        "Kuss"
+      ]
     },
     {
       "id": "S010",
@@ -219,7 +227,11 @@
           "kind_why": "form 'page' — 48 prose sentence(s) over sixty characters, 1852 words — this reads as the page itself"
         },
         "on": "2026-10-24"
-      }
+      },
+      "also_called": [
+        "Reuters",
+        "Jakarta Post"
+      ]
     },
     {
       "id": "S013",
@@ -239,7 +251,10 @@
           "kind_why": "form 'page' — 81 prose sentence(s) over sixty characters, 2713 words — this reads as the page itself"
         },
         "on": "2026-10-24"
-      }
+      },
+      "also_called": [
+        "Popular Science"
+      ]
     },
     {
       "id": "S014",
@@ -259,7 +274,10 @@
           "kind_why": "form 'page' — 34 prose sentence(s) over sixty characters, 1027 words — this reads as the page itself"
         },
         "on": "2026-10-24"
-      }
+      },
+      "also_called": [
+        "CleanTechnica"
+      ]
     },
     {
       "id": "S015",
