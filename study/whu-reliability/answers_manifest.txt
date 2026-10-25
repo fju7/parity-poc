@@ -58,3 +58,21 @@ bfa48682f2b17348806c7896cd6a0982284b029cc4ce1bdf2e03b9b5291f47ab  WHU-S08/claude
 e6c5c865113c43e5f09a358ad4f07c3ed39ed759d03eb39a309283af19205b52  WHU-S08/claude.raw.txt
 72677c3d8f4911b06ab0e16a31318a483e263c275f3e29e9c76bed2886f486aa  WHU-S08/gemini.md
 fb4a34e6d8255f85b74159392c8448e722a1532a6c90fba2faf158a91cfe45d0  WHU-S08/gemini.raw.txt
+#
+# Extension questions WHU-S05 and WHU-S06 (appended 2026-10-24). Hashed 2026-10-24 ~21:33 with shasum -a 256 by the second capture-clerk session at capture.
+# Same route as WHU-S07/S08 (Claude Download as Markdown; ChatGPT Export to Markdown; Gemini Export to Docs then Docs Download > Markdown), exact copy in <tool>.raw.txt,
+# <tool>.md built by build_capture.py and checked with blinding/adapt.report_section (all five True).
+# WHU-S05: Claude 21:10-21:16, ChatGPT 21:11-21:22, Gemini 21:12-21:31 ET. WHU-S06: Gemini 20:56-21:14, ChatGPT 21:09-21:15 ET; Claude sent 20:54:49 ET.
+# WHU-S06 IS INCOMPLETE: no Claude file. The S06 Claude run (incognito) was in the previous session's Chrome tab group and could not be found; not saved, not re-run.
+# Both ChatGPT runs show '0 citations · 0 searches' and their exports hold no URLs (as WHU-S07/S08); recorded, not ruled on.
+# Both Gemini runs started research with no click from the clerk after the plan was shown; plans unedited (run_record_S05-S08.md).
+ed7096acc530773dd9a6ab0a6d4fe98359c67f71492f2b2d8c832863e3213a5a  WHU-S05/chatgpt.md
+202fa54194e40fc7ef00dc7879b7b7be22469f604fbe16e8dbecb456f6efccc0  WHU-S05/chatgpt.raw.txt
+8020b49658aba7f578ec3301d141501f83b665d0c8eaa1b3c75bb52aae8d48d0  WHU-S05/claude.md
+78af0f55e84262f194396c1fc9309dd89f9c5b89553bec611a1d78de747a76d9  WHU-S05/claude.raw.txt
+278a517e3cddbe886f53d6cf86cc08297171681794b19b71386c635593989ae6  WHU-S05/gemini.md
+a2e5b618a91edc4734d2ac130103b444869047c2de311fca22d6e5fb05b95609  WHU-S05/gemini.raw.txt
+5aea41735cc6ccde91622e496a0b50448b60910ea98345440497d6fbe669d574  WHU-S06/chatgpt.md
+0aeaacf3e707caa9118e4b924641b1ce4ad10e64744ff4c840a3cef8ca1d3103  WHU-S06/chatgpt.raw.txt
+f3d04d7c2277537b2df6cbfd246ce4605ba62ff6521a6492282da9248774f7ec  WHU-S06/gemini.md
+ba78c0973a7671d321c5f811f1a6760520fe9c25e5576d8ea6df2ede6254c2ac  WHU-S06/gemini.raw.txt
