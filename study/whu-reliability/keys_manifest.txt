@@ -75,8 +75,11 @@ b449d105f16b13e815223e11e75f6f1d332434462174a5f91c910d4dfc681b13  WHU-S06/check_
 5644ca80bb0eecd24652bd7d896ac1c2320cf9da5a7d45d643eada7ad2b4940d  WHU-S06/source/cl2.1377.pdf
 0054c36f65ef382eee88bb90a525b42184eea3320c155ff5e1c33147cbf155bb  WHU-S06/source/cl2.1377.pdf.txt
 
-# WHU-S05 (re-drawn: Cochrane CD015890.pub2, PMC11165671) drafted 2026-10-24 by Claude Code (session 4c25ed39-5ffe-4a6b-b01d-7c5a591c5060), key drafter, from Europe PMC fullTextXML. Offsets: plain 0-based character positions in source/fulltext.txt. Status: DRAFT, not checked, not frozen.
-54aa180ba39afab03d7e6d462bbb75a938393dee0c816a132c981272db631b8e  WHU-S05/key.json
+# WHU-S05 (re-drawn: Cochrane CD015890.pub2, PMC11165671) drafted 2026-10-24 by Claude Code (session 4c25ed39-5ffe-4a6b-b01d-7c5a591c5060), key drafter, from Europe PMC fullTextXML. Offsets: plain 0-based character positions in source/fulltext.txt.
+# WHU-S05 checked 2026-10-24 by Claude Code, key checker, a separate instance; 5 conclusions, 1 changed (wording of one statement's scope),
+# all 13 quote offsets correct; see WHU-S05/check_log.md. Status: WHU-S05 FROZEN. The drafted key's hash (54aa180b…) is in this file's previous version.
+d584f6f7d1864cf1e4bd39473ee26a14bad0aa24b2c1c53469ad97ae93f812a7  WHU-S05/key.json
+61c5b75f580ce05bd330f49f19f930a4845600fa2cb0b1e6e6f8095d8608e7aa  WHU-S05/check_log.md
 6bdc5dde0475e18aa938e8244ba2ec2e43666296e2eee535aafc87c159ac8063  WHU-S05/sources.sha256
 1bd3075ae07c29871d6c4db6fa5b1c13d2d4c88c3a7e5d409a1408690d397ade  WHU-S05/source/PMC11165671.xml
 ad6095df454a710eeebad4f87a8dbcd1f225d3fadec2304b098cd4ea955f99b6  WHU-S05/source/fulltext.txt
