@@ -2982,3 +2982,23 @@ Fred has raised a future feature: an AI-assisted review of the generated appeal-
 - AI flags, never renders verdicts. For claims that cannot be checked deterministically (a possibly-unsupported clinical assertion, a possible overstatement), an AI reviewer may only surface QUESTIONS for a human to verify (for example: "this sentence asserts X — please confirm it is supported"). It must be allowed to say "I am not sure." It must never declare a statement true or false.
 - Never replaces human review. The feature must increase human scrutiny, not create false confidence. If it ever leads a patient to trust the letter more without looking, it is causing harm. It strengthens the human review gate (PH-4b-3); it does not substitute for it.
 - PHI-safe by design. The letter contains the patient's real identifiers. The de-identification approach (the same tokenization used for letter generation) must be worked out before this feature is designed.
+
+## BOUNDARY CLAIMS NAME THEIR AUTHORITY
+
+The recurring advisor error is not a wrong fact. It is a boundary claim — what a field covers,
+what a set contains, what a label designates, what state a system is in, which code path runs —
+inferred rather than read from the thing that defines it. Seven reached a brief in the week of
+2026-10-23; one ("the entire 5XX range") would, as written, have refused sign-in across four
+US states.
+
+- A boundary claim names the authority that settles it: the schema, the standards body, the
+  provider's log, the source file, the console. A claim that cannot name one is an inference and
+  says so.
+- Every count and every set carries its provenance — the query, filter or membership rule that
+  produced it. A number with no provenance belongs to a different question until shown otherwise;
+  reusing an earlier question's filter is how wrong sets get made.
+- When confirming someone else's figure, report the DERIVATION, not agreement. "Right, but
+  composed differently" is the useful answer; "confirmed" hides whether a check happened.
+
+This applies to the advisor's statements as much as to anything else in this repo. Check each such
+claim against its authority and report any that changes materially.
