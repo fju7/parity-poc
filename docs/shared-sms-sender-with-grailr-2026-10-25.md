@@ -28,6 +28,8 @@ changed there.
 3. **Traffic outside the verification.** Grailr's codes are not the use case this number was verified for. Carriers
    can suspend a toll-free number whose traffic does not match its verification — that would stop CivicScale's
    phone sign-in too.
+   *As of 2026-10-25, both products are pre-launch with no outside users,* so a suspension today would affect two
+   development products and no users. The point above describes how suspension works; it makes no claim about users.
 4. **One balance.** Auto-recharge is on ($10 → $50, one card, no backup method); the low-balance email ($5) goes to
    account owners. Both products draw on it.
 
