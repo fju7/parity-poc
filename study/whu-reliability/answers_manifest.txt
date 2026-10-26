@@ -63,7 +63,8 @@ fb4a34e6d8255f85b74159392c8448e722a1532a6c90fba2faf158a91cfe45d0  WHU-S08/gemini
 # Same route as WHU-S07/S08 (Claude Download as Markdown; ChatGPT Export to Markdown; Gemini Export to Docs then Docs Download > Markdown), exact copy in <tool>.raw.txt,
 # <tool>.md built by build_capture.py and checked with blinding/adapt.report_section (all five True).
 # WHU-S05: Claude 21:10-21:16, ChatGPT 21:11-21:22, Gemini 21:12-21:31 ET. WHU-S06: Gemini 20:56-21:14, ChatGPT 21:09-21:15 ET; Claude sent 20:54:49 ET.
-# WHU-S06 IS INCOMPLETE: no Claude file. The S06 Claude run (incognito) was in the previous session's Chrome tab group and could not be found; not saved, not re-run.
+# WHU-S06 Claude (sent 20:54:49 ET, Research complete ~21:01, 304 sources): not found on 2026-10-24 (the run was in the first clerk's Chrome tab group). Saved 2026-10-25 ~20:37 ET
+# by the first capture-clerk session: the incognito chat reopened by its address, report ... > Download as Markdown, moved byte for byte; not re-run. Lines added below.
 # Both ChatGPT runs show '0 citations · 0 searches' and their exports hold no URLs (as WHU-S07/S08); recorded, not ruled on.
 # Both Gemini runs started research with no click from the clerk after the plan was shown; plans unedited (run_record_S05-S08.md).
 ed7096acc530773dd9a6ab0a6d4fe98359c67f71492f2b2d8c832863e3213a5a  WHU-S05/chatgpt.md
@@ -74,5 +75,7 @@ ed7096acc530773dd9a6ab0a6d4fe98359c67f71492f2b2d8c832863e3213a5a  WHU-S05/chatgp
 a2e5b618a91edc4734d2ac130103b444869047c2de311fca22d6e5fb05b95609  WHU-S05/gemini.raw.txt
 5aea41735cc6ccde91622e496a0b50448b60910ea98345440497d6fbe669d574  WHU-S06/chatgpt.md
 0aeaacf3e707caa9118e4b924641b1ce4ad10e64744ff4c840a3cef8ca1d3103  WHU-S06/chatgpt.raw.txt
+4575b37ac88308eb050f25738b8b567fb4a11f0ab47a523266befae5a3d399a4  WHU-S06/claude.md
+6f733055fcb42b2f61ede00173ebba341156674b186112fa669eb702b6919f18  WHU-S06/claude.raw.txt
 f3d04d7c2277537b2df6cbfd246ce4605ba62ff6521a6492282da9248774f7ec  WHU-S06/gemini.md
 ba78c0973a7671d321c5f811f1a6760520fe9c25e5576d8ea6df2ede6254c2ac  WHU-S06/gemini.raw.txt
