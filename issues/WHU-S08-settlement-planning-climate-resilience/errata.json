@@ -4,7 +4,7 @@
     "S001": {
       "source": "S001",
       "title": "A systematic global stocktake of evidence on human adaptation to climate change",
-      "checked_on": "2026-10-24",
+      "checked_on": "2026-10-25",
       "identifier": "DOI 10.1038/s41558-021-01170-y",
       "identifier_from": "the held document",
       "identity": "resolved title shares 8 word(s) with ours: adaptation, change, climate, evidence, global, human, stocktake, systematic",
@@ -19,7 +19,7 @@
     "S002": {
       "source": "S002",
       "title": "The effects on public health of climate change adaptation responses: a systematic review of evidence from low- and middl",
-      "checked_on": "2026-10-24",
+      "checked_on": "2026-10-25",
       "identifier": "PMCID PMC8276060",
       "identifier_from": "the source URL",
       "resolved_title": "The effects on public health of climate change adaptation responses: a systematic review of evidence from low- and middle-income countries.",
@@ -32,7 +32,7 @@
     "S003": {
       "source": "S003",
       "title": "Cities, Settlements and Key Infrastructure",
-      "checked_on": "2026-10-24",
+      "checked_on": "2026-10-25",
       "identifier": "DOI 10.1017/9781009325844.008",
       "identifier_from": "the held document",
       "identity": "resolved title shares 3 word(s) with ours: cities, infrastructure, settlements",
@@ -47,11 +47,26 @@
     "S004": {
       "source": "S004",
       "title": "Flood Insurance and Claims: The Impact of the Community Rating System",
-      "checked_on": "2026-10-24",
+      "checked_on": "2026-10-25",
       "state": "UNCHECKABLE",
       "why": "no DOI, PMID, PMCID or PII can be parsed from the URL we hold; nothing is typed from memory, so this source cannot be looked up automatically",
       "amendments": [],
       "comments": []
+    },
+    "S005": {
+      "source": "S005",
+      "title": "Flood Insurance and Claims: The Impact of the Community Rating System",
+      "checked_on": "2026-10-25",
+      "identifier": "DOI 10.1093/aepp/ppz013",
+      "identifier_from": "the source URL",
+      "identity": "resolved title shares 7 word(s) with ours: claims, community, flood, impact, insurance, rating, system",
+      "resolved_title": "Flood Insurance and Claims: The Impact of the Community Rating System",
+      "index": "Crossref",
+      "update_policy": "https://doi.org/10.1002/crossmark_policy",
+      "amendments": [],
+      "comments": [],
+      "state": "CLEAN",
+      "why": "matched on DOI 10.1093/aepp/ppz013 at Crossref; not in Europe PMC. The publisher registers a Crossmark update policy, so a correction would have been deposited here"
     }
   }
 }

@@ -12,6 +12,16 @@
       "unsweepable": [
         "S004"
       ]
+    },
+    {
+      "on": "2026-10-25",
+      "command": "resolve --write",
+      "resolved": [],
+      "refused": [],
+      "failed": [],
+      "unsweepable": [
+        "S004"
+      ]
     }
   ]
 }

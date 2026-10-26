@@ -23,7 +23,11 @@
         },
         "on": "2026-10-24"
       },
-      "document_class": "document"
+      "document_class": "document",
+      "also_called": [
+        "Berrang-Ford",
+        "stocktake"
+      ]
     },
     {
       "id": "S002",
@@ -47,7 +51,10 @@
         },
         "on": "2026-10-24"
       },
-      "document_class": "document"
+      "document_class": "document",
+      "also_called": [
+        "Scheelbeek"
+      ]
     },
     {
       "id": "S003",
@@ -71,7 +78,12 @@
         },
         "on": "2026-10-24"
       },
-      "document_class": "document"
+      "document_class": "document",
+      "also_called": [
+        "IPCC chapter",
+        "IPCC",
+        "the chapter"
+      ]
     },
     {
       "id": "S004",
@@ -95,7 +107,12 @@
         "on": "2026-10-24"
       },
       "version": "the March 2019 working paper (held); published as Frimpong E, Petrolia DR, Harri A, Cartwright JH, Applied Economic Perspectives and Policy 42(2):245-262, doi 10.1093/aepp/ppz013 (online 26 July 2019). Crossref's abstract for the published article is word for word the working paper's abstract; Crossref records no update relation for it (checked 2026-10-24 by Claude Code).",
-      "document_class": "document"
+      "document_class": "document",
+      "also_called": [
+        "Frimpong",
+        "flood study",
+        "working paper"
+      ]
     },
     {
       "id": "S005",
@@ -103,15 +120,20 @@
       "title": "Flood Insurance and Claims: The Impact of the Community Rating System",
       "form": "article",
       "url": "https://doi.org/10.1093/aepp/ppz013",
-      "also_called": [],
+      "also_called": [
+        "10.1093/aepp/ppz013",
+        "journal version"
+      ],
       "used_for": "the journal version of S004 (Applied Economic Perspectives and Policy 42(2):245-262); named in the source list, not held; Crossref's abstract for it matches S004's word for word",
       "access": {
-        "state": "not_opened",
-        "by": "Claude Code (session 418b2fea)",
-        "on": "2026-10-24",
+        "state": "blocked",
+        "by": "Fred's advisor (Claude)",
+        "on": "2026-10-26",
         "not_read": [
           "all -- not held"
-        ]
+        ],
+        "blocked_by": "licence",
+        "note": "Attempted 2026-10-26 about 01:12 UTC by Fred's advisor (Claude): doi.org resolved https://doi.org/10.1093/aepp/ppz013 to https://onlinelibrary.wiley.com/doi/10.1093/aepp/ppz013, which returned HTTP 403 to a request with a browser-style user-agent; not retried; no content obtained. Crossref lists the publisher as Wiley, licence Wiley's own terms (not open); Wiley's terms forbid AI processing of material from its site, so it is not to be fetched by any route. Recorded by Claude Code (session 418b2fea) at Fred's ruling."
       },
       "document_class": "document"
     }
