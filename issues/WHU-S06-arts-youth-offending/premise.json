@@ -1,0 +1,63 @@
+{
+  "_what_this_is": "The entry gate, answered BEFORE drafting. The threshold question is whether a well-informed non-expert would confidently believe something the primary sources do not support.",
+  "belief": {
+    "_note": "What the reader already believes, stated as they would state it. If you cannot write this sentence, there is nothing to correct and no subject -- which is how the tobacco-analogy candidate died.",
+    "statement": "Arts programmes (music, drama, dance, visual arts) for young people at risk of offending or already in the youth justice system reduce their offending and improve their behaviour and wellbeing.",
+    "how_we_know_they_believe_it": "The Cultural Learning Alliance, a UK arts-education advocacy body, published 'Young offenders who take part in arts activities are 18% less likely to re-offend' as one of its ten Key Research Findings (archived copy of 8 December 2023; the live page now returns 404). Arts organisations and sector bodies repeat reoffending figures from single programme evaluations.",
+    "carried_by": [
+      {
+        "outlet": "Cultural Learning Alliance, Key Research Findings: the case for Cultural Learning, Finding 8",
+        "url": "https://web.archive.org/web/20231208015752/https://www.culturallearningalliance.org.uk/evidence/key-research-findings-the-case-for-cultural-learning/finding-8-young-offenders/",
+        "date": "archived 2023-12-08",
+        "what_it_said": "Young offenders who take part in arts activities are 18% less likely to re-offend (citing Stephenson, Adams and Tarling 2014, an evaluation of the Summer Arts College programme)"
+      }
+    ]
+  },
+  "what_the_sources_show": {
+    "statement": "The 2024 Campbell systematic review (43 studies, searched to January 2023) found no included study that reported offending, and insufficient quantitative evidence to support or refute any effect on any outcome; behaviour and wellbeing estimates came from single small studies with very low certainty. Qualitative studies report positive emotions, a sense of self and better relationships, at very low confidence. A matched-comparison study included in the review (Caulfield 2022) found better attendance at youth offending team appointments and pre-post wellbeing gains, but did not measure reoffending. A randomised trial of a music mentoring programme (SHIFT, ISRCTN96905637) is ongoing, with self-reported delinquency as its primary outcome.",
+    "sources": [
+      "S001",
+      "S002",
+      "S003",
+      "S004",
+      "S005"
+    ]
+  },
+  "direction": {
+    "_note": "CORRECTS, CONFIRMS or NARROWS. This field exists so the contrarianism guard can count. A publication whose answer is always CORRECTS is performing scepticism rather than assessing evidence, and is not to be trusted.",
+    "value": "narrows",
+    "_values": [
+      "corrects",
+      "confirms",
+      "narrows"
+    ]
+  },
+  "reader_with_a_decision": "A youth offending team manager, local authority commissioner or charitable funder deciding whether to fund an arts programme as a way of reducing offending, rather than for engagement or wellbeing.",
+  "public_record_check": {
+    "_note": "NOT 'has anybody published this'. On any contested question, somebody has. The question is whether it has been carried WHERE THIS READER WOULD FIND IT. Run the counterexample hunter on the belief statement, not on the finding.",
+    "prior_art_found": [
+      "Youth Endowment Fund Toolkit, Arts programmes: 'insufficient evidence to calculate an impact rating' (S003)",
+      "YEF Toolkit technical report, March 2024 (S002)",
+      "Mansfield et al. 2024, Campbell Systematic Reviews (S001)"
+    ],
+    "carried_in_general_coverage": "Carried in sector channels, not general news: the YEF Toolkit rates arts programmes 'insufficient evidence', and arts-sector press reported the review's call for more robust evaluation. No general news coverage of the review was found in the searches run on 2026-10-26.",
+    "our_contribution": "translation: setting the review's finding (no study measured offending) beside the reoffending claim still repeated, and adding what has appeared since (Caulfield 2022's design and outcomes, the SHIFT trial now running)."
+  },
+  "sources_are_open": "yes: the review (open access, Europe PMC), the YEF report and Toolkit page, the Caulfield 2022 accepted manuscript (Bath Spa repository) and the ISRCTN record are all openly available and held.",
+  "evidence_base_is_bounded": "yes: one recent systematic review of the whole question, its YEF derivative, one included study read in full, and one ongoing trial.",
+  "kill_condition": "There is no story if (a) a general reader does not actually hold this belief, or (b) the primary evaluations, with comparison groups, do show reduced offending and improved behaviour and wellbeing, so that the answer simply restates what the reader believes with nothing to narrow, or (c) the limits of the evidence have already been carried in general coverage where this reader would meet them.",
+  "kill_condition_tested": {
+    "_note": "Filled in AFTER going to look, by whoever looked.",
+    "by": "Claude Code",
+    "on": "2026-10-26",
+    "result": "narrowed",
+    "_result_values": [
+      "survived",
+      "narrowed",
+      "killed"
+    ],
+    "note": "(a) the belief is carried (Cultural Learning Alliance, Finding 8). (b) the sources do not support it: no included study measured offending. (c) partly met: the YEF Toolkit, which a youth-justice commissioner may well consult, already says the evidence is insufficient; general news has not carried it. The answer narrows rather than corrects, because the review neither supports nor refutes an effect."
+  },
+  "lead_came_from": "the WHU reliability study's draw (issue.json); not chosen by WHU",
+  "kill_condition_written_at": "2026-10-26T01:00Z, by Claude Code, before any source was opened"
+}

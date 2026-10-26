@@ -1,0 +1,11 @@
+{
+  "what_this_is": "Names the page attributes work to, each checked against the held document's own author list.",
+  "verified": [
+    {
+      "name": "Mansfield",
+      "checked_against": "S001, held Europe PMC full-text XML (sha256 5925eb69...), contrib-group: Mansfield Louise is the first of eight authors; the page's source list gives all eight",
+      "by": "Claude Code (session 40c6f9bd)",
+      "on": "2026-10-26"
+    }
+  ]
+}

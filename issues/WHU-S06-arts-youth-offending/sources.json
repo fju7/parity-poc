@@ -1,0 +1,206 @@
+{
+  "issue": "arts-youth-offending",
+  "sources": [
+    {
+      "id": "S001",
+      "type": "synthesis",
+      "title": "A mixed methods systematic review on the effects of arts interventions for children and young people at-risk of offending, or who have offended on behavioural, psychosocial, cognitive and offending outcomes: A systematic review",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10765125/",
+      "also_called": [
+        "Mansfield et al. 2024",
+        "Campbell Systematic Reviews 20(1):e1377",
+        "doi:10.1002/cl2.1377"
+      ],
+      "used_for": "the systematic review the answer rests on: what the included studies measured and found",
+      "access": {
+        "state": "full_text_held",
+        "by": "Claude Code",
+        "on": "2026-10-25",
+        "not_read": [
+          "all -- not held"
+        ],
+        "held": {
+          "file": "docs/59/5925eb699733395ddecdb40902d68aec67961bda0a9f55996784adf71b61933c.xml",
+          "sha256": "5925eb699733395ddecdb40902d68aec67961bda0a9f55996784adf71b61933c",
+          "bytes": 354749,
+          "identified_by": "contains its identifier PMC10765125 — 148264 characters, reference list and discussion present; title present (11 of 12 title words in the visible text)",
+          "kind": "full_text",
+          "kind_why": "148264 characters, reference list and discussion present"
+        }
+      },
+      "document_class": "document",
+      "identifier": {
+        "kind": "pmid",
+        "value": "38188229",
+        "shape": "PMCID PMC10765125 in the held URL",
+        "resolved_by": "Europe PMC search PMCID:PMC10765125 -> MED/38188229",
+        "identity": "the PMCID is literally in the URL we hold",
+        "resolved_on": "2026-10-25",
+        "resolved_title": "A mixed methods systematic review on the effects of arts interventions for children and young people at-risk of offending, or who have offended on behavioural, ",
+        "by": "sweep_sources.py resolve --write",
+        "pmcid": "PMC10765125",
+        "doi": "10.1002/cl2.1377"
+      }
+    },
+    {
+      "id": "S002",
+      "type": "review",
+      "title": "Arts Programmes: Toolkit technical report",
+      "form": "article",
+      "url": "https://youthendowmentfund.org.uk/wp-content/uploads/2024/04/YEF-Technical-Report_Arts-Programmes-March-2024.pdf",
+      "also_called": [
+        "Mansfield, O'Connell and White, March 2024",
+        "YEF Toolkit technical report"
+      ],
+      "used_for": "the Youth Endowment Fund's technical report, summarising the review for its Toolkit",
+      "access": {
+        "state": "full_text_held",
+        "by": "Claude Code",
+        "on": "2026-10-25",
+        "not_read": [
+          "all -- not held"
+        ],
+        "held": {
+          "file": "docs/fd/fd7f2fbccd5806c8a5e4f5abfc3cca759f18ab65fc24f79cc7c1eece78840e97.pdf",
+          "sha256": "fd7f2fbccd5806c8a5e4f5abfc3cca759f18ab65fc24f79cc7c1eece78840e97",
+          "bytes": 661084,
+          "identified_by": "contains 5 of 5 distinctive title words — 90831 characters, reference list and discussion present; title present (5 of 5 title words in the visible text)",
+          "kind": "full_text",
+          "kind_why": "90831 characters, reference list and discussion present"
+        }
+      },
+      "document_class": "document",
+      "identifier_refused": {
+        "value": "10.1016/j.tsc.2018.06.003",
+        "refused_by": "Claude Code",
+        "on": "2026-10-26",
+        "why": "sweep_sources.py resolve --write read this DOI out of the held report's reference list; it belongs to a cited paper ('Impact of arts participation on children’s achievement: A systematic literature review'), sharing 1 title word with S002. The YEF technical report carries no DOI of its own. The errata check's 'clean' row for S002 was therefore a reading of the wrong paper."
+      }
+    },
+    {
+      "id": "S003",
+      "type": "secondary",
+      "title": "Arts programmes | YEF Toolkit",
+      "url": "https://youthendowmentfund.org.uk/toolkit/arts-programmes/",
+      "also_called": [
+        "Youth Endowment Fund Toolkit: Arts programmes"
+      ],
+      "used_for": "the Toolkit's public rating of arts programmes",
+      "access": {
+        "state": "full_text_held",
+        "by": "Claude Code",
+        "on": "2026-10-25",
+        "not_read": [
+          "all -- not held"
+        ],
+        "held": {
+          "file": "docs/19/19ab72542788a4d0ee6df5e40360cb9172f181d26eb920d86dfc54b258b048b1.html",
+          "sha256": "19ab72542788a4d0ee6df5e40360cb9172f181d26eb920d86dfc54b258b048b1",
+          "bytes": 100284,
+          "identified_by": "contains 3 of 3 distinctive title words — form 'page' — 44 prose sentence(s) over sixty characters, 1589 words — this reads as the page itself; title present (3 of 3 title words in the visible text)",
+          "kind": "document",
+          "kind_why": "form 'page' — 44 prose sentence(s) over sixty characters, 1589 words — this reads as the page itself"
+        }
+      },
+      "document_class": "document"
+    },
+    {
+      "id": "S004",
+      "type": "primary",
+      "title": "'It's not just music, it helps you from inside': mixing methods to understand the impact of music on young people in contact with the criminal justice system",
+      "url": "https://researchspace.bathspa.ac.uk/13301/1/13301.pdf",
+      "also_called": [
+        "Caulfield, Jolly, Simpson and Devi-McGleish 2022",
+        "Youth Justice 22(1):67-84",
+        "doi:10.1177/1473225420938151"
+      ],
+      "used_for": "a later matched-comparison study of a youth offending team music programme",
+      "access": {
+        "state": "full_text_held",
+        "by": "Claude Code",
+        "on": "2026-10-25",
+        "not_read": [
+          "all -- not held"
+        ],
+        "held": {
+          "file": "docs/fb/fb0687c1d188538c52f4fe0ceded8f5aa6436a10ae4ab0270245e6b3e17b632d.pdf",
+          "sha256": "fb0687c1d188538c52f4fe0ceded8f5aa6436a10ae4ab0270245e6b3e17b632d",
+          "bytes": 875097,
+          "identified_by": "contains 9 of 11 distinctive title words — 60561 characters, reference list and discussion/introduction present; title present (10 of 12 title words in the visible text)",
+          "kind": "full_text",
+          "kind_why": "60561 characters, reference list and discussion/introduction present"
+        }
+      },
+      "document_class": "document",
+      "identifier": {
+        "kind": "doi",
+        "value": "10.1177/1473225420938151",
+        "shape": "DOI read out of the document we hold",
+        "resolved_by": "Crossref works/10.1177/1473225420938151 exists; registered landing URL https://journals.sagepub.com/doi/10.1177/1473225420938151",
+        "identity": "resolved title shares 14 word(s) with ours: contact, criminal, helps, impact, inside, just, justice, methods, mixing, music,",
+        "resolved_on": "2026-10-25",
+        "resolved_title": "‘It’s Not Just Music, It Helps You from Inside’: Mixing Methods to Understand the Impact of Music on Young People in Contact With the Criminal Justice System",
+        "by": "sweep_sources.py resolve --write"
+      }
+    },
+    {
+      "id": "S005",
+      "type": "registry",
+      "title": "Is a music-based mentoring programme delivered with young people aged 11 - 17 years involved in or deemed to be at risk of involvement in violent or non-violent offending",
+      "url": "https://www.isrctn.com/pdf/ISRCTN96905637",
+      "also_called": [
+        "ISRCTN96905637",
+        "SHIFT trial"
+      ],
+      "used_for": "the randomised trial of a music mentoring programme now running",
+      "access": {
+        "state": "full_text_held",
+        "by": "Claude Code",
+        "on": "2026-10-25",
+        "not_read": [
+          "all -- not held"
+        ],
+        "held": {
+          "file": "docs/47/47fceab15cedb6773d83119d5802fa7a5cb8d988fd5a7a4eb8bda126b9cb44c5.pdf",
+          "sha256": "47fceab15cedb6773d83119d5802fa7a5cb8d988fd5a7a4eb8bda126b9cb44c5",
+          "bytes": 46233,
+          "identified_by": "contains 12 of 12 distinctive title words — form 'record' — 18274 characters held. The article test does not apply to this form; title present (12 of 12 title words in the visible text)",
+          "kind": "document",
+          "kind_why": "form 'record' — 18274 characters held. The article test does not apply to this form"
+        }
+      },
+      "document_class": "document"
+    },
+    {
+      "id": "S006",
+      "type": "carrier",
+      "title": "Finding 8: Young offenders",
+      "url": "https://web.archive.org/web/20231208015752/https://www.culturallearningalliance.org.uk/evidence/key-research-findings-the-case-for-cultural-learning/finding-8-young-offenders/",
+      "also_called": [
+        "Cultural Learning Alliance, Key Research Findings"
+      ],
+      "used_for": "a page that carries the belief: '18% less likely to re-offend'",
+      "access": {
+        "state": "not_opened",
+        "by": "Claude Code",
+        "on": "2026-10-25",
+        "not_read": [
+          "all -- not held"
+        ],
+        "last_fetch": {
+          "on": "2026-10-26",
+          "by": "acquire_sources.py",
+          "result": "not fetched",
+          "why": "identified (contains 3 of 3 distinctive title words), but not the document: shell — form 'page' — only 8 prose sentence(s) over sixty characters in 330 words — a teaser, a wall or navigation, not the page (35947 bytes at https://web.archive.org/web/20231208015752/https://www.cultu)",
+          "tried": [
+            {
+              "url": "https://web.archive.org/web/20231208015752/https://www.culturallearningalliance.org.uk/evidence/key-research-findings-the-case-for-cultural-learning/finding-8-young-offenders/",
+              "result": "identified (contains 3 of 3 distinctive title words), but not the document: shell — form 'page' — only 8 prose sentence(s) over sixty characters in 330 words — a teaser, a wall or navigation, not the page (35947 bytes at https://web.archive.org/web/20231208015752/https://www.cultu)"
+            }
+          ]
+        }
+      },
+      "document_class": "document"
+    }
+  ]
+}

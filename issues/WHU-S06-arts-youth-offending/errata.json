@@ -1,0 +1,75 @@
+{
+  "_what_this_is": "For every source, whether its bibliographic record names a correction, erratum, retraction or expression of concern -- and, when the lookup failed, that it failed. 'checked, none' and 'could not check' are different states and this file never merges them.",
+  "checked": {
+    "S001": {
+      "source": "S001",
+      "title": "A mixed methods systematic review on the effects of arts interventions for children and young people at-risk of offendin",
+      "checked_on": "2026-10-25",
+      "identifier": "PMCID PMC10765125",
+      "identifier_from": "the source URL",
+      "resolved_title": "A mixed methods systematic review on the effects of arts interventions for children and young people at-risk of offending, or who have offended on behavioural, ",
+      "identity": "resolved title shares 18 word(s) with ours: arts, behavioural, children, cognitive, effects, have, interventions, methods, m",
+      "amendments": [],
+      "comments": [],
+      "state": "CLEAN",
+      "why": "matched on PMCID PMC10765125"
+    },
+    "S002": {
+      "source": "S002",
+      "title": "Arts Programmes: Toolkit technical report",
+      "checked_on": "2026-10-25",
+      "identifier": "DOI 10.1016/j.tsc.2018.06.003",
+      "identifier_from": "the held document",
+      "identity": "resolved title shares 1 word(s) with ours: arts",
+      "resolved_title": "Impact of arts participation on children’s achievement: A systematic literature review",
+      "index": "Crossref",
+      "update_policy": "https://doi.org/10.1016/elsevier_cm_policy",
+      "amendments": [],
+      "comments": [],
+      "state": "CLEAN",
+      "why": "matched on DOI 10.1016/j.tsc.2018.06.003 at Crossref; not in Europe PMC. The publisher registers a Crossmark update policy, so a correction would have been deposited here"
+    },
+    "S003": {
+      "source": "S003",
+      "title": "Arts programmes | YEF Toolkit",
+      "checked_on": "2026-10-25",
+      "state": "UNCHECKABLE",
+      "why": "no DOI, PMID, PMCID or PII can be parsed from the URL we hold; nothing is typed from memory, so this source cannot be looked up automatically",
+      "amendments": [],
+      "comments": []
+    },
+    "S004": {
+      "source": "S004",
+      "title": "'It's not just music, it helps you from inside': mixing methods to understand the impact of music on young people in con",
+      "checked_on": "2026-10-25",
+      "identifier": "DOI 10.1177/1473225420938151",
+      "identifier_from": "the held document",
+      "identity": "resolved title shares 14 word(s) with ours: contact, criminal, helps, impact, inside, just, justice, methods, mixing, music,",
+      "resolved_title": "‘It’s Not Just Music, It Helps You from Inside’: Mixing Methods to Understand the Impact of Music on Young People in Contact With the Criminal Justice System",
+      "index": "Crossref",
+      "update_policy": "https://doi.org/10.1177/sage-journals-update-policy",
+      "amendments": [],
+      "comments": [],
+      "state": "CLEAN",
+      "why": "matched on DOI 10.1177/1473225420938151 at Crossref; not in Europe PMC. The publisher registers a Crossmark update policy, so a correction would have been deposited here"
+    },
+    "S005": {
+      "source": "S005",
+      "title": "Is a music-based mentoring programme delivered with young people aged 11 - 17 years involved in or deemed to be at risk ",
+      "checked_on": "2026-10-25",
+      "state": "NOT_APPLICABLE",
+      "why": "type 'registry' is not a journal article; it has versions, not errata, and B11 covers those",
+      "amendments": [],
+      "comments": []
+    },
+    "S006": {
+      "source": "S006",
+      "title": "Finding 8: Young offenders",
+      "checked_on": "2026-10-25",
+      "state": "UNCHECKABLE",
+      "why": "no DOI, PMID, PMCID or PII can be parsed from the URL we hold; nothing is typed from memory, so this source cannot be looked up automatically",
+      "amendments": [],
+      "comments": []
+    }
+  }
+}
