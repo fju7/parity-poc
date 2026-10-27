@@ -884,7 +884,11 @@ def b19_hedge_dropped(row: dict) -> list[dict]:
         if _NEGATING.search(sent):
             why += (" -- it negates (%r), which turns the evidence's caution into "
                     "a verdict" % _NEGATING.search(sent).group(0))
-        out.append({"check": "B19", "verdict": "evidence hedge dropped",
+        # An ADDED sentence (fix 2: a finding the page left out, drafted by the
+        # omission ruling) is a STOP, not a WARN: it was written from the span,
+        # so a dropped hedge is the draft's error, never a judgement call.
+        added = (row.get("origin") or "") == OMISSION_ADD
+        out.append({"check": "B19", "verdict": HEDGE_DROPPED_ADDED if added else "evidence hedge dropped",
                     "hedge": live[0][0], "why": why})
     if done:
         why = "; ".join("the evidence says %r (%s), disposed of by %s%s: %s"
@@ -1714,12 +1718,71 @@ def b23_interval_omitted(row: dict) -> list[dict]:
 
 NOT_IN_SOURCES = "document not in sources.json — add an entry (unread) for it"
 
+# B25, GRADE CARRIED (post-study fix 2, step 5, 2026-10-27). A sentence ADDED
+# for a finding the page left out (origin "omission_add", ruling.py omissions)
+# carries every certainty or confidence term its span carries -- GRADE's
+# "high-certainty evidence", the IPCC's "(high confidence)", "medium evidence,
+# high agreement" -- and states none higher. Dropping one is a STOP: an added
+# sentence is the source's finding, and a finding without its grade is a
+# different claim (WHU-S01-C4 was reported with its percentages and without
+# its grade). Stating a higher level is a WARN, as the design asks: B20 stops a
+# "Confidence ..." sentence above its grade already.
+OMISSION_ADD = "omission_add"
+HEDGE_DROPPED_ADDED = "evidence hedge dropped from an added sentence"
+GRADE_DROPPED = "grade dropped from an added sentence"
+GRADE_RAISED = "grade raised in an added sentence"
+_LEVEL = r"(very\s+low|low|moderate|medium|high|very\s+high)"
+_GRADE_TERMS = (
+    ("certainty", re.compile(_LEVEL + r"[\s-]+(?:certainty|quality)\b", re.I)),
+    ("certainty", re.compile(r"\b(?:certainty|quality)\s+(?:of\s+(?:the\s+)?evidence\s+)?(?:was\s+|is\s+)?"
+                             + _LEVEL, re.I)),
+    ("confidence", re.compile(_LEVEL + r"\s+confidence\b", re.I)),
+    ("evidence", re.compile(r"\b(limited|medium|robust)\s+evidence\b", re.I)),
+    ("agreement", re.compile(_LEVEL + r"\s+agreement\b", re.I)),
+)
+_LEVEL_RANK = {"very low": 0, "low": 1, "limited": 1, "moderate": 2, "medium": 2, "high": 3, "robust": 3,
+               "very high": 4}
+
+
+def grade_terms(text: str) -> dict[str, list[str]]:
+    """{family: [levels]} of every certainty or confidence term in TEXT."""
+    out: dict[str, list[str]] = {}
+    for fam, rx in _GRADE_TERMS:
+        for m in rx.finditer(text or ""):
+            lvl = " ".join(m.group(1).lower().split())
+            if lvl not in out.setdefault(fam, []):
+                out[fam].append(lvl)
+    return out
+
+
+def b25_grade_carried(row: dict) -> list[dict]:
+    if (row.get("origin") or "") != OMISSION_ADD:
+        return []
+    sent = grade_terms(row.get("sentence") or "")
+    out = []
+    for sid, span in evidence_spans(row):
+        for fam, levels in grade_terms(span).items():
+            for lvl in levels:
+                if lvl not in sent.get(fam, []):
+                    out.append({"check": "B25", "verdict": GRADE_DROPPED,
+                                "why": "the span (%s) says %s %s; the added sentence does not" % (sid, lvl, fam)})
+            top = max(_LEVEL_RANK[l] for l in levels)
+            higher = [l for l in sent.get(fam, []) if _LEVEL_RANK[l] > top]
+            if higher:
+                out.append({"check": "B25", "verdict": GRADE_RAISED,
+                            "why": "the added sentence says %s %s; the span (%s) says at most %s"
+                                   % (higher[0], fam, sid, max(levels, key=_LEVEL_RANK.get))})
+    return out
+
 CALIBRATION_SEVERITY = {
     NOT_IN_SOURCES: BAD,
     "source unclassified": WARN,
     "we hold its abstract — say so": WARN,
     "holdings sentence not declared to the store": WARN,
     "evidence hedge dropped": WARN,
+    HEDGE_DROPPED_ADDED: BAD,
+    GRADE_DROPPED: BAD,
+    GRADE_RAISED: WARN,
     "evidence hedge disposed": INFO,
     "significance qualifier dropped": WARN,
     "confidence above its cited grade": BAD,
@@ -1739,7 +1802,7 @@ CALIBRATION_SEVERITY = {
     RECORD_REFUSED: BAD,
     RECORD_INCOMPLETE: BAD,
 }
-CALIBRATION_CHECKS = {"B19", "B20", "B21", "B22", "B23", "B24"}
+CALIBRATION_CHECKS = {"B19", "B20", "B21", "B22", "B23", "B24", "B25"}
 
 
 def calibration_findings(row: dict, slug: str) -> list[dict]:
@@ -1748,7 +1811,7 @@ def calibration_findings(row: dict, slug: str) -> list[dict]:
     check_flags."""
     return (b19_hedge_dropped(row) + b19_significance_dropped(row) + b20_confidence_ceiling(row)
             + b21_holdings(row, slug) + b22_wording_claim(row, slug)
-            + b23_interval_omitted(row) + b24_records(row, slug))
+            + b23_interval_omitted(row) + b24_records(row, slug) + b25_grade_carried(row))
 
 
 def run_checks(slug: str, *, only: str = "") -> dict:
