@@ -112,7 +112,8 @@ RULING_FAILED = "RULING_FAILED"
 SAMPLED_SINCE = "2026-10-21T01:21:28+00:00"
 # Each mode's ruling_kind on its log records.
 MODE_KIND = {"gate": "gate", "conclusions": "conclusion", "changecheck": "changecheck",
-             "advocate": "advocate", "dangling": "dangling", "omissions": "omission"}
+             "advocate": "advocate", "dangling": "dangling", "omissions": "omission",
+             "judgements": "relevance"}
 PROMPTS = {
     "audit": HERE / "audit_prompts" / "rule.md",
     "second-reader": HERE / "audit_prompts" / "rule.md",
@@ -124,13 +125,17 @@ PROMPTS = {
     # Post-study fix 2 (2026-10-27): a finding the page left out. Not a frozen
     # study prompt; docs/whu-fix2-omission-rulings-design.md, section 2.
     "omission": HERE / "audit_prompts" / "rule_omission.md",
+    # Post-study fix 3 (2026-10-27): does a held assessment judgement bear on
+    # the question? docs/whu-fix3-evidence-standard.md, section 3.2.
+    "relevance": HERE / "audit_prompts" / "rule_relevance.md",
 }
 # Several findings on one sentence, ruled in one call (GAP-019).
 GROUP_FIELDS = ("sentence", "findings", "quoted_source_text")
 GROUP_PROMPTS = {k: HERE / "audit_prompts" / ("rule_group_cite.md" if k == "gate" else "rule_group.md")
-                 for k in PROMPTS if k != "omission"}
+                 for k in PROMPTS if k not in ("omission", "relevance")}
 # The omission ruling's payload (fix 2): an allow-list like RULE_FIELDS.
 OMISSION_FIELDS = ("question", "scope", "reader", "finding", "anchor", "already_on_page")
+RELEVANCE_FIELDS = ("question", "scope", "judgement")
 # Frozen as the prompts are frozen: by sha256, on every ruling and here
 # (test_whatholdsup_ruling_group.py checks the files against these).
 GROUP_PROMPT_SHA256 = {
@@ -250,7 +255,8 @@ def group_payload(sentence: str, findings: list[dict], held: dict[str, str]) -> 
 def build_prompt(kind: str, p: dict, grouped: bool = False) -> str:
     frozen = _load_frozen()             # a changed frozen prompt is refused (protocol rev 38)
     t = frozen.read_text((GROUP_PROMPTS if grouped else PROMPTS)[kind])
-    for k in (OMISSION_FIELDS if kind == "omission" else GROUP_FIELDS if grouped else RULE_FIELDS):
+    for k in (OMISSION_FIELDS if kind == "omission" else RELEVANCE_FIELDS if kind == "relevance"
+              else GROUP_FIELDS if grouped else RULE_FIELDS):
         t = t.replace("{%s}" % k, p[k])
     return t
 
@@ -258,6 +264,8 @@ def build_prompt(kind: str, p: dict, grouped: bool = False) -> str:
 def parse(kind: str, text: str, n_quotes: int) -> dict:
     if kind == "omission":
         return parse_omission(text)
+    if kind == "relevance":
+        return parse_relevance(text)
     s = jsonio.strip_code_fence(text)
     m = re.search(r"\{.*\}", s, re.S)
     try:
@@ -300,6 +308,22 @@ def parse_omission(text: str) -> dict:
     return {"ruling": outcome.lower(), "text": draft if outcome == "ADD" else None, "outcome": outcome,
             "scope_element": element, "span": span if outcome == "ADD" else "",
             "in_scope": got.get("in_scope"), "material": got.get("material"), "reason": got.get("reason") or ""}
+
+
+def parse_relevance(text: str) -> dict:
+    """{"ruling": relevant | not_relevant, "text": the question words or None, ...}."""
+    s = jsonio.strip_code_fence(text)
+    m = re.search(r"\{.*\}", s, re.S)
+    try:
+        got = json.loads(m.group(0) if m else s)
+    except Exception:
+        raise RulingError("relevance reply is not JSON: %r" % s[:200])
+    if not isinstance(got, dict) or not isinstance(got.get("relevant"), bool):
+        raise RulingError("relevance reply not usable: %r" % (got,))
+    words = (got.get("question_words") or "").strip()
+    return {"ruling": "relevant" if got["relevant"] else "not_relevant",
+            "text": words if got["relevant"] else None, "relevant": got["relevant"],
+            "question_words": words, "reason": got.get("reason") or ""}
 
 
 def attempts_log(log: Path) -> Path:
@@ -1225,6 +1249,71 @@ def _last_id(log: Path) -> str | None:
     return json.loads(lines[-1]).get("id") if lines else None
 
 
+# ---------------------------------------------------------------------------
+# assessment judgements: relevance (post-study fix 3, step 2)
+# ---------------------------------------------------------------------------
+
+def relevance_payload(question: str, scope: dict, judgement: str) -> dict:
+    sc = "Covers: %s\nOut of scope:\n%s" % (
+        scope.get("covers") or "(not stated)",
+        "\n".join("- %s (%s)" % (o.get("what"), o.get("why") or "") for o in scope.get("out") or []) or "(none declared)")
+    p = {"question": question or "", "scope": sc, "judgement": " ".join((judgement or "").split())}
+    assert tuple(p) == RELEVANCE_FIELDS
+    return p
+
+
+def rule_judgements(slug: str, call, *, P=None, held: dict | None = None, scope: dict | None = None,
+                    case: Path | None = None, failed: list | None = None) -> list[dict]:
+    """Rule relevance for every held assessment judgement with no decision on
+    its current text (judgements.candidates), one call each. A 'relevant'
+    answer is recorded only when code finds its question words in the
+    question or the premise scope; otherwise the candidate goes to a person."""
+    import judgements as J
+    import premise as PM
+    import source_store as store
+    P = P or _publish()
+    require_study(slug, P)
+    case = case or store.case_dir(slug)
+    held = held if held is not None else held_texts(slug)
+    scope = scope if scope is not None else PM.scope_of(slug)
+    log = case / "rulings" / "rulings.jsonl"
+    to_rule, _person = J.undecided(J.candidates(held), J.load(case), held)
+    done = []
+    for c in to_rule:
+        text = held[c["source"]][c["at"][0]:c["at"][1]]
+        p = relevance_payload(scope.get("question"), scope, text)
+        try:
+            got = rule("relevance", p, 0, call, log, {"candidate": c["key"], "source": c["source"],
+                                                    "offsets": c["at"]})
+        except RulingFailed as e:
+            print("  %s: %s -- left open" % (RULING_FAILED, e))
+            if failed is not None:
+                failed.append({"kind": "relevance", "refs": [c["key"]], "why": str(e)})
+            continue
+        except RulingError as e:
+            J.record(case, c, held[c["source"]], relevant=None, words="", by="code (ruling.py judgements)",
+                     reason="the ruling reply was not usable (%s)" % e, to_person=True)
+            route_to_person("judgements", [{"protected": "relevance unusable", "sentence": c["key"],
+                                            "kind": "relevance", "ref": {"candidate": c["key"]}}], log)
+            done.append({"key": c["key"], "relevant": None, "to_person": True})
+            continue
+        rid = _last_id(log)
+        if got["relevant"]:
+            ok, why = J.verify_words(got["question_words"], scope)
+            if not ok:
+                J.record(case, c, held[c["source"]], relevant=None, words=got["question_words"],
+                         by="code (ruling.py judgements)", reason="relevance refused by code: %s" % why,
+                         ruling=rid, to_person=True)
+                route_to_person("judgements", [{"protected": "relevance words unverified", "sentence": c["key"],
+                                                "kind": "relevance", "ref": {"candidate": c["key"]}}], log)
+                done.append({"key": c["key"], "relevant": None, "to_person": True, "why": why})
+                continue
+        J.record(case, c, held[c["source"]], relevant=got["relevant"], words=got["question_words"],
+                 reason=got["reason"], by=BY, ruling=rid)
+        done.append({"key": c["key"], "relevant": got["relevant"], "section": c["section"]})
+    return done
+
+
 REASK_UNITS = 2      # a one-time omission re-ask (~$0.05) against an omission ruling (~$0.03)
 
 
@@ -1271,6 +1360,10 @@ def pending(mode: str, slug: str, P=None) -> int:
     elif mode == "dangling":
         html = (P.ROOT / P.issue_cfg(slug)["page"]).read_text(encoding="utf-8")
         items = _dangling_items(case, html, rows, {})
+    elif mode == "judgements":
+        import judgements as J
+        held = held_texts(slug)
+        return len(J.undecided(J.candidates(held), J.load(case), held)[0])
     elif mode == "omissions":
         # One call per merged, located finding: code's precheck is free.
         import omissions as O
@@ -1287,7 +1380,7 @@ def pending(mode: str, slug: str, P=None) -> int:
 def main(argv=None) -> int:
     ap = argparse.ArgumentParser(description=__doc__.split("\n\n")[0])
     sub = ap.add_subparsers(dest="cmd", required=True)
-    for name in ("gate", "conclusions", "changecheck", "advocate", "dangling", "omissions"):
+    for name in ("gate", "conclusions", "changecheck", "advocate", "dangling", "omissions", "judgements"):
         s = sub.add_parser(name)
         s.add_argument("slug")
         s.add_argument("--cap", type=float, default=50.0,
@@ -1308,13 +1401,15 @@ def main(argv=None) -> int:
     units = n + CS.sample_size(n + len(carried))
     if a.cmd == "omissions":
         stage_cap.guard("omissions", a.slug, omission_units(a.slug, units))
+    elif a.cmd == "judgements":
+        stage_cap.guard("judgements", a.slug, units)
     else:
         stage_cap.guard("rulings", a.slug, units)
     import audit_stage as A
     call = A.Caller(cap=a.cap, ledger_issue=a.slug)
     fn = {"gate": rule_gate, "conclusions": rule_conclusions,
           "changecheck": rule_changecheck, "advocate": rule_advocate,
-          "dangling": rule_dangling, "omissions": rule_omissions}[a.cmd]
+          "dangling": rule_dangling, "omissions": rule_omissions, "judgements": rule_judgements}[a.cmd]
     if a.cmd == "omissions":
         import source_advocate as SA
         SA.fc.enter_issue(a.slug)        # the one-time re-asks are metered against the issue
