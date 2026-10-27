@@ -67,12 +67,13 @@ _spec = importlib.util.spec_from_file_location("spend_ledger_stage", ROOT / "bac
 S = importlib.util.module_from_spec(_spec)
 _spec.loader.exec_module(S)
 
-STAGES = ("gate-narrow", "gate-full", "conclusions", "advocate", "audit", "changecheck", "rulings")
+STAGES = ("gate-narrow", "gate-full", "conclusions", "advocate", "audit", "changecheck", "rulings", "omissions")
 NAMES = {"gate-narrow": "the machine gate (narrow)", "gate-full": "the machine gate (full)",
          "conclusions": "the conclusion judge", "advocate": "the source advocate",
-         "audit": "the audit stage", "changecheck": "changecheck", "rulings": "the ruling model"}
+         "audit": "the audit stage", "changecheck": "changecheck", "rulings": "the ruling model",
+         "omissions": "the omission ruling"}
 UNIT = {"gate-narrow": "call", "gate-full": "run", "conclusions": "sentence", "advocate": "source",
-        "audit": "sentence unit", "changecheck": "run", "rulings": "ruling"}
+        "audit": "sentence unit", "changecheck": "run", "rulings": "ruling", "omissions": "omission unit"}
 # Used only where nothing has been measured yet.
 FALLBACK = {
     "gate-narrow": (0.75, "factcheck_draft.EST_PER_CALL"),
@@ -82,6 +83,8 @@ FALLBACK = {
     "audit": (0.40, "RUN.md step 7, $31 projected over 78 units"),
     "changecheck": (0.08, "RUN.md step 9, upper figure"),
     "rulings": (0.02, "README: $1.98 for 94 rulings"),
+    # Post-study fix 2, step 8: docs/whu-fix2-omission-rulings-design.md s5.
+    "omissions": (0.03, "fix 2 design s5: an omission ruling carries question, scope and context"),
 }
 FULL_GATE_ROLES = ("extract", "advocate", "inference", "coverage", "recency", "counterexample")
 
@@ -150,18 +153,23 @@ def per_unit(stage: str, entries: list[dict] | None = None, issues_dir: Path | N
     elif stage == "changecheck":
         vals = [e.get("usd") or 0 for e in fd if e.get("role") == "changecheck"]
         how = "mean of %d metered changecheck call(s)"
-    elif stage == "rulings":
+    elif stage in ("rulings", "omissions"):
+        # "omissions": the omission rulings alone (ruling_kind "omission"); one
+        # unit is one ruling, and ruling.omission_units counts a re-ask as two.
         files = glob.glob(str(idir / "*" / "rulings" / "**" / "*rulings.jsonl"), recursive=True) + \
-            glob.glob(str(idir / "*" / "audit" / "*" / "rulings.jsonl"))
+            ([] if stage == "omissions" else glob.glob(str(idir / "*" / "audit" / "*" / "rulings.jsonl")))
         for f in files:
             for line in Path(f).read_text(encoding="utf-8").splitlines():
                 try:
-                    usd = ((json.loads(line) if line.strip() else {}).get("usage") or {}).get("usd")
+                    rec = json.loads(line) if line.strip() else {}
                 except Exception:
-                    usd = None
+                    rec = {}
+                if stage == "omissions" and rec.get("ruling_kind") != "omission":
+                    continue
+                usd = (rec.get("usage") or {}).get("usd")
                 if usd:
                     vals.append(float(usd))
-        how = "mean of %d logged ruling(s)"
+        how = "mean of %d logged ruling(s)" if stage == "rulings" else "mean of %d logged omission ruling(s)"
     else:
         raise ValueError("unknown stage %r (one of %s)" % (stage, ", ".join(STAGES)))
     if vals:

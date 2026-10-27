@@ -1225,6 +1225,27 @@ def _last_id(log: Path) -> str | None:
     return json.loads(lines[-1]).get("id") if lines else None
 
 
+REASK_UNITS = 2      # a one-time omission re-ask (~$0.05) against an omission ruling (~$0.03)
+
+
+def omission_units(slug: str, rulings: int, case: Path | None = None, held: dict | None = None,
+                   rows: dict | None = None) -> int:
+    """The stage cap's units for `ruling.py omissions`: the rulings, plus
+    REASK_UNITS for each LEAVES_OUT objection that will be re-asked
+    (source_advocate.needs_reask), counted as rule_omissions decides it."""
+    import bindings as B
+    import source_advocate as SA
+    held = held if held is not None else held_texts(slug)
+    rows = rows if rows is not None else (B.load(slug).get("bindings") or {})
+    reasks = 0
+    for it in _leaves_out(slug, case):
+        sid = it["source"]
+        bound = [q for r in rows.values() if r.get("on_page") for s_, q in quotations(r, held) if s_ == sid]
+        if SA.needs_reask(it["objection"], held.get(sid) or "", bound):
+            reasks += 1
+    return rulings + REASK_UNITS * reasks
+
+
 def pending(mode: str, slug: str, P=None) -> int:
     """How many calls MODE would make now -- one per sentence with findings --
     the units of the stage cap check, selected and grouped as each rule_*
@@ -1284,7 +1305,11 @@ def main(argv=None) -> int:
     # that resumes it, together with this run's own rulings.
     carried = unsampled(log_path(a.slug), log_path(a.slug).parent / "consistency.jsonl", kind)
     # before the first paid call; the units include the consistency sample
-    stage_cap.guard("rulings", a.slug, n + CS.sample_size(n + len(carried)))
+    units = n + CS.sample_size(n + len(carried))
+    if a.cmd == "omissions":
+        stage_cap.guard("omissions", a.slug, omission_units(a.slug, units))
+    else:
+        stage_cap.guard("rulings", a.slug, units)
     import audit_stage as A
     call = A.Caller(cap=a.cap, ledger_issue=a.slug)
     fn = {"gate": rule_gate, "conclusions": rule_conclusions,
