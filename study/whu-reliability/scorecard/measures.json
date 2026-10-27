@@ -1,0 +1,3699 @@
+{
+ "written": "2026-10-27T16:01:05+00:00",
+ "label": "Judged by AI models only, not checked by people. Reader measures from the WHU reliability study (exploratory presentation of the study's M1 and M2 labels; outside H1 and H2).",
+ "script": "study/whu-reliability/scorecard/measures.py",
+ "chatgpt_note": "ChatGPT performed no web search on WHU-S05 to WHU-S08 (0 searches, 0 citations; deviations 2026-10-26): every one of its S05-S08 sampled sentences is uncited. Its totals are given for all eight and for S01-S04 only.",
+ "perplexity_note": "Exploratory add-on (perplexity_plan.md): WHU-S01 to WHU-S04 only; compare it with the other systems' S01-S04 totals.",
+ "views": {
+  "claude": "Claude judge (claude-opus-5-5) alone",
+  "openai": "OpenAI judge (gpt-6-astra) alone",
+  "averaged": "two-judge combined: each item split equally among the judges that labelled it"
+ },
+ "denominators": "citation fidelity: n = supported + cited_not_supported + uncited (excluded items counted apart); conclusions: n = conclusions with a usable label",
+ "provenance": {
+  "M1": {
+   "items": [
+    "~/Projects/whu-study-private/scoring/m1/items.json (cited draws)",
+    "~/Projects/whu-study-private/scoring/m1/uncited.json (uncited draws)",
+    "~/Projects/whu-study-private/scoring/m1/key_map.json (question, system)"
+   ],
+   "labels": "~/Projects/whu-study-private/scoring/m1/replies{,_ext}/<judge>/<item>.json, field 'label' (first read; replies_repeat not used, as analyse.py)",
+   "rules": "scripts/analyse.py per_judge_labels, M1_PASS/M1_FAIL/M1_EXCL; results/machine_only/cross_company.py abstract_correct (EVERY rule)",
+   "supported": "label == 'Supported'",
+   "cited_not_supported": "label in {Overstates, Understates, Absent, Wrong source, Contradicted}",
+   "uncited": "item in uncited.json (label UNCITED for both judges)",
+   "excluded": "label in {Unreachable, INCOMPLETE_SOURCES, NOT_VERIFIABLE_ABSTRACT} or no usable reply (no source held, refused by both)",
+   "n": "supported + cited_not_supported + uncited",
+   "check": "results/eight_ai_only.json sets.<set>.M1.views.{combined,claude_judge,openai_judge}.systems.<system>.{failures,countable}"
+  },
+  "M2": {
+   "items": [
+    "~/Projects/whu-study-private/scoring/m2/items.json",
+    "~/Projects/whu-study-private/scoring/m2/key_map.json"
+   ],
+   "labels": "~/Projects/whu-study-private/scoring/m2/replies{,_ext}/<judge>/<item>.json, field 'label' (first read)",
+   "rules": "scripts/analyse.py per_judge_labels, M2_PASS/M2_FAIL",
+   "overstates": "label == 'Overstates'",
+   "omits_or_understates": "label in {Understates, Omits}",
+   "contradicts": "label == 'Contradicts'",
+   "n": "conclusions with a usable label (matches + the three)",
+   "check": "results/eight_ai_only.json sets.<set>.M2.views.{combined,claude_judge,openai_judge}.systems.<system>.{failures,countable}"
+  },
+  "Perplexity": "~/Projects/whu-study-private/scoring/perplexity/m1 and m2, same fields; checked against results/perplexity/perplexity_ai_only.json M1_citation_support / M2_conclusion_calibration .views.<view>.systems.Perplexity.{failures,countable}"
+ },
+ "reproduces": "failures and n per judge and averaged equal results/eight_ai_only.json sets.{all_eight,S01-S04,S05-S08}.{M1,M2}.views.{claude_judge,openai_judge,combined} for every system (checked by this script before writing)",
+ "systems": {
+  "WHU": {
+   "per_question": {
+    "WHU-S01": {
+     "citation_fidelity": {
+      "claude": {
+       "supported": 20.0,
+       "cited_not_supported": 0.0,
+       "uncited": 0.0,
+       "excluded": 0.0,
+       "n": 20.0,
+       "drawn": 20.0,
+       "supported_share": 1.0,
+       "cited_not_supported_share": 0.0,
+       "uncited_share": 0.0
+      },
+      "openai": {
+       "supported": 19.0,
+       "cited_not_supported": 1.0,
+       "uncited": 0.0,
+       "excluded": 0.0,
+       "n": 20.0,
+       "drawn": 20.0,
+       "supported_share": 0.95,
+       "cited_not_supported_share": 0.05,
+       "uncited_share": 0.0
+      },
+      "averaged": {
+       "supported": 19.5,
+       "cited_not_supported": 0.5,
+       "uncited": 0.0,
+       "excluded": 0.0,
+       "n": 20.0,
+       "drawn": 20.0,
+       "supported_share": 0.975,
+       "cited_not_supported_share": 0.025,
+       "uncited_share": 0.0
+      }
+     },
+     "conclusions": {
+      "claude": {
+       "matches": 3.0,
+       "overstates": 0.0,
+       "omits_or_understates": 2.0,
+       "contradicts": 0.0,
+       "no_usable_label": 0.0,
+       "n": 5.0,
+       "overstates_share": 0.0,
+       "omits_or_understates_share": 0.4,
+       "contradicts_share": 0.0
+      },
+      "openai": {
+       "matches": 3.0,
+       "overstates": 0.0,
+       "omits_or_understates": 2.0,
+       "contradicts": 0.0,
+       "no_usable_label": 0.0,
+       "n": 5.0,
+       "overstates_share": 0.0,
+       "omits_or_understates_share": 0.4,
+       "contradicts_share": 0.0
+      },
+      "averaged": {
+       "matches": 3.0,
+       "overstates": 0.0,
+       "omits_or_understates": 2.0,
+       "contradicts": 0.0,
+       "no_usable_label": 0.0,
+       "n": 5.0,
+       "overstates_share": 0.0,
+       "omits_or_understates_share": 0.4,
+       "contradicts_share": 0.0
+      }
+     }
+    },
+    "WHU-S02": {
+     "citation_fidelity": {
+      "claude": {
+       "supported": 17.0,
+       "cited_not_supported": 1.0,
+       "uncited": 0.0,
+       "excluded": 2.0,
+       "n": 18.0,
+       "drawn": 20.0,
+       "supported_share": 0.9444,
+       "cited_not_supported_share": 0.0556,
+       "uncited_share": 0.0
+      },
+      "openai": {
+       "supported": 16.0,
+       "cited_not_supported": 2.0,
+       "uncited": 0.0,
+       "excluded": 2.0,
+       "n": 18.0,
+       "drawn": 20.0,
+       "supported_share": 0.8889,
+       "cited_not_supported_share": 0.1111,
+       "uncited_share": 0.0
+      },
+      "averaged": {
+       "supported": 16.5,
+       "cited_not_supported": 1.5,
+       "uncited": 0.0,
+       "excluded": 2.0,
+       "n": 18.0,
+       "drawn": 20.0,
+       "supported_share": 0.9167,
+       "cited_not_supported_share": 0.0833,
+       "uncited_share": 0.0
+      }
+     },
+     "conclusions": {
+      "claude": {
+       "matches": 5.0,
+       "overstates": 0.0,
+       "omits_or_understates": 0.0,
+       "contradicts": 0.0,
+       "no_usable_label": 0.0,
+       "n": 5.0,
+       "overstates_share": 0.0,
+       "omits_or_understates_share": 0.0,
+       "contradicts_share": 0.0
+      },
+      "openai": {
+       "matches": 5.0,
+       "overstates": 0.0,
+       "omits_or_understates": 0.0,
+       "contradicts": 0.0,
+       "no_usable_label": 0.0,
+       "n": 5.0,
+       "overstates_share": 0.0,
+       "omits_or_understates_share": 0.0,
+       "contradicts_share": 0.0
+      },
+      "averaged": {
+       "matches": 5.0,
+       "overstates": 0.0,
+       "omits_or_understates": 0.0,
+       "contradicts": 0.0,
+       "no_usable_label": 0.0,
+       "n": 5.0,
+       "overstates_share": 0.0,
+       "omits_or_understates_share": 0.0,
+       "contradicts_share": 0.0
+      }
+     }
+    },
+    "WHU-S03": {
+     "citation_fidelity": {
+      "claude": {
+       "supported": 19.0,
+       "cited_not_supported": 1.0,
+       "uncited": 0.0,
+       "excluded": 0.0,
+       "n": 20.0,
+       "drawn": 20.0,
+       "supported_share": 0.95,
+       "cited_not_supported_share": 0.05,
+       "uncited_share": 0.0
+      },
+      "openai": {
+       "supported": 19.0,
+       "cited_not_supported": 1.0,
+       "uncited": 0.0,
+       "excluded": 0.0,
+       "n": 20.0,
+       "drawn": 20.0,
+       "supported_share": 0.95,
+       "cited_not_supported_share": 0.05,
+       "uncited_share": 0.0
+      },
+      "averaged": {
+       "supported": 19.0,
+       "cited_not_supported": 1.0,
+       "uncited": 0.0,
+       "excluded": 0.0,
+       "n": 20.0,
+       "drawn": 20.0,
+       "supported_share": 0.95,
+       "cited_not_supported_share": 0.05,
+       "uncited_share": 0.0
+      }
+     },
+     "conclusions": {
+      "claude": {
+       "matches": 0.0,
+       "overstates": 0.0,
+       "omits_or_understates": 1.0,
+       "contradicts": 0.0,
+       "no_usable_label": 0.0,
+       "n": 1.0,
+       "overstates_share": 0.0,
+       "omits_or_understates_share": 1.0,
+       "contradicts_share": 0.0
+      },
+      "openai": {
+       "matches": 0.0,
+       "overstates": 0.0,
+       "omits_or_understates": 1.0,
+       "contradicts": 0.0,
+       "no_usable_label": 0.0,
+       "n": 1.0,
+       "overstates_share": 0.0,
+       "omits_or_understates_share": 1.0,
+       "contradicts_share": 0.0
+      },
+      "averaged": {
+       "matches": 0.0,
+       "overstates": 0.0,
+       "omits_or_understates": 1.0,
+       "contradicts": 0.0,
+       "no_usable_label": 0.0,
+       "n": 1.0,
+       "overstates_share": 0.0,
+       "omits_or_understates_share": 1.0,
+       "contradicts_share": 0.0
+      }
+     }
+    },
+    "WHU-S04": {
+     "citation_fidelity": {
+      "claude": {
+       "supported": 17.0,
+       "cited_not_supported": 0.0,
+       "uncited": 0.0,
+       "excluded": 3.0,
+       "n": 17.0,
+       "drawn": 20.0,
+       "supported_share": 1.0,
+       "cited_not_supported_share": 0.0,
+       "uncited_share": 0.0
+      },
+      "openai": {
+       "supported": 16.0,
+       "cited_not_supported": 1.0,
+       "uncited": 0.0,
+       "excluded": 3.0,
+       "n": 17.0,
+       "drawn": 20.0,
+       "supported_share": 0.9412,
+       "cited_not_supported_share": 0.0588,
+       "uncited_share": 0.0
+      },
+      "averaged": {
+       "supported": 16.5,
+       "cited_not_supported": 0.5,
+       "uncited": 0.0,
+       "excluded": 3.0,
+       "n": 17.0,
+       "drawn": 20.0,
+       "supported_share": 0.9706,
+       "cited_not_supported_share": 0.0294,
+       "uncited_share": 0.0
+      }
+     },
+     "conclusions": {
+      "claude": {
+       "matches": 2.0,
+       "overstates": 0.0,
+       "omits_or_understates": 0.0,
+       "contradicts": 0.0,
+       "no_usable_label": 0.0,
+       "n": 2.0,
+       "overstates_share": 0.0,
+       "omits_or_understates_share": 0.0,
+       "contradicts_share": 0.0
+      },
+      "openai": {
+       "matches": 2.0,
+       "overstates": 0.0,
+       "omits_or_understates": 0.0,
+       "contradicts": 0.0,
+       "no_usable_label": 0.0,
+       "n": 2.0,
+       "overstates_share": 0.0,
+       "omits_or_understates_share": 0.0,
+       "contradicts_share": 0.0
+      },
+      "averaged": {
+       "matches": 2.0,
+       "overstates": 0.0,
+       "omits_or_understates": 0.0,
+       "contradicts": 0.0,
+       "no_usable_label": 0.0,
+       "n": 2.0,
+       "overstates_share": 0.0,
+       "omits_or_understates_share": 0.0,
+       "contradicts_share": 0.0
+      }
+     }
+    },
+    "WHU-S05": {
+     "citation_fidelity": {
+      "claude": {
+       "supported": 10.0,
+       "cited_not_supported": 0.0,
+       "uncited": 0.0,
+       "excluded": 10.0,
+       "n": 10.0,
+       "drawn": 20.0,
+       "supported_share": 1.0,
+       "cited_not_supported_share": 0.0,
+       "uncited_share": 0.0
+      },
+      "openai": {
+       "supported": 10.0,
+       "cited_not_supported": 0.0,
+       "uncited": 0.0,
+       "excluded": 10.0,
+       "n": 10.0,
+       "drawn": 20.0,
+       "supported_share": 1.0,
+       "cited_not_supported_share": 0.0,
+       "uncited_share": 0.0
+      },
+      "averaged": {
+       "supported": 10.0,
+       "cited_not_supported": 0.0,
+       "uncited": 0.0,
+       "excluded": 10.0,
+       "n": 10.0,
+       "drawn": 20.0,
+       "supported_share": 1.0,
+       "cited_not_supported_share": 0.0,
+       "uncited_share": 0.0
+      }
+     },
+     "conclusions": {
+      "claude": {
+       "matches": 3.0,
+       "overstates": 0.0,
+       "omits_or_understates": 1.0,
+       "contradicts": 1.0,
+       "no_usable_label": 0.0,
+       "n": 5.0,
+       "overstates_share": 0.0,
+       "omits_or_understates_share": 0.2,
+       "contradicts_share": 0.2
+      },
+      "openai": {
+       "matches": 3.0,
+       "overstates": 1.0,
+       "omits_or_understates": 1.0,
+       "contradicts": 0.0,
+       "no_usable_label": 0.0,
+       "n": 5.0,
+       "overstates_share": 0.2,
+       "omits_or_understates_share": 0.2,
+       "contradicts_share": 0.0
+      },
+      "averaged": {
+       "matches": 3.0,
+       "overstates": 0.5,
+       "omits_or_understates": 1.0,
+       "contradicts": 0.5,
+       "no_usable_label": 0.0,
+       "n": 5.0,
+       "overstates_share": 0.1,
+       "omits_or_understates_share": 0.2,
+       "contradicts_share": 0.1
+      }
+     }
+    },
+    "WHU-S06": {
+     "citation_fidelity": {
+      "claude": {
+       "supported": 20.0,
+       "cited_not_supported": 0.0,
+       "uncited": 0.0,
+       "excluded": 0.0,
+       "n": 20.0,
+       "drawn": 20.0,
+       "supported_share": 1.0,
+       "cited_not_supported_share": 0.0,
+       "uncited_share": 0.0
+      },
+      "openai": {
+       "supported": 19.0,
+       "cited_not_supported": 1.0,
+       "uncited": 0.0,
+       "excluded": 0.0,
+       "n": 20.0,
+       "drawn": 20.0,
+       "supported_share": 0.95,
+       "cited_not_supported_share": 0.05,
+       "uncited_share": 0.0
+      },
+      "averaged": {
+       "supported": 19.5,
+       "cited_not_supported": 0.5,
+       "uncited": 0.0,
+       "excluded": 0.0,
+       "n": 20.0,
+       "drawn": 20.0,
+       "supported_share": 0.975,
+       "cited_not_supported_share": 0.025,
+       "uncited_share": 0.0
+      }
+     },
+     "conclusions": {
+      "claude": {
+       "matches": 4.0,
+       "overstates": 0.0,
+       "omits_or_understates": 1.0,
+       "contradicts": 0.0,
+       "no_usable_label": 0.0,
+       "n": 5.0,
+       "overstates_share": 0.0,
+       "omits_or_understates_share": 0.2,
+       "contradicts_share": 0.0
+      },
+      "openai": {
+       "matches": 4.0,
+       "overstates": 0.0,
+       "omits_or_understates": 1.0,
+       "contradicts": 0.0,
+       "no_usable_label": 0.0,
+       "n": 5.0,
+       "overstates_share": 0.0,
+       "omits_or_understates_share": 0.2,
+       "contradicts_share": 0.0
+      },
+      "averaged": {
+       "matches": 4.0,
+       "overstates": 0.0,
+       "omits_or_understates": 1.0,
+       "contradicts": 0.0,
+       "no_usable_label": 0.0,
+       "n": 5.0,
+       "overstates_share": 0.0,
+       "omits_or_understates_share": 0.2,
+       "contradicts_share": 0.0
+      }
+     }
+    },
+    "WHU-S07": {
+     "citation_fidelity": {
+      "claude": {
+       "supported": 18.0,
+       "cited_not_supported": 1.0,
+       "uncited": 0.0,
+       "excluded": 1.0,
+       "n": 19.0,
+       "drawn": 20.0,
+       "supported_share": 0.9474,
+       "cited_not_supported_share": 0.0526,
+       "uncited_share": 0.0
+      },
+      "openai": {
+       "supported": 18.0,
+       "cited_not_supported": 1.0,
+       "uncited": 0.0,
+       "excluded": 1.0,
+       "n": 19.0,
+       "drawn": 20.0,
+       "supported_share": 0.9474,
+       "cited_not_supported_share": 0.0526,
+       "uncited_share": 0.0
+      },
+      "averaged": {
+       "supported": 18.0,
+       "cited_not_supported": 1.0,
+       "uncited": 0.0,
+       "excluded": 1.0,
+       "n": 19.0,
+       "drawn": 20.0,
+       "supported_share": 0.9474,
+       "cited_not_supported_share": 0.0526,
+       "uncited_share": 0.0
+      }
+     },
+     "conclusions": {
+      "claude": {
+       "matches": 1.0,
+       "overstates": 0.0,
+       "omits_or_understates": 3.0,
+       "contradicts": 0.0,
+       "no_usable_label": 0.0,
+       "n": 4.0,
+       "overstates_share": 0.0,
+       "omits_or_understates_share": 0.75,
+       "contradicts_share": 0.0
+      },
+      "openai": {
+       "matches": 2.0,
+       "overstates": 0.0,
+       "omits_or_understates": 2.0,
+       "contradicts": 0.0,
+       "no_usable_label": 0.0,
+       "n": 4.0,
+       "overstates_share": 0.0,
+       "omits_or_understates_share": 0.5,
+       "contradicts_share": 0.0
+      },
+      "averaged": {
+       "matches": 1.5,
+       "overstates": 0.0,
+       "omits_or_understates": 2.5,
+       "contradicts": 0.0,
+       "no_usable_label": 0.0,
+       "n": 4.0,
+       "overstates_share": 0.0,
+       "omits_or_understates_share": 0.625,
+       "contradicts_share": 0.0
+      }
+     }
+    },
+    "WHU-S08": {
+     "citation_fidelity": {
+      "claude": {
+       "supported": 19.0,
+       "cited_not_supported": 0.0,
+       "uncited": 0.0,
+       "excluded": 1.0,
+       "n": 19.0,
+       "drawn": 20.0,
+       "supported_share": 1.0,
+       "cited_not_supported_share": 0.0,
+       "uncited_share": 0.0
+      },
+      "openai": {
+       "supported": 19.0,
+       "cited_not_supported": 0.0,
+       "uncited": 0.0,
+       "excluded": 1.0,
+       "n": 19.0,
+       "drawn": 20.0,
+       "supported_share": 1.0,
+       "cited_not_supported_share": 0.0,
+       "uncited_share": 0.0
+      },
+      "averaged": {
+       "supported": 19.0,
+       "cited_not_supported": 0.0,
+       "uncited": 0.0,
+       "excluded": 1.0,
+       "n": 19.0,
+       "drawn": 20.0,
+       "supported_share": 1.0,
+       "cited_not_supported_share": 0.0,
+       "uncited_share": 0.0
+      }
+     },
+     "conclusions": {
+      "claude": {
+       "matches": 0.0,
+       "overstates": 0.0,
+       "omits_or_understates": 4.0,
+       "contradicts": 0.0,
+       "no_usable_label": 0.0,
+       "n": 4.0,
+       "overstates_share": 0.0,
+       "omits_or_understates_share": 1.0,
+       "contradicts_share": 0.0
+      },
+      "openai": {
+       "matches": 0.0,
+       "overstates": 0.0,
+       "omits_or_understates": 4.0,
+       "contradicts": 0.0,
+       "no_usable_label": 0.0,
+       "n": 4.0,
+       "overstates_share": 0.0,
+       "omits_or_understates_share": 1.0,
+       "contradicts_share": 0.0
+      },
+      "averaged": {
+       "matches": 0.0,
+       "overstates": 0.0,
+       "omits_or_understates": 4.0,
+       "contradicts": 0.0,
+       "no_usable_label": 0.0,
+       "n": 4.0,
+       "overstates_share": 0.0,
+       "omits_or_understates_share": 1.0,
+       "contradicts_share": 0.0
+      }
+     }
+    }
+   },
+   "totals": {
+    "all_eight": {
+     "questions": [
+      "WHU-S01",
+      "WHU-S02",
+      "WHU-S03",
+      "WHU-S04",
+      "WHU-S05",
+      "WHU-S06",
+      "WHU-S07",
+      "WHU-S08"
+     ],
+     "citation_fidelity": {
+      "claude": {
+       "supported": 140.0,
+       "cited_not_supported": 3.0,
+       "uncited": 0.0,
+       "excluded": 17.0,
+       "n": 143.0,
+       "drawn": 160.0,
+       "supported_share": 0.979,
+       "cited_not_supported_share": 0.021,
+       "uncited_share": 0.0
+      },
+      "openai": {
+       "supported": 136.0,
+       "cited_not_supported": 7.0,
+       "uncited": 0.0,
+       "excluded": 17.0,
+       "n": 143.0,
+       "drawn": 160.0,
+       "supported_share": 0.951,
+       "cited_not_supported_share": 0.049,
+       "uncited_share": 0.0
+      },
+      "averaged": {
+       "supported": 138.0,
+       "cited_not_supported": 5.0,
+       "uncited": 0.0,
+       "excluded": 17.0,
+       "n": 143.0,
+       "drawn": 160.0,
+       "supported_share": 0.965,
+       "cited_not_supported_share": 0.035,
+       "uncited_share": 0.0
+      }
+     },
+     "conclusions": {
+      "claude": {
+       "matches": 18.0,
+       "overstates": 0.0,
+       "omits_or_understates": 12.0,
+       "contradicts": 1.0,
+       "no_usable_label": 0.0,
+       "n": 31.0,
+       "overstates_share": 0.0,
+       "omits_or_understates_share": 0.3871,
+       "contradicts_share": 0.0323
+      },
+      "openai": {
+       "matches": 19.0,
+       "overstates": 1.0,
+       "omits_or_understates": 11.0,
+       "contradicts": 0.0,
+       "no_usable_label": 0.0,
+       "n": 31.0,
+       "overstates_share": 0.0323,
+       "omits_or_understates_share": 0.3548,
+       "contradicts_share": 0.0
+      },
+      "averaged": {
+       "matches": 18.5,
+       "overstates": 0.5,
+       "omits_or_understates": 11.5,
+       "contradicts": 0.5,
+       "no_usable_label": 0.0,
+       "n": 31.0,
+       "overstates_share": 0.0161,
+       "omits_or_understates_share": 0.371,
+       "contradicts_share": 0.0161
+      }
+     }
+    },
+    "S01-S04": {
+     "questions": [
+      "WHU-S01",
+      "WHU-S02",
+      "WHU-S03",
+      "WHU-S04"
+     ],
+     "citation_fidelity": {
+      "claude": {
+       "supported": 73.0,
+       "cited_not_supported": 2.0,
+       "uncited": 0.0,
+       "excluded": 5.0,
+       "n": 75.0,
+       "drawn": 80.0,
+       "supported_share": 0.9733,
+       "cited_not_supported_share": 0.0267,
+       "uncited_share": 0.0
+      },
+      "openai": {
+       "supported": 70.0,
+       "cited_not_supported": 5.0,
+       "uncited": 0.0,
+       "excluded": 5.0,
+       "n": 75.0,
+       "drawn": 80.0,
+       "supported_share": 0.9333,
+       "cited_not_supported_share": 0.0667,
+       "uncited_share": 0.0
+      },
+      "averaged": {
+       "supported": 71.5,
+       "cited_not_supported": 3.5,
+       "uncited": 0.0,
+       "excluded": 5.0,
+       "n": 75.0,
+       "drawn": 80.0,
+       "supported_share": 0.9533,
+       "cited_not_supported_share": 0.0467,
+       "uncited_share": 0.0
+      }
+     },
+     "conclusions": {
+      "claude": {
+       "matches": 10.0,
+       "overstates": 0.0,
+       "omits_or_understates": 3.0,
+       "contradicts": 0.0,
+       "no_usable_label": 0.0,
+       "n": 13.0,
+       "overstates_share": 0.0,
+       "omits_or_understates_share": 0.2308,
+       "contradicts_share": 0.0
+      },
+      "openai": {
+       "matches": 10.0,
+       "overstates": 0.0,
+       "omits_or_understates": 3.0,
+       "contradicts": 0.0,
+       "no_usable_label": 0.0,
+       "n": 13.0,
+       "overstates_share": 0.0,
+       "omits_or_understates_share": 0.2308,
+       "contradicts_share": 0.0
+      },
+      "averaged": {
+       "matches": 10.0,
+       "overstates": 0.0,
+       "omits_or_understates": 3.0,
+       "contradicts": 0.0,
+       "no_usable_label": 0.0,
+       "n": 13.0,
+       "overstates_share": 0.0,
+       "omits_or_understates_share": 0.2308,
+       "contradicts_share": 0.0
+      }
+     }
+    },
+    "S05-S08": {
+     "questions": [
+      "WHU-S05",
+      "WHU-S06",
+      "WHU-S07",
+      "WHU-S08"
+     ],
+     "citation_fidelity": {
+      "claude": {
+       "supported": 67.0,
+       "cited_not_supported": 1.0,
+       "uncited": 0.0,
+       "excluded": 12.0,
+       "n": 68.0,
+       "drawn": 80.0,
+       "supported_share": 0.9853,
+       "cited_not_supported_share": 0.0147,
+       "uncited_share": 0.0
+      },
+      "openai": {
+       "supported": 66.0,
+       "cited_not_supported": 2.0,
+       "uncited": 0.0,
+       "excluded": 12.0,
+       "n": 68.0,
+       "drawn": 80.0,
+       "supported_share": 0.9706,
+       "cited_not_supported_share": 0.0294,
+       "uncited_share": 0.0
+      },
+      "averaged": {
+       "supported": 66.5,
+       "cited_not_supported": 1.5,
+       "uncited": 0.0,
+       "excluded": 12.0,
+       "n": 68.0,
+       "drawn": 80.0,
+       "supported_share": 0.9779,
+       "cited_not_supported_share": 0.0221,
+       "uncited_share": 0.0
+      }
+     },
+     "conclusions": {
+      "claude": {
+       "matches": 8.0,
+       "overstates": 0.0,
+       "omits_or_understates": 9.0,
+       "contradicts": 1.0,
+       "no_usable_label": 0.0,
+       "n": 18.0,
+       "overstates_share": 0.0,
+       "omits_or_understates_share": 0.5,
+       "contradicts_share": 0.0556
+      },
+      "openai": {
+       "matches": 9.0,
+       "overstates": 1.0,
+       "omits_or_understates": 8.0,
+       "contradicts": 0.0,
+       "no_usable_label": 0.0,
+       "n": 18.0,
+       "overstates_share": 0.0556,
+       "omits_or_understates_share": 0.4444,
+       "contradicts_share": 0.0
+      },
+      "averaged": {
+       "matches": 8.5,
+       "overstates": 0.5,
+       "omits_or_understates": 8.5,
+       "contradicts": 0.5,
+       "no_usable_label": 0.0,
+       "n": 18.0,
+       "overstates_share": 0.0278,
+       "omits_or_understates_share": 0.4722,
+       "contradicts_share": 0.0278
+      }
+     }
+    }
+   }
+  },
+  "Claude": {
+   "per_question": {
+    "WHU-S01": {
+     "citation_fidelity": {
+      "claude": {
+       "supported": 13.0,
+       "cited_not_supported": 1.0,
+       "uncited": 6.0,
+       "excluded": 0.0,
+       "n": 20.0,
+       "drawn": 20.0,
+       "supported_share": 0.65,
+       "cited_not_supported_share": 0.05,
+       "uncited_share": 0.3
+      },
+      "openai": {
+       "supported": 7.0,
+       "cited_not_supported": 7.0,
+       "uncited": 6.0,
+       "excluded": 0.0,
+       "n": 20.0,
+       "drawn": 20.0,
+       "supported_share": 0.35,
+       "cited_not_supported_share": 0.35,
+       "uncited_share": 0.3
+      },
+      "averaged": {
+       "supported": 10.0,
+       "cited_not_supported": 4.0,
+       "uncited": 6.0,
+       "excluded": 0.0,
+       "n": 20.0,
+       "drawn": 20.0,
+       "supported_share": 0.5,
+       "cited_not_supported_share": 0.2,
+       "uncited_share": 0.3
+      }
+     },
+     "conclusions": {
+      "claude": {
+       "matches": 4.0,
+       "overstates": 1.0,
+       "omits_or_understates": 0.0,
+       "contradicts": 0.0,
+       "no_usable_label": 0.0,
+       "n": 5.0,
+       "overstates_share": 0.2,
+       "omits_or_understates_share": 0.0,
+       "contradicts_share": 0.0
+      },
+      "openai": {
+       "matches": 2.0,
+       "overstates": 2.0,
+       "omits_or_understates": 1.0,
+       "contradicts": 0.0,
+       "no_usable_label": 0.0,
+       "n": 5.0,
+       "overstates_share": 0.4,
+       "omits_or_understates_share": 0.2,
+       "contradicts_share": 0.0
+      },
+      "averaged": {
+       "matches": 3.0,
+       "overstates": 1.5,
+       "omits_or_understates": 0.5,
+       "contradicts": 0.0,
+       "no_usable_label": 0.0,
+       "n": 5.0,
+       "overstates_share": 0.3,
+       "omits_or_understates_share": 0.1,
+       "contradicts_share": 0.0
+      }
+     }
+    },
+    "WHU-S02": {
+     "citation_fidelity": {
+      "claude": {
+       "supported": 8.0,
+       "cited_not_supported": 2.0,
+       "uncited": 4.0,
+       "excluded": 6.0,
+       "n": 14.0,
+       "drawn": 20.0,
+       "supported_share": 0.5714,
+       "cited_not_supported_share": 0.1429,
+       "uncited_share": 0.2857
+      },
+      "openai": {
+       "supported": 5.0,
+       "cited_not_supported": 5.0,
+       "uncited": 4.0,
+       "excluded": 6.0,
+       "n": 14.0,
+       "drawn": 20.0,
+       "supported_share": 0.3571,
+       "cited_not_supported_share": 0.3571,
+       "uncited_share": 0.2857
+      },
+      "averaged": {
+       "supported": 6.5,
+       "cited_not_supported": 3.5,
+       "uncited": 4.0,
+       "excluded": 6.0,
+       "n": 14.0,
+       "drawn": 20.0,
+       "supported_share": 0.4643,
+       "cited_not_supported_share": 0.25,
+       "uncited_share": 0.2857
+      }
+     },
+     "conclusions": {
+      "claude": {
+       "matches": 3.0,
+       "overstates": 1.0,
+       "omits_or_understates": 0.0,
+       "contradicts": 1.0,
+       "no_usable_label": 0.0,
+       "n": 5.0,
+       "overstates_share": 0.2,
+       "omits_or_understates_share": 0.0,
+       "contradicts_share": 0.2
+      },
+      "openai": {
+       "matches": 0.0,
+       "overstates": 4.0,
+       "omits_or_understates": 0.0,
+       "contradicts": 1.0,
+       "no_usable_label": 0.0,
+       "n": 5.0,
+       "overstates_share": 0.8,
+       "omits_or_understates_share": 0.0,
+       "contradicts_share": 0.2
+      },
+      "averaged": {
+       "matches": 1.5,
+       "overstates": 2.5,
+       "omits_or_understates": 0.0,
+       "contradicts": 1.0,
+       "no_usable_label": 0.0,
+       "n": 5.0,
+       "overstates_share": 0.5,
+       "omits_or_understates_share": 0.0,
+       "contradicts_share": 0.2
+      }
+     }
+    },
+    "WHU-S03": {
+     "citation_fidelity": {
+      "claude": {
+       "supported": 13.0,
+       "cited_not_supported": 1.0,
+       "uncited": 4.0,
+       "excluded": 2.0,
+       "n": 18.0,
+       "drawn": 20.0,
+       "supported_share": 0.7222,
+       "cited_not_supported_share": 0.0556,
+       "uncited_share": 0.2222
+      },
+      "openai": {
+       "supported": 11.0,
+       "cited_not_supported": 3.0,
+       "uncited": 4.0,
+       "excluded": 2.0,
+       "n": 18.0,
+       "drawn": 20.0,
+       "supported_share": 0.6111,
+       "cited_not_supported_share": 0.1667,
+       "uncited_share": 0.2222
+      },
+      "averaged": {
+       "supported": 12.0,
+       "cited_not_supported": 2.0,
+       "uncited": 4.0,
+       "excluded": 2.0,
+       "n": 18.0,
+       "drawn": 20.0,
+       "supported_share": 0.6667,
+       "cited_not_supported_share": 0.1111,
+       "uncited_share": 0.2222
+      }
+     },
+     "conclusions": {
+      "claude": {
+       "matches": 1.0,
+       "overstates": 0.0,
+       "omits_or_understates": 0.0,
+       "contradicts": 0.0,
+       "no_usable_label": 0.0,
+       "n": 1.0,
+       "overstates_share": 0.0,
+       "omits_or_understates_share": 0.0,
+       "contradicts_share": 0.0
+      },
+      "openai": {
+       "matches": 0.0,
+       "overstates": 1.0,
+       "omits_or_understates": 0.0,
+       "contradicts": 0.0,
+       "no_usable_label": 0.0,
+       "n": 1.0,
+       "overstates_share": 1.0,
+       "omits_or_understates_share": 0.0,
+       "contradicts_share": 0.0
+      },
+      "averaged": {
+       "matches": 0.5,
+       "overstates": 0.5,
+       "omits_or_understates": 0.0,
+       "contradicts": 0.0,
+       "no_usable_label": 0.0,
+       "n": 1.0,
+       "overstates_share": 0.5,
+       "omits_or_understates_share": 0.0,
+       "contradicts_share": 0.0
+      }
+     }
+    },
+    "WHU-S04": {
+     "citation_fidelity": {
+      "claude": {
+       "supported": 8.0,
+       "cited_not_supported": 1.0,
+       "uncited": 9.0,
+       "excluded": 2.0,
+       "n": 18.0,
+       "drawn": 20.0,
+       "supported_share": 0.4444,
+       "cited_not_supported_share": 0.0556,
+       "uncited_share": 0.5
+      },
+      "openai": {
+       "supported": 8.0,
+       "cited_not_supported": 1.0,
+       "uncited": 9.0,
+       "excluded": 2.0,
+       "n": 18.0,
+       "drawn": 20.0,
+       "supported_share": 0.4444,
+       "cited_not_supported_share": 0.0556,
+       "uncited_share": 0.5
+      },
+      "averaged": {
+       "supported": 8.0,
+       "cited_not_supported": 1.0,
+       "uncited": 9.0,
+       "excluded": 2.0,
+       "n": 18.0,
+       "drawn": 20.0,
+       "supported_share": 0.4444,
+       "cited_not_supported_share": 0.0556,
+       "uncited_share": 0.5
+      }
+     },
+     "conclusions": {
+      "claude": {
+       "matches": 2.0,
+       "overstates": 0.0,
+       "omits_or_understates": 0.0,
+       "contradicts": 0.0,
+       "no_usable_label": 0.0,
+       "n": 2.0,
+       "overstates_share": 0.0,
+       "omits_or_understates_share": 0.0,
+       "contradicts_share": 0.0
+      },
+      "openai": {
+       "matches": 1.0,
+       "overstates": 1.0,
+       "omits_or_understates": 0.0,
+       "contradicts": 0.0,
+       "no_usable_label": 0.0,
+       "n": 2.0,
+       "overstates_share": 0.5,
+       "omits_or_understates_share": 0.0,
+       "contradicts_share": 0.0
+      },
+      "averaged": {
+       "matches": 1.5,
+       "overstates": 0.5,
+       "omits_or_understates": 0.0,
+       "contradicts": 0.0,
+       "no_usable_label": 0.0,
+       "n": 2.0,
+       "overstates_share": 0.25,
+       "omits_or_understates_share": 0.0,
+       "contradicts_share": 0.0
+      }
+     }
+    },
+    "WHU-S05": {
+     "citation_fidelity": {
+      "claude": {
+       "supported": 8.0,
+       "cited_not_supported": 0.0,
+       "uncited": 8.0,
+       "excluded": 4.0,
+       "n": 16.0,
+       "drawn": 20.0,
+       "supported_share": 0.5,
+       "cited_not_supported_share": 0.0,
+       "uncited_share": 0.5
+      },
+      "openai": {
+       "supported": 6.0,
+       "cited_not_supported": 2.0,
+       "uncited": 8.0,
+       "excluded": 4.0,
+       "n": 16.0,
+       "drawn": 20.0,
+       "supported_share": 0.375,
+       "cited_not_supported_share": 0.125,
+       "uncited_share": 0.5
+      },
+      "averaged": {
+       "supported": 7.0,
+       "cited_not_supported": 1.0,
+       "uncited": 8.0,
+       "excluded": 4.0,
+       "n": 16.0,
+       "drawn": 20.0,
+       "supported_share": 0.4375,
+       "cited_not_supported_share": 0.0625,
+       "uncited_share": 0.5
+      }
+     },
+     "conclusions": {
+      "claude": {
+       "matches": 3.0,
+       "overstates": 1.0,
+       "omits_or_understates": 1.0,
+       "contradicts": 0.0,
+       "no_usable_label": 0.0,
+       "n": 5.0,
+       "overstates_share": 0.2,
+       "omits_or_understates_share": 0.2,
+       "contradicts_share": 0.0
+      },
+      "openai": {
+       "matches": 1.0,
+       "overstates": 3.0,
+       "omits_or_understates": 1.0,
+       "contradicts": 0.0,
+       "no_usable_label": 0.0,
+       "n": 5.0,
+       "overstates_share": 0.6,
+       "omits_or_understates_share": 0.2,
+       "contradicts_share": 0.0
+      },
+      "averaged": {
+       "matches": 2.0,
+       "overstates": 2.0,
+       "omits_or_understates": 1.0,
+       "contradicts": 0.0,
+       "no_usable_label": 0.0,
+       "n": 5.0,
+       "overstates_share": 0.4,
+       "omits_or_understates_share": 0.2,
+       "contradicts_share": 0.0
+      }
+     }
+    },
+    "WHU-S06": {
+     "citation_fidelity": {
+      "claude": {
+       "supported": 9.0,
+       "cited_not_supported": 6.0,
+       "uncited": 5.0,
+       "excluded": 0.0,
+       "n": 20.0,
+       "drawn": 20.0,
+       "supported_share": 0.45,
+       "cited_not_supported_share": 0.3,
+       "uncited_share": 0.25
+      },
+      "openai": {
+       "supported": 5.0,
+       "cited_not_supported": 10.0,
+       "uncited": 5.0,
+       "excluded": 0.0,
+       "n": 20.0,
+       "drawn": 20.0,
+       "supported_share": 0.25,
+       "cited_not_supported_share": 0.5,
+       "uncited_share": 0.25
+      },
+      "averaged": {
+       "supported": 7.0,
+       "cited_not_supported": 8.0,
+       "uncited": 5.0,
+       "excluded": 0.0,
+       "n": 20.0,
+       "drawn": 20.0,
+       "supported_share": 0.35,
+       "cited_not_supported_share": 0.4,
+       "uncited_share": 0.25
+      }
+     },
+     "conclusions": {
+      "claude": {
+       "matches": 3.0,
+       "overstates": 2.0,
+       "omits_or_understates": 0.0,
+       "contradicts": 0.0,
+       "no_usable_label": 0.0,
+       "n": 5.0,
+       "overstates_share": 0.4,
+       "omits_or_understates_share": 0.0,
+       "contradicts_share": 0.0
+      },
+      "openai": {
+       "matches": 0.0,
+       "overstates": 5.0,
+       "omits_or_understates": 0.0,
+       "contradicts": 0.0,
+       "no_usable_label": 0.0,
+       "n": 5.0,
+       "overstates_share": 1.0,
+       "omits_or_understates_share": 0.0,
+       "contradicts_share": 0.0
+      },
+      "averaged": {
+       "matches": 1.5,
+       "overstates": 3.5,
+       "omits_or_understates": 0.0,
+       "contradicts": 0.0,
+       "no_usable_label": 0.0,
+       "n": 5.0,
+       "overstates_share": 0.7,
+       "omits_or_understates_share": 0.0,
+       "contradicts_share": 0.0
+      }
+     }
+    },
+    "WHU-S07": {
+     "citation_fidelity": {
+      "claude": {
+       "supported": 5.0,
+       "cited_not_supported": 2.0,
+       "uncited": 11.0,
+       "excluded": 2.0,
+       "n": 18.0,
+       "drawn": 20.0,
+       "supported_share": 0.2778,
+       "cited_not_supported_share": 0.1111,
+       "uncited_share": 0.6111
+      },
+      "openai": {
+       "supported": 3.0,
+       "cited_not_supported": 4.0,
+       "uncited": 11.0,
+       "excluded": 2.0,
+       "n": 18.0,
+       "drawn": 20.0,
+       "supported_share": 0.1667,
+       "cited_not_supported_share": 0.2222,
+       "uncited_share": 0.6111
+      },
+      "averaged": {
+       "supported": 4.0,
+       "cited_not_supported": 3.0,
+       "uncited": 11.0,
+       "excluded": 2.0,
+       "n": 18.0,
+       "drawn": 20.0,
+       "supported_share": 0.2222,
+       "cited_not_supported_share": 0.1667,
+       "uncited_share": 0.6111
+      }
+     },
+     "conclusions": {
+      "claude": {
+       "matches": 2.0,
+       "overstates": 1.0,
+       "omits_or_understates": 1.0,
+       "contradicts": 0.0,
+       "no_usable_label": 0.0,
+       "n": 4.0,
+       "overstates_share": 0.25,
+       "omits_or_understates_share": 0.25,
+       "contradicts_share": 0.0
+      },
+      "openai": {
+       "matches": 2.0,
+       "overstates": 1.0,
+       "omits_or_understates": 1.0,
+       "contradicts": 0.0,
+       "no_usable_label": 0.0,
+       "n": 4.0,
+       "overstates_share": 0.25,
+       "omits_or_understates_share": 0.25,
+       "contradicts_share": 0.0
+      },
+      "averaged": {
+       "matches": 2.0,
+       "overstates": 1.0,
+       "omits_or_understates": 1.0,
+       "contradicts": 0.0,
+       "no_usable_label": 0.0,
+       "n": 4.0,
+       "overstates_share": 0.25,
+       "omits_or_understates_share": 0.25,
+       "contradicts_share": 0.0
+      }
+     }
+    },
+    "WHU-S08": {
+     "citation_fidelity": {
+      "claude": {
+       "supported": 11.0,
+       "cited_not_supported": 1.0,
+       "uncited": 4.0,
+       "excluded": 4.0,
+       "n": 16.0,
+       "drawn": 20.0,
+       "supported_share": 0.6875,
+       "cited_not_supported_share": 0.0625,
+       "uncited_share": 0.25
+      },
+      "openai": {
+       "supported": 7.0,
+       "cited_not_supported": 5.0,
+       "uncited": 4.0,
+       "excluded": 4.0,
+       "n": 16.0,
+       "drawn": 20.0,
+       "supported_share": 0.4375,
+       "cited_not_supported_share": 0.3125,
+       "uncited_share": 0.25
+      },
+      "averaged": {
+       "supported": 9.0,
+       "cited_not_supported": 3.0,
+       "uncited": 4.0,
+       "excluded": 4.0,
+       "n": 16.0,
+       "drawn": 20.0,
+       "supported_share": 0.5625,
+       "cited_not_supported_share": 0.1875,
+       "uncited_share": 0.25
+      }
+     },
+     "conclusions": {
+      "claude": {
+       "matches": 3.0,
+       "overstates": 0.0,
+       "omits_or_understates": 1.0,
+       "contradicts": 0.0,
+       "no_usable_label": 0.0,
+       "n": 4.0,
+       "overstates_share": 0.0,
+       "omits_or_understates_share": 0.25,
+       "contradicts_share": 0.0
+      },
+      "openai": {
+       "matches": 3.0,
+       "overstates": 1.0,
+       "omits_or_understates": 0.0,
+       "contradicts": 0.0,
+       "no_usable_label": 0.0,
+       "n": 4.0,
+       "overstates_share": 0.25,
+       "omits_or_understates_share": 0.0,
+       "contradicts_share": 0.0
+      },
+      "averaged": {
+       "matches": 3.0,
+       "overstates": 0.5,
+       "omits_or_understates": 0.5,
+       "contradicts": 0.0,
+       "no_usable_label": 0.0,
+       "n": 4.0,
+       "overstates_share": 0.125,
+       "omits_or_understates_share": 0.125,
+       "contradicts_share": 0.0
+      }
+     }
+    }
+   },
+   "totals": {
+    "all_eight": {
+     "questions": [
+      "WHU-S01",
+      "WHU-S02",
+      "WHU-S03",
+      "WHU-S04",
+      "WHU-S05",
+      "WHU-S06",
+      "WHU-S07",
+      "WHU-S08"
+     ],
+     "citation_fidelity": {
+      "claude": {
+       "supported": 75.0,
+       "cited_not_supported": 14.0,
+       "uncited": 51.0,
+       "excluded": 20.0,
+       "n": 140.0,
+       "drawn": 160.0,
+       "supported_share": 0.5357,
+       "cited_not_supported_share": 0.1,
+       "uncited_share": 0.3643
+      },
+      "openai": {
+       "supported": 52.0,
+       "cited_not_supported": 37.0,
+       "uncited": 51.0,
+       "excluded": 20.0,
+       "n": 140.0,
+       "drawn": 160.0,
+       "supported_share": 0.3714,
+       "cited_not_supported_share": 0.2643,
+       "uncited_share": 0.3643
+      },
+      "averaged": {
+       "supported": 63.5,
+       "cited_not_supported": 25.5,
+       "uncited": 51.0,
+       "excluded": 20.0,
+       "n": 140.0,
+       "drawn": 160.0,
+       "supported_share": 0.4536,
+       "cited_not_supported_share": 0.1821,
+       "uncited_share": 0.3643
+      }
+     },
+     "conclusions": {
+      "claude": {
+       "matches": 21.0,
+       "overstates": 6.0,
+       "omits_or_understates": 3.0,
+       "contradicts": 1.0,
+       "no_usable_label": 0.0,
+       "n": 31.0,
+       "overstates_share": 0.1935,
+       "omits_or_understates_share": 0.0968,
+       "contradicts_share": 0.0323
+      },
+      "openai": {
+       "matches": 9.0,
+       "overstates": 18.0,
+       "omits_or_understates": 3.0,
+       "contradicts": 1.0,
+       "no_usable_label": 0.0,
+       "n": 31.0,
+       "overstates_share": 0.5806,
+       "omits_or_understates_share": 0.0968,
+       "contradicts_share": 0.0323
+      },
+      "averaged": {
+       "matches": 15.0,
+       "overstates": 12.0,
+       "omits_or_understates": 3.0,
+       "contradicts": 1.0,
+       "no_usable_label": 0.0,
+       "n": 31.0,
+       "overstates_share": 0.3871,
+       "omits_or_understates_share": 0.0968,
+       "contradicts_share": 0.0323
+      }
+     }
+    },
+    "S01-S04": {
+     "questions": [
+      "WHU-S01",
+      "WHU-S02",
+      "WHU-S03",
+      "WHU-S04"
+     ],
+     "citation_fidelity": {
+      "claude": {
+       "supported": 42.0,
+       "cited_not_supported": 5.0,
+       "uncited": 23.0,
+       "excluded": 10.0,
+       "n": 70.0,
+       "drawn": 80.0,
+       "supported_share": 0.6,
+       "cited_not_supported_share": 0.0714,
+       "uncited_share": 0.3286
+      },
+      "openai": {
+       "supported": 31.0,
+       "cited_not_supported": 16.0,
+       "uncited": 23.0,
+       "excluded": 10.0,
+       "n": 70.0,
+       "drawn": 80.0,
+       "supported_share": 0.4429,
+       "cited_not_supported_share": 0.2286,
+       "uncited_share": 0.3286
+      },
+      "averaged": {
+       "supported": 36.5,
+       "cited_not_supported": 10.5,
+       "uncited": 23.0,
+       "excluded": 10.0,
+       "n": 70.0,
+       "drawn": 80.0,
+       "supported_share": 0.5214,
+       "cited_not_supported_share": 0.15,
+       "uncited_share": 0.3286
+      }
+     },
+     "conclusions": {
+      "claude": {
+       "matches": 10.0,
+       "overstates": 2.0,
+       "omits_or_understates": 0.0,
+       "contradicts": 1.0,
+       "no_usable_label": 0.0,
+       "n": 13.0,
+       "overstates_share": 0.1538,
+       "omits_or_understates_share": 0.0,
+       "contradicts_share": 0.0769
+      },
+      "openai": {
+       "matches": 3.0,
+       "overstates": 8.0,
+       "omits_or_understates": 1.0,
+       "contradicts": 1.0,
+       "no_usable_label": 0.0,
+       "n": 13.0,
+       "overstates_share": 0.6154,
+       "omits_or_understates_share": 0.0769,
+       "contradicts_share": 0.0769
+      },
+      "averaged": {
+       "matches": 6.5,
+       "overstates": 5.0,
+       "omits_or_understates": 0.5,
+       "contradicts": 1.0,
+       "no_usable_label": 0.0,
+       "n": 13.0,
+       "overstates_share": 0.3846,
+       "omits_or_understates_share": 0.0385,
+       "contradicts_share": 0.0769
+      }
+     }
+    },
+    "S05-S08": {
+     "questions": [
+      "WHU-S05",
+      "WHU-S06",
+      "WHU-S07",
+      "WHU-S08"
+     ],
+     "citation_fidelity": {
+      "claude": {
+       "supported": 33.0,
+       "cited_not_supported": 9.0,
+       "uncited": 28.0,
+       "excluded": 10.0,
+       "n": 70.0,
+       "drawn": 80.0,
+       "supported_share": 0.4714,
+       "cited_not_supported_share": 0.1286,
+       "uncited_share": 0.4
+      },
+      "openai": {
+       "supported": 21.0,
+       "cited_not_supported": 21.0,
+       "uncited": 28.0,
+       "excluded": 10.0,
+       "n": 70.0,
+       "drawn": 80.0,
+       "supported_share": 0.3,
+       "cited_not_supported_share": 0.3,
+       "uncited_share": 0.4
+      },
+      "averaged": {
+       "supported": 27.0,
+       "cited_not_supported": 15.0,
+       "uncited": 28.0,
+       "excluded": 10.0,
+       "n": 70.0,
+       "drawn": 80.0,
+       "supported_share": 0.3857,
+       "cited_not_supported_share": 0.2143,
+       "uncited_share": 0.4
+      }
+     },
+     "conclusions": {
+      "claude": {
+       "matches": 11.0,
+       "overstates": 4.0,
+       "omits_or_understates": 3.0,
+       "contradicts": 0.0,
+       "no_usable_label": 0.0,
+       "n": 18.0,
+       "overstates_share": 0.2222,
+       "omits_or_understates_share": 0.1667,
+       "contradicts_share": 0.0
+      },
+      "openai": {
+       "matches": 6.0,
+       "overstates": 10.0,
+       "omits_or_understates": 2.0,
+       "contradicts": 0.0,
+       "no_usable_label": 0.0,
+       "n": 18.0,
+       "overstates_share": 0.5556,
+       "omits_or_understates_share": 0.1111,
+       "contradicts_share": 0.0
+      },
+      "averaged": {
+       "matches": 8.5,
+       "overstates": 7.0,
+       "omits_or_understates": 2.5,
+       "contradicts": 0.0,
+       "no_usable_label": 0.0,
+       "n": 18.0,
+       "overstates_share": 0.3889,
+       "omits_or_understates_share": 0.1389,
+       "contradicts_share": 0.0
+      }
+     }
+    }
+   }
+  },
+  "ChatGPT": {
+   "per_question": {
+    "WHU-S01": {
+     "citation_fidelity": {
+      "claude": {
+       "supported": 6.0,
+       "cited_not_supported": 3.0,
+       "uncited": 4.0,
+       "excluded": 7.0,
+       "n": 13.0,
+       "drawn": 20.0,
+       "supported_share": 0.4615,
+       "cited_not_supported_share": 0.2308,
+       "uncited_share": 0.3077
+      },
+      "openai": {
+       "supported": 3.0,
+       "cited_not_supported": 6.0,
+       "uncited": 4.0,
+       "excluded": 7.0,
+       "n": 13.0,
+       "drawn": 20.0,
+       "supported_share": 0.2308,
+       "cited_not_supported_share": 0.4615,
+       "uncited_share": 0.3077
+      },
+      "averaged": {
+       "supported": 4.5,
+       "cited_not_supported": 4.5,
+       "uncited": 4.0,
+       "excluded": 7.0,
+       "n": 13.0,
+       "drawn": 20.0,
+       "supported_share": 0.3462,
+       "cited_not_supported_share": 0.3462,
+       "uncited_share": 0.3077
+      }
+     },
+     "conclusions": {
+      "claude": {
+       "matches": 0.0,
+       "overstates": 2.0,
+       "omits_or_understates": 2.0,
+       "contradicts": 1.0,
+       "no_usable_label": 0.0,
+       "n": 5.0,
+       "overstates_share": 0.4,
+       "omits_or_understates_share": 0.4,
+       "contradicts_share": 0.2
+      },
+      "openai": {
+       "matches": 0.0,
+       "overstates": 3.0,
+       "omits_or_understates": 1.0,
+       "contradicts": 1.0,
+       "no_usable_label": 0.0,
+       "n": 5.0,
+       "overstates_share": 0.6,
+       "omits_or_understates_share": 0.2,
+       "contradicts_share": 0.2
+      },
+      "averaged": {
+       "matches": 0.0,
+       "overstates": 2.5,
+       "omits_or_understates": 1.5,
+       "contradicts": 1.0,
+       "no_usable_label": 0.0,
+       "n": 5.0,
+       "overstates_share": 0.5,
+       "omits_or_understates_share": 0.3,
+       "contradicts_share": 0.2
+      }
+     }
+    },
+    "WHU-S02": {
+     "citation_fidelity": {
+      "claude": {
+       "supported": 8.0,
+       "cited_not_supported": 4.0,
+       "uncited": 3.0,
+       "excluded": 5.0,
+       "n": 15.0,
+       "drawn": 20.0,
+       "supported_share": 0.5333,
+       "cited_not_supported_share": 0.2667,
+       "uncited_share": 0.2
+      },
+      "openai": {
+       "supported": 3.0,
+       "cited_not_supported": 9.0,
+       "uncited": 3.0,
+       "excluded": 5.0,
+       "n": 15.0,
+       "drawn": 20.0,
+       "supported_share": 0.2,
+       "cited_not_supported_share": 0.6,
+       "uncited_share": 0.2
+      },
+      "averaged": {
+       "supported": 5.5,
+       "cited_not_supported": 6.5,
+       "uncited": 3.0,
+       "excluded": 5.0,
+       "n": 15.0,
+       "drawn": 20.0,
+       "supported_share": 0.3667,
+       "cited_not_supported_share": 0.4333,
+       "uncited_share": 0.2
+      }
+     },
+     "conclusions": {
+      "claude": {
+       "matches": 0.0,
+       "overstates": 2.0,
+       "omits_or_understates": 0.0,
+       "contradicts": 3.0,
+       "no_usable_label": 0.0,
+       "n": 5.0,
+       "overstates_share": 0.4,
+       "omits_or_understates_share": 0.0,
+       "contradicts_share": 0.6
+      },
+      "openai": {
+       "matches": 0.0,
+       "overstates": 1.0,
+       "omits_or_understates": 0.0,
+       "contradicts": 4.0,
+       "no_usable_label": 0.0,
+       "n": 5.0,
+       "overstates_share": 0.2,
+       "omits_or_understates_share": 0.0,
+       "contradicts_share": 0.8
+      },
+      "averaged": {
+       "matches": 0.0,
+       "overstates": 1.5,
+       "omits_or_understates": 0.0,
+       "contradicts": 3.5,
+       "no_usable_label": 0.0,
+       "n": 5.0,
+       "overstates_share": 0.3,
+       "omits_or_understates_share": 0.0,
+       "contradicts_share": 0.7
+      }
+     }
+    },
+    "WHU-S03": {
+     "citation_fidelity": {
+      "claude": {
+       "supported": 10.0,
+       "cited_not_supported": 8.0,
+       "uncited": 2.0,
+       "excluded": 0.0,
+       "n": 20.0,
+       "drawn": 20.0,
+       "supported_share": 0.5,
+       "cited_not_supported_share": 0.4,
+       "uncited_share": 0.1
+      },
+      "openai": {
+       "supported": 3.0,
+       "cited_not_supported": 15.0,
+       "uncited": 2.0,
+       "excluded": 0.0,
+       "n": 20.0,
+       "drawn": 20.0,
+       "supported_share": 0.15,
+       "cited_not_supported_share": 0.75,
+       "uncited_share": 0.1
+      },
+      "averaged": {
+       "supported": 6.5,
+       "cited_not_supported": 11.5,
+       "uncited": 2.0,
+       "excluded": 0.0,
+       "n": 20.0,
+       "drawn": 20.0,
+       "supported_share": 0.325,
+       "cited_not_supported_share": 0.575,
+       "uncited_share": 0.1
+      }
+     },
+     "conclusions": {
+      "claude": {
+       "matches": 1.0,
+       "overstates": 0.0,
+       "omits_or_understates": 0.0,
+       "contradicts": 0.0,
+       "no_usable_label": 0.0,
+       "n": 1.0,
+       "overstates_share": 0.0,
+       "omits_or_understates_share": 0.0,
+       "contradicts_share": 0.0
+      },
+      "openai": {
+       "matches": 0.0,
+       "overstates": 1.0,
+       "omits_or_understates": 0.0,
+       "contradicts": 0.0,
+       "no_usable_label": 0.0,
+       "n": 1.0,
+       "overstates_share": 1.0,
+       "omits_or_understates_share": 0.0,
+       "contradicts_share": 0.0
+      },
+      "averaged": {
+       "matches": 0.5,
+       "overstates": 0.5,
+       "omits_or_understates": 0.0,
+       "contradicts": 0.0,
+       "no_usable_label": 0.0,
+       "n": 1.0,
+       "overstates_share": 0.5,
+       "omits_or_understates_share": 0.0,
+       "contradicts_share": 0.0
+      }
+     }
+    },
+    "WHU-S04": {
+     "citation_fidelity": {
+      "claude": {
+       "supported": 7.0,
+       "cited_not_supported": 5.0,
+       "uncited": 8.0,
+       "excluded": 0.0,
+       "n": 20.0,
+       "drawn": 20.0,
+       "supported_share": 0.35,
+       "cited_not_supported_share": 0.25,
+       "uncited_share": 0.4
+      },
+      "openai": {
+       "supported": 2.0,
+       "cited_not_supported": 10.0,
+       "uncited": 8.0,
+       "excluded": 0.0,
+       "n": 20.0,
+       "drawn": 20.0,
+       "supported_share": 0.1,
+       "cited_not_supported_share": 0.5,
+       "uncited_share": 0.4
+      },
+      "averaged": {
+       "supported": 4.5,
+       "cited_not_supported": 7.5,
+       "uncited": 8.0,
+       "excluded": 0.0,
+       "n": 20.0,
+       "drawn": 20.0,
+       "supported_share": 0.225,
+       "cited_not_supported_share": 0.375,
+       "uncited_share": 0.4
+      }
+     },
+     "conclusions": {
+      "claude": {
+       "matches": 2.0,
+       "overstates": 0.0,
+       "omits_or_understates": 0.0,
+       "contradicts": 0.0,
+       "no_usable_label": 0.0,
+       "n": 2.0,
+       "overstates_share": 0.0,
+       "omits_or_understates_share": 0.0,
+       "contradicts_share": 0.0
+      },
+      "openai": {
+       "matches": 2.0,
+       "overstates": 0.0,
+       "omits_or_understates": 0.0,
+       "contradicts": 0.0,
+       "no_usable_label": 0.0,
+       "n": 2.0,
+       "overstates_share": 0.0,
+       "omits_or_understates_share": 0.0,
+       "contradicts_share": 0.0
+      },
+      "averaged": {
+       "matches": 2.0,
+       "overstates": 0.0,
+       "omits_or_understates": 0.0,
+       "contradicts": 0.0,
+       "no_usable_label": 0.0,
+       "n": 2.0,
+       "overstates_share": 0.0,
+       "omits_or_understates_share": 0.0,
+       "contradicts_share": 0.0
+      }
+     }
+    },
+    "WHU-S05": {
+     "citation_fidelity": {
+      "claude": {
+       "supported": 0.0,
+       "cited_not_supported": 0.0,
+       "uncited": 20.0,
+       "excluded": 0.0,
+       "n": 20.0,
+       "drawn": 20.0,
+       "supported_share": 0.0,
+       "cited_not_supported_share": 0.0,
+       "uncited_share": 1.0
+      },
+      "openai": {
+       "supported": 0.0,
+       "cited_not_supported": 0.0,
+       "uncited": 20.0,
+       "excluded": 0.0,
+       "n": 20.0,
+       "drawn": 20.0,
+       "supported_share": 0.0,
+       "cited_not_supported_share": 0.0,
+       "uncited_share": 1.0
+      },
+      "averaged": {
+       "supported": 0.0,
+       "cited_not_supported": 0.0,
+       "uncited": 20.0,
+       "excluded": 0.0,
+       "n": 20.0,
+       "drawn": 20.0,
+       "supported_share": 0.0,
+       "cited_not_supported_share": 0.0,
+       "uncited_share": 1.0
+      }
+     },
+     "conclusions": {
+      "claude": {
+       "matches": 0.0,
+       "overstates": 2.0,
+       "omits_or_understates": 2.0,
+       "contradicts": 1.0,
+       "no_usable_label": 0.0,
+       "n": 5.0,
+       "overstates_share": 0.4,
+       "omits_or_understates_share": 0.4,
+       "contradicts_share": 0.2
+      },
+      "openai": {
+       "matches": 0.0,
+       "overstates": 2.0,
+       "omits_or_understates": 2.0,
+       "contradicts": 1.0,
+       "no_usable_label": 0.0,
+       "n": 5.0,
+       "overstates_share": 0.4,
+       "omits_or_understates_share": 0.4,
+       "contradicts_share": 0.2
+      },
+      "averaged": {
+       "matches": 0.0,
+       "overstates": 2.0,
+       "omits_or_understates": 2.0,
+       "contradicts": 1.0,
+       "no_usable_label": 0.0,
+       "n": 5.0,
+       "overstates_share": 0.4,
+       "omits_or_understates_share": 0.4,
+       "contradicts_share": 0.2
+      }
+     }
+    },
+    "WHU-S06": {
+     "citation_fidelity": {
+      "claude": {
+       "supported": 0.0,
+       "cited_not_supported": 0.0,
+       "uncited": 20.0,
+       "excluded": 0.0,
+       "n": 20.0,
+       "drawn": 20.0,
+       "supported_share": 0.0,
+       "cited_not_supported_share": 0.0,
+       "uncited_share": 1.0
+      },
+      "openai": {
+       "supported": 0.0,
+       "cited_not_supported": 0.0,
+       "uncited": 20.0,
+       "excluded": 0.0,
+       "n": 20.0,
+       "drawn": 20.0,
+       "supported_share": 0.0,
+       "cited_not_supported_share": 0.0,
+       "uncited_share": 1.0
+      },
+      "averaged": {
+       "supported": 0.0,
+       "cited_not_supported": 0.0,
+       "uncited": 20.0,
+       "excluded": 0.0,
+       "n": 20.0,
+       "drawn": 20.0,
+       "supported_share": 0.0,
+       "cited_not_supported_share": 0.0,
+       "uncited_share": 1.0
+      }
+     },
+     "conclusions": {
+      "claude": {
+       "matches": 4.0,
+       "overstates": 1.0,
+       "omits_or_understates": 0.0,
+       "contradicts": 0.0,
+       "no_usable_label": 0.0,
+       "n": 5.0,
+       "overstates_share": 0.2,
+       "omits_or_understates_share": 0.0,
+       "contradicts_share": 0.0
+      },
+      "openai": {
+       "matches": 3.0,
+       "overstates": 2.0,
+       "omits_or_understates": 0.0,
+       "contradicts": 0.0,
+       "no_usable_label": 0.0,
+       "n": 5.0,
+       "overstates_share": 0.4,
+       "omits_or_understates_share": 0.0,
+       "contradicts_share": 0.0
+      },
+      "averaged": {
+       "matches": 3.5,
+       "overstates": 1.5,
+       "omits_or_understates": 0.0,
+       "contradicts": 0.0,
+       "no_usable_label": 0.0,
+       "n": 5.0,
+       "overstates_share": 0.3,
+       "omits_or_understates_share": 0.0,
+       "contradicts_share": 0.0
+      }
+     }
+    },
+    "WHU-S07": {
+     "citation_fidelity": {
+      "claude": {
+       "supported": 0.0,
+       "cited_not_supported": 0.0,
+       "uncited": 20.0,
+       "excluded": 0.0,
+       "n": 20.0,
+       "drawn": 20.0,
+       "supported_share": 0.0,
+       "cited_not_supported_share": 0.0,
+       "uncited_share": 1.0
+      },
+      "openai": {
+       "supported": 0.0,
+       "cited_not_supported": 0.0,
+       "uncited": 20.0,
+       "excluded": 0.0,
+       "n": 20.0,
+       "drawn": 20.0,
+       "supported_share": 0.0,
+       "cited_not_supported_share": 0.0,
+       "uncited_share": 1.0
+      },
+      "averaged": {
+       "supported": 0.0,
+       "cited_not_supported": 0.0,
+       "uncited": 20.0,
+       "excluded": 0.0,
+       "n": 20.0,
+       "drawn": 20.0,
+       "supported_share": 0.0,
+       "cited_not_supported_share": 0.0,
+       "uncited_share": 1.0
+      }
+     },
+     "conclusions": {
+      "claude": {
+       "matches": 1.0,
+       "overstates": 2.0,
+       "omits_or_understates": 1.0,
+       "contradicts": 0.0,
+       "no_usable_label": 0.0,
+       "n": 4.0,
+       "overstates_share": 0.5,
+       "omits_or_understates_share": 0.25,
+       "contradicts_share": 0.0
+      },
+      "openai": {
+       "matches": 1.0,
+       "overstates": 2.0,
+       "omits_or_understates": 1.0,
+       "contradicts": 0.0,
+       "no_usable_label": 0.0,
+       "n": 4.0,
+       "overstates_share": 0.5,
+       "omits_or_understates_share": 0.25,
+       "contradicts_share": 0.0
+      },
+      "averaged": {
+       "matches": 1.0,
+       "overstates": 2.0,
+       "omits_or_understates": 1.0,
+       "contradicts": 0.0,
+       "no_usable_label": 0.0,
+       "n": 4.0,
+       "overstates_share": 0.5,
+       "omits_or_understates_share": 0.25,
+       "contradicts_share": 0.0
+      }
+     }
+    },
+    "WHU-S08": {
+     "citation_fidelity": {
+      "claude": {
+       "supported": 0.0,
+       "cited_not_supported": 0.0,
+       "uncited": 19.0,
+       "excluded": 0.0,
+       "n": 19.0,
+       "drawn": 19.0,
+       "supported_share": 0.0,
+       "cited_not_supported_share": 0.0,
+       "uncited_share": 1.0
+      },
+      "openai": {
+       "supported": 0.0,
+       "cited_not_supported": 0.0,
+       "uncited": 19.0,
+       "excluded": 0.0,
+       "n": 19.0,
+       "drawn": 19.0,
+       "supported_share": 0.0,
+       "cited_not_supported_share": 0.0,
+       "uncited_share": 1.0
+      },
+      "averaged": {
+       "supported": 0.0,
+       "cited_not_supported": 0.0,
+       "uncited": 19.0,
+       "excluded": 0.0,
+       "n": 19.0,
+       "drawn": 19.0,
+       "supported_share": 0.0,
+       "cited_not_supported_share": 0.0,
+       "uncited_share": 1.0
+      }
+     },
+     "conclusions": {
+      "claude": {
+       "matches": 2.0,
+       "overstates": 1.0,
+       "omits_or_understates": 1.0,
+       "contradicts": 0.0,
+       "no_usable_label": 0.0,
+       "n": 4.0,
+       "overstates_share": 0.25,
+       "omits_or_understates_share": 0.25,
+       "contradicts_share": 0.0
+      },
+      "openai": {
+       "matches": 3.0,
+       "overstates": 1.0,
+       "omits_or_understates": 0.0,
+       "contradicts": 0.0,
+       "no_usable_label": 0.0,
+       "n": 4.0,
+       "overstates_share": 0.25,
+       "omits_or_understates_share": 0.0,
+       "contradicts_share": 0.0
+      },
+      "averaged": {
+       "matches": 2.5,
+       "overstates": 1.0,
+       "omits_or_understates": 0.5,
+       "contradicts": 0.0,
+       "no_usable_label": 0.0,
+       "n": 4.0,
+       "overstates_share": 0.25,
+       "omits_or_understates_share": 0.125,
+       "contradicts_share": 0.0
+      }
+     }
+    }
+   },
+   "totals": {
+    "all_eight": {
+     "questions": [
+      "WHU-S01",
+      "WHU-S02",
+      "WHU-S03",
+      "WHU-S04",
+      "WHU-S05",
+      "WHU-S06",
+      "WHU-S07",
+      "WHU-S08"
+     ],
+     "citation_fidelity": {
+      "claude": {
+       "supported": 31.0,
+       "cited_not_supported": 20.0,
+       "uncited": 96.0,
+       "excluded": 12.0,
+       "n": 147.0,
+       "drawn": 159.0,
+       "supported_share": 0.2109,
+       "cited_not_supported_share": 0.1361,
+       "uncited_share": 0.6531
+      },
+      "openai": {
+       "supported": 11.0,
+       "cited_not_supported": 40.0,
+       "uncited": 96.0,
+       "excluded": 12.0,
+       "n": 147.0,
+       "drawn": 159.0,
+       "supported_share": 0.0748,
+       "cited_not_supported_share": 0.2721,
+       "uncited_share": 0.6531
+      },
+      "averaged": {
+       "supported": 21.0,
+       "cited_not_supported": 30.0,
+       "uncited": 96.0,
+       "excluded": 12.0,
+       "n": 147.0,
+       "drawn": 159.0,
+       "supported_share": 0.1429,
+       "cited_not_supported_share": 0.2041,
+       "uncited_share": 0.6531
+      }
+     },
+     "conclusions": {
+      "claude": {
+       "matches": 10.0,
+       "overstates": 10.0,
+       "omits_or_understates": 6.0,
+       "contradicts": 5.0,
+       "no_usable_label": 0.0,
+       "n": 31.0,
+       "overstates_share": 0.3226,
+       "omits_or_understates_share": 0.1935,
+       "contradicts_share": 0.1613
+      },
+      "openai": {
+       "matches": 9.0,
+       "overstates": 12.0,
+       "omits_or_understates": 4.0,
+       "contradicts": 6.0,
+       "no_usable_label": 0.0,
+       "n": 31.0,
+       "overstates_share": 0.3871,
+       "omits_or_understates_share": 0.129,
+       "contradicts_share": 0.1935
+      },
+      "averaged": {
+       "matches": 9.5,
+       "overstates": 11.0,
+       "omits_or_understates": 5.0,
+       "contradicts": 5.5,
+       "no_usable_label": 0.0,
+       "n": 31.0,
+       "overstates_share": 0.3548,
+       "omits_or_understates_share": 0.1613,
+       "contradicts_share": 0.1774
+      }
+     }
+    },
+    "S01-S04": {
+     "questions": [
+      "WHU-S01",
+      "WHU-S02",
+      "WHU-S03",
+      "WHU-S04"
+     ],
+     "citation_fidelity": {
+      "claude": {
+       "supported": 31.0,
+       "cited_not_supported": 20.0,
+       "uncited": 17.0,
+       "excluded": 12.0,
+       "n": 68.0,
+       "drawn": 80.0,
+       "supported_share": 0.4559,
+       "cited_not_supported_share": 0.2941,
+       "uncited_share": 0.25
+      },
+      "openai": {
+       "supported": 11.0,
+       "cited_not_supported": 40.0,
+       "uncited": 17.0,
+       "excluded": 12.0,
+       "n": 68.0,
+       "drawn": 80.0,
+       "supported_share": 0.1618,
+       "cited_not_supported_share": 0.5882,
+       "uncited_share": 0.25
+      },
+      "averaged": {
+       "supported": 21.0,
+       "cited_not_supported": 30.0,
+       "uncited": 17.0,
+       "excluded": 12.0,
+       "n": 68.0,
+       "drawn": 80.0,
+       "supported_share": 0.3088,
+       "cited_not_supported_share": 0.4412,
+       "uncited_share": 0.25
+      }
+     },
+     "conclusions": {
+      "claude": {
+       "matches": 3.0,
+       "overstates": 4.0,
+       "omits_or_understates": 2.0,
+       "contradicts": 4.0,
+       "no_usable_label": 0.0,
+       "n": 13.0,
+       "overstates_share": 0.3077,
+       "omits_or_understates_share": 0.1538,
+       "contradicts_share": 0.3077
+      },
+      "openai": {
+       "matches": 2.0,
+       "overstates": 5.0,
+       "omits_or_understates": 1.0,
+       "contradicts": 5.0,
+       "no_usable_label": 0.0,
+       "n": 13.0,
+       "overstates_share": 0.3846,
+       "omits_or_understates_share": 0.0769,
+       "contradicts_share": 0.3846
+      },
+      "averaged": {
+       "matches": 2.5,
+       "overstates": 4.5,
+       "omits_or_understates": 1.5,
+       "contradicts": 4.5,
+       "no_usable_label": 0.0,
+       "n": 13.0,
+       "overstates_share": 0.3462,
+       "omits_or_understates_share": 0.1154,
+       "contradicts_share": 0.3462
+      }
+     }
+    },
+    "S05-S08": {
+     "questions": [
+      "WHU-S05",
+      "WHU-S06",
+      "WHU-S07",
+      "WHU-S08"
+     ],
+     "citation_fidelity": {
+      "claude": {
+       "supported": 0.0,
+       "cited_not_supported": 0.0,
+       "uncited": 79.0,
+       "excluded": 0.0,
+       "n": 79.0,
+       "drawn": 79.0,
+       "supported_share": 0.0,
+       "cited_not_supported_share": 0.0,
+       "uncited_share": 1.0
+      },
+      "openai": {
+       "supported": 0.0,
+       "cited_not_supported": 0.0,
+       "uncited": 79.0,
+       "excluded": 0.0,
+       "n": 79.0,
+       "drawn": 79.0,
+       "supported_share": 0.0,
+       "cited_not_supported_share": 0.0,
+       "uncited_share": 1.0
+      },
+      "averaged": {
+       "supported": 0.0,
+       "cited_not_supported": 0.0,
+       "uncited": 79.0,
+       "excluded": 0.0,
+       "n": 79.0,
+       "drawn": 79.0,
+       "supported_share": 0.0,
+       "cited_not_supported_share": 0.0,
+       "uncited_share": 1.0
+      }
+     },
+     "conclusions": {
+      "claude": {
+       "matches": 7.0,
+       "overstates": 6.0,
+       "omits_or_understates": 4.0,
+       "contradicts": 1.0,
+       "no_usable_label": 0.0,
+       "n": 18.0,
+       "overstates_share": 0.3333,
+       "omits_or_understates_share": 0.2222,
+       "contradicts_share": 0.0556
+      },
+      "openai": {
+       "matches": 7.0,
+       "overstates": 7.0,
+       "omits_or_understates": 3.0,
+       "contradicts": 1.0,
+       "no_usable_label": 0.0,
+       "n": 18.0,
+       "overstates_share": 0.3889,
+       "omits_or_understates_share": 0.1667,
+       "contradicts_share": 0.0556
+      },
+      "averaged": {
+       "matches": 7.0,
+       "overstates": 6.5,
+       "omits_or_understates": 3.5,
+       "contradicts": 1.0,
+       "no_usable_label": 0.0,
+       "n": 18.0,
+       "overstates_share": 0.3611,
+       "omits_or_understates_share": 0.1944,
+       "contradicts_share": 0.0556
+      }
+     }
+    }
+   }
+  },
+  "Gemini": {
+   "per_question": {
+    "WHU-S01": {
+     "citation_fidelity": {
+      "claude": {
+       "supported": 2.0,
+       "cited_not_supported": 8.0,
+       "uncited": 0.0,
+       "excluded": 10.0,
+       "n": 10.0,
+       "drawn": 20.0,
+       "supported_share": 0.2,
+       "cited_not_supported_share": 0.8,
+       "uncited_share": 0.0
+      },
+      "openai": {
+       "supported": 0.0,
+       "cited_not_supported": 9.0,
+       "uncited": 0.0,
+       "excluded": 11.0,
+       "n": 9.0,
+       "drawn": 20.0,
+       "supported_share": 0.0,
+       "cited_not_supported_share": 1.0,
+       "uncited_share": 0.0
+      },
+      "averaged": {
+       "supported": 1.5,
+       "cited_not_supported": 8.5,
+       "uncited": 0.0,
+       "excluded": 10.0,
+       "n": 10.0,
+       "drawn": 20.0,
+       "supported_share": 0.15,
+       "cited_not_supported_share": 0.85,
+       "uncited_share": 0.0
+      }
+     },
+     "conclusions": {
+      "claude": {
+       "matches": 1.0,
+       "overstates": 3.0,
+       "omits_or_understates": 0.0,
+       "contradicts": 1.0,
+       "no_usable_label": 0.0,
+       "n": 5.0,
+       "overstates_share": 0.6,
+       "omits_or_understates_share": 0.0,
+       "contradicts_share": 0.2
+      },
+      "openai": {
+       "matches": 0.0,
+       "overstates": 4.0,
+       "omits_or_understates": 0.0,
+       "contradicts": 1.0,
+       "no_usable_label": 0.0,
+       "n": 5.0,
+       "overstates_share": 0.8,
+       "omits_or_understates_share": 0.0,
+       "contradicts_share": 0.2
+      },
+      "averaged": {
+       "matches": 0.5,
+       "overstates": 3.5,
+       "omits_or_understates": 0.0,
+       "contradicts": 1.0,
+       "no_usable_label": 0.0,
+       "n": 5.0,
+       "overstates_share": 0.7,
+       "omits_or_understates_share": 0.0,
+       "contradicts_share": 0.2
+      }
+     }
+    },
+    "WHU-S02": {
+     "citation_fidelity": {
+      "claude": {
+       "supported": 3.0,
+       "cited_not_supported": 13.0,
+       "uncited": 1.0,
+       "excluded": 3.0,
+       "n": 17.0,
+       "drawn": 20.0,
+       "supported_share": 0.1765,
+       "cited_not_supported_share": 0.7647,
+       "uncited_share": 0.0588
+      },
+      "openai": {
+       "supported": 1.0,
+       "cited_not_supported": 15.0,
+       "uncited": 1.0,
+       "excluded": 3.0,
+       "n": 17.0,
+       "drawn": 20.0,
+       "supported_share": 0.0588,
+       "cited_not_supported_share": 0.8824,
+       "uncited_share": 0.0588
+      },
+      "averaged": {
+       "supported": 2.0,
+       "cited_not_supported": 14.0,
+       "uncited": 1.0,
+       "excluded": 3.0,
+       "n": 17.0,
+       "drawn": 20.0,
+       "supported_share": 0.1176,
+       "cited_not_supported_share": 0.8235,
+       "uncited_share": 0.0588
+      }
+     },
+     "conclusions": {
+      "claude": {
+       "matches": 0.0,
+       "overstates": 2.0,
+       "omits_or_understates": 0.0,
+       "contradicts": 3.0,
+       "no_usable_label": 0.0,
+       "n": 5.0,
+       "overstates_share": 0.4,
+       "omits_or_understates_share": 0.0,
+       "contradicts_share": 0.6
+      },
+      "openai": {
+       "matches": 0.0,
+       "overstates": 2.0,
+       "omits_or_understates": 0.0,
+       "contradicts": 3.0,
+       "no_usable_label": 0.0,
+       "n": 5.0,
+       "overstates_share": 0.4,
+       "omits_or_understates_share": 0.0,
+       "contradicts_share": 0.6
+      },
+      "averaged": {
+       "matches": 0.0,
+       "overstates": 2.0,
+       "omits_or_understates": 0.0,
+       "contradicts": 3.0,
+       "no_usable_label": 0.0,
+       "n": 5.0,
+       "overstates_share": 0.4,
+       "omits_or_understates_share": 0.0,
+       "contradicts_share": 0.6
+      }
+     }
+    },
+    "WHU-S03": {
+     "citation_fidelity": {
+      "claude": {
+       "supported": 6.0,
+       "cited_not_supported": 12.0,
+       "uncited": 0.0,
+       "excluded": 2.0,
+       "n": 18.0,
+       "drawn": 20.0,
+       "supported_share": 0.3333,
+       "cited_not_supported_share": 0.6667,
+       "uncited_share": 0.0
+      },
+      "openai": {
+       "supported": 3.0,
+       "cited_not_supported": 15.0,
+       "uncited": 0.0,
+       "excluded": 2.0,
+       "n": 18.0,
+       "drawn": 20.0,
+       "supported_share": 0.1667,
+       "cited_not_supported_share": 0.8333,
+       "uncited_share": 0.0
+      },
+      "averaged": {
+       "supported": 4.5,
+       "cited_not_supported": 13.5,
+       "uncited": 0.0,
+       "excluded": 2.0,
+       "n": 18.0,
+       "drawn": 20.0,
+       "supported_share": 0.25,
+       "cited_not_supported_share": 0.75,
+       "uncited_share": 0.0
+      }
+     },
+     "conclusions": {
+      "claude": {
+       "matches": 0.0,
+       "overstates": 1.0,
+       "omits_or_understates": 0.0,
+       "contradicts": 0.0,
+       "no_usable_label": 0.0,
+       "n": 1.0,
+       "overstates_share": 1.0,
+       "omits_or_understates_share": 0.0,
+       "contradicts_share": 0.0
+      },
+      "openai": {
+       "matches": 0.0,
+       "overstates": 1.0,
+       "omits_or_understates": 0.0,
+       "contradicts": 0.0,
+       "no_usable_label": 0.0,
+       "n": 1.0,
+       "overstates_share": 1.0,
+       "omits_or_understates_share": 0.0,
+       "contradicts_share": 0.0
+      },
+      "averaged": {
+       "matches": 0.0,
+       "overstates": 1.0,
+       "omits_or_understates": 0.0,
+       "contradicts": 0.0,
+       "no_usable_label": 0.0,
+       "n": 1.0,
+       "overstates_share": 1.0,
+       "omits_or_understates_share": 0.0,
+       "contradicts_share": 0.0
+      }
+     }
+    },
+    "WHU-S04": {
+     "citation_fidelity": {
+      "claude": {
+       "supported": 5.0,
+       "cited_not_supported": 5.0,
+       "uncited": 0.0,
+       "excluded": 10.0,
+       "n": 10.0,
+       "drawn": 20.0,
+       "supported_share": 0.5,
+       "cited_not_supported_share": 0.5,
+       "uncited_share": 0.0
+      },
+      "openai": {
+       "supported": 2.0,
+       "cited_not_supported": 8.0,
+       "uncited": 0.0,
+       "excluded": 10.0,
+       "n": 10.0,
+       "drawn": 20.0,
+       "supported_share": 0.2,
+       "cited_not_supported_share": 0.8,
+       "uncited_share": 0.0
+      },
+      "averaged": {
+       "supported": 3.5,
+       "cited_not_supported": 6.5,
+       "uncited": 0.0,
+       "excluded": 10.0,
+       "n": 10.0,
+       "drawn": 20.0,
+       "supported_share": 0.35,
+       "cited_not_supported_share": 0.65,
+       "uncited_share": 0.0
+      }
+     },
+     "conclusions": {
+      "claude": {
+       "matches": 1.0,
+       "overstates": 1.0,
+       "omits_or_understates": 0.0,
+       "contradicts": 0.0,
+       "no_usable_label": 0.0,
+       "n": 2.0,
+       "overstates_share": 0.5,
+       "omits_or_understates_share": 0.0,
+       "contradicts_share": 0.0
+      },
+      "openai": {
+       "matches": 0.0,
+       "overstates": 2.0,
+       "omits_or_understates": 0.0,
+       "contradicts": 0.0,
+       "no_usable_label": 0.0,
+       "n": 2.0,
+       "overstates_share": 1.0,
+       "omits_or_understates_share": 0.0,
+       "contradicts_share": 0.0
+      },
+      "averaged": {
+       "matches": 0.5,
+       "overstates": 1.5,
+       "omits_or_understates": 0.0,
+       "contradicts": 0.0,
+       "no_usable_label": 0.0,
+       "n": 2.0,
+       "overstates_share": 0.75,
+       "omits_or_understates_share": 0.0,
+       "contradicts_share": 0.0
+      }
+     }
+    },
+    "WHU-S05": {
+     "citation_fidelity": {
+      "claude": {
+       "supported": 5.0,
+       "cited_not_supported": 11.0,
+       "uncited": 0.0,
+       "excluded": 4.0,
+       "n": 16.0,
+       "drawn": 20.0,
+       "supported_share": 0.3125,
+       "cited_not_supported_share": 0.6875,
+       "uncited_share": 0.0
+      },
+      "openai": {
+       "supported": 2.0,
+       "cited_not_supported": 14.0,
+       "uncited": 0.0,
+       "excluded": 4.0,
+       "n": 16.0,
+       "drawn": 20.0,
+       "supported_share": 0.125,
+       "cited_not_supported_share": 0.875,
+       "uncited_share": 0.0
+      },
+      "averaged": {
+       "supported": 3.5,
+       "cited_not_supported": 12.5,
+       "uncited": 0.0,
+       "excluded": 4.0,
+       "n": 16.0,
+       "drawn": 20.0,
+       "supported_share": 0.2188,
+       "cited_not_supported_share": 0.7812,
+       "uncited_share": 0.0
+      }
+     },
+     "conclusions": {
+      "claude": {
+       "matches": 0.0,
+       "overstates": 3.0,
+       "omits_or_understates": 1.0,
+       "contradicts": 1.0,
+       "no_usable_label": 0.0,
+       "n": 5.0,
+       "overstates_share": 0.6,
+       "omits_or_understates_share": 0.2,
+       "contradicts_share": 0.2
+      },
+      "openai": {
+       "matches": 0.0,
+       "overstates": 4.0,
+       "omits_or_understates": 1.0,
+       "contradicts": 0.0,
+       "no_usable_label": 0.0,
+       "n": 5.0,
+       "overstates_share": 0.8,
+       "omits_or_understates_share": 0.2,
+       "contradicts_share": 0.0
+      },
+      "averaged": {
+       "matches": 0.0,
+       "overstates": 3.5,
+       "omits_or_understates": 1.0,
+       "contradicts": 0.5,
+       "no_usable_label": 0.0,
+       "n": 5.0,
+       "overstates_share": 0.7,
+       "omits_or_understates_share": 0.2,
+       "contradicts_share": 0.1
+      }
+     }
+    },
+    "WHU-S06": {
+     "citation_fidelity": {
+      "claude": {
+       "supported": 4.0,
+       "cited_not_supported": 12.0,
+       "uncited": 0.0,
+       "excluded": 4.0,
+       "n": 16.0,
+       "drawn": 20.0,
+       "supported_share": 0.25,
+       "cited_not_supported_share": 0.75,
+       "uncited_share": 0.0
+      },
+      "openai": {
+       "supported": 1.0,
+       "cited_not_supported": 15.0,
+       "uncited": 0.0,
+       "excluded": 4.0,
+       "n": 16.0,
+       "drawn": 20.0,
+       "supported_share": 0.0625,
+       "cited_not_supported_share": 0.9375,
+       "uncited_share": 0.0
+      },
+      "averaged": {
+       "supported": 2.5,
+       "cited_not_supported": 13.5,
+       "uncited": 0.0,
+       "excluded": 4.0,
+       "n": 16.0,
+       "drawn": 20.0,
+       "supported_share": 0.1562,
+       "cited_not_supported_share": 0.8438,
+       "uncited_share": 0.0
+      }
+     },
+     "conclusions": {
+      "claude": {
+       "matches": 1.0,
+       "overstates": 4.0,
+       "omits_or_understates": 0.0,
+       "contradicts": 0.0,
+       "no_usable_label": 0.0,
+       "n": 5.0,
+       "overstates_share": 0.8,
+       "omits_or_understates_share": 0.0,
+       "contradicts_share": 0.0
+      },
+      "openai": {
+       "matches": 0.0,
+       "overstates": 5.0,
+       "omits_or_understates": 0.0,
+       "contradicts": 0.0,
+       "no_usable_label": 0.0,
+       "n": 5.0,
+       "overstates_share": 1.0,
+       "omits_or_understates_share": 0.0,
+       "contradicts_share": 0.0
+      },
+      "averaged": {
+       "matches": 0.5,
+       "overstates": 4.5,
+       "omits_or_understates": 0.0,
+       "contradicts": 0.0,
+       "no_usable_label": 0.0,
+       "n": 5.0,
+       "overstates_share": 0.9,
+       "omits_or_understates_share": 0.0,
+       "contradicts_share": 0.0
+      }
+     }
+    },
+    "WHU-S07": {
+     "citation_fidelity": {
+      "claude": {
+       "supported": 2.0,
+       "cited_not_supported": 9.0,
+       "uncited": 1.0,
+       "excluded": 8.0,
+       "n": 12.0,
+       "drawn": 20.0,
+       "supported_share": 0.1667,
+       "cited_not_supported_share": 0.75,
+       "uncited_share": 0.0833
+      },
+      "openai": {
+       "supported": 1.0,
+       "cited_not_supported": 10.0,
+       "uncited": 1.0,
+       "excluded": 8.0,
+       "n": 12.0,
+       "drawn": 20.0,
+       "supported_share": 0.0833,
+       "cited_not_supported_share": 0.8333,
+       "uncited_share": 0.0833
+      },
+      "averaged": {
+       "supported": 1.5,
+       "cited_not_supported": 9.5,
+       "uncited": 1.0,
+       "excluded": 8.0,
+       "n": 12.0,
+       "drawn": 20.0,
+       "supported_share": 0.125,
+       "cited_not_supported_share": 0.7917,
+       "uncited_share": 0.0833
+      }
+     },
+     "conclusions": {
+      "claude": {
+       "matches": 1.0,
+       "overstates": 2.0,
+       "omits_or_understates": 1.0,
+       "contradicts": 0.0,
+       "no_usable_label": 0.0,
+       "n": 4.0,
+       "overstates_share": 0.5,
+       "omits_or_understates_share": 0.25,
+       "contradicts_share": 0.0
+      },
+      "openai": {
+       "matches": 1.0,
+       "overstates": 2.0,
+       "omits_or_understates": 1.0,
+       "contradicts": 0.0,
+       "no_usable_label": 0.0,
+       "n": 4.0,
+       "overstates_share": 0.5,
+       "omits_or_understates_share": 0.25,
+       "contradicts_share": 0.0
+      },
+      "averaged": {
+       "matches": 1.0,
+       "overstates": 2.0,
+       "omits_or_understates": 1.0,
+       "contradicts": 0.0,
+       "no_usable_label": 0.0,
+       "n": 4.0,
+       "overstates_share": 0.5,
+       "omits_or_understates_share": 0.25,
+       "contradicts_share": 0.0
+      }
+     }
+    },
+    "WHU-S08": {
+     "citation_fidelity": {
+      "claude": {
+       "supported": 7.0,
+       "cited_not_supported": 10.0,
+       "uncited": 0.0,
+       "excluded": 3.0,
+       "n": 17.0,
+       "drawn": 20.0,
+       "supported_share": 0.4118,
+       "cited_not_supported_share": 0.5882,
+       "uncited_share": 0.0
+      },
+      "openai": {
+       "supported": 6.0,
+       "cited_not_supported": 11.0,
+       "uncited": 0.0,
+       "excluded": 3.0,
+       "n": 17.0,
+       "drawn": 20.0,
+       "supported_share": 0.3529,
+       "cited_not_supported_share": 0.6471,
+       "uncited_share": 0.0
+      },
+      "averaged": {
+       "supported": 6.5,
+       "cited_not_supported": 10.5,
+       "uncited": 0.0,
+       "excluded": 3.0,
+       "n": 17.0,
+       "drawn": 20.0,
+       "supported_share": 0.3824,
+       "cited_not_supported_share": 0.6176,
+       "uncited_share": 0.0
+      }
+     },
+     "conclusions": {
+      "claude": {
+       "matches": 2.0,
+       "overstates": 1.0,
+       "omits_or_understates": 1.0,
+       "contradicts": 0.0,
+       "no_usable_label": 0.0,
+       "n": 4.0,
+       "overstates_share": 0.25,
+       "omits_or_understates_share": 0.25,
+       "contradicts_share": 0.0
+      },
+      "openai": {
+       "matches": 3.0,
+       "overstates": 1.0,
+       "omits_or_understates": 0.0,
+       "contradicts": 0.0,
+       "no_usable_label": 0.0,
+       "n": 4.0,
+       "overstates_share": 0.25,
+       "omits_or_understates_share": 0.0,
+       "contradicts_share": 0.0
+      },
+      "averaged": {
+       "matches": 2.5,
+       "overstates": 1.0,
+       "omits_or_understates": 0.5,
+       "contradicts": 0.0,
+       "no_usable_label": 0.0,
+       "n": 4.0,
+       "overstates_share": 0.25,
+       "omits_or_understates_share": 0.125,
+       "contradicts_share": 0.0
+      }
+     }
+    }
+   },
+   "totals": {
+    "all_eight": {
+     "questions": [
+      "WHU-S01",
+      "WHU-S02",
+      "WHU-S03",
+      "WHU-S04",
+      "WHU-S05",
+      "WHU-S06",
+      "WHU-S07",
+      "WHU-S08"
+     ],
+     "citation_fidelity": {
+      "claude": {
+       "supported": 34.0,
+       "cited_not_supported": 80.0,
+       "uncited": 2.0,
+       "excluded": 44.0,
+       "n": 116.0,
+       "drawn": 160.0,
+       "supported_share": 0.2931,
+       "cited_not_supported_share": 0.6897,
+       "uncited_share": 0.0172
+      },
+      "openai": {
+       "supported": 16.0,
+       "cited_not_supported": 97.0,
+       "uncited": 2.0,
+       "excluded": 45.0,
+       "n": 115.0,
+       "drawn": 160.0,
+       "supported_share": 0.1391,
+       "cited_not_supported_share": 0.8435,
+       "uncited_share": 0.0174
+      },
+      "averaged": {
+       "supported": 25.5,
+       "cited_not_supported": 88.5,
+       "uncited": 2.0,
+       "excluded": 44.0,
+       "n": 116.0,
+       "drawn": 160.0,
+       "supported_share": 0.2198,
+       "cited_not_supported_share": 0.7629,
+       "uncited_share": 0.0172
+      }
+     },
+     "conclusions": {
+      "claude": {
+       "matches": 6.0,
+       "overstates": 17.0,
+       "omits_or_understates": 3.0,
+       "contradicts": 5.0,
+       "no_usable_label": 0.0,
+       "n": 31.0,
+       "overstates_share": 0.5484,
+       "omits_or_understates_share": 0.0968,
+       "contradicts_share": 0.1613
+      },
+      "openai": {
+       "matches": 4.0,
+       "overstates": 21.0,
+       "omits_or_understates": 2.0,
+       "contradicts": 4.0,
+       "no_usable_label": 0.0,
+       "n": 31.0,
+       "overstates_share": 0.6774,
+       "omits_or_understates_share": 0.0645,
+       "contradicts_share": 0.129
+      },
+      "averaged": {
+       "matches": 5.0,
+       "overstates": 19.0,
+       "omits_or_understates": 2.5,
+       "contradicts": 4.5,
+       "no_usable_label": 0.0,
+       "n": 31.0,
+       "overstates_share": 0.6129,
+       "omits_or_understates_share": 0.0806,
+       "contradicts_share": 0.1452
+      }
+     }
+    },
+    "S01-S04": {
+     "questions": [
+      "WHU-S01",
+      "WHU-S02",
+      "WHU-S03",
+      "WHU-S04"
+     ],
+     "citation_fidelity": {
+      "claude": {
+       "supported": 16.0,
+       "cited_not_supported": 38.0,
+       "uncited": 1.0,
+       "excluded": 25.0,
+       "n": 55.0,
+       "drawn": 80.0,
+       "supported_share": 0.2909,
+       "cited_not_supported_share": 0.6909,
+       "uncited_share": 0.0182
+      },
+      "openai": {
+       "supported": 6.0,
+       "cited_not_supported": 47.0,
+       "uncited": 1.0,
+       "excluded": 26.0,
+       "n": 54.0,
+       "drawn": 80.0,
+       "supported_share": 0.1111,
+       "cited_not_supported_share": 0.8704,
+       "uncited_share": 0.0185
+      },
+      "averaged": {
+       "supported": 11.5,
+       "cited_not_supported": 42.5,
+       "uncited": 1.0,
+       "excluded": 25.0,
+       "n": 55.0,
+       "drawn": 80.0,
+       "supported_share": 0.2091,
+       "cited_not_supported_share": 0.7727,
+       "uncited_share": 0.0182
+      }
+     },
+     "conclusions": {
+      "claude": {
+       "matches": 2.0,
+       "overstates": 7.0,
+       "omits_or_understates": 0.0,
+       "contradicts": 4.0,
+       "no_usable_label": 0.0,
+       "n": 13.0,
+       "overstates_share": 0.5385,
+       "omits_or_understates_share": 0.0,
+       "contradicts_share": 0.3077
+      },
+      "openai": {
+       "matches": 0.0,
+       "overstates": 9.0,
+       "omits_or_understates": 0.0,
+       "contradicts": 4.0,
+       "no_usable_label": 0.0,
+       "n": 13.0,
+       "overstates_share": 0.6923,
+       "omits_or_understates_share": 0.0,
+       "contradicts_share": 0.3077
+      },
+      "averaged": {
+       "matches": 1.0,
+       "overstates": 8.0,
+       "omits_or_understates": 0.0,
+       "contradicts": 4.0,
+       "no_usable_label": 0.0,
+       "n": 13.0,
+       "overstates_share": 0.6154,
+       "omits_or_understates_share": 0.0,
+       "contradicts_share": 0.3077
+      }
+     }
+    },
+    "S05-S08": {
+     "questions": [
+      "WHU-S05",
+      "WHU-S06",
+      "WHU-S07",
+      "WHU-S08"
+     ],
+     "citation_fidelity": {
+      "claude": {
+       "supported": 18.0,
+       "cited_not_supported": 42.0,
+       "uncited": 1.0,
+       "excluded": 19.0,
+       "n": 61.0,
+       "drawn": 80.0,
+       "supported_share": 0.2951,
+       "cited_not_supported_share": 0.6885,
+       "uncited_share": 0.0164
+      },
+      "openai": {
+       "supported": 10.0,
+       "cited_not_supported": 50.0,
+       "uncited": 1.0,
+       "excluded": 19.0,
+       "n": 61.0,
+       "drawn": 80.0,
+       "supported_share": 0.1639,
+       "cited_not_supported_share": 0.8197,
+       "uncited_share": 0.0164
+      },
+      "averaged": {
+       "supported": 14.0,
+       "cited_not_supported": 46.0,
+       "uncited": 1.0,
+       "excluded": 19.0,
+       "n": 61.0,
+       "drawn": 80.0,
+       "supported_share": 0.2295,
+       "cited_not_supported_share": 0.7541,
+       "uncited_share": 0.0164
+      }
+     },
+     "conclusions": {
+      "claude": {
+       "matches": 4.0,
+       "overstates": 10.0,
+       "omits_or_understates": 3.0,
+       "contradicts": 1.0,
+       "no_usable_label": 0.0,
+       "n": 18.0,
+       "overstates_share": 0.5556,
+       "omits_or_understates_share": 0.1667,
+       "contradicts_share": 0.0556
+      },
+      "openai": {
+       "matches": 4.0,
+       "overstates": 12.0,
+       "omits_or_understates": 2.0,
+       "contradicts": 0.0,
+       "no_usable_label": 0.0,
+       "n": 18.0,
+       "overstates_share": 0.6667,
+       "omits_or_understates_share": 0.1111,
+       "contradicts_share": 0.0
+      },
+      "averaged": {
+       "matches": 4.0,
+       "overstates": 11.0,
+       "omits_or_understates": 2.5,
+       "contradicts": 0.5,
+       "no_usable_label": 0.0,
+       "n": 18.0,
+       "overstates_share": 0.6111,
+       "omits_or_understates_share": 0.1389,
+       "contradicts_share": 0.0278
+      }
+     }
+    }
+   }
+  },
+  "Perplexity": {
+   "per_question": {
+    "WHU-S01": {
+     "citation_fidelity": {
+      "claude": {
+       "supported": 14.0,
+       "cited_not_supported": 2.0,
+       "uncited": 3.0,
+       "excluded": 0.0,
+       "n": 19.0,
+       "drawn": 19.0,
+       "supported_share": 0.7368,
+       "cited_not_supported_share": 0.1053,
+       "uncited_share": 0.1579
+      },
+      "openai": {
+       "supported": 14.0,
+       "cited_not_supported": 2.0,
+       "uncited": 3.0,
+       "excluded": 0.0,
+       "n": 19.0,
+       "drawn": 19.0,
+       "supported_share": 0.7368,
+       "cited_not_supported_share": 0.1053,
+       "uncited_share": 0.1579
+      },
+      "averaged": {
+       "supported": 14.0,
+       "cited_not_supported": 2.0,
+       "uncited": 3.0,
+       "excluded": 0.0,
+       "n": 19.0,
+       "drawn": 19.0,
+       "supported_share": 0.7368,
+       "cited_not_supported_share": 0.1053,
+       "uncited_share": 0.1579
+      }
+     },
+     "conclusions": {
+      "claude": {
+       "matches": 4.0,
+       "overstates": 0.0,
+       "omits_or_understates": 1.0,
+       "contradicts": 0.0,
+       "no_usable_label": 0.0,
+       "n": 5.0,
+       "overstates_share": 0.0,
+       "omits_or_understates_share": 0.2,
+       "contradicts_share": 0.0
+      },
+      "openai": {
+       "matches": 2.0,
+       "overstates": 2.0,
+       "omits_or_understates": 1.0,
+       "contradicts": 0.0,
+       "no_usable_label": 0.0,
+       "n": 5.0,
+       "overstates_share": 0.4,
+       "omits_or_understates_share": 0.2,
+       "contradicts_share": 0.0
+      },
+      "averaged": {
+       "matches": 3.0,
+       "overstates": 1.0,
+       "omits_or_understates": 1.0,
+       "contradicts": 0.0,
+       "no_usable_label": 0.0,
+       "n": 5.0,
+       "overstates_share": 0.2,
+       "omits_or_understates_share": 0.2,
+       "contradicts_share": 0.0
+      }
+     }
+    },
+    "WHU-S02": {
+     "citation_fidelity": {
+      "claude": {
+       "supported": 8.0,
+       "cited_not_supported": 1.0,
+       "uncited": 9.0,
+       "excluded": 2.0,
+       "n": 18.0,
+       "drawn": 20.0,
+       "supported_share": 0.4444,
+       "cited_not_supported_share": 0.0556,
+       "uncited_share": 0.5
+      },
+      "openai": {
+       "supported": 7.0,
+       "cited_not_supported": 2.0,
+       "uncited": 9.0,
+       "excluded": 2.0,
+       "n": 18.0,
+       "drawn": 20.0,
+       "supported_share": 0.3889,
+       "cited_not_supported_share": 0.1111,
+       "uncited_share": 0.5
+      },
+      "averaged": {
+       "supported": 7.5,
+       "cited_not_supported": 1.5,
+       "uncited": 9.0,
+       "excluded": 2.0,
+       "n": 18.0,
+       "drawn": 20.0,
+       "supported_share": 0.4167,
+       "cited_not_supported_share": 0.0833,
+       "uncited_share": 0.5
+      }
+     },
+     "conclusions": {
+      "claude": {
+       "matches": 4.0,
+       "overstates": 0.0,
+       "omits_or_understates": 0.0,
+       "contradicts": 1.0,
+       "no_usable_label": 0.0,
+       "n": 5.0,
+       "overstates_share": 0.0,
+       "omits_or_understates_share": 0.0,
+       "contradicts_share": 0.2
+      },
+      "openai": {
+       "matches": 4.0,
+       "overstates": 0.0,
+       "omits_or_understates": 0.0,
+       "contradicts": 1.0,
+       "no_usable_label": 0.0,
+       "n": 5.0,
+       "overstates_share": 0.0,
+       "omits_or_understates_share": 0.0,
+       "contradicts_share": 0.2
+      },
+      "averaged": {
+       "matches": 4.0,
+       "overstates": 0.0,
+       "omits_or_understates": 0.0,
+       "contradicts": 1.0,
+       "no_usable_label": 0.0,
+       "n": 5.0,
+       "overstates_share": 0.0,
+       "omits_or_understates_share": 0.0,
+       "contradicts_share": 0.2
+      }
+     }
+    },
+    "WHU-S03": {
+     "citation_fidelity": {
+      "claude": {
+       "supported": 4.0,
+       "cited_not_supported": 5.0,
+       "uncited": 5.0,
+       "excluded": 6.0,
+       "n": 14.0,
+       "drawn": 20.0,
+       "supported_share": 0.2857,
+       "cited_not_supported_share": 0.3571,
+       "uncited_share": 0.3571
+      },
+      "openai": {
+       "supported": 4.0,
+       "cited_not_supported": 5.0,
+       "uncited": 5.0,
+       "excluded": 6.0,
+       "n": 14.0,
+       "drawn": 20.0,
+       "supported_share": 0.2857,
+       "cited_not_supported_share": 0.3571,
+       "uncited_share": 0.3571
+      },
+      "averaged": {
+       "supported": 4.0,
+       "cited_not_supported": 5.0,
+       "uncited": 5.0,
+       "excluded": 6.0,
+       "n": 14.0,
+       "drawn": 20.0,
+       "supported_share": 0.2857,
+       "cited_not_supported_share": 0.3571,
+       "uncited_share": 0.3571
+      }
+     },
+     "conclusions": {
+      "claude": {
+       "matches": 0.0,
+       "overstates": 1.0,
+       "omits_or_understates": 0.0,
+       "contradicts": 0.0,
+       "no_usable_label": 0.0,
+       "n": 1.0,
+       "overstates_share": 1.0,
+       "omits_or_understates_share": 0.0,
+       "contradicts_share": 0.0
+      },
+      "openai": {
+       "matches": 0.0,
+       "overstates": 1.0,
+       "omits_or_understates": 0.0,
+       "contradicts": 0.0,
+       "no_usable_label": 0.0,
+       "n": 1.0,
+       "overstates_share": 1.0,
+       "omits_or_understates_share": 0.0,
+       "contradicts_share": 0.0
+      },
+      "averaged": {
+       "matches": 0.0,
+       "overstates": 1.0,
+       "omits_or_understates": 0.0,
+       "contradicts": 0.0,
+       "no_usable_label": 0.0,
+       "n": 1.0,
+       "overstates_share": 1.0,
+       "omits_or_understates_share": 0.0,
+       "contradicts_share": 0.0
+      }
+     }
+    },
+    "WHU-S04": {
+     "citation_fidelity": {
+      "claude": {
+       "supported": 11.0,
+       "cited_not_supported": 6.0,
+       "uncited": 3.0,
+       "excluded": 0.0,
+       "n": 20.0,
+       "drawn": 20.0,
+       "supported_share": 0.55,
+       "cited_not_supported_share": 0.3,
+       "uncited_share": 0.15
+      },
+      "openai": {
+       "supported": 9.0,
+       "cited_not_supported": 8.0,
+       "uncited": 3.0,
+       "excluded": 0.0,
+       "n": 20.0,
+       "drawn": 20.0,
+       "supported_share": 0.45,
+       "cited_not_supported_share": 0.4,
+       "uncited_share": 0.15
+      },
+      "averaged": {
+       "supported": 10.0,
+       "cited_not_supported": 7.0,
+       "uncited": 3.0,
+       "excluded": 0.0,
+       "n": 20.0,
+       "drawn": 20.0,
+       "supported_share": 0.5,
+       "cited_not_supported_share": 0.35,
+       "uncited_share": 0.15
+      }
+     },
+     "conclusions": {
+      "claude": {
+       "matches": 2.0,
+       "overstates": 0.0,
+       "omits_or_understates": 0.0,
+       "contradicts": 0.0,
+       "no_usable_label": 0.0,
+       "n": 2.0,
+       "overstates_share": 0.0,
+       "omits_or_understates_share": 0.0,
+       "contradicts_share": 0.0
+      },
+      "openai": {
+       "matches": 1.0,
+       "overstates": 1.0,
+       "omits_or_understates": 0.0,
+       "contradicts": 0.0,
+       "no_usable_label": 0.0,
+       "n": 2.0,
+       "overstates_share": 0.5,
+       "omits_or_understates_share": 0.0,
+       "contradicts_share": 0.0
+      },
+      "averaged": {
+       "matches": 1.5,
+       "overstates": 0.5,
+       "omits_or_understates": 0.0,
+       "contradicts": 0.0,
+       "no_usable_label": 0.0,
+       "n": 2.0,
+       "overstates_share": 0.25,
+       "omits_or_understates_share": 0.0,
+       "contradicts_share": 0.0
+      }
+     }
+    }
+   },
+   "totals": {
+    "S01-S04": {
+     "questions": [
+      "WHU-S01",
+      "WHU-S02",
+      "WHU-S03",
+      "WHU-S04"
+     ],
+     "citation_fidelity": {
+      "claude": {
+       "supported": 37.0,
+       "cited_not_supported": 14.0,
+       "uncited": 20.0,
+       "excluded": 8.0,
+       "n": 71.0,
+       "drawn": 79.0,
+       "supported_share": 0.5211,
+       "cited_not_supported_share": 0.1972,
+       "uncited_share": 0.2817
+      },
+      "openai": {
+       "supported": 34.0,
+       "cited_not_supported": 17.0,
+       "uncited": 20.0,
+       "excluded": 8.0,
+       "n": 71.0,
+       "drawn": 79.0,
+       "supported_share": 0.4789,
+       "cited_not_supported_share": 0.2394,
+       "uncited_share": 0.2817
+      },
+      "averaged": {
+       "supported": 35.5,
+       "cited_not_supported": 15.5,
+       "uncited": 20.0,
+       "excluded": 8.0,
+       "n": 71.0,
+       "drawn": 79.0,
+       "supported_share": 0.5,
+       "cited_not_supported_share": 0.2183,
+       "uncited_share": 0.2817
+      }
+     },
+     "conclusions": {
+      "claude": {
+       "matches": 10.0,
+       "overstates": 1.0,
+       "omits_or_understates": 1.0,
+       "contradicts": 1.0,
+       "no_usable_label": 0.0,
+       "n": 13.0,
+       "overstates_share": 0.0769,
+       "omits_or_understates_share": 0.0769,
+       "contradicts_share": 0.0769
+      },
+      "openai": {
+       "matches": 7.0,
+       "overstates": 4.0,
+       "omits_or_understates": 1.0,
+       "contradicts": 1.0,
+       "no_usable_label": 0.0,
+       "n": 13.0,
+       "overstates_share": 0.3077,
+       "omits_or_understates_share": 0.0769,
+       "contradicts_share": 0.0769
+      },
+      "averaged": {
+       "matches": 8.5,
+       "overstates": 2.5,
+       "omits_or_understates": 1.0,
+       "contradicts": 1.0,
+       "no_usable_label": 0.0,
+       "n": 13.0,
+       "overstates_share": 0.1923,
+       "omits_or_understates_share": 0.0769,
+       "contradicts_share": 0.0769
+      }
+     }
+    }
+   }
+  }
+ }
+}

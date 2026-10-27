@@ -1,0 +1,427 @@
+{
+ "label": "Counts only. Exploratory, outside H1 and H2; judged by AI models only. Spec (d) takeaway comparison, WHU-S01 to WHU-S04 (WHU, Claude Research, ChatGPT, Gemini: every pair; Perplexity: against WHU only). WHU-S05 to S08 not run (estimate over cap).",
+ "source": "~/Projects/whu-study-private/scoring/takeaway/<judge>/{X,C}-*.json and scoring/perplexity/takeaway/<judge>/, fields parsed.rating, parsed.direct_answer, parsed.confidence_conveyed; quote check takeaway.quote_ok",
+ "script": "~/Projects/whu-study-private/scorecard/build_takeaways.py",
+ "ratings": [
+  "same",
+  "same_answer_different_confidence",
+  "different_in_a_way_that_would_change_a_decision",
+  "contradictory"
+ ],
+ "questions": {
+  "WHU-S01": {
+   "direct_answer": {
+    "WHU": {
+     "claude": {
+      "direct_answer": "depends",
+      "confidence_conveyed": "moderate"
+     },
+     "openai": {
+      "direct_answer": "depends",
+      "confidence_conveyed": "moderate"
+     }
+    },
+    "Claude": {
+     "claude": {
+      "direct_answer": "depends",
+      "confidence_conveyed": "moderate"
+     },
+     "openai": {
+      "direct_answer": "depends",
+      "confidence_conveyed": "moderate"
+     }
+    },
+    "ChatGPT": {
+     "claude": {
+      "direct_answer": "no",
+      "confidence_conveyed": "moderate"
+     },
+     "openai": {
+      "direct_answer": "no",
+      "confidence_conveyed": "high"
+     }
+    },
+    "Gemini": {
+     "claude": {
+      "direct_answer": "depends",
+      "confidence_conveyed": "moderate"
+     },
+     "openai": {
+      "direct_answer": "depends",
+      "confidence_conveyed": "high"
+     }
+    },
+    "Perplexity": {
+     "claude": {
+      "direct_answer": "depends",
+      "confidence_conveyed": "moderate"
+     },
+     "openai": {
+      "direct_answer": "yes",
+      "confidence_conveyed": "moderate"
+     }
+    }
+   },
+   "pairs": {
+    "WHU-Claude": {
+     "claude": "same_answer_different_confidence",
+     "openai": "same_answer_different_confidence"
+    },
+    "WHU-ChatGPT": {
+     "claude": "different_in_a_way_that_would_change_a_decision",
+     "openai": "different_in_a_way_that_would_change_a_decision"
+    },
+    "WHU-Gemini": {
+     "claude": "same_answer_different_confidence",
+     "openai": "different_in_a_way_that_would_change_a_decision"
+    },
+    "Claude-ChatGPT": {
+     "claude": "same_answer_different_confidence",
+     "openai": "different_in_a_way_that_would_change_a_decision"
+    },
+    "Claude-Gemini": {
+     "claude": "same_answer_different_confidence",
+     "openai": "same_answer_different_confidence"
+    },
+    "ChatGPT-Gemini": {
+     "claude": "contradictory",
+     "openai": "contradictory"
+    },
+    "WHU-Perplexity": {
+     "claude": "same_answer_different_confidence",
+     "openai": "same"
+    }
+   },
+   "rating_counts": {
+    "claude": {
+     "same": 0,
+     "same_answer_different_confidence": 5,
+     "different_in_a_way_that_would_change_a_decision": 1,
+     "contradictory": 1
+    },
+    "openai": {
+     "same": 1,
+     "same_answer_different_confidence": 2,
+     "different_in_a_way_that_would_change_a_decision": 3,
+     "contradictory": 1
+    }
+   },
+   "judges_agree": 4,
+   "pairs_n": 7,
+   "quotes_checked": 26,
+   "quotes_not_found": 0
+  },
+  "WHU-S02": {
+   "direct_answer": {
+    "WHU": {
+     "claude": {
+      "direct_answer": "depends",
+      "confidence_conveyed": "low"
+     },
+     "openai": {
+      "direct_answer": "depends",
+      "confidence_conveyed": "moderate"
+     }
+    },
+    "Claude": {
+     "claude": {
+      "direct_answer": "depends",
+      "confidence_conveyed": "low"
+     },
+     "openai": {
+      "direct_answer": "depends",
+      "confidence_conveyed": "moderate"
+     }
+    },
+    "ChatGPT": {
+     "claude": {
+      "direct_answer": "yes",
+      "confidence_conveyed": "moderate"
+     },
+     "openai": {
+      "direct_answer": "yes",
+      "confidence_conveyed": "moderate"
+     }
+    },
+    "Gemini": {
+     "claude": {
+      "direct_answer": "depends",
+      "confidence_conveyed": "high"
+     },
+     "openai": {
+      "direct_answer": "yes",
+      "confidence_conveyed": "high"
+     }
+    },
+    "Perplexity": {
+     "claude": {
+      "direct_answer": "depends",
+      "confidence_conveyed": "low"
+     },
+     "openai": {
+      "direct_answer": "depends",
+      "confidence_conveyed": "low"
+     }
+    }
+   },
+   "pairs": {
+    "WHU-Claude": {
+     "claude": "different_in_a_way_that_would_change_a_decision",
+     "openai": "different_in_a_way_that_would_change_a_decision"
+    },
+    "WHU-ChatGPT": {
+     "claude": "different_in_a_way_that_would_change_a_decision",
+     "openai": "different_in_a_way_that_would_change_a_decision"
+    },
+    "WHU-Gemini": {
+     "claude": "contradictory",
+     "openai": "different_in_a_way_that_would_change_a_decision"
+    },
+    "Claude-ChatGPT": {
+     "claude": "contradictory",
+     "openai": "contradictory"
+    },
+    "Claude-Gemini": {
+     "claude": "contradictory",
+     "openai": "contradictory"
+    },
+    "ChatGPT-Gemini": {
+     "claude": "different_in_a_way_that_would_change_a_decision",
+     "openai": "different_in_a_way_that_would_change_a_decision"
+    },
+    "WHU-Perplexity": {
+     "claude": "same",
+     "openai": "contradictory"
+    }
+   },
+   "rating_counts": {
+    "claude": {
+     "same": 1,
+     "same_answer_different_confidence": 0,
+     "different_in_a_way_that_would_change_a_decision": 3,
+     "contradictory": 3
+    },
+    "openai": {
+     "same": 0,
+     "same_answer_different_confidence": 0,
+     "different_in_a_way_that_would_change_a_decision": 4,
+     "contradictory": 3
+    }
+   },
+   "judges_agree": 5,
+   "pairs_n": 7,
+   "quotes_checked": 28,
+   "quotes_not_found": 0
+  },
+  "WHU-S03": {
+   "direct_answer": {
+    "WHU": {
+     "claude": {
+      "direct_answer": "depends",
+      "confidence_conveyed": "moderate"
+     },
+     "openai": {
+      "direct_answer": "depends",
+      "confidence_conveyed": "moderate"
+     }
+    },
+    "Claude": {
+     "claude": {
+      "direct_answer": "depends",
+      "confidence_conveyed": "moderate"
+     },
+     "openai": {
+      "direct_answer": "depends",
+      "confidence_conveyed": "moderate"
+     }
+    },
+    "ChatGPT": {
+     "claude": {
+      "direct_answer": "depends",
+      "confidence_conveyed": "moderate"
+     },
+     "openai": {
+      "direct_answer": "depends",
+      "confidence_conveyed": "moderate"
+     }
+    },
+    "Gemini": {
+     "claude": {
+      "direct_answer": "depends",
+      "confidence_conveyed": "high"
+     },
+     "openai": {
+      "direct_answer": "yes",
+      "confidence_conveyed": "high"
+     }
+    },
+    "Perplexity": {
+     "claude": {
+      "direct_answer": "yes",
+      "confidence_conveyed": "moderate"
+     },
+     "openai": {
+      "direct_answer": "yes",
+      "confidence_conveyed": "moderate"
+     }
+    }
+   },
+   "pairs": {
+    "WHU-Claude": {
+     "claude": "different_in_a_way_that_would_change_a_decision",
+     "openai": "different_in_a_way_that_would_change_a_decision"
+    },
+    "WHU-ChatGPT": {
+     "claude": "different_in_a_way_that_would_change_a_decision",
+     "openai": "different_in_a_way_that_would_change_a_decision"
+    },
+    "WHU-Gemini": {
+     "claude": "contradictory",
+     "openai": "different_in_a_way_that_would_change_a_decision"
+    },
+    "Claude-ChatGPT": {
+     "claude": "different_in_a_way_that_would_change_a_decision",
+     "openai": "different_in_a_way_that_would_change_a_decision"
+    },
+    "Claude-Gemini": {
+     "claude": "different_in_a_way_that_would_change_a_decision",
+     "openai": "different_in_a_way_that_would_change_a_decision"
+    },
+    "ChatGPT-Gemini": {
+     "claude": "same_answer_different_confidence",
+     "openai": "same_answer_different_confidence"
+    },
+    "WHU-Perplexity": {
+     "claude": "different_in_a_way_that_would_change_a_decision",
+     "openai": "different_in_a_way_that_would_change_a_decision"
+    }
+   },
+   "rating_counts": {
+    "claude": {
+     "same": 0,
+     "same_answer_different_confidence": 1,
+     "different_in_a_way_that_would_change_a_decision": 5,
+     "contradictory": 1
+    },
+    "openai": {
+     "same": 0,
+     "same_answer_different_confidence": 1,
+     "different_in_a_way_that_would_change_a_decision": 6,
+     "contradictory": 0
+    }
+   },
+   "judges_agree": 6,
+   "pairs_n": 7,
+   "quotes_checked": 28,
+   "quotes_not_found": 0
+  },
+  "WHU-S04": {
+   "direct_answer": {
+    "WHU": {
+     "claude": {
+      "direct_answer": "depends",
+      "confidence_conveyed": "moderate"
+     },
+     "openai": {
+      "direct_answer": "depends",
+      "confidence_conveyed": "high"
+     }
+    },
+    "Claude": {
+     "claude": {
+      "direct_answer": "depends",
+      "confidence_conveyed": "moderate"
+     },
+     "openai": {
+      "direct_answer": "depends",
+      "confidence_conveyed": "high"
+     }
+    },
+    "ChatGPT": {
+     "claude": {
+      "direct_answer": "depends",
+      "confidence_conveyed": "moderate"
+     },
+     "openai": {
+      "direct_answer": "depends",
+      "confidence_conveyed": "high"
+     }
+    },
+    "Gemini": {
+     "claude": {
+      "direct_answer": "depends",
+      "confidence_conveyed": "high"
+     },
+     "openai": {
+      "direct_answer": "depends",
+      "confidence_conveyed": "high"
+     }
+    },
+    "Perplexity": {
+     "claude": {
+      "direct_answer": "depends",
+      "confidence_conveyed": "high"
+     },
+     "openai": {
+      "direct_answer": "depends",
+      "confidence_conveyed": "high"
+     }
+    }
+   },
+   "pairs": {
+    "WHU-Claude": {
+     "claude": "same_answer_different_confidence",
+     "openai": "same_answer_different_confidence"
+    },
+    "WHU-ChatGPT": {
+     "claude": "same_answer_different_confidence",
+     "openai": "same_answer_different_confidence"
+    },
+    "WHU-Gemini": {
+     "claude": "same_answer_different_confidence",
+     "openai": "same_answer_different_confidence"
+    },
+    "Claude-ChatGPT": {
+     "claude": "different_in_a_way_that_would_change_a_decision",
+     "openai": "same_answer_different_confidence"
+    },
+    "Claude-Gemini": {
+     "claude": "same_answer_different_confidence",
+     "openai": "different_in_a_way_that_would_change_a_decision"
+    },
+    "ChatGPT-Gemini": {
+     "claude": "same",
+     "openai": "same_answer_different_confidence"
+    },
+    "WHU-Perplexity": {
+     "claude": "same_answer_different_confidence",
+     "openai": "same_answer_different_confidence"
+    }
+   },
+   "rating_counts": {
+    "claude": {
+     "same": 1,
+     "same_answer_different_confidence": 5,
+     "different_in_a_way_that_would_change_a_decision": 1,
+     "contradictory": 0
+    },
+    "openai": {
+     "same": 0,
+     "same_answer_different_confidence": 6,
+     "different_in_a_way_that_would_change_a_decision": 1,
+     "contradictory": 0
+    }
+   },
+   "judges_agree": 4,
+   "pairs_n": 7,
+   "quotes_checked": 26,
+   "quotes_not_found": 0
+  }
+ },
+ "not_computed": {
+  "WHU-S05": "takeaway not run: scorecard/takeaway_ext.py estimate $18.64 worst case > $12 cap (STOP, no call made)",
+  "WHU-S06": "takeaway not run: scorecard/takeaway_ext.py estimate $18.64 worst case > $12 cap (STOP, no call made)",
+  "WHU-S07": "takeaway not run: scorecard/takeaway_ext.py estimate $18.64 worst case > $12 cap (STOP, no call made)",
+  "WHU-S08": "takeaway not run: scorecard/takeaway_ext.py estimate $18.64 worst case > $12 cap (STOP, no call made)"
+ }
+}
