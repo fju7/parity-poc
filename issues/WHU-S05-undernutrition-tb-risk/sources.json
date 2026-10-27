@@ -1,0 +1,132 @@
+{
+  "sources": [
+    {
+      "id": "S001",
+      "type": "synthesis",
+      "title": "Undernutrition as a risk factor for tuberculosis disease",
+      "authors": "Franco JV, Bongaerts B, Metzendorf MI, Risso A, Guo Y, Peña Silva L, Boeckmann M, Schlesinger S, Damen JA, Richter B, Baddeley A, Bastard M, Carlqvist A, Garcia-Casal MN, Hemmingsen B, Mavhunga F, Manne-Goehler J, Viney K",
+      "year": 2024,
+      "journal": "Cochrane Database of Systematic Reviews",
+      "doi": "10.1002/14651858.CD015890.pub2",
+      "pubmed": "38860538",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11165671/",
+      "used_for": "The systematic review that asks this question directly: the association between undernutrition and later TB disease in adults and in children, its size and the certainty of the evidence.",
+      "access": {
+        "state": "full_text_held",
+        "held": {
+          "file": "docs/1b/1bd3075ae07c29871d6c4db6fa5b1c13d2d4c88c3a7e5d409a1408690d397ade.xml",
+          "sha256": "1bd3075ae07c29871d6c4db6fa5b1c13d2d4c88c3a7e5d409a1408690d397ade",
+          "bytes": 278615,
+          "identified_by": "contains its identifier PMC11165671 — 121029 characters, reference list and discussion present; title present (5 of 5 title words in the visible text)",
+          "kind": "full_text",
+          "kind_why": "121029 characters, reference list and discussion present"
+        },
+        "on": "2026-10-27"
+      }
+    },
+    {
+      "id": "S002",
+      "type": "primary",
+      "title": "Nutritional Status and Tuberculosis Risk in Adult and Pediatric Household Contacts",
+      "authors": "Aibana O, Acharya X, Huang CC, Becerra MC, Galea JT, Chiang SS, Contreras C, Calderon R, Yataco R, Velásquez GE, Tintaya K, Jimenez J, Lecca L, Murray MB",
+      "year": 2016,
+      "journal": "PLoS One",
+      "doi": "10.1371/journal.pone.0166333",
+      "pubmed": "27835678",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5105945/",
+      "used_for": "A prospective household-contact cohort in Lima reporting adults and children separately: body-mass index against later TB infection and TB disease.",
+      "access": {
+        "state": "full_text_held",
+        "held": {
+          "file": "docs/04/04c5d2c483158d5214711e4380d7b0b482c98e39dc73fa537dd2d9d4ef1e875a.xml",
+          "sha256": "04c5d2c483158d5214711e4380d7b0b482c98e39dc73fa537dd2d9d4ef1e875a",
+          "bytes": 167660,
+          "identified_by": "contains its identifier PMC5105945 — 56521 characters, reference list and discussion/introduction present; title present (8 of 8 title words in the visible text)",
+          "kind": "full_text",
+          "kind_why": "56521 characters, reference list and discussion/introduction present"
+        },
+        "on": "2026-10-27"
+      }
+    },
+    {
+      "id": "S003",
+      "type": "primary",
+      "title": "Association of underweight status with the risk of tuberculosis: a nationwide population-based cohort study",
+      "authors": "Cho SH, Lee H, Kwon H, Shin DW, Joh HK, Han K, Park JH, Cho B",
+      "year": 2022,
+      "journal": "Scientific Reports",
+      "doi": "10.1038/s41598-022-20550-8",
+      "pubmed": "36171396",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9519877/",
+      "used_for": "A large adult population cohort (Korea) relating underweight at a health check to later TB, with a dose-response by severity of underweight.",
+      "access": {
+        "state": "full_text_held",
+        "held": {
+          "file": "docs/ac/ac141cd0ddc51f129150dedf37e3f4f1daf16f0504a482ce9b116fce9f1b485e.xml",
+          "sha256": "ac141cd0ddc51f129150dedf37e3f4f1daf16f0504a482ce9b116fce9f1b485e",
+          "bytes": 85928,
+          "identified_by": "contains its identifier PMC9519877 — 34127 characters, reference list and discussion/introduction present; title present (9 of 9 title words in the visible text)",
+          "kind": "full_text",
+          "kind_why": "34127 characters, reference list and discussion/introduction present"
+        },
+        "on": "2026-10-27"
+      }
+    },
+    {
+      "id": "S004",
+      "type": "primary",
+      "title": "Nutritional supplementation to prevent tuberculosis incidence in household contacts of patients with pulmonary tuberculosis in India (RATIONS): a field-based, open-label, cluster-randomised, controlled trial",
+      "authors": "Bhargava A, Bhargava M, Meher A, Benedetti A, Velayutham B, Sai Teja G, Watson B, Barik G, Pathak RR, Prasad R, Dayal R, Madan J, Nayak N, Tripathy SN, Nandi NA, Mathew J, Lebrun V, Nanda TN, Sahoo KS, Pal S, Chhetri D, Menzies D, Swaminathan S",
+      "year": 2023,
+      "journal": "The Lancet",
+      "doi": "10.1016/S0140-6736(23)01231-X",
+      "pubmed": "37567200",
+      "url": "https://doi.org/10.1016/S0140-6736(23)01231-X",
+      "used_for": "The randomised test: whether giving food to household contacts of people with TB lowered the number who went on to develop TB disease.",
+      "access": {
+        "state": "full_text_held",
+        "by": "Lancet article page saved as PDF from the browser, by Fred Ugast",
+        "on": "2026-10-27",
+        "held": {
+          "file": "docs/d8/d81d5e06aff728f3ae28562c377bc46f29817b7527df77d3660b87fbf15b6900.pdf",
+          "sha256": "d81d5e06aff728f3ae28562c377bc46f29817b7527df77d3660b87fbf15b6900",
+          "bytes": 921017,
+          "url": "https://doi.org/10.1016/S0140-6736(23)01231-X",
+          "identified_by": "contains 11 of 11 distinctive title words",
+          "kind": "full_text",
+          "kind_why": "71871 characters, reference list and discussion/introduction present",
+          "recorded_by": "source_store add"
+        }
+      },
+      "held_form_note": "Held copy is the Lancet article web page saved as PDF from the browser by Fred Ugast (full text with site navigation, 33 pages), not the publisher's typeset PDF; page numbers in it are browser pages, not journal pages."
+    },
+    {
+      "id": "S005",
+      "type": "corrigendum",
+      "title": "Department of Error",
+      "amends": "S004",
+      "year": 2024,
+      "journal": "The Lancet",
+      "doi": "10.1016/S0140-6736(24)01500-9",
+      "pubmed": "39067903",
+      "url": "https://doi.org/10.1016/S0140-6736(24)01500-9",
+      "used_for": "The Lancet's correction notice to the RATIONS trial report (S004); read to learn whether it changes any figure the page uses.",
+      "access": {
+        "state": "full_text_held",
+        "by": "Lancet PDF page, by Fred Ugast",
+        "on": "2026-10-27",
+        "held": {
+          "file": "docs/1b/1b2ff6fb16f4632cbd945b36ebda87952d679f5dd2926ab41d653fc12eaf8117.pdf",
+          "sha256": "1b2ff6fb16f4632cbd945b36ebda87952d679f5dd2926ab41d653fc12eaf8117",
+          "bytes": 56181,
+          "url": "https://doi.org/10.1016/S0140-6736(24)01500-9",
+          "identified_by": "stored with --force, identity NOT confirmed",
+          "kind": "document",
+          "kind_why": "form 'notice' — 5866 characters held. The article test does not apply to this form",
+          "recorded_by": "source_store add"
+        }
+      },
+      "held_form_note": "Held copy is a one-page Lancet PDF carrying the notice among correspondence; added with --force after Claude Code read it (pdftotext): the notice says the RATIONS article's appendix was corrected as of July 25, 2024, and names no change to the article's text or figures."
+    }
+  ]
+}

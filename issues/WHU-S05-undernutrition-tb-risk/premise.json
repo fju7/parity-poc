@@ -1,0 +1,69 @@
+{
+  "_what_this_is": "The entry gate, answered BEFORE drafting. The threshold question is whether a well-informed non-expert would confidently believe something the primary sources do not support.",
+  "belief": {
+    "_note": "What the reader already believes, stated as they would state it. If you cannot write this sentence, there is nothing to correct and no subject -- which is how the tobacco-analogy candidate died.",
+    "statement": "Being underfed makes you more likely to get TB: people who are undernourished, adults and children alike, are more likely to go on to develop TB disease.",
+    "how_we_know_they_believe_it": "General coverage of the 2023 RATIONS trial presents undernutrition as a driver of TB and food as prevention. Recorded from search results on 2026-10-27 (a search tool's reading of the pages, not held text); used here only to show the belief is carried, never as evidence on the page.",
+    "carried_by": [
+      {
+        "outlet": "World Economic Forum (republishing The Conversation)",
+        "url": "https://weforum.org/agenda/2023/09/tuberculosis-healthy-diet-cuts-infection",
+        "date": "2023-09",
+        "what_it_said": "Headline: 'A healthy diet can cut tuberculosis infections by nearly 50%'."
+      },
+      {
+        "outlet": "Health-e News (republishing The Conversation)",
+        "url": "https://health-e.org.za/2023/09/01/tb-research-shows-a-good-diet-can-cut-infections-by-nearly-50/",
+        "date": "2023-09-01",
+        "what_it_said": "Headline: 'TB research shows a good diet can cut infections by nearly 50%'."
+      },
+      {
+        "outlet": "Down To Earth",
+        "url": "https://www.downtoearth.org.in/health/tb-research-shows-a-good-diet-can-cut-infections-by-nearly-50--91391",
+        "date": "2023-09",
+        "what_it_said": "Same headline; carries the claim that undernutrition plays a key role in TB within households."
+      }
+    ]
+  },
+  "what_the_sources_show": {
+    "_note": "What the primary sources actually support, and which sources.",
+    "statement": "Adults: undernutrition probably about doubles the risk of TB disease in the short term (S001, moderate certainty for <10 years of follow-up), risk rises with the degree of thinness (S003), and food for household contacts cut TB incidence by 39-48% in a randomised trial (S004). Children: the review calls the risk uncertain (S001), and the household-contact cohort has too few underweight contacts to show an effect (S002). [Before reading, this field recorded an expectation; it now records what the held sources show.]",
+    "sources": [
+      "S001",
+      "S002",
+      "S003",
+      "S004",
+      "S005"
+    ]
+  },
+  "direction": {
+    "_note": "CORRECTS, CONFIRMS or NARROWS. This field exists so the contrarianism guard can count. A publication whose answer is always CORRECTS is performing scepticism rather than assessing evidence, and is not to be trusted.",
+    "value": "narrows",
+    "_values": [
+      "corrects",
+      "confirms",
+      "narrows"
+    ],
+    "_changed": "Recorded as 'confirms' before any source was read; changed to 'narrows' on 2026-10-27 after reading, because the belief holds for adults but not, on these sources, for children."
+  },
+  "reader_with_a_decision": "A programme manager or clinician deciding whether nutritional support belongs in TB prevention for household contacts or other high-risk groups, and how firmly the evidence supports that for children as well as adults.",
+  "public_record_check": {
+    "_note": "NOT 'has anybody published this'. On any contested question, somebody has. The question is whether it has been carried WHERE THIS READER WOULD FIND IT. Run the counterexample hunter on the belief statement, not on the finding.",
+    "prior_art_found": [
+      "Franco et al. 2024, Cochrane review CD015890 (S001), which asks this question directly"
+    ],
+    "carried_in_general_coverage": "Yes, as a belief and as headline trial results ('a good diet can cut infections by nearly 50%'); the headlines say 'infections' where the trial counted TB disease, and none of the coverage found separates adults from children or reports how certain the cohort evidence is.",
+    "our_contribution": "translation: what the systematic review and the trial actually measured, for adults and for children separately, and how certain each part is"
+  },
+  "sources_are_open": "S001-S003 open access (PMC); S004 (Lancet trial report) and S005 (its erratum notice) closed: need the operator's access (step 2a).",
+  "evidence_base_is_bounded": "Yes: one Cochrane review of cohort studies (2024) covers the association; one randomised trial (RATIONS, 2023) tests food support; two cohorts add adult dose-response and child-specific results.",
+  "kill_condition": "The answer would be overturned if the held primary sources showed no consistent association between undernutrition and later TB disease, if the association were explained by reverse causation (undiagnosed TB causing weight loss) with no prospective or trial evidence surviving that objection, or if the evidence covered adults only and said nothing usable about children.",
+  "kill_condition_tested": {
+    "_note": "Filled in AFTER going to look, by whoever looked.",
+    "by": "Claude Code (session 99522384-b20d-4bbd-be0c-4d8506834550)",
+    "on": "2026-10-27",
+    "result": "narrowed",
+    "note": "Read S001-S005. Adults: survived — S001 pools cohort studies (HR 2.02 at <10 years, moderate certainty), S003 shows a gradient by thinness, and S004 (randomised) found fewer TB cases among contacts given food, which answers the reverse-causation objection for adults in that setting. Children: the third kill condition is met — S001 says the risk for adolescents and children is uncertain (four child-only studies, inconsistent results) and S002 has too few underweight contacts to show an effect. So the belief holds for adults and is not established for children: narrowed."
+  },
+  "lead_came_from": "The WHU reliability study's protocol draw (issue.json, WHU-S05), not a WHU pick."
+}

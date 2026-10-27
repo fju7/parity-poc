@@ -1,0 +1,94 @@
+{
+  "_what_this_is": "For every source, whether its bibliographic record names a correction, erratum, retraction or expression of concern -- and, when the lookup failed, that it failed. 'checked, none' and 'could not check' are different states and this file never merges them.",
+  "checked": {
+    "S001": {
+      "source": "S001",
+      "title": "Undernutrition as a risk factor for tuberculosis disease",
+      "checked_on": "2026-10-26",
+      "identifier": "PMCID PMC11165671",
+      "identifier_from": "the source URL",
+      "resolved_title": "Undernutrition as a risk factor for tuberculosis disease.",
+      "identity": "resolved title shares 5 word(s) with ours: disease, factor, risk, tuberculosis, undernutrition",
+      "amendments": [],
+      "comments": [],
+      "state": "CLEAN",
+      "why": "matched on PMCID PMC11165671"
+    },
+    "S002": {
+      "source": "S002",
+      "title": "Nutritional Status and Tuberculosis Risk in Adult and Pediatric Household Contacts",
+      "checked_on": "2026-10-26",
+      "identifier": "PMCID PMC5105945",
+      "identifier_from": "the source URL",
+      "resolved_title": "Nutritional Status and Tuberculosis Risk in Adult and Pediatric Household Contacts.",
+      "identity": "resolved title shares 8 word(s) with ours: adult, contacts, household, nutritional, pediatric, risk, status, tuberculosis",
+      "amendments": [],
+      "comments": [],
+      "state": "CLEAN",
+      "why": "matched on PMCID PMC5105945"
+    },
+    "S003": {
+      "source": "S003",
+      "title": "Association of underweight status with the risk of tuberculosis: a nationwide population-based cohort study",
+      "checked_on": "2026-10-26",
+      "identifier": "PMCID PMC9519877",
+      "identifier_from": "the source URL",
+      "resolved_title": "Association of underweight status with the risk of tuberculosis: a nationwide population-based cohort study.",
+      "identity": "resolved title shares 10 word(s) with ours: association, based, cohort, nationwide, population, risk, status, study, tubercu",
+      "amendments": [],
+      "comments": [],
+      "state": "CLEAN",
+      "why": "matched on PMCID PMC9519877"
+    },
+    "S004": {
+      "source": "S004",
+      "title": "Nutritional supplementation to prevent tuberculosis incidence in household contacts of patients with pulmonary tuberculo",
+      "checked_on": "2026-10-26",
+      "identifier": "DOI 10.1016/S0140-6736(23)01231-X",
+      "identifier_from": "the source URL",
+      "resolved_title": "Nutritional supplementation to prevent tuberculosis incidence in household contacts of patients with pulmonary tuberculosis in India (RATIONS): a field-based, o",
+      "identity": "resolved title shares 19 word(s) with ours: based, cluster, contacts, controlled, field, household, incidence, india, label,",
+      "amendments": [
+        {
+          "source": "MED",
+          "id": "39067903",
+          "reference": "Lancet. 2024 Jul 27;404(10450):340. doi: 10.1016/S0140-6736(24)01500-9",
+          "type": "Erratum in",
+          "orderIn": 2
+        }
+      ],
+      "comments": [
+        {
+          "source": "MED",
+          "id": "37567199",
+          "reference": "Lancet. 2023 Aug 19;402(10402):588-590. doi: 10.1016/S0140-6736(23)01321-1",
+          "type": "Comment in",
+          "orderIn": 1
+        }
+      ],
+      "state": "AMENDED",
+      "why": "matched on DOI 10.1016/S0140-6736(23)01231-X"
+    },
+    "S005": {
+      "source": "S005",
+      "title": "Department of Error",
+      "checked_on": "2026-10-26",
+      "identifier": "DOI 10.1016/S0140-6736(24)01500-9",
+      "identifier_from": "the source URL",
+      "resolved_title": "Department of Error.",
+      "identity": "resolved title shares 2 word(s) with ours: department, error",
+      "amendments": [],
+      "comments": [
+        {
+          "source": "MED",
+          "id": "37567200",
+          "reference": "Lancet. 2023 Aug 19;402(10402):627-640. doi: 10.1016/S0140-6736(23)01231-X",
+          "type": "Erratum for",
+          "orderIn": 1
+        }
+      ],
+      "state": "CLEAN",
+      "why": "matched on DOI 10.1016/S0140-6736(24)01500-9"
+    }
+  }
+}

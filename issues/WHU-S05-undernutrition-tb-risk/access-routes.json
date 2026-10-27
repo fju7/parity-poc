@@ -1,0 +1,30 @@
+{
+  "what_this_is": "Where each document we do not hold can be got. Every route here was title-checked against our own record for that source, because the first hand-typed attempt at this returned three wrong papers from three wrong DOIs.",
+  "checked": "2026-10-27",
+  "sources": {
+    "S004": {
+      "ids": {
+        "doi": "10.1016/S0140-6736(23)01231-X"
+      },
+      "routes": [],
+      "notes": [
+        "identifier doi=10.1016/S0140-6736(23)01231-X came from the url we already hold, not a search",
+        "resolved title: 'Nutritional supplementation to prevent tuberculosis incidence in househo'",
+        "Unpaywall: no free version anywhere (is_oa false)"
+      ],
+      "verified_title": "Nutritional supplementation to prevent tuberculosis incidence in household contacts of patients with pulmonary tuberculosis in India (RATIONS): a field-based, open-label, cluster-randomised, controlled trial."
+    },
+    "S005": {
+      "ids": {
+        "doi": "10.1016/S0140-6736(24)01500-9"
+      },
+      "routes": [],
+      "notes": [
+        "identifier doi=10.1016/S0140-6736(24)01500-9 came from the url we already hold, not a search",
+        "resolved title: 'Department of Error'",
+        "Unpaywall: no free version anywhere (is_oa false)"
+      ],
+      "verified_title": "Department of Error."
+    }
+  }
+}
