@@ -94,6 +94,32 @@
       "unsweepable": [
         "S005"
       ]
+    },
+    {
+      "on": "2026-10-26",
+      "command": "resolve --write",
+      "resolved": [],
+      "refused": [],
+      "failed": [],
+      "unsweepable": [
+        "S003",
+        "S005",
+        "S006"
+      ]
+    },
+    {
+      "on": "2026-10-26",
+      "command": "registry",
+      "sources_queried": 0,
+      "first_capture": [],
+      "changes": {},
+      "alarms": [],
+      "titles_disagree": [],
+      "titles_inconclusive": [],
+      "unresolved": [],
+      "unsweepable": [
+        "S005"
+      ]
     }
   ],
   "registry": {}
