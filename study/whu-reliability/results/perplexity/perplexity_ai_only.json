@@ -1,0 +1,1196 @@
+{
+ "written": "2026-10-27T15:25:30+00:00",
+ "label": "Exploratory add-on, outside H1 and H2: AI judges only, not checked by people",
+ "plan": "study/whu-reliability/perplexity_plan.md",
+ "rules": "results/perplexity/analyse_perplexity.py docstring (analyse.py's rules, EVERY abstract-only rule)",
+ "questions": [
+  "WHU-S01",
+  "WHU-S02",
+  "WHU-S03",
+  "WHU-S04"
+ ],
+ "seed": "533877899085291994276456906790697990170397975394",
+ "bootstrap_resamples": 10000,
+ "M1_citation_support": {
+  "counts": {
+   "WHU": {
+    "drawn": 80,
+    "uncited": 0,
+    "cited": 80,
+    "no_source_held": 0,
+    "incomplete_sources_unreachable": 0,
+    "incomplete_sources_undelivered": 3,
+    "judge_said_unreachable_any": 0,
+    "not_verifiable_abstract_any": 2,
+    "uncited_share_of_drawn": 0.0,
+    "unreachable_share_of_cited": 0.0,
+    "flag_unreachable_over_20pct": false
+   },
+   "Perplexity": {
+    "drawn": 79,
+    "uncited": 20,
+    "cited": 59,
+    "no_source_held": 1,
+    "incomplete_sources_unreachable": 5,
+    "incomplete_sources_undelivered": 1,
+    "judge_said_unreachable_any": 1,
+    "not_verifiable_abstract_any": 0,
+    "uncited_share_of_drawn": 0.2532,
+    "unreachable_share_of_cited": 0.1186,
+    "flag_unreachable_over_20pct": false
+   }
+  },
+  "views": {
+   "combined": {
+    "systems": {
+     "WHU": {
+      "failures": 3.5,
+      "countable": 75,
+      "rate": 0.0467,
+      "ci95": [
+       0.027,
+       0.0704
+      ],
+      "per_question": {
+       "WHU-S01": {
+        "failures": 0.5,
+        "countable": 20,
+        "rate": 0.025
+       },
+       "WHU-S02": {
+        "failures": 1.5,
+        "countable": 18,
+        "rate": 0.0833
+       },
+       "WHU-S03": {
+        "failures": 1.0,
+        "countable": 20,
+        "rate": 0.05
+       },
+       "WHU-S04": {
+        "failures": 0.5,
+        "countable": 17,
+        "rate": 0.0294
+       }
+      },
+      "health": 0.025,
+      "non_health": 0.0545
+     },
+     "Perplexity": {
+      "failures": 35.5,
+      "countable": 71,
+      "rate": 0.5,
+      "ci95": [
+       0.34,
+       0.6452
+      ],
+      "per_question": {
+       "WHU-S01": {
+        "failures": 5.0,
+        "countable": 19,
+        "rate": 0.2632
+       },
+       "WHU-S02": {
+        "failures": 10.5,
+        "countable": 18,
+        "rate": 0.5833
+       },
+       "WHU-S03": {
+        "failures": 10.0,
+        "countable": 14,
+        "rate": 0.7143
+       },
+       "WHU-S04": {
+        "failures": 10.0,
+        "countable": 20,
+        "rate": 0.5
+       }
+      },
+      "health": 0.2632,
+      "non_health": 0.5865
+     }
+    },
+    "vs_whu": {
+     "Perplexity": {
+      "difference_whu_minus": -0.4533,
+      "difference_ci95": [
+       -0.5997,
+       -0.3015
+      ],
+      "ratio_whu_over": 0.0934,
+      "ratio_ci95": [
+       0.0651,
+       0.1256
+      ],
+      "whu_at_most_half": true,
+      "difference_ci_excludes_zero": true,
+      "holds": true
+     }
+    }
+   },
+   "claude_judge": {
+    "systems": {
+     "WHU": {
+      "failures": 2.0,
+      "countable": 75,
+      "rate": 0.0267,
+      "ci95": [
+       0.0,
+       0.0526
+      ],
+      "per_question": {
+       "WHU-S01": {
+        "failures": 0.0,
+        "countable": 20,
+        "rate": 0.0
+       },
+       "WHU-S02": {
+        "failures": 1.0,
+        "countable": 18,
+        "rate": 0.0556
+       },
+       "WHU-S03": {
+        "failures": 1.0,
+        "countable": 20,
+        "rate": 0.05
+       },
+       "WHU-S04": {
+        "failures": 0.0,
+        "countable": 17,
+        "rate": 0.0
+       }
+      },
+      "health": 0.0,
+      "non_health": 0.0364
+     },
+     "Perplexity": {
+      "failures": 34.0,
+      "countable": 71,
+      "rate": 0.4789,
+      "ci95": [
+       0.3333,
+       0.629
+      ],
+      "per_question": {
+       "WHU-S01": {
+        "failures": 5.0,
+        "countable": 19,
+        "rate": 0.2632
+       },
+       "WHU-S02": {
+        "failures": 10.0,
+        "countable": 18,
+        "rate": 0.5556
+       },
+       "WHU-S03": {
+        "failures": 10.0,
+        "countable": 14,
+        "rate": 0.7143
+       },
+       "WHU-S04": {
+        "failures": 9.0,
+        "countable": 20,
+        "rate": 0.45
+       }
+      },
+      "health": 0.2632,
+      "non_health": 0.5577
+     }
+    },
+    "vs_whu": {
+     "Perplexity": {
+      "difference_whu_minus": -0.4522,
+      "difference_ci95": [
+       -0.5901,
+       -0.3205
+      ],
+      "ratio_whu_over": 0.0558,
+      "ratio_ci95": [
+       0.0,
+       0.0846
+      ],
+      "whu_at_most_half": true,
+      "difference_ci_excludes_zero": true,
+      "holds": true
+     }
+    }
+   },
+   "openai_judge": {
+    "systems": {
+     "WHU": {
+      "failures": 5.0,
+      "countable": 75,
+      "rate": 0.0667,
+      "ci95": [
+       0.05,
+       0.0946
+      ],
+      "per_question": {
+       "WHU-S01": {
+        "failures": 1.0,
+        "countable": 20,
+        "rate": 0.05
+       },
+       "WHU-S02": {
+        "failures": 2.0,
+        "countable": 18,
+        "rate": 0.1111
+       },
+       "WHU-S03": {
+        "failures": 1.0,
+        "countable": 20,
+        "rate": 0.05
+       },
+       "WHU-S04": {
+        "failures": 1.0,
+        "countable": 17,
+        "rate": 0.0588
+       }
+      },
+      "health": 0.05,
+      "non_health": 0.0727
+     },
+     "Perplexity": {
+      "failures": 37.0,
+      "countable": 71,
+      "rate": 0.5211,
+      "ci95": [
+       0.3467,
+       0.6613
+      ],
+      "per_question": {
+       "WHU-S01": {
+        "failures": 5.0,
+        "countable": 19,
+        "rate": 0.2632
+       },
+       "WHU-S02": {
+        "failures": 11.0,
+        "countable": 18,
+        "rate": 0.6111
+       },
+       "WHU-S03": {
+        "failures": 10.0,
+        "countable": 14,
+        "rate": 0.7143
+       },
+       "WHU-S04": {
+        "failures": 11.0,
+        "countable": 20,
+        "rate": 0.55
+       }
+      },
+      "health": 0.2632,
+      "non_health": 0.6154
+     }
+    },
+    "vs_whu": {
+     "Perplexity": {
+      "difference_whu_minus": -0.4544,
+      "difference_ci95": [
+       -0.6093,
+       -0.2857
+      ],
+      "ratio_whu_over": 0.128,
+      "ratio_ci95": [
+       0.0871,
+       0.1826
+      ],
+      "whu_at_most_half": true,
+      "difference_ci_excludes_zero": true,
+      "holds": true
+     }
+    }
+   },
+   "agreed_only": {
+    "systems": {
+     "WHU": {
+      "failures": 2.0,
+      "countable": 72,
+      "rate": 0.0278,
+      "ci95": [
+       0.0,
+       0.0541
+      ],
+      "per_question": {
+       "WHU-S01": {
+        "failures": 0.0,
+        "countable": 19,
+        "rate": 0.0
+       },
+       "WHU-S02": {
+        "failures": 1.0,
+        "countable": 17,
+        "rate": 0.0588
+       },
+       "WHU-S03": {
+        "failures": 1.0,
+        "countable": 20,
+        "rate": 0.05
+       },
+       "WHU-S04": {
+        "failures": 0.0,
+        "countable": 16,
+        "rate": 0.0
+       }
+      },
+      "health": 0.0,
+      "non_health": 0.0377
+     },
+     "Perplexity": {
+      "failures": 30.0,
+      "countable": 63,
+      "rate": 0.4762,
+      "ci95": [
+       0.3288,
+       0.6538
+      ],
+      "per_question": {
+       "WHU-S01": {
+        "failures": 5.0,
+        "countable": 19,
+        "rate": 0.2632
+       },
+       "WHU-S02": {
+        "failures": 9.0,
+        "countable": 16,
+        "rate": 0.5625
+       },
+       "WHU-S03": {
+        "failures": 9.0,
+        "countable": 12,
+        "rate": 0.75
+       },
+       "WHU-S04": {
+        "failures": 7.0,
+        "countable": 16,
+        "rate": 0.4375
+       }
+      },
+      "health": 0.2632,
+      "non_health": 0.5682
+     }
+    },
+    "vs_whu": {
+     "Perplexity": {
+      "difference_whu_minus": -0.4484,
+      "difference_ci95": [
+       -0.6144,
+       -0.3153
+      ],
+      "ratio_whu_over": 0.0584,
+      "ratio_ci95": [
+       0.0,
+       0.0897
+      ],
+      "whu_at_most_half": true,
+      "difference_ci_excludes_zero": true,
+      "holds": true
+     }
+    }
+   }
+  },
+  "cited_items_only_combined": {
+   "systems": {
+    "WHU": {
+     "failures": 3.5,
+     "countable": 75,
+     "rate": 0.0467,
+     "ci95": [
+      0.027,
+      0.0704
+     ],
+     "per_question": {
+      "WHU-S01": {
+       "failures": 0.5,
+       "countable": 20,
+       "rate": 0.025
+      },
+      "WHU-S02": {
+       "failures": 1.5,
+       "countable": 18,
+       "rate": 0.0833
+      },
+      "WHU-S03": {
+       "failures": 1.0,
+       "countable": 20,
+       "rate": 0.05
+      },
+      "WHU-S04": {
+       "failures": 0.5,
+       "countable": 17,
+       "rate": 0.0294
+      }
+     },
+     "health": 0.025,
+     "non_health": 0.0545
+    },
+    "Perplexity": {
+     "failures": 15.5,
+     "countable": 51,
+     "rate": 0.3039,
+     "ci95": [
+      0.14,
+      0.4615
+     ],
+     "per_question": {
+      "WHU-S01": {
+       "failures": 2.0,
+       "countable": 16,
+       "rate": 0.125
+      },
+      "WHU-S02": {
+       "failures": 1.5,
+       "countable": 9,
+       "rate": 0.1667
+      },
+      "WHU-S03": {
+       "failures": 5.0,
+       "countable": 9,
+       "rate": 0.5556
+      },
+      "WHU-S04": {
+       "failures": 7.0,
+       "countable": 17,
+       "rate": 0.4118
+      }
+     },
+     "health": 0.125,
+     "non_health": 0.3857
+    }
+   },
+   "vs_whu": {
+    "Perplexity": {
+     "difference_whu_minus": -0.2572,
+     "difference_ci95": [
+      -0.421,
+      -0.0874
+     ],
+     "ratio_whu_over": 0.1537,
+     "ratio_ci95": [
+      0.0821,
+      0.3759
+     ],
+     "whu_at_most_half": true,
+     "difference_ci_excludes_zero": true,
+     "holds": true
+    }
+   }
+  },
+  "judges": {
+   "WHU": {
+    "items": 80,
+    "judged_by_both": 77,
+    "same_label": 74,
+    "labelled_by_both": 77,
+    "same_label_share": 0.961,
+    "same_failure_or_pass_share": 0.961,
+    "kappa": 0.7159,
+    "agreed_by_protocol_rule": 74,
+    "refusal_claude": {
+     "calls": 77,
+     "refused_first_attempt": 0,
+     "refused_after_retry": 0,
+     "rate_after_retry": 0.0,
+     "unusable_reply": 0
+    },
+    "second_read_claude": {
+     "pairs": 16,
+     "same_label": 16,
+     "same_label_share": 1.0
+    },
+    "refusal_openai": {
+     "calls": 77,
+     "refused_first_attempt": 0,
+     "refused_after_retry": 0,
+     "rate_after_retry": 0.0,
+     "unusable_reply": 0
+    },
+    "second_read_openai": {
+     "pairs": 16,
+     "same_label": 16,
+     "same_label_share": 1.0
+    }
+   },
+   "Perplexity": {
+    "items": 59,
+    "judged_by_both": 52,
+    "same_label": 45,
+    "labelled_by_both": 52,
+    "same_label_share": 0.8654,
+    "same_failure_or_pass_share": 0.9038,
+    "kappa": 0.7255,
+    "agreed_by_protocol_rule": 44,
+    "refusal_claude": {
+     "calls": 52,
+     "refused_first_attempt": 0,
+     "refused_after_retry": 0,
+     "rate_after_retry": 0.0,
+     "unusable_reply": 0
+    },
+    "second_read_claude": {
+     "pairs": 11,
+     "same_label": 10,
+     "same_label_share": 0.9091
+    },
+    "refusal_openai": {
+     "calls": 52,
+     "refused_first_attempt": 0,
+     "refused_after_retry": 0,
+     "rate_after_retry": 0.0,
+     "unusable_reply": 0
+    },
+    "second_read_openai": {
+     "pairs": 11,
+     "same_label": 11,
+     "same_label_share": 1.0
+    }
+   },
+   "all": {
+    "items": 139,
+    "judged_by_both": 129,
+    "same_label": 119,
+    "labelled_by_both": 129,
+    "same_label_share": 0.9225,
+    "same_failure_or_pass_share": 0.938,
+    "kappa": 0.744,
+    "agreed_by_protocol_rule": 118,
+    "refusal_claude": {
+     "calls": 129,
+     "refused_first_attempt": 0,
+     "refused_after_retry": 0,
+     "rate_after_retry": 0.0,
+     "unusable_reply": 0
+    },
+    "second_read_claude": {
+     "pairs": 27,
+     "same_label": 26,
+     "same_label_share": 0.963
+    },
+    "refusal_openai": {
+     "calls": 129,
+     "refused_first_attempt": 0,
+     "refused_after_retry": 0,
+     "rate_after_retry": 0.0,
+     "unusable_reply": 0
+    },
+    "second_read_openai": {
+     "pairs": 27,
+     "same_label": 27,
+     "same_label_share": 1.0
+    }
+   }
+  },
+  "label_counts_first_read": {
+   "WHU": {
+    "claude": {
+     "Absent": 1,
+     "Contradicted": 1,
+     "INCOMPLETE_SOURCES": 3,
+     "NOT_VERIFIABLE_ABSTRACT": 2,
+     "Supported": 73
+    },
+    "openai": {
+     "Absent": 1,
+     "Contradicted": 1,
+     "INCOMPLETE_SOURCES": 3,
+     "NOT_VERIFIABLE_ABSTRACT": 2,
+     "Overstates": 3,
+     "Supported": 70
+    }
+   },
+   "Perplexity": {
+    "claude": {
+     "Absent": 7,
+     "INCOMPLETE_SOURCES": 6,
+     "Overstates": 7,
+     "Supported": 37,
+     "UNCITED": 20,
+     "Unreachable": 1,
+     "none": 1
+    },
+    "openai": {
+     "Absent": 8,
+     "INCOMPLETE_SOURCES": 6,
+     "Overstates": 9,
+     "Supported": 34,
+     "UNCITED": 20,
+     "Unreachable": 1,
+     "none": 1
+    }
+   }
+  },
+  "direction_of_failures": {
+   "WHU": {
+    "claude": {
+     "Overstates": 0,
+     "Understates": 0
+    },
+    "openai": {
+     "Overstates": 3,
+     "Understates": 0
+    }
+   },
+   "Perplexity": {
+    "claude": {
+     "Overstates": 7,
+     "Understates": 0
+    },
+    "openai": {
+     "Overstates": 9,
+     "Understates": 0
+    }
+   }
+  }
+ },
+ "M2_conclusion_calibration": {
+  "items_per_system": {
+   "WHU": 13,
+   "Perplexity": 13
+  },
+  "views": {
+   "combined": {
+    "systems": {
+     "WHU": {
+      "failures": 3.0,
+      "countable": 13,
+      "rate": 0.2308,
+      "ci95": [
+       0.0,
+       0.6
+      ],
+      "per_question": {
+       "WHU-S01": {
+        "failures": 2.0,
+        "countable": 5,
+        "rate": 0.4
+       },
+       "WHU-S02": {
+        "failures": 0.0,
+        "countable": 5,
+        "rate": 0.0
+       },
+       "WHU-S03": {
+        "failures": 1.0,
+        "countable": 1,
+        "rate": 1.0
+       },
+       "WHU-S04": {
+        "failures": 0.0,
+        "countable": 2,
+        "rate": 0.0
+       }
+      },
+      "health": 0.4,
+      "non_health": 0.125
+     },
+     "Perplexity": {
+      "failures": 4.5,
+      "countable": 13,
+      "rate": 0.3462,
+      "ci95": [
+       0.2143,
+       0.625
+      ],
+      "per_question": {
+       "WHU-S01": {
+        "failures": 2.0,
+        "countable": 5,
+        "rate": 0.4
+       },
+       "WHU-S02": {
+        "failures": 1.0,
+        "countable": 5,
+        "rate": 0.2
+       },
+       "WHU-S03": {
+        "failures": 1.0,
+        "countable": 1,
+        "rate": 1.0
+       },
+       "WHU-S04": {
+        "failures": 0.5,
+        "countable": 2,
+        "rate": 0.25
+       }
+      },
+      "health": 0.4,
+      "non_health": 0.3125
+     }
+    },
+    "vs_whu": {
+     "Perplexity": {
+      "difference_whu_minus": -0.1154,
+      "difference_ci95": [
+       -0.2143,
+       0.0
+      ],
+      "ratio_whu_over": 0.6667,
+      "ratio_ci95": [
+       0.0,
+       1.0
+      ],
+      "whu_at_most_half": false,
+      "difference_ci_excludes_zero": false,
+      "holds": false
+     }
+    }
+   },
+   "claude_judge": {
+    "systems": {
+     "WHU": {
+      "failures": 3.0,
+      "countable": 13,
+      "rate": 0.2308,
+      "ci95": [
+       0.0,
+       0.6
+      ],
+      "per_question": {
+       "WHU-S01": {
+        "failures": 2.0,
+        "countable": 5,
+        "rate": 0.4
+       },
+       "WHU-S02": {
+        "failures": 0.0,
+        "countable": 5,
+        "rate": 0.0
+       },
+       "WHU-S03": {
+        "failures": 1.0,
+        "countable": 1,
+        "rate": 1.0
+       },
+       "WHU-S04": {
+        "failures": 0.0,
+        "countable": 2,
+        "rate": 0.0
+       }
+      },
+      "health": 0.4,
+      "non_health": 0.125
+     },
+     "Perplexity": {
+      "failures": 3.0,
+      "countable": 13,
+      "rate": 0.2308,
+      "ci95": [
+       0.0909,
+       0.5
+      ],
+      "per_question": {
+       "WHU-S01": {
+        "failures": 1.0,
+        "countable": 5,
+        "rate": 0.2
+       },
+       "WHU-S02": {
+        "failures": 1.0,
+        "countable": 5,
+        "rate": 0.2
+       },
+       "WHU-S03": {
+        "failures": 1.0,
+        "countable": 1,
+        "rate": 1.0
+       },
+       "WHU-S04": {
+        "failures": 0.0,
+        "countable": 2,
+        "rate": 0.0
+       }
+      },
+      "health": 0.2,
+      "non_health": 0.25
+     }
+    },
+    "vs_whu": {
+     "Perplexity": {
+      "difference_whu_minus": 0.0,
+      "difference_ci95": [
+       -0.1765,
+       0.1765
+      ],
+      "ratio_whu_over": 1.0,
+      "ratio_ci95": [
+       0.0,
+       2.0
+      ],
+      "whu_at_most_half": false,
+      "difference_ci_excludes_zero": false,
+      "holds": false
+     }
+    }
+   },
+   "openai_judge": {
+    "systems": {
+     "WHU": {
+      "failures": 3.0,
+      "countable": 13,
+      "rate": 0.2308,
+      "ci95": [
+       0.0,
+       0.6
+      ],
+      "per_question": {
+       "WHU-S01": {
+        "failures": 2.0,
+        "countable": 5,
+        "rate": 0.4
+       },
+       "WHU-S02": {
+        "failures": 0.0,
+        "countable": 5,
+        "rate": 0.0
+       },
+       "WHU-S03": {
+        "failures": 1.0,
+        "countable": 1,
+        "rate": 1.0
+       },
+       "WHU-S04": {
+        "failures": 0.0,
+        "countable": 2,
+        "rate": 0.0
+       }
+      },
+      "health": 0.4,
+      "non_health": 0.125
+     },
+     "Perplexity": {
+      "failures": 6.0,
+      "countable": 13,
+      "rate": 0.4615,
+      "ci95": [
+       0.25,
+       0.75
+      ],
+      "per_question": {
+       "WHU-S01": {
+        "failures": 3.0,
+        "countable": 5,
+        "rate": 0.6
+       },
+       "WHU-S02": {
+        "failures": 1.0,
+        "countable": 5,
+        "rate": 0.2
+       },
+       "WHU-S03": {
+        "failures": 1.0,
+        "countable": 1,
+        "rate": 1.0
+       },
+       "WHU-S04": {
+        "failures": 1.0,
+        "countable": 2,
+        "rate": 0.5
+       }
+      },
+      "health": 0.6,
+      "non_health": 0.375
+     }
+    },
+    "vs_whu": {
+     "Perplexity": {
+      "difference_whu_minus": -0.2307,
+      "difference_ci95": [
+       -0.3636,
+       -0.125
+      ],
+      "ratio_whu_over": 0.5001,
+      "ratio_ci95": [
+       0.0,
+       0.75
+      ],
+      "whu_at_most_half": false,
+      "difference_ci_excludes_zero": true,
+      "holds": false
+     }
+    }
+   },
+   "agreed_only": {
+    "systems": {
+     "WHU": {
+      "failures": 2.0,
+      "countable": 11,
+      "rate": 0.1818,
+      "ci95": [
+       0.0,
+       0.6
+      ],
+      "per_question": {
+       "WHU-S01": {
+        "failures": 1.0,
+        "countable": 3,
+        "rate": 0.3333
+       },
+       "WHU-S02": {
+        "failures": 0.0,
+        "countable": 5,
+        "rate": 0.0
+       },
+       "WHU-S03": {
+        "failures": 1.0,
+        "countable": 1,
+        "rate": 1.0
+       },
+       "WHU-S04": {
+        "failures": 0.0,
+        "countable": 2,
+        "rate": 0.0
+       }
+      },
+      "health": 0.3333,
+      "non_health": 0.125
+     },
+     "Perplexity": {
+      "failures": 1.0,
+      "countable": 7,
+      "rate": 0.1429,
+      "ci95": [
+       0.0,
+       0.2
+      ],
+      "per_question": {
+       "WHU-S01": {
+        "failures": 0.0,
+        "countable": 1,
+        "rate": 0.0
+       },
+       "WHU-S02": {
+        "failures": 1.0,
+        "countable": 5,
+        "rate": 0.2
+       },
+       "WHU-S03": {
+        "failures": 0.0,
+        "countable": 0,
+        "rate": null
+       },
+       "WHU-S04": {
+        "failures": 0.0,
+        "countable": 1,
+        "rate": 0.0
+       }
+      },
+      "health": 0.0,
+      "non_health": 0.1667
+     }
+    },
+    "vs_whu": {
+     "Perplexity": {
+      "difference_whu_minus": 0.0389,
+      "difference_ci95": [
+       -0.1667,
+       0.6
+      ],
+      "ratio_whu_over": 1.2722,
+      "ratio_ci95": [
+       0.0,
+       1.8
+      ],
+      "whu_at_most_half": false,
+      "difference_ci_excludes_zero": false,
+      "holds": false
+     }
+    }
+   }
+  },
+  "judges": {
+   "WHU": {
+    "items": 13,
+    "judged_by_both": 13,
+    "same_label": 11,
+    "labelled_by_both": 13,
+    "same_label_share": 0.8462,
+    "same_failure_or_pass_share": 0.8462,
+    "kappa": 0.5937,
+    "agreed_by_protocol_rule": 11,
+    "refusal_claude": {
+     "calls": 13,
+     "refused_first_attempt": 0,
+     "refused_after_retry": 0,
+     "rate_after_retry": 0.0,
+     "unusable_reply": 0
+    },
+    "second_read_claude": {
+     "pairs": 1,
+     "same_label": 1,
+     "same_label_share": 1.0
+    },
+    "refusal_openai": {
+     "calls": 13,
+     "refused_first_attempt": 0,
+     "refused_after_retry": 0,
+     "rate_after_retry": 0.0,
+     "unusable_reply": 0
+    },
+    "second_read_openai": {
+     "pairs": 1,
+     "same_label": 1,
+     "same_label_share": 1.0
+    }
+   },
+   "Perplexity": {
+    "items": 13,
+    "judged_by_both": 13,
+    "same_label": 8,
+    "labelled_by_both": 13,
+    "same_label_share": 0.6154,
+    "same_failure_or_pass_share": 0.6154,
+    "kappa": 0.3011,
+    "agreed_by_protocol_rule": 7,
+    "refusal_claude": {
+     "calls": 13,
+     "refused_first_attempt": 0,
+     "refused_after_retry": 0,
+     "rate_after_retry": 0.0,
+     "unusable_reply": 0
+    },
+    "second_read_claude": {
+     "pairs": 3,
+     "same_label": 2,
+     "same_label_share": 0.6667
+    },
+    "refusal_openai": {
+     "calls": 13,
+     "refused_first_attempt": 0,
+     "refused_after_retry": 0,
+     "rate_after_retry": 0.0,
+     "unusable_reply": 0
+    },
+    "second_read_openai": {
+     "pairs": 3,
+     "same_label": 2,
+     "same_label_share": 0.6667
+    }
+   },
+   "all": {
+    "items": 26,
+    "judged_by_both": 26,
+    "same_label": 19,
+    "labelled_by_both": 26,
+    "same_label_share": 0.7308,
+    "same_failure_or_pass_share": 0.7308,
+    "kappa": 0.433,
+    "agreed_by_protocol_rule": 18,
+    "refusal_claude": {
+     "calls": 26,
+     "refused_first_attempt": 0,
+     "refused_after_retry": 0,
+     "rate_after_retry": 0.0,
+     "unusable_reply": 0
+    },
+    "second_read_claude": {
+     "pairs": 4,
+     "same_label": 3,
+     "same_label_share": 0.75
+    },
+    "refusal_openai": {
+     "calls": 26,
+     "refused_first_attempt": 0,
+     "refused_after_retry": 0,
+     "rate_after_retry": 0.0,
+     "unusable_reply": 0
+    },
+    "second_read_openai": {
+     "pairs": 4,
+     "same_label": 3,
+     "same_label_share": 0.75
+    }
+   }
+  },
+  "label_counts_first_read": {
+   "WHU": {
+    "claude": {
+     "Matches": 10,
+     "Omits": 1,
+     "Understates": 2
+    },
+    "openai": {
+     "Matches": 10,
+     "Omits": 1,
+     "Understates": 2
+    }
+   },
+   "Perplexity": {
+    "claude": {
+     "Contradicts": 1,
+     "Matches": 10,
+     "Overstates": 1,
+     "Understates": 1
+    },
+    "openai": {
+     "Contradicts": 1,
+     "Matches": 7,
+     "Overstates": 4,
+     "Understates": 1
+    }
+   }
+  },
+  "direction_of_failures": {
+   "WHU": {
+    "claude": {
+     "Overstates": 0,
+     "Understates": 2
+    },
+    "openai": {
+     "Overstates": 0,
+     "Understates": 2
+    }
+   },
+   "Perplexity": {
+    "claude": {
+     "Overstates": 1,
+     "Understates": 1
+    },
+    "openai": {
+     "Overstates": 4,
+     "Understates": 1
+    }
+   }
+  },
+  "possible_key_disputes_perplexity": 1
+ },
+ "perplexity_citation_reachability": {
+  "Perplexity": {
+   "cited_items": 59,
+   "items_all_sources_by_script": 41,
+   "items_needing_operator_fetch": 12,
+   "items_unreachable": 6,
+   "share_reachable_by_script": 0.6949,
+   "share_reachable_after_operator_fetch": 0.8983,
+   "share_unreachable": 0.1017,
+   "flag_unreachable_over_20pct": false,
+   "sources": {
+    "distinct": 55,
+    "by_script": 44,
+    "by_operator_fetch": 8,
+    "unreachable": 3
+   }
+  }
+ },
+ "perplexity_sources": {
+  "distinct": 55,
+  "full_text": 49,
+  "abstract_only": 3,
+  "unreachable": 3
+ },
+ "judging_spend": {
+  "issues": [
+   "whu-reliability-judging-perplexity"
+  ],
+  "usd": 31.9194,
+  "calls": 174,
+  "by_role": {
+   "m2-judge-claude": 0.4078,
+   "m2-judge-openai": 0.7131,
+   "m1-judge-claude": 13.2184,
+   "m1-judge-openai": 16.6966,
+   "takeaway-claude": 0.4185,
+   "takeaway-openai": 0.465
+  }
+ }
+}

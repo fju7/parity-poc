@@ -1,0 +1,439 @@
+{
+ "label": "Exploratory, outside H1 and H2: spec (d) takeaway comparison, WHU against Perplexity, AI judges only; disagreements reported, not resolved",
+ "questions": [
+  "WHU-S01",
+  "WHU-S02",
+  "WHU-S03",
+  "WHU-S04"
+ ],
+ "comparisons": {
+  "WHU-S01": {
+   "claude": {
+    "rating": "same_answer_different_confidence",
+    "rating_valid": true,
+    "a_was": "WHU",
+    "difference_given": true,
+    "quote_WHU_found": true,
+    "quote_Perplexity_found": true
+   },
+   "openai": {
+    "rating": "same",
+    "rating_valid": true,
+    "a_was": "WHU",
+    "difference_given": false
+   },
+   "judges_agree": false
+  },
+  "WHU-S02": {
+   "claude": {
+    "rating": "same",
+    "rating_valid": true,
+    "a_was": "WHU",
+    "difference_given": true,
+    "quote_WHU_found": true,
+    "quote_Perplexity_found": true
+   },
+   "openai": {
+    "rating": "contradictory",
+    "rating_valid": true,
+    "a_was": "WHU",
+    "difference_given": true,
+    "quote_WHU_found": true,
+    "quote_Perplexity_found": true
+   },
+   "judges_agree": false
+  },
+  "WHU-S03": {
+   "claude": {
+    "rating": "different_in_a_way_that_would_change_a_decision",
+    "rating_valid": true,
+    "a_was": "Perplexity",
+    "difference_given": true,
+    "quote_Perplexity_found": true,
+    "quote_WHU_found": true
+   },
+   "openai": {
+    "rating": "different_in_a_way_that_would_change_a_decision",
+    "rating_valid": true,
+    "a_was": "Perplexity",
+    "difference_given": true,
+    "quote_Perplexity_found": true,
+    "quote_WHU_found": true
+   },
+   "judges_agree": true
+  },
+  "WHU-S04": {
+   "claude": {
+    "rating": "same_answer_different_confidence",
+    "rating_valid": true,
+    "a_was": "Perplexity",
+    "difference_given": true,
+    "quote_Perplexity_found": true,
+    "quote_WHU_found": true
+   },
+   "openai": {
+    "rating": "same_answer_different_confidence",
+    "rating_valid": true,
+    "a_was": "Perplexity",
+    "difference_given": true,
+    "quote_Perplexity_found": true,
+    "quote_WHU_found": true
+   },
+   "judges_agree": true
+  }
+ },
+ "extractions": {
+  "WHU-S01": {
+   "WHU": {
+    "claude": {
+     "direct_answer": "depends",
+     "confidence_conveyed": "moderate",
+     "recommended_actions": 3,
+     "key_caveats": 3,
+     "replied": true
+    },
+    "openai": {
+     "direct_answer": "depends",
+     "confidence_conveyed": "moderate",
+     "recommended_actions": 2,
+     "key_caveats": 3,
+     "replied": true
+    }
+   },
+   "Perplexity": {
+    "claude": {
+     "direct_answer": "depends",
+     "confidence_conveyed": "moderate",
+     "recommended_actions": 4,
+     "key_caveats": 3,
+     "replied": true
+    },
+    "openai": {
+     "direct_answer": "yes",
+     "confidence_conveyed": "moderate",
+     "recommended_actions": 4,
+     "key_caveats": 3,
+     "replied": true
+    }
+   }
+  },
+  "WHU-S02": {
+   "WHU": {
+    "claude": {
+     "direct_answer": "depends",
+     "confidence_conveyed": "low",
+     "recommended_actions": 4,
+     "key_caveats": 3,
+     "replied": true
+    },
+    "openai": {
+     "direct_answer": "depends",
+     "confidence_conveyed": "moderate",
+     "recommended_actions": 4,
+     "key_caveats": 3,
+     "replied": true
+    }
+   },
+   "Perplexity": {
+    "claude": {
+     "direct_answer": "depends",
+     "confidence_conveyed": "low",
+     "recommended_actions": 8,
+     "key_caveats": 3,
+     "replied": true
+    },
+    "openai": {
+     "direct_answer": "depends",
+     "confidence_conveyed": "low",
+     "recommended_actions": 5,
+     "key_caveats": 3,
+     "replied": true
+    }
+   }
+  },
+  "WHU-S03": {
+   "WHU": {
+    "claude": {
+     "direct_answer": "depends",
+     "confidence_conveyed": "moderate",
+     "recommended_actions": 6,
+     "key_caveats": 3,
+     "replied": true
+    },
+    "openai": {
+     "direct_answer": "depends",
+     "confidence_conveyed": "moderate",
+     "recommended_actions": 2,
+     "key_caveats": 3,
+     "replied": true
+    }
+   },
+   "Perplexity": {
+    "claude": {
+     "direct_answer": "yes",
+     "confidence_conveyed": "moderate",
+     "recommended_actions": 9,
+     "key_caveats": 3,
+     "replied": true
+    },
+    "openai": {
+     "direct_answer": "yes",
+     "confidence_conveyed": "moderate",
+     "recommended_actions": 6,
+     "key_caveats": 3,
+     "replied": true
+    }
+   }
+  },
+  "WHU-S04": {
+   "WHU": {
+    "claude": {
+     "direct_answer": "depends",
+     "confidence_conveyed": "moderate",
+     "recommended_actions": 5,
+     "key_caveats": 3,
+     "replied": true
+    },
+    "openai": {
+     "direct_answer": "depends",
+     "confidence_conveyed": "high",
+     "recommended_actions": 5,
+     "key_caveats": 3,
+     "replied": true
+    }
+   },
+   "Perplexity": {
+    "claude": {
+     "direct_answer": "depends",
+     "confidence_conveyed": "high",
+     "recommended_actions": 8,
+     "key_caveats": 3,
+     "replied": true
+    },
+    "openai": {
+     "direct_answer": "depends",
+     "confidence_conveyed": "high",
+     "recommended_actions": 7,
+     "key_caveats": 3,
+     "replied": true
+    }
+   }
+  }
+ },
+ "quote_check": [
+  {
+   "id": "C-WHU-S01-WHU-Perplexity",
+   "judge": "claude",
+   "quote_of": "WHU",
+   "found": true,
+   "words": 29,
+   "over_40_words": false
+  },
+  {
+   "id": "C-WHU-S01-WHU-Perplexity",
+   "judge": "claude",
+   "quote_of": "Perplexity",
+   "found": true,
+   "words": 24,
+   "over_40_words": false
+  },
+  {
+   "id": "C-WHU-S02-WHU-Perplexity",
+   "judge": "claude",
+   "quote_of": "WHU",
+   "found": true,
+   "words": 22,
+   "over_40_words": false
+  },
+  {
+   "id": "C-WHU-S02-WHU-Perplexity",
+   "judge": "claude",
+   "quote_of": "Perplexity",
+   "found": true,
+   "words": 25,
+   "over_40_words": false
+  },
+  {
+   "id": "C-WHU-S02-WHU-Perplexity",
+   "judge": "openai",
+   "quote_of": "WHU",
+   "found": true,
+   "words": 14,
+   "over_40_words": false
+  },
+  {
+   "id": "C-WHU-S02-WHU-Perplexity",
+   "judge": "openai",
+   "quote_of": "Perplexity",
+   "found": true,
+   "words": 11,
+   "over_40_words": false
+  },
+  {
+   "id": "C-WHU-S03-WHU-Perplexity",
+   "judge": "claude",
+   "quote_of": "Perplexity",
+   "found": true,
+   "words": 22,
+   "over_40_words": false
+  },
+  {
+   "id": "C-WHU-S03-WHU-Perplexity",
+   "judge": "claude",
+   "quote_of": "WHU",
+   "found": true,
+   "words": 24,
+   "over_40_words": false
+  },
+  {
+   "id": "C-WHU-S03-WHU-Perplexity",
+   "judge": "openai",
+   "quote_of": "Perplexity",
+   "found": true,
+   "words": 22,
+   "over_40_words": false
+  },
+  {
+   "id": "C-WHU-S03-WHU-Perplexity",
+   "judge": "openai",
+   "quote_of": "WHU",
+   "found": true,
+   "words": 25,
+   "over_40_words": false
+  },
+  {
+   "id": "C-WHU-S04-WHU-Perplexity",
+   "judge": "claude",
+   "quote_of": "Perplexity",
+   "found": true,
+   "words": 30,
+   "over_40_words": false
+  },
+  {
+   "id": "C-WHU-S04-WHU-Perplexity",
+   "judge": "claude",
+   "quote_of": "WHU",
+   "found": true,
+   "words": 30,
+   "over_40_words": false
+  },
+  {
+   "id": "C-WHU-S04-WHU-Perplexity",
+   "judge": "openai",
+   "quote_of": "Perplexity",
+   "found": true,
+   "words": 13,
+   "over_40_words": false
+  },
+  {
+   "id": "C-WHU-S04-WHU-Perplexity",
+   "judge": "openai",
+   "quote_of": "WHU",
+   "found": true,
+   "words": 31,
+   "over_40_words": false
+  }
+ ],
+ "form_problems": [
+  {
+   "id": "X-WHU-S01-WHU",
+   "judge": "claude",
+   "problems": [
+    "code fence"
+   ]
+  },
+  {
+   "id": "X-WHU-S01-Perplexity",
+   "judge": "claude",
+   "problems": [
+    "code fence"
+   ]
+  },
+  {
+   "id": "C-WHU-S01-WHU-Perplexity",
+   "judge": "claude",
+   "problems": [
+    "code fence"
+   ]
+  },
+  {
+   "id": "X-WHU-S02-WHU",
+   "judge": "claude",
+   "problems": [
+    "code fence"
+   ]
+  },
+  {
+   "id": "X-WHU-S02-Perplexity",
+   "judge": "claude",
+   "problems": [
+    "code fence"
+   ]
+  },
+  {
+   "id": "C-WHU-S02-WHU-Perplexity",
+   "judge": "claude",
+   "problems": [
+    "code fence"
+   ]
+  },
+  {
+   "id": "X-WHU-S03-WHU",
+   "judge": "claude",
+   "problems": [
+    "code fence"
+   ]
+  },
+  {
+   "id": "X-WHU-S03-Perplexity",
+   "judge": "claude",
+   "problems": [
+    "code fence"
+   ]
+  },
+  {
+   "id": "C-WHU-S03-WHU-Perplexity",
+   "judge": "claude",
+   "problems": [
+    "code fence"
+   ]
+  },
+  {
+   "id": "X-WHU-S04-WHU",
+   "judge": "claude",
+   "problems": [
+    "code fence"
+   ]
+  },
+  {
+   "id": "X-WHU-S04-Perplexity",
+   "judge": "claude",
+   "problems": [
+    "code fence"
+   ]
+  },
+  {
+   "id": "C-WHU-S04-WHU-Perplexity",
+   "judge": "claude",
+   "problems": [
+    "code fence"
+   ]
+  }
+ ],
+ "whu_extractions_reused_from": "spec (d) run, scoring/takeaway/<judge>/X-<question>-WHU.json",
+ "rating_counts": {
+  "claude": {
+   "same": 1,
+   "same_answer_different_confidence": 2,
+   "different_in_a_way_that_would_change_a_decision": 1,
+   "contradictory": 0
+  },
+  "openai": {
+   "same": 1,
+   "same_answer_different_confidence": 1,
+   "different_in_a_way_that_would_change_a_decision": 1,
+   "contradictory": 1
+  }
+ },
+ "spend_on_issue": 31.9194
+}
