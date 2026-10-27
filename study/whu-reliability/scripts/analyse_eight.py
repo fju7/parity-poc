@@ -76,6 +76,29 @@ def configure(qs: list[str]) -> None:
     A.FRAME = {q: FRAME[q] for q in qs}
 
 
+_ITEMS_M1 = A.items_m1
+
+
+def items_m1_every() -> list[dict]:
+    """analyse.py's M1 rows with the protocol's abstract-only rule: a stored
+    NOT_VERIFIABLE_ABSTRACT stands only when EVERY cited snapshot is abstract
+    only (cross_company.abstract_correct, ruled at Stage 1). Aligned after the
+    independent check (f0f94e0); analyse.py itself, which writes the Stage 1
+    file, is unchanged."""
+    rows = _ITEMS_M1()
+    C.abstract_correct(rows)
+    return rows
+
+
+def every_rule(fn):
+    """Run fn with analyse.py reading M1 rows under the EVERY rule."""
+    A.items_m1 = items_m1_every
+    try:
+        return fn()
+    finally:
+        A.items_m1 = _ITEMS_M1
+
+
 def short(view: dict) -> dict:
     return {"systems": {s: {k: view["systems"][s][k] for k in ("failures", "countable", "rate", "ci95")}
                         for s in A.SYSTEMS},
@@ -166,7 +189,7 @@ def reachability(qs: list[str]) -> dict:
 
 def one_set(qs: list[str]) -> tuple[dict, list]:
     configure(qs)
-    res, review = A.build()
+    res, review = every_rule(A.build)
     m1, m2 = res["M1_citation_support"], res["M2_conclusion_calibration"]
     out = {
         "questions": qs, "frames": A.FRAME, "health_questions": sorted(A.HEALTH),
@@ -182,7 +205,7 @@ def one_set(qs: list[str]) -> tuple[dict, list]:
                "possible_key_disputes": m2["possible_key_disputes"]},
         "cross_company": cross_company(),
         "quote_checked_M1": quote_checked(),
-        "sensitivity_M1": sensitivity(),
+        "sensitivity_M1": every_rule(sensitivity),
         "citation_reachability": reachability(qs),
         "human_review_list": {"items": len(review), "by_reason": {}},
     }
