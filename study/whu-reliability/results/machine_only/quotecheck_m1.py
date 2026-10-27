@@ -21,8 +21,8 @@ is cached across items; order changes cost, not what any call receives.
 
 CAPS, checked before every call: this run's $40 (ledger issue
 whu-reliability-judging-quotecheck), the judging day cap (judge_m1's
-day_cap_stop), and the study total check ($350 less WHU's measured $46.39,
-over all judging ledger issues).
+day_cap_stop), and the study total check ($375 less WHU's actual ledger
+spend over the eight study issues, against all judging ledger issues).
 
 QUOTE CHECK. Each evidence passage is looked for in the FULL held text of the
 item's cited sources (not only what was delivered), after normalising
@@ -74,8 +74,12 @@ OUTDIR = Path.home() / "Projects" / "whu-study-private" / "scoring" / "m1_quotec
 SCRIPT = "study/whu-reliability/results/machine_only/quotecheck_m1.py"
 LEDGER_ISSUE = "whu-reliability-judging-quotecheck"
 RUN_CAP = 40.0
-STUDY_TOTAL = 350.0          # raised from $300 by Fred, 2026-10-24 (Option B)
-WHU_MEASURED = 46.39         # WHU's measured spend, deviations.md 2026-10-23
+STUDY_TOTAL = 375.0          # raised from $350 by Fred (Option A), 2026-10-27; was $300 to 2026-10-24
+# WHU's deduction is its actual ledger spend over the eight study issues (was a
+# fixed $46.39, S01-S04 only, deviations.md 2026-10-23); $99.07 on 2026-10-27.
+WHU_ISSUES = ("tb-dna-testing", "teen-depression-therapy-format", "public-involvement-climate-policy",
+              "city-growth-climate-coping", "undernutrition-tb-risk", "arts-youth-offending",
+              "urban-form-transport-emissions", "settlement-planning-climate-resilience")
 SYSTEM = "WHU"
 SND = "SUPPORT_NOT_DEMONSTRATED"
 NEEDS_EVIDENCE = {"Supported"}
@@ -180,10 +184,16 @@ def caps_stop(worst: float) -> str | None:
         return "RUN CAP: %s has spent $%.3f of $%.2f; next call up to $%.3f" % (LEDGER_ISSUE, mine, RUN_CAP, worst)
     allj = sum(float(e.get("usd") or 0) for e in S.entries()
                if (e.get("issue") or "").startswith(J.JUDGING_ISSUE_PREFIX))
-    if allj + worst > STUDY_TOTAL - WHU_MEASURED:
+    whu = whu_spent()
+    if allj + worst > STUDY_TOTAL - whu:
         return "STUDY TOTAL: judging has spent $%.3f of $%.2f ($%.0f less WHU's $%.2f); next call up to $%.3f" % (
-            allj, STUDY_TOTAL - WHU_MEASURED, STUDY_TOTAL, WHU_MEASURED, worst)
+            allj, STUDY_TOTAL - whu, STUDY_TOTAL, whu, worst)
     return None
+
+
+def whu_spent() -> float:
+    """WHU's actual spend: the ledger summed over the eight study issues."""
+    return sum(float(e.get("usd") or 0) for e in S.entries() if e.get("issue") in WHU_ISSUES)
 
 
 def run(dry: bool) -> int:
