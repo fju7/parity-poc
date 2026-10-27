@@ -8,7 +8,10 @@ for free pages only, used by the advisor on every source operator_fetch.json
 marked free_to_read_but_blocks_automation, whichever system cited it. The
 advisor's files and log are in PRIVATE/m1/operator_incoming/: one file per
 source, named <source_id>.<ext>, and fetch_log.json (one entry per source: id,
-outcome, version_held, bytes, sha256, method, and the addresses tried).
+outcome, version_held, bytes, sha256, method, and the addresses tried). An
+entry's "by" names who fetched it (default: the advisor); for WHU-S05 to S08,
+Claude Code in Fred's Chrome, on the advisor's ruling (--incoming
+operator_incoming_ext).
 
 For each entry with outcome "held", the file must exist, be the size the log
 says and have the sha256 the log says; any mismatch stops the run with exit 2
@@ -70,7 +73,7 @@ def check(entries: list[dict], incoming: Path) -> list[str]:
 
 def ingest(row: dict, e: dict, incoming: Path) -> dict:
     rec = {"at": now(), "route": None, "version": None, "retrieved_from": None,
-           "tried": [{"route": "d", "by": "the advisor, in the desktop app's built-in browser",
+           "tried": [{"route": "d", "by": e.get("by") or "the advisor, in the desktop app's built-in browser",
                       "result": e.get("outcome"), "addresses_tried": e.get("url_tried"),
                       "method": e.get("method")}]}
     if e.get("outcome") == "held":
@@ -93,7 +96,8 @@ def ingest(row: dict, e: dict, incoming: Path) -> dict:
                        text_sha256=hashlib.sha256(text.encode()).hexdigest(), text_chars=len(text),
                        extent=ext, extent_why=why, abstract_only=(ext == "abstract only"))
     if row["extent"] == "unreachable" and e.get("outcome") != "held":
-        row["extent_why"] = "advisor's browser: %s (%s)" % (e.get("outcome"), (e.get("reason") or e.get("method") or "")[:240])
+        row["extent_why"] = "%s: %s (%s)" % ("route d" if e.get("by") else "advisor's browser", e.get("outcome"),
+                                             (e.get("reason") or e.get("method") or "")[:240])
     if row.get("retrieval"):
         rec["earlier_passes"] = row["retrieval"].pop("earlier_passes", []) + [row["retrieval"]]
     row["retrieval"] = rec

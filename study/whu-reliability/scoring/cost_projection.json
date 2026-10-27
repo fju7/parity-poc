@@ -1,5 +1,5 @@
 {
- "written": "2026-10-27T02:06:22+00:00",
+ "written": "2026-10-27T02:22:58+00:00",
  "no_model_called": true,
  "inputs": {
   "chars_per_token": {
@@ -37,7 +37,7 @@
   },
   "repeat_share": 0.2,
   "max_source_tokens": 150000,
-  "pending_source_size_assumed_chars": 44897
+  "pending_source_size_assumed_chars": 44528
  },
  "rules": [
   "M1, Claude: first read = (prompt head + documents) at cache-write price + prompt after the documents at input price + output; the 20% repeat reads the documents from cache (cache-read price).",
@@ -55,8 +55,8 @@
     "held_items": 9,
     "claude_held": 0.4802,
     "openai_held": 0.6312,
-    "claude_all": 1.3302,
-    "openai_all": 1.7167,
+    "claude_all": 1.324,
+    "openai_all": 1.7089,
     "doc_tokens_held": 72703.848
    },
    "WHU-S01/Claude": {
@@ -73,8 +73,8 @@
     "held_items": 12,
     "claude_held": 1.7579,
     "openai_held": 2.2362,
-    "claude_all": 2.536,
-    "openai_all": 3.2355,
+    "claude_all": 2.5304,
+    "openai_all": 3.2286,
     "doc_tokens_held": 318693.8362
    },
    "WHU-S01/WHU": {
@@ -91,8 +91,8 @@
     "held_items": 12,
     "claude_held": 2.3287,
     "openai_held": 2.9484,
-    "claude_all": 3.1638,
-    "openai_all": 4.0083,
+    "claude_all": 3.1597,
+    "openai_all": 4.0031,
     "doc_tokens_held": 431941.1124
    },
    "WHU-S02/Claude": {
@@ -100,8 +100,8 @@
     "held_items": 11,
     "claude_held": 2.8682,
     "openai_held": 3.6181,
-    "claude_all": 3.3545,
-    "openai_all": 4.2426,
+    "claude_all": 3.351,
+    "openai_all": 4.2383,
     "doc_tokens_held": 541496.4233
    },
    "WHU-S02/Gemini": {
@@ -109,8 +109,8 @@
     "held_items": 16,
     "claude_held": 3.4813,
     "openai_held": 4.4008,
-    "claude_all": 4.8783,
-    "openai_all": 6.1547,
+    "claude_all": 4.8762,
+    "openai_all": 6.1521,
     "doc_tokens_held": 650592.5772
    },
    "WHU-S02/WHU": {
@@ -136,8 +136,8 @@
     "held_items": 14,
     "claude_held": 0.5046,
     "openai_held": 0.6794,
-    "claude_all": 0.6991,
-    "openai_all": 0.9292,
+    "claude_all": 0.6977,
+    "openai_all": 0.9275,
     "doc_tokens_held": 64986.4208
    },
    "WHU-S03/Gemini": {
@@ -145,8 +145,8 @@
     "held_items": 18,
     "claude_held": 4.9675,
     "openai_held": 6.2624,
-    "claude_all": 5.162,
-    "openai_all": 6.5122,
+    "claude_all": 5.1606,
+    "openai_all": 6.5105,
     "doc_tokens_held": 940452.9985
    },
    "WHU-S03/WHU": {
@@ -172,8 +172,8 @@
     "held_items": 9,
     "claude_held": 0.8602,
     "openai_held": 1.1054,
-    "claude_all": 1.0599,
-    "openai_all": 1.3617,
+    "claude_all": 1.0585,
+    "openai_all": 1.3599,
     "doc_tokens_held": 148101.6913
    },
    "WHU-S04/Gemini": {
@@ -181,8 +181,8 @@
     "held_items": 10,
     "claude_held": 3.9585,
     "openai_held": 4.9749,
-    "claude_all": 4.931,
-    "openai_all": 6.224,
+    "claude_all": 4.9241,
+    "openai_all": 6.2153,
     "doc_tokens_held": 760325.0919
    },
    "WHU-S04/WHU": {
@@ -196,20 +196,20 @@
    },
    "WHU-S05/Claude": {
     "items": 12,
-    "held_items": 6,
-    "claude_held": 0.6638,
-    "openai_held": 0.8496,
-    "claude_all": 1.5605,
-    "openai_all": 1.9898,
-    "doc_tokens_held": 116646.8189
+    "held_items": 8,
+    "claude_held": 0.7895,
+    "openai_held": 1.0136,
+    "claude_all": 1.4293,
+    "openai_all": 1.8262,
+    "doc_tokens_held": 136574.9061
    },
    "WHU-S05/Gemini": {
     "items": 20,
     "held_items": 17,
     "claude_held": 2.0533,
     "openai_held": 2.6226,
-    "claude_all": 2.3451,
-    "openai_all": 2.9973,
+    "claude_all": 2.343,
+    "openai_all": 2.9947,
     "doc_tokens_held": 364760.6091
    },
    "WHU-S05/WHU": {
@@ -217,27 +217,27 @@
     "held_items": 10,
     "claude_held": 2.1306,
     "openai_held": 2.6942,
-    "claude_all": 3.6808,
-    "openai_all": 4.664,
+    "claude_all": 3.6739,
+    "openai_all": 4.6553,
     "doc_tokens_held": 397659.134
    },
    "WHU-S06/Claude": {
     "items": 15,
-    "held_items": 11,
-    "claude_held": 2.761,
-    "openai_held": 3.4842,
-    "claude_all": 3.2927,
-    "openai_all": 4.162,
-    "doc_tokens_held": 520216.2907
+    "held_items": 15,
+    "claude_held": 3.1061,
+    "openai_held": 3.9291,
+    "claude_all": 3.1061,
+    "openai_all": 3.9291,
+    "doc_tokens_held": 578650.0026
    },
    "WHU-S06/Gemini": {
     "items": 20,
-    "held_items": 15,
-    "claude_held": 2.1372,
-    "openai_held": 2.7201,
-    "claude_all": 2.6234,
-    "openai_all": 3.3446,
-    "doc_tokens_held": 386407.17
+    "held_items": 16,
+    "claude_held": 2.2027,
+    "openai_held": 2.8055,
+    "claude_all": 2.589,
+    "openai_all": 3.3016,
+    "doc_tokens_held": 396911.3213
    },
    "WHU-S06/WHU": {
     "items": 20,
@@ -250,21 +250,21 @@
    },
    "WHU-S07/Claude": {
     "items": 9,
-    "held_items": 3,
-    "claude_held": 0.1911,
-    "openai_held": 0.2491,
-    "claude_all": 1.313,
-    "openai_all": 1.6703,
-    "doc_tokens_held": 30383.2568
+    "held_items": 8,
+    "claude_held": 2.7337,
+    "openai_held": 3.4395,
+    "claude_all": 2.9259,
+    "openai_all": 3.6829,
+    "doc_tokens_held": 522323.9731
    },
    "WHU-S07/Gemini": {
     "items": 19,
-    "held_items": 8,
-    "claude_held": 1.5719,
-    "openai_held": 1.9898,
-    "claude_all": 2.6416,
-    "openai_all": 3.3638,
-    "doc_tokens_held": 291808.0995
+    "held_items": 13,
+    "claude_held": 3.2175,
+    "openai_held": 4.061,
+    "claude_all": 3.7969,
+    "openai_all": 4.8053,
+    "doc_tokens_held": 605783.5975
    },
    "WHU-S07/WHU": {
     "items": 20,
@@ -277,21 +277,21 @@
    },
    "WHU-S08/Claude": {
     "items": 16,
-    "held_items": 9,
-    "claude_held": 1.2898,
-    "openai_held": 1.6414,
-    "claude_all": 2.6497,
-    "openai_all": 3.3632,
-    "doc_tokens_held": 233333.2719
+    "held_items": 12,
+    "claude_held": 2.4132,
+    "openai_held": 3.0538,
+    "claude_all": 3.7696,
+    "openai_all": 4.7605,
+    "doc_tokens_held": 448699.2215
    },
    "WHU-S08/Gemini": {
     "items": 20,
-    "held_items": 17,
-    "claude_held": 2.6005,
-    "openai_held": 3.3054,
-    "claude_all": 2.8923,
-    "openai_all": 3.6801,
-    "doc_tokens_held": 473329.1673
+    "held_items": 18,
+    "claude_held": 2.6578,
+    "openai_held": 3.3804,
+    "claude_all": 2.8509,
+    "openai_all": 3.6284,
+    "doc_tokens_held": 482176.5395
    },
    "WHU-S08/WHU": {
     "items": 20,
@@ -303,8 +303,8 @@
     "doc_tokens_held": 998692.6251
    }
   },
-  "held_only_usd": 186.64,
-  "all_items_usd": 217.35
+  "held_only_usd": 199.98,
+  "all_items_usd": 225.11
  },
  "m2": {
   "per_answer": {
@@ -568,7 +568,7 @@
   "usd": 12.73
  },
  "whu_s04_projected": null,
- "judging_usd": 230.09,
+ "judging_usd": 237.85,
  "whu_measured_usd": {
   "WHU-S01": 11.67,
   "WHU-S02": 12.11,
@@ -580,6 +580,6 @@
   "WHU-S08": 30.5
  },
  "whu_s04_note": "WHU-S04 is still running; its figure is spend so far, not its final cost.",
- "study_total_usd": 329.17,
+ "study_total_usd": 336.93,
  "over_300": true
 }
