@@ -1,6 +1,19 @@
 {
   "what_this_is": "Baselines for sweep_sources.py. Which citations and which correction notices we had already seen, so a later run can report what is NEW rather than re-reporting the world.",
-  "citations": {},
+  "citations": {
+    "S001": {
+      "ids": [
+        "41978668",
+        "41228104",
+        "38188229"
+      ],
+      "count": 3,
+      "hit_count": 3,
+      "complete": true,
+      "swept": "2026-10-26",
+      "resolved_as": "MED/38188229"
+    }
+  },
   "status": {},
   "runs": [
     {
@@ -21,6 +34,55 @@
     },
     {
       "on": "2026-10-25",
+      "command": "registry",
+      "sources_queried": 0,
+      "first_capture": [],
+      "changes": {},
+      "alarms": [],
+      "titles_disagree": [],
+      "titles_inconclusive": [],
+      "unresolved": [],
+      "unsweepable": [
+        "S005"
+      ]
+    },
+    {
+      "on": "2026-10-26",
+      "command": "resolve --write",
+      "resolved": [
+        "S002"
+      ],
+      "refused": [],
+      "failed": [],
+      "unsweepable": [
+        "S003",
+        "S005",
+        "S006"
+      ]
+    },
+    {
+      "on": "2026-10-26",
+      "command": "citations",
+      "sources_queried": 1,
+      "new_citations": 0,
+      "first_sweep": {
+        "S001": 3
+      },
+      "rebaselined_from_truncated": [],
+      "incomplete": [],
+      "unresolved": [
+        "S002",
+        "S004"
+      ],
+      "candidates_unconfirmed": [],
+      "unsweepable": [
+        "S003",
+        "S005",
+        "S006"
+      ]
+    },
+    {
+      "on": "2026-10-26",
       "command": "registry",
       "sources_queried": 0,
       "first_capture": [],

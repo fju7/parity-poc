@@ -75,6 +75,16 @@
         "refused_by": "Claude Code",
         "on": "2026-10-26",
         "why": "sweep_sources.py resolve --write read this DOI out of the held report's reference list; it belongs to a cited paper ('Impact of arts participation on children’s achievement: A systematic literature review'), sharing 1 title word with S002. The YEF technical report carries no DOI of its own. The errata check's 'clean' row for S002 was therefore a reading of the wrong paper."
+      },
+      "identifier": {
+        "kind": "doi",
+        "value": "10.1016/j.tsc.2018.06.003",
+        "shape": "DOI read out of the document we hold",
+        "resolved_by": "Crossref works/10.1016/j.tsc.2018.06.003 exists; registered landing URL https://linkinghub.elsevier.com/retrieve/pii/S1871187117303504",
+        "identity": "resolved title shares 1 word(s) with ours: arts",
+        "resolved_on": "2026-10-26",
+        "resolved_title": "Impact of arts participation on children’s achievement: A systematic literature review",
+        "by": "sweep_sources.py resolve --write"
       }
     },
     {
