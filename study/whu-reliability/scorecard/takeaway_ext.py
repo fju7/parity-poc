@@ -15,7 +15,7 @@ settings changed:
     its order over all eight questions; S05-S08 take the draws after S01-S04's.
     The S01-S04 draws are checked against the orders recorded in the S01-S04
     replies before anything runs.
-  spend: ledger issue whu-scorecard-takeaway, run cap $12. That issue is not a
+  spend: ledger issue whu-scorecard-takeaway, run cap $20 (Fred; was $12). That issue is not a
     whu-reliability-judging* issue, so before each call its spend is also added
     to the judging day cap and to the $390 study total check (quotecheck_m1.py's
     STUDY_TOTAL, less WHU's spend), so neither is bypassed.
@@ -51,7 +51,7 @@ J1 = T.J1
 QC = _load("quotecheck_m1", STUDY / "results" / "machine_only" / "quotecheck_m1.py")
 
 ISSUE = "whu-scorecard-takeaway"
-CAP = 12.0
+CAP = 20.0                  # raised from $12 by Fred, 2026-10-27 (estimate $18.64 worst case)
 ALL = ["WHU-S01", "WHU-S02", "WHU-S03", "WHU-S04", "WHU-S05", "WHU-S06", "WHU-S07", "WHU-S08"]
 QUESTIONS = ALL[4:]
 NOTE = "ChatGPT performed no web search on WHU-S05 to WHU-S08 (deviations 2026-10-26)"

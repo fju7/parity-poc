@@ -1,6 +1,6 @@
 {
- "label": "Counts only. Exploratory, outside H1 and H2; judged by AI models only. Spec (d) takeaway comparison, WHU-S01 to WHU-S04 (WHU, Claude Research, ChatGPT, Gemini: every pair; Perplexity: against WHU only). WHU-S05 to S08 not run (estimate over cap).",
- "source": "~/Projects/whu-study-private/scoring/takeaway/<judge>/{X,C}-*.json and scoring/perplexity/takeaway/<judge>/, fields parsed.rating, parsed.direct_answer, parsed.confidence_conveyed; quote check takeaway.quote_ok",
+ "label": "Counts only. Exploratory, outside H1 and H2; judged by AI models only. Spec (d) takeaway comparison (WHU, Claude Research, ChatGPT, Gemini: every pair; Perplexity: against WHU on WHU-S01 to S04 only). ChatGPT performed no web search on WHU-S05 to S08.",
+ "source": "~/Projects/whu-study-private/scoring/takeaway/<judge>/{X,C}-*.json and scoring/takeaway_ext/<judge>/ (WHU-S05 to S08) and scoring/perplexity/takeaway/<judge>/, fields parsed.rating, parsed.direct_answer, parsed.confidence_conveyed; quote check takeaway.quote_ok",
  "script": "~/Projects/whu-study-private/scorecard/build_takeaways.py",
  "ratings": [
   "same",
@@ -416,12 +416,99 @@
    "pairs_n": 7,
    "quotes_checked": 26,
    "quotes_not_found": 0
+  },
+  "WHU-S06": {
+   "direct_answer": {
+    "WHU": {
+     "claude": {
+      "direct_answer": "unclear",
+      "confidence_conveyed": "low"
+     },
+     "openai": {
+      "direct_answer": "unclear",
+      "confidence_conveyed": "low"
+     }
+    },
+    "Claude": {
+     "claude": {
+      "direct_answer": "depends",
+      "confidence_conveyed": "low"
+     },
+     "openai": {
+      "direct_answer": "depends",
+      "confidence_conveyed": "low"
+     }
+    },
+    "ChatGPT": {
+     "claude": {
+      "direct_answer": "unclear",
+      "confidence_conveyed": "low"
+     },
+     "openai": {
+      "direct_answer": "unclear",
+      "confidence_conveyed": "low"
+     }
+    },
+    "Gemini": {
+     "claude": {
+      "direct_answer": "depends",
+      "confidence_conveyed": "moderate"
+     },
+     "openai": {
+      "direct_answer": "depends",
+      "confidence_conveyed": "moderate"
+     }
+    }
+   },
+   "pairs": {
+    "WHU-Claude": {
+     "claude": "same_answer_different_confidence",
+     "openai": "same_answer_different_confidence"
+    },
+    "WHU-ChatGPT": {
+     "claude": "same",
+     "openai": "same_answer_different_confidence"
+    },
+    "WHU-Gemini": {
+     "claude": "different_in_a_way_that_would_change_a_decision",
+     "openai": "different_in_a_way_that_would_change_a_decision"
+    },
+    "Claude-ChatGPT": {
+     "claude": "same_answer_different_confidence",
+     "openai": "same_answer_different_confidence"
+    },
+    "Claude-Gemini": {
+     "claude": "same_answer_different_confidence",
+     "openai": "same_answer_different_confidence"
+    },
+    "ChatGPT-Gemini": {
+     "claude": "different_in_a_way_that_would_change_a_decision",
+     "openai": "different_in_a_way_that_would_change_a_decision"
+    }
+   },
+   "rating_counts": {
+    "claude": {
+     "same": 1,
+     "same_answer_different_confidence": 3,
+     "different_in_a_way_that_would_change_a_decision": 2,
+     "contradictory": 0
+    },
+    "openai": {
+     "same": 0,
+     "same_answer_different_confidence": 4,
+     "different_in_a_way_that_would_change_a_decision": 2,
+     "contradictory": 0
+    }
+   },
+   "judges_agree": 5,
+   "pairs_n": 6,
+   "quotes_checked": 24,
+   "quotes_not_found": 0
   }
  },
  "not_computed": {
-  "WHU-S05": "takeaway not run: scorecard/takeaway_ext.py estimate $18.64 worst case > $12 cap (STOP, no call made)",
-  "WHU-S06": "takeaway not run: scorecard/takeaway_ext.py estimate $18.64 worst case > $12 cap (STOP, no call made)",
-  "WHU-S07": "takeaway not run: scorecard/takeaway_ext.py estimate $18.64 worst case > $12 cap (STOP, no call made)",
-  "WHU-S08": "takeaway not run: scorecard/takeaway_ext.py estimate $18.64 worst case > $12 cap (STOP, no call made)"
+  "WHU-S05": "replies complete; divergence summary not yet written",
+  "WHU-S07": "replies complete; divergence summary not yet written",
+  "WHU-S08": "replies complete; divergence summary not yet written"
  }
 }
