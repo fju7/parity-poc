@@ -1,5 +1,5 @@
 {
- "written": "2026-10-24T00:46:55+00:00",
+ "written": "2026-10-27T02:05:47+00:00",
  "per_answer": [
   {
    "question": "WHU-S01",
@@ -176,45 +176,221 @@
    "no_url": 0,
    "uncited": 0,
    "unreachable_sources": 0
+  },
+  {
+   "question": "WHU-S05",
+   "system": "ChatGPT",
+   "items": 0,
+   "held": 0,
+   "incomplete": 0,
+   "abstract_only": 0,
+   "no_url": 0,
+   "uncited": 20,
+   "unreachable_sources": 0
+  },
+  {
+   "question": "WHU-S05",
+   "system": "Claude",
+   "items": 12,
+   "held": 6,
+   "incomplete": 6,
+   "abstract_only": 1,
+   "no_url": 0,
+   "uncited": 8,
+   "unreachable_sources": 5
+  },
+  {
+   "question": "WHU-S05",
+   "system": "Gemini",
+   "items": 20,
+   "held": 17,
+   "incomplete": 3,
+   "abstract_only": 3,
+   "no_url": 0,
+   "uncited": 0,
+   "unreachable_sources": 2
+  },
+  {
+   "question": "WHU-S05",
+   "system": "WHU",
+   "items": 20,
+   "held": 10,
+   "incomplete": 10,
+   "abstract_only": 0,
+   "no_url": 0,
+   "uncited": 0,
+   "unreachable_sources": 2
+  },
+  {
+   "question": "WHU-S06",
+   "system": "ChatGPT",
+   "items": 0,
+   "held": 0,
+   "incomplete": 0,
+   "abstract_only": 0,
+   "no_url": 0,
+   "uncited": 20,
+   "unreachable_sources": 0
+  },
+  {
+   "question": "WHU-S06",
+   "system": "Claude",
+   "items": 15,
+   "held": 11,
+   "incomplete": 4,
+   "abstract_only": 0,
+   "no_url": 0,
+   "uncited": 5,
+   "unreachable_sources": 2
+  },
+  {
+   "question": "WHU-S06",
+   "system": "Gemini",
+   "items": 20,
+   "held": 15,
+   "incomplete": 5,
+   "abstract_only": 0,
+   "no_url": 0,
+   "uncited": 0,
+   "unreachable_sources": 2
+  },
+  {
+   "question": "WHU-S06",
+   "system": "WHU",
+   "items": 20,
+   "held": 20,
+   "incomplete": 0,
+   "abstract_only": 0,
+   "no_url": 0,
+   "uncited": 0,
+   "unreachable_sources": 0
+  },
+  {
+   "question": "WHU-S07",
+   "system": "ChatGPT",
+   "items": 0,
+   "held": 0,
+   "incomplete": 0,
+   "abstract_only": 0,
+   "no_url": 0,
+   "uncited": 20,
+   "unreachable_sources": 0
+  },
+  {
+   "question": "WHU-S07",
+   "system": "Claude",
+   "items": 9,
+   "held": 3,
+   "incomplete": 6,
+   "abstract_only": 0,
+   "no_url": 0,
+   "uncited": 11,
+   "unreachable_sources": 6
+  },
+  {
+   "question": "WHU-S07",
+   "system": "Gemini",
+   "items": 19,
+   "held": 8,
+   "incomplete": 11,
+   "abstract_only": 0,
+   "no_url": 0,
+   "uncited": 1,
+   "unreachable_sources": 5
+  },
+  {
+   "question": "WHU-S07",
+   "system": "WHU",
+   "items": 20,
+   "held": 20,
+   "incomplete": 0,
+   "abstract_only": 0,
+   "no_url": 0,
+   "uncited": 0,
+   "unreachable_sources": 0
+  },
+  {
+   "question": "WHU-S08",
+   "system": "ChatGPT",
+   "items": 0,
+   "held": 0,
+   "incomplete": 0,
+   "abstract_only": 0,
+   "no_url": 0,
+   "uncited": 19,
+   "unreachable_sources": 0
+  },
+  {
+   "question": "WHU-S08",
+   "system": "Claude",
+   "items": 16,
+   "held": 9,
+   "incomplete": 7,
+   "abstract_only": 2,
+   "no_url": 0,
+   "uncited": 4,
+   "unreachable_sources": 8
+  },
+  {
+   "question": "WHU-S08",
+   "system": "Gemini",
+   "items": 20,
+   "held": 17,
+   "incomplete": 3,
+   "abstract_only": 0,
+   "no_url": 0,
+   "uncited": 0,
+   "unreachable_sources": 3
+  },
+  {
+   "question": "WHU-S08",
+   "system": "WHU",
+   "items": 20,
+   "held": 20,
+   "incomplete": 0,
+   "abstract_only": 0,
+   "no_url": 0,
+   "uncited": 0,
+   "unreachable_sources": 0
   }
  ],
  "routes": {
   "a": 1,
   "b": 0,
-  "c": 9,
+  "c": 15,
   "d": 16
  },
  "reachability": {
   "WHU": {
-   "cited_items": 80,
-   "items_all_sources_by_script": 79,
+   "cited_items": 160,
+   "items_all_sources_by_script": 149,
    "items_needing_operator_fetch": 1,
-   "items_unreachable": 0,
-   "share_reachable_by_script": 0.9875,
-   "share_reachable_after_operator_fetch": 1.0,
-   "share_unreachable": 0.0,
+   "items_unreachable": 10,
+   "share_reachable_by_script": 0.9313,
+   "share_reachable_after_operator_fetch": 0.9375,
+   "share_unreachable": 0.0625,
    "flag_unreachable_over_20pct": false,
    "sources": {
-    "distinct": 35,
-    "by_script": 34,
+    "distinct": 57,
+    "by_script": 54,
     "by_operator_fetch": 1,
-    "unreachable": 0
+    "unreachable": 2
    }
   },
   "Claude": {
-   "cited_items": 57,
-   "items_all_sources_by_script": 40,
+   "cited_items": 109,
+   "items_all_sources_by_script": 69,
    "items_needing_operator_fetch": 8,
-   "items_unreachable": 9,
-   "share_reachable_by_script": 0.7018,
-   "share_reachable_after_operator_fetch": 0.8421,
-   "share_unreachable": 0.1579,
-   "flag_unreachable_over_20pct": false,
+   "items_unreachable": 32,
+   "share_reachable_by_script": 0.633,
+   "share_reachable_after_operator_fetch": 0.7064,
+   "share_unreachable": 0.2936,
+   "flag_unreachable_over_20pct": true,
    "sources": {
-    "distinct": 55,
-    "by_script": 38,
+    "distinct": 127,
+    "by_script": 89,
     "by_operator_fetch": 8,
-    "unreachable": 9
+    "unreachable": 30
    }
   },
   "ChatGPT": {
@@ -234,36 +410,36 @@
    }
   },
   "Gemini": {
-   "cited_items": 79,
-   "items_all_sources_by_script": 48,
+   "cited_items": 158,
+   "items_all_sources_by_script": 105,
    "items_needing_operator_fetch": 8,
-   "items_unreachable": 23,
-   "share_reachable_by_script": 0.6076,
-   "share_reachable_after_operator_fetch": 0.7089,
-   "share_unreachable": 0.2911,
+   "items_unreachable": 45,
+   "share_reachable_by_script": 0.6646,
+   "share_reachable_after_operator_fetch": 0.7152,
+   "share_unreachable": 0.2848,
    "flag_unreachable_over_20pct": true,
    "sources": {
-    "distinct": 50,
-    "by_script": 33,
+    "distinct": 94,
+    "by_script": 66,
     "by_operator_fetch": 5,
-    "unreachable": 12
+    "unreachable": 23
    }
   }
  },
  "versions": {
-  "acceptedVersion": 2,
+  "acceptedVersion": 3,
   "as cited": 1,
-  "publishedVersion": 18,
-  "submittedVersion": 3,
+  "publishedVersion": 20,
+  "submittedVersion": 6,
   "web page as rendered": 2
  },
  "first_fetch_bytes_reread_to_held": 10,
- "still_unreachable_free_but_blocking": 2,
- "still_unreachable_free_but_blocking_not_tried_by_advisor": 0,
+ "still_unreachable_free_but_blocking": 19,
+ "still_unreachable_free_but_blocking_not_tried_by_advisor": 17,
  "sources": {
-  "distinct": 157,
-  "full_text": 123,
-  "abstract_only": 11,
-  "unreachable": 23
+  "distinct": 285,
+  "full_text": 214,
+  "abstract_only": 16,
+  "unreachable": 55
  }
 }

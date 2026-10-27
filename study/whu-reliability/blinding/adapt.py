@@ -31,6 +31,13 @@ for every file of a kind:
      Gemini, WHU-S01 and WHU-S02 (Markdown exports, where the superscripts
      arrive as numerals glued to the word) are left to blind.py's own Gemini
      rules; works_cited() gives the list their [n] markers number into.
+     Claude, WHU-S05 to WHU-S08 (the report panel's "Download as Markdown",
+     not page data): escaped "\\[n\\]" markers and the report's own numbered
+     "## Sources" list, entry n being [n], as in Gemini's Works cited.
+     claude_sources() gives the body without that list and the list's URLs
+     (a "[title](url)", "[title](<url>)" or bare "<url>" entry); blind.py reads
+     the escaped markers as [n]. A marker the list does not hold, an entry
+     out of order or an entry with no URL stops the run.
 
   3. THE GEMINI HTML BECOMES THE MARKDOWN blind.py reads: headings, paragraphs,
      list items, table rows, links, and each image as "![][imageN]", which is
@@ -93,6 +100,37 @@ def chatgpt_lenticular(md: str) -> str:
 
 def chatgpt_bracketed(md: str) -> str:
     return BRACKETED.sub(lambda m: chip(m.group(2)), report_section(md))
+
+
+def claude_sources(md: str) -> tuple[str, list[str]]:
+    """Claude's "Download as Markdown" report: (the report up to its
+    "## Sources" heading, the URL of each Sources entry in order; entry n is
+    [n])."""
+    body = report_section(md)
+    parts = re.split(r"(?m)^#{1,6}\s*Sources\s*$", body)
+    if len(parts) != 2:
+        raise AdaptError("%d Sources headings, not one" % (len(parts) - 1))
+    text, out = parts[0].rstrip() + "\n", []
+    for line in parts[1].splitlines():
+        if not line.strip():
+            continue
+        e = re.match(r"^\s*(\d+)\.\s+(.*)$", line)
+        if not e:
+            raise AdaptError("Sources line not an entry: %r" % line[:80])
+        if int(e.group(1)) != len(out) + 1:
+            raise AdaptError("Sources entry %s out of order" % e.group(1))
+        u = (re.findall(r"\]\(<(https?://[^>\s]+)>\)?\s*$", e.group(2))
+             or re.findall(r"\]\((https?://[^)\s]+)\)?\s*$", e.group(2))
+             or re.findall(r"^<(https?://[^>\s]+)>\s*$", e.group(2)))
+        if not u:
+            raise AdaptError("Sources entry %s has no URL" % e.group(1))
+        out.append(u[0])
+    if re.search(r"\]\(https?://|<https?://", text):
+        raise AdaptError("a link in the report body as well as the Sources list")
+    beyond = sorted({int(n) for n in re.findall(r"\\\[(\d+)\\\]", text) if not 1 <= int(n) <= len(out)})
+    if beyond:
+        raise AdaptError("marker(s) %s not in the Sources list" % beyond)
+    return text, out
 
 
 def works_cited(md: str) -> list[str]:

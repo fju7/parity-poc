@@ -91,9 +91,15 @@ def _load(name, path):
 FREEZE = "5d83e9b8025312923f3fb8ea2d5de3b47c212362"
 SEED = int(FREEZE, 16)
 QUESTIONS = {"WHU-S01": "tb-dna-testing", "WHU-S02": "teen-depression-therapy-format",
-             "WHU-S03": "public-involvement-climate-policy", "WHU-S04": "city-growth-climate-coping"}
+             "WHU-S03": "public-involvement-climate-policy", "WHU-S04": "city-growth-climate-coping",
+             # The extension (protocol, extension rule; draws f440d56, S05 re-drawn 2ef75c7).
+             "WHU-S05": "undernutrition-tb-risk", "WHU-S06": "arts-youth-offending",
+             "WHU-S07": "urban-form-transport-emissions", "WHU-S08": "settlement-planning-climate-resilience"}
 SYSTEMS = ["WHU", "Claude", "ChatGPT", "Gemini"]
 TOOL_FILE = {"Claude": "claude", "ChatGPT": "chatgpt", "Gemini": "gemini"}
+# Claude's captures saved with the report panel's "Download as Markdown"
+# (escaped [n] markers and the report's own numbered Sources list), not page data.
+CLAUDE_SOURCES_LIST = ("WHU-S05", "WHU-S06", "WHU-S07", "WHU-S08")
 M1_PER_ANSWER = 20
 REPEAT_SHARE = 0.20
 UNCITED = "UNCITED"
@@ -206,6 +212,9 @@ def tool_answer(q: str, system: str) -> tuple[str, list[str] | None, str]:
         return body, None, rec.name
     if system == "Gemini":
         return adapt.report_section(md), adapt.works_cited(md), rec.name
+    if q in CLAUDE_SOURCES_LIST:
+        body, cited = adapt.claude_sources(md)
+        return body, cited, rec.name
     return adapt.report_section(md), None, rec.name
 
 
@@ -236,7 +245,7 @@ def blind_one(q: str, system: str) -> dict:
         blinded, _f = blind.blind(src)
         if cited is not None:
             if refs:
-                raise SystemExit("%s %s: links in the body of a Gemini Markdown export" % (q, system))
+                raise SystemExit("%s %s: links in the body as well as its own reference list" % (q, system))
             refs = list(cited)
             refs_t, _ = blind.apply_rules(blind._typography("\n".join(refs)))
             blinded += "\n\nReferences\n" + "\n".join("[%d] %s" % (i + 1, r) for i, r in enumerate(refs_t.splitlines()))

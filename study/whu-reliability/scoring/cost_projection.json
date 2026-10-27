@@ -1,5 +1,5 @@
 {
- "written": "2026-10-24T00:46:56+00:00",
+ "written": "2026-10-27T02:06:22+00:00",
  "no_model_called": true,
  "inputs": {
   "chars_per_token": {
@@ -37,7 +37,7 @@
   },
   "repeat_share": 0.2,
   "max_source_tokens": 150000,
-  "pending_source_size_assumed_chars": 45028
+  "pending_source_size_assumed_chars": 44897
  },
  "rules": [
   "M1, Claude: first read = (prompt head + documents) at cache-write price + prompt after the documents at input price + output; the 20% repeat reads the documents from cache (cache-read price).",
@@ -55,8 +55,8 @@
     "held_items": 9,
     "claude_held": 0.4802,
     "openai_held": 0.6312,
-    "claude_all": 1.3324,
-    "openai_all": 1.7195,
+    "claude_all": 1.3302,
+    "openai_all": 1.7167,
     "doc_tokens_held": 72703.848
    },
    "WHU-S01/Claude": {
@@ -73,8 +73,8 @@
     "held_items": 12,
     "claude_held": 1.7579,
     "openai_held": 2.2362,
-    "claude_all": 2.5379,
-    "openai_all": 3.238,
+    "claude_all": 2.536,
+    "openai_all": 3.2355,
     "doc_tokens_held": 318693.8362
    },
    "WHU-S01/WHU": {
@@ -91,8 +91,8 @@
     "held_items": 12,
     "claude_held": 2.3287,
     "openai_held": 2.9484,
-    "claude_all": 3.1653,
-    "openai_all": 4.0101,
+    "claude_all": 3.1638,
+    "openai_all": 4.0083,
     "doc_tokens_held": 431941.1124
    },
    "WHU-S02/Claude": {
@@ -100,8 +100,8 @@
     "held_items": 11,
     "claude_held": 2.8682,
     "openai_held": 3.6181,
-    "claude_all": 3.3557,
-    "openai_all": 4.2441,
+    "claude_all": 3.3545,
+    "openai_all": 4.2426,
     "doc_tokens_held": 541496.4233
    },
    "WHU-S02/Gemini": {
@@ -109,8 +109,8 @@
     "held_items": 16,
     "claude_held": 3.4813,
     "openai_held": 4.4008,
-    "claude_all": 4.8791,
-    "openai_all": 6.1556,
+    "claude_all": 4.8783,
+    "openai_all": 6.1547,
     "doc_tokens_held": 650592.5772
    },
    "WHU-S02/WHU": {
@@ -136,8 +136,8 @@
     "held_items": 14,
     "claude_held": 0.5046,
     "openai_held": 0.6794,
-    "claude_all": 0.6995,
-    "openai_all": 0.9298,
+    "claude_all": 0.6991,
+    "openai_all": 0.9292,
     "doc_tokens_held": 64986.4208
    },
    "WHU-S03/Gemini": {
@@ -145,8 +145,8 @@
     "held_items": 18,
     "claude_held": 4.9675,
     "openai_held": 6.2624,
-    "claude_all": 5.1625,
-    "openai_all": 6.5128,
+    "claude_all": 5.162,
+    "openai_all": 6.5122,
     "doc_tokens_held": 940452.9985
    },
    "WHU-S03/WHU": {
@@ -172,8 +172,8 @@
     "held_items": 9,
     "claude_held": 0.8602,
     "openai_held": 1.1054,
-    "claude_all": 1.0604,
-    "openai_all": 1.3623,
+    "claude_all": 1.0599,
+    "openai_all": 1.3617,
     "doc_tokens_held": 148101.6913
    },
    "WHU-S04/Gemini": {
@@ -181,8 +181,8 @@
     "held_items": 10,
     "claude_held": 3.9585,
     "openai_held": 4.9749,
-    "claude_all": 4.9335,
-    "openai_all": 6.2271,
+    "claude_all": 4.931,
+    "openai_all": 6.224,
     "doc_tokens_held": 760325.0919
    },
    "WHU-S04/WHU": {
@@ -193,10 +193,118 @@
     "claude_all": 5.7943,
     "openai_all": 7.3012,
     "doc_tokens_held": 1099495.1481
+   },
+   "WHU-S05/Claude": {
+    "items": 12,
+    "held_items": 6,
+    "claude_held": 0.6638,
+    "openai_held": 0.8496,
+    "claude_all": 1.5605,
+    "openai_all": 1.9898,
+    "doc_tokens_held": 116646.8189
+   },
+   "WHU-S05/Gemini": {
+    "items": 20,
+    "held_items": 17,
+    "claude_held": 2.0533,
+    "openai_held": 2.6226,
+    "claude_all": 2.3451,
+    "openai_all": 2.9973,
+    "doc_tokens_held": 364760.6091
+   },
+   "WHU-S05/WHU": {
+    "items": 20,
+    "held_items": 10,
+    "claude_held": 2.1306,
+    "openai_held": 2.6942,
+    "claude_all": 3.6808,
+    "openai_all": 4.664,
+    "doc_tokens_held": 397659.134
+   },
+   "WHU-S06/Claude": {
+    "items": 15,
+    "held_items": 11,
+    "claude_held": 2.761,
+    "openai_held": 3.4842,
+    "claude_all": 3.2927,
+    "openai_all": 4.162,
+    "doc_tokens_held": 520216.2907
+   },
+   "WHU-S06/Gemini": {
+    "items": 20,
+    "held_items": 15,
+    "claude_held": 2.1372,
+    "openai_held": 2.7201,
+    "claude_all": 2.6234,
+    "openai_all": 3.3446,
+    "doc_tokens_held": 386407.17
+   },
+   "WHU-S06/WHU": {
+    "items": 20,
+    "held_items": 20,
+    "claude_held": 4.6674,
+    "openai_held": 5.8951,
+    "claude_all": 4.6674,
+    "openai_all": 5.8951,
+    "doc_tokens_held": 875898.8274
+   },
+   "WHU-S07/Claude": {
+    "items": 9,
+    "held_items": 3,
+    "claude_held": 0.1911,
+    "openai_held": 0.2491,
+    "claude_all": 1.313,
+    "openai_all": 1.6703,
+    "doc_tokens_held": 30383.2568
+   },
+   "WHU-S07/Gemini": {
+    "items": 19,
+    "held_items": 8,
+    "claude_held": 1.5719,
+    "openai_held": 1.9898,
+    "claude_all": 2.6416,
+    "openai_all": 3.3638,
+    "doc_tokens_held": 291808.0995
+   },
+   "WHU-S07/WHU": {
+    "items": 20,
+    "held_items": 20,
+    "claude_held": 8.5204,
+    "openai_held": 10.7028,
+    "claude_all": 8.5204,
+    "openai_all": 10.7028,
+    "doc_tokens_held": 1640383.558
+   },
+   "WHU-S08/Claude": {
+    "items": 16,
+    "held_items": 9,
+    "claude_held": 1.2898,
+    "openai_held": 1.6414,
+    "claude_all": 2.6497,
+    "openai_all": 3.3632,
+    "doc_tokens_held": 233333.2719
+   },
+   "WHU-S08/Gemini": {
+    "items": 20,
+    "held_items": 17,
+    "claude_held": 2.6005,
+    "openai_held": 3.3054,
+    "claude_all": 2.8923,
+    "openai_all": 3.6801,
+    "doc_tokens_held": 473329.1673
+   },
+   "WHU-S08/WHU": {
+    "items": 20,
+    "held_items": 20,
+    "claude_held": 5.2863,
+    "openai_held": 6.6673,
+    "claude_all": 5.2863,
+    "openai_all": 6.6673,
+    "doc_tokens_held": 998692.6251
    }
   },
-  "held_only_usd": 109.94,
-  "all_items_usd": 123.4
+  "held_only_usd": 186.64,
+  "all_items_usd": 217.35
  },
  "m2": {
   "per_answer": {
@@ -327,19 +435,151 @@
     "answer_tokens": 3419,
     "claude": 0.0574,
     "openai": 0.088
+   },
+   "A-65595fdf64": {
+    "question": "WHU-S05",
+    "system": "ChatGPT",
+    "conclusions": 5,
+    "answer_tokens": 4939,
+    "claude": 0.134,
+    "openai": 0.2768
+   },
+   "A-610138b655": {
+    "question": "WHU-S05",
+    "system": "Claude",
+    "conclusions": 5,
+    "answer_tokens": 10611,
+    "claude": 0.168,
+    "openai": 0.4551
+   },
+   "A-c4ea682040": {
+    "question": "WHU-S05",
+    "system": "Gemini",
+    "conclusions": 5,
+    "answer_tokens": 7508,
+    "claude": 0.1494,
+    "openai": 0.3576
+   },
+   "A-3f2482510f": {
+    "question": "WHU-S05",
+    "system": "WHU",
+    "conclusions": 5,
+    "answer_tokens": 2249,
+    "claude": 0.1178,
+    "openai": 0.1922
+   },
+   "A-71a6fca36d": {
+    "question": "WHU-S06",
+    "system": "ChatGPT",
+    "conclusions": 5,
+    "answer_tokens": 7496,
+    "claude": 0.1466,
+    "openai": 0.353
+   },
+   "A-11ebc401f5": {
+    "question": "WHU-S06",
+    "system": "Claude",
+    "conclusions": 5,
+    "answer_tokens": 8075,
+    "claude": 0.15,
+    "openai": 0.3712
+   },
+   "A-aab7ea2d45": {
+    "question": "WHU-S06",
+    "system": "Gemini",
+    "conclusions": 5,
+    "answer_tokens": 9079,
+    "claude": 0.1561,
+    "openai": 0.4027
+   },
+   "A-f9bf0b8eb5": {
+    "question": "WHU-S06",
+    "system": "WHU",
+    "conclusions": 5,
+    "answer_tokens": 2725,
+    "claude": 0.1179,
+    "openai": 0.2029
+   },
+   "A-72160ed1ee": {
+    "question": "WHU-S07",
+    "system": "ChatGPT",
+    "conclusions": 4,
+    "answer_tokens": 6587,
+    "claude": 0.1242,
+    "openai": 0.2672
+   },
+   "A-79dbc441df": {
+    "question": "WHU-S07",
+    "system": "Claude",
+    "conclusions": 4,
+    "answer_tokens": 11890,
+    "claude": 0.1548,
+    "openai": 0.4006
+   },
+   "A-bcfb1f4c3e": {
+    "question": "WHU-S07",
+    "system": "Gemini",
+    "conclusions": 4,
+    "answer_tokens": 10170,
+    "claude": 0.1449,
+    "openai": 0.3573
+   },
+   "A-7eecc1d71e": {
+    "question": "WHU-S07",
+    "system": "WHU",
+    "conclusions": 4,
+    "answer_tokens": 3659,
+    "claude": 0.1074,
+    "openai": 0.1936
+   },
+   "A-38d66236f2": {
+    "question": "WHU-S08",
+    "system": "ChatGPT",
+    "conclusions": 4,
+    "answer_tokens": 8675,
+    "claude": 0.13,
+    "openai": 0.31
+   },
+   "A-9269c643ea": {
+    "question": "WHU-S08",
+    "system": "Claude",
+    "conclusions": 4,
+    "answer_tokens": 9918,
+    "claude": 0.1371,
+    "openai": 0.3413
+   },
+   "A-f0d797942d": {
+    "question": "WHU-S08",
+    "system": "Gemini",
+    "conclusions": 4,
+    "answer_tokens": 9839,
+    "claude": 0.1367,
+    "openai": 0.3393
+   },
+   "A-80bd005225": {
+    "question": "WHU-S08",
+    "system": "WHU",
+    "conclusions": 4,
+    "answer_tokens": 3193,
+    "claude": 0.0984,
+    "openai": 0.1722
    }
   },
-  "usd": 5.57
+  "usd": 12.73
  },
  "whu_s04_projected": null,
- "judging_usd": 128.97,
+ "judging_usd": 230.09,
  "whu_measured_usd": {
   "WHU-S01": 11.67,
   "WHU-S02": 12.11,
   "WHU-S03": 11.21,
-  "WHU-S04": 11.4
+  "WHU-S04": 11.4,
+  "WHU-S05": 5.97,
+  "WHU-S06": 6.38,
+  "WHU-S07": 9.84,
+  "WHU-S08": 30.5
  },
  "whu_s04_note": "WHU-S04 is still running; its figure is spend so far, not its final cost.",
- "study_total_usd": 175.36,
- "over_300": false
+ "study_total_usd": 329.17,
+ "over_300": true
 }

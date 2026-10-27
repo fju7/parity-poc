@@ -74,6 +74,26 @@ def test_gemini_markdown_works_cited_numbering():
     assert A.works_cited(md) == ["https://a.org/1", "https://b.org/2"]
 
 
+
+CLAUDE_DL = (HEADER + "## Report\n\n# Title\n\nRisk rose by 30%.\\[1\\] Two trials agree.\\[2\\]\\[3\\]\n\n"
+             "## Sources\n\n1. [A study](https://a.org/1)\n2. <https://b.org/2>\n"
+             "3. [The Lancet](<https://l.org/PII(23)01231-6/fulltext>)\n\n---\n\n## Cited URLs (2)\n\n1. https://a.org/1\n")
+
+
+def test_claude_download_markdown_sources_list_numbering():
+    """WHU-S05 to S08: escaped markers, entry n of the report's own Sources list is [n]; a bare <url>
+    or a [title](<url>) entry is an entry like any other, so no later entry shifts."""
+    body, urls = A.claude_sources(CLAUDE_DL)
+    assert urls == ["https://a.org/1", "https://b.org/2", "https://l.org/PII(23)01231-6/fulltext"]
+    assert "Sources" not in body and "a.org" not in body
+    text, refs = B.from_markdown(body)
+    assert refs == [] and "[1]" in text and "[2][3]" in text
+
+
+def test_a_claude_marker_beyond_the_sources_list_stops():
+    with pytest.raises(A.AdaptError):
+        A.claude_sources(CLAUDE_DL.replace("\\[3\\]", "\\[4\\]"))
+
 GDOC = """<html><head><style>.c1{color:red}</style></head><body>
 <h1><span>Title</span></h1>
 <p><span>Mortality fell by 20% in 2021.</span><span style="vertical-align:super;font-size:8pt">2,1</span><span> More text.</span></p>
