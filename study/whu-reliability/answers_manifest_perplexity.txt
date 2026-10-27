@@ -1,0 +1,14 @@
+# WHU reliability study, Perplexity add-on (exploratory; perplexity_plan.md): answers, sha256 manifest
+# The answers are held outside the repository, at ~/Projects/whu-study-private/answers/<question>/perplexity.raw.txt
+# (Perplexity's own 'Download as Markdown' export of the Deep research report, moved byte for byte) and
+# perplexity.md (the capture file built around it by tools/build_capture_perplexity.py). Only these hashes are committed.
+# Runs: 2026-10-27, sent 09:59:40 to about 10:01:07 America/New_York (13:59:40Z to 14:01:07Z), one new thread each.
+#
+91329d00a3ff12b3e62b93d057fb04e6bf8a4b6e2e4f643610b1112c21207f03  WHU-S01/perplexity.raw.txt
+97ebcba8abb7b378f5fd9f40c9584106fcde8c618f8e4091b49cf6407c2d1953  WHU-S02/perplexity.raw.txt
+8b46a0f4e3c82207818a87125891024adfea505efb2e6cba491a87bd6ae64830  WHU-S03/perplexity.raw.txt
+027e75b909d39e33196abc8bb921fcf26e141a36ea07100a1dd76d0c7e16c88a  WHU-S04/perplexity.raw.txt
+97f62daca676b31945e1153ebcae7091455a61b9bc4265a0ffbf99092445c8f5  WHU-S01/perplexity.md
+1e0d2c8b7b7f6536477c267a068e9f3bf999a14929479ed6277d46227305cd3c  WHU-S02/perplexity.md
+f551db4a5eae462d47aa391bdf81362f688e960a60b63938ac825d2aa61968ae  WHU-S03/perplexity.md
+9de52a43af68f5be19536c8cd244cef31810a79c9bc42e8c18bc13068869fe5c  WHU-S04/perplexity.md
