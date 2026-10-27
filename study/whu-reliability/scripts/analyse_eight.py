@@ -20,9 +20,11 @@ rule is not applied again. For each set:
     quote check on the re-judge replies (S01-S04: replies/, S05-S08:
     replies_ext/), WHU quote-checked against Claude Research as labelled,
     two-judge combined and cross-company (OpenAI judge);
-  - sensitivity (advisor's ruling, 2026-10-27): WHU's cited items with no
-    countable label (unjudged) counted as failures; and WHU-S05's 10 items
-    citing its two Lancet DOIs (not free to read) counted as failures;
+  - sensitivity (advisor's ruling, 2026-10-27): all excluded WHU items
+    counted as failures (every WHU cited item without a countable label:
+    unreachable, abstract-only, too long to send, or no usable reply); and
+    WHU-S05's 10 items citing its two Lancet DOIs (not free to read) counted
+    as failures, a subset of the first;
   - citation reachability per system (prepare_scoring.reachability).
 
 ChatGPT performed no web search on WHU-S05 to S08 (deviations 2026-10-26): its
@@ -138,12 +140,13 @@ def sensitivity() -> dict:
     rows = A.items_m1()
     km_items = {it["item"]: it for it in json.loads((Q.RUN / "items.json").read_text(encoding="utf-8"))}
     v = A.view_scores(rows, A.M1_FAIL, A.M1_PASS)
-    unjudged = {r["item"] for r, (_, _, sc) in zip(rows, v["combined"]) if not r["uncited"] and sc is None}
+    excluded = {r["item"] for r, (_, _, sc) in zip(rows, v["combined"]) if not r["uncited"] and sc is None}
     lancet = {r["item"] for r in rows if r["system"] == "WHU" and r["question"] == "WHU-S05"
               and any(c.get("url") in LANCET for c in km_items[r["item"]]["citations"])}
-    out = {"unjudged_cited_items": {s: sum(1 for r in rows if r["item"] in unjudged and r["system"] == s)
-                                    for s in A.SYSTEMS}}
-    for name, worst in (("whu_unjudged_as_failures", {r["item"] for r in rows if r["system"] == "WHU"} & unjudged),
+    out = {"excluded_cited_items": {s: sum(1 for r in rows if r["item"] in excluded and r["system"] == s)
+                                    for s in A.SYSTEMS},
+           "whu_lancet_items_subset_of_excluded": lancet <= excluded}
+    for name, worst in (("whu_all_excluded_items_as_failures", {r["item"] for r in rows if r["system"] == "WHU"} & excluded),
                         ("whu_s05_lancet_items_as_failures", lancet)):
         sc = [(q, s, 1.0 if r["item"] in worst else x) for r, (q, s, x) in zip(rows, v["combined"])]
         av = A.analyse_view(sc)

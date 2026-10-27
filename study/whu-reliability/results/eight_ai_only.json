@@ -1,5 +1,5 @@
 {
- "written": "2026-10-27T03:25:16+00:00",
+ "written": "2026-10-27T11:06:58+00:00",
  "label": "All eight questions: AI judges only, not checked by people",
  "rules": "scripts/analyse.py (Stage 1 rules, unchanged), via scripts/analyse_eight.py",
  "seed": "533877899085291994276456906790697990170397975394",
@@ -1913,13 +1913,14 @@
     }
    },
    "sensitivity_M1": {
-    "unjudged_cited_items": {
+    "excluded_cited_items": {
      "WHU": 5,
      "Claude": 10,
      "ChatGPT": 14,
      "Gemini": 25
     },
-    "whu_unjudged_as_failures": {
+    "whu_lancet_items_subset_of_excluded": true,
+    "whu_all_excluded_items_as_failures": {
      "items_counted_as_failures": 5,
      "WHU": {
       "failures": 8.5,
@@ -3795,8 +3796,8 @@
     }
    },
    "quote_checked_M1": {
-    "whu_items_quote_checked": 65,
-    "whu_items_without_a_rejudge": 3,
+    "whu_items_quote_checked": 68,
+    "whu_items_without_a_rejudge": 0,
     "downgraded_to_support_not_demonstrated": {
      "claude": 7,
      "openai": 0
@@ -3965,13 +3966,14 @@
     }
    },
    "sensitivity_M1": {
-    "unjudged_cited_items": {
+    "excluded_cited_items": {
      "WHU": 12,
      "Claude": 10,
      "ChatGPT": 0,
      "Gemini": 19
     },
-    "whu_unjudged_as_failures": {
+    "whu_lancet_items_subset_of_excluded": true,
+    "whu_all_excluded_items_as_failures": {
      "items_counted_as_failures": 12,
      "WHU": {
       "failures": 13.5,
@@ -6073,8 +6075,8 @@
     }
    },
    "quote_checked_M1": {
-    "whu_items_quote_checked": 142,
-    "whu_items_without_a_rejudge": 3,
+    "whu_items_quote_checked": 145,
+    "whu_items_without_a_rejudge": 0,
     "downgraded_to_support_not_demonstrated": {
      "claude": 22,
      "openai": 0
@@ -6275,13 +6277,14 @@
     }
    },
    "sensitivity_M1": {
-    "unjudged_cited_items": {
+    "excluded_cited_items": {
      "WHU": 17,
      "Claude": 20,
      "ChatGPT": 14,
      "Gemini": 44
     },
-    "whu_unjudged_as_failures": {
+    "whu_lancet_items_subset_of_excluded": true,
+    "whu_all_excluded_items_as_failures": {
      "items_counted_as_failures": 17,
      "WHU": {
       "failures": 22.0,
@@ -6465,11 +6468,11 @@
    "whu-reliability-judging": 95.41,
    "whu-reliability-judging-ext": 76.79,
    "whu-reliability-judging-quotecheck": 32.9,
-   "whu-reliability-judging-quotecheck-ext": 30.56,
+   "whu-reliability-judging-quotecheck-ext": 31.19,
    "whu-reliability-judging-takeaway": 6.83
   },
-  "judging_total": 242.49,
-  "study_total": 341.55,
+  "judging_total": 243.12,
+  "study_total": 342.18,
   "study_total_check": 375.0
  }
 }
