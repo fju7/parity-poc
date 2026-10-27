@@ -193,6 +193,67 @@ describing a single composite that no longer existed.
 
 ---
 
+## 4.5 Protected sentences, omitted findings and coverage (post-study fixes 1 and 2, 27 October 2026)
+
+Adopted after the reliability study (S01–S08). The study's `study/whu-reliability/RUN.md` is frozen and is not edited, so this section is the runbook for these steps on every issue drafted from now on. Background: `docs/whu-omissions-investigation-2026-10.md`. Design: `docs/whu-fix2-omission-rulings-design.md` and its step-7 addendum.
+
+**Protected sentences (fix 1).**
+- These are the page's restatement of its question, its statements of what we held, read, searched or did not read, and the readers' list of declared findings below (`bindings.protected_kind`: kinds `question`, `reading`, `scope`; a row may also carry `"protected"` by hand).
+- None is ever put to a source-support ruling: not the conclusion judge, the audit, or any `ruling.py` mode. A person reads them.
+- A sentence that also states a finding ("we searched and found no trials") is not protected by its phrasing.
+- Preflight row "protected sentences kept" STOPs if one left the first full draft without a person's signed sign-off in `issues/<case>/protected_signoffs.json`.
+
+**Step 1 — scope.** `premise.json` `scope` `{covers, out[{what, why}], by, written_at}` is written with the belief, before any source is opened. An out-of-scope decision must name words of the question or a `scope.out` entry; code checks it.
+
+**Step 3c — coverage** (`python3 backend/scripts/whatholdsup/coverage_check.py <slug>`), after 3a and before the 3b commit.
+- For each relied-on source, the headline units are:
+  - its abstract conclusions, whole, plus graded abstract results;
+  - for an assessment, each numbered statement or Executive Summary paragraph the page binds, in full.
+- Each unit must be **used** (bound), **added** (by an omission ADD), or **declared**: `coverage_check.py <slug> declare <unit key> out_of_scope|not_material --why "..." --by "..." [--element "..."]`.
+- *Known limit:* an assessment conclusion in a section the page never binds is not covered here; the advocate's LEAVES_OUT objections are the second net.
+
+**Step 4b — advocate objection types.** Each objection is MISSTATES (ruled at 4c as before) or LEAVES_OUT, which must quote the omitted finding itself.
+
+**Step 4d — omission rulings** (`python3 backend/scripts/whatholdsup/ruling.py omissions <slug>`, stage cap `omissions`).
+- Code first:
+  - a quotation not in the held text is NOT_IN_SOURCE, with no model call;
+  - overlapping findings are merged and ruled once;
+  - one re-ask is made where an omission quoted what the page already uses.
+- The model decides scope and materiality and drafts an ADD.
+- Code then checks:
+  - the scope element is real;
+  - the span is inside the finding;
+  - the placement is never into or in place of a protected sentence;
+  - the budgets hold.
+- Anything code refuses goes to a person (`rulings/for_person.jsonl`).
+- Decisions go to `issues/<case>/omissions.json`, which holds offsets and hashes and never source text.
+
+**Step 4e — apply ADDs.**
+- Insert each ADD word for word directly after the sentence its decision names, and bind it with `"origin": "omission_add"`.
+- On such rows B19 (hedge dropped) is a STOP, and B25 STOPs on a dropped GRADE or IPCC certainty term.
+- Then run `applied_check.py` (it checks insertions and their placement) and the GAP-016 `--dangling` check.
+- An ADD is then audited and judged like any sentence.
+
+**The readers' list.**
+- Every OUT_OF_SCOPE or NOT_MATERIAL declaration (from 3c or 4d) is shown inside the limits section, under the heading "Findings in our sources we judged outside this question".
+- Each is one sentence: `Outside this question: "<short verbatim span>" (<source>); <reason>.` Generate the HTML with `coverage_check.py <slug> render`.
+- The quoted spans go through `quotations.py` like any quotation.
+
+**Budgets.**
+- At most min(8, 15% of body sentences) ADD sentences.
+- At most min(10, 20% of body sentences) declarations without a person's signed sign-off.
+- Past either, it goes to a person.
+
+**Preflight rows (`publish.py check`), all fail-closed:**
+- "protected sentences kept";
+- "omission objections ruled";
+- "headline conclusions accounted for";
+- "declared findings shown to readers".
+
+Issues first published before adoption are SKIPPED by name.
+
+---
+
 ## 5. The machine gate
 
 The gate reads the page in roles — fact-check, source advocate, counterexample

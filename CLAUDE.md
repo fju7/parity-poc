@@ -2912,6 +2912,28 @@ of what was not read (docs/whu-omissions-investigation-2026-10.md §3).
 - Tests: backend/tests/test_whatholdsup_protected.py (S08 3b page fixture
   tests/fixtures/whatholdsup/whu_s08_first_draft_790f830.html).
 
+## WHU post-study fix 2 — omitted findings and coverage (2026-10-27)
+Design: docs/whu-fix2-omission-rulings-design.md (+ step-7 addendum); runbook: docs/whatholdsup-process.md §4.5.
+RUN.md and the frozen study prompts are NOT edited. Commits 65e9756 (1) 5835a28 (2) 4c74a3d (3) 4ab4263 (4)
+fee8ec1 (5) a9cff69 (6) 8ee57c3 (7) 5f5d11e (8) 06056ab (9), docs (10).
+- source_advocate.py: objection `type` MISSTATES | LEAVES_OUT; omission_kind(), needs_reask(),
+  reask_omission(); LEAVES_OUT items close with OMISSION/DID.
+- premise.py: `scope` {covers, out, by, written_at}; scope_of(); WARN row "scope declared".
+- omissions.py (new): precheck (locate in held text; NOT_IN_SOURCE by code), merge, scope_element_ok,
+  budgets (ADD min(8,15%), declarations min(10,20%)), omissions.json (offsets/hashes, never source
+  text; quotes in rulings/omissions.jsonl), leaks_source_text(), row "omission objections ruled".
+- ruling.py: mode `omissions` (prompt audit_prompts/rule_omission.md, not frozen; OMISSION_FIELDS);
+  advocate mode rules MISSTATES only; omission_units() for stage cap `omissions` (stage_cap.py).
+- bindings.py: origin "omission_add" rows -> B19 STOP; B25 grade carried (STOP drop / WARN raise);
+  protected kind "scope" (DECLARATION_LEAD) for the readers' list.
+- applied_check.py: insertions checked (on page, directly after the named sentence); dangling sees
+  acronyms an insertion brings in.
+- coverage_check.py (new): headline units by structure (abstract conclusions whole + graded results;
+  assessment statements / Executive Summary paragraphs the page binds, in full); used/added/declared/none;
+  readers' list "Findings in our sources we judged outside this question"; rows "headline conclusions
+  accounted for", "declared findings shown to readers". KNOWN LIMIT: unbound assessment sections.
+- The study issues now STOP on the coverage row (S01 19, S07 16, S08 7 units): post-study rule only.
+
 ## Standing instructions for every session
 1. Read this file at the start of every session
 2. Verify all file paths before issuing commands
