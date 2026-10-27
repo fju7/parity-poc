@@ -126,3 +126,95 @@ def undecided(cands: list[dict], doc: dict, held: dict[str, str]) -> tuple[list[
         elif e.get("relevant") is None:
             person.append(c)
     return rule, person
+
+
+# ---------------------------------------------------------------- the rule (fix 3, step 3)
+
+def _terms(text: str) -> set[tuple[str, str]]:
+    import bindings as B
+    return {(fam, lvl) for fam, lvls in B.grade_terms(text).items() for lvl in lvls}
+
+
+def bound_sentences(rows: dict, held: dict[str, str]) -> list[tuple[str, list[int], str]]:
+    """(source, offsets, page sentence) of every on-page binding span, located once."""
+    import audit_stage as A
+    import ruling as R
+    out = []
+    for r in rows.values():
+        if not r.get("on_page"):
+            continue
+        for sid, q in R.quotations(r, held):
+            at = A.locate(q, held.get(sid) or "")
+            if at:
+                out.append((sid, list(at), r.get("sentence") or ""))
+    return out
+
+
+def state_of(c: dict, held_text: str, rows: dict, held: dict[str, str], declared: dict,
+             omissions_doc: dict, bound: list | None = None) -> tuple[str, str]:
+    """("stated" | "bound without its certainty" | "declared" | "not stated", how)."""
+    text = held_text[c["at"][0]:c["at"][1]]
+    want = _terms(text)
+    bound = bound if bound is not None else bound_sentences(rows, held)
+    bound_sents = [s for sid, at, s in bound
+                   if sid == c["source"] and c["at"][0] <= at[0] and at[1] <= c["at"][1]]
+    if bound_sents:
+        if not want or any(_terms(s) & want for s in bound_sents):
+            return "stated", "bound, with its certainty" if want else "bound (it states no certainty term)"
+    if c["key"] in declared:
+        return "declared", declared[c["key"]].get("state", "declared")
+    for e in omissions_doc.get("omissions") or []:
+        if (e.get("source") == c["source"] and e.get("at") and e.get("outcome") in ("OUT_OF_SCOPE", "NOT_MATERIAL")
+                and e["at"][0] < c["at"][1] and c["at"][0] < e["at"][1]):
+            return "declared", e["outcome"].lower()
+    if bound_sents:
+        return "bound without its certainty", "the page binds it but no bound sentence carries %s" % (
+            ", ".join("%s %s" % (lvl, fam) for fam, lvl in sorted(want)))
+    return "not stated", ""
+
+
+def preflight_rows(slug: str, record_rows: list[dict] | None = None, *, held: dict | None = None,
+                   rows: dict | None = None, case: Path | None = None) -> list[tuple[str, str, str]]:
+    """Always on (advisor's ruling, 27 October): every relevant held assessment
+    judgement is stated with its certainty, or declared on the readers' list."""
+    import bindings as B
+    import coverage_check as C
+    import omissions as O
+    import ruling as R
+    import source_store as store
+    s = O.skipped(slug, record_rows, ROW)
+    if s:
+        return s
+    case = case or store.case_dir(slug)
+    held = held if held is not None else R.held_texts(slug)
+    rows = rows if rows is not None else (B.load(slug).get("bindings") or {})
+    cands = candidates(held)
+    doc = load(case)
+    to_rule, person = undecided(cands, doc, held)
+    declared = C.load(case).get("declarations") or {}
+    om = O.load(case)
+    relevant = [c for c in cands if c not in to_rule and c not in person
+                and (doc["candidates"].get(c["key"]) or {}).get("relevant") is True]
+    bad = []
+    counts: dict[str, int] = {}
+    bound = bound_sentences(rows, held)
+    for c in relevant:
+        st, how = state_of(c, held[c["source"]], rows, held, declared, om, bound)
+        counts[st] = counts.get(st, 0) + 1
+        if st in ("not stated", "bound without its certainty"):
+            bad.append((c, st, how))
+    if to_rule or person or bad:
+        bits = []
+        if to_rule:
+            bits.append("%d held assessment judgement(s) not yet ruled for relevance: ruling.py judgements %s"
+                        % (len(to_rule), slug))
+        if person:
+            bits.append("%d with a person for a relevance decision (e.g. %s)" % (len(person), person[0]["key"]))
+        if bad:
+            c, st, how = bad[0]
+            bits.append("%d relevant judgement(s) neither stated with their certainty nor declared on the "
+                        "readers' list (e.g. %s, %s: %s%s)" % (len(bad), c["key"], c["section"], st,
+                                                                 "; " + how if how else ""))
+        return [(ROW, BAD, "; ".join(bits))]
+    return [(ROW, OK, "%d held assessment judgement(s), %d relevant: %s" % (
+        len(cands), len(relevant), ", ".join("%d %s" % (n, k) for k, n in sorted(counts.items())) or "none"))]

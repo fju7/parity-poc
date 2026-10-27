@@ -255,6 +255,9 @@ protected = _sibling("protected")
 # one shown to readers (coverage_check.py). docs/whu-fix2-omission-rulings-design.md.
 omissions = _sibling("omissions")
 coverage_check = _sibling("coverage_check")
+# Post-study fix 3 (2026-10-27): every relevant held assessment judgement is stated
+# with its certainty, or declared. docs/whu-fix3-evidence-standard.md.
+judgements = _sibling("judgements")
 # B16: read what changed. Between two $6 gate runs, every correction is text
 # nobody has read -- and corrections are where a third of the errors come from.
 # Three cents a run. See changecheck.py.
@@ -1852,6 +1855,10 @@ def preflight(slug: str, *, for_email: bool,
         out.extend(coverage_check.preflight_rows(slug, load_record()))
     except BaseException as exc:
         out.append((coverage_check.ROW_UNITS, BAD, "did not run: %s: %s" % (type(exc).__name__, exc)))
+    try:
+        out.extend(judgements.preflight_rows(slug, load_record()))
+    except BaseException as exc:
+        out.append((judgements.ROW, BAD, "did not run: %s: %s" % (type(exc).__name__, exc)))
 
     try:
         out.extend(changecheck.gate_rows(slug, page.read_text(encoding="utf-8")))
