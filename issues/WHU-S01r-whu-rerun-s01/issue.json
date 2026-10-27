@@ -1,0 +1,10 @@
+{
+  "id": "WHU-S01r",
+  "slug": "whu-rerun-s01",
+  "title": "For people being checked for TB, does DNA-based testing, used instead of the older microscope or lab-culture methods, change what happens to them, for example whether they survive, are cured, or start treatment sooner?",
+  "question": "For people being checked for TB, does DNA-based testing, used instead of the older microscope or lab-culture methods, change what happens to them, for example whether they survive, are cured, or start treatment sooner?",
+  "study": true,
+  "rerun_of": "WHU-S01",
+  "status": "draft",
+  "_rerun_note": "A post-study re-run of WHU-S01 under WHU fixes 1-3 (docs/whatholdsup-process.md section 4.5 and docs/whu-fix3-evidence-standard.md), approved by Fred 2026-10-27. Exploratory, outside H1 and H2; it changes no study record, result or rule. The question is WHU-S01's issue.json question, copied verbatim. \"study\": true is set only so the WHU tools run on it unchanged (publish.issue_cfg, ruling.require_study), publish/update/announce refuse it, and caps.json study_per_issue ($50) applies; it is not a study question. Plan: study/whu-reliability/rerun_plan.md, which a drafting session does not read. Ledger issue: whu-rerun-s01. Created 2026-10-27; nothing else is written here until drafting starts."
+}
