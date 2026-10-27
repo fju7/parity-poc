@@ -1,0 +1,2784 @@
+{
+  "freeze_commit": "5d83e9b8025312923f3fb8ea2d5de3b47c212362",
+  "n_boot": 10000,
+  "consistency_checks": {
+    "m1": {
+      "mine!=stored_label": 7,
+      "mine==stored_label": 795,
+      "parsed==judge_label": 802,
+      "qc_downgrade_missing_evidence_claude": 21,
+      "qc_downgrade_no_passage_found_claude": 1,
+      "qc_first_label_changed": 24,
+      "qc_first_label_same": 266,
+      "qc_supported_some_passages_not_found_claude": 4,
+      "unreachable_no_reply": 66,
+      "unreachable_reply_INCOMPLETE_SOURCES": 12
+    },
+    "m2": {
+      "parsed==judge_label": 248
+    }
+  },
+  "m1": {
+    "S01-S04": {
+      "WHU": {
+        "sampled": 80,
+        "cited": 80,
+        "kinds": {
+          "judged": 77,
+          "undelivered": 3
+        },
+        "excluded_cited_items": 5,
+        "combined": {
+          "rate_pct": 4.67,
+          "failure_sum": 3.5,
+          "n": 75
+        },
+        "cited_only": {
+          "rate_pct": 4.67,
+          "failure_sum": 3.5,
+          "n": 75
+        },
+        "judge_claude": {
+          "rate_pct": 2.67,
+          "failure_sum": 2.0,
+          "n": 75
+        },
+        "judge_openai": {
+          "rate_pct": 6.67,
+          "failure_sum": 5.0,
+          "n": 75
+        },
+        "cross_company": {
+          "rate_pct": 6.67,
+          "failure_sum": 5.0,
+          "n": 75
+        },
+        "uncited_share_of_sampled_pct": 0.0,
+        "unreachable_items": 0,
+        "reachability_of_cited_items_pct": 100.0,
+        "unreachable_flag_over_20pct": false,
+        "labels_by_judge": {
+          "claude": {
+            "Absent": 1,
+            "Contradicted": 1,
+            "NOT_VERIFIABLE_ABSTRACT": 2,
+            "Supported": 73
+          },
+          "openai": {
+            "Absent": 1,
+            "Contradicted": 1,
+            "NOT_VERIFIABLE_ABSTRACT": 2,
+            "Overstates": 3,
+            "Supported": 70
+          }
+        },
+        "quote_checked_combined": {
+          "rate_pct": 15.33,
+          "failure_sum": 11.5,
+          "n": 75
+        },
+        "quote_checked_openai": {
+          "rate_pct": 8.0,
+          "failure_sum": 6.0,
+          "n": 75
+        },
+        "quote_checked_claude": {
+          "rate_pct": 22.67,
+          "failure_sum": 17.0,
+          "n": 75
+        },
+        "quote_checked_labels_by_judge": {
+          "claude": {
+            "Absent": 1,
+            "Contradicted": 1,
+            "NOT_DEMONSTRATED": 15,
+            "NOT_VERIFIABLE_ABSTRACT": 2,
+            "Supported": 58
+          },
+          "openai": {
+            "Absent": 1,
+            "Contradicted": 1,
+            "NOT_VERIFIABLE_ABSTRACT": 2,
+            "Overstates": 4,
+            "Supported": 69
+          }
+        }
+      },
+      "Claude": {
+        "sampled": 80,
+        "cited": 57,
+        "kinds": {
+          "judged": 47,
+          "uncited": 23,
+          "undelivered": 1,
+          "unreachable": 9
+        },
+        "excluded_cited_items": 10,
+        "combined": {
+          "rate_pct": 47.86,
+          "failure_sum": 33.5,
+          "n": 70
+        },
+        "cited_only": {
+          "rate_pct": 22.34,
+          "failure_sum": 10.5,
+          "n": 47
+        },
+        "judge_claude": {
+          "rate_pct": 40.0,
+          "failure_sum": 28.0,
+          "n": 70
+        },
+        "judge_openai": {
+          "rate_pct": 55.71,
+          "failure_sum": 39.0,
+          "n": 70
+        },
+        "cross_company": {
+          "rate_pct": 55.71,
+          "failure_sum": 39.0,
+          "n": 70
+        },
+        "uncited_share_of_sampled_pct": 28.75,
+        "unreachable_items": 9,
+        "reachability_of_cited_items_pct": 84.21,
+        "unreachable_flag_over_20pct": false,
+        "labels_by_judge": {
+          "claude": {
+            "Contradicted": 2,
+            "Overstates": 3,
+            "Supported": 42
+          },
+          "openai": {
+            "Absent": 1,
+            "Contradicted": 3,
+            "Overstates": 12,
+            "Supported": 31
+          }
+        }
+      },
+      "ChatGPT": {
+        "sampled": 80,
+        "cited": 63,
+        "kinds": {
+          "judged": 51,
+          "unreachable": 12,
+          "uncited": 17
+        },
+        "excluded_cited_items": 12,
+        "combined": {
+          "rate_pct": 69.12,
+          "failure_sum": 47.0,
+          "n": 68
+        },
+        "cited_only": {
+          "rate_pct": 58.82,
+          "failure_sum": 30.0,
+          "n": 51
+        },
+        "judge_claude": {
+          "rate_pct": 54.41,
+          "failure_sum": 37.0,
+          "n": 68
+        },
+        "judge_openai": {
+          "rate_pct": 83.82,
+          "failure_sum": 57.0,
+          "n": 68
+        },
+        "cross_company": {
+          "rate_pct": 54.41,
+          "failure_sum": 37.0,
+          "n": 68
+        },
+        "uncited_share_of_sampled_pct": 21.25,
+        "unreachable_items": 12,
+        "reachability_of_cited_items_pct": 80.95,
+        "unreachable_flag_over_20pct": false,
+        "labels_by_judge": {
+          "claude": {
+            "Absent": 6,
+            "Contradicted": 1,
+            "Overstates": 13,
+            "Supported": 31
+          },
+          "openai": {
+            "Absent": 11,
+            "Contradicted": 5,
+            "Overstates": 24,
+            "Supported": 11
+          }
+        }
+      },
+      "Gemini": {
+        "sampled": 80,
+        "cited": 79,
+        "kinds": {
+          "unreachable": 23,
+          "judged": 55,
+          "undelivered": 1,
+          "uncited": 1
+        },
+        "excluded_cited_items": 25,
+        "combined": {
+          "rate_pct": 79.09,
+          "failure_sum": 43.5,
+          "n": 55
+        },
+        "cited_only": {
+          "rate_pct": 78.7,
+          "failure_sum": 42.5,
+          "n": 54
+        },
+        "judge_claude": {
+          "rate_pct": 70.91,
+          "failure_sum": 39.0,
+          "n": 55
+        },
+        "judge_openai": {
+          "rate_pct": 88.89,
+          "failure_sum": 48.0,
+          "n": 54
+        },
+        "cross_company": {
+          "rate_pct": 79.09,
+          "failure_sum": 43.5,
+          "n": 55
+        },
+        "uncited_share_of_sampled_pct": 1.25,
+        "unreachable_items": 23,
+        "reachability_of_cited_items_pct": 70.89,
+        "unreachable_flag_over_20pct": true,
+        "labels_by_judge": {
+          "claude": {
+            "Absent": 15,
+            "Contradicted": 2,
+            "NOT_VERIFIABLE_ABSTRACT": 1,
+            "Overstates": 19,
+            "Supported": 16,
+            "Wrong source": 2
+          },
+          "openai": {
+            "Absent": 16,
+            "Contradicted": 2,
+            "NOT_VERIFIABLE_ABSTRACT": 2,
+            "Overstates": 28,
+            "Supported": 6,
+            "Wrong source": 1
+          }
+        }
+      },
+      "source_level": {
+        "ChatGPT": {
+          "distinct": 24,
+          "unreachable": 3,
+          "abstract_only": 4
+        },
+        "Claude": {
+          "distinct": 55,
+          "unreachable": 9,
+          "abstract_only": 3
+        },
+        "Gemini": {
+          "distinct": 50,
+          "unreachable": 12,
+          "abstract_only": 2
+        },
+        "WHU": {
+          "distinct": 35,
+          "unreachable": 0,
+          "abstract_only": 2
+        }
+      }
+    },
+    "S05-S08": {
+      "WHU": {
+        "sampled": 80,
+        "cited": 80,
+        "kinds": {
+          "unreachable": 10,
+          "judged": 68,
+          "undelivered": 2
+        },
+        "excluded_cited_items": 12,
+        "combined": {
+          "rate_pct": 2.21,
+          "failure_sum": 1.5,
+          "n": 68
+        },
+        "cited_only": {
+          "rate_pct": 2.21,
+          "failure_sum": 1.5,
+          "n": 68
+        },
+        "judge_claude": {
+          "rate_pct": 1.47,
+          "failure_sum": 1.0,
+          "n": 68
+        },
+        "judge_openai": {
+          "rate_pct": 2.94,
+          "failure_sum": 2.0,
+          "n": 68
+        },
+        "cross_company": {
+          "rate_pct": 2.94,
+          "failure_sum": 2.0,
+          "n": 68
+        },
+        "uncited_share_of_sampled_pct": 0.0,
+        "unreachable_items": 10,
+        "reachability_of_cited_items_pct": 87.5,
+        "unreachable_flag_over_20pct": false,
+        "labels_by_judge": {
+          "claude": {
+            "Absent": 1,
+            "Supported": 67
+          },
+          "openai": {
+            "Absent": 1,
+            "Contradicted": 1,
+            "Supported": 66
+          }
+        },
+        "quote_checked_combined": {
+          "rate_pct": 8.09,
+          "failure_sum": 5.5,
+          "n": 68
+        },
+        "quote_checked_openai": {
+          "rate_pct": 4.41,
+          "failure_sum": 3.0,
+          "n": 68
+        },
+        "quote_checked_claude": {
+          "rate_pct": 11.76,
+          "failure_sum": 8.0,
+          "n": 68
+        },
+        "quote_checked_labels_by_judge": {
+          "claude": {
+            "Absent": 1,
+            "NOT_DEMONSTRATED": 7,
+            "Supported": 60
+          },
+          "openai": {
+            "Absent": 2,
+            "Contradicted": 1,
+            "Supported": 65
+          }
+        }
+      },
+      "Claude": {
+        "sampled": 80,
+        "cited": 52,
+        "kinds": {
+          "judged": 42,
+          "uncited": 28,
+          "unreachable": 9,
+          "undelivered": 1
+        },
+        "excluded_cited_items": 10,
+        "combined": {
+          "rate_pct": 61.43,
+          "failure_sum": 43.0,
+          "n": 70
+        },
+        "cited_only": {
+          "rate_pct": 35.71,
+          "failure_sum": 15.0,
+          "n": 42
+        },
+        "judge_claude": {
+          "rate_pct": 52.86,
+          "failure_sum": 37.0,
+          "n": 70
+        },
+        "judge_openai": {
+          "rate_pct": 70.0,
+          "failure_sum": 49.0,
+          "n": 70
+        },
+        "cross_company": {
+          "rate_pct": 70.0,
+          "failure_sum": 49.0,
+          "n": 70
+        },
+        "uncited_share_of_sampled_pct": 35.0,
+        "unreachable_items": 9,
+        "reachability_of_cited_items_pct": 82.69,
+        "unreachable_flag_over_20pct": false,
+        "labels_by_judge": {
+          "claude": {
+            "Absent": 4,
+            "Overstates": 5,
+            "Supported": 33
+          },
+          "openai": {
+            "Absent": 6,
+            "Overstates": 15,
+            "Supported": 21
+          }
+        }
+      },
+      "ChatGPT": {
+        "sampled": 79,
+        "cited": 0,
+        "kinds": {
+          "uncited": 79
+        },
+        "excluded_cited_items": 0,
+        "combined": {
+          "rate_pct": 100.0,
+          "failure_sum": 79.0,
+          "n": 79
+        },
+        "cited_only": {
+          "rate_pct": null,
+          "failure_sum": 0,
+          "n": 0
+        },
+        "judge_claude": {
+          "rate_pct": 100.0,
+          "failure_sum": 79.0,
+          "n": 79
+        },
+        "judge_openai": {
+          "rate_pct": 100.0,
+          "failure_sum": 79.0,
+          "n": 79
+        },
+        "cross_company": {
+          "rate_pct": 100.0,
+          "failure_sum": 79.0,
+          "n": 79
+        },
+        "uncited_share_of_sampled_pct": 100.0,
+        "unreachable_items": 0,
+        "reachability_of_cited_items_pct": null,
+        "unreachable_flag_over_20pct": null,
+        "labels_by_judge": {
+          "claude": {},
+          "openai": {}
+        }
+      },
+      "Gemini": {
+        "sampled": 80,
+        "cited": 79,
+        "kinds": {
+          "judged": 61,
+          "unreachable": 15,
+          "undelivered": 3,
+          "uncited": 1
+        },
+        "excluded_cited_items": 19,
+        "combined": {
+          "rate_pct": 77.05,
+          "failure_sum": 47.0,
+          "n": 61
+        },
+        "cited_only": {
+          "rate_pct": 76.67,
+          "failure_sum": 46.0,
+          "n": 60
+        },
+        "judge_claude": {
+          "rate_pct": 70.49,
+          "failure_sum": 43.0,
+          "n": 61
+        },
+        "judge_openai": {
+          "rate_pct": 83.61,
+          "failure_sum": 51.0,
+          "n": 61
+        },
+        "cross_company": {
+          "rate_pct": 77.05,
+          "failure_sum": 47.0,
+          "n": 61
+        },
+        "uncited_share_of_sampled_pct": 1.25,
+        "unreachable_items": 15,
+        "reachability_of_cited_items_pct": 81.01,
+        "unreachable_flag_over_20pct": false,
+        "labels_by_judge": {
+          "claude": {
+            "Absent": 18,
+            "Contradicted": 1,
+            "NOT_VERIFIABLE_ABSTRACT": 1,
+            "Overstates": 21,
+            "REFUSED_OR_UNPARSED": 1,
+            "Supported": 18,
+            "Wrong source": 1
+          },
+          "openai": {
+            "Absent": 16,
+            "Contradicted": 2,
+            "NOT_VERIFIABLE_ABSTRACT": 1,
+            "Overstates": 31,
+            "Supported": 10,
+            "Wrong source": 1
+          }
+        }
+      },
+      "source_level": {
+        "Claude": {
+          "distinct": 72,
+          "unreachable": 8,
+          "abstract_only": 6
+        },
+        "Gemini": {
+          "distinct": 46,
+          "unreachable": 8,
+          "abstract_only": 1
+        },
+        "WHU": {
+          "distinct": 23,
+          "unreachable": 2,
+          "abstract_only": 0
+        }
+      }
+    },
+    "all_eight": {
+      "WHU": {
+        "sampled": 160,
+        "cited": 160,
+        "kinds": {
+          "judged": 145,
+          "undelivered": 5,
+          "unreachable": 10
+        },
+        "excluded_cited_items": 17,
+        "combined": {
+          "rate_pct": 3.5,
+          "failure_sum": 5.0,
+          "n": 143
+        },
+        "cited_only": {
+          "rate_pct": 3.5,
+          "failure_sum": 5.0,
+          "n": 143
+        },
+        "judge_claude": {
+          "rate_pct": 2.1,
+          "failure_sum": 3.0,
+          "n": 143
+        },
+        "judge_openai": {
+          "rate_pct": 4.9,
+          "failure_sum": 7.0,
+          "n": 143
+        },
+        "cross_company": {
+          "rate_pct": 4.9,
+          "failure_sum": 7.0,
+          "n": 143
+        },
+        "uncited_share_of_sampled_pct": 0.0,
+        "unreachable_items": 10,
+        "reachability_of_cited_items_pct": 93.75,
+        "unreachable_flag_over_20pct": false,
+        "labels_by_judge": {
+          "claude": {
+            "Absent": 2,
+            "Contradicted": 1,
+            "NOT_VERIFIABLE_ABSTRACT": 2,
+            "Supported": 140
+          },
+          "openai": {
+            "Absent": 2,
+            "Contradicted": 2,
+            "NOT_VERIFIABLE_ABSTRACT": 2,
+            "Overstates": 3,
+            "Supported": 136
+          }
+        },
+        "quote_checked_combined": {
+          "rate_pct": 11.89,
+          "failure_sum": 17.0,
+          "n": 143
+        },
+        "quote_checked_openai": {
+          "rate_pct": 6.29,
+          "failure_sum": 9.0,
+          "n": 143
+        },
+        "quote_checked_claude": {
+          "rate_pct": 17.48,
+          "failure_sum": 25.0,
+          "n": 143
+        },
+        "quote_checked_labels_by_judge": {
+          "claude": {
+            "Absent": 2,
+            "Contradicted": 1,
+            "NOT_DEMONSTRATED": 22,
+            "NOT_VERIFIABLE_ABSTRACT": 2,
+            "Supported": 118
+          },
+          "openai": {
+            "Absent": 3,
+            "Contradicted": 2,
+            "NOT_VERIFIABLE_ABSTRACT": 2,
+            "Overstates": 4,
+            "Supported": 134
+          }
+        }
+      },
+      "Claude": {
+        "sampled": 160,
+        "cited": 109,
+        "kinds": {
+          "judged": 89,
+          "uncited": 51,
+          "undelivered": 2,
+          "unreachable": 18
+        },
+        "excluded_cited_items": 20,
+        "combined": {
+          "rate_pct": 54.64,
+          "failure_sum": 76.5,
+          "n": 140
+        },
+        "cited_only": {
+          "rate_pct": 28.65,
+          "failure_sum": 25.5,
+          "n": 89
+        },
+        "judge_claude": {
+          "rate_pct": 46.43,
+          "failure_sum": 65.0,
+          "n": 140
+        },
+        "judge_openai": {
+          "rate_pct": 62.86,
+          "failure_sum": 88.0,
+          "n": 140
+        },
+        "cross_company": {
+          "rate_pct": 62.86,
+          "failure_sum": 88.0,
+          "n": 140
+        },
+        "uncited_share_of_sampled_pct": 31.88,
+        "unreachable_items": 18,
+        "reachability_of_cited_items_pct": 83.49,
+        "unreachable_flag_over_20pct": false,
+        "labels_by_judge": {
+          "claude": {
+            "Absent": 4,
+            "Contradicted": 2,
+            "Overstates": 8,
+            "Supported": 75
+          },
+          "openai": {
+            "Absent": 7,
+            "Contradicted": 3,
+            "Overstates": 27,
+            "Supported": 52
+          }
+        }
+      },
+      "ChatGPT": {
+        "sampled": 159,
+        "cited": 63,
+        "kinds": {
+          "judged": 51,
+          "unreachable": 12,
+          "uncited": 96
+        },
+        "excluded_cited_items": 12,
+        "combined": {
+          "rate_pct": 85.71,
+          "failure_sum": 126.0,
+          "n": 147
+        },
+        "cited_only": {
+          "rate_pct": 58.82,
+          "failure_sum": 30.0,
+          "n": 51
+        },
+        "judge_claude": {
+          "rate_pct": 78.91,
+          "failure_sum": 116.0,
+          "n": 147
+        },
+        "judge_openai": {
+          "rate_pct": 92.52,
+          "failure_sum": 136.0,
+          "n": 147
+        },
+        "cross_company": {
+          "rate_pct": 78.91,
+          "failure_sum": 116.0,
+          "n": 147
+        },
+        "uncited_share_of_sampled_pct": 60.38,
+        "unreachable_items": 12,
+        "reachability_of_cited_items_pct": 80.95,
+        "unreachable_flag_over_20pct": false,
+        "labels_by_judge": {
+          "claude": {
+            "Absent": 6,
+            "Contradicted": 1,
+            "Overstates": 13,
+            "Supported": 31
+          },
+          "openai": {
+            "Absent": 11,
+            "Contradicted": 5,
+            "Overstates": 24,
+            "Supported": 11
+          }
+        }
+      },
+      "Gemini": {
+        "sampled": 160,
+        "cited": 158,
+        "kinds": {
+          "unreachable": 38,
+          "judged": 116,
+          "undelivered": 4,
+          "uncited": 2
+        },
+        "excluded_cited_items": 44,
+        "combined": {
+          "rate_pct": 78.02,
+          "failure_sum": 90.5,
+          "n": 116
+        },
+        "cited_only": {
+          "rate_pct": 77.63,
+          "failure_sum": 88.5,
+          "n": 114
+        },
+        "judge_claude": {
+          "rate_pct": 70.69,
+          "failure_sum": 82.0,
+          "n": 116
+        },
+        "judge_openai": {
+          "rate_pct": 86.09,
+          "failure_sum": 99.0,
+          "n": 115
+        },
+        "cross_company": {
+          "rate_pct": 78.02,
+          "failure_sum": 90.5,
+          "n": 116
+        },
+        "uncited_share_of_sampled_pct": 1.25,
+        "unreachable_items": 38,
+        "reachability_of_cited_items_pct": 75.95,
+        "unreachable_flag_over_20pct": true,
+        "labels_by_judge": {
+          "claude": {
+            "Absent": 33,
+            "Contradicted": 3,
+            "NOT_VERIFIABLE_ABSTRACT": 2,
+            "Overstates": 40,
+            "REFUSED_OR_UNPARSED": 1,
+            "Supported": 34,
+            "Wrong source": 3
+          },
+          "openai": {
+            "Absent": 32,
+            "Contradicted": 4,
+            "NOT_VERIFIABLE_ABSTRACT": 3,
+            "Overstates": 59,
+            "Supported": 16,
+            "Wrong source": 2
+          }
+        }
+      },
+      "source_level": {
+        "ChatGPT": {
+          "distinct": 24,
+          "unreachable": 3,
+          "abstract_only": 4
+        },
+        "Claude": {
+          "distinct": 127,
+          "unreachable": 17,
+          "abstract_only": 9
+        },
+        "Gemini": {
+          "distinct": 94,
+          "unreachable": 19,
+          "abstract_only": 3
+        },
+        "WHU": {
+          "distinct": 57,
+          "unreachable": 2,
+          "abstract_only": 2
+        }
+      }
+    }
+  },
+  "m2": {
+    "S01-S04": {
+      "WHU": {
+        "combined": {
+          "rate_pct": 23.08,
+          "failure_sum": 3.0,
+          "n": 13
+        },
+        "judge_claude": {
+          "rate_pct": 23.08,
+          "failure_sum": 3.0,
+          "n": 13
+        },
+        "judge_openai": {
+          "rate_pct": 23.08,
+          "failure_sum": 3.0,
+          "n": 13
+        },
+        "cross_company": {
+          "rate_pct": 23.08,
+          "failure_sum": 3.0,
+          "n": 13
+        },
+        "labels_by_judge": {
+          "claude": {
+            "Matches": 10,
+            "Omits": 1,
+            "Understates": 2
+          },
+          "openai": {
+            "Matches": 10,
+            "Omits": 1,
+            "Understates": 2
+          }
+        }
+      },
+      "Claude": {
+        "combined": {
+          "rate_pct": 50.0,
+          "failure_sum": 6.5,
+          "n": 13
+        },
+        "judge_claude": {
+          "rate_pct": 23.08,
+          "failure_sum": 3.0,
+          "n": 13
+        },
+        "judge_openai": {
+          "rate_pct": 76.92,
+          "failure_sum": 10.0,
+          "n": 13
+        },
+        "cross_company": {
+          "rate_pct": 76.92,
+          "failure_sum": 10.0,
+          "n": 13
+        },
+        "labels_by_judge": {
+          "claude": {
+            "Contradicts": 1,
+            "Matches": 10,
+            "Overstates": 2
+          },
+          "openai": {
+            "Contradicts": 1,
+            "Matches": 3,
+            "Overstates": 8,
+            "Understates": 1
+          }
+        }
+      },
+      "ChatGPT": {
+        "combined": {
+          "rate_pct": 80.77,
+          "failure_sum": 10.5,
+          "n": 13
+        },
+        "judge_claude": {
+          "rate_pct": 76.92,
+          "failure_sum": 10.0,
+          "n": 13
+        },
+        "judge_openai": {
+          "rate_pct": 84.62,
+          "failure_sum": 11.0,
+          "n": 13
+        },
+        "cross_company": {
+          "rate_pct": 76.92,
+          "failure_sum": 10.0,
+          "n": 13
+        },
+        "labels_by_judge": {
+          "claude": {
+            "Contradicts": 4,
+            "Matches": 3,
+            "Overstates": 4,
+            "Understates": 2
+          },
+          "openai": {
+            "Contradicts": 5,
+            "Matches": 2,
+            "Overstates": 5,
+            "Understates": 1
+          }
+        }
+      },
+      "Gemini": {
+        "combined": {
+          "rate_pct": 92.31,
+          "failure_sum": 12.0,
+          "n": 13
+        },
+        "judge_claude": {
+          "rate_pct": 84.62,
+          "failure_sum": 11.0,
+          "n": 13
+        },
+        "judge_openai": {
+          "rate_pct": 100.0,
+          "failure_sum": 13.0,
+          "n": 13
+        },
+        "cross_company": {
+          "rate_pct": 92.31,
+          "failure_sum": 12.0,
+          "n": 13
+        },
+        "labels_by_judge": {
+          "claude": {
+            "Contradicts": 4,
+            "Matches": 2,
+            "Overstates": 7
+          },
+          "openai": {
+            "Contradicts": 4,
+            "Overstates": 9
+          }
+        }
+      }
+    },
+    "S05-S08": {
+      "WHU": {
+        "combined": {
+          "rate_pct": 52.78,
+          "failure_sum": 9.5,
+          "n": 18
+        },
+        "judge_claude": {
+          "rate_pct": 55.56,
+          "failure_sum": 10.0,
+          "n": 18
+        },
+        "judge_openai": {
+          "rate_pct": 50.0,
+          "failure_sum": 9.0,
+          "n": 18
+        },
+        "cross_company": {
+          "rate_pct": 50.0,
+          "failure_sum": 9.0,
+          "n": 18
+        },
+        "labels_by_judge": {
+          "claude": {
+            "Contradicts": 1,
+            "Matches": 8,
+            "Omits": 6,
+            "Understates": 3
+          },
+          "openai": {
+            "Matches": 9,
+            "Omits": 5,
+            "Overstates": 1,
+            "Understates": 3
+          }
+        }
+      },
+      "Claude": {
+        "combined": {
+          "rate_pct": 52.78,
+          "failure_sum": 9.5,
+          "n": 18
+        },
+        "judge_claude": {
+          "rate_pct": 38.89,
+          "failure_sum": 7.0,
+          "n": 18
+        },
+        "judge_openai": {
+          "rate_pct": 66.67,
+          "failure_sum": 12.0,
+          "n": 18
+        },
+        "cross_company": {
+          "rate_pct": 66.67,
+          "failure_sum": 12.0,
+          "n": 18
+        },
+        "labels_by_judge": {
+          "claude": {
+            "Matches": 11,
+            "Omits": 3,
+            "Overstates": 4
+          },
+          "openai": {
+            "Matches": 6,
+            "Omits": 2,
+            "Overstates": 10
+          }
+        }
+      },
+      "ChatGPT": {
+        "combined": {
+          "rate_pct": 61.11,
+          "failure_sum": 11.0,
+          "n": 18
+        },
+        "judge_claude": {
+          "rate_pct": 61.11,
+          "failure_sum": 11.0,
+          "n": 18
+        },
+        "judge_openai": {
+          "rate_pct": 61.11,
+          "failure_sum": 11.0,
+          "n": 18
+        },
+        "cross_company": {
+          "rate_pct": 61.11,
+          "failure_sum": 11.0,
+          "n": 18
+        },
+        "labels_by_judge": {
+          "claude": {
+            "Contradicts": 1,
+            "Matches": 7,
+            "Omits": 3,
+            "Overstates": 6,
+            "Understates": 1
+          },
+          "openai": {
+            "Contradicts": 1,
+            "Matches": 7,
+            "Omits": 3,
+            "Overstates": 7
+          }
+        }
+      },
+      "Gemini": {
+        "combined": {
+          "rate_pct": 77.78,
+          "failure_sum": 14.0,
+          "n": 18
+        },
+        "judge_claude": {
+          "rate_pct": 77.78,
+          "failure_sum": 14.0,
+          "n": 18
+        },
+        "judge_openai": {
+          "rate_pct": 77.78,
+          "failure_sum": 14.0,
+          "n": 18
+        },
+        "cross_company": {
+          "rate_pct": 77.78,
+          "failure_sum": 14.0,
+          "n": 18
+        },
+        "labels_by_judge": {
+          "claude": {
+            "Contradicts": 1,
+            "Matches": 4,
+            "Omits": 3,
+            "Overstates": 10
+          },
+          "openai": {
+            "Matches": 4,
+            "Omits": 2,
+            "Overstates": 12
+          }
+        }
+      }
+    },
+    "all_eight": {
+      "WHU": {
+        "combined": {
+          "rate_pct": 40.32,
+          "failure_sum": 12.5,
+          "n": 31
+        },
+        "judge_claude": {
+          "rate_pct": 41.94,
+          "failure_sum": 13.0,
+          "n": 31
+        },
+        "judge_openai": {
+          "rate_pct": 38.71,
+          "failure_sum": 12.0,
+          "n": 31
+        },
+        "cross_company": {
+          "rate_pct": 38.71,
+          "failure_sum": 12.0,
+          "n": 31
+        },
+        "labels_by_judge": {
+          "claude": {
+            "Contradicts": 1,
+            "Matches": 18,
+            "Omits": 7,
+            "Understates": 5
+          },
+          "openai": {
+            "Matches": 19,
+            "Omits": 6,
+            "Overstates": 1,
+            "Understates": 5
+          }
+        }
+      },
+      "Claude": {
+        "combined": {
+          "rate_pct": 51.61,
+          "failure_sum": 16.0,
+          "n": 31
+        },
+        "judge_claude": {
+          "rate_pct": 32.26,
+          "failure_sum": 10.0,
+          "n": 31
+        },
+        "judge_openai": {
+          "rate_pct": 70.97,
+          "failure_sum": 22.0,
+          "n": 31
+        },
+        "cross_company": {
+          "rate_pct": 70.97,
+          "failure_sum": 22.0,
+          "n": 31
+        },
+        "labels_by_judge": {
+          "claude": {
+            "Contradicts": 1,
+            "Matches": 21,
+            "Omits": 3,
+            "Overstates": 6
+          },
+          "openai": {
+            "Contradicts": 1,
+            "Matches": 9,
+            "Omits": 2,
+            "Overstates": 18,
+            "Understates": 1
+          }
+        }
+      },
+      "ChatGPT": {
+        "combined": {
+          "rate_pct": 69.35,
+          "failure_sum": 21.5,
+          "n": 31
+        },
+        "judge_claude": {
+          "rate_pct": 67.74,
+          "failure_sum": 21.0,
+          "n": 31
+        },
+        "judge_openai": {
+          "rate_pct": 70.97,
+          "failure_sum": 22.0,
+          "n": 31
+        },
+        "cross_company": {
+          "rate_pct": 67.74,
+          "failure_sum": 21.0,
+          "n": 31
+        },
+        "labels_by_judge": {
+          "claude": {
+            "Contradicts": 5,
+            "Matches": 10,
+            "Omits": 3,
+            "Overstates": 10,
+            "Understates": 3
+          },
+          "openai": {
+            "Contradicts": 6,
+            "Matches": 9,
+            "Omits": 3,
+            "Overstates": 12,
+            "Understates": 1
+          }
+        }
+      },
+      "Gemini": {
+        "combined": {
+          "rate_pct": 83.87,
+          "failure_sum": 26.0,
+          "n": 31
+        },
+        "judge_claude": {
+          "rate_pct": 80.65,
+          "failure_sum": 25.0,
+          "n": 31
+        },
+        "judge_openai": {
+          "rate_pct": 87.1,
+          "failure_sum": 27.0,
+          "n": 31
+        },
+        "cross_company": {
+          "rate_pct": 83.87,
+          "failure_sum": 26.0,
+          "n": 31
+        },
+        "labels_by_judge": {
+          "claude": {
+            "Contradicts": 5,
+            "Matches": 6,
+            "Omits": 3,
+            "Overstates": 17
+          },
+          "openai": {
+            "Contradicts": 4,
+            "Matches": 4,
+            "Omits": 2,
+            "Overstates": 21
+          }
+        }
+      }
+    }
+  },
+  "judge_agreement": {
+    "S01-S04": {
+      "all": {
+        "m1_labels": {
+          "n": 230,
+          "agree": 177,
+          "agreement_pct": 76.96,
+          "kappa": 0.6032
+        },
+        "m1_fail_vs_supported": {
+          "n": 230,
+          "agree": 186,
+          "agreement_pct": 80.87,
+          "kappa": 0.6133
+        },
+        "m2_labels": {
+          "n": 52,
+          "agree": 38,
+          "agreement_pct": 73.08,
+          "kappa": 0.624
+        },
+        "m2_fail_vs_matches": {
+          "n": 52,
+          "agree": 40,
+          "agreement_pct": 76.92,
+          "kappa": 0.5308
+        }
+      },
+      "WHU": {
+        "m1_labels": {
+          "n": 77,
+          "agree": 74,
+          "agreement_pct": 96.1,
+          "kappa": 0.7159
+        },
+        "m1_fail_vs_supported": {
+          "n": 77,
+          "agree": 74,
+          "agreement_pct": 96.1,
+          "kappa": 0.708
+        },
+        "m2_labels": {
+          "n": 13,
+          "agree": 11,
+          "agreement_pct": 84.62,
+          "kappa": 0.5938
+        },
+        "m2_fail_vs_matches": {
+          "n": 13,
+          "agree": 11,
+          "agreement_pct": 84.62,
+          "kappa": 0.5667
+        }
+      },
+      "Claude": {
+        "m1_labels": {
+          "n": 47,
+          "agree": 33,
+          "agreement_pct": 70.21,
+          "kappa": 0.2393
+        },
+        "m1_fail_vs_supported": {
+          "n": 47,
+          "agree": 36,
+          "agreement_pct": 76.6,
+          "kappa": 0.3748
+        },
+        "m2_labels": {
+          "n": 13,
+          "agree": 6,
+          "agreement_pct": 46.15,
+          "kappa": 0.2541
+        },
+        "m2_fail_vs_matches": {
+          "n": 13,
+          "agree": 6,
+          "agreement_pct": 46.15,
+          "kappa": 0.1651
+        }
+      },
+      "ChatGPT": {
+        "m1_labels": {
+          "n": 51,
+          "agree": 28,
+          "agreement_pct": 54.9,
+          "kappa": 0.3751
+        },
+        "m1_fail_vs_supported": {
+          "n": 51,
+          "agree": 31,
+          "agreement_pct": 60.78,
+          "kappa": 0.3014
+        },
+        "m2_labels": {
+          "n": 13,
+          "agree": 10,
+          "agreement_pct": 76.92,
+          "kappa": 0.6777
+        },
+        "m2_fail_vs_matches": {
+          "n": 13,
+          "agree": 12,
+          "agreement_pct": 92.31,
+          "kappa": 0.7547
+        }
+      },
+      "Gemini": {
+        "m1_labels": {
+          "n": 55,
+          "agree": 42,
+          "agreement_pct": 76.36,
+          "kappa": 0.6673
+        },
+        "m1_fail_vs_supported": {
+          "n": 55,
+          "agree": 45,
+          "agreement_pct": 81.82,
+          "kappa": 0.4597
+        },
+        "m2_labels": {
+          "n": 13,
+          "agree": 11,
+          "agreement_pct": 84.62,
+          "kappa": 0.7111
+        },
+        "m2_fail_vs_matches": {
+          "n": 13,
+          "agree": 11,
+          "agreement_pct": 84.62,
+          "kappa": 0.0
+        }
+      }
+    },
+    "S05-S08": {
+      "all": {
+        "m1_labels": {
+          "n": 170,
+          "agree": 138,
+          "agreement_pct": 81.18,
+          "kappa": 0.6546
+        },
+        "m1_fail_vs_supported": {
+          "n": 170,
+          "agree": 149,
+          "agreement_pct": 87.65,
+          "kappa": 0.7386
+        },
+        "m2_labels": {
+          "n": 72,
+          "agree": 58,
+          "agreement_pct": 80.56,
+          "kappa": 0.7207
+        },
+        "m2_fail_vs_matches": {
+          "n": 72,
+          "agree": 60,
+          "agreement_pct": 83.33,
+          "kappa": 0.6505
+        }
+      },
+      "WHU": {
+        "m1_labels": {
+          "n": 68,
+          "agree": 67,
+          "agreement_pct": 98.53,
+          "kappa": 0.6617
+        },
+        "m1_fail_vs_supported": {
+          "n": 68,
+          "agree": 67,
+          "agreement_pct": 98.53,
+          "kappa": 0.66
+        },
+        "m2_labels": {
+          "n": 18,
+          "agree": 16,
+          "agreement_pct": 88.89,
+          "kappa": 0.831
+        },
+        "m2_fail_vs_matches": {
+          "n": 18,
+          "agree": 17,
+          "agreement_pct": 94.44,
+          "kappa": 0.8889
+        }
+      },
+      "Claude": {
+        "m1_labels": {
+          "n": 42,
+          "agree": 29,
+          "agreement_pct": 69.05,
+          "kappa": 0.4383
+        },
+        "m1_fail_vs_supported": {
+          "n": 42,
+          "agree": 30,
+          "agreement_pct": 71.43,
+          "kappa": 0.4286
+        },
+        "m2_labels": {
+          "n": 18,
+          "agree": 11,
+          "agreement_pct": 61.11,
+          "kappa": 0.4057
+        },
+        "m2_fail_vs_matches": {
+          "n": 18,
+          "agree": 11,
+          "agreement_pct": 61.11,
+          "kappa": 0.2759
+        }
+      },
+      "ChatGPT": {
+        "m1_labels": {
+          "n": 0
+        },
+        "m1_fail_vs_supported": {
+          "n": 0
+        },
+        "m2_labels": {
+          "n": 18,
+          "agree": 16,
+          "agreement_pct": 88.89,
+          "kappa": 0.8386
+        },
+        "m2_fail_vs_matches": {
+          "n": 18,
+          "agree": 16,
+          "agreement_pct": 88.89,
+          "kappa": 0.7662
+        }
+      },
+      "Gemini": {
+        "m1_labels": {
+          "n": 60,
+          "agree": 42,
+          "agreement_pct": 70.0,
+          "kappa": 0.5677
+        },
+        "m1_fail_vs_supported": {
+          "n": 60,
+          "agree": 52,
+          "agreement_pct": 86.67,
+          "kappa": 0.6364
+        },
+        "m2_labels": {
+          "n": 18,
+          "agree": 15,
+          "agreement_pct": 83.33,
+          "kappa": 0.7033
+        },
+        "m2_fail_vs_matches": {
+          "n": 18,
+          "agree": 16,
+          "agreement_pct": 88.89,
+          "kappa": 0.6786
+        }
+      }
+    },
+    "all_eight": {
+      "all": {
+        "m1_labels": {
+          "n": 400,
+          "agree": 315,
+          "agreement_pct": 78.75,
+          "kappa": 0.6243
+        },
+        "m1_fail_vs_supported": {
+          "n": 400,
+          "agree": 335,
+          "agreement_pct": 83.75,
+          "kappa": 0.6649
+        },
+        "m2_labels": {
+          "n": 124,
+          "agree": 96,
+          "agreement_pct": 77.42,
+          "kappa": 0.6846
+        },
+        "m2_fail_vs_matches": {
+          "n": 124,
+          "agree": 100,
+          "agreement_pct": 80.65,
+          "kappa": 0.5975
+        }
+      },
+      "WHU": {
+        "m1_labels": {
+          "n": 145,
+          "agree": 141,
+          "agreement_pct": 97.24,
+          "kappa": 0.7063
+        },
+        "m1_fail_vs_supported": {
+          "n": 145,
+          "agree": 141,
+          "agreement_pct": 97.24,
+          "kappa": 0.701
+        },
+        "m2_labels": {
+          "n": 31,
+          "agree": 27,
+          "agreement_pct": 87.1,
+          "kappa": 0.7754
+        },
+        "m2_fail_vs_matches": {
+          "n": 31,
+          "agree": 28,
+          "agreement_pct": 90.32,
+          "kappa": 0.7991
+        }
+      },
+      "Claude": {
+        "m1_labels": {
+          "n": 89,
+          "agree": 62,
+          "agreement_pct": 69.66,
+          "kappa": 0.3628
+        },
+        "m1_fail_vs_supported": {
+          "n": 89,
+          "agree": 66,
+          "agreement_pct": 74.16,
+          "kappa": 0.4156
+        },
+        "m2_labels": {
+          "n": 31,
+          "agree": 17,
+          "agreement_pct": 54.84,
+          "kappa": 0.3394
+        },
+        "m2_fail_vs_matches": {
+          "n": 31,
+          "agree": 17,
+          "agreement_pct": 54.84,
+          "kappa": 0.2138
+        }
+      },
+      "ChatGPT": {
+        "m1_labels": {
+          "n": 51,
+          "agree": 28,
+          "agreement_pct": 54.9,
+          "kappa": 0.3751
+        },
+        "m1_fail_vs_supported": {
+          "n": 51,
+          "agree": 31,
+          "agreement_pct": 60.78,
+          "kappa": 0.3014
+        },
+        "m2_labels": {
+          "n": 31,
+          "agree": 26,
+          "agreement_pct": 83.87,
+          "kappa": 0.7814
+        },
+        "m2_fail_vs_matches": {
+          "n": 31,
+          "agree": 28,
+          "agreement_pct": 90.32,
+          "kappa": 0.7726
+        }
+      },
+      "Gemini": {
+        "m1_labels": {
+          "n": 115,
+          "agree": 84,
+          "agreement_pct": 73.04,
+          "kappa": 0.6159
+        },
+        "m1_fail_vs_supported": {
+          "n": 115,
+          "agree": 97,
+          "agreement_pct": 84.35,
+          "kappa": 0.556
+        },
+        "m2_labels": {
+          "n": 31,
+          "agree": 26,
+          "agreement_pct": 83.87,
+          "kappa": 0.7202
+        },
+        "m2_fail_vs_matches": {
+          "n": 31,
+          "agree": 27,
+          "agreement_pct": 87.1,
+          "kappa": 0.5267
+        }
+      }
+    }
+  },
+  "tests_WHU_vs_Claude": {
+    "S01-S04": {
+      "H1_combined": {
+        "rate_WHU": 4.67,
+        "n_WHU": 75,
+        "rate_Claude": 47.86,
+        "n_Claude": 70,
+        "difference_pts": -43.19,
+        "difference_95ci_pts": [
+          -50.8,
+          -33.46
+        ],
+        "ratio": 0.0975,
+        "ratio_95ci": [
+          0.0514,
+          0.1559
+        ],
+        "ratio_resamples_undefined": 0,
+        "exact_bootstrap_resamples": 256,
+        "exact_bootstrap_difference_95ci_pts": [
+          -50.8,
+          -33.46
+        ],
+        "exact_bootstrap_ratio_95ci": [
+          0.0514,
+          0.1559
+        ],
+        "half_threshold_met": true,
+        "interval_excludes_zero_below": true,
+        "exact_interval_excludes_zero_below": true,
+        "holds": true
+      },
+      "H2_combined": {
+        "rate_WHU": 23.08,
+        "n_WHU": 13,
+        "rate_Claude": 50.0,
+        "n_Claude": 13,
+        "difference_pts": -26.92,
+        "difference_95ci_pts": [
+          -62.5,
+          18.75
+        ],
+        "ratio": 0.4615,
+        "ratio_95ci": [
+          0.0,
+          1.4286
+        ],
+        "ratio_resamples_undefined": 0,
+        "exact_bootstrap_resamples": 256,
+        "exact_bootstrap_difference_95ci_pts": [
+          -62.5,
+          18.75
+        ],
+        "exact_bootstrap_ratio_95ci": [
+          0.0,
+          1.4286
+        ],
+        "half_threshold_met": true,
+        "interval_excludes_zero_below": false,
+        "exact_interval_excludes_zero_below": false,
+        "holds": false
+      },
+      "H1_judge_claude": {
+        "rate_WHU": 2.67,
+        "n_WHU": 75,
+        "rate_Claude": 40.0,
+        "n_Claude": 70,
+        "difference_pts": -37.33,
+        "difference_95ci_pts": [
+          -50.0,
+          -25.98
+        ],
+        "ratio": 0.0667,
+        "ratio_95ci": [
+          0.0,
+          0.1531
+        ],
+        "ratio_resamples_undefined": 0,
+        "exact_bootstrap_resamples": 256,
+        "exact_bootstrap_difference_95ci_pts": [
+          -50.0,
+          -25.98
+        ],
+        "exact_bootstrap_ratio_95ci": [
+          0.0,
+          0.1531
+        ],
+        "half_threshold_met": true,
+        "interval_excludes_zero_below": true,
+        "exact_interval_excludes_zero_below": true,
+        "holds": true
+      },
+      "H1_judge_openai": {
+        "rate_WHU": 6.67,
+        "n_WHU": 75,
+        "rate_Claude": 55.71,
+        "n_Claude": 70,
+        "difference_pts": -49.05,
+        "difference_95ci_pts": [
+          -57.63,
+          -37.86
+        ],
+        "ratio": 0.1197,
+        "ratio_95ci": [
+          0.0848,
+          0.1599
+        ],
+        "ratio_resamples_undefined": 0,
+        "exact_bootstrap_resamples": 256,
+        "exact_bootstrap_difference_95ci_pts": [
+          -57.63,
+          -37.86
+        ],
+        "exact_bootstrap_ratio_95ci": [
+          0.0848,
+          0.1599
+        ],
+        "half_threshold_met": true,
+        "interval_excludes_zero_below": true,
+        "exact_interval_excludes_zero_below": true,
+        "holds": true
+      },
+      "H2_judge_claude": {
+        "rate_WHU": 23.08,
+        "n_WHU": 13,
+        "rate_Claude": 23.08,
+        "n_Claude": 13,
+        "difference_pts": 0.0,
+        "difference_95ci_pts": [
+          -31.25,
+          50.0
+        ],
+        "ratio": 1.0,
+        "ratio_95ci": [
+          0.0,
+          4.0
+        ],
+        "ratio_resamples_undefined": 612,
+        "exact_bootstrap_resamples": 256,
+        "exact_bootstrap_difference_95ci_pts": [
+          -31.25,
+          50.0
+        ],
+        "exact_bootstrap_ratio_95ci": [
+          0.0,
+          4.0
+        ],
+        "half_threshold_met": false,
+        "interval_excludes_zero_below": false,
+        "exact_interval_excludes_zero_below": false,
+        "holds": false
+      },
+      "H2_judge_openai": {
+        "rate_WHU": 23.08,
+        "n_WHU": 13,
+        "rate_Claude": 76.92,
+        "n_Claude": 13,
+        "difference_pts": -53.85,
+        "difference_95ci_pts": [
+          -93.75,
+          -16.67
+        ],
+        "ratio": 0.3,
+        "ratio_95ci": [
+          0.0,
+          0.75
+        ],
+        "ratio_resamples_undefined": 0,
+        "exact_bootstrap_resamples": 256,
+        "exact_bootstrap_difference_95ci_pts": [
+          -93.75,
+          -16.67
+        ],
+        "exact_bootstrap_ratio_95ci": [
+          0.0,
+          0.75
+        ],
+        "half_threshold_met": true,
+        "interval_excludes_zero_below": true,
+        "exact_interval_excludes_zero_below": true,
+        "holds": true
+      },
+      "H1_cross_company": {
+        "rate_WHU": 6.67,
+        "n_WHU": 75,
+        "rate_Claude": 55.71,
+        "n_Claude": 70,
+        "difference_pts": -49.05,
+        "difference_95ci_pts": [
+          -57.63,
+          -37.86
+        ],
+        "ratio": 0.1197,
+        "ratio_95ci": [
+          0.0848,
+          0.1599
+        ],
+        "ratio_resamples_undefined": 0,
+        "exact_bootstrap_resamples": 256,
+        "exact_bootstrap_difference_95ci_pts": [
+          -57.63,
+          -37.86
+        ],
+        "exact_bootstrap_ratio_95ci": [
+          0.0848,
+          0.1599
+        ],
+        "half_threshold_met": true,
+        "interval_excludes_zero_below": true,
+        "exact_interval_excludes_zero_below": true,
+        "holds": true
+      },
+      "H2_cross_company": {
+        "rate_WHU": 23.08,
+        "n_WHU": 13,
+        "rate_Claude": 76.92,
+        "n_Claude": 13,
+        "difference_pts": -53.85,
+        "difference_95ci_pts": [
+          -93.75,
+          -16.67
+        ],
+        "ratio": 0.3,
+        "ratio_95ci": [
+          0.0,
+          0.75
+        ],
+        "ratio_resamples_undefined": 0,
+        "exact_bootstrap_resamples": 256,
+        "exact_bootstrap_difference_95ci_pts": [
+          -93.75,
+          -16.67
+        ],
+        "exact_bootstrap_ratio_95ci": [
+          0.0,
+          0.75
+        ],
+        "half_threshold_met": true,
+        "interval_excludes_zero_below": true,
+        "exact_interval_excludes_zero_below": true,
+        "holds": true
+      },
+      "H1_quote_checked_combined": {
+        "rate_WHU": 15.33,
+        "n_WHU": 75,
+        "rate_Claude": 47.86,
+        "n_Claude": 70,
+        "difference_pts": -32.52,
+        "difference_95ci_pts": [
+          -41.82,
+          -20.34
+        ],
+        "ratio": 0.3204,
+        "ratio_95ci": [
+          0.2054,
+          0.4678
+        ],
+        "ratio_resamples_undefined": 0,
+        "exact_bootstrap_resamples": 256,
+        "exact_bootstrap_difference_95ci_pts": [
+          -41.82,
+          -20.34
+        ],
+        "exact_bootstrap_ratio_95ci": [
+          0.2054,
+          0.4678
+        ],
+        "half_threshold_met": true,
+        "interval_excludes_zero_below": true,
+        "exact_interval_excludes_zero_below": true,
+        "holds": true
+      },
+      "H1_quote_checked_cross_company": {
+        "rate_WHU": 8.0,
+        "n_WHU": 75,
+        "rate_Claude": 55.71,
+        "n_Claude": 70,
+        "difference_pts": -47.71,
+        "difference_95ci_pts": [
+          -57.17,
+          -37.86
+        ],
+        "ratio": 0.1436,
+        "ratio_95ci": [
+          0.0848,
+          0.2284
+        ],
+        "ratio_resamples_undefined": 0,
+        "exact_bootstrap_resamples": 256,
+        "exact_bootstrap_difference_95ci_pts": [
+          -57.17,
+          -37.86
+        ],
+        "exact_bootstrap_ratio_95ci": [
+          0.0848,
+          0.2284
+        ],
+        "half_threshold_met": true,
+        "interval_excludes_zero_below": true,
+        "exact_interval_excludes_zero_below": true,
+        "holds": true
+      },
+      "sens_i_all_excluded_WHU_as_failures": {
+        "excluded_WHU_items": 5,
+        "WHU_rate": {
+          "rate_pct": 10.62,
+          "failure_sum": 8.5,
+          "n": 80
+        },
+        "H1": {
+          "rate_WHU": 10.62,
+          "n_WHU": 80,
+          "rate_Claude": 47.86,
+          "n_Claude": 70,
+          "difference_pts": -37.23,
+          "difference_95ci_pts": [
+            -44.43,
+            -30.76
+          ],
+          "ratio": 0.222,
+          "ratio_95ci": [
+            0.0891,
+            0.32
+          ],
+          "ratio_resamples_undefined": 0,
+          "exact_bootstrap_resamples": 256,
+          "exact_bootstrap_difference_95ci_pts": [
+            -44.43,
+            -30.76
+          ],
+          "exact_bootstrap_ratio_95ci": [
+            0.0891,
+            0.32
+          ],
+          "half_threshold_met": true,
+          "interval_excludes_zero_below": true,
+          "exact_interval_excludes_zero_below": true,
+          "holds": true
+        }
+      },
+      "sens_ii_lancet_items_as_failures": {
+        "lancet_items": 0,
+        "lancet_items_already_excluded": 0,
+        "WHU_rate": {
+          "rate_pct": 4.67,
+          "failure_sum": 3.5,
+          "n": 75
+        },
+        "H1": {
+          "rate_WHU": 4.67,
+          "n_WHU": 75,
+          "rate_Claude": 47.86,
+          "n_Claude": 70,
+          "difference_pts": -43.19,
+          "difference_95ci_pts": [
+            -50.8,
+            -33.46
+          ],
+          "ratio": 0.0975,
+          "ratio_95ci": [
+            0.0514,
+            0.1559
+          ],
+          "ratio_resamples_undefined": 0,
+          "exact_bootstrap_resamples": 256,
+          "exact_bootstrap_difference_95ci_pts": [
+            -50.8,
+            -33.46
+          ],
+          "exact_bootstrap_ratio_95ci": [
+            0.0514,
+            0.1559
+          ],
+          "half_threshold_met": true,
+          "interval_excludes_zero_below": true,
+          "exact_interval_excludes_zero_below": true,
+          "holds": true
+        }
+      }
+    },
+    "S05-S08": {
+      "H1_combined": {
+        "rate_WHU": 2.21,
+        "n_WHU": 68,
+        "rate_Claude": 61.43,
+        "n_Claude": 70,
+        "difference_pts": -59.22,
+        "difference_95ci_pts": [
+          -68.38,
+          -49.35
+        ],
+        "ratio": 0.0359,
+        "ratio_95ci": [
+          0.0,
+          0.0612
+        ],
+        "ratio_resamples_undefined": 0,
+        "exact_bootstrap_resamples": 256,
+        "exact_bootstrap_difference_95ci_pts": [
+          -68.38,
+          -49.35
+        ],
+        "exact_bootstrap_ratio_95ci": [
+          0.0,
+          0.0612
+        ],
+        "half_threshold_met": true,
+        "interval_excludes_zero_below": true,
+        "exact_interval_excludes_zero_below": true,
+        "holds": true
+      },
+      "H2_combined": {
+        "rate_WHU": 52.78,
+        "n_WHU": 18,
+        "rate_Claude": 52.78,
+        "n_Claude": 18,
+        "difference_pts": 0.0,
+        "difference_95ci_pts": [
+          -36.84,
+          47.06
+        ],
+        "ratio": 1.0,
+        "ratio_95ci": [
+          0.44,
+          2.3333
+        ],
+        "ratio_resamples_undefined": 0,
+        "exact_bootstrap_resamples": 256,
+        "exact_bootstrap_difference_95ci_pts": [
+          -36.84,
+          47.06
+        ],
+        "exact_bootstrap_ratio_95ci": [
+          0.44,
+          2.3333
+        ],
+        "half_threshold_met": false,
+        "interval_excludes_zero_below": false,
+        "exact_interval_excludes_zero_below": false,
+        "holds": false
+      },
+      "H1_judge_claude": {
+        "rate_WHU": 1.47,
+        "n_WHU": 68,
+        "rate_Claude": 52.86,
+        "n_Claude": 70,
+        "difference_pts": -51.39,
+        "difference_95ci_pts": [
+          -62.67,
+          -38.24
+        ],
+        "ratio": 0.0278,
+        "ratio_95ci": [
+          0.0,
+          0.0628
+        ],
+        "ratio_resamples_undefined": 0,
+        "exact_bootstrap_resamples": 256,
+        "exact_bootstrap_difference_95ci_pts": [
+          -62.67,
+          -38.24
+        ],
+        "exact_bootstrap_ratio_95ci": [
+          0.0,
+          0.0628
+        ],
+        "half_threshold_met": true,
+        "interval_excludes_zero_below": true,
+        "exact_interval_excludes_zero_below": true,
+        "holds": true
+      },
+      "H1_judge_openai": {
+        "rate_WHU": 2.94,
+        "n_WHU": 68,
+        "rate_Claude": 70.0,
+        "n_Claude": 70,
+        "difference_pts": -67.06,
+        "difference_95ci_pts": [
+          -74.09,
+          -59.38
+        ],
+        "ratio": 0.042,
+        "ratio_95ci": [
+          0.0,
+          0.065
+        ],
+        "ratio_resamples_undefined": 0,
+        "exact_bootstrap_resamples": 256,
+        "exact_bootstrap_difference_95ci_pts": [
+          -74.09,
+          -59.38
+        ],
+        "exact_bootstrap_ratio_95ci": [
+          0.0,
+          0.065
+        ],
+        "half_threshold_met": true,
+        "interval_excludes_zero_below": true,
+        "exact_interval_excludes_zero_below": true,
+        "holds": true
+      },
+      "H2_judge_claude": {
+        "rate_WHU": 55.56,
+        "n_WHU": 18,
+        "rate_Claude": 38.89,
+        "n_Claude": 18,
+        "difference_pts": 16.67,
+        "difference_95ci_pts": [
+          -10.53,
+          52.94
+        ],
+        "ratio": 1.4286,
+        "ratio_95ci": [
+          0.75,
+          2.8
+        ],
+        "ratio_resamples_undefined": 0,
+        "exact_bootstrap_resamples": 256,
+        "exact_bootstrap_difference_95ci_pts": [
+          -10.53,
+          52.94
+        ],
+        "exact_bootstrap_ratio_95ci": [
+          0.75,
+          2.8
+        ],
+        "half_threshold_met": false,
+        "interval_excludes_zero_below": false,
+        "exact_interval_excludes_zero_below": false,
+        "holds": false
+      },
+      "H2_judge_openai": {
+        "rate_WHU": 50.0,
+        "n_WHU": 18,
+        "rate_Claude": 66.67,
+        "n_Claude": 18,
+        "difference_pts": -16.67,
+        "difference_95ci_pts": [
+          -63.16,
+          41.18
+        ],
+        "ratio": 0.75,
+        "ratio_95ci": [
+          0.2941,
+          2.0
+        ],
+        "ratio_resamples_undefined": 0,
+        "exact_bootstrap_resamples": 256,
+        "exact_bootstrap_difference_95ci_pts": [
+          -63.16,
+          41.18
+        ],
+        "exact_bootstrap_ratio_95ci": [
+          0.2941,
+          2.0
+        ],
+        "half_threshold_met": false,
+        "interval_excludes_zero_below": false,
+        "exact_interval_excludes_zero_below": false,
+        "holds": false
+      },
+      "H1_cross_company": {
+        "rate_WHU": 2.94,
+        "n_WHU": 68,
+        "rate_Claude": 70.0,
+        "n_Claude": 70,
+        "difference_pts": -67.06,
+        "difference_95ci_pts": [
+          -74.09,
+          -59.38
+        ],
+        "ratio": 0.042,
+        "ratio_95ci": [
+          0.0,
+          0.065
+        ],
+        "ratio_resamples_undefined": 0,
+        "exact_bootstrap_resamples": 256,
+        "exact_bootstrap_difference_95ci_pts": [
+          -74.09,
+          -59.38
+        ],
+        "exact_bootstrap_ratio_95ci": [
+          0.0,
+          0.065
+        ],
+        "half_threshold_met": true,
+        "interval_excludes_zero_below": true,
+        "exact_interval_excludes_zero_below": true,
+        "holds": true
+      },
+      "H2_cross_company": {
+        "rate_WHU": 50.0,
+        "n_WHU": 18,
+        "rate_Claude": 66.67,
+        "n_Claude": 18,
+        "difference_pts": -16.67,
+        "difference_95ci_pts": [
+          -63.16,
+          41.18
+        ],
+        "ratio": 0.75,
+        "ratio_95ci": [
+          0.2941,
+          2.0
+        ],
+        "ratio_resamples_undefined": 0,
+        "exact_bootstrap_resamples": 256,
+        "exact_bootstrap_difference_95ci_pts": [
+          -63.16,
+          41.18
+        ],
+        "exact_bootstrap_ratio_95ci": [
+          0.2941,
+          2.0
+        ],
+        "half_threshold_met": false,
+        "interval_excludes_zero_below": false,
+        "exact_interval_excludes_zero_below": false,
+        "holds": false
+      },
+      "H1_quote_checked_combined": {
+        "rate_WHU": 8.09,
+        "n_WHU": 68,
+        "rate_Claude": 61.43,
+        "n_Claude": 70,
+        "difference_pts": -53.34,
+        "difference_95ci_pts": [
+          -63.9,
+          -40.26
+        ],
+        "ratio": 0.1317,
+        "ratio_95ci": [
+          0.0657,
+          0.1948
+        ],
+        "ratio_resamples_undefined": 0,
+        "exact_bootstrap_resamples": 256,
+        "exact_bootstrap_difference_95ci_pts": [
+          -63.9,
+          -40.26
+        ],
+        "exact_bootstrap_ratio_95ci": [
+          0.0657,
+          0.1948
+        ],
+        "half_threshold_met": true,
+        "interval_excludes_zero_below": true,
+        "exact_interval_excludes_zero_below": true,
+        "holds": true
+      },
+      "H1_quote_checked_cross_company": {
+        "rate_WHU": 4.41,
+        "n_WHU": 68,
+        "rate_Claude": 70.0,
+        "n_Claude": 70,
+        "difference_pts": -65.59,
+        "difference_95ci_pts": [
+          -74.09,
+          -55.93
+        ],
+        "ratio": 0.063,
+        "ratio_95ci": [
+          0.0302,
+          0.0827
+        ],
+        "ratio_resamples_undefined": 0,
+        "exact_bootstrap_resamples": 256,
+        "exact_bootstrap_difference_95ci_pts": [
+          -74.09,
+          -55.93
+        ],
+        "exact_bootstrap_ratio_95ci": [
+          0.0302,
+          0.0827
+        ],
+        "half_threshold_met": true,
+        "interval_excludes_zero_below": true,
+        "exact_interval_excludes_zero_below": true,
+        "holds": true
+      },
+      "sens_i_all_excluded_WHU_as_failures": {
+        "excluded_WHU_items": 12,
+        "WHU_rate": {
+          "rate_pct": 16.88,
+          "failure_sum": 13.5,
+          "n": 80
+        },
+        "H1": {
+          "rate_WHU": 16.88,
+          "n_WHU": 80,
+          "rate_Claude": 61.43,
+          "n_Claude": 70,
+          "difference_pts": -44.55,
+          "difference_95ci_pts": [
+            -64.8,
+            -20.7
+          ],
+          "ratio": 0.2747,
+          "ratio_95ci": [
+            0.0644,
+            0.6481
+          ],
+          "ratio_resamples_undefined": 0,
+          "exact_bootstrap_resamples": 256,
+          "exact_bootstrap_difference_95ci_pts": [
+            -64.8,
+            -20.7
+          ],
+          "exact_bootstrap_ratio_95ci": [
+            0.0644,
+            0.6481
+          ],
+          "half_threshold_met": true,
+          "interval_excludes_zero_below": true,
+          "exact_interval_excludes_zero_below": true,
+          "holds": true
+        }
+      },
+      "sens_ii_lancet_items_as_failures": {
+        "lancet_items": 10,
+        "lancet_items_already_excluded": 10,
+        "WHU_rate": {
+          "rate_pct": 14.74,
+          "failure_sum": 11.5,
+          "n": 78
+        },
+        "H1": {
+          "rate_WHU": 14.74,
+          "n_WHU": 78,
+          "rate_Claude": 61.43,
+          "n_Claude": 70,
+          "difference_pts": -46.68,
+          "difference_95ci_pts": [
+            -67.21,
+            -20.7
+          ],
+          "ratio": 0.24,
+          "ratio_95ci": [
+            0.0231,
+            0.6481
+          ],
+          "ratio_resamples_undefined": 0,
+          "exact_bootstrap_resamples": 256,
+          "exact_bootstrap_difference_95ci_pts": [
+            -67.21,
+            -20.7
+          ],
+          "exact_bootstrap_ratio_95ci": [
+            0.0231,
+            0.6481
+          ],
+          "half_threshold_met": true,
+          "interval_excludes_zero_below": true,
+          "exact_interval_excludes_zero_below": true,
+          "holds": true
+        }
+      }
+    },
+    "all_eight": {
+      "H1_combined": {
+        "rate_WHU": 3.5,
+        "n_WHU": 143,
+        "rate_Claude": 54.64,
+        "n_Claude": 140,
+        "difference_pts": -51.15,
+        "difference_95ci_pts": [
+          -59.88,
+          -42.19
+        ],
+        "ratio": 0.064,
+        "ratio_95ci": [
+          0.0333,
+          0.0996
+        ],
+        "ratio_resamples_undefined": 0,
+        "exact_bootstrap_resamples": 16777216,
+        "exact_bootstrap_difference_95ci_pts": [
+          -59.86,
+          -42.19
+        ],
+        "exact_bootstrap_ratio_95ci": [
+          0.0331,
+          0.0997
+        ],
+        "half_threshold_met": true,
+        "interval_excludes_zero_below": true,
+        "exact_interval_excludes_zero_below": true,
+        "holds": true
+      },
+      "H2_combined": {
+        "rate_WHU": 40.32,
+        "n_WHU": 31,
+        "rate_Claude": 51.61,
+        "n_Claude": 31,
+        "difference_pts": -11.29,
+        "difference_95ci_pts": [
+          -41.07,
+          25.0
+        ],
+        "ratio": 0.7812,
+        "ratio_95ci": [
+          0.325,
+          1.6365
+        ],
+        "ratio_resamples_undefined": 0,
+        "exact_bootstrap_resamples": 16777216,
+        "exact_bootstrap_difference_95ci_pts": [
+          -40.91,
+          24.24
+        ],
+        "exact_bootstrap_ratio_95ci": [
+          0.325,
+          1.6154
+        ],
+        "half_threshold_met": false,
+        "interval_excludes_zero_below": false,
+        "exact_interval_excludes_zero_below": false,
+        "holds": false
+      },
+      "H1_judge_claude": {
+        "rate_WHU": 2.1,
+        "n_WHU": 143,
+        "rate_Claude": 46.43,
+        "n_Claude": 140,
+        "difference_pts": -44.33,
+        "difference_95ci_pts": [
+          -54.16,
+          -34.4
+        ],
+        "ratio": 0.0452,
+        "ratio_95ci": [
+          0.0126,
+          0.0879
+        ],
+        "ratio_resamples_undefined": 0,
+        "exact_bootstrap_resamples": 16777216,
+        "exact_bootstrap_difference_95ci_pts": [
+          -54.12,
+          -34.42
+        ],
+        "exact_bootstrap_ratio_95ci": [
+          0.0128,
+          0.0881
+        ],
+        "half_threshold_met": true,
+        "interval_excludes_zero_below": true,
+        "exact_interval_excludes_zero_below": true,
+        "holds": true
+      },
+      "H1_judge_openai": {
+        "rate_WHU": 4.9,
+        "n_WHU": 143,
+        "rate_Claude": 62.86,
+        "n_Claude": 140,
+        "difference_pts": -57.96,
+        "difference_95ci_pts": [
+          -66.6,
+          -48.85
+        ],
+        "ratio": 0.0779,
+        "ratio_95ci": [
+          0.0439,
+          0.1146
+        ],
+        "ratio_resamples_undefined": 0,
+        "exact_bootstrap_resamples": 16777216,
+        "exact_bootstrap_difference_95ci_pts": [
+          -66.54,
+          -48.72
+        ],
+        "exact_bootstrap_ratio_95ci": [
+          0.0445,
+          0.1146
+        ],
+        "half_threshold_met": true,
+        "interval_excludes_zero_below": true,
+        "exact_interval_excludes_zero_below": true,
+        "holds": true
+      },
+      "H2_judge_claude": {
+        "rate_WHU": 41.94,
+        "n_WHU": 31,
+        "rate_Claude": 32.26,
+        "n_Claude": 31,
+        "difference_pts": 9.68,
+        "difference_95ci_pts": [
+          -13.89,
+          39.29
+        ],
+        "ratio": 1.3,
+        "ratio_95ci": [
+          0.6,
+          2.5
+        ],
+        "ratio_resamples_undefined": 0,
+        "exact_bootstrap_resamples": 16777216,
+        "exact_bootstrap_difference_95ci_pts": [
+          -13.89,
+          38.71
+        ],
+        "exact_bootstrap_ratio_95ci": [
+          0.6,
+          2.5
+        ],
+        "half_threshold_met": false,
+        "interval_excludes_zero_below": false,
+        "exact_interval_excludes_zero_below": false,
+        "holds": false
+      },
+      "H2_judge_openai": {
+        "rate_WHU": 38.71,
+        "n_WHU": 31,
+        "rate_Claude": 70.97,
+        "n_Claude": 31,
+        "difference_pts": -32.26,
+        "difference_95ci_pts": [
+          -67.86,
+          12.0
+        ],
+        "ratio": 0.5455,
+        "ratio_95ci": [
+          0.2188,
+          1.2308
+        ],
+        "ratio_resamples_undefined": 0,
+        "exact_bootstrap_resamples": 16777216,
+        "exact_bootstrap_difference_95ci_pts": [
+          -67.74,
+          10.34
+        ],
+        "exact_bootstrap_ratio_95ci": [
+          0.2188,
+          1.2
+        ],
+        "half_threshold_met": false,
+        "interval_excludes_zero_below": false,
+        "exact_interval_excludes_zero_below": false,
+        "holds": false
+      },
+      "H1_cross_company": {
+        "rate_WHU": 4.9,
+        "n_WHU": 143,
+        "rate_Claude": 62.86,
+        "n_Claude": 140,
+        "difference_pts": -57.96,
+        "difference_95ci_pts": [
+          -66.6,
+          -48.85
+        ],
+        "ratio": 0.0779,
+        "ratio_95ci": [
+          0.0439,
+          0.1146
+        ],
+        "ratio_resamples_undefined": 0,
+        "exact_bootstrap_resamples": 16777216,
+        "exact_bootstrap_difference_95ci_pts": [
+          -66.54,
+          -48.72
+        ],
+        "exact_bootstrap_ratio_95ci": [
+          0.0445,
+          0.1146
+        ],
+        "half_threshold_met": true,
+        "interval_excludes_zero_below": true,
+        "exact_interval_excludes_zero_below": true,
+        "holds": true
+      },
+      "H2_cross_company": {
+        "rate_WHU": 38.71,
+        "n_WHU": 31,
+        "rate_Claude": 70.97,
+        "n_Claude": 31,
+        "difference_pts": -32.26,
+        "difference_95ci_pts": [
+          -67.86,
+          12.0
+        ],
+        "ratio": 0.5455,
+        "ratio_95ci": [
+          0.2188,
+          1.2308
+        ],
+        "ratio_resamples_undefined": 0,
+        "exact_bootstrap_resamples": 16777216,
+        "exact_bootstrap_difference_95ci_pts": [
+          -67.74,
+          10.34
+        ],
+        "exact_bootstrap_ratio_95ci": [
+          0.2188,
+          1.2
+        ],
+        "half_threshold_met": false,
+        "interval_excludes_zero_below": false,
+        "exact_interval_excludes_zero_below": false,
+        "holds": false
+      },
+      "H1_quote_checked_combined": {
+        "rate_WHU": 11.89,
+        "n_WHU": 143,
+        "rate_Claude": 54.64,
+        "n_Claude": 140,
+        "difference_pts": -42.75,
+        "difference_95ci_pts": [
+          -53.52,
+          -31.23
+        ],
+        "ratio": 0.2176,
+        "ratio_95ci": [
+          0.1402,
+          0.3263
+        ],
+        "ratio_resamples_undefined": 0,
+        "exact_bootstrap_resamples": 16777216,
+        "exact_bootstrap_difference_95ci_pts": [
+          -53.56,
+          -31.25
+        ],
+        "exact_bootstrap_ratio_95ci": [
+          0.1393,
+          0.3257
+        ],
+        "half_threshold_met": true,
+        "interval_excludes_zero_below": true,
+        "exact_interval_excludes_zero_below": true,
+        "holds": true
+      },
+      "H1_quote_checked_cross_company": {
+        "rate_WHU": 6.29,
+        "n_WHU": 143,
+        "rate_Claude": 62.86,
+        "n_Claude": 140,
+        "difference_pts": -56.56,
+        "difference_95ci_pts": [
+          -65.89,
+          -47.31
+        ],
+        "ratio": 0.1001,
+        "ratio_95ci": [
+          0.0638,
+          0.1553
+        ],
+        "ratio_resamples_undefined": 0,
+        "exact_bootstrap_resamples": 16777216,
+        "exact_bootstrap_difference_95ci_pts": [
+          -65.72,
+          -47.1
+        ],
+        "exact_bootstrap_ratio_95ci": [
+          0.0636,
+          0.1544
+        ],
+        "half_threshold_met": true,
+        "interval_excludes_zero_below": true,
+        "exact_interval_excludes_zero_below": true,
+        "holds": true
+      },
+      "sens_i_all_excluded_WHU_as_failures": {
+        "excluded_WHU_items": 17,
+        "WHU_rate": {
+          "rate_pct": 13.75,
+          "failure_sum": 22.0,
+          "n": 160
+        },
+        "H1": {
+          "rate_WHU": 13.75,
+          "n_WHU": 160,
+          "rate_Claude": 54.64,
+          "n_Claude": 140,
+          "difference_pts": -40.89,
+          "difference_95ci_pts": [
+            -53.2,
+            -27.41
+          ],
+          "ratio": 0.2516,
+          "ratio_95ci": [
+            0.1025,
+            0.4668
+          ],
+          "ratio_resamples_undefined": 0,
+          "exact_bootstrap_resamples": 16777216,
+          "exact_bootstrap_difference_95ci_pts": [
+            -53.17,
+            -27.79
+          ],
+          "exact_bootstrap_ratio_95ci": [
+            0.1021,
+            0.4667
+          ],
+          "half_threshold_met": true,
+          "interval_excludes_zero_below": true,
+          "exact_interval_excludes_zero_below": true,
+          "holds": true
+        }
+      },
+      "sens_ii_lancet_items_as_failures": {
+        "lancet_items": 10,
+        "lancet_items_already_excluded": 10,
+        "WHU_rate": {
+          "rate_pct": 9.8,
+          "failure_sum": 15.0,
+          "n": 153
+        },
+        "H1": {
+          "rate_WHU": 9.8,
+          "n_WHU": 153,
+          "rate_Claude": 54.64,
+          "n_Claude": 140,
+          "difference_pts": -44.84,
+          "difference_95ci_pts": [
+            -57.76,
+            -30.47
+          ],
+          "ratio": 0.1794,
+          "ratio_95ci": [
+            0.0468,
+            0.4167
+          ],
+          "ratio_resamples_undefined": 0,
+          "exact_bootstrap_resamples": 16777216,
+          "exact_bootstrap_difference_95ci_pts": [
+            -57.64,
+            -30.5
+          ],
+          "exact_bootstrap_ratio_95ci": [
+            0.0469,
+            0.4146
+          ],
+          "half_threshold_met": true,
+          "interval_excludes_zero_below": true,
+          "exact_interval_excludes_zero_below": true,
+          "holds": true
+        }
+      }
+    }
+  }
+}
