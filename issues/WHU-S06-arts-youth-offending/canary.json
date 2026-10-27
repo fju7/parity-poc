@@ -52,6 +52,11 @@
         "10.1186"
       ],
       "why": "1 figures round-tripped"
+    },
+    "S006": {
+      "source": "S006",
+      "state": "NO_FIGURES",
+      "why": "no decimal figures to round-trip; the checks cannot be shown to read this document, only assumed to"
     }
   }
 }

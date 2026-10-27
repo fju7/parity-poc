@@ -188,23 +188,22 @@
       ],
       "used_for": "a page that carries the belief: '18% less likely to re-offend'",
       "access": {
-        "state": "not_opened",
-        "by": "Claude Code",
-        "on": "2026-10-25",
-        "not_read": [
-          "all -- not held"
+        "state": "full_text_held",
+        "by": "Claude Code (session 40c6f9bd)",
+        "on": "2026-10-27",
+        "sections": [
+          "the whole page: the finding, its three supporting figures, two references, site navigation"
         ],
-        "last_fetch": {
-          "on": "2026-10-26",
-          "by": "acquire_sources.py",
-          "result": "not fetched",
-          "why": "identified (contains 3 of 3 distinctive title words), but not the document: shell — form 'page' — only 8 prose sentence(s) over sixty characters in 330 words — a teaser, a wall or navigation, not the page (35947 bytes at https://web.archive.org/web/20231208015752/https://www.cultu)",
-          "tried": [
-            {
-              "url": "https://web.archive.org/web/20231208015752/https://www.culturallearningalliance.org.uk/evidence/key-research-findings-the-case-for-cultural-learning/finding-8-young-offenders/",
-              "result": "identified (contains 3 of 3 distinctive title words), but not the document: shell — form 'page' — only 8 prose sentence(s) over sixty characters in 330 words — a teaser, a wall or navigation, not the page (35947 bytes at https://web.archive.org/web/20231208015752/https://www.cultu)"
-            }
-          ]
+        "note": "Held in the store (sha256 185b8a54a08f…, 30,933 bytes, Wayback raw capture of 2023-12-08, fetched by Fred's advisor (Claude)). source_store add recorded fragment_only because its substance test judged the page a shell (8 prose sentences in 330 words). Advisor's finding (2026-10-27): the page is genuinely short, not a teaser: one finding ('18% less likely to re-offend'), three supporting figures citing Stephenson et al. 2014 and Catterall 2012, two references, then site navigation. Claude Code read the held bytes' visible text (332 words) and found the same: the whole document is held. Recorded by ledger state, no --waive, --force or code change",
+        "held": {
+          "file": "docs/18/185b8a54a08f124a2bbd5bbb5a979bf6d4286044b11441e06a30fb44114faa3a.html",
+          "sha256": "185b8a54a08f124a2bbd5bbb5a979bf6d4286044b11441e06a30fb44114faa3a",
+          "bytes": 30933,
+          "url": "https://web.archive.org/web/20231208015752id_/https://www.culturallearningalliance.org.uk/evidence/key-research-findings-the-case-for-cultural-learning/finding-8-young-offenders/",
+          "identified_by": "contains 3 of 3 distinctive title words",
+          "kind": "shell",
+          "kind_why": "form 'page' — only 8 prose sentence(s) over sixty characters in 330 words — a teaser, a wall or navigation, not the page",
+          "recorded_by": "source_store add"
         }
       },
       "document_class": "document"
