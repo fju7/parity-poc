@@ -17,7 +17,7 @@ with these settings changed:
   answers: WHU's blinded text checked against scoring/blinded_manifest.txt,
     Perplexity's against results/perplexity/blinded_manifest.txt.
   spend: ledger issue whu-reliability-judging-perplexity, the add-on's one
-    issue, so the $32.82 run cap covers judging and this together; the
+    issue, so the $47.81 run cap covers judging and this together; the
     judging day cap applies as in takeaway.py.
   replies: ~/Projects/whu-study-private/scoring/perplexity/takeaway/<judge>/.
 
@@ -44,7 +44,7 @@ _spec.loader.exec_module(T)
 J1 = T.J1
 
 ISSUE = "whu-reliability-judging-perplexity"
-CAP = 32.82
+CAP = 47.81                 # $390 less $342.19 (Fred, 2026-10-27; was $32.82 under the $375 check)
 QUESTIONS = ["WHU-S01", "WHU-S02", "WHU-S03", "WHU-S04"]
 
 

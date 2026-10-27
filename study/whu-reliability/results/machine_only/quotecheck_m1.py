@@ -21,7 +21,7 @@ is cached across items; order changes cost, not what any call receives.
 
 CAPS, checked before every call: this run's $40 (ledger issue
 whu-reliability-judging-quotecheck), the judging day cap (judge_m1's
-day_cap_stop), and the study total check ($375 less WHU's actual ledger
+day_cap_stop), and the study total check ($390 less WHU's actual ledger
 spend over the eight study issues, against all judging ledger issues).
 
 QUOTE CHECK. Each evidence passage is looked for in the FULL held text of the
@@ -82,7 +82,7 @@ STAGE1_TAG = ""
 REPLIES = "replies"
 RESULT = "quotecheck_m1.json"
 RUN_CAP = 40.0
-STUDY_TOTAL = 375.0          # raised from $350 by Fred (Option A), 2026-10-27; was $300 to 2026-10-24
+STUDY_TOTAL = 390.0          # raised from $375 by Fred for the Perplexity add-on, 2026-10-27; was $375 (Option A, 2026-10-27), $350 (Option B, 2026-10-24), $300 before
 # WHU's deduction is its actual ledger spend over the eight study issues (was a
 # fixed $46.39, S01-S04 only, deviations.md 2026-10-23); $99.07 on 2026-10-27.
 WHU_ISSUES = ("tb-dna-testing", "teen-depression-therapy-format", "public-involvement-climate-policy",
