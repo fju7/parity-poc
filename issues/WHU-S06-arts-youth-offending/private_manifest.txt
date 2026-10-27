@@ -6,6 +6,12 @@ de627537d2d1325fc1b71e5c1553c8c52b2dd6705d1fdca3870c56e206212203  ./issues/WHU-S
 e183a7d5e8eca3a27fefbdea6c47339a759d88891f6a82106190f29aba73f113  ./issues/WHU-S06-arts-youth-offending/advocate/runs/20261026T012724Z/quote_checks.jsonl
 4c00683ed9139ba956df399ed30629c6020728f24cc0590c02b8e9d613680915  ./issues/WHU-S06-arts-youth-offending/advocate/runs/20261026T012724Z/routing.json
 15744094c5b3851b04404f94f5db4521681114f9ad92d2a235beec829383916a  ./issues/WHU-S06-arts-youth-offending/advocate/runs/20261026T012724Z/state.json
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  ./issues/WHU-S06-arts-youth-offending/audit/20261027T000106Z/cuts.jsonl
+ebd21327cd3830e0558740039a86abf55a110b5ed530119ee4941fa810837d8d  ./issues/WHU-S06-arts-youth-offending/audit/20261027T000106Z/manifest.json
+5681af41fcd953da494acb882f7db33dee494c90a29f45634b74ddace52b1a51  ./issues/WHU-S06-arts-youth-offending/audit/20261027T000106Z/quote_rejections.jsonl
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  ./issues/WHU-S06-arts-youth-offending/audit/20261027T000106Z/rulings.jsonl
+106d661dc8b2665ccc888aea4ce402ff7bd26378e27e943cc0e298afac76029b  ./issues/WHU-S06-arts-youth-offending/audit/20261027T000106Z/second_reads.jsonl
+1d4a86fde102f1f1bbec63cd9b7dc5bd96179b1bf67646c0ccfda8f697517267  ./issues/WHU-S06-arts-youth-offending/audit/20261027T000106Z/verdicts.jsonl
 ae184bbdacbbac53ffa8baedef21ab2508e82ebffc20113e709947b0142d719f  ./issues/WHU-S06-arts-youth-offending/bindings.json
 2a7387ff5a53ecdcf1f34598c898295dd9f9931688b1c381d3b54f107df406e9  ./issues/WHU-S06-arts-youth-offending/conclusion-review.json
 68c0b647bb00eea414350f51b31c6f5f52133f801ebeb928472873c72257e5e4  ./issues/WHU-S06-arts-youth-offending/draft/arts-youth-offending.html.gate.json
