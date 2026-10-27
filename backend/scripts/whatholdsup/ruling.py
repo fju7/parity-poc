@@ -1164,7 +1164,7 @@ def rule_omissions(slug: str, call, *, P=None, rows: dict | None = None, held: d
                              already(f["source"]))
         try:
             got = rule("omission", p, 0, call, log, {"covers": [{"advocate_item": h} for h in heads],
-                                                    "source": f["source"], "at": f["at"]})
+                                                    "source": f["source"], "offsets": f["at"]})
         except RulingFailed as e:
             print("  %s: %s -- left open" % (RULING_FAILED, e))
             if failed is not None:
@@ -1213,7 +1213,7 @@ def rule_omissions(slug: str, call, *, P=None, rows: dict | None = None, held: d
                 continue
             counts["ADD"] += 1
             O.record(case, f, outcome=O.ADD, reason=got["reason"], by=BY, ruling=rid,
-                     on_page=B.fingerprint(got["text"]))
+                     on_page=B.fingerprint(got["text"]), after=B.fingerprint(after))
             close(f, O.ADD, "to be inserted word for word after %s: %s"
                   % (json.dumps(after, ensure_ascii=False), json.dumps(got["text"], ensure_ascii=False)),
                   text=got["text"], span=got["span"], insert_after=after, placement=how, at=f["at"])

@@ -39,6 +39,15 @@ changecheck.sentences_of, so the body only, without the source list's tags
 every one of its sentences is a sentence of the page. A ruling whose text is ""
 (cut) is applied when the sentence it ruled on is no longer on the page.
 
+INSERTED BY AN OMISSION RULING (post-study fix 2, step 6, 2026-10-27). An ADD
+the omission ruling decided (omissions.json, outcome ADD, with its ruling id)
+inserts a sentence; it replaces nothing. It is applied when every sentence of
+its text is on the page AND the page sentence directly before it is the one
+the decision named (omissions.json "after", a fingerprint). A later ruling on
+the inserted text supersedes it, as for any other ruling, and an audit cut of
+it is "cut as ruled" when it is gone. A ruling the model returned "add" that
+code refused (to a person) has no ADD entry and expects nothing.
+
 The result is appended to rulings/applied_check.jsonl. Exit 1 on any mismatch.
 """
 from __future__ import annotations
@@ -128,9 +137,67 @@ def _ruled_on(r: dict) -> str:
     return ((r.get("inputs") or {}).get("sentence")) or ""
 
 
+def _fp(s: str) -> str:
+    """bindings.fingerprint, restated: sha256 of the whitespace-collapsed text, 16 hex."""
+    return hashlib.sha256(" ".join((s or "").split()).encode("utf-8")).hexdigest()[:16]
+
+
+def load_inserts(case: Path, rulings: list[dict]) -> list[dict]:
+    """Every ADD decision in omissions.json, with its ruling's text."""
+    p = case / "omissions.json"
+    if not p.exists():
+        return []
+    by_id = {r.get("id"): r for r in rulings if r.get("id")}
+    out = []
+    for e in json.loads(p.read_text(encoding="utf-8")).get("omissions") or []:
+        if e.get("outcome") != "ADD":
+            continue
+        r = by_id.get(e.get("ruling"))
+        out.append(dict(e, text=(r or {}).get("text"), _log=(r or {}).get("_log") or "omissions.json"))
+    return out
+
+
+def check_inserts(case: Path, page_html: str, rulings: list[dict], cuts: list[dict]) -> dict:
+    page = page_sentences(page_html)
+    out = {"inserted": [], "mismatches": [], "superseded": [], "cut": []}
+    applied = [r for r in rulings if r.get("ruling") in APPLIED]
+    cut_texts = {_n(t) for c in cuts for t in [c.get("last_text")] + [x.get("text") for x in c.get("rounds") or []]}
+    for e in load_inserts(case, rulings):
+        new = _n(e.get("text"))
+        ref = {"log": e["_log"], "ruling": "add", "ruling_kind": "omission", "ruled_on": "", "text": e.get("text"),
+               "key": e.get("key")}
+        if not new:
+            out["mismatches"].append(dict(ref, expected="insert", why="the ADD's ruling text was not found"))
+            continue
+        later = [x for x in applied if _n(_ruled_on(x)) == new]
+        if later:
+            out["superseded"].append(dict(ref, by=later[0]["_log"]))
+            continue
+        want = norm_sentences(new)
+        if new in cut_texts or any(s in cut_texts for s in want):
+            still = [s for s in want if s in page]
+            (out["mismatches"] if still else out["cut"]).append(dict(ref, expected="cut as ruled",
+                                                                     still_on_page=still))
+            continue
+        missing = [s for s in want if s not in page]
+        if missing:
+            out["mismatches"].append(dict(ref, expected=want, missing=missing))
+            continue
+        i = page.index(want[0])
+        before = page[i - 1] if i else None
+        if e.get("after") and (before is None or _fp(before) != e["after"]):
+            out["mismatches"].append(dict(ref, expected=want, missing=[], misplaced=True,
+                                          why="not directly after the sentence the decision named"))
+            continue
+        out["inserted"].append(dict(ref, expected=want))
+    return out
+
+
 def check(case: Path, page_html: str) -> dict:
-    """{"checked": [...], "mismatches": [...], "superseded": [...], "skipped": [...]}"""
+    """{"checked": [...], "mismatches": [...], "superseded": [...], "skipped": [...],
+    "cut": [...], "inserted": [...]}"""
     rulings = load_rulings(case)
+    ins = check_inserts(case, page_html, rulings, load_cuts(case))
     page = set(page_sentences(page_html))
     applied = [r for r in rulings if r.get("ruling") in APPLIED]
     out = {"checked": [], "mismatches": [], "superseded": [], "skipped": [], "cut": []}
@@ -170,6 +237,10 @@ def check(case: Path, page_html: str) -> dict:
             still = [s for s in old if s in page]
             row = dict(ref, expected="cut", still_on_page=still)
             (out["mismatches"] if (still or not old) else out["checked"]).append(row)
+    out["inserted"] = ins["inserted"]
+    out["mismatches"] += ins["mismatches"]
+    out["superseded"] += ins["superseded"]
+    out["cut"] += [dict(c, cut="audit", unit=c.get("key")) for c in ins["cut"]]
     return out
 
 
@@ -233,6 +304,23 @@ def dangling(case: Path, page_html: str) -> list[dict]:
             seen.add(key)
             out.append({"term": term, "applied_sentence": new or "(cut)", "ruled_on": old,
                         "later_sentence": page[first], "log": r["log"]})
+    # An INSERTED sentence (fix 2) removes nothing, but it can bring in a short
+    # form nothing before it on the page introduces ("the SPM"). Acronyms only:
+    # a capitalised name is introduced by the sentence that uses it.
+    for r in res.get("inserted") or []:
+        for s in r["expected"]:
+            if s not in page:
+                continue
+            i = page.index(s)
+            for term in sorted({m.group(0) for m in _ACRONYM.finditer(s) if len(m.group(0)) >= 2}):
+                if any(_uses(term, x) for x in page[:i]):
+                    continue
+                key = (term, s)
+                if key in seen:
+                    continue
+                seen.add(key)
+                out.append({"term": term, "applied_sentence": s, "ruled_on": "(inserted)",
+                            "later_sentence": s, "log": r["log"]})
     return out
 
 
@@ -260,19 +348,28 @@ def main(argv=None) -> int:
            "page_sha256": hashlib.sha256(page_html.encode("utf-8")).hexdigest(),
            "checked": len(res["checked"]), "mismatches": res["mismatches"],
            "superseded": len(res["superseded"]), "skipped": res["skipped"],
+           "inserted": len(res.get("inserted") or []),
            "cut_as_ruled": [{"log": c["log"], "unit": c["unit"], "cut": c["cut"]} for c in res["cut"]]}
     log = case / "rulings" / "applied_check.jsonl"
     log.parent.mkdir(parents=True, exist_ok=True)
     with open(log, "a", encoding="utf-8") as f:
         f.write(json.dumps(rec, ensure_ascii=False) + "\n")
-    print("\n  %d applied ruling(s) on the page as ruled, %d cut as ruled, %d superseded, "
-          "%d left for a person, %d MISMATCH(ES)"
-          % (len(res["checked"]), len(res["cut"]), len(res["superseded"]), len(res["skipped"]),
-             len(res["mismatches"])))
+    print("\n  %d applied ruling(s) on the page as ruled, %d inserted as ruled, %d cut as ruled, "
+          "%d superseded, %d left for a person, %d MISMATCH(ES)"
+          % (len(res["checked"]), len(res.get("inserted") or []), len(res["cut"]), len(res["superseded"]),
+             len(res["skipped"]), len(res["mismatches"])))
     for c in res["cut"]:
         print("  CUT AS RULED  %s: %s cut by the audit (%s), absent from the page" % (c["log"], c["unit"], c["cut"]))
     for m in res["mismatches"]:
-        if m.get("expected") == "cut as ruled":
+        if m.get("misplaced"):
+            print("  MISMATCH  %s: inserted, but not directly after the sentence the decision named: %r"
+                  % (m["log"], (m.get("expected") or [""])[0][:100]))
+        elif m.get("expected") == "insert":
+            print("  MISMATCH  %s: an ADD whose ruling text was not found" % m["log"])
+        elif m.get("expected") == "cut as ruled" and "unit" not in m:
+            print("  MISMATCH  %s: inserted text cut by the audit, still on the page: %r"
+                  % (m["log"], (m.get("still_on_page") or [""])[0][:100]))
+        elif m.get("expected") == "cut as ruled":
             print("  MISMATCH  %s: %s cut by the audit (%s), still on the page: %r"
                   % (m["log"], m["unit"], m["cut"], m["still_on_page"][0][:100]))
         elif m.get("expected") == "cut":

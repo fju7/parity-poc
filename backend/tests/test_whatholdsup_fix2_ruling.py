@@ -202,6 +202,8 @@ def test_the_consistency_sample_can_rerun_an_omission_ruling(tmp_path, monkeypat
     _run(tmp_path, Fake(ADD))
     [rec] = [json.loads(l) for l in (tmp_path / "rulings" / "rulings.jsonl").read_text().splitlines()]
     assert rec["ruling_kind"] == "omission" and rec["ruling"] == "add" and tuple(rec["inputs"]) == R.OMISSION_FIELDS
+    assert isinstance(rec["at"], str) and rec["offsets"] == [O.locate(T, TEXT)[0] for T in [OMITTED]] + [
+        O.locate(OMITTED, TEXT)[1]]                 # the timestamp is not overwritten by the offsets
     second, _u, note = CS.ruling_reask(Fake(ADD))(rec)
     assert note is None and second["ruling"] == "add" and second["text"] == rec["text"]
 

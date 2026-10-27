@@ -176,7 +176,7 @@ def load(case: Path) -> dict:
 
 
 PUBLIC_FIELDS = ("key", "source", "held_sha256", "at", "quote_sha256", "outcome", "element", "reason",
-                 "by", "ruling", "origins", "on_page", "decided_at")
+                 "by", "ruling", "origins", "on_page", "after", "decided_at")
 
 
 def entry_key(f: dict) -> str:
@@ -184,7 +184,7 @@ def entry_key(f: dict) -> str:
 
 
 def record(case: Path, f: dict, *, outcome: str, reason: str, by: str, element: str = "",
-           ruling: str | None = None, on_page: str | None = None) -> dict:
+           ruling: str | None = None, on_page: str | None = None, after: str | None = None) -> dict:
     """Write one decision: the public entry (no source text) to omissions.json,
     the quotation itself to rulings/omissions.jsonl. Returns the public entry."""
     if outcome not in OUTCOMES + (TO_PERSON,):
@@ -192,7 +192,7 @@ def record(case: Path, f: dict, *, outcome: str, reason: str, by: str, element: 
     e = {"key": entry_key(f), "source": f.get("source"), "held_sha256": f.get("held_sha256"),
          "at": f.get("at"), "quote_sha256": f.get("quote_sha256"), "outcome": outcome,
          "element": element, "reason": reason, "by": by, "ruling": ruling,
-         "origins": f.get("origins") or [f.get("origin")], "on_page": on_page,
+         "origins": f.get("origins") or [f.get("origin")], "on_page": on_page, "after": after,
          "decided_at": datetime.now(timezone.utc).isoformat(timespec="seconds")}
     doc = load(case)
     doc["omissions"] = [x for x in doc.get("omissions") or [] if x.get("key") != e["key"]] + [e]
