@@ -344,8 +344,12 @@ def _is_study(slug: str) -> bool:
         return False
 
 
-def page_sentences(slug: str) -> list[str]:
-    html = ledger.page_text(slug) if hasattr(ledger, "page_text") else None
+def page_sentences(slug: str, html: str | None = None) -> list[str]:
+    """The page body's sentences. HTML, when given, is read instead of the page
+    on disk -- a past commit's page, split exactly as the current one is
+    (protected.py compares the first full draft with the page now)."""
+    if html is None:
+        html = ledger.page_text(slug) if hasattr(ledger, "page_text") else None
     if html is None:
         html = _page_html(slug)
     html = HEAD.sub(" ", html)
@@ -1049,6 +1053,51 @@ def is_holdings(sent: str, trigger: str = "") -> bool:
     row the scan marked as a process claim (PROCESS_CLAIM): the same check, one
     door, so the two cannot drift."""
     return bool(HOLDINGS.search(sent or "")) or trigger == PROCESS_TRIGGER
+
+
+# PROTECTED SENTENCES (post-study fix 1, 2026-10-27). The page's restatement of
+# its question, and its statements of what we held, read, searched or did not
+# read, are not claims a source can support: no document records what WHU read.
+# On WHU-S08 the conclusion judge and the audit read exactly these against the
+# bound source and found them unsupported, and the ruling model, told to keep
+# only what the source supports, narrowed the question to the stocktake's own
+# subject and removed every statement of what was not read
+# (docs/whu-omissions-investigation-2026-10.md, section 3). A protected
+# sentence is never put to a source-support ruling; a person reads it, and
+# protected.py stops the preflight if one left the page without a person's
+# sign-off.
+#
+# The class is is_holdings (B21's detector, unchanged) widened by two narrow
+# phrasings, plus a row marker for whatever the phrasing misses. HOLDINGS itself
+# is not widened: B21 routes what it matches to the store, on every issue.
+PROTECTED_KINDS = ("question", "reading")
+QUESTION_RESTATEMENT = re.compile(
+    r"^\W*(?:the|our|this)\s+question\s+(?:here\s+)?(?:is|was|we\s+(?:ask|asked|answer|answered))\b",
+    re.I)
+READING = re.compile(
+    r"(?:^\W*|[;:,]\s*|\b(?:and|but)\s+)we\s+(?:"
+    r"drew\s+on|searched|read\s+(?:it|them|this|these|only)\b"
+    r"|did\s+not\s+(?:search|read|open|obtain|check|look\s+at)"
+    r"|have\s+not\s+(?:yet\s+)?(?:read|opened|searched|checked|obtained))\b"
+    r"|^\W*(?:of|from)\s+the\s+[^,;]{1,120},\s*we\s+(?:drew|read|cite|used|took)\b"
+    # "behind paywalls we could not pass" (WHU-S07): wherever it stands, "we
+    # could not" reports what we were unable to do, never a source's claim.
+    r"|\bwe\s+could\s+not\s+(?:pass|access|obtain|open|reach|read|find)\b",
+    re.I)
+
+
+def protected_kind(sent: str, row: dict | None = None) -> str | None:
+    """"question", "reading", or None. A row's `protected` marker, when it names
+    one of PROTECTED_KINDS, wins; otherwise the sentence's own phrasing."""
+    mark = (row or {}).get("protected")
+    if mark in PROTECTED_KINDS:
+        return mark
+    s = sent or ""
+    if QUESTION_RESTATEMENT.search(s):
+        return "question"
+    if HOLDINGS.search(s) or READING.search(s):
+        return "reading"
+    return None
 
 
 def support_ids(row: dict) -> list[str]:

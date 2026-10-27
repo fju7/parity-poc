@@ -132,14 +132,22 @@ def _is_holdings(sentence: str) -> bool:
     return B.is_holdings(sentence)
 
 
+def _is_protected(sentence: str, row: dict | None = None) -> bool:
+    import bindings as B
+    return B.protected_kind(sentence, row) is not None
+
+
 def judged_rows(bindings_doc: dict) -> list[tuple[str, dict]]:
     """(row id, row) for every on-page judgement row that is not a holdings
-    sentence. A holdings sentence is settled by the store (B21), not by a
-    reader of passages."""
+    sentence or another protected one (bindings.protected_kind: the question
+    restatement, what we read or did not read). A holdings sentence is settled
+    by the store (B21), a protected one by a person; neither by a reader of
+    passages, whose ruling on WHU-S08 rewrote the question to fit its source."""
     rows = bindings_doc.get("bindings") or {}
     return [(k, r) for k, r in rows.items()
             if r.get("on_page") and (r.get("bucket") or "") == "judgement"
-            and not _is_holdings(r.get("sentence") or "")]
+            and not _is_holdings(r.get("sentence") or "")
+            and not _is_protected(r.get("sentence") or "", r)]
 
 
 def plain(page_html: str) -> str:

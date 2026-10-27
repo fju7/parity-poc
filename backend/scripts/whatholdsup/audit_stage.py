@@ -1085,7 +1085,23 @@ def run(slug: str, *, out_dir: Path, limit: int | None = None, cap: float = 40.0
         ctx = context_map(us)
         if prog["queue"] is None:
             queue = []
+            protected_kind = _B().protected_kind
             for u in us:
+                kind = protected_kind(u["sentence"], u.get("row")) if u["part"] == "page" else None
+                if kind:
+                    # The question restatement, or what we held, read or did not
+                    # read: no document records that, so a reader of documents
+                    # can only find it unsupported and a ruling can only narrow
+                    # or cut it (WHU-S08 u45, u46, u47, u14). A person reads it;
+                    # it is never ruled, corrected or cut here.
+                    state[u["sha"]] = HUMAN_READ_REQUIRED
+                    prog["done"][u["id"]] = _snap(u, status=HUMAN_READ_REQUIRED)
+                    log("verdicts", {"unit": u["id"], "part": u["part"], "sha": u["sha"], "round": 0,
+                                     "sentence": u["sentence"], "verdict": HUMAN_READ_REQUIRED,
+                                     "protected": kind,
+                                     "reason": "protected sentence (%s): a person reads it; never "
+                                               "ruled, corrected or cut by the audit" % kind})
+                    continue
                 srcs = sources_of(u["row"])
                 if srcs and all(x in lic for x in srcs):
                     # Bound only to a source no model may read: a person reads it.
@@ -1342,7 +1358,8 @@ def preflight_rows(slug: str, record_rows: list[dict] | None = None, *, current:
     if unread or leave or human:
         bits = []
         if human:
-            bits.append("%d sentence(s) rest only on a source no model may read and have no recorded human read "
+            bits.append("%d sentence(s) need a person's read (resting only on a source no model may read, "
+                        "a failed read, or a protected sentence) and have no recorded human read "
                         "(human_reads.jsonl; e.g. %r)" % (len(human), human[0]["sentence"][:80]))
         if unread:
             bits.append("%d sentence(s) have no audit verdict on their current wording (e.g. %r)"

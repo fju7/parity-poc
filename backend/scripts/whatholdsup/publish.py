@@ -246,6 +246,10 @@ findings = _sibling("findings")
 # docs/whatholdsup-conclusion-judge.md.
 conclusion_judge = _sibling("conclusion_judge")
 audit_stage = _sibling("audit_stage")
+# Protected sentences (post-study fix 1, 2026-10-27): the question restatement
+# and what we read or did not read never leave the page without a person's
+# sign-off. See protected.py.
+protected = _sibling("protected")
 # B16: read what changed. Between two $6 gate runs, every correction is text
 # nobody has read -- and corrections are where a third of the errors come from.
 # Three cents a run. See changecheck.py.
@@ -1825,6 +1829,13 @@ def preflight(slug: str, *, for_email: bool,
         out.extend(audit_stage.preflight_rows(slug, load_record()))
     except BaseException as exc:
         out.append(("audit complete", BAD,
+                    "did not run: %s: %s" % (type(exc).__name__, exc)))
+
+    # BLOCKED when it cannot run, as above: a backstop that fails open is none.
+    try:
+        out.extend(protected.preflight_rows(slug, load_record()))
+    except BaseException as exc:
+        out.append((protected.ROW_LABEL, BAD,
                     "did not run: %s: %s" % (type(exc).__name__, exc)))
 
     try:

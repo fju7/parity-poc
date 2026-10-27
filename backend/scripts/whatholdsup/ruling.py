@@ -623,9 +623,16 @@ def _settle_recency(slug: str, f: dict, rows: dict, study: str) -> bool:
 
 def _conclusion_items(review: dict, rows: dict, held: dict) -> list[dict]:
     import conclusion_judge as CJ
+    import bindings as B
     out = []
     for k, e in sorted((review.get("sentences") or {}).items()):
         if not e.get("flagged") or CJ.decided(e):
+            continue
+        # A protected sentence (the question restatement, what we read) is a
+        # person's, never the ruling model's: a review written before
+        # judged_rows excluded it must not rewrite it either (WHU-S08, ruling
+        # b6caee39a4c1249d narrowed the question this way).
+        if B.protected_kind(e.get("sentence") or "", rows.get(k)) is not None:
             continue
         out.append({"key": ("row", k), "sentence": e.get("sentence") or "", "entry": e,
                     "kind": "conclusion judge: %s" % e.get("label"), "reason": e.get("reason") or "",
