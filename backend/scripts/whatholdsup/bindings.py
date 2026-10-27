@@ -1074,7 +1074,7 @@ def is_holdings(sent: str, trigger: str = "") -> bool:
 # The class is is_holdings (B21's detector, unchanged) widened by two narrow
 # phrasings, plus a row marker for whatever the phrasing misses. HOLDINGS itself
 # is not widened: B21 routes what it matches to the store, on every issue.
-PROTECTED_KINDS = ("question", "reading")
+PROTECTED_KINDS = ("question", "reading", "scope")
 QUESTION_RESTATEMENT = re.compile(
     r"^\W*(?:the|our|this)\s+question\s+(?:here\s+)?(?:is|was|we\s+(?:ask|asked|answer|answered))\b",
     re.I)
@@ -1099,6 +1099,16 @@ STATES_FINDING = re.compile(
     re.I)
 
 
+# THE READERS' LIST OF DECLARED FINDINGS (fix 2, ruling 3 of 2026-10-27):
+# "Outside this question: "<span>" (<source>); <reason>." and its heading.
+# They quote a finding by design, so they are protected BEFORE the finding test
+# below; coverage_check.py stops the preflight on any such sentence that is not
+# word for word a recorded declaration, so the lead cannot shelter anything else.
+DECLARATION_LEAD = re.compile(
+    r"^\W*(?:Outside this question:|Judged not material to this question:"
+    r"|Findings in our sources we judged outside this question\b)", re.I)
+
+
 def protected_kind(sent: str, row: dict | None = None) -> str | None:
     """"question", "reading", or None. A row's `protected` marker, when it names
     one of PROTECTED_KINDS, wins; otherwise the sentence's own phrasing, unless
@@ -1107,6 +1117,8 @@ def protected_kind(sent: str, row: dict | None = None) -> str | None:
     if mark in PROTECTED_KINDS:
         return mark
     s = sent or ""
+    if DECLARATION_LEAD.search(s):
+        return "scope"
     if STATES_FINDING.search(s):
         return None
     if QUESTION_RESTATEMENT.search(s):

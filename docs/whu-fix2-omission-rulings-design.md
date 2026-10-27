@@ -288,3 +288,32 @@ Real source text may not be committed (ruling 3). So each real-text replay reads
 10. **`study/whu-reliability/RUN.md` is not edited** (it is a frozen study file). The new steps 3c, 4d and 4e go in `docs/whatholdsup-process.md` and the WHU runbook for post-study issues. CLAUDE.md gets an entry with each step.
 
 Each step is its own commit, tagged post-study, with tests that apply the real filters, and is reviewed before the next.
+
+---
+
+## Addendum: step 7 as ruled (27 October 2026)
+
+The coverage check was built first as section 3 describes. For assessments that proved unworkable: taking every numbered statement and calibrated sentence gave WHU-S07 367 units, 322 of them from the SPM alone. The advisor ruled option 3:
+
+- **Abstract conclusions stay whole.** Every sentence after the conclusions heading counts, plus abstract results sentences that carry a certainty or confidence term (section 3's table).
+- **For an assessment summary or chapter, only what the page binds.** A unit group is a numbered statement (SPM) or an Executive Summary paragraph that the page binds, and the group is taken **in full**: every sentence of it. Text after the last paragraph's `{…}` references is not a paragraph, and an Executive Summary is capped at 30,000 characters.
+- **Detection is by the document's structure, never its title.** An assessment chapter is recognised by an "Executive Summary" heading followed by calibrated language; an assessment summary by at least five numbered statements followed by calibrated language. WHU-S08's chapter, whose title lacks "Chapter", is now detected.
+
+**Known limit**, recorded here and in the check's own output: an assessment conclusion in a statement or Executive Summary paragraph the page never binds is not covered by the coverage check. The source advocate's LEAVES_OUT objections (the omission ruling) are the second net.
+
+Re-measured on the study issues (headline units / already used / unaccounted):
+
+| Issue | Units | Used | Unaccounted |
+|---|---|---|---|
+| S01 | 27 | 8 | 19 |
+| S03 | 3 | 1 | 2 |
+| S05 | 14 | 3 | 11 |
+| S06 | 4 | 1 | 3 |
+| S07 | 21 | 5 | 16 |
+| S08 | 10 | 3 | 7 |
+
+**Readers' list (ruling 3).**
+- Every OUT_OF_SCOPE or NOT_MATERIAL declaration, whether from an omission ruling or from `coverage_check.py declare`, is shown on the page inside the limits section, under the heading "Findings in our sources we judged outside this question".
+- Each is one sentence: `Outside this question: "<short verbatim span>" (<source>); <reason>.` (or "Judged not material to this question: …").
+- These lines are protected under fix 1 (kind `scope`).
+- The row STOPs on a declaration that is not on the page word for word, on a line in the list with no declaration behind it, and on declarations past the budget (min(10, 20% of body sentences)) without a person's signed sign-off.
