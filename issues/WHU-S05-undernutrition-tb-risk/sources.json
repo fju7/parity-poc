@@ -22,7 +22,12 @@
           "kind_why": "121029 characters, reference list and discussion present"
         },
         "on": "2026-10-27"
-      }
+      },
+      "also_called": [
+        "Cochrane review",
+        "Cochrane",
+        "the review"
+      ]
     },
     {
       "id": "S002",
@@ -46,7 +51,11 @@
           "kind_why": "56521 characters, reference list and discussion/introduction present"
         },
         "on": "2026-10-27"
-      }
+      },
+      "also_called": [
+        "Lima",
+        "household contacts in Lima"
+      ]
     },
     {
       "id": "S003",
@@ -70,7 +79,11 @@
           "kind_why": "34127 characters, reference list and discussion/introduction present"
         },
         "on": "2026-10-27"
-      }
+      },
+      "also_called": [
+        "Korean cohort",
+        "Scientific Reports"
+      ]
     },
     {
       "id": "S004",
@@ -98,7 +111,10 @@
           "recorded_by": "source_store add"
         }
       },
-      "held_form_note": "Held copy is the Lancet article web page saved as PDF from the browser by Fred Ugast (full text with site navigation, 33 pages), not the publisher's typeset PDF; page numbers in it are browser pages, not journal pages."
+      "held_form_note": "Held copy is the Lancet article web page saved as PDF from the browser by Fred Ugast (full text with site navigation, 33 pages), not the publisher's typeset PDF; page numbers in it are browser pages, not journal pages.",
+      "also_called": [
+        "RATIONS"
+      ]
     },
     {
       "id": "S005",
@@ -126,7 +142,16 @@
           "recorded_by": "source_store add"
         }
       },
-      "held_form_note": "Held copy is a one-page Lancet PDF carrying the notice among correspondence; added with --force after Claude Code read it (pdftotext): the notice says the RATIONS article's appendix was corrected as of July 25, 2024, and names no change to the article's text or figures."
+      "held_form_note": "Held copy is a one-page Lancet PDF carrying the notice among correspondence; added with --force after Claude Code read it (pdftotext): the notice says the RATIONS article's appendix was corrected as of July 25, 2024, and names no change to the article's text or figures.",
+      "identity_verified": {
+        "by": "Fred's advisor (Claude (advisor)), relayed in the operator's brief of 2026-10-27",
+        "on": "2026-10-27",
+        "what": "Independently verified: the page's Department of Error entry names Bhargava et al., RATIONS, Lancet 2023;402:627-40, and states the appendix was corrected as of July 25, 2024. The --force admission is accepted."
+      },
+      "also_called": [
+        "Department of Error",
+        "appendix was corrected"
+      ]
     }
   ]
 }
