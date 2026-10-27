@@ -1,0 +1,8 @@
+# Perplexity add-on: blinded answers, sha256 manifest (prepare_perplexity.py blind)
+# The blinded texts are held at ~/Projects/whu-study-private/scoring/perplexity/blinded/<question>/perplexity.blind.txt.
+#
+# sha256  question  system  record  chars  sentences  samplable  with-marker  references  markers-beyond-list
+5bb9ae1a890c74d6c82d8503e2b2a81afa75e1205026843fbd9a3d164390f538  WHU-S01  Perplexity  perplexity.md    9896    44    44    17   18  0
+95bc79105bc9fc580ff3c3439346858874d1d31304ca75d5337f41649ab025a0  WHU-S02  Perplexity  perplexity.md   15631    96    96    39   14  0
+4e27a2ba3328d98597358c529fc04de1f4b1c1ef180bc71fa9ff51c54a093c85  WHU-S03  Perplexity  perplexity.md   20788   110   110    42   29  0
+147476fcc7ee344e402647791dbf18e13ee1bb9edd313d89792e458b12320957  WHU-S04  Perplexity  perplexity.md   18024   102   102    27   24  0

@@ -2,7 +2,7 @@
 """Perplexity add-on (exploratory, outside H1 and H2): blind, sample and snapshot
 Perplexity's WHU-S01 to WHU-S04 answers by the S01-S04 rules.
 
-    prepare_perplexity.py blind | sample | snapshot | routes | ingest ARGS... | report
+    prepare_perplexity.py blind | sample | snapshot | routes | ingest ARGS... | report | cost
 
 Plan: study/whu-reliability/perplexity_plan.md (frozen at 078ab4e).
 
@@ -205,6 +205,8 @@ def main() -> int:
         return do_ingest(sys.argv[2:])
     if cmd == "report":
         return prep().snapshot_report()
+    if cmd == "cost":                       # prepare_scoring.py's projection, on Perplexity's items
+        return prep().do_cost(A())
     print(__doc__)
     return 2
 

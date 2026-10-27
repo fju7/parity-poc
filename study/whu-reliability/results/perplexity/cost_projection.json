@@ -1,0 +1,145 @@
+{
+ "written": "2026-10-27T14:58:56+00:00",
+ "no_model_called": true,
+ "inputs": {
+  "chars_per_token": {
+   "value": 2.674,
+   "how": "median over prep round 2's 15 snapshots of text characters / Anthropic count_tokens (runs/prep2/sources/tokens.json)"
+  },
+  "openai_tokens_per_claude_token": {
+   "value": 0.617,
+   "how": "median over prep round 2's M1 items: OpenAI input tokens / Claude input+cache tokens, same prompt"
+  },
+  "m1_prompt_after_documents_tokens": 1526,
+  "m1_prompt_before_documents_tokens": 41,
+  "output_tokens_mean": {
+   "m1_claude": 213,
+   "m1_openai_incl_reasoning": 130,
+   "m2_claude": 442,
+   "m2_openai_incl_reasoning": 141
+  },
+  "prices_usd_per_million": {
+   "claude-opus-5-5": {
+    "input": 4.0,
+    "output": 20.0,
+    "cache_write": 5.0,
+    "cache_read": 0.2
+   },
+   "gpt-6-astra": {
+    "input": 10.0,
+    "cached_input": 1.0,
+    "output": 50.0
+   }
+  },
+  "price_check_max_abs_usd_difference_on_recorded_calls": {
+   "claude": 0.0,
+   "openai": 0.0
+  },
+  "repeat_share": 0.2,
+  "max_source_tokens": 150000,
+  "pending_source_size_assumed_chars": 65014
+ },
+ "rules": [
+  "M1, Claude: first read = (prompt head + documents) at cache-write price + prompt after the documents at input price + output; the 20% repeat reads the documents from cache (cache-read price).",
+  "M1, OpenAI: first read = all input at the input price + output; the repeat reads the documents at the cached-input price (its cache hits only an identical prompt, which the repeat is).",
+  "M2, Claude: the answer block is written to cache by an answer's first conclusion and read by the rest; repeats read it from cache.",
+  "M2, OpenAI: every conclusion is a different prompt, so no cache except on the repeat.",
+  "A document is capped at 150,000 tokens (longer ones are chunked to that).",
+  "Items whose sources are pending the operator are projected at the median held snapshot size.",
+  "WHU-S04 is projected as the mean of the questions drawn so far, for M1 and for M2."
+ ],
+ "m1": {
+  "per_answer": {
+   "WHU-S01/Perplexity": {
+    "items": 16,
+    "held_items": 16,
+    "claude_held": 5.5294,
+    "openai_held": 6.9565,
+    "claude_all": 5.5294,
+    "openai_all": 6.9565,
+    "doc_tokens_held": 1056972.3292
+   },
+   "WHU-S02/Perplexity": {
+    "items": 11,
+    "held_items": 10,
+    "claude_held": 4.7974,
+    "openai_held": 6.0217,
+    "claude_all": 4.9326,
+    "openai_all": 6.1939,
+    "doc_tokens_held": 926779.2569
+   },
+   "WHU-S03/Perplexity": {
+    "items": 15,
+    "held_items": 10,
+    "claude_held": 1.522,
+    "openai_held": 1.9347,
+    "claude_all": 4.1981,
+    "openai_all": 5.2917,
+    "doc_tokens_held": 276900.8408
+   },
+   "WHU-S04/Perplexity": {
+    "items": 17,
+    "held_items": 17,
+    "claude_held": 5.2036,
+    "openai_held": 6.5535,
+    "claude_all": 5.2036,
+    "openai_all": 6.5535,
+    "doc_tokens_held": 989815.756
+   }
+  },
+  "held_only_usd": 38.52,
+  "all_items_usd": 44.86
+ },
+ "m2": {
+  "per_answer": {
+   "A-baa419425f": {
+    "question": "WHU-S01",
+    "system": "Perplexity",
+    "conclusions": 5,
+    "answer_tokens": 3762,
+    "claude": 0.1269,
+    "openai": 0.2398
+   },
+   "A-b56d733f67": {
+    "question": "WHU-S02",
+    "system": "Perplexity",
+    "conclusions": 5,
+    "answer_tokens": 5907,
+    "claude": 0.1422,
+    "openai": 0.3109
+   },
+   "A-316e2a0242": {
+    "question": "WHU-S03",
+    "system": "Perplexity",
+    "conclusions": 1,
+    "answer_tokens": 7835,
+    "claude": 0.0612,
+    "openai": 0.0749
+   },
+   "A-084e36c313": {
+    "question": "WHU-S04",
+    "system": "Perplexity",
+    "conclusions": 2,
+    "answer_tokens": 6801,
+    "claude": 0.0753,
+    "openai": 0.1305
+   }
+  },
+  "usd": 1.16
+ },
+ "whu_s04_projected": null,
+ "judging_usd": 46.02,
+ "whu_measured_usd": {
+  "WHU-S01": 11.67,
+  "WHU-S02": 12.11,
+  "WHU-S03": 11.21,
+  "WHU-S04": 11.4,
+  "WHU-S05": 5.97,
+  "WHU-S06": 6.38,
+  "WHU-S07": 9.84,
+  "WHU-S08": 30.5
+ },
+ "whu_s04_note": "WHU-S04 is still running; its figure is spend so far, not its final cost.",
+ "study_total_usd": 145.1,
+ "over_300": false
+}

@@ -1,0 +1,89 @@
+{
+ "written": "2026-10-27T14:58:27+00:00",
+ "per_answer": [
+  {
+   "question": "WHU-S01",
+   "system": "Perplexity",
+   "items": 16,
+   "held": 16,
+   "incomplete": 0,
+   "abstract_only": 6,
+   "no_url": 0,
+   "uncited": 3,
+   "unreachable_sources": 0
+  },
+  {
+   "question": "WHU-S02",
+   "system": "Perplexity",
+   "items": 11,
+   "held": 10,
+   "incomplete": 1,
+   "abstract_only": 0,
+   "no_url": 0,
+   "uncited": 9,
+   "unreachable_sources": 1
+  },
+  {
+   "question": "WHU-S03",
+   "system": "Perplexity",
+   "items": 15,
+   "held": 10,
+   "incomplete": 5,
+   "abstract_only": 1,
+   "no_url": 0,
+   "uncited": 5,
+   "unreachable_sources": 2
+  },
+  {
+   "question": "WHU-S04",
+   "system": "Perplexity",
+   "items": 17,
+   "held": 17,
+   "incomplete": 0,
+   "abstract_only": 0,
+   "no_url": 0,
+   "uncited": 3,
+   "unreachable_sources": 0
+  }
+ ],
+ "routes": {
+  "a": 1,
+  "b": 0,
+  "c": 5,
+  "d": 8
+ },
+ "reachability": {
+  "Perplexity": {
+   "cited_items": 59,
+   "items_all_sources_by_script": 41,
+   "items_needing_operator_fetch": 12,
+   "items_unreachable": 6,
+   "share_reachable_by_script": 0.6949,
+   "share_reachable_after_operator_fetch": 0.8983,
+   "share_unreachable": 0.1017,
+   "flag_unreachable_over_20pct": false,
+   "sources": {
+    "distinct": 55,
+    "by_script": 44,
+    "by_operator_fetch": 8,
+    "unreachable": 3
+   }
+  }
+ },
+ "versions": {
+  "acceptedVersion": 1,
+  "as cited": 1,
+  "publishedVersion": 5,
+  "submittedVersion": 3,
+  "web page as rendered": 4
+ },
+ "first_fetch_bytes_reread_to_held": 0,
+ "still_unreachable_free_but_blocking": 0,
+ "still_unreachable_free_but_blocking_not_tried_by_advisor": 0,
+ "sources": {
+  "distinct": 55,
+  "full_text": 49,
+  "abstract_only": 3,
+  "unreachable": 3
+ }
+}
