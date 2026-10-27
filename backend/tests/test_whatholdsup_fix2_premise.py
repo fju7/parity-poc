@@ -66,4 +66,4 @@ def test_scope_of_returns_the_question_and_declared_entries(case):
 def test_the_scope_row_is_on_the_premise_board(case):
     _premise(case, {"covers": "", "out": []})
     labels = [r[0] for r in PM.preflight_rows("x")]
-    assert labels[-1] == "scope declared"
+    assert "scope declared" in labels

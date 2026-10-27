@@ -151,6 +151,19 @@ TEMPLATE = {
         "by": "",
         "written_at": "",
     },
+    "evidence_standard": {
+        "_note": ("What kinds of evidence the answer will weigh, written at step 1 BEFORE any source "
+                  "is opened (post-study fix 3, docs/whu-fix3-evidence-standard.md). 'measured': "
+                  "outcomes measured in trials, cohorts, evaluations. 'assessed': expert assessments "
+                  "-- systematic-review conclusions, IPCC confidence-rated statements, guideline "
+                  "recommendations. When they differ, the page states both and drops neither."),
+        "weighs": [],
+        "measured": "",
+        "assessed": "",
+        "when_they_differ": "state both",
+        "by": "",
+        "written_at": "",
+    },
 }
 
 
@@ -328,6 +341,7 @@ def preflight_rows(slug: str, *, already_published: bool = False) -> list[tuple[
         rows.append(("premise survived", lvl,
                      "the kill condition was met: %s" % (t.get("note") or "no note")))
     rows.extend(scope_rows(slug))
+    rows.extend(evidence_standard_rows(slug))
     return rows
 
 
@@ -377,6 +391,50 @@ def scope_rows(slug: str) -> list[tuple[str, str, str]]:
     return [("scope declared", OK, "%d out-of-scope entr%s; written %s%s" % (
         len(s.get("out") or []), "y" if len(s.get("out") or []) == 1 else "ies", wrote,
         (", before the first source was held (%s)" % first) if first else ""))]
+
+
+EVIDENCE_KINDS = ("measured", "assessed")
+
+
+def _holds_assessment(slug: str) -> list[str]:
+    """Held sources whose text has an assessment's structure (an Executive
+    Summary with calibrated language, or numbered statements): coverage_check.groups_of."""
+    try:
+        import coverage_check as C
+        import ruling as R
+        return sorted(sid for sid, text in R.held_texts(slug).items() if C.groups_of(text)[0])
+    except (Exception, SystemExit):
+        return []
+
+
+def evidence_standard_rows(slug: str, held_assessments: list[str] | None = None) -> list[tuple[str, str, str]]:
+    """Fix 3, step 1. WARN when the standard is missing, undated or written
+    after the first source was held. STOP when it does not weigh assessed
+    evidence while a held source is an assessment, unless scope.out names
+    assessments with a reason (when they differ, the page states both)."""
+    d = load(slug) or {}
+    es = d.get("evidence_standard") or {}
+    weighs = [w for w in es.get("weighs") or [] if w in EVIDENCE_KINDS]
+    label = "evidence standard declared"
+    if not weighs:
+        return [(label, WARN, "no evidence_standard.weighs: say whether the answer weighs measured "
+                 "outcomes, expert assessments, or both, before opening a source")]
+    held = held_assessments if held_assessments is not None else _holds_assessment(slug)
+    if "assessed" not in weighs and held:
+        out = [o for o in (d.get("scope") or {}).get("out") or []
+               if "assess" in str(o.get("what") or "").lower() and _filled(o.get("why"))]
+        if not out:
+            return [(label, BAD, "the standard weighs %s only, but %s %s an expert assessment; weigh "
+                     "'assessed' too, or name assessments in scope.out with a reason"
+                     % (", ".join(weighs), ", ".join(held), "is" if len(held) == 1 else "are"))]
+    first = _earliest_source_day(slug)
+    wrote = str(es.get("written_at") or "")[:10]
+    if not wrote:
+        return [(label, WARN, "weighs %s; no written_at" % ", ".join(weighs))]
+    if first and wrote > first:
+        return [(label, WARN, "weighs %s; written %s, after the first source was held (%s)"
+                 % (", ".join(weighs), wrote, first))]
+    return [(label, OK, "weighs %s; written %s" % (", ".join(weighs), wrote))]
 
 
 def cmd_init(args) -> int:
