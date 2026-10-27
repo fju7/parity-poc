@@ -134,11 +134,15 @@ posed. That is what you are hunting for.
 RETURN ONLY a JSON array. One object per objection:
 
 {{
-  "claim_quoted":  "the exact sentence or phrase from the page you object to",
+  "type":          "MISSTATES" | "LEAVES_OUT",
+  "claim_quoted":  "MISSTATES: the exact sentence or phrase from the page you
+                    object to. LEAVES_OUT: the page sentence nearest to where
+                    the missing finding belongs",
   "objection":     "your objection, in one sentence",
   "source_says":   "what your document actually says, QUOTED, with a locator
-                    (section, table, page). Empty string if you could not find
-                    anything.",
+                    (section, table, page). For LEAVES_OUT this is the omitted
+                    finding itself, never a passage the page already uses.
+                    Empty string if you could not find anything.",
   "locator":       "where in your document — section name, table number, page",
   "could_not_find":"if source_says is empty: what you searched and did not find.
                     Name the sections you looked in. An empty finding you can
@@ -162,7 +166,11 @@ RULES.
    not objectionable, and saying so is more useful than a list nobody will act
    on. Returning an empty array is a real answer.
 3. Do not object to a figure being wrong unless you can quote the right one.
-   Other checks handle figures; you are here for what the page left out.
+   Other checks handle figures; you are here for what the page left out. If the
+   page leaves out a finding of your document that answers its question, say
+   LEAVES_OUT and quote that finding; do not quote the passage the page already
+   uses. MISSTATES is for a page sentence your document contradicts or
+   qualifies.
 4. Report every instance. If the same omission affects three sentences, return
    three objections. A fault fixed in one place and published in another is how
    the count in issue two went stale.
@@ -218,6 +226,93 @@ RETURN ONLY a JSON object:
 """
 
 QUOTE_NOTE = "the quotation is not in the held text"
+
+# OBJECTION TYPES (post-study fix 2, step 1, 2026-10-27). The schema had one
+# shape, an objection TO a page sentence, so an omission had to be pinned to an
+# accurate sentence and the ruling model, asked whether the source supports that
+# sentence, rejected it (WHU-S07 rulings.jsonl:12, item S003-13).
+# docs/whu-fix2-omission-rulings-design.md, section 1.
+MISSTATES, LEAVES_OUT = "MISSTATES", "LEAVES_OUT"
+OBJECTION_TYPES = (MISSTATES, LEAVES_OUT)
+# A brief written before the type existed: an omission is SUSPECTED from its
+# wording. The flag only routes the objection to a re-ask; it decides nothing.
+OMISSION_WORDING = re.compile(
+    r"\b(?:omit(?:s|ted)?|omission|leaves?\s+out|left\s+out|does\s+not\s+mention|doesn't\s+mention"
+    r"|never\s+mentions?|fails\s+to\s+(?:mention|note|report)|not\s+mention(?:ed)?|missing)\b", re.I)
+
+
+def omission_kind(o: dict) -> tuple[str, str]:
+    """(MISSTATES or LEAVES_OUT, "declared" | "suspected" | "default")."""
+    t = (o.get("type") or "").strip().upper()
+    if t in OBJECTION_TYPES:
+        return t, "declared"
+    if OMISSION_WORDING.search("%s %s" % (o.get("objection") or "", o.get("why") or "")):
+        return LEAVES_OUT, "suspected"
+    return MISSTATES, "default"
+
+
+def needs_reask(o: dict, held_text: str, bound_spans: list[str]) -> bool:
+    """An omission whose quotation is empty, or is a passage the page already
+    binds, has not quoted the omitted finding: it is asked once more for it."""
+    import audit_stage as A
+    if omission_kind(o)[0] != LEAVES_OUT:
+        return False
+    says = (o.get("source_says") or "").strip()
+    if not says:
+        return True
+    at = A.locate(says, held_text or "")
+    if at is None:
+        return False          # not in the held text: NOT_IN_SOURCE, decided by code later
+    for sp in bound_spans or []:
+        b = A.locate(sp, held_text or "")
+        if b and b[0] < at[1] and at[0] < b[1]:
+            return True
+    return False
+
+
+REASK_OMISSION_SYSTEM = """You are {principal}. Earlier you objected that a
+publication's page leaves out a finding of your document, but the passage you
+quoted is one the page already uses, or you quoted nothing.
+
+Below are your objection, the page sentences already bound to your document,
+and your document's text as held. Quote the OMITTED FINDING itself, EXACTLY as
+it appears in that text, character for character, with no quote marks of your
+own: the sentence or clause the page leaves out. If there is none, return
+source_says empty and say in could_not_find what you looked for. Do not
+paraphrase and do not search the web.
+
+RETURN ONLY a JSON object:
+{{"source_says": "...", "locator": "...", "could_not_find": "..."}}
+"""
+
+
+def reask_omission(b: dict, o: dict, text: str, bound: list[str], ask=None) -> dict:
+    """One re-ask for the omitted finding itself. Returns the objection
+    updated (type LEAVES_OUT, the new quotation, the first one kept as
+    source_says_first) when the new quotation is in the held text; otherwise
+    the objection unchanged with reask_note set. `ask(system, user)` returns
+    the parsed reply; by default a metered call (fc.call, search off)."""
+    import audit_stage as A
+    doc, _cut = A.trim(text, [w for w in re.findall(r"[A-Za-z][A-Za-z'-]{6,}|\d[\d.,]*%?",
+                                                    (o.get("objection") or "") + " " + (o.get("why") or ""))])
+    system = REASK_OMISSION_SYSTEM.format(principal=b.get("principal") or "the source's author")
+    user = json.dumps({"objection": {k: o.get(k) for k in ("claim_quoted", "objection", "why", "source_says")},
+                       "already_on_the_page": bound, "your_document_as_held": doc}, ensure_ascii=False)
+    if ask is None:
+        got = fc.call(system, user, search=False, label="advocate-reask-omission:%s" % b.get("source"))
+    else:
+        got = ask(system, user)
+    got = got if isinstance(got, dict) else {}
+    again = (got.get("source_says") or "").strip()
+    out = dict(o)
+    if again and A.quoted_in(again, text):
+        out.update(type=LEAVES_OUT, source_says=again, source_says_first=o.get("source_says") or "",
+                   locator=got.get("locator") or o.get("locator"),
+                   quotation_check={"in_held_text": True, "asked": "omission re-ask"})
+    else:
+        out["reask_note"] = ("the re-ask did not quote an omitted finding in the held text"
+                             + (": %s" % got.get("could_not_find") if got.get("could_not_find") else ""))
+    return out
 
 
 QUOTE_FIELDS = ("source_says", "source_says_first", "locator", "quotation_check")
@@ -427,6 +522,11 @@ VERDICT = re.compile(r"^\s*MERIT:\s*(yes|partly|no)\b", re.I | re.M)
 EFFECT_LINE = re.compile(r"^\s*EFFECT:\s*(\S+)", re.I | re.M)
 EFFECT_WORDS = ("changes", "narrows", "sharpens", "corrects", "none")
 EFFECT = re.compile(r"^\s*EFFECT:\s*(%s)\b" % "|".join(EFFECT_WORDS), re.I | re.M)
+# An omission objection (LEAVES_OUT) is closed by the omission ruling's outcome
+# and what was done, not by MERIT/EFFECT (fix 2, step 1).
+OMISSION_WORDS = ("add", "out_of_scope", "not_material", "not_in_source")
+OMISSION_LINE = re.compile(r"^\s*OMISSION:\s*(%s)\b" % "|".join(OMISSION_WORDS), re.I | re.M)
+DID_LINE = re.compile(r"^\s*DID:\s*(\S.*)$", re.M)
 
 # A question put to the human reader is only closed when a person has opened the
 # document and written down what it says. Not when someone has read the question
@@ -473,6 +573,8 @@ def _closed(chunk: str, mode: str) -> bool:
             return bool(w[0] and w[1])
         return bool(ANSWERED_BY.search(chunk) and ANSWER.search(chunk)
                     and LOCATOR.search(chunk) and EFFECT_LINE.search(chunk))
+    if OMISSION_LINE.search(chunk) and DID_LINE.search(chunk):
+        return True
     return bool(VERDICT.search(chunk) and EFFECT_LINE.search(chunk))
 
 
@@ -497,6 +599,9 @@ def write_template(slug: str, day: str, briefs: list[dict], name: str | None = N
              "    MERIT:  yes | partly | no   — and why, citing what you read",
              "    EFFECT: changes | narrows | sharpens | corrects | none",
              "    DID:    what actually changed, or nothing and why", "",
+             "For an OMISSION (type LEAVES_OUT), closed by the omission ruling:", "",
+             "    OMISSION: add | out_of_scope | not_material | not_in_source",
+             "    DID:      what was added, or why nothing was", "",
              "For a QUESTION, from a source only a person is permitted to read:", "",
              "    ANSWERED BY: a person's name. Not \"the team\", not a role.",
              "    ON:          the date they opened the document",
@@ -534,7 +639,10 @@ def write_template(slug: str, day: str, briefs: list[dict], name: str | None = N
                           f"**On this claim.** {o.get('claim_quoted','')}", "",
                           f"**Why it matters.** {o.get('why_it_matters','')}", ""]
             else:
-                lines += [f"**We say.** {o.get('claim_quoted','')}", "",
+                kind, how = omission_kind(o)
+                lines += [f"**Type.** {kind}" + ("" if how == "declared" else f" ({how})"), "",
+                          f"**{'Nearest page sentence' if kind == LEAVES_OUT else 'We say'}.** "
+                          f"{o.get('claim_quoted','')}", "",
                           f"**They object.** {o.get('objection','')}", ""]
                 if o.get("source_says"):
                     lines += [f"**Their document says.** {o.get('source_says','')}",
@@ -546,6 +654,8 @@ def write_template(slug: str, day: str, briefs: list[dict], name: str | None = N
             if b["mode"] == "questions":
                 lines += ["ANSWERED BY: ", "ON:          ", "ANSWER:      ",
                           "LOCATOR:     ", "EFFECT:      ", "DID:         ", ""]
+            elif omission_kind(o)[0] == LEAVES_OUT:
+                lines += ["OMISSION: ", "DID:      ", ""]
             else:
                 lines += ["MERIT:  ", "EFFECT: ", "DID:    ", ""]
     p.write_text("\n".join(lines) + "\n", encoding="utf-8")
@@ -639,7 +749,7 @@ def preflight_rows(slug: str) -> list[tuple[str, str, str]]:
     rows.append(("advocate objections closed", OK if not objs else BAD,
                  "every objection carries a written verdict and effect"
                  if not objs else
-                 f"{len(objs)} with no MERIT/EFFECT recorded: " + "; ".join(objs[:3])))
+                 f"{len(objs)} with no MERIT/EFFECT (or OMISSION/DID) recorded: " + "; ".join(objs[:3])))
     rows.append(("questions answered by a reader", OK if not qs else BAD,
                  "every question about a source only a person can read has been "
                  "answered, by name, from the document"
