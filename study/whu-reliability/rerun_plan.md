@@ -2,6 +2,13 @@
 
 Approved by Fred 2026-10-27, after all study results were seen. Fixed by the commit that adds this file, before any re-run starts. Its sha256 is recorded in `deviations.md`. A drafting session does not read this file.
 
+**Amended 2026-10-27, before any re-run (Fred).** Both re-runs are to finish on 2026-10-28 UTC, and judging comes later. Three changes follow:
+- the re-run total rises from $60 to $100;
+- the WHU day cap is $75 for UTC day 2026-10-28 only;
+- the quote check runs after M1 and M2, and only if the budget covers it.
+
+The success rule, the comparison and the $50 per-issue cap are unchanged. The new sha256 is in `deviations.md`.
+
 ## Status and purpose
 
 - **Purpose:** a post-study check of WHU fixes 1-3:
@@ -77,7 +84,7 @@ The re-run WHU answers are compared with the original WHU-S01 and WHU-S07 answer
 - **M2 items.** Every conclusion of the frozen keys for WHU-S01 and WHU-S07 is judged against the re-run answer: 9 items.
 - **Snapshots.** One per distinct cited address, reused from the study's snapshot manifest where the address (or its DOI, PMID or PMCID) is already held. Routes (a) to (c) are used, then route (d) under the extension's ruling: no sign-in, account, payment, or way past a paywall or bot wall.
 - **Second reads.** Each judge re-reads a seeded 20% of items. The seed is the freeze commit and the pool is the re-run items judged.
-- **Quote check.** `quotecheck_m1.py`'s spec (a) is applied to the re-run M1 items with a first read from both judges, with delivery identical to their first read.
+- **Quote check.** `quotecheck_m1.py`'s spec (a) is applied to the re-run M1 items with a first read from both judges, with delivery identical to their first read. It runs after M1 and M2 are judged, and only if its estimate fits within what remains of the $100. If it does not fit, it is not run, and that is reported. The success rule does not use it.
 - **Original rows.** The original WHU-S01 rows (Stage 1 replies) and WHU-S07 rows (the extension's `_ext` replies) are used unchanged and are not re-judged.
 
 ## Success rule (fixed 2026-10-27, before any run)
@@ -115,12 +122,19 @@ These are from the investigation's cause codes, not from the keys:
 
 ## Budget
 
-- **$60 in total** across the ledger issues `whu-rerun-s01`, `whu-rerun-s07` and `whu-rerun-judging`.
-- **Per issue:** each WHU re-run has the $50 cap (caps.json `study_per_issue`, by its `"study": true`).
-- **Per day:** the $25 day cap (`default_per_day`) applies as usual, to both WHU sessions together.
-- **The $60 total is not enforced by code.** Before each paid stage, the drafting session sums the three ledger issues with `spend_ledger.py --issue`, and stops if the stage's printed estimate would take the total past $60. Where a stage takes `--cap`, the session passes the smaller of the issue's remaining $50 and the remaining $60.
-- **Judging.** All of it, the quote check included, bills to `whu-rerun-judging`.
-  - The cost is estimated before any call (`prepare_scoring.py`'s projection), with `--cap` set to $60 less the three issues' spend. If the estimate exceeds what remains, the work STOPs and is reported.
+- **$100 in total** across the ledger issues `whu-rerun-s01`, `whu-rerun-s07` and `whu-rerun-judging`. Fred raised it from $60 on 2026-10-27, before any run.
+- **Per issue:** each WHU re-run has the $50 cap (caps.json `study_per_issue`, by its `"study": true`). Unchanged.
+- **Per day:** caps.json `default_per_day` covers every ledger line, both WHU sessions together.
+  - It is **$75 for UTC day 2026-10-28 only** (Fred, 2026-10-27), so both re-runs can finish that day.
+  - It goes back to **$25 at 2026-10-29T00:00Z, or once both re-runs finish, whichever is first**. The restore is one committed edit: `default_per_day` back to 25, and the `_default_per_day_raise` note removed. It is done by the session Fred tells to do it. Otherwise the scoring session does it, and records it in `deviations.md`, before it starts any judging.
+  - caps.json has no date field. The raise was committed at about 21:25Z on 2026-10-27, when that day's ledger already stood at $153.39, so it allowed nothing more that day.
+  - A re-run still going on 2026-10-29 has the $25 day cap.
+- **The $100 total is not enforced by code.** Before each paid stage, the drafting session sums the three ledger issues with `spend_ledger.py --issue`, and stops if the stage's printed estimate would take the total past $100. Where a stage takes `--cap`, the session passes the smaller of the issue's remaining $50 and the remaining $100.
+- **Judging comes after both re-runs, in this order:**
+  1. M1 and M2;
+  2. then the quote check, only if its estimate fits what remains.
+
+  All of it bills to `whu-rerun-judging`. Each part is estimated before any call (`prepare_scoring.py`'s projection), with `--cap` set to $100 less the three issues' spend. If the M1 and M2 estimate exceeds what remains, the work STOPs and is reported.
   - The judge runners' day cap counts only `whu-reliability-judging*` ledger issues, so it does not see `whu-rerun-judging`. The scoring session therefore checks the day's judging total by hand against caps.json `study_judging_per_day` ($150) before it starts.
 
 ## Limitations

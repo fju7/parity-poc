@@ -1,6 +1,6 @@
 # WHU post-study re-run: drafting briefs
 
-Two briefs for `rerun_plan.md`, for Fred to paste into two FRESH Claude Code sessions after 00:00 UTC. Paste each one whole, one per session. The sessions share the $25 day cap, so expect day-cap stops: the audit alone was projected at about $31 per issue in the study. A drafting session does not read this file; the pasted text is all it gets.
+Two briefs for `rerun_plan.md`, for Fred to paste into two FRESH Claude Code sessions after 00:00 UTC. Paste each one whole, one per session. Fred wants both re-runs to finish on 2026-10-28 UTC, so the WHU day cap (caps.json `default_per_day`) is $75 for that UTC day only, shared by both sessions. It goes back to $25 at 2026-10-29T00:00Z, or once both runs finish. The re-run total is $100 (both raised by Fred, 2026-10-27). A drafting session does not read this file; the pasted text is all it gets.
 
 ## Brief: WHU-S01r (whu-rerun-s01)
 
@@ -35,11 +35,11 @@ The library still holds documents from earlier runs. Research starts from the qu
 
 CAPS (never --no-verify, --waive, --past-cap, --past-issue-cap or WHU_SPEND_OVERRIDE)
 - Issue cap: $50 (caps.json study_per_issue).
-- Day cap: $25 (default_per_day). It is shared with the other re-run session.
-- Re-run total: $60 across ledger issues whu-rerun-s01, whu-rerun-s07 and whu-rerun-judging. Code does not enforce it, so you do:
+- Day cap (caps.json default_per_day): $75 for UTC day 2026-10-28 only, raised by Fred so both re-runs can finish that day. It is shared with the other re-run session. It goes back to $25 at 2026-10-29T00:00Z, or once both runs finish, whichever is first. Work still going on 2026-10-29 has the $25 cap. Never edit caps.json yourself.
+- Re-run total: $100 across ledger issues whu-rerun-s01, whu-rerun-s07 and whu-rerun-judging. Code does not enforce it, so you do:
   1. Before every paid stage, sum `py backend/scripts/spend_ledger.py --issue whu-rerun-s01`, `--issue whu-rerun-s07` and `--issue whu-rerun-judging`.
-  2. If the stage's printed estimate would take that sum past $60, do not start the stage. Stop and report.
-  3. Where a stage takes --cap, pass the smaller of ($50 minus this issue's spend) and ($60 minus the three-issue sum).
+  2. If the stage's printed estimate would take that sum past $100, do not start the stage. Stop and report.
+  3. Where a stage takes --cap, pass the smaller of ($50 minus this issue's spend) and ($100 minus the three-issue sum).
 - A stage that prints NOT STARTED for the day cap: record it in the study log, stop, and resume after the next 00:00 UTC with the stage's own resume command.
 - If the answer cannot reach `Ready.` within the caps, that is a result. Record it and stop. No cap is raised.
 
@@ -119,7 +119,7 @@ COMMITS (Fred's instruction: commit and push)
 - If the push is rejected, stop and report. Never force-push.
 
 REPORT, at the end or at any stop:
-- where you stopped and why;
+- where you stopped and why, and say plainly whether this run is FINISHED (Ready., or stopped for good). The day-cap restore waits on both runs finishing;
 - the study log;
 - spend on whu-rerun-s01 and on all three re-run ledger issues;
 - each preflight row;
@@ -162,11 +162,11 @@ The library still holds documents from earlier runs. Research starts from the qu
 
 CAPS (never --no-verify, --waive, --past-cap, --past-issue-cap or WHU_SPEND_OVERRIDE)
 - Issue cap: $50 (caps.json study_per_issue).
-- Day cap: $25 (default_per_day). It is shared with the other re-run session.
-- Re-run total: $60 across ledger issues whu-rerun-s01, whu-rerun-s07 and whu-rerun-judging. Code does not enforce it, so you do:
+- Day cap (caps.json default_per_day): $75 for UTC day 2026-10-28 only, raised by Fred so both re-runs can finish that day. It is shared with the other re-run session. It goes back to $25 at 2026-10-29T00:00Z, or once both runs finish, whichever is first. Work still going on 2026-10-29 has the $25 cap. Never edit caps.json yourself.
+- Re-run total: $100 across ledger issues whu-rerun-s01, whu-rerun-s07 and whu-rerun-judging. Code does not enforce it, so you do:
   1. Before every paid stage, sum `py backend/scripts/spend_ledger.py --issue whu-rerun-s01`, `--issue whu-rerun-s07` and `--issue whu-rerun-judging`.
-  2. If the stage's printed estimate would take that sum past $60, do not start the stage. Stop and report.
-  3. Where a stage takes --cap, pass the smaller of ($50 minus this issue's spend) and ($60 minus the three-issue sum).
+  2. If the stage's printed estimate would take that sum past $100, do not start the stage. Stop and report.
+  3. Where a stage takes --cap, pass the smaller of ($50 minus this issue's spend) and ($100 minus the three-issue sum).
 - A stage that prints NOT STARTED for the day cap: record it in the study log, stop, and resume after the next 00:00 UTC with the stage's own resume command.
 - If the answer cannot reach `Ready.` within the caps, that is a result. Record it and stop. No cap is raised.
 
@@ -246,7 +246,7 @@ COMMITS (Fred's instruction: commit and push)
 - If the push is rejected, stop and report. Never force-push.
 
 REPORT, at the end or at any stop:
-- where you stopped and why;
+- where you stopped and why, and say plainly whether this run is FINISHED (Ready., or stopped for good). The day-cap restore waits on both runs finishing;
 - the study log;
 - spend on whu-rerun-s07 and on all three re-run ledger issues;
 - each preflight row;

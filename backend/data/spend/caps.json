@@ -7,6 +7,7 @@
   "_why_the_study_cap": "ruled 2026-10-20, protocol rev 27. Each reliability-study issue (issue.json \"study\": true) has a $50 limit, set before the freeze. If an answer cannot finish within it, that is recorded as a result and the limit is not raised. The day cap below still applies, and a run picks up the next day.",
   "study_judging_per_day": 150,
   "_why_the_study_judging_day_cap": "advisor ruling 2026-10-23: the reliability study's judge runners (judge_m1.py, judge_m2.py) check their own daily cap, summed over the judging ledger issues only, and the per-run cap; not the $25 day cap below or any WHU issue cap. The study total is still bounded by the $300 check.",
-  "default_per_day": 25,
+  "default_per_day": 75,
+  "_default_per_day_raise": "Raised from 25 to 75 by Fred on 2026-10-27, for UTC day 2026-10-28 only, so both post-study re-runs (whu-rerun-s01, whu-rerun-s07; study/whu-reliability/rerun_plan.md) can finish. It goes back to 25, with this note removed, at 2026-10-29T00:00Z or once both re-runs finish, whichever is first, by the session Fred tells to do it, or else by the scoring session before any judging. The code has no date field: the raise was committed at about 21:25Z on 2026-10-27, when that day's ledger already stood at $153.39, so it allowed nothing more on 2026-10-27. Logged in study/whu-reliability/deviations.md.",
   "_why_the_day_cap": "A per-issue cap cannot see work that is not attributed to an issue -- every Signal script, the golden set, the sweeps -- nor a bad afternoon spread across three issues. This ceiling covers everything and does not depend on getting attribution right. It matters most now that jobs can run unattended."
 }
