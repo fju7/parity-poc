@@ -133,6 +133,78 @@ def claude_sources(md: str) -> tuple[str, list[str]]:
     return text, out
 
 
+PPLX_MARK = re.compile(r"\[\^(\d+)\]")
+PPLX_ENTRY = re.compile(r"^(\d+)\.\s+\[")
+
+
+def _pplx_url(line: str) -> str | None:
+    """The URL of a References entry's first line, "n. [title](url) - snippet":
+    the link after the title's closing "](", taken up to its balanced ")", so
+    an address with parentheses in it (cell.com's "S2949-7906(25)00137-5")
+    is kept whole."""
+    m = re.search(r"\]\((https?://)", line)
+    if not m:
+        return None
+    i, depth = m.start(1), 0
+    for j in range(i, len(line)):
+        c = line[j]
+        if c == "(":
+            depth += 1
+        elif c == ")":
+            if depth == 0:
+                return line[i:j]
+            depth -= 1
+        elif c.isspace():
+            return None
+    return None
+
+
+def perplexity_sources(md: str) -> tuple[str, list[str]]:
+    """Perplexity's Deep research "Download as Markdown" report: (the report
+    up to its "## References" heading with each [^n] footnote marker written
+    as [n], the URL of each References entry in order; entry n is [n]).
+
+    report_section() ends the report at Perplexity's own "---" before the
+    References, so the list is read from the capture's Report section to the
+    capture's own boundary. An entry starts "n. [" with n the next number;
+    any other line (a snippet carried over) belongs to the entry above. A
+    marker the list lacks, an entry out of order or an entry with no URL
+    stops the run."""
+    lines = md.splitlines()
+    start = next((i for i, l in enumerate(lines) if REPORT_START.match(l)), None)
+    if start is None:
+        raise AdaptError("no '## Report' heading")
+    heads = [i for i in range(start + 1, len(lines)) if re.match(r"^#{1,6}\s*References\s*$", lines[i])]
+    if len(heads) != 1:
+        raise AdaptError("%d References headings, not one" % len(heads))
+    body = report_section(md)
+    if body.strip() != "\n".join(lines[start + 1:heads[0]]).rstrip().rstrip("-").strip():
+        raise AdaptError("the report does not end at the rule before References")
+    out, numbered = [], []
+    for line in lines[heads[0] + 1:]:
+        if line.startswith("---") or re.match(r"^## (Cited URLs|Citations)\b", line):
+            break                                           # the capture's own boundary
+        e = PPLX_ENTRY.match(line)
+        if e:
+            numbered.append(int(e.group(1)))
+        if e and int(e.group(1)) == len(out) + 1:
+            u = _pplx_url(line)
+            if not u:
+                raise AdaptError("References entry %s has no URL" % e.group(1))
+            out.append(u)
+    skipped = [n for n in numbered if n > len(out)]
+    if skipped:
+        raise AdaptError("References entry %s out of order" % skipped[0])
+    if not out:
+        raise AdaptError("no References entries")
+    if re.search(r"\]\(https?://|<https?://", body):
+        raise AdaptError("a link in the report body as well as the References list")
+    beyond = sorted({int(n) for n in PPLX_MARK.findall(body) if not 1 <= int(n) <= len(out)})
+    if beyond:
+        raise AdaptError("marker(s) %s not in the References list" % beyond)
+    return PPLX_MARK.sub(r"[\1]", body), out
+
+
 def works_cited(md: str) -> list[str]:
     """Gemini's Markdown export: the URL of each "Works cited" entry, in order
     (entry n is [n])."""

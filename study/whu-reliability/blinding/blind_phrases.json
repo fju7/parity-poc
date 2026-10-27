@@ -212,6 +212,20 @@
    "pattern": "(?<![\\w])[~≈∼]\\s?(?=[\\d−-])",
    "replace": "about ",
    "why": "approximation signs before a number ('~5%', '≈0.5') written as 'about', for every system: ChatGPT uses the signs and the others the word; same meaning (added after identifiability check 1); N01a and N01b run first"
+  },
+  {
+   "id": "P01",
+   "system": "Perplexity",
+   "pattern": "\\b(?:https?://)?(?:www\\.)?(?:pplx\\.ai|perplexity\\.ai)/\\S*",
+   "replace": "",
+   "why": "Perplexity's own share or thread links (Perplexity add-on, 2026-10-27)"
+  },
+  {
+   "id": "P02",
+   "system": "Perplexity",
+   "pattern": "\\s*[—–-]?\\s*\\bPerplexity(?:\\s+AI)?(?:'s)?\\b",
+   "replace": "",
+   "why": "the tool's name, deleted as W01 deletes the publication's (Perplexity add-on, 2026-10-27)"
   }
  ],
  "tells": {
@@ -244,6 +258,7 @@
  },
  "_changes": [
   "2026-10-19 after identifiability check 1: N01 (approximation signs), own_method and change_history process patterns extended; converter fixes in blind.py (private-use glyphs in Claude chips, HTML residue, Gemini [cite:] markers, empty-parenthesis lost values).",
-  "2026-10-21 pre-freeze (rev 33): W15a/W15b delete 'on this page'; N01a/N01b fix the approximation signs; the spelling list moved to spelling_us.json (sha256 pinned in blind.py) and extended; converter fixes in blind.py (site-name chips matched by their URL's host, including 'Wikipedia' and 'site +2'; a link whose text is its URL becomes [n]; escaped '\\[cite: n\\]'; numerals glued to 'et al.')."
+  "2026-10-21 pre-freeze (rev 33): W15a/W15b delete 'on this page'; N01a/N01b fix the approximation signs; the spelling list moved to spelling_us.json (sha256 pinned in blind.py) and extended; converter fixes in blind.py (site-name chips matched by their URL's host, including 'Wikipedia' and 'site +2'; a link whose text is its URL becomes [n]; escaped '\\[cite: n\\]'; numerals glued to 'et al.').",
+  "2026-10-27 Perplexity add-on (perplexity_plan.md, exploratory): P01 deletes perplexity.ai / pplx.ai links, P02 deletes the name 'Perplexity' (with or without 'AI'). Appended after every earlier rule; re-pinned in blind.py; the 32 existing blinded answers re-blinded and checked unchanged against blinded_manifest.txt (deviations.md)."
  ]
 }

@@ -33,9 +33,11 @@ from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
 # The blinding list, pinned by sha256 as the spelling map is (protocol rev 38):
-# a changed list is refused.
+# a changed list is refused. Re-pinned 2026-10-27 for the Perplexity add-on
+# (rules P01, P02 appended; was ccb61c7f0639cdc332a258beecc723ec432702e56a2316816909d42ae9c39757
+# at the freeze); deviations.md records it.
 PHRASES_FILE = HERE / "blind_phrases.json"
-PHRASES_SHA256 = "ccb61c7f0639cdc332a258beecc723ec432702e56a2316816909d42ae9c39757"
+PHRASES_SHA256 = "d0c4b5292941022ed4c68de0c998e19a275210b60ddefe2b6e25bb5d8265a906"
 
 
 def load_phrases() -> dict:
