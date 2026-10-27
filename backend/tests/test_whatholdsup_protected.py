@@ -343,3 +343,86 @@ def test_publish_preflight_carries_the_row():
     assert 'protected = _sibling("protected")' in src
     assert "protected.preflight_rows(slug, load_record())" in src
     assert "(protected.ROW_LABEL, BAD," in src
+
+
+# ----------------------------------------------------------------- review of fix 1 (2026-10-27)
+
+def test_absence_of_evidence_claims_stay_audited_and_reading_statements_stay_protected():
+    for s in ("We could not find any trial showing X.",
+              "We searched PubMed and found no trials.",
+              "We hold two reviews, and none of them reports cure.",
+              "We did not read the appendix, which shows no effect."):
+        assert B.protected_kind(s) is None, s
+    for s in ("We did not search the grey literature.",
+              "Of the IPCC chapter, we drew on its executive summary."):
+        assert B.protected_kind(s) == "reading", s
+    # A person may still protect a finding-bearing sentence by hand.
+    assert B.protected_kind("We searched PubMed and found no trials.", {"protected": "reading"}) == "reading"
+
+
+ADVOCATE_TEXT = (   # S08 advocate ruling 8ae1718065708594 (rulings.jsonl:5)
+    "This stocktake covers implemented adaptation responses and explicitly excludes processes of "
+    "decision-making, adaptation governance and planning; we read it for what it says about how outcomes "
+    "are measured among implemented responses, not as evidence about planning studies.")
+
+
+def _advocate_case(d, monkeypatch, claims):
+    import source_advocate as SA
+    monkeypatch.setattr(SA.sl, "case_dir", lambda slug: d)
+    briefs = [{"source": "S001", "title": "t", "principal": "p", "state": "full_text_held", "mode": "objections",
+               "objections": [{"severity": "SERIOUS", "claim_quoted": c, "objection": "replayed",
+                               "why": "w", "source_says": "", "locator": "l"} for c in claims]}]
+    (d / "advocate").mkdir(exist_ok=True)
+    (d / "advocate" / "2026-10-25-briefs.json").write_text(json.dumps(briefs))
+    SA.write_template(SLUG, "2026-10-25", briefs)
+    return SA
+
+
+def test_replayed_advocate_ruling_8ae17180_leaves_the_stocktake_sentence_to_a_person(study, monkeypatch):
+    d, P = study
+    SA = _advocate_case(d, monkeypatch, [STOCKTAKE, LARGEST])
+
+    class Fake:
+        prompts = []
+
+        def __call__(self, prompt, max_tokens, role):
+            self.prompts.append(prompt)
+            text = ADVOCATE_TEXT if STOCKTAKE in prompt else RULED[LARGEST]
+            return json.dumps({"ruling": "amend", "text": text, "reason": "replayed"}), \
+                {"input": 10, "output": 5, "usd": 0.0}
+    fake = Fake()
+    done = R.rule_advocate(SLUG, fake, P=P, rows=_rows([STOCKTAKE, LARGEST]), held={}, case=d)
+    # Only the control reached the ruling model, and only it was closed.
+    assert len(fake.prompts) == 1 and LARGEST in fake.prompts[0] and STOCKTAKE not in fake.prompts[0]
+    assert [x["item"] for x in done] == ["S001-02"]
+    still_open = [it["objection"]["claim_quoted"] for it in R.advocate_items(SLUG, d)]
+    assert still_open == [STOCKTAKE]
+    assert ADVOCATE_TEXT not in (d / "advocate" / "2026-10-25-adjudication.md").read_text()
+    [rec] = [json.loads(l) for l in (d / "rulings" / R.FOR_PERSON).read_text().splitlines()]
+    assert rec["mode"] == "advocate" and rec["protected"] == "reading" and rec["sentence"] == STOCKTAKE
+    assert len(R.by_sentence(R.split_protected(R._advocate_items(SLUG, _rows([STOCKTAKE]), {}, d),
+                                               _rows([STOCKTAKE]))[0])) == 0
+
+
+def test_a_gate_finding_on_a_protected_sentence_is_left_open_for_a_person(study):
+    d, P = study
+    import findings as F
+    F.save(SLUG, {"findings": [{"id": "obj-1", "kind": "fairness", "gate_said": "x", "decision": ""}]})
+    report = {"objections": [{"quote": "We did not search the grey literature", "severity": "SERIOUS"}]}
+
+    def fake(prompt, max_tokens, role):
+        raise AssertionError("a protected sentence reached the ruling model")
+    assert R.rule_gate(SLUG, fake, P=P, report=report, rows=_rows([LIMITS]), held={}) == []
+    assert F.load(SLUG)["findings"][0]["decision"] == ""
+    [rec] = [json.loads(l) for l in (d / "rulings" / R.FOR_PERSON).read_text().splitlines()]
+    assert rec["mode"] == "gate" and rec["sentence"] == LIMITS
+
+
+def test_changecheck_and_dangling_items_on_protected_sentences_are_split_off():
+    # Both modes key an item by its row when the sentence has one, else by text.
+    items = [{"key": ("text", "q"), "sentence": QUESTION, "kind": "dangling reference"},
+             {"key": ("row", B.fingerprint(IPCC_READ)), "sentence": IPCC_READ, "kind": "changecheck: CONTRADICTION"},
+             {"key": ("text", "c"), "sentence": LARGEST, "kind": "changecheck: CONTRADICTION"}]
+    keep, person = R.split_protected(items, _rows([IPCC_READ]))
+    assert [i["sentence"] for i in keep] == [LARGEST]
+    assert [(i["sentence"], i["protected"]) for i in person] == [(QUESTION, "question"), (IPCC_READ, "reading")]

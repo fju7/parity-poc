@@ -1081,18 +1081,30 @@ READING = re.compile(
     r"|have\s+not\s+(?:yet\s+)?(?:read|opened|searched|checked|obtained))\b"
     r"|^\W*(?:of|from)\s+the\s+[^,;]{1,120},\s*we\s+(?:drew|read|cite|used|took)\b"
     # "behind paywalls we could not pass" (WHU-S07): wherever it stands, "we
-    # could not" reports what we were unable to do, never a source's claim.
-    r"|\bwe\s+could\s+not\s+(?:pass|access|obtain|open|reach|read|find)\b",
+    # could not" + an access verb reports what we were unable to do. Not
+    # "find": "we could not find any trial showing X" is an absence-of-evidence
+    # claim (the GAP-001 class) and stays subject to the checks.
+    r"|\bwe\s+could\s+not\s+(?:pass|access|obtain|open|reach|read)\b",
+    re.I)
+# A sentence that also states a finding is never protected by its phrasing:
+# "We searched PubMed and found no trials" reports a search AND a result, and
+# the result must stay audited. A person may still protect it with the row
+# marker (advisor's review of fix 1, 2026-10-27).
+STATES_FINDING = re.compile(
+    r"\b(?:found|no\s+evidence|no\s+stud(?:y|ies)|no\s+trials?|none\s+of|show(?:s|ed|n)?|demonstrated)\b",
     re.I)
 
 
 def protected_kind(sent: str, row: dict | None = None) -> str | None:
     """"question", "reading", or None. A row's `protected` marker, when it names
-    one of PROTECTED_KINDS, wins; otherwise the sentence's own phrasing."""
+    one of PROTECTED_KINDS, wins; otherwise the sentence's own phrasing, unless
+    the sentence also states a finding (STATES_FINDING)."""
     mark = (row or {}).get("protected")
     if mark in PROTECTED_KINDS:
         return mark
     s = sent or ""
+    if STATES_FINDING.search(s):
+        return None
     if QUESTION_RESTATEMENT.search(s):
         return "question"
     if HOLDINGS.search(s) or READING.search(s):

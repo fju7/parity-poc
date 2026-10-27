@@ -371,6 +371,44 @@ def rule_sentence(kind: str, group: list[dict], held: dict, call, log: Path,
     return got, quotes, prompt_sha(kind, True)
 
 
+FOR_PERSON = "for_person.jsonl"
+
+
+def split_protected(items: list[dict], rows: dict) -> tuple[list[dict], list[dict]]:
+    """(items to rule, items on a protected sentence). A protected sentence
+    (bindings.protected_kind: the question restatement, what we held, read or
+    did not read) is never rewritten or cut by the ruling model, in any mode:
+    no source can support it, so a source-support ruling can only narrow or
+    remove it (WHU-S08: advocate ruling 8ae1718065708594 began the rewriting of
+    the stocktake sentence). Its findings stay open for a person."""
+    import bindings as B
+    keep, person = [], []
+    for it in items:
+        k = it["key"][1] if it.get("key") and it["key"][0] == "row" else None
+        kind = B.protected_kind(it.get("sentence") or "", rows.get(k) if k else None)
+        (person if kind else keep).append(dict(it, protected=kind) if kind else it)
+    return keep, person
+
+
+def route_to_person(mode: str, items: list[dict], log: Path) -> None:
+    """Record each protected item as left for a person, beside the rulings
+    log (never committed on a study issue), and say so."""
+    for it in items:
+        print("  left for a person (protected sentence, %s): %s -- %r"
+              % (it["protected"], mode, (it.get("sentence") or "")[:80]))
+        _append(log.with_name(FOR_PERSON), {
+            "at": datetime.now(timezone.utc).isoformat(timespec="seconds"), "mode": mode,
+            "protected": it["protected"], "sentence": it.get("sentence"), "kind": it.get("kind"),
+            "ref": it.get("ref"),
+            "why": "a protected sentence is never rewritten or cut by the ruling model; a person decides"})
+
+
+def _rulable(mode: str, items: list[dict], rows: dict, log: Path) -> list[dict]:
+    keep, person = split_protected(items, rows)
+    route_to_person(mode, person, log)
+    return keep
+
+
 def _together(group: list[dict], name) -> list:
     """What the other findings ruled in the same call are called, for the record."""
     return [name(it) for it in group] if len(group) > 1 else []
@@ -550,7 +588,8 @@ def rule_gate(slug: str, call, *, P=None, report: dict | None = None, rows: dict
     doc = F.load(slug)
     done = []
     recency: dict = {}
-    for group in by_sentence(_gate_items(rows, report, doc, held, slug)):
+    for group in by_sentence(_rulable("gate", _gate_items(rows, report, doc, held, slug), rows,
+                                      log_path(slug))):
         r = _try_sentence("gate", group, held, call, log_path(slug), failed)
         if r is None:
             continue
@@ -623,16 +662,9 @@ def _settle_recency(slug: str, f: dict, rows: dict, study: str) -> bool:
 
 def _conclusion_items(review: dict, rows: dict, held: dict) -> list[dict]:
     import conclusion_judge as CJ
-    import bindings as B
     out = []
     for k, e in sorted((review.get("sentences") or {}).items()):
         if not e.get("flagged") or CJ.decided(e):
-            continue
-        # A protected sentence (the question restatement, what we read) is a
-        # person's, never the ruling model's: a review written before
-        # judged_rows excluded it must not rewrite it either (WHU-S08, ruling
-        # b6caee39a4c1249d narrowed the question this way).
-        if B.protected_kind(e.get("sentence") or "", rows.get(k)) is not None:
             continue
         out.append({"key": ("row", k), "sentence": e.get("sentence") or "", "entry": e,
                     "kind": "conclusion judge: %s" % e.get("label"), "reason": e.get("reason") or "",
@@ -656,7 +688,11 @@ def rule_conclusions(slug: str, call, *, P=None, rows: dict | None = None,
         held = held_texts(slug)
     review = CJ.load_review(slug)
     done = []
-    for group in by_sentence(_conclusion_items(review, rows, held)):
+    # A protected sentence is a person's, never the ruling model's: a review
+    # written before judged_rows excluded it must not rewrite it either
+    # (WHU-S08, ruling b6caee39a4c1249d narrowed the question this way).
+    for group in by_sentence(_rulable("conclusions", _conclusion_items(review, rows, held), rows,
+                                      log_path(slug))):
         r = _try_sentence("conclusion", group, held, call, log_path(slug), failed)
         if r is None:
             continue
@@ -714,7 +750,7 @@ def rule_changecheck(slug: str, call, *, P=None, rows: dict | None = None,
     if items is None:
         raise SystemExit("no changecheck review of the current page; run changecheck.py first")
     done = []
-    for group in by_sentence(items):
+    for group in by_sentence(_rulable("changecheck", items, rows, log_path(slug))):
         r = _try_sentence("changecheck", group, held, call, log_path(slug), failed)
         if r is None:
             continue
@@ -826,7 +862,8 @@ def rule_advocate(slug: str, call, *, P=None, rows: dict | None = None,
     if held is None:
         held = held_texts(slug)
     done = []
-    for group in by_sentence(_advocate_items(slug, rows, held, case)):
+    for group in by_sentence(_rulable("advocate", _advocate_items(slug, rows, held, case), rows,
+                                      log_path(slug))):
         r = _try_sentence("advocate", group, held, call, log_path(slug), failed)
         if r is None:
             continue
@@ -903,7 +940,8 @@ def rule_dangling(slug: str, call, *, P=None, rows: dict | None = None, held: di
     if held is None:
         held = held_texts(slug)
     done = []
-    for group in by_sentence(_dangling_items(case, page_html, rows, held)):
+    for group in by_sentence(_rulable("dangling", _dangling_items(case, page_html, rows, held), rows,
+                                      case / "rulings" / "rulings.jsonl")):
         r = _try_sentence("dangling", group, held, call, case / "rulings" / "rulings.jsonl", failed)
         if r is None:
             continue
@@ -940,7 +978,8 @@ def pending(mode: str, slug: str, P=None) -> int:
         items = _dangling_items(case, html, rows, {})
     else:
         raise ValueError(mode)
-    return len(by_sentence(items))
+    # A protected sentence is a person's, never a call (split_protected).
+    return len(by_sentence(split_protected(items, rows)[0]))
 
 
 def main(argv=None) -> int:

@@ -2894,17 +2894,21 @@ of what was not read (docs/whu-omissions-investigation-2026-10.md §3).
 - `bindings.protected_kind(sentence, row)` -> "question" | "reading" | None: B21's HOLDINGS
   (unchanged), plus QUESTION_RESTATEMENT ("The question is ...") and READING ("we drew on",
   "we did not search/read", "; we read it for", "Of the X, we cite", "we could not pass"),
-  plus an optional row marker `"protected": "question"|"reading"`.
+  plus an optional row marker `"protected": "question"|"reading"`. Automatic protection is
+  REFUSED for any sentence that also states a finding (STATES_FINDING: found / no evidence /
+  no study / no trial / none of / show(s|ed|n) / demonstrated) -- "We could not find any trial
+  showing X" (the GAP-001 class) stays audited; a person can still add the row marker.
   `bindings.page_sentences(slug, html=None)` splits a past commit's page.
 - Never put to a source-support ruling: `conclusion_judge.judged_rows` skips them;
   `audit_stage.run` sends a protected page unit straight to HUMAN_READ_REQUIRED (never read,
-  ruled, must_leave_page or cut); `ruling._conclusion_items` drops them.
+  ruled, must_leave_page or cut); every ruling.py mode (conclusions, advocate, gate,
+  changecheck, dangling) splits them off (`split_protected`), leaves their findings open for a
+  person and logs each in `rulings/for_person.jsonl`; `pending()` does not count them.
 - `protected.py` + preflight row "protected sentences kept" (publish.py): STOP if a protected
   sentence of the first full draft (issue.json `first_draft`, else the commit that added the
   page) is not on the page word for word, unless `issues/<case>/protected_signoffs.json`
   records a PERSON's sign-off (not an agent; passes signers.check_value). S08 now STOPs on it.
-- NOT covered by the exclusion (the preflight row is the backstop): advocate, gate,
-  changecheck and dangling rulings.
+- S08 and S07 STOP on the row (S08's is recorded in its study_log as a post-study finding).
 - Tests: backend/tests/test_whatholdsup_protected.py (S08 3b page fixture
   tests/fixtures/whatholdsup/whu_s08_first_draft_790f830.html).
 
