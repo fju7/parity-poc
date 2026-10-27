@@ -112,7 +112,7 @@ RULING_FAILED = "RULING_FAILED"
 SAMPLED_SINCE = "2026-10-21T01:21:28+00:00"
 # Each mode's ruling_kind on its log records.
 MODE_KIND = {"gate": "gate", "conclusions": "conclusion", "changecheck": "changecheck",
-             "advocate": "advocate", "dangling": "dangling"}
+             "advocate": "advocate", "dangling": "dangling", "omissions": "omission"}
 PROMPTS = {
     "audit": HERE / "audit_prompts" / "rule.md",
     "second-reader": HERE / "audit_prompts" / "rule.md",
@@ -121,11 +121,16 @@ PROMPTS = {
     "changecheck": HERE / "audit_prompts" / "rule.md",
     "advocate": HERE / "audit_prompts" / "rule.md",
     "dangling": HERE / "audit_prompts" / "rule.md",
+    # Post-study fix 2 (2026-10-27): a finding the page left out. Not a frozen
+    # study prompt; docs/whu-fix2-omission-rulings-design.md, section 2.
+    "omission": HERE / "audit_prompts" / "rule_omission.md",
 }
 # Several findings on one sentence, ruled in one call (GAP-019).
 GROUP_FIELDS = ("sentence", "findings", "quoted_source_text")
 GROUP_PROMPTS = {k: HERE / "audit_prompts" / ("rule_group_cite.md" if k == "gate" else "rule_group.md")
-                 for k in PROMPTS}
+                 for k in PROMPTS if k != "omission"}
+# The omission ruling's payload (fix 2): an allow-list like RULE_FIELDS.
+OMISSION_FIELDS = ("question", "scope", "reader", "finding", "anchor", "already_on_page")
 # Frozen as the prompts are frozen: by sha256, on every ruling and here
 # (test_whatholdsup_ruling_group.py checks the files against these).
 GROUP_PROMPT_SHA256 = {
@@ -245,12 +250,14 @@ def group_payload(sentence: str, findings: list[dict], held: dict[str, str]) -> 
 def build_prompt(kind: str, p: dict, grouped: bool = False) -> str:
     frozen = _load_frozen()             # a changed frozen prompt is refused (protocol rev 38)
     t = frozen.read_text((GROUP_PROMPTS if grouped else PROMPTS)[kind])
-    for k in (GROUP_FIELDS if grouped else RULE_FIELDS):
+    for k in (OMISSION_FIELDS if kind == "omission" else GROUP_FIELDS if grouped else RULE_FIELDS):
         t = t.replace("{%s}" % k, p[k])
     return t
 
 
 def parse(kind: str, text: str, n_quotes: int) -> dict:
+    if kind == "omission":
+        return parse_omission(text)
     s = jsonio.strip_code_fence(text)
     m = re.search(r"\{.*\}", s, re.S)
     try:
@@ -266,6 +273,33 @@ def parse(kind: str, text: str, n_quotes: int) -> dict:
         if q is not None and not (isinstance(q, int) and 1 <= q <= n_quotes):
             raise RulingError("ruling cites quotation %r of %d" % (q, n_quotes))
     return got
+
+
+def parse_omission(text: str) -> dict:
+    """An omission ruling's reply, as {"ruling": add | out_of_scope |
+    not_material, "text": the draft for ADD else None, ...}: the ruling/text
+    shape every ruling record has, so the consistency sample compares it as it
+    compares any other."""
+    s = jsonio.strip_code_fence(text)
+    m = re.search(r"\{.*\}", s, re.S)
+    try:
+        got = json.loads(m.group(0) if m else s)
+    except Exception:
+        raise RulingError("omission reply is not JSON: %r" % s[:200])
+    if not isinstance(got, dict):
+        raise RulingError("omission reply not usable: %r" % (got,))
+    outcome = str(got.get("outcome") or "").strip().upper()
+    if outcome not in ("ADD", "OUT_OF_SCOPE", "NOT_MATERIAL"):
+        raise RulingError("omission outcome %r is not ADD, OUT_OF_SCOPE or NOT_MATERIAL" % got.get("outcome"))
+    draft, span = (got.get("draft_text") or "").strip(), (got.get("span") or "").strip()
+    element = (got.get("scope_element") or "").strip()
+    if outcome == "ADD" and not (draft and span):
+        raise RulingError("ADD with no draft_text or no span")
+    if outcome == "OUT_OF_SCOPE" and not element:
+        raise RulingError("OUT_OF_SCOPE naming no scope element")
+    return {"ruling": outcome.lower(), "text": draft if outcome == "ADD" else None, "outcome": outcome,
+            "scope_element": element, "span": span if outcome == "ADD" else "",
+            "in_scope": got.get("in_scope"), "material": got.get("material"), "reason": got.get("reason") or ""}
 
 
 def attempts_log(log: Path) -> Path:
@@ -797,7 +831,8 @@ def advocate_items(slug: str, case: Path | None = None) -> list[dict]:
                 c = chunks.get(head)
                 if c is None or SA._closed(c, "objections"):
                     continue
-                out.append({"file": adj, "head": head, "source": b["source"], "objection": o})
+                out.append({"file": adj, "head": head, "source": b["source"], "objection": o,
+                            "principal": b.get("principal")})
     return out
 
 
@@ -823,9 +858,15 @@ def _close_item(path: Path, head: str, merit: str, effect: str, did: str) -> Non
 
 
 def _advocate_items(slug: str, rows: dict, held: dict, case: Path | None = None) -> list[dict]:
+    """MISSTATES objections only: a LEAVES_OUT objection (declared, or
+    suspected from its wording) is an omission, ruled by rule_omissions (fix 2),
+    never by asking whether the source supports the sentence it is pinned to."""
+    import source_advocate as SA
     out = []
     for it in advocate_items(slug, case):
         o = it["objection"]
+        if SA.omission_kind(o)[0] == SA.LEAVES_OUT:
+            continue
         claim = o.get("claim_quoted") or ""
         hit = _row_for(rows, claim)
         sentence = hit[1]["sentence"] if hit else claim
@@ -951,6 +992,239 @@ def rule_dangling(slug: str, call, *, P=None, rows: dict | None = None, held: di
     return done
 
 
+# ---------------------------------------------------------------------------
+# omissions (post-study fix 2, step 4)
+# ---------------------------------------------------------------------------
+#
+# A LEAVES_OUT objection is not ruled by asking whether the source supports the
+# sentence it is pinned to (that is how WHU-S07's S003-13 was rejected, at
+# rulings.jsonl:12). Code decides first (omissions.py): is the finding in the
+# held text (else NOT_IN_SOURCE, no call), and one finding is ruled once. The
+# model then decides scope and materiality and drafts an ADD; code checks
+# what it can: the scope element is real, the span is inside the finding, the
+# anchor is not a protected sentence, and the budgets. Anything code refuses
+# goes to a person, never off the record. docs/whu-fix2-omission-rulings-design.md.
+
+OMISSION_CLOSE = {"ADD": ("yes", "sharpens"), "OUT_OF_SCOPE": ("no", "none"),
+                  "NOT_MATERIAL": ("no", "none"), "NOT_IN_SOURCE": ("no", "none")}
+
+
+def _leaves_out(slug: str, case: Path | None = None) -> list[dict]:
+    import source_advocate as SA
+    return [it for it in advocate_items(slug, case) if SA.omission_kind(it["objection"])[0] == SA.LEAVES_OUT]
+
+
+def _close_omission(path: Path, head: str, outcome: str, did: str) -> None:
+    """Close one item with the omission outcome: its OMISSION/DID lines, or,
+    on an item written before fix 2, MERIT/EFFECT/DID saying the same."""
+    text = path.read_text(encoding="utf-8")
+    parts = re.split(r"(?=^### )", text, flags=re.M)
+    for i, c in enumerate(parts):
+        if not (c.startswith("### %s " % head) or c.startswith("### %s\n" % head)):
+            continue
+        if re.search(r"^OMISSION:", c, re.M):
+            lines = c.split("\n")
+            for j, l in enumerate(lines):
+                if l.rstrip() == "OMISSION:":
+                    lines[j] = "OMISSION: " + outcome.lower()
+                elif l.rstrip() == "DID:":
+                    lines[j] = "DID:      " + did
+            parts[i] = "\n".join(lines)
+            path.write_text("".join(parts), encoding="utf-8")
+            return
+        merit, effect = OMISSION_CLOSE[outcome]
+        _close_item(path, head, "%s — omission ruling: %s" % (merit, outcome.lower()), effect, did)
+        return
+    raise RulingError("no item %s in %s" % (head, path))
+
+
+def _anchor_index(anchor: str, sents: list[str]) -> int | None:
+    a = _norm(anchor)
+    if not a:
+        return None
+    for i, s in enumerate(sents):
+        if a in _norm(s):
+            return i
+    return None
+
+
+def _placement(anchor: str, sents: list[str], rows: dict) -> tuple[str | None, str]:
+    """(the page sentence an ADD goes after, how). After the anchor; if the
+    anchor is protected (fix 1), after the nearest unprotected sentence before
+    it, never inside or in place of a protected one. None: a person places it."""
+    import bindings as B
+    i = _anchor_index(anchor, sents)
+    if i is None:
+        return None, "the anchor is not on the page"
+    for j in range(i, -1, -1):
+        s = sents[j]
+        if B.protected_kind(s, rows.get(B.fingerprint(s))) is None:
+            return s, "after the anchor" if j == i else "after the nearest unprotected sentence before a protected anchor"
+    return None, "no unprotected sentence at or before the anchor"
+
+
+def omission_payload(question: str, scope: dict, reader: str, finding: str, context: str,
+                     anchor_window: list[str], already: list[str]) -> dict:
+    sc = "Covers: %s\nOut of scope:\n%s" % (
+        scope.get("covers") or "(not stated)",
+        "\n".join("- %s (%s)" % (o.get("what"), o.get("why") or "") for o in scope.get("out") or []) or "(none declared)")
+    p = {"question": question or "", "scope": sc, "reader": reader or "(not named)",
+         "finding": "Quotation: \"%s\"\nIn its document: ...%s..." % (finding, " ".join((context or "").split())),
+         "anchor": "\n".join(anchor_window) or "(no anchor on the page)",
+         "already_on_page": "\n".join("- %s" % s for s in already[:30]) or "(nothing)"}
+    assert tuple(p) == OMISSION_FIELDS
+    return p
+
+
+def rule_omissions(slug: str, call, *, P=None, rows: dict | None = None, held: dict | None = None,
+                   case: Path | None = None, page_sentences: list[str] | None = None,
+                   scope: dict | None = None, reader: str | None = None, licensed: set | None = None,
+                   reask=None, failed: list | None = None) -> list[dict]:
+    """Rule every open LEAVES_OUT advocate objection. Returns one decision per
+    finding: {"outcome", "origins", ...}; for ADD also "text", "span",
+    "insert_after". `reask(system, user)` answers source_advocate's one-time
+    re-ask for an omission quoting what the page already uses (default: a
+    metered call, under fc.enter_issue)."""
+    import audit_stage as A
+    import bindings as B
+    import omissions as O
+    import premise as PM
+    import source_advocate as SA
+    import source_store as store
+    P = P or _publish()
+    require_study(slug, P)
+    case = case or store.case_dir(slug)
+    if rows is None:
+        rows = B.load(slug).get("bindings") or {}
+    if held is None:
+        held = held_texts(slug)
+    if page_sentences is None:
+        page_sentences = B.page_sentences(slug)
+    scope = scope if scope is not None else PM.scope_of(slug)
+    if reader is None:
+        reader = str(((PM.load(slug) or {}).get("reader_with_a_decision")) or "")
+    lic = set(licensed) if licensed is not None else A.licensed_ids(slug)
+    log = case / "rulings" / "rulings.jsonl"
+
+    def bound_spans(sid: str) -> list[str]:
+        return [q for r in rows.values() if r.get("on_page") for s_, q in quotations(r, held) if s_ == sid]
+
+    def already(sid: str) -> list[str]:
+        return [r["sentence"] for r in rows.values()
+                if r.get("on_page") and sid in A.sources_of(r) and r.get("sentence")]
+
+    items, found = {}, []
+    for it in _leaves_out(slug, case):
+        o, sid = it["objection"], it["source"]
+        items[it["head"]] = it
+        if sid in lic:
+            route_to_person("omissions", [{"protected": "licensed source", "sentence": o.get("claim_quoted"),
+                                           "kind": "omission", "ref": {"advocate_item": it["head"]}}], log)
+            continue
+        if SA.needs_reask(o, held.get(sid) or "", bound_spans(sid)):
+            o = SA.reask_omission({"source": sid, "principal": it.get("principal")}, o, held.get(sid) or "",
+                                  bound_spans(sid), ask=reask)
+            it["objection"] = o
+        found.append(O.precheck({"source": sid, "quote": o.get("source_says") or "", "origin": it["head"]}, held))
+
+    done = []
+    counts = {"ADD": 0, "DECLARED": 0}
+    for e in O.load(case).get("omissions") or []:
+        if e.get("outcome") == O.ADD:
+            counts["ADD"] += 1
+        elif e.get("outcome") in (O.OUT_OF_SCOPE, O.NOT_MATERIAL):
+            counts["DECLARED"] += 1
+    n_body = len(page_sentences)
+
+    def close(f: dict, outcome: str, did: str, **extra) -> None:
+        for h in f.get("origins") or [f.get("origin")]:
+            _close_omission(items[h]["file"], h, outcome, did)
+        done.append(dict({"outcome": outcome, "origins": f.get("origins") or [f.get("origin")],
+                          "source": f.get("source")}, **extra))
+
+    def to_person(f: dict, why: str) -> None:
+        O.record(case, f, outcome=O.TO_PERSON, reason=why, by="code (ruling.py omissions)")
+        route_to_person("omissions", [{"protected": "omission: " + why, "sentence": f.get("anchor") or "",
+                                       "kind": "omission", "ref": {"origins": f.get("origins")}}], log)
+        done.append({"outcome": O.TO_PERSON, "origins": f.get("origins"), "why": why})
+
+    for f in [f for f in found if f.get("outcome") == O.NOT_IN_SOURCE]:
+        f["origins"] = [f["origin"]]
+        O.record(case, f, outcome=O.NOT_IN_SOURCE, reason=f["why"], by="code (omissions.precheck)")
+        close(f, O.NOT_IN_SOURCE, "nothing added: %s" % f["why"])
+
+    for f in O.fill_quotes(O.merge([f for f in found if f.get("at")]), held):
+        heads = f["origins"]
+        anchor = items[heads[0]]["objection"].get("claim_quoted") or ""
+        f["anchor"] = anchor
+        i = _anchor_index(anchor, page_sentences)
+        window = page_sentences[max(0, i - 1):i + 2] if i is not None else []
+        context = A.in_context(f["held_quote"], held[f["source"]], QUOTE_AROUND)
+        p = omission_payload(scope.get("question"), scope, reader, f["held_quote"], context, window,
+                             already(f["source"]))
+        try:
+            got = rule("omission", p, 0, call, log, {"covers": [{"advocate_item": h} for h in heads],
+                                                    "source": f["source"], "at": f["at"]})
+        except RulingFailed as e:
+            print("  %s: %s -- left open" % (RULING_FAILED, e))
+            if failed is not None:
+                failed.append({"kind": "omission", "refs": heads, "why": str(e)})
+            continue
+        except RulingError as e:
+            to_person(f, "the ruling reply was not usable (%s)" % e)
+            continue
+        outcome, rid = got["outcome"], None
+        rid = _last_id(log)
+        if outcome == "OUT_OF_SCOPE":
+            ok, why = O.scope_element_ok(got["scope_element"], scope)
+            if not ok:
+                to_person(f, "OUT_OF_SCOPE refused by code: %s" % why)
+                continue
+            if counts["DECLARED"] >= O.declaration_budget(n_body):
+                to_person(f, "over the declarations budget (%d)" % O.declaration_budget(n_body))
+                continue
+            counts["DECLARED"] += 1
+            O.record(case, f, outcome=O.OUT_OF_SCOPE, reason=got["reason"], by=BY,
+                     element=got["scope_element"], ruling=rid)
+            close(f, O.OUT_OF_SCOPE, "nothing added; out of scope (%s); listed for readers"
+                  % got["scope_element"], element=got["scope_element"])
+        elif outcome == "NOT_MATERIAL":
+            sev = [items[h]["objection"] for h in heads]
+            if any((o.get("severity") or "").upper() == "SERIOUS"
+                   and (o.get("changes_conclusion") or "").upper() == "CHANGES" for o in sev):
+                to_person(f, "NOT_MATERIAL on a SERIOUS objection that CHANGES the conclusion")
+                continue
+            if counts["DECLARED"] >= O.declaration_budget(n_body):
+                to_person(f, "over the declarations budget (%d)" % O.declaration_budget(n_body))
+                continue
+            counts["DECLARED"] += 1
+            O.record(case, f, outcome=O.NOT_MATERIAL, reason=got["reason"], by=BY, ruling=rid)
+            close(f, O.NOT_MATERIAL, "nothing added; not material; listed for readers")
+        else:
+            if O.locate(got["span"], f["held_quote"]) is None:
+                to_person(f, "the ADD's span is not in the finding")
+                continue
+            after, how = _placement(anchor, page_sentences, rows)
+            if after is None:
+                to_person(f, "no place for the ADD: %s" % how)
+                continue
+            if counts["ADD"] >= O.add_budget(n_body):
+                to_person(f, "over the ADD budget (%d)" % O.add_budget(n_body))
+                continue
+            counts["ADD"] += 1
+            O.record(case, f, outcome=O.ADD, reason=got["reason"], by=BY, ruling=rid,
+                     on_page=B.fingerprint(got["text"]))
+            close(f, O.ADD, "to be inserted word for word after %s: %s"
+                  % (json.dumps(after, ensure_ascii=False), json.dumps(got["text"], ensure_ascii=False)),
+                  text=got["text"], span=got["span"], insert_after=after, placement=how, at=f["at"])
+    return done
+
+
+def _last_id(log: Path) -> str | None:
+    lines = log.read_text(encoding="utf-8").splitlines() if log.exists() else []
+    return json.loads(lines[-1]).get("id") if lines else None
+
+
 def pending(mode: str, slug: str, P=None) -> int:
     """How many calls MODE would make now -- one per sentence with findings --
     the units of the stage cap check, selected and grouped as each rule_*
@@ -976,6 +1250,13 @@ def pending(mode: str, slug: str, P=None) -> int:
     elif mode == "dangling":
         html = (P.ROOT / P.issue_cfg(slug)["page"]).read_text(encoding="utf-8")
         items = _dangling_items(case, html, rows, {})
+    elif mode == "omissions":
+        # One call per merged, located finding: code's precheck is free.
+        import omissions as O
+        held = held_texts(slug)
+        found = [O.precheck({"source": it["source"], "quote": it["objection"].get("source_says") or ""}, held)
+                 for it in _leaves_out(slug, case)]
+        return len([f for f in O.merge(found) if f.get("at")])
     else:
         raise ValueError(mode)
     # A protected sentence is a person's, never a call (split_protected).
@@ -985,7 +1266,7 @@ def pending(mode: str, slug: str, P=None) -> int:
 def main(argv=None) -> int:
     ap = argparse.ArgumentParser(description=__doc__.split("\n\n")[0])
     sub = ap.add_subparsers(dest="cmd", required=True)
-    for name in ("gate", "conclusions", "changecheck", "advocate", "dangling"):
+    for name in ("gate", "conclusions", "changecheck", "advocate", "dangling", "omissions"):
         s = sub.add_parser(name)
         s.add_argument("slug")
         s.add_argument("--cap", type=float, default=50.0,
@@ -1008,7 +1289,10 @@ def main(argv=None) -> int:
     call = A.Caller(cap=a.cap, ledger_issue=a.slug)
     fn = {"gate": rule_gate, "conclusions": rule_conclusions,
           "changecheck": rule_changecheck, "advocate": rule_advocate,
-          "dangling": rule_dangling}[a.cmd]
+          "dangling": rule_dangling, "omissions": rule_omissions}[a.cmd]
+    if a.cmd == "omissions":
+        import source_advocate as SA
+        SA.fc.enter_issue(a.slug)        # the one-time re-asks are metered against the issue
     step = "%s-%s" % (a.cmd, datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ"))
     before = _log_lines(log_path(a.slug))
     if carried:
