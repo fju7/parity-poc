@@ -39,6 +39,8 @@ def test_s08_and_s03_would_add_the_wgii_and_wgiii_summaries():
     for e in s8 + s3:
         assert e["access"]["state"] == "not_opened" and e["added_by"] == AQ.ADDED_BY
         assert e["licence"]["machine_reading"] and e["licence"]["terms_checked"] is False
+        assert e["licence"]["terms"] == "https://www.ipcc.ch/copyright/"
+        assert "non-commercial" in e["licence"]["note"] and "not a legal opinion" in e["licence"]["note"]
     assert s8[0]["id"] == "S006" and s3[0]["id"] == "S009"          # the next free ids
 
 

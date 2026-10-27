@@ -317,3 +317,5 @@ Re-measured on the study issues (headline units / already used / unaccounted):
 - Each is one sentence: `Outside this question: "<short verbatim span>" (<source>); <reason>.` (or "Judged not material to this question: …").
 - These lines are protected under fix 1 (kind `scope`).
 - The row STOPs on a declaration that is not on the page word for word, on a line in the list with no declaration behind it, and on declarations past the budget (min(10, 20% of body sentences)) without a person's signed sign-off.
+
+**Known limit: a binding counts as use** (recorded 27 October 2026, not fixed). The coverage check counts a unit as "used" when any on-page binding span lies inside it, even if the page sentence bound to it states none of the unit's content. WHU-S06 shows this: the facilitators sentence of its review's main results is "used" because the page binds it through the advocate-ruled sentence "… plus pointers on what helps programmes work …", which names no condition or barrier. Whether a bound sentence actually states its unit is left to the conclusion judge and the audit.

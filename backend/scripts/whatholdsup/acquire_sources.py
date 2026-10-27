@@ -116,11 +116,13 @@ AR6_SPM = {
             "(AR6 WGIII)"),
 }
 SUMMARY_LICENCE = {
-    "note": ("a free public PDF on the publisher's own site (ipcc.ch); no recorded licence forbids "
-             "machine reading; reuse of its text is subject to the publisher's terms on ipcc.ch, "
-             "which this script did not read -- confirm them before quoting at length"),
+    "note": ("IPCC terms (https://www.ipcc.ch/copyright/): personal, non-commercial download and "
+             "copying permitted; short excerpts may be quoted with the full report name. A note, "
+             "not a legal opinion."),
+    "terms": "https://www.ipcc.ch/copyright/",
+    "terms_summary_by": "Fred's advisor (Claude), 2026-10-27",
     "machine_reading": "not forbidden by any recorded licence",
-    "terms_checked": False,
+    "terms_checked": False,          # this script does not read the terms page itself
 }
 ADDED_BY = "acquire_sources.py: assessment-summary rule (post-study fix 3)"
 

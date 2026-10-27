@@ -2934,6 +2934,41 @@ fee8ec1 (5) a9cff69 (6) 8ee57c3 (7) 5f5d11e (8) 06056ab (9), docs (10).
   accounted for", "declared findings shown to readers". KNOWN LIMIT: unbound assessment sections.
 - The study issues now STOP on the coverage row (S01 19, S07 16, S08 7 units): post-study rule only.
 
+## WHU post-study fix 3 — the evidence standard and held assessment judgements (2026-10-27)
+Design: docs/whu-fix3-evidence-standard.md (decisions: relevance R1; always on; option 4 sourcing).
+Commits a06faa4 (1) e657211 (2) 1b46215 (3) a170b28 (4); coverage ruling A 34d7e33.
+- premise.py: `evidence_standard` {weighs: measured|assessed, measured, assessed, when_they_differ:
+  "state both", by, written_at}; row "evidence standard declared" (WARN missing/late; STOP if it
+  does not weigh "assessed" while a held source is an assessment, unless scope.out names them).
+- judgements.py (new): candidates in EVERY held source (calibrated assessment ES paragraphs / SPM
+  statements, whole, bound or not; a systematic review's abstract conclusions and graded results);
+  judgements.json (offsets/hashes, no text); row "assessment judgements stated" (always on): each
+  relevant judgement stated with its certainty terms, or declared on the readers' list.
+- ruling.py `judgements` (prompt audit_prompts/rule_relevance.md): one call per candidate; "relevant"
+  recorded only if code finds its quoted words in the question / scope; else to a person.
+  stage_cap stage `judgements` ($0.02 fallback).
+- acquire_sources.py: an IPCC AR6 WGII/WGIII chapter on ipcc.ch adds that report's SPM (robots.txt
+  checked; licence note cites https://www.ipcc.ch/copyright/); `--no-summaries` turns it off.
+- coverage_check.py: a systematic review's abstract "Main results"/"Synthesis of results" sentences
+  are all units; an added SPM is relied on.
+
+## WHU post-study fixes 1-3 — summary (2026-10-27)
+Origin: docs/whu-omissions-investigation-2026-10.md (13 Understates/Omits items, S01-S08).
+- Fix 1, protected sentences: 68d0324, 94ed5e3. Fix 2, omissions and coverage: 65e9756, 5835a28,
+  4c74a3d, 4ab4263, fee8ec1, a9cff69, 8ee57c3, 5f5d11e, 06056ab, 2f1865d. Fix 3, evidence standard:
+  a06faa4, e657211, 1b46215, a170b28 (+ 34d7e33). Design docs: whu-fix2-omission-rulings-design.md,
+  whu-fix3-evidence-standard.md; runbook docs/whatholdsup-process.md §4.5.
+- New preflight rows: "protected sentences kept"; "omission objections ruled"; "headline conclusions
+  accounted for"; "declared findings shown to readers"; "assessment judgements stated" (all
+  fail-closed); premise rows "scope declared", "evidence standard declared".
+- New prompts (none frozen; RUN.md and the frozen study prompts unchanged):
+  audit_prompts/rule_omission.md, audit_prompts/rule_relevance.md.
+- Known limits: coverage sees only assessment sections the page binds (fix 3's judgement check and
+  the advocate are the other nets); a binding counts as "used" even if the sentence states none of
+  the unit (S06 facilitators); relevance replays used a lexical fake, not the real model; the SPM
+  rule covers AR6 WGII/WGIII only (no WGI URL recorded); IPCC terms are summarised, not read by the
+  script; the study issues now STOP on the new rows (post-study rules, no study record changed).
+
 ## Standing instructions for every session
 1. Read this file at the start of every session
 2. Verify all file paths before issuing commands
