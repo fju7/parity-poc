@@ -18,6 +18,14 @@
       "refused": [],
       "failed": [],
       "unsweepable": []
+    },
+    {
+      "on": "2026-10-26",
+      "command": "resolve --write",
+      "resolved": [],
+      "refused": [],
+      "failed": [],
+      "unsweepable": []
     }
   ]
 }
