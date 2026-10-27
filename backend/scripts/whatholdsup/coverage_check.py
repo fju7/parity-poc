@@ -231,9 +231,13 @@ def _sources(slug: str) -> list[dict]:
     return [s for s in (d.get("sources", d) if isinstance(d, dict) else d) if isinstance(s, dict)]
 
 
-def relied_on(slug: str, rows: dict, premise_doc: dict | None) -> list[str]:
+def relied_on(slug: str, rows: dict, premise_doc: dict | None, sources: list[dict] | None = None) -> list[str]:
+    """Named in the premise, the source of RELIED_ROWS on-page rows, or an
+    assessment summary added for a chapter held (acquire_sources, fix 3)."""
     import audit_stage as A
     named = list(((premise_doc or {}).get("what_the_sources_show") or {}).get("sources") or [])
+    srcs = sources if sources is not None else _sources(slug)
+    named += [s["id"] for s in srcs if str(s.get("added_by") or "").startswith("acquire_sources.py: assessment-summary")]
     counts: dict[str, int] = {}
     for r in rows.values():
         if r.get("on_page"):

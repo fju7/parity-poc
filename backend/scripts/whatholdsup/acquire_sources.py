@@ -95,6 +95,75 @@ def acquisition_url(src: dict) -> str:
     return url
 
 
+# THE ASSESSMENT-SUMMARY RULE (post-study fix 3, 2026-10-27; the advisor's
+# option 4 of docs/whu-omissions-investigation-2026-10.md). An issue that holds a
+# chapter of an assessment report also holds that report's Summary for
+# Policymakers: the judgements a reader would be told are the assessment's
+# conclusions live there (WHU-S08 held WGII Chapter 6, and its answer key's
+# conclusions sit in the WGII SPM, which nobody fetched). Detected from the
+# chapter's URL on the publisher's own site, not its title (S08's title has no
+# "Chapter"). IPCC AR6 WGII and WGIII only, to begin with: both SPM URLs are the
+# ones this repository already holds (WHU-S04, WHU-S07); WGI's is not recorded
+# here and is not guessed.
+AR6_CHAPTER = re.compile(r"^https?://(?:www\.)?ipcc\.ch/report/ar6/(wg2|wg3)/downloads/report/"
+                         r"IPCC_AR6_WGI{2,3}_Chapter\d+\.pdf$", re.I)
+AR6_SPM = {
+    "wg2": ("https://www.ipcc.ch/report/ar6/wg2/downloads/report/IPCC_AR6_WGII_SummaryForPolicymakers.pdf",
+            "IPCC 2022. Summary for Policymakers. In: Climate Change 2022: Impacts, Adaptation and "
+            "Vulnerability (AR6 WGII)"),
+    "wg3": ("https://www.ipcc.ch/report/ar6/wg3/downloads/report/IPCC_AR6_WGIII_SPM.pdf",
+            "IPCC 2022. Summary for Policymakers. In: Climate Change 2022: Mitigation of Climate Change "
+            "(AR6 WGIII)"),
+}
+SUMMARY_LICENCE = {
+    "note": ("a free public PDF on the publisher's own site (ipcc.ch); no recorded licence forbids "
+             "machine reading; reuse of its text is subject to the publisher's terms on ipcc.ch, "
+             "which this script did not read -- confirm them before quoting at length"),
+    "machine_reading": "not forbidden by any recorded licence",
+    "terms_checked": False,
+}
+ADDED_BY = "acquire_sources.py: assessment-summary rule (post-study fix 3)"
+
+
+def _next_id(srcs: list[dict]) -> str:
+    n = max([int(m.group(1)) for s in srcs for m in [re.match(r"^S(\d+)$", s.get("id") or "")] if m] or [0])
+    return "S%03d" % (n + 1)
+
+
+def summaries_to_add(srcs: list[dict], today: str = "") -> list[dict]:
+    """sources.json entries for the SPM of every AR6 WGII/WGIII chapter held,
+    unless that SPM's URL is already a source. Writes nothing."""
+    have = {(s.get("url") or "").strip().lower() for s in srcs}
+    out: list[dict] = []
+    for s in srcs:
+        m = AR6_CHAPTER.match((s.get("url") or "").strip())
+        if not m:
+            continue
+        url, title = AR6_SPM[m.group(1).lower()]
+        if url.lower() in have:
+            continue
+        have.add(url.lower())
+        out.append({"id": _next_id(srcs + out), "type": "synthesis", "form": "article", "title": title,
+                    "url": url, "used_for": "the assessment's Summary for Policymakers, for the chapter(s) held "
+                    "(%s); read by the coverage and assessment-judgement checks" % s.get("id"),
+                    "added_by": ADDED_BY, "added_for": s.get("id"), "licence": dict(SUMMARY_LICENCE),
+                    "access": {"state": "not_opened", "on": today, "by": ADDED_BY}})
+    return out
+
+
+def robots_allow(url: str, agent: str = "*") -> tuple[bool, str]:
+    """robots.txt of the URL's host, read before fetching an added summary."""
+    import urllib.robotparser as rp
+    from urllib.parse import urlsplit
+    parts = urlsplit(url)
+    r = rp.RobotFileParser("%s://%s/robots.txt" % (parts.scheme, parts.netloc))
+    try:
+        r.read()
+    except Exception as e:
+        return False, "robots.txt could not be read (%s): not fetched" % type(e).__name__
+    return (r.can_fetch(agent, url), "robots.txt %s it" % ("allows" if r.can_fetch(agent, url) else "disallows"))
+
+
 def fetch(url: str, timeout: int = 45) -> tuple[bytes, str, str]:
     req = urllib.request.Request(url, headers=UA)
     with tls.urlopen(req, timeout=timeout) as r:      # completes a chain short of its intermediate
@@ -108,6 +177,9 @@ def main(argv=None) -> int:
     ap.add_argument("--only", help="comma-separated source ids")
     ap.add_argument("--refetch", action="store_true",
                     help="fetch even sources already in the store")
+    ap.add_argument("--no-summaries", action="store_true",
+                    help="do not add the Summary for Policymakers of an assessment chapter held "
+                         "(post-study fix 3); the default adds it")
     ap.add_argument("--use-routes", action="store_true",
                     help="try the free routes find_access.py recorded, in order, "
                          "before the source's own url")
@@ -140,6 +212,11 @@ def main(argv=None) -> int:
     have = store.held(args.slug)
 
     got, failed, skipped = [], [], []
+    added = [] if args.no_summaries else summaries_to_add(srcs, store.utc_today())
+    for e in added:
+        srcs.append(e)
+        print("  ADDED    %-6s %s (for %s)" % (e["id"], e["title"][:60], e["added_for"]))
+    added_ids = {e["id"] for e in added} | {s.get("id") for s in srcs if s.get("added_by") == ADDED_BY}
     print()
     for s in srcs:
         sid, url = s.get("id"), (s.get("url") or "").strip()
@@ -156,6 +233,13 @@ def main(argv=None) -> int:
         if not url:
             failed.append((sid, "no url recorded", s.get("title", "")))
             continue
+        if sid in added_ids:
+            ok, why_r = robots_allow(url)
+            if not ok:
+                acc["last_fetch"] = {"on": store.utc_today(), "by": "acquire_sources.py",
+                                     "result": "not fetched", "why": why_r}
+                failed.append((sid, why_r, s.get("title", "")))
+                continue
         targets = list(routes.get(sid) or []) + [acquisition_url(s)]
         data = ct = final = None
         why, check, tried = "no route tried", {}, []
