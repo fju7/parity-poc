@@ -73,6 +73,14 @@ RUN = Path.home() / "Projects" / "whu-study-private" / "scoring" / "m1"
 OUTDIR = Path.home() / "Projects" / "whu-study-private" / "scoring" / "m1_quotecheck"
 SCRIPT = "study/whu-reliability/results/machine_only/quotecheck_m1.py"
 LEDGER_ISSUE = "whu-reliability-judging-quotecheck"
+# --ext (advisor's ruling, 2026-10-27): WHU's WHU-S05 to S08 items, their
+# Stage 1 reads in replies_ext/, a new ledger issue with its own $40 run cap
+# (the study total check unchanged), re-judge replies in replies_ext/ and the
+# counts in quotecheck_m1_ext.json. Without it, the S01-S04 run as committed.
+EXT_QUESTIONS = ["WHU-S05", "WHU-S06", "WHU-S07", "WHU-S08"]
+STAGE1_TAG = ""
+REPLIES = "replies"
+RESULT = "quotecheck_m1.json"
 RUN_CAP = 40.0
 STUDY_TOTAL = 375.0          # raised from $350 by Fred (Option A), 2026-10-27; was $300 to 2026-10-24
 # WHU's deduction is its actual ledger spend over the eight study issues (was a
@@ -151,7 +159,7 @@ def checked_label(label, qc: dict):
 # --------------------------------------------------------------------------
 
 def stage1(item: str, judge: str) -> dict | None:
-    p = RUN / "replies" / judge / (item + ".json")
+    p = RUN / ("replies" + STAGE1_TAG) / judge / (item + ".json")
     return json.loads(p.read_text(encoding="utf-8")) if p.exists() else None
 
 
@@ -160,7 +168,7 @@ def item_set() -> list[dict]:
     items = json.loads((RUN / "items.json").read_text(encoding="utf-8"))
     out = []
     for it in items:
-        if km[it["item"]]["system"] != SYSTEM:
+        if km[it["item"]]["system"] != SYSTEM or km[it["item"]]["question"] not in A.QUESTIONS:
             continue
         reps = [stage1(it["item"], j) for j in A.JUDGES]
         if all(r and r.get("attempts") for r in reps):
@@ -251,7 +259,7 @@ def run(dry: bool) -> int:
     for it, docs, prefix, rest in built:
         n_in = count(prefix + rest)
         for judge in A.JUDGES:
-            out = OUTDIR / "replies" / judge / (it["item"] + ".json")
+            out = OUTDIR / REPLIES / judge / (it["item"] + ".json")
             if out.exists():
                 continue
             attempts = []
@@ -313,7 +321,7 @@ def analyse() -> int:
     items = {it["item"] for it in item_set()}
     replies = {}
     for j in A.JUDGES:
-        for f in sorted((OUTDIR / "replies" / j).glob("*.json")):
+        for f in sorted((OUTDIR / REPLIES / j).glob("*.json")):
             r = json.loads(f.read_text(encoding="utf-8"))
             replies.setdefault(r["item"], {})[j] = r
     missing = sorted(i for i in items if set(replies.get(i, {})) != set(A.JUDGES))
@@ -362,7 +370,7 @@ def analyse() -> int:
                 downgraded[j] += 1
                 downgraded_why["evidence " + qc["evidence_problem"] if qc["evidence_problem"] else "no passage found"] += 1
             checked[j][i] = new
-    (OUTDIR / "quote_checks.json").write_text(json.dumps(private, indent=1, ensure_ascii=False), encoding="utf-8")
+    (OUTDIR / ("quote_checks%s.json" % STAGE1_TAG)).write_text(json.dumps(private, indent=1, ensure_ascii=False), encoding="utf-8")
 
     def scored(mode: str) -> dict:
         """mode: stage1 | labelled (re-judge as labelled) | checked (quote-checked)."""
@@ -402,7 +410,7 @@ def analyse() -> int:
            "rates": {m: scored(m) for m in ("stage1", "labelled", "checked")},
            "spend": {"ledger_issue": LEDGER_ISSUE, "usd": round(J.spent(LEDGER_ISSUE), 4),
                      "calls": sum(1 for e in S.entries() if e.get("issue") == LEDGER_ISSUE)}}
-    (HERE / "quotecheck_m1.json").write_text(json.dumps(res, indent=1), encoding="utf-8")
+    (HERE / RESULT).write_text(json.dumps(res, indent=1), encoding="utf-8")
     print(json.dumps({k: res[k] for k in ("label_counts_rejudge", "labels_differing_from_stage1",
                                           "passages_on_supported_labels", "downgraded_to_support_not_demonstrated",
                                           "spend")}, indent=1))
@@ -413,7 +421,13 @@ def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("cmd", choices=["run", "analyse"])
     ap.add_argument("--dry-run", action="store_true")
+    ap.add_argument("--ext", action="store_true", help="WHU-S05 to S08 (advisor's ruling, 2026-10-27)")
     a = ap.parse_args()
+    if a.ext:
+        global LEDGER_ISSUE, STAGE1_TAG, REPLIES, RESULT
+        LEDGER_ISSUE, STAGE1_TAG = "whu-reliability-judging-quotecheck-ext", "_ext"
+        REPLIES, RESULT = "replies_ext", "quotecheck_m1_ext.json"
+        A.QUESTIONS, A.HEALTH, A.TAGS = list(EXT_QUESTIONS), {"WHU-S05"}, ("_ext",)
     return run(a.dry_run) if a.cmd == "run" else analyse()
 
 

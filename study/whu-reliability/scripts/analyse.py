@@ -65,6 +65,11 @@ SYSTEMS = ["WHU", "Claude", "ChatGPT", "Gemini"]
 QUESTIONS = ["WHU-S01", "WHU-S02", "WHU-S03", "WHU-S04"]
 FRAME = {"WHU-S01": "Cochrane (health)", "WHU-S02": "Campbell", "WHU-S03": "IPCC AR6", "WHU-S04": "IPCC AR6"}
 HEALTH = {"WHU-S01"}
+# Reply folders read, replies<tag>/ and replies<tag>_repeat/ ("" is Stage 1's).
+# Rows are kept for QUESTIONS only. The eight-question analysis
+# (scripts/analyse_eight.py) sets QUESTIONS, FRAME, HEALTH and TAGS; the
+# defaults are Stage 1's, so this script's own output is unchanged.
+TAGS = ("",)
 JUDGES = ["claude", "openai"]
 REFUSED, INCOMPLETE, NVA, UNCITED = "REFUSED", "INCOMPLETE_SOURCES", "NOT_VERIFIABLE_ABSTRACT", "UNCITED"
 M1_PASS = {"Supported"}
@@ -81,6 +86,13 @@ def load_replies(run: Path, tag: str = "") -> dict:
         for f in sorted(d.glob("*.json")) if d.exists() else []:
             r = json.loads(f.read_text(encoding="utf-8"))
             out.setdefault(r["item"], {})[j] = r
+    return out
+
+
+def load_tagged(run: Path, repeat: bool = False) -> dict:
+    out = {}
+    for t in TAGS:
+        out.update(load_replies(run, t + ("_repeat" if repeat else "")))
     return out
 
 
@@ -114,9 +126,11 @@ def items_m1() -> list[dict]:
     items = json.loads((run / "items.json").read_text(encoding="utf-8"))
     unc = json.loads((run / "uncited.json").read_text(encoding="utf-8"))
     km = json.loads((run / "key_map.json").read_text(encoding="utf-8"))
-    first, rep = load_replies(run), load_replies(run, "_repeat")
+    first, rep = load_tagged(run), load_tagged(run, True)
     valid = M1_PASS | M1_FAIL | M1_EXCL
     rows = []
+    items = [it for it in items if km[it["item"]]["question"] in QUESTIONS]
+    unc = [it for it in unc if km[it["item"]]["question"] in QUESTIONS]
     for it in items:
         raw = first.get(it["item"], {})
         rows.append({"item": it["item"], **km[it["item"]], "raw": raw, "repeat": rep.get(it["item"], {}),
@@ -131,11 +145,11 @@ def items_m2() -> list[dict]:
     run = PRIVATE / "m2"
     m2 = json.loads((run / "items.json").read_text(encoding="utf-8"))
     km = json.loads((run / "key_map.json").read_text(encoding="utf-8"))
-    first, rep = load_replies(run), load_replies(run, "_repeat")
+    first, rep = load_tagged(run), load_tagged(run, True)
     valid = M2_PASS | M2_FAIL
     return [{"item": it["item"], **km[it["answer"]], "raw": first.get(it["item"], {}),
              "repeat": rep.get(it["item"], {}), "labels": per_judge_labels(first.get(it["item"], {}), valid),
-             "uncited": False} for it in m2["items"]]
+             "uncited": False} for it in m2["items"] if km[it["answer"]]["question"] in QUESTIONS]
 
 
 def agreed(r: dict) -> bool:
@@ -352,7 +366,8 @@ def undelivered(r: dict) -> bool:
                and not (r["raw"].get(j) or {}).get("unreachable_sources") for j in JUDGES)
 
 
-def main() -> int:
+def build() -> tuple[dict, list]:
+    """The result and the human-review list for QUESTIONS (no file written)."""
     m1, m2 = items_m1(), items_m2()
     v1, v2 = view_scores(m1, M1_FAIL, M1_PASS), view_scores(m2, M2_FAIL, M2_PASS)
     cited_only = view_scores([r for r in m1 if not r["uncited"]], M1_FAIL, M1_PASS)
@@ -379,7 +394,6 @@ def main() -> int:
         d["flag_not_verifiable_over_20pct"] = bool(d["not_verifiable_share_of_cited"] and d["not_verifiable_share_of_cited"] > 0.2)
     reach = json.loads((STUDY / "scoring" / "snapshot_counts.json").read_text())["reachability"]
     review = review_list(m1, "M1") + review_list(m2, "M2")
-    (PRIVATE / "human_review.json").write_text(json.dumps(review, indent=1), encoding="utf-8")
     res = {
         "written": datetime.now(timezone.utc).isoformat(timespec="seconds"),
         "label": "Stage 1: AI judges only, not yet checked by people",
@@ -413,6 +427,12 @@ def main() -> int:
             res["human_review"]["by_reason"][w] = res["human_review"]["by_reason"].get(w, 0) + 1
     for m, key in (("H1", "M1_citation_support"), ("H2", "M2_conclusion_calibration")):
         res[m] = {view: res[key]["views"][view]["vs_whu"]["Claude"]["holds"] for view in res[key]["views"]}
+    return res, review
+
+
+def main() -> int:
+    res, review = build()
+    (PRIVATE / "human_review.json").write_text(json.dumps(review, indent=1), encoding="utf-8")
     OUT.mkdir(parents=True, exist_ok=True)
     (OUT / "stage1_ai_only.json").write_text(json.dumps(res, indent=1), encoding="utf-8")
     print("H1", res["H1"], "H2", res["H2"])
