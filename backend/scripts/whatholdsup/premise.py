@@ -140,6 +140,17 @@ TEMPLATE = {
         "note": "",
     },
     "lead_came_from": "",
+    "scope": {
+        "_note": ("What the answer will and will not cover, written at step 1 BEFORE any source "
+                  "is opened, so scope cannot be fitted to the findings afterwards. An omission "
+                  "ruled OUT_OF_SCOPE, and a headline conclusion declared out of scope, must name "
+                  "the question's words or one of these entries (fix 2, "
+                  "docs/whu-fix2-omission-rulings-design.md section 2.4)."),
+        "covers": "",
+        "out": [],
+        "by": "",
+        "written_at": "",
+    },
 }
 
 
@@ -316,7 +327,56 @@ def preflight_rows(slug: str, *, already_published: bool = False) -> list[tuple[
     if tested and t.get("result") == "killed":
         rows.append(("premise survived", lvl,
                      "the kill condition was met: %s" % (t.get("note") or "no note")))
+    rows.extend(scope_rows(slug))
     return rows
+
+
+def scope_of(slug: str) -> dict:
+    """{"question", "covers", "out": [{what, why}]} for SLUG: the question from
+    issue.json and the premise's declared scope (empty where not written)."""
+    q = ""
+    try:
+        q = json.loads((case_dir(slug) / "issue.json").read_text(encoding="utf-8")).get("question") or ""
+    except (Exception, SystemExit):
+        pass
+    s = ((load(slug) or {}).get("scope") or {})
+    out = [o for o in (s.get("out") or []) if isinstance(o, dict) and _filled(o.get("what"))]
+    return {"question": q, "covers": s.get("covers") or "", "out": out}
+
+
+def _earliest_source_day(slug: str) -> str:
+    """The earliest day a source of SLUG was recorded as held (sources.json
+    access.on), "" if none. Day granularity: sources.json records no time."""
+    try:
+        doc = json.loads((case_dir(slug) / "sources.json").read_text(encoding="utf-8"))
+    except (Exception, SystemExit):
+        return ""
+    srcs = doc.get("sources", doc) if isinstance(doc, dict) else doc
+    days = sorted(str((s.get("access") or {}).get("on") or "")[:10] for s in srcs or []
+                  if isinstance(s, dict) and (s.get("access") or {}).get("on"))
+    return days[0] if days else ""
+
+
+def scope_rows(slug: str) -> list[tuple[str, str, str]]:
+    """The scope row (fix 2, step 2). WARN, never STOP: an issue drafted before
+    the field existed has none, and its absence leaves OUT_OF_SCOPE able to name
+    only the question's own words."""
+    d = load(slug) or {}
+    s = d.get("scope") or {}
+    if not (_filled(s.get("covers")) or any(_filled((o or {}).get("what")) for o in s.get("out") or [])):
+        return [("scope declared", WARN, "no premise scope: an OUT_OF_SCOPE ruling or declaration "
+                 "can name only the question's own words")]
+    first = _earliest_source_day(slug)
+    wrote = str(s.get("written_at") or "")[:10]
+    if not wrote:
+        return [("scope declared", WARN, "scope has no written_at; nothing shows it was written "
+                 "before a source was opened")]
+    if first and wrote > first:
+        return [("scope declared", WARN, "scope written %s, after the first source was held (%s): "
+                 "it may have been fitted to the findings" % (wrote, first))]
+    return [("scope declared", OK, "%d out-of-scope entr%s; written %s%s" % (
+        len(s.get("out") or []), "y" if len(s.get("out") or []) == 1 else "ies", wrote,
+        (", before the first source was held (%s)" % first) if first else ""))]
 
 
 def cmd_init(args) -> int:
