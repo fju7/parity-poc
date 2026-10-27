@@ -205,6 +205,55 @@ def record(case: Path, f: dict, *, outcome: str, reason: str, by: str, element: 
     return e
 
 
+# ---------------------------------------------------------------- the preflight (fix 2, step 9)
+
+ROW = "omission objections ruled"
+ADOPTED = "2026-10-27T20:00:00+00:00"
+PUBLISHED_ACTIONS = ("publish", "republish")
+
+
+def published_before_adoption(slug: str, record_rows: list[dict]) -> str:
+    first = [r for r in record_rows if r.get("issue") == slug and r.get("action") in PUBLISHED_ACTIONS]
+    return first[0]["at"] if first and first[0]["at"] < ADOPTED else ""
+
+
+def skipped(slug: str, record_rows: list[dict] | None, label: str) -> list[tuple[str, str, str]]:
+    first = published_before_adoption(slug, record_rows or [])
+    return [(label, "ok", "SKIPPED — first published %s, before fix 2 was adopted (%s)"
+             % (first[:10], ADOPTED[:10]))] if first else []
+
+
+def preflight_rows(slug: str, record_rows: list[dict] | None = None, *, case: Path | None = None,
+                   held: dict[str, str] | None = None) -> list[tuple[str, str, str]]:
+    """BLOCKED while any LEAVES_OUT advocate objection is open (not yet ruled by
+    ruling.py omissions, or sent to a person who has not closed it), or while
+    omissions.json holds any run of source text."""
+    s = skipped(slug, record_rows, ROW)
+    if s:
+        return s
+    import ruling as R
+    import source_store as store
+    case = case or store.case_dir(slug)
+    held = held if held is not None else R.held_texts(slug)
+    open_ = [it["head"] for it in R._leaves_out(slug, case)]
+    leaks = leaks_source_text(case, held)
+    done = load(case).get("omissions") or []
+    counts = {}
+    for e in done:
+        counts[e.get("outcome")] = counts.get(e.get("outcome"), 0) + 1
+    if open_ or leaks:
+        bits = []
+        if open_:
+            bits.append("%d LEAVES_OUT objection(s) open (e.g. %s): run ruling.py omissions %s, or a person "
+                        "closes each with OMISSION/DID" % (len(open_), ", ".join(open_[:3]), slug))
+        if leaks:
+            bits.append("omissions.json holds source text (%s); it must hold offsets and hashes only"
+                        % leaks[0][:80])
+        return [(ROW, "BLOCKED", "; ".join(bits))]
+    return [(ROW, "ok", "%d omission decision(s): %s" % (
+        len(done), ", ".join("%d %s" % (n, k) for k, n in sorted(counts.items())) or "none needed"))]
+
+
 def leaks_source_text(case: Path, held: dict[str, str], min_words: int = 6) -> list[str]:
     """Every run of MIN_WORDS words of any held text that appears in
     omissions.json: the committed record must hold none (a test helper and a

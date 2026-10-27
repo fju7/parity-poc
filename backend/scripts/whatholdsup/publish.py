@@ -250,6 +250,11 @@ audit_stage = _sibling("audit_stage")
 # and what we read or did not read never leave the page without a person's
 # sign-off. See protected.py.
 protected = _sibling("protected")
+# Post-study fix 2 (2026-10-27): omitted findings are ruled (omissions.py), and
+# a relied-on source's headline conclusions are accounted for, every declared
+# one shown to readers (coverage_check.py). docs/whu-fix2-omission-rulings-design.md.
+omissions = _sibling("omissions")
+coverage_check = _sibling("coverage_check")
 # B16: read what changed. Between two $6 gate runs, every correction is text
 # nobody has read -- and corrections are where a third of the errors come from.
 # Three cents a run. See changecheck.py.
@@ -1837,6 +1842,16 @@ def preflight(slug: str, *, for_email: bool,
     except BaseException as exc:
         out.append((protected.ROW_LABEL, BAD,
                     "did not run: %s: %s" % (type(exc).__name__, exc)))
+
+    # Fix 2: BLOCKED when they cannot run, as above.
+    try:
+        out.extend(omissions.preflight_rows(slug, load_record()))
+    except BaseException as exc:
+        out.append((omissions.ROW, BAD, "did not run: %s: %s" % (type(exc).__name__, exc)))
+    try:
+        out.extend(coverage_check.preflight_rows(slug, load_record()))
+    except BaseException as exc:
+        out.append((coverage_check.ROW_UNITS, BAD, "did not run: %s: %s" % (type(exc).__name__, exc)))
 
     try:
         out.extend(changecheck.gate_rows(slug, page.read_text(encoding="utf-8")))

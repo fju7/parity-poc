@@ -355,9 +355,14 @@ def render(decls: list[dict]) -> str:
 
 # ---------------------------------------------------------------- the rows
 
-def preflight_rows(slug: str, *, rows: dict | None = None, held: dict | None = None,
-                   page_sentences: list[str] | None = None, premise_doc: dict | None = None,
-                   case: Path | None = None, root: Path | None = None) -> list[tuple[str, str, str]]:
+def preflight_rows(slug: str, record_rows: list[dict] | None = None, *, rows: dict | None = None,
+                   held: dict | None = None, page_sentences: list[str] | None = None,
+                   premise_doc: dict | None = None, case: Path | None = None,
+                   root: Path | None = None) -> list[tuple[str, str, str]]:
+    import omissions as _O
+    s = _O.skipped(slug, record_rows, ROW_UNITS)
+    if s:
+        return s + _O.skipped(slug, record_rows, ROW_LIST)
     import bindings as B
     import omissions as O
     import premise as PM
