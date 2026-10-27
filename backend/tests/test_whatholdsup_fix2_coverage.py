@@ -93,7 +93,10 @@ def test_an_abstract_gives_its_conclusions_whole_and_its_graded_results():
         ("abstract conclusions", "The test makes little to no di"),
         ("abstract conclusions", "The test probably decreases th"),
         ("abstract conclusions", "The test increases the risk of")]
-    assert [s for s in secs if s[0] == "abstract results"] == [("abstract results", "Synthesis of results The test ")]
+    # a review's abstract ("Authors' conclusions"): its "Synthesis of results" section, whole (ruling A)
+    assert [s for s in secs if s[0] == "abstract main results"] == [
+        ("abstract main results", "The test made little to no dif"),
+        ("abstract main results", "Time to treatment was shorter ")]
 
 
 # ----------------------------------------------------------------- accounting
@@ -108,7 +111,7 @@ def test_used_added_declared_and_none():
     om = {"omissions": [{"source": "S001", "at": loss["at"], "outcome": "ADD", "key": "x"}]}
     acc = {u["text"][:20]: u["state"] for u in C.account(units, rows, held, om,
                                                           {k_diag: {"state": "out_of_scope"}})}
-    assert list(acc.values()) == ["none", "used", "out_of_scope", "added"]
+    assert list(acc.values()) == ["none", "none", "used", "out_of_scope", "added"]
 
 
 # ----------------------------------------------------------------- the readers' list
@@ -165,7 +168,7 @@ def test_declared_units_pass_only_when_the_readers_list_is_on_the_page(case):
     assert rows[C.ROW_UNITS][1] == C.OK
     assert rows[C.ROW_LIST][1] == C.BAD and "not on the page word for word" in rows[C.ROW_LIST][2]
     decls = C.declarations("x", HELD, case)
-    assert len(decls) == 3 and all("(the 2025 review)" in d["sentence"] for d in decls)
+    assert len(decls) == 4 and all("(the 2025 review)" in d["sentence"] for d in decls)
     page = PAGE + [C.HEADING] + [d["sentence"] for d in decls]
     assert _rows(case, page)[C.ROW_LIST][1] == C.OK
     # a line in the list with no declaration behind it
@@ -173,7 +176,7 @@ def test_declared_units_pass_only_when_the_readers_list_is_on_the_page(case):
     assert "no declaration behind it" in _rows(case, stray)[C.ROW_LIST][2]
     # the rendered HTML carries the heading and one paragraph per declaration
     html = C.render(decls)
-    assert C.HEADING in html and html.count("<p>") == 4
+    assert C.HEADING in html and html.count("<p>") == 5
 
 
 def test_an_out_of_scope_declaration_must_name_the_question(case):
@@ -249,3 +252,46 @@ def test_replay_s01_abstract_units_include_unaccounted_conclusions():
     src = [s for s in C._sources("tb-dna-testing") if s["id"] == "S001"][0]
     acc = C.account(C.units_of(src, held["S001"], []), rows, held, {"omissions": []}, {})
     assert len([u for u in acc if u["section"] == "abstract conclusions" and u["state"] == "none"]) >= 2
+
+
+# ----------------------------------------------------------------- systematic-review main results (ruling A, 27 Oct)
+
+REVIEW = (
+    "This systematic review asks whether the programmes work. "
+    "Main Results We included 43 studies of children and young people aged 8 to 25. "
+    "Programmes may need accessible and flexible delivery and are likely to engage young people when supported. "
+    "Methodological limitations resulted in a judgement of very low confidence in these findings. "
+    "Authors' Conclusions We found insufficient evidence to support or refute the effectiveness of the programmes. "
+    "Plain language summary What is this review about and why does it matter for readers here?")
+PRIMARY = (
+    "A cohort of 900 adults was followed for five years in three cities by the investigators. "
+    "Main results The risk was higher among the thinnest adults in every city that was studied. "
+    "The evidence was of low certainty according to the authors of this cohort report. "
+    "Conclusions Thinner adults had a higher risk in this cohort of people in three cities.")
+
+
+def test_a_review_abstract_gives_every_main_results_sentence():
+    units = C.units_of({"id": "S001"}, REVIEW, [])
+    mr = [u["text"][:30] for u in units if u["section"] == "abstract main results"]
+    assert mr == ["We included 43 studies of chil", "Programmes may need accessible",
+                  "Methodological limitations res"]                 # with or without a certainty term
+    assert [u["section"] for u in units].count("abstract conclusions") == 1
+
+
+def test_other_documents_keep_the_certainty_term_rule_for_results():
+    units = C.units_of({"id": "S002"}, PRIMARY, [])
+    assert [u["section"] for u in units] == ["abstract results", "abstract conclusions"]
+    assert units[0]["text"].startswith("The evidence was of low certainty")
+
+
+def test_replay_s06_facilitators_sentence_is_a_unit():
+    held, rows = _held("arts-youth-offending")
+    t = held["S001"]
+    i = t.find("Arts interventions may need accessible")
+    assert i > 0
+    acc = C.account(C.units_of({"id": "S001"}, t, []), rows, held, {"omissions": []}, {})
+    [u] = [u for u in acc if u["at"][0] <= i < u["at"][1]]
+    # A unit now. Its state is "used": the page binds it, through the advocate-ruled
+    # sentence "... plus pointers on what helps programmes work ...", which states
+    # none of it -- a binding counts as use (reported, not changed here).
+    assert u["section"] == "abstract main results" and u["state"] in ("used", "none")

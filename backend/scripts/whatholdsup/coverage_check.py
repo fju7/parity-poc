@@ -28,9 +28,12 @@ tool (design ruling 1), and never from a title (advisor's ruling on step 7,
     page binds, IN FULL;
   - otherwise an abstract: every sentence after the first "Authors'
     conclusions" heading (or a "Conclusion(s)" / "Interpretation" heading in
-    the first ABSTRACT_CHARS characters) up to the next heading, WHOLE, and the
-    sentences before it in the abstract that carry a certainty or confidence
-    term (abstract results).
+    the first ABSTRACT_CHARS characters) up to the next heading, WHOLE; in a
+    systematic review's abstract (an "Authors' conclusions" heading, or
+    "systematic review" / "meta-analysis" in its opening), every sentence of
+    its "Main results" / "Synthesis of results" section too; and the other
+    sentences before the conclusions that carry a certainty or confidence term
+    (abstract results).
 A source with none of these yields no units, and the row says so (WARN).
 
 KNOWN LIMIT (recorded in the row's own output). An assessment conclusion in a
@@ -85,6 +88,8 @@ CALIBRATED = re.compile(r"\b(?:very\s+low|low|medium|high|very\s+high)\s+confide
                         r"|\b(?:very\s+low|low|moderate|high)[\s-]+(?:certainty|quality)\b", re.I)
 _CONCL = re.compile(r"\bAuthors[’']?\s+[Cc]onclusions\b")
 _CONCL_ABSTRACT = re.compile(r"(?<![a-z])(?:Conclusions?|Interpretation)\s*:?\s+(?=[A-Z])")
+_SR = re.compile(r"\bsystematic review|\bmeta-?analys[ie]s\b", re.I)
+_MAIN_RESULTS = re.compile(r"\b(?:Main [Rr]esults|Synthesis of results)\b")
 _STOP_HEADING = re.compile(
     r"\b(?:Implications for (?:practice|research)|Funding|Registration|Plain [Ll]anguage [Ss]ummary|"
     r"PLAIN LANGUAGE SUMMARY|Summary of findings|Editorial note|Keywords|Key words|Background|BACKGROUND|"
@@ -189,11 +194,25 @@ def units_of(source: dict, text: str, bound: list[list[int]] | None = None) -> l
                     add(s, e, section)
         return out
     m = _CONCL.search(text)
+    review = m is not None or bool(_SR.search(text[:ABSTRACT_CHARS]))
     if m is None:
         m = _CONCL_ABSTRACT.search(text, 0, ABSTRACT_CHARS)
     if m is not None:
-        for s, e, tx in _sentences(text[max(0, m.start() - ABSTRACT_CHARS):m.start()], max(0, m.start() - ABSTRACT_CHARS)):
-            if CALIBRATED.search(tx):
+        a0 = max(0, m.start() - ABSTRACT_CHARS)
+        # A SYSTEMATIC REVIEW's abstract: every sentence of its main-results
+        # section is a unit, as its conclusions are (advisor's ruling,
+        # 2026-10-27: WHU-S06's conditions-for-engagement finding sits in "Main
+        # Results" and carries its confidence in the NEXT sentence). Elsewhere a
+        # results sentence counts only if it carries a certainty term.
+        mr = None
+        if review:
+            mr = [x for x in _MAIN_RESULTS.finditer(text, a0, m.start())]
+            mr = mr[-1] if mr else None
+        if mr is not None:
+            for s, e, _t in _sentences(text[mr.end():m.start()], mr.end()):
+                add(s, e, "abstract main results")
+        for s, e, tx in _sentences(text[a0:m.start()], a0):
+            if CALIBRATED.search(tx) and not (mr is not None and e > mr.start()):
                 add(s, e, "abstract results")
         s0, e0 = _region(text, m.end())
         for s, e, _t in _sentences(text[s0:e0], s0):
