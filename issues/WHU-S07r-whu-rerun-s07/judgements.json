@@ -1,0 +1,2197 @@
+{
+ "candidates": {
+  "S001@7187-7652": {
+   "source": "S001",
+   "at": [
+    7187,
+    7652
+   ],
+   "section": "Executive Summary ¶1",
+   "kind": "assessment",
+   "text_sha256": "98a00ecbb645334acbbb3df347258afd40139f415ccbbf1e1ce9ecd8e9e3a5ec",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement concerns urbanisation in general and total per capita urban carbon emissions across all sectors, not whether changing urban layout or transport pricing reduces transport emissions specifically.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "b84441b6ed428170",
+   "to_person": false,
+   "decided_at": "2026-10-28T00:31:06+00:00"
+  },
+  "S001@7652-8524": {
+   "source": "S001",
+   "at": [
+    7652,
+    8524
+   ],
+   "section": "Executive Summary ¶2",
+   "kind": "assessment",
+   "text_sha256": "0b1a59a0fe496290efc1c1ce1842cd7f3d88bf66509d5776dfffe258ecc986df",
+   "relevant": true,
+   "words": "how cities are laid out",
+   "reason": "The judgement names urban form ('how cities are laid out') as a driver of urban GHG emissions and says new city design locks in future emissions, which bears on whether and over what timescale layout changes cut transport emissions, though it speaks of urban emissions generally rather than transport alone.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "71b66b6caadb1418",
+   "to_person": false,
+   "decided_at": "2026-10-28T00:31:11+00:00"
+  },
+  "S001@8524-8944": {
+   "source": "S001",
+   "at": [
+    8524,
+    8944
+   ],
+   "section": "Executive Summary ¶3",
+   "kind": "assessment",
+   "text_sha256": "26e2fd9bd72ea86844fdb81b2a2a01aeee42c65530108c7ceeb7b758730a506e",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement gives the urban share of total global GHG emissions across all sectors; it says nothing about transport emissions specifically or about whether urban form or pricing measures reduce them.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "bff6200dac599472",
+   "to_person": false,
+   "decided_at": "2026-10-28T00:31:13+00:00"
+  },
+  "S001@8944-9559": {
+   "source": "S001",
+   "at": [
+    8944,
+    9559
+   ],
+   "section": "Executive Summary ¶4",
+   "kind": "assessment",
+   "text_sha256": "7d950f68c4ba6658cb1ae995a91443cb2559d4ef59cc3a94491b9153f53cfae6",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement describes the rising urban share of total national emissions across all sectors by region; it says nothing about whether urban form changes or transport pricing reduce transport emissions.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "264fbd9a26b02e75",
+   "to_person": false,
+   "decided_at": "2026-10-28T00:31:16+00:00"
+  },
+  "S001@9559-10404": {
+   "source": "S001",
+   "at": [
+    9559,
+    10404
+   ],
+   "section": "Executive Summary ¶5",
+   "kind": "assessment",
+   "text_sha256": "7a49914ab713a9c8626d771522dc1a8b3ec16883eccdb44208f3363166449123",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement reports trends and regional differences in total per capita urban GHG emissions across all sectors, not whether urban form or transport pricing reduces transport emissions.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "5cf8fef388ff0e04",
+   "to_person": false,
+   "decided_at": "2026-10-28T00:31:18+00:00"
+  },
+  "S001@10404-11681": {
+   "source": "S001",
+   "at": [
+    10404,
+    11681
+   ],
+   "section": "Executive Summary ¶6",
+   "kind": "assessment",
+   "text_sha256": "55f9b5dfdb34aa49d8cf3176c807f826c8e5fc3a00e08dd531f28f564ad1d7bb",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement projects total consumption-based urban GHG emissions across all sectors under broad mitigation scenarios such as electrification and renewables, without isolating transport emissions or the effect of urban form or pricing measures.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "3735b5c9b940223a",
+   "to_person": false,
+   "decided_at": "2026-10-28T00:31:21+00:00"
+  },
+  "S001@11681-12949": {
+   "source": "S001",
+   "at": [
+    11681,
+    12949
+   ],
+   "section": "Executive Summary ¶7",
+   "kind": "assessment",
+   "text_sha256": "795a9baf7d35d5af87b3ac6086a076d71a3d4c5324f85ff01856ebaedbea3bfd",
+   "relevant": null,
+   "words": "how cities are laid out … how long it takes, and under what conditions it holds",
+   "reason": "relevance refused by code: 'how cities are laid out … how long it takes, and under what conditions it holds' is in neither the question nor a scope.out entry",
+   "by": "code (ruling.py judgements)",
+   "ruling": "7e3cee134d19a5e2",
+   "to_person": true,
+   "decided_at": "2026-10-28T00:31:27+00:00"
+  },
+  "S001@12949-13550": {
+   "source": "S001",
+   "at": [
+    12949,
+    13550
+   ],
+   "section": "Executive Summary ¶8",
+   "kind": "assessment",
+   "text_sha256": "014969696a75fa56e87be7e47e11757c86d0d1b9df12b81a7a1bd936915465ce",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement concerns emissions from constructing and upgrading urban infrastructure, plus an accounting footnote; these are embodied construction emissions, which the scope explicitly excludes, not transport emissions from urban form or pricing.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "8f8af2aeb03cfb95",
+   "to_person": false,
+   "decided_at": "2026-10-28T00:31:30+00:00"
+  },
+  "S001@13550-14058": {
+   "source": "S001",
+   "at": [
+    13550,
+    14058
+   ],
+   "section": "Executive Summary ¶9",
+   "kind": "assessment",
+   "text_sha256": "0640fb16edc8009eb0208c1bc0de91f81e7180420e9a07c844328eb26c480324",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement concerns committed CO2 emissions and raw-material demand from building out urban infrastructure with conventional practices, which is embodied and construction-related and out of scope, not whether urban form or pricing cuts transport emissions.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "480f41cc432f1edb",
+   "to_person": false,
+   "decided_at": "2026-10-28T00:31:35+00:00"
+  },
+  "S001@14058-14669": {
+   "source": "S001",
+   "at": [
+    14058,
+    14669
+   ],
+   "section": "Executive Summary ¶10",
+   "kind": "assessment",
+   "text_sha256": "940ca7600f3e549212ad0ca2f4c4783012e792441c5db609ed89a32889cfe355",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement concerns integrating urban mitigation with adaptation and the co-benefits of mitigation (resilience, equity, health, employment), not whether urban form or transport pricing reduces transport greenhouse gas emissions; co-benefits are out of scope.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "2af7a49350a03301",
+   "to_person": false,
+   "decided_at": "2026-10-28T00:31:37+00:00"
+  },
+  "S001@14669-15506": {
+   "source": "S001",
+   "at": [
+    14669,
+    15506
+   ],
+   "section": "Executive Summary ¶11",
+   "kind": "assessment",
+   "text_sha256": "0a4f33e31fd4866686e952e508c74bf9cee491e980376daf1afac31ca352a02b",
+   "relevant": true,
+   "words": "how cities are laid out … cut greenhouse gas emissions",
+   "reason": "The judgement finds, with high evidence and agreement, that compact and efficient urban forms are effective in reducing urban emissions when combined with other strategies, which bears directly on whether changing city layout cuts emissions, though it is not specific to transport.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "30b7f9f4d27860c3",
+   "to_person": false,
+   "decided_at": "2026-10-28T00:31:41+00:00"
+  },
+  "S001@15797-16802": {
+   "source": "S001",
+   "at": [
+    15797,
+    16802
+   ],
+   "section": "Executive Summary ¶13",
+   "kind": "assessment",
+   "text_sha256": "c1ef6573c090ee0a64f8c97776853f2de66f4d02b725c9ebece84c7a439c772e",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement concerns green and blue infrastructure mitigating emissions through carbon sequestration and reduced building energy use, not urban form or pricing effects on transport emissions.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "0cfc5a7c1a39bbf2",
+   "to_person": false,
+   "decided_at": "2026-10-28T00:31:43+00:00"
+  },
+  "S001@16802-17660": {
+   "source": "S001",
+   "at": [
+    16802,
+    17660
+   ],
+   "section": "Executive Summary ¶14",
+   "kind": "assessment",
+   "text_sha256": "f1f01a175471d96f1bb4347677154a8ced4bf17904d5798645dfd70762b89666",
+   "relevant": true,
+   "words": "together with measures such as transport pricing, cut greenhouse gas emissions",
+   "reason": "The judgement says packages of multiple urban-scale interventions, including spatial planning, cut more emissions than the sum of individual measures, which bears directly on combining urban form changes with accompanying measures.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "6e30434fc8da6fb1",
+   "to_person": false,
+   "decided_at": "2026-10-28T00:31:47+00:00"
+  },
+  "S001@17660-19219": {
+   "source": "S001",
+   "at": [
+    17660,
+    19219
+   ],
+   "section": "Executive Summary ¶15",
+   "kind": "assessment",
+   "text_sha256": "f8432203f71830a88a10ed27cebc36983bdcdb8af74c00ad8df0ce4b26a0d71b",
+   "relevant": null,
+   "words": "changing how cities are laid out … denser, more mixed and better connected … cut greenhouse gas emissions … under what conditions it holds",
+   "reason": "relevance refused by code: 'changing how cities are laid out … denser, more mixed and better connected … cut greenhouse gas emissions … under what conditions it holds' is in neither the question nor a scope.out entry",
+   "by": "code (ruling.py judgements)",
+   "ruling": "2bb2af15924ae976",
+   "to_person": true,
+   "decided_at": "2026-10-28T00:31:49+00:00"
+  },
+  "S001@19219-20480": {
+   "source": "S001",
+   "at": [
+    19219,
+    20480
+   ],
+   "section": "Executive Summary ¶16",
+   "kind": "assessment",
+   "text_sha256": "dde3710cd29c78df6977d0f31d25333f813a56a33b63b4d7244006b7a8bd6520",
+   "relevant": true,
+   "words": "making them denser, more mixed and better connected … cut greenhouse gas emissions from transport",
+   "reason": "The judgement states, with very high confidence, that compact urban growth through higher residential and job densities, mixed land use and transit-oriented development could cut GHG emissions by 23-26% by 2050 relative to business-as-usual, which bears directly on the question even though the figure covers more than transport alone.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "537d7636487eeb40",
+   "to_person": false,
+   "decided_at": "2026-10-28T00:31:52+00:00"
+  },
+  "S001@20480-21264": {
+   "source": "S001",
+   "at": [
+    20480,
+    21264
+   ],
+   "section": "Executive Summary ¶17",
+   "kind": "assessment",
+   "text_sha256": "5b7e5c454bf89e2e106c8771c3951a9c1ec7be0836df12a68f37178658795a6c",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement is about the governance partnerships and financing needed to deliver urban mitigation infrastructure in general, not about whether denser, mixed or better-connected urban form or transport pricing reduces transport greenhouse gas emissions, or by how much.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "caabe90e7afe84d9",
+   "to_person": false,
+   "decided_at": "2026-10-28T00:31:55+00:00"
+  },
+  "S002@8708-9417": {
+   "source": "S002",
+   "at": [
+    8708,
+    9417
+   ],
+   "section": "Executive Summary ¶1",
+   "kind": "assessment",
+   "text_sha256": "ea2f67c4bfac762bddd1d8a71d545fb7314af5050b08ac744a484f0d10b294f4",
+   "relevant": true,
+   "words": "greenhouse gas emissions from transport",
+   "reason": "It gives the size, growth and road-vehicle share (70%) of transport GHG emissions, the outcome the question asks whether urban form and pricing can cut, though it says nothing directly about urban form or pricing.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "4a8ebdc81c341c94",
+   "to_person": false,
+   "decided_at": "2026-10-28T00:32:00+00:00"
+  },
+  "S002@10442-11681": {
+   "source": "S002",
+   "at": [
+    10442,
+    11681
+   ],
+   "section": "Executive Summary ¶3",
+   "kind": "assessment",
+   "text_sha256": "79a79f2b08093ebdc89dd5b0197b09b37413714d39f7077a2ec7af3b94625f44",
+   "relevant": true,
+   "words": "changing how cities are laid out … together with measures such as transport pricing, cut greenhouse gas emissions from transport",
+   "reason": "The judgement states that more compact land use combined with less car-dependent infrastructure can cut cities' transport fuel use by around 25%, and that transport demand management incentives are needed (high confidence), which bears directly on whether urban form plus pricing-type measures reduce transport emissions.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "e4aa84fddd646acf",
+   "to_person": false,
+   "decided_at": "2026-10-28T00:32:02+00:00"
+  },
+  "S002@11681-12871": {
+   "source": "S002",
+   "at": [
+    11681,
+    12871
+   ],
+   "section": "Executive Summary ¶4",
+   "kind": "assessment",
+   "text_sha256": "dfbf0a4fa97b39f36fc420aee3f7c796fecd4958d530cc9f96d73960c6a99f2b",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement concerns battery electric vehicles and the electrification of transport, which is vehicle technology and fuel switching; the scope explicitly excludes this, so it does not bear on whether urban form or pricing cut transport emissions.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "3558ef33184351f8",
+   "to_person": false,
+   "decided_at": "2026-10-28T00:32:04+00:00"
+  },
+  "S002@12871-13899": {
+   "source": "S002",
+   "at": [
+    12871,
+    13899
+   ],
+   "section": "Executive Summary ¶5",
+   "kind": "assessment",
+   "text_sha256": "82bea9d827c611e7cbb1de8a6021cbba326442733471d0b7ea8a151fc44ebae3",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement is about decarbonising heavy-duty trucks and rail through vehicle technology and fuel switching (battery electric, hydrogen, biofuels), which the scope explicitly excludes; it says nothing about urban form or transport pricing.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "9d67dff4fa02a1ee",
+   "to_person": false,
+   "decided_at": "2026-10-28T00:32:06+00:00"
+  },
+  "S002@13899-14943": {
+   "source": "S002",
+   "at": [
+    13899,
+    14943
+   ],
+   "section": "Executive Summary ¶6",
+   "kind": "assessment",
+   "text_sha256": "144571c5bb83cd75da5d993ac57372bd49486b7817f494c2420eff62e252695b",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement concerns low-carbon fuels for shipping and aviation, which the scope explicitly excludes as vehicle technology and fuel switching and as international aviation and shipping, and it says nothing about urban form or transport pricing.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "914c280872bf3dd5",
+   "to_person": false,
+   "decided_at": "2026-10-28T00:32:08+00:00"
+  },
+  "S002@14943-16611": {
+   "source": "S002",
+   "at": [
+    14943,
+    16611
+   ],
+   "section": "Executive Summary ¶7",
+   "kind": "assessment",
+   "text_sha256": "bf76df5919efd21703a66303596f39afbe0eee89733ed5513d2ad51edea29e4c",
+   "relevant": true,
+   "words": "greenhouse gas emissions from transport",
+   "reason": "It gives baseline growth and required reductions in transport CO2 emissions, including a 90% cut by 2050 in the low-demand pathway, which frames the outcome and how much demand-side measures might need to deliver, though it does not test urban form or pricing directly.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "cbef4890a0609d53",
+   "to_person": false,
+   "decided_at": "2026-10-28T00:32:14+00:00"
+  },
+  "S002@16611-17210": {
+   "source": "S002",
+   "at": [
+    16611,
+    17210
+   ],
+   "section": "Executive Summary ¶8",
+   "kind": "assessment",
+   "text_sha256": "17b934a2c8bf83bca4b2a1cd56b299dc09903e9fed7966be8853d5c807643cb1",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement concerns fuel and technology shifts (electrification, biofuels, hydrogen, shipping and aviation), which the scope explicitly excludes, and says nothing about urban form or transport pricing.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "807371edd40619b8",
+   "to_person": false,
+   "decided_at": "2026-10-28T00:32:18+00:00"
+  },
+  "S002@17210-17949": {
+   "source": "S002",
+   "at": [
+    17210,
+    17949
+   ],
+   "section": "Executive Summary ¶9",
+   "kind": "assessment",
+   "text_sha256": "ae5284cd3014f9fb099c3ba31ace6459feec15c197c89a36b3bff209d17e7c5a",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement concerns planning low-carbon power and hydrogen infrastructure and integrated energy-system planning, which is energy supply and fuel switching rather than urban form or transport pricing.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "8e46677eeb600993",
+   "to_person": false,
+   "decided_at": "2026-10-28T00:32:20+00:00"
+  },
+  "S002@18481-19163": {
+   "source": "S002",
+   "at": [
+    18481,
+    19163
+   ],
+   "section": "Executive Summary ¶11",
+   "kind": "assessment",
+   "text_sha256": "0997ca02d3191809c8c6f4f62cfc172725ffbb12076b808de4a0c9717b7e7209",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement concerns critical minerals and recycling of lithium-ion batteries for electric vehicles, which is vehicle technology and sits outside the question on urban form and pricing cutting transport emissions.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "33beebf677ff4741",
+   "to_person": false,
+   "decided_at": "2026-10-28T00:32:22+00:00"
+  },
+  "S002@19163-20162": {
+   "source": "S002",
+   "at": [
+    19163,
+    20162
+   ],
+   "section": "Executive Summary ¶12",
+   "kind": "assessment",
+   "text_sha256": "86d75a1e71d3c98aea478d10d562e88e26dca41b64a97e402e2b417639011cd5",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement is about legislation and institutional pledges that could spur deployment of transport mitigation measures (e.g., parking charges, free passes); it says nothing about urban form or whether these measures actually reduce transport emissions.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "a6f681e53b64d500",
+   "to_person": false,
+   "decided_at": "2026-10-28T00:32:27+00:00"
+  },
+  "S006@12700-14302": {
+   "source": "S006",
+   "at": [
+    12700,
+    14302
+   ],
+   "section": "SPM B.1",
+   "kind": "assessment",
+   "text_sha256": "3a141c87d1166285be57da8e6f94d98c7ce657e191250f53bf2bc1bdcf61d131",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement reports global total GHG emission trends across all sectors and gases from 2010 to 2019, and says nothing about urban form, transport pricing or transport-sector emissions, so it does not bear on whether changing city layout cuts transport emissions.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "aaea41f12a069437",
+   "to_person": false,
+   "decided_at": "2026-10-28T00:32:29+00:00"
+  },
+  "S006@14302-19225": {
+   "source": "S006",
+   "at": [
+    14302,
+    19225
+   ],
+   "section": "SPM B.1.3",
+   "kind": "assessment",
+   "text_sha256": "499a389b7a4fc1a175fc20dead723da119da3adc8179b2d22b50160b7887b83a",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement concerns historical cumulative global CO2 emissions and remaining carbon budgets, not whether urban form or transport pricing reduces transport emissions.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "7885df7d6591d77a",
+   "to_person": false,
+   "decided_at": "2026-10-28T00:32:31+00:00"
+  },
+  "S006@19225-23797": {
+   "source": "S006",
+   "at": [
+    19225,
+    23797
+   ],
+   "section": "SPM B.1.4",
+   "kind": "assessment",
+   "text_sha256": "7a6ef249162fad7fb5b968ccf0be75cc0ff27af524382c10dd149e2ce18e0ece",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement concerns the drop in global fossil CO2 emissions during COVID-19 in 2020 and overall emission trends by gas, not whether urban form or transport pricing reduces transport emissions.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "88b93cace7e181c8",
+   "to_person": false,
+   "decided_at": "2026-10-28T00:32:34+00:00"
+  },
+  "S006@23797-25852": {
+   "source": "S006",
+   "at": [
+    23797,
+    25852
+   ],
+   "section": "SPM B.2",
+   "kind": "assessment",
+   "text_sha256": "72ce5996eddef4bb039bcfca07c4d09aa98d6d78161c072cf3e5b8b921f464e6",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement only describes global sectoral emission shares and growth trends, including transport's 15% share and roughly 2% yearly growth; it says nothing about whether changing urban form or transport pricing reduces transport emissions.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "366f6dd6d40804cb",
+   "to_person": false,
+   "decided_at": "2026-10-28T00:32:38+00:00"
+  },
+  "S006@25852-28222": {
+   "source": "S006",
+   "at": [
+    25852,
+    28222
+   ],
+   "section": "SPM B.2.3",
+   "kind": "assessment",
+   "text_sha256": "d520b8556c1abd4464453286ddef7c85921984910d9a26b0e642b31e845e9d68",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement gives the global share of total urban emissions (consumption-based, across all sectors) and lists urban form only as one driver among several. It says nothing specific about transport emissions or whether changing urban form or pricing would reduce them, and its carbon-intensity content is outside the question.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "ef697c7ae2990ce7",
+   "to_person": false,
+   "decided_at": "2026-10-28T00:32:45+00:00"
+  },
+  "S006@28222-38731": {
+   "source": "S006",
+   "at": [
+    28222,
+    38731
+   ],
+   "section": "SPM B.3",
+   "kind": "assessment",
+   "text_sha256": "165c069caf1dbd9e874a4d1f026d6e8b80e1058227d101c2ec472decfda5e496",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement covers regional and household distribution of global GHG emissions and national emission-reduction trends, and says nothing about urban form, transport pricing or transport emissions.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "ff6372e89312173c",
+   "to_person": false,
+   "decided_at": "2026-10-28T00:32:47+00:00"
+  },
+  "S006@38731-46007": {
+   "source": "S006",
+   "at": [
+    38731,
+    46007
+   ],
+   "section": "SPM B.4",
+   "kind": "assessment",
+   "text_sha256": "fb2ec8286b0ac6210b2bb147645bf5efcc24fe17ba4cebed5baaa12d054d9f7d",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement covers cost reductions in low-emission technologies (solar, wind, batteries, EVs), innovation policy and digitalisation, which fall under the out-of-scope vehicle technology topic and say nothing about urban form or transport pricing.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "7da97338cf5b891b",
+   "to_person": false,
+   "decided_at": "2026-10-28T00:32:49+00:00"
+  },
+  "S006@46007-46612": {
+   "source": "S006",
+   "at": [
+    46007,
+    46612
+   ],
+   "section": "SPM B.5",
+   "kind": "assessment",
+   "text_sha256": "50b551537c393ef6d2a0d09e986bfab66e6233b7ba7b2d78b84b4d260826e4f5",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement concerns the general expansion of mitigation policies, uneven sectoral coverage and climate finance flows, not whether urban form changes or transport pricing reduce transport emissions.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "f564b1467beb9a22",
+   "to_person": false,
+   "decided_at": "2026-10-28T00:32:51+00:00"
+  },
+  "S006@46612-48041": {
+   "source": "S006",
+   "at": [
+    46612,
+    48041
+   ],
+   "section": "SPM B.5.1",
+   "kind": "assessment",
+   "text_sha256": "77720c30ef22d43085455ee035d84c3bc32354b566cb0caf69e44356f4dac904",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement covers the Kyoto Protocol, the Paris Agreement and economy-wide carbon taxes, emissions trading and climate laws in general, not urban form or transport pricing effects on transport emissions.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "bb110201b906b640",
+   "to_person": false,
+   "decided_at": "2026-10-28T00:32:54+00:00"
+  },
+  "S006@48041-48843": {
+   "source": "S006",
+   "at": [
+    48041,
+    48843
+   ],
+   "section": "SPM B.5.3",
+   "kind": "assessment",
+   "text_sha256": "1ce1952c3075fc6d10ade6ae35fb7ea9a45518cc92c04e65b96c90bfa199ea71",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement covers economy-wide mitigation policies (energy efficiency, deforestation, technology deployment, laws) and their aggregate avoided emissions, not urban form or transport pricing effects on transport emissions.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "da50a18e1feb3492",
+   "to_person": false,
+   "decided_at": "2026-10-28T00:32:56+00:00"
+  },
+  "S006@48843-51020": {
+   "source": "S006",
+   "at": [
+    48843,
+    51020
+   ],
+   "section": "SPM B.5.4",
+   "kind": "assessment",
+   "text_sha256": "a42697d15a3d992205e83084e042ab727d184503c6dc69ba5a2e10c0e457617f",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement concerns climate finance flows and global NDC emission pathways, not whether urban form or transport pricing reduces transport greenhouse gas emissions.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "ed7eac8caa8edd4c",
+   "to_person": false,
+   "decided_at": "2026-10-28T00:32:58+00:00"
+  },
+  "S006@51020-56836": {
+   "source": "S006",
+   "at": [
+    51020,
+    56836
+   ],
+   "section": "SPM B.6.1",
+   "kind": "assessment",
+   "text_sha256": "03d0cc420081def44bb3feff34353236d028e6721a28b6ebf9c56d2904b5970d",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement concerns global NDC implementation and emissions gaps in 2030, not whether urban form or transport pricing reduces transport greenhouse gas emissions.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "5560d59dec431e01",
+   "to_person": false,
+   "decided_at": "2026-10-28T00:32:59+00:00"
+  },
+  "S006@56836-61271": {
+   "source": "S006",
+   "at": [
+    56836,
+    61271
+   ],
+   "section": "SPM B.6.4",
+   "kind": "assessment",
+   "text_sha256": "e482946d58cee6980c2c75ccc02c189aeb1bfe5f396ef70120d48d7d596a2f8a",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement concerns global emission pathways, NDC-driven overshoot of 1.5°C and net-negative CO2 requirements, not whether urban form or transport pricing reduces transport emissions.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "7396a62cd35e5fe8",
+   "to_person": false,
+   "decided_at": "2026-10-28T00:33:01+00:00"
+  },
+  "S006@61271-61691": {
+   "source": "S006",
+   "at": [
+    61271,
+    61691
+   ],
+   "section": "SPM B.7",
+   "kind": "assessment",
+   "text_sha256": "c455c933fe783d8be65ecc63e4c7a4a9d975ef4c1ed5936293b0bfb3964f535b",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement concerns committed emissions from existing and planned fossil fuel infrastructure relative to carbon budgets, not whether urban form or transport pricing reduces transport emissions.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "a3fc6316f6989608",
+   "to_person": false,
+   "decided_at": "2026-10-28T00:33:04+00:00"
+  },
+  "S006@61691-62500": {
+   "source": "S006",
+   "at": [
+    61691,
+    62500
+   ],
+   "section": "SPM B.7.1",
+   "kind": "assessment",
+   "text_sha256": "abe51911944ffee1e0b8fb96af3675b2a046964441fa9e34f47c0c6dcbab27b1",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement concerns committed CO2 emissions from existing and planned fossil fuel infrastructure, mainly in the power sector, compared with carbon budgets, and says nothing about urban form, transport pricing or transport emissions.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "d207c854bd699bd6",
+   "to_person": false,
+   "decided_at": "2026-10-28T00:33:06+00:00"
+  },
+  "S006@62500-64683": {
+   "source": "S006",
+   "at": [
+    62500,
+    64683
+   ],
+   "section": "SPM B.7.2",
+   "kind": "assessment",
+   "text_sha256": "cbf1baa98d271df106acbbc789cdc5d2b8ecb3fda2cfc811ee69c8a085f94d91",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement covers power-sector options (decommissioning, CCS, fuel switching) and only notes in passing that remaining fossil CO2 is concentrated in transport and industry; it says nothing about urban form or transport pricing cutting transport emissions.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "859435dd58b6893e",
+   "to_person": false,
+   "decided_at": "2026-10-28T00:33:08+00:00"
+  },
+  "S006@64683-65364": {
+   "source": "S006",
+   "at": [
+    64683,
+    65364
+   ],
+   "section": "SPM C.1",
+   "kind": "assessment",
+   "text_sha256": "f6b1b7b9b3a4454fd650ff1ee8e379ef7ba00109c6e5f30d68fdb08ffb61d3e6",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement is about when global greenhouse gas emissions peak in modelled warming pathways and about warming under current policies; it does not address urban form, transport pricing, or transport emissions.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "f05f290264f160d3",
+   "to_person": false,
+   "decided_at": "2026-10-28T00:33:10+00:00"
+  },
+  "S006@65364-66257": {
+   "source": "S006",
+   "at": [
+    65364,
+    66257
+   ],
+   "section": "SPM C.1.1",
+   "kind": "assessment",
+   "text_sha256": "016b15613ab6c9e51d0a72273b4de8411a42c96b45cdfa00c816653c95e00639",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement covers economy-wide global GHG reduction trajectories in modelled warming pathways, not whether urban form or transport pricing reduces transport emissions.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "dd444367f9f4214a",
+   "to_person": false,
+   "decided_at": "2026-10-28T00:33:12+00:00"
+  },
+  "S006@66257-67533": {
+   "source": "S006",
+   "at": [
+    66257,
+    67533
+   ],
+   "section": "SPM C.1.2",
+   "kind": "assessment",
+   "text_sha256": "09704f18455f425809b9c26e5b41d734a43e6528ed36f3eb0c9effbe991cb769",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement reports economy-wide CO2, CH4 and other non-CO2 reductions in modelled warming-limit pathways. It does not address urban form, transport pricing, or transport emissions specifically.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "edcf8138df490bc2",
+   "to_person": false,
+   "decided_at": "2026-10-28T00:33:14+00:00"
+  },
+  "S006@67533-87092": {
+   "source": "S006",
+   "at": [
+    67533,
+    87092
+   ],
+   "section": "SPM C.1.3",
+   "kind": "assessment",
+   "text_sha256": "a2d970941590c7637499165bde0d14e4a713831e70eadef379227fa05ac74a3d",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement concerns global modelled emission pathways and warming outcomes under current policies, not whether urban form or transport pricing reduces transport emissions.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "97b0e72e4f8eaf58",
+   "to_person": false,
+   "decided_at": "2026-10-28T00:33:16+00:00"
+  },
+  "S006@87092-100307": {
+   "source": "S006",
+   "at": [
+    87092,
+    100307
+   ],
+   "section": "SPM C.1.4",
+   "kind": "assessment",
+   "text_sha256": "ff8d81d6ff9cfcfcea4ac0e307e5d084ed6511d9c4981e1d8919b6babbbb9f1d",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement covers global modelled emission pathway categories, warming likelihoods and scenario methodology, not urban form, transport pricing or transport emissions.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "d9dd9440abdd01ea",
+   "to_person": false,
+   "decided_at": "2026-10-28T00:33:18+00:00"
+  },
+  "S006@100307-101337": {
+   "source": "S006",
+   "at": [
+    100307,
+    101337
+   ],
+   "section": "SPM C.2",
+   "kind": "assessment",
+   "text_sha256": "ea517983e7f9711112252e3f2ea912a0649bd8c9d3322946fdfa9c2d88cde3d6",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement is about global net-zero timing and peak warming in modelled pathways, not about whether urban form changes or transport pricing reduce transport emissions.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "e2c9e3c7306be706",
+   "to_person": false,
+   "decided_at": "2026-10-28T00:33:20+00:00"
+  },
+  "S006@101337-101676": {
+   "source": "S006",
+   "at": [
+    101337,
+    101676
+   ],
+   "section": "SPM C.2.1",
+   "kind": "assessment",
+   "text_sha256": "2f61ab692555510ecc9694478c4d021649e831a2e1a0aa9eddcc7cc1aeb9b03d",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement gives global cumulative CO2 budgets for 1.5°C and 2°C pathways and says nothing about urban form, transport pricing or transport emissions.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "be93a755b2576a4e",
+   "to_person": false,
+   "decided_at": "2026-10-28T00:33:22+00:00"
+  },
+  "S006@101676-103223": {
+   "source": "S006",
+   "at": [
+    101676,
+    103223
+   ],
+   "section": "SPM C.2.2",
+   "kind": "assessment",
+   "text_sha256": "00e347e0ba2137331200a411af6aa591df235a3ada3914145498fe765dd48da8",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement concerns global emissions pathways, overshoot, net negative CO2 and carbon dioxide removal, not urban form or transport pricing effects on transport emissions.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "5208d078b1c49e30",
+   "to_person": false,
+   "decided_at": "2026-10-28T00:33:24+00:00"
+  },
+  "S006@103223-104274": {
+   "source": "S006",
+   "at": [
+    103223,
+    104274
+   ],
+   "section": "SPM C.2.3",
+   "kind": "assessment",
+   "text_sha256": "215d780e97221d918d5c36e3404f8d4f1503883ba0a18896155e16f624dfbbfe",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement covers global non-CO2 greenhouse gases, aerosols and methane in mitigation pathways, not urban form, transport pricing or transport emissions.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "46cf21f2ce0afcfc",
+   "to_person": false,
+   "decided_at": "2026-10-28T00:33:26+00:00"
+  },
+  "S006@104274-106350": {
+   "source": "S006",
+   "at": [
+    104274,
+    106350
+   ],
+   "section": "SPM C.2.4",
+   "kind": "assessment",
+   "text_sha256": "a8c337eb4ac8d4d62ed635f0b4d59189d240ca9ddaa7540f00f52d6b3d1bc970",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement covers global net-zero pathways, warming outcomes and economy-wide mitigation strategies in general terms; it says nothing specific about urban form, transport pricing or transport emissions.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "33b8586012f91196",
+   "to_person": false,
+   "decided_at": "2026-10-28T00:33:29+00:00"
+  },
+  "S006@106350-106831": {
+   "source": "S006",
+   "at": [
+    106350,
+    106831
+   ],
+   "section": "SPM C.3.1",
+   "kind": "assessment",
+   "text_sha256": "ff7b5d783479c9bee6495f5ef524c226cf825cc3bfc3e24296379250a117e839",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement concerns cross-sector trade-offs in global mitigation pathways and says nothing about whether urban form or transport pricing reduces transport emissions.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "f638dd92a107496e",
+   "to_person": false,
+   "decided_at": "2026-10-28T00:33:31+00:00"
+  },
+  "S006@106831-108498": {
+   "source": "S006",
+   "at": [
+    106831,
+    108498
+   ],
+   "section": "SPM C.3.2",
+   "kind": "assessment",
+   "text_sha256": "ebd2235a148c275809f4c9f2b94f9370046c4f0890bbdc248588dfee021f2ddf",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement concerns global declines in coal, oil and gas use and electricity decarbonisation in mitigation pathways, not whether urban form or transport pricing reduce transport emissions.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "610226391313212c",
+   "to_person": false,
+   "decided_at": "2026-10-28T00:33:33+00:00"
+  },
+  "S006@108498-109011": {
+   "source": "S006",
+   "at": [
+    108498,
+    109011
+   ],
+   "section": "SPM C.3.3",
+   "kind": "assessment",
+   "text_sha256": "4d57c4487103db5eeca4be771f54cac29b7365412835943cccbd8ac21b0c3907",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement covers sectoral timing of net zero and cross-sector compensation in global pathways, noting transport lags, but says nothing about whether urban form or pricing measures reduce transport emissions.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "0b2b66945c0fafa9",
+   "to_person": false,
+   "decided_at": "2026-10-28T00:33:35+00:00"
+  },
+  "S006@109011-110511": {
+   "source": "S006",
+   "at": [
+    109011,
+    110511
+   ],
+   "section": "SPM C.3.4",
+   "kind": "assessment",
+   "text_sha256": "fa1db60342aa855e7247ace61d4d02bf923800b84a632345d0c53dc23ac53338",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement covers global sectoral shares of emissions reductions and carbon dioxide removal deployment in modelled pathways, not urban form, transport pricing or transport emissions.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "817103d344c73933",
+   "to_person": false,
+   "decided_at": "2026-10-28T00:33:37+00:00"
+  },
+  "S006@110511-117419": {
+   "source": "S006",
+   "at": [
+    110511,
+    117419
+   ],
+   "section": "SPM C.3.6",
+   "kind": "assessment",
+   "text_sha256": "397ac77418a9191ed0f5f41eae5af19275ba72ddae04d12b7d0d51d0c68d8dc9",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement covers implementation challenges of global mitigation pathways (CDR, bioenergy, nuclear) and sectoral emission figures in general, and says nothing about whether urban form or transport pricing cuts transport emissions.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "f863b28aed1fc3a2",
+   "to_person": false,
+   "decided_at": "2026-10-28T00:33:40+00:00"
+  },
+  "S006@117419-117838": {
+   "source": "S006",
+   "at": [
+    117419,
+    117838
+   ],
+   "section": "SPM C.4",
+   "kind": "assessment",
+   "text_sha256": "106c1390f748c5cca6ffc24f36f2bacb69e842c4e89aab36b75cbc53f22283ee",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement concerns energy-sector transitions such as fossil fuel reduction, low-emission energy sources and fossil infrastructure lock-in, not urban form or transport pricing as ways to cut transport emissions.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "68e4d2ae27785e4a",
+   "to_person": false,
+   "decided_at": "2026-10-28T00:33:43+00:00"
+  },
+  "S006@117838-120245": {
+   "source": "S006",
+   "at": [
+    117838,
+    120245
+   ],
+   "section": "SPM C.4.1",
+   "kind": "assessment",
+   "text_sha256": "d872a7a1a20201868dff989f7d5079170cca79ba7a74a1f6314bc580b76f9643",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement concerns net-zero energy supply systems, electrification, renewables and CCS, not urban form or transport pricing effects on transport emissions.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "807a48d2cdc75c5d",
+   "to_person": false,
+   "decided_at": "2026-10-28T00:33:44+00:00"
+  },
+  "S006@120245-121183": {
+   "source": "S006",
+   "at": [
+    120245,
+    121183
+   ],
+   "section": "SPM C.4.4",
+   "kind": "assessment",
+   "text_sha256": "b7ec0a7f4da00c38139ea694df894e547dfa84a0713260582321a0341e610590",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement is about stranded fossil fuel assets, CCS and fossil fuel trade under warming limits, not about urban form or transport pricing reducing transport emissions.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "601818884f8dadc0",
+   "to_person": false,
+   "decided_at": "2026-10-28T00:33:46+00:00"
+  },
+  "S006@121183-121726": {
+   "source": "S006",
+   "at": [
+    121183,
+    121726
+   ],
+   "section": "SPM C.4.5",
+   "kind": "assessment",
+   "text_sha256": "61fb114b0d214ad4d232136fe48f2d960e35c9ac0f24851ae85ea688f43d7d11",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement concerns fugitive methane emissions from fossil fuel production and transport within energy supply, not transport-sector emissions shaped by urban form or transport pricing.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "8eaebb16616ae5e4",
+   "to_person": false,
+   "decided_at": "2026-10-28T00:33:48+00:00"
+  },
+  "S006@121726-123655": {
+   "source": "S006",
+   "at": [
+    121726,
+    123655
+   ],
+   "section": "SPM C.4.6",
+   "kind": "assessment",
+   "text_sha256": "dc6dfc53f2a4be27ee85f36fca0a0c0169272ba13cf4cac9c3f6d6d4b6897cdc",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement concerns carbon capture and storage for energy and industry sources, not urban form or transport pricing effects on transport emissions.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "9529ebc54e0a430e",
+   "to_person": false,
+   "decided_at": "2026-10-28T00:33:50+00:00"
+  },
+  "S006@123655-126637": {
+   "source": "S006",
+   "at": [
+    123655,
+    126637
+   ],
+   "section": "SPM C.5",
+   "kind": "assessment",
+   "text_sha256": "3c76cdc82338689b4c35371318540ddceaabc797809ba8fd3689fae699820bab",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement concerns industrial-sector emissions and materials production, which the scope explicitly excludes; it says nothing about urban form, transport pricing or transport emissions.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "e8bb34a177e967a1",
+   "to_person": false,
+   "decided_at": "2026-10-28T00:33:52+00:00"
+  },
+  "S006@126637-127090": {
+   "source": "S006",
+   "at": [
+    126637,
+    127090
+   ],
+   "section": "SPM C.5.3",
+   "kind": "assessment",
+   "text_sha256": "48d21bf8d21b67e7995ada493f950de983e6ad94f06570c9f7459e17105dddab",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement is about industry-sector emissions reduction, relocation of GHG-intensive industries and hydrogen-based exports, which is not urban form or transport pricing and falls under the out-of-scope industry emissions.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "4c3884920154f422",
+   "to_person": false,
+   "decided_at": "2026-10-28T00:33:55+00:00"
+  },
+  "S006@127090-128359": {
+   "source": "S006",
+   "at": [
+    127090,
+    128359
+   ],
+   "section": "SPM C.5.4",
+   "kind": "assessment",
+   "text_sha256": "e2039027b75921d84307aab101c4bf4e84b3e4341c4bc1fc75572ab37707c398",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement concerns policy strategies for emissions-intensive industrial and basic materials sectors, not urban form or transport pricing effects on transport emissions, and industry emissions are explicitly out of scope.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "a8d8560121728da3",
+   "to_person": false,
+   "decided_at": "2026-10-28T00:33:57+00:00"
+  },
+  "S006@128359-129141": {
+   "source": "S006",
+   "at": [
+    128359,
+    129141
+   ],
+   "section": "SPM C.6",
+   "kind": "assessment",
+   "text_sha256": "f3087d87f9950e9898db7f31948e16370ecdcbbbb5398e96d5203ec674be23fc",
+   "relevant": true,
+   "words": "changing how cities are laid out … cut greenhouse gas emissions",
+   "reason": "The judgement states with very high confidence that transitioning urban form and infrastructure can significantly reduce urban GHG emissions, which bears on whether changing city layout cuts emissions, though it is not transport-specific.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "697eed56f5bdb32f",
+   "to_person": false,
+   "decided_at": "2026-10-28T00:34:01+00:00"
+  },
+  "S006@129141-129779": {
+   "source": "S006",
+   "at": [
+    129141,
+    129779
+   ],
+   "section": "SPM C.6.1",
+   "kind": "assessment",
+   "text_sha256": "3bd061b45e82a6c69b4d171f6d72c47f2109a372859ca1a4c9de1e5bda691f4e",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement projects total consumption-based urban emissions across all sectors under broad mitigation scenarios driven mainly by electrification and efficiency, and says nothing specific about urban form, transport pricing or transport emissions.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "ad17160394c9f768",
+   "to_person": false,
+   "decided_at": "2026-10-28T00:34:04+00:00"
+  },
+  "S006@129779-131269": {
+   "source": "S006",
+   "at": [
+    129779,
+    131269
+   ],
+   "section": "SPM C.6.2",
+   "kind": "assessment",
+   "text_sha256": "b96a91af06819678d1871e8645be545ebd7f54e032872d2b39178405654e4603",
+   "relevant": true,
+   "words": "changing how cities are laid out … denser, more mixed … cut greenhouse gas emissions",
+   "reason": "The judgement holds with high confidence that urban mitigation potential depends on land use and spatial form, and it cites compact urban form, co-locating jobs and housing, targeted infilling and support for walking, cycling and public transport as emission-saving strategies, which bears directly on whether denser, mixed urban layouts cut emissions.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "9f437993e138b3a0",
+   "to_person": false,
+   "decided_at": "2026-10-28T00:34:07+00:00"
+  },
+  "S006@131269-133862": {
+   "source": "S006",
+   "at": [
+    131269,
+    133862
+   ],
+   "section": "SPM C.6.3",
+   "kind": "assessment",
+   "text_sha256": "449e58048e3a9a9333d8825847e63dd2e2508c3b99562c7aa7b88c0c4fc66678",
+   "relevant": true,
+   "words": "together with accompanying demand measures … under what conditions it holds",
+   "reason": "C.6.3 says packages of multiple city-scale mitigation strategies reduce GHG emissions, and that cities' capacity to implement them depends on enabling conditions, which bears on combined urban-form-plus-measures packages and the conditions under which they work; the buildings and consumption parts are out of scope.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "8b765de3910eca3f",
+   "to_person": false,
+   "decided_at": "2026-10-28T00:34:13+00:00"
+  },
+  "S006@133862-134811": {
+   "source": "S006",
+   "at": [
+    133862,
+    134811
+   ],
+   "section": "SPM C.7.1",
+   "kind": "assessment",
+   "text_sha256": "c37a801874b303c154798ef43cbb68509609a31f92ec317216c4e67c4f60f20a",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement concerns emissions from buildings and from cement and steel used in construction, which the scope explicitly excludes as non-transport and embodied emissions, so it does not bear on transport emissions from urban form or pricing.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "70ce1e959a6f1db0",
+   "to_person": false,
+   "decided_at": "2026-10-28T00:34:16+00:00"
+  },
+  "S006@134811-135837": {
+   "source": "S006",
+   "at": [
+    134811,
+    135837
+   ],
+   "section": "SPM C.7.2",
+   "kind": "assessment",
+   "text_sha256": "33c9a4730a3b8a0a750adf9d3d02bbd80296450a6a47e4cd38861f9d2978cdfa",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement concerns mitigation of building emissions through design, construction materials, retrofit and energy supply, which the scope explicitly excludes as non-transport and embodied emissions, and it says nothing about urban form or transport pricing.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "21dc4991e225d2a1",
+   "to_person": false,
+   "decided_at": "2026-10-28T00:34:18+00:00"
+  },
+  "S006@135837-138399": {
+   "source": "S006",
+   "at": [
+    135837,
+    138399
+   ],
+   "section": "SPM C.7.3",
+   "kind": "assessment",
+   "text_sha256": "a7cfc97df7eb2db5c7d077a6afbb70323aa7d6f96c03545b3a7e3f0730947fa2",
+   "relevant": true,
+   "words": "cut greenhouse gas emissions from transport",
+   "reason": "SPM C.8 judges with medium-to-high confidence that demand-side and demand-focused interventions can reduce transport emissions and shift travel to more efficient modes, which bears directly on whether demand measures like urban form and pricing cut transport emissions.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "8c81bd48a3dbd7a3",
+   "to_person": false,
+   "decided_at": "2026-10-28T00:34:21+00:00"
+  },
+  "S006@138399-139103": {
+   "source": "S006",
+   "at": [
+    138399,
+    139103
+   ],
+   "section": "SPM C.8.1",
+   "kind": "assessment",
+   "text_sha256": "bfe64122ba730f84ca3b9a3f430acadef6a3250bbd0884b201661d8b0816f36e",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement gives aggregate global transport CO2 trajectories in 1.5°C and 2°C scenarios without attributing any reduction to urban form, density, land-use mix, connectivity or pricing, so it does not bear on whether those measures cut transport emissions.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "86263fbc3cf5ef0c",
+   "to_person": false,
+   "decided_at": "2026-10-28T00:34:26+00:00"
+  },
+  "S006@139103-140094": {
+   "source": "S006",
+   "at": [
+    139103,
+    140094
+   ],
+   "section": "SPM C.8.2",
+   "kind": "assessment",
+   "text_sha256": "671e22e886a40cf8b44707c6f3ccfe9b2a42896e82f4a6e8fcee9f2d2354e76d",
+   "relevant": true,
+   "words": "changing how cities are laid out … denser, more mixed and better connected, together with measures such as transport pricing, cut greenhouse gas emissions from transport",
+   "reason": "The judgement directly assesses, with high confidence, that changes in urban form (density, land-use mix, connectivity, accessibility) combined with transport pricing could reduce transport GHG emissions in developed countries and slow emissions growth in developing countries.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "3e0134175ab3b5d0",
+   "to_person": false,
+   "decided_at": "2026-10-28T00:34:28+00:00"
+  },
+  "S006@140094-142530": {
+   "source": "S006",
+   "at": [
+    140094,
+    142530
+   ],
+   "section": "SPM C.8.3",
+   "kind": "assessment",
+   "text_sha256": "7271c6b3304612c048c4b4c92060e91a93f14aeaa172cffc8c78156b035e3d82",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement concerns vehicle electrification, alternative fuels and aviation/shipping technologies, which the scope explicitly excludes, and says nothing about urban form or transport pricing.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "7c57f12088673f0b",
+   "to_person": false,
+   "decided_at": "2026-10-28T00:34:30+00:00"
+  },
+  "S006@142530-143354": {
+   "source": "S006",
+   "at": [
+    142530,
+    143354
+   ],
+   "section": "SPM C.8.5",
+   "kind": "assessment",
+   "text_sha256": "c34859666f25892e317d94317bc3b3abb18a209fc3a9ce2e74cb9f17b3b9ea00",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement concerns transport decarbonisation through power-sector decarbonisation, low-emissions fuels, energy-infrastructure planning and technology transfer. That is vehicle technology and fuel switching, which the scope excludes, not urban form or transport pricing.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "d3a4f27ea6c9aa1d",
+   "to_person": false,
+   "decided_at": "2026-10-28T00:34:33+00:00"
+  },
+  "S006@143354-144184": {
+   "source": "S006",
+   "at": [
+    143354,
+    144184
+   ],
+   "section": "SPM C.9",
+   "kind": "assessment",
+   "text_sha256": "8169a465029a0edde7a8a080f17b6980d28279258440c56e508673b2f3dd6142",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement concerns agriculture, forestry and land-use mitigation options, not urban form, transport pricing or transport emissions.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "b49d4c493bcb223e",
+   "to_person": false,
+   "decided_at": "2026-10-28T00:34:35+00:00"
+  },
+  "S006@144184-146107": {
+   "source": "S006",
+   "at": [
+    144184,
+    146107
+   ],
+   "section": "SPM C.9.1",
+   "kind": "assessment",
+   "text_sha256": "372da75ab297654c3815ac1dd53994e1bef085efcf4fd0c03455d4c3fe76afbc",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement covers mitigation potential from agriculture, forestry and other land use, not urban form or transport pricing effects on transport emissions.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "afc786b7c9fd184d",
+   "to_person": false,
+   "decided_at": "2026-10-28T00:34:37+00:00"
+  },
+  "S006@146107-146977": {
+   "source": "S006",
+   "at": [
+    146107,
+    146977
+   ],
+   "section": "SPM C.9.2",
+   "kind": "assessment",
+   "text_sha256": "8281d5f9da2409d27d4a9cf35c93436c150d026a0194c01f76ee599e14077803",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement concerns co-benefits and risks of agriculture, forestry and land-use (AFOLU) mitigation options, not urban form, transport pricing or transport emissions.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "6c7a1bd4a210724a",
+   "to_person": false,
+   "decided_at": "2026-10-28T00:34:38+00:00"
+  },
+  "S006@146977-148132": {
+   "source": "S006",
+   "at": [
+    146977,
+    148132
+   ],
+   "section": "SPM C.9.3",
+   "kind": "assessment",
+   "text_sha256": "99cb030f73540cc75cebc08b9835523a23f8f6d214e2ae960f332e3ac5ceed4c",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement is about barriers to agriculture, forestry and other land use (AFOLU) mitigation, such as agricultural CH4 and N2O emissions. It does not concern urban form, transport pricing or transport emissions.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "94f0efa3e55bf1fe",
+   "to_person": false,
+   "decided_at": "2026-10-28T00:34:40+00:00"
+  },
+  "S006@148132-151268": {
+   "source": "S006",
+   "at": [
+    148132,
+    151268
+   ],
+   "section": "SPM C.9.4",
+   "kind": "assessment",
+   "text_sha256": "119e4f7958d648f3fdc34e75ad6e7847b472d61a8ce8d398c31e668a96079c09",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement concerns the costs, financing and policies of AFOLU and forest-related mitigation, not urban form, transport pricing or transport emissions.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "2f0d13b107af4978",
+   "to_person": false,
+   "decided_at": "2026-10-28T00:34:42+00:00"
+  },
+  "S006@151268-152744": {
+   "source": "S006",
+   "at": [
+    151268,
+    152744
+   ],
+   "section": "SPM C.10",
+   "kind": "assessment",
+   "text_sha256": "95e74ba4b554928f1fe4849e64390cacccb0d4e4d027d86a0c926266964e9660",
+   "relevant": true,
+   "words": "cut greenhouse gas emissions from transport",
+   "reason": "The judgement says demand-side measures, including infrastructure design and access shaping mobility demand, can cut end-use-sector GHG emissions by 40–70% by 2050, which bears on whether changing urban layout reduces transport emissions, though it is broad rather than transport-specific.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "1144524dcd46dbdc",
+   "to_person": false,
+   "decided_at": "2026-10-28T00:34:47+00:00"
+  },
+  "S006@152744-153639": {
+   "source": "S006",
+   "at": [
+    152744,
+    153639
+   ],
+   "section": "SPM C.10.2",
+   "kind": "assessment",
+   "text_sha256": "8394bae6796e61744a92e48adae963b5345388943788225dd6a90ffab1a79171",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement gives aggregate potential for demand-side and behavioural strategies across all end-use sectors, not specifically for urban form or transport pricing, so it does not directly address whether laying cities out differently cuts transport emissions.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "596c6adf7f5d51bd",
+   "to_person": false,
+   "decided_at": "2026-10-28T00:34:52+00:00"
+  },
+  "S006@153639-154323": {
+   "source": "S006",
+   "at": [
+    153639,
+    154323
+   ],
+   "section": "SPM C.10.3",
+   "kind": "assessment",
+   "text_sha256": "7fc5a4be9622d070e568fb09e568ef7e5dacf35b6e45063d02fb5935257eba4b",
+   "relevant": true,
+   "words": "changing how cities are laid out, for example making them denser, more mixed and better connected … cut greenhouse gas emissions from transport",
+   "reason": "The judgement estimates (with high confidence) that compact cities, co-location of jobs and housing, and reallocating street space to active mobility could avoid 5–30% of end-use-sector emissions by 2050; this bears directly on whether urban form cuts emissions, though the figure also includes buildings and not transport alone.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "de4f8abe9f1aea05",
+   "to_person": false,
+   "decided_at": "2026-10-28T00:34:56+00:00"
+  },
+  "S006@154323-162437": {
+   "source": "S006",
+   "at": [
+    154323,
+    162437
+   ],
+   "section": "SPM C.10.4",
+   "kind": "assessment",
+   "text_sha256": "fe087b2fe9b1c55463aeb978f35e62e12047e5ceb8ec35fd8e7f368a1fcc444c",
+   "relevant": true,
+   "words": "how cities are laid out … cut greenhouse gas emissions from transport",
+   "reason": "The judgement's Figure SPM.6 places compact cities and spatial planning under infrastructure use for land transport and assesses their indicative demand-side mitigation potential for land-transport emissions by 2050, which bears directly on whether urban form cuts transport emissions.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "889af5ed0cfc8bc7",
+   "to_person": false,
+   "decided_at": "2026-10-28T00:34:59+00:00"
+  },
+  "S006@162437-167198": {
+   "source": "S006",
+   "at": [
+    162437,
+    167198
+   ],
+   "section": "SPM C.11",
+   "kind": "assessment",
+   "text_sha256": "e68c362dbbcb260bb33cb66fefbae92832e4b587e5d7ef8c01e4bd9b3c208d9a",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement concerns carbon dioxide removal methods and their deployment, not urban form or transport pricing effects on transport emissions.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "6d5c1ef957fd5173",
+   "to_person": false,
+   "decided_at": "2026-10-28T00:35:01+00:00"
+  },
+  "S006@167198-167885": {
+   "source": "S006",
+   "at": [
+    167198,
+    167885
+   ],
+   "section": "SPM C.12",
+   "kind": "assessment",
+   "text_sha256": "aaf212295f711c75d954eee6a9bbac439a842b915a14597c9e2a72acd242f118",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement covers the global cost and GDP effects of mitigation options in general and says nothing about urban form, transport pricing or transport emissions.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "644f4ccf2db84dd7",
+   "to_person": false,
+   "decided_at": "2026-10-28T00:35:03+00:00"
+  },
+  "S006@167885-180134": {
+   "source": "S006",
+   "at": [
+    167885,
+    180134
+   ],
+   "section": "SPM C.12.1",
+   "kind": "assessment",
+   "text_sha256": "50ba0f8d25f563313eb5d3b1a23ba8bb2174f7be77f432f9282eebf4e77b7dc0",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement concerns global mitigation costs and potentials by 2030 and their macroeconomic effects on GDP. Its only transport content is a figure label such as 'shift to public transportation' with no values, and it says nothing about urban form, density, land-use mix or transport pricing.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "468d0e996dc4a471",
+   "to_person": false,
+   "decided_at": "2026-10-28T00:35:09+00:00"
+  },
+  "S006@180134-180673": {
+   "source": "S006",
+   "at": [
+    180134,
+    180673
+   ],
+   "section": "SPM D.1",
+   "kind": "assessment",
+   "text_sha256": "78ccbf08d8a21d673c157f20e6f1914ca1f35e42aa16622a0814a786e988ff7d",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement is a general statement about climate action, trade-offs and the SDGs, not about whether urban form or transport pricing cuts transport emissions.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "1012209b8670bc1e",
+   "to_person": false,
+   "decided_at": "2026-10-28T00:35:11+00:00"
+  },
+  "S006@180673-181466": {
+   "source": "S006",
+   "at": [
+    180673,
+    181466
+   ],
+   "section": "SPM D.1.1",
+   "kind": "assessment",
+   "text_sha256": "535e046775715d41e2becf615de1e16b730053069c629539a40f9ae55930edbe",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement is a general statement about the causes of climate change and the need for mitigation and sustainable development; it says nothing about whether urban form or transport pricing reduce transport emissions.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "477761f747bd4249",
+   "to_person": false,
+   "decided_at": "2026-10-28T00:35:13+00:00"
+  },
+  "S006@181466-182411": {
+   "source": "S006",
+   "at": [
+    181466,
+    182411
+   ],
+   "section": "SPM D.1.2",
+   "kind": "assessment",
+   "text_sha256": "a2e15af107c38c9dfe64e4731ac2c0c57b544357874e9b37973501880ca9f885",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement concerns general synergies and trade-offs between mitigation and sustainable development across contexts, not whether urban form or transport pricing reduces transport emissions.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "3a25675bb2c111ad",
+   "to_person": false,
+   "decided_at": "2026-10-28T00:35:15+00:00"
+  },
+  "S006@182411-183150": {
+   "source": "S006",
+   "at": [
+    182411,
+    183150
+   ],
+   "section": "SPM D.1.3",
+   "kind": "assessment",
+   "text_sha256": "ab9203dc9b03dfdadafeadc685fd332a29ca67bea8822d2f5e77f32abd741eec",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement concerns the co-benefits of mitigation options, such as health, employment, equity and energy security from urban planning and shifts to public transport, rather than whether urban form or pricing cuts transport emissions, and co-benefits are explicitly out of scope.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "fec5a4c15cebb95b",
+   "to_person": false,
+   "decided_at": "2026-10-28T00:35:18+00:00"
+  },
+  "S006@183150-184070": {
+   "source": "S006",
+   "at": [
+    183150,
+    184070
+   ],
+   "section": "SPM D.1.4",
+   "kind": "assessment",
+   "text_sha256": "65eef3b77338c1cf4384794b88c448edbe0455367e7fc344c8882da4bb156e13",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement concerns land-based mitigation options like forestry and agriculture, and their synergies with the SDGs, not urban form, transport pricing or transport emissions.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "1f8eb4da83caf692",
+   "to_person": false,
+   "decided_at": "2026-10-28T00:35:20+00:00"
+  },
+  "S006@184070-184734": {
+   "source": "S006",
+   "at": [
+    184070,
+    184734
+   ],
+   "section": "SPM D.1.5",
+   "kind": "assessment",
+   "text_sha256": "677f26d76556483644efb6a828c3452d93210fee87bb170de244413d1cc34f25",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement concerns trade-offs of land-based mitigation and bioenergy sustainability, not urban form or transport pricing effects on transport emissions.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "6799ed66823ca0f6",
+   "to_person": false,
+   "decided_at": "2026-10-28T00:35:22+00:00"
+  },
+  "S006@184734-191320": {
+   "source": "S006",
+   "at": [
+    184734,
+    191320
+   ],
+   "section": "SPM D.1.6",
+   "kind": "assessment",
+   "text_sha256": "5b717fe9b643681576bc9f2ea6c93a5ca8b0f7e1fdbd84d52ab2a13f4125ac86",
+   "relevant": false,
+   "words": "",
+   "reason": "The passage covers carbon dioxide removal and a figure of synergies and trade-offs between mitigation options (including urban spatial planning) and the Sustainable Development Goals, which are co-benefits rather than whether urban form or pricing cuts transport emissions.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "4b5dd217aad2fed4",
+   "to_person": false,
+   "decided_at": "2026-10-28T00:35:26+00:00"
+  },
+  "S006@191320-192075": {
+   "source": "S006",
+   "at": [
+    191320,
+    192075
+   ],
+   "section": "SPM D.2",
+   "kind": "assessment",
+   "text_sha256": "1a1d03225da7c6a4b7c619203a3f84aee746da7d456031b48448983117b2d308",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement concerns links between sustainable development, vulnerability, adaptive capacity and mitigation–adaptation synergies in general, and says nothing about whether urban form or transport pricing reduces transport greenhouse gas emissions.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "53c9875cb5efd931",
+   "to_person": false,
+   "decided_at": "2026-10-28T00:35:28+00:00"
+  },
+  "S006@192075-193353": {
+   "source": "S006",
+   "at": [
+    192075,
+    193353
+   ],
+   "section": "SPM D.2.1",
+   "kind": "assessment",
+   "text_sha256": "bf4481ed71be12997f470c4cc41bc5b3a64ce8dc1c3349a2e6cbc5b37d8020f9",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement covers green infrastructure's mitigation and adaptation benefits and the heat-wave and flooding vulnerability of denser cities, which are side effects outside the question's scope, not whether urban form or pricing cuts transport emissions.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "32e6e793ca13d0b7",
+   "to_person": false,
+   "decided_at": "2026-10-28T00:35:33+00:00"
+  },
+  "S006@193353-194623": {
+   "source": "S006",
+   "at": [
+    193353,
+    194623
+   ],
+   "section": "SPM D.2.3",
+   "kind": "assessment",
+   "text_sha256": "4422d9a82b0c44770701743269c0bcd4bf47859cebb67ecbdd3fd9f05399b8a0",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement concerns land and water competition from bioenergy and afforestation, and the coordination of adaptation with mitigation, not urban form or transport pricing effects on transport emissions.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "db2dbe6e246ecc93",
+   "to_person": false,
+   "decided_at": "2026-10-28T00:35:34+00:00"
+  },
+  "S006@194623-195041": {
+   "source": "S006",
+   "at": [
+    194623,
+    195041
+   ],
+   "section": "SPM D.3",
+   "kind": "assessment",
+   "text_sha256": "116e98e892e737d40fbddf304ec9ddf015d9a14250273b60f7a9b8b81ca99e43",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement concerns distributional consequences, equity and participation in mitigation and development pathways in general, not whether urban form or transport pricing cuts transport emissions; equity is explicitly out of scope.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "656fe6585428edfe",
+   "to_person": false,
+   "decided_at": "2026-10-28T00:35:36+00:00"
+  },
+  "S006@195041-195640": {
+   "source": "S006",
+   "at": [
+    195041,
+    195640
+   ],
+   "section": "SPM D.3.1",
+   "kind": "assessment",
+   "text_sha256": "01806f8fafc758cc91458606856b964acfc2d01b3d03f8f3e087affa4684161f",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement is a general statement that development contexts and enabling conditions for sustainable pathways differ across countries; it says nothing about urban form, transport pricing or transport emissions.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "143e7335e1b3a729",
+   "to_person": false,
+   "decided_at": "2026-10-28T00:35:38+00:00"
+  },
+  "S006@195640-196531": {
+   "source": "S006",
+   "at": [
+    195640,
+    196531
+   ],
+   "section": "SPM D.3.2",
+   "kind": "assessment",
+   "text_sha256": "f5b650702b31f52554babbebc2bc4431a9d3d163dddc5c662809d05bc829a970",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement concerns the distributional, equity and employment consequences of ambitious mitigation pathways in general, not whether urban form or transport pricing reduce transport emissions; equity is listed as out of scope.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "51ad95509ad82303",
+   "to_person": false,
+   "decided_at": "2026-10-28T00:35:40+00:00"
+  },
+  "S006@196531-197417": {
+   "source": "S006",
+   "at": [
+    196531,
+    197417
+   ],
+   "section": "SPM D.3.3",
+   "kind": "assessment",
+   "text_sha256": "9aa50a39895e2c318353de91330cb33d691dab76308146b099c98bb3deb09b9d",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement concerns equity, just transitions and how acceptable mitigation policy is in general, not whether urban form or transport pricing cuts transport emissions, and equity is listed as out of scope.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "41f9f163d3609b3c",
+   "to_person": false,
+   "decided_at": "2026-10-28T00:35:42+00:00"
+  },
+  "S006@197417-198620": {
+   "source": "S006",
+   "at": [
+    197417,
+    198620
+   ],
+   "section": "SPM D.3.4",
+   "kind": "assessment",
+   "text_sha256": "93000847cfe606a4c4fbf29d62d91ae541bf89513c3d29ceaf2a252c37762e2c",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement addresses equity, climate justice and access to finance and technology in mitigation policy generally, not whether urban form or transport pricing reduces transport greenhouse gas emissions.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "823c102747c7d822",
+   "to_person": false,
+   "decided_at": "2026-10-28T00:35:44+00:00"
+  },
+  "S006@198620-200488": {
+   "source": "S006",
+   "at": [
+    198620,
+    200488
+   ],
+   "section": "SPM E.1",
+   "kind": "assessment",
+   "text_sha256": "bf14f6104861144d738a997ac0dc4482ab8f253ad0b7d54d44af2bd4721d3206",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement is a generic statement about the feasibility of and barriers to mitigation options across all sectors; its specific examples are energy, electrification, efficiency and land use, and it says nothing about urban form, density, connectivity or transport pricing reducing transport emissions.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "05864ec33f8622dc",
+   "to_person": false,
+   "decided_at": "2026-10-28T00:35:47+00:00"
+  },
+  "S006@200488-201432": {
+   "source": "S006",
+   "at": [
+    200488,
+    201432
+   ],
+   "section": "SPM E.1.2",
+   "kind": "assessment",
+   "text_sha256": "1729ed765a0edb122a27c49161101f4a3cc0453421bc9edc7b582317833c9114",
+   "relevant": true,
+   "words": "changes to urban form … under what conditions it holds",
+   "reason": "The judgement says spatial planning has higher mitigation potential at early stages of urban development and that local conditions enable or inhibit demand-side responses, which bears on the conditions under which urban form changes cut transport emissions.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "1d37ab744c4ef05f",
+   "to_person": false,
+   "decided_at": "2026-10-28T00:35:51+00:00"
+  },
+  "S006@201432-203085": {
+   "source": "S006",
+   "at": [
+    201432,
+    203085
+   ],
+   "section": "SPM E.1.3",
+   "kind": "assessment",
+   "text_sha256": "c49faa58d8200b57f946fb41d6e9e3ba574110c8c9c1d79e91cfa513e850f021",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement is a generic statement about the feasibility of all mitigation options depending on how fast and at what scale they are implemented; it says nothing specific about urban form, transport pricing or transport emissions.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "75c3e75a7932a751",
+   "to_person": false,
+   "decided_at": "2026-10-28T00:35:54+00:00"
+  },
+  "S006@203085-203691": {
+   "source": "S006",
+   "at": [
+    203085,
+    203691
+   ],
+   "section": "SPM E.2",
+   "kind": "assessment",
+   "text_sha256": "24baccd14de1aa80966cf9a31097f131a9218a774152b6c9f873a122c34557d2",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement is a general statement that mitigation embedded in wider development pathways can speed and deepen emissions reductions; it says nothing specific about urban form, transport pricing or transport emissions.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "be1ee818b3cb899b",
+   "to_person": false,
+   "decided_at": "2026-10-28T00:35:57+00:00"
+  },
+  "S006@203691-204243": {
+   "source": "S006",
+   "at": [
+    203691,
+    204243
+   ],
+   "section": "SPM E.2.1",
+   "kind": "assessment",
+   "text_sha256": "7ce7e12e56ee424962482c44b629aae216905a9ef83ebe6fa59143295dd97856",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement makes a general claim about development pathways and barriers to mitigation, and it says nothing specific about urban form, transport pricing or transport emissions.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "eabfc03209609a74",
+   "to_person": false,
+   "decided_at": "2026-10-28T00:35:59+00:00"
+  },
+  "S006@204243-205518": {
+   "source": "S006",
+   "at": [
+    204243,
+    205518
+   ],
+   "section": "SPM E.2.2",
+   "kind": "assessment",
+   "text_sha256": "9eff614679201f1066ebf1ae196e956b6fe931c44e2a07c7bb5f636d69d4cb4b",
+   "relevant": true,
+   "words": "under what conditions it holds",
+   "reason": "It states, with medium confidence, that coordinated housing policies that broaden relocation options make transport mitigation measures more effective, which is a condition on whether urban and transport measures cut transport emissions; its health co-benefit point is out of scope.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "afe368c891de60e4",
+   "to_person": false,
+   "decided_at": "2026-10-28T00:36:04+00:00"
+  },
+  "S006@205518-206276": {
+   "source": "S006",
+   "at": [
+    205518,
+    206276
+   ],
+   "section": "SPM E.2.4",
+   "kind": "assessment",
+   "text_sha256": "7505a07cb2ed73b664d91d41670db24584484359faf344bd92bb801f7389ac2c",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement is a generic statement about when enabling conditions for mitigation can be acted on and yield results, with examples of early-stage technology and energy-saving information; it does not address urban form, transport pricing or transport emissions.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "e4ea797f4ae82694",
+   "to_person": false,
+   "decided_at": "2026-10-28T00:36:07+00:00"
+  },
+  "S006@206276-207001": {
+   "source": "S006",
+   "at": [
+    206276,
+    207001
+   ],
+   "section": "SPM E.3",
+   "kind": "assessment",
+   "text_sha256": "20782266fa2f8ac94fb3d689f8a49069fd7cab0d2b5088a1af1ec7550cc92489",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement concerns climate governance frameworks in general (laws, institutions, stakeholder engagement), not whether urban form changes or transport pricing reduce transport greenhouse gas emissions.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "4e8edcbcb5cf81be",
+   "to_person": false,
+   "decided_at": "2026-10-28T00:36:09+00:00"
+  },
+  "S006@207001-208201": {
+   "source": "S006",
+   "at": [
+    207001,
+    208201
+   ],
+   "section": "SPM E.3.1",
+   "kind": "assessment",
+   "text_sha256": "5519517a1ce8b9f71b4a750a96d14e60a1f911174fd735d2a48d133667e77b1e",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement concerns climate governance and climate laws in general, not urban form, transport pricing or transport emissions.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "d9f2967f06628ca8",
+   "to_person": false,
+   "decided_at": "2026-10-28T00:36:11+00:00"
+  },
+  "S006@208201-208914": {
+   "source": "S006",
+   "at": [
+    208201,
+    208914
+   ],
+   "section": "SPM E.3.2",
+   "kind": "assessment",
+   "text_sha256": "0abc07d83d0893bea233e063661c5534ac4e8b28b17b7cc2ff513f2d09cc1dda",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement is about national and sub-national climate institutions and governance capacity in general, not about whether urban form changes or transport pricing reduce transport emissions.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "67121b5fe13d2a0d",
+   "to_person": false,
+   "decided_at": "2026-10-28T00:36:13+00:00"
+  },
+  "S006@208914-209866": {
+   "source": "S006",
+   "at": [
+    208914,
+    209866
+   ],
+   "section": "SPM E.3.3",
+   "kind": "assessment",
+   "text_sha256": "342cecb9a4e4dad76ab83faec6c52d41fa815d52d0b7c668f6cbaa4d65b86ef3",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement concerns general climate governance factors such as stakeholder engagement, national circumstances, values and litigation, not whether urban form or transport pricing reduces transport greenhouse gas emissions.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "007772d42611c4a4",
+   "to_person": false,
+   "decided_at": "2026-10-28T00:36:15+00:00"
+  },
+  "S006@209866-210608": {
+   "source": "S006",
+   "at": [
+    209866,
+    210608
+   ],
+   "section": "SPM E.4",
+   "kind": "assessment",
+   "text_sha256": "b676fbb04e1634ee163e3c756c5fcc9a3c878275af381de323042d2bfff4a905",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement concerns regulatory and economic instruments and policy packages in general, economy-wide; it says nothing specific about urban form or transport emissions, so it does not directly bear on the question.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "a5644a4e33819d27",
+   "to_person": false,
+   "decided_at": "2026-10-28T00:36:19+00:00"
+  },
+  "S006@210608-211380": {
+   "source": "S006",
+   "at": [
+    210608,
+    211380
+   ],
+   "section": "SPM E.4.1",
+   "kind": "assessment",
+   "text_sha256": "f659a6b5c84580201ddd187787494789350e81df4103d5ee7fdd7d7c844782e2",
+   "relevant": true,
+   "words": "changing how cities are laid out … measures such as transport pricing",
+   "reason": "The judgement holds with high confidence that land-use and zoning regulation can improve mitigation outcomes and that such instruments complement economic instruments, which bears on whether urban layout combined with pricing cuts emissions, though it is not specific to transport.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "86446b50d1f5129f",
+   "to_person": false,
+   "decided_at": "2026-10-28T00:36:25+00:00"
+  },
+  "S006@211380-212922": {
+   "source": "S006",
+   "at": [
+    211380,
+    212922
+   ],
+   "section": "SPM E.4.2",
+   "kind": "assessment",
+   "text_sha256": "c4ccbeecd4a1a54a0cec844fa26cbc374079b8abf59a2caa6940c50d0231ae96",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement covers economy-wide carbon pricing and fossil fuel subsidy removal and their effects on total national or global emissions; it says nothing specific about urban form or about transport pricing's effect on transport emissions.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "232cd58986d1569b",
+   "to_person": false,
+   "decided_at": "2026-10-28T00:36:32+00:00"
+  },
+  "S006@212922-213861": {
+   "source": "S006",
+   "at": [
+    212922,
+    213861
+   ],
+   "section": "SPM E.4.3",
+   "kind": "assessment",
+   "text_sha256": "f73b082e62a8bc548cd47b8795e6939994e5006d07d222cbc5a966dc6cae3998",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement covers low-emission technological innovation policy, technology transfer and economic instruments in general, not urban form or transport pricing effects on transport emissions.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "93af5e5c46c722bc",
+   "to_person": false,
+   "decided_at": "2026-10-28T00:36:34+00:00"
+  },
+  "S006@213861-214609": {
+   "source": "S006",
+   "at": [
+    213861,
+    214609
+   ],
+   "section": "SPM E.4.4",
+   "kind": "assessment",
+   "text_sha256": "b6cd389d6a601d41d1bcaafeba5092342e7e09c78c008704bef996558789e0eb",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement makes a general claim about effective policy packages, and its only examples are buildings and industry emissions, which are out of scope; it says nothing about urban form or transport pricing cutting transport emissions.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "e95f033e1574d567",
+   "to_person": false,
+   "decided_at": "2026-10-28T00:36:37+00:00"
+  },
+  "S006@214609-215217": {
+   "source": "S006",
+   "at": [
+    214609,
+    215217
+   ],
+   "section": "SPM E.4.5",
+   "kind": "assessment",
+   "text_sha256": "82c4e68e18566c814ba4c032216e2f152d131df9b4a61993fa7c3caabeb859b5",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement concerns economy-wide stimulus packages (public spending, pricing reform, education, R&D and infrastructure) for mitigation in general, not urban form or transport pricing and their effect on transport emissions.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "aa4bebf8d701e1a5",
+   "to_person": false,
+   "decided_at": "2026-10-28T00:36:40+00:00"
+  },
+  "S006@215217-215820": {
+   "source": "S006",
+   "at": [
+    215217,
+    215820
+   ],
+   "section": "SPM E.4.6",
+   "kind": "assessment",
+   "text_sha256": "debd97b8ee492fb21a8118a3a68f36f3b6736e4fe4c969b987321ace06542c22",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement covers international spillovers from national technology policies, costs to fossil fuel exporters, and leakage from emission trading systems, not urban form or transport pricing effects on transport emissions.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "896ea9fdde88b096",
+   "to_person": false,
+   "decided_at": "2026-10-28T00:36:42+00:00"
+  },
+  "S006@215820-216448": {
+   "source": "S006",
+   "at": [
+    215820,
+    216448
+   ],
+   "section": "SPM E.5",
+   "kind": "assessment",
+   "text_sha256": "689a7e5dab0a33d622a424e57e91b4f22e3c21d65621c1a17881bd33e0bdc107",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement concerns mitigation finance gaps and international financial cooperation across all sectors, not whether urban form changes or transport pricing reduce transport emissions.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "062322cab52a6cb8",
+   "to_person": false,
+   "decided_at": "2026-10-28T00:36:44+00:00"
+  },
+  "S006@216448-217289": {
+   "source": "S006",
+   "at": [
+    216448,
+    217289
+   ],
+   "section": "SPM E.5.1",
+   "kind": "assessment",
+   "text_sha256": "ff3ffa267d6dd73f8de97f9092d8dc6033a25ba0defaee1b996b99b0c5a28c4b",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement concerns economy-wide mitigation investment gaps and financing needs, not whether urban form changes or transport pricing reduce transport greenhouse gas emissions.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "eb277de0e0c6291a",
+   "to_person": false,
+   "decided_at": "2026-10-28T00:36:46+00:00"
+  },
+  "S006@217289-221500": {
+   "source": "S006",
+   "at": [
+    217289,
+    221500
+   ],
+   "section": "SPM E.5.2",
+   "kind": "assessment",
+   "text_sha256": "e06da34e654217f38e81f898b1f3d709a8d674f0b2ab159a8d2a5667cf097936",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement concerns climate finance flows, investment barriers and financial support for developing countries, not urban form or transport pricing effects on transport emissions.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "ffbe98bfb6b65c69",
+   "to_person": false,
+   "decided_at": "2026-10-28T00:36:48+00:00"
+  },
+  "S006@221500-222040": {
+   "source": "S006",
+   "at": [
+    221500,
+    222040
+   ],
+   "section": "SPM E.6",
+   "kind": "assessment",
+   "text_sha256": "325d82ce8d36377183c759e395681d60143cb8a46482780d7c6e40fe6aa5e015",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement concerns international cooperation and climate agreements in general, not whether urban form or transport pricing cuts transport emissions.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "774d8aa6ea727265",
+   "to_person": false,
+   "decided_at": "2026-10-28T00:36:50+00:00"
+  },
+  "S006@222040-222645": {
+   "source": "S006",
+   "at": [
+    222040,
+    222645
+   ],
+   "section": "SPM E.6.1",
+   "kind": "assessment",
+   "text_sha256": "b763c82d9c17d716041d5f561bc079669045977323478f11c00b6b8d04f4f315",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement concerns international climate agreements, NDC transparency and support to developing countries, not urban form or transport pricing effects on transport emissions.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "601807d43551b5ac",
+   "to_person": false,
+   "decided_at": "2026-10-28T00:36:53+00:00"
+  },
+  "S006@222645-223907": {
+   "source": "S006",
+   "at": [
+    222645,
+    223907
+   ],
+   "section": "SPM E.6.2",
+   "kind": "assessment",
+   "text_sha256": "04478897d3daf0968b55a3e912d5eea9110721a90efd5e2791558285953c45a3",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement concerns international cooperation on technology innovation and transfer, not urban form, transport pricing or transport emissions.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "7970b5b793946b0c",
+   "to_person": false,
+   "decided_at": "2026-10-28T00:36:55+00:00"
+  },
+  "S006@223907-224599": {
+   "source": "S006",
+   "at": [
+    223907,
+    224599
+   ],
+   "section": "SPM E.6.3",
+   "kind": "assessment",
+   "text_sha256": "00b45b876e413d46d769233243a47f8cad47066062fce7e582d7de7204eadb46",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement concerns transnational partnerships and city networks that stimulate general policy ambition and technology diffusion, not whether urban form changes or transport pricing reduce transport emissions.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "bb5f5fecc45f06bc",
+   "to_person": false,
+   "decided_at": "2026-10-28T00:36:57+00:00"
+  },
+  "S006@224599-225501": {
+   "source": "S006",
+   "at": [
+    224599,
+    225501
+   ],
+   "section": "SPM E.6.4",
+   "kind": "assessment",
+   "text_sha256": "88210bf9cc815bcdd830eaef4ce3ab41fdc822b825aedf30caa4feb460c5b048",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement concerns international agreements, trade rules and the ambition of international aviation and shipping, none of which addresses whether urban form or transport pricing cuts transport emissions, and international aviation and shipping is explicitly out of scope.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "4094c9af882772c7",
+   "to_person": false,
+   "decided_at": "2026-10-28T00:36:59+00:00"
+  }
+ }
+}

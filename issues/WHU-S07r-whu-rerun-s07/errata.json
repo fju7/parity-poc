@@ -1,0 +1,91 @@
+{
+  "_what_this_is": "For every source, whether its bibliographic record names a correction, erratum, retraction or expression of concern -- and, when the lookup failed, that it failed. 'checked, none' and 'could not check' are different states and this file never merges them.",
+  "checked": {
+    "S001": {
+      "source": "S001",
+      "title": "Urban Systems and Other Settlements",
+      "checked_on": "2026-10-27",
+      "identifier": "DOI 10.1017/9781009157926.010",
+      "identifier_from": "the held document",
+      "identity": "resolved title shares 4 word(s) with ours: other, settlements, systems, urban",
+      "resolved_title": "Urban Systems and Other Settlements",
+      "index": "Crossref",
+      "update_policy": null,
+      "amendments": [],
+      "comments": [],
+      "state": "UNCHECKED",
+      "why": "matched on DOI 10.1017/9781009157926.010 at Crossref; not in Europe PMC, and the publisher registers NO update policy — so Crossref would not know of a correction even if one existed. This is not a pass"
+    },
+    "S002": {
+      "source": "S002",
+      "title": "Transport. Climate Change 2022: Mitigation of Climate Change",
+      "checked_on": "2026-10-27",
+      "identifier": "DOI 10.1017/9781009157926.012",
+      "identifier_from": "the held document",
+      "identity": "resolved title shares 1 word(s) with ours: transport",
+      "resolved_title": "Transport",
+      "index": "Crossref",
+      "update_policy": null,
+      "amendments": [],
+      "comments": [],
+      "state": "UNCHECKED",
+      "why": "matched on DOI 10.1017/9781009157926.012 at Crossref; not in Europe PMC, and the publisher registers NO update policy — so Crossref would not know of a correction even if one existed. This is not a pass"
+    },
+    "S003": {
+      "source": "S003",
+      "title": "A dozen effective interventions to reduce car use in European cities: Lessons learned from a meta-analysis and transitio",
+      "checked_on": "2026-10-27",
+      "identifier": "DOI 10.1016/j.cstp.2022.02.001",
+      "identifier_from": "the held document",
+      "identity": "resolved title shares 12 word(s) with ours: analysis, cities, dozen, effective, european, interventions, learned, lessons, m",
+      "resolved_title": "A dozen effective interventions to reduce car use in European cities: Lessons learned from a meta-analysis and transition management",
+      "index": "Crossref",
+      "update_policy": "https://doi.org/10.1016/elsevier_cm_policy",
+      "amendments": [],
+      "comments": [],
+      "state": "CLEAN",
+      "why": "matched on DOI 10.1016/j.cstp.2022.02.001 at Crossref; not in Europe PMC. The publisher registers a Crossmark update policy, so a correction would have been deposited here"
+    },
+    "S004": {
+      "source": "S004",
+      "title": "Urban Street Network Design and Transport-Related Greenhouse Gas Emissions around the World",
+      "checked_on": "2026-10-27",
+      "identifier": "DOI 10.1016/j.trd.2023.103961",
+      "identifier_from": "the held document",
+      "identity": "resolved title shares 10 word(s) with ours: around, design, emissions, greenhouse, network, related, street, transport, urba",
+      "resolved_title": "Urban street network design and transport-related greenhouse gas emissions around the world",
+      "index": "Crossref",
+      "update_policy": "https://doi.org/10.1016/elsevier_cm_policy",
+      "amendments": [],
+      "comments": [],
+      "state": "CLEAN",
+      "why": "matched on DOI 10.1016/j.trd.2023.103961 at Crossref; not in Europe PMC. The publisher registers a Crossmark update policy, so a correction would have been deposited here"
+    },
+    "S005": {
+      "source": "S005",
+      "title": "Non-linear influences of the built environment on transportation emissions: Focusing on densities",
+      "checked_on": "2026-10-27",
+      "identifier": "DOI 10.5198/jtlu.2017.815",
+      "identifier_from": "the held document",
+      "state": "UNCHECKED",
+      "why": "Europe PMC has no record for DOI 10.5198/jtlu.2017.815; HTTP 404 from Crossref",
+      "amendments": [],
+      "comments": []
+    },
+    "S006": {
+      "source": "S006",
+      "title": "IPCC 2022. Summary for Policymakers. In: Climate Change 2022: Mitigation of Climate Change (AR6 WGIII)",
+      "checked_on": "2026-10-27",
+      "identifier": "DOI 10.1017/9781009157926.001",
+      "identifier_from": "the held document",
+      "identity": "resolved title shares 2 word(s) with ours: policymakers, summary",
+      "resolved_title": "Summary for Policymakers",
+      "index": "Crossref",
+      "update_policy": null,
+      "amendments": [],
+      "comments": [],
+      "state": "UNCHECKED",
+      "why": "matched on DOI 10.1017/9781009157926.001 at Crossref; not in Europe PMC, and the publisher registers NO update policy — so Crossref would not know of a correction even if one existed. This is not a pass"
+    }
+  }
+}

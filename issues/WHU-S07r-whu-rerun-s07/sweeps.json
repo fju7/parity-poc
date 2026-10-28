@@ -1,0 +1,30 @@
+{
+  "what_this_is": "Baselines for sweep_sources.py. Which citations and which correction notices we had already seen, so a later run can report what is NEW rather than re-reporting the world.",
+  "citations": {},
+  "status": {},
+  "runs": [
+    {
+      "on": "2026-10-27",
+      "command": "resolve --write",
+      "resolved": [
+        "S001",
+        "S002"
+      ],
+      "refused": [],
+      "failed": [],
+      "unsweepable": [
+        "S006"
+      ]
+    },
+    {
+      "on": "2026-10-27",
+      "command": "resolve --write",
+      "resolved": [
+        "S006"
+      ],
+      "refused": [],
+      "failed": [],
+      "unsweepable": []
+    }
+  ]
+}

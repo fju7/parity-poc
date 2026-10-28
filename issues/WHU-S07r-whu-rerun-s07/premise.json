@@ -1,0 +1,91 @@
+{
+  "_what_this_is": "The entry gate, answered BEFORE drafting. The threshold question is whether a well-informed non-expert would confidently believe something the primary sources do not support.",
+  "belief": {
+    "_note": "What the reader already believes, stated as they would state it. If you cannot write this sentence, there is nothing to correct and no subject -- which is how the tobacco-analogy candidate died.",
+    "statement": "Making cities denser, more mixed and better connected, especially together with measures such as congestion charges or road pricing, substantially cuts greenhouse gas emissions from transport.",
+    "how_we_know_they_believe_it": "The coverage that settled it. Named outlets, quoted headlines. Not 'it is widely assumed'.",
+    "carried_by": [
+      {
+        "outlet": "",
+        "url": "",
+        "date": "",
+        "what_it_said": ""
+      }
+    ]
+  },
+  "what_the_sources_show": {
+    "_note": "What the primary sources actually support, and which sources.",
+    "statement": "",
+    "sources": []
+  },
+  "direction": {
+    "_note": "CORRECTS, CONFIRMS or NARROWS. This field exists so the contrarianism guard can count. A publication whose answer is always CORRECTS is performing scepticism rather than assessing evidence, and is not to be trusted.",
+    "value": "",
+    "_values": [
+      "corrects",
+      "confirms",
+      "narrows"
+    ]
+  },
+  "reader_with_a_decision": "A city or regional official, planner or councillor deciding whether to rely on densification, mixed-use zoning, connectivity and transport pricing as part of a climate plan, who bears the cost of over- or under-estimating what those measures will cut in transport emissions and has no time to read the literature.",
+  "public_record_check": {
+    "_note": "NOT 'has anybody published this'. On any contested question, somebody has. The question is whether it has been carried WHERE THIS READER WOULD FIND IT. Run the counterexample hunter on the belief statement, not on the finding.",
+    "prior_art_found": [],
+    "carried_in_general_coverage": "",
+    "our_contribution": "translation, extension, or correction of the prior art -- say which"
+  },
+  "sources_are_open": "",
+  "evidence_base_is_bounded": "",
+  "kill_condition": "No story if: (a) the held primary sources show that urban form plus pricing does not reduce transport greenhouse gas emissions at all, or only negligibly; or (b) the sources support a substantial cut without material qualification, so the belief needs no narrowing; or (c) the reader does not hold the belief.",
+  "kill_condition_tested": {
+    "_note": "Filled in AFTER going to look, by whoever looked.",
+    "by": "",
+    "on": "",
+    "result": "",
+    "_result_values": [
+      "survived",
+      "narrowed",
+      "killed"
+    ],
+    "note": ""
+  },
+  "lead_came_from": "",
+  "scope": {
+    "covers": "Whether changes to urban form (density, land-use mix, street connectivity, accessibility and proximity to destinations and public transport), alone and together with accompanying demand measures such as road, congestion, fuel or parking pricing and public-transport provision, reduce greenhouse gas emissions from transport, including the direction and size of the reduction, how long it takes, and under what conditions it holds.",
+    "out": [
+      {
+        "what": "vehicle technology and fuel switching on their own (electrification, efficiency standards, alternative fuels)",
+        "why": "the question asks about how cities are laid out and measures such as transport pricing, not about vehicle technology"
+      },
+      {
+        "what": "greenhouse gas emissions from buildings, industry, energy supply and other non-transport urban sectors",
+        "why": "the question asks about emissions from transport"
+      },
+      {
+        "what": "embodied emissions of constructing buildings and infrastructure",
+        "why": "the question asks about emissions from transport, not from construction"
+      },
+      {
+        "what": "international aviation and shipping",
+        "why": "these are not shaped by how a city is laid out"
+      },
+      {
+        "what": "co-benefits and side effects other than greenhouse gas emissions (health, air quality, congestion, equity, housing costs)",
+        "why": "the question asks whether emissions are cut"
+      }
+    ],
+    "by": "Claude Code (session WHU-S07r)",
+    "written_at": "2026-10-28T00:01:43Z"
+  },
+  "evidence_standard": {
+    "weighs": [
+      "measured",
+      "assessed"
+    ],
+    "measured": "Measured outcomes from empirical studies of travel and emissions: cross-sectional and longitudinal studies, natural experiments and ex-post evaluations of urban form, land-use changes and pricing schemes (for example congestion charges), and meta-analyses of these, reporting vehicle kilometres travelled, mode share, fuel use or transport greenhouse gas emissions.",
+    "assessed": "Expert assessments: IPCC AR6 confidence- and agreement-rated statements (Working Group III, including its urban systems and transport chapters and Summary for Policymakers) and systematic-review conclusions.",
+    "when_they_differ": "state both",
+    "by": "Claude Code (session WHU-S07r)",
+    "written_at": "2026-10-28T00:01:43Z"
+  }
+}

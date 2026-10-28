@@ -1,0 +1,54 @@
+{
+ "units": [],
+ "declarations": {
+  "S001@20003-20150": {
+   "state": "out_of_scope",
+   "reason": "it concerns upgrading informal settlements and inadequate housing, not transport emissions",
+   "by": "Claude Code (session WHU-S07r)",
+   "element": "greenhouse gas emissions from buildings, industry, energy supply and other non-transport urban sectors",
+   "decided_at": "2026-10-28T00:24:46+00:00"
+  },
+  "S002@9141-9203": {
+   "state": "out_of_scope",
+   "reason": "it concerns emissions from shipping and aviation",
+   "by": "Claude Code (session WHU-S07r)",
+   "element": "international aviation and shipping",
+   "decided_at": "2026-10-28T00:50:13+00:00"
+  },
+  "S006@154152-154265": {
+   "state": "not_material",
+   "reason": "it is a list of the report's cross-references, which gives locations rather than a finding",
+   "by": "Claude Code (session WHU-S07r)",
+   "element": "",
+   "decided_at": "2026-10-28T00:53:11+00:00"
+  },
+  "S006@154266-154322": {
+   "state": "not_material",
+   "reason": "it is the end of a list of the report's cross-references, which gives locations rather than a finding",
+   "by": "Claude Code (session WHU-S07r)",
+   "element": "",
+   "decided_at": "2026-10-28T00:53:11+00:00"
+  },
+  "S006@210847-210971": {
+   "state": "not_material",
+   "reason": "it concerns the cost of regulatory instruments, not whether urban form or pricing cuts transport emissions",
+   "by": "Claude Code (session WHU-S07r)",
+   "element": "",
+   "decided_at": "2026-10-28T00:50:13+00:00"
+  },
+  "S006@135837-138399": {
+   "state": "out_of_scope",
+   "reason": "the statement C.7.3 concerns the mitigation potential of buildings",
+   "by": "Claude Code (session WHU-S07r)",
+   "element": "greenhouse gas emissions from buildings, industry, energy supply and other non-transport urban sectors",
+   "decided_at": "2026-10-28T00:50:13+00:00"
+  },
+  "S006@151268-152744": {
+   "state": "not_material",
+   "reason": "it gives demand-side potential summed across the end-use sectors, and the page instead states the Summary's statements on transport and on the built environment",
+   "by": "Claude Code (session WHU-S07r)",
+   "element": "",
+   "decided_at": "2026-10-28T00:53:11+00:00"
+  }
+ }
+}
