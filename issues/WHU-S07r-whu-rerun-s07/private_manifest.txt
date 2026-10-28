@@ -1,5 +1,5 @@
 # WHU-S07r private archive manifest
-# copied to ~/Projects/whu-study-private/WHU-S07r-whu-rerun-s07/20261028T124316Z/ (paths kept, relative to the repository root)
+# copied to ~/Projects/whu-study-private/WHU-S07r-whu-rerun-s07/20261028T130533Z/ (paths kept, relative to the repository root)
 e6b263f3e625cc55bc0ff4f48a8c1de3d8c92b6e7e35329f104584d87b679a16  issues/WHU-S07r-whu-rerun-s07/advocate/20261028T010140Z-adjudication.md
 a624f942ff66ce70ad9595a7a7ce8cbae5f507d5c9a1177e9e29dfbe8360aabe  issues/WHU-S07r-whu-rerun-s07/advocate/20261028T010140Z-briefs.json
 0956010a8d47612e6abc60a1ef40c160615c2960f443fbf76add98da589e545f  issues/WHU-S07r-whu-rerun-s07/advocate/quote_checks.jsonl
@@ -27,20 +27,27 @@ c414b55734e577cf49a07d0802d2231f53875516e040c1d52dc90e6e18ebac83  issues/WHU-S07
 08a19a3c23eec3f26576944bcfa3d03f14de81f3e882fd2beb002119aa565120  issues/WHU-S07r-whu-rerun-s07/audit/20261028T122810Z/second_reads.jsonl
 7e4dcfc9b6875818314f6307d3b67fa9b777d64fd8002fe05ac4e3afe03147b3  issues/WHU-S07r-whu-rerun-s07/audit/20261028T122810Z/verdicts.jsonl
 e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  issues/WHU-S07r-whu-rerun-s07/audit/20261028T123338Z/cuts.jsonl
+4f9b667ad0387fd2b152dbd61d54df6bef39eff8cd0abee61644203cce15e932  issues/WHU-S07r-whu-rerun-s07/audit/20261028T123338Z/human_reads.jsonl
 925f4649b397ae2932b46d866ad462ecfcc6cf69c0ec216ffcd078fc29fe2651  issues/WHU-S07r-whu-rerun-s07/audit/20261028T123338Z/manifest.json
 6e7bd56949eff1ec841cb3bd0840ceb92948e493bfcbf0a19b8c06a9ad1ae51e  issues/WHU-S07r-whu-rerun-s07/audit/20261028T123338Z/quote_rejections.jsonl
 87b4d20b57c3585f7ece719687d53445cf36c014274268ece85f709600f04b70  issues/WHU-S07r-whu-rerun-s07/audit/20261028T123338Z/rulings.jsonl
 ca1ea922077d55fcf78c3408bc8d6924e72b218cba9e32e9760b2dda67e5966d  issues/WHU-S07r-whu-rerun-s07/audit/20261028T123338Z/second_reads.jsonl
 0ff64e123ce37eff20547a5e6c0043ac1cdd553be5ae364ca3b89949cb1daf60  issues/WHU-S07r-whu-rerun-s07/audit/20261028T123338Z/verdicts.jsonl
-637d12ce0cc8a45e5c7f68f4da51fb456882868794132ec8d1d571916e8b48d4  issues/WHU-S07r-whu-rerun-s07/bindings.json
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  issues/WHU-S07r-whu-rerun-s07/audit/20261028T125627Z/cuts.jsonl
+6c7d79e01801c46ec65eba7ab9947bc33be023bb90c4a368f5b859ffef29235a  issues/WHU-S07r-whu-rerun-s07/audit/20261028T125627Z/human_reads.jsonl
+1eb7a4039d50f13661764aec86488fa88607af2fb6247b444e193d29c8266263  issues/WHU-S07r-whu-rerun-s07/audit/20261028T125627Z/manifest.json
+38c78677d96a29381de5fc323cdb6da14bb5d364c87d32a094730d84e7abf775  issues/WHU-S07r-whu-rerun-s07/audit/20261028T125627Z/quote_rejections.jsonl
+ba153a602c0b2d132367616b9c03e107c9e426ee435b5957804e22416c02ed44  issues/WHU-S07r-whu-rerun-s07/audit/20261028T125627Z/rulings.jsonl
+95bb5495f4b0021a888cc2d91ea6708fb388168472e248a9464d19983c859f14  issues/WHU-S07r-whu-rerun-s07/audit/20261028T125627Z/second_reads.jsonl
+dbcf4bb4175869b9dfde99e3577435ca9aa87915bc58d462a4fbc4840dab66e6  issues/WHU-S07r-whu-rerun-s07/audit/20261028T125627Z/verdicts.jsonl
+444c324157efda35a1274eca8180fcf0a724ffcc582d6e8992b7626e54edeb4f  issues/WHU-S07r-whu-rerun-s07/bindings.json
 9d2bd7f052499fa0e04245fe569eadd098a4659d5fe81ff9f89c20c43bb6abd0  issues/WHU-S07r-whu-rerun-s07/conclusion-review.json
 3e6cace9b1cdb336a6af3748e803ea7ba766999dfa55da5a09717731712ede08  issues/WHU-S07r-whu-rerun-s07/draft/whu-rerun-s07.html.gate.json
 4739d4fb23d19e5e04d58e12a831ebd7aada5968ae50c31c4a7f766b015b2c3e  issues/WHU-S07r-whu-rerun-s07/draft/whu-rerun-s07.html.gate.json.runs.json
 80af3a7829fa2eb539a26aae19a6c59dbf9b0715d9a99a696cb7bc363ab0bd67  issues/WHU-S07r-whu-rerun-s07/gate-findings.json
-816d47ecd3f61e8b13116c3298b6733932c1c3c39dc93752c09bcbcefdd4e95a  issues/WHU-S07r-whu-rerun-s07/quotations.json
-efd6abbeb2cdf37695173abf4af1b651aeb5abc1b56ba5b0d1ce9e75f97c770c  issues/WHU-S07r-whu-rerun-s07/rulings/applied_check.jsonl
-3bfe144251299f621134021c31220840556f601571b868c9cb7bd7d735a208ad  issues/WHU-S07r-whu-rerun-s07/rulings/consistency.jsonl
+803cbff267fa1f682352480916a004fb1aa1f3eb4d53b87ccdfd14a53d8e30f5  issues/WHU-S07r-whu-rerun-s07/quotations.json
+f334cb270c14defdf5051224f4fa5921a435fd59feaccff2ef4c5b1d02dd7b7d  issues/WHU-S07r-whu-rerun-s07/rulings/applied_check.jsonl
+02070d39adc8882145d1eb19c5c2ea9a30511b4e5e7fb4d82a336849ea17fb44  issues/WHU-S07r-whu-rerun-s07/rulings/consistency.jsonl
 a16e476d4d48f46f80d84b85b17d762103136167a1e7282bdd508aaa93786b33  issues/WHU-S07r-whu-rerun-s07/rulings/for_person.jsonl
-4bff40d5d131f1a15ade77053d4e952bb9b4d3f2c957b59385c96f146a8841d7  issues/WHU-S07r-whu-rerun-s07/rulings/omissions.jsonl
+01d350717af722a281df130487d04a260682e0bc45040f1a7bb2f8cb1638e36e  issues/WHU-S07r-whu-rerun-s07/rulings/omissions.jsonl
 30286ee5171f983ad1414bbf7574587671a4f53d775b84038ca92915e5a769c2  issues/WHU-S07r-whu-rerun-s07/rulings/rulings.jsonl
-2fb5447f9b74e654ce2005d9f4d3e9377501eceacb8478961b1a263c09af3d87  issues/WHU-S07r-whu-rerun-s07/omissions.json
