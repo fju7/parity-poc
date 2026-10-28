@@ -56,7 +56,9 @@ under the heading "Findings in our sources we judged outside this question".
 These are scope statements, protected under fix 1 (bindings.protected_kind,
 kind "scope"). The row STOPs if a declaration is not on the page word for word,
 or if the page carries such a sentence with no declaration behind it.
-Declarations past omissions.declaration_budget need a person's sign-off.
+Declarations past omissions.declaration_budget need a person's sign-off. The
+budget counts agent declarations (out_of_scope, not_material); a not_added_cap
+line follows from a cap and is not counted (2026-10-28).
 """
 from __future__ import annotations
 
@@ -81,6 +83,7 @@ ABSTRACT_CHARS = 8000
 SECTION_MAX = 2500
 SPAN_WORDS = 25
 DECLARED = ("out_of_scope", "not_material", "not_added_cap")
+COUNTED = ("out_of_scope", "not_material")    # what the declarations budget counts
 HEADING = "Findings in our sources we judged outside this question"
 LEAD = {"out_of_scope": "Outside this question:", "not_material": "Judged not material to this question:",
         "not_added_cap": "Not added:"}
@@ -492,8 +495,13 @@ def preflight_rows(slug: str, record_rows: list[dict] | None = None, *, rows: di
     wanted = {" ".join(d["sentence"].split()) for d in decls}
     stray = [s for s in page if any(s.startswith(l) for l in LEAD.values()) and s not in wanted]
     budget = O.declaration_budget(len(page_sentences))
+    # WHAT THE BUDGET COUNTS (post-study, mid-rerun tool fix, 2026-10-28): an
+    # agent's declarations (out_of_scope, not_material, relevance not
+    # established). A not_added_cap line follows from a cap being reached, not
+    # from anybody's choice, so it is shown but not counted (WHU-S01r).
+    counted = [d for d in decls if d["state"] in COUNTED]
     over = []
-    for d in decls[budget:]:
+    for d in counted[budget:]:
         ok = d.get("by") and not signers.is_agent(d["by"]) and \
             signers.check_value(d["by"], d.get("signature"), *( [root] if root else []))[0]
         if not ok:
@@ -511,7 +519,8 @@ def preflight_rows(slug: str, record_rows: list[dict] | None = None, *, rows: di
                         % (len(over), budget))
         out.append((ROW_LIST, BAD, "; ".join(bits)))
     else:
-        out.append((ROW_LIST, OK, "%d declared finding(s), each on the page; budget %d" % (len(decls), budget)))
+        out.append((ROW_LIST, OK, "%d declared finding(s), each on the page; %d counted against the budget of %d"
+                    % (len(decls), len(counted), budget)))
     return out
 
 
