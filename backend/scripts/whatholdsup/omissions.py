@@ -28,7 +28,9 @@ source id, held-text sha256, offsets, the quotation's sha256, outcome, the
 scope element, the reason in WHU's own words, who decided, the ruling id. NO
 SOURCE TEXT: the repository is public and source quotations are never
 committed (RUN.md ruling 3). The quoted text goes to rulings/omissions.jsonl,
-which is ignored and archived privately.
+which is ignored and archived privately. A reason that quotes the source is
+stored with the quotation replaced by its location (redact; 2026-10-28), and
+written whole to the private record.
 
 THE BUDGETS
 -----------
@@ -183,15 +185,73 @@ def entry_key(f: dict) -> str:
     return "%s@%s-%s" % (f.get("source"), (f.get("at") or ["", ""])[0], (f.get("at") or ["", ""])[1])
 
 
+# A REASON THAT QUOTES THE SOURCE (post-study, mid-rerun tool fix, 2026-10-28).
+# The ruling model's reason is WHU's record of why, and on WHU-S01r/S07r it
+# quoted the finding back -- so omissions.json carried source text and the leak
+# guard blocked. The public reason now carries the quotation's LOCATION
+# ("[S003@1204-1311]", offsets in the held text) in place of every run of
+# REDACT_WORDS or more words of the held text; the reason as the model wrote it
+# goes to the private record with the quotation.
+REDACT_WORDS = 6                 # the leak guard's run length
+_EDGE = "‘’“”\"'.,;:()–—-"          # what _fold drops at a word's edges
+
+
+def _words(text: str) -> list[tuple[str, int, int]]:
+    """(folded word, start, end) for every word of TEXT; a raw token that folds
+    to several words gives each the token's span."""
+    out = []
+    for m in re.finditer(r"\S+", text or ""):
+        tok = m.group()
+        lead = len(tok) - len(tok.lstrip(_EDGE))           # quote marks stay outside the span
+        tail = len(tok) - len(tok.rstrip(_EDGE))
+        for w in _fold(tok).split():
+            out.append((w, m.start() + lead, m.end() - tail))
+    return out
+
+
+def redact(reason: str, source: str, held_text: str, min_words: int = REDACT_WORDS) -> str:
+    """REASON with every run of MIN_WORDS+ consecutive held-text words replaced by
+    "[SOURCE@start-end]", the run's offsets in HELD_TEXT."""
+    if not reason or not held_text:
+        return reason
+    rw, hw = _words(reason), _words(held_text)
+    hwords = [w for w, _s, _e in hw]
+    first = {}
+    for j in range(len(hwords) - min_words + 1):
+        first.setdefault(tuple(hwords[j:j + min_words]), []).append(j)
+    cuts, i = [], 0
+    while i <= len(rw) - min_words:
+        starts = first.get(tuple(w for w, _s, _e in rw[i:i + min_words]))
+        if not starts:
+            i += 1
+            continue
+        best_j, best_n = starts[0], min_words
+        for j in starts:
+            n = min_words
+            while i + n < len(rw) and j + n < len(hw) and rw[i + n][0] == hwords[j + n]:
+                n += 1
+            if n > best_n:
+                best_j, best_n = j, n
+        cuts.append((rw[i][1], rw[i + best_n - 1][2], hw[best_j][1], hw[best_j + best_n - 1][2]))
+        i += best_n
+    for r0, r1, h0, h1 in reversed(cuts):
+        reason = reason[:r0] + "[%s@%d-%d]" % (source, h0, h1) + reason[r1:]
+    return reason
+
+
 def record(case: Path, f: dict, *, outcome: str, reason: str, by: str, element: str = "",
-           ruling: str | None = None, on_page: str | None = None, after: str | None = None) -> dict:
+           ruling: str | None = None, on_page: str | None = None, after: str | None = None,
+           held_text: str | None = None) -> dict:
     """Write one decision: the public entry (no source text) to omissions.json,
-    the quotation itself to rulings/omissions.jsonl. Returns the public entry."""
+    the quotation itself to rulings/omissions.jsonl. Returns the public entry.
+    With HELD_TEXT (the finding's source), the public reason has any quoted
+    source text replaced by its location (redact)."""
     if outcome not in OUTCOMES + (TO_PERSON,):
         raise ValueError("outcome must be one of %s" % ", ".join(OUTCOMES + (TO_PERSON,)))
+    public_reason = redact(reason, f.get("source"), held_text) if held_text else reason
     e = {"key": entry_key(f), "source": f.get("source"), "held_sha256": f.get("held_sha256"),
          "at": f.get("at"), "quote_sha256": f.get("quote_sha256"), "outcome": outcome,
-         "element": element, "reason": reason, "by": by, "ruling": ruling,
+         "element": element, "reason": public_reason, "by": by, "ruling": ruling,
          "origins": f.get("origins") or [f.get("origin")], "on_page": on_page, "after": after,
          "decided_at": datetime.now(timezone.utc).isoformat(timespec="seconds")}
     doc = load(case)
@@ -201,7 +261,8 @@ def record(case: Path, f: dict, *, outcome: str, reason: str, by: str, element: 
     pp.parent.mkdir(parents=True, exist_ok=True)
     with open(pp, "a", encoding="utf-8") as fh:
         fh.write(json.dumps({"key": e["key"], "quote": f.get("held_quote") or f.get("quote"),
-                             "outcome": outcome, "at": e["decided_at"]}, ensure_ascii=False) + "\n")
+                             "outcome": outcome, "at": e["decided_at"],
+                             "reason": reason}, ensure_ascii=False) + "\n")
     return e
 
 

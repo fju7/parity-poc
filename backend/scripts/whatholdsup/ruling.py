@@ -1167,14 +1167,16 @@ def rule_omissions(slug: str, call, *, P=None, rows: dict | None = None, held: d
                           "source": f.get("source")}, **extra))
 
     def to_person(f: dict, why: str) -> None:
-        O.record(case, f, outcome=O.TO_PERSON, reason=why, by="code (ruling.py omissions)")
+        O.record(case, f, held_text=held.get(f.get("source")), outcome=O.TO_PERSON, reason=why,
+                 by="code (ruling.py omissions)")
         route_to_person("omissions", [{"protected": "omission: " + why, "sentence": f.get("anchor") or "",
                                        "kind": "omission", "ref": {"origins": f.get("origins")}}], log)
         done.append({"outcome": O.TO_PERSON, "origins": f.get("origins"), "why": why})
 
     for f in [f for f in found if f.get("outcome") == O.NOT_IN_SOURCE]:
         f["origins"] = [f["origin"]]
-        O.record(case, f, outcome=O.NOT_IN_SOURCE, reason=f["why"], by="code (omissions.precheck)")
+        O.record(case, f, held_text=held.get(f.get("source")), outcome=O.NOT_IN_SOURCE, reason=f["why"],
+                 by="code (omissions.precheck)")
         close(f, O.NOT_IN_SOURCE, "nothing added: %s" % f["why"])
 
     for f in O.fill_quotes(O.merge([f for f in found if f.get("at")]), held):
@@ -1208,7 +1210,7 @@ def rule_omissions(slug: str, call, *, P=None, rows: dict | None = None, held: d
                 to_person(f, "over the declarations budget (%d)" % O.declaration_budget(n_body))
                 continue
             counts["DECLARED"] += 1
-            O.record(case, f, outcome=O.OUT_OF_SCOPE, reason=got["reason"], by=BY,
+            O.record(case, f, held_text=held.get(f.get("source")), outcome=O.OUT_OF_SCOPE, reason=got["reason"], by=BY,
                      element=got["scope_element"], ruling=rid)
             close(f, O.OUT_OF_SCOPE, "nothing added; out of scope (%s); listed for readers"
                   % got["scope_element"], element=got["scope_element"])
@@ -1222,7 +1224,8 @@ def rule_omissions(slug: str, call, *, P=None, rows: dict | None = None, held: d
                 to_person(f, "over the declarations budget (%d)" % O.declaration_budget(n_body))
                 continue
             counts["DECLARED"] += 1
-            O.record(case, f, outcome=O.NOT_MATERIAL, reason=got["reason"], by=BY, ruling=rid)
+            O.record(case, f, held_text=held.get(f.get("source")), outcome=O.NOT_MATERIAL, reason=got["reason"],
+                     by=BY, ruling=rid)
             close(f, O.NOT_MATERIAL, "nothing added; not material; listed for readers")
         else:
             if O.locate(got["span"], f["held_quote"]) is None:
@@ -1236,7 +1239,7 @@ def rule_omissions(slug: str, call, *, P=None, rows: dict | None = None, held: d
                 to_person(f, "over the ADD budget (%d)" % O.add_budget(n_body))
                 continue
             counts["ADD"] += 1
-            O.record(case, f, outcome=O.ADD, reason=got["reason"], by=BY, ruling=rid,
+            O.record(case, f, held_text=held.get(f.get("source")), outcome=O.ADD, reason=got["reason"], by=BY, ruling=rid,
                      on_page=B.fingerprint(got["text"]), after=B.fingerprint(after))
             close(f, O.ADD, "to be inserted word for word after %s: %s"
                   % (json.dumps(after, ensure_ascii=False), json.dumps(got["text"], ensure_ascii=False)),
