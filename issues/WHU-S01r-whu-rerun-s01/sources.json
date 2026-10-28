@@ -20,7 +20,10 @@
         "on": "2026-10-28"
       },
       "doi": "10.1002/14651858.CD012972.pub2",
-      "pubmed": "34097769"
+      "pubmed": "34097769",
+      "also_called": [
+        "Haraka"
+      ]
     },
     {
       "id": "S002",
@@ -42,7 +45,10 @@
         "on": "2026-10-28"
       },
       "doi": "10.1016/S2214-109X(18)30458-3",
-      "pubmed": "30683238"
+      "pubmed": "30683238",
+      "also_called": [
+        "Di Tanna"
+      ]
     },
     {
       "id": "S003",
@@ -64,7 +70,10 @@
         "on": "2026-10-28"
       },
       "doi": "10.12688/wellcomeopenres.15412.2",
-      "pubmed": "32851196"
+      "pubmed": "32851196",
+      "also_called": [
+        "Ochodo"
+      ]
     },
     {
       "id": "S004",
@@ -86,7 +95,11 @@
         "on": "2026-10-28"
       },
       "doi": "10.1371/journal.pmed.1001760",
-      "pubmed": "25423041"
+      "pubmed": "25423041",
+      "also_called": [
+        "Impact of Xpert MTB/RIF for TB diagnosis in a primary care c",
+        "Cox"
+      ]
     },
     {
       "id": "S005",
@@ -108,7 +121,11 @@
         "on": "2026-10-28"
       },
       "doi": "10.1371/journal.pmed.1001766",
-      "pubmed": "25490549"
+      "pubmed": "25490549",
+      "also_called": [
+        "Impact of replacing smear microscopy with Xpert MTB/RIF for ",
+        "Durovni"
+      ]
     },
     {
       "id": "S006",
@@ -131,7 +148,10 @@
       },
       "doi": "10.1371/journal.pmed.1001928",
       "pubmed": "26632815",
-      "amends": "S005"
+      "amends": "S005",
+      "also_called": [
+        "Correction: Impact of Replacing Smear Microscopy"
+      ]
     },
     {
       "id": "S007",
@@ -153,7 +173,10 @@
         "on": "2026-10-28"
       },
       "doi": "10.1093/cid/ciy590",
-      "pubmed": "30059995"
+      "pubmed": "30059995",
+      "also_called": [
+        "Ngwira"
+      ]
     },
     {
       "id": "S008",
@@ -175,7 +198,10 @@
         "on": "2026-10-28"
       },
       "doi": "10.1056/NEJMoa2105470",
-      "pubmed": "34936740"
+      "pubmed": "34936740",
+      "also_called": [
+        "Cattamanchi"
+      ]
     },
     {
       "id": "S009",
@@ -197,7 +223,10 @@
         "on": "2026-10-28"
       },
       "doi": "10.1016/j.eclinm.2024.102953",
-      "pubmed": "39659443"
+      "pubmed": "39659443",
+      "also_called": [
+        "Katamba"
+      ]
     },
     {
       "id": "S010",
@@ -217,7 +246,13 @@
           "kind_why": "form 'record' — 475513 characters held. The article test does not apply to this form"
         },
         "on": "2026-10-28"
-      }
+      },
+      "also_called": [
+        "WHO's current guideline",
+        "WHO consolidated guidelines",
+        "WHO's 2025 diagnostic guideline",
+        "WHO's guideline"
+      ]
     },
     {
       "id": "S011",
@@ -237,7 +272,13 @@
           "kind_why": "form 'page' — 17 prose sentence(s) over sixty characters, 1073 words — this reads as the page itself"
         },
         "on": "2026-10-28"
-      }
+      },
+      "also_called": [
+        "WHO endorses new rapid tuberculosis test",
+        "When WHO endorsed",
+        "WHO's 2010 announcement",
+        "WHO said then"
+      ]
     },
     {
       "id": "S012",
@@ -260,7 +301,10 @@
       },
       "doi": "10.1016/S2214-109X(19)30046-4",
       "pubmed": "30796002",
-      "amends": "S002"
+      "amends": "S002",
+      "also_called": [
+        "Correction to Lancet Glob Health 2019"
+      ]
     },
     {
       "id": "S013",
@@ -272,9 +316,22 @@
       "citation": "Churchyard GJ, et al. Lancet Glob Health 2015 (XTEND)",
       "used_for": "Not read: named on the page as a trial we did not read; its results reach the page only through S001 and S002",
       "access": {
-        "state": "not_opened",
-        "note": "The publisher page returned a bot check to a plain request on 2026-10-28; not acquired. Recorded so the page's statement that we did not read it rests on the store."
-      }
+        "state": "blocked",
+        "by": "Claude Code",
+        "on": "2026-10-28",
+        "not_read": [
+          "all -- not held"
+        ],
+        "blocked_by": "captcha",
+        "note": "Tried the DOI's publisher page on 2026-10-28 by a plain request; it returned a bot check, which we did not get past. Its results reach the page only through S001 and S002."
+      },
+      "also_called": [
+        "South African XTEND"
+      ],
+      "characterisation_supported_by": [
+        "S001",
+        "S002"
+      ]
     },
     {
       "id": "S014",
@@ -286,9 +343,21 @@
       "citation": "Theron G, et al. Lancet 2014 (TB-NEAT)",
       "used_for": "Not read: named on the page as a trial we did not read; its results reach the page only through S001 and S002",
       "access": {
-        "state": "not_opened",
-        "note": "No open full text found in Europe PMC on 2026-10-28; not acquired. Recorded so the page's statement that we did not read it rests on the store."
-      }
+        "state": "blocked",
+        "by": "Claude Code",
+        "on": "2026-10-28",
+        "not_read": [
+          "all -- not held"
+        ],
+        "note": "Searched Europe PMC for an open full text on 2026-10-28 and found none; the publisher copy was not tried. Its results reach the page only through S001 and S002."
+      },
+      "also_called": [
+        "TB-NEAT"
+      ],
+      "characterisation_supported_by": [
+        "S001",
+        "S002"
+      ]
     },
     {
       "id": "S015",
@@ -310,7 +379,10 @@
           "kind_why": "107889 characters, reference list and discussion present"
         },
         "on": "2026-10-28"
-      }
+      },
+      "also_called": [
+        "Otieno"
+      ]
     },
     {
       "id": "S016",
@@ -332,7 +404,10 @@
           "kind_why": "34557 characters, reference list and discussion/introduction present"
         },
         "on": "2026-10-28"
-      }
+      },
+      "also_called": [
+        "Trajman"
+      ]
     },
     {
       "id": "S017",
@@ -355,7 +430,11 @@
           "kind_why": "form 'notice' — 5261 characters held. The article test does not apply to this form"
         },
         "on": "2026-10-28"
-      }
+      },
+      "also_called": [
+        "Correction: Impact on Patients' Treatment Outcomes",
+        "2016 correction"
+      ]
     }
   ]
 }

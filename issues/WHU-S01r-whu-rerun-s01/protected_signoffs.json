@@ -1,0 +1,26 @@
+{
+ "signoffs": [
+  {
+   "sentence_sha": "87383138219bffb7",
+   "first_draft": "We drew on twelve documents: two pooled analyses of trials, a systematic review of trial design, five trial reports, two corrections, WHO's 2025 diagnostic guideline and WHO's 2010 announcement.",
+   "now": "We drew on fifteen documents: three systematic reviews or pooled analyses of trials, a systematic review of trial design, six trial reports, three corrections, WHO's 2025 diagnostic guideline and WHO's 2010 announcement.",
+   "why": "Gate run 1's recency role found the 2025 Cochrane review of Xpert MTB/RIF Ultra (S015), the Brazil trial's treatment-outcome report (S016) and its correction (S017); all three were read, so the count of documents rose from twelve to fifteen.",
+   "by": "Fred Ugast",
+   "signature": {
+    "statement": "I, Fred Ugast, accept for WHU-S01r: the two protected-sentence corrections (the source count from twelve to fifteen; the Xpert MTB/RIF sentence corrected to include Xpert Ultra), and the 13 declared findings shown on the readers' list, including the 3 over the budget.",
+    "source": "issues/WHU-S01r-whu-rerun-s01/acceptance.md:3"
+   }
+  },
+  {
+   "sentence_sha": "ae55910614b49533",
+   "first_draft": "We did not search separately for trials of the newer DNA-based tests on patient outcomes; the trials on this page tested Xpert MTB/RIF.",
+   "now": "We did not search separately for trials of the newer DNA-based tests on patient outcomes; a recency check on our first draft pointed us to the 2025 Cochrane review of Xpert MTB/RIF Ultra and to the Brazil trial's report of treatment outcomes, which we then read.",
+   "why": "The first-draft clause was false: the Cochrane review (S015) shows XPEL-TB used Xpert MTB/RIF Ultra, not Xpert MTB/RIF; the sentence now says how the Ultra review and the Brazil follow-up came to be read.",
+   "by": "Fred Ugast",
+   "signature": {
+    "statement": "I, Fred Ugast, accept for WHU-S01r: the two protected-sentence corrections (the source count from twelve to fifteen; the Xpert MTB/RIF sentence corrected to include Xpert Ultra), and the 13 declared findings shown on the readers' list, including the 3 over the budget.",
+    "source": "issues/WHU-S01r-whu-rerun-s01/acceptance.md:3"
+   }
+  }
+ ]
+}
