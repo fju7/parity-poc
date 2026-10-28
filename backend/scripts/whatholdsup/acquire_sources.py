@@ -153,17 +153,34 @@ def summaries_to_add(srcs: list[dict], today: str = "") -> list[dict]:
     return out
 
 
+ROBOTS_UNKNOWN = "robots.txt unknown"
+
+
 def robots_allow(url: str, agent: str = "*") -> tuple[bool, str]:
-    """robots.txt of the URL's host, read before fetching an added summary."""
+    """robots.txt of the URL's host, read before fetching an added summary.
+
+    Fetched with the same client and headers as the document (fetch(): tls.urlopen,
+    UA). Post-study, mid-rerun tool fix (2026-10-28): RobotFileParser.read() used
+    its own urllib client, and it reads a 401/403 as "disallow all" -- so a bot
+    wall in front of robots.txt (WHU-S01r/S07r) read as the site forbidding every
+    fetch. A robots.txt that does not come back is now UNKNOWN, said so, and the
+    document goes through the normal fetch rules; a Disallow that is read is
+    obeyed exactly as before."""
     import urllib.robotparser as rp
     from urllib.parse import urlsplit
     parts = urlsplit(url)
-    r = rp.RobotFileParser("%s://%s/robots.txt" % (parts.scheme, parts.netloc))
+    where = "%s://%s/robots.txt" % (parts.scheme, parts.netloc)
     try:
-        r.read()
+        data, _ct, _final = fetch(where, timeout=30)
+    except urllib.error.HTTPError as e:
+        return True, "%s (HTTP %s at %s): not read as disallowing; fetched under the normal rules" \
+            % (ROBOTS_UNKNOWN, e.code, where)
     except Exception as e:
         return False, "robots.txt could not be read (%s): not fetched" % type(e).__name__
-    return (r.can_fetch(agent, url), "robots.txt %s it" % ("allows" if r.can_fetch(agent, url) else "disallows"))
+    r = rp.RobotFileParser(where)
+    r.parse((data or b"").decode("utf-8", "replace").splitlines())
+    ok = r.can_fetch(agent, url)
+    return ok, "robots.txt %s it" % ("allows" if ok else "disallows")
 
 
 def fetch(url: str, timeout: int = 45) -> tuple[bytes, str, str]:
@@ -237,6 +254,9 @@ def main(argv=None) -> int:
             continue
         if sid in added_ids:
             ok, why_r = robots_allow(url)
+            acc["robots"] = {"on": store.utc_today(), "by": "acquire_sources.py", "why": why_r,
+                             "result": "unknown" if why_r.startswith(ROBOTS_UNKNOWN)
+                             else ("allows" if ok else "not fetched")}
             if not ok:
                 acc["last_fetch"] = {"on": store.utc_today(), "by": "acquire_sources.py",
                                      "result": "not fetched", "why": why_r}
