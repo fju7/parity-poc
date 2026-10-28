@@ -1,0 +1,392 @@
+{
+ "omissions": [
+  {
+   "key": "S001@-",
+   "source": "S001",
+   "held_sha256": null,
+   "at": null,
+   "quote_sha256": null,
+   "outcome": "NOT_IN_SOURCE",
+   "element": "",
+   "reason": "the quotation is not in the held text of S001",
+   "by": "code (omissions.precheck)",
+   "ruling": null,
+   "origins": [
+    "S001-11"
+   ],
+   "on_page": null,
+   "after": null,
+   "decided_at": "2026-10-28T01:18:40+00:00"
+  },
+  {
+   "key": "S002@-",
+   "source": "S002",
+   "held_sha256": null,
+   "at": null,
+   "quote_sha256": null,
+   "outcome": "NOT_IN_SOURCE",
+   "element": "",
+   "reason": "the quotation is not in the held text of S002",
+   "by": "code (omissions.precheck)",
+   "ruling": null,
+   "origins": [
+    "S002-16"
+   ],
+   "on_page": null,
+   "after": null,
+   "decided_at": "2026-10-28T01:18:40+00:00"
+  },
+  {
+   "key": "S003@-",
+   "source": "S003",
+   "held_sha256": null,
+   "at": null,
+   "quote_sha256": null,
+   "outcome": "NOT_IN_SOURCE",
+   "element": "",
+   "reason": "the quotation is not in the held text of S003",
+   "by": "code (omissions.precheck)",
+   "ruling": null,
+   "origins": [
+    "S003-19"
+   ],
+   "on_page": null,
+   "after": null,
+   "decided_at": "2026-10-28T01:18:40+00:00"
+  },
+  {
+   "key": "S006@-",
+   "source": "S006",
+   "held_sha256": null,
+   "at": null,
+   "quote_sha256": null,
+   "outcome": "NOT_IN_SOURCE",
+   "element": "",
+   "reason": "the quotation is not in the held text of S006",
+   "by": "code (omissions.precheck)",
+   "ruling": null,
+   "origins": [
+    "S006-37"
+   ],
+   "on_page": null,
+   "after": null,
+   "decided_at": "2026-10-28T01:18:40+00:00"
+  },
+  {
+   "key": "S001@302039-302314",
+   "source": "S001",
+   "held_sha256": "44bad5d229016966b004096adc631480bd6494f6cf52f97d9a608ac41f236218",
+   "at": [
+    302039,
+    302314
+   ],
+   "quote_sha256": "b68831fcd6f924e879d20e2a717d6081581769a6412d5b1a816d03e9005aba8f",
+   "outcome": "NOT_MATERIAL",
+   "element": "",
+   "reason": "Step 1: the finding is in scope. It concerns compact, co-located, walkable, mixed-use and transit-oriented urban form as a route to low or net-zero emissions, which is the urban-form question asked. Step 2: it is not material. ALREADY states this almost verbatim: [S001@18917-19008] [S001@19046-19151]. The only parts not yet in the draft are '[S001@19009-19045]', a co-benefit the SCOPE excludes, and preserving green and blue assets, which concerns carbon storage rather than transport emissions. Neither would change the reader's estimate of transport emission cuts.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "f1b31abb7a035fcd",
+   "origins": [
+    "S001-10"
+   ],
+   "on_page": null,
+   "after": null,
+   "decided_at": "2026-10-28T01:18:46+00:00"
+  },
+  {
+   "key": "S001@315514-316021",
+   "source": "S001",
+   "held_sha256": "44bad5d229016966b004096adc631480bd6494f6cf52f97d9a608ac41f236218",
+   "at": [
+    315514,
+    316021
+   ],
+   "quote_sha256": "006ebd6750bd0169ea9a1607fd24f7f0353e3d375d2736f5ec322b745ee2b996",
+   "outcome": "OUT_OF_SCOPE",
+   "element": "greenhouse gas emissions from buildings, industry, energy supply and other non-transport urban sectors",
+   "reason": "Step 1 fails. The finding is a knowledge gap about the mitigation [S001@315561-315622]. It defines informality as [S001@315696-315780]. These are non-transport urban sectors, which the SCOPE excludes. The finding says nothing about urban form, transport pricing or transport emissions. Step 2 also fails: the draft already notes the limited data on informal-settlement practices and that they concern [S001@19872-19917] rather than transport.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "e4e787440eb91071",
+   "origins": [
+    "S001-07"
+   ],
+   "on_page": null,
+   "after": null,
+   "decided_at": "2026-10-28T01:18:51+00:00"
+  },
+  {
+   "key": "S002@11318-11646",
+   "source": "S002",
+   "held_sha256": "8bff002c5119362f6386f34854e57ae8f3e2e050dc7debaa3308c7687fc84af7",
+   "at": [
+    11318,
+    11646
+   ],
+   "quote_sha256": "89bda74b3a822ab080d38a20fdc6d585d27d8dbd813875513fd94496b8347e53",
+   "outcome": "NOT_MATERIAL",
+   "element": "",
+   "reason": "Step 1: The finding concerns demand for transport services, which bears on transport emissions. No words in the question or scope exclude it, and the draft already reports the same passage. Step 2: The draft already states the core of this finding. It says there is mixed evidence on circular economy, shared economy and digitalisation, that [S002@11449-11500] freight demand, and that ridesharing could increase vehicle-km. Only two offsetting clauses are missing: dematerialisation reducing material transport and teleworking reducing travel demand. These concern digitalisation, not urban form or transport pricing. They would not change how the official weighs densification, mixed use, connectivity or pricing in a climate plan.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "5cd1abf7defe6d69",
+   "origins": [
+    "S002-15"
+   ],
+   "on_page": null,
+   "after": null,
+   "decided_at": "2026-10-28T01:18:58+00:00"
+  },
+  {
+   "key": "S002@45160-45369",
+   "source": "S002",
+   "held_sha256": "8bff002c5119362f6386f34854e57ae8f3e2e050dc7debaa3308c7687fc84af7",
+   "at": [
+    45160,
+    45369
+   ],
+   "quote_sha256": "e707baa1255bec63487d09490cdcb126bfae05061747c0ab4999af52f3be4d79",
+   "outcome": "NOT_MATERIAL",
+   "element": "",
+   "reason": "Step 1 holds: the finding gives the direction and size of the cut in urban transport GHG emissions from changes to urban form, which is what the question asks. Step 2 fails: the draft already says the chapter puts [S002@51761-51803] at [S002@51807-51867]. It also already flags that this is a 2050 potential against business-as-usual, not a measured reduction. The finding adds nothing that would change the reader's estimate.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "2456e4546102b075",
+   "origins": [
+    "S002-17"
+   ],
+   "on_page": null,
+   "after": null,
+   "decided_at": "2026-10-28T01:19:04+00:00"
+  },
+  {
+   "key": "S003@604-722",
+   "source": "S003",
+   "held_sha256": "ecb8f63d2dc6a3d1987901272936435c443acab4ccbf97a9dfa740ef56f4e06d",
+   "at": [
+    604,
+    722
+   ],
+   "quote_sha256": "5b60c3c4e570c3104c457de0c0fb74da6722b8c0f0a5a2d466ce60ef5af5a806",
+   "outcome": "NOT_MATERIAL",
+   "element": "",
+   "reason": "Step 1: The sentence is about reducing car use to meet climate goals, which touches transport emissions, so it is not clearly excluded. Its 'fossil-free transport' half leans toward the vehicle-technology exclusion, but the car-use half bears on the question. Step 2: It is the abstract's framing premise, not a result of the review. It asserts that cutting car use is necessary for climate goals. It does not say whether urban form or pricing measures cut transport emissions, or by how much, when or under what conditions. So it does not answer, narrow or qualify the answer for an official deciding whether to rely on these measures. The draft already reports the review's substantive findings: the effective interventions, the congestion-charge traffic reductions and the caveat that these are traffic figures, not emissions.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "9ecf6e1205fe2c6b",
+   "origins": [
+    "S003-20"
+   ],
+   "on_page": null,
+   "after": null,
+   "decided_at": "2026-10-28T01:19:10+00:00"
+  },
+  {
+   "key": "S003@54038-54294",
+   "source": "S003",
+   "held_sha256": "ecb8f63d2dc6a3d1987901272936435c443acab4ccbf97a9dfa740ef56f4e06d",
+   "at": [
+    54038,
+    54294
+   ],
+   "quote_sha256": "d380ec405f3f4c4174d3882cc715f49377f19cab99cf2381ec4c0f11878638c0",
+   "outcome": "NOT_MATERIAL",
+   "element": "",
+   "reason": "Step 1 holds: congestion charging and parking control are pricing and demand measures that cut car use, which bears on transport emissions as the question and scope frame them. Step 2 fails: ALREADY already states that the authors identify the congestion charge, [S003@54078-54129] as [S003@1325-1371]. The draft also already notes that these are car-traffic reductions, not emission reductions. The finding's only further element is that these measures cut car use across a whole city rather than for one user group. That is the basis for the word 'overall', which the draft already carries, so it adds no new answer, narrowing or outcome for the reader.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "26da53a376b20c32",
+   "origins": [
+    "S003-22"
+   ],
+   "on_page": null,
+   "after": null,
+   "decided_at": "2026-10-28T01:19:15+00:00"
+  },
+  {
+   "key": "S004@1027-1125",
+   "source": "S004",
+   "held_sha256": "1df5573ab1d0bb1b3e549b322309a346c0f349695daf12d618af52aedc4860ee",
+   "at": [
+    1027,
+    1125
+   ],
+   "quote_sha256": "ea1c784d72885511a7a396c0c9afe3c4116d39bc9ddec45e096fcf2ea8122dec",
+   "outcome": "ADD",
+   "element": "",
+   "reason": "Step 1: in scope. The finding concerns the evidence on urban form ([S004@499-554], which bears on the SCOPE's 'under what conditions it holds'. Step 2: material. The draft already says the effect varies by place and gives no reliable size for a particular city. It does not say that most prior evidence comes from cities [S004@1087-1124]. That is a distinct limit on whether published estimates carry over to a typical city, and an official would weigh it before relying on those figures.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "6f5c61677d7c3223",
+   "origins": [
+    "S004-25"
+   ],
+   "on_page": "9113877b883ccfc6",
+   "after": "767393eb219ca721",
+   "decided_at": "2026-10-28T01:19:22+00:00"
+  },
+  {
+   "key": "S004@1126-1270",
+   "source": "S004",
+   "held_sha256": "1df5573ab1d0bb1b3e549b322309a346c0f349695daf12d618af52aedc4860ee",
+   "at": [
+    1126,
+    1270
+   ],
+   "quote_sha256": "9a71d2294eb0428a5d4f1a3ec39a4b92584d7dc7c6b3aef626ee7b66755aea5e",
+   "outcome": "ADD",
+   "element": "",
+   "reason": "Step 1: The finding is in scope. It concerns how far the evidence on urban form and transport emissions can be relied on, and in which places, which falls under the scope's 'under what conditions it holds'. Step 2: The finding is material. The draft says the relationships vary across development levels, but it does not say the evidence base is thin for under-studied regions such as the rapidly urbanizing Global South. An official in such a city would weigh that limit before relying on these measures, so it qualifies the answer.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "01a4b53b44d60f9e",
+   "origins": [
+    "S004-27"
+   ],
+   "on_page": "e162f56a53f616a2",
+   "after": "bb5ddbf4cc18b6f6",
+   "decided_at": "2026-10-28T01:19:29+00:00"
+  },
+  {
+   "key": "S004@33620-33824",
+   "source": "S004",
+   "held_sha256": "1df5573ab1d0bb1b3e549b322309a346c0f349695daf12d618af52aedc4860ee",
+   "at": [
+    33620,
+    33824
+   ],
+   "quote_sha256": "4b49984fa772ab4c7b2409f47dff864c64ab464b2facd32b2b6cd7557e1ba8d6",
+   "outcome": "ADD",
+   "element": "",
+   "reason": "Step 1: The finding concerns road length per capita, which is part of street network layout and connectivity, and its association with transport emissions in different kinds of city. That bears on the SCOPE's 'under what conditions it holds'. Step 2: The draft says only in general terms that the [S004@961-1030]. This finding states where the road-length association is strongest and that it is absent in high-density grid cities. A planner can use that to judge whether the lever applies to their own city, so it qualifies the answer and is not already stated.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "01ff6b47acf63d93",
+   "origins": [
+    "S004-24"
+   ],
+   "on_page": "8c101e3d7e3d676c",
+   "after": "bb5ddbf4cc18b6f6",
+   "decided_at": "2026-10-28T01:19:36+00:00"
+  },
+  {
+   "key": "S004@39199-39359",
+   "source": "S004",
+   "held_sha256": "1df5573ab1d0bb1b3e549b322309a346c0f349695daf12d618af52aedc4860ee",
+   "at": [
+    39199,
+    39359
+   ],
+   "quote_sha256": "e40632010720b067eb28abbaa5b6e9490ddae1ba37383fc60cf55c933d86e214",
+   "outcome": "ADD",
+   "element": "",
+   "reason": "Step 1: the finding is about how far global evidence on street network design and transport CO2 emissions applies to a given city. That bears on whether changing urban form (connectivity) would cut transport emissions there, and under what conditions; the SCOPE covers 'under what conditions it holds'. Step 2: the draft says the relationships vary and that the studies give no reliable size for a particular city. It does not pass on the authors' explicit warning that conclusions drawn from global models or dissimilar regions could be inapplicable to local planning. That warning reaches beyond size to whether the conclusions apply at all. A planner basing a climate plan on such evidence would weigh it, because it qualifies the answer.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "38dfcaa40bfd2f5e",
+   "origins": [
+    "S004-23",
+    "S004-26"
+   ],
+   "on_page": "9b0190eb37a68094",
+   "after": "bb5ddbf4cc18b6f6",
+   "decided_at": "2026-10-28T01:19:43+00:00"
+  },
+  {
+   "key": "S005@23057-23314",
+   "source": "S005",
+   "held_sha256": "378315367d18207474896f8b01b4fcb7004d6f3aa7f2e2c9e99dbb68ffead3a3",
+   "at": [
+    23057,
+    23314
+   ],
+   "quote_sha256": "db2523df4465f8b0aca0d6caae1fe155ec12176433102822ff88cc8786d2cc18",
+   "outcome": "NOT_MATERIAL",
+   "element": "",
+   "reason": "Step 1 holds: the sentence comes from a study of how density relates to transport CO2e emissions, which falls under the question. Step 2 fails: the sentence only describes the method (linear and quadratic regressions with socio-demographic, attitudinal and density variables) and says where the results are reported. It gives no result, size or condition. It does not answer, narrow or qualify the answer for the official. The draft already states this study's actual finding (the non-linear density effect) and its limits.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "380fa1054eeafcae",
+   "origins": [
+    "S005-28"
+   ],
+   "on_page": null,
+   "after": null,
+   "decided_at": "2026-10-28T01:19:47+00:00"
+  },
+  {
+   "key": "S005@25039-25533",
+   "source": "S005",
+   "held_sha256": "378315367d18207474896f8b01b4fcb7004d6f3aa7f2e2c9e99dbb68ffead3a3",
+   "at": [
+    25039,
+    25533
+   ],
+   "quote_sha256": "7d0f5e160989a869d80fadded7351657bbbbd8c4cdcb6484facb7ae4c4486628",
+   "outcome": "ADD",
+   "element": "",
+   "reason": "Step 1: The finding comes from the same study that measures how density relates to transport emissions. It bears on how large the urban-form effect is and under what conditions it holds, which the SCOPE covers. No QUESTION or SCOPE wording excludes it. Step 2: The finding qualifies the answer. Emissions in that study depend strongly on travellers' attitudes, not only on where they live, and the authors say attitudes must be accounted for in land use–emissions analysis. An official estimating what layout changes will cut would weigh this. The draft says only, in general terms, that the studies do not establish causation; it does not state this finding.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "a8f5cca260660a9b",
+   "origins": [
+    "S005-32"
+   ],
+   "on_page": "f6b81a9f3a71bc3c",
+   "after": "767393eb219ca721",
+   "decided_at": "2026-10-28T01:19:56+00:00"
+  },
+  {
+   "key": "S005@31000-31212",
+   "source": "S005",
+   "held_sha256": "378315367d18207474896f8b01b4fcb7004d6f3aa7f2e2c9e99dbb68ffead3a3",
+   "at": [
+    31000,
+    31212
+   ],
+   "quote_sha256": "67787f326893b2beb48c24d1dc495075c936aad2f166ac1cf3f348f9e1a1dc8a",
+   "outcome": "NOT_MATERIAL",
+   "element": "",
+   "reason": "Step 1 holds: the finding is about how population density (urban form) relates to transport CO2e emissions, which is the subject of the question. Step 2 fails: the draft already says that in the Puget Sound study people in denser neighbourhoods generate fewer transport CO2e emissions and that the effect becomes insignificant once density reaches a certain level. The finding's lack of a significant difference between the two densest groups is that same plateau, so it adds no new qualification or outcome.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "8cc78cc05a90b15f",
+   "origins": [
+    "S005-29"
+   ],
+   "on_page": null,
+   "after": null,
+   "decided_at": "2026-10-28T01:19:59+00:00"
+  },
+  {
+   "key": "S006@128856-129095",
+   "source": "S006",
+   "held_sha256": "7ea69cb93bad3f72228d74234e697bdfbcde8acdbe540db7679e4a94d41e90be",
+   "at": [
+    128856,
+    129095
+   ],
+   "quote_sha256": "12cc40d9363ae9016654f853a4f597641486a14e38e2d63c43849fe3a541ead8",
+   "outcome": "NOT_MATERIAL",
+   "element": "",
+   "reason": "Step 1: the finding is about what cities need to reach net-zero through the transition of urban form, so it bears on the question about urban layout and emissions. Step 2: the draft already says this, nearly word for word. ALREADY states that '[S006@128856-129004]'. It also states, with very high confidence, that packages of city-scale [S006@131341-131393]'. Adding the finding would repeat these points and give the reader nothing new.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "463cab72f1bb7cb8",
+   "origins": [
+    "S006-35"
+   ],
+   "on_page": null,
+   "after": null,
+   "decided_at": "2026-10-28T01:20:04+00:00"
+  },
+  {
+   "key": "S006@138120-138367",
+   "source": "S006",
+   "held_sha256": "7ea69cb93bad3f72228d74234e697bdfbcde8acdbe540db7679e4a94d41e90be",
+   "at": [
+    138120,
+    138367
+   ],
+   "quote_sha256": "430577cf62f2b4f3b933136d0bca6689b1b2e8dfa22b9412d75c7365e7770df4",
+   "outcome": "OUT_OF_SCOPE",
+   "element": "co-benefits and side effects other than greenhouse gas emissions (health, air quality, congestion, equity, housing costs)",
+   "reason": "Step 1 fails: the finding lists co-benefits of transport mitigation strategies (air quality, health, equitable access, reduced congestion, reduced material demand), not whether those strategies cut transport greenhouse gas emissions. The SCOPE explicitly excludes co-benefits and side effects other than greenhouse gas emissions, naming health, air quality, congestion and equity. Step 2 is therefore not reached.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "e978ad861a21ac5b",
+   "origins": [
+    "S006-38"
+   ],
+   "on_page": null,
+   "after": null,
+   "decided_at": "2026-10-28T01:20:08+00:00"
+  }
+ ]
+}

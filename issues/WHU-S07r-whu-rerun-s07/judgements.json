@@ -2185,13 +2185,13 @@
    "section": "Executive Summary ¶7",
    "kind": "assessment",
    "text_sha256": "795a9baf7d35d5af87b3ac6086a076d71a3d4c5324f85ff01856ebaedbea3bfd",
-   "relevant": null,
-   "words": "how cities are laid out … how long it takes, and under what conditions it holds",
-   "reason": "relevance refused by code: 'how cities are laid out … how long it takes, and under what conditions it holds' is in neither the question nor a scope.out entry",
-   "by": "code (ruling.py judgements)",
-   "ruling": "86b6e9521246ddba",
-   "to_person": true,
-   "decided_at": "2026-10-28T12:00:54+00:00"
+   "relevant": true,
+   "words": "",
+   "reason": "advisor's ruling of 2026-10-28 (Fred's advisor): relevant -- urban land expansion and carbon lock-in bear on urban form",
+   "by": "Claude Code (session WHU-S07r), applying the advisor ruling",
+   "ruling": null,
+   "to_person": false,
+   "decided_at": "2026-10-28T12:50:28+00:00"
   },
   "S006@14302-14910": {
    "source": "S006",
