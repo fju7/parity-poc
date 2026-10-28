@@ -1,5 +1,5 @@
 # WHU-S07r private archive manifest
-# copied to ~/Projects/whu-study-private/WHU-S07r-whu-rerun-s07/20261028T133623Z/ (paths kept, relative to the repository root)
+# copied to ~/Projects/whu-study-private/WHU-S07r-whu-rerun-s07/20261028T135735Z/ (paths kept, relative to the repository root)
 e6b263f3e625cc55bc0ff4f48a8c1de3d8c92b6e7e35329f104584d87b679a16  issues/WHU-S07r-whu-rerun-s07/advocate/20261028T010140Z-adjudication.md
 a624f942ff66ce70ad9595a7a7ce8cbae5f507d5c9a1177e9e29dfbe8360aabe  issues/WHU-S07r-whu-rerun-s07/advocate/20261028T010140Z-briefs.json
 0956010a8d47612e6abc60a1ef40c160615c2960f443fbf76add98da589e545f  issues/WHU-S07r-whu-rerun-s07/advocate/quote_checks.jsonl

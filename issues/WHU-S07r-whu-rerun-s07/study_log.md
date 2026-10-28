@@ -50,6 +50,7 @@ Outside the study; changes no study record. Drafting session: Claude Code (sessi
 | STOP for Fred (protected sign-offs) | 2026-10-28T13:37:00Z | | $0.00 | | a sign-off must be a person's, with a committed acceptance line written without a Claude trailer; draft entries prepared with by/signature blank |
 | OPERATOR: Fred's acceptance (protected sign-offs) | 2026-10-28T13:40:00Z | 2026-10-28T13:53:36Z | $0.00 | ~3 | acceptance.md written by Claude Code (transcription), not committed by it; first swept into the WHU-S01r session's commit 6a59af2 (Claude trailer, so refused); Fred removed and re-committed it (c27e32b, 185a06e); protected_signoffs.json: 7 sign-offs by Fred Ugast citing acceptance.md:3; row ok |
 | 10 publish.py check | 2026-10-28T13:53:40Z | 2026-10-28T13:55:04Z | $0.00 | 0 | Ready. (0 STOP) |
+| 11 private archive (final) | 2026-10-28T13:57:35Z | 2026-10-28T13:57:35Z | $0.00 | 0 | git-ignored case files copied to a new subfolder of ~/Projects/whu-study-private/WHU-S07r-whu-rerun-s07/; sha256 list in private_manifest.txt. FINISHED: publish.py check Ready. |
 
 ## Process findings
 
