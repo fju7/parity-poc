@@ -1,5 +1,18 @@
 {
  "_what": "Recorded judge replies for the offline tests, keyed by a phrase of the claim; in M1 v3's reply form {label, span, reason}. Written for the fixture, not returned by a model.",
- "did better than no intervention": {"label": "Supported", "span": "Although most CBT approaches, except remote CBT, demonstrated superiority over no intervention, no approaches performed clearly better than or equivalent to another.", "reason": "The abstract states this, with the 62 RCTs and 6435 participants."},
- "clearly better than every other format": {"label": "Overstates", "span": "no approaches performed clearly better than or equivalent to another", "reason": "Guided self-help ranked highest, but no format was clearly better than another."}
+ "did better than no intervention": {
+  "label": "Supported",
+  "span": "Although most CBT approaches, except remote CBT, demonstrated superiority over no intervention, no approaches performed clearly better than or equivalent to another.",
+  "reason": "The abstract states this, with the 62 RCTs and 6435 participants."
+ },
+ "clearly better than every other format": {
+  "label": "Overstates",
+  "span": "no approaches performed clearly better than or equivalent to another",
+  "reason": "Guided self-help ranked highest, but no format was clearly better than another."
+ },
+ "just as effective as face-to-face": {
+  "label": "Absent",
+  "span": "Although most CBT approaches, except remote CBT, demonstrated superiority over no intervention",
+  "reason": "The document is about CBT delivery formats for adolescents and does not report technology-assisted against face-to-face CBT in 7 trials."
+ }
 }

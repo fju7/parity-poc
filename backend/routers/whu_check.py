@@ -41,6 +41,8 @@ from pydantic import BaseModel
 BACKEND_ROOT = Path(__file__).resolve().parent.parent
 REPO_ROOT = BACKEND_ROOT.parent
 PIPELINE = REPO_ROOT / "study" / "whu-reliability" / "check_pilot" / "pipeline.py"
+# docs/whu-check-an-answer-pilot.md §9.8: the preview switches to v2 (pipeline_v2.py) once v2 has run.
+PIPELINE_VERSION = 1
 JOBS_LOG = BACKEND_ROOT / "data" / "whu_check" / "jobs.jsonl"
 
 ISSUE = "whu-check-preview"
@@ -66,9 +68,15 @@ def pipeline():
     if _P is None:
         if not PIPELINE.exists():
             raise HTTPException(503, "the check pipeline is not available on this server")
-        spec = importlib.util.spec_from_file_location("whu_check_pipeline", PIPELINE)
-        m = importlib.util.module_from_spec(spec)
-        spec.loader.exec_module(m)
+        if PIPELINE_VERSION == 2:
+            import sys
+            if str(PIPELINE.parent) not in sys.path:
+                sys.path.insert(0, str(PIPELINE.parent))
+            import pipeline_v2 as m
+        else:
+            spec = importlib.util.spec_from_file_location("whu_check_pipeline", PIPELINE)
+            m = importlib.util.module_from_spec(spec)
+            spec.loader.exec_module(m)
         _P = m
     return _P
 
