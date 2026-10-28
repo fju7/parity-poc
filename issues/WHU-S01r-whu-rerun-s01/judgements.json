@@ -1,0 +1,208 @@
+{
+ "candidates": {
+  "S001@4982-5118": {
+   "source": "S001",
+   "at": [
+    4982,
+    5118
+   ],
+   "section": "abstract conclusions",
+   "kind": "review",
+   "text_sha256": "3d116db050175b0fa9cd81ba4da1ba9fac3803d851e1fb98984a2de7ec258305",
+   "relevant": true,
+   "words": "DNA-based testing, used instead of the older microscope … whether they survive",
+   "reason": "The judgement directly addresses the effect on all-cause mortality of Xpert MTB/RIF versus smear microscopy, which is the survival outcome the question asks about.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "a344bfd76116f734",
+   "to_person": false,
+   "decided_at": "2026-10-28T00:22:12+00:00"
+  },
+  "S001@5119-5209": {
+   "source": "S001",
+   "at": [
+    5119,
+    5209
+   ],
+   "section": "abstract conclusions",
+   "kind": "review",
+   "text_sha256": "7e5d3a5bdc5ce4a6ac8e867adbac2de0bc1717539577e1b4f465d2eb56eb7aba",
+   "relevant": true,
+   "words": "DNA-based testing, used instead of the older microscope or lab-culture methods, change what happens to them, for example whether they survive",
+   "reason": "The judgement reports that Xpert MTB/RIF, a DNA-based test, probably reduces mortality in people with HIV, which is the survival outcome the question asks about.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "385c093be5e6177c",
+   "to_person": false,
+   "decided_at": "2026-10-28T00:22:14+00:00"
+  },
+  "S001@5210-5371": {
+   "source": "S001",
+   "at": [
+    5210,
+    5371
+   ],
+   "section": "abstract conclusions",
+   "kind": "review",
+   "text_sha256": "ad317306c3edabd47ae3e01abfcb9a1c1c8e775e01744a9bbdba995112b17ad3",
+   "relevant": true,
+   "words": "whether they survive, are cured, or start treatment sooner",
+   "reason": "The judgement addresses Xpert MTB/RIF's uncertain effect on the proportion treated and on treatment success, which are patient outcomes the question asks about.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "4133cd9273e9c71c",
+   "to_person": false,
+   "decided_at": "2026-10-28T00:22:16+00:00"
+  },
+  "S001@5372-5437": {
+   "source": "S001",
+   "at": [
+    5372,
+    5437
+   ],
+   "section": "abstract conclusions",
+   "kind": "review",
+   "text_sha256": "6c3a2d172df1efff4b48a637e37f860549a94321ea945578540877fc6faf1448",
+   "relevant": true,
+   "words": "change what happens to them",
+   "reason": "The judgement concerns whether the intervention substantially affects patient outcomes, which is exactly what the question asks about DNA-based testing versus microscopy or culture, though the excerpt does not itself name the intervention or the outcomes.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "2d83f489eb75bcf9",
+   "to_person": false,
+   "decided_at": "2026-10-28T00:22:20+00:00"
+  },
+  "S001@5438-5627": {
+   "source": "S001",
+   "at": [
+    5438,
+    5627
+   ],
+   "section": "abstract conclusions",
+   "kind": "review",
+   "text_sha256": "719581aea5c41b01e7dd23603f2d366e044608f304cc038442533c84db17e1b3",
+   "relevant": true,
+   "words": "change what happens to them … start treatment sooner",
+   "reason": "The judgement reports a patient-level effect of Xpert MTB/RIF versus older methods: more people with a confirmed diagnosis being treated, and more treated people having bacteriological confirmation, which bears on whether treatment starts.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "855e5149c9ebd241",
+   "to_person": false,
+   "decided_at": "2026-10-28T00:22:22+00:00"
+  },
+  "S001@5628-5737": {
+   "source": "S001",
+   "at": [
+    5628,
+    5737
+   ],
+   "section": "abstract conclusions",
+   "kind": "review",
+   "text_sha256": "da117a036f467f25eceb28fd77298c05d6308142d856dfd7ab47a52432dabf7c",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement is a generic statement that the findings could inform uptake decisions alongside cost-effectiveness and implementation evidence; it says nothing about whether DNA-based testing changes survival, cure or time to treatment, or how strong the evidence is.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "c8c311a95410780d",
+   "to_person": false,
+   "decided_at": "2026-10-28T00:22:26+00:00"
+  },
+  "S002@7240-7441": {
+   "source": "S002",
+   "at": [
+    7240,
+    7441
+   ],
+   "section": "abstract conclusions",
+   "kind": "review",
+   "text_sha256": "8f1e19985f08b1760efd1fdccf8227bd559422ee6d5efbda9955f9db317f351c",
+   "relevant": true,
+   "words": "whether they survive",
+   "reason": "The judgement directly addresses whether Xpert MTB/RIF testing, compared in RCTs, reduces mortality among people tested for TB, which is the survival outcome the question asks about.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "ebaf7705c4ec185d",
+   "to_person": false,
+   "decided_at": "2026-10-28T00:22:28+00:00"
+  },
+  "S002@7442-8006": {
+   "source": "S002",
+   "at": [
+    7442,
+    8006
+   ],
+   "section": "abstract conclusions",
+   "kind": "review",
+   "text_sha256": "a33524e22921783dc330f940589bb5146d1d400ecd2fce3c68a8933f2667318e",
+   "relevant": true,
+   "words": "whether they survive",
+   "reason": "The judgement reports a reduction in mortality among HIV-positive patients in a secondary analysis, which bears on whether DNA-based testing changes survival, though it does not name the test or the comparator.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "e6035982215fc67c",
+   "to_person": false,
+   "decided_at": "2026-10-28T00:22:30+00:00"
+  },
+  "S003@4765-5016": {
+   "source": "S003",
+   "at": [
+    4765,
+    5016
+   ],
+   "section": "abstract conclusions",
+   "kind": "review",
+   "text_sha256": "41f0f814f3da8f36a5493a539eebb7d2c5746a2ecaf0dacdc80589eb535254de",
+   "relevant": true,
+   "words": "whether they survive",
+   "reason": "The judgement explains why Xpert MTB/RIF trials may have understated the mortality difference versus usual care, which a reader needs in order to weigh evidence on survival.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "f646e95bb083e6cf",
+   "to_person": false,
+   "decided_at": "2026-10-28T00:22:33+00:00"
+  },
+  "S009@4077-4248": {
+   "source": "S009",
+   "at": [
+    4077,
+    4248
+   ],
+   "section": "abstract conclusions",
+   "kind": "review",
+   "text_sha256": "54b5184e183e0cf8deb54679328bd1217b90b1490630f1f04fb4e15d41dfd7a7",
+   "relevant": true,
+   "words": "whether they survive",
+   "reason": "The judgement concerns whether Xpert testing, a DNA-based TB test, affects mortality, which is the survival outcome the question asks about.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "8ea830d9e5896cf8",
+   "to_person": false,
+   "decided_at": "2026-10-28T00:22:35+00:00"
+  },
+  "S009@4249-4380": {
+   "source": "S009",
+   "at": [
+    4249,
+    4380
+   ],
+   "section": "abstract conclusions",
+   "kind": "review",
+   "text_sha256": "cec1eb317f35a42c923c430c259e4c6a99586273334d0f25671f4e5a0dd8c99c",
+   "relevant": true,
+   "words": "change what happens to them",
+   "reason": "The judgement says the effect on outcomes is small and that single trials are unlikely to reach statistical significance, which bears on whether the evidence shows DNA-based testing changes what happens to people tested.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "db52346c8ea2e033",
+   "to_person": false,
+   "decided_at": "2026-10-28T00:22:38+00:00"
+  },
+  "S009@4381-4534": {
+   "source": "S009",
+   "at": [
+    4381,
+    4534
+   ],
+   "section": "abstract conclusions",
+   "kind": "review",
+   "text_sha256": "f4fc7b7c407cbe52e2bf1a11b32e750a0cdcad3ec6741ca4009775265de80b4f",
+   "relevant": true,
+   "words": "start treatment sooner",
+   "reason": "The judgement comes from a trial of novel TB diagnostics at community health centers and recommends treatment initiation as the outcome future trials should measure, so it directly concerns what the evidence on DNA-based testing shows about patient outcomes such as starting treatment.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "05859b626789d396",
+   "to_person": false,
+   "decided_at": "2026-10-28T00:22:40+00:00"
+  }
+ }
+}

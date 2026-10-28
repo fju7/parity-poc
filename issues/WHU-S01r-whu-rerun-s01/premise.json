@@ -1,0 +1,96 @@
+{
+  "_what_this_is": "The entry gate, answered BEFORE drafting. The threshold question is whether a well-informed non-expert would confidently believe something the primary sources do not support.",
+  "belief": {
+    "_note": "What the reader already believes, stated as they would state it. If you cannot write this sentence, there is nothing to correct and no subject -- which is how the tobacco-analogy candidate died.",
+    "statement": "Fast DNA-based TB tests (such as Xpert MTB/RIF) are a breakthrough that saves lives: because they find TB faster and more accurately than the microscope, switching to them means more people are treated sooner, more are cured and fewer die.",
+    "how_we_know_they_believe_it": "WHO's own announcement of the test (S011, held) said it 'could revolutionize TB care and control' and was 'a major milestone for global TB diagnosis and care'; search results on 2026-10-28 also returned NPR (2013) quoting Doctors Without Borders staff calling it a 'game changer' (seen as a search listing only, not held).",
+    "carried_by": [
+      {
+        "outlet": "World Health Organization news release",
+        "url": "https://www.who.int/news/item/08-12-2010-who-endorses-new-rapid-tuberculosis-test",
+        "date": "2010-12-08",
+        "what_it_said": "The test could revolutionize TB care and control by providing an accurate diagnosis for many patients in about 100 minutes (held as S011)."
+      }
+    ]
+  },
+  "what_the_sources_show": {
+    "_note": "What the primary sources actually support, and which sources.",
+    "statement": "Against smear microscopy, Xpert MTB/RIF probably reduces loss before treatment and raises bacteriological confirmation (moderate certainty); it probably reduces mortality among people with HIV; its effect on mortality overall, on the proportion treated and on treatment success is inconclusive (Cochrane 2021). WHO's strong, high-certainty recommendation rests on diagnostic accuracy and names patient-important outcomes as a research priority.",
+    "sources": [
+      "S001",
+      "S002",
+      "S004",
+      "S007",
+      "S009",
+      "S010"
+    ]
+  },
+  "direction": {
+    "_note": "CORRECTS, CONFIRMS or NARROWS. This field exists so the contrarianism guard can count. A publication whose answer is always CORRECTS is performing scepticism rather than assessing evidence, and is not to be trusted.",
+    "value": "narrows",
+    "_values": [
+      "corrects",
+      "confirms",
+      "narrows"
+    ]
+  },
+  "reader_with_a_decision": "A TB programme manager or clinician in a high-burden setting deciding whether to replace smear microscopy with DNA-based testing as the first test, and a person being tested who wants to know whether the faster test changes their own chances of starting treatment, being cured or surviving.",
+  "public_record_check": {
+    "_note": "NOT 'has anybody published this'. On any contested question, somebody has. The question is whether it has been carried WHERE THIS READER WOULD FIND IT. Run the counterexample hunter on the belief statement, not on the finding.",
+    "prior_art_found": [
+      "Cochrane review CD012972.pub2 (S001)",
+      "Di Tanna 2019 IPD meta-analysis (S002)",
+      "Ochodo 2019 review of trial design (S003)",
+      "Healio, 6 March 2014, 'Xpert test failed to affect mortality in TB' (search listing only, not held)"
+    ],
+    "carried_in_general_coverage": "Not in general news coverage that our searches of 2026-10-28 returned; the null mortality results were carried in specialist outlets (Healio, TB Online, i-base, seen as search listings only). A programme manager may have met them; a general reader is unlikely to have.",
+    "our_contribution": "translation: sets the measured patient outcomes beside the expert assessment's accuracy-based certainty, stating both"
+  },
+  "sources_are_open": "Yes: every relied-on document is open access (Europe PMC / PMC / WHO IRIS); two trial reports (S013, S014) were not obtained and are named as not read.",
+  "evidence_base_is_bounded": "Yes: randomised trials of Xpert MTB/RIF against microscopy on patient outcomes, pooled in two meta-analyses, plus two later Ugandan trial reports and WHO's 2025 guideline.",
+  "kill_condition": "No story if the primary evidence (randomised trials comparing DNA-based testing with smear microscopy or culture, and systematic reviews of them) shows clear reductions in death and clear gains in cure that match the belief; or if the reader does not hold the belief (general coverage already says the effect on survival is uncertain or small).",
+  "kill_condition_tested": {
+    "_note": "Filled in AFTER going to look, by whoever looked.",
+    "by": "Claude Code",
+    "on": "2026-10-28",
+    "result": "narrowed",
+    "note": "The trials do not show clear reductions in death overall or clear gains in cure; they show probable gains in confirmation and fewer people lost before treatment, and a probable mortality reduction among people with HIV. The belief survives for starting treatment and for people with HIV, and is narrowed for survival and cure overall."
+  },
+  "lead_came_from": "The question is WHU-S01's issue.json question, copied verbatim for this post-study re-run.",
+  "scope": {
+    "_note": "What the answer will and will not cover, written at step 1 BEFORE any source is opened, so scope cannot be fitted to the findings afterwards. An omission ruled OUT_OF_SCOPE, and a headline conclusion declared out of scope, must name the question's words or one of these entries (fix 2, docs/whu-fix2-omission-rulings-design.md section 2.4).",
+    "covers": "People being evaluated for TB (adults and children, with or without HIV) in whom a DNA-based test (a nucleic acid amplification test such as Xpert MTB/RIF, Xpert Ultra, Truenat or TB-LAMP) is used instead of smear microscopy or culture; the outcomes are what happens to them: death, cure or treatment success, whether and how quickly treatment starts, and loss before or during treatment.",
+    "out": [
+      {
+        "what": "Diagnostic accuracy (sensitivity, specificity) reported on its own, without patient outcomes",
+        "why": "The question asks what happens to people tested, not how often the test is right."
+      },
+      {
+        "what": "Costs, cost-effectiveness and laboratory workload or turnaround as system measures",
+        "why": "Not an outcome for the person tested; the question names survival, cure and starting treatment."
+      },
+      {
+        "what": "Comparisons of DNA-based testing against other new tests (urine LAM, chest X-ray with computer reading, other molecular tests) rather than against microscopy or culture",
+        "why": "The question compares DNA-based testing with the older microscope or lab-culture methods."
+      },
+      {
+        "what": "Tests for TB infection without disease (tuberculin skin test, interferon-gamma release assays)",
+        "why": "These are not the microscope or culture methods the question names, and test for infection, not disease."
+      }
+    ],
+    "by": "Claude Code",
+    "written_at": "2026-10-28T00:01:03Z"
+  },
+  "evidence_standard": {
+    "_note": "What kinds of evidence the answer will weigh, written at step 1 BEFORE any source is opened (post-study fix 3, docs/whu-fix3-evidence-standard.md). 'measured': outcomes measured in trials, cohorts, evaluations. 'assessed': expert assessments -- systematic-review conclusions, IPCC confidence-rated statements, guideline recommendations. When they differ, the page states both and drops neither.",
+    "weighs": [
+      "measured",
+      "assessed"
+    ],
+    "measured": "Patient outcomes (death, cure or treatment success, treatment started, time to treatment, loss to follow-up) measured in randomised trials, individual or cluster, comparing DNA-based testing with smear microscopy or culture; observational before-and-after evaluations counted as weaker and named as such.",
+    "assessed": "Conclusions of systematic reviews of those trials with their GRADE certainty (for example Cochrane reviews), and WHO guideline recommendations on DNA-based TB testing with their stated certainty of evidence.",
+    "when_they_differ": "state both",
+    "by": "Claude Code",
+    "written_at": "2026-10-28T00:01:03Z"
+  }
+}

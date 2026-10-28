@@ -1,0 +1,148 @@
+{
+  "_what_this_is": "Whether the span checks can read each held document at all. A figure taken out of a document must be findable in it through the same pipeline the checks use. Where it is not, an absence reported against that document means 'could not determine'.",
+  "checked": {
+    "S001": {
+      "source": "S001",
+      "state": "READABLE",
+      "tried": [
+        "10.1002",
+        "0.89",
+        "0.75",
+        "1.05",
+        "0.98",
+        "0.78"
+      ],
+      "why": "6 figures round-tripped"
+    },
+    "S002": {
+      "source": "S002",
+      "state": "READABLE",
+      "tried": [
+        "10.1016",
+        "0·88",
+        "0·68",
+        "1·14",
+        "0·34",
+        "0·83"
+      ],
+      "why": "6 figures round-tripped"
+    },
+    "S003": {
+      "source": "S003",
+      "state": "READABLE",
+      "tried": [
+        "10.12688",
+        "0.88",
+        "0.68",
+        "1.14",
+        "0.80",
+        "0.54"
+      ],
+      "why": "6 figures round-tripped"
+    },
+    "S004": {
+      "source": "S004",
+      "state": "READABLE",
+      "tried": [
+        "10.1371",
+        "0.51",
+        "0.33",
+        "0.77",
+        "0.0052",
+        "1.57"
+      ],
+      "why": "6 figures round-tripped"
+    },
+    "S005": {
+      "source": "S005",
+      "state": "READABLE",
+      "tried": [
+        "10.1371",
+        "0.001",
+        "0.04",
+        "0.51",
+        "1.59",
+        "0.25"
+      ],
+      "why": "6 figures round-tripped"
+    },
+    "S006": {
+      "source": "S006",
+      "state": "READABLE",
+      "tried": [
+        "10.1371",
+        "1.59",
+        "1.31",
+        "1.88",
+        "1.60",
+        "1.89"
+      ],
+      "why": "6 figures round-tripped"
+    },
+    "S007": {
+      "source": "S007",
+      "state": "READABLE",
+      "tried": [
+        "10.1093",
+        "0.78",
+        "1.06",
+        "0.43",
+        "0.25",
+        "0.82"
+      ],
+      "why": "6 figures round-tripped"
+    },
+    "S008": {
+      "source": "S008",
+      "state": "READABLE",
+      "tried": [
+        "10.1056",
+        "1.56",
+        "1.21",
+        "2.01",
+        "1.85",
+        "2.82"
+      ],
+      "why": "6 figures round-tripped"
+    },
+    "S009": {
+      "source": "S009",
+      "state": "READABLE",
+      "tried": [
+        "10.1016",
+        "0.77",
+        "0.47",
+        "1.28",
+        "0.50",
+        "0.26"
+      ],
+      "why": "6 figures round-tripped"
+    },
+    "S010": {
+      "source": "S010",
+      "state": "READABLE",
+      "tried": [
+        "10.2471",
+        "0.98",
+        "0.95",
+        "1.00",
+        "0.74",
+        "0.93"
+      ],
+      "why": "6 figures round-tripped"
+    },
+    "S011": {
+      "source": "S011",
+      "state": "NO_FIGURES",
+      "why": "no decimal figures to round-trip; the checks cannot be shown to read this document, only assumed to"
+    },
+    "S012": {
+      "source": "S012",
+      "state": "READABLE",
+      "tried": [
+        "10.1016"
+      ],
+      "why": "1 figures round-tripped"
+    }
+  }
+}

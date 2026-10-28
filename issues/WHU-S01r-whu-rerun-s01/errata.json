@@ -1,0 +1,193 @@
+{
+  "_what_this_is": "For every source, whether its bibliographic record names a correction, erratum, retraction or expression of concern -- and, when the lookup failed, that it failed. 'checked, none' and 'could not check' are different states and this file never merges them.",
+  "checked": {
+    "S001": {
+      "source": "S001",
+      "title": "Impact of the diagnostic test Xpert MTB/RIF on patient outcomes for tuberculosis",
+      "checked_on": "2026-10-27",
+      "identifier": "PMCID PMC8208889",
+      "identifier_from": "the source URL",
+      "resolved_title": "Impact of the diagnostic test Xpert MTB/RIF on patient outcomes for tuberculosis.",
+      "identity": "resolved title shares 7 word(s) with ours: diagnostic, impact, outcomes, patient, test, tuberculosis, xpert",
+      "amendments": [],
+      "comments": [],
+      "state": "CLEAN",
+      "why": "matched on PMCID PMC8208889"
+    },
+    "S002": {
+      "source": "S002",
+      "title": "Effect of Xpert MTB/RIF on clinical outcomes in routine care settings: individual patient data meta-analysis",
+      "checked_on": "2026-10-27",
+      "identifier": "PMCID PMC6366854",
+      "identifier_from": "the source URL",
+      "resolved_title": "Effect of Xpert MTB/RIF on clinical outcomes in routine care settings: individual patient data meta-analysis.",
+      "identity": "resolved title shares 12 word(s) with ours: analysis, care, clinical, data, effect, individual, meta, outcomes, patient, rou",
+      "amendments": [
+        {
+          "source": "MED",
+          "id": "30796002",
+          "reference": "Lancet Glob Health. 2019 Apr;7(4):e419. doi: 10.1016/S2214-109X(19)30046-4.",
+          "type": "Erratum in",
+          "orderIn": 2
+        }
+      ],
+      "comments": [
+        {
+          "source": "MED",
+          "id": "30683224",
+          "reference": "Lancet Glob Health. 2019 Feb;7(2):e161-e162. doi: 10.1016/S2214-109X(18)30493-5.",
+          "type": "Comment in",
+          "orderIn": 1
+        }
+      ],
+      "state": "AMENDED",
+      "why": "matched on PMCID PMC6366854"
+    },
+    "S003": {
+      "source": "S003",
+      "title": "Variation in the observed effect of Xpert MTB/RIF testing for tuberculosis on mortality: A systematic review and analysi",
+      "checked_on": "2026-10-27",
+      "identifier": "PMCID PMC7438967",
+      "identifier_from": "the source URL",
+      "resolved_title": "Variation in the observed effect of Xpert MTB/RIF testing for tuberculosis on mortality: A systematic review and analysis of trial design considerations.",
+      "identity": "resolved title shares 13 word(s) with ours: analysis, considerations, design, effect, mortality, observed, review, systemati",
+      "amendments": [],
+      "comments": [],
+      "state": "CLEAN",
+      "why": "matched on PMCID PMC7438967"
+    },
+    "S004": {
+      "source": "S004",
+      "title": "Impact of Xpert MTB/RIF for TB diagnosis in a primary care clinic with high TB and HIV prevalence in South Africa: a pra",
+      "checked_on": "2026-10-27",
+      "identifier": "PMCID PMC4244039",
+      "identifier_from": "the source URL",
+      "resolved_title": "Impact of Xpert MTB/RIF for TB diagnosis in a primary care clinic with high TB and HIV prevalence in South Africa: a pragmatic randomised trial.",
+      "identity": "resolved title shares 13 word(s) with ours: africa, care, clinic, diagnosis, high, impact, pragmatic, prevalence, primary, r",
+      "amendments": [],
+      "comments": [],
+      "state": "CLEAN",
+      "why": "matched on PMCID PMC4244039"
+    },
+    "S005": {
+      "source": "S005",
+      "title": "Impact of replacing smear microscopy with Xpert MTB/RIF for diagnosing tuberculosis in Brazil: a stepped-wedge cluster-r",
+      "checked_on": "2026-10-27",
+      "identifier": "PMCID PMC4260794",
+      "identifier_from": "the source URL",
+      "resolved_title": "Impact of replacing smear microscopy with Xpert MTB/RIF for diagnosing tuberculosis in Brazil: a stepped-wedge cluster-randomized trial.",
+      "identity": "resolved title shares 13 word(s) with ours: brazil, cluster, diagnosing, impact, microscopy, randomized, replacing, smear, s",
+      "amendments": [
+        {
+          "source": "MED",
+          "id": "26632815",
+          "reference": "PLoS Med. 2015 Dec 03;12(12):e1001928. doi: 10.1371/journal.pmed.1001928",
+          "type": "Erratum in",
+          "orderIn": 1
+        }
+      ],
+      "comments": [],
+      "state": "AMENDED",
+      "why": "matched on PMCID PMC4260794"
+    },
+    "S006": {
+      "source": "S006",
+      "title": "Correction: Impact of Replacing Smear Microscopy with Xpert MTB/RIF for Diagnosing Tuberculosis in Brazil: A Stepped-Wed",
+      "checked_on": "2026-10-27",
+      "identifier": "PMCID PMC4669082",
+      "identifier_from": "the source URL",
+      "resolved_title": "Correction: Impact of Replacing Smear Microscopy with Xpert MTB/RIF for Diagnosing Tuberculosis in Brazil: A Stepped-Wedge Cluster-Randomized Trial.",
+      "identity": "resolved title shares 14 word(s) with ours: brazil, cluster, correction, diagnosing, impact, microscopy, randomized, replaci",
+      "amendments": [],
+      "comments": [
+        {
+          "source": "MED",
+          "id": "25490549",
+          "reference": "PLoS Med. 2014 Dec 09;11(12):e1001766. doi: 10.1371/journal.pmed.1001766",
+          "type": "Erratum for",
+          "orderIn": 1
+        }
+      ],
+      "state": "CLEAN",
+      "why": "matched on PMCID PMC4669082"
+    },
+    "S007": {
+      "source": "S007",
+      "title": "Screening for Tuberculosis With Xpert MTB/RIF Assay Versus Fluorescent Microscopy Among Adults Newly Diagnosed With Huma",
+      "checked_on": "2026-10-27",
+      "identifier": "PMCID PMC6769397",
+      "identifier_from": "the source URL",
+      "resolved_title": "Screening for Tuberculosis With Xpert MTB/RIF Assay Versus Fluorescent Microscopy Among Adults Newly Diagnosed With Human Immunodeficiency Virus in Rural Malawi",
+      "identity": "resolved title shares 19 word(s) with ours: adults, among, assay, chepetsa, cluster, diagnosed, fluorescent, human, immunode",
+      "amendments": [],
+      "comments": [],
+      "state": "CLEAN",
+      "why": "matched on PMCID PMC6769397"
+    },
+    "S008": {
+      "source": "S008",
+      "title": "Multicomponent Strategy with Decentralized Molecular Testing for Tuberculosis",
+      "checked_on": "2026-10-27",
+      "identifier": "PMCID PMC9212879",
+      "identifier_from": "the source URL",
+      "resolved_title": "Multicomponent Strategy with Decentralized Molecular Testing for Tuberculosis.",
+      "identity": "resolved title shares 6 word(s) with ours: decentralized, molecular, multicomponent, strategy, testing, tuberculosis",
+      "amendments": [],
+      "comments": [],
+      "state": "CLEAN",
+      "why": "matched on PMCID PMC9212879"
+    },
+    "S009": {
+      "source": "S009",
+      "title": "Impact of a multicomponent strategy including decentralized molecular testing for tuberculosis on mortality: planned ana",
+      "checked_on": "2026-10-27",
+      "identifier": "PMCID PMC11629260",
+      "identifier_from": "the source URL",
+      "resolved_title": "Impact of a multicomponent strategy including decentralized molecular testing for tuberculosis on mortality: planned analysis of a cluster-randomized trial in U",
+      "identity": "resolved title shares 15 word(s) with ours: analysis, cluster, decentralized, impact, including, molecular, mortality, multi",
+      "amendments": [],
+      "comments": [],
+      "state": "CLEAN",
+      "why": "matched on PMCID PMC11629260"
+    },
+    "S010": {
+      "source": "S010",
+      "title": "WHO consolidated guidelines on tuberculosis: module 3: diagnosis",
+      "checked_on": "2026-10-27",
+      "state": "NOT_APPLICABLE",
+      "why": "type 'guideline' is not a journal article; it has versions, not errata, and B11 covers those",
+      "amendments": [],
+      "comments": []
+    },
+    "S011": {
+      "source": "S011",
+      "title": "WHO endorses new rapid tuberculosis test",
+      "checked_on": "2026-10-27",
+      "state": "UNCHECKABLE",
+      "why": "no DOI, PMID, PMCID or PII can be parsed from the URL we hold; nothing is typed from memory, so this source cannot be looked up automatically",
+      "amendments": [],
+      "comments": []
+    },
+    "S012": {
+      "source": "S012",
+      "title": "Correction to Lancet Glob Health 2019; 7: e191-99",
+      "checked_on": "2026-10-27",
+      "identifier": "PMCID PMC6800215",
+      "identifier_from": "the source URL",
+      "resolved_title": "Correction to Lancet Glob Health 2019; 7: e191-99.",
+      "identity": "resolved title shares 6 word(s) with ours: 2019, correction, e191, glob, health, lancet",
+      "amendments": [],
+      "comments": [
+        {
+          "source": "MED",
+          "id": "30683238",
+          "reference": "Lancet Glob Health. 2019 Feb;7(2):e191-e199. doi: 10.1016/S2214-109X(18)30458-3",
+          "type": "Erratum for",
+          "orderIn": 1
+        }
+      ],
+      "state": "CLEAN",
+      "why": "matched on PMCID PMC6800215"
+    }
+  }
+}

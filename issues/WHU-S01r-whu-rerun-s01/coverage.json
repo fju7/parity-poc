@@ -1,0 +1,26 @@
+{
+ "units": [],
+ "declarations": {
+  "S004@5482-5632": {
+   "state": "not_material",
+   "reason": "a trial-registration identifier and a pointer to the editors' summary, not a finding",
+   "by": "Claude Code",
+   "element": "",
+   "decided_at": "2026-10-28T00:20:29+00:00"
+  },
+  "S005@5353-5476": {
+   "state": "not_material",
+   "reason": "a trial-registration identifier and a pointer to the editors' summary, not a finding",
+   "by": "Claude Code",
+   "element": "",
+   "decided_at": "2026-10-28T00:20:29+00:00"
+  },
+  "S005@5155-5229": {
+   "state": "out_of_scope",
+   "reason": "detecting rifampicin resistance accurately is diagnostic accuracy reported without a patient outcome",
+   "by": "Claude Code",
+   "element": "Diagnostic accuracy (sensitivity, specificity) reported on its own, without patient outcomes",
+   "decided_at": "2026-10-28T00:20:29+00:00"
+  }
+ }
+}

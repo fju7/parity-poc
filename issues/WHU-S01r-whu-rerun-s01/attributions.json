@@ -1,0 +1,61 @@
+{
+  "_what_this_is": "Attributions on the WHU-S01r page, each checked against the author list in the held document.",
+  "verified": [
+    {
+      "name": "Haraka",
+      "checked_against": "S001",
+      "what": "Haraka Frederick (first author, held PMC8208889)",
+      "by": "Claude Code",
+      "on": "2026-10-28"
+    },
+    {
+      "name": "Tanna",
+      "checked_against": "S012",
+      "what": "Di Tanna GL, Khaki AR, Theron G, et al. (the correction's citation of S002)",
+      "by": "Claude Code",
+      "on": "2026-10-28"
+    },
+    {
+      "name": "Ngwira",
+      "checked_against": "S007",
+      "what": "Ngwira LG, first author (held PMC6769397)",
+      "by": "Claude Code",
+      "on": "2026-10-28"
+    },
+    {
+      "name": "Katamba",
+      "checked_against": "S009",
+      "what": "Katamba A, first author (held PMC11629260)",
+      "by": "Claude Code",
+      "on": "2026-10-28"
+    },
+    {
+      "name": "Cox",
+      "checked_against": "S004",
+      "what": "Cox HS, first author (held PMC4244039)",
+      "by": "Claude Code",
+      "on": "2026-10-28"
+    },
+    {
+      "name": "Durovni",
+      "checked_against": "S005",
+      "what": "Durovni Betina, first author (held PMC4260794; S006)",
+      "by": "Claude Code",
+      "on": "2026-10-28"
+    },
+    {
+      "name": "Cattamanchi",
+      "checked_against": "S008",
+      "what": "Cattamanchi A, first author (held author manuscript PMC9212879)",
+      "by": "Claude Code",
+      "on": "2026-10-28"
+    },
+    {
+      "name": "Ochodo",
+      "checked_against": "S003",
+      "what": "Ochodo Eleanor A, first author (held PMC7438967)",
+      "by": "Claude Code",
+      "on": "2026-10-28"
+    }
+  ]
+}

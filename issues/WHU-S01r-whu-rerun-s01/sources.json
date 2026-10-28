@@ -1,0 +1,294 @@
+{
+  "sources": [
+    {
+      "id": "S001",
+      "title": "Impact of the diagnostic test Xpert MTB/RIF on patient outcomes for tuberculosis",
+      "type": "synthesis",
+      "url": "https://europepmc.org/article/PMC/PMC8208889",
+      "citation": "Haraka F, et al. Cochrane Database Syst Rev 2021",
+      "used_for": "The systematic review of randomised trials of Xpert MTB/RIF against smear microscopy on mortality, cure, treatment and time to treatment, with GRADE certainty",
+      "access": {
+        "state": "full_text_held",
+        "held": {
+          "file": "docs/38/3845fa0eacb276680570bfd72e9664013fe69d742432098a608750e5852d11b2.xml",
+          "sha256": "3845fa0eacb276680570bfd72e9664013fe69d742432098a608750e5852d11b2",
+          "bytes": 332398,
+          "identified_by": "contains its identifier PMC8208889 — 137867 characters, reference list and discussion/introduction present; title present (7 of 7 title words in the visible text)",
+          "kind": "full_text",
+          "kind_why": "137867 characters, reference list and discussion/introduction present"
+        },
+        "on": "2026-10-28"
+      },
+      "doi": "10.1002/14651858.CD012972.pub2",
+      "pubmed": "34097769"
+    },
+    {
+      "id": "S002",
+      "title": "Effect of Xpert MTB/RIF on clinical outcomes in routine care settings: individual patient data meta-analysis",
+      "type": "synthesis",
+      "url": "https://europepmc.org/article/PMC/PMC6366854",
+      "citation": "Di Tanna GL, et al. Lancet Glob Health 2019",
+      "used_for": "Pooled individual patient data from trials on mortality, overall and by HIV status",
+      "access": {
+        "state": "full_text_held",
+        "held": {
+          "file": "docs/47/477b8cd2fa66c6db64461eb505f7f630113cbf00d3b0df5ff07ddd6a8bde6591.xml",
+          "sha256": "477b8cd2fa66c6db64461eb505f7f630113cbf00d3b0df5ff07ddd6a8bde6591",
+          "bytes": 119530,
+          "identified_by": "contains its identifier PMC6366854 — 50690 characters, reference list and discussion/introduction present; title present (11 of 11 title words in the visible text)",
+          "kind": "full_text",
+          "kind_why": "50690 characters, reference list and discussion/introduction present"
+        },
+        "on": "2026-10-28"
+      },
+      "doi": "10.1016/S2214-109X(18)30458-3",
+      "pubmed": "30683238"
+    },
+    {
+      "id": "S003",
+      "title": "Variation in the observed effect of Xpert MTB/RIF testing for tuberculosis on mortality: A systematic review and analysis of trial design considerations",
+      "type": "synthesis",
+      "url": "https://europepmc.org/article/PMC/PMC7438967",
+      "citation": "Ochodo EA, et al. Wellcome Open Res 2019",
+      "used_for": "Why trials found small or no mortality effects",
+      "access": {
+        "state": "full_text_held",
+        "held": {
+          "file": "docs/5e/5e7ab39771f795bb1264dafeca401d9fbdd0db4a52ac8eb97c6510873c8c6148.xml",
+          "sha256": "5e7ab39771f795bb1264dafeca401d9fbdd0db4a52ac8eb97c6510873c8c6148",
+          "bytes": 121493,
+          "identified_by": "contains its identifier PMC7438967 — 60268 characters, reference list and discussion/introduction present; title present (12 of 12 title words in the visible text)",
+          "kind": "full_text",
+          "kind_why": "60268 characters, reference list and discussion/introduction present"
+        },
+        "on": "2026-10-28"
+      },
+      "doi": "10.12688/wellcomeopenres.15412.2",
+      "pubmed": "32851196"
+    },
+    {
+      "id": "S004",
+      "title": "Impact of Xpert MTB/RIF for TB diagnosis in a primary care clinic with high TB and HIV prevalence in South Africa: a pragmatic randomised trial",
+      "type": "primary",
+      "url": "https://europepmc.org/article/PMC/PMC4244039",
+      "citation": "Cox HS, et al. PLoS Med 2014",
+      "used_for": "A randomised trial of Xpert against microscopy on loss to follow-up and time to treatment",
+      "access": {
+        "state": "full_text_held",
+        "held": {
+          "file": "docs/22/22c9004b0346598e26d982d7b45e7b947b6f0da79b4ffefeb85caa15c4ec937b.xml",
+          "sha256": "22c9004b0346598e26d982d7b45e7b947b6f0da79b4ffefeb85caa15c4ec937b",
+          "bytes": 117535,
+          "identified_by": "contains its identifier PMC4244039 — 55311 characters, reference list and discussion/introduction present; title present (12 of 12 title words in the visible text)",
+          "kind": "full_text",
+          "kind_why": "55311 characters, reference list and discussion/introduction present"
+        },
+        "on": "2026-10-28"
+      },
+      "doi": "10.1371/journal.pmed.1001760",
+      "pubmed": "25423041"
+    },
+    {
+      "id": "S005",
+      "title": "Impact of replacing smear microscopy with Xpert MTB/RIF for diagnosing tuberculosis in Brazil: a stepped-wedge cluster-randomized trial",
+      "type": "primary",
+      "url": "https://europepmc.org/article/PMC/PMC4260794",
+      "citation": "Durovni B, et al. PLoS Med 2014",
+      "used_for": "A stepped-wedge trial of replacing microscopy with Xpert on notification and treatment outcomes",
+      "access": {
+        "state": "full_text_held",
+        "held": {
+          "file": "docs/69/691b0c9945a8072b7a6cfd02213cc4ef5c416f5444f075e176b4e4e591074f82.xml",
+          "sha256": "691b0c9945a8072b7a6cfd02213cc4ef5c416f5444f075e176b4e4e591074f82",
+          "bytes": 218832,
+          "identified_by": "contains its identifier PMC4260794 — 85217 characters, reference list and discussion/introduction present; title present (11 of 11 title words in the visible text)",
+          "kind": "full_text",
+          "kind_why": "85217 characters, reference list and discussion/introduction present"
+        },
+        "on": "2026-10-28"
+      },
+      "doi": "10.1371/journal.pmed.1001766",
+      "pubmed": "25490549"
+    },
+    {
+      "id": "S006",
+      "title": "Correction: Impact of Replacing Smear Microscopy with Xpert MTB/RIF for Diagnosing Tuberculosis in Brazil: A Stepped-Wedge Cluster-Randomized Trial",
+      "type": "corrigendum",
+      "url": "https://europepmc.org/article/PMC/PMC4669082",
+      "citation": "PLoS Med 2015 (correction to Durovni 2014)",
+      "used_for": "The correction to S005",
+      "access": {
+        "state": "full_text_held",
+        "held": {
+          "file": "docs/bb/bb932bb75e467db0a082a7051eeddd424251cf7a9b8d2d5a56e800dba15407ef.xml",
+          "sha256": "bb932bb75e467db0a082a7051eeddd424251cf7a9b8d2d5a56e800dba15407ef",
+          "bytes": 15874,
+          "identified_by": "contains its identifier PMC4669082 — form 'notice' — 3988 characters held. The article test does not apply to this form; title present (12 of 12 title words in the visible text)",
+          "kind": "document",
+          "kind_why": "form 'notice' — 3988 characters held. The article test does not apply to this form"
+        },
+        "on": "2026-10-28"
+      },
+      "doi": "10.1371/journal.pmed.1001928",
+      "pubmed": "26632815",
+      "amends": "S005"
+    },
+    {
+      "id": "S007",
+      "title": "Screening for Tuberculosis With Xpert MTB/RIF Assay Versus Fluorescent Microscopy Among Adults Newly Diagnosed With Human Immunodeficiency Virus in Rural Malawi: A Cluster Randomized Trial (Chepetsa)",
+      "type": "primary",
+      "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6769397/",
+      "citation": "Ngwira LG, et al. Clin Infect Dis 2019",
+      "used_for": "A cluster randomised trial of Xpert against fluorescence microscopy on mortality among adults with HIV",
+      "access": {
+        "state": "full_text_held",
+        "held": {
+          "file": "docs/7a/7a96ccaa9020e39b3b1e12980243076896dba1c06867a3be52fdf43e2ddf4d60.html",
+          "sha256": "7a96ccaa9020e39b3b1e12980243076896dba1c06867a3be52fdf43e2ddf4d60",
+          "bytes": 175932,
+          "identified_by": "contains its identifier PMC6769397 — 41218 characters, reference list and discussion present; title present (12 of 12 title words in the visible text)",
+          "kind": "full_text",
+          "kind_why": "41218 characters, reference list and discussion present"
+        },
+        "on": "2026-10-28"
+      },
+      "doi": "10.1093/cid/ciy590",
+      "pubmed": "30059995"
+    },
+    {
+      "id": "S008",
+      "title": "Multicomponent Strategy with Decentralized Molecular Testing for Tuberculosis",
+      "type": "primary",
+      "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9212879/",
+      "citation": "Cattamanchi A, et al. N Engl J Med 2021 (author manuscript)",
+      "used_for": "A cluster randomised trial of on-site molecular testing on treatment within 14 days",
+      "access": {
+        "state": "full_text_held",
+        "held": {
+          "file": "docs/1e/1e68f2100cac6434cfd773fdac22aadba0f623e708d8712a372119b3ed98a8a0.html",
+          "sha256": "1e68f2100cac6434cfd773fdac22aadba0f623e708d8712a372119b3ed98a8a0",
+          "bytes": 246034,
+          "identified_by": "contains its identifier PMC9212879 — 76114 characters, reference list and discussion present; title present (6 of 6 title words in the visible text)",
+          "kind": "full_text",
+          "kind_why": "76114 characters, reference list and discussion present"
+        },
+        "on": "2026-10-28"
+      },
+      "doi": "10.1056/NEJMoa2105470",
+      "pubmed": "34936740"
+    },
+    {
+      "id": "S009",
+      "title": "Impact of a multicomponent strategy including decentralized molecular testing for tuberculosis on mortality: planned analysis of a cluster-randomized trial in Uganda",
+      "type": "primary",
+      "url": "https://europepmc.org/article/PMC/PMC11629260",
+      "citation": "Katamba A, et al. EClinicalMedicine 2024",
+      "used_for": "The mortality analysis of the S008 trial",
+      "access": {
+        "state": "full_text_held",
+        "held": {
+          "file": "docs/e3/e3f4c2e6adc556520cf24b897d15018da47294bb58e76e0f382a8e852aaae68c.xml",
+          "sha256": "e3f4c2e6adc556520cf24b897d15018da47294bb58e76e0f382a8e852aaae68c",
+          "bytes": 79584,
+          "identified_by": "contains its identifier PMC11629260 — 38509 characters, reference list and discussion/introduction present; title present (12 of 12 title words in the visible text)",
+          "kind": "full_text",
+          "kind_why": "38509 characters, reference list and discussion/introduction present"
+        },
+        "on": "2026-10-28"
+      },
+      "doi": "10.1016/j.eclinm.2024.102953",
+      "pubmed": "39659443"
+    },
+    {
+      "id": "S010",
+      "title": "WHO consolidated guidelines on tuberculosis: module 3: diagnosis",
+      "type": "guideline",
+      "url": "https://iris.who.int/server/api/core/bitstreams/ae20e43e-17fd-4951-b475-3e36e166e7ae/content",
+      "citation": "World Health Organization 2025 (ISBN 9789240107984; https://iris.who.int/handle/10665/381003)",
+      "used_for": "WHO's current recommendations on DNA-based TB tests and the certainty it gives them",
+      "access": {
+        "state": "full_text_held",
+        "held": {
+          "file": "docs/c5/c560e5d6276722d526d8137c491966352f87268b6ee9984b7775ac4495690929.pdf",
+          "sha256": "c560e5d6276722d526d8137c491966352f87268b6ee9984b7775ac4495690929",
+          "bytes": 3619007,
+          "identified_by": "contains 5 of 5 distinctive title words — form 'record' — 475513 characters held. The article test does not apply to this form; title present (5 of 5 title words in the visible text)",
+          "kind": "document",
+          "kind_why": "form 'record' — 475513 characters held. The article test does not apply to this form"
+        },
+        "on": "2026-10-28"
+      }
+    },
+    {
+      "id": "S011",
+      "title": "WHO endorses new rapid tuberculosis test",
+      "type": "press_release",
+      "url": "https://www.who.int/news/item/08-12-2010-who-endorses-new-rapid-tuberculosis-test",
+      "citation": "World Health Organization news release, 8 December 2010",
+      "used_for": "How the test was introduced to the public: the belief this page examines",
+      "access": {
+        "state": "full_text_held",
+        "held": {
+          "file": "docs/6d/6de7f9838f8d0e7940f2434881f7e04ccb1129a72a6cf89b08c98f7747040d32.html",
+          "sha256": "6de7f9838f8d0e7940f2434881f7e04ccb1129a72a6cf89b08c98f7747040d32",
+          "bytes": 104521,
+          "identified_by": "contains 4 of 4 distinctive title words — form 'page' — 17 prose sentence(s) over sixty characters, 1073 words — this reads as the page itself; title present (4 of 4 title words in the visible text)",
+          "kind": "document",
+          "kind_why": "form 'page' — 17 prose sentence(s) over sixty characters, 1073 words — this reads as the page itself"
+        },
+        "on": "2026-10-28"
+      }
+    },
+    {
+      "id": "S012",
+      "title": "Correction to Lancet Glob Health 2019; 7: e191-99",
+      "type": "corrigendum",
+      "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6800215/",
+      "citation": "Lancet Glob Health 2019 (correction to Di Tanna 2019)",
+      "used_for": "The correction to S002",
+      "access": {
+        "state": "full_text_held",
+        "held": {
+          "file": "docs/5a/5a60e8b134afb67ef6571bb4d45f327401aedba2a50778ace34cf70f2bd82d62.html",
+          "sha256": "5a60e8b134afb67ef6571bb4d45f327401aedba2a50778ace34cf70f2bd82d62",
+          "bytes": 88120,
+          "identified_by": "contains its identifier PMC6800215 — form 'notice' — 2794 characters held. The article test does not apply to this form; title present (4 of 5 title words in the visible text)",
+          "kind": "document",
+          "kind_why": "form 'notice' — 2794 characters held. The article test does not apply to this form"
+        },
+        "on": "2026-10-28"
+      },
+      "doi": "10.1016/S2214-109X(19)30046-4",
+      "pubmed": "30796002",
+      "amends": "S002"
+    },
+    {
+      "id": "S013",
+      "title": "Xpert MTB/RIF versus sputum microscopy as the initial diagnostic test for tuberculosis: a cluster-randomised trial embedded in South African roll-out of Xpert MTB/RIF",
+      "type": "primary",
+      "url": "https://doi.org/10.1016/S2214-109X(15)00100-X",
+      "doi": "10.1016/S2214-109X(15)00100-X",
+      "pubmed": "26187490",
+      "citation": "Churchyard GJ, et al. Lancet Glob Health 2015 (XTEND)",
+      "used_for": "Not read: named on the page as a trial we did not read; its results reach the page only through S001 and S002",
+      "access": {
+        "state": "not_opened",
+        "note": "The publisher page returned a bot check to a plain request on 2026-10-28; not acquired. Recorded so the page's statement that we did not read it rests on the store."
+      }
+    },
+    {
+      "id": "S014",
+      "title": "Feasibility, accuracy, and clinical effect of point-of-care Xpert MTB/RIF testing for tuberculosis in primary-care settings in Africa: a multicentre, randomised, controlled trial",
+      "type": "primary",
+      "url": "https://doi.org/10.1016/S0140-6736(13)62073-5",
+      "doi": "10.1016/S0140-6736(13)62073-5",
+      "pubmed": "24176144",
+      "citation": "Theron G, et al. Lancet 2014 (TB-NEAT)",
+      "used_for": "Not read: named on the page as a trial we did not read; its results reach the page only through S001 and S002",
+      "access": {
+        "state": "not_opened",
+        "note": "No open full text found in Europe PMC on 2026-10-28; not acquired. Recorded so the page's statement that we did not read it rests on the store."
+      }
+    }
+  ]
+}
