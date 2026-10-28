@@ -1,0 +1,55 @@
+{
+ "_what": "Round 1's duplicate-test additions (round1_protocol.md §1, §12 change 2): the eight study questions, as patterns of the kind frames.WHU_QUESTIONS holds. Applied by round1_draw.py with re.I | re.S, to a review's title (Cochrane, Campbell) or to an IPCC statement's first sentence (scope 'first sentence'). Written before the seed exists.",
+ "patterns": {
+  "WHU-S01 (rapid molecular tests for tuberculosis)": [
+   "(?=.*\\btubercul)(?=.*(?:nucleic acid|molecular|Xpert|NAAT|\\bPCR\\b|rapid (?:diagnostic )?test))",
+   "text"
+  ],
+  "WHU-S05 (undernutrition as a risk factor for tuberculosis)": [
+   "(?=.*\\btubercul)(?=.*(?:undernutrition|malnutrition|undernourish|nutrition|body mass index|\\bBMI\\b|food))",
+   "text"
+  ],
+  "WHU-S02 (CBT delivery formats for adolescent depression)": [
+   "(?=.*(?:cognitive behaviou?ral|\\bCBT\\b))(?=.*(?:adolescen|teen|youth|young people|children))(?=.*depress)",
+   "text"
+  ],
+  "WHU-S06 (arts programmes and youth offending)": [
+   "(?=.*\\b(?:arts?|music|drama|theatre|creative)\\b)(?=.*(?:offend|criminal|justice|delinquen|crime))",
+   "text"
+  ],
+  "WHU-S03 (public involvement in climate policy)": [
+   "(?=.*\\b(?:public|citizens?|stakeholders?|communit(?:y|ies)|people)\\b[^.]{0,60}\\b(?:participat|involve|engage|deliberat|assembl))(?=.*\\b(?:climate|mitigation|emissions?)\\b)",
+   "first sentence"
+  ],
+  "WHU-S04 (city growth and coping with climate change)": [
+   "(?=.*\\b(?:urbani[sz]\\w*|cities|city|urban growth)\\b)(?=.*\\b(?:adapt\\w*|resilien\\w*|vulnerab\\w*|cope|coping)\\b)",
+   "first sentence"
+  ],
+  "WHU-S07 (urban form and transport emissions)": [
+   "(?=.*\\b(?:urban form|compact|densit\\w*|land[- ]use|spatial planning|mixed use)\\b)(?=.*\\b(?:transport|travel|mobility|vehicle)\\w*)",
+   "first sentence"
+  ],
+  "WHU-S08 (settlement planning and climate resilience)": [
+   "(?=.*\\b(?:design|planning|plan)\\b[^.]{0,80}\\b(?:settlements?|towns?|cities|urban|rural|infrastructure)\\b|.*\\b(?:settlement|land[- ]use|spatial|urban) planning\\b)(?=.*\\b(?:resilien\\w*|adapt\\w*|climate)\\b)",
+   "first sentence"
+  ]
+ },
+ "used_entries": {
+  "_why": "round1_protocol.md §1, 'Not used before': every review and AR6 section the study or the pilots used, matched by DOI, PMID or IPCC id.",
+  "cochrane": {
+   "10.1002/14651858.CD016194": "WHU-S01",
+   "10.1002/14651858.CD015890.pub2": "WHU-S05",
+   "10.1002/14651858.CD005632.pub4": "drawn for WHU-S05, rejected on closer reading"
+  },
+  "campbell": {
+   "10.1002/cl2.1376": "WHU-S02",
+   "10.1002/cl2.1377": "WHU-S06"
+  },
+  "ipcc": {
+   "AR6-WGIII-E.3.3": "WHU-S03",
+   "AR6-WGII-D.3.2": "WHU-S04",
+   "AR6-WGIII-C.8.2": "WHU-S07",
+   "AR6-WGII-C.2.6": "WHU-S08"
+  }
+ }
+}
