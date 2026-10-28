@@ -67,6 +67,7 @@ The post-study runbook is §4.5 plus fix 3. The frozen RUN.md does NOT govern th
    - Fill `evidence_standard` {weighs: measured and/or assessed, measured, assessed, when_they_differ: "state both", by, written_at}.
    - Run `premise.py status whu-quarterly-r1-01`.
 2. Sources.
+   - PUBLISHER TERMS (study rule after WHU-S05): never fetch, hold, quote from or pass to a model any copy from Elsevier (sciencedirect.com, thelancet.com, cell.com), Wiley (onlinelibrary.wiley.com, cochranelibrary.com), SAGE (journals.sagepub.com) or NCCN, UNLESS Europe PMC lists that article under a CC licence. Use the Europe PMC/PMC CC copy or an institutional repository copy instead. If neither exists, record the source as not held, with the reason "publisher terms". If acquire_sources.py has already fetched such a copy, do not use it: stop and tell Fred, naming the source.
    - Write sources.json, then run `py backend/scripts/whatholdsup/acquire_sources.py whu-quarterly-r1-01`. For an IPCC AR6 WGII or WGIII chapter, it adds that report's SPM.
    - Run `source_store.py whu-quarterly-r1-01 status`.
    - 2a. A source the scripts cannot fetch needs a person: see OPERATOR STEPS below. (ipcc.ch's HTML pages may answer scripts with HTTP 403; its PDF downloads have answered. A 403 is never worked around.)
@@ -190,6 +191,7 @@ The post-study runbook is §4.5 plus fix 3. The frozen RUN.md does NOT govern th
    - Fill `evidence_standard` {weighs: measured and/or assessed, measured, assessed, when_they_differ: "state both", by, written_at}.
    - Run `premise.py status whu-quarterly-r1-02`.
 2. Sources.
+   - PUBLISHER TERMS (study rule after WHU-S05): never fetch, hold, quote from or pass to a model any copy from Elsevier (sciencedirect.com, thelancet.com, cell.com), Wiley (onlinelibrary.wiley.com, cochranelibrary.com), SAGE (journals.sagepub.com) or NCCN, UNLESS Europe PMC lists that article under a CC licence. Use the Europe PMC/PMC CC copy or an institutional repository copy instead. If neither exists, record the source as not held, with the reason "publisher terms". If acquire_sources.py has already fetched such a copy, do not use it: stop and tell Fred, naming the source.
    - Write sources.json, then run `py backend/scripts/whatholdsup/acquire_sources.py whu-quarterly-r1-02`. For an IPCC AR6 WGII or WGIII chapter, it adds that report's SPM.
    - Run `source_store.py whu-quarterly-r1-02 status`.
    - 2a. A source the scripts cannot fetch needs a person: see OPERATOR STEPS below. (ipcc.ch's HTML pages may answer scripts with HTTP 403; its PDF downloads have answered. A 403 is never worked around.)
@@ -313,6 +315,7 @@ The post-study runbook is §4.5 plus fix 3. The frozen RUN.md does NOT govern th
    - Fill `evidence_standard` {weighs: measured and/or assessed, measured, assessed, when_they_differ: "state both", by, written_at}.
    - Run `premise.py status whu-quarterly-r1-03`.
 2. Sources.
+   - PUBLISHER TERMS (study rule after WHU-S05): never fetch, hold, quote from or pass to a model any copy from Elsevier (sciencedirect.com, thelancet.com, cell.com), Wiley (onlinelibrary.wiley.com, cochranelibrary.com), SAGE (journals.sagepub.com) or NCCN, UNLESS Europe PMC lists that article under a CC licence. Use the Europe PMC/PMC CC copy or an institutional repository copy instead. If neither exists, record the source as not held, with the reason "publisher terms". If acquire_sources.py has already fetched such a copy, do not use it: stop and tell Fred, naming the source.
    - Write sources.json, then run `py backend/scripts/whatholdsup/acquire_sources.py whu-quarterly-r1-03`. For an IPCC AR6 WGII or WGIII chapter, it adds that report's SPM.
    - Run `source_store.py whu-quarterly-r1-03 status`.
    - 2a. A source the scripts cannot fetch needs a person: see OPERATOR STEPS below. (ipcc.ch's HTML pages may answer scripts with HTTP 403; its PDF downloads have answered. A 403 is never worked around.)
@@ -436,6 +439,7 @@ The post-study runbook is §4.5 plus fix 3. The frozen RUN.md does NOT govern th
    - Fill `evidence_standard` {weighs: measured and/or assessed, measured, assessed, when_they_differ: "state both", by, written_at}.
    - Run `premise.py status whu-quarterly-r1-04`.
 2. Sources.
+   - PUBLISHER TERMS (study rule after WHU-S05): never fetch, hold, quote from or pass to a model any copy from Elsevier (sciencedirect.com, thelancet.com, cell.com), Wiley (onlinelibrary.wiley.com, cochranelibrary.com), SAGE (journals.sagepub.com) or NCCN, UNLESS Europe PMC lists that article under a CC licence. Use the Europe PMC/PMC CC copy or an institutional repository copy instead. If neither exists, record the source as not held, with the reason "publisher terms". If acquire_sources.py has already fetched such a copy, do not use it: stop and tell Fred, naming the source.
    - Write sources.json, then run `py backend/scripts/whatholdsup/acquire_sources.py whu-quarterly-r1-04`. For an IPCC AR6 WGII or WGIII chapter, it adds that report's SPM.
    - Run `source_store.py whu-quarterly-r1-04 status`.
    - 2a. A source the scripts cannot fetch needs a person: see OPERATOR STEPS below. (ipcc.ch's HTML pages may answer scripts with HTTP 403; its PDF downloads have answered. A 403 is never worked around.)
