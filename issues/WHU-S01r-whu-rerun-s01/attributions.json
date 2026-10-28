@@ -56,6 +56,20 @@
       "what": "Ochodo Eleanor A, first author (held PMC7438967)",
       "by": "Claude Code",
       "on": "2026-10-28"
+    },
+    {
+      "name": "Otieno",
+      "checked_against": "S015",
+      "what": "Otieno Jenifer A, first author (held PMC12713157)",
+      "by": "Claude Code",
+      "on": "2026-10-28"
+    },
+    {
+      "name": "Trajman",
+      "checked_against": "S016",
+      "what": "Trajman Anete, first author (held PMC4411054)",
+      "by": "Claude Code",
+      "on": "2026-10-28"
     }
   ]
 }

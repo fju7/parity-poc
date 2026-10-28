@@ -289,6 +289,73 @@
         "state": "not_opened",
         "note": "No open full text found in Europe PMC on 2026-10-28; not acquired. Recorded so the page's statement that we did not read it rests on the store."
       }
+    },
+    {
+      "id": "S015",
+      "title": "Impact of rapid nucleic acid amplification tests for tuberculosis on patient outcomes",
+      "type": "synthesis",
+      "url": "https://europepmc.org/article/PMC/PMC12713157",
+      "doi": "10.1002/14651858.CD016194",
+      "pubmed": "41410210",
+      "citation": "Otieno JA, et al. Cochrane Database Syst Rev 2025",
+      "used_for": "The 2025 Cochrane review of rapid NAATs on patient outcomes (flagged by the gate's recency role, 2026-10-28)",
+      "access": {
+        "state": "full_text_held",
+        "held": {
+          "file": "docs/c4/c498bfa48b5d992d0b8cf8d36a19717031ace27b6788943c423524e8c4c88e2d.xml",
+          "sha256": "c498bfa48b5d992d0b8cf8d36a19717031ace27b6788943c423524e8c4c88e2d",
+          "bytes": 194297,
+          "identified_by": "contains its identifier PMC12713157 — 107889 characters, reference list and discussion present; title present (9 of 9 title words in the visible text)",
+          "kind": "full_text",
+          "kind_why": "107889 characters, reference list and discussion present"
+        },
+        "on": "2026-10-28"
+      }
+    },
+    {
+      "id": "S016",
+      "title": "Impact on Patients' Treatment Outcomes of XpertMTB/RIF Implementation for the Diagnosis of Tuberculosis: Follow-Up of a Stepped-Wedge Randomized Clinical Trial",
+      "type": "primary",
+      "url": "https://europepmc.org/article/PMC/PMC4411054",
+      "doi": "10.1371/journal.pone.0123252",
+      "pubmed": "25915745",
+      "citation": "Trajman A, et al. PLoS One 2015",
+      "used_for": "Treatment outcomes from the S005 Brazil trial (flagged by the gate's recency role, 2026-10-28)",
+      "access": {
+        "state": "full_text_held",
+        "held": {
+          "file": "docs/7d/7dad9da27e493ec6cb907cdbcf636a0e40e27c0ffe1f3ac954ccc5e78182f2db.xml",
+          "sha256": "7dad9da27e493ec6cb907cdbcf636a0e40e27c0ffe1f3ac954ccc5e78182f2db",
+          "bytes": 77909,
+          "identified_by": "contains its identifier PMC4411054 — 34557 characters, reference list and discussion/introduction present; title present (11 of 12 title words in the visible text)",
+          "kind": "full_text",
+          "kind_why": "34557 characters, reference list and discussion/introduction present"
+        },
+        "on": "2026-10-28"
+      }
+    },
+    {
+      "id": "S017",
+      "title": "Correction: Impact on Patients' Treatment Outcomes of XpertMTB/RIF Implementation for the Diagnosis of Tuberculosis: Follow-Up of a Stepped-Wedge Randomized Clinical Trial",
+      "type": "corrigendum",
+      "url": "https://europepmc.org/article/PMC/PMC4878764",
+      "doi": "10.1371/journal.pone.0156471",
+      "pubmed": "27219325",
+      "citation": "PLoS One 2016 (correction to Trajman 2015)",
+      "used_for": "The correction to S016",
+      "amends": "S016",
+      "access": {
+        "state": "full_text_held",
+        "held": {
+          "file": "docs/5b/5b8632ff52c82acdf220154cb72e04ef1cc0d0c9a9e40e2cd7cbde718dffc4c8.xml",
+          "sha256": "5b8632ff52c82acdf220154cb72e04ef1cc0d0c9a9e40e2cd7cbde718dffc4c8",
+          "bytes": 22875,
+          "identified_by": "contains its identifier PMC4878764 — form 'notice' — 5261 characters held. The article test does not apply to this form; title present (12 of 12 title words in the visible text)",
+          "kind": "document",
+          "kind_why": "form 'notice' — 5261 characters held. The article test does not apply to this form"
+        },
+        "on": "2026-10-28"
+      }
     }
   ]
 }

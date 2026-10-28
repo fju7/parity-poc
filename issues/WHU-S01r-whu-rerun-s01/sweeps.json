@@ -13,6 +13,17 @@
         "S010",
         "S011"
       ]
+    },
+    {
+      "on": "2026-10-27",
+      "command": "resolve --write",
+      "resolved": [],
+      "refused": [],
+      "failed": [],
+      "unsweepable": [
+        "S010",
+        "S011"
+      ]
     }
   ]
 }

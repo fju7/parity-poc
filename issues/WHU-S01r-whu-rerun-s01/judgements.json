@@ -203,6 +203,91 @@
    "ruling": "05859b626789d396",
    "to_person": false,
    "decided_at": "2026-10-28T00:22:40+00:00"
+  },
+  "S015@7211-7471": {
+   "source": "S015",
+   "at": [
+    7211,
+    7471
+   ],
+   "section": "abstract main results",
+   "kind": "review",
+   "text_sha256": "abf3da5e320b4890277157d1ec798a5d91a6f707feded4498144067d7fb9067d",
+   "relevant": true,
+   "words": "start treatment sooner",
+   "reason": "The judgement grades the certainty of evidence on time to diagnosis and treatment initiation for NAATs and notes risk-of-bias and applicability limits for patient outcomes, which bears directly on the question about starting treatment sooner and other patient outcomes.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "d0b6fa37f8f725e4",
+   "to_person": false,
+   "decided_at": "2026-10-28T00:33:36+00:00"
+  },
+  "S015@7493-7710": {
+   "source": "S015",
+   "at": [
+    7493,
+    7710
+   ],
+   "section": "abstract conclusions",
+   "kind": "review",
+   "text_sha256": "ea7b1130f47f0317a7ef77c8431c101d619e7ba22ad6c69ae7542102109ec0ef",
+   "relevant": true,
+   "words": "DNA-based testing, used instead of the older microscope … whether they survive",
+   "reason": "The judgement reports that Xpert Ultra, used instead of smear microscopy, makes little to no difference to all-cause mortality, which is the survival outcome the question asks about.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "615c6bdf45fa6870",
+   "to_person": false,
+   "decided_at": "2026-10-28T00:33:38+00:00"
+  },
+  "S015@7711-7813": {
+   "source": "S015",
+   "at": [
+    7711,
+    7813
+   ],
+   "section": "abstract conclusions",
+   "kind": "review",
+   "text_sha256": "af7c55726a18317920ee3e21f01a3c384c6f1439100b19ea7e35c42edfa08c30",
+   "relevant": true,
+   "words": "start treatment sooner",
+   "reason": "The judgement says Xpert Ultra, a DNA-based test, probably shortens time to diagnosis and time to starting treatment, and starting treatment sooner is an outcome the question names.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "32cf15dcc01bda9f",
+   "to_person": false,
+   "decided_at": "2026-10-28T00:33:40+00:00"
+  },
+  "S015@7814-7916": {
+   "source": "S015",
+   "at": [
+    7814,
+    7916
+   ],
+   "section": "abstract conclusions",
+   "kind": "review",
+   "text_sha256": "1e6777c0dcb7ce633afd68a3d99c0272f5869f8c7f407f1c19a93208ff41707b",
+   "relevant": true,
+   "words": "instead of the older microscope … change what happens to them",
+   "reason": "The judgement compares Xpert Ultra, a DNA-based test, with smear microscopy on loss to follow-up, which is a patient outcome the scope explicitly covers.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "f4f00a41714cf95b",
+   "to_person": false,
+   "decided_at": "2026-10-28T00:33:43+00:00"
+  },
+  "S015@7917-8043": {
+   "source": "S015",
+   "at": [
+    7917,
+    8043
+   ],
+   "section": "abstract conclusions",
+   "kind": "review",
+   "text_sha256": "fe4cbae024f07033093224fd4e6a57e9fb4495ba0c5a1c8b98a4cd9baf9e8de7",
+   "relevant": true,
+   "words": "DNA-based testing, used instead of the older microscope or lab-culture methods … are cured",
+   "reason": "The judgement reports that no evidence exists on whether Xpert Ultra, a DNA-based test, changes cure rates compared with microscopy or culture, and cure is an outcome the question names directly.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "fde4ef1179fac8d3",
+   "to_person": false,
+   "decided_at": "2026-10-28T00:33:46+00:00"
   }
  }
 }

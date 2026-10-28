@@ -188,6 +188,124 @@
       ],
       "state": "CLEAN",
       "why": "matched on PMCID PMC6800215"
+    },
+    "S013": {
+      "source": "S013",
+      "title": "Xpert MTB/RIF versus sputum microscopy as the initial diagnostic test for tuberculosis: a cluster-randomised trial embed",
+      "checked_on": "2026-10-27",
+      "identifier": "DOI 10.1016/S2214-109X(15)00100-X",
+      "identifier_from": "the source URL",
+      "resolved_title": "Xpert MTB/RIF versus sputum microscopy as the initial diagnostic test for tuberculosis: a cluster-randomised trial embedded in South African roll-out of Xpert M",
+      "identity": "resolved title shares 14 word(s) with ours: african, cluster, diagnostic, embedded, initial, microscopy, randomised, roll, s",
+      "amendments": [],
+      "comments": [
+        {
+          "source": "MED",
+          "id": "26187481",
+          "reference": "Lancet Glob Health. 2015 Aug;3(8):e424-e425. doi: 10.1016/S2214-109X(15)00029-7.",
+          "type": "Comment in",
+          "orderIn": 1
+        },
+        {
+          "source": "MED",
+          "id": "27911589",
+          "reference": "Am J Respir Crit Care Med. 2017 Feb 15;195(4):530-532. doi: 10.1164/rccm.201608-1657RR.",
+          "type": "Comment in",
+          "orderIn": 2
+        },
+        {
+          "source": "MED",
+          "id": "29168808",
+          "reference": "Nature. 2017 Nov 16;551(7681):424-425. doi: 10.1038/nature.2017.23000.",
+          "type": "Comment in",
+          "orderIn": 3
+        }
+      ],
+      "state": "CLEAN",
+      "why": "matched on DOI 10.1016/S2214-109X(15)00100-X"
+    },
+    "S014": {
+      "source": "S014",
+      "title": "Feasibility, accuracy, and clinical effect of point-of-care Xpert MTB/RIF testing for tuberculosis in primary-care setti",
+      "checked_on": "2026-10-27",
+      "identifier": "DOI 10.1016/S0140-6736(13)62073-5",
+      "identifier_from": "the source URL",
+      "resolved_title": "Feasibility, accuracy, and clinical effect of point-of-care Xpert MTB/RIF testing for tuberculosis in primary-care settings in Africa: a multicentre, randomised",
+      "identity": "resolved title shares 16 word(s) with ours: accuracy, africa, care, clinical, controlled, effect, feasibility, multicentre, ",
+      "amendments": [],
+      "comments": [
+        {
+          "source": "MED",
+          "id": "24176145",
+          "reference": "Lancet. 2014 Feb 1;383(9915):388-90. doi: 10.1016/S0140-6736(13)62003-6",
+          "type": "Comment in",
+          "orderIn": 1
+        },
+        {
+          "source": "MED",
+          "id": "24766336",
+          "reference": "Pathog Glob Health. 2014 Apr;108(3):127. doi: 10.1179/2047772414Z.000000000200",
+          "type": "Comment in",
+          "orderIn": 2
+        }
+      ],
+      "state": "CLEAN",
+      "why": "matched on DOI 10.1016/S0140-6736(13)62073-5"
+    },
+    "S015": {
+      "source": "S015",
+      "title": "Impact of rapid nucleic acid amplification tests for tuberculosis on patient outcomes",
+      "checked_on": "2026-10-27",
+      "identifier": "PMCID PMC12713157",
+      "identifier_from": "the source URL",
+      "resolved_title": "Impact of rapid nucleic acid amplification tests for tuberculosis on patient outcomes.",
+      "identity": "resolved title shares 9 word(s) with ours: acid, amplification, impact, nucleic, outcomes, patient, rapid, tests, tuberculo",
+      "amendments": [],
+      "comments": [],
+      "state": "CLEAN",
+      "why": "matched on PMCID PMC12713157"
+    },
+    "S016": {
+      "source": "S016",
+      "title": "Impact on Patients' Treatment Outcomes of XpertMTB/RIF Implementation for the Diagnosis of Tuberculosis: Follow-Up of a ",
+      "checked_on": "2026-10-27",
+      "identifier": "PMCID PMC4411054",
+      "identifier_from": "the source URL",
+      "resolved_title": "Impact on Patients' Treatment Outcomes of XpertMTB/RIF Implementation for the Diagnosis of Tuberculosis: Follow-Up of a Stepped-Wedge Randomized Clinical Trial.",
+      "identity": "resolved title shares 14 word(s) with ours: clinical, diagnosis, follow, impact, implementation, outcomes, patients, randomi",
+      "amendments": [
+        {
+          "source": "MED",
+          "id": "27219325",
+          "reference": "PLoS One. 2016 May 24;11(5):e0156471. doi: 10.1371/journal.pone.0156471",
+          "type": "Erratum in",
+          "orderIn": 1
+        }
+      ],
+      "comments": [],
+      "state": "AMENDED",
+      "why": "matched on PMCID PMC4411054"
+    },
+    "S017": {
+      "source": "S017",
+      "title": "Correction: Impact on Patients' Treatment Outcomes of XpertMTB/RIF Implementation for the Diagnosis of Tuberculosis: Fol",
+      "checked_on": "2026-10-27",
+      "identifier": "PMCID PMC4878764",
+      "identifier_from": "the source URL",
+      "resolved_title": "Correction: Impact on Patients' Treatment Outcomes of XpertMTB/RIF Implementation for the Diagnosis of Tuberculosis: Follow-Up of a Stepped-Wedge Randomized Cli",
+      "identity": "resolved title shares 15 word(s) with ours: clinical, correction, diagnosis, follow, impact, implementation, outcomes, patie",
+      "amendments": [],
+      "comments": [
+        {
+          "source": "MED",
+          "id": "25915745",
+          "reference": "PLoS One. 2015 Apr 27;10(4):e0123252. doi: 10.1371/journal.pone.0123252",
+          "type": "Erratum for",
+          "orderIn": 1
+        }
+      ],
+      "state": "CLEAN",
+      "why": "matched on PMCID PMC4878764"
     }
   }
 }

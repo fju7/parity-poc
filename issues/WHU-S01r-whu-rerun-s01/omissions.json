@@ -1,0 +1,665 @@
+{
+ "omissions": [
+  {
+   "key": "S005@-",
+   "source": "S005",
+   "held_sha256": null,
+   "at": null,
+   "quote_sha256": null,
+   "outcome": "NOT_IN_SOURCE",
+   "element": "",
+   "reason": "the quotation is not in the held text of S005",
+   "by": "code (omissions.precheck)",
+   "ruling": null,
+   "origins": [
+    "S005-16"
+   ],
+   "on_page": null,
+   "after": null,
+   "decided_at": "2026-10-28T00:57:22+00:00"
+  },
+  {
+   "key": "S007@-",
+   "source": "S007",
+   "held_sha256": null,
+   "at": null,
+   "quote_sha256": null,
+   "outcome": "NOT_IN_SOURCE",
+   "element": "",
+   "reason": "the quotation is not in the held text of S007",
+   "by": "code (omissions.precheck)",
+   "ruling": null,
+   "origins": [
+    "S007-23"
+   ],
+   "on_page": null,
+   "after": null,
+   "decided_at": "2026-10-28T00:57:22+00:00"
+  },
+  {
+   "key": "S010@-",
+   "source": "S010",
+   "held_sha256": null,
+   "at": null,
+   "quote_sha256": null,
+   "outcome": "NOT_IN_SOURCE",
+   "element": "",
+   "reason": "the quotation is not in the held text of S010",
+   "by": "code (omissions.precheck)",
+   "ruling": null,
+   "origins": [
+    "S010-38"
+   ],
+   "on_page": null,
+   "after": null,
+   "decided_at": "2026-10-28T00:57:22+00:00"
+  },
+  {
+   "key": "S015@-",
+   "source": "S015",
+   "held_sha256": null,
+   "at": null,
+   "quote_sha256": null,
+   "outcome": "NOT_IN_SOURCE",
+   "element": "",
+   "reason": "the quotation is not in the held text of S015",
+   "by": "code (omissions.precheck)",
+   "ruling": null,
+   "origins": [
+    "S015-46"
+   ],
+   "on_page": null,
+   "after": null,
+   "decided_at": "2026-10-28T00:57:22+00:00"
+  },
+  {
+   "key": "S001@3503-3863",
+   "source": "S001",
+   "held_sha256": "81a2f6f126036a8a2f76ac0bd978f67c46071259f996ce05ff615797434cfbcd",
+   "at": [
+    3503,
+    3863
+   ],
+   "quote_sha256": "7ae0aa923a59c20ff4e49d7fa84169eb8c4af7852966021b009b66992e047c81",
+   "outcome": "NOT_MATERIAL",
+   "element": "",
+   "reason": "Step 1 holds: all-cause mortality with Xpert MTB/RIF versus smear microscopy bears directly on 'whether they survive'. Step 2 fails: the draft already states both parts of the finding verbatim in substance, the overall result (RR 0.89, 95% CI 0.75 to 1.05; 5 trials, 9932 participants; moderate certainty; inconclusive) and the six-month follow-up result (RR 0.98, 95% CI 0.78 to 1.22; 3 trials, 8143 participants; moderate certainty), so adding it would only repeat what is there.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "035e95c8fcfac034",
+   "origins": [
+    "S001-05"
+   ],
+   "on_page": null,
+   "after": null,
+   "decided_at": "2026-10-28T00:57:25+00:00"
+  },
+  {
+   "key": "S001@56865-57016",
+   "source": "S001",
+   "held_sha256": "81a2f6f126036a8a2f76ac0bd978f67c46071259f996ce05ff615797434cfbcd",
+   "at": [
+    56865,
+    57016
+   ],
+   "quote_sha256": "a066e5ae70f75368d1f62ba72ffb61d7f51f2b23af55776f9594bcd85b4d3e44",
+   "outcome": "NOT_MATERIAL",
+   "element": "",
+   "reason": "Step 1 holds: time to treatment initiation is an outcome the question names ('start treatment sooner'), and the scope covers 'how quickly treatment starts'. Step 2 fails: the draft already says that only one randomized study in the Cochrane review reported a hazard ratio for time to treatment. The neighbouring page sentence already gives that study's result, Cox 2014: hazard ratio 0.76 (95% CI 0.63–0.92). The finding adds only the participant count (1985), which would not change the reader's answer.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "8f475c38f0451933",
+   "origins": [
+    "S001-03"
+   ],
+   "on_page": null,
+   "after": null,
+   "decided_at": "2026-10-28T00:57:32+00:00"
+  },
+  {
+   "key": "S001@68041-68137",
+   "source": "S001",
+   "held_sha256": "81a2f6f126036a8a2f76ac0bd978f67c46071259f996ce05ff615797434cfbcd",
+   "at": [
+    68041,
+    68137
+   ],
+   "quote_sha256": "d95f153ce8983eff99e7a6968acf2b44b578363f894ccfa2b82ab00165404dfc",
+   "outcome": "NOT_MATERIAL",
+   "element": "",
+   "reason": "Step 1 holds: time to treatment bears on 'start treatment sooner' in THE QUESTION. Step 2 fails: the draft already states that 'The Cochrane review did not analyse time to treatment ... and the medians across studies appeared to vary greatly,' which is the finding in full.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "3520bf9403e81273",
+   "origins": [
+    "S001-04"
+   ],
+   "on_page": null,
+   "after": null,
+   "decided_at": "2026-10-28T00:57:34+00:00"
+  },
+  {
+   "key": "S002@20526-20621",
+   "source": "S002",
+   "held_sha256": "1b5a9c3bbc24fa200f1d6b3c96fba7db36e472a73501780207dd95376f6c1cfb",
+   "at": [
+    20526,
+    20621
+   ],
+   "quote_sha256": "80fb3790b6129727d485f82abfd3dad28f3567fcdb8bc1a607fb598c2358f0aa",
+   "outcome": "ADD",
+   "element": "",
+   "reason": "Step 1: the finding is 6-month all-cause mortality in people with HIV tested with Xpert versus smear microscopy. That is the question's 'whether they survive' in a covered population, so it is in scope. Step 2: the draft gives the overall 6-month OR (0·88) and a significant HIV-positive hazard ratio (0·76) from a secondary analysis. It does not give the HIV-positive estimate for the primary 6-month outcome, which is non-significant. That estimate qualifies how firmly the draft can claim a survival benefit in people with HIV, which matters to a clinician or patient weighing the switch, so it is material.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "dd0e423b2b9997b0",
+   "origins": [
+    "S002-07"
+   ],
+   "on_page": "ba177873d3332612",
+   "after": "6c95c89636a9b45d",
+   "decided_at": "2026-10-28T00:57:43+00:00"
+  },
+  {
+   "key": "S002@21023-21655",
+   "source": "S002",
+   "held_sha256": "1b5a9c3bbc24fa200f1d6b3c96fba7db36e472a73501780207dd95376f6c1cfb",
+   "at": [
+    21023,
+    21655
+   ],
+   "quote_sha256": "0c9c64534b4b6c180c75ba21933461eeac58c70382484b66deb4c5ae9ab5aa08",
+   "outcome": "ADD",
+   "element": "",
+   "reason": "Step 1: the finding compares death between Xpert, a DNA-based test, and smear microscopy in people tested for TB. That is the survival outcome THE QUESTION names, so it is in scope. Step 2: the draft gives only the HIV-positive hazard ratio, the six-month odds ratio from three trials, and a qualitative statement that a reduction can be neither ruled in nor ruled out. The overall time-to-event death rates and hazard ratio, with an interval that crosses 1 and holds up after adjustment, are not in the draft. They quantify that uncertain overall answer for the reader. The HIV-positive part is already stated, so the sentence leaves it out.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "ab8757d3c9759dae",
+   "origins": [
+    "S002-08"
+   ],
+   "on_page": "65f0ab52656ee04b",
+   "after": "6c95c89636a9b45d",
+   "decided_at": "2026-10-28T00:57:52+00:00"
+  },
+  {
+   "key": "S003@4022-4235",
+   "source": "S003",
+   "held_sha256": "c26e108fadc1ead3630a803c7fc0cef09c62e5ad5e8d3729ebcff08a113b2f7c",
+   "at": [
+    4022,
+    4235
+   ],
+   "quote_sha256": "e4c37eb4e151bd10477ecc415a0a1729c8a8cb9d0ee4a91b1a09a94d07dc354f",
+   "outcome": "ADD",
+   "element": "",
+   "reason": "Step 1: the finding concerns mortality with Xpert MTB/RIF compared with usual care in people with presumptive TB, which bears directly on 'whether they survive'. Step 2: the draft gives only the review's explanations for a 'lack of observed effect' and never states the actual mortality results: a 6–40% relative reduction across all studies, statistically significant in only two. A programme manager weighing survival benefit would weigh this direct result, so it is material and not already stated.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "0fb51c7b8085cf71",
+   "origins": [
+    "S003-10"
+   ],
+   "on_page": "da0d3496af403370",
+   "after": "7b8a497b7c9614a4",
+   "decided_at": "2026-10-28T00:57:56+00:00"
+  },
+  {
+   "key": "S003@4364-4674",
+   "source": "S003",
+   "held_sha256": "c26e108fadc1ead3630a803c7fc0cef09c62e5ad5e8d3729ebcff08a113b2f7c",
+   "at": [
+    4364,
+    4674
+   ],
+   "quote_sha256": "016b04a63e044688b84dd27c8c854c8dbba4343adf0e4f677c8d6076f389798c",
+   "outcome": "ADD",
+   "element": "",
+   "reason": "Step 1: the finding explains why trials comparing Xpert MTB/RIF with usual care showed little effect on mortality, which is an outcome the question names (whether they survive), so it is in scope. Step 2: the draft gives only two of the five features the review lists. These three are distinct reasons, including extra testing and empiric treatment in the comparison arms, and selection of patients likely to return for follow-up. They qualify how a programme manager should read the null mortality results relative to their own routine setting, so they are material. The sentence keeps the source's hedge 'could explain'.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "310a8dbd33963d82",
+   "origins": [
+    "S003-09"
+   ],
+   "on_page": "ebccccdcf347ec59",
+   "after": "7b8a497b7c9614a4",
+   "decided_at": "2026-10-28T00:58:04+00:00"
+  },
+  {
+   "key": "S004@16095-16625",
+   "source": "S004",
+   "held_sha256": "33ab9ee73ed51d2748080e8b989d13a749cb42cc63b32ba6df54802529d754d1",
+   "at": [
+    16095,
+    16625
+   ],
+   "quote_sha256": "487ddf599fb65d7a26c64cb6919ca395c96cc9ac565464129b5a7feba7d39775",
+   "outcome": "ADD",
+   "element": "",
+   "reason": "In scope: the finding concerns the trial's outcome for whether treatment starts, which the question names ('start treatment sooner'). Material: the draft presents the 3-month figure (13% vs 25%) as the trial's result. It does not say that the pre-specified primary outcome used a 2-month window, or that the window was changed to 3 months at the time of analysis. That change qualifies how much weight a programme manager should give the headline result, and ALREADY does not state it.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "e7e81b40202b2d50",
+   "origins": [
+    "S004-11"
+   ],
+   "on_page": "d30bf17dcfeb784d",
+   "after": "c08e4b6f87b5b2a9",
+   "decided_at": "2026-10-28T00:58:12+00:00"
+  },
+  {
+   "key": "S004@37421-37671",
+   "source": "S004",
+   "held_sha256": "33ab9ee73ed51d2748080e8b989d13a749cb42cc63b32ba6df54802529d754d1",
+   "at": [
+    37421,
+    37671
+   ],
+   "quote_sha256": "3d85e649ad24be92f3461356cc9e4dcc7bc458856518c27b38a13125dbf085cb",
+   "outcome": "ADD",
+   "element": "",
+   "reason": "Step 1: The question names 'are cured', and the scope covers 'cure or treatment success', so overall treatment success with Xpert versus routine diagnosis is in scope. Step 2: The draft reports this trial's results on treatment start, time to treatment and 6-month mortality, but not treatment success. Treatment success is a distinct outcome the reader would weigh. The sentence keeps the source's limit that the gain comes from more people starting treatment, since outcomes were similar among those treated.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "893484002aecd165",
+   "origins": [
+    "S004-12"
+   ],
+   "on_page": "ad009d42806bb6cb",
+   "after": "374d283bebea0afc",
+   "decided_at": "2026-10-28T00:58:19+00:00"
+  },
+  {
+   "key": "S005@5230-5352",
+   "source": "S005",
+   "held_sha256": "d9e3c55dfc0b7f90cce37eee3d0fd9c029de4d56ab2e178a06b65a4b23b56f08",
+   "at": [
+    5230,
+    5352
+   ],
+   "quote_sha256": "8be2d319db9b0513fc750eaa27b9c015fe50773e38b50aa94985ae54b39422e6",
+   "outcome": "NOT_MATERIAL",
+   "element": "",
+   "reason": "Step 1 holds: notification rates reflect whether people tested start treatment and are recorded as TB cases, which bears on the question's outcome of starting treatment. Step 2 fails: the draft already states this finding nearly word for word ('but no increase in overall notification rates was observed, possibly because of high rates of empirical TB treatment'), so adding it again would only repeat it.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "d3380dbd0830808d",
+   "origins": [
+    "S005-17"
+   ],
+   "on_page": null,
+   "after": null,
+   "decided_at": "2026-10-28T00:58:23+00:00"
+  },
+  {
+   "key": "S006@1507-1815",
+   "source": "S006",
+   "held_sha256": "91f7e371507a62671c6687cebfa9172e67af4dbf0b91da902f309e9b750e2d26",
+   "at": [
+    1507,
+    1815
+   ],
+   "quote_sha256": "b8201c90b272cbf15a47fd45bfca0eb3eb76dbbbabecf1bdc0344e8363a19a12",
+   "outcome": "NOT_MATERIAL",
+   "element": "",
+   "reason": "Step 1: The finding is a data correction to a trial that replaced smear microscopy with Xpert MTB/RIF, the comparison THE QUESTION asks about. No QUESTION or SCOPE wording excludes it, so it is in scope. Step 2: It reports 147 randomly distributed duplicates among more than 30,000 entries. It says reanalysis produced 'only minor changes in effect measures, which do not impact the authors' conclusions' (for example, a primary rate ratio of 1.59 became 1.60). It does not answer, narrow or qualify what happens to people tested, and it adds no outcome. The draft also already cites this correction. A programme manager or patient would not weigh it differently, so it is not material.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "59b6f04f1642ac62",
+   "origins": [
+    "S006-19"
+   ],
+   "on_page": null,
+   "after": null,
+   "decided_at": "2026-10-28T00:58:30+00:00"
+  },
+  {
+   "key": "S007@5663-5883",
+   "source": "S007",
+   "held_sha256": "9a5f7a0768fb6d317bbaa2565fd97e842a039e10eb8bfca96a471c398f76af71",
+   "at": [
+    5663,
+    5883
+   ],
+   "quote_sha256": "b8784ddad4ec5dff72be6d1a4637a6399e68b733c2d50d66f3d2b4575926816a",
+   "outcome": "NOT_MATERIAL",
+   "element": "",
+   "reason": "Step 1 holds: the sentence describes how the trial compared a DNA-based test (Xpert) with microscopy (LED-FM) in people being evaluated for TB, which is the comparison THE QUESTION asks about. Step 2 fails: it is a design description, not a result. It reports no outcome such as death, cure or time to treatment. The draft already states that this was a cluster randomized trial comparing an Xpert arm with a fluorescence microscopy arm, and the anchor's next sentence already calls the Xpert point-of-care. The remaining detail, that testing was for people screening positive for TB symptoms, would not change how the reader weighs the reported mortality results.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "1c2ee237de7bf6af",
+   "origins": [
+    "S007-22"
+   ],
+   "on_page": null,
+   "after": null,
+   "decided_at": "2026-10-28T00:58:37+00:00"
+  },
+  {
+   "key": "S007@25853-26097",
+   "source": "S007",
+   "held_sha256": "9a5f7a0768fb6d317bbaa2565fd97e842a039e10eb8bfca96a471c398f76af71",
+   "at": [
+    25853,
+    26097
+   ],
+   "quote_sha256": "ab15b95dd2bc2f5982bb160016faea60cd7d4e9ed47baa45a487b06077997ec4",
+   "outcome": "ADD",
+   "element": "",
+   "reason": "Step 1: the finding compares Xpert with microscopy on death, which the question names as an outcome ('whether they survive'), so it is in scope. Step 2: the draft gives the overall result as '22% lower' and reports only the subgroup conclusion. It never says the authors judged the overall mortality reduction not statistically significant. That qualification changes how a programme manager or a patient would read the headline result, so it is material and not already stated.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "5d0e04f3bdcc0cc3",
+   "origins": [
+    "S007-21"
+   ],
+   "on_page": "2fdd962f4a1add90",
+   "after": "a03b670670ce36be",
+   "decided_at": "2026-10-28T00:58:43+00:00"
+  },
+  {
+   "key": "S008@37268-37602",
+   "source": "S008",
+   "held_sha256": "9da9e71a05a7053f9b1b96edbfc4e0e170f3761e6beeaf984085c2bb42e4d16e",
+   "at": [
+    37268,
+    37602
+   ],
+   "quote_sha256": "f1942f3d1db9a62757c5a7d65be4c84517b143799ddcf7edd0d4343087f6906b",
+   "outcome": "ADD",
+   "element": "",
+   "reason": "Step 1: the finding is in scope. Same-day treatment bears on whether and how quickly treatment starts. Completing testing bears on loss before treatment. Both are patient outcomes from on-site molecular testing compared with the control strategy. Step 2: the finding is material. The draft gives only 14-day treatment counts and same-day treatment among the 706 confirmed cases. It does not report the separate outcomes of test completion and same-day diagnosis, or the all-patient same-day treatment rate. A programme manager would weigh these when judging whether the strategy reduces loss and delay. The draft already notes the multicomponent caveat.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "c0ddc56684f0c277",
+   "origins": [
+    "S008-27"
+   ],
+   "on_page": "d4e8a6b6a0bb2bf5",
+   "after": "f29974582f7716aa",
+   "decided_at": "2026-10-28T00:58:52+00:00"
+  },
+  {
+   "key": "S008@46577-47409",
+   "source": "S008",
+   "held_sha256": "9da9e71a05a7053f9b1b96edbfc4e0e170f3761e6beeaf984085c2bb42e4d16e",
+   "at": [
+    46577,
+    47409
+   ],
+   "quote_sha256": "8c4db876b4f51b4cbdf012ba788eac3b278dbcabbc8dd1f4fb81015da6b31814",
+   "outcome": "TO_PERSON",
+   "element": "",
+   "reason": "over the ADD budget (8)",
+   "by": "code (ruling.py omissions)",
+   "ruling": null,
+   "origins": [
+    "S008-26"
+   ],
+   "on_page": null,
+   "after": null,
+   "decided_at": "2026-10-28T00:59:00+00:00"
+  },
+  {
+   "key": "S008@59496-59925",
+   "source": "S008",
+   "held_sha256": "9da9e71a05a7053f9b1b96edbfc4e0e170f3761e6beeaf984085c2bb42e4d16e",
+   "at": [
+    59496,
+    59925
+   ],
+   "quote_sha256": "331654170a30c6c18ec2ce66a70d744cc4e5feee6a22950becfd6444137dc622",
+   "outcome": "TO_PERSON",
+   "element": "",
+   "reason": "over the ADD budget (8)",
+   "by": "code (ruling.py omissions)",
+   "ruling": null,
+   "origins": [
+    "S008-25"
+   ],
+   "on_page": null,
+   "after": null,
+   "decided_at": "2026-10-28T00:59:09+00:00"
+  },
+  {
+   "key": "S009@2951-3155",
+   "source": "S009",
+   "held_sha256": "ea967b0677c9bade70d431f004dcbc8fd4f07219460e671ac5de965f3b9e7d8f",
+   "at": [
+    2951,
+    3155
+   ],
+   "quote_sha256": "a06940280c64b27fee89e06590624301ada91f5255a3b2fd76fdb93e78b52994",
+   "outcome": "TO_PERSON",
+   "element": "",
+   "reason": "over the ADD budget (8)",
+   "by": "code (ruling.py omissions)",
+   "ruling": null,
+   "origins": [
+    "S009-30"
+   ],
+   "on_page": null,
+   "after": null,
+   "decided_at": "2026-10-28T00:59:16+00:00"
+  },
+  {
+   "key": "S009@3813-4008",
+   "source": "S009",
+   "held_sha256": "ea967b0677c9bade70d431f004dcbc8fd4f07219460e671ac5de965f3b9e7d8f",
+   "at": [
+    3813,
+    4008
+   ],
+   "quote_sha256": "02fb69cc1a6615e41a7262a48c5063124d7e279f453f675ff757df4bd6d3d204",
+   "outcome": "TO_PERSON",
+   "element": "",
+   "reason": "over the ADD budget (8)",
+   "by": "code (ruling.py omissions)",
+   "ruling": null,
+   "origins": [
+    "S009-29"
+   ],
+   "on_page": null,
+   "after": null,
+   "decided_at": "2026-10-28T00:59:22+00:00"
+  },
+  {
+   "key": "S009@7011-7297",
+   "source": "S009",
+   "held_sha256": "ea967b0677c9bade70d431f004dcbc8fd4f07219460e671ac5de965f3b9e7d8f",
+   "at": [
+    7011,
+    7297
+   ],
+   "quote_sha256": "ae916c0c1e8b1321095ed550caeb38f1603aa621dbf0bb973c6301b7170a9b3e",
+   "outcome": "TO_PERSON",
+   "element": "",
+   "reason": "over the ADD budget (8)",
+   "by": "code (ruling.py omissions)",
+   "ruling": null,
+   "origins": [
+    "S009-32"
+   ],
+   "on_page": null,
+   "after": null,
+   "decided_at": "2026-10-28T00:59:32+00:00"
+  },
+  {
+   "key": "S009@26008-26451",
+   "source": "S009",
+   "held_sha256": "ea967b0677c9bade70d431f004dcbc8fd4f07219460e671ac5de965f3b9e7d8f",
+   "at": [
+    26008,
+    26451
+   ],
+   "quote_sha256": "04c2f271c8cec232cd41497f7e91751a121877a270f890d16c00028e41f8b1c3",
+   "outcome": "NOT_MATERIAL",
+   "element": "",
+   "reason": "Step 1 holds: the finding is about whether trials comparing Xpert testing with smear microscopy can detect a mortality difference, and about weighing pre-treatment loss to follow-up. Both are patient outcomes named in the question and scope. Step 2 fails because the draft already states the substance from this source. It says the authors judged the effect small and that statistically significant results are unlikely within a single trial, which is the underpowering point. It also says future trials should focus on more proximal outcomes, including TB detection and treatment initiation, which is the point about proximal outcomes. The remaining wording about driving 'policymaking and scale-up considerations' is a recommendation that restates the same view. It does not add a distinct outcome, and it does not narrow or qualify the answer further.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "03aade6778d3b106",
+   "origins": [
+    "S009-31"
+   ],
+   "on_page": null,
+   "after": null,
+   "decided_at": "2026-10-28T00:59:41+00:00"
+  },
+  {
+   "key": "S010@157411-157549",
+   "source": "S010",
+   "held_sha256": "0710842a1c27b6e32827fc7a0486dc7cebee041b6bfe2b12b1c8886ad3556d3a",
+   "at": [
+    157411,
+    157549
+   ],
+   "quote_sha256": "2a2c6fdadeedf8317bf2f6bc848c79f553cec2702d7de031125ed85a01fd4fa0",
+   "outcome": "TO_PERSON",
+   "element": "",
+   "reason": "over the ADD budget (8)",
+   "by": "code (ruling.py omissions)",
+   "ruling": null,
+   "origins": [
+    "S010-35"
+   ],
+   "on_page": null,
+   "after": null,
+   "decided_at": "2026-10-28T00:59:51+00:00"
+  },
+  {
+   "key": "S011@3614-3869",
+   "source": "S011",
+   "held_sha256": "c9806461b98d8b5896d821efd8f1a71b7e2b54a168276306888ede9b8b175e14",
+   "at": [
+    3614,
+    3869
+   ],
+   "quote_sha256": "7fa5587c9454a59aef723de561a47446bc4fef0280325959a01f58e9f15449af",
+   "outcome": "TO_PERSON",
+   "element": "",
+   "reason": "NOT_MATERIAL on a SERIOUS objection that CHANGES the conclusion",
+   "by": "code (ruling.py omissions)",
+   "ruling": null,
+   "origins": [
+    "S011-42"
+   ],
+   "on_page": null,
+   "after": null,
+   "decided_at": "2026-10-28T00:59:56+00:00"
+  },
+  {
+   "key": "S011@3870-3994",
+   "source": "S011",
+   "held_sha256": "c9806461b98d8b5896d821efd8f1a71b7e2b54a168276306888ede9b8b175e14",
+   "at": [
+    3870,
+    3994
+   ],
+   "quote_sha256": "96e97882b42483a2f5a32e92ce917bfba8624202f7d84bfcf6b97dd9994e4d21",
+   "outcome": "NOT_MATERIAL",
+   "element": "",
+   "reason": "Step 1: The finding concerns smear microscopy, the comparator the question names, and no question or scope wording excludes it. Step 2: It is background only. It says many countries still mainly use a century-old method, but it reports nothing about death, cure, treatment start or loss to follow-up. It neither answers, narrows nor qualifies whether DNA-based testing changes what happens to people tested, and the programme manager already knows that smear microscopy is the current first test.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "d3afe69ae665ffdc",
+   "origins": [
+    "S011-41"
+   ],
+   "on_page": null,
+   "after": null,
+   "decided_at": "2026-10-28T01:00:00+00:00"
+  },
+  {
+   "key": "S015@6253-6330",
+   "source": "S015",
+   "held_sha256": "dc9784f0d791e036e8caf3bed8c3e74995ee39bb03cc257fc4c0295f15516138",
+   "at": [
+    6253,
+    6330
+   ],
+   "quote_sha256": "f3a4420bd1b4d75c91c2360fad4aff64c0f71f3c67fd463cfbfb43b1df5ebb73",
+   "outcome": "NOT_MATERIAL",
+   "element": "",
+   "reason": "Step 1: The finding concerns cure, which THE QUESTION names ('are cured'), so it is in scope. Step 2: ALREADY states it almost word for word: 'Neither trial assessed how the test used affects the likelihood of curing TB.' The draft also notes there were no data on cure rates, so adding it would repeat a point the draft makes and tells the reader nothing new.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "3e114f5aa84eb75b",
+   "origins": [
+    "S015-47"
+   ],
+   "on_page": null,
+   "after": null,
+   "decided_at": "2026-10-28T01:00:04+00:00"
+  },
+  {
+   "key": "S015@6578-7025",
+   "source": "S015",
+   "held_sha256": "dc9784f0d791e036e8caf3bed8c3e74995ee39bb03cc257fc4c0295f15516138",
+   "at": [
+    6578,
+    7025
+   ],
+   "quote_sha256": "c7fa0c1d9ba0bacdb95d157a1b6e61709aa968d48920a50348f4ffc355ed96af",
+   "outcome": "NOT_MATERIAL",
+   "element": "",
+   "reason": "Step 1: The finding is in scope. Time to diagnosis and time to treatment bear directly on 'start treatment sooner' and on the SCOPE outcome 'whether and how quickly treatment starts'. Step 2: The finding is not material. ALREADY states the same finding nearly verbatim: Ultra 'probably reduces the time to diagnosis (adjusted geometric mean ratio 0.49, 95% CI 0.39 to 0.62) and the time to treatment (adjusted geometric mean ratio 0.35, 95% CI 0.21 to 0.58), both on moderate-certainty evidence.' The only parts left out are the participant counts and the second trial's hazard ratio (3.00, 95% CI 1.18 to 7.60; 584 participants). These point the same way and carry the same certainty grade, so they would not change, narrow or qualify the answer the reader takes away.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "e7751afc856cea2a",
+   "origins": [
+    "S015-44"
+   ],
+   "on_page": null,
+   "after": null,
+   "decided_at": "2026-10-28T01:00:10+00:00"
+  },
+  {
+   "key": "S016@2675-2771",
+   "source": "S016",
+   "held_sha256": "b0953bafd6a150746c5f343c65ff2fb811904443b59614bbfc10402e81a601f0",
+   "at": [
+    2675,
+    2771
+   ],
+   "quote_sha256": "df3a3ac13194a6936ca1a2cd32d29926bdc268ff91fd18e2ffc4bcb48393577b",
+   "outcome": "TO_PERSON",
+   "element": "",
+   "reason": "over the ADD budget (8)",
+   "by": "code (ruling.py omissions)",
+   "ruling": null,
+   "origins": [
+    "S016-49"
+   ],
+   "on_page": null,
+   "after": null,
+   "decided_at": "2026-10-28T01:00:18+00:00"
+  },
+  {
+   "key": "S016@20506-20575",
+   "source": "S016",
+   "held_sha256": "b0953bafd6a150746c5f343c65ff2fb811904443b59614bbfc10402e81a601f0",
+   "at": [
+    20506,
+    20575
+   ],
+   "quote_sha256": "e34555159b627b070effa685986c5ba1428f2f464a621faf317b471ed42a762c",
+   "outcome": "TO_PERSON",
+   "element": "",
+   "reason": "over the declarations budget (10)",
+   "by": "code (ruling.py omissions)",
+   "ruling": null,
+   "origins": [
+    "S016-52"
+   ],
+   "on_page": null,
+   "after": null,
+   "decided_at": "2026-10-28T01:00:26+00:00"
+  },
+  {
+   "key": "S017@1489-1697",
+   "source": "S017",
+   "held_sha256": "d09bd6b23a68b61e049842085e0fadeecda56e99e1de9c9a313641b89734dbfb",
+   "at": [
+    1489,
+    1697
+   ],
+   "quote_sha256": "e77a3a04990c4fde2ef03f922784467f252d78af20ee63204d12d4eab5abd89d",
+   "outcome": "TO_PERSON",
+   "element": "",
+   "reason": "over the declarations budget (10)",
+   "by": "code (ruling.py omissions)",
+   "ruling": null,
+   "origins": [
+    "S017-53",
+    "S017-54"
+   ],
+   "on_page": null,
+   "after": null,
+   "decided_at": "2026-10-28T01:00:32+00:00"
+  }
+ ]
+}
