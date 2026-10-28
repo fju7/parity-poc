@@ -4,7 +4,7 @@
     "S001": {
       "source": "S001",
       "title": "Urban Systems and Other Settlements",
-      "checked_on": "2026-10-27",
+      "checked_on": "2026-10-28",
       "identifier": "DOI 10.1017/9781009157926.010",
       "identifier_from": "the held document",
       "identity": "resolved title shares 4 word(s) with ours: other, settlements, systems, urban",
@@ -19,7 +19,7 @@
     "S002": {
       "source": "S002",
       "title": "Transport. Climate Change 2022: Mitigation of Climate Change",
-      "checked_on": "2026-10-27",
+      "checked_on": "2026-10-28",
       "identifier": "DOI 10.1017/9781009157926.012",
       "identifier_from": "the held document",
       "identity": "resolved title shares 1 word(s) with ours: transport",
@@ -34,7 +34,7 @@
     "S003": {
       "source": "S003",
       "title": "A dozen effective interventions to reduce car use in European cities: Lessons learned from a meta-analysis and transitio",
-      "checked_on": "2026-10-27",
+      "checked_on": "2026-10-28",
       "identifier": "DOI 10.1016/j.cstp.2022.02.001",
       "identifier_from": "the held document",
       "identity": "resolved title shares 12 word(s) with ours: analysis, cities, dozen, effective, european, interventions, learned, lessons, m",
@@ -49,7 +49,7 @@
     "S004": {
       "source": "S004",
       "title": "Urban Street Network Design and Transport-Related Greenhouse Gas Emissions around the World",
-      "checked_on": "2026-10-27",
+      "checked_on": "2026-10-28",
       "identifier": "DOI 10.1016/j.trd.2023.103961",
       "identifier_from": "the held document",
       "identity": "resolved title shares 10 word(s) with ours: around, design, emissions, greenhouse, network, related, street, transport, urba",
@@ -64,7 +64,7 @@
     "S005": {
       "source": "S005",
       "title": "Non-linear influences of the built environment on transportation emissions: Focusing on densities",
-      "checked_on": "2026-10-27",
+      "checked_on": "2026-10-28",
       "identifier": "DOI 10.5198/jtlu.2017.815",
       "identifier_from": "the held document",
       "state": "UNCHECKED",
@@ -75,7 +75,7 @@
     "S006": {
       "source": "S006",
       "title": "IPCC 2022. Summary for Policymakers. In: Climate Change 2022: Mitigation of Climate Change (AR6 WGIII)",
-      "checked_on": "2026-10-27",
+      "checked_on": "2026-10-28",
       "identifier": "DOI 10.1017/9781009157926.001",
       "identifier_from": "the held document",
       "identity": "resolved title shares 2 word(s) with ours: policymakers, summary",
@@ -86,6 +86,36 @@
       "comments": [],
       "state": "UNCHECKED",
       "why": "matched on DOI 10.1017/9781009157926.001 at Crossref; not in Europe PMC, and the publisher registers NO update policy — so Crossref would not know of a correction even if one existed. This is not a pass"
+    },
+    "S007": {
+      "source": "S007",
+      "title": "Travel and the Built Environment: A Meta-Analysis",
+      "checked_on": "2026-10-28",
+      "identifier": "DOI 10.1080/01944361003766766",
+      "identifier_from": "the source URL",
+      "identity": "resolved title shares 3 word(s) with ours: built, environment, travel",
+      "resolved_title": "Travel and the Built Environment",
+      "index": "Crossref",
+      "update_policy": null,
+      "amendments": [],
+      "comments": [],
+      "state": "UNCHECKED",
+      "why": "matched on DOI 10.1080/01944361003766766 at Crossref; not in Europe PMC, and the publisher registers NO update policy — so Crossref would not know of a correction even if one existed. This is not a pass"
+    },
+    "S008": {
+      "source": "S008",
+      "title": "Does Compact Development Make People Drive Less?",
+      "checked_on": "2026-10-28",
+      "identifier": "DOI 10.1080/01944363.2016.1240044",
+      "identifier_from": "the source URL",
+      "identity": "resolved title shares 7 word(s) with ours: compact, development, does, drive, less, make, people",
+      "resolved_title": "Does Compact Development Make People Drive Less?",
+      "index": "Crossref",
+      "update_policy": "https://doi.org/10.1080/tandf_crossmark_01",
+      "amendments": [],
+      "comments": [],
+      "state": "CLEAN",
+      "why": "matched on DOI 10.1080/01944363.2016.1240044 at Crossref; not in Europe PMC. The publisher registers a Crossmark update policy, so a correction would have been deposited here"
     }
   }
 }

@@ -48,6 +48,8 @@ Outside the study; changes no study record. Drafting session: Claude Code (sessi
 | 8 commit; 9 changecheck --before 66b8852 + ruling.py changecheck; 9a changecheck_coverage --first 66b8852 | 2026-10-28T13:27:01Z | 2026-10-28T13:29:30Z | $0.03 | 0 | commit f0cd9ce (study log; page unchanged since 3785ddc); changecheck: 39 changed sentences, nothing found; 0 rulings; 9a: every changed sentence read |
 | 10 publish.py check (2 runs) + fixes | 2026-10-28T13:29:34Z | 2026-10-28T13:36:00Z | $0.00 | 0 | run 1: 3 STOP. Fixed 2: also_called added for S003, S004, S005, S007, S008 (S003/S005 keep their current readers'-list label as first alias, so no line changes); errata re-run: all 8 checked (S007 UNCHECKED, S008 clean). Run 2: 1 STOP left: protected sentences kept: 7 of the 3b draft's readers'-list declarations were replaced at 4e by stating the units, with no person's sign-off in protected_signoffs.json |
 | STOP for Fred (protected sign-offs) | 2026-10-28T13:37:00Z | | $0.00 | | a sign-off must be a person's, with a committed acceptance line written without a Claude trailer; draft entries prepared with by/signature blank |
+| OPERATOR: Fred's acceptance (protected sign-offs) | 2026-10-28T13:40:00Z | 2026-10-28T13:53:36Z | $0.00 | ~3 | acceptance.md written by Claude Code (transcription), not committed by it; first swept into the WHU-S01r session's commit 6a59af2 (Claude trailer, so refused); Fred removed and re-committed it (c27e32b, 185a06e); protected_signoffs.json: 7 sign-offs by Fred Ugast citing acceptance.md:3; row ok |
+| 10 publish.py check | 2026-10-28T13:53:40Z | 2026-10-28T13:55:04Z | $0.00 | 0 | Ready. (0 STOP) |
 
 ## Process findings
 
@@ -65,3 +67,4 @@ Outside the study; changes no study record. Drafting session: Claude Code (sessi
 - 2026-10-28, step 7a: human reads are kept per audit run (run_dir/human_reads.jsonl), so every re-audit asks again for every protected sentence, read or not; a person's verdict on an unchanged sentence (same sha) was carried forward by hand with read_in_run.
 - 2026-10-28, step 4e: `omissions.redact` matches whole words, but the leak guard matches substrings; 'limited traffic zones' in a reason contains the source's 'Limited Traffic Zone', so one run survived redaction and was location-tagged by hand.
 - 2026-10-28, step 4e: under fix 12 a redacted reason renders as the standard phrase, so lines read 'Judged not material to this question: “…” (…); Judged not material.' (the phrase repeats the lead).
+- 2026-10-28, sign-offs: two sessions share one working tree on main; the WHU-S01r session's commit 6a59af2 included this case's untracked acceptance.md, under a Claude trailer, so the signature check refused it until Fred removed and re-committed the file.
