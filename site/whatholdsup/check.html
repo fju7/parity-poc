@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Check an AI answer — What Holds Up</title>
+<meta name="description" content="Pilot. Paste an AI answer with its citations to see, claim by claim, whether its openly licensed sources back it.">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,400;0,500;0,600;1,400&family=Karla:ital,wght@0,300;0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="/style.css">
+<style>
+  .form { display: flex; flex-direction: column; gap: .8rem; margin-top: 1.2rem; }
+  .form label { font-family: "IBM Plex Mono", monospace; font-size: .64rem; letter-spacing: .09em; text-transform: uppercase; color: var(--ink-3); }
+  .form textarea, .form input { width: 100%; box-sizing: border-box; font: inherit; font-size: .93rem; color: var(--ink);
+    background: var(--card); border: 1px solid var(--rule); border-radius: 6px; padding: .7rem .8rem; }
+  .form textarea { min-height: 16rem; resize: vertical; font-family: "IBM Plex Mono", monospace; font-size: .8rem; line-height: 1.5; }
+  .form .row { display: flex; gap: .8rem; flex-wrap: wrap; align-items: flex-end; }
+  .form .row > div { flex: 1 1 14rem; }
+  .form button { font: inherit; font-weight: 600; color: var(--card); background: var(--accent); border: 0; border-radius: 6px;
+    padding: .7rem 1.4rem; cursor: pointer; }
+  .form button[disabled] { opacity: .5; cursor: default; }
+  .count { font-size: .82rem; color: var(--ink-3); }
+  #status { margin-top: 1rem; font-size: .93rem; color: var(--ink-2); }
+  .claims { list-style: none; padding: 0; margin: 1rem 0 0; display: flex; flex-direction: column; gap: .7rem; }
+  .claims li { border: 1px solid var(--rule-soft); background: var(--card); border-radius: 8px; padding: .85rem 1rem; }
+  .claims .text { margin: .45rem 0 .35rem; color: var(--ink); font-size: .95rem; }
+  .claims .why { font-size: .88rem; color: var(--ink-2); margin: 0; }
+  .claims .srcs { font-size: .82rem; margin: .35rem 0 0; word-break: break-all; }
+  .totals { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: 1rem; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<nav class="sitenav">
+  <a class="brand" href="/">What Holds Up</a>
+</nav>
+
+<header class="hero">
+  <div class="eyebrow">Preview</div>
+  <h1>Check an AI answer</h1>
+  <p class="standfirst">Paste an answer from an AI research tool, with its citations. Each factual claim is checked against the source it cites.</p>
+</header>
+
+<div class="warn" role="note"><span class="lbl">Pilot</span>Pilot. This tool has not been validated. Each claim is judged by an AI model (Claude), not a person. Sources are checked only where an openly licensed copy is available.</div>
+
+<form class="form" id="f" autocomplete="off">
+  <div>
+    <label for="answer">The answer, with its citations</label>
+    <textarea id="answer" required maxlength="20000" placeholder="Paste the answer here, including its list of sources or its links."></textarea>
+    <div class="count"><span id="chars">0</span> of 20,000 characters · up to 40 claims</div>
+  </div>
+  <div class="row">
+    <div>
+      <label for="code">Access code</label>
+      <input id="code" type="password" required autocomplete="off">
+    </div>
+    <button id="go" type="submit">Check</button>
+  </div>
+</form>
+
+<p id="status" aria-live="polite"></p>
+<div class="totals" id="totals"></div>
+<ul class="claims" id="claims"></ul>
+
+</div>
+<script>
+(function () {
+  var API = "/api/whu/check";
+  var PILL = {"BACKED": "done", "NOT BACKED": "todo", "NO SOURCE": "inert", "COULDN'T CHECK": "acc"};
+  var ORDER = ["BACKED", "NOT BACKED", "NO SOURCE", "COULDN'T CHECK"];
+  var f = document.getElementById("f"), answer = document.getElementById("answer"), code = document.getElementById("code");
+  var go = document.getElementById("go"), status = document.getElementById("status");
+  var list = document.getElementById("claims"), totals = document.getElementById("totals");
+
+  answer.addEventListener("input", function () {
+    document.getElementById("chars").textContent = answer.value.length.toLocaleString();
+  });
+
+  function el(tag, cls, text) {
+    var e = document.createElement(tag);
+    if (cls) e.className = cls;
+    if (text != null) e.textContent = text;
+    return e;
+  }
+
+  function say(t) { status.textContent = t; }
+
+  function detail(r, body) {
+    return (body && body.detail) ? body.detail : ("HTTP " + r.status);
+  }
+
+  function render(res) {
+    list.textContent = ""; totals.textContent = "";
+    var t = res.totals || {};
+    ORDER.forEach(function (k) {
+      totals.appendChild(el("span", "pill " + PILL[k], k + ": " + (t[k] || 0)));
+    });
+    (res.claims || []).forEach(function (c) {
+      var li = el("li");
+      li.appendChild(el("span", "pill " + (PILL[c.label] || "acc"), c.label));
+      li.appendChild(el("p", "text", c.claim));
+      li.appendChild(el("p", "why", c.reason));
+      if (c.sources && c.sources.length) {
+        var p = el("p", "srcs");
+        c.sources.forEach(function (s, i) {
+          if (i) p.appendChild(document.createTextNode(" · "));
+          if (/^https?:\/\//i.test(s.url)) {
+            var a = el("a", null, s.url); a.href = s.url; a.rel = "noopener noreferrer nofollow"; a.target = "_blank";
+            p.appendChild(a);
+          } else { p.appendChild(document.createTextNode(s.url)); }
+          if (s.licence) p.appendChild(document.createTextNode(" (" + s.licence.toUpperCase() + ")"));
+        });
+        li.appendChild(p);
+      }
+      list.appendChild(li);
+    });
+    var n = (res.claims || []).length;
+    say("Checked " + n + " claim" + (n === 1 ? "" : "s") + "." +
+        (res.beyond_limit ? " " + res.beyond_limit + " more were over the 40-claim limit and were not checked." : ""));
+  }
+
+  function poll(id) {
+    fetch(API + "/" + encodeURIComponent(id), {headers: {"X-Check-Code": code.value}})
+      .then(function (r) { return r.json().then(function (b) { return [r, b]; }); })
+      .then(function (rb) {
+        var r = rb[0], b = rb[1];
+        if (!r.ok) { say("Stopped: " + (b.error || detail(r, b))); go.disabled = false; return; }
+        if (b.status === "done") { render(b.result); go.disabled = false; return; }
+        if (b.status === "failed") { say("The check failed: " + (b.error || "unknown error")); go.disabled = false; return; }
+        say("Checking " + b.claims + " claims… this can take several minutes.");
+        setTimeout(function () { poll(id); }, 4000);
+      })
+      .catch(function () { say("Lost contact with the server; try again."); go.disabled = false; });
+  }
+
+  f.addEventListener("submit", function (e) {
+    e.preventDefault();
+    list.textContent = ""; totals.textContent = "";
+    go.disabled = true; say("Reading the answer…");
+    fetch(API, {method: "POST", headers: {"Content-Type": "application/json", "X-Check-Code": code.value},
+                body: JSON.stringify({answer: answer.value})})
+      .then(function (r) { return r.json().then(function (b) { return [r, b]; }); })
+      .then(function (rb) {
+        var r = rb[0], b = rb[1];
+        if (!r.ok) { say(detail(r, b)); go.disabled = false; return; }
+        say("Checking " + b.claims + " claims… this can take several minutes.");
+        poll(b.id);
+      })
+      .catch(function () { say("Could not reach the server; try again."); go.disabled = false; });
+  });
+})();
+</script>
+</body>
+</html>

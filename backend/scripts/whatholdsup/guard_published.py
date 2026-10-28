@@ -55,6 +55,7 @@ import argparse
 import hashlib
 import json
 import os
+import re
 import subprocess
 import sys
 from pathlib import Path
@@ -202,6 +203,41 @@ def _observed(rows: list[dict], slug: str, content: str) -> dict | None:
     if obs and obs[-1].get("sha") == content:
         return obs[-1]
     return None
+
+
+# THE UNLISTED PAGE (advisor ruling, 2026-10-28). site/whatholdsup/check.html, the
+# "check an AI answer" preview, is neither a standing page nor an issue: it is a pilot
+# tool behind an access code. It is allowed only while it stays unlisted, all four
+# read from the branch being pushed: it carries <meta name="robots"
+# content="noindex,nofollow">; sitemap.xml does not list it; robots.txt disallows
+# /check; and no other file under site/whatholdsup/ links to it. Any one failing, the
+# guard refuses it as it refuses any other unclassified page.
+UNLISTED_PAGE = "check.html"
+_NOINDEX = re.compile(r'<meta\s+name=["\']robots["\']\s+content=["\']noindex,\s*nofollow["\']\s*/?>', re.I)
+_IN_SITEMAP = re.compile(r"<loc>\s*[^<]*/check(?:\.html)?/?\s*</loc>", re.I)
+_DISALLOWED = re.compile(r"(?mi)^\s*Disallow:\s*/check\s*$")
+_LINK = re.compile(r"""href\s*=\s*["']\s*(?:https?://(?:www\.)?whatholdsup\.org)?/?check(?:\.html)?(?=[?#"'/])""", re.I)
+
+
+def unlisted_problems(ref: str | None) -> list[str]:
+    """Why check.html is not unlisted on `ref`, or [] if it is."""
+    base = "site/whatholdsup/"
+    out = []
+    page = (_blob(ref, base + UNLISTED_PAGE) or b"").decode("utf-8", "replace")
+    if not _NOINDEX.search(page):
+        out.append('it has no <meta name="robots" content="noindex,nofollow">')
+    if _IN_SITEMAP.search((_blob(ref, base + "sitemap.xml") or b"").decode("utf-8", "replace")):
+        out.append("sitemap.xml lists it")
+    if not _DISALLOWED.search((_blob(ref, base + "robots.txt") or b"").decode("utf-8", "replace")):
+        out.append("robots.txt does not disallow /check")
+    _c, files = _git("ls-tree", "-r", "--name-only", (ref or "HEAD"), base)
+    for rel in files.splitlines():
+        rel = rel.strip()
+        if not rel or Path(rel).name == UNLISTED_PAGE or not rel.endswith((".html", ".xml", ".js", ".txt", ".json")):
+            continue
+        if _LINK.search((_blob(ref, rel) or b"").decode("utf-8", "replace")):
+            out.append("%s links to it" % rel)
+    return out
 
 
 def check(ref: str | None = None,
@@ -434,6 +470,14 @@ def check(ref: str | None = None,
         if not name.endswith(".html"):
             continue
         if name in STANDING or name in published_pages or name in companions_ok:
+            continue
+        if name == UNLISTED_PAGE:
+            problems = unlisted_problems(ref)
+            if not problems:
+                continue
+            blocking.append(
+                "site/whatholdsup/%s is allowed only as an unlisted page, and it is not one:\n        %s"
+                % (name, "\n        ".join(problems)))
             continue
         blocking.append(
             "site/whatholdsup/%s is on the deploy branch and is not a standing "

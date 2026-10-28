@@ -50,6 +50,9 @@ ALLOWED_ORIGIN = "https://whatholdsup.org"
 JOB_TTL_SECONDS = 3600
 
 router = APIRouter(prefix="/api/whu", tags=["whu-check"])
+# One line at startup, so a deploy's log says whether this checkout holds the study pipeline
+# (the service's root directory is backend/; the pipeline lives under study/).
+print("whu_check: study pipeline %s at %s" % ("present" if PIPELINE.exists() else "MISSING", PIPELINE), flush=True)
 
 _jobs: dict[str, dict] = {}
 _lock = threading.Lock()

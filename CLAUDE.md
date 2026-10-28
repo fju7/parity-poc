@@ -2983,8 +2983,9 @@ Design (fixed before code): docs/whu-check-an-answer-pilot.md. Internal; outside
   backend/data/whu_check/jobs.jsonl (gitignored; no text). Added to verify/policy.py APPROVED_ANTHROPIC_IMPORTERS.
 - Page: site/whatholdsup/check.html, unlisted (noindex,nofollow; not in sitemap.xml; robots.txt Disallow: /check; no
   page links to it). vercel.json rewrites /api/whu/* to the Render API, so the page calls same-origin.
-  NOT YET PUSHED (2026-10-28): guard_published.py refuses any top-level site page that is not STANDING or a published
-  issue; classifying check.html is left to Fred / the advisor (no --no-verify).
+  guard_published.py allows it only while unlisted (advisor ruling 2026-10-28, UNLISTED_PAGE / unlisted_problems():
+  noindex,nofollow meta; not in sitemap.xml; robots.txt Disallow: /check; no file under site/whatholdsup links to it);
+  tests: backend/tests/test_whatholdsup_guard_unlisted.py.
 - KNOWN LIMIT: Render's filesystem is not persistent, so the ledger lines the preview writes are lost on each
   deploy or restart; the $20 total is enforced per running instance, not across deploys.
 - Tests: backend/tests/test_whu_check_pilot.py, test_whu_check_router.py (fixtures/whu_check/: a constructed
