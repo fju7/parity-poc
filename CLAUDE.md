@@ -2986,6 +2986,14 @@ Design (fixed before code): docs/whu-check-an-answer-pilot.md. Internal; outside
   guard_published.py allows it only while unlisted (advisor ruling 2026-10-28, UNLISTED_PAGE / unlisted_problems():
   noindex,nofollow meta; not in sitemap.xml; robots.txt Disallow: /check; no file under site/whatholdsup links to it);
   tests: backend/tests/test_whatholdsup_guard_unlisted.py.
+- Render has the pipeline: advisor read the startup log (read-only), 2026-10-28T16:23:16Z on srv-d6eh8c95pdvs73cuphug:
+  "whu_check: study pipeline present at /opt/render/project/src/study/whu-reliability/check_pilot/pipeline.py". The
+  end-to-end import is OPEN until Fred's first real check. WHU_CHECK_CODE is set on Render (401 without it, verified).
+- v2 (doc §9): check_pilot/pipeline_v2.py (imports v1 unchanged; new snapshot step), run_pilot_v2.py (ledger
+  whu-check-pilot-v2); tests backend/tests/test_whu_check_pilot_v2.py. The preview switches with
+  routers/whu_check.py PIPELINE_VERSION = 2 once v2 has run.
+- Quarterly round 1: study/whu-reliability/quarterly/round1_protocol.md frozen at 5f4a928 (the seed), with
+  round1_duplicates.json and round1_draw.py (frames.py imported unchanged); draws in quarterly/draws/ (aba6589).
 - KNOWN LIMIT: Render's filesystem is not persistent, so the ledger lines the preview writes are lost on each
   deploy or restart; the $20 total is enforced per running instance, not across deploys.
 - Tests: backend/tests/test_whu_check_pilot.py, test_whu_check_router.py (fixtures/whu_check/: a constructed
