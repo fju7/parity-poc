@@ -576,16 +576,25 @@ def _withdrawal(chunk: str) -> tuple[str, str] | None:
     return ((who.group(1).strip() if who else ""), (why.group(1).strip() if why else ""))
 
 
+MIN_FRAGMENT_WORDS = 6          # a shorter fragment never counts as a protected target
+AMBIGUOUS = "ambiguous"
+
+
 def protected_check(slug: str):
     """sentence -> True when it is protected on SLUG's page (bindings.protected_kind,
-    with the binding row's marker when the sentence has a row), or when it is
-    CONTAINED in a protected sentence: a "We say" line quotes the part of the
+    with the binding row's marker when the sentence has a row), or when it is a
+    FRAGMENT of a protected sentence: a "We say" line quotes the part of the
     sentence it objects to, not always the whole sentence (WHU-S01r; post-study,
-    mid-rerun tool fix, 2026-10-28). Contained is quotations.quoted_in on
-    quotations.norm, the comparison every page quotation gets."""
+    mid-rerun tool fix 10, 2026-10-28). Contained is quotations.quoted_in on
+    quotations.norm, the comparison every page quotation gets.
+
+    A fragment counts (fix 14) only when it has at least MIN_FRAGMENT_WORDS words
+    after normalisation and occurs in NO unprotected sentence on the page. One
+    that occurs in both is ambiguous: not protected, and check.status(s) says
+    AMBIGUOUS so ruling.py sends its item to a person (split_protected)."""
     import bindings as B
     import quotations as Q
-    rows, prot = [], []
+    rows, prot, unprot = [], [], []
 
     def load() -> None:
         if rows:                     # read once, and only when an item asks
@@ -599,17 +608,27 @@ def protected_check(slug: str):
         except (Exception, SystemExit):
             sents = []
         sents += [r.get("sentence") for r in rows[0].values() if r.get("on_page") and r.get("sentence")]
-        prot.append([Q.norm(s) for s in dict.fromkeys(sents)
-                     if B.protected_kind(s, rows[0].get(B.fingerprint(s))) is not None])
+        for x in dict.fromkeys(sents):
+            kind = B.protected_kind(x, rows[0].get(B.fingerprint(x)))
+            (prot if kind is not None else unprot).append(Q.norm(x))
 
-    def check(s: str) -> bool:
+    def status(s: str) -> str | None:
+        """"protected", AMBIGUOUS, or None."""
         if not s:
-            return False
+            return None
         load()
         if B.protected_kind(s, rows[0].get(B.fingerprint(s))) is not None:
-            return True
+            return "protected"
         t = Q.norm(s).strip(" '")
-        return bool(t) and any(Q.quoted_in(t, p) for p in prot[0])
+        if len(re.findall(r"\w+", t)) < MIN_FRAGMENT_WORDS:
+            return None
+        if not any(Q.quoted_in(t, p) for p in prot):
+            return None
+        return AMBIGUOUS if any(Q.quoted_in(t, u) for u in unprot) else "protected"
+
+    def check(s: str) -> bool:
+        return status(s) == "protected"
+    check.status = status
     return check
 
 

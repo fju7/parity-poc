@@ -445,7 +445,9 @@ def split_protected(items: list[dict], rows: dict) -> tuple[list[dict], list[dic
     keep, person = [], []
     for it in items:
         k = it["key"][1] if it.get("key") and it["key"][0] == "row" else None
-        kind = B.protected_kind(it.get("sentence") or "", rows.get(k) if k else None)
+        # an item whose target fragment is in a protected AND an unprotected
+        # sentence (source_advocate.protected_check, fix 14) is a person's too
+        kind = it.get("ambiguous") or B.protected_kind(it.get("sentence") or "", rows.get(k) if k else None)
         (person if kind else keep).append(dict(it, protected=kind) if kind else it)
     return keep, person
 
@@ -460,7 +462,9 @@ def route_to_person(mode: str, items: list[dict], log: Path) -> None:
             "at": datetime.now(timezone.utc).isoformat(timespec="seconds"), "mode": mode,
             "protected": it["protected"], "sentence": it.get("sentence"), "kind": it.get("kind"),
             "ref": it.get("ref"),
-            "why": "a protected sentence is never rewritten or cut by the ruling model; a person decides"})
+            "why": ("the target occurs in a protected and an unprotected sentence; a person decides which"
+                    if it["protected"] == "ambiguous" else
+                    "a protected sentence is never rewritten or cut by the ruling model; a person decides")})
 
 
 def _rulable(mode: str, items: list[dict], rows: dict, log: Path) -> list[dict]:
@@ -925,6 +929,7 @@ def _advocate_items(slug: str, rows: dict, held: dict, case: Path | None = None)
     never by asking whether the source supports the sentence it is pinned to."""
     import source_advocate as SA
     out = []
+    target = SA.protected_check(slug)
     for it in advocate_items(slug, case):
         o = it["objection"]
         if SA.omission_kind(o)[0] == SA.LEAVES_OUT:
@@ -945,6 +950,7 @@ def _advocate_items(slug: str, rows: dict, held: dict, case: Path | None = None)
                 reason += (" The objection quotes its document, but that quotation is not in "
                            "the held text of the document.")
         out.append({"key": sentence_key(hit, sentence), "sentence": sentence, "item": it,
+                    **({"ambiguous": SA.AMBIGUOUS} if target.status(claim) == SA.AMBIGUOUS else {}),
                     "kind": "source advocate objection (%s)" % (o.get("severity") or "?"),
                     "reason": reason, "proposed": "", "quotes": quotes,
                     "ref": {"advocate_item": it["head"], "file": it["file"].name,
@@ -1176,11 +1182,16 @@ def rule_omissions(slug: str, call, *, P=None, rows: dict | None = None, held: d
                 if r.get("on_page") and sid in A.sources_of(r) and r.get("sentence")]
 
     items, found = {}, []
+    target = SA.protected_check(slug)
     for it in _leaves_out(slug, case):
         o, sid = it["objection"], it["source"]
         items[it["head"]] = it
         if sid in lic:
             route_to_person("omissions", [{"protected": "licensed source", "sentence": o.get("claim_quoted"),
+                                           "kind": "omission", "ref": {"advocate_item": it["head"]}}], log)
+            continue
+        if target.status(o.get("claim_quoted") or "") == SA.AMBIGUOUS:
+            route_to_person("omissions", [{"protected": SA.AMBIGUOUS, "sentence": o.get("claim_quoted"),
                                            "kind": "omission", "ref": {"advocate_item": it["head"]}}], log)
             continue
         if SA.needs_reask(o, held.get(sid) or "", bound_spans(sid)):

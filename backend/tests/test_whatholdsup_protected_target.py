@@ -31,7 +31,7 @@ import test_whatholdsup_fix2_ruling as T          # noqa: E402
 import test_whatholdsup_not_ruled_protected as N  # noqa: E402
 
 PART_OF_QUESTION = "whether layout and pricing cut transport emissions"      # in T.PAGE[0], protected
-PART_OF_FINDING = "layout changes could reduce emissions"                   # in T.PAGE[1], not protected
+PART_OF_FINDING = "finds that layout changes could reduce emissions"        # in T.PAGE[1], not protected
 
 
 @pytest.fixture
@@ -59,7 +59,7 @@ def test_normalised_fragment_closes(tmp_path, monkeypatch, page):
 
 
 def test_fragment_with_an_ellipsis_closes(tmp_path, monkeypatch, page):
-    assert _closes(tmp_path, monkeypatch, "whether layout … transport emissions")
+    assert _closes(tmp_path, monkeypatch, "whether layout and pricing … transport emissions")   # 6 words (fix 14)
 
 
 def test_fragment_of_an_unprotected_sentence_stays_open(tmp_path, monkeypatch, page):
