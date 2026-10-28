@@ -3,24 +3,37 @@
   "belief": {
     "_note": "What the reader already believes, stated as they would state it. If you cannot write this sentence, there is nothing to correct and no subject -- which is how the tobacco-analogy candidate died.",
     "statement": "Making cities denser, more mixed and better connected, especially together with measures such as congestion charges or road pricing, substantially cuts greenhouse gas emissions from transport.",
-    "how_we_know_they_believe_it": "The coverage that settled it. Named outlets, quoted headlines. Not 'it is widely assumed'.",
+    "how_we_know_they_believe_it": "General-interest climate coverage states it as settled: Grist (Alex Steffen, 2012) and Grist (Ryan Avent, 2007). Found by web search on 2026-10-28; the pages were not held.",
     "carried_by": [
       {
-        "outlet": "",
-        "url": "",
-        "date": "",
-        "what_it_said": ""
+        "outlet": "Grist",
+        "url": "https://grist.org/cities/move-a-little-closer-please-carbon-zero-chapter-3/",
+        "date": "2012-11-30",
+        "what_it_said": "'Move a little closer, please' (Alex Steffen): density cuts driving and so transport emissions, 'Density is destiny, when it comes to transportation' (a fetch tool's reading of the page on 2026-10-28, not a held quotation)"
+      },
+      {
+        "outlet": "Grist",
+        "url": "https://grist.org/article/this-urban-life/",
+        "date": "2007-10-22",
+        "what_it_said": "'Even the greenest suburbs can't touch low urban emission rates' (Ryan Avent): dense areas let residents replace driving; congestion charges and emission taxes would make cities denser (a fetch tool's reading of the page on 2026-10-28, not a held quotation)"
       }
     ]
   },
   "what_the_sources_show": {
     "_note": "What the primary sources actually support, and which sources.",
-    "statement": "",
-    "sources": []
+    "statement": "The IPCC AR6 WGIII Summary for Policymakers judges, with high confidence, that changes in urban form combined with programmes such as transport pricing could reduce transport GHG emissions in developed countries and slow their growth in developing countries; its chapters put modelled potentials of around 25% (transport fuel use; urban planning) and 23-26% (urban GHG) by 2050 against business as usual. The measured studies held agree on direction but count car traffic or report associations that vary by place and fade at high density, and say they do not establish causation.",
+    "sources": [
+      "S001",
+      "S002",
+      "S003",
+      "S004",
+      "S005",
+      "S006"
+    ]
   },
   "direction": {
     "_note": "CORRECTS, CONFIRMS or NARROWS. This field exists so the contrarianism guard can count. A publication whose answer is always CORRECTS is performing scepticism rather than assessing evidence, and is not to be trusted.",
-    "value": "",
+    "value": "narrows",
     "_values": [
       "corrects",
       "confirms",
@@ -31,23 +44,23 @@
   "public_record_check": {
     "_note": "NOT 'has anybody published this'. On any contested question, somebody has. The question is whether it has been carried WHERE THIS READER WOULD FIND IT. Run the counterexample hunter on the belief statement, not on the finding.",
     "prior_art_found": [],
-    "carried_in_general_coverage": "",
-    "our_contribution": "translation, extension, or correction of the prior art -- say which"
+    "carried_in_general_coverage": "Yes: Grist carried it as settled (2007, 2012). The IPCC statement itself is in the Summary for Policymakers; the qualification (modelled 2050 potentials, measured studies that count traffic or report associations) is what general coverage does not carry.",
+    "our_contribution": "translation and narrowing: the assessment's judgement with its confidence, set beside what the measured studies held do and do not show"
   },
   "sources_are_open": "",
   "evidence_base_is_bounded": "",
   "kill_condition": "No story if: (a) the held primary sources show that urban form plus pricing does not reduce transport greenhouse gas emissions at all, or only negligibly; or (b) the sources support a substantial cut without material qualification, so the belief needs no narrowing; or (c) the reader does not hold the belief.",
   "kill_condition_tested": {
     "_note": "Filled in AFTER going to look, by whoever looked.",
-    "by": "",
-    "on": "",
-    "result": "",
+    "by": "Claude Code (session WHU-S07r)",
+    "on": "2026-10-28",
+    "result": "narrowed",
     "_result_values": [
       "survived",
       "narrowed",
       "killed"
     ],
-    "note": ""
+    "note": "(a) not met: the assessment and the measured studies agree on direction; (b) not met: the size is a modelled 2050 potential and the measured studies do not give it for a city; (c) the belief is carried (Grist). The premise survives in narrowed form."
   },
   "lead_came_from": "",
   "scope": {
