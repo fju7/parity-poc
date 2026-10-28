@@ -340,9 +340,26 @@ def short_span(text: str, words: int = SPAN_WORDS) -> str:
     return " ".join(w[:words]) + (" …" if len(w) > words else "")
 
 
+# ONE READER-FACING LINE, NOT THE RULING'S WORKING (post-study, mid-rerun tool
+# fix, 2026-10-28). WHU-S01r's reasons read "Step 1: The finding is in scope.
+# Step 2: ..." and the readers' list printed "Step 1: The finding is in scope".
+# The line is the record's reason_for_reader when it has one, else the reason's
+# FINAL sentence -- its conclusion -- and never a sentence starting "Step N:"
+# (when every sentence is a step, the last one without its "Step N:").
+_STEP = re.compile(r"^\s*Step\s*\d+\s*[:.)\-–—]\s*", re.I)
+
+
 def one_line(reason: str) -> str:
-    r = _SENT.split(" ".join((reason or "").split()), maxsplit=1)[0].rstrip(" .;")
-    return r[:200]
+    parts = [p.strip() for line in (reason or "").splitlines()
+             for p in _SENT.split(" ".join(line.split())) if p.strip()]
+    plain = [p for p in parts if not _STEP.match(p)]
+    r = plain[-1] if plain else (_STEP.sub("", parts[-1]) if parts else "")
+    return r.rstrip(" .;")[:200]
+
+
+def reader_reason(d: dict) -> str:
+    """The reason a readers'-list line carries: reason_for_reader if present."""
+    return (d.get("reason_for_reader") or "").strip() or d.get("reason") or ""
 
 
 def declaration_sentence(state: str, span: str, label: str, reason: str) -> str:
@@ -385,17 +402,19 @@ def declarations(slug: str, held: dict[str, str], case: Path | None = None) -> l
         if e.get("outcome") in ("OUT_OF_SCOPE", "NOT_MATERIAL", "NOT_ADDED_CAP") and e.get("at"):
             text = (held.get(e["source"]) or "")[e["at"][0]:e["at"][1]]
             out.append({"key": e["key"], "state": e["outcome"].lower(), "source": e["source"], "text": text,
-                        "reason": e.get("reason") or "", "by": e.get("by"), "signature": e.get("signature"),
+                        "reason": e.get("reason") or "", "for_reader": reader_reason(e),
+                        "by": e.get("by"), "signature": e.get("signature"),
                         "decided_at": e.get("decided_at") or ""})
     for k, d in (load(case).get("declarations") or {}).items():
         sid, rng = k.split("@")
         a, b = (int(x) for x in rng.split("-"))
         out.append({"key": k, "state": d["state"], "source": sid, "text": (held.get(sid) or "")[a:b],
-                    "reason": d.get("reason") or "", "by": d.get("by"), "signature": d.get("signature"),
+                    "reason": d.get("reason") or "", "for_reader": reader_reason(d),
+                    "by": d.get("by"), "signature": d.get("signature"),
                     "decided_at": d.get("decided_at") or ""})
     out.sort(key=lambda d: d["decided_at"])
     for d in out:
-        reason = CAP_REASON % O.cap_of(d["reason"]) if d["state"] == "not_added_cap" else d["reason"]
+        reason = CAP_REASON % O.cap_of(d["reason"]) if d["state"] == "not_added_cap" else d["for_reader"]
         d["sentence"] = declaration_sentence(d["state"], short_span(d["text"]), _label(srcs, d["source"]), reason)
     return out
 
@@ -497,7 +516,7 @@ def preflight_rows(slug: str, record_rows: list[dict] | None = None, *, rows: di
 
 
 def declare(slug: str, key: str, state: str, why: str, by: str, element: str = "",
-            signature: dict | None = None, case: Path | None = None) -> dict:
+            signature: dict | None = None, case: Path | None = None, for_reader: str = "") -> dict:
     import source_store as store
     if state not in DECLARED:
         raise SystemExit("state must be one of %s" % ", ".join(DECLARED))
@@ -513,6 +532,7 @@ def declare(slug: str, key: str, state: str, why: str, by: str, element: str = "
     doc = load(case)
     doc.setdefault("declarations", {})[key] = {
         "state": state, "reason": why, "by": by, "element": element,
+        **({"reason_for_reader": for_reader} if for_reader.strip() else {}),
         **({"signature": signature} if signature else {}),
         "decided_at": datetime.now(timezone.utc).isoformat(timespec="seconds")}
     (case / RECORD).write_text(json.dumps(doc, indent=1, ensure_ascii=False) + "\n", encoding="utf-8")
@@ -528,9 +548,11 @@ def main(argv=None) -> int:
     ap.add_argument("--why", default="")
     ap.add_argument("--by", default="")
     ap.add_argument("--element", default="")
+    ap.add_argument("--for-reader", default="", help="the one line the readers' list shows (else --why's last sentence)")
     a = ap.parse_args(argv)
     if a.cmd == "declare":
-        print(json.dumps(declare(a.slug, a.key, a.state, a.why, a.by, a.element), indent=1))
+        print(json.dumps(declare(a.slug, a.key, a.state, a.why, a.by, a.element, for_reader=a.for_reader),
+                         indent=1))
         return 0
     import ruling as R
     if a.cmd == "render":

@@ -307,7 +307,8 @@ def parse_omission(text: str) -> dict:
         raise RulingError("OUT_OF_SCOPE naming no scope element")
     return {"ruling": outcome.lower(), "text": draft if outcome == "ADD" else None, "outcome": outcome,
             "scope_element": element, "span": span if outcome == "ADD" else "",
-            "in_scope": got.get("in_scope"), "material": got.get("material"), "reason": got.get("reason") or ""}
+            "in_scope": got.get("in_scope"), "material": got.get("material"), "reason": got.get("reason") or "",
+            "reason_for_reader": got.get("reason_for_reader") or ""}
 
 
 def parse_relevance(text: str) -> dict:
@@ -1212,6 +1213,7 @@ def rule_omissions(slug: str, call, *, P=None, rows: dict | None = None, held: d
                 continue
             counts["DECLARED"] += 1
             O.record(case, f, held_text=held.get(f.get("source")), outcome=O.OUT_OF_SCOPE, reason=got["reason"], by=BY,
+                     reason_for_reader=got.get("reason_for_reader") or "",
                      element=got["scope_element"], ruling=rid)
             close(f, O.OUT_OF_SCOPE, "nothing added; out of scope (%s); listed for readers"
                   % got["scope_element"], element=got["scope_element"])
@@ -1226,7 +1228,7 @@ def rule_omissions(slug: str, call, *, P=None, rows: dict | None = None, held: d
                 continue
             counts["DECLARED"] += 1
             O.record(case, f, held_text=held.get(f.get("source")), outcome=O.NOT_MATERIAL, reason=got["reason"],
-                     by=BY, ruling=rid)
+                     by=BY, ruling=rid, reason_for_reader=got.get("reason_for_reader") or "")
             close(f, O.NOT_MATERIAL, "nothing added; not material; listed for readers")
         else:
             if O.locate(got["span"], f["held_quote"]) is None:

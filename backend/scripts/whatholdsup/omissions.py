@@ -194,7 +194,7 @@ def load(case: Path) -> dict:
 
 
 PUBLIC_FIELDS = ("key", "source", "held_sha256", "at", "quote_sha256", "outcome", "element", "reason",
-                 "by", "ruling", "origins", "on_page", "after", "decided_at")
+                 "reason_for_reader", "by", "ruling", "origins", "on_page", "after", "decided_at")
 
 
 def entry_key(f: dict) -> str:
@@ -257,7 +257,7 @@ def redact(reason: str, source: str, held_text: str, min_words: int = REDACT_WOR
 
 def record(case: Path, f: dict, *, outcome: str, reason: str, by: str, element: str = "",
            ruling: str | None = None, on_page: str | None = None, after: str | None = None,
-           held_text: str | None = None) -> dict:
+           held_text: str | None = None, reason_for_reader: str = "") -> dict:
     """Write one decision: the public entry (no source text) to omissions.json,
     the quotation itself to rulings/omissions.jsonl. Returns the public entry.
     With HELD_TEXT (the finding's source), the public reason has any quoted
@@ -270,6 +270,8 @@ def record(case: Path, f: dict, *, outcome: str, reason: str, by: str, element: 
     e = {"key": entry_key(f), "source": f.get("source"), "held_sha256": f.get("held_sha256"),
          "at": f.get("at"), "quote_sha256": f.get("quote_sha256"), "outcome": outcome,
          "element": element, "reason": public_reason, "by": by, "ruling": ruling,
+         **({"reason_for_reader": redact(reason_for_reader, f.get("source"), held_text) if held_text
+             else reason_for_reader} if (reason_for_reader or "").strip() else {}),
          "origins": f.get("origins") or [f.get("origin")], "on_page": on_page, "after": after,
          "decided_at": datetime.now(timezone.utc).isoformat(timespec="seconds")}
     doc = load(case)
