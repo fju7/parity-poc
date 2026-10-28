@@ -1,0 +1,7 @@
+# WHU post-study re-run (rerun_plan.md, "Runs"): the re-run WHU answers, sha256 manifest.
+# The answer is the issue page as committed once `publish.py check <slug>` prints "Ready.", the rule of
+# whu_answers_manifest.txt. Exploratory, outside H1 and H2. Hashes checked by prepare_scoring.verify on 2026-10-28.
+#
+# sha256  question  page  (last commit touching the page; commit at which the check first printed Ready.; last commit touching the issue)
+6896242afa5cf8b770b7f7018605bf2318c19459b6bb1446b77ffead7f6aba32  WHU-S01r  issues/WHU-S01r-whu-rerun-s01/draft/whu-rerun-s01.html  (commit 6a59af215c6adad8f5a2f152a2c5de7117ae4385; Ready at 6749c4ef2e20ba7ecf8e46c8804f2dab8102be63; issue at 5fddbdf99305dfe4152a27b217265c6352674dc1)
+8a047763b8e3499bdb09da2aec4d05c1d53c78015e124514506c2ab7189da691  WHU-S07r  issues/WHU-S07r-whu-rerun-s07/draft/whu-rerun-s07.html  (commit 3785ddcfec58fb3b9ae2913abaa7236f648fe8e0; Ready at ba4e85629c7028d858b6b3e379f0b3cc1dab1ae7; issue at 6e8fa15e49200899a0c0f1d050ebb8c60530283c)
