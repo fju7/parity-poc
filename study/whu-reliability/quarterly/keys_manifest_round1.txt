@@ -1,0 +1,44 @@
+# WHU quarterly round 1: answer keys, sha256 manifest
+# Keys and the full texts they were drafted from are held outside the repository, at
+# ~/Projects/whu-study-private/keys/quarterly/round1/<question>/ (key.json; check_log.md; source/; sources.sha256 lists
+# every full-text file by sha256). Only these hashes are committed (round1_protocol.md §2, frozen at 5f4a928).
+# Drafted 2026-10-28 by Claude Code subagents, one key drafter per question, each working alone.
+# Checked 2026-10-28 by Claude Code subagents, one key checker per question, each a separate instance with no access to
+# its drafter's reasoning; every change is recorded in that question's check_log.md with the original wording and the reason.
+# Corrections at check: Q1-01 1, Q1-02 2, Q1-03 0, Q1-04 1; nothing dropped. Status: FROZEN.
+#
+# sha256  question  file
+4e4105814cabdbb37bca815b2a83ea611409329280ba0767aac20f8b648d5f3d  WHU-Q1-01  key.json
+48884ac9b739d680050eeda75742f4308acf613ffd7d038e42cfa563f50ad82f  WHU-Q1-01  check_log.md
+c0f0752baf148a4af89bdaa3434f1124e662937f6ac4071c60a92831aaf7a380  WHU-Q1-01  sources.sha256
+9b34dd4227f50e1e3403b3f18431166e0c5de8caed1c02579a52d5dff58391e4  WHU-Q1-01  source/fulltext.txt
+d7e75af2910b5220d74c87d89e1dd526e979f711e1670b1ccc1afd7377dc699e  WHU-Q1-01  source/fulltext.xml
+4cbf4254cb59b5eb9bd1f43a4ae1da21a8b5f8c7c466d119b46842ed891a4f90  WHU-Q1-02  key.json
+a32782fd10ac21edc47169c526a908ec898a9c0a0be5bdf51afdc7ae0f5f0f97  WHU-Q1-02  check_log.md
+9bdc76ee63c1f99d1fe80538ca89d9335e7c99fe6f07f7e14ae7723848779f53  WHU-Q1-02  sources.sha256
+97dcbdfc58927a21e33a864fedd04c5965ab37c9d9b3179631742903c2b6f6e6  WHU-Q1-02  source/fulltext.txt
+24587d9f8f9b68d1f6bbff588b3ea5a314d5b7e2555682e63c18a296ce8ed0ac  WHU-Q1-02  source/fulltext.xml
+e8643f57b70cf6ff5e85324ee8ddeef469d1d46d96d0b9bfc4622a6952421a80  WHU-Q1-03  key.json
+00aa97daa2a704aab458c15621e01c1cbfc169edf7eaa74d1684d59854b78088  WHU-Q1-03  check_log.md
+088d060c02bea4013dc6b77a657d037fcf2067e953771b5da6d7942b8625efa3  WHU-Q1-03  sources.sha256
+67becf4e7e3349945cc4422e353e96e44159ea08daf25f5d1b5331e1a1511a37  WHU-Q1-03  source/IPCC_AR6_SYR_LongerReport.pdf
+ae47f134a57669c7de17da90e227315daf51349251b53d3ad680020f0e3a7949  WHU-Q1-03  source/IPCC_AR6_SYR_LongerReport.txt
+3e347d04913c8fcc180c10efec372681554f3d735a7f0b2e6c7d991ddbb29c11  WHU-Q1-03  source/IPCC_AR6_SYR_SPM.pdf
+a71f998625948656cd69d8b449d4cb1d5bbebec253a12ca1a0eb0573522a8099  WHU-Q1-03  source/IPCC_AR6_SYR_SPM.txt
+2056f2ec73dbf82b27a41e709cfaca566953d93e4c57713ddebe9ffdc763ee78  WHU-Q1-03  source/spm_page.html
+fd526adc61fbe158b5b70dddf99fe6f9a0403fc8a150f981bf303bb0391d885f  WHU-Q1-03  source/statement.txt
+d83df56edf130e5dc1fbab5b83e8212ae17fca5d803c771440427c606558f23c  WHU-Q1-04  key.json
+226ef87bc86720205c6e7568621c66e7d50cee0e6e553a01e18c5419dfc1f30b  WHU-Q1-04  check_log.md
+bab7413829178ea024b08ed53e6f7c2c7caf1e149c6997e4dd32f1d6a0130c51  WHU-Q1-04  sources.sha256
+84a86c2a186b00a763918c22d9a56b9ad96347d5151817b6273b6f38e92936d1  WHU-Q1-04  source/chapters/IPCC_AR6_WGIII_Chapter03.pdf
+2efcbbb6dea81e7dd69f38dacb62886b610ba02bf523c992ffaa030b7541a823  WHU-Q1-04  source/chapters/IPCC_AR6_WGIII_Chapter03.txt
+5c996dfe2a98a4bb25bcf2a24fcb516b0e31f932705c3a4aece93d507c077dd4  WHU-Q1-04  source/chapters/IPCC_AR6_WGIII_Chapter07.pdf
+9c09f752786ea15d904632bebdc619e991cdba7d2caae24dc7086482a436b52c  WHU-Q1-04  source/chapters/IPCC_AR6_WGIII_Chapter07.txt
+2a5132a6e763fd922609fae5b2a7b6536a96ba29c5d694e9a929f444939f6c05  WHU-Q1-04  source/chapters/IPCC_AR6_WGIII_Chapter11.pdf
+9a55010b2a947833f1ea46d03f1d799fce9a392fd8a3d93111bb8daff24992e2  WHU-Q1-04  source/chapters/IPCC_AR6_WGIII_Chapter11.txt
+b1f31cc6390b25eef57a56511f3626f18c88ab81109c8e0e90a20e65143619b6  WHU-Q1-04  source/chapters/IPCC_AR6_WGIII_Chapter12.pdf
+8f963919819093720e4dcb6dc8d4fffcc53837c9b19ed0d42e55e0ed723dec14  WHU-Q1-04  source/chapters/IPCC_AR6_WGIII_Chapter12.txt
+fdec68c55cbf64ddf2d65c468f9125c1111413fcc35aa01c94810e4548e6c778  WHU-Q1-04  source/IPCC_AR6_WGIII_SummaryForPolicymakers.pdf
+e16c9d420e5eb60c1d83d3a6a0630932f38fccc9cd8b6a6180b67f233793f0f0  WHU-Q1-04  source/IPCC_AR6_WGIII_SummaryForPolicymakers.txt
+8378d4695f829a1238897fae5f3031cb7e3b0332c34a78e1c3290b356e872aac  WHU-Q1-04  source/spm_page.html
+6799d667042d7dc38bf94135383680d78d9cf676d16011e16ec15c1e87205eeb  WHU-Q1-04  source/statement.txt
