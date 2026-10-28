@@ -1,0 +1,126 @@
+{
+ "round": "Q1",
+ "frame_file": "frames/campbell.json",
+ "frame_sha256": "9f3754518946f0de778469587a6a7c5e8f4a1201dcd7cf9f62f60632c69b295f",
+ "commit": "5f4a928b757d7f47c1ba8ed47600ced4a7a69f12",
+ "seed": 544017144222122354086406494492826735813465644818,
+ "seed_rule": "seed = int(<full 40-character freeze commit hash>, 16) (protocol rev 38)",
+ "procedure": "round1_draw.py: random.Random(seed).shuffle of the frame's eligible numbers k (as frames.draw_study); in that order (a) statement hash (IPCC), (b) not used before, (c) duplicate test, (d) different AR6 report (IPCC's second), (e) Option 2 (Cochrane, Campbell); the first that passes all is the draw",
+ "whu_questions": {
+  "WHU-001 melanoma (personalised mRNA cancer vaccine)": {
+   "pattern": "\\bmelanoma|\\bm?RNA[- ](?:based )?(?:cancer )?vaccin|personali[sz]ed (?:cancer )?vaccin",
+   "applied_to": "text"
+  },
+  "WHU-002 cdk46 (CDK4/6 inhibitors)": {
+   "pattern": "\\bCDK ?4/6|\\bCDK4\\b|palbociclib|ribociclib|abemaciclib|cyclin[- ]dependent kinase 4",
+   "applied_to": "text"
+  },
+  "WHU-003 deskilling (AI use and human cognition)": {
+   "pattern": "(?:artificial intelligence|\\bAI\\b|large language model|\\bLLMs?\\b|chatbot|ChatGPT|generative).{0,80}(?:cogniti|critical thinking|deskill|skill|learning|memory|reasoning)|(?:cogniti|critical thinking|deskill)\\w*.{0,80}(?:artificial intelligence|\\bAI\\b|large language model|chatbot)",
+   "applied_to": "text"
+  },
+  "T01 exercise and depression": {
+   "pattern": "(?:exercise|physical activity|physical training|yoga|walking).{0,80}depress|depress\\w*.{0,80}(?:exercise|physical activity)",
+   "applied_to": "text"
+  },
+  "T02 / WHU-P02 ultra-processed foods": {
+   "pattern": "ultra-?processed|\\bprocessed foods?\\b|\\bNOVA\\b",
+   "applied_to": "text"
+  },
+  "T03 intermittent fasting": {
+   "pattern": "intermittent fasting|time-restricted (?:eating|feeding)|alternate[- ]day fasting|\\b5:2\\b|periodic fasting",
+   "applied_to": "text"
+  },
+  "T04 vitamin D (supplementation in older adults)": {
+   "pattern": "^(?=.*\\b(?:vitamin D|cholecalciferol|ergocalciferol|calcifediol|calcitriol)\\b)(?=.*\\b(?:older (?:adults?|people|persons?|women|men|individuals|patients)|elderly|aged (?:60|65|70)|over (?:60|65|70)|(?:60|65|70) years (?:and|or) (?:over|older)|later life|old age|seniors?|geriatric|nursing homes?|care homes?|long-term care))",
+   "applied_to": "text"
+  },
+  "WHU-P04 (have the world's greenhouse gas emissions grown faster in recent decades than in earlier ones?)": {
+   "pattern": "(?=.*\\b(?:greenhouse gas|GHG|CO ?2|CO₂|carbon dioxide)\\b[^.]{0,60}\\bemissions?\\b[^.]{0,120}\\b(?:ha(?:ve|s) (?:continued to )?(?:rise|risen|increased|grown)|grew|rose|growth|higher than in))(?=.*\\b(?:since (?:18|19|20)\\d\\d|(?:19|20)\\d\\d\\s*[–-]\\s*(?:19|20)\\d\\d|(?:previous|past|last) decades?|between (?:19|20)\\d\\d and)\\b)",
+   "applied_to": "first sentence"
+  },
+  "WHU-S01 (rapid molecular tests for tuberculosis)": {
+   "pattern": "(?=.*\\btubercul)(?=.*(?:nucleic acid|molecular|Xpert|NAAT|\\bPCR\\b|rapid (?:diagnostic )?test))",
+   "applied_to": "text"
+  },
+  "WHU-S05 (undernutrition as a risk factor for tuberculosis)": {
+   "pattern": "(?=.*\\btubercul)(?=.*(?:undernutrition|malnutrition|undernourish|nutrition|body mass index|\\bBMI\\b|food))",
+   "applied_to": "text"
+  },
+  "WHU-S02 (CBT delivery formats for adolescent depression)": {
+   "pattern": "(?=.*(?:cognitive behaviou?ral|\\bCBT\\b))(?=.*(?:adolescen|teen|youth|young people|children))(?=.*depress)",
+   "applied_to": "text"
+  },
+  "WHU-S06 (arts programmes and youth offending)": {
+   "pattern": "(?=.*\\b(?:arts?|music|drama|theatre|creative)\\b)(?=.*(?:offend|criminal|justice|delinquen|crime))",
+   "applied_to": "text"
+  },
+  "WHU-S03 (public involvement in climate policy)": {
+   "pattern": "(?=.*\\b(?:public|citizens?|stakeholders?|communit(?:y|ies)|people)\\b[^.]{0,60}\\b(?:participat|involve|engage|deliberat|assembl))(?=.*\\b(?:climate|mitigation|emissions?)\\b)",
+   "applied_to": "first sentence"
+  },
+  "WHU-S04 (city growth and coping with climate change)": {
+   "pattern": "(?=.*\\b(?:urbani[sz]\\w*|cities|city|urban growth)\\b)(?=.*\\b(?:adapt\\w*|resilien\\w*|vulnerab\\w*|cope|coping)\\b)",
+   "applied_to": "first sentence"
+  },
+  "WHU-S07 (urban form and transport emissions)": {
+   "pattern": "(?=.*\\b(?:urban form|compact|densit\\w*|land[- ]use|spatial planning|mixed use)\\b)(?=.*\\b(?:transport|travel|mobility|vehicle)\\w*)",
+   "applied_to": "first sentence"
+  },
+  "WHU-S08 (settlement planning and climate resilience)": {
+   "pattern": "(?=.*\\b(?:design|planning|plan)\\b[^.]{0,80}\\b(?:settlements?|towns?|cities|urban|rural|infrastructure)\\b|.*\\b(?:settlement|land[- ]use|spatial|urban) planning\\b)(?=.*\\b(?:resilien\\w*|adapt\\w*|climate)\\b)",
+   "applied_to": "first sentence"
+  }
+ },
+ "used_entries": {
+  "10.1002/cl2.1376": "WHU-S02",
+  "10.1002/cl2.1377": "WHU-S06"
+ },
+ "draws_wanted": 1,
+ "eligible": 24,
+ "checked": 1,
+ "drawn": [
+  {
+   "n": 83,
+   "pmid": "39917627",
+   "doi": "10.1002/cl2.70016",
+   "title": "Effectiveness of interventions for improving educational outcomes for people with disabilities in low- and middle-income countries: A systematic review.",
+   "date": "2025-02-06"
+  }
+ ],
+ "drawn_at": "2026-10-28T16:17:25+00:00",
+ "log": [
+  {
+   "checked": 1,
+   "k": 14,
+   "n": 83,
+   "id": "39917627",
+   "text_sha256": "59ff2e33af87ebcf0d10b3b3d3fcdafb0c67ed8028360779fefadc47026e7147",
+   "option2": {
+    "europepmc_license": "cc by",
+    "pmcid": "PMC11799928",
+    "fulltext_status": 200,
+    "fulltext_content_type": "application/xml"
+   },
+   "result": "drawn",
+   "draw": 1
+  }
+ ],
+ "closer_reading": {
+  "protocol": "round1_protocol.md, frozen at 5f4a928b757d7f47c1ba8ed47600ced4a7a69f12; study protocol 'Eligible if the review' 1-5",
+  "by": "Claude Code (session L, 6462abd6-8a40-4998-8b73-153d1d55eac5)",
+  "on": "2026-10-28",
+  "entries": {
+   "39917627": {
+    "read": "the abstract from Europe PMC's core record (PMC11799928); Option 2 recorded in the log (cc by; fullTextXML HTTP 200, application/xml)",
+    "1_published_in_window": "pass: 2025-02-06",
+    "2_certainty_grade_on_main_conclusion": "pass, FLAGGED for the advisor: no GRADE; strength is stated explicitly ('large but based on a low number of studies'; 'All but one study received an overall rating of low confidence in study findings'), a per-study confidence rating rather than a grade on the conclusion",
+    "3_one_plain_question": "pass: whether programmes to improve education for people with disabilities in low- and middle-income countries work",
+    "4_public_abstract": "pass: full abstract in PubMed / Europe PMC",
+    "5_not_a_whu_topic": "pass: no WHU question is on disability or education",
+    "result": "eligible on closer reading, with criterion 2 flagged; the draw stands unless the advisor rules otherwise"
+   }
+  },
+  "next_in_shuffle_taken": false
+ }
+}
