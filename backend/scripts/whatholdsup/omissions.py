@@ -53,10 +53,26 @@ HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
 
 ADD, OUT_OF_SCOPE, NOT_MATERIAL, NOT_IN_SOURCE = "ADD", "OUT_OF_SCOPE", "NOT_MATERIAL", "NOT_IN_SOURCE"
-OUTCOMES = (ADD, OUT_OF_SCOPE, NOT_MATERIAL, NOT_IN_SOURCE)
+# NOT ADDED BECAUSE A BUDGET WAS FULL (post-study, mid-rerun tool fix,
+# 2026-10-28). Its reason must name WHICH cap -- "additions" or "declarations"
+# (cap_of) -- and the readers' list says so: "Not added: ... the page's limit for
+# additions was reached".
+NOT_ADDED_CAP = "NOT_ADDED_CAP"
+OUTCOMES = (ADD, OUT_OF_SCOPE, NOT_MATERIAL, NOT_IN_SOURCE, NOT_ADDED_CAP)
+CAPS = ("additions", "declarations")
 TO_PERSON = "TO_PERSON"
 RECORD = "omissions.json"
 PRIVATE = "omissions.jsonl"          # under rulings/, never committed
+_CAP_WORD = re.compile(r"\b(additions|declarations)\b", re.I)
+
+
+def cap_of(reason: str) -> str | None:
+    """'additions' or 'declarations' when REASON names exactly one of the two
+    caps; None when it names neither or both."""
+    named = {m.group(1).lower() for m in _CAP_WORD.finditer(reason or "")}
+    return named.pop() if len(named) == 1 else None
+
+
 ADD_CAP, ADD_SHARE = 8, 0.15
 DECLARE_CAP, DECLARE_SHARE = 10, 0.20
 MIN_ELEMENT_WORDS = 2
@@ -248,6 +264,8 @@ def record(case: Path, f: dict, *, outcome: str, reason: str, by: str, element: 
     source text replaced by its location (redact)."""
     if outcome not in OUTCOMES + (TO_PERSON,):
         raise ValueError("outcome must be one of %s" % ", ".join(OUTCOMES + (TO_PERSON,)))
+    if outcome == NOT_ADDED_CAP and not cap_of(reason):
+        raise ValueError("NOT_ADDED_CAP needs a reason naming which cap: %s" % " or ".join(CAPS))
     public_reason = redact(reason, f.get("source"), held_text) if held_text else reason
     e = {"key": entry_key(f), "source": f.get("source"), "held_sha256": f.get("held_sha256"),
          "at": f.get("at"), "quote_sha256": f.get("quote_sha256"), "outcome": outcome,

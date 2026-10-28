@@ -164,7 +164,7 @@ def state_of(c: dict, held_text: str, rows: dict, held: dict[str, str], declared
     if c["key"] in declared:
         return "declared", declared[c["key"]].get("state", "declared")
     for e in omissions_doc.get("omissions") or []:
-        if (e.get("source") == c["source"] and e.get("at") and e.get("outcome") in ("OUT_OF_SCOPE", "NOT_MATERIAL")
+        if (e.get("source") == c["source"] and e.get("at") and e.get("outcome") in ("OUT_OF_SCOPE", "NOT_MATERIAL", "NOT_ADDED_CAP")
                 and e["at"][0] < c["at"][1] and c["at"][0] < e["at"][1]):
             return "declared", e["outcome"].lower()
     if bound_sents:

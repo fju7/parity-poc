@@ -51,6 +51,7 @@ THE READERS' LIST (ruling 3). Every declared finding, from either place, is
 shown on the page inside the limits section, one sentence each:
     Outside this question: "<short verbatim span>" (<source>); <reason>.
     Judged not material to this question: "<span>" (<source>); <reason>.
+    Not added: "<span>" (<source>); the page's limit for additions|declarations was reached.
 under the heading "Findings in our sources we judged outside this question".
 These are scope statements, protected under fix 1 (bindings.protected_kind,
 kind "scope"). The row STOPs if a declaration is not on the page word for word,
@@ -79,9 +80,11 @@ RELIED_ROWS = 3
 ABSTRACT_CHARS = 8000
 SECTION_MAX = 2500
 SPAN_WORDS = 25
-DECLARED = ("out_of_scope", "not_material")
+DECLARED = ("out_of_scope", "not_material", "not_added_cap")
 HEADING = "Findings in our sources we judged outside this question"
-LEAD = {"out_of_scope": "Outside this question:", "not_material": "Judged not material to this question:"}
+LEAD = {"out_of_scope": "Outside this question:", "not_material": "Judged not material to this question:",
+        "not_added_cap": "Not added:"}
+CAP_REASON = "the page's limit for %s was reached"     # not_added_cap's reader-facing reason
 
 CALIBRATED = re.compile(r"\b(?:very\s+low|low|medium|high|very\s+high)\s+confidence"
                         r"|\b(?:limited|medium|robust)\s+evidence\b"
@@ -316,7 +319,7 @@ def account(units: list[dict], rows: dict, held: dict[str, str], omissions_doc: 
             hits = [e for e in omissions_doc.get("omissions") or []
                     if e.get("source") == u["source"] and e.get("at") and _overlaps(e["at"], u["at"])]
             add = [e for e in hits if e.get("outcome") == "ADD"]
-            dec = [e for e in hits if e.get("outcome") in ("OUT_OF_SCOPE", "NOT_MATERIAL")]
+            dec = [e for e in hits if e.get("outcome") in ("OUT_OF_SCOPE", "NOT_MATERIAL", "NOT_ADDED_CAP")]
             if add:
                 state, how = "added", add[0].get("key")
             elif k in declarations:
@@ -379,7 +382,7 @@ def declarations(slug: str, held: dict[str, str], case: Path | None = None) -> l
     srcs = _sources(slug)
     out = []
     for e in O.load(case).get("omissions") or []:
-        if e.get("outcome") in ("OUT_OF_SCOPE", "NOT_MATERIAL") and e.get("at"):
+        if e.get("outcome") in ("OUT_OF_SCOPE", "NOT_MATERIAL", "NOT_ADDED_CAP") and e.get("at"):
             text = (held.get(e["source"]) or "")[e["at"][0]:e["at"][1]]
             out.append({"key": e["key"], "state": e["outcome"].lower(), "source": e["source"], "text": text,
                         "reason": e.get("reason") or "", "by": e.get("by"), "signature": e.get("signature"),
@@ -392,7 +395,8 @@ def declarations(slug: str, held: dict[str, str], case: Path | None = None) -> l
                     "decided_at": d.get("decided_at") or ""})
     out.sort(key=lambda d: d["decided_at"])
     for d in out:
-        d["sentence"] = declaration_sentence(d["state"], short_span(d["text"]), _label(srcs, d["source"]), d["reason"])
+        reason = CAP_REASON % O.cap_of(d["reason"]) if d["state"] == "not_added_cap" else d["reason"]
+        d["sentence"] = declaration_sentence(d["state"], short_span(d["text"]), _label(srcs, d["source"]), reason)
     return out
 
 
@@ -499,6 +503,10 @@ def declare(slug: str, key: str, state: str, why: str, by: str, element: str = "
         raise SystemExit("state must be one of %s" % ", ".join(DECLARED))
     if not why.strip() or not by.strip():
         raise SystemExit("a declaration needs --why and --by")
+    if state == "not_added_cap":
+        import omissions as O
+        if not O.cap_of(why):
+            raise SystemExit("not_added_cap needs --why naming which cap: additions or declarations")
     if state == "out_of_scope" and not element.strip():
         raise SystemExit("out_of_scope needs --element: words of the question or a scope.out entry")
     case = case or store.case_dir(slug)

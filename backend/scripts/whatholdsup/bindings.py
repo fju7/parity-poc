@@ -1105,7 +1105,7 @@ STATES_FINDING = re.compile(
 # below; coverage_check.py stops the preflight on any such sentence that is not
 # word for word a recorded declaration, so the lead cannot shelter anything else.
 DECLARATION_LEAD = re.compile(
-    r"^\W*(?:Outside this question:|Judged not material to this question:"
+    r"^\W*(?:Outside this question:|Judged not material to this question:|Not added:"
     r"|Findings in our sources we judged outside this question\b)", re.I)
 
 

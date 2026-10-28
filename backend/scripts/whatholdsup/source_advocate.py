@@ -524,8 +524,11 @@ EFFECT_WORDS = ("changes", "narrows", "sharpens", "corrects", "none")
 EFFECT = re.compile(r"^\s*EFFECT:\s*(%s)\b" % "|".join(EFFECT_WORDS), re.I | re.M)
 # An omission objection (LEAVES_OUT) is closed by the omission ruling's outcome
 # and what was done, not by MERIT/EFFECT (fix 2, step 1).
-OMISSION_WORDS = ("add", "out_of_scope", "not_material", "not_in_source")
-OMISSION_LINE = re.compile(r"^\s*OMISSION:\s*(%s)\b" % "|".join(OMISSION_WORDS), re.I | re.M)
+# not_added_cap (mid-rerun tool fix, 2026-10-28): not added because a budget was
+# full; closed only when the OMISSION or DID line names which cap ("additions" or
+# "declarations", omissions.cap_of).
+OMISSION_WORDS = ("add", "out_of_scope", "not_material", "not_in_source", "not_added_cap")
+OMISSION_LINE = re.compile(r"^\s*OMISSION:\s*(%s)\b(.*)$" % "|".join(OMISSION_WORDS), re.I | re.M)
 DID_LINE = re.compile(r"^\s*DID:\s*(\S.*)$", re.M)
 
 # A question put to the human reader is only closed when a person has opened the
@@ -573,8 +576,12 @@ def _closed(chunk: str, mode: str) -> bool:
             return bool(w[0] and w[1])
         return bool(ANSWERED_BY.search(chunk) and ANSWER.search(chunk)
                     and LOCATOR.search(chunk) and EFFECT_LINE.search(chunk))
-    if OMISSION_LINE.search(chunk) and DID_LINE.search(chunk):
-        return True
+    om, did = OMISSION_LINE.search(chunk), DID_LINE.search(chunk)
+    if om and did:
+        if om.group(1).lower() != "not_added_cap":
+            return True
+        import omissions as O
+        return O.cap_of("%s %s" % (om.group(2), did.group(1))) is not None
     return bool(VERDICT.search(chunk) and EFFECT_LINE.search(chunk))
 
 
@@ -600,7 +607,7 @@ def write_template(slug: str, day: str, briefs: list[dict], name: str | None = N
              "    EFFECT: changes | narrows | sharpens | corrects | none",
              "    DID:    what actually changed, or nothing and why", "",
              "For an OMISSION (type LEAVES_OUT), closed by the omission ruling:", "",
-             "    OMISSION: add | out_of_scope | not_material | not_in_source",
+             "    OMISSION: add | out_of_scope | not_material | not_in_source | not_added_cap",
              "    DID:      what was added, or why nothing was", "",
              "For a QUESTION, from a source only a person is permitted to read:", "",
              "    ANSWERED BY: a person's name. Not \"the team\", not a role.",
