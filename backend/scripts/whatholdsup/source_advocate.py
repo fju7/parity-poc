@@ -578,17 +578,38 @@ def _withdrawal(chunk: str) -> tuple[str, str] | None:
 
 def protected_check(slug: str):
     """sentence -> True when it is protected on SLUG's page (bindings.protected_kind,
-    with the binding row's marker when the sentence has a row)."""
+    with the binding row's marker when the sentence has a row), or when it is
+    CONTAINED in a protected sentence: a "We say" line quotes the part of the
+    sentence it objects to, not always the whole sentence (WHU-S01r; post-study,
+    mid-rerun tool fix, 2026-10-28). Contained is quotations.quoted_in on
+    quotations.norm, the comparison every page quotation gets."""
     import bindings as B
-    rows = []
+    import quotations as Q
+    rows, prot = [], []
+
+    def load() -> None:
+        if rows:                     # read once, and only when an item asks
+            return
+        try:
+            rows.append(B.load(slug).get("bindings") or {})
+        except (Exception, SystemExit):
+            rows.append({})
+        try:
+            sents = list(B.page_sentences(slug))
+        except (Exception, SystemExit):
+            sents = []
+        sents += [r.get("sentence") for r in rows[0].values() if r.get("on_page") and r.get("sentence")]
+        prot.append([Q.norm(s) for s in dict.fromkeys(sents)
+                     if B.protected_kind(s, rows[0].get(B.fingerprint(s))) is not None])
 
     def check(s: str) -> bool:
-        if not rows:                 # read once, and only when an item asks
-            try:
-                rows.append(B.load(slug).get("bindings") or {})
-            except (Exception, SystemExit):
-                rows.append({})
-        return bool(s) and B.protected_kind(s, rows[0].get(B.fingerprint(s))) is not None
+        if not s:
+            return False
+        load()
+        if B.protected_kind(s, rows[0].get(B.fingerprint(s))) is not None:
+            return True
+        t = Q.norm(s).strip(" '")
+        return bool(t) and any(Q.quoted_in(t, p) for p in prot[0])
     return check
 
 
