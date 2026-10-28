@@ -25,7 +25,8 @@ tool (design ruling 1), and never from a title (advisor's ruling on step 7,
     with their "{6.1; 6.2}" section references) that the page binds, IN FULL;
   - an assessment summary -- at least SPM_MIN_LABELS numbered statements (A.1,
     C.8.2, ...) followed by calibrated language: each numbered statement the
-    page binds, IN FULL;
+    page binds, IN FULL (to the next numbered statement, heading, or "Figure
+    SPM." / "Table SPM." caption, whichever comes first);
   - otherwise an abstract: every sentence after the first "Authors'
     conclusions" heading (or a "Conclusion(s)" / "Interpretation" heading in
     the first ABSTRACT_CHARS characters) up to the next heading, WHOLE; in a
@@ -96,6 +97,16 @@ _STOP_HEADING = re.compile(
     r"Introduction|INTRODUCTION|\d+\.\s+[A-Z][A-Z ]{4,})\b")
 _SPM_LABEL = re.compile(r"(?<![\w.])([A-E]\.\d{1,2}(?:\.\d{1,2})?)\s+\x07?(?=[A-Z])")
 SPM_MIN_LABELS = 5
+SPM_MAX = 3000                   # a statement with no boundary found runs this far, as before
+# WHERE AN SPM STATEMENT STOPS (post-study, mid-rerun tool fix, 2026-10-28):
+# the next numbered statement, a section heading ("B. Recent developments"),
+# or a figure or table caption ("Figure SPM.3", "Table SPM.1"), whichever comes
+# first. Before, it ran to the next numbered statement, so a caption printed
+# between two statements was read as part of the first (WHU-S07r). A caption
+# or heading named inside a statement's own brackets -- "{3.2; Figure SPM.2}"
+# -- is a reference, not a boundary.
+_SPM_HEADING = re.compile(r"(?<![\w.])[A-E][.:]\s+(?=[A-Z][a-z])")
+_SPM_CAPTION = re.compile(r"\b(?:Figure|Table)\s+SPM\.")
 ES_MAX = 30000                   # an Executive Summary is a few pages, never the chapter
 LIMIT = ("Known limit: an assessment conclusion in a statement or Executive Summary paragraph the page "
          "never binds is not covered here; the advocate's LEAVES_OUT objections are the second net.")
@@ -147,6 +158,23 @@ def _spm_labels(text: str) -> list:
     return labels if len(real) >= SPM_MIN_LABELS else []
 
 
+def _spm_end(text: str, start: int, end: int) -> int:
+    """The first heading or caption in text[start:end] outside the statement's
+    own brackets, else END."""
+    hits = sorted([m.start() for m in _SPM_HEADING.finditer(text, start, end)]
+                  + [m.start() for m in _SPM_CAPTION.finditer(text, start, end)])
+    for h in hits:
+        depth = 0
+        for ch in text[start:h]:
+            if ch in "{([":
+                depth += 1
+            elif ch in "})]" and depth:
+                depth -= 1
+        if not depth:
+            return h
+    return end
+
+
 def groups_of(text: str) -> tuple[str, list[tuple[int, int, str]]]:
     """(kind, [(start, end, section)]) of an assessment's statements or
     Executive Summary paragraphs; ("", []) for any other document."""
@@ -168,8 +196,8 @@ def groups_of(text: str) -> tuple[str, list[tuple[int, int, str]]]:
     if labels:
         out = []
         for k, m in enumerate(labels):
-            e = labels[k + 1].start() if k + 1 < len(labels) else min(len(text), m.end() + 3000)
-            out.append((m.start(), e, "SPM %s" % m.group(1)))
+            e = labels[k + 1].start() if k + 1 < len(labels) else min(len(text), m.end() + SPM_MAX)
+            out.append((m.start(), _spm_end(text, m.end(), e), "SPM %s" % m.group(1)))
         return "summary", out
     return "", []
 
