@@ -1,0 +1,10 @@
+{
+  "id": "WHU-Q1-03",
+  "slug": "whu-quarterly-r1-03",
+  "title": "If greenhouse gas emissions continue, how will further warming change the climate: rainfall and the water cycle, very wet and very dry extremes, ice, sea level and the oceans?",
+  "question": "If greenhouse gas emissions continue, how will further warming change the climate: rainfall and the water cycle, very wet and very dry extremes, ice, sea level and the oceans?",
+  "study": true,
+  "round": "Q1",
+  "status": "draft",
+  "_round_note": "A question of the WHU quarterly round 1 (study/whu-reliability/quarterly/round1_protocol.md, frozen at 5f4a928), drawn at aba6589 and worded from the source's stated objective (or the statement's main claim) without naming the source, before any system ran. Outside the reliability study's H1 and H2. \"study\": true is set only so the WHU tools run unchanged (publish.issue_cfg, ruling.require_study), publish/update/announce refuse it, and caps.json study_per_issue ($50) applies. Ledger issue: whu-quarterly-r1-03. Created 2026-10-28; nothing else is written here until drafting starts."
+}

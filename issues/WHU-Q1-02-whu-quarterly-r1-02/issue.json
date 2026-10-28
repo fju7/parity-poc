@@ -1,0 +1,10 @@
+{
+  "id": "WHU-Q1-02",
+  "slug": "whu-quarterly-r1-02",
+  "title": "In low- and middle-income countries, do programmes meant to improve education for children and young people with disabilities work, and which kinds work best?",
+  "question": "In low- and middle-income countries, do programmes meant to improve education for children and young people with disabilities work, and which kinds work best?",
+  "study": true,
+  "round": "Q1",
+  "status": "draft",
+  "_round_note": "A question of the WHU quarterly round 1 (study/whu-reliability/quarterly/round1_protocol.md, frozen at 5f4a928), drawn at aba6589 and worded from the source's stated objective (or the statement's main claim) without naming the source, before any system ran. Outside the reliability study's H1 and H2. \"study\": true is set only so the WHU tools run unchanged (publish.issue_cfg, ruling.require_study), publish/update/announce refuse it, and caps.json study_per_issue ($50) applies. Ledger issue: whu-quarterly-r1-02. Created 2026-10-28; nothing else is written here until drafting starts."
+}
