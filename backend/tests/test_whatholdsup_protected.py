@@ -404,7 +404,10 @@ def test_replayed_advocate_ruling_8ae17180_leaves_the_stocktake_sentence_to_a_pe
                                                _rows([STOCKTAKE]))[0])) == 0
 
 
-def test_a_gate_finding_on_a_protected_sentence_is_left_open_for_a_person(study):
+def test_a_gate_finding_on_a_protected_sentence_is_left_for_a_person_not_ruled(study):
+    # Until the post-study, mid-rerun tool fix of 2026-10-28 the finding was left
+    # with no decision, so it could never settle; it is now recorded
+    # not_ruled_protected (test_whatholdsup_gate_protected.py). Never ruled, still.
     d, P = study
     import findings as F
     F.save(SLUG, {"findings": [{"id": "obj-1", "kind": "fairness", "gate_said": "x", "decision": ""}]})
@@ -412,8 +415,10 @@ def test_a_gate_finding_on_a_protected_sentence_is_left_open_for_a_person(study)
 
     def fake(prompt, max_tokens, role):
         raise AssertionError("a protected sentence reached the ruling model")
-    assert R.rule_gate(SLUG, fake, P=P, report=report, rows=_rows([LIMITS]), held={}) == []
-    assert F.load(SLUG)["findings"][0]["decision"] == ""
+    [done] = R.rule_gate(SLUG, fake, P=P, report=report, rows=_rows([LIMITS]), held={})
+    f = F.load(SLUG)["findings"][0]
+    assert done["id"] == "obj-1" and f["decision"] == F.NOT_RULED_PROTECTED
+    assert f["protected_targets"] == [LIMITS] and f["by"] == R.BY_PROTECTED
     [rec] = [json.loads(l) for l in (d / "rulings" / R.FOR_PERSON).read_text().splitlines()]
     assert rec["mode"] == "gate" and rec["sentence"] == LIMITS
 

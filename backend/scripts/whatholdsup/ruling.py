@@ -98,6 +98,7 @@ import jsonio  # noqa: E402
 
 MODEL = "claude-opus-5-5"
 BY = "ruling model %s" % MODEL
+BY_PROTECTED = "code (ruling.py gate: protected sentence, left for a person)"
 RULE_FIELDS = ("sentence", "kind", "reason", "proposed_text", "quoted_source_text")
 QUOTE_AROUND = 600
 # The ruling's output limit. 1,500 until 2026-10-22, when a WHU-S01 ruling
@@ -647,8 +648,30 @@ def rule_gate(slug: str, call, *, P=None, report: dict | None = None, rows: dict
     doc = F.load(slug)
     done = []
     recency: dict = {}
-    for group in by_sentence(_rulable("gate", _gate_items(rows, report, doc, held, slug), rows,
-                                      log_path(slug))):
+    keep, person = split_protected(_gate_items(rows, report, doc, held, slug), rows)
+    route_to_person("gate", person, log_path(slug))
+    # A GATE FINDING ON A PROTECTED SENTENCE (post-study, mid-rerun tool fix,
+    # 2026-10-28) is recorded not_ruled_protected, as an advocate or omission
+    # item is closed (fix 7), so it can settle: findings.check accepts it only
+    # while every target it names is protected. A recency finding's other
+    # sentences are still ruled, one each; it settles when all have an answer.
+    on = datetime.now(timezone.utc).date().isoformat()
+    for it in person:
+        f = it["finding"]
+        why = ("the sentence is protected (%s); a protected sentence is never ruled by the model; "
+               "left for a person" % it["protected"])
+        if it.get("recency") and it["ref"].get("row"):
+            f.setdefault("sentence_rulings", []).append({
+                "row": it["ref"]["row"], "sentence": it["sentence"], "decision": F.NOT_RULED_PROTECTED,
+                "protected": it["protected"], "source_id": "", "quote": "", "why": why,
+                "ruling": None, "ruled": "ruling.py gate, not ruled: protected sentence", "on": on})
+            recency[f.get("id")] = (f, it["study"])
+            continue
+        f.update({"decision": F.NOT_RULED_PROTECTED, "protected_targets": [it["sentence"]],
+                  "source_id": "", "quote": "", "why": why, "by": BY_PROTECTED, "on": on})
+        f.pop("_fill_in", None)
+        done.append(f)
+    for group in by_sentence(keep):
         r = _try_sentence("gate", group, held, call, log_path(slug), failed)
         if r is None:
             continue
@@ -697,9 +720,22 @@ def _settle_recency(slug: str, f: dict, rows: dict, study: str) -> bool:
     (sentence_rulings, and each ruling's log record)."""
     import findings as F
     _sids, keys = F.recency_targets(slug, study, rows)
-    srs = f.get("sentence_rulings") or []
-    if not keys or set(keys) - {x["row"] for x in srs}:
+    srs_all = f.get("sentence_rulings") or []
+    if not keys or set(keys) - {x["row"] for x in srs_all}:
         return False                         # a sentence still to rule (RULING_FAILED)
+    # a protected sentence's answer is not_ruled_protected (rule_gate); the
+    # decision is the other sentences', or not_ruled_protected if all are
+    protected = [x for x in srs_all if x["decision"] == F.NOT_RULED_PROTECTED]
+    srs = [x for x in srs_all if x["decision"] != F.NOT_RULED_PROTECTED]
+    if protected:
+        f["protected_targets"] = [x["sentence"] for x in protected]
+    if not srs:
+        f.update({"decision": F.NOT_RULED_PROTECTED, "source_id": "", "quote": "",
+                  "why": "; ".join("%s: %s" % (x["row"], x["why"]) for x in protected),
+                  "by": BY_PROTECTED, "on": datetime.now(timezone.utc).date().isoformat(),
+                  "ruled": "ruling.py gate, every body sentence protected (sentence_rulings)"})
+        f.pop("_fill_in", None)
+        return True
     changed = [x for x in srs if x["ruling"] in ("accept", "amend")]
     pool = changed or srs
     cited = next((x for x in pool if x["decision"] != "judgement"), None)

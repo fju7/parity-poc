@@ -79,7 +79,13 @@ import spancheck as SC          # noqa: E402
 import quotations as Q          # noqa: E402
 
 OK, BAD, WARN = "ok", "BLOCKED", "warn"
-DECISIONS = ("accepted", "rejected", "judgement", "attested", "moot")
+NOT_RULED_PROTECTED = "not_ruled_protected"
+DECISIONS = ("accepted", "rejected", "judgement", "attested", "moot", NOT_RULED_PROTECTED)
+# not_ruled_protected (post-study, mid-rerun tool fix, 2026-10-28): the finding's
+# target is a protected sentence, which the ruling model never rules; ruling.py
+# gate records it for a person (as fix 7 closes advocate and omission items).
+# Needs `protected_targets`, each still protected on the page
+# (source_advocate.protected_check); otherwise it is unsettled.
 # Two decisions added 2026-09-12, each with its own evidence requirement:
 #   attested   the finding is about a source no automated reader may open, and
 #              an operator's recorded answer in an advocate adjudication covers
@@ -589,6 +595,7 @@ def check(slug: str, report: dict) -> list[tuple[str, str, str]]:
     unmatched = _unmatched_recency(slug, opens, have)
     missing, unsettled, unverified, judged, unevaluable, partly = [], [], [], [], [], []
     undecided = []
+    is_protected = None
     for f in opens:
         r = record_for(have, f)
         if not r or r.get("decision") not in DECISIONS:
@@ -647,6 +654,15 @@ def check(slug: str, report: dict) -> list[tuple[str, str, str]]:
                 unsettled.append("%s: 'attested' names %r and no answer for the "
                                  "source this finding is about carries its figure"
                                  % (f["id"], qid))
+            continue
+        if d == NOT_RULED_PROTECTED:
+            if is_protected is None:
+                import source_advocate as SA
+                is_protected = SA.protected_check(slug)
+            targets = [t for t in r.get("protected_targets") or [] if (t or "").strip()]
+            if not targets or not all(is_protected(t) for t in targets):
+                unsettled.append("%s: %r needs protected_targets, each a protected sentence "
+                                 "on the page" % (f["id"], d))
             continue
         if d == "moot":
             if not (r.get("vanished") or "").strip():
