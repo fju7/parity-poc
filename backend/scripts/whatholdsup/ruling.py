@@ -837,6 +837,7 @@ def advocate_items(slug: str, case: Path | None = None) -> list[dict]:
     import source_store as store
     d = (case or store.case_dir(slug)) / "advocate"
     out = []
+    is_protected = SA.protected_check(slug)
     for bf in sorted(d.glob("*-briefs.json")) if d.exists() else []:
         if "TEST" in bf.name:
             continue
@@ -853,7 +854,7 @@ def advocate_items(slug: str, case: Path | None = None) -> list[dict]:
                 if b.get("mode", "objections") != "objections":
                     continue
                 c = chunks.get(head)
-                if c is None or SA._closed(c, "objections"):
+                if c is None or SA._closed(c, "objections", is_protected):
                     continue
                 out.append({"file": adj, "head": head, "source": b["source"], "objection": o,
                             "principal": b.get("principal")})

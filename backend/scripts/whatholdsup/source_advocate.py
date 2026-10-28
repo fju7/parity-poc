@@ -511,7 +511,17 @@ def briefs_path(slug: str, name: str) -> Path:
     return d / f"{name}-briefs.json"
 
 
-VERDICT = re.compile(r"^\s*MERIT:\s*(yes|partly|no)\b", re.I | re.M)
+VERDICT = re.compile(r"^\s*MERIT:\s*(yes|partly|no|not_ruled_protected)\b", re.I | re.M)
+# NOT RULED: A PROTECTED SENTENCE (post-study, mid-rerun tool fix, 2026-10-28).
+# An objection (or omission objection) aimed at a protected sentence is never put
+# to a ruling (ruling.split_protected) and waits for a person. "MERIT:
+# not_ruled_protected" is how the person closes it, and it is accepted ONLY when
+# the sentence the item targets is protected (bindings.protected_kind, or the
+# binding row's "protected" marker): see protected_check. It is not a merit
+# verdict, so the readers' list never shows it; not_ruled_protected() lists the
+# items for the study log.
+NOT_RULED_PROTECTED = "not_ruled_protected"
+TARGET_LINE = re.compile(r"^\*\*(?:We say|Nearest page sentence)\.\*\*[ \t]*(.*)$", re.M)
 # The EFFECT line is read in two steps, and the split is the point. Whether a
 # person ANSWERED is settled by the fields being present; which WORD they used
 # is a vocabulary question and is reported as one. Until 11 September 2026 the
@@ -566,10 +576,29 @@ def _withdrawal(chunk: str) -> tuple[str, str] | None:
     return ((who.group(1).strip() if who else ""), (why.group(1).strip() if why else ""))
 
 
-def _closed(chunk: str, mode: str) -> bool:
+def protected_check(slug: str):
+    """sentence -> True when it is protected on SLUG's page (bindings.protected_kind,
+    with the binding row's marker when the sentence has a row)."""
+    import bindings as B
+    rows = []
+
+    def check(s: str) -> bool:
+        if not rows:                 # read once, and only when an item asks
+            try:
+                rows.append(B.load(slug).get("bindings") or {})
+            except (Exception, SystemExit):
+                rows.append({})
+        return bool(s) and B.protected_kind(s, rows[0].get(B.fingerprint(s))) is not None
+    return check
+
+
+def _closed(chunk: str, mode: str, is_protected=None) -> bool:
     """Has a person written the verdict? Presence of the fields decides this;
     the EFFECT word's spelling does not (see unrecognised_effect). A complete
-    withdrawal -- who, and why -- closes a question too (see _withdrawal)."""
+    withdrawal -- who, and why -- closes a question too (see _withdrawal).
+    MERIT: not_ruled_protected closes an item only when IS_PROTECTED (see
+    protected_check) says the sentence it targets is protected; with no
+    checker it does not."""
     if mode == "questions":
         w = _withdrawal(chunk)
         if w is not None:
@@ -582,7 +611,11 @@ def _closed(chunk: str, mode: str) -> bool:
             return True
         import omissions as O
         return O.cap_of("%s %s" % (om.group(2), did.group(1))) is not None
-    return bool(VERDICT.search(chunk) and EFFECT_LINE.search(chunk))
+    v = VERDICT.search(chunk)
+    if v and v.group(1).lower() == NOT_RULED_PROTECTED:
+        t = TARGET_LINE.search(chunk)
+        return bool(is_protected and t and is_protected(t.group(1).strip()))
+    return bool(v and EFFECT_LINE.search(chunk))
 
 
 def unrecognised_effect(chunk: str) -> str | None:
@@ -604,6 +637,7 @@ def write_template(slug: str, day: str, briefs: list[dict], name: str | None = N
              "reason on the record, does not.", "",
              "For an OBJECTION, from a source a machine could read:", "",
              "    MERIT:  yes | partly | no   — and why, citing what you read",
+             "            (or not_ruled_protected, only on a protected sentence)",
              "    EFFECT: changes | narrows | sharpens | corrects | none",
              "    DID:    what actually changed, or nothing and why", "",
              "For an OMISSION (type LEAVES_OUT), closed by the omission ruling:", "",
@@ -699,8 +733,9 @@ def open_items(slug: str) -> tuple[list[str], list[str]]:
     """(open objections, open questions for a human). Both block. A question
     with an incomplete withdrawal is neither: see withdrawals()."""
     objs, qs = [], []
+    is_protected = protected_check(slug)
     for fname, head, chunk, mode in _chunks(slug):
-        if _closed(chunk, mode):
+        if _closed(chunk, mode, is_protected):
             continue
         if mode == "questions" and _withdrawal(chunk) is not None:
             continue          # reported by withdrawals(), not as unanswered
@@ -735,6 +770,15 @@ def vocabulary_problems(slug: str) -> list[str]:
         if w is not None:
             out.append(f"{head}: EFFECT \"{w}\"")
     return out
+
+
+def not_ruled_protected(slug: str) -> list[str]:
+    """Items closed "MERIT: not_ruled_protected" on a protected sentence: for the
+    study log, never the readers' list."""
+    is_protected = protected_check(slug)
+    return ["%s: %s" % (fname, head) for fname, head, chunk, mode in _chunks(slug)
+            if mode != "questions" and (VERDICT.search(chunk) or [None, ""])[1].lower() == NOT_RULED_PROTECTED
+            and _closed(chunk, mode, is_protected)]
 
 
 def unadjudicated(slug: str) -> list[str]:
@@ -773,6 +817,11 @@ def preflight_rows(slug: str) -> list[tuple[str, str, str]]:
         rows.append(("withdrawals name who and why", BAD,
                      f"{len(incomplete)} withdrawal(s) missing the person or the reason -- "
                      f"a closure nobody signed is not a closure: " + "; ".join(incomplete[:3])))
+    nrp = not_ruled_protected(slug)
+    if nrp:
+        rows.append(("objections not ruled: protected sentence", OK,
+                     f"INFO, for the study log (not the readers' list): {len(nrp)} item(s) on a "
+                     f"protected sentence, closed not_ruled_protected: " + "; ".join(nrp[:4])))
     vocab = vocabulary_problems(slug)
     if vocab:
         rows.append(("effect vocabulary recognised", WARN,
