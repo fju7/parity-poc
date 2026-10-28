@@ -11,7 +11,7 @@ real omission ruling (fake model) and rendered by the real
 coverage_check.declarations.
 
 COUNTERFACTUAL. Put back the first-sentence one_line and t_s01_style goes red;
-drop the Step filter (plain = parts) and t_last_is_a_step goes red; drop
+drop the Step filter (plain = parts) and t_every_sentence_is_a_step goes red; drop
 reader_reason (use the reason) and t_reason_for_reader goes red.
 """
 import sys
@@ -40,8 +40,11 @@ def test_s01_style_reason_gives_its_concluding_sentence():
                                      "so this adds nothing a reader needs")
 
 
-def test_when_the_last_sentence_is_a_step_its_step_label_goes():
-    assert C.one_line(ALL_STEPS) == "Not material, because the page already reports the same direction of effect"
+def test_when_every_sentence_is_a_step_there_is_no_line():
+    # Until fix 13 (2026-10-28) the last step was shown without its "Step N:"
+    # label; every sentence naming a step is now working, and the readers' list
+    # gives the standard outcome phrase (test_whatholdsup_reader_working.py).
+    assert C.one_line(ALL_STEPS) == ""
 
 
 @pytest.mark.parametrize("reason", [S01_STYLE, ALL_STEPS, "Step 1: The finding is in scope.",

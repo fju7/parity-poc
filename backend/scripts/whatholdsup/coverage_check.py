@@ -357,29 +357,34 @@ STANDARD_REASON = {"out_of_scope": "Judged outside this question",
 def line_reason(d: dict) -> str:
     """The reason a readers'-list line carries for declaration D: for
     not_added_cap, which cap; else the reader line (reader_reason), or the
-    standard phrase for the outcome when that text carries a location tag."""
+    standard phrase for the outcome when that text carries a location tag or
+    has no sentence that is not the ruling's working (one_line is empty)."""
     import omissions as O
     if d["state"] == "not_added_cap":
         return CAP_REASON % O.cap_of(d["reason"])
     text = d.get("for_reader") or ""
-    return STANDARD_REASON[d["state"]] if _LOC_TAG.search(text) else text
+    return STANDARD_REASON[d["state"]] if _LOC_TAG.search(text) or not one_line(text) else text
 
 
 # ONE READER-FACING LINE, NOT THE RULING'S WORKING (post-study, mid-rerun tool
 # fix, 2026-10-28). WHU-S01r's reasons read "Step 1: The finding is in scope.
 # Step 2: ..." and the readers' list printed "Step 1: The finding is in scope".
 # The line is the record's reason_for_reader when it has one, else the reason's
-# FINAL sentence -- its conclusion -- and never a sentence starting "Step N:"
-# (when every sentence is a step, the last one without its "Step N:").
+# FINAL sentence -- its conclusion -- and never the ruling's working.
+# WORKING IS ANY SENTENCE THAT MENTIONS "Step N" (post-study, mid-rerun tool fix
+# 13, 2026-10-28), not only one that starts with it: WHU-S01r printed "Step 2 also
+# fails: ..." and "Step 2 is therefore not reached." When every sentence is
+# working, one_line is empty and line_reason gives the standard outcome phrase.
 _STEP = re.compile(r"^\s*Step\s*\d+\s*[:.)\-–—]\s*", re.I)
+_WORKING = re.compile(r"\bStep\s*\d+", re.I)
 
 
 def one_line(reason: str) -> str:
+    """The reason's last sentence that is not working (_WORKING), or ""."""
     parts = [p.strip() for line in (reason or "").splitlines()
              for p in _SENT.split(" ".join(line.split())) if p.strip()]
-    plain = [p for p in parts if not _STEP.match(p)]
-    r = plain[-1] if plain else (_STEP.sub("", parts[-1]) if parts else "")
-    return r.rstrip(" .;")[:200]
+    plain = [p for p in parts if not _WORKING.search(p)]
+    return plain[-1].rstrip(" .;")[:200] if plain else ""
 
 
 def reader_reason(d: dict) -> str:
