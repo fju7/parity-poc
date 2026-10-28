@@ -681,6 +681,10 @@ APPROVED_ANTHROPIC_IMPORTERS = {
     "scripts.signal.generate_notifications", "scripts.signal.generate_summary", "scripts.signal.map_consensus",
     "scripts.signal.score_claims", "scripts.signal.factcheck_draft",
     "scripts.whatholdsup.audit_stage",   # WHU audit stage: its own metered Caller, as factcheck_draft (2026-10-20)
+    # WHU "check an AI answer" preview (2026-10-28): builds a metered client for the study's M1 judge
+    # (study/whu-reliability/check_pilot/pipeline.py); output is a label from M1's fixed set plus the judge's
+    # reason, shown as AI-judged; unlisted page, access code required.
+    "routers.whu_check",
 }
 
 

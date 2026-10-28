@@ -2969,6 +2969,27 @@ Origin: docs/whu-omissions-investigation-2026-10.md (13 Understates/Omits items,
   rule covers AR6 WGII/WGIII only (no WGI URL recorded); IPCC terms are summarised, not read by the
   script; the study issues now STOP on the new rows (post-study rules, no study record changed).
 
+## WHU "check an AI answer": pilot and unlisted preview (2026-10-28)
+Design (fixed before code): docs/whu-check-an-answer-pilot.md. Internal; outside the study's H1/H2.
+- Pipeline: study/whu-reliability/check_pilot/pipeline.py -- the study's own code by path (adapt.py formats;
+  blind.py sentences; identifiability.claim_like; find_access licence BEFORE any fetch, Creative Commons only;
+  retrieve_sources routes a-c; judge_m1 M1 v3, Claude only, first read). Labels BACKED / NOT BACKED /
+  NO SOURCE / COULDN'T CHECK. Max 40 claims. Pilot runner: check_pilot/run_pilot.py (draw | prepare | run --cap | compare),
+  ledger issue whu-check-pilot; private outputs ~/Projects/whu-study-private/check_pilot/.
+- Preview API: backend/routers/whu_check.py, POST /api/whu/check, GET /api/whu/check/{id}. Header X-Check-Code must
+  equal env WHU_CHECK_CODE (401); env unset -> 503 for every request. Caps: caps.json per_issue["whu-check-preview"] $20
+  and per_issue_per_day $10, plus default_per_day, checked before a job's first call (402). 20,000 chars, 40 claims,
+  one job at a time. OriginGuard: /api/whu/* browser calls from https://whatholdsup.org only. Operator log
+  backend/data/whu_check/jobs.jsonl (gitignored; no text). Added to verify/policy.py APPROVED_ANTHROPIC_IMPORTERS.
+- Page: site/whatholdsup/check.html, unlisted (noindex,nofollow; not in sitemap.xml; robots.txt Disallow: /check; no
+  page links to it). vercel.json rewrites /api/whu/* to the Render API, so the page calls same-origin.
+  NOT YET PUSHED (2026-10-28): guard_published.py refuses any top-level site page that is not STANDING or a published
+  issue; classifying check.html is left to Fred / the advisor (no --no-verify).
+- KNOWN LIMIT: Render's filesystem is not persistent, so the ledger lines the preview writes are lost on each
+  deploy or restart; the $20 total is enforced per running instance, not across deploys.
+- Tests: backend/tests/test_whu_check_pilot.py, test_whu_check_router.py (fixtures/whu_check/: a constructed
+  answer, a CC BY source excerpt, recorded replies).
+
 ## Standing instructions for every session
 1. Read this file at the start of every session
 2. Verify all file paths before issuing commands

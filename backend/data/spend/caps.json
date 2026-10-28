@@ -2,11 +2,17 @@
   "_what_this_is": "Spending caps per issue, in US dollars, enforced by spend_ledger.check_cap before a priced run starts. A cap here is a number in a committed file rather than a sentence in a conversation, which is the difference between a cap and an intention.",
   "_why_the_number": "Recorded gate runs cost $2.56 to $10.63 each, and the first full run on a new issue is the expensive one because SOURCE searches every claim. A re-gate after corrections is roughly $2. An issue that has been through a first run, an outside review, two re-gates and a counterexample hunt should land near $25. $40 leaves room for a bad week; hitting it means something is wrong with the process, not with the budget.",
   "default_per_issue": 40,
-  "per_issue": {},
+  "per_issue": {
+    "whu-check-preview": 20
+  },
   "study_per_issue": 50,
   "_why_the_study_cap": "ruled 2026-10-20, protocol rev 27. Each reliability-study issue (issue.json \"study\": true) has a $50 limit, set before the freeze. If an answer cannot finish within it, that is recorded as a result and the limit is not raised. The day cap below still applies, and a run picks up the next day.",
   "study_judging_per_day": 150,
   "_why_the_study_judging_day_cap": "advisor ruling 2026-10-23: the reliability study's judge runners (judge_m1.py, judge_m2.py) check their own daily cap, summed over the judging ledger issues only, and the per-run cap; not the $25 day cap below or any WHU issue cap. The study total is still bounded by the $300 check.",
   "default_per_day": 25,
-  "_why_the_day_cap": "A per-issue cap cannot see work that is not attributed to an issue -- every Signal script, the golden set, the sweeps -- nor a bad afternoon spread across three issues. This ceiling covers everything and does not depend on getting attribution right. It matters most now that jobs can run unattended."
+  "_why_the_day_cap": "A per-issue cap cannot see work that is not attributed to an issue -- every Signal script, the golden set, the sweeps -- nor a bad afternoon spread across three issues. This ceiling covers everything and does not depend on getting attribution right. It matters most now that jobs can run unattended.",
+  "per_issue_per_day": {
+    "whu-check-preview": 10
+  },
+  "_why_whu_check_preview": "Fred's brief, 2026-10-28: the unlisted 'check an AI answer' preview (backend/routers/whu_check.py) spends on ledger issue whu-check-preview, $20 in total and $10 per UTC day, checked before each job's first model call; over means 402 and no call."
 }

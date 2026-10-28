@@ -1,4 +1,5 @@
 User-agent: *
 Allow: /
+Disallow: /check
 
 Sitemap: https://whatholdsup.org/sitemap.xml

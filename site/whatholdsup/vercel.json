@@ -17,5 +17,8 @@
         { "key": "Cache-Control", "value": "public, max-age=3600, must-revalidate" }
       ]
     }
+  ],
+  "rewrites": [
+    { "source": "/api/whu/:path*", "destination": "https://parity-poc-api.onrender.com/api/whu/:path*" }
   ]
 }

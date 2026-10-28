@@ -105,3 +105,6 @@ issues/*/audit/*/quote_rejections.jsonl
 issues/*/advocate/quote_checks.jsonl
 # The advocate's resumable run directories (briefs and quotation checks; 2026-10-20).
 issues/*/advocate/runs/
+
+# WHU check preview operator log (time, counts, cost, input sha256; never committed)
+backend/data/whu_check/

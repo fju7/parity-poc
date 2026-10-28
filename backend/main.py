@@ -38,6 +38,7 @@ from routers.billing_portal import router as billing_portal_router
 from routers.billing_contracts import router as billing_contracts_router
 from routers.billing_escalations import router as billing_escalations_router
 from routers.billing_subscription import router as billing_subscription_router
+from routers.whu_check import router as whu_check_router, OriginGuard as WhuCheckOriginGuard
 
 
 @asynccontextmanager
@@ -94,6 +95,9 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+# /api/whu/* only: browser calls from whatholdsup.org alone. Added after the app-wide
+# CORS middleware so it runs outside it (routers/whu_check.py, OriginGuard).
+app.add_middleware(WhuCheckOriginGuard)
 
 
 # Global exception handler — ensures unhandled 500 errors return a proper
@@ -139,6 +143,7 @@ app.include_router(billing_portal_router)
 app.include_router(billing_contracts_router)
 app.include_router(billing_escalations_router)
 app.include_router(billing_subscription_router)
+app.include_router(whu_check_router)
 
 
 @app.get("/")
