@@ -43,7 +43,9 @@ INSERTED BY AN OMISSION RULING (post-study fix 2, step 6, 2026-10-27). An ADD
 the omission ruling decided (omissions.json, outcome ADD, with its ruling id)
 inserts a sentence; it replaces nothing. It is applied when every sentence of
 its text is on the page AND the page sentence directly before it is the one
-the decision named (omissions.json "after", a fingerprint). A later ruling on
+the decision named (omissions.json "after", a fingerprint). Several ADDs naming
+one sentence sit immediately after it as one contiguous run, in any order among
+themselves (mid-rerun tool fix, 2026-10-28). A later ruling on
 the inserted text supersedes it, as for any other ruling, and an audit cut of
 it is "cut as ruled" when it is gone. A ruling the model returned "add" that
 code refused (to a person) has no ADD entry and expects nothing.
@@ -162,6 +164,7 @@ def check_inserts(case: Path, page_html: str, rulings: list[dict], cuts: list[di
     out = {"inserted": [], "mismatches": [], "superseded": [], "cut": []}
     applied = [r for r in rulings if r.get("ruling") in APPLIED]
     cut_texts = {_n(t) for c in cuts for t in [c.get("last_text")] + [x.get("text") for x in c.get("rounds") or []]}
+    placed: dict[str, list] = {}
     for e in load_inserts(case, rulings):
         new = _n(e.get("text"))
         ref = {"log": e["_log"], "ruling": "add", "ruling_kind": "omission", "ruled_on": "", "text": e.get("text"),
@@ -183,14 +186,48 @@ def check_inserts(case: Path, page_html: str, rulings: list[dict], cuts: list[di
         if missing:
             out["mismatches"].append(dict(ref, expected=want, missing=missing))
             continue
-        i = page.index(want[0])
-        before = page[i - 1] if i else None
-        if e.get("after") and (before is None or _fp(before) != e["after"]):
-            out["mismatches"].append(dict(ref, expected=want, missing=[], misplaced=True,
-                                          why="not directly after the sentence the decision named"))
+        if e.get("after"):
+            placed.setdefault(e["after"], []).append((ref, want))
             continue
         out["inserted"].append(dict(ref, expected=want))
+    # PLACEMENT, BY ANCHOR. Several ADDs may name the same sentence (post-study,
+    # mid-rerun tool fix, 2026-10-28: WHU-S01r/S07r). Together they must sit
+    # immediately after it as one contiguous run, each ADD's sentences whole
+    # and in its own order, the ADDs in any order among themselves. One ADD
+    # naming a sentence is the case before: its first sentence directly after
+    # the anchor.
+    for anchor, group in placed.items():
+        if len(group) > 1:
+            ok = _tiles(page, anchor, [w for _r, w in group])
+        else:
+            i = page.index(group[0][1][0])
+            ok = bool(i) and _fp(page[i - 1]) == anchor
+        for ref, want in group:
+            if ok:
+                out["inserted"].append(dict(ref, expected=want))
+            else:
+                out["mismatches"].append(dict(ref, expected=want, missing=[], misplaced=True,
+                                              why="not directly after the sentence the decision named"
+                                              + ("" if len(group) == 1 else
+                                                 ", in one contiguous run with the %d other ADD(s) "
+                                                 "naming it" % (len(group) - 1))))
     return out
+
+
+def _tiles(page: list[str], anchor: str, blocks: list[list[str]]) -> bool:
+    """True if, after some page sentence whose fingerprint is `anchor`, the
+    next sentences are exactly the `blocks` laid end to end in some order."""
+    n = sum(len(b) for b in blocks)
+
+    def fill(at: int, left: tuple) -> bool:
+        if not left:
+            return True
+        return any(page[at:at + len(blocks[k])] == blocks[k]
+                   and fill(at + len(blocks[k]), left[:j] + left[j + 1:])
+                   for j, k in enumerate(left))
+
+    return any(_fp(s) == anchor and len(page) - (i + 1) >= n and fill(i + 1, tuple(range(len(blocks))))
+               for i, s in enumerate(page))
 
 
 def check(case: Path, page_html: str) -> dict:
