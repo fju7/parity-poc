@@ -336,11 +336,33 @@ def account(units: list[dict], rows: dict, held: dict[str, str], omissions_doc: 
 # ---------------------------------------------------------------- the readers' list
 
 def short_span(text: str, words: int = SPAN_WORDS) -> str:
-    """The first sentence of TEXT, at most WORDS words, verbatim; an ellipsis
-    marks a cut. Collapsed whitespace only."""
-    first = _SENT.split(" ".join((text or "").split()), maxsplit=1)[0]
-    w = first.split()
+    """TEXT -- the finding's own source span -- cut at WORDS words, verbatim; a
+    trailing ellipsis marks a cut. Collapsed whitespace only. A span of more than
+    one sentence is cut to one by declaration_sentence (2026-10-28: was cut at
+    its first sentence here, with no ellipsis to say so)."""
+    w = (text or "").split()
     return " ".join(w[:words]) + (" …" if len(w) > words else "")
+
+
+# A STANDARD PHRASE WHERE THE REASON CARRIES LOCATIONS (post-study, mid-rerun
+# tool fix, 2026-10-28). A public reason that quoted the source has the quotation
+# replaced by its location ("[S003@1204-1311]", omissions.redact), which means
+# nothing to a reader. With no reason_for_reader, the line says the outcome in
+# standard words instead; the quotation is always the finding's own span.
+_LOC_TAG = re.compile(r"\[S\w*@\d+-\d+\]")
+STANDARD_REASON = {"out_of_scope": "Judged outside this question",
+                   "not_material": "Judged not material"}
+
+
+def line_reason(d: dict) -> str:
+    """The reason a readers'-list line carries for declaration D: for
+    not_added_cap, which cap; else the reader line (reader_reason), or the
+    standard phrase for the outcome when that text carries a location tag."""
+    import omissions as O
+    if d["state"] == "not_added_cap":
+        return CAP_REASON % O.cap_of(d["reason"])
+    text = d.get("for_reader") or ""
+    return STANDARD_REASON[d["state"]] if _LOC_TAG.search(text) else text
 
 
 # ONE READER-FACING LINE, NOT THE RULING'S WORKING (post-study, mid-rerun tool
@@ -373,11 +395,22 @@ def declaration_sentence(state: str, span: str, label: str, reason: str) -> str:
     import source_ledger as ledger
     cut = span.endswith(" …")
     words = span[:-2].split() if cut else span.split()
+
+    def line(ws: list[str], c: bool) -> str:
+        return "%s “%s” (%s); %s." % (LEAD[state], " ".join(ws) + (" …" if c else ""), label, one_line(reason))
+
     while True:
-        s = "%s “%s” (%s); %s." % (LEAD[state], " ".join(words) + (" …" if cut else ""), label, one_line(reason))
+        s = line(words, cut)
         if len(ledger.sentences(s)) <= 1:
             return s
         dotted = [i for i, w in enumerate(words) if "." in w]
+        # first try ending at the first full stop, the stop dropped for the
+        # ellipsis (". …" would split), so a span of two sentences keeps its
+        # first; then before the word that carries it ("e.g.")
+        if dotted and dotted[0] + 1 < len(words) and "." not in words[dotted[0]].rstrip("."):
+            first = words[:dotted[0]] + [words[dotted[0]].rstrip(".")]
+            if len(ledger.sentences(line(first, True))) <= 1:
+                return line(first, True)
         words = words[:dotted[0]] if dotted and dotted[0] > 0 else words[:-1]
         cut = True
         if not words:
@@ -417,8 +450,8 @@ def declarations(slug: str, held: dict[str, str], case: Path | None = None) -> l
                     "decided_at": d.get("decided_at") or ""})
     out.sort(key=lambda d: d["decided_at"])
     for d in out:
-        reason = CAP_REASON % O.cap_of(d["reason"]) if d["state"] == "not_added_cap" else d["for_reader"]
-        d["sentence"] = declaration_sentence(d["state"], short_span(d["text"]), _label(srcs, d["source"]), reason)
+        d["sentence"] = declaration_sentence(d["state"], short_span(d["text"]), _label(srcs, d["source"]),
+                                             line_reason(d))
     return out
 
 
