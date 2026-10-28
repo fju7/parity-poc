@@ -144,3 +144,56 @@ inputs are the study's own captures; its outputs stay in the private folder
 path), `run_pilot.py` (the sample, the estimate, the run, the comparison), and offline tests in
 `backend/tests/test_whu_check_pilot.py` on one recorded answer with recorded sources and a
 recorded judge reply.
+
+## 9. v2, written after v1's estimate, before v1 ran
+
+Advisor ruling of 2026-10-28 (Fred approved option B). Written before any v2 code and before v1's
+paid run. v1 (§1-§8) is unchanged and runs as frozen; v2 is a separate run.
+
+**Why.** v1's free preparation (2026-10-28) left 240 of its 299 claims COULDN'T CHECK: 225 cite an
+address with no PMCID, PMID or DOI in it, so no licence could be read, and 15 cite Frontiers
+addresses whose DOI `find_access.ids_from_url` reads with a trailing "/full". The study's helper is
+not changed and the study's records stay as they are (§9.5).
+
+**9.1 Identifiers.** The pilot's own copy of the identifier step (`pipeline.ids_v2`) takes
+`find_access.ids_from_url`'s result and trims a trailing `/full`, `/abstract`, `/pdf`, `/epdf`,
+`/html` or `/fulltext` from the DOI. If the address still yields no identifier:
+1. the landing page is fetched (only where §9.3 allows) and a DOI is read from its
+   `citation_doi`, `dc.identifier` (or `DC.identifier`) or `prism.doi` meta tag;
+2. else a Crossref title lookup (`api.crossref.org/works?query.bibliographic=<title>&rows=1`), with
+   the title taken from the answer's own reference entry (the link text of `[title](url)`); the hit
+   is accepted only if `find_access.titles_agree` says the titles agree.
+
+**9.2 Licence, for a work with a DOI or PMCID/PMID.** As v1 §3.4: Europe PMC's `license` field,
+else an Unpaywall location with a Creative Commons licence. An openly licensed work is snapshotted
+as v1 §3.5. A journal work with no open licence stays COULDN'T CHECK ("no open-licence copy").
+
+**9.3 Web pages that are not journal works** (no DOI found by 9.1): fetched where the site's
+robots.txt allows it for the snapshot's User-Agent (`snapshot.UA`; `urllib.robotparser`; a robots.txt
+that answers 4xx allows, one that cannot be fetched or answers 5xx disallows), by routes (a) and (b),
+and judged as v1 §3.6. A page robots.txt disallows is COULDN'T CHECK ("robots.txt disallows").
+
+**9.4 Barred publishers, never fetched** (not the page, not the landing page): Elsevier (DOI prefix
+10.1016; hosts sciencedirect.com, elsevier.com, thelancet.com, cell.com); Wiley-hosted works without a
+Creative Commons licence (DOI 10.1002 or 10.1111; hosts onlinelibrary.wiley.com, cochranelibrary.com);
+SAGE works without a Creative Commons licence (DOI 10.1177; host journals.sagepub.com); NCCN (host
+nccn.org). An Elsevier or NCCN work is always COULDN'T CHECK; a Wiley or SAGE work with a Creative
+Commons licence is read only from an open copy found by v1 §3.5's route (c). The reason names the bar.
+The host test runs before any fetch; the DOI test as soon as a DOI is known.
+
+**9.5 What stays as in v1.** The pipeline's other steps (§3), the labels and their mapping, the
+40-claim limit, the Claude judge with M1 v3 on its first read, the test (§5) and the same three bars
+(agreement at least 90%; COULDN'T CHECK at most 20%; $5 per answer or less). Failing is a result.
+
+**9.6 Sample.** 8 answers from WHU-S01 to WHU-S04, drawn with
+`random.Random("%d/check-pilot-v2" % SEED)` (SEED the freeze commit as a hexadecimal integer, written
+in decimal), excluding v1's 8: for each system in the order Claude, ChatGPT, Gemini, Perplexity,
+`sorted(rng.sample(<that system's questions not in v1>, 2))`. Each system has four questions and v1
+took two, so the draw yields the other two for each system.
+
+**9.7 Spend and order.** `--cap 35` on ledger issue `whu-check-pilot-v2`, run after v1, each run within
+caps.json's $25 all-spend day cap (checked before every call, as v1 §6). Estimate printed first; over
+$35 means STOP.
+
+**9.8 The preview** (`backend/routers/whu_check.py`) switches to v2 once v2 has run, whatever its
+result. The page's banner stays as written.
