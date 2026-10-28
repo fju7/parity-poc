@@ -405,6 +405,36 @@ def interrupted_by(verbatim: str, body: str) -> str | None:
     return None
 
 
+# AN ELLIPSIS IS THE PAGE SAYING "WORDS LEFT OUT HERE". norm() turns "…" into
+# "...", so both spellings reach this as "...". A quotation that elides is the
+# source's words only if every piece between the ellipses is in the source
+# verbatim, in the page's order; one piece missing, or two swapped, and it is
+# not. Post-study, mid-rerun tool fix (2026-10-28): WHU-S01r/S07r quoted with
+# ellipses and every such quotation read as altered.
+ELLIPSIS = "..."
+
+
+def quoted_in(quote: str, body: str) -> bool:
+    """True if `quote` is in `body` whole, or -- when it carries an ellipsis --
+    every segment between ellipses occurs in `body` in order without overlap.
+    Both arguments already norm()ed."""
+    if quote in body:
+        return True
+    if ELLIPSIS not in quote:
+        return False
+    segs = [s.strip() for s in quote.split(ELLIPSIS)]
+    segs = [s for s in segs if s]
+    if not segs:
+        return False
+    at = 0
+    for s in segs:
+        i = body.find(s, at)
+        if i == -1:
+            return False
+        at = i + len(s)
+    return True
+
+
 def _rel(page: Path) -> str:
     try:
         return str(Path(page).resolve().relative_to(ROOT))
@@ -498,7 +528,7 @@ def preflight_rows(slug: str, page_text: str,
                 unattested.append("%s: nothing recorded as the source's wording"
                                   % (r.get("id") or q[:40]))
             continue
-        if norm(q) not in verbatim:
+        if not quoted_in(norm(q), verbatim):
             altered.append("%s: page has %r; source has %r"
                            % (r.get("id") or "?", q[:60], r.get("verbatim", "")[:60]))
             continue
@@ -535,17 +565,17 @@ def preflight_rows(slug: str, page_text: str,
             # A HYPHEN THE PDF TEXT DROPPED is not a different wording: S029's
             # "high-quality" extracts as "highquality". PDF layers only, and
             # said so (spancheck.find_dropping_hyphens).
-            dh = [f for f, b in bodies if not any(qn in bb for _ff, bb in bodies)
+            dh = [f for f, b in bodies if not any(quoted_in(qn, bb) for _ff, bb in bodies)
                   and _SC.is_pdf_layer(f) and _SC.find_dropping_hyphens(qn, b)]
             if dh:
                 dehyphenated.append("%s: in %s (%s)" % (r.get("id") or "?", sid_now,
                                                         dh[0][-16:]))
             # SSRN's watermark interleaved in a preprint's text (spancheck.strip_ssrn).
-            sw = [] if (dh or any(qn in b for _f, b in bodies)) else \
-                [f for f, t in raw if (lambda x: x and qn in norm(x))(_SC.strip_ssrn(_SC._norm(t)))]
+            sw = [] if (dh or any(quoted_in(qn, b) for _f, b in bodies)) else \
+                [f for f, t in raw if (lambda x: x and quoted_in(qn, norm(x)))(_SC.strip_ssrn(_SC._norm(t)))]
             if sw:
                 unwatermarked.append("%s: in %s (%s)" % (r.get("id") or "?", sid_now, sw[0][-16:]))
-            if not dh and not sw and not any(qn in b for _f, b in bodies):
+            if not dh and not sw and not any(quoted_in(qn, b) for _f, b in bodies):
                 gaps = [(f, interrupted_by(qn, b)) for f, b in bodies]
                 gaps = [(f, g) for f, g in gaps if g is not None]
                 if gaps:
@@ -564,9 +594,9 @@ def preflight_rows(slug: str, page_text: str,
             # ACCENTS. norm() drops combining marks, because pdftotext returns
             # S043's "Budzyń" as "Budzyn" (Q-05). A match that holds only with
             # the marks dropped is a match, and the record says so.
-            if any(qn in b for _f, b in bodies):
+            if any(quoted_in(qn, b) for _f, b in bodies):
                 strict = norm(q, fold_accents=False)
-                if not any(strict in norm(_SC._norm(t), fold_accents=False)
+                if not any(quoted_in(strict, norm(_SC._norm(t), fold_accents=False))
                            for _f, t in raw):
                     accented.append("%s: %s" % (
                         r.get("id") or "?", ", ".join(accent_folds(q))
