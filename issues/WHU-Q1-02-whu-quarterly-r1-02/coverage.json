@@ -1,0 +1,29 @@
+{
+ "units": [],
+ "declarations": {
+  "S002@5491-5648": {
+   "state": "not_material",
+   "reason": "A statement about the 2030 sustainable development agenda, not about whether education programmes for children with disabilities work. It states a goal, not a finding about effectiveness.",
+   "by": "Claude Code",
+   "element": "",
+   "reason_for_reader": "it states a policy goal, not a finding about whether these programmes work",
+   "decided_at": "2026-10-29T01:11:17+00:00"
+  },
+  "S002@5649-6168": {
+   "state": "not_material",
+   "reason": "Describes what the map is for (a starting point for finding evidence), not a finding about effectiveness.",
+   "by": "Claude Code",
+   "element": "",
+   "reason_for_reader": "it describes what the map is for, not a finding about whether these programmes work",
+   "decided_at": "2026-10-29T01:11:17+00:00"
+  },
+  "S002@6169-6638": {
+   "state": "not_material",
+   "reason": "This unit is the article's list of abbreviations, which the parser read as part of the abstract's conclusions; it states no finding.",
+   "by": "Claude Code",
+   "element": "",
+   "reason_for_reader": "it is the article's list of abbreviations, not a finding",
+   "decided_at": "2026-10-29T01:11:17+00:00"
+  }
+ }
+}

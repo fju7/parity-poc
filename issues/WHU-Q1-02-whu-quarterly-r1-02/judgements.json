@@ -1,0 +1,157 @@
+{
+ "candidates": {
+  "S001@7611-7692": {
+   "source": "S001",
+   "at": [
+    7611,
+    7692
+   ],
+   "section": "abstract main results",
+   "kind": "review",
+   "text_sha256": "52303d29cdac048f98e3f4cf128ebdc5940ae2a055dc35bb7eaf416d7de24dbc",
+   "relevant": true,
+   "words": "do programmes meant to improve education for children and young people with disabilities work",
+   "reason": "The judgement rates the certainty of the studies' findings, so a reader needs it to judge how far the evidence shows whether these programmes work.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "ec41455b867f2647",
+   "to_person": false,
+   "decided_at": "2026-10-29T01:12:36+00:00"
+  },
+  "S001@7900-8058": {
+   "source": "S001",
+   "at": [
+    7900,
+    8058
+   ],
+   "section": "abstract conclusions",
+   "kind": "review",
+   "text_sha256": "e7a3f057d1ab57c0c512c4674ddc5f874a702aeb09de08f591d19b4fa907e4a8",
+   "relevant": true,
+   "words": "improve education for children and young people with disabilities",
+   "reason": "The judgement is about the educational outcomes of children with disabilities and attributes their gap to schools not being adapted to different impairment types, which is context for judging which kinds of programme might work.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "2e51c6d5bf0b08f0",
+   "to_person": false,
+   "decided_at": "2026-10-29T01:12:41+00:00"
+  },
+  "S001@8059-8153": {
+   "source": "S001",
+   "at": [
+    8059,
+    8153
+   ],
+   "section": "abstract conclusions",
+   "kind": "review",
+   "text_sha256": "1c076ae3121c7c8d69bd2d6d36ece31cb5d966f90937974d30f88603255cab1e",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement concerns equalising health outcomes, whereas the question asks only about education outcomes, and the scope excludes health-only outcomes.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "417105edd9a20090",
+   "to_person": false,
+   "decided_at": "2026-10-29T01:12:43+00:00"
+  },
+  "S001@8154-8406": {
+   "source": "S001",
+   "at": [
+    8154,
+    8406
+   ],
+   "section": "abstract conclusions",
+   "kind": "review",
+   "text_sha256": "5d0f6ac542fa71f8f502445044b00c65a04949eb412cfb5470dbeb7d264f9364",
+   "relevant": true,
+   "words": "which kinds work best",
+   "reason": "The judgement recommends a twin-track approach that pairs disability-specific support with mainstream inclusion through teacher skills and classroom accessibility, which bears directly on which kinds of programme work best.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "826b350639eef500",
+   "to_person": false,
+   "decided_at": "2026-10-29T01:12:45+00:00"
+  },
+  "S001@8407-8703": {
+   "source": "S001",
+   "at": [
+    8407,
+    8703
+   ],
+   "section": "abstract conclusions",
+   "kind": "review",
+   "text_sha256": "670f201f6cde47824d552b933cf707e4305f6d90e3fe7e6905e87649b2b0a1f2",
+   "relevant": true,
+   "words": "do programmes meant to improve education for children and young people with disabilities work, and which kinds work best",
+   "reason": "The judgement describes the kinds of interventions in the systematic review (individual-level functioning/skills programmes rather than school- or system-level mainstreaming), which bears on which kinds of programmes have evidence and how they compare.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "6217f164c785ca74",
+   "to_person": false,
+   "decided_at": "2026-10-29T01:12:48+00:00"
+  },
+  "S001@8704-8859": {
+   "source": "S001",
+   "at": [
+    8704,
+    8859
+   ],
+   "section": "abstract conclusions",
+   "kind": "review",
+   "text_sha256": "b26bf5ba5ec5469f82e23231ff29c2d93272e410897769bbb77960c2932310c0",
+   "relevant": true,
+   "words": "which kinds work best",
+   "reason": "It points to an evidence gap: interventions that target the wider environment rather than only the individual child have not been well evaluated, which affects how far the evidence can show which kinds of programme work best.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "dc8a382549c422c5",
+   "to_person": false,
+   "decided_at": "2026-10-29T01:12:51+00:00"
+  },
+  "S002@5491-5648": {
+   "source": "S002",
+   "at": [
+    5491,
+    5648
+   ],
+   "section": "abstract conclusions",
+   "kind": "review",
+   "text_sha256": "c0dd7cbf969b352778d87cf9821d469e289f40fccb4f998bda6c780e892bfb92",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement is a general policy statement that investing in well-being interventions for people with disabilities matters for the SDGs; it says nothing about whether education programmes for disabled children in LMICs improve educational outcomes or which kinds work best.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "099b1c3d2530d0e4",
+   "to_person": false,
+   "decided_at": "2026-10-29T01:12:53+00:00"
+  },
+  "S002@5649-6168": {
+   "source": "S002",
+   "at": [
+    5649,
+    6168
+   ],
+   "section": "abstract conclusions",
+   "kind": "review",
+   "text_sha256": "0e5c1f13ffff482464f66268c91c92dc23504dbd509ae06c1910aea7933c713e",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement only says the evidence gap map is a starting point for finding research on disability interventions in LMICs in general; it gives no finding or appraisal about whether education programmes for children and young people with disabilities work, or which kinds work best.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "f344f8b7a573a7cc",
+   "to_person": false,
+   "decided_at": "2026-10-29T01:12:59+00:00"
+  },
+  "S002@6169-6638": {
+   "source": "S002",
+   "at": [
+    6169,
+    6638
+   ],
+   "section": "abstract conclusions",
+   "kind": "review",
+   "text_sha256": "9959795ca90f15ee7a0ffdfff52001d5fbcf81434b930fd0f06fbab806a18082",
+   "relevant": false,
+   "words": "",
+   "reason": "The passage is only a list of abbreviations and makes no finding about whether education programmes for children and young people with disabilities work.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "4a73046daa0b90c2",
+   "to_person": false,
+   "decided_at": "2026-10-29T01:13:01+00:00"
+  }
+ }
+}

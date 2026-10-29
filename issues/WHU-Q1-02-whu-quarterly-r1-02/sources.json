@@ -25,7 +25,8 @@
           "kind_why": "165887 characters, reference list and discussion present"
         },
         "on": "2026-10-29"
-      }
+      },
+      "document_class": "document"
     },
     {
       "id": "S002",
@@ -52,7 +53,8 @@
           "kind_why": "157297 characters, reference list and discussion/introduction present"
         },
         "on": "2026-10-29"
-      }
+      },
+      "document_class": "document"
     },
     {
       "id": "S003",
@@ -73,7 +75,8 @@
           "kind_why": "130587 characters, reference list and discussion present"
         },
         "on": "2026-10-29"
-      }
+      },
+      "document_class": "document"
     },
     {
       "id": "S004",
@@ -98,7 +101,8 @@
           "kind_why": "93136 characters, reference list and discussion/introduction present"
         },
         "on": "2026-10-29"
-      }
+      },
+      "document_class": "document"
     },
     {
       "id": "S005",
@@ -120,7 +124,8 @@
         "on": "2026-10-29",
         "by": "Claude Code",
         "why": "publisher terms"
-      }
+      },
+      "document_class": "document"
     }
   ]
 }

@@ -1,0 +1,8 @@
+{
+  "_what_this_is": "Names the page attributes work to, each checked against the author list in the held document (lint_claims.verified_attributions).",
+  "verified": [
+    {"name": "Hunt", "page_text": "by Hunt and colleagues", "source": "S001",
+     "checked_against": "S001 held text (Europe PMC CC BY copy), author list as printed: 'Hunt Xanthe 1 ✉ Saran Ashrita 2 White Howard 3 Kuper Hannah 4'",
+     "by": "Claude Code", "on": "2026-10-29"}
+  ]
+}
