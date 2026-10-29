@@ -1,0 +1,137 @@
+{
+ "written": "2026-10-29T00:34:24+00:00",
+ "by": "study/whu-reliability/check_pilot/run_pilot.py compare",
+ "label": "Counts only. Internal pilot, exploratory, outside H1/H2; judged by an AI model (Claude) only.",
+ "design": "docs/whu-check-an-answer-pilot.md",
+ "ledger_issue": "whu-check-pilot-v2",
+ "sample": [
+  "WHU-S01/Claude",
+  "WHU-S02/Claude",
+  "WHU-S02/ChatGPT",
+  "WHU-S04/ChatGPT",
+  "WHU-S01/Gemini",
+  "WHU-S04/Gemini",
+  "WHU-S02/Perplexity",
+  "WHU-S04/Perplexity"
+ ],
+ "sentence_text_mismatches": [],
+ "agreement": {
+  "n": 60,
+  "agree": 59,
+  "share": 0.9833,
+  "rule": "sentences the study drew and the pilot checked, neither COULDN'T CHECK"
+ },
+ "agreement_counting_couldnt_check": {
+  "n": 118,
+  "agree": 81
+ },
+ "agreement_cited_only": {
+  "n": 32,
+  "agree": 31
+ },
+ "study_vs_pilot": {
+  "BACKED -> BACKED": 21,
+  "BACKED -> COULDN'T CHECK": 24,
+  "BACKED -> NOT BACKED": 1,
+  "COULDN'T CHECK -> BACKED": 1,
+  "COULDN'T CHECK -> COULDN'T CHECK": 22,
+  "NO SOURCE -> NO SOURCE": 28,
+  "NOT BACKED -> COULDN'T CHECK": 11,
+  "NOT BACKED -> NOT BACKED": 10
+ },
+ "couldnt_check": {
+  "n": 153,
+  "of": 311,
+  "share": 0.492,
+  "reasons": {
+   "no open licence": 70,
+   "not retrieved": 77,
+   "abstract only": 4,
+   "delivery check": 2
+  }
+ },
+ "usd": {
+  "total": 12.176,
+  "per_answer": 1.522
+ },
+ "per_answer": [
+  {
+   "answer": "WHU-S01/Claude",
+   "claims": 40,
+   "BACKED": 11,
+   "NOT BACKED": 4,
+   "NO SOURCE": 8,
+   "COULDN'T CHECK": 17,
+   "usd": 1.970461
+  },
+  {
+   "answer": "WHU-S02/Claude",
+   "claims": 40,
+   "BACKED": 4,
+   "NOT BACKED": 2,
+   "NO SOURCE": 14,
+   "COULDN'T CHECK": 20,
+   "usd": 0.357575
+  },
+  {
+   "answer": "WHU-S02/ChatGPT",
+   "claims": 40,
+   "BACKED": 4,
+   "NOT BACKED": 0,
+   "NO SOURCE": 7,
+   "COULDN'T CHECK": 29,
+   "usd": 0.194422
+  },
+  {
+   "answer": "WHU-S04/ChatGPT",
+   "claims": 40,
+   "BACKED": 17,
+   "NOT BACKED": 8,
+   "NO SOURCE": 14,
+   "COULDN'T CHECK": 1,
+   "usd": 1.091506
+  },
+  {
+   "answer": "WHU-S01/Gemini",
+   "claims": 40,
+   "BACKED": 8,
+   "NOT BACKED": 6,
+   "NO SOURCE": 1,
+   "COULDN'T CHECK": 25,
+   "usd": 2.149658
+  },
+  {
+   "answer": "WHU-S04/Gemini",
+   "claims": 40,
+   "BACKED": 2,
+   "NOT BACKED": 11,
+   "NO SOURCE": 2,
+   "COULDN'T CHECK": 25,
+   "usd": 3.498947
+  },
+  {
+   "answer": "WHU-S02/Perplexity",
+   "claims": 40,
+   "BACKED": 0,
+   "NOT BACKED": 0,
+   "NO SOURCE": 18,
+   "COULDN'T CHECK": 22,
+   "usd": 0
+  },
+  {
+   "answer": "WHU-S04/Perplexity",
+   "claims": 31,
+   "BACKED": 10,
+   "NOT BACKED": 3,
+   "NO SOURCE": 4,
+   "COULDN'T CHECK": 14,
+   "usd": 2.913405
+  }
+ ],
+ "pass_bar": {
+  "agreement_at_least_90": true,
+  "couldnt_check_at_most_20": false,
+  "usd_per_answer_at_most_5": true
+ },
+ "pass": false
+}

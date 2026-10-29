@@ -42,7 +42,7 @@ BACKEND_ROOT = Path(__file__).resolve().parent.parent
 REPO_ROOT = BACKEND_ROOT.parent
 PIPELINE = REPO_ROOT / "study" / "whu-reliability" / "check_pilot" / "pipeline.py"
 # docs/whu-check-an-answer-pilot.md §9.8: the preview switches to v2 (pipeline_v2.py) once v2 has run.
-PIPELINE_VERSION = 1
+PIPELINE_VERSION = 2
 JOBS_LOG = BACKEND_ROOT / "data" / "whu_check" / "jobs.jsonl"
 
 ISSUE = "whu-check-preview"
@@ -190,9 +190,10 @@ def _clients():
         P.count_tokens_fn(raw)
 
 
-# Network steps, replaceable in tests.
+# Network steps, replaceable in tests. NET is v2's table (pipeline_v2.NET), overriding entries.
 LICENCE_FN = None
 RETRIEVE_FN = None
+NET = None
 
 
 def _run(job_id: str, text: str, fmt: Optional[str]) -> None:
@@ -204,8 +205,9 @@ def _run(job_id: str, text: str, fmt: Optional[str]) -> None:
     try:
         job["status"] = "running"
         client, count = _clients()
+        net = {"net": NET} if PIPELINE_VERSION == 2 else {}
         prep = P.prepare(text, work, fmt=fmt, max_claims=MAX_CLAIMS, count=count,
-                         licence_fn=LICENCE_FN or P.licence_of, retrieve_fn=RETRIEVE_FN or P.retrieve_url)
+                         licence_fn=LICENCE_FN or P.licence_of, retrieve_fn=RETRIEVE_FN or P.retrieve_url, **net)
         why = cap_stop(prep["worst_usd"])
         if why:
             job.update(status="over_cap", error=why)

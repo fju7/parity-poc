@@ -20,6 +20,7 @@ sys.path.insert(0, os.path.dirname(__file__))
 
 from routers import whu_check as W  # noqa: E402
 import test_whu_check_pilot as T  # noqa: E402
+import test_whu_check_pilot_v2 as T2  # noqa: E402
 
 CODE = "test-code-not-real"
 ANSWER = (T.FIX / "answer_claude_sources.md").read_text(encoding="utf-8")
@@ -45,6 +46,9 @@ def app(monkeypatch, tmp_path, ledger):
     monkeypatch.setattr(W, "JOBS_LOG", tmp_path / "jobs.jsonl")
     monkeypatch.setattr(W, "LICENCE_FN", T.fake_licence)
     monkeypatch.setattr(W, "RETRIEVE_FN", T.fake_retrieve)
+    # v2's network (robots.txt, landing pages, Crossref, licence), recorded; robots.txt disallows,
+    # so only the openly licensed source is read
+    monkeypatch.setattr(W, "NET", T2.Net(robots=False).table())
     fake = T.client()
     monkeypatch.setattr(W, "_clients", lambda: (fake, T.count))
     monkeypatch.setattr(W, "_running", None)
