@@ -1,0 +1,254 @@
+{
+ "units": [],
+ "declarations": {
+  "S004@57895-57928": {
+   "state": "not_material",
+   "reason": "This is axis-label text from Figure SPM.4 that the PDF text layer places inside statement B.6.4; it states no finding. Figure label text, not a finding.",
+   "by": "Claude Code (session 3731b09a-3897-4944-9daf-f6889035f55e)",
+   "element": "",
+   "reason_for_reader": "figure label text extracted with statement B.6.4, not a finding",
+   "decided_at": "2026-10-29T11:15:42+00:00"
+  },
+  "S004@57929-58632": {
+   "state": "not_material",
+   "reason": "This is the axis ticks and legend of Figure SPM.4, placed inside statement B.6.4 by the PDF text layer; it states no finding. Figure legend text, not a finding.",
+   "by": "Claude Code (session 3731b09a-3897-4944-9daf-f6889035f55e)",
+   "element": "",
+   "reason_for_reader": "figure legend text extracted with statement B.6.4, not a finding",
+   "decided_at": "2026-10-29T11:15:42+00:00"
+  },
+  "S004@109011-109413": {
+   "state": "not_material",
+   "reason": "It splits the emission reductions achieved at net zero greenhouse gas emissions between energy CO2, land-sector CO2 and non-CO2 sources; it says nothing about the part removal plays. It describes how emission cuts divide by sector, not what removal adds.",
+   "by": "Claude Code (session 3731b09a-3897-4944-9daf-f6889035f55e)",
+   "element": "",
+   "reason_for_reader": "it divides emission cuts by sector and says nothing of removal's part",
+   "decided_at": "2026-10-29T11:15:42+00:00"
+  },
+  "S004@122012-122117": {
+   "state": "out_of_scope",
+   "reason": "It describes CO2 capture and injection in gas processing and enhanced oil recovery, which handles fossil emissions rather than removing CO2 from the air. Capture at fossil sources is not removal.",
+   "by": "Claude Code (session 3731b09a-3897-4944-9daf-f6889035f55e)",
+   "element": "Carbon capture and storage on fossil fuel or industrial point sources when it is not a removal",
+   "reason_for_reader": "capture at fossil and industrial sources is not removal from the air",
+   "decided_at": "2026-10-29T11:15:42+00:00"
+  },
+  "S004@122118-122285": {
+   "state": "out_of_scope",
+   "reason": "It compares the maturity of CCS in power, cement and chemicals, where CCS reduces emissions at the source rather than removing CO2 from the air. Capture at fossil sources is not removal.",
+   "by": "Claude Code (session 3731b09a-3897-4944-9daf-f6889035f55e)",
+   "element": "Carbon capture and storage on fossil fuel or industrial point sources when it is not a removal",
+   "reason_for_reader": "capture at fossil and industrial sources is not removal from the air",
+   "decided_at": "2026-10-29T11:15:42+00:00"
+  },
+  "S002@36976-39180": {
+   "state": "not_material",
+   "reason": "The statement assesses equilibrium climate sensitivity, how much warming follows from a given forcing; the text after it introduces the report's scenario set. It says nothing about the part removal plays, and the pathway figures the page uses come from the mitigation assessment. It concerns climate sensitivity, not removal.",
+   "by": "Claude Code (session 3731b09a-3897-4944-9daf-f6889035f55e)",
+   "element": "",
+   "reason_for_reader": "it concerns climate sensitivity, not the part removal plays",
+   "decided_at": "2026-10-29T11:38:25+00:00"
+  },
+  "S004@67533-75010": {
+   "state": "not_material",
+   "reason": "It projects warming of about 3.2°C by 2100 under the policies in place at the end of 2020 and what higher warming would imply; it assigns no role to removal. It describes warming under current policies, not removal's part.",
+   "by": "Claude Code (session 3731b09a-3897-4944-9daf-f6889035f55e)",
+   "element": "",
+   "reason_for_reader": "it describes warming under current policies, not removal's part",
+   "decided_at": "2026-10-29T11:38:25+00:00"
+  },
+  "S004@103223-104274": {
+   "state": "out_of_scope",
+   "reason": "It concerns non-CO2 warming, aerosols and the non-CO2 greenhouse gas emissions left at net zero CO2. The question names carbon dioxide.",
+   "by": "Claude Code (session 3731b09a-3897-4944-9daf-f6889035f55e)",
+   "element": "Non-CO2 greenhouse gases and their removal",
+   "reason_for_reader": "it concerns non-CO2 gases, and the question names carbon dioxide",
+   "decided_at": "2026-10-29T11:38:26+00:00"
+  },
+  "S004@128359-129141": {
+   "state": "not_material",
+   "reason": "It concerns how cities can reach net-zero emissions through infrastructure, consumption and urban carbon uptake; it does not assess the part removal plays in reaching net zero globally. It is about urban mitigation strategy.",
+   "by": "Claude Code (session 3731b09a-3897-4944-9daf-f6889035f55e)",
+   "element": "",
+   "reason_for_reader": "it is about urban mitigation strategy, not removal's global part",
+   "decided_at": "2026-10-29T11:38:26+00:00"
+  },
+  "S004@192075-193353": {
+   "state": "not_material",
+   "reason": "It concerns urban green infrastructure delivering both mitigation and adaptation benefits in settlements, and its trade-offs; it does not assess carbon dioxide removal. It is about urban planning benefits.",
+   "by": "Claude Code (session 3731b09a-3897-4944-9daf-f6889035f55e)",
+   "element": "",
+   "reason_for_reader": "it is about urban planning benefits, not carbon dioxide removal",
+   "decided_at": "2026-10-29T11:38:26+00:00"
+  },
+  "S004@111924-112183": {
+   "state": "not_material",
+   "reason": "figure caption and the draft-version footer joined to C.3.6 by the PDF text layer, not a finding",
+   "by": "Fred Ugast",
+   "element": "",
+   "reason_for_reader": "figure caption and the draft-version footer joined to C.3.6 by the PDF text layer, not a finding",
+   "signature": {
+    "statement": "Accepted by Fred Ugast, S004@111924-112183 not_material: figure caption and the draft-version footer joined to C.3.6 by the PDF text layer, not a finding; checked by Fred's advisor, stated in session",
+    "source": "issues/WHU-Q1-04-whu-quarterly-r1-04/person_decisions.md:12"
+   },
+   "decided_at": "2026-10-29T12:03:16+00:00",
+   "transcribed": "Transcribed verbatim from issues/WHU-Q1-04-whu-quarterly-r1-04/person_decisions.md:12 (commit c007fea) by Claude Code (session 3731b09a-3897-4944-9daf-f6889035f55e) at Fred's instruction"
+  },
+  "S004@112184-112216": {
+   "state": "not_material",
+   "reason": "figure axis text, not a finding",
+   "by": "Fred Ugast",
+   "element": "",
+   "reason_for_reader": "figure axis text, not a finding",
+   "signature": {
+    "statement": "Accepted by Fred Ugast, S004@112184-112216 not_material: figure axis text, not a finding; checked by Fred's advisor, stated in session",
+    "source": "issues/WHU-Q1-04-whu-quarterly-r1-04/person_decisions.md:13"
+   },
+   "decided_at": "2026-10-29T12:03:16+00:00",
+   "transcribed": "Transcribed verbatim from issues/WHU-Q1-04-whu-quarterly-r1-04/person_decisions.md:13 (commit c007fea) by Claude Code (session 3731b09a-3897-4944-9daf-f6889035f55e) at Fred's instruction"
+  },
+  "S004@112217-112479": {
+   "state": "not_material",
+   "reason": "figure axis and legend text, not a finding",
+   "by": "Fred Ugast",
+   "element": "",
+   "reason_for_reader": "figure axis and legend text, not a finding",
+   "signature": {
+    "statement": "Accepted by Fred Ugast, S004@112217-112479 not_material: figure axis and legend text, not a finding; checked by Fred's advisor, stated in session",
+    "source": "issues/WHU-Q1-04-whu-quarterly-r1-04/person_decisions.md:14"
+   },
+   "decided_at": "2026-10-29T12:03:17+00:00",
+   "transcribed": "Transcribed verbatim from issues/WHU-Q1-04-whu-quarterly-r1-04/person_decisions.md:14 (commit c007fea) by Claude Code (session 3731b09a-3897-4944-9daf-f6889035f55e) at Fred's instruction"
+  },
+  "S004@112480-112655": {
+   "state": "not_material",
+   "reason": "figure axis text, not a finding",
+   "by": "Fred Ugast",
+   "element": "",
+   "reason_for_reader": "figure axis text, not a finding",
+   "signature": {
+    "statement": "Accepted by Fred Ugast, S004@112480-112655 not_material: figure axis text, not a finding; checked by Fred's advisor, stated in session",
+    "source": "issues/WHU-Q1-04-whu-quarterly-r1-04/person_decisions.md:15"
+   },
+   "decided_at": "2026-10-29T12:03:17+00:00",
+   "transcribed": "Transcribed verbatim from issues/WHU-Q1-04-whu-quarterly-r1-04/person_decisions.md:15 (commit c007fea) by Claude Code (session 3731b09a-3897-4944-9daf-f6889035f55e) at Fred's instruction"
+  },
+  "S004@112656-113323": {
+   "state": "not_material",
+   "reason": "figure legend text, not a finding",
+   "by": "Fred Ugast",
+   "element": "",
+   "reason_for_reader": "figure legend text, not a finding",
+   "signature": {
+    "statement": "Accepted by Fred Ugast, S004@112656-113323 not_material: figure legend text, not a finding; checked by Fred's advisor, stated in session",
+    "source": "issues/WHU-Q1-04-whu-quarterly-r1-04/person_decisions.md:16"
+   },
+   "decided_at": "2026-10-29T12:03:17+00:00",
+   "transcribed": "Transcribed verbatim from issues/WHU-Q1-04-whu-quarterly-r1-04/person_decisions.md:16 (commit c007fea) by Claude Code (session 3731b09a-3897-4944-9daf-f6889035f55e) at Fred's instruction"
+  },
+  "S004@147725-147854": {
+   "state": "out_of_scope",
+   "reason": "about cutting agricultural methane and nitrous oxide emissions, not about removing carbon dioxide",
+   "by": "Fred Ugast",
+   "element": "removing carbon dioxide",
+   "reason_for_reader": "about cutting agricultural methane and nitrous oxide emissions, not about removing carbon dioxide",
+   "signature": {
+    "statement": "Accepted by Fred Ugast, S004@147725-147854 out_of_scope: about cutting agricultural methane and nitrous oxide emissions, not about removing carbon dioxide; checked by Fred's advisor, stated in session",
+    "source": "issues/WHU-Q1-04-whu-quarterly-r1-04/person_decisions.md:17"
+   },
+   "decided_at": "2026-10-29T12:03:17+00:00",
+   "transcribed": "Transcribed verbatim from issues/WHU-Q1-04-whu-quarterly-r1-04/person_decisions.md:17 (commit c007fea) by Claude Code (session 3731b09a-3897-4944-9daf-f6889035f55e) at Fred's instruction"
+  },
+  "S004@147855-148102": {
+   "state": "out_of_scope",
+   "reason": "about the constraints on cutting agricultural methane and nitrous oxide emissions, not about removing carbon dioxide",
+   "by": "Fred Ugast",
+   "element": "removing carbon dioxide",
+   "reason_for_reader": "about the constraints on cutting agricultural methane and nitrous oxide emissions, not about removing carbon dioxide",
+   "signature": {
+    "statement": "Accepted by Fred Ugast, S004@147855-148102 out_of_scope: about the constraints on cutting agricultural methane and nitrous oxide emissions, not about removing carbon dioxide; checked by Fred's advisor, stated in session",
+    "source": "issues/WHU-Q1-04-whu-quarterly-r1-04/person_decisions.md:18"
+   },
+   "decided_at": "2026-10-29T12:03:17+00:00",
+   "transcribed": "Transcribed verbatim from issues/WHU-Q1-04-whu-quarterly-r1-04/person_decisions.md:18 (commit c007fea) by Claude Code (session 3731b09a-3897-4944-9daf-f6889035f55e) at Fred's instruction"
+  },
+  "S004@185861-189425": {
+   "state": "not_material",
+   "reason": "table text (a list of options and chapter sources), not a finding",
+   "by": "Fred Ugast",
+   "element": "",
+   "reason_for_reader": "table text (a list of options and chapter sources), not a finding",
+   "signature": {
+    "statement": "Accepted by Fred Ugast, S004@185861-189425 not_material: table text (a list of options and chapter sources), not a finding; checked by Fred's advisor, stated in session",
+    "source": "issues/WHU-Q1-04-whu-quarterly-r1-04/person_decisions.md:19"
+   },
+   "decided_at": "2026-10-29T12:03:17+00:00",
+   "transcribed": "Transcribed verbatim from issues/WHU-Q1-04-whu-quarterly-r1-04/person_decisions.md:19 (commit c007fea) by Claude Code (session 3731b09a-3897-4944-9daf-f6889035f55e) at Fred's instruction"
+  },
+  "S004@194093-194242": {
+   "state": "out_of_scope",
+   "reason": "about the resources needed for adaptation, not about removing carbon dioxide",
+   "by": "Fred Ugast",
+   "element": "removing carbon dioxide",
+   "reason_for_reader": "about the resources needed for adaptation, not about removing carbon dioxide",
+   "signature": {
+    "statement": "Accepted by Fred Ugast, S004@194093-194242 out_of_scope: about the resources needed for adaptation, not about removing carbon dioxide; checked by Fred's advisor, stated in session",
+    "source": "issues/WHU-Q1-04-whu-quarterly-r1-04/person_decisions.md:20"
+   },
+   "decided_at": "2026-10-29T12:03:17+00:00",
+   "transcribed": "Transcribed verbatim from issues/WHU-Q1-04-whu-quarterly-r1-04/person_decisions.md:20 (commit c007fea) by Claude Code (session 3731b09a-3897-4944-9daf-f6889035f55e) at Fred's instruction"
+  },
+  "S004@194243-194597": {
+   "state": "out_of_scope",
+   "reason": "about coordination of mitigation and adaptation responses, not about removing carbon dioxide",
+   "by": "Fred Ugast",
+   "element": "removing carbon dioxide",
+   "reason_for_reader": "about coordination of mitigation and adaptation responses, not about removing carbon dioxide",
+   "signature": {
+    "statement": "Accepted by Fred Ugast, S004@194243-194597 out_of_scope: about coordination of mitigation and adaptation responses, not about removing carbon dioxide; checked by Fred's advisor, stated in session",
+    "source": "issues/WHU-Q1-04-whu-quarterly-r1-04/person_decisions.md:21"
+   },
+   "decided_at": "2026-10-29T12:03:17+00:00",
+   "transcribed": "Transcribed verbatim from issues/WHU-Q1-04-whu-quarterly-r1-04/person_decisions.md:21 (commit c007fea) by Claude Code (session 3731b09a-3897-4944-9daf-f6889035f55e) at Fred's instruction"
+  },
+  "S004@199816-199874": {
+   "state": "not_material",
+   "reason": "a sentence fragment run on from the next statement by the PDF text layer, with no subject of its own",
+   "by": "Fred Ugast",
+   "element": "",
+   "reason_for_reader": "a sentence fragment run on from the next statement by the PDF text layer, with no subject of its own",
+   "signature": {
+    "statement": "Accepted by Fred Ugast, S004@199816-199874 not_material: a sentence fragment run on from the next statement by the PDF text layer, with no subject of its own; checked by Fred's advisor, stated in session",
+    "source": "issues/WHU-Q1-04-whu-quarterly-r1-04/person_decisions.md:22"
+   },
+   "decided_at": "2026-10-29T12:03:17+00:00",
+   "transcribed": "Transcribed verbatim from issues/WHU-Q1-04-whu-quarterly-r1-04/person_decisions.md:22 (commit c007fea) by Claude Code (session 3731b09a-3897-4944-9daf-f6889035f55e) at Fred's instruction"
+  },
+  "S001@19911-20193": {
+   "state": "out_of_scope",
+   "reason": "about food systems governance, not about removing carbon dioxide",
+   "by": "Fred Ugast",
+   "element": "removing carbon dioxide",
+   "reason_for_reader": "about food systems governance, not about removing carbon dioxide",
+   "signature": {
+    "statement": "Accepted by Fred Ugast, S001@19911-20193 out_of_scope: about food systems governance, not about removing carbon dioxide; checked by Fred's advisor, stated in session",
+    "source": "issues/WHU-Q1-04-whu-quarterly-r1-04/person_decisions.md:23"
+   },
+   "decided_at": "2026-10-29T12:03:17+00:00",
+   "transcribed": "Transcribed verbatim from issues/WHU-Q1-04-whu-quarterly-r1-04/person_decisions.md:23 (commit c007fea) by Claude Code (session 3731b09a-3897-4944-9daf-f6889035f55e) at Fred's instruction"
+  },
+  "S004@117838-120245": {
+   "state": "not_material",
+   "reason": "relevant, but its CDR point (CDR is needed to counterbalance residual emissions) is already stated on the page by the C.11 sentence on counterbalancing hard-to-abate residual emissions, so a second sentence would only repeat it; its energy-system detail is about cutting emissions",
+   "by": "Fred Ugast",
+   "element": "",
+   "reason_for_reader": "relevant, but its CDR point (CDR is needed to counterbalance residual emissions) is already stated on the page by the C.11 sentence on counterbalancing hard-to-abate residual emissions, so a second sentence would only repeat it; its energy-system detail is about cutting emissions",
+   "signature": {
+    "statement": "Accepted by Fred Ugast, S004@117838-120245 not_material: relevant, but its CDR point (CDR is needed to counterbalance residual emissions) is already stated on the page by the C.11 sentence on counterbalancing hard-to-abate residual emissions, so a second sentence would only repeat it; its energy-system detail is about cutting emissions; checked by Fred's advisor, stated in session",
+    "source": "issues/WHU-Q1-04-whu-quarterly-r1-04/person_decisions.md:26"
+   },
+   "decided_at": "2026-10-29T12:09:08+00:00",
+   "transcribed": "Transcribed verbatim from issues/WHU-Q1-04-whu-quarterly-r1-04/person_decisions.md:26 (commit 7987280) by Claude Code (session 3731b09a-3897-4944-9daf-f6889035f55e) at Fred's instruction"
+  }
+ }
+}

@@ -1,0 +1,57 @@
+{
+  "_what_this_is": "For every source, whether its bibliographic record names a correction, erratum, retraction or expression of concern -- and, when the lookup failed, that it failed. 'checked, none' and 'could not check' are different states and this file never merges them.",
+  "checked": {
+    "S001": {
+      "source": "S001",
+      "title": "Cross-sectoral Perspectives. In: Climate Change 2022: Mitigation of Climate Change (AR6 WGIII Chapter 12)",
+      "checked_on": "2026-10-29",
+      "identifier": "DOI 10.1017/9781009157926.005",
+      "identifier_from": "the held document",
+      "state": "UNCHECKED",
+      "why": "Europe PMC has no record for DOI 10.1017/9781009157926.005; Crossref resolved to a DIFFERENT document: 'Mitigation Pathways Compatible with Long-term Goals' shares nothing distinctive with 'Cross-sectoral Perspectives. In: Climate Change 2022: Mitigation of Cl'",
+      "amendments": [],
+      "comments": []
+    },
+    "S002": {
+      "source": "S002",
+      "title": "Summary for Policymakers. In: Climate Change 2021: The Physical Science Basis (AR6 WGI)",
+      "checked_on": "2026-10-29",
+      "identifier": "DOI 10.1017/9781009157896.001",
+      "identifier_from": "the held document",
+      "identity": "resolved title shares 2 word(s) with ours: policymakers, summary",
+      "resolved_title": "Summary for Policymakers",
+      "index": "Crossref",
+      "update_policy": null,
+      "amendments": [],
+      "comments": [],
+      "state": "UNCHECKED",
+      "why": "matched on DOI 10.1017/9781009157896.001 at Crossref; not in Europe PMC, and the publisher registers NO update policy — so Crossref would not know of a correction even if one existed. This is not a pass"
+    },
+    "S003": {
+      "source": "S003",
+      "title": "The State of Carbon Dioxide Removal, 3rd Edition",
+      "checked_on": "2026-10-29",
+      "identifier": "DOI 10.17605/OSF.IO/ZRD65",
+      "identifier_from": "the held document",
+      "state": "UNCHECKED",
+      "why": "Europe PMC has no record for DOI 10.17605/OSF.IO/ZRD65; HTTP 404 from Crossref",
+      "amendments": [],
+      "comments": []
+    },
+    "S004": {
+      "source": "S004",
+      "title": "IPCC 2022. Summary for Policymakers. In: Climate Change 2022: Mitigation of Climate Change (AR6 WGIII)",
+      "checked_on": "2026-10-29",
+      "identifier": "DOI 10.1017/9781009157926.001",
+      "identifier_from": "the held document",
+      "identity": "resolved title shares 2 word(s) with ours: policymakers, summary",
+      "resolved_title": "Summary for Policymakers",
+      "index": "Crossref",
+      "update_policy": null,
+      "amendments": [],
+      "comments": [],
+      "state": "UNCHECKED",
+      "why": "matched on DOI 10.1017/9781009157926.001 at Crossref; not in Europe PMC, and the publisher registers NO update policy — so Crossref would not know of a correction even if one existed. This is not a pass"
+    }
+  }
+}

@@ -1,0 +1,98 @@
+{
+  "_what_this_is": "The entry gate, answered BEFORE drafting. The threshold question is whether a well-informed non-expert would confidently believe something the primary sources do not support.",
+  "belief": {
+    "_note": "What the reader already believes, stated as they would state it. If you cannot write this sentence, there is nothing to correct and no subject -- which is how the tobacco-analogy candidate died.",
+    "statement": "Removing carbon dioxide from the air, by planting trees or with direct air capture machines, can make up for a large share of today's emissions, so it is a real alternative to cutting emissions quickly.",
+    "how_we_know_they_believe_it": "Not yet checked: written at step 1 before any source was opened. To be filled with named coverage only after it has been read.",
+    "carried_by": [
+      {
+        "outlet": "",
+        "url": "",
+        "date": "",
+        "what_it_said": ""
+      }
+    ]
+  },
+  "what_the_sources_show": {
+    "_note": "What the primary sources actually support, and which sources.",
+    "statement": "The IPCC (AR6 WGIII SPM C.11, C.11.4; WGI SPM D.1.4) calls carbon dioxide removal unavoidable for net zero, to counterbalance hard-to-abate residual emissions and, later, to make net emissions negative, but always in addition to deep, rapid and sustained emission cuts. The State of CDR (2026) finds emission cuts are at least 80% of the effort in cost-effective Paris-compatible scenarios, and measures total removal today at 2.2 GtCO2 per year (5% of gross CO2 emissions), 99.9% of it from forests and soils, with novel methods at 0.002 GtCO2 per year.",
+    "sources": [
+      "S001",
+      "S002",
+      "S003",
+      "S004"
+    ]
+  },
+  "direction": {
+    "_note": "CORRECTS, CONFIRMS or NARROWS. This field exists so the contrarianism guard can count. A publication whose answer is always CORRECTS is performing scepticism rather than assessing evidence, and is not to be trusted.",
+    "value": "narrows",
+    "_values": [
+      "corrects",
+      "confirms",
+      "narrows"
+    ]
+  },
+  "reader_with_a_decision": "A policymaker, company sustainability lead or voter weighing a net-zero plan that counts on future removals: if removals are overestimated, the plan's cuts are too small and too late.",
+  "public_record_check": {
+    "_note": "NOT 'has anybody published this'. On any contested question, somebody has. The question is whether it has been carried WHERE THIS READER WOULD FIND IT. Run the counterexample hunter on the belief statement, not on the finding.",
+    "prior_art_found": [],
+    "carried_in_general_coverage": "",
+    "our_contribution": "translation, extension, or correction of the prior art -- say which"
+  },
+  "sources_are_open": "",
+  "evidence_base_is_bounded": "",
+  "kill_condition": "The held assessments say that carbon dioxide removal already operates at a scale comparable to annual emissions, or that it can stand in for deep near-term emission cuts on the way to net zero; or they say it has no role in reaching net zero. Either finding would mean the belief is supported or the question has no answer worth giving.",
+  "kill_condition_tested": {
+    "_note": "Filled in AFTER going to look, by whoever looked.",
+    "by": "Claude Code (session 3731b09a-3897-4944-9daf-f6889035f55e)",
+    "on": "2026-10-29",
+    "result": "survived",
+    "_result_values": [
+      "survived",
+      "narrowed",
+      "killed"
+    ],
+    "note": "None of the four held assessments says removal operates at a scale comparable to annual emissions or can stand in for deep near-term cuts (S003: 2.2 GtCO2/yr total, 5% of gross CO2 emissions; S004 C.11.4: 'in addition to deep, rapid, and sustained emission reductions'), and none says removal has no role (S004 C.11: unavoidable for net zero)."
+  },
+  "lead_came_from": "WHU quarterly round 1 draw (issue.json _round_note); the question was supplied, not chosen.",
+  "scope": {
+    "_note": "What the answer will and will not cover, written at step 1 BEFORE any source is opened, so scope cannot be fitted to the findings afterwards. An omission ruled OUT_OF_SCOPE, and a headline conclusion declared out of scope, must name the question's words or one of these entries (fix 2, docs/whu-fix2-omission-rulings-design.md section 2.4).",
+    "covers": "What role carbon dioxide removal (CDR) plays in reaching net-zero CO2 and net-zero greenhouse gas emissions, alongside emission cuts: how much is removed now, what assessed pathways to net zero need from it by mid-century and after, the main methods (land-based such as afforestation and soil carbon, and engineered or novel such as bioenergy with CCS, direct air capture with storage, enhanced weathering, ocean-based), what CDR can and cannot do (counterbalancing residual emissions, net-negative emissions), and the limits and risks the assessments name (scale, cost, land, water, biodiversity, permanence and reversal, timing).",
+    "out": [
+      {
+        "what": "Solar radiation modification and other solar geoengineering",
+        "why": "It does not remove carbon dioxide from the air; the question asks about removal."
+      },
+      {
+        "what": "Carbon capture and storage on fossil fuel or industrial point sources when it is not a removal",
+        "why": "That reduces emissions rather than removing CO2 already in the air; the question sets removal 'alongside cutting emissions'."
+      },
+      {
+        "what": "Non-CO2 greenhouse gases and their removal",
+        "why": "The question names carbon dioxide."
+      },
+      {
+        "what": "The design of carbon markets, offset certification and individual company or project claims",
+        "why": "The question asks what part removal can play in reaching net zero, not how removals are traded or verified commercially."
+      },
+      {
+        "what": "National or company-level net-zero target details for particular countries or firms",
+        "why": "The question is general, about reaching net zero, not about one actor's plan."
+      }
+    ],
+    "by": "Claude Code (session 3731b09a-3897-4944-9daf-f6889035f55e)",
+    "written_at": "2026-10-29T10:57:20Z"
+  },
+  "evidence_standard": {
+    "_note": "What kinds of evidence the answer will weigh, written at step 1 BEFORE any source is opened (post-study fix 3, docs/whu-fix3-evidence-standard.md). 'measured': outcomes measured in trials, cohorts, evaluations. 'assessed': expert assessments -- systematic-review conclusions, IPCC confidence-rated statements, guideline recommendations. When they differ, the page states both and drops neither.",
+    "weighs": [
+      "measured",
+      "assessed"
+    ],
+    "measured": "Measured or inventoried quantities: current annual removals by method as reported in assessments and their cited inventories, and measured performance of operating removal projects (tonnes removed, energy use, cost) where an assessment or peer-reviewed source reports them.",
+    "assessed": "Expert assessments: IPCC AR6 (Working Groups I, II and III) confidence- or likelihood-rated statements in Summaries for Policymakers, Technical Summaries and chapter executive summaries; conclusions of systematic reviews and other formal assessments of CDR.",
+    "when_they_differ": "state both",
+    "by": "Claude Code (session 3731b09a-3897-4944-9daf-f6889035f55e)",
+    "written_at": "2026-10-29T10:57:20Z"
+  }
+}
