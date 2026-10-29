@@ -1,0 +1,23 @@
+# WHU quarterly round 1: blinded answers, sha256 manifest (prepare_round1.py blind)
+# The blinded texts are held at ~/Projects/whu-study-private/scoring/quarterly/round1/blinded/<question>/<system>.blind.txt.
+#
+# sha256  question  system  record  chars  sentences  samplable  with-marker  references  markers-beyond-list
+04e29c9a6a403eefc3e5f70b1ecec9d808f2dded13543bcc7567e710b305640d  WHU-Q1-01  WHU         whu-quarterly-r1-01.html   5944    25    24    21    2  0
+67f919ff69e85da19928e7837c3786440aa74da0481a4aabddc16fd2cd18ef8b  WHU-Q1-01  Claude      claude.md       25352   126   126    46   31  0
+c5dd424b018fe89bf60cc633c79123bfa054c90415adc52a54dbbc2af5759f9c  WHU-Q1-01  ChatGPT     chatgpt.md      13578   122   122     0    0  0
+650409d6e82f26e15ebbca6495d37df808f320c45195a1e77edbc7caf9962a43  WHU-Q1-01  Gemini      gemini.md       22762   108    71    92   13  0
+62963daad1b810342c3288a6a68d5721c8bc61e79d14fd2be67bda2a4a3e4949  WHU-Q1-01  Perplexity  perplexity.md   25510    44    44    24  240  0
+758efb215c71d6b328400fe3441ed0ddb05594f7b03f4fc5384217ad9952156f  WHU-Q1-02  WHU         whu-quarterly-r1-02.html  10790    56    56    50    4  0
+6c7d3631d78c4a4178a32b91d7fc1c1c4fc25e7e1273ced93304eb6b5e709b34  WHU-Q1-02  Claude      claude.md       27142   186   186    42   49  0
+3574ea25c2a8ef9a36228de50048bb9a403cfe30a6161ec0462e54ce02156586  WHU-Q1-02  ChatGPT     chatgpt.md      25558   210   210     0    0  0
+1375c04a7bbb51a14a3ca44eda470322f2219949cb8701cbcdd8a9b63cd6be87  WHU-Q1-02  Gemini      gemini.md       34561   141   140   121   54  0
+eb41b21208fb2cb9e7e0145f4799cd65b2ffe1c46323f322449cbdc84848d42f  WHU-Q1-02  Perplexity  perplexity.md   34123    60    60    34  304  0
+a761118d699fbe39bccdf4544517f00fb377d93448e05bcd19f4b5e92cffa3d7  WHU-Q1-03  WHU         whu-quarterly-r1-03.html  41611   165   163   160    4  0
+dfa0c228a3359480edf4a2705cf76def4d9dd00872f06c4de02fd3d2f11e101d  WHU-Q1-03  Claude      claude.md       38500   243   243    83   61  0
+410ee87fee37b2a8850231d93652868e391e071c6bcbeaee8b866e41937ded40  WHU-Q1-03  ChatGPT     chatgpt.md      16276   144   144     0    0  0
+e0b9c27c332aac882fcd1cc4c30b7b833da978f3a04310d8729ad87d8bfe25be  WHU-Q1-03  Gemini      gemini.md       27085   123    68    95   53  0
+6c87f92de3e2352260470f8824492fab2c3dbaff76b6b530554032f38d532734  WHU-Q1-03  Perplexity  perplexity.md   18214     6     6     2  201  0
+1f075aaaab4582b4432b65f796467909e9406346e3f420c58cc46b96788f0a8d  WHU-Q1-04  WHU         whu-quarterly-r1-04.html  37054   120   119    88    4  0
+a8eaed133a910f729dcce713a3ce899a07527075e2d5cc6b1786a2cbb3ba5cbe  WHU-Q1-04  Claude      claude.md       27653   154   154    49   56  0
+53f33811db7c81d34e5ef417b4ff3a69bfbecef6cf3be44728531355854c2e4d  WHU-Q1-04  ChatGPT     chatgpt.md      32052   282   282     0    0  0
+ad00a3c5fbd0ca717957057d1a5a5537261c717944c0d2da0650faa58f252275  WHU-Q1-04  Perplexity  perplexity.md   20868    28    28    10  196  0
