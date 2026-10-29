@@ -84,14 +84,22 @@
    "outcome": "NOT_MATERIAL",
    "element": "",
    "reason": "Step 1: The finding is loosely in scope. It describes rising pressures on managed and natural ecosystems, which is background to the land limits the SCOPE covers ('land, water, biodiversity'), and no wording in the question or SCOPE excludes it. Step 2: It is not material. The sentence is general background about climate change, population growth and consumption. It says nothing about carbon dioxide removal, its scale or how far a net-zero plan can rely on it, so it does not answer, narrow or qualify the answer to the question. The draft already carries the CDR-relevant point from this source: [S001@13891-13940] fuels increase competition for land and biomass, and CDR has adverse side effects and trade-offs with food and nature conservation. Adding this sentence would give the reader nothing new to weigh about overestimating removals.",
-   "by": "ruling model claude-opus-5-5",
+   "by": "Fred Ugast",
    "ruling": "d946dded4c2a366d",
    "origins": [
     "S001-10"
    ],
    "on_page": null,
    "after": null,
-   "decided_at": "2026-10-29T12:35:16+00:00"
+   "decided_at": "2026-10-29T12:35:16+00:00",
+   "ruled_by": "ruling model claude-opus-5-5",
+   "reason_for_reader": "general background on pressures on ecosystems; it says nothing about carbon dioxide removal, and the page already carries this source's point on land and food trade-offs",
+   "signature": {
+    "statement": "Accepted by Fred Ugast, S001@344567-344933 not_material: general background on pressures on ecosystems; it says nothing about carbon dioxide removal, and the page already carries this source's point on land and food trade-offs; checked by Fred's advisor, stated in session",
+    "source": "issues/WHU-Q1-04-whu-quarterly-r1-04/person_decisions.md:58"
+   },
+   "signed_at": "2026-10-29T14:36:22+00:00",
+   "transcribed": "Transcribed verbatim from issues/WHU-Q1-04-whu-quarterly-r1-04/person_decisions.md:58 (commit 23f3e72) by Claude Code (session 3731b09a-3897-4944-9daf-f6889035f55e) at Fred's instruction"
   },
   {
    "key": "S001@420246-420611",
@@ -231,14 +239,22 @@
    "outcome": "NOT_MATERIAL",
    "element": "",
    "reason": "Step 1 holds: peak warming depending on cumulative CO2 emissions up to net zero CO2 bears on the question of how removal fits with emission cuts in reaching net zero. Step 2 fails: ALREADY states this almost verbatim ('[S004@100700-100767] net zero CO2 (high confidence)'). The only part not yet stated is the clause on 'non-CO2 climate forcers', which falls under the SCOPE exclusion of non-CO2 greenhouse gases. Its practical point, that methane cuts lower peak warming and reduce [S004@101043-101081], is also already in the draft.",
-   "by": "ruling model claude-opus-5-5",
+   "by": "Fred Ugast",
    "ruling": "ddb85a504198ffcb",
    "origins": [
     "S004-45"
    ],
    "on_page": null,
    "after": null,
-   "decided_at": "2026-10-29T12:36:12+00:00"
+   "decided_at": "2026-10-29T12:36:12+00:00",
+   "ruled_by": "ruling model claude-opus-5-5",
+   "reason_for_reader": "already stated on this page; its remaining clause on non-CO2 forcers is outside the scope",
+   "signature": {
+    "statement": "Accepted by Fred Ugast, S004@100700-100858 not_material: already stated on this page; its remaining clause on non-CO2 forcers is outside the scope; checked by Fred's advisor, stated in session",
+    "source": "issues/WHU-Q1-04-whu-quarterly-r1-04/person_decisions.md:59"
+   },
+   "signed_at": "2026-10-29T14:36:22+00:00",
+   "transcribed": "Transcribed verbatim from issues/WHU-Q1-04-whu-quarterly-r1-04/person_decisions.md:59 (commit 23f3e72) by Claude Code (session 3731b09a-3897-4944-9daf-f6889035f55e) at Fred's instruction"
   },
   {
    "key": "S004@105553-105781",
@@ -252,14 +268,22 @@
    "outcome": "NOT_MATERIAL",
    "element": "",
    "reason": "Step 1: the finding bears on the question, since it is about what assessed pathways to net zero need alongside cutting emissions, with CDR counterbalancing residual emissions. Step 2: the draft already states this finding almost word for word, with the same high confidence: 'All the IPCC's [S004@105564-105667] it [S004@105676-105741] emission reductions in all sectors, with CDR deployed to counterbalance residual emissions (high confidence).' It adds nothing new for the reader.",
-   "by": "ruling model claude-opus-5-5",
+   "by": "Fred Ugast",
    "ruling": "6a4e5d30213dab44",
    "origins": [
     "S004-37"
    ],
    "on_page": null,
    "after": null,
-   "decided_at": "2026-10-29T12:36:15+00:00"
+   "decided_at": "2026-10-29T12:36:15+00:00",
+   "ruled_by": "ruling model claude-opus-5-5",
+   "reason_for_reader": "already stated on this page",
+   "signature": {
+    "statement": "Accepted by Fred Ugast, S004@105553-105781 not_material: already stated on this page; checked by Fred's advisor, stated in session",
+    "source": "issues/WHU-Q1-04-whu-quarterly-r1-04/person_decisions.md:60"
+   },
+   "signed_at": "2026-10-29T14:36:22+00:00",
+   "transcribed": "Transcribed verbatim from issues/WHU-Q1-04-whu-quarterly-r1-04/person_decisions.md:60 (commit 23f3e72) by Claude Code (session 3731b09a-3897-4944-9daf-f6889035f55e) at Fred's instruction"
   },
   {
    "key": "S004@110152-110456",
@@ -315,14 +339,22 @@
    "outcome": "NOT_MATERIAL",
    "element": "",
    "reason": "Step 1: in scope. Land-sector removals and their limits bear on what part removal can play alongside cutting emissions. Step 2: not material. ALREADY states this finding almost verbatim: 'Land-sector [S004@143365-143438] [S004@143443-143549] (high confidence).' Adding it again would repeat the draft.",
-   "by": "ruling model claude-opus-5-5",
+   "by": "Fred Ugast",
    "ruling": "85c97640a0faf711",
    "origins": [
     "S004-42"
    ],
    "on_page": null,
    "after": null,
-   "decided_at": "2026-10-29T12:36:42+00:00"
+   "decided_at": "2026-10-29T12:36:42+00:00",
+   "ruled_by": "ruling model claude-opus-5-5",
+   "reason_for_reader": "already stated on this page",
+   "signature": {
+    "statement": "Accepted by Fred Ugast, S004@143359-143550 not_material: already stated on this page; checked by Fred's advisor, stated in session",
+    "source": "issues/WHU-Q1-04-whu-quarterly-r1-04/person_decisions.md:61"
+   },
+   "signed_at": "2026-10-29T14:36:22+00:00",
+   "transcribed": "Transcribed verbatim from issues/WHU-Q1-04-whu-quarterly-r1-04/person_decisions.md:61 (commit 23f3e72) by Claude Code (session 3731b09a-3897-4944-9daf-f6889035f55e) at Fred's instruction"
   },
   {
    "key": "S004@165843-166449",
@@ -336,14 +368,22 @@
    "outcome": "NOT_MATERIAL",
    "element": "",
    "reason": "Step 1 holds. The finding sets out the roles CDR plays alongside emission cuts in reaching net zero, which is exactly what THE QUESTION asks. Step 2 fails. ALREADY contains a near-verbatim statement of this finding: [S004@165843-165925] complementary roles (near-term lowering of net emissions, mid-term counterbalancing of hard-to-abate residual emissions, long-term net negative emissions if deployed above annual residual emissions), with high confidence. The ANCHOR shows that sentence already on the page, so adding it again would tell the reader nothing new.",
-   "by": "ruling model claude-opus-5-5",
+   "by": "Fred Ugast",
    "ruling": "f768dc9af1f25b58",
    "origins": [
     "S004-35"
    ],
    "on_page": null,
    "after": null,
-   "decided_at": "2026-10-29T12:36:45+00:00"
+   "decided_at": "2026-10-29T12:36:45+00:00",
+   "ruled_by": "ruling model claude-opus-5-5",
+   "reason_for_reader": "already stated on this page",
+   "signature": {
+    "statement": "Accepted by Fred Ugast, S004@165843-166449 not_material: already stated on this page; checked by Fred's advisor, stated in session",
+    "source": "issues/WHU-Q1-04-whu-quarterly-r1-04/person_decisions.md:62"
+   },
+   "signed_at": "2026-10-29T14:36:22+00:00",
+   "transcribed": "Transcribed verbatim from issues/WHU-Q1-04-whu-quarterly-r1-04/person_decisions.md:62 (commit 23f3e72) by Claude Code (session 3731b09a-3897-4944-9daf-f6889035f55e) at Fred's instruction"
   }
  ]
 }
