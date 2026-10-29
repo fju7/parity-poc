@@ -1,0 +1,3211 @@
+{
+ "written": "2026-10-29T20:29:08+00:00",
+ "by": "prepare_scoring.py sample",
+ "freeze_commit": "5f4a928b757d7f47c1ba8ed47600ced4a7a69f12",
+ "seed": "544017144222122354086406494492826735813465644818",
+ "seed_rule": "the freeze commit's 40-character hash read as a hexadecimal integer",
+ "m1": {
+  "per_answer": 20,
+  "pool": "identifiability.claim_like (samplable; a number or a citation marker; 8 to 70 words)",
+  "generator": "random.Random('<SEED>/<question>/<system>/M1').sample(pool sorted by sentence index, k)",
+  "order": "random.Random('<SEED>/order/M1').shuffle",
+  "answers": [
+   {
+    "question": "WHU-Q1-01",
+    "system": "WHU",
+    "sentences": 25,
+    "samplable": 24,
+    "claim_like_pool": 22,
+    "k": 20,
+    "rng_seed_string": "<SEED>/WHU-Q1-01/WHU/M1",
+    "drawn": [
+     {
+      "sentence": "WHU-Q1-01/WHU/3",
+      "idx": 3,
+      "sha256": "365fd6852ffe67deee4d3bd43bdbe16c557494024a9c656c2dac96942e0af1c9",
+      "item": "M1-7ade078126",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-01/WHU/4",
+      "idx": 4,
+      "sha256": "dfc6276177ea22409e1a79ceb3dc01cba8a38841d6965ae059ea385937cc1aaa",
+      "item": "M1-6a6afa6384",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-01/WHU/5",
+      "idx": 5,
+      "sha256": "48f1ca7885c3caae277e18e6d0bd4e5dd4f78f117b92cb2671d96517bff5fde9",
+      "item": "M1-fb1c359bd3",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-01/WHU/6",
+      "idx": 6,
+      "sha256": "644fda9f68b5b57ac73fb09626e9b239a08490be2f6a4877b50223d387a8a4e2",
+      "item": "M1-3266190ada",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-01/WHU/7",
+      "idx": 7,
+      "sha256": "f74dabd4588777a707f436329324c72fd885faa78fdde1bb75428024fe3fdb4e",
+      "item": "M1-f31ae86f60",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-01/WHU/8",
+      "idx": 8,
+      "sha256": "de9e9098f3896490e1dda5ed7728d275ba85a5527382c5004d7a8462da05e01c",
+      "item": "M1-ea58cbb7dd",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-01/WHU/9",
+      "idx": 9,
+      "sha256": "67b8ab45b328b0085cb3953ba4fef31120a1d8a594483d54964b18d76ca3cf82",
+      "item": "M1-9a01e35510",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-01/WHU/10",
+      "idx": 10,
+      "sha256": "2009ced52edb4577ed97b46a1b59374d1737aa5c3e0834d8d924cf2347f804c2",
+      "item": "M1-ab08a7a172",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-01/WHU/11",
+      "idx": 11,
+      "sha256": "4b88634fb9671cfc0cd7e0ab5865990737242f20a65f07a096b67bc33de89071",
+      "item": "M1-152f157026",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-01/WHU/12",
+      "idx": 12,
+      "sha256": "d357e4932bd1f2ceefc81de810fd9686362da0209ccafdd12b99b725dfab13e1",
+      "item": "M1-7902bda6cb",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-01/WHU/13",
+      "idx": 13,
+      "sha256": "e953945d2da381f827925db07849724060e3848cd35bfd9613257204fca8d0a6",
+      "item": "M1-44ce9e4af0",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-01/WHU/14",
+      "idx": 14,
+      "sha256": "11d2bab49d4f1fbdb556cf90f7973671cfb5783186e41e00045618aae5d6bf0b",
+      "item": "M1-35e7396540",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-01/WHU/15",
+      "idx": 15,
+      "sha256": "002e2e70a89499ed6aa8637ce181bcd9f4dd909d1d907fd24c5d64440bfc1342",
+      "item": "M1-7a53ee361a",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-01/WHU/17",
+      "idx": 17,
+      "sha256": "728cab2c6c8fb28a5cf765c4275838a6ec018972c913e88fa38b1f7c7fed2a03",
+      "item": "M1-bb2ed2301f",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-01/WHU/18",
+      "idx": 18,
+      "sha256": "277b16d4cfa6ef211defae8818905e6a696cf5d8655fc9c003da20b03b3b404f",
+      "item": "M1-152147dcaf",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-01/WHU/19",
+      "idx": 19,
+      "sha256": "d860f7b40b25989f7e606c1e1569dd9a0b676d95b58456c59f419050172b432e",
+      "item": "M1-a28280a3f0",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-01/WHU/20",
+      "idx": 20,
+      "sha256": "7240f48e076ddab42bf9a1b400a00d25b0b2bea5efd12f5946ea0e3aaffaab19",
+      "item": "M1-1be1da7ff2",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-01/WHU/21",
+      "idx": 21,
+      "sha256": "b165c28c3c270a5997941467e3b852661417cf725ede611bc45301d01fa1f603",
+      "item": "M1-094f19baac",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-01/WHU/22",
+      "idx": 22,
+      "sha256": "a9b4b717ea8d589c1f337270eff222b02f7f3ce3fa63cb6350af90aa6dec08a5",
+      "item": "M1-465ab812be",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-Q1-01/WHU/24",
+      "idx": 24,
+      "sha256": "01f4ad34fb77faedf37ff947c96446a8bc30320e2b3634f1afe81c94eeb8efbe",
+      "item": "M1-426cada9b2",
+      "markers": 1,
+      "label": null
+     }
+    ]
+   },
+   {
+    "question": "WHU-Q1-01",
+    "system": "Claude",
+    "sentences": 126,
+    "samplable": 126,
+    "claim_like_pool": 70,
+    "k": 20,
+    "rng_seed_string": "<SEED>/WHU-Q1-01/Claude/M1",
+    "drawn": [
+     {
+      "sentence": "WHU-Q1-01/Claude/3",
+      "idx": 3,
+      "sha256": "6aaa152b3492cadcd022fd807c8ff4bb320a4fc5df6a77910db69091e00e84bc",
+      "item": "M1-8335218c57",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-01/Claude/26",
+      "idx": 26,
+      "sha256": "ab2cf0bfa1970a39203e8cd319fbade7e838b60b5fc4c258e6ed2184b1767852",
+      "item": "M1-88732e21c0",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-01/Claude/32",
+      "idx": 32,
+      "sha256": "8e8c76de43293b9b8847c420cb7c9ad92114a3ca6c8249f7b4377a9453d5d8d2",
+      "item": "M1-8c7fb5e047",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-Q1-01/Claude/34",
+      "idx": 34,
+      "sha256": "693384ab34967472bbb393692c2294206ccc87adfd167a5431ca581d97a5d854",
+      "item": "M1-35f8a13368",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-Q1-01/Claude/43",
+      "idx": 43,
+      "sha256": "706b3ea7919938a220857d3829524d1699d1923376ec05d6eab05a60e362ec6b",
+      "item": "M1-a0749b0bf9",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-Q1-01/Claude/47",
+      "idx": 47,
+      "sha256": "00db7186c52480ba662fc8aaac483ac52f2ec5e2cc6d53bffd68a62ea728adeb",
+      "item": "M1-2dfd10a37e",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-01/Claude/48",
+      "idx": 48,
+      "sha256": "53745ba25437e24f6c66c7cb5961e26ea006fc32a3ac474f293a76a3b51be69c",
+      "item": "M1-7d87e47f98",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-01/Claude/49",
+      "idx": 49,
+      "sha256": "a8eefc084f08d70442e6cd0b0f05365e0a4678cbc182c30132a838feb6939d21",
+      "item": "M1-5a826fcb75",
+      "markers": 2,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-01/Claude/50",
+      "idx": 50,
+      "sha256": "be4bd2b29d896ba8c5a617b93b86365b8e4d7792a1041b515db285593c5007c5",
+      "item": "M1-1986caf920",
+      "markers": 2,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-01/Claude/51",
+      "idx": 51,
+      "sha256": "3e7053d7154b47b41f305705a841f7155d3cb53de5d429fac16e4c02dd925d37",
+      "item": "M1-e3c6e1cae9",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-Q1-01/Claude/53",
+      "idx": 53,
+      "sha256": "2cf7849d36773db43d89fb40b600fa0def1e76a6c5c663c277fcf2a9cdac976d",
+      "item": "M1-ea138618cd",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-Q1-01/Claude/55",
+      "idx": 55,
+      "sha256": "bb051129abf2be1e870107ddf797cb3a795cfe269627b3cb412d61585e1a58d4",
+      "item": "M1-99bc78c5e2",
+      "markers": 2,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-01/Claude/62",
+      "idx": 62,
+      "sha256": "fe399242593a29b3f65a805056195de469b2742cd538892428cea3b4e85dc909",
+      "item": "M1-655085dd55",
+      "markers": 2,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-01/Claude/66",
+      "idx": 66,
+      "sha256": "09d6a6e019e50bce3bf3d28d838c78b4c08e759fc3f34784c8e1177022eebe99",
+      "item": "M1-93fa678b1f",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-Q1-01/Claude/67",
+      "idx": 67,
+      "sha256": "fab622e69c27ae129691bcfcc13995bf71a7b1616380cb801cca29f0171bf00b",
+      "item": "M1-97fb742a8e",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-01/Claude/69",
+      "idx": 69,
+      "sha256": "7dda700a66f29c5d82013359fa9b9570ab28eeb8f1c84557593bfec31593e2b8",
+      "item": "M1-9155bce311",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-01/Claude/70",
+      "idx": 70,
+      "sha256": "9caef7331fe5081a396e079d797d4d8673ebc30df1b7fa48e9bf12c3e7ce0a71",
+      "item": "M1-7b708a5378",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-01/Claude/72",
+      "idx": 72,
+      "sha256": "d40c756983a74fe59d08a0e3f908215181772c232c821446fdd689f8f1ef4446",
+      "item": "M1-6e2acd4677",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-Q1-01/Claude/84",
+      "idx": 84,
+      "sha256": "5875d597c264121f7723aadd9ff61b8668c230dea087184818c6dfdf1899730c",
+      "item": "M1-a3a0dd11bf",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-Q1-01/Claude/113",
+      "idx": 113,
+      "sha256": "f20fa7ac316d9066c6ad574f943f983034e0d5c7c7dc5121a93b4788182b6331",
+      "item": "M1-2ab5b8d128",
+      "markers": 1,
+      "label": null
+     }
+    ]
+   },
+   {
+    "question": "WHU-Q1-01",
+    "system": "ChatGPT",
+    "sentences": 122,
+    "samplable": 122,
+    "claim_like_pool": 24,
+    "k": 20,
+    "rng_seed_string": "<SEED>/WHU-Q1-01/ChatGPT/M1",
+    "drawn": [
+     {
+      "sentence": "WHU-Q1-01/ChatGPT/1",
+      "idx": 1,
+      "sha256": "811be5668e940ca9b4c710696079821e1822fd7a228b7d970ff9d1b44cd44901",
+      "item": "M1-9dc094e44f",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-Q1-01/ChatGPT/2",
+      "idx": 2,
+      "sha256": "f4ed32226a062d49adf19499f2b2854e3153fa823989a8ce0a652aae29a6244e",
+      "item": "M1-070c4ab9b9",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-Q1-01/ChatGPT/16",
+      "idx": 16,
+      "sha256": "4578b734c75fad421c76e593e5d082522cce83497ca0ad0fdea9fc197bb47c60",
+      "item": "M1-b2133961b7",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-Q1-01/ChatGPT/19",
+      "idx": 19,
+      "sha256": "6caa9dbbb63f7a7ac5d1b552240d5365d35884bfc722c483855f482fa39cc5c3",
+      "item": "M1-e82c4eef80",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-Q1-01/ChatGPT/20",
+      "idx": 20,
+      "sha256": "4dd049a506b5adcf62e7af319be84d25e0fca05a1f83d696e8b82d2664951d3c",
+      "item": "M1-9a4a06ab59",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-Q1-01/ChatGPT/21",
+      "idx": 21,
+      "sha256": "9bb445d6f3d3c2cf3abfd6aacbf4c36954e10c122ae3e85f180e023160033796",
+      "item": "M1-913adee433",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-Q1-01/ChatGPT/22",
+      "idx": 22,
+      "sha256": "88778401db806e070ac6ad029ad4781a112ec4fc0d5f50d2c3986d04c29e62fd",
+      "item": "M1-fcf416dc6e",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-Q1-01/ChatGPT/23",
+      "idx": 23,
+      "sha256": "3fb489977d543880d13ebac891140d74f79feb8f282df765988eee626942e7e6",
+      "item": "M1-f0ea45b4dc",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-Q1-01/ChatGPT/26",
+      "idx": 26,
+      "sha256": "db047b53a2f758a85743c25def4a2e4d40a737a1f626144c5cbc62508c3cd1d8",
+      "item": "M1-34c4712575",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-Q1-01/ChatGPT/27",
+      "idx": 27,
+      "sha256": "2a0d6a5aa14e82a3be005e73ae44fc2573d8be00260faa4893775f147b26528f",
+      "item": "M1-45f37df18a",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-Q1-01/ChatGPT/28",
+      "idx": 28,
+      "sha256": "ad99bc2865f5ee7c0159fe4c9d14ca47a367800cc8083d22d0ea79c983ab5eeb",
+      "item": "M1-568e2285a1",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-Q1-01/ChatGPT/29",
+      "idx": 29,
+      "sha256": "ee56a9ef3ab9d8457b72f98cfbf8383b26bd90fa2fc8bc3a105d19af1a614be2",
+      "item": "M1-6aa2c37129",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-Q1-01/ChatGPT/39",
+      "idx": 39,
+      "sha256": "fe427966e7cbabef56d30488abd87c0abf4202dd2a8e26d6f3e0595229de9a73",
+      "item": "M1-63ff856804",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-Q1-01/ChatGPT/40",
+      "idx": 40,
+      "sha256": "ed37cfd43fba29f9c3b4e4f5c657f8c522558453a8e920d516bd015659144ed2",
+      "item": "M1-bcd9d34979",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-Q1-01/ChatGPT/41",
+      "idx": 41,
+      "sha256": "26503e76dd3d0117bf9d1d325ef459d3d9ebcfe27081dd6fd78b5a795b435c1b",
+      "item": "M1-efa97caa38",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-Q1-01/ChatGPT/58",
+      "idx": 58,
+      "sha256": "ccc39bde3176e43275c3ab2247481e2e669d8ab6f3f77b3b2c1ca15c0c394f76",
+      "item": "M1-76da598395",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-Q1-01/ChatGPT/61",
+      "idx": 61,
+      "sha256": "3ecce221af6315dbb714629f507021deaac6666c9034354b9b529cd398811bd6",
+      "item": "M1-c24495bfa6",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-Q1-01/ChatGPT/63",
+      "idx": 63,
+      "sha256": "00b817cd8cff4a6f61c4cc2ea77c2a176ca1f8f93fea30105485b7609feb3d13",
+      "item": "M1-16fa857ad8",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-Q1-01/ChatGPT/98",
+      "idx": 98,
+      "sha256": "d4035b0f6cd97d9a5783fa818ceb9237ecb120254b4bc5ca95ff91182b33871a",
+      "item": "M1-94ecbb8ab2",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-Q1-01/ChatGPT/120",
+      "idx": 120,
+      "sha256": "08f78baa316b06acab6bfe06bf2fe02676adbb1ee22e76dc3376281a931f1837",
+      "item": "M1-4dcae67440",
+      "markers": 0,
+      "label": "UNCITED"
+     }
+    ]
+   },
+   {
+    "question": "WHU-Q1-01",
+    "system": "Gemini",
+    "sentences": 108,
+    "samplable": 71,
+    "claim_like_pool": 70,
+    "k": 20,
+    "rng_seed_string": "<SEED>/WHU-Q1-01/Gemini/M1",
+    "drawn": [
+     {
+      "sentence": "WHU-Q1-01/Gemini/2",
+      "idx": 2,
+      "sha256": "4681ab1a6d0c8ed5b6ea9b8c4d602a425cdc66b29f648084dd0bee83be7728bc",
+      "item": "M1-0662e66991",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-01/Gemini/3",
+      "idx": 3,
+      "sha256": "fce5d26570cfc5feb5c5b2643cc86a5b78554190fd7ffb860ba48e872f9bfb2a",
+      "item": "M1-420d503124",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-01/Gemini/4",
+      "idx": 4,
+      "sha256": "617344265a23bc12091933b584307abc124d20096ef1f2617b1736356e458a9e",
+      "item": "M1-db1e684283",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-01/Gemini/10",
+      "idx": 10,
+      "sha256": "c148acd7cc5f5c4d765fb3a2c2c2f1e1fe4623e51e1e14b3c56989a9c82c36cb",
+      "item": "M1-1ea13c7e41",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-01/Gemini/11",
+      "idx": 11,
+      "sha256": "c7a4298783215013e28b0585495eacb682a25cafd94e4462668e7f7bc11a51b0",
+      "item": "M1-4ee944bc05",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-01/Gemini/12",
+      "idx": 12,
+      "sha256": "7b4c86ac254890f0c5d91c508a8012a483b5db46240de818026de5e75dd78eba",
+      "item": "M1-e4cc88814a",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-01/Gemini/17",
+      "idx": 17,
+      "sha256": "7d1382d108b997ace7e9ce2b3b3466197f78ee6f0888fe7b76bdc2d848e19800",
+      "item": "M1-f851047eae",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-01/Gemini/23",
+      "idx": 23,
+      "sha256": "691d463dc7c5e7ee3988007a3ea1b6fefadadd7d1eac6eba136a721a27d3dd79",
+      "item": "M1-3ab18d185c",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-01/Gemini/25",
+      "idx": 25,
+      "sha256": "3e252301fb4763b114ad31c8010649e8678055087697ecf6593f23cf110a0e47",
+      "item": "M1-e6fa433f7d",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-01/Gemini/33",
+      "idx": 33,
+      "sha256": "ef08d7871d43cd2eda56954d54a04671a941e85ba6bb01eaa288474b3ad2b6fb",
+      "item": "M1-ed498a773b",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-01/Gemini/39",
+      "idx": 39,
+      "sha256": "b59f041b57ebfb1f90230e237536358d56bad1edba5c6fb5755ad634fb35e6f6",
+      "item": "M1-dcd7f51603",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-01/Gemini/69",
+      "idx": 69,
+      "sha256": "0be2e5b947639ae43335b61fa1f691054d61982ccf2bc39b2503f43fd187131f",
+      "item": "M1-231fd40bef",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-01/Gemini/73",
+      "idx": 73,
+      "sha256": "426144dd355a465559fb50e3155598ca0e36fc29081375346866a6a2511eb119",
+      "item": "M1-3b783d553b",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-01/Gemini/78",
+      "idx": 78,
+      "sha256": "be99d2336445e896d01512df0e3d4ead98ea719df507d1b22cb708d2c7e50b81",
+      "item": "M1-f043bf4d21",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-01/Gemini/81",
+      "idx": 81,
+      "sha256": "fc607362915e3ecf78a2ad7a3ede6ec64edb3ca5aa24cc94a4a6d0390db0554b",
+      "item": "M1-ecc34a26b4",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-01/Gemini/84",
+      "idx": 84,
+      "sha256": "b3ae3b0cca6fbfbfc433dea9fb58fe1cc5160a6681e7e9fb73a460bd0a23a0bc",
+      "item": "M1-989de42738",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-01/Gemini/87",
+      "idx": 87,
+      "sha256": "79c57e9e6e4d3fa7099f8759d056f2e23f59c35eb545bdb2069e79b434d2320c",
+      "item": "M1-88dd40a6c4",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-01/Gemini/90",
+      "idx": 90,
+      "sha256": "8640a11255bc3d0f4d23062f074655d3d71b4bc3db7e421e0c9a1eec70ab5797",
+      "item": "M1-3bc571f744",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-01/Gemini/103",
+      "idx": 103,
+      "sha256": "801fda0fa8ecd5f5efe5f0ec6de0b9d98b7531194527340c2f184d1da86cd575",
+      "item": "M1-4aad22d844",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-01/Gemini/105",
+      "idx": 105,
+      "sha256": "09fc8c773a45e3bcf828c441aa24ae0b0dae91e8151d8dfb0358c762c1d91141",
+      "item": "M1-4209ac07d8",
+      "markers": 1,
+      "label": null
+     }
+    ]
+   },
+   {
+    "question": "WHU-Q1-01",
+    "system": "Perplexity",
+    "sentences": 44,
+    "samplable": 44,
+    "claim_like_pool": 15,
+    "k": 15,
+    "rng_seed_string": "<SEED>/WHU-Q1-01/Perplexity/M1",
+    "drawn": [
+     {
+      "sentence": "WHU-Q1-01/Perplexity/3",
+      "idx": 3,
+      "sha256": "81ee0fe5dc9e9d527a557617be4f0734a199bba0234c3e219974494b37a0df50",
+      "item": "M1-fc66181c78",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-Q1-01/Perplexity/4",
+      "idx": 4,
+      "sha256": "1b8b4841e4085a8dedd5585f600a5439411891595440a04aff968f5862376255",
+      "item": "M1-cdce5ca018",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-01/Perplexity/7",
+      "idx": 7,
+      "sha256": "9fa313555669d61bc7bc1258ebe45a6fc78cfad172160825026bad55cffee647",
+      "item": "M1-1a4082ab2a",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-01/Perplexity/11",
+      "idx": 11,
+      "sha256": "16378be5f511e11383ab09c0f1fc235fc09b927e7bc55c8eb84cfee66a83acd0",
+      "item": "M1-a5da451f3a",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-Q1-01/Perplexity/12",
+      "idx": 12,
+      "sha256": "293d5fec080ed4cf167b23fd7110e4a10bd8216b880ba9fd5f5be2d8b9f77195",
+      "item": "M1-81be91b1b1",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-01/Perplexity/14",
+      "idx": 14,
+      "sha256": "d1b5a643bc31e9b2380d2b52df2f1927a6c23645273992fe4c2e3f1c3a98f5de",
+      "item": "M1-9b54e82461",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-Q1-01/Perplexity/15",
+      "idx": 15,
+      "sha256": "069c0906d80d12b27b5c03f796e3ec338f53353159a9fc9fdd09039ae2b1d242",
+      "item": "M1-ce551d19a3",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-01/Perplexity/18",
+      "idx": 18,
+      "sha256": "795ed574d51365336107a4444eea9365b0fb02d54248d307fba9ce9dd89b57b9",
+      "item": "M1-498f25b6b1",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-01/Perplexity/23",
+      "idx": 23,
+      "sha256": "59aeccd35522a02d8e61c9b8f4958a10e2e822a62a2fb48556f7a481b525b78d",
+      "item": "M1-8936dc6b2d",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-Q1-01/Perplexity/27",
+      "idx": 27,
+      "sha256": "0c495f87ff14b5b220f355703a05a6e9d55149883286cbc1dc599798af220595",
+      "item": "M1-f536aafbd6",
+      "markers": 2,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-01/Perplexity/28",
+      "idx": 28,
+      "sha256": "ddd8b916a3551d62562fe73e7459ff29f75c9fc3c5bf73acc0e7e96d7c4a07b8",
+      "item": "M1-b7447a9435",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-Q1-01/Perplexity/29",
+      "idx": 29,
+      "sha256": "f16968430ebd6a07e3494b6e64de4e084d00534c9f62a6fe00d6d5182fcdbc72",
+      "item": "M1-f80fb54f71",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-01/Perplexity/30",
+      "idx": 30,
+      "sha256": "839e6aeaac44ae4255168dda6981bbff62bf8a6dca80c0df81034329ff1c2e23",
+      "item": "M1-2522afb3f8",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-Q1-01/Perplexity/33",
+      "idx": 33,
+      "sha256": "622eb364b3d9441eaad889411d3ca82c376ce4070fc6e02326410cd538a63d77",
+      "item": "M1-fcf7e092da",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-01/Perplexity/40",
+      "idx": 40,
+      "sha256": "d7f924667d0abb41c1120430aaa489eefca7e7a4517948c72b6d49460a812504",
+      "item": "M1-d9428643ee",
+      "markers": 1,
+      "label": null
+     }
+    ]
+   },
+   {
+    "question": "WHU-Q1-02",
+    "system": "WHU",
+    "sentences": 56,
+    "samplable": 56,
+    "claim_like_pool": 53,
+    "k": 20,
+    "rng_seed_string": "<SEED>/WHU-Q1-02/WHU/M1",
+    "drawn": [
+     {
+      "sentence": "WHU-Q1-02/WHU/6",
+      "idx": 6,
+      "sha256": "90fb611291c868de4c28f5404aa443d7b836c4c51053eb86608a99a21d6070d0",
+      "item": "M1-1d2a084ecc",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-02/WHU/7",
+      "idx": 7,
+      "sha256": "91734bed62ffa1bae4dc0069f962c90da3b1e42ba13d293e94ca1aeb4c232e17",
+      "item": "M1-d27e3fc344",
+      "markers": 2,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-02/WHU/8",
+      "idx": 8,
+      "sha256": "8b198c2652bf6c573f11d39a8b1c74f2178101edc47aadb893322b59c83417a1",
+      "item": "M1-c48c3a481b",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-02/WHU/9",
+      "idx": 9,
+      "sha256": "b098b8e35a4df58cb46d1a210cf20628cb257ce9bd7e002e41db955004247566",
+      "item": "M1-436d82774d",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-02/WHU/14",
+      "idx": 14,
+      "sha256": "aa0f6ea55e2fb8908739a07712ba5cd4b0809d1d18dd1ed89bc676062b3119c0",
+      "item": "M1-a1630d9afe",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-02/WHU/15",
+      "idx": 15,
+      "sha256": "d596d32ccf6f834691f7d29b795dc5fdc9d1d259acf6c5933d4f0cd009839759",
+      "item": "M1-f6d7639ddd",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-02/WHU/16",
+      "idx": 16,
+      "sha256": "533837f4b8e7a343d61b89fdbc8b1726d64e25e5920ce1c37295a33f65f4a160",
+      "item": "M1-866bf1041b",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-02/WHU/20",
+      "idx": 20,
+      "sha256": "28473bf421ccb6d7a53057c860c629c4a2d683f4cadc56f50aaafcb4b814cc42",
+      "item": "M1-f309c702cd",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-02/WHU/21",
+      "idx": 21,
+      "sha256": "a3329ad2d4a540ad86809e3b9a82eaa4d3069d97a73a8bd4e6c98c9249f3219f",
+      "item": "M1-4145c9e754",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-02/WHU/22",
+      "idx": 22,
+      "sha256": "e7cd6b2344b6c1350faf932d21977231178d0d5511d5dc8b45f1f4861a8c4c14",
+      "item": "M1-95ad25c2ba",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-02/WHU/25",
+      "idx": 25,
+      "sha256": "7dbde909af262d4799278cd3542372ebca0f64e155a80921e65476bca33244f7",
+      "item": "M1-d92c1d3bd6",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-02/WHU/27",
+      "idx": 27,
+      "sha256": "95a8921086f0fd638e83b409b12731fd58781ed81b3da5c2a8328ea93cf6d22d",
+      "item": "M1-b15af57dec",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-02/WHU/30",
+      "idx": 30,
+      "sha256": "1de8bbab3c81a2ea00cef65dcfef9313e88e5daa0711a1ab7d1afa35c47d0e2a",
+      "item": "M1-ae75599d50",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-02/WHU/33",
+      "idx": 33,
+      "sha256": "3824c0adf085434646ad10af7103f2912205e452ee5018c564846d1d03177555",
+      "item": "M1-a69f3a929b",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-02/WHU/38",
+      "idx": 38,
+      "sha256": "eb80e1c29ad90a9e5ab55799e9aec6b3cd641f63009c005eb920cb1e85eecd4b",
+      "item": "M1-cca83988f9",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-02/WHU/39",
+      "idx": 39,
+      "sha256": "a47fb575646f1ad774219624f3091e7505bce4a7ec40efc623f1fd7079453186",
+      "item": "M1-223224fcc1",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-02/WHU/44",
+      "idx": 44,
+      "sha256": "3fb81bf6f4316de8722402265aa00a7b143347749e14a6c94ec24b2322a9f919",
+      "item": "M1-df6c45f112",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-02/WHU/46",
+      "idx": 46,
+      "sha256": "cdccd040f35886f93a6e07287717a22adf4fed343fec2a375ba689d1d887e69c",
+      "item": "M1-ba52b3d4f2",
+      "markers": 2,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-02/WHU/49",
+      "idx": 49,
+      "sha256": "c073e004eb33f6be7daf9a4be86cb6f2fd091eced593b78d2330b28a4402bfe7",
+      "item": "M1-bbeb3b2720",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-Q1-02/WHU/55",
+      "idx": 55,
+      "sha256": "d020f52c64296d9dc933a3d81211a865349af5d1d00340429378d84a51349289",
+      "item": "M1-5b2799906b",
+      "markers": 1,
+      "label": null
+     }
+    ]
+   },
+   {
+    "question": "WHU-Q1-02",
+    "system": "Claude",
+    "sentences": 186,
+    "samplable": 186,
+    "claim_like_pool": 79,
+    "k": 20,
+    "rng_seed_string": "<SEED>/WHU-Q1-02/Claude/M1",
+    "drawn": [
+     {
+      "sentence": "WHU-Q1-02/Claude/9",
+      "idx": 9,
+      "sha256": "31c79fd005d26531d992da986587ada60e744cad7e6b3da72e9d5a9d95dfa2f4",
+      "item": "M1-f2773408f4",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-Q1-02/Claude/13",
+      "idx": 13,
+      "sha256": "e53cb7b99ab79942fb66a980741ed55cbf8a53dfa79f28ebb5ec721768871018",
+      "item": "M1-6528f943d7",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-Q1-02/Claude/23",
+      "idx": 23,
+      "sha256": "a2a417159cbc10bbf8d510b63a8ff124fa9ede192a8e4cb017ce4125b8c580bd",
+      "item": "M1-db959b03a7",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-Q1-02/Claude/31",
+      "idx": 31,
+      "sha256": "f1b56efb2d840652d80e31f132f2c7056e866757cd5df5ec5870d5c83e267a86",
+      "item": "M1-9d48553100",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-Q1-02/Claude/47",
+      "idx": 47,
+      "sha256": "663def2089fcf346224ef714959710227b1bc46b9bcf9c446a7a6bbbcdd04a42",
+      "item": "M1-1ab6a25ef1",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-Q1-02/Claude/48",
+      "idx": 48,
+      "sha256": "e591ad7a933cab1d5a5ad7aacca993d4d152738842f541f691ab5fda75e3e418",
+      "item": "M1-bd00c949bc",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-02/Claude/49",
+      "idx": 49,
+      "sha256": "35eacf5b8dc35b82f85a0fcde9a5090c200edce22cb6fc341529188f8dbb85a1",
+      "item": "M1-fefa44c6b7",
+      "markers": 2,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-02/Claude/70",
+      "idx": 70,
+      "sha256": "e38e1fd48d5ea3232d2ddb5c68d0f5766fd0da6297bc4145eb69e0c4db05bbc7",
+      "item": "M1-bf9945341c",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-02/Claude/80",
+      "idx": 80,
+      "sha256": "bec72a0ff35c57027cbe497a06a2e654ac5bf43fe876864c94b072a1f9af4d8a",
+      "item": "M1-944aa50098",
+      "markers": 3,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-02/Claude/99",
+      "idx": 99,
+      "sha256": "654f67bb8c96793befcadffaa2f9efee25d118dd99283f8279276f23a6e198e7",
+      "item": "M1-20d0da52da",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-Q1-02/Claude/100",
+      "idx": 100,
+      "sha256": "a6cab2076a31760811fe372c085db588f79f55afdaad70ca1ef0975a83e3490c",
+      "item": "M1-3d38f79d2e",
+      "markers": 3,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-02/Claude/104",
+      "idx": 104,
+      "sha256": "386ce798129a15ff415ae2f06fe2ec61d5554e14aca9d464251b9d7f136266a1",
+      "item": "M1-3a4416c0da",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-02/Claude/117",
+      "idx": 117,
+      "sha256": "f386c430c2530bd03bc96495b81fbd8e0f2972163a500ae3874f85c05042009d",
+      "item": "M1-7db5b1c8d8",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-02/Claude/120",
+      "idx": 120,
+      "sha256": "9d95bf298d601a395191ceb7f500843f4482eea7aacf63bc80d1de1217492bf3",
+      "item": "M1-4f4320b55e",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-Q1-02/Claude/128",
+      "idx": 128,
+      "sha256": "0a140e04b5a924ce323ca72f51530893851dd9d05af880cfabc991a13a626840",
+      "item": "M1-985cda22c9",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-02/Claude/132",
+      "idx": 132,
+      "sha256": "72d166d94c51d3b820bc4fd1530bcad8fa76472b51c767955ac7d4aaaf24ee6a",
+      "item": "M1-f523131a1d",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-Q1-02/Claude/135",
+      "idx": 135,
+      "sha256": "0a27b14db67cad915948a8bf66d0e2ef28dc1e94d889ab078873ed2b0192e91e",
+      "item": "M1-722f8e697b",
+      "markers": 3,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-02/Claude/137",
+      "idx": 137,
+      "sha256": "bd3b657d4bb56e9a66f11880c35f8ece7e46fbdfbe88860afc9fd9eb637402a2",
+      "item": "M1-e37f47397f",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-Q1-02/Claude/142",
+      "idx": 142,
+      "sha256": "51c44752c7c571662a90517647e3850078f2b6c4b74e6de3ade66dd06431cab4",
+      "item": "M1-fac3cde9ea",
+      "markers": 2,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-02/Claude/145",
+      "idx": 145,
+      "sha256": "6ecb8f3b9d3e259b868e5d3a19cf9b6d015191aad47ab3d965275858a2ce510d",
+      "item": "M1-6b12755a5c",
+      "markers": 2,
+      "label": null
+     }
+    ]
+   },
+   {
+    "question": "WHU-Q1-02",
+    "system": "ChatGPT",
+    "sentences": 210,
+    "samplable": 210,
+    "claim_like_pool": 18,
+    "k": 18,
+    "rng_seed_string": "<SEED>/WHU-Q1-02/ChatGPT/M1",
+    "drawn": [
+     {
+      "sentence": "WHU-Q1-02/ChatGPT/7",
+      "idx": 7,
+      "sha256": "1f03b919d680b8d35d3d2c2cb305a3b9b4b7e6ffda986108f4f9559dfb64d4a9",
+      "item": "M1-7a6ddc44f8",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-Q1-02/ChatGPT/18",
+      "idx": 18,
+      "sha256": "d3559c68c0907d9f1b98b896b16893b3a83982c7087046d682a5f9fb36d5751f",
+      "item": "M1-eef32358cb",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-Q1-02/ChatGPT/19",
+      "idx": 19,
+      "sha256": "a3fcc7b1a5b2eb4b9bdb90be16c18790ffe91b8450dd103801470631ad6d357f",
+      "item": "M1-7ecdd5d5b4",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-Q1-02/ChatGPT/29",
+      "idx": 29,
+      "sha256": "226db0e65357b218a53c25377ce6040bfb450b4d56b5d50fc4df15693e7db470",
+      "item": "M1-604abd555c",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-Q1-02/ChatGPT/52",
+      "idx": 52,
+      "sha256": "f37158c118eb23f624b46e4b4e6f2257215823ed994ee770cec0505e65bb8a85",
+      "item": "M1-7cda1bfb8d",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-Q1-02/ChatGPT/65",
+      "idx": 65,
+      "sha256": "221bab22037b1d79de1022d0a50b8bf78fe41ee87a90d29838b34b3c62cb4d04",
+      "item": "M1-d5238ac06a",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-Q1-02/ChatGPT/71",
+      "idx": 71,
+      "sha256": "ede49bbe255b72a045908d828eb2aff1717f02221d8917391784225e43aa8274",
+      "item": "M1-d87e7055fe",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-Q1-02/ChatGPT/88",
+      "idx": 88,
+      "sha256": "6c9cc175a89626ec87700db0f3f54da4c28a5d6c31879eb7da5b6ba639fa2769",
+      "item": "M1-3d8aedfcfd",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-Q1-02/ChatGPT/89",
+      "idx": 89,
+      "sha256": "e4d6823ee65468b02647a136f3bcf57ed041631d99dbaffe98bed56e774477e5",
+      "item": "M1-e8c0ec8703",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-Q1-02/ChatGPT/91",
+      "idx": 91,
+      "sha256": "3d001da0d5f487a98f5683e04679084c9677db6da14f05912004325a2844df80",
+      "item": "M1-5376b9bcb7",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-Q1-02/ChatGPT/92",
+      "idx": 92,
+      "sha256": "0ec20b7e0611c0438486ac4e38501e487b4c44ecaf9b0a2de609e7b99b885772",
+      "item": "M1-f416c392c5",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-Q1-02/ChatGPT/107",
+      "idx": 107,
+      "sha256": "7399a2b73c477f369f5dfc1382092ea35e7b440e4d96c25121c153e88ce6d05a",
+      "item": "M1-3ec4d0b363",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-Q1-02/ChatGPT/111",
+      "idx": 111,
+      "sha256": "439bf82ba8e1b4c4631152a0b4af506839f81472025c6591056a28d457a517ba",
+      "item": "M1-65832f9f26",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-Q1-02/ChatGPT/124",
+      "idx": 124,
+      "sha256": "12f1202d7876913e0c7c837deb5f018f6ee8e10535540e28ca1c78910f5a6ec1",
+      "item": "M1-4950b66250",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-Q1-02/ChatGPT/125",
+      "idx": 125,
+      "sha256": "6a030561b313c9a35df2b627d7e3999cc03c13dc22aba6cc02542aab9d93013f",
+      "item": "M1-04febaa399",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-Q1-02/ChatGPT/126",
+      "idx": 126,
+      "sha256": "ecfb86b26ae5158ce706e1077b7c066bcc74d7d90babd02485c19b812d9f6dd6",
+      "item": "M1-f4c60e8a76",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-Q1-02/ChatGPT/177",
+      "idx": 177,
+      "sha256": "f4d52b4d8f84fd8d9444b5a263245d48570688613bf3e41591d7d08ac409a7b7",
+      "item": "M1-d7a7717f25",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-Q1-02/ChatGPT/185",
+      "idx": 185,
+      "sha256": "1a06e0c95b2a2ab4409de5c75ee99c83e1e6a6bbd19ede7667430db8cb7aa508",
+      "item": "M1-c71917e429",
+      "markers": 0,
+      "label": "UNCITED"
+     }
+    ]
+   },
+   {
+    "question": "WHU-Q1-02",
+    "system": "Gemini",
+    "sentences": 141,
+    "samplable": 140,
+    "claim_like_pool": 122,
+    "k": 20,
+    "rng_seed_string": "<SEED>/WHU-Q1-02/Gemini/M1",
+    "drawn": [
+     {
+      "sentence": "WHU-Q1-02/Gemini/0",
+      "idx": 0,
+      "sha256": "144cdbbb6184919d165f0ef4b92e564c3d65c625be8f41c420fb7f04bd49c361",
+      "item": "M1-1ae7f27524",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-02/Gemini/22",
+      "idx": 22,
+      "sha256": "1342aa4d43777b9c87241cda1d8fdf7b7b0cffa1dd5453ac989f3e7785c3edcf",
+      "item": "M1-6a2e72c308",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-02/Gemini/25",
+      "idx": 25,
+      "sha256": "ccedd53b47494268cd1fdc1d9d74905b0d622daaef845d7cf197fadbb3616d76",
+      "item": "M1-df6ab484b7",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-02/Gemini/26",
+      "idx": 26,
+      "sha256": "4f633e8d876195cf2f999e97ffea1a14e11b96d252f85e5ebf4c7081a14f9841",
+      "item": "M1-245d83d07f",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-02/Gemini/33",
+      "idx": 33,
+      "sha256": "7865c10f541543a5b0cf8e897d9eb91ed868ae31818092769c9fcff2af46efae",
+      "item": "M1-cda50d609c",
+      "markers": 3,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-02/Gemini/57",
+      "idx": 57,
+      "sha256": "e6e7cacf53f7fc2207269ac35a1ff87ffdea29f0a03cba09b963ae6b92e304c9",
+      "item": "M1-530abf9d25",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-02/Gemini/63",
+      "idx": 63,
+      "sha256": "63cbaef85dfc4106024666e49594d187a952fdf35254c5513bae2fdeb6158181",
+      "item": "M1-a0efb2f8c4",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-02/Gemini/67",
+      "idx": 67,
+      "sha256": "2bc331a0d8ca2ac7d38128fc7c6f09c6eff3d57069dae1ec66836f8b860a537f",
+      "item": "M1-7d227800cb",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-02/Gemini/69",
+      "idx": 69,
+      "sha256": "4cb745593ebe8e73ff383a0cfaeddbedc5dab302624e3fffd61f1b25d3847f82",
+      "item": "M1-bedb5e87f7",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-02/Gemini/84",
+      "idx": 84,
+      "sha256": "e7a95c076a2205a876b5189268d80b7e502e6da299d5752d2290d9596ea66666",
+      "item": "M1-055c44c146",
+      "markers": 3,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-02/Gemini/103",
+      "idx": 103,
+      "sha256": "00fa7d12a562834cce252db4926cb4bf5fed30ed2465670fdc9b008e7d5f09bb",
+      "item": "M1-7f9aa3edf1",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-02/Gemini/106",
+      "idx": 106,
+      "sha256": "618d111b97d8447e6eff3405a3e5300a9dc083638219702bcef7b801488827c2",
+      "item": "M1-ea74f4e739",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-02/Gemini/107",
+      "idx": 107,
+      "sha256": "c67c65c6939aa5355587bd77f85b16fac22d579d48c2bf181bdb0abba2b73b3f",
+      "item": "M1-3ba47cad48",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-02/Gemini/113",
+      "idx": 113,
+      "sha256": "580fb552ae97aa559ca4cfaf00b3d9f881693c9f63dd5184dab02838518c3ee5",
+      "item": "M1-e13b7cb9db",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-02/Gemini/115",
+      "idx": 115,
+      "sha256": "71fd6bcdc245148246f58c4254183b8065ee1d78442e3e41730328c3effe862d",
+      "item": "M1-01a117d239",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-02/Gemini/117",
+      "idx": 117,
+      "sha256": "e875ebdd6ac1af3e12d9bb68c4303129a70f5080dbe1d43725be10c9c37705e1",
+      "item": "M1-a8ebf0f7aa",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-02/Gemini/121",
+      "idx": 121,
+      "sha256": "9e5298c810b863c07ebc430fa26900df42b368f1d47495dd3656f295af2e8595",
+      "item": "M1-899b83fb22",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-02/Gemini/130",
+      "idx": 130,
+      "sha256": "35f0d12f0d24641b4a165c062bdca74fa0e4d3f8e770bee4f67a072754265594",
+      "item": "M1-c03ca2008b",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-02/Gemini/132",
+      "idx": 132,
+      "sha256": "8e15bac369c8a3cb92832dbe85093b0f828ae2c17dc7a59c1eba46579252cd56",
+      "item": "M1-631da5e3d8",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-02/Gemini/134",
+      "idx": 134,
+      "sha256": "13c7247d74b84e15e1846a3f762c07acf14801d2385d3b734fc599b260852a7a",
+      "item": "M1-c348def30b",
+      "markers": 1,
+      "label": null
+     }
+    ]
+   },
+   {
+    "question": "WHU-Q1-02",
+    "system": "Perplexity",
+    "sentences": 60,
+    "samplable": 60,
+    "claim_like_pool": 18,
+    "k": 18,
+    "rng_seed_string": "<SEED>/WHU-Q1-02/Perplexity/M1",
+    "drawn": [
+     {
+      "sentence": "WHU-Q1-02/Perplexity/3",
+      "idx": 3,
+      "sha256": "02ee0a6533ff79ed6b4c229e735da9bd13451fd389ba4a74951080485cb90864",
+      "item": "M1-85ba59390e",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-Q1-02/Perplexity/4",
+      "idx": 4,
+      "sha256": "28bfe356e5141bca9cd9f5f119f486e0412918e7361217db0b4948a9672cca03",
+      "item": "M1-5eaceb4f50",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-02/Perplexity/8",
+      "idx": 8,
+      "sha256": "c27bf471c60f5e38982c2f7d36cfa30573405e85f7c9924bca4dcd7508d61fec",
+      "item": "M1-a1fc6027cc",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-Q1-02/Perplexity/15",
+      "idx": 15,
+      "sha256": "841d64f1bd34f4874154166fe3be548868fda85a2b39a256792b7e6e15b2949f",
+      "item": "M1-042fdffb07",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-02/Perplexity/18",
+      "idx": 18,
+      "sha256": "f756fd266c60a8fc4b6bb64f72384dd9bdbcb2ddb5ea92ae2cace93955db8343",
+      "item": "M1-4d7ec68613",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-02/Perplexity/21",
+      "idx": 21,
+      "sha256": "b85fb8163694acddfa956b7fd1db6cdc8b4c71c798b545aecfb289d1ed1a5e83",
+      "item": "M1-e3f01d5ffd",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-02/Perplexity/24",
+      "idx": 24,
+      "sha256": "041063777a568d8e6e2afe944a4ec0bec24d20f40c531e720c212b0aea6ae064",
+      "item": "M1-e291a08141",
+      "markers": 2,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-02/Perplexity/26",
+      "idx": 26,
+      "sha256": "9ab9ec76f7f1b7b8670bfeec11a4b4545865e588e2b0a3f18ce5d9d948556fd6",
+      "item": "M1-755a4b162f",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-Q1-02/Perplexity/27",
+      "idx": 27,
+      "sha256": "cc434c4fe5442d69b2f100f829f127f08dfd79e7b1e9caeef7e0da6342624be7",
+      "item": "M1-8ab5e43135",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-02/Perplexity/30",
+      "idx": 30,
+      "sha256": "605ff4a03c8ee244adf42a004d904c5f72f9811f768966f02048582c52cc7319",
+      "item": "M1-75cd2d3342",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-02/Perplexity/32",
+      "idx": 32,
+      "sha256": "5eaa08e1b3e520556207036e3e23bb73ccdb303edad3b0b847c1036151daf5c2",
+      "item": "M1-6b7312e4a4",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-Q1-02/Perplexity/33",
+      "idx": 33,
+      "sha256": "144314b3b76408602543f35f637d99ef9e329f979e18d27bc5ce3353eed583d1",
+      "item": "M1-8fe48c07fa",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-02/Perplexity/36",
+      "idx": 36,
+      "sha256": "c4393712c80df8bca0119b58a83df57bc1571b40df2c0b2f01afa15d151dc832",
+      "item": "M1-afae5082c4",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-02/Perplexity/38",
+      "idx": 38,
+      "sha256": "83c64ce4361dfad429dd41809d15c0a4d232c6dd1b004beee0a5ee862ac31702",
+      "item": "M1-70a2438e6b",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-Q1-02/Perplexity/39",
+      "idx": 39,
+      "sha256": "abeb5bc43bd430f3849758832137ab8284b0b9a4b026a609eca3c5b2423eff86",
+      "item": "M1-c19ae9ac2b",
+      "markers": 2,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-02/Perplexity/40",
+      "idx": 40,
+      "sha256": "5de37bc0b3b77637373b4b3bcc558ee076d5b6fd1b3b7fbb2c8c57e714a5378e",
+      "item": "M1-c1bfc42124",
+      "markers": 2,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-02/Perplexity/53",
+      "idx": 53,
+      "sha256": "397a8e67b3b4144da31d1cc480f0bfaba0a3c3adcbb27ba265b5fa2041c2edca",
+      "item": "M1-02d00d7287",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-02/Perplexity/56",
+      "idx": 56,
+      "sha256": "d8995f6e4ee0c591d0a805dca73385003baa0c35004cdcfd3b6a93a2e6855d67",
+      "item": "M1-e3b49b17fe",
+      "markers": 1,
+      "label": null
+     }
+    ]
+   },
+   {
+    "question": "WHU-Q1-03",
+    "system": "WHU",
+    "sentences": 165,
+    "samplable": 163,
+    "claim_like_pool": 157,
+    "k": 20,
+    "rng_seed_string": "<SEED>/WHU-Q1-03/WHU/M1",
+    "drawn": [
+     {
+      "sentence": "WHU-Q1-03/WHU/7",
+      "idx": 7,
+      "sha256": "0d5df84b008a55281ecbc626796447a3df7f1f56d99f3b3f9f8f0c1bb53a331f",
+      "item": "M1-c03cdca126",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-03/WHU/18",
+      "idx": 18,
+      "sha256": "b915b388a31388fe5102c16a0876725df5d67f23949b9d7387e50bfb77fc18ab",
+      "item": "M1-b15f835db4",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-03/WHU/26",
+      "idx": 26,
+      "sha256": "5da019dc55f34b55d1dea4c302ad1aacf4ec3bcfdb8c82deeca203610f740314",
+      "item": "M1-35da3f3501",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-03/WHU/27",
+      "idx": 27,
+      "sha256": "5ea9c1a8c907411cb8a7862010bc812ed3fceb2702998563c74692044c198e5b",
+      "item": "M1-af867d79c3",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-03/WHU/29",
+      "idx": 29,
+      "sha256": "d0b0139aac6079d6904349e6161e3b0983ad78ef408a97b00d60cb2f7b9cc606",
+      "item": "M1-0388d38eed",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-03/WHU/31",
+      "idx": 31,
+      "sha256": "554b15b088eb3449ef57dcf3d2e3566188f93c17cec3931ba2807b42f2a5f440",
+      "item": "M1-f2177eba19",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-03/WHU/33",
+      "idx": 33,
+      "sha256": "04362aec20a076a9e604dbd55ee8f7cbd8ba07e290a7f6c3c106864c130bd850",
+      "item": "M1-eb0abcf14c",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-03/WHU/34",
+      "idx": 34,
+      "sha256": "64e5587bc28b859b272328dbea1a4171ed1e735146d4e1c7b97888a66250db47",
+      "item": "M1-19eaa26b6c",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-03/WHU/56",
+      "idx": 56,
+      "sha256": "bfe0d7c4e28002295b10b836b8911b58675ab33c3cd0b376332a4f2a231e7b47",
+      "item": "M1-5711fefdd0",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-03/WHU/60",
+      "idx": 60,
+      "sha256": "e4272204628d2e34e0612153701bb332188be6587a60d24fe85bf3cc34afe19d",
+      "item": "M1-d99354dc51",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-03/WHU/76",
+      "idx": 76,
+      "sha256": "f807a6abb057c81c8586c5f0a74d18c66b778594fe9abae3a94be0c05cae9f62",
+      "item": "M1-821d9dd051",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-03/WHU/78",
+      "idx": 78,
+      "sha256": "c648cbf0dfcb52facf164f4e3c323b68b5968e55e0e74d7564fab0cc91d626c6",
+      "item": "M1-73c8e7d9b6",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-03/WHU/79",
+      "idx": 79,
+      "sha256": "03855cc1dd4dc68c8def76c5d4d2118691691cc8f831fe81729d5188d0269ae4",
+      "item": "M1-f5453b5376",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-03/WHU/92",
+      "idx": 92,
+      "sha256": "2fc1014e49138f44827eec981779e1f935c453ed19bb09f765d32256226f03b0",
+      "item": "M1-da7375760b",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-03/WHU/108",
+      "idx": 108,
+      "sha256": "046698fa46971f6d845212519a9934df2810dc901ddbfc530d3f0791b85ec67d",
+      "item": "M1-b39a1733ff",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-03/WHU/137",
+      "idx": 137,
+      "sha256": "4f8725df66247c41503a372fdef29a7d8c1df099c0e4e26737fc2017655b0be2",
+      "item": "M1-fbad03db81",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-03/WHU/142",
+      "idx": 142,
+      "sha256": "1dad3cc76c8cb6bb63d76ffbf90be87be5369ef2327b483fa148247a2d50149d",
+      "item": "M1-7f780fc97b",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-03/WHU/146",
+      "idx": 146,
+      "sha256": "f19073e4b4a73f62e360de3fe45cde2f7ff2280ef2eb506ef812c5b129fc679d",
+      "item": "M1-5a0a9fb12d",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-03/WHU/157",
+      "idx": 157,
+      "sha256": "2ac63754173b4c0f143897cd788632df861448109daf495854e7c39f22eccbba",
+      "item": "M1-43cf27c16c",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-03/WHU/161",
+      "idx": 161,
+      "sha256": "2af4da4020a08cb6b81e190132df5ed54607d095ec07165942dc8e3158e0601b",
+      "item": "M1-df067c5f4a",
+      "markers": 1,
+      "label": null
+     }
+    ]
+   },
+   {
+    "question": "WHU-Q1-03",
+    "system": "Claude",
+    "sentences": 243,
+    "samplable": 243,
+    "claim_like_pool": 131,
+    "k": 20,
+    "rng_seed_string": "<SEED>/WHU-Q1-03/Claude/M1",
+    "drawn": [
+     {
+      "sentence": "WHU-Q1-03/Claude/9",
+      "idx": 9,
+      "sha256": "9d510a04b29b1660518bab753d17e133c26d3a078e1b430fba8bb34e3ed74d2f",
+      "item": "M1-6a64f66907",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-Q1-03/Claude/11",
+      "idx": 11,
+      "sha256": "045fec51eb313540f337147aa97a4572d87dc00298f90f3568ccce062711b10a",
+      "item": "M1-ab92ec0c8e",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-Q1-03/Claude/16",
+      "idx": 16,
+      "sha256": "0f099d07d6a8410357c70f2ca086cfa6f2129c75742695ff99ae0b59481964c7",
+      "item": "M1-b6d8ad2dc6",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-Q1-03/Claude/23",
+      "idx": 23,
+      "sha256": "9a6f86d1a081d0c49081491faebd77c449c23abcafe7d823553018957064f022",
+      "item": "M1-10421086ba",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-Q1-03/Claude/37",
+      "idx": 37,
+      "sha256": "7cb9740f4a5e7e61d7b7d78a88be2a391b1754511eb24174724ddadd99fb3f17",
+      "item": "M1-d04ea3bc88",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-Q1-03/Claude/39",
+      "idx": 39,
+      "sha256": "8f51b78308dddf3bf3c6faacaf6c0a2ab298062cb475dd3632a178883ac876af",
+      "item": "M1-26ebb00866",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-03/Claude/63",
+      "idx": 63,
+      "sha256": "a508c1d49f0326621003dbd4b34f914c368b09a660e8ff83777dd9e76b4e6e2d",
+      "item": "M1-db4a537add",
+      "markers": 2,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-03/Claude/64",
+      "idx": 64,
+      "sha256": "fa4281c1a031d9fa4f23e86529da2b7c41a28701d824d873e92c130891151a6d",
+      "item": "M1-58959e54e9",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-Q1-03/Claude/74",
+      "idx": 74,
+      "sha256": "b565db4ba692cc8e620f26a288ec71bc61c544daa13af700e8234274179b8fac",
+      "item": "M1-209004845d",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-03/Claude/84",
+      "idx": 84,
+      "sha256": "593346afa53fc588158cb7e036aab4edabf6bccc0e5d89061d85888c7bfb6eed",
+      "item": "M1-997a0cd0da",
+      "markers": 4,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-03/Claude/101",
+      "idx": 101,
+      "sha256": "4698c519ecd06786af2696b8fca9e106e3f66e98ac50663656c8131ee21d5dab",
+      "item": "M1-36848158af",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-03/Claude/103",
+      "idx": 103,
+      "sha256": "831a91190410bdabf4f61e525ca03463de3f53a228b1884670a37d8fb5cc4bea",
+      "item": "M1-4fe16827da",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-Q1-03/Claude/106",
+      "idx": 106,
+      "sha256": "f1f012f954f608462a37f7d09fe93190445d037574c370d250fc4ab315b6d398",
+      "item": "M1-89b7e8d18f",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-03/Claude/141",
+      "idx": 141,
+      "sha256": "9ee358a611fc249c895b783c79289b761a8f5bd5435a2995746461f0a603499d",
+      "item": "M1-f7930f71b3",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-03/Claude/150",
+      "idx": 150,
+      "sha256": "f5ef240197a5fc0500eeea501f09c6dc0775603e934387a453adf802db86ed54",
+      "item": "M1-4b841cabc8",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-03/Claude/155",
+      "idx": 155,
+      "sha256": "a892607be819e1d5a1f3a4177f48d314593502d3e94d8b8ae52f7c40cd24f6fe",
+      "item": "M1-1c6b8c26e6",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-Q1-03/Claude/182",
+      "idx": 182,
+      "sha256": "9d65087f86d0091626d9b340ec328889a9d330154bfb90b2ad82a272be29b684",
+      "item": "M1-30f387ce59",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-03/Claude/209",
+      "idx": 209,
+      "sha256": "d93b470a20fcfd6f56d9ab63d9466c3189319803cb745b2bc2dcb26570f513ab",
+      "item": "M1-90f76bf10c",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-03/Claude/215",
+      "idx": 215,
+      "sha256": "92aaaa4f91f342f8654e578b9886fc077e9ddca22eb96ab9306b8741156ad15d",
+      "item": "M1-ab8c49743d",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-Q1-03/Claude/230",
+      "idx": 230,
+      "sha256": "eab2c51604c604804dc95604c6339f5747133e61a11be95e673249813e780ea7",
+      "item": "M1-3e3ee70783",
+      "markers": 0,
+      "label": "UNCITED"
+     }
+    ]
+   },
+   {
+    "question": "WHU-Q1-03",
+    "system": "ChatGPT",
+    "sentences": 144,
+    "samplable": 144,
+    "claim_like_pool": 57,
+    "k": 20,
+    "rng_seed_string": "<SEED>/WHU-Q1-03/ChatGPT/M1",
+    "drawn": [
+     {
+      "sentence": "WHU-Q1-03/ChatGPT/0",
+      "idx": 0,
+      "sha256": "3d40567461506efac8ba5699cd6dc8181a177821c4592efcc0ea853d3b8a7a90",
+      "item": "M1-ef7ee8f1ac",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-Q1-03/ChatGPT/3",
+      "idx": 3,
+      "sha256": "384fea1698d8dc5834f7c9764a0f54bf380513ae4edf57d6db5f168d5416d518",
+      "item": "M1-0bfe500da1",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-Q1-03/ChatGPT/5",
+      "idx": 5,
+      "sha256": "c188ca2677b686f2a448f01991605d863e9fc1d4e1c2c47dd0a21ac27d362968",
+      "item": "M1-39eaeba630",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-Q1-03/ChatGPT/10",
+      "idx": 10,
+      "sha256": "b38de4377050b887afa167ff43ee18ae309acc61f545456b0ab1f106d2f01e83",
+      "item": "M1-24d94d0ae0",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-Q1-03/ChatGPT/25",
+      "idx": 25,
+      "sha256": "36699f0ecb7560c6d1657d0c224b14ad80476ac7240d088b98b703a7d5e5550d",
+      "item": "M1-7145f2fe63",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-Q1-03/ChatGPT/30",
+      "idx": 30,
+      "sha256": "40f029f7f12800d08a68b95dfd2e5dda46b42030c04a03c0e953996fb495d90c",
+      "item": "M1-b621e331ae",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-Q1-03/ChatGPT/45",
+      "idx": 45,
+      "sha256": "1f1824733426a2c589e3b324628965e101ddc284008d275727ed4fb2c6de013b",
+      "item": "M1-5652ac5149",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-Q1-03/ChatGPT/51",
+      "idx": 51,
+      "sha256": "553df60fca7c34b6c5c0f2780fdf7374cb520f8faf58b43c04bcc30bb3f17885",
+      "item": "M1-3d539a686f",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-Q1-03/ChatGPT/54",
+      "idx": 54,
+      "sha256": "f4ecb4e0786be7340901771fac6f10b8f94c683b459b0022f2379e2c2151c699",
+      "item": "M1-04bfe6c34b",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-Q1-03/ChatGPT/58",
+      "idx": 58,
+      "sha256": "e24cb3ff3cd31734254a161a037d5a7e6e3d89311a5755e34040a98c78d43ed5",
+      "item": "M1-d481da6499",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-Q1-03/ChatGPT/74",
+      "idx": 74,
+      "sha256": "8cc21c4257b4801c6b845ecc752aafe13b64da9e9b77d730c7bde609a2fba5ff",
+      "item": "M1-72dc35f10e",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-Q1-03/ChatGPT/78",
+      "idx": 78,
+      "sha256": "fad91bfb442b76351047cd7394cf48af07914fd2708ef3a25a2094745a0ecf2e",
+      "item": "M1-2edb5dd2ff",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-Q1-03/ChatGPT/99",
+      "idx": 99,
+      "sha256": "c3664c71dc34796f842426dba8b221c41403f2a04b3deef3c3c9181afcdb4504",
+      "item": "M1-10eaacea13",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-Q1-03/ChatGPT/101",
+      "idx": 101,
+      "sha256": "d32253e112ebc2b30de64bdfadae01b5e3257fdfe242dc189695610f868003da",
+      "item": "M1-deea6c47c5",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-Q1-03/ChatGPT/102",
+      "idx": 102,
+      "sha256": "93590895755fdd271d6bde8e883b009886d540dd6ec8650552d9bd1edd53e2b4",
+      "item": "M1-d81beeedf6",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-Q1-03/ChatGPT/114",
+      "idx": 114,
+      "sha256": "4a01b2f314ca8ba27955059c925220426996453077a948eca9f50ebb485985a2",
+      "item": "M1-804de68953",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-Q1-03/ChatGPT/120",
+      "idx": 120,
+      "sha256": "0b9660c8d4ed06442f5487abbd35f0711e3149d01bfa99af232c43d28b021865",
+      "item": "M1-814d3dddfb",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-Q1-03/ChatGPT/125",
+      "idx": 125,
+      "sha256": "bf31bbfe1e3a4711c6842960c44fe952af934662c4b4347671180313d2a0ae94",
+      "item": "M1-47764a2197",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-Q1-03/ChatGPT/128",
+      "idx": 128,
+      "sha256": "c16e1a751cf69c10d1abec73e9775d0e8fafe9bf49d181c01ae8eee9fad5aef7",
+      "item": "M1-59807a5589",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-Q1-03/ChatGPT/138",
+      "idx": 138,
+      "sha256": "54627666584a936d0479ebd5b490673ab6995c72bbb6d3520e31f83624ff31f4",
+      "item": "M1-2049538eda",
+      "markers": 0,
+      "label": "UNCITED"
+     }
+    ]
+   },
+   {
+    "question": "WHU-Q1-03",
+    "system": "Gemini",
+    "sentences": 123,
+    "samplable": 68,
+    "claim_like_pool": 68,
+    "k": 20,
+    "rng_seed_string": "<SEED>/WHU-Q1-03/Gemini/M1",
+    "drawn": [
+     {
+      "sentence": "WHU-Q1-03/Gemini/1",
+      "idx": 1,
+      "sha256": "ab6b2e30c829868fa85d2e2637c6ce73644a581c2e2ea52918d871cdb589c304",
+      "item": "M1-fc8b6be137",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-03/Gemini/3",
+      "idx": 3,
+      "sha256": "7dc81e0315885bc7f8052d6b26548a1cc378314955050418a1821600d731b818",
+      "item": "M1-ac1d3ed4ce",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-03/Gemini/23",
+      "idx": 23,
+      "sha256": "a84e089ed8a9659bb477fcbd64da2bf9fb8cbadc21c90937b77dd38ba20b346d",
+      "item": "M1-83991df3b9",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-03/Gemini/25",
+      "idx": 25,
+      "sha256": "791f8a9a55acdd91e5200e8f47af5e5afed8a3ddaa5a5b2e40611b599fcd6451",
+      "item": "M1-11305d57dc",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-03/Gemini/35",
+      "idx": 35,
+      "sha256": "d70dd04ea5072a43dba2094a4edc2b608665cf4c7f45339643dd49044bd09ea5",
+      "item": "M1-fdcbd6e742",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-03/Gemini/37",
+      "idx": 37,
+      "sha256": "af9a454416b899760e8475b673099d402e2470c3bf3fb3b4e696ee966d2bc3ad",
+      "item": "M1-93c009b762",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-03/Gemini/39",
+      "idx": 39,
+      "sha256": "ccf887da96a407f9eeae9231f0b8e5a32c2ad26414a0231b4facc7168e4ff221",
+      "item": "M1-9fe5ff7783",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-03/Gemini/41",
+      "idx": 41,
+      "sha256": "53ae02f507ea99d3d60a4ae5ae6bc80f55586f2ea269b13c0f7e29f07711f908",
+      "item": "M1-ff33cacd03",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-03/Gemini/56",
+      "idx": 56,
+      "sha256": "7724808830e9ad2f5bf9d6e1236f9eacef9a4741bb57c7026a1055ba7e231439",
+      "item": "M1-ae492bfe31",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-03/Gemini/59",
+      "idx": 59,
+      "sha256": "2dc92e5763ab9ad1e277d9283218fdddee1009daf37f0d253bd4421d58e68b95",
+      "item": "M1-7ca3347c3b",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-03/Gemini/61",
+      "idx": 61,
+      "sha256": "563036cf4233fcb51430f749d8caf5e7b01f76b420d7d6511ada6af8ac855992",
+      "item": "M1-735624ee71",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-03/Gemini/66",
+      "idx": 66,
+      "sha256": "e2ce4a578cdfd46d0e7169e53a3c7fa810019d161603b067314f16fd47c123fd",
+      "item": "M1-eec09eeca5",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-03/Gemini/75",
+      "idx": 75,
+      "sha256": "703d42188c8ad5938332f276b1ec784a095834277da33599c3d1b7a2756db318",
+      "item": "M1-06e620b169",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-03/Gemini/100",
+      "idx": 100,
+      "sha256": "b96d28335a019d1c107012d92a58a3ff796fa1fd7d47ed20bf6c2efb086283a6",
+      "item": "M1-c6177dfa23",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-03/Gemini/104",
+      "idx": 104,
+      "sha256": "f0f1d6e32404804ef7a747875944d09385a084e5f583169a90d8cf3c9cd48075",
+      "item": "M1-a3f6d86a0f",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-03/Gemini/108",
+      "idx": 108,
+      "sha256": "5f6a09ab1ba5216a3bffd36823ae69d04f4389f68fe3042c8361047537fb18dc",
+      "item": "M1-41f223332d",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-03/Gemini/110",
+      "idx": 110,
+      "sha256": "4ef1d2448c5a685d9e36152d72e15823fa96ecd218f0fadff8136e780a9b2b5b",
+      "item": "M1-9f4ac20ad5",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-03/Gemini/113",
+      "idx": 113,
+      "sha256": "8d5754c181e2b76e4f02fe9c11e25ac5b997367a726b1aa09d702de81e0c0555",
+      "item": "M1-e738a11f62",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-03/Gemini/114",
+      "idx": 114,
+      "sha256": "f61be64d4f5c2b26ed892abce7bcb11b411add02c1d57b12f0c924b60a04b0fe",
+      "item": "M1-0c2f82e2a0",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-03/Gemini/119",
+      "idx": 119,
+      "sha256": "1e0f0566a793996e8570e9be99d14e9b3a8a79d4367128fdf9f4ae5f727ab942",
+      "item": "M1-16506a9105",
+      "markers": 1,
+      "label": null
+     }
+    ]
+   },
+   {
+    "question": "WHU-Q1-03",
+    "system": "Perplexity",
+    "sentences": 64,
+    "samplable": 64,
+    "claim_like_pool": 43,
+    "k": 20,
+    "rng_seed_string": "<SEED>/WHU-Q1-03/Perplexity/M1",
+    "drawn": [
+     {
+      "sentence": "WHU-Q1-03/Perplexity/4",
+      "idx": 4,
+      "sha256": "33941d63ccc6c382b134bf1e45e0cb0d0de5ebfa6a5a3cd38a26b2872d470531",
+      "item": "M1-f863c3f2a1",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-03/Perplexity/6",
+      "idx": 6,
+      "sha256": "d3f64b7bff559bb2535e36d140d13ccd9f3e21c396e3c07c06b673a592eb7298",
+      "item": "M1-f3a7e723a8",
+      "markers": 3,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-03/Perplexity/12",
+      "idx": 12,
+      "sha256": "8538dbc6215165d3d5d253dbbf203faddc8fc56d55bddf86ecd22cfe017371e4",
+      "item": "M1-3909b3ea53",
+      "markers": 3,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-03/Perplexity/13",
+      "idx": 13,
+      "sha256": "32d1e309534c0e7474b7c1c54b75c1364736c271618f0dbbb22148b8903e5ce0",
+      "item": "M1-270ae78624",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-03/Perplexity/16",
+      "idx": 16,
+      "sha256": "42ae386d18da553467cd6224948794f926a72ec3f82ab17dfa9fc641c751f616",
+      "item": "M1-849b491f6c",
+      "markers": 2,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-03/Perplexity/18",
+      "idx": 18,
+      "sha256": "47ff4706d8e31b16bc9de870896893cf9b51361a4f96c7d670ba678cf8495c68",
+      "item": "M1-2f2dfc7183",
+      "markers": 2,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-03/Perplexity/24",
+      "idx": 24,
+      "sha256": "0befbf7c82e4e9f0710b034c831beff573acbe2cb25761bfe6688984bc61ed45",
+      "item": "M1-7d4b16323c",
+      "markers": 2,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-03/Perplexity/26",
+      "idx": 26,
+      "sha256": "ffe36cbb7f3518cb2505da3a9fce29b266a3f61b00807edca53fc2eeb7365629",
+      "item": "M1-9ae912ffb4",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-03/Perplexity/28",
+      "idx": 28,
+      "sha256": "34e2f8fe44341fc4298f6fe1fac21d79d60e54a376047068ff5ae6ea9218e3da",
+      "item": "M1-1618f00861",
+      "markers": 2,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-03/Perplexity/37",
+      "idx": 37,
+      "sha256": "c579195d331eede3d975b951479ccb50f3ffa9f876d94f22a2eec39802e83e57",
+      "item": "M1-292a670135",
+      "markers": 2,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-03/Perplexity/38",
+      "idx": 38,
+      "sha256": "93c27f1e9a2c5c3f78e98de35f2c2d9186d8043ab9474107b9c15df82b99c4eb",
+      "item": "M1-01cd6fd47d",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-03/Perplexity/39",
+      "idx": 39,
+      "sha256": "4247fbfb93a0bf6becbff343f826e026508bd6d0da627b776302c72e5cb35b8c",
+      "item": "M1-79950a7f06",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-03/Perplexity/40",
+      "idx": 40,
+      "sha256": "9dcd2a16a71b12b90fc04343eccf89b7395cee7897a0039577c9e30211211829",
+      "item": "M1-feaf631350",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-03/Perplexity/47",
+      "idx": 47,
+      "sha256": "ace2ad2a4c104e25c0d1aa0c9139e1a4902559eba93a2633082f799f5072c271",
+      "item": "M1-e847b4d2a8",
+      "markers": 2,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-03/Perplexity/49",
+      "idx": 49,
+      "sha256": "a15aa8883d2efe13aa6fe46d27de3e6d7771b28b7de17a18758febf01425e626",
+      "item": "M1-1b818a8e7d",
+      "markers": 2,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-03/Perplexity/51",
+      "idx": 51,
+      "sha256": "619e737e2b56e903ea62e215bcf701d06dd2ec60ddefa55bbac846532f8f6eff",
+      "item": "M1-5d424cb193",
+      "markers": 3,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-03/Perplexity/53",
+      "idx": 53,
+      "sha256": "428b191e86f24e2b519deb2babc6b7f6142d611b3a84ac3cdc5769a2f6913bbe",
+      "item": "M1-d06aef0675",
+      "markers": 2,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-03/Perplexity/55",
+      "idx": 55,
+      "sha256": "01d9920a05389683c3fe263eb3b940d57109970b54ef3f99fac3973ce84bcf9d",
+      "item": "M1-520d7b336b",
+      "markers": 2,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-03/Perplexity/57",
+      "idx": 57,
+      "sha256": "90e59e19ef93146de176eeee2d56b18471019fe68fc6dd5dfd90e9f4728d508d",
+      "item": "M1-93847a9829",
+      "markers": 2,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-03/Perplexity/61",
+      "idx": 61,
+      "sha256": "ad0f7f2c12e0aa2a67b3bfa64c42571c0aa76979d9eb02ae724c6119e203d5e6",
+      "item": "M1-f4e1790e01",
+      "markers": 2,
+      "label": null
+     }
+    ]
+   },
+   {
+    "question": "WHU-Q1-04",
+    "system": "WHU",
+    "sentences": 120,
+    "samplable": 119,
+    "claim_like_pool": 110,
+    "k": 20,
+    "rng_seed_string": "<SEED>/WHU-Q1-04/WHU/M1",
+    "drawn": [
+     {
+      "sentence": "WHU-Q1-04/WHU/2",
+      "idx": 2,
+      "sha256": "4b6a7e896ea79b2ba3b13ea82809cd620c479ec1f1d34724226ce057c7e0888a",
+      "item": "M1-dc90c00855",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-04/WHU/10",
+      "idx": 10,
+      "sha256": "9596da6b7724b349c4b50dec06ae43877fe5ccc00ddd8aec212449ec858ac86a",
+      "item": "M1-f960c17057",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-04/WHU/16",
+      "idx": 16,
+      "sha256": "d8bb6ae5574d385818a2e2b4595ca34fe37c2c66142c421e16ee34e250303b63",
+      "item": "M1-adc38ebd1e",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-04/WHU/18",
+      "idx": 18,
+      "sha256": "5bd59dbf3c5039fa9900f26da84f99916cef50d582b3327acea6adfa9f602ef6",
+      "item": "M1-b4414d6d6f",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-04/WHU/24",
+      "idx": 24,
+      "sha256": "b6cfb47f4cbbf27e4eafaa3ef5ec184d105f83457011a52334c1c23b01e30597",
+      "item": "M1-510c605e94",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-04/WHU/28",
+      "idx": 28,
+      "sha256": "1d1d4154808669f8520848b644b47d9506b34342c041c81a78d7d5f86b2d79db",
+      "item": "M1-6e9b909f5e",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-04/WHU/30",
+      "idx": 30,
+      "sha256": "e78d77f5b98bf61ff599754be0e30b1162e13967c13ca7b7f88a18a31c55c35d",
+      "item": "M1-27a23b1274",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-04/WHU/34",
+      "idx": 34,
+      "sha256": "6a25706c1f96eb4eef8fd45dde32c5cd6276a04cb8f859bd040833687e978a58",
+      "item": "M1-14303ac804",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-04/WHU/40",
+      "idx": 40,
+      "sha256": "bb090cb1d616cf6aab6fe080cf4424150cf8d37c8e89ce296197f437c7f71b33",
+      "item": "M1-7535672d9a",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-04/WHU/43",
+      "idx": 43,
+      "sha256": "9c38f8184d78e721b6c7cb2764c81d21f1d09f6fb42512decedcad03b07083be",
+      "item": "M1-7b47db988c",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-04/WHU/49",
+      "idx": 49,
+      "sha256": "dd9fd5a2fc027be026efd632d153ac6d625ef70a18ba9db8798f1112701487b1",
+      "item": "M1-07cd8c353f",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-04/WHU/50",
+      "idx": 50,
+      "sha256": "ce7b0b4fccc649584f20d696e6317a2c9d5480a8b2a480f80b7fe441538e3941",
+      "item": "M1-b475a0deab",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-04/WHU/51",
+      "idx": 51,
+      "sha256": "40ae07409faecc2c12057ffa777bbd61df10636919dac8a53bf043a214aee877",
+      "item": "M1-4603e72a61",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-04/WHU/54",
+      "idx": 54,
+      "sha256": "23527eb1c89be4a4f295a854d79efe0ec156539ace3f9600cf263447ea80e8d3",
+      "item": "M1-521794cb91",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-04/WHU/56",
+      "idx": 56,
+      "sha256": "8221d768642c315d1d417c8d73564512b9e5061f14747cdeb2539cf9f645e22f",
+      "item": "M1-b4fea3bc63",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-04/WHU/67",
+      "idx": 67,
+      "sha256": "0f19307250a737d5d31addae8ff2a19c662a544b2f553777f487076fe432bab4",
+      "item": "M1-5d81962105",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-04/WHU/87",
+      "idx": 87,
+      "sha256": "4477e818b14211f567ed3131d5e2a1de4e3593d9d39c2ce5b7c97650012571d7",
+      "item": "M1-d663b71af9",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-04/WHU/102",
+      "idx": 102,
+      "sha256": "1f08089be1cce4190f050a864654820e39c65cf48477caa1817571bd87c7b70d",
+      "item": "M1-07cdf12d9c",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-Q1-04/WHU/107",
+      "idx": 107,
+      "sha256": "09f90781cf0fb9b626309162646b72675a35d8ab03c93ed91864425d76348ece",
+      "item": "M1-19544dcfc0",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-Q1-04/WHU/109",
+      "idx": 109,
+      "sha256": "439f71a6aa7b66c9770c43c8bc78f2040e3f5c22e91ba22b16955a8839e5980f",
+      "item": "M1-42cf916f68",
+      "markers": 0,
+      "label": "UNCITED"
+     }
+    ]
+   },
+   {
+    "question": "WHU-Q1-04",
+    "system": "Claude",
+    "sentences": 154,
+    "samplable": 154,
+    "claim_like_pool": 80,
+    "k": 20,
+    "rng_seed_string": "<SEED>/WHU-Q1-04/Claude/M1",
+    "drawn": [
+     {
+      "sentence": "WHU-Q1-04/Claude/11",
+      "idx": 11,
+      "sha256": "81a086d2ca0725790f2e96bc89b788b6987204b18b32e880dcbdd164fb981f84",
+      "item": "M1-122bc3926d",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-Q1-04/Claude/24",
+      "idx": 24,
+      "sha256": "9a28bb28fe5f4038d8c76d19f0569dcd8cda34ba8a573b3d0360b4e3d85d5e96",
+      "item": "M1-d3b2837171",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-04/Claude/48",
+      "idx": 48,
+      "sha256": "ddd5d519c32f1011220a5c4e935f7ac7ff4177ede9f598db7a799093a26e0c86",
+      "item": "M1-23ea2a458e",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-04/Claude/50",
+      "idx": 50,
+      "sha256": "ef7e5cbb3714c5a27e2c38502c0633b2e15f9a91693ce85f7921996d91165f82",
+      "item": "M1-e6b114332a",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-Q1-04/Claude/54",
+      "idx": 54,
+      "sha256": "ef6a77ffba18b49e34b0ed4b52ec5ac49978c34e4564d40011d749d933355bcb",
+      "item": "M1-84955acfff",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-Q1-04/Claude/61",
+      "idx": 61,
+      "sha256": "e99b4302a0a5b1fc55ceb5d4c7c0d5b6dd281a3570d6608502c050e4ea0f6c09",
+      "item": "M1-4ee1bb7609",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-Q1-04/Claude/62",
+      "idx": 62,
+      "sha256": "584967578ee47a1a375544304c56c8a87d7e952d6dab460f6aeb0d6434058f3c",
+      "item": "M1-1eeaf00752",
+      "markers": 3,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-04/Claude/63",
+      "idx": 63,
+      "sha256": "2869de376615e6011f037e7e7dd2abd698a002d4a541435fbc15aab21a58e389",
+      "item": "M1-f8ec723129",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-04/Claude/71",
+      "idx": 71,
+      "sha256": "ba03538269dbc827812c45209bc35a678bd3521c2ed7508d80d657aa95702b2f",
+      "item": "M1-2b6ffc0e41",
+      "markers": 2,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-04/Claude/81",
+      "idx": 81,
+      "sha256": "4199ff515783eb0b01c68230c194ff45d93b1efd047addfe4f27bd8f62bf5ec6",
+      "item": "M1-8008b4d02e",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-Q1-04/Claude/86",
+      "idx": 86,
+      "sha256": "af8778cc22571f91024f9d7676685678c0e1c2e34bf5a49bf2348b1ec70f9286",
+      "item": "M1-ee03ec5872",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-04/Claude/87",
+      "idx": 87,
+      "sha256": "04e3289841d3ab279353747b79687f9722d46a4b3695ea851d56d9efff429f30",
+      "item": "M1-dc76e8b5b7",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-04/Claude/94",
+      "idx": 94,
+      "sha256": "3f0c62c9023e0c4a6720c536ff21830fe4fbdca468210bd4ab54b44159068fb2",
+      "item": "M1-bcb286b54a",
+      "markers": 3,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-04/Claude/101",
+      "idx": 101,
+      "sha256": "7a1a20118774e110b123376721e44db068a698e08d20c7faa24af0c642da92fe",
+      "item": "M1-032e8dbcc8",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-Q1-04/Claude/104",
+      "idx": 104,
+      "sha256": "70fc33e6cd70b859dd0207a5806769ae039293009b0b8718e029dea6bb898faa",
+      "item": "M1-a06c24763c",
+      "markers": 2,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-04/Claude/109",
+      "idx": 109,
+      "sha256": "90ec40555fcec2d2e4d0a43277ab803d041e8cd8377c50637a085c8cccc1c286",
+      "item": "M1-d1afae3214",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-04/Claude/110",
+      "idx": 110,
+      "sha256": "eb30460dc00d75992db7dc04579ce50709fad8d5fd51cf45f56b217d6c8b8f31",
+      "item": "M1-ba1a90ea33",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-04/Claude/120",
+      "idx": 120,
+      "sha256": "1922e44a152ca50e59a13140e5c934aeeca5a38f60ca4d063580b89e7b444997",
+      "item": "M1-20136ee9c6",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-04/Claude/129",
+      "idx": 129,
+      "sha256": "2712e8513d124215d1e7570e6038a761a7e2ae997e52e13d23986c9d45ba5772",
+      "item": "M1-4fb2619d86",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-Q1-04/Claude/130",
+      "idx": 130,
+      "sha256": "5627c8bbc8066747085d5df131d6546c9b9084c8a788118ae115f6ac3130b8a5",
+      "item": "M1-fba1f33919",
+      "markers": 0,
+      "label": "UNCITED"
+     }
+    ]
+   },
+   {
+    "question": "WHU-Q1-04",
+    "system": "ChatGPT",
+    "sentences": 282,
+    "samplable": 282,
+    "claim_like_pool": 96,
+    "k": 20,
+    "rng_seed_string": "<SEED>/WHU-Q1-04/ChatGPT/M1",
+    "drawn": [
+     {
+      "sentence": "WHU-Q1-04/ChatGPT/10",
+      "idx": 10,
+      "sha256": "697cbd5602d0636de878046c21cf86317e04fd0982169c62097b09453d4cffa6",
+      "item": "M1-baa370b3cf",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-Q1-04/ChatGPT/12",
+      "idx": 12,
+      "sha256": "df300b40fb60bf9d92c819b4c7477af958423f06bf093c812ec201148c491183",
+      "item": "M1-a1fe8ef4c7",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-Q1-04/ChatGPT/38",
+      "idx": 38,
+      "sha256": "41ecb8357a0918c9a32f2940ea31a579c900d3bdbd43cb841e00cfde5f11d7e8",
+      "item": "M1-a062cc02bc",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-Q1-04/ChatGPT/42",
+      "idx": 42,
+      "sha256": "fe82da01f4647141c7b6316d10eb4e45a127c3565d692ebacde71cb228b40552",
+      "item": "M1-49bddfc814",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-Q1-04/ChatGPT/43",
+      "idx": 43,
+      "sha256": "03a4283033ff0229cd81675b974d6cedae6226023f8c98fd69bf9a4277af8b55",
+      "item": "M1-c420b6695e",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-Q1-04/ChatGPT/61",
+      "idx": 61,
+      "sha256": "5496d79698421b32e4145f96d0456f8e2e64de324c2eb9c4709dc80217e632b1",
+      "item": "M1-19d35a72ff",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-Q1-04/ChatGPT/88",
+      "idx": 88,
+      "sha256": "7ed6f61f1436bb61aa83299a780e24dbc77684026c3c0e521150311b73470bfe",
+      "item": "M1-987402532d",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-Q1-04/ChatGPT/115",
+      "idx": 115,
+      "sha256": "21b2cf6655df3d8f6b34a862ea6e43e2d7bb55e19c0c4b133883723a5fff4ab8",
+      "item": "M1-2b355d7e35",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-Q1-04/ChatGPT/119",
+      "idx": 119,
+      "sha256": "35d1134b64f4de0df735039dd58d5894ba7f9c2878c40925e197e2ce61b46491",
+      "item": "M1-3d2a0101f2",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-Q1-04/ChatGPT/122",
+      "idx": 122,
+      "sha256": "f766365b6cf0c1002b46d7743f3c716d9261013eaf17aad266000b73f6b058be",
+      "item": "M1-31239dcc62",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-Q1-04/ChatGPT/128",
+      "idx": 128,
+      "sha256": "9728ef5721ef4c1cea6d51cbbfdd90a8f0549f521d44aaa2e5f0a8edcdc8daf9",
+      "item": "M1-46a9876681",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-Q1-04/ChatGPT/131",
+      "idx": 131,
+      "sha256": "d677cc124deac82a891b7f593e826eb9ad85c09c2b808206ef4d087029543669",
+      "item": "M1-89d718659e",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-Q1-04/ChatGPT/160",
+      "idx": 160,
+      "sha256": "91c522aefa87a03773660f254d718366de30987c534d5bacdfd91590ae9093b6",
+      "item": "M1-f96d4cf6c0",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-Q1-04/ChatGPT/165",
+      "idx": 165,
+      "sha256": "52eec8f4afafc3c12397f86544868f0f1a01e5a43ee364c3d41d966511361172",
+      "item": "M1-a95eb11ab7",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-Q1-04/ChatGPT/204",
+      "idx": 204,
+      "sha256": "913a740abe239af24643d3516de8909680a00a5ee41d73c8b56064c11a9683cd",
+      "item": "M1-ce1f4ff01d",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-Q1-04/ChatGPT/211",
+      "idx": 211,
+      "sha256": "eb44bc43addfdee2053a3660d0f3d14b1483e5707f9dcdb08f14cc6ca930ace3",
+      "item": "M1-2d95985e5a",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-Q1-04/ChatGPT/213",
+      "idx": 213,
+      "sha256": "15f50373f0cb3ecd7bb8e26d5b21fcf3afc76b8c54194a5bbd42fcf9f407da3d",
+      "item": "M1-3ececfe778",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-Q1-04/ChatGPT/258",
+      "idx": 258,
+      "sha256": "0bbec597ec376224fdc4e5fa339f7db7e461d75571509980b884dd02377c816a",
+      "item": "M1-32cb64a542",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-Q1-04/ChatGPT/270",
+      "idx": 270,
+      "sha256": "f7539e35f350a5bde1bec15b8feb1505044b7680f2d993e5ede72238cdcd19ca",
+      "item": "M1-a98d165433",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-Q1-04/ChatGPT/281",
+      "idx": 281,
+      "sha256": "2a3660b407bf37574d1517d260b8ea9de1f11d2ccb9344983289ef4113c07598",
+      "item": "M1-57f2109f94",
+      "markers": 0,
+      "label": "UNCITED"
+     }
+    ]
+   },
+   {
+    "question": "WHU-Q1-04",
+    "system": "Perplexity",
+    "sentences": 85,
+    "samplable": 85,
+    "claim_like_pool": 49,
+    "k": 20,
+    "rng_seed_string": "<SEED>/WHU-Q1-04/Perplexity/M1",
+    "drawn": [
+     {
+      "sentence": "WHU-Q1-04/Perplexity/1",
+      "idx": 1,
+      "sha256": "f0c795634c3615717963b0598e375dfd0f7a1b67c6acaf1fa48ba19ac7ff8299",
+      "item": "M1-c1203007ba",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-Q1-04/Perplexity/8",
+      "idx": 8,
+      "sha256": "7ad5e1882012da778bdf01ef5897f7f714441c62542149533fa9575e4c1bbeb2",
+      "item": "M1-7db400ec87",
+      "markers": 2,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-04/Perplexity/10",
+      "idx": 10,
+      "sha256": "0f8419d62389e9f177ccc50b22518e7dc254747d4f7d1693f0cd0ac6f97ad16a",
+      "item": "M1-35108be6ca",
+      "markers": 2,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-04/Perplexity/21",
+      "idx": 21,
+      "sha256": "79fd0f63840556ecc2339cbbd16b6ae108e27429ab87234300d11563af65bb2c",
+      "item": "M1-7be3263755",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-Q1-04/Perplexity/22",
+      "idx": 22,
+      "sha256": "15e52029453ef7787829749db9a3d44c6cc87a41fb3ce16c5595e64cb9e7541b",
+      "item": "M1-89e69d923e",
+      "markers": 2,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-04/Perplexity/25",
+      "idx": 25,
+      "sha256": "caa70850776ee984742e6da1b402b4ea3354263764b9fa7d12d3554f361bee33",
+      "item": "M1-e8e707e319",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-04/Perplexity/26",
+      "idx": 26,
+      "sha256": "e340f937a03f0044303bbaae94bf2fc9087557b7bbde4d07125463b2105be0c3",
+      "item": "M1-63f9541159",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-Q1-04/Perplexity/27",
+      "idx": 27,
+      "sha256": "deed391507a1c52b556bccd107c919ec13dbe313ae2e3d566aecda6ce5aa6c2b",
+      "item": "M1-80d02a2278",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-Q1-04/Perplexity/30",
+      "idx": 30,
+      "sha256": "e82fd0ef8e938415db176a40a522c43c30c1df22581f3c0b065e89bc8d21405b",
+      "item": "M1-43ca9b8d9f",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-Q1-04/Perplexity/33",
+      "idx": 33,
+      "sha256": "52603f8f6dc2b5aeb148396b600fac3c78bdc931705034a820a3c3ecdb32b719",
+      "item": "M1-0340dd0a90",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-Q1-04/Perplexity/37",
+      "idx": 37,
+      "sha256": "eb450dd5ce0dd90fc81d379aa5fbf40db1241cc8925880e0df18eb4c60206403",
+      "item": "M1-d0721c7d33",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-Q1-04/Perplexity/40",
+      "idx": 40,
+      "sha256": "d01ff759c38e8e20218daf394fa20467217cdd860982e7620561e8629f60f916",
+      "item": "M1-2b5d3a91ba",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-04/Perplexity/43",
+      "idx": 43,
+      "sha256": "0efe9fe87ab1a140c1b9e0ab2e1bd879ae06c2f6ae7a59ae13092a2a8ab9a5c0",
+      "item": "M1-8c435bf3ee",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-04/Perplexity/51",
+      "idx": 51,
+      "sha256": "c1732047864a65cd1fa780f56fd5547c6ab9c87bcacb4d44e92abe4bfebc82b9",
+      "item": "M1-d3a7ef6b09",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-Q1-04/Perplexity/52",
+      "idx": 52,
+      "sha256": "dcfcd1656dfb35b7bea9d3df2fe4345901d598f705a6129e29f455ab61a0693d",
+      "item": "M1-a6c5b46890",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-04/Perplexity/56",
+      "idx": 56,
+      "sha256": "5acf90138760a6a658fe63817bdcb3be119b70b67137401f8085449f578eea52",
+      "item": "M1-0978c5e259",
+      "markers": 2,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-04/Perplexity/66",
+      "idx": 66,
+      "sha256": "135e2c9c888c1c5e5f2792fbd3b98cd5d31739d4fc011d0394787c0d0d5b3a7a",
+      "item": "M1-9569be7b8e",
+      "markers": 2,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-04/Perplexity/69",
+      "idx": 69,
+      "sha256": "dfe8c22f334bb59a80c3466546d9e5747469ca79065b46ff0ae2f58e76ff79e6",
+      "item": "M1-3f6cb1a4f3",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-04/Perplexity/79",
+      "idx": 79,
+      "sha256": "8ebfaf0fd9a60f7cc73e6c545ff37c8ad61d996d30952c555b22a02ff33231df",
+      "item": "M1-951e1ad948",
+      "markers": 2,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-04/Perplexity/81",
+      "idx": 81,
+      "sha256": "13bcbfcd973a10c7d550ceabe48cea27f0c00b1317bf617634c1f085b7bb3343",
+      "item": "M1-ee2698e660",
+      "markers": 1,
+      "label": null
+     }
+    ]
+   }
+  ]
+ },
+ "m2": {
+  "rule": "every conclusion of the frozen key, for every answer; nothing drawn",
+  "conclusions_per_question": {
+   "WHU-Q1-01": 5,
+   "WHU-Q1-02": 5,
+   "WHU-Q1-03": 5,
+   "WHU-Q1-04": 4
+  },
+  "items": 91,
+  "answer_order": "random.Random('<SEED>/order/M2').shuffle",
+  "key_fields_not_passed_to_the_judge": []
+ },
+ "private_files_sha256": {
+  "m1/items.json": "1cf5d6b479ff279c23f786dfff9c276c158605c7736d18053b353555d83c0fcb",
+  "m1/uncited.json": "47932f9c099e00bb556743601f242e044712c82fad0e6efbd246b80a2059e573",
+  "m1/key_map.json": "93a6d76f9a0098a813c36200485119a163c9f438cff1b4d161e77c80f2cecbb4",
+  "m2/items.json": "f5c03e9c57815f940c9c280cddcb948cd96a41f7d952ea733c4a96c91dd5baa9",
+  "m2/key_map.json": "1d9a13164f4e1695ceb8cf68425f2880efefca8a1fe71793a91f42ed16646ecd"
+ }
+}

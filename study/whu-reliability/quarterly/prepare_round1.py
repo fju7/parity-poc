@@ -31,9 +31,12 @@ their constants pointed at round 1:
                   counts only.
 
 Tool answers are taken from their capture files by blinding/adapt.py: Claude
-by claude_sources_r1 and Perplexity by perplexity_footnotes (deviations
-2026-10-29, rulings 1 and 2), ChatGPT by chatgpt_bracketed, Gemini by
-report_section and works_cited, as in the study. WHU by prepare_scoring's own
+by claude_sources_r1 (deviations 2026-10-29, ruling 2); Perplexity WHU-Q1-03
+and WHU-Q1-04 by the study's perplexity_sources (the re-captured Deep research
+reports) and WHU-Q1-01 and WHU-Q1-02 by perplexity_footnotes (the inline
+answers, no report card produced; ruling 1 and the ruling of 2026-10-29);
+ChatGPT by chatgpt_bracketed, Gemini by report_section and works_cited, as in
+the study. WHU by prepare_scoring's own
 WHU branch (export_whu.py, then blind.py).
 
 VERIFY replaces prepare_scoring.verify, whose manifests are the study's: the
@@ -70,6 +73,7 @@ QUESTIONS = {"WHU-Q1-01": "whu-quarterly-r1-01", "WHU-Q1-02": "whu-quarterly-r1-
              "WHU-Q1-03": "whu-quarterly-r1-03", "WHU-Q1-04": "whu-quarterly-r1-04"}
 ALL_SYSTEMS = ["WHU", "Claude", "ChatGPT", "Gemini", "Perplexity"]
 NO_ANSWER = {("WHU-Q1-04", "Gemini")}                 # answers_manifest_round1.txt: no result
+PPLX_REPORT = {"WHU-Q1-03", "WHU-Q1-04"}               # Deep research report card; Q1-01/Q1-02 answered inline
 sys.path.insert(0, str(SCRIPTS))
 
 
@@ -121,7 +125,7 @@ def prep():
             body, cited = adapt.claude_sources_r1(md)
             return body, cited, rec.name
         if system == "Perplexity":
-            body, cited = adapt.perplexity_footnotes(md)
+            body, cited = (adapt.perplexity_sources if q in PPLX_REPORT else adapt.perplexity_footnotes)(md)
             return body, cited, rec.name
         if system == "ChatGPT":
             return adapt.chatgpt_bracketed(md), None, rec.name

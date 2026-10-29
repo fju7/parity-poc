@@ -16,8 +16,8 @@ a761118d699fbe39bccdf4544517f00fb377d93448e05bcd19f4b5e92cffa3d7  WHU-Q1-03  WHU
 dfa0c228a3359480edf4a2705cf76def4d9dd00872f06c4de02fd3d2f11e101d  WHU-Q1-03  Claude      claude.md       38500   243   243    83   61  0
 410ee87fee37b2a8850231d93652868e391e071c6bcbeaee8b866e41937ded40  WHU-Q1-03  ChatGPT     chatgpt.md      16276   144   144     0    0  0
 e0b9c27c332aac882fcd1cc4c30b7b833da978f3a04310d8729ad87d8bfe25be  WHU-Q1-03  Gemini      gemini.md       27085   123    68    95   53  0
-6c87f92de3e2352260470f8824492fab2c3dbaff76b6b530554032f38d532734  WHU-Q1-03  Perplexity  perplexity.md   18214     6     6     2  201  0
+f7e682ee7b1e717f1d14316b3e6dcd63344469a04cbabf791f9036cb794b4203  WHU-Q1-03  Perplexity  perplexity.md   12789    64    64    36   21  0
 1f075aaaab4582b4432b65f796467909e9406346e3f420c58cc46b96788f0a8d  WHU-Q1-04  WHU         whu-quarterly-r1-04.html  37054   120   119    88    4  0
 a8eaed133a910f729dcce713a3ce899a07527075e2d5cc6b1786a2cbb3ba5cbe  WHU-Q1-04  Claude      claude.md       27653   154   154    49   56  0
 53f33811db7c81d34e5ef417b4ff3a69bfbecef6cf3be44728531355854c2e4d  WHU-Q1-04  ChatGPT     chatgpt.md      32052   282   282     0    0  0
-ad00a3c5fbd0ca717957057d1a5a5537261c717944c0d2da0650faa58f252275  WHU-Q1-04  Perplexity  perplexity.md   20868    28    28    10  196  0
+4c64ccecedce12b816636aad621b8ee6388dee2858fb4243e2c6290d089649d0  WHU-Q1-04  Perplexity  perplexity.md   14366    85    85    33   18  0
