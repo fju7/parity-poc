@@ -84,82 +84,162 @@
   "S001@96514-96698": {
    "state": "out_of_scope",
    "reason": "Urban warming and heatwave severity. Premise scope.out excludes heat extremes as such.",
-   "by": "Claude Code",
+   "by": "Fred Ugast",
    "element": "Surface air temperature change and heat extremes as such",
    "reason_for_reader": "a finding on urban heat and heatwaves, outside the components the question names",
-   "decided_at": "2026-10-29T11:29:14+00:00"
+   "decided_at": "2026-10-29T11:29:14+00:00",
+   "declared_by": "Claude Code",
+   "signature": {
+    "statement": "Accepted by Fred Ugast, 2026-10-29, stated in session. (checked by Fred's advisor against the page, issue.json and sources.json; approved by Fred Ugast)",
+    "source": "issues/WHU-Q1-03-whu-quarterly-r1-03/person_decisions.md:84"
+   },
+   "recorded_by": "Claude Code (session 309c70db-fef2-453b-bcc4-26eaaa129346)",
+   "note": "checked by Fred's advisor; approved by Fred Ugast",
+   "signed_at": "2026-10-29T14:41:08+00:00"
   },
   "S001@56229-56345": {
    "state": "not_material",
    "reason": "Page furniture inside the statement's text range as the summary was extracted: a cross-reference, running header, axis labels or chart-legend text. It states no finding.",
-   "by": "Claude Code",
+   "by": "Fred Ugast",
    "element": "",
    "reason_for_reader": "figure or page text that states no finding",
-   "decided_at": "2026-10-29T11:29:14+00:00"
+   "decided_at": "2026-10-29T11:29:14+00:00",
+   "declared_by": "Claude Code",
+   "signature": {
+    "statement": "Accepted by Fred Ugast, 2026-10-29, stated in session. (checked by Fred's advisor against the page, issue.json and sources.json; approved by Fred Ugast)",
+    "source": "issues/WHU-Q1-03-whu-quarterly-r1-03/person_decisions.md:86"
+   },
+   "recorded_by": "Claude Code (session 309c70db-fef2-453b-bcc4-26eaaa129346)",
+   "note": "checked by Fred's advisor; approved by Fred Ugast",
+   "signed_at": "2026-10-29T14:41:08+00:00"
   },
   "S001@58509-58538": {
    "state": "not_material",
    "reason": "Page furniture inside the statement's text range as the summary was extracted: a cross-reference, running header, axis labels or chart-legend text. It states no finding.",
-   "by": "Claude Code",
+   "by": "Fred Ugast",
    "element": "",
    "reason_for_reader": "figure or page text that states no finding",
-   "decided_at": "2026-10-29T11:29:14+00:00"
+   "decided_at": "2026-10-29T11:29:14+00:00",
+   "declared_by": "Claude Code",
+   "signature": {
+    "statement": "Accepted by Fred Ugast, 2026-10-29, stated in session. (checked by Fred's advisor against the page, issue.json and sources.json; approved by Fred Ugast)",
+    "source": "issues/WHU-Q1-03-whu-quarterly-r1-03/person_decisions.md:88"
+   },
+   "recorded_by": "Claude Code (session 309c70db-fef2-453b-bcc4-26eaaa129346)",
+   "note": "checked by Fred's advisor; approved by Fred Ugast",
+   "signed_at": "2026-10-29T14:41:08+00:00"
   },
   "S001@59529-59698": {
    "state": "not_material",
    "reason": "Page furniture inside the statement's text range as the summary was extracted: a cross-reference, running header, axis labels or chart-legend text. It states no finding.",
-   "by": "Claude Code",
+   "by": "Fred Ugast",
    "element": "",
    "reason_for_reader": "figure or page text that states no finding",
-   "decided_at": "2026-10-29T11:29:14+00:00"
+   "decided_at": "2026-10-29T11:29:14+00:00",
+   "declared_by": "Claude Code",
+   "signature": {
+    "statement": "Accepted by Fred Ugast, 2026-10-29, stated in session. (checked by Fred's advisor against the page, issue.json and sources.json; approved by Fred Ugast)",
+    "source": "issues/WHU-Q1-03-whu-quarterly-r1-03/person_decisions.md:90"
+   },
+   "recorded_by": "Claude Code (session 309c70db-fef2-453b-bcc4-26eaaa129346)",
+   "note": "checked by Fred's advisor; approved by Fred Ugast",
+   "signed_at": "2026-10-29T14:41:08+00:00"
   },
   "S001@99416-99916": {
    "state": "not_material",
    "reason": "Page furniture inside the statement's text range as the summary was extracted: a cross-reference, running header, axis labels or chart-legend text. It states no finding.",
-   "by": "Claude Code",
+   "by": "Fred Ugast",
    "element": "",
    "reason_for_reader": "figure or page text that states no finding",
-   "decided_at": "2026-10-29T11:29:14+00:00"
+   "decided_at": "2026-10-29T11:29:14+00:00",
+   "declared_by": "Claude Code",
+   "signature": {
+    "statement": "Accepted by Fred Ugast, 2026-10-29, stated in session. (checked by Fred's advisor against the page, issue.json and sources.json; approved by Fred Ugast)",
+    "source": "issues/WHU-Q1-03-whu-quarterly-r1-03/person_decisions.md:92"
+   },
+   "recorded_by": "Claude Code (session 309c70db-fef2-453b-bcc4-26eaaa129346)",
+   "note": "checked by Fred's advisor; approved by Fred Ugast",
+   "signed_at": "2026-10-29T14:41:08+00:00"
   },
   "S001@99917-100073": {
    "state": "not_material",
    "reason": "Page furniture inside the statement's text range as the summary was extracted: a cross-reference, running header, axis labels or chart-legend text. It states no finding.",
-   "by": "Claude Code",
+   "by": "Fred Ugast",
    "element": "",
    "reason_for_reader": "figure or page text that states no finding",
-   "decided_at": "2026-10-29T11:29:14+00:00"
+   "decided_at": "2026-10-29T11:29:14+00:00",
+   "declared_by": "Claude Code",
+   "signature": {
+    "statement": "Accepted by Fred Ugast, 2026-10-29, stated in session. (checked by Fred's advisor against the page, issue.json and sources.json; approved by Fred Ugast)",
+    "source": "issues/WHU-Q1-03-whu-quarterly-r1-03/person_decisions.md:94"
+   },
+   "recorded_by": "Claude Code (session 309c70db-fef2-453b-bcc4-26eaaa129346)",
+   "note": "checked by Fred's advisor; approved by Fred Ugast",
+   "signed_at": "2026-10-29T14:41:08+00:00"
   },
   "S001@22863-23198": {
    "state": "out_of_scope",
    "reason": "An observed change in hot and cold extremes. Premise scope.out excludes heat extremes as such.",
-   "by": "Claude Code",
+   "by": "Fred Ugast",
    "element": "Surface air temperature change and heat extremes as such",
    "reason_for_reader": "an observed change in hot and cold extremes, outside the components the question names",
-   "decided_at": "2026-10-29T11:38:20+00:00"
+   "decided_at": "2026-10-29T11:38:20+00:00",
+   "declared_by": "Claude Code",
+   "signature": {
+    "statement": "Accepted by Fred Ugast, 2026-10-29, stated in session. (checked by Fred's advisor against the page, issue.json and sources.json; approved by Fred Ugast)",
+    "source": "issues/WHU-Q1-03-whu-quarterly-r1-03/person_decisions.md:96"
+   },
+   "recorded_by": "Claude Code (session 309c70db-fef2-453b-bcc4-26eaaa129346)",
+   "note": "checked by Fred's advisor; approved by Fred Ugast",
+   "signed_at": "2026-10-29T14:41:08+00:00"
   },
   "S001@23199-23344": {
    "state": "out_of_scope",
    "reason": "An observed change in hot and cold extremes. Premise scope.out excludes heat extremes as such.",
-   "by": "Claude Code",
+   "by": "Fred Ugast",
    "element": "Surface air temperature change and heat extremes as such",
    "reason_for_reader": "an observed change in hot and cold extremes, outside the components the question names",
-   "decided_at": "2026-10-29T11:38:20+00:00"
+   "decided_at": "2026-10-29T11:38:20+00:00",
+   "declared_by": "Claude Code",
+   "signature": {
+    "statement": "Accepted by Fred Ugast, 2026-10-29, stated in session. (checked by Fred's advisor against the page, issue.json and sources.json; approved by Fred Ugast)",
+    "source": "issues/WHU-Q1-03-whu-quarterly-r1-03/person_decisions.md:98"
+   },
+   "recorded_by": "Claude Code (session 309c70db-fef2-453b-bcc4-26eaaa129346)",
+   "note": "checked by Fred's advisor; approved by Fred Ugast",
+   "signed_at": "2026-10-29T14:41:08+00:00"
   },
   "S001@33192-33413": {
    "state": "out_of_scope",
    "reason": "A figure caption on observed hot extremes. Premise scope.out excludes heat extremes as such.",
-   "by": "Claude Code",
+   "by": "Fred Ugast",
    "element": "Surface air temperature change and heat extremes as such",
    "reason_for_reader": "a figure caption on observed hot extremes, outside the components the question names",
-   "decided_at": "2026-10-29T12:24:35+00:00"
+   "decided_at": "2026-10-29T12:24:35+00:00",
+   "declared_by": "Claude Code",
+   "signature": {
+    "statement": "Accepted by Fred Ugast, 2026-10-29, stated in session. (checked by Fred's advisor against the page, issue.json and sources.json; approved by Fred Ugast)",
+    "source": "issues/WHU-Q1-03-whu-quarterly-r1-03/person_decisions.md:114"
+   },
+   "recorded_by": "Claude Code (session 309c70db-fef2-453b-bcc4-26eaaa129346)",
+   "note": "checked by Fred's advisor; approved by Fred Ugast",
+   "signed_at": "2026-10-29T14:41:08+00:00"
   },
   "S001@33414-33526": {
    "state": "out_of_scope",
    "reason": "A figure caption on observed hot extremes. Premise scope.out excludes heat extremes as such.",
-   "by": "Claude Code",
+   "by": "Fred Ugast",
    "element": "Surface air temperature change and heat extremes as such",
    "reason_for_reader": "a figure caption on observed hot extremes, outside the components the question names",
-   "decided_at": "2026-10-29T12:24:35+00:00"
+   "decided_at": "2026-10-29T12:24:35+00:00",
+   "declared_by": "Claude Code",
+   "signature": {
+    "statement": "Accepted by Fred Ugast, 2026-10-29, stated in session. (checked by Fred's advisor against the page, issue.json and sources.json; approved by Fred Ugast)",
+    "source": "issues/WHU-Q1-03-whu-quarterly-r1-03/person_decisions.md:116"
+   },
+   "recorded_by": "Claude Code (session 309c70db-fef2-453b-bcc4-26eaaa129346)",
+   "note": "checked by Fred's advisor; approved by Fred Ugast",
+   "signed_at": "2026-10-29T14:41:08+00:00"
   }
  }
 }

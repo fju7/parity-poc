@@ -26,13 +26,19 @@
    "section": "SPM A.1.4",
    "kind": "assessment",
    "text_sha256": "93fc6f5c291b6d85d4645148c1378b7522b25c4347948d1bdee6eff297ee8db4",
-   "relevant": null,
-   "words": "rainfall and the water cycle … Observed changes are included only as the base the projections extend.",
-   "reason": "relevance refused by code: 'rainfall and the water cycle … Observed changes are included only as the base the projections extend.' is in neither the question nor a scope.out entry",
-   "by": "code (ruling.py judgements)",
+   "relevant": true,
+   "words": "rainfall and the water cycle",
+   "reason": "Relevance decided by a person: rainfall and the water cycle",
+   "by": "Fred Ugast",
    "ruling": "d7deab764aa3cc95",
-   "to_person": true,
-   "decided_at": "2026-10-29T11:30:38+00:00"
+   "to_person": false,
+   "decided_at": "2026-10-29T14:41:08+00:00",
+   "signature": {
+    "statement": "Accepted by Fred Ugast, 2026-10-29, stated in session. (checked by Fred's advisor against the page, issue.json and sources.json; approved by Fred Ugast)",
+    "source": "issues/WHU-Q1-03-whu-quarterly-r1-03/person_decisions.md:128"
+   },
+   "recorded_by": "Claude Code (session 309c70db-fef2-453b-bcc4-26eaaa129346)",
+   "note": "checked by Fred's advisor; approved by Fred Ugast"
   },
   "S001@12077-12861": {
    "source": "S001",
@@ -213,13 +219,19 @@
    "section": "SPM A.3.3",
    "kind": "assessment",
    "text_sha256": "66c0599e7dbe3f90f33068fe8de592fdbd9fd92d113c7625376a0abdb88f2f86",
-   "relevant": null,
-   "words": "rainfall and the water cycle … including monsoons",
-   "reason": "relevance refused by code: 'rainfall and the water cycle … including monsoons' is in neither the question nor a scope.out entry",
-   "by": "code (ruling.py judgements)",
+   "relevant": true,
+   "words": "rainfall and the water cycle",
+   "reason": "Relevance decided by a person: rainfall and the water cycle",
+   "by": "Fred Ugast",
    "ruling": "e38f6ad51da66000",
-   "to_person": true,
-   "decided_at": "2026-10-29T11:31:15+00:00"
+   "to_person": false,
+   "decided_at": "2026-10-29T14:41:08+00:00",
+   "signature": {
+    "statement": "Accepted by Fred Ugast, 2026-10-29, stated in session. (checked by Fred's advisor against the page, issue.json and sources.json; approved by Fred Ugast)",
+    "source": "issues/WHU-Q1-03-whu-quarterly-r1-03/person_decisions.md:130"
+   },
+   "recorded_by": "Claude Code (session 309c70db-fef2-453b-bcc4-26eaaa129346)",
+   "note": "checked by Fred's advisor; approved by Fred Ugast"
   },
   "S001@26113-26891": {
    "source": "S001",
@@ -383,13 +395,19 @@
    "section": "SPM B.2.3",
    "kind": "assessment",
    "text_sha256": "5dfd3d690219a7eb436be4be1dc4184c09dd46cfb976a4b9753e5d4a729557fb",
-   "relevant": null,
-   "words": "the oceans … marine heatwaves",
-   "reason": "relevance refused by code: 'the oceans … marine heatwaves' is in neither the question nor a scope.out entry",
-   "by": "code (ruling.py judgements)",
+   "relevant": true,
+   "words": "the oceans",
+   "reason": "Relevance decided by a person: the oceans",
+   "by": "Fred Ugast",
    "ruling": "d4242d608af80d04",
-   "to_person": true,
-   "decided_at": "2026-10-29T11:31:54+00:00"
+   "to_person": false,
+   "decided_at": "2026-10-29T14:41:08+00:00",
+   "signature": {
+    "statement": "Accepted by Fred Ugast, 2026-10-29, stated in session. (checked by Fred's advisor against the page, issue.json and sources.json; approved by Fred Ugast)",
+    "source": "issues/WHU-Q1-03-whu-quarterly-r1-03/person_decisions.md:132"
+   },
+   "recorded_by": "Claude Code (session 309c70db-fef2-453b-bcc4-26eaaa129346)",
+   "note": "checked by Fred's advisor; approved by Fred Ugast"
   },
   "S001@56346-56951": {
    "source": "S001",
@@ -808,13 +826,19 @@
    "section": "SPM C.3.2",
    "kind": "assessment",
    "text_sha256": "ca722e9dcb644c901a799cec7b76a48af65333f7b40d7e70ba7cd1bcc2ae5c34",
-   "relevant": null,
-   "words": "ice, sea level and the oceans … low-likelihood high-impact outcomes",
-   "reason": "relevance refused by code: 'ice, sea level and the oceans … low-likelihood high-impact outcomes' is in neither the question nor a scope.out entry",
-   "by": "code (ruling.py judgements)",
+   "relevant": true,
+   "words": "ice, sea level",
+   "reason": "Relevance decided by a person: ice, sea level",
+   "by": "Fred Ugast",
    "ruling": "8ad4be7840150783",
-   "to_person": true,
-   "decided_at": "2026-10-29T11:33:01+00:00"
+   "to_person": false,
+   "decided_at": "2026-10-29T14:41:08+00:00",
+   "signature": {
+    "statement": "Accepted by Fred Ugast, 2026-10-29, stated in session. (checked by Fred's advisor against the page, issue.json and sources.json; approved by Fred Ugast)",
+    "source": "issues/WHU-Q1-03-whu-quarterly-r1-03/person_decisions.md:134"
+   },
+   "recorded_by": "Claude Code (session 309c70db-fef2-453b-bcc4-26eaaa129346)",
+   "note": "checked by Fred's advisor; approved by Fred Ugast"
   },
   "S001@103479-103865": {
    "source": "S001",

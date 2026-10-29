@@ -1,0 +1,17 @@
+{
+ "signoffs": [
+  {
+   "sentence_sha": "c2ac5c7e32c88218",
+   "first_draft": "Judged not material to this question: “A.3.5 \u0007Human influence has likely increased the chance of compound extreme events18 since the …” (IPCC AR6 WGI Summary for Policymakers); an observed change in compound events, where the page states the projected ones.",
+   "now": null,
+   "why": "The readers'-list declaration of SPM A.3.5 was withdrawn: A.3.5 and its Figure SPM.3 are now stated on the page (extremes section), so the declaration no longer applies (person_decisions.md C01).",
+   "by": "Fred Ugast",
+   "signature": {
+    "statement": "Accepted by Fred Ugast, 2026-10-29, stated in session. (checked by Fred's advisor against the page, issue.json and sources.json; approved by Fred Ugast)",
+    "source": "issues/WHU-Q1-03-whu-quarterly-r1-03/person_decisions.md:124"
+   },
+   "recorded_by": "Claude Code (session 309c70db-fef2-453b-bcc4-26eaaa129346)",
+   "note": "checked by Fred's advisor; approved by Fred Ugast"
+  }
+ ]
+}
