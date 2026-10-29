@@ -140,3 +140,23 @@ The finding (B.5.3: rise above the likely range approaching 2 m by 2100 and 5 m 
 ## F. Two rulings that cannot both hold word for word
 F01 The omission ADD of the 2150 sea level ranges was ruled to go directly after the sea level section's summary sentence. The re-audit then reworded that summary (to "A rise whose size by 2100 depends on emissions, and which is committed to continue for centuries to millennia."). The ADD still follows it, but applied_check now reports a placement MISMATCH. Proposed: accept the ADD's placement after the reworded summary.
     Accepted by Fred Ugast, 2026-10-29, stated in session. (checked by Fred's advisor against the page, issue.json and sources.json; approved by Fred Ugast)
+
+## G. Reads of the 8 re-rendered readers'-list lines, and the meta description (round 2)
+G01 [36353e76a20b0593] (A24 re-rendered) accurate record of the B09 sign-off; the finding is stated on the page.
+    Accepted by Fred Ugast, 2026-10-29, stated in session. (checked by Fred's advisor against the page; approved by Fred Ugast)
+G02 [6da905e0e425e847] (A25 re-rendered) accurate record of the B10 sign-off; the finding and its figures (1 million km2, about 15%) are stated on the page in the sea ice sentence.
+    Accepted by Fred Ugast, 2026-10-29, stated in session. (checked by Fred's advisor against the page; approved by Fred Ugast)
+G03 [9364767af5997da2] (A26 re-rendered) accurate record of the B11 sign-off; the finding is stated on the page.
+    Accepted by Fred Ugast, 2026-10-29, stated in session. (checked by Fred's advisor against the page; approved by Fred Ugast)
+G04 [3fb17b9a3373f7b9] (A27 re-rendered) accurate record of the B12 sign-off; the finding is stated on the page.
+    Accepted by Fred Ugast, 2026-10-29, stated in session. (checked by Fred's advisor against the page; approved by Fred Ugast)
+G05 [a14b2da67d2a299d] (A28 re-rendered) accurate record of the B13 sign-off; the page names the same climatic impact-driver types.
+    Accepted by Fred Ugast, 2026-10-29, stated in session. (checked by Fred's advisor against the page; approved by Fred Ugast)
+G06 [eb6d1fef354dfd99] (A29 re-rendered) accurate record of the B14 sign-off; the page states the same time periods.
+    Accepted by Fred Ugast, 2026-10-29, stated in session. (checked by Fred's advisor against the page; approved by Fred Ugast)
+G07 [884d69ef33b0a66b] (A30 re-rendered) accurate record of the B15 sign-off; the finding is stated on the page in the marine heatwave sentence.
+    Accepted by Fred Ugast, 2026-10-29, stated in session. (checked by Fred's advisor against the page; approved by Fred Ugast)
+G08 [986d76d1619ecbf9] (A33 re-rendered) accurate record of the B18 sign-off; the page states the 18% and 36% glacier mass figures.
+    Accepted by Fred Ugast, 2026-10-29, stated in session. (checked by Fred's advisor against the page; approved by Fred Ugast)
+G09 The meta description ("If emissions continue, the IPCC's 2021 assessment projects a more intense water cycle, heavier downpours, more drought in some regions, shrinking ice, rising seas and a warmer, more acidic ocean, with several changes committed for centuries.") holds as written: it attributes the projections to the assessment, which states each of them (SPM B.2-B.5); the body's "On what we read" hedge concerns how much of the report WHU read, not whether the assessment projects these changes. The audit's proposed rewording is not applied.
+    Accepted by Fred Ugast, 2026-10-29, stated in session. (checked by Fred's advisor against the page and the 13:34 audit record; approved by Fred Ugast)
