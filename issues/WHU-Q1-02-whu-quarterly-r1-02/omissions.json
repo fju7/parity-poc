@@ -167,7 +167,7 @@
    "quote_sha256": "30e68b1f908852dacb741b35db8431c67cb95296508564e68ab0fce3c3c86658",
    "outcome": "NOT_MATERIAL",
    "element": "",
-   "reason": "Step 1: the quotation is the author and contributor list of a source that assesses [S003@35-142], so it relates to the question as worded and no question or scope words exclude it. Step 2: it is not a finding. It does not answer, narrow or qualify whether programmes work or which kinds work best, and it adds no outcome. The draft already credits the lead authors (Kuper H, Saran A, White H), and the list of supporting contributors would not change the reader's funding decision.",
+   "reason": "Step 1: the quotation is the author and contributor list of a source that assesses [S003@35-142], so it relates to the question as worded and no question or scope words exclude it. Step 2: it is not a finding. It does not answer, narrow or qualify whether programmes work or which kinds work best, and it adds no outcome. The draft already credits the lead authors ([S002@123111-123143]), and the list of supporting contributors would not change the reader's funding decision.",
    "by": "ruling model claude-opus-5-5",
    "ruling": "419565c4b885a53f",
    "origins": [
