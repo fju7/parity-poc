@@ -1,0 +1,124 @@
+{
+ "omissions": [
+  {
+   "key": "S001@-",
+   "source": "S001",
+   "held_sha256": null,
+   "at": null,
+   "quote_sha256": null,
+   "outcome": "NOT_IN_SOURCE",
+   "element": "",
+   "reason": "the quotation is not in the held text of S001",
+   "by": "code (omissions.precheck)",
+   "ruling": null,
+   "origins": [
+    "S001-05"
+   ],
+   "on_page": null,
+   "after": null,
+   "decided_at": "2026-10-29T00:25:28+00:00"
+  },
+  {
+   "key": "S002@-",
+   "source": "S002",
+   "held_sha256": null,
+   "at": null,
+   "quote_sha256": null,
+   "outcome": "NOT_IN_SOURCE",
+   "element": "",
+   "reason": "the quotation is not in the held text of S002",
+   "by": "code (omissions.precheck)",
+   "ruling": null,
+   "origins": [
+    "S002-11"
+   ],
+   "on_page": null,
+   "after": null,
+   "decided_at": "2026-10-29T00:25:28+00:00"
+  },
+  {
+   "key": "S001@156215-156312",
+   "source": "S001",
+   "held_sha256": "cdb44f085b3932df0e45228c064e7779880213799f5ba7d082e478c439fe1f2a",
+   "at": [
+    156215,
+    156312
+   ],
+   "quote_sha256": "264239b2084a8c5844a978cc0762719d8397d557e1c8c8518ab6a0d61ebc3990",
+   "outcome": "ADD",
+   "element": "",
+   "reason": "Step 1: whether patients find the intervention acceptable bears on whether it improves the care people receive, and the finding concerns tracking plus decision support in primary care, which is the question's intervention. Step 2: the draft's list of outcomes no study evaluated leaves out client acceptability. Its only client-reported result, quality of care rated by adults with hypertension or diabetes, comes from a different comparison. So a reader weighing funding should know there is no evidence on client acceptability for the tracking plus decision support approach. The sentence is limited to that comparison.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "eda2464601a3ea4a",
+   "origins": [
+    "S001-04"
+   ],
+   "on_page": "9cba96af83a15c69",
+   "after": "90127f1e29354702",
+   "decided_at": "2026-10-29T00:25:38+00:00"
+  },
+  {
+   "key": "S001@174614-174743",
+   "source": "S001",
+   "held_sha256": "cdb44f085b3932df0e45228c064e7779880213799f5ba7d082e478c439fe1f2a",
+   "at": [
+    174614,
+    174743
+   ],
+   "quote_sha256": "55029ec61579f8cd5787f5e20929a3bdfb9cbff5491e76b7e0147f17552d0494",
+   "outcome": "ADD",
+   "element": "",
+   "reason": "Step 1: The finding describes the settings of the primary-care studies that answer the question. The scope covers 'Primary health care settings in any country', so it is in scope. Step 2: The draft lists the countries but never says that all but one study was in a low- or middle-income setting where electronic [S001@174708-174742]. That qualifies how far the results apply to the reader's own health system, which a funding planner would weigh. It is therefore material.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "bda3b1c6f0f014be",
+   "origins": [
+    "S001-07"
+   ],
+   "on_page": "ce4c8db3afd9f28f",
+   "after": "4c649fdec81adf22",
+   "decided_at": "2026-10-29T00:25:44+00:00"
+  },
+  {
+   "key": "S001@189054-189174",
+   "source": "S001",
+   "held_sha256": "cdb44f085b3932df0e45228c064e7779880213799f5ba7d082e478c439fe1f2a",
+   "at": [
+    189054,
+    189174
+   ],
+   "quote_sha256": "99439e77bf68f9c918e743c7ea4eda02670124004c2857c1b2fec0c59c88f282",
+   "outcome": "ADD",
+   "element": "",
+   "reason": "Step 1: the finding limits the certainty of the review's evidence on whether mobile tracking with decision support or client reminders improves primary care and health, so it bears directly on the question. Step 2: the draft already says there were few studies and some were small. It does not say that some outcomes rest on [S001@189130-189174]. A planner judging whether results apply to their own primary-care system would weigh this, so it qualifies the answer.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "8f04236fe3fef8a6",
+   "origins": [
+    "S001-06"
+   ],
+   "on_page": "855d1eb440e80f82",
+   "after": "60c637c1dbfedf9b",
+   "decided_at": "2026-10-29T00:25:50+00:00"
+  },
+  {
+   "key": "S002@128183-128411",
+   "source": "S002",
+   "held_sha256": "d0efe38d8d1ce9d60486db70734273c487490c90bc5b60a71854a857288443c8",
+   "at": [
+    128183,
+    128411
+   ],
+   "quote_sha256": "0400e42a598ab97dbe9763c34393f28c69bff532d9970286523a1d8c120a66fa",
+   "outcome": "NOT_MATERIAL",
+   "element": "",
+   "reason": "Step 1: the finding defines the WHO category under which tracking combined with decision support or client communication was classified, so it bears on the answer to the question. Step 2: the draft already says WHO recommends these combinations '[S002@46761-46800]' and lists those conditions. The category definition, '[S002@128270-128335] ... [S002@128359-128407]', restates that wording. It does not narrow or qualify the answer any further for the planner.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "ef14bcacde187baa",
+   "origins": [
+    "S002-09"
+   ],
+   "on_page": null,
+   "after": null,
+   "decided_at": "2026-10-29T00:25:55+00:00"
+  }
+ ]
+}

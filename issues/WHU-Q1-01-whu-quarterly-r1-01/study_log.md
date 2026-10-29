@@ -14,3 +14,16 @@ Spend is from `backend/data/spend/ledger.jsonl` for ledger issue whu-quarterly-r
 | 3a source list, bibbind, sources_shown | 2026-10-29T00:12:00Z | 2026-10-29T00:13:00Z | $0.00 | 0 | 6 source-list rows bound; sources shown ok both ways |
 | 3c coverage | 2026-10-29T00:13:00Z | 2026-10-29T00:13:50Z | $0.00 | 0 | 13 of 13 S001 units used after two sentences were added; warn: no headline section detected in S002; 0 declarations |
 | 3d ruling.py judgements --cap 50 | 2026-10-29T00:14:06Z | 2026-10-29T00:14:17Z | $0.0197 | 0 | 2 candidates, 2 relevant, 2 stated (after splitting the conclusion binding into two spans) |
+| 3 (fix) case .gitignore added: the root .gitignore's study block matches WHU-P*/WHU-S* only, so this case's bindings.json, rulings/, audit/ and gate reports were not ignored; a case-level .gitignore mirrors that block (root file unchanged) | 2026-10-29T00:17:23Z | 2026-10-29T00:17:40Z | $0.00 | 0 | bindings.json and rulings/ now ignored; nothing source-quoting committed |
+| 3b commit first full draft | 2026-10-29T00:17:40Z | 2026-10-29T00:19:30Z | $0.00 | 0 | d5b3193, pushed 79fab0d..d5b3193 |
+| 4 gate: dry run, then factcheck_draft.py --report (gate run 1 of 3) | 2026-10-29T00:19:58Z | 2026-10-29T00:20:52Z | $0.50 | 0 | PASSED (narrow); recency 2 assessed, 0 superseded |
+| 4b source_advocate.py run | 2026-10-29T00:21:01Z | 2026-10-29T00:24:10Z | $1.80 | 0 | 11 objections (S001 7, S002 4); 5 quotations still not in the held text after one re-ask |
+| 4b ruling.py advocate (MISSTATES) | 2026-10-29T00:24:16Z | 2026-10-29T00:24:39Z | $0.08 | 0 | 5 ruled, 5 rejected; nothing to apply |
+| 4c applied_check, --dangling | 2026-10-29T00:24:45Z | 2026-10-29T00:24:55Z | $0.00 | 0 | 0 mismatches; 0 dangling |
+| 4d ruling.py omissions (LEAVES_OUT) | 2026-10-29T00:25:01Z | 2026-10-29T00:26:04Z | $0.13 | 0 | 3 ADD, 1 NOT_MATERIAL, 2 NOT_IN_SOURCE (code) |
+| 4e insert 3 ADDs word for word, bind origin omission_add; quotations; readers' list rendered; applied_check, --dangling | 2026-10-29T00:26:10Z | 2026-10-29T00:28:00Z | $0.00 | 0 | 3 inserted as ruled; quotations ok; 1 declaration shown to readers |
+| 5 findings.py --scan, ruling.py gate | 2026-10-29T00:28:10Z | 2026-10-29T00:28:11Z | $0.00 | 0 | 0 findings |
+| 6 conclusion_judge, ruling.py conclusions | 2026-10-29T00:28:16Z | 2026-10-29T00:28:21Z | $0.00 | 0 | 0 judged (no judgement-bucket rows) |
+| 7 audit_stage.py run --cap 47.48; consistency.py audit 20261029T002827Z | 2026-10-29T00:28:27Z | 2026-10-29T00:30:00Z | $0.93 | 0 | 40 units: 26 holds, 9 headings, 2 findings (both accepted rewordings), 5 HUMAN_READ_REQUIRED (protected sentences) |
+| 7b apply 2 audit rewordings word for word; rebind; step-3 checks; applied_check, --dangling | 2026-10-29T00:30:10Z | 2026-10-29T00:31:40Z | $0.00 | 0 | applied; applied_check reports 1 MISMATCH: ADD "The review notes that all of the studies…" sits after its anchor, but the anchor was reworded by the accepted audit ruling (Tanzania added) and applied_check does not follow an anchor through a later ruling. Not a preflight row; recorded as a tool limit |
+| 7d final narrow gate --changed-since (dry run, then run; gate run 2 of 3) | 2026-10-29T00:31:49Z | 2026-10-29T00:31:58Z | $0.00 | 0 | PASSED (narrow); 0 findings; step 5 ruled 0; step 6 re-run 0 judged |
