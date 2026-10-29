@@ -1,0 +1,12 @@
+# WHU quarterly round 1: WHU's answers, sha256 manifest (round1_protocol.md §3)
+# WHU's answer is the issue page as committed once `publish.py check <slug>` printed `Ready.`. WHU-Q1-02 never printed
+# it: its answer is the page at its final stop (bd18e5e), labelled "Ready blocked only by a code limit: the correction
+# was read by a person, not held" (round1_deviations.md, 2026-10-29; issues/WHU-Q1-02-*/preflight_final.md).
+# Written 2026-10-29 by Claude Code (scoring session J). Each page at HEAD is clean against git, and its bytes equal the
+# page at both commits listed.
+#
+# sha256  question  page  (last commit touching the page; commit recording Ready. or the final stop)
+9ab63b8f1693e96049d57b4b8bc6db0dd43e33c2b957d4f532f273d957d9469c  WHU-Q1-01  issues/WHU-Q1-01-whu-quarterly-r1-01/draft/whu-quarterly-r1-01.html  (page cc8d81e5c7df5697263e5bf9378384500ab3c063; Ready. 9336521cb7c9dc99f45325459e6433a47587973e)
+e030f1de3a6861bbe5b79c9af1c9ce2a7170945af2c96daba0732ee8342e06a2  WHU-Q1-02  issues/WHU-Q1-02-whu-quarterly-r1-02/draft/whu-quarterly-r1-02.html  (page bd18e5ef4e203c06e2789549182b98ccc224567a; final stop, not Ready. 10f0f45bd0ad4bd9db66fd7240e542f8585e0509)
+5941956f314c78abc7fb62e571e8318795c8cdd7051f718319951dc270d8e9cc  WHU-Q1-03  issues/WHU-Q1-03-whu-quarterly-r1-03/draft/whu-quarterly-r1-03.html  (page 1afb04580c424079bffa86e77ed4fb694baae931; Ready. 1afb04580c424079bffa86e77ed4fb694baae931)
+0a34fa4c353d7a9ca1312bd4e7cada5f9da1202fb10895ac07cb5d96f81c177e  WHU-Q1-04  issues/WHU-Q1-04-whu-quarterly-r1-04/draft/whu-quarterly-r1-04.html  (page f88c63408c3f0eb52aede62ce596e57e1034815a; Ready. a8c615ddcf5803d2352855dc69ca486a561f3501)
