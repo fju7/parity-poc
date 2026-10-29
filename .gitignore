@@ -70,30 +70,41 @@ backend/data/whatholdsup/library/docs/
 
 # WHU reliability study (advisor ruling 3, 2026-10-20; study/whu-reliability/RUN.md).
 # The repository is public: audit and ruling logs, and every file that quotes
-# source passages, are never committed for a study issue (WHU-P*, WHU-S*).
+# source passages, are never committed for a study issue (WHU-P*, WHU-S*), nor for a
+# quarterly-round issue (WHU-Q1-*; added 2026-10-28).
 # They are archived privately; only a sha256 manifest is committed.
 # (Two lines each: this git does not match a [PS] class in these patterns.)
 issues/WHU-P*/audit/
 issues/WHU-S*/audit/
+issues/WHU-Q1-*/audit/
 issues/WHU-P*/rulings/
 issues/WHU-S*/rulings/
+issues/WHU-Q1-*/rulings/
 issues/WHU-P*/export/
 issues/WHU-S*/export/
+issues/WHU-Q1-*/export/
 issues/WHU-P*/bindings.json
 issues/WHU-S*/bindings.json
+issues/WHU-Q1-*/bindings.json
 issues/WHU-P*/gate-findings.json
 issues/WHU-S*/gate-findings.json
+issues/WHU-Q1-*/gate-findings.json
 issues/WHU-P*/quotations.json
 issues/WHU-S*/quotations.json
+issues/WHU-Q1-*/quotations.json
 issues/WHU-P*/conclusion-review.json
 issues/WHU-S*/conclusion-review.json
+issues/WHU-Q1-*/conclusion-review.json
 issues/WHU-P*/change-reviews.json
 issues/WHU-S*/change-reviews.json
+issues/WHU-Q1-*/change-reviews.json
 issues/WHU-P*/draft/*.gate.json*
 issues/WHU-S*/draft/*.gate.json*
+issues/WHU-Q1-*/draft/*.gate.json*
 # The source advocate's briefs and adjudications quote source passages too (2026-10-20).
 issues/WHU-P*/advocate/
 issues/WHU-S*/advocate/
+issues/WHU-Q1-*/advocate/
 
 # Local drop folder for incoming files; never committed (2026-10-20).
 _incoming/
