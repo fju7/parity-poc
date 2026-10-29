@@ -17,6 +17,15 @@
 # WHU-Q1-04 Claude: Claude had Gmail and Google Drive access, and its sources include one Gmail source. Advisor's ruling: the
 # run stands; claims resting on the Gmail source are excluded from judging as unreachable; the answer is screened for
 # private content before judging; future rounds disconnect Claude's Gmail/Drive connectors before running.
+# Perplexity re-capture (advisor's ruling, 2026-10-29, before any judging): the four Perplexity files were first saved
+# with the thread menu's Export as Markdown, which exports the chat reply, not the Deep research report the study scored.
+# Re-captured 2026-10-29 16:19 EDT from the same threads (report card > Artifact options > Download as Markdown; nothing
+# sent or re-run), moved byte for byte; hashed 16:20:21 EDT. The superseded chat-reply exports are kept, renamed
+# perplexity.chatreply.superseded.md:
+#   WHU-Q1-03  superseded 41c7a65d69e2a06467bad2e4981e276f487878a8a374942092247ab6990deb44  new f9d5b1cf226451537c59904ecec890b71cee1c80716aa25a5b40083fa1ecf546
+#   WHU-Q1-04  superseded 6a0ff797fa03413c57bd2382116543b4ebc17fb078bd47af6d3af5f566f41101  new 6199808aa3b0e4e1a89433a9df8fb05e933d35bac4d6704bd4a6b07e9ecfcd17
+# WHU-Q1-01 and WHU-Q1-02: the threads show no Deep research report card (checked 2026-10-29 16:17-16:20 EDT); recorded,
+# stopped for those questions pending a ruling. Their files below are unchanged.
 #
 # sha256  path (relative to ~/Projects/whu-study-private/answers/quarterly/round1/)
 c9b6e01c9f12d99461e4de58336bce7cc8cf6de5148b3345c1012ebf3d8d218c  WHU-Q1-01/claude.raw.md
@@ -30,8 +39,8 @@ fb189c23680b56d69a2e2090946efc7f29784b64dcc9782156c62e8928831e44  WHU-Q1-01/perp
 86b6fff9ea066732ac00f7aba7482fe86957188a3b005df1a475f870f3a7201c  WHU-Q1-03/claude.raw.md
 37be434cadd47911e78df530768501c6951829792c5dd8727aa13bfec4e0fb6e  WHU-Q1-03/chatgpt.raw.md
 a3fcb6563b983b6a605ffab995605de6768a248ee9b272d12570711733403c2f  WHU-Q1-03/gemini.raw.md
-41c7a65d69e2a06467bad2e4981e276f487878a8a374942092247ab6990deb44  WHU-Q1-03/perplexity.raw.md
+f9d5b1cf226451537c59904ecec890b71cee1c80716aa25a5b40083fa1ecf546  WHU-Q1-03/perplexity.raw.md
 09a11a2d3cf9c4be3ef31835710e675da9c9c4cf86ae814fa0dc41b36aceb6a4  WHU-Q1-04/claude.raw.md
 3bf8fd5d627821003291daa5bc5919b7127aa3b1cce133f72a7a02c8d200f44b  WHU-Q1-04/chatgpt.raw.md
 no result (two technical failures)                                WHU-Q1-04/gemini.raw.md
-6a0ff797fa03413c57bd2382116543b4ebc17fb078bd47af6d3af5f566f41101  WHU-Q1-04/perplexity.raw.md
+6199808aa3b0e4e1a89433a9df8fb05e933d35bac4d6704bd4a6b07e9ecfcd17  WHU-Q1-04/perplexity.raw.md
