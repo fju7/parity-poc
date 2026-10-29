@@ -1,0 +1,300 @@
+{
+ "written": "2026-10-29T21:13:15+00:00",
+ "per_answer": [
+  {
+   "question": "WHU-Q1-01",
+   "system": "ChatGPT",
+   "items": 0,
+   "held": 0,
+   "incomplete": 0,
+   "abstract_only": 0,
+   "no_url": 0,
+   "uncited": 20,
+   "unreachable_sources": 0
+  },
+  {
+   "question": "WHU-Q1-01",
+   "system": "Claude",
+   "items": 12,
+   "held": 11,
+   "incomplete": 1,
+   "abstract_only": 7,
+   "no_url": 0,
+   "uncited": 8,
+   "unreachable_sources": 1
+  },
+  {
+   "question": "WHU-Q1-01",
+   "system": "Gemini",
+   "items": 20,
+   "held": 20,
+   "incomplete": 0,
+   "abstract_only": 0,
+   "no_url": 0,
+   "uncited": 0,
+   "unreachable_sources": 0
+  },
+  {
+   "question": "WHU-Q1-01",
+   "system": "Perplexity",
+   "items": 9,
+   "held": 8,
+   "incomplete": 1,
+   "abstract_only": 0,
+   "no_url": 0,
+   "uncited": 6,
+   "unreachable_sources": 1
+  },
+  {
+   "question": "WHU-Q1-01",
+   "system": "WHU",
+   "items": 19,
+   "held": 19,
+   "incomplete": 0,
+   "abstract_only": 15,
+   "no_url": 0,
+   "uncited": 1,
+   "unreachable_sources": 0
+  },
+  {
+   "question": "WHU-Q1-02",
+   "system": "ChatGPT",
+   "items": 0,
+   "held": 0,
+   "incomplete": 0,
+   "abstract_only": 0,
+   "no_url": 0,
+   "uncited": 18,
+   "unreachable_sources": 0
+  },
+  {
+   "question": "WHU-Q1-02",
+   "system": "Claude",
+   "items": 11,
+   "held": 11,
+   "incomplete": 0,
+   "abstract_only": 2,
+   "no_url": 0,
+   "uncited": 9,
+   "unreachable_sources": 0
+  },
+  {
+   "question": "WHU-Q1-02",
+   "system": "Gemini",
+   "items": 20,
+   "held": 18,
+   "incomplete": 2,
+   "abstract_only": 1,
+   "no_url": 0,
+   "uncited": 0,
+   "unreachable_sources": 1
+  },
+  {
+   "question": "WHU-Q1-02",
+   "system": "Perplexity",
+   "items": 13,
+   "held": 13,
+   "incomplete": 0,
+   "abstract_only": 3,
+   "no_url": 0,
+   "uncited": 5,
+   "unreachable_sources": 0
+  },
+  {
+   "question": "WHU-Q1-02",
+   "system": "WHU",
+   "items": 19,
+   "held": 19,
+   "incomplete": 0,
+   "abstract_only": 0,
+   "no_url": 0,
+   "uncited": 1,
+   "unreachable_sources": 0
+  },
+  {
+   "question": "WHU-Q1-03",
+   "system": "ChatGPT",
+   "items": 0,
+   "held": 0,
+   "incomplete": 0,
+   "abstract_only": 0,
+   "no_url": 0,
+   "uncited": 20,
+   "unreachable_sources": 0
+  },
+  {
+   "question": "WHU-Q1-03",
+   "system": "Claude",
+   "items": 10,
+   "held": 10,
+   "incomplete": 0,
+   "abstract_only": 0,
+   "no_url": 0,
+   "uncited": 10,
+   "unreachable_sources": 0
+  },
+  {
+   "question": "WHU-Q1-03",
+   "system": "Gemini",
+   "items": 20,
+   "held": 18,
+   "incomplete": 2,
+   "abstract_only": 0,
+   "no_url": 0,
+   "uncited": 0,
+   "unreachable_sources": 2
+  },
+  {
+   "question": "WHU-Q1-03",
+   "system": "Perplexity",
+   "items": 20,
+   "held": 20,
+   "incomplete": 0,
+   "abstract_only": 2,
+   "no_url": 0,
+   "uncited": 0,
+   "unreachable_sources": 0
+  },
+  {
+   "question": "WHU-Q1-03",
+   "system": "WHU",
+   "items": 20,
+   "held": 20,
+   "incomplete": 0,
+   "abstract_only": 0,
+   "no_url": 0,
+   "uncited": 0,
+   "unreachable_sources": 0
+  },
+  {
+   "question": "WHU-Q1-04",
+   "system": "ChatGPT",
+   "items": 0,
+   "held": 0,
+   "incomplete": 0,
+   "abstract_only": 0,
+   "no_url": 0,
+   "uncited": 20,
+   "unreachable_sources": 0
+  },
+  {
+   "question": "WHU-Q1-04",
+   "system": "Claude",
+   "items": 12,
+   "held": 12,
+   "incomplete": 0,
+   "abstract_only": 1,
+   "no_url": 0,
+   "uncited": 8,
+   "unreachable_sources": 0
+  },
+  {
+   "question": "WHU-Q1-04",
+   "system": "Perplexity",
+   "items": 12,
+   "held": 11,
+   "incomplete": 1,
+   "abstract_only": 0,
+   "no_url": 0,
+   "uncited": 8,
+   "unreachable_sources": 1
+  },
+  {
+   "question": "WHU-Q1-04",
+   "system": "WHU",
+   "items": 17,
+   "held": 17,
+   "incomplete": 0,
+   "abstract_only": 0,
+   "no_url": 0,
+   "uncited": 3,
+   "unreachable_sources": 0
+  }
+ ],
+ "routes": {
+  "a": 7,
+  "b": 3,
+  "c": 1,
+  "d": 15
+ },
+ "reachability": {
+  "WHU": {
+   "cited_items": 75,
+   "items_all_sources_by_script": 60,
+   "items_needing_operator_fetch": 15,
+   "items_unreachable": 0,
+   "share_reachable_by_script": 0.8,
+   "share_reachable_after_operator_fetch": 1.0,
+   "share_unreachable": 0.0,
+   "flag_unreachable_over_20pct": false,
+   "sources": {
+    "distinct": 10,
+    "by_script": 9,
+    "by_operator_fetch": 1,
+    "unreachable": 0
+   }
+  },
+  "Claude": {
+   "cited_items": 45,
+   "items_all_sources_by_script": 35,
+   "items_needing_operator_fetch": 9,
+   "items_unreachable": 1,
+   "share_reachable_by_script": 0.7778,
+   "share_reachable_after_operator_fetch": 0.9778,
+   "share_unreachable": 0.0222,
+   "flag_unreachable_over_20pct": false,
+   "sources": {
+    "distinct": 50,
+    "by_script": 45,
+    "by_operator_fetch": 4,
+    "unreachable": 1
+   }
+  },
+  "Gemini": {
+   "cited_items": 60,
+   "items_all_sources_by_script": 38,
+   "items_needing_operator_fetch": 18,
+   "items_unreachable": 4,
+   "share_reachable_by_script": 0.6333,
+   "share_reachable_after_operator_fetch": 0.9333,
+   "share_unreachable": 0.0667,
+   "flag_unreachable_over_20pct": false,
+   "sources": {
+    "distinct": 29,
+    "by_script": 19,
+    "by_operator_fetch": 7,
+    "unreachable": 3
+   }
+  },
+  "Perplexity": {
+   "cited_items": 54,
+   "items_all_sources_by_script": 47,
+   "items_needing_operator_fetch": 5,
+   "items_unreachable": 2,
+   "share_reachable_by_script": 0.8704,
+   "share_reachable_after_operator_fetch": 0.963,
+   "share_unreachable": 0.037,
+   "flag_unreachable_over_20pct": false,
+   "sources": {
+    "distinct": 33,
+    "by_script": 27,
+    "by_operator_fetch": 4,
+    "unreachable": 2
+   }
+  }
+ },
+ "versions": {
+  "as cited": 10,
+  "publishedVersion": 2,
+  "web page as rendered": 14
+ },
+ "first_fetch_bytes_reread_to_held": 0,
+ "still_unreachable_free_but_blocking": 1,
+ "still_unreachable_free_but_blocking_not_tried_by_advisor": 0,
+ "sources": {
+  "distinct": 115,
+  "full_text": 96,
+  "abstract_only": 13,
+  "unreachable": 6
+ }
+}

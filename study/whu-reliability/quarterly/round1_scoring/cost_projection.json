@@ -1,0 +1,363 @@
+{
+ "written": "2026-10-29T21:13:24+00:00",
+ "no_model_called": true,
+ "inputs": {
+  "chars_per_token": {
+   "value": 2.674,
+   "how": "median over prep round 2's 15 snapshots of text characters / Anthropic count_tokens (runs/prep2/sources/tokens.json)"
+  },
+  "openai_tokens_per_claude_token": {
+   "value": 0.617,
+   "how": "median over prep round 2's M1 items: OpenAI input tokens / Claude input+cache tokens, same prompt"
+  },
+  "m1_prompt_after_documents_tokens": 1526,
+  "m1_prompt_before_documents_tokens": 41,
+  "output_tokens_mean": {
+   "m1_claude": 213,
+   "m1_openai_incl_reasoning": 130,
+   "m2_claude": 442,
+   "m2_openai_incl_reasoning": 141
+  },
+  "prices_usd_per_million": {
+   "claude-opus-5-5": {
+    "input": 4.0,
+    "output": 20.0,
+    "cache_write": 5.0,
+    "cache_read": 0.2
+   },
+   "gpt-6-astra": {
+    "input": 10.0,
+    "cached_input": 1.0,
+    "output": 50.0
+   }
+  },
+  "price_check_max_abs_usd_difference_on_recorded_calls": {
+   "claude": 0.0,
+   "openai": 0.0
+  },
+  "repeat_share": 0.2,
+  "max_source_tokens": 150000,
+  "pending_source_size_assumed_chars": 44166
+ },
+ "rules": [
+  "M1, Claude: first read = (prompt head + documents) at cache-write price + prompt after the documents at input price + output; the 20% repeat reads the documents from cache (cache-read price).",
+  "M1, OpenAI: first read = all input at the input price + output; the repeat reads the documents at the cached-input price (its cache hits only an identical prompt, which the repeat is).",
+  "M2, Claude: the answer block is written to cache by an answer's first conclusion and read by the rest; repeats read it from cache.",
+  "M2, OpenAI: every conclusion is a different prompt, so no cache except on the repeat.",
+  "A document is capped at 150,000 tokens (longer ones are chunked to that).",
+  "Items whose sources are pending the operator are projected at the median held snapshot size.",
+  "WHU-S04 is projected as the mean of the questions drawn so far, for M1 and for M2."
+ ],
+ "m1": {
+  "per_answer": {
+   "WHU-Q1-01/Claude": {
+    "items": 12,
+    "held_items": 11,
+    "claude_held": 2.5065,
+    "openai_held": 3.1668,
+    "claude_all": 2.6024,
+    "openai_all": 3.29,
+    "doc_tokens_held": 469734.4454
+   },
+   "WHU-Q1-01/Gemini": {
+    "items": 20,
+    "held_items": 20,
+    "claude_held": 6.9188,
+    "openai_held": 8.7044,
+    "claude_all": 6.9188,
+    "openai_all": 8.7044,
+    "doc_tokens_held": 1322607.6619
+   },
+   "WHU-Q1-01/Perplexity": {
+    "items": 9,
+    "held_items": 8,
+    "claude_held": 4.9525,
+    "openai_held": 6.2081,
+    "claude_all": 5.1432,
+    "openai_all": 6.4496,
+    "doc_tokens_held": 962565.3771
+   },
+   "WHU-Q1-01/WHU": {
+    "items": 19,
+    "held_items": 19,
+    "claude_held": 3.2536,
+    "openai_held": 4.1273,
+    "claude_all": 3.2536,
+    "openai_all": 4.1273,
+    "doc_tokens_held": 597881.5022
+   },
+   "WHU-Q1-02/Claude": {
+    "items": 11,
+    "held_items": 11,
+    "claude_held": 3.019,
+    "openai_held": 3.8061,
+    "claude_all": 3.019,
+    "openai_all": 3.8061,
+    "doc_tokens_held": 571402.9495
+   },
+   "WHU-Q1-02/Gemini": {
+    "items": 20,
+    "held_items": 18,
+    "claude_held": 2.568,
+    "openai_held": 3.2683,
+    "claude_all": 3.7136,
+    "openai_all": 4.705,
+    "doc_tokens_held": 464356.9242
+   },
+   "WHU-Q1-02/Perplexity": {
+    "items": 13,
+    "held_items": 13,
+    "claude_held": 2.6952,
+    "openai_held": 3.4093,
+    "claude_all": 2.6952,
+    "openai_all": 3.4093,
+    "doc_tokens_held": 502143.9008
+   },
+   "WHU-Q1-02/WHU": {
+    "items": 19,
+    "held_items": 19,
+    "claude_held": 6.5846,
+    "openai_held": 8.2837,
+    "claude_all": 6.5846,
+    "openai_all": 8.2837,
+    "doc_tokens_held": 1258798.0079
+   },
+   "WHU-Q1-03/Claude": {
+    "items": 10,
+    "held_items": 10,
+    "claude_held": 2.7822,
+    "openai_held": 3.5071,
+    "claude_all": 2.7822,
+    "openai_all": 3.5071,
+    "doc_tokens_held": 526927.9099
+   },
+   "WHU-Q1-03/Gemini": {
+    "items": 20,
+    "held_items": 18,
+    "claude_held": 7.4947,
+    "openai_held": 9.4158,
+    "claude_all": 7.6865,
+    "openai_all": 9.6622,
+    "doc_tokens_held": 1441886.7677
+   },
+   "WHU-Q1-03/Perplexity": {
+    "items": 20,
+    "held_items": 20,
+    "claude_held": 8.8869,
+    "openai_held": 11.16,
+    "claude_all": 8.8869,
+    "openai_all": 11.16,
+    "doc_tokens_held": 1713090.7712
+   },
+   "WHU-Q1-03/WHU": {
+    "items": 20,
+    "held_items": 20,
+    "claude_held": 5.4396,
+    "openai_held": 6.8587,
+    "claude_all": 5.4396,
+    "openai_all": 6.8587,
+    "doc_tokens_held": 1029118.909
+   },
+   "WHU-Q1-04/Claude": {
+    "items": 12,
+    "held_items": 12,
+    "claude_held": 1.875,
+    "openai_held": 2.3823,
+    "claude_all": 1.875,
+    "openai_all": 2.3823,
+    "doc_tokens_held": 341923.5166
+   },
+   "WHU-Q1-04/Perplexity": {
+    "items": 12,
+    "held_items": 11,
+    "claude_held": 2.5375,
+    "openai_held": 3.2053,
+    "claude_all": 2.6913,
+    "openai_all": 3.4008,
+    "doc_tokens_held": 475869.1132
+   },
+   "WHU-Q1-04/WHU": {
+    "items": 17,
+    "held_items": 17,
+    "claude_held": 9.4683,
+    "openai_held": 11.8749,
+    "claude_all": 9.4683,
+    "openai_all": 11.8749,
+    "doc_tokens_held": 1835979.555
+   }
+  },
+  "held_only_usd": 160.36,
+  "all_items_usd": 164.38
+ },
+ "m2": {
+  "per_answer": {
+   "A-32faae3f02": {
+    "question": "WHU-Q1-01",
+    "system": "ChatGPT",
+    "conclusions": 5,
+    "answer_tokens": 5139,
+    "claude": 0.1438,
+    "openai": 0.2964
+   },
+   "A-b7b6fb8d71": {
+    "question": "WHU-Q1-01",
+    "system": "Claude",
+    "conclusions": 5,
+    "answer_tokens": 9541,
+    "claude": 0.1702,
+    "openai": 0.4348
+   },
+   "A-0a33949d59": {
+    "question": "WHU-Q1-01",
+    "system": "Gemini",
+    "conclusions": 5,
+    "answer_tokens": 8573,
+    "claude": 0.1644,
+    "openai": 0.4044
+   },
+   "A-55a644cee0": {
+    "question": "WHU-Q1-01",
+    "system": "Perplexity",
+    "conclusions": 5,
+    "answer_tokens": 9600,
+    "claude": 0.1706,
+    "openai": 0.4367
+   },
+   "A-8e796bb05e": {
+    "question": "WHU-Q1-01",
+    "system": "WHU",
+    "conclusions": 5,
+    "answer_tokens": 2285,
+    "claude": 0.1267,
+    "openai": 0.2066
+   },
+   "A-c5254d6693": {
+    "question": "WHU-Q1-02",
+    "system": "ChatGPT",
+    "conclusions": 5,
+    "answer_tokens": 9618,
+    "claude": 0.1716,
+    "openai": 0.4386
+   },
+   "A-4877005465": {
+    "question": "WHU-Q1-02",
+    "system": "Claude",
+    "conclusions": 5,
+    "answer_tokens": 10211,
+    "claude": 0.1751,
+    "openai": 0.4572
+   },
+   "A-f332b553c8": {
+    "question": "WHU-Q1-02",
+    "system": "Gemini",
+    "conclusions": 5,
+    "answer_tokens": 12985,
+    "claude": 0.1917,
+    "openai": 0.5444
+   },
+   "A-62d63fb819": {
+    "question": "WHU-Q1-02",
+    "system": "Perplexity",
+    "conclusions": 5,
+    "answer_tokens": 12821,
+    "claude": 0.1908,
+    "openai": 0.5393
+   },
+   "A-6006bb18b3": {
+    "question": "WHU-Q1-02",
+    "system": "WHU",
+    "conclusions": 5,
+    "answer_tokens": 4097,
+    "claude": 0.1384,
+    "openai": 0.2649
+   },
+   "A-e3c037db4f": {
+    "question": "WHU-Q1-03",
+    "system": "ChatGPT",
+    "conclusions": 5,
+    "answer_tokens": 6148,
+    "claude": 0.1453,
+    "openai": 0.3211
+   },
+   "A-1ab49361c1": {
+    "question": "WHU-Q1-03",
+    "system": "Claude",
+    "conclusions": 5,
+    "answer_tokens": 14457,
+    "claude": 0.1952,
+    "openai": 0.5824
+   },
+   "A-e38c0dc9eb": {
+    "question": "WHU-Q1-03",
+    "system": "Gemini",
+    "conclusions": 5,
+    "answer_tokens": 10189,
+    "claude": 0.1696,
+    "openai": 0.4482
+   },
+   "A-782c78ca08": {
+    "question": "WHU-Q1-03",
+    "system": "Perplexity",
+    "conclusions": 5,
+    "answer_tokens": 4844,
+    "claude": 0.1375,
+    "openai": 0.2801
+   },
+   "A-1afd0594f1": {
+    "question": "WHU-Q1-03",
+    "system": "WHU",
+    "conclusions": 5,
+    "answer_tokens": 15621,
+    "claude": 0.2021,
+    "openai": 0.6189
+   },
+   "A-56bb594d53": {
+    "question": "WHU-Q1-04",
+    "system": "ChatGPT",
+    "conclusions": 4,
+    "answer_tokens": 12047,
+    "claude": 0.1645,
+    "openai": 0.4182
+   },
+   "A-c948570e0f": {
+    "question": "WHU-Q1-04",
+    "system": "Claude",
+    "conclusions": 4,
+    "answer_tokens": 10402,
+    "claude": 0.155,
+    "openai": 0.3768
+   },
+   "A-0510f9fb95": {
+    "question": "WHU-Q1-04",
+    "system": "Perplexity",
+    "conclusions": 4,
+    "answer_tokens": 5434,
+    "claude": 0.1264,
+    "openai": 0.2518
+   },
+   "A-8816086bcc": {
+    "question": "WHU-Q1-04",
+    "system": "WHU",
+    "conclusions": 4,
+    "answer_tokens": 13917,
+    "claude": 0.1753,
+    "openai": 0.4652
+   }
+  },
+  "usd": 10.9
+ },
+ "whu_s04_projected": {
+  "m1_usd": 41.1,
+  "m2_usd": 2.73
+ },
+ "judging_usd": 219.1,
+ "whu_measured_usd": {
+  "WHU-Q1-01": 3.47,
+  "WHU-Q1-02": 10.09,
+  "WHU-Q1-03": 37.6,
+  "WHU-Q1-04": 23.39
+ },
+ "whu_s04_note": "WHU-S04 is still running; its figure is spend so far, not its final cost.",
+ "study_total_usd": 293.65,
+ "over_300": false
+}
