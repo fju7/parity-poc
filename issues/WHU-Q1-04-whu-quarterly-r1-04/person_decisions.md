@@ -21,3 +21,6 @@ Accepted by Fred Ugast, S004@194093-194242 out_of_scope: about the resources nee
 Accepted by Fred Ugast, S004@194243-194597 out_of_scope: about coordination of mitigation and adaptation responses, not about removing carbon dioxide; checked by Fred's advisor, stated in session
 Accepted by Fred Ugast, S004@199816-199874 not_material: a sentence fragment run on from the next statement by the PDF text layer, with no subject of its own; checked by Fred's advisor, stated in session
 Accepted by Fred Ugast, S001@19911-20193 out_of_scope: about food systems governance, not about removing carbon dioxide; checked by Fred's advisor, stated in session
+
+## C. Closing the relevant C.4.1 judgement (added after the session's question)
+Accepted by Fred Ugast, S004@117838-120245 not_material: relevant, but its CDR point (CDR is needed to counterbalance residual emissions) is already stated on the page by the C.11 sentence on counterbalancing hard-to-abate residual emissions, so a second sentence would only repeat it; its energy-system detail is about cutting emissions; checked by Fred's advisor, stated in session
