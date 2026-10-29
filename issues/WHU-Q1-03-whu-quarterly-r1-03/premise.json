@@ -1,0 +1,112 @@
+{
+  "_what_this_is": "The entry gate, answered BEFORE drafting. The threshold question is whether a well-informed non-expert would confidently believe something the primary sources do not support.",
+  "belief": {
+    "_note": "What the reader already believes, stated as they would state it. If you cannot write this sentence, there is nothing to correct and no subject -- which is how the tobacco-analogy candidate died.",
+    "statement": "If emissions continue, further warming will intensify the water cycle everywhere: more rain overall, with both heavier downpours and worse droughts in every region; ice will keep melting; sea level will rise by about a metre this century; and the oceans will keep warming and acidifying, with every change growing in step with the warming.",
+    "how_we_know_they_believe_it": "Headlines found by a web search on 2026-10-29 (Claude Code). Only the headlines and the search tool's listing were seen; the articles were not fetched or read, so these establish that the framing was carried, not what each article says in full.",
+    "carried_by": [
+      {
+        "outlet": "The Hitavada",
+        "url": "https://www.thehitavada.com/Encyc/2019/9/26/UN-warns-of-1-meter-sea-level-rise-by-2100.html",
+        "date": "2019-09-26",
+        "what_it_said": "Headline: 'UN warns of 1 meter sea level rise by 2100'"
+      },
+      {
+        "outlet": "The Sentinel (Assam)",
+        "url": "https://sentinelassam.com/topheadlines/united-nations-un-warns-of-one-meter-sea-level-rise-by-2100",
+        "date": "",
+        "what_it_said": "Headline: 'United Nations (UN) Warns of One Meter Sea Level Rise By 2100'"
+      },
+      {
+        "outlet": "Skeptical Science",
+        "url": "https://skepticalscience.com/news.php?n=1212",
+        "date": "",
+        "what_it_said": "Headline: 'U.S. 2011: The Wet Get Wetter, the Dry Get Drier'"
+      }
+    ]
+  },
+  "what_the_sources_show": {
+    "_note": "What the primary sources actually support, and which sources.",
+    "statement": "The IPCC AR6 WGI assessment projects most named changes to grow with each increment of warming (B.2), but not uniformly: land precipitation rises on average while parts of the subtropics dry (B.3.1); heavy precipitation intensifies in most regions while more severe droughts are projected in some regions (B.2.2, B.2.4); likely global mean sea level rise by 2100 is 0.28-0.55 m to 0.63-1.01 m depending on scenario (B.5.3), with higher outcomes not ruled out; and ocean warming, acidification, ice-sheet loss and sea level rise are committed for centuries to millennia (B.5).",
+    "sources": [
+      "S001",
+      "S002",
+      "S003",
+      "S004"
+    ]
+  },
+  "direction": {
+    "_note": "CORRECTS, CONFIRMS or NARROWS. This field exists so the contrarianism guard can count. A publication whose answer is always CORRECTS is performing scepticism rather than assessing evidence, and is not to be trusted.",
+    "value": "narrows",
+    "_values": [
+      "corrects",
+      "confirms",
+      "narrows"
+    ]
+  },
+  "reader_with_a_decision": "A local planner, water manager or coastal property owner who must choose a design figure for future rainfall, drought or sea level, and who might otherwise take 'about a metre by 2100' or 'wetter everywhere' as the single expected outcome.",
+  "public_record_check": {
+    "_note": "NOT 'has anybody published this'. On any contested question, somebody has. The question is whether it has been carried WHERE THIS READER WOULD FIND IT. Run the counterexample hunter on the belief statement, not on the finding.",
+    "prior_art_found": [],
+    "carried_in_general_coverage": "Partly. Headlines carrying 'one metre by 2100' and 'wet get wetter, dry get drier' were found (belief.carried_by); a search listing also showed coverage noting that the scenario dependence and regional exceptions exist. Not checked in depth; the articles were not read.",
+    "our_contribution": "translation: setting the assessment's confidence-rated projections, with their scenario ranges and regional exceptions, beside the simple picture"
+  },
+  "sources_are_open": "",
+  "evidence_base_is_bounded": "",
+  "kill_condition": "No story if the assessed evidence supports the belief as stated in every part: that is, if the expert assessments project the water-cycle changes as uniform across regions (more rain, heavier downpours and worse droughts everywhere), give about one metre of sea-level rise this century as the central outcome regardless of emissions, and describe ice and ocean changes as scaling simply with warming, with nothing committed beyond it. The answer then CONFIRMS.",
+  "kill_condition_tested": {
+    "_note": "Filled in AFTER going to look, by whoever looked.",
+    "by": "Claude Code",
+    "on": "2026-10-29",
+    "result": "narrowed",
+    "_result_values": [
+      "survived",
+      "narrowed",
+      "killed"
+    ],
+    "note": "Read against the held SPM and Chapter 8, 9 and 11 executive summaries: the direction of the belief holds for most components, but its uniformity (wetter and more drought everywhere), the 'about a metre by 2100' figure as a central outcome, and simple scaling with warming do not. Whether general coverage carries the belief was not checked against named outlets."
+  },
+  "lead_came_from": "",
+  "scope": {
+    "covers": "Projected physical changes in the climate system as warming continues under continued greenhouse gas emissions, this century and beyond, as functions of emissions scenario or global warming level: precipitation and the global water cycle (including monsoons, evaporation, soil moisture and runoff); heavy precipitation, floods, droughts and other very wet and very dry extremes; ice (glaciers, ice sheets, Arctic sea ice, snow cover and permafrost); global and regional sea level, including its long-term commitment and low-likelihood high-impact outcomes; and the ocean (warming, marine heatwaves, acidification, oxygen loss and circulation such as the AMOC). Observed changes are included only as the base the projections extend.",
+    "out": [
+      {
+        "what": "Impacts on people, ecosystems, economies and health, and adaptation",
+        "why": "The question asks how the climate will change, not what the changes will do to people or nature; that is a different evidence base (impacts and adaptation assessments)."
+      },
+      {
+        "what": "Mitigation: emission pathways, policies, costs and technologies",
+        "why": "The question takes continued emissions as its premise; how to reduce them is a different question."
+      },
+      {
+        "what": "Surface air temperature change and heat extremes as such",
+        "why": "The question names warming as the driver and asks about rainfall, wet and dry extremes, ice, sea level and the oceans; temperature appears only as the warming level the changes are indexed to."
+      },
+      {
+        "what": "Attribution of individual past weather events",
+        "why": "The question is about future change under further warming; past-event attribution is outside it except as context for observed trends."
+      },
+      {
+        "what": "Detailed projections for individual countries or localities",
+        "why": "The question asks about the climate at large; regional detail is included only where the assessments summarise regional patterns (for example wet and dry regions, monsoons)."
+      },
+      {
+        "what": "Non-physical climate subjects such as the carbon cycle's economics, air quality and solar geoengineering",
+        "why": "Not among the components the question names."
+      }
+    ],
+    "by": "Claude Code",
+    "written_at": "2026-10-29T10:57:21Z"
+  },
+  "evidence_standard": {
+    "weighs": [
+      "measured",
+      "assessed"
+    ],
+    "measured": "Observed changes in precipitation, extremes, ice, sea level and ocean properties from instrumental, satellite and reconstruction records, used as the base the projections extend; and projected changes from climate-model ensembles as reported in the sources.",
+    "assessed": "Expert assessments with calibrated confidence or likelihood language: IPCC AR6 Working Group I (Summary for Policymakers, Technical Summary and chapters), the IPCC Special Report on the Ocean and Cryosphere, the AR6 Synthesis Report, and systematic reviews' conclusions.",
+    "when_they_differ": "state both",
+    "by": "Claude Code",
+    "written_at": "2026-10-29T10:57:21Z"
+  }
+}

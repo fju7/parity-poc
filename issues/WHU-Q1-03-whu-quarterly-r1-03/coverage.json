@@ -1,0 +1,157 @@
+{
+ "units": [],
+ "declarations": {
+  "S001@13991-14642": {
+   "state": "out_of_scope",
+   "reason": "A footnote on how global surface temperature is defined and estimated. The question names warming only as the driver, and premise scope.out excludes surface temperature change as such.",
+   "by": "Claude Code",
+   "element": "Surface air temperature change and heat extremes as such",
+   "reason_for_reader": "a footnote on measuring global surface temperature, which the question names only as the driver",
+   "decided_at": "2026-10-29T11:29:14+00:00"
+  },
+  "S001@14643-14956": {
+   "state": "out_of_scope",
+   "reason": "A footnote on how global surface temperature is defined and estimated. The question names warming only as the driver, and premise scope.out excludes surface temperature change as such.",
+   "by": "Claude Code",
+   "element": "Surface air temperature change and heat extremes as such",
+   "reason_for_reader": "a footnote on measuring global surface temperature, which the question names only as the driver",
+   "decided_at": "2026-10-29T11:29:14+00:00"
+  },
+  "S001@14957-15133": {
+   "state": "out_of_scope",
+   "reason": "A footnote on how global surface temperature is defined and estimated. The question names warming only as the driver, and premise scope.out excludes surface temperature change as such.",
+   "by": "Claude Code",
+   "element": "Surface air temperature change and heat extremes as such",
+   "reason_for_reader": "a footnote on measuring global surface temperature, which the question names only as the driver",
+   "decided_at": "2026-10-29T11:29:14+00:00"
+  },
+  "S001@54267-54505": {
+   "state": "out_of_scope",
+   "reason": "A projection of the temperature of the hottest or coldest days. Premise scope.out excludes surface air temperature change and heat extremes as such.",
+   "by": "Claude Code",
+   "element": "Surface air temperature change and heat extremes as such",
+   "reason_for_reader": "a projection of hot or cold day temperatures, outside the components the question names",
+   "decided_at": "2026-10-29T11:29:14+00:00"
+  },
+  "S001@54506-54671": {
+   "state": "out_of_scope",
+   "reason": "A projection of the temperature of the hottest or coldest days. Premise scope.out excludes surface air temperature change and heat extremes as such.",
+   "by": "Claude Code",
+   "element": "Surface air temperature change and heat extremes as such",
+   "reason_for_reader": "a projection of hot or cold day temperatures, outside the components the question names",
+   "decided_at": "2026-10-29T11:29:14+00:00"
+  },
+  "S001@55279-55494": {
+   "state": "out_of_scope",
+   "reason": "A footnote on when 1.5°C of global warming is first reached. Premise scope.out excludes surface temperature change as such.",
+   "by": "Claude Code",
+   "element": "Surface air temperature change and heat extremes as such",
+   "reason_for_reader": "a footnote on when 1.5°C of warming is reached, which concerns temperature as such",
+   "decided_at": "2026-10-29T11:29:14+00:00"
+  },
+  "S001@57933-58001": {
+   "state": "out_of_scope",
+   "reason": "A figure caption on regional temperature change. Premise scope.out excludes surface air temperature change as such.",
+   "by": "Claude Code",
+   "element": "Surface air temperature change and heat extremes as such",
+   "reason_for_reader": "a figure caption on regional temperature change, which the question names only as the driver",
+   "decided_at": "2026-10-29T11:29:14+00:00"
+  },
+  "S001@58002-58224": {
+   "state": "out_of_scope",
+   "reason": "A figure caption on regional temperature change. Premise scope.out excludes surface air temperature change as such.",
+   "by": "Claude Code",
+   "element": "Surface air temperature change and heat extremes as such",
+   "reason_for_reader": "a figure caption on regional temperature change, which the question names only as the driver",
+   "decided_at": "2026-10-29T11:29:14+00:00"
+  },
+  "S001@91319-91469": {
+   "state": "out_of_scope",
+   "reason": "Hot and cold climatic impact-drivers and heat thresholds. Premise scope.out excludes heat extremes as such.",
+   "by": "Claude Code",
+   "element": "Surface air temperature change and heat extremes as such",
+   "reason_for_reader": "a projection of hot and cold extremes and heat thresholds, outside the components the question names",
+   "decided_at": "2026-10-29T11:29:14+00:00"
+  },
+  "S001@91701-92068": {
+   "state": "out_of_scope",
+   "reason": "Hot and cold climatic impact-drivers and heat thresholds. Premise scope.out excludes heat extremes as such.",
+   "by": "Claude Code",
+   "element": "Surface air temperature change and heat extremes as such",
+   "reason_for_reader": "a projection of hot and cold extremes and heat thresholds, outside the components the question names",
+   "decided_at": "2026-10-29T11:29:14+00:00"
+  },
+  "S001@96514-96698": {
+   "state": "out_of_scope",
+   "reason": "Urban warming and heatwave severity. Premise scope.out excludes heat extremes as such.",
+   "by": "Claude Code",
+   "element": "Surface air temperature change and heat extremes as such",
+   "reason_for_reader": "a finding on urban heat and heatwaves, outside the components the question names",
+   "decided_at": "2026-10-29T11:29:14+00:00"
+  },
+  "S001@56229-56345": {
+   "state": "not_material",
+   "reason": "Page furniture inside the statement's text range as the summary was extracted: a cross-reference, running header, axis labels or chart-legend text. It states no finding.",
+   "by": "Claude Code",
+   "element": "",
+   "reason_for_reader": "figure or page text that states no finding",
+   "decided_at": "2026-10-29T11:29:14+00:00"
+  },
+  "S001@58509-58538": {
+   "state": "not_material",
+   "reason": "Page furniture inside the statement's text range as the summary was extracted: a cross-reference, running header, axis labels or chart-legend text. It states no finding.",
+   "by": "Claude Code",
+   "element": "",
+   "reason_for_reader": "figure or page text that states no finding",
+   "decided_at": "2026-10-29T11:29:14+00:00"
+  },
+  "S001@59529-59698": {
+   "state": "not_material",
+   "reason": "Page furniture inside the statement's text range as the summary was extracted: a cross-reference, running header, axis labels or chart-legend text. It states no finding.",
+   "by": "Claude Code",
+   "element": "",
+   "reason_for_reader": "figure or page text that states no finding",
+   "decided_at": "2026-10-29T11:29:14+00:00"
+  },
+  "S001@99416-99916": {
+   "state": "not_material",
+   "reason": "Page furniture inside the statement's text range as the summary was extracted: a cross-reference, running header, axis labels or chart-legend text. It states no finding.",
+   "by": "Claude Code",
+   "element": "",
+   "reason_for_reader": "figure or page text that states no finding",
+   "decided_at": "2026-10-29T11:29:14+00:00"
+  },
+  "S001@99917-100073": {
+   "state": "not_material",
+   "reason": "Page furniture inside the statement's text range as the summary was extracted: a cross-reference, running header, axis labels or chart-legend text. It states no finding.",
+   "by": "Claude Code",
+   "element": "",
+   "reason_for_reader": "figure or page text that states no finding",
+   "decided_at": "2026-10-29T11:29:14+00:00"
+  },
+  "S001@22863-23198": {
+   "state": "out_of_scope",
+   "reason": "An observed change in hot and cold extremes. Premise scope.out excludes heat extremes as such.",
+   "by": "Claude Code",
+   "element": "Surface air temperature change and heat extremes as such",
+   "reason_for_reader": "an observed change in hot and cold extremes, outside the components the question names",
+   "decided_at": "2026-10-29T11:38:20+00:00"
+  },
+  "S001@23199-23344": {
+   "state": "out_of_scope",
+   "reason": "An observed change in hot and cold extremes. Premise scope.out excludes heat extremes as such.",
+   "by": "Claude Code",
+   "element": "Surface air temperature change and heat extremes as such",
+   "reason_for_reader": "an observed change in hot and cold extremes, outside the components the question names",
+   "decided_at": "2026-10-29T11:38:20+00:00"
+  },
+  "S001@26891-34834": {
+   "state": "not_material",
+   "reason": "An observed change since the 1950s in compound events, mostly concurrent heatwaves and droughts, fire weather and compound flooding. The question asks about future change, and the page states the projected compound-event changes from SPM C.2.7 and C.3.3; the statement's text range also carries footnotes 17 and 18 and the whole of Figure SPM.3.",
+   "by": "Claude Code",
+   "element": "",
+   "reason_for_reader": "an observed change in compound events, where the page states the projected ones",
+   "decided_at": "2026-10-29T11:38:20+00:00"
+  }
+ }
+}

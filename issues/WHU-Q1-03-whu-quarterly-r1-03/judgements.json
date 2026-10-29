@@ -1,0 +1,1041 @@
+{
+ "candidates": {
+  "S001@6906-7639": {
+   "source": "S001",
+   "at": [
+    6906,
+    7639
+   ],
+   "section": "SPM A.1.1",
+   "kind": "assessment",
+   "text_sha256": "9d9b912eb8b8b61d2486269e18af73d24b0635776f3348a28d528508f3afd84b",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement reports observed greenhouse gas concentrations and the share of CO2 taken up by land and ocean; it says nothing about projected changes in rainfall, wet and dry extremes, ice, sea level or ocean state under further warming.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "35bc88ffc008503b",
+   "to_person": false,
+   "decided_at": "2026-10-29T11:30:36+00:00"
+  },
+  "S001@11339-12077": {
+   "source": "S001",
+   "at": [
+    11339,
+    12077
+   ],
+   "section": "SPM A.1.4",
+   "kind": "assessment",
+   "text_sha256": "93fc6f5c291b6d85d4645148c1378b7522b25c4347948d1bdee6eff297ee8db4",
+   "relevant": null,
+   "words": "rainfall and the water cycle … Observed changes are included only as the base the projections extend.",
+   "reason": "relevance refused by code: 'rainfall and the water cycle … Observed changes are included only as the base the projections extend.' is in neither the question nor a scope.out entry",
+   "by": "code (ruling.py judgements)",
+   "ruling": "d7deab764aa3cc95",
+   "to_person": true,
+   "decided_at": "2026-10-29T11:30:38+00:00"
+  },
+  "S001@12077-12861": {
+   "source": "S001",
+   "at": [
+    12077,
+    12861
+   ],
+   "section": "SPM A.1.5",
+   "kind": "assessment",
+   "text_sha256": "4cde478a7b29aca591964175951524c8e92e2156b6b74354c26dd17675eaa0b5",
+   "relevant": true,
+   "words": "ice (glaciers, ice sheets, Arctic sea ice, snow cover and permafrost) … Observed changes are included only as the base the projections extend",
+   "reason": "It assesses observed, human-driven declines in glaciers, Arctic sea ice, snow cover and the Greenland Ice Sheet, which form the observed base that the answer's ice projections extend.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "e5c348763b4a8cd5",
+   "to_person": false,
+   "decided_at": "2026-10-29T11:30:41+00:00"
+  },
+  "S001@12861-13369": {
+   "source": "S001",
+   "at": [
+    12861,
+    13369
+   ],
+   "section": "SPM A.1.6",
+   "kind": "assessment",
+   "text_sha256": "baf5598a7266352af2ab000b216dd0009da70abd18937aa710b687a36bcff364",
+   "relevant": true,
+   "words": "the ocean (warming, marine heatwaves, acidification, oxygen loss … Observed changes are included only as the base the projections extend",
+   "reason": "The judgement assesses observed upper-ocean warming, acidification and oxygen loss and their human causes, which the scope includes as the observed base for ocean projections.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "d76fd009d2a10f7f",
+   "to_person": false,
+   "decided_at": "2026-10-29T11:30:46+00:00"
+  },
+  "S001@13369-15134": {
+   "source": "S001",
+   "at": [
+    13369,
+    15134
+   ],
+   "section": "SPM A.1.7",
+   "kind": "assessment",
+   "text_sha256": "2e34c0c5635d9e4f896cfdfdda6e5d8f975cc010b360260f03363dc619e64c22",
+   "relevant": true,
+   "words": "global and regional sea level … Observed changes are included only as the base the projections extend.",
+   "reason": "The judgement gives observed global mean sea level rise and its accelerating rate, attributed to human influence, which is the observed baseline that sea-level projections extend.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "61c177741e10fa11",
+   "to_person": false,
+   "decided_at": "2026-10-29T11:30:47+00:00"
+  },
+  "S001@15134-16189": {
+   "source": "S001",
+   "at": [
+    15134,
+    16189
+   ],
+   "section": "SPM A.1.8",
+   "kind": "assessment",
+   "text_sha256": "6ea73b83408aadefcd78321726ca0beed6c5398e7bec2b6a0ffe1cba6466a1ab",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement covers observed land-biosphere shifts (climate zones, growing season) and observed surface-temperature warming, neither of which is a projected change in rainfall, wet or dry extremes, ice, sea level or the oceans; surface temperature as such is explicitly out of scope.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "6373096a59b186a7",
+   "to_person": false,
+   "decided_at": "2026-10-29T11:30:52+00:00"
+  },
+  "S001@20268-20788": {
+   "source": "S001",
+   "at": [
+    20268,
+    20788
+   ],
+   "section": "SPM A.2.1",
+   "kind": "assessment",
+   "text_sha256": "511b8814b5a37a0f13da6ab924123db5df9b304ed552085f0e5081267cb3ab94",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement reports observed greenhouse gas concentrations, the driver, rather than past or projected changes in rainfall, wet and dry extremes, ice, sea level or the oceans, which are what the question asks about.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "9271a4f9f3dca4be",
+   "to_person": false,
+   "decided_at": "2026-10-29T11:30:55+00:00"
+  },
+  "S001@20788-21428": {
+   "source": "S001",
+   "at": [
+    20788,
+    21428
+   ],
+   "section": "SPM A.2.2",
+   "kind": "assessment",
+   "text_sha256": "08b812a2be372d388f9e585160cd595731f5ee1d7103a8cf731e7892a43bcea5",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement concerns the observed and paleoclimate context of global surface temperature, and the scope places surface air temperature outside the question; it says nothing about projected changes in the water cycle, extremes, ice, sea level or the oceans.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "129a438874f592cc",
+   "to_person": false,
+   "decided_at": "2026-10-29T11:30:57+00:00"
+  },
+  "S001@21428-21866": {
+   "source": "S001",
+   "at": [
+    21428,
+    21866
+   ],
+   "section": "SPM A.2.3",
+   "kind": "assessment",
+   "text_sha256": "7d3e3c1165e6d0d5ce03981560cee17056c4b03b12e29f9727a71318b6612e8a",
+   "relevant": true,
+   "words": "ice (glaciers, ice sheets, Arctic sea ice … Observed changes are included only as the base the projections extend",
+   "reason": "The judgement gives the observed, unprecedented decline in Arctic sea ice and glacier retreat, which is the baseline from which the scope says projected ice changes extend.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "34a2fc26b4df3962",
+   "to_person": false,
+   "decided_at": "2026-10-29T11:31:01+00:00"
+  },
+  "S001@21866-22407": {
+   "source": "S001",
+   "at": [
+    21866,
+    22407
+   ],
+   "section": "SPM A.2.4",
+   "kind": "assessment",
+   "text_sha256": "8a3f0a3033c213a13cd7f08e4d7d60f153ab8a80c3edc351c879cad139266e54",
+   "relevant": true,
+   "words": "sea level and the oceans",
+   "reason": "The judgement gives observed, paleo-contextualised rates of sea level rise, ocean warming and ocean acidification, which the scope includes as the base that projections of sea level and ocean change extend.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "4a5f786ea96c2cff",
+   "to_person": false,
+   "decided_at": "2026-10-29T11:31:04+00:00"
+  },
+  "S001@22863-23592": {
+   "source": "S001",
+   "at": [
+    22863,
+    23592
+   ],
+   "section": "SPM A.3.1",
+   "kind": "assessment",
+   "text_sha256": "9c7dc4a2335e9fc710d8910dbfbce724e3692857fba3c42a5906d4044d3b5b9d",
+   "relevant": true,
+   "words": "marine heatwaves … Observed changes are included only as the base the projections extend",
+   "reason": "The observed doubling of marine heatwaves since the 1980s, and human influence on them, is the observed base for projected ocean change; the hot and cold land extremes it also covers are out of scope.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "af6f4304568a8ac8",
+   "to_person": false,
+   "decided_at": "2026-10-29T11:31:09+00:00"
+  },
+  "S001@23592-25241": {
+   "source": "S001",
+   "at": [
+    23592,
+    25241
+   ],
+   "section": "SPM A.3.2",
+   "kind": "assessment",
+   "text_sha256": "620847e32d7a399bdca4778904e57ff3d874c4f1f92b88e6a85067f6f9782546",
+   "relevant": true,
+   "words": "very wet and very dry extremes",
+   "reason": "The judgement assesses observed increases in heavy precipitation and agricultural/ecological droughts attributed to human-induced warming, which the scope includes as the observed base that projections of wet and dry extremes extend.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "fc211f495173b438",
+   "to_person": false,
+   "decided_at": "2026-10-29T11:31:11+00:00"
+  },
+  "S001@25241-26113": {
+   "source": "S001",
+   "at": [
+    25241,
+    26113
+   ],
+   "section": "SPM A.3.3",
+   "kind": "assessment",
+   "text_sha256": "66c0599e7dbe3f90f33068fe8de592fdbd9fd92d113c7625376a0abdb88f2f86",
+   "relevant": null,
+   "words": "rainfall and the water cycle … including monsoons",
+   "reason": "relevance refused by code: 'rainfall and the water cycle … including monsoons' is in neither the question nor a scope.out entry",
+   "by": "code (ruling.py judgements)",
+   "ruling": "e38f6ad51da66000",
+   "to_person": true,
+   "decided_at": "2026-10-29T11:31:15+00:00"
+  },
+  "S001@26113-26891": {
+   "source": "S001",
+   "at": [
+    26113,
+    26891
+   ],
+   "section": "SPM A.3.4",
+   "kind": "assessment",
+   "text_sha256": "033da831420a94a3a43284a6c7d5837208efa9ced408efb42eec9155c2d2af5a",
+   "relevant": true,
+   "words": "very wet and very dry extremes",
+   "reason": "The judgement says human-induced warming increases heavy precipitation from tropical cyclones and reports observed shifts in major cyclone occurrence; this is baseline evidence on very wet extremes that the projections extend.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "51168870a732d37e",
+   "to_person": false,
+   "decided_at": "2026-10-29T11:31:18+00:00"
+  },
+  "S001@26891-34834": {
+   "source": "S001",
+   "at": [
+    26891,
+    34834
+   ],
+   "section": "SPM A.3.5",
+   "kind": "assessment",
+   "text_sha256": "cf233da17384163f85f2e7fe1c908225cbb342f3ae2707d1b1f1ea2a16d51bf8",
+   "relevant": true,
+   "words": "very wet and very dry extremes",
+   "reason": "The judgement assesses observed human-driven increases in concurrent heatwaves and droughts, compound flooding, heavy precipitation and agricultural drought, which the scope admits as the observed base for projected wet and dry extremes.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "bd79ce4a8180d175",
+   "to_person": false,
+   "decided_at": "2026-10-29T11:31:23+00:00"
+  },
+  "S001@35145-35775": {
+   "source": "S001",
+   "at": [
+    35145,
+    35775
+   ],
+   "section": "SPM A.4.1",
+   "kind": "assessment",
+   "text_sha256": "7dac9a8cb816a7728aa952ddceaaa53f73eb59cb098ce07340d37b884c229c1c",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement quantifies past human-caused radiative forcing up to 2019, which is the cause of warming, not a projected change in rainfall, wet or dry extremes, ice, sea level or the oceans as the question asks.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "d23e591294e383f9",
+   "to_person": false,
+   "decided_at": "2026-10-29T11:31:26+00:00"
+  },
+  "S001@35775-36399": {
+   "source": "S001",
+   "at": [
+    35775,
+    36399
+   ],
+   "section": "SPM A.4.2",
+   "kind": "assessment",
+   "text_sha256": "0712f14ec856fd06c4122ea573c2c91776adceafa05fca1e4ca14fb969fc3ec9",
+   "relevant": true,
+   "words": "the ocean (warming … Observed changes are included only as the base the projections extend",
+   "reason": "It gives the observed rate of heat build-up in the climate system and shows ocean warming takes 91% of it, which is the observed base that projections of ocean warming and ice loss extend.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "53b5f7609d35edac",
+   "to_person": false,
+   "decided_at": "2026-10-29T11:31:30+00:00"
+  },
+  "S001@36399-36976": {
+   "source": "S001",
+   "at": [
+    36399,
+    36976
+   ],
+   "section": "SPM A.4.3",
+   "kind": "assessment",
+   "text_sha256": "5f0c4efb5a8866fb6be4f2135581d91715e50f4baf910df9b166058fcc3c328b",
+   "relevant": true,
+   "words": "ice, sea level and the oceans",
+   "reason": "It assesses observed sea level rise and how much ice loss and ocean thermal expansion contributed to it, the observed base that the scope says projections of ice and sea level extend from.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "6c5b6c84d71907aa",
+   "to_person": false,
+   "decided_at": "2026-10-29T11:31:33+00:00"
+  },
+  "S001@36976-39180": {
+   "source": "S001",
+   "at": [
+    36976,
+    39180
+   ],
+   "section": "SPM A.4.4",
+   "kind": "assessment",
+   "text_sha256": "075c36e8c8a53faea4407c9fa1decf191cee99ca6f2ad58df66c1410da074edd",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement concerns equilibrium climate sensitivity (the temperature response, which the scope excludes) and describes how the scenarios are set up, but it says nothing about rainfall, wet or dry extremes, ice, sea level or the oceans.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "5d8e48588f5753ec",
+   "to_person": false,
+   "decided_at": "2026-10-29T11:31:38+00:00"
+  },
+  "S001@47183-47768": {
+   "source": "S001",
+   "at": [
+    47183,
+    47768
+   ],
+   "section": "SPM B.1.1",
+   "kind": "assessment",
+   "text_sha256": "756e6522e9bcc1929ccda328930cb0e085097e32c74e3d8e151770c9c34129cf",
+   "relevant": true,
+   "words": "as functions of emissions scenario or global warming level",
+   "reason": "The judgement gives the projected end-of-century warming for each emissions scenario, which is the warming level the draft indexes the water-cycle, ice, sea-level and ocean changes to, though temperature change itself is out of scope.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "c39cfefd39e0e315",
+   "to_person": false,
+   "decided_at": "2026-10-29T11:31:44+00:00"
+  },
+  "S001@52617-53119": {
+   "source": "S001",
+   "at": [
+    52617,
+    53119
+   ],
+   "section": "SPM B.2.1",
+   "kind": "assessment",
+   "text_sha256": "8ad1ba9c938ced4b5e30cd25835295761b24b4cd1c756dd9072a5aa4ca9a8aca",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement covers surface temperature patterns: land warming faster than the ocean surface, and Arctic amplification. The scope excludes surface air temperature change as such, and the judgement says nothing about rainfall, wet or dry extremes, ice, sea level or ocean properties.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "597491f743890526",
+   "to_person": false,
+   "decided_at": "2026-10-29T11:31:48+00:00"
+  },
+  "S001@53119-54267": {
+   "source": "S001",
+   "at": [
+    53119,
+    54267
+   ],
+   "section": "SPM B.2.2",
+   "kind": "assessment",
+   "text_sha256": "e150214060dadc69d2858bce0cb190bd622e6db4eab470b4c39a75a773cf3866",
+   "relevant": true,
+   "words": "very wet and very dry extremes",
+   "reason": "The judgement projects how heavy precipitation and agricultural, meteorological and hydrological droughts intensify with each additional increment of warming, directly addressing the question's wet and dry extremes.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "5a33210c46710f51",
+   "to_person": false,
+   "decided_at": "2026-10-29T11:31:50+00:00"
+  },
+  "S001@54267-56346": {
+   "source": "S001",
+   "at": [
+    54267,
+    56346
+   ],
+   "section": "SPM B.2.3",
+   "kind": "assessment",
+   "text_sha256": "5dfd3d690219a7eb436be4be1dc4184c09dd46cfb976a4b9753e5d4a729557fb",
+   "relevant": null,
+   "words": "the oceans … marine heatwaves",
+   "reason": "relevance refused by code: 'the oceans … marine heatwaves' is in neither the question nor a scope.out entry",
+   "by": "code (ruling.py judgements)",
+   "ruling": "d4242d608af80d04",
+   "to_person": true,
+   "decided_at": "2026-10-29T11:31:54+00:00"
+  },
+  "S001@56346-56951": {
+   "source": "S001",
+   "at": [
+    56346,
+    56951
+   ],
+   "section": "SPM B.2.4",
+   "kind": "assessment",
+   "text_sha256": "7cf6e6ac8575ac84d652ca39c2a2065fc5bf1fe1b7d0b84301d3e806b394113c",
+   "relevant": true,
+   "words": "very wet and very dry extremes",
+   "reason": "The judgement projects that heavy precipitation events will intensify and become more frequent with further warming, at about 7% per 1°C, which bears directly on the question's very wet extremes.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "940d7a26d106b11b",
+   "to_person": false,
+   "decided_at": "2026-10-29T11:31:56+00:00"
+  },
+  "S001@56951-59699": {
+   "source": "S001",
+   "at": [
+    56951,
+    59699
+   ],
+   "section": "SPM B.2.5",
+   "kind": "assessment",
+   "text_sha256": "0c251cc4e0792f33112a6b368896b6379ba1e863b5c4d5a02ab970d3591bd675",
+   "relevant": true,
+   "words": "rainfall and the water cycle … ice, sea level",
+   "reason": "The judgement projects amplified permafrost thaw, snow cover loss, land ice and Arctic sea ice loss (a sea ice-free September before 2050) and precipitation and soil moisture changes with further warming, which directly addresses the question's ice and water cycle components.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "77f626163c72239e",
+   "to_person": false,
+   "decided_at": "2026-10-29T11:31:58+00:00"
+  },
+  "S001@69348-70612": {
+   "source": "S001",
+   "at": [
+    69348,
+    70612
+   ],
+   "section": "SPM B.3.1",
+   "kind": "assessment",
+   "text_sha256": "fdecd71171d7f40be7666dc0edf5b98915806d0fd681a00a829ed2c680a9c579",
+   "relevant": true,
+   "words": "rainfall and the water cycle",
+   "reason": "The judgement gives projected intensification of the global water cycle, scenario-dependent changes in land precipitation, regional wet/dry patterns and snowmelt timing under further warming, which is exactly what the question asks about rainfall and the water cycle.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "e405f7a6b6455809",
+   "to_person": false,
+   "decided_at": "2026-10-29T11:32:01+00:00"
+  },
+  "S001@70612-71252": {
+   "source": "S001",
+   "at": [
+    70612,
+    71252
+   ],
+   "section": "SPM B.3.2",
+   "kind": "assessment",
+   "text_sha256": "515db1faad26b4b4bfa3a7c73dad739211629431cd26629ce88dfda67faf2e4c",
+   "relevant": true,
+   "words": "very wet and very dry extremes",
+   "reason": "The judgement projects that warming will intensify very wet and very dry events, with consequences for flooding and drought, and that ENSO-related rainfall variability will be amplified, which is exactly what the question asks about.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "b6abb6b2dc743520",
+   "to_person": false,
+   "decided_at": "2026-10-29T11:32:02+00:00"
+  },
+  "S001@71252-71697": {
+   "source": "S001",
+   "at": [
+    71252,
+    71697
+   ],
+   "section": "SPM B.3.3",
+   "kind": "assessment",
+   "text_sha256": "959d279ec93ab0e0748fd852c0da499968a0914b1904f34a7339eea0cec1925a",
+   "relevant": true,
+   "words": "rainfall and the water cycle",
+   "reason": "The judgement gives projected changes in monsoon precipitation amount and timing under continued warming, which is part of the projected changes to rainfall and the water cycle (monsoons are explicitly covered).",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "13cafaee9e8d8786",
+   "to_person": false,
+   "decided_at": "2026-10-29T11:32:04+00:00"
+  },
+  "S001@71697-72262": {
+   "source": "S001",
+   "at": [
+    71697,
+    72262
+   ],
+   "section": "SPM B.3.4",
+   "kind": "assessment",
+   "text_sha256": "30883b40c201a436b5aa667d52646111b8ce7b75f9e176627d5c8b75a8a82214",
+   "relevant": true,
+   "words": "rainfall and the water cycle",
+   "reason": "The judgement projects how storm tracks and their associated precipitation will shift under high-emissions scenarios, which is a change to rainfall and the water cycle.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "04acaa13bce2455c",
+   "to_person": false,
+   "decided_at": "2026-10-29T11:32:06+00:00"
+  },
+  "S001@72508-72987": {
+   "source": "S001",
+   "at": [
+    72508,
+    72987
+   ],
+   "section": "SPM B.4.1",
+   "kind": "assessment",
+   "text_sha256": "415b6c4adf2bdbe1cbf4e7841ea1bf888c9ac7193cb1ef2baf88ab8e241ba1ba",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement concerns carbon-cycle feedbacks, namely weakening land and ocean sink efficiency and a rising airborne CO2 fraction, which is none of the climate components the question names (water cycle, wet/dry extremes, ice, sea level, ocean physical changes).",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "2c0dc2da473ec115",
+   "to_person": false,
+   "decided_at": "2026-10-29T11:32:11+00:00"
+  },
+  "S001@72987-73827": {
+   "source": "S001",
+   "at": [
+    72987,
+    73827
+   ],
+   "section": "SPM B.4.2",
+   "kind": "assessment",
+   "text_sha256": "43fb3c6865e1c4756d6756dbdfd07a314e2b1f789fefec7f80096ef6a7e7e183",
+   "relevant": true,
+   "words": "the oceans",
+   "reason": "The judgement projects how ocean (and land) uptake of CO2 changes under different emissions scenarios, which is a projected change in the oceans as warming continues.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "a8861aac26d00aa9",
+   "to_person": false,
+   "decided_at": "2026-10-29T11:32:16+00:00"
+  },
+  "S001@73827-75459": {
+   "source": "S001",
+   "at": [
+    73827,
+    75459
+   ],
+   "section": "SPM B.4.3",
+   "kind": "assessment",
+   "text_sha256": "23b8baaba9b840ef5dc79cceac7a459450d521d90e8dceb5d9701bdaeb155142",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement concerns carbon-cycle feedbacks and the share of CO2 taken up by land and ocean sinks, which bear on atmospheric CO2 concentrations rather than on the rainfall, wet and dry extremes, ice, sea level or ocean changes the question asks about.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "57364e545ab5f53e",
+   "to_person": false,
+   "decided_at": "2026-10-29T11:32:20+00:00"
+  },
+  "S001@77725-78467": {
+   "source": "S001",
+   "at": [
+    77725,
+    78467
+   ],
+   "section": "SPM B.5.1",
+   "kind": "assessment",
+   "text_sha256": "b484b4ab6f9f50882c9cdc6673b8aa8bf5c662c18bd6c2b39f3ff35f0c8c8cec",
+   "relevant": true,
+   "words": "the oceans",
+   "reason": "The judgement projects future ocean warming, stratification, acidification and deoxygenation under continued emissions scenarios, directly addressing how further warming will change the oceans.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "670ac613935fa106",
+   "to_person": false,
+   "decided_at": "2026-10-29T11:32:22+00:00"
+  },
+  "S001@78467-79308": {
+   "source": "S001",
+   "at": [
+    78467,
+    79308
+   ],
+   "section": "SPM B.5.2",
+   "kind": "assessment",
+   "text_sha256": "ba4ede0d73656176dfa4db1d3c934032a061aa72ba89925ebd6b74e4babfb06f",
+   "relevant": true,
+   "words": "ice (glaciers, ice sheets, Arctic sea ice, snow cover and permafrost)",
+   "reason": "The judgement projects continued glacier melt, irreversible permafrost carbon loss, and Greenland and Antarctic ice-sheet loss, including low-likelihood high-impact Antarctic outcomes, under continued emissions, which is directly the ice component the question asks about.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "6a3d186bb458ef3f",
+   "to_person": false,
+   "decided_at": "2026-10-29T11:32:24+00:00"
+  },
+  "S001@79308-80276": {
+   "source": "S001",
+   "at": [
+    79308,
+    80276
+   ],
+   "section": "SPM B.5.3",
+   "kind": "assessment",
+   "text_sha256": "4364bd049cc3291b923f9cdc5a7861fa98fd80cbef713943eb7656a33a731fc4",
+   "relevant": true,
+   "words": "global and regional sea level, including its long-term commitment and low-likelihood high-impact outcomes",
+   "reason": "The judgement gives projected global mean sea level rise by 2100 and 2150 under each emissions scenario, along with low-likelihood high-end outcomes, which the scope explicitly covers.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "f68e8b517df8e22c",
+   "to_person": false,
+   "decided_at": "2026-10-29T11:32:27+00:00"
+  },
+  "S001@80276-82057": {
+   "source": "S001",
+   "at": [
+    80276,
+    82057
+   ],
+   "section": "SPM B.5.4",
+   "kind": "assessment",
+   "text_sha256": "37c14ae5d5ef45cb35c20f856d5045af9c1e5e1e3b508b020980a8408d996aea",
+   "relevant": true,
+   "words": "global and regional sea level, including its long-term commitment",
+   "reason": "The judgement gives multi-millennial committed global mean sea level rise as a function of warming level, which falls directly under the sea-level part of the question and the scope's long-term commitment.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "b22ca2ec88bbd652",
+   "to_person": false,
+   "decided_at": "2026-10-29T11:32:29+00:00"
+  },
+  "S001@87519-88318": {
+   "source": "S001",
+   "at": [
+    87519,
+    88318
+   ],
+   "section": "SPM C.1.1",
+   "kind": "assessment",
+   "text_sha256": "20db919032407af91701bbaebe5f7dbc9dd5af0b76163d807958200b37b0b060",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement concerns decadal variability masking past global surface temperature warming (the 1998–2012 slowdown) and hot extremes, which the scope excludes as surface air temperature and heat extremes; it mentions ocean warming only as a past observation, not a projected change.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "b58e48454aa67f41",
+   "to_person": false,
+   "decided_at": "2026-10-29T11:32:34+00:00"
+  },
+  "S001@88318-89422": {
+   "source": "S001",
+   "at": [
+    88318,
+    89422
+   ],
+   "section": "SPM C.1.2",
+   "kind": "assessment",
+   "text_sha256": "70d85218f16a44f0faa3baa9ae317dfa453e5116e21cf9071b21bc1588bc239b",
+   "relevant": true,
+   "words": "Projected physical changes in the climate system … very wet and very dry extremes",
+   "reason": "It says projected human-caused changes in mean climate and climatic impact-drivers, including wet/dry extremes, snow and ice, and ocean conditions, will be amplified or attenuated by internal variability such as ENSO, which a reader needs to weigh projections of these changes.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "7927ea458b34ac8c",
+   "to_person": false,
+   "decided_at": "2026-10-29T11:32:38+00:00"
+  },
+  "S001@89422-90187": {
+   "source": "S001",
+   "at": [
+    89422,
+    90187
+   ],
+   "section": "SPM C.1.3",
+   "kind": "assessment",
+   "text_sha256": "71f5ae8f71843bb5a9cfd95abf0651fc98c84a588f8235cf5c293c04bedb201a",
+   "relevant": true,
+   "words": "rainfall and the water cycle",
+   "reason": "The judgement addresses how far near-term projected precipitation and monsoon changes are uncertain or dominated by internal variability, which bears directly on how confidently further warming's effect on rainfall and the water cycle can be stated.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "111846bb66d796d2",
+   "to_person": false,
+   "decided_at": "2026-10-29T11:32:40+00:00"
+  },
+  "S001@90187-90732": {
+   "source": "S001",
+   "at": [
+    90187,
+    90732
+   ],
+   "section": "SPM C.1.4",
+   "kind": "assessment",
+   "text_sha256": "2c74d502ba06f9204bc298fa3ee7f5901ad1ea4c4a8ff9ddd9ffb75bd9acbdbb",
+   "relevant": true,
+   "words": "rainfall and the water cycle … very wet and very dry extremes",
+   "reason": "A likely 21st-century volcanic eruption would temporarily reduce precipitation, alter monsoons and modify extreme precipitation, partly masking projected human-caused changes to rainfall and wet extremes.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "b62f4fe6582f1f45",
+   "to_person": false,
+   "decided_at": "2026-10-29T11:32:43+00:00"
+  },
+  "S001@91319-92069": {
+   "source": "S001",
+   "at": [
+    91319,
+    92069
+   ],
+   "section": "SPM C.2.1",
+   "kind": "assessment",
+   "text_sha256": "c8e45bab33009451547fe3be1c958ad21cc3328ec1e49990ef6942cdeabe838e",
+   "relevant": true,
+   "words": "ice (glaciers, ice sheets, Arctic sea ice, snow cover and permafrost)",
+   "reason": "The judgement projects further decreases in permafrost, snow, glaciers, ice sheets and Arctic sea ice, larger at 2°C than at 1.5°C, which directly addresses the ice component of the question.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "4c00a65b75f5b0c6",
+   "to_person": false,
+   "decided_at": "2026-10-29T11:32:46+00:00"
+  },
+  "S001@92069-92834": {
+   "source": "S001",
+   "at": [
+    92069,
+    92834
+   ],
+   "section": "SPM C.2.2",
+   "kind": "assessment",
+   "text_sha256": "b624e492c57ae9667acc88c2485b2e664ce6b513bbb5f64c6f9f10c8d3dc5617",
+   "relevant": true,
+   "words": "very wet and very dry extremes",
+   "reason": "The judgement projects more intense and frequent heavy precipitation and flooding, more droughts, and changes in mean precipitation at 1.5°C warming, which bear directly on the question's rainfall and wet/dry extremes.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "a2daf0eb0e465a3d",
+   "to_person": false,
+   "decided_at": "2026-10-29T11:32:48+00:00"
+  },
+  "S001@94875-95672": {
+   "source": "S001",
+   "at": [
+    94875,
+    95672
+   ],
+   "section": "SPM C.2.4",
+   "kind": "assessment",
+   "text_sha256": "b8744fbb998ffbbb635bdcd0dac651250feae8d3e619a6a76c0f523f9941521d",
+   "relevant": true,
+   "words": "very wet and very dry extremes",
+   "reason": "The judgement projects how climatic impact-drivers such as river floods, reductions in mean precipitation, increases in aridity and storm intensification change at 2°C versus 1.5°C, which bears directly on how further warming changes rainfall and wet and dry extremes.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "d76c237e2bdae2dd",
+   "to_person": false,
+   "decided_at": "2026-10-29T11:32:50+00:00"
+  },
+  "S001@95672-96514": {
+   "source": "S001",
+   "at": [
+    95672,
+    96514
+   ],
+   "section": "SPM C.2.5",
+   "kind": "assessment",
+   "text_sha256": "eaeedbd1b9c69b6e5c597ef04c9912629759b51be75405e0e3f7e3e7d1bcaf5a",
+   "relevant": true,
+   "words": "global and regional sea level",
+   "reason": "The judgement projects continued regional relative sea level rise through the 21st century and more frequent extreme sea level events, which is the sea level component the question asks about.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "523c15a7d8db2ebf",
+   "to_person": false,
+   "decided_at": "2026-10-29T11:32:52+00:00"
+  },
+  "S001@96514-97104": {
+   "source": "S001",
+   "at": [
+    96514,
+    97104
+   ],
+   "section": "SPM C.2.6",
+   "kind": "assessment",
+   "text_sha256": "93df8822832fd45b0f33dc2178584709f9ed21ff8581ebce1b69f56f1e0e54a8",
+   "relevant": true,
+   "words": "very wet and very dry extremes … sea level",
+   "reason": "The judgement projects more heavy precipitation, runoff and compound coastal flooding from rising sea level and extreme rainfall under further warming, which bears on wet extremes and sea level; the heatwave part is out of scope.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "efdc13a10177e398",
+   "to_person": false,
+   "decided_at": "2026-10-29T11:32:54+00:00"
+  },
+  "S001@97104-100257": {
+   "source": "S001",
+   "at": [
+    97104,
+    100257
+   ],
+   "section": "SPM C.2.7",
+   "kind": "assessment",
+   "text_sha256": "54a1d283f9108fb1d9ce70ef3b50300dfaa51bb8315f1207ab51074b15c8208a",
+   "relevant": true,
+   "words": "very wet and very dry extremes",
+   "reason": "The judgement projects more frequent compound events with higher warming, including concurrent heatwaves and droughts, and region counts of projected changes in drought, heavy precipitation, sea level, ice and ocean drivers, which bears directly on the question's dry extremes and other named components.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "52bf7b524512a75b",
+   "to_person": false,
+   "decided_at": "2026-10-29T11:32:56+00:00"
+  },
+  "S001@102168-102889": {
+   "source": "S001",
+   "at": [
+    102168,
+    102889
+   ],
+   "section": "SPM C.3.1",
+   "kind": "assessment",
+   "text_sha256": "9b71c803ee4bebdbeec394e18d2efc434cd2fea8c42864c249bc9d67e4e33a8b",
+   "relevant": true,
+   "words": "rainfall and the water cycle, very wet and very dry extremes",
+   "reason": "The judgement says that if warming exceeds its very likely range, changes in regional precipitation and heavy precipitation would also exceed their ranges, which bears on projected rainfall and wet extremes, including low-likelihood high-warming outcomes.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "186c051c840c4fb9",
+   "to_person": false,
+   "decided_at": "2026-10-29T11:32:59+00:00"
+  },
+  "S001@102889-103479": {
+   "source": "S001",
+   "at": [
+    102889,
+    103479
+   ],
+   "section": "SPM C.3.2",
+   "kind": "assessment",
+   "text_sha256": "ca722e9dcb644c901a799cec7b76a48af65333f7b40d7e70ba7cd1bcc2ae5c34",
+   "relevant": null,
+   "words": "ice, sea level and the oceans … low-likelihood high-impact outcomes",
+   "reason": "relevance refused by code: 'ice, sea level and the oceans … low-likelihood high-impact outcomes' is in neither the question nor a scope.out entry",
+   "by": "code (ruling.py judgements)",
+   "ruling": "8ad4be7840150783",
+   "to_person": true,
+   "decided_at": "2026-10-29T11:33:01+00:00"
+  },
+  "S001@103479-103865": {
+   "source": "S001",
+   "at": [
+    103479,
+    103865
+   ],
+   "section": "SPM C.3.3",
+   "kind": "assessment",
+   "text_sha256": "d7d2db962c8abd6fdd55c8a8a35f7b8d548157b6938ce7c68a01c6de3f94595c",
+   "relevant": true,
+   "words": "very wet and very dry extremes",
+   "reason": "The judgement projects that, with further warming, compound extreme events, including wet and dry extremes, will become more frequent and that unprecedented extremes become more likely, which bears directly on the question's extremes component.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "eb06a732a78a3274",
+   "to_person": false,
+   "decided_at": "2026-10-29T11:33:03+00:00"
+  },
+  "S001@103865-104522": {
+   "source": "S001",
+   "at": [
+    103865,
+    104522
+   ],
+   "section": "SPM C.3.4",
+   "kind": "assessment",
+   "text_sha256": "e728c4f7eb1e011c7ac1bbc4aab24e9262580c0eda9e01ca410a7217c5f76c39",
+   "relevant": true,
+   "words": "the oceans",
+   "reason": "The judgement projects 21st-century AMOC weakening and the regional water-cycle consequences of a possible collapse, which is a projected change in ocean circulation and the water cycle under continued emissions.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "cbb08c8023d19828",
+   "to_person": false,
+   "decided_at": "2026-10-29T11:33:05+00:00"
+  },
+  "S001@106277-106625": {
+   "source": "S001",
+   "at": [
+    106277,
+    106625
+   ],
+   "section": "SPM D.1.1",
+   "kind": "assessment",
+   "text_sha256": "9adfc876580d214acf941e71744460771f769610db1689a6b2136fc56cd204ef",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement links cumulative CO2 emissions to global surface temperature rise, which concerns warming itself and carbon budgets rather than the rainfall, extremes, ice, sea level or ocean changes the question asks about.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "10046646fd0dc659",
+   "to_person": false,
+   "decided_at": "2026-10-29T11:33:10+00:00"
+  },
+  "S001@113830-114531": {
+   "source": "S001",
+   "at": [
+    113830,
+    114531
+   ],
+   "section": "SPM D.1.4",
+   "kind": "assessment",
+   "text_sha256": "1ae17244560f84dc18cf8b22a5c0e14ef609979f389bd8b057598f86abcc7e42",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement concerns carbon dioxide removal, a mitigation technology and its side effects, which the scope explicitly excludes; the question asks how continued emissions will change the climate, not how removing CO2 would.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "00bd2615cd6f0eab",
+   "to_person": false,
+   "decided_at": "2026-10-29T11:33:12+00:00"
+  },
+  "S001@114531-115895": {
+   "source": "S001",
+   "at": [
+    114531,
+    115895
+   ],
+   "section": "SPM D.1.5",
+   "kind": "assessment",
+   "text_sha256": "7bac0c3ac26efb7d00f29e30e82c63d057d7b71de9cddaccffb883b78b43bbd2",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement is about how CO2 removal and net negative emissions would lower atmospheric CO2 and reverse acidification, which is a mitigation question that the scope excludes, not about change under continued emissions.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "19a5a92419f93dc9",
+   "to_person": false,
+   "decided_at": "2026-10-29T11:33:16+00:00"
+  },
+  "S001@115895-116354": {
+   "source": "S001",
+   "at": [
+    115895,
+    116354
+   ],
+   "section": "SPM D.1.6",
+   "kind": "assessment",
+   "text_sha256": "b84acca3be9675271f03307c080fef636590f76d0b9e6641e48fc747fd44bfe9",
+   "relevant": true,
+   "words": "global and regional sea level, including its long-term commitment",
+   "reason": "It states that sea level would keep rising for centuries to millennia even under net negative CO2 emissions, which bears directly on the long-term sea-level commitment the answer covers.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "41abac546ff1e0c8",
+   "to_person": false,
+   "decided_at": "2026-10-29T11:33:19+00:00"
+  },
+  "S001@116354-117245": {
+   "source": "S001",
+   "at": [
+    116354,
+    117245
+   ],
+   "section": "SPM D.1.7",
+   "kind": "assessment",
+   "text_sha256": "18f2ddcca13ee01d54c2fdc6d1cc64bc57a036f88597a64c7e9f8a436ceb59a5",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement concerns how CH4, aerosol and ozone-precursor emission changes affect global surface warming and air quality, which falls under the excluded topics of surface temperature, mitigation and air quality rather than the water cycle, extremes, ice, sea level or oceans.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "a48eef3a0cd3f8e5",
+   "to_person": false,
+   "decided_at": "2026-10-29T11:33:22+00:00"
+  },
+  "S001@117245-118151": {
+   "source": "S001",
+   "at": [
+    117245,
+    118151
+   ],
+   "section": "SPM D.1.8",
+   "kind": "assessment",
+   "text_sha256": "66d277bdb159e71e933c9732db210d4569aef3c45ca3c2a1bc43debd9dbc7928",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement concerns how net zero CO2 versus net zero GHG emissions affect surface temperature stabilization, which falls under the excluded topics of mitigation pathways and surface temperature, not the water cycle, extremes, ice, sea level or oceans.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "8b4f99333d76536e",
+   "to_person": false,
+   "decided_at": "2026-10-29T11:33:25+00:00"
+  },
+  "S001@118151-118799": {
+   "source": "S001",
+   "at": [
+    118151,
+    118799
+   ],
+   "section": "SPM D.2",
+   "kind": "assessment",
+   "text_sha256": "8cfd8397a37953e38f3f066d6d82509eb36251ff343801fe82c189186ebd383a",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement concerns how quickly cutting emissions produces discernible differences, mainly in greenhouse gas and aerosol concentrations, air quality and surface temperature, which falls under the out-of-scope mitigation, air quality and temperature topics; it gives no projection of rainfall, extremes, ice, sea level or ocean change.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "723ab8568064b300",
+   "to_person": false,
+   "decided_at": "2026-10-29T11:33:30+00:00"
+  },
+  "S001@118799-119458": {
+   "source": "S001",
+   "at": [
+    118799,
+    119458
+   ],
+   "section": "SPM D.2.1",
+   "kind": "assessment",
+   "text_sha256": "2359f690f3b955b6e6f50a3195f2508535706738c0b6519785b2c3015c12b5d4",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement covers the temporary COVID-19 emission cuts, their effects on air pollution and radiative forcing, and the undetectable climate response, which falls under the out-of-scope topics of mitigation and air quality rather than projected changes to rainfall, extremes, ice, sea level or the oceans.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "b6bff30962c9d0ee",
+   "to_person": false,
+   "decided_at": "2026-10-29T11:33:33+00:00"
+  },
+  "S001@119458-120772": {
+   "source": "S001",
+   "at": [
+    119458,
+    120772
+   ],
+   "section": "SPM D.2.2",
+   "kind": "assessment",
+   "text_sha256": "de600ea5a9d5e9357cf666d4bbe1cebbeb1628bfe4f880c1df0211b0ca6995ee",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement concerns air quality improvements from emission reductions, which the scope explicitly excludes as a non-physical climate subject and mitigation topic, not rainfall, extremes, ice, sea level or oceans.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "079fc85a884be3f0",
+   "to_person": false,
+   "decided_at": "2026-10-29T11:33:35+00:00"
+  },
+  "S001@120772-121531": {
+   "source": "S001",
+   "at": [
+    120772,
+    121531
+   ],
+   "section": "SPM D.2.3",
+   "kind": "assessment",
+   "text_sha256": "2e07e760fbc7c02846da5986457a763aa75dd6ea2ac64e0ba0764ce708e48e96",
+   "relevant": true,
+   "words": "as functions of emissions scenario or global warming level",
+   "reason": "It says that differences between low and high emissions scenarios in climate variables beyond temperature emerge from natural variability only later in the 21st century, which bears on how projected changes depend on the emissions scenario and when they appear.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "9cc3c087ad046d2f",
+   "to_person": false,
+   "decided_at": "2026-10-29T11:33:40+00:00"
+  },
+  "S001@121531-122457": {
+   "source": "S001",
+   "at": [
+    121531,
+    122457
+   ],
+   "section": "SPM D.2.4",
+   "kind": "assessment",
+   "text_sha256": "3cd8552e17679204bd4d52796d4e321b16cc1fb80a3be77f0a7681d79d36e436",
+   "relevant": true,
+   "words": "very wet and very dry extremes … sea level",
+   "reason": "The judgement compares projected changes in extreme sea level events, heavy precipitation and pluvial flooding across emissions scenarios, which is the scenario-dependent projection of wet extremes and sea level the question asks about.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "a2155fb954073861",
+   "to_person": false,
+   "decided_at": "2026-10-29T11:33:42+00:00"
+  }
+ }
+}

@@ -1,0 +1,59 @@
+{
+  "_what_this_is": "For every source, whether its bibliographic record names a correction, erratum, retraction or expression of concern -- and, when the lookup failed, that it failed. 'checked, none' and 'could not check' are different states and this file never merges them.",
+  "checked": {
+    "S001": {
+      "source": "S001",
+      "title": "Summary for Policymakers. In: Climate Change 2021: The Physical Science Basis. Contribution of Working Group I to the Si",
+      "checked_on": "2026-10-29",
+      "state": "UNCHECKABLE",
+      "why": "no DOI, PMID, PMCID or PII can be parsed from the URL we hold; nothing is typed from memory, so this source cannot be looked up automatically",
+      "amendments": [],
+      "comments": []
+    },
+    "S002": {
+      "source": "S002",
+      "title": "Water Cycle Changes. In: Climate Change 2021: The Physical Science Basis. Contribution of Working Group I to the Sixth A",
+      "checked_on": "2026-10-29",
+      "identifier": "DOI 10.1017/9781009157896.010",
+      "identifier_from": "the held document",
+      "identity": "resolved title shares 3 word(s) with ours: changes, cycle, water",
+      "resolved_title": "Water Cycle Changes",
+      "index": "Crossref",
+      "update_policy": null,
+      "amendments": [],
+      "comments": [],
+      "state": "UNCHECKED",
+      "why": "matched on DOI 10.1017/9781009157896.010 at Crossref; not in Europe PMC, and the publisher registers NO update policy — so Crossref would not know of a correction even if one existed. This is not a pass"
+    },
+    "S003": {
+      "source": "S003",
+      "title": "Ocean, Cryosphere and Sea Level Change. In: Climate Change 2021: The Physical Science Basis. Contribution of Working Gro",
+      "checked_on": "2026-10-29",
+      "identifier": "DOI 10.1017/9781009157896.011",
+      "identifier_from": "the held document",
+      "identity": "resolved title shares 4 word(s) with ours: change, cryosphere, level, ocean",
+      "resolved_title": "Ocean, Cryosphere and Sea Level Change",
+      "index": "Crossref",
+      "update_policy": null,
+      "amendments": [],
+      "comments": [],
+      "state": "UNCHECKED",
+      "why": "matched on DOI 10.1017/9781009157896.011 at Crossref; not in Europe PMC, and the publisher registers NO update policy — so Crossref would not know of a correction even if one existed. This is not a pass"
+    },
+    "S004": {
+      "source": "S004",
+      "title": "Weather and Climate Extreme Events in a Changing Climate. In: Climate Change 2021: The Physical Science Basis. Contribut",
+      "checked_on": "2026-10-29",
+      "identifier": "DOI 10.1017/9781009157896.013",
+      "identifier_from": "the held document",
+      "identity": "resolved title shares 5 word(s) with ours: changing, climate, events, extreme, weather",
+      "resolved_title": "Weather and Climate Extreme Events in a Changing Climate",
+      "index": "Crossref",
+      "update_policy": null,
+      "amendments": [],
+      "comments": [],
+      "state": "UNCHECKED",
+      "why": "matched on DOI 10.1017/9781009157896.013 at Crossref; not in Europe PMC, and the publisher registers NO update policy — so Crossref would not know of a correction even if one existed. This is not a pass"
+    }
+  }
+}

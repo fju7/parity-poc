@@ -1,0 +1,109 @@
+{
+  "sources": [
+    {
+      "id": "S001",
+      "title": "Summary for Policymakers. In: Climate Change 2021: The Physical Science Basis. Contribution of Working Group I to the Sixth Assessment Report of the Intergovernmental Panel on Climate Change",
+      "url": "https://www.ipcc.ch/report/ar6/wg1/downloads/report/IPCC_AR6_WGI_SPM.pdf",
+      "type": "synthesis",
+      "form": "page",
+      "authors": "IPCC",
+      "year": 2021,
+      "used_for": "the assessment's headline confidence- and likelihood-rated statements on projected changes in the water cycle, extremes, cryosphere, sea level and ocean",
+      "access": {
+        "state": "full_text_held",
+        "held": {
+          "file": "docs/37/37c9fa760757524c8d69630a89cecab9ebcacb66786970a3439da0619875e446.pdf",
+          "sha256": "37c9fa760757524c8d69630a89cecab9ebcacb66786970a3439da0619875e446",
+          "bytes": 3361797,
+          "identified_by": "contains 12 of 12 distinctive title words — form 'page' — 502 prose sentence(s) over sixty characters, 18524 words — this reads as the page itself; title present (12 of 12 title words in the visible text)",
+          "kind": "document",
+          "kind_why": "form 'page' — 502 prose sentence(s) over sixty characters, 18524 words — this reads as the page itself"
+        },
+        "on": "2026-10-29"
+      },
+      "form_note": "Declared form 'page', not 'article' (2026-10-29, Claude Code): a Summary for Policymakers is a complete document with no reference list of its own (its statements cite sections of the underlying report), so the article test's reference-list criterion refused it as a landing page at 3,361,797 bytes and 122,457 characters. The 'page' form applies the prose-substance test instead.",
+      "document_class": "document",
+      "also_called": [
+        "IPCC AR6 WGI Summary for Policymakers"
+      ]
+    },
+    {
+      "id": "S002",
+      "title": "Water Cycle Changes. In: Climate Change 2021: The Physical Science Basis. Contribution of Working Group I to the Sixth Assessment Report of the Intergovernmental Panel on Climate Change (Chapter 8)",
+      "url": "https://www.ipcc.ch/report/ar6/wg1/downloads/report/IPCC_AR6_WGI_Chapter08.pdf",
+      "type": "synthesis",
+      "form": "article",
+      "authors": "Douville, H., K. Raghavan, J. Renwick et al.",
+      "year": 2021,
+      "used_for": "projected precipitation, evaporation, monsoon, runoff and drought changes; regional contrasts",
+      "access": {
+        "state": "full_text_held",
+        "held": {
+          "file": "docs/16/164589e2de7a78f0e4d2ea1eef331dabb1084118a7b49dec1e8289bf0364cc19.pdf",
+          "sha256": "164589e2de7a78f0e4d2ea1eef331dabb1084118a7b49dec1e8289bf0364cc19",
+          "bytes": 50201379,
+          "identified_by": "contains 12 of 12 distinctive title words — 949628 characters, reference list and discussion/introduction present; title present (12 of 12 title words in the visible text)",
+          "kind": "full_text",
+          "kind_why": "949628 characters, reference list and discussion/introduction present"
+        },
+        "on": "2026-10-29"
+      },
+      "document_class": "document",
+      "also_called": [
+        "IPCC AR6 WGI Chapter 8"
+      ]
+    },
+    {
+      "id": "S003",
+      "title": "Ocean, Cryosphere and Sea Level Change. In: Climate Change 2021: The Physical Science Basis. Contribution of Working Group I to the Sixth Assessment Report of the Intergovernmental Panel on Climate Change (Chapter 9)",
+      "url": "https://www.ipcc.ch/report/ar6/wg1/downloads/report/IPCC_AR6_WGI_Chapter09.pdf",
+      "type": "synthesis",
+      "form": "article",
+      "authors": "Fox-Kemper, B., H.T. Hewitt, C. Xiao et al.",
+      "year": 2021,
+      "used_for": "projected ocean warming, sea ice, glaciers, ice sheets and sea level, including committed and low-likelihood high-impact outcomes",
+      "access": {
+        "state": "full_text_held",
+        "held": {
+          "file": "docs/61/610dc22ad6485389b6fe6ecfd90e54a30bf056e6266dfb96ea4e9103a5f98708.pdf",
+          "sha256": "610dc22ad6485389b6fe6ecfd90e54a30bf056e6266dfb96ea4e9103a5f98708",
+          "bytes": 34815048,
+          "identified_by": "contains 11 of 11 distinctive title words — 914023 characters, reference list and discussion/introduction present; title present (12 of 12 title words in the visible text)",
+          "kind": "full_text",
+          "kind_why": "914023 characters, reference list and discussion/introduction present"
+        },
+        "on": "2026-10-29"
+      },
+      "document_class": "document",
+      "also_called": [
+        "IPCC AR6 WGI Chapter 9"
+      ]
+    },
+    {
+      "id": "S004",
+      "title": "Weather and Climate Extreme Events in a Changing Climate. In: Climate Change 2021: The Physical Science Basis. Contribution of Working Group I to the Sixth Assessment Report of the Intergovernmental Panel on Climate Change (Chapter 11)",
+      "url": "https://www.ipcc.ch/report/ar6/wg1/downloads/report/IPCC_AR6_WGI_Chapter11.pdf",
+      "type": "synthesis",
+      "form": "article",
+      "authors": "Seneviratne, S.I., X. Zhang, M. Adnan et al.",
+      "year": 2021,
+      "used_for": "projected heavy precipitation, floods, droughts and their scaling with warming level",
+      "access": {
+        "state": "full_text_held",
+        "held": {
+          "file": "docs/d0/d0dc4fae531a7b6a76a456cb12db9c7d68099265e377973d508484c3289ddce1.pdf",
+          "sha256": "d0dc4fae531a7b6a76a456cb12db9c7d68099265e377973d508484c3289ddce1",
+          "bytes": 17110209,
+          "identified_by": "contains 10 of 10 distinctive title words — 1433711 characters, reference list and discussion/introduction present; title present (12 of 12 title words in the visible text)",
+          "kind": "full_text",
+          "kind_why": "1433711 characters, reference list and discussion/introduction present"
+        },
+        "on": "2026-10-29"
+      },
+      "document_class": "document",
+      "also_called": [
+        "IPCC AR6 WGI Chapter 11"
+      ]
+    }
+  ]
+}
