@@ -63,3 +63,10 @@ Accepted by Fred Ugast, S004@165843-166449 not_material: already stated on this 
 
 ## F. Changecheck finding
 Accepted by Fred Ugast, changecheck NEW_AND_UNBOUND 7a3064997d095f83 reject: the figure 1.5 sits inside the declared finding's verbatim quotation, which quotations.py checks against S004; checked by Fred's advisor, stated in session
+
+## H. Reads of the five re-rendered readers'-list lines (round 3)
+Accepted by Fred Ugast, read dde22ce99434f020 holds: accurate record of Fred's E1 sign-off, reason shown in full; checked by Fred's advisor, stated in session
+Accepted by Fred Ugast, read b94fde163a020c88 holds: accurate record of Fred's E2 sign-off, reason shown in full; checked by Fred's advisor, stated in session
+Accepted by Fred Ugast, read 57f0f6fcb08249bf holds: accurate record of Fred's E3 sign-off; Fred's section F reasoning stands for this line and for any changecheck finding on it: the figure 1.5 sits inside the declared finding's verbatim quotation, which quotations.py checks against S004; checked by Fred's advisor, stated in session
+Accepted by Fred Ugast, read fd8cf1329ea92593 holds: accurate record of Fred's E4 sign-off; checked by Fred's advisor, stated in session
+Accepted by Fred Ugast, read f7ff1d161a879d9a holds: accurate record of Fred's E5 sign-off; checked by Fred's advisor, stated in session
