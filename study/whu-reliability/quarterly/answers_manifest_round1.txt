@@ -1,0 +1,37 @@
+# WHU quarterly round 1: tool answers, sha256 manifest
+# The answers are held outside the repository, at ~/Projects/whu-study-private/answers/quarterly/round1/<question>/
+# (<tool>.raw.md: each tool's own export, moved byte for byte; round1_capture.md). Only these hashes are committed.
+# Hashed 2026-10-29 with sha256 by Claude Code (capture session C); no answer file was opened.
+# Runs 2026-10-28 20:08 to 2026-10-29 (Gemini Q1-04 rerun) America/New_York; the full record (send times, chat links, deviations)
+# is run_record.md in the private folder, not committed.
+# ChatGPT, all four: launched with + > Deep research (composer chip), not the $deep-research app link (Fred's ruling,
+# 2026-10-28: the app no longer exists); all four headers show "0 citations · 0 searches"; recorded, not re-run (§13.3).
+# Gemini: Apps Activity on and admin-locked; run as is (Fred's ruling, 2026-10-28).
+# WHU-Q1-03: a session break left Claude, Gemini and Perplexity sent but unrecorded; session C sent Claude and Gemini
+# again. Advisor's ruling: the run sent first counts, by send time only. The two later runs are void, not saved, not listed.
+# WHU-Q1-04 Gemini: the first run (sent 2026-10-28 21:29 ET) was still "Starting research..." about 8h40m after its plan was
+# accepted: a technical failure (gemini-failure.png); stopped 06:39 ET on Fred's approval, in case it was blocking the rerun.
+# One rerun after failure, sent 2026-10-29 06:19 ET, plan accepted 06:28 ET, was still "Starting research..." at 08:29 ET:
+# a second technical failure (gemini-rerun-failure.png). Fred's ruling: Gemini Q1-04 = "no result (two technical
+# failures)"; that is the result; there is no third run. 15 answer files are listed.
+# WHU-Q1-04 Claude: Claude had Gmail and Google Drive access, and its sources include one Gmail source. Advisor's ruling: the
+# run stands; claims resting on the Gmail source are excluded from judging as unreachable; the answer is screened for
+# private content before judging; future rounds disconnect Claude's Gmail/Drive connectors before running.
+#
+# sha256  path (relative to ~/Projects/whu-study-private/answers/quarterly/round1/)
+c9b6e01c9f12d99461e4de58336bce7cc8cf6de5148b3345c1012ebf3d8d218c  WHU-Q1-01/claude.raw.md
+d8af0243b13ed12ce80779fc0a34e83f1c360136d4fe2c1e8ffd0a8a53fbb1ca  WHU-Q1-01/chatgpt.raw.md
+76a0d1226e5a5c6849ebbd4df6e3d2aa77995f9aabe6501df13e4fd3e5255792  WHU-Q1-01/gemini.raw.md
+fb189c23680b56d69a2e2090946efc7f29784b64dcc9782156c62e8928831e44  WHU-Q1-01/perplexity.raw.md
+9c3b54330f460d30241327b784c7d6da67a7507a7813dacf63f5027a960697d1  WHU-Q1-02/claude.raw.md
+5f5235500178b1d5b17e098d661e2a3590adfb0d7efe6d219e8eeacca99eed9d  WHU-Q1-02/chatgpt.raw.md
+313855e882989570717f367c0a08c9e92bd914b30815a312ec54f1be010da33d  WHU-Q1-02/gemini.raw.md
+5189ebd6da7e203179b6ee3be8d0b0ad7ec48f11dd21b5f9cf6c40da3aded8ef  WHU-Q1-02/perplexity.raw.md
+86b6fff9ea066732ac00f7aba7482fe86957188a3b005df1a475f870f3a7201c  WHU-Q1-03/claude.raw.md
+37be434cadd47911e78df530768501c6951829792c5dd8727aa13bfec4e0fb6e  WHU-Q1-03/chatgpt.raw.md
+a3fcb6563b983b6a605ffab995605de6768a248ee9b272d12570711733403c2f  WHU-Q1-03/gemini.raw.md
+41c7a65d69e2a06467bad2e4981e276f487878a8a374942092247ab6990deb44  WHU-Q1-03/perplexity.raw.md
+09a11a2d3cf9c4be3ef31835710e675da9c9c4cf86ae814fa0dc41b36aceb6a4  WHU-Q1-04/claude.raw.md
+3bf8fd5d627821003291daa5bc5919b7127aa3b1cce133f72a7a02c8d200f44b  WHU-Q1-04/chatgpt.raw.md
+no result (two technical failures)                                WHU-Q1-04/gemini.raw.md
+6a0ff797fa03413c57bd2382116543b4ebc17fb078bd47af6d3af5f566f41101  WHU-Q1-04/perplexity.raw.md
