@@ -1,4 +1,4 @@
-# WHU-Q1-01 private archive manifest: sha256 of every git-ignored file under issues/WHU-Q1-01-whu-quarterly-r1-01/, copied to ~/Projects/whu-study-private/WHU-Q1-01-whu-quarterly-r1-01/20261029T003529Z/ (paths kept). Written by Claude Code.
+# WHU-Q1-01 private archive manifest: sha256 of every git-ignored file under issues/WHU-Q1-01-whu-quarterly-r1-01/, copied to ~/Projects/whu-study-private/WHU-Q1-01-whu-quarterly-r1-01/20261029T004428Z/ (paths kept). Final archive at Ready.; supersedes the mid-run archive 20261029T003529Z. Written by Claude Code.
 09b614746f7b607e8f5ba187b2884fc54b86cf504a8e74320157a22fee60cc74  issues/WHU-Q1-01-whu-quarterly-r1-01/advocate/20261029T002101Z-adjudication.md
 afd524ccf9e7c4fcc0dfd6b7bc817a9fb7aa63264b2d85b48fd53868ed7a7276  issues/WHU-Q1-01-whu-quarterly-r1-01/advocate/20261029T002101Z-briefs.json
 b5808d58f3b27b911d822daa3797855176e6b07c15ddd5ae0d200f85edc11999  issues/WHU-Q1-01-whu-quarterly-r1-01/advocate/quote_checks.jsonl
@@ -8,6 +8,7 @@ b5808d58f3b27b911d822daa3797855176e6b07c15ddd5ae0d200f85edc11999  issues/WHU-Q1-
 08b0a17a5bf9232421169c9097289914de2c567dc2104f41fe04e52664b5046d  issues/WHU-Q1-01-whu-quarterly-r1-01/advocate/runs/20261029T002101Z/routing.json
 fb96b339c4c2c0e1d889c896d5929f81de2e561f273baf98c5f3b719a1b838ab  issues/WHU-Q1-01-whu-quarterly-r1-01/advocate/runs/20261029T002101Z/state.json
 e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  issues/WHU-Q1-01-whu-quarterly-r1-01/audit/20261029T002827Z/cuts.jsonl
+868a8473b19965f229cb6b599cc1afec392684b9e9352acacda136579b66ae60  issues/WHU-Q1-01-whu-quarterly-r1-01/audit/20261029T002827Z/human_reads.jsonl
 2f715d3c63854ca1294739fdcdc47ffd59128077c58fdde7134047e78e613d0b  issues/WHU-Q1-01-whu-quarterly-r1-01/audit/20261029T002827Z/manifest.json
 e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  issues/WHU-Q1-01-whu-quarterly-r1-01/audit/20261029T002827Z/quote_rejections.jsonl
 733a66a46a58cb938fc40afd55ef284ae0e47edaa649aa5bc2f2fe117776998b  issues/WHU-Q1-01-whu-quarterly-r1-01/audit/20261029T002827Z/rulings.jsonl
