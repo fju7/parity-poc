@@ -205,6 +205,130 @@ def perplexity_sources(md: str) -> tuple[str, list[str]]:
     return PPLX_MARK.sub(r"[\1]", body), out
 
 
+# Quarterly round 1 (round1_deviations.md, 2026-10-29, advisor rulings 1 and 2).
+# The functions above are unchanged; these two read round 1's exports.
+CAPTURE_HEAD = re.compile(r"^## (Cited URLs|Citations|Final chat message|Launch-turn|Assistant launch|Unique|"
+                          r"URLs in the final)")
+
+
+def report_to_capture_end(md: str) -> str:
+    """The report from its "## Report" heading to the capture's own appended
+    section (build_capture.py's "---" and "## Cited URLs"). A "---" rule
+    inside the report is the tool's own markup, not a capture boundary."""
+    lines = md.splitlines()
+    start = next((i for i, l in enumerate(lines) if REPORT_START.match(l)), None)
+    if start is None:
+        raise AdaptError("no '## Report' or '## Full report' heading")
+    end = next((j for j in range(start + 1, len(lines)) if CAPTURE_HEAD.match(lines[j])), len(lines))
+    sec = lines[start + 1:end]
+    while sec and not sec[-1].strip():
+        sec.pop()
+    if end < len(lines) and sec and re.match(r"^---\s*$", sec[-1]):
+        sec.pop()                                           # the capture's own rule
+    return "\n".join(sec).strip() + "\n"
+
+
+def claude_sources_r1(md: str) -> tuple[str, list[str]]:
+    """Round 1, Claude's "Download as Markdown" report (ruling 2): as
+    claude_sources, but the report runs to the capture's own boundary, so a
+    "---" inside it does not cut it short. (the report up to its own
+    "## Sources" heading, the URL of each Sources entry in order; entry n is
+    [n])."""
+    body = report_to_capture_end(md)
+    parts = re.split(r"(?m)^#{1,6}\s*Sources\s*$", body)
+    if len(parts) != 2:
+        raise AdaptError("%d Sources headings, not one" % (len(parts) - 1))
+    text, out = parts[0].rstrip() + "\n", []
+    for line in parts[1].splitlines():
+        if not line.strip():
+            continue
+        e = re.match(r"^\s*(\d+)\.\s+(.*)$", line)
+        if not e:
+            raise AdaptError("Sources line not an entry: %r" % line[:80])
+        if int(e.group(1)) != len(out) + 1:
+            raise AdaptError("Sources entry %s out of order" % e.group(1))
+        u = (re.findall(r"\]\(<(https?://[^>\s]+)>\)?\s*$", e.group(2))
+             or re.findall(r"\]\((https?://[^)\s]+)\)?\s*$", e.group(2))
+             or re.findall(r"^<(https?://[^>\s]+)>\s*$", e.group(2)))
+        if not u:
+            raise AdaptError("Sources entry %s has no URL" % e.group(1))
+        out.append(u[0])
+    if re.search(r"\]\(https?://|<https?://", text):
+        raise AdaptError("a link in the report body as well as the Sources list")
+    beyond = sorted({int(n) for n in re.findall(r"\\\[(\d+)\\\]", text) if not 1 <= int(n) <= len(out)})
+    if beyond:
+        raise AdaptError("marker(s) %s not in the Sources list" % beyond)
+    return text, out
+
+
+PPLX_FN_MARK = re.compile(r"\[\^(\d+)_(\d+)\](?!:)")
+PPLX_FN_DEF = re.compile(r"^\[\^(\d+)_(\d+)\]:\s*(.*?)\s*$")
+# The whole definition is its URL, kept as exported: some file names carry unencoded spaces.
+PPLX_FN_URL = re.compile(r"^<?(https?://\S.*?)>?$")
+PPLX_INLINE = re.compile(r"\[([^\]\n]+)\]\((https?://(?:[^()\s]|\([^()\s]*\))+)\)")
+
+
+def perplexity_footnotes(md: str) -> tuple[str, list[str]]:
+    """Round 1, Perplexity's thread "Export as Markdown" (ruling 1): (the
+    report up to its first "[^1_n]: <url>" definition with each [^1_n]
+    marker written [n] and each inline link made a marker, the reference
+    list).
+
+    The references are the definitions, in the order of their own numbers.
+    A plain inline link whose URL equals a definition's URL takes that
+    number; any other takes the next number after the last definition, in
+    order of first appearance in the body. Each link is written as
+    blind.from_markdown writes a link: its text then " [k]", or "[k]" alone
+    for a site-name chip. A marker with no definition, a definition with no
+    URL, a numbering gap or a second thread turn stops the run. No other
+    text changes."""
+    import blind
+    lines = report_to_capture_end(md).splitlines()
+    first = next((i for i, l in enumerate(lines) if PPLX_FN_DEF.match(l)), None)
+    if first is None:
+        raise AdaptError("no footnote definitions")
+    body = "\n".join(lines[:first]).rstrip() + "\n"
+    out = []
+    for line in lines[first:]:
+        if not line.strip():
+            continue
+        d = PPLX_FN_DEF.match(line)
+        if not d:
+            raise AdaptError("a line among the footnote definitions is not one: %r" % line[:80])
+        if d.group(1) != "1":
+            raise AdaptError("footnote [^%s_%s] is not from the thread's first turn" % (d.group(1), d.group(2)))
+        if int(d.group(2)) != len(out) + 1:
+            raise AdaptError("footnote %s out of order or after a gap" % d.group(2))
+        u = PPLX_FN_URL.match(d.group(3))
+        if not u:
+            raise AdaptError("footnote %s has no URL" % d.group(2))
+        out.append(u.group(1))
+    if re.search(r"(?m)^\[\^\d+_\d+\]:", body):
+        raise AdaptError("a footnote definition inside the report")
+    turns = {t for t, _n in PPLX_FN_MARK.findall(body)}
+    if turns - {"1"}:
+        raise AdaptError("marker(s) from another thread turn: %s" % sorted(turns - {"1"}))
+    beyond = sorted({int(n) for _t, n in PPLX_FN_MARK.findall(body) if not 1 <= int(n) <= len(out)})
+    if beyond:
+        raise AdaptError("marker(s) %s have no definition" % beyond)
+    index = {}
+    for i, u in enumerate(out):
+        index.setdefault(u, i + 1)
+    refs = list(out)
+
+    def link(m):
+        text, url = m.group(1), m.group(2)
+        if url not in index:
+            refs.append(url)
+            index[url] = len(refs)
+        k = index[url]
+        return "[%d]" % k if blind.is_chip(text, url) else "%s [%d]" % (text, k)
+    body = PPLX_INLINE.sub(link, body)
+    if re.search(r"\]\(https?://|<https?://", body):
+        raise AdaptError("a link in the report body the rule did not read")
+    return PPLX_FN_MARK.sub(lambda m: "[%s]" % m.group(2), body), refs
+
+
 def works_cited(md: str) -> list[str]:
     """Gemini's Markdown export: the URL of each "Works cited" entry, in order
     (entry n is [n])."""
