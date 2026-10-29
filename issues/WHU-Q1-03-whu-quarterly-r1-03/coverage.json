@@ -145,13 +145,21 @@
    "reason_for_reader": "an observed change in hot and cold extremes, outside the components the question names",
    "decided_at": "2026-10-29T11:38:20+00:00"
   },
-  "S001@26891-34834": {
-   "state": "not_material",
-   "reason": "An observed change since the 1950s in compound events, mostly concurrent heatwaves and droughts, fire weather and compound flooding. The question asks about future change, and the page states the projected compound-event changes from SPM C.2.7 and C.3.3; the statement's text range also carries footnotes 17 and 18 and the whole of Figure SPM.3.",
+  "S001@33192-33413": {
+   "state": "out_of_scope",
+   "reason": "A figure caption on observed hot extremes. Premise scope.out excludes heat extremes as such.",
    "by": "Claude Code",
-   "element": "",
-   "reason_for_reader": "an observed change in compound events, where the page states the projected ones",
-   "decided_at": "2026-10-29T11:38:20+00:00"
+   "element": "Surface air temperature change and heat extremes as such",
+   "reason_for_reader": "a figure caption on observed hot extremes, outside the components the question names",
+   "decided_at": "2026-10-29T12:24:35+00:00"
+  },
+  "S001@33414-33526": {
+   "state": "out_of_scope",
+   "reason": "A figure caption on observed hot extremes. Premise scope.out excludes heat extremes as such.",
+   "by": "Claude Code",
+   "element": "Surface air temperature change and heat extremes as such",
+   "reason_for_reader": "a figure caption on observed hot extremes, outside the components the question names",
+   "decided_at": "2026-10-29T12:24:35+00:00"
   }
  }
 }

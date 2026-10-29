@@ -1,0 +1,310 @@
+{
+ "omissions": [
+  {
+   "key": "S002@-",
+   "source": "S002",
+   "held_sha256": null,
+   "at": null,
+   "quote_sha256": null,
+   "outcome": "NOT_IN_SOURCE",
+   "element": "",
+   "reason": "the quotation is not in the held text of S002",
+   "by": "code (omissions.precheck)",
+   "ruling": null,
+   "origins": [
+    "S002-16"
+   ],
+   "on_page": null,
+   "after": null,
+   "decided_at": "2026-10-29T12:06:04+00:00"
+  },
+  {
+   "key": "S003@-",
+   "source": "S003",
+   "held_sha256": null,
+   "at": null,
+   "quote_sha256": null,
+   "outcome": "NOT_IN_SOURCE",
+   "element": "",
+   "reason": "the quotation is not in the held text of S003",
+   "by": "code (omissions.precheck)",
+   "ruling": null,
+   "origins": [
+    "S003-22"
+   ],
+   "on_page": null,
+   "after": null,
+   "decided_at": "2026-10-29T12:06:04+00:00"
+  },
+  {
+   "key": "S004@-",
+   "source": "S004",
+   "held_sha256": null,
+   "at": null,
+   "quote_sha256": null,
+   "outcome": "NOT_IN_SOURCE",
+   "element": "",
+   "reason": "the quotation is not in the held text of S004",
+   "by": "code (omissions.precheck)",
+   "ruling": null,
+   "origins": [
+    "S004-28"
+   ],
+   "on_page": null,
+   "after": null,
+   "decided_at": "2026-10-29T12:06:05+00:00"
+  },
+  {
+   "key": "S001@51948-52336",
+   "source": "S001",
+   "held_sha256": "6cd9eeabc0977eb536438bbed73d784eb903f6b84fd65e60aeb7c6aef2e2ac10",
+   "at": [
+    51948,
+    52336
+   ],
+   "quote_sha256": "61b0d6f89289bdf041ac740736c514ba3612228eac49e90562bc4d69eb7fa3c8",
+   "outcome": "NOT_MATERIAL",
+   "element": "",
+   "reason": "Step 1: The finding bears on the question. Heavy precipitation, droughts, marine heatwaves, [S001@52294-52335] all fall under 'very wet and very dry extremes, ice, sea level and the oceans'. Only hot extremes fall under the scope exclusion on heat extremes. Step 2: The draft already says nearly all of it. It states that '[S001@63320-63369], [S001@53177-53222]'. It gives the per-0.5°C increases in heavy precipitation and [S001@67791-67833] some regions'. It says [S001@52231-52274] increases with warming. It says additional warming amplifies the loss of permafrost, snow cover and Arctic sea ice. The only new item is marine heatwaves, a one-word mention with no figure. That does not change the rainfall, drought or sea-level design figure this reader must choose, so the finding adds nothing material.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "99cc4ee9f83144d9",
+   "origins": [
+    "S001-10"
+   ],
+   "on_page": null,
+   "after": null,
+   "decided_at": "2026-10-29T12:06:14+00:00"
+  },
+  {
+   "key": "S001@58372-58508",
+   "source": "S001",
+   "held_sha256": "6cd9eeabc0977eb536438bbed73d784eb903f6b84fd65e60aeb7c6aef2e2ac10",
+   "at": [
+    58372,
+    58508
+   ],
+   "quote_sha256": "a5082120b23bf906ab1cd91d97b0c9bb87bc94c1f5cd64fa8fad500535715fa7",
+   "outcome": "NOT_MATERIAL",
+   "element": "",
+   "reason": "Step 1 holds: the finding defines 'practically sea ice-free' Arctic sea ice, which falls under 'ice' in THE QUESTION and 'Arctic sea ice' in SCOPE. Step 2 fails: the page already gives this definition in the anchor's neighbouring sentence ('Practically sea ice-free means a [S001@58372-58427], [S001@58438-58507]'), so adding it would only repeat what the draft states.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "a8d19dd6803f6889",
+   "origins": [
+    "S001-11"
+   ],
+   "on_page": null,
+   "after": null,
+   "decided_at": "2026-10-29T12:06:18+00:00"
+  },
+  {
+   "key": "S001@70619-71141",
+   "source": "S001",
+   "held_sha256": "6cd9eeabc0977eb536438bbed73d784eb903f6b84fd65e60aeb7c6aef2e2ac10",
+   "at": [
+    70619,
+    71141
+   ],
+   "quote_sha256": "4136fb677bf4b498dd2457821c364f0935cc3de5db52c5f3556b23ef6da615b4",
+   "outcome": "NOT_MATERIAL",
+   "element": "",
+   "reason": "Step 1: the finding addresses the question's 'very wet and very dry extremes' and rainfall, so it is in scope. Step 2: the draft already states both sentences of the finding. ALREADY lists the intensification [S002@9078-9109], with its high confidence and its dependence on regional circulation, and the very likely amplification of ENSO-related rainfall variability [S001@50531-50573] emissions scenarios ([S001@44746-44777]). Adding it would only repeat what the draft says, so it is not material.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "26afe9fe5e5bd22a",
+   "origins": [
+    "S001-07"
+   ],
+   "on_page": null,
+   "after": null,
+   "decided_at": "2026-10-29T12:06:22+00:00"
+  },
+  {
+   "key": "S001@78474-79252",
+   "source": "S001",
+   "held_sha256": "6cd9eeabc0977eb536438bbed73d784eb903f6b84fd65e60aeb7c6aef2e2ac10",
+   "at": [
+    78474,
+    79252
+   ],
+   "quote_sha256": "ce8cc586d5ef4c44dce49b428de5d91175dfc1679bb51c92cd08c77c3f831925",
+   "outcome": "NOT_MATERIAL",
+   "element": "",
+   "reason": "Step 1 holds: the finding concerns projected ice loss from glaciers, ice sheets and permafrost under continued emissions, which is the 'ice' the question names and the SCOPE covers. Step 2 fails: every part of the finding is already on the page. ALREADY includes the glacier melting commitment (very high confidence), the irreversible loss of permafrost carbon (high confidence), and the Greenland and Antarctic 21st-century ice loss with the Greenland cumulative-emissions link. The Antarctic low-likelihood, high-impact sentence appears verbatim among the anchor's page sentences. Adding it would repeat what the draft already says.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "fde4b11eadcbcc4f",
+   "origins": [
+    "S001-12"
+   ],
+   "on_page": null,
+   "after": null,
+   "decided_at": "2026-10-29T12:06:27+00:00"
+  },
+  {
+   "key": "S001@79755-79997",
+   "source": "S001",
+   "held_sha256": "6cd9eeabc0977eb536438bbed73d784eb903f6b84fd65e60aeb7c6aef2e2ac10",
+   "at": [
+    79755,
+    79997
+   ],
+   "quote_sha256": "e37380455cf480d7ce2b33e259f63e4238c6f08e5a33ade32413e1b9191d2cfb",
+   "outcome": "ADD",
+   "element": "",
+   "reason": "Step 1: the finding projects global sea level under emissions scenarios, which the question names ('sea level') and the scope covers ('global and regional sea level, including its long-term commitment'). Step 2: the draft says only that sea level by 2100 depends strongly on emissions and keeps rising for centuries. It gives no figures. These scenario ranges for 2150 give a coastal reader actual design numbers and show how widely they spread across scenarios. They also qualify any single 'about a metre' figure. The 'likely' qualifier and the 1995–2014 baseline come from the surrounding sentence that governs the quoted clause. The medium-confidence tag is kept.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "5b8262746cee470b",
+   "origins": [
+    "S001-03"
+   ],
+   "on_page": "a5e9d760344e72cb",
+   "after": "d40e98e73901ad59",
+   "decided_at": "2026-10-29T12:06:35+00:00"
+  },
+  {
+   "key": "S001@89114-89203",
+   "source": "S001",
+   "held_sha256": "6cd9eeabc0977eb536438bbed73d784eb903f6b84fd65e60aeb7c6aef2e2ac10",
+   "at": [
+    89114,
+    89203
+   ],
+   "quote_sha256": "aed0f3c87c8006d055a935d99e8b46083d8d2bc20c58d5343df7751f358168b9",
+   "outcome": "NOT_MATERIAL",
+   "element": "",
+   "reason": "Step 1: the sentence is a glossary footnote that lists categories of climatic impact-drivers (wet and dry, [S001@89166-89202]). These categories touch the physical components the question names, so it is not clearly outside the scope. Step 2: it is only a definitional list of CID types. It projects no change, gives no magnitude, likelihood or uncertainty, and does not narrow or qualify any outcome. A planner choosing a design figure for rainfall, drought or sea level would not weigh it.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "fa8e2d9feaf90399",
+   "origins": [
+    "S001-08"
+   ],
+   "on_page": null,
+   "after": null,
+   "decided_at": "2026-10-29T12:06:43+00:00"
+  },
+  {
+   "key": "S001@89638-90037",
+   "source": "S001",
+   "held_sha256": "6cd9eeabc0977eb536438bbed73d784eb903f6b84fd65e60aeb7c6aef2e2ac10",
+   "at": [
+    89638,
+    90037
+   ],
+   "quote_sha256": "743dc5046c743bbe667493ea94dfaa558386e1d2fc72b1fae8d19a29ad205fdd",
+   "outcome": "ADD",
+   "element": "",
+   "reason": "Step 1: the finding is about projected precipitation and monsoons, which the question names ('rainfall and the water cycle') and SCOPE covers ('including monsoons'). Step 2: it qualifies the draft's mid- to long-term monsoon and precipitation projections. In the near term, internal variability dominates and model and aerosol uncertainty apply. A planner choosing a rainfall design figure should not treat the long-term trend as the expected near-term outcome. ALREADY does not state this.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "ab71c917f26243ff",
+   "origins": [
+    "S001-05"
+   ],
+   "on_page": "b7a3a34664e7082e",
+   "after": "91cf3c94a215774a",
+   "decided_at": "2026-10-29T12:06:50+00:00"
+  },
+  {
+   "key": "S001@100098-100256",
+   "source": "S001",
+   "held_sha256": "6cd9eeabc0977eb536438bbed73d784eb903f6b84fd65e60aeb7c6aef2e2ac10",
+   "at": [
+    100098,
+    100256
+   ],
+   "quote_sha256": "c6647a6b7202a8da4ca420f30f7760e347c0e651195ab9e231a6a515c7abe590",
+   "outcome": "NOT_MATERIAL",
+   "element": "",
+   "reason": "Step 1: The sentence describes the reference period behind projected regional changes in climatic impact-drivers, including wet/dry, snow/ice, coastal and ocean drivers. That falls within the projected physical changes the question asks about, so nothing in the question or scope excludes it. Step 2: It is a caption note giving the time window and baseline for Figure SPM.9. It states no projected change, direction, magnitude or confidence. The draft does not report the regional counts from that figure, so the note qualifies nothing on the page. It would not change a planner's design figure for rainfall, drought or sea level.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "502212f668707bd2",
+   "origins": [
+    "S001-09"
+   ],
+   "on_page": null,
+   "after": null,
+   "decided_at": "2026-10-29T12:06:55+00:00"
+  },
+  {
+   "key": "S002@14640-14788",
+   "source": "S002",
+   "held_sha256": "b9c0e2b2e35dbc605259e524217b853531f12d9aa789b8512afc52f3584cf938",
+   "at": [
+    14640,
+    14788
+   ],
+   "quote_sha256": "c9d4dffc80090d42e1695269bcd488d140cceeea73f5541800e91bc5ed75d29f",
+   "outcome": "ADD",
+   "element": "",
+   "reason": "Step 1: in scope, because runoff is named in SCOPE ('precipitation and the global water cycle (including monsoons, evaporation, soil moisture and runoff)'). Step 2: material, because the draft reports only low confidence in global land runoff. This finding qualifies that with a high-confidence regional direction, an [S002@10805-10844], which a water manager choosing a design figure would weigh. It is not already in the draft.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "976b4c1a5506f2db",
+   "origins": [
+    "S002-17"
+   ],
+   "on_page": "25d16d09e73c1053",
+   "after": "5e87fd6ab709e6ec",
+   "decided_at": "2026-10-29T12:07:01+00:00"
+  },
+  {
+   "key": "S003@12262-12349",
+   "source": "S003",
+   "held_sha256": "86eaffce20bc845d6b25dcff274903313cf4c88b098aa6e644f8783a694f1cd2",
+   "at": [
+    12262,
+    12349
+   ],
+   "quote_sha256": "fce6c1229a5b1b2ac4ce22988f242aae844c152be8792644d8a0fcd1cc64a36f",
+   "outcome": "NOT_MATERIAL",
+   "element": "",
+   "reason": "Step 1: in scope. Marine heatwave changes fall under 'the oceans' in THE QUESTION and 'marine heatwaves' in SCOPE. Step 2: not material. The anchor sentence already on the page says marine heatwave frequency will increase 'particularly [S003@12293-12348])', which is the same claim at the same confidence. Adding it would only repeat what the reader already has.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "d888d176ce112ed1",
+   "origins": [
+    "S003-23"
+   ],
+   "on_page": null,
+   "after": null,
+   "decided_at": "2026-10-29T12:07:05+00:00"
+  },
+  {
+   "key": "S001@80000-80230",
+   "source": "S001",
+   "held_sha256": "6cd9eeabc0977eb536438bbed73d784eb903f6b84fd65e60aeb7c6aef2e2ac10",
+   "at": [
+    80000,
+    80230
+   ],
+   "quote_sha256": "6c4f0abcab0f82e08420ca38c0ed6f5263f731f26366e5ebb222863e9168fabf",
+   "outcome": "TO_PERSON",
+   "element": "",
+   "reason": "no place for the ADD: the anchor is not on the page",
+   "by": "code (ruling.py omissions)",
+   "ruling": null,
+   "origins": [
+    "S001-02"
+   ],
+   "on_page": null,
+   "after": null,
+   "decided_at": "2026-10-29T12:53:24+00:00"
+  },
+  {
+   "key": "S003@21125-21223",
+   "source": "S003",
+   "held_sha256": "86eaffce20bc845d6b25dcff274903313cf4c88b098aa6e644f8783a694f1cd2",
+   "at": [
+    21125,
+    21223
+   ],
+   "quote_sha256": "27599bb12bbec2b7c3c9452959ffc965011af43e5b6c383bf380acb67f286d27",
+   "outcome": "NOT_MATERIAL",
+   "element": "",
+   "reason": "Step 1 holds: projected [S002@357053-357085] under emissions scenarios falls under the question's 'ice' and the scope's 'ice (glaciers, ...)'. Step 2 fails: ALREADY states the same finding from the same chapter, that glaciers will lose 18% and 36% [S003@21177-21209] over 2015–2100 [S003@501302-501325] (medium confidence). The only thing missing is the bracketed ranges [5 to 31] and [16 to 56]. Those would be better added to the existing sentence than given a new one, because a new sentence would duplicate a finding the page already has.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "2f2b0033caa8f580",
+   "origins": [
+    "S003-20"
+   ],
+   "on_page": null,
+   "after": null,
+   "decided_at": "2026-10-29T12:53:33+00:00"
+  }
+ ]
+}

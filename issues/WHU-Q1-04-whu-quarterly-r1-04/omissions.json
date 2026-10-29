@@ -1,0 +1,349 @@
+{
+ "omissions": [
+  {
+   "key": "S001@-",
+   "source": "S001",
+   "held_sha256": null,
+   "at": null,
+   "quote_sha256": null,
+   "outcome": "NOT_IN_SOURCE",
+   "element": "",
+   "reason": "the quotation is not in the held text of S001",
+   "by": "code (omissions.precheck)",
+   "ruling": null,
+   "origins": [
+    "S001-09"
+   ],
+   "on_page": null,
+   "after": null,
+   "decided_at": "2026-10-29T12:35:08+00:00"
+  },
+  {
+   "key": "S002@-",
+   "source": "S002",
+   "held_sha256": null,
+   "at": null,
+   "quote_sha256": null,
+   "outcome": "NOT_IN_SOURCE",
+   "element": "",
+   "reason": "the quotation is not in the held text of S002",
+   "by": "code (omissions.precheck)",
+   "ruling": null,
+   "origins": [
+    "S002-19"
+   ],
+   "on_page": null,
+   "after": null,
+   "decided_at": "2026-10-29T12:35:08+00:00"
+  },
+  {
+   "key": "S003@-",
+   "source": "S003",
+   "held_sha256": null,
+   "at": null,
+   "quote_sha256": null,
+   "outcome": "NOT_IN_SOURCE",
+   "element": "",
+   "reason": "the quotation is not in the held text of S003",
+   "by": "code (omissions.precheck)",
+   "ruling": null,
+   "origins": [
+    "S003-23"
+   ],
+   "on_page": null,
+   "after": null,
+   "decided_at": "2026-10-29T12:35:08+00:00"
+  },
+  {
+   "key": "S004@-",
+   "source": "S004",
+   "held_sha256": null,
+   "at": null,
+   "quote_sha256": null,
+   "outcome": "NOT_IN_SOURCE",
+   "element": "",
+   "reason": "the quotation is not in the held text of S004",
+   "by": "code (omissions.precheck)",
+   "ruling": null,
+   "origins": [
+    "S004-46"
+   ],
+   "on_page": null,
+   "after": null,
+   "decided_at": "2026-10-29T12:35:08+00:00"
+  },
+  {
+   "key": "S001@344567-344933",
+   "source": "S001",
+   "held_sha256": "6f91ebc36948afa992db09fc4e264d232ac3f9db06c7b46d56dfbd28fc4af98e",
+   "at": [
+    344567,
+    344933
+   ],
+   "quote_sha256": "e02694b141f5bc131c9c749a08092227f6c1a794fbab490d20b5aa90bacc1c16",
+   "outcome": "NOT_MATERIAL",
+   "element": "",
+   "reason": "Step 1: The finding is loosely in scope. It describes rising pressures on managed and natural ecosystems, which is background to the land limits the SCOPE covers ('land, water, biodiversity'), and no wording in the question or SCOPE excludes it. Step 2: It is not material. The sentence is general background about climate change, population growth and consumption. It says nothing about carbon dioxide removal, its scale or how far a net-zero plan can rely on it, so it does not answer, narrow or qualify the answer to the question. The draft already carries the CDR-relevant point from this source: [S001@13891-13940] fuels increase competition for land and biomass, and CDR has adverse side effects and trade-offs with food and nature conservation. Adding this sentence would give the reader nothing new to weigh about overestimating removals.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "d946dded4c2a366d",
+   "origins": [
+    "S001-10"
+   ],
+   "on_page": null,
+   "after": null,
+   "decided_at": "2026-10-29T12:35:16+00:00"
+  },
+  {
+   "key": "S001@420246-420611",
+   "source": "S001",
+   "held_sha256": "6f91ebc36948afa992db09fc4e264d232ac3f9db06c7b46d56dfbd28fc4af98e",
+   "at": [
+    420246,
+    420611
+   ],
+   "quote_sha256": "cc3453b8125967d878063a572bb12b6c2f5a09366bee60559a22b31a22cc669a",
+   "outcome": "ADD",
+   "element": "",
+   "reason": "Step 1: The finding concerns the cost, potential and biodiversity limits of CDR and how CDR is represented in pathway models. These are named in SCOPE ('the limits and risks the assessments name (scale, cost, land, water, biodiversity...)', 'what assessed pathways to net zero need from it'), so it is in scope. Step 2: The draft reports pathway volumes and DACCS potentials from this chapter. This finding qualifies those figures: it says realistically achievable CDR costs and potentials, and their representation in IAMs, are still unresolved knowledge gaps. That bears directly on a reader worried that removals are overestimated. The draft does not already say this, so the finding is material.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "e2fa5b4adec65a0d",
+   "origins": [
+    "S001-08"
+   ],
+   "on_page": "8e9b0e1711c79958",
+   "after": "75816b456efb69a3",
+   "decided_at": "2026-10-29T12:35:26+00:00"
+  },
+  {
+   "key": "S002@115015-115355",
+   "source": "S002",
+   "held_sha256": "6cd9eeabc0977eb536438bbed73d784eb903f6b84fd65e60aeb7c6aef2e2ac10",
+   "at": [
+    115015,
+    115355
+   ],
+   "quote_sha256": "fbc24e66a04e53a797f3560d1d9251d890aa4e5092d5e4176d67a89df7541a31",
+   "outcome": "ADD",
+   "element": "",
+   "reason": "Step 1: The SCOPE explicitly covers the limits and risks the assessments name, including land, water, biodiversity and scale, so the finding bears on the question. Step 2: The draft says only that CDR can influence water, food and biodiversity. The finding qualifies that in three ways the reader would weigh when judging a plan that counts on removals: the effects can be negative or positive, they differ by method, and they often depend heavily [S002@115158-115213]. None of this is in ALREADY. The second sentence of the finding only points to other Working Groups, so it is not added.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "2e00ab2b87c45f9e",
+   "origins": [
+    "S002-18"
+   ],
+   "on_page": "0d287e00086ba20d",
+   "after": "e2a00996491579e8",
+   "decided_at": "2026-10-29T12:35:33+00:00"
+  },
+  {
+   "key": "S003@430013-430266",
+   "source": "S003",
+   "held_sha256": "c343758b8cc0415cc4cb59f577bc91357693fcf5a658aec0507fa514efc2abdc",
+   "at": [
+    430013,
+    430266
+   ],
+   "quote_sha256": "fbb0a096aed72c3be3dab635828473256c61da350c7761ea177ad7d773064923",
+   "outcome": "ADD",
+   "element": "",
+   "reason": "Step 1: The finding bears on the near-term amount of removal from novel methods, which falls under the SCOPE's 'how much is removed now' and the question's 'now and in the decades ahead'. It is an aggregate across companies, so it is not one of the 'individual company or project claims' the SCOPE excludes. Step 2: The draft gives only the grounded 2030 estimate of 0.008 GtCO2 per year. It does not say that announced company ambitions are about five times larger, or that the source calls them speculative. This gap between ambition and pipeline is what a reader needs in order not to overestimate future removals.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "e3776ba619c814a0",
+   "origins": [
+    "S003-26"
+   ],
+   "on_page": "46b6087ffa79a414",
+   "after": "7353d504aae567ea",
+   "decided_at": "2026-10-29T12:35:41+00:00"
+  },
+  {
+   "key": "S003@446643-446826",
+   "source": "S003",
+   "held_sha256": "c343758b8cc0415cc4cb59f577bc91357693fcf5a658aec0507fa514efc2abdc",
+   "at": [
+    446643,
+    446826
+   ],
+   "quote_sha256": "67299a33fd2b63d17a11ee6769f936cf71cd719b2ebc69690728437753c2eb86",
+   "outcome": "ADD",
+   "element": "",
+   "reason": "Step 1: the finding is about what assessed pathways need from CDR by mid-century, which is squarely within the question and the scope. Step 2: the draft already says that net-zero scenarios [S003@17469-17509]. It also says novel CDR exceeds [S003@22521-22547]. It does not say that every Paris-consistent scenario grows conventional CDR, as well as novel [S003@446739-446765]. Nor does it give the stated purpose: limiting [S003@446783-446825]. That purpose is a distinct role for removal, and it narrows what a plan relying on removals must assume.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "9dd418f703d744f5",
+   "origins": [
+    "S003-27"
+   ],
+   "on_page": "a58381804940495d",
+   "after": "ffac97a7d74b02e0",
+   "decided_at": "2026-10-29T12:35:49+00:00"
+  },
+  {
+   "key": "S003@447637-447936",
+   "source": "S003",
+   "held_sha256": "c343758b8cc0415cc4cb59f577bc91357693fcf5a658aec0507fa514efc2abdc",
+   "at": [
+    447637,
+    447936
+   ],
+   "quote_sha256": "c9df319920d1aa251079d3113faca25d462ca703918668ae3fc0255f84906c2d",
+   "outcome": "ADD",
+   "element": "",
+   "reason": "Step 1: The finding is in scope. It concerns what assessed pathways need from CDR 'by mid-century and after' and the 'timing' risks the SCOPE names, which bears on the question's 'now and in the decades ahead'. Step 2: It is material. The draft already says delay increases the need for removals in general terms. This finding adds distinct outcomes the reader would weigh about a plan that counts on future removals: a ten-year delay raises peak warming by around 0.15°C, and it shifts CDR reliance from before 2050 to higher deployment after midcentury, which is needed to bring warming back to 1.5°C.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "d63ef80c157f8037",
+   "origins": [
+    "S003-24"
+   ],
+   "on_page": "5732e948acd7ce3e",
+   "after": "4a4b803b78c29bd6",
+   "decided_at": "2026-10-29T12:35:58+00:00"
+  },
+  {
+   "key": "S003@523272-523384",
+   "source": "S003",
+   "held_sha256": "c343758b8cc0415cc4cb59f577bc91357693fcf5a658aec0507fa514efc2abdc",
+   "at": [
+    523272,
+    523384
+   ],
+   "quote_sha256": "b9b6a653323efa48d1a3f08d99c96186f9a04d5983c264125cb690a0ea29bc3c",
+   "outcome": "ADD",
+   "element": "",
+   "reason": "Step 1: The finding is in scope. It gives the total removal that assessed pathways need by mid-century, which SCOPE covers under 'what assessed pathways to net zero need from it by mid-century and after.' Step 2: It is material. The draft states only the 2030 median (2.9 GtCO2), the size of the gaps and the novel-CDR figure for 2050 (over 3.5 GtCO2). It never gives the total need for 2035 (3.9) or 2050 (8.8), and the reader cannot work these out because the draft omits the pledge levels for those years. A reader judging how much removal a plan can count on would weigh the fact that the total need roughly triples from today's 2.2 GtCO2 by 2050.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "559d912890d6ae19",
+   "origins": [
+    "S003-28"
+   ],
+   "on_page": "941a350532f15d95",
+   "after": "b47fff0a1545764d",
+   "decided_at": "2026-10-29T12:36:06+00:00"
+  },
+  {
+   "key": "S004@100700-100858",
+   "source": "S004",
+   "held_sha256": "7ea69cb93bad3f72228d74234e697bdfbcde8acdbe540db7679e4a94d41e90be",
+   "at": [
+    100700,
+    100858
+   ],
+   "quote_sha256": "318d975554f5cb0a2f126233172cc5d132506e0d4c85936b16e46b586ba71bb0",
+   "outcome": "NOT_MATERIAL",
+   "element": "",
+   "reason": "Step 1 holds: peak warming depending on cumulative CO2 emissions up to net zero CO2 bears on the question of how removal fits with emission cuts in reaching net zero. Step 2 fails: ALREADY states this almost verbatim ('[S004@100700-100767] net zero CO2 (high confidence)'). The only part not yet stated is the clause on 'non-CO2 climate forcers', which falls under the SCOPE exclusion of non-CO2 greenhouse gases. Its practical point, that methane cuts lower peak warming and reduce [S004@101043-101081], is also already in the draft.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "ddb85a504198ffcb",
+   "origins": [
+    "S004-45"
+   ],
+   "on_page": null,
+   "after": null,
+   "decided_at": "2026-10-29T12:36:12+00:00"
+  },
+  {
+   "key": "S004@105553-105781",
+   "source": "S004",
+   "held_sha256": "7ea69cb93bad3f72228d74234e697bdfbcde8acdbe540db7679e4a94d41e90be",
+   "at": [
+    105553,
+    105781
+   ],
+   "quote_sha256": "7d5c565e63c2f8e9f5623ad2d3d457d1a3eff1197a6233b8329b0c8dd3f93822",
+   "outcome": "NOT_MATERIAL",
+   "element": "",
+   "reason": "Step 1: the finding bears on the question, since it is about what assessed pathways to net zero need alongside cutting emissions, with CDR counterbalancing residual emissions. Step 2: the draft already states this finding almost word for word, with the same high confidence: 'All the IPCC's [S004@105564-105667] it [S004@105676-105741] emission reductions in all sectors, with CDR deployed to counterbalance residual emissions (high confidence).' It adds nothing new for the reader.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "6a4e5d30213dab44",
+   "origins": [
+    "S004-37"
+   ],
+   "on_page": null,
+   "after": null,
+   "decided_at": "2026-10-29T12:36:15+00:00"
+  },
+  {
+   "key": "S004@110152-110456",
+   "source": "S004",
+   "held_sha256": "7ea69cb93bad3f72228d74234e697bdfbcde8acdbe540db7679e4a94d41e90be",
+   "at": [
+    110152,
+    110456
+   ],
+   "quote_sha256": "339b406d6e51ef0e355610207379cd423369e99b158af8b6da1d549cdb5994f5",
+   "outcome": "ADD",
+   "element": "",
+   "reason": "Step 1: The finding is in scope. The SCOPE covers 'what assessed pathways to net zero need from it by mid-century and after'. This finding gives the cumulative removal by method across 2020–2100 in 2°C pathways. Step 2: The finding is material. The draft gives cumulative 2020–2100 figures only for 1.5°C pathways. For 2°C pathways it gives only annual 2050 volumes. It nowhere gives the 2°C cumulative BECCS, DACCS and AFOLU amounts or total net negative emissions. These amounts show how much removal the less stringent pathways still count on, and that their total net-negative emissions are small, around 40 [0–290] GtCO2. That bears directly on a reader judging whether a plan overestimates future removals. The source marks this with high confidence, and the sentence keeps that.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "3871ff16376f945a",
+   "origins": [
+    "S004-38"
+   ],
+   "on_page": "cd7da7f1a5d6d3f6",
+   "after": "ca39a5fb51e810f2",
+   "decided_at": "2026-10-29T12:36:25+00:00"
+  },
+  {
+   "key": "S004@111150-111923",
+   "source": "S004",
+   "held_sha256": "7ea69cb93bad3f72228d74234e697bdfbcde8acdbe540db7679e4a94d41e90be",
+   "at": [
+    111150,
+    111923
+   ],
+   "quote_sha256": "7c540956e694d39ae441e0269ba2d4f545defbc2aacdccdff12fa760ca05891b",
+   "outcome": "ADD",
+   "element": "",
+   "reason": "Step 1: the finding is in scope. It concerns how much CDR the assessed pathways to net zero use and what CDR does, namely counterbalancing residual emissions versus producing net-negative emissions. Both fall within the SCOPE coverage. Step 2: the finding is material. The draft gives net negative figures, including the 20–400 GtCO2 land-sector figure, but none of the ALREADY items says that gross CDR deployment exceeds those net figures. None says land-sector CDR cannot be quantified precisely. None says total land CDR equals or exceeds the reported net negative emissions. These points qualify how the reader should read the draft's numbers. A reader worried about overestimating removals would weigh both the larger gross removal requirement and the imprecision of the land figures.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "93c31bade9a156b0",
+   "origins": [
+    "S004-41"
+   ],
+   "on_page": "d2428f626e372a85",
+   "after": "35024236429062a9",
+   "decided_at": "2026-10-29T12:36:39+00:00"
+  },
+  {
+   "key": "S004@143359-143550",
+   "source": "S004",
+   "held_sha256": "7ea69cb93bad3f72228d74234e697bdfbcde8acdbe540db7679e4a94d41e90be",
+   "at": [
+    143359,
+    143550
+   ],
+   "quote_sha256": "a959ddd2fb4b3c8a0479244c878f36b75a2d026a72d5ab38aa72e7467fee1866",
+   "outcome": "NOT_MATERIAL",
+   "element": "",
+   "reason": "Step 1: in scope. Land-sector removals and their limits bear on what part removal can play alongside cutting emissions. Step 2: not material. ALREADY states this finding almost verbatim: 'Land-sector [S004@143365-143438] [S004@143443-143549] (high confidence).' Adding it again would repeat the draft.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "85c97640a0faf711",
+   "origins": [
+    "S004-42"
+   ],
+   "on_page": null,
+   "after": null,
+   "decided_at": "2026-10-29T12:36:42+00:00"
+  },
+  {
+   "key": "S004@165843-166449",
+   "source": "S004",
+   "held_sha256": "7ea69cb93bad3f72228d74234e697bdfbcde8acdbe540db7679e4a94d41e90be",
+   "at": [
+    165843,
+    166449
+   ],
+   "quote_sha256": "7e2947f3d62c0af76ac193ea8518a024b8c4035c88d410b5a762fa0a3a62929a",
+   "outcome": "NOT_MATERIAL",
+   "element": "",
+   "reason": "Step 1 holds. The finding sets out the roles CDR plays alongside emission cuts in reaching net zero, which is exactly what THE QUESTION asks. Step 2 fails. ALREADY contains a near-verbatim statement of this finding: [S004@165843-165925] complementary roles (near-term lowering of net emissions, mid-term counterbalancing of hard-to-abate residual emissions, long-term net negative emissions if deployed above annual residual emissions), with high confidence. The ANCHOR shows that sentence already on the page, so adding it again would tell the reader nothing new.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "f768dc9af1f25b58",
+   "origins": [
+    "S004-35"
+   ],
+   "on_page": null,
+   "after": null,
+   "decided_at": "2026-10-29T12:36:45+00:00"
+  }
+ ]
+}

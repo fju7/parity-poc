@@ -3,13 +3,13 @@
   "belief": {
     "_note": "What the reader already believes, stated as they would state it. If you cannot write this sentence, there is nothing to correct and no subject -- which is how the tobacco-analogy candidate died.",
     "statement": "Removing carbon dioxide from the air, by planting trees or with direct air capture machines, can make up for a large share of today's emissions, so it is a real alternative to cutting emissions quickly.",
-    "how_we_know_they_believe_it": "Not yet checked: written at step 1 before any source was opened. To be filled with named coverage only after it has been read.",
+    "how_we_know_they_believe_it": "A Forestry Commission (UK) climate-change information pack (2010) reports a survey result: 49% of people thought that the UK could offset all its greenhouse gas emissions by planting more trees. Read by Claude Code from the PDF's text layer on 2026-10-29. Limit: one UK survey from about 2010; it measures the tree-planting form of the belief, not direct air capture, and nothing here shows how widely it is held today.",
     "carried_by": [
       {
-        "outlet": "",
-        "url": "",
-        "date": "",
-        "what_it_said": ""
+        "outlet": "Forestry Commission (UK), climate change key messages pack, section 1",
+        "url": "https://cdn.forestresearch.gov.uk/2010/05/fcms022_1_-_intro_and_key_messages.pdf",
+        "date": "2010-06",
+        "what_it_said": "Reports a survey finding that 49% of people thought the UK could offset all its greenhouse gas emissions by planting more trees (the pack reports the belief; it does not endorse it)."
       }
     ]
   },
@@ -35,12 +35,19 @@
   "reader_with_a_decision": "A policymaker, company sustainability lead or voter weighing a net-zero plan that counts on future removals: if removals are overestimated, the plan's cuts are too small and too late.",
   "public_record_check": {
     "_note": "NOT 'has anybody published this'. On any contested question, somebody has. The question is whether it has been carried WHERE THIS READER WOULD FIND IT. Run the counterexample hunter on the belief statement, not on the finding.",
-    "prior_art_found": [],
-    "carried_in_general_coverage": "",
-    "our_contribution": "translation, extension, or correction of the prior art -- say which"
+    "prior_art_found": [
+      {
+        "outlet": "Scientific American (reprinted from E&E News)",
+        "url": "https://www.scientificamerican.com/article/carbon-removal-unavoidable-as-climate-dangers-grow-new-ipcc-report-says/",
+        "date": "2022-04-05",
+        "what_it_said": "Reports that the IPCC's 2022 mitigation report calls some carbon removal necessary but says it cannot serve as a substitute for deep emissions reductions."
+      }
+    ],
+    "carried_in_general_coverage": "Partly. The IPCC's 2022 point that removal cannot substitute for deep cuts was carried in general science coverage (Scientific American, 5 April 2022), read by Claude Code from the article's HTML on 2026-10-29. We found no general coverage that puts the 2026 measured removal figures (2.2 GtCO2 per year in total, 0.002 for novel methods) beside what the assessed pathways use; not a full search.",
+    "our_contribution": "translation and extension: the IPCC's assessed role for removal set beside the 2026 measured figures, stating both where they differ"
   },
-  "sources_are_open": "",
-  "evidence_base_is_bounded": "",
+  "sources_are_open": "yes: IPCC reports are free to download under IPCC terms; the State of CDR report is CC BY 4.0",
+  "evidence_base_is_bounded": "yes: four assessments, named on the page; primary studies of individual methods not searched",
   "kill_condition": "The held assessments say that carbon dioxide removal already operates at a scale comparable to annual emissions, or that it can stand in for deep near-term emission cuts on the way to net zero; or they say it has no role in reaching net zero. Either finding would mean the belief is supported or the question has no answer worth giving.",
   "kill_condition_tested": {
     "_note": "Filled in AFTER going to look, by whoever looked.",
