@@ -36,6 +36,12 @@ Post-study runbook (process doc §4.5 + fix 3). Agent: Claude Code (session 3731
 | 7c re-audit 4 + consistency | 2026-10-29T14:57:34Z | 2026-10-29T15:01:15Z | $2.64 | 0 | 134 units: 91 holds, 32 HUMAN_READ_REQUIRED, 11 not a correction; no rulings, no cuts; all 32 person reads (D lines 29-55, H lines 68-72) copied into audit/20261029T145734Z/human_reads.jsonl, matching the 32 exactly |
 | 7d final narrow gate (run 3 of 3) + step 5 | 2026-10-29T15:01:53Z | 2026-10-29T15:02:14Z | metered below | 0 | estimate $0.75; PASSED (narrow), 0 findings, 0 rulings |
 | 6 conclusion judge + rulings | 2026-10-29T15:02:25Z | 2026-10-29T15:02:27Z | $0.00 | 0 | 0 judged, 2 kept, 0 flagged |
+| 8 commit | 2026-10-29T15:03Z | 2026-10-29T15:04Z | $0.00 | 0 | 2460ac0, pushed baaadb2..2460ac0 (page unchanged since f88c634) |
+| 9 changecheck --before a410bb4; ruling.py changecheck | 2026-10-29T15:04:48Z | 2026-10-29T15:05:40Z | $0.06 | 0 | 21 changed; 2 findings. NEW_AND_UNBOUND on the re-rendered 1.5 line (new key c684fa8c10e81d2f): left for a person by the ruling, recorded reject citing person_decisions.md:70 (Fred's E3 read: his F reasoning stands for any changecheck finding on that line). CONTRADICTION on the State of CDR Highest Ambition sentence: ruling model reject (source states the figures verbatim; 8.8 - 3.6 = 5.2), consistency re-run agrees |
+| 9a changecheck coverage | 2026-10-29T15:06:04Z | 2026-10-29T15:06:05Z | $0.00 | 0 | every changed sentence was read |
+| 2c canary; 10 publish.py check | 2026-10-29T15:06:18Z | 2026-10-29T15:08:26Z | $0.00 | 0 | canary ok (4 of 4); **Ready.** 77 ok, 0 STOP, 10 warn |
+| 11 private archive | 2026-10-29T15:08:53Z | 2026-10-29T15:09Z | $0.00 | 0 | 46 git-ignored files copied to ~/Projects/whu-study-private/WHU-Q1-04-whu-quarterly-r1-04/20261029T150853Z/; sha256 list in private_manifest.txt, verified against the copies |
+| FINISHED | | 2026-10-29T15:09Z | | | Ready. Metered spend on whu-quarterly-r1-04: see final ledger total in the session report |
 
 ## Process findings (recorded at Fred's instruction; not fixed during the round)
 
