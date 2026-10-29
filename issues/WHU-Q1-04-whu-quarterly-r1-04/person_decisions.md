@@ -24,3 +24,42 @@ Accepted by Fred Ugast, S001@19911-20193 out_of_scope: about food systems govern
 
 ## C. Closing the relevant C.4.1 judgement (added after the session's question)
 Accepted by Fred Ugast, S004@117838-120245 not_material: relevant, but its CDR point (CDR is needed to counterbalance residual emissions) is already stated on the page by the C.11 sentence on counterbalancing hard-to-abate residual emissions, so a second sentence would only repeat it; its energy-system detail is about cutting emissions; checked by Fred's advisor, stated in session
+
+## D. Protected sentences read (audit run 20261029T130053Z, page at fbe783d)
+Accepted by Fred Ugast, read 690a987faee25b0b holds: restates issue.json's question faithfully; checked by Fred's advisor, stated in session
+Accepted by Fred Ugast, read 7d416d3626b0d4a5 holds: matches sources.json, S001-S004 all held in full (WGIII Chapter 12 and SPM, WGI SPM, State of CDR third edition); checked by Fred's advisor, stated in session
+Accepted by Fred Ugast, read 083b04b5216cce18 holds: matches the run's record (four sources, no search for studies of individual methods); checked by Fred's advisor, stated in session
+Accepted by Fred Ugast, read ce751528b1752a64 holds: the standard readers'-list heading; checked by Fred's advisor, stated in session
+Accepted by Fred Ugast, read 72500213c589b5cd holds: accurate record of the declaration (figure label text); checked by Fred's advisor, stated in session
+Accepted by Fred Ugast, read ded8fe8ee7fc8494 holds: accurate record of the declaration (figure legend text); checked by Fred's advisor, stated in session
+Accepted by Fred Ugast, read a5fd9228cf38402c holds: accurate record of the declaration (C.3.4 divides emission cuts by sector); checked by Fred's advisor, stated in session
+Accepted by Fred Ugast, read 0001860da5ce694f holds: accurate record; capture at fossil and industrial sources is not removal from the air; checked by Fred's advisor, stated in session
+Accepted by Fred Ugast, read 069cc6c91bc229ff holds: accurate record; capture at fossil and industrial sources is not removal from the air; checked by Fred's advisor, stated in session
+Accepted by Fred Ugast, read ffc61218961b8c4d holds: accurate record (climate sensitivity); checked by Fred's advisor, stated in session
+Accepted by Fred Ugast, read 37711f1220ff0cc2 holds: accurate record (warming under current policies); checked by Fred's advisor, stated in session
+Accepted by Fred Ugast, read 16827a438bb71611 holds: accurate record (non-CO2 gases, outside the scope); checked by Fred's advisor, stated in session
+Accepted by Fred Ugast, read 67d3940e31d3dcf7 holds: accurate record (urban mitigation strategy); checked by Fred's advisor, stated in session
+Accepted by Fred Ugast, read 78a7491ba56d7cfa holds: accurate record (urban planning benefits); checked by Fred's advisor, stated in session
+Accepted by Fred Ugast, read db3b54dcf66cf81f holds: accurate record of Fred's earlier declaration; checked by Fred's advisor, stated in session
+Accepted by Fred Ugast, read 3615075e7d5e51ad holds: accurate record of Fred's earlier declaration; checked by Fred's advisor, stated in session
+Accepted by Fred Ugast, read adbca3381ca6ef1c holds: accurate record of Fred's earlier declaration; checked by Fred's advisor, stated in session
+Accepted by Fred Ugast, read 748e3eb191ff92b8 holds: accurate record of Fred's earlier declaration; checked by Fred's advisor, stated in session
+Accepted by Fred Ugast, read a798a5d78b2b74e1 holds: accurate record of Fred's earlier declaration; checked by Fred's advisor, stated in session
+Accepted by Fred Ugast, read d5ed0a9670fbe934 holds: accurate record of Fred's earlier declaration; checked by Fred's advisor, stated in session
+Accepted by Fred Ugast, read 0177f6edb9823ebe holds: accurate record of Fred's earlier declaration; checked by Fred's advisor, stated in session
+Accepted by Fred Ugast, read 801e98ad8c28419e holds: accurate record of Fred's earlier declaration; checked by Fred's advisor, stated in session
+Accepted by Fred Ugast, read 3828783aaa5a4bae holds: accurate record of Fred's earlier declaration; checked by Fred's advisor, stated in session
+Accepted by Fred Ugast, read a435b01893c8e4b3 holds: accurate record of Fred's earlier declaration; checked by Fred's advisor, stated in session
+Accepted by Fred Ugast, read 9fd9d5df1609509d holds: accurate record of Fred's earlier declaration; checked by Fred's advisor, stated in session
+Accepted by Fred Ugast, read 1a09c312d7549229 holds: accurate record of Fred's earlier declaration; checked by Fred's advisor, stated in session
+Accepted by Fred Ugast, read 285e08b001520fa0 holds: accurate record of Fred's C.4.1 declaration, though its reason is cut off mid-word on the page (a render defect, logged); checked by Fred's advisor, stated in session
+
+## E. Omission findings past the declaration budget (signed; four are already stated on the page)
+Accepted by Fred Ugast, S001@344567-344933 not_material: general background on pressures on ecosystems; it says nothing about carbon dioxide removal, and the page already carries this source's point on land and food trade-offs; checked by Fred's advisor, stated in session
+Accepted by Fred Ugast, S004@100700-100858 not_material: already stated on this page; its remaining clause on non-CO2 forcers is outside the scope; checked by Fred's advisor, stated in session
+Accepted by Fred Ugast, S004@105553-105781 not_material: already stated on this page; checked by Fred's advisor, stated in session
+Accepted by Fred Ugast, S004@143359-143550 not_material: already stated on this page; checked by Fred's advisor, stated in session
+Accepted by Fred Ugast, S004@165843-166449 not_material: already stated on this page; checked by Fred's advisor, stated in session
+
+## F. Changecheck finding
+Accepted by Fred Ugast, changecheck NEW_AND_UNBOUND 7a3064997d095f83 reject: the figure 1.5 sits inside the declared finding's verbatim quotation, which quotations.py checks against S004; checked by Fred's advisor, stated in session
