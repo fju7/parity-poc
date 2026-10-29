@@ -1,0 +1,102 @@
+{
+  "_what_this_is": "The entry gate, answered BEFORE drafting. The threshold question is whether a well-informed non-expert would confidently believe something the primary sources do not support.",
+  "belief": {
+    "_note": "What the reader already believes, stated as they would state it. If you cannot write this sentence, there is nothing to correct and no subject -- which is how the tobacco-analogy candidate died.",
+    "statement": "Programmes that help children and young people with disabilities in low- and middle-income countries into school and learning -- inclusive schooling, teacher training, assistive devices, community-based support, cash or material support -- are known to work, and the evidence says which kind works best.",
+    "how_we_know_they_believe_it": "Programme reporting and practitioner coverage that states these programmes work, found by web search on 2026-10-29 after step 1 (the belief statement itself was written before any source was opened). 'what_it_said' entries are paraphrases from a fetch tool's reading of each page, not quotations.",
+    "carried_by": [
+      {
+        "outlet": "Stanford Social Innovation Review",
+        "url": "https://ssir.org/articles/entry/equal-education-disabled-children",
+        "date": "2024 (Summer issue)",
+        "what_it_said": "Paraphrase (fetch tool's reading, not a quotation): 'No Disabled Child Left Behind' (Kateta) reports that a Sightsavers inclusive early-childhood education programme in Malawi raised enrolment of children with disabilities, on project-reported figures."
+      },
+      {
+        "outlet": "IDS Bulletin",
+        "url": "https://bulletin.ids.ac.uk/index.php/idsbo/article/view/3340",
+        "date": "2026-03-17",
+        "what_it_said": "Paraphrase (fetch tool's reading, not a quotation): 'What Works: Learning from Inclusive Education Projects Across Five Countries' concludes that affordable, scalable approaches can raise learning results for children with disabilities."
+      }
+    ]
+  },
+  "what_the_sources_show": {
+    "_note": "What the primary sources actually support, and which sources.",
+    "statement": "The most recent systematic review we hold (S001, searches to March 2022, 28 studies) found positive, often large effects of mostly individual-level skills interventions on literacy, numeracy, handwriting and cognitive skills, but rated all but one study low confidence, found no study measuring attendance, enrolment or completion, and did not rank the kinds of programme; the 2018 rapid evidence assessment (S003) found 'promising' evidence only for primary-school skills and said more evidence is needed before specific approaches can be recommended; the EdTech review (S004) found the evidence of efficacy weak.",
+    "sources": [
+      "S001",
+      "S003",
+      "S004"
+    ]
+  },
+  "direction": {
+    "_note": "CORRECTS, CONFIRMS or NARROWS. This field exists so the contrarianism guard can count. A publication whose answer is always CORRECTS is performing scepticism rather than assessing evidence, and is not to be trusted.",
+    "value": "narrows",
+    "_values": [
+      "corrects",
+      "confirms",
+      "narrows"
+    ]
+  },
+  "reader_with_a_decision": "An education ministry official, donor or NGO programme manager in a low- or middle-income country deciding which programme for children with disabilities to fund or scale; the cost of being wrong is money and school years spent on a programme that does not improve these children's education.",
+  "public_record_check": {
+    "_note": "NOT 'has anybody published this'. On any contested question, somebody has. The question is whether it has been carried WHERE THIS READER WOULD FIND IT. Run the counterexample hunter on the belief statement, not on the finding.",
+    "prior_art_found": [
+      "S001",
+      "S003",
+      "S004"
+    ],
+    "carried_in_general_coverage": "Not in the general coverage found: the two outlets above (SSIR 2024, IDS Bulletin 2026) carry programme results and do not report that the systematic reviews rate the evidence low confidence or that no study measured enrolment, attendance or completion. Checked by web search, 2026-10-29, by Claude Code; not an exhaustive search.",
+    "our_contribution": "translation: putting the systematic reviews' own confidence ratings and gaps beside the programme claims"
+  },
+  "sources_are_open": "S001, S002 CC BY (Europe PMC); S003 UK government publication; S004 CC BY repository copy. S005 (S002's corrigendum) not held: publisher terms.",
+  "evidence_base_is_bounded": "Yes: two systematic reviews, one rapid evidence assessment and one evidence and gap map from one research group, plus one EdTech review.",
+  "kill_condition": "No story if the held evidence shows that these programmes reliably improve education outcomes (enrolment, attendance, completion, learning) for children and young people with disabilities in low- and middle-income countries, measured in controlled evaluations, AND ranks the kinds of programme with stated certainty -- i.e. the sources support the belief as stated, so the answer only confirms it.",
+  "kill_condition_tested": {
+    "_note": "Filled in AFTER going to look, by whoever looked.",
+    "by": "Claude Code",
+    "on": "2026-10-29",
+    "result": "survived",
+    "note": "The held reviews do not show reliable improvement measured in controlled evaluations (S001: all but one study low confidence) and do not rank the kinds of programme (S001 6.2: more research is needed to understand which types of interventions are most efficacious). The kill condition was not met."
+  },
+  "lead_came_from": "WHU quarterly round 1 draw (issue.json _round_note); question worded by the round, not chosen by the drafter.",
+  "scope": {
+    "_note": "What the answer will and will not cover, written at step 1 BEFORE any source is opened, so scope cannot be fitted to the findings afterwards. An omission ruled OUT_OF_SCOPE, and a headline conclusion declared out of scope, must name the question's words or one of these entries (fix 2, docs/whu-fix2-omission-rulings-design.md section 2.4).",
+    "covers": "Programmes or interventions meant to improve education -- access, enrolment, attendance, retention, participation, completion or learning -- for children and young people with disabilities (any impairment type) in low- and middle-income countries; whether they improve those outcomes, and how the kinds of programme compare.",
+    "out": [
+      {
+        "what": "Evidence from high-income countries only",
+        "why": "the question names low- and middle-income countries"
+      },
+      {
+        "what": "Outcomes that are only health, functioning or rehabilitation, with no education outcome",
+        "why": "the question asks whether programmes improve education"
+      },
+      {
+        "what": "General education programmes not aimed at children and young people with disabilities and reporting no results for them",
+        "why": "the question asks about programmes meant to improve education for children and young people with disabilities"
+      },
+      {
+        "what": "Adults beyond young people",
+        "why": "the question names children and young people"
+      },
+      {
+        "what": "Cost and cost-effectiveness of programmes",
+        "why": "the question asks whether programmes work and which kinds work best, not what they cost"
+      }
+    ],
+    "by": "Claude Code",
+    "written_at": "2026-10-29T00:55:46Z"
+  },
+  "evidence_standard": {
+    "_note": "What kinds of evidence the answer will weigh, written at step 1 BEFORE any source is opened (post-study fix 3, docs/whu-fix3-evidence-standard.md). 'measured': outcomes measured in trials, cohorts, evaluations. 'assessed': expert assessments -- systematic-review conclusions, IPCC confidence-rated statements, guideline recommendations. When they differ, the page states both and drops neither.",
+    "weighs": [
+      "measured",
+      "assessed"
+    ],
+    "measured": "Education outcomes for children and young people with disabilities (enrolment, attendance, retention, completion, participation, learning or achievement) measured in randomised or non-randomised controlled evaluations; uncontrolled before-after studies only as such, stated as such.",
+    "assessed": "Systematic-review and evidence-gap-map conclusions, with their certainty (e.g. GRADE) or confidence terms; stated conclusions of UN, WHO, UNICEF or World Bank evidence assessments.",
+    "when_they_differ": "state both",
+    "by": "Claude Code",
+    "written_at": "2026-10-29T00:55:46Z"
+  }
+}

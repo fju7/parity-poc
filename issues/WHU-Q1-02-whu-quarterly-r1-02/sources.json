@@ -1,0 +1,126 @@
+{
+  "sources": [
+    {
+      "id": "S001",
+      "title": "Effectiveness of interventions for improving educational outcomes for people with disabilities in low- and middle-income countries: A systematic review",
+      "authors": "Hunt X, Saran A, White H, Kuper H",
+      "year": 2025,
+      "journal": "Campbell Systematic Reviews",
+      "doi": "10.1002/cl2.70016",
+      "pmid": "39917627",
+      "pmcid": "PMC11799928",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11799928/",
+      "type": "synthesis",
+      "licence": {
+        "note": "Europe PMC lists this article under CC BY (checked 2026-10-29 via the Europe PMC REST search API). Publisher (SAGE) copy not used: publisher-terms rule."
+      },
+      "access": {
+        "state": "full_text_held",
+        "held": {
+          "file": "docs/24/24587d9f8f9b68d1f6bbff588b3ea5a314d5b7e2555682e63c18a296ce8ed0ac.xml",
+          "sha256": "24587d9f8f9b68d1f6bbff588b3ea5a314d5b7e2555682e63c18a296ce8ed0ac",
+          "bytes": 395517,
+          "identified_by": "contains its identifier PMC11799928 — 165887 characters, reference list and discussion present; title present (10 of 12 title words in the visible text)",
+          "kind": "full_text",
+          "kind_why": "165887 characters, reference list and discussion present"
+        },
+        "on": "2026-10-29"
+      }
+    },
+    {
+      "id": "S002",
+      "title": "Evidence and gap map of studies assessing the effectiveness of interventions for people with disabilities in low- and middle-income countries",
+      "authors": "Saran A, White H, Kuper H",
+      "year": 2020,
+      "journal": "Campbell Systematic Reviews",
+      "doi": "10.1002/cl2.1070",
+      "pmid": "37131970",
+      "pmcid": "PMC8356326",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8356326/",
+      "type": "synthesis",
+      "licence": {
+        "note": "Europe PMC lists this article under CC BY (checked 2026-10-29 via the Europe PMC REST search API). Publisher copy not used: publisher-terms rule."
+      },
+      "access": {
+        "state": "full_text_held",
+        "held": {
+          "file": "docs/08/088ff6d71f68551e1fcc99687d33cfc34716cf17a325401d43d5996ed56139a3.xml",
+          "sha256": "088ff6d71f68551e1fcc99687d33cfc34716cf17a325401d43d5996ed56139a3",
+          "bytes": 379448,
+          "identified_by": "contains its identifier PMC8356326 — 157297 characters, reference list and discussion/introduction present; title present (8 of 10 title words in the visible text)",
+          "kind": "full_text",
+          "kind_why": "157297 characters, reference list and discussion/introduction present"
+        },
+        "on": "2026-10-29"
+      }
+    },
+    {
+      "id": "S003",
+      "title": "Rapid Evidence Assessment (REA) of what works to improve educational outcomes for people with disabilities in low- and middle-income countries",
+      "authors": "Kuper H, Saran A, White H",
+      "year": 2018,
+      "publisher": "International Centre for Evidence in Disability (LSHTM) and Campbell Collaboration, for the UK Department for International Development",
+      "url": "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/738206/Education_Rapid_Review_full_report.pdf",
+      "type": "synthesis",
+      "access": {
+        "state": "full_text_held",
+        "held": {
+          "file": "docs/ef/eff79be37a05932a1d99c2d3c1ec9db6daf9cda1c8190127394cbfc59d47c010.pdf",
+          "sha256": "eff79be37a05932a1d99c2d3c1ec9db6daf9cda1c8190127394cbfc59d47c010",
+          "bytes": 1238506,
+          "identified_by": "contains 12 of 12 distinctive title words — 130587 characters, reference list and discussion present; title present (12 of 12 title words in the visible text)",
+          "kind": "full_text",
+          "kind_why": "130587 characters, reference list and discussion present"
+        },
+        "on": "2026-10-29"
+      }
+    },
+    {
+      "id": "S004",
+      "title": "Educational technology for learners with disabilities in primary school settings in low- and middle-income countries: a systematic literature review",
+      "authors": "Lynch P, Singal N, Francis GA",
+      "year": 2022,
+      "journal": "Educational Review",
+      "doi": "10.1080/00131911.2022.2035685",
+      "url": "https://eprints.whiterose.ac.uk/id/eprint/185675/1/00131911.2022.pdf",
+      "type": "synthesis",
+      "licence": {
+        "note": "Institutional repository copy (White Rose eprints); Taylor & Francis, not a restricted publisher."
+      },
+      "access": {
+        "state": "full_text_held",
+        "held": {
+          "file": "docs/e6/e697c094155a2eea5016f81332f83877f9c11c19f3dc5144252b58732f7fdd09.pdf",
+          "sha256": "e697c094155a2eea5016f81332f83877f9c11c19f3dc5144252b58732f7fdd09",
+          "bytes": 1141067,
+          "identified_by": "contains 12 of 12 distinctive title words — 93136 characters, reference list and discussion/introduction present; title present (12 of 12 title words in the visible text)",
+          "kind": "full_text",
+          "kind_why": "93136 characters, reference list and discussion/introduction present"
+        },
+        "on": "2026-10-29"
+      }
+    },
+    {
+      "id": "S005",
+      "title": "Corrigendum (to Saran, White and Kuper 2020, Evidence and gap map of studies assessing the effectiveness of interventions for people with disabilities in low- and middle-income countries)",
+      "year": 2020,
+      "journal": "Campbell Systematic Reviews",
+      "doi": "10.1002/cl2.1104",
+      "pmid": "37133285",
+      "pmcid": "PMC8356339",
+      "type": "corrigendum",
+      "amends": "S002",
+      "url": "",
+      "licence_forbids_machine_reading": true,
+      "licence": {
+        "note": "Not held: publisher terms. Europe PMC lists no licence for PMC8356339 (isOpenAccess N); Crossref licence is onlinelibrary.wiley.com/termsAndConditions (publisher SAGE). Study rule after WHU-S05: no Wiley/SAGE copy is fetched, held, quoted or passed to a model unless Europe PMC lists it under CC. No repository copy found (web search 2026-10-29). Checked by Claude Code."
+      },
+      "access": {
+        "state": "blocked",
+        "on": "2026-10-29",
+        "by": "Claude Code",
+        "why": "publisher terms"
+      }
+    }
+  ]
+}
