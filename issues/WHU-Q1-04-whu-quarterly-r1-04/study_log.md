@@ -23,3 +23,8 @@ Post-study runbook (process doc §4.5 + fix 3). Agent: Claude Code (session 3731
 | 7c re-audit 2 | 2026-10-29T12:54:14Z | 2026-10-29T12:58:15Z | $3.39 | 0 | 1 amend (short-answer sentence: two assessments, 80% scope); 1 FAILED_READ (source-list title). Applied word for word; judgement premises re-pointed to the new wording |
 | 7c re-audit 3 + consistency | 2026-10-29T13:00:53Z | 2026-10-29T13:04:28Z | $2.63 | 0 | 91 holds, 32 HUMAN_READ_REQUIRED, 11 not a correction; no rulings or cuts |
 | 7d final narrow gate (run 2 of 3) + step 5 | 2026-10-29T13:04:54Z | 2026-10-29T13:05:01Z | $0.00 metered | 0 | estimate $0.29; PASSED, 0 findings, 0 rulings |
+| 8 commit | 2026-10-29T13:05Z | 2026-10-29T13:06Z | $0.00 | 0 | fbe783d, pushed 0987b86..fbe783d |
+| 9 changecheck --before a410bb4; ruling.py changecheck; 9a coverage | 2026-10-29T13:07:31Z | 2026-10-29T13:07:59Z | $0.04 | 0 | 21 changed sentences; 1 finding NEW_AND_UNBOUND on a readers'-list line (protected): left for a person. 9a: every changed sentence read |
+| 6 again (conclusion judge after the short answer changed) | 2026-10-29T13:10:23Z | 2026-10-29T13:10:28Z | $0.00 | 0 | 1 judged, 1 kept, 0 flagged, 0 rulings |
+| 10 publish.py check | 2026-10-29T13:09Z | 2026-10-29T13:11:31Z | $0.00 | 0 | 73 ok; STOP: audit complete (32 sentences need a person's read), declared findings shown to readers (5 omission NOT_MATERIAL past the budget), changed sentences reviewed (1 finding on a protected line). All three need Fred. |
+| STOP for a person (round 2) | 2026-10-29T13:11:31Z | | | | items listed in Q1-04-for-fred-2.md (briefs folder) |
