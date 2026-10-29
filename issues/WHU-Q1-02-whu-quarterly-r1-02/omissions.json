@@ -1,0 +1,244 @@
+{
+ "omissions": [
+  {
+   "key": "S001@-",
+   "source": "S001",
+   "held_sha256": null,
+   "at": null,
+   "quote_sha256": null,
+   "outcome": "NOT_IN_SOURCE",
+   "element": "",
+   "reason": "the quotation is not in the held text of S001",
+   "by": "code (omissions.precheck)",
+   "ruling": null,
+   "origins": [
+    "S001-07"
+   ],
+   "on_page": null,
+   "after": null,
+   "decided_at": "2026-10-29T01:24:37+00:00"
+  },
+  {
+   "key": "S002@-",
+   "source": "S002",
+   "held_sha256": null,
+   "at": null,
+   "quote_sha256": null,
+   "outcome": "NOT_IN_SOURCE",
+   "element": "",
+   "reason": "the quotation is not in the held text of S002",
+   "by": "code (omissions.precheck)",
+   "ruling": null,
+   "origins": [
+    "S002-13"
+   ],
+   "on_page": null,
+   "after": null,
+   "decided_at": "2026-10-29T01:24:37+00:00"
+  },
+  {
+   "key": "S003@-",
+   "source": "S003",
+   "held_sha256": null,
+   "at": null,
+   "quote_sha256": null,
+   "outcome": "NOT_IN_SOURCE",
+   "element": "",
+   "reason": "the quotation is not in the held text of S003",
+   "by": "code (omissions.precheck)",
+   "ruling": null,
+   "origins": [
+    "S003-23"
+   ],
+   "on_page": null,
+   "after": null,
+   "decided_at": "2026-10-29T01:24:37+00:00"
+  },
+  {
+   "key": "S004@-",
+   "source": "S004",
+   "held_sha256": null,
+   "at": null,
+   "quote_sha256": null,
+   "outcome": "NOT_IN_SOURCE",
+   "element": "",
+   "reason": "the quotation is not in the held text of S004",
+   "by": "code (omissions.precheck)",
+   "ruling": null,
+   "origins": [
+    "S004-25"
+   ],
+   "on_page": null,
+   "after": null,
+   "decided_at": "2026-10-29T01:24:37+00:00"
+  },
+  {
+   "key": "S001@115958-116398",
+   "source": "S001",
+   "held_sha256": "49a9070d96d82aae61e741291fdd906e8ee5a8a829aa4a495fc2806fb0977ee6",
+   "at": [
+    115958,
+    116398
+   ],
+   "quote_sha256": "0564ae8797648d4aa8f5262fa81566c4c3a398d37b770bba4ee2aa2737c41496",
+   "outcome": "ADD",
+   "element": "",
+   "reason": "Step 1: The finding concerns effects of programmes on conditions [S001@24596-24642] education [S001@163740-163774], so it bears directly on whether programmes work. Step 2: The draft already states the moderate effect and the teacher-knowledge result. It also gives a general note on heterogeneity and bias across studies, and a low-study-number caveat only for the skills-for-learning effects. It never says that the inclusion-conditions effect itself carries large heterogeneity, potential publication bias and, above all, rests [S001@7384-7410]. That caveat qualifies how far a funder can rely on the moderate effect, so it is material.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "4d6d200565a1df39",
+   "origins": [
+    "S001-08"
+   ],
+   "on_page": "3ff4f9bb5c28a569",
+   "after": "d0a152f950e9ae5a",
+   "decided_at": "2026-10-29T01:24:46+00:00"
+  },
+  {
+   "key": "S002@4924-5130",
+   "source": "S002",
+   "held_sha256": "8cbf8790921f4a9c11883fea483c2b964d9f4032366dcdf642876b3c0ffdb5a2",
+   "at": [
+    4924,
+    5130
+   ],
+   "quote_sha256": "bc43a9eee7ee4df2190f520f1f7068597da3c9eb6c8d748072e03ca7f70a0359",
+   "outcome": "ADD",
+   "element": "",
+   "reason": "Step 1: The question asks whether programmes work [S002@86991-87025]. A finding on how the impact evaluations are spread across income groups within those countries bears on how well that question can be answered. No wording in the question or scope excludes it. The counts cover the whole map, which is mostly health, so the sentence says they are not education-only. Step 2: An official or donor in a low-income country would weigh that only 9 impact evaluations come from low-income countries and over half from upper-middle-income ones. This qualifies how far the evidence applies to their setting. The draft states only the map's study totals, not this distribution.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "789bd3b62ecd7941",
+   "origins": [
+    "S002-14"
+   ],
+   "on_page": "5f0f7edc7e6336d7",
+   "after": "185eaa85fd54be16",
+   "decided_at": "2026-10-29T01:24:55+00:00"
+  },
+  {
+   "key": "S002@9508-9895",
+   "source": "S002",
+   "held_sha256": "8cbf8790921f4a9c11883fea483c2b964d9f4032366dcdf642876b3c0ffdb5a2",
+   "at": [
+    9508,
+    9895
+   ],
+   "quote_sha256": "e239109023d2b1f0bff80c857dec53f2acd25ee569cf0c94bdca5fd952b14305",
+   "outcome": "ADD",
+   "element": "",
+   "reason": "Step 1: it describes what kinds [S002@190-238] low- and middle-income countries have been studied, including school readiness to include learners. That bears on 'which kinds work best', and no scope exclusion applies. Step 2: it narrows the answer. Evidence mostly covers person-focused interventions and little covers structural, school-level ones. A funder choosing between programme types would weigh that gap. The draft does not state it; only the study count and non-findings appear from this source. The hedge 'appears to be' is kept, and the sentence frames the point as covering the whole map, not education alone.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "77f605a9db6162e2",
+   "origins": [
+    "S002-15"
+   ],
+   "on_page": "b8fa91a37ced72dc",
+   "after": "185eaa85fd54be16",
+   "decided_at": "2026-10-29T01:25:05+00:00"
+  },
+  {
+   "key": "S002@75969-76101",
+   "source": "S002",
+   "held_sha256": "8cbf8790921f4a9c11883fea483c2b964d9f4032366dcdf642876b3c0ffdb5a2",
+   "at": [
+    75969,
+    76101
+   ],
+   "quote_sha256": "12c73cfed848756db6852fd3f012b0cedb5eee4d8df2fae68f55a650f7a0f1a6",
+   "outcome": "ADD",
+   "element": "",
+   "reason": "Step 1: the finding describes the evidence base on education interventions for children with [S002@116538-116585], which is what the question asks about. Step 2: the draft reports that 40 of the map's studies are in education. This finding qualifies that figure: most of those studies do not address participation in formal education. A reader deciding what to fund would weigh that, because it shows how thin the evidence on formal schooling outcomes is. The draft does not already state it.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "faedad22318354aa",
+   "origins": [
+    "S002-12"
+   ],
+   "on_page": "0a3e544d32650422",
+   "after": "185eaa85fd54be16",
+   "decided_at": "2026-10-29T01:25:10+00:00"
+  },
+  {
+   "key": "S003@143-358",
+   "source": "S003",
+   "held_sha256": "177d4daf7d722d7682eb6f3d4a98f63339d25eafa9502364f7febd58b9826d3b",
+   "at": [
+    143,
+    358
+   ],
+   "quote_sha256": "30e68b1f908852dacb741b35db8431c67cb95296508564e68ab0fce3c3c86658",
+   "outcome": "NOT_MATERIAL",
+   "element": "",
+   "reason": "Step 1: the quotation is the author and contributor list of a source that assesses [S003@35-142], so it relates to the question as worded and no question or scope words exclude it. Step 2: it is not a finding. It does not answer, narrow or qualify whether programmes work or which kinds work best, and it adds no outcome. The draft already credits the lead authors (Kuper H, Saran A, White H), and the list of supporting contributors would not change the reader's funding decision.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "419565c4b885a53f",
+   "origins": [
+    "S003-21"
+   ],
+   "on_page": null,
+   "after": null,
+   "decided_at": "2026-10-29T01:25:13+00:00"
+  },
+  {
+   "key": "S003@62994-63203",
+   "source": "S003",
+   "held_sha256": "177d4daf7d722d7682eb6f3d4a98f63339d25eafa9502364f7febd58b9826d3b",
+   "at": [
+    62994,
+    63203
+   ],
+   "quote_sha256": "bb42eed35fa2e4319e6b728243e0a712e981755270a21ea9f55b886b84b6ff34",
+   "outcome": "ADD",
+   "element": "",
+   "reason": "Step 1: The finding reports learning-skill outcomes of early-intervention programmes for children with disabilities (autism, intellectual impairment) in middle-income countries. That bears directly on whether such programmes improve education. No scope exclusion applies. Step 2: The draft states only that early-intervention evidence is insufficient or limited. It does not say which way the results pointed, and it gives a direction only for primary education. Mostly positive results, with one null study, qualify the answer for this category. A funder weighing early intervention would consider that. The sentence keeps the source's insufficiency judgement, so the finding is not overstated.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "8a148438b41e287d",
+   "origins": [
+    "S003-18"
+   ],
+   "on_page": "06a6c26bc3f147ad",
+   "after": "e367565380f5da96",
+   "decided_at": "2026-10-29T01:25:21+00:00"
+  },
+  {
+   "key": "S003@86642-86775",
+   "source": "S003",
+   "held_sha256": "177d4daf7d722d7682eb6f3d4a98f63339d25eafa9502364f7febd58b9826d3b",
+   "at": [
+    86642,
+    86775
+   ],
+   "quote_sha256": "ab5953df9d04058c6ec1a3296e6ba368e53a7e6c4a5b2e6249ada8c803ada7ec",
+   "outcome": "ADD",
+   "element": "",
+   "reason": "Step 1: the finding concerns which kinds of programme for children [S003@89-142] have been evaluated for education outcomes, which bears on 'which kinds work best'. Step 2: the draft already gives the school-level count (two studies) but not that system-level changes such as policy have no evidence at all. A funder weighing a policy or system reform needs to know there is no evidence on its effect, so this narrows the answer.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "c7e3f1fd3795886e",
+   "origins": [
+    "S003-22"
+   ],
+   "on_page": "fb1ce885e26f29f6",
+   "after": "ee4dcc0547903172",
+   "decided_at": "2026-10-29T01:25:29+00:00"
+  },
+  {
+   "key": "S004@57025-57295",
+   "source": "S004",
+   "held_sha256": "08ee57c7fd108760e486b3e8c5fb25ad3f38891fdbb8daded40c284caab372ae",
+   "at": [
+    57025,
+    57295
+   ],
+   "quote_sha256": "ab89063d9cd01c3e8e7fb871a13b698186bb69cdfcd9d034ed8c6183a11c10ac",
+   "outcome": "ADD",
+   "element": "",
+   "reason": "Step 1: the finding concerns how far EdTech studies for children [S004@3590-3643] measured education outcomes, including participation within school settings, which the scope lists. That bears directly on whether these programmes work. Step 2: the draft says only that evidence of efficacy is weak. This finding narrows that answer in a distinct way: studies mostly looked at entry into learning and largely did not examine effects on engagement, independence or participation in school. A funder would need to know that these outcomes are essentially untested before scaling EdTech.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "720ae2503677db04",
+   "origins": [
+    "S004-26"
+   ],
+   "on_page": "b5022c8bd8f40d1b",
+   "after": "e92f98830ba2ffa2",
+   "decided_at": "2026-10-29T01:25:36+00:00"
+  }
+ ]
+}

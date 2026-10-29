@@ -26,7 +26,13 @@
         },
         "on": "2026-10-29"
       },
-      "document_class": "document"
+      "document_class": "document",
+      "also_called": [
+        "2025 systematic review",
+        "2025 review",
+        "Hunt and colleagues"
+      ],
+      "used_for": "the main answer: what the most recent systematic review found, its confidence ratings and conclusions"
     },
     {
       "id": "S002",
@@ -54,7 +60,13 @@
         },
         "on": "2026-10-29"
       },
-      "document_class": "document"
+      "document_class": "document",
+      "also_called": [
+        "Evidence and gap map of studies assessing the effectiveness ",
+        "evidence and gap map",
+        "the map"
+      ],
+      "used_for": "the count of education studies among interventions for people with disabilities, and two ADDs on the framing and reach of that evidence"
     },
     {
       "id": "S003",
@@ -76,7 +88,14 @@
         },
         "on": "2026-10-29"
       },
-      "document_class": "document"
+      "document_class": "document",
+      "also_called": [
+        "Rapid Evidence Assessment (REA) of what works to improve edu",
+        "rapid evidence assessment",
+        "2018 assessment",
+        "the assessment"
+      ],
+      "used_for": "the earlier 2018 assessment's evidence ratings by stage of education and its conclusion"
     },
     {
       "id": "S004",
@@ -102,7 +121,13 @@
         },
         "on": "2026-10-29"
       },
-      "document_class": "document"
+      "document_class": "document",
+      "also_called": [
+        "educational technology review",
+        "2022 educational technology review",
+        "EdTech"
+      ],
+      "used_for": "the narrower review of educational technology for primary-school learners with disabilities"
     },
     {
       "id": "S005",
@@ -125,7 +150,12 @@
         "by": "Claude Code",
         "why": "publisher terms"
       },
-      "document_class": "document"
+      "document_class": "document",
+      "also_called": [
+        "2020 correction",
+        "correction to the evidence and gap map"
+      ],
+      "used_for": "named on the page as not obtained (publisher terms)"
     }
   ]
 }
