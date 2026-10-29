@@ -1,0 +1,73 @@
+{
+  "sources": [
+    {
+      "id": "S001",
+      "type": "synthesis",
+      "form": "article",
+      "title": "Digital tracking, provider decision support systems, and targeted client communication via mobile devices to improve primary health care",
+      "citation": "Cochrane Database of Systematic Reviews 2025, CD012925.pub2. PMID 40193137, PMCID PMC11975193.",
+      "doi": "10.1002/14651858.cd012925.pub2",
+      "pmid": "40193137",
+      "pmcid": "PMC11975193",
+      "url": "https://europepmc.org/article/PMC/PMC11975193",
+      "licence": {
+        "note": "Europe PMC lists this article under CC BY-NC (search API, 2026-10-29). Publisher terms rule: Cochrane is a Wiley imprint, so only the Europe PMC CC copy is used; no cochranelibrary.com copy is fetched.",
+        "checked_by": "Claude Code",
+        "on": "2026-10-29"
+      },
+      "why": "The systematic review whose scope matches the question: mobile-device digital tracking combined with provider decision support and/or targeted client communication in primary health care.",
+      "access": {
+        "state": "full_text_held",
+        "held": {
+          "file": "docs/d7/d7e75af2910b5220d74c87d89e1dd526e979f711e1670b1ccc1afd7377dc699e.xml",
+          "sha256": "d7e75af2910b5220d74c87d89e1dd526e979f711e1670b1ccc1afd7377dc699e",
+          "bytes": 1164109,
+          "identified_by": "contains its identifier PMC11975193 — 536898 characters, reference list and discussion/introduction present; title present (12 of 12 title words in the visible text)",
+          "kind": "full_text",
+          "kind_why": "536898 characters, reference list and discussion/introduction present"
+        },
+        "on": "2026-10-29"
+      },
+      "document_class": "document",
+      "also_called": [
+        "Cochrane systematic review",
+        "the review"
+      ],
+      "used_for": "The page's account of the measured evidence: the included studies, each comparison's graded results and the authors' conclusions."
+    },
+    {
+      "id": "S002",
+      "type": "guideline",
+      "form": "article",
+      "title": "WHO guideline: recommendations on digital interventions for health system strengthening",
+      "citation": "World Health Organization, Geneva, 2019. ISBN 9789241550505. PMID 31162915.",
+      "pmid": "31162915",
+      "url": "https://iris.who.int/server/api/core/bitstreams/c3c53f30-23cc-48d0-a3b5-c05ddd7f5349/content",
+      "licence": {
+        "note": "WHO publication, CC BY-NC-SA 3.0 IGO as stated in WHO guideline front matter (to be confirmed in the held copy). Download link taken from https://www.who.int/publications/i/item/9789241550505.",
+        "checked_by": "Claude Code",
+        "on": "2026-10-29"
+      },
+      "why": "The WHO guideline that makes recommendations on digital tracking combined with decision support and targeted client communication; the assessed (guideline) side of the evidence standard.",
+      "access": {
+        "state": "full_text_held",
+        "held": {
+          "file": "docs/31/3107aecff8b84c84e07491361a451e4693102c79cc61697344c11b45365a62c5.pdf",
+          "sha256": "3107aecff8b84c84e07491361a451e4693102c79cc61697344c11b45365a62c5",
+          "bytes": 1820258,
+          "identified_by": "contains 7 of 7 distinctive title words — 349238 characters, reference list and discussion/introduction present; title present (7 of 7 title words in the visible text)",
+          "kind": "full_text",
+          "kind_why": "349238 characters, reference list and discussion/introduction present"
+        },
+        "on": "2026-10-29"
+      },
+      "document_class": "document",
+      "also_called": [
+        "World Health Organization guideline",
+        "the guideline",
+        "WHO"
+      ],
+      "used_for": "The page's account of WHO's recommendations 8 and 9, their conditions, and the guideline's certainty rating."
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "_what_this_is": "For every source, whether its bibliographic record names a correction, erratum, retraction or expression of concern -- and, when the lookup failed, that it failed. 'checked, none' and 'could not check' are different states and this file never merges them.",
+  "checked": {
+    "S001": {
+      "source": "S001",
+      "title": "Digital tracking, provider decision support systems, and targeted client communication via mobile devices to improve pri",
+      "checked_on": "2026-10-28",
+      "identifier": "PMCID PMC11975193",
+      "identifier_from": "the source URL",
+      "resolved_title": "Digital tracking, provider decision support systems, and targeted client communication via mobile devices to improve primary health care.",
+      "identity": "resolved title shares 15 word(s) with ours: care, client, communication, decision, devices, digital, health, improve, mobile",
+      "amendments": [],
+      "comments": [],
+      "state": "CLEAN",
+      "why": "matched on PMCID PMC11975193"
+    },
+    "S002": {
+      "source": "S002",
+      "title": "WHO guideline: recommendations on digital interventions for health system strengthening",
+      "checked_on": "2026-10-28",
+      "state": "NOT_APPLICABLE",
+      "why": "type 'guideline' is not a journal article; it has versions, not errata, and B11 covers those",
+      "amendments": [],
+      "comments": []
+    }
+  }
+}

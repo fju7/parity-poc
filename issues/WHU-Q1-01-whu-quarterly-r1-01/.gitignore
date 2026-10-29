@@ -1,0 +1,15 @@
+# Mirrors the root .gitignore's study-issue block (WHU-P*, WHU-S*), which does not
+# match WHU-Q*: audit and ruling logs, and every file that quotes source passages,
+# are never committed for this quarterly-round issue. They are archived privately;
+# only a sha256 manifest (private_manifest.txt) is committed. Added 2026-10-29 by
+# Claude Code, drafting session for WHU-Q1-01; the root .gitignore is unchanged.
+audit/
+rulings/
+export/
+advocate/
+bindings.json
+gate-findings.json
+quotations.json
+conclusion-review.json
+change-reviews.json
+draft/*.gate.json*

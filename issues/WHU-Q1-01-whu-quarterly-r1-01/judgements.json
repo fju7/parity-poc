@@ -1,0 +1,38 @@
+{
+ "candidates": {
+  "S001@9577-9767": {
+   "source": "S001",
+   "at": [
+    9577,
+    9767
+   ],
+   "section": "abstract conclusions",
+   "kind": "review",
+   "text_sha256": "d93ccad66192381d45e84090fb471b10cb311a4caaa7cc6f6ba8e5fe25337e84",
+   "relevant": true,
+   "words": "keep track of the care each patient gets … improve the care people receive and their health",
+   "reason": "The judgement directly assesses whether digital tracking in primary care improves health workers' adherence to recommended practice, service use and patient health outcomes, which are the question's intervention and outcomes.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "c02439a0e7478387",
+   "to_person": false,
+   "decided_at": "2026-10-29T00:14:10+00:00"
+  },
+  "S001@9768-9852": {
+   "source": "S001",
+   "at": [
+    9768,
+    9852
+   ],
+   "section": "abstract conclusions",
+   "kind": "review",
+   "text_sha256": "eae1e356dbee419ae148d057a923cd767749b8a128f71909a6f0dcb4e786a891",
+   "relevant": true,
+   "words": "improve the care people receive and their health",
+   "reason": "The judgement says whether the source's interventions produced outcome differences, which bears directly on whether the evidence shows improved care and health, though the sentence alone does not identify the interventions.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "e87eb5a32a9b9572",
+   "to_person": false,
+   "decided_at": "2026-10-29T00:14:14+00:00"
+  }
+ }
+}

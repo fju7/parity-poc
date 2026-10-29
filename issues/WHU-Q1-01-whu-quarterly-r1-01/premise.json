@@ -1,0 +1,92 @@
+{
+  "_what_this_is": "The entry gate, answered BEFORE drafting. The threshold question is whether a well-informed non-expert would confidently believe something the primary sources do not support.",
+  "belief": {
+    "_note": "What the reader already believes, stated as they would state it. If you cannot write this sentence, there is nothing to correct and no subject -- which is how the tobacco-analogy candidate died.",
+    "statement": "Giving primary health care workers mobile phones or tablets to track each patient's care, with on-screen prompts and text-message reminders to patients, makes care better and makes people healthier.",
+    "how_we_know_they_believe_it": "WHO's own announcement of its 2019 digital health guideline presented mobile digital tools as vital tools for universal health coverage; this is the framing a programme planner meets.",
+    "carried_by": [
+      {
+        "outlet": "World Health Organization news release",
+        "url": "https://www.who.int/news/item/17-04-2019-who-releases-first-guideline-on-digital-health-interventions",
+        "date": "2019-04-17",
+        "what_it_said": "Headline: 'WHO releases first guideline on digital health interventions'; quotes the Director-General that digital technologies are 'vital tools to promote health, keep the world safe, and serve the vulnerable'."
+      }
+    ]
+  },
+  "what_the_sources_show": {
+    "statement": "The 2025 Cochrane review (18 studies, searched to November 2022) finds mostly low- or very-low-certainty evidence: some small improvements in health workers following recommended practice, record quality and a few health outcomes, but small or no differences in most studies. WHO's 2019 guideline recommends these combinations only in specific contexts or conditions.",
+    "sources": [
+      "S001",
+      "S002"
+    ]
+  },
+  "direction": {
+    "_note": "CORRECTS, CONFIRMS or NARROWS. This field exists so the contrarianism guard can count. A publication whose answer is always CORRECTS is performing scepticism rather than assessing evidence, and is not to be trusted.",
+    "value": "narrows",
+    "_values": [
+      "corrects",
+      "confirms",
+      "narrows"
+    ]
+  },
+  "reader_with_a_decision": "A primary-care programme manager or ministry of health planner deciding whether to fund mobile-device tracking with decision support and patient reminders for community and primary health workers, at the cost of devices, training and maintenance that compete with other primary-care spending.",
+  "public_record_check": {
+    "_note": "NOT 'has anybody published this'. On any contested question, somebody has. The question is whether it has been carried WHERE THIS READER WOULD FIND IT. Run the counterexample hunter on the belief statement, not on the finding.",
+    "prior_art_found": [
+      "S001 (Cochrane review, 2025) and S002 (WHO guideline, 2019) are the prior art; both are open access."
+    ],
+    "carried_in_general_coverage": "The Cochrane review's mixed result is stated in its own plain language summary; we did not find it carried in general news coverage, but we searched only Europe PMC and WHO's site.",
+    "our_contribution": "translation: a plain statement of what the review and the guideline found, with each finding's certainty, for a planner who will not read either."
+  },
+  "sources_are_open": "Yes: S001 is CC BY-NC (Europe PMC copy); S002 is a free WHO publication.",
+  "evidence_base_is_bounded": "Yes: one Cochrane review of 18 studies and one WHO guideline.",
+  "kill_condition": "No story if the held evidence shows clear, consistent improvement in both the care delivered and people's health for tracking combined with prompts and/or patient reminders, at a certainty a reader could rely on; or if the reader does not hold the belief. The answer narrows if the evidence shows improvement in some care-delivery outcomes but little or uncertain change in health outcomes, or effects that vary by component.",
+  "kill_condition_tested": {
+    "_note": "Filled in AFTER going to look, by whoever looked.",
+    "by": "Claude Code",
+    "on": "2026-10-29",
+    "result": "narrowed",
+    "_result_values": [
+      "survived",
+      "narrowed",
+      "killed"
+    ],
+    "note": "S001 reports small or no differences in most studies and mostly low or very low certainty, so the belief that these tools improve care and health is narrowed, not confirmed or killed."
+  },
+  "lead_came_from": "WHU quarterly round 1 draw (issue.json _round_note).",
+  "scope": {
+    "covers": "Primary health care settings in any country; digital tracking of each patient's care on mobile phones or tablets, combined with decision support prompts for health workers, reminder or other targeted messages to patients, or both; outcomes are the care people receive (e.g. services received on time, adherence to guidelines, follow-up) and health outcomes (e.g. illness, death, health status), plus unwanted effects where reported.",
+    "out": [
+      {
+        "what": "Digital tools used only in hospitals or specialist inpatient care",
+        "why": "The question names primary health care."
+      },
+      {
+        "what": "Desktop-only electronic health records or clinic computer systems not delivered on mobile phones or tablets",
+        "why": "The question names mobile phones or tablets."
+      },
+      {
+        "what": "Patient reminder messages or decision support used alone, without digital tracking of each patient's care",
+        "why": "The question asks about tracking together with prompts, reminders or both."
+      },
+      {
+        "what": "Costs, cost-effectiveness and implementation barriers as primary outcomes",
+        "why": "The question asks whether care and health improve, not what it costs or how it is rolled out."
+      }
+    ],
+    "by": "Claude Code",
+    "written_at": "2026-10-29T00:04:40Z"
+  },
+  "evidence_standard": {
+    "_note": "What kinds of evidence the answer will weigh, written at step 1 BEFORE any source is opened (post-study fix 3, docs/whu-fix3-evidence-standard.md). 'measured': outcomes measured in trials, cohorts, evaluations. 'assessed': expert assessments -- systematic-review conclusions, IPCC confidence-rated statements, guideline recommendations. When they differ, the page states both and drops neither.",
+    "weighs": [
+      "measured",
+      "assessed"
+    ],
+    "measured": "Outcomes measured in randomised trials (individual or cluster) and, where trials are absent, controlled before-after or interrupted time series evaluations in primary care, comparing digital tracking plus prompts and/or patient reminders with usual care (paper records or no digital tracking).",
+    "assessed": "Systematic-review conclusions and their certainty-of-evidence ratings (GRADE), and WHO guideline recommendations on digital tracking, decision support and targeted client communication.",
+    "when_they_differ": "state both",
+    "by": "Claude Code",
+    "written_at": "2026-10-29T00:04:40Z"
+  }
+}
