@@ -119,3 +119,7 @@ issues/*/advocate/runs/
 
 # WHU check preview operator log (time, counts, cost, input sha256; never committed)
 backend/data/whu_check/
+
+# WHU validity phase, seeded-defect copies (study/whu-reliability/next_phase/validity_plan.md §9):
+# whole case folders, never committed; archived privately and deleted after the runs.
+issues/WHU-SD-*/
