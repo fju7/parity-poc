@@ -350,3 +350,11 @@ Fred says so.
 
 **10.12 Out of scope for this pilot: a public launch.** Before one: a durable spend cap (not the
 per-instance ledger; see the KNOWN LIMIT in CLAUDE.md), per-visitor limits, and the validity checks.
+
+**10.13 Implementation notes (written with the code, before the estimate or any run).** Two readings of
+§10.3 step 2 that the text left open, both taken the cautious way: (1) a page carrying a `citation_doi`
+that its title does not confirm is still a journal page; its licence cannot be read, so it is not used
+("publisher copy without licence"), not read as a web page under (c). (2) The Crossref title lookup is
+made only when the cited page itself could not be read; a page that was read and names no DOI is a web
+page under (c), so a loose title match (v2 gave a UN report a journal's DOI) cannot turn it into a
+journal work. Headless rendering is Playwright 1.64.1's Chromium headless shell.
