@@ -107,7 +107,7 @@ def test_no_m1_instruction_is_copied_into_v6_beyond_the_edited_fragments():
 # -- windows -------------------------------------------------------------------------------------------------------
 
 def test_windows_cover_the_source_fit_one_call_and_overlap_enough():
-    text = long_text()
+    text = long_text(140)
     ws = P6.windows(text, count, size=1200, overlap=400)
     assert len(ws) >= 3 and ws[0][0] == 0 and ws[-1][1] == len(text)
     for a, b in ws:
