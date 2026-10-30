@@ -3044,6 +3044,24 @@ all `No module named 'anthropic'`).
 - Tests (offline): test_whu_lean_audit.py, test_whu_lean_tiering.py, test_whu_lean_coverage.py, test_whu_check_pilot_v4.py,
   test_whu_lean_prices.py.
 
+## WHU validity phase (Part A of "WHU next phase"), session VP (2026-10-30)
+Plan: study/whu-reliability/next_phase/validity_plan.md, FROZEN at b4cf31a (SEED = that hash as an integer), with the
+four check prompts (next_phase/prompts/), next_phase/claims.py (+ backend/tests/test_whu_validity_claims.py) and the
+.gitignore entry issues/WHU-SD-*/. Phase cap $350 (Fred). caps.json default_per_day raised 25 -> 60 (e454d9f) until the
+phase ends or 2026-11-30T23:59Z; test_whu_study_judging_cap.py fails while it stands (asserts 25; not changed).
+- Google judge gemini-4-argon priced (a9593f8): two dated rows, the second from 2026-12-01, spend_ledger.rates(at=);
+  GEMINI_API_KEY in backend/.env (name only); google-genai in backend/venv (use `python -m pip`: the venv's pip3 shim
+  points at the repo's old path).
+- Runners (next_phase/): judge_google.py (m1|m2; judge_m1/judge_m2's documents, build, parse, labels; replies
+  <run>/replies/google/), identify.py (check 3), check10.py (alternative prompts swapped in memory, sha256 checked
+  before each stage, logged), keys2.py (check 4: prepare|draft|freeze|build), label_form.py (check 5: draw|serve,
+  http://127.0.0.1:8765, local only), validity_analysis.py (check9|check6|check1|check2|check10|check4|check5 ->
+  next_phase/results/*.json, counts only). Judging ledger issues use the whu-reliability-judging- prefix.
+- Check pilot v4 ran (doc §11.2, pilot_v4_counts.json): $3.03, fails agreement 83.3% (retrieval missed supporting
+  passages), passes the other four bars. Preview stays on v2.
+- The pipeline finds cases only under issues/ (source_store.case_dir, publish.case_dir): seeded-defect copies run as
+  issues/WHU-SD-* (git-ignored), archived and deleted before any lean drafting session.
+
 ## Standing instructions for every session
 1. Read this file at the start of every session
 2. Verify all file paths before issuing commands
