@@ -358,3 +358,20 @@ that its title does not confirm is still a journal page; its licence cannot be r
 made only when the cited page itself could not be read; a page that was read and names no DOI is a web
 page under (c), so a loose title match (v2 gave a UN report a journal's DOI) cannot turn it into a
 journal work. Headless rendering is Playwright 1.64.1's Chromium headless shell.
+
+**10.14 Free preparation passes, 2026-10-30 (no model call; $0 on `whu-check-pilot-v3`).**
+1. Technical failure: an answer whose first source had a DOI reached `find_access` (urllib, the macOS
+   system-proxy lookup) before `snapshot` was imported to set `no_proxy`, so every later child process
+   died: pdftotext read PDFs as empty and Playwright's driver crashed. Fixed by setting `no_proxy` when
+   `pipeline_v3` is imported. Outputs deleted.
+2. **Rule breach in the code, found before any run:** three kinds of challenge page served with HTTP 200
+   ("Client Challenge" at link.springer.com and BMC; "Checking your browser - reCAPTCHA" at NCBI
+   Bookshelf; "Validating your request" at digital.library.unt.edu) were not recognised and were sent to
+   headless rendering, against §10.3 (d). Detection widened (markers, and pages up to 100 kB); the three
+   pages are recorded as test fixtures (`backend/tests/fixtures/whu_check/v3_walls/`) and are now walls,
+   never rendered. Every snapshot from that pass was deleted; nothing from it was judged or kept.
+3. Clean pass: two pages are rendered (an ArcGIS StoryMap; Wellcome Open Research's article app), no
+   challenge page. Estimate (judge_m1's worst-case formula): **primary $44.32**, secondary $26.40.
+   **Under §10.10 the primary alone is over the $35 cap, so nothing ran.** (For scale only: v2's actual
+   spend was 66% of its worst case, $12.18 of $18.55.) Any run now needs Fred's decision on the cap or
+   the design; per v1 §5, the sample, bars and rules are not retuned to fit.

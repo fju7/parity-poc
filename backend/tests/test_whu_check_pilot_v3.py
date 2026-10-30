@@ -355,3 +355,12 @@ def test_a_title_lookup_finds_an_open_copy_when_the_cited_page_is_walled(tmp_pat
             unpaywall={"oa_locations": [{"host_type": "repository", "license": None, "url": repo}]})
     row = P.source_v3(u, "Xpert MTB/RIF versus sputum microscopy", tmp_path, n.table())
     assert row["extent"] == "full text" and row["rule"] == P.RULE_A and row["retrieved_from"] == repo
+
+
+@pytest.mark.parametrize("name", ["springer_client_challenge.html", "ncbi_recaptcha_check.html", "unt_validating.html"])
+def test_challenge_pages_served_with_200_are_walls_and_are_never_rendered(tmp_path, name):
+    """Recorded 2026-10-30: v3's first free pass took these for pages that need JavaScript and rendered them."""
+    u = "https://site.example.org/page"
+    n = Net({u: reply((FIX / "v3_walls" / name).read_bytes())}, rendered=PAGE)
+    row = P.source_v3(u, None, tmp_path, n.table())
+    assert row["why_kind"] == P.R_WALL and n.rendered == []

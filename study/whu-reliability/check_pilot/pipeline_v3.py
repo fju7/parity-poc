@@ -19,7 +19,9 @@ from __future__ import annotations
 
 import fnmatch
 import json
+import os
 import re
+import sys
 import threading
 import time
 import urllib.parse
@@ -31,6 +33,12 @@ import pipeline_v2 as V2
 from pipeline import BACKED, COULDNT, LABELS, NO_SOURCE, NOT_BACKED, Stop  # noqa: F401
 
 J, S, adapt = V1.J, V1.S, V1.adapt
+# snapshot.py sets no_proxy on import, because on macOS a process that has looked up the system proxy
+# settings forks children that die on signal 11 (pdftotext, curl, Playwright's driver). v3 can reach
+# find_access's urllib calls before its first fetch, so the setting is made here, at import.
+if sys.platform == "darwin":
+    os.environ.setdefault("no_proxy", "*")
+import snapshot as _SN  # noqa: E402,F401
 
 # --------------------------------------------------------------------------
 # §10.9 reasons, and the sub-kinds of a verdict (§10.2)
@@ -109,7 +117,11 @@ REPOSITORY_HOSTS = ("europepmc.org", "ebi.ac.uk", "pmc.ncbi.nlm.nih.gov", "ncbi.
 REPOSITORY_PATTERNS = ("eprints.", "repository.", "ore.", "dspace.", "researchportal.", "/handle/",
                        "researchonline.", "discovery.", "pure.", "research-repository.", "openaccess.")
 CHALLENGE_MARKERS = ("just a moment", "cf-chl", "challenge-platform", "captcha", "are you a robot",
-                     "verify you are human", "awswaf", "attention required", "_incapsula_", "datadome", "px-captcha")
+                     "verify you are human", "awswaf", "attention required", "_incapsula_", "datadome", "px-captcha",
+                     # served with HTTP 200 (seen in v3's free pass, 2026-10-30): F5 at Springer Nature, NCBI's
+                     # reCAPTCHA browser check, UNT's request validation
+                     "client challenge", "/_fs-ch-", "checking your browser", "validating your request",
+                     "verifying you are human", "browser check", "bot protection")
 SIGNIN_MARKERS = ("sign in to continue", "log in to continue", "please sign in", "please log in",
                   "subscribe to continue", "purchase this article", "buy this article", "institutional login",
                   "access through your institution")
@@ -154,7 +166,7 @@ def _challenge(status: int, headers: dict, body: bytes) -> bool:
     low = body[:6000].decode("utf-8", "replace").lower()
     if status in (202, 403, 429, 503) and (not body.strip() or any(m in low for m in CHALLENGE_MARKERS)):
         return True
-    return len(body) < 20000 and any(m in low for m in CHALLENGE_MARKERS)
+    return len(body) < 100000 and any(m in low for m in CHALLENGE_MARKERS)
 
 
 def _signin(final_url: str, body: bytes) -> bool:
@@ -368,6 +380,7 @@ def fetch_copy(url: str, net: dict, log: list) -> tuple[bytes, str, str, str]:
     if ext == "unreachable" and "readable characters" in why_e and data[:5] != b"%PDF-":
         if _signin(r["final_url"], data):
             raise Refused(R_SIGNIN, "sign-in or paywall page")
+        log.append({"url": url, "render_because": why_e, "bytes": len(data)})
         try:
             data = net["render"](url)
         except Exception as e:

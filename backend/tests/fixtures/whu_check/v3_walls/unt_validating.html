@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html;  charset=UTF-8" />
+    <meta name="robots" content="noindex,nofollow">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DAM</title>
+    <link rel="stylesheet" href="/digital/media/dam/dam.css">
+    <script async defer src="/digital/media/altcha/altcha.min.js?ver=20261012" type="module"></script>
+</head>
+<body>
+    <div id="altcha-content">
+        <h1><img src="/digital/media/assets/public/images/dl/favicons/favicon.ico"> digital.library.unt.edu</h1>
+        <h2>Validating your request...</h2>
+        <div>
+            <form id="altcha-submission">
+                <input type="hidden" name="csrfmiddlewaretoken" value="WkczqFAe6vaf1a1LIpSw8PgXe6s8Yt2iBxfCZ5AtPIBSmiVi39eMzI08OZG16wWJ">
+                <altcha-widget id="altcha"></altcha-widget>
+            </form>
+        </div>
+        
+            <h3>This may take several seconds. Please do not refresh this page. If you are unable to reach our site content, please <a href="https://digital.library.unt.edu/feedback/?cat=Technical+Issue&user_feedback=Altcha+Challenge+Issue+Details%3A">let us know</a>.</h3>
+        
+    </div>
+    <script type="text/javascript">
+        window.addEventListener("load", () => {
+            document.querySelector("#altcha").configure({
+                challenge: {"parameters": {"algorithm": "PBKDF2/SHA-256", "cost": 2500, "keyLength": 32, "keyPrefix": "3df588d927d55d48c6f0a9b3207f8f08", "nonce": "b1fd0a4336b00de9f98fe96c172339a7", "salt": "290c734806081e5bb41aaca2682da5d8", "keySignature": "2fc0ddd15e9ca8295a2b60aec372f777b7edd4d4a16c6f6bc906fdf341ad329e", "expiresAt": 1793365161}, "signature": "41d34abb6eba679fb08e9bc97e87d1744fc8c26789a8f089f483bc085ed8f5b1"},
+                auto: "off",
+                type: "checkbox",
+                display: "standard",
+                debug: false,
+                delay: 0,
+                hideFooter: true,
+                hideLogo: true,
+                humanInteractionSignature: false,
+            });
+        });
+        document.querySelector("altcha-widget").addEventListener("statechange", async (e) => {
+            await e.detail;
+            if (e.detail.state === "verified") {
+                const challengeData = new FormData(document.forms["altcha-submission"]);
+                try {
+                   const response = await fetch("/dam/submit/", {
+                        method: "POST",
+                        body: challengeData,
+                    });
+                    const result = await response.json();
+                    if ("success" in result) {
+                        window.location.replace("/ark:/67531/metadc950214/");
+                    } else {
+                        document.getElementById('altcha-content').innerHTML = `${result.error} This may take several seconds. Please do not refresh this page. If you are unable to reach our site content, please <a href="https://digital.library.unt.edu/feedback/?cat=Technical+Issue&user_feedback=Altcha+Challenge+Issue+Details%3A">let us know</a>.`;
+                    }
+                } catch (error) {
+                    document.getElementById('altcha-content').innerHTML = `${error} This may take several seconds. Please do not refresh this page. If you are unable to reach our site content, please <a href="https://digital.library.unt.edu/feedback/?cat=Technical+Issue&user_feedback=Altcha+Challenge+Issue+Details%3A">let us know</a>.`;
+                    console.error("Challenge submission error:", error);
+                }
+            }
+        });
+    </script>
+</body>
+</html>
