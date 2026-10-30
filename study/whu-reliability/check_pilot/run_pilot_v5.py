@@ -78,8 +78,9 @@ class Budget:
     """The run's cap: spent on the issue + the worst case of every call in flight + the next call's <= cap.
     A call's reservation is dropped when it returns; its actual cost is then in the ledger."""
 
-    def __init__(self, cap: float, spent_fn, check_cap=None, no_call_after: datetime | None = None, clock=None):
-        self.cap, self.spent_fn, self.check_cap = cap, spent_fn, check_cap
+    def __init__(self, cap: float, spent_fn, check_cap=None, no_call_after: datetime | None = None, clock=None,
+                 issue: str = ISSUE):
+        self.cap, self.spent_fn, self.check_cap, self.issue = cap, spent_fn, check_cap, issue
         self.no_call_after, self.clock = no_call_after, clock or (lambda: datetime.now(timezone.utc))
         self.lock, self.in_flight, self.local = threading.Lock(), 0.0, threading.local()
 
@@ -88,11 +89,11 @@ class Budget:
             if self.no_call_after and self.clock() >= self.no_call_after:
                 raise P.Stop("no paid call after %s (advisor's ruling)" % self.no_call_after.isoformat())
             if self.check_cap:
-                self.check_cap(ISSUE, worst)                # caps.json: the day cap and the issue cap
+                self.check_cap(self.issue, worst)                # caps.json: the day cap and the issue cap
             spent = self.spent_fn()
             if spent + self.in_flight + worst > self.cap:
                 raise P.Stop("%s: $%.3f spent + $%.3f in flight; the next call could cost up to $%.3f (cap $%.2f)"
-                             % (ISSUE, spent, self.in_flight, worst, self.cap))
+                             % (self.issue, spent, self.in_flight, worst, self.cap))
             self.in_flight += worst
             self.local.held = getattr(self.local, "held", 0.0) + worst
 
