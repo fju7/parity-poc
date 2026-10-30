@@ -48,9 +48,64 @@ class Stop(RuntimeError):
     pass
 
 
+# NO GOOGLE CALL OF ANY KIND BEFORE THE PREFLIGHT (advisor ruling 2026-10-30, after the free-tier incident in
+# next_phase/deviations.md). client() is the only way these runners get a Google client, and it runs preflight()
+# first: one tiny generate call carrying no study content. A free-tier quota refusal, or any other error, is a STOP.
+# Estimates never call count_tokens: approx_tokens() below.
+PREFLIGHT_TEXT = "Reply with the single word: ok"
+PREFLIGHT_ISSUE = "whu-reliability-judging-validity-c1"
+_checked: dict = {}
+
+
+def free_tier(err) -> bool:
+    """A Google API error that names the Free Tier (quotaId ...FreeTier, or 'Free Tier' in a violation)."""
+    blob = json.dumps(getattr(err, "details", None) or {}, default=str) + " " + str(err)
+    return "FreeTier" in blob or "Free Tier" in blob or "free_tier" in blob
+
+
+def preflight(gc) -> dict:
+    """One tiny generate call; returns its record, or raises Stop. Run once per process."""
+    if "ok" in _checked:
+        return _checked["ok"]
+    from google.genai import errors, types
+    try:
+        r = gc.models.generate_content(model=MODEL, contents=PREFLIGHT_TEXT,
+                                       config=types.GenerateContentConfig(max_output_tokens=64))
+    except errors.APIError as e:
+        if free_tier(e):
+            raise Stop("PREFLIGHT: the key is on Google's Free Tier (HTTP %s %s); no Google call is made"
+                       % (getattr(e, "code", "?"), getattr(e, "status", "?")))
+        raise Stop("PREFLIGHT: the tiny call failed (%s); cannot confirm a paid tier" % str(e)[:200])
+    except Exception as e:
+        raise Stop("PREFLIGHT: the tiny call failed (%s); cannot confirm a paid tier" % str(e)[:200])
+    u = r.usage_metadata
+    p = S.rates(MODEL, 0)
+    tin = int(getattr(u, "prompt_token_count", 0) or 0)
+    tout = int(getattr(u, "candidates_token_count", 0) or 0) + int(getattr(u, "thoughts_token_count", 0) or 0)
+    usd = (tin * p["input"] + tout * p["output"]) / 1e6
+    S.record(script=SCRIPT, role="google-preflight", issue=PREFLIGHT_ISSUE, usd=usd, input_tokens=tin,
+             output_tokens=tout, note="paid-tier preflight; %s" % (getattr(r, "model_version", "") or MODEL))
+    _checked["ok"] = {"at": datetime.now(timezone.utc).isoformat(timespec="seconds"), "usd": round(usd, 6),
+                      "model": getattr(r, "model_version", None)}
+    print("PREFLIGHT ok: a generate call succeeded (%s); $%.6f" % (_checked["ok"]["model"], usd), flush=True)
+    return _checked["ok"]
+
+
 def client():
     from google import genai
-    return genai.Client(api_key=J1.env_keys()["GEMINI_API_KEY"])
+    gc = genai.Client(api_key=J1.env_keys()["GEMINI_API_KEY"])
+    preflight(gc)
+    return gc
+
+
+# A local approximation of Google's token count, for estimates only (no count_tokens call). 3.0 characters a token
+# is below every ratio Google's own count gave on 2026-10-30 for the check-4 texts (3.30 to 4.64), so it errs high.
+APPROX_CHARS_PER_TOKEN = 3.0
+
+
+def approx_tokens(text: str) -> int:
+    """APPROXIMATION of Google's token count: len(text) / 3.0, rounded up."""
+    return -(-len(text) // APPROX_CHARS_PER_TOKEN) if text else 0
 
 
 def worst_usd(n_in: int) -> float:
@@ -184,7 +239,6 @@ def m1(a) -> int:
 
     tok_file = run / "sources" / "tokens.json"
     tokens = json.loads(tok_file.read_text()) if tok_file.exists() else {}
-    gc = client()
     plan = []
     for it in items:
         docs, unreachable, undelivered = m1_docs(it, run, manifest, tokens, count)
@@ -196,10 +250,10 @@ def m1(a) -> int:
     est_in = {}
     for it, docs, _, _ in calls:
         prefix, rest = J1.build(it, docs)
-        est_in[it["item"]] = gc.models.count_tokens(model=MODEL, contents=prefix + rest).total_tokens
+        est_in[it["item"]] = int(approx_tokens(prefix + rest))
     worst = sum(worst_usd(n) for n in est_in.values())
     likely = sum((n * S.rates(MODEL, n)["input"] + 2000 * S.rates(MODEL, n)["output"]) / 1e6 for n in est_in.values())
-    print("M1: %d items, %d to judge, %d not judged (INCOMPLETE_SOURCES); %d input tokens (Gemini count)" % (
+    print("M1: %d items, %d to judge, %d not judged (INCOMPLETE_SOURCES); %d input tokens (APPROXIMATION, chars/3)" % (
         len(plan), len(calls), len(plan) - len(calls), sum(est_in.values())))
     print("ESTIMATE M1: likely $%.2f (2,000 output tokens a call), worst $%.2f (%d output tokens a call); cap $%.2f"
           % (likely, worst, MAX_OUT, a.cap))
@@ -208,6 +262,11 @@ def m1(a) -> int:
     if likely > a.cap:
         print("STOP: the estimate is over the cap; nothing was called")
         return 3
+    try:
+        gc = client()                    # the preflight, before any other Google call
+    except Stop as e:
+        print("STOP: %s" % e)
+        return 8
     guard = Guard(a.ledger_issue, a.cap)
     outdir = run / ("replies" + a.tag) / "google"
     outdir.mkdir(parents=True, exist_ok=True)
@@ -270,22 +329,26 @@ def m2(a) -> int:
     J2.PROMPT = prompt                   # J2.build reads J2.PROMPT; the file itself is never written
     run = Path(a.run_dir)
     answers, concl, items = J2.load_run(run)
-    gc = client()
     plan = []
     for it in sorted(items, key=lambda i: (i["answer"], i["item"])):
         prefix, rest = J2.build(answers[it["answer"]], concl[it["conclusion"]])
         plan.append((it, prefix + rest))
     random.Random("%d/check1/m2" % SEED).shuffle(plan)
-    est_in = {it["item"]: gc.models.count_tokens(model=MODEL, contents=t).total_tokens for it, t in plan}
+    est_in = {it["item"]: int(approx_tokens(t)) for it, t in plan}
     worst = sum(worst_usd(n) for n in est_in.values())
     likely = sum((n * S.rates(MODEL, n)["input"] + 2000 * S.rates(MODEL, n)["output"]) / 1e6 for n in est_in.values())
-    print("M2: %d items; %d input tokens. ESTIMATE likely $%.2f, worst $%.2f; cap $%.2f"
+    print("M2: %d items; %d input tokens (APPROXIMATION, chars/3). ESTIMATE likely $%.2f, worst $%.2f; cap $%.2f"
           % (len(plan), sum(est_in.values()), likely, worst, a.cap))
     if a.estimate:
         return 0
     if likely > a.cap:
         print("STOP: the estimate is over the cap; nothing was called")
         return 3
+    try:
+        gc = client()                    # the preflight, before any other Google call
+    except Stop as e:
+        print("STOP: %s" % e)
+        return 8
     guard = Guard(a.ledger_issue, a.cap)
     outdir = run / ("replies" + a.tag) / "google"
     outdir.mkdir(parents=True, exist_ok=True)

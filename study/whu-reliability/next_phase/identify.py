@@ -102,7 +102,13 @@ class Caller:
         import anthropic
         self.raw = anthropic.Anthropic(api_key=self.keys["ANTHROPIC_API_KEY"])
         self.claude = S.metered(self.raw, script=SCRIPT, issue=ISSUE, role="identifiability-claude")
-        self.gc = G.client()
+        self._gc = None                  # made on first Google use, through G.client() and its preflight
+
+    @property
+    def gc(self):
+        if self._gc is None:
+            self._gc = G.client()
+        return self._gc
 
     def n_in(self, text: str) -> int:
         return self.raw.messages.count_tokens(model=J1.CLAUDE_MODEL,
@@ -114,7 +120,7 @@ class Caller:
             return (n * p["input"] + MAX_OUT * p["output"]) / 1e6
         if who == "openai":
             return (n * J1.OPENAI_PRICE["input"] + MAX_OUT * J1.OPENAI_PRICE["output"]) / 1e6
-        return G.worst_usd(int(n * 1.2))
+        return G.worst_usd(int(n * 1.2))     # n is Claude's count: no Google count_tokens call
 
     def ask(self, who: str, text: str) -> dict:
         n = self.n_in(text)

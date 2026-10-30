@@ -12,7 +12,7 @@ issue whu-reliability-judging-validity-c4m2, cap $28 for the three together.
 TEXTS. The first key's own folder (keys/.../<q>/source/), each file checked against its sources.sha256 first; the
 .txt files only, in the order sources.sha256 lists them (an XML or PDF is given as the .txt beside it; spm_page.html
 is not given, its text being statement.txt and the SPM .txt). Over CUT_TOKENS (Gemini's count) the text is cut at
-that length, and the cut is logged.
+that length (by the APPROXIMATION judge_google.approx_tokens: no count_tokens call), and the cut is logged.
 
 KEYS. A quote is verified when judge_m1.norm(quote) is in judge_m1.norm(the text as given). A drafted conclusion
 with any unverified quote is dropped and logged; so is a checker's correction or addition with one (a correction
@@ -94,7 +94,7 @@ def given(q: str, gc) -> dict:
     parts, blocks, total, cut = texts(q), [], 0, None
     for rel, t in parts:
         block = "=== %s ===\n%s" % (rel, t)
-        n = gc.models.count_tokens(model=G.MODEL, contents=block).total_tokens
+        n = int(G.approx_tokens(block))                    # APPROXIMATION (no count_tokens call)
         if total + n > CUT_TOKENS:
             keep = int(len(block) * (CUT_TOKENS - total) / n)
             blocks.append(block[:max(keep, 0)])
@@ -108,7 +108,7 @@ def given(q: str, gc) -> dict:
 
 def generate(gc, text: str, role: str, guard: G.Guard) -> tuple[str, dict]:
     from google.genai import types
-    n = gc.models.count_tokens(model=G.MODEL, contents=text).total_tokens
+    n = int(G.approx_tokens(text))                           # APPROXIMATION, for the worst case only
     p = S.rates(G.MODEL, n)
     worst = (n * p["input"] + MAX_OUT * p["output"]) / 1e6
     guard.take(worst)
@@ -157,7 +157,17 @@ def verified(c: dict, hay: str) -> list[str]:
 
 
 def draft(cap: float) -> int:
-    gc = G.client()
+    cuts = {q: given(q, None)["cut"] for q in KEYS1}           # no Google call: the approximation
+    cuts = {q: c for q, c in cuts.items() if c}
+    if cuts:
+        print("STOP: under the token APPROXIMATION (chars/3) these texts would be cut at %d tokens: %s. Google's own "
+              "count (2026-10-30) gave no cut. A cut needs the advisor's ruling; nothing was called." % (CUT_TOKENS, cuts))
+        return 9
+    try:
+        gc = G.client()                                      # the preflight, before any other Google call
+    except G.Stop as e:
+        print("STOP: %s" % e)
+        return 8
     guard = G.Guard(ISSUE, cap)
     pd, pc = prompt("draft"), prompt("check")
     for q in KEYS1:
@@ -225,7 +235,7 @@ def draft(cap: float) -> int:
 
 
 def prepare() -> int:
-    gc = G.client()
+    gc = None                                                # no Google call: the counts are approximations
     total, worst = 0, 0.0
     for q in KEYS1:
         g = given(q, gc)
@@ -233,7 +243,7 @@ def prepare() -> int:
         w = 2 * (g["tokens"] * p["input"] + MAX_OUT * p["output"]) / 1e6
         total += g["tokens"]
         worst += w
-        print("%s: %s; %d tokens given (Gemini count); cut %s; worst $%.2f" % (q, g["files"], g["tokens"], g["cut"], w))
+        print("%s: %s; %d tokens given (APPROXIMATION, chars/3); cut %s; worst $%.2f" % (q, g["files"], g["tokens"], g["cut"], w))
     likely = 2 * total * 2.0 / 1e6 + 12 * 6000 * 10.0 / 1e6
     print("ESTIMATE keys: likely $%.2f (two reads of %d tokens, 6,000 output a call), worst $%.2f; cap $12"
           % (likely, total, worst))
