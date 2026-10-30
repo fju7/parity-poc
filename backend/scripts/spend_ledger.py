@@ -342,17 +342,35 @@ PRICES = {                       # US dollars per million tokens
                           "above_tokens": 100_000,
                           "above": {"input": 0.50, "output": 2.50, "cache_write": 0.625,
                                     "cache_write_1h": 1.00, "cache_read": 0.05}},
+    # Added 2026-10-30 on the advisor's ruling, from
+    # https://ai.google.dev/gemini-api/docs/pricing read that day (the validity
+    # phase's third judge and second-key drafter; id confirmed by models.list).
+    # Two dated rows: these figures through 2026-11-30 (UTC); a call on or after
+    # 2026-12-01 uses "then" (spend_ledger.rates() picks the row). Thinking is
+    # billed as output. "Context caching" (0.10, then 0.20) is the cache_read
+    # rate. The ruling gives no separate write rate; cache_write is set to the
+    # input rate (an inference, not the page: a prompt Google caches is billed as
+    # input when first sent). The judge runner sets no explicit cache.
+    "gemini-4-argon":    {"input": 2.00, "output": 10.00,
+                          "cache_write": 2.00, "cache_read": 0.10,
+                          "until": "2026-11-30",
+                          "then": {"input": 4.00, "output": 20.00,
+                                   "cache_write": 4.00, "cache_read": 0.20}},
 }
 WEB_SEARCH_PER_1000 = 10.00      # charged on top of tokens, all models
 
 
-def rates(model: str, prompt_tokens: int = 0) -> dict | None:
+def rates(model: str, prompt_tokens: int = 0, at: datetime | None = None) -> dict | None:
     """MODEL's prices for one request whose prompt is PROMPT_TOKENS long (input +
-    cache writes + cache reads): the row itself, or its "above" tier when the row
-    has a step (above_tokens) and the prompt is longer. None if unpriced."""
+    cache writes + cache reads), made AT (default now, UTC): the row itself, its
+    "then" row when the row is dated ("until") and the call falls after that day,
+    or its "above" tier when the row has a step (above_tokens) and the prompt is
+    longer. None if unpriced."""
     p = PRICES.get((model or "").strip())
     if not p:
         return None
+    if p.get("until") and (at or datetime.now(timezone.utc)).strftime("%Y-%m-%d") > p["until"]:
+        p = p["then"]
     if p.get("above_tokens") and prompt_tokens > p["above_tokens"]:
         return p["above"]
     return p

@@ -157,6 +157,20 @@ PRICES = {                       # US dollars per million tokens
                           "above_tokens": 100_000,
                           "above": {"input": 0.50, "output": 2.50, "cache_write": 0.625,
                                     "cache_write_1h": 1.00, "cache_read": 0.05}},
+    # Added 2026-10-30 on the advisor's ruling, from
+    # https://ai.google.dev/gemini-api/docs/pricing read that day (the validity
+    # phase's third judge and second-key drafter; id confirmed by models.list).
+    # Two dated rows: these figures through 2026-11-30 (UTC); a call on or after
+    # 2026-12-01 uses "then" (spend_ledger.rates() picks the row). Thinking is
+    # billed as output. "Context caching" (0.10, then 0.20) is the cache_read
+    # rate. The ruling gives no separate write rate; cache_write is set to the
+    # input rate (an inference, not the page: a prompt Google caches is billed as
+    # input when first sent). The judge runner sets no explicit cache.
+    "gemini-4-argon":    {"input": 2.00, "output": 10.00,
+                          "cache_write": 2.00, "cache_read": 0.10,
+                          "until": "2026-11-30",
+                          "then": {"input": 4.00, "output": 20.00,
+                                   "cache_write": 4.00, "cache_read": 0.20}},
 }
 WEB_SEARCH_PER_1000 = 10.00      # charged on top of tokens, all models
 # Models that refuse a non-default temperature with a 400 (Claude API docs,
