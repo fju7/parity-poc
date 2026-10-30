@@ -436,6 +436,11 @@ supporting passage (7 of 8 disagreements are study BACKED → v4 NOT BACKED). It
 | **Total** | | **~$270-310** | **$335** |
 | Reserve (Ruling 2) | | | $15 |
 
+**Ruling after the freeze (advisor, 2026-10-30, before any check-3 call):** check 3's cap is raised from $5 to $6,
+the extra $1 taken from the $15 reserve (reserve now $14; caps total $336). Reason: check 3's printed estimate was
+$5.21 likely (100 sentences ~$0.85; 19 whole answers ~$4.35), over its $5 cap, so nothing had run. The whole of check
+3 (sentences and whole answers) runs under the new cap.
+
 Step 1's unspent $6.97 stays inside its line (caps are not moved between items without a ruling). Spending at
 up to $60 a day (§0) takes about six spending days.
 
