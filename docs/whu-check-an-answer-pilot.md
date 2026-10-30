@@ -436,3 +436,33 @@ Fred's brief for this phase).**
 - Counts only are committed (`check_pilot/pilot_v4_counts.json`); outputs stay private
   (`~/Projects/whu-study-private/check_pilot_v4/`). **The preview stays on v2.** As v1 §5: failing a bar
   is a result, not a reason to retune and re-run.
+
+**11.2 v4 result (the same 8 answers and v3's held copies; `check_pilot/pilot_v4_counts.json`).** Run 2026-10-30
+under the raised day cap (caps.json `default_per_day` 60, `e454d9f`); $3.03 on `whu-check-pilot-v4` (worst case
+$7.92). **Fails** (1 of 5 bars), v3 beside it:
+
+| Bar | v3 | v4 |
+|---|---|---|
+| COULDN'T CHECK ≤ 20% | 64/295 = 21.7% FAIL | 53/295 = 18.0% pass |
+| Agreement ≥ 90% (both judged) | 46/47 = 97.9% pass | **40/48 = 83.3% FAIL** |
+| ≤ $2 per answer | $4.67 FAIL | $0.38 pass |
+| ≤ 120 s per answer (mean) | 52 s pass | 13.5 s measured, no fetch; 31 s with v3's fetch time added (estimate) pass |
+| Passages on every verdict | 124/124 pass | 135/135 pass |
+
+COULDN'T CHECK by reason, v3 -> v4: bot wall 34 -> 33; delivery check 15 -> 0; no relevant passage (new) 0 -> 6;
+barred publisher 4 -> 4; publisher copy without licence 3 -> 3; robots.txt 3 -> 3; no passage to show 3 -> 1; HTTP
+error 2 -> 2; unparsed 0 -> 1. The one bot-wall claim that changed name cites two sources, one walled and one where
+retrieval found nothing; `judge_v4` names "no relevant passage" whenever it appears in the reason, so the claim is
+COULDN'T CHECK either way (a naming quirk, logged; no copy was re-fetched).
+
+**Delivery check: v4 cleared 13 of v3's 15** (3 BACKED, 10 NOT BACKED, each with a passage); 2 stay COULDN'T CHECK
+(no relevant passage 1, no passage to show 1). None of the 13 has a study verdict to compare (the study had them
+as COULDN'T CHECK or did not draw them), so whether they are right is not known from this run.
+
+**Why agreement fell.** v3 -> v4 on the same claims: 56 BACKED stayed BACKED, **21 BACKED became NOT BACKED**, 2 NOT
+BACKED became BACKED. Of the 8 disagreements with the study, 7 are study BACKED -> v4 NOT BACKED; in 5 the judge said
+"Absent", saying the text it was shown lacks the point (e.g. "the visible text does not give certainty grades"),
+where v3 and the study, reading the whole source, found it. Retrieval (BM25 top 6, topped up by key term) missed
+the supporting passage: a false NOT BACKED, the costliest error for a reader. The same retrieval module feeds lean
+WHU's audit, where a sentence's bound passage is always sent too; the seeded-defect test's false-alarm count
+(validity plan §9) is where that shows. Per v1 §5 this is the result; nothing is retuned. The preview stays on v2.
