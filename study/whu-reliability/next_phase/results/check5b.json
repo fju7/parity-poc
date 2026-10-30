@@ -1,5 +1,5 @@
 {
- "written": "2026-10-30T17:53:49+00:00",
+ "written": "2026-10-30T18:33:47+00:00",
  "plan": "next_phase/validity_plan.md @ b4cf31a",
  "label": "mechanical figure check, figure claims only; not a human review. No human has checked the judgements.",
  "judges": [
@@ -430,8 +430,10 @@
    "lead_halves": false
   }
  },
- "changed": [
+ "rule_would_have_flagged": [
   "Gemini"
  ],
- "conclusion_changes": true
+ "status": "WITHDRAWN as a correction instrument; decides nothing (advisor ruling 2026-10-30, the advisor's error, next_phase/deviations.md). FIGURE_NEAR was used as a 'supported' reference, but the judges' fails on those items are framing labels (Overstates, Wrong source, Absent) a figure check cannot see, so the reference was invalid by construction; with 1 FIGURE_ABSENT item in 177, sensitivity cannot be estimated and the correction degenerates. The figures below are kept as computed, not as findings.",
+ "description": "Mechanical figure check; not a human review; not a correction. Of 177 round-1 M1 items with a figure, 113 are uncited and 1 has no cited source held. Of the other 63, every claimed figure appears in the cited source for 57, some for 5, none for 1. On the 52 items where each figure appears near the sentence's content words, the two judges' 20 fail labels are Absent 8, Overstates 7, Wrong source 4, Contradicted 1: failures of what the sentence says beyond the figure, not invented numbers. No human has checked the judgements.",
+ "conclusion_changes": null
 }

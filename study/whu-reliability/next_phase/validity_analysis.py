@@ -776,9 +776,24 @@ def check5b(boot: int = 10_000) -> dict:
                      "ci_includes_zero": ci[0] is None or ci[0] <= 0 <= ci[1],
                      "lead_halves": dc is not None and da is not None and da < 0 and dc > 0.5 * da}
     res["M1_figure_comparisons"] = tests
-    res["changed"] = [sy for sy, t in tests.items() if t["ci_includes_zero"] or t["lead_halves"]]
-    res["conclusion_changes"] = bool(res["changed"])
+    res["rule_would_have_flagged"] = [sy for sy, t in tests.items() if t["ci_includes_zero"] or t["lead_halves"]]
+    res["status"] = WITHDRAWN_5B
+    res["description"] = DESCRIPTION_5B
+    res["conclusion_changes"] = None          # withdrawn: the conclusion-change rule does not apply
     return write("check5b", res)
+
+
+WITHDRAWN_5B = ("WITHDRAWN as a correction instrument; decides nothing (advisor ruling 2026-10-30, the advisor's error, "
+                "next_phase/deviations.md). FIGURE_NEAR was used as a 'supported' reference, but the judges' fails on "
+                "those items are framing labels (Overstates, Wrong source, Absent) a figure check cannot see, so the "
+                "reference was invalid by construction; with 1 FIGURE_ABSENT item in 177, sensitivity cannot be "
+                "estimated and the correction degenerates. The figures below are kept as computed, not as findings.")
+DESCRIPTION_5B = ("Mechanical figure check; not a human review; not a correction. Of 177 round-1 M1 items with a figure, "
+                  "113 are uncited and 1 has no cited source held. Of the other 63, every claimed figure appears in the "
+                  "cited source for 57, some for 5, none for 1. On the 52 items where each figure appears near the "
+                  "sentence's content words, the two judges' 20 fail labels are Absent 8, Overstates 7, Wrong source 4, "
+                  "Contradicted 1: failures of what the sentence says beyond the figure, not invented numbers. "
+                  "No human has checked the judgements.")
 
 
 def main() -> int:

@@ -44,6 +44,9 @@ CHECK4 = PRIV / "validity" / "check4"
 ISSUE = "whu-validity-c4-keys"
 SCRIPT = "study/whu-reliability/next_phase/keys2.py"
 CUT_TOKENS = 900_000
+# Exempt from the cut (advisor approval 2026-10-30, next_phase/deviations.md): the full text is sent; if Google
+# refuses it as too long, the question is reported as not run, with the reason. It is never cut.
+CUT_EXEMPT = {"WHU-Q1-04"}
 MAX_OUT = 32_768
 PROMPTS = {"draft": (HERE / "prompts" / "key2_draft.md", "0f8668721f38c7413104b88081309daf0cd2af0405660d5cd7d29512935a88b1"),
            "check": (HERE / "prompts" / "key2_check.md", "55c0fbcab5530c00d7536cb33e8bd0c85f38e074a0513968ead3bb20cf9c6620")}
@@ -95,7 +98,7 @@ def given(q: str, gc) -> dict:
     for rel, t in parts:
         block = "=== %s ===\n%s" % (rel, t)
         n = int(G.approx_tokens(block))                    # APPROXIMATION (no count_tokens call)
-        if total + n > CUT_TOKENS:
+        if total + n > CUT_TOKENS and q not in CUT_EXEMPT:
             keep = int(len(block) * (CUT_TOKENS - total) / n)
             blocks.append(block[:max(keep, 0)])
             cut = {"file": rel, "kept_chars": max(keep, 0), "of_chars": len(block), "tokens_before": total + n}
@@ -175,6 +178,9 @@ def draft(cap: float) -> int:
         if (d / "key.json").exists():
             print("%s: second key exists; kept" % q)
             continue
+        if (d / "not_run.json").exists():
+            print("%s: recorded as not run; kept" % q)
+            continue
         d.mkdir(parents=True, exist_ok=True)
         g = given(q, gc)
         hay = J1.norm(g["text"])
@@ -200,6 +206,15 @@ def draft(cap: float) -> int:
         except (G.Stop, S.OverCap) as e:
             print("STOP on %s: %s" % (q, e))
             return 3
+        except Exception as e:                                # a refusal, e.g. the input over the model's limit
+            if q in CUT_EXEMPT and getattr(e, "code", None) == 400:
+                (d / "not_run.json").write_text(json.dumps({
+                    "question": q, "at": now(), "reason": "the full text was refused by %s (HTTP 400): %s; under the "
+                    "advisor's exemption it is not cut, so check 4 is not run for this question" % (G.MODEL, str(e)[:300]),
+                    "tokens_given_approx": g["tokens"]}, indent=1))
+                print("%s: NOT RUN (full text refused, HTTP 400); recorded" % q, flush=True)
+                continue
+            raise
         chk = parse(raw) or {}
         by_n = {c.get("n"): c for c in kept}
         final = []
