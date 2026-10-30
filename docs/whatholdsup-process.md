@@ -254,6 +254,41 @@ Issues first published before adoption are SKIPPED by name.
 
 ---
 
+## 4.6 Lean WHU (a switch, default off; built 30 October 2026, not yet tested on a paid run)
+
+Plan doc "WHU next phase: validity checks and a leaner WHU", Part B. Every change is behind
+`WHU_LEAN=1` or `--lean` (`backend/scripts/whatholdsup/lean.py`); with neither, WHU runs exactly as
+§4.5 and §5 describe. What the switch changes:
+
+- **Passage retrieval** (`passage_index.py`, `lean_audit.py`): the audit is sent each sentence's bound
+  passages plus the top-k BM25 passages for it, never a whole source. Nothing above the threshold: the
+  bound passages alone, logged in the run's `retrieval.jsonl`. The advocate's re-quotes and re-asks see
+  retrieved passages too.
+- **Incremental re-audit** (`reaudit.py`): after the first full audit, a re-audit reads only the changed
+  sentences, their neighbours, sentences bound to the same passages, sentences on a held text that
+  changed, and sentences the last run did not settle. The rest carry their verdicts by fingerprint, each
+  logged as "carried" with its source run. More than 25% changed, or a prompt or model changed: a full audit.
+- **Generated protected sentences** (`lean_sentences.py`): the question restatement (issue.json's
+  question, verbatim, in the frame `The question is: “…”`) and what we held, read and did not read, from
+  sources.json. Code checks them against the records (preflight row "generated sentences match the
+  records"; the audit settles them as `holds_by_record_check`), which replaces a person's read for these
+  sentences only. Readers'-list lines and every other protected sentence: a person reads them, as before.
+- **Coverage** (`lean_coverage.py`): figure, axis, legend and table text, author and abbreviation lists,
+  page headers and footers and bare numbers are never headline units. A finding the page already states
+  is "already stated", never on the readers' list. Past the declarations budget is a STOP, signed off or
+  not. Each readers'-list line cites its source by number ("<label> [n]").
+- **Model tiering**: a model per stage (`lean.STAGE_MODELS`, `WHU_LEAN_MODELS`), every one priced in
+  `spend_ledger.PRICES` or refused. The audit's first read and the relevance rulings run on the smaller
+  model. A sentence it flags or is unsure about, and every "not relevant", goes to the current model, which
+  decides. Each record names the model that decided.
+- **Prompt caching**: a source group of two or more batches gets one stable document, and its prompt
+  prefix is cached after the first batch.
+
+A $0 replay of round 1 through these paths: `study/whu-reliability/quarterly/lean_replay_round1.py`
+(`round1_scoring/lean_replay_round1.json`).
+
+---
+
 ## 5. The machine gate
 
 The gate reads the page in roles — fact-check, source advocate, counterexample

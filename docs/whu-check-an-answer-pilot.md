@@ -390,3 +390,16 @@ publisher copy without licence 3, robots.txt 3, no passage to show 3, HTTP error
 only 11, counted apart. Cost $4.67 per answer (bar $2). **Passes:** agreement 46 of 47 = 97.9% (abstract-only
 3 of 3; v1's rule 77 of 78); mean 52 s per answer (max 104 s); passages on 124 of 124 verdicts. Per v1 §5 this is
 the result; nothing is retuned.
+
+## 11. v4: lean WHU's passage retrieval (code only; nothing run)
+
+Built 2026-10-30 by session LW (plan doc "WHU next phase: validity checks and a leaner WHU", Part B
+item 1). `check_pilot/pipeline_v4.py` imports v1-v3 unchanged and does everything v3 does; only what
+the judge reads differs. In place of the whole cited source (judge_m1.chunk past MAX_SOURCE_TOKENS) the
+judge gets the `TOP_K` = 6 passages BM25 finds for the claim (`backend/scripts/whatholdsup/passage_index.py`,
+shared with lean WHU's audit), topped up with the best passage for each key term of the claim the source
+holds but those passages miss, so `judge_m1.delivery_problems` still holds. When retrieval finds nothing
+above its threshold the claim is COULDN'T CHECK with the reason "no relevant passage", logged; the whole
+source is never sent. The passage shown to a reader (§10.1) is located in the full held text. Offline
+tests: `backend/tests/test_whu_check_pilot_v4.py`. Not run (no paid call), not wired into the preview
+(`routers/whu_check.py` stays on v2; a test pins it).

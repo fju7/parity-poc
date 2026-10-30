@@ -3011,6 +3011,32 @@ Design (fixed before code): docs/whu-check-an-answer-pilot.md. Internal; outside
 - Tests: backend/tests/test_whu_check_pilot.py, test_whu_check_router.py (fixtures/whu_check/: a constructed
   answer, a CC BY source excerpt, recorded replies).
 
+## WHU lean (Part B of "WHU next phase"), behind WHU_LEAN=1 / --lean, default off (2026-10-30, session LW)
+Plan doc: claude.ai artifact VQUwahJeiW3Dh5NpPXdZ2x. Runbook: docs/whatholdsup-process.md §4.6. Nothing paid was run;
+the paid test waits for the advisor. Off, every stage runs as before (full suite: same 11 failures as before the change,
+all `No module named 'anthropic'`).
+- lean.py: the switch (`enabled()`, `strip_flag`), STAGE_MODELS (lean default: claude-sonnet-4-6, the only model cheaper
+  than claude-opus-5-5 in spend_ledger.PRICES, for audit_first / advocate / judgements; current model for escalation,
+  rulings, second reader), WHU_LEAN_MODELS override, unpriced model refused; cache_blocks.
+- passage_index.py (shared): passages with offsets, BM25 top-k (K 4, MIN_SCORE 2.0, MIN_TERMS 2), find_span, deliver.
+- lean_audit.py + audit_stage.run (lean branches): bound + top-k passages; stable group document cached after the first
+  batch; escalation (finding, FAILED_READ, updated_by_source, not_a_correction on a bound sentence) to the current model;
+  verdicts carry decided_by; run dir gains retrieval.jsonl; manifest gains lean_config, unit_list, reaudit.
+  audit_stage.Caller takes `model` and an optional `cache_prefix`.
+- reaudit.py: incremental re-audit plan; carried verdicts logged "carried" with carried_from; full past 25% changed.
+- lean_sentences.py: generated question / held / read / not-read sentences; `render`, `check`; preflight row
+  "generated sentences match the records" (publish.py, lean only); protected.py accepts a regenerated one.
+- lean_coverage.py + coverage_check.py: furniture never a headline unit (tested on round 1's real cases); already_stated;
+  budget STOP even with a sign-off; readers' lines "<label> [n]"; `lean_coverage.py <slug> record`.
+- ruling.py: records name the caller's model; judgements tiered (not_relevant / unusable / unverified -> current model).
+- source_advocate.py: held_view (lean: LEAN_K=8 retrieved passages for re-quotes and re-asks; else trim as before).
+- check_pilot/pipeline_v4.py: v3 + top-k passages for the judge (doc §11). The preview stays on v2.
+- $0 replay: study/whu-reliability/quarterly/lean_replay_round1.py -> round1_scoring/lean_replay_round1.json.
+  Round 1 actual -> lean base / pessimistic: Q1-01 $3.47 -> $2.35 / $2.41; Q1-02 $10.09 -> $5.11 / $5.49 (incl. the
+  $2.21 drafter dry run, unchanged); Q1-03 $37.60 -> $8.67 / $9.74; Q1-04 $23.39 -> $8.71 / $9.23. Median base $6.89,
+  ABOVE the pass bar's $5; none over $10.
+- Tests (offline): test_whu_lean_audit.py, test_whu_lean_tiering.py, test_whu_lean_coverage.py, test_whu_check_pilot_v4.py.
+
 ## Standing instructions for every session
 1. Read this file at the start of every session
 2. Verify all file paths before issuing commands
