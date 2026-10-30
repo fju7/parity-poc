@@ -1,0 +1,358 @@
+{
+ "label": "POST-HOC sensitivity (after the \u00a76 results; not pre-stated; the \u00a76B verdict stands)",
+ "rules": "quarterly/posthoc_whu_sentence_kinds_round1.py docstring",
+ "pre_stated_verdict_6B": "fixes 1-3 not reported as having held: conditions 2 and 3 not met (round1_ai_only.json); unchanged by this analysis",
+ "round1": {
+  "by_question": {
+   "WHU-Q1-01": {
+    "a": 1,
+    "b": 1,
+    "c": 18
+   },
+   "WHU-Q1-02": {
+    "a": 1,
+    "b": 1,
+    "c": 18
+   },
+   "WHU-Q1-03": {
+    "a": 5,
+    "b": 0,
+    "c": 15
+   },
+   "WHU-Q1-04": {
+    "a": 3,
+    "b": 0,
+    "c": 17
+   }
+  },
+  "total": {
+   "a": 10,
+   "b": 2,
+   "c": 68
+  },
+  "countable_by_kind_combined": {},
+  "labels": {
+   "a": {
+    "items": [
+     {
+      "item": "M1-fbad03db81",
+      "question": "WHU-Q1-03",
+      "uncited": false,
+      "claude": "Supported",
+      "openai": "Absent"
+     },
+     {
+      "item": "M1-df067c5f4a",
+      "question": "WHU-Q1-03",
+      "uncited": false,
+      "claude": "Supported",
+      "openai": "Absent"
+     },
+     {
+      "item": "M1-426cada9b2",
+      "question": "WHU-Q1-01",
+      "uncited": false,
+      "claude": "Supported",
+      "openai": "Supported"
+     },
+     {
+      "item": "M1-5a0a9fb12d",
+      "question": "WHU-Q1-03",
+      "uncited": false,
+      "claude": "Absent",
+      "openai": "Absent"
+     },
+     {
+      "item": "M1-5b2799906b",
+      "question": "WHU-Q1-02",
+      "uncited": false,
+      "claude": "Supported",
+      "openai": "Supported"
+     },
+     {
+      "item": "M1-7f780fc97b",
+      "question": "WHU-Q1-03",
+      "uncited": false,
+      "claude": "Supported",
+      "openai": "Absent"
+     },
+     {
+      "item": "M1-43cf27c16c",
+      "question": "WHU-Q1-03",
+      "uncited": false,
+      "claude": "Supported",
+      "openai": "Supported"
+     },
+     {
+      "item": "M1-07cdf12d9c",
+      "question": "WHU-Q1-04",
+      "uncited": true,
+      "claude": "UNCITED",
+      "openai": "UNCITED"
+     },
+     {
+      "item": "M1-19544dcfc0",
+      "question": "WHU-Q1-04",
+      "uncited": true,
+      "claude": "UNCITED",
+      "openai": "UNCITED"
+     },
+     {
+      "item": "M1-42cf916f68",
+      "question": "WHU-Q1-04",
+      "uncited": true,
+      "claude": "UNCITED",
+      "openai": "UNCITED"
+     }
+    ],
+    "counts": {
+     "claude": {
+      "Absent": 1,
+      "Supported": 6,
+      "UNCITED": 3
+     },
+     "openai": {
+      "Absent": 4,
+      "Supported": 3,
+      "UNCITED": 3
+     }
+    }
+   },
+   "b": {
+    "items": [
+     {
+      "item": "M1-465ab812be",
+      "question": "WHU-Q1-01",
+      "uncited": true,
+      "claude": "UNCITED",
+      "openai": "UNCITED"
+     },
+     {
+      "item": "M1-bbeb3b2720",
+      "question": "WHU-Q1-02",
+      "uncited": true,
+      "claude": "UNCITED",
+      "openai": "UNCITED"
+     }
+    ],
+    "counts": {
+     "claude": {
+      "UNCITED": 2
+     },
+     "openai": {
+      "UNCITED": 2
+     }
+    }
+   }
+  }
+ },
+ "study": {
+  "by_question": {
+   "WHU-S01": {
+    "a": 0,
+    "b": 0,
+    "c": 20
+   },
+   "WHU-S02": {
+    "a": 0,
+    "b": 0,
+    "c": 20
+   },
+   "WHU-S03": {
+    "a": 0,
+    "b": 0,
+    "c": 20
+   },
+   "WHU-S04": {
+    "a": 0,
+    "b": 0,
+    "c": 20
+   },
+   "WHU-S05": {
+    "a": 0,
+    "b": 0,
+    "c": 20
+   },
+   "WHU-S06": {
+    "a": 0,
+    "b": 0,
+    "c": 20
+   },
+   "WHU-S07": {
+    "a": 0,
+    "b": 0,
+    "c": 20
+   },
+   "WHU-S08": {
+    "a": 0,
+    "b": 1,
+    "c": 19
+   }
+  },
+  "total": {
+   "a": 0,
+   "b": 1,
+   "c": 159
+  },
+  "countable_by_kind_combined": {},
+  "labels": {
+   "a": {
+    "items": [],
+    "counts": {
+     "claude": {},
+     "openai": {}
+    }
+   },
+   "b": {
+    "items": [
+     {
+      "item": "M1-77f38c53de",
+      "question": "WHU-S08",
+      "uncited": false,
+      "claude": "Supported",
+      "openai": "Supported"
+     }
+    ],
+    "counts": {
+     "claude": {
+      "Supported": 1
+     },
+     "openai": {
+      "Supported": 1
+     }
+    }
+   }
+  }
+ },
+ "study_readers_list_lines_confirmed_zero": true,
+ "countable_items_by_kind": {
+  "round1": {
+   "a": 10,
+   "b": 2,
+   "c": 67
+  },
+  "study": {
+   "a": 0,
+   "b": 1,
+   "c": 142
+  }
+ },
+ "sensitivity_M1_excluding_a_and_b": {
+  "all_four": {
+   "combined": {
+    "label": "POST-HOC sensitivity (after the \u00a76 results; not pre-stated; the \u00a76B verdict stands)",
+    "round1": 0.0299,
+    "round1_countable": 67,
+    "study": 0.0352,
+    "study_countable": 142,
+    "difference_round1_minus_study": -0.0054,
+    "difference_ci95": [
+     -0.0417,
+     0.0363
+    ]
+   },
+   "claude_judge": {
+    "label": "POST-HOC sensitivity (after the \u00a76 results; not pre-stated; the \u00a76B verdict stands)",
+    "round1": 0.0149,
+    "round1_countable": 67,
+    "study": 0.0211,
+    "study_countable": 142,
+    "difference_round1_minus_study": -0.0062,
+    "difference_ci95": [
+     -0.0347,
+     0.0261
+    ]
+   },
+   "openai_judge": {
+    "label": "POST-HOC sensitivity (after the \u00a76 results; not pre-stated; the \u00a76B verdict stands)",
+    "round1": 0.0448,
+    "round1_countable": 67,
+    "study": 0.0493,
+    "study_countable": 142,
+    "difference_round1_minus_study": -0.0045,
+    "difference_ci95": [
+     -0.0541,
+     0.0489
+    ]
+   }
+  },
+  "without_Q1_02": {
+   "combined": {
+    "label": "POST-HOC sensitivity (after the \u00a76 results; not pre-stated; the \u00a76B verdict stands)",
+    "round1": 0.0306,
+    "round1_countable": 49,
+    "study": 0.0352,
+    "study_countable": 142,
+    "difference_round1_minus_study": -0.0046,
+    "difference_ci95": [
+     -0.0473,
+     0.047
+    ]
+   },
+   "claude_judge": {
+    "label": "POST-HOC sensitivity (after the \u00a76 results; not pre-stated; the \u00a76B verdict stands)",
+    "round1": 0.0204,
+    "round1_countable": 49,
+    "study": 0.0211,
+    "study_countable": 142,
+    "difference_round1_minus_study": -0.0007,
+    "difference_ci95": [
+     -0.0347,
+     0.0345
+    ]
+   },
+   "openai_judge": {
+    "label": "POST-HOC sensitivity (after the \u00a76 results; not pre-stated; the \u00a76B verdict stands)",
+    "round1": 0.0408,
+    "round1_countable": 49,
+    "study": 0.0493,
+    "study_countable": 142,
+    "difference_round1_minus_study": -0.0085,
+    "difference_ci95": [
+     -0.0643,
+     0.0613
+    ]
+   }
+  }
+ },
+ "as_judged_for_reference": {
+  "all_four": {
+   "combined": {
+    "label": "POST-HOC sensitivity (after the \u00a76 results; not pre-stated; the \u00a76B verdict stands)",
+    "round1": 0.1203,
+    "round1_countable": 79,
+    "study": 0.035,
+    "study_countable": 143,
+    "difference_round1_minus_study": 0.0853,
+    "difference_ci95": [
+     0.0513,
+     0.1155
+    ]
+   },
+   "claude_judge": {
+    "label": "POST-HOC sensitivity (after the \u00a76 results; not pre-stated; the \u00a76B verdict stands)",
+    "round1": 0.0886,
+    "round1_countable": 79,
+    "study": 0.021,
+    "study_countable": 143,
+    "difference_round1_minus_study": 0.0676,
+    "difference_ci95": [
+     0.0243,
+     0.1139
+    ]
+   },
+   "openai_judge": {
+    "label": "POST-HOC sensitivity (after the \u00a76 results; not pre-stated; the \u00a76B verdict stands)",
+    "round1": 0.1519,
+    "round1_countable": 79,
+    "study": 0.049,
+    "study_countable": 143,
+    "difference_round1_minus_study": 0.1029,
+    "difference_ci95": [
+     0.0614,
+     0.143
+    ]
+   }
+  }
+ }
+}
