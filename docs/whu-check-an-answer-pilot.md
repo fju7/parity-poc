@@ -267,8 +267,11 @@ Each held copy records which of (a), (b), (c) admitted it. **Order** for one cit
 1. Host bar (v2 §9.4), before any request.
 2. Identifiers as v2 §9.1, but a DOI found from a landing page's meta tags or a Crossref title lookup
    is used only if Crossref's record for it has a title `find_access.titles_agree` accepts against the
-   answer's own title for the link (v2 matched two unrelated pages to barred DOIs). A DOI read from
-   the address itself is used as is. The DOI bar applies as soon as a DOI is accepted.
+   answer's own title for the link (v2 matched two unrelated pages to barred DOIs); where the answer
+   gives no title, against the page's own `citation_title` (else its `<title>`) for a meta-tag DOI,
+   and a Crossref title lookup is not made. (Amended 2026-10-30, before any v3 code: ChatGPT and
+   Perplexity references often carry no title.) A DOI read from the address itself is used as is.
+   The DOI bar applies as soon as a DOI is accepted.
 3. The cited address, if (a), (b) or (c) admits it and (d) allows it: plain fetch (routes (a), (b));
    a PDF's text by `snapshot`'s pdftotext. If the reply is HTML with too little readable text
    (`snapshot.extent` "N readable characters") and is not a challenge, it is rendered once in headless
