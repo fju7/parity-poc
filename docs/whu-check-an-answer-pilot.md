@@ -197,3 +197,153 @@ $35 means STOP.
 
 **9.8 The preview** (`backend/routers/whu_check.py`) switches to v2 once v2 has run, whatever its
 result. The page's banner stays as written.
+
+## 10. v3, written after v2 ran, before any v3 code
+
+Fred's brief for session V (2026-10-29), with his rulings on the sample (§10.8) and the copy rule
+(§10.3) given in that session. Written before any v3 code and before v3's estimate. v1 and v2 are
+unchanged; v3 is a separate run.
+
+**10.0 Why: v2's 77 "not retrieved" claims, diagnosed ($0).** From v2's results and manifests, plus
+one GET per failing host (the request v2 had made) to read the reply. v2's `compare` put every
+COULDN'T CHECK reason it did not recognise under "not retrieved", so the 77 include refusals by
+rule. By the cause of each claim's failing citation (28 distinct sources; no claim had two causes):
+
+| Cause | Claims | Sources | Example hosts |
+|---|---|---|---|
+| bot wall / CAPTCHA | 52 | 13 | researchgate.net, ipcc.ch, core.ac.uk (Cloudflare challenge, HTTP 403 `cf-mitigated: challenge`); jmir.org, ore.exeter.ac.uk (AWS WAF challenge, HTTP 202, empty body; Exeter's on robots.txt) |
+| barred publisher (Elsevier DOI) | 12 | 7 | doi.org/10.1016/..., onlinelibrary.wiley.com (an Elsevier DOI) |
+| HTTP error 403 (no challenge) | 4 | 2 | weiszlab.fas.harvard.edu |
+| other: a wrong DOI matched, then barred | 3 | 2 | alert.psychnews.org (an Elsevier DOI), un.org (`10.1111/ele.14238/v1/review1`) |
+| other: connection failed | 2 | 1 | core-prod.cambridgecore.org |
+| other: CC work whose only open copy was on a barred host | 2 | 1 | researchportal.plymouth.ac.uk (10.1002/cl2.1376) |
+| robots.txt disallows | 1 | 1 | facebook.com |
+| page needs JavaScript | 1 | 1 | scribd.com (200, 231 readable characters) |
+| PDF, timeout, redirect loop | 0 | 0 | - |
+
+Expectation, stated before the run: v3 may not get past a bot wall (§10.3), and a headless browser
+does not get past these challenges either, so most of the 52 can be recovered only by an open copy
+found elsewhere (§10.3, step 4). Rendering would have recovered 1 claim and PDF extraction none.
+The other large v2 cause, "no open licence" (70 claims), is what §10.3's repository rule addresses.
+
+**10.1 Evidence shown.** Every BACKED or NOT BACKED verdict carries the passage the judge relied on:
+M1's `span`, found word for word in the text that was judged (`judge_m1.norm`), quoted in under 60
+words (a longer span is cut to its first 59 words, marked "..."), with its location (page number
+for a PDF, else the nearest heading above it and the paragraph number) and a link (the copy's
+address with a `#:~:text=` fragment of the passage's opening and closing words). A verdict whose
+span is empty or not found in the text is shown as COULDN'T CHECK ("no passage to show"). The
+reader is never shown more of a snapshot than this passage.
+
+**10.2 Labels.** v1's four labels and mapping (§3.7) stand, with two labelled sub-kinds of a verdict:
+"checked against the abstract only" (§10.4) and "checked against a passage you supplied" (§10.5).
+Each COULDN'T CHECK carries exactly one reason from a fixed list (§10.9).
+
+**10.3 Which copies may be fetched (Fred's rule, 2026-10-29).**
+- (a) **Repository copies** (institutional and university repositories, PubMed Central / Europe PMC,
+  arXiv and other preprint servers, author pages) may be fetched when free to read, licensed or not.
+  A copy is a repository copy if Unpaywall gives its location `host_type: "repository"`, or it is
+  Europe PMC's full text, or its host is on the pilot's list of repository and preprint hosts
+  (`pipeline_v3.REPOSITORY_HOSTS`, in code, with the host patterns `eprints.`, `repository.`, `ore.`,
+  `dspace.`, `researchportal.`, `/handle/`). The study accepted one such copy (WHU-S06, Caulfield,
+  Bath Spa repository).
+- (b) **A copy on a publisher's own site** (Unpaywall `host_type: "publisher"`, or the cited address
+  of a work with a DOI that is not a repository copy) needs a Creative Commons licence (Europe PMC's
+  `license` field or the Unpaywall location's `license`). Free to read is not enough.
+- (c) **Web pages that are not journal works** (government, agencies, organisations, news), as v2
+  §9.3 fetches them.
+- (d) **Everywhere:** obey robots.txt for `snapshot.UA` (v2 §9.3's reading); obey any text-and-data-
+  mining reservation under W3C TDMRep (a `tdm-reservation: 1` HTTP header, a
+  `<meta name="tdm-reservation" content="1">` tag, or a matching entry with `tdm-reservation: 1` in
+  the site's `/.well-known/tdmrep.json`); never the barred publishers (v2 §9.4: Elsevier;
+  Wiley-hosted without a CC licence; SAGE without a CC licence; NCCN), not the page, the landing
+  page, nor a barred work's abstract (§10.4); never past a bot wall, CAPTCHA, paywall or sign-in. A
+  reply that is a challenge (HTTP 403 or 202 with a `cf-mitigated: challenge` or
+  `x-amzn-waf-action: challenge` header, or a challenge or sign-in page by `snapshot.WALLS` and the
+  pilot's own markers) ends that copy: it is not retried, rendered or worked around.
+- (e) Snapshots stay private (`~/Projects/whu-study-private/check_pilot_v3/`) and are never
+  republished; a reader sees only the passage (§10.1).
+
+Each held copy records which of (a), (b), (c) admitted it. **Order** for one cited address:
+1. Host bar (v2 §9.4), before any request.
+2. Identifiers as v2 §9.1, but a DOI found from a landing page's meta tags or a Crossref title lookup
+   is used only if Crossref's record for it has a title `find_access.titles_agree` accepts against the
+   answer's own title for the link (v2 matched two unrelated pages to barred DOIs). A DOI read from
+   the address itself is used as is. The DOI bar applies as soon as a DOI is accepted.
+3. The cited address, if (a), (b) or (c) admits it and (d) allows it: plain fetch (routes (a), (b));
+   a PDF's text by `snapshot`'s pdftotext. If the reply is HTML with too little readable text
+   (`snapshot.extent` "N readable characters") and is not a challenge, it is rendered once in headless
+   Chromium (Playwright), where robots.txt allows, with no cookies, no sign-in, no clicks and a 20 s
+   limit, and the rendered text is judged as the plain fetch's would be.
+4. If that yields no full text: an open copy of the same work, by DOI, PMID or PMCID, else by title
+   (Crossref, checked by `titles_agree`): Europe PMC full text, then Unpaywall locations, each
+   admitted by (a) or (b) and allowed by (d).
+5. Else the abstract (§10.4). Else COULDN'T CHECK with the reason of the step that ended it.
+
+**10.4 Abstract fallback.** When no full text is held, the work's abstract from Europe PMC
+(`abstractText`) or Crossref (`abstract`), by its identifier, is judged; the verdict is labelled
+"checked against the abstract only" and counted separately. As in the study, "Absent" on an abstract
+is COULDN'T CHECK ("only the abstract could be read, and it does not state this";
+`judge_m1.NOT_VERIFIABLE_ABSTRACT`). Not for a barred publisher's work.
+
+**10.5 A passage the user supplies.** For a COULDN'T CHECK claim the user may paste a passage (at most
+300 words) and its source link. The claim is judged against that passage only (M1, Claude, first
+read), labelled "checked against a passage you supplied", with the notice "Paste only text you have
+the right to use." The passage is not written to disk, the job log or the ledger. It is not part of
+the pilot's run (no study answer has one); it is built and tested offline only.
+
+**10.6 Which claims are checked.** Claim-like sentences (v1 §3.2) are ranked: those stating a number,
+then a cause and effect, then a conclusion, then the rest, in the answer's order within each rank
+(`pipeline_v3.claim_rank`, word lists in code). The first 40 are checked unless the caller passes
+the sentences the user ticked, which are checked instead (still at most 40). A summary line comes
+first: claims checked of claim-like sentences found, and the count per label and sub-kind.
+
+**10.7 The test.** As v1 §5, with the study's labels from the sample's own scoring (§10.8), and:
+- **Agreement**: of sentences the study drew and the pilot checked where both labels are BACKED or
+  NOT BACKED (both judged), the share that agree. v1's figure (NO SOURCE pairs included) and the 4x4
+  table are reported too. Abstract-only and supplied-passage verdicts count as judged.
+- **COULDN'T CHECK share**: of all claims checked, as v1, by reason (§10.9); abstract-only verdicts are
+  reported separately and are not COULDN'T CHECK.
+- **Passages**: the share of BACKED / NOT BACKED verdicts carrying a passage (by §10.1 it is 100%
+  unless the code is wrong; it is counted, not assumed).
+- **Dollars per answer** (ledger) and **seconds per answer** (wall clock from reading the answer to
+  the last verdict, each answer, mean and max).
+
+**Pass bars, fixed here; all must hold.** 1. COULDN'T CHECK at most 20% of claims checked.
+2. Agreement at least 90% on claims both judged. 3. At most $2 per answer (spend / 8). 4. At most
+120 s per answer on average. 5. 100% of BACKED / NOT BACKED verdicts carry a passage. Failing a bar
+is a result, not a reason to retune and re-run (v1 §5's rule on re-runs stands).
+
+**10.8 Sample (Fred's ruling, 2026-10-29).**
+- **Primary (the bars apply to it):** 8 tool answers from quarterly round 1, fresh to the pilot: 3
+  Claude, 3 Perplexity, 2 Gemini. ChatGPT is left out (its round-1 answers cite nothing; 0
+  searches). Draw: `rng = random.Random("%d/check-pilot-v3" % SEED)`, SEED round 1's freeze commit
+  `5f4a928b757d7f47c1ba8ed47600ced4a7a69f12` read as a hexadecimal integer, written in decimal; for
+  each system in the order Claude, Perplexity, Gemini: `sorted(rng.sample(<its round-1 questions>,
+  k))`, k = 3, 3, 2, one generator; Gemini's questions are WHU-Q1-01 to -03 (no Q1-04 answer,
+  `prepare_round1.NO_ANSWER`). Inputs: the round-1 captures read as `prepare_round1.tool_answer` reads
+  them (Claude `claude_sources_r1`; Perplexity `perplexity_sources` for Q1-03/-04 and
+  `perplexity_footnotes` for Q1-01/-02; Gemini `report_section` + `works_cited`). Study labels: round
+  1's Claude-judge first reads, `~/Projects/whu-study-private/scoring/quarterly/round1/m1/replies/claude/`
+  (not `replies_repeat`, not the superseded folders), items by its `key_map.json`, `uncited.json`, and
+  sentences from `blinded/<q>/<system>.sentences.jsonl`.
+- **Secondary (reported separately, not judged against the bars):** v3 on v2's same 8 answers (§9.6),
+  to show v2 against v3 on identical input.
+
+**10.9 COULDN'T CHECK reasons, counted by name.** barred publisher; robots.txt disallows; TDM
+reservation; bot wall or CAPTCHA; sign-in or paywall; publisher copy without licence; no copy found;
+HTTP error (code); connection failed or timed out; abstract does not state it; delivery check; no
+passage to show; refused; unparsed; marker outside the reference list.
+
+**10.10 Spend and order.** Ledger issue `whu-check-pilot-v3`, `--cap 35` for both runs together, within
+caps.json's $25 all-spend day cap (checked before every call, as v1 §6). A free preparation pass
+prints the worst-case estimate for each run (judge_m1's formula). If primary plus secondary is over
+$35, only the primary runs; if the primary alone is over, nothing runs. Primary first.
+
+**10.11 Code.** `study/whu-reliability/check_pilot/pipeline_v3.py` (imports v1 and v2 unchanged; judge
+prompt only through `judge_m1`), `run_pilot_v3.py`; offline tests on recorded fixtures in
+`backend/tests/test_whu_check_pilot_v3.py`. Counts only are committed (`pilot_v3_counts.json`,
+`pilot_v3_secondary_counts.json`). The preview (`routers/whu_check.py`) is not switched to v3 until
+Fred says so.
+
+**10.12 Out of scope for this pilot: a public launch.** Before one: a durable spend cap (not the
+per-instance ledger; see the KNOWN LIMIT in CLAUDE.md), per-visitor limits, and the validity checks.
