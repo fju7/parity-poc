@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Check 5's labelling form (validity plan §5): local only, never published.
+"""Check 5's labelling form (validity plan §5): local only, never published. ARCHIVED 2026-10-30: see ARCHIVED.
 
     label_form.py draw          the probability sample (free; writes the private sample file once, never redraws)
     label_form.py serve         http://127.0.0.1:8765 (this computer only); labels appended to fred.jsonl
@@ -239,7 +239,14 @@ class H(BaseHTTPRequestHandler):
         self._send(200, json.dumps({"ok": True}))
 
 
+ARCHIVED = ("ARCHIVED 2026-10-30 (advisor ruling): check 5 is not run in this phase (no qualified reviewer; open). "
+            "The drawn sample, never labelled, is in ~/Projects/whu-study-private/validity/check5/archive/. "
+            "Check 5b (next_phase/figure_check.py) replaces it.")
+
+
 def serve() -> int:
+    print("STOP: " + ARCHIVED)
+    return 2
     if not SAMPLE.exists():
         print("no sample yet: run `label_form.py draw` first")
         return 2

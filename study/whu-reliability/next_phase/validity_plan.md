@@ -166,6 +166,11 @@ never printed or logged). `google-genai` 2.34.0 is installed in `backend/venv` (
 
 ## 5. Check 5: the human probability sample ($0; Fred's time)
 
+**Amendment (advisor, 2026-10-30, decided before checks 1-4 and 10 ran): not run in this phase: no qualified reviewer;
+open.** Fred will not label; the form is closed and archived (its drawn sample kept privately, unlabelled). Check 5b
+(below) takes its place for figure claims only. Every result of this phase says that no human has checked the
+judgements. The text of §5 is kept as frozen, for a later phase.
+
 **Frame.** M1: the 216 round-1 items both judges labelled (ChatGPT's are all UNCITED by code and leave the
 frame). M2: all 91 items. **Strata:** system × judge agreement (same label from both judges, or not), from
 `round1_ai_only.json`'s pairs:
@@ -233,6 +238,24 @@ with the statement that Fred built WHU beside every figure. **Volunteers wait** 
 limited to items whose cited sources are under a Creative Commons licence, since held snapshots may not be
 shown to anyone else (pilot doc §10.3 (e)). If that version runs, its labels go through the same code, are
 reported separately with their agreement with Fred's on shared items, and are never pooled with his.
+
+## 5b. Check 5b: a mechanical figure check ($0, no AI in the loop; amendment, advisor, 2026-10-30, decided before checks 1-4 and 10 ran)
+
+Labelled everywhere: **"mechanical figure check, figure claims only; not a human review"**.
+- **Frame:** every round-1 M1 item, all systems, whose drawn sentence contains at least one figure (a number with or
+  without a unit or %), excluding years and citation numbers.
+- **Method (code, `next_phase/figure_check.py`, its word lists and rules written with offline tests before any judge
+  label is read):** against the held source text of every cited source, numbers normalised (thousands separators,
+  decimal comma, en-dash ranges, the %-sign), each item classed FIGURE_ABSENT (no claimed figure anywhere in the
+  source), FIGURE_NEAR (every claimed figure appears within 300 characters of at least two of the sentence's content
+  words, stopwords excluded) or AMBIGUOUS (anything else: partial matches, rounding, converted units, derived numbers).
+- **Reference:** FIGURE_ABSENT = "not supported"; FIGURE_NEAR = "supported"; AMBIGUOUS excluded and counted.
+- **Reported,** per judge (Claude, OpenAI, and Google once check 1 has run) and per system: agreement with the
+  reference; the judge's sensitivity and specificity on the decidable items, with intervals; the corrected M1 rate for
+  figure claims by §5's correction formula on this subset.
+- **Conclusion changes if,** for any of the four M1 comparisons among the seven, the corrected difference on figure
+  claims has an interval including zero, or the WHU lead halves.
+- **Cap:** $0.
 
 ## 6. Check 6: the claim definition for future rounds ($0)
 
@@ -428,7 +451,8 @@ supporting passage (7 of 8 disagreements are study BACKED → v4 NOT BACKED). It
 | Checks 2, 6, 9 | none | $0 | $0 |
 | Check 3: identifiability | whu-validity-c3-ident | ~$2-4 | $5 |
 | Check 4: second keys (Q1-01..04, S01, S02) | whu-validity-c4-keys; whu-reliability-judging-validity-c4m2 | ~$30 | $40 ($12 + $28) |
-| Check 5: human sample | none | $0; Fred ~3-3.5 h | $0 |
+| Check 5: human sample | none | not run in this phase (amendment) | $0 |
+| Check 5b: mechanical figure check | none | $0 | $0 |
 | Check 10: prompt wording | whu-reliability-judging-validity-c10 | ~$24 | $30 |
 | Seeded defects (code checks + first audit) | whu-validity-sd-{full,sonnet,haiku} | ~$106 | $110 |
 | Lean test: runs | whu-lean-q1-01 … -04 | ≤ $40 | $40 |
