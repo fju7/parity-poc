@@ -5,6 +5,11 @@ reliability study's H1 and H2, and it changes no study record, result or rule. T
 sample and the pass bar below are fixed by the commit that adds this file, before any run.
 Budget: Fred's approval of 2026-10-28 (option B), `--cap 35` on ledger issue `whu-check-pilot`.
 
+**Standing rule on overfitting (advisor's ruling, 2026-10-30; binding; full text in §13.0).** v3 to v6 were all
+designed from failures on the pilot set (§10.8's 8 round-1 answers). A pass on that set is development evidence
+only. Before the tool is described as ready for other users, the chosen version must pass all five bars (§10.7),
+unchanged, on a fresh set of answers no version has seen, assembled by the same rules as the pilot set.
+
 ## 1. What it is
 
 A tool that takes an AI research answer with citations and says, for each factual claim in it,
@@ -576,3 +581,95 @@ metered on `whu-check-pilot-v4` (script `run_pilot_v4.py`, role `check-pilot-v5`
 $0 spent. It held only calls in flight; `spend_ledger.check_cap` (the day cap and the issue cap) ran on every call.
 Actual spend, $5.44, was under $8. Fixed after the run: the runner meters on `whu-check-pilot-v5`, and its `spent()`
 also counts the 73 misfiled lines by role. The ledger lines were not changed. The preview stays on v2.
+
+## 13. v6: a windowed whole-source read for long sources (written before any v6 code)
+
+Session V5, 2026-10-30, on the advisor's ruling of that day: v5's result (§12.7) is accepted as recorded; coverage
+fails (28.1% > 20%) and the bars stay as they are. Written before any v6 code, estimate or call. v1-v5 are unchanged;
+v6 is a separate run.
+
+**13.0 Overfitting rule (binding, recorded before anything runs).** v3, v4, v5 and v6 were all designed from failures
+on the current pilot set (§10.8's 8 round-1 answers). A pass on that set is **development evidence only**. Before the
+tool is described as ready for other users, the chosen version must pass **all five bars of §10.7, unchanged, on a
+fresh set of answers that no version has seen**, assembled by the same rules as the pilot set (round-1 tool answers
+with citations, drawn by a seeded rule written down before the draw, labelled by the study's judge rules). No v6
+result on the pilot set, pass or fail, changes this.
+
+**13.1 Why.** v5 sent 36 stage-1 NOT BACKED claims whose source is over judge_m1's one-call limit to the top 20
+passages plus neighbours; 28 came back NOT FOUND IN THE PASSAGES CHECKED, which is what failed the coverage bar. A
+source that is too long for one call can still be read whole, in windows.
+
+**13.2 Which claims.** Only claims v5 would send to its passages-checked path: a stage-1 NOT BACKED label (§12.1's
+trigger) on a claim that cites a source over `judge_m1.MAX_SOURCE_TOKENS`. Everything else runs exactly as in v5:
+stage-1 BACKED stands, the whole-source path is v5's, and COULDN'T CHECK and NO SOURCE stand. **v5's asymmetry rule is
+unchanged:** passages may back a claim; a NOT BACKED needs a full read.
+
+**13.3 Windows.**
+- **Size: 150,000 tokens, recorded as `judge_m1.MAX_SOURCE_TOKENS`** (Fred's ruling, 2026-10-30). This is the most
+  source text the study's judge read in one call. The judge model `claude-opus-5-5` takes 1,000,000 input tokens
+  (Models API `max_input_tokens`, read 2026-10-30), so a window plus the prompt and up to 20 claims is well inside
+  that. Every long source in the pilot set is under 1,000,000 tokens (the largest is 408,886), so the 150,000 is a
+  choice to keep each call within what the judge was used at, not a hard limit of the model.
+- **Overlap: at least 2,000 tokens** between consecutive windows, so any passage up to 2,000 tokens long lies
+  wholly inside at least one window. Windows start and end on `passage_index` passage boundaries; sizes are
+  measured with count_tokens, and a window over 150,000 is shrunk until it fits. Every window's character range and
+  token count is recorded.
+- **Every window is read.** The window is presented as that source's document, with its extent saying "part i of n
+  of a long document (characters a-b)", so the judge knows it is reading part of a source.
+
+**13.4 Batching (Fred's ruling, 2026-10-30).** All the claims that cite the same long source go into each window's
+call, **at most 20 claims per call**; a source with more has its claims split into further calls over the same
+window. The window is the call's cached prefix (prompt caching), so the further calls read it from the cache. The
+first call over each window runs alone and the rest after it (§12.4's ordering).
+- **This is a new prompt, not M1.** M1 checks one sentence per call. The batched prompt is **derived in code from
+  the frozen M1 file** (its sha256 checked first, as `judge_m1` does): M1's instructions and label definitions
+  unchanged, with a fixed list of edits for the parts that assume one sentence (the claim and context become a
+  numbered list; the reply becomes one JSON object per claim, keyed by its number). Each edit must match the M1 text
+  exactly once or the code stops. The derived prompt's sha256 is recorded. No prompt text is copied into the code.
+- **Consequence, stated before the run:** for these claims, agreement with the study compares a different prompt
+  (the batched derivation) with M1. It is reported separately from the claims judged by M1 itself.
+
+**13.5 Verdicts from the windows.**
+- **BACKED** if any window backs the claim (Supported), with that window's span shown as the passage (§10.1),
+  located in the full held text.
+- **NOT BACKED only if every window was read and none backs it.** The label and passage shown are the window verdict
+  first in M1's own order (Contradicted, Wrong source, Overstates, Understates, Absent) whose span is found in the
+  text; if none is found, COULDN'T CHECK ("no passage to show").
+- **If any window fails or is skipped** (an API error, a refusal, an unparsed reply, a claim missing from the reply,
+  an Unreachable label, a cap or cutoff stop) and no window backs the claim, the verdict is **COULDN'T CHECK** ("a
+  window of the source was not read"), **never NOT BACKED**.
+- **A claim that cites several sources:** each long source is windowed as above; the sources within the limit are
+  read together, whole, in one ordinary judge_m1 call (v5's whole-source path on that subset). BACKED if any call
+  backs it; NOT BACKED only if every call read and none backs it; else COULDN'T CHECK. Limitation, recorded: support
+  split across two documents (one part in each) is not combined across calls. In the pilot set 2 of the 36 claims
+  cite more than one source.
+- `decided_by`: `windowed whole source` for these rows; v5's values for every other row. Each row records every
+  window's verdict (label, span found or not, failure if any).
+
+**13.6 Input: not a fresh sample.** The same 8 round-1 answers, v3's held copies, v4's recorded stage 1, and v5's
+recorded verdicts for every claim v6 does not re-read (§12.2's reasoning: the comparison isolates the one change).
+The pipeline's `check` runs all stages for a new answer.
+
+**13.7 Bars: §10.7's five, unchanged**, as §12.3 applies them (NOT FOUND IN THE PASSAGES CHECKED, if any remains,
+counted with COULDN'T CHECK and reported apart). Dollars per answer: v4's stage 1 + v5's re-reads + v6's windowed
+calls, per answer. Seconds: the same sum of measured seconds, plus v3's reconstructed fetch time for the bar.
+
+**13.8 Spend.** Ledger issue `whu-check-pilot-v6`; the calls are metered on that issue, and the run stops if its own
+spend counter reads $0 while the ledger holds lines for its role (the v5 misfiling, §12.7). **$0 until the code and
+tests are committed.** Then a free `prepare` reports distinct long sources, windows per source, calls, the model and
+the worst case (every call a cache write plus maximum output), and **the paid run waits for Fred's go-ahead**. No paid
+call on 31 Oct or 1 Nov UTC (reserved for VP). The room rule of §12.4 (today's total + worst case leaves at least $10
+under the day cap) and a per-run cap set at the go-ahead both apply; no cap is raised.
+
+**13.9 Reported, v3 to v6 side by side:** every bar; COULDN'T CHECK by reason; for the windowed claims, v5's label ->
+v6's label, windows per source, and agreement on them reported apart (§13.4); NOT BACKED by deciding path; dollars and
+seconds per answer; and how many of v5's 28 NOT FOUND IN THE PASSAGES CHECKED v6 turned into BACKED, NOT BACKED or
+COULDN'T CHECK. Then §13.0 applies whatever the result.
+
+**13.10 Code and outputs.** `check_pilot/pipeline_v6.py` (imports v1, v3, v4, v5 unchanged; the batched prompt
+derived from M1 in code), `check_pilot/run_pilot_v6.py`; offline tests in `backend/tests/test_whu_check_pilot_v6.py`,
+including: a backing passage that straddles a window boundary is found whole in one window and gives BACKED; one
+window erroring gives COULDN'T CHECK, never NOT BACKED; and a run whose own spend counter reads $0 while the ledger
+holds lines for its role fails. Counts only are committed (`check_pilot/pilot_v6_counts.json`); outputs stay private
+(`~/Projects/whu-study-private/check_pilot_v6/`). **The preview stays on v2.** As v1 §5: failing a bar is a result,
+not a reason to retune and re-run.
