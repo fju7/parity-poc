@@ -463,43 +463,56 @@ def check4() -> dict:
     match = {}
     for q in QS + ["WHU-S01", "WHU-S02"]:
         match.update(matching(q))
-    first = json.loads((STUDY / "quarterly" / "round1_scoring" / "round1_ai_only.json").read_text())
+    _, m2_first = AR.round1_rows()
+    q4_run = (PRIV / "keys2" / "WHU-Q1-04" / "key.json").exists()
+    q4_not_run = PRIV / "keys2" / "WHU-Q1-04" / "not_run.json"
     res = {"conclusions": {"total": len(match), "matched": sum(v is not None for v in match.values()),
-                           "by_conclusion": match}, "sets": {}}
+                           "by_conclusion": match},
+           "WHU_Q1_04": ("FLAG: read in one ~832k-token call, far beyond any read length tested in this study; lower "
+                         "confidence than the other keys (advisor, 2026-10-30)") if q4_run else
+                        ("NOT RUN: " + json.loads(q4_not_run.read_text())["reason"]) if q4_not_run.exists() else
+                        "no second key", "sets": {}}
     measures = ("M2_overstates", "M2_understates_omits", "M2_overstates_contradicts")
-    for label, rows_fn in (("all_conclusions", lambda rs: rs), ("unmatched_only", lambda rs: [r for r in rs if match.get(r["conclusion"]) is None])):
-        rows = rows_fn(r1)
-        out = {}
-        for measure in measures + ("M2_any_failure",):
-            v = {name: view_of(scores(rows, measure, fn), QS) for name, fn in (
-                ("two_judge", combined), ("claude", lambda r: [r["labels"]["claude"]]),
-                ("openai", lambda r: [r["labels"]["openai"]]), ("google", lambda r: [r["labels"]["google"]]))}
-            f1 = first["A_whu_against_each_tool"]["all_four"][measure]["combined"]
-            out[measure] = {"second_key": {s: {"rate": v["two_judge"][s]["rate"], "n": v["two_judge"][s]["countable"]}
-                                           for s in SYSTEMS},
-                            "per_judge_WHU": {j: v[j]["WHU"]["rate"] for j in ("claude", "openai", "google")},
-                            "first_key_WHU": f1["WHU"]["rate"],
-                            "vs_tools": {s: {"first_key_difference": f1[s]["WHU_vs"]["difference_whu_minus"],
-                                             "second_key_difference": v["two_judge"][s]["WHU_vs"]["difference_whu_minus"],
-                                             "second_key_ci95": v["two_judge"][s]["WHU_vs"]["difference_ci95"]}
-                                         for s in SYSTEMS[1:]}}
-        t = []
-        for measure in ("M2_overstates_contradicts", "M2_understates_omits"):
-            a, b = out[measure]["first_key_WHU"], out[measure]["second_key"]["WHU"]["rate"]
-            if a is not None and b is not None and b - a >= 0.10:
-                t.append("WHU %s rises %.3f -> %.3f" % (measure, a, b))
-        for m, sy in SEVEN:
-            if m.startswith("M2") and m in out:
-                ci = out[m]["vs_tools"][sy]["second_key_ci95"]
-                if ci[0] is None or ci[0] <= 0 <= ci[1]:
-                    t.append("%s vs %s: interval %s includes zero" % (m, sy, ci))
-        for m in measures:
-            for sy, x in out[m]["vs_tools"].items():
-                d0, d1 = x["first_key_difference"], x["second_key_difference"]
-                if d0 is not None and d1 is not None and ((d0 <= 0 and d1 > 0.05) or (d0 >= 0 and d1 < -0.05)):
-                    t.append("%s vs %s reverses: %.3f -> %.3f" % (m, sy, d0, d1))
-        out["changed"] = t
-        res["sets"]["round1_" + label] = out
+    qsets = {"with_Q1_04": QS, "without_Q1_04": [q for q in QS if q != "WHU-Q1-04"]} if q4_run else \
+        {"without_Q1_04": [q for q in QS if q != "WHU-Q1-04"]}
+    for qname, qs in qsets.items():
+        for label, rows_fn in (("all_conclusions", lambda rs: rs),
+                               ("unmatched_only", lambda rs: [r for r in rs if match.get(r["conclusion"]) is None])):
+            rows = [r for r in rows_fn(r1) if r["question"] in qs]
+            out = {}
+            for measure in measures + ("M2_any_failure",):
+                v = {name: view_of(scores(rows, measure, fn), qs) for name, fn in (
+                    ("two_judge", combined), ("claude", lambda r: [r["labels"]["claude"]]),
+                    ("openai", lambda r: [r["labels"]["openai"]]), ("google", lambda r: [r["labels"]["google"]]))}
+                f1 = view_of(scores(m2_first, measure, combined), qs)
+                out[measure] = {"second_key": {s: {"rate": v["two_judge"][s]["rate"], "n": v["two_judge"][s]["countable"]}
+                                               for s in SYSTEMS},
+                                "per_judge_WHU": {j: v[j]["WHU"]["rate"] for j in ("claude", "openai", "google")},
+                                "first_key_WHU": f1["WHU"]["rate"],
+                                "vs_tools": {s: {"first_key_difference": f1[s]["WHU_vs"]["difference_whu_minus"],
+                                                 "first_key_ci95": f1[s]["WHU_vs"]["difference_ci95"],
+                                                 "second_key_difference": v["two_judge"][s]["WHU_vs"]["difference_whu_minus"],
+                                                 "second_key_ci95": v["two_judge"][s]["WHU_vs"]["difference_ci95"]}
+                                             for s in SYSTEMS[1:]}}
+            t = []
+            for measure in ("M2_overstates_contradicts", "M2_understates_omits"):
+                a, b = out[measure]["first_key_WHU"], out[measure]["second_key"]["WHU"]["rate"]
+                if a is not None and b is not None and b - a >= 0.10:
+                    t.append("WHU %s rises %.3f -> %.3f" % (measure, a, b))
+            for m, sy in SEVEN:
+                if m.startswith("M2") and m in out:
+                    x = out[m]["vs_tools"][sy]
+                    ci0, ci = x["first_key_ci95"], x["second_key_ci95"]
+                    excl0 = ci0[0] is not None and not (ci0[0] <= 0 <= ci0[1])
+                    if excl0 and (ci[0] is None or ci[0] <= 0 <= ci[1]):
+                        t.append("%s vs %s: interval %s includes zero" % (m, sy, ci))
+            for m in measures:
+                for sy, x in out[m]["vs_tools"].items():
+                    d0, d1 = x["first_key_difference"], x["second_key_difference"]
+                    if d0 is not None and d1 is not None and ((d0 <= 0 and d1 > 0.05) or (d0 >= 0 and d1 < -0.05)):
+                        t.append("%s vs %s reverses: %.3f -> %.3f" % (m, sy, d0, d1))
+            out["changed"] = t
+            res["sets"]["round1_%s_%s" % (qname, label)] = out
     # study S01-S02: WHU's second-key rates against the study's own (first-key) rates on the same two questions
     keep = A.PRIVATE, A.QUESTIONS, A.TAGS
     sm = {}
@@ -524,7 +537,9 @@ def check4() -> dict:
          and x["WHU"]["second_key"][0] - x["WHU"]["first_key"][0] >= 0.10]
     res["sets"]["study_S01_S02"] = {"rates_two_judge": stud, "changed": t,
                                     "note": "two questions: point rates only, no interval"}
-    res["conclusion_changes"] = bool(res["sets"]["round1_all_conclusions"]["changed"] or t)
+    main_set = "round1_with_Q1_04_all_conclusions" if q4_run else "round1_without_Q1_04_all_conclusions"
+    res["conclusion_changes"] = bool(res["sets"][main_set]["changed"] or t)
+    res["conclusion_changes_without_Q1_04"] = bool(res["sets"]["round1_without_Q1_04_all_conclusions"]["changed"] or t)
     return write("check4", res)
 
 
@@ -788,7 +803,8 @@ WITHDRAWN_5B = ("WITHDRAWN as a correction instrument; decides nothing (advisor 
                 "those items are framing labels (Overstates, Wrong source, Absent) a figure check cannot see, so the "
                 "reference was invalid by construction; with 1 FIGURE_ABSENT item in 177, sensitivity cannot be "
                 "estimated and the correction degenerates. The figures below are kept as computed, not as findings.")
-DESCRIPTION_5B = ("Mechanical figure check; not a human review; not a correction. Of 177 round-1 M1 items with a figure, "
+LINE_5B = "113 of 177 figure claims (64%) carry no citation."   # advisor, 2026-10-30
+DESCRIPTION_5B = ("Mechanical figure check; not a human review; not a correction. %s Of 177 round-1 M1 items with a figure, " % LINE_5B +
                   "113 are uncited and 1 has no cited source held. Of the other 63, every claimed figure appears in the "
                   "cited source for 57, some for 5, none for 1. On the 52 items where each figure appears near the "
                   "sentence's content words, the two judges' 20 fail labels are Absent 8, Overstates 7, Wrong source 4, "
