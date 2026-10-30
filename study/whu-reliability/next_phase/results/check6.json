@@ -1,0 +1,267 @@
+{
+ "written": "2026-10-30T17:10:13+00:00",
+ "plan": "next_phase/validity_plan.md @ b4cf31a",
+ "label": "Judged by AI models; not checked by people (check 5 aside).",
+ "rule": "claims.py (frozen with the plan); round 1 classified after the fact, a labelled sensitivity; round 1's pre-stated results stand",
+ "kinds_by_system": {
+  "Perplexity": {
+   "claim": 73
+  },
+  "WHU": {
+   "claim": 68,
+   "out_of_scope": 10,
+   "process": 2
+  },
+  "Gemini": {
+   "claim": 60
+  },
+  "Claude": {
+   "claim": 80
+  },
+  "ChatGPT": {
+   "claim": 76,
+   "furniture": 2
+  }
+ },
+ "sets": {
+  "all_four": {
+   "old_definition": {
+    "Claude": {
+     "whu": 0.1203,
+     "tool": 0.6203,
+     "difference": -0.5,
+     "ci95": [
+      -0.5813,
+      -0.4359
+     ],
+     "n_whu": 79,
+     "n_tool": 79
+    },
+    "ChatGPT": {
+     "whu": 0.1203,
+     "tool": 1.0,
+     "difference": -0.8797,
+     "ci95": [
+      -0.9114,
+      -0.8562
+     ],
+     "n_whu": 79,
+     "n_tool": 78
+    },
+    "Gemini": {
+     "whu": 0.1203,
+     "tool": 0.82,
+     "difference": -0.6997,
+     "ci95": [
+      -0.7498,
+      -0.6256
+     ],
+     "n_whu": 79,
+     "n_tool": 50
+    },
+    "Perplexity": {
+     "whu": 0.1203,
+     "tool": 0.4191,
+     "difference": -0.2988,
+     "ci95": [
+      -0.5088,
+      -0.0275
+     ],
+     "n_whu": 79,
+     "n_tool": 68
+    }
+   },
+   "new_definition": {
+    "Claude": {
+     "whu": 0.0299,
+     "tool": 0.6203,
+     "difference": -0.5904,
+     "ci95": [
+      -0.6983,
+      -0.4988
+     ],
+     "n_whu": 67,
+     "n_tool": 79,
+     "test": {
+      "reverses": false,
+      "ci_includes_zero": false
+     }
+    },
+    "ChatGPT": {
+     "whu": 0.0299,
+     "tool": 1.0,
+     "difference": -0.9701,
+     "ci95": [
+      -1.0,
+      -0.9318
+     ],
+     "n_whu": 67,
+     "n_tool": 76,
+     "test": {
+      "reverses": false,
+      "ci_includes_zero": false
+     }
+    },
+    "Gemini": {
+     "whu": 0.0299,
+     "tool": 0.82,
+     "difference": -0.7901,
+     "ci95": [
+      -0.8824,
+      -0.7053
+     ],
+     "n_whu": 67,
+     "n_tool": 50,
+     "test": {
+      "reverses": false,
+      "ci_includes_zero": false
+     }
+    },
+    "Perplexity": {
+     "whu": 0.0299,
+     "tool": 0.4191,
+     "difference": -0.3892,
+     "ci95": [
+      -0.6328,
+      -0.1321
+     ],
+     "n_whu": 67,
+     "n_tool": 68,
+     "test": {
+      "reverses": false,
+      "ci_includes_zero": false
+     }
+    }
+   },
+   "conclusion_changes": false
+  },
+  "without_Q1_02": {
+   "old_definition": {
+    "Claude": {
+     "whu": 0.1356,
+     "tool": 0.6356,
+     "difference": -0.5,
+     "ci95": [
+      -0.625,
+      -0.4211
+     ],
+     "n_whu": 59,
+     "n_tool": 59
+    },
+    "ChatGPT": {
+     "whu": 0.1356,
+     "tool": 1.0,
+     "difference": -0.8644,
+     "ci95": [
+      -0.875,
+      -0.85
+     ],
+     "n_whu": 59,
+     "n_tool": 60
+    },
+    "Gemini": {
+     "whu": 0.1356,
+     "tool": 0.8281,
+     "difference": -0.6925,
+     "ci95": [
+      -0.7574,
+      -0.6226
+     ],
+     "n_whu": 59,
+     "n_tool": 32
+    },
+    "Perplexity": {
+     "whu": 0.1356,
+     "tool": 0.42,
+     "difference": -0.2844,
+     "ci95": [
+      -0.5605,
+      0.0724
+     ],
+     "n_whu": 59,
+     "n_tool": 50
+    }
+   },
+   "new_definition": {
+    "Claude": {
+     "whu": 0.0306,
+     "tool": 0.6356,
+     "difference": -0.605,
+     "ci95": [
+      -0.75,
+      -0.4644
+     ],
+     "n_whu": 49,
+     "n_tool": 59,
+     "test": {
+      "reverses": false,
+      "ci_includes_zero": false
+     }
+    },
+    "ChatGPT": {
+     "whu": 0.0306,
+     "tool": 1.0,
+     "difference": -0.9694,
+     "ci95": [
+      -1.0,
+      -0.9118
+     ],
+     "n_whu": 49,
+     "n_tool": 58,
+     "test": {
+      "reverses": false,
+      "ci_includes_zero": false
+     }
+    },
+    "Gemini": {
+     "whu": 0.0306,
+     "tool": 0.8281,
+     "difference": -0.7975,
+     "ci95": [
+      -0.8824,
+      -0.6784
+     ],
+     "n_whu": 49,
+     "n_tool": 32,
+     "test": {
+      "reverses": false,
+      "ci_includes_zero": false
+     }
+    },
+    "Perplexity": {
+     "whu": 0.0306,
+     "tool": 0.42,
+     "difference": -0.3894,
+     "ci95": [
+      -0.7105,
+      -0.0526
+     ],
+     "n_whu": 49,
+     "n_tool": 50,
+     "test": {
+      "reverses": false,
+      "ci_includes_zero": false
+     }
+    }
+   },
+   "conclusion_changes": false
+  }
+ },
+ "non_claim_items": [
+  "M1-07cdf12d9c",
+  "M1-19544dcfc0",
+  "M1-3ececfe778",
+  "M1-426cada9b2",
+  "M1-42cf916f68",
+  "M1-43cf27c16c",
+  "M1-465ab812be",
+  "M1-4dcae67440",
+  "M1-5a0a9fb12d",
+  "M1-5b2799906b",
+  "M1-7f780fc97b",
+  "M1-bbeb3b2720",
+  "M1-df067c5f4a",
+  "M1-fbad03db81"
+ ],
+ "conclusion_changes": false
+}
