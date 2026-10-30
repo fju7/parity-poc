@@ -327,6 +327,8 @@ def account(units: list[dict], rows: dict, held: dict[str, str], omissions_doc: 
                 state, how = "added", add[0].get("key")
             elif k in declarations:
                 state, how = declarations[k]["state"], "declared in coverage.json"
+                if state == "already_stated":
+                    how = "already stated on the page (lean WHU)"
             elif dec:
                 state, how = dec[0]["outcome"].lower(), "omission ruling %s" % dec[0].get("ruling")
         out.append(dict(u, key=k, state=state, how=how))
@@ -454,9 +456,19 @@ def declarations(slug: str, held: dict[str, str], case: Path | None = None) -> l
                     "by": d.get("by"), "signature": d.get("signature"),
                     "decided_at": d.get("decided_at") or ""})
     out.sort(key=lambda d: d["decided_at"])
+    import lean
+    if lean.enabled():
+        # Lean WHU (lean_coverage.py): a declaration of a finding the page
+        # already states, or of text that is no finding at all (furniture), is
+        # not shown to readers, and each line cites its
+        # source by number.
+        import lean_coverage as LC
+        out = [d for d in out if d["state"] != LC.ALREADY and not LC.furniture(d["text"])]
     for d in out:
-        d["sentence"] = declaration_sentence(d["state"], short_span(d["text"]), _label(srcs, d["source"]),
-                                             line_reason(d))
+        label = _label(srcs, d["source"])
+        if lean.enabled():
+            label = LC.cite_label(label, srcs, d["source"])
+        d["sentence"] = declaration_sentence(d["state"], short_span(d["text"]), label, line_reason(d))
     return out
 
 
@@ -494,24 +506,44 @@ def preflight_rows(slug: str, record_rows: list[dict] | None = None, *, rows: di
     cov = load(case)
     out = []
 
-    units, no_units = [], []
+    import lean
+    LEAN = lean.enabled()
+    if LEAN:
+        import lean_coverage as LC
+    units, no_units, furniture = [], [], []
     spans = bound_ranges(rows, held)
     for sid in relied_on(slug, rows, premise_doc):
         if sid not in held:
             continue
         got = units_of(srcs.get(sid) or {"id": sid}, held[sid], spans.get(sid))
+        if LEAN:
+            got, cut = LC.split_units(got)
+            furniture += cut
         if got:
             units.extend(got)
         elif not groups_of(held[sid])[0]:
             no_units.append(sid)          # an assessment whose bound groups yield none is not "no structure"
     acc = account(units, rows, held, O.load(case), cov.get("declarations") or {})
+    stated = []
+    if LEAN:
+        for u in acc:
+            if u["state"] == "none":
+                got = LC.already_stated(u["text"], page_sentences)
+                if got:
+                    u.update(state=LC.ALREADY, how="already stated on the page: %r" % got[:60])
+                    stated.append(u)
     bad_el = [k for k, d in (cov.get("declarations") or {}).items()
               if d["state"] == "out_of_scope" and not O.scope_element_ok(d.get("element") or "", scope)[0]]
     none = [u for u in acc if u["state"] == "none"]
-    counts = {s: len([u for u in acc if u["state"] == s]) for s in ("used", "added") + DECLARED}
+    counts = {s: len([u for u in acc if u["state"] == s])
+              for s in ("used", "added") + DECLARED + (("already_stated",) if LEAN else ())}
     detail = "%d unit(s) in %d relied-on source(s): %s. %s" % (
         len(acc), len({u["source"] for u in acc}),
         ", ".join("%d %s" % (n, s) for s, n in counts.items() if n) or "none accounted", LIMIT)
+    if LEAN and furniture:
+        from collections import Counter
+        kinds = Counter(u["furniture"] for u in furniture)
+        detail += " Not headline units (lean WHU): %s." % ", ".join("%d %s" % (n, k) for k, n in sorted(kinds.items()))
     if none or bad_el:
         bits = []
         if none:
@@ -542,6 +574,8 @@ def preflight_rows(slug: str, record_rows: list[dict] | None = None, *, rows: di
     for d in counted[budget:]:
         ok = d.get("by") and not signers.is_agent(d["by"]) and \
             signers.check_value(d["by"], d.get("signature"), *( [root] if root else []))[0]
+        if LEAN:
+            ok = False                    # lean WHU: past the budget is a STOP, signed off or not
         if not ok:
             over.append(d)
     if missing or stray or over:
@@ -553,7 +587,8 @@ def preflight_rows(slug: str, record_rows: list[dict] | None = None, *, rows: di
             bits.append("%d sentence(s) in the readers' list with no declaration behind it (e.g. %r)"
                         % (len(stray), stray[0][:90]))
         if over:
-            bits.append("%d declaration(s) past the budget of %d with no person's sign-off"
+            bits.append(("%d declaration(s) past the budget of %d (lean WHU: a STOP; use, add or cut them)"
+                         if LEAN else "%d declaration(s) past the budget of %d with no person's sign-off")
                         % (len(over), budget))
         out.append((ROW_LIST, BAD, "; ".join(bits)))
     else:
