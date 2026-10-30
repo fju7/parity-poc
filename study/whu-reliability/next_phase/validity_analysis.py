@@ -19,6 +19,7 @@ import importlib.util
 import json
 import sys
 from datetime import datetime, timezone
+from collections import Counter
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
@@ -678,10 +679,113 @@ def check5(boot: int = 10_000) -> dict:
     return write("check5", res)
 
 
+# ---------------------------------------------------------------------------------------------------------------
+# check 5b: the mechanical figure check (plan §5b, amendment of 2026-10-30)
+# ---------------------------------------------------------------------------------------------------------------
+
+LABEL_5B = "mechanical figure check, figure claims only; not a human review. No human has checked the judgements."
+
+
+def wilson(k: int, n: int) -> list:
+    if not n:
+        return [None, None]
+    z, p = 1.959964, k / n
+    c = (p + z * z / (2 * n)) / (1 + z * z / n)
+    h = z * ((p * (1 - p) / n + z * z / (4 * n * n)) ** 0.5) / (1 + z * z / n)
+    return [round(max(0.0, c - h), 4), round(min(1.0, c + h), 4)]
+
+
+def _fig_rates(rows, cls, judge) -> dict:
+    """One judge over one system's figure items: agreement, Se, Sp on decidable items; corrected figure-claim rate."""
+    ok_set = A.M1_PASS | A.M1_FAIL
+    judged = [r for r in rows if not r["uncited"] and r["labels"].get(judge) in ok_set]
+    unc = sum(1 for r in rows if r["uncited"])
+    dec = [r for r in judged if cls[r["item"]]["class"] in ("FIGURE_ABSENT", "FIGURE_NEAR")]
+    pos = [r for r in dec if cls[r["item"]]["class"] == "FIGURE_ABSENT"]
+    neg = [r for r in dec if cls[r["item"]]["class"] == "FIGURE_NEAR"]
+    tp = sum(r["labels"][judge] in A.M1_FAIL for r in pos)
+    tn = sum(r["labels"][judge] in A.M1_PASS for r in neg)
+    se, sp = (tp + 0.5) / (len(pos) + 1.0), (tn + 0.5) / (len(neg) + 1.0)
+    obs = sum(r["labels"][judge] in A.M1_FAIL for r in judged) / len(judged) if judged else None
+    ref = len(pos) / len(dec) if dec else None
+    jy = se + sp - 1
+    if obs is None:
+        theta, how = None, "no judged figure item"
+    elif jy >= 0.5:
+        theta, how = min(1.0, max(0.0, (obs + sp - 1) / jy)), "corrected (Se + Sp - 1 >= 0.5)"
+    else:
+        theta, how = ref, "unidentifiable (Se + Sp - 1 < 0.5): the reference share on decidable items"
+    cnt = unc + len(judged)
+    return {"uncited": unc, "judged": len(judged), "decidable": len(dec), "reference_absent": len(pos),
+            "reference_near": len(neg), "agree": tp + tn, "agreement": round((tp + tn) / len(dec), 4) if dec else None,
+            "sensitivity": {"k": tp, "n": len(pos), "raw": round(tp / len(pos), 4) if pos else None, "ci95": wilson(tp, len(pos))},
+            "specificity": {"k": tn, "n": len(neg), "raw": round(tn / len(neg), 4) if neg else None, "ci95": wilson(tn, len(neg))},
+            "se_smoothed": round(se, 4), "sp_smoothed": round(sp, 4), "observed_judged_failure": None if obs is None else round(obs, 4),
+            "theta": None if theta is None else round(theta, 4), "theta_how": how,
+            "corrected_figure_rate": None if not cnt else round(unc / cnt, 4) if not judged else
+            None if theta is None else round((unc + theta * len(judged)) / cnt, 4),
+            "ai_only_figure_rate": None if not cnt else round((unc + (obs or 0) * len(judged)) / cnt, 4)}
+
+
+def check5b(boot: int = 10_000) -> dict:
+    import random as _r
+    cls = json.loads((HERE / "results" / "check5b_classes.json").read_text())["items"]
+    m1, _ = AR.round1_rows()
+    has_google = google_labels(m1, "M1") > 0
+    judges = ["claude", "openai"] + (["google"] if has_google else [])
+    fig = [r for r in m1 if r["item"] in cls]
+    res = {"label": LABEL_5B, "judges": judges, "figure_items": len(fig),
+           "classes": dict(Counter(v["class"] or v["why"] for v in cls.values())), "systems": {}}
+    for sy in SYSTEMS:
+        rs = [r for r in fig if r["system"] == sy]
+        res["systems"][sy] = {j: _fig_rates(rs, cls, j) for j in judges}
+        two = [res["systems"][sy][j]["corrected_figure_rate"] for j in ("claude", "openai")]
+        res["systems"][sy]["two_judge_corrected_figure_rate"] = None if None in two else round(sum(two) / 2, 4)
+        ai = [res["systems"][sy][j]["ai_only_figure_rate"] for j in ("claude", "openai")]
+        res["systems"][sy]["two_judge_ai_only_figure_rate"] = None if None in ai else round(sum(ai) / 2, 4)
+    rng = _r.Random("%d/check5b/boot" % SEED)
+    diffs = {sy: [] for sy in SYSTEMS[1:]}
+    for _ in range(boot):
+        qb = [rng.choice(QS) for _ in QS]
+        sample = []
+        for q in qb:
+            pool = [r for r in fig if r["question"] == q]
+            sample += [rng.choice(pool) for _ in pool] if pool else []
+        def rate(sy):
+            rs = [r for r in sample if r["system"] == sy]
+            v = [_fig_rates(rs, cls, j)["corrected_figure_rate"] for j in ("claude", "openai")]
+            return None if None in v else sum(v) / 2
+        w = rate("WHU")
+        for sy in SYSTEMS[1:]:
+            o = rate(sy)
+            if w is not None and o is not None:
+                diffs[sy].append(w - o)
+    tests = {}
+    for m, sy in SEVEN:
+        if m != "M1_failure":
+            continue
+        d = sorted(diffs[sy])
+        ci = [round(d[int(0.025 * (len(d) - 1))], 4), round(d[int(0.975 * (len(d) - 1))], 4)] if d else [None, None]
+        w, o = res["systems"]["WHU"]["two_judge_corrected_figure_rate"], res["systems"][sy]["two_judge_corrected_figure_rate"]
+        wa, oa = res["systems"]["WHU"]["two_judge_ai_only_figure_rate"], res["systems"][sy]["two_judge_ai_only_figure_rate"]
+        dc = None if w is None or o is None else round(w - o, 4)
+        da = None if wa is None or oa is None else round(wa - oa, 4)
+        tests[sy] = {"corrected_difference": dc, "ci95": ci, "resamples": len(d), "ai_only_figure_difference": da,
+                     "n_whu": res["systems"]["WHU"]["claude"]["uncited"] + res["systems"]["WHU"]["claude"]["judged"],
+                     "n_tool": res["systems"][sy]["claude"]["uncited"] + res["systems"][sy]["claude"]["judged"],
+                     "ci_includes_zero": ci[0] is None or ci[0] <= 0 <= ci[1],
+                     "lead_halves": dc is not None and da is not None and da < 0 and dc > 0.5 * da}
+    res["M1_figure_comparisons"] = tests
+    res["changed"] = [sy for sy, t in tests.items() if t["ci_includes_zero"] or t["lead_halves"]]
+    res["conclusion_changes"] = bool(res["changed"])
+    return write("check5b", res)
+
+
 def main() -> int:
     which = sys.argv[1] if len(sys.argv) > 1 else ""
     fn = {"check9": check9, "check6": check6, "check1": check1, "check2": check2, "check10": check10,
-          "check4": check4, "check5": check5}.get(which)
+          "check4": check4, "check5": check5,
+          "check5b": check5b}.get(which)
     if not fn:
         print(__doc__)
         return 2
