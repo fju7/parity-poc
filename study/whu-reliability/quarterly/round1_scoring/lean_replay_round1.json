@@ -1,0 +1,276 @@
+{
+ "label": "Lean WHU on quarterly round 1: a $0 replay of recorded token counts (no model call)",
+ "method": "study/whu-reliability/quarterly/lean_replay_round1.py docstring",
+ "models": {
+  "audit_first": "claude-sonnet-4-6",
+  "audit_escalate": "claude-opus-5-5",
+  "audit_rule": "claude-opus-5-5",
+  "audit_second": "claude-opus-5-5",
+  "advocate": "claude-sonnet-4-6",
+  "judgements": "claude-sonnet-4-6",
+  "judgements_escalate": "claude-opus-5-5",
+  "rulings": "claude-opus-5-5"
+ },
+ "prices": "backend/scripts/spend_ledger.py PRICES",
+ "pessimistic_extra_escalation": 0.25,
+ "questions": {
+  "WHU-Q1-01": {
+   "actual_usd": 3.47,
+   "ledger_usd": 3.47,
+   "audit_runs": [
+    {
+     "run": "20261029T002827Z",
+     "recorded_usd": 0.9325,
+     "units": 40,
+     "read_under_lean": 40,
+     "plan": "full",
+     "plan_why": "first audit of the issue",
+     "tokens_per_char": 0.3496,
+     "base_usd": 0.5954,
+     "lean_read_input_tokens": 72126,
+     "pessimistic_usd": 0.6556,
+     "recorded_read_input_tokens": 133335
+    }
+   ],
+   "audit_runs_recorded_usd": 0.93,
+   "audit_runs_lean_base_usd": 0.6,
+   "audit_runs_lean_pessimistic_usd": 0.66,
+   "ruling_py_recorded_usd": 0.24,
+   "ruling_py_lean_usd": 0.23,
+   "relevance": {
+    "rulings": 2,
+    "not_relevant_escalated": 0,
+    "recorded_usd": 0.014,
+    "lean_usd": 0.01
+   },
+   "gate_recorded_usd": 2.31,
+   "gate_lean_usd": 1.52,
+   "lean_base_usd": 2.35,
+   "lean_pessimistic_usd": 2.41,
+   "audit_stage_spend_in_no_record_usd": -0.0
+  },
+  "WHU-Q1-02": {
+   "actual_usd": 10.09,
+   "ledger_usd": 10.09,
+   "audit_runs": [
+    {
+     "run": "20261029T105655Z",
+     "recorded_usd": 2.0003,
+     "units": 71,
+     "read_under_lean": 71,
+     "plan": "full",
+     "plan_why": "first audit of the issue",
+     "tokens_per_char": 0.3661,
+     "base_usd": 0.7007,
+     "lean_read_input_tokens": 99130,
+     "pessimistic_usd": 1.04,
+     "recorded_read_input_tokens": 299541
+    },
+    {
+     "run": "20261029T112627Z",
+     "recorded_usd": 1.7696,
+     "units": 70,
+     "read_under_lean": 7,
+     "plan": "incremental",
+     "plan_why": "2 changed, 4 neighbours, 1 on the same passages, 0 on a changed source, 0 unsettled; 63 carried",
+     "tokens_per_char": 0.3253,
+     "base_usd": 0.0792,
+     "lean_read_input_tokens": 15190,
+     "pessimistic_usd": 0.1151,
+     "recorded_read_input_tokens": 265576
+    }
+   ],
+   "audit_runs_recorded_usd": 3.77,
+   "audit_runs_lean_base_usd": 0.78,
+   "audit_runs_lean_pessimistic_usd": 1.16,
+   "ruling_py_recorded_usd": 2.66,
+   "ruling_py_lean_usd": 2.67,
+   "relevance": {
+    "rulings": 9,
+    "not_relevant_escalated": 4,
+    "recorded_usd": 0.066,
+    "lean_usd": 0.078
+   },
+   "gate_recorded_usd": 3.66,
+   "gate_lean_usd": 1.66,
+   "lean_base_usd": 5.11,
+   "lean_pessimistic_usd": 5.49,
+   "audit_stage_spend_in_no_record_usd": 2.2,
+   "note": "$2.21 of audit_stage.py spend is the drafter's dry-run audit (study_log.md step 7, 'DRAFTER ERROR', written to a scratchpad); carried unchanged in the lean figure"
+  },
+  "WHU-Q1-03": {
+   "actual_usd": 37.6,
+   "ledger_usd": 37.6,
+   "audit_runs": [
+    {
+     "run": "20261029T123432Z",
+     "recorded_usd": 5.2329,
+     "units": 194,
+     "read_under_lean": 194,
+     "plan": "full",
+     "plan_why": "first audit of the issue",
+     "tokens_per_char": 0.4107,
+     "base_usd": 2.5738,
+     "lean_read_input_tokens": 428636,
+     "pessimistic_usd": 3.3594,
+     "recorded_read_input_tokens": 743208
+    },
+    {
+     "run": "20261029T133403Z",
+     "recorded_usd": 4.5539,
+     "units": 195,
+     "read_under_lean": 72,
+     "plan": "incremental",
+     "plan_why": "4 changed, 8 neighbours, 27 on the same passages, 0 on a changed source, 33 unsettled; 123 carried",
+     "tokens_per_char": 0.4134,
+     "base_usd": 0.6156,
+     "lean_read_input_tokens": 71563,
+     "pessimistic_usd": 0.6762,
+     "recorded_read_input_tokens": 747793
+    },
+    {
+     "run": "20261029T145548Z",
+     "recorded_usd": 5.1443,
+     "units": 195,
+     "read_under_lean": 72,
+     "plan": "incremental",
+     "plan_why": "10 changed, 6 neighbours, 34 on the same passages, 0 on a changed source, 22 unsettled; 123 carried",
+     "tokens_per_char": 0.4145,
+     "base_usd": 0.5956,
+     "lean_read_input_tokens": 95268,
+     "pessimistic_usd": 0.766,
+     "recorded_read_input_tokens": 749252
+    },
+    {
+     "run": "20261029T155038Z",
+     "recorded_usd": 4.7051,
+     "units": 195,
+     "read_under_lean": 5,
+     "plan": "incremental",
+     "plan_why": "2 changed, 2 neighbours, 1 on the same passages, 0 on a changed source, 0 unsettled; 190 carried",
+     "tokens_per_char": 0.3902,
+     "base_usd": 0.112,
+     "lean_read_input_tokens": 24653,
+     "pessimistic_usd": 0.142,
+     "recorded_read_input_tokens": 706229
+    },
+    {
+     "run": "20261029T174258Z",
+     "recorded_usd": 4.8571,
+     "units": 195,
+     "read_under_lean": 0,
+     "plan": "incremental",
+     "plan_why": "0 changed, 0 neighbours, 0 on the same passages, 0 on a changed source, 0 unsettled; 195 carried",
+     "tokens_per_char": 0.4301,
+     "base_usd": 0.0,
+     "lean_read_input_tokens": 0,
+     "pessimistic_usd": 0.0,
+     "recorded_read_input_tokens": 776811
+    },
+    {
+     "run": "20261029T175724Z",
+     "recorded_usd": 4.5172,
+     "units": 195,
+     "read_under_lean": 50,
+     "plan": "incremental",
+     "plan_why": "1 changed, 2 neighbours, 12 on the same passages, 0 on a changed source, 35 unsettled; 145 carried",
+     "tokens_per_char": 0.3901,
+     "base_usd": 0.3148,
+     "lean_read_input_tokens": 47593,
+     "pessimistic_usd": 0.3318,
+     "recorded_read_input_tokens": 705956
+    }
+   ],
+   "audit_runs_recorded_usd": 29.01,
+   "audit_runs_lean_base_usd": 4.21,
+   "audit_runs_lean_pessimistic_usd": 5.28,
+   "ruling_py_recorded_usd": 1.8,
+   "ruling_py_lean_usd": 1.84,
+   "relevance": {
+    "rulings": 61,
+    "not_relevant_escalated": 18,
+    "recorded_usd": 0.633,
+    "lean_usd": 0.681
+   },
+   "gate_recorded_usd": 6.79,
+   "gate_lean_usd": 2.62,
+   "lean_base_usd": 8.67,
+   "lean_pessimistic_usd": 9.74,
+   "audit_stage_spend_in_no_record_usd": 0.0
+  },
+  "WHU-Q1-04": {
+   "actual_usd": 23.39,
+   "ledger_usd": 23.39,
+   "audit_runs": [
+    {
+     "run": "20261029T124201Z",
+     "recorded_usd": 2.861,
+     "units": 134,
+     "read_under_lean": 134,
+     "plan": "full",
+     "plan_why": "first audit of the issue",
+     "tokens_per_char": 0.3972,
+     "base_usd": 1.5284,
+     "lean_read_input_tokens": 216490,
+     "pessimistic_usd": 1.9558,
+     "recorded_read_input_tokens": 391255
+    },
+    {
+     "run": "20261029T125414Z",
+     "recorded_usd": 3.3902,
+     "units": 134,
+     "read_under_lean": 40,
+     "plan": "incremental",
+     "plan_why": "2 changed, 4 neighbours, 2 on the same passages, 0 on a changed source, 32 unsettled; 94 carried",
+     "tokens_per_char": 0.395,
+     "base_usd": 0.1078,
+     "lean_read_input_tokens": 16655,
+     "pessimistic_usd": 0.1661,
+     "recorded_read_input_tokens": 439151
+    },
+    {
+     "run": "20261029T130053Z",
+     "recorded_usd": 2.6333,
+     "units": 134,
+     "read_under_lean": 41,
+     "plan": "incremental",
+     "plan_why": "1 changed, 2 neighbours, 6 on the same passages, 0 on a changed source, 32 unsettled; 93 carried",
+     "tokens_per_char": 0.3588,
+     "base_usd": 0.0922,
+     "lean_read_input_tokens": 20023,
+     "pessimistic_usd": 0.1331,
+     "recorded_read_input_tokens": 349233
+    },
+    {
+     "run": "20261029T145734Z",
+     "recorded_usd": 2.6411,
+     "units": 134,
+     "read_under_lean": 7,
+     "plan": "incremental",
+     "plan_why": "5 changed, 2 neighbours, 0 on the same passages, 0 on a changed source, 0 unsettled; 127 carried",
+     "tokens_per_char": 0.3588,
+     "base_usd": 0.0083,
+     "lean_read_input_tokens": 1541,
+     "pessimistic_usd": 0.0083,
+     "recorded_read_input_tokens": 349234
+    }
+   ],
+   "audit_runs_recorded_usd": 11.53,
+   "audit_runs_lean_base_usd": 1.74,
+   "audit_runs_lean_pessimistic_usd": 2.26,
+   "ruling_py_recorded_usd": 3.08,
+   "ruling_py_lean_usd": 3.84,
+   "relevance": {
+    "rulings": 176,
+    "not_relevant_escalated": 138,
+    "recorded_usd": 1.621,
+    "lean_usd": 2.384
+   },
+   "gate_recorded_usd": 8.78,
+   "gate_lean_usd": 3.13,
+   "lean_base_usd": 8.71,
+   "lean_pessimistic_usd": 9.23,
+   "audit_stage_spend_in_no_record_usd": 0.01
+  }
+ }
+}
