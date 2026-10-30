@@ -466,3 +466,79 @@ where v3 and the study, reading the whole source, found it. Retrieval (BM25 top 
 the supporting passage: a false NOT BACKED, the costliest error for a reader. The same retrieval module feeds lean
 WHU's audit, where a sentence's bound passage is always sent too; the seeded-defect test's false-alarm count
 (validity plan §9) is where that shows. Per v1 §5 this is the result; nothing is retuned. The preview stays on v2.
+
+## 12. v5: a NOT BACKED verdict needs a fuller read (written before any v5 code)
+
+Session V5, 2026-10-30, on the advisor's rule. Written before any v5 code, estimate or call. v1-v4 are unchanged;
+v5 is a separate run.
+
+**12.0 Why.** v4 (§11.2) fell to 83.3% agreement. In 7 of its 8 disagreements the study said BACKED and v4 said
+NOT BACKED: BM25 (top 6, topped up by key term) missed the passage that supports the claim, and the judge, shown
+only the passages, said the point was absent. A false NOT BACKED is the costliest error for a reader.
+
+**12.1 The rule (advisor).** Passages may support a BACKED verdict. A NOT BACKED verdict needs a fuller read:
+- **Stage 1** is v4 unchanged: the judge reads the retrieved passages (§11). A BACKED verdict from the passages
+  stands. COULDN'T CHECK and NO SOURCE outcomes stand (the rule is about NOT BACKED; "no relevant passage" is not a
+  verdict and stays COULDN'T CHECK, as in v4).
+- **Trigger:** the stage-1 judge gives one of NOT BACKED's labels (Overstates, Understates, Absent, Wrong source,
+  Contradicted; §3.7), including one withheld as "no passage to show". That claim is judged again, and the second
+  reading is the verdict.
+- **Whole-source path.** Where every source the claim cites fits judge_m1's one-call limit (`MAX_SOURCE_TOKENS`,
+  150,000 tokens per source: the sources v1 and v3 would send whole, not `chunk`), the claim is re-judged against
+  the whole held source(s): exactly v3's documents and prompt (`pipeline._docs`, `judge_m1.build`, the prefix
+  prompt-cached as v3's was). Its label, by v3's rules, is the verdict: BACKED, NOT BACKED, or COULDN'T CHECK (e.g.
+  refused, unparsed, no passage to show).
+- **Passages-checked path.** Where a cited source is over that limit, it is replaced by the top 20 passages BM25
+  finds for the claim (`passage_index`, same threshold as v4) plus each one's neighbours (the passage before and
+  the passage after), merged and in document order with v4's "[… text omitted …]" separator; a source under the
+  limit is sent whole. Supported -> BACKED. Any NOT BACKED label -> **NOT FOUND IN THE PASSAGES CHECKED**, a
+  separate verdict, never counted as NOT BACKED. COULDN'T CHECK outcomes as v3.
+- **Every row records which path decided it** (`decided_by`): `passages` (stage 1's verdict stands), `whole
+  source`, `top 20 passages + neighbours`, or `not judged` (NO SOURCE, or COULDN'T CHECK before any call). A
+  re-judged row also keeps stage 1's label and reason (`stage1`).
+- The passage shown (§10.1) is located in the full held text, as v4. A BACKED or NOT BACKED verdict still needs
+  one, else COULDN'T CHECK ("no passage to show"). NOT FOUND IN THE PASSAGES CHECKED shows none and reads: "We
+  did not find this in the passages we checked; the source is too long to read whole, so this is not a finding
+  that the source does not say it."
+
+**12.2 Input: not a fresh sample.** The same 8 round-1 answers as v3 and v4 (§10.8's primary draw; §11.1), with
+v3's held copies (copied, never re-fetched) and v3's claims. **Stage 1 is v4's recorded run**: v4's
+`results.json` per answer is read, not re-called, so v5 differs from v4 only by the fuller read and the
+side-by-side is on identical stage-1 verdicts (a re-call would add the judge's run-to-run variation to the
+comparison). The pipeline (`check`) runs both stages for a new answer; the runner reuses v4's stage 1. Consequence,
+stated before the run: v5 can change only claims v4 judged NOT BACKED (or withheld for no passage); v4's one
+disagreement where v4 said BACKED cannot change.
+
+**12.3 Bars: §10.7's five, unchanged**, against round 1's Claude-judge first reads (§10.8). NOT FOUND IN THE
+PASSAGES CHECKED is **counted with COULDN'T CHECK for the coverage bar** (at most 20% of claims checked) and
+**reported separately** beside it; it is not a judged label, so it is outside the agreement pairs and the
+passages bar (those apply to BACKED and NOT BACKED). Dollars per answer: v4's recorded stage-1 spend
+(`whu-check-pilot-v4`) plus v5's re-reads (`whu-check-pilot-v5`), per answer. Seconds per answer: v4's measured
+stage-1 seconds plus v5's measured re-read seconds; the 120 s bar is applied to that plus v3's reconstructed fetch
+time, labelled an estimate, as §11.1.
+
+**12.4 Spend.** Ledger issue `whu-check-pilot-v5`, **cap $8** (`--cap 8`). Part of the phase's $350 approval.
+- A free `prepare` (count_tokens only) prints the re-reads, their paths and the worst case (judge_m1's formula:
+  every call a cache write plus maximum output).
+- **Room, checked before running:** the run starts only if today's ledger total (all issues, UTC day) plus v5's
+  worst case leaves at least $10 under caps.json's `default_per_day` ($60, so today's total + worst case <= $50).
+  The validity checks (session VP) come first. If there is no room, nothing runs; the check is made again later.
+  **No cap is raised and no override is set.**
+- Per call: `spend_ledger.check_cap` (the day cap and the issue cap), and the run's $8: spent on the issue + the
+  worst case of every call in flight + this call's worst case <= $8. A call's reservation is replaced by its
+  actual cost when it returns.
+- Calls whose cached prefix is the same (the same sources) are ordered: the first alone, the rest after it, so
+  the prefix is read from the cache rather than written again.
+- If the $8 stops the run, finished answers are kept and the result is reported as partial; the cap is not raised.
+
+**12.5 Reported, v3, v4 and v5 side by side:** every bar; COULDN'T CHECK by reason, with NOT FOUND IN THE PASSAGES
+CHECKED separately; **the NOT BACKED verdicts by deciding path** (and every re-read: stage-1 label -> v5 label, by
+path); dollars and seconds per answer; and **how many of v4's 8 disagreements v5 resolved** (resolved: v5's label
+equals the study's, both judged), with those that became NOT FOUND IN THE PASSAGES CHECKED or COULDN'T CHECK
+counted apart (no longer a false NOT BACKED, but not agreement).
+
+**12.6 Code and outputs.** `check_pilot/pipeline_v5.py` (imports v1, v3 and v4 unchanged; no prompt copied: the
+judge only through `judge_m1`), `check_pilot/run_pilot_v5.py` (prepare | run --cap | compare); offline tests in
+`backend/tests/test_whu_check_pilot_v5.py`. Counts only are committed (`check_pilot/pilot_v5_counts.json`);
+outputs stay private (`~/Projects/whu-study-private/check_pilot_v5/`). **The preview stays on v2.** As v1 §5:
+failing a bar is a result, not a reason to retune and re-run.
