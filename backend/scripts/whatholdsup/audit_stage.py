@@ -922,7 +922,7 @@ class Caller:
             content = lean.cache_blocks(prompt, cache_prefix)
         n_in = self._raw.messages.count_tokens(model=self.model,
                                                messages=[{"role": "user", "content": content}]).input_tokens
-        p = S.PRICES[self.model]
+        p = S.rates(self.model, n_in) if hasattr(S, "rates") else S.PRICES[self.model]
         # A cached prefix may be written at the cache-write price, the higher one.
         worst = (n_in * max(p["input"], p["cache_write"] if cache_prefix else 0) + max_tokens * p["output"]) / 1e6
         if self._spent() - self._start + worst > self.cap:

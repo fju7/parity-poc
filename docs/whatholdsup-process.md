@@ -278,8 +278,9 @@ Plan doc "WHU next phase: validity checks and a leaner WHU", Part B. Every chang
   is "already stated", never on the readers' list. Past the declarations budget is a STOP, signed off or
   not. Each readers'-list line cites its source by number ("<label> [n]").
 - **Model tiering**: a model per stage (`lean.STAGE_MODELS`, `WHU_LEAN_MODELS`), every one priced in
-  `spend_ledger.PRICES` or refused. The audit's first read and the relevance rulings run on the smaller
-  model. A sentence it flags or is unsure about, and every "not relevant", goes to the current model, which
+  `spend_ledger.PRICES` or refused. The audit's first read, the advocate and the relevance rulings run on
+  the smaller model: claude-sonnet-5-5 by default (advisor's ruling, 30 October), claude-haiku-5-5 as a
+  variant; escalation is to claude-opus-5-5. A sentence it flags or is unsure about, and every "not relevant", goes to the current model, which
   decides. Each record names the model that decided.
 - **Prompt caching**: a source group of two or more batches gets one stable document, and its prompt
   prefix is cached after the first batch.

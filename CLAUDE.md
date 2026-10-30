@@ -3015,9 +3015,13 @@ Design (fixed before code): docs/whu-check-an-answer-pilot.md. Internal; outside
 Plan doc: claude.ai artifact VQUwahJeiW3Dh5NpPXdZ2x. Runbook: docs/whatholdsup-process.md §4.6. Nothing paid was run;
 the paid test waits for the advisor. Off, every stage runs as before (full suite: same 11 failures as before the change,
 all `No module named 'anthropic'`).
-- lean.py: the switch (`enabled()`, `strip_flag`), STAGE_MODELS (lean default: claude-sonnet-4-6, the only model cheaper
-  than claude-opus-5-5 in spend_ledger.PRICES, for audit_first / advocate / judgements; current model for escalation,
-  rulings, second reader), WHU_LEAN_MODELS override, unpriced model refused; cache_blocks.
+- lean.py: the switch (`enabled()`, `strip_flag`), STAGE_MODELS: smaller tier (audit_first / advocate / judgements)
+  claude-sonnet-5-5 (advisor's ruling 2026-10-30; was claude-sonnet-4-6), escalation, rulings and second reader
+  claude-opus-5-5; claude-haiku-5-5 a variant (`variant_models("haiku-5-5")` / WHU_LEAN_MODELS); unpriced model refused.
+- spend_ledger.PRICES (and factcheck_draft.PRICES, held equal): claude-sonnet-5-5 and claude-haiku-5-5 added 2026-10-30
+  from the official pricing page (advisor's ruling), with cache_write_1h; Haiku 5.5's 100,000-token step via
+  spend_ledger.rates() (price(), lean.usd, audit_stage.Caller's worst case, factcheck_draft.usage_summary).
+  factcheck_draft.FIXED_SAMPLING: no temperature sent to those two models (they 400 on a non-default one).
 - passage_index.py (shared): passages with offsets, BM25 top-k (K 4, MIN_SCORE 2.0, MIN_TERMS 2), find_span, deliver.
 - lean_audit.py + audit_stage.run (lean branches): bound + top-k passages; stable group document cached after the first
   batch; escalation (finding, FAILED_READ, updated_by_source, not_a_correction on a bound sentence) to the current model;
@@ -3031,11 +3035,14 @@ all `No module named 'anthropic'`).
 - ruling.py: records name the caller's model; judgements tiered (not_relevant / unusable / unverified -> current model).
 - source_advocate.py: held_view (lean: LEAN_K=8 retrieved passages for re-quotes and re-asks; else trim as before).
 - check_pilot/pipeline_v4.py: v3 + top-k passages for the judge (doc §11). The preview stays on v2.
-- $0 replay: study/whu-reliability/quarterly/lean_replay_round1.py -> round1_scoring/lean_replay_round1.json.
-  Round 1 actual -> lean base / pessimistic: Q1-01 $3.47 -> $2.35 / $2.41; Q1-02 $10.09 -> $5.11 / $5.49 (incl. the
-  $2.21 drafter dry run, unchanged); Q1-03 $37.60 -> $8.67 / $9.74; Q1-04 $23.39 -> $8.71 / $9.23. Median base $6.89,
-  ABOVE the pass bar's $5; none over $10.
-- Tests (offline): test_whu_lean_audit.py, test_whu_lean_tiering.py, test_whu_lean_coverage.py, test_whu_check_pilot_v4.py.
+- $0 replay: study/whu-reliability/quarterly/lean_replay_round1.py -> round1_scoring/lean_replay_round1.json, three
+  tiers (actual $3.47 / $10.09 / $37.60 / $23.39). Base / pessimistic medians and maxima vs the $5-median, $10-max bar:
+  sonnet-4-6 $6.89 / $7.36, max $8.71 / $9.74 (median FAILS); sonnet-5-5 (default) $5.86 / $6.86, max $7.27 / $8.78
+  (median FAILS); haiku-5-5 $4.08 / $4.66, max $4.77 / $5.90 (passes). Q1-02 includes the $2.21 drafter dry run.
+  Check pilot v4 per answer (v3 $4.67, bar $2): opus-5-5 $0.33-$0.70, sonnet-5-5 $0.17-$0.35, haiku-5-5 $0.01-$0.02
+  (a judge other than judge_m1.CLAUDE_MODEL is an estimate only; v4 as built judges on claude-opus-5-5).
+- Tests (offline): test_whu_lean_audit.py, test_whu_lean_tiering.py, test_whu_lean_coverage.py, test_whu_check_pilot_v4.py,
+  test_whu_lean_prices.py.
 
 ## Standing instructions for every session
 1. Read this file at the start of every session

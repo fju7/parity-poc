@@ -329,8 +329,33 @@ PRICES = {                       # US dollars per million tokens
                           "cache_write": 12.50, "cache_read": 0.25},
     "claude-opus-5-5":   {"input": 4.00, "output": 20.00,
                           "cache_write": 5.00, "cache_read": 0.20},
+    # Added 2026-10-30 on the advisor's ruling, from
+    # platform.claude.com/docs/en/about-claude/pricing read that day (lean WHU's
+    # tiers). cache_write is the 5-minute rate, as for every row; the 1-hour rate
+    # is recorded beside it (no caller uses a 1-hour TTL). Haiku 5.5 steps up for
+    # a prompt over 100,000 tokens, cache reads and writes counted toward the
+    # length: spend_ledger.rates() picks the tier.
+    "claude-sonnet-5-5": {"input": 2.00, "output": 10.00,
+                          "cache_write": 2.50, "cache_write_1h": 4.00, "cache_read": 0.10},
+    "claude-haiku-5-5":  {"input": 0.10, "output": 0.50,
+                          "cache_write": 0.125, "cache_write_1h": 0.20, "cache_read": 0.01,
+                          "above_tokens": 100_000,
+                          "above": {"input": 0.50, "output": 2.50, "cache_write": 0.625,
+                                    "cache_write_1h": 1.00, "cache_read": 0.05}},
 }
 WEB_SEARCH_PER_1000 = 10.00      # charged on top of tokens, all models
+
+
+def rates(model: str, prompt_tokens: int = 0) -> dict | None:
+    """MODEL's prices for one request whose prompt is PROMPT_TOKENS long (input +
+    cache writes + cache reads): the row itself, or its "above" tier when the row
+    has a step (above_tokens) and the prompt is longer. None if unpriced."""
+    p = PRICES.get((model or "").strip())
+    if not p:
+        return None
+    if p.get("above_tokens") and prompt_tokens > p["above_tokens"]:
+        return p["above"]
+    return p
 
 
 def price(model: str, usage) -> tuple[float | None, dict]:
@@ -348,7 +373,7 @@ def price(model: str, usage) -> tuple[float | None, dict]:
     if stu is not None:
         counts["web_searches"] = int(getattr(stu, "web_search_requests", 0) or 0)
     base = (model or "").strip()
-    p = PRICES.get(base)
+    p = rates(base, counts["input"] + counts["cache_write"] + counts["cache_read"])
     if not p:
         return None, counts
     usd = (counts["input"] * p["input"] + counts["output"] * p["output"]

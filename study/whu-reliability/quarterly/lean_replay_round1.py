@@ -31,7 +31,20 @@ METHOD, per question
   The gate (factcheck_draft.py). advocate-requote and advocate-reask-omission calls see LEAN_K
   retrieved passages in place of trim(): recorded input minus the trimmed text's estimated tokens plus
   the passages'. Every other gate call as recorded (the gate already runs on the smaller model).
-Prices are spend_ledger.PRICES only.
+Prices are spend_ledger.PRICES only (with its rates() step: claude-haiku-5-5 over 100,000 tokens).
+
+TIERS (advisor's ruling, 2026-10-30). The smaller tier (lean.SMALL_STAGES: audit_first, advocate,
+judgements) is replayed three times -- claude-sonnet-4-6 (the first lean default), claude-sonnet-5-5
+(the default now), claude-haiku-5-5 (a variant) -- escalation to claude-opus-5-5 unchanged. Under a
+5.5 model every advocate call (brief, re-quote, re-ask) is re-priced at that model, its web searches
+as recorded. Recorded on claude-sonnet-4-6, those calls carry no thinking and that model's tokenizer:
+PESSIMISTIC also counts their input x TOKENIZER_PESS and their output x THINKING_PESS.
+
+CHECK PILOT v4 (check_pilot_v4 in the output): from the ledger's own lines for whu-check-pilot-v3
+(8 answers; judge_m1 caches the source text, so a line's cost beyond its input and output is cache
+writes). v4 replaces each call's cache-write tokens with its passages: base one source x TOP_K
+passages; pessimistic two sources x (TOP_K + 4 top-ups); never more than v3 wrote. Priced at
+claude-opus-5-5 (v4 as built: judge_m1.CLAUDE_MODEL) and, for the estimate only, the two 5.5 tiers.
 
     python3 study/whu-reliability/quarterly/lean_replay_round1.py   writes round1_scoring/lean_replay_round1.json
 """
@@ -55,11 +68,16 @@ import lean_audit as LA          # noqa: E402
 import passage_index as PI       # noqa: E402
 import reaudit as RA             # noqa: E402
 import source_advocate as SA     # noqa: E402
+sys.path.insert(0, str(ROOT / "study" / "whu-reliability" / "check_pilot"))
+S_LEDGER = lean._ledger()
 
 QUESTIONS = ("01", "02", "03", "04")
 OUT = Path(__file__).resolve().parent / "round1_scoring" / "lean_replay_round1.json"
 PM = Path(__file__).resolve().parent / "round1_scoring" / "process_measures_round1.json"
 PESSIMISTIC_EXTRA = 0.25
+TOKENIZER_PESS = 1.35          # Opus 4.7-family tokenizer vs Sonnet 4.6: ~1x-1.35x tokens (API docs)
+THINKING_PESS = 2.0            # output of a call recorded without thinking, on a model that thinks
+TIERS = ("sonnet-4-6", "sonnet-5-5", "haiku-5-5")
 
 
 def price(model, i=0, o=0, cw=0, cr=0):
@@ -230,25 +248,36 @@ def question(q):
                     for r in rel if r.get("ruling") == "not_relevant")
     ruling_other = audit_script - manifests - rel_rec
     # the gate: re-quotes and re-asks see retrieved passages
-    gate, gate_lean = 0.0, 0.0
+    gate, gate_lean, gate_pess = 0.0, 0.0, 0.0
+    brief = {"calls": 0, "web_searches": 0, "recorded_usd": 0.0, "lean_usd": 0.0, "lean_pessimistic_usd": 0.0}
     srate = sum(a["tokens_per_char"] for a in audits) / len(audits)
+    am = lean.model_for("advocate")
+    gate_model = "claude-sonnet-4-6"           # factcheck_draft.SIGNAL_MODEL (signal_model.DEFAULT_MODEL)
     for e in led:
         if e.get("script") != "factcheck_draft.py":
             continue
         usd = float(e.get("usd") or 0)
         gate += usd
         role = e.get("role") or ""
+        if not role.startswith("advocate"):
+            gate_lean += usd; gate_pess += usd
+            continue
+        inp, out, ws = e.get("input", 0), e.get("output", 0), e.get("web_searches", 0) or 0
         if role.startswith(("advocate-requote:", "advocate-reask-omission:")):
             sid = role.split(":", 1)[1]
             text = held.get("%s:%s" % (slug, sid)) or held.get(sid) or ""
             trimmed = min(len(text), A.MAX_DOC_CHARS) * srate
             ps = PI.index_of(text).passages if text else []
             avg = (sum(p.end - p.start for p in ps) / len(ps)) if ps else 900
-            lean_doc = SA.LEAN_K * avg * srate
-            inp = max(0.0, e.get("input", 0) - trimmed + lean_doc)
-            gate_lean += lean.usd(lean.model_for("advocate"), inp, e.get("output", 0))
-        else:
-            gate_lean += usd
+            inp = max(0.0, inp - trimmed + SA.LEAN_K * avg * srate)
+        search = ws * 10.0 / 1000
+        newer = am != gate_model
+        base = lean.usd(am, inp, out) + search
+        pess = lean.usd(am, inp * (TOKENIZER_PESS if newer else 1), out * (THINKING_PESS if newer else 1)) + search
+        gate_lean += base; gate_pess += pess
+        if role.startswith("advocate:"):
+            brief["calls"] += 1; brief["web_searches"] += ws; brief["recorded_usd"] += usd
+            brief["lean_usd"] += base; brief["lean_pessimistic_usd"] += pess
     actual = json.loads(PM.read_text(encoding="utf-8"))["M4"]["WHU"]["WHU-Q1-%s" % q]["usd"]
     out = {"actual_usd": actual, "ledger_usd": round(audit_script + gate, 2),
            "audit_runs": audits,
@@ -259,10 +288,13 @@ def question(q):
            "ruling_py_lean_usd": round(ruling_other + rel_lean, 2),
            "relevance": {"rulings": len(rel), "not_relevant_escalated": sum(r.get("ruling") == "not_relevant" for r in rel),
                          "recorded_usd": round(rel_rec, 3), "lean_usd": round(rel_lean, 3)},
-           "gate_recorded_usd": round(gate, 2), "gate_lean_usd": round(gate_lean, 2)}
-    for s in ("base", "pessimistic"):
-        out["lean_%s_usd" % s] = round(out["audit_runs_lean_%s_usd" % s] + out["ruling_py_lean_usd"]
-                                       + out["gate_lean_usd"], 2)
+           "gate_recorded_usd": round(gate, 2), "gate_lean_usd": round(gate_lean, 2),
+           "gate_lean_pessimistic_usd": round(gate_pess, 2),
+           "advocate_brief": {"model_recorded": gate_model, "model_lean": am,
+                              **{k: (round(v, 2) if isinstance(v, float) else v) for k, v in brief.items()}}}
+    out["lean_base_usd"] = round(out["audit_runs_lean_base_usd"] + out["ruling_py_lean_usd"] + gate_lean, 2)
+    out["lean_pessimistic_usd"] = round(out["audit_runs_lean_pessimistic_usd"] + out["ruling_py_lean_usd"]
+                                        + gate_pess, 2)
     # audit_stage.py spend in no run folder and no rulings record (carried as recorded, unchanged)
     attributed = sum(((json.loads(l).get("usage") or {}).get("usd") or 0)
                      for f in ("rulings.jsonl", "consistency.jsonl")
@@ -275,20 +307,60 @@ def question(q):
     return out
 
 
+def check_pilot_v4() -> dict:
+    """v4 per answer from the ledger's whu-check-pilot-v3 lines (see the docstring)."""
+    import pipeline_v4 as V4
+    rows = [json.loads(l) for l in (ROOT / "backend" / "data" / "spend" / "ledger.jsonl").read_text(
+        encoding="utf-8").splitlines() if l.strip() and '"whu-check-pilot-v3"' in l]
+    rows = [r for r in rows if r.get("role") == "check-pilot-v3-primary"]
+    p = S_LEDGER.PRICES["claude-opus-5-5"]
+    out = {"answers": 8, "calls": len(rows), "v3_recorded_usd": round(sum(r["usd"] for r in rows), 2),
+           "v3_per_answer_usd": round(sum(r["usd"] for r in rows) / 8, 2), "bar_per_answer_usd": 2.0}
+    for scen, docs, k, rate in (("base", 1, V4.TOP_K, 0.30), ("pessimistic", 2, V4.TOP_K + 4, 0.42)):
+        passage_tokens = docs * k * PI.PASSAGE_CHARS * rate
+        for model in ("claude-opus-5-5", "claude-sonnet-5-5", "claude-haiku-5-5"):
+            usd = 0.0
+            for r in rows:
+                cw = max(0.0, (r["usd"] - (r["input"] * p["input"] + r["output"] * p["output"]) / 1e6)
+                         / p["cache_write"] * 1e6)
+                cw4 = min(cw, passage_tokens)
+                usd += lean.usd(model, r["input"], r["output"], cw4, 0)
+            out["v4_%s_%s_per_answer_usd" % (model, scen)] = round(usd / 8, 2)
+    return out
+
+
 def main() -> int:
     lean.enable(True)
     res = {"label": "Lean WHU on quarterly round 1: a $0 replay of recorded token counts (no model call)",
            "method": "study/whu-reliability/quarterly/lean_replay_round1.py docstring",
-           "models": lean.stage_models(), "prices": "backend/scripts/spend_ledger.py PRICES",
-           "pessimistic_extra_escalation": PESSIMISTIC_EXTRA, "questions": {}}
-    for q in QUESTIONS:
-        res["questions"]["WHU-Q1-%s" % q] = question(q)
-        r = res["questions"]["WHU-Q1-%s" % q]
-        print("WHU-Q1-%s actual $%.2f -> lean $%.2f (pessimistic $%.2f): audit %.2f->%.2f, ruling.py %.2f->%.2f, "
-              "gate %.2f->%.2f" % (q, r["actual_usd"], r["lean_base_usd"], r["lean_pessimistic_usd"],
-                                   r["audit_runs_recorded_usd"], r["audit_runs_lean_base_usd"],
-                                   r["ruling_py_recorded_usd"], r["ruling_py_lean_usd"],
-                                   r["gate_recorded_usd"], r["gate_lean_usd"]))
+           "prices": "backend/scripts/spend_ledger.py PRICES (rates() step)",
+           "pessimistic_extra_escalation": PESSIMISTIC_EXTRA, "tokenizer_pessimistic": TOKENIZER_PESS,
+           "thinking_pessimistic": THINKING_PESS, "bars": {"median_usd": 5.0, "max_usd": 10.0}, "tiers": {}}
+    import os
+    import statistics
+    for t in TIERS:
+        os.environ[lean.ENV_MODELS] = json.dumps(lean.variant_models(t))
+        tier = {"models": lean.stage_models(), "questions": {}}
+        for q in QUESTIONS:
+            tier["questions"]["WHU-Q1-%s" % q] = r = question(q)
+            print("[%s] WHU-Q1-%s actual $%.2f -> lean $%.2f (pessimistic $%.2f): audit %.2f->%.2f, ruling.py "
+                  "%.2f->%.2f, gate %.2f->%.2f/%.2f; advocate brief %.2f->%.2f" % (
+                      t, q, r["actual_usd"], r["lean_base_usd"], r["lean_pessimistic_usd"],
+                      r["audit_runs_recorded_usd"], r["audit_runs_lean_base_usd"], r["ruling_py_recorded_usd"],
+                      r["ruling_py_lean_usd"], r["gate_recorded_usd"], r["gate_lean_usd"],
+                      r["gate_lean_pessimistic_usd"], r["advocate_brief"]["recorded_usd"],
+                      r["advocate_brief"]["lean_usd"]))
+        for sc in ("base", "pessimistic"):
+            v = [r["lean_%s_usd" % sc] for r in tier["questions"].values()]
+            tier[sc] = {"median_usd": round(statistics.median(v), 2), "max_usd": max(v),
+                        "median_under_5": statistics.median(v) < 5.0, "none_over_10": max(v) <= 10.0}
+        print("[%s] median base $%.2f max $%.2f | pessimistic median $%.2f max $%.2f" % (
+            t, tier["base"]["median_usd"], tier["base"]["max_usd"], tier["pessimistic"]["median_usd"],
+            tier["pessimistic"]["max_usd"]))
+        res["tiers"][t] = tier
+    os.environ.pop(lean.ENV_MODELS, None)
+    res["check_pilot_v4"] = check_pilot_v4()
+    print("check pilot v4:", json.dumps(res["check_pilot_v4"]))
     OUT.write_text(json.dumps(res, indent=1) + "\n", encoding="utf-8")
     print("wrote", OUT.relative_to(ROOT))
     return 0

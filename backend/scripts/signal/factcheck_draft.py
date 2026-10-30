@@ -144,8 +144,25 @@ PRICES = {                       # US dollars per million tokens
                           "cache_write": 12.50, "cache_read": 0.25},
     "claude-opus-5-5":   {"input": 4.00, "output": 20.00,
                           "cache_write": 5.00, "cache_read": 0.20},
+    # Added 2026-10-30 on the advisor's ruling, from
+    # platform.claude.com/docs/en/about-claude/pricing read that day (lean WHU's
+    # tiers). cache_write is the 5-minute rate, as for every row; the 1-hour rate
+    # is recorded beside it (no caller uses a 1-hour TTL). Haiku 5.5 steps up for
+    # a prompt over 100,000 tokens, cache reads and writes counted toward the
+    # length: spend_ledger.rates() picks the tier.
+    "claude-sonnet-5-5": {"input": 2.00, "output": 10.00,
+                          "cache_write": 2.50, "cache_write_1h": 4.00, "cache_read": 0.10},
+    "claude-haiku-5-5":  {"input": 0.10, "output": 0.50,
+                          "cache_write": 0.125, "cache_write_1h": 0.20, "cache_read": 0.01,
+                          "above_tokens": 100_000,
+                          "above": {"input": 0.50, "output": 2.50, "cache_write": 0.625,
+                                    "cache_write_1h": 1.00, "cache_read": 0.05}},
 }
 WEB_SEARCH_PER_1000 = 10.00      # charged on top of tokens, all models
+# Models that refuse a non-default temperature with a 400 (Claude API docs,
+# 2026-10-30). Only lean WHU's advocate tier (WHU_LEAN, default off) selects one;
+# the gate's own model, claude-sonnet-4-6, keeps temperature 0.
+FIXED_SAMPLING = ("claude-sonnet-5-5", "claude-haiku-5-5")
 
 USAGE = []                       # one entry per API response, in call order
 _LEDGER_ISSUE = ""               # set from the draft filename before any call
@@ -334,6 +351,9 @@ def usage_summary(entries=None):
     for e in entries:
         models.add(e["model"])
         price = PRICES.get(e["model"])
+        if price and price.get("above_tokens") and \
+                e["input"] + e["cache_write"] + e["cache_read"] > price["above_tokens"]:
+            price = price["above"]          # the long-prompt tier (claude-haiku-5-5)
         cost = None
         if price:
             cost = (e["input"] * price["input"]
@@ -706,6 +726,8 @@ def call(system: str, user: str, *, search: bool,
                     messages=[{"role": "user", "content": user}],
                     **kwargs,
                 )
+                if SIGNAL_MODEL in FIXED_SAMPLING:
+                    params.pop("temperature")
                 if max_tokens > STREAM_ABOVE:
                     with client.messages.stream(**params) as stream:
                         response = stream.get_final_message()

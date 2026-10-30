@@ -20,12 +20,15 @@ WHAT THE SWITCH TURNS ON
 MODEL TIERING. A model per stage, overridable with WHU_LEAN_MODELS (a JSON
 object {stage: model}). Every model named must be in spend_ledger.PRICES:
 prices are read from the ledger's own table, never guessed, and a model the
-table does not price is refused before any call (check_models). On
-2026-10-30 the table prices claude-opus-5-5 (the current WHU model),
-claude-opus-4-6, claude-fable-5-1 and claude-sonnet-4-6; the only one cheaper
-than the current model is claude-sonnet-4-6, so it is the lean default for the
-smaller tier. A cheaper model becomes usable here only when someone adds its
-checked price to spend_ledger.PRICES.
+table does not price is refused before any call (check_models).
+
+THE SMALLER TIER (advisor's ruling, 2026-10-30): claude-sonnet-5-5, with
+escalation to claude-opus-5-5 unchanged. claude-haiku-5-5 is a selectable
+variant, not the default: WHU_LEAN_MODELS='{"audit_first": "claude-haiku-5-5",
+...}', or variant_models("haiku"). Both were added to spend_ledger.PRICES that
+day from the official pricing page (Haiku 5.5 with its 100,000-token step).
+Until then the only priced model cheaper than the current one was
+claude-sonnet-4-6, the first lean default (variant "sonnet-4-6").
 """
 from __future__ import annotations
 
@@ -40,7 +43,10 @@ ENV = "WHU_LEAN"
 ENV_MODELS = "WHU_LEAN_MODELS"
 
 CURRENT = "claude-opus-5-5"          # audit_stage.MODEL and ruling.MODEL today
-SMALL = "claude-sonnet-4-6"          # the cheapest model spend_ledger.PRICES prices
+SMALL = "claude-sonnet-5-5"          # the smaller tier's default (advisor's ruling, 2026-10-30)
+HAIKU = "claude-haiku-5-5"           # a selectable variant, not the default
+SONNET_46 = "claude-sonnet-4-6"      # the first lean default, kept as a variant for comparison
+SMALL_STAGES = ("audit_first", "advocate", "judgements")
 # The model each stage runs on under lean WHU. "audit_first" is the audit's
 # first read; a sentence it flags or is unsure about is read again on
 # "audit_escalate", whose verdict decides. Rulings of findings, the second
@@ -50,7 +56,7 @@ STAGE_MODELS = {
     "audit_escalate": CURRENT,
     "audit_rule": CURRENT,
     "audit_second": CURRENT,
-    "advocate": SMALL,               # the gate (factcheck_draft) already runs on this model
+    "advocate": SMALL,               # the gate itself (factcheck_draft) runs on claude-sonnet-4-6
     "judgements": SMALL,
     "judgements_escalate": CURRENT,
     "rulings": CURRENT,
@@ -84,6 +90,17 @@ def strip_flag(argv: list[str] | None) -> list[str] | None:
         enable(True)
         return [a for a in argv if a != "--lean"]
     return argv
+
+
+VARIANTS = {"sonnet-5-5": SMALL, "haiku-5-5": HAIKU, "sonnet-4-6": SONNET_46}
+
+
+def variant_models(name: str) -> dict:
+    """STAGE_MODELS with the smaller tier set to a variant (VARIANTS); escalation unchanged."""
+    m = dict(STAGE_MODELS)
+    for k in SMALL_STAGES:
+        m[k] = VARIANTS[name]
+    return m
 
 
 def _ledger():
@@ -137,7 +154,13 @@ def model_for(stage: str, default: str = CURRENT) -> str:
 def usd(model: str, input_tokens: int = 0, output_tokens: int = 0, cache_write: int = 0,
         cache_read: int = 0, table: dict | None = None) -> float:
     """Price token counts from the ledger's table (as spend_ledger.price does)."""
-    p = (table if table is not None else prices())[model]
+    if table is None:
+        # the ledger's own rates(), with its price steps (claude-haiku-5-5 over 100,000 tokens)
+        p = _ledger().rates(model, input_tokens + cache_write + cache_read)
+        if p is None:
+            raise KeyError(model)
+    else:
+        p = table[model]
     return (input_tokens * p["input"] + output_tokens * p["output"]
             + cache_write * p["cache_write"] + cache_read * p["cache_read"]) / 1e6
 
@@ -154,7 +177,8 @@ def usd(model: str, input_tokens: int = 0, output_tokens: int = 0, cache_write: 
 # same source group, the re-quote of a batch, the escalation re-read. Only the
 # split into content blocks changes; the prompt text is byte for byte the one
 # a caller built.
-CACHE_MIN_TOKENS = {CURRENT: 512, SMALL: 1024}   # documented minimums; others: assume the largest
+# Documented minimums (the API's prompt-caching page); others: assume the largest.
+CACHE_MIN_TOKENS = {CURRENT: 512, SMALL: 512, HAIKU: 512, SONNET_46: 1024}
 CACHE_MIN_DEFAULT = 4096
 
 
