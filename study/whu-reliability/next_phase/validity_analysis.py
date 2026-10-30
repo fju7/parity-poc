@@ -212,9 +212,476 @@ def check6() -> dict:
     return write("check6", res)
 
 
+# ---------------------------------------------------------------------------------------------------------------
+# checks 1 and 2: the Google judge; the non-Anthropic view (plan §1, §2)
+# ---------------------------------------------------------------------------------------------------------------
+
+def google_labels(rows: list[dict], measure: str, tag: str = "", run: Path | None = None) -> int:
+    """r["labels"]["google"]: Google's own first-read label (no fill from another judge: three judges, no refusal
+    fill), with the EVERY abstract-only rule applied as cross_company.abstract_correct applies it."""
+    run = run or (AR.RUN / measure.lower())
+    valid = (A.M1_PASS | A.M1_FAIL | A.M1_EXCL) if measure == "M1" else (A.M2_PASS | A.M2_FAIL)
+    n = 0
+    for r in rows:
+        if r["uncited"]:
+            r["labels"]["google"] = A.UNCITED
+            continue
+        f = run / ("replies" + tag) / "google" / (r["item"] + ".json")
+        rep = json.loads(f.read_text()) if f.exists() else {}
+        lab = rep.get("label")
+        if lab == A.NVA and rep.get("judge_label") == "Absent" and not all(
+                x.get("abstract_only") for x in rep.get("sources") or []):
+            lab = "Absent"
+        r["labels"]["google"] = lab if lab in valid else None
+        n += bool(rep)
+    return n
+
+
+def three(r):
+    return [r["labels"][j] for j in ("claude", "openai", "google")]
+
+
+def non_anthropic(r):
+    return [r["labels"][j] for j in ("openai", "google")]
+
+
+def by_judge(rows, measure, qs, fn) -> dict:
+    return seven(view_of(scores(rows, measure, fn), qs), measure)
+
+
+def check1() -> dict:
+    m1, m2 = AR.round1_rows()
+    got = {"M1": google_labels(m1, "M1"), "M2": google_labels(m2, "M2")}
+    res = {"google_replies": got, "model": "gemini-4-argon", "sets": {}}
+    for set_name, qs in SETS.items():
+        out = {}
+        for measure in ("M1_failure", "M2_overstates", "M2_understates_omits"):
+            rows = m1 if measure.startswith("M1") else m2
+            v = {name: by_judge(rows, measure, qs, fn) for name, fn in (
+                ("claude", lambda r: [r["labels"]["claude"]]), ("openai", lambda r: [r["labels"]["openai"]]),
+                ("google", lambda r: [r["labels"]["google"]]), ("two_judge", combined), ("three_judge", three),
+                ("openai_google", non_anthropic))}
+            for s, g in v["google"].items():
+                c, o = v["claude"][s]["difference"], v["openai"][s]["difference"]
+                hi = max(c, o)
+                g["test"] = {
+                    "outside_range_narrowing_by_more_than_5_points": g["difference"] is not None and g["difference"] > hi + 0.05,
+                    "outside_range_widening_reported": g["difference"] is not None and g["difference"] < min(c, o) - 0.05,
+                    "ci_includes_zero_or_reverses": g["ci95"][0] is None or g["ci95"][1] >= 0,
+                    "gemini_self_preference_flag": s == "Gemini"}
+            out[measure] = v
+        flags = [(m, s) for m, s in SEVEN for x in [out[m]["google"][s]["test"]]
+                 if x["outside_range_narrowing_by_more_than_5_points"] or x["ci_includes_zero_or_reverses"]]
+        out["changed"] = flags
+        out["conclusion_changes"] = bool(flags)
+        res["sets"][set_name] = out
+    res["conclusion_changes"] = res["sets"]["all_four"]["conclusion_changes"]
+    res["agreement_with_google"] = agreement(m1, m2)
+    return write("check1", res)
+
+
+def agreement(m1, m2) -> dict:
+    out = {}
+    for name, rows in (("M1", m1), ("M2", m2)):
+        for j in ("claude", "openai"):
+            pairs = [(r["labels"][j], r["labels"]["google"]) for r in rows if not r["uncited"]
+                     and r["labels"][j] is not None and r["labels"]["google"] is not None]
+            out["%s_%s_vs_google" % (name, j)] = {"n": len(pairs), "same_label": sum(a == b for a, b in pairs)}
+    return out
+
+
+def check2() -> dict:
+    m1, m2 = AR.round1_rows()
+    google_labels(m1, "M1")
+    google_labels(m2, "M2")
+    res = {"sets": {}}
+    for set_name, qs in SETS.items():
+        out = {}
+        for measure in ("M1_failure", "M2_overstates", "M2_understates_omits", "M2_overstates_contradicts"):
+            rows = m1 if measure.startswith("M1") else m2
+            two = view_of(scores(rows, measure, combined), qs)
+            na = view_of(scores(rows, measure, non_anthropic), qs)
+            cj = view_of(scores(rows, measure, lambda r: [r["labels"]["claude"]]), qs)
+            tests = {}
+            for s in SYSTEMS[1:]:
+                d2, dn = two[s]["WHU_vs"]["difference_whu_minus"], na[s]["WHU_vs"]["difference_whu_minus"]
+                ci = na[s]["WHU_vs"]["difference_ci95"]
+                tests[s] = {"two_judge_difference": d2, "non_anthropic_difference": dn, "non_anthropic_ci95": ci,
+                            "in_seven": (measure, s) in SEVEN,
+                            "ci_includes_zero": ci[0] is None or ci[0] <= 0 <= ci[1],
+                            "lead_under_half": d2 is not None and dn is not None and d2 < 0 and dn > 0.5 * d2}
+            bias = {s: None if cj[s]["rate"] is None or na[s]["rate"] is None else round(cj[s]["rate"] - na[s]["rate"], 4)
+                    for s in SYSTEMS}
+            others = [bias[s] for s in ("ChatGPT", "Gemini", "Perplexity") if bias[s] is not None]
+            base = sum(others) / len(others) if others else 0.0
+            out[measure] = {"tests": tests, "rates": {s: {"two_judge": two[s]["rate"], "non_anthropic": na[s]["rate"],
+                                                          "claude_judge": cj[s]["rate"], "n": na[s]["countable"]}
+                                                      for s in SYSTEMS},
+                            "self_preference": {"claude_minus_non_anthropic": bias,
+                                                "non_claude_tools_mean": round(base, 4),
+                                                "flag_WHU": bias["WHU"] is not None and bias["WHU"] - base < -0.05,
+                                                "flag_Claude": bias["Claude"] is not None and bias["Claude"] - base < -0.05}}
+        flags = [(m, s) for m, s in SEVEN if out[m]["tests"][s]["ci_includes_zero"] or out[m]["tests"][s]["lead_under_half"]]
+        out["changed"] = flags
+        out["conclusion_changes"] = bool(flags)
+        res["sets"][set_name] = out
+    res["conclusion_changes"] = res["sets"]["all_four"]["conclusion_changes"]
+    return write("check2", res)
+
+
+# ---------------------------------------------------------------------------------------------------------------
+# check 10: prompt wording (plan §8)
+# ---------------------------------------------------------------------------------------------------------------
+
+C10_TAG = "_c10alt"
+PRIV = Path.home() / "Projects" / "whu-study-private"
+
+
+def check10() -> dict:
+    smp = json.loads((PRIV / "validity" / "check10" / "sample.json").read_text())
+    m1, m2 = AR.round1_rows()
+    res = {"tag": C10_TAG, "flips": {}, "shifts": {}, "sets": {}}
+    for measure_kind, rows, ids in (("M1", m1, set(smp["items"]["M1"])), ("M2", m2, set(smp["items"]["M2"]))):
+        run = AR.RUN / measure_kind.lower()
+        alt = A.load_replies(run, C10_TAG)
+        valid = (A.M1_PASS | A.M1_FAIL | A.M1_EXCL) if measure_kind == "M1" else (A.M2_PASS | A.M2_FAIL)
+        sub = [r for r in rows if r["item"] in ids]
+        for r in sub:
+            r["alt"] = A.per_judge_labels(alt.get(r["item"], {}), valid)
+        for j in A.JUDGES:
+            pf = [(r["labels"][j], r["alt"][j]) for r in sub if r["labels"][j] and r["alt"][j]]
+            fail = A.M1_FAIL if measure_kind == "M1" else A.M2_FAIL
+            res["flips"]["%s_%s" % (measure_kind, j)] = {
+                "n": len(pf), "exact_label_changed": sum(a != b for a, b in pf),
+                "pass_fail_changed": sum((a in fail) != (b in fail) for a, b in pf if a not in A.M1_EXCL and b not in A.M1_EXCL),
+                "replies_missing": len(sub) - len(pf)}
+            n = res["flips"]["%s_%s" % (measure_kind, j)]
+            n["flip_rate_pass_fail"] = round(n["pass_fail_changed"] / n["n"], 4) if n["n"] else None
+            n["instability_flag_over_15pct"] = bool(n["flip_rate_pass_fail"] and n["flip_rate_pass_fail"] > 0.15)
+        res["_rows_" + measure_kind] = (rows, sub)
+    for set_name, qs in SETS.items():
+        out = {}
+        for measure in ("M1_failure", "M2_overstates", "M2_understates_omits"):
+            rows, sub = res["_rows_M1" if measure.startswith("M1") else "_rows_M2"]
+            _, fail, ok = AR.MEASURES[measure]
+            base = view_of(scores(rows, measure, combined), qs)
+            shift = {}
+            for sy in SYSTEMS:
+                ss = [r for r in sub if r["system"] == sy and r["question"] in qs]
+                def rate(fn):
+                    v = [x for x in (sum(g) / len(g) if g else None for g in (
+                        [y for y in (A.score(l, fail, ok) for l in fn(r)) if y is not None] for r in ss)) if x is not None]
+                    return (sum(v) / len(v), len(v)) if v else (None, 0)
+                o, n_o = rate(combined)
+                al, n_a = rate(lambda r: [r["alt"][j] for j in A.JUDGES])
+                judged = sum(1 for r in rows if r["system"] == sy and r["question"] in qs and not r["uncited"]
+                             and any(A.score(l, fail, ok) is not None for l in combined(r)))
+                share = judged / base[sy]["countable"] if base[sy]["countable"] else 0
+                d = (al - o) if o is not None and al is not None else 0.0
+                shift[sy] = {"subsample_n": n_o, "original": None if o is None else round(o, 4),
+                             "alternative": None if al is None else round(al, 4), "shift_on_judged": round(d, 4),
+                             "judged_share_of_countable": round(share, 4), "applied_shift": round(d * share, 4)}
+            tests = {}
+            for m, sy in SEVEN:
+                if m != measure:
+                    continue
+                d0 = base[sy]["WHU_vs"]["difference_whu_minus"]
+                d1 = (base["WHU"]["rate"] + shift["WHU"]["applied_shift"]) - (base[sy]["rate"] + shift[sy]["applied_shift"])
+                tests[sy] = {"difference": d0, "shifted_difference": round(d1, 4), "sign_changes": (d1 > 0) != (d0 > 0)}
+            out[measure] = {"shift": shift, "seven": tests}
+        out["changed"] = [(m, sy) for m in out for sy, t in (out[m]["seven"].items() if isinstance(out[m], dict) and "seven" in out[m] else []) if t["sign_changes"]]
+        out["conclusion_changes"] = bool(out["changed"])
+        res["sets"][set_name] = out
+    for k in [k for k in res if k.startswith("_rows_")]:
+        res.pop(k)
+    res["instability_flags"] = [k for k, v in res["flips"].items() if v["instability_flag_over_15pct"]]
+    res["conclusion_changes"] = res["sets"]["all_four"]["conclusion_changes"]
+    return write("check10", res)
+
+
+# ---------------------------------------------------------------------------------------------------------------
+# check 4: second keys (plan §4)
+# ---------------------------------------------------------------------------------------------------------------
+
+def k2_rows(run: Path) -> list[dict]:
+    spec = json.loads((run / "items.json").read_text())
+    km = json.loads((run / "key_map.json").read_text())
+    valid = A.M2_PASS | A.M2_FAIL
+    rows = []
+    for it in spec["items"]:
+        raw = {}
+        for j in ("claude", "openai", "google"):
+            f = run / "replies" / j / (it["item"] + ".json")
+            if f.exists():
+                raw[j] = json.loads(f.read_text())
+        labels = A.per_judge_labels({j: raw[j] for j in A.JUDGES if j in raw}, valid)
+        g = (raw.get("google") or {}).get("label")
+        labels["google"] = g if g in valid else None
+        rows.append({"item": it["item"], **km[it["answer"]], "conclusion": it["conclusion"], "raw": raw,
+                     "labels": labels, "uncited": False, "repeat": {}})
+    return rows
+
+
+def norm_offsets(text: str, quote: str) -> tuple[int, int] | None:
+    h, q = CL_norm(text), CL_norm(quote)
+    i = h.find(q)
+    return (i, i + len(q)) if q and i >= 0 else None
+
+
+def CL_norm(s: str) -> str:
+    import judge_m1 as J1
+    return J1.norm(s)
+
+
+def matching(q: str) -> dict:
+    """Second-key conclusion -> matched first-key conclusion (quoted passages overlap >= half the shorter quote)."""
+    sys.path.insert(0, str(STUDY / "scripts"))
+    k1dir = (PRIV / "keys" / "quarterly" / "round1" / q) if q.startswith("WHU-Q1") else (PRIV / "keys" / q)
+    k1 = json.loads((k1dir / "key.json").read_text())
+    k2 = json.loads((PRIV / "keys2" / q / "key.json").read_text())
+    full = "\n\n".join(f.read_text(encoding="utf-8") for f in sorted(k1dir.joinpath("source").rglob("*.txt")))
+    def spans(c):
+        return [x for x in (norm_offsets(full, y["text"]) for y in c.get("quotes") or []) if x]
+    out = {}
+    for c2 in k2["conclusions"]:
+        best = None
+        for c1 in k1["conclusions"]:
+            for a in spans(c2):
+                for b in spans(c1):
+                    ov = max(0, min(a[1], b[1]) - max(a[0], b[0]))
+                    if ov >= 0.5 * min(a[1] - a[0], b[1] - b[0]):
+                        best = c1["n"]
+        out["%s-K2C%d" % (q, c2["n"])] = best
+    return out
+
+
+def check4() -> dict:
+    c4 = PRIV / "validity" / "check4"
+    r1 = k2_rows(c4 / "m2_round1")
+    st = k2_rows(c4 / "m2_study")
+    match = {}
+    for q in QS + ["WHU-S01", "WHU-S02"]:
+        match.update(matching(q))
+    first = json.loads((STUDY / "quarterly" / "round1_scoring" / "round1_ai_only.json").read_text())
+    res = {"conclusions": {"total": len(match), "matched": sum(v is not None for v in match.values()),
+                           "by_conclusion": match}, "sets": {}}
+    measures = ("M2_overstates", "M2_understates_omits", "M2_overstates_contradicts")
+    for label, rows_fn in (("all_conclusions", lambda rs: rs), ("unmatched_only", lambda rs: [r for r in rs if match.get(r["conclusion"]) is None])):
+        rows = rows_fn(r1)
+        out = {}
+        for measure in measures + ("M2_any_failure",):
+            v = {name: view_of(scores(rows, measure, fn), QS) for name, fn in (
+                ("two_judge", combined), ("claude", lambda r: [r["labels"]["claude"]]),
+                ("openai", lambda r: [r["labels"]["openai"]]), ("google", lambda r: [r["labels"]["google"]]))}
+            f1 = first["A_whu_against_each_tool"]["all_four"][measure]["combined"]
+            out[measure] = {"second_key": {s: {"rate": v["two_judge"][s]["rate"], "n": v["two_judge"][s]["countable"]}
+                                           for s in SYSTEMS},
+                            "per_judge_WHU": {j: v[j]["WHU"]["rate"] for j in ("claude", "openai", "google")},
+                            "first_key_WHU": f1["WHU"]["rate"],
+                            "vs_tools": {s: {"first_key_difference": f1[s]["WHU_vs"]["difference_whu_minus"],
+                                             "second_key_difference": v["two_judge"][s]["WHU_vs"]["difference_whu_minus"],
+                                             "second_key_ci95": v["two_judge"][s]["WHU_vs"]["difference_ci95"]}
+                                         for s in SYSTEMS[1:]}}
+        t = []
+        for measure in ("M2_overstates_contradicts", "M2_understates_omits"):
+            a, b = out[measure]["first_key_WHU"], out[measure]["second_key"]["WHU"]["rate"]
+            if a is not None and b is not None and b - a >= 0.10:
+                t.append("WHU %s rises %.3f -> %.3f" % (measure, a, b))
+        for m, sy in SEVEN:
+            if m.startswith("M2") and m in out:
+                ci = out[m]["vs_tools"][sy]["second_key_ci95"]
+                if ci[0] is None or ci[0] <= 0 <= ci[1]:
+                    t.append("%s vs %s: interval %s includes zero" % (m, sy, ci))
+        for m in measures:
+            for sy, x in out[m]["vs_tools"].items():
+                d0, d1 = x["first_key_difference"], x["second_key_difference"]
+                if d0 is not None and d1 is not None and ((d0 <= 0 and d1 > 0.05) or (d0 >= 0 and d1 < -0.05)):
+                    t.append("%s vs %s reverses: %.3f -> %.3f" % (m, sy, d0, d1))
+        out["changed"] = t
+        res["sets"]["round1_" + label] = out
+    # study S01-S02: WHU's second-key rates against the study's own (first-key) rates on the same two questions
+    keep = A.PRIVATE, A.QUESTIONS, A.TAGS
+    sm = {}
+    try:
+        for base in (PRIV / "scoring", PRIV / "scoring" / "perplexity"):
+            A.PRIVATE, A.QUESTIONS, A.TAGS = base, ["WHU-S01", "WHU-S02"], ("", "_ext")
+            sm[str(base)] = A.items_m2()
+    finally:
+        A.PRIVATE, A.QUESTIONS, A.TAGS = keep
+    study_first = [r for rs in sm.values() for r in rs]
+    stud = {}
+    for measure in ("M2_overstates_contradicts", "M2_understates_omits"):
+        _, fail, ok = AR.MEASURES[measure]
+        def rate(rows, sy):
+            v = [x for x in (sum(g) / len(g) if g else None for g in (
+                [y for y in (A.score(l, fail, ok) for l in [r["labels"]["claude"], r["labels"]["openai"]]) if y is not None]
+                for r in rows if r["system"] == sy)) if x is not None]
+            return (round(sum(v) / len(v), 4) if v else None, len(v))
+        stud[measure] = {sy: {"first_key": rate(study_first, sy), "second_key": rate(st, sy)} for sy in SYSTEMS}
+    t = ["study WHU %s rises %s -> %s" % (m, x["WHU"]["first_key"][0], x["WHU"]["second_key"][0])
+         for m, x in stud.items() if x["WHU"]["first_key"][0] is not None and x["WHU"]["second_key"][0] is not None
+         and x["WHU"]["second_key"][0] - x["WHU"]["first_key"][0] >= 0.10]
+    res["sets"]["study_S01_S02"] = {"rates_two_judge": stud, "changed": t,
+                                    "note": "two questions: point rates only, no interval"}
+    res["conclusion_changes"] = bool(res["sets"]["round1_all_conclusions"]["changed"] or t)
+    return write("check4", res)
+
+
+# ---------------------------------------------------------------------------------------------------------------
+# check 5: the human probability sample, judge error correction (plan §5)
+# ---------------------------------------------------------------------------------------------------------------
+
+def _corrected(items, frame_rows, judge, fail) -> dict:
+    """One judge, one system: Se/Sp from the labelled items (weights N_h/n_h, Jeffreys +0.5), the corrected judged
+    failure rate, and the direct stratified human estimate."""
+    w = {}
+    for it in items:
+        w.setdefault(it["stratum"], []).append(it)
+    N = {}
+    for r in frame_rows:
+        N[r["stratum"]] = N.get(r["stratum"], 0) + 1
+    tp = fn = tn = fp = 0.0
+    direct_num = direct_den = 0.0
+    for h, its in w.items():
+        wt = N.get(h, 0) / len(its)
+        for it in its:
+            hf, jf = it["human_fail"], it[judge] in fail
+            tp += wt * (hf and jf); fn += wt * (hf and not jf); tn += wt * ((not hf) and not jf); fp += wt * ((not hf) and jf)
+        direct_num += N.get(h, 0) * sum(i["human_fail"] for i in its) / len(its)
+        direct_den += N.get(h, 0)
+    se = (tp + 0.5) / (tp + fn + 1.0)
+    sp = (tn + 0.5) / (tn + fp + 1.0)
+    obs = sum(r[judge] in fail for r in frame_rows) / len(frame_rows) if frame_rows else None
+    direct = direct_num / direct_den if direct_den else None
+    if obs is None:
+        return {"se": se, "sp": sp, "observed": None, "corrected": None, "direct": direct, "identifiable": False}
+    j = se + sp - 1
+    ok = j >= 0.5
+    theta = min(1.0, max(0.0, (obs + sp - 1) / j)) if ok else direct
+    return {"se": round(se, 4), "sp": round(sp, 4), "observed": round(obs, 4),
+            "corrected": None if theta is None else round(theta, 4), "direct": None if direct is None else round(direct, 4),
+            "identifiable": ok}
+
+
+def check5(boot: int = 10_000) -> dict:
+    import random as _r
+    smp = json.loads((PRIV / "validity" / "check5" / "sample.json").read_text())
+    lab = {}
+    lf = PRIV / "validity" / "check5" / "fred.jsonl"
+    for line in lf.read_text().splitlines() if lf.exists() else []:
+        if line.strip():
+            x = json.loads(line)
+            lab[x["n"]] = x
+    m1, m2 = AR.round1_rows()
+    rows = {"M1": m1, "M2": m2}
+    fails = {"M1": {"Not supported"}, "M2": {"Overstates", "Understates", "Omits", "Contradicts"}}
+    jfail = {"M1": A.M1_FAIL, "M2": A.M2_FAIL}
+    labelled = []
+    cant = 0
+    for it in smp["items"]:
+        x = lab.get(it["n"])
+        if not x:
+            continue
+        if x["label"] == "Can't tell":
+            cant += 1
+            continue
+        labelled.append({**it, "human": x["label"], "human_fail": x["label"] in fails[it["measure"]],
+                         "think_i_know": x.get("think_i_know")})
+    res = {"labelled": len(labelled), "cant_tell": cant, "of": len(smp["items"]),
+           "by": "Fred (built WHU; his labels reported as his)", "systems": {}}
+    if not labelled:
+        res["note"] = "no labels yet"
+        return write("check5", res)
+    # the frame each item came from (both judges' own labels countable), with its stratum
+    frame = {}
+    for m in ("M1", "M2"):
+        valid = (A.M1_PASS | A.M1_FAIL) if m == "M1" else (A.M2_PASS | A.M2_FAIL)
+        for r in rows[m]:
+            l = {j: (r["raw"].get(j) or {}).get("label") for j in A.JUDGES}
+            if not r["uncited"] and all(l[j] in valid for j in A.JUDGES):
+                frame.setdefault((m, r["system"]), []).append(
+                    {"item": r["item"], "question": r["question"], "claude": l["claude"], "openai": l["openai"],
+                     "stratum": "agree" if l["claude"] == l["openai"] else "disagree"})
+    def system_rates(m, sy, items, fr):
+        out = {}
+        for j in A.JUDGES:
+            out[j] = _corrected([i for i in items if i["system"] == sy and i["measure"] == m], fr, j, jfail[m])
+        cs = [out[j]["corrected"] for j in A.JUDGES if out[j]["corrected"] is not None]
+        out["two_judge_corrected_judged"] = sum(cs) / len(cs) if cs else None
+        return out
+    m1_unc = {}
+    m1_cnt = {}
+    for r in m1:
+        m1_unc[r["system"]] = m1_unc.get(r["system"], 0) + r["uncited"]
+    for sy in SYSTEMS:
+        res["systems"][sy] = {}
+        for m in ("M1", "M2"):
+            fr = frame.get((m, sy), [])
+            rr = system_rates(m, sy, labelled, fr)
+            if m == "M1":
+                unc = m1_unc.get(sy, 0)
+                cnt = unc + len(fr)
+                t = rr["two_judge_corrected_judged"]
+                # no judged items (ChatGPT: all UNCITED, by code) -> the rate is UNCITED / countable, no judge error
+                rr["corrected_M1_rate"] = None if not cnt else round(unc / cnt, 4) if not fr else \
+                    None if t is None else round((unc + t * len(fr)) / cnt, 4)
+                rr["countable"] = cnt
+            res["systems"][sy][m] = rr
+    # bootstrap: questions with replacement, then labelled items within stratum
+    rng = _r.Random("%d/check5/boot" % SEED)
+    qs = list(QS)
+    diffs = {sy: [] for sy in SYSTEMS[1:]}
+    for _ in range(boot):
+        qb = [rng.choice(qs) for _ in qs]
+        lab_b, fr_b = [], {}
+        for q in qb:
+            for key, fr in frame.items():
+                fr_b.setdefault(key, []).extend([x for x in fr if x["question"] == q])
+            byh = {}
+            for i in labelled:
+                if i["question"] == q:
+                    byh.setdefault((i["measure"], i["system"], i["stratum"]), []).append(i)
+            for its in byh.values():
+                lab_b += [rng.choice(its) for _ in its]
+        def m1rate(sy):
+            fr = fr_b.get(("M1", sy), [])
+            unc = sum(1 for q in qb for r in m1 if r["system"] == sy and r["question"] == q and r["uncited"])
+            t = system_rates("M1", sy, lab_b, fr)["two_judge_corrected_judged"] if fr else None
+            cnt = unc + len(fr)
+            if not cnt:
+                return None
+            return unc / cnt if not fr else None if t is None else (unc + t * len(fr)) / cnt
+        w = m1rate("WHU")
+        for sy in SYSTEMS[1:]:
+            o = m1rate(sy)
+            if w is not None and o is not None:
+                diffs[sy].append(w - o)
+    out = {}
+    for sy, d in diffs.items():
+        d.sort()
+        ci = [round(d[int(0.025 * (len(d) - 1))], 4), round(d[int(0.975 * (len(d) - 1))], 4)] if d else [None, None]
+        w, o = res["systems"]["WHU"]["M1"]["corrected_M1_rate"], res["systems"][sy]["M1"]["corrected_M1_rate"]
+        out[sy] = {"corrected_difference": None if w is None or o is None else round(w - o, 4), "ci95": ci, "resamples": len(d)}
+    res["M1_corrected_vs_whu"] = out
+    first = json.loads((STUDY / "quarterly" / "round1_scoring" / "round1_ai_only.json").read_text())
+    base = first["A_whu_against_each_tool"]["all_four"]["M1_failure"]["combined"]
+    flags = []
+    for m, sy in SEVEN:
+        if m != "M1_failure":
+            continue
+        x, d0 = out[sy], base[sy]["WHU_vs"]["difference_whu_minus"]
+        if x["ci95"][0] is None or x["ci95"][0] <= 0 <= x["ci95"][1] or (x["corrected_difference"] is not None and x["corrected_difference"] > 0.5 * d0):
+            flags.append((m, sy))
+    res["changed"] = flags
+    res["M2_note"] = "M2 is diagnostic only (1 agreed item drawn per system): per-judge Se/Sp and corrected rates above"
+    res["conclusion_changes"] = bool(flags)
+    return write("check5", res)
+
+
 def main() -> int:
     which = sys.argv[1] if len(sys.argv) > 1 else ""
-    fn = {"check9": check9, "check6": check6}.get(which)
+    fn = {"check9": check9, "check6": check6, "check1": check1, "check2": check2, "check10": check10,
+          "check4": check4, "check5": check5}.get(which)
     if not fn:
         print(__doc__)
         return 2
