@@ -403,3 +403,36 @@ above its threshold the claim is COULDN'T CHECK with the reason "no relevant pas
 source is never sent. The passage shown to a reader (§10.1) is located in the full held text. Offline
 tests: `backend/tests/test_whu_check_pilot_v4.py`. Not run (no paid call), not wired into the preview
 (`routers/whu_check.py` stays on v2; a test pins it).
+
+**11.1 v4 run, written 2026-10-30 before any v4 call (session VP; plan doc "WHU next phase", step 1 of
+Fred's brief for this phase).**
+- **Input: the same 8 round-1 answers v3 used** (§10.8's primary draw: Claude Q1-01, Q1-02, Q1-04;
+  Perplexity Q1-01, Q1-03, Q1-04; Gemini Q1-01, Q1-03). **This is not a fresh sample:** it is a
+  side-by-side of v3 and v4 on identical input, so it can say what v4's retrieval changes, not how v4
+  does on answers it has not seen. The claims are v3's (same adapter, same ranking, at most 40), and
+  the copies are the ones v3 held: v3's private manifest and source texts are copied into v4's run
+  folder and **nothing is re-fetched**, so only what the judge reads differs. Consequence, stated
+  before the run: every COULDN'T CHECK that v3 gave for a copy reason (bot wall, barred publisher,
+  robots.txt, licence, HTTP error) is carried over unchanged by construction; v4 can change only
+  claims v3 judged or stopped at the delivery check, no passage to show or the abstract, and it adds
+  one reason, "no relevant passage" (§11).
+- **Bars: §10.7's five, unchanged** (COULDN'T CHECK at most 20%; agreement at least 90% on claims both
+  judged, against round 1's Claude-judge first reads as in §10.8; at most $2 per answer; at most 120 s
+  per answer on average; 100% of BACKED / NOT BACKED verdicts carry a passage). Seconds: because v4
+  re-uses v3's copies, its wall clock leaves out fetching. It is reported as measured, and the 120 s
+  bar is applied to that figure plus v3's fetch time for the same answer, reconstructed from v3's
+  manifest (per-copy seconds summed per host, the slowest host taken, as `snapshots_v3` fetches hosts
+  in parallel), labelled an estimate.
+- **Judge: as built,** `judge_m1` (M1 v3 prompt, first read) on `claude-opus-5-5`; code as committed at
+  `1a3a868` (`pipeline_v4.py`, `passage_index.py`; TOP_K 6). Runner: `check_pilot/run_pilot_v4.py`
+  (prepare | run --cap | compare).
+- **Spend:** ledger issue `whu-check-pilot-v4`, `--cap 10`, within caps.json's $25 all-spend day cap
+  (checked before every call; never overridden). A free prepare prints judge_m1's worst-case estimate
+  first; if it is over $10 nothing runs. Part of the phase's $350 approval.
+- **Reported, v3 and v4 side by side:** each bar; COULDN'T CHECK by reason; dollars and seconds per
+  answer; passages shown; the claim-by-claim table v3 label -> v4 label; and **how many of v3's 15
+  "delivery check" claims v4 cleared**, where cleared means v4 gave BACKED or NOT BACKED with a passage
+  shown, with each cleared claim's agreement with the study label where the study drew it.
+- Counts only are committed (`check_pilot/pilot_v4_counts.json`); outputs stay private
+  (`~/Projects/whu-study-private/check_pilot_v4/`). **The preview stays on v2.** As v1 §5: failing a bar
+  is a result, not a reason to retune and re-run.
