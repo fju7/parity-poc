@@ -1,0 +1,411 @@
+{
+ "written": "2026-10-30T18:10:13+00:00",
+ "by": "study/whu-reliability/check_pilot/run_pilot_v5.py compare",
+ "label": "Counts only. Internal pilot, exploratory, outside H1/H2; judged by an AI model (Claude) only. v5 on v3's and v4's 8 answers, v3's held copies and v4's recorded stage 1: a side-by-side on identical input, not a fresh sample.",
+ "design": "docs/whu-check-an-answer-pilot.md \u00a712",
+ "ledger_issue": "whu-check-pilot-v5",
+ "sample": [
+  "WHU-Q1-01/Claude",
+  "WHU-Q1-02/Claude",
+  "WHU-Q1-04/Claude",
+  "WHU-Q1-01/Perplexity",
+  "WHU-Q1-03/Perplexity",
+  "WHU-Q1-04/Perplexity",
+  "WHU-Q1-01/Gemini",
+  "WHU-Q1-03/Gemini"
+ ],
+ "couldnt_check": {
+  "v3": {
+   "n": 64,
+   "of": 295,
+   "share": 0.2169,
+   "reasons": {
+    "bot wall or CAPTCHA": 34,
+    "delivery check": 15,
+    "barred publisher": 4,
+    "publisher copy without licence": 3,
+    "robots.txt disallows": 3,
+    "no passage to show": 3,
+    "HTTP error": 2
+   }
+  },
+  "v4": {
+   "n": 53,
+   "of": 295,
+   "share": 0.1797,
+   "reasons": {
+    "bot wall or CAPTCHA": 33,
+    "no relevant passage": 6,
+    "barred publisher": 4,
+    "publisher copy without licence": 3,
+    "robots.txt disallows": 3,
+    "HTTP error": 2,
+    "unparsed": 1,
+    "no passage to show": 1
+   }
+  },
+  "v5": {
+   "n": 83,
+   "of": 295,
+   "share": 0.2814,
+   "couldnt_check": 55,
+   "not_found_in_passages_checked": 28,
+   "reasons": {
+    "bot wall or CAPTCHA": 33,
+    "no relevant passage": 6,
+    "barred publisher": 4,
+    "publisher copy without licence": 3,
+    "robots.txt disallows": 3,
+    "no passage to show": 3,
+    "HTTP error": 2,
+    "unparsed": 1
+   }
+  },
+  "rule_v5": "NOT FOUND IN THE PASSAGES CHECKED counted with COULDN'T CHECK for the bar; reported separately"
+ },
+ "agreement": {
+  "v3": {
+   "n": 47,
+   "agree": 46,
+   "share": 0.9787
+  },
+  "v4": {
+   "n": 48,
+   "agree": 40,
+   "share": 0.8333
+  },
+  "v5": {
+   "n": 45,
+   "agree": 44,
+   "share": 0.9778
+  },
+  "rule": "sentences the study drew and the pilot checked, both BACKED or NOT BACKED (study: round 1's Claude-judge first reads)"
+ },
+ "passages": {
+  "v3": {
+   "verdicts": 124,
+   "with_passage": 124
+  },
+  "v4": {
+   "verdicts": 135,
+   "with_passage": 135
+  },
+  "v5": {
+   "verdicts": 105,
+   "with_passage": 105
+  }
+ },
+ "usd": {
+  "v3": {
+   "total": 37.3561,
+   "per_answer": 4.6695
+  },
+  "v4": {
+   "total": 3.0256,
+   "per_answer": 0.3782
+  },
+  "v5": {
+   "total": 8.4616,
+   "per_answer": 1.0577,
+   "stage1_v4": 3.0256,
+   "reread_v5": 5.436,
+   "ledger_v5": 5.436
+  }
+ },
+ "seconds": {
+  "v3": {
+   "mean": 52.0,
+   "max": 104.2
+  },
+  "v4_measured_no_fetch": {
+   "mean": 13.5,
+   "max": 23.1
+  },
+  "v4_plus_v3_fetch_reconstructed": {
+   "mean": 31.0,
+   "estimate": true
+  },
+  "v5_measured_no_fetch": {
+   "mean": 64.6,
+   "max": 271.4
+  },
+  "v5_plus_v3_fetch_reconstructed": {
+   "mean": 82.1,
+   "estimate": true
+  }
+ },
+ "not_backed_by_path_v5": {
+  "whole source": 25
+ },
+ "rereads_v5": {
+  "top 20 passages + neighbours: NOT BACKED -> BACKED": 7,
+  "top 20 passages + neighbours: NOT BACKED -> COULDN'T CHECK": 1,
+  "top 20 passages + neighbours: NOT BACKED -> NOT FOUND IN THE PASSAGES CHECKED": 28,
+  "whole source: NOT BACKED -> BACKED": 11,
+  "whole source: NOT BACKED -> COULDN'T CHECK": 1,
+  "whole source: NOT BACKED -> NOT BACKED": 25
+ },
+ "v4_disagreements": {
+  "n": 8,
+  "resolved_by_v5": 7,
+  "v5_labels": {
+   "BACKED": 8
+  },
+  "claims": [
+   {
+    "answer": "WHU-Q1-01/Claude",
+    "idx": 62,
+    "study": "BACKED",
+    "v3": "BACKED",
+    "v4": "NOT BACKED",
+    "v5": "BACKED",
+    "decided_by": "top 20 passages + neighbours"
+   },
+   {
+    "answer": "WHU-Q1-04/Claude",
+    "idx": 71,
+    "study": "BACKED",
+    "v3": "BACKED",
+    "v4": "NOT BACKED",
+    "v5": "BACKED",
+    "decided_by": "whole source"
+   },
+   {
+    "answer": "WHU-Q1-01/Perplexity",
+    "idx": 12,
+    "study": "BACKED",
+    "v3": "BACKED",
+    "v4": "NOT BACKED",
+    "v5": "BACKED",
+    "decided_by": "top 20 passages + neighbours"
+   },
+   {
+    "answer": "WHU-Q1-01/Perplexity",
+    "idx": 18,
+    "study": "BACKED",
+    "v3": "BACKED",
+    "v4": "NOT BACKED",
+    "v5": "BACKED",
+    "decided_by": "top 20 passages + neighbours"
+   },
+   {
+    "answer": "WHU-Q1-01/Perplexity",
+    "idx": 40,
+    "study": "BACKED",
+    "v3": "BACKED",
+    "v4": "NOT BACKED",
+    "v5": "BACKED",
+    "decided_by": "whole source"
+   },
+   {
+    "answer": "WHU-Q1-04/Perplexity",
+    "idx": 43,
+    "study": "BACKED",
+    "v3": "BACKED",
+    "v4": "NOT BACKED",
+    "v5": "BACKED",
+    "decided_by": "whole source"
+   },
+   {
+    "answer": "WHU-Q1-01/Gemini",
+    "idx": 2,
+    "study": "BACKED",
+    "v3": "BACKED",
+    "v4": "NOT BACKED",
+    "v5": "BACKED",
+    "decided_by": "whole source"
+   },
+   {
+    "answer": "WHU-Q1-03/Gemini",
+    "idx": 100,
+    "study": "NOT BACKED",
+    "v3": "NOT BACKED",
+    "v4": "BACKED",
+    "v5": "BACKED",
+    "decided_by": "passages"
+   }
+  ]
+ },
+ "per_answer": [
+  {
+   "answer": "WHU-Q1-01/Claude",
+   "claims": 40,
+   "v5": {
+    "BACKED": 9,
+    "NOT BACKED": 2,
+    "NO SOURCE": 21,
+    "COULDN'T CHECK": 8,
+    "NOT FOUND IN THE PASSAGES CHECKED": 0,
+    "usd": 0.585575,
+    "claims": 40
+   },
+   "usd_stage1_v4": 0.2497,
+   "usd_reread_v5": 0.3359,
+   "usd_v5": 0.5856,
+   "seconds_stage1_v4": 8.3,
+   "seconds_reread_v5": 13.6,
+   "v3_fetch_seconds_reconstructed": 52.9
+  },
+  {
+   "answer": "WHU-Q1-02/Claude",
+   "claims": 40,
+   "v5": {
+    "BACKED": 5,
+    "NOT BACKED": 3,
+    "NO SOURCE": 28,
+    "COULDN'T CHECK": 4,
+    "NOT FOUND IN THE PASSAGES CHECKED": 0,
+    "usd": 1.357827,
+    "claims": 40
+   },
+   "usd_stage1_v4": 0.1737,
+   "usd_reread_v5": 1.1841,
+   "usd_v5": 1.3578,
+   "seconds_stage1_v4": 6.0,
+   "seconds_reread_v5": 11.7,
+   "v3_fetch_seconds_reconstructed": 15.8
+  },
+  {
+   "answer": "WHU-Q1-04/Claude",
+   "claims": 40,
+   "v5": {
+    "BACKED": 6,
+    "NOT BACKED": 4,
+    "NO SOURCE": 25,
+    "COULDN'T CHECK": 3,
+    "NOT FOUND IN THE PASSAGES CHECKED": 2,
+    "usd": 0.663902,
+    "claims": 40
+   },
+   "usd_stage1_v4": 0.2934,
+   "usd_reread_v5": 0.3705,
+   "usd_v5": 0.6639,
+   "seconds_stage1_v4": 14.4,
+   "seconds_reread_v5": 64.6,
+   "v3_fetch_seconds_reconstructed": 6.5
+  },
+  {
+   "answer": "WHU-Q1-01/Perplexity",
+   "claims": 15,
+   "v5": {
+    "BACKED": 7,
+    "NOT BACKED": 0,
+    "NO SOURCE": 6,
+    "COULDN'T CHECK": 1,
+    "NOT FOUND IN THE PASSAGES CHECKED": 1,
+    "usd": 0.451596,
+    "claims": 15
+   },
+   "usd_stage1_v4": 0.1369,
+   "usd_reread_v5": 0.3147,
+   "usd_v5": 0.4516,
+   "seconds_stage1_v4": 8.1,
+   "seconds_reread_v5": 9.8,
+   "v3_fetch_seconds_reconstructed": 8.4
+  },
+  {
+   "answer": "WHU-Q1-03/Perplexity",
+   "claims": 40,
+   "v5": {
+    "BACKED": 25,
+    "NOT BACKED": 0,
+    "NO SOURCE": 7,
+    "COULDN'T CHECK": 8,
+    "NOT FOUND IN THE PASSAGES CHECKED": 0,
+    "usd": 1.273712,
+    "claims": 40
+   },
+   "usd_stage1_v4": 0.6735,
+   "usd_reread_v5": 0.6002,
+   "usd_v5": 1.2737,
+   "seconds_stage1_v4": 17.0,
+   "seconds_reread_v5": 10.4,
+   "v3_fetch_seconds_reconstructed": 20.6
+  },
+  {
+   "answer": "WHU-Q1-04/Perplexity",
+   "claims": 40,
+   "v5": {
+    "BACKED": 8,
+    "NOT BACKED": 5,
+    "NO SOURCE": 17,
+    "COULDN'T CHECK": 10,
+    "NOT FOUND IN THE PASSAGES CHECKED": 0,
+    "usd": 0.664381,
+    "claims": 40
+   },
+   "usd_stage1_v4": 0.2197,
+   "usd_reread_v5": 0.4447,
+   "usd_v5": 0.6644,
+   "seconds_stage1_v4": 11.1,
+   "seconds_reread_v5": 14.8,
+   "v3_fetch_seconds_reconstructed": 10.8
+  },
+  {
+   "answer": "WHU-Q1-01/Gemini",
+   "claims": 40,
+   "v5": {
+    "BACKED": 11,
+    "NOT BACKED": 8,
+    "NO SOURCE": 0,
+    "COULDN'T CHECK": 8,
+    "NOT FOUND IN THE PASSAGES CHECKED": 13,
+    "usd": 1.489462,
+    "claims": 40
+   },
+   "usd_stage1_v4": 0.6326,
+   "usd_reread_v5": 0.8569,
+   "usd_v5": 1.4895,
+   "seconds_stage1_v4": 23.1,
+   "seconds_reread_v5": 32.2,
+   "v3_fetch_seconds_reconstructed": 3.7
+  },
+  {
+   "answer": "WHU-Q1-03/Gemini",
+   "claims": 40,
+   "v5": {
+    "BACKED": 9,
+    "NOT BACKED": 3,
+    "NO SOURCE": 3,
+    "COULDN'T CHECK": 13,
+    "NOT FOUND IN THE PASSAGES CHECKED": 12,
+    "usd": 1.975107,
+    "claims": 40
+   },
+   "usd_stage1_v4": 0.6461,
+   "usd_reread_v5": 1.329,
+   "usd_v5": 1.9751,
+   "seconds_stage1_v4": 20.2,
+   "seconds_reread_v5": 251.2,
+   "v3_fetch_seconds_reconstructed": 21.4
+  }
+ ],
+ "pass_bar": {
+  "v3": {
+   "couldnt_check_at_most_20": false,
+   "agreement_at_least_90": true,
+   "usd_per_answer_at_most_2": false,
+   "seconds_per_answer_mean_at_most_120": true,
+   "passages_100": true
+  },
+  "v4": {
+   "couldnt_check_at_most_20": true,
+   "agreement_at_least_90": false,
+   "usd_per_answer_at_most_2": true,
+   "seconds_per_answer_mean_at_most_120": true,
+   "passages_100": true
+  },
+  "v5": {
+   "couldnt_check_at_most_20": false,
+   "agreement_at_least_90": true,
+   "usd_per_answer_at_most_2": true,
+   "seconds_per_answer_mean_at_most_120": true,
+   "passages_100": true
+  }
+ },
+ "pass": {
+  "v3": false,
+  "v4": false,
+  "v5": false
+ }
+}

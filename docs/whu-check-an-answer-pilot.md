@@ -542,3 +542,37 @@ judge only through `judge_m1`), `check_pilot/run_pilot_v5.py` (prepare | run --c
 `backend/tests/test_whu_check_pilot_v5.py`. Counts only are committed (`check_pilot/pilot_v5_counts.json`);
 outputs stay private (`~/Projects/whu-study-private/check_pilot_v5/`). **The preview stays on v2.** As v1 §5:
 failing a bar is a result, not a reason to retune and re-run.
+
+**12.7 v5 result (the same 8 answers, v3's held copies, v4's recorded stage 1; `check_pilot/pilot_v5_counts.json`).**
+Run 2026-10-30 18:02-18:10Z, after VP said it planned no more paid calls that day. Room check: $40.38 today + $9.60
+worst case left $10.01 under the $60 day cap. The advisor's ruling (no call starting at or after 23:30Z; nothing on
+31 Oct UTC without asking) was enforced in code (`--no-call-after`). The re-reads cost $5.44 (73 calls). **Fails**
+(1 of 5 bars):
+
+| Bar | v3 | v4 | v5 |
+|---|---|---|---|
+| COULDN'T CHECK ≤ 20% | 64/295 = 21.7% FAIL | 53/295 = 18.0% pass | **83/295 = 28.1% FAIL** (COULDN'T CHECK 55 = 18.6%, + NOT FOUND IN THE PASSAGES CHECKED 28 = 9.5%) |
+| Agreement ≥ 90% (both judged) | 46/47 = 97.9% pass | 40/48 = 83.3% FAIL | 44/45 = 97.8% pass |
+| ≤ $2 per answer | $4.67 FAIL | $0.38 pass | $1.06 pass ($0.38 stage 1 + $0.68 re-reads) |
+| ≤ 120 s per answer (mean) | 52 s pass | 31 s (estimate) pass | 82 s with v3's fetch time added (estimate) pass; 65 s measured, max 271 s (Gemini Q1-03) |
+| Passages on every verdict | 124/124 pass | 135/135 pass | 105/105 pass |
+
+**The 73 re-reads, by path:** whole source 37 (NOT BACKED -> NOT BACKED 25, -> BACKED 11, -> COULDN'T CHECK 1, no
+passage to show); top 20 passages + neighbours 36 (-> NOT FOUND IN THE PASSAGES CHECKED 28, -> BACKED 7, ->
+COULDN'T CHECK 1, no passage to show). **v5's NOT BACKED verdicts by deciding path: whole source 25, passages 0, top 20
+passages + neighbours 0** (by §12.1 that path cannot give one). COULDN'T CHECK by reason: v4's, with no passage to
+show 1 -> 3; NOT FOUND IN THE PASSAGES CHECKED 28, reported apart.
+
+**v4's 8 disagreements: v5 resolved 7.** All 7 were study BACKED / v4 NOT BACKED and are now BACKED (whole source 4,
+top 20 + neighbours 3). The 8th is the one §12.2 said v5 could not change (study NOT BACKED, v4 BACKED from
+passages), and it is still v5's one disagreement.
+
+**What the coverage failure is.** 28 claims whose only fuller read was the top 20 passages + neighbours (sources over
+judge_m1's 150,000-token limit, 25 of them in the two Gemini answers) were not supported there. They are no longer
+false NOT BACKEDs; they are not findings either. Per v1 §5 this is the result; nothing is retuned.
+
+**Ledger misfiling, recorded and not edited.** `run_pilot_v5.py` borrowed v4's `clients()`, so the 73 calls were
+metered on `whu-check-pilot-v4` (script `run_pilot_v4.py`, role `check-pilot-v5`), and the run's own $8 check read
+$0 spent. It held only calls in flight; `spend_ledger.check_cap` (the day cap and the issue cap) ran on every call.
+Actual spend, $5.44, was under $8. Fixed after the run: the runner meters on `whu-check-pilot-v5`, and its `spent()`
+also counts the 73 misfiled lines by role. The ledger lines were not changed. The preview stays on v2.

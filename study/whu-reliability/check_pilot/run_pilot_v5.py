@@ -78,12 +78,15 @@ class Budget:
     """The run's cap: spent on the issue + the worst case of every call in flight + the next call's <= cap.
     A call's reservation is dropped when it returns; its actual cost is then in the ledger."""
 
-    def __init__(self, cap: float, spent_fn, check_cap=None):
+    def __init__(self, cap: float, spent_fn, check_cap=None, no_call_after: datetime | None = None, clock=None):
         self.cap, self.spent_fn, self.check_cap = cap, spent_fn, check_cap
+        self.no_call_after, self.clock = no_call_after, clock or (lambda: datetime.now(timezone.utc))
         self.lock, self.in_flight, self.local = threading.Lock(), 0.0, threading.local()
 
     def before_call(self, worst: float) -> None:
         with self.lock:
+            if self.no_call_after and self.clock() >= self.no_call_after:
+                raise P.Stop("no paid call after %s (advisor's ruling)" % self.no_call_after.isoformat())
             if self.check_cap:
                 self.check_cap(ISSUE, worst)                # caps.json: the day cap and the issue cap
             spent = self.spent_fn()
@@ -110,8 +113,23 @@ class Budget:
         return SimpleNamespace(messages=Messages())
 
 
+def clients(role: str):
+    import anthropic
+    raw = anthropic.Anthropic(api_key=J.env_keys()["ANTHROPIC_API_KEY"])
+    return raw, S.metered(raw, script=SCRIPT, issue=ISSUE, role=role)
+
+
+# The run of 2026-10-30 18:02-18:10Z used run_pilot_v4.clients, so its 73 calls were metered on whu-check-pilot-v4
+# with script run_pilot_v4.py; their role, check-pilot-v5, tells them apart. Counted here; the ledger is not edited.
+MISFILED = ("whu-check-pilot-v4", "check-pilot-v5")
+
+
+def ours(e: dict) -> bool:
+    return e.get("issue") == ISSUE or (e.get("issue"), e.get("role")) == MISFILED
+
+
 def spent() -> float:
-    return sum(e.get("usd") or 0 for e in S.entries() if e.get("issue") == ISSUE)
+    return sum(e.get("usd") or 0 for e in S.entries() if ours(e))
 
 
 def plan_answer(q: str, s: str, count) -> dict:
@@ -123,7 +141,7 @@ def plan_answer(q: str, s: str, count) -> dict:
 
 
 def do_prepare(_a) -> int:
-    raw, _ = R4.clients("check-pilot-v5-prepare")
+    raw, _ = clients("check-pilot-v5-prepare")
     count = V1.count_tokens_fn(raw)
     total, rows = 0.0, []
     for q, s in sample():
@@ -152,8 +170,9 @@ def do_run(a) -> int:
         print("STOP: no room under the day cap; nothing was called. Check again later; no cap is raised.")
         return 3
     V1.prompt_ok()
-    budget = Budget(a.cap, spent, S.check_cap)
-    raw, metered = R4.clients("check-pilot-v5")
+    cutoff = datetime.fromisoformat(a.no_call_after) if a.no_call_after else None
+    budget = Budget(a.cap, spent, S.check_cap, cutoff)
+    raw, metered = clients("check-pilot-v5")
     client = budget.wrap(metered)
     count = V1.count_tokens_fn(raw)
     for q, s in sample():
@@ -271,6 +290,7 @@ def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("cmd", choices=["prepare", "run", "compare"])
     ap.add_argument("--cap", type=float, default=None)
+    ap.add_argument("--no-call-after", default=None, help="ISO time (UTC); no call starts at or after it")
     a = ap.parse_args()
     OUT.mkdir(parents=True, exist_ok=True)
     if a.cmd == "prepare":

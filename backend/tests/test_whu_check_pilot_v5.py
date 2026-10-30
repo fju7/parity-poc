@@ -175,6 +175,17 @@ def test_the_budget_holds_spent_plus_in_flight_under_the_cap_and_releases_on_ret
     assert client.messages.create(model="m") == "ok" and b.in_flight == 0 and calls
 
 
+def test_no_call_starts_after_the_cutoff():
+    from datetime import datetime, timezone
+    cut = datetime(2026, 10, 30, 23, 30, tzinfo=timezone.utc)
+    now = [datetime(2026, 10, 30, 23, 29, tzinfo=timezone.utc)]
+    b = R5.Budget(8.0, lambda: 0.0, no_call_after=cut, clock=lambda: now[0])
+    b.before_call(0.1)
+    now[0] = cut
+    with pytest.raises(P5.Stop):
+        b.before_call(0.1)
+
+
 def test_the_preview_stays_on_v2():
     src = (ROOT / "backend" / "routers" / "whu_check.py").read_text(encoding="utf-8")
     assert "PIPELINE_VERSION = 2" in src

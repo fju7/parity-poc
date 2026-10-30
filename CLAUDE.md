@@ -3059,6 +3059,14 @@ phase ends or 2026-11-30T23:59Z; test_whu_study_judging_cap.py fails while it st
   next_phase/results/*.json, counts only). Judging ledger issues use the whu-reliability-judging- prefix.
 - Check pilot v4 ran (doc §11.2, pilot_v4_counts.json): $3.03, fails agreement 83.3% (retrieval missed supporting
   passages), passes the other four bars. Preview stays on v2.
+- Check pilot v5 (doc §12, session V5): check_pilot/pipeline_v5.py (v4's passages first; every NOT BACKED re-judged
+  against the whole held source, or for a source over judge_m1.MAX_SOURCE_TOKENS the top 20 passages + neighbours, where
+  unsupported = NOT FOUND IN THE PASSAGES CHECKED, never NOT BACKED; `decided_by` on every row), run_pilot_v5.py
+  (prepare | run --cap --no-call-after | compare; reuses v4's recorded stage 1; room rule today+worst <= day cap - $10),
+  tests backend/tests/test_whu_check_pilot_v5.py. Result pilot_v5_counts.json: agreement 97.8% pass, $1.06/answer
+  pass, 82 s pass, passages 105/105 pass; COULDN'T CHECK + NOT FOUND 28.1% FAIL; resolved 7 of v4's 8 disagreements.
+  Its 73 calls ($5.44) were metered on whu-check-pilot-v4 role check-pilot-v5 (borrowed client; fixed; ledger not
+  edited). Preview stays on v2.
 - The pipeline finds cases only under issues/ (source_store.case_dir, publish.case_dir): seeded-defect copies run as
   issues/WHU-SD-* (git-ignored), archived and deleted before any lean drafting session.
 
