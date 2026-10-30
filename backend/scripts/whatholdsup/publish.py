@@ -250,6 +250,10 @@ audit_stage = _sibling("audit_stage")
 # and what we read or did not read never leave the page without a person's
 # sign-off. See protected.py.
 protected = _sibling("protected")
+# Lean WHU (lean.py; WHU_LEAN=1 or --lean, default off): the generated protected
+# sentences are checked against issue.json and sources.json. See lean_sentences.py.
+lean = _sibling("lean")
+lean_sentences = _sibling("lean_sentences")
 # Post-study fix 2 (2026-10-27): omitted findings are ruled (omissions.py), and
 # a relied-on source's headline conclusions are accounted for, every declared
 # one shown to readers (coverage_check.py). docs/whu-fix2-omission-rulings-design.md.
@@ -1845,6 +1849,11 @@ def preflight(slug: str, *, for_email: bool,
     except BaseException as exc:
         out.append((protected.ROW_LABEL, BAD,
                     "did not run: %s: %s" % (type(exc).__name__, exc)))
+    if lean.enabled():
+        try:
+            out.extend(lean_sentences.preflight_rows(slug))
+        except BaseException as exc:
+            out.append((lean_sentences.ROW, BAD, "did not run: %s: %s" % (type(exc).__name__, exc)))
 
     # Fix 2: BLOCKED when they cannot run, as above.
     try:

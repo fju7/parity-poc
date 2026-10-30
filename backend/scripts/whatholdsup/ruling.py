@@ -353,7 +353,11 @@ def rule(kind: str, p: dict, n_quotes: int, call, log: Path, ref: dict, grouped:
     findings, and raises RulingFailed for the caller to pass over."""
     prompt = build_prompt(kind, p, grouped)
     path = (GROUP_PROMPTS if grouped else PROMPTS)[kind]
-    base = {"by": BY, "model": MODEL, "ruling_kind": kind, "prompt": str(path.relative_to(HERE)),
+    # The model that rules: MODEL, unless lean WHU's tiering gave the caller
+    # another (lean.model_for); the record names whichever it was.
+    model = getattr(call, "model", None) or MODEL
+    by = BY if model == MODEL else "ruling model %s" % model
+    base = {"by": by, "model": model, "ruling_kind": kind, "prompt": str(path.relative_to(HERE)),
             "prompt_sha256": prompt_sha(kind, grouped), "inputs_sha256": sha(json.dumps(p))}
     cut = []
     for n in range(1, ATTEMPTS + 1):
@@ -376,8 +380,8 @@ def rule(kind: str, p: dict, n_quotes: int, call, log: Path, ref: dict, grouped:
         raise RulingFailed("%s: cut off at %d tokens on all %d attempts (record %s)"
                            % (kind, MAX_OUT, ATTEMPTS, failed["id"]))
     got = parse(kind, text, n_quotes)
-    rec = {"at": datetime.now(timezone.utc).isoformat(timespec="seconds"), "by": BY,
-           "model": MODEL, "ruling_kind": kind, "prompt": str(path.relative_to(HERE)),
+    rec = {"at": datetime.now(timezone.utc).isoformat(timespec="seconds"), "by": by,
+           "model": model, "ruling_kind": kind, "prompt": str(path.relative_to(HERE)),
            "prompt_sha256": prompt_sha(kind, grouped), "inputs": p, "inputs_sha256": sha(json.dumps(p)),
            **ref, **got, "usage": usage}
     if cut:
@@ -1316,11 +1320,18 @@ def relevance_payload(question: str, scope: dict, judgement: str) -> dict:
 
 
 def rule_judgements(slug: str, call, *, P=None, held: dict | None = None, scope: dict | None = None,
-                    case: Path | None = None, failed: list | None = None) -> list[dict]:
+                    case: Path | None = None, failed: list | None = None, escalate=None) -> list[dict]:
     """Rule relevance for every held assessment judgement with no decision on
     its current text (judgements.candidates), one call each. A 'relevant'
     answer is recorded only when code finds its question words in the
-    question or the premise scope; otherwise the candidate goes to a person."""
+    question or the premise scope; otherwise the candidate goes to a person.
+
+    ESCALATE (lean WHU's tiering): a second caller on the current model. CALL
+    is then the smaller model, and its ruling stands only when it is
+    'relevant' with question words code verifies. 'not_relevant' (dropping a
+    judgement is how an omission happens), an unusable reply, or words code
+    cannot verify is ruled again on ESCALATE, whose ruling decides; both are
+    logged, and the decision record names the model that decided."""
     import judgements as J
     import premise as PM
     import source_store as store
@@ -1335,9 +1346,20 @@ def rule_judgements(slug: str, call, *, P=None, held: dict | None = None, scope:
     for c in to_rule:
         text = held[c["source"]][c["at"][0]:c["at"][1]]
         p = relevance_payload(scope.get("question"), scope, text)
+        ref = {"candidate": c["key"], "source": c["source"], "offsets": c["at"]}
+        decider = call
         try:
-            got = rule("relevance", p, 0, call, log, {"candidate": c["key"], "source": c["source"],
-                                                    "offsets": c["at"]})
+            try:
+                got = rule("relevance", p, 0, call, log, ref)
+            except RulingError:
+                if escalate is None:
+                    raise
+                got = None
+            if escalate is not None and (got is None or not got["relevant"]
+                                         or not J.verify_words(got["question_words"], scope)[0]):
+                decider = escalate
+                got = rule("relevance", p, 0, escalate, log,
+                           dict(ref, escalated_from=getattr(call, "model", None) or MODEL))
         except RulingFailed as e:
             print("  %s: %s -- left open" % (RULING_FAILED, e))
             if failed is not None:
@@ -1361,8 +1383,9 @@ def rule_judgements(slug: str, call, *, P=None, held: dict | None = None, scope:
                                                 "kind": "relevance", "ref": {"candidate": c["key"]}}], log)
                 done.append({"key": c["key"], "relevant": None, "to_person": True, "why": why})
                 continue
+        dm = getattr(decider, "model", None) or MODEL
         J.record(case, c, held[c["source"]], relevant=got["relevant"], words=got["question_words"],
-                 reason=got["reason"], by=BY, ruling=rid)
+                 reason=got["reason"], by=BY if dm == MODEL else "ruling model %s" % dm, ruling=rid)
         done.append({"key": c["key"], "relevant": got["relevant"], "section": c["section"]})
     return done
 
@@ -1440,6 +1463,8 @@ def main(argv=None) -> int:
                        help="this run's own ceiling; the issue cap and the day cap also apply")
         s.add_argument("--seed", type=int,
                        help="the consistency sample's seed (default: derived from the step id; logged)")
+    import lean
+    argv = lean.strip_flag(argv)          # --lean: lean WHU (lean.py); default off
     a = ap.parse_args(argv)
     require_study(a.slug)
     import consistency as CS
@@ -1459,7 +1484,15 @@ def main(argv=None) -> int:
     else:
         stage_cap.guard("rulings", a.slug, units)
     import audit_stage as A
-    call = A.Caller(cap=a.cap, ledger_issue=a.slug)
+    kw = {}
+    if lean.enabled() and a.cmd == "judgements":
+        call = A.Caller(cap=a.cap, ledger_issue=a.slug, model=lean.model_for("judgements"))
+        top = lean.model_for("judgements_escalate")
+        if top != call.model:
+            kw["escalate"] = A.Caller(cap=a.cap, ledger_issue=a.slug, model=top)
+    else:
+        call = A.Caller(cap=a.cap, ledger_issue=a.slug,
+                        model=lean.model_for("rulings") if lean.enabled() else MODEL)
     fn = {"gate": rule_gate, "conclusions": rule_conclusions,
           "changecheck": rule_changecheck, "advocate": rule_advocate,
           "dangling": rule_dangling, "omissions": rule_omissions, "judgements": rule_judgements}[a.cmd]
@@ -1472,11 +1505,11 @@ def main(argv=None) -> int:
         print("  %d ruling(s) from a step that stopped before its consistency sample are "
               "carried into this step's sample" % len(carried))
     failed: list = []
-    done = fn(a.slug, call, failed=failed)
+    done = fn(a.slug, call, failed=failed) if not kw else fn(a.slug, call, failed=failed, **kw)
     print("  %d ruling(s) recorded; log: %s" % (len(done), log_path(a.slug)))
     consistency_sample(a.slug, step, log_path(a.slug), before, call, seed=a.seed, kind=kind,
                        carried=carried)
-    print("  usd this run: %.4f" % sum((c.get("usd") or 0) for c in call.calls))
+    print("  usd this run: %.4f" % sum((c.get("usd") or 0) for c in call.calls + (kw["escalate"].calls if kw else [])))
     if failed:
         print("  %s: %d sentence(s), their findings left open (%s); run this step again"
               % (RULING_FAILED, len(failed), attempts_log(log_path(a.slug))))

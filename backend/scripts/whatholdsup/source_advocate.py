@@ -286,6 +286,29 @@ RETURN ONLY a JSON object:
 """
 
 
+LEAN_K = 8          # passages a lean re-ask or re-quote is shown (passage_index)
+
+
+def held_view(text: str, query: str, log: list | None = None) -> str:
+    """What a re-ask or re-quote is shown of a held text: audit_stage.trim, as
+    always; under lean WHU (lean.py) the LEAN_K passages BM25 finds for QUERY
+    instead (passage_index), and trim() again, logged, only when retrieval
+    finds nothing above its threshold."""
+    import audit_stage as A
+    import lean
+    wanted = re.findall(r"[A-Za-z][A-Za-z'-]{6,}|\d[\d.,]*%?", query)
+    if lean.enabled():
+        import passage_index as PI
+        got = PI.index_of(text).top(query, LEAN_K)
+        if got:
+            if log is not None:
+                log.append({"retrieved": [[p.start, p.end, round(sc, 3)] for p, sc in got]})
+            return PI.deliver(text, [(p.start, p.end) for p, _sc in got])
+        if log is not None:
+            log.append({"below_threshold": True, "fallback": "trim"})
+    return A.trim(text, wanted)[0]
+
+
 def reask_omission(b: dict, o: dict, text: str, bound: list[str], ask=None) -> dict:
     """One re-ask for the omitted finding itself. Returns the objection
     updated (type LEAVES_OUT, the new quotation, the first one kept as
@@ -293,8 +316,7 @@ def reask_omission(b: dict, o: dict, text: str, bound: list[str], ask=None) -> d
     the objection unchanged with reask_note set. `ask(system, user)` returns
     the parsed reply; by default a metered call (fc.call, search off)."""
     import audit_stage as A
-    doc, _cut = A.trim(text, [w for w in re.findall(r"[A-Za-z][A-Za-z'-]{6,}|\d[\d.,]*%?",
-                                                    (o.get("objection") or "") + " " + (o.get("why") or ""))])
+    doc = held_view(text, (o.get("objection") or "") + " " + (o.get("why") or ""))
     system = REASK_OMISSION_SYSTEM.format(principal=b.get("principal") or "the source's author")
     user = json.dumps({"objection": {k: o.get(k) for k in ("claim_quoted", "objection", "why", "source_says")},
                        "already_on_the_page": bound, "your_document_as_held": doc}, ensure_ascii=False)
@@ -383,9 +405,7 @@ def check_quotations(slug: str, briefs: list[dict], held: dict[str, str], ask=No
 
 
 def _requote(b: dict, o: dict, text: str) -> dict:
-    import audit_stage as A
-    doc, _cut = A.trim(text, [w for w in re.findall(r"[A-Za-z][A-Za-z'-]{6,}|\d[\d.,]*%?",
-                                                    (o.get("source_says") or "") + " " + (o.get("objection") or ""))])
+    doc = held_view(text, (o.get("source_says") or "") + " " + (o.get("objection") or ""))
     user = json.dumps({"objection": {k: o.get(k) for k in ("claim_quoted", "objection", "source_says")},
                        "your_document_as_held": doc}, ensure_ascii=False)
     got = fc.call(REQUOTE_SYSTEM.format(principal=b.get("principal") or "the source's author"), user,
@@ -1106,7 +1126,12 @@ def main() -> int:
     s = sub.add_parser("status")
     s.add_argument("slug")
     s.set_defaults(fn=cmd_status)
-    a = ap.parse_args()
+    import lean
+    a = ap.parse_args(lean.strip_flag(None))          # --lean: lean WHU (lean.py); default off
+    if lean.enabled():
+        # Model tiering: the advocate's model (lean.STAGE_MODELS["advocate"],
+        # priced in spend_ledger.PRICES). fc.call refuses an unpriced one too.
+        fc.SIGNAL_MODEL = lean.model_for("advocate", fc.SIGNAL_MODEL)
     # WHOSE BUDGET. Without this the calls below land in the ledger with no
     # issue and outside every per-issue cap; fc.call refuses rather than spend
     # unattributed. See factcheck_draft.call.

@@ -167,6 +167,18 @@ def preflight_rows(slug: str, record_rows: list[dict] | None = None, *,
     if rows is None:
         rows = (_B().load(slug).get("bindings") or {})
     gone = missing(slug, first_html, now_html, rows)
+    regenerated = []
+    import lean
+    if lean.enabled() and gone:
+        # Lean WHU: a generated sentence (lean_sentences.py) follows the records.
+        # One that left the first draft needs no person's sign-off when the page
+        # carries what the records generate now and the record check passes.
+        import lean_sentences as LS
+        page = _B().page_sentences(slug, html=now_html)
+        gen = LS.generated(slug)
+        if LS.check(page, gen)[1] == OK:
+            regenerated = [g for g in gone if LS.is_framed(g["sentence"])]
+            gone = [g for g in gone if g not in regenerated]
     doc = signoffs if signoffs is not None else load_signoffs(slug)
     by_sha: dict[str, list[dict]] = {}
     for e in doc.get("signoffs") or []:
@@ -185,9 +197,11 @@ def preflight_rows(slug: str, record_rows: list[dict] | None = None, *,
                  "sign-off in %s (e.g. %s %r)%s" % (
                      len(unsigned), how, SIGNOFF_FILE, unsigned[0]["kind"], unsigned[0]["sentence"][:90],
                      ("; sign-offs refused: %s" % "; ".join(refused[:3])) if refused else ""))]
-    return [(ROW_LABEL, OK, "%d protected sentence(s) in the first full draft (%s); %s" % (
+    return [(ROW_LABEL, OK, "%d protected sentence(s) in the first full draft (%s); %s%s" % (
         n, how, "all still on the page" if not gone else
-        "%d changed or removed, each with a person's sign-off" % len(gone)))]
+        "%d changed or removed, each with a person's sign-off" % len(gone),
+        ("; %d generated sentence(s) regenerated from the records (lean WHU)" % len(regenerated))
+        if regenerated else ""))]
 
 
 def main(argv=None) -> int:

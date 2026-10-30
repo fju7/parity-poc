@@ -10,6 +10,7 @@ Usage:
     audit_stage.py run SLUG [--cap USD] [--ledger-issue NAME]
     audit_stage.py run SLUG --dry-run --limit 20 --out DIR [--cap USD]
     audit_stage.py check SLUG
+    audit_stage.py run SLUG --lean          lean WHU (lean.py; or WHU_LEAN=1)
 
 `run` writes issues/<case>/audit/<run-id>/: manifest.json, verdicts.jsonl,
 rulings.jsonl, cuts.jsonl, second_reads.jsonl. `--dry-run` reads only the
@@ -871,8 +872,13 @@ class Caller:
     """One model, metered, capped. `ask` may be replaced (tests): it takes
     (prompt, max_tokens) and returns (text, usage dict)."""
 
-    def __init__(self, *, cap: float, ledger_issue: str, ask=None, day_cap=None):
+    model = MODEL                       # a Caller built without __init__ (tests) runs MODEL
+
+    def __init__(self, *, cap: float, ledger_issue: str, ask=None, day_cap=None, model: str = MODEL):
         self.cap, self.issue, self.calls = cap, ledger_issue, []
+        # The model this caller runs. MODEL unless lean WHU's tiering asks for
+        # another (lean.model_for); every call record names it.
+        self.model = model
         self._ask = ask
         # The day cap is spend_ledger's on every real call. A test with a fake
         # `ask` may pass its own, to stop a run as the day cap would.
@@ -893,19 +899,32 @@ class Caller:
     def _spent(self) -> float:
         return sum(float(e.get("usd") or 0) for e in S.entries() if e.get("issue") == self.issue)
 
-    def __call__(self, prompt: str, max_tokens: int, role: str) -> tuple[str, dict]:
+    def __call__(self, prompt: str, max_tokens: int, role: str, cache_prefix: str | None = None) -> tuple[str, dict]:
+        # CACHE_PREFIX (lean WHU only): the leading part of PROMPT to mark for
+        # the prompt cache. The text sent is PROMPT either way.
+        extra = {}
+        if self.model != MODEL:
+            extra["model"] = self.model
+        if cache_prefix and prompt.startswith(cache_prefix):
+            extra["cache_prefix_chars"] = len(cache_prefix)
         if self._ask is not None:
             if self._day_cap is not None:
                 self._day_cap(0.0)
             text, usage = self._ask(prompt, max_tokens)
             stop = usage.pop("stop_reason", None) if isinstance(usage, dict) else None
-            self.calls.append({"role": role, **usage})
+            self.calls.append({"role": role, **extra, **usage})
             if stop == "max_tokens":
                 raise ReplyCutOff("reply cut off at %d tokens (%s)" % (max_tokens, role), usage)
             return text, usage
-        n_in = self._raw.messages.count_tokens(model=MODEL, messages=[{"role": "user", "content": prompt}]).input_tokens
-        p = S.PRICES[MODEL]
-        worst = (n_in * p["input"] + max_tokens * p["output"]) / 1e6
+        content = prompt
+        if cache_prefix:
+            import lean
+            content = lean.cache_blocks(prompt, cache_prefix)
+        n_in = self._raw.messages.count_tokens(model=self.model,
+                                               messages=[{"role": "user", "content": content}]).input_tokens
+        p = S.PRICES[self.model]
+        # A cached prefix may be written at the cache-write price, the higher one.
+        worst = (n_in * max(p["input"], p["cache_write"] if cache_prefix else 0) + max_tokens * p["output"]) / 1e6
         if self._spent() - self._start + worst > self.cap:
             raise AuditFailure("spend cap: this call could cost $%.3f; the run has spent $%.3f of $%.2f"
                                % (worst, self._spent() - self._start, self.cap))
@@ -913,15 +932,17 @@ class Caller:
         # capped at caps.json's study_per_issue). check_cap checks both.
         S.check_cap(self.issue, worst)
         t0 = time.time()
-        r = self._client.messages.create(model=MODEL, max_tokens=max_tokens,
-                                         messages=[{"role": "user", "content": prompt}])
+        r = self._client.messages.create(model=self.model, max_tokens=max_tokens,
+                                         messages=[{"role": "user", "content": content}])
         if r.stop_reason == "refusal":
             raise AuditFailure("the model refused (%s)" % role)
         text = "".join(getattr(b, "text", "") for b in r.content)
         usd, counts = S.price(r.model, r.usage)
         usage = {"input": counts["input"], "output": counts["output"], "usd": usd or 0.0,
                  "seconds": round(time.time() - t0, 1)}
-        self.calls.append({"role": role, **usage})
+        if counts.get("cache_write") or counts.get("cache_read"):
+            usage.update(cache_write=counts["cache_write"], cache_read=counts["cache_read"])
+        self.calls.append({"role": role, **extra, **usage})
         if r.stop_reason == "max_tokens":
             # Paid for, so counted above; the caller decides what a cut-off
             # reply means (ruling.py retries once, 2026-10-22).
@@ -940,13 +961,16 @@ def context_map(us: list[dict]) -> dict[str, tuple[str, str]]:
 
 def read_batch(call: Caller, slug: str, batch: list[dict], held: dict, ctx: dict, role: str,
                licensed: frozenset = frozenset(), body: str = "",
-               deliveries: list | None = None, on_reject=None) -> tuple[list[dict], dict, dict]:
+               deliveries: list | None = None, on_reject=None,
+               inputs: tuple | None = None, cache_sid: str | None = None) -> tuple[list[dict], dict, dict]:
+    """INPUTS (lean WHU): this batch's (docs, records), built by lean_audit;
+    CACHE_SID: the source whose document block ends the prompt's cached prefix."""
     summary = all(u["part"] in SUMMARY_PARTS for u in batch)
     if summary:
         docs, records = {"PAGE": body}, {}
         build = lambda bs: build_summary_prompt(bs, body)
     else:
-        docs, records = batch_inputs(slug, batch, held, licensed)
+        docs, records = inputs if inputs is not None else batch_inputs(slug, batch, held, licensed)
         build = lambda bs: build_read_prompt(bs, docs, records, ctx, licensed)
         # FAIL CLOSED, BEFORE ANY CALL: every document delivered non-empty and
         # holding every span its sentences are bound to. Recorded either way.
@@ -954,7 +978,14 @@ def read_batch(call: Caller, slug: str, batch: list[dict], held: dict, ctx: dict
         if deliveries is not None:
             deliveries.extend(dict(r, role=role) for r in rep)
         check_delivery(rep)
-    text, usage = call(build(batch), READ_MAX_OUT, role + ("-summary" if summary else ""))
+    def ask(prompt: str, r: str):
+        if cache_sid and not summary:
+            import lean_audit
+            pre = lean_audit.cache_prefix(prompt, cache_sid)
+            if pre:
+                return call(prompt, READ_MAX_OUT, r, cache_prefix=pre)
+        return call(prompt, READ_MAX_OUT, r)
+    text, usage = ask(build(batch), role + ("-summary" if summary else ""))
     vs = check_verdicts(batch, parse_json(text), summary)
     # Every rejected quotation, raw, to the run's private log (on_reject): the
     # sentence, the document it named and the reader's own words, so a failure
@@ -979,7 +1010,7 @@ def read_batch(call: Caller, slug: str, batch: list[dict], held: dict, ctx: dict
             "\n\nYOUR PREVIOUS REPLY QUOTED TEXT THAT IS NOT IN THE DOCUMENTS for these sentences: %s. "
             "Quote only text that appears character for character in the document you name."
             % ", ".join(u["id"] for u in retry))
-        t2, _u2 = call(p2, READ_MAX_OUT, role + "-requote")
+        t2, _u2 = ask(p2, role + "-requote")
         v2 = {v["id"]: v for v in check_verdicts(retry, parse_json(t2), summary)}
         for i, (u, v) in enumerate(zip(batch, vs)):
             if u["id"] in v2:
@@ -998,7 +1029,20 @@ def read_batch(call: Caller, slug: str, batch: list[dict], held: dict, ctx: dict
 UNIT_KEYS = ("id", "sentence", "sha", "round", "history", "licensed_excluded")
 RESUME_SAME = ("slug", "model", "read_prompt_sha256", "rule_prompt_sha256", "summary_prompt_sha256",
                "licensed_sources_never_sent", "units", "limit", "max_rounds", "second_share",
-               "second_seed", "inputs")
+               "second_seed", "inputs", "lean_config")
+
+
+def _ask_for(ask, model: str):
+    """A test's fake ASK for one model: ask(prompt, max_tokens) as always, or
+    ask(prompt, max_tokens, model) when it takes the model (lean tiering tests)."""
+    if ask is None:
+        return None
+    import inspect
+    try:
+        n = len(inspect.signature(ask).parameters)
+    except (TypeError, ValueError):
+        n = 2
+    return (lambda p, m: ask(p, m, model)) if n >= 3 else ask
 
 
 def _snap(u: dict, **extra) -> dict:
@@ -1008,7 +1052,12 @@ def _snap(u: dict, **extra) -> dict:
 def run(slug: str, *, out_dir: Path, limit: int | None = None, cap: float = 40.0,
         ledger_issue: str | None = None, ask=None, held: dict | None = None,
         unit_list: list[dict] | None = None, licensed: set | None = None,
-        seed: int = SECOND_SEED, resume: bool = False, day_cap=None) -> dict:
+        seed: int = SECOND_SEED, resume: bool = False, day_cap=None,
+        prior_dir: Path | None = None) -> dict:
+    """PRIOR_DIR (lean WHU only): the earlier complete run an incremental
+    re-audit carries verdicts from (reaudit.prior_run)."""
+    import lean
+    LEAN = lean.enabled()
     out_dir.mkdir(parents=True, exist_ok=True)
     us = unit_list if unit_list is not None else units(slug)
     if limit:
@@ -1038,6 +1087,13 @@ def run(slug: str, *, out_dir: Path, limit: int | None = None, cap: float = 40.0
         # Batches split because their bound passages did not fit one document.
         "splits": [],
     }
+    if LEAN:
+        import passage_index as PI
+        manifest["lean_config"] = {"models": {k: lean.model_for(k) for k in
+                                              ("audit_first", "audit_escalate", "audit_rule", "audit_second")},
+                                   "k": PI.K, "min_score": PI.MIN_SCORE, "min_terms": PI.MIN_TERMS,
+                                   "passage_chars": PI.PASSAGE_CHARS}
+        manifest["unit_list"] = [[u["id"], u["part"], u["sha"]] for u in us]
     if B is not None:
         page = B._page_html(slug)
         manifest["inputs"]["page_sha256"] = sha(page)
@@ -1063,9 +1119,19 @@ def run(slug: str, *, out_dir: Path, limit: int | None = None, cap: float = 40.0
              "after": prior.get("failure"), "usd_before": prior.get("usd") or 0.0}]
     prior_usd = float((prior or {}).get("usd") or 0.0)
     # The run's cap covers every day it runs on, not each resume afresh.
-    call = Caller(cap=cap - prior_usd, ledger_issue=ledger_issue or slug, ask=ask, day_cap=day_cap)
-    files = {k: open(out_dir / ("%s.jsonl" % k), "a" if prior else "w", encoding="utf-8")
-             for k in ("verdicts", "rulings", "cuts", "second_reads", "quote_rejections")}
+    # Lean WHU: one caller per model (lean.STAGE_MODELS); off, one caller for all.
+    callers: dict[str, Caller] = {}
+
+    def caller(stage: str) -> Caller:
+        m = lean.model_for(stage) if LEAN else MODEL
+        if m not in callers:
+            callers[m] = Caller(cap=cap - prior_usd, ledger_issue=ledger_issue or slug,
+                                ask=_ask_for(ask, m), day_cap=day_cap, model=m)
+        return callers[m]
+    call = caller("audit_first")
+    big, rule_call, second_call = caller("audit_escalate"), caller("audit_rule"), caller("audit_second")
+    kinds = ("verdicts", "rulings", "cuts", "second_reads", "quote_rejections") + (("retrieval",) if LEAN else ())
+    files = {k: open(out_dir / ("%s.jsonl" % k), "a" if prior else "w", encoding="utf-8") for k in kinds}
 
     def log(kind: str, rec: dict) -> None:
         files[kind].write(json.dumps(rec, ensure_ascii=False) + "\n"); files[kind].flush()
@@ -1086,7 +1152,37 @@ def run(slug: str, *, out_dir: Path, limit: int | None = None, cap: float = 40.0
         if prog["queue"] is None:
             queue = []
             protected_kind = _B().protected_kind
+            gen, carry = [], {}
+            if LEAN:
+                import lean_sentences as LS
+                import reaudit as RA
+                gen = LS.generated(slug)
+                rp = RA.plan(slug, us, held, manifest, prior_dir)
+                manifest["reaudit"] = {k: v for k, v in rp.items() if k != "carry"}
+                manifest["reaudit"]["carried"] = len(rp["carry"])
+                carry = rp["carry"]
             for u in us:
+                g = LS.matches(u["sentence"], gen) if (gen and u["part"] == "page") else None
+                if g:
+                    # Lean WHU: a generated sentence, word for word what issue.json
+                    # and sources.json generate now. Code's check replaces a
+                    # person's read for it (lean_sentences.py).
+                    state[u["sha"]] = LS.RECORD_CHECK
+                    prog["done"][u["id"]] = _snap(u, status=LS.RECORD_CHECK)
+                    log("verdicts", {"unit": u["id"], "part": u["part"], "sha": u["sha"], "round": 0,
+                                     "sentence": u["sentence"], "verdict": LS.RECORD_CHECK,
+                                     "generated": {"kind": g["kind"], "source": g["source"], "field": g["field"]},
+                                     "reason": "generated from %s and checked against it by code" % g["field"]})
+                    continue
+                if u["id"] in carry:
+                    # Lean WHU: unchanged since the prior run; its verdict carried by fingerprint.
+                    state[u["sha"]] = carry[u["id"]]
+                    prog["done"][u["id"]] = _snap(u, status=carry[u["id"]], carried_from=rp["from"])
+                    log("verdicts", {"unit": u["id"], "part": u["part"], "sha": u["sha"], "round": 0,
+                                     "sentence": u["sentence"], "verdict": "carried",
+                                     "status": carry[u["id"]], "carried_from": rp["from"],
+                                     "reason": "unchanged since audit run %s (incremental re-audit)" % rp["from"]})
+                    continue
                 kind = protected_kind(u["sentence"], u.get("row")) if u["part"] == "page" else None
                 if kind:
                     # The question restatement, or what we held, read or did not
@@ -1125,17 +1221,48 @@ def run(slug: str, *, out_dir: Path, limit: int | None = None, cap: float = 40.0
                 if not prog["next"]:
                     break
                 prog["queue"], prog["next"] = prog["next"], []
-            for batch in fit_batches(slug, batches([live(s) for s in prog["queue"]]), held, lic,
-                                     manifest["splits"]):
+            bs = fit_batches(slug, batches([live(s) for s in prog["queue"]]), held, lic, manifest["splits"])
+            if LEAN:
+                import lean_audit as LA
+                rlog: list = []
+                gdocs = LA.group_documents(slug, bs, held, lic, log=rlog)
+            for bi, batch in enumerate(bs):
+                inputs = cache_sid = None
+                if LEAN and not all(u["part"] in SUMMARY_PARTS for u in batch):
+                    inputs = LA.batch_inputs(slug, batch, held, lic, group_docs=gdocs.get(bi), log=rlog)
+                    cache_sid = next(iter(gdocs[bi])) if bi in gdocs else None
+                    for r_ in rlog:
+                        log("retrieval", dict(r_, batch=bi))
+                    rlog.clear()
                 vs, docs, records = read_batch(call, slug, batch, held, ctx, "read", lic, body,
                                                deliveries=manifest["deliveries"],
-                                               on_reject=lambda r: log("quote_rejections", r))
+                                               on_reject=lambda r: log("quote_rejections", r),
+                                               inputs=inputs, cache_sid=cache_sid)
+                decided = {}
+                if LEAN and big is not call:
+                    esc = [u for u, v in zip(batch, vs) if LA.needs_escalation(u, v)]
+                    if esc:
+                        for u, v in zip(batch, vs):
+                            if u in esc:
+                                log("verdicts", {"unit": u["id"], "part": u["part"], "sha": u["sha"],
+                                                 "round": u["round"], "sentence": u["sentence"],
+                                                 **{k: v.get(k) for k in ("verdict", "kind", "evidence",
+                                                                          "proposed_text", "reason")},
+                                                 "model": call.model, "escalated": True})
+                        v2, _d, _r = read_batch(big, slug, esc, held, ctx, "read-escalate", lic, body,
+                                                deliveries=manifest["deliveries"],
+                                                on_reject=lambda r: log("quote_rejections", r),
+                                                inputs=(docs, records))
+                        again = {u["id"]: v for u, v in zip(esc, v2)}
+                        vs = [again.get(u["id"], v) for u, v in zip(batch, vs)]
+                        decided = {i: big.model for i in again}
                 for u, v in zip(batch, vs):
                     log("verdicts", {"unit": u["id"], "part": u["part"], "sha": u["sha"], "round": u["round"],
                                      "sentence": u["sentence"], **{k: v.get(k) for k in
                                      ("verdict", "kind", "evidence", "proposed_text", "reason")},
                                      **({"read_without_licensed_sources": u["licensed_excluded"]}
-                                        if u.get("licensed_excluded") else {})})
+                                        if u.get("licensed_excluded") else {}),
+                                     **({"decided_by": decided.get(u["id"], call.model)} if LEAN else {})})
                     if v["verdict"] != "finding":
                         state[u["sha"]] = v["verdict"]
                         prog["done"][u["id"]] = _snap(u, status=v["verdict"])
@@ -1143,11 +1270,11 @@ def run(slug: str, *, out_dir: Path, limit: int | None = None, cap: float = 40.0
                         continue
                     tags = _claimed_missing(v, u, "reader", delivery_report(slug, batch, held, docs, lic))
                     payload = ruling_payload(v, u["sentence"], docs, records)
-                    rtext, _ru = call(build_rule_prompt(payload), RULE_MAX_OUT, "rule")
+                    rtext, _ru = rule_call(build_rule_prompt(payload), RULE_MAX_OUT, "rule")
                     r = check_ruling(parse_json(rtext))
                     log("rulings", {"unit": u["id"], "sha": u["sha"], "round": u["round"],
                                     "at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
-                                    "by": "ruling model %s" % MODEL, "model": MODEL,
+                                    "by": "ruling model %s" % rule_call.model, "model": rule_call.model,
                                     "prompt_sha256": sha(RULE_PROMPT.read_text(encoding="utf-8")),
                                     "inputs": payload, "payload_sha256": sha(json.dumps(payload)),
                                     **r, **tags})
@@ -1186,8 +1313,10 @@ def run(slug: str, *, out_dir: Path, limit: int | None = None, cap: float = 40.0
         # Second reader: every sentence that had a finding, at its final
         # wording, and a seeded SECOND_SHARE of those that held on first read.
         if prog["second"] is None:
+            # A verdict carried from an earlier run was sampled (or not) there.
             final = [prog["done"][u["id"]] for u in us
-                     if prog["done"].get(u["id"], {}).get("status") in SETTLED]
+                     if prog["done"].get(u["id"], {}).get("status") in SETTLED
+                     and not prog["done"][u["id"]].get("carried_from")]
             had_finding = [s["id"] for s in final if s["id"] in flagged]
             held_first = [s["id"] for s in final if s["id"] not in flagged]
             k = max(1, round(SECOND_SHARE * len(held_first))) if held_first else 0
@@ -1197,9 +1326,16 @@ def run(slug: str, *, out_dir: Path, limit: int | None = None, cap: float = 40.0
         sec = prog["second"]
         for batch in fit_batches(slug, batches([live(prog["done"][i]) for i in sec["todo"]]), held, lic,
                                  manifest["splits"]):
-            vs, docs, records = read_batch(call, slug, batch, held, ctx, "second-read", lic, body,
+            inputs = None
+            if LEAN and not all(u["part"] in SUMMARY_PARTS for u in batch):
+                import lean_audit as LA
+                rl: list = []
+                inputs = LA.batch_inputs(slug, batch, held, lic, log=rl)
+                for r_ in rl:
+                    log("retrieval", dict(r_, batch="second"))
+            vs, docs, records = read_batch(second_call, slug, batch, held, ctx, "second-read", lic, body,
                                            deliveries=manifest["deliveries"],
-                                           on_reject=lambda r: log("quote_rejections", r))
+                                           on_reject=lambda r: log("quote_rejections", r), inputs=inputs)
             for u, v in zip(batch, vs):
                 if v["verdict"] == FAILED_READ:
                     # Not an agreement: the second reader could not quote its
@@ -1218,7 +1354,7 @@ def run(slug: str, *, out_dir: Path, limit: int | None = None, cap: float = 40.0
                     tags = _claimed_missing(v, u, "second reader",
                                             delivery_report(slug, batch, held, docs, lic))
                     payload = ruling_payload(v, u["sentence"], docs, records)
-                    rtext, _ru = call(build_rule_prompt(payload), RULE_MAX_OUT, "rule-second")
+                    rtext, _ru = rule_call(build_rule_prompt(payload), RULE_MAX_OUT, "rule-second")
                     r = check_ruling(parse_json(rtext))
                     # A card or meta wording that is not a whole body sentence
                     # is recorded with apply: False and left for a person.
@@ -1226,7 +1362,7 @@ def run(slug: str, *, out_dir: Path, limit: int | None = None, cap: float = 40.0
                                    and not body_sentence(r["text"] or "", us))
                     log("rulings", {"unit": u["id"], "sha": u["sha"], "round": "second",
                                     "at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
-                                    "by": "ruling model %s" % MODEL, "model": MODEL,
+                                    "by": "ruling model %s" % rule_call.model, "model": rule_call.model,
                                     "prompt_sha256": sha(RULE_PROMPT.read_text(encoding="utf-8")),
                                     "inputs": payload, "payload_sha256": sha(json.dumps(payload)), **r, **tags,
                                     **({"apply": False, "left_for_person": True} if summary_bad else {})})
@@ -1257,7 +1393,7 @@ def run(slug: str, *, out_dir: Path, limit: int | None = None, cap: float = 40.0
         manifest["finished"] = datetime.now(timezone.utc).isoformat(timespec="seconds")
         manifest["state"] = state
         manifest["progress"] = prog
-        manifest["calls"] = list((prior or {}).get("calls") or []) + call.calls
+        manifest["calls"] = list((prior or {}).get("calls") or []) + [c for k in callers for c in callers[k].calls]
         manifest["usd"] = round(sum(c.get("usd") or 0 for c in manifest["calls"]), 6)
         (out_dir / "manifest.json").write_text(json.dumps(manifest, indent=1, ensure_ascii=False), encoding="utf-8")
     return manifest
@@ -1392,6 +1528,8 @@ def main(argv=None) -> int:
     c = sub.add_parser("check"); c.add_argument("slug")
     w = sub.add_parser("withdraw", help="mark a run withdrawn: its rulings no longer apply")
     w.add_argument("slug"); w.add_argument("run_dir"); w.add_argument("--reason", required=True)
+    import lean
+    argv = lean.strip_flag(argv)          # --lean: lean WHU (lean.py); default off
     a = ap.parse_args(argv)
     if a.cmd == "withdraw":
         rd = Path(a.run_dir)
@@ -1428,8 +1566,12 @@ def main(argv=None) -> int:
         out = audit_root(a.slug) / datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
     n = len(units(a.slug))
     _stage_guard(a.ledger_issue or a.slug, min(n, a.limit) if (a.dry_run and a.limit) else n)
+    prior_dir = None
+    if lean.enabled() and not a.dry_run:
+        import reaudit
+        prior_dir = reaudit.prior_run(a.slug)
     m = run(a.slug, out_dir=out, limit=a.limit if a.dry_run else None, cap=a.cap,
-            ledger_issue=a.ledger_issue)
+            ledger_issue=a.ledger_issue, prior_dir=prior_dir)
     print(json.dumps({k: m.get(k) for k in ("status", "failure", "units", "usd", "second_read")}, indent=1))
     return 0 if m["status"] == "complete" else 2
 
