@@ -381,3 +381,12 @@ with `--cap 45` on `whu-check-pilot-v3` (Fred approved the extra $10), within ca
 **The secondary sample (v2's 8, §10.8) is dropped, for budget.** The bars (§10.7) stay as written,
 including $2 per answer. (2) The rendering slip (§10.14.2) stays logged; a test asserts that an HTTP-200
 page carrying any of the three challenge signatures seen is a wall and is never rendered.
+
+**10.16 Result (primary, 8 answers; `check_pilot/pilot_v3_counts.json`).** Run 2026-10-30: 7 answers, then a stop
+at the $25 day cap before Gemini Q1-03's first call (no spend lost); Fred raised the day cap to $40 for that one
+answer (committed af31017, reverted b7e3d3b straight after). Total $37.36. **Fails** (2 of 5 bars):
+COULDN'T CHECK 64 of 295 = 21.7% (bar 20%): bot wall or CAPTCHA 34, delivery check 15, barred publisher 4,
+publisher copy without licence 3, robots.txt 3, no passage to show 3, HTTP error 2, TDM reservation 0; abstract
+only 11, counted apart. Cost $4.67 per answer (bar $2). **Passes:** agreement 46 of 47 = 97.9% (abstract-only
+3 of 3; v1's rule 77 of 78); mean 52 s per answer (max 104 s); passages on 124 of 124 verdicts. Per v1 §5 this is
+the result; nothing is retuned.

@@ -1,0 +1,190 @@
+{
+ "written": "2026-10-30T13:25:11+00:00",
+ "by": "study/whu-reliability/check_pilot/run_pilot_v3.py compare",
+ "label": "Counts only. Internal pilot, exploratory, outside H1/H2; judged by an AI model (Claude) only.",
+ "design": "docs/whu-check-an-answer-pilot.md \u00a710",
+ "ledger_issue": "whu-check-pilot-v3",
+ "sample_kind": "primary",
+ "sample": [
+  "WHU-Q1-01/Claude",
+  "WHU-Q1-02/Claude",
+  "WHU-Q1-04/Claude",
+  "WHU-Q1-01/Perplexity",
+  "WHU-Q1-03/Perplexity",
+  "WHU-Q1-04/Perplexity",
+  "WHU-Q1-01/Gemini",
+  "WHU-Q1-03/Gemini"
+ ],
+ "sentence_text_mismatches": [],
+ "agreement": {
+  "n": 47,
+  "agree": 46,
+  "share": 0.9787,
+  "rule": "sentences the study drew and the pilot checked, both BACKED or NOT BACKED"
+ },
+ "agreement_v1_rule": {
+  "n": 78,
+  "agree": 77
+ },
+ "agreement_abstract_only": {
+  "n": 3,
+  "agree": 3
+ },
+ "study_vs_pilot": {
+  "BACKED -> BACKED": 34,
+  "BACKED -> COULDN'T CHECK": 9,
+  "BACKED -> NOT BACKED": 1,
+  "COULDN'T CHECK -> BACKED": 1,
+  "COULDN'T CHECK -> COULDN'T CHECK": 9,
+  "NO SOURCE -> NO SOURCE": 31,
+  "NOT BACKED -> COULDN'T CHECK": 8,
+  "NOT BACKED -> NOT BACKED": 12
+ },
+ "couldnt_check": {
+  "n": 64,
+  "of": 295,
+  "share": 0.2169,
+  "reasons": {
+   "bot wall or CAPTCHA": 34,
+   "delivery check": 15,
+   "barred publisher": 4,
+   "publisher copy without licence": 3,
+   "robots.txt disallows": 3,
+   "no passage to show": 3,
+   "HTTP error": 2
+  }
+ },
+ "abstract_only": {
+  "n": 11,
+  "of": 295
+ },
+ "passages": {
+  "verdicts": 124,
+  "with_passage": 124,
+  "share": 1.0
+ },
+ "sources_by_rule": {
+  "(c) web page, not a journal work": 61,
+  "(a) repository copy": 17,
+  "refused: bot wall or CAPTCHA": 16,
+  "refused: barred publisher": 7,
+  "(b) publisher copy with a Creative Commons licence": 3,
+  "refused: publisher copy without licence": 2,
+  "refused: robots.txt disallows": 2,
+  "refused: HTTP error": 2
+ },
+ "usd": {
+  "total": 37.3561,
+  "per_answer": 4.6695
+ },
+ "seconds": {
+  "mean": 52.0,
+  "max": 104.2
+ },
+ "per_answer": [
+  {
+   "answer": "WHU-Q1-01/Claude",
+   "found": 70,
+   "BACKED": 9,
+   "NOT BACKED": 2,
+   "NO SOURCE": 21,
+   "COULDN'T CHECK": 8,
+   "usd": 4.25256,
+   "claims": 40,
+   "abstract_only": 7,
+   "seconds": 77.9
+  },
+  {
+   "answer": "WHU-Q1-02/Claude",
+   "found": 79,
+   "BACKED": 6,
+   "NOT BACKED": 2,
+   "NO SOURCE": 28,
+   "COULDN'T CHECK": 4,
+   "usd": 2.090943,
+   "claims": 40,
+   "abstract_only": 1,
+   "seconds": 28.4
+  },
+  {
+   "answer": "WHU-Q1-04/Claude",
+   "found": 80,
+   "BACKED": 7,
+   "NOT BACKED": 5,
+   "NO SOURCE": 25,
+   "COULDN'T CHECK": 3,
+   "usd": 3.547407,
+   "claims": 40,
+   "abstract_only": 1,
+   "seconds": 51.8
+  },
+  {
+   "answer": "WHU-Q1-01/Perplexity",
+   "found": 15,
+   "BACKED": 6,
+   "NOT BACKED": 0,
+   "NO SOURCE": 6,
+   "COULDN'T CHECK": 3,
+   "usd": 1.439078,
+   "claims": 15,
+   "abstract_only": 0,
+   "seconds": 15.4
+  },
+  {
+   "answer": "WHU-Q1-03/Perplexity",
+   "found": 43,
+   "BACKED": 23,
+   "NOT BACKED": 0,
+   "NO SOURCE": 7,
+   "COULDN'T CHECK": 10,
+   "usd": 8.936332,
+   "claims": 40,
+   "abstract_only": 1,
+   "seconds": 85.9
+  },
+  {
+   "answer": "WHU-Q1-04/Perplexity",
+   "found": 49,
+   "BACKED": 8,
+   "NOT BACKED": 7,
+   "NO SOURCE": 17,
+   "COULDN'T CHECK": 8,
+   "usd": 1.074237,
+   "claims": 40,
+   "abstract_only": 0,
+   "seconds": 22.7
+  },
+  {
+   "answer": "WHU-Q1-01/Gemini",
+   "found": 70,
+   "BACKED": 9,
+   "NOT BACKED": 18,
+   "NO SOURCE": 0,
+   "COULDN'T CHECK": 13,
+   "usd": 3.97181,
+   "claims": 40,
+   "abstract_only": 0,
+   "seconds": 29.4
+  },
+  {
+   "answer": "WHU-Q1-03/Gemini",
+   "found": 68,
+   "BACKED": 10,
+   "NOT BACKED": 12,
+   "NO SOURCE": 3,
+   "COULDN'T CHECK": 15,
+   "usd": 12.043734,
+   "claims": 40,
+   "abstract_only": 1,
+   "seconds": 104.2
+  }
+ ],
+ "pass_bar": {
+  "couldnt_check_at_most_20": false,
+  "agreement_at_least_90": true,
+  "usd_per_answer_at_most_2": false,
+  "seconds_per_answer_mean_at_most_120": true,
+  "passages_100": true
+ },
+ "pass": false
+}

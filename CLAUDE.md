@@ -2992,6 +2992,18 @@ Design (fixed before code): docs/whu-check-an-answer-pilot.md. Internal; outside
 - v2 (doc §9): check_pilot/pipeline_v2.py (imports v1 unchanged; new snapshot step), run_pilot_v2.py (ledger
   whu-check-pilot-v2); tests backend/tests/test_whu_check_pilot_v2.py. The preview switches with
   routers/whu_check.py PIPELINE_VERSION = 2 once v2 has run.
+- v3 (doc §10, 2026-10-30): check_pilot/pipeline_v3.py (imports v1/v2 unchanged; judge only via judge_m1) and
+  run_pilot_v3.py (ledger whu-check-pilot-v3). Adds: a quoted passage (<60 words, location, #:~:text= link) on every
+  BACKED/NOT BACKED, else COULDN'T CHECK; copy rule (a) repository copies free to read, (b) publisher copies only with
+  CC, (c) web pages; robots.txt, W3C TDMRep, barred publishers, never past a wall (HTTP-200 challenge pages incl.
+  Springer F5, NCBI reCAPTCHA check, UNT validation are walls, never rendered); Playwright render only for genuine JS
+  pages; open copies via Europe PMC/Unpaywall/Crossref; abstract fallback (labelled); user-supplied passage <=300
+  words, never written (check_supplied, offline-tested only); claims ranked numbers > cause > conclusion; one named
+  reason per COULDN'T CHECK. pipeline_v3 sets no_proxy at import (macOS forks die after the system-proxy lookup).
+  Tests backend/tests/test_whu_check_pilot_v3.py (fixtures/whu_check/v3_walls/). Result: pilot_v3_counts.json, 8
+  round-1 answers (secondary dropped for budget): agreement 46/47, passages 124/124, mean 52 s pass; COULDN'T CHECK
+  21.7% and $4.67/answer FAIL. NOT wired into the preview: routers/whu_check.py stays on v2 until Fred says so
+  (Playwright is not in the Render image).
 - Quarterly round 1: study/whu-reliability/quarterly/round1_protocol.md frozen at 5f4a928 (the seed), with
   round1_duplicates.json and round1_draw.py (frames.py imported unchanged); draws in quarterly/draws/ (aba6589).
 - KNOWN LIMIT: Render's filesystem is not persistent, so the ledger lines the preview writes are lost on each
