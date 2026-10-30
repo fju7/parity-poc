@@ -1,5 +1,5 @@
 {
- "written": "2026-10-29T22:59:42+00:00",
+ "written": "2026-10-30T00:02:20+00:00",
  "label": "WHU quarterly round 1: AI judges only, not checked by people; nothing here is H1 or H2",
  "rules": "quarterly/analyse_round1.py docstring (analyse.py's rules via analyse_eight.py; EVERY abstract-only rule; not quote-checked)",
  "freeze": "5f4a928b757d7f47c1ba8ed47600ced4a7a69f12",
@@ -12041,17 +12041,17 @@
    "whu-quarterly-r1-02": 10.09,
    "whu-quarterly-r1-04": 23.39,
    "whu-quarterly-r1-03": 37.6,
-   "whu-quarterly-r1-judging": 139.23
+   "whu-quarterly-r1-judging": 142.93
   },
   "judging_by_role": {
    "m2-judge-claude": 3.12,
    "m2-judge-openai": 7.68,
-   "m1-judge-claude": 49.06,
-   "m1-judge-openai": 79.37
+   "m1-judge-claude": 50.7,
+   "m1-judge-openai": 81.42
   },
   "whu_total": 74.55,
-  "judging_total": 139.23,
-  "round_total": 213.78,
+  "judging_total": 142.93,
+  "round_total": 217.48,
   "round_cap": 275.0
  }
 }

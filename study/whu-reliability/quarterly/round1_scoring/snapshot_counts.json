@@ -1,5 +1,5 @@
 {
- "written": "2026-10-29T22:58:05+00:00",
+ "written": "2026-10-30T00:13:39+00:00",
  "per_answer": [
   {
    "question": "WHU-Q1-01",
@@ -18,7 +18,7 @@
    "items": 12,
    "held": 11,
    "incomplete": 1,
-   "abstract_only": 7,
+   "abstract_only": 5,
    "no_url": 0,
    "uncited": 8,
    "unreachable_sources": 1
@@ -212,9 +212,9 @@
   }
  ],
  "routes": {
-  "a": 8,
+  "a": 7,
   "b": 3,
-  "c": 1,
+  "c": 2,
   "d": 14
  },
  "reachability": {
@@ -284,8 +284,8 @@
   }
  },
  "versions": {
-  "as cited": 11,
-  "publishedVersion": 2,
+  "as cited": 10,
+  "publishedVersion": 3,
   "web page as rendered": 13
  },
  "first_fetch_bytes_reread_to_held": 0,
@@ -293,8 +293,8 @@
  "still_unreachable_free_but_blocking_not_tried_by_advisor": 0,
  "sources": {
   "distinct": 115,
-  "full_text": 97,
-  "abstract_only": 12,
+  "full_text": 98,
+  "abstract_only": 11,
   "unreachable": 6
  }
 }

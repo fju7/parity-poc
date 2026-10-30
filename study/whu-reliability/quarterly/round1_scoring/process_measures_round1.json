@@ -1,0 +1,690 @@
+{
+ "label": "WHU quarterly round 1: cost, elapsed time (M4) and WHU's process measures",
+ "rules": "quarterly/process_measures_round1.py docstring",
+ "M4": {
+  "WHU": {
+   "WHU-Q1-01": {
+    "usd": 3.47,
+    "wall_clock_minutes": 39.7,
+    "stage_rows_minutes": 27.6
+   },
+   "WHU-Q1-02": {
+    "usd": 10.09,
+    "wall_clock_minutes": 637.0,
+    "stage_rows_minutes": 23.2
+   },
+   "WHU-Q1-03": {
+    "usd": 37.6,
+    "wall_clock_minutes": 434.1,
+    "stage_rows_minutes": 250.0
+   },
+   "WHU-Q1-04": {
+    "usd": 23.39,
+    "wall_clock_minutes": 251.7,
+    "stage_rows_minutes": 229.2
+   }
+  },
+  "tools_minutes": {
+   "Claude": {
+    "WHU-Q1-01": 7,
+    "WHU-Q1-02": 6,
+    "WHU-Q1-03": null,
+    "WHU-Q1-04": 5
+   },
+   "ChatGPT": {
+    "WHU-Q1-01": 8,
+    "WHU-Q1-02": 10,
+    "WHU-Q1-03": 8,
+    "WHU-Q1-04": 7
+   },
+   "Gemini": {
+    "WHU-Q1-01": 12,
+    "WHU-Q1-02": 6,
+    "WHU-Q1-03": 28,
+    "WHU-Q1-04": "no result (two technical failures)"
+   },
+   "Perplexity": {
+    "WHU-Q1-01": "at most 11",
+    "WHU-Q1-02": 11,
+    "WHU-Q1-03": null,
+    "WHU-Q1-04": 9
+   }
+  },
+  "tools_cost": "flat-rate subscriptions; no per-run cost metered (round1_capture.md)"
+ },
+ "WHU_process": {
+  "WHU-Q1-01": {
+   "spend_usd": 3.47,
+   "spend_by_script": {
+    "audit_stage.py": 1.1685,
+    "factcheck_draft.py": 2.3058
+   },
+   "spend_by_stage_from_study_log": {
+    "1": 0.0,
+    "2": 0.0,
+    "2b": 0.0,
+    "2c": 0.0,
+    "3": 0.0,
+    "3a": 0.0,
+    "3c": 0.0,
+    "3d": 0.0197,
+    "3b": 0.0,
+    "4": 0.5,
+    "4b": 1.88,
+    "4c": 0.0,
+    "4d": 0.13,
+    "4e": 0.0,
+    "5": 0.0,
+    "6": 0.0,
+    "7": 0.93,
+    "7b": 0.0,
+    "7d": 0.0,
+    "8": 0.0,
+    "9": 0.04,
+    "9a": 0.0,
+    "10": 0.0,
+    "11": 0.0,
+    "7a": 0.0
+   },
+   "elapsed": {
+    "first_start": "2026-10-29T00:04:19+00:00",
+    "answer_at": "2026-10-29T00:44:00+00:00",
+    "wall_clock_minutes": 39.7,
+    "stage_rows_minutes": 27.6,
+    "reached": "Ready."
+   },
+   "publish_check_now": "Ready.",
+   "new_preflight_rows": {
+    "protected sentences kept": {
+     "outcome": "ok",
+     "detail": "3 protected sentence(s) in the first full draft (d5b3193, the commit that added the page); all still on the page"
+    },
+    "omission objections ruled": {
+     "outcome": "ok",
+     "detail": "6 omission decision(s): 3 ADD, 2 NOT_IN_SOURCE, 1 NOT_MATERIAL"
+    },
+    "headline conclusions accounted for": {
+     "outcome": "warn",
+     "detail": "no headline section found in S002; declare its headline conclusions by hand. 13 unit(s) in 1 relied-on source(s): 13 used. Known limit: an assessment conclusion in a statement or Executive Summary par"
+    },
+    "declared findings shown to readers": {
+     "outcome": "ok",
+     "detail": "1 declared finding(s), each on the page; 1 counted against the budget of 8"
+    },
+    "assessment judgements stated": {
+     "outcome": "ok",
+     "detail": "2 held assessment judgement(s), 2 relevant: 2 stated"
+    },
+    "scope declared": {
+     "outcome": "ok",
+     "detail": "4 out-of-scope entries; written 2026-10-29, before the first source was held (2026-10-29)"
+    },
+    "evidence standard declared": {
+     "outcome": "ok",
+     "detail": "weighs measured, assessed; written 2026-10-29"
+    }
+   },
+   "omission_decisions": {
+    "ADD": 3,
+    "NOT_IN_SOURCE": 2,
+    "NOT_MATERIAL": 1
+   },
+   "ADD_sentences": 3,
+   "declared_findings": 1,
+   "declarations_budget": 8,
+   "declarations_over_budget": false,
+   "judgement_candidates": 2,
+   "judgements_relevant": 2,
+   "judgements_stated": 2,
+   "judgements_declared": 0,
+   "sent_to_a_person": {
+    "for_person_rows": 0,
+    "person_reads_final_audit_run": 5,
+    "audit_runs": 1
+   },
+   "ruling_model_consistency": [
+    {
+     "step": "judgements-20261029T001407Z",
+     "kind": "relevance",
+     "rulings": 2,
+     "sampled": 1,
+     "pairs": 1,
+     "agreement": 1.0,
+     "decision_agreement": 1.0
+    },
+    {
+     "step": "advocate-20261029T002417Z",
+     "kind": "advocate",
+     "rulings": 5,
+     "sampled": 1,
+     "pairs": 1,
+     "agreement": 1.0,
+     "decision_agreement": 1.0
+    },
+    {
+     "step": "omissions-20261029T002515Z",
+     "kind": "omission",
+     "rulings": 4,
+     "sampled": 1,
+     "pairs": 1,
+     "agreement": 0.0,
+     "decision_agreement": 1.0
+    },
+    {
+     "step": "audit-20261029T002827Z",
+     "kind": "audit",
+     "rulings": 2,
+     "sampled": 1,
+     "pairs": 1,
+     "agreement": 1.0,
+     "decision_agreement": 1.0
+    }
+   ]
+  },
+  "WHU-Q1-02": {
+   "spend_usd": 10.09,
+   "spend_by_script": {
+    "audit_stage.py": 6.4262,
+    "factcheck_draft.py": 3.6641
+   },
+   "spend_by_stage_from_study_log": {
+    "1": 0.0,
+    "2": 0.0,
+    "3d": 0.08,
+    "4": 0.32,
+    "4b": 3.33,
+    "4d": 0.23,
+    "5": 0.0,
+    "6": 0.0,
+    "7": 4.22,
+    "11": 0.0,
+    "discrepancy": 0.0,
+    "advisor": 0.0,
+    "day": 0.0,
+    "7a": 0.0,
+    "7b": 0.0,
+    "7c": 1.77,
+    "7d": 0.0,
+    "9": 0.01,
+    "10": 0.0
+   },
+   "elapsed": {
+    "first_start": "2026-10-29T00:55:05+00:00",
+    "answer_at": "2026-10-29T11:32:04+00:00",
+    "wall_clock_minutes": 637.0,
+    "stage_rows_minutes": 23.2,
+    "reached": "STOP (corrections not yet read; advisor ruling)"
+   },
+   "publish_check_now": "BLOCKED",
+   "new_preflight_rows": {
+    "protected sentences kept": {
+     "outcome": "ok",
+     "detail": "9 protected sentence(s) in the first full draft (73b1661, the commit that added the page); all still on the page"
+    },
+    "omission objections ruled": {
+     "outcome": "ok",
+     "detail": "12 omission decision(s): 7 ADD, 4 NOT_IN_SOURCE, 1 NOT_MATERIAL"
+    },
+    "headline conclusions accounted for": {
+     "outcome": "warn",
+     "detail": "no headline section found in S003, S004; declare its headline conclusions by hand. 22 unit(s) in 2 relied-on source(s): 22 used. Known limit: an assessment conclusion in a statement or Executive Summa"
+    },
+    "declared findings shown to readers": {
+     "outcome": "ok",
+     "detail": "4 declared finding(s), each on the page; 4 counted against the budget of 10"
+    },
+    "assessment judgements stated": {
+     "outcome": "ok",
+     "detail": "9 held assessment judgement(s), 5 relevant: 5 stated"
+    },
+    "scope declared": {
+     "outcome": "ok",
+     "detail": "5 out-of-scope entries; written 2026-10-29, before the first source was held (2026-10-29)"
+    },
+    "evidence standard declared": {
+     "outcome": "ok",
+     "detail": "weighs measured, assessed; written 2026-10-29"
+    }
+   },
+   "omission_decisions": {
+    "ADD": 7,
+    "NOT_IN_SOURCE": 4,
+    "NOT_MATERIAL": 1
+   },
+   "ADD_sentences": 7,
+   "declared_findings": 4,
+   "declarations_budget": 10,
+   "declarations_over_budget": false,
+   "judgement_candidates": 9,
+   "judgements_relevant": 5,
+   "judgements_stated": 5,
+   "judgements_declared": 0,
+   "sent_to_a_person": {
+    "for_person_rows": 2,
+    "person_reads_final_audit_run": 10,
+    "audit_runs": 2
+   },
+   "ruling_model_consistency": [
+    {
+     "step": "judgements-20261029T011234Z",
+     "kind": "relevance",
+     "rulings": 9,
+     "sampled": 2,
+     "pairs": 2,
+     "agreement": 1.0,
+     "decision_agreement": 1.0
+    },
+    {
+     "step": "advocate-20261029T012255Z",
+     "kind": "advocate",
+     "rulings": 10,
+     "sampled": 2,
+     "pairs": 2,
+     "agreement": 1.0,
+     "decision_agreement": 1.0
+    },
+    {
+     "step": "omissions-20261029T012424Z",
+     "kind": "omission",
+     "rulings": 8,
+     "sampled": 2,
+     "pairs": 2,
+     "agreement": 0.5,
+     "decision_agreement": 1.0
+    },
+    {
+     "step": "audit-20261029T105655Z",
+     "kind": "audit",
+     "rulings": 5,
+     "sampled": 1,
+     "pairs": 1,
+     "agreement": 1.0,
+     "decision_agreement": 1.0
+    }
+   ]
+  },
+  "WHU-Q1-03": {
+   "spend_usd": 37.6,
+   "spend_by_script": {
+    "audit_stage.py": 30.8065,
+    "factcheck_draft.py": 6.7927
+   },
+   "spend_by_stage_from_study_log": {
+    "1": 0.0,
+    "2": 0.0,
+    "3": 0.0,
+    "3a": 0.0,
+    "3c": 0.0,
+    "3d": 0.78,
+    "premise": 0.0,
+    "3b": 0.0,
+    "4": 0.72,
+    "4b": 4.09,
+    "4b/4c": 0.13,
+    "4d": 0.48,
+    "4e": 0.05,
+    "5": 0.0,
+    "6": 0.23,
+    "coverage": 0.0,
+    "7": 5.25,
+    "7d": 0.0,
+    "8": 0.0,
+    "9": 0.1,
+    "9a": 0.0,
+    "7c": 23.78,
+    "repeat": 0.1,
+    "person": 0.0,
+    "readers'": 0.0,
+    "steps": 0.04,
+    "28": 0.0,
+    "section": 0.0,
+    "gate": 0.0,
+    "7b": 0.01,
+    "step": 0.09,
+    "10": 0.0,
+    "11": 0.0
+   },
+   "elapsed": {
+    "first_start": "2026-10-29T10:56:57+00:00",
+    "answer_at": "2026-10-29T18:11:00+00:00",
+    "wall_clock_minutes": 434.1,
+    "stage_rows_minutes": 250.0,
+    "reached": "Ready."
+   },
+   "publish_check_now": "Ready.",
+   "new_preflight_rows": {
+    "protected sentences kept": {
+     "outcome": "ok",
+     "detail": "28 protected sentence(s) in the first full draft (73bd20d, the commit that added the page); 1 changed or removed, each with a person's sign-off"
+    },
+    "omission objections ruled": {
+     "outcome": "ok",
+     "detail": "15 omission decision(s): 3 ADD, 3 NOT_IN_SOURCE, 8 NOT_MATERIAL, 1 TO_PERSON"
+    },
+    "headline conclusions accounted for": {
+     "outcome": "warn",
+     "detail": "no headline section found in S002, S003, S004; declare its headline conclusions by hand. 177 unit(s) in 1 relied-on source(s): 177 used. Known limit: an assessment conclusion in a statement or Executi"
+    },
+    "declared findings shown to readers": {
+     "outcome": "ok",
+     "detail": "28 declared finding(s), each on the page; 28 counted against the budget of 10"
+    },
+    "assessment judgements stated": {
+     "outcome": "ok",
+     "detail": "61 held assessment judgement(s), 43 relevant: 43 stated"
+    },
+    "scope declared": {
+     "outcome": "ok",
+     "detail": "6 out-of-scope entries; written 2026-10-29, before the first source was held (2026-10-29)"
+    },
+    "evidence standard declared": {
+     "outcome": "ok",
+     "detail": "weighs measured, assessed; written 2026-10-29"
+    }
+   },
+   "omission_decisions": {
+    "ADD": 3,
+    "NOT_IN_SOURCE": 3,
+    "NOT_MATERIAL": 8,
+    "TO_PERSON": 1
+   },
+   "ADD_sentences": 3,
+   "declared_findings": 28,
+   "declarations_budget": 10,
+   "declarations_over_budget": true,
+   "judgement_candidates": 61,
+   "judgements_relevant": 43,
+   "judgements_stated": 43,
+   "judgements_declared": 0,
+   "sent_to_a_person": {
+    "for_person_rows": 7,
+    "person_reads_final_audit_run": 35,
+    "audit_runs": 6
+   },
+   "ruling_model_consistency": [
+    {
+     "step": "judgements-20261029T113028Z",
+     "kind": "relevance",
+     "rulings": 61,
+     "sampled": 13,
+     "pairs": 13,
+     "agreement": 0.6923,
+     "decision_agreement": 1.0
+    },
+    {
+     "step": "advocate-20261029T115919Z",
+     "kind": "advocate",
+     "rulings": 8,
+     "sampled": 2,
+     "pairs": 2,
+     "agreement": 1.0,
+     "decision_agreement": 1.0
+    },
+    {
+     "step": "omissions-20261029T120356Z",
+     "kind": "omission",
+     "rulings": 12,
+     "sampled": 3,
+     "pairs": 3,
+     "agreement": 0.6667,
+     "decision_agreement": 0.6667
+    },
+    {
+     "step": "dangling-20261029T121203Z",
+     "kind": "dangling",
+     "rulings": 1,
+     "sampled": 1,
+     "pairs": 1,
+     "agreement": 1.0,
+     "decision_agreement": 1.0
+    },
+    {
+     "step": "conclusions-20261029T121405Z",
+     "kind": "conclusion",
+     "rulings": 7,
+     "sampled": 2,
+     "pairs": 2,
+     "agreement": 0.5,
+     "decision_agreement": 1.0
+    },
+    {
+     "step": "conclusions-20261029T123358Z",
+     "kind": "conclusion",
+     "rulings": 1,
+     "sampled": 1,
+     "pairs": 1,
+     "agreement": 1.0,
+     "decision_agreement": 1.0
+    },
+    {
+     "step": "audit-20261029T123432Z",
+     "kind": "audit",
+     "rulings": 3,
+     "sampled": 1,
+     "pairs": 1,
+     "agreement": 1.0,
+     "decision_agreement": 1.0
+    },
+    {
+     "step": "omissions-20261029T125251Z",
+     "kind": "omission",
+     "rulings": 2,
+     "sampled": 1,
+     "pairs": 1,
+     "agreement": 1.0,
+     "decision_agreement": 1.0
+    },
+    {
+     "step": "changecheck-20261029T131002Z",
+     "kind": "changecheck",
+     "rulings": 3,
+     "sampled": 1,
+     "pairs": 1,
+     "agreement": 0.0,
+     "decision_agreement": 0.0
+    },
+    {
+     "step": "audit-20261029T133403Z",
+     "kind": "audit",
+     "rulings": 2,
+     "sampled": 1,
+     "pairs": 1,
+     "agreement": 1.0,
+     "decision_agreement": 1.0
+    },
+    {
+     "step": "changecheck-20261029T134658Z",
+     "kind": "changecheck",
+     "rulings": 2,
+     "sampled": 1,
+     "pairs": 1,
+     "agreement": 1.0,
+     "decision_agreement": 1.0
+    },
+    {
+     "step": "audit-20261029T145548Z",
+     "kind": "audit",
+     "rulings": 1,
+     "sampled": 1,
+     "pairs": 1,
+     "agreement": 1.0,
+     "decision_agreement": 1.0
+    },
+    {
+     "step": "audit-20261029T155038Z",
+     "kind": "audit",
+     "rulings": 1,
+     "sampled": 1,
+     "pairs": 1,
+     "agreement": 1.0,
+     "decision_agreement": 1.0
+    },
+    {
+     "step": "audit-20261029T174258Z",
+     "kind": "audit",
+     "rulings": 2,
+     "sampled": 1,
+     "pairs": 1,
+     "agreement": 0.0,
+     "decision_agreement": 1.0
+    }
+   ]
+  },
+  "WHU-Q1-04": {
+   "spend_usd": 23.39,
+   "spend_by_script": {
+    "audit_stage.py": 14.6021,
+    "factcheck_draft.py": 8.7831
+   },
+   "spend_by_stage_from_study_log": {
+    "1": 0.0,
+    "2": 0.0,
+    "3": 0.0,
+    "3d": 1.97,
+    "3c/3d": 0.0,
+    "STOP": 0.0,
+    "person": 0.0,
+    "3b": 0.0,
+    "4": 0.46,
+    "4b": 7.26,
+    "4b/4c": 0.45,
+    "4d": 0.54,
+    "5": 0.0,
+    "6": 0.01,
+    "7": 2.88,
+    "7b": 0.02,
+    "7c": 8.66,
+    "7d": 0.0,
+    "8": 0.0,
+    "9": 0.1,
+    "10": 0.0,
+    "transcribe": 0.0,
+    "3c": 0.0,
+    "9a": 0.0,
+    "2c": 0.0,
+    "11": 0.0
+   },
+   "elapsed": {
+    "first_start": "2026-10-29T10:56:45+00:00",
+    "answer_at": "2026-10-29T15:08:26+00:00",
+    "wall_clock_minutes": 251.7,
+    "stage_rows_minutes": 229.2,
+    "reached": "Ready."
+   },
+   "publish_check_now": "Ready.",
+   "new_preflight_rows": {
+    "protected sentences kept": {
+     "outcome": "ok",
+     "detail": "27 protected sentence(s) in the first full draft (a410bb4, the commit that added the page); all still on the page"
+    },
+    "omission objections ruled": {
+     "outcome": "ok",
+     "detail": "17 omission decision(s): 8 ADD, 4 NOT_IN_SOURCE, 5 NOT_MATERIAL"
+    },
+    "headline conclusions accounted for": {
+     "outcome": "warn",
+     "detail": "no headline section found in S003; declare its headline conclusions by hand. 200 unit(s) in 3 relied-on source(s): 183 used, 7 out_of_scope, 10 not_material. Known limit: an assessment conclusion in a"
+    },
+    "declared findings shown to readers": {
+     "outcome": "ok",
+     "detail": "28 declared finding(s), each on the page; 28 counted against the budget of 10"
+    },
+    "assessment judgements stated": {
+     "outcome": "ok",
+     "detail": "176 held assessment judgement(s), 37 relevant: 6 declared, 31 stated"
+    },
+    "scope declared": {
+     "outcome": "ok",
+     "detail": "5 out-of-scope entries; written 2026-10-29, before the first source was held (2026-10-29)"
+    },
+    "evidence standard declared": {
+     "outcome": "ok",
+     "detail": "weighs measured, assessed; written 2026-10-29"
+    }
+   },
+   "omission_decisions": {
+    "ADD": 8,
+    "NOT_IN_SOURCE": 4,
+    "NOT_MATERIAL": 5
+   },
+   "ADD_sentences": 8,
+   "declared_findings": 28,
+   "declarations_budget": 10,
+   "declarations_over_budget": true,
+   "judgement_candidates": 176,
+   "judgements_relevant": 37,
+   "judgements_stated": 31,
+   "judgements_declared": 6,
+   "sent_to_a_person": {
+    "for_person_rows": 7,
+    "person_reads_final_audit_run": 32,
+    "audit_runs": 4
+   },
+   "ruling_model_consistency": [
+    {
+     "step": "judgements-20261029T111921Z",
+     "kind": "relevance",
+     "rulings": 176,
+     "sampled": 36,
+     "pairs": 36,
+     "agreement": 0.8611,
+     "decision_agreement": 0.9722
+    },
+    {
+     "step": "advocate-20261029T122805Z",
+     "kind": "advocate",
+     "rulings": 23,
+     "sampled": 5,
+     "pairs": 5,
+     "agreement": 0.4,
+     "decision_agreement": 0.8
+    },
+    {
+     "step": "omissions-20261029T123334Z",
+     "kind": "omission",
+     "rulings": 13,
+     "sampled": 3,
+     "pairs": 3,
+     "agreement": 0.3333,
+     "decision_agreement": 1.0
+    },
+    {
+     "step": "dangling-20261029T123958Z",
+     "kind": "dangling",
+     "rulings": 1,
+     "sampled": 1,
+     "pairs": 1,
+     "agreement": 1.0,
+     "decision_agreement": 1.0
+    },
+    {
+     "step": "audit-20261029T124201Z",
+     "kind": "audit",
+     "rulings": 2,
+     "sampled": 1,
+     "pairs": 1,
+     "agreement": 1.0,
+     "decision_agreement": 1.0
+    },
+    {
+     "step": "dangling-20261029T125357Z",
+     "kind": "dangling",
+     "rulings": 1,
+     "sampled": 1,
+     "pairs": 1,
+     "agreement": 1.0,
+     "decision_agreement": 1.0
+    },
+    {
+     "step": "changecheck-20261029T150534Z",
+     "kind": "changecheck",
+     "rulings": 1,
+     "sampled": 1,
+     "pairs": 1,
+     "agreement": 1.0,
+     "decision_agreement": 1.0
+    }
+   ]
+  }
+ }
+}

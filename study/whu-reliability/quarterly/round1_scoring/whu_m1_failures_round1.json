@@ -1,0 +1,189 @@
+{
+ "label": "WHU quarterly round 1, WHU's M1 failures: AI judges only; item ids and counts only",
+ "rules": "quarterly/whu_m1_failures_round1.py docstring",
+ "whu_items": 80,
+ "whu_items_matched_to_a_binding_row": 67,
+ "origin_of_all_whu_items": {
+  "first-draft text": 75,
+  "omission ADD": 5
+ },
+ "judges": {
+  "claude": {
+   "failures": 7,
+   "countable": 79,
+   "by_question": {
+    "WHU-Q1-01": {
+     "failures": 2,
+     "countable": 19
+    },
+    "WHU-Q1-02": {
+     "failures": 1,
+     "countable": 20
+    },
+    "WHU-Q1-03": {
+     "failures": 1,
+     "countable": 20
+    },
+    "WHU-Q1-04": {
+     "failures": 3,
+     "countable": 20
+    }
+   },
+   "by_reason": {
+    "cited but not supported (Absent)": 2,
+    "uncited": 5
+   },
+   "by_origin": {
+    "first-draft text": 7
+   },
+   "items": [
+    {
+     "item": "M1-7a53ee361a",
+     "question": "WHU-Q1-01",
+     "reason": "cited but not supported (Absent)",
+     "origin": "first-draft text"
+    },
+    {
+     "item": "M1-5a0a9fb12d",
+     "question": "WHU-Q1-03",
+     "reason": "cited but not supported (Absent)",
+     "origin": "first-draft text"
+    },
+    {
+     "item": "M1-465ab812be",
+     "question": "WHU-Q1-01",
+     "reason": "uncited",
+     "origin": "first-draft text"
+    },
+    {
+     "item": "M1-bbeb3b2720",
+     "question": "WHU-Q1-02",
+     "reason": "uncited",
+     "origin": "first-draft text"
+    },
+    {
+     "item": "M1-07cdf12d9c",
+     "question": "WHU-Q1-04",
+     "reason": "uncited",
+     "origin": "first-draft text"
+    },
+    {
+     "item": "M1-19544dcfc0",
+     "question": "WHU-Q1-04",
+     "reason": "uncited",
+     "origin": "first-draft text"
+    },
+    {
+     "item": "M1-42cf916f68",
+     "question": "WHU-Q1-04",
+     "reason": "uncited",
+     "origin": "first-draft text"
+    }
+   ]
+  },
+  "openai": {
+   "failures": 12,
+   "countable": 79,
+   "by_question": {
+    "WHU-Q1-01": {
+     "failures": 3,
+     "countable": 19
+    },
+    "WHU-Q1-02": {
+     "failures": 2,
+     "countable": 20
+    },
+    "WHU-Q1-03": {
+     "failures": 4,
+     "countable": 20
+    },
+    "WHU-Q1-04": {
+     "failures": 3,
+     "countable": 20
+    }
+   },
+   "by_reason": {
+    "cited but not supported (Absent)": 5,
+    "cited but not supported (Contradicted)": 2,
+    "uncited": 5
+   },
+   "by_origin": {
+    "first-draft text": 12
+   },
+   "items": [
+    {
+     "item": "M1-fbad03db81",
+     "question": "WHU-Q1-03",
+     "reason": "cited but not supported (Absent)",
+     "origin": "first-draft text"
+    },
+    {
+     "item": "M1-152f157026",
+     "question": "WHU-Q1-01",
+     "reason": "cited but not supported (Contradicted)",
+     "origin": "first-draft text"
+    },
+    {
+     "item": "M1-df067c5f4a",
+     "question": "WHU-Q1-03",
+     "reason": "cited but not supported (Absent)",
+     "origin": "first-draft text"
+    },
+    {
+     "item": "M1-7a53ee361a",
+     "question": "WHU-Q1-01",
+     "reason": "cited but not supported (Absent)",
+     "origin": "first-draft text"
+    },
+    {
+     "item": "M1-5a0a9fb12d",
+     "question": "WHU-Q1-03",
+     "reason": "cited but not supported (Absent)",
+     "origin": "first-draft text"
+    },
+    {
+     "item": "M1-a1630d9afe",
+     "question": "WHU-Q1-02",
+     "reason": "cited but not supported (Contradicted)",
+     "origin": "first-draft text"
+    },
+    {
+     "item": "M1-7f780fc97b",
+     "question": "WHU-Q1-03",
+     "reason": "cited but not supported (Absent)",
+     "origin": "first-draft text"
+    },
+    {
+     "item": "M1-465ab812be",
+     "question": "WHU-Q1-01",
+     "reason": "uncited",
+     "origin": "first-draft text"
+    },
+    {
+     "item": "M1-bbeb3b2720",
+     "question": "WHU-Q1-02",
+     "reason": "uncited",
+     "origin": "first-draft text"
+    },
+    {
+     "item": "M1-07cdf12d9c",
+     "question": "WHU-Q1-04",
+     "reason": "uncited",
+     "origin": "first-draft text"
+    },
+    {
+     "item": "M1-19544dcfc0",
+     "question": "WHU-Q1-04",
+     "reason": "uncited",
+     "origin": "first-draft text"
+    },
+    {
+     "item": "M1-42cf916f68",
+     "question": "WHU-Q1-04",
+     "reason": "uncited",
+     "origin": "first-draft text"
+    }
+   ]
+  }
+ }
+}
