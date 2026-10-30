@@ -3070,6 +3070,13 @@ phase ends or 2026-11-30T23:59Z; test_whu_study_judging_cap.py fails while it st
 - The pipeline finds cases only under issues/ (source_store.case_dir, publish.case_dir): seeded-defect copies run as
   issues/WHU-SD-* (git-ignored), archived and deleted before any lean drafting session.
 
+## RULE — a test run whose exit code is hidden counts as not run (2026-10-30)
+Never pipe a test or check command through `tail`, `head` or `grep` without `set -o pipefail`, or else check the
+command's own exit code (e.g. write the output to a file, then `echo "exit=$?"`). The pipe's exit code is the last
+command's, so `pytest ... | tail -1 && git commit` commits on a failing test. A test or check run whose exit code is
+hidden counts as NOT RUN, whatever its printed output says. Case: 647894b (check pilot v6) was committed and pushed
+with a failing test ("1 failed, 26 passed" printed, exit hidden by `| tail -1`); fixed in f863f7c.
+
 ## Standing instructions for every session
 1. Read this file at the start of every session
 2. Verify all file paths before issuing commands

@@ -164,7 +164,9 @@ def do_run(a) -> int:
         print("STOP: %s UTC is reserved for VP (§13.8); nothing was called" % now.strftime("%Y-%m-%d"))
         return 3
     est = json.loads((OUT / "estimate.json").read_text())
-    ok, why = R5.room(est["worst_usd"], R5.today_total(), float(S.caps()["default_per_day"]))
+    # advisor's rule (2026-10-30): that day's ledger + VP's planned spend for the day + this run's cap, >= $10 left
+    ok, why = R5.room(a.cap + a.vp_planned, R5.today_total(), float(S.caps()["default_per_day"]))
+    why += " (this run's cap $%.2f + VP's planned $%.2f)" % (a.cap, a.vp_planned)
     print("ESTIMATE: $%.2f (from %s); cap $%.2f on %s\nROOM: %s" % (est["worst_usd"], est["at"], a.cap, ISSUE, why))
     if not ok:
         print("STOP: no room under the day cap; nothing was called. Check again later; no cap is raised.")
@@ -300,13 +302,14 @@ def main() -> int:
     ap.add_argument("cmd", choices=["prepare", "run", "compare"])
     ap.add_argument("--cap", type=float, default=None)
     ap.add_argument("--no-call-after", default=None, help="ISO time (UTC); no call starts at or after it")
+    ap.add_argument("--vp-planned", type=float, default=None, help="VP's planned spend for the day (USD), from VP")
     a = ap.parse_args()
     OUT.mkdir(parents=True, exist_ok=True)
     if a.cmd == "prepare":
         return do_prepare(a)
     if a.cmd == "run":
-        if a.cap is None or a.no_call_after is None:
-            print("STOP: run needs --cap and --no-call-after")
+        if a.cap is None or a.no_call_after is None or a.vp_planned is None:
+            print("STOP: run needs --cap, --no-call-after and --vp-planned (ask VP first)")
             return 2
         return do_run(a)
     if all((work(q, s) / "results.json").exists() for q, s in sample()):
