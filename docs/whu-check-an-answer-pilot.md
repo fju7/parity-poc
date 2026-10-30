@@ -375,3 +375,9 @@ journal work. Headless rendering is Playwright 1.64.1's Chromium headless shell.
    **Under §10.10 the primary alone is over the $35 cap, so nothing ran.** (For scale only: v2's actual
    spend was 66% of its worst case, $12.18 of $18.55.) Any run now needs Fred's decision on the cap or
    the design; per v1 §5, the sample, bars and rules are not retuned to fit.
+
+**10.15 Fred's rulings of 2026-10-30, written before the paid run.** (1) The primary sample only runs,
+with `--cap 45` on `whu-check-pilot-v3` (Fred approved the extra $10), within caps.json's $25 day cap.
+**The secondary sample (v2's 8, §10.8) is dropped, for budget.** The bars (§10.7) stay as written,
+including $2 per answer. (2) The rendering slip (§10.14.2) stays logged; a test asserts that an HTTP-200
+page carrying any of the three challenge signatures seen is a wall and is never rendered.

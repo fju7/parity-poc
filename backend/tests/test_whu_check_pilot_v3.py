@@ -364,3 +364,21 @@ def test_challenge_pages_served_with_200_are_walls_and_are_never_rendered(tmp_pa
     n = Net({u: reply((FIX / "v3_walls" / name).read_bytes())}, rendered=PAGE)
     row = P.source_v3(u, None, tmp_path, n.table())
     assert row["why_kind"] == P.R_WALL and n.rendered == []
+
+
+# The three challenge signatures v3's first free pass met served with HTTP 200 (doc §10.14.2):
+CHALLENGE_SIGNATURES_200 = {
+    "F5 'Client Challenge' (link.springer.com, BMC)": b"<title>Client Challenge</title><noscript><img src='/_fs-ch-1T1w/assets/errorIcon.svg'></noscript>",
+    "NCBI 'Checking your browser - reCAPTCHA'": b"<title>Checking your browser - reCAPTCHA</title><p>Checking your browser before accessing www.ncbi.nlm.nih.gov ...</p>",
+    "UNT 'Validating your request'": b"<title>DAM</title><p>Validating your request...</p><p>This may take several seconds.</p>",
+}
+
+
+@pytest.mark.parametrize("sig", sorted(CHALLENGE_SIGNATURES_200))
+def test_any_200_page_with_a_known_challenge_signature_is_a_wall_and_never_rendered(tmp_path, sig):
+    body = b"<html><head>" + CHALLENGE_SIGNATURES_200[sig] + b"</head><body>" + b"<p>filler</p>" * 2000 + b"</body></html>"
+    assert P._challenge(200, {}, body)
+    u = "https://site.example.org/article"
+    n = Net({u: reply(body)}, rendered=PAGE)
+    row = P.source_v3(u, None, tmp_path, n.table())
+    assert row["why_kind"] == P.R_WALL and n.rendered == [] and not (tmp_path / "sources").exists()

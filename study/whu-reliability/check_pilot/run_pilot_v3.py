@@ -122,9 +122,7 @@ def do_run(a) -> int:
     if p_ > a.cap:
         print("STOP: the primary's estimate is over the cap; nothing was called")
         return 3
-    samples = ["primary"] + (["secondary"] if p_ + s_ <= a.cap else [])
-    if len(samples) == 1:
-        print("primary only: primary + secondary ($%.2f) is over the cap" % (p_ + s_))
+    samples = ["primary"]                              # doc §10.15: the secondary is dropped, for budget
     V1.prompt_ok()
     base, reserved, lock = spent(), [0.0], threading.Lock()
 
