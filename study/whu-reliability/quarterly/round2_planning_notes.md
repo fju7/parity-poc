@@ -16,3 +16,18 @@ the round-2 protocol freeze, with a test that no listed label survives into a bl
 
 Every write-up of round 1 states: "Blinding was partial: writing style allowed a model to identify systems, and
 WHU's scope notes were left in."
+
+## Claim definition: scope notes and method statements (advisor ruling, 2026-10-31; check 3d)
+
+Question for `next_phase/claims.py` (the claim definition) before round 2's draw: **are WHU's scope notes
+("Judged not material to this question: …", "Outside this question: …") and method statements ("We did not read
+…", "We did not obtain …") claims?** In round 1 twelve were drawn as M1 claims. Nine failed (7.5 failure points,
+most of WHU's 9.5): four because one judge could not confirm a scope judgement from the source (no source can), five
+because they carry no [n] marker. None misstated a source (check 3d, `next_phase/results/check3d.md`).
+
+Options to decide before the draw, not after: (1) exclude them from the claim pool as non-claims; (2) keep them and
+judge only the quoted text's fidelity, not the scope judgement; (3) keep the round-1 rule. Whichever is chosen
+applies to every system's equivalent text, not only WHU's.
+
+Related presentation point: Q1-04's scope notes name the source in parentheses without a citation marker, where
+Q1-01 to Q1-03's carry one, so three were drawn as uncited.
