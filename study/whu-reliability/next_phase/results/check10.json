@@ -1,0 +1,401 @@
+{
+ "written": "2026-10-31T00:14:14+00:00",
+ "plan": "next_phase/validity_plan.md @ b4cf31a",
+ "label": "Judged by AI models; not checked by people (check 5 aside).",
+ "tag": "_c10alt",
+ "flips": {
+  "M1_claude": {
+   "n": 44,
+   "exact_label_changed": 5,
+   "pass_fail_changed": 2,
+   "replies_missing": 0,
+   "flip_rate_pass_fail": 0.0455,
+   "instability_flag_over_15pct": false
+  },
+  "M1_openai": {
+   "n": 44,
+   "exact_label_changed": 2,
+   "pass_fail_changed": 1,
+   "replies_missing": 0,
+   "flip_rate_pass_fail": 0.0227,
+   "instability_flag_over_15pct": false
+  },
+  "M2_claude": {
+   "n": 19,
+   "exact_label_changed": 3,
+   "pass_fail_changed": 3,
+   "replies_missing": 0,
+   "flip_rate_pass_fail": 0.1579,
+   "instability_flag_over_15pct": true
+  },
+  "M2_openai": {
+   "n": 19,
+   "exact_label_changed": 1,
+   "pass_fail_changed": 1,
+   "replies_missing": 0,
+   "flip_rate_pass_fail": 0.0526,
+   "instability_flag_over_15pct": false
+  }
+ },
+ "shifts": {},
+ "sets": {
+  "all_four": {
+   "M1_failure": {
+    "shift": {
+     "WHU": {
+      "subsample_n": 15,
+      "original": 0.1333,
+      "alternative": 0.1,
+      "shift_on_judged": -0.0333,
+      "judged_share_of_countable": 0.9367,
+      "applied_shift": -0.0312
+     },
+     "Claude": {
+      "subsample_n": 9,
+      "original": 0.3889,
+      "alternative": 0.3333,
+      "shift_on_judged": -0.0556,
+      "judged_share_of_countable": 0.557,
+      "applied_shift": -0.0309
+     },
+     "ChatGPT": {
+      "subsample_n": 0,
+      "original": null,
+      "alternative": null,
+      "shift_on_judged": 0.0,
+      "judged_share_of_countable": 0.0,
+      "applied_shift": 0.0
+     },
+     "Gemini": {
+      "subsample_n": 10,
+      "original": 0.85,
+      "alternative": 0.9,
+      "shift_on_judged": 0.05,
+      "judged_share_of_countable": 1.0,
+      "applied_shift": 0.05
+     },
+     "Perplexity": {
+      "subsample_n": 10,
+      "original": 0.1,
+      "alternative": 0.1,
+      "shift_on_judged": 0.0,
+      "judged_share_of_countable": 0.7206,
+      "applied_shift": 0.0
+     }
+    },
+    "seven": {
+     "Claude": {
+      "difference": -0.5,
+      "shifted_difference": -0.5003,
+      "sign_changes": false
+     },
+     "ChatGPT": {
+      "difference": -0.8797,
+      "shifted_difference": -0.9109,
+      "sign_changes": false
+     },
+     "Gemini": {
+      "difference": -0.6997,
+      "shifted_difference": -0.7809,
+      "sign_changes": false
+     },
+     "Perplexity": {
+      "difference": -0.2988,
+      "shifted_difference": -0.33,
+      "sign_changes": false
+     }
+    }
+   },
+   "M2_overstates": {
+    "shift": {
+     "WHU": {
+      "subsample_n": 4,
+      "original": 0.0,
+      "alternative": 0.0,
+      "shift_on_judged": 0.0,
+      "judged_share_of_countable": 1.0,
+      "applied_shift": 0.0
+     },
+     "Claude": {
+      "subsample_n": 4,
+      "original": 0.25,
+      "alternative": 0.125,
+      "shift_on_judged": -0.125,
+      "judged_share_of_countable": 1.0,
+      "applied_shift": -0.125
+     },
+     "ChatGPT": {
+      "subsample_n": 4,
+      "original": 0.25,
+      "alternative": 0.25,
+      "shift_on_judged": 0.0,
+      "judged_share_of_countable": 1.0,
+      "applied_shift": 0.0
+     },
+     "Gemini": {
+      "subsample_n": 3,
+      "original": 0.3333,
+      "alternative": 0.5,
+      "shift_on_judged": 0.1667,
+      "judged_share_of_countable": 1.0,
+      "applied_shift": 0.1667
+     },
+     "Perplexity": {
+      "subsample_n": 4,
+      "original": 0.0,
+      "alternative": 0.0,
+      "shift_on_judged": 0.0,
+      "judged_share_of_countable": 1.0,
+      "applied_shift": 0.0
+     }
+    },
+    "seven": {
+     "ChatGPT": {
+      "difference": -0.2632,
+      "shifted_difference": -0.2632,
+      "sign_changes": false
+     },
+     "Gemini": {
+      "difference": -0.5807,
+      "shifted_difference": -0.7474,
+      "sign_changes": false
+     }
+    }
+   },
+   "M2_understates_omits": {
+    "shift": {
+     "WHU": {
+      "subsample_n": 4,
+      "original": 0.0,
+      "alternative": 0.0,
+      "shift_on_judged": 0.0,
+      "judged_share_of_countable": 1.0,
+      "applied_shift": 0.0
+     },
+     "Claude": {
+      "subsample_n": 4,
+      "original": 0.0,
+      "alternative": 0.0,
+      "shift_on_judged": 0.0,
+      "judged_share_of_countable": 1.0,
+      "applied_shift": 0.0
+     },
+     "ChatGPT": {
+      "subsample_n": 4,
+      "original": 0.5,
+      "alternative": 0.5,
+      "shift_on_judged": 0.0,
+      "judged_share_of_countable": 1.0,
+      "applied_shift": 0.0
+     },
+     "Gemini": {
+      "subsample_n": 3,
+      "original": 0.0,
+      "alternative": 0.0,
+      "shift_on_judged": 0.0,
+      "judged_share_of_countable": 1.0,
+      "applied_shift": 0.0
+     },
+     "Perplexity": {
+      "subsample_n": 4,
+      "original": 0.0,
+      "alternative": 0.0,
+      "shift_on_judged": 0.0,
+      "judged_share_of_countable": 1.0,
+      "applied_shift": 0.0
+     }
+    },
+    "seven": {
+     "ChatGPT": {
+      "difference": -0.4211,
+      "shifted_difference": -0.4211,
+      "sign_changes": false
+     }
+    }
+   },
+   "changed": [],
+   "conclusion_changes": false
+  },
+  "without_Q1_02": {
+   "M1_failure": {
+    "shift": {
+     "WHU": {
+      "subsample_n": 11,
+      "original": 0.1818,
+      "alternative": 0.1364,
+      "shift_on_judged": -0.0455,
+      "judged_share_of_countable": 0.9322,
+      "applied_shift": -0.0424
+     },
+     "Claude": {
+      "subsample_n": 8,
+      "original": 0.4375,
+      "alternative": 0.375,
+      "shift_on_judged": -0.0625,
+      "judged_share_of_countable": 0.5593,
+      "applied_shift": -0.035
+     },
+     "ChatGPT": {
+      "subsample_n": 0,
+      "original": null,
+      "alternative": null,
+      "shift_on_judged": 0.0,
+      "judged_share_of_countable": 0.0,
+      "applied_shift": 0.0
+     },
+     "Gemini": {
+      "subsample_n": 5,
+      "original": 0.8,
+      "alternative": 0.8,
+      "shift_on_judged": 0.0,
+      "judged_share_of_countable": 1.0,
+      "applied_shift": 0.0
+     },
+     "Perplexity": {
+      "subsample_n": 5,
+      "original": 0.2,
+      "alternative": 0.2,
+      "shift_on_judged": 0.0,
+      "judged_share_of_countable": 0.72,
+      "applied_shift": 0.0
+     }
+    },
+    "seven": {
+     "Claude": {
+      "difference": -0.5,
+      "shifted_difference": -0.5074,
+      "sign_changes": false
+     },
+     "ChatGPT": {
+      "difference": -0.8644,
+      "shifted_difference": -0.9068,
+      "sign_changes": false
+     },
+     "Gemini": {
+      "difference": -0.6925,
+      "shifted_difference": -0.7349,
+      "sign_changes": false
+     },
+     "Perplexity": {
+      "difference": -0.2844,
+      "shifted_difference": -0.3268,
+      "sign_changes": false
+     }
+    }
+   },
+   "M2_overstates": {
+    "shift": {
+     "WHU": {
+      "subsample_n": 4,
+      "original": 0.0,
+      "alternative": 0.0,
+      "shift_on_judged": 0.0,
+      "judged_share_of_countable": 1.0,
+      "applied_shift": 0.0
+     },
+     "Claude": {
+      "subsample_n": 4,
+      "original": 0.25,
+      "alternative": 0.125,
+      "shift_on_judged": -0.125,
+      "judged_share_of_countable": 1.0,
+      "applied_shift": -0.125
+     },
+     "ChatGPT": {
+      "subsample_n": 4,
+      "original": 0.25,
+      "alternative": 0.25,
+      "shift_on_judged": 0.0,
+      "judged_share_of_countable": 1.0,
+      "applied_shift": 0.0
+     },
+     "Gemini": {
+      "subsample_n": 2,
+      "original": 0.0,
+      "alternative": 0.25,
+      "shift_on_judged": 0.25,
+      "judged_share_of_countable": 1.0,
+      "applied_shift": 0.25
+     },
+     "Perplexity": {
+      "subsample_n": 4,
+      "original": 0.0,
+      "alternative": 0.0,
+      "shift_on_judged": 0.0,
+      "judged_share_of_countable": 1.0,
+      "applied_shift": 0.0
+     }
+    },
+    "seven": {
+     "ChatGPT": {
+      "difference": -0.2143,
+      "shifted_difference": -0.2143,
+      "sign_changes": false
+     },
+     "Gemini": {
+      "difference": -0.5286,
+      "shifted_difference": -0.7786,
+      "sign_changes": false
+     }
+    }
+   },
+   "M2_understates_omits": {
+    "shift": {
+     "WHU": {
+      "subsample_n": 4,
+      "original": 0.0,
+      "alternative": 0.0,
+      "shift_on_judged": 0.0,
+      "judged_share_of_countable": 1.0,
+      "applied_shift": 0.0
+     },
+     "Claude": {
+      "subsample_n": 4,
+      "original": 0.0,
+      "alternative": 0.0,
+      "shift_on_judged": 0.0,
+      "judged_share_of_countable": 1.0,
+      "applied_shift": 0.0
+     },
+     "ChatGPT": {
+      "subsample_n": 4,
+      "original": 0.5,
+      "alternative": 0.5,
+      "shift_on_judged": 0.0,
+      "judged_share_of_countable": 1.0,
+      "applied_shift": 0.0
+     },
+     "Gemini": {
+      "subsample_n": 2,
+      "original": 0.0,
+      "alternative": 0.0,
+      "shift_on_judged": 0.0,
+      "judged_share_of_countable": 1.0,
+      "applied_shift": 0.0
+     },
+     "Perplexity": {
+      "subsample_n": 4,
+      "original": 0.0,
+      "alternative": 0.0,
+      "shift_on_judged": 0.0,
+      "judged_share_of_countable": 1.0,
+      "applied_shift": 0.0
+     }
+    },
+    "seven": {
+     "ChatGPT": {
+      "difference": -0.3572,
+      "shifted_difference": -0.3572,
+      "sign_changes": false
+     }
+    }
+   },
+   "changed": [],
+   "conclusion_changes": false
+  }
+ },
+ "instability_flags": [
+  "M2_claude"
+ ],
+ "conclusion_changes": false
+}
