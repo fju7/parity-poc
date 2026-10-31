@@ -875,9 +875,93 @@ def check3() -> dict:
     return write("check3", res)
 
 
+# ---------------------------------------------------------------------------------------------------------------
+# check 3b: recognition bias (advisor ruling 2026-10-31, after check 3), $0, round-1 labels only
+# ---------------------------------------------------------------------------------------------------------------
+# RULE, written before computing:
+#   Items: round-1 M1 items that were judged (cited; uncited items carry the same UNCITED label for every judge
+#   and say nothing about a judge). Each judge's own first-read label, scored by M1_failure (fail 1, pass 0,
+#   anything else not countable).
+#   d(s) = OpenAI's M1 failure rate on system s minus Claude's (pooled over the questions in the set).
+#   Contrast for WHU against each other system o: c(o) = d(WHU) - d(o). A negative c means OpenAI (the judge that
+#   recognised WHU, 18/20 in check 3) is more favourable to WHU, relative to Claude (1/20), than to o.
+#   Primary contrast: c(others) = d(WHU) - mean of d(o) over the four other systems.
+#   95% CI: 10,000 bootstrap resamples of questions with replacement (random.Random("%d/check3b/boot" % SEED)).
+#   BIAS INDICATED if c(others) <= -0.10 and its 95% CI excludes zero (upper bound < 0). Pairwise c(o) are
+#   reported with their CIs; they decide nothing. With four questions the bootstrap has few distinct resamples;
+#   reported as is. Repeated with Google in place of OpenAI once check 1's labels exist (Google named WHU 5/20).
+
+def check3b(boot: int = 10_000) -> dict:
+    import random as _r
+    m1, _ = AR.round1_rows()
+    have_google = any((AR.RUN / "m1" / "replies" / "google").glob("*.json"))
+    if have_google:
+        google_labels(m1, "M1")
+    _, fail, ok = AR.MEASURES["M1_failure"]
+    rows = [r for r in m1 if not r["uncited"]]
+
+    def counts(judge):
+        c = {}
+        for r in rows:
+            x = A.score(r["labels"].get(judge), fail, ok)
+            if x is not None:
+                f, n = c.get((r["question"], r["system"]), (0, 0))
+                c[(r["question"], r["system"])] = (f + x, n + 1)
+        return c
+
+    def diffs(cj, cc, qs):
+        out = {}
+        for s in SYSTEMS:
+            fj = sum(cj.get((q, s), (0, 0))[0] for q in qs); nj = sum(cj.get((q, s), (0, 0))[1] for q in qs)
+            fc = sum(cc.get((q, s), (0, 0))[0] for q in qs); nc = sum(cc.get((q, s), (0, 0))[1] for q in qs)
+            out[s] = (fj / nj - fc / nc) if nj and nc else None
+        return out
+
+    def contrasts(d):
+        oth = [s for s in SYSTEMS if s != "WHU" and d[s] is not None]
+        if d["WHU"] is None or not oth:
+            return None
+        c = {o: d["WHU"] - d[o] for o in oth}
+        c["others"] = d["WHU"] - sum(d[o] for o in oth) / len(oth)
+        return c
+
+    cc = counts("claude")
+    res = {"rule": "validity_analysis.py check3b comment block", "items": "judged (cited) round-1 M1 items",
+           "sets": {}}
+    for jname in ("openai",) + (("google",) if have_google else ()):
+        cj = counts(jname)
+        for set_name, qs in SETS.items():
+            d = diffs(cj, cc, qs)
+            c = contrasts(d)
+            rng = _r.Random("%d/check3b/boot/%s/%s" % (SEED, jname, set_name))
+            bs = {k: [] for k in (c or {})}
+            for _ in range(boot):
+                x = contrasts(diffs(cj, cc, [rng.choice(qs) for _q in qs]))
+                if x:
+                    for k in bs:
+                        if k in x:
+                            bs[k].append(x[k])
+
+            def ci(v):
+                v = sorted(v)
+                return [round(v[int(0.025 * len(v))], 4), round(v[int(0.975 * len(v)) - 1], 4)] if v else [None, None]
+            n = {s: (sum(cj.get((q, s), (0, 0))[1] for q in qs), sum(cc.get((q, s), (0, 0))[1] for q in qs))
+                 for s in SYSTEMS}
+            prim = c["others"] if c else None
+            pci = ci(bs.get("others", []))
+            res["sets"]["%s_vs_claude/%s" % (jname, set_name)] = {
+                "difference_judge_minus_claude": {s: None if v is None else round(v, 4) for s, v in d.items()},
+                "countable_judge_claude": n,
+                "contrast_whu_minus_other": {k: {"value": round(v, 4), "ci95": ci(bs[k])} for k, v in (c or {}).items()},
+                "bias_indicated": prim is not None and prim <= -0.10 and pci[1] is not None and pci[1] < 0}
+    if not have_google:
+        res["google"] = "not run: check 1's labels do not exist yet"
+    return write("check3b", res)
+
+
 def main() -> int:
     which = sys.argv[1] if len(sys.argv) > 1 else ""
-    fn = {"check9": check9, "check6": check6, "check1": check1, "check2": check2, "check10": check10, "check3": check3,
+    fn = {"check9": check9, "check6": check6, "check1": check1, "check2": check2, "check10": check10, "check3": check3, "check3b": check3b,
           "check4": check4, "check5": check5,
           "check5b": check5b}.get(which)
     if not fn:
