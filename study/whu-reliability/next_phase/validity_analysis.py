@@ -17,6 +17,7 @@ from __future__ import annotations
 
 import importlib.util
 import json
+import re
 import sys
 from datetime import datetime, timezone
 from collections import Counter
@@ -812,9 +813,71 @@ DESCRIPTION_5B = ("Mechanical figure check; not a human review; not a correction
                   "No human has checked the judgements.")
 
 
+# ---------------------------------------------------------------------------------------------------------------
+# check 3: identifiability (plan §3)
+# ---------------------------------------------------------------------------------------------------------------
+
+def _guesses(raw: str, array: bool):
+    m = re.search(r"\[.*\]" if array else r"\{.*\}", raw or "", re.S)
+    try:
+        return json.loads(m.group(0)) if m else ([] if array else {})
+    except json.JSONDecodeError:
+        return [] if array else {}
+
+
+def check3() -> dict:
+    """Confusion table per guesser (sentences and whole answers), each system's rate against 1/5, and, for WHU's
+    sentences, WHU's M1 failure rate (the guesser's own judge labels) on identified vs not identified items."""
+    ID = _load("identify_v", HERE / "identify.py")
+    smp = json.loads((ID.OUT / "sample.json").read_text(encoding="utf-8"))
+    ans = ID.answers()
+    m1, _ = AR.round1_rows()
+    if any((AR.RUN / "m1" / "replies" / "google").glob("*.json")):
+        google_labels(m1, "M1")
+    by_item = {r["item"]: r for r in m1}
+    _, fail, ok = AR.MEASURES["M1_failure"]
+    res = {"chance": 0.2, "guessers": {}}
+    for who in ID.GUESSERS:
+        d = ID.OUT / "replies" / who
+        g = {}
+        for f in sorted(d.glob("batch*.json")):
+            for x in _guesses(json.loads(f.read_text())["raw"], True):
+                g[x.get("id")] = x
+        g_ans = {a["answer"]: _guesses(json.loads((d / ("answer-%s.json" % a["answer"])).read_text())["raw"], False)
+                 for a in ans}
+        sent = ID.tally(smp, g)
+        whole = ID.tally([{"id": a["answer"], "system": a["system"]} for a in ans], g_ans)
+        for t in (sent, whole):
+            t.pop("whu_above_half", None), t.pop("gate", None), t.pop("note", None)
+        whu = [r for r in smp if r["system"] == "WHU"]
+        k = sum(g.get(r["id"], {}).get("guess") == "WHU" for r in whu)
+        judge = {"claude": "claude", "openai": "openai", "google": "google"}[who]
+        split = {}
+        for name, keep in (("identified", True), ("not_identified", False)):
+            sc = [A.score(by_item[r["item"]]["labels"].get(judge), fail, ok) for r in whu
+                  if (g.get(r["id"], {}).get("guess") == "WHU") == keep]
+            sc = [x for x in sc if x is not None]
+            split[name] = {"n_items": sum((g.get(r["id"], {}).get("guess") == "WHU") == keep for r in whu),
+                           "countable": len(sc), "failure_rate": round(sum(sc) / len(sc), 4) if sc else None}
+        a, b = split["identified"]["failure_rate"], split["not_identified"]["failure_rate"]
+        gap = round(a - b, 4) if a is not None and b is not None else None
+        first = k >= 9 and ID.binom_tail(k, len(whu)) <= 0.01
+        res["guessers"][who] = {
+            "sentences": sent, "whole_answers": whole,
+            "whu_identified": "%d/%d" % (k, len(whu)), "whu_p_by_chance": float("%.3g" % ID.binom_tail(k, len(whu))),
+            "whu_m1_failure_by_identification (judge %s's own labels; descriptive, n small)" % judge: split,
+            "gap_points": None if gap is None else round(100 * gap, 1),
+            "test": {"identified_at_least_9_of_20_p_le_0.01": first,
+                     "failure_gap_at_least_15_points": gap is not None and abs(gap) >= 0.15,
+                     "goes_to_advisor": first and gap is not None and abs(gap) >= 0.15}}
+    res["conclusion_changes"] = "not automatic: goes to the advisor" if any(
+        v["test"]["goes_to_advisor"] for v in res["guessers"].values()) else False
+    return write("check3", res)
+
+
 def main() -> int:
     which = sys.argv[1] if len(sys.argv) > 1 else ""
-    fn = {"check9": check9, "check6": check6, "check1": check1, "check2": check2, "check10": check10,
+    fn = {"check9": check9, "check6": check6, "check1": check1, "check2": check2, "check10": check10, "check3": check3,
           "check4": check4, "check5": check5,
           "check5b": check5b}.get(which)
     if not fn:

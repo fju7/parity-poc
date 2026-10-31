@@ -1,0 +1,781 @@
+{
+ "written": "2026-10-31T00:31:59+00:00",
+ "plan": "next_phase/validity_plan.md @ b4cf31a",
+ "label": "Judged by AI models; not checked by people (check 5 aside).",
+ "chance": 0.2,
+ "guessers": {
+  "claude": {
+   "sentences": {
+    "n_per_system": {
+     "WHU": 20,
+     "Claude": 20,
+     "ChatGPT": 20,
+     "Gemini": 20,
+     "Perplexity": 20
+    },
+    "confusion_rows_true_cols_guess": {
+     "WHU": {
+      "WHU": 1,
+      "Perplexity": 14,
+      "Claude": 5
+     },
+     "Claude": {
+      "Claude": 8,
+      "WHU": 11,
+      "ChatGPT": 1
+     },
+     "ChatGPT": {
+      "ChatGPT": 20
+     },
+     "Gemini": {
+      "Gemini": 19,
+      "Perplexity": 1
+     },
+     "Perplexity": {
+      "WHU": 19,
+      "Claude": 1
+     }
+    },
+    "rates": {
+     "WHU": {
+      "identified": 1,
+      "n": 20,
+      "rate": 0.05,
+      "p_by_chance": 0.988,
+      "guessed_as_this": 31
+     },
+     "Claude": {
+      "identified": 8,
+      "n": 20,
+      "rate": 0.4,
+      "p_by_chance": 0.0321,
+      "guessed_as_this": 14
+     },
+     "ChatGPT": {
+      "identified": 20,
+      "n": 20,
+      "rate": 1.0,
+      "p_by_chance": 1.05e-14,
+      "guessed_as_this": 21
+     },
+     "Gemini": {
+      "identified": 19,
+      "n": 20,
+      "rate": 0.95,
+      "p_by_chance": 8.49e-13,
+      "guessed_as_this": 19
+     },
+     "Perplexity": {
+      "identified": 0,
+      "n": 20,
+      "rate": 0.0,
+      "p_by_chance": 1.0,
+      "guessed_as_this": 15
+     }
+    },
+    "chance": 0.2,
+    "whu_identification_rate": 0.05,
+    "whu_precision": "1/31",
+    "overall_accuracy": 0.48,
+    "clues_when_identified": {
+     "WHU": [
+      "'Judged not material to this question' quote audit"
+     ],
+     "Claude": [
+      "definition list with [22] footnote",
+      "full citation style, [10][11]",
+      "same citation-block style",
+      "concise numbers with [1][2]",
+      "full reference with doi and PMC",
+      "nuanced critical aside about trial inclusion",
+      "plain IPCC confidence restatement, [1] citation",
+      "long verbatim quoting of recommendations"
+     ],
+     "ChatGPT": [
+      "terse parenthetical confidence, slash shorthand",
+      "dense stats, 95%CI no space",
+      "~ and 'about', NZ abbreviations",
+      "scenario table with 'about' ranges",
+      "quoted UNICEF recommendation, no citation",
+      "scenario table rows",
+      "evidence table row with semicolon separators",
+      "uncited consensus claim with \u2265 symbol",
+      "vague references list with 'etc.'",
+      "hedged cost estimates with bold-style labels",
+      "table row with question-mark uncertain values",
+      "dense summary, spaced hyphen ranges, no citations",
+      "'Timelines & Milestones:' label, ~ and parenthetical asides",
+      "'SoCDR notes' abbreviation, terse uncited style",
+      "'Projected changes:' label, terse, uncited",
+      "terse note-like headers, 'about 2 \u00b0C'",
+      "author-year, terse stats",
+      "speculative 'might yield' illustrative effects",
+      "terse bullet-like notes, no citations",
+      "condensed summary, spaced hyphen, no citation"
+     ],
+     "Gemini": [
+      "formal 'represent the most immediate barrier'",
+      "elaborate mechanistic jargon",
+      "ornate phrasing like 'operationalized', 'foundational competencies'",
+      "dramatic causal chain, 'catastrophic sediment transport'",
+      "sweeping generalized claims",
+      "numbered recommendations with 'institutionalize'",
+      "ornate technical prose, 'shortwave reflectivity'",
+      "'Concurrently', high citation numbers, technical tone",
+      "'governments should prioritize', 'highly cost-effective', glued citation 'LMICs2'",
+      "'statistically verifiable', 'synthesized evidence'",
+      "dense jargon, 'instructional helplessness', [n] citations",
+      "elaborate wording, 'widely utilize'",
+      "technical jargon, acronyms, [n]",
+      "dense formal phrasing, broken numbers",
+      "'Simultaneously', elaborate style",
+      "jargon 'demand side', 'Simultaneously'",
+      "ornate 'potent differentiated instructional tool'",
+      "technical flourish 'Concurrently', VPD",
+      "grandiose 'systemic divergence' prose"
+     ],
+     "Perplexity": []
+    }
+   },
+   "whole_answers": {
+    "n_per_system": {
+     "WHU": 4,
+     "Claude": 4,
+     "ChatGPT": 4,
+     "Gemini": 3,
+     "Perplexity": 4
+    },
+    "confusion_rows_true_cols_guess": {
+     "WHU": {
+      "WHU": 4
+     },
+     "Claude": {
+      "Claude": 2,
+      "WHU": 1,
+      "ChatGPT": 1
+     },
+     "ChatGPT": {
+      "ChatGPT": 4
+     },
+     "Gemini": {
+      "Gemini": 3
+     },
+     "Perplexity": {
+      "ChatGPT": 2,
+      "Perplexity": 2
+     }
+    },
+    "rates": {
+     "WHU": {
+      "identified": 4,
+      "n": 4,
+      "rate": 1.0,
+      "p_by_chance": 0.0016,
+      "guessed_as_this": 5
+     },
+     "Claude": {
+      "identified": 2,
+      "n": 4,
+      "rate": 0.5,
+      "p_by_chance": 0.181,
+      "guessed_as_this": 2
+     },
+     "ChatGPT": {
+      "identified": 4,
+      "n": 4,
+      "rate": 1.0,
+      "p_by_chance": 0.0016,
+      "guessed_as_this": 7
+     },
+     "Gemini": {
+      "identified": 3,
+      "n": 3,
+      "rate": 1.0,
+      "p_by_chance": 0.008,
+      "guessed_as_this": 3
+     },
+     "Perplexity": {
+      "identified": 2,
+      "n": 4,
+      "rate": 0.5,
+      "p_by_chance": 0.181,
+      "guessed_as_this": 2
+     }
+    },
+    "chance": 0.2,
+    "whu_identification_rate": 1.0,
+    "whu_precision": "4/5",
+    "overall_accuracy": 0.789,
+    "clues_when_identified": {
+     "WHU": [
+      "Lists source excerpts \"judged outside this question\", tests a \"common picture\" and says what holds up, and states reading scope (\"we drew on executive summaries\")",
+      "Ends with a methods disclosure (sources read, a correction it couldn't access, search date) and a list of excluded findings judged not material",
+      "Says which four sources were read, lists excluded findings, sentence-per-claim tied to sources",
+      "Limits stated in first person (\"we did not read the 18 studies\"), 'judged outside this question' section"
+     ],
+     "Claude": [
+      "Careful hedging such as \"balanced reading\", flagging a NOAA summary that contradicts the paper, and a closing caveats section, with numbered URL references.",
+      "Verdict table, first-person 'I found', search-limits caveat, numbered URL refs"
+     ],
+     "ChatGPT": [
+      "Structured report with mixed table formatting, a described figure, terse fragments, and a vague closing reference list ('CMAJ 2010, Cochrane 2013... as indicated above'). These fit ChatGPT deep research with its citations stripped.",
+      "leftover citation artifact '[58\u2020L440-L448]', and dense bolded-label paragraphs",
+      "Executive summary, a comparative table with semicolon-separated columns, and terse 'Evidence:' lines throughout; it reads like ChatGPT deep research with its citations stripped out.",
+      "Dense Mechanisms/Impacts/Confidence subsections, indicative table, vague closing 'Sources' paragraph"
+     ],
+     "Gemini": [
+      "Elaborate, inflated prose (\"closed-loop\", \"process amplifiers\") with stripped LaTeX effect estimates and a garbled table",
+      "Ornate academic prose, many tables, dropped LaTeX numbers, and a long list of mixed-quality URLs (Reddit, Medium, HuggingFace)",
+      "Ornate report prose with dense multi-column comparison tables, a dropped LaTeX value in 'High ( SD gain)', a superscript-style citation glitch ('LMICs2') and a long ResearchGate-heavy reference list."
+     ],
+     "Perplexity": [
+      "The '\u2042' end marker and huge raw URL reference dump look like Perplexity's export format.",
+      "\u2042 separator, dumped unordered citation block, huge URL reference list"
+     ]
+    }
+   },
+   "whu_identified": "1/20",
+   "whu_p_by_chance": 0.988,
+   "whu_m1_failure_by_identification (judge claude's own labels; descriptive, n small)": {
+    "identified": {
+     "n_items": 1,
+     "countable": 1,
+     "failure_rate": 1.0
+    },
+    "not_identified": {
+     "n_items": 19,
+     "countable": 19,
+     "failure_rate": 0.1053
+    }
+   },
+   "gap_points": 89.5,
+   "test": {
+    "identified_at_least_9_of_20_p_le_0.01": false,
+    "failure_gap_at_least_15_points": true,
+    "goes_to_advisor": false
+   }
+  },
+  "openai": {
+   "sentences": {
+    "n_per_system": {
+     "WHU": 20,
+     "Claude": 20,
+     "ChatGPT": 20,
+     "Gemini": 20,
+     "Perplexity": 20
+    },
+    "confusion_rows_true_cols_guess": {
+     "WHU": {
+      "WHU": 18,
+      "Perplexity": 2
+     },
+     "Claude": {
+      "Claude": 16,
+      "Perplexity": 4
+     },
+     "ChatGPT": {
+      "ChatGPT": 18,
+      "Perplexity": 2
+     },
+     "Gemini": {
+      "Gemini": 20
+     },
+     "Perplexity": {
+      "WHU": 5,
+      "Perplexity": 6,
+      "Claude": 2,
+      "ChatGPT": 7
+     }
+    },
+    "rates": {
+     "WHU": {
+      "identified": 18,
+      "n": 20,
+      "rate": 0.9,
+      "p_by_chance": 3.27e-11,
+      "guessed_as_this": 23
+     },
+     "Claude": {
+      "identified": 16,
+      "n": 20,
+      "rate": 0.8,
+      "p_by_chance": 1.38e-08,
+      "guessed_as_this": 18
+     },
+     "ChatGPT": {
+      "identified": 18,
+      "n": 20,
+      "rate": 0.9,
+      "p_by_chance": 3.27e-11,
+      "guessed_as_this": 25
+     },
+     "Gemini": {
+      "identified": 20,
+      "n": 20,
+      "rate": 1.0,
+      "p_by_chance": 1.05e-14,
+      "guessed_as_this": 20
+     },
+     "Perplexity": {
+      "identified": 6,
+      "n": 20,
+      "rate": 0.3,
+      "p_by_chance": 0.196,
+      "guessed_as_this": 14
+     }
+    },
+    "chance": 0.2,
+    "whu_identification_rate": 0.9,
+    "whu_precision": "18/23",
+    "overall_accuracy": 0.78,
+    "clues_when_identified": {
+     "WHU": [
+      "Explicit relevance audit distinguishing findings from table text",
+      "Restrained review reporting; repeated source attribution",
+      "Precise report figures with restrained attribution",
+      "Close IPCC paraphrase preserving confidence qualifiers",
+      "Cautious, explicitly attributed review conclusion",
+      "Plain, narrowly scoped reporting of review findings",
+      "Faithful Cochrane certainty wording and outcome reporting",
+      "Close source paraphrase and spaced numeric citations",
+      "Explicit relevance judgments about extracted source fragments",
+      "Explicit exclusion judgments and raw document-extraction artifacts",
+      "Plain methodological summary repeatedly citing one review",
+      "Brief, direct qualification of evidence strength",
+      "GRADE-style uncertainty and single-review statistics",
+      "Closely reproduces source-specific recommendation conditions",
+      "Explicit scope exclusions and verbatim source quotation",
+      "Near-verbatim IPCC wording and single-source citation",
+      "Plain extraction of review findings without embellishment",
+      "Assessment wording retained with formal confidence label"
+     ],
+     "Claude": [
+      "Plain-language definition with tightly attached citation",
+      "Detailed review attribution and carefully qualified findings",
+      "Concise trial summary with explicit pooling limitations",
+      "Punchy framing followed by precise cited comparisons",
+      "Full bibliographic attribution followed by accessible framing",
+      "Crisp uncertainty framing and explanatory prose",
+      "Punchy climate synthesis with current numerical context",
+      "Specific methodological caveat with terse corrective follow-up",
+      "Direct, actionable planning advice with concrete scenario",
+      "Compact IPCC synthesis with calibrated confidence language",
+      "Terse policy inventory with precise status qualifications",
+      "Study-level detail and carefully delimited evidence claims",
+      "Compact quantitative comparison table with named sources",
+      "Information-dense comparison with precise commercial caveats",
+      "Careful reproduction of conditional guideline wording",
+      "Concise jurisdictional comparison and precise policy status"
+     ],
+     "ChatGPT": [
+      "Compact synthesis with parenthetical confidence labels",
+      "Compressed statistical synthesis without visible citations",
+      "Scenario-heavy synthesis and abbreviated milestone projections",
+      "Broad scenario table with rough numerical estimates",
+      "Thematic recommendations and an uncited report quotation",
+      "Sweeping scenario table using approximate thresholds",
+      "Evidence table with compact trial and certainty labels",
+      "Broad synthesis with compressed numerical prescription",
+      "Generic closing references note listing journals",
+      "Cost catalogue mixing estimates and informal caveats",
+      "Comparison table with informal question-mark estimates",
+      "Broad explanatory summary with uncited numerical context",
+      "Inline milestone heading and parenthetical numerical comparisons",
+      "Conversational qualification and abbreviated source naming",
+      "Mechanisms-and-projections structure with accessible numerical summary",
+      "Telegraphic headings and approximate quantitative summary",
+      "Study-by-study numerical summary with parenthetical statistics",
+      "Illustrative table followed by speculative effect-size extrapolation"
+     ],
+     "Gemini": [
+      "Formal infrastructural framing and spaced numbered citations",
+      "Elaborate mechanistic explanation and technical verbosity",
+      "Long competency enumeration; 'must be operationalized'",
+      "Sweeping causal chain in emphatic technical prose",
+      "Formal demographic framing and expansive explanation",
+      "Prescriptive institutional language and acronym-heavy recommendations",
+      "Technical, textbook-like explanation with elaborate terminology",
+      "Dense mechanistic terminology and high-numbered citations",
+      "Formal empirical synthesis leading into prescriptive recommendations",
+      "Inflated technical phrasing about synthesized empirical evidence",
+      "Dense institutional language and spaced numeric citations",
+      "Verbose operational detail and formal terminology",
+      "Technical mechanism-heavy prose and acronym expansion",
+      "Dense geophysical terminology and missing mathematical rendering",
+      "Formal transition and tightly packed climate-impact terminology",
+      "Formal expansion into broad psychosocial benefits",
+      "Mechanistic exposition and formulaic transition",
+      "Long technical sentence overextending intervention evidence",
+      "Elaborate mechanistic language and technical acronyms",
+      "Inflated technical diction and sweeping scenario framing"
+     ],
+     "Perplexity": [
+      "Current-report statistics woven into citation-heavy synthesis",
+      "Detailed scenario figures and explicit forecast caveats",
+      "Action-oriented synthesis with clustered numeric citations",
+      "Accessible mechanism explanation with multiple appended citations",
+      "Author-date attribution and high-numbered references",
+      "Source-heavy report introduction and accessible scientific explanation"
+     ]
+    }
+   },
+   "whole_answers": {
+    "n_per_system": {
+     "WHU": 4,
+     "Claude": 4,
+     "ChatGPT": 4,
+     "Gemini": 3,
+     "Perplexity": 4
+    },
+    "confusion_rows_true_cols_guess": {
+     "WHU": {
+      "WHU": 4
+     },
+     "Claude": {
+      "WHU": 4
+     },
+     "ChatGPT": {
+      "ChatGPT": 4
+     },
+     "Gemini": {
+      "Gemini": 3
+     },
+     "Perplexity": {
+      "ChatGPT": 2,
+      "Perplexity": 2
+     }
+    },
+    "rates": {
+     "WHU": {
+      "identified": 4,
+      "n": 4,
+      "rate": 1.0,
+      "p_by_chance": 0.0016,
+      "guessed_as_this": 8
+     },
+     "Claude": {
+      "identified": 0,
+      "n": 4,
+      "rate": 0.0,
+      "p_by_chance": 1.0,
+      "guessed_as_this": 0
+     },
+     "ChatGPT": {
+      "identified": 4,
+      "n": 4,
+      "rate": 1.0,
+      "p_by_chance": 0.0016,
+      "guessed_as_this": 6
+     },
+     "Gemini": {
+      "identified": 3,
+      "n": 3,
+      "rate": 1.0,
+      "p_by_chance": 0.008,
+      "guessed_as_this": 3
+     },
+     "Perplexity": {
+      "identified": 2,
+      "n": 4,
+      "rate": 0.5,
+      "p_by_chance": 0.181,
+      "guessed_as_this": 2
+     }
+    },
+    "chance": 0.2,
+    "whu_identification_rate": 1.0,
+    "whu_precision": "4/8",
+    "overall_accuracy": 0.684,
+    "clues_when_identified": {
+     "WHU": [
+      "Explicit reading-scope disclosure and exhaustive audit of excluded findings; evidence-assessment framing.",
+      "Explicit reading audit, excluded-findings ledger, and cautious evidence-quality assessments.",
+      "Explicit source-reading audit and exhaustive ledger of excluded findings.",
+      "Explicit source-reading limits, evidence-certainty language, and an unusual 'judged not material' audit section."
+     ],
+     "Claude": [],
+     "ChatGPT": [
+      "Review-heavy synthesis, detailed effect-size table, and formulaic implementation caveats.",
+      "Residual line-number citation [58\u2020L440-L448] is characteristic of ChatGPT deep research.",
+      "Repeated evidence caveats, broad synthesis, and a qualitative comparison table with illustrative effect sizes.",
+      "Repeated confidence-and-threshold sections, synthetic comparison table, and vague source-summary ending."
+     ],
+     "Gemini": [
+      "Verbose technical exposition, repetitive citations, elaborate evidence table, and broken LaTeX remnants.",
+      "Grandiose technical prose, equation-heavy tables, and a sprawling bibliography with many uncited sources.",
+      "Exhaustive, repetitive policy synthesis; inflated academic phrasing; many unused numbered references."
+     ],
+     "Perplexity": [
+      "The \u2042 separator and enormous numbered URL bibliography resemble Perplexity exports.",
+      "The \u2042 separator and enormous numbered URL bibliography resemble Perplexity exports."
+     ]
+    }
+   },
+   "whu_identified": "18/20",
+   "whu_p_by_chance": 3.27e-11,
+   "whu_m1_failure_by_identification (judge openai's own labels; descriptive, n small)": {
+    "identified": {
+     "n_items": 18,
+     "countable": 18,
+     "failure_rate": 0.2222
+    },
+    "not_identified": {
+     "n_items": 2,
+     "countable": 2,
+     "failure_rate": 0.0
+    }
+   },
+   "gap_points": 22.2,
+   "test": {
+    "identified_at_least_9_of_20_p_le_0.01": true,
+    "failure_gap_at_least_15_points": true,
+    "goes_to_advisor": true
+   }
+  },
+  "google": {
+   "sentences": {
+    "n_per_system": {
+     "WHU": 20,
+     "Claude": 20,
+     "ChatGPT": 20,
+     "Gemini": 20,
+     "Perplexity": 20
+    },
+    "confusion_rows_true_cols_guess": {
+     "WHU": {
+      "WHU": 5,
+      "Perplexity": 7,
+      "Claude": 8
+     },
+     "Claude": {
+      "Perplexity": 2,
+      "Claude": 6,
+      "WHU": 12
+     },
+     "ChatGPT": {
+      "ChatGPT": 20
+     },
+     "Gemini": {
+      "Gemini": 14,
+      "Perplexity": 6
+     },
+     "Perplexity": {
+      "WHU": 17,
+      "Claude": 1,
+      "Perplexity": 2
+     }
+    },
+    "rates": {
+     "WHU": {
+      "identified": 5,
+      "n": 20,
+      "rate": 0.25,
+      "p_by_chance": 0.37,
+      "guessed_as_this": 34
+     },
+     "Claude": {
+      "identified": 6,
+      "n": 20,
+      "rate": 0.3,
+      "p_by_chance": 0.196,
+      "guessed_as_this": 15
+     },
+     "ChatGPT": {
+      "identified": 20,
+      "n": 20,
+      "rate": 1.0,
+      "p_by_chance": 1.05e-14,
+      "guessed_as_this": 20
+     },
+     "Gemini": {
+      "identified": 14,
+      "n": 20,
+      "rate": 0.7,
+      "p_by_chance": 1.85e-06,
+      "guessed_as_this": 14
+     },
+     "Perplexity": {
+      "identified": 2,
+      "n": 20,
+      "rate": 0.1,
+      "p_by_chance": 0.931,
+      "guessed_as_this": 17
+     }
+    },
+    "chance": 0.2,
+    "whu_identification_rate": 0.25,
+    "whu_precision": "5/34",
+    "overall_accuracy": 0.47,
+    "clues_when_identified": {
+     "WHU": [
+      "Explicitly logs excluded quotes as 'Outside this question' and 'Judged not material'.",
+      "Direct adherence to IPCC phrasing with space-padded [1] citation and 'W m - 2'.",
+      "Careful scoping of an evidence and gap map with bracketed citations inside quotation marks.",
+      "Signature 'Judged not material to this question:' evidence-screening log format.",
+      "Repeated 'Judged not material to this question:' evidence-screening log format."
+     ],
+     "Claude": [
+      "Full bibliographic citation inline in body text with PubMed ID and attached bracketed numbers.",
+      "Full bibliographic citation inline followed by conversational framing ('looks at the \"prompts\" ingredient').",
+      "Full academic citation with DOI and PMC ID placed directly in the narrative flow.",
+      "Direct IPCC language with bracketed citations after punctuation, no spaces.",
+      "Dense policy brief style with citations placed immediately after colons and quotes.",
+      "Flattened table rows using semicolons, matching IPCC citation style of X041."
+     ],
+     "ChatGPT": [
+      "Bullet-style inline subheadings and parenthetical IPCC confidence terms without citations.",
+      "Dense statistical summary with '95%CI' (no space) and 'about' approximations.",
+      "Title-case inline heading 'Timelines & Milestones:' with 'about' and '~' approximations.",
+      "Flattened summary comparison table across warming levels using 'about' and symbols.",
+      "Inline period-separated subheading and general narrative overview citing a 2026 report.",
+      "Matches X009's flattened warming-level comparison table with shorthand like 'Med., SW US'.",
+      "Dense markdown table flattened with semicolons and pipes, typical of ChatGPT Deep Research",
+      "Heavy use of parentheticals and \u2265 symbol, no bracketed citations",
+      "Explicit 'References: ... as indicated above' summary statement typical of ChatGPT",
+      "Meta-commentary '(no consensus source given here)' and bullet-like colon headers",
+      "Flattened table with semicolons, ranges with tildes (~$50 - $150?), and '(+)' pros notation",
+      "Use of subscript in CO\u2082, spaced degree symbol, no bracketed numbers.",
+      "Bold-style inline section header ('Timelines & Milestones:'), subscript CO\u2082, no bracketed citations.",
+      "Inline header ('Overall Potential:'), subscript CO\u2082, parenthetical examples, no bracketed refs.",
+      "Inline headers ('Mechanisms:', 'Projected changes:'), parenthetical numbers, no bracketed refs.",
+      "Uncited bullet-like structure with space before degree symbol (2 \u00b0C)",
+      "Author-year narrative citation without brackets and detailed IQR stats",
+      "Use of \u2191 symbol in table and conversational meta-commentary on evidence strength",
+      "Telegraphic note-like style with shorthand symbols (<, >) and bold-style headings.",
+      "Condensed bullet-like summary prose using shorthand symbols like 2 - 3x and ROI."
+     ],
+     "Gemini": [
+      "Formal, abstract academic prose ('infrastructural bottlenecks', 'socioeconomic context') with [N] citations.",
+      "Academic, slightly verbose vocabulary ('provider cognitive overload', 'therapeutic pathway') with [1] citations",
+      "Formal academic phrasing ('operationalized', 'pedagogical differentiation') and repetitive [8] citations",
+      "Technical/academic tone ('desiccated landscapes', 'catastrophic sediment transport') with bracketed citations",
+      "Elevated vocabulary ('workflow abandonment', 'structural inequities') and sentence-level [6] citations",
+      "Matches X027 topic and formal style ('institutionalize differentiated foundational pedagogy')",
+      "Formal synthesis language ('empirical synthesis') with stray unbracketed number typo ('LMICs2').",
+      "Missing LaTeX formula artifact ('of -equivalent emissions') and space-bracket citation",
+      "Missing LaTeX numbers ('approaching by 2100 and by 215030')",
+      "Elevated academic vocabulary ('formative role', 'emotional resilience') and spaced bracket citations.",
+      "Dense, jargon-heavy academic phrasing ('provider cognitive overload', 'therapeutic pathway').",
+      "Complex sentence structure with serial academic noun phrases ('potent differentiated instructional tool').",
+      "Missing LaTeX math symbol ('approximately of warming') and dense technical vocabulary ('Concurrently').",
+      "Signature Gemini academic vocabulary ('systemic divergence', 'multi-centennial ocean state equilibria')."
+     ],
+     "Perplexity": [
+      "Clustered post-punctuation bracket citations without spaces, clear explanatory prose.",
+      "Direct synthesis of IPCC confidence levels with a recent 2025 study and unspaced bracket citations."
+     ]
+    }
+   },
+   "whole_answers": {
+    "n_per_system": {
+     "WHU": 4,
+     "Claude": 4,
+     "ChatGPT": 4,
+     "Gemini": 3,
+     "Perplexity": 4
+    },
+    "confusion_rows_true_cols_guess": {
+     "WHU": {
+      "WHU": 4
+     },
+     "Claude": {
+      "WHU": 4
+     },
+     "ChatGPT": {
+      "ChatGPT": 4
+     },
+     "Gemini": {
+      "Gemini": 3
+     },
+     "Perplexity": {
+      "ChatGPT": 1,
+      "WHU": 3
+     }
+    },
+    "rates": {
+     "WHU": {
+      "identified": 4,
+      "n": 4,
+      "rate": 1.0,
+      "p_by_chance": 0.0016,
+      "guessed_as_this": 11
+     },
+     "Claude": {
+      "identified": 0,
+      "n": 4,
+      "rate": 0.0,
+      "p_by_chance": 1.0,
+      "guessed_as_this": 0
+     },
+     "ChatGPT": {
+      "identified": 4,
+      "n": 4,
+      "rate": 1.0,
+      "p_by_chance": 0.0016,
+      "guessed_as_this": 5
+     },
+     "Gemini": {
+      "identified": 3,
+      "n": 3,
+      "rate": 1.0,
+      "p_by_chance": 0.008,
+      "guessed_as_this": 3
+     },
+     "Perplexity": {
+      "identified": 0,
+      "n": 4,
+      "rate": 0.0,
+      "p_by_chance": 1.0,
+      "guessed_as_this": 0
+     }
+    },
+    "chance": 0.2,
+    "whu_identification_rate": 1.0,
+    "whu_precision": "4/11",
+    "overall_accuracy": 0.579,
+    "clues_when_identified": {
+     "WHU": [
+      "Bespoke editorial structure with 'common picture', 'On what we read', and explicit audit log of excluded source findings.",
+      "Transparent methodology disclosure and explicit 'Findings in our sources we judged outside this question' section.",
+      "Explicit methodology notes and a section listing excluded source findings.",
+      "Plain-language opening, explicit epistemic limits ('We did not read the 18 included studies themselves'), and a 'Findings in our sources we judged outside this question' section."
+     ],
+     "Claude": [],
+     "ChatGPT": [
+      "Dangling 'Figure:' caption, dense parenthetical style, and summary 'References:' note typical of ChatGPT Deep Research.",
+      "Unstripped OpenAI browsing citation artifact [58\u2020L440-L448] and embedded chart references",
+      "Use of \u2191 and \u00d7 symbols, inline 'Evidence:' labels, and a classic ChatGPT 'Sources: This report synthesizes...' closing line.",
+      "Dense bullet-style subsections, 'Sources:' summary paragraph, and token typo 'longer/ermer' typical of o3-based Deep Research."
+     ],
+     "Gemini": [
+      "Heavy LaTeX math formatting on statistics (stripped/duplicated on copy-paste), flattened table structure, and sentence-by-sentence citations with uncited URLs in the reference list.",
+      "Extensive inline LaTeX for all numbers, units, and chemical formulas (stripped out as blanks), plus multiple dense summary tables and academic-heavy tone.",
+      "Multi-column analytical tables with failure modes/mechanisms, academic synthesis tone, and skipped reference numbers in text."
+     ],
+     "Perplexity": []
+    }
+   },
+   "whu_identified": "5/20",
+   "whu_p_by_chance": 0.37,
+   "whu_m1_failure_by_identification (judge google's own labels; descriptive, n small)": {
+    "identified": {
+     "n_items": 5,
+     "countable": 0,
+     "failure_rate": null
+    },
+    "not_identified": {
+     "n_items": 15,
+     "countable": 0,
+     "failure_rate": null
+    }
+   },
+   "gap_points": null,
+   "test": {
+    "identified_at_least_9_of_20_p_le_0.01": false,
+    "failure_gap_at_least_15_points": false,
+    "goes_to_advisor": false
+   }
+  }
+ },
+ "conclusion_changes": "not automatic: goes to the advisor"
+}
