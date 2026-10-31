@@ -255,10 +255,12 @@ def check1() -> dict:
     m1, m2 = AR.round1_rows()
     got = {"M1": google_labels(m1, "M1"), "M2": google_labels(m2, "M2")}
     res = {"google_replies": got, "model": "gemini-4-argon", "sets": {}}
-    for set_name, qs in SETS.items():
+    drop = set(furniture_items())        # second line (advisor ruling 2026-10-31): check 3c's exclusion
+    m1_kept = [r for r in m1 if r["item"] not in drop]
+    for set_name, qs in [(k, v) for k, v in SETS.items()] + [(k + "_excluding_furniture", v) for k, v in SETS.items()]:
         out = {}
         for measure in ("M1_failure", "M2_overstates", "M2_understates_omits"):
-            rows = m1 if measure.startswith("M1") else m2
+            rows = (m1_kept if set_name.endswith("_excluding_furniture") else m1) if measure.startswith("M1") else m2
             v = {name: by_judge(rows, measure, qs, fn) for name, fn in (
                 ("claude", lambda r: [r["labels"]["claude"]]), ("openai", lambda r: [r["labels"]["openai"]]),
                 ("google", lambda r: [r["labels"]["google"]]), ("two_judge", combined), ("three_judge", three),
@@ -278,6 +280,7 @@ def check1() -> dict:
         out["conclusion_changes"] = bool(flags)
         res["sets"][set_name] = out
     res["conclusion_changes"] = res["sets"]["all_four"]["conclusion_changes"]
+    res["excluded_furniture_items"] = sorted(drop)
     res["agreement_with_google"] = agreement(m1, m2)
     return write("check1", res)
 

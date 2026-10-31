@@ -1,0 +1,381 @@
+{
+ "written": "2026-10-31T00:38:09+00:00",
+ "plan": "next_phase/validity_plan.md @ b4cf31a",
+ "label": "Judged by AI models; not checked by people (check 5 aside).",
+ "rule": "validity_analysis.py check3c comment block",
+ "furniture": [
+  "judged not material",
+  "judged outside this question",
+  "outside this question",
+  "findings in our sources",
+  "we did not search",
+  "we did not read",
+  "this answer draws on"
+ ],
+ "excluded_m1_items": [
+  "M1-07cdf12d9c",
+  "M1-19544dcfc0",
+  "M1-426cada9b2",
+  "M1-42cf916f68",
+  "M1-43cf27c16c",
+  "M1-465ab812be",
+  "M1-5a0a9fb12d",
+  "M1-5b2799906b",
+  "M1-7f780fc97b",
+  "M1-bbeb3b2720",
+  "M1-df067c5f4a",
+  "M1-fbad03db81"
+ ],
+ "n_excluded": 12,
+ "whu_m2_answers_with_furniture": [
+  "A-1afd0594f1",
+  "A-6006bb18b3",
+  "A-8816086bcc",
+  "A-8e796bb05e"
+ ],
+ "whu_m2_answers": [
+  "A-1afd0594f1",
+  "A-6006bb18b3",
+  "A-8816086bcc",
+  "A-8e796bb05e"
+ ],
+ "sets": {
+  "all_four": {
+   "M1_failure": {
+    "Claude": {
+     "as_scored": {
+      "whu": 0.1203,
+      "tool": 0.6203,
+      "difference": -0.5,
+      "ci95": [
+       -0.5813,
+       -0.4359
+      ],
+      "n_whu": 79,
+      "n_tool": 79
+     },
+     "excluding_furniture": {
+      "whu": 0.0299,
+      "tool": 0.6203,
+      "difference": -0.5904,
+      "ci95": [
+       -0.6983,
+       -0.4988
+      ],
+      "n_whu": 67,
+      "n_tool": 79
+     },
+     "test": {
+      "reverses": false,
+      "ci_includes_zero": false,
+      "lead_under_half": false
+     }
+    },
+    "ChatGPT": {
+     "as_scored": {
+      "whu": 0.1203,
+      "tool": 1.0,
+      "difference": -0.8797,
+      "ci95": [
+       -0.9114,
+       -0.8562
+      ],
+      "n_whu": 79,
+      "n_tool": 78
+     },
+     "excluding_furniture": {
+      "whu": 0.0299,
+      "tool": 1.0,
+      "difference": -0.9701,
+      "ci95": [
+       -1.0,
+       -0.9318
+      ],
+      "n_whu": 67,
+      "n_tool": 78
+     },
+     "test": {
+      "reverses": false,
+      "ci_includes_zero": false,
+      "lead_under_half": false
+     }
+    },
+    "Gemini": {
+     "as_scored": {
+      "whu": 0.1203,
+      "tool": 0.82,
+      "difference": -0.6997,
+      "ci95": [
+       -0.7498,
+       -0.6256
+      ],
+      "n_whu": 79,
+      "n_tool": 50
+     },
+     "excluding_furniture": {
+      "whu": 0.0299,
+      "tool": 0.82,
+      "difference": -0.7901,
+      "ci95": [
+       -0.8824,
+       -0.7053
+      ],
+      "n_whu": 67,
+      "n_tool": 50
+     },
+     "test": {
+      "reverses": false,
+      "ci_includes_zero": false,
+      "lead_under_half": false
+     }
+    },
+    "Perplexity": {
+     "as_scored": {
+      "whu": 0.1203,
+      "tool": 0.4191,
+      "difference": -0.2988,
+      "ci95": [
+       -0.5088,
+       -0.0275
+      ],
+      "n_whu": 79,
+      "n_tool": 68
+     },
+     "excluding_furniture": {
+      "whu": 0.0299,
+      "tool": 0.4191,
+      "difference": -0.3892,
+      "ci95": [
+       -0.6328,
+       -0.1321
+      ],
+      "n_whu": 67,
+      "n_tool": 68
+     },
+     "test": {
+      "reverses": false,
+      "ci_includes_zero": false,
+      "lead_under_half": false
+     }
+    }
+   },
+   "M2_overstates": {
+    "ChatGPT": {
+     "as_scored": {
+      "whu": 0.0526,
+      "tool": 0.3158,
+      "difference": -0.2632,
+      "ci95": [
+       -0.4,
+       -0.1111
+      ],
+      "n_whu": 19,
+      "n_tool": 19
+     },
+     "excluding_furniture": "no M2 exclusion (see rule)"
+    },
+    "Gemini": {
+     "as_scored": {
+      "whu": 0.0526,
+      "tool": 0.6333,
+      "difference": -0.5807,
+      "ci95": [
+       -0.9444,
+       -0.1444
+      ],
+      "n_whu": 19,
+      "n_tool": 15
+     },
+     "excluding_furniture": "no M2 exclusion (see rule)"
+    }
+   },
+   "M2_understates_omits": {
+    "ChatGPT": {
+     "as_scored": {
+      "whu": 0.0263,
+      "tool": 0.4474,
+      "difference": -0.4211,
+      "ci95": [
+       -0.65,
+       -0.1667
+      ],
+      "n_whu": 19,
+      "n_tool": 19
+     },
+     "excluding_furniture": "no M2 exclusion (see rule)"
+    }
+   },
+   "changed": [],
+   "conclusion_changes": false
+  },
+  "without_Q1_02": {
+   "M1_failure": {
+    "Claude": {
+     "as_scored": {
+      "whu": 0.1356,
+      "tool": 0.6356,
+      "difference": -0.5,
+      "ci95": [
+       -0.625,
+       -0.4211
+      ],
+      "n_whu": 59,
+      "n_tool": 59
+     },
+     "excluding_furniture": {
+      "whu": 0.0306,
+      "tool": 0.6356,
+      "difference": -0.605,
+      "ci95": [
+       -0.75,
+       -0.4644
+      ],
+      "n_whu": 49,
+      "n_tool": 59
+     },
+     "test": {
+      "reverses": false,
+      "ci_includes_zero": false,
+      "lead_under_half": false
+     }
+    },
+    "ChatGPT": {
+     "as_scored": {
+      "whu": 0.1356,
+      "tool": 1.0,
+      "difference": -0.8644,
+      "ci95": [
+       -0.875,
+       -0.85
+      ],
+      "n_whu": 59,
+      "n_tool": 60
+     },
+     "excluding_furniture": {
+      "whu": 0.0306,
+      "tool": 1.0,
+      "difference": -0.9694,
+      "ci95": [
+       -1.0,
+       -0.9118
+      ],
+      "n_whu": 49,
+      "n_tool": 60
+     },
+     "test": {
+      "reverses": false,
+      "ci_includes_zero": false,
+      "lead_under_half": false
+     }
+    },
+    "Gemini": {
+     "as_scored": {
+      "whu": 0.1356,
+      "tool": 0.8281,
+      "difference": -0.6925,
+      "ci95": [
+       -0.7574,
+       -0.6226
+      ],
+      "n_whu": 59,
+      "n_tool": 32
+     },
+     "excluding_furniture": {
+      "whu": 0.0306,
+      "tool": 0.8281,
+      "difference": -0.7975,
+      "ci95": [
+       -0.8824,
+       -0.6784
+      ],
+      "n_whu": 49,
+      "n_tool": 32
+     },
+     "test": {
+      "reverses": false,
+      "ci_includes_zero": false,
+      "lead_under_half": false
+     }
+    },
+    "Perplexity": {
+     "as_scored": {
+      "whu": 0.1356,
+      "tool": 0.42,
+      "difference": -0.2844,
+      "ci95": [
+       -0.5605,
+       0.0724
+      ],
+      "n_whu": 59,
+      "n_tool": 50
+     },
+     "excluding_furniture": {
+      "whu": 0.0306,
+      "tool": 0.42,
+      "difference": -0.3894,
+      "ci95": [
+       -0.7105,
+       -0.0526
+      ],
+      "n_whu": 49,
+      "n_tool": 50
+     },
+     "test": {
+      "reverses": false,
+      "ci_includes_zero": false,
+      "lead_under_half": false
+     }
+    }
+   },
+   "M2_overstates": {
+    "ChatGPT": {
+     "as_scored": {
+      "whu": 0.0714,
+      "tool": 0.2857,
+      "difference": -0.2143,
+      "ci95": [
+       -0.4,
+       -0.1
+      ],
+      "n_whu": 14,
+      "n_tool": 14
+     },
+     "excluding_furniture": "no M2 exclusion (see rule)"
+    },
+    "Gemini": {
+     "as_scored": {
+      "whu": 0.0714,
+      "tool": 0.6,
+      "difference": -0.5286,
+      "ci95": [
+       -0.9615,
+       -0.1
+      ],
+      "n_whu": 14,
+      "n_tool": 10
+     },
+     "excluding_furniture": "no M2 exclusion (see rule)"
+    }
+   },
+   "M2_understates_omits": {
+    "ChatGPT": {
+     "as_scored": {
+      "whu": 0.0357,
+      "tool": 0.3929,
+      "difference": -0.3572,
+      "ci95": [
+       -0.7,
+       -0.125
+      ],
+      "n_whu": 14,
+      "n_tool": 14
+     },
+     "excluding_furniture": "no M2 exclusion (see rule)"
+    }
+   },
+   "changed": [],
+   "conclusion_changes": false
+  }
+ },
+ "conclusion_changes": false
+}
