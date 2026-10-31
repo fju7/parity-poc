@@ -959,9 +959,66 @@ def check3b(boot: int = 10_000) -> dict:
     return write("check3b", res)
 
 
+# ---------------------------------------------------------------------------------------------------------------
+# check 3c: sensitivity to the blinding leak (advisor ruling 2026-10-31), $0
+# ---------------------------------------------------------------------------------------------------------------
+# RULE, written before computing: the seven round-1 comparisons, as scored, in both sets, recomputed with the WHU M1
+# items whose sentence or context carries WHU page furniture (FURNITURE below, the phrases searched for in the leak
+# report, deviations.md 2026-10-31) removed. M2 has no exclusion: the M1 exclusion does not touch M2, and every WHU
+# M2 answer carries the furniture (listed). CONCLUSION CHANGES if any comparison reverses sign or WHU's lead falls
+# under half its as-scored size (changes()["reverses"] or ["lead_under_half"]); ["ci_includes_zero"] is reported
+# and decides nothing here.
+FURNITURE = [r"judged not material", r"judged outside this question", r"outside this question",
+             r"findings in our sources", r"we did not search", r"we did not read", r"this answer draws on"]
+
+
+def furniture_in(text: str) -> list[str]:
+    return [p for p in FURNITURE if re.search(p, text or "", re.I)]
+
+
+def furniture_items() -> list[str]:
+    run = AR.RUN / "m1"
+    km = json.loads((run / "key_map.json").read_text(encoding="utf-8"))
+    rows = json.loads((run / "items.json").read_text(encoding="utf-8")) + \
+        json.loads((run / "uncited.json").read_text(encoding="utf-8"))
+    return sorted(r["item"] for r in rows if km[r["item"]]["system"] == "WHU"
+                  and furniture_in(r["claim"] + " " + (r.get("context") or "")))
+
+
+def check3c() -> dict:
+    m1, m2 = AR.round1_rows()
+    drop = set(furniture_items())
+    km2 = json.loads((AR.RUN / "m2" / "key_map.json").read_text(encoding="utf-8"))
+    m2_files = sorted(a for a, k in km2.items() if k["system"] == "WHU"
+                      and furniture_in((AR.RUN / "m2" / "answers" / (a + ".txt")).read_text(encoding="utf-8")))
+    kept = [r for r in m1 if r["item"] not in drop]
+    res = {"rule": "validity_analysis.py check3c comment block", "furniture": FURNITURE,
+           "excluded_m1_items": sorted(drop), "n_excluded": len(drop),
+           "whu_m2_answers_with_furniture": m2_files,
+           "whu_m2_answers": sorted(a for a, k in km2.items() if k["system"] == "WHU"), "sets": {}}
+    for set_name, qs in SETS.items():
+        out = {}
+        for measure in ("M1_failure", "M2_overstates", "M2_understates_omits"):
+            rows = m1 if measure.startswith("M1") else m2
+            base = seven(view_of(scores(rows, measure, combined), qs), measure)
+            if measure.startswith("M1"):
+                alt = seven(view_of(scores(kept, measure, combined), qs), measure)
+                out[measure] = {s: {"as_scored": base[s], "excluding_furniture": alt[s],
+                                    "test": changes(base[s], alt[s])} for s in base}
+            else:
+                out[measure] = {s: {"as_scored": base[s], "excluding_furniture": "no M2 exclusion (see rule)"}
+                                for s in base}
+        out["changed"] = [(m, s) for m in out for s, x in out[m].items()
+                          if isinstance(x.get("test"), dict) and (x["test"]["reverses"] or x["test"]["lead_under_half"])]
+        out["conclusion_changes"] = bool(out["changed"])
+        res["sets"][set_name] = out
+    res["conclusion_changes"] = any(v["conclusion_changes"] for v in res["sets"].values())
+    return write("check3c", res)
+
+
 def main() -> int:
     which = sys.argv[1] if len(sys.argv) > 1 else ""
-    fn = {"check9": check9, "check6": check6, "check1": check1, "check2": check2, "check10": check10, "check3": check3, "check3b": check3b,
+    fn = {"check9": check9, "check6": check6, "check1": check1, "check2": check2, "check10": check10, "check3": check3, "check3b": check3b, "check3c": check3c,
           "check4": check4, "check5": check5,
           "check5b": check5b}.get(which)
     if not fn:
