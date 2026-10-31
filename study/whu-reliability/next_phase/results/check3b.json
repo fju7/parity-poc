@@ -1,0 +1,134 @@
+{
+ "written": "2026-10-31T00:35:15+00:00",
+ "plan": "next_phase/validity_plan.md @ b4cf31a",
+ "label": "Judged by AI models; not checked by people (check 5 aside).",
+ "rule": "validity_analysis.py check3b comment block",
+ "items": "judged (cited) round-1 M1 items",
+ "sets": {
+  "openai_vs_claude/all_four": {
+   "difference_judge_minus_claude": {
+    "WHU": 0.0676,
+    "Claude": 0.1818,
+    "ChatGPT": null,
+    "Gemini": 0.12,
+    "Perplexity": 0.1429
+   },
+   "countable_judge_claude": {
+    "WHU": [
+     74,
+     74
+    ],
+    "Claude": [
+     44,
+     44
+    ],
+    "ChatGPT": [
+     0,
+     0
+    ],
+    "Gemini": [
+     50,
+     50
+    ],
+    "Perplexity": [
+     49,
+     49
+    ]
+   },
+   "contrast_whu_minus_other": {
+    "Claude": {
+     "value": -0.1143,
+     "ci95": [
+      -0.1896,
+      -0.0376
+     ]
+    },
+    "Gemini": {
+     "value": -0.0524,
+     "ci95": [
+      -0.3048,
+      0.1121
+     ]
+    },
+    "Perplexity": {
+     "value": -0.0753,
+     "ci95": [
+      -0.2067,
+      0.0171
+     ]
+    },
+    "others": {
+     "value": -0.0807,
+     "ci95": [
+      -0.2044,
+      0.0093
+     ]
+    }
+   },
+   "bias_indicated": false
+  },
+  "openai_vs_claude/without_Q1_02": {
+   "difference_judge_minus_claude": {
+    "WHU": 0.0727,
+    "Claude": 0.1515,
+    "ChatGPT": null,
+    "Gemini": 0.1562,
+    "Perplexity": 0.1667
+   },
+   "countable_judge_claude": {
+    "WHU": [
+     55,
+     55
+    ],
+    "Claude": [
+     33,
+     33
+    ],
+    "ChatGPT": [
+     0,
+     0
+    ],
+    "Gemini": [
+     32,
+     32
+    ],
+    "Perplexity": [
+     36,
+     36
+    ]
+   },
+   "contrast_whu_minus_other": {
+    "Claude": {
+     "value": -0.0788,
+     "ci95": [
+      -0.1667,
+      -0.0354
+     ]
+    },
+    "Gemini": {
+     "value": -0.0835,
+     "ci95": [
+      -0.3141,
+      0.15
+     ]
+    },
+    "Perplexity": {
+     "value": -0.0939,
+     "ci95": [
+      -0.2727,
+      0.0447
+     ]
+    },
+    "others": {
+     "value": -0.0854,
+     "ci95": [
+      -0.2228,
+      0.0482
+     ]
+    }
+   },
+   "bias_indicated": false
+  }
+ },
+ "google": "not run: check 1's labels do not exist yet"
+}
