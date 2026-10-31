@@ -31,3 +31,15 @@ applies to every system's equivalent text, not only WHU's.
 
 Related presentation point: Q1-04's scope notes name the source in parentheses without a citation marker, where
 Q1-01 to Q1-03's carry one, so three were drawn as uncited.
+
+## Judge replies: parsing and unusable replies (advisor ruling, 2026-10-31)
+
+Decided before round 2's capture:
+
+- Parse judge replies tolerantly of control characters (for example `json.loads(..., strict=False)`). In round 1
+  the only unusable replies were Claude's two on M1-5a0a9fb12d (first read and repeat): each said Supported, and
+  each was rejected for a raw tab inside the quoted span.
+- Log every unusable reply (a call made and no usable label, and every refusal) with the label its text appears
+  to give.
+- Score an unusable reply as **missing**: excluded from inter-judge agreement and from that judge's rates, **not
+  copied from the other judge** (round 1's `analyse.per_judge_labels` copies it).

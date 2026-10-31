@@ -56,7 +56,8 @@ not counted). The advisor's 4 x 0.5 assumed one failing judge of two on every ju
 for this item.
 
 This is the only round-1 M1 reply with text but no parsed label. Parsed leniently (raw control characters allowed),
-it reads Supported; the item would then count 0.5, WHU's M1 failures 9.0 of 79 (11.4%) instead of 9.5 (12.0%). **No
+it reads Supported. If the one unusable reply is read as written (sensitivity), the item counts 0.5 and WHU's M1
+failures are 9.0 of 79 (11.4%); the as-scored figure is 9.5 (12.0%). **No
 score is changed**: the as-scored rule stands; this is reported as a parser defect (strict JSON on a reply whose
 quoted span carries a tab), not corrected.
 

@@ -289,9 +289,15 @@ def agreement(m1, m2) -> dict:
     out = {}
     for name, rows in (("M1", m1), ("M2", m2)):
         for j in ("claude", "openai"):
-            pairs = [(r["labels"][j], r["labels"]["google"]) for r in rows if not r["uncited"]
-                     and r["labels"][j] is not None and r["labels"]["google"] is not None]
-            out["%s_%s_vs_google" % (name, j)] = {"n": len(pairs), "same_label": sum(a == b for a, b in pairs)}
+            keep = [r for r in rows if not r["uncited"]
+                    and r["labels"][j] is not None and r["labels"]["google"] is not None]
+            pairs = [(r["labels"][j], r["labels"]["google"]) for r in keep]
+            # advisor ruling 2026-10-31: a slot filled from the other judge (own reply unusable or refused) is not
+            # that judge's agreement; reported with those slots excluded, next to the original
+            own = [p for r, p in zip(keep, pairs) if (r["raw"].get(j) or {}).get("label") == p[0]]
+            out["%s_%s_vs_google" % (name, j)] = {"n": len(pairs), "same_label": sum(a == b for a, b in pairs),
+                                                  "excluding_substituted": {"n": len(own),
+                                                                            "same_label": sum(a == b for a, b in own)}}
     return out
 
 
@@ -1019,9 +1025,112 @@ def check3c() -> dict:
     return write("check3c", res)
 
 
+# ---------------------------------------------------------------------------------------------------------------
+# unusable replies (advisor ruling 2026-10-31), $0: every judge, every run
+# ---------------------------------------------------------------------------------------------------------------
+# UNUSABLE: a reply record with a call made (an attempt with text) and no usable label (label null), or a REFUSED
+# label (refused twice). Records with no call (INCOMPLETE_SOURCES, no source held) are not replies and are counted
+# apart. For each unusable reply, the label its text appears to give: the last attempt's text read leniently
+# (json strict=False on the first {...}), else a "label": "..." pattern, else none. Check 3's guesser replies are
+# unusable when their JSON does not parse strictly; "appears to give" is then the lenient count of guesses.
+
+def _apparent(raw: str):
+    m = re.search(r"\{.*\}", raw or "", re.S)
+    if m:
+        try:
+            return json.loads(m.group(0), strict=False).get("label")
+        except (json.JSONDecodeError, AttributeError):
+            pass
+    m = re.search(r'"label"\s*:\s*"([^"]+)"', raw or "")
+    return m.group(1) if m else None
+
+
+def unusable() -> dict:
+    res = {"rule": "validity_analysis.py unusable comment block", "runs": {}}
+    runs = [("round1_M1_first", "m1", ""), ("round1_M1_repeat", "m1", "_repeat"), ("check10_M1", "m1", C10_TAG),
+            ("round1_M2_first", "m2", ""), ("round1_M2_repeat", "m2", "_repeat"), ("check10_M2", "m2", C10_TAG),
+            ("check1_M1", "m1", "google"), ("check1_M2", "m2", "google")]
+    for name, kind, tag in runs:
+        judges = ["google"] if tag == "google" else list(A.JUDGES)
+        d0 = AR.RUN / kind / ("replies" + ("" if tag == "google" else tag))
+        for j in judges:
+            files = sorted((d0 / j).glob("*.json"))
+            out = {"records": len(files), "no_call": 0, "labelled": 0, "unusable": []}
+            for f in files:
+                x = json.loads(f.read_text(encoding="utf-8"))
+                texts = [a.get("raw") for a in x.get("attempts") or [] if a.get("raw")]
+                lab = x.get("label")
+                if lab == A.REFUSED:
+                    out["unusable"].append({"item": x.get("item"), "kind": "refused",
+                                            "appears": _apparent(texts[-1]) if texts else None})
+                elif lab is None and texts:
+                    out["unusable"].append({"item": x.get("item"), "kind": "no usable label",
+                                            "form_problems": x.get("form_problems"), "appears": _apparent(texts[-1])})
+                elif lab is None or lab == A.INCOMPLETE:
+                    out["no_call"] += 1
+                else:
+                    out["labelled"] += 1
+            out["n_unusable"] = len(out["unusable"])
+            if files or tag != "google":
+                res["runs"]["%s/%s" % (name, j)] = out
+    c3 = PRIV / "validity" / "check3" / "replies"
+    for j in ("claude", "openai", "google"):
+        out = {"records": 0, "unusable": []}
+        for f in sorted((c3 / j).glob("*.json")):
+            out["records"] += 1
+            raw = json.loads(f.read_text(encoding="utf-8"))["raw"]
+            arr = f.name.startswith("batch")
+            m = re.search(r"\[.*\]" if arr else r"\{.*\}", raw or "", re.S)
+            try:
+                json.loads(m.group(0)) if m else (_ for _ in ()).throw(ValueError("no JSON"))
+            except (ValueError, json.JSONDecodeError):
+                try:
+                    g = json.loads(m.group(0), strict=False) if m else None
+                except json.JSONDecodeError:
+                    g = None
+                out["unusable"].append({"reply": f.stem, "appears": (len(g) if arr else g.get("guess")) if g else None})
+        out["n_unusable"] = len(out["unusable"])
+        res["runs"]["check3/%s" % j] = out
+    res["check10_flips_excluding_substituted"] = _c10_flips_excl()
+    return write("unusable_replies", res)
+
+
+def _c10_flips_excl() -> dict:
+    """Check 10's flip counts with substituted slots (a judge's own reply unusable or refused, its slot filled by the
+    other judge under analyse.per_judge_labels) excluded on either read; next to the original."""
+    smp = json.loads((PRIV / "validity" / "check10" / "sample.json").read_text())
+    m1, m2 = AR.round1_rows()
+    out = {}
+    for kind, rows, ids in (("M1", m1, set(smp["items"]["M1"])), ("M2", m2, set(smp["items"]["M2"]))):
+        alt = A.load_replies(AR.RUN / kind.lower(), C10_TAG)
+        valid = (A.M1_PASS | A.M1_FAIL | A.M1_EXCL) if kind == "M1" else (A.M2_PASS | A.M2_FAIL)
+        fail = A.M1_FAIL if kind == "M1" else A.M2_FAIL
+        for j in A.JUDGES:
+            orig, excl, subd = [], [], []
+            for r in rows:
+                if r["item"] not in ids:
+                    continue
+                a_lab = A.per_judge_labels(alt.get(r["item"], {}), valid)[j]
+                if not (r["labels"][j] and a_lab):
+                    continue
+                own0 = A.usable((r["raw"].get(j) or {}).get("label"), valid)
+                own1 = A.usable((alt.get(r["item"], {}).get(j) or {}).get("label"), valid)
+                p = (r["labels"][j], a_lab)
+                orig.append(p)
+                (excl if own0 and own1 else subd).append((r["item"], p))
+
+            def tally(ps):
+                pf = sum((a in fail) != (b in fail) for a, b in ps if a not in A.M1_EXCL and b not in A.M1_EXCL)
+                return {"n": len(ps), "exact_label_changed": sum(a != b for a, b in ps), "pass_fail_changed": pf,
+                        "flip_rate_pass_fail": round(pf / len(ps), 4) if ps else None}
+            out["%s_%s" % (kind, j)] = {"original": tally(orig), "excluding_substituted": tally([p for _, p in excl]),
+                                        "substituted_items": [{"item": i, "first": a, "alt": b} for i, (a, b) in subd]}
+    return out
+
+
 def main() -> int:
     which = sys.argv[1] if len(sys.argv) > 1 else ""
-    fn = {"check9": check9, "check6": check6, "check1": check1, "check2": check2, "check10": check10, "check3": check3, "check3b": check3b, "check3c": check3c,
+    fn = {"check9": check9, "check6": check6, "check1": check1, "check2": check2, "check10": check10, "check3": check3, "check3b": check3b, "check3c": check3c, "unusable": unusable,
           "check4": check4, "check5": check5,
           "check5b": check5b}.get(which)
     if not fn:

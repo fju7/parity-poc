@@ -1,0 +1,195 @@
+{
+ "written": "2026-10-31T00:50:40+00:00",
+ "plan": "next_phase/validity_plan.md @ b4cf31a",
+ "label": "Judged by AI models; not checked by people (check 5 aside).",
+ "rule": "validity_analysis.py unusable comment block",
+ "runs": {
+  "round1_M1_first/claude": {
+   "records": 231,
+   "no_call": 14,
+   "labelled": 216,
+   "unusable": [
+    {
+     "item": "M1-5a0a9fb12d",
+     "kind": "no usable label",
+     "form_problems": [
+      "text around the JSON",
+      "not JSON"
+     ],
+     "appears": "Supported"
+    }
+   ],
+   "n_unusable": 1
+  },
+  "round1_M1_first/openai": {
+   "records": 231,
+   "no_call": 14,
+   "labelled": 217,
+   "unusable": [],
+   "n_unusable": 0
+  },
+  "round1_M1_repeat/claude": {
+   "records": 45,
+   "no_call": 2,
+   "labelled": 42,
+   "unusable": [
+    {
+     "item": "M1-5a0a9fb12d",
+     "kind": "no usable label",
+     "form_problems": [
+      "text around the JSON",
+      "not JSON"
+     ],
+     "appears": "Supported"
+    }
+   ],
+   "n_unusable": 1
+  },
+  "round1_M1_repeat/openai": {
+   "records": 45,
+   "no_call": 2,
+   "labelled": 43,
+   "unusable": [],
+   "n_unusable": 0
+  },
+  "check10_M1/claude": {
+   "records": 44,
+   "no_call": 0,
+   "labelled": 44,
+   "unusable": [],
+   "n_unusable": 0
+  },
+  "check10_M1/openai": {
+   "records": 44,
+   "no_call": 0,
+   "labelled": 44,
+   "unusable": [],
+   "n_unusable": 0
+  },
+  "round1_M2_first/claude": {
+   "records": 91,
+   "no_call": 0,
+   "labelled": 91,
+   "unusable": [],
+   "n_unusable": 0
+  },
+  "round1_M2_first/openai": {
+   "records": 91,
+   "no_call": 0,
+   "labelled": 91,
+   "unusable": [],
+   "n_unusable": 0
+  },
+  "round1_M2_repeat/claude": {
+   "records": 18,
+   "no_call": 0,
+   "labelled": 18,
+   "unusable": [],
+   "n_unusable": 0
+  },
+  "round1_M2_repeat/openai": {
+   "records": 18,
+   "no_call": 0,
+   "labelled": 18,
+   "unusable": [],
+   "n_unusable": 0
+  },
+  "check10_M2/claude": {
+   "records": 19,
+   "no_call": 0,
+   "labelled": 19,
+   "unusable": [],
+   "n_unusable": 0
+  },
+  "check10_M2/openai": {
+   "records": 19,
+   "no_call": 0,
+   "labelled": 19,
+   "unusable": [],
+   "n_unusable": 0
+  },
+  "check3/claude": {
+   "records": 24,
+   "unusable": [],
+   "n_unusable": 0
+  },
+  "check3/openai": {
+   "records": 24,
+   "unusable": [],
+   "n_unusable": 0
+  },
+  "check3/google": {
+   "records": 24,
+   "unusable": [],
+   "n_unusable": 0
+  }
+ },
+ "check10_flips_excluding_substituted": {
+  "M1_claude": {
+   "original": {
+    "n": 44,
+    "exact_label_changed": 5,
+    "pass_fail_changed": 2,
+    "flip_rate_pass_fail": 0.0455
+   },
+   "excluding_substituted": {
+    "n": 43,
+    "exact_label_changed": 4,
+    "pass_fail_changed": 1,
+    "flip_rate_pass_fail": 0.0233
+   },
+   "substituted_items": [
+    {
+     "item": "M1-5a0a9fb12d",
+     "first": "Absent",
+     "alt": "Supported"
+    }
+   ]
+  },
+  "M1_openai": {
+   "original": {
+    "n": 44,
+    "exact_label_changed": 2,
+    "pass_fail_changed": 1,
+    "flip_rate_pass_fail": 0.0227
+   },
+   "excluding_substituted": {
+    "n": 44,
+    "exact_label_changed": 2,
+    "pass_fail_changed": 1,
+    "flip_rate_pass_fail": 0.0227
+   },
+   "substituted_items": []
+  },
+  "M2_claude": {
+   "original": {
+    "n": 19,
+    "exact_label_changed": 3,
+    "pass_fail_changed": 3,
+    "flip_rate_pass_fail": 0.1579
+   },
+   "excluding_substituted": {
+    "n": 19,
+    "exact_label_changed": 3,
+    "pass_fail_changed": 3,
+    "flip_rate_pass_fail": 0.1579
+   },
+   "substituted_items": []
+  },
+  "M2_openai": {
+   "original": {
+    "n": 19,
+    "exact_label_changed": 1,
+    "pass_fail_changed": 1,
+    "flip_rate_pass_fail": 0.0526
+   },
+   "excluding_substituted": {
+    "n": 19,
+    "exact_label_changed": 1,
+    "pass_fail_changed": 1,
+    "flip_rate_pass_fail": 0.0526
+   },
+   "substituted_items": []
+  }
+ }
+}
