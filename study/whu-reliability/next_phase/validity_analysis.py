@@ -466,6 +466,10 @@ def matching(q: str) -> dict:
     return out
 
 
+# Advisor ruling 2026-11-01: the second keys are drafted by Google's model, so every Gemini comparison carries this.
+GEMINI_KEY_LABEL = "self-preference risk: the second keys were drafted and checked by Google's model (gemini-4-argon)"
+
+
 def check4() -> dict:
     c4 = PRIV / "validity" / "check4"
     r1 = k2_rows(c4 / "m2_round1")
@@ -481,7 +485,7 @@ def check4() -> dict:
            "WHU_Q1_04": ("FLAG: read in one ~832k-token call, far beyond any read length tested in this study; lower "
                          "confidence than the other keys (advisor, 2026-10-30)") if q4_run else
                         ("NOT RUN: " + json.loads(q4_not_run.read_text())["reason"]) if q4_not_run.exists() else
-                        "no second key", "sets": {}}
+                        "no second key", "gemini_comparisons": GEMINI_KEY_LABEL, "sets": {}}
     measures = ("M2_overstates", "M2_understates_omits", "M2_overstates_contradicts")
     qsets = {"with_Q1_04": QS, "without_Q1_04": [q for q in QS if q != "WHU-Q1-04"]} if q4_run else \
         {"without_Q1_04": [q for q in QS if q != "WHU-Q1-04"]}
@@ -502,7 +506,8 @@ def check4() -> dict:
                                 "vs_tools": {s: {"first_key_difference": f1[s]["WHU_vs"]["difference_whu_minus"],
                                                  "first_key_ci95": f1[s]["WHU_vs"]["difference_ci95"],
                                                  "second_key_difference": v["two_judge"][s]["WHU_vs"]["difference_whu_minus"],
-                                                 "second_key_ci95": v["two_judge"][s]["WHU_vs"]["difference_ci95"]}
+                                                 "second_key_ci95": v["two_judge"][s]["WHU_vs"]["difference_ci95"],
+                                                 **({"label": GEMINI_KEY_LABEL} if s == "Gemini" else {})}
                                              for s in SYSTEMS[1:]}}
             t = []
             for measure in ("M2_overstates_contradicts", "M2_understates_omits"):
