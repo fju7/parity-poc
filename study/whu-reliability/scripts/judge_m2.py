@@ -75,6 +75,7 @@ CLAUDE_MAX_OUT = J1.CLAUDE_MAX_OUT     # one setting for both prompts
 OPENAI_MODEL = J1.OPENAI_MODEL
 OPENAI_MAX_OUT = J1.OPENAI_MAX_OUT
 OPENAI_PRICE = J1.OPENAI_PRICE
+LIKELY_OUT = 2000                      # output tokens a call assumed for the likely estimate (reasoning included)
 FIELDS = ("statement", "direction", "size", "certainty", "scope", "quote")
 
 
@@ -202,31 +203,71 @@ def judge(a) -> int:
             sf.write_text(json.dumps({**rec, "at": datetime.now(timezone.utc).isoformat(timespec="seconds")},
                                      indent=1))
         print("consistency sample (seed %d, %d of %d): %s" % (a.seed, len(sample), len(pool), ", ".join(sample)))
+    # Estimate before any paid call (advisor ruling 2026-11-01). Token counts are free; if what the ledger issue has
+    # spent plus the worst case would pass --cap, nothing is called and the run exits 5.
+    n_in = {it["item"]: count_in(raw, answers, concl, it) for it in items}
+    calls, likely, worst = estimate(a, run, items, sample, n_in)
+    so_far = J1.spent(a.ledger_issue)
+    print("ESTIMATE M2: %d calls (%s); likely $%.2f (%d output tokens a call), worst $%.2f (%d/%d output tokens a "
+          "call, no cache, no refusal retry); %s has spent $%.2f; cap $%.2f" % (
+              calls, a.judges, likely, LIKELY_OUT, worst, CLAUDE_MAX_OUT, OPENAI_MAX_OUT, a.ledger_issue, so_far, a.cap))
+    if a.estimate:
+        return 0
+    if so_far + worst > a.cap:
+        print("STOP: spent $%.2f + worst case $%.2f is over the cap $%.2f; nothing was called" % (so_far, worst, a.cap))
+        return 5
     for it in items:
         for tag in [a.tag] + ([a.tag + J1.REPEAT_SUFFIX] if it["item"] in sample else []):
-            rc = judge_item(a, run, it, answers, concl, raw, client, keys, prompt_sha, tag)
+            rc = judge_item(a, run, it, answers, concl, raw, client, keys, prompt_sha, tag, n_in[it["item"]])
             if rc:
                 return rc
     print("%s spent: $%.4f" % (a.ledger_issue, J1.spent(a.ledger_issue)))
     return 0
 
 
-def judge_item(a, run, it, answers, concl, raw, client, keys, prompt_sha, tag) -> int:
+def count_in(raw, answers, concl, it) -> int:
+    """Claude's input-token count for one item (a free call)."""
+    prefix, rest = build(answers[it["answer"]], concl[it["conclusion"]])
+    return raw.messages.count_tokens(model=CLAUDE_MODEL,
+                                     messages=[{"role": "user", "content": prefix + rest}]).input_tokens
+
+
+def call_worst(jd: str, n_in: int) -> float:
+    if jd == "claude":
+        p = S.PRICES[CLAUDE_MODEL]
+        return (n_in * p["cache_write"] + CLAUDE_MAX_OUT * p["output"]) / 1e6
+    return (n_in * OPENAI_PRICE["input"] + OPENAI_MAX_OUT * OPENAI_PRICE["output"]) / 1e6
+
+
+def call_likely(jd: str, n_in: int) -> float:
+    p = S.PRICES[CLAUDE_MODEL] if jd == "claude" else OPENAI_PRICE
+    return (n_in * p["input"] + LIKELY_OUT * p["output"]) / 1e6
+
+
+def estimate(a, run, items, sample, n_in) -> tuple[int, float, float]:
+    """(calls, likely USD, worst USD) for the calls this invocation would make (replies on disk are skipped)."""
+    calls, likely, worst = 0, 0.0, 0.0
+    for it in items:
+        for tag in [a.tag] + ([a.tag + J1.REPEAT_SUFFIX] if it["item"] in sample else []):
+            for jd in a.judges.split(","):
+                if (run / ("replies" + tag) / jd / (it["item"] + ".json")).exists():
+                    continue
+                calls += 1
+                likely += call_likely(jd, n_in[it["item"]])
+                worst += call_worst(jd, n_in[it["item"]])
+    return calls, likely, worst
+
+
+def judge_item(a, run, it, answers, concl, raw, client, keys, prompt_sha, tag, n_in: int) -> int:
     answer, c = answers[it["answer"]], concl[it["conclusion"]]
     prefix, rest = build(answer, c)
-    n_in = raw.messages.count_tokens(model=CLAUDE_MODEL,
-                                     messages=[{"role": "user", "content": prefix + rest}]).input_tokens
     for jd in a.judges.split(","):
         out = run / ("replies" + tag) / jd / (it["item"] + ".json")
         if out.exists():
             continue
         attempts = []
         for attempt in (1, 2):                    # the second only after a refusal
-            if jd == "claude":
-                p = S.PRICES[CLAUDE_MODEL]
-                worst = (n_in * p["cache_write"] + CLAUDE_MAX_OUT * p["output"]) / 1e6
-            else:
-                worst = (n_in * OPENAI_PRICE["input"] + OPENAI_MAX_OUT * OPENAI_PRICE["output"]) / 1e6
+            worst = call_worst(jd, n_in)
             why = J1.day_cap_stop(worst)
             if why:
                 print("STOP: " + why)
@@ -327,6 +368,7 @@ def main() -> int:
     ap.add_argument("--tag", default="")
     ap.add_argument("--ledger-issue", default="whu-reliability-prefreeze2")
     ap.add_argument("--score", action="store_true")
+    ap.add_argument("--estimate", action="store_true", help="count tokens (free), print the estimate, call nothing")
     ap.add_argument("--consistency-share", type=float, default=J1.CONSISTENCY_SHARE,
                     help="share of items each judge reads a second time (0 for none)")
     ap.add_argument("--seed", type=int, default=J1.CONSISTENCY_SEED,

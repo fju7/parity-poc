@@ -166,6 +166,16 @@ def draft(cap: float) -> int:
         print("STOP: under the token APPROXIMATION (chars/3) these texts would be cut at %d tokens: %s. Google's own "
               "count (2026-10-30) gave no cut. A cut needs the advisor's ruling; nothing was called." % (CUT_TOKENS, cuts))
         return 9
+    # Estimate before any paid call, the preflight included (advisor ruling 2026-11-01): if what ISSUE has spent plus
+    # the worst case would pass --cap, nothing is called and draft exits 5.
+    pending = [q for q in KEYS1 if not ((OUT / q / "key.json").exists() or (OUT / q / "not_run.json").exists())]
+    likely, worst, _ = estimate(pending)
+    so_far = J1.spent(ISSUE)
+    print("ESTIMATE keys (%d questions to draft): likely $%.2f, worst $%.2f; %s has spent $%.2f; cap $%.2f"
+          % (len(pending), likely, worst, ISSUE, so_far, cap), flush=True)
+    if so_far + worst > cap:
+        print("STOP: spent $%.2f + worst case $%.2f is over the cap $%.2f; nothing was called" % (so_far, worst, cap))
+        return 5
     try:
         gc = G.client()                                      # the preflight, before any other Google call
     except G.Stop as e:
@@ -249,19 +259,26 @@ def draft(cap: float) -> int:
     return 0
 
 
-def prepare() -> int:
-    gc = None                                                # no Google call: the counts are approximations
-    total, worst = 0, 0.0
-    for q in KEYS1:
-        g = given(q, gc)
+def estimate(qs) -> tuple[float, float, list[tuple]]:
+    """(likely, worst, rows) for drafting and checking qs; no Google call (the counts are approximations)."""
+    total, worst, rows = 0, 0.0, []
+    for q in qs:
+        g = given(q, None)
         p = S.rates(G.MODEL, g["tokens"])
         w = 2 * (g["tokens"] * p["input"] + MAX_OUT * p["output"]) / 1e6
         total += g["tokens"]
         worst += w
+        rows.append((q, g, w))
+    likely = 2 * total * 2.0 / 1e6 + 2 * len(qs) * 6000 * 10.0 / 1e6
+    return likely, worst, rows
+
+
+def prepare() -> int:
+    likely, worst, rows = estimate(list(KEYS1))
+    for q, g, w in rows:
         print("%s: %s; %d tokens given (APPROXIMATION, chars/3); cut %s; worst $%.2f" % (q, g["files"], g["tokens"], g["cut"], w))
-    likely = 2 * total * 2.0 / 1e6 + 12 * 6000 * 10.0 / 1e6
     print("ESTIMATE keys: likely $%.2f (two reads of %d tokens, 6,000 output a call), worst $%.2f; cap $12"
-          % (likely, total, worst))
+          % (likely, sum(g["tokens"] for _, g, _ in rows), worst))
     return 0
 
 
