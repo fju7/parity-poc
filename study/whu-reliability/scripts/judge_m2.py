@@ -203,18 +203,27 @@ def judge(a) -> int:
             sf.write_text(json.dumps({**rec, "at": datetime.now(timezone.utc).isoformat(timespec="seconds")},
                                      indent=1))
         print("consistency sample (seed %d, %d of %d): %s" % (a.seed, len(sample), len(pool), ", ".join(sample)))
-    # Estimate before any paid call (advisor ruling 2026-11-01). Token counts are free; if what the ledger issue has
-    # spent plus the worst case would pass --cap, nothing is called and the run exits 5.
+    # Estimate before any paid call (advisor rulings 2026-11-01). Token counts are free. Likely = the measured past
+    # cost per call (--likely-from: that ledger issue's calls by this runner's role) where it exists, else the tool's
+    # own figure. If what the ledger issue has spent plus the LIKELY estimate would pass --cap, nothing is called and
+    # the run exits 5; the worst case is printed, and each call is still checked against --cap before it is made.
     n_in = {it["item"]: count_in(raw, answers, concl, it) for it in items}
-    calls, likely, worst = estimate(a, run, items, sample, n_in)
+    calls, own_likely, worst, by_judge = estimate(a, run, items, sample, n_in)
+    likely, src = own_likely, "the tool's own figure (%d output tokens a call)" % LIKELY_OUT
+    if a.likely_from and calls:
+        m = {jd: measured_per_call("m2-judge-" + jd, a.likely_from) for jd in by_judge}
+        if all(m.values()):
+            likely = sum(by_judge[jd] * m[jd][0] for jd in by_judge)
+            src = "measured, %s: %s" % (a.likely_from, ", ".join(
+                "%s $%.4f a call (%d calls)" % (jd, m[jd][0], m[jd][1]) for jd in by_judge))
     so_far = J1.spent(a.ledger_issue)
-    print("ESTIMATE M2: %d calls (%s); likely $%.2f (%d output tokens a call), worst $%.2f (%d/%d output tokens a "
-          "call, no cache, no refusal retry); %s has spent $%.2f; cap $%.2f" % (
-              calls, a.judges, likely, LIKELY_OUT, worst, CLAUDE_MAX_OUT, OPENAI_MAX_OUT, a.ledger_issue, so_far, a.cap))
+    print("ESTIMATE M2: %d calls (%s); likely $%.2f (%s); worst $%.2f (%d/%d output tokens a call, no cache, no "
+          "refusal retry); %s has spent $%.2f; cap $%.2f" % (
+              calls, a.judges, likely, src, worst, CLAUDE_MAX_OUT, OPENAI_MAX_OUT, a.ledger_issue, so_far, a.cap))
     if a.estimate:
         return 0
-    if so_far + worst > a.cap:
-        print("STOP: spent $%.2f + worst case $%.2f is over the cap $%.2f; nothing was called" % (so_far, worst, a.cap))
+    if so_far + likely > a.cap:
+        print("STOP: spent $%.2f + likely $%.2f is over the cap $%.2f; nothing was called" % (so_far, likely, a.cap))
         return 5
     for it in items:
         for tag in [a.tag] + ([a.tag + J1.REPEAT_SUFFIX] if it["item"] in sample else []):
@@ -244,18 +253,27 @@ def call_likely(jd: str, n_in: int) -> float:
     return (n_in * p["input"] + LIKELY_OUT * p["output"]) / 1e6
 
 
-def estimate(a, run, items, sample, n_in) -> tuple[int, float, float]:
-    """(calls, likely USD, worst USD) for the calls this invocation would make (replies on disk are skipped)."""
-    calls, likely, worst = 0, 0.0, 0.0
+def measured_per_call(role: str, issue: str) -> tuple[float, int] | None:
+    """(mean USD a call, calls) over the ledger's priced entries for role under issue; None if there are none."""
+    usd = [e["usd"] for e in S.entries() if e.get("role") == role and e.get("issue") == issue
+           and e.get("usd") is not None]
+    return (sum(usd) / len(usd), len(usd)) if usd else None
+
+
+def estimate(a, run, items, sample, n_in) -> tuple[int, float, float, dict]:
+    """(calls, likely USD, worst USD, calls by judge) for the calls this invocation would make. A reply already on
+    disk is never called again (a stopped run resumes where it stopped)."""
+    calls, likely, worst, by_judge = 0, 0.0, 0.0, {}
     for it in items:
         for tag in [a.tag] + ([a.tag + J1.REPEAT_SUFFIX] if it["item"] in sample else []):
             for jd in a.judges.split(","):
                 if (run / ("replies" + tag) / jd / (it["item"] + ".json")).exists():
                     continue
                 calls += 1
+                by_judge[jd] = by_judge.get(jd, 0) + 1
                 likely += call_likely(jd, n_in[it["item"]])
                 worst += call_worst(jd, n_in[it["item"]])
-    return calls, likely, worst
+    return calls, likely, worst, by_judge
 
 
 def judge_item(a, run, it, answers, concl, raw, client, keys, prompt_sha, tag, n_in: int) -> int:
@@ -369,6 +387,7 @@ def main() -> int:
     ap.add_argument("--ledger-issue", default="whu-reliability-prefreeze2")
     ap.add_argument("--score", action="store_true")
     ap.add_argument("--estimate", action="store_true", help="count tokens (free), print the estimate, call nothing")
+    ap.add_argument("--likely-from", help="ledger issue whose past calls by this runner give the likely cost a call")
     ap.add_argument("--consistency-share", type=float, default=J1.CONSISTENCY_SHARE,
                     help="share of items each judge reads a second time (0 for none)")
     ap.add_argument("--seed", type=int, default=J1.CONSISTENCY_SEED,

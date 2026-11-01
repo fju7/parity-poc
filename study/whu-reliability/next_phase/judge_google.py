@@ -251,24 +251,20 @@ def m1(a) -> int:
     for it, docs, _, _ in calls:
         prefix, rest = J1.build(it, docs)
         est_in[it["item"]] = int(approx_tokens(prefix + rest))
-    worst = sum(worst_usd(n) for n in est_in.values())
-    likely = sum((n * S.rates(MODEL, n)["input"] + 2000 * S.rates(MODEL, n)["output"]) / 1e6 for n in est_in.values())
-    print("M1: %d items, %d to judge, %d not judged (INCOMPLETE_SOURCES); %d input tokens (APPROXIMATION, chars/3)" % (
-        len(plan), len(calls), len(plan) - len(calls), sum(est_in.values())))
-    print("ESTIMATE M1: likely $%.2f (2,000 output tokens a call), worst $%.2f (%d output tokens a call); cap $%.2f"
-          % (likely, worst, MAX_OUT, a.cap))
-    if a.estimate:
-        return 0
-    if likely > a.cap:
-        print("STOP: the estimate is over the cap; nothing was called")
-        return 3
+    outdir = run / ("replies" + a.tag) / "google"
+    pending = {k: n for k, n in est_in.items() if not (outdir / (k + ".json")).exists()}   # saved replies are skipped
+    worst = sum(worst_usd(n) for n in pending.values())
+    likely = sum((n * S.rates(MODEL, n)["input"] + 2000 * S.rates(MODEL, n)["output"]) / 1e6 for n in pending.values())
+    print("M1: %d items, %d to judge, %d not judged (INCOMPLETE_SOURCES)" % (len(plan), len(calls), len(plan) - len(calls)))
+    rc = gate(a, "m1-judge-google", pending, likely, worst, "M1")
+    if rc is not None:
+        return rc
     try:
         gc = client()                    # the preflight, before any other Google call
     except Stop as e:
         print("STOP: %s" % e)
         return 8
     guard = Guard(a.ledger_issue, a.cap)
-    outdir = run / ("replies" + a.tag) / "google"
     outdir.mkdir(parents=True, exist_ok=True)
     stop = threading.Event()
 
@@ -335,22 +331,20 @@ def m2(a) -> int:
         plan.append((it, prefix + rest))
     random.Random("%d/check1/m2" % SEED).shuffle(plan)
     est_in = {it["item"]: int(approx_tokens(t)) for it, t in plan}
-    worst = sum(worst_usd(n) for n in est_in.values())
-    likely = sum((n * S.rates(MODEL, n)["input"] + 2000 * S.rates(MODEL, n)["output"]) / 1e6 for n in est_in.values())
-    print("M2: %d items; %d input tokens (APPROXIMATION, chars/3). ESTIMATE likely $%.2f, worst $%.2f; cap $%.2f"
-          % (len(plan), sum(est_in.values()), likely, worst, a.cap))
-    if a.estimate:
-        return 0
-    if likely > a.cap:
-        print("STOP: the estimate is over the cap; nothing was called")
-        return 3
+    outdir = run / ("replies" + a.tag) / "google"
+    pending = {k: n for k, n in est_in.items() if not (outdir / (k + ".json")).exists()}   # saved replies are skipped
+    worst = sum(worst_usd(n) for n in pending.values())
+    likely = sum((n * S.rates(MODEL, n)["input"] + 2000 * S.rates(MODEL, n)["output"]) / 1e6 for n in pending.values())
+    print("M2: %d items" % len(plan))
+    rc = gate(a, "m2-judge-google", pending, likely, worst, "M2")
+    if rc is not None:
+        return rc
     try:
         gc = client()                    # the preflight, before any other Google call
     except Stop as e:
         print("STOP: %s" % e)
         return 8
     guard = Guard(a.ledger_issue, a.cap)
-    outdir = run / ("replies" + a.tag) / "google"
     outdir.mkdir(parents=True, exist_ok=True)
     stop = threading.Event()
 
@@ -388,6 +382,30 @@ def m2(a) -> int:
     return 3 if stop.is_set() else 0
 
 
+def gate(a, role: str, pending: dict, own_likely: float, worst: float, label: str) -> int | None:
+    """Print the estimate for the pending calls (advisor rulings 2026-11-01); return an exit code to stop with, or None
+    to go on. Likely = the measured past cost per call (--likely-from: that ledger issue's calls under role) where it
+    exists, else the tool's own figure. Stops, calling nothing (not even the preflight), if the ledger issue's spend
+    plus the likely estimate would pass --cap; each call is still checked against --cap before it is made."""
+    likely, src = own_likely, "the tool's own figure (2,000 output tokens a call)"
+    m = J2.measured_per_call(role, a.likely_from) if a.likely_from and pending else None
+    if m:
+        likely, src = len(pending) * m[0], "measured, %s: $%.4f a call (%d calls)" % (a.likely_from, m[0], m[1])
+    so_far = J1.spent(a.ledger_issue)
+    print("ESTIMATE %s: %d calls; %d input tokens (APPROXIMATION, chars/3); likely $%.2f (%s); worst $%.2f (%d output "
+          "tokens a call); %s has spent $%.2f; cap $%.2f" % (label, len(pending), sum(pending.values()), likely, src,
+                                                             worst, MAX_OUT, a.ledger_issue, so_far, a.cap), flush=True)
+    if a.estimate:
+        return 0
+    if not pending:
+        print("nothing to call: every item has a saved reply")
+        return 0
+    if so_far + likely > a.cap:
+        print("STOP: spent $%.2f + likely $%.2f is over the cap $%.2f; nothing was called" % (so_far, likely, a.cap))
+        return 3
+    return None
+
+
 def J1_now() -> str:
     return datetime.now(timezone.utc).isoformat(timespec="seconds")
 
@@ -400,6 +418,7 @@ def main() -> int:
     ap.add_argument("--ledger-issue", default="whu-reliability-judging-validity-c1")
     ap.add_argument("--tag", default="")
     ap.add_argument("--estimate", action="store_true", help="count tokens (free), print the estimate, call nothing")
+    ap.add_argument("--likely-from", help="ledger issue whose past calls by this runner give the likely cost a call")
     ap.add_argument("--prompt", help="M2 only: another prompt file (its sha256 must be given)")
     ap.add_argument("--prompt-sha256")
     a = ap.parse_args()

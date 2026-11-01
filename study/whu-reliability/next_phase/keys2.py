@@ -166,15 +166,21 @@ def draft(cap: float) -> int:
         print("STOP: under the token APPROXIMATION (chars/3) these texts would be cut at %d tokens: %s. Google's own "
               "count (2026-10-30) gave no cut. A cut needs the advisor's ruling; nothing was called." % (CUT_TOKENS, cuts))
         return 9
-    # Estimate before any paid call, the preflight included (advisor ruling 2026-11-01): if what ISSUE has spent plus
-    # the worst case would pass --cap, nothing is called and draft exits 5.
+    # Estimate before any paid call, the preflight included (advisor rulings 2026-11-01): if what ISSUE has spent plus
+    # the LIKELY estimate would pass --cap, nothing is called and draft exits 5; the worst case is printed, and each
+    # call is still checked against --cap before it is made. Likely is the tool's own figure: the cost of a key
+    # depends on its question's texts, so no past per-call cost stands for another question's.
     pending = [q for q in KEYS1 if not ((OUT / q / "key.json").exists() or (OUT / q / "not_run.json").exists())]
     likely, worst, _ = estimate(pending)
     so_far = J1.spent(ISSUE)
-    print("ESTIMATE keys (%d questions to draft): likely $%.2f, worst $%.2f; %s has spent $%.2f; cap $%.2f"
-          % (len(pending), likely, worst, ISSUE, so_far, cap), flush=True)
-    if so_far + worst > cap:
-        print("STOP: spent $%.2f + worst case $%.2f is over the cap $%.2f; nothing was called" % (so_far, worst, cap))
+    print("ESTIMATE keys (%d questions to draft): likely $%.2f (the tool's own figure: two reads, 6,000 output tokens "
+          "a call), worst $%.2f; %s has spent $%.2f; cap $%.2f" % (len(pending), likely, worst, ISSUE, so_far, cap),
+          flush=True)
+    if not pending:
+        print("nothing to call: every question has a key or a not-run record")
+        return 0
+    if so_far + likely > cap:
+        print("STOP: spent $%.2f + likely $%.2f is over the cap $%.2f; nothing was called" % (so_far, likely, cap))
         return 5
     try:
         gc = G.client()                                      # the preflight, before any other Google call
