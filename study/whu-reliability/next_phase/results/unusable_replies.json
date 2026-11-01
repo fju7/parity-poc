@@ -1,5 +1,5 @@
 {
- "written": "2026-10-31T00:50:40+00:00",
+ "written": "2026-11-01T00:55:52+00:00",
  "plan": "next_phase/validity_plan.md @ b4cf31a",
  "label": "Judged by AI models; not checked by people (check 5 aside).",
  "rule": "validity_analysis.py unusable comment block",
@@ -107,6 +107,30 @@
    "labelled": 19,
    "unusable": [],
    "n_unusable": 0
+  },
+  "check1_M1/google": {
+   "records": 231,
+   "no_call": 14,
+   "labelled": 217,
+   "unusable": [],
+   "n_unusable": 0
+  },
+  "check1_M2/google": {
+   "records": 91,
+   "no_call": 0,
+   "labelled": 90,
+   "unusable": [
+    {
+     "item": "M2-3b14c2dff8",
+     "kind": "no usable label",
+     "form_problems": [
+      "text around the JSON",
+      "not JSON"
+     ],
+     "appears": "Matches"
+    }
+   ],
+   "n_unusable": 1
   },
   "check3/claude": {
    "records": 24,

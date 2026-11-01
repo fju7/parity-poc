@@ -1,5 +1,5 @@
 {
- "written": "2026-10-31T00:31:59+00:00",
+ "written": "2026-11-01T00:55:51+00:00",
  "plan": "next_phase/validity_plan.md @ b4cf31a",
  "label": "Judged by AI models; not checked by people (check 5 aside).",
  "chance": 0.2,
@@ -760,19 +760,19 @@
    "whu_m1_failure_by_identification (judge google's own labels; descriptive, n small)": {
     "identified": {
      "n_items": 5,
-     "countable": 0,
-     "failure_rate": null
+     "countable": 5,
+     "failure_rate": 0.4
     },
     "not_identified": {
      "n_items": 15,
-     "countable": 0,
-     "failure_rate": null
+     "countable": 15,
+     "failure_rate": 0.0
     }
    },
-   "gap_points": null,
+   "gap_points": 40.0,
    "test": {
     "identified_at_least_9_of_20_p_le_0.01": false,
-    "failure_gap_at_least_15_points": false,
+    "failure_gap_at_least_15_points": true,
     "goes_to_advisor": false
    }
   }

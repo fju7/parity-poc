@@ -1,0 +1,2289 @@
+{
+ "written": "2026-11-01T00:54:56+00:00",
+ "plan": "next_phase/validity_plan.md @ b4cf31a",
+ "label": "Judged by AI models; not checked by people (check 5 aside).",
+ "google_replies": {
+  "M1": 231,
+  "M2": 91
+ },
+ "model": "gemini-4-argon",
+ "sets": {
+  "all_four": {
+   "M1_failure": {
+    "claude": {
+     "Claude": {
+      "whu": 0.0886,
+      "tool": 0.5696,
+      "difference": -0.481,
+      "ci95": [
+       -0.5949,
+       -0.4103
+      ],
+      "n_whu": 79,
+      "n_tool": 79
+     },
+     "ChatGPT": {
+      "whu": 0.0886,
+      "tool": 1.0,
+      "difference": -0.9114,
+      "ci95": [
+       -0.95,
+       -0.8718
+      ],
+      "n_whu": 79,
+      "n_tool": 78
+     },
+     "Gemini": {
+      "whu": 0.0886,
+      "tool": 0.76,
+      "difference": -0.6714,
+      "ci95": [
+       -0.8051,
+       -0.4718
+      ],
+      "n_whu": 79,
+      "n_tool": 50
+     },
+     "Perplexity": {
+      "whu": 0.0886,
+      "tool": 0.3676,
+      "difference": -0.279,
+      "ci95": [
+       -0.4524,
+       -0.0433
+      ],
+      "n_whu": 79,
+      "n_tool": 68
+     }
+    },
+    "openai": {
+     "Claude": {
+      "whu": 0.1519,
+      "tool": 0.6709,
+      "difference": -0.519,
+      "ci95": [
+       -0.575,
+       -0.4545
+      ],
+      "n_whu": 79,
+      "n_tool": 79
+     },
+     "ChatGPT": {
+      "whu": 0.1519,
+      "tool": 1.0,
+      "difference": -0.8481,
+      "ci95": [
+       -0.8861,
+       -0.8125
+      ],
+      "n_whu": 79,
+      "n_tool": 78
+     },
+     "Gemini": {
+      "whu": 0.1519,
+      "tool": 0.88,
+      "difference": -0.7281,
+      "ci95": [
+       -0.7795,
+       -0.6949
+      ],
+      "n_whu": 79,
+      "n_tool": 50
+     },
+     "Perplexity": {
+      "whu": 0.1519,
+      "tool": 0.4706,
+      "difference": -0.3187,
+      "ci95": [
+       -0.5692,
+       -0.0117
+      ],
+      "n_whu": 79,
+      "n_tool": 68
+     }
+    },
+    "google": {
+     "Claude": {
+      "whu": 0.0759,
+      "tool": 0.6076,
+      "difference": -0.5317,
+      "ci95": [
+       -0.6375,
+       -0.4359
+      ],
+      "n_whu": 79,
+      "n_tool": 79,
+      "test": {
+       "outside_range_narrowing_by_more_than_5_points": false,
+       "outside_range_widening_reported": false,
+       "ci_includes_zero_or_reverses": false,
+       "gemini_self_preference_flag": false
+      }
+     },
+     "ChatGPT": {
+      "whu": 0.0759,
+      "tool": 1.0,
+      "difference": -0.9241,
+      "ci95": [
+       -0.975,
+       -0.8718
+      ],
+      "n_whu": 79,
+      "n_tool": 78,
+      "test": {
+       "outside_range_narrowing_by_more_than_5_points": false,
+       "outside_range_widening_reported": false,
+       "ci_includes_zero_or_reverses": false,
+       "gemini_self_preference_flag": false
+      }
+     },
+     "Gemini": {
+      "whu": 0.0759,
+      "tool": 0.82,
+      "difference": -0.7441,
+      "ci95": [
+       -0.8449,
+       -0.6051
+      ],
+      "n_whu": 79,
+      "n_tool": 50,
+      "test": {
+       "outside_range_narrowing_by_more_than_5_points": false,
+       "outside_range_widening_reported": false,
+       "ci_includes_zero_or_reverses": false,
+       "gemini_self_preference_flag": true
+      }
+     },
+     "Perplexity": {
+      "whu": 0.0759,
+      "tool": 0.4559,
+      "difference": -0.38,
+      "ci95": [
+       -0.5817,
+       -0.1342
+      ],
+      "n_whu": 79,
+      "n_tool": 68,
+      "test": {
+       "outside_range_narrowing_by_more_than_5_points": false,
+       "outside_range_widening_reported": true,
+       "ci_includes_zero_or_reverses": false,
+       "gemini_self_preference_flag": false
+      }
+     }
+    },
+    "two_judge": {
+     "Claude": {
+      "whu": 0.1203,
+      "tool": 0.6203,
+      "difference": -0.5,
+      "ci95": [
+       -0.5813,
+       -0.4359
+      ],
+      "n_whu": 79,
+      "n_tool": 79
+     },
+     "ChatGPT": {
+      "whu": 0.1203,
+      "tool": 1.0,
+      "difference": -0.8797,
+      "ci95": [
+       -0.9114,
+       -0.8562
+      ],
+      "n_whu": 79,
+      "n_tool": 78
+     },
+     "Gemini": {
+      "whu": 0.1203,
+      "tool": 0.82,
+      "difference": -0.6997,
+      "ci95": [
+       -0.7498,
+       -0.6256
+      ],
+      "n_whu": 79,
+      "n_tool": 50
+     },
+     "Perplexity": {
+      "whu": 0.1203,
+      "tool": 0.4191,
+      "difference": -0.2988,
+      "ci95": [
+       -0.5088,
+       -0.0275
+      ],
+      "n_whu": 79,
+      "n_tool": 68
+     }
+    },
+    "three_judge": {
+     "Claude": {
+      "whu": 0.1055,
+      "tool": 0.616,
+      "difference": -0.5105,
+      "ci95": [
+       -0.6,
+       -0.4359
+      ],
+      "n_whu": 79,
+      "n_tool": 79
+     },
+     "ChatGPT": {
+      "whu": 0.1055,
+      "tool": 1.0,
+      "difference": -0.8945,
+      "ci95": [
+       -0.925,
+       -0.8632
+      ],
+      "n_whu": 79,
+      "n_tool": 78
+     },
+     "Gemini": {
+      "whu": 0.1055,
+      "tool": 0.82,
+      "difference": -0.7145,
+      "ci95": [
+       -0.7824,
+       -0.6188
+      ],
+      "n_whu": 79,
+      "n_tool": 50
+     },
+     "Perplexity": {
+      "whu": 0.1055,
+      "tool": 0.4314,
+      "difference": -0.3259,
+      "ci95": [
+       -0.5331,
+       -0.0631
+      ],
+      "n_whu": 79,
+      "n_tool": 68
+     }
+    },
+    "openai_google": {
+     "Claude": {
+      "whu": 0.1139,
+      "tool": 0.6392,
+      "difference": -0.5253,
+      "ci95": [
+       -0.6062,
+       -0.4487
+      ],
+      "n_whu": 79,
+      "n_tool": 79
+     },
+     "ChatGPT": {
+      "whu": 0.1139,
+      "tool": 1.0,
+      "difference": -0.8861,
+      "ci95": [
+       -0.9125,
+       -0.859
+      ],
+      "n_whu": 79,
+      "n_tool": 78
+     },
+     "Gemini": {
+      "whu": 0.1139,
+      "tool": 0.85,
+      "difference": -0.7361,
+      "ci95": [
+       -0.7699,
+       -0.6923
+      ],
+      "n_whu": 79,
+      "n_tool": 50
+     },
+     "Perplexity": {
+      "whu": 0.1139,
+      "tool": 0.4632,
+      "difference": -0.3493,
+      "ci95": [
+       -0.5754,
+       -0.0729
+      ],
+      "n_whu": 79,
+      "n_tool": 68
+     }
+    }
+   },
+   "M2_overstates": {
+    "claude": {
+     "ChatGPT": {
+      "whu": 0.0,
+      "tool": 0.2632,
+      "difference": -0.2632,
+      "ci95": [
+       -0.4,
+       -0.1111
+      ],
+      "n_whu": 19,
+      "n_tool": 19
+     },
+     "Gemini": {
+      "whu": 0.0,
+      "tool": 0.6,
+      "difference": -0.6,
+      "ci95": [
+       -1.0,
+       -0.2
+      ],
+      "n_whu": 19,
+      "n_tool": 15
+     }
+    },
+    "openai": {
+     "ChatGPT": {
+      "whu": 0.1053,
+      "tool": 0.3684,
+      "difference": -0.2631,
+      "ci95": [
+       -0.4,
+       -0.1
+      ],
+      "n_whu": 19,
+      "n_tool": 19
+     },
+     "Gemini": {
+      "whu": 0.1053,
+      "tool": 0.6667,
+      "difference": -0.5614,
+      "ci95": [
+       -0.8889,
+       -0.0889
+      ],
+      "n_whu": 19,
+      "n_tool": 15
+     }
+    },
+    "google": {
+     "ChatGPT": {
+      "whu": 0.0,
+      "tool": 0.2632,
+      "difference": -0.2632,
+      "ci95": [
+       -0.4,
+       -0.1111
+      ],
+      "n_whu": 19,
+      "n_tool": 19,
+      "test": {
+       "outside_range_narrowing_by_more_than_5_points": false,
+       "outside_range_widening_reported": false,
+       "ci_includes_zero_or_reverses": false,
+       "gemini_self_preference_flag": false
+      }
+     },
+     "Gemini": {
+      "whu": 0.0,
+      "tool": 0.4,
+      "difference": -0.4,
+      "ci95": [
+       -0.6,
+       0.0
+      ],
+      "n_whu": 19,
+      "n_tool": 15,
+      "test": {
+       "outside_range_narrowing_by_more_than_5_points": true,
+       "outside_range_widening_reported": false,
+       "ci_includes_zero_or_reverses": true,
+       "gemini_self_preference_flag": true
+      }
+     }
+    },
+    "two_judge": {
+     "ChatGPT": {
+      "whu": 0.0526,
+      "tool": 0.3158,
+      "difference": -0.2632,
+      "ci95": [
+       -0.4,
+       -0.1111
+      ],
+      "n_whu": 19,
+      "n_tool": 19
+     },
+     "Gemini": {
+      "whu": 0.0526,
+      "tool": 0.6333,
+      "difference": -0.5807,
+      "ci95": [
+       -0.9444,
+       -0.1444
+      ],
+      "n_whu": 19,
+      "n_tool": 15
+     }
+    },
+    "three_judge": {
+     "ChatGPT": {
+      "whu": 0.0351,
+      "tool": 0.2982,
+      "difference": -0.2631,
+      "ci95": [
+       -0.4,
+       -0.1111
+      ],
+      "n_whu": 19,
+      "n_tool": 19
+     },
+     "Gemini": {
+      "whu": 0.0351,
+      "tool": 0.5556,
+      "difference": -0.5205,
+      "ci95": [
+       -0.8296,
+       -0.0963
+      ],
+      "n_whu": 19,
+      "n_tool": 15
+     }
+    },
+    "openai_google": {
+     "ChatGPT": {
+      "whu": 0.0526,
+      "tool": 0.3158,
+      "difference": -0.2632,
+      "ci95": [
+       -0.4,
+       -0.1111
+      ],
+      "n_whu": 19,
+      "n_tool": 19
+     },
+     "Gemini": {
+      "whu": 0.0526,
+      "tool": 0.5333,
+      "difference": -0.4807,
+      "ci95": [
+       -0.7444,
+       -0.0444
+      ],
+      "n_whu": 19,
+      "n_tool": 15
+     }
+    }
+   },
+   "M2_understates_omits": {
+    "claude": {
+     "ChatGPT": {
+      "whu": 0.0,
+      "tool": 0.4737,
+      "difference": -0.4737,
+      "ci95": [
+       -0.7,
+       -0.2222
+      ],
+      "n_whu": 19,
+      "n_tool": 19
+     }
+    },
+    "openai": {
+     "ChatGPT": {
+      "whu": 0.0526,
+      "tool": 0.4211,
+      "difference": -0.3685,
+      "ci95": [
+       -0.6,
+       -0.1111
+      ],
+      "n_whu": 19,
+      "n_tool": 19
+     }
+    },
+    "google": {
+     "ChatGPT": {
+      "whu": 0.0,
+      "tool": 0.4737,
+      "difference": -0.4737,
+      "ci95": [
+       -0.7,
+       -0.2222
+      ],
+      "n_whu": 19,
+      "n_tool": 19,
+      "test": {
+       "outside_range_narrowing_by_more_than_5_points": false,
+       "outside_range_widening_reported": false,
+       "ci_includes_zero_or_reverses": false,
+       "gemini_self_preference_flag": false
+      }
+     }
+    },
+    "two_judge": {
+     "ChatGPT": {
+      "whu": 0.0263,
+      "tool": 0.4474,
+      "difference": -0.4211,
+      "ci95": [
+       -0.65,
+       -0.1667
+      ],
+      "n_whu": 19,
+      "n_tool": 19
+     }
+    },
+    "three_judge": {
+     "ChatGPT": {
+      "whu": 0.0175,
+      "tool": 0.4561,
+      "difference": -0.4386,
+      "ci95": [
+       -0.6667,
+       -0.1852
+      ],
+      "n_whu": 19,
+      "n_tool": 19
+     }
+    },
+    "openai_google": {
+     "ChatGPT": {
+      "whu": 0.0263,
+      "tool": 0.4474,
+      "difference": -0.4211,
+      "ci95": [
+       -0.65,
+       -0.1667
+      ],
+      "n_whu": 19,
+      "n_tool": 19
+     }
+    }
+   },
+   "changed": [
+    [
+     "M2_overstates",
+     "Gemini"
+    ]
+   ],
+   "conclusion_changes": true
+  },
+  "without_Q1_02": {
+   "M1_failure": {
+    "claude": {
+     "Claude": {
+      "whu": 0.1017,
+      "tool": 0.5932,
+      "difference": -0.4915,
+      "ci95": [
+       -0.65,
+       -0.4
+      ],
+      "n_whu": 59,
+      "n_tool": 59
+     },
+     "ChatGPT": {
+      "whu": 0.1017,
+      "tool": 1.0,
+      "difference": -0.8983,
+      "ci95": [
+       -0.95,
+       -0.85
+      ],
+      "n_whu": 59,
+      "n_tool": 60
+     },
+     "Gemini": {
+      "whu": 0.1017,
+      "tool": 0.75,
+      "difference": -0.6483,
+      "ci95": [
+       -0.8324,
+       -0.4644
+      ],
+      "n_whu": 59,
+      "n_tool": 32
+     },
+     "Perplexity": {
+      "whu": 0.1017,
+      "tool": 0.36,
+      "difference": -0.2583,
+      "ci95": [
+       -0.4816,
+       0.05
+      ],
+      "n_whu": 59,
+      "n_tool": 50
+     }
+    },
+    "openai": {
+     "Claude": {
+      "whu": 0.1695,
+      "tool": 0.678,
+      "difference": -0.5085,
+      "ci95": [
+       -0.6,
+       -0.4211
+      ],
+      "n_whu": 59,
+      "n_tool": 59
+     },
+     "ChatGPT": {
+      "whu": 0.1695,
+      "tool": 1.0,
+      "difference": -0.8305,
+      "ci95": [
+       -0.85,
+       -0.8
+      ],
+      "n_whu": 59,
+      "n_tool": 60
+     },
+     "Gemini": {
+      "whu": 0.1695,
+      "tool": 0.9062,
+      "difference": -0.7367,
+      "ci95": [
+       -0.7808,
+       -0.6824
+      ],
+      "n_whu": 59,
+      "n_tool": 32
+     },
+     "Perplexity": {
+      "whu": 0.1695,
+      "tool": 0.48,
+      "difference": -0.3105,
+      "ci95": [
+       -0.6395,
+       0.0947
+      ],
+      "n_whu": 59,
+      "n_tool": 50
+     }
+    },
+    "google": {
+     "Claude": {
+      "whu": 0.0847,
+      "tool": 0.6102,
+      "difference": -0.5255,
+      "ci95": [
+       -0.7,
+       -0.4211
+      ],
+      "n_whu": 59,
+      "n_tool": 59,
+      "test": {
+       "outside_range_narrowing_by_more_than_5_points": false,
+       "outside_range_widening_reported": false,
+       "ci_includes_zero_or_reverses": false,
+       "gemini_self_preference_flag": false
+      }
+     },
+     "ChatGPT": {
+      "whu": 0.0847,
+      "tool": 1.0,
+      "difference": -0.9153,
+      "ci95": [
+       -1.0,
+       -0.85
+      ],
+      "n_whu": 59,
+      "n_tool": 60,
+      "test": {
+       "outside_range_narrowing_by_more_than_5_points": false,
+       "outside_range_widening_reported": false,
+       "ci_includes_zero_or_reverses": false,
+       "gemini_self_preference_flag": false
+      }
+     },
+     "Gemini": {
+      "whu": 0.0847,
+      "tool": 0.8125,
+      "difference": -0.7278,
+      "ci95": [
+       -0.8824,
+       -0.5977
+      ],
+      "n_whu": 59,
+      "n_tool": 32,
+      "test": {
+       "outside_range_narrowing_by_more_than_5_points": false,
+       "outside_range_widening_reported": false,
+       "ci_includes_zero_or_reverses": false,
+       "gemini_self_preference_flag": true
+      }
+     },
+     "Perplexity": {
+      "whu": 0.0847,
+      "tool": 0.46,
+      "difference": -0.3753,
+      "ci95": [
+       -0.6395,
+       -0.0526
+      ],
+      "n_whu": 59,
+      "n_tool": 50,
+      "test": {
+       "outside_range_narrowing_by_more_than_5_points": false,
+       "outside_range_widening_reported": true,
+       "ci_includes_zero_or_reverses": false,
+       "gemini_self_preference_flag": false
+      }
+     }
+    },
+    "two_judge": {
+     "Claude": {
+      "whu": 0.1356,
+      "tool": 0.6356,
+      "difference": -0.5,
+      "ci95": [
+       -0.625,
+       -0.4211
+      ],
+      "n_whu": 59,
+      "n_tool": 59
+     },
+     "ChatGPT": {
+      "whu": 0.1356,
+      "tool": 1.0,
+      "difference": -0.8644,
+      "ci95": [
+       -0.875,
+       -0.85
+      ],
+      "n_whu": 59,
+      "n_tool": 60
+     },
+     "Gemini": {
+      "whu": 0.1356,
+      "tool": 0.8281,
+      "difference": -0.6925,
+      "ci95": [
+       -0.7574,
+       -0.6226
+      ],
+      "n_whu": 59,
+      "n_tool": 32
+     },
+     "Perplexity": {
+      "whu": 0.1356,
+      "tool": 0.42,
+      "difference": -0.2844,
+      "ci95": [
+       -0.5605,
+       0.0724
+      ],
+      "n_whu": 59,
+      "n_tool": 50
+     }
+    },
+    "three_judge": {
+     "Claude": {
+      "whu": 0.1186,
+      "tool": 0.6271,
+      "difference": -0.5085,
+      "ci95": [
+       -0.65,
+       -0.4211
+      ],
+      "n_whu": 59,
+      "n_tool": 59
+     },
+     "ChatGPT": {
+      "whu": 0.1186,
+      "tool": 1.0,
+      "difference": -0.8814,
+      "ci95": [
+       -0.9167,
+       -0.85
+      ],
+      "n_whu": 59,
+      "n_tool": 60
+     },
+     "Gemini": {
+      "whu": 0.1186,
+      "tool": 0.8229,
+      "difference": -0.7043,
+      "ci95": [
+       -0.799,
+       -0.6143
+      ],
+      "n_whu": 59,
+      "n_tool": 32
+     },
+     "Perplexity": {
+      "whu": 0.1186,
+      "tool": 0.4333,
+      "difference": -0.3147,
+      "ci95": [
+       -0.5868,
+       0.0307
+      ],
+      "n_whu": 59,
+      "n_tool": 50
+     }
+    },
+    "openai_google": {
+     "Claude": {
+      "whu": 0.1271,
+      "tool": 0.6441,
+      "difference": -0.517,
+      "ci95": [
+       -0.65,
+       -0.4211
+      ],
+      "n_whu": 59,
+      "n_tool": 59
+     },
+     "ChatGPT": {
+      "whu": 0.1271,
+      "tool": 1.0,
+      "difference": -0.8729,
+      "ci95": [
+       -0.9,
+       -0.85
+      ],
+      "n_whu": 59,
+      "n_tool": 60
+     },
+     "Gemini": {
+      "whu": 0.1271,
+      "tool": 0.8594,
+      "difference": -0.7323,
+      "ci95": [
+       -0.7824,
+       -0.6893
+      ],
+      "n_whu": 59,
+      "n_tool": 32
+     },
+     "Perplexity": {
+      "whu": 0.1271,
+      "tool": 0.47,
+      "difference": -0.3429,
+      "ci95": [
+       -0.6395,
+       0.0211
+      ],
+      "n_whu": 59,
+      "n_tool": 50
+     }
+    }
+   },
+   "M2_overstates": {
+    "claude": {
+     "ChatGPT": {
+      "whu": 0.0,
+      "tool": 0.2143,
+      "difference": -0.2143,
+      "ci95": [
+       -0.4,
+       0.0
+      ],
+      "n_whu": 14,
+      "n_tool": 14
+     },
+     "Gemini": {
+      "whu": 0.0,
+      "tool": 0.6,
+      "difference": -0.6,
+      "ci95": [
+       -1.0,
+       -0.2
+      ],
+      "n_whu": 14,
+      "n_tool": 10
+     }
+    },
+    "openai": {
+     "ChatGPT": {
+      "whu": 0.1429,
+      "tool": 0.3571,
+      "difference": -0.2142,
+      "ci95": [
+       -0.4,
+       0.0
+      ],
+      "n_whu": 14,
+      "n_tool": 14
+     },
+     "Gemini": {
+      "whu": 0.1429,
+      "tool": 0.6,
+      "difference": -0.4571,
+      "ci95": [
+       -0.9231,
+       0.0
+      ],
+      "n_whu": 14,
+      "n_tool": 10
+     }
+    },
+    "google": {
+     "ChatGPT": {
+      "whu": 0.0,
+      "tool": 0.2143,
+      "difference": -0.2143,
+      "ci95": [
+       -0.4,
+       0.0
+      ],
+      "n_whu": 14,
+      "n_tool": 14,
+      "test": {
+       "outside_range_narrowing_by_more_than_5_points": false,
+       "outside_range_widening_reported": false,
+       "ci_includes_zero_or_reverses": true,
+       "gemini_self_preference_flag": false
+      }
+     },
+     "Gemini": {
+      "whu": 0.0,
+      "tool": 0.3,
+      "difference": -0.3,
+      "ci95": [
+       -0.6,
+       0.0
+      ],
+      "n_whu": 14,
+      "n_tool": 10,
+      "test": {
+       "outside_range_narrowing_by_more_than_5_points": true,
+       "outside_range_widening_reported": false,
+       "ci_includes_zero_or_reverses": true,
+       "gemini_self_preference_flag": true
+      }
+     }
+    },
+    "two_judge": {
+     "ChatGPT": {
+      "whu": 0.0714,
+      "tool": 0.2857,
+      "difference": -0.2143,
+      "ci95": [
+       -0.4,
+       -0.1
+      ],
+      "n_whu": 14,
+      "n_tool": 14
+     },
+     "Gemini": {
+      "whu": 0.0714,
+      "tool": 0.6,
+      "difference": -0.5286,
+      "ci95": [
+       -0.9615,
+       -0.1
+      ],
+      "n_whu": 14,
+      "n_tool": 10
+     }
+    },
+    "three_judge": {
+     "ChatGPT": {
+      "whu": 0.0476,
+      "tool": 0.2619,
+      "difference": -0.2143,
+      "ci95": [
+       -0.4,
+       -0.0833
+      ],
+      "n_whu": 14,
+      "n_tool": 14
+     },
+     "Gemini": {
+      "whu": 0.0476,
+      "tool": 0.5,
+      "difference": -0.4524,
+      "ci95": [
+       -0.841,
+       -0.0667
+      ],
+      "n_whu": 14,
+      "n_tool": 10
+     }
+    },
+    "openai_google": {
+     "ChatGPT": {
+      "whu": 0.0714,
+      "tool": 0.2857,
+      "difference": -0.2143,
+      "ci95": [
+       -0.4,
+       -0.1
+      ],
+      "n_whu": 14,
+      "n_tool": 14
+     },
+     "Gemini": {
+      "whu": 0.0714,
+      "tool": 0.45,
+      "difference": -0.3786,
+      "ci95": [
+       -0.7615,
+       0.0
+      ],
+      "n_whu": 14,
+      "n_tool": 10
+     }
+    }
+   },
+   "M2_understates_omits": {
+    "claude": {
+     "ChatGPT": {
+      "whu": 0.0,
+      "tool": 0.4286,
+      "difference": -0.4286,
+      "ci95": [
+       -0.8,
+       -0.2
+      ],
+      "n_whu": 14,
+      "n_tool": 14
+     }
+    },
+    "openai": {
+     "ChatGPT": {
+      "whu": 0.0714,
+      "tool": 0.3571,
+      "difference": -0.2857,
+      "ci95": [
+       -0.6,
+       0.0
+      ],
+      "n_whu": 14,
+      "n_tool": 14
+     }
+    },
+    "google": {
+     "ChatGPT": {
+      "whu": 0.0,
+      "tool": 0.4286,
+      "difference": -0.4286,
+      "ci95": [
+       -0.8,
+       -0.2
+      ],
+      "n_whu": 14,
+      "n_tool": 14,
+      "test": {
+       "outside_range_narrowing_by_more_than_5_points": false,
+       "outside_range_widening_reported": false,
+       "ci_includes_zero_or_reverses": false,
+       "gemini_self_preference_flag": false
+      }
+     }
+    },
+    "two_judge": {
+     "ChatGPT": {
+      "whu": 0.0357,
+      "tool": 0.3929,
+      "difference": -0.3572,
+      "ci95": [
+       -0.7,
+       -0.125
+      ],
+      "n_whu": 14,
+      "n_tool": 14
+     }
+    },
+    "three_judge": {
+     "ChatGPT": {
+      "whu": 0.0238,
+      "tool": 0.4048,
+      "difference": -0.381,
+      "ci95": [
+       -0.7333,
+       -0.1667
+      ],
+      "n_whu": 14,
+      "n_tool": 14
+     }
+    },
+    "openai_google": {
+     "ChatGPT": {
+      "whu": 0.0357,
+      "tool": 0.3929,
+      "difference": -0.3572,
+      "ci95": [
+       -0.7,
+       -0.125
+      ],
+      "n_whu": 14,
+      "n_tool": 14
+     }
+    }
+   },
+   "changed": [
+    [
+     "M2_overstates",
+     "ChatGPT"
+    ],
+    [
+     "M2_overstates",
+     "Gemini"
+    ]
+   ],
+   "conclusion_changes": true
+  },
+  "all_four_excluding_furniture": {
+   "M1_failure": {
+    "claude": {
+     "Claude": {
+      "whu": 0.0149,
+      "tool": 0.5696,
+      "difference": -0.5547,
+      "ci95": [
+       -0.65,
+       -0.4842
+      ],
+      "n_whu": 67,
+      "n_tool": 79
+     },
+     "ChatGPT": {
+      "whu": 0.0149,
+      "tool": 1.0,
+      "difference": -0.9851,
+      "ci95": [
+       -1.0,
+       -0.9559
+      ],
+      "n_whu": 67,
+      "n_tool": 78
+     },
+     "Gemini": {
+      "whu": 0.0149,
+      "tool": 0.76,
+      "difference": -0.7451,
+      "ci95": [
+       -0.8824,
+       -0.5706
+      ],
+      "n_whu": 67,
+      "n_tool": 50
+     },
+     "Perplexity": {
+      "whu": 0.0149,
+      "tool": 0.3676,
+      "difference": -0.3527,
+      "ci95": [
+       -0.5733,
+       -0.0933
+      ],
+      "n_whu": 67,
+      "n_tool": 68
+     }
+    },
+    "openai": {
+     "Claude": {
+      "whu": 0.0448,
+      "tool": 0.6709,
+      "difference": -0.6261,
+      "ci95": [
+       -0.7466,
+       -0.5092
+      ],
+      "n_whu": 67,
+      "n_tool": 79
+     },
+     "ChatGPT": {
+      "whu": 0.0448,
+      "tool": 1.0,
+      "difference": -0.9552,
+      "ci95": [
+       -1.0,
+       -0.9091
+      ],
+      "n_whu": 67,
+      "n_tool": 78
+     },
+     "Gemini": {
+      "whu": 0.0448,
+      "tool": 0.88,
+      "difference": -0.8352,
+      "ci95": [
+       -0.8824,
+       -0.7911
+      ],
+      "n_whu": 67,
+      "n_tool": 50
+     },
+     "Perplexity": {
+      "whu": 0.0448,
+      "tool": 0.4706,
+      "difference": -0.4258,
+      "ci95": [
+       -0.6922,
+       -0.1708
+      ],
+      "n_whu": 67,
+      "n_tool": 68
+     }
+    },
+    "google": {
+     "Claude": {
+      "whu": 0.0149,
+      "tool": 0.6076,
+      "difference": -0.5927,
+      "ci95": [
+       -0.675,
+       -0.502
+      ],
+      "n_whu": 67,
+      "n_tool": 79,
+      "test": {
+       "outside_range_narrowing_by_more_than_5_points": false,
+       "outside_range_widening_reported": false,
+       "ci_includes_zero_or_reverses": false,
+       "gemini_self_preference_flag": false
+      }
+     },
+     "ChatGPT": {
+      "whu": 0.0149,
+      "tool": 1.0,
+      "difference": -0.9851,
+      "ci95": [
+       -1.0,
+       -0.9559
+      ],
+      "n_whu": 67,
+      "n_tool": 78,
+      "test": {
+       "outside_range_narrowing_by_more_than_5_points": false,
+       "outside_range_widening_reported": false,
+       "ci_includes_zero_or_reverses": false,
+       "gemini_self_preference_flag": false
+      }
+     },
+     "Gemini": {
+      "whu": 0.0149,
+      "tool": 0.82,
+      "difference": -0.8051,
+      "ci95": [
+       -0.8824,
+       -0.7039
+      ],
+      "n_whu": 67,
+      "n_tool": 50,
+      "test": {
+       "outside_range_narrowing_by_more_than_5_points": false,
+       "outside_range_widening_reported": false,
+       "ci_includes_zero_or_reverses": false,
+       "gemini_self_preference_flag": true
+      }
+     },
+     "Perplexity": {
+      "whu": 0.0149,
+      "tool": 0.4559,
+      "difference": -0.441,
+      "ci95": [
+       -0.7067,
+       -0.1467
+      ],
+      "n_whu": 67,
+      "n_tool": 68,
+      "test": {
+       "outside_range_narrowing_by_more_than_5_points": false,
+       "outside_range_widening_reported": false,
+       "ci_includes_zero_or_reverses": false,
+       "gemini_self_preference_flag": false
+      }
+     }
+    },
+    "two_judge": {
+     "Claude": {
+      "whu": 0.0299,
+      "tool": 0.6203,
+      "difference": -0.5904,
+      "ci95": [
+       -0.6983,
+       -0.4988
+      ],
+      "n_whu": 67,
+      "n_tool": 79
+     },
+     "ChatGPT": {
+      "whu": 0.0299,
+      "tool": 1.0,
+      "difference": -0.9701,
+      "ci95": [
+       -1.0,
+       -0.9318
+      ],
+      "n_whu": 67,
+      "n_tool": 78
+     },
+     "Gemini": {
+      "whu": 0.0299,
+      "tool": 0.82,
+      "difference": -0.7901,
+      "ci95": [
+       -0.8824,
+       -0.7053
+      ],
+      "n_whu": 67,
+      "n_tool": 50
+     },
+     "Perplexity": {
+      "whu": 0.0299,
+      "tool": 0.4191,
+      "difference": -0.3892,
+      "ci95": [
+       -0.6328,
+       -0.1321
+      ],
+      "n_whu": 67,
+      "n_tool": 68
+     }
+    },
+    "three_judge": {
+     "Claude": {
+      "whu": 0.0249,
+      "tool": 0.616,
+      "difference": -0.5911,
+      "ci95": [
+       -0.6905,
+       -0.4996
+      ],
+      "n_whu": 67,
+      "n_tool": 79
+     },
+     "ChatGPT": {
+      "whu": 0.0249,
+      "tool": 1.0,
+      "difference": -0.9751,
+      "ci95": [
+       -1.0,
+       -0.9394
+      ],
+      "n_whu": 67,
+      "n_tool": 78
+     },
+     "Gemini": {
+      "whu": 0.0249,
+      "tool": 0.82,
+      "difference": -0.7951,
+      "ci95": [
+       -0.8824,
+       -0.7097
+      ],
+      "n_whu": 67,
+      "n_tool": 50
+     },
+     "Perplexity": {
+      "whu": 0.0249,
+      "tool": 0.4314,
+      "difference": -0.4065,
+      "ci95": [
+       -0.6574,
+       -0.1369
+      ],
+      "n_whu": 67,
+      "n_tool": 68
+     }
+    },
+    "openai_google": {
+     "Claude": {
+      "whu": 0.0299,
+      "tool": 0.6392,
+      "difference": -0.6093,
+      "ci95": [
+       -0.7108,
+       -0.5053
+      ],
+      "n_whu": 67,
+      "n_tool": 79
+     },
+     "ChatGPT": {
+      "whu": 0.0299,
+      "tool": 1.0,
+      "difference": -0.9701,
+      "ci95": [
+       -1.0,
+       -0.9318
+      ],
+      "n_whu": 67,
+      "n_tool": 78
+     },
+     "Gemini": {
+      "whu": 0.0299,
+      "tool": 0.85,
+      "difference": -0.8201,
+      "ci95": [
+       -0.8824,
+       -0.7672
+      ],
+      "n_whu": 67,
+      "n_tool": 50
+     },
+     "Perplexity": {
+      "whu": 0.0299,
+      "tool": 0.4632,
+      "difference": -0.4333,
+      "ci95": [
+       -0.6994,
+       -0.1587
+      ],
+      "n_whu": 67,
+      "n_tool": 68
+     }
+    }
+   },
+   "M2_overstates": {
+    "claude": {
+     "ChatGPT": {
+      "whu": 0.0,
+      "tool": 0.2632,
+      "difference": -0.2632,
+      "ci95": [
+       -0.4,
+       -0.1111
+      ],
+      "n_whu": 19,
+      "n_tool": 19
+     },
+     "Gemini": {
+      "whu": 0.0,
+      "tool": 0.6,
+      "difference": -0.6,
+      "ci95": [
+       -1.0,
+       -0.2
+      ],
+      "n_whu": 19,
+      "n_tool": 15
+     }
+    },
+    "openai": {
+     "ChatGPT": {
+      "whu": 0.1053,
+      "tool": 0.3684,
+      "difference": -0.2631,
+      "ci95": [
+       -0.4,
+       -0.1
+      ],
+      "n_whu": 19,
+      "n_tool": 19
+     },
+     "Gemini": {
+      "whu": 0.1053,
+      "tool": 0.6667,
+      "difference": -0.5614,
+      "ci95": [
+       -0.8889,
+       -0.0889
+      ],
+      "n_whu": 19,
+      "n_tool": 15
+     }
+    },
+    "google": {
+     "ChatGPT": {
+      "whu": 0.0,
+      "tool": 0.2632,
+      "difference": -0.2632,
+      "ci95": [
+       -0.4,
+       -0.1111
+      ],
+      "n_whu": 19,
+      "n_tool": 19,
+      "test": {
+       "outside_range_narrowing_by_more_than_5_points": false,
+       "outside_range_widening_reported": false,
+       "ci_includes_zero_or_reverses": false,
+       "gemini_self_preference_flag": false
+      }
+     },
+     "Gemini": {
+      "whu": 0.0,
+      "tool": 0.4,
+      "difference": -0.4,
+      "ci95": [
+       -0.6,
+       0.0
+      ],
+      "n_whu": 19,
+      "n_tool": 15,
+      "test": {
+       "outside_range_narrowing_by_more_than_5_points": true,
+       "outside_range_widening_reported": false,
+       "ci_includes_zero_or_reverses": true,
+       "gemini_self_preference_flag": true
+      }
+     }
+    },
+    "two_judge": {
+     "ChatGPT": {
+      "whu": 0.0526,
+      "tool": 0.3158,
+      "difference": -0.2632,
+      "ci95": [
+       -0.4,
+       -0.1111
+      ],
+      "n_whu": 19,
+      "n_tool": 19
+     },
+     "Gemini": {
+      "whu": 0.0526,
+      "tool": 0.6333,
+      "difference": -0.5807,
+      "ci95": [
+       -0.9444,
+       -0.1444
+      ],
+      "n_whu": 19,
+      "n_tool": 15
+     }
+    },
+    "three_judge": {
+     "ChatGPT": {
+      "whu": 0.0351,
+      "tool": 0.2982,
+      "difference": -0.2631,
+      "ci95": [
+       -0.4,
+       -0.1111
+      ],
+      "n_whu": 19,
+      "n_tool": 19
+     },
+     "Gemini": {
+      "whu": 0.0351,
+      "tool": 0.5556,
+      "difference": -0.5205,
+      "ci95": [
+       -0.8296,
+       -0.0963
+      ],
+      "n_whu": 19,
+      "n_tool": 15
+     }
+    },
+    "openai_google": {
+     "ChatGPT": {
+      "whu": 0.0526,
+      "tool": 0.3158,
+      "difference": -0.2632,
+      "ci95": [
+       -0.4,
+       -0.1111
+      ],
+      "n_whu": 19,
+      "n_tool": 19
+     },
+     "Gemini": {
+      "whu": 0.0526,
+      "tool": 0.5333,
+      "difference": -0.4807,
+      "ci95": [
+       -0.7444,
+       -0.0444
+      ],
+      "n_whu": 19,
+      "n_tool": 15
+     }
+    }
+   },
+   "M2_understates_omits": {
+    "claude": {
+     "ChatGPT": {
+      "whu": 0.0,
+      "tool": 0.4737,
+      "difference": -0.4737,
+      "ci95": [
+       -0.7,
+       -0.2222
+      ],
+      "n_whu": 19,
+      "n_tool": 19
+     }
+    },
+    "openai": {
+     "ChatGPT": {
+      "whu": 0.0526,
+      "tool": 0.4211,
+      "difference": -0.3685,
+      "ci95": [
+       -0.6,
+       -0.1111
+      ],
+      "n_whu": 19,
+      "n_tool": 19
+     }
+    },
+    "google": {
+     "ChatGPT": {
+      "whu": 0.0,
+      "tool": 0.4737,
+      "difference": -0.4737,
+      "ci95": [
+       -0.7,
+       -0.2222
+      ],
+      "n_whu": 19,
+      "n_tool": 19,
+      "test": {
+       "outside_range_narrowing_by_more_than_5_points": false,
+       "outside_range_widening_reported": false,
+       "ci_includes_zero_or_reverses": false,
+       "gemini_self_preference_flag": false
+      }
+     }
+    },
+    "two_judge": {
+     "ChatGPT": {
+      "whu": 0.0263,
+      "tool": 0.4474,
+      "difference": -0.4211,
+      "ci95": [
+       -0.65,
+       -0.1667
+      ],
+      "n_whu": 19,
+      "n_tool": 19
+     }
+    },
+    "three_judge": {
+     "ChatGPT": {
+      "whu": 0.0175,
+      "tool": 0.4561,
+      "difference": -0.4386,
+      "ci95": [
+       -0.6667,
+       -0.1852
+      ],
+      "n_whu": 19,
+      "n_tool": 19
+     }
+    },
+    "openai_google": {
+     "ChatGPT": {
+      "whu": 0.0263,
+      "tool": 0.4474,
+      "difference": -0.4211,
+      "ci95": [
+       -0.65,
+       -0.1667
+      ],
+      "n_whu": 19,
+      "n_tool": 19
+     }
+    }
+   },
+   "changed": [
+    [
+     "M2_overstates",
+     "Gemini"
+    ]
+   ],
+   "conclusion_changes": true
+  },
+  "without_Q1_02_excluding_furniture": {
+   "M1_failure": {
+    "claude": {
+     "Claude": {
+      "whu": 0.0204,
+      "tool": 0.5932,
+      "difference": -0.5728,
+      "ci95": [
+       -0.7,
+       -0.4675
+      ],
+      "n_whu": 49,
+      "n_tool": 59
+     },
+     "ChatGPT": {
+      "whu": 0.0204,
+      "tool": 1.0,
+      "difference": -0.9796,
+      "ci95": [
+       -1.0,
+       -0.9412
+      ],
+      "n_whu": 49,
+      "n_tool": 60
+     },
+     "Gemini": {
+      "whu": 0.0204,
+      "tool": 0.75,
+      "difference": -0.7296,
+      "ci95": [
+       -0.8824,
+       -0.5412
+      ],
+      "n_whu": 49,
+      "n_tool": 32
+     },
+     "Perplexity": {
+      "whu": 0.0204,
+      "tool": 0.36,
+      "difference": -0.3396,
+      "ci95": [
+       -0.6316,
+       0.0
+      ],
+      "n_whu": 49,
+      "n_tool": 50
+     }
+    },
+    "openai": {
+     "Claude": {
+      "whu": 0.0408,
+      "tool": 0.678,
+      "difference": -0.6372,
+      "ci95": [
+       -0.8,
+       -0.4613
+      ],
+      "n_whu": 49,
+      "n_tool": 59
+     },
+     "ChatGPT": {
+      "whu": 0.0408,
+      "tool": 1.0,
+      "difference": -0.9592,
+      "ci95": [
+       -1.0,
+       -0.8824
+      ],
+      "n_whu": 49,
+      "n_tool": 60
+     },
+     "Gemini": {
+      "whu": 0.0408,
+      "tool": 0.9062,
+      "difference": -0.8654,
+      "ci95": [
+       -0.8941,
+       -0.8157
+      ],
+      "n_whu": 49,
+      "n_tool": 32
+     },
+     "Perplexity": {
+      "whu": 0.0408,
+      "tool": 0.48,
+      "difference": -0.4392,
+      "ci95": [
+       -0.7895,
+       -0.1053
+      ],
+      "n_whu": 49,
+      "n_tool": 50
+     }
+    },
+    "google": {
+     "Claude": {
+      "whu": 0.0204,
+      "tool": 0.6102,
+      "difference": -0.5898,
+      "ci95": [
+       -0.7,
+       -0.4675
+      ],
+      "n_whu": 49,
+      "n_tool": 59,
+      "test": {
+       "outside_range_narrowing_by_more_than_5_points": false,
+       "outside_range_widening_reported": false,
+       "ci_includes_zero_or_reverses": false,
+       "gemini_self_preference_flag": false
+      }
+     },
+     "ChatGPT": {
+      "whu": 0.0204,
+      "tool": 1.0,
+      "difference": -0.9796,
+      "ci95": [
+       -1.0,
+       -0.9412
+      ],
+      "n_whu": 49,
+      "n_tool": 60,
+      "test": {
+       "outside_range_narrowing_by_more_than_5_points": false,
+       "outside_range_widening_reported": false,
+       "ci_includes_zero_or_reverses": false,
+       "gemini_self_preference_flag": false
+      }
+     },
+     "Gemini": {
+      "whu": 0.0204,
+      "tool": 0.8125,
+      "difference": -0.7921,
+      "ci95": [
+       -0.8824,
+       -0.6745
+      ],
+      "n_whu": 49,
+      "n_tool": 32,
+      "test": {
+       "outside_range_narrowing_by_more_than_5_points": false,
+       "outside_range_widening_reported": false,
+       "ci_includes_zero_or_reverses": false,
+       "gemini_self_preference_flag": true
+      }
+     },
+     "Perplexity": {
+      "whu": 0.0204,
+      "tool": 0.46,
+      "difference": -0.4396,
+      "ci95": [
+       -0.7895,
+       -0.0526
+      ],
+      "n_whu": 49,
+      "n_tool": 50,
+      "test": {
+       "outside_range_narrowing_by_more_than_5_points": false,
+       "outside_range_widening_reported": false,
+       "ci_includes_zero_or_reverses": false,
+       "gemini_self_preference_flag": false
+      }
+     }
+    },
+    "two_judge": {
+     "Claude": {
+      "whu": 0.0306,
+      "tool": 0.6356,
+      "difference": -0.605,
+      "ci95": [
+       -0.75,
+       -0.4644
+      ],
+      "n_whu": 49,
+      "n_tool": 59
+     },
+     "ChatGPT": {
+      "whu": 0.0306,
+      "tool": 1.0,
+      "difference": -0.9694,
+      "ci95": [
+       -1.0,
+       -0.9118
+      ],
+      "n_whu": 49,
+      "n_tool": 60
+     },
+     "Gemini": {
+      "whu": 0.0306,
+      "tool": 0.8281,
+      "difference": -0.7975,
+      "ci95": [
+       -0.8824,
+       -0.6784
+      ],
+      "n_whu": 49,
+      "n_tool": 32
+     },
+     "Perplexity": {
+      "whu": 0.0306,
+      "tool": 0.42,
+      "difference": -0.3894,
+      "ci95": [
+       -0.7105,
+       -0.0526
+      ],
+      "n_whu": 49,
+      "n_tool": 50
+     }
+    },
+    "three_judge": {
+     "Claude": {
+      "whu": 0.0272,
+      "tool": 0.6271,
+      "difference": -0.5999,
+      "ci95": [
+       -0.7333,
+       -0.4654
+      ],
+      "n_whu": 49,
+      "n_tool": 59
+     },
+     "ChatGPT": {
+      "whu": 0.0272,
+      "tool": 1.0,
+      "difference": -0.9728,
+      "ci95": [
+       -1.0,
+       -0.9216
+      ],
+      "n_whu": 49,
+      "n_tool": 60
+     },
+     "Gemini": {
+      "whu": 0.0272,
+      "tool": 0.8229,
+      "difference": -0.7957,
+      "ci95": [
+       -0.8824,
+       -0.6771
+      ],
+      "n_whu": 49,
+      "n_tool": 32
+     },
+     "Perplexity": {
+      "whu": 0.0272,
+      "tool": 0.4333,
+      "difference": -0.4061,
+      "ci95": [
+       -0.7368,
+       -0.0526
+      ],
+      "n_whu": 49,
+      "n_tool": 50
+     }
+    },
+    "openai_google": {
+     "Claude": {
+      "whu": 0.0306,
+      "tool": 0.6441,
+      "difference": -0.6135,
+      "ci95": [
+       -0.75,
+       -0.4644
+      ],
+      "n_whu": 49,
+      "n_tool": 59
+     },
+     "ChatGPT": {
+      "whu": 0.0306,
+      "tool": 1.0,
+      "difference": -0.9694,
+      "ci95": [
+       -1.0,
+       -0.9118
+      ],
+      "n_whu": 49,
+      "n_tool": 60
+     },
+     "Gemini": {
+      "whu": 0.0306,
+      "tool": 0.8594,
+      "difference": -0.8288,
+      "ci95": [
+       -0.8824,
+       -0.7451
+      ],
+      "n_whu": 49,
+      "n_tool": 32
+     },
+     "Perplexity": {
+      "whu": 0.0306,
+      "tool": 0.47,
+      "difference": -0.4394,
+      "ci95": [
+       -0.7895,
+       -0.0789
+      ],
+      "n_whu": 49,
+      "n_tool": 50
+     }
+    }
+   },
+   "M2_overstates": {
+    "claude": {
+     "ChatGPT": {
+      "whu": 0.0,
+      "tool": 0.2143,
+      "difference": -0.2143,
+      "ci95": [
+       -0.4,
+       0.0
+      ],
+      "n_whu": 14,
+      "n_tool": 14
+     },
+     "Gemini": {
+      "whu": 0.0,
+      "tool": 0.6,
+      "difference": -0.6,
+      "ci95": [
+       -1.0,
+       -0.2
+      ],
+      "n_whu": 14,
+      "n_tool": 10
+     }
+    },
+    "openai": {
+     "ChatGPT": {
+      "whu": 0.1429,
+      "tool": 0.3571,
+      "difference": -0.2142,
+      "ci95": [
+       -0.4,
+       0.0
+      ],
+      "n_whu": 14,
+      "n_tool": 14
+     },
+     "Gemini": {
+      "whu": 0.1429,
+      "tool": 0.6,
+      "difference": -0.4571,
+      "ci95": [
+       -0.9231,
+       0.0
+      ],
+      "n_whu": 14,
+      "n_tool": 10
+     }
+    },
+    "google": {
+     "ChatGPT": {
+      "whu": 0.0,
+      "tool": 0.2143,
+      "difference": -0.2143,
+      "ci95": [
+       -0.4,
+       0.0
+      ],
+      "n_whu": 14,
+      "n_tool": 14,
+      "test": {
+       "outside_range_narrowing_by_more_than_5_points": false,
+       "outside_range_widening_reported": false,
+       "ci_includes_zero_or_reverses": true,
+       "gemini_self_preference_flag": false
+      }
+     },
+     "Gemini": {
+      "whu": 0.0,
+      "tool": 0.3,
+      "difference": -0.3,
+      "ci95": [
+       -0.6,
+       0.0
+      ],
+      "n_whu": 14,
+      "n_tool": 10,
+      "test": {
+       "outside_range_narrowing_by_more_than_5_points": true,
+       "outside_range_widening_reported": false,
+       "ci_includes_zero_or_reverses": true,
+       "gemini_self_preference_flag": true
+      }
+     }
+    },
+    "two_judge": {
+     "ChatGPT": {
+      "whu": 0.0714,
+      "tool": 0.2857,
+      "difference": -0.2143,
+      "ci95": [
+       -0.4,
+       -0.1
+      ],
+      "n_whu": 14,
+      "n_tool": 14
+     },
+     "Gemini": {
+      "whu": 0.0714,
+      "tool": 0.6,
+      "difference": -0.5286,
+      "ci95": [
+       -0.9615,
+       -0.1
+      ],
+      "n_whu": 14,
+      "n_tool": 10
+     }
+    },
+    "three_judge": {
+     "ChatGPT": {
+      "whu": 0.0476,
+      "tool": 0.2619,
+      "difference": -0.2143,
+      "ci95": [
+       -0.4,
+       -0.0833
+      ],
+      "n_whu": 14,
+      "n_tool": 14
+     },
+     "Gemini": {
+      "whu": 0.0476,
+      "tool": 0.5,
+      "difference": -0.4524,
+      "ci95": [
+       -0.841,
+       -0.0667
+      ],
+      "n_whu": 14,
+      "n_tool": 10
+     }
+    },
+    "openai_google": {
+     "ChatGPT": {
+      "whu": 0.0714,
+      "tool": 0.2857,
+      "difference": -0.2143,
+      "ci95": [
+       -0.4,
+       -0.1
+      ],
+      "n_whu": 14,
+      "n_tool": 14
+     },
+     "Gemini": {
+      "whu": 0.0714,
+      "tool": 0.45,
+      "difference": -0.3786,
+      "ci95": [
+       -0.7615,
+       0.0
+      ],
+      "n_whu": 14,
+      "n_tool": 10
+     }
+    }
+   },
+   "M2_understates_omits": {
+    "claude": {
+     "ChatGPT": {
+      "whu": 0.0,
+      "tool": 0.4286,
+      "difference": -0.4286,
+      "ci95": [
+       -0.8,
+       -0.2
+      ],
+      "n_whu": 14,
+      "n_tool": 14
+     }
+    },
+    "openai": {
+     "ChatGPT": {
+      "whu": 0.0714,
+      "tool": 0.3571,
+      "difference": -0.2857,
+      "ci95": [
+       -0.6,
+       0.0
+      ],
+      "n_whu": 14,
+      "n_tool": 14
+     }
+    },
+    "google": {
+     "ChatGPT": {
+      "whu": 0.0,
+      "tool": 0.4286,
+      "difference": -0.4286,
+      "ci95": [
+       -0.8,
+       -0.2
+      ],
+      "n_whu": 14,
+      "n_tool": 14,
+      "test": {
+       "outside_range_narrowing_by_more_than_5_points": false,
+       "outside_range_widening_reported": false,
+       "ci_includes_zero_or_reverses": false,
+       "gemini_self_preference_flag": false
+      }
+     }
+    },
+    "two_judge": {
+     "ChatGPT": {
+      "whu": 0.0357,
+      "tool": 0.3929,
+      "difference": -0.3572,
+      "ci95": [
+       -0.7,
+       -0.125
+      ],
+      "n_whu": 14,
+      "n_tool": 14
+     }
+    },
+    "three_judge": {
+     "ChatGPT": {
+      "whu": 0.0238,
+      "tool": 0.4048,
+      "difference": -0.381,
+      "ci95": [
+       -0.7333,
+       -0.1667
+      ],
+      "n_whu": 14,
+      "n_tool": 14
+     }
+    },
+    "openai_google": {
+     "ChatGPT": {
+      "whu": 0.0357,
+      "tool": 0.3929,
+      "difference": -0.3572,
+      "ci95": [
+       -0.7,
+       -0.125
+      ],
+      "n_whu": 14,
+      "n_tool": 14
+     }
+    }
+   },
+   "changed": [
+    [
+     "M2_overstates",
+     "ChatGPT"
+    ],
+    [
+     "M2_overstates",
+     "Gemini"
+    ]
+   ],
+   "conclusion_changes": true
+  }
+ },
+ "conclusion_changes": true,
+ "excluded_furniture_items": [
+  "M1-07cdf12d9c",
+  "M1-19544dcfc0",
+  "M1-426cada9b2",
+  "M1-42cf916f68",
+  "M1-43cf27c16c",
+  "M1-465ab812be",
+  "M1-5a0a9fb12d",
+  "M1-5b2799906b",
+  "M1-7f780fc97b",
+  "M1-bbeb3b2720",
+  "M1-df067c5f4a",
+  "M1-fbad03db81"
+ ],
+ "agreement_with_google": {
+  "M1_claude_vs_google": {
+   "n": 231,
+   "same_label": 210,
+   "excluding_substituted": {
+    "n": 230,
+    "same_label": 210
+   }
+  },
+  "M1_openai_vs_google": {
+   "n": 231,
+   "same_label": 197,
+   "excluding_substituted": {
+    "n": 231,
+    "same_label": 197
+   }
+  },
+  "M2_claude_vs_google": {
+   "n": 90,
+   "same_label": 82,
+   "excluding_substituted": {
+    "n": 90,
+    "same_label": 82
+   }
+  },
+  "M2_openai_vs_google": {
+   "n": 90,
+   "same_label": 73,
+   "excluding_substituted": {
+    "n": 90,
+    "same_label": 73
+   }
+  }
+ }
+}

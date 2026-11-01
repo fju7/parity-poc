@@ -1,5 +1,5 @@
 {
- "written": "2026-10-31T00:35:15+00:00",
+ "written": "2026-11-01T00:55:52+00:00",
  "plan": "next_phase/validity_plan.md @ b4cf31a",
  "label": "Judged by AI models; not checked by people (check 5 aside).",
  "rule": "validity_analysis.py check3b comment block",
@@ -128,7 +128,130 @@
     }
    },
    "bias_indicated": false
+  },
+  "google_vs_claude/all_four": {
+   "difference_judge_minus_claude": {
+    "WHU": -0.0135,
+    "Claude": 0.0682,
+    "ChatGPT": null,
+    "Gemini": 0.06,
+    "Perplexity": 0.1224
+   },
+   "countable_judge_claude": {
+    "WHU": [
+     74,
+     74
+    ],
+    "Claude": [
+     44,
+     44
+    ],
+    "ChatGPT": [
+     0,
+     0
+    ],
+    "Gemini": [
+     50,
+     50
+    ],
+    "Perplexity": [
+     49,
+     49
+    ]
+   },
+   "contrast_whu_minus_other": {
+    "Claude": {
+     "value": -0.0817,
+     "ci95": [
+      -0.1525,
+      -0.0222
+     ]
+    },
+    "Gemini": {
+     "value": -0.0735,
+     "ci95": [
+      -0.1333,
+      -0.027
+     ]
+    },
+    "Perplexity": {
+     "value": -0.136,
+     "ci95": [
+      -0.2353,
+      -0.0881
+     ]
+    },
+    "others": {
+     "value": -0.0971,
+     "ci95": [
+      -0.1374,
+      -0.0738
+     ]
+    }
+   },
+   "bias_indicated": false
+  },
+  "google_vs_claude/without_Q1_02": {
+   "difference_judge_minus_claude": {
+    "WHU": -0.0182,
+    "Claude": 0.0303,
+    "ChatGPT": null,
+    "Gemini": 0.0625,
+    "Perplexity": 0.1389
+   },
+   "countable_judge_claude": {
+    "WHU": [
+     55,
+     55
+    ],
+    "Claude": [
+     33,
+     33
+    ],
+    "ChatGPT": [
+     0,
+     0
+    ],
+    "Gemini": [
+     32,
+     32
+    ],
+    "Perplexity": [
+     36,
+     36
+    ]
+   },
+   "contrast_whu_minus_other": {
+    "Claude": {
+     "value": -0.0485,
+     "ci95": [
+      -0.0833,
+      0.0
+     ]
+    },
+    "Gemini": {
+     "value": -0.0807,
+     "ci95": [
+      -0.1333,
+      -0.0185
+     ]
+    },
+    "Perplexity": {
+     "value": -0.1571,
+     "ci95": [
+      -0.2727,
+      -0.1026
+     ]
+    },
+    "others": {
+     "value": -0.0954,
+     "ci95": [
+      -0.178,
+      -0.0675
+     ]
+    }
+   },
+   "bias_indicated": false
   }
- },
- "google": "not run: check 1's labels do not exist yet"
+ }
 }

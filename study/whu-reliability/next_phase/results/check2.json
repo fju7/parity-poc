@@ -1,0 +1,761 @@
+{
+ "written": "2026-11-01T00:55:19+00:00",
+ "plan": "next_phase/validity_plan.md @ b4cf31a",
+ "label": "Judged by AI models; not checked by people (check 5 aside).",
+ "sets": {
+  "all_four": {
+   "M1_failure": {
+    "tests": {
+     "Claude": {
+      "two_judge_difference": -0.5,
+      "non_anthropic_difference": -0.5253,
+      "non_anthropic_ci95": [
+       -0.6062,
+       -0.4487
+      ],
+      "in_seven": true,
+      "ci_includes_zero": false,
+      "lead_under_half": false
+     },
+     "ChatGPT": {
+      "two_judge_difference": -0.8797,
+      "non_anthropic_difference": -0.8861,
+      "non_anthropic_ci95": [
+       -0.9125,
+       -0.859
+      ],
+      "in_seven": true,
+      "ci_includes_zero": false,
+      "lead_under_half": false
+     },
+     "Gemini": {
+      "two_judge_difference": -0.6997,
+      "non_anthropic_difference": -0.7361,
+      "non_anthropic_ci95": [
+       -0.7699,
+       -0.6923
+      ],
+      "in_seven": true,
+      "ci_includes_zero": false,
+      "lead_under_half": false
+     },
+     "Perplexity": {
+      "two_judge_difference": -0.2988,
+      "non_anthropic_difference": -0.3493,
+      "non_anthropic_ci95": [
+       -0.5754,
+       -0.0729
+      ],
+      "in_seven": true,
+      "ci_includes_zero": false,
+      "lead_under_half": false
+     }
+    },
+    "rates": {
+     "WHU": {
+      "two_judge": 0.1203,
+      "non_anthropic": 0.1139,
+      "claude_judge": 0.0886,
+      "n": 79
+     },
+     "Claude": {
+      "two_judge": 0.6203,
+      "non_anthropic": 0.6392,
+      "claude_judge": 0.5696,
+      "n": 79
+     },
+     "ChatGPT": {
+      "two_judge": 1.0,
+      "non_anthropic": 1.0,
+      "claude_judge": 1.0,
+      "n": 78
+     },
+     "Gemini": {
+      "two_judge": 0.82,
+      "non_anthropic": 0.85,
+      "claude_judge": 0.76,
+      "n": 50
+     },
+     "Perplexity": {
+      "two_judge": 0.4191,
+      "non_anthropic": 0.4632,
+      "claude_judge": 0.3676,
+      "n": 68
+     }
+    },
+    "self_preference": {
+     "claude_minus_non_anthropic": {
+      "WHU": -0.0253,
+      "Claude": -0.0696,
+      "ChatGPT": 0.0,
+      "Gemini": -0.09,
+      "Perplexity": -0.0956
+     },
+     "non_claude_tools_mean": -0.0619,
+     "flag_WHU": false,
+     "flag_Claude": false
+    }
+   },
+   "M2_overstates": {
+    "tests": {
+     "Claude": {
+      "two_judge_difference": -0.079,
+      "non_anthropic_difference": -0.1053,
+      "non_anthropic_ci95": [
+       -0.2368,
+       0.0
+      ],
+      "in_seven": false,
+      "ci_includes_zero": true,
+      "lead_under_half": false
+     },
+     "ChatGPT": {
+      "two_judge_difference": -0.2632,
+      "non_anthropic_difference": -0.2632,
+      "non_anthropic_ci95": [
+       -0.4,
+       -0.1111
+      ],
+      "in_seven": true,
+      "ci_includes_zero": false,
+      "lead_under_half": false
+     },
+     "Gemini": {
+      "two_judge_difference": -0.5807,
+      "non_anthropic_difference": -0.4807,
+      "non_anthropic_ci95": [
+       -0.7444,
+       -0.0444
+      ],
+      "in_seven": true,
+      "ci_includes_zero": false,
+      "lead_under_half": false
+     },
+     "Perplexity": {
+      "two_judge_difference": 0.0263,
+      "non_anthropic_difference": 0.0263,
+      "non_anthropic_ci95": [
+       0.0,
+       0.075
+      ],
+      "in_seven": false,
+      "ci_includes_zero": true,
+      "lead_under_half": false
+     }
+    },
+    "rates": {
+     "WHU": {
+      "two_judge": 0.0526,
+      "non_anthropic": 0.0526,
+      "claude_judge": 0.0,
+      "n": 19
+     },
+     "Claude": {
+      "two_judge": 0.1316,
+      "non_anthropic": 0.1579,
+      "claude_judge": 0.0526,
+      "n": 19
+     },
+     "ChatGPT": {
+      "two_judge": 0.3158,
+      "non_anthropic": 0.3158,
+      "claude_judge": 0.2632,
+      "n": 19
+     },
+     "Gemini": {
+      "two_judge": 0.6333,
+      "non_anthropic": 0.5333,
+      "claude_judge": 0.6,
+      "n": 15
+     },
+     "Perplexity": {
+      "two_judge": 0.0263,
+      "non_anthropic": 0.0263,
+      "claude_judge": 0.0,
+      "n": 19
+     }
+    },
+    "self_preference": {
+     "claude_minus_non_anthropic": {
+      "WHU": -0.0526,
+      "Claude": -0.1053,
+      "ChatGPT": -0.0526,
+      "Gemini": 0.0667,
+      "Perplexity": -0.0263
+     },
+     "non_claude_tools_mean": -0.0041,
+     "flag_WHU": false,
+     "flag_Claude": true
+    }
+   },
+   "M2_understates_omits": {
+    "tests": {
+     "Claude": {
+      "two_judge_difference": -0.0526,
+      "non_anthropic_difference": -0.0526,
+      "non_anthropic_ci95": [
+       -0.1579,
+       0.0556
+      ],
+      "in_seven": false,
+      "ci_includes_zero": true,
+      "lead_under_half": false
+     },
+     "ChatGPT": {
+      "two_judge_difference": -0.4211,
+      "non_anthropic_difference": -0.4211,
+      "non_anthropic_ci95": [
+       -0.65,
+       -0.1667
+      ],
+      "in_seven": true,
+      "ci_includes_zero": false,
+      "lead_under_half": false
+     },
+     "Gemini": {
+      "two_judge_difference": -0.0737,
+      "non_anthropic_difference": -0.0737,
+      "non_anthropic_ci95": [
+       -0.2,
+       0.0556
+      ],
+      "in_seven": false,
+      "ci_includes_zero": true,
+      "lead_under_half": false
+     },
+     "Perplexity": {
+      "two_judge_difference": -0.0526,
+      "non_anthropic_difference": -0.0526,
+      "non_anthropic_ci95": [
+       -0.15,
+       0.0
+      ],
+      "in_seven": false,
+      "ci_includes_zero": true,
+      "lead_under_half": false
+     }
+    },
+    "rates": {
+     "WHU": {
+      "two_judge": 0.0263,
+      "non_anthropic": 0.0263,
+      "claude_judge": 0.0,
+      "n": 19
+     },
+     "Claude": {
+      "two_judge": 0.0789,
+      "non_anthropic": 0.0789,
+      "claude_judge": 0.1053,
+      "n": 19
+     },
+     "ChatGPT": {
+      "two_judge": 0.4474,
+      "non_anthropic": 0.4474,
+      "claude_judge": 0.4737,
+      "n": 19
+     },
+     "Gemini": {
+      "two_judge": 0.1,
+      "non_anthropic": 0.1,
+      "claude_judge": 0.1333,
+      "n": 15
+     },
+     "Perplexity": {
+      "two_judge": 0.0789,
+      "non_anthropic": 0.0789,
+      "claude_judge": 0.1053,
+      "n": 19
+     }
+    },
+    "self_preference": {
+     "claude_minus_non_anthropic": {
+      "WHU": -0.0263,
+      "Claude": 0.0264,
+      "ChatGPT": 0.0263,
+      "Gemini": 0.0333,
+      "Perplexity": 0.0264
+     },
+     "non_claude_tools_mean": 0.0287,
+     "flag_WHU": true,
+     "flag_Claude": false
+    }
+   },
+   "M2_overstates_contradicts": {
+    "tests": {
+     "Claude": {
+      "two_judge_difference": -0.079,
+      "non_anthropic_difference": -0.1053,
+      "non_anthropic_ci95": [
+       -0.2368,
+       0.0
+      ],
+      "in_seven": false,
+      "ci_includes_zero": true,
+      "lead_under_half": false
+     },
+     "ChatGPT": {
+      "two_judge_difference": -0.2632,
+      "non_anthropic_difference": -0.2632,
+      "non_anthropic_ci95": [
+       -0.4,
+       -0.1111
+      ],
+      "in_seven": false,
+      "ci_includes_zero": false,
+      "lead_under_half": false
+     },
+     "Gemini": {
+      "two_judge_difference": -0.6141,
+      "non_anthropic_difference": -0.5474,
+      "non_anthropic_ci95": [
+       -0.9,
+       -0.0444
+      ],
+      "in_seven": false,
+      "ci_includes_zero": false,
+      "lead_under_half": false
+     },
+     "Perplexity": {
+      "two_judge_difference": 0.0263,
+      "non_anthropic_difference": 0.0263,
+      "non_anthropic_ci95": [
+       0.0,
+       0.075
+      ],
+      "in_seven": false,
+      "ci_includes_zero": true,
+      "lead_under_half": false
+     }
+    },
+    "rates": {
+     "WHU": {
+      "two_judge": 0.0526,
+      "non_anthropic": 0.0526,
+      "claude_judge": 0.0,
+      "n": 19
+     },
+     "Claude": {
+      "two_judge": 0.1316,
+      "non_anthropic": 0.1579,
+      "claude_judge": 0.0526,
+      "n": 19
+     },
+     "ChatGPT": {
+      "two_judge": 0.3158,
+      "non_anthropic": 0.3158,
+      "claude_judge": 0.2632,
+      "n": 19
+     },
+     "Gemini": {
+      "two_judge": 0.6667,
+      "non_anthropic": 0.6,
+      "claude_judge": 0.6,
+      "n": 15
+     },
+     "Perplexity": {
+      "two_judge": 0.0263,
+      "non_anthropic": 0.0263,
+      "claude_judge": 0.0,
+      "n": 19
+     }
+    },
+    "self_preference": {
+     "claude_minus_non_anthropic": {
+      "WHU": -0.0526,
+      "Claude": -0.1053,
+      "ChatGPT": -0.0526,
+      "Gemini": 0.0,
+      "Perplexity": -0.0263
+     },
+     "non_claude_tools_mean": -0.0263,
+     "flag_WHU": false,
+     "flag_Claude": true
+    }
+   },
+   "changed": [],
+   "conclusion_changes": false
+  },
+  "without_Q1_02": {
+   "M1_failure": {
+    "tests": {
+     "Claude": {
+      "two_judge_difference": -0.5,
+      "non_anthropic_difference": -0.517,
+      "non_anthropic_ci95": [
+       -0.65,
+       -0.4211
+      ],
+      "in_seven": true,
+      "ci_includes_zero": false,
+      "lead_under_half": false
+     },
+     "ChatGPT": {
+      "two_judge_difference": -0.8644,
+      "non_anthropic_difference": -0.8729,
+      "non_anthropic_ci95": [
+       -0.9,
+       -0.85
+      ],
+      "in_seven": true,
+      "ci_includes_zero": false,
+      "lead_under_half": false
+     },
+     "Gemini": {
+      "two_judge_difference": -0.6925,
+      "non_anthropic_difference": -0.7323,
+      "non_anthropic_ci95": [
+       -0.7824,
+       -0.6893
+      ],
+      "in_seven": true,
+      "ci_includes_zero": false,
+      "lead_under_half": false
+     },
+     "Perplexity": {
+      "two_judge_difference": -0.2844,
+      "non_anthropic_difference": -0.3429,
+      "non_anthropic_ci95": [
+       -0.6395,
+       0.0211
+      ],
+      "in_seven": true,
+      "ci_includes_zero": true,
+      "lead_under_half": false
+     }
+    },
+    "rates": {
+     "WHU": {
+      "two_judge": 0.1356,
+      "non_anthropic": 0.1271,
+      "claude_judge": 0.1017,
+      "n": 59
+     },
+     "Claude": {
+      "two_judge": 0.6356,
+      "non_anthropic": 0.6441,
+      "claude_judge": 0.5932,
+      "n": 59
+     },
+     "ChatGPT": {
+      "two_judge": 1.0,
+      "non_anthropic": 1.0,
+      "claude_judge": 1.0,
+      "n": 60
+     },
+     "Gemini": {
+      "two_judge": 0.8281,
+      "non_anthropic": 0.8594,
+      "claude_judge": 0.75,
+      "n": 32
+     },
+     "Perplexity": {
+      "two_judge": 0.42,
+      "non_anthropic": 0.47,
+      "claude_judge": 0.36,
+      "n": 50
+     }
+    },
+    "self_preference": {
+     "claude_minus_non_anthropic": {
+      "WHU": -0.0254,
+      "Claude": -0.0509,
+      "ChatGPT": 0.0,
+      "Gemini": -0.1094,
+      "Perplexity": -0.11
+     },
+     "non_claude_tools_mean": -0.0731,
+     "flag_WHU": false,
+     "flag_Claude": false
+    }
+   },
+   "M2_overstates": {
+    "tests": {
+     "Claude": {
+      "two_judge_difference": -0.0715,
+      "non_anthropic_difference": -0.1072,
+      "non_anthropic_ci95": [
+       -0.3,
+       0.0
+      ],
+      "in_seven": false,
+      "ci_includes_zero": true,
+      "lead_under_half": false
+     },
+     "ChatGPT": {
+      "two_judge_difference": -0.2143,
+      "non_anthropic_difference": -0.2143,
+      "non_anthropic_ci95": [
+       -0.4,
+       -0.1
+      ],
+      "in_seven": true,
+      "ci_includes_zero": false,
+      "lead_under_half": false
+     },
+     "Gemini": {
+      "two_judge_difference": -0.5286,
+      "non_anthropic_difference": -0.3786,
+      "non_anthropic_ci95": [
+       -0.7615,
+       0.0
+      ],
+      "in_seven": true,
+      "ci_includes_zero": true,
+      "lead_under_half": false
+     },
+     "Perplexity": {
+      "two_judge_difference": 0.0357,
+      "non_anthropic_difference": 0.0357,
+      "non_anthropic_ci95": [
+       0.0,
+       0.1
+      ],
+      "in_seven": false,
+      "ci_includes_zero": true,
+      "lead_under_half": false
+     }
+    },
+    "rates": {
+     "WHU": {
+      "two_judge": 0.0714,
+      "non_anthropic": 0.0714,
+      "claude_judge": 0.0,
+      "n": 14
+     },
+     "Claude": {
+      "two_judge": 0.1429,
+      "non_anthropic": 0.1786,
+      "claude_judge": 0.0714,
+      "n": 14
+     },
+     "ChatGPT": {
+      "two_judge": 0.2857,
+      "non_anthropic": 0.2857,
+      "claude_judge": 0.2143,
+      "n": 14
+     },
+     "Gemini": {
+      "two_judge": 0.6,
+      "non_anthropic": 0.45,
+      "claude_judge": 0.6,
+      "n": 10
+     },
+     "Perplexity": {
+      "two_judge": 0.0357,
+      "non_anthropic": 0.0357,
+      "claude_judge": 0.0,
+      "n": 14
+     }
+    },
+    "self_preference": {
+     "claude_minus_non_anthropic": {
+      "WHU": -0.0714,
+      "Claude": -0.1072,
+      "ChatGPT": -0.0714,
+      "Gemini": 0.15,
+      "Perplexity": -0.0357
+     },
+     "non_claude_tools_mean": 0.0143,
+     "flag_WHU": true,
+     "flag_Claude": true
+    }
+   },
+   "M2_understates_omits": {
+    "tests": {
+     "Claude": {
+      "two_judge_difference": -0.0357,
+      "non_anthropic_difference": -0.0357,
+      "non_anthropic_ci95": [
+       -0.2,
+       0.1
+      ],
+      "in_seven": false,
+      "ci_includes_zero": true,
+      "lead_under_half": false
+     },
+     "ChatGPT": {
+      "two_judge_difference": -0.3572,
+      "non_anthropic_difference": -0.3572,
+      "non_anthropic_ci95": [
+       -0.7,
+       -0.125
+      ],
+      "in_seven": true,
+      "ci_includes_zero": false,
+      "lead_under_half": false
+     },
+     "Gemini": {
+      "two_judge_difference": -0.0643,
+      "non_anthropic_difference": -0.0643,
+      "non_anthropic_ci95": [
+       -0.2,
+       0.1
+      ],
+      "in_seven": false,
+      "ci_includes_zero": true,
+      "lead_under_half": false
+     },
+     "Perplexity": {
+      "two_judge_difference": -0.0714,
+      "non_anthropic_difference": -0.0714,
+      "non_anthropic_ci95": [
+       -0.2,
+       0.0
+      ],
+      "in_seven": false,
+      "ci_includes_zero": true,
+      "lead_under_half": false
+     }
+    },
+    "rates": {
+     "WHU": {
+      "two_judge": 0.0357,
+      "non_anthropic": 0.0357,
+      "claude_judge": 0.0,
+      "n": 14
+     },
+     "Claude": {
+      "two_judge": 0.0714,
+      "non_anthropic": 0.0714,
+      "claude_judge": 0.0714,
+      "n": 14
+     },
+     "ChatGPT": {
+      "two_judge": 0.3929,
+      "non_anthropic": 0.3929,
+      "claude_judge": 0.4286,
+      "n": 14
+     },
+     "Gemini": {
+      "two_judge": 0.1,
+      "non_anthropic": 0.1,
+      "claude_judge": 0.1,
+      "n": 10
+     },
+     "Perplexity": {
+      "two_judge": 0.1071,
+      "non_anthropic": 0.1071,
+      "claude_judge": 0.1429,
+      "n": 14
+     }
+    },
+    "self_preference": {
+     "claude_minus_non_anthropic": {
+      "WHU": -0.0357,
+      "Claude": 0.0,
+      "ChatGPT": 0.0357,
+      "Gemini": 0.0,
+      "Perplexity": 0.0358
+     },
+     "non_claude_tools_mean": 0.0238,
+     "flag_WHU": true,
+     "flag_Claude": false
+    }
+   },
+   "M2_overstates_contradicts": {
+    "tests": {
+     "Claude": {
+      "two_judge_difference": -0.0715,
+      "non_anthropic_difference": -0.1072,
+      "non_anthropic_ci95": [
+       -0.3,
+       0.0
+      ],
+      "in_seven": false,
+      "ci_includes_zero": true,
+      "lead_under_half": false
+     },
+     "ChatGPT": {
+      "two_judge_difference": -0.2143,
+      "non_anthropic_difference": -0.2143,
+      "non_anthropic_ci95": [
+       -0.4,
+       -0.1
+      ],
+      "in_seven": false,
+      "ci_includes_zero": false,
+      "lead_under_half": false
+     },
+     "Gemini": {
+      "two_judge_difference": -0.5286,
+      "non_anthropic_difference": -0.3786,
+      "non_anthropic_ci95": [
+       -0.7615,
+       0.0
+      ],
+      "in_seven": false,
+      "ci_includes_zero": true,
+      "lead_under_half": false
+     },
+     "Perplexity": {
+      "two_judge_difference": 0.0357,
+      "non_anthropic_difference": 0.0357,
+      "non_anthropic_ci95": [
+       0.0,
+       0.1
+      ],
+      "in_seven": false,
+      "ci_includes_zero": true,
+      "lead_under_half": false
+     }
+    },
+    "rates": {
+     "WHU": {
+      "two_judge": 0.0714,
+      "non_anthropic": 0.0714,
+      "claude_judge": 0.0,
+      "n": 14
+     },
+     "Claude": {
+      "two_judge": 0.1429,
+      "non_anthropic": 0.1786,
+      "claude_judge": 0.0714,
+      "n": 14
+     },
+     "ChatGPT": {
+      "two_judge": 0.2857,
+      "non_anthropic": 0.2857,
+      "claude_judge": 0.2143,
+      "n": 14
+     },
+     "Gemini": {
+      "two_judge": 0.6,
+      "non_anthropic": 0.45,
+      "claude_judge": 0.6,
+      "n": 10
+     },
+     "Perplexity": {
+      "two_judge": 0.0357,
+      "non_anthropic": 0.0357,
+      "claude_judge": 0.0,
+      "n": 14
+     }
+    },
+    "self_preference": {
+     "claude_minus_non_anthropic": {
+      "WHU": -0.0714,
+      "Claude": -0.1072,
+      "ChatGPT": -0.0714,
+      "Gemini": 0.15,
+      "Perplexity": -0.0357
+     },
+     "non_claude_tools_mean": 0.0143,
+     "flag_WHU": true,
+     "flag_Claude": true
+    }
+   },
+   "changed": [
+    [
+     "M1_failure",
+     "Perplexity"
+    ],
+    [
+     "M2_overstates",
+     "Gemini"
+    ]
+   ],
+   "conclusion_changes": true
+  }
+ },
+ "conclusion_changes": false
+}
