@@ -1,0 +1,27 @@
+# WHU validity check 4: second answer keys (gemini-4-argon), sha256 manifest. Keys and logs are private,
+# ~/Projects/whu-study-private/keys2/<question>/; only these hashes are committed (validity_plan.md §4).
+# sha256  path (relative to ~/Projects/whu-study-private/keys2/)
+6d5722423150611bf52b6acfe796dfde6b821a112bf5fdb655ed330f13be1e4d  WHU-Q1-01/key.json
+a9aefcc8122e6552ae6fd7a36e749d93ac11cf8773cd5206ed97c0063b736403  WHU-Q1-01/check_log.json
+98e698f6277c46eb7f12b268eae485f7c1341bdbebeecaf84d3765cefc75612d  WHU-Q1-01/draft_reply.txt
+b7d51fc1c4151e6306994af6b65f69cefd4ccdfca69a23e543c9ffeb419430da  WHU-Q1-01/check_reply.txt
+6e252f9e128f61da6c4fc3f1c6ddcff1aef06df28a5fd4869b69a0e7a173bd29  WHU-Q1-02/key.json
+9674bbe58a34ad282988a09886a8f45bcf166d753219403a3db763f966fbf1d0  WHU-Q1-02/check_log.json
+9c76845237877faf0b74d47c9e17112ff67a5d7a813b19ff19d8216470236892  WHU-Q1-02/draft_reply.txt
+70449cfb3f62f1b34d11c73bc20aab12dfdd2bdc8d79867ede729cdc69120ae2  WHU-Q1-02/check_reply.txt
+56952c2f4c282a80be62a4f7054249cb39bb900e3e70a5b1ea066c8808afb5a1  WHU-Q1-03/key.json
+dc5484c4723a6657a934c746066d3ffd1e1b65ae0d7591ce4b4a06fe11095157  WHU-Q1-03/check_log.json
+787d61d011ac4ee8602553e468c91e7377745c471f6d51617b43ac58e58ff55f  WHU-Q1-03/draft_reply.txt
+6c86fb1d64cc247026d8e358a55f51f54d4c5ffbe043da84b2351fa770b9e6fa  WHU-Q1-03/check_reply.txt
+696be20502685fac851bb2172992904b243ad45d3768af06d9e916518509c07c  WHU-Q1-04/key.json
+4e7828601669b0c9020f079cd8e68262620d0d58ba7d7b93fb6ae849e92685b1  WHU-Q1-04/check_log.json
+e76ae961c4c3dec0234374ba36689710733e99a8fbe7ee99736ffae95a04ae29  WHU-Q1-04/draft_reply.txt
+bc4d9295c3b5e9df8a2de80ebcb87d0cbba9e953fb677ed0a4efc4a96889c1ea  WHU-Q1-04/check_reply.txt
+b80587de38bdbc7b601e1a11fa7ef76bf643782f7cc3d7f017efacaf470cfed3  WHU-S01/key.json
+6bb78f45587641c9092dce2ab2e62954cf7ef0a6a7183366c23b4b17832e01f0  WHU-S01/check_log.json
+284e22aed1a838b35d4811fd0bb27148624d6ccaf459be2fe1f8703bcefa37bc  WHU-S01/draft_reply.txt
+70449cfb3f62f1b34d11c73bc20aab12dfdd2bdc8d79867ede729cdc69120ae2  WHU-S01/check_reply.txt
+9d55b6a3d11873348dfd62671db8d52b82d36250dc92373d3d88b138f9feb36d  WHU-S02/key.json
+ac48eecd1129f9697a32fa10e839eedd0ca78165e35bd5a2d2fc586bc37465b6  WHU-S02/check_log.json
+ca4351861fc6154673c2d6d159cfe34050aea3ad24cecf446d74ad4e7b66af14  WHU-S02/draft_reply.txt
+70449cfb3f62f1b34d11c73bc20aab12dfdd2bdc8d79867ede729cdc69120ae2  WHU-S02/check_reply.txt
