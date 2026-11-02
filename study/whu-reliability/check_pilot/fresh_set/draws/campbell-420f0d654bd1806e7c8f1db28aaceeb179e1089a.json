@@ -1,0 +1,153 @@
+{
+ "round": "check-fresh-set",
+ "frame_file": "frames/campbell.json",
+ "frame_sha256": "9f3754518946f0de778469587a6a7c5e8f4a1201dcd7cf9f62f60632c69b295f",
+ "commit": "420f0d654bd1806e7c8f1db28aaceeb179e1089a",
+ "seed": 377129068981367434473880518897517881705780807834,
+ "seed_rule": "seed = int(<full 40-character freeze commit hash>, 16) (protocol rev 38); shuffled with random.Random(\"%d/check-fresh-set\" % seed) (pilot doc §16.1)",
+ "procedure": "check_pilot/fresh_draw.py (round1_draw.py's procedure): random.Random(\"%d/check-fresh-set\" % seed).shuffle of the frame's eligible numbers k (as frames.draw_study); in that order (a) statement hash (IPCC), (b) not used before, (c) duplicate test, (d) different AR6 report (IPCC's second), (e) Option 2 (Cochrane, Campbell); the first that passes all is the draw",
+ "whu_questions": {
+  "WHU-001 melanoma (personalised mRNA cancer vaccine)": {
+   "pattern": "\\bmelanoma|\\bm?RNA[- ](?:based )?(?:cancer )?vaccin|personali[sz]ed (?:cancer )?vaccin",
+   "applied_to": "text"
+  },
+  "WHU-002 cdk46 (CDK4/6 inhibitors)": {
+   "pattern": "\\bCDK ?4/6|\\bCDK4\\b|palbociclib|ribociclib|abemaciclib|cyclin[- ]dependent kinase 4",
+   "applied_to": "text"
+  },
+  "WHU-003 deskilling (AI use and human cognition)": {
+   "pattern": "(?:artificial intelligence|\\bAI\\b|large language model|\\bLLMs?\\b|chatbot|ChatGPT|generative).{0,80}(?:cogniti|critical thinking|deskill|skill|learning|memory|reasoning)|(?:cogniti|critical thinking|deskill)\\w*.{0,80}(?:artificial intelligence|\\bAI\\b|large language model|chatbot)",
+   "applied_to": "text"
+  },
+  "T01 exercise and depression": {
+   "pattern": "(?:exercise|physical activity|physical training|yoga|walking).{0,80}depress|depress\\w*.{0,80}(?:exercise|physical activity)",
+   "applied_to": "text"
+  },
+  "T02 / WHU-P02 ultra-processed foods": {
+   "pattern": "ultra-?processed|\\bprocessed foods?\\b|\\bNOVA\\b",
+   "applied_to": "text"
+  },
+  "T03 intermittent fasting": {
+   "pattern": "intermittent fasting|time-restricted (?:eating|feeding)|alternate[- ]day fasting|\\b5:2\\b|periodic fasting",
+   "applied_to": "text"
+  },
+  "T04 vitamin D (supplementation in older adults)": {
+   "pattern": "^(?=.*\\b(?:vitamin D|cholecalciferol|ergocalciferol|calcifediol|calcitriol)\\b)(?=.*\\b(?:older (?:adults?|people|persons?|women|men|individuals|patients)|elderly|aged (?:60|65|70)|over (?:60|65|70)|(?:60|65|70) years (?:and|or) (?:over|older)|later life|old age|seniors?|geriatric|nursing homes?|care homes?|long-term care))",
+   "applied_to": "text"
+  },
+  "WHU-P04 (have the world's greenhouse gas emissions grown faster in recent decades than in earlier ones?)": {
+   "pattern": "(?=.*\\b(?:greenhouse gas|GHG|CO ?2|CO₂|carbon dioxide)\\b[^.]{0,60}\\bemissions?\\b[^.]{0,120}\\b(?:ha(?:ve|s) (?:continued to )?(?:rise|risen|increased|grown)|grew|rose|growth|higher than in))(?=.*\\b(?:since (?:18|19|20)\\d\\d|(?:19|20)\\d\\d\\s*[–-]\\s*(?:19|20)\\d\\d|(?:previous|past|last) decades?|between (?:19|20)\\d\\d and)\\b)",
+   "applied_to": "first sentence"
+  },
+  "WHU-S01 (rapid molecular tests for tuberculosis)": {
+   "pattern": "(?=.*\\btubercul)(?=.*(?:nucleic acid|molecular|Xpert|NAAT|\\bPCR\\b|rapid (?:diagnostic )?test))",
+   "applied_to": "text"
+  },
+  "WHU-S05 (undernutrition as a risk factor for tuberculosis)": {
+   "pattern": "(?=.*\\btubercul)(?=.*(?:undernutrition|malnutrition|undernourish|nutrition|body mass index|\\bBMI\\b|food))",
+   "applied_to": "text"
+  },
+  "WHU-S02 (CBT delivery formats for adolescent depression)": {
+   "pattern": "(?=.*(?:cognitive behaviou?ral|\\bCBT\\b))(?=.*(?:adolescen|teen|youth|young people|children))(?=.*depress)",
+   "applied_to": "text"
+  },
+  "WHU-S06 (arts programmes and youth offending)": {
+   "pattern": "(?=.*\\b(?:arts?|music|drama|theatre|creative)\\b)(?=.*(?:offend|criminal|justice|delinquen|crime))",
+   "applied_to": "text"
+  },
+  "WHU-S03 (public involvement in climate policy)": {
+   "pattern": "(?=.*\\b(?:public|citizens?|stakeholders?|communit(?:y|ies)|people)\\b[^.]{0,60}\\b(?:participat|involve|engage|deliberat|assembl))(?=.*\\b(?:climate|mitigation|emissions?)\\b)",
+   "applied_to": "first sentence"
+  },
+  "WHU-S04 (city growth and coping with climate change)": {
+   "pattern": "(?=.*\\b(?:urbani[sz]\\w*|cities|city|urban growth)\\b)(?=.*\\b(?:adapt\\w*|resilien\\w*|vulnerab\\w*|cope|coping)\\b)",
+   "applied_to": "first sentence"
+  },
+  "WHU-S07 (urban form and transport emissions)": {
+   "pattern": "(?=.*\\b(?:urban form|compact|densit\\w*|land[- ]use|spatial planning|mixed use)\\b)(?=.*\\b(?:transport|travel|mobility|vehicle)\\w*)",
+   "applied_to": "first sentence"
+  },
+  "WHU-S08 (settlement planning and climate resilience)": {
+   "pattern": "(?=.*\\b(?:design|planning|plan)\\b[^.]{0,80}\\b(?:settlements?|towns?|cities|urban|rural|infrastructure)\\b|.*\\b(?:settlement|land[- ]use|spatial|urban) planning\\b)(?=.*\\b(?:resilien\\w*|adapt\\w*|climate)\\b)",
+   "applied_to": "first sentence"
+  },
+  "WHU-Q1-01 (digital tracking, decision support and client reminders in primary care)": {
+   "pattern": "(?=.*(?:digital|mobile|mHealth|electronic|tablet|phone|SMS|text messag))(?=.*(?:tracking|decision support|client communication|reminder))",
+   "applied_to": "text"
+  },
+  "WHU-Q1-02 (education programmes for children with disabilities)": {
+   "pattern": "(?=.*disabilit)(?=.*(?:educat|school|learning))",
+   "applied_to": "text"
+  },
+  "WHU-Q1-03 (further warming: water cycle, extremes, ice, sea level, oceans)": {
+   "pattern": "(?=.*\\b(?:further|continued|future|additional|every increment of) (?:global )?warming\\b)(?=.*\\b(?:water cycle|precipitation|sea level|ice|ocean|extremes?)\\b)",
+   "applied_to": "first sentence"
+  },
+  "WHU-Q1-04 (carbon dioxide removal and net zero)": {
+   "pattern": "carbon dioxide removal|\\bCDR\\b|remov\\w* (?:of )?(?:CO ?2|CO₂|carbon dioxide)|negative emissions|direct air (?:carbon )?capture|\\bBECCS\\b|\\bDACCS\\b",
+   "applied_to": "text"
+  },
+  "WHU-P03 (antimalarial prophylaxis)": {
+   "pattern": "antimalarial|anti-malarial|malaria\\w* (?:chemo)?prophyla|mefloquine|chloroquine|atovaquone|doxycycline[^.]{0,80}malaria",
+   "applied_to": "text"
+  }
+ },
+ "used_entries": {
+  "10.1002/cl2.1376": "WHU-S02",
+  "10.1002/cl2.1377": "WHU-S06",
+  "10.1002/cl2.70016": "WHU-Q1-02"
+ },
+ "draws_wanted": 2,
+ "eligible": 24,
+ "checked": 2,
+ "drawn": [
+  {
+   "n": 32,
+   "pmid": "38798976",
+   "doi": "10.1002/cl2.1404",
+   "title": "The effects of aftercare/resettlement services on crime and violence in children and youth: A systematic review.",
+   "date": "2024-05-25"
+  },
+  {
+   "n": 50,
+   "pmid": "39211334",
+   "doi": "10.1002/cl2.1419",
+   "title": "Psychometric properties of instruments for measuring abuse of older people in community and institutional settings: A systematic review.",
+   "date": "2024-08-29"
+  }
+ ],
+ "drawn_at": "2026-11-02T11:43:09+00:00",
+ "log": [
+  {
+   "checked": 1,
+   "k": 7,
+   "n": 32,
+   "id": "38798976",
+   "text_sha256": "79cf1e6a6721c5d075fd45d996d69b7885cd1a64644dc31d580fa8387d683554",
+   "option2": {
+    "europepmc_license": "cc by",
+    "pmcid": "PMC11128035",
+    "fulltext_status": 200,
+    "fulltext_content_type": "application/xml"
+   },
+   "result": "drawn",
+   "draw": 1
+  },
+  {
+   "checked": 2,
+   "k": 10,
+   "n": 50,
+   "id": "39211334",
+   "text_sha256": "c31c3f695aaaeb28ec96926096a70e6b41773abd607fca14297ef9352076d442",
+   "option2": {
+    "europepmc_license": "cc by",
+    "pmcid": "PMC11358705",
+    "fulltext_status": 200,
+    "fulltext_content_type": "application/xml"
+   },
+   "result": "drawn",
+   "draw": 2
+  }
+ ],
+ "seed_label": "377129068981367434473880518897517881705780807834/check-fresh-set"
+}

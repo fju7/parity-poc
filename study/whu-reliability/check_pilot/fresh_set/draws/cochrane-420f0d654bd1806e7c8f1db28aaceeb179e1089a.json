@@ -1,0 +1,294 @@
+{
+ "round": "check-fresh-set",
+ "frame_file": "frames/cochrane.json",
+ "frame_sha256": "2122300fbc0d52704fdda7310448dc60788662964488f199a34bb233dd62e484",
+ "commit": "420f0d654bd1806e7c8f1db28aaceeb179e1089a",
+ "seed": 377129068981367434473880518897517881705780807834,
+ "seed_rule": "seed = int(<full 40-character freeze commit hash>, 16) (protocol rev 38); shuffled with random.Random(\"%d/check-fresh-set\" % seed) (pilot doc §16.1)",
+ "procedure": "check_pilot/fresh_draw.py (round1_draw.py's procedure): random.Random(\"%d/check-fresh-set\" % seed).shuffle of the frame's eligible numbers k (as frames.draw_study); in that order (a) statement hash (IPCC), (b) not used before, (c) duplicate test, (d) different AR6 report (IPCC's second), (e) Option 2 (Cochrane, Campbell); the first that passes all is the draw",
+ "whu_questions": {
+  "WHU-001 melanoma (personalised mRNA cancer vaccine)": {
+   "pattern": "\\bmelanoma|\\bm?RNA[- ](?:based )?(?:cancer )?vaccin|personali[sz]ed (?:cancer )?vaccin",
+   "applied_to": "text"
+  },
+  "WHU-002 cdk46 (CDK4/6 inhibitors)": {
+   "pattern": "\\bCDK ?4/6|\\bCDK4\\b|palbociclib|ribociclib|abemaciclib|cyclin[- ]dependent kinase 4",
+   "applied_to": "text"
+  },
+  "WHU-003 deskilling (AI use and human cognition)": {
+   "pattern": "(?:artificial intelligence|\\bAI\\b|large language model|\\bLLMs?\\b|chatbot|ChatGPT|generative).{0,80}(?:cogniti|critical thinking|deskill|skill|learning|memory|reasoning)|(?:cogniti|critical thinking|deskill)\\w*.{0,80}(?:artificial intelligence|\\bAI\\b|large language model|chatbot)",
+   "applied_to": "text"
+  },
+  "T01 exercise and depression": {
+   "pattern": "(?:exercise|physical activity|physical training|yoga|walking).{0,80}depress|depress\\w*.{0,80}(?:exercise|physical activity)",
+   "applied_to": "text"
+  },
+  "T02 / WHU-P02 ultra-processed foods": {
+   "pattern": "ultra-?processed|\\bprocessed foods?\\b|\\bNOVA\\b",
+   "applied_to": "text"
+  },
+  "T03 intermittent fasting": {
+   "pattern": "intermittent fasting|time-restricted (?:eating|feeding)|alternate[- ]day fasting|\\b5:2\\b|periodic fasting",
+   "applied_to": "text"
+  },
+  "T04 vitamin D (supplementation in older adults)": {
+   "pattern": "^(?=.*\\b(?:vitamin D|cholecalciferol|ergocalciferol|calcifediol|calcitriol)\\b)(?=.*\\b(?:older (?:adults?|people|persons?|women|men|individuals|patients)|elderly|aged (?:60|65|70)|over (?:60|65|70)|(?:60|65|70) years (?:and|or) (?:over|older)|later life|old age|seniors?|geriatric|nursing homes?|care homes?|long-term care))",
+   "applied_to": "text"
+  },
+  "WHU-P04 (have the world's greenhouse gas emissions grown faster in recent decades than in earlier ones?)": {
+   "pattern": "(?=.*\\b(?:greenhouse gas|GHG|CO ?2|CO₂|carbon dioxide)\\b[^.]{0,60}\\bemissions?\\b[^.]{0,120}\\b(?:ha(?:ve|s) (?:continued to )?(?:rise|risen|increased|grown)|grew|rose|growth|higher than in))(?=.*\\b(?:since (?:18|19|20)\\d\\d|(?:19|20)\\d\\d\\s*[–-]\\s*(?:19|20)\\d\\d|(?:previous|past|last) decades?|between (?:19|20)\\d\\d and)\\b)",
+   "applied_to": "first sentence"
+  },
+  "WHU-S01 (rapid molecular tests for tuberculosis)": {
+   "pattern": "(?=.*\\btubercul)(?=.*(?:nucleic acid|molecular|Xpert|NAAT|\\bPCR\\b|rapid (?:diagnostic )?test))",
+   "applied_to": "text"
+  },
+  "WHU-S05 (undernutrition as a risk factor for tuberculosis)": {
+   "pattern": "(?=.*\\btubercul)(?=.*(?:undernutrition|malnutrition|undernourish|nutrition|body mass index|\\bBMI\\b|food))",
+   "applied_to": "text"
+  },
+  "WHU-S02 (CBT delivery formats for adolescent depression)": {
+   "pattern": "(?=.*(?:cognitive behaviou?ral|\\bCBT\\b))(?=.*(?:adolescen|teen|youth|young people|children))(?=.*depress)",
+   "applied_to": "text"
+  },
+  "WHU-S06 (arts programmes and youth offending)": {
+   "pattern": "(?=.*\\b(?:arts?|music|drama|theatre|creative)\\b)(?=.*(?:offend|criminal|justice|delinquen|crime))",
+   "applied_to": "text"
+  },
+  "WHU-S03 (public involvement in climate policy)": {
+   "pattern": "(?=.*\\b(?:public|citizens?|stakeholders?|communit(?:y|ies)|people)\\b[^.]{0,60}\\b(?:participat|involve|engage|deliberat|assembl))(?=.*\\b(?:climate|mitigation|emissions?)\\b)",
+   "applied_to": "first sentence"
+  },
+  "WHU-S04 (city growth and coping with climate change)": {
+   "pattern": "(?=.*\\b(?:urbani[sz]\\w*|cities|city|urban growth)\\b)(?=.*\\b(?:adapt\\w*|resilien\\w*|vulnerab\\w*|cope|coping)\\b)",
+   "applied_to": "first sentence"
+  },
+  "WHU-S07 (urban form and transport emissions)": {
+   "pattern": "(?=.*\\b(?:urban form|compact|densit\\w*|land[- ]use|spatial planning|mixed use)\\b)(?=.*\\b(?:transport|travel|mobility|vehicle)\\w*)",
+   "applied_to": "first sentence"
+  },
+  "WHU-S08 (settlement planning and climate resilience)": {
+   "pattern": "(?=.*\\b(?:design|planning|plan)\\b[^.]{0,80}\\b(?:settlements?|towns?|cities|urban|rural|infrastructure)\\b|.*\\b(?:settlement|land[- ]use|spatial|urban) planning\\b)(?=.*\\b(?:resilien\\w*|adapt\\w*|climate)\\b)",
+   "applied_to": "first sentence"
+  },
+  "WHU-Q1-01 (digital tracking, decision support and client reminders in primary care)": {
+   "pattern": "(?=.*(?:digital|mobile|mHealth|electronic|tablet|phone|SMS|text messag))(?=.*(?:tracking|decision support|client communication|reminder))",
+   "applied_to": "text"
+  },
+  "WHU-Q1-02 (education programmes for children with disabilities)": {
+   "pattern": "(?=.*disabilit)(?=.*(?:educat|school|learning))",
+   "applied_to": "text"
+  },
+  "WHU-Q1-03 (further warming: water cycle, extremes, ice, sea level, oceans)": {
+   "pattern": "(?=.*\\b(?:further|continued|future|additional|every increment of) (?:global )?warming\\b)(?=.*\\b(?:water cycle|precipitation|sea level|ice|ocean|extremes?)\\b)",
+   "applied_to": "first sentence"
+  },
+  "WHU-Q1-04 (carbon dioxide removal and net zero)": {
+   "pattern": "carbon dioxide removal|\\bCDR\\b|remov\\w* (?:of )?(?:CO ?2|CO₂|carbon dioxide)|negative emissions|direct air (?:carbon )?capture|\\bBECCS\\b|\\bDACCS\\b",
+   "applied_to": "text"
+  },
+  "WHU-P03 (antimalarial prophylaxis)": {
+   "pattern": "antimalarial|anti-malarial|malaria\\w* (?:chemo)?prophyla|mefloquine|chloroquine|atovaquone|doxycycline[^.]{0,80}malaria",
+   "applied_to": "text"
+  }
+ },
+ "used_entries": {
+  "10.1002/14651858.CD016194": "WHU-S01",
+  "10.1002/14651858.CD015890.pub2": "WHU-S05",
+  "10.1002/14651858.CD005632.pub4": "drawn for WHU-S05, rejected on closer reading",
+  "10.1002/14651858.CD012925.pub2": "WHU-Q1-01"
+ },
+ "draws_wanted": 2,
+ "eligible": 724,
+ "checked": 12,
+ "drawn": [
+  {
+   "n": 133,
+   "pmid": "38763518",
+   "doi": "10.1002/14651858.CD015330.pub2",
+   "title": "Interventions to prevent obesity in children aged 12 to 18 years old.",
+   "date": "2024-05-20"
+  },
+  {
+   "n": 1009,
+   "pmid": "42644645",
+   "doi": "10.1002/14651858.CD012023.pub3",
+   "title": "Hearing aids for mild to moderate hearing loss in adults.",
+   "date": "2026-08-26"
+  }
+ ],
+ "drawn_at": "2026-11-02T11:42:54+00:00",
+ "log": [
+  {
+   "checked": 1,
+   "k": 351,
+   "n": 459,
+   "id": "40169165",
+   "text_sha256": "073ef9055aaea5a2e1334dad4f4a71c0561ef4de72e4e5c2886a1fff6b9a48f8",
+   "option2": {
+    "europepmc_license": null,
+    "pmcid": "PMC11961299",
+    "why": "Europe PMC license None, not CC BY / CC BY-NC / CC BY-NC-ND"
+   },
+   "result": "ineligible",
+   "why": "Option 2: Europe PMC license None, not CC BY / CC BY-NC / CC BY-NC-ND"
+  },
+  {
+   "checked": 2,
+   "k": 524,
+   "n": 727,
+   "id": "41161683",
+   "text_sha256": "823cf996a49c7284a585f8c4b1f62babc2af4002164300d98054b30f8b680ecf",
+   "option2": {
+    "europepmc_license": null,
+    "pmcid": "PMC12571522",
+    "why": "Europe PMC license None, not CC BY / CC BY-NC / CC BY-NC-ND"
+   },
+   "result": "ineligible",
+   "why": "Option 2: Europe PMC license None, not CC BY / CC BY-NC / CC BY-NC-ND"
+  },
+  {
+   "checked": 3,
+   "k": 140,
+   "n": 155,
+   "id": "38837220",
+   "text_sha256": "ef234738d0c64aaa962ec3ddf847202f4ac172f715c65fe670f5947218632f6c",
+   "option2": {
+    "europepmc_license": null,
+    "pmcid": "PMC11152184",
+    "why": "Europe PMC license None, not CC BY / CC BY-NC / CC BY-NC-ND"
+   },
+   "result": "ineligible",
+   "why": "Option 2: Europe PMC license None, not CC BY / CC BY-NC / CC BY-NC-ND"
+  },
+  {
+   "checked": 4,
+   "k": 123,
+   "n": 133,
+   "id": "38763518",
+   "text_sha256": "7e9f314ba62564b39afd00536d1fa32bd824a0b489e7b720ac5e1cb374ec6d12",
+   "option2": {
+    "europepmc_license": "cc by-nc",
+    "pmcid": "PMC11102824",
+    "fulltext_status": 200,
+    "fulltext_content_type": "application/xml"
+   },
+   "result": "drawn",
+   "draw": 1
+  },
+  {
+   "checked": 5,
+   "k": 350,
+   "n": 458,
+   "id": "40162571",
+   "text_sha256": "ac2e8c3abe2e0e6cc55f702cd7630d4175f4c4c79e09e0b6ec50d2fabdaa1c31",
+   "option2": {
+    "europepmc_license": null,
+    "pmcid": "PMC11956142",
+    "why": "Europe PMC license None, not CC BY / CC BY-NC / CC BY-NC-ND"
+   },
+   "result": "ineligible",
+   "why": "Option 2: Europe PMC license None, not CC BY / CC BY-NC / CC BY-NC-ND"
+  },
+  {
+   "checked": 6,
+   "k": 202,
+   "n": 244,
+   "id": "39287086",
+   "text_sha256": "161cdb8fc219aa27f75847687fa81ec98ac6ccf84534cabb5a3da81d5a08c239",
+   "option2": {
+    "europepmc_license": null,
+    "pmcid": "PMC11406592",
+    "why": "Europe PMC license None, not CC BY / CC BY-NC / CC BY-NC-ND"
+   },
+   "result": "ineligible",
+   "why": "Option 2: Europe PMC license None, not CC BY / CC BY-NC / CC BY-NC-ND"
+  },
+  {
+   "checked": 7,
+   "k": 20,
+   "n": 20,
+   "id": "38226663",
+   "text_sha256": "55901c9a36d32424920e4938c480ee2c6326acab5f71327d440c25e170a5ce50",
+   "option2": {
+    "europepmc_license": null,
+    "pmcid": "PMC10790338",
+    "why": "Europe PMC license None, not CC BY / CC BY-NC / CC BY-NC-ND"
+   },
+   "result": "ineligible",
+   "why": "Option 2: Europe PMC license None, not CC BY / CC BY-NC / CC BY-NC-ND"
+  },
+  {
+   "checked": 8,
+   "k": 95,
+   "n": 99,
+   "id": "38682788",
+   "text_sha256": "0c6c0bfd10b5cbd99a601c3f8e252109a44d69f9be7a81e78bec325bd2b0d517",
+   "option2": {
+    "europepmc_license": null,
+    "pmcid": "PMC11057219",
+    "why": "Europe PMC license None, not CC BY / CC BY-NC / CC BY-NC-ND"
+   },
+   "result": "ineligible",
+   "why": "Option 2: Europe PMC license None, not CC BY / CC BY-NC / CC BY-NC-ND"
+  },
+  {
+   "checked": 9,
+   "k": 450,
+   "n": 613,
+   "id": "40673402",
+   "text_sha256": "c5725ee6c19ee0fa6dc742b175e2eff62902872b778e4c05f557c178a975fb22",
+   "option2": {
+    "europepmc_license": null,
+    "pmcid": "PMC12269363",
+    "why": "Europe PMC license None, not CC BY / CC BY-NC / CC BY-NC-ND"
+   },
+   "result": "ineligible",
+   "why": "Option 2: Europe PMC license None, not CC BY / CC BY-NC / CC BY-NC-ND"
+  },
+  {
+   "checked": 10,
+   "k": 507,
+   "n": 705,
+   "id": "41070722",
+   "text_sha256": "c431716f7b1c3b95363feea5e12a2e00757593b43e336ec582ed9df985856045",
+   "option2": {
+    "europepmc_license": null,
+    "pmcid": "PMC12512225",
+    "why": "Europe PMC license None, not CC BY / CC BY-NC / CC BY-NC-ND"
+   },
+   "result": "ineligible",
+   "why": "Option 2: Europe PMC license None, not CC BY / CC BY-NC / CC BY-NC-ND"
+  },
+  {
+   "checked": 11,
+   "k": 217,
+   "n": 264,
+   "id": "39362658",
+   "text_sha256": "753d2552c0a88b3eee06916b70b7ae0f363d7b27e1310c9fd6d8f346288733fe",
+   "option2": {
+    "europepmc_license": null,
+    "pmcid": "PMC11449566",
+    "why": "Europe PMC license None, not CC BY / CC BY-NC / CC BY-NC-ND"
+   },
+   "result": "ineligible",
+   "why": "Option 2: Europe PMC license None, not CC BY / CC BY-NC / CC BY-NC-ND"
+  },
+  {
+   "checked": 12,
+   "k": 696,
+   "n": 1009,
+   "id": "42644645",
+   "text_sha256": "7f962353a7ddf51172bd91ce199ec23ca997b6ca66c1a4982fce52069d3b50b1",
+   "option2": {
+    "europepmc_license": "cc by-nc-nd",
+    "pmcid": "PMC13509011",
+    "fulltext_status": 200,
+    "fulltext_content_type": "application/xml"
+   },
+   "result": "drawn",
+   "draw": 2
+  }
+ ],
+ "seed_label": "377129068981367434473880518897517881705780807834/check-fresh-set"
+}
