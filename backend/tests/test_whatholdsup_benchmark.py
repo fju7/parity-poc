@@ -31,6 +31,13 @@ import pytest
 ROOT = Path(__file__).resolve().parents[2]
 WHU = ROOT / "backend" / "scripts" / "whatholdsup"
 CASES = ROOT / "backend" / "data" / "whatholdsup" / "benchmark" / "cases.jsonl"
+# The held documents are gitignored (licensed / subscription content; this
+# repository is public). Without them every span reads UNDETERMINED, which is
+# a missing input, not a finding -- so the span test skips, by name, rather than
+# failing 24 times on a clean clone. Locally, where the documents are, it runs.
+LIB_DOCS = ROOT / "backend" / "data" / "whatholdsup" / "library" / "docs"
+NEEDS_DOCS = pytest.mark.skipif(not (LIB_DOCS.is_dir() and any(LIB_DOCS.iterdir())),
+                                reason='needs licensed library/docs -- run locally')
 
 
 def _load(name):
@@ -64,6 +71,7 @@ def test_every_case_is_well_formed():
         assert r["provenance"].strip(), "%s does not say where it came from" % r["id"]
 
 
+@NEEDS_DOCS
 @pytest.mark.parametrize("row", [r for r in ROWS
                                  for e in r["evidence"] if e["source_id"] in REAL],
                          ids=lambda r: r["id"])

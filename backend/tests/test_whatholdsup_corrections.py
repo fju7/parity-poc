@@ -138,6 +138,14 @@ def test_a_page_with_no_change_log_blocks_rather_than_passing_vacuously():
     assert "nothing to read" in got[0][2]
 
 
+# The figures rule checks the change log against the held documents, which are
+# gitignored (licensed content; public repository). Absent, every figure looks
+# unsupported -- a missing input, not a finding. Skip by name; runs locally.
+_LIB_DOCS = Path(__file__).resolve().parents[2] / "backend" / "data" / "whatholdsup" / "library" / "docs"
+
+
+@pytest.mark.skipif(not (_LIB_DOCS.is_dir() and any(_LIB_DOCS.iterdir())),
+                    reason='needs licensed library/docs -- run locally')
 def test_the_live_change_log_passes_both_rules():
     rows = CC.preflight_rows("melanoma")
     assert [st for _n, st, _d in rows] == [OK, OK], rows
