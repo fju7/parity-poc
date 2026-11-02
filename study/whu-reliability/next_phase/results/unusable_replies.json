@@ -1,5 +1,5 @@
 {
- "written": "2026-11-01T00:55:52+00:00",
+ "written": "2026-11-02T00:40:36+00:00",
  "plan": "next_phase/validity_plan.md @ b4cf31a",
  "label": "Judged by AI models; not checked by people (check 5 aside).",
  "rule": "validity_analysis.py unusable comment block",
@@ -131,6 +131,48 @@
     }
    ],
    "n_unusable": 1
+  },
+  "check4_m2_round1/claude": {
+   "records": 90,
+   "no_call": 0,
+   "labelled": 90,
+   "unusable": [],
+   "n_unusable": 0
+  },
+  "check4_m2_round1/openai": {
+   "records": 90,
+   "no_call": 0,
+   "labelled": 90,
+   "unusable": [],
+   "n_unusable": 0
+  },
+  "check4_m2_round1/google": {
+   "records": 90,
+   "no_call": 0,
+   "labelled": 90,
+   "unusable": [],
+   "n_unusable": 0
+  },
+  "check4_m2_study/claude": {
+   "records": 50,
+   "no_call": 0,
+   "labelled": 50,
+   "unusable": [],
+   "n_unusable": 0
+  },
+  "check4_m2_study/openai": {
+   "records": 50,
+   "no_call": 0,
+   "labelled": 50,
+   "unusable": [],
+   "n_unusable": 0
+  },
+  "check4_m2_study/google": {
+   "records": 50,
+   "no_call": 0,
+   "labelled": 50,
+   "unusable": [],
+   "n_unusable": 0
   },
   "check3/claude": {
    "records": 24,

@@ -489,6 +489,7 @@ def check4() -> dict:
     measures = ("M2_overstates", "M2_understates_omits", "M2_overstates_contradicts")
     qsets = {"with_Q1_04": QS, "without_Q1_04": [q for q in QS if q != "WHU-Q1-04"]} if q4_run else \
         {"without_Q1_04": [q for q in QS if q != "WHU-Q1-04"]}
+    qsets["without_Q1_02"] = [q for q in qsets[next(iter(qsets))] if q != "WHU-Q1-02"]   # plan: every check, +/- Q1-02
     for qname, qs in qsets.items():
         for label, rows_fn in (("all_conclusions", lambda rs: rs),
                                ("unmatched_only", lambda rs: [r for r in rs if match.get(r["conclusion"]) is None])):
@@ -555,6 +556,7 @@ def check4() -> dict:
     main_set = "round1_with_Q1_04_all_conclusions" if q4_run else "round1_without_Q1_04_all_conclusions"
     res["conclusion_changes"] = bool(res["sets"][main_set]["changed"] or t)
     res["conclusion_changes_without_Q1_04"] = bool(res["sets"]["round1_without_Q1_04_all_conclusions"]["changed"] or t)
+    res["conclusion_changes_without_Q1_02"] = bool(res["sets"]["round1_without_Q1_02_all_conclusions"]["changed"] or t)
     return write("check4", res)
 
 
@@ -1055,9 +1057,11 @@ def unusable() -> dict:
     runs = [("round1_M1_first", "m1", ""), ("round1_M1_repeat", "m1", "_repeat"), ("check10_M1", "m1", C10_TAG),
             ("round1_M2_first", "m2", ""), ("round1_M2_repeat", "m2", "_repeat"), ("check10_M2", "m2", C10_TAG),
             ("check1_M1", "m1", "google"), ("check1_M2", "m2", "google")]
+    runs += [("check4_" + r, r, "c4") for r in ("m2_round1", "m2_study")]
     for name, kind, tag in runs:
-        judges = ["google"] if tag == "google" else list(A.JUDGES)
-        d0 = AR.RUN / kind / ("replies" + ("" if tag == "google" else tag))
+        judges = ["claude", "openai", "google"] if tag == "c4" else ["google"] if tag == "google" else list(A.JUDGES)
+        d0 = PRIV / "validity" / "check4" / kind / "replies" if tag == "c4" else \
+            AR.RUN / kind / ("replies" + ("" if tag == "google" else tag))
         for j in judges:
             files = sorted((d0 / j).glob("*.json"))
             out = {"records": len(files), "no_call": 0, "labelled": 0, "unusable": []}
