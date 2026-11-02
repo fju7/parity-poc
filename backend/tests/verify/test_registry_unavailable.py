@@ -182,6 +182,7 @@ def test_http_get_retries_are_bounded_and_report_the_count(monkeypatch):
     monkeypatch.setattr(http.urllib.request, "urlopen", urlopen)
     monkeypatch.setattr(http.time, "sleep", lambda s: None)
     monkeypatch.setattr(http, "CACHE_DIR", None)
+    monkeypatch.delenv("VERIFY_OFFLINE", raising=False)  # this tests the network path itself
     st, body, headers = http.get("https://api.crossref.org/works?query.bibliographic=x")
     assert st == 429 and len(calls) == 4 and headers["retries"] == "3"
 
@@ -192,6 +193,7 @@ def test_http_get_never_raises_on_a_dead_connection(monkeypatch):
     monkeypatch.setattr(http.urllib.request, "urlopen", urlopen)
     monkeypatch.setattr(http.time, "sleep", lambda s: None)
     monkeypatch.setattr(http, "CACHE_DIR", None)
+    monkeypatch.delenv("VERIFY_OFFLINE", raising=False)  # this tests the network path itself
     st, body, headers = http.get("https://www.ebi.ac.uk/europepmc/x")
     assert st == 0 and headers["error"].startswith("TimeoutError") and headers["retries"] == "3"
 
@@ -211,8 +213,12 @@ def test_law_ecfr_stays_unchecked_when_the_registry_does_not_answer(monkeypatch,
 
 
 def test_law_ecfr_nonexistent_only_on_a_404(monkeypatch):
+    # Within the title's eCFR currency (titles.json), a 404 is NONEXISTENT. Past
+    # it, or with currency unknown, it is UNCHECKED (test_ecfr_currency.py).
     from verify import law
-    _inject(monkeypatch, law, {"ecfr.gov": (404, b"", {})})
+    _inject(monkeypatch, law, {
+        "titles.json": (200, b'{"titles": [{"number": 42, "up_to_date_as_of": "2026-10-29"}]}', {}),
+        "ecfr.gov": (404, b"", {})})
     res, _ = law._cfr(law.identify("42 CFR § 410.32"))
     assert res.exists == Exists.NONEXISTENT
 

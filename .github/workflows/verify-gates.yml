@@ -78,6 +78,7 @@ jobs:
         env:
            SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
            SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+           VERIFY_OFFLINE: "1"   # a missing recording fails by name; never a live fetch
         run: |
           set -o pipefail
           python -m pytest tests/verify tests/test_citation_gate.py -q -s -rs 2>&1 | tee /tmp/offline.log

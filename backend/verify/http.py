@@ -5,6 +5,12 @@ there next time. The golden-set tests replay from tests/verify/fixtures so
 they run offline and deterministically; the recording script populated
 that directory once, live, and a person read what came back before it
 became a control.
+
+VERIFY_OFFLINE=1 (set by the golden tests and the offline CI job) forbids the
+network: a URL with no recording raises RecordingMissing naming the URL and
+its hash. Before 2026-11-02 a miss silently fetched live and wrote the answer
+into the fixtures, so "offline" tests quietly depended on the registries --
+the eCFR's month rollover turned four real CFR sections NONEXISTENT that way.
 """
 from __future__ import annotations
 
@@ -61,14 +67,34 @@ def _key(url: str) -> str:
     return hashlib.sha1(url.encode()).hexdigest()
 
 
+class RecordingMissing(BaseException):
+    """No recording for a URL while VERIFY_OFFLINE=1.
+
+    A BaseException on purpose: adapters catch Exception to turn a registry
+    outage into UNCHECKED, and a missing recording must never become a
+    neutral status -- it fails the test that needed it, by name.
+    """
+
+
+def offline() -> bool:
+    """Read at call time, so a script can switch between replay and live."""
+    return os.environ.get("VERIFY_OFFLINE") == "1"
+
+
 def get(url: str, timeout: int = 45) -> tuple[int, bytes, dict]:
-    """(status, body, headers). Status 0 means no response at all. Never raises."""
+    """(status, body, headers). Status 0 means no response at all.
+
+    Never raises, except RecordingMissing in offline mode."""
     if CACHE_DIR:
         p = CACHE_DIR / (_key(url) + ".bin")
         m = CACHE_DIR / (_key(url) + ".meta")
         if p.exists():
             meta = dict(line.split("\t", 1) for line in m.read_text().splitlines() if "\t" in line) if m.exists() else {}
             return int(meta.get("status", "200")), p.read_bytes(), meta
+    if offline():
+        raise RecordingMissing(
+            f"VERIFY_OFFLINE=1 and no recording for {url} "
+            f"(expected {(CACHE_DIR / (_key(url) + '.bin')) if CACHE_DIR else 'sha1 ' + _key(url) + ', no VERIFY_CACHE_DIR set'})")
     status, body, headers = 0, b"", {}
     # Retry on throttling and transient failure. On 2026-09-14 a re-check
     # minutes after a publish saw 15 of 17 sources "unreachable" because

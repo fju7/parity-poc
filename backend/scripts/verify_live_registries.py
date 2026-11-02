@@ -21,12 +21,18 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import sys
 from pathlib import Path
 
 BACKEND = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(BACKEND))
 FIXTURES = BACKEND / "tests" / "verify" / "fixtures" / "http"
+# The recording side is replayed strictly: offline, and at the eCFR date the
+# recording was made at. Before 2026-11-02 it used today's first-of-month, so
+# from October every CFR "recording" was a live fetch written into the fixtures,
+# and the CFR rows compared live with live.
+RECORDING_ENV = {"VERIFY_OFFLINE": "1", "VERIFY_ECFR_DATE": "2026-09-01"}
 
 from verify import http  # noqa: E402
 from verify import law, literature  # noqa: E402
@@ -69,8 +75,17 @@ def main() -> int:
     rows = []
     for registry, grp, label, raw, assertion, char, ctx in _entries(a.only):
         http.CACHE_DIR = FIXTURES
-        rec = _run(registry, raw, assertion, char, ctx)
-        http.CACHE_DIR = None
+        os.environ.update(RECORDING_ENV)
+        try:
+            rec = _run(registry, raw, assertion, char, ctx)
+        except http.RecordingMissing as e:
+            rows.append((registry, grp, label, "DIVERGED", f"no recording: {e}"))
+            diverged += 1
+            continue
+        finally:
+            for k in RECORDING_ENV:
+                os.environ.pop(k, None)
+            http.CACHE_DIR = None
         live = _run(registry, raw, assertion, char, ctx)
         diffs = []
         if live["exists"] != rec["exists"]:

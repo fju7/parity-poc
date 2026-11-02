@@ -17,10 +17,13 @@ from __future__ import annotations
 import datetime as dt
 import hashlib
 import html as _html
+import json
+import os
 import re
 import shutil
 import subprocess
 import tempfile
+import time
 
 from . import http
 from .types import Document, Exists, Identifier, Provenance, Resolution
@@ -95,23 +98,67 @@ def _pdftotext(pdf: bytes) -> str | None:
 # ---------------------------------------------------------------------------
 # CFR via the eCFR versioner API
 # ---------------------------------------------------------------------------
-def _ecfr_date() -> str:
-    # The API serves point-in-time text; the first of the current month is
-    # always available and is what we cite. Recorded in the Resolution.
-    today = dt.date.today()
-    return today.replace(day=1).isoformat()
+# The versioner serves point-in-time text only up to each title's
+# up_to_date_as_of (titles.json), which lags the calendar by days: on
+# 2026-11-01 titles 42 and 45 were current to 2026-10-29, and a request dated
+# the first of the month got a 404 for sections that exist. So the date we cite
+# is the first of the current month CAPPED at the title's currency, and a 404
+# for a date past that currency says nothing about the section.
+_TITLES_URL = "https://www.ecfr.gov/api/versioner/v1/titles.json"
+_TITLES_TTL = 3600.0  # seconds; currency moves at most daily
+_titles_cache: tuple[float, dict[str, str]] | None = None
+
+
+def _ecfr_currency(fresh: bool = False) -> dict[str, str] | None:
+    """title number (str) -> up_to_date_as_of (ISO date), or None when unavailable."""
+    global _titles_cache
+    if not fresh and _titles_cache and time.monotonic() - _titles_cache[0] < _TITLES_TTL:
+        return _titles_cache[1]
+    st, body, _ = http.get(_TITLES_URL)
+    try:
+        cur = {str(t["number"]): t["up_to_date_as_of"]
+               for t in json.loads(body)["titles"] if t.get("up_to_date_as_of")}
+    except Exception:  # noqa: BLE001 -- unavailable is "unknown", never cached
+        return None
+    if st != 200 or not cur:
+        return None
+    _titles_cache = (time.monotonic(), cur)
+    return cur
+
+
+def _ecfr_date(title: str) -> str:
+    """The point-in-time date cited for a title. Recorded in the Resolution.
+
+    VERIFY_ECFR_DATE overrides it (the golden tests pin the recording's date)."""
+    override = os.environ.get("VERIFY_ECFR_DATE")
+    if override:
+        return override
+    first = dt.date.today().replace(day=1).isoformat()
+    cur = _ecfr_currency()
+    upto = cur.get(title) if cur else None
+    return min(first, upto) if upto else first
 
 
 def _cfr(ident: Identifier) -> tuple[Resolution, Document | None]:
     title, rest = ident.value.split(":", 1)
     section = re.match(r"[\d.]+", rest).group(0)
     paras = re.findall(r"\(([a-z0-9]+)\)", rest)
-    date = _ecfr_date()
+    date = _ecfr_date(title)
     url = f"https://www.ecfr.gov/api/versioner/v1/full/{date}/title-{title}.xml?section={section}"
     res = Resolution(ident, Exists.UNCHECKED, registry="ecfr", checked_at=_NOW(),
                      canonical=f"https://www.ecfr.gov/current/title-{title}/section-{section}")
     st, body, headers = http.get(url)
     if st == 404:
+        # A 404 is NONEXISTENT only when the date asked for is one the eCFR
+        # serves for this title. Past its currency (or currency unknown) the
+        # section stays UNCHECKED with the reason on the record.
+        cur = _ecfr_currency(fresh=True)
+        upto = cur.get(title) if cur else None
+        if upto is None or date > upto:
+            res.extra = {"registry_unavailable": {"ecfr": (
+                f"eCFR not yet current for {date}" +
+                (f" (title {title} up to date as of {upto})" if upto else " (title currency unavailable)"))}}
+            return res, None
         res.exists = Exists.NONEXISTENT; return res, None
     xml = body.decode("utf-8", "replace") if body else ""
     m = re.search(r"<HEAD>\s*§\s*[\d.]+\s*(.*?)</HEAD>", xml, re.S)
