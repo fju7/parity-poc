@@ -812,8 +812,8 @@ figure is **an overestimate on every text measured** (by 5-47%). It is an estima
 **15.5 An underestimate is caught and recorded, never truncated.** No text is cut on the local figure: a window is a
 character range, sent whole. The model's input limit is 1,000,000 tokens, so a window whose true size passes 150,000
 is still read in full. After each call, v8 takes the true input size from the response's usage (input + cache write +
-cache read) and records it next to the estimate; a window whose true input passes 150,000 + its estimated prompt
-overhead is flagged `over_limit` and reported (count, sources). Its verdict stands, because the text was read whole;
+cache read) and records it next to the estimate; a call whose true input passes 150,000 + a fixed 10,000 for
+the prompt, claims and context is flagged `over_limit` (set when writing the code; every call, not only windows) and reported (count, sources). Its verdict stands, because the text was read whole;
 the flag says only that the call was larger than the study's judge was used at. A source estimated under 150,000 but
 truly over is read whole by v5's path for the same reason, and flagged the same way.
 
