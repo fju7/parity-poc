@@ -907,7 +907,7 @@ free `prepare` (estimate) -> judging and the v8 run -> comparison -> report agai
 **16.8 Limitations, stated before anything is drawn.** Same three citing systems and the same frames as the pilot
 set, so "fresh" means unseen answers and questions, not a new population; ChatGPT untested; the study labels are AI
 judgements (no human has checked them); agreement with the Claude judge is partly self-agreement (§16.4); one
-capture per answer, so run-to-run variation of the systems is not measured.
+capture per answer, so run-to-run variation of the systems is not measured. Gemini Apps Activity was on (admin-locked) in round 1 and the fresh set alike (added 2026-11-02, advisor).
 
 **16.9 Advisor ruling (2026-11-02), recorded before any draw or capture.** Fred approved $60 of new budget for stage
 1 only, outside the $350 phase: line **"fresh-set stage 1", cap $60**, ledger issue `whu-check-fresh-v8`.
