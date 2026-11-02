@@ -832,3 +832,79 @@ whose local estimate is under 140,000 but whose true count is over 150,000 is st
 verdict, with `over_limit` recorded**; **a cached count is reused** (no recomputation, and a fresh process reads it
 from the file; a changed text is not served a stale count); window calls on Opus; every first window call in flight
 together; a failed window still gives COULDN'T CHECK, never NOT BACKED. **The preview stays on v2.**
+
+## 16. Fresh-set design (proposal for the advisor's ruling; nothing drawn, captured or called)
+
+Session VP, 2026-11-02, on the advisor's ruling of that day (§14.10, item 4). $0. **Nothing below happens before the
+advisor rules on it.** Its purpose is §13.0's test: the chosen version (v8, §15) against all five bars of §10.7,
+unchanged, on answers no version has seen, with time measured end to end.
+
+**16.1 Questions: six, new, drawn as round 1 drew its four.** Same frames (`frames/cochrane.json`,
+`frames/campbell.json`, `frames/ipcc.json`, hashes unchanged), same eligibility (the study's criteria 1-5, round 1's
+Option 2 open-licence test for Cochrane and Campbell, the IPCC hash test), same draw procedure
+(`quarterly/round1_draw.py`, `frames.draw_study`), **two per frame** (the IPCC two from different AR6 reports).
+**Excluded, each logged with its reason:** every entry used anywhere: the study's WHU-S01 to WHU-S08, round 1's
+WHU-Q1-01 to -04, the rejected CD005632.pub4, the pilot's T01-T04, WHU-P02 to P04; plus the draw-time topic-duplicate
+test (`frames.WHU_QUESTIONS`, `quarterly/round1_duplicates.json`) extended with round 1's four questions. **Seed:** the
+40-character hash of the commit that freezes this section after the ruling, read as a hexadecimal integer, with the
+label `"%d/check-fresh-set"`. Wording from the review's stated objective, as round 1; all six committed before any
+capture. The six are added to round 2's "used before" list, so no round-2 question repeats them.
+Why six questions: 6 x 3 citing systems = **18 answers**, above the target of 16 with room for two failed captures.
+
+**16.2 Answers: three citing systems, captured by round 1's runbook.** Claude Research, Gemini Deep Research and
+Perplexity Deep Research, each run once per question by Fred in the browser exactly as round 1 (`RUN_TOOLS.md`,
+`perplexity_plan.md`; §3's configurations; the same prompt suffix; all three within 48 hours per question; date, time,
+model shown, full export saved and sha256-hashed at capture; a re-run only after a technical failure, logged first).
+**ChatGPT is left out**, as in the pilot (its round-1 answers cite nothing), so the tool's behaviour on ChatGPT answers
+stays untested; stated as a limitation. No WHU run and no answer key: the check needs neither. Answers are read as
+`prepare_round1.tool_answer` reads round 1's (per-system adapters). **API cost of capture: $0** (subscription
+accounts); Fred's time: about 18 runs plus the exports.
+
+**16.3 No single answer dominates.** 18 answers (at least 16 required to proceed). Means are reported with every
+answer's own figure, median, minimum and maximum, and **each bar's figure is also shown with the largest single answer
+left out**, as a reading aid. The bars are judged on all answers, unchanged.
+
+**16.4 The agreement labels: the study's two M1 judges.** Sentences are drawn per answer by round 1's rule (the
+blinding pipeline's sentences, round 1's seeded draw of 20 per answer with this set's seed; uncited sentences are
+UNCITED, as round 1). Each cited sentence is judged by **both** M1 judges (`judge_m1.py`: Claude `claude-opus-5-5`
+and OpenAI, M1 prompt unchanged, first read only, full source as the study's scoring fetch holds it, independently of
+the tool's own fetch). The agreement bar's rule is §10.7's, unchanged: sentences the study drew and the tool checked,
+both sides BACKED or NOT BACKED, the study label read through `study_label_to_check`. **One point for the ruling:**
+the pilot's rule takes the **Claude judge's** label as the study label, and v8 reads with the same model
+(`claude-opus-5-5`), so agreement with it is partly a model agreeing with itself. Proposed: the bar is judged as
+written (Claude judge, so v3-v8 stay comparable), and two figures are reported beside it, **agreement with the OpenAI
+judge** and **agreement on sentences where the two judges agree**; a gap of more than 10 points between the Claude-judge
+figure and either is reported as a finding. The advisor may instead rule that the bar is judged on the two-judge
+agreed labels.
+
+**16.5 The v8 run.** v8 frozen at a named commit before any capture (no change after an answer is seen). One run per
+answer through `pipeline_v8.check` (fetch, stage 1, re-reads, windows), wall time measured end to end, per-call
+start/end and every `over_limit` call recorded, on a new ledger issue (`whu-check-fresh-v8`). The v8 run and the
+judging may go in either order; the comparison is computed only when both are complete; **a partial set is not
+analysed** (as check 4). Bars of §10.7, unchanged, reported for v8 only (v3-v7 are not re-run on the fresh set).
+
+**16.6 Cost estimate** (from measured figures; the source of each is given):
+
+| Stage | Basis | Likely | High | Worst |
+|---|---|---|---|---|
+| Capture | browser, subscription accounts | $0 | $0 | $0 |
+| Judging, M1, two judges | ~12 cited of 20 drawn per answer (round 1: 234 cited of 371 drawn, 19 answers) -> ~216 sentences x 2 calls; round 1's measured cost per call on `whu-quarterly-r1-judging` (263 calls each): Claude mean $0.193, OpenAI $0.310 | **~$109** | ~$381 (each call at round 1's 95th percentile, $0.757 / $1.009) | ~$707 (each call at round 1's largest single call, $1.425 / $1.847) |
+| v8 run | pilot measured per answer: v6 $2.37 mean (v4 stage 1 + v5 re-reads + v6 windows); v8 makes about 36% more, smaller windows on the same sources (§15.4) -> ~$2.60 | **~$47** (18 answers) | ~$91 (the pilot's printed worst cases, v4 $7.92 + v5 $9.60 + v6 $16.87 for 8 answers, windows x 1.36, per answer x 18) | depends on the sources cited; printed by a free `prepare` before the run |
+| **Total** | | **~$156** | ~$472 | |
+
+What drives the figure: long sources. In the pilot, one answer (Gemini on an IPCC question citing three ~400k-token
+chapters) cost $7.24 of v6's $18.93. With two IPCC questions in six, the fresh set is likely to hold several such
+answers; that is the realistic case for the tool and is not avoided. Judging at round 1's per-call cost assumes the
+same mix (round 1 also had two IPCC questions in four).
+
+**16.7 Budget and order.** None of the phase's budget lines covers this (§12: lines total $336 plus a $14 reserve =
+$350; the pilot line is at $26.50 of $31). **A budget ruling is needed before any paid step.** Every paid step prints
+likely and worst first and stops if spend so far + likely passes its cap (the advisor's gate rule, 2026-11-01); the
+room rule applies each day; at about $156 the paid work takes at least four spending days under the $60 day cap with the
+$10 margin. Order after the ruling: freeze this section (the seed) -> draw and commit the six questions -> capture ->
+free `prepare` (estimate) -> judging and the v8 run -> comparison -> report against the bars, then §13.0 decides.
+
+**16.8 Limitations, stated before anything is drawn.** Same three citing systems and the same frames as the pilot
+set, so "fresh" means unseen answers and questions, not a new population; ChatGPT untested; the study labels are AI
+judgements (no human has checked them); agreement with the Claude judge is partly self-agreement (§16.4); one
+capture per answer, so run-to-run variation of the systems is not measured.
