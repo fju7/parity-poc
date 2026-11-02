@@ -908,3 +908,23 @@ free `prepare` (estimate) -> judging and the v8 run -> comparison -> report agai
 set, so "fresh" means unseen answers and questions, not a new population; ChatGPT untested; the study labels are AI
 judgements (no human has checked them); agreement with the Claude judge is partly self-agreement (§16.4); one
 capture per answer, so run-to-run variation of the systems is not measured.
+
+**16.9 Advisor ruling (2026-11-02), recorded before any draw or capture.** Fred approved $60 of new budget for stage
+1 only, outside the $350 phase: line **"fresh-set stage 1", cap $60**, ledger issue `whu-check-fresh-v8`.
+1. **Approved as proposed** (§16.1-§16.2): six new questions, 18 answers from Claude Research, Gemini Deep Research
+   and Perplexity Deep Research, exclusions as stated; run in two stages.
+2. **Stage 1:** capture (the capture session drives Chrome per round 1's runbook); **the 20-sentence samples are
+   drawn and frozen before any v8 call**; then a free `prepare` prints likely and worst, the gate is on likely as
+   ruled (2026-11-01), and v8 runs end to end on all 18 answers. Reported: COULDN'T CHECK, cost, time and passages
+   against the bars, with per-answer distributions and each mean without the largest answer beside it. **If cost or
+   time fails, stop: no judging.**
+3. **Stage 2** (judging, ~$109 likely) needs a separate approval from Fred; not started.
+4. **Agreement, decided now, before any data:** the bar stays as written (§10.7, against the Claude judge). **The
+   tool is "ready" only if agreement is also >= 90% against the OpenAI judge and >= 90% on sentences where both
+   judges agree.** This replaces §16.4's "reported beside it" proposal: the two further figures are bars, not
+   reading aids.
+5. Stage 1 is paced under the day cap and the room rule; a report when capture is done and again when the v8 run
+   finishes.
+
+**The commit that adds §16.9 freezes §16.** Its full hash is the draw's seed (§16.1); nothing in §16 changes after
+it except by a ruling logged in the deviations log.

@@ -3,7 +3,8 @@
   "_why_the_number": "Recorded gate runs cost $2.56 to $10.63 each, and the first full run on a new issue is the expensive one because SOURCE searches every claim. A re-gate after corrections is roughly $2. An issue that has been through a first run, an outside review, two re-gates and a counterexample hunt should land near $25. $40 leaves room for a bad week; hitting it means something is wrong with the process, not with the budget.",
   "default_per_issue": 40,
   "per_issue": {
-    "whu-check-preview": 20
+    "whu-check-preview": 20,
+    "whu-check-fresh-v8": 60
   },
   "study_per_issue": 50,
   "_why_the_study_cap": "ruled 2026-10-20, protocol rev 27. Each reliability-study issue (issue.json \"study\": true) has a $50 limit, set before the freeze. If an answer cannot finish within it, that is recorded as a result and the limit is not raised. The day cap below still applies, and a run picks up the next day.",
@@ -15,5 +16,6 @@
   "per_issue_per_day": {
     "whu-check-preview": 10
   },
-  "_why_whu_check_preview": "Fred's brief, 2026-10-28: the unlisted 'check an AI answer' preview (backend/routers/whu_check.py) spends on ledger issue whu-check-preview, $20 in total and $10 per UTC day, checked before each job's first model call; over means 402 and no call."
+  "_why_whu_check_preview": "Fred's brief, 2026-10-28: the unlisted 'check an AI answer' preview (backend/routers/whu_check.py) spends on ledger issue whu-check-preview, $20 in total and $10 per UTC day, checked before each job's first model call; over means 402 and no call.",
+  "_why_whu_check_fresh_v8": "Advisor ruling 2026-11-02, Fred's approval: line 'fresh-set stage 1', $60, outside the $350 WHU validity phase (validity_plan.md §12; pilot doc §16.9). The v8 run on the 18 fresh answers; judging (stage 2) needs a separate approval."
 }
