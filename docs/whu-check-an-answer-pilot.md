@@ -754,3 +754,15 @@ NOT BACKED; per-call start and end are recorded; the likely-over-cap gate calls 
 windowed rows. Counts only are committed (`check_pilot/pilot_v7_counts.json`); outputs stay private
 (`~/Projects/whu-study-private/check_pilot_v7/`). **The preview stays on v2.** Failing a bar is a result, not a reason
 to retune and re-run.
+
+**14.9 Result (run 2026-11-02 00:59 UTC, `check_pilot/pilot_v7_counts.json`; development evidence only, §13.0).**
+$5.41 on `whu-check-pilot-v7` (cap $8; likely $6.45). COULDN'T CHECK 56 of 295 (19.0%): **pass**. Agreement 45 of 47
+(95.7%; one item became COULDN'T CHECK): **pass**; the windowed claims 4 of 5 (v6 6 of 6 on the same items); M1-judged
+41 of 42. Passages 132 of 132: **pass**. Dollars **$1.46 per answer: pass** (median $1.23, max $3.06, WHU-Q1-03/Gemini;
+v6 $2.37, max $7.24). Time with v3's fetch time, bounded as §13.11: **mean 88.4 s (low) to 136.2 s (high)**, median
+66.3-80.4 s, max 308.4-559.6 s: **not settled** (passes low, fails high). **v7 passes four bars and the fifth is
+unsettled by the records; it is not a pass.** Two findings: (1) **Sonnet changed 10 of the 36 windowed verdicts**
+(Opus -> Sonnet: NOT BACKED -> BACKED 5, BACKED -> NOT BACKED 2, to COULDN'T CHECK 2, COULDN'T CHECK -> BACKED 1).
+(2) **The window calls are not where the time goes.** Every window call took 3-38 s (WHU-Q1-03/Gemini's nine, all at
+once, 6-14 s each), but that answer's window stage took 266.8 s: the rest is planning, i.e. count_tokens on the long
+sources to size the windows (free calls, counted in the time as in v6). v6's 336 s was mostly the same.
