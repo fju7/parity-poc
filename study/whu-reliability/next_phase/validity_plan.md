@@ -446,7 +446,7 @@ supporting passage (7 of 8 disagreements are study BACKED → v4 NOT BACKED). It
 
 | Item | Ledger issue(s) | Estimate | Cap |
 |---|---|---|---|
-| Step 1: check pilot v4 | whu-check-pilot-v4 | **spent $3.03** | $10 |
+| Step 1: check pilot v4 (line covers v4-v7; rulings below) | whu-check-pilot-v4, -v5, -v6, -v7 | **spent $3.03** (v4) | ~~$10~~ $31 |
 | Check 1: Google judge | whu-reliability-judging-validity-c1 | ~$35-50 | $55 |
 | Checks 2, 6, 9 | none | $0 | $0 |
 | Check 3: identifiability | whu-validity-c3-ident | ~$2-4 | $5 |
@@ -454,7 +454,7 @@ supporting passage (7 of 8 disagreements are study BACKED → v4 NOT BACKED). It
 | Check 5: human sample | none | not run in this phase (amendment) | $0 |
 | Check 5b: mechanical figure check | none | $0 | $0 |
 | Check 10: prompt wording | whu-reliability-judging-validity-c10 | ~$24 | $30 |
-| Seeded defects (code checks + first audit) | whu-validity-sd-{full,sonnet,haiku} | ~$106 | $110 |
+| Seeded defects (code checks + first audit) | whu-validity-sd-{full,sonnet,haiku} | ~$106 | ~~$110~~ $89 |
 | Lean test: runs | whu-lean-q1-01 … -04 | ≤ $40 | $40 |
 | Lean test: judging | whu-reliability-judging-lean | ~$30-45 | $45 |
 | **Total** | | **~$270-310** | **$335** |
@@ -464,6 +464,13 @@ supporting passage (7 of 8 disagreements are study BACKED → v4 NOT BACKED). It
 the extra $1 taken from the $15 reserve (reserve now $14; caps total $336). Reason: check 3's printed estimate was
 $5.21 likely (100 sentences ~$0.85; 19 whole answers ~$4.35), over its $5 cap, so nothing had run. The whole of check
 3 (sentences and whole answers) runs under the new cap.
+
+**Rulings after the freeze on the check-pilot line (advisor):** (1) **2026-10-30**: the pilot line raised from $10
+to **$26**, funded by $16 from the seeded-defect line ($110 -> $94). This ruling was not written into this plan or
+any log at the time; recorded here on 2026-11-02 (`deviations.md`). (2) **2026-11-02**: raised again to **$31**, a
+further $5 from the seeded-defect line ($94 -> **$89**), for v7 (pilot doc §14, cap $8). Phase total ($336 caps) and
+reserve ($14) unchanged. Pilot spend against the line: v4 issue $8.46 (v4 $3.03, v5's misfiled $5.44), v6 $12.63;
+$21.09 of $31.
 
 Step 1's unspent $6.97 stays inside its line (caps are not moved between items without a ruling). Spending at
 up to $60 a day (§0) takes about six spending days.

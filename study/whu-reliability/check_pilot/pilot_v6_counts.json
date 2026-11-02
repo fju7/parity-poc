@@ -1,5 +1,5 @@
 {
- "written": "2026-11-02T00:38:34+00:00",
+ "written": "2026-11-02T00:47:44+00:00",
  "by": "study/whu-reliability/check_pilot/run_pilot_v6.py compare",
  "label": "Counts only. Internal pilot, exploratory, outside H1/H2; judged by an AI model (Claude) only. v6 on the same 8 answers, v3's held copies, v4's stage 1 and v5's verdicts: a side-by-side on identical input, not a fresh sample. Development evidence only (\u00a713.0).",
  "design": "docs/whu-check-an-answer-pilot.md \u00a713",
@@ -226,6 +226,97 @@
   "v6_plus_v3_fetch_reconstructed": {
    "mean": 147.2,
    "estimate": true
+  },
+  "v6_corrected": {
+   "rule": "Seconds of the calls v6 made, measured (advisor ruling 2026-11-02): v4's stage 1 + v5's whole-source re-reads (see v6_seconds)",
+   "exact_answers": 2,
+   "of": 8,
+   "low": {
+    "no_fetch": {
+     "mean": 82.0,
+     "median": 35.4,
+     "min": 18.5,
+     "max": 356.1
+    },
+    "with_v3_fetch": {
+     "mean": 99.5,
+     "median": 70.9,
+     "min": 30.8,
+     "max": 377.5
+    }
+   },
+   "high": {
+    "no_fetch": {
+     "mean": 129.7,
+     "median": 47.4,
+     "min": 18.5,
+     "max": 607.3
+    },
+    "with_v3_fetch": {
+     "mean": 147.2,
+     "median": 84.2,
+     "min": 34.3,
+     "max": 628.7
+    }
+   },
+   "per_answer": [
+    {
+     "answer": "WHU-Q1-01/Claude",
+     "low": 29.7,
+     "high": 43.3,
+     "exact": false,
+     "fetch": 52.9
+    },
+    {
+     "answer": "WHU-Q1-02/Claude",
+     "low": 18.5,
+     "high": 18.5,
+     "exact": true,
+     "fetch": 15.8
+    },
+    {
+     "answer": "WHU-Q1-04/Claude",
+     "low": 84.5,
+     "high": 149.1,
+     "exact": false,
+     "fetch": 6.5
+    },
+    {
+     "answer": "WHU-Q1-01/Perplexity",
+     "low": 22.4,
+     "high": 32.2,
+     "exact": false,
+     "fetch": 8.4
+    },
+    {
+     "answer": "WHU-Q1-03/Perplexity",
+     "low": 41.1,
+     "high": 51.5,
+     "exact": false,
+     "fetch": 20.6
+    },
+    {
+     "answer": "WHU-Q1-04/Perplexity",
+     "low": 27.1,
+     "high": 27.1,
+     "exact": true,
+     "fetch": 10.8
+    },
+    {
+     "answer": "WHU-Q1-01/Gemini",
+     "low": 76.4,
+     "high": 108.6,
+     "exact": false,
+     "fetch": 3.7
+    },
+    {
+     "answer": "WHU-Q1-03/Gemini",
+     "low": 356.1,
+     "high": 607.3,
+     "exact": false,
+     "fetch": 21.4
+    }
+   ]
   }
  },
  "not_backed_by_path_v6": {
@@ -261,7 +352,12 @@
    "seconds_stage1_v4": 8.3,
    "seconds_reread_v5": 13.6,
    "seconds_windows": 21.4,
-   "v3_fetch_seconds_reconstructed": 52.9
+   "v3_fetch_seconds_reconstructed": 52.9,
+   "v5_whole_source_calls": 3,
+   "v5_passages_checked_calls": 1,
+   "seconds_v6_low": 29.7,
+   "seconds_v6_high": 43.3,
+   "seconds_v6_exact": false
   },
   {
    "answer": "WHU-Q1-02/Claude",
@@ -280,7 +376,12 @@
    "seconds_stage1_v4": 6.0,
    "seconds_reread_v5": 11.7,
    "seconds_windows": 0.8,
-   "v3_fetch_seconds_reconstructed": 15.8
+   "v3_fetch_seconds_reconstructed": 15.8,
+   "v5_whole_source_calls": 3,
+   "v5_passages_checked_calls": 0,
+   "seconds_v6_low": 18.5,
+   "seconds_v6_high": 18.5,
+   "seconds_v6_exact": true
   },
   {
    "answer": "WHU-Q1-04/Claude",
@@ -299,7 +400,12 @@
    "seconds_stage1_v4": 14.4,
    "seconds_reread_v5": 64.6,
    "seconds_windows": 70.1,
-   "v3_fetch_seconds_reconstructed": 6.5
+   "v3_fetch_seconds_reconstructed": 6.5,
+   "v5_whole_source_calls": 5,
+   "v5_passages_checked_calls": 2,
+   "seconds_v6_low": 84.5,
+   "seconds_v6_high": 149.1,
+   "seconds_v6_exact": false
   },
   {
    "answer": "WHU-Q1-01/Perplexity",
@@ -318,7 +424,12 @@
    "seconds_stage1_v4": 8.1,
    "seconds_reread_v5": 9.8,
    "seconds_windows": 14.3,
-   "v3_fetch_seconds_reconstructed": 8.4
+   "v3_fetch_seconds_reconstructed": 8.4,
+   "v5_whole_source_calls": 1,
+   "v5_passages_checked_calls": 3,
+   "seconds_v6_low": 22.4,
+   "seconds_v6_high": 32.2,
+   "seconds_v6_exact": false
   },
   {
    "answer": "WHU-Q1-03/Perplexity",
@@ -337,7 +448,12 @@
    "seconds_stage1_v4": 17.0,
    "seconds_reread_v5": 10.4,
    "seconds_windows": 24.1,
-   "v3_fetch_seconds_reconstructed": 20.6
+   "v3_fetch_seconds_reconstructed": 20.6,
+   "v5_whole_source_calls": 2,
+   "v5_passages_checked_calls": 1,
+   "seconds_v6_low": 41.1,
+   "seconds_v6_high": 51.5,
+   "seconds_v6_exact": false
   },
   {
    "answer": "WHU-Q1-04/Perplexity",
@@ -356,7 +472,12 @@
    "seconds_stage1_v4": 11.1,
    "seconds_reread_v5": 14.8,
    "seconds_windows": 1.2,
-   "v3_fetch_seconds_reconstructed": 10.8
+   "v3_fetch_seconds_reconstructed": 10.8,
+   "v5_whole_source_calls": 7,
+   "v5_passages_checked_calls": 0,
+   "seconds_v6_low": 27.1,
+   "seconds_v6_high": 27.1,
+   "seconds_v6_exact": true
   },
   {
    "answer": "WHU-Q1-01/Gemini",
@@ -375,7 +496,12 @@
    "seconds_stage1_v4": 23.1,
    "seconds_reread_v5": 32.2,
    "seconds_windows": 53.3,
-   "v3_fetch_seconds_reconstructed": 3.7
+   "v3_fetch_seconds_reconstructed": 3.7,
+   "v5_whole_source_calls": 13,
+   "v5_passages_checked_calls": 14,
+   "seconds_v6_low": 76.4,
+   "seconds_v6_high": 108.6,
+   "seconds_v6_exact": false
   },
   {
    "answer": "WHU-Q1-03/Gemini",
@@ -394,7 +520,12 @@
    "seconds_stage1_v4": 20.2,
    "seconds_reread_v5": 251.2,
    "seconds_windows": 335.9,
-   "v3_fetch_seconds_reconstructed": 21.4
+   "v3_fetch_seconds_reconstructed": 21.4,
+   "v5_whole_source_calls": 3,
+   "v5_passages_checked_calls": 15,
+   "seconds_v6_low": 356.1,
+   "seconds_v6_high": 607.3,
+   "seconds_v6_exact": false
   }
  ],
  "pass_bar": {
@@ -432,5 +563,21 @@
   "v4": false,
   "v5": false,
   "v6": false
+ },
+ "pass_bar_v6_corrected_time": {
+  "low": {
+   "couldnt_check_at_most_20": true,
+   "agreement_at_least_90": true,
+   "usd_per_answer_at_most_2": false,
+   "seconds_per_answer_mean_at_most_120": true,
+   "passages_100": true
+  },
+  "high": {
+   "couldnt_check_at_most_20": true,
+   "agreement_at_least_90": true,
+   "usd_per_answer_at_most_2": false,
+   "seconds_per_answer_mean_at_most_120": false,
+   "passages_100": true
+  }
  }
 }

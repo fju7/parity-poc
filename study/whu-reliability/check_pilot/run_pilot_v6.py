@@ -207,6 +207,37 @@ def do_run(a) -> int:
     return 0
 
 
+def v6_seconds(v5: dict, res6: dict) -> dict:
+    """Seconds of the calls v6 made, measured (advisor ruling 2026-11-02): v4's stage 1 + v5's whole-source re-reads
+    (v6 keeps them) + v6's windows; v5's passages-checked calls are not v6's. v5 recorded one wall time for all its
+    re-reads of an answer (8 workers, two waves), not per call, so where an answer had both kinds the whole-source
+    share cannot be taken out of the records: it is bounded, low = none of v5's re-read time, high = all of it.
+    Where v5 made no passages-checked call the two are equal (exact)."""
+    paths = Counter(r.get("decided_by") for r in v5.values())
+    whole, expanded = paths[V5.WHOLE], paths[V5.EXPANDED]
+    base = res6["seconds_stage1_v4"] + res6["seconds_windows"]
+    reread = res6["seconds_reread_v5"] if whole else 0.0
+    return {"v5_whole_source_calls": whole, "v5_passages_checked_calls": expanded,
+            "seconds_v6_low": round(base + (0.0 if expanded else reread), 1), "seconds_v6_high": round(base + reread, 1),
+            "seconds_v6_exact": not (whole and expanded)}
+
+
+def seconds_view(per_answer: list[dict], with_fetch: dict) -> dict:
+    """Mean, median and every answer's figure (no fetch, and with v3's reconstructed fetch time) for low and high."""
+    def dist(xs: list[float]) -> dict:
+        ys = sorted(xs)
+        mid = len(ys) // 2
+        return {"mean": round(sum(ys) / len(ys), 1), "median": round((ys[mid] + ys[~mid]) / 2, 1),
+                "min": ys[0], "max": ys[-1]}
+    return {"rule": v6_seconds.__doc__.split("\n")[0] + " (see v6_seconds)",
+            "exact_answers": sum(a["seconds_v6_exact"] for a in per_answer), "of": len(per_answer),
+            **{k: {"no_fetch": dist([a["seconds_v6_" + k] for a in per_answer]),
+                   "with_v3_fetch": dist([round(x, 1) for x in with_fetch[k]])} for k in ("low", "high")},
+            "per_answer": [{"answer": a["answer"], "low": a["seconds_v6_low"], "high": a["seconds_v6_high"],
+                            "exact": a["seconds_v6_exact"], "fetch": a["v3_fetch_seconds_reconstructed"]}
+                           for a in per_answer]}
+
+
 def compare() -> dict:
     v5c = json.loads(V5_COUNTS.read_text())
     pairs, per_answer, reasons, by_path, nf_moves, win_moves = [], [], Counter(), Counter(), Counter(), Counter()
@@ -247,7 +278,8 @@ def compare() -> dict:
                            "usd_v6": round(usd, 4), "usd_windows": round(sum(j["usd"] for j in res6["jobs"]), 4),
                            "seconds_stage1_v4": res6["seconds_stage1_v4"], "seconds_reread_v5": res6["seconds_reread_v5"],
                            "seconds_windows": res6["seconds_windows"],
-                           "v3_fetch_seconds_reconstructed": R4.fetch_seconds(q, s)})
+                           "v3_fetch_seconds_reconstructed": R4.fetch_seconds(q, s),
+                           **v6_seconds(v5, res6)})
     n = len(per_answer)
 
     def agreement(rows: list[dict]) -> dict:
@@ -256,6 +288,8 @@ def compare() -> dict:
         return {"n": len(both), "agree": agree, "share": round(agree / len(both), 4) if both else None}
 
     usd_total = sum(a["usd_v6"] for a in per_answer)
+    corrected = {k: [a["seconds_v6_" + k] + a["v3_fetch_seconds_reconstructed"] for a in per_answer]
+                 for k in ("low", "high")}
     secs = [a["seconds_stage1_v4"] + a["seconds_reread_v5"] + a["seconds_windows"] for a in per_answer]
     secs_bar = sum(x + a["v3_fetch_seconds_reconstructed"] for x, a in zip(secs, per_answer)) / n
     cc_n = sum(reasons.values())
@@ -283,7 +317,8 @@ def compare() -> dict:
                                                                 "note": "includes v5's re-read seconds whole, "
                                                                         "though v6 does not make v5's passages-"
                                                                         "checked calls: an overstatement"},
-                    "v6_plus_v3_fetch_reconstructed": {"mean": round(secs_bar, 1), "estimate": True}},
+                    "v6_plus_v3_fetch_reconstructed": {"mean": round(secs_bar, 1), "estimate": True},
+                    "v6_corrected": seconds_view(per_answer, corrected)},
         "not_backed_by_path_v6": dict(by_path),
         "windowed_v5_to_v6": dict(sorted(win_moves.items())),
         "v5_not_found_to_v6": dict(nf_moves),
@@ -292,6 +327,9 @@ def compare() -> dict:
     out["pass_bar"] = {**{k: v5c["pass_bar"][k] for k in ("v3", "v4", "v5")},
                        "v6": R4.bars(cc, n, ag, tuple(passages), usd_total, secs_bar)}
     out["pass"] = {**v5c["pass"], "v6": all(out["pass_bar"]["v6"].values())}
+    # advisor ruling 2026-11-02: time counts only calls v6 made; the old figure is kept above, the bar re-read here
+    out["pass_bar_v6_corrected_time"] = {k: R4.bars(cc, n, ag, tuple(passages), usd_total, sum(v) / n)
+                                         for k, v in corrected.items()}
     (OUT / "pairs.json").write_text(json.dumps(pairs, indent=1))
     COUNTS.write_text(json.dumps(out, indent=1) + "\n")
     return out

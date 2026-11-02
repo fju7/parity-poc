@@ -673,3 +673,84 @@ window erroring gives COULDN'T CHECK, never NOT BACKED; and a run whose own spen
 holds lines for its role fails. Counts only are committed (`check_pilot/pilot_v6_counts.json`); outputs stay private
 (`~/Projects/whu-study-private/check_pilot_v6/`). **The preview stays on v2.** As v1 §5: failing a bar is a result,
 not a reason to retune and re-run.
+
+**13.11 Result (run 2026-11-02, `check_pilot/pilot_v6_counts.json`; development evidence only, §13.0).** $12.63 on
+`whu-check-pilot-v6` (cap $17). COULDN'T CHECK 55 of 295 (18.6%; NOT FOUND IN THE PASSAGES CHECKED 0): **pass**.
+Agreement 47 of 48 (97.9%; the 6 windowed claims 6 of 6): **pass**. Passages 133 of 133: **pass**. Dollars $2.37 per
+answer: **fail** (WHU-Q1-03/Gemini alone $7.24, its windows $6.28; the other seven average $1.67). v5's 28 NOT FOUND
+became 10 BACKED and 18 NOT BACKED. **Time, corrected (advisor ruling 2026-11-02).** The first figure (mean 147.2 s
+with v3's fetch time) added v5's re-read seconds whole, though v6 makes only v5's whole-source re-reads, not its
+passages-checked ones. v5 recorded one wall time for all its re-reads of an answer (8 workers, two waves), not one per
+call, so for the 6 of 8 answers that had both kinds the whole-source share cannot be separated from the records. It
+is therefore bounded (`run_pilot_v6.v6_seconds`): low = none of that answer's v5 re-read time, high = all of it; exact
+for the 2 answers with no passages-checked call. With v3's fetch time: **mean 99.5 s (low) to 147.2 s (high)**, median
+70.9 to 84.2 s, max 377.5 to 628.7 s (WHU-Q1-03/Gemini). The bar (mean ≤ 120 s) passes on the low bound and fails on
+the high; it is **not settled** by the records. Per answer, no fetch (low-high): Q1-01/Claude 29.7-43.3, Q1-02/Claude
+18.5 (exact), Q1-04/Claude 84.5-149.1, Q1-01/Perplexity 22.4-32.2, Q1-03/Perplexity 41.1-51.5, Q1-04/Perplexity 27.1
+(exact), Q1-01/Gemini 76.4-108.6, Q1-03/Gemini 356.1-607.3. **v6 fails dollars, and time is unsettled; it does not
+pass.** No version v3-v6 passes all five bars.
+
+## 14. v7: v6 with window reads on Sonnet, a source's windows all at once (written before any v7 code)
+
+Session VP, 2026-11-02, on the advisor's ruling of that day: v6's bars unchanged; v7 = v6 with (a) long-source window
+reads on `claude-sonnet-5-5` instead of Opus and (b) a source's windows read concurrently. Written before any v7
+code, estimate or call. v1-v6 are unchanged; v7 is a separate run. **§13.0's overfitting rule stands:** v7 too is
+designed from failures on the pilot set; any version is ready for others only after passing all five bars, unchanged,
+on a fresh set of answers.
+
+**14.1 Why.** v6 fails dollars ($2.37 per answer; bar $2) and its time is unsettled (§13.11). The windows cost $12.63 of
+v6's $18.93, and WHU-Q1-03/Gemini's 9 window calls took 336 s of its time.
+
+**14.2 Change (a): window reads on Sonnet.** Only the window calls (v6's `kind: window` jobs) use `claude-sonnet-5-5`.
+Everything else is unchanged and on `claude-opus-5-5`: v4's stage 1, v5's whole-source re-reads, and, for a windowed
+claim that also cites sources within the limit, v6's one whole-source call on those (§13.5). Facts, read 2026-11-02:
+the Models API gives `claude-sonnet-5-5` `max_input_tokens` 1,000,000 (as Opus), so the 150,000-token windows,
+the ≥ 2,000-token overlap, the ≤ 20 claims per call and the batched prompt derived from M1 (same edits, same sha256)
+are all unchanged; `spend_ledger.PRICES` gives Sonnet $2 input, $10 output, $2.50 cache write, $0.10 cache read per
+million tokens, half of Opus's on every line. **Consequence, stated before the run:** for the windowed claims the
+judge model now differs from the study's (Opus, M1) as well as the prompt (§13.4). Agreement on them is reported
+apart, as in v6, and each windowed claim's v6 (Opus) label -> v7 (Sonnet) label is reported.
+
+**14.3 Change (b): a source's windows read at once.** Found when writing this section, from v6's job log: v6 already
+sent each window's first call in one concurrent wave (`V5.waves`: the first call per distinct prefix), with **8
+workers**. So every source in the pilot set already had its windows read concurrently except where an answer had more
+than 8 window calls: WHU-Q1-03/Gemini, 3 sources x 3 windows = 9, so one window waited for a free worker. v7 sets the
+workers for the window stage to the number of calls in the wave (no ceiling below it), so every window of every long
+source in an answer is read at once; calls over a window already being read (further batches, §13.4) still go after
+its first call, so they read the cache. In the pilot set no window has a second batch (every source has ≤ 20 claims).
+**What (b) can change here is one answer's ninth window only;** the expected time saving comes mostly from (a)
+(a faster model), and that is a measured result, not assumed.
+
+**14.4 Which claims.** Exactly the claims v6 sent to its windowed path (v6's recorded rows with `decided_by: windowed
+whole source`; v6's targets are rebuilt by v6's own planning on the same held copies and must match them, or the run
+stops). Every other claim keeps v6's verdict (which is v5's, which is v4's stage 1 where not re-read). Same 8 answers,
+same held copies (§13.6): a side-by-side on identical input.
+
+**14.5 Time, measured per call.** Every v7 window call records its start and end time (monotonic clock), and the
+window stage's wall time per answer is recorded. v7's time per answer = v4's stage 1 + v5's whole-source re-reads +
+v7's window stage, plus v3's reconstructed fetch time for the bar. v5's whole-source share is not measurable from
+the records (§13.11), so v7's time carries the same low/high bound; **the bar is judged on both and reported as
+settled only if both agree.** Not done without a ruling: re-timing v5's 37 whole-source re-reads would remove the
+bound (about $3.27 at their recorded cost; outside the $8 cap).
+
+**14.6 Reported, v3 to v7 side by side:** the five bars of §10.7, unchanged (v6 and v7 with time low and high);
+COULDN'T CHECK by reason and NOT FOUND apart; agreement on the same 48 items, all, windowed claims apart, M1-judged
+apart; the windowed claims' v6 -> v7 labels; **per-answer cost and time distributions** (each answer's figure, mean,
+median, min, max), not only means; dollars split stage 1 / v5 re-reads / windows.
+
+**14.7 Spend.** Ledger issue `whu-check-pilot-v7`, **cap $8** (`--cap 8`), within the pilot line ($31; $21.09 spent
+before v7). $0 until this section, the code and the offline tests are committed. A free `prepare` prints the window
+calls, the likely cost (v6's measured window cost at Sonnet's prices; source and figures printed) and the worst case
+(every call a cache write plus maximum output); the run stops before any call if the issue's spend plus the likely
+figure exceeds the cap, and every call is checked against the cap and the day cap before it is made. **Room rule as
+v6:** that day's ledger + VP's remaining planned spend that day + $8 leaves at least $10 under the $60 day cap. The run
+meters on its own issue and stops if its spend counter reads $0 while the ledger holds lines for its role.
+
+**14.8 Code and outputs.** `check_pilot/pipeline_v7.py` (imports v1-v6 unchanged; the window call's model and the
+window stage's workers are the only changes), `check_pilot/run_pilot_v7.py` (prepare | run | compare); offline tests
+in `backend/tests/test_whu_check_pilot_v7.py`, including: window calls name `claude-sonnet-5-5` and nothing else does;
+all of an answer's first-wave window calls are in flight together; a failed window still gives COULDN'T CHECK, never
+NOT BACKED; per-call start and end are recorded; the likely-over-cap gate calls nothing; the targets must match v6's
+windowed rows. Counts only are committed (`check_pilot/pilot_v7_counts.json`); outputs stay private
+(`~/Projects/whu-study-private/check_pilot_v7/`). **The preview stays on v2.** Failing a bar is a result, not a reason
+to retune and re-run.
