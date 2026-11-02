@@ -289,19 +289,76 @@ def _iom(ident: Identifier) -> tuple[Resolution, Document | None]:
     return res, _doc(ident, unit, "cms_iom_pdf", url, "section", "application/pdf")
 
 
+# The NCCI Policy Manual is published once a year as one PDF per chapter, and
+# the file names are not uniform (chapter 11 is "11-chapter11a-..."). Before
+# 2026-11-02 the URL was BUILT from today's year and the chapter number: a
+# chapter whose file name breaks the pattern, or a year CMS has not published
+# yet with last year's moved, read NONEXISTENT. Now the chapter's PDF is taken
+# from CMS's own index page, capped at the current year; "not published / not
+# findable" is UNCHECKED, and only an index that lists the manual's chapters
+# without this one says the chapter does not exist.
+_NCCI_INDEX = ("https://www.cms.gov/medicare/coding-billing/"
+               "national-correct-coding-initiative-ncci-edits/medicare-ncci-policy-manual")
+_NCCI_PDF = re.compile(r"/files/document/(\d{2})-chapter(\d+)[a-z]?-ncci-medicare-policy-manual-(\d{4})-final\.pdf")
+_ncci_cache: tuple[float, dict[int, list[tuple[int, str]]]] | None = None
+
+
+def _ncci_published() -> dict[int, list[tuple[int, str]]] | None:
+    """chapter -> [(year, pdf url)] as listed on CMS's index page; None when unavailable."""
+    global _ncci_cache
+    if _ncci_cache and time.monotonic() - _ncci_cache[0] < _TITLES_TTL:
+        return _ncci_cache[1]
+    st, body, _ = http.get(_NCCI_INDEX)
+    if st != 200 or not body:
+        return None
+    found: dict[int, list[tuple[int, str]]] = {}
+    for m in _NCCI_PDF.finditer(body.decode("utf-8", "replace")):
+        url = "https://www.cms.gov" + m.group(0)
+        entry = (int(m.group(3)), url)
+        if entry not in found.setdefault(int(m.group(2)), []):
+            found[int(m.group(2))].append(entry)
+    if not found:
+        return None  # a page with no chapter links is not an answer about any chapter
+    _ncci_cache = (time.monotonic(), found)
+    return found
+
+
 def _ncci(ident: Identifier) -> tuple[Resolution, Document | None]:
     ch, *sec = ident.value.split(":")
     sec = sec[0] if sec else ""
     res = Resolution(ident, Exists.UNCHECKED, registry="cms.gov NCCI", checked_at=_NOW())
     year = dt.date.today().year
-    for y in (year, year - 1):
-        url = f"https://www.cms.gov/files/document/{int(ch):02d}-chapter{int(ch)}-ncci-medicare-policy-manual-{y}-final.pdf"
+    published = _ncci_published()
+    url = y = None
+    if published is not None:
+        listed = published.get(int(ch))
+        if not listed:
+            res.exists = Exists.NONEXISTENT  # the index lists the manual's chapters, not this one
+            return res, None
+        current = [e for e in listed if e[0] <= year]
+        if not current:
+            res.extra = {"registry_unavailable": {"cms.gov NCCI": (
+                f"NCCI manual chapter {ch} listed only for {sorted(e[0] for e in listed)}, not yet in effect in {year}")}}
+            return res, None
+        y, url = max(current)
         st, body, _ = http.get(url, timeout=120)
-        if st == 200 and body.startswith(b"%PDF"):
-            break
+        if not (st == 200 and body.startswith(b"%PDF")):
+            res.extra = {"registry_unavailable": {"cms.gov NCCI": f"chapter PDF listed on the index answered HTTP {st}"}}
+            return res, None
     else:
-        res.exists = Exists.NONEXISTENT if st == 404 else Exists.UNCHECKED
-        return res, None
+        # Index unavailable: the known-available check. A PDF at the usual URL
+        # for this year or last is the chapter; anything else is unknown.
+        for cand in (year, year - 1):
+            u = f"https://www.cms.gov/files/document/{int(ch):02d}-chapter{int(ch)}-ncci-medicare-policy-manual-{cand}-final.pdf"
+            st, body, _ = http.get(u, timeout=120)
+            if st == 200 and body.startswith(b"%PDF"):
+                y, url = cand, u
+                break
+        else:
+            res.extra = {"registry_unavailable": {"cms.gov NCCI": (
+                f"NCCI index unavailable and no chapter {ch} PDF at the usual URL for {year} or {year - 1}"
+                " (not yet published, or renamed)")}}
+            return res, None
     res.canonical = url; res.extra = {"year": y}
     text = _pdftotext(body)
     if text is None:
