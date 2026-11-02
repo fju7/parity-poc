@@ -938,3 +938,32 @@ precedent); the next Campbell review in the same shuffle is taken, in a second d
 wording of the other three Cochrane/Campbell questions is approved as drafted; all six are committed before capture.
 (4) Capture is driven in Fred's Chrome by session VP (round 1's runbook; research queries only, no account or settings
 changes); the v8 fresh-set runner and the sentence-sample draw are committed first.
+
+**16.11 Stage-1 code, frozen before capture.** `check_pilot/run_fresh_v8.py`, `check_pilot/fresh_samples.py`; v8 is
+`pipeline_v8.py` as committed in `e125ecb`, unchanged. Nothing in these files changes after an answer is seen; a
+change would be a deviation, logged first.
+1. **Captures** (§16.2): `answers/check_fresh_set/<question>/<tool>.raw.md`, each wrapped by round 1's
+   `build_capture_r1.py` (unchanged) into `<tool>.md`; sha256 of every raw copy in
+   `check_pilot/fresh_set/answers_manifest.txt`. Adapters are round 1's: Claude `claude_sources_r1`, Gemini
+   `report_section` + `works_cited`, Perplexity `perplexity_sources` if the export has a "References" heading (the
+   report export), otherwise `perplexity_footnotes` (the thread export), as round 1 read each kind.
+2. **Samples** (§16.4, §16.9 item 2): `fresh_samples.py blind`, then `sample`: the study's `prepare_scoring.py`
+   unchanged, seed = this section's freeze commit (`420f0d65…`), 20 claim-like sentences per answer by
+   `random.Random("<SEED>/<question>/<system>/M1")`. No keys exist, so no M2. `sample` refuses if any v8 result
+   exists or the sample is already drawn; `run_fresh_v8.py run` refuses until `fresh_set/scoring/sampling_log.json`
+   exists.
+3. **Free `prepare`**: each answer fetched and planned in a scratch folder (not the run's, so the run's time includes
+   its own fetch). **Likely** = stage 1's planned input + each claim's short sources at the pilot's measured re-read
+   share (0.53, 73 of 137 stage-1 calls) + each long source's windows once, weighted by the chance that at least one
+   of its k citing claims is re-read (1 - 0.47^k), all at the pilot's measured $ per input token (v4-v6, $21.09 over
+   4.57M tokens; applied to v8's local estimate, which runs high, so the figure leans high). **Worst** = every
+   stage-1 call at its own worst + every claim re-read whole + every long source read in every window for every
+   batch of 20 of its claims, each a cache write + v6's maximum output.
+4. **Run** (paid, `whu-check-fresh-v8`, line cap $60): gated on likely (spend + likely of the answers left <= $60;
+   2026-11-01 rule), the room rule with `--today X`; every call checked against the issue cap and the day cap. Answers
+   run one at a time in question order, so each answer's wall time (fetch to verdicts) is its own; an answer starts
+   only if this run's spend + its likely <= X; a finished answer is kept, an interrupted one is set aside and run
+   again from the start.
+5. **Compare**: refuses a partial set; §10.7's bars counted as v4-v7 count them (`run_pilot_v4.bars`), except
+   agreement (stage 2); every answer's cost, time and COULDN'T CHECK share, with median, min, max and each mean
+   without the largest answer. **If cost or time fails, stage 1 stops: no judging.**
