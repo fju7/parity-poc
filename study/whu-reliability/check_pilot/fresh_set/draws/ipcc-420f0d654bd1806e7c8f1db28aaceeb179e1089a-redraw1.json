@@ -1,0 +1,174 @@
+{
+ "round": "check-fresh-set",
+ "frame_file": "frames/ipcc.json",
+ "frame_sha256": "93d99e21f3de01d59f9de458bbccb05f89747dd257e37543a04cff5e365180ee",
+ "commit": "420f0d654bd1806e7c8f1db28aaceeb179e1089a",
+ "seed": 377129068981367434473880518897517881705780807834,
+ "seed_rule": "seed = int(<full 40-character freeze commit hash>, 16) (protocol rev 38); shuffled with random.Random(\"%d/check-fresh-set\" % seed) (pilot doc §16.1)",
+ "procedure": "check_pilot/fresh_draw.py (round1_draw.py's procedure): random.Random(\"%d/check-fresh-set\" % seed).shuffle of the frame's eligible numbers k (as frames.draw_study); in that order (a) statement hash (IPCC), (b) not used before, (c) duplicate test, (d) different AR6 report (IPCC's second), (e) Option 2 (Cochrane, Campbell); the first that passes all is the draw",
+ "whu_questions": {
+  "WHU-001 melanoma (personalised mRNA cancer vaccine)": {
+   "pattern": "\\bmelanoma|\\bm?RNA[- ](?:based )?(?:cancer )?vaccin|personali[sz]ed (?:cancer )?vaccin",
+   "applied_to": "text"
+  },
+  "WHU-002 cdk46 (CDK4/6 inhibitors)": {
+   "pattern": "\\bCDK ?4/6|\\bCDK4\\b|palbociclib|ribociclib|abemaciclib|cyclin[- ]dependent kinase 4",
+   "applied_to": "text"
+  },
+  "WHU-003 deskilling (AI use and human cognition)": {
+   "pattern": "(?:artificial intelligence|\\bAI\\b|large language model|\\bLLMs?\\b|chatbot|ChatGPT|generative).{0,80}(?:cogniti|critical thinking|deskill|skill|learning|memory|reasoning)|(?:cogniti|critical thinking|deskill)\\w*.{0,80}(?:artificial intelligence|\\bAI\\b|large language model|chatbot)",
+   "applied_to": "text"
+  },
+  "T01 exercise and depression": {
+   "pattern": "(?:exercise|physical activity|physical training|yoga|walking).{0,80}depress|depress\\w*.{0,80}(?:exercise|physical activity)",
+   "applied_to": "text"
+  },
+  "T02 / WHU-P02 ultra-processed foods": {
+   "pattern": "ultra-?processed|\\bprocessed foods?\\b|\\bNOVA\\b",
+   "applied_to": "text"
+  },
+  "T03 intermittent fasting": {
+   "pattern": "intermittent fasting|time-restricted (?:eating|feeding)|alternate[- ]day fasting|\\b5:2\\b|periodic fasting",
+   "applied_to": "text"
+  },
+  "T04 vitamin D (supplementation in older adults)": {
+   "pattern": "^(?=.*\\b(?:vitamin D|cholecalciferol|ergocalciferol|calcifediol|calcitriol)\\b)(?=.*\\b(?:older (?:adults?|people|persons?|women|men|individuals|patients)|elderly|aged (?:60|65|70)|over (?:60|65|70)|(?:60|65|70) years (?:and|or) (?:over|older)|later life|old age|seniors?|geriatric|nursing homes?|care homes?|long-term care))",
+   "applied_to": "text"
+  },
+  "WHU-P04 (have the world's greenhouse gas emissions grown faster in recent decades than in earlier ones?)": {
+   "pattern": "(?=.*\\b(?:greenhouse gas|GHG|CO ?2|CO₂|carbon dioxide)\\b[^.]{0,60}\\bemissions?\\b[^.]{0,120}\\b(?:ha(?:ve|s) (?:continued to )?(?:rise|risen|increased|grown)|grew|rose|growth|higher than in))(?=.*\\b(?:since (?:18|19|20)\\d\\d|(?:19|20)\\d\\d\\s*[–-]\\s*(?:19|20)\\d\\d|(?:previous|past|last) decades?|between (?:19|20)\\d\\d and)\\b)",
+   "applied_to": "first sentence"
+  },
+  "WHU-S01 (rapid molecular tests for tuberculosis)": {
+   "pattern": "(?=.*\\btubercul)(?=.*(?:nucleic acid|molecular|Xpert|NAAT|\\bPCR\\b|rapid (?:diagnostic )?test))",
+   "applied_to": "text"
+  },
+  "WHU-S05 (undernutrition as a risk factor for tuberculosis)": {
+   "pattern": "(?=.*\\btubercul)(?=.*(?:undernutrition|malnutrition|undernourish|nutrition|body mass index|\\bBMI\\b|food))",
+   "applied_to": "text"
+  },
+  "WHU-S02 (CBT delivery formats for adolescent depression)": {
+   "pattern": "(?=.*(?:cognitive behaviou?ral|\\bCBT\\b))(?=.*(?:adolescen|teen|youth|young people|children))(?=.*depress)",
+   "applied_to": "text"
+  },
+  "WHU-S06 (arts programmes and youth offending)": {
+   "pattern": "(?=.*\\b(?:arts?|music|drama|theatre|creative)\\b)(?=.*(?:offend|criminal|justice|delinquen|crime))",
+   "applied_to": "text"
+  },
+  "WHU-S03 (public involvement in climate policy)": {
+   "pattern": "(?=.*\\b(?:public|citizens?|stakeholders?|communit(?:y|ies)|people)\\b[^.]{0,60}\\b(?:participat|involve|engage|deliberat|assembl))(?=.*\\b(?:climate|mitigation|emissions?)\\b)",
+   "applied_to": "first sentence"
+  },
+  "WHU-S04 (city growth and coping with climate change)": {
+   "pattern": "(?=.*\\b(?:urbani[sz]\\w*|cities|city|urban growth)\\b)(?=.*\\b(?:adapt\\w*|resilien\\w*|vulnerab\\w*|cope|coping)\\b)",
+   "applied_to": "first sentence"
+  },
+  "WHU-S07 (urban form and transport emissions)": {
+   "pattern": "(?=.*\\b(?:urban form|compact|densit\\w*|land[- ]use|spatial planning|mixed use)\\b)(?=.*\\b(?:transport|travel|mobility|vehicle)\\w*)",
+   "applied_to": "first sentence"
+  },
+  "WHU-S08 (settlement planning and climate resilience)": {
+   "pattern": "(?=.*\\b(?:design|planning|plan)\\b[^.]{0,80}\\b(?:settlements?|towns?|cities|urban|rural|infrastructure)\\b|.*\\b(?:settlement|land[- ]use|spatial|urban) planning\\b)(?=.*\\b(?:resilien\\w*|adapt\\w*|climate)\\b)",
+   "applied_to": "first sentence"
+  },
+  "WHU-Q1-01 (digital tracking, decision support and client reminders in primary care)": {
+   "pattern": "(?=.*(?:digital|mobile|mHealth|electronic|tablet|phone|SMS|text messag))(?=.*(?:tracking|decision support|client communication|reminder))",
+   "applied_to": "text"
+  },
+  "WHU-Q1-02 (education programmes for children with disabilities)": {
+   "pattern": "(?=.*disabilit)(?=.*(?:educat|school|learning))",
+   "applied_to": "text"
+  },
+  "WHU-Q1-03 (further warming: water cycle, extremes, ice, sea level, oceans)": {
+   "pattern": "(?=.*\\b(?:further|continued|future|additional|every increment of) (?:global )?warming\\b)(?=.*\\b(?:water cycle|precipitation|sea level|ice|ocean|extremes?)\\b)",
+   "applied_to": "first sentence"
+  },
+  "WHU-Q1-04 (carbon dioxide removal and net zero)": {
+   "pattern": "carbon dioxide removal|\\bCDR\\b|remov\\w* (?:of )?(?:CO ?2|CO₂|carbon dioxide)|negative emissions|direct air (?:carbon )?capture|\\bBECCS\\b|\\bDACCS\\b",
+   "applied_to": "text"
+  },
+  "WHU-P03 (antimalarial prophylaxis)": {
+   "pattern": "antimalarial|anti-malarial|malaria\\w* (?:chemo)?prophyla|mefloquine|chloroquine|atovaquone|doxycycline[^.]{0,80}malaria",
+   "applied_to": "text"
+  }
+ },
+ "used_entries": {
+  "AR6-WGIII-E.3.3": "WHU-S03",
+  "AR6-WGII-D.3.2": "WHU-S04",
+  "AR6-WGIII-C.8.2": "WHU-S07",
+  "AR6-WGII-C.2.6": "WHU-S08",
+  "AR6-SYR-B.1.3": "WHU-Q1-03",
+  "AR6-WGIII-C.11.4": "WHU-Q1-04",
+  "AR6-WGI-C.3.3": "drawn for the fresh set (8f0ac1c), rejected on closer reading (advisor, 2026-11-02): compound and unprecedented extremes under more warming overlaps WHU-Q1-03, whose answers every check-tool version was developed on"
+ },
+ "draws_wanted": 2,
+ "eligible": 400,
+ "checked": 4,
+ "drawn": [
+  {
+   "n": 379,
+   "id": "AR6-SYR-C.1",
+   "report": "Climate Change 2023: Synthesis Report",
+   "year": 2023,
+   "url": "https://www.ipcc.ch/report/ar6/syr/summary-for-policymakers/",
+   "level": "headline",
+   "statement_sha256": "a950069097af72b7fb399347f920074b77891ec4932b67e7293c117979fd5274"
+  },
+  {
+   "n": 196,
+   "id": "AR6-WGIII-B.5.2",
+   "report": "Climate Change 2022: Mitigation of Climate Change",
+   "year": 2022,
+   "url": "https://www.ipcc.ch/report/ar6/wg3/chapter/summary-for-policymakers/",
+   "level": "sub-statement",
+   "statement_sha256": "525547ecb78ac32e5171cb2440e11938edff33cc275c1f24c951b6c219d52c2c"
+  }
+ ],
+ "drawn_at": "2026-11-02T12:46:16+00:00",
+ "log": [
+  {
+   "checked": 1,
+   "k": 361,
+   "n": 379,
+   "id": "AR6-SYR-C.1",
+   "text_sha256": "a950069097af72b7fb399347f920074b77891ec4932b67e7293c117979fd5274",
+   "result": "drawn",
+   "draw": 1
+  },
+  {
+   "checked": 2,
+   "k": 390,
+   "n": 409,
+   "id": "AR6-SYR-C.6.2",
+   "text_sha256": "8472c1c434a6f605ce5873a29bd2bb9c26fa45526d71d9f97fb0cc551cab3e42",
+   "result": "passed over",
+   "why": "from the same AR6 report as an earlier draw (Climate Change 2023: Synthesis Report)"
+  },
+  {
+   "checked": 3,
+   "k": 54,
+   "n": 67,
+   "id": "AR6-WGI-C.3.3",
+   "text_sha256": "6810d4b50f03b8c64b7811ff5351cc92494a38f8f9053d612fa9cfedef767045",
+   "result": "ineligible",
+   "why": "used before: drawn for the fresh set (8f0ac1c), rejected on closer reading (advisor, 2026-11-02): compound and unprecedented extremes under more warming overlaps WHU-Q1-03, whose answers every check-tool version was developed on"
+  },
+  {
+   "checked": 4,
+   "k": 179,
+   "n": 196,
+   "id": "AR6-WGIII-B.5.2",
+   "text_sha256": "525547ecb78ac32e5171cb2440e11938edff33cc275c1f24c951b6c219d52c2c",
+   "result": "drawn",
+   "draw": 2
+  }
+ ],
+ "seed_label": "377129068981367434473880518897517881705780807834/check-fresh-set",
+ "redraw": {
+  "n": 1,
+  "rejected_on_closer_reading": {
+   "AR6-WGI-C.3.3": "drawn for the fresh set (8f0ac1c), rejected on closer reading (advisor, 2026-11-02): compound and unprecedented extremes under more warming overlaps WHU-Q1-03, whose answers every check-tool version was developed on"
+  },
+  "why": "pilot doc §16.10: the same shuffle, with the rejected entries as used before"
+ }
+}

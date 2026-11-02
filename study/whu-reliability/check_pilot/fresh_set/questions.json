@@ -1,0 +1,60 @@
+{
+ "_what": "The check pilot's fresh set (pilot doc §16, §16.9-§16.13): six questions, drawn by check_pilot/fresh_draw.py with seed 420f0d65 (the §16 freeze), worded from each source's stated objective or statement as round 1 worded its four (round1_protocol.md §1), committed before any capture. Each system gets the question followed by the protocol's suffix (round1_protocol.md §3).",
+ "suffix": "Please research this and give me a well-sourced answer with citations.",
+ "questions": [
+  {
+   "id": "WHU-CF-01",
+   "frame": "cochrane",
+   "entry": "10.1002/14651858.CD015330.pub2",
+   "draw_record": "check_pilot/fresh_set/draws/cochrane-420f0d654bd1806e7c8f1db28aaceeb179e1089a.json",
+   "question": "For teenagers aged 12 to 18, do programmes that change what they eat, how active they are, or both, help prevent obesity, and do they cause any harm?",
+   "wording": "approved (advisor, 2026-11-02)",
+   "prompt": "For teenagers aged 12 to 18, do programmes that change what they eat, how active they are, or both, help prevent obesity, and do they cause any harm? Please research this and give me a well-sourced answer with citations."
+  },
+  {
+   "id": "WHU-CF-02",
+   "frame": "cochrane",
+   "entry": "10.1002/14651858.CD012023.pub3",
+   "draw_record": "check_pilot/fresh_set/draws/cochrane-420f0d654bd1806e7c8f1db28aaceeb179e1089a.json",
+   "question": "For adults with mild to moderate hearing loss, do hearing aids help, and do they have any downsides?",
+   "wording": "approved (advisor, 2026-11-02)",
+   "prompt": "For adults with mild to moderate hearing loss, do hearing aids help, and do they have any downsides? Please research this and give me a well-sourced answer with citations."
+  },
+  {
+   "id": "WHU-CF-03",
+   "frame": "campbell",
+   "entry": "10.1002/cl2.1404",
+   "draw_record": "check_pilot/fresh_set/draws/campbell-420f0d654bd1806e7c8f1db28aaceeb179e1089a-redraw1.json",
+   "question": "Do aftercare or resettlement programmes for children and young people leaving custody reduce reoffending and violence, and which kinds work best?",
+   "wording": "approved (advisor, 2026-11-02)",
+   "prompt": "Do aftercare or resettlement programmes for children and young people leaving custody reduce reoffending and violence, and which kinds work best? Please research this and give me a well-sourced answer with citations."
+  },
+  {
+   "id": "WHU-CF-04",
+   "frame": "campbell",
+   "entry": "10.1002/cl2.70039",
+   "draw_record": "check_pilot/fresh_set/draws/campbell-420f0d654bd1806e7c8f1db28aaceeb179e1089a-redraw1.json",
+   "question": "In low- and middle-income countries, are teenagers who skip breakfast more likely to be underweight, overweight or anaemic, or to have other nutrition problems, than teenagers who eat breakfast?",
+   "wording": "approved (advisor, 2026-11-02)",
+   "prompt": "In low- and middle-income countries, are teenagers who skip breakfast more likely to be underweight, overweight or anaemic, or to have other nutrition problems, than teenagers who eat breakfast? Please research this and give me a well-sourced answer with citations."
+  },
+  {
+   "id": "WHU-CF-05",
+   "frame": "ipcc",
+   "entry": "AR6-SYR-C.1",
+   "draw_record": "check_pilot/fresh_set/draws/ipcc-420f0d654bd1806e7c8f1db28aaceeb179e1089a-redraw1.json",
+   "question": "Is there still time to secure a liveable future as the climate changes, and what would it take, including cutting emissions, adapting to the changes, and the money and cooperation that vulnerable countries and groups need?",
+   "wording": "approved (advisor, 2026-11-02)",
+   "prompt": "Is there still time to secure a liveable future as the climate changes, and what would it take, including cutting emissions, adapting to the changes, and the money and cooperation that vulnerable countries and groups need? Please research this and give me a well-sourced answer with citations."
+  },
+  {
+   "id": "WHU-CF-06",
+   "frame": "ipcc",
+   "entry": "AR6-WGIII-B.5.2",
+   "draw_record": "check_pilot/fresh_set/draws/ipcc-420f0d654bd1806e7c8f1db28aaceeb179e1089a-redraw1.json",
+   "question": "How widely are policies to cut greenhouse gas emissions, such as carbon taxes, emissions trading and national climate laws, now used around the world, and do they cover enough emissions, at high enough prices, to bring about deep cuts?",
+   "wording": "drafted; sent to the advisor 2026-11-02",
+   "prompt": "How widely are policies to cut greenhouse gas emissions, such as carbon taxes, emissions trading and national climate laws, now used around the world, and do they cover enough emissions, at high enough prices, to bring about deep cuts? Please research this and give me a well-sourced answer with citations."
+  }
+ ]
+}
