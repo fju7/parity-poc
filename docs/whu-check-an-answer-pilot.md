@@ -766,3 +766,69 @@ unsettled by the records; it is not a pass.** Two findings: (1) **Sonnet changed
 (2) **The window calls are not where the time goes.** Every window call took 3-38 s (WHU-Q1-03/Gemini's nine, all at
 once, 6-14 s each), but that answer's window stage took 266.8 s: the rest is planning, i.e. count_tokens on the long
 sources to size the windows (free calls, counted in the time as in v6). v6's 336 s was mostly the same.
+
+**14.10 Ruling on v7 (advisor, 2026-11-02).** No re-timing of v5's whole-source re-reads ($3.27 declined): the v6 and v7
+time figures stay ranges, and time is settled by a full end-to-end run on the fresh set. **Sonnet for long-source reads
+is set aside:** it changed 10 of 36 windowed verdicts relative to Opus (5 NOT BACKED -> BACKED) and only 5 of the 36
+are scoreable against study labels, so its readings are unvalidated. Opus remains the reading model. Next: v8 (§15)
+and a fresh-set design (§16), both $0; no paid run on the pilot set.
+
+## 15. v8: v6's Opus window reads, read at once, planned without API token counts (written before any v8 code)
+
+Session VP, 2026-11-02, on the advisor's ruling of that day (§14.10). v1-v7 are unchanged. **No paid run on the pilot
+set:** v8 is first run end to end on the fresh set (§16), after the advisor rules on it. §13.0's overfitting rule
+stands.
+
+**15.1 Why.** v7 showed (§14.9) that the window calls are not where the time goes: WHU-Q1-03/Gemini's nine window calls
+took 6-14 s each, all at once, but its window stage took 266.8 s, almost all of it `count_tokens` calls sizing the
+windows. Every stage counts tokens through the API (`count`, passed to stage 1's planning, v5's re-read planning and
+v6's windows), one HTTP call per text measured.
+
+**15.2 What v8 is.** v6's pipeline, unchanged in what it reads and how it decides (stage 1 = v4, re-reads = v5,
+windowed whole-source read and §13.5's verdict rules = v6, the M1-derived batched prompt with the same sha256), with:
+- (a) **window reads on `claude-opus-5-5`**, the study's judge (v6's model; v7's Sonnet set aside);
+- (b) **v7's concurrent window reads:** every first call over a window in flight together (workers = the wave's
+  size), further batches over a window after its first call; per-call start and end recorded;
+- (c) **planning without API token counts** (§15.3-§15.5). v8 makes no `count_tokens` call anywhere.
+
+**15.3 Local count.** `tokens(text) = ceil(len(text) / 1.9)`. Calibrated on the pilot's recorded API counts (the only
+fit; fixed here, before the fresh set is seen): the 7 long sources run 2.33-2.72 characters per token, and the 22 v6
+window prompts 1.99-2.80 characters per input token (prompt included). 1.9 is below every observed ratio, so the local
+figure is **an overestimate on every text measured** (by 5-47%). It is an estimate, not a count: a text denser than
+1.9 characters per token (tables of figures, non-Latin script) would be underestimated (§15.5).
+
+**15.4 Windows and the long-source line.**
+- Windows: **at most 140,000 estimated tokens** (a margin under the 150,000 of §13.3), overlap at least 2,000
+  estimated tokens, on passage boundaries, as §13.3 otherwise.
+- A source is "long" (windowed rather than read whole) as in v6: over `judge_m1.MAX_SOURCE_TOKENS` (150,000), now by the
+  local estimate. Because the estimate runs high, some sources a little under 150,000 true tokens will be windowed
+  where v6 read them whole; that reads more calls, never less text.
+- Effect on the pilot set (computed, $0): the 7 long sources make **30 windows instead of v6's 22**; the largest window
+  is about 101k-114k true tokens. More, smaller windows: more calls and more output per claim (one reply per claim per
+  window), so v8's window cost is somewhat above v6's on the same input, not below. **v6 failed the dollar bar
+  ($2.37 per answer) with Opus window reads; v8 keeps Opus and is not expected to be cheaper.** Whether it passes on
+  the fresh set depends on how many long sources that set cites; the estimate in §16 says so.
+
+**15.5 An underestimate is caught and recorded, never truncated.** No text is cut on the local figure: a window is a
+character range, sent whole. The model's input limit is 1,000,000 tokens, so a window whose true size passes 150,000
+is still read in full. After each call, v8 takes the true input size from the response's usage (input + cache write +
+cache read) and records it next to the estimate; a window whose true input passes 150,000 + its estimated prompt
+overhead is flagged `over_limit` and reported (count, sources). Its verdict stands, because the text was read whole;
+the flag says only that the call was larger than the study's judge was used at. A source estimated under 150,000 but
+truly over is read whole by v5's path for the same reason, and flagged the same way.
+
+**15.6 Cache.** Counts are cached per text by sha256 (with the estimator's version, `chars/1.9 v1`) in memory and in a
+JSON file in the run's private folder, so a source read again (a re-run, the same source cited by two answers) is not
+re-measured. Local counting is cheap; the cache is there so that the figure used is the figure recorded.
+
+**15.7 Time.** v8's `check()` records wall time for the whole answer (fetch, stage 1, re-reads, windows) and per call
+start and end in the window stage. On the fresh set it is measured end to end, as the advisor ruled; no reconstructed
+fetch time and no bounds.
+
+**15.8 Code and tests.** `check_pilot/pipeline_v8.py` (imports v1-v7 unchanged), offline tests in
+`backend/tests/test_whu_check_pilot_v8.py`, including: no `count_tokens` call anywhere in planning or the window stage
+(a client whose `count_tokens` raises); windows at most 140,000 estimated tokens with at least 2,000 overlap; **a source
+whose local estimate is under 140,000 but whose true count is over 150,000 is still read whole and gives the right
+verdict, with `over_limit` recorded**; **a cached count is reused** (no recomputation, and a fresh process reads it
+from the file; a changed text is not served a stale count); window calls on Opus; every first window call in flight
+together; a failed window still gives COULDN'T CHECK, never NOT BACKED. **The preview stays on v2.**
