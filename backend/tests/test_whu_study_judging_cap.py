@@ -20,9 +20,52 @@ def _ledger(monkeypatch, rows, cap=50):
                                                                         "default_per_day": 25})
 
 
+# The WHU day cap's documented schedule (caps.json "_default_per_day_raise",
+# Fred 2026-10-30): 60 for the validity phase, back to 25 when the phase ends
+# or at 2026-11-30T23:59Z, whichever is first. The phase end is not machine-
+# readable, so before the deadline either value is legitimate; after it only
+# 25 is. Moving the deadline means editing caps.json AND this constant.
+DAY_CAP_RAISED, DAY_CAP_NORMAL = 60, 25
+DAY_CAP_RAISE_ENDS = datetime(2026, 11, 30, 23, 59, tzinfo=timezone.utc)
+
+
+def _caps():
+    return json.loads((ROOT / "backend" / "data" / "spend" / "caps.json").read_text())
+
+
 def test_the_judging_cap_is_150_dollars_in_caps_json_apart_from_the_whu_day_cap():
-    c = json.loads((ROOT / "backend" / "data" / "spend" / "caps.json").read_text())
-    assert c["study_judging_per_day"] == 150 and c["default_per_day"] == 25
+    assert _caps()["study_judging_per_day"] == 150
+
+
+def day_cap_problem(c, now):
+    """None if caps.json's day cap matches its documented schedule at `now`."""
+    v, note = c.get("default_per_day"), c.get("_default_per_day_raise", "")
+    if v == DAY_CAP_NORMAL:
+        return None
+    if v == DAY_CAP_RAISED:
+        if now > DAY_CAP_RAISE_ENDS:
+            return "default_per_day is still %s after %s; it should be back to %s" % (
+                v, DAY_CAP_RAISE_ENDS.isoformat(), DAY_CAP_NORMAL)
+        if "2026-11-30T23:59Z" not in note:
+            return "default_per_day is %s but the raise note no longer documents the 2026-11-30T23:59Z end" % v
+        return None
+    return "default_per_day is %r: not %s (normal) or %s (validity-phase raise)" % (v, DAY_CAP_NORMAL, DAY_CAP_RAISED)
+
+
+def test_the_whu_day_cap_follows_its_documented_schedule():
+    assert day_cap_problem(_caps(), datetime.now(timezone.utc)) is None
+
+
+def test_the_day_cap_schedule_itself():
+    note = {"_default_per_day_raise": "... back to 25 when the phase ends or at 2026-11-30T23:59Z ..."}
+    before, after = datetime(2026, 11, 2, tzinfo=timezone.utc), datetime(2026, 12, 1, tzinfo=timezone.utc)
+    assert day_cap_problem({"default_per_day": 60, **note}, before) is None
+    assert day_cap_problem({"default_per_day": 25}, before) is None          # phase ended early
+    assert day_cap_problem({"default_per_day": 25}, after) is None
+    assert "still 60" in day_cap_problem({"default_per_day": 60, **note}, after)
+    assert "no longer documents" in day_cap_problem({"default_per_day": 60}, before)
+    for bad in (40, 100, None):
+        assert "not 25 (normal) or 60" in day_cap_problem({"default_per_day": bad, **note}, before)
 
 
 def test_only_todays_judging_counts(monkeypatch):
