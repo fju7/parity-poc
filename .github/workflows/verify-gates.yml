@@ -56,6 +56,10 @@ on:
         description: "Re-check published topics now: status | bindings; blank = neither"
         required: false
         type: string
+      force_fail:
+        description: "TEMPORARY, surfacing test only: offline | live = make that gate fail on purpose"
+        required: false
+        type: string
 
 concurrency:
   group: verify-gates-${{ github.ref }}
@@ -65,6 +69,8 @@ jobs:
   offline:
     runs-on: ubuntu-24.04
     timeout-minutes: 15
+    outputs:
+      first: ${{ steps.first.outputs.line }}
     steps:
       - uses: actions/checkout@v5
       - uses: actions/setup-python@v6
@@ -86,14 +92,28 @@ jobs:
         working-directory: backend
         run: |
           if grep -q "SKIPPED" /tmp/offline.log; then
+            echo "SKIPPED: a golden-set entry was skipped; the adapter it exercises is untested" >> /tmp/offline.log
             echo "::error::a golden-set entry was skipped; the adapter it exercises is untested"; exit 1
           fi
+      - name: Forced failure (surfacing test)
+        if: inputs.force_fail == 'offline'
+        run: |
+          echo "FAILED tests/verify/forced_surfacing_test.py::deliberate - force_fail=offline" | tee -a /tmp/offline.log
+          exit 1
+      - name: First failure line, for the gate's issue
+        id: first
+        if: always()
+        run: |
+          line=$(grep -m1 -E "^(FAILED|ERROR) |RecordingMissing|^SKIPPED:" /tmp/offline.log 2>/dev/null || true)
+          echo "line=${line:0:300}" >> "$GITHUB_OUTPUT"
 
   live:
     # Monthly and on demand only: a push should not hit five registries.
     if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-24.04
     timeout-minutes: 30
+    outputs:
+      first: ${{ steps.first.outputs.line }}
     steps:
       - uses: actions/checkout@v5
       - uses: actions/setup-python@v6
@@ -109,6 +129,11 @@ jobs:
           ARGS=""
           [ -n "${{ inputs.only }}" ] && ARGS="--only ${{ inputs.only }}"
           python scripts/verify_live_registries.py $ARGS 2>&1 | tee /tmp/live.log
+      - name: Forced failure (surfacing test)
+        if: inputs.force_fail == 'live'
+        run: |
+          echo "literature forced  nct:FORCED  DIVERGED force_fail=live (surfacing test)" | tee -a /tmp/live.log
+          exit 1
       - name: Report to the run summary
         if: always()
         run: |
@@ -124,6 +149,12 @@ jobs:
             fi
             echo ""; echo '```'; tail -60 /tmp/live.log; echo '```'
           } >> "$GITHUB_STEP_SUMMARY"
+      - name: First divergence line, for the gate's issue
+        id: first
+        if: always()
+        run: |
+          line=$(grep -m1 -E "DIVERGED|Traceback|Error" /tmp/live.log 2>/dev/null | sed -E 's/ +/ /g' || true)
+          echo "line=${line:0:300}" >> "$GITHUB_OUTPUT"
 
   # ---------------------------------------------------------------------------
   # Published topics against their frozen records (Phase 3 §2, §3). Weekly the
@@ -136,6 +167,8 @@ jobs:
     if: (github.event_name == 'schedule' && github.event.schedule == '0 12 * * 1') || (github.event_name == 'workflow_dispatch' && inputs.recheck == 'status')
     runs-on: ubuntu-24.04
     timeout-minutes: 30
+    outputs:
+      first: ${{ steps.first.outputs.line }}
     steps:
       - uses: actions/checkout@v5
       - uses: actions/setup-python@v6
@@ -147,7 +180,17 @@ jobs:
         env:
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
-        run: python scripts/recheck_topic.py --all --kind status 2>&1 | tee /tmp/recheck-status.log
+        # pipefail: without it the step's status was tee's, and an ALERT
+        # (recheck_topic.py exits 1) could never fail the job.
+        run: |
+          set -o pipefail
+          python scripts/recheck_topic.py --all --kind status 2>&1 | tee /tmp/recheck-status.log
+      - name: First alert line, for the gate's issue
+        id: first
+        if: always()
+        run: |
+          line=$(grep -m1 -E " -> ALERT;|Traceback|Error" /tmp/recheck-status.log 2>/dev/null || true)
+          echo "line=${line:0:300}" >> "$GITHUB_OUTPUT"
       - if: always()
         uses: actions/upload-artifact@v6
         with:
@@ -161,6 +204,8 @@ jobs:
     if: (github.event_name == 'schedule' && github.event.schedule == '0 13 1-7 * 1') || (github.event_name == 'workflow_dispatch' && inputs.recheck == 'bindings')
     runs-on: ubuntu-24.04
     timeout-minutes: 60
+    outputs:
+      first: ${{ steps.first.outputs.line }}
     steps:
       - uses: actions/checkout@v5
       - uses: actions/setup-python@v6
@@ -173,7 +218,17 @@ jobs:
         env:
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
-        run: python scripts/recheck_topic.py --all --kind bindings 2>&1 | tee /tmp/recheck-bindings.log
+        # pipefail: without it the step's status was tee's, and an ALERT
+        # (recheck_topic.py exits 1) could never fail the job.
+        run: |
+          set -o pipefail
+          python scripts/recheck_topic.py --all --kind bindings 2>&1 | tee /tmp/recheck-bindings.log
+      - name: First alert line, for the gate's issue
+        id: first
+        if: always()
+        run: |
+          line=$(grep -m1 -E " -> ALERT;|Traceback|Error" /tmp/recheck-bindings.log 2>/dev/null || true)
+          echo "line=${line:0:300}" >> "$GITHUB_OUTPUT"
       - if: always()
         uses: actions/upload-artifact@v6
         with:
@@ -182,3 +237,77 @@ jobs:
             /tmp/recheck-bindings.log
             backend/data/verify/rechecks/
           retention-days: 400
+
+  # ---------------------------------------------------------------------------
+  # Surfacing: one GitHub issue per gate. A failed gate opens its issue (label
+  # verification-gate) or comments on the open one; the gate's next SUCCESS
+  # closes it. Skipped or cancelled says nothing about the gate and touches
+  # nothing. Added 2026-11-02 after `live` failed from 10-26 to 11-02 with
+  # nobody acting: a red run notifies once and scrolls away, an open issue
+  # stays open until the gate is green.
+  # Log lines reach the issue through env and --body-file, never through ${{ }}
+  # inside the script.
+  # ---------------------------------------------------------------------------
+  surface:
+    needs: [offline, live, recheck-status, recheck-bindings]
+    if: always()
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    permissions:
+      issues: write
+      actions: read
+    steps:
+      - name: Open, update or close one issue per gate
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          RUN_ID: ${{ github.run_id }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          SHA: ${{ github.sha }}
+          EVENT: ${{ github.event_name }}
+          R_offline: ${{ needs.offline.result }}
+          F_offline: ${{ needs.offline.outputs.first }}
+          R_live: ${{ needs.live.result }}
+          F_live: ${{ needs.live.outputs.first }}
+          R_recheck_status: ${{ needs.recheck-status.result }}
+          F_recheck_status: ${{ needs.recheck-status.outputs.first }}
+          R_recheck_bindings: ${{ needs.recheck-bindings.result }}
+          F_recheck_bindings: ${{ needs.recheck-bindings.outputs.first }}
+        run: |
+          set -euo pipefail
+          gh label create verification-gate --color B60205 \
+            --description "A Verification gates job is failing; closes itself on the gate's next green run" --force >/dev/null
+          gh api "repos/$GH_REPO/actions/runs/$RUN_ID/jobs" --paginate > /tmp/jobs.json
+          for gate in offline live recheck-status recheck-bindings; do
+            v=${gate//-/_}; r="R_$v"; f="F_$v"; result=${!r}; first=${!f:-}
+            title="Verification gate failing: $gate"
+            num=$(gh issue list --label verification-gate --state open --limit 50 --json number,title \
+                  --jq ".[] | select(.title == \"$title\") | .number" | head -1)
+            case "$result" in
+              failure)
+                step=$(jq -r --arg g "$gate" '[.jobs[] | select(.name == $g) | .steps[] | select(.conclusion == "failure") | .name] | join(", ")' /tmp/jobs.json)
+                {
+                  echo "**$gate** failed in run $RUN_URL ($EVENT, ${SHA:0:7}, $(date -u +%Y-%m-%dT%H:%MZ))."
+                  echo ""
+                  echo "- Failing step: ${step:-unknown}"
+                  echo "- First failure line:"
+                  echo '```'; echo "${first:-(none captured; read the run log)}"; echo '```'
+                } > /tmp/body.md
+                if [ -n "$num" ]; then
+                  gh issue comment "$num" --body-file /tmp/body.md
+                  echo "$gate: failure -> commented on #$num"
+                else
+                  { echo "This issue closes itself when the **$gate** gate next passes."; echo ""; cat /tmp/body.md; } > /tmp/new.md
+                  gh issue create --title "$title" --label verification-gate --body-file /tmp/new.md
+                  echo "$gate: failure -> opened"
+                fi ;;
+              success)
+                if [ -n "$num" ]; then
+                  gh issue close "$num" --comment "Green again in $RUN_URL ($EVENT, ${SHA:0:7})."
+                  echo "$gate: success -> closed #$num"
+                else
+                  echo "$gate: success, no open issue"
+                fi ;;
+              *) echo "$gate: $result -> no change" ;;
+            esac
+          done
