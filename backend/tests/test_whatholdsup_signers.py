@@ -16,6 +16,7 @@ import sys
 from pathlib import Path
 
 import pytest
+from tests.git_isolation import tmp_git  # noqa: E402
 
 WHU = Path(__file__).resolve().parents[1] / "scripts" / "whatholdsup"
 sys.path.insert(0, str(WHU))
@@ -32,8 +33,7 @@ def _doc(**verdict):
 
 
 def _repo(tmp_path, trailer: bool) -> Path:
-    def git(*a):
-        subprocess.run(["git", "-C", str(tmp_path), *a], check=True, capture_output=True)
+    git = tmp_git(tmp_path)
     git("init", "-q")
     git("config", "user.name", "Fred Ugast")
     git("config", "user.email", "fred@example.invalid")

@@ -19,6 +19,7 @@ sys.path.insert(0, str(ROOT / "backend" / "scripts" / "whatholdsup"))
 import bindings as B          # noqa: E402
 import coverage_check as C    # noqa: E402
 import omissions as O         # noqa: E402
+from tests.git_isolation import tmp_git  # noqa: E402
 
 # S08's layout, synthetic: a table of contents naming the Executive Summary,
 # then the summary itself, paragraphs ending in their {section references},
@@ -196,7 +197,7 @@ def test_declarations_past_the_budget_need_a_person(case, tmp_path):
     # signed by a person, with a committed acceptance line: it passes
     repo = tmp_path / "repo"
     repo.mkdir()
-    git = lambda *a: subprocess.run(["git", "-C", str(repo), *a], check=True, capture_output=True)
+    git = tmp_git(repo)
     git("init", "-q"); git("config", "user.email", "t@e.com"); git("config", "user.name", "t")
     (repo / "a.md").write_text("# a\nAccepted by Fred Ugast, 27 October 2026, stated in session\n")
     git("add", "a.md"); git("commit", "-q", "-m", "acceptance")

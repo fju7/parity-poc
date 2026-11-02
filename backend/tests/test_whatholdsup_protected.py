@@ -39,6 +39,7 @@ def _load(name, path):
 import bindings as B                                   # noqa: E402
 import conclusion_judge as CJ                          # noqa: E402
 import protected as PR                                 # noqa: E402
+from tests.git_isolation import tmp_git  # noqa: E402
 A = _load("audit_stage_protected_t", WHU / "audit_stage.py")
 R = _load("ruling_protected_t", WHU / "ruling.py")
 
@@ -283,7 +284,7 @@ def test_a_typographic_change_is_not_a_change():
 def _repo(tmp_path, line: str, trailer: bool) -> Path:
     root = tmp_path / "repo"
     root.mkdir()
-    git = lambda *a: subprocess.run(["git", "-C", str(root), *a], check=True, capture_output=True)
+    git = tmp_git(root)
     git("init", "-q")
     git("config", "user.email", "t@example.com")
     git("config", "user.name", "t")
