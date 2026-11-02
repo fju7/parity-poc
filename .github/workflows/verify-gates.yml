@@ -42,6 +42,10 @@ on:
     paths:
       - "backend/verify/**"
       - "backend/tests/verify/**"
+      # Parent conftest of tests/verify (GIT_* scrub, real-repo guard) and its helper:
+      # a change to either changes what the offline gate runs under.
+      - "backend/tests/conftest.py"
+      - "backend/tests/git_isolation.py"
       - "backend/utils/citation_gate.py"
       - "backend/tests/test_citation_gate.py"
       - "backend/scripts/verify_live_registries.py"
