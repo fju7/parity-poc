@@ -976,3 +976,11 @@ format ("mixed" if they differ; "no source held"), with each group's COULDN'T CH
 address, status, content type, PDF magic bytes), passed to `pipeline_v8.check` as its `net`; every response is passed
 on unchanged, so v8 decides nothing differently. Its purpose is to show whether PDF text extraction raises COULDN'T
 CHECK; nothing is decided from it in advance.
+
+**16.13 IPCC redraw (advisor, 2026-11-02).** The first IPCC draw (`8f0ac1c`) gave AR6-SYR-C.1 and AR6-WGI-C.3.3.
+C.3.3 **fails on closer reading**: compound and unprecedented extremes under more warming overlaps WHU-Q1-03, whose
+pilot answers every check-tool version was developed on. It joins `fresh_draw.CLOSER_READING`; IPCC is redrawn in the
+same shuffle (`--redraw 1`), SYR-C.1 kept, the same-report rule applied, the next candidate screened by hand for topic
+overlap first. The topic pattern that missed "If global warming increases" is widened for round 2 onward
+(`quarterly/round2_exclusions.json`, which also lists the fresh set's entries as used before); the fresh-set and
+round-1 draws are not re-run.

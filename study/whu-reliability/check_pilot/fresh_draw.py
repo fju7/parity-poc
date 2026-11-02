@@ -44,7 +44,11 @@ USED = {"cochrane": {"10.1002/14651858.CD012925.pub2": "WHU-Q1-01"},
 # repeats the same shuffle with these in the "used before" table and is written to a second record.
 CLOSER_READING = {"campbell": {"10.1002/cl2.1419": "drawn for the fresh set (c970903), rejected on closer reading "
                                                    "(advisor, 2026-11-02): a measurement-properties review does not "
-                                                   "yield a question a member of the public would ask"}}
+                                                   "yield a question a member of the public would ask"},
+                  "ipcc": {"AR6-WGI-C.3.3": "drawn for the fresh set (8f0ac1c), rejected on closer reading (advisor, "
+                                            "2026-11-02): compound and unprecedented extremes under more warming "
+                                            "overlaps WHU-Q1-03, whose answers every check-tool version was "
+                                            "developed on"}}
 # §16.10: the file name Fred saves each AR6 SPM page as, in --cache, by the URL frames.ipcc_texts reads it from.
 SAVED_PAGES = {"ipcc-ar6-wg1-spm.html": "https://www.ipcc.ch/report/ar6/wg1/chapter/summary-for-policymakers/",
                "ipcc-ar6-wg2-spm.html": "https://www.ipcc.ch/report/ar6/wg2/chapter/summary-for-policymakers/",

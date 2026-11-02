@@ -1,0 +1,27 @@
+{
+ "_what": "Round 2's additions to round 1's tables (round1_duplicates.json), for its draw: entries used before, and topic patterns. Recorded before round 2's draw. Pilot doc §16.1 (the fresh set's questions are added to round 2's 'used before' list) and §16.13 (the Q1-03 pattern widened after the fresh-set draw missed AR6-WGI-C.3.3's 'If global warming increases'; the round-1 and fresh-set draws are not re-run).",
+ "used_entries": {
+  "cochrane": {
+   "10.1002/14651858.CD012925.pub2": "WHU-Q1-01",
+   "10.1002/14651858.CD015330.pub2": "check-pilot fresh set",
+   "10.1002/14651858.CD012023.pub3": "check-pilot fresh set"
+  },
+  "campbell": {
+   "10.1002/cl2.70016": "WHU-Q1-02",
+   "10.1002/cl2.1404": "check-pilot fresh set",
+   "10.1002/cl2.70039": "check-pilot fresh set",
+   "10.1002/cl2.1419": "drawn for the check-pilot fresh set, rejected on closer reading"
+  },
+  "ipcc": {
+   "AR6-SYR-B.1.3": "WHU-Q1-03",
+   "AR6-WGIII-C.11.4": "WHU-Q1-04",
+   "AR6-SYR-C.1": "check-pilot fresh set",
+   "AR6-WGI-C.3.3": "drawn for the check-pilot fresh set, rejected on closer reading (overlaps WHU-Q1-03)"
+  }
+ },
+ "patterns": {
+  "WHU-Q1-03 (warming-conditional changes: water cycle, extremes, ice, sea level, oceans; widened 2026-11-02)": [
+   "(?=.*(?:\\b(?:if|as|with|when|under)\\b[^.]{0,40}\\bwarming\\b[^.]{0,25}\\b(?:increas|rise|rises|rising|continu|grow|intensif|exceed)\\w*|\\b(?:further|continued|future|additional|higher|greater|more|increasing|every increment of|each increment of)\\s+(?:levels? of\\s+)?(?:global\\s+)?warming|\\bwarming\\s+levels?\\b|\\bunder\\s+(?:higher|greater|more|increasing)\\s+(?:levels?\\s+of\\s+)?(?:global\\s+)?warming))(?=.*\\b(?:water cycle|precipitation|rainfall|droughts?|floods?|sea level|ice|ocean|oceans|extremes?|heatwaves?|hot extremes)\\b)",
+   "first sentence"]
+ }
+}

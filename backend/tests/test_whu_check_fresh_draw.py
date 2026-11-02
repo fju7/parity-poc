@@ -83,3 +83,26 @@ def test_import_pages_stores_each_saved_page_under_its_url_unchanged(tmp_path):
     assert set(D.SAVED_PAGES.values()) == {u for _w, _t, _y, u in D.F.IPCC_REPORTS}
     (tmp_path / "ipcc-ar6-syr-spm.html").unlink()
     assert D.import_pages(tmp_path) == 1
+
+
+def test_round2s_widened_pattern_catches_warming_conditional_phrasing():
+    import re
+    ex = json.loads((D.STUDY / "quarterly" / "round2_exclusions.json").read_text())
+    (pat, scope), = [v for k, v in ex["patterns"].items() if k.startswith("WHU-Q1-03")]
+    hit = lambda t: re.search(pat, D.F.first_sentence(t) if scope == "first sentence" else t, re.I | re.S)
+    c33 = ("If global warming increases, some compound extreme events with low likelihood in past and current climate "
+           "will become more frequent, and there will be a higher likelihood that events with increased intensities, "
+           "durations and/or spatial extents unprecedented in the observational record will occur (high confidence).")
+    assert hit(c33)
+    assert hit("As warming rises, heavy precipitation events will intensify over most regions.")
+    assert hit("Under higher warming, sea level rise will continue for centuries.")
+    assert hit("With continued warming, ice sheets will lose mass.")
+    assert not hit("By 2020, over 20% of global GHG emissions were covered by carbon taxes or emissions trading.")
+    assert not hit("Climate change is a threat to human well-being and planetary health (very high confidence).")
+    assert not D.R.duplicates(c33)                                  # the fresh set's table, as frozen, missed it
+    assert ex["used_entries"]["ipcc"]["AR6-WGI-C.3.3"].startswith("drawn for the check-pilot fresh set")
+
+
+def test_the_ipcc_redraw_rejects_c33_and_keeps_syr_c1():
+    ext = D.extend(D.R.EXTRA, redraw=1)
+    assert "AR6-WGI-C.3.3" in ext["used_entries"]["ipcc"] and "AR6-SYR-C.1" not in ext["used_entries"]["ipcc"]
