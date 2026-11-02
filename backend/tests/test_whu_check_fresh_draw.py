@@ -60,3 +60,26 @@ def test_round1s_draws_are_used_before_and_its_questions_are_duplicates():
         assert not D.R.duplicates("Zinc supplementation for the common cold in children")
     finally:
         D.R.EXTRA = saved
+
+
+def test_a_redraw_repeats_the_shuffle_logs_the_rejection_and_takes_the_next():
+    first = D.draw("campbell", COMMIT, None, get=open_licence, pause=0)
+    again = D.draw("campbell", COMMIT, None, get=open_licence, pause=0, redraw=1)
+    assert [r["k"] for r in again["log"]][:len(first["log"])] == [r["k"] for r in first["log"]]
+    rejected = [r for r in again["log"] if r["result"] == "ineligible" and "closer reading" in r.get("why", "")]
+    assert len(rejected) == 1 and "cl2.1419" not in [d.get("doi") for d in again["drawn"]]
+    assert len(again["drawn"]) == 2 and again["redraw"]["n"] == 1
+    assert "10.1002/cl2.1419" not in D.extend(D.R.EXTRA)["used_entries"]["campbell"]     # only on a redraw
+
+
+def test_import_pages_stores_each_saved_page_under_its_url_unchanged(tmp_path):
+    import gzip
+    page = b"<html><p>A.1 It is unequivocal that human influence has warmed the planet. {2.1}</p></html>"
+    for name in D.SAVED_PAGES:
+        (tmp_path / name).write_bytes(page)
+    assert D.import_pages(tmp_path) == 0
+    for url in D.SAVED_PAGES.values():
+        assert gzip.decompress((tmp_path / (D.F.sha(url)[:32] + ".gz")).read_bytes()) == page
+    assert set(D.SAVED_PAGES.values()) == {u for _w, _t, _y, u in D.F.IPCC_REPORTS}
+    (tmp_path / "ipcc-ar6-syr-spm.html").unlink()
+    assert D.import_pages(tmp_path) == 1

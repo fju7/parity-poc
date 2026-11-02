@@ -928,3 +928,13 @@ capture per answer, so run-to-run variation of the systems is not measured.
 
 **The commit that adds §16.9 freezes §16.** Its full hash is the draw's seed (§16.1); nothing in §16 changes after
 it except by a ruling logged in the deviations log.
+
+**16.10 Draw rulings (advisor, 2026-11-02), after the Cochrane and Campbell draw (`c970903`).** (1) IPCC: Fred saves
+the four AR6 SPM pages by hand from his normal browser (no bot wall worked around); `fresh_draw.py import-pages`
+stores each under the URL it was saved from, and the draw runs offline with round 1's fingerprint test (a). IPCC stays
+in the set. (2) cl2.1419 (instruments measuring abuse of older people) is **rejected on closer reading**: a
+measurement-properties review does not yield a question a member of the public would ask (round 1's CD005632.pub4
+precedent); the next Campbell review in the same shuffle is taken, in a second draw record; the first is kept. (3) The
+wording of the other three Cochrane/Campbell questions is approved as drafted; all six are committed before capture.
+(4) Capture is driven in Fred's Chrome by session VP (round 1's runbook; research queries only, no account or settings
+changes); the v8 fresh-set runner and the sentence-sample draw are committed first.
