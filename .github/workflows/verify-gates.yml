@@ -56,10 +56,6 @@ on:
         description: "Re-check published topics now: status | bindings; blank = neither"
         required: false
         type: string
-      force_fail:
-        description: "TEMPORARY, surfacing test only: offline | live = make that gate fail on purpose"
-        required: false
-        type: string
 
 concurrency:
   group: verify-gates-${{ github.ref }}
@@ -95,11 +91,6 @@ jobs:
             echo "SKIPPED: a golden-set entry was skipped; the adapter it exercises is untested" >> /tmp/offline.log
             echo "::error::a golden-set entry was skipped; the adapter it exercises is untested"; exit 1
           fi
-      - name: Forced failure (surfacing test)
-        if: inputs.force_fail == 'offline'
-        run: |
-          echo "FAILED tests/verify/forced_surfacing_test.py::deliberate - force_fail=offline" | tee -a /tmp/offline.log
-          exit 1
       - name: First failure line, for the gate's issue
         id: first
         if: always()
@@ -129,11 +120,6 @@ jobs:
           ARGS=""
           [ -n "${{ inputs.only }}" ] && ARGS="--only ${{ inputs.only }}"
           python scripts/verify_live_registries.py $ARGS 2>&1 | tee /tmp/live.log
-      - name: Forced failure (surfacing test)
-        if: inputs.force_fail == 'live'
-        run: |
-          echo "literature forced  nct:FORCED  DIVERGED force_fail=live (surfacing test)" | tee -a /tmp/live.log
-          exit 1
       - name: Report to the run summary
         if: always()
         run: |
