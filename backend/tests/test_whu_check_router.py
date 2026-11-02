@@ -6,6 +6,7 @@ test_whu_check_pilot.py. No network, no model, and the real ledger is never read
 the ledger and caps are replaced per test."""
 import os
 import sys
+import threading
 import time
 from pathlib import Path
 
@@ -24,6 +25,45 @@ import test_whu_check_pilot_v2 as T2  # noqa: E402
 
 CODE = "test-code-not-real"
 ANSWER = (T.FIX / "answer_claude_sources.md").read_text(encoding="utf-8")
+
+# The real operator log. A job thread runs _run's `finally` -- rmtree, the
+# JOBS_LOG line, _running = None -- AFTER the job reads "done". Waiting for
+# "done" raced it (FileNotFoundError on tmp jobs.jsonl, ~1 run in 4-12), and a
+# thread that outlived its test wrote to THIS file once monkeypatch had put the
+# real path back: on 2026-11-02 both lines in it were this test's (input_sha256
+# of ANSWER, the over_cap case). Tests now join the job thread itself, and the
+# guard below fails any test that changes the real file.
+REAL_JOBS_LOG = W.JOBS_LOG
+_STARTED: list = []
+
+
+class _RecordingThreading:
+    """W.threading, with every Thread the router starts recorded so a test can join it."""
+    def __getattr__(self, name):
+        return getattr(threading, name)
+
+    @staticmethod
+    def Thread(*a, **kw):
+        t = threading.Thread(*a, **kw)
+        _STARTED.append(t)
+        return t
+
+
+def _join_jobs():
+    for t in list(_STARTED):
+        t.join(5)
+        assert not t.is_alive(), "a job thread did not finish"
+
+
+def _real_log_state():
+    return REAL_JOBS_LOG.stat().st_size if REAL_JOBS_LOG.exists() else None
+
+
+@pytest.fixture(autouse=True)
+def real_jobs_log_untouched():
+    before = _real_log_state()
+    yield
+    assert _real_log_state() == before, "a test wrote to the real %s" % REAL_JOBS_LOG
 
 
 @pytest.fixture
@@ -52,12 +92,15 @@ def app(monkeypatch, tmp_path, ledger):
     fake = T.client()
     monkeypatch.setattr(W, "_clients", lambda: (fake, T.count))
     monkeypatch.setattr(W, "_running", None)
+    _STARTED.clear()
+    monkeypatch.setattr(W, "threading", _RecordingThreading())
     W._jobs.clear()
     a = FastAPI()
     a.include_router(W.router)
     a.add_middleware(W.OriginGuard)
     a.state.fake = fake
-    return a
+    yield a
+    _join_jobs()  # before monkeypatch restores the real JOBS_LOG
 
 
 def post(c, code=CODE, answer=ANSWER, **kw):
@@ -70,6 +113,7 @@ def wait(c, job_id, code=CODE):
     for _ in range(200):
         r = c.get("/api/whu/check/" + job_id, headers={"X-Check-Code": code})
         if r.json().get("status") not in ("queued", "running"):
+            _join_jobs()  # "done" is set before the thread's finally: log, cleanup
             return r
         time.sleep(0.02)
     raise AssertionError("job did not finish")
