@@ -967,3 +967,12 @@ change would be a deviation, logged first.
 5. **Compare**: refuses a partial set; §10.7's bars counted as v4-v7 count them (`run_pilot_v4.bars`), except
    agreement (stage 2); every answer's cost, time and COULDN'T CHECK share, with median, min, max and each mean
    without the largest answer. **If cost or time fails, stage 1 stops: no judging.**
+
+**16.12 Added before any capture (advisor, 2026-11-02; $0): coverage and verdicts by held-source format.** The stage-1
+report adds `by_held_format`: per source, the count by the format of the copy v8 held (PDF, HTML, other: XML, plain
+text, a registry abstract; unreachable; unknown); per claim, the count and verdict distribution by its held sources'
+format ("mixed" if they differ; "no source held"), with each group's COULDN'T CHECK share (NOT FOUND counted in, as
+§10.7). The format comes from the runner's own record of every fetch (`run_fresh_v8.FormatLog`: address, final
+address, status, content type, PDF magic bytes), passed to `pipeline_v8.check` as its `net`; every response is passed
+on unchanged, so v8 decides nothing differently. Its purpose is to show whether PDF text extraction raises COULDN'T
+CHECK; nothing is decided from it in advance.

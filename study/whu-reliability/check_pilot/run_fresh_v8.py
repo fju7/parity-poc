@@ -235,6 +235,79 @@ def do_prepare(_a) -> int:
     return 0
 
 
+# -- the held-source format (§16.12): recorded beside v8, never read by it -----------------------------------------
+
+class FormatLog:
+    """pipeline_v3.NET with "get" and "render" wrapped to record, per response, the address, final address, status,
+    content type and whether the body is a PDF. The response is passed on unchanged: v8 decides nothing differently."""
+
+    def __init__(self, net: dict | None = None):
+        import threading
+        self.base = dict(net or P.V4.V3.NET)
+        self.rows, self.lock = [], threading.Lock()
+
+    def _log(self, url: str, **kw) -> None:
+        with self.lock:
+            self.rows.append({"url": url, **kw})
+
+    def net(self) -> dict:
+        def get(url, *a, **k):
+            r = self.base["get"](url, *a, **k)
+            self._log(url, final_url=r.get("final_url"), status=r.get("status"),
+                      content_type=r.get("content_type") or "", pdf=(r.get("body") or b"")[:5] == b"%PDF-",
+                      via="get")
+            return r
+
+        def render(url, *a, **k):
+            data = self.base["render"](url, *a, **k)
+            self._log(url, final_url=url, status=200, content_type="text/html (rendered)",
+                      pdf=(data or b"")[:5] == b"%PDF-", via="render")
+            return data
+        return {**self.base, "get": get, "render": render}
+
+
+def held_format(row: dict | None, fetches: list[dict]) -> str:
+    """PDF, HTML or other (XML, plain text, a registry abstract with no fetch of its own); 'unreachable' when no
+    copy is held; 'unknown' when no fetch of the copy's address was recorded."""
+    if not row or row.get("extent") == "unreachable":
+        return "unreachable"
+    via = row.get("retrieved_from") or row.get("url")
+    seen = [f for f in fetches if via in (f["url"], f.get("final_url")) and (f.get("status") or 0) < 400]
+    if not seen:
+        return "other" if not str(via).startswith("http") else "unknown"
+    f = seen[-1]
+    ct = (f.get("content_type") or "").lower()
+    if f.get("pdf") or "pdf" in ct:
+        return "PDF"
+    if "html" in ct:
+        return "HTML"
+    return "other"
+
+
+def by_format(per_answer: list[tuple[dict, list[dict]]]) -> dict:
+    """Coverage and verdict distribution by held-source format (§16.12): per source, and per claim (a claim whose
+    held sources differ in format is 'mixed'). Reported, nothing decided from it."""
+    sources, claims = {}, {}
+    for res, fetches in per_answer:
+        man = res.get("manifest") or {}
+        fmt = {u: held_format(row, fetches) for u, row in man.items()}
+        for f in fmt.values():
+            sources[f] = sources.get(f, 0) + 1
+        for r in res["results"]:
+            kinds = {fmt.get(ct.get("url")) for ct in r.get("citations") or [] if ct.get("url") in fmt}
+            kinds.discard("unreachable")
+            k = (kinds.pop() if len(kinds) == 1 else "mixed") if kinds else "no source held"
+            c = claims.setdefault(k, {"claims": 0, "labels": {}})
+            c["claims"] += 1
+            c["labels"][r["label"]] = c["labels"].get(r["label"], 0) + 1
+    for c in claims.values():
+        cc = c["labels"].get(P.COULDNT, 0) + c["labels"].get(P.NOT_FOUND, 0)
+        c["couldnt_check_share"] = round(cc / c["claims"], 4)
+    return {"sources": sources, "claims": claims,
+            "note": "Format of the copy v8 held, from the runner's fetch record (FormatLog). COULDN'T CHECK here "
+                    "counts NOT FOUND as §10.7 does. Reported as seen; nothing decided from it in advance."}
+
+
 # -- the paid run ---------------------------------------------------------------------------------------------------
 
 def gate(likely: float, spent_usd: float, cap: float) -> tuple[bool, str]:
@@ -278,13 +351,15 @@ def do_run(a) -> int:
         w = work(q, s)
         if w.exists():                                   # an interrupted answer starts again from nothing
             w.rename(w.with_name(w.name + ".interrupted-%s" % datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%S")))
+        fl = FormatLog()
         try:
-            res = P.check(text, w, client, fmt, s, before_call=budget.before_call)
+            res = P.check(text, w, client, fmt, s, net=fl.net(), before_call=budget.before_call)
         except P.Stop as e:
             print("  %s %-10s STOPPED: %s (the answer is not kept; it runs again from the start)" % (q, s, e))
             break
         (w / "results.json").write_text(json.dumps({"question": q, "system": s, "at": R.now(), "format": fmt,
-                                                    **res}, indent=1, ensure_ascii=False, default=str))
+                                                    **res, "fetches": fl.rows}, indent=1, ensure_ascii=False,
+                                                   default=str))
         print("  %s %-10s %6.1f s  %s%s" % (q, s, res["seconds"], res["summary"],
                                            "  (%d over_limit call(s))" % len(res["over_limit"])
                                            if res["over_limit"] else ""))
@@ -320,9 +395,10 @@ def compare() -> dict:
     done = [(q, s) for q, s in sample() if (work(q, s) / "results.json").exists()]
     if len(done) != len(sample()):
         raise P.Stop("%d of %d answers run: a partial set is not analysed" % (len(done), len(sample())))
-    per, reasons, n_claims, nf, passages = [], {}, 0, 0, [0, 0]
+    per, reasons, n_claims, nf, passages, held = [], {}, 0, 0, [0, 0], []
     for q, s in done:
         res = json.loads((work(q, s) / "results.json").read_text())
+        held.append((res, res.get("fetches") or []))
         rows = res["results"]
         cc = 0
         for r in rows:
@@ -363,6 +439,7 @@ def compare() -> dict:
                           "note": "each mean is also shown without the largest answer (§16.3); the bars are judged "
                                   "on all answers"},
         "over_limit_calls": sum(p["over_limit_calls"] for p in per),
+        "by_held_format": by_format(held),
         "pass_bar": pass_bar, "agreement": "stage 2 (judging) not approved; not computed",
         "stop_rule": "§16.9 item 2: if cost or time fails, stop; no judging",
         "per_answer": per}
@@ -372,7 +449,7 @@ def do_compare(_a) -> int:
     out = compare()
     COUNTS.write_text(json.dumps(out, indent=1) + "\n")
     print(json.dumps({k: out[k] for k in ("answers", "claims", "couldnt_check", "passages", "usd", "distributions",
-                                          "over_limit_calls", "pass_bar")}, indent=1))
+                                          "over_limit_calls", "by_held_format", "pass_bar")}, indent=1))
     return 0
 
 

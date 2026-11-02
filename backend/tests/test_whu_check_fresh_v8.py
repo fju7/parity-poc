@@ -78,7 +78,7 @@ def test_an_answer_that_would_pass_todays_amount_is_not_started_and_a_finished_o
     monkeypatch.setattr(F, "clients", lambda *a, **k: (object(), types.SimpleNamespace(messages=None)))
     ran = []
 
-    def fake_check(text, w, client, fmt, s, before_call=None):
+    def fake_check(text, w, client, fmt, s, net=None, before_call=None):
         ran.append(s)
         w.mkdir(parents=True, exist_ok=True)
         ledger[0] += 3.5
@@ -166,3 +166,42 @@ def test_the_seed_is_the_section_16_freeze_commit():
     assert FS.FREEZE == "420f0d654bd1806e7c8f1db28aaceeb179e1089a"
     import fresh_draw as D
     assert D.LABEL % int(FS.FREEZE, 16) == "%d/check-fresh-set" % int(FS.FREEZE, 16)
+
+
+def test_the_format_record_passes_every_response_on_unchanged():
+    pdf = {"status": 200, "body": b"%PDF-1.7 ...", "final_url": "https://x/a.pdf", "content_type": "application/pdf"}
+    html = {"status": 200, "body": b"<html>", "final_url": "https://y/", "content_type": "text/html; charset=utf-8"}
+    fl = F.FormatLog({"get": lambda u, *a, **k: pdf if "a.pdf" in u else html, "render": lambda u: b"<html>r",
+                      "epmc": "kept"})
+    net = fl.net()
+    assert net["get"]("https://x/a.pdf") is pdf and net["get"]("https://y/") is html
+    assert net["render"]("https://z/") == b"<html>r" and net["epmc"] == "kept"
+    assert [(r["url"], r["pdf"], r["via"]) for r in fl.rows] == [("https://x/a.pdf", True, "get"),
+                                                                  ("https://y/", False, "get"),
+                                                                  ("https://z/", False, "render")]
+    assert set(F.FormatLog().net()) == set(F.P.V4.V3.NET)                     # every key v8 reads is still there
+
+
+def test_held_format_and_the_split_by_format():
+    fetches = [{"url": "https://x/a.pdf", "final_url": "https://x/a.pdf", "status": 200, "content_type": "",
+                "pdf": True},
+               {"url": "https://y/", "final_url": "https://y/", "status": 200, "content_type": "text/html"},
+               {"url": "https://e/fullTextXML", "final_url": "https://e/fullTextXML", "status": 200,
+                "content_type": "application/xml"}]
+    man = {"https://x/a.pdf": {"extent": "full text", "retrieved_from": "https://x/a.pdf"},
+           "https://y/": {"extent": "full text", "retrieved_from": "https://y/"},
+           "https://doi.org/1": {"extent": "full text", "retrieved_from": "https://e/fullTextXML"},
+           "https://gone/": {"extent": "unreachable"}}
+    assert [F.held_format(man[u], fetches) for u in man] == ["PDF", "HTML", "other", "unreachable"]
+    assert F.held_format({"extent": "full text", "retrieved_from": "https://never/"}, fetches) == "unknown"
+    cite = lambda *us: [{"url": u} for u in us]
+    res = {"manifest": man, "results": [
+        {"label": P8.COULDNT, "citations": cite("https://x/a.pdf")},
+        {"label": P8.BACKED, "citations": cite("https://x/a.pdf")},
+        {"label": P8.BACKED, "citations": cite("https://y/")},
+        {"label": P8.NOT_BACKED, "citations": cite("https://y/", "https://x/a.pdf")},
+        {"label": P8.COULDNT, "citations": cite("https://gone/")}]}
+    out = F.by_format([(res, fetches)])
+    assert out["sources"] == {"PDF": 1, "HTML": 1, "other": 1, "unreachable": 1}
+    assert out["claims"]["PDF"] == {"claims": 2, "labels": {P8.COULDNT: 1, P8.BACKED: 1}, "couldnt_check_share": 0.5}
+    assert out["claims"]["mixed"]["claims"] == 1 and out["claims"]["no source held"]["couldnt_check_share"] == 1.0
