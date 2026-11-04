@@ -1,0 +1,19 @@
+# WHU check pilot fresh set: sha256 of each answer as exported (answers/check_fresh_set/<Q>/<tool>.raw.md), 2026-11-04
+71a6d5d6d5e1d9e2bae4003110e38319460012d6a7801db383df21d37f44645c  WHU-CF-01/claude.raw.md
+481e0e0d37de77cf0cf7a06d47a406633705dd329fc320aac4f8a0fb84854ecf  WHU-CF-01/gemini.raw.md
+741b84d520935026a22e6c1d665f5c15131c6f5290d5c3ecb8aaa72e5e283715  WHU-CF-01/perplexity.raw.md
+95969262a509c7d1299d472ae2b1974f08af2d9602dab725bf576277130cbcc7  WHU-CF-02/claude.raw.md
+cf4954f8df20d5d6fabab4f7fd87eb94e16dbcfc41b8adc138a45ca17afc909d  WHU-CF-02/gemini.raw.md
+b82c8f90cc396b748838312ab3e2338144921e303856473a215d532cae247a46  WHU-CF-02/perplexity.raw.md
+1a9feb4af0d218efe9b82b368581d10c5c513bc1502a408a9e6075a18c9b9106  WHU-CF-03/claude.raw.md
+c1483debe3b59e202f3f56951a20f4e805a1f21fcd0668411c7d6ed2a4ca302e  WHU-CF-03/gemini.raw.md
+1174cfbbca904ddf2d56e883114c1d12e4d6a3a7c148708e92ee778624668a75  WHU-CF-03/perplexity.raw.md
+1d71064e20925d56fedc24123f821ecaadd3c145f3cd75409f873edca4110e86  WHU-CF-04/claude.raw.md
+55d87835bb0b6b0ea0105b5ad200609c7a4aa95f6bd9b901a843986cba3862da  WHU-CF-04/gemini.raw.md
+513be5ec26bff9bd57c78003c50a6c2a4c4ae75e472a5cc1487db6850a63f7b9  WHU-CF-04/perplexity.raw.md
+57faac5832a60cc4d83bd37a5d89dc84213d40fba40fc9348264f63123147b44  WHU-CF-05/claude.raw.md
+f330ed1c9d53144d660fdbe8688c8043f6f9473830c5e02ec5105508b18544b1  WHU-CF-05/gemini.raw.md
+9eb909350b42eadf465abcd1d6534687c75bb25ef01125abbd997da13dc26783  WHU-CF-05/perplexity.raw.md
+28f9a095d3e971dd5a98a9775b331e6b675a7a6bf155a279f60a55197e24163e  WHU-CF-06/claude.raw.md
+5664d3cb67967317c22124cd0ddbe7dbf3defcf52ac67df2f7cc2d17d9d39b99  WHU-CF-06/gemini.raw.md
+c7c6189dafc851f94def790c821472a5a4a27d671e4e0d21cc5d3282971e666d  WHU-CF-06/perplexity.raw.md

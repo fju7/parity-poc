@@ -1,0 +1,22 @@
+# WHU reliability study: blinded answers, sha256 manifest (prepare_scoring.py blind)
+# The blinded texts are held at ~/Projects/whu-study-private/scoring/blinded/<question>/<system>.blind.txt.
+#
+# sha256  question  system  record  chars  sentences  samplable  with-marker  references
+88a29fe0c4fa3eebdafb86f7fb60beed7057ff800f4c1e56f1f87fce905cfb87  WHU-CF-01  Claude   claude.md           18689   123   123    29   29
+99b820ceabc10a8ab626ba7878de95367e06d41afd765bc75fbedac76b34b90c  WHU-CF-01  Gemini   gemini.md           25562   112    77   108   38
+f1c65200b3930fa499d89eed7bd889b8c3490e76281d020858ce3ccd24779ecc  WHU-CF-01  Perplexity  perplexity.md        8502    39    39    26   11
+6ed44df6a8bffe91bd5a6075204672b0c8f8525d9632bea50939f142a4c9f2f9  WHU-CF-02  Claude   claude.md           26355   153   153    57   62
+326689d3de08367ee87a6abdad6be22ad1a42e5251757d009c5bbb17a3ba54f4  WHU-CF-02  Gemini   gemini.md           27014   119   119    97   50
+5ab15052045422172dee3731a963004a6113f3a32d87620b642ccf66361836ff  WHU-CF-02  Perplexity  perplexity.md        6966    44    44    26   10
+4e86babda87c9b88e7a2ace619c2cf4e97147caa6275cbdbc4c379175330b18e  WHU-CF-03  Claude   claude.md           26330   135   135    50   60
+4644e26e172cf91882acd4663cc15e27f03e40f1e87f6fe5dc4d226c1db51584  WHU-CF-03  Gemini   gemini.md           25456   122   116   109   39
+a26dc67b343cf18eb2dd54663284f99c7bf801204d40421831d69c11790b6c9a  WHU-CF-03  Perplexity  perplexity.md       34731    52    52    33  274
+ab689c185e0f21fd1061e76f660eee6e4d1dff0c4f221f05d2bf475037d0e8af  WHU-CF-04  Claude   claude.md           21315   122   120    34   38
+f04c820b53e5ffbfea80607457914000609999d06f56a6dca709fd13ed2338da  WHU-CF-04  Gemini   gemini.md           18896    84    70    76   33
+495a09a05774814755dc1b24e79403885ea8d11519aa46b738e13c7def1d0a48  WHU-CF-04  Perplexity  perplexity.md       34399    62    62    29  290
+9e8d895cd047e260be114e8f9ff35ca2a4eefa0c6b3c9666a03822b19eea335c  WHU-CF-05  Claude   claude.md           31314   221   221    69   69
+2dea91962ad294a275a87f863d82d124f8d4f1b6b4a09a8708ae206126d6f4fc  WHU-CF-05  Gemini   gemini.md           27753   118    81    99   57
+5ad0818785cbcb8c76151d8899dab36cdd55029ca4e545f28bd81d09e44c58d5  WHU-CF-05  Perplexity  perplexity.md       50823    79    79    46  416
+ac9d67a45d6eb359850d01d73243f2e90af51cb5f18bf8773e55d758964ff870  WHU-CF-06  Claude   claude.md           29439   153   153    61   67
+ff4c00782f4fb9b8be4359ac6cc395782f30d03ceb60b53c9ff6ce6cfdbb59cf  WHU-CF-06  Gemini   gemini.md           26798    97    81    62   46
+22495bab07a11b960d17abf9fe1d8fa4ce0e6a70e7548c1731a5189abf6c9122  WHU-CF-06  Perplexity  perplexity.md       43950    63    63    37  330

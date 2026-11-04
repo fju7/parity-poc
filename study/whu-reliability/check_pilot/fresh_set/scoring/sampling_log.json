@@ -1,0 +1,3114 @@
+{
+ "written": "2026-11-04T13:58:23+00:00",
+ "by": "prepare_scoring.py sample",
+ "freeze_commit": "420f0d654bd1806e7c8f1db28aaceeb179e1089a",
+ "seed": "377129068981367434473880518897517881705780807834",
+ "seed_rule": "the freeze commit's 40-character hash read as a hexadecimal integer",
+ "m1": {
+  "per_answer": 20,
+  "pool": "identifiability.claim_like (samplable; a number or a citation marker; 8 to 70 words)",
+  "generator": "random.Random('<SEED>/<question>/<system>/M1').sample(pool sorted by sentence index, k)",
+  "order": "random.Random('<SEED>/order/M1').shuffle",
+  "answers": [
+   {
+    "question": "WHU-CF-01",
+    "system": "Claude",
+    "sentences": 123,
+    "samplable": 123,
+    "claim_like_pool": 68,
+    "k": 20,
+    "rng_seed_string": "<SEED>/WHU-CF-01/Claude/M1",
+    "drawn": [
+     {
+      "sentence": "WHU-CF-01/Claude/3",
+      "idx": 3,
+      "sha256": "879783027f22e91d3c9546865f936bf5a0aae733ad8f95a01b64595b226cbeeb",
+      "item": "M1-06b4433baf",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-CF-01/Claude/17",
+      "idx": 17,
+      "sha256": "2d3ebd23362cb090e6740363cac70341b41ff4ade856cf4dce7ab8b69b56e95f",
+      "item": "M1-0b6f3103e9",
+      "markers": 2,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-01/Claude/28",
+      "idx": 28,
+      "sha256": "b82661a77c283df1839081861fd4ad47bc623fb1d312ad6196d622927c6e27d8",
+      "item": "M1-31ddab326d",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-CF-01/Claude/37",
+      "idx": 37,
+      "sha256": "544b7b1c27c76841d7062bb127802eb8adad22b57aa8344508b0d18966ee224f",
+      "item": "M1-838a0efec4",
+      "markers": 2,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-01/Claude/40",
+      "idx": 40,
+      "sha256": "f156b9452b3e661737c4481e1905a5055015a56c4b4541dd74ed01d45b5df14c",
+      "item": "M1-2b01593f60",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-01/Claude/46",
+      "idx": 46,
+      "sha256": "82357d09def13669878fccd7efbe6b7ec4208d2fdd87496af3a2d22abd79bf86",
+      "item": "M1-e01376c33f",
+      "markers": 3,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-01/Claude/51",
+      "idx": 51,
+      "sha256": "a580510f8a7e31400e46697778271ccdf610cdf19cd1697c52d275e5519f0180",
+      "item": "M1-fa3b54008b",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-CF-01/Claude/52",
+      "idx": 52,
+      "sha256": "cb30aab4ceae55b470aed71a59b860a92df6f31f7048717e81cd71304b34382d",
+      "item": "M1-7e6ea42a6c",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-01/Claude/55",
+      "idx": 55,
+      "sha256": "a822fb84d15969d61bfacd451c8e72e130406c434b342051cb905aad8f63b832",
+      "item": "M1-f4d367c5e2",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-CF-01/Claude/58",
+      "idx": 58,
+      "sha256": "482ad22660bfa764cb163e35b90a52fe84ad2ee6dbf6adacce5f971b2fa20144",
+      "item": "M1-473e14178a",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-CF-01/Claude/59",
+      "idx": 59,
+      "sha256": "6f426510df1228d92c7f9a9f21183a66a5f4d10860a0f593cf32feddb7717a63",
+      "item": "M1-6e67f298f9",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-CF-01/Claude/65",
+      "idx": 65,
+      "sha256": "f4e66049207f7d4e92f0ba43355b97047d33c15a6ef6be355f8a384b4ed4f849",
+      "item": "M1-cfc51067d7",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-01/Claude/67",
+      "idx": 67,
+      "sha256": "ed0a596608b13b659de41043f99eb2f176e0dfcbb80e10d87663a186bd9302b5",
+      "item": "M1-02ddd73d1c",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-CF-01/Claude/77",
+      "idx": 77,
+      "sha256": "bdf00f65062a0acd279a1ae2e891cf49e93878fb25f6380f80f25cf10b15a037",
+      "item": "M1-49d537c818",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-CF-01/Claude/89",
+      "idx": 89,
+      "sha256": "07524e9686c7b1938ef17505ce6e2bc3fa02a838212f9bb605f5708b6392b06e",
+      "item": "M1-dfeb8855d6",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-CF-01/Claude/90",
+      "idx": 90,
+      "sha256": "f9f4c7713cbd7c8854fa16a06babf682fa8337ec0239bc3b5dfd0f7f56960d51",
+      "item": "M1-57dff45d66",
+      "markers": 2,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-01/Claude/111",
+      "idx": 111,
+      "sha256": "47f8e9f2ee8eb486185a602df8657bb7c2b19e84559dee9f11d5d620cd2b4d53",
+      "item": "M1-381d9f9d97",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-CF-01/Claude/113",
+      "idx": 113,
+      "sha256": "41174516f830880bd4ffdbe0810d574f7f51ea0a168942053057c7894a2667c8",
+      "item": "M1-1174274fdd",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-CF-01/Claude/116",
+      "idx": 116,
+      "sha256": "963d6bf732afc86bb0324856f4d43b3e9b138d2d090c08dbdeb9093dcde1d76c",
+      "item": "M1-8416a2bdf5",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-01/Claude/122",
+      "idx": 122,
+      "sha256": "3dcd12dd7e394805797f44db0b56970f6f86fff93e1a5d62a0501bc29e9e1250",
+      "item": "M1-cdfd71833c",
+      "markers": 1,
+      "label": null
+     }
+    ]
+   },
+   {
+    "question": "WHU-CF-01",
+    "system": "Gemini",
+    "sentences": 112,
+    "samplable": 77,
+    "claim_like_pool": 75,
+    "k": 20,
+    "rng_seed_string": "<SEED>/WHU-CF-01/Gemini/M1",
+    "drawn": [
+     {
+      "sentence": "WHU-CF-01/Gemini/1",
+      "idx": 1,
+      "sha256": "33ef182bfb95d3ab42c5074744bc4abbc85a5bc08d703114fca16db0c51f018b",
+      "item": "M1-61cee98ded",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-01/Gemini/2",
+      "idx": 2,
+      "sha256": "60abfedc2790df9ed6929ac9327b50c2be71a070c1953ca109e282738104219a",
+      "item": "M1-f3e6c8de48",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-01/Gemini/4",
+      "idx": 4,
+      "sha256": "b9c63b39b5e3f84b0ba0b724f42412e67160585ef0eb00d237a8fcc1e8c93a5a",
+      "item": "M1-17784bf833",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-01/Gemini/5",
+      "idx": 5,
+      "sha256": "e11d5915618cc99fb5cd56cf042f262aa925beb3dabeb5f00729962a99af4abf",
+      "item": "M1-c6744c82fd",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-01/Gemini/6",
+      "idx": 6,
+      "sha256": "280bd406b2c25c8e6f4e0180ea38e2f98c4ae193a1e3756aeb3583083d9c7143",
+      "item": "M1-7eb3d1f757",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-01/Gemini/10",
+      "idx": 10,
+      "sha256": "a7b1f4d2fa504c74f8858dbb08b15464dd274ac6294b09c8184e9d8600226c69",
+      "item": "M1-f9abe53dff",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-01/Gemini/47",
+      "idx": 47,
+      "sha256": "56ba1551c83cd2b58f4c316283eba3191969d199144e402ea40b5afb56cc7605",
+      "item": "M1-472fed422d",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-01/Gemini/69",
+      "idx": 69,
+      "sha256": "3f857e182599a73e814b667e86d65971cd5d5bac3624d1cc772358a3d1ee797e",
+      "item": "M1-e528b05d43",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-01/Gemini/72",
+      "idx": 72,
+      "sha256": "91f5b7a969419d54c27d8b400857c260171c717f628f53b4b6545715ac00c698",
+      "item": "M1-9d90fc148f",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-01/Gemini/75",
+      "idx": 75,
+      "sha256": "93bc6e5726e00b44af8068123c62fef551a10186610fe3d3cb7e6d51a9519500",
+      "item": "M1-a402f3a213",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-01/Gemini/78",
+      "idx": 78,
+      "sha256": "e401f5bc1bce4601e7c80eefc4b965caeb20d1c58fe994fea86021cbae4d554c",
+      "item": "M1-723b24a95f",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-01/Gemini/79",
+      "idx": 79,
+      "sha256": "84cbc81d9c6d7a244d86718bddef090bd3915621607277e4f873b7c0be5bbdca",
+      "item": "M1-b11bdd7faf",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-01/Gemini/80",
+      "idx": 80,
+      "sha256": "4e8f164892706ff76b2b8b3042e400c4566e6414169f3cd31af5439b24cd8627",
+      "item": "M1-33044e8514",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-01/Gemini/83",
+      "idx": 83,
+      "sha256": "765d7960d1ebc37158012091ed468a8bb51e7a0c5142d77b7eb6a569c4d5c01d",
+      "item": "M1-865474ab3e",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-01/Gemini/87",
+      "idx": 87,
+      "sha256": "7d14658b30f08fc1116bf11e2bb17f983780747f732342a1072e27b9fc01d11c",
+      "item": "M1-d4684e2f74",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-01/Gemini/88",
+      "idx": 88,
+      "sha256": "f0f6c48f46fa179b684017888d7bfe3c55e3c07aa365a65e08f977b42f6d7731",
+      "item": "M1-29fdd050c3",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-01/Gemini/92",
+      "idx": 92,
+      "sha256": "e39335ac8242c96cf37b0481a7c9052b5afe84560d70b61ccfeae39a22a63bb1",
+      "item": "M1-8d4ac0bbb2",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-01/Gemini/97",
+      "idx": 97,
+      "sha256": "e8aa9f51951f1298039a00c0d2041fd32dc14b8e5d5197fbadbb1a1a92f0915d",
+      "item": "M1-138818dc6c",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-01/Gemini/98",
+      "idx": 98,
+      "sha256": "602ca5be6e1cfa5a107ddb76c6f3ea44023e474ae2b206b90ebb3cee5d0d9a0c",
+      "item": "M1-f43fbe7d96",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-01/Gemini/109",
+      "idx": 109,
+      "sha256": "479683b9f285243617d0392e603c986102ec702f6b1cea101f9dd02fe94538d3",
+      "item": "M1-b7bc0e9386",
+      "markers": 1,
+      "label": null
+     }
+    ]
+   },
+   {
+    "question": "WHU-CF-01",
+    "system": "Perplexity",
+    "sentences": 39,
+    "samplable": 39,
+    "claim_like_pool": 33,
+    "k": 20,
+    "rng_seed_string": "<SEED>/WHU-CF-01/Perplexity/M1",
+    "drawn": [
+     {
+      "sentence": "WHU-CF-01/Perplexity/0",
+      "idx": 0,
+      "sha256": "dd54e41ea019bc6aea7f4e88172cbcdb3de7e937e586d000a403f49a746d6f88",
+      "item": "M1-dcd6024669",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-CF-01/Perplexity/3",
+      "idx": 3,
+      "sha256": "2809234e942a2e7aace0d969f201745c62144d1c93c093791d1421d1a75b89d0",
+      "item": "M1-1fe45a3c73",
+      "markers": 2,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-01/Perplexity/5",
+      "idx": 5,
+      "sha256": "6d8a817eea5624edfd707d5b38b7f61fd5cb719ff0d5886901f87f70168de25e",
+      "item": "M1-44f446dffa",
+      "markers": 2,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-01/Perplexity/7",
+      "idx": 7,
+      "sha256": "a35a37ac5cef6671359f41bda93b2de5c05633494a4cdfd59a10e52de5df9287",
+      "item": "M1-c30d58f68b",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-01/Perplexity/9",
+      "idx": 9,
+      "sha256": "f8b570dc551a060e7ead224f7a303a52003b0ada8bd9203291ab81e5adbb1549",
+      "item": "M1-d5c6145f3d",
+      "markers": 2,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-01/Perplexity/11",
+      "idx": 11,
+      "sha256": "3f9aa545a14315592af34c1bf86c7dfa9101ca5dee346bba874f44e86dc6d6b3",
+      "item": "M1-d5144d9ea4",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-CF-01/Perplexity/14",
+      "idx": 14,
+      "sha256": "6ec80db0563678b05b5aac6fa2c61ae2e217285f6449f7ab0a8372926dd76151",
+      "item": "M1-1eb297e21c",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-01/Perplexity/15",
+      "idx": 15,
+      "sha256": "a50d3adb05652d1d0f64e74ff97cff08a81191ebc6316a9cb9030d7a22c0b9a2",
+      "item": "M1-12058c91bd",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-01/Perplexity/17",
+      "idx": 17,
+      "sha256": "8f0e8cc940815577e1b283abdd1eccfdaed1f670f1769de2bb122303c16f9224",
+      "item": "M1-f6b8fbe8fc",
+      "markers": 2,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-01/Perplexity/18",
+      "idx": 18,
+      "sha256": "5eb7748344fc140199e2a76446761f68df93de82561220ec8f73074fff61d509",
+      "item": "M1-46c87f2585",
+      "markers": 2,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-01/Perplexity/19",
+      "idx": 19,
+      "sha256": "440b87f6bbe37d4346692c878f9181427aee08985b96bbaad727a7c302650381",
+      "item": "M1-a5351158e5",
+      "markers": 3,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-01/Perplexity/24",
+      "idx": 24,
+      "sha256": "4c5478f3cbb1bf2476fd2c9f07f9e3608b5838e3517d1e10c3228a1b92023e9a",
+      "item": "M1-c023354054",
+      "markers": 3,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-01/Perplexity/25",
+      "idx": 25,
+      "sha256": "b92344a614e953c9e213f66b61d5e4f26d461ffd3668024b7841af203cbac811",
+      "item": "M1-ba1f491043",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-CF-01/Perplexity/27",
+      "idx": 27,
+      "sha256": "5386715ae618ff8638bf56ff2f93a17a1e43c424484171c4b0a218c1f64e49f3",
+      "item": "M1-3d1b912450",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-CF-01/Perplexity/29",
+      "idx": 29,
+      "sha256": "11fd6b077facc173c88cf759f577ae4caa2c0d43b9f43bad77e687024708b24f",
+      "item": "M1-fe74555a42",
+      "markers": 3,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-01/Perplexity/31",
+      "idx": 31,
+      "sha256": "52cdc0bb0de1b6add72fdb2332b412abe772ae7cd5105f6816082103c097fc89",
+      "item": "M1-2884e16b05",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-01/Perplexity/32",
+      "idx": 32,
+      "sha256": "d11e14d69020aa662e55e75e4aa3ff1d55188372fa37f888777ae3b5ab03b717",
+      "item": "M1-d8bef7de6b",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-01/Perplexity/33",
+      "idx": 33,
+      "sha256": "200782211b5dd84b8e5fcb220f487d0647c88528ce8e6a5a99ecdefc947369ae",
+      "item": "M1-1048776717",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-01/Perplexity/34",
+      "idx": 34,
+      "sha256": "e9b8b0c6fb8b6c3838a60e370e95243e622a06b9818f80a2c277684db715320e",
+      "item": "M1-5541d8bf88",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-01/Perplexity/38",
+      "idx": 38,
+      "sha256": "df6cbd6ebe49ea8bb4fbff737db600eb6d0a486ee0be25c53085ad4eded86840",
+      "item": "M1-df2e8759b0",
+      "markers": 4,
+      "label": null
+     }
+    ]
+   },
+   {
+    "question": "WHU-CF-02",
+    "system": "Claude",
+    "sentences": 153,
+    "samplable": 153,
+    "claim_like_pool": 79,
+    "k": 20,
+    "rng_seed_string": "<SEED>/WHU-CF-02/Claude/M1",
+    "drawn": [
+     {
+      "sentence": "WHU-CF-02/Claude/4",
+      "idx": 4,
+      "sha256": "51a4d7b5a270f462453f38adff8479d903e1e8caf80490c9ef4909104dbf3a75",
+      "item": "M1-223887be6c",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-CF-02/Claude/9",
+      "idx": 9,
+      "sha256": "ef62e0c82c7cff95f210e223dbdbee8a6f015f2c2a072efb40211d82fb1d0394",
+      "item": "M1-959352c30f",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-CF-02/Claude/18",
+      "idx": 18,
+      "sha256": "4bcd7a912cf7272c92abba72a3c79ebfde9c7856da97554c4a020590b60be034",
+      "item": "M1-a735184641",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-CF-02/Claude/19",
+      "idx": 19,
+      "sha256": "dd58cd7d0bfc5bb669a5dc0d1a6992651f1f7567f3ccf39db0262ec71754b0aa",
+      "item": "M1-e4910c6576",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-CF-02/Claude/26",
+      "idx": 26,
+      "sha256": "15dad027ae01b6b8191bc6cd90c23de79a043fd50c7da5fb3ea23d37bf4243fc",
+      "item": "M1-c41e0a6b61",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-02/Claude/29",
+      "idx": 29,
+      "sha256": "042064900782c198f16b51ea1f517e45a0db11e8ef58a498db08bebe4558afe3",
+      "item": "M1-86b958e5b9",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-02/Claude/34",
+      "idx": 34,
+      "sha256": "7bdc1b40bd3adec723f4546ca4687d529e2b9a1d1f5567fd3e36c548bfbbd1f3",
+      "item": "M1-e0220dc14b",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-02/Claude/36",
+      "idx": 36,
+      "sha256": "fd03b9e7300bd70d5e8451766f61cb981371203c9457f8310236b7c6a665752a",
+      "item": "M1-aa555f21af",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-02/Claude/39",
+      "idx": 39,
+      "sha256": "712c98236b5c591e24f7602a75928bf113285ef92624647c4a45d380675e71d0",
+      "item": "M1-37a818d711",
+      "markers": 2,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-02/Claude/42",
+      "idx": 42,
+      "sha256": "6ac3c03bf046c3208e4f17dee4108c4a9b56e6609cc75a34ba912fc331bb53c2",
+      "item": "M1-d967318fb3",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-CF-02/Claude/43",
+      "idx": 43,
+      "sha256": "599e9615222ea8b76c612e5aa13932a2ac4a31c4597bd1f0bae6f2f04642e76d",
+      "item": "M1-ee829aed86",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-CF-02/Claude/51",
+      "idx": 51,
+      "sha256": "22885f8a4e24c32eb4fc4b372920635d3d654c85f1fea15cbc1c91217857c28d",
+      "item": "M1-bb425b1dfe",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-CF-02/Claude/87",
+      "idx": 87,
+      "sha256": "0fd83458d165fc63ef172e08834e1f7c132053112c0f617d88c58770a78ee0dd",
+      "item": "M1-19ae9ffb4e",
+      "markers": 3,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-02/Claude/93",
+      "idx": 93,
+      "sha256": "717824a52c12814f2503576aa012f9a002b86358a9cea912f7fc2867c571cf26",
+      "item": "M1-9478586c2e",
+      "markers": 2,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-02/Claude/100",
+      "idx": 100,
+      "sha256": "d867ff451ec166e68c1bfbbd69d1e95f3a7c55fc6233a5081b318c8d2d5c4308",
+      "item": "M1-9f5fe10e87",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-02/Claude/102",
+      "idx": 102,
+      "sha256": "775e8ac4750c11a116a6b71fe265e3fe94a00cd32c94531614d4b1d8b9cb699c",
+      "item": "M1-8f4f184c62",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-CF-02/Claude/108",
+      "idx": 108,
+      "sha256": "d29d7b3ac9ae2fa0781a64174e4a04290e57cd8896c4fe6f28ffb4133a8254cf",
+      "item": "M1-0562a9b15f",
+      "markers": 2,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-02/Claude/109",
+      "idx": 109,
+      "sha256": "5012478d81ea2c82389a5630b7f36a9471137d6873243793ee06ac8849be12c3",
+      "item": "M1-13c52f80ec",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-02/Claude/122",
+      "idx": 122,
+      "sha256": "3713b4a97b1f1b36bc216225b8d3fdecf9b76281be4ade7eaa52256839043e3e",
+      "item": "M1-d226bb4684",
+      "markers": 2,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-02/Claude/128",
+      "idx": 128,
+      "sha256": "21c769426fb144131e3e06dffd62bdef28066d3833fcc356614b558924cb4c56",
+      "item": "M1-16b0d8094e",
+      "markers": 2,
+      "label": null
+     }
+    ]
+   },
+   {
+    "question": "WHU-CF-02",
+    "system": "Gemini",
+    "sentences": 119,
+    "samplable": 119,
+    "claim_like_pool": 101,
+    "k": 20,
+    "rng_seed_string": "<SEED>/WHU-CF-02/Gemini/M1",
+    "drawn": [
+     {
+      "sentence": "WHU-CF-02/Gemini/10",
+      "idx": 10,
+      "sha256": "29e41340afd5f480bb92702b7b6368e28cb750d5327ddaa54ed298609b91f4bc",
+      "item": "M1-afe3ced703",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-02/Gemini/13",
+      "idx": 13,
+      "sha256": "86d32a9fdcd76671b3df3123e4c4bb0586b883cdcfca87184562585c8424495e",
+      "item": "M1-4a0b88f1b4",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-02/Gemini/17",
+      "idx": 17,
+      "sha256": "6113c3625c18a6793548303cf456d8836101ed12b3a8369f130e28b429642407",
+      "item": "M1-afaa1a5c91",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-02/Gemini/24",
+      "idx": 24,
+      "sha256": "57cb070ad12d3a79d39910f11800d688b2157a559b8937fc8473db201fd13e68",
+      "item": "M1-8309bacf65",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-02/Gemini/26",
+      "idx": 26,
+      "sha256": "502960a4f165e917c1dbdef063ee4c19e62c8e4b1a0e441ddf902ac6c304496a",
+      "item": "M1-f3d3d6f78d",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-02/Gemini/29",
+      "idx": 29,
+      "sha256": "62830e89abf2ff08fee681bb1d767b53d74f4add1fadd4192624cae0f5f89749",
+      "item": "M1-860f40d97e",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-02/Gemini/35",
+      "idx": 35,
+      "sha256": "38d82adbcdfa8e5a9083805e235ba085d23096adb948fa59fa58eb7c4c01fa73",
+      "item": "M1-01e7ed2d13",
+      "markers": 2,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-02/Gemini/43",
+      "idx": 43,
+      "sha256": "87091d1de4d96e886f6fc1f1aa3b969b7eada26d6121cfcfb705217dafced790",
+      "item": "M1-9494b19ac6",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-02/Gemini/44",
+      "idx": 44,
+      "sha256": "bb718c88d290d3e68c79863e8a3f52dd7840ae3edb8535c72f7ddc9c5171d55f",
+      "item": "M1-65c82bd0d1",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-02/Gemini/47",
+      "idx": 47,
+      "sha256": "b917dfe5dcde37c9eb00fe74a11ac19bddcc655d063f8ef2a58c456d5bef6ce9",
+      "item": "M1-88c4021738",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-02/Gemini/50",
+      "idx": 50,
+      "sha256": "fc3b10cfd45bb0410a44a88efdfc6f1a51d81dee4844bd1fbd4b55a3777e9aed",
+      "item": "M1-5c991306c1",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-02/Gemini/52",
+      "idx": 52,
+      "sha256": "e470d06d2f76b162264daf05ffa2ae42c180939b6a9c5264ddf31442a3c3fdfa",
+      "item": "M1-688abbf3b8",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-02/Gemini/57",
+      "idx": 57,
+      "sha256": "cbce521c11f5ab2b1812dca300c6ea9f4472b24a9f8c66c3bff8c6bde116d5f8",
+      "item": "M1-2a4d0e9ea7",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-02/Gemini/70",
+      "idx": 70,
+      "sha256": "13ea0dc8aba1035365a7e96ff9f8f3b18cca9779e6f9746d7cf80db303c02c14",
+      "item": "M1-26e65a64ae",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-02/Gemini/95",
+      "idx": 95,
+      "sha256": "54d93e9f9246db972d1915f467c6b7f4e198fd1e2f956c869909fecaa90c159e",
+      "item": "M1-9ec6389218",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-02/Gemini/97",
+      "idx": 97,
+      "sha256": "9b3c3b771f9abeb5bf89788348f3b684f76329ae76fd21a7d760e14cae172897",
+      "item": "M1-6d24fb184a",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-02/Gemini/102",
+      "idx": 102,
+      "sha256": "30a10ff7515d36ff7e66b8a0899bab50e3eea05e36f7b8ea487b5a2d86bc2517",
+      "item": "M1-e216c4169b",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-02/Gemini/105",
+      "idx": 105,
+      "sha256": "3d56fbdc0b3a9bc43977ffa286ba7226917edaadc7d0e1ea69d9fb882d79c444",
+      "item": "M1-34ab4408cd",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-02/Gemini/113",
+      "idx": 113,
+      "sha256": "01f6ff793433988b909f6b37ecd07f64a78c99f33a3ed9bfa28a9a1b5a34c313",
+      "item": "M1-4021d1b682",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-02/Gemini/115",
+      "idx": 115,
+      "sha256": "e3d0ce18645ff0c91471d77b9ab1388a2b9992478d8bd2386f8d7889796680ee",
+      "item": "M1-76269042cf",
+      "markers": 0,
+      "label": "UNCITED"
+     }
+    ]
+   },
+   {
+    "question": "WHU-CF-02",
+    "system": "Perplexity",
+    "sentences": 44,
+    "samplable": 44,
+    "claim_like_pool": 30,
+    "k": 20,
+    "rng_seed_string": "<SEED>/WHU-CF-02/Perplexity/M1",
+    "drawn": [
+     {
+      "sentence": "WHU-CF-02/Perplexity/0",
+      "idx": 0,
+      "sha256": "d3717977e07ade8891a1ab34e9b59852735e0584b19ee7e8c8140f4c7b1ea42e",
+      "item": "M1-1e02ee7193",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-CF-02/Perplexity/1",
+      "idx": 1,
+      "sha256": "e47ebeb18a5b2e292175a48168a32591b4d4767fe76dec6b59edd92eb4a9aee2",
+      "item": "M1-5d12209686",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-02/Perplexity/3",
+      "idx": 3,
+      "sha256": "52af0e7df3ce9b8da9ab88df456eea9f1199d2bfa2c4d663f6ea8078278dbf8b",
+      "item": "M1-a7ad39e7e1",
+      "markers": 2,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-02/Perplexity/5",
+      "idx": 5,
+      "sha256": "accf1a55d801d9aa28a4addd79f5321fa2241b36e295eafa9b1f7cccb316bf24",
+      "item": "M1-1035cd3efd",
+      "markers": 2,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-02/Perplexity/6",
+      "idx": 6,
+      "sha256": "dc7e4c81517717f62287821423c123ab11aed6b5924fbfc4621dcda9ad028820",
+      "item": "M1-f449d80194",
+      "markers": 2,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-02/Perplexity/7",
+      "idx": 7,
+      "sha256": "3db829c1d404ec010d5fcdbf9d1b099d4654e25c34c12f7c5754a53b5db287ea",
+      "item": "M1-1780608e60",
+      "markers": 2,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-02/Perplexity/10",
+      "idx": 10,
+      "sha256": "5d5d6f8ae1055224705d95837958713f306b57d7b83efe26c2cba1a4859a9bbd",
+      "item": "M1-eec3d021a6",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-02/Perplexity/12",
+      "idx": 12,
+      "sha256": "2428ab74f1b7524d10c0937fea492735b0d3229f3bcb86c7c4f9209b2dcd25b3",
+      "item": "M1-55a1f97ac2",
+      "markers": 2,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-02/Perplexity/16",
+      "idx": 16,
+      "sha256": "2087adaef133201f1600e197aa7ad270eb68eed1fced57ec3c3893911f432ae5",
+      "item": "M1-2305375f75",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-02/Perplexity/18",
+      "idx": 18,
+      "sha256": "0b556cd6d39a45a4d7f70bca1447411adeaa2d843151a7a455b36ff527db599d",
+      "item": "M1-a0a0317fdb",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-02/Perplexity/20",
+      "idx": 20,
+      "sha256": "aac2615fa6a40d67600d1a6bf508f33dee51e9b676dda1dbaadc9b57d7e2e506",
+      "item": "M1-c0dd383db1",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-02/Perplexity/21",
+      "idx": 21,
+      "sha256": "6d3a9d3bf80b4ee711f94a6b5016ab721afc801356100595f37bb4cef30bf9ca",
+      "item": "M1-4e85b3ae24",
+      "markers": 2,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-02/Perplexity/23",
+      "idx": 23,
+      "sha256": "36a1c7e875bef0bc247f4479b17820a936bffb15026d9b137d7fc3a93f12b622",
+      "item": "M1-9ced9bf17c",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-CF-02/Perplexity/24",
+      "idx": 24,
+      "sha256": "5d2c361fb0eb9585621c75c113a44a01d85e98d800512ca7d2507b5b6f6bfd84",
+      "item": "M1-d043443bac",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-02/Perplexity/26",
+      "idx": 26,
+      "sha256": "a61fe3a60a9fbcc068c5b6d819a2daf875dc3b7eea14a1a67e877dc37216eef8",
+      "item": "M1-61fcd22f1f",
+      "markers": 2,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-02/Perplexity/31",
+      "idx": 31,
+      "sha256": "2c7cb430c3bad12f309c22bafbaa5b3b0681a3fda4338903bd43f3f02f5f2a96",
+      "item": "M1-849fb8b5a9",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-02/Perplexity/33",
+      "idx": 33,
+      "sha256": "74bd43f4076295422ce0808f3650379eb7c2e460365e6bde7ec5f302a80a4b47",
+      "item": "M1-6439b9c63e",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-02/Perplexity/35",
+      "idx": 35,
+      "sha256": "62f4368f5e6edc5e7a18e06713096df92a61d9b96f432c89c389ca6dacdf0e9a",
+      "item": "M1-fd33971d38",
+      "markers": 2,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-02/Perplexity/37",
+      "idx": 37,
+      "sha256": "3fd7b96a16e146b35db0fd2b14320c41746432e02dc8ee2011b9760d6bfada31",
+      "item": "M1-03a2f6a561",
+      "markers": 2,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-02/Perplexity/43",
+      "idx": 43,
+      "sha256": "520fca1365594cd1336121bd516afdee3f152a5be1fe94f094efc182101fa6f1",
+      "item": "M1-960d42125a",
+      "markers": 2,
+      "label": null
+     }
+    ]
+   },
+   {
+    "question": "WHU-CF-03",
+    "system": "Claude",
+    "sentences": 135,
+    "samplable": 135,
+    "claim_like_pool": 67,
+    "k": 20,
+    "rng_seed_string": "<SEED>/WHU-CF-03/Claude/M1",
+    "drawn": [
+     {
+      "sentence": "WHU-CF-03/Claude/18",
+      "idx": 18,
+      "sha256": "b40088225b805cf4d4204f3ecd0d61af0c43ac63402f93fef23d8602b63e4705",
+      "item": "M1-1dffcefea1",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-03/Claude/20",
+      "idx": 20,
+      "sha256": "3ca71a1e7b68954eaa0683e52bdf2d9d60c72ed5e25dd107754b0719ebee0573",
+      "item": "M1-db0401925d",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-03/Claude/22",
+      "idx": 22,
+      "sha256": "372415d3596cc4abdb1153d2cf90d85c8c8e1d44614b1e1af233b382fbabb2d6",
+      "item": "M1-1440996f0a",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-03/Claude/28",
+      "idx": 28,
+      "sha256": "92823a02a79f6b30c4855321844331b3501975b1ebb0474872403c0893452512",
+      "item": "M1-df53d73f29",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-03/Claude/29",
+      "idx": 29,
+      "sha256": "a56dd34bdd38d81f4150f67a42070fc7f50be2b7ff5021cba409346eaea3ede3",
+      "item": "M1-1183dd8e1c",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-03/Claude/34",
+      "idx": 34,
+      "sha256": "d48c3c913313d4a8672edaf817797b2f3b74f2df01281d1312c2b5e2310b9388",
+      "item": "M1-d2bc63c284",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-03/Claude/45",
+      "idx": 45,
+      "sha256": "de7441b3e732ef46aea9657d88fc512baf2fdfc29af515bb937f5c62a25b4c6f",
+      "item": "M1-90a724bdd4",
+      "markers": 3,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-03/Claude/46",
+      "idx": 46,
+      "sha256": "72dddacebe563296608be1a8a94f14e8a7e359d6c150b18a50479e17db993ac5",
+      "item": "M1-ee5ace569e",
+      "markers": 3,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-03/Claude/47",
+      "idx": 47,
+      "sha256": "e4e3edf7177a486f7b1a21939459502da63359a16839e855fcbca433d367bc0e",
+      "item": "M1-a0f776b220",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-03/Claude/56",
+      "idx": 56,
+      "sha256": "8b9c9375ec644fa98f3c156d1852d8e8de8777a4ec9d4eddf1f6d1bfadc8d584",
+      "item": "M1-a2be6b92d1",
+      "markers": 2,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-03/Claude/58",
+      "idx": 58,
+      "sha256": "04ef74e12a6ca0d81844732a5a1a428ed86e07b6c84f27e7a0442ac3505d86ee",
+      "item": "M1-f5f9e14a75",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-03/Claude/68",
+      "idx": 68,
+      "sha256": "8b4b222a6a0c2ac498669dcebb4ebccc7f9a71e64b38745b3d5ffd1a5e73eeb3",
+      "item": "M1-abba309d30",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-03/Claude/69",
+      "idx": 69,
+      "sha256": "48b44d8557815095ef468a5fb97897a878c6fd218f79caae24ff0150f311fb83",
+      "item": "M1-f36266a435",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-03/Claude/70",
+      "idx": 70,
+      "sha256": "dd51c1ddd2b861db6afed7475ddb513b87ea2c2aa19786b686d82d47ae0acbcd",
+      "item": "M1-8457b307ad",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-CF-03/Claude/76",
+      "idx": 76,
+      "sha256": "ad0ac73c9c587733b0f0378c6c7ca2b6a378889f0c5c407a00be2b70d676551d",
+      "item": "M1-36f77794f8",
+      "markers": 7,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-03/Claude/89",
+      "idx": 89,
+      "sha256": "ef09bd9714ff4b4028d4a930312c9c7237205c0777ddc99038a0c31a4a8e0fc2",
+      "item": "M1-20f37923e2",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-CF-03/Claude/91",
+      "idx": 91,
+      "sha256": "54a90b9b9a1aa0b50ea03ccb4dda31aaaaf0fb53d84e8ce41b26373eaf416120",
+      "item": "M1-07a0fea15a",
+      "markers": 2,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-03/Claude/93",
+      "idx": 93,
+      "sha256": "6b9c990733a5c81e6fb5e8ed57ef49f0a060c42b4133354019ea208883f7bd01",
+      "item": "M1-d82c46ef08",
+      "markers": 3,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-03/Claude/108",
+      "idx": 108,
+      "sha256": "4735bb5c5c3ec4a6b00cbfa71e81b90231860a03d74a7d647f31fde22bd289d2",
+      "item": "M1-92ec7e81b2",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-CF-03/Claude/121",
+      "idx": 121,
+      "sha256": "78a1bb4a2838c937734ca1a4a95b7a4b28eb25c58b163403bf989b9153520be7",
+      "item": "M1-22985f85f7",
+      "markers": 1,
+      "label": null
+     }
+    ]
+   },
+   {
+    "question": "WHU-CF-03",
+    "system": "Gemini",
+    "sentences": 122,
+    "samplable": 116,
+    "claim_like_pool": 106,
+    "k": 20,
+    "rng_seed_string": "<SEED>/WHU-CF-03/Gemini/M1",
+    "drawn": [
+     {
+      "sentence": "WHU-CF-03/Gemini/0",
+      "idx": 0,
+      "sha256": "1fc05e7ef7f588a0ac236f29811ff917dec3493dfb059d144520e51a7cca8afc",
+      "item": "M1-463251645a",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-03/Gemini/2",
+      "idx": 2,
+      "sha256": "96d11f495c54d6957d747fc2d6ddac1c15d1a492fb7ab4bd9f72889e7ddc08fd",
+      "item": "M1-f745186817",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-03/Gemini/3",
+      "idx": 3,
+      "sha256": "ea0a1c2182b74bb5165ad73706d317b5e39dfd5d993ac5477552ed822d9dc7e2",
+      "item": "M1-2df7c51790",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-03/Gemini/8",
+      "idx": 8,
+      "sha256": "3467d4cd5563951fb7b34ee2b1a2dd5bb8706725d639d9d900cbacc62ca6b4c9",
+      "item": "M1-d6abf09748",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-03/Gemini/43",
+      "idx": 43,
+      "sha256": "66702246535d448c9fae3a8307f9f8cd0119542fb40abd95e9bc8e6ce09231aa",
+      "item": "M1-d8e3e12499",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-03/Gemini/50",
+      "idx": 50,
+      "sha256": "d2cab22200aa73d51cbce5ff934a88ef3a65cdd471ca5f566d318e74cdc2c4e0",
+      "item": "M1-bf24a13958",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-03/Gemini/63",
+      "idx": 63,
+      "sha256": "90b8321cbb39eb4809b60a3bdaeea1351659cd7ec0b732d7e80daeec8015304c",
+      "item": "M1-82d0efa83c",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-03/Gemini/77",
+      "idx": 77,
+      "sha256": "b98b646f7035df5cd6792da2d60bfea3467c3cb31a41bca57eb0bd88ddaaaeb9",
+      "item": "M1-51bda7a2d1",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-03/Gemini/79",
+      "idx": 79,
+      "sha256": "a99c830162c6dc02d580f1f2df0dd56f6b2b758ae24d35b1c131fe8375b50385",
+      "item": "M1-86b296d107",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-03/Gemini/80",
+      "idx": 80,
+      "sha256": "97c60f080fb5fdbfffd389eca17ab159f66d0f1e37faca40dde6dc03a4df4f30",
+      "item": "M1-785714d7cc",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-03/Gemini/90",
+      "idx": 90,
+      "sha256": "da19b4e6245c4f0aeaa209f78abfb07d2ebfc6a633e0624ecfdd1855b798cf81",
+      "item": "M1-2549479d5e",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-03/Gemini/93",
+      "idx": 93,
+      "sha256": "e9639b6314fb86edb7d8238f4338bde0b49c4578083fd0599f88851eb2184945",
+      "item": "M1-18ba1a4e74",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-03/Gemini/94",
+      "idx": 94,
+      "sha256": "348e95fb26328d332ed7c1bfb4df369e29399b3cb050223452c705cf2f1f6e34",
+      "item": "M1-2a53a10417",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-03/Gemini/103",
+      "idx": 103,
+      "sha256": "9ecaaec952b5d1df4a181f6f2553eba75663c41b97dca3c7c2256e062066a86c",
+      "item": "M1-627be3cc45",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-03/Gemini/106",
+      "idx": 106,
+      "sha256": "416cd5f788b7577075d7d1b91e92ae92f21e2266b9ce0e4293dfe9ad7ad930d3",
+      "item": "M1-672d20ddf2",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-03/Gemini/107",
+      "idx": 107,
+      "sha256": "a8486a0d364ff31a663520b62826d54b47ffe82a7ffbc5eadfa4fce494495b73",
+      "item": "M1-5fddfd3e0e",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-03/Gemini/113",
+      "idx": 113,
+      "sha256": "e2dc4519ca05170665430508af9da6a3cdefc0eec7c2106dcc4f854dee77ef6f",
+      "item": "M1-6e5215434e",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-03/Gemini/114",
+      "idx": 114,
+      "sha256": "de3586c44a246c3bde956b85257a9d5e960129693599fa48ffdb9b83ad8cc650",
+      "item": "M1-a92b8adcf4",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-03/Gemini/115",
+      "idx": 115,
+      "sha256": "a93850df11e7680dc97d6e5ea98e0e2f5491a8a241789fb3bc695de1e887fd93",
+      "item": "M1-d0fe0e7439",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-03/Gemini/118",
+      "idx": 118,
+      "sha256": "f5e0bd31a2899c8a8d00b672864f726b25c84538e0ba26285b5f30fac7352fe0",
+      "item": "M1-9a205b5e7f",
+      "markers": 1,
+      "label": null
+     }
+    ]
+   },
+   {
+    "question": "WHU-CF-03",
+    "system": "Perplexity",
+    "sentences": 52,
+    "samplable": 52,
+    "claim_like_pool": 35,
+    "k": 20,
+    "rng_seed_string": "<SEED>/WHU-CF-03/Perplexity/M1",
+    "drawn": [
+     {
+      "sentence": "WHU-CF-03/Perplexity/2",
+      "idx": 2,
+      "sha256": "9c7c4afc2171e2e6abc71623625f39a1775b30a2d4906f2904019ba1162ade7a",
+      "item": "M1-d3be04e7f0",
+      "markers": 2,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-03/Perplexity/3",
+      "idx": 3,
+      "sha256": "a598162c0806e3aa72658f1320ce3afa67ff3525a3ca5772477808e2641176c0",
+      "item": "M1-1df57f5a8c",
+      "markers": 2,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-03/Perplexity/6",
+      "idx": 6,
+      "sha256": "1009bbaa17a4907d8c0b855061dbdb822d18206979ef88ec0bfc8766e8e457ab",
+      "item": "M1-f0bf22c770",
+      "markers": 2,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-03/Perplexity/7",
+      "idx": 7,
+      "sha256": "82da35f3c6c1da83c986fd618a321052ed8ce7c907ef0fd1221e680fe0eab1ff",
+      "item": "M1-07974e63f2",
+      "markers": 2,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-03/Perplexity/9",
+      "idx": 9,
+      "sha256": "0a3090b4313e1edea861a9459b43b139d8c5f6aead09dd596ad50ea60bff1a24",
+      "item": "M1-fc0b61c883",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-03/Perplexity/10",
+      "idx": 10,
+      "sha256": "d9b9c3364fbd08b442ee466f2eaa94c6e49df75200b6225aa861dc7a4aae7e01",
+      "item": "M1-b3c17d794d",
+      "markers": 2,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-03/Perplexity/14",
+      "idx": 14,
+      "sha256": "5762a5e1b213e252fb77677475aae49cf3c0b59404921270fe697b15a1afd3d3",
+      "item": "M1-286b5fd004",
+      "markers": 2,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-03/Perplexity/16",
+      "idx": 16,
+      "sha256": "204fba2d7bc1c071f60e1bd5de6f6a44c56f51b616d0b5eb97b9324c81c78034",
+      "item": "M1-4a16ecaa27",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-03/Perplexity/17",
+      "idx": 17,
+      "sha256": "d4e1497f8629f18f80b60c615f0a34621830d0d2ab83fa623a8b498c42097dff",
+      "item": "M1-1fcbad859d",
+      "markers": 2,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-03/Perplexity/18",
+      "idx": 18,
+      "sha256": "be9c84caac4b4710234ac5f3afa821170400ca00d541a7b5f204b012b7967909",
+      "item": "M1-bc01e68a8e",
+      "markers": 2,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-03/Perplexity/21",
+      "idx": 21,
+      "sha256": "51a1779fafaac4d0bdee594730ffdd63531a5d417766bd912b2144609bf1b1e0",
+      "item": "M1-b1a5ef1667",
+      "markers": 3,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-03/Perplexity/24",
+      "idx": 24,
+      "sha256": "dd0f6e71a148b996274b79a7df723c49a9c537633e7c02cfd49ed479ef624b68",
+      "item": "M1-6950b7e6ec",
+      "markers": 3,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-03/Perplexity/25",
+      "idx": 25,
+      "sha256": "52fe9f827abe587d4656afbde5026f98640599d4d6a2b2885578c2485cfcf8cc",
+      "item": "M1-27b436cd9f",
+      "markers": 2,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-03/Perplexity/27",
+      "idx": 27,
+      "sha256": "14402dbe29d52e4acb0098f3a0bf675ebc15de5d3ca575e2d56634c248a5abb6",
+      "item": "M1-af26261993",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-03/Perplexity/28",
+      "idx": 28,
+      "sha256": "0778abb40236ae0b77b73c59b6259724f4a7bf90e9aaa8000445b00b34bd4ecc",
+      "item": "M1-8e0693fde0",
+      "markers": 2,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-03/Perplexity/30",
+      "idx": 30,
+      "sha256": "e0ac18581a71fd9c954eeb5eea8278b99a0397ccef4afe35224603e03852c19d",
+      "item": "M1-b5b24a4788",
+      "markers": 2,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-03/Perplexity/32",
+      "idx": 32,
+      "sha256": "613b873d9bea20a6d85a1ed949d2686aedb5d3f50ba268116f8a86ff3b1f5c4f",
+      "item": "M1-bed6bc4b14",
+      "markers": 2,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-03/Perplexity/34",
+      "idx": 34,
+      "sha256": "46bbc1a39a59cdeaddecf2e01a4e1577312fb3ce3f08cd10b18a0b9993016e0f",
+      "item": "M1-f260f830e7",
+      "markers": 2,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-03/Perplexity/36",
+      "idx": 36,
+      "sha256": "4fe9b61d95e6d58e3c532976671cccf98ec937c121b09f0d3ac7e3b8ae410f67",
+      "item": "M1-ea7821fd79",
+      "markers": 2,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-03/Perplexity/40",
+      "idx": 40,
+      "sha256": "8a9a6d5de474cb8c499bc334b9e86f3d7e50561fb82fc0ea6d810cf09f63decc",
+      "item": "M1-ea4b1a966e",
+      "markers": 2,
+      "label": null
+     }
+    ]
+   },
+   {
+    "question": "WHU-CF-04",
+    "system": "Claude",
+    "sentences": 122,
+    "samplable": 120,
+    "claim_like_pool": 60,
+    "k": 20,
+    "rng_seed_string": "<SEED>/WHU-CF-04/Claude/M1",
+    "drawn": [
+     {
+      "sentence": "WHU-CF-04/Claude/12",
+      "idx": 12,
+      "sha256": "4607d6f0bf8674b1486b526bcc1c30ea84905720436944f0461520098f5a2d0b",
+      "item": "M1-ac4c0bc6de",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-04/Claude/15",
+      "idx": 15,
+      "sha256": "dc4fcb1573ddb0f749fdf736a36934d41fbebb111e3924cc12b0d96167282849",
+      "item": "M1-e92874d033",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-CF-04/Claude/16",
+      "idx": 16,
+      "sha256": "6a1074e3be89fdc548f7a01ca44aec9815f194ccb7e8fea85320e7d9c13d3c46",
+      "item": "M1-9cf86373b6",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-04/Claude/17",
+      "idx": 17,
+      "sha256": "13842a0987a0f61359ae585749f2f8ec50e3ac2bd4d99bde07aca2e9212f2025",
+      "item": "M1-259ecad417",
+      "markers": 4,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-04/Claude/19",
+      "idx": 19,
+      "sha256": "2e7f2601ff62e07960e21f6934fc4f7fcdf2cf79c0a17b1900645a42ed0d4ed6",
+      "item": "M1-b415c8b19f",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-CF-04/Claude/21",
+      "idx": 21,
+      "sha256": "8e8a3083a2f490e02597f0057564e57d29f9d3144cb958f4d5217903879705f5",
+      "item": "M1-9cd47d9fcb",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-04/Claude/26",
+      "idx": 26,
+      "sha256": "0c20be6d864e83a0601a2f62386823bf9084c73baac7309f80a62027fa3692d3",
+      "item": "M1-4d4f0d4622",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-CF-04/Claude/29",
+      "idx": 29,
+      "sha256": "a3066965ab6d7f3e721d8ed0efd7ecc7c622a6ebc0759483d6104621720c99b9",
+      "item": "M1-2fcce2bac4",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-CF-04/Claude/37",
+      "idx": 37,
+      "sha256": "8a0a99f35650e85ecd8e368ff3fc50f09e4f62e3497ca57d3496d3af4215e1e0",
+      "item": "M1-56c751be89",
+      "markers": 2,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-04/Claude/47",
+      "idx": 47,
+      "sha256": "af01aed9e2969201bb7278f2d707f2347aad918115a1d0bab7c20fdf134c4000",
+      "item": "M1-cbac523510",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-04/Claude/48",
+      "idx": 48,
+      "sha256": "b826278ead8ab898700f50c91683b976ed0df23fcfb82bd2b0fdac861e318b30",
+      "item": "M1-bbd19770ce",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-CF-04/Claude/51",
+      "idx": 51,
+      "sha256": "828b72c213f6b36b0757b92fdc9d4139869eb8d1fd1bbe21d82e5a675f537781",
+      "item": "M1-4e64233110",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-04/Claude/63",
+      "idx": 63,
+      "sha256": "92fe239da890e6c442911ae99b735fc4c947ba16d2075fb6a4b90da15923c0ed",
+      "item": "M1-7d6a75dc5a",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-CF-04/Claude/78",
+      "idx": 78,
+      "sha256": "0a7d435d47c0d9f47cf1c68aeb5998744bae61d0077f8ca6413757bef25bf223",
+      "item": "M1-7ee9a60b87",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-CF-04/Claude/87",
+      "idx": 87,
+      "sha256": "51fef0bf135963e7d1d5e7deb3d77e821291fed18086706094e4e9bb2e68dda5",
+      "item": "M1-696381fa6e",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-CF-04/Claude/89",
+      "idx": 89,
+      "sha256": "cdb920d0b8b861d0806c19173810e3ddfb71dba58cb3450424d47e00939c3713",
+      "item": "M1-b5f3c98aad",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-04/Claude/92",
+      "idx": 92,
+      "sha256": "60fcecf4acb5dd949e00cffc0c9f02e0d234c55ea95eaa98b73bfb1d6e636c1d",
+      "item": "M1-d128202c33",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-04/Claude/93",
+      "idx": 93,
+      "sha256": "cbd57c1288aca5504dd900c31f4d42a1c56590a41d933903eb7838aad838e322",
+      "item": "M1-2f46a1834e",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-CF-04/Claude/101",
+      "idx": 101,
+      "sha256": "f6d2ce2c1d00d91f5134f72814ec6c2ce50261006aeabd2fca6f2a9fd9b833b8",
+      "item": "M1-514d9d9f0c",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-CF-04/Claude/102",
+      "idx": 102,
+      "sha256": "09f02e0b6f873947db8b9d5302e75fdb97f9d856d3dfd1ac40763c2fd31850ac",
+      "item": "M1-779d267856",
+      "markers": 0,
+      "label": "UNCITED"
+     }
+    ]
+   },
+   {
+    "question": "WHU-CF-04",
+    "system": "Gemini",
+    "sentences": 84,
+    "samplable": 70,
+    "claim_like_pool": 68,
+    "k": 20,
+    "rng_seed_string": "<SEED>/WHU-CF-04/Gemini/M1",
+    "drawn": [
+     {
+      "sentence": "WHU-CF-04/Gemini/5",
+      "idx": 5,
+      "sha256": "bca822e804b672ce6499dce5da396a0d2896b31a697211194070a7f0ecaf50b1",
+      "item": "M1-2ba0fb99dd",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-04/Gemini/20",
+      "idx": 20,
+      "sha256": "6871b89628d42de74b969f81662a82d6335342b4ae3dcea717fd47c05b193b4e",
+      "item": "M1-7ebfe6b757",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-04/Gemini/21",
+      "idx": 21,
+      "sha256": "f6e2d57833286d1510afdb19d3b0f24da96ca19d5376dab2b4fb146be9d36371",
+      "item": "M1-ce0649ebb7",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-04/Gemini/22",
+      "idx": 22,
+      "sha256": "1fb2d33d6752dda390b7fbfc46fcf6b1833c6c33a9d99fd558920ea868a6b6ca",
+      "item": "M1-19ea12bf60",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-04/Gemini/24",
+      "idx": 24,
+      "sha256": "7301216f1d547ea5e757319d3f2a3758df806cfa93b1be39c59feacc1a4abe0a",
+      "item": "M1-aed4a5983d",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-04/Gemini/25",
+      "idx": 25,
+      "sha256": "0cb97004b2ef6336fbc7ada4287fe01d850b444003bd9493d37d9a964b841b4d",
+      "item": "M1-22a2290591",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-04/Gemini/39",
+      "idx": 39,
+      "sha256": "be0a8444b0830046b3403deccbb906d7e76f1c6bf5ef7d4cdf05fbeb336842c3",
+      "item": "M1-b65b85e852",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-04/Gemini/40",
+      "idx": 40,
+      "sha256": "feb9d95f82b6719a56df5f6f584ce9112e8ea8d6878fc5815b8a8ff17014c0ec",
+      "item": "M1-228be8571e",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-04/Gemini/44",
+      "idx": 44,
+      "sha256": "e8abd3a714e6f3a2b29df8288a8c1fc058f073280fd01d74d0165e28945588d0",
+      "item": "M1-6abfa1ce2a",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-04/Gemini/45",
+      "idx": 45,
+      "sha256": "45ee66c7bb9c00c76717a756d6d2a949820b9f99e9e905088e510c3d4806e91d",
+      "item": "M1-c1f9c28c65",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-04/Gemini/48",
+      "idx": 48,
+      "sha256": "7238b3f7840f35eaeb6218f95d1040049680617fca129171442d0ce2daf4d50d",
+      "item": "M1-bc43eab214",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-04/Gemini/56",
+      "idx": 56,
+      "sha256": "56864e6197d303541ca358288fad00dbfb34b2bd13bda8222f4ae4db9c127f5e",
+      "item": "M1-899961d7d4",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-04/Gemini/59",
+      "idx": 59,
+      "sha256": "def8e477c36b72e82f63842e3278016bb9ec934d56aa5b6fe409fa128d2be99d",
+      "item": "M1-c3bae58d8a",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-04/Gemini/60",
+      "idx": 60,
+      "sha256": "c00c939b80f24ec435b23cfd3631f4a009cf1cef3b68ef8e760818683fe4c62e",
+      "item": "M1-e42ac3d03a",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-04/Gemini/62",
+      "idx": 62,
+      "sha256": "573430f6463b90a8f97397360befd04f478976a88f1ea85e748684813e4efefe",
+      "item": "M1-fa425b5130",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-04/Gemini/67",
+      "idx": 67,
+      "sha256": "d05a6d2c75a19d0079ad4516b0506abb717a941ebe10e6d15a3bfd0e3ed8aa38",
+      "item": "M1-5b2eded782",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-04/Gemini/70",
+      "idx": 70,
+      "sha256": "be1b438641a0bd6bab3bd92f8d11f61e33685d94c3b62cf8fdbe98ac282d1868",
+      "item": "M1-3b535f6178",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-04/Gemini/71",
+      "idx": 71,
+      "sha256": "fc09ddb6f634ca99ca6d63f9f25cbe2a29b16297506c1b6dc285db11e12a7f42",
+      "item": "M1-7316e5991b",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-04/Gemini/79",
+      "idx": 79,
+      "sha256": "541742492e8d11d9c399457504dab2360dfadd6c3a79e4e7d8ec9092f67a8e56",
+      "item": "M1-caa28e2471",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-04/Gemini/83",
+      "idx": 83,
+      "sha256": "0cb1065a85ea300f8ddf3e3f6cc95acf54b3e5f94ac4034b0ac24db4d9c40ecc",
+      "item": "M1-b597875a20",
+      "markers": 0,
+      "label": "UNCITED"
+     }
+    ]
+   },
+   {
+    "question": "WHU-CF-04",
+    "system": "Perplexity",
+    "sentences": 62,
+    "samplable": 62,
+    "claim_like_pool": 24,
+    "k": 20,
+    "rng_seed_string": "<SEED>/WHU-CF-04/Perplexity/M1",
+    "drawn": [
+     {
+      "sentence": "WHU-CF-04/Perplexity/3",
+      "idx": 3,
+      "sha256": "c2c7e7c976b9cffe9d950036132c102c74043afd6e5041762c702847a025e4ca",
+      "item": "M1-74732b5c42",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-CF-04/Perplexity/8",
+      "idx": 8,
+      "sha256": "b85c533d6ced7e92e60a94b2a8f56e26a2c0d404bdd92c4af7b566b17080e92c",
+      "item": "M1-0bcc9082ee",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-CF-04/Perplexity/14",
+      "idx": 14,
+      "sha256": "9767d47afc69e8e8923b6b1a90df247deec541f3362b863457d8f29b552c3b00",
+      "item": "M1-257b2a0b48",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-CF-04/Perplexity/15",
+      "idx": 15,
+      "sha256": "a4ec521f0f27a7e7b31c4c2e1b3b7ae4d6cbe57daab923f5da91b294da291227",
+      "item": "M1-0bf034edae",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-04/Perplexity/18",
+      "idx": 18,
+      "sha256": "afb805dcace4f46448b722a15f80f64c8a570db7e5699c605a8607da5ee7a0c1",
+      "item": "M1-59e9b67c07",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-04/Perplexity/20",
+      "idx": 20,
+      "sha256": "dca8320ff4e40e28c61b352047d5f16fe1534cc7fa558bb6211b47b6eacd9538",
+      "item": "M1-f0709382f1",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-CF-04/Perplexity/26",
+      "idx": 26,
+      "sha256": "241d9a94a278e61db7065da2b8403223382ffe498e03268bdaa21aee29d09218",
+      "item": "M1-1c62f88efa",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-CF-04/Perplexity/29",
+      "idx": 29,
+      "sha256": "f14035ed3e71cc29665ff82eb206393fa766eb5439967fb11017f9fc42d4c8df",
+      "item": "M1-3b47ee2f35",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-CF-04/Perplexity/30",
+      "idx": 30,
+      "sha256": "37f110580973c8bea20bf7fbcf36a332aadc68100cbc99788dfc4311c39eb882",
+      "item": "M1-3b7635d227",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-04/Perplexity/34",
+      "idx": 34,
+      "sha256": "59c66017390a62decb1dda338988bd8d288c3ad40bf6b4b39d3b455e13e26a2a",
+      "item": "M1-9b4f693905",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-04/Perplexity/35",
+      "idx": 35,
+      "sha256": "5676a8eacd20e6c2f2fada20e9bb6b50849358cf5f9980a74b867a513701a44d",
+      "item": "M1-e5a1d7bd24",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-CF-04/Perplexity/39",
+      "idx": 39,
+      "sha256": "2eb5c4a8ccf69a3e18828ad9a42d277c77695516d800699b269f47546fda042e",
+      "item": "M1-960389c3b1",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-04/Perplexity/40",
+      "idx": 40,
+      "sha256": "3ad03f6c077a7c2d51a47e6c0f20d683a12e5a2c1b062b3e71632bb2a4b1448f",
+      "item": "M1-eb30e8fa49",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-CF-04/Perplexity/41",
+      "idx": 41,
+      "sha256": "2f8a10bcc0ed623f6fb4da1202a1319a0392f3003c647e4535091c6cafd204f6",
+      "item": "M1-31afc30494",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-04/Perplexity/42",
+      "idx": 42,
+      "sha256": "0b5c736c5f76a0eda03ae61edea8e7827caffd8f760ce05e2a75983a18e1f96b",
+      "item": "M1-0a696d3148",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-CF-04/Perplexity/45",
+      "idx": 45,
+      "sha256": "aa73ee159daaa1c3adc0e52ba5d21ba127f839ba5afd7ada454d880d8be296d2",
+      "item": "M1-bd570ce117",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-CF-04/Perplexity/46",
+      "idx": 46,
+      "sha256": "d80886a535f696d6af3ec77d78e3a90d4b9159062795de935affa4a33328ad9d",
+      "item": "M1-1bb4bac558",
+      "markers": 2,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-04/Perplexity/48",
+      "idx": 48,
+      "sha256": "3b6c9bf492e4003a2798d69fe74c6c5a295ccd3b2a8393f5d61ad284446029d2",
+      "item": "M1-8e4b7c58e8",
+      "markers": 2,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-04/Perplexity/53",
+      "idx": 53,
+      "sha256": "0acddb3b4ac800a3665121c73867a3a3df68829b84932f047cf76626eb4bb988",
+      "item": "M1-ef9eb7cb63",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-04/Perplexity/58",
+      "idx": 58,
+      "sha256": "07dba1e53f460b17e4b5bfaa419e4114be949fda6556f4dbb90086c2c8c2e680",
+      "item": "M1-2fc00661ef",
+      "markers": 0,
+      "label": "UNCITED"
+     }
+    ]
+   },
+   {
+    "question": "WHU-CF-05",
+    "system": "Claude",
+    "sentences": 221,
+    "samplable": 221,
+    "claim_like_pool": 133,
+    "k": 20,
+    "rng_seed_string": "<SEED>/WHU-CF-05/Claude/M1",
+    "drawn": [
+     {
+      "sentence": "WHU-CF-05/Claude/13",
+      "idx": 13,
+      "sha256": "b6dbe2b37a06eec4297f06606c62051eebd2cda7a905230672b21eb4a60a67c3",
+      "item": "M1-73cce4aa3f",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-CF-05/Claude/29",
+      "idx": 29,
+      "sha256": "a8148cfc8e5b23bf7b354caf625afd16a03248635725497bc4d833278b50caf9",
+      "item": "M1-106ceba160",
+      "markers": 2,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-05/Claude/37",
+      "idx": 37,
+      "sha256": "33f57959cf8630e868f8e05dfa9f430e360050c145bbe0a35c7a43af6f0288a4",
+      "item": "M1-e52c99f303",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-CF-05/Claude/39",
+      "idx": 39,
+      "sha256": "ca4140a75a21b8ce6eb164a6a4af87c1dac097a89f2cc580dcfada6b8879420f",
+      "item": "M1-61ae15ee0e",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-CF-05/Claude/44",
+      "idx": 44,
+      "sha256": "0a04400d6b257ceba7695382a2ed693c3464011ce2095e25b133e306724d9ee1",
+      "item": "M1-7ead43101b",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-05/Claude/51",
+      "idx": 51,
+      "sha256": "18875c9f5be79462d4067aecaa73bb9523865a5b10cb4ae88d91284484d5b49f",
+      "item": "M1-e16ff7d00e",
+      "markers": 2,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-05/Claude/89",
+      "idx": 89,
+      "sha256": "24e144e7f307c1cf59510d438d9a1dd21232b1ad8a4aedf0b5db8c86d46e726b",
+      "item": "M1-fbd4664e29",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-CF-05/Claude/98",
+      "idx": 98,
+      "sha256": "d7ca838f09d37f1a7147ecc999805d09240d716e998d9c9b59de1fdd9e9a198a",
+      "item": "M1-715812bb51",
+      "markers": 3,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-05/Claude/104",
+      "idx": 104,
+      "sha256": "8aecc26ef02ac1a2055ab9658ef9f40d07a94b9d250344cfbc481bd2d1e0999e",
+      "item": "M1-a195b6d46b",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-CF-05/Claude/115",
+      "idx": 115,
+      "sha256": "81c2336c064fba7149c1a024250690299f24580616110acba617e84d87f51e6a",
+      "item": "M1-087a890353",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-05/Claude/119",
+      "idx": 119,
+      "sha256": "ab17495d8274029ee9452514df96b75bf19accf0a1f6ab8776889217357720d9",
+      "item": "M1-4297fc7c9f",
+      "markers": 3,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-05/Claude/134",
+      "idx": 134,
+      "sha256": "f8d7c198a5d4e054a12ae844adb75ae071ccac7dfdefca2de962258604e607c3",
+      "item": "M1-e74dd1fba8",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-05/Claude/138",
+      "idx": 138,
+      "sha256": "fa6e54b2f7e0506d5a8d953eaad45a17d7bbac9fda0972578eeef5c154992a2f",
+      "item": "M1-8c809542df",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-05/Claude/151",
+      "idx": 151,
+      "sha256": "9d05111e0012ec6db91203ec66f3eed58053e148a0941c112d49b0e68e093a07",
+      "item": "M1-5376176015",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-05/Claude/157",
+      "idx": 157,
+      "sha256": "3e95cfa95b3f98a642728af53f339944c61a2df84f9ea6e8571921d020f4f71c",
+      "item": "M1-b1234f0a07",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-CF-05/Claude/159",
+      "idx": 159,
+      "sha256": "52cdb6a3b14b223ea210e3c963524abe2b8ccb4f9509869d3fc94099978a1616",
+      "item": "M1-fae80a733c",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-CF-05/Claude/165",
+      "idx": 165,
+      "sha256": "6ff0a313a5a1ebb4269ef1b6be4122beaba993e1a19233e852f2a68b71445089",
+      "item": "M1-00854e88d1",
+      "markers": 2,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-05/Claude/181",
+      "idx": 181,
+      "sha256": "8800df202f386a99ffe9f62798a5bdc2c4ce1f1e2aa8ebc1385e531219c59784",
+      "item": "M1-2fcf7c0094",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-CF-05/Claude/200",
+      "idx": 200,
+      "sha256": "01b96543d6e49453570bbce4017a7de76cc295eb2cde789c756c9607559214dc",
+      "item": "M1-38591766f8",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-CF-05/Claude/214",
+      "idx": 214,
+      "sha256": "2bf5abb2c16eae675acc5250b8907f649ad0c303b127886da19804b166dda0b2",
+      "item": "M1-dabb1afe90",
+      "markers": 0,
+      "label": "UNCITED"
+     }
+    ]
+   },
+   {
+    "question": "WHU-CF-05",
+    "system": "Gemini",
+    "sentences": 118,
+    "samplable": 81,
+    "claim_like_pool": 78,
+    "k": 20,
+    "rng_seed_string": "<SEED>/WHU-CF-05/Gemini/M1",
+    "drawn": [
+     {
+      "sentence": "WHU-CF-05/Gemini/2",
+      "idx": 2,
+      "sha256": "82e60bde21d7785d8d2acf9c24b5126f2c7fcc4d2cfba6261556923fef34389f",
+      "item": "M1-1dbd1b1216",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-05/Gemini/26",
+      "idx": 26,
+      "sha256": "1955c4ec5ed003a5eb6d7a9d72ff76de6d660d741ffb6288a7b9ff129eec2f75",
+      "item": "M1-fc21de9a1e",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-05/Gemini/34",
+      "idx": 34,
+      "sha256": "ccd4ee1f8ce55105e0385e6286da16cd1bf78ec033518721da054b6236d11a5a",
+      "item": "M1-1fdedabdb0",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-05/Gemini/35",
+      "idx": 35,
+      "sha256": "cd33204842d7de9848f4c56eea406bbe8fd07844a2aa67c18ec9a2f35c14f678",
+      "item": "M1-8d7530fa3f",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-05/Gemini/39",
+      "idx": 39,
+      "sha256": "147433bb016f709df21cd9e152ecc7d7f0c103ad52d5905d712a3931484c21f8",
+      "item": "M1-0ae7a25bfb",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-05/Gemini/42",
+      "idx": 42,
+      "sha256": "3f5748c39aff85e38aa5411c032c35629e33628082c82061a47263d79efd5189",
+      "item": "M1-431b23df6a",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-05/Gemini/45",
+      "idx": 45,
+      "sha256": "58b9b693b1eff5bfb8c5d93262e209c6fb741e8d6a480f5e80cbed9c7af12857",
+      "item": "M1-0a1fa385fc",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-05/Gemini/58",
+      "idx": 58,
+      "sha256": "88ceba18c31c5647ef84f93f781976ffe9f1e4fb4954ec3c7c8c1e1f1b31e3b8",
+      "item": "M1-ed5cbf2324",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-05/Gemini/61",
+      "idx": 61,
+      "sha256": "9c825c325d4bc307bee1e429a5cda8396b616307a34f22e5dd9fc5d678ea07d1",
+      "item": "M1-87d19078f6",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-05/Gemini/63",
+      "idx": 63,
+      "sha256": "5ab46139958077f27e188156e2afafcfac4a5dbe18c6e46dd34219696d84b218",
+      "item": "M1-30ccba218d",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-05/Gemini/78",
+      "idx": 78,
+      "sha256": "990431675aa2c798a77791d6ea4ccf293450f4aaf349823db1c01486d85fe7aa",
+      "item": "M1-5bf6adf297",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-05/Gemini/80",
+      "idx": 80,
+      "sha256": "bd35a21563e0d3996d4eb7487775b69935d12c06428436c087faab5ad902cc1c",
+      "item": "M1-5012c7ef3b",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-05/Gemini/81",
+      "idx": 81,
+      "sha256": "99846e68c9958e48f72a392d9637b45a3a93acfad1a477c498ae5d5c90a5d83e",
+      "item": "M1-b0799dbe7d",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-05/Gemini/84",
+      "idx": 84,
+      "sha256": "aed8a579fdb81ffb1b90a007af20d95b5817bed45dc97410449442a21b60c62f",
+      "item": "M1-26a767c49c",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-05/Gemini/86",
+      "idx": 86,
+      "sha256": "de9ff3357469ccf6d100c447067048f09541f6710a4ce8552a8f56897f75aad6",
+      "item": "M1-57be87fcc3",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-05/Gemini/99",
+      "idx": 99,
+      "sha256": "d9c47a38966981498c9ede82148014bef838412e0f1fa44b0a60f2ac8eea5f66",
+      "item": "M1-dd9bce8c8c",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-05/Gemini/103",
+      "idx": 103,
+      "sha256": "07515a04af5f3720b811e4a03aa210cf7cf369af72c6075b09e0bc1dca93a7f8",
+      "item": "M1-cf820820c5",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-05/Gemini/105",
+      "idx": 105,
+      "sha256": "d5986a33ba5f93f1911c90139049cc3c568c05e5a9f0066bd98ba5db375dfe03",
+      "item": "M1-c2e82a9dab",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-05/Gemini/106",
+      "idx": 106,
+      "sha256": "928bc55119ec00d5d761e3c00175d39065463fb38913e62edb877ed903dd9f1d",
+      "item": "M1-1256872f06",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-05/Gemini/115",
+      "idx": 115,
+      "sha256": "8f6aa83abd47d6919c5c05bfa38ba6bff0556991fd1ea4125ad5507e704804a1",
+      "item": "M1-44fea1cb7c",
+      "markers": 1,
+      "label": null
+     }
+    ]
+   },
+   {
+    "question": "WHU-CF-05",
+    "system": "Perplexity",
+    "sentences": 79,
+    "samplable": 79,
+    "claim_like_pool": 49,
+    "k": 20,
+    "rng_seed_string": "<SEED>/WHU-CF-05/Perplexity/M1",
+    "drawn": [
+     {
+      "sentence": "WHU-CF-05/Perplexity/1",
+      "idx": 1,
+      "sha256": "647c2fbe2b665130f6b1745a2bc412637c168b40a1834b7b69cb1f0a27e57dce",
+      "item": "M1-79aee0836e",
+      "markers": 2,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-05/Perplexity/7",
+      "idx": 7,
+      "sha256": "170f9797922a8eab698b10697442df22122fd1698ea4b74660b2fdcfded499c4",
+      "item": "M1-abca504ed3",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-05/Perplexity/8",
+      "idx": 8,
+      "sha256": "36d4694057c5ce7d105f4799194e930a9ec678bf28d52e9cd29c79a96313754f",
+      "item": "M1-6d84ab46a8",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-05/Perplexity/11",
+      "idx": 11,
+      "sha256": "3708ce22bc8bb0ecc0ebd535ef463dad8fe7a3b2f411c102beb58ab692785634",
+      "item": "M1-eac907f679",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-05/Perplexity/17",
+      "idx": 17,
+      "sha256": "14897735510e5305ef2c40e27cc8b0debc26de83f485494ee131853f965cf7c8",
+      "item": "M1-dab8cf7073",
+      "markers": 2,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-05/Perplexity/20",
+      "idx": 20,
+      "sha256": "0ecf0ce9ed8c61027ce3f5fe9804cf3bb18d006757af0171fb7f778ffbf07752",
+      "item": "M1-c786b7f491",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-05/Perplexity/22",
+      "idx": 22,
+      "sha256": "12c4be16d07ad165e3f1fc099bb3b629a498c8eb103d03e5e850dfc7e7d86d29",
+      "item": "M1-24cd724381",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-05/Perplexity/26",
+      "idx": 26,
+      "sha256": "38606f336afb6b9d9725f1b657c74c01278e7694f12230f60898aff54aaf4186",
+      "item": "M1-b0a8e562e2",
+      "markers": 2,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-05/Perplexity/27",
+      "idx": 27,
+      "sha256": "822a64c0bd54bd80c1eb41c88c7882ae9613b8bbbf259a688be84b17047cc782",
+      "item": "M1-b6fa2b690e",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-CF-05/Perplexity/30",
+      "idx": 30,
+      "sha256": "65830bc2f6985c21dfd644faa079d124d535c487c7c0fe43870afaa7da4ef393",
+      "item": "M1-92585ea320",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-05/Perplexity/31",
+      "idx": 31,
+      "sha256": "eef5acbac560fd55e32a329b71003b69d1c9a016ca9293476c4954b24e1abae6",
+      "item": "M1-3e3b68a609",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-05/Perplexity/35",
+      "idx": 35,
+      "sha256": "46e07312497034e45a3d4ba9eda128ae924e3776b9cd6c7d6de3585e2baf1548",
+      "item": "M1-93d0035b57",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-05/Perplexity/39",
+      "idx": 39,
+      "sha256": "4cca643bcaa92717662eaf86a078ef2e3a3b07b1a02bd82fd907abcc3d59c5b8",
+      "item": "M1-d1a726c5e6",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-05/Perplexity/42",
+      "idx": 42,
+      "sha256": "dd0ba99780b589942cf663dc75419f65009be0ce4f0a5fac5485452f811d31fe",
+      "item": "M1-b617dbd2c1",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-05/Perplexity/44",
+      "idx": 44,
+      "sha256": "876d5922c7b50b23521bef7761896024c38eb1ee8ef24bab007dc5fbb9119dbb",
+      "item": "M1-f28ca05d33",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-05/Perplexity/45",
+      "idx": 45,
+      "sha256": "43a757a64473818d5707b151033efca1da7a96ac564effdc4dbf006b17ecebd2",
+      "item": "M1-29596382a4",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-05/Perplexity/50",
+      "idx": 50,
+      "sha256": "b63735a479bedb77cf45bc3674bcd514d689a9415f9169bc043a35d007ee6d6c",
+      "item": "M1-934d458491",
+      "markers": 2,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-05/Perplexity/58",
+      "idx": 58,
+      "sha256": "c6a61af7dc87ff6daa750d61c43e2d1a7a1e92a7c16b503734abc0d3a107aca9",
+      "item": "M1-343dd4d630",
+      "markers": 2,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-05/Perplexity/63",
+      "idx": 63,
+      "sha256": "75ef2a816ef1e28ffbece87bd062515ca7ab9dc9fdc87a7a373d10b0e9946efe",
+      "item": "M1-25bfc9f435",
+      "markers": 2,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-05/Perplexity/71",
+      "idx": 71,
+      "sha256": "9463b76c17b5851f96bc5fa4b65344da4242be01e1680b687bbe20fdb3e2d402",
+      "item": "M1-a4e35203d6",
+      "markers": 2,
+      "label": null
+     }
+    ]
+   },
+   {
+    "question": "WHU-CF-06",
+    "system": "Claude",
+    "sentences": 153,
+    "samplable": 153,
+    "claim_like_pool": 107,
+    "k": 20,
+    "rng_seed_string": "<SEED>/WHU-CF-06/Claude/M1",
+    "drawn": [
+     {
+      "sentence": "WHU-CF-06/Claude/10",
+      "idx": 10,
+      "sha256": "98fde269feed463f32dcb45a491431d6dfafe128aad12715cd4a855797635ece",
+      "item": "M1-0bb23e93bd",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-CF-06/Claude/12",
+      "idx": 12,
+      "sha256": "35186342a3166363626b0f3af4e78907faf5e4a950b62f2856483aeb9076cf00",
+      "item": "M1-0403c1085b",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-CF-06/Claude/21",
+      "idx": 21,
+      "sha256": "435f00590a976ef0fdd1a0bc3cdb1e162a802ab64ba5f533a8915869f0c47b75",
+      "item": "M1-70c8bae7a7",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-CF-06/Claude/22",
+      "idx": 22,
+      "sha256": "7c2a95be57697a2951d0eddb7636ea5282f639a3b2a3a1e97fb46f8bb980a046",
+      "item": "M1-34ff5851a2",
+      "markers": 2,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-06/Claude/25",
+      "idx": 25,
+      "sha256": "ae916bc9348889f1e4dbcba994d0b27d3c18469ebbcaf728f1f6cf1ee6498ecc",
+      "item": "M1-e666300cbc",
+      "markers": 2,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-06/Claude/28",
+      "idx": 28,
+      "sha256": "419b9c98c181f3419b7ff4b1d5723c0d933016d3762411546deadbbccb4d0544",
+      "item": "M1-2e0c7b50d2",
+      "markers": 2,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-06/Claude/32",
+      "idx": 32,
+      "sha256": "8b82867f0ec3e8191aa03d3cce92153aa1e302fdc5987fa0b35764864224d647",
+      "item": "M1-ba572a6781",
+      "markers": 3,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-06/Claude/34",
+      "idx": 34,
+      "sha256": "a89bce58920a313e8fdae4199b36d723ff8beb824029674d9f578f31398da406",
+      "item": "M1-ea5e3a0507",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-CF-06/Claude/39",
+      "idx": 39,
+      "sha256": "77faa325433e93f115808555ccef2a2af1e4c217d0bef61f2c19d9afeb2146d2",
+      "item": "M1-7f1dbd4557",
+      "markers": 3,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-06/Claude/41",
+      "idx": 41,
+      "sha256": "a3e1be50739bbe4463a1f341a3b6b01c3a05b3f01fb8ac07b0e7c835c1953ebd",
+      "item": "M1-b206627e56",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-06/Claude/45",
+      "idx": 45,
+      "sha256": "ca1c4bc71995fe6b66d4a65eeb86a7d4ef03e7ba5abe0b4ea584ac6f3e7fa8db",
+      "item": "M1-941be2521f",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-CF-06/Claude/48",
+      "idx": 48,
+      "sha256": "4e9aa504418535bd026a8d4987324d1ca914d1df1c3364edbcaa9dc13d4641bd",
+      "item": "M1-e10c362de2",
+      "markers": 2,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-06/Claude/50",
+      "idx": 50,
+      "sha256": "83195e040eb410582e69ff51b0b315d2c0e10f9b6c7236e373f2675d46e4d0d4",
+      "item": "M1-d2a326e37a",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-06/Claude/61",
+      "idx": 61,
+      "sha256": "76220e3c5ecb5389713c27e3433e95943d991ffe40c63d2b65e1015d2f6d123d",
+      "item": "M1-b989553096",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-CF-06/Claude/80",
+      "idx": 80,
+      "sha256": "abd06fd1eb4e3662677631b2f9bd9bb4dce853c269a4007ab65d9f59f45fd3e9",
+      "item": "M1-803f68eebe",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-CF-06/Claude/93",
+      "idx": 93,
+      "sha256": "864c4fcf53d13b9a85f138d2f16ab024294df5d473b14ed44f2438e0da5bdfb2",
+      "item": "M1-12c765ac7c",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-CF-06/Claude/117",
+      "idx": 117,
+      "sha256": "593855c12757e09d5471110fc84d998ad669a1e053bfc46fce92bf6982717605",
+      "item": "M1-3c088e05f7",
+      "markers": 3,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-06/Claude/118",
+      "idx": 118,
+      "sha256": "f808683c7146421a570bba6b9b99837efe82cc914f2356e90c5f1591a6a2d739",
+      "item": "M1-901ad26564",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-CF-06/Claude/120",
+      "idx": 120,
+      "sha256": "49081b16642132102214388cdd004d76e5141dc55a033d6ff7aa25d71adbb4cb",
+      "item": "M1-47637430d2",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-06/Claude/141",
+      "idx": 141,
+      "sha256": "520193c998fff35beba226ca059e0fa1845ac69ea03565a3e355f018461272e6",
+      "item": "M1-cca95cb5ec",
+      "markers": 0,
+      "label": "UNCITED"
+     }
+    ]
+   },
+   {
+    "question": "WHU-CF-06",
+    "system": "Gemini",
+    "sentences": 97,
+    "samplable": 81,
+    "claim_like_pool": 59,
+    "k": 20,
+    "rng_seed_string": "<SEED>/WHU-CF-06/Gemini/M1",
+    "drawn": [
+     {
+      "sentence": "WHU-CF-06/Gemini/5",
+      "idx": 5,
+      "sha256": "647506f2b137b4b8481f0d41b14b62f2795e30187dfd8d7b645ba44f08817823",
+      "item": "M1-fe0e0948c6",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-06/Gemini/9",
+      "idx": 9,
+      "sha256": "184452342fd311192b0635477c5e24b761517171cb4980f3e58ba48975a533c5",
+      "item": "M1-ed8ad2498e",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-06/Gemini/10",
+      "idx": 10,
+      "sha256": "79621e7b974a17aab0275af10615263d9f8ee50612451834b0fe4bfb4bb60d51",
+      "item": "M1-7411b0f2f6",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-06/Gemini/12",
+      "idx": 12,
+      "sha256": "83bc7bdffc091b4564432378f72ea5f6ae72d3bbeac19f644844836516c14227",
+      "item": "M1-091ab55df4",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-CF-06/Gemini/13",
+      "idx": 13,
+      "sha256": "a56f59b3d5de128960ab0ca453335f1c48b65716e7c617391cf421ba7a3f421a",
+      "item": "M1-2bf3371a47",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-CF-06/Gemini/19",
+      "idx": 19,
+      "sha256": "2a10a45ae8d424aafc775d0b44493cc010fdd5d45545e975e1d46055d7f37bae",
+      "item": "M1-4ef2987db3",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-06/Gemini/25",
+      "idx": 25,
+      "sha256": "c1df890704b88066eae129e579aea9cc61b2dc72a9849ff6166e4205dbc1a776",
+      "item": "M1-6332ad60bd",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-06/Gemini/31",
+      "idx": 31,
+      "sha256": "5f8ad0c0591c2c6759ee311f4cab441729c8753fe60e3d29bb0ca1b7bdd4788b",
+      "item": "M1-357aac051a",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-06/Gemini/37",
+      "idx": 37,
+      "sha256": "3f85b75f29ee897e1a16ed5d43a46a759627ed8b56df8095b78df291b7994b5e",
+      "item": "M1-66b72fe7c6",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-06/Gemini/39",
+      "idx": 39,
+      "sha256": "0c86884de472fcfbfbcd72e726d0b6463d29b203889c9e728e05e0d7a57b83e9",
+      "item": "M1-e32a87c756",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-06/Gemini/45",
+      "idx": 45,
+      "sha256": "29c2dc5a4d4ecc7d4c7d9ab9d4ab2da199dee7a7b4c584857b68f1316db51fbf",
+      "item": "M1-484ab8b700",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-06/Gemini/47",
+      "idx": 47,
+      "sha256": "7a11e291fef7df11e2d6e866d221e9385dd75c90e9ecbcd7092e359d885851f2",
+      "item": "M1-7eec11a8ba",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-06/Gemini/58",
+      "idx": 58,
+      "sha256": "02d06ca93e429ba13b4e853ee66096816552d541f1f4dce21679c33244330589",
+      "item": "M1-56eca99f8c",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-CF-06/Gemini/66",
+      "idx": 66,
+      "sha256": "8c78c1b69b8639515c81aa5bcd50b7d03382e02fa5e30043bef03ba3615f3226",
+      "item": "M1-fe86b157ed",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-06/Gemini/72",
+      "idx": 72,
+      "sha256": "cdea0e89f7011d10b44c25124d04f9c099ee2690865e07e5755ba16ffe8c3bfd",
+      "item": "M1-17e4396386",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-06/Gemini/77",
+      "idx": 77,
+      "sha256": "c0e37b228de048a36cdc752cb06cf067b5e581df6db09f4247bd3f17b3a4c1c5",
+      "item": "M1-e47fa810ad",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-06/Gemini/85",
+      "idx": 85,
+      "sha256": "02a5bcf78b0bdede2f2a2aefce60d2029906628dcdedc7c986e98b080e5e15ea",
+      "item": "M1-6d1ad2e041",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-06/Gemini/90",
+      "idx": 90,
+      "sha256": "9f64608f2e51ec5ee0a4c788706ece8779b2a646c7a75e258781fa2a04d1e2c6",
+      "item": "M1-6bfbdc87b0",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-06/Gemini/93",
+      "idx": 93,
+      "sha256": "83602e92e995855e07346e53baa89347fb4696adf48ccda6ae507a999dacd6d2",
+      "item": "M1-95d0db2393",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-06/Gemini/96",
+      "idx": 96,
+      "sha256": "38ac8e4902811e72a82617ef8820b362741b139a89c243155e06d006eb23a642",
+      "item": "M1-41d357bdbe",
+      "markers": 1,
+      "label": null
+     }
+    ]
+   },
+   {
+    "question": "WHU-CF-06",
+    "system": "Perplexity",
+    "sentences": 63,
+    "samplable": 63,
+    "claim_like_pool": 43,
+    "k": 20,
+    "rng_seed_string": "<SEED>/WHU-CF-06/Perplexity/M1",
+    "drawn": [
+     {
+      "sentence": "WHU-CF-06/Perplexity/1",
+      "idx": 1,
+      "sha256": "608e0845a1211a68bb60eef4ed6ce05c3f10dd87d524116b7ba0514c4db08324",
+      "item": "M1-c3005d63b3",
+      "markers": 2,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-06/Perplexity/6",
+      "idx": 6,
+      "sha256": "5e34d3642d1fd5056eea17e84778c8d579dd15b2801fbd9e986239609c5595a1",
+      "item": "M1-e1d061bd3b",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-CF-06/Perplexity/7",
+      "idx": 7,
+      "sha256": "8f207c17ff916e06612d0fde2100f3a1e047d9a531c99a7b56af8bf16c783dbd",
+      "item": "M1-0a5fb11d76",
+      "markers": 2,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-06/Perplexity/10",
+      "idx": 10,
+      "sha256": "c332e8951695c5dc14be65a711b6a1e0bd78cf23d8bb3040d9cd16a91d225960",
+      "item": "M1-b0bfabe014",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-06/Perplexity/12",
+      "idx": 12,
+      "sha256": "22bacac281ddc1eae32a0ae431fabae34b621a5bbad2d3ebea9b0f2bfb4267c0",
+      "item": "M1-4087af3f31",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-CF-06/Perplexity/13",
+      "idx": 13,
+      "sha256": "4bd1e0ccb16758afa547f424b1ee71ebb3b3bb17b2a5ce30a1d1d79852ad9210",
+      "item": "M1-62e7fc5b1b",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-06/Perplexity/16",
+      "idx": 16,
+      "sha256": "9df5280317057a60180801a868f44bce5396410c28e1fa5caf5f5f317aec3d3d",
+      "item": "M1-a35b3c409e",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-06/Perplexity/19",
+      "idx": 19,
+      "sha256": "8b725b4f78373f386b3b74b9b51b794905b97b599bd399d4b95d0fde2a029ed5",
+      "item": "M1-ebc1b1a2ac",
+      "markers": 4,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-06/Perplexity/25",
+      "idx": 25,
+      "sha256": "0763622179cbd046b1cd63240dd6fd81f10fe1f0af9b5b130a367e97b730750a",
+      "item": "M1-4672cbb885",
+      "markers": 2,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-06/Perplexity/26",
+      "idx": 26,
+      "sha256": "9754d3c6a2d4d5b0b163acc2218cc0b4c0f499d0dc4594a90f4e83f45c154f00",
+      "item": "M1-fbff8483f5",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-06/Perplexity/32",
+      "idx": 32,
+      "sha256": "988bf5ae01f76ccfa0668e3d35b04887585b7002b95fa5ffb7ceacda81d6cc76",
+      "item": "M1-65bebdc60f",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-CF-06/Perplexity/34",
+      "idx": 34,
+      "sha256": "392f7ecd99eb72d045865baa2b6e318f659d6102588875aaf22dac54849c7a67",
+      "item": "M1-2ee61f1b36",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-CF-06/Perplexity/35",
+      "idx": 35,
+      "sha256": "ff1dae5a7b3bd599c24208c4c88312193f016e7b747528318cb677d766ac2a42",
+      "item": "M1-2e4197ed88",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-06/Perplexity/39",
+      "idx": 39,
+      "sha256": "7e2a989b75b46f8f73719ca26d8364c899f902841a0bbf472566d8a55e666a5f",
+      "item": "M1-6b0a3094fb",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-06/Perplexity/41",
+      "idx": 41,
+      "sha256": "d79f0ac7f16a425d8f5341d933b45f0266583e7c0d629d9190bb154d76dad154",
+      "item": "M1-deddcac367",
+      "markers": 2,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-06/Perplexity/44",
+      "idx": 44,
+      "sha256": "eaf6235169ee125ee24a4e0ab94070c817a56d9e79bb468650c2836a9774633e",
+      "item": "M1-1b0db4b147",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-06/Perplexity/50",
+      "idx": 50,
+      "sha256": "d64520dc5428134c43eccff2309d4d860bb0945bfc28ab8a4b6ce0d862a6bfe4",
+      "item": "M1-c2a4900c0c",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-CF-06/Perplexity/52",
+      "idx": 52,
+      "sha256": "55d05ae84f9562dc203df4994d31786d65650c07cffe6fda1cc6455b767d66e4",
+      "item": "M1-61f5d80eee",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-CF-06/Perplexity/57",
+      "idx": 57,
+      "sha256": "9ecc6b79629630498808eceda2276dee2ef4ae3c7fb0a88cc022e0979f121416",
+      "item": "M1-ea10f0fa32",
+      "markers": 2,
+      "label": null
+     },
+     {
+      "sentence": "WHU-CF-06/Perplexity/58",
+      "idx": 58,
+      "sha256": "dddbe45a274d4620319981d2b02dfdce2077cb63ee1dc69dc8fad1f4621a8503",
+      "item": "M1-76d749b6ff",
+      "markers": 2,
+      "label": null
+     }
+    ]
+   }
+  ]
+ },
+ "m2": {
+  "rule": "every conclusion of the frozen key, for every answer; nothing drawn",
+  "conclusions_per_question": {
+   "WHU-CF-01": 0,
+   "WHU-CF-02": 0,
+   "WHU-CF-03": 0,
+   "WHU-CF-04": 0,
+   "WHU-CF-05": 0,
+   "WHU-CF-06": 0
+  },
+  "items": 0,
+  "answer_order": "random.Random('<SEED>/order/M2').shuffle",
+  "key_fields_not_passed_to_the_judge": []
+ },
+ "private_files_sha256": {
+  "m1/items.json": "05c10a2c4383df0e84e239e587c5696298f1633f3d492377f9a9eac2b7815e51",
+  "m1/uncited.json": "6d0c17e918f45aba0d41faf627fd562ac09b597b5ef9229ab8f685319d7829e5",
+  "m1/key_map.json": "14dae041723768f8579ef1a1668bfbb5cd2ba79411ee610435f31dcb2d466a98",
+  "m2/items.json": "6b40137ad81cf758173a1a4d6e19e336db712c91f291262946a994693b7774a3",
+  "m2/key_map.json": "587945d13e848033728e3d1062dbb3376e7d949b88fe36aca20e7e476299810b"
+ }
+}
