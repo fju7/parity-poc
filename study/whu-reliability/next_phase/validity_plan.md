@@ -475,7 +475,10 @@ $21.09 of $31.
 **New line outside the phase (advisor ruling, Fred's approval, 2026-11-02): "fresh-set stage 1", cap $60**, on
 ledger issue `whu-check-fresh-v8` (`caps.json` per-issue cap $60). It is **not** part of the $350 phase total and
 takes nothing from any line or the reserve. It covers the v8 run on the fresh set (pilot doc §16, §16.9); capture is
-$0. Stage 2 (judging, ~$109 likely) has no line and needs a separate approval from Fred.
+$0. Stage 2 (judging, ~$109 likely) has no line and needs a separate approval from Fred. **Raised to $75 (advisor ruling, Fred's
+approval, 2026-11-04)**: the free prepare's likely $62.26 (worst $153.61) passed $60. Still outside the phase and
+from no other line; `caps.json` per-issue cap $75. The cost bar is predicted to fail and is reported from the
+measured spend.
 
 Step 1's unspent $6.97 stays inside its line (caps are not moved between items without a ruling). Spending at
 up to $60 a day (§0) takes about six spending days.

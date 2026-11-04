@@ -47,7 +47,7 @@ def test_the_runner_meters_on_its_own_issue_and_role(monkeypatch):
     F.clients()
     assert got["issue"] == "whu-check-fresh-v8" and got["role"] == "check-fresh-v8"
     caps = json.loads((ROOT / "backend" / "data" / "spend" / "caps.json").read_text())
-    assert caps["per_issue"]["whu-check-fresh-v8"] == F.LINE_CAP == 60
+    assert caps["per_issue"]["whu-check-fresh-v8"] == F.LINE_CAP == 75
 
 
 def test_no_call_without_frozen_samples(fresh, monkeypatch, capsys):
@@ -58,7 +58,7 @@ def test_no_call_without_frozen_samples(fresh, monkeypatch, capsys):
 
 
 def test_likely_over_the_line_cap_calls_nothing(fresh, monkeypatch, capsys):
-    monkeypatch.setattr(F, "spent", lambda entries=None: 55.0)              # 55 + likely 6 > 60
+    monkeypatch.setattr(F, "spent", lambda entries=None: 70.0)              # 70 + likely 6 > 75
     monkeypatch.setattr(F, "clients", lambda *a, **k: (_ for _ in ()).throw(AssertionError("a client was made")))
     assert F.do_run(args(20)) == 5
     assert "nothing was called" in capsys.readouterr().out

@@ -6,7 +6,7 @@
     run_fresh_v8.py verify                     every capture present, its raw copy's sha256 as in the manifest
     run_fresh_v8.py prepare                    free: fetch and plan each answer in a scratch folder (no model call);
                                                likely and worst printed and written (§16.11)
-    run_fresh_v8.py run --today X [--vp-planned Y]   PAID, ledger issue whu-check-fresh-v8 (line cap $60):
+    run_fresh_v8.py run --today X [--vp-planned Y]   PAID, ledger issue whu-check-fresh-v8 (line cap $75):
                                                answers in order, each only if this run's spend + its likely <= X;
                                                a finished answer is kept and never re-run
     run_fresh_v8.py compare                    §10.7's bars except agreement (stage 2), per-answer distributions,
@@ -46,7 +46,7 @@ J, S = V1.J, R3.S
 ISSUE = "whu-check-fresh-v8"
 ROLE = "check-fresh-v8"
 SCRIPT = "study/whu-reliability/check_pilot/run_fresh_v8.py"
-LINE_CAP = 60.0                                  # §16.9: "fresh-set stage 1", outside the phase
+LINE_CAP = 75.0                                  # §16.9: "fresh-set stage 1", outside the phase; $75 from 2026-11-04
 OUT = R.PRIVATE / "check_fresh_set"
 ANSWERS = R.PRIVATE / "answers" / "check_fresh_set"
 QUESTIONS = HERE / "fresh_set" / "questions.json"
