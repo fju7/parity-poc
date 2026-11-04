@@ -327,6 +327,35 @@ def directions(pairs: list[dict], key: str) -> dict:
     return {"v8 BACKED, judge NOT BACKED": pick(F.P.BACKED), "v8 NOT BACKED, judge BACKED": pick(F.P.NOT_BACKED)}
 
 
+def not_judged(pairs: list[dict]) -> dict:
+    """Items a judge did not judge (no call): count, ids, which judge, and each source's length, from the reply's
+    undelivered sources and the source manifest (advisor ruling, 2026-11-04). They are excluded from every agreement
+    the judge's label enters and counted as such."""
+    man = {r["source_id"]: r for r in json.loads((RUN / "sources" / "manifest.json").read_text())}
+    rows, by_label = [], {}
+    for p in pairs:
+        judges = [j for j in JUDGES if p[j] not in F.JUDGED]
+        for j in judges:
+            by_label.setdefault(j, {}).setdefault(str(p[j + "_raw"]), 0)
+            by_label[j][str(p[j + "_raw"])] += 1
+        if not judges:
+            continue
+        srcs = {}
+        for j in judges:
+            r = json.loads((RUN / "replies" / j / (p["item"] + ".json")).read_text())
+            toks = {d["source_id"]: d.get("tokens") for d in r.get("sources") or [] if isinstance(d, dict)}
+            for u in (r.get("undelivered_sources") or []) + (r.get("unreachable_sources") or []):
+                sid = u.get("source_id")
+                srcs.setdefault(sid or u.get("url"), {
+                    "source_id": sid, "url": u.get("url"), "text_chars": (man.get(sid) or {}).get("text_chars"),
+                    "tokens": toks.get(sid), "why": u.get("why") or "unreachable", "judges": []})["judges"].append(j)
+        rows.append({"item": p["item"], "answer": p["answer"], "sentence": p["idx"], "v8": p["v8"],
+                     "judges": judges, "labels": {j: p[j + "_raw"] for j in judges}, "sources": list(srcs.values())})
+    return {"items": len(rows), "ids": [r["item"] for r in rows], "by_judge_label": by_label, "detail": rows,
+            "rule": "excluded from each agreement whose judge did not judge the item (and from two-judge-agreed if "
+                    "either did not); counted here, never imputed"}
+
+
 def agree() -> dict:
     km = json.loads((RUN / "key_map.json").read_text())
     pairs, missing = [], []
@@ -369,6 +398,7 @@ def agree() -> dict:
                  "systems, and WHU's scope notes were left in.",
         "ledger_issue": ISSUE, "usd": round(spent(), 4), "scope_items": len(pairs),
         "judge_labels": raw_counts,
+        "not_judged": not_judged(pairs),
         "agreement": out,
         "ci_method": "seeded bootstrap (%d resamples, seed %d) over the answers, each resampled with all its pairs; "
                      "95%% percentile interval" % (BOOT, BOOT_SEED),
@@ -383,6 +413,14 @@ def do_agree(_a) -> int:
     out, pairs = agree()
     COUNTS.write_text(json.dumps(out, indent=1) + "\n")
     (ROOT2 / "pairs.json").write_text(json.dumps(pairs, indent=1))
+    nj = out["not_judged"]
+    print("NOT JUDGED: %d item(s), excluded and counted: %s" % (nj["items"], ", ".join(
+        "%s (%s; %s)" % (r["item"], "+".join(r["judges"]), "; ".join(
+            "%s chars, %s tokens" % (x["text_chars"], x["tokens"]) for x in r["sources"])) for r in nj["detail"])))
+    row = F.log_estimate("fresh-set stage 2 (judging)", ISSUE, json.loads((ROOT2 / "estimate.json").read_text()),
+                         out["usd"])
+    print("ESTIMATE vs ACTUAL: $%.2f vs $%.2f, ratio %s (%s)" % (
+        row["estimate_usd"], row["actual_usd"], row["ratio"], "out of sample" if row["out_of_sample"] else "IN SAMPLE"))
     for k, v in out["agreement"].items():
         print("%-18s %3d of %3d = %s  CI %s  %s" % (k, v["agree"], v["n"], v["share"], v["ci95_over_answers"],
                                                   v["disagreement_counts"]))

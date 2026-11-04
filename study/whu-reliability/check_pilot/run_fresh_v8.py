@@ -96,6 +96,28 @@ def spent(entries=None) -> float:
     return sum(e.get("usd") or 0 for e in (S.entries() if entries is None else entries) if e.get("issue") == ISSUE)
 
 
+EST_LOG = HERE / "estimate_vs_actual.jsonl"
+
+
+def log_estimate(run: str, issue: str, est: dict, actual_usd: float, entries=None, note: str = "") -> dict:
+    """One row per finished run in check_pilot/estimate_vs_actual.jsonl: the free estimate's likely figure against the
+    measured spend (advisor ruling, 2026-11-04: logged at the end of stage 2 and every later v8 run as the
+    out-of-sample test). Out of sample only if the estimate was written before the run's first paid call; an
+    estimate written after (as the corrected v8 estimate was, on stage 1's own runs) is logged as in sample. A
+    rerun of the same run replaces its row."""
+    paid = sorted(e["at"] for e in (S.entries() if entries is None else entries)
+                  if e.get("issue") == issue and (e.get("usd") or 0) > 0)
+    row = {"logged": R.now(), "run": run, "ledger_issue": issue, "estimate_at": est["at"],
+           "first_paid_call": paid[0] if paid else None, "estimate_usd": round(est["likely_usd"], 4),
+           "actual_usd": round(actual_usd, 4),
+           "ratio": round(est["likely_usd"] / actual_usd, 3) if actual_usd else None,
+           "out_of_sample": bool(paid) and est["at"] < paid[0], "note": note}
+    rows = [json.loads(x) for x in EST_LOG.read_text().splitlines() if x.strip()] if EST_LOG.exists() else []
+    rows = [r for r in rows if r["run"] != run] + [row]
+    EST_LOG.write_text("".join(json.dumps(r) + "\n" for r in rows))
+    return row
+
+
 def role_lines(entries=None) -> list[dict]:
     return [e for e in (S.entries() if entries is None else entries) if e.get("role") == ROLE]
 
@@ -560,6 +582,11 @@ def compare() -> dict:
 def do_compare(_a) -> int:
     out = compare()
     COUNTS.write_text(json.dumps(out, indent=1) + "\n")
+    row = log_estimate("fresh-set stage 1 (v8)", ISSUE, json.loads((OUT / "estimate.json").read_text()),
+                       out["usd"]["total"])
+    print("ESTIMATE vs ACTUAL: $%.2f vs $%.2f, ratio %s (%s)" % (
+        row["estimate_usd"], row["actual_usd"], row["ratio"], "out of sample" if row["out_of_sample"]
+        else "IN SAMPLE: the estimate was written after the run's first paid call"))
     print(json.dumps({k: out[k] for k in ("answers", "claims", "couldnt_check", "passages", "usd", "distributions",
                                           "over_limit_calls", "by_held_format", "pass_bar")}, indent=1))
     return 0

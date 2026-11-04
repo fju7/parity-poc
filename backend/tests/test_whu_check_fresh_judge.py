@@ -98,10 +98,16 @@ def test_the_run_calls_both_judges_once_each_on_its_own_issue_capped_at_todays_a
     assert caps["per_issue"]["whu-check-fresh-judge"] == 80
 
 
-def _reply(item, judge, label):
+def _reply(item, judge, label, **extra):
     d = G.RUN / "replies" / judge
     d.mkdir(parents=True, exist_ok=True)
-    (d / (item + ".json")).write_text(json.dumps({"label": label}))
+    (d / (item + ".json")).write_text(json.dumps({"label": label, **extra}))
+
+
+def _manifest():
+    (G.RUN / "sources").mkdir(parents=True, exist_ok=True)
+    (G.RUN / "sources" / "manifest.json").write_text(json.dumps([{"source_id": "S1", "url": "https://s",
+                                                                  "text_chars": 900000}]))
 
 
 def test_agreement_counts_three_ways_lists_disagreements_by_direction_and_is_never_ready(stage2, monkeypatch):
@@ -111,9 +117,11 @@ def test_agreement_counts_three_ways_lists_disagreements_by_direction_and_is_nev
     monkeypatch.setattr(G, "spent", lambda entries=None: 1.0)
     monkeypatch.setattr(G.V1, "study_label_to_check", lambda l: {"Supported": "BACKED", "Absent": "NOT BACKED"}.get(
         l, "COULDN'T CHECK"))
+    _manifest()
     for item, c, o in (("I1", "Supported", "Supported"), ("I2", "Supported", "Absent"), ("I5", "Absent", "Unreachable")):
         _reply(item, "claude", c)
-        _reply(item, "openai", o)
+        _reply(item, "openai", o, unreachable_sources=[{"url": "https://s", "source_id": "S1"}]
+               if o == "Unreachable" else [])
     out, pairs = G.agree()
     a = out["agreement"]
     assert (a["vs_claude_judge"]["n"], a["vs_claude_judge"]["agree"]) == (3, 1)
@@ -123,6 +131,39 @@ def test_agreement_counts_three_ways_lists_disagreements_by_direction_and_is_nev
     assert d == {"v8 BACKED, judge NOT BACKED": 1, "v8 NOT BACKED, judge BACKED": 1}
     assert out["ready"] is False and len(pairs) == 3
     assert "no human has checked" in out["label"] and "Blinding was partial" in out["label"]
+    nj = out["not_judged"]                       # I5: OpenAI did not judge it; listed, excluded, counted
+    assert nj["items"] == 1 and nj["ids"] == ["I5"] and nj["by_judge_label"] == {"openai": {"Unreachable": 1}}
+    assert nj["detail"][0]["judges"] == ["openai"] and nj["detail"][0]["sources"][0]["text_chars"] == 900000
+
+
+def test_the_not_judged_list_names_the_judge_and_the_source_length(stage2):
+    G.do_scope(None)
+    _manifest()
+    for item in ("I1", "I2", "I5"):
+        why = [{"url": "https://s", "source_id": "S1", "why": "key word 'x' is in the source but not in what the "
+                                                              "judge receives"}] if item == "I2" else []
+        for j in G.JUDGES:
+            _reply(item, j, "INCOMPLETE_SOURCES" if item == "I2" else "Supported", undelivered_sources=why,
+                   sources=[{"source_id": "S1", "tokens": 406098}] if why else [])
+    pairs = [{"item": i, "answer": "A/Claude", "idx": 0, "v8": "BACKED",
+              **{j: ("COULDN'T CHECK" if i == "I2" else "BACKED") for j in G.JUDGES},
+              **{j + "_raw": ("INCOMPLETE_SOURCES" if i == "I2" else "Supported") for j in G.JUDGES}}
+             for i in ("I1", "I2", "I5")]
+    nj = G.not_judged(pairs)
+    assert nj["ids"] == ["I2"] and nj["detail"][0]["judges"] == ["claude", "openai"]
+    src = nj["detail"][0]["sources"][0]
+    assert (src["text_chars"], src["tokens"], src["judges"]) == (900000, 406098, ["claude", "openai"])
+    assert "judge receives" in src["why"]
+
+
+def test_the_estimate_log_marks_an_estimate_written_after_the_run_as_in_sample(tmp_path, monkeypatch):
+    monkeypatch.setattr(G.F, "EST_LOG", tmp_path / "log.jsonl")
+    led = [{"at": "2026-11-04T15:00:00+00:00", "issue": "i", "usd": 1.0}]
+    before = G.F.log_estimate("r", "i", {"at": "2026-11-04T14:00:00+00:00", "likely_usd": 50.0}, 40.0, entries=led)
+    assert before["out_of_sample"] is True and before["ratio"] == 1.25
+    after = G.F.log_estimate("r", "i", {"at": "2026-11-04T16:00:00+00:00", "likely_usd": 40.4}, 40.0, entries=led)
+    assert after["out_of_sample"] is False
+    assert len((tmp_path / "log.jsonl").read_text().splitlines()) == 1     # a rerun replaces its row
 
 
 def test_a_partial_set_is_not_analysed(stage2):
