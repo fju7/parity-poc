@@ -1,0 +1,35 @@
+{
+ "written": "2026-11-04T15:37:30+00:00",
+ "by": "study/whu-reliability/check_pilot/fresh_judge.py scope",
+ "rule": "frozen-sample M1 items whose sentence v8 checked with the same text and judged BACKED or NOT BACKED (advisor ruling 2026-11-04, item 2); decided before any judging",
+ "frozen_sample_sha256": "a03a7557def1e96a61186ff63d16fc017df49690f4d525facca75c91e67a8d8e",
+ "items": 104,
+ "scope_sha256": "c156876bdec144ef1e1ba7ff07f713071118151b6e0a2f1e9fded5fec72b5373",
+ "classified": {
+  "in scope: v8 BACKED": 72,
+  "in scope: v8 NOT BACKED": 32,
+  "not among v8's checked claims": 100,
+  "uncited (not an M1 item)": 82,
+  "v8 COULDN'T CHECK": 74
+ },
+ "per_answer": {
+  "WHU-CF-01/Claude": 1,
+  "WHU-CF-01/Gemini": 9,
+  "WHU-CF-01/Perplexity": 14,
+  "WHU-CF-02/Claude": 2,
+  "WHU-CF-02/Gemini": 6,
+  "WHU-CF-02/Perplexity": 16,
+  "WHU-CF-03/Claude": 5,
+  "WHU-CF-03/Gemini": 2,
+  "WHU-CF-03/Perplexity": 5,
+  "WHU-CF-04/Claude": 3,
+  "WHU-CF-04/Gemini": 3,
+  "WHU-CF-04/Perplexity": 1,
+  "WHU-CF-05/Claude": 3,
+  "WHU-CF-05/Gemini": 9,
+  "WHU-CF-05/Perplexity": 7,
+  "WHU-CF-06/Claude": 7,
+  "WHU-CF-06/Gemini": 8,
+  "WHU-CF-06/Perplexity": 3
+ }
+}
