@@ -9,6 +9,8 @@
     run_fresh_v8.py run --today X [--vp-planned Y]   PAID, ledger issue whu-check-fresh-v8 (line cap $75):
                                                answers in order, each only if this run's spend + its likely <= X;
                                                a finished answer is kept and never re-run
+    run_fresh_v8.py calibrate                  free: the estimate's rates from the finished v8 runs, and the estimate
+                                               against the measured run with each question held out (within 20%)
     run_fresh_v8.py compare                    §10.7's bars except agreement (stage 2), per-answer distributions,
                                                each mean also without the largest answer (§16.3)
 
@@ -174,45 +176,151 @@ def pilot_rates() -> dict:
             "pilot_input_tokens": tokens, "pilot_stage1_calls": called, "pilot_rereads": reread}
 
 
-def estimate_answer(prep: dict, wdir: Path, count, rates: dict) -> dict:
-    """§16.11. Likely: stage 1's planned input x the pilot's $/token; each re-read at the pilot's re-read share, a
-    claim's short sources read whole, each long source's windows once if any claim citing it is re-read
-    (1 - (1 - share)^k). Worst: every stage-1 call at its own worst, every claim re-read whole, every long source
-    read in every window for every batch of its claims, each a cache write + v6's maximum output."""
-    rate, p = rates["usd_per_input_token"], rates["reread_share"]
-    stage1 = [x for x in prep["planned"] if x["label"] is None]
-    likely, worst = sum(x["n_in"] for x in stage1) * rate, sum(x["worst"] or 0 for x in stage1)
-    long_src, windows = {}, 0
+def plan_parts(stage1: list[dict], manifest: dict, wdir: Path, count) -> dict:
+    """The estimate's planned quantities, in v8's own estimated tokens (chars/1.9): stage-1 input; per stage-1 claim,
+    the short sources a re-read reads whole (+ the prompt allowance; 0 if none); per long source, its windows and
+    the number of stage-1 claims citing it."""
+    out = {"s1_tokens": sum(x["n_in"] or 0 for x in stage1), "short": [], "long": {}}
     for c in stage1:
         short = 0
-        for ct in c["citations"]:
-            m = prep["manifest"].get(ct.get("url") or "")
+        for ct in c.get("citations") or []:
+            m = manifest.get(ct.get("url") or "")
             if not m or m["extent"] == "unreachable":
                 continue
             text = (wdir / "sources" / (m["source_id"] + ".txt")).read_text(encoding="utf-8")
             n = count(text)
             if n > J.MAX_SOURCE_TOKENS:
-                long_src.setdefault(m["source_id"], [text, 0])[1] += 1
+                out["long"].setdefault(m["source_id"], {"text": text, "k": 0})["k"] += 1
             else:
                 short += n
-        if short:
-            likely += p * (short + P.PROMPT_ALLOWANCE) * rate
-            worst += V6.worst_cost(short + P.PROMPT_ALLOWANCE)
-    for sid, (text, k) in long_src.items():
-        ws = V6.windows(text, count, size=P.WINDOW_EST)
+        out["short"].append(short + P.PROMPT_ALLOWANCE if short else 0)
+    for row in out["long"].values():
+        row["windows"] = V6.windows(row["text"], count, size=P.WINDOW_EST)
+    return out
+
+
+def v8_rates(run_dirs: list[Path]) -> dict:
+    """Measured on finished v8 runs (each dir holds results.json, sources/ and token_counts.json), each part priced
+    per unit of the plan the estimate uses (known fault, 2026-11-04: the pilot's $ per TRUE token, measured on v4-v6,
+    was applied to v8's ESTIMATED tokens, which run ~1.4x true, at v4-v6's caching, ~1.37x v8's; the likely figure
+    came out 2.3x the measured spend):
+      stage 1    $ per planned stage-1 token (claim rows' usd less their re-reads);
+      re-reads   $ per short-source token of the claims re-read whole (re-reads less the window jobs);
+      windows    $ per window of the long sources v8 read in windows: window cost follows the window count, not the
+                 source's tokens (the fresh set: 1.5M-token sources cost $0.27 to $0.33 per window, 0.2-0.4M ones
+                 $0.31 to $0.45);
+      share      re-read claims / stage-1 claims."""
+    s1c = s1t = rrc = rrt = wc = wn = called = reread = 0
+    for d in run_dirs:
+        res = json.loads((d / "results.json").read_text())
+        rows = res["results"]
+        stage1 = [r for r in rows if r.get("n_in")]
+        parts = plan_parts(stage1, res.get("manifest") or {}, d, P.LocalCount(d / "token_counts.json"))
+        usd, rr = sum(r.get("usd") or 0 for r in rows), sum(r.get("usd_reread") or 0 for r in rows)
+        jobs = sum(j.get("usd") or 0 for j in res.get("jobs") or [])
+        s1c, s1t = s1c + usd - rr, s1t + parts["s1_tokens"]
+        rrc += rr - jobs
+        rrt += sum(t for t, r in zip(parts["short"], stage1) if r.get("usd_reread") and r.get("decided_by") == "whole source")
+        wc += jobs
+        wn += sum(len(v["windows"]) for sid, v in parts["long"].items() if sid in (res.get("windows") or {}))
+        called, reread = called + len(stage1), reread + sum(1 for r in rows if r.get("usd_reread"))
+    if not s1t or not called:
+        raise P.Stop("no finished v8 run to price the estimate from")
+    return {"usd_per_stage1_token": s1c / s1t, "usd_per_reread_token": rrc / rrt if rrt else 0.0,
+            "usd_per_window": wc / wn if wn else 0.0, "reread_share": reread / called,
+            "calibrated_on": sorted(d.name for d in run_dirs), "measured_usd": round(s1c + rrc + wc, 4)}
+
+
+def price(plan: dict, rates: dict) -> float:
+    """The likely figure of one answer's plan quantities (estimate_answer's "plan") at the given rates."""
+    p = rates["reread_share"]
+    return (plan["s1_tokens"] * rates["usd_per_stage1_token"] + p * plan["short_tokens"] * rates["usd_per_reread_token"]
+            + sum((1 - (1 - p) ** k) * n * rates["usd_per_window"] for k, n in plan["long"]))
+
+
+def estimate_answer(prep: dict, wdir: Path, count, rates: dict) -> dict:
+    """§16.11, priced from v8_rates. Likely: stage 1's planned tokens; each claim's short sources at the re-read
+    share; each long source's windows once if any claim citing it is re-read (1 - (1 - share)^k). Worst (unchanged):
+    every stage-1 call at its own worst, every claim re-read whole, every long source read in every window for every
+    batch of its claims, each a cache write + v6's maximum output."""
+    stage1 = [x for x in prep["planned"] if x["label"] is None]
+    parts = plan_parts(stage1, prep["manifest"], wdir, count)
+    plan = {"s1_tokens": parts["s1_tokens"], "short_tokens": sum(parts["short"]),
+            "long": [[row["k"], len(row["windows"])] for row in parts["long"].values()]}
+    likely = price(plan, rates)
+    worst = sum(x["worst"] or 0 for x in stage1) + sum(V6.worst_cost(s) for s in parts["short"] if s)
+    windows = 0
+    for row in parts["long"].values():
+        text, k, ws = row["text"], row["k"], row["windows"]
         windows += len(ws)
-        n_in = sum(count(text[a:b]) for a, b in ws) + len(ws) * P.PROMPT_ALLOWANCE
-        likely += (1 - (1 - p) ** k) * n_in * rate
         worst += sum(V6.worst_cost(count(text[a:b]) + P.PROMPT_ALLOWANCE) for a, b in ws) * math.ceil(k / V6.BATCH)
-    return {"claims": len(prep["claims"]), "stage1_calls": len(stage1), "long_sources": len(long_src),
-            "windows": windows, "likely_usd": round(likely, 4), "worst_usd": round(worst, 4)}
+    return {"claims": len(prep["claims"]), "stage1_calls": len(stage1), "long_sources": len(parts["long"]),
+            "windows": windows, "likely_usd": round(likely, 4), "worst_usd": round(worst, 4), "plan": plan}
+
+
+def run_dirs() -> list[Path]:
+    return sorted(d for d in (OUT / "run").iterdir() if (d / "results.json").exists()) if (OUT / "run").exists() else []
+
+
+def held_out(dirs: list[Path], prepared: dict | None = None) -> dict:
+    """The estimate against the measured run, each question priced from the OTHER questions' runs only (leave one
+    question out), so the check is not the calibration scoring itself. The plan priced is the run's own, or, with
+    prepared ({answer dir name: estimate_answer's "plan"}), the free prepare's: the one a gate reads."""
+    rows, est_total, meas_total = [], 0.0, 0.0
+    for q in sorted({d.name.rsplit("-", 1)[0] for d in dirs}):
+        rates = v8_rates([d for d in dirs if not d.name.startswith(q + "-")])
+        e = m = 0.0
+        for d in (d for d in dirs if d.name.startswith(q + "-")):
+            res = json.loads((d / "results.json").read_text())
+            if prepared is not None:
+                e += price(prepared[d.name], rates)
+            else:
+                stage1 = [dict(r, label=None) for r in res["results"] if r.get("n_in")]
+                prep = {"planned": stage1, "claims": res["results"], "manifest": res.get("manifest") or {}}
+                e += estimate_answer(prep, d, P.LocalCount(d / "token_counts.json"), rates)["likely_usd"]
+            m += sum(r.get("usd") or 0 for r in res["results"])
+        rows.append({"question": q, "estimate_usd": round(e, 4), "measured_usd": round(m, 4)})
+        est_total, meas_total = est_total + e, meas_total + m
+    return {"rows": rows, "estimate_usd": round(est_total, 4), "measured_usd": round(meas_total, 4),
+            "ratio": round(est_total / meas_total, 4) if meas_total else None}
+
+
+def prepared_plans() -> dict | None:
+    """The free prepare's per-answer plans, by run dir name, if estimate.json has them."""
+    f = OUT / "estimate.json"
+    rows = json.loads(f.read_text())["rows"] if f.exists() else []
+    if not rows or any("plan" not in r for r in rows):
+        return None
+    return {r["answer"].replace("/", "-"): r["plan"] for r in rows}
+
+
+def do_calibrate(_a) -> int:
+    dirs = run_dirs()
+    r = v8_rates(dirs)
+    print("RATES (from %d v8 runs): $%.3g per stage-1 token, $%.3g per re-read token, $%.3f per window, re-read share "
+          "%.2f" % (len(dirs), r["usd_per_stage1_token"], r["usd_per_reread_token"], r["usd_per_window"],
+                    r["reread_share"]))
+    checks = [("the run's own plan", held_out(dirs))]
+    pp = prepared_plans()
+    if pp is not None:
+        checks.append(("the free prepare's plan", held_out(dirs, pp)))
+    ok = True
+    for name, h in checks:
+        for row in h["rows"]:
+            print("  %s  estimate $%.2f  measured $%.2f" % (row["question"], row["estimate_usd"], row["measured_usd"]))
+        print("HELD OUT on %s (each question priced from the others): estimate $%.2f vs measured $%.2f, ratio %.3f"
+              % (name, h["estimate_usd"], h["measured_usd"], h["ratio"]))
+        ok = ok and bool(h["ratio"]) and abs(h["ratio"] - 1) <= 0.2
+    if pp is None:
+        print("(no prepare plans in estimate.json: run prepare first for the check a gate depends on)")
+    return 0 if ok and pp is not None else 1
 
 
 def do_prepare(_a) -> int:
     if do_verify():
         print("STOP: the captures are not complete and as fingerprinted; nothing estimated")
         return 4
-    rates = pilot_rates()
+    rates = v8_rates(run_dirs())
     likely = worst = 0.0
     rows = []
     for q, s in sample():
@@ -227,8 +335,8 @@ def do_prepare(_a) -> int:
         print("  %s %-10s %2d claims, %2d stage-1 calls, %d long source(s) in %2d windows; likely $%.2f, worst $%.2f"
               % (q, s, est["claims"], est["stage1_calls"], est["long_sources"], est["windows"], est["likely_usd"],
                  est["worst_usd"]))
-    print("ESTIMATE: likely $%.2f, worst $%.2f (pilot rate $%.2f per million input tokens on v8's local estimate; "
-          "re-read share %.2f)" % (likely, worst, rates["usd_per_input_token"] * 1e6, rates["reread_share"]))
+    print("ESTIMATE: likely $%.2f, worst $%.2f (priced from %d measured v8 runs; re-read share %.2f)"
+          % (likely, worst, len(rates["calibrated_on"]), rates["reread_share"]))
     (OUT / "estimate.json").write_text(json.dumps({
         "at": R.now(), "likely_usd": round(likely, 4), "worst_usd": round(worst, 4), "rates": rates, "rows": rows,
         "estimator": P.ESTIMATOR, "batched_prompt_sha256": V6.batched_prompt_sha()}, indent=1))
@@ -470,9 +578,10 @@ def main() -> int:
     r.add_argument("--today", type=float, required=True, help="what this run may spend today (room rule)")
     r.add_argument("--vp-planned", type=float, default=0.0)
     sub.add_parser("compare")
+    sub.add_parser("calibrate")
     a = ap.parse_args()
     return {"build": do_build, "verify": do_verify, "prepare": do_prepare, "run": do_run,
-            "compare": do_compare}[a.cmd](a)
+            "compare": do_compare, "calibrate": do_calibrate}[a.cmd](a)
 
 
 if __name__ == "__main__":

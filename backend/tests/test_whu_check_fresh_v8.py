@@ -1,7 +1,6 @@
 """The fresh set's stage-1 runner (study/whu-reliability/check_pilot/run_fresh_v8.py) and sample draw
 (fresh_samples.py), offline. No model call, no fetch, no ledger write."""
 import json
-import math
 import sys
 import types
 from pathlib import Path
@@ -128,26 +127,67 @@ def test_perplexity_reads_by_the_export_it_is(tmp_path, monkeypatch):
     assert F.capture("Q", "Perplexity")[1] == "perplexity_footnotes"
 
 
-def test_the_estimate_prices_a_long_source_once_at_the_chance_one_citing_claim_is_reread(tmp_path):
-    (tmp_path / "sources").mkdir()
+RATES = {"usd_per_stage1_token": 2e-6, "usd_per_reread_token": 3e-6, "usd_per_window": 0.25, "reread_share": 0.5}
+
+
+def _sources(d):
+    (d / "sources").mkdir(parents=True)
     long_text = "Paragraph text about the basin survey and its readings.\n\n" * 6000       # ~180k estimated
-    (tmp_path / "sources" / "L.txt").write_text(long_text)
-    (tmp_path / "sources" / "s.txt").write_text("short source " * 100)
+    (d / "sources" / "L.txt").write_text(long_text)
+    (d / "sources" / "s.txt").write_text("short source " * 100)
     man = {"https://l": {"source_id": "L", "extent": "full text"}, "https://s": {"source_id": "s", "extent": "full"}}
+    return long_text, man
+
+
+def test_the_estimate_prices_a_long_source_once_per_window_at_the_chance_one_citing_claim_is_reread(tmp_path):
+    long_text, man = _sources(tmp_path)
     claim = lambda u: {"label": None, "n_in": 1000, "worst": 0.1, "citations": [{"url": u, "label": "[1]"}]}
     prep = {"planned": [claim("https://l"), claim("https://l"), claim("https://s")], "claims": [1, 2, 3],
             "manifest": man}
     count = P8.LocalCount()
-    rates = {"usd_per_input_token": 5e-6, "reread_share": 0.5}
-    est = F.estimate_answer(prep, tmp_path, count, rates)
+    est = F.estimate_answer(prep, tmp_path, count, RATES)
     ws = P6.windows(long_text, count, size=P8.WINDOW_EST)
-    win_in = sum(count(long_text[a:b]) for a, b in ws) + len(ws) * P8.PROMPT_ALLOWANCE
     short_in = count("short source " * 100) + P8.PROMPT_ALLOWANCE
-    want = 3000 * 5e-6 + 0.5 * short_in * 5e-6 + (1 - 0.5 ** 2) * win_in * 5e-6
+    want = 3000 * 2e-6 + 0.5 * short_in * 3e-6 + (1 - 0.5 ** 2) * len(ws) * 0.25
     assert est["long_sources"] == 1 and est["windows"] == len(ws) >= 2
-    assert est["likely_usd"] == pytest.approx(want, abs=1e-4)
+    assert est["likely_usd"] == pytest.approx(want, abs=1e-4) == pytest.approx(F.price(est["plan"], RATES), abs=1e-4)
     assert est["worst_usd"] > est["likely_usd"] and est["worst_usd"] >= 0.3 + P6.worst_cost(short_in)
-    assert math.isclose(sum(1 for _ in ws), est["windows"])
+
+
+def test_the_rates_are_per_estimated_token_and_per_window_as_the_estimate_reads_them(tmp_path):
+    """Known fault 2026-11-04: a $ per TRUE token was applied to ESTIMATED tokens. Here a run whose spend is exactly
+    linear in the plan gives back exactly its rates, so the estimate of that run is its measured cost."""
+    d = tmp_path / "WHU-X-01-Claude"
+    long_text, man = _sources(d)
+    count = P8.LocalCount(d / "token_counts.json")
+    short_in = count("short source " * 100) + P8.PROMPT_ALLOWANCE
+    n_win = len(P6.windows(long_text, count, size=P8.WINDOW_EST))
+    count.save()
+    rr_whole, win = short_in * 3e-6, n_win * 0.25
+    rows = [{"n_in": 4000, "label": "BACKED", "citations": [{"url": "https://s"}], "decided_by": "whole source",
+             "usd_reread": rr_whole, "usd": 4000 * 2e-6 + rr_whole},
+            {"n_in": 6000, "label": "BACKED", "citations": [{"url": "https://l"}], "decided_by": "windowed whole source",
+             "usd_reread": win, "usd": 6000 * 2e-6 + win},
+            {"n_in": None, "label": "NO SOURCE", "citations": [], "usd": 0}]
+    (d / "results.json").write_text(json.dumps({"results": rows, "manifest": man, "jobs": [{"usd": win}],
+                                                "windows": {"L": {}}}))
+    r = F.v8_rates([d])
+    assert r["usd_per_stage1_token"] == pytest.approx(2e-6) and r["usd_per_reread_token"] == pytest.approx(3e-6)
+    assert r["usd_per_window"] == pytest.approx(0.25) and r["reread_share"] == 1.0
+    assert r["measured_usd"] == pytest.approx(sum(x["usd"] for x in rows), abs=1e-4)
+
+
+def test_the_estimate_is_within_20_percent_of_the_measured_fresh_run_with_each_question_held_out():
+    """The ruling's check (2026-11-04), on the private outputs of the fresh-set v8 run; skipped where they are not
+    held. Each question is priced from the other five questions' runs, on the free prepare's plan (the one a gate
+    reads) and on the run's own plan."""
+    dirs = F.run_dirs()
+    plans = F.prepared_plans()
+    if len(dirs) < 18 or plans is None:
+        pytest.skip("the fresh-set v8 run's private outputs are not here")
+    for h in (F.held_out(dirs, plans), F.held_out(dirs)):
+        assert h["measured_usd"] == pytest.approx(F.spent(), abs=0.01)
+        assert abs(h["ratio"] - 1) <= 0.2, h
 
 
 def test_samples_are_drawn_once_and_only_before_any_v8_result(fresh, monkeypatch):
