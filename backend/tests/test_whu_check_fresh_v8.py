@@ -205,3 +205,13 @@ def test_held_format_and_the_split_by_format():
     assert out["sources"] == {"PDF": 1, "HTML": 1, "other": 1, "unreachable": 1}
     assert out["claims"]["PDF"] == {"claims": 2, "labels": {P8.COULDNT: 1, P8.BACKED: 1}, "couldnt_check_share": 0.5}
     assert out["claims"]["mixed"]["claims"] == 1 and out["claims"]["no source held"]["couldnt_check_share"] == 1.0
+
+
+def test_answer_cost_is_the_row_sum_not_the_rows_plus_their_breakdowns():
+    res = {"results": [{"usd": 1.5, "usd_reread": 0.5}, {"usd": 0.25}], "jobs": [{"usd": 1.0}]}
+    assert F.answer_usd(res) == 1.75
+
+
+def test_the_gate_names_this_issue():
+    ok, why = F.gate(10.0, 0.0, F.LINE_CAP)
+    assert ok and why.startswith("whu-check-fresh-v8 has spent")

@@ -1,0 +1,534 @@
+{
+ "written": "2026-11-04T14:42:01+00:00",
+ "by": "study/whu-reliability/check_pilot/run_fresh_v8.py compare",
+ "label": "Counts only. The fresh set, stage 1 (pilot doc \u00a716.9): v8 end to end on 18 answers no version has seen. Agreement is stage 2 (judging), not approved; this file decides only whether stage 2 may be asked for. Judged by AI models only; no human has checked the judgements.",
+ "design": "docs/whu-check-an-answer-pilot.md \u00a715, \u00a716",
+ "ledger_issue": "whu-check-fresh-v8",
+ "answers": 18,
+ "claims": 682,
+ "estimator": "chars/1.9 v1",
+ "batched_prompt_sha256": "06d0f824476c5c6ca29d299a6cd96012467f47f636285d62f76e3eaa521dcdb9",
+ "couldnt_check": {
+  "n": 190,
+  "of": 682,
+  "share": 0.2786,
+  "couldnt_check": 190,
+  "not_found_in_passages_checked": 0,
+  "reasons": {
+   "robots.txt disallows": 13,
+   "barred publisher": 16,
+   "bot wall or CAPTCHA": 93,
+   "no passage to show": 3,
+   "abstract does not state it": 11,
+   "no relevant passage": 19,
+   "publisher copy without licence": 6,
+   "HTTP error": 23,
+   "TDM reservation": 3,
+   "no copy found": 3
+  }
+ },
+ "passages": {
+  "verdicts": 282,
+  "with_passage": 282
+ },
+ "usd": {
+  "total": 26.9789,
+  "per_answer": 1.4988,
+  "ledger": 26.9789
+ },
+ "distributions": {
+  "usd": {
+   "n": 18,
+   "values": [
+    0.1429,
+    0.164,
+    0.261,
+    0.3194,
+    0.3739,
+    0.4961,
+    0.788,
+    1.0898,
+    1.1227,
+    1.2865,
+    1.4326,
+    1.5912,
+    1.6074,
+    1.6706,
+    2.9906,
+    3.4548,
+    3.639,
+    4.5484
+   ],
+   "mean": 1.4988,
+   "median": 1.2046,
+   "min": 0.14291,
+   "max": 4.548416,
+   "mean_without_largest": 1.3194
+  },
+  "seconds": {
+   "n": 18,
+   "values": [
+    14.5,
+    17.5,
+    22.2,
+    27.9,
+    34.1,
+    34.2,
+    37.7,
+    38.2,
+    43.2,
+    45.9,
+    48.2,
+    50.0,
+    55.9,
+    64.5,
+    71.6,
+    83.9,
+    132.6,
+    254.1
+   ],
+   "mean": 59.7889,
+   "median": 44.55,
+   "min": 14.5,
+   "max": 254.1,
+   "mean_without_largest": 48.3588
+  },
+  "couldnt_check_share": {
+   "n": 18,
+   "values": [
+    0.075,
+    0.075,
+    0.0909,
+    0.1,
+    0.1,
+    0.1,
+    0.125,
+    0.15,
+    0.2,
+    0.25,
+    0.275,
+    0.3333,
+    0.35,
+    0.4,
+    0.425,
+    0.525,
+    0.7143,
+    0.725
+   ],
+   "mean": 0.2785,
+   "median": 0.225,
+   "min": 0.075,
+   "max": 0.725,
+   "mean_without_largest": 0.2523
+  },
+  "note": "each mean is also shown without the largest answer (\u00a716.3); the bars are judged on all answers"
+ },
+ "over_limit_calls": 0,
+ "by_held_format": {
+  "sources": {
+   "HTML": 120,
+   "other": 27,
+   "PDF": 46,
+   "unreachable": 81
+  },
+  "claims": {
+   "mixed": {
+    "claims": 32,
+    "labels": {
+     "BACKED": 20,
+     "COULDN'T CHECK": 10,
+     "NOT BACKED": 2
+    },
+    "couldnt_check_share": 0.3125
+   },
+   "no source held": {
+    "claims": 315,
+    "labels": {
+     "NO SOURCE": 210,
+     "COULDN'T CHECK": 105
+    },
+    "couldnt_check_share": 0.3333
+   },
+   "other": {
+    "claims": 35,
+    "labels": {
+     "BACKED": 26,
+     "NOT BACKED": 4,
+     "COULDN'T CHECK": 5
+    },
+    "couldnt_check_share": 0.1429
+   },
+   "PDF": {
+    "claims": 119,
+    "labels": {
+     "NOT BACKED": 45,
+     "BACKED": 48,
+     "COULDN'T CHECK": 26
+    },
+    "couldnt_check_share": 0.2185
+   },
+   "HTML": {
+    "claims": 181,
+    "labels": {
+     "COULDN'T CHECK": 44,
+     "NOT BACKED": 58,
+     "BACKED": 79
+    },
+    "couldnt_check_share": 0.2431
+   }
+  },
+  "note": "Format of the copy v8 held, from the runner's fetch record (FormatLog). COULDN'T CHECK here counts NOT FOUND as \u00a710.7 does. Reported as seen; nothing decided from it in advance."
+ },
+ "pass_bar": {
+  "couldnt_check_at_most_20": false,
+  "usd_per_answer_at_most_2": true,
+  "seconds_per_answer_mean_at_most_120": true,
+  "passages_100": true
+ },
+ "agreement": "stage 2 (judging) not approved; not computed",
+ "stop_rule": "\u00a716.9 item 2: if cost or time fails, stop; no judging",
+ "per_answer": [
+  {
+   "answer": "WHU-CF-01/Claude",
+   "claims": 40,
+   "found": 68,
+   "totals": {
+    "BACKED": 3,
+    "NOT BACKED": 1,
+    "NO SOURCE": 33,
+    "COULDN'T CHECK": 3,
+    "NOT FOUND IN THE PASSAGES CHECKED": 0,
+    "usd": 3.454787,
+    "claims": 40
+   },
+   "couldnt_check_share": 0.075,
+   "usd": 3.454787,
+   "seconds": 132.6,
+   "seconds_windows": 12.4,
+   "over_limit_calls": 0
+  },
+  {
+   "answer": "WHU-CF-01/Gemini",
+   "claims": 40,
+   "found": 75,
+   "totals": {
+    "BACKED": 8,
+    "NOT BACKED": 19,
+    "NO SOURCE": 2,
+    "COULDN'T CHECK": 11,
+    "NOT FOUND IN THE PASSAGES CHECKED": 0,
+    "usd": 4.548416,
+    "claims": 40
+   },
+   "couldnt_check_share": 0.275,
+   "usd": 4.548416,
+   "seconds": 83.9,
+   "seconds_windows": 13.3,
+   "over_limit_calls": 0
+  },
+  {
+   "answer": "WHU-CF-01/Perplexity",
+   "claims": 33,
+   "found": 33,
+   "totals": {
+    "BACKED": 23,
+    "NOT BACKED": 0,
+    "NO SOURCE": 7,
+    "COULDN'T CHECK": 3,
+    "NOT FOUND IN THE PASSAGES CHECKED": 0,
+    "usd": 3.63899,
+    "claims": 33
+   },
+   "couldnt_check_share": 0.0909,
+   "usd": 3.63899,
+   "seconds": 55.9,
+   "seconds_windows": 11.0,
+   "over_limit_calls": 0
+  },
+  {
+   "answer": "WHU-CF-02/Claude",
+   "claims": 40,
+   "found": 79,
+   "totals": {
+    "BACKED": 8,
+    "NOT BACKED": 0,
+    "NO SOURCE": 24,
+    "COULDN'T CHECK": 8,
+    "NOT FOUND IN THE PASSAGES CHECKED": 0,
+    "usd": 0.163953,
+    "claims": 40
+   },
+   "couldnt_check_share": 0.2,
+   "usd": 0.163953,
+   "seconds": 34.1,
+   "seconds_windows": 0.0,
+   "over_limit_calls": 0
+  },
+  {
+   "answer": "WHU-CF-02/Gemini",
+   "claims": 40,
+   "found": 101,
+   "totals": {
+    "BACKED": 12,
+    "NOT BACKED": 20,
+    "NO SOURCE": 4,
+    "COULDN'T CHECK": 4,
+    "NOT FOUND IN THE PASSAGES CHECKED": 0,
+    "usd": 2.99058,
+    "claims": 40
+   },
+   "couldnt_check_share": 0.1,
+   "usd": 2.99058,
+   "seconds": 71.6,
+   "seconds_windows": 10.4,
+   "over_limit_calls": 0
+  },
+  {
+   "answer": "WHU-CF-02/Perplexity",
+   "claims": 30,
+   "found": 30,
+   "totals": {
+    "BACKED": 23,
+    "NOT BACKED": 0,
+    "NO SOURCE": 4,
+    "COULDN'T CHECK": 3,
+    "NOT FOUND IN THE PASSAGES CHECKED": 0,
+    "usd": 0.788046,
+    "claims": 30
+   },
+   "couldnt_check_share": 0.1,
+   "usd": 0.788046,
+   "seconds": 45.9,
+   "seconds_windows": 0.0,
+   "over_limit_calls": 0
+  },
+  {
+   "answer": "WHU-CF-03/Claude",
+   "claims": 40,
+   "found": 67,
+   "totals": {
+    "BACKED": 6,
+    "NOT BACKED": 4,
+    "NO SOURCE": 13,
+    "COULDN'T CHECK": 17,
+    "NOT FOUND IN THE PASSAGES CHECKED": 0,
+    "usd": 1.432586,
+    "claims": 40
+   },
+   "couldnt_check_share": 0.425,
+   "usd": 1.432586,
+   "seconds": 37.7,
+   "seconds_windows": 9.8,
+   "over_limit_calls": 0
+  },
+  {
+   "answer": "WHU-CF-03/Gemini",
+   "claims": 40,
+   "found": 106,
+   "totals": {
+    "BACKED": 8,
+    "NOT BACKED": 15,
+    "NO SOURCE": 3,
+    "COULDN'T CHECK": 14,
+    "NOT FOUND IN THE PASSAGES CHECKED": 0,
+    "usd": 1.089769,
+    "claims": 40
+   },
+   "couldnt_check_share": 0.35,
+   "usd": 1.089769,
+   "seconds": 38.2,
+   "seconds_windows": 0.0,
+   "over_limit_calls": 0
+  },
+  {
+   "answer": "WHU-CF-03/Perplexity",
+   "claims": 35,
+   "found": 35,
+   "totals": {
+    "BACKED": 7,
+    "NOT BACKED": 0,
+    "NO SOURCE": 3,
+    "COULDN'T CHECK": 25,
+    "NOT FOUND IN THE PASSAGES CHECKED": 0,
+    "usd": 0.260961,
+    "claims": 35
+   },
+   "couldnt_check_share": 0.7143,
+   "usd": 0.260961,
+   "seconds": 17.5,
+   "seconds_windows": 0.0,
+   "over_limit_calls": 0
+  },
+  {
+   "answer": "WHU-CF-04/Claude",
+   "claims": 40,
+   "found": 60,
+   "totals": {
+    "BACKED": 10,
+    "NOT BACKED": 1,
+    "NO SOURCE": 24,
+    "COULDN'T CHECK": 5,
+    "NOT FOUND IN THE PASSAGES CHECKED": 0,
+    "usd": 1.122666,
+    "claims": 40
+   },
+   "couldnt_check_share": 0.125,
+   "usd": 1.122666,
+   "seconds": 64.5,
+   "seconds_windows": 0.0,
+   "over_limit_calls": 0
+  },
+  {
+   "answer": "WHU-CF-04/Gemini",
+   "claims": 40,
+   "found": 68,
+   "totals": {
+    "BACKED": 2,
+    "NOT BACKED": 7,
+    "NO SOURCE": 2,
+    "COULDN'T CHECK": 29,
+    "NOT FOUND IN THE PASSAGES CHECKED": 0,
+    "usd": 0.496122,
+    "claims": 40
+   },
+   "couldnt_check_share": 0.725,
+   "usd": 0.496122,
+   "seconds": 34.2,
+   "seconds_windows": 0.0,
+   "over_limit_calls": 0
+  },
+  {
+   "answer": "WHU-CF-04/Perplexity",
+   "claims": 24,
+   "found": 24,
+   "totals": {
+    "BACKED": 4,
+    "NOT BACKED": 0,
+    "NO SOURCE": 12,
+    "COULDN'T CHECK": 8,
+    "NOT FOUND IN THE PASSAGES CHECKED": 0,
+    "usd": 0.373915,
+    "claims": 24
+   },
+   "couldnt_check_share": 0.3333,
+   "usd": 0.373915,
+   "seconds": 27.9,
+   "seconds_windows": 0.0,
+   "over_limit_calls": 0
+  },
+  {
+   "answer": "WHU-CF-05/Claude",
+   "claims": 40,
+   "found": 133,
+   "totals": {
+    "BACKED": 9,
+    "NOT BACKED": 0,
+    "NO SOURCE": 27,
+    "COULDN'T CHECK": 4,
+    "NOT FOUND IN THE PASSAGES CHECKED": 0,
+    "usd": 0.14291,
+    "claims": 40
+   },
+   "couldnt_check_share": 0.1,
+   "usd": 0.14291,
+   "seconds": 14.5,
+   "seconds_windows": 0.0,
+   "over_limit_calls": 0
+  },
+  {
+   "answer": "WHU-CF-05/Gemini",
+   "claims": 40,
+   "found": 78,
+   "totals": {
+    "BACKED": 14,
+    "NOT BACKED": 15,
+    "NO SOURCE": 5,
+    "COULDN'T CHECK": 6,
+    "NOT FOUND IN THE PASSAGES CHECKED": 0,
+    "usd": 1.607388,
+    "claims": 40
+   },
+   "couldnt_check_share": 0.15,
+   "usd": 1.607388,
+   "seconds": 48.2,
+   "seconds_windows": 0.0,
+   "over_limit_calls": 0
+  },
+  {
+   "answer": "WHU-CF-05/Perplexity",
+   "claims": 40,
+   "found": 49,
+   "totals": {
+    "BACKED": 5,
+    "NOT BACKED": 7,
+    "NO SOURCE": 7,
+    "COULDN'T CHECK": 21,
+    "NOT FOUND IN THE PASSAGES CHECKED": 0,
+    "usd": 0.31941,
+    "claims": 40
+   },
+   "couldnt_check_share": 0.525,
+   "usd": 0.31941,
+   "seconds": 50.0,
+   "seconds_windows": 0.0,
+   "over_limit_calls": 0
+  },
+  {
+   "answer": "WHU-CF-06/Claude",
+   "claims": 40,
+   "found": 107,
+   "totals": {
+    "BACKED": 15,
+    "NOT BACKED": 4,
+    "NO SOURCE": 18,
+    "COULDN'T CHECK": 3,
+    "NOT FOUND IN THE PASSAGES CHECKED": 0,
+    "usd": 1.286486,
+    "claims": 40
+   },
+   "couldnt_check_share": 0.075,
+   "usd": 1.286486,
+   "seconds": 254.1,
+   "seconds_windows": 0.0,
+   "over_limit_calls": 0
+  },
+  {
+   "answer": "WHU-CF-06/Gemini",
+   "claims": 40,
+   "found": 59,
+   "totals": {
+    "BACKED": 6,
+    "NOT BACKED": 16,
+    "NO SOURCE": 8,
+    "COULDN'T CHECK": 10,
+    "NOT FOUND IN THE PASSAGES CHECKED": 0,
+    "usd": 1.670635,
+    "claims": 40
+   },
+   "couldnt_check_share": 0.25,
+   "usd": 1.670635,
+   "seconds": 43.2,
+   "seconds_windows": 0.0,
+   "over_limit_calls": 0
+  },
+  {
+   "answer": "WHU-CF-06/Perplexity",
+   "claims": 40,
+   "found": 43,
+   "totals": {
+    "BACKED": 10,
+    "NOT BACKED": 0,
+    "NO SOURCE": 14,
+    "COULDN'T CHECK": 16,
+    "NOT FOUND IN THE PASSAGES CHECKED": 0,
+    "usd": 1.591247,
+    "claims": 40
+   },
+   "couldnt_check_share": 0.4,
+   "usd": 1.591247,
+   "seconds": 22.2,
+   "seconds_windows": 8.3,
+   "over_limit_calls": 0
+  }
+ ]
+}

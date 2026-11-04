@@ -311,7 +311,8 @@ def by_format(per_answer: list[tuple[dict, list[dict]]]) -> dict:
 # -- the paid run ---------------------------------------------------------------------------------------------------
 
 def gate(likely: float, spent_usd: float, cap: float) -> tuple[bool, str]:
-    return R7.gate(likely, spent_usd, cap)
+    ok, why = R7.gate(likely, spent_usd, cap)
+    return ok, why.replace(R7.ISSUE, ISSUE, 1)
 
 
 def do_run(a) -> int:
@@ -385,8 +386,9 @@ def dist(xs: list[float]) -> dict:
 
 
 def answer_usd(res: dict) -> float:
-    return round(sum(r.get("usd") or 0 for r in res["results"]) + sum(r.get("usd_reread") or 0 for r in res["results"])
-                 + sum(j.get("usd") or 0 for j in res["jobs"]), 6)
+    """v8's per-claim usd already carries its re-reads and its share of every window job (the 18 answers' row sums
+    equal the ledger, 2026-11-04); usd_reread and jobs' usd are breakdowns of it and are not added again."""
+    return round(sum(r.get("usd") or 0 for r in res["results"]), 6)
 
 
 def compare() -> dict:
@@ -421,6 +423,8 @@ def compare() -> dict:
     cc = {"n": cc_n + nf, "of": n_claims, "share": round((cc_n + nf) / n_claims, 4) if n_claims else None,
           "couldnt_check": cc_n, "not_found_in_passages_checked": nf, "reasons": reasons}
     usd_total = sum(p["usd"] for p in per)
+    if abs(usd_total - spent()) > 0.01:
+        raise P.Stop("the answers' recorded cost $%.4f is not the ledger's $%.4f for %s" % (usd_total, spent(), ISSUE))
     secs = [p["seconds"] for p in per]
     no_agreement = {"share": None}
     pass_bar = R4.bars(cc, n, no_agreement, tuple(passages), usd_total, sum(secs) / n)
