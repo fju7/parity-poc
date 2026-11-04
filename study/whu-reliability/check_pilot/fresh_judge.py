@@ -351,7 +351,14 @@ def not_judged(pairs: list[dict]) -> dict:
                     "tokens": toks.get(sid), "why": u.get("why") or "unreachable", "judges": []})["judges"].append(j)
         rows.append({"item": p["item"], "answer": p["answer"], "sentence": p["idx"], "v8": p["v8"],
                      "judges": judges, "labels": {j: p[j + "_raw"] for j in judges}, "sources": list(srcs.values())})
+    long_ = [x["tokens"] for r in rows for x in r["sources"] if x["tokens"] and "judge receives" in x["why"]]
+    scope = ("Agreement is not measured on claims whose source exceeds the judges' single-read limit (%d items "
+             "skipped, sources of %dk-%dk tokens); v8's windowed reading of very long sources is therefore not "
+             "validated by this test." % (
+                 sum(any("judge receives" in x["why"] for x in r["sources"]) for r in rows),
+                 round(min(long_) / 1000), round(max(long_) / 1000))) if long_ else None
     return {"items": len(rows), "ids": [r["item"] for r in rows], "by_judge_label": by_label, "detail": rows,
+            "not_validated": scope,
             "rule": "excluded from each agreement whose judge did not judge the item (and from two-judge-agreed if "
                     "either did not); counted here, never imputed"}
 
@@ -417,6 +424,8 @@ def do_agree(_a) -> int:
     print("NOT JUDGED: %d item(s), excluded and counted: %s" % (nj["items"], ", ".join(
         "%s (%s; %s)" % (r["item"], "+".join(r["judges"]), "; ".join(
             "%s chars, %s tokens" % (x["text_chars"], x["tokens"]) for x in r["sources"])) for r in nj["detail"])))
+    if nj["not_validated"]:
+        print("NOT VALIDATED: " + nj["not_validated"])
     row = F.log_estimate("fresh-set stage 2 (judging)", ISSUE, json.loads((ROOT2 / "estimate.json").read_text()),
                          out["usd"])
     print("ESTIMATE vs ACTUAL: $%.2f vs $%.2f, ratio %s (%s)" % (

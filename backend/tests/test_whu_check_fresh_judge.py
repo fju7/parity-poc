@@ -154,6 +154,9 @@ def test_the_not_judged_list_names_the_judge_and_the_source_length(stage2):
     src = nj["detail"][0]["sources"][0]
     assert (src["text_chars"], src["tokens"], src["judges"]) == (900000, 406098, ["claude", "openai"])
     assert "judge receives" in src["why"]
+    assert nj["not_validated"] == ("Agreement is not measured on claims whose source exceeds the judges' single-read "
+                                   "limit (1 items skipped, sources of 406k-406k tokens); v8's windowed reading of "
+                                   "very long sources is therefore not validated by this test.")
 
 
 def test_the_estimate_log_marks_an_estimate_written_after_the_run_as_in_sample(tmp_path, monkeypatch):
