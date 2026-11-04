@@ -478,7 +478,13 @@ takes nothing from any line or the reserve. It covers the v8 run on the fresh se
 $0. Stage 2 (judging, ~$109 likely) has no line and needs a separate approval from Fred. **Raised to $75 (advisor ruling, Fred's
 approval, 2026-11-04)**: the free prepare's likely $62.26 (worst $153.61) passed $60. Still outside the phase and
 from no other line; `caps.json` per-issue cap $75. The cost bar is predicted to fail and is reported from the
-measured spend.
+measured spend. Stage 1 spent $26.98.
+
+**New line outside the phase (advisor ruling, Fred's approval, 2026-11-04): "fresh-set stage 2", cap $80**, on
+ledger issue `whu-check-fresh-judge` (`caps.json` per-issue cap $80). Not part of the $350 phase total; takes
+nothing from any line or the reserve. It covers judging (pilot doc §16.9 stage 2): both M1 judges, first reads only,
+on the frozen-sample sentences v8 judged BACKED or NOT BACKED; a free estimate first, stopping if likely exceeds $80;
+the room rule each day.
 
 Step 1's unspent $6.97 stays inside its line (caps are not moved between items without a ruling). Spending at
 up to $60 a day (§0) takes about six spending days.
