@@ -27,3 +27,9 @@ Every command run with WHU_LEAN=1. Drafting session: Claude Code (session whu-le
 | 8 commit (bcf19f3) | 2026-11-05T22:44Z | 2026-11-05T22:44Z | $0 | 0 | pushed 619bf7b..bcf19f3 |
 | 9 changecheck --before 619bf7b + ruling.py changecheck | 2026-11-05T22:45:23Z | 2026-11-05T22:46:20Z | changecheck ~$0.04 + rulings $0.070 | 0 | 5 changed sentences read; 2 findings (CONTRADICTION, OURS) on the verdict sentence; ruled "amend"; applied word for word; applied_check 0 mismatches, 0 dangling |
 | 5-7d repeated after the 9 amendment | 2026-11-05T22:47:21Z | 2026-11-05T22:48:17Z | audit $0.060; gate $0 (recency carried) | 0 | 0 gate findings; conclusion judge 1 judged, 0 flagged; re-audit complete (42 carried, 8 holds, 10 record check, 1 heading), 0 cuts, 0 rulings; final narrow gate run 3 of 3 PASSED |
+| 9 changecheck --before 619bf7b (after the amendment) + ruling.py changecheck | 2026-11-05T22:50:32Z | 2026-11-05T22:51:02Z | changecheck ~$0.04 + rulings $0.042 | 0 | 1 finding (CONTRADICTION) on the amended verdict sentence; ruled "reject" (consistency re-run agrees); page unchanged |
+| 9a changecheck_coverage --first 619bf7b | 2026-11-05T22:51:10Z | 2026-11-05T22:51:10Z | $0 | 0 | 5 changed body sentences, every one read |
+| 10 publish.py check (canary re-run first) | 2026-11-05T22:51Z | 2026-11-05T22:53:05Z | $0 | 0 | Ready. (0 STOP; warns only); issue spend $1.53 of $10 |
+| 11 private archive | 2026-11-05T22:53:30Z | 2026-11-05T22:54Z | $0 | 0 | 36 uncommitted files (34 git-ignored + 2 untracked gate-report copies gate_1/gate_2) copied to ~/Projects/whu-study-private/WHU-L1-01c-whu-lean-q1-01c/20261105T225330Z/; sha256 list in private_manifest.txt, verified 36/36 |
+
+Result: FINISHED, publish.py check printed `Ready.` No person was needed at any step. Gate runs 3 of 3 (runs 2 and 3 carried recency, 0 d old).
