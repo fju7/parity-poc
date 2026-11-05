@@ -1,0 +1,81 @@
+{
+  "sources": [
+    {
+      "id": "S001",
+      "type": "synthesis",
+      "form": "article",
+      "title": "Digital tracking, provider decision support systems, and targeted client communication via mobile devices to improve primary health care",
+      "authors": "Agarwal S, Chin WY, Vasudevan L, Henschke N, Tamrat T, Foss HS, Glenton C, Bergman H, Fønhus MS, Ratanaprayul N, Pandya S, Mehl GL, Lewin S",
+      "citation": "Cochrane Database of Systematic Reviews 2025, Issue 4, CD012925 (pub2)",
+      "year": 2025,
+      "doi": "10.1002/14651858.CD012925.pub2",
+      "pmid": "40193137",
+      "pmcid": "PMC11975193",
+      "url": "https://europepmc.org/article/PMC/PMC11975193",
+      "licence": {
+        "name": "CC BY-NC",
+        "as_listed_by": "Europe PMC (license field, checked 2026-11-05)",
+        "machine_reading": "not forbidden by the listed licence"
+      },
+      "used_for": "the systematic review of randomised and non-randomised trials of exactly these interventions in primary care, with GRADE certainty for each outcome",
+      "access": {
+        "state": "full_text_held",
+        "held": {
+          "file": "docs/d7/d7e75af2910b5220d74c87d89e1dd526e979f711e1670b1ccc1afd7377dc699e.xml",
+          "sha256": "d7e75af2910b5220d74c87d89e1dd526e979f711e1670b1ccc1afd7377dc699e",
+          "bytes": 1164109,
+          "identified_by": "contains its identifier PMC11975193 — 536898 characters, reference list and discussion/introduction present; title present (12 of 12 title words in the visible text)",
+          "kind": "full_text",
+          "kind_why": "536898 characters, reference list and discussion/introduction present"
+        },
+        "on": "2026-11-05"
+      },
+      "also_called": [
+        "the Cochrane review by Agarwal and colleagues (2025)"
+      ]
+    },
+    {
+      "id": "S002",
+      "type": "guideline",
+      "form": "article",
+      "title": "WHO guideline: recommendations on digital interventions for health system strengthening",
+      "authors": "World Health Organization",
+      "citation": "Geneva: World Health Organization, 2019. ISBN 9789241550505",
+      "year": 2019,
+      "also_called": [
+        "the WHO digital health guideline (2019)"
+      ],
+      "url": "https://iris.who.int/server/api/core/bitstreams/c3c53f30-23cc-48d0-a3b5-c05ddd7f5349/content",
+      "licence": {
+        "name": "CC BY-NC-SA 3.0 IGO",
+        "as_listed_by": "WHO IRIS item record dc.rights (checked 2026-11-05)",
+        "machine_reading": "not forbidden by the listed licence"
+      },
+      "used_for": "WHO's recommendations, with their certainty of evidence, on digital tracking combined with decision support and targeted client communication",
+      "access": {
+        "state": "full_text_held",
+        "held": {
+          "file": "docs/31/3107aecff8b84c84e07491361a451e4693102c79cc61697344c11b45365a62c5.pdf",
+          "sha256": "3107aecff8b84c84e07491361a451e4693102c79cc61697344c11b45365a62c5",
+          "bytes": 1820258,
+          "identified_by": "contains 7 of 7 distinctive title words — 349238 characters, reference list and discussion/introduction present; title present (7 of 7 title words in the visible text)",
+          "kind": "full_text",
+          "kind_why": "349238 characters, reference list and discussion/introduction present"
+        },
+        "on": "2026-11-05"
+      }
+    }
+  ],
+  "search": {
+    "searched": [
+      "Europe PMC, for systematic reviews and trials of mobile-device tracking combined with decision support or client reminders in primary health care",
+      "the WHO institutional repository, for WHO guidance on digital health interventions"
+    ],
+    "not_searched": [
+      "trial registries",
+      "MEDLINE, Embase and CENTRAL directly",
+      "for individual trials published after the review's November 2022 search date",
+      "national guidelines"
+    ]
+  }
+}

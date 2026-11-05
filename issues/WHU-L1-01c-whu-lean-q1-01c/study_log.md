@@ -1,0 +1,11 @@
+# WHU-L1-01c (lean test, "lean + machine scope notes") — study log
+
+Run cap $10 (issue.json run_cap_usd). Day cap rule: today's ledger total + a stage's estimate <= $50 before any paid stage.
+Every command run with WHU_LEAN=1. Drafting session: Claude Code (session whu-lean-q1-01c).
+
+| stage | start (UTC) | end (UTC) | metered spend | operator minutes | outcome |
+|---|---|---|---|---|---|
+| 1 premise (init, belief, kill condition, scope, evidence standard, status) | 2026-11-05T22:14:27Z | 2026-11-05T22:16Z | $0 | 0 | premise.json written before any source opened; scope (5 out entries) and evidence_standard (measured + assessed) ok at 22:15:01Z; belief-coverage rows filled after research |
+| 2 sources (sources.json, acquire, store status) | 2026-11-05T22:16Z | 2026-11-05T22:18Z | $0 | 0 | S001 Cochrane CD012925.pub2 via Europe PMC (CC BY-NC listed by Europe PMC; Wiley not fetched); S002 WHO 2019 guideline via WHO IRIS API (CC BY-NC-SA 3.0 IGO); both full_text_held |
+| 2b errata / sweep resolve | 2026-11-05T22:18Z | 2026-11-05T22:19Z | $0 | 0 | S001 clean; S002 n/a (guideline); no trial registry record held, sweep_registry not run |
+| 2c canary | 2026-11-05T22:19Z | 2026-11-05T22:19Z | $0 | 0 | ok, 2 of 2 round-trip |

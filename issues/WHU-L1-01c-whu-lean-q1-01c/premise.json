@@ -1,0 +1,104 @@
+{
+  "_what_this_is": "The entry gate, answered BEFORE drafting. The threshold question is whether a well-informed non-expert would confidently believe something the primary sources do not support.",
+  "belief": {
+    "_note": "What the reader already believes, stated as they would state it. If you cannot write this sentence, there is nothing to correct and no subject -- which is how the tobacco-analogy candidate died.",
+    "statement": "Giving primary health care workers a mobile phone or tablet app that records each patient's care, prompts the worker on what to do next, and sends patients reminder messages makes care better and makes people healthier.",
+    "how_we_know_they_believe_it": "WHO's own news release for its 2019 digital health guideline presented digital tools, including reminders to pregnant women to attend antenatal care, as offering 'new opportunities to improve people's health'; trade and health-policy outlets carried the release.",
+    "carried_by": [
+      {
+        "outlet": "World Health Organization news release",
+        "url": "https://www.who.int/news-room/detail/17-04-2019-who-releases-first-guideline-on-digital-health-interventions",
+        "date": "2019-04-17",
+        "what_it_said": "'The use of digital technologies offers new opportunities to improve people's health'; reviewed approaches include 'sending reminders to pregnant women to attend antenatal care appointments' and 'decision-support tools to guide health workers' (read via a web fetch tool's summary, not held)."
+      },
+      {
+        "outlet": "NextBillion",
+        "url": "https://nextbillion.net/news/who-releases-first-guideline-on-digital-health-interventions",
+        "date": "2019-04",
+        "what_it_said": "Carried WHO's release under the headline 'WHO releases first guideline on digital health interventions' (seen in search results only)."
+      }
+    ]
+  },
+  "what_the_sources_show": {
+    "_note": "What the primary sources actually support, and which sources.",
+    "statement": "The 2025 Cochrane review (18 studies) concludes digital tracking may improve health workers' adherence to recommended practice, record quality, some health outcomes and service use, but that these interventions led to small or no outcome differences in most studies; most outcomes are moderate- or low-certainty and no study measured unintended consequences. WHO's 2019 guideline recommends the combinations only in specific contexts or conditions.",
+    "sources": [
+      "S001",
+      "S002"
+    ]
+  },
+  "direction": {
+    "_note": "CORRECTS, CONFIRMS or NARROWS. This field exists so the contrarianism guard can count. A publication whose answer is always CORRECTS is performing scepticism rather than assessing evidence, and is not to be trusted.",
+    "value": "narrows",
+    "_values": [
+      "corrects",
+      "confirms",
+      "narrows"
+    ]
+  },
+  "reader_with_a_decision": "A ministry of health or primary care programme manager deciding whether to fund and roll out a mobile tracking-and-prompting app for health workers, who pays for devices, training and maintenance if it does not improve care or health.",
+  "public_record_check": {
+    "_note": "NOT 'has anybody published this'. On any contested question, somebody has. The question is whether it has been carried WHERE THIS READER WOULD FIND IT. Run the counterexample hunter on the belief statement, not on the finding.",
+    "prior_art_found": [
+      "S001 (Cochrane 2025) is itself the synthesis; the page translates it."
+    ],
+    "carried_in_general_coverage": "WHO's 2019 release and the outlets that carried it presented the benefits with the caveat that digital tools do not replace health systems; we did not search for general coverage of the 2025 review's small-or-no-difference conclusion.",
+    "our_contribution": "translation: the 2025 review's mixed, mostly low-to-moderate-certainty findings set beside WHO's conditional recommendations, for a non-specialist."
+  },
+  "sources_are_open": "yes: S001 CC BY-NC (Europe PMC), S002 CC BY-NC-SA 3.0 IGO (WHO IRIS)",
+  "evidence_base_is_bounded": "yes: one Cochrane review of 18 studies (search to November 2022) and one WHO guideline",
+  "kill_condition": "There is no story if the primary sources show, with moderate or high certainty, that these combined interventions improve both the care people receive and their health; or if the sources show with moderate or high certainty that they make no difference to either. The answer is then a plain yes or no and the page restates it.",
+  "kill_condition_tested": {
+    "_note": "Filled in AFTER going to look, by whoever looked.",
+    "by": "Claude Code (session whu-lean-q1-01c)",
+    "on": "2026-11-05T22:22:06Z",
+    "result": "narrowed",
+    "note": "Neither kill outcome: the review finds neither a clear moderate/high-certainty benefit on care and health nor a clear no-effect; it finds small gains on some outcomes, little or no difference on others, and very low certainty on many.",
+    "_result_values": [
+      "survived",
+      "narrowed",
+      "killed"
+    ]
+  },
+  "lead_came_from": "Round 1 question WHU-Q1-01, asked again of lean WHU (lean four-question test).",
+  "scope": {
+    "_note": "What the answer will and will not cover, written at step 1 BEFORE any source is opened, so scope cannot be fitted to the findings afterwards. An omission ruled OUT_OF_SCOPE, and a headline conclusion declared out of scope, must name the question's words or one of these entries (fix 2, docs/whu-fix2-omission-rulings-design.md section 2.4).",
+    "covers": "Primary health care settings (community and facility-based primary care, including community health workers). Interventions in which a mobile phone or tablet is used to keep a digital record that tracks each patient's health status and the services they receive, combined with on-screen decision support for health workers, with targeted reminder or other messages sent to patients, or with both. Outcomes: the care people receive (health workers' adherence to recommended practice, timely delivery and uptake of services, coverage) and people's health (health status, illness, death), plus unwanted effects of the intervention.",
+    "out": [
+      {
+        "what": "Hospital inpatient and specialist care",
+        "why": "The question asks about primary health care."
+      },
+      {
+        "what": "Mobile messaging, decision-support or telemedicine tools used without a digital record that tracks each patient's care",
+        "why": "The question asks about tracking each patient's care together with prompts or reminders, not about those tools on their own."
+      },
+      {
+        "what": "Paper-based records, desktop-only electronic records and devices other than mobile phones or tablets",
+        "why": "The question names mobile phones or tablets."
+      },
+      {
+        "what": "Costs, cost-effectiveness and resource use",
+        "why": "The question asks whether care and health improve, not what the interventions cost."
+      },
+      {
+        "what": "Acceptability, feasibility and implementation experiences from qualitative studies",
+        "why": "The question asks whether care and health improve, which is a question about effects."
+      }
+    ],
+    "by": "Claude Code (session whu-lean-q1-01c)",
+    "written_at": "2026-11-05T22:15:01Z"
+  },
+  "evidence_standard": {
+    "_note": "What kinds of evidence the answer will weigh, written at step 1 BEFORE any source is opened (post-study fix 3, docs/whu-fix3-evidence-standard.md). 'measured': outcomes measured in trials, cohorts, evaluations. 'assessed': expert assessments -- systematic-review conclusions, IPCC confidence-rated statements, guideline recommendations. When they differ, the page states both and drops neither.",
+    "weighs": [
+      "measured",
+      "assessed"
+    ],
+    "measured": "Effects measured in randomised trials and other controlled evaluations of these interventions in primary health care, on care-process outcomes (adherence to recommended practice, timeliness, service uptake and coverage) and health outcomes (health status, illness, death), and unwanted effects.",
+    "assessed": "Systematic-review conclusions carrying GRADE certainty-of-evidence ratings, and guideline recommendations (for example WHO recommendations on digital interventions) with their strength and certainty.",
+    "when_they_differ": "state both",
+    "by": "Claude Code (session whu-lean-q1-01c)",
+    "written_at": "2026-11-05T22:15:01Z"
+  }
+}
