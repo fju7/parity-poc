@@ -46,6 +46,7 @@ $2.82 spent of $40.
 | WHU-Q1-02 | claude-opus-5-5 (Agent tool, general-purpose, model "opus"; shell starts at the repo root) | 2026-11-05T02:45:19Z | 2026-11-05T03:20Z (35 min) | $1.83 (incl. $0.42 audit "dry run") | 146 calls; 294 in, 77,875 out, 259,905 cache write, 25,065,891 cache read; **$7.87 est.** | **NOT Ready: stopped for good under the no-person rule** at 8f25d51. 1 STOP, "changed sentences reviewed": changecheck raised 2 CONTRADICTION findings on generated readers'-list lines, and ruling.py left both for a person (rulings/for_person.jsonl). 0 operator minutes. Audit 45 units (30 holds, 7 holds_by_record_check, 10 not_a_correction), escalations 2 (decided by claude-opus-5-5), 0 replies cut off; removed under the new rule 0; contamination: valid |
 | WHU-Q1-02r (re-run, fresh drafter, frozen code 4abcab6) | claude-opus-5-5 (Agent tool, general-purpose, model "opus"; shell starts at the repo root) | 2026-11-05T12:39:09Z | 2026-11-05T13:23Z (44 min) | $2.22 (incl. $0.53 audit "dry run", see deviations) | 180 calls; 362 in, 110,693 out, 364,032 cache write, 40,481,820 cache read; **$12.13 est.** (Opus 5.5 rates) | **Ready.** at b2b75d5 (78 ok, 12 warn, 0 STOP); 0 operator minutes; 0 to a person; audit 65 units, 1 escalation to claude-opus-5-5, 0 replies cut off, 0 cuts; fail-safe removals 0, "already stated" conversions 0, relevance treated as relevant 0, "Not added" lines 0; contamination: valid (lean_contamination.md). Replaces WHU-Q1-02's earlier attempt (not Ready). |
 | WHU-Q1-03 | claude-opus-5-5 (Agent tool, general-purpose, model "opus"; shell starts at the repo root; code fab2b3e) | 2026-11-05T13:32Z | 2026-11-05T15:19Z (106 min) | $9.42 (incl. about $1.84 audit "dry run" and $4.45 for two rounds of recency rulings on 132 rows; see deviations) | 232 calls; 466 in, 155,878 out, 412,639 cache write, 63,300,008 cache read; **$17.84 est.** (Opus 5.5 rates) | **Ready.** at a4b9996 (74 ok, 17 warn, 0 STOP); prompt sha256 90fb10dec459…; 0 operator minutes; 0 to a person; audit 162 units, 0 cuts; 16 relevance escalations to claude-opus-5-5; fail-safe removals 0, "already stated" conversions 1, relevance treated as relevant 4, "Not added" lines 0; contamination: valid. **Reading record overstates what the drafter saw (deviations): standing awaits the advisor.** |
+| WHU-Q1-04 | claude-opus-5-5 (Agent tool, general-purpose, model "opus"; shell starts at the repo root; code fab2b3e) | (starting) | | | | running; prompt sha256 56996bacfdc0… |
 
 ## Post-test fixes (advisor ruling, 2026-11-05; no code change until Q1-04 has finished; each with a test)
 
@@ -54,6 +55,11 @@ $2.82 spent of $40.
 3. Lean's generated "we did not read" (`lean_sentences.NOT_READ_FRAME`) on a `full_text_held` source trips "claims a source could not be opened" (`source_ledger.INACCESSIBLE`).
 4. A "not read" record may be removed only if a read record exists covering the same sections (code-enforced; the preflight stops otherwise). Advisor ruling of 2026-11-05, after Q1-01's drafter deleted `access.not_read` to pass a check.
 5. (Advisor ruling of 2026-11-05: Q1-01 invalid on this.) A sentence bound to text outside the sections a `full_text_held` source's read record lists stops the preflight. Found on Q1-01: one of 36 bound spans, S001@144900.
+
+**Added by the advisor after Q1-03 (2026-11-05; each with a test):**
+
+6. Build the read record from the text the checking stages actually received (system level), never from the drafter's own claim; the preflight stops if a listed section was not received in full by a checking stage.
+7. Detect duplicate rulings when the final gate re-files the same findings under new IDs (Q1-03: $4.45 spent ruling three recency findings twice against 132 sentences).
 
 **Per page: did the drafter read the unread sections in full to clear fix 3's mismatch, and what did it add?**
 
