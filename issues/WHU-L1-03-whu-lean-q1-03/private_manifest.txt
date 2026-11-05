@@ -1,0 +1,29 @@
+# WHU-L1-03 (whu-lean-q1-03) private archive manifest
+# Archived to ~/Projects/whu-study-private/WHU-L1-03-whu-lean-q1-03/20261105T151528Z/ (paths kept) by Claude Code (session lean-q1-03), 2026-11-05T15:15:28Z.
+# sha256 of every git-ignored file under issues/WHU-L1-03-whu-lean-q1-03/ at archive time (26 files).
+9366add6dacfe8ddf3db19abcc9518a6d067c109c8877e3d660cd31639f2c942  issues/WHU-L1-03-whu-lean-q1-03/advocate/20261105T141452Z-adjudication.md
+094d4b15c5bdba4cbbd6881f39a6404d7dd3cdd0aa50aa2c13cedda2bbfcce20  issues/WHU-L1-03-whu-lean-q1-03/advocate/20261105T141452Z-briefs.json
+55a4d1eb13f4c4503b198dad124a54ebcc4cafd3ead73fd314b7818baddfe8e7  issues/WHU-L1-03-whu-lean-q1-03/advocate/quote_checks.jsonl
+06d77560da23fa327c261586495109b97c36c9b58cc9c8e52e2d29a358dc679e  issues/WHU-L1-03-whu-lean-q1-03/advocate/runs/20261105T141452Z/briefs.jsonl
+2c0e5da45016eb5d56133f92056c45b99f46d13c4ce998ff236ff5212e4a3ea0  issues/WHU-L1-03-whu-lean-q1-03/advocate/runs/20261105T141452Z/inputs.json
+237974ecd8766efdbe16f8a3077569452153ffa6289abde5e55892a9117508e5  issues/WHU-L1-03-whu-lean-q1-03/advocate/runs/20261105T141452Z/quote_checks.jsonl
+5db5660be2d0f0d29be6a0dcf6a0d674f2d884cd252d67ef688a0e5903e6e88a  issues/WHU-L1-03-whu-lean-q1-03/advocate/runs/20261105T141452Z/routing.json
+9bd9501658cf0dcb170ade66cd6dbf23cf733e1fb10a57808b62169df66dec0c  issues/WHU-L1-03-whu-lean-q1-03/advocate/runs/20261105T141452Z/state.json
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  issues/WHU-L1-03-whu-lean-q1-03/audit/20261105T145237Z/cuts.jsonl
+76d861605768d4fe8547c59852af4ad624356a8c45295800d08c07a1da3f6abe  issues/WHU-L1-03-whu-lean-q1-03/audit/20261105T145237Z/manifest.json
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  issues/WHU-L1-03-whu-lean-q1-03/audit/20261105T145237Z/quote_rejections.jsonl
+e95f61b65c86062c124f6addda8415282e6f2daf79deb618294f10aaf45313f4  issues/WHU-L1-03-whu-lean-q1-03/audit/20261105T145237Z/retrieval.jsonl
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  issues/WHU-L1-03-whu-lean-q1-03/audit/20261105T145237Z/rulings.jsonl
+62bef2f758a5d820dd26bf187bdd9f50b942bbaf4e0e29a804fc62f75faab6df  issues/WHU-L1-03-whu-lean-q1-03/audit/20261105T145237Z/second_reads.jsonl
+ab37f5da760725b339c3c24c12e6c23a5768351f7c3c27234c4bbe73653e9521  issues/WHU-L1-03-whu-lean-q1-03/audit/20261105T145237Z/verdicts.jsonl
+e293dc82448948af6998cc059a25af270295f7656d077d6f7649298aca89a021  issues/WHU-L1-03-whu-lean-q1-03/bindings.json
+ba9c4269f74cb5cb121ab42e9c1973049dcff5d697797b1e4917c9d7872f17f2  issues/WHU-L1-03-whu-lean-q1-03/change-reviews.json
+5473eb4b7045df32e7d59ed5e7594a86c1e303cdd9c41fdd07b967fe4d703a9d  issues/WHU-L1-03-whu-lean-q1-03/conclusion-review.json
+b2435a0aac58833ff0f4d62233a94842a3f02f943cea47fce2f141288bda9241  issues/WHU-L1-03-whu-lean-q1-03/draft/whu-lean-q1-03.html.gate.json
+d729ef87a5ab7c6b21a84a7d403b569d512a0de8efde7bd4acb8c9fc632f7656  issues/WHU-L1-03-whu-lean-q1-03/draft/whu-lean-q1-03.html.gate.json.runs.json
+3fa42b68ebe115733bc984e833fd66a7eff91f39189d681a0e2ee771c34bd807  issues/WHU-L1-03-whu-lean-q1-03/gate-findings.json
+f54f52da00ec10bbf3ffd09d5596b0bae0ff479b544810fe2626480df625fe29  issues/WHU-L1-03-whu-lean-q1-03/quotations.json
+142d2f44ab92dbb107731ddc40db440a249cfb9e78fb9ad8dbeba69b03265e1a  issues/WHU-L1-03-whu-lean-q1-03/rulings/applied_check.jsonl
+90ce193e3e299931060014333339891b01197202417f241635aae7a3e904e78b  issues/WHU-L1-03-whu-lean-q1-03/rulings/consistency.jsonl
+6a6ba169d779e6f80aff14891c32e17114c327337771c5f5bc2c250fd1a0f8f0  issues/WHU-L1-03-whu-lean-q1-03/rulings/omissions.jsonl
+0b7ce74496bd6e070e930aa6f42a5f4b8226330d76c7d66f97ea9c8447aa310f  issues/WHU-L1-03-whu-lean-q1-03/rulings/rulings.jsonl
