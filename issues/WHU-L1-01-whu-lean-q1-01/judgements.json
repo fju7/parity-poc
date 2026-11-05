@@ -1,0 +1,38 @@
+{
+ "candidates": {
+  "S001@9577-9767": {
+   "source": "S001",
+   "at": [
+    9577,
+    9767
+   ],
+   "section": "abstract conclusions",
+   "kind": "review",
+   "text_sha256": "d93ccad66192381d45e84090fb471b10cb311a4caaa7cc6f6ba8e5fe25337e84",
+   "relevant": true,
+   "words": "improve the care people receive and their health",
+   "reason": "The judgement says digital tracking may improve primary care workers' adherence to recommended practice, patient health outcomes and service use, which are the care and health outcomes the question asks about for tracking on mobile devices.",
+   "by": "ruling model claude-sonnet-5-5",
+   "ruling": "20ff804a3def54ab",
+   "to_person": false,
+   "decided_at": "2026-11-05T02:19:59+00:00"
+  },
+  "S001@9768-9852": {
+   "source": "S001",
+   "at": [
+    9768,
+    9852
+   ],
+   "section": "abstract conclusions",
+   "kind": "review",
+   "text_sha256": "eae1e356dbee419ae148d057a923cd767749b8a128f71909a6f0dcb4e786a891",
+   "relevant": true,
+   "words": "improve the care people receive and their health",
+   "reason": "The judgement says the interventions led to small or no outcome differences in most studies, which bears directly on whether tracking with prompts or reminders improves care and health.",
+   "by": "ruling model claude-sonnet-5-5",
+   "ruling": "0ed53927bbc131ea",
+   "to_person": false,
+   "decided_at": "2026-11-05T02:20:01+00:00"
+  }
+ }
+}

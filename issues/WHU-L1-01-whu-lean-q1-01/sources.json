@@ -32,16 +32,12 @@
         "sections": [
           "the abstract",
           "the plain language summary"
-        ],
-        "not_read": [
-          "the main text's results and discussion",
-          "the summary of findings tables",
-          "the reports of the included studies"
         ]
       },
       "also_called": [
         "the 2025 Cochrane review"
-      ]
+      ],
+      "document_class": "document"
     }
   ],
   "search": {
