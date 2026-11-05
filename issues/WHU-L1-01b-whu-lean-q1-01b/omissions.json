@@ -1,0 +1,46 @@
+{
+ "omissions": [
+  {
+   "key": "S001@37317-37422",
+   "source": "S001",
+   "held_sha256": "cdb44f085b3932df0e45228c064e7779880213799f5ba7d082e478c439fe1f2a",
+   "at": [
+    37317,
+    37422
+   ],
+   "quote_sha256": "ce972640308fadbebd957d0e12722afece4fe2708a7d7b104cb37288b4f92131",
+   "outcome": "NOT_ADDED_BEYOND",
+   "element": "",
+   "reason": "the ADD's span is not in the finding",
+   "by": "code (lean: the proposed sentence went beyond the finding)",
+   "ruling": null,
+   "origins": [
+    "S001-03"
+   ],
+   "on_page": null,
+   "after": null,
+   "decided_at": "2026-11-05T21:10:13+00:00"
+  },
+  {
+   "key": "S001@180359-180460",
+   "source": "S001",
+   "held_sha256": "cdb44f085b3932df0e45228c064e7779880213799f5ba7d082e478c439fe1f2a",
+   "at": [
+    180359,
+    180460
+   ],
+   "quote_sha256": "690c3b8138a5eb1f129e1ddb03eba0f9cd5ead1f476cacbb6efb93dd7d39069f",
+   "outcome": "NOT_MATERIAL",
+   "element": "",
+   "reason": "Step 1 holds: the finding describes the design of the trials, which the scope includes as expert assessment of the evidence. Step 2 fails: the draft already says 11 of the 18 studies were randomised and that the results come from them. It also gives participant numbers for each outcome and reports the review's overall GRADE certainty (mostly moderate or low, often from single studies). That grading already weighs the strength of the trial designs against imprecision and heterogeneity. Noting that many trials were large cluster-RCTs would not change or narrow the answer a funder relies on.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "e3e1b1091e6bdc1b",
+   "origins": [
+    "S001-04"
+   ],
+   "on_page": null,
+   "after": null,
+   "decided_at": "2026-11-05T21:10:21+00:00"
+  }
+ ]
+}

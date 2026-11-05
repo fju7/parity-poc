@@ -8,12 +8,14 @@
   },
   "what_the_sources_show": {
     "_note": "What the primary sources actually support, and which sources.",
-    "statement": "To be filled from held sources after research.",
-    "sources": []
+    "statement": "The 2025 Cochrane review (S001; 18 studies, results from 11 randomised trials) finds that digital tracking combined with decision support, client messages or both may improve some care practices, record quality, some health outcomes and service use, mostly on low-certainty evidence from single studies, and that these interventions led to small or no outcome differences in most studies.",
+    "sources": [
+      "S001"
+    ]
   },
   "direction": {
     "_note": "CORRECTS, CONFIRMS or NARROWS. This field exists so the contrarianism guard can count. A publication whose answer is always CORRECTS is performing scepticism rather than assessing evidence, and is not to be trusted.",
-    "value": "",
+    "value": "narrows",
     "_values": [
       "corrects",
       "confirms",
@@ -32,15 +34,15 @@
   "kill_condition": "There is no story if the primary sources show, with high certainty, that combining digital tracking with decision support and/or targeted client communication clearly improves both the care people receive and their health in primary care; or if the sources show none of these is known with any certainty at all and that has already been widely reported.",
   "kill_condition_tested": {
     "_note": "Filled in AFTER going to look, by whoever looked.",
-    "by": "",
-    "on": "",
-    "result": "",
+    "by": "Claude Code (session WHU-L1-01b)",
+    "on": "2026-11-05",
+    "result": "narrowed",
     "_result_values": [
       "survived",
       "narrowed",
       "killed"
     ],
-    "note": ""
+    "note": "S001 does not show a clear improvement with high certainty: its findings are mostly low certainty, often from one study, and most differences are small or absent. The belief is narrowed, not confirmed or killed."
   },
   "lead_came_from": "The lean four-question test: round 1's question WHU-Q1-01, asked again (issue.json).",
   "scope": {
