@@ -38,6 +38,12 @@ pessimistic $5.28, worst $10.00 (its run cap). Ledger today $29.12 (whu-check-fr
 whu-lean-q1-01 $0.99): $29.12 + $4.54 = $33.66 ≤ $50, and $39.12 ≤ $50 at the worst, so the room rule allows it. Runs line:
 $2.82 spent of $40.
 
+## Before the second-freeze re-runs (2026-11-05, LT; freeze f11c6c9)
+
+Runs line $40; spent $17.96 (q1-01 $0.99, q1-02 $1.83, q1-02r $2.22, q1-03 $9.42, q1-04 $3.50); **remaining $22.04**.
+Four re-runs (Q1-01b..Q1-04b), estimates as above: likely **$20.95** ≤ $22.04, so they may start; pessimistic $24.77
+and worst $40.00 exceed the line. Day ledger $44.26 (room rule $50): later stages wait for 00:00 UTC.
+
 ## Runs
 
 | Question | subagent model | started (UTC) | ended (UTC) | ledger | drafting tokens (est. $) | outcome |

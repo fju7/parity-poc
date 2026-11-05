@@ -54,3 +54,9 @@ Ruling 2 said to start Q1-04 now, so it is next. Re-check the room rule (it rese
 ## Update (2026-11-05 ~20:30Z): Q1-04 finished
 - **Q1-04: NOT Ready, stopped for good at 4d** (an omission was left for a person), $3.50 ledger, about $13.44 drafting, contamination VALID. Post-run steps done: scan, cost, fail-safe report, reading checks, scratchpad archived to `session_lt/scratch_after_q1-04/` and emptied, records written (lean_test_log, lean_contamination, deviations). Day total $44.26.
 - **Next, waiting on the advisor:** (1) Q1-02r and Q1-03 fail ruling 1 by design of lean's retrieval-based checking. Re-run them on fab2b3e as ruled, or after fix 6? (2) Q1-01 re-run (pending item 3). (3) Q1-03's fix-4 quote is recorded. Is it disclosure? Then post-test fixes 1-7 and judging.
+
+## Update (2026-11-05 ~21:10Z): second freeze and re-runs
+- Advisor rulings after Q1-04 recorded (deviations). Q1-02r, Q1-03 and Q1-04 are invalid. Fixes 1-7 and rules 3a/3b were designed (c4679b0) and built; **freeze f11c6c9**; full suite exit 0.
+- Re-runs Q1-01b..Q1-04b (folders WHU-L1-0nb, ledger issues whu-lean-q1-0nb, prompts in lean_briefs.md §WHU-Q1-0nb), one at a time. Runs line remaining $22.04 against likely $20.95.
+- After each: contamination scan (`lean_contamination_scan.py <transcript> <paths> --rerun-b NN --scratch <this session's scratchpad> --cleaned <drafter start>`), `lean_reading.py <slug>` (it must pass: reading statement, sentences rest on received text, not-read records), cost, fail-safe report, archive and empty the scratchpad, record and commit.
+- Judging afterwards: prepare_lean.py `ALL` must map to the 0nb slugs.
