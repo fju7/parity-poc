@@ -1,0 +1,91 @@
+{
+  "_what_this_is": "The entry gate, answered BEFORE drafting. The threshold question is whether a well-informed non-expert would confidently believe something the primary sources do not support.",
+  "belief": {
+    "_note": "What the reader already believes, stated as they would state it. If you cannot write this sentence, there is nothing to correct and no subject -- which is how the tobacco-analogy candidate died.",
+    "statement": "If greenhouse gas emissions continue, further warming will intensify the water cycle: more intense heavy rainfall and more severe droughts, with continued loss of glaciers and ice sheets, rising sea level, and warmer, more acidic and less oxygenated oceans, each growing with every increment of warming.",
+    "how_we_know_they_believe_it": "NASA Science's public explainer 'The Effects of Climate Change' presents projected heavier storm rainfall, more intense drought, continued Arctic sea-ice loss and sea level rise as consequences of continued warming (checked 2026-11-05 by a fetch tool, whose answer is a model's reading of the page, recorded here for the page's existence and gist only, not as a quotation).",
+    "carried_by": [
+      {
+        "outlet": "NASA Science",
+        "url": "https://science.nasa.gov/climate-change/effects/",
+        "date": "2024-10-23 (page's last-updated date, per the fetch tool)",
+        "what_it_said": "Projects more intense rainfall rates and droughts, continued Arctic sea-ice decline and sea level rise with continued warming (a fetch tool's reading, not a quotation)."
+      }
+    ]
+  },
+  "what_the_sources_show": {
+    "_note": "What the primary sources actually support, and which sources.",
+    "statement": "The IPCC AR6 WGI Summary for Policymakers (S001) assesses, with stated confidence or likelihood, that continued warming intensifies the water cycle and wet and dry extremes, continues ice loss and sea level rise, and warms, acidifies and deoxygenates the ocean, with changes larger at higher warming; some regional and drought changes carry only medium confidence, and Antarctic sea-ice decline low confidence.",
+    "sources": [
+      "S001"
+    ]
+  },
+  "direction": {
+    "_note": "CORRECTS, CONFIRMS or NARROWS. This field exists so the contrarianism guard can count. A publication whose answer is always CORRECTS is performing scepticism rather than assessing evidence, and is not to be trusted.",
+    "value": "confirms",
+    "_values": [
+      "corrects",
+      "confirms",
+      "narrows"
+    ]
+  },
+  "reader_with_a_decision": "A planner or member of the public deciding how much weight to give future flood, drought and coastal sea-level risk, who needs the assessed projections and their confidence rather than a general impression.",
+  "public_record_check": {
+    "_note": "NOT 'has anybody published this'. On any contested question, somebody has. The question is whether it has been carried WHERE THIS READER WOULD FIND IT. Run the counterexample hunter on the belief statement, not on the finding.",
+    "prior_art_found": [],
+    "carried_in_general_coverage": "Yes: projected wetter extremes, drought, ice loss and sea level rise are carried in general explainers (for example NASA Science's 'The Effects of Climate Change'); not checked further in this lean test.",
+    "our_contribution": "translation: the assessment's own projections, with their confidence and likelihood terms and scenario ranges, stated sentence by sentence"
+  },
+  "sources_are_open": "",
+  "evidence_base_is_bounded": "",
+  "kill_condition": "The held assessments do not support the belief as stated: they assess one or more of these changes (heavy rainfall, drought, ice, sea level, oceans) as not projected, projected only with low confidence, or not scaling with further warming; or they give a materially different picture, for example that drying is not projected for most regions.",
+  "kill_condition_tested": {
+    "_note": "Filled in AFTER going to look, by whoever looked.",
+    "by": "Claude Code (session lean-q1-03)",
+    "on": "2026-11-05",
+    "result": "narrowed",
+    "note": "S001 supports the belief in direction for every topic, but narrows it: several drought and regional rainfall changes are medium confidence or region-specific, Antarctic sea-ice decline is low confidence, an AMOC collapse before 2100 is assessed not to occur (medium confidence), and sea-level rise above the likely range is low confidence.",
+    "_result_values": [
+      "survived",
+      "narrowed",
+      "killed"
+    ]
+  },
+  "lead_came_from": "Lean four-question test: round 1's question WHU-Q1-03, asked again of lean WHU (issue.json).",
+  "scope": {
+    "_note": "What the answer will and will not cover, written at step 1 BEFORE any source is opened, so scope cannot be fitted to the findings afterwards. An omission ruled OUT_OF_SCOPE, and a headline conclusion declared out of scope, must name the question's words or one of these entries (fix 2, docs/whu-fix2-omission-rulings-design.md section 2.4).",
+    "covers": "Projected physical changes in the climate system under continued greenhouse gas emissions and further global warming: precipitation and the water cycle; heavy precipitation, floods, droughts and other very wet and very dry extremes; glaciers, ice sheets, sea ice, snow and permafrost; global and regional sea-level rise; and ocean change (warming, marine heatwaves, acidification, deoxygenation), including how these changes scale with the level of warming and with the emissions scenario.",
+    "out": [
+      {
+        "what": "Impacts on people, ecosystems and economies (for example crop yields, health, damages, migration) and adaptation options",
+        "why": "The question asks how the climate will change, not what the changes will do to people or how to respond."
+      },
+      {
+        "what": "Mitigation pathways, policies and emissions reductions needed to limit warming",
+        "why": "The question takes continued emissions as given and asks about the physical consequences."
+      },
+      {
+        "what": "Temperature extremes and heatwaves on land, tropical cyclones and wind, except where they bear on rainfall, drought or sea level",
+        "why": "The question lists rainfall and the water cycle, wet and dry extremes, ice, sea level and the oceans; other climate variables are not among them."
+      },
+      {
+        "what": "Attribution of changes already observed, except as the baseline for projected change",
+        "why": "The question asks how further warming will change the climate."
+      }
+    ],
+    "by": "Claude Code (session lean-q1-03)",
+    "written_at": "2026-11-05T13:33:39Z"
+  },
+  "evidence_standard": {
+    "_note": "What kinds of evidence the answer will weigh, written at step 1 BEFORE any source is opened (post-study fix 3, docs/whu-fix3-evidence-standard.md). 'measured': outcomes measured in trials, cohorts, evaluations. 'assessed': expert assessments -- systematic-review conclusions, IPCC confidence-rated statements, guideline recommendations. When they differ, the page states both and drops neither.",
+    "weighs": [
+      "measured",
+      "assessed"
+    ],
+    "measured": "Observed changes and model projections as reported in primary studies or assessment chapters (observational records, multi-model ensemble projections such as CMIP6), with their stated ranges.",
+    "assessed": "Calibrated expert assessments: IPCC AR6 confidence- and likelihood-rated statements (Summary for Policymakers, Technical Summary, chapter Executive Summaries) and the conclusions of systematic reviews.",
+    "when_they_differ": "state both",
+    "by": "Claude Code (session lean-q1-03)",
+    "written_at": "2026-11-05T13:33:39Z"
+  }
+}

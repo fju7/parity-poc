@@ -1,0 +1,68 @@
+{
+ "units": [],
+ "declarations": {
+  "S001@54267-54505": {
+   "state": "out_of_scope",
+   "reason": "Projected temperature of the hottest days: a temperature extreme on land, outside the question's water, ice, sea-level and ocean topics (scope.out).",
+   "by": "Claude Code (session lean-q1-03)",
+   "element": "Temperature extremes and heatwaves on land, tropical cyclones and wind",
+   "decided_at": "2026-11-05T13:51:06+00:00"
+  },
+  "S001@54506-54671": {
+   "state": "out_of_scope",
+   "reason": "Projected temperature of the coldest days: a temperature extreme, outside the question's topics (scope.out).",
+   "by": "Claude Code (session lean-q1-03)",
+   "element": "Temperature extremes and heatwaves on land, tropical cyclones and wind",
+   "decided_at": "2026-11-05T13:51:06+00:00"
+  },
+  "S001@56636-56950": {
+   "state": "out_of_scope",
+   "reason": "Tropical cyclone intensity and wind speeds: excluded in scope.out; the page states the heavy-precipitation finding of the same statement.",
+   "by": "Claude Code (session lean-q1-03)",
+   "element": "Temperature extremes and heatwaves on land, tropical cyclones and wind",
+   "decided_at": "2026-11-05T13:51:06+00:00"
+  },
+  "S001@91319-91469": {
+   "state": "out_of_scope",
+   "reason": "Hot and cold climatic impact-drivers: temperature, outside the question's topics (scope.out); the ice decreases of the same statement are on the page.",
+   "by": "Claude Code (session lean-q1-03)",
+   "element": "Temperature extremes and heatwaves on land, tropical cyclones and wind",
+   "decided_at": "2026-11-05T13:51:06+00:00"
+  },
+  "S001@91701-92068": {
+   "state": "out_of_scope",
+   "reason": "Extreme heat thresholds for agriculture and health: temperature extremes and impacts, outside the question (scope.out).",
+   "by": "Claude Code (session lean-q1-03)",
+   "element": "Temperature extremes and heatwaves on land, tropical cyclones and wind",
+   "decided_at": "2026-11-05T13:51:06+00:00"
+  },
+  "S001@96514-96698": {
+   "state": "out_of_scope",
+   "reason": "Urban warming and heatwave severity: a temperature extreme, outside the question (scope.out); the statement's urban rainfall and coastal-flooding findings are on the page.",
+   "by": "Claude Code (session lean-q1-03)",
+   "element": "Temperature extremes and heatwaves on land, tropical cyclones and wind",
+   "decided_at": "2026-11-05T13:51:06+00:00"
+  },
+  "S001@55279-55494": {
+   "state": "not_material",
+   "reason": "A footnote on why AR6's timing of 1.5 degrees is not directly comparable with the SR1.5 report; it bears on when a warming level is reached, not on how the water cycle, ice, sea level or oceans change.",
+   "by": "Claude Code (session lean-q1-03)",
+   "element": "",
+   "decided_at": "2026-11-05T13:51:06+00:00"
+  },
+  "S001@26891-34834": {
+   "state": "out_of_scope",
+   "reason": "Attribution of compound extreme events observed since the 1950s; the page states the projected compound-event findings (C.2.7, C.3.3) instead.",
+   "by": "Claude Code (session lean-q1-03)",
+   "element": "Attribution of changes already observed",
+   "decided_at": "2026-11-05T14:05:00+00:00"
+  },
+  "S001@36976-39180": {
+   "state": "not_material",
+   "reason": "Equilibrium climate sensitivity is a global temperature quantity; the page states the projected warming ranges by scenario directly, and the water, ice, sea-level and ocean findings do not depend on restating it.",
+   "by": "Claude Code (session lean-q1-03)",
+   "element": "",
+   "decided_at": "2026-11-05T14:05:00+00:00"
+  }
+ }
+}
