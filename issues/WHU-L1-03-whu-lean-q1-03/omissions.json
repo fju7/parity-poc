@@ -1,0 +1,88 @@
+{
+ "omissions": [
+  {
+   "key": "S001@46881-47047",
+   "source": "S001",
+   "held_sha256": "6cd9eeabc0977eb536438bbed73d784eb903f6b84fd65e60aeb7c6aef2e2ac10",
+   "at": [
+    46881,
+    47047
+   ],
+   "quote_sha256": "7b8fc08c50d83d0e6ba41bcfaa5e841c65b386fdc89fee2134d4cc33bdad0738",
+   "outcome": "NOT_MATERIAL",
+   "element": "",
+   "reason": "Step 1: the finding bears on the question. For continued emissions it says when [S001@46899-46929], which ties to the SCOPE's 'how these changes scale with the level of warming and with the emissions scenario.' Its 'unless deep reductions' clause touches mitigation, but the core projection is physical. Step 2: the draft already gives the very likely 2081–2100 warming ranges by scenario: 2.1–3.5°C under SSP2-4.5 and 3.3–5.7°C under SSP5-8.5. Those ranges already show that 1.5°C and 2°C are passed this century without deep cuts, and only the very low scenario stays near or below those levels. The finding adds no distinct outcome, narrowing or qualification that a planner would weigh beyond what the page already states.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "f7aefb3de865aa52",
+   "origins": [
+    "S001-04"
+   ],
+   "on_page": null,
+   "after": null,
+   "decided_at": "2026-11-05T14:17:51+00:00"
+  },
+  {
+   "key": "S001@56636-56849",
+   "source": "S001",
+   "held_sha256": "6cd9eeabc0977eb536438bbed73d784eb903f6b84fd65e60aeb7c6aef2e2ac10",
+   "at": [
+    56636,
+    56849
+   ],
+   "quote_sha256": "26f9a7a6fcfbcf26c1d75890532f6bdc14d10f30231e7a9a2303f5e7859f2c3e",
+   "outcome": "OUT_OF_SCOPE",
+   "element": "Temperature extremes and heatwaves on land, tropical cyclones and wind, except where they bear on rainfall, drought or sea level",
+   "reason": "Step 1 fails: the finding concerns [S001@52231-52279] their peak wind speeds. It says nothing about cyclone rainfall, drought or sea level, so the SCOPE exclusion of tropical cyclones and wind applies. Step 2 is not reached.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "31ed34917436f2af",
+   "origins": [
+    "S001-03"
+   ],
+   "on_page": null,
+   "after": null,
+   "decided_at": "2026-11-05T14:17:53+00:00"
+  },
+  {
+   "key": "S001@78214-78417",
+   "source": "S001",
+   "held_sha256": "6cd9eeabc0977eb536438bbed73d784eb903f6b84fd65e60aeb7c6aef2e2ac10",
+   "at": [
+    78214,
+    78417
+   ],
+   "quote_sha256": "77cb1d8812734453a84fbdc4648168c233f0161cea46051b711664a1eefd75b7",
+   "outcome": "ADD",
+   "element": "",
+   "reason": "Step 1: the question asks how warming will change 'the oceans', and the scope covers ocean warming, acidification and deoxygenation, so the finding is in scope. Step 2: the draft says only that many changes are irreversible, 'especially changes in the ocean'. The finding narrows that general claim to specific ocean variables and gives each its own confidence, including only medium confidence for deoxygenation. A reader who needs assessed projections and their confidence would weigh that, so it is material.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "26715519041ea952",
+   "origins": [
+    "S001-01"
+   ],
+   "on_page": "ccd708d0585d3165",
+   "after": "9840288e1a853cc4",
+   "decided_at": "2026-11-05T14:17:59+00:00"
+  },
+  {
+   "key": "S001@80484-80727",
+   "source": "S001",
+   "held_sha256": "6cd9eeabc0977eb536438bbed73d784eb903f6b84fd65e60aeb7c6aef2e2ac10",
+   "at": [
+    80484,
+    80727
+   ],
+   "quote_sha256": "86bd2201cc489a304f8df08c349cbf803390b8b31b6c68725dfcaeef84b8a17e",
+   "outcome": "ADD",
+   "element": "",
+   "reason": "Step 1: the finding projects global sea-level rise and how it scales with the level of warming. Both fall under the question's 'sea level' and the scope's 'global and regional sea-level rise ... including how these changes scale with the level of warming'. Step 2: the draft says only generically that sea-level changes [S001@77521-77564]. It gives no multi-millennial magnitudes tied to warming levels. A reader weighing long-term coastal risk would weigh these warming-dependent ranges and their low confidence as a distinct outcome.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "7ab177c076fcca0e",
+   "origins": [
+    "S001-02"
+   ],
+   "on_page": "67d957bb95d7c0b4",
+   "after": "75ae0587c6dcede6",
+   "decided_at": "2026-11-05T14:18:04+00:00"
+  }
+ ]
+}
