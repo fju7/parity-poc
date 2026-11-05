@@ -1,0 +1,12 @@
+{
+  "what_this_is": "Names the page attributes work to, each checked against the author list of the held document.",
+  "verified": [
+    {
+      "name": "Hunt",
+      "attribution": "the Campbell systematic review by Hunt and colleagues (2025)",
+      "checked_against": "S001 held text (Europe PMC full text XML, sha256 24587d9f8f9b...), author list: Hunt Xanthe, Saran Ashrita, White Howard, Kuper Hannah; first author Hunt",
+      "by": "Claude Code (session WHU-L1-02 drafting)",
+      "on": "2026-11-05"
+    }
+  ]
+}

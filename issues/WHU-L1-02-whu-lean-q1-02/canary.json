@@ -13,19 +13,6 @@
         "0.73"
       ],
       "why": "6 figures round-tripped"
-    },
-    "S002": {
-      "source": "S002",
-      "state": "READABLE",
-      "tried": [
-        "10.1002",
-        "2.1070",
-        "1.71",
-        "2.23",
-        "5.10",
-        "8.10"
-      ],
-      "why": "6 figures round-tripped"
     }
   }
 }
