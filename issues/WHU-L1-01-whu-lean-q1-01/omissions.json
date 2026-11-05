@@ -1,0 +1,25 @@
+{
+ "omissions": [
+  {
+   "key": "S001@5854-6299",
+   "source": "S001",
+   "held_sha256": "cdb44f085b3932df0e45228c064e7779880213799f5ba7d082e478c439fe1f2a",
+   "at": [
+    5854,
+    6299
+   ],
+   "quote_sha256": "99fab78f180ddaa97719cfe16d9d3a12304ea8fc1ba102bbab6f1a4dc604b297",
+   "outcome": "ADD",
+   "element": "",
+   "reason": "Step 1: The finding is in scope. It concerns tracking combined with targeted client communication, and it reports patients' adherence and health outcomes, which the question names. Step 2: The finding is material. The draft reports only deaths and stroke hospitalisations from this study. Medication adherence, systolic [S001@54580-54614] are distinct outcomes that a funder would weigh, and their slight effect sizes qualify the answer.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "dc6357563ea22243",
+   "origins": [
+    "S001-02"
+   ],
+   "on_page": "f266b49c5ff0c896",
+   "after": "eff96cf2a1b522c2",
+   "decided_at": "2026-11-05T02:27:28+00:00"
+  }
+ ]
+}
