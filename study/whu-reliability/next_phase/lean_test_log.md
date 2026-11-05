@@ -11,7 +11,7 @@ sonnet-5-5), likely = base, pessimistic = the replay's pessimistic, worst = the 
 | Question | audit | rulings | gate | likely | pessimistic | worst |
 |---|---|---|---|---|---|---|
 | WHU-Q1-01 | claude-opus-5-5 (Agent tool, general-purpose, model "opus") | 2026-11-05T02:04:56Z | 2026-11-05T02:40:30Z (35 min) | $0.99 (incl. $0.21 audit "dry run", see deviations) | 148 calls; 296 in, 73,664 out, 253,043 cache write, 25,031,142 cache read; **$7.75 est.** (Opus 5.5 rates, cache write at the 5-min rate) | **Ready.** at 314b7af; 0 operator minutes; 0 to a person; audit 39 units (26 holds, 5 holds_by_record_check, 8 not_a_correction), 0 escalations (34 decided by claude-sonnet-5-5), 0 replies cut off; removed under the new rule 0; contamination: valid (lean_contamination.md) |
-| WHU-Q1-02 | $0.61 | $2.65 | $1.28 | $4.54 | $5.28 | $10.00 |
+| WHU-Q1-02 | claude-opus-5-5 (Agent tool, general-purpose, model "opus"; shell starts at the repo root) | 2026-11-05T02:45:19Z | 2026-11-05T03:20Z (35 min) | $1.83 (incl. $0.42 audit "dry run") | 146 calls; 294 in, 77,875 out, 259,905 cache write, 25,065,891 cache read; **$7.87 est.** | **NOT Ready: stopped for good under the no-person rule** at 8f25d51. 1 STOP, "changed sentences reviewed": changecheck raised 2 CONTRADICTION findings on generated readers'-list lines, and ruling.py left both for a person (rulings/for_person.jsonl). 0 operator minutes. Audit 45 units (30 holds, 7 holds_by_record_check, 10 not_a_correction), escalations 2 (decided by claude-opus-5-5), 0 replies cut off; removed under the new rule 0; contamination: valid |
 | WHU-Q1-03 | $3.39 | $1.69 | $2.19 | $7.27 | $8.78 | $10.00 |
 | WHU-Q1-04 | $1.38 | $3.43 | $2.37 | $7.18 | $8.44 | $10.00 |
 | **Total** | | | | **$20.95** | **$24.77** | **$40.00** |
@@ -35,3 +35,4 @@ in question order. Each stage's own day-cap check and the brief's room rule deci
 | Question | subagent model | started (UTC) | ended (UTC) | ledger | drafting tokens (est. $) | outcome |
 |---|---|---|---|---|---|---|
 | WHU-Q1-01 | claude-opus-5-5 (Agent tool, general-purpose, model "opus") | 2026-11-05T02:04:56Z | | | | running; prompt sha256 e416e0d8fc4c… |
+| WHU-Q1-02 | claude-opus-5-5 (Agent tool, general-purpose, model "opus"; shell starts at the repo root) | 2026-11-05T02:45:19Z | | | | running; prompt sha256 c5b4c4dfc22a… |
