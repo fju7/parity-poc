@@ -1,0 +1,10 @@
+# WHU-L1-02r study log (lean four-question test, "lean + machine scope notes")
+
+Drafter: Claude Code (session WHU-L1-02r drafter). Every command run with WHU_LEAN=1. Code at main.
+
+| stage | start (UTC) | end (UTC) | metered spend | operator minutes | outcome |
+|---|---|---|---|---|---|
+| 1 premise | 2026-11-05T12:40:29Z | 2026-11-05T12:41:30Z | $0 | 0 | belief, kill condition, scope (4 out), evidence standard (measured, assessed) written before any source opened; status: scope and evidence standard ok |
+| 2 sources | 2026-11-05T12:41:30Z | 2026-11-05T12:46:30Z | $0 | 0 | Europe PMC searched; S001 (Hunt 2025 Campbell SR), S002 (Saran 2020 EGM), S003 (Ahmed 2022 TPD EGM) held CC BY from Europe PMC. errata: S002 and S003 corrected. S002's corrigendum (PMC8356339) is not listed under a CC licence by Europe PMC: under the publisher-terms rule it is not held, so S002 was DROPPED before drafting (nothing on the page uses it; recorded in sources.json _dropped; its row removed from this issue's library index). S003's corrigendum S004 (PMC9968378, CC BY) held; it corrects a misdated protocol and touches nothing S003 says. sweep resolve: 3 of 3 sweepable. No trial registry record held (2b registry sweep not applicable). canary ok. No operator step. |
+| 3 draft and bind | 2026-11-05T12:46:30Z | 2026-11-05T12:54:15Z | $0 | 0 | page written; 53 rows: 38 bound to a span, 2 judgements, 3 on the store, 10 framing (generated sentences); bindings check: 0 span flags; lint warns only (3 universals, 2 count notes); quotations ok (question restatement rhetorical; 2 readers'-list quotes verbatim S003); lean_sentences check ok (13 generated); bibbind 5 lines bound; sources_shown ok; coverage: 28 units, 24 used, 2 already stated, 2 declared (S003@4828 out_of_scope, S003@5282 not_material) against a budget of 10, 0 ADDs |
+| 3d judgements | 2026-11-05T12:54:19Z | 2026-11-05T12:55:05Z | $0.08 | 0 | 11 candidates, 6 relevant, 6 stated (after splitting two spans to sit inside their candidates); row ok |

@@ -1,0 +1,136 @@
+{
+  "sources": [
+    {
+      "id": "S001",
+      "title": "Effectiveness of interventions for improving educational outcomes for people with disabilities in low- and middle-income countries: A systematic review",
+      "also_called": [
+        "Hunt 2025 systematic review"
+      ],
+      "authors": "Hunt X, Saran A, White H, Kuper H",
+      "year": 2025,
+      "doi": "10.1002/cl2.70016",
+      "url": "https://europepmc.org/article/PMC/PMC11799928",
+      "type": "synthesis",
+      "licence": {
+        "name": "CC BY",
+        "via": "Europe PMC lists PMC11799928 as cc by (Campbell Systematic Reviews, open access)"
+      },
+      "used_for": "the main evidence: what the evaluated programmes did and what effects they showed",
+      "access": {
+        "state": "full_text_held",
+        "held": {
+          "file": "docs/24/24587d9f8f9b68d1f6bbff588b3ea5a314d5b7e2555682e63c18a296ce8ed0ac.xml",
+          "sha256": "24587d9f8f9b68d1f6bbff588b3ea5a314d5b7e2555682e63c18a296ce8ed0ac",
+          "bytes": 395517,
+          "identified_by": "contains its identifier PMC11799928 — 165887 characters, reference list and discussion present; title present (10 of 12 title words in the visible text)",
+          "kind": "full_text",
+          "kind_why": "165887 characters, reference list and discussion present"
+        },
+        "on": "2026-11-05",
+        "sections": [
+          "the abstract",
+          "the plain language summary",
+          "part of section 5.2, confidence in study findings in included studies",
+          "section 5.3, effects of interventions, with its Table 14",
+          "section 6, the discussion",
+          "section 7, the authors' conclusions"
+        ],
+        "not_read": [
+          "the descriptions of the included studies in section 5.1.2",
+          "the online supporting information, which we do not hold"
+        ]
+      },
+      "document_class": "document"
+    },
+    {
+      "id": "S003",
+      "title": "Teacher professional development for disability inclusion in low- and middle-income Asia-Pacific countries: An evidence and gap map",
+      "also_called": [
+        "Ahmed 2022 evidence and gap map"
+      ],
+      "authors": "Ahmed SK, Jeffries D, Chakraborty A, Carslake T, Lietz P, Rahayu B, Armstrong D, Kaushik A, Sundarsagar K",
+      "year": 2022,
+      "doi": "10.1002/cl2.1287",
+      "url": "https://europepmc.org/article/PMC/PMC9700054",
+      "type": "synthesis",
+      "licence": {
+        "name": "CC BY",
+        "via": "Europe PMC lists PMC9700054 as cc by (Campbell Systematic Reviews, open access)"
+      },
+      "used_for": "teacher training for disability inclusion: how much evidence exists",
+      "access": {
+        "state": "full_text_held",
+        "held": {
+          "file": "docs/3e/3ebd2067369d0b301adc51503c284b6f67621b1c1a1b9b0e02073cac01841b81.xml",
+          "sha256": "3ebd2067369d0b301adc51503c284b6f67621b1c1a1b9b0e02073cac01841b81",
+          "bytes": 392279,
+          "identified_by": "contains its identifier PMC9700054 — 184771 characters, reference list and discussion/introduction present; title present (10 of 10 title words in the visible text)",
+          "kind": "full_text",
+          "kind_why": "184771 characters, reference list and discussion/introduction present"
+        },
+        "on": "2026-11-05",
+        "sections": [
+          "the abstract",
+          "the plain language summary",
+          "section 6, the discussion",
+          "section 7, the authors' conclusions"
+        ],
+        "not_read": [
+          "the study-by-study results in section 5",
+          "the online interactive map, which we do not hold"
+        ]
+      },
+      "document_class": "document"
+    },
+    {
+      "id": "S004",
+      "title": "Corrigendum to Teacher professional development for disability inclusion in low- and middle-income Asia-Pacific countries: An evidence and gap map",
+      "also_called": [
+        "Ahmed 2022 map corrigendum"
+      ],
+      "year": 2023,
+      "doi": "10.1002/cl2.1315",
+      "url": "https://europepmc.org/article/PMC/PMC9968378",
+      "type": "corrigendum",
+      "amends": "S003",
+      "licence": {
+        "name": "CC BY",
+        "via": "Europe PMC lists PMC9968378 as cc by"
+      },
+      "used_for": "the published correction to S003, read to see whether it touches anything this page uses",
+      "access": {
+        "state": "full_text_held",
+        "held": {
+          "file": "docs/bd/bd358b3f131267a2a119191a807b981ed48f3c811ebd8d2f368569f34af596db.xml",
+          "sha256": "bd358b3f131267a2a119191a807b981ed48f3c811ebd8d2f368569f34af596db",
+          "bytes": 3993,
+          "identified_by": "contains its identifier PMC9968378 — form 'notice' — 1381 characters held. The article test does not apply to this form; title present (8 of 11 title words in the visible text)",
+          "kind": "document",
+          "kind_why": "form 'notice' — 1381 characters held. The article test does not apply to this form"
+        },
+        "on": "2026-11-05"
+      },
+      "document_class": "document"
+    }
+  ],
+  "search": {
+    "searched": [
+      "Europe PMC, for systematic reviews and evidence and gap maps of programmes for the education of children and young people with disabilities in low- and middle-income countries"
+    ],
+    "not_searched": [
+      "trial registries",
+      "impact evaluations published after the main review's search ended in March 2022",
+      "studies not in English",
+      "reports from governments, UN agencies and non-governmental organisations that are not in Europe PMC"
+    ]
+  },
+  "_dropped": [
+    {
+      "id": "S002",
+      "title": "Evidence and gap map of studies assessing the effectiveness of interventions for people with disabilities in low-and middle-income countries (Saran 2020, 10.1002/cl2.1070)",
+      "why": "Fetched, then dropped before drafting: its published corrigendum (PMID 37133285, PMC8356339, 10.1002/cl2.1104) is not listed under a CC licence by Europe PMC, so under the study's publisher-terms rule it cannot be held, and an unheld correction blocks the errata row. Nothing on the page draws on S002.",
+      "on": "2026-11-05",
+      "by": "Claude Code (session WHU-L1-02r drafter)"
+    }
+  ]
+}

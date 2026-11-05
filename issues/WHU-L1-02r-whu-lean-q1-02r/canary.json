@@ -1,0 +1,41 @@
+{
+  "_what_this_is": "Whether the span checks can read each held document at all. A figure taken out of a document must be findable in it through the same pipeline the checks use. Where it is not, an absence reported against that document means 'could not determine'.",
+  "checked": {
+    "S001": {
+      "source": "S001",
+      "state": "READABLE",
+      "tried": [
+        "10.1002",
+        "2.70016",
+        "0.54",
+        "0.43",
+        "1.32",
+        "0.73"
+      ],
+      "why": "6 figures round-tripped"
+    },
+    "S003": {
+      "source": "S003",
+      "state": "READABLE",
+      "tried": [
+        "10.1002",
+        "2.1287",
+        "2.1201",
+        "26.11",
+        "10.4073",
+        "10.2139"
+      ],
+      "why": "6 figures round-tripped"
+    },
+    "S004": {
+      "source": "S004",
+      "state": "READABLE",
+      "tried": [
+        "10.1002",
+        "2.1315",
+        "2.187"
+      ],
+      "why": "3 figures round-tripped"
+    }
+  }
+}

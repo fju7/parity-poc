@@ -1,0 +1,89 @@
+{
+  "_what_this_is": "The entry gate, answered BEFORE drafting. The threshold question is whether a well-informed non-expert would confidently believe something the primary sources do not support.",
+  "belief": {
+    "_note": "What the reader already believes, stated as they would state it. If you cannot write this sentence, there is nothing to correct and no subject -- which is how the tobacco-analogy candidate died.",
+    "statement": "Programmes to get children with disabilities in low- and middle-income countries into school and learning are known to work, and inclusive education (teaching disabled children in mainstream schools with support) is the approach shown to work best.",
+    "how_we_know_they_believe_it": "UNICEF's public inclusive-education page states that inclusive education is the most effective way to give all children a fair chance to go to school. Read through a fetch tool (a model's reading of the page, not held text), 2026-11-05; not quoted on the page.",
+    "carried_by": [
+      {
+        "outlet": "UNICEF (unicef.org, Inclusive education page)",
+        "url": "https://www.unicef.org/education/inclusive-education",
+        "date": "undated page, read 2026-11-05",
+        "what_it_said": "Says inclusive education is the most effective way to give all children a fair chance to go to school (fetch-tool reading; not a held quotation)."
+      }
+    ]
+  },
+  "what_the_sources_show": {
+    "_note": "What the primary sources actually support, and which sources.",
+    "statement": "The 2025 Campbell review (28 studies) finds that many individual-level programmes improved measured skills such as literacy, numeracy and handwriting, but rates all but one study low confidence, found no study measuring attendance, enrolment or completion, and says it cannot yet say which types are most efficacious; it found no systematic difference between mainstream and specialised settings. A teacher-training evidence map for Asia-Pacific LMICs found few studies with effectiveness data.",
+    "sources": [
+      "S001",
+      "S003"
+    ]
+  },
+  "direction": {
+    "_note": "CORRECTS, CONFIRMS or NARROWS. This field exists so the contrarianism guard can count. A publication whose answer is always CORRECTS is performing scepticism rather than assessing evidence, and is not to be trusted.",
+    "value": "narrows",
+    "_values": [
+      "corrects",
+      "confirms",
+      "narrows"
+    ]
+  },
+  "reader_with_a_decision": "A ministry of education planner, donor programme officer or NGO manager in a low- or middle-income country deciding which disability-inclusive education programmes to fund or scale, who cannot read the evaluation literature themselves.",
+  "public_record_check": {
+    "_note": "NOT 'has anybody published this'. On any contested question, somebody has. The question is whether it has been carried WHERE THIS READER WOULD FIND IT. Run the counterexample hunter on the belief statement, not on the finding.",
+    "prior_art_found": [
+      "Hunt X, Saran A, White H, Kuper H (2025), Campbell Systematic Reviews 21:e70016 (S001)"
+    ],
+    "carried_in_general_coverage": "In one web search on 2026-11-05 we found specialist reviews (K4D, the HEART topic guide, UNICEF Innocenti's evidence map) describing the evidence as weak, but no general-audience news coverage stating it; UNICEF's public page states the effectiveness claim without evidence.",
+    "our_contribution": "translation: carrying the 2025 Campbell review's limits (low confidence, no enrolment or attendance outcomes, no ranking of programme types) to a general reader"
+  },
+  "sources_are_open": "yes: both relied-on sources are CC BY open-access Campbell reviews held from Europe PMC",
+  "evidence_base_is_bounded": "yes: one systematic review of 28 studies (search to March 2022) and one regional evidence and gap map of 50 studies",
+  "kill_condition": "There is no story if the held evidence (trials, quasi-experimental evaluations and systematic reviews of programmes in low- and middle-income countries) clearly shows that such programmes improve disabled children's enrolment, attendance or learning AND ranks the kinds of programme against each other on that evidence; or if the evidence is so thin that nothing can be said either way and that thinness has already been stated plainly where a general reader would meet it.",
+  "kill_condition_tested": {
+    "_note": "Filled in AFTER going to look, by whoever looked.",
+    "by": "Claude Code (session WHU-L1-02r drafter)",
+    "on": "2026-11-05",
+    "result": "narrowed",
+    "note": "The held evidence shows effects on measured skills but does not show effects on enrolment, attendance or completion and does not rank programme types, so the first kill route fails; the evidence is not so thin that nothing can be said, and its thinness was not found stated in general coverage, so the second fails. The belief survives only in narrowed form: programmes improved some skills in low-confidence studies."
+  },
+  "lead_came_from": "the lean four-question test: round 1's question WHU-Q1-02, asked again (issue.json)",
+  "scope": {
+    "_note": "What the answer will and will not cover, written at step 1 BEFORE any source is opened, so scope cannot be fitted to the findings afterwards. An omission ruled OUT_OF_SCOPE, and a headline conclusion declared out of scope, must name the question's words or one of these entries (fix 2, docs/whu-fix2-omission-rulings-design.md section 2.4).",
+    "covers": "Programmes, interventions and policies intended to improve the education (enrolment, attendance, retention, participation, learning or inclusion) of children and young people with disabilities, of any impairment type, in low- and middle-income countries; whether they work on those education outcomes, and how the kinds of programme compare (for example inclusive-education support, teacher training, assistive technology, cash transfers, community-based rehabilitation, early intervention, special schools).",
+    "out": [
+      {
+        "what": "Evidence from high-income countries only",
+        "why": "The question names low- and middle-income countries."
+      },
+      {
+        "what": "Programmes for adults past young-adult age, and adult vocational training",
+        "why": "The question is about children and young people."
+      },
+      {
+        "what": "Health, clinical or rehabilitation outcomes that are not education outcomes",
+        "why": "The question asks whether programmes 'improve education'; a programme's non-education effects are outside it."
+      },
+      {
+        "what": "Prevalence of disability and the size of the education gap on its own, without any programme",
+        "why": "The question asks whether programmes work and which kinds work best, not how large the gap is."
+      }
+    ],
+    "by": "Claude Code (session WHU-L1-02r drafter)",
+    "written_at": "2026-11-05T12:40:56Z"
+  },
+  "evidence_standard": {
+    "_note": "What kinds of evidence the answer will weigh, written at step 1 BEFORE any source is opened (post-study fix 3, docs/whu-fix3-evidence-standard.md). 'measured': outcomes measured in trials, cohorts, evaluations. 'assessed': expert assessments -- systematic-review conclusions, IPCC confidence-rated statements, guideline recommendations. When they differ, the page states both and drops neither.",
+    "weighs": [
+      "measured",
+      "assessed"
+    ],
+    "measured": "Education outcomes (enrolment, attendance, retention, learning, participation, inclusion) of children and young people with disabilities measured in randomised trials, quasi-experimental evaluations and other impact evaluations of programmes in low- and middle-income countries.",
+    "assessed": "Conclusions of systematic reviews and evidence gap maps on these programmes, with their certainty or quality ratings (for example GRADE), and conclusions of UN agency or World Bank assessments of the evidence.",
+    "when_they_differ": "state both",
+    "by": "Claude Code (session WHU-L1-02r drafter)",
+    "written_at": "2026-11-05T12:40:56Z"
+  }
+}

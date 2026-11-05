@@ -1,0 +1,19 @@
+{
+ "units": [],
+ "declarations": {
+  "S003@4828-5007": {
+   "state": "out_of_scope",
+   "reason": "The finding is that disability is a risk factor for young people developing mental health conditions; that is a health outcome, which premise scope.out places outside a question about education.",
+   "by": "Claude Code (session WHU-L1-02r drafter)",
+   "element": "Health, clinical or rehabilitation outcomes that are not education outcomes",
+   "decided_at": "2026-11-05T12:53:00+00:00"
+  },
+  "S003@5282-6096": {
+   "state": "not_material",
+   "reason": "This unit is the map's acknowledgement of the GEM Centre partnership and its funder, run together with PMC status text by the extraction; it states no finding about programmes or outcomes.",
+   "by": "Claude Code (session WHU-L1-02r drafter)",
+   "element": "",
+   "decided_at": "2026-11-05T12:53:00+00:00"
+  }
+ }
+}
