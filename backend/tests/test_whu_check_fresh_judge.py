@@ -181,3 +181,12 @@ def test_the_interval_resamples_answers_not_sentences():
     lo, hi = G.interval(pairs, "k")
     assert lo == 0.0 and hi == 1.0            # two answers: a resample is all A, all B, or both
     assert G.interval([p for p in pairs if p["answer"] == "A"], "k") is None
+
+
+def test_the_committed_counts_never_pair_an_item_id_with_its_answer():
+    out = {"agreement": {"k": {"disagreements": {"d": [{"answer": "A/Claude", "item": "I1", "sentence": 0}]}}},
+           "not_judged": {"detail": [{"item": "I2", "answer": "B/Gemini", "sentence": 1, "judges": ["claude"]}]}}
+    c = G.committed(out)
+    assert c["agreement"]["k"]["disagreements"]["d"] == [{"answer": "A/Claude", "sentence": 0}]
+    assert c["not_judged"]["detail"] == [{"item": "I2", "judges": ["claude"]}]
+    assert out["agreement"]["k"]["disagreements"]["d"][0]["item"] == "I1"          # the private copy is untouched

@@ -416,9 +416,24 @@ def agree() -> dict:
                       "failed in stage 1 (27.9%), so the tool is not ready whatever the agreements"}, pairs
 
 
+def committed(out: dict) -> dict:
+    """The committed copy: no row pairs a blinded item id with its answer (that pairing is the key). Disagreements keep
+    the answer and sentence and drop the id; the not-judged list keeps the ids (the advisor asked for them) and drops
+    the answer and sentence. pairs.json (private) keeps everything."""
+    c = json.loads(json.dumps(out))
+    for v in c["agreement"].values():
+        for rows in v["disagreements"].values():
+            for r in rows:
+                r.pop("item", None)
+    for r in c["not_judged"]["detail"]:
+        r.pop("answer", None)
+        r.pop("sentence", None)
+    return c
+
+
 def do_agree(_a) -> int:
     out, pairs = agree()
-    COUNTS.write_text(json.dumps(out, indent=1) + "\n")
+    COUNTS.write_text(json.dumps(committed(out), indent=1) + "\n")
     (ROOT2 / "pairs.json").write_text(json.dumps(pairs, indent=1))
     nj = out["not_judged"]
     print("NOT JUDGED: %d item(s), excluded and counted: %s" % (nj["items"], ", ".join(

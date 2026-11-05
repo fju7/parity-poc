@@ -1,0 +1,271 @@
+{
+ "written": "2026-11-04T15:40:30+00:00",
+ "per_answer": [
+  {
+   "question": "WHU-CF-01",
+   "system": "Claude",
+   "items": 1,
+   "held": 1,
+   "incomplete": 0,
+   "abstract_only": 0,
+   "no_url": 0,
+   "uncited": 0,
+   "unreachable_sources": 0
+  },
+  {
+   "question": "WHU-CF-01",
+   "system": "Gemini",
+   "items": 9,
+   "held": 9,
+   "incomplete": 0,
+   "abstract_only": 0,
+   "no_url": 0,
+   "uncited": 0,
+   "unreachable_sources": 0
+  },
+  {
+   "question": "WHU-CF-01",
+   "system": "Perplexity",
+   "items": 14,
+   "held": 14,
+   "incomplete": 0,
+   "abstract_only": 0,
+   "no_url": 0,
+   "uncited": 0,
+   "unreachable_sources": 0
+  },
+  {
+   "question": "WHU-CF-02",
+   "system": "Claude",
+   "items": 2,
+   "held": 2,
+   "incomplete": 0,
+   "abstract_only": 0,
+   "no_url": 0,
+   "uncited": 0,
+   "unreachable_sources": 0
+  },
+  {
+   "question": "WHU-CF-02",
+   "system": "Gemini",
+   "items": 6,
+   "held": 6,
+   "incomplete": 0,
+   "abstract_only": 0,
+   "no_url": 0,
+   "uncited": 0,
+   "unreachable_sources": 0
+  },
+  {
+   "question": "WHU-CF-02",
+   "system": "Perplexity",
+   "items": 16,
+   "held": 16,
+   "incomplete": 0,
+   "abstract_only": 0,
+   "no_url": 0,
+   "uncited": 0,
+   "unreachable_sources": 0
+  },
+  {
+   "question": "WHU-CF-03",
+   "system": "Claude",
+   "items": 5,
+   "held": 5,
+   "incomplete": 0,
+   "abstract_only": 0,
+   "no_url": 0,
+   "uncited": 0,
+   "unreachable_sources": 0
+  },
+  {
+   "question": "WHU-CF-03",
+   "system": "Gemini",
+   "items": 2,
+   "held": 2,
+   "incomplete": 0,
+   "abstract_only": 0,
+   "no_url": 0,
+   "uncited": 0,
+   "unreachable_sources": 0
+  },
+  {
+   "question": "WHU-CF-03",
+   "system": "Perplexity",
+   "items": 5,
+   "held": 5,
+   "incomplete": 0,
+   "abstract_only": 0,
+   "no_url": 0,
+   "uncited": 0,
+   "unreachable_sources": 0
+  },
+  {
+   "question": "WHU-CF-04",
+   "system": "Claude",
+   "items": 3,
+   "held": 3,
+   "incomplete": 0,
+   "abstract_only": 0,
+   "no_url": 0,
+   "uncited": 0,
+   "unreachable_sources": 0
+  },
+  {
+   "question": "WHU-CF-04",
+   "system": "Gemini",
+   "items": 3,
+   "held": 3,
+   "incomplete": 0,
+   "abstract_only": 0,
+   "no_url": 0,
+   "uncited": 0,
+   "unreachable_sources": 0
+  },
+  {
+   "question": "WHU-CF-04",
+   "system": "Perplexity",
+   "items": 1,
+   "held": 1,
+   "incomplete": 0,
+   "abstract_only": 0,
+   "no_url": 0,
+   "uncited": 0,
+   "unreachable_sources": 0
+  },
+  {
+   "question": "WHU-CF-05",
+   "system": "Claude",
+   "items": 3,
+   "held": 3,
+   "incomplete": 0,
+   "abstract_only": 1,
+   "no_url": 0,
+   "uncited": 0,
+   "unreachable_sources": 0
+  },
+  {
+   "question": "WHU-CF-05",
+   "system": "Gemini",
+   "items": 9,
+   "held": 9,
+   "incomplete": 0,
+   "abstract_only": 0,
+   "no_url": 0,
+   "uncited": 0,
+   "unreachable_sources": 0
+  },
+  {
+   "question": "WHU-CF-05",
+   "system": "Perplexity",
+   "items": 7,
+   "held": 7,
+   "incomplete": 0,
+   "abstract_only": 0,
+   "no_url": 0,
+   "uncited": 0,
+   "unreachable_sources": 0
+  },
+  {
+   "question": "WHU-CF-06",
+   "system": "Claude",
+   "items": 7,
+   "held": 7,
+   "incomplete": 0,
+   "abstract_only": 0,
+   "no_url": 0,
+   "uncited": 0,
+   "unreachable_sources": 0
+  },
+  {
+   "question": "WHU-CF-06",
+   "system": "Gemini",
+   "items": 8,
+   "held": 8,
+   "incomplete": 0,
+   "abstract_only": 0,
+   "no_url": 0,
+   "uncited": 0,
+   "unreachable_sources": 0
+  },
+  {
+   "question": "WHU-CF-06",
+   "system": "Perplexity",
+   "items": 3,
+   "held": 3,
+   "incomplete": 0,
+   "abstract_only": 0,
+   "no_url": 0,
+   "uncited": 0,
+   "unreachable_sources": 0
+  }
+ ],
+ "routes": {
+  "a": 0,
+  "b": 0,
+  "c": 6,
+  "d": 0
+ },
+ "reachability": {
+  "Claude": {
+   "cited_items": 21,
+   "items_all_sources_by_script": 21,
+   "items_needing_operator_fetch": 0,
+   "items_unreachable": 0,
+   "share_reachable_by_script": 1.0,
+   "share_reachable_after_operator_fetch": 1.0,
+   "share_unreachable": 0.0,
+   "flag_unreachable_over_20pct": false,
+   "sources": {
+    "distinct": 24,
+    "by_script": 24,
+    "by_operator_fetch": 0,
+    "unreachable": 0
+   }
+  },
+  "Gemini": {
+   "cited_items": 37,
+   "items_all_sources_by_script": 37,
+   "items_needing_operator_fetch": 0,
+   "items_unreachable": 0,
+   "share_reachable_by_script": 1.0,
+   "share_reachable_after_operator_fetch": 1.0,
+   "share_unreachable": 0.0,
+   "flag_unreachable_over_20pct": false,
+   "sources": {
+    "distinct": 28,
+    "by_script": 28,
+    "by_operator_fetch": 0,
+    "unreachable": 0
+   }
+  },
+  "Perplexity": {
+   "cited_items": 46,
+   "items_all_sources_by_script": 46,
+   "items_needing_operator_fetch": 0,
+   "items_unreachable": 0,
+   "share_reachable_by_script": 1.0,
+   "share_reachable_after_operator_fetch": 1.0,
+   "share_unreachable": 0.0,
+   "flag_unreachable_over_20pct": false,
+   "sources": {
+    "distinct": 24,
+    "by_script": 24,
+    "by_operator_fetch": 0,
+    "unreachable": 0
+   }
+  }
+ },
+ "versions": {
+  "publishedVersion": 6
+ },
+ "first_fetch_bytes_reread_to_held": 0,
+ "still_unreachable_free_but_blocking": 0,
+ "still_unreachable_free_but_blocking_not_tried_by_advisor": 0,
+ "sources": {
+  "distinct": 72,
+  "full_text": 71,
+  "abstract_only": 1,
+  "unreachable": 0
+ }
+}

@@ -1,0 +1,324 @@
+{
+ "written": "2026-11-05T00:20:16+00:00",
+ "by": "study/whu-reliability/check_pilot/fresh_judge.py agree",
+ "label": "Counts only. The fresh set, stage 2 (pilot doc \u00a716.9): v8 against the two M1 judges, first reads only, on the frozen-sample sentences v8 judged BACKED or NOT BACKED. Judged by AI models only; no human has checked the judgements. Blinding was partial: writing style allowed a model to identify systems, and WHU's scope notes were left in.",
+ "ledger_issue": "whu-check-fresh-judge",
+ "usd": 49.1522,
+ "scope_items": 104,
+ "judge_labels": {
+  "claude": {
+   "Absent": 21,
+   "Contradicted": 1,
+   "INCOMPLETE_SOURCES": 4,
+   "Overstates": 10,
+   "Supported": 66,
+   "Wrong source": 2
+  },
+  "openai": {
+   "Absent": 16,
+   "Contradicted": 2,
+   "INCOMPLETE_SOURCES": 4,
+   "Overstates": 29,
+   "Supported": 50,
+   "Understates": 1,
+   "Wrong source": 2
+  }
+ },
+ "not_judged": {
+  "items": 4,
+  "ids": [
+   "M1-2b01593f60",
+   "M1-b0bfabe014",
+   "M1-d5c6145f3d",
+   "M1-f6b8fbe8fc"
+  ],
+  "by_judge_label": {
+   "claude": {
+    "INCOMPLETE_SOURCES": 4
+   },
+   "openai": {
+    "INCOMPLETE_SOURCES": 4
+   }
+  },
+  "detail": [
+   {
+    "item": "M1-2b01593f60",
+    "v8": "BACKED",
+    "judges": [
+     "claude",
+     "openai"
+    ],
+    "labels": {
+     "claude": "INCOMPLETE_SOURCES",
+     "openai": "INCOMPLETE_SOURCES"
+    },
+    "sources": [
+     {
+      "source_id": "Sceb4342d6aa4",
+      "url": "https://cochranelibrary.com/content?_scolariscontentdisplay_WAR_scolariscontentdisplay_action=related-content&contentLanguage=&doi=10.1002%2F14651858.CD015330.pub2&p_p_id=scolariscontentdisplay_WAR_scolariscontentdisplay&p_p_lifecycle=0&p_p_mode=view&templateType=related&type=cdsr&urlTitle=%2Fcdsr%2Fdoi%2F10.1002%2F14651858.CD015330.pub2",
+      "text_chars": 512754,
+      "tokens": 173243,
+      "why": "key word 'illustrative' is in the source but not in what the judge receives",
+      "judges": [
+       "claude",
+       "openai"
+      ]
+     }
+    ]
+   },
+   {
+    "item": "M1-b0bfabe014",
+    "v8": "BACKED",
+    "judges": [
+     "claude",
+     "openai"
+    ],
+    "labels": {
+     "claude": "INCOMPLETE_SOURCES",
+     "openai": "INCOMPLETE_SOURCES"
+    },
+    "sources": [
+     {
+      "source_id": "S78bab1e71f63",
+      "url": "https://www.ipcc.ch/report/ar6/wg3/downloads/report/IPCC_AR6_WGIII_Chapter13.pdf",
+      "text_chars": 618843,
+      "tokens": 254447,
+      "why": "key word 'substantially' is in the source but not in what the judge receives",
+      "judges": [
+       "claude",
+       "openai"
+      ]
+     }
+    ]
+   },
+   {
+    "item": "M1-d5c6145f3d",
+    "v8": "BACKED",
+    "judges": [
+     "claude",
+     "openai"
+    ],
+    "labels": {
+     "claude": "INCOMPLETE_SOURCES",
+     "openai": "INCOMPLETE_SOURCES"
+    },
+    "sources": [
+     {
+      "source_id": "Sc217edadf8ca",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/38763518/",
+      "text_chars": 1131788,
+      "tokens": 406098,
+      "why": "key word 'follow-up' is in the source but not in what the judge receives",
+      "judges": [
+       "claude",
+       "openai"
+      ]
+     }
+    ]
+   },
+   {
+    "item": "M1-f6b8fbe8fc",
+    "v8": "BACKED",
+    "judges": [
+     "claude",
+     "openai"
+    ],
+    "labels": {
+     "claude": "INCOMPLETE_SOURCES",
+     "openai": "INCOMPLETE_SOURCES"
+    },
+    "sources": [
+     {
+      "source_id": "S92ef4cb25955",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11102824/",
+      "text_chars": 1162558,
+      "tokens": 431246,
+      "why": "key word 'bruises' is in the source but not in what the judge receives; key word 'medically' is in the source but not in what the judge receives",
+      "judges": [
+       "claude",
+       "openai"
+      ]
+     }
+    ]
+   }
+  ],
+  "not_validated": "Agreement is not measured on claims whose source exceeds the judges' single-read limit (4 items skipped, sources of 173k-431k tokens); v8's windowed reading of very long sources is therefore not validated by this test.",
+  "rule": "excluded from each agreement whose judge did not judge the item (and from two-judge-agreed if either did not); counted here, never imputed"
+ },
+ "agreement": {
+  "vs_claude_judge": {
+   "n": 100,
+   "agree": 98,
+   "share": 0.98,
+   "ci95_over_answers": [
+    0.9556,
+    1.0
+   ],
+   "disagreements": {
+    "v8 BACKED, judge NOT BACKED": [
+     {
+      "answer": "WHU-CF-01/Perplexity",
+      "sentence": 14,
+      "judge_raw": "Absent"
+     },
+     {
+      "answer": "WHU-CF-01/Gemini",
+      "sentence": 2,
+      "judge_raw": "Absent"
+     }
+    ],
+    "v8 NOT BACKED, judge BACKED": []
+   },
+   "disagreement_counts": {
+    "v8 BACKED, judge NOT BACKED": 2,
+    "v8 NOT BACKED, judge BACKED": 0
+   }
+  },
+  "vs_openai_judge": {
+   "n": 100,
+   "agree": 82,
+   "share": 0.82,
+   "ci95_over_answers": [
+    0.7123,
+    0.9062
+   ],
+   "disagreements": {
+    "v8 BACKED, judge NOT BACKED": [
+     {
+      "answer": "WHU-CF-03/Perplexity",
+      "sentence": 7,
+      "judge_raw": "Overstates"
+     },
+     {
+      "answer": "WHU-CF-05/Gemini",
+      "sentence": 106,
+      "judge_raw": "Absent"
+     },
+     {
+      "answer": "WHU-CF-01/Perplexity",
+      "sentence": 14,
+      "judge_raw": "Absent"
+     },
+     {
+      "answer": "WHU-CF-04/Gemini",
+      "sentence": 25,
+      "judge_raw": "Overstates"
+     },
+     {
+      "answer": "WHU-CF-05/Gemini",
+      "sentence": 84,
+      "judge_raw": "Overstates"
+     },
+     {
+      "answer": "WHU-CF-02/Gemini",
+      "sentence": 70,
+      "judge_raw": "Overstates"
+     },
+     {
+      "answer": "WHU-CF-03/Perplexity",
+      "sentence": 25,
+      "judge_raw": "Overstates"
+     },
+     {
+      "answer": "WHU-CF-05/Perplexity",
+      "sentence": 58,
+      "judge_raw": "Overstates"
+     },
+     {
+      "answer": "WHU-CF-03/Perplexity",
+      "sentence": 24,
+      "judge_raw": "Overstates"
+     },
+     {
+      "answer": "WHU-CF-05/Claude",
+      "sentence": 44,
+      "judge_raw": "Understates"
+     },
+     {
+      "answer": "WHU-CF-02/Gemini",
+      "sentence": 29,
+      "judge_raw": "Contradicted"
+     },
+     {
+      "answer": "WHU-CF-02/Perplexity",
+      "sentence": 43,
+      "judge_raw": "Absent"
+     },
+     {
+      "answer": "WHU-CF-03/Claude",
+      "sentence": 47,
+      "judge_raw": "Overstates"
+     },
+     {
+      "answer": "WHU-CF-01/Gemini",
+      "sentence": 5,
+      "judge_raw": "Overstates"
+     },
+     {
+      "answer": "WHU-CF-05/Gemini",
+      "sentence": 103,
+      "judge_raw": "Overstates"
+     },
+     {
+      "answer": "WHU-CF-02/Gemini",
+      "sentence": 26,
+      "judge_raw": "Overstates"
+     },
+     {
+      "answer": "WHU-CF-01/Gemini",
+      "sentence": 2,
+      "judge_raw": "Absent"
+     },
+     {
+      "answer": "WHU-CF-05/Gemini",
+      "sentence": 26,
+      "judge_raw": "Overstates"
+     }
+    ],
+    "v8 NOT BACKED, judge BACKED": []
+   },
+   "disagreement_counts": {
+    "v8 BACKED, judge NOT BACKED": 18,
+    "v8 NOT BACKED, judge BACKED": 0
+   }
+  },
+  "two_judge_agreed": {
+   "n": 84,
+   "agree": 82,
+   "share": 0.9762,
+   "ci95_over_answers": [
+    0.9481,
+    1.0
+   ],
+   "disagreements": {
+    "v8 BACKED, judge NOT BACKED": [
+     {
+      "answer": "WHU-CF-01/Perplexity",
+      "sentence": 14,
+      "judge_raw": "Absent"
+     },
+     {
+      "answer": "WHU-CF-01/Gemini",
+      "sentence": 2,
+      "judge_raw": "Absent"
+     }
+    ],
+    "v8 NOT BACKED, judge BACKED": []
+   },
+   "disagreement_counts": {
+    "v8 BACKED, judge NOT BACKED": 2,
+    "v8 NOT BACKED, judge BACKED": 0
+   }
+  }
+ },
+ "ci_method": "seeded bootstrap (10000 resamples, seed 20261104) over the answers, each resampled with all its pairs; 95% percentile interval",
+ "bar": {
+  "agreement_at_least": 0.9,
+  "vs_claude_judge_at_least_90": true,
+  "vs_openai_judge_at_least_90": false,
+  "two_judge_agreed_at_least_90": true,
+  "couldnt_check_at_most_20 (stage 1)": false
+ },
+ "ready": false,
+ "ready_rule": "all three agreements >= 90% and the coverage bar (COULDN'T CHECK <= 20%); the coverage bar failed in stage 1 (27.9%), so the tool is not ready whatever the agreements"
+}
