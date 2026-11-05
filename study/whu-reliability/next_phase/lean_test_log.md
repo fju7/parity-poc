@@ -44,6 +44,11 @@ Runs line $40; spent $17.96 (q1-01 $0.99, q1-02 $1.83, q1-02r $2.22, q1-03 $9.42
 Four re-runs (Q1-01b..Q1-04b), estimates as above: likely **$20.95** ≤ $22.04, so they may start; pessimistic $24.77
 and worst $40.00 exceed the line. Day ledger $44.26 (room rule $50): later stages wait for 00:00 UTC.
 
+## Before the third-freeze re-runs (2026-11-05T22:12Z, LT; freeze 9db89f2)
+
+Runs line spent $19.15 of $40, left $20.85 < $20.95 likely: the reserve's last $4 moves to the line ($44), left **$24.85**
+≥ $20.95 likely. Pessimistic $24.77, worst $40.00. Order: Q1-01c, Q1-02b, Q1-03b, Q1-04b.
+
 ## Runs
 
 | Question | subagent model | started (UTC) | ended (UTC) | ledger | drafting tokens (est. $) | outcome |

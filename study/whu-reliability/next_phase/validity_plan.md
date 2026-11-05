@@ -488,6 +488,8 @@ the room rule each day.
 
 **Ruling on the lean test (advisor, 2026-11-05, before any lean call):** $10 moves from the reserve to the lean judging line ($45 -> **$55**; reserve $14 -> **$4**; caps total $336 -> $346); the runs line stays $40. The test is "lean + machine scope notes" (process doc §4.6.1); §10 stays the primary pass bar, with secondary views and the seeded-defect bar deferred (`lean_test_rule.md`, `deviations.md` 2026-11-05).
 
+**Reserve to the runs line (advisor's ruling after Q1-01b, item 5; recorded by session LT, 2026-11-05T22:12Z, before the re-runs' first paid call):** the runs line had $20.85 left ($40 − $19.15 spent on whu-lean-q1-01, -02, -02r, -03, -04, -01b) against $20.95 likely for the four re-runs (Q1-01c, Q1-02b, Q1-03b, Q1-04b). The reserve's last **$4** moves to the runs line ($40 -> **$44**; reserve $4 -> **$0**; caps total unchanged at $346). Left on the line: **$24.85** ≥ $20.95 likely, so the re-runs may start.
+
 Step 1's unspent $6.97 stays inside its line (caps are not moved between items without a ruling). Spending at
 up to $60 a day (§0) takes about six spending days.
 

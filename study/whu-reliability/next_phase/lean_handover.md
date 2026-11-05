@@ -61,3 +61,4 @@ Ruling 2 said to start Q1-04 now, so it is next. Re-check the room rule (it rese
 - After each: contamination scan (`lean_contamination_scan.py <transcript> <paths> --rerun-b NN --scratch <this session's scratchpad> --cleaned <drafter start>`), `lean_reading.py <slug>` (it must pass: reading statement, sentences rest on received text, not-read records), cost, fail-safe report, archive and empty the scratchpad, record and commit.
 - Judging afterwards: prepare_lean.py `ALL` must map to the 0nb slugs.
 - **Q1-01b finished Not Ready ($1.19) and found three defects in f11c6c9** (deviations, 21:25Z). Q1-02b..04b are NOT started; waiting on the advisor.
+- **Third freeze 9db89f2** (corrections after Q1-01b). Reserve $4 moved to the runs line ($44, $24.85 left). Order: Q1-01c (`--rerun-c 01` for the scanner), then Q1-02b, Q1-03b, Q1-04b (`--rerun-b NN`).
