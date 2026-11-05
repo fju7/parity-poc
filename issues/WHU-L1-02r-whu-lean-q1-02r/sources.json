@@ -30,14 +30,9 @@
         "sections": [
           "the abstract",
           "the plain language summary",
-          "part of section 5.2, confidence in study findings in included studies",
-          "section 5.3, effects of interventions, with its Table 14",
+          "section 5, the results, with Tables 4 to 14",
           "section 6, the discussion",
           "section 7, the authors' conclusions"
-        ],
-        "not_read": [
-          "the descriptions of the included studies in section 5.1.2",
-          "the online supporting information, which we do not hold"
         ]
       },
       "document_class": "document"
@@ -72,12 +67,9 @@
         "sections": [
           "the abstract",
           "the plain language summary",
+          "section 5, the results",
           "section 6, the discussion",
           "section 7, the authors' conclusions"
-        ],
-        "not_read": [
-          "the study-by-study results in section 5",
-          "the online interactive map, which we do not hold"
         ]
       },
       "document_class": "document"

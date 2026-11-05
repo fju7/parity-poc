@@ -1,0 +1,109 @@
+{
+ "omissions": [
+  {
+   "key": "S001@7693-7878",
+   "source": "S001",
+   "held_sha256": "49a9070d96d82aae61e741291fdd906e8ee5a8a829aa4a495fc2806fb0977ee6",
+   "at": [
+    7693,
+    7878
+   ],
+   "quote_sha256": "bea9506223632a9ae9d0fea467fea5864734fe43621ca9bce88ebb39a72665da",
+   "outcome": "NOT_MATERIAL",
+   "element": "",
+   "reason": "Step 1: in scope. It qualifies how much confidence to place in the evidence on whether programmes [S001@128932-128971] improve education outcomes. Step 2: not material. The draft already states that [S001@7611-7673], 'largely because of low-rigour study designs'. The remaining clause, that this [S001@7800-7877]', restates the same point that the low ratings come from study design. It adds only a hedged nuance that would not change how the reader weighs the evidence or which programmes to fund.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "34a637ea86f9e692",
+   "origins": [
+    "S001-02"
+   ],
+   "on_page": null,
+   "after": null,
+   "decided_at": "2026-11-05T13:05:04+00:00"
+  },
+  {
+   "key": "S001@12717-12820",
+   "source": "S001",
+   "held_sha256": "49a9070d96d82aae61e741291fdd906e8ee5a8a829aa4a495fc2806fb0977ee6",
+   "at": [
+    12717,
+    12820
+   ],
+   "quote_sha256": "3273cae4cc0f217f32e542928d954e6d380e82b12c51a8b094c092d2a9efa0a4",
+   "outcome": "NOT_MATERIAL",
+   "element": "",
+   "reason": "Step 1 holds: the recommendation concerns how programmes meant to improve [S003@89353-89396] [S001@163740-163774] should be evaluated, so it bears on whether we can tell if they work. Step 2 fails: the recommendation to evaluate interventions on outcomes like school completion adds nothing new to the answer. Its substance is the gap in completion outcomes, which the draft already states: no study looked at attendance, enrolment or completion of education, and none reported qualifications or transition. The draft also already carries the authors' research recommendations. A planner would not answer the question differently because of it.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "1840277019bc7eee",
+   "origins": [
+    "S001-03"
+   ],
+   "on_page": null,
+   "after": null,
+   "decided_at": "2026-11-05T13:05:11+00:00"
+  },
+  {
+   "key": "S001@119214-119377",
+   "source": "S001",
+   "held_sha256": "49a9070d96d82aae61e741291fdd906e8ee5a8a829aa4a495fc2806fb0977ee6",
+   "at": [
+    119214,
+    119377
+   ],
+   "quote_sha256": "8d207382fbc7c2f4eb999adb913342b326b4119c8b88a9e64f83c4a54197fd51",
+   "outcome": "NOT_MATERIAL",
+   "element": "",
+   "reason": "Step 1 holds: the finding is about whether programmes for children with disabilities [S001@163740-163774] improved learning outcomes, which is the question. Step 2 fails: the draft already says that a passage in the review's results calls the effect on cognitive skills and numeracy insignificant, and notes the conflict with the abstract. It also already says the studies on speech show no significant effect. 'Speech and communication' adds nothing distinct beyond the speech result the draft already gives.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "91d5ecb76fa10d79",
+   "origins": [
+    "S001-01"
+   ],
+   "on_page": null,
+   "after": null,
+   "decided_at": "2026-11-05T13:05:16+00:00"
+  },
+  {
+   "key": "S003@8654-8846",
+   "source": "S003",
+   "held_sha256": "222ba319fd316b7bfdb8d7540a380f4e06c183c433ac22c3edc7bdc75a438de6",
+   "at": [
+    8654,
+    8846
+   ],
+   "quote_sha256": "115bcbc46c5c40e7b1205a8b333cacfd440ab37d3b1438c8376de005b52ec4d2",
+   "outcome": "NOT_MATERIAL",
+   "element": "",
+   "reason": "Step 1 holds: the finding is about teacher-training programmes for disability inclusion in low- and middle-income Asia-Pacific countries, a kind of programme the scope covers. Step 2 fails: the draft already says that a majority of the map's interventions focused on changing teachers' attitudes and their understanding of disability. The only new part is the authors' explanation, that [S003@8764-8845]. That explains why the research is spread the way it is. It says nothing about whether these programmes work or how they compare, so it would not change the reader's funding decision.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "24a886479e23cc75",
+   "origins": [
+    "S003-07"
+   ],
+   "on_page": null,
+   "after": null,
+   "decided_at": "2026-11-05T13:05:21+00:00"
+  },
+  {
+   "key": "S003@48961-49148",
+   "source": "S003",
+   "held_sha256": "222ba319fd316b7bfdb8d7540a380f4e06c183c433ac22c3edc7bdc75a438de6",
+   "at": [
+    48961,
+    49148
+   ],
+   "quote_sha256": "2efa779526132c40ab2d6564b89ead06ca9c94523c1115c053b7249488a606c4",
+   "outcome": "NOT_MATERIAL",
+   "element": "",
+   "reason": "Step 1: the passage describes the evidence map of teacher training for disability inclusion in low- and middle-income Asia-Pacific countries, which falls within the question on teacher training programmes in LMICs. Step 2: the passage is the map's inclusion criterion on study design, a method choice made to map where evidence exists. It says nothing about whether programmes work or which kinds work best. The limit it implies for the reader is already on the page: the draft says most studies were observational studies and programme reports, that few included effectiveness data, and that more rigorous studies are still required. Adding it would not answer, narrow or qualify the answer.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "41e79398f3e23fef",
+   "origins": [
+    "S003-06"
+   ],
+   "on_page": null,
+   "after": null,
+   "decided_at": "2026-11-05T13:05:26+00:00"
+  }
+ ]
+}
