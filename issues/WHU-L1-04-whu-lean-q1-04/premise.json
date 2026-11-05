@@ -1,0 +1,82 @@
+{
+  "_what_this_is": "The entry gate, answered BEFORE drafting. The threshold question is whether a well-informed non-expert would confidently believe something the primary sources do not support.",
+  "belief": {
+    "_note": "What the reader already believes, stated as they would state it. If you cannot write this sentence, there is nothing to correct and no subject -- which is how the tobacco-analogy candidate died.",
+    "statement": "Removing carbon dioxide from the air -- by planting trees or with machines that capture it -- can make up for emissions we do not cut, so it offers a way to reach net zero with less or slower cutting of emissions.",
+    "how_we_know_they_believe_it": "Not yet established from named coverage; written before any source was opened (lean test). The belief is stated as the common popular framing of 'offsets' and 'carbon capture' as a substitute for cutting emissions.",
+    "carried_by": []
+  },
+  "what_the_sources_show": {
+    "_note": "What the primary sources actually support, and which sources.",
+    "statement": "",
+    "sources": []
+  },
+  "direction": {
+    "_note": "CORRECTS, CONFIRMS or NARROWS. This field exists so the contrarianism guard can count. A publication whose answer is always CORRECTS is performing scepticism rather than assessing evidence, and is not to be trusted.",
+    "value": "",
+    "_values": [
+      "corrects",
+      "confirms",
+      "narrows"
+    ]
+  },
+  "reader_with_a_decision": "A member of the public, policymaker or company planner weighing whether pledges that rely on removing carbon dioxide can stand in for cutting emissions now.",
+  "public_record_check": {
+    "_note": "NOT 'has anybody published this'. On any contested question, somebody has. The question is whether it has been carried WHERE THIS READER WOULD FIND IT. Run the counterexample hunter on the belief statement, not on the finding.",
+    "prior_art_found": [],
+    "carried_in_general_coverage": "",
+    "our_contribution": "translation, extension, or correction of the prior art -- say which"
+  },
+  "sources_are_open": "",
+  "evidence_base_is_bounded": "",
+  "kill_condition": "There is no story if the primary assessments (IPCC AR6) and measured deployment figures show that carbon dioxide removal, at the scale available now and plausibly in coming decades, can substitute for deep emission cuts on the way to net zero -- or if they show no role for removal at all.",
+  "kill_condition_tested": {
+    "_note": "Filled in AFTER going to look, by whoever looked.",
+    "by": "",
+    "on": "",
+    "result": "",
+    "_result_values": [
+      "survived",
+      "narrowed",
+      "killed"
+    ],
+    "note": ""
+  },
+  "lead_came_from": "",
+  "scope": {
+    "_note": "What the answer will and will not cover, written at step 1 BEFORE any source is opened, so scope cannot be fitted to the findings afterwards. An omission ruled OUT_OF_SCOPE, and a headline conclusion declared out of scope, must name the question's words or one of these entries (fix 2, docs/whu-fix2-omission-rulings-design.md section 2.4).",
+    "covers": "The part that removing carbon dioxide from the air (carbon dioxide removal, CDR: e.g. afforestation and reforestation, soil carbon, bioenergy with carbon capture and storage, direct air capture with storage, enhanced weathering, ocean-based methods) plays alongside emission cuts in reaching net zero CO2 and net zero greenhouse gases: how much is done now, how much the assessed pathways use in the decades ahead, what role it plays (counterbalancing residual emissions, net-negative emissions later), and its stated limits, risks and permanence.",
+    "out": [
+      {
+        "what": "Capturing CO2 at fossil-fuel or industrial point sources (CCS) without removal from the air",
+        "why": "That reduces emissions; it does not remove carbon dioxide from the air, which is what the question asks about."
+      },
+      {
+        "what": "Solar radiation modification and other geoengineering that does not remove CO2",
+        "why": "The question asks about removing carbon dioxide, not other ways of altering climate."
+      },
+      {
+        "what": "Removal of methane or other non-CO2 gases",
+        "why": "The question names carbon dioxide."
+      },
+      {
+        "what": "National or company-level carbon market, offset certification and policy design detail",
+        "why": "The question asks what part removal can play in reaching net zero, not how any particular market or policy should be designed."
+      }
+    ],
+    "by": "Claude Code (session L1-04)",
+    "written_at": "2026-11-05T18:59:55Z"
+  },
+  "evidence_standard": {
+    "_note": "What kinds of evidence the answer will weigh, written at step 1 BEFORE any source is opened (post-study fix 3, docs/whu-fix3-evidence-standard.md). 'measured': outcomes measured in trials, cohorts, evaluations. 'assessed': expert assessments -- systematic-review conclusions, IPCC confidence-rated statements, guideline recommendations. When they differ, the page states both and drops neither.",
+    "weighs": [
+      "measured",
+      "assessed"
+    ],
+    "measured": "Measured or inventoried quantities: current amounts of carbon dioxide removed per year by each method, capacities of deployed facilities, and measured storage and permanence where reported.",
+    "assessed": "Expert assessments: IPCC AR6 confidence- and likelihood-rated statements (Summaries for Policymakers and chapters on mitigation pathways and carbon dioxide removal), and systematic-review conclusions on removal potentials and side effects.",
+    "when_they_differ": "state both",
+    "by": "Claude Code (session L1-04)",
+    "written_at": "2026-11-05T18:59:55Z"
+  }
+}

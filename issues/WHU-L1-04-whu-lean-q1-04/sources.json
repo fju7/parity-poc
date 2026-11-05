@@ -1,0 +1,127 @@
+{
+  "sources": [
+    {
+      "id": "S001",
+      "type": "synthesis",
+      "form": "article",
+      "title": "IPCC 2022. Chapter 12: Cross-sectoral Perspectives. In: Climate Change 2022: Mitigation of Climate Change (AR6 WGIII)",
+      "also_called": [
+        "IPCC AR6 WGIII Chapter 12"
+      ],
+      "url": "https://www.ipcc.ch/report/ar6/wg3/downloads/report/IPCC_AR6_WGIII_Chapter12.pdf",
+      "used_for": "the assessment's chapter on carbon dioxide removal methods (section 12.3): potentials, costs, risks, current deployment, role in pathways",
+      "licence": {
+        "note": "IPCC terms (https://www.ipcc.ch/copyright/): non-commercial download and copying permitted; short excerpts may be quoted with the full report name."
+      },
+      "access": {
+        "state": "full_text_held",
+        "held": {
+          "file": "docs/b1/b1f31cc6390b25eef57a56511f3626f18c88ab81109c8e0e90a20e65143619b6.pdf",
+          "sha256": "b1f31cc6390b25eef57a56511f3626f18c88ab81109c8e0e90a20e65143619b6",
+          "bytes": 3093036,
+          "identified_by": "contains 8 of 8 distinctive title words — 674425 characters, reference list and discussion/introduction present; title present (10 of 10 title words in the visible text)",
+          "kind": "full_text",
+          "kind_why": "674425 characters, reference list and discussion/introduction present"
+        },
+        "on": "2026-11-05",
+        "sections": [
+          "the Executive Summary"
+        ],
+        "not_read": [
+          "sections 12.1 to 12.9 of the chapter body, including section 12.3 on carbon dioxide removal"
+        ]
+      }
+    },
+    {
+      "id": "S002",
+      "type": "synthesis",
+      "form": "article",
+      "title": "Smith, S. M. et al. (2024). The State of Carbon Dioxide Removal - 2nd Edition",
+      "also_called": [
+        "State of Carbon Dioxide Removal 2024"
+      ],
+      "url": "https://www.stateofcdr.org/asset/SoCDR-2nd-Edition-Full-Report.pdf",
+      "doi": "10.17605/OSF.IO/F85QJ",
+      "used_for": "measured and estimated current carbon dioxide removal by method, and the removal in scenarios consistent with the Paris goals",
+      "licence": {
+        "note": "CC BY 4.0 (stated in the report)."
+      },
+      "access": {
+        "state": "full_text_held",
+        "held": {
+          "file": "docs/88/882af3ff1e5e14c069d4dfa4681e4613c74c49b9290a8b2cd1b8e1aa226bfa1b.pdf",
+          "sha256": "882af3ff1e5e14c069d4dfa4681e4613c74c49b9290a8b2cd1b8e1aa226bfa1b",
+          "bytes": 16630876,
+          "identified_by": "contains 6 of 6 distinctive title words — 589317 characters, reference list and discussion/introduction present; title present (6 of 6 title words in the visible text)",
+          "kind": "full_text",
+          "kind_why": "589317 characters, reference list and discussion/introduction present"
+        },
+        "on": "2026-11-05",
+        "sections": [
+          "the Executive summary"
+        ],
+        "not_read": [
+          "chapters 1 to 10 of the report body"
+        ]
+      }
+    },
+    {
+      "id": "S003",
+      "type": "synthesis",
+      "form": "article",
+      "title": "IPCC 2022. Summary for Policymakers. In: Climate Change 2022: Mitigation of Climate Change (AR6 WGIII)",
+      "url": "https://www.ipcc.ch/report/ar6/wg3/downloads/report/IPCC_AR6_WGIII_SPM.pdf",
+      "used_for": "the assessment's Summary for Policymakers, for the chapter(s) held (S001); read by the coverage and assessment-judgement checks",
+      "added_by": "acquire_sources.py: assessment-summary rule (post-study fix 3)",
+      "added_for": "S001",
+      "licence": {
+        "note": "IPCC terms (https://www.ipcc.ch/copyright/): personal, non-commercial download and copying permitted; short excerpts may be quoted with the full report name. A note, not a legal opinion.",
+        "terms": "https://www.ipcc.ch/copyright/",
+        "terms_summary_by": "Fred's advisor (Claude), 2026-10-27",
+        "machine_reading": "not forbidden by any recorded licence",
+        "terms_checked": false
+      },
+      "access": {
+        "state": "full_text_held",
+        "on": "2026-11-05",
+        "by": "acquire_sources.py: assessment-summary rule (post-study fix 3)",
+        "robots": {
+          "on": "2026-11-05",
+          "by": "acquire_sources.py",
+          "why": "robots.txt allows it",
+          "result": "allows"
+        },
+        "held": {
+          "file": "docs/0a/0a3b9f671d7150c69a3088e006b7fab84e41ed90fc4eefdf92d076b2d3c8ce84.pdf",
+          "sha256": "0a3b9f671d7150c69a3088e006b7fab84e41ed90fc4eefdf92d076b2d3c8ce84",
+          "bytes": 2159848,
+          "identified_by": "contains 7 of 7 distinctive title words — 225501 characters, reference list and introduction present; title present (9 of 9 title words in the visible text)",
+          "kind": "full_text",
+          "kind_why": "225501 characters, reference list and introduction present"
+        },
+        "sections": [
+          "statements C.2, C.3 and C.11"
+        ],
+        "not_read": [
+          "sections A, B, D and E",
+          "the other statements of section C"
+        ]
+      },
+      "also_called": [
+        "IPCC AR6 WGIII Summary for Policymakers"
+      ]
+    }
+  ],
+  "search": {
+    "searched": [
+      "one general web search, for the State of Carbon Dioxide Removal report (second edition, 2024)",
+      "the IPCC Sixth Assessment Report, Working Group III (mitigation), chosen directly: its chapter 12 and its Summary for Policymakers"
+    ],
+    "not_searched": [
+      "bibliographic databases such as Web of Science, Scopus or Google Scholar",
+      "the IPCC Sixth Assessment Report's Working Group I report and its Synthesis Report",
+      "national greenhouse gas inventories and registries of removal projects or purchases",
+      "news coverage"
+    ]
+  }
+}
