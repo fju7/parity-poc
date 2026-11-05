@@ -1,0 +1,10 @@
+{
+  "id": "WHU-L1-03",
+  "slug": "whu-lean-q1-03",
+  "title": "If greenhouse gas emissions continue, how will further warming change the climate: rainfall and the water cycle, very wet and very dry extremes, ice, sea level and the oceans?",
+  "question": "If greenhouse gas emissions continue, how will further warming change the climate: rainfall and the water cycle, very wet and very dry extremes, ice, sea level and the oceans?",
+  "study": true,
+  "round": "lean",
+  "status": "draft",
+  "_round_note": "The lean four-question test (study/whu-reliability/next_phase/validity_plan.md §10; next_phase/lean_test_rule.md): round 1's question WHU-Q1-03, verbatim, asked again of lean WHU (\"lean + machine scope notes\", process doc §4.6.1). Outside the reliability study's H1 and H2. \"study\": true is set only so the WHU tools run unchanged and publish/update/announce refuse it. Ledger issue: whu-lean-q1-03; run cap $10. Created 2026-11-05 by session LT (the scoring side); nothing else is written here until drafting starts."
+}

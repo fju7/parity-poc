@@ -1,0 +1,10 @@
+{
+  "id": "WHU-L1-01",
+  "slug": "whu-lean-q1-01",
+  "title": "In primary health care, does using mobile phones or tablets to keep track of the care each patient gets, together with on-screen prompts that guide health workers, reminder messages sent to patients, or both, improve the care people receive and their health?",
+  "question": "In primary health care, does using mobile phones or tablets to keep track of the care each patient gets, together with on-screen prompts that guide health workers, reminder messages sent to patients, or both, improve the care people receive and their health?",
+  "study": true,
+  "round": "lean",
+  "status": "draft",
+  "_round_note": "The lean four-question test (study/whu-reliability/next_phase/validity_plan.md §10; next_phase/lean_test_rule.md): round 1's question WHU-Q1-01, verbatim, asked again of lean WHU (\"lean + machine scope notes\", process doc §4.6.1). Outside the reliability study's H1 and H2. \"study\": true is set only so the WHU tools run unchanged and publish/update/announce refuse it. Ledger issue: whu-lean-q1-01; run cap $10. Created 2026-11-05 by session LT (the scoring side); nothing else is written here until drafting starts."
+}
