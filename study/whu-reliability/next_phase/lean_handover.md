@@ -60,3 +60,4 @@ Ruling 2 said to start Q1-04 now, so it is next. Re-check the room rule (it rese
 - Re-runs Q1-01b..Q1-04b (folders WHU-L1-0nb, ledger issues whu-lean-q1-0nb, prompts in lean_briefs.md §WHU-Q1-0nb), one at a time. Runs line remaining $22.04 against likely $20.95.
 - After each: contamination scan (`lean_contamination_scan.py <transcript> <paths> --rerun-b NN --scratch <this session's scratchpad> --cleaned <drafter start>`), `lean_reading.py <slug>` (it must pass: reading statement, sentences rest on received text, not-read records), cost, fail-safe report, archive and empty the scratchpad, record and commit.
 - Judging afterwards: prepare_lean.py `ALL` must map to the 0nb slugs.
+- **Q1-01b finished Not Ready ($1.19) and found three defects in f11c6c9** (deviations, 21:25Z). Q1-02b..04b are NOT started; waiting on the advisor.
