@@ -61,7 +61,11 @@ NOT_ADDED_CAP = "NOT_ADDED_CAP"
 # Lean WHU only (process doc §4.6.1, the ruling paths; advisor, 2026-11-05): an ADD
 # with no place on the page, recorded by code and listed for readers as "Not added".
 NOT_ADDED_NO_PLACE = "NOT_ADDED_NO_PLACE"
-OUTCOMES = (ADD, OUT_OF_SCOPE, NOT_MATERIAL, NOT_IN_SOURCE, NOT_ADDED_CAP, NOT_ADDED_NO_PLACE)
+# Lean rule 3a (process doc §4.6.1; advisor, 5 November 2026): an ADD code refuses
+# because its span is not in the finding becomes code's own "Not added" line.
+NOT_ADDED_BEYOND = "NOT_ADDED_BEYOND"
+CODE_NOT_ADDED = (NOT_ADDED_NO_PLACE, NOT_ADDED_BEYOND)
+OUTCOMES = (ADD, OUT_OF_SCOPE, NOT_MATERIAL, NOT_IN_SOURCE, NOT_ADDED_CAP, NOT_ADDED_NO_PLACE, NOT_ADDED_BEYOND)
 CAPS = ("additions", "declarations")
 TO_PERSON = "TO_PERSON"
 RECORD = "omissions.json"
@@ -263,18 +267,31 @@ def record(case: Path, f: dict, *, outcome: str, reason: str, by: str, element: 
            held_text: str | None = None, reason_for_reader: str = "") -> dict:
     """Write one decision: the public entry (no source text) to omissions.json,
     the quotation itself to rulings/omissions.jsonl. Returns the public entry.
-    With HELD_TEXT (the finding's source), the public reason has any quoted
-    source text replaced by its location (redact)."""
+    With HELD_TEXT (the finding's source's text, or {sid: text} for every held
+    text -- fix 2), the public reason has any quoted source text replaced by its
+    location (redact)."""
     if outcome not in OUTCOMES + (TO_PERSON,):
         raise ValueError("outcome must be one of %s" % ", ".join(OUTCOMES + (TO_PERSON,)))
     if outcome == NOT_ADDED_CAP and not cap_of(reason):
         raise ValueError("NOT_ADDED_CAP needs a reason naming which cap: %s" % " or ".join(CAPS))
-    public_reason = redact(reason, f.get("source"), held_text) if held_text else reason
+    # Fix 2 (process doc §4.6.1; advisor, 5 November 2026): HELD_TEXT may be every
+    # held text {sid: text}; the public reason is then redacted against each, the
+    # finding's own source first, as leaks_source_text checks them all.
+    def _public(t: str) -> str:
+        if not held_text or not t:
+            return t
+        if isinstance(held_text, dict):
+            own = f.get("source")
+            for sid in [own] + sorted(k for k in held_text if k != own):
+                if held_text.get(sid):
+                    t = redact(t, sid, held_text[sid])
+            return t
+        return redact(t, f.get("source"), held_text)
+    public_reason = _public(reason)
     e = {"key": entry_key(f), "source": f.get("source"), "held_sha256": f.get("held_sha256"),
          "at": f.get("at"), "quote_sha256": f.get("quote_sha256"), "outcome": outcome,
          "element": element, "reason": public_reason, "by": by, "ruling": ruling,
-         **({"reason_for_reader": redact(reason_for_reader, f.get("source"), held_text) if held_text
-             else reason_for_reader} if (reason_for_reader or "").strip() else {}),
+         **({"reason_for_reader": _public(reason_for_reader)} if (reason_for_reader or "").strip() else {}),
          "origins": f.get("origins") or [f.get("origin")], "on_page": on_page, "after": after,
          "decided_at": datetime.now(timezone.utc).isoformat(timespec="seconds")}
     doc = load(case)

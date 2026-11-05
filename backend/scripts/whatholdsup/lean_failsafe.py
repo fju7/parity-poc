@@ -56,7 +56,7 @@ def _words(s: str) -> str:
 def is_no_place_line(sentence: str) -> bool:
     import coverage_check as C
     w = " ".join((sentence or "").split())
-    return w.startswith(C.LEAD[C.NO_PLACE]) and w.rstrip(".").endswith(C.NO_PLACE_TAIL)
+    return w.startswith(C.LEAD[C.NO_PLACE]) and any(w.rstrip(".").endswith(t) for t in C.CODE_LINES.values())
 
 
 def _key(it: dict) -> str:
@@ -188,7 +188,7 @@ def report(slug: str) -> dict:
     rel = [k for k, e in ((J.load(case).get("candidates") or {}).items() if case else [])
            if e.get("by") == LEAN_RELEVANT_BY]
     np_ = [e["key"] for e in (O.load(case).get("omissions") or [] if case else [])
-           if e.get("outcome") == O.NOT_ADDED_NO_PLACE]
+           if e.get("outcome") in O.CODE_NOT_ADDED]
     st = stops(slug)
     return {"slug": slug, "removed": len(rem), "removed_by_path": by,
             "already_stated_conversions": len(conv), "conversions": conv,

@@ -61,10 +61,15 @@ STATE_FRAMES = {
 SEARCH_FRAMES = {"searched": "We searched: %s.", "not_searched": "We did not search: %s."}
 SECTIONS_FRAME = "Of %s, we read: %s."
 NOT_READ_FRAME = "Of %s, we did not read: %s."
+# Fix 6 (process doc §4.6.1, "What 'we read' means"; advisor, 5 November 2026):
+# a full_text_held section is "read" only if a checking stage received it in
+# full (lean_received.py); the rest is said in this code-written frame.
+SEARCHED_FULL_FRAME = ("We searched the full text of %s and checked the passages relevant to each sentence; "
+                       "we did not read %s in full.")
 # What a sentence in a generated frame starts with (the check's net).
 LEADS = ("The question is: “", "We hold the full text of ", "We hold the abstract of ",
          "We hold only a fragment of ", "We could not obtain ", "No model read ", "We have not opened ",
-         "We searched: ", "We did not search: ")
+         "We searched: ", "We did not search: ", "We searched the full text of ", "A newer edition exists: ")
 HAND_WRITTEN = "lean: hand-written protected sentence; replace it with the generated one"
 
 
@@ -106,11 +111,20 @@ def question_sentence(issue: dict) -> str | None:
 
 
 def generate(issue: dict, sources: list[dict], search: dict | None = None,
-             declared: list[dict] | None = None) -> list[dict]:
+             declared: list[dict] | None = None, measured: dict | None = None,
+             editions: list[dict] | None = None) -> list[dict]:
     """[{kind, source, field, sentence}] in page order: the question, then each
     source's held state, sections read and not read, then what we searched and
-    did not search (SEARCH), then the readers' list (DECLARED: the sentences
-    coverage_check.declarations gives, heading first)."""
+    did not search (SEARCH), then the newer-edition lines (EDITIONS, rule 3b),
+    then the readers' list (DECLARED: the sentences coverage_check.declarations
+    gives, heading first).
+
+    MEASURED (fix 6): {sid: [lean_received.section_report]} for the
+    full_text_held sources. When given, a full_text_held source's sections are
+    split by it: received in full -> SECTIONS_FRAME; the rest (and a source
+    with none in full) -> SEARCHED_FULL_FRAME. A source missing from MEASURED
+    has nothing received. None (a direct call with no measurement): the
+    records' sections as listed, as before."""
     out = []
     q = question_sentence(issue)
     if q:
@@ -123,7 +137,17 @@ def generate(issue: dict, sources: list[dict], search: dict | None = None,
         c = cite(sources, sid)
         out.append({"kind": "reading", "source": sid, "field": "access.state", "sentence": frame % c})
         secs = [_clean(x) for x in acc.get("sections") or [] if _clean(x)]
-        if secs:
+        if measured is not None and acc.get("state") == "full_text_held":
+            rep = {_clean(r["name"]): r for r in measured.get(sid) or []}
+            full = [x for x in secs if (rep.get(x) or {}).get("full")]
+            rest = [x for x in secs if x not in full]
+            if full:
+                out.append({"kind": "reading", "source": sid, "field": "access.sections (received in full)",
+                            "sentence": SECTIONS_FRAME % (c, "; ".join(full))})
+            if rest or not full:
+                out.append({"kind": "reading", "source": sid, "field": "access.sections (not received in full)",
+                            "sentence": SEARCHED_FULL_FRAME % (c, "; ".join(rest) if rest else "it")})
+        elif secs:
             out.append({"kind": "reading", "source": sid, "field": "access.sections",
                         "sentence": SECTIONS_FRAME % (c, "; ".join(secs))})
         nr = [_clean(x) for x in acc.get("not_read") or [] if _clean(x)]
@@ -135,6 +159,9 @@ def generate(issue: dict, sources: list[dict], search: dict | None = None,
         if items:
             out.append({"kind": "reading", "source": None, "field": "sources.json search.%s" % field,
                         "sentence": frame % "; ".join(items)})
+    for e in editions or []:
+        out.append({"kind": "reading", "source": None, "field": "lean_editions %s" % e["key"],
+                    "sentence": e["sentence"]})
     if declared:
         import coverage_check as C
         out.append({"kind": "scope", "source": None, "field": "coverage_check.HEADING", "sentence": C.HEADING})
@@ -147,20 +174,34 @@ def generate(issue: dict, sources: list[dict], search: dict | None = None,
     return out
 
 
-def load(slug: str) -> tuple[dict, list[dict], dict, list[dict]]:
+def load(slug: str) -> tuple:
     """(issue.json, sources.json's sources, its search record, the declared
-    findings); empty for an issue with no records."""
+    findings, the measurement (fix 6), the newer-edition lines (rule 3b));
+    empty for an issue with no records."""
     import source_store as store
     try:
         case = store.case_dir(slug)
     except (Exception, SystemExit):          # case_dir exits for an unknown slug
         return {}, [], {}, []
     if not (case / "issue.json").exists():
-        return {}, [], {}, []
+        return {}, [], {}, [], {}, []
     issue = json.loads((case / "issue.json").read_text(encoding="utf-8"))
     sp = case / "sources.json"
     doc = json.loads(sp.read_text(encoding="utf-8")) if sp.exists() else {}
-    return issue, doc.get("sources") or [], doc.get("search") or {}, declared_of(slug)
+    srcs = doc.get("sources") or []
+    import lean_editions as LE
+    return (issue, srcs, doc.get("search") or {}, declared_of(slug), measured_of(slug, srcs),
+            LE.lines(case))
+
+
+def measured_of(slug: str, sources: list[dict]) -> dict:
+    """{sid: [section_report]} (lean_received.measure); {} -- nothing received --
+    when it cannot run, so a failure never reads as "read"."""
+    import lean_received as LR
+    try:
+        return {sid: v["sections"] for sid, v in LR.measure(slug, sources=sources).items()}
+    except (Exception, SystemExit):
+        return {}
 
 
 def declared_of(slug: str) -> list[dict]:

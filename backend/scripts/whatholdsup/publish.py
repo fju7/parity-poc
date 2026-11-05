@@ -1854,6 +1854,17 @@ def preflight(slug: str, *, for_email: bool,
             out.extend(lean_sentences.preflight_rows(slug))
         except BaseException as exc:
             out.append((lean_sentences.ROW, BAD, "did not run: %s: %s" % (type(exc).__name__, exc)))
+        # Fixes 4-6 and rule 3b (process doc §4.6.1, "What 'we read' means";
+        # advisor, 5 November 2026). BLOCKED when they cannot run, as above.
+        try:
+            out.extend(_sibling("lean_reading").preflight_rows(slug))
+        except BaseException as exc:
+            out.append(("reading statement matches what the checking stages received", BAD,
+                        "did not run: %s: %s" % (type(exc).__name__, exc)))
+        try:
+            out.extend(_sibling("lean_editions").preflight_rows(slug))
+        except BaseException as exc:
+            out.append(("newer editions handled", BAD, "did not run: %s: %s" % (type(exc).__name__, exc)))
 
     # Fix 2: BLOCKED when they cannot run, as above.
     try:

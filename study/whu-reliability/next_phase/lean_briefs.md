@@ -726,3 +726,604 @@ REPORT, at the end or at any stop:
 - items sent to a person;
 - every commit hash, and the "main -> main" line of each push.
 ```
+
+## WHU-Q1-01b (whu-lean-q1-01b): re-run with a fresh drafter on the second freeze
+
+Changes from round 1's brief:
+
+- 1 x 'You are a FRESH drafting session: What Holds Up (WHU) quarterly round 1, questio' -> 'You are a FRESH drafting session: What Holds Up (WHU) lean four-question test ("'
+- 7 x 'issues/WHU-Q1-01-whu-quarterly-r1-01/' -> 'issues/WHU-L1-01b-whu-lean-q1-01b/'
+- 1 x 'It is a quarterly-round question, outside the reliability study.' -> "It is a lean-test question (round 1's question, asked again of lean WHU), outsid"
+- 1 x "- Any other issue's case folder, including the three other round-1 questions (is" -> "- Any other issue's case folder, including all four round-1 questions (issues/WH"
+- 1 x 'If you open one of the paths above by accident, stop and tell Fred which one.' -> 'If you open one of the paths above by accident, stop and report which one.'
+- 1 x 'WHU-Q1-01 (quarterly round 1): <what>' -> 'WHU-L1-01b (lean test): <what>'
+- 1 x '~/Projects/whu-study-private/WHU-Q1-01-whu-quarterly-r1-01/' -> '~/Projects/whu-study-private/WHU-L1-01b-whu-lean-q1-01b/'
+- 1 x '- spend on whu-quarterly-r1-01 and on all five round-1 ledger issues;' -> '- spend on whu-lean-q1-01b and on all lean-test ledger issues (whu-lean-q1-01 to'
+- 1 x '   - Write the protected sentences (§4.5, fix 1) plainly: the question restateme' -> '   - Protected sentences: GENERATED (see LEAN SWITCH): fill the records and past'
+- CAPS block -> lean caps ($10 run cap, $60 day cap, $50 room rule)
+- 37 x slug whu-quarterly-r1-01 -> whu-lean-q1-01b
+- LEAN SWITCH block inserted before THE SEQUENCE
+- LEAN SWITCH: two lines added (advisor's rulings after Q1-04, 4): '- Never run a stage twice in parallel: start a paid stage only after the previous run of every stage has finished, and never start a second copy of a stage that is still running.\n- Never fetch, add or switch to another edition of a source yourself, and never rebind a sentence to one: a gate recency finding about a newer edition is settled by code (process doc §4.6.1, rule 3b).'
+- DO NOT READ: one line added (advisor ruling 2026-11-05, after Q1-01): '- Do not open, search, list or grep inside any issues/ folder other than your own; for format examples use the process doc and backend/scripts only.'
+- DO NOT READ: the line forbidding every earlier lean attempt (advisor's rulings after Q1-04, 5): '- The earlier lean attempts at this question: issues/WHU-L1-01-whu-lean-q1-01/; their private archives ~/Projects/whu-study-private/WHU-L1-01-whu-lean-q1-01/; their library records backend/data/whatholdsup/library/issues/whu-lean-q1-01.json; and their git history.'
+- DO NOT READ: Q1-01's re-run also carries the line added for Q1-02 to Q1-04 after Q1-01 (no other issues/ folder): it forbids the earlier attempt's folder too
+
+Prompt sha256: `6c1423d1328f6ffff8961514311225a08b3c41247b606814b257ddc06cc4649a`
+
+```text
+You are a FRESH drafting session: What Holds Up (WHU) lean four-question test ("lean + machine scope notes"), question WHU-Q1-01. You run this one issue end to end, from the premise to `publish.py check whu-lean-q1-01b` printing `Ready.`. The work is paid and metered.
+
+Repo: /Users/fredugast/Projects/parity-poc-repo, on main only. Never create a branch or a worktree.
+- Case directory: issues/WHU-L1-01b-whu-lean-q1-01b/
+- Slug and ledger issue: whu-lean-q1-01b
+- Page: issues/WHU-L1-01b-whu-lean-q1-01b/draft/whu-lean-q1-01b.html
+- `py` means backend/venv/bin/python3. Every command runs from the repository root.
+- Read the clock with `date -u +%Y-%m-%dT%H:%M:%SZ`. Never estimate the time.
+
+READ FIRST
+- CLAUDE.md.
+- docs/whatholdsup-process.md: §0-§5 and §4.5 (the post-study runbook).
+- docs/whu-fix3-evidence-standard.md §3 ONLY (the rule).
+- issues/WHU-L1-01b-whu-lean-q1-01b/issue.json. Its "study": true is only so the tools run and publish refuses it. It is a lean-test question (round 1's question, asked again of lean WHU), outside the reliability study.
+
+DO NOT READ (blinding; these are rules, not suggestions)
+- Any answer key (any key.json), and anything under ~/Projects/whu-study-private/. The only exception is step 11: you create your own new subfolder and write into it, and read nothing else there.
+- study/whu-reliability/, all of it: the round-1 protocol, its draw records and deviations log, these briefs, the capture instructions, RUN.md, frames, answers and results.
+- Any judge output or score, and any answer to this question from another system (Claude Research, ChatGPT, Gemini, Perplexity).
+- Any other issue's case folder, including all four round-1 questions (issues/WHU-Q1-*, this question's round-1 folder too) and the other lean-test questions (issues/WHU-L1-*), and their git history.
+- Tests or fixtures that name a round-1 question. Running the suite through the pre-commit hook is allowed.
+- Do not open, search, list or grep inside any issues/ folder other than your own; for format examples use the process doc and backend/scripts only.
+- The earlier lean attempts at this question: issues/WHU-L1-01-whu-lean-q1-01/; their private archives ~/Projects/whu-study-private/WHU-L1-01-whu-lean-q1-01/; their library records backend/data/whatholdsup/library/issues/whu-lean-q1-01.json; and their git history.
+
+The library holds documents from earlier runs. Research starts from the question, never from the library's list. If you open one of the paths above by accident, stop and report which one.
+
+CAPS (never --no-verify, --waive, --past-cap, --past-issue-cap or WHU_SPEND_OVERRIDE)
+- Run cap: $10 for this issue (lean test, validity_plan.md §10). Where a stage takes --cap, pass ($10 minus this issue's spend: `py backend/scripts/spend_ledger.py --issue whu-lean-q1-01b`). Hitting it is a result, not a reason to raise it.
+- Day cap (caps.json default_per_day): $60 per UTC day, covering EVERY ledger line, including other sessions. Never edit caps.json yourself. Before every paid stage, check that today's ledger total plus the stage's printed estimate is at most $50; if not, do not start it: record it and stop.
+- A stage that prints NOT STARTED for the day cap: record it in the study log, stop, and resume after the next 00:00 UTC with the stage's own resume command.
+- If the answer cannot reach `Ready.` within the caps, that is a result. Record it and stop. No cap is raised.
+
+LEAN SWITCH (lean four-question test, "lean + machine scope notes"; added to round 1's brief)
+- Every command runs with WHU_LEAN=1 in its environment: write `WHU_LEAN=1 py ...` for every `py` command. A command run without it is not this run.
+- Read docs/whatholdsup-process.md §4.6 and §4.6.1 as well as §4.5. Where they differ from §4.5, §4.6 and §4.6.1 govern.
+- Protected sentences are GENERATED, never written by hand: the question restatement and what we held, read and did not read come from issue.json and sources.json (`access.state`, `access.sections`, `access.not_read`); what we searched and did not search comes from a top-level `"search": {"searched": [...], "not_searched": [...]}` in sources.json. Fill those records, then paste the output of `WHU_LEAN=1 py backend/scripts/whatholdsup/lean_sentences.py whu-lean-q1-01b render`. The readers' list is pasted from `WHU_LEAN=1 py backend/scripts/whatholdsup/coverage_check.py whu-lean-q1-01b render`. A protected sentence written by hand is cut by the audit and stops the preflight.
+- No person takes part in this run. Wherever this brief says a person, Fred or OPERATOR STEPS is needed, you STOP instead: record in study_log.md exactly which step needed a person and why, and end with the REPORT. Never write human_reads.jsonl, person_decisions.md, protected_signoffs.json or any signed field naming a person.
+- Never run a stage twice in parallel: start a paid stage only after the previous run of every stage has finished, and never start a second copy of a stage that is still running.
+- Never fetch, add or switch to another edition of a source yourself, and never rebind a sentence to one: a gate recency finding about a newer edition is settled by code (process doc §4.6.1, rule 3b).
+
+THE SEQUENCE
+The post-study runbook is §4.5 plus fix 3. The frozen RUN.md does NOT govern this run. Keep issues/WHU-L1-01b-whu-lean-q1-01b/study_log.md with one row per stage:
+
+| stage | start (UTC) | end (UTC) | metered spend | operator minutes | outcome |
+
+1. Premise, written BEFORE any source is opened.
+   - Run `py backend/scripts/whatholdsup/premise.py init whu-lean-q1-01b`.
+   - Fill the belief and the kill condition.
+   - Fill `scope` {covers, out[{what, why}], by, written_at}.
+   - Fill `evidence_standard` {weighs: measured and/or assessed, measured, assessed, when_they_differ: "state both", by, written_at}.
+   - Run `premise.py status whu-lean-q1-01b`.
+2. Sources.
+   - PUBLISHER TERMS (study rule after WHU-S05): never fetch, hold, quote from or pass to a model any copy from Elsevier (sciencedirect.com, thelancet.com, cell.com), Wiley (onlinelibrary.wiley.com, cochranelibrary.com), SAGE (journals.sagepub.com) or NCCN, UNLESS Europe PMC lists that article under a CC licence. Use the Europe PMC/PMC CC copy or an institutional repository copy instead. If neither exists, record the source as not held, with the reason "publisher terms". If acquire_sources.py has already fetched such a copy, do not use it: stop and tell Fred, naming the source.
+   - Write sources.json, then run `py backend/scripts/whatholdsup/acquire_sources.py whu-lean-q1-01b`. For an IPCC AR6 WGII or WGIII chapter, it adds that report's SPM.
+   - Run `source_store.py whu-lean-q1-01b status`.
+   - 2a. A source the scripts cannot fetch needs a person: see OPERATOR STEPS below. (ipcc.ch's HTML pages may answer scripts with HTTP 403; its PDF downloads have answered. A 403 is never worked around.)
+   - 2b. Run `errata.py whu-lean-q1-01b`, then `sweep_sources.py resolve whu-lean-q1-01b --write`, then `sweep_registry.py registry whu-lean-q1-01b` if a trial registry record is held.
+   - 2c. Run `canary.py whu-lean-q1-01b`, again after any source is added, and again before step 10.
+3. Draft and bind.
+   - Write the page.
+   - Run `bindings.py whu-lean-q1-01b scan`, bind every row, then run `bindings.py whu-lean-q1-01b check` and `status`.
+   - Run `lint_claims.py <page> --slug whu-lean-q1-01b`.
+   - If the page quotes a passage, run `quotations.py whu-lean-q1-01b --page <page> --init`, fill each quotation, and re-run without --init until nothing is BLOCKED.
+   - Protected sentences: GENERATED (see LEAN SWITCH): fill the records and paste `lean_sentences.py whu-lean-q1-01b render`.
+   - 3a. Write the visible source list. Run `bibbind.py whu-lean-q1-01b` and bind what it proposes, then `sources_shown.py whu-lean-q1-01b`.
+   - 3c. Coverage (§4.5): run `coverage_check.py whu-lean-q1-01b`. Every headline unit must be used, added, or declared, with `declare <key> out_of_scope|not_material --why ... --by ...`. Render the readers' list ("Findings in our sources we judged outside this question") with `coverage_check.py whu-lean-q1-01b render`.
+   - 3d. Fix 3, paid at about $0.02 per candidate. Run `ruling.py judgements whu-lean-q1-01b --cap <cap>`. State each relevant judgement on the page with its certainty or confidence terms, bound inside it, or declare it on the readers' list.
+   - 3b. Commit the first full draft (see COMMITS). This commit is the "first full draft" for the protected-sentences row and for changecheck.
+4. Gate, at most three runs in all, counting 7d.
+   - Run `py backend/scripts/signal/factcheck_draft.py <page> --dry-run`.
+   - Then run it again without --dry-run, with `--report <page>.gate.json`.
+   - 4b. Run `source_advocate.py run whu-lean-q1-01b --page <page>`, then `ruling.py advocate whu-lean-q1-01b`, which rules MISSTATES objections.
+   - 4c. Apply the accepted rulings word for word. Re-run the step-3 checks, then `applied_check.py whu-lean-q1-01b`, then the GAP-016 check: `applied_check.py whu-lean-q1-01b --dangling`, and `ruling.py dangling whu-lean-q1-01b` if it lists anything. Repeat until clean.
+   - 4d. Run `ruling.py omissions whu-lean-q1-01b` (LEAVES_OUT objections).
+   - 4e. Insert each ADD word for word directly after the sentence it names, and bind it with "origin": "omission_add". Then run applied_check and --dangling as in 4c. Any declarations go on the readers' list.
+5. Run `findings.py whu-lean-q1-01b --report <page>.gate.json --scan`, then `ruling.py gate whu-lean-q1-01b`.
+   - 5a. Apply as in 4c.
+6. Run `conclusion_judge.py whu-lean-q1-01b`, then `ruling.py conclusions whu-lean-q1-01b`.
+   - 6a. Apply as in 4c.
+7. Audit: `audit_stage.py run whu-lean-q1-01b --cap <cap>`, then `consistency.py audit whu-lean-q1-01b <stamp>`.
+   - 7a. Sentences that need a person go to Fred (OPERATOR STEPS). A sentence left unread is cut, and the cut is logged.
+   - 7b. Apply every accepted wording or cut from the audit's logs word for word, then run the step-3 checks, applied_check and --dangling.
+   - 7c. Re-audit until the preflight's "audit complete" row is ok.
+   - 7d. Run the final narrow gate with `--changed-since <page>.gate.json` (dry run first), then step 5 on its findings.
+8. Commit.
+9. Run `changecheck.py whu-lean-q1-01b --page <page> --before <3b commit>`. If it reports findings, run `ruling.py changecheck whu-lean-q1-01b` and apply as in 4c.
+   - 9a. Run `changecheck_coverage.py whu-lean-q1-01b --first <3b commit>`.
+10. Run `publish.py check whu-lean-q1-01b` until it prints `Ready.`. A STOP sends you back to the stage that owns the row. The rows added after the study are:
+    - "protected sentences kept";
+    - "omission objections ruled";
+    - "headline conclusions accounted for";
+    - "declared findings shown to readers";
+    - "assessment judgements stated";
+    - the premise rows "scope declared" and "evidence standard declared".
+
+    Never run publish, update or announce. They refuse this issue anyway.
+11. Private archive. Copy every git-ignored file under issues/WHU-L1-01b-whu-lean-q1-01b/ to a NEW folder, ~/Projects/whu-study-private/WHU-L1-01b-whu-lean-q1-01b/<UTC stamp>/, with paths kept. Write their sha256 list to issues/WHU-L1-01b-whu-lean-q1-01b/private_manifest.txt and commit it. Do the same at the end of any day that stops mid-run.
+
+Steps 5 to 9a repeat in order whenever a later step changes the page. Ruling text is applied word for word, never paraphrased. Signer fields follow CLAUDE.md "RULE — Who may be named in a WHU signed field". You write your own agent name, never Fred's.
+
+OPERATOR STEPS
+When a person is needed (a source a script cannot fetch, a HUMAN_READ_REQUIRED sentence, a sign-off, anything for a person), STOP and give Fred numbered steps:
+- exactly what to open, from where, and what to do;
+- downloads go to ~/Downloads ONLY, and his advisor places them;
+- the exact command that takes each file in, for example `source_store.py whu-lean-q1-01b add <Sxxx> <file> --url <url> --via "<how, by whom>"`.
+
+Then wait. Never sign in, create an account, pay, or get past a paywall or bot wall.
+
+COMMITS (Fred's instruction: commit and push)
+- Commit only paths under issues/WHU-L1-01b-whu-lean-q1-01b/, with plain commits: `git add <those paths>`, check `git diff --cached --name-only` shows only them, then `git commit -m "WHU-L1-01b (lean test): <what>"`.
+- The .gitignore keeps out audit/, rulings/, bindings.json, quotations.json and gate reports. Never force-add them.
+- Do not commit the ledger, the library, CLAUDE.md or any other path, even if you find it modified.
+- Never use --no-verify or --amend. If the pre-commit hook fails, stop and report its output.
+- After each commit, run `git push origin main` and confirm the output shows `<old>..<new>  main -> main`. "Everything up-to-date" with no such line is a failed push.
+- If the push is rejected, stop and report. Never force-push.
+
+REPORT, at the end or at any stop:
+- where you stopped and why, and say plainly whether this run is FINISHED (Ready., or stopped for good);
+- the study log;
+- spend on whu-lean-q1-01b and on all lean-test ledger issues (whu-lean-q1-01 to -04 and whu-lean-q1-01b);
+- each preflight row;
+- ADD sentences and declarations against their budgets;
+- judgement candidates, relevant and stated;
+- items sent to a person;
+- every commit hash, and the "main -> main" line of each push.
+```
+
+## WHU-Q1-02b (whu-lean-q1-02b): re-run with a fresh drafter on the second freeze
+
+Changes from round 1's brief:
+
+- 1 x 'You are a FRESH drafting session: What Holds Up (WHU) quarterly round 1, questio' -> 'You are a FRESH drafting session: What Holds Up (WHU) lean four-question test ("'
+- 7 x 'issues/WHU-Q1-02-whu-quarterly-r1-02/' -> 'issues/WHU-L1-02b-whu-lean-q1-02b/'
+- 1 x 'It is a quarterly-round question, outside the reliability study.' -> "It is a lean-test question (round 1's question, asked again of lean WHU), outsid"
+- 1 x "- Any other issue's case folder, including the three other round-1 questions (is" -> "- Any other issue's case folder, including all four round-1 questions (issues/WH"
+- 1 x 'If you open one of the paths above by accident, stop and tell Fred which one.' -> 'If you open one of the paths above by accident, stop and report which one.'
+- 1 x 'WHU-Q1-02 (quarterly round 1): <what>' -> 'WHU-L1-02b (lean test): <what>'
+- 1 x '~/Projects/whu-study-private/WHU-Q1-02-whu-quarterly-r1-02/' -> '~/Projects/whu-study-private/WHU-L1-02b-whu-lean-q1-02b/'
+- 1 x '- spend on whu-quarterly-r1-02 and on all five round-1 ledger issues;' -> '- spend on whu-lean-q1-02b and on all lean-test ledger issues (whu-lean-q1-01 to'
+- 1 x '   - Write the protected sentences (§4.5, fix 1) plainly: the question restateme' -> '   - Protected sentences: GENERATED (see LEAN SWITCH): fill the records and past'
+- CAPS block -> lean caps ($10 run cap, $60 day cap, $50 room rule)
+- 37 x slug whu-quarterly-r1-02 -> whu-lean-q1-02b
+- LEAN SWITCH block inserted before THE SEQUENCE
+- LEAN SWITCH: two lines added (advisor's rulings after Q1-04, 4): '- Never run a stage twice in parallel: start a paid stage only after the previous run of every stage has finished, and never start a second copy of a stage that is still running.\n- Never fetch, add or switch to another edition of a source yourself, and never rebind a sentence to one: a gate recency finding about a newer edition is settled by code (process doc §4.6.1, rule 3b).'
+- DO NOT READ: one line added (advisor ruling 2026-11-05, after Q1-01): '- Do not open, search, list or grep inside any issues/ folder other than your own; for format examples use the process doc and backend/scripts only.'
+- DO NOT READ: the line forbidding every earlier lean attempt (advisor's rulings after Q1-04, 5): '- The earlier lean attempts at this question: issues/WHU-L1-02-whu-lean-q1-02/, issues/WHU-L1-02r-whu-lean-q1-02r/; their private archives ~/Projects/whu-study-private/WHU-L1-02-whu-lean-q1-02/, ~/Projects/whu-study-private/WHU-L1-02r-whu-lean-q1-02r/; their library records backend/data/whatholdsup/library/issues/whu-lean-q1-02.json, backend/data/whatholdsup/library/issues/whu-lean-q1-02r.json; and their git history.'
+
+Prompt sha256: `ea4f2b42923d5a35e9ea321d015968c40da0f2cf9e8831d84533711ad52f897a`
+
+```text
+You are a FRESH drafting session: What Holds Up (WHU) lean four-question test ("lean + machine scope notes"), question WHU-Q1-02. You run this one issue end to end, from the premise to `publish.py check whu-lean-q1-02b` printing `Ready.`. The work is paid and metered.
+
+Repo: /Users/fredugast/Projects/parity-poc-repo, on main only. Never create a branch or a worktree.
+- Case directory: issues/WHU-L1-02b-whu-lean-q1-02b/
+- Slug and ledger issue: whu-lean-q1-02b
+- Page: issues/WHU-L1-02b-whu-lean-q1-02b/draft/whu-lean-q1-02b.html
+- `py` means backend/venv/bin/python3. Every command runs from the repository root.
+- Read the clock with `date -u +%Y-%m-%dT%H:%M:%SZ`. Never estimate the time.
+
+READ FIRST
+- CLAUDE.md.
+- docs/whatholdsup-process.md: §0-§5 and §4.5 (the post-study runbook).
+- docs/whu-fix3-evidence-standard.md §3 ONLY (the rule).
+- issues/WHU-L1-02b-whu-lean-q1-02b/issue.json. Its "study": true is only so the tools run and publish refuses it. It is a lean-test question (round 1's question, asked again of lean WHU), outside the reliability study.
+
+DO NOT READ (blinding; these are rules, not suggestions)
+- Any answer key (any key.json), and anything under ~/Projects/whu-study-private/. The only exception is step 11: you create your own new subfolder and write into it, and read nothing else there.
+- study/whu-reliability/, all of it: the round-1 protocol, its draw records and deviations log, these briefs, the capture instructions, RUN.md, frames, answers and results.
+- Any judge output or score, and any answer to this question from another system (Claude Research, ChatGPT, Gemini, Perplexity).
+- Any other issue's case folder, including all four round-1 questions (issues/WHU-Q1-*, this question's round-1 folder too) and the other lean-test questions (issues/WHU-L1-*), and their git history.
+- Tests or fixtures that name a round-1 question. Running the suite through the pre-commit hook is allowed.
+- Do not open, search, list or grep inside any issues/ folder other than your own; for format examples use the process doc and backend/scripts only.
+- The earlier lean attempts at this question: issues/WHU-L1-02-whu-lean-q1-02/, issues/WHU-L1-02r-whu-lean-q1-02r/; their private archives ~/Projects/whu-study-private/WHU-L1-02-whu-lean-q1-02/, ~/Projects/whu-study-private/WHU-L1-02r-whu-lean-q1-02r/; their library records backend/data/whatholdsup/library/issues/whu-lean-q1-02.json, backend/data/whatholdsup/library/issues/whu-lean-q1-02r.json; and their git history.
+
+The library holds documents from earlier runs. Research starts from the question, never from the library's list. If you open one of the paths above by accident, stop and report which one.
+
+CAPS (never --no-verify, --waive, --past-cap, --past-issue-cap or WHU_SPEND_OVERRIDE)
+- Run cap: $10 for this issue (lean test, validity_plan.md §10). Where a stage takes --cap, pass ($10 minus this issue's spend: `py backend/scripts/spend_ledger.py --issue whu-lean-q1-02b`). Hitting it is a result, not a reason to raise it.
+- Day cap (caps.json default_per_day): $60 per UTC day, covering EVERY ledger line, including other sessions. Never edit caps.json yourself. Before every paid stage, check that today's ledger total plus the stage's printed estimate is at most $50; if not, do not start it: record it and stop.
+- A stage that prints NOT STARTED for the day cap: record it in the study log, stop, and resume after the next 00:00 UTC with the stage's own resume command.
+- If the answer cannot reach `Ready.` within the caps, that is a result. Record it and stop. No cap is raised.
+
+LEAN SWITCH (lean four-question test, "lean + machine scope notes"; added to round 1's brief)
+- Every command runs with WHU_LEAN=1 in its environment: write `WHU_LEAN=1 py ...` for every `py` command. A command run without it is not this run.
+- Read docs/whatholdsup-process.md §4.6 and §4.6.1 as well as §4.5. Where they differ from §4.5, §4.6 and §4.6.1 govern.
+- Protected sentences are GENERATED, never written by hand: the question restatement and what we held, read and did not read come from issue.json and sources.json (`access.state`, `access.sections`, `access.not_read`); what we searched and did not search comes from a top-level `"search": {"searched": [...], "not_searched": [...]}` in sources.json. Fill those records, then paste the output of `WHU_LEAN=1 py backend/scripts/whatholdsup/lean_sentences.py whu-lean-q1-02b render`. The readers' list is pasted from `WHU_LEAN=1 py backend/scripts/whatholdsup/coverage_check.py whu-lean-q1-02b render`. A protected sentence written by hand is cut by the audit and stops the preflight.
+- No person takes part in this run. Wherever this brief says a person, Fred or OPERATOR STEPS is needed, you STOP instead: record in study_log.md exactly which step needed a person and why, and end with the REPORT. Never write human_reads.jsonl, person_decisions.md, protected_signoffs.json or any signed field naming a person.
+- Never run a stage twice in parallel: start a paid stage only after the previous run of every stage has finished, and never start a second copy of a stage that is still running.
+- Never fetch, add or switch to another edition of a source yourself, and never rebind a sentence to one: a gate recency finding about a newer edition is settled by code (process doc §4.6.1, rule 3b).
+
+THE SEQUENCE
+The post-study runbook is §4.5 plus fix 3. The frozen RUN.md does NOT govern this run. Keep issues/WHU-L1-02b-whu-lean-q1-02b/study_log.md with one row per stage:
+
+| stage | start (UTC) | end (UTC) | metered spend | operator minutes | outcome |
+
+1. Premise, written BEFORE any source is opened.
+   - Run `py backend/scripts/whatholdsup/premise.py init whu-lean-q1-02b`.
+   - Fill the belief and the kill condition.
+   - Fill `scope` {covers, out[{what, why}], by, written_at}.
+   - Fill `evidence_standard` {weighs: measured and/or assessed, measured, assessed, when_they_differ: "state both", by, written_at}.
+   - Run `premise.py status whu-lean-q1-02b`.
+2. Sources.
+   - PUBLISHER TERMS (study rule after WHU-S05): never fetch, hold, quote from or pass to a model any copy from Elsevier (sciencedirect.com, thelancet.com, cell.com), Wiley (onlinelibrary.wiley.com, cochranelibrary.com), SAGE (journals.sagepub.com) or NCCN, UNLESS Europe PMC lists that article under a CC licence. Use the Europe PMC/PMC CC copy or an institutional repository copy instead. If neither exists, record the source as not held, with the reason "publisher terms". If acquire_sources.py has already fetched such a copy, do not use it: stop and tell Fred, naming the source.
+   - Write sources.json, then run `py backend/scripts/whatholdsup/acquire_sources.py whu-lean-q1-02b`. For an IPCC AR6 WGII or WGIII chapter, it adds that report's SPM.
+   - Run `source_store.py whu-lean-q1-02b status`.
+   - 2a. A source the scripts cannot fetch needs a person: see OPERATOR STEPS below. (ipcc.ch's HTML pages may answer scripts with HTTP 403; its PDF downloads have answered. A 403 is never worked around.)
+   - 2b. Run `errata.py whu-lean-q1-02b`, then `sweep_sources.py resolve whu-lean-q1-02b --write`, then `sweep_registry.py registry whu-lean-q1-02b` if a trial registry record is held.
+   - 2c. Run `canary.py whu-lean-q1-02b`, again after any source is added, and again before step 10.
+3. Draft and bind.
+   - Write the page.
+   - Run `bindings.py whu-lean-q1-02b scan`, bind every row, then run `bindings.py whu-lean-q1-02b check` and `status`.
+   - Run `lint_claims.py <page> --slug whu-lean-q1-02b`.
+   - If the page quotes a passage, run `quotations.py whu-lean-q1-02b --page <page> --init`, fill each quotation, and re-run without --init until nothing is BLOCKED.
+   - Protected sentences: GENERATED (see LEAN SWITCH): fill the records and paste `lean_sentences.py whu-lean-q1-02b render`.
+   - 3a. Write the visible source list. Run `bibbind.py whu-lean-q1-02b` and bind what it proposes, then `sources_shown.py whu-lean-q1-02b`.
+   - 3c. Coverage (§4.5): run `coverage_check.py whu-lean-q1-02b`. Every headline unit must be used, added, or declared, with `declare <key> out_of_scope|not_material --why ... --by ...`. Render the readers' list ("Findings in our sources we judged outside this question") with `coverage_check.py whu-lean-q1-02b render`.
+   - 3d. Fix 3, paid at about $0.02 per candidate. Run `ruling.py judgements whu-lean-q1-02b --cap <cap>`. State each relevant judgement on the page with its certainty or confidence terms, bound inside it, or declare it on the readers' list.
+   - 3b. Commit the first full draft (see COMMITS). This commit is the "first full draft" for the protected-sentences row and for changecheck.
+4. Gate, at most three runs in all, counting 7d.
+   - Run `py backend/scripts/signal/factcheck_draft.py <page> --dry-run`.
+   - Then run it again without --dry-run, with `--report <page>.gate.json`.
+   - 4b. Run `source_advocate.py run whu-lean-q1-02b --page <page>`, then `ruling.py advocate whu-lean-q1-02b`, which rules MISSTATES objections.
+   - 4c. Apply the accepted rulings word for word. Re-run the step-3 checks, then `applied_check.py whu-lean-q1-02b`, then the GAP-016 check: `applied_check.py whu-lean-q1-02b --dangling`, and `ruling.py dangling whu-lean-q1-02b` if it lists anything. Repeat until clean.
+   - 4d. Run `ruling.py omissions whu-lean-q1-02b` (LEAVES_OUT objections).
+   - 4e. Insert each ADD word for word directly after the sentence it names, and bind it with "origin": "omission_add". Then run applied_check and --dangling as in 4c. Any declarations go on the readers' list.
+5. Run `findings.py whu-lean-q1-02b --report <page>.gate.json --scan`, then `ruling.py gate whu-lean-q1-02b`.
+   - 5a. Apply as in 4c.
+6. Run `conclusion_judge.py whu-lean-q1-02b`, then `ruling.py conclusions whu-lean-q1-02b`.
+   - 6a. Apply as in 4c.
+7. Audit: `audit_stage.py run whu-lean-q1-02b --cap <cap>`, then `consistency.py audit whu-lean-q1-02b <stamp>`.
+   - 7a. Sentences that need a person go to Fred (OPERATOR STEPS). A sentence left unread is cut, and the cut is logged.
+   - 7b. Apply every accepted wording or cut from the audit's logs word for word, then run the step-3 checks, applied_check and --dangling.
+   - 7c. Re-audit until the preflight's "audit complete" row is ok.
+   - 7d. Run the final narrow gate with `--changed-since <page>.gate.json` (dry run first), then step 5 on its findings.
+8. Commit.
+9. Run `changecheck.py whu-lean-q1-02b --page <page> --before <3b commit>`. If it reports findings, run `ruling.py changecheck whu-lean-q1-02b` and apply as in 4c.
+   - 9a. Run `changecheck_coverage.py whu-lean-q1-02b --first <3b commit>`.
+10. Run `publish.py check whu-lean-q1-02b` until it prints `Ready.`. A STOP sends you back to the stage that owns the row. The rows added after the study are:
+    - "protected sentences kept";
+    - "omission objections ruled";
+    - "headline conclusions accounted for";
+    - "declared findings shown to readers";
+    - "assessment judgements stated";
+    - the premise rows "scope declared" and "evidence standard declared".
+
+    Never run publish, update or announce. They refuse this issue anyway.
+11. Private archive. Copy every git-ignored file under issues/WHU-L1-02b-whu-lean-q1-02b/ to a NEW folder, ~/Projects/whu-study-private/WHU-L1-02b-whu-lean-q1-02b/<UTC stamp>/, with paths kept. Write their sha256 list to issues/WHU-L1-02b-whu-lean-q1-02b/private_manifest.txt and commit it. Do the same at the end of any day that stops mid-run.
+
+Steps 5 to 9a repeat in order whenever a later step changes the page. Ruling text is applied word for word, never paraphrased. Signer fields follow CLAUDE.md "RULE — Who may be named in a WHU signed field". You write your own agent name, never Fred's.
+
+OPERATOR STEPS
+When a person is needed (a source a script cannot fetch, a HUMAN_READ_REQUIRED sentence, a sign-off, anything for a person), STOP and give Fred numbered steps:
+- exactly what to open, from where, and what to do;
+- downloads go to ~/Downloads ONLY, and his advisor places them;
+- the exact command that takes each file in, for example `source_store.py whu-lean-q1-02b add <Sxxx> <file> --url <url> --via "<how, by whom>"`.
+
+Then wait. Never sign in, create an account, pay, or get past a paywall or bot wall.
+
+COMMITS (Fred's instruction: commit and push)
+- Commit only paths under issues/WHU-L1-02b-whu-lean-q1-02b/, with plain commits: `git add <those paths>`, check `git diff --cached --name-only` shows only them, then `git commit -m "WHU-L1-02b (lean test): <what>"`.
+- The .gitignore keeps out audit/, rulings/, bindings.json, quotations.json and gate reports. Never force-add them.
+- Do not commit the ledger, the library, CLAUDE.md or any other path, even if you find it modified.
+- Never use --no-verify or --amend. If the pre-commit hook fails, stop and report its output.
+- After each commit, run `git push origin main` and confirm the output shows `<old>..<new>  main -> main`. "Everything up-to-date" with no such line is a failed push.
+- If the push is rejected, stop and report. Never force-push.
+
+REPORT, at the end or at any stop:
+- where you stopped and why, and say plainly whether this run is FINISHED (Ready., or stopped for good);
+- the study log;
+- spend on whu-lean-q1-02b and on all lean-test ledger issues (whu-lean-q1-01 to -04 and whu-lean-q1-02b);
+- each preflight row;
+- ADD sentences and declarations against their budgets;
+- judgement candidates, relevant and stated;
+- items sent to a person;
+- every commit hash, and the "main -> main" line of each push.
+```
+
+## WHU-Q1-03b (whu-lean-q1-03b): re-run with a fresh drafter on the second freeze
+
+Changes from round 1's brief:
+
+- 1 x 'You are a FRESH drafting session: What Holds Up (WHU) quarterly round 1, questio' -> 'You are a FRESH drafting session: What Holds Up (WHU) lean four-question test ("'
+- 7 x 'issues/WHU-Q1-03-whu-quarterly-r1-03/' -> 'issues/WHU-L1-03b-whu-lean-q1-03b/'
+- 1 x 'It is a quarterly-round question, outside the reliability study.' -> "It is a lean-test question (round 1's question, asked again of lean WHU), outsid"
+- 1 x "- Any other issue's case folder, including the three other round-1 questions (is" -> "- Any other issue's case folder, including all four round-1 questions (issues/WH"
+- 1 x 'If you open one of the paths above by accident, stop and tell Fred which one.' -> 'If you open one of the paths above by accident, stop and report which one.'
+- 1 x 'WHU-Q1-03 (quarterly round 1): <what>' -> 'WHU-L1-03b (lean test): <what>'
+- 1 x '~/Projects/whu-study-private/WHU-Q1-03-whu-quarterly-r1-03/' -> '~/Projects/whu-study-private/WHU-L1-03b-whu-lean-q1-03b/'
+- 1 x '- spend on whu-quarterly-r1-03 and on all five round-1 ledger issues;' -> '- spend on whu-lean-q1-03b and on all lean-test ledger issues (whu-lean-q1-01 to'
+- 1 x '   - Write the protected sentences (§4.5, fix 1) plainly: the question restateme' -> '   - Protected sentences: GENERATED (see LEAN SWITCH): fill the records and past'
+- CAPS block -> lean caps ($10 run cap, $60 day cap, $50 room rule)
+- 37 x slug whu-quarterly-r1-03 -> whu-lean-q1-03b
+- LEAN SWITCH block inserted before THE SEQUENCE
+- LEAN SWITCH: two lines added (advisor's rulings after Q1-04, 4): '- Never run a stage twice in parallel: start a paid stage only after the previous run of every stage has finished, and never start a second copy of a stage that is still running.\n- Never fetch, add or switch to another edition of a source yourself, and never rebind a sentence to one: a gate recency finding about a newer edition is settled by code (process doc §4.6.1, rule 3b).'
+- DO NOT READ: one line added (advisor ruling 2026-11-05, after Q1-01): '- Do not open, search, list or grep inside any issues/ folder other than your own; for format examples use the process doc and backend/scripts only.'
+- DO NOT READ: the line forbidding every earlier lean attempt (advisor's rulings after Q1-04, 5): '- The earlier lean attempts at this question: issues/WHU-L1-03-whu-lean-q1-03/; their private archives ~/Projects/whu-study-private/WHU-L1-03-whu-lean-q1-03/; their library records backend/data/whatholdsup/library/issues/whu-lean-q1-03.json; and their git history.'
+
+Prompt sha256: `2268577e49c3c684845aacaac667681a645f2d79c740f346ed669440b3609bfd`
+
+```text
+You are a FRESH drafting session: What Holds Up (WHU) lean four-question test ("lean + machine scope notes"), question WHU-Q1-03. You run this one issue end to end, from the premise to `publish.py check whu-lean-q1-03b` printing `Ready.`. The work is paid and metered.
+
+Repo: /Users/fredugast/Projects/parity-poc-repo, on main only. Never create a branch or a worktree.
+- Case directory: issues/WHU-L1-03b-whu-lean-q1-03b/
+- Slug and ledger issue: whu-lean-q1-03b
+- Page: issues/WHU-L1-03b-whu-lean-q1-03b/draft/whu-lean-q1-03b.html
+- `py` means backend/venv/bin/python3. Every command runs from the repository root.
+- Read the clock with `date -u +%Y-%m-%dT%H:%M:%SZ`. Never estimate the time.
+
+READ FIRST
+- CLAUDE.md.
+- docs/whatholdsup-process.md: §0-§5 and §4.5 (the post-study runbook).
+- docs/whu-fix3-evidence-standard.md §3 ONLY (the rule).
+- issues/WHU-L1-03b-whu-lean-q1-03b/issue.json. Its "study": true is only so the tools run and publish refuses it. It is a lean-test question (round 1's question, asked again of lean WHU), outside the reliability study.
+
+DO NOT READ (blinding; these are rules, not suggestions)
+- Any answer key (any key.json), and anything under ~/Projects/whu-study-private/. The only exception is step 11: you create your own new subfolder and write into it, and read nothing else there.
+- study/whu-reliability/, all of it: the round-1 protocol, its draw records and deviations log, these briefs, the capture instructions, RUN.md, frames, answers and results.
+- Any judge output or score, and any answer to this question from another system (Claude Research, ChatGPT, Gemini, Perplexity).
+- Any other issue's case folder, including all four round-1 questions (issues/WHU-Q1-*, this question's round-1 folder too) and the other lean-test questions (issues/WHU-L1-*), and their git history.
+- Tests or fixtures that name a round-1 question. Running the suite through the pre-commit hook is allowed.
+- Do not open, search, list or grep inside any issues/ folder other than your own; for format examples use the process doc and backend/scripts only.
+- The earlier lean attempts at this question: issues/WHU-L1-03-whu-lean-q1-03/; their private archives ~/Projects/whu-study-private/WHU-L1-03-whu-lean-q1-03/; their library records backend/data/whatholdsup/library/issues/whu-lean-q1-03.json; and their git history.
+
+The library holds documents from earlier runs. Research starts from the question, never from the library's list. If you open one of the paths above by accident, stop and report which one.
+
+CAPS (never --no-verify, --waive, --past-cap, --past-issue-cap or WHU_SPEND_OVERRIDE)
+- Run cap: $10 for this issue (lean test, validity_plan.md §10). Where a stage takes --cap, pass ($10 minus this issue's spend: `py backend/scripts/spend_ledger.py --issue whu-lean-q1-03b`). Hitting it is a result, not a reason to raise it.
+- Day cap (caps.json default_per_day): $60 per UTC day, covering EVERY ledger line, including other sessions. Never edit caps.json yourself. Before every paid stage, check that today's ledger total plus the stage's printed estimate is at most $50; if not, do not start it: record it and stop.
+- A stage that prints NOT STARTED for the day cap: record it in the study log, stop, and resume after the next 00:00 UTC with the stage's own resume command.
+- If the answer cannot reach `Ready.` within the caps, that is a result. Record it and stop. No cap is raised.
+
+LEAN SWITCH (lean four-question test, "lean + machine scope notes"; added to round 1's brief)
+- Every command runs with WHU_LEAN=1 in its environment: write `WHU_LEAN=1 py ...` for every `py` command. A command run without it is not this run.
+- Read docs/whatholdsup-process.md §4.6 and §4.6.1 as well as §4.5. Where they differ from §4.5, §4.6 and §4.6.1 govern.
+- Protected sentences are GENERATED, never written by hand: the question restatement and what we held, read and did not read come from issue.json and sources.json (`access.state`, `access.sections`, `access.not_read`); what we searched and did not search comes from a top-level `"search": {"searched": [...], "not_searched": [...]}` in sources.json. Fill those records, then paste the output of `WHU_LEAN=1 py backend/scripts/whatholdsup/lean_sentences.py whu-lean-q1-03b render`. The readers' list is pasted from `WHU_LEAN=1 py backend/scripts/whatholdsup/coverage_check.py whu-lean-q1-03b render`. A protected sentence written by hand is cut by the audit and stops the preflight.
+- No person takes part in this run. Wherever this brief says a person, Fred or OPERATOR STEPS is needed, you STOP instead: record in study_log.md exactly which step needed a person and why, and end with the REPORT. Never write human_reads.jsonl, person_decisions.md, protected_signoffs.json or any signed field naming a person.
+- Never run a stage twice in parallel: start a paid stage only after the previous run of every stage has finished, and never start a second copy of a stage that is still running.
+- Never fetch, add or switch to another edition of a source yourself, and never rebind a sentence to one: a gate recency finding about a newer edition is settled by code (process doc §4.6.1, rule 3b).
+
+THE SEQUENCE
+The post-study runbook is §4.5 plus fix 3. The frozen RUN.md does NOT govern this run. Keep issues/WHU-L1-03b-whu-lean-q1-03b/study_log.md with one row per stage:
+
+| stage | start (UTC) | end (UTC) | metered spend | operator minutes | outcome |
+
+1. Premise, written BEFORE any source is opened.
+   - Run `py backend/scripts/whatholdsup/premise.py init whu-lean-q1-03b`.
+   - Fill the belief and the kill condition.
+   - Fill `scope` {covers, out[{what, why}], by, written_at}.
+   - Fill `evidence_standard` {weighs: measured and/or assessed, measured, assessed, when_they_differ: "state both", by, written_at}.
+   - Run `premise.py status whu-lean-q1-03b`.
+2. Sources.
+   - PUBLISHER TERMS (study rule after WHU-S05): never fetch, hold, quote from or pass to a model any copy from Elsevier (sciencedirect.com, thelancet.com, cell.com), Wiley (onlinelibrary.wiley.com, cochranelibrary.com), SAGE (journals.sagepub.com) or NCCN, UNLESS Europe PMC lists that article under a CC licence. Use the Europe PMC/PMC CC copy or an institutional repository copy instead. If neither exists, record the source as not held, with the reason "publisher terms". If acquire_sources.py has already fetched such a copy, do not use it: stop and tell Fred, naming the source.
+   - Write sources.json, then run `py backend/scripts/whatholdsup/acquire_sources.py whu-lean-q1-03b`. For an IPCC AR6 WGII or WGIII chapter, it adds that report's SPM.
+   - Run `source_store.py whu-lean-q1-03b status`.
+   - 2a. A source the scripts cannot fetch needs a person: see OPERATOR STEPS below. (ipcc.ch's HTML pages may answer scripts with HTTP 403; its PDF downloads have answered. A 403 is never worked around.)
+   - 2b. Run `errata.py whu-lean-q1-03b`, then `sweep_sources.py resolve whu-lean-q1-03b --write`, then `sweep_registry.py registry whu-lean-q1-03b` if a trial registry record is held.
+   - 2c. Run `canary.py whu-lean-q1-03b`, again after any source is added, and again before step 10.
+3. Draft and bind.
+   - Write the page.
+   - Run `bindings.py whu-lean-q1-03b scan`, bind every row, then run `bindings.py whu-lean-q1-03b check` and `status`.
+   - Run `lint_claims.py <page> --slug whu-lean-q1-03b`.
+   - If the page quotes a passage, run `quotations.py whu-lean-q1-03b --page <page> --init`, fill each quotation, and re-run without --init until nothing is BLOCKED.
+   - Protected sentences: GENERATED (see LEAN SWITCH): fill the records and paste `lean_sentences.py whu-lean-q1-03b render`.
+   - 3a. Write the visible source list. Run `bibbind.py whu-lean-q1-03b` and bind what it proposes, then `sources_shown.py whu-lean-q1-03b`.
+   - 3c. Coverage (§4.5): run `coverage_check.py whu-lean-q1-03b`. Every headline unit must be used, added, or declared, with `declare <key> out_of_scope|not_material --why ... --by ...`. Render the readers' list ("Findings in our sources we judged outside this question") with `coverage_check.py whu-lean-q1-03b render`.
+   - 3d. Fix 3, paid at about $0.02 per candidate. Run `ruling.py judgements whu-lean-q1-03b --cap <cap>`. State each relevant judgement on the page with its certainty or confidence terms, bound inside it, or declare it on the readers' list.
+   - 3b. Commit the first full draft (see COMMITS). This commit is the "first full draft" for the protected-sentences row and for changecheck.
+4. Gate, at most three runs in all, counting 7d.
+   - Run `py backend/scripts/signal/factcheck_draft.py <page> --dry-run`.
+   - Then run it again without --dry-run, with `--report <page>.gate.json`.
+   - 4b. Run `source_advocate.py run whu-lean-q1-03b --page <page>`, then `ruling.py advocate whu-lean-q1-03b`, which rules MISSTATES objections.
+   - 4c. Apply the accepted rulings word for word. Re-run the step-3 checks, then `applied_check.py whu-lean-q1-03b`, then the GAP-016 check: `applied_check.py whu-lean-q1-03b --dangling`, and `ruling.py dangling whu-lean-q1-03b` if it lists anything. Repeat until clean.
+   - 4d. Run `ruling.py omissions whu-lean-q1-03b` (LEAVES_OUT objections).
+   - 4e. Insert each ADD word for word directly after the sentence it names, and bind it with "origin": "omission_add". Then run applied_check and --dangling as in 4c. Any declarations go on the readers' list.
+5. Run `findings.py whu-lean-q1-03b --report <page>.gate.json --scan`, then `ruling.py gate whu-lean-q1-03b`.
+   - 5a. Apply as in 4c.
+6. Run `conclusion_judge.py whu-lean-q1-03b`, then `ruling.py conclusions whu-lean-q1-03b`.
+   - 6a. Apply as in 4c.
+7. Audit: `audit_stage.py run whu-lean-q1-03b --cap <cap>`, then `consistency.py audit whu-lean-q1-03b <stamp>`.
+   - 7a. Sentences that need a person go to Fred (OPERATOR STEPS). A sentence left unread is cut, and the cut is logged.
+   - 7b. Apply every accepted wording or cut from the audit's logs word for word, then run the step-3 checks, applied_check and --dangling.
+   - 7c. Re-audit until the preflight's "audit complete" row is ok.
+   - 7d. Run the final narrow gate with `--changed-since <page>.gate.json` (dry run first), then step 5 on its findings.
+8. Commit.
+9. Run `changecheck.py whu-lean-q1-03b --page <page> --before <3b commit>`. If it reports findings, run `ruling.py changecheck whu-lean-q1-03b` and apply as in 4c.
+   - 9a. Run `changecheck_coverage.py whu-lean-q1-03b --first <3b commit>`.
+10. Run `publish.py check whu-lean-q1-03b` until it prints `Ready.`. A STOP sends you back to the stage that owns the row. The rows added after the study are:
+    - "protected sentences kept";
+    - "omission objections ruled";
+    - "headline conclusions accounted for";
+    - "declared findings shown to readers";
+    - "assessment judgements stated";
+    - the premise rows "scope declared" and "evidence standard declared".
+
+    Never run publish, update or announce. They refuse this issue anyway.
+11. Private archive. Copy every git-ignored file under issues/WHU-L1-03b-whu-lean-q1-03b/ to a NEW folder, ~/Projects/whu-study-private/WHU-L1-03b-whu-lean-q1-03b/<UTC stamp>/, with paths kept. Write their sha256 list to issues/WHU-L1-03b-whu-lean-q1-03b/private_manifest.txt and commit it. Do the same at the end of any day that stops mid-run.
+
+Steps 5 to 9a repeat in order whenever a later step changes the page. Ruling text is applied word for word, never paraphrased. Signer fields follow CLAUDE.md "RULE — Who may be named in a WHU signed field". You write your own agent name, never Fred's.
+
+OPERATOR STEPS
+When a person is needed (a source a script cannot fetch, a HUMAN_READ_REQUIRED sentence, a sign-off, anything for a person), STOP and give Fred numbered steps:
+- exactly what to open, from where, and what to do;
+- downloads go to ~/Downloads ONLY, and his advisor places them;
+- the exact command that takes each file in, for example `source_store.py whu-lean-q1-03b add <Sxxx> <file> --url <url> --via "<how, by whom>"`.
+
+Then wait. Never sign in, create an account, pay, or get past a paywall or bot wall.
+
+COMMITS (Fred's instruction: commit and push)
+- Commit only paths under issues/WHU-L1-03b-whu-lean-q1-03b/, with plain commits: `git add <those paths>`, check `git diff --cached --name-only` shows only them, then `git commit -m "WHU-L1-03b (lean test): <what>"`.
+- The .gitignore keeps out audit/, rulings/, bindings.json, quotations.json and gate reports. Never force-add them.
+- Do not commit the ledger, the library, CLAUDE.md or any other path, even if you find it modified.
+- Never use --no-verify or --amend. If the pre-commit hook fails, stop and report its output.
+- After each commit, run `git push origin main` and confirm the output shows `<old>..<new>  main -> main`. "Everything up-to-date" with no such line is a failed push.
+- If the push is rejected, stop and report. Never force-push.
+
+REPORT, at the end or at any stop:
+- where you stopped and why, and say plainly whether this run is FINISHED (Ready., or stopped for good);
+- the study log;
+- spend on whu-lean-q1-03b and on all lean-test ledger issues (whu-lean-q1-01 to -04 and whu-lean-q1-03b);
+- each preflight row;
+- ADD sentences and declarations against their budgets;
+- judgement candidates, relevant and stated;
+- items sent to a person;
+- every commit hash, and the "main -> main" line of each push.
+```
+
+## WHU-Q1-04b (whu-lean-q1-04b): re-run with a fresh drafter on the second freeze
+
+Changes from round 1's brief:
+
+- 1 x 'You are a FRESH drafting session: What Holds Up (WHU) quarterly round 1, questio' -> 'You are a FRESH drafting session: What Holds Up (WHU) lean four-question test ("'
+- 7 x 'issues/WHU-Q1-04-whu-quarterly-r1-04/' -> 'issues/WHU-L1-04b-whu-lean-q1-04b/'
+- 1 x 'It is a quarterly-round question, outside the reliability study.' -> "It is a lean-test question (round 1's question, asked again of lean WHU), outsid"
+- 1 x "- Any other issue's case folder, including the three other round-1 questions (is" -> "- Any other issue's case folder, including all four round-1 questions (issues/WH"
+- 1 x 'If you open one of the paths above by accident, stop and tell Fred which one.' -> 'If you open one of the paths above by accident, stop and report which one.'
+- 1 x 'WHU-Q1-04 (quarterly round 1): <what>' -> 'WHU-L1-04b (lean test): <what>'
+- 1 x '~/Projects/whu-study-private/WHU-Q1-04-whu-quarterly-r1-04/' -> '~/Projects/whu-study-private/WHU-L1-04b-whu-lean-q1-04b/'
+- 1 x '- spend on whu-quarterly-r1-04 and on all five round-1 ledger issues;' -> '- spend on whu-lean-q1-04b and on all lean-test ledger issues (whu-lean-q1-01 to'
+- 1 x '   - Write the protected sentences (§4.5, fix 1) plainly: the question restateme' -> '   - Protected sentences: GENERATED (see LEAN SWITCH): fill the records and past'
+- CAPS block -> lean caps ($10 run cap, $60 day cap, $50 room rule)
+- 37 x slug whu-quarterly-r1-04 -> whu-lean-q1-04b
+- LEAN SWITCH block inserted before THE SEQUENCE
+- LEAN SWITCH: two lines added (advisor's rulings after Q1-04, 4): '- Never run a stage twice in parallel: start a paid stage only after the previous run of every stage has finished, and never start a second copy of a stage that is still running.\n- Never fetch, add or switch to another edition of a source yourself, and never rebind a sentence to one: a gate recency finding about a newer edition is settled by code (process doc §4.6.1, rule 3b).'
+- DO NOT READ: one line added (advisor ruling 2026-11-05, after Q1-01): '- Do not open, search, list or grep inside any issues/ folder other than your own; for format examples use the process doc and backend/scripts only.'
+- DO NOT READ: the line forbidding every earlier lean attempt (advisor's rulings after Q1-04, 5): '- The earlier lean attempts at this question: issues/WHU-L1-04-whu-lean-q1-04/; their private archives ~/Projects/whu-study-private/WHU-L1-04-whu-lean-q1-04/; their library records backend/data/whatholdsup/library/issues/whu-lean-q1-04.json; and their git history.'
+
+Prompt sha256: `7d13747b7d11e6d0f3069083dc62c7e3512dd515c340099b99e39398f1b8fff6`
+
+```text
+You are a FRESH drafting session: What Holds Up (WHU) lean four-question test ("lean + machine scope notes"), question WHU-Q1-04. You run this one issue end to end, from the premise to `publish.py check whu-lean-q1-04b` printing `Ready.`. The work is paid and metered.
+
+Repo: /Users/fredugast/Projects/parity-poc-repo, on main only. Never create a branch or a worktree.
+- Case directory: issues/WHU-L1-04b-whu-lean-q1-04b/
+- Slug and ledger issue: whu-lean-q1-04b
+- Page: issues/WHU-L1-04b-whu-lean-q1-04b/draft/whu-lean-q1-04b.html
+- `py` means backend/venv/bin/python3. Every command runs from the repository root.
+- Read the clock with `date -u +%Y-%m-%dT%H:%M:%SZ`. Never estimate the time.
+
+READ FIRST
+- CLAUDE.md.
+- docs/whatholdsup-process.md: §0-§5 and §4.5 (the post-study runbook).
+- docs/whu-fix3-evidence-standard.md §3 ONLY (the rule).
+- issues/WHU-L1-04b-whu-lean-q1-04b/issue.json. Its "study": true is only so the tools run and publish refuses it. It is a lean-test question (round 1's question, asked again of lean WHU), outside the reliability study.
+
+DO NOT READ (blinding; these are rules, not suggestions)
+- Any answer key (any key.json), and anything under ~/Projects/whu-study-private/. The only exception is step 11: you create your own new subfolder and write into it, and read nothing else there.
+- study/whu-reliability/, all of it: the round-1 protocol, its draw records and deviations log, these briefs, the capture instructions, RUN.md, frames, answers and results.
+- Any judge output or score, and any answer to this question from another system (Claude Research, ChatGPT, Gemini, Perplexity).
+- Any other issue's case folder, including all four round-1 questions (issues/WHU-Q1-*, this question's round-1 folder too) and the other lean-test questions (issues/WHU-L1-*), and their git history.
+- Tests or fixtures that name a round-1 question. Running the suite through the pre-commit hook is allowed.
+- Do not open, search, list or grep inside any issues/ folder other than your own; for format examples use the process doc and backend/scripts only.
+- The earlier lean attempts at this question: issues/WHU-L1-04-whu-lean-q1-04/; their private archives ~/Projects/whu-study-private/WHU-L1-04-whu-lean-q1-04/; their library records backend/data/whatholdsup/library/issues/whu-lean-q1-04.json; and their git history.
+
+The library holds documents from earlier runs. Research starts from the question, never from the library's list. If you open one of the paths above by accident, stop and report which one.
+
+CAPS (never --no-verify, --waive, --past-cap, --past-issue-cap or WHU_SPEND_OVERRIDE)
+- Run cap: $10 for this issue (lean test, validity_plan.md §10). Where a stage takes --cap, pass ($10 minus this issue's spend: `py backend/scripts/spend_ledger.py --issue whu-lean-q1-04b`). Hitting it is a result, not a reason to raise it.
+- Day cap (caps.json default_per_day): $60 per UTC day, covering EVERY ledger line, including other sessions. Never edit caps.json yourself. Before every paid stage, check that today's ledger total plus the stage's printed estimate is at most $50; if not, do not start it: record it and stop.
+- A stage that prints NOT STARTED for the day cap: record it in the study log, stop, and resume after the next 00:00 UTC with the stage's own resume command.
+- If the answer cannot reach `Ready.` within the caps, that is a result. Record it and stop. No cap is raised.
+
+LEAN SWITCH (lean four-question test, "lean + machine scope notes"; added to round 1's brief)
+- Every command runs with WHU_LEAN=1 in its environment: write `WHU_LEAN=1 py ...` for every `py` command. A command run without it is not this run.
+- Read docs/whatholdsup-process.md §4.6 and §4.6.1 as well as §4.5. Where they differ from §4.5, §4.6 and §4.6.1 govern.
+- Protected sentences are GENERATED, never written by hand: the question restatement and what we held, read and did not read come from issue.json and sources.json (`access.state`, `access.sections`, `access.not_read`); what we searched and did not search comes from a top-level `"search": {"searched": [...], "not_searched": [...]}` in sources.json. Fill those records, then paste the output of `WHU_LEAN=1 py backend/scripts/whatholdsup/lean_sentences.py whu-lean-q1-04b render`. The readers' list is pasted from `WHU_LEAN=1 py backend/scripts/whatholdsup/coverage_check.py whu-lean-q1-04b render`. A protected sentence written by hand is cut by the audit and stops the preflight.
+- No person takes part in this run. Wherever this brief says a person, Fred or OPERATOR STEPS is needed, you STOP instead: record in study_log.md exactly which step needed a person and why, and end with the REPORT. Never write human_reads.jsonl, person_decisions.md, protected_signoffs.json or any signed field naming a person.
+- Never run a stage twice in parallel: start a paid stage only after the previous run of every stage has finished, and never start a second copy of a stage that is still running.
+- Never fetch, add or switch to another edition of a source yourself, and never rebind a sentence to one: a gate recency finding about a newer edition is settled by code (process doc §4.6.1, rule 3b).
+
+THE SEQUENCE
+The post-study runbook is §4.5 plus fix 3. The frozen RUN.md does NOT govern this run. Keep issues/WHU-L1-04b-whu-lean-q1-04b/study_log.md with one row per stage:
+
+| stage | start (UTC) | end (UTC) | metered spend | operator minutes | outcome |
+
+1. Premise, written BEFORE any source is opened.
+   - Run `py backend/scripts/whatholdsup/premise.py init whu-lean-q1-04b`.
+   - Fill the belief and the kill condition.
+   - Fill `scope` {covers, out[{what, why}], by, written_at}.
+   - Fill `evidence_standard` {weighs: measured and/or assessed, measured, assessed, when_they_differ: "state both", by, written_at}.
+   - Run `premise.py status whu-lean-q1-04b`.
+2. Sources.
+   - PUBLISHER TERMS (study rule after WHU-S05): never fetch, hold, quote from or pass to a model any copy from Elsevier (sciencedirect.com, thelancet.com, cell.com), Wiley (onlinelibrary.wiley.com, cochranelibrary.com), SAGE (journals.sagepub.com) or NCCN, UNLESS Europe PMC lists that article under a CC licence. Use the Europe PMC/PMC CC copy or an institutional repository copy instead. If neither exists, record the source as not held, with the reason "publisher terms". If acquire_sources.py has already fetched such a copy, do not use it: stop and tell Fred, naming the source.
+   - Write sources.json, then run `py backend/scripts/whatholdsup/acquire_sources.py whu-lean-q1-04b`. For an IPCC AR6 WGII or WGIII chapter, it adds that report's SPM.
+   - Run `source_store.py whu-lean-q1-04b status`.
+   - 2a. A source the scripts cannot fetch needs a person: see OPERATOR STEPS below. (ipcc.ch's HTML pages may answer scripts with HTTP 403; its PDF downloads have answered. A 403 is never worked around.)
+   - 2b. Run `errata.py whu-lean-q1-04b`, then `sweep_sources.py resolve whu-lean-q1-04b --write`, then `sweep_registry.py registry whu-lean-q1-04b` if a trial registry record is held.
+   - 2c. Run `canary.py whu-lean-q1-04b`, again after any source is added, and again before step 10.
+3. Draft and bind.
+   - Write the page.
+   - Run `bindings.py whu-lean-q1-04b scan`, bind every row, then run `bindings.py whu-lean-q1-04b check` and `status`.
+   - Run `lint_claims.py <page> --slug whu-lean-q1-04b`.
+   - If the page quotes a passage, run `quotations.py whu-lean-q1-04b --page <page> --init`, fill each quotation, and re-run without --init until nothing is BLOCKED.
+   - Protected sentences: GENERATED (see LEAN SWITCH): fill the records and paste `lean_sentences.py whu-lean-q1-04b render`.
+   - 3a. Write the visible source list. Run `bibbind.py whu-lean-q1-04b` and bind what it proposes, then `sources_shown.py whu-lean-q1-04b`.
+   - 3c. Coverage (§4.5): run `coverage_check.py whu-lean-q1-04b`. Every headline unit must be used, added, or declared, with `declare <key> out_of_scope|not_material --why ... --by ...`. Render the readers' list ("Findings in our sources we judged outside this question") with `coverage_check.py whu-lean-q1-04b render`.
+   - 3d. Fix 3, paid at about $0.02 per candidate. Run `ruling.py judgements whu-lean-q1-04b --cap <cap>`. State each relevant judgement on the page with its certainty or confidence terms, bound inside it, or declare it on the readers' list.
+   - 3b. Commit the first full draft (see COMMITS). This commit is the "first full draft" for the protected-sentences row and for changecheck.
+4. Gate, at most three runs in all, counting 7d.
+   - Run `py backend/scripts/signal/factcheck_draft.py <page> --dry-run`.
+   - Then run it again without --dry-run, with `--report <page>.gate.json`.
+   - 4b. Run `source_advocate.py run whu-lean-q1-04b --page <page>`, then `ruling.py advocate whu-lean-q1-04b`, which rules MISSTATES objections.
+   - 4c. Apply the accepted rulings word for word. Re-run the step-3 checks, then `applied_check.py whu-lean-q1-04b`, then the GAP-016 check: `applied_check.py whu-lean-q1-04b --dangling`, and `ruling.py dangling whu-lean-q1-04b` if it lists anything. Repeat until clean.
+   - 4d. Run `ruling.py omissions whu-lean-q1-04b` (LEAVES_OUT objections).
+   - 4e. Insert each ADD word for word directly after the sentence it names, and bind it with "origin": "omission_add". Then run applied_check and --dangling as in 4c. Any declarations go on the readers' list.
+5. Run `findings.py whu-lean-q1-04b --report <page>.gate.json --scan`, then `ruling.py gate whu-lean-q1-04b`.
+   - 5a. Apply as in 4c.
+6. Run `conclusion_judge.py whu-lean-q1-04b`, then `ruling.py conclusions whu-lean-q1-04b`.
+   - 6a. Apply as in 4c.
+7. Audit: `audit_stage.py run whu-lean-q1-04b --cap <cap>`, then `consistency.py audit whu-lean-q1-04b <stamp>`.
+   - 7a. Sentences that need a person go to Fred (OPERATOR STEPS). A sentence left unread is cut, and the cut is logged.
+   - 7b. Apply every accepted wording or cut from the audit's logs word for word, then run the step-3 checks, applied_check and --dangling.
+   - 7c. Re-audit until the preflight's "audit complete" row is ok.
+   - 7d. Run the final narrow gate with `--changed-since <page>.gate.json` (dry run first), then step 5 on its findings.
+8. Commit.
+9. Run `changecheck.py whu-lean-q1-04b --page <page> --before <3b commit>`. If it reports findings, run `ruling.py changecheck whu-lean-q1-04b` and apply as in 4c.
+   - 9a. Run `changecheck_coverage.py whu-lean-q1-04b --first <3b commit>`.
+10. Run `publish.py check whu-lean-q1-04b` until it prints `Ready.`. A STOP sends you back to the stage that owns the row. The rows added after the study are:
+    - "protected sentences kept";
+    - "omission objections ruled";
+    - "headline conclusions accounted for";
+    - "declared findings shown to readers";
+    - "assessment judgements stated";
+    - the premise rows "scope declared" and "evidence standard declared".
+
+    Never run publish, update or announce. They refuse this issue anyway.
+11. Private archive. Copy every git-ignored file under issues/WHU-L1-04b-whu-lean-q1-04b/ to a NEW folder, ~/Projects/whu-study-private/WHU-L1-04b-whu-lean-q1-04b/<UTC stamp>/, with paths kept. Write their sha256 list to issues/WHU-L1-04b-whu-lean-q1-04b/private_manifest.txt and commit it. Do the same at the end of any day that stops mid-run.
+
+Steps 5 to 9a repeat in order whenever a later step changes the page. Ruling text is applied word for word, never paraphrased. Signer fields follow CLAUDE.md "RULE — Who may be named in a WHU signed field". You write your own agent name, never Fred's.
+
+OPERATOR STEPS
+When a person is needed (a source a script cannot fetch, a HUMAN_READ_REQUIRED sentence, a sign-off, anything for a person), STOP and give Fred numbered steps:
+- exactly what to open, from where, and what to do;
+- downloads go to ~/Downloads ONLY, and his advisor places them;
+- the exact command that takes each file in, for example `source_store.py whu-lean-q1-04b add <Sxxx> <file> --url <url> --via "<how, by whom>"`.
+
+Then wait. Never sign in, create an account, pay, or get past a paywall or bot wall.
+
+COMMITS (Fred's instruction: commit and push)
+- Commit only paths under issues/WHU-L1-04b-whu-lean-q1-04b/, with plain commits: `git add <those paths>`, check `git diff --cached --name-only` shows only them, then `git commit -m "WHU-L1-04b (lean test): <what>"`.
+- The .gitignore keeps out audit/, rulings/, bindings.json, quotations.json and gate reports. Never force-add them.
+- Do not commit the ledger, the library, CLAUDE.md or any other path, even if you find it modified.
+- Never use --no-verify or --amend. If the pre-commit hook fails, stop and report its output.
+- After each commit, run `git push origin main` and confirm the output shows `<old>..<new>  main -> main`. "Everything up-to-date" with no such line is a failed push.
+- If the push is rejected, stop and report. Never force-push.
+
+REPORT, at the end or at any stop:
+- where you stopped and why, and say plainly whether this run is FINISHED (Ready., or stopped for good);
+- the study log;
+- spend on whu-lean-q1-04b and on all lean-test ledger issues (whu-lean-q1-01 to -04 and whu-lean-q1-04b);
+- each preflight row;
+- ADD sentences and declarations against their budgets;
+- judgement candidates, relevant and stated;
+- items sent to a person;
+- every commit hash, and the "main -> main" line of each push.
+```

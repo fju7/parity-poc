@@ -128,3 +128,21 @@ def test_a_rerun_drafter_may_not_read_the_earlier_attempt(tmp_path):
     assert not S2.FORBID.search("cat issues/WHU-L1-02r-whu-lean-q1-02r/issue.json")
     assert S2.OWN.search("ls ~/Projects/whu-study-private/WHU-L1-02r-whu-lean-q1-02r/")
     assert not S2.OWN.search("ls ~/Projects/whu-study-private/WHU-L1-02-whu-lean-q1-02/")
+
+
+def test_second_freeze_rerun_forbids_every_earlier_attempt_and_takes_this_sessions_scratchpad():
+    spec3 = importlib.util.spec_from_file_location("lcs3", HERE / "lean_contamination_scan.py")
+    S3 = importlib.util.module_from_spec(spec3)
+    spec3.loader.exec_module(S3)
+    S3.rerun_b("02")
+    for old in ("WHU-L1-02-whu-lean-q1-02", "WHU-L1-02r-whu-lean-q1-02r"):
+        assert S3.FORBID.search("cat issues/%s/draft/x.html" % old)
+        assert S3.OTHER_ISSUE.search("cat issues/%s/issue.json" % old)
+    assert S3.FORBID.search("cat backend/data/whatholdsup/library/issues/whu-lean-q1-02r.json")
+    assert not S3.FORBID.search("cat issues/WHU-L1-02b-whu-lean-q1-02b/issue.json")
+    assert not S3.OTHER_ISSUE.search("cat issues/WHU-L1-02b-whu-lean-q1-02b/issue.json")
+    assert S3.OWN.search("ls ~/Projects/whu-study-private/WHU-L1-02b-whu-lean-q1-02b/")
+    S3.set_scratch("/tmp/new-session/scratchpad", "2026-11-05T21:00:00")
+    assert S3.broad("grep -r x /tmp/new-session/scratchpad")
+    assert S3.scratch("ls /tmp/new-session/scratchpad", "2026-11-05T20:00:00")
+    assert not S3.scratch("ls /tmp/new-session/scratchpad", "2026-11-05T22:00:00")

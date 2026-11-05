@@ -72,7 +72,29 @@ RERUN_LINE = ("- The earlier lean attempt at this question: issues/WHU-L1-{n}-wh
               "backend/data/whatholdsup/library/issues/whu-lean-q1-{n}.json, and its git history.\n")
 
 
-def make(n: str, r1_block: str, suffix: str = "") -> tuple[str, list[str]]:
+# Advisor's rulings of 5 November 2026 after Q1-04 (4, 5): all four questions are
+# re-run with fresh drafters on the second freeze, in new folders ("b"). The
+# prompt is the lean prompt except the slug/folder, the line forbidding every
+# earlier lean attempt at the question, and these two lines.
+SECOND_FREEZE_LINES = (
+    "- Never run a stage twice in parallel: start a paid stage only after the previous run of every stage has "
+    "finished, and never start a second copy of a stage that is still running.\n"
+    "- Never fetch, add or switch to another edition of a source yourself, and never rebind a sentence to one: "
+    "a gate recency finding about a newer edition is settled by code (process doc §4.6.1, rule 3b).\n")
+EARLIER = {"01": ["01"], "02": ["02", "02r"], "03": ["03"], "04": ["04"]}
+
+
+def earlier_line(n: str) -> str:
+    """The DO NOT READ line naming every earlier lean attempt at question N."""
+    xs = EARLIER[n]
+    return ("- The earlier lean attempts at this question: %s; their private archives %s; their library records %s; "
+            "and their git history.\n"
+            % (", ".join("issues/WHU-L1-%s-whu-lean-q1-%s/" % (x, x) for x in xs),
+               ", ".join("~/Projects/whu-study-private/WHU-L1-%s-whu-lean-q1-%s/" % (x, x) for x in xs),
+               ", ".join("backend/data/whatholdsup/library/issues/whu-lean-q1-%s.json" % x for x in xs)))
+
+
+def make(n: str, r1_block: str, suffix: str = "", second: bool = False) -> tuple[str, list[str]]:
     r1, lean = "whu-quarterly-r1-%s" % n, "whu-lean-q1-%s%s" % (n, suffix)
     out, log = r1_block, []
     for old, new in subs(n, r1, lean, n + suffix):
@@ -88,13 +110,24 @@ def make(n: str, r1_block: str, suffix: str = "") -> tuple[str, list[str]]:
     log.append("%d x slug %s -> %s" % (c, r1, lean))
     anchor = "\nTHE SEQUENCE\n"
     assert out.count(anchor) == 1
-    out = out.replace(anchor, "\n" + LEAN_SWITCH.format(slug=lean) + anchor)
+    switch = LEAN_SWITCH.format(slug=lean) + (SECOND_FREEZE_LINES if second else "")
+    out = out.replace(anchor, "\n" + switch + anchor)
     log.append("LEAN SWITCH block inserted before THE SEQUENCE")
-    if n != "01":
+    if second:
+        log.append("LEAN SWITCH: two lines added (advisor's rulings after Q1-04, 4): %r" % SECOND_FREEZE_LINES.strip())
+    if n != "01" or second:
         assert out.count(ADDED_ANCHOR) == 1
         out = out.replace(ADDED_ANCHOR, ADDED_ANCHOR + ADDED_AFTER_Q1_01)
         log.append("DO NOT READ: one line added (advisor ruling 2026-11-05, after Q1-01): %r" % ADDED_AFTER_Q1_01.strip())
-    if suffix:
+    if second:
+        line = earlier_line(n)
+        out = out.replace(ADDED_AFTER_Q1_01, ADDED_AFTER_Q1_01 + line)
+        log.append("DO NOT READ: the line forbidding every earlier lean attempt (advisor's rulings after Q1-04, 5): %r"
+                   % line.strip())
+        if n == "01":
+            log.append("DO NOT READ: Q1-01's re-run also carries the line added for Q1-02 to Q1-04 after Q1-01 "
+                       "(no other issues/ folder): it forbids the earlier attempt's folder too")
+    elif suffix:
         line = RERUN_LINE.format(n=n)
         out = out.replace(ADDED_AFTER_Q1_01, ADDED_AFTER_Q1_01 + line)
         log.append("DO NOT READ: one line added for the re-run (advisor ruling 2026-11-05, option 2): %r" % line.strip())
@@ -120,6 +153,12 @@ def main() -> int:
     parts.append("## WHU-Q1-%sr (whu-lean-q1-%sr): re-run with a fresh drafter on the frozen code (4abcab6)\n\n"
                  "Changes from round 1's brief:\n\n%s\n\nPrompt sha256: `%s`\n\n```text\n%s```\n"
                  % (n, n, "\n".join("- " + x for x in log), hashlib.sha256(prompt.encode()).hexdigest(), prompt))
+    # all four re-run on the second freeze (advisor's rulings after Q1-04, 4-5)
+    for n, block in blocks:
+        prompt, log = make(n, block, "b", second=True)
+        parts.append("## WHU-Q1-%sb (whu-lean-q1-%sb): re-run with a fresh drafter on the second freeze\n\n"
+                     "Changes from round 1's brief:\n\n%s\n\nPrompt sha256: `%s`\n\n```text\n%s```\n"
+                     % (n, n, "\n".join("- " + x for x in log), hashlib.sha256(prompt.encode()).hexdigest(), prompt))
     OUT.write_text("\n".join(parts), encoding="utf-8")
     print("wrote", OUT)
     return 0

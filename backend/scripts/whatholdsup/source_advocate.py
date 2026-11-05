@@ -316,7 +316,8 @@ def reask_omission(b: dict, o: dict, text: str, bound: list[str], ask=None) -> d
     the objection unchanged with reask_note set. `ask(system, user)` returns
     the parsed reply; by default a metered call (fc.call, search off)."""
     import audit_stage as A
-    doc = held_view(text, (o.get("objection") or "") + " " + (o.get("why") or ""))
+    dl: list = []
+    doc = held_view(text, (o.get("objection") or "") + " " + (o.get("why") or ""), dl)
     system = REASK_OMISSION_SYSTEM.format(principal=b.get("principal") or "the source's author")
     user = json.dumps({"objection": {k: o.get(k) for k in ("claim_quoted", "objection", "why", "source_says")},
                        "already_on_the_page": bound, "your_document_as_held": doc}, ensure_ascii=False)
@@ -327,6 +328,8 @@ def reask_omission(b: dict, o: dict, text: str, bound: list[str], ask=None) -> d
     got = got if isinstance(got, dict) else {}
     again = (got.get("source_says") or "").strip()
     out = dict(o)
+    # what this call was sent of the held text (fix 6: lean_received reads it)
+    out["delivered"] = delivered_ranges(dl)
     if again and A.quoted_in(again, text):
         out.update(type=LEAVES_OUT, source_says=again, source_says_first=o.get("source_says") or "",
                    locator=got.get("locator") or o.get("locator"),
@@ -387,6 +390,7 @@ def check_quotations(slug: str, briefs: list[dict], held: dict[str, str], ask=No
                 got = ask(b, o, text) or {}
                 again = (got.get("source_says") or "").strip()
                 rec["re_ask"] = again
+                rec["delivered"] = got.pop("_delivered", None) or []
                 if again and A.quoted_in(again, text):
                     o["source_says_first"] = says
                     o["source_says"] = again
@@ -404,13 +408,25 @@ def check_quotations(slug: str, briefs: list[dict], held: dict[str, str], ask=No
     return out
 
 
+def delivered_ranges(log: list) -> list[list[int]]:
+    """[[start, end], ...] of the passages held_view sent, from its LOG; [] when
+    it fell back to trim (no offsets: counted as nothing received, fix 6)."""
+    out = []
+    for r in log or []:
+        out += [[int(x[0]), int(x[1])] for x in r.get("retrieved") or []]
+    return out
+
+
 def _requote(b: dict, o: dict, text: str) -> dict:
-    doc = held_view(text, (o.get("source_says") or "") + " " + (o.get("objection") or ""))
+    dl: list = []
+    doc = held_view(text, (o.get("source_says") or "") + " " + (o.get("objection") or ""), dl)
     user = json.dumps({"objection": {k: o.get(k) for k in ("claim_quoted", "objection", "source_says")},
                        "your_document_as_held": doc}, ensure_ascii=False)
     got = fc.call(REQUOTE_SYSTEM.format(principal=b.get("principal") or "the source's author"), user,
                   search=False, label="advocate-requote:%s" % b["source"])
-    return got if isinstance(got, dict) else {}
+    got = got if isinstance(got, dict) else {}
+    got["_delivered"] = delivered_ranges(dl)
+    return got
 
 
 # ---------------------------------------------------------------------------
@@ -818,7 +834,7 @@ def no_place_items(slug: str) -> set[str]:
         doc = O.load(sl.case_dir(slug))
     except (Exception, SystemExit):
         return set()
-    return {h for e in doc.get("omissions") or [] if e.get("outcome") == O.NOT_ADDED_NO_PLACE
+    return {h for e in doc.get("omissions") or [] if e.get("outcome") in O.CODE_NOT_ADDED
             for h in e.get("origins") or []}
 
 

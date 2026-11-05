@@ -226,9 +226,16 @@ def test_the_spend_cap_stops_a_call_before_it_is_made(tmp_path, monkeypatch):
         c("prompt", 1000, "read")
 
 
-def test_the_dry_run_refuses_to_write_inside_issues():
-    with pytest.raises(SystemExit):
-        A.main(["run", "deskilling", "--dry-run", "--limit", "2", "--out", str(ROOT / "issues" / "x")])
+def test_the_dry_run_writes_nothing_and_makes_no_call(monkeypatch):
+    # Fix 1 (process doc §4.6.1, 5 November 2026): --dry-run makes no model call
+    # and writes nowhere, --out included (it used to read LIMIT units, paid).
+    def no_caller(*a, **k):
+        raise AssertionError("a dry run built a model caller")
+    monkeypatch.setattr(A, "Caller", no_caller)
+    monkeypatch.setattr(A, "run", no_caller)
+    out = ROOT / "issues" / "x-dry-run-must-not-exist"
+    assert A.main(["run", "deskilling", "--dry-run", "--limit", "2", "--out", str(out)]) == 0
+    assert not out.exists()
 
 
 def test_a_finding_that_no_document_is_held_needs_no_quotation():

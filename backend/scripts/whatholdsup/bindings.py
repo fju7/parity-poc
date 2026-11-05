@@ -1109,6 +1109,13 @@ DECLARATION_LEAD = re.compile(
     r"|Findings in our sources we judged outside this question\b)", re.I)
 
 
+# LEAN RULE 3b (process doc §4.6.1; advisor, 5 November 2026): code's line for a
+# newer edition (lean_editions.FRAME) says what we used, a reading statement. It
+# quotes the gate's "latest known", which may say "found", so it is matched
+# before STATES_FINDING.
+NEWER_EDITION = re.compile(r"^\W*A newer edition exists:", re.I)
+
+
 def protected_kind(sent: str, row: dict | None = None) -> str | None:
     """"question", "reading", or None. A row's `protected` marker, when it names
     one of PROTECTED_KINDS, wins; otherwise the sentence's own phrasing, unless
@@ -1119,6 +1126,8 @@ def protected_kind(sent: str, row: dict | None = None) -> str | None:
     s = sent or ""
     if DECLARATION_LEAD.search(s):
         return "scope"
+    if NEWER_EDITION.search(s):
+        return "reading"
     if STATES_FINDING.search(s):
         return None
     if QUESTION_RESTATEMENT.search(s):

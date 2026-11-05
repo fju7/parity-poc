@@ -8,14 +8,15 @@ same pass as the body).
 
 Usage:
     audit_stage.py run SLUG [--cap USD] [--ledger-issue NAME]
-    audit_stage.py run SLUG --dry-run --limit 20 --out DIR [--cap USD]
+    audit_stage.py run SLUG --dry-run [--limit N]   no model call (fix 1)
     audit_stage.py check SLUG
     audit_stage.py run SLUG --lean          lean WHU (lean.py; or WHU_LEAN=1)
 
 `run` writes issues/<case>/audit/<run-id>/: manifest.json, verdicts.jsonl,
-rulings.jsonl, cuts.jsonl, second_reads.jsonl. `--dry-run` reads only the
-first LIMIT units, writes only under DIR, and touches nothing in the issue's
-records. `check` prints the preflight row.
+rulings.jsonl, cuts.jsonl, second_reads.jsonl. `--dry-run` makes NO model call
+(fix 1, 5 November 2026): it builds every batch's inputs offline, runs the
+delivery check and prints the stage-cap estimate; nothing is written.
+`check` prints the preflight row.
 
 WHAT IS FIXED, AND WHERE
   The reading prompt and the ruling prompt are files (audit_prompts/), each
@@ -1519,6 +1520,51 @@ def preflight_rows(slug: str, record_rows: list[dict] | None = None, *, current:
     return [(ROW_LABEL, OK, "every one of %d sentences is settled in audit run %s" % (len(us), run_dir.name))]
 
 
+def dry_run(slug: str, limit: int | None = None, ledger_issue: str | None = None) -> dict:
+    """FIX 1 (process doc §4.6.1; advisor, 5 November 2026): a dry run makes no
+    model call. It counts the units, builds every batch's inputs offline as the
+    run would (lean or not), runs the delivery check on them, and returns the
+    stage-cap estimate. Nothing is written to the ledger or the issue. Until
+    then `--dry-run` read the first LIMIT units with the model, and was paid
+    (Q1-01 $0.21, Q1-02 $0.42, Q1-02r $0.53, Q1-03 about $1.84)."""
+    import lean
+    import stage_cap
+    us = units(slug)
+    if limit:
+        us = us[:limit]
+    held = held_for_audit(slug)
+    lic = frozenset(licensed_ids(slug))
+    held = {k: v for k, v in held.items() if k.split(":")[-1] not in lic}
+    bs = fit_batches(slug, batches(us), held, lic, [])
+    LEAN = lean.enabled()
+    gdocs = {}
+    if LEAN:
+        import lean_audit as LA
+        gdocs = LA.group_documents(slug, bs, held, lic)
+    faults, delivered = [], 0
+    for bi, batch in enumerate(bs):
+        if all(u["part"] in SUMMARY_PARTS for u in batch):
+            continue
+        if LEAN:
+            docs, _records = LA.batch_inputs(slug, batch, held, lic, group_docs=gdocs.get(bi))
+        else:
+            docs, _records = batch_inputs(slug, batch, held, lic)
+        rep = delivery_report(slug, batch, held, docs, lic)
+        delivered += sum(r["delivered_chars"] for r in rep)
+        try:
+            check_delivery(rep)
+        except DocumentNotDelivered as e:
+            faults.append(str(e))
+    try:
+        est = stage_cap.check("audit", ledger_issue or slug, len(us))
+        estimate = {"estimate": est["estimate"], "how": est["how"], "day_left": est["day_left"],
+                    "issue_left": est["issue_left"], "would_start": True}
+    except Exception as e:                       # over a cap: the run itself would not start
+        estimate = {"would_start": False, "why": str(e)}
+    return {"status": "dry_run", "model_calls": 0, "units": len(us), "batches": len(bs),
+            "delivered_chars": delivered, "delivery_faults": faults, "lean": LEAN, **estimate}
+
+
 def _stage_guard(issue: str, n_units: int) -> None:
     """Before the run's first paid call (stage_cap.py): refuse to start if the
     estimate from measured audit runs exceeds the cap left today or on the issue."""
@@ -1569,13 +1615,10 @@ def main(argv=None) -> int:
                          indent=1))
         return 0 if m["status"] == "complete" else 2
     if a.dry_run:
-        if not (a.out and a.limit):
-            raise SystemExit("--dry-run needs --out DIR and --limit N: it writes nowhere in the issue")
-        out = Path(a.out)
-        if str(out.resolve()).startswith(str((ROOT / "issues").resolve())):
-            raise SystemExit("--dry-run --out must be outside issues/")
-    else:
-        out = audit_root(a.slug) / datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
+        # Fix 1: no model call, no ledger row, nothing written (--out is ignored).
+        print(json.dumps(dry_run(a.slug, a.limit, a.ledger_issue), indent=1, ensure_ascii=False))
+        return 0
+    out = audit_root(a.slug) / datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
     n = len(units(a.slug))
     _stage_guard(a.ledger_issue or a.slug, min(n, a.limit) if (a.dry_run and a.limit) else n)
     prior_dir = None

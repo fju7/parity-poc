@@ -157,6 +157,9 @@ def test_a_gate_group_cites_a_quotation_numbered_across_the_group(study):
     assert all(f["source_id"] == "S5" and f["quote"] == SPAN for f in fs)
     assert all(f["ruled_together"] == ["obj-1", "obj-2"] for f in fs)
     assert _log(d)[0]["prompt_sha256"] == R.GROUP_PROMPT_SHA256["rule_group_cite.md"]
+    # Fix 7 (process doc §4.6.1, 5 November 2026): the same request is not ruled twice,
+    # so the log is cleared to make this a new request whose reply is checked.
+    R.log_path("xq").unlink()
     with pytest.raises(R.RulingError):                                   # quotation 9 of 1
         F.save("xq", {"findings": [dict(f, decision="") for f in fs]})
         R.rule_gate("xq", Fake({"ruling": "reject", "text": None, "reason": "r", "quotation": 9}),

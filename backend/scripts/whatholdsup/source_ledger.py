@@ -535,10 +535,16 @@ def _named_unread(clause: str, srcs: list[dict]) -> list[dict]:
     return chosen
 
 
-def _inaccessibility(page_text: str, srcs: list[dict]) -> tuple[list[tuple[str, dict, str]], list[str]]:
+def _inaccessibility(page_text: str, srcs: list[dict],
+                     exempt: set | None = None) -> tuple[list[tuple[str, dict, str]], list[str]]:
+    """EXEMPT (fix 3, lean): the folded words of code's generated reading
+    sentences (lean_sentences), which code wrote from the same records this
+    compares them with; a hand-written sentence is checked as before."""
     out, unattributed = [], []
     for sent in sentences(plain(page_text)):
         if not INACCESSIBLE.search(sent):
+            continue
+        if exempt and _exempt_words(sent) in exempt:
             continue
         claim_clauses = [c for c in _clauses(sent) if INACCESSIBLE.search(c)] or [sent]
         named = []
@@ -569,6 +575,27 @@ def _inaccessibility(page_text: str, srcs: list[dict]) -> tuple[list[tuple[str, 
         if not named:
             unattributed.append(" ".join(sent.split())[:190])
     return out, unattributed
+
+
+def _exempt_words(sent: str) -> str:
+    import protected
+    return protected.words(sent)
+
+
+def generated_reading(slug: str) -> set:
+    """Fix 3 (process doc §4.6.1; advisor, 5 November 2026): under lean WHU, the
+    folded words of every generated reading sentence (lean_sentences); else
+    empty. If they cannot be generated, empty: the row then checks every
+    sentence, as before (fails closed)."""
+    import importlib
+    try:
+        lean = importlib.import_module("lean")
+        if not lean.enabled():
+            return set()
+        LS = importlib.import_module("lean_sentences")
+        return {_exempt_words(g["sentence"]) for g in LS.generated(slug) if g["kind"] == "reading"}
+    except Exception:
+        return set()
 
 
 def case_dir(slug: str) -> Path:
@@ -758,7 +785,8 @@ def audit(slug: str, page_text: str,
 
     # A wall is a property of the document; a failure is a property of our
     # attempt. See inaccessibility_claims.
-    walls = inaccessibility_claims(page_text, srcs)
+    exempt = generated_reading(slug)
+    walls = _inaccessibility(page_text, srcs, exempt)[0]
     rows.append((
         "claims a source could not be opened",
         OK if not walls else BAD,
@@ -771,7 +799,7 @@ def audit(slug: str, page_text: str,
         % (len(walls),
            " | ".join("%s (%s, ledger: %s)" % (s, src["id"], state)
                       for s, src, state in walls[:3]))))
-    loose = unattributed_inaccessibility_claims(page_text, srcs)
+    loose = _inaccessibility(page_text, srcs, exempt)[1]
     if loose:
         rows.append((
             "inaccessibility claims naming no source", WARN,

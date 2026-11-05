@@ -343,6 +343,23 @@ def _append(path: Path, rec: dict) -> dict:
     return rec
 
 
+def carried_ruling(log: Path, base: dict) -> dict | None:
+    """The newest earlier record in LOG for the same request (kind, prompt hash,
+    model, inputs hash) that kept its parsed answer, or None (fix 7)."""
+    if not log.exists():
+        return None
+    keys = ("ruling_kind", "prompt_sha256", "model", "inputs_sha256")
+    hit = None
+    for line in log.read_text(encoding="utf-8").splitlines():
+        try:
+            r = json.loads(line)
+        except ValueError:
+            continue
+        if isinstance(r.get("got"), dict) and all(r.get(k) == base.get(k) for k in keys):
+            hit = r
+    return hit
+
+
 def rule(kind: str, p: dict, n_quotes: int, call, log: Path, ref: dict, grouped: bool = False) -> dict:
     """One ruling: prompt, call, check, log. `call(prompt, max_tokens, role)`
     returns (text, usage) -- audit_stage.Caller, metered and capped, or a fake.
@@ -359,6 +376,18 @@ def rule(kind: str, p: dict, n_quotes: int, call, log: Path, ref: dict, grouped:
     by = BY if model == MODEL else "ruling model %s" % model
     base = {"by": by, "model": model, "ruling_kind": kind, "prompt": str(path.relative_to(HERE)),
             "prompt_sha256": prompt_sha(kind, grouped), "inputs_sha256": sha(json.dumps(p))}
+    # FIX 7 (process doc §4.6.1; advisor, 5 November 2026): the same request is
+    # not paid for twice. The final gate re-files the same findings under new
+    # ids (Q1-03: $4.45 ruling three recency findings twice against 132
+    # sentences); an earlier record with the same kind, prompt, model and inputs
+    # is reused, logged as carried, with no call. Only records that kept their
+    # answer ("got", from this change on) can be reused.
+    prior = carried_ruling(log, base)
+    if prior is not None:
+        _append(log, {"at": datetime.now(timezone.utc).isoformat(timespec="seconds"), **base,
+                      "inputs": p, **ref, **prior["got"], "got": prior["got"],
+                      "carried_from": prior["id"], "usage": {}})
+        return dict(prior["got"])
     cut = []
     for n in range(1, ATTEMPTS + 1):
         try:
@@ -383,7 +412,7 @@ def rule(kind: str, p: dict, n_quotes: int, call, log: Path, ref: dict, grouped:
     rec = {"at": datetime.now(timezone.utc).isoformat(timespec="seconds"), "by": by,
            "model": model, "ruling_kind": kind, "prompt": str(path.relative_to(HERE)),
            "prompt_sha256": prompt_sha(kind, grouped), "inputs": p, "inputs_sha256": sha(json.dumps(p)),
-           **ref, **got, "usage": usage}
+           **ref, **got, "got": got, "usage": usage}
     if cut:
         rec["after_cut_off"] = cut          # the attempt(s) cut off before this reply
     _append(log, rec)
@@ -671,7 +700,10 @@ def rule_gate(slug: str, call, *, P=None, report: dict | None = None, rows: dict
     doc = F.load(slug)
     done = []
     recency: dict = {}
-    keep, person = split_protected(_gate_items(rows, report, doc, held, slug), rows)
+    import lean
+    decided = lean_editions_gate(slug, report, doc, rows, held, done) if lean.enabled() else set()
+    keep, person = split_protected([it for it in _gate_items(rows, report, doc, held, slug)
+                                    if it["finding"].get("id") not in decided], rows)
     # Lean WHU: the fail-safe takes these (route_to_person); no not_ruled_protected
     # is written for them, since that would close a finding by code.
     person = route_to_person("gate", person, log_path(slug))
@@ -735,6 +767,43 @@ def rule_gate(slug: str, call, *, P=None, report: dict | None = None, rows: dict
             done.append(f)
     F.save(slug, doc)
     return done
+
+
+def lean_editions_gate(slug: str, report: dict, doc: dict, rows: dict, held: dict, done: list,
+                       write_rows=None) -> set:
+    """LEAN RULE 3b (process doc §4.6.1; advisor, 5 November 2026): every
+    undecided recency finding whose gate study is SUPERSEDED is settled by code
+    (lean_editions.decide: the newer edition used, or disclosed on the page),
+    never ruled and never routed to a person, matched to a source or not.
+    Returns the ids it decided; their records are updated in DOC."""
+    import findings as F
+    import lean_editions as LE
+    import source_store as store
+    case = store.case_dir(slug)
+    sp = case / "sources.json"
+    srcs = (json.loads(sp.read_text(encoding="utf-8")).get("sources") or []) if sp.exists() else []
+    studies = (report.get("recency") or {}).get("studies") or []
+    if write_rows is None:
+        def write_rows(rs):
+            import bindings as B
+            bdoc = B.load(slug)
+            bdoc["bindings"] = rs
+            B.save(slug, bdoc)
+    out = set()
+    for it in gate_items(report, doc):
+        if not it.get("recency"):
+            continue
+        f = it["finding"]
+        i = _rec_index(f.get("id") or "")
+        if not i or i > len(studies) or studies[i - 1].get("status") != LE.SUPERSEDED:
+            continue
+        sids, _keys = F.recency_targets(slug, it["study"], rows)
+        d = LE.decide(slug, case, studies[i - 1], sids[0] if sids else None, srcs, rows, held, write_rows)
+        LE.settle_finding(f, d)
+        done.append(f)
+        out.add(f.get("id"))
+        print("  lean rule 3b: %s -- newer edition %s" % (it["study"][:70], d["outcome"]))
+    return out
 
 
 def _settle_recency(slug: str, f: dict, rows: dict, study: str) -> bool:
@@ -1169,7 +1238,11 @@ NO_PLACE_WHY = "no place for the ADD"
 NO_PLACE_BY = "code (lean: no place on the page)"
 
 
-def lean_no_place(case: Path, f: dict, held: dict, why: str) -> dict:
+BEYOND_WHY = "the ADD's span is not in the finding"
+BEYOND_BY = "code (lean: the proposed sentence went beyond the finding)"
+
+
+def lean_no_place(case: Path, f: dict, held: dict, why: str, outcome: str | None = None) -> dict:
     """Lean WHU (process doc §4.6.1, the ruling paths; advisor, 2026-11-05,
     option 2): an ADD with no place on the page is recorded NOT_ADDED_NO_PLACE,
     which the readers' list shows as code's "Not added ... (no place on the
@@ -1180,13 +1253,14 @@ def lean_no_place(case: Path, f: dict, held: dict, why: str) -> dict:
     # replaces an entry by key, so the origins are merged here first.
     key = O.entry_key(f)
     had = [h for e in O.load(case).get("omissions") or []
-           if e.get("key") == key and e.get("outcome") == O.NOT_ADDED_NO_PLACE for h in e.get("origins") or []]
+           if e.get("key") == key and e.get("outcome") in O.CODE_NOT_ADDED for h in e.get("origins") or []]
     origins = list(dict.fromkeys(had + list(f.get("origins") or [f.get("origin")])))
     f = dict(f, origins=origins)
-    O.record(case, f, held_text=held.get(f.get("source")), outcome=O.NOT_ADDED_NO_PLACE, reason=why,
-             by=NO_PLACE_BY)
+    outcome = outcome or O.NOT_ADDED_NO_PLACE
+    O.record(case, f, held_text=held, outcome=outcome, reason=why,
+             by=BEYOND_BY if outcome == O.NOT_ADDED_BEYOND else NO_PLACE_BY)
     print("  lean: %s (%s) -- listed for readers as Not added" % (why[:60], ", ".join(f.get("origins") or [])))
-    return {"outcome": O.NOT_ADDED_NO_PLACE, "origins": f.get("origins"), "why": why}
+    return {"outcome": outcome, "origins": f.get("origins"), "why": why}
 
 
 def rule_omissions(slug: str, call, *, P=None, rows: dict | None = None, held: dict | None = None,
@@ -1231,7 +1305,7 @@ def rule_omissions(slug: str, call, *, P=None, rows: dict | None = None, held: d
     LEAN = lean.enabled()
     # Lean WHU: an ADD with no place on the page is recorded NOT_ADDED_NO_PLACE and
     # listed for readers; its advocate item is not closed, and is never ruled again.
-    no_place = {h for e in (O.load(case).get("omissions") or []) if e.get("outcome") == O.NOT_ADDED_NO_PLACE
+    no_place = {h for e in (O.load(case).get("omissions") or []) if e.get("outcome") in O.CODE_NOT_ADDED
                 for h in (e.get("origins") or [])} if LEAN else set()
     items, found = {}, []
     target = SA.protected_check(slug)
@@ -1251,6 +1325,10 @@ def rule_omissions(slug: str, call, *, P=None, rows: dict | None = None, held: d
         if SA.needs_reask(o, held.get(sid) or "", bound_spans(sid)):
             o = SA.reask_omission({"source": sid, "principal": it.get("principal")}, o, held.get(sid) or "",
                                   bound_spans(sid), ask=reask)
+            # what the re-ask was sent (fix 6: lean_received reads this log)
+            _append(case / "rulings" / "advocate_reasks.jsonl",
+                    {"at": datetime.now(timezone.utc).isoformat(timespec="seconds"), "source": sid,
+                     "advocate_item": it["head"], "delivered": o.pop("delivered", None) or []})
             it["objection"] = o
         found.append(O.precheck({"source": sid, "quote": o.get("source_says") or "", "origin": it["head"]}, held))
 
@@ -1273,7 +1351,11 @@ def rule_omissions(slug: str, call, *, P=None, rows: dict | None = None, held: d
         if LEAN and why.startswith(NO_PLACE_WHY):
             done.append(lean_no_place(case, f, held, why))
             return
-        O.record(case, f, held_text=held.get(f.get("source")), outcome=O.TO_PERSON, reason=why,
+        if LEAN and why == BEYOND_WHY:
+            # lean rule 3a: code's "Not added ... (the proposed sentence went beyond the finding)"
+            done.append(lean_no_place(case, f, held, why, O.NOT_ADDED_BEYOND))
+            return
+        O.record(case, f, held_text=held, outcome=O.TO_PERSON, reason=why,
                  by="code (ruling.py omissions)")
         route_to_person("omissions", [{"protected": "omission: " + why, "sentence": f.get("anchor") or "",
                                        "kind": "omission", "ref": {"origins": f.get("origins")}}], log)
@@ -1281,7 +1363,7 @@ def rule_omissions(slug: str, call, *, P=None, rows: dict | None = None, held: d
 
     for f in [f for f in found if f.get("outcome") == O.NOT_IN_SOURCE]:
         f["origins"] = [f["origin"]]
-        O.record(case, f, held_text=held.get(f.get("source")), outcome=O.NOT_IN_SOURCE, reason=f["why"],
+        O.record(case, f, held_text=held, outcome=O.NOT_IN_SOURCE, reason=f["why"],
                  by="code (omissions.precheck)")
         close(f, O.NOT_IN_SOURCE, "nothing added: %s" % f["why"])
 
@@ -1316,7 +1398,7 @@ def rule_omissions(slug: str, call, *, P=None, rows: dict | None = None, held: d
                 to_person(f, "over the declarations budget (%d)" % O.declaration_budget(n_body))
                 continue
             counts["DECLARED"] += 1
-            O.record(case, f, held_text=held.get(f.get("source")), outcome=O.OUT_OF_SCOPE, reason=got["reason"], by=BY,
+            O.record(case, f, held_text=held, outcome=O.OUT_OF_SCOPE, reason=got["reason"], by=BY,
                      reason_for_reader=got.get("reason_for_reader") or "",
                      element=got["scope_element"], ruling=rid)
             close(f, O.OUT_OF_SCOPE, "nothing added; out of scope (%s); listed for readers"
@@ -1331,12 +1413,12 @@ def rule_omissions(slug: str, call, *, P=None, rows: dict | None = None, held: d
                 to_person(f, "over the declarations budget (%d)" % O.declaration_budget(n_body))
                 continue
             counts["DECLARED"] += 1
-            O.record(case, f, held_text=held.get(f.get("source")), outcome=O.NOT_MATERIAL, reason=got["reason"],
+            O.record(case, f, held_text=held, outcome=O.NOT_MATERIAL, reason=got["reason"],
                      by=BY, ruling=rid, reason_for_reader=got.get("reason_for_reader") or "")
             close(f, O.NOT_MATERIAL, "nothing added; not material; listed for readers")
         else:
             if O.locate(got["span"], f["held_quote"]) is None:
-                to_person(f, "the ADD's span is not in the finding")
+                to_person(f, BEYOND_WHY)
                 continue
             after, how = _placement(anchor, page_sentences, rows)
             if after is None:
@@ -1346,7 +1428,7 @@ def rule_omissions(slug: str, call, *, P=None, rows: dict | None = None, held: d
                 to_person(f, "over the ADD budget (%d)" % O.add_budget(n_body))
                 continue
             counts["ADD"] += 1
-            O.record(case, f, held_text=held.get(f.get("source")), outcome=O.ADD, reason=got["reason"], by=BY, ruling=rid,
+            O.record(case, f, held_text=held, outcome=O.ADD, reason=got["reason"], by=BY, ruling=rid,
                      on_page=B.fingerprint(got["text"]), after=B.fingerprint(after))
             close(f, O.ADD, "to be inserted word for word after %s: %s"
                   % (json.dumps(after, ensure_ascii=False), json.dumps(got["text"], ensure_ascii=False)),

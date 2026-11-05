@@ -408,8 +408,10 @@ passages, not whole sections. Everything below is under `WHU_LEAN=1` unless it s
     - the audit: the bound and retrieved passages in every `audit/*/retrieval.jsonl`;
     - the rulings: the `inputs` of every call in `rulings/rulings.jsonl`, matched back to the held text
       40 characters at a time after whitespace and non-ASCII are folded;
-    - the advocate's re-asks and re-quotes: the passages each was sent, now logged as `delivered` in
-      `advocate/runs/*/quote_checks.jsonl`. Its first call is sent no held text.
+    - the advocate's re-asks and re-quotes: the passages each was sent, now logged as `delivered`. A
+      re-quote is logged in `advocate/runs/*/quote_checks.jsonl`, an omission re-ask (`ruling.py
+      omissions`) in `rulings/advocate_reasks.jsonl`. Its first call is sent no held text. A re-ask
+      logged before this change, or one that fell back to trim, counts as nothing received.
   - **When a section counts as read.** A section counts as received in full when ONE stage received at least 99% of its
     non-space characters. The 1% allows for the matching's edges. Stages are not added together.
   - **Section offsets.** For a `full_text_held` source, each section in `access.sections` is measured at
@@ -477,6 +479,10 @@ passages, not whole sections. Everything below is under `WHU_LEAN=1` unless it s
     SUPERSEDED study has neither outcome, and while the line is missing from the page.
 - **Two lines added to the drafting brief:** never run a stage twice in parallel, and never switch a
   source to another edition (rule 3b decides that).
+- Code: `lean_received.py` (the measurement), `lean_reading.py` (the rows for fixes 4-6),
+  `lean_editions.py` (rule 3b), and changes in `lean_sentences.py`, `ruling.py`, `omissions.py`,
+  `coverage_check.py`, `source_ledger.py`, `source_advocate.py`, `audit_stage.py` and `bindings.py`.
+  `publish.py check` runs the new rows under lean.
 - Tested offline: `backend/tests/test_whu_lean_post_test_fixes.py`, one test or more per item above.
 
 ---
