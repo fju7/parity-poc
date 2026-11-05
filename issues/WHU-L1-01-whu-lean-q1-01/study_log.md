@@ -25,3 +25,10 @@ Drafting session: Claude Code (session WHU-L1-01). No person takes part.
 | 7 (deviation) audit_stage --dry-run --out <scratch> --limit 100, run to read the estimate | 2026-11-05T02:30:40Z | 2026-11-05T02:31:05Z | $0.205 | 0 | the "dry run" made the real model calls (metered on whu-lean-q1-01) and wrote its run outside the issue (session scratchpad); not used for anything; recorded here as spend |
 | 7 audit_stage run --cap 9.14; consistency.py audit | 2026-11-05T02:31:17Z | 2026-11-05T02:32:04Z | $0.137 | 0 | run 20261105T023117Z complete: 39 units, 26 holds, 5 holds_by_record_check, 8 not_a_correction; 0 cuts, 0 rulings, 0 to a person; consistency: no rulings to re-run |
 | 7d final narrow gate --changed-since (dry run, then run 2 of 3); step 5 on it | 2026-11-05T02:33:04Z | 2026-11-05T02:33:10Z | $0 | 0 | 2 changed sentences; recency carried (fresh); PASSED (narrow); 0 findings |
+| 8 commit | 2026-11-05T02:35Z | 2026-11-05T02:35Z | $0 | 0 | 81ccfa7 (pushed 812c50a..81ccfa7) |
+| 9 changecheck --before 812c50a | 2026-11-05T02:36:22Z | 2026-11-05T02:36:24Z | $0.006 | 0 | 2 changed sentences; nothing found (no ruling needed) |
+| 9a changecheck_coverage --first 812c50a | 2026-11-05T02:36:40Z | 2026-11-05T02:36:41Z | $0 | 0 | every changed sentence was read |
+| 10 publish.py check | 2026-11-05T02:36:50Z | 2026-11-05T02:37:00Z | $0 | 0 | Ready. (0 STOP; warns only) |
+| 11 private archive | 2026-11-05T02:37:30Z | 2026-11-05T02:38Z | $0 | 0 | 26 git-ignored files copied to ~/Projects/whu-study-private/WHU-L1-01-whu-lean-q1-01/20261105T023730Z/; sha256 list in private_manifest.txt |
+
+Totals: metered spend on whu-lean-q1-01 $0.9943 (spend_ledger), of which $0.205 was the audit "dry run" (deviation above). Gate runs used: 2 of 3. ADDs 1 (budget 5); declarations 0 (budget 7). Judgement candidates 2, relevant 2, stated 2. Items sent to a person: none. Operator minutes: 0.
