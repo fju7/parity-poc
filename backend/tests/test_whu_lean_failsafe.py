@@ -255,16 +255,23 @@ def _lean_replay_all(tmp_path) -> dict:
         om = [r for r in mine if r["mode"] == "omissions"]
         if om:
             priv = ROOT / "issues" / ROUND1[slug] / "rulings" / "omissions.jsonl"
-            keys = [json.loads(l)["key"] for l in priv.read_text().splitlines()
+            recs = [json.loads(l) for l in priv.read_text().splitlines()
                     if json.loads(l).get("outcome") == "TO_PERSON"]
-            assert len(keys) == len(om)
-            for k in dict.fromkeys(keys):
-                sid, at = _key_at(k)
-                f = {"source": sid, "at": at, "origins": [k], "held_sha256": J.sha(held[sid]),
+            assert len(recs) == len(om)
+            # each routing in time order, with the advocate item(s) it carried (for_person.jsonl's
+            # ref.origins) and its finding key (the private TO_PERSON record written at the same second)
+            out["routings"] = []
+            for r, p in zip(om, recs):
+                assert r["at"] == p["at"], (r["at"], p["at"])
+                sid, at = _key_at(p["key"])
+                f = {"source": sid, "at": at, "origins": r["ref"]["origins"], "held_sha256": J.sha(held[sid]),
                      "quote": held[sid][at[0]:at[1]]}
                 R.lean_no_place(case, f, held, "no place for the ADD: the anchor is not on the page")
+                out["routings"].append((r["at"], tuple(r["ref"]["origins"]), p["key"]))
             out["no_place"][slug] = [e["key"] for e in O.load(case)["omissions"]
                                      if e["outcome"] == O.NOT_ADDED_NO_PLACE]
+            out["no_place_origins"] = {e["key"]: e["origins"] for e in O.load(case)["omissions"]
+                                       if e["outcome"] == O.NOT_ADDED_NO_PLACE}
             out["declared"][slug] = C.declarations(slug, held, case=case)
         out["left"] += [r for r in mine if r["mode"] not in ("judgements", "omissions")
                         and r["protected"] not in LF.REMOVABLE]
@@ -290,6 +297,19 @@ def test_round1_no_place_adds_become_code_written_not_added_lines(tmp_path, lean
     for ln in lines:
         assert ln.startswith("Not added: “") and ln.endswith("(no place on the page).")
         assert LF.is_no_place_line(ln)
+    # TRACEABILITY (advisor, 2026-11-05): 3 routings, 2 lines. Routings 1 and 3 are the same
+    # advocate item (S001-02) and the same finding, routed by two ruling runs; routing 2 is S003-20.
+    assert got["routings"] == [("2026-10-29T12:06:40+00:00", ("S001-02",), "S001@80000-80230"),
+                               ("2026-10-29T12:07:14+00:00", ("S003-20",), "S003@21125-21223"),
+                               ("2026-10-29T12:53:24+00:00", ("S001-02",), "S001@80000-80230")]
+    by_line = {d["key"]: d["sentence"] for d in got["declared"]["whu-quarterly-r1-03"]}
+    assert set(by_line) == {"S001@80000-80230", "S003@21125-21223"}
+    assert got["no_place_origins"] == {"S001@80000-80230": ["S001-02"], "S003@21125-21223": ["S003-20"]}
+    # every routing's item and finding is carried by exactly one line
+    for _at, origins, key in got["routings"]:
+        assert key in by_line and set(origins) <= set(got["no_place_origins"][key])
+    assert "approaching 2 m by 2100" in by_line["S001@80000-80230"]
+    assert "18 [5 to 31] % and 36 [16 to 56] %" in by_line["S003@21125-21223"]
 
 
 @pytest.mark.skipif(not R1_PRESENT, reason="round 1's records absent")
@@ -337,3 +357,40 @@ def test_the_not_added_no_place_line_is_never_dropped_as_furniture_or_converted(
     import coverage_check as CC
     assert CC.declaration_sentence(CC.NO_PLACE, "Table 3.", "A review [1]", None) == \
         "Not added: “Table 3.” (A review [1]) (no place on the page)."
+
+
+def test_one_finding_routed_to_no_place_under_two_items_gives_one_line_carrying_both(tmp_path, lean_on, monkeypatch):
+    """Advisor, 2026-11-05: the same finding sent to "no place" by two different
+    advocate items -> one readers'-list line whose record keeps both item
+    numbers, and neither item counts as an open objection."""
+    import omissions as O
+    import source_advocate as SA
+    held = {"S001": "Intro text. Sea level will rise by up to 2 m by 2100 under very high emissions. More text."}
+    at = [12, 79]
+    case = tmp_path / "case"
+    (case / "rulings").mkdir(parents=True)
+    why = "no place for the ADD: the anchor is not on the page"
+    for head in ("S001-03", "S001-07"):
+        R.lean_no_place(case, {"source": "S001", "at": at, "origins": [head], "held_sha256": "x",
+                               "quote": held["S001"][at[0]:at[1]]}, held, why)
+    R.lean_no_place(case, {"source": "S001", "at": at, "origins": ["S001-03"], "held_sha256": "x",
+                           "quote": held["S001"][at[0]:at[1]]}, held, why)      # a repeat adds nothing
+    ents = [e for e in O.load(case)["omissions"] if e["outcome"] == O.NOT_ADDED_NO_PLACE]
+    assert len(ents) == 1 and ents[0]["origins"] == ["S001-03", "S001-07"]
+    # one line
+    monkeypatch.setattr(C, "_sources", lambda slug: [{"id": "S001", "title": "A review"}])
+    monkeypatch.setattr(C, "_body_sentences", lambda slug: [])
+    lines = C.declarations("demo", held, case=case)
+    assert len(lines) == 1 and LF.is_no_place_line(lines[0]["sentence"])
+    # no open objection: both items are listed as "Not added", neither is open
+    monkeypatch.setattr(SA.sl, "case_dir", lambda slug: case)
+    assert SA.no_place_items("demo") == {"S001-03", "S001-07"}
+    chunks = [("a-adjudication.md", h, "### %s\nOMISSION:\nDID:\n" % h, "objections") for h in ("S001-03", "S001-07")]
+    monkeypatch.setattr(SA, "_chunks", lambda slug: chunks)
+    monkeypatch.setattr(SA, "protected_check", lambda slug: (lambda s: False))
+    monkeypatch.setattr(SA, "removed_items", lambda slug: [])
+    assert SA.open_items("demo") == ([], [])
+    # and without the merge the older item would be open (the gap this closes)
+    O.record(case, {"source": "S001", "at": at, "origins": ["S001-07"], "held_sha256": "x"},
+             outcome=O.NOT_ADDED_NO_PLACE, reason=why, by=R.NO_PLACE_BY)
+    assert SA.open_items("demo")[0] == ["a-adjudication.md: S001-03"]

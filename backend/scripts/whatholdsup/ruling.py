@@ -1175,6 +1175,14 @@ def lean_no_place(case: Path, f: dict, held: dict, why: str) -> dict:
     which the readers' list shows as code's "Not added ... (no place on the
     page)" line. Not a person's, and nothing is closed."""
     import omissions as O
+    # The same finding sent to "no place" again, under another advocate item, keeps
+    # every item number it has carried (advisor, 2026-11-05): omissions.record
+    # replaces an entry by key, so the origins are merged here first.
+    key = O.entry_key(f)
+    had = [h for e in O.load(case).get("omissions") or []
+           if e.get("key") == key and e.get("outcome") == O.NOT_ADDED_NO_PLACE for h in e.get("origins") or []]
+    origins = list(dict.fromkeys(had + list(f.get("origins") or [f.get("origin")])))
+    f = dict(f, origins=origins)
     O.record(case, f, held_text=held.get(f.get("source")), outcome=O.NOT_ADDED_NO_PLACE, reason=why,
              by=NO_PLACE_BY)
     print("  lean: %s (%s) -- listed for readers as Not added" % (why[:60], ", ".join(f.get("origins") or [])))
