@@ -3,17 +3,28 @@
   "belief": {
     "_note": "What the reader already believes, stated as they would state it. If you cannot write this sentence, there is nothing to correct and no subject -- which is how the tobacco-analogy candidate died.",
     "statement": "Removing carbon dioxide from the air -- by planting trees or with machines that capture it -- can make up for emissions we do not cut, so it offers a way to reach net zero with less or slower cutting of emissions.",
-    "how_we_know_they_believe_it": "Not yet established from named coverage; written before any source was opened (lean test). The belief is stated as the common popular framing of 'offsets' and 'carbon capture' as a substitute for cutting emissions.",
-    "carried_by": []
+    "how_we_know_they_believe_it": "Written before any source was opened. Afterwards, one general web search found coverage of an oil company chief executive presenting direct air capture as letting the industry continue operating for decades; that is a search result's account, not a document we hold.",
+    "carried_by": [
+      {
+        "outlet": "Climate Home News",
+        "url": "https://climatechangenews.com/2023/08/15/direct-air-capture-carbon-dioxide-removal-occidental-vicki-hollub/",
+        "date": "2023-08-15",
+        "what_it_said": "Not held; described from a web search result only: coverage of Occidental's chief executive framing direct air capture as a way for the oil industry to keep operating."
+      }
+    ]
   },
   "what_the_sources_show": {
     "_note": "What the primary sources actually support, and which sources.",
-    "statement": "",
-    "sources": []
+    "statement": "The IPCC AR6 WGIII assessment finds removal unavoidable to counterbalance hard-to-abate residual emissions if net zero is to be reached, in addition to deep, rapid and sustained emission cuts (high confidence); the State of CDR report puts current removal at about 2 GtCO2 a year, almost all from forests, with novel methods under 0.1%, against 7 to 9 GtCO2 a year in 2050 in more sustainable scenarios.",
+    "sources": [
+      "S001",
+      "S002",
+      "S003"
+    ]
   },
   "direction": {
     "_note": "CORRECTS, CONFIRMS or NARROWS. This field exists so the contrarianism guard can count. A publication whose answer is always CORRECTS is performing scepticism rather than assessing evidence, and is not to be trusted.",
-    "value": "",
+    "value": "narrows",
     "_values": [
       "corrects",
       "confirms",
@@ -24,25 +35,25 @@
   "public_record_check": {
     "_note": "NOT 'has anybody published this'. On any contested question, somebody has. The question is whether it has been carried WHERE THIS READER WOULD FIND IT. Run the counterexample hunter on the belief statement, not on the finding.",
     "prior_art_found": [],
-    "carried_in_general_coverage": "",
-    "our_contribution": "translation, extension, or correction of the prior art -- say which"
+    "carried_in_general_coverage": "Not checked beyond one general web search; the State of CDR report's headline figures were carried by outlets including Carbon Brief (2024), per the same search's result list.",
+    "our_contribution": "translation"
   },
   "sources_are_open": "",
   "evidence_base_is_bounded": "",
   "kill_condition": "There is no story if the primary assessments (IPCC AR6) and measured deployment figures show that carbon dioxide removal, at the scale available now and plausibly in coming decades, can substitute for deep emission cuts on the way to net zero -- or if they show no role for removal at all.",
   "kill_condition_tested": {
     "_note": "Filled in AFTER going to look, by whoever looked.",
-    "by": "",
-    "on": "",
-    "result": "",
+    "by": "Claude Code (session L1-04)",
+    "on": "2026-11-05",
+    "result": "narrowed",
     "_result_values": [
       "survived",
       "narrowed",
       "killed"
     ],
-    "note": ""
+    "note": "The assessments held say removal is necessary but in addition to deep emission cuts, not instead of them, and current removal is far below the amounts in the pathways; the belief that removal can stand in for cuts is not supported, while a role for removal is."
   },
-  "lead_came_from": "",
+  "lead_came_from": "The lean four-question test's question (round 1's WHU-Q1-04, asked again).",
   "scope": {
     "_note": "What the answer will and will not cover, written at step 1 BEFORE any source is opened, so scope cannot be fitted to the findings afterwards. An omission ruled OUT_OF_SCOPE, and a headline conclusion declared out of scope, must name the question's words or one of these entries (fix 2, docs/whu-fix2-omission-rulings-design.md section 2.4).",
     "covers": "The part that removing carbon dioxide from the air (carbon dioxide removal, CDR: e.g. afforestation and reforestation, soil carbon, bioenergy with carbon capture and storage, direct air capture with storage, enhanced weathering, ocean-based methods) plays alongside emission cuts in reaching net zero CO2 and net zero greenhouse gases: how much is done now, how much the assessed pathways use in the decades ahead, what role it plays (counterbalancing residual emissions, net-negative emissions later), and its stated limits, risks and permanence.",

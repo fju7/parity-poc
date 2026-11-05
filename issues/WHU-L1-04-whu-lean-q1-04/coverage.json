@@ -1,0 +1,68 @@
+{
+ "units": [],
+ "declarations": {
+  "S001@17857-18871": {
+   "state": "not_material",
+   "reason": "A general statement that mitigation co-benefits and trade-offs guide sectoral policy priorities; the page already states removal's co-benefits and risks from the SPM.",
+   "by": "Claude Code (session L1-04)",
+   "element": "",
+   "decided_at": "2026-11-05T19:27:44+00:00"
+  },
+  "S003@67533-75010": {
+   "state": "not_material",
+   "reason": "Warming under current policies (no removal content); the question asks what removal contributes alongside emission cuts.",
+   "by": "Claude Code (session L1-04)",
+   "element": "",
+   "decided_at": "2026-11-05T19:27:44+00:00"
+  },
+  "S003@103223-104274": {
+   "state": "not_material",
+   "reason": "Non-CO2 and aerosol warming in low-emission pathways; the question is about removing carbon dioxide.",
+   "by": "Claude Code (session L1-04)",
+   "element": "",
+   "decided_at": "2026-11-05T19:27:44+00:00"
+  },
+  "S003@128359-129141": {
+   "state": "not_material",
+   "reason": "Urban mitigation strategies; urban carbon uptake is a minor element and the statement does not assess removal's role in net zero.",
+   "by": "Claude Code (session L1-04)",
+   "element": "",
+   "decided_at": "2026-11-05T19:27:44+00:00"
+  },
+  "S003@129779-131269": {
+   "state": "not_material",
+   "reason": "City-level mitigation sequencing; not about carbon dioxide removal's role.",
+   "by": "Claude Code (session L1-04)",
+   "element": "",
+   "decided_at": "2026-11-05T19:27:44+00:00"
+  },
+  "S003@146977-148132": {
+   "state": "not_material",
+   "reason": "Institutional barriers to land-sector mitigation in general; the page states land-based removal's risks and the enablers of removal.",
+   "by": "Claude Code (session L1-04)",
+   "element": "",
+   "decided_at": "2026-11-05T19:27:44+00:00"
+  },
+  "S003@148132-151268": {
+   "state": "not_material",
+   "reason": "Costs and financing of forest-related mitigation; the page states removal cost ranges from SPM C.11.1.",
+   "by": "Claude Code (session L1-04)",
+   "element": "",
+   "decided_at": "2026-11-05T19:27:44+00:00"
+  },
+  "S003@184070-184734": {
+   "state": "not_material",
+   "reason": "Avoiding trade-offs of land-based mitigation and bioenergy sustainability; the page states the land-based risks and co-benefits.",
+   "by": "Claude Code (session L1-04)",
+   "element": "",
+   "decided_at": "2026-11-05T19:27:45+00:00"
+  },
+  "S003@192075-193353": {
+   "state": "not_material",
+   "reason": "Urban planning for mitigation and adaptation; not about carbon dioxide removal's role.",
+   "by": "Claude Code (session L1-04)",
+   "element": "",
+   "decided_at": "2026-11-05T19:27:45+00:00"
+  }
+ }
+}
