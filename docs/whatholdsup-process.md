@@ -477,6 +477,47 @@ passages, not whole sections. Everything below is under `WHU_LEAN=1` unless it s
   - **The drafting session never fetches, adds or switches to a newer edition itself.**
   - No path drops or dismisses the finding. The preflight row "newer editions handled" STOPs while a
     SUPERSEDED study has neither outcome, and while the line is missing from the page.
+- **Corrections after Q1-01b (advisor's ruling of 5 November 2026, written before their code).** Q1-01b
+  found that rule 3b's line copied the gate's prose, which carried full stops and figures, so the line
+  split and brought a figure from no held document. It also found that two rows still counted code
+  "Not added" items as open, and that the gate's UNKNOWN recency findings had no lean path.
+  - **Rule 3b, code-known text only.** The SUPERSEDED line is `A newer edition exists of <title>; this
+    page uses <edition>.` Both come from sources.json: the source's `title`, and its `edition` field
+    if it has one, else "the edition listed as <label> [n]". A title the page's splitter would cut is
+    replaced by its numbered label `<label> [n]`, as `lean_sentences.cite` does. The gate's "latest known"
+    and its figures stay in `rulings/lean_editions.jsonl` and are never printed.
+  - **UNKNOWN recency studies.** Every gate recency study that is not CURRENT (SUPERSEDED or UNKNOWN) is
+    first matched to a page source, by every identifier, in this order:
+    - a DOI, PMID, PMCID or URL found in the study's name, url or draft_uses, against each source's
+      doi, pmid, pmcid, url and also_called;
+    - `findings.recency_targets` (first author and title);
+    - title overlap with no author: at least 3 distinctive words shared, and overlap at least 0.6.
+
+    Exactly one source must match; `matched_by` records how. A matched UNKNOWN study gets the code
+    line `We could not establish whether <title> has a newer edition.` A SUPERSEDED or UNKNOWN study
+    still unmatched is recorded `untied` in `rulings/lean_editions.jsonl`. The page then carries one
+    count line, `N recency questions not tied to any source on this page were recorded and not acted
+    on.` (for one: `1 recency question not tied to any source on this page was recorded and not acted
+    on.`). Each finding is decided "judgement" by code, naming its line. None is dismissed.
+  - **Every line is a required reading element**, protected and framed, and never removed by the
+    fail-safe. "figures in held documents" (`b13.py`) skips a page sentence that is word for word one of
+    these generated lines, as fix 3 does: code wrote it from the records, so its count and its source
+    number are not figures from a document.
+  - **"Not added" items are excluded by item id.** `source_advocate.open_items` compares the item id
+    ("S001-03"), not the whole adjudication heading ("S001-03 — MINOR / NONE"), with the code
+    "Not added" items. Under lean, `omissions.preflight_rows` leaves out of "open" every LEAVES_OUT item
+    whose omission code recorded `NOT_ADDED_NO_PLACE` or `NOT_ADDED_BEYOND`. Both still report the item
+    in their INFO rows, not closed.
+  - **Every paid stage has a default cap in code.** An issue.json may carry `run_cap_usd` (the lean
+    re-runs carry 10). `spend_ledger.cap_for` returns the smaller of that and the issue's cap, and every
+    paid call already checks `check_cap` per call: `factcheck_draft.call` for the gate, advocate and
+    conclusion judge, and `audit_stage.Caller` for the audit and every ruling. So no stage can pass the
+    run cap, whatever `--cap` says. `--cap` on `ruling.py`, `audit_stage.py run` and
+    `consistency.py audit` defaults to the cap left on the issue (`stage_cap.default_cap`) instead of a
+    fixed $50, $40 or $5. Off lean and with no `run_cap_usd`, the issue cap applies as before.
+  - Tested offline, each through the actual preflight rows (`publish`-level rows of `omissions`,
+    `source_advocate`, `lean_editions`, `b13`) and `spend_ledger.check_cap`:
+    `backend/tests/test_whu_lean_post_test_fixes.py`.
 - **Two lines added to the drafting brief:** never run a stage twice in parallel, and never switch a
   source to another edition (rule 3b decides that).
 - Code: `lean_received.py` (the measurement), `lean_reading.py` (the rows for fixes 4-6),
