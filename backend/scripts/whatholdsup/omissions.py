@@ -336,9 +336,16 @@ def preflight_rows(slug: str, record_rows: list[dict] | None = None, *, case: Pa
     import source_store as store
     case = case or store.case_dir(slug)
     held = held if held is not None else R.held_texts(slug)
-    open_ = [it["head"] for it in R._leaves_out(slug, case)]
-    leaks = leaks_source_text(case, held)
     done = load(case).get("omissions") or []
+    # Lean WHU: an item whose omission code recorded as "Not added" (no place, or
+    # beyond the finding) is listed for readers and reported in the advocate's
+    # INFO row, not closed -- and not open here either (advisor's ruling after
+    # Q1-01b; by item id).
+    import lean
+    code = ({h for e in done if e.get("outcome") in CODE_NOT_ADDED for h in e.get("origins") or []}
+            if lean.enabled() else set())
+    open_ = [it["head"] for it in R._leaves_out(slug, case) if it["head"] not in code]
+    leaks = leaks_source_text(case, held)
     counts = {}
     for e in done:
         counts[e.get("outcome")] = counts.get(e.get("outcome"), 0) + 1

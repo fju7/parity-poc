@@ -337,9 +337,13 @@ def main(argv=None) -> int:
     au = sub.add_parser("audit")
     au.add_argument("slug")
     au.add_argument("run", help="the audit run's UTC stamp (audit/<stamp>/)")
-    au.add_argument("--cap", type=float, default=5.0)
+    au.add_argument("--cap", type=float, default=None,
+                    help="default: $5, or less if less is left of the issue's cap")
     au.add_argument("--seed", type=int, help="default: derived from the step id, and logged")
     a = ap.parse_args(argv)
+    if a.cmd == "audit" and a.cap is None:
+        import stage_cap
+        a.cap = min(5.0, stage_cap.default_cap(a.slug))           # never uncapped
     if a.cmd == "report":
         _require_study(a.slug)
         import source_store as store

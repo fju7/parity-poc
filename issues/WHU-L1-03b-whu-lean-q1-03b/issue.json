@@ -6,5 +6,7 @@
   "study": true,
   "round": "lean",
   "status": "draft",
-  "_round_note": "The lean four-question test (study/whu-reliability/next_phase/validity_plan.md §10; next_phase/lean_test_rule.md): round 1's question WHU-Q1-03, verbatim, asked again of lean WHU (\"lean + machine scope notes\", process doc §4.6.1), re-run on the second freeze (f11c6c9) after the advisor's rulings of 5 November 2026. Outside the reliability study's H1 and H2. \"study\": true is set only so the WHU tools run unchanged and publish/update/announce refuse it. Ledger issue: whu-lean-q1-03b; run cap $10. Created 2026-11-05 by session LT (the scoring side); nothing else is written here until drafting starts."
+  "_round_note": "The lean four-question test (study/whu-reliability/next_phase/validity_plan.md §10; next_phase/lean_test_rule.md): round 1's question WHU-Q1-03, verbatim, asked again of lean WHU (\"lean + machine scope notes\", process doc §4.6.1), re-run on the second freeze (f11c6c9) after the advisor's rulings of 5 November 2026. Outside the reliability study's H1 and H2. \"study\": true is set only so the WHU tools run unchanged and publish/update/announce refuse it. Ledger issue: whu-lean-q1-03b; run cap $10. Created 2026-11-05 by session LT (the scoring side); nothing else is written here until drafting starts.",
+  "run_cap_usd": 10,
+  "_run_cap_note": "run_cap_usd: the $10 run cap (lean_test_rule.md), enforced in code on every paid call (spend_ledger.cap_for; advisor's ruling after Q1-01b). Added by session LT."
 }

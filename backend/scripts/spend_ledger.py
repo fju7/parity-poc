@@ -175,28 +175,43 @@ class OverIssueCap(OverCap):
 ISSUES_DIR = ROOT / "issues"
 
 
-def is_study_issue(issue: str | None) -> bool:
+def issue_meta(issue: str | None) -> dict:
+    """The issue.json of the issue whose slug is ISSUE, or {}."""
     if not issue:
-        return False
+        return {}
     for f in sorted(ISSUES_DIR.glob("*/issue.json")):
         try:
             meta = json.loads(f.read_text(encoding="utf-8"))
         except Exception:
             continue
         if meta.get("slug") == issue:
-            return meta.get("study") is True
-    return False
+            return meta
+    return {}
+
+
+def is_study_issue(issue: str | None) -> bool:
+    return issue_meta(issue).get("study") is True
 
 
 def cap_for(issue: str | None) -> float | None:
-    """The per-issue cap that applies to `issue`."""
+    """The per-issue cap that applies to `issue`: caps.json's, or the smaller
+    run cap an issue.json declares as `run_cap_usd` (the lean re-runs: $10).
+    Every paid call checks this per call (factcheck_draft.call, audit_stage.
+    Caller), so no stage passes a run cap, whatever its --cap (the lean part
+    of the process doc; advisor's ruling after Q1-01b)."""
     c = caps()
     per = c.get("per_issue") or {}
+    meta = issue_meta(issue)
     if issue in per:
-        return per[issue]
-    if is_study_issue(issue) and c.get("study_per_issue"):
-        return c["study_per_issue"]
-    return c.get("default_per_issue")
+        base = per[issue]
+    elif meta.get("study") is True and c.get("study_per_issue"):
+        base = c["study_per_issue"]
+    else:
+        base = c.get("default_per_issue")
+    run = meta.get("run_cap_usd")
+    if isinstance(run, (int, float)) and run > 0:
+        return min(float(base), float(run)) if base else float(run)
+    return base
 
 
 def check_day_cap(about_to_spend: float = 0.0) -> None:

@@ -771,10 +771,11 @@ def rule_gate(slug: str, call, *, P=None, report: dict | None = None, rows: dict
 
 def lean_editions_gate(slug: str, report: dict, doc: dict, rows: dict, held: dict, done: list,
                        write_rows=None) -> set:
-    """LEAN RULE 3b (process doc §4.6.1; advisor, 5 November 2026): every
-    undecided recency finding whose gate study is SUPERSEDED is settled by code
-    (lean_editions.decide: the newer edition used, or disclosed on the page),
-    never ruled and never routed to a person, matched to a source or not.
+    """LEAN RULE 3b (process doc §4.6.1; advisor, 5 November 2026, and after
+    Q1-01b): every undecided recency finding whose gate study is SUPERSEDED or
+    UNKNOWN is matched to a page source by every identifier (lean_editions.match)
+    and settled by code (lean_editions.decide: used, disclosed, unknown, or
+    untied and counted), never ruled and never routed to a person.
     Returns the ids it decided; their records are updated in DOC."""
     import findings as F
     import lean_editions as LE
@@ -795,10 +796,10 @@ def lean_editions_gate(slug: str, report: dict, doc: dict, rows: dict, held: dic
             continue
         f = it["finding"]
         i = _rec_index(f.get("id") or "")
-        if not i or i > len(studies) or studies[i - 1].get("status") != LE.SUPERSEDED:
+        if not i or i > len(studies) or studies[i - 1].get("status") not in LE.HANDLED:
             continue
-        sids, _keys = F.recency_targets(slug, it["study"], rows)
-        d = LE.decide(slug, case, studies[i - 1], sids[0] if sids else None, srcs, rows, held, write_rows)
+        sid, how = LE.match(slug, studies[i - 1], srcs, rows)
+        d = LE.decide(slug, case, studies[i - 1], sid, srcs, rows, held, write_rows, matched_by=how)
         LE.settle_finding(f, d)
         done.append(f)
         out.add(f.get("id"))
@@ -1617,8 +1618,9 @@ def main(argv=None) -> int:
     for name in ("gate", "conclusions", "changecheck", "advocate", "dangling", "omissions", "judgements"):
         s = sub.add_parser(name)
         s.add_argument("slug")
-        s.add_argument("--cap", type=float, default=50.0,
-                       help="this run's own ceiling; the issue cap and the day cap also apply")
+        s.add_argument("--cap", type=float, default=None,
+                       help="this run's own ceiling (default: what is left of the issue's cap, "
+                            "stage_cap.default_cap); the issue cap and the day cap also apply")
         s.add_argument("--seed", type=int,
                        help="the consistency sample's seed (default: derived from the step id; logged)")
     import lean
@@ -1627,6 +1629,8 @@ def main(argv=None) -> int:
     require_study(a.slug)
     import consistency as CS
     import stage_cap
+    if a.cap is None:
+        a.cap = stage_cap.default_cap(a.slug)     # never uncapped (advisor's ruling after Q1-01b)
     kind = MODE_KIND[a.cmd]
     n = pending(a.cmd, a.slug)
     # Rulings of this kind that no completed step sampled: a step that

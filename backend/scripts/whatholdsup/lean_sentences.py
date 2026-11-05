@@ -69,7 +69,8 @@ SEARCHED_FULL_FRAME = ("We searched the full text of %s and checked the passages
 # What a sentence in a generated frame starts with (the check's net).
 LEADS = ("The question is: “", "We hold the full text of ", "We hold the abstract of ",
          "We hold only a fragment of ", "We could not obtain ", "No model read ", "We have not opened ",
-         "We searched: ", "We did not search: ", "We searched the full text of ", "A newer edition exists: ")
+         "We searched: ", "We did not search: ", "We searched the full text of ", "A newer edition exists of ",
+         "We could not establish whether ")
 HAND_WRITTEN = "lean: hand-written protected sentence; replace it with the generated one"
 
 
@@ -238,7 +239,9 @@ def is_framed(sentence: str) -> bool:
     # Both sides folded (words): LEADS carry typographic quotes, which words() folds
     # (found 2026-11-05: the question frame was never recognised as framed).
     leads = tuple(words(x) for x in LEADS + tuple(C.LEAD.values()))
-    return (w.startswith(leads) or (w.startswith("Of ") and (", we read: " in w or ", we did not read: " in w))
+    import lean_editions as LE
+    return (w.startswith(leads) or bool(LE.COUNT_RE.match(w))
+            or (w.startswith("Of ") and (", we read: " in w or ", we did not read: " in w))
             or w == words(C.HEADING))
 
 

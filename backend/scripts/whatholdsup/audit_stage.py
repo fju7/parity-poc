@@ -1576,7 +1576,8 @@ def main(argv=None) -> int:
     ap = argparse.ArgumentParser()
     sub = ap.add_subparsers(dest="cmd", required=True)
     r = sub.add_parser("run"); r.add_argument("slug")
-    r.add_argument("--cap", type=float, default=40.0)
+    r.add_argument("--cap", type=float, default=None,
+                   help="default: what is left of the issue's cap (stage_cap.default_cap)")
     r.add_argument("--ledger-issue")
     r.add_argument("--dry-run", action="store_true")
     r.add_argument("--limit", type=int)
@@ -1589,6 +1590,9 @@ def main(argv=None) -> int:
     import lean
     argv = lean.strip_flag(argv)          # --lean: lean WHU (lean.py); default off
     a = ap.parse_args(argv)
+    if a.cmd == "run" and a.cap is None:
+        import stage_cap
+        a.cap = stage_cap.default_cap(a.ledger_issue or a.slug)   # never uncapped
     if a.cmd == "withdraw":
         rd = Path(a.run_dir)
         if not rd.is_absolute():

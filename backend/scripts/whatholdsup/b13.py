@@ -106,12 +106,36 @@ def _is_year(f: str) -> bool:
     return "." not in f and "," not in f and len(f) == 4 and 1900 <= int(f) <= 2099
 
 
+def _w(s: str) -> str:
+    return " ".join((s or "").split())
+
+
+def _lean_code_lines(slug: str) -> set:
+    """Under lean WHU, lean_editions' code lines for SLUG (a newer edition, an
+    unknown recency, the count of untied ones): written by code from the run's
+    records, so their count and their source number are not figures from a
+    document (process doc §4.6.1, corrections after Q1-01b). Empty off lean, or
+    when they cannot be read (then every sentence is checked, as before)."""
+    try:
+        import lean
+        if not lean.enabled():
+            return set()
+        import lean_editions as LE
+        import source_store as store
+        return {_w(x["sentence"]) for x in LE.lines(store.case_dir(slug))}
+    except Exception:
+        return set()
+
+
 def figures_on_page(slug: str) -> list[tuple[str, str]]:
     """(figure, the sentence it is in) for every checkable figure on the page."""
     out, seen = [], set()
+    code_lines = _lean_code_lines(slug)
     for sent in B.page_sentences(slug):
         if AB.OURS.search(sent):
             continue                      # the page says it did this sum itself
+        if code_lines and _w(sent) in code_lines:
+            continue                      # lean rule 3b: code wrote it from the records (§4.6.1)
         # A page may group thousands with a space, a no-break space or a thin
         # space as well as a comma; all four read as one figure here.
         text = FT.strip_citations(FT.comma_grouped(SC._norm(sent)))

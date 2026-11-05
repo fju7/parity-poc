@@ -57,19 +57,21 @@ def rerun(n: str) -> None:
     FORBID = re.compile(FORBID.pattern + "|" + old + "|library/issues/whu-lean-q1-%s\\.json" % n)
     OTHER_ISSUE = re.compile(r"issues/(?!WHU-L1-%sr-whu-lean-q1-%sr(?![\w]))(?:WHU-[A-Z0-9][\w*?\[\]-]*|[\w-]*\*)" % (n, n))
     OWN = re.compile(r"whu-study-private/WHU-L1-%sr-whu-lean-q1-%sr(?![\w])" % (n, n))
-def rerun_b(n: str) -> None:
+def rerun_b(n: str, suffix: str = "b") -> None:
     """A second-freeze re-run drafter (`--rerun-b 02`, advisor's rulings after
     Q1-04, 5): EVERY earlier lean attempt at the question (its case folder,
     private archive and library record) is forbidden (NAMED); its own folder is
     WHU-L1-<n>b-whu-lean-q1-<n>b."""
     global FORBID, OTHER_ISSUE, OWN
-    olds = {"01": ["01"], "02": ["02", "02r"], "03": ["03"], "04": ["04"]}[n]
+    olds = ({"01": ["01", "01b"]} if suffix == "c" else
+            {"01": ["01"], "02": ["02", "02r"], "03": ["03"], "04": ["04"]})[n]
     pats = []
     for x in olds:
         pats += ["WHU-L1-%s-whu-lean-q1-%s(?![\\w])" % (x, x), "library/issues/whu-lean-q1-%s\\.json" % x]
     FORBID = re.compile(FORBID.pattern + "|" + "|".join(pats))
-    OTHER_ISSUE = re.compile(r"issues/(?!WHU-L1-%sb-whu-lean-q1-%sb(?![\w]))(?:WHU-[A-Z0-9][\w*?\[\]-]*|[\w-]*\*)" % (n, n))
-    OWN = re.compile(r"whu-study-private/WHU-L1-%sb-whu-lean-q1-%sb(?![\w])" % (n, n))
+    OTHER_ISSUE = re.compile(r"issues/(?!WHU-L1-%s%s-whu-lean-q1-%s%s(?![\w]))(?:WHU-[A-Z0-9][\w*?\[\]-]*|[\w-]*\*)"
+                             % (n, suffix, n, suffix))
+    OWN = re.compile(r"whu-study-private/WHU-L1-%s%s-whu-lean-q1-%s%s(?![\w])" % (n, suffix, n, suffix))
 
 
 def set_scratch(path: str, cleaned: str) -> None:
@@ -296,6 +298,10 @@ def main(argv=None) -> int:
     if "--rerun-b" in argv:
         i = argv.index("--rerun-b")
         rerun_b(argv[i + 1])
+        del argv[i:i + 2]
+    if "--rerun-c" in argv:
+        i = argv.index("--rerun-c")
+        rerun_b(argv[i + 1], "c")
         del argv[i:i + 2]
     if "--scratch" in argv:
         i = argv.index("--scratch")

@@ -805,6 +805,12 @@ def _chunks(slug: str):
             yield f.name, head, chunk, modes.get(sid, "objections")
 
 
+def item_id(head: str) -> str:
+    """An advocate item's id, "S001-03", from its adjudication heading
+    ("S001-03 — MINOR / NONE")."""
+    return ((head or "").split() or [""])[0]
+
+
 def open_items(slug: str) -> tuple[list[str], list[str]]:
     """(open objections, open questions for a human). Both block. A question
     with an incomplete withdrawal is neither: see withdrawals()."""
@@ -814,8 +820,10 @@ def open_items(slug: str) -> tuple[list[str], list[str]]:
     for fname, head, chunk, mode in _chunks(slug):
         if _closed(chunk, mode, is_protected):
             continue
-        if mode != "questions" and head in gone_items:
-            continue          # lean fail-safe: reported by removed_items(), still unresolved
+        if mode != "questions" and (head in gone_items or item_id(head) in gone_items):
+            # lean fail-safe / code "Not added" (by item id: the heading carries
+            # severity, "S001-03 — MINOR / NONE"; advisor's ruling after Q1-01b)
+            continue          # reported by removed_items() / the INFO row, still unresolved
         if mode == "questions" and _withdrawal(chunk) is not None:
             continue          # reported by withdrawals(), not as unanswered
         (qs if mode == "questions" else objs).append(f"{fname}: {head}")

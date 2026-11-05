@@ -2,8 +2,10 @@
 """A newer edition (lean WHU, rule 3b; process doc §4.6.1, "What 'we read'
 means"; advisor's rulings of 5 November 2026 after Q1-04).
 
-A gate recency study with status SUPERSEDED is never routed to a person under
-lean, matched to a source or not. Code settles it one of two ways:
+A gate recency study with status SUPERSEDED or UNKNOWN is never routed to a
+person under lean. It is first matched to a page source by every identifier
+(match(): DOI, PMID, PMCID, URL; first author and title; title overlap), and
+code settles it (advisor's rulings after Q1-04 and after Q1-01b):
 
   USED       a held source records "newer_edition_of": "<old source id>" in
              sources.json, and every on-page bound span on the old source is
@@ -12,13 +14,16 @@ lean, matched to a source or not. Code settles it one of two ways:
              "rebound_from"), logs it in rulings/lean_editions.jsonl, and the
              finding is decided "accepted" by code, citing one rebound span in
              the newer edition.
-  DISCLOSED  otherwise: the page carries the code-written line
-                 A newer edition exists: <latest known>; this page uses <edition>.
-             (<latest known> as the gate records it; <edition> the old source's
-             sources.json title, or the gate's study name when no source
-             matched). A required page element, protected as "reading"
+  DISCLOSED  SUPERSEDED, matched, newer edition not used: the code line
+                 A newer edition exists of <title>; this page uses <edition>.
+             (both from sources.json; never the gate's prose or figures).
+  UNKNOWN    UNKNOWN, matched: We could not establish whether <title> has a newer edition.
+  UNTIED     not matched: recorded, and counted on the page in one code line,
+                 N recency questions not tied to any source on this page were
+                 recorded and not acted on.
+             Each line is a required page element, protected as "reading"
              (bindings.NEWER_EDITION). The finding is decided "judgement" by
-             code, naming the line.
+             code, naming its line; never dismissed.
 
 The drafting session never fetches, adds or switches to a newer edition itself.
 No path drops or dismisses the finding; the preflight row "newer editions
@@ -40,11 +45,19 @@ sys.path.insert(0, str(HERE))
 
 OK, BAD = "ok", "BLOCKED"
 ROW = "newer editions handled"
-FRAME = "A newer edition exists: %s; this page uses %s."
-LEAD = "A newer edition exists: "
+# Code-known text only (advisor's ruling after Q1-01b): the source's sources.json
+# title and edition; the gate's prose and figures stay in the records.
+FRAME = "A newer edition exists of %s; this page uses %s."
+UNKNOWN_FRAME = "We could not establish whether %s has a newer edition."
+COUNT_FRAME = "%d recency questions not tied to any source on this page were recorded and not acted on."
+COUNT_FRAME_ONE = "1 recency question not tied to any source on this page was recorded and not acted on."
+LEADS = ("A newer edition exists of ", "We could not establish whether ")
+COUNT_RE = __import__("re").compile(r"^\d+ recency questions? not tied to any source on this page")
 BY = "code (lean rule 3b: newer edition)"
-USED, DISCLOSED = "used", "disclosed"
-SUPERSEDED = "SUPERSEDED"
+USED, DISCLOSED, UNKNOWN_LINE, UNTIED = "used", "disclosed", "unknown", "untied"
+SUPERSEDED, UNKNOWN = "SUPERSEDED", "UNKNOWN"
+HANDLED = (SUPERSEDED, UNKNOWN)
+COUNT_KEY = "untied recency questions (count)"
 
 
 def _clean(s: str) -> str:
@@ -75,7 +88,7 @@ def study_key(study: dict) -> str:
 
 
 def superseded(case: Path) -> list[dict]:
-    """Every SUPERSEDED recency study in the case's gate reports, once each."""
+    """Every SUPERSEDED or UNKNOWN recency study in the case's gate reports, once each."""
     seen, out = set(), []
     for p in sorted(glob.glob(str(case / "draft" / "*.gate.json"))):
         try:
@@ -83,24 +96,132 @@ def superseded(case: Path) -> list[dict]:
         except ValueError:
             continue
         for s in (rep.get("recency") or {}).get("studies") or []:
-            if isinstance(s, dict) and s.get("status") == SUPERSEDED and study_key(s) not in seen:
+            if isinstance(s, dict) and s.get("status") in HANDLED and study_key(s) not in seen:
                 seen.add(study_key(s))
                 out.append(s)
     return out
 
 
-def line_for(study: dict, edition: str) -> str:
-    return FRAME % (_clean(study.get("latest_known")) or "a later edition", _clean(edition) or "an earlier edition")
+def _one_sentence(s: str) -> bool:
+    import source_ledger as ledger
+    return len(ledger.sentences(s)) == 1
+
+
+def title_of(sources: list[dict], sid: str) -> str:
+    """The source's sources.json title, or its numbered label when the title
+    would be cut by the page's splitter (lean_sentences.cite)."""
+    import lean_sentences as LS
+    s = next((x for x in sources if x.get("id") == sid), {})
+    t = _clean(s.get("title"))
+    if t and _one_sentence(UNKNOWN_FRAME % t):
+        return t
+    return LS.cite(sources, sid)
+
+
+def edition_of(sources: list[dict], sid: str) -> str:
+    import lean_sentences as LS
+    s = next((x for x in sources if x.get("id") == sid), {})
+    e = _clean(s.get("edition"))
+    if e and _one_sentence(UNKNOWN_FRAME % e):
+        return e
+    return "the edition listed as %s" % LS.cite(sources, sid)
+
+
+def line_for(sources: list[dict], sid: str) -> str:
+    return FRAME % (title_of(sources, sid), edition_of(sources, sid))
+
+
+def count_line(n: int) -> str:
+    return COUNT_FRAME_ONE if n == 1 else COUNT_FRAME % n
 
 
 def lines(case: Path) -> list[dict]:
-    """The DISCLOSED lines, in decision order: [{key, sentence}] (one per study)."""
-    out, seen = [], set()
+    """The code lines, in decision order: [{key, sentence}], one per disclosed or
+    unknown study, then one count line for the untied ones."""
+    out, seen, untied = [], set(), set()
     for d in decisions(case):
-        if d.get("outcome") == DISCLOSED and d["key"] not in seen:
-            seen.add(d["key"])
+        if d["key"] in seen:
+            continue
+        seen.add(d["key"])
+        if d.get("outcome") in (DISCLOSED, UNKNOWN_LINE):
             out.append({"key": d["key"], "sentence": d["sentence"]})
+        elif d.get("outcome") == UNTIED:
+            untied.add(d["key"])
+    if untied:
+        out.append({"key": COUNT_KEY, "sentence": count_line(len(untied))})
     return out
+
+
+def is_code_line(sentence: str) -> bool:
+    w = " ".join((sentence or "").split())
+    return w.startswith(LEADS) or bool(COUNT_RE.match(w))
+
+
+# ------------------------------------------------------------------ matching
+
+_DOI = __import__("re").compile(r"10\.\d{4,9}/[^\s\"'<>),;]+", __import__("re").I)
+_PMID = __import__("re").compile(r"\bPMID:?\s*(\d{5,9})\b", __import__("re").I)
+_PMC = __import__("re").compile(r"\bPMC\d{5,9}\b", __import__("re").I)
+_URL = __import__("re").compile(r"https?://[^\s\"'<>)]+", __import__("re").I)
+
+
+def _ids_of(text: str) -> set:
+    out = set()
+    for m in _DOI.finditer(text or ""):
+        out.add("doi:" + m.group(0).lower().rstrip("."))
+    for m in _PMID.finditer(text or ""):
+        out.add("pmid:" + m.group(1))
+    for m in _PMC.finditer(text or ""):
+        out.add("pmcid:" + m.group(0).upper())
+    for m in _URL.finditer(text or ""):
+        u = m.group(0).lower().rstrip("./")
+        u = __import__("re").sub(r"^https?://(?:www\.)?", "", u)
+        out.add("url:" + u)
+    return out
+
+
+def _source_ids(s: dict) -> set:
+    bits = [str(s.get(k) or "") for k in ("doi", "url", "identifier", "citation")]
+    bits += ["PMID %s" % s["pmid"]] if s.get("pmid") else []
+    bits += ["PMID %s" % s["pubmed"]] if isinstance(s.get("pubmed"), (str, int)) and str(s.get("pubmed")).isdigit() else []
+    bits += [str(s.get("pmcid") or "")] + [str(x) for x in s.get("also_called") or []]
+    ids = _ids_of(" ".join(bits))
+    if s.get("doi"):
+        ids.add("doi:" + str(s["doi"]).lower().replace("https://doi.org/", "").replace("doi:", "").strip())
+    return ids
+
+
+def match(slug: str, study: dict, sources: list[dict], rows: dict) -> tuple:
+    """(source id or None, how): the one page source STUDY is about, by every
+    identifier in turn (advisor's ruling after Q1-01b): a DOI, PMID, PMCID or
+    URL; first author and title (findings.recency_targets); title overlap."""
+    import findings as F
+    sid_ids = {s.get("id"): _source_ids(s) for s in sources if s.get("id")}
+    mine = _ids_of(" ".join(str(study.get(k) or "") for k in ("name", "url", "draft_uses")))
+    hits = sorted({sid for sid, ids in sid_ids.items() if ids & mine})
+    if len(hits) == 1:
+        both = sorted(sid_ids[hits[0]] & mine)
+        return hits[0], "identifier (%s)" % ", ".join(both)
+    if len(hits) > 1:
+        return None, "identifiers match %d sources (%s)" % (len(hits), ", ".join(hits))
+    try:
+        sids, _keys = F.recency_targets(slug, study.get("name") or "", rows)
+    except (Exception, SystemExit):           # no case for SLUG: the identifier and title tests still run
+        sids = []
+    if sids:
+        return sids[0], "first author and title (findings.recency_targets)"
+    sw = F._words(study.get("name") or "")
+    best = []
+    for s in sources:
+        tw = F._words(s.get("title") or "")
+        shared = tw & sw
+        if tw and sw and len(shared) >= F.TITLE_MIN_SHARED and len(shared) / min(len(tw), len(sw)) >= F.TITLE_OVERLAP:
+            best.append(s.get("id"))
+    if len(best) == 1:
+        return best[0], "title overlap (no author)"
+    if best:
+        return None, "title overlap with %d sources (%s)" % (len(best), ", ".join(best))
+    return None, "no DOI, PMID, PMCID, URL, author or title matches a page source"
 
 
 def _spans_on(row: dict, sid: str) -> list[tuple[str, str]]:
@@ -113,7 +234,7 @@ def _spans_on(row: dict, sid: str) -> list[tuple[str, str]]:
 
 
 def decide(slug: str, case: Path, study: dict, matched_sid: str | None, sources: list[dict],
-           rows: dict, held: dict[str, str], write_rows=None) -> dict:
+           rows: dict, held: dict[str, str], write_rows=None, matched_by: str = "") -> dict:
     """Settle one SUPERSEDED study. Returns the decision record (also logged).
     WRITE_ROWS(rows): saves rebound rows (bindings.json); a test passes a fake."""
     import audit_stage as A
@@ -121,11 +242,17 @@ def decide(slug: str, case: Path, study: dict, matched_sid: str | None, sources:
     for d in decisions(case):
         if d.get("key") == key:
             return d                                  # decided once; never re-decided
-    title = {s.get("id"): s.get("title") or "" for s in sources}
-    newer = [s.get("id") for s in sources if matched_sid and s.get("newer_edition_of") == matched_sid
-             and s.get("id") in held]
     rec = {"at": datetime.now(timezone.utc).isoformat(timespec="seconds"), "key": key, "by": BY,
-           "study": study.get("name"), "latest_known": study.get("latest_known"), "old_source": matched_sid}
+           "study": study.get("name"), "status": study.get("status"), "latest_known": study.get("latest_known"),
+           "old_source": matched_sid, "matched_by": matched_by}
+    if not matched_sid:
+        rec.update({"outcome": UNTIED, "sentence": None, "new_source": None})
+        return _append(case, rec)
+    if study.get("status") != SUPERSEDED:
+        rec.update({"outcome": UNKNOWN_LINE, "sentence": UNKNOWN_FRAME % title_of(sources, matched_sid),
+                    "new_source": None})
+        return _append(case, rec)
+    newer = [s.get("id") for s in sources if s.get("newer_edition_of") == matched_sid and s.get("id") in held]
     if newer:
         nid = newer[0]
         on = [(k, r) for k, r in rows.items() if r.get("on_page") and _spans_on(r, matched_sid)]
@@ -151,9 +278,7 @@ def decide(slug: str, case: Path, study: dict, matched_sid: str | None, sources:
         rec["not_used_because"] = ("no on-page sentence rests on the old source" if not on else
                                    "%d bound span(s) not in the newer edition (e.g. %s: %r)"
                                    % (len(missing), missing[0][0], missing[0][1]))
-    edition = title.get(matched_sid) if matched_sid else study.get("name")
-    rec.update({"outcome": DISCLOSED, "sentence": line_for(study, edition or study.get("name") or ""),
-                "new_source": None})
+    rec.update({"outcome": DISCLOSED, "sentence": line_for(sources, matched_sid), "new_source": None})
     return _append(case, rec)
 
 
@@ -165,9 +290,16 @@ def settle_finding(f: dict, d: dict) -> None:
                   "why": "newer edition used: %d row(s) rebound from %s to %s, every bound span found in "
                          "the newer edition (lean rule 3b)" % (len(d["rows"]), d["old_source"], d["new_source"]),
                   "by": BY, "on": on, "ruled": "lean_editions.decide"})
+    elif d["outcome"] == UNTIED:
+        f.update({"decision": "judgement", "source_id": "", "quote": "",
+                  "why": "recency question not tied to any source on this page (%s); recorded and counted "
+                         "on the page, not acted on (lean rule 3b)" % d.get("matched_by", ""),
+                  "by": BY, "on": on, "ruled": "lean_editions.decide"})
     else:
         f.update({"decision": "judgement", "source_id": "", "quote": "",
-                  "why": "newer edition disclosed on the page (lean rule 3b): %s" % d["sentence"],
+                  "why": "%s on the page (lean rule 3b; matched by %s): %s"
+                         % ("newer edition disclosed" if d["outcome"] == DISCLOSED else "unknown recency stated",
+                            d.get("matched_by", ""), d["sentence"]),
                   "by": BY, "on": on, "ruled": "lean_editions.decide"})
     f.pop("_fill_in", None)
 
@@ -188,20 +320,26 @@ def preflight_rows(slug: str, page_sentences: list[str] | None = None) -> list[t
         d = ds.get(study_key(s))
         if not d:
             open_.append(s.get("name") or "a study")
-        elif d["outcome"] == DISCLOSED and LS.words(d["sentence"]) not in on:
-            absent.append(d["sentence"])
+    for ln in lines(case):
+        if LS.words(ln["sentence"]) not in on:
+            absent.append(ln["sentence"])
     if open_ or absent:
         bits = []
         if open_:
-            bits.append("%d SUPERSEDED stud(ies) neither used nor disclosed (run ruling.py gate): %s"
+            bits.append("%d SUPERSEDED or UNKNOWN stud(ies) not yet decided (run ruling.py gate): %s"
                         % (len(open_), "; ".join(open_[:3])))
         if absent:
-            bits.append("%d disclosure line(s) not on the page (paste lean_sentences.py render): %r"
+            bits.append("%d code line(s) not on the page (paste lean_sentences.py render): %r"
                         % (len(absent), absent[0][:120]))
         return [(ROW, BAD, "; ".join(bits))]
-    n_used = sum(1 for d in ds.values() if d["outcome"] == USED)
-    return [(ROW, OK, "%d SUPERSEDED stud(ies): %d newer edition(s) used, %d disclosed on the page"
-             % (len(studies), n_used, len(studies) - n_used))]
+    by = {}
+    for s in studies:
+        o = ds[study_key(s)]["outcome"]
+        by[o] = by.get(o, 0) + 1
+    how = "; ".join("%s: %s" % ((s.get("name") or "?")[:50], ds[study_key(s)].get("matched_by") or "-")
+                    for s in studies)
+    return [(ROW, OK, "%d recency stud(ies) not CURRENT: %s. Matched by: %s"
+             % (len(studies), ", ".join("%d %s" % (n, o) for o, n in sorted(by.items())), how))]
 
 
 def main(argv=None) -> int:

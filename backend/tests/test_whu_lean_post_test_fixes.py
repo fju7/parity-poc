@@ -283,15 +283,17 @@ def test_rule3a_an_add_beyond_its_finding_becomes_a_required_not_added_line(tmp_
     assert B.protected_kind(line) == "scope"
 
 
-# ------------------------------------------------------------------ rule 3b
+# ------------------------------------------------------------------ rule 3b (corrected after Q1-01b)
 
 NEW = "State of CDR, 3rd edition. Total removal is about 2.2 GtCO2 a year. Novel removal is small."
 OLD = "State of CDR, 2nd edition. Total removal is about 2 GtCO2 a year. Novel removal is small."
-STUDY = {"name": "State of CDR 2nd ed.", "status": "SUPERSEDED", "latest_known": "3rd Edition, June 2026"}
+STUDY = {"name": "State of CDR 2nd ed.", "status": "SUPERSEDED",
+         "latest_known": "3rd Edition. Published June 2026; 5.5 GtCO2 by 2050."}
 
 
 def _srcs(with_new: bool):
-    s = [{"id": "S002", "title": "The State of Carbon Dioxide Removal, 2nd edition"}]
+    s = [{"id": "S002", "title": "The State of Carbon Dioxide Removal, 2nd edition", "edition": "2nd edition (2024)",
+          "url": "https://www.stateofcdr.org/2nd", "doi": "10.17605/OSF.IO/E5M86"}]
     if with_new:
         s.append({"id": "S004", "title": "The State of Carbon Dioxide Removal, 3rd edition",
                   "newer_edition_of": "S002"})
@@ -303,50 +305,196 @@ def test_rule3b_the_newer_edition_is_used_when_held_and_every_span_reverifies(tm
     monkeypatch.setattr(store, "held", lambda slug: {"S004": {"sha256": "new"}})
     rows = {"r1": {"on_page": True, "source_id": "S002", "span": "Novel removal is small.", "document_sha": "old"}}
     saved = []
-    d = LE.decide("x", tmp_path, STUDY, "S002", _srcs(True), rows, {"S002": OLD, "S004": NEW}, saved.append)
+    d = LE.decide("x", tmp_path, STUDY, "S002", _srcs(True), rows, {"S002": OLD, "S004": NEW}, saved.append,
+                  matched_by="identifier (doi)")
     assert d["outcome"] == LE.USED and rows["r1"]["source_id"] == "S004" and rows["r1"]["rebound_from"] == "S002"
-    assert rows["r1"]["document_sha"] == "new" and saved
     f = {"id": "f1-rec-1"}
     LE.settle_finding(f, d)
     assert f["decision"] == "accepted" and f["source_id"] == "S004" and f["quote"] == "Novel removal is small."
 
 
-def test_rule3b_otherwise_the_page_discloses_it_and_nothing_is_dropped(tmp_path):
+def test_rule3b_the_disclosure_line_is_code_known_text_only(tmp_path):
     rows = {"r1": {"on_page": True, "source_id": "S002", "span": "Total removal is about 2 GtCO2 a year."}}
     d = LE.decide("x", tmp_path, STUDY, "S002", _srcs(True), rows, {"S002": OLD, "S004": NEW})
-    assert d["outcome"] == LE.DISCLOSED and rows["r1"]["source_id"] == "S002"
-    assert d["sentence"] == ("A newer edition exists: 3rd Edition, June 2026; this page uses "
-                             "The State of Carbon Dioxide Removal, 2nd edition.")
-    assert "not in the newer edition" in d["not_used_because"]
-    f = {"id": "f1-rec-1"}
-    LE.settle_finding(f, d)
-    assert f["decision"] == "judgement" and d["sentence"] in f["why"] and f["by"] == LE.BY
-    # decided once: a re-filed finding gets the same decision, no second line
-    assert LE.decide("x", tmp_path, STUDY, "S002", _srcs(True), rows, {})["at"] == d["at"]
-    assert [x["sentence"] for x in LE.lines(tmp_path)] == [d["sentence"]]
-    # unmatched: the gate's study name stands in for the edition
-    d2 = LE.decide("x", tmp_path, dict(STUDY, latest_known="4th"), None, _srcs(False), {}, {})
-    assert d2["sentence"].endswith("this page uses State of CDR 2nd ed.")
+    assert d["outcome"] == LE.DISCLOSED
+    assert d["sentence"] == ("A newer edition exists of The State of Carbon Dioxide Removal, 2nd edition; "
+                             "this page uses 2nd edition (2024).")
+    assert "5.5" not in d["sentence"] and "June" not in d["sentence"]       # gate prose stays in the records
+    assert d["latest_known"] == STUDY["latest_known"]
+    assert len(SL.sentences(d["sentence"])) == 1
+    # a title the splitter would cut falls back to the numbered label
+    dotted = [{"id": "S002", "title": "Smith J. et al. A review. Lancet 2024."}]
+    t = LE.line_for(dotted, "S002")
+    assert len(SL.sentences(t)) == 1 and "[1]" in t
 
 
-def test_rule3b_the_line_is_generated_protected_and_required():
-    line = "A newer edition exists: 3rd Edition, June 2026; this page uses The State of CDR, 2nd edition."
-    gen = LS.generate({"question": "Q?"}, [], editions=[{"key": "k", "sentence": line}])
-    g = [x for x in gen if x["sentence"] == line][0]
-    assert g["kind"] == "reading" and LS.is_framed(line)
-    assert B.protected_kind(line.replace("June", "found in June")) == "reading"
-    assert LF.required_removed(gen, {LS.words(line)}) == [g]
+def test_rule3b_unknown_studies_are_matched_by_every_identifier_and_reported():
+    srcs = _srcs(False)
+    for study, how in [({"name": "x", "url": "https://www.stateofcdr.org/2nd/"}, "identifier"),
+                       ({"name": "see doi 10.17605/osf.io/e5m86 for it"}, "identifier"),
+                       ({"name": "The State of Carbon Dioxide Removal report"}, "title overlap")]:
+        sid, by = LE.match("x", dict(study, status="UNKNOWN"), srcs, {})
+        assert sid == "S002" and by.startswith(how), (study, by)
+    sid, by = LE.match("x", {"name": "Unnamed antenatal care studies", "status": "UNKNOWN"}, srcs, {})
+    assert sid is None and "no DOI" in by
 
 
-def test_rule3b_lean_gate_settles_superseded_studies_by_code(tmp_path, monkeypatch, lean_on):
-    import findings as F
+def test_rule3b_unknown_matched_gets_its_line_and_untied_are_counted_never_dismissed(tmp_path):
+    srcs = _srcs(False)
+    u = LE.decide("x", tmp_path, {"name": "A", "status": "UNKNOWN", "latest_known": "?"}, "S002", srcs, {}, {},
+                  matched_by="identifier (doi)")
+    assert u["sentence"] == "We could not establish whether The State of Carbon Dioxide Removal, 2nd edition has a newer edition."
+    for n in ("B", "C"):
+        LE.decide("x", tmp_path, {"name": n, "status": "UNKNOWN", "latest_known": "?"}, None, srcs, {}, {},
+                  matched_by="no DOI, PMID, PMCID, URL, author or title matches a page source")
+    ls = [x["sentence"] for x in LE.lines(tmp_path)]
+    assert ls == [u["sentence"],
+                  "2 recency questions not tied to any source on this page were recorded and not acted on."]
+    assert LE.count_line(1) == "1 recency question not tied to any source on this page was recorded and not acted on."
+    f = {"id": "f-rec-2"}
+    LE.settle_finding(f, LE.decisions(tmp_path)[1])
+    assert f["decision"] == "judgement" and "not tied" in f["why"]
+    for line in ls:
+        assert B.protected_kind(line) == "reading" and LS.is_framed(line) and LE.is_code_line(line)
+    gen = LS.generate({"question": "Q?"}, [], editions=LE.lines(tmp_path))
+    assert len(LF.required_removed(gen, {LS.words(x) for x in ls})) == 2      # required: never removable
+
+
+# ------------------------------------------------------- the actual preflight rows, on Q1-01b's records
+
+Q1B = ROOT / "issues" / "WHU-L1-01b-whu-lean-q1-01b"
+needs_q1b = pytest.mark.skipif(not (Q1B / "advocate").exists() or not (Q1B / "rulings").exists(),
+                               reason="Q1-01b's git-ignored records are only on the operator's machine")
+
+
+@pytest.fixture
+def q1b(tmp_path, monkeypatch):
+    import shutil
     import source_store as store
-    monkeypatch.setattr(store, "case_dir", lambda slug: tmp_path)
-    (tmp_path / "sources.json").write_text(json.dumps({"sources": _srcs(False)}))
-    monkeypatch.setattr(F, "recency_targets", lambda slug, study, rows: ([], []))
-    report = {"recency": {"studies": [STUDY, {"name": "IPCC", "status": "CURRENT"}]}}
-    doc = {"findings": [{"id": "f1234abcd-rec-1", "kind": "recency"}]}
+    case = tmp_path / Q1B.name
+    shutil.copytree(Q1B, case)
+    monkeypatch.setattr(store, "case_dir", lambda slug: case)
+    monkeypatch.setattr(SL, "case_dir", lambda slug: case)
+    return case
+
+
+@needs_q1b
+def test_q1b_the_two_rows_exclude_the_code_not_added_item_by_id(q1b, lean_on):
+    import source_advocate as SA
+    om = O.preflight_rows("whu-lean-q1-01b", [], held=R.held_texts("whu-lean-q1-01b"))
+    assert om[0][0] == O.ROW and om[0][1] == "ok", om
+    rows = {r[0]: r for r in SA.preflight_rows("whu-lean-q1-01b")}
+    assert rows["advocate objections closed"][1] == "ok", rows["advocate objections closed"]
+    info = [r for r in rows.values() if "Not added" in (r[2] or "") and "S001-03" in r[2]]
+    assert info, "the INFO row still reports the item, not closed"
+
+
+@needs_q1b
+def test_q1b_off_lean_the_item_is_still_open(q1b):
+    lean.enable(False)
+    try:
+        om = O.preflight_rows("whu-lean-q1-01b", [], held=R.held_texts("whu-lean-q1-01b"))
+        assert om[0][1] == "BLOCKED"
+    finally:
+        lean._forced = None
+
+
+@needs_q1b
+def test_q1b_recency_findings_settle_by_code_with_code_known_lines(q1b, lean_on):
+    import findings as F
+    (q1b / "rulings" / "lean_editions.jsonl").unlink(missing_ok=True)
+    report = json.loads((q1b / "draft" / "whu-lean-q1-01b.html.gate.json").read_text())
+    doc = json.loads((q1b / "gate-findings.json").read_text())
+    for f in doc.get("findings") or []:
+        if f.get("kind") == "recency":
+            f["decision"] = ""
     done = []
-    ids = R.lean_editions_gate("x", report, doc, {}, {}, done, write_rows=lambda r: None)
-    assert ids == {"f1234abcd-rec-1"} and doc["findings"][0]["decision"] == "judgement"
-    assert LE.lines(tmp_path)[0]["sentence"].startswith("A newer edition exists: 3rd Edition, June 2026")
+    ids = R.lean_editions_gate("whu-lean-q1-01b", report, doc, {}, R.held_texts("whu-lean-q1-01b"), done,
+                               write_rows=lambda r: None)
+    assert len(ids) == 4                                  # 1 SUPERSEDED + 3 UNKNOWN; the CURRENT one untouched
+    ds = LE.decisions(q1b)
+    assert all(d.get("matched_by") for d in ds)
+    sinema = [d for d in ds if "SINEMA" in (d["study"] or "")][0]
+    assert sinema["outcome"] == LE.UNTIED                 # not a source on this page
+    for ln in LE.lines(q1b):
+        s = ln["sentence"]
+        assert "5.5" not in s and "JAMA" not in s and len(SL.sentences(s)) == 1
+    page = B.page_sentences("whu-lean-q1-01b")
+    assert LE.preflight_rows("whu-lean-q1-01b", page)[0][1] == LE.BAD          # lines not pasted yet
+    ok = LE.preflight_rows("whu-lean-q1-01b", page + [x["sentence"] for x in LE.lines(q1b)])
+    assert ok[0][1] == LE.OK and "Matched by" in ok[0][2]
+
+
+@needs_q1b
+def test_q1b_figures_row_skips_the_code_lines_and_still_catches_a_stray_figure(q1b, lean_on, monkeypatch):
+    import b13
+    LE._append(q1b, {"key": "k1", "outcome": LE.UNTIED, "sentence": None})
+    LE._append(q1b, {"key": "k2", "outcome": LE.UNTIED, "sentence": None})
+    line = LE.lines(q1b)[-1]["sentence"]
+    monkeypatch.setattr(b13.B, "page_sentences", lambda slug: [line])
+    assert b13.figures_on_page("whu-lean-q1-01b") == []
+    monkeypatch.setattr(b13.B, "page_sentences", lambda slug: [line, "The follow-up ran for 5.5 years."])
+    row = b13.preflight_rows("whu-lean-q1-01b")[0]
+    assert row[0] == "figures in held documents" and row[1] == b13.BAD and "5.5" in row[2]
+
+
+# ------------------------------------------------------------------ every paid stage capped by default
+
+def test_a_run_cap_in_issue_json_caps_every_paid_call_whatever_the_cap_flag(tmp_path, monkeypatch):
+    import stage_cap
+    S = stage_cap.S
+    (tmp_path / "WHU-L1-09c-x").mkdir()
+    (tmp_path / "WHU-L1-09c-x" / "issue.json").write_text(json.dumps(
+        {"slug": "whu-test-capped", "study": True, "run_cap_usd": 10}))
+    monkeypatch.setattr(S, "ISSUES_DIR", tmp_path)
+    spend = [{"at": "2026-11-05T21:00:00+00:00", "issue": "whu-test-capped", "usd": 9.9}]
+    monkeypatch.setattr(S, "entries", lambda: spend)
+    monkeypatch.setattr(S, "check_day_cap", lambda about_to_spend=0.0: None)
+    assert S.cap_for("whu-test-capped") == 10.0
+    with pytest.raises(S.OverIssueCap):
+        S.check_cap("whu-test-capped", 0.5)       # what every paid call checks, per call
+    assert stage_cap.default_cap("whu-test-capped") == pytest.approx(0.1)
+
+
+def test_paid_stages_default_their_cap_to_what_is_left_never_uncapped(monkeypatch):
+    import stage_cap
+    import consistency as CS
+    monkeypatch.setattr(stage_cap, "default_cap", lambda issue: 1.25)
+    seen = {}
+
+    class Stop(Exception):
+        pass
+
+    def caller(*a, **k):
+        seen["cap"] = k.get("cap")
+        raise Stop()
+    monkeypatch.setattr(A, "Caller", caller)
+    monkeypatch.setattr(R, "require_study", lambda slug, P=None: None)
+    monkeypatch.setattr(stage_cap, "guard", lambda *a, **k: None)
+    monkeypatch.setattr(R, "pending", lambda cmd, slug: 1)
+    with pytest.raises(Stop):
+        R.main(["advocate", "whu-lean-q1-01b"])              # no --cap given
+    assert seen["cap"] == 1.25
+    seen.clear()
+    monkeypatch.setattr(A, "run", lambda *a, **k: (_ for _ in ()).throw(Stop()))
+    monkeypatch.setattr(A, "_stage_guard", lambda *a, **k: None)
+    monkeypatch.setattr(A, "units", lambda slug: [])
+    captured = {}
+    monkeypatch.setattr(A, "run", lambda slug, **k: (captured.update(k), (_ for _ in ()).throw(Stop()))[1])
+    with pytest.raises(Stop):
+        A.main(["run", "whu-lean-q1-01b"])
+    assert captured["cap"] == 1.25
+
+
+def test_the_consistency_sample_defaults_its_cap_too(monkeypatch):
+    import consistency as CS
+    import stage_cap
+    monkeypatch.setattr(stage_cap, "default_cap", lambda issue: 0.75)
+    seen = {}
+    monkeypatch.setattr(CS, "cmd_audit", lambda a: seen.setdefault("cap", a.cap) and 0)
+    CS.main(["audit", "whu-lean-q1-01b", "20261105T000000Z"])
+    assert seen["cap"] == 0.75                    # min($5, what is left), never uncapped
+    monkeypatch.setattr(stage_cap, "default_cap", lambda issue: 9.0)
+    seen.clear()
+    CS.main(["audit", "whu-lean-q1-01b", "20261105T000000Z"])
+    assert seen["cap"] == 5.0

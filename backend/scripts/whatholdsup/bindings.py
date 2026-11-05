@@ -1113,7 +1113,8 @@ DECLARATION_LEAD = re.compile(
 # newer edition (lean_editions.FRAME) says what we used, a reading statement. It
 # quotes the gate's "latest known", which may say "found", so it is matched
 # before STATES_FINDING.
-NEWER_EDITION = re.compile(r"^\W*A newer edition exists:", re.I)
+NEWER_EDITION = re.compile(r"^\W*(?:A newer edition exists of |We could not establish whether .{1,400} has a newer edition"
+                           r"|\d+ recency questions? not tied to any source on this page)", re.I)
 
 
 def protected_kind(sent: str, row: dict | None = None) -> str | None:

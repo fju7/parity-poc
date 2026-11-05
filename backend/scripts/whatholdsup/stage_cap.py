@@ -246,6 +246,18 @@ def _advocate_per_source(fd: list[dict], idir: Path) -> tuple[float, str]:
     return a, "the higher of: %s; %s" % (how_a, how_b)
 
 
+def default_cap(issue: str) -> float:
+    """A stage's --cap when none is given: what is left of the issue's cap
+    (spend_ledger.cap_for, which honours issue.json's run_cap_usd), never more
+    and never uncapped (advisor's ruling after Q1-01b). With no cap at all on
+    the issue, the day's remaining room."""
+    lim = S.cap_for(issue)
+    if lim:
+        return max(0.0, round(float(lim) - S.spent(issue=issue), 4))
+    day = (S.caps() or {}).get("default_per_day") or 0
+    return max(0.0, float(day))
+
+
 def remaining(issue: str) -> dict:
     """{day_left, day_cap, issue_left, issue_cap}; a cap that is not set is None."""
     c = S.caps()

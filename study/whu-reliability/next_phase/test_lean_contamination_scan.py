@@ -146,3 +146,14 @@ def test_second_freeze_rerun_forbids_every_earlier_attempt_and_takes_this_sessio
     assert S3.broad("grep -r x /tmp/new-session/scratchpad")
     assert S3.scratch("ls /tmp/new-session/scratchpad", "2026-11-05T20:00:00")
     assert not S3.scratch("ls /tmp/new-session/scratchpad", "2026-11-05T22:00:00")
+
+
+def test_q1_01c_rerun_forbids_both_earlier_attempts():
+    spec4 = importlib.util.spec_from_file_location("lcs4", HERE / "lean_contamination_scan.py")
+    S4 = importlib.util.module_from_spec(spec4)
+    spec4.loader.exec_module(S4)
+    S4.rerun_b("01", "c")
+    assert S4.FORBID.search("cat issues/WHU-L1-01b-whu-lean-q1-01b/draft/x.html")
+    assert S4.FORBID.search("cat issues/WHU-L1-01-whu-lean-q1-01/draft/x.html")
+    assert not S4.FORBID.search("cat issues/WHU-L1-01c-whu-lean-q1-01c/issue.json")
+    assert S4.OWN.search("ls ~/Projects/whu-study-private/WHU-L1-01c-whu-lean-q1-01c/")

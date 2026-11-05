@@ -84,9 +84,14 @@ SECOND_FREEZE_LINES = (
 EARLIER = {"01": ["01"], "02": ["02", "02r"], "03": ["03"], "04": ["04"]}
 
 
-def earlier_line(n: str) -> str:
+# Advisor's ruling after Q1-01b (5): Q1-01 is re-run again, as Q1-01c; its line
+# names both earlier attempts.
+EARLIER_C = {"01": ["01", "01b"]}
+
+
+def earlier_line(n: str, suffix: str = "b") -> str:
     """The DO NOT READ line naming every earlier lean attempt at question N."""
-    xs = EARLIER[n]
+    xs = EARLIER_C[n] if suffix == "c" else EARLIER[n]
     return ("- The earlier lean attempts at this question: %s; their private archives %s; their library records %s; "
             "and their git history.\n"
             % (", ".join("issues/WHU-L1-%s-whu-lean-q1-%s/" % (x, x) for x in xs),
@@ -120,7 +125,7 @@ def make(n: str, r1_block: str, suffix: str = "", second: bool = False) -> tuple
         out = out.replace(ADDED_ANCHOR, ADDED_ANCHOR + ADDED_AFTER_Q1_01)
         log.append("DO NOT READ: one line added (advisor ruling 2026-11-05, after Q1-01): %r" % ADDED_AFTER_Q1_01.strip())
     if second:
-        line = earlier_line(n)
+        line = earlier_line(n, suffix)
         out = out.replace(ADDED_AFTER_Q1_01, ADDED_AFTER_Q1_01 + line)
         log.append("DO NOT READ: the line forbidding every earlier lean attempt (advisor's rulings after Q1-04, 5): %r"
                    % line.strip())
@@ -159,6 +164,12 @@ def main() -> int:
         parts.append("## WHU-Q1-%sb (whu-lean-q1-%sb): re-run with a fresh drafter on the second freeze\n\n"
                      "Changes from round 1's brief:\n\n%s\n\nPrompt sha256: `%s`\n\n```text\n%s```\n"
                      % (n, n, "\n".join("- " + x for x in log), hashlib.sha256(prompt.encode()).hexdigest(), prompt))
+    # Q1-01 again, after Q1-01b found defects in f11c6c9 (advisor's ruling after Q1-01b, 5)
+    n, block = blocks[0]
+    prompt, log = make(n, block, "c", second=True)
+    parts.append("## WHU-Q1-%sc (whu-lean-q1-%sc): re-run with a fresh drafter on the third freeze\n\n"
+                 "Changes from round 1's brief:\n\n%s\n\nPrompt sha256: `%s`\n\n```text\n%s```\n"
+                 % (n, n, "\n".join("- " + x for x in log), hashlib.sha256(prompt.encode()).hexdigest(), prompt))
     OUT.write_text("\n".join(parts), encoding="utf-8")
     print("wrote", OUT)
     return 0
