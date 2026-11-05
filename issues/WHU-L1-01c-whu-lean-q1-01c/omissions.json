@@ -1,0 +1,67 @@
+{
+ "omissions": [
+  {
+   "key": "S001@178199-178336",
+   "source": "S001",
+   "held_sha256": "cdb44f085b3932df0e45228c064e7779880213799f5ba7d082e478c439fe1f2a",
+   "at": [
+    178199,
+    178336
+   ],
+   "quote_sha256": "15e2a11f2b3dc67f376f14cac1d008e3a9402e1796df4059cc7a9370acee2c90",
+   "outcome": "NOT_MATERIAL",
+   "element": "",
+   "reason": "Step 1: The finding bears on the question. It marks which primary care health areas the evidence covers, which limits how far the answer applies, and nothing in the question or scope excludes it. Step 2: The draft already says that 'All studies focused on pregnant or post-natal women and their children, or on adults with chronic disease.' That sentence already tells the reader that no [S001@178228-178285] adult communicable disease treatment, were studied. Naming two examples of missing areas adds no new limit to the answer, so the finding is effectively already stated.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "b6114aede8096a0a",
+   "origins": [
+    "S001-04"
+   ],
+   "on_page": null,
+   "after": null,
+   "decided_at": "2026-11-05T22:37:57+00:00"
+  },
+  {
+   "key": "S001@188905-189040",
+   "source": "S001",
+   "held_sha256": "cdb44f085b3932df0e45228c064e7779880213799f5ba7d082e478c439fe1f2a",
+   "at": [
+    188905,
+    189040
+   ],
+   "quote_sha256": "790f506308e10ba5350c060d17ea8001c56994ec84a7c01a709fdaea64ebd9bf",
+   "outcome": "NOT_ADDED_BEYOND",
+   "element": "",
+   "reason": "the ADD's span is not in the finding",
+   "by": "code (lean: the proposed sentence went beyond the finding)",
+   "ruling": null,
+   "origins": [
+    "S001-03"
+   ],
+   "on_page": null,
+   "after": null,
+   "decided_at": "2026-11-05T22:38:05+00:00"
+  },
+  {
+   "key": "S002@224362-224465",
+   "source": "S002",
+   "held_sha256": "d0efe38d8d1ce9d60486db70734273c487490c90bc5b60a71854a857288443c8",
+   "at": [
+    224362,
+    224465
+   ],
+   "quote_sha256": "f444be3b80f9b7ab66d4ab376a1802236cb23b92cffa27bf8cba2f6e5f8c1fa0",
+   "outcome": "ADD",
+   "element": "",
+   "reason": "Step 1: the finding is about the effect [S002@227404-227445] on service uptake (vaccination, contraception use), which the question asks about under 'improve the care people receive'. Step 2: it adds outcomes the draft does not state. Third-dose polio vaccine receipt may improve, which qualifies the draft's statement that the proportion of under-fives vaccinated shows little to no difference. Postpartum contraception is a further distinct outcome. A manager weighing whether the app improves care would consider both. The 'may improve' hedge is kept.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "2292b67eda6c260b",
+   "origins": [
+    "S002-05"
+   ],
+   "on_page": "9a0ed038db7d2900",
+   "after": "c90966c025ab4f19",
+   "decided_at": "2026-11-05T22:38:13+00:00"
+  }
+ ]
+}
