@@ -13,6 +13,19 @@
         "S001",
         "S003"
       ]
+    },
+    {
+      "on": "2026-11-05",
+      "command": "resolve --write",
+      "resolved": [],
+      "refused": [],
+      "failed": [],
+      "unsweepable": [
+        "S001",
+        "S003",
+        "S004",
+        "S005"
+      ]
     }
   ]
 }

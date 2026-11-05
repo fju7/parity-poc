@@ -37,6 +37,26 @@
       "comments": [],
       "state": "UNCHECKED",
       "why": "matched on DOI 10.1017/9781009157926.001 at Crossref; not in Europe PMC, and the publisher registers NO update policy — so Crossref would not know of a correction even if one existed. This is not a pass"
+    },
+    "S004": {
+      "source": "S004",
+      "title": "The State of Carbon Dioxide Removal - 3rd Edition (2026)",
+      "checked_on": "2026-11-05",
+      "identifier": "DOI 10.17605/OSF.IO/ZRD65",
+      "identifier_from": "the held document",
+      "state": "UNCHECKED",
+      "why": "Europe PMC has no record for DOI 10.17605/OSF.IO/ZRD65; HTTP 404 from Crossref",
+      "amendments": [],
+      "comments": []
+    },
+    "S005": {
+      "source": "S005",
+      "title": "Errata in The State of Carbon Dioxide Removal 3rd Edition (July 2026)",
+      "checked_on": "2026-11-05",
+      "state": "UNCHECKABLE",
+      "why": "no DOI, PMID, PMCID or PII can be parsed from the URL we hold; nothing is typed from memory, so this source cannot be looked up automatically",
+      "amendments": [],
+      "comments": []
     }
   }
 }

@@ -116,6 +116,66 @@
         "IPCC AR6 WGIII Summary for Policymakers"
       ],
       "document_class": "document"
+    },
+    {
+      "id": "S004",
+      "type": "synthesis",
+      "form": "article",
+      "document_class": "document",
+      "title": "The State of Carbon Dioxide Removal - 3rd Edition (2026)",
+      "also_called": [
+        "State of Carbon Dioxide Removal 2026"
+      ],
+      "url": "https://www.stateofcdr.org/asset/State-of-Carbon-Dioxide-Removal-Edition-3_June-2026.pdf",
+      "supersedes": "S002",
+      "used_for": "current removal by method and removal in Paris-consistent scenarios; the edition that supersedes S002 (found by the gate's recency role, 2026-11-05)",
+      "licence": {
+        "note": "CC BY 4.0 (stated in the report's front matter)."
+      },
+      "access": {
+        "state": "full_text_held",
+        "held": {
+          "file": "docs/7a/7af8dc58566beeab8eeceb75f713d9592d289a31b539601b304f7f773b98b62d.pdf",
+          "sha256": "7af8dc58566beeab8eeceb75f713d9592d289a31b539601b304f7f773b98b62d",
+          "bytes": 6627987,
+          "identified_by": "contains 5 of 5 distinctive title words — 769289 characters, reference list and discussion/introduction present; title present (5 of 5 title words in the visible text)",
+          "kind": "full_text",
+          "kind_why": "769289 characters, reference list and discussion/introduction present"
+        },
+        "on": "2026-11-05",
+        "sections": [
+          "the Executive summary",
+          "the key insights of chapter 9"
+        ],
+        "not_read": [
+          "the rest of chapters 1 to 10"
+        ]
+      }
+    },
+    {
+      "id": "S005",
+      "type": "corrigendum",
+      "form": "notice",
+      "document_class": "document",
+      "title": "Errata in The State of Carbon Dioxide Removal 3rd Edition (July 2026)",
+      "url": "https://www.stateofcdr.org/asset/Errata-in-SoCDR-ED3_July_26-1.pdf",
+      "amends": "S004",
+      "used_for": "corrections to S004",
+      "access": {
+        "state": "full_text_held",
+        "held": {
+          "file": "docs/d5/d510ce3fc5ea81378aebf7796282266c8ace48b985b107eab26acf441bea2135.pdf",
+          "sha256": "d510ce3fc5ea81378aebf7796282266c8ace48b985b107eab26acf441bea2135",
+          "bytes": 123452,
+          "identified_by": "contains 6 of 7 distinctive title words — form 'notice' — 5436 characters held. The article test does not apply to this form; title present (6 of 7 title words in the visible text)",
+          "kind": "document",
+          "kind_why": "form 'notice' — 5436 characters held. The article test does not apply to this form"
+        },
+        "on": "2026-11-05"
+      },
+      "also_called": [
+        "State of Carbon Dioxide Removal 2026 errata"
+      ]
     }
   ],
   "search": {
