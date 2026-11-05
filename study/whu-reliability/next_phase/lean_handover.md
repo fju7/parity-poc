@@ -62,3 +62,4 @@ Ruling 2 said to start Q1-04 now, so it is next. Re-check the room rule (it rese
 - Judging afterwards: prepare_lean.py `ALL` must map to the 0nb slugs.
 - **Q1-01b finished Not Ready ($1.19) and found three defects in f11c6c9** (deviations, 21:25Z). Q1-02b..04b are NOT started; waiting on the advisor.
 - **Third freeze 9db89f2** (corrections after Q1-01b). Reserve $4 moved to the runs line ($44, $24.85 left). Order: Q1-01c (`--rerun-c 01` for the scanner), then Q1-02b, Q1-03b, Q1-04b (`--rerun-b NN`).
+- **Q1-01c Ready ($1.53), reading check passes.** Next: Q1-02b. Day ledger $46.97 + $4.54 likely > $50, so it starts after 00:00 UTC (room rule).
