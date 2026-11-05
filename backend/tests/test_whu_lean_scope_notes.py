@@ -145,6 +145,14 @@ ROUND1 = ROOT / "issues" / "WHU-Q1-03-whu-quarterly-r1-03" / "audit"
 @pytest.mark.parametrize("slug", SLUGS)
 def test_the_fixture_matches_what_the_real_records_generate(slug, lean_on):
     import ruling as R
+    hidden = []
     got = [{k: d[k] for k in ("key", "state", "source", "sentence")}
-           for d in C.declarations(slug, R.held_texts(slug))]
-    assert got == FIX[slug]["declared"]
+           for d in C.declarations(slug, R.held_texts(slug), hidden=hidden)]
+    # Since the ruling of 2026-11-05 (process doc §4.6.1, the ruling paths), an
+    # omission ruled NOT_MATERIAL that the body already states is kept off the
+    # list. The fixture predates that rule; what differs must be exactly those.
+    conv = {d["key"] for d in hidden if d.get("converted_from")}
+    assert all(d["state"] == "not_material" for d in FIX[slug]["declared"] if d["key"] in conv)
+    assert got == [d for d in FIX[slug]["declared"] if d["key"] not in conv]
+    assert len(conv) == {"whu-quarterly-r1-01": 0, "whu-quarterly-r1-02": 0,
+                         "whu-quarterly-r1-03": 4, "whu-quarterly-r1-04": 4}[slug]

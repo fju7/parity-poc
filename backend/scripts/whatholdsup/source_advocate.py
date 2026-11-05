@@ -794,13 +794,50 @@ def open_items(slug: str) -> tuple[list[str], list[str]]:
     with an incomplete withdrawal is neither: see withdrawals()."""
     objs, qs = [], []
     is_protected = protected_check(slug)
+    gone_items = {h for _f, h, _t in removed_items(slug)}
     for fname, head, chunk, mode in _chunks(slug):
         if _closed(chunk, mode, is_protected):
             continue
+        if mode != "questions" and head in gone_items:
+            continue          # lean fail-safe: reported by removed_items(), still unresolved
         if mode == "questions" and _withdrawal(chunk) is not None:
             continue          # reported by withdrawals(), not as unanswered
         (qs if mode == "questions" else objs).append(f"{fname}: {head}")
     return objs, qs
+
+
+def removed_items(slug: str) -> list[tuple[str, str, str]]:
+    """LEAN WHU only (lean_failsafe.py; process doc §4.6.1, the ruling paths):
+    open objections whose target is a sentence the fail-safe removed and which
+    no page sentence still holds: [(file, head, target)]. They are not closed
+    and carry no MERIT; they are reported as "removed: unresolved finding"
+    and not counted as open, since the sentence they are about is gone."""
+    import lean
+    if not lean.enabled():
+        return []
+    import bindings as B
+    import lean_failsafe as LF
+    gone = LF.removed_words(slug)
+    if not gone:
+        return []
+    try:
+        page = [LF._words(x) for x in B.page_sentences(slug)]
+    except (Exception, SystemExit):
+        return []
+    out = []
+    for fname, head, chunk, mode in _chunks(slug):
+        if mode == "questions" or _closed(chunk, mode, protected_check(slug)):
+            continue
+        t = TARGET_LINE.search(chunk)
+        if not t:
+            continue
+        w = LF._words(t.group(1).strip())
+        if len(w.split()) < 3 or not any(w == g or w in g or g in w for g in gone):
+            continue
+        if any(w in p for p in page):
+            continue          # still on the page: open (and lean_sentences BLOCKs)
+        out.append((fname, head, t.group(1).strip()))
+    return out
 
 
 def withdrawals(slug: str) -> tuple[list[str], list[str]]:
@@ -882,6 +919,12 @@ def preflight_rows(slug: str) -> list[tuple[str, str, str]]:
         rows.append(("objections not ruled: protected sentence", OK,
                      f"INFO, for the study log (not the readers' list): {len(nrp)} item(s) on a "
                      f"protected sentence, closed not_ruled_protected: " + "; ".join(nrp[:4])))
+    gone = removed_items(slug)
+    if gone:
+        rows.append(("objections on removed sentences (lean fail-safe)", OK,
+                     f"INFO: {len(gone)} objection(s) whose sentence left the page under the lean fail-safe; "
+                     f"removed: unresolved finding, not closed: "
+                     + "; ".join(f"{h} ({t[:50]!r})" for _f, h, t in gone[:4])))
     vocab = vocabulary_problems(slug)
     if vocab:
         rows.append(("effect vocabulary recognised", WARN,

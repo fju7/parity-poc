@@ -174,8 +174,21 @@ def declared_of(slug: str) -> list[dict]:
         return []
 
 
-def generated(slug: str) -> list[dict]:
-    return generate(*load(slug))
+def generated(slug: str, keep_removed: bool = False) -> list[dict]:
+    """The generated sentences for SLUG, less those lean's fail-safe removed
+    (lean_failsafe.py: a finding left unresolved on them). The readers'-list
+    heading leaves with the last line under it. KEEP_REMOVED: all of them."""
+    gen = generate(*load(slug))
+    if keep_removed:
+        return gen
+    import lean_failsafe as LF
+    gone = LF.removed_words(slug)
+    if not gone:
+        return gen
+    live = [g for g in gen if not LF.is_removed(g["sentence"], gone)]
+    if not any(g["kind"] == "scope" and g["field"] != "coverage_check.HEADING" for g in live):
+        live = [g for g in live if g["field"] != "coverage_check.HEADING"]
+    return live
 
 
 def is_framed(sentence: str) -> bool:
@@ -205,16 +218,30 @@ def render(gen: list[dict]) -> str:
     return "".join("  <p>%s</p>\n" % _html.escape(g["sentence"], quote=False) for g in gen)
 
 
-def check(page_sentences: list[str], gen: list[dict]) -> tuple[str, str, str]:
-    stale = [s for s in page_sentences if is_framed(s) and not matches(s, gen)]
-    hand = [s for s in page_sentences if s not in stale and hand_written(s, gen)]
+def check(page_sentences: list[str], gen: list[dict], gone: set | None = None,
+          required: list[dict] | None = None) -> tuple[str, str, str]:
+    """GONE: the words() of every sentence lean's fail-safe removed; REQUIRED:
+    the removed ones that are required page elements (lean_failsafe.required_removed)."""
+    import lean_failsafe as LF
+    gone = gone or set()
+    still = [s for s in page_sentences if LF.is_removed(s, gone)]
+    stale = [s for s in page_sentences if s not in still and is_framed(s) and not matches(s, gen)]
+    hand = [s for s in page_sentences if s not in stale and s not in still and hand_written(s, gen)]
     q = next((g for g in gen if g["kind"] == "question"), None)
     split = [g for g in gen if g.get("splits")]
     on = [s for s in page_sentences if matches(s, gen)]
     bits = []
+    if required:
+        import lean_failsafe as LF
+        bits.append("%s: %d (e.g. %r); the page is Not Ready (process doc §4.6.1, the ruling paths)"
+                    % (LF.REQUIRED, len(required), required[0]["sentence"][:90]))
+    if still:
+        bits.append("%d sentence(s) removed by the lean fail-safe (removed: unresolved finding) are still on "
+                    "the page (e.g. %r); take each off: lean_sentences.py <slug> render and coverage_check.py "
+                    "<slug> render" % (len(still), still[0][:90]))
     if q is None:
         bits.append("issue.json has no question to restate")
-    elif not any(words(s) == words(q["sentence"]) for s in page_sentences):
+    elif not any(words(s) == words(q["sentence"]) for s in page_sentences) and not required:
         bits.append("the question restatement is not on the page word for word (%r)" % q["sentence"][:90])
     if stale:
         bits.append("%d sentence(s) in a generated frame do not match the records now (e.g. %r); "
@@ -229,13 +256,18 @@ def check(page_sentences: list[str], gen: list[dict]) -> tuple[str, str, str]:
     if bits:
         return (ROW, BAD, "; ".join(bits))
     return (ROW, OK, "%d generated sentence(s) on the page, each matching issue.json and sources.json "
-                     "(%d generated)" % (len(on), len(gen)))
+                     "(%d generated)%s" % (len(on), len(gen),
+                                           "; %d removed by the lean fail-safe (removed: unresolved finding), "
+                                           "none of them a required page element" % len(gone) if gone else ""))
 
 
 def preflight_rows(slug: str, page_sentences: list[str] | None = None) -> list[tuple[str, str, str]]:
     import bindings as B
+    import lean_failsafe as LF
     ps = page_sentences if page_sentences is not None else B.page_sentences(slug)
-    return [check(ps, generated(slug))]
+    gone = LF.removed_words(slug)
+    required = LF.required_removed(generated(slug, keep_removed=True), gone) if gone else []
+    return [check(ps, generated(slug), gone, required)]
 
 
 def main(argv=None) -> int:

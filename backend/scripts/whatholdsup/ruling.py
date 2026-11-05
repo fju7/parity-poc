@@ -456,10 +456,24 @@ def split_protected(items: list[dict], rows: dict) -> tuple[list[dict], list[dic
     return keep, person
 
 
-def route_to_person(mode: str, items: list[dict], log: Path) -> None:
+def route_to_person(mode: str, items: list[dict], log: Path) -> list[dict]:
     """Record each protected item as left for a person, beside the rulings
-    log (never committed on a study issue), and say so."""
+    log (never committed on a study issue), and say so. Returns the items
+    left for a person.
+
+    LEAN WHU (process doc §4.6.1, the ruling paths; advisor, 2026-11-05): an
+    item left for a person because its sentence is protected or ambiguous is
+    not routed: lean_failsafe records its sentence as removed over an
+    unresolved finding, and nothing decides, closes or dismisses the finding.
+    Every other reason (a licensed source, an omission or relevance code
+    refused) is still a person's, and stops a lean run."""
+    import lean_failsafe as LF
+    left = []
     for it in items:
+        if LF.applies(it.get("protected")):
+            LF.record(mode, it, log)
+            continue
+        left.append(it)
         print("  left for a person (protected sentence, %s): %s -- %r"
               % (it["protected"], mode, (it.get("sentence") or "")[:80]))
         _append(log.with_name(FOR_PERSON), {
@@ -469,6 +483,7 @@ def route_to_person(mode: str, items: list[dict], log: Path) -> None:
             "why": ("the target occurs in a protected and an unprotected sentence; a person decides which"
                     if it["protected"] == "ambiguous" else
                     "a protected sentence is never rewritten or cut by the ruling model; a person decides")})
+    return left
 
 
 def _rulable(mode: str, items: list[dict], rows: dict, log: Path) -> list[dict]:
@@ -657,7 +672,9 @@ def rule_gate(slug: str, call, *, P=None, report: dict | None = None, rows: dict
     done = []
     recency: dict = {}
     keep, person = split_protected(_gate_items(rows, report, doc, held, slug), rows)
-    route_to_person("gate", person, log_path(slug))
+    # Lean WHU: the fail-safe takes these (route_to_person); no not_ruled_protected
+    # is written for them, since that would close a finding by code.
+    person = route_to_person("gate", person, log_path(slug))
     # A GATE FINDING ON A PROTECTED SENTENCE (post-study, mid-rerun tool fix,
     # 2026-10-28) is recorded not_ruled_protected, as an advocate or omission
     # item is closed (fix 7), so it can settle: findings.check accepts it only

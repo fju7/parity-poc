@@ -311,7 +311,7 @@ that needs those reads is not machine-only. Under `WHU_LEAN=1` (`lean_sentences.
   `We searched: <items>.` and `We did not search: <items>.` The items are the drafting session's record
   entries, written into the record like `access.not_read` already is; code renders them, and the page may
   carry no other wording of them.
-- **No protected sentence is routed to a person in lean.** A protected sentence (`bindings.protected_kind`:
+- **No protected sentence is routed to a person in the audit** (corrected 5 November 2026: this bullet first said "in lean", but it held only for `audit_stage.py`; `ruling.py` still routed findings on protected sentences to a person, which the Q1-02 lean run hit; see "The ruling paths" below). A protected sentence (`bindings.protected_kind`:
   question, reading or scope) that is word for word what the records generate now is settled
   `holds_by_record_check` by code. One that is not (hand-written) is `must_leave_page`, with the reason
   "lean: hand-written protected sentence; replace it with the generated one", and the preflight row
@@ -322,6 +322,54 @@ that needs those reads is not machine-only. Under `WHU_LEAN=1` (`lean_sentences.
 - Tested offline on round 1's four questions (`backend/tests/test_whu_lean_scope_notes.py`): zero sentences
   routed to a person, and the "audit complete" row passes with no `human_reads.jsonl`.
 - A test run with this change is labelled **"lean + machine scope notes"**, not "lean as built".
+
+**The ruling paths (advisor's ruling of 5 November 2026 on the Q1-02 lean run; written before its code).**
+Q1-02 stopped at "changed sentences reviewed". changecheck found 2 contradictions on generated readers'-list
+lines, and `ruling.py` left both for a person. Two changes, both under `WHU_LEAN=1` only
+(`coverage_check.py`, `ruling.py`, `lean_failsafe.py`, `lean_sentences.py`, `source_advocate.py`):
+
+- **"Not material" that the page already states becomes "already stated".** When the readers' list is
+  built (`coverage_check.declarations`), an omission ruling NOT_MATERIAL whose held span the page's body
+  already states takes the state `already_stated` and is not printed. The test is lean coverage's own,
+  `lean_coverage.already_stated`, run against body sentences only. Protected sentences and sentences in a
+  generated frame do not count, so a readers'-list line cannot "state" its own finding. The model's ruling
+  stays in omissions.json unchanged. Code computes the conversion from the records and the current page
+  each time it builds the list, and `lean_failsafe.py <slug> report` lists every conversion.
+- **Fail-safe: a finding that would go to a person on a protected sentence removes the sentence.** In
+  every `ruling.py` path (advocate, gate, conclusions, changecheck, and an omission whose target is
+  ambiguous), an item that would be left for a person because its sentence is protected (question,
+  reading or scope) or ambiguous (it sits in both a protected and an unprotected sentence) is not routed.
+  Instead, code appends a record to `rulings/lean_removed.jsonl`, with the path, the finding's kind and
+  key, the sentence and its fingerprint, and the outcome "removed: unresolved finding (<path>, <finding>)".
+  No decision, disposition or MERIT is written for that finding. Under lean the gate no longer records
+  `not_ruled_protected`, because that closes a finding by code. The finding stays unresolved on the record.
+  - **The sentence leaves the page.** `lean_sentences.generate` leaves out a generated sentence whose
+    fingerprint is in the removal record, so the rendered page lacks it. The row "generated sentences match
+    the records" BLOCKs while a removed sentence is still on the page.
+  - **Findings are not re-counted once the sentence is gone.** The gate, changecheck and the conclusion
+    judge read the current page, so once the page is re-rendered and they are re-run, the removed
+    sentence's findings are no longer on it. An advocate objection is kept across page versions. If its
+    target is a removed sentence that is off the page, it is reported in an INFO row as "removed:
+    unresolved finding" and not counted as open. It still has no MERIT line.
+  - **Required page elements.** These are the question restatement; every holdings, sections-read and
+    not-read sentence; the "We searched" and "We did not search" sentences; and the readers'-list heading
+    while any line remains under it. If the fail-safe removes one of these, "generated sentences match
+    the records" BLOCKs with "removed: unresolved finding on a required page element", and the page stops
+    as Not Ready. That is the result. A readers'-list line is not a required element. Its declaration
+    stays in the records and the coverage row reports how many listed declarations were removed.
+  - Reported per page by `lean_failsafe.py <slug> report`: the sentences removed, by path and finding, and
+    the "already stated" conversions.
+- **Not reached by the fail-safe; these remain human steps and stop the run.** A source whose licence
+  forbids machine reading. A read that fails after escalation. A relevance judgement whose question words
+  code cannot verify, or whose reply is unusable (`rule_judgements`). An omission that `rule_omissions`
+  sends to a person: no place for the ADD, a budget reached, NOT_MATERIAL on a SERIOUS objection that
+  changes the conclusion, OUT_OF_SCOPE refused by code, or an unusable reply. None of these is a finding
+  on a sentence the page carries, so removing a sentence does not answer it.
+- Tested offline (`backend/tests/test_whu_lean_failsafe.py`):
+  - On Q1-02's records, both contradiction lines leave the page: the first is converted to "already
+    stated", the second is removed by the fail-safe.
+  - No finding is marked resolved.
+  - Every person routing recorded on round 1's four questions is replayed through the lean router.
 
 ---
 

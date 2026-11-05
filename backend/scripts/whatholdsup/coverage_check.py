@@ -436,9 +436,12 @@ def _label(sources: list[dict], sid: str) -> str:
     return t[:60]
 
 
-def declarations(slug: str, held: dict[str, str], case: Path | None = None) -> list[dict]:
+def declarations(slug: str, held: dict[str, str], case: Path | None = None,
+                 hidden: list | None = None) -> list[dict]:
     """Every declared finding the readers' list must show, oldest first:
-    [{key, state, source, span, reason, by, signature, sentence, at}]."""
+    [{key, state, source, span, reason, by, signature, sentence, at}].
+    HIDDEN, when given, receives the declarations lean keeps off the list
+    (already stated, furniture), each with its reason."""
     import omissions as O
     import source_store as store
     case = case or store.case_dir(slug)
@@ -448,6 +451,7 @@ def declarations(slug: str, held: dict[str, str], case: Path | None = None) -> l
         if e.get("outcome") in ("OUT_OF_SCOPE", "NOT_MATERIAL", "NOT_ADDED_CAP") and e.get("at"):
             text = (held.get(e["source"]) or "")[e["at"][0]:e["at"][1]]
             out.append({"key": e["key"], "state": e["outcome"].lower(), "source": e["source"], "text": text,
+                        "from": "omissions",
                         "reason": e.get("reason") or "", "for_reader": reader_reason(e),
                         "by": e.get("by"), "signature": e.get("signature"),
                         "decided_at": e.get("decided_at") or ""})
@@ -466,6 +470,19 @@ def declarations(slug: str, held: dict[str, str], case: Path | None = None) -> l
         # not shown to readers, and each line cites its
         # source by number.
         import lean_coverage as LC
+        # "Not material" that the page's body already states becomes "already
+        # stated" (process doc §4.6.1, the ruling paths; advisor, 2026-11-05):
+        # lean coverage's own test, against BODY sentences only, so a
+        # readers'-list line cannot state its own finding. The model's ruling
+        # stays in omissions.json; this is computed from the records each time.
+        body = _body_sentences(slug)
+        for d in out:
+            if d["state"] == "not_material" and d.get("from") == "omissions" and body:
+                got = LC.already_stated(d["text"], body)
+                if got:
+                    d.update(state=LC.ALREADY, converted_from="not_material", stated_by=got)
+        if hidden is not None:
+            hidden.extend(d for d in out if d["state"] == LC.ALREADY or LC.furniture(d["text"]))
         out = [d for d in out if d["state"] != LC.ALREADY and not LC.furniture(d["text"])]
     for d in out:
         label = _label(srcs, d["source"])
@@ -476,7 +493,31 @@ def declarations(slug: str, held: dict[str, str], case: Path | None = None) -> l
         # not_added_cap's reason is code's own wording (CAP_REASON) and is kept.
         reason = line_reason(d) if not lean.enabled() or d["state"] == "not_added_cap" else None
         d["sentence"] = declaration_sentence(d["state"], short_span(d["text"]), label, reason)
+    if lean.enabled():
+        # Lean's fail-safe (lean_failsafe.py; process doc §4.6.1, the ruling
+        # paths): a line removed over an unresolved finding is not rendered. Its
+        # declaration stays in the records; a readers'-list line is not a
+        # required page element.
+        import lean_failsafe as LF
+        gone = LF.removed_words(slug)
+        if gone:
+            cut = [dict(d, removed=LF.OUTCOME) for d in out if LF.is_removed(d["sentence"], gone)]
+            if hidden is not None:
+                hidden.extend(cut)
+            out = [d for d in out if not LF.is_removed(d["sentence"], gone)]
     return out
+
+
+def _body_sentences(slug: str) -> list[str]:
+    """The page's sentences that are neither protected (bindings.protected_kind)
+    nor in a generated frame (lean_sentences.is_framed); [] with no page."""
+    import bindings as B
+    import lean_sentences as LS
+    try:
+        ps = B.page_sentences(slug)
+    except (Exception, SystemExit):
+        return []
+    return [s for s in ps if not B.protected_kind(s) and not LS.is_framed(s)]
 
 
 def render(decls: list[dict]) -> str:
@@ -566,7 +607,9 @@ def preflight_rows(slug: str, record_rows: list[dict] | None = None, *, rows: di
     else:
         out.append((ROW_UNITS, OK, detail))
 
-    decls = declarations(slug, held, case)
+    hidden: list = []
+    decls = declarations(slug, held, case, hidden=hidden)
+    removed_lines = [d for d in hidden if d.get("removed")]
     page = {" ".join(s.split()) for s in page_sentences}
     missing = [d for d in decls if " ".join(d["sentence"].split()) not in page]
     wanted = {" ".join(d["sentence"].split()) for d in decls}
@@ -599,8 +642,11 @@ def preflight_rows(slug: str, record_rows: list[dict] | None = None, *, rows: di
                         % (len(over), budget))
         out.append((ROW_LIST, BAD, "; ".join(bits)))
     else:
-        out.append((ROW_LIST, OK, "%d declared finding(s), each on the page; %d counted against the budget of %d"
-                    % (len(decls), len(counted), budget)))
+        out.append((ROW_LIST, OK, "%d declared finding(s), each on the page; %d counted against the budget of %d%s"
+                    % (len(decls), len(counted), budget,
+                       ("; %d listed declaration(s) removed by the lean fail-safe (removed: unresolved "
+                        "finding), their declarations kept in the records" % len(removed_lines))
+                       if removed_lines else "")))
     return out
 
 
