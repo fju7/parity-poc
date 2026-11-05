@@ -396,6 +396,89 @@ lines, and `ruling.py` left both for a person. Two changes, both under `WHU_LEAN
     treated as relevant, and 3 are ADDs with no place, which become "Not added" lines.
   - A finding on a "Not added" line yields Not Ready, not removal.
 
+**What "we read" means, and the fixes after the four lean runs (advisor's rulings of 5 November 2026,
+after Q1-04; written before their code).** Q1-02r, Q1-03 and Q1-04 were ruled invalid. Their pages said
+"we read" sections that no checking stage had received in full: lean's checking stages receive retrieved
+passages, not whole sections. Everything below is under `WHU_LEAN=1` unless it says otherwise.
+
+- **Fix 6: the reading statement is built from what the checking stages received.** "We read" means WHU
+  as a system, not the drafting session.
+  - **Measured by code** (`lean_received.py`, the method of the session's `system_read.py`).
+  - **What each stage received comes from its own logs:**
+    - the audit: the bound and retrieved passages in every `audit/*/retrieval.jsonl`;
+    - the rulings: the `inputs` of every call in `rulings/rulings.jsonl`, matched back to the held text
+      40 characters at a time after whitespace and non-ASCII are folded;
+    - the advocate's re-asks and re-quotes: the passages each was sent, now logged as `delivered` in
+      `advocate/runs/*/quote_checks.jsonl`. Its first call is sent no held text.
+  - **When a section counts as read.** A section counts as received in full when ONE stage received at least 99% of its
+    non-space characters. The 1% allows for the matching's edges. Stages are not added together.
+  - **Section offsets.** For a `full_text_held` source, each section in `access.sections` is measured at
+    the offsets the drafting session records in `access.section_offsets`:
+    `{"<section name>": [start, end]}`, into the held text as `ruling.held_texts` gives it. A section
+    with no offsets cannot be measured, so it counts as not received.
+  - **The generated sentences** (`lean_sentences.py`):
+    `Of <source> [n], we read: <sections received in full>.` and, for the rest,
+    `We searched the full text of <source> [n] and checked the passages relevant to each sentence; we
+    did not read <sections> in full.`
+    With no section listed, the second sentence ends "we did not read it in full." `access.not_read`
+    keeps its own sentence (`Of <source> [n], we did not read: …`). Other access states are unchanged.
+  - **The statement changes as the stages run, and that is expected.** A changed reading sentence is a
+    changed page sentence, so steps 5-9a repeat for it, as for any change. A generated sentence is
+    settled by record check and adds no passages.
+  - **Preflight row "reading statement matches what the checking stages received".** It STOPs if a
+    page sentence says a section was read that the measurement does not show received in full. It also
+    STOPs if a `full_text_held` source with sentences bound to it has no reading statement on the page,
+    or if the page's reading sentences are not what code generates from the current measurement.
+- **Fix 5: a sentence must rest on received text.** Every on-page bound span on a `full_text_held`
+  source (the row's span, its `also_rests_on` and its `premises`) must lie, to 99%, inside the text that
+  some checking stage received. Stages may be added together for this test. Otherwise the preflight row
+  "sentences rest on received text" STOPs. Sentences inside the visible source list are exempt (its
+  title and citation lines).
+- **Fix 4: a "not read" record leaves only with a covering read record.** Row "not-read records kept".
+  It looks at every `access.not_read` entry in any committed version of sources.json, from git
+  history, and in the working copy. It STOPs on an entry that is gone unless `access.covers_not_read`
+  maps that exact entry to a section listed in `access.sections`. That section is then measured like
+  any other (fix 6), so if no stage received it in full, the page says "we did not read … in full".
+- **Fix 3: generated reading sentences against "claims a source could not be opened".** That row
+  (`source_ledger.audit`) skips a sentence that is word for word one of `lean_sentences`' generated
+  reading sentences. Code wrote it from the same records the row compares against, so the two cannot
+  disagree. A hand-written sentence is checked as before.
+- **Fix 2: redaction across every held source.** `omissions.record` redacts the public reason against
+  every held text, not only the finding's own source. Runs of 6 or more held-text words become
+  `[Sxxx@a-b]`. This applies on and off lean: it is the leak guard `leaks_source_text` made true by
+  construction.
+- **Fix 1: the audit's `--dry-run` makes no model call.** It counts the units, builds every batch's inputs
+  offline, runs the delivery check on them, and prints the stage-cap estimate. It calls no model, writes
+  nothing to the ledger, and needs no `--out` or `--limit`. This applies on and off lean.
+- **Fix 7: an identical ruling request is not paid for twice.** `ruling.rule` looks in the ruling log for
+  an earlier record with the same kind, prompt hash, model and inputs hash. If there is one, it reuses that
+  ruling: it appends a record marked `carried_from: <id>`, with zero usage, and makes no call. This catches
+  the final gate re-filing the same findings under new ids (Q1-03: $4.45 spent ruling three recency
+  findings twice against 132 sentences). Each new record also keeps its parsed answer (`got`) so it can be
+  reused. Records written before this change are never reused. This applies on and off lean.
+- **Rule 3a: an omission addition code refuses becomes a "Not added" line.** When `rule_omissions` would
+  send an ADD to a person because "the ADD's span is not in the finding", code records `NOT_ADDED_BEYOND`.
+  The readers' list carries `Not added: “<span>” (<label> [n]) (the proposed sentence went beyond the
+  finding).` It is handled like the "no place" line: a required page element, not counted against the
+  declarations budget, not removable by the fail-safe, the advocate item not closed (INFO row), and not
+  ruled again.
+- **Rule 3b: a newer edition.** A gate recency study with status `SUPERSEDED` is never routed to a
+  person, matched to a source or not.
+  - **The newer edition is used** if a held source records `"newer_edition_of": "<old source id>"` in
+    sources.json and every on-page bound span on the old source is found in the newer edition's held
+    text. Code then rebinds those rows to the newer source and logs it in
+    `rulings/lean_editions.jsonl`, and the finding is decided "newer edition used (code)".
+  - **Otherwise the page carries the code-written line** `A newer edition exists: <latest known, as the
+    gate records it>; this page uses <the old source's sources.json title, or the gate's study name if no
+    source matched>.` This is a required page element, protected as "reading". The finding is decided
+    "newer edition disclosed on the page (code)".
+  - **The drafting session never fetches, adds or switches to a newer edition itself.**
+  - No path drops or dismisses the finding. The preflight row "newer editions handled" STOPs while a
+    SUPERSEDED study has neither outcome, and while the line is missing from the page.
+- **Two lines added to the drafting brief:** never run a stage twice in parallel, and never switch a
+  source to another edition (rule 3b decides that).
+- Tested offline: `backend/tests/test_whu_lean_post_test_fixes.py`, one test or more per item above.
+
 ---
 
 ## 5. The machine gate
