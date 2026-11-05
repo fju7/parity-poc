@@ -24,3 +24,6 @@ Every command run with WHU_LEAN=1. Drafting session: Claude Code (session whu-le
 | 7 consistency.py audit 20261105T224022Z | 2026-11-05T22:41:40Z | 2026-11-05T22:41:40Z | $0 | 0 | "no rulings" in the run (exit 1): nothing to re-check |
 | 7a-7c person reads / apply / re-audit | — | — | $0 | 0 | none needed: no sentence for a person, nothing to apply |
 | 7d final narrow gate (dry run, then run 2 of 3, --changed-since gate_1) | 2026-11-05T22:42:42Z | 2026-11-05T22:42:58Z | $0 (recency carried, 0d old) | 0 | 5 changed sentences, 3 new quotations; PASSED (narrow); findings 0; ruling.py gate 0 |
+| 8 commit (bcf19f3) | 2026-11-05T22:44Z | 2026-11-05T22:44Z | $0 | 0 | pushed 619bf7b..bcf19f3 |
+| 9 changecheck --before 619bf7b + ruling.py changecheck | 2026-11-05T22:45:23Z | 2026-11-05T22:46:20Z | changecheck ~$0.04 + rulings $0.070 | 0 | 5 changed sentences read; 2 findings (CONTRADICTION, OURS) on the verdict sentence; ruled "amend"; applied word for word; applied_check 0 mismatches, 0 dangling |
+| 5-7d repeated after the 9 amendment | 2026-11-05T22:47:21Z | 2026-11-05T22:48:17Z | audit $0.060; gate $0 (recency carried) | 0 | 0 gate findings; conclusion judge 1 judged, 0 flagged; re-audit complete (42 carried, 8 holds, 10 record check, 1 heading), 0 cuts, 0 rulings; final narrow gate run 3 of 3 PASSED |
