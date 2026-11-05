@@ -1,0 +1,235 @@
+{
+ "omissions": [
+  {
+   "key": "S001@13678-13890",
+   "source": "S001",
+   "held_sha256": "6f91ebc36948afa992db09fc4e264d232ac3f9db06c7b46d56dfbd28fc4af98e",
+   "at": [
+    13678,
+    13890
+   ],
+   "quote_sha256": "0a3b853b717b8fe11ee46ff3c429754fd89735466d4c7ce4efe34137e984be86",
+   "outcome": "NOT_MATERIAL",
+   "element": "",
+   "reason": "Step 1 holds: bioenergy's land intensity bears on the limits [S001@436881-436925], a removal method the SCOPE names, so the finding touches the question's 'stated limits'. Step 2 fails: the draft already states, with the same robust evidence, high agreement label, that [S001@13678-13738]. The only part not yet on the page is that other renewables can occupy significant land in high-deployment scenarios. That concerns renewable energy used to cut emissions, not removal of carbon dioxide from the air. It would not narrow or qualify the answer for a reader weighing whether removal pledges can stand in for cutting emissions now.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "cf1eef4193156680",
+   "origins": [
+    "S001-05"
+   ],
+   "on_page": null,
+   "after": null,
+   "decided_at": "2026-11-05T19:55:32+00:00"
+  },
+  {
+   "key": "S001@58938-59063",
+   "source": "S001",
+   "held_sha256": "6f91ebc36948afa992db09fc4e264d232ac3f9db06c7b46d56dfbd28fc4af98e",
+   "at": [
+    58938,
+    59063
+   ],
+   "quote_sha256": "06056fb1bfdfbfe11fd7ba3f692f208f50d0d5a63d68cd69c48de8baa5d52b41",
+   "outcome": "TO_PERSON",
+   "element": "",
+   "reason": "the ADD's span is not in the finding",
+   "by": "code (ruling.py omissions)",
+   "ruling": null,
+   "origins": [
+    "S001-03"
+   ],
+   "on_page": null,
+   "after": null,
+   "decided_at": "2026-11-05T19:55:40+00:00"
+  },
+  {
+   "key": "S001@88629-88735",
+   "source": "S001",
+   "held_sha256": "6f91ebc36948afa992db09fc4e264d232ac3f9db06c7b46d56dfbd28fc4af98e",
+   "at": [
+    88629,
+    88735
+   ],
+   "quote_sha256": "908337c35ed1fcfecc768f1a1ef4dbdf9c34644cf8c3137a616ed7484a9b8eb6",
+   "outcome": "ADD",
+   "element": "",
+   "reason": "Step 1: The finding is in scope. It addresses the part removal plays \"alongside cutting emissions\" in reaching net zero, which is exactly what the question asks. Step 2: The finding is material. The reader is weighing whether removal-reliant pledges can stand in for cutting emissions, and this finding answers that directly by saying removal cannot substitute for deep cuts. The page says removal plays complementary roles \"in addition to\" cuts, but neither the ALREADY list nor the page states the explicit non-substitution conclusion from this source.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "f1a66f15887efde4",
+   "origins": [
+    "S001-01"
+   ],
+   "on_page": "f520d022f28d841b",
+   "after": "0152a8853b67941e",
+   "decided_at": "2026-11-05T19:55:47+00:00"
+  },
+  {
+   "key": "S001@109147-109382",
+   "source": "S001",
+   "held_sha256": "6f91ebc36948afa992db09fc4e264d232ac3f9db06c7b46d56dfbd28fc4af98e",
+   "at": [
+    109147,
+    109382
+   ],
+   "quote_sha256": "2ba5358cc95b7806e2a40b4395e935023db6e6c9b0eb1cf29436f4fc31cab638",
+   "outcome": "ADD",
+   "element": "",
+   "reason": "Step 1: The finding is about the risks and resource demands of direct air capture with storage, a removal method. The SCOPE covers removal's 'stated limits, risks and permanence', so it is in scope. Step 2: The draft says only that DACCS potential is limited mainly by low-carbon energy requirements and cost. It does not give the high-confidence finding that DACCS needs a considerable amount of energy, water and make-up sorbents. Nor does it give the contrast that [S001@109304-109340] with other removal methods. These qualify how far a reader can rely on DACCS-based pledges, so the finding is material.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "e148c52cd09837d3",
+   "origins": [
+    "S001-06"
+   ],
+   "on_page": "17238be380c4570c",
+   "after": "3096312a8bf8eac7",
+   "decided_at": "2026-11-05T19:55:56+00:00"
+  },
+  {
+   "key": "S001@115985-116056",
+   "source": "S001",
+   "held_sha256": "6f91ebc36948afa992db09fc4e264d232ac3f9db06c7b46d56dfbd28fc4af98e",
+   "at": [
+    115985,
+    116056
+   ],
+   "quote_sha256": "17a0b37a6c0c10d5ca5dc1ab924ef7660644b980821a2242cee1e40e08bad61d",
+   "outcome": "ADD",
+   "element": "",
+   "reason": "Step 1: the finding gives the amount of one removal method (DACCS) used in a net zero pathway in 2050, which falls under SCOPE's 'how much the assessed pathways use in the decades ahead'. It is removal from the air, not point-source CCS. Step 2: the draft gives only the IPCC scenario median for DACCS (0.02 GtCO2, range 0–1.74). This finding adds a separate, widely cited net zero scenario from a different modeller with a specific 2050 DACCS figure. That gives the reader a concrete benchmark for how much removal a prominent net zero pathway relies on, so it is not a restatement of what the draft already says.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "4b0b2f6ffcdac503",
+   "origins": [
+    "S001-02"
+   ],
+   "on_page": "711fa357e153eb3b",
+   "after": "924db2561871d4fb",
+   "decided_at": "2026-11-05T19:56:06+00:00"
+  },
+  {
+   "key": "S001@119964-120118",
+   "source": "S001",
+   "held_sha256": "6f91ebc36948afa992db09fc4e264d232ac3f9db06c7b46d56dfbd28fc4af98e",
+   "at": [
+    119964,
+    120118
+   ],
+   "quote_sha256": "d73fd3e887c29d60900d10a08bfbfbbe0729cc6751cebc0bcca4f53367e2660d",
+   "outcome": "NOT_MATERIAL",
+   "element": "",
+   "reason": "Step 1 holds: the finding gives the cost and potential of enhanced weathering, a removal method listed in SCOPE, so it bears on how much removal can contribute in the decades ahead. Step 2 fails: the draft already states that enhanced weathering has [S001@120048-120072] per year at USD50–200 per tonne. That is the same central range the finding reports from Fuss et al. (2018). The finding's added qualifiers ('from 2050', 'excluding biological storage', author judgement) would not change the reader's view of whether removal pledges can stand in for cutting emissions now.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "8f98f9968656cd35",
+   "origins": [
+    "S001-04"
+   ],
+   "on_page": null,
+   "after": null,
+   "decided_at": "2026-11-05T19:56:10+00:00"
+  },
+  {
+   "key": "S003@58897-59167",
+   "source": "S003",
+   "held_sha256": "7ea69cb93bad3f72228d74234e697bdfbcde8acdbe540db7679e4a94d41e90be",
+   "at": [
+    58897,
+    59167
+   ],
+   "quote_sha256": "70c11b9fd80e66d3d60e40782a364f7641dfe02595791c4382f5043f6f37fafb",
+   "outcome": "ADD",
+   "element": "",
+   "reason": "Step 1: The finding is in scope. It concerns the limits on net negative CO2 emissions in the decades ahead, which the scope names directly ('net-negative emissions later', 'its stated limits'). Step 2: The finding is material. The draft says NDC pathways likely exceed 1.5°C and that a return to 1.5°C needs large net-negative emissions. It does not say that, for some models, such a return from NDC-level 2030 emissions is infeasible because net negative emissions and technology deployment are constrained. This directly qualifies whether reliance on later removal can stand in for cutting emissions now, which is the reader's decision. The source attaches no confidence term, so none is added.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "3c3197029f7017c1",
+   "origins": [
+    "S003-08"
+   ],
+   "on_page": "78b4db861342abf8",
+   "after": "e4a0481d0f856103",
+   "decided_at": "2026-11-05T19:56:18+00:00"
+  },
+  {
+   "key": "S003@111574-111923",
+   "source": "S003",
+   "held_sha256": "7ea69cb93bad3f72228d74234e697bdfbcde8acdbe540db7679e4a94d41e90be",
+   "at": [
+    111574,
+    111923
+   ],
+   "quote_sha256": "239900014a3b6a33609954729fff09cad24aaa136fc41814bd8831e2f10750a9",
+   "outcome": "ADD",
+   "element": "",
+   "reason": "Step 1: the finding concerns how much land-based removal the assessed pathways use in the decades ahead, which falls within 'how much the assessed pathways use in the decades ahead'. Step 2: the page already says land-sector removal 'cannot be quantified precisely'. It does not say that the land-sector net negative figures (20–400 and 10–250 GtCO2) are a floor that total land-sector removal equals or exceeds, and it does not give the reasons for the imprecision. Both of these change how a reader should read the quantities, so the finding is material and should be added as a qualification, with no confidence term added because the source footnote carries none.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "0610b15a10f98589",
+   "origins": [
+    "S003-09"
+   ],
+   "on_page": "3ea68255e58c57de",
+   "after": "a0d575d95e9c69e2",
+   "decided_at": "2026-11-05T19:56:28+00:00"
+  },
+  {
+   "key": "S004@25549-25716",
+   "source": "S004",
+   "held_sha256": "c343758b8cc0415cc4cb59f577bc91357693fcf5a658aec0507fa514efc2abdc",
+   "at": [
+    25549,
+    25716
+   ],
+   "quote_sha256": "b398d24ae43e17eb6ff2bc9b3d36ab9535c5afac6b973944e140beae7a6e806b",
+   "outcome": "ADD",
+   "element": "",
+   "reason": "Step 1: the finding is about how fast novel removal must scale up. That bears directly on what part removal can play 'in the decades ahead' and on 'how much the assessed pathways use'. Step 2: the draft already says the current 40% annual growth is insufficient and gives the scenario volumes. It does not say what growth rate is required or compare it with the fastest-growing climate technologies. That benchmark qualifies how realistic it is to rely on novel removal, which the reader would weigh when judging whether removal pledges can stand in for emission cuts.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "b828cb80fdc077b1",
+   "origins": [
+    "S004-10"
+   ],
+   "on_page": "5fe092ea7bc9ff45",
+   "after": "81950b48ba216a50",
+   "decided_at": "2026-11-05T19:56:35+00:00"
+  },
+  {
+   "key": "S004@26450-26526",
+   "source": "S004",
+   "held_sha256": "c343758b8cc0415cc4cb59f577bc91357693fcf5a658aec0507fa514efc2abdc",
+   "at": [
+    26450,
+    26526
+   ],
+   "quote_sha256": "f955eec80c9b9a26f8e0db59d144fcb99b1f3649f19dac9e9f42c87abe290258",
+   "outcome": "ADD",
+   "element": "",
+   "reason": "Step 1: the finding is about how fast novel removal must grow in 1.5°C pathways, which is part of 'how much the assessed pathways use in the decades ahead' and 'its stated limits'. It is not CCS, geoengineering, non-CO2 removal or market design. Step 2: the draft gives the scale-up needed and says current growth is insufficient. It does not give the report's judgement on whether that pace is achievable. 'Very fast but not unprecedented' qualifies the feasibility of removal-reliant pathways, which a reader judging removal-based pledges would weigh. ALREADY does not state it.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "6c957649cd525e54",
+   "origins": [
+    "S004-13"
+   ],
+   "on_page": "c909de9c2dbb19c2",
+   "after": "ce446b1a9fdb84cb",
+   "decided_at": "2026-11-05T19:56:43+00:00"
+  },
+  {
+   "key": "S004@524220-524507",
+   "source": "S004",
+   "held_sha256": "c343758b8cc0415cc4cb59f577bc91357693fcf5a658aec0507fa514efc2abdc",
+   "at": [
+    524220,
+    524507
+   ],
+   "quote_sha256": "4c1b54e0cae3f428bd91d8c6e58d6a046d8944ce2105a60cb57a5380311fc8f1",
+   "outcome": "ADD",
+   "element": "",
+   "reason": "Step 1: The finding concerns the gap between national removal pledges and the removal in Paris-compatible pathways in 2050. That falls under the SCOPE's 'how much the assessed pathways use in the decades ahead'. It is not carbon-market, offset or policy-design detail, so no exclusion applies. Step 2: The draft gives the size of the gap and notes credibility concerns, but it does not name the largest single change since the 2nd edition or quantify it. That change is one country's withdrawal adding about 700 MtCO2 in 2050. This qualifies how far pledges can be relied on, which is the reader's decision, and it is not already stated.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "f7a326cec7a27322",
+   "origins": [
+    "S004-12"
+   ],
+   "on_page": "ece1dc88156ae1b6",
+   "after": "4c594a6d257008af",
+   "decided_at": "2026-11-05T19:56:52+00:00"
+  }
+ ]
+}

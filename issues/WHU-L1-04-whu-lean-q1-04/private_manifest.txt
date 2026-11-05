@@ -1,0 +1,18 @@
+# WHU-L1-04 private archive 20261105T195953Z -> ~/Projects/whu-study-private/WHU-L1-04-whu-lean-q1-04/20261105T195953Z/ (git-ignored files, paths kept; sha256)
+7f53cc39cb4e0c931d137a4f9f62fa4deaf4c12abab3a3c089905b454ce75c4a  issues/WHU-L1-04-whu-lean-q1-04/advocate/20261105T194821Z-adjudication.md
+9f3f2871d46faeb481b369ec067f6b2507ef73259ee3833d70a30590686ec4dd  issues/WHU-L1-04-whu-lean-q1-04/advocate/20261105T194821Z-briefs.json
+8e1d39176cdeaf192fa0796df46ed81e4139ace4f7825bcbdb3ccca0479ee323  issues/WHU-L1-04-whu-lean-q1-04/advocate/quote_checks.jsonl
+5f29a9bb3aba3aaba679c1972052a48bf0fdf645b8ded2d6de687c299f593256  issues/WHU-L1-04-whu-lean-q1-04/advocate/runs/20261105T194821Z/briefs.jsonl
+881c35705ef26b30876327545b36ca8e6277f771c66ef6e8a37588cc5bce1557  issues/WHU-L1-04-whu-lean-q1-04/advocate/runs/20261105T194821Z/inputs.json
+aa5c5331ac742177d2114ea717fcbdfbf635cb977eaa2890c0eeb08d58fad946  issues/WHU-L1-04-whu-lean-q1-04/advocate/runs/20261105T194821Z/quote_checks.jsonl
+8c7783dcedc5afd1da9f2d374788a982a2a6f006073aad849c3b0316df79aa33  issues/WHU-L1-04-whu-lean-q1-04/advocate/runs/20261105T194821Z/routing.json
+1187b9628e0b428d5179379e999914a02b3d37fd5cb80d7e375181bb7c5f4390  issues/WHU-L1-04-whu-lean-q1-04/advocate/runs/20261105T194821Z/state.json
+32c3718d72a85dcd03d743de14bab4f1e55af0615c534e14e019d8280931a74b  issues/WHU-L1-04-whu-lean-q1-04/bindings.json
+8e13d9d18caa5ce95625bfe73770ba9d9f343edbde8e207c565c72517ed5e6c1  issues/WHU-L1-04-whu-lean-q1-04/draft/whu-lean-q1-04.html.gate.json
+c0533bdd345d6a783f7420c019506eb3df710e5882916c2c7c45c9fcbdec5729  issues/WHU-L1-04-whu-lean-q1-04/draft/whu-lean-q1-04.html.gate.json.runs.json
+aa7acfe3210a3c6083c9121da43d80fbe06cddfc61aba8a293efe0a80bcf0d41  issues/WHU-L1-04-whu-lean-q1-04/quotations.json
+443c30cc16f7351aaaf6de18b874b37893c9e6981c8809ec602f4fca955db4f7  issues/WHU-L1-04-whu-lean-q1-04/rulings/applied_check.jsonl
+44bb90faf386ecbcb4289233e813b5aee0589f325783bea4ab337b895a32dbbd  issues/WHU-L1-04-whu-lean-q1-04/rulings/consistency.jsonl
+4a0f12ce38eaceaceb34f3480bb00d6b645100c85f2cba5c71d71322b62500e2  issues/WHU-L1-04-whu-lean-q1-04/rulings/for_person.jsonl
+87d287967db3be2fb91e82d001ecc29067e7f60abb8c3c6a1fb1d036f545632f  issues/WHU-L1-04-whu-lean-q1-04/rulings/omissions.jsonl
+4f1414d524bff5684e4a4f73774a336e1897e809daa5b06c38a956d109c7e873  issues/WHU-L1-04-whu-lean-q1-04/rulings/rulings.jsonl
