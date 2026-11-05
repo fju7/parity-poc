@@ -32,7 +32,8 @@
       },
       "also_called": [
         "the Cochrane review by Agarwal and colleagues (2025)"
-      ]
+      ],
+      "document_class": "document"
     },
     {
       "id": "S002",
@@ -63,7 +64,8 @@
           "kind_why": "349238 characters, reference list and discussion/introduction present"
         },
         "on": "2026-11-05"
-      }
+      },
+      "document_class": "document"
     }
   ],
   "search": {

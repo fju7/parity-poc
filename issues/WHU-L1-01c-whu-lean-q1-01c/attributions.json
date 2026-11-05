@@ -1,0 +1,6 @@
+{
+  "_what_this_is": "Names the page attributes work to, each checked against the held source's own author list (lint_claims.py, 'attributions checked against the source').",
+  "verified": [
+    {"name": "Agarwal", "attribution": "the Cochrane review by Agarwal and colleagues (2025)", "checked_against": "S001 held text (Europe PMC full-text XML), author list: first author 'Agarwal Smisha', 13 authors; sources.json authors field", "by": "Claude Code (session whu-lean-q1-01c)", "on": "2026-11-05"}
+  ]
+}
