@@ -3192,3 +3192,14 @@ US states.
 
 This applies to the advisor's statements as much as to anything else in this repo. Check each such
 claim against its authority and report any that changes materially.
+
+## Standing rule: edit-and-commit runs as one checked script (2026-11-05)
+Found when a3d16f0 was committed after its doc edit had failed. The edit script raised, the shell carried on, and the
+commit's message described doc changes that were not in its diff (6d61a89 added them afterwards).
+- Run each edit-and-commit as ONE script under `set -e -o pipefail`, so a failed step stops everything after it.
+- Every edit script ASSERTS its changes landed (the new text is present, the old text is gone, the expected count)
+  before anything is written to git.
+- Chain the check and the commit: `check && git add <paths> && git commit`. Never put a commit after a step whose
+  failure would not stop it.
+- Never commit a message describing changes that are not in the diff. Read `git diff --cached` against the message
+  first; if they differ, fix the diff or the message, never ship the mismatch.

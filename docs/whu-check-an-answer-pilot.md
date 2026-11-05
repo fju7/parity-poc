@@ -5,7 +5,7 @@ reliability study's H1 and H2, and it changes no study record, result or rule. T
 sample and the pass bar below are fixed by the commit that adds this file, before any run.
 Budget: Fred's approval of 2026-10-28 (option B), `--cap 35` on ledger issue `whu-check-pilot`.
 
-**Status (advisor's ruling, 2026-11-05): parked as an honest partial result (§18).** The check tool fails coverage on fresh answers (27.9% vs 20%), mainly from access restrictions (bot walls 49% of COULDN'T CHECK); agreement 98% vs the Claude judge but 82% vs the OpenAI judge, all disagreements v8 BACKED where the judge found overstatement or absence; very long sources unvalidated.
+**Status (advisor's ruling, 2026-11-05): parked as an honest partial result (§18).** The check tool fails coverage on fresh answers (27.9% vs 20%), mainly from access restrictions (bot walls 49% of COULDN'T CHECK); agreement 98% vs the Claude judge but 82% vs the OpenAI judge; every disagreement was v8 BACKED where the judge found the source did not support the claim (16 of 18 overstatement or absence; 1 understatement, 1 contradiction); very long sources unvalidated.
 
 **Standing rule on overfitting (advisor's ruling, 2026-10-30; binding; full text in §13.0).** v3 to v6 were all
 designed from failures on the pilot set (§10.8's 8 round-1 answers). A pass on that set is development evidence
@@ -1175,7 +1175,7 @@ Measured cost per answer on the fresh set:
 
 ## 18. Status: parked (advisor's ruling, 2026-11-05)
 
-**The check tool is parked as an honest partial result.** It fails coverage on fresh answers (27.9% vs 20%), mainly from access restrictions (bot walls 49% of COULDN'T CHECK); agreement 98% vs the Claude judge but 82% vs the OpenAI judge, all disagreements v8 BACKED where the judge found overstatement or absence; very long sources unvalidated.
+**The check tool is parked as an honest partial result.** It fails coverage on fresh answers (27.9% vs 20%), mainly from access restrictions (bot walls 49% of COULDN'T CHECK); agreement 98% vs the Claude judge but 82% vs the OpenAI judge; every disagreement was v8 BACKED where the judge found the source did not support the claim (16 of 18 overstatement or absence; 1 understatement, 1 contradiction); very long sources unvalidated.
 
 - **The figures behind it.**
   - COULDN'T CHECK: 190 of 682 claims on the fresh set's 18 answers (§16). 93 of the 190 were bot walls.
