@@ -1,16 +1,14 @@
 #!/usr/bin/env python3
-"""Check an AI answer, v9: v8, then an overstatement second read on every BACKED verdict, and a document the user
-supplies for a source v8 could not reach (docs/whu-check-an-answer-pilot.md §17).
+"""Check an AI answer, v9: v8, then an overstatement second read on every BACKED verdict
+(docs/whu-check-an-answer-pilot.md §17; parked with the check tool, §18).
 v8 is imported unchanged and decides every claim exactly as before. v9 adds:
   * second_read: one short call to the OpenAI judge's model per BACKED verdict, given only the claim and the passage
     v8 showed. A yes shows "BACKED, but may overstate" with the model's one-line reason; v8's label, passage and
     reason are kept. A read that fails twice shows "BACKED (overstatement check not done)".
   * score_label: §17.3's table, decided before any v9 call ("may overstate" is NOT BACKED for agreement; a failed
     read is COULDN'T CHECK everywhere).
-  * supply_source / recheck_with_supplied: verify.supplied's identity check, unchanged, with store=False (nothing is
-    written to Signal's corpus); an admitted file is served to v8's own fetch for its one URL, and only the claims
-    citing it are re-checked, marked "checked against a document you supplied". The user supplies the document,
-    never the conclusion.
+The user-supplied source of §17.6 was dropped by the advisor's ruling of 2026-11-05 (the system is machine-led, with
+no human intervention). Never run: the replay (run_v9_replay.py) is parked.
 Not wired into the preview: routers/whu_check.py stays on v2.
 """
 from __future__ import annotations
@@ -18,21 +16,17 @@ from __future__ import annotations
 import hashlib
 import json
 import re
-import sys
 import time
 from pathlib import Path
-from urllib.parse import unquote
 
 import pipeline_v8 as P8
 from pipeline import BACKED, COULDNT, NO_SOURCE, NOT_BACKED, Stop  # noqa: F401
 
 J, S = P8.J, P8.S
 VERSION = 9
-BACKEND = Path(__file__).resolve().parents[3] / "backend"
 
 MAY_OVERSTATE = "BACKED, but may overstate"
 NOT_DONE = "BACKED (overstatement check not done)"
-SUPPLIED_NOTE = "checked against a document you supplied"
 HOW = ("overstates", "generalises", "more_certain", "none")
 REASON_WORDS = 25
 SECOND_READ_MODEL = J.OPENAI_MODEL           # §17.2: the OpenAI judge's model (a point for the ruling, §17.4.1)
@@ -177,114 +171,3 @@ def check(text: str, work: Path, client, call, **kw) -> dict:
     res.update(version=VERSION, v8_version=res.get("version"), summary_v9=summary(res["results"]),
                second_read_prompt_sha256=PROMPT_SHA256, seconds_second_read=round(time.time() - t0 - res["seconds"], 1))
     return res
-
-
-# -- the user-supplied source (§17.6) --------------------------------------------------------------------------------
-
-_DOI = re.compile(r"\b(10\.\d{4,9}/[^\s\"'<>]+)", re.I)
-
-
-def _clean_doi(d: str) -> str:
-    d = unquote(d).rstrip(".,;)]")
-    return re.sub(r"(/(full|abstract|pdf|epdf|html))+$", "", d, flags=re.I)
-
-
-def identifier_for(url: str, reference: str = "") -> tuple[str | None, str]:
-    """(identifier, where it came from): the cited URL first (DOI, PubMed id, PMCID, NCT), then the answer's own
-    reference entry for that citation (DOI or PMID), else (None, 'none')."""
-    for where, s in (("url", url or ""), ("reference", reference or "")):
-        m = _DOI.search(unquote(s))
-        if m:
-            return _clean_doi(m.group(1)), where
-        m = re.search(r"pubmed\.ncbi\.nlm\.nih\.gov/(\d+)", s) or (re.search(r"\bPMID:?\s*(\d{5,9})\b", s)
-                                                                  if where == "reference" else None)
-        if m:
-            return "PMID:" + m.group(1), where
-        m = re.search(r"\b(PMC\d{4,9})\b", s)
-        if m:
-            return m.group(1), where
-        m = re.search(r"\b(NCT\d{8})\b", s)
-        if m:
-            return m.group(1), where
-    return None, "none"
-
-
-def _supplied_module():
-    if str(BACKEND) not in sys.path:
-        sys.path.insert(0, str(BACKEND))
-    from verify import supplied
-    return supplied
-
-
-def supply_source(path: str | Path, url: str, reference: str, supplied_by: str, run_dir: Path, supply=None) -> dict:
-    """The user's file for an unreachable source, through verify.supplied.supply with store=False. The record (never
-    the text) goes in run_dir/supplied/<sha256>.json; Signal's corpus is never written."""
-    data = Path(path).read_bytes()
-    sha = hashlib.sha256(data).hexdigest()
-    ident, where = identifier_for(url, reference)
-    rec = {"url": url, "sha256": sha, "bytes": len(data), "supplied_by": supplied_by, "identifier": ident,
-           "identifier_from": where, "at": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())}
-    if ident is None:
-        rec.update(status="REFUSED_NO_IDENTIFIER", admitted=False,
-                   reason="no registry identifier: this document cannot be checked against a registry, so it is "
-                          "not used")
-    else:
-        sup = (supply or _supplied_module().supply)(path, url, supplied_by, ident, store=False)
-        rec.update(status=sup.status, admitted=bool(sup.admitted), reason=sup.reason,
-                   registry=(sup.record or {}).get("registry"), registry_heading=(sup.record or {}).get(
-                       "registry_heading"), heading=(sup.record or {}).get("heading"),
-                   content_type=getattr(sup.document, "content_type", None) if sup.document else None)
-    out = run_dir / "supplied"
-    out.mkdir(parents=True, exist_ok=True)
-    (out / (sha + ".json")).write_text(json.dumps(rec, indent=1))
-    rec["path"] = str(path)
-    return rec
-
-
-def supplied_net(net: dict | None, admitted: dict[str, dict]) -> dict:
-    """v8's net with get() serving each admitted file, as fetched bytes, for its own URL only."""
-    base = dict(net or P8.V4.V3.NET)
-    get0 = base["get"]
-
-    def get(url, *a, **k):
-        rec = admitted.get(url)
-        if rec is None:
-            return get0(url, *a, **k)
-        body = Path(rec["path"]).read_bytes()
-        ctype = rec.get("content_type") or ("application/pdf" if body[:5] == b"%PDF-" else "text/html")
-        return {"status": 200, "final_url": url, "content_type": ctype, "body": body}
-
-    base["get"] = get
-    return base
-
-
-def recheck_with_supplied(text: str, work: Path, client, call, prev: dict, records: list[dict], **kw) -> dict:
-    """Re-check only the claims citing an admitted file's URL, through v8 with the file served for that URL, then
-    the second read; their rows replace the old ones and are marked SUPPLIED_NOTE. Every other row is kept."""
-    admitted = {r["url"]: r for r in records if r.get("admitted")}
-    idxs = sorted({r["idx"] for r in prev["results"] if any(c.get("url") in admitted for c in r.get("citations")
-                                                               or [])})
-    if not idxs:
-        return {**prev, "supplied": records}
-    sub = work / "supplied_recheck"
-    sub.mkdir(parents=True, exist_ok=True)
-    net = kw.get("net")
-    kw = {k: v for k, v in kw.items() if k not in ("net", "selected")}
-    again = P8.check(text, sub, client, net=supplied_net(net, admitted), selected=idxs, **kw)
-    apply_second_read(again["results"], call)
-    new = {r["idx"]: r for r in again["results"]}
-    rows = []
-    for r in prev["results"]:
-        n = new.get(r["idx"])
-        if n is None:
-            rows.append(r)
-            continue
-        used = [c["url"] for c in n.get("citations") or [] if c.get("url") in admitted
-                and (again["manifest"].get(c["url"]) or {}).get("extent") != "unreachable"]
-        if used:
-            n["supplied"] = [{"url": u, "sha256": admitted[u]["sha256"], "identifier": admitted[u]["identifier"],
-                              "supplied_by": admitted[u]["supplied_by"]} for u in used]
-            n["note"] = SUPPLIED_NOTE
-        rows.append(n)
-    return {**prev, "results": rows, "supplied": records, "summary_v9": summary(rows),
-            "recheck": {"claims": idxs, "seconds": again["seconds"]}}
