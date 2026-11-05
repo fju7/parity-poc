@@ -3,51 +3,55 @@
   "belief": {
     "_note": "What the reader already believes, stated as they would state it. If you cannot write this sentence, there is nothing to correct and no subject -- which is how the tobacco-analogy candidate died.",
     "statement": "Programmes that support children and young people with disabilities in low- and middle-income countries -- inclusive schooling, teacher training, assistive devices, community-based rehabilitation -- are widely believed to improve their enrolment and learning, with inclusive education in mainstream schools held up as the approach that works best.",
-    "how_we_know_they_believe_it": "Stated as a working belief before any source was opened: it is the position of the UN Convention on the Rights of Persons with Disabilities (Article 24) and of the international agencies' inclusive-education campaigns. No coverage has been opened yet; this is not yet evidenced from named outlets.",
+    "how_we_know_they_believe_it": "The World Bank's results brief of 5 January 2026 presents its disability-inclusive education projects as having enabled children with disabilities to access quality education, reporting outputs (classrooms, teachers trained, materials) and no measured learning outcomes. Read through a fetch tool on 2026-11-05: a model's reading of the page, not a quotation.",
     "carried_by": [
       {
-        "outlet": "",
-        "url": "",
-        "date": "",
-        "what_it_said": ""
+        "outlet": "World Bank (results brief)",
+        "url": "https://www.worldbank.org/en/results/2026/01/05/breaking-barriers-building-futures-disability-inclusion-in-education",
+        "date": "2026-01-05",
+        "what_it_said": "Titled 'Breaking Barriers, Building Futures: Disability Inclusion in Education'; presents projects in Rwanda, Burkina Faso and Cambodia (accessible classrooms, teacher training, materials, screening) as enabling tens of thousands of children with disabilities to access quality education; cites no impact evaluation of learning. A fetch tool's reading, not a quotation."
       }
     ]
   },
   "what_the_sources_show": {
     "_note": "What the primary sources actually support, and which sources.",
-    "statement": "",
-    "sources": []
+    "statement": "The one systematic review held (Hunt and colleagues 2025, 28 studies, searched to March 2022) finds that interventions, mostly aimed at individual children's skills, often show positive and sometimes large effects on skills for learning, but all but one study was rated low confidence, heterogeneity and publication-bias risk were high, no study measured attendance, enrolment or completion, and the review cannot say which types of intervention are most efficacious; it found no systematic difference between mainstream and specialised settings.",
+    "sources": [
+      "S001"
+    ]
   },
   "direction": {
     "_note": "CORRECTS, CONFIRMS or NARROWS. This field exists so the contrarianism guard can count. A publication whose answer is always CORRECTS is performing scepticism rather than assessing evidence, and is not to be trusted.",
-    "value": "",
+    "value": "narrows",
     "_values": [
       "corrects",
       "confirms",
       "narrows"
     ]
   },
-  "reader_with_a_decision": "Who has a decision to make, a real cost of being wrong, and no time to read the literature? Name them. A subject with no such reader is interesting rather than useful, and interesting is how four candidates died in one day.",
+  "reader_with_a_decision": "A ministry of education official, a funder or an NGO programme manager in a low- or middle-income country deciding which disability-inclusive education programme to fund or scale, who needs to know how strong the evidence is that such programmes improve children's education and whether any kind is shown to work best.",
   "public_record_check": {
     "_note": "NOT 'has anybody published this'. On any contested question, somebody has. The question is whether it has been carried WHERE THIS READER WOULD FIND IT. Run the counterexample hunter on the belief statement, not on the finding.",
-    "prior_art_found": [],
-    "carried_in_general_coverage": "",
-    "our_contribution": "translation, extension, or correction of the prior art -- say which"
+    "prior_art_found": [
+      "S001: Hunt X, Saran A, White H, Kuper H. Campbell Systematic Reviews 2025 (the review this page translates)"
+    ],
+    "carried_in_general_coverage": "Checked one agency outlet that carries the belief (World Bank results brief, 2026-01-05): it reports outputs and cites no impact evaluation, and does not carry the review's limits. No general news coverage of the review was searched.",
+    "our_contribution": "translation"
   },
-  "sources_are_open": "",
-  "evidence_base_is_bounded": "",
+  "sources_are_open": "yes: S001 is open access under CC BY, held from Europe PMC",
+  "evidence_base_is_bounded": "yes: one systematic review of 28 studies with a stated search date (March 2022); other databases and grey literature were not searched (sources.json search.not_searched)",
   "kill_condition": "There is no story if systematic reviews of evaluations in low- and middle-income countries find consistent, well-measured improvements in the education outcomes (enrolment, attendance, learning) of children with disabilities, and identify which kinds of programme work best with at least moderate certainty. The belief is narrowed if the reviews find the evidence too few, too weak or too mixed to say whether such programmes work or which kind works best.",
   "kill_condition_tested": {
     "_note": "Filled in AFTER going to look, by whoever looked.",
-    "by": "",
-    "on": "",
-    "result": "",
+    "by": "Claude Code (session WHU-L1-02 drafting)",
+    "on": "2026-11-05",
+    "result": "narrowed",
     "_result_values": [
       "survived",
       "narrowed",
       "killed"
     ],
-    "note": ""
+    "note": "The systematic review does not find consistent, well-measured improvements: effects on skills are positive in many studies but rated low confidence, no study measured enrolment, attendance or completion, and the review cannot say which kinds work best. The belief survives only in narrowed form."
   },
   "lead_came_from": "The lean four-question test: round 1's question WHU-Q1-02, asked again verbatim (issue.json).",
   "scope": {

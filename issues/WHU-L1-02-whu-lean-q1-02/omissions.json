@@ -1,0 +1,67 @@
+{
+ "omissions": [
+  {
+   "key": "S001@118994-119142",
+   "source": "S001",
+   "held_sha256": "49a9070d96d82aae61e741291fdd906e8ee5a8a829aa4a495fc2806fb0977ee6",
+   "at": [
+    118994,
+    119142
+   ],
+   "quote_sha256": "21d25b3303a128776d5475e526aae1b0772737aafb9284915fca6ec261f3fae3",
+   "outcome": "ADD",
+   "element": "",
+   "reason": "Step 1: the finding is the pooled effect of LMIC disability education interventions on skills for learning, which bears directly on whether programmes work. No scope entry excludes it. Step 2: the draft gives a count of individually significant studies (12 of 18) and a general note on heterogeneity and publication bias. It never states that the pooled joint effect was statistically significant, nor that this pooled estimate carries marginally significant publication bias. This is the most direct answer to 'do they work', and it is qualified, so the reader would weigh it.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "138fcdd505d1128f",
+   "origins": [
+    "S001-03"
+   ],
+   "on_page": "90b9ea6ea2859ac0",
+   "after": "33027f2fd766f6b9",
+   "decided_at": "2026-11-05T03:07:01+00:00"
+  },
+  {
+   "key": "S001@119214-119377",
+   "source": "S001",
+   "held_sha256": "49a9070d96d82aae61e741291fdd906e8ee5a8a829aa4a495fc2806fb0977ee6",
+   "at": [
+    119214,
+    119377
+   ],
+   "quote_sha256": "8d207382fbc7c2f4eb999adb913342b326b4119c8b88a9e64f83c4a54197fd51",
+   "outcome": "NOT_MATERIAL",
+   "element": "",
+   "reason": "Step 1 holds: the finding reports effects of education programmes [S001@128932-128971] on learning outcomes ([S001@119307-119359]), which bears on whether programmes work and which kinds. Step 2 fails: ALREADY states this nearly word for word: 'The review's results section does not agree with its abstract on every outcome: it says [S001@119293-119376] [1].' The finding adds nothing new.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "281870f64a9effe3",
+   "origins": [
+    "S001-01"
+   ],
+   "on_page": null,
+   "after": null,
+   "decided_at": "2026-11-05T03:07:04+00:00"
+  },
+  {
+   "key": "S001@119378-119555",
+   "source": "S001",
+   "held_sha256": "49a9070d96d82aae61e741291fdd906e8ee5a8a829aa4a495fc2806fb0977ee6",
+   "at": [
+    119378,
+    119555
+   ],
+   "quote_sha256": "43ac9e2b9104d241018f69e05c435ec4cd0d71567d9a6bb6d1821806c9d18b62",
+   "outcome": "NOT_MATERIAL",
+   "element": "",
+   "reason": "Step 1 holds: the finding reports effects of interventions on education-related outcomes (speech and school behaviour) for people with disabilities [S001@163740-163774], so it bears on whether programmes work. Step 2 fails: the draft already says 'Studies of speech and of [S001@7450-7509] [1].' The only addition is that 2 of 5 studies in each category showed a non-zero effect. That detail neither changes nor qualifies the stated null result in a way the reader would weigh.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "0c560a6463e694b8",
+   "origins": [
+    "S001-02"
+   ],
+   "on_page": null,
+   "after": null,
+   "decided_at": "2026-11-05T03:07:09+00:00"
+  }
+ ]
+}
