@@ -363,6 +363,18 @@ def not_judged(pairs: list[dict]) -> dict:
                     "either did not); counted here, never imputed"}
 
 
+CONTESTED = "judges disagree; unresolved; no human check"      # advisor ruling 2026-11-05: Fred declined a human review
+
+
+def contested(pairs: list[dict]) -> dict:
+    """Sentences both judges judged with different check labels: neither is the answer, and no human resolves them."""
+    rows = [{"answer": p["answer"], "item": p["item"], "sentence": p["idx"], "v8": p["v8"],
+             "claude_judge": p["claude_raw"], "openai_judge": p["openai_raw"], "status": CONTESTED}
+            for p in pairs if p["claude"] in F.JUDGED and p["openai"] in F.JUDGED and p["claude"] != p["openai"]]
+    return {"items": len(rows), "status": CONTESTED, "detail": rows,
+            "rule": "outside two-judge-agreed; inside each single-judge agreement, scored against that judge's label"}
+
+
 def agree() -> dict:
     km = json.loads((RUN / "key_map.json").read_text())
     pairs, missing = [], []
@@ -406,13 +418,14 @@ def agree() -> dict:
         "ledger_issue": ISSUE, "usd": round(spent(), 4), "scope_items": len(pairs),
         "judge_labels": raw_counts,
         "not_judged": not_judged(pairs),
+        "contested": contested(pairs),
         "agreement": out,
         "ci_method": "seeded bootstrap (%d resamples, seed %d) over the answers, each resampled with all its pairs; "
                      "95%% percentile interval" % (BOOT, BOOT_SEED),
         "bar": {"agreement_at_least": bar, **{k + "_at_least_90": v for k, v in ready_parts.items()},
                 "couldnt_check_at_most_20 (stage 1)": coverage},
         "ready": all(ready_parts.values()) and coverage,
-        "ready_rule": "all three agreements >= 90% and the coverage bar (COULDN'T CHECK <= 20%); the coverage bar "
+        "ready_rule": "all three agreements >= 90% (Claude judge, OpenAI judge, two-judge-agreed) and every other bar of stage 1 (cost, time, passages, COULDN'T CHECK <= 20%); the coverage bar "
                       "failed in stage 1 (27.9%), so the tool is not ready whatever the agreements"}, pairs
 
 
@@ -425,6 +438,8 @@ def committed(out: dict) -> dict:
         for rows in v["disagreements"].values():
             for r in rows:
                 r.pop("item", None)
+    for r in c.get("contested", {}).get("detail", []):
+        r.pop("item", None)
     for r in c["not_judged"]["detail"]:
         r.pop("answer", None)
         r.pop("sentence", None)
@@ -439,6 +454,7 @@ def do_agree(_a) -> int:
     print("NOT JUDGED: %d item(s), excluded and counted: %s" % (nj["items"], ", ".join(
         "%s (%s; %s)" % (r["item"], "+".join(r["judges"]), "; ".join(
             "%s chars, %s tokens" % (x["text_chars"], x["tokens"]) for x in r["sources"])) for r in nj["detail"])))
+    print("CONTESTED: %d sentence(s): %s" % (out["contested"]["items"], CONTESTED))
     if nj["not_validated"]:
         print("NOT VALIDATED: " + nj["not_validated"])
     row = F.log_estimate("fresh-set stage 2 (judging)", ISSUE, json.loads((ROOT2 / "estimate.json").read_text()),

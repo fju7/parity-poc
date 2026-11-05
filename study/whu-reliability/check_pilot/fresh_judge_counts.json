@@ -1,5 +1,5 @@
 {
- "written": "2026-11-05T00:20:16+00:00",
+ "written": "2026-11-05T01:25:01+00:00",
  "by": "study/whu-reliability/check_pilot/fresh_judge.py agree",
  "label": "Counts only. The fresh set, stage 2 (pilot doc \u00a716.9): v8 against the two M1 judges, first reads only, on the frozen-sample sentences v8 judged BACKED or NOT BACKED. Judged by AI models only; no human has checked the judgements. Blinding was partial: writing style allowed a model to identify systems, and WHU's scope notes were left in.",
  "ledger_issue": "whu-check-fresh-judge",
@@ -144,6 +144,141 @@
   ],
   "not_validated": "Agreement is not measured on claims whose source exceeds the judges' single-read limit (4 items skipped, sources of 173k-431k tokens); v8's windowed reading of very long sources is therefore not validated by this test.",
   "rule": "excluded from each agreement whose judge did not judge the item (and from two-judge-agreed if either did not); counted here, never imputed"
+ },
+ "contested": {
+  "items": 16,
+  "status": "judges disagree; unresolved; no human check",
+  "detail": [
+   {
+    "answer": "WHU-CF-03/Perplexity",
+    "sentence": 7,
+    "v8": "BACKED",
+    "claude_judge": "Supported",
+    "openai_judge": "Overstates",
+    "status": "judges disagree; unresolved; no human check"
+   },
+   {
+    "answer": "WHU-CF-05/Gemini",
+    "sentence": 106,
+    "v8": "BACKED",
+    "claude_judge": "Supported",
+    "openai_judge": "Absent",
+    "status": "judges disagree; unresolved; no human check"
+   },
+   {
+    "answer": "WHU-CF-04/Gemini",
+    "sentence": 25,
+    "v8": "BACKED",
+    "claude_judge": "Supported",
+    "openai_judge": "Overstates",
+    "status": "judges disagree; unresolved; no human check"
+   },
+   {
+    "answer": "WHU-CF-05/Gemini",
+    "sentence": 84,
+    "v8": "BACKED",
+    "claude_judge": "Supported",
+    "openai_judge": "Overstates",
+    "status": "judges disagree; unresolved; no human check"
+   },
+   {
+    "answer": "WHU-CF-02/Gemini",
+    "sentence": 70,
+    "v8": "BACKED",
+    "claude_judge": "Supported",
+    "openai_judge": "Overstates",
+    "status": "judges disagree; unresolved; no human check"
+   },
+   {
+    "answer": "WHU-CF-03/Perplexity",
+    "sentence": 25,
+    "v8": "BACKED",
+    "claude_judge": "Supported",
+    "openai_judge": "Overstates",
+    "status": "judges disagree; unresolved; no human check"
+   },
+   {
+    "answer": "WHU-CF-05/Perplexity",
+    "sentence": 58,
+    "v8": "BACKED",
+    "claude_judge": "Supported",
+    "openai_judge": "Overstates",
+    "status": "judges disagree; unresolved; no human check"
+   },
+   {
+    "answer": "WHU-CF-03/Perplexity",
+    "sentence": 24,
+    "v8": "BACKED",
+    "claude_judge": "Supported",
+    "openai_judge": "Overstates",
+    "status": "judges disagree; unresolved; no human check"
+   },
+   {
+    "answer": "WHU-CF-05/Claude",
+    "sentence": 44,
+    "v8": "BACKED",
+    "claude_judge": "Supported",
+    "openai_judge": "Understates",
+    "status": "judges disagree; unresolved; no human check"
+   },
+   {
+    "answer": "WHU-CF-02/Gemini",
+    "sentence": 29,
+    "v8": "BACKED",
+    "claude_judge": "Supported",
+    "openai_judge": "Contradicted",
+    "status": "judges disagree; unresolved; no human check"
+   },
+   {
+    "answer": "WHU-CF-02/Perplexity",
+    "sentence": 43,
+    "v8": "BACKED",
+    "claude_judge": "Supported",
+    "openai_judge": "Absent",
+    "status": "judges disagree; unresolved; no human check"
+   },
+   {
+    "answer": "WHU-CF-03/Claude",
+    "sentence": 47,
+    "v8": "BACKED",
+    "claude_judge": "Supported",
+    "openai_judge": "Overstates",
+    "status": "judges disagree; unresolved; no human check"
+   },
+   {
+    "answer": "WHU-CF-01/Gemini",
+    "sentence": 5,
+    "v8": "BACKED",
+    "claude_judge": "Supported",
+    "openai_judge": "Overstates",
+    "status": "judges disagree; unresolved; no human check"
+   },
+   {
+    "answer": "WHU-CF-05/Gemini",
+    "sentence": 103,
+    "v8": "BACKED",
+    "claude_judge": "Supported",
+    "openai_judge": "Overstates",
+    "status": "judges disagree; unresolved; no human check"
+   },
+   {
+    "answer": "WHU-CF-02/Gemini",
+    "sentence": 26,
+    "v8": "BACKED",
+    "claude_judge": "Supported",
+    "openai_judge": "Overstates",
+    "status": "judges disagree; unresolved; no human check"
+   },
+   {
+    "answer": "WHU-CF-05/Gemini",
+    "sentence": 26,
+    "v8": "BACKED",
+    "claude_judge": "Supported",
+    "openai_judge": "Overstates",
+    "status": "judges disagree; unresolved; no human check"
+   }
+  ],
+  "rule": "outside two-judge-agreed; inside each single-judge agreement, scored against that judge's label"
  },
  "agreement": {
   "vs_claude_judge": {
@@ -320,5 +455,5 @@
   "couldnt_check_at_most_20 (stage 1)": false
  },
  "ready": false,
- "ready_rule": "all three agreements >= 90% and the coverage bar (COULDN'T CHECK <= 20%); the coverage bar failed in stage 1 (27.9%), so the tool is not ready whatever the agreements"
+ "ready_rule": "all three agreements >= 90% (Claude judge, OpenAI judge, two-judge-agreed) and every other bar of stage 1 (cost, time, passages, COULDN'T CHECK <= 20%); the coverage bar failed in stage 1 (27.9%), so the tool is not ready whatever the agreements"
 }

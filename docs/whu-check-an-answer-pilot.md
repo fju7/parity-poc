@@ -984,3 +984,187 @@ same shuffle (`--redraw 1`), SYR-C.1 kept, the same-report rule applied, the nex
 overlap first. The topic pattern that missed "If global warming increases" is widened for round 2 onward
 (`quarterly/round2_exclusions.json`, which also lists the fresh set's entries as used before); the fresh-set and
 round-1 draws are not re-run.
+
+## 17. v9: an overstatement second read and a user-supplied source (written before any v9 code)
+
+Session VP, 2026-11-05, on the advisor's ruling of that day. **$0, offline only:** design, then code and offline
+tests. No paid run. v1-v8 are unchanged. **The fresh set (§16) is now development data**: v9 was designed after its
+results were seen, so nothing v9 shows on it is a test. Any v9 needs a new fresh set (§17.7) before it can be called
+ready.
+
+**17.0 The ruling, recorded before any code.**
+- **The 16 contested sentences** are the stage-2 sentences where the two judges gave different check labels. They
+  are reported as "judges disagree; unresolved; no human check". Fred declined a human review.
+- **The ready rule stands:** at least 90% agreement against the Claude judge, against the OpenAI judge, and on
+  two-judge-agreed sentences, plus every other bar of §10.7.
+- **v9 is (1) an overstatement second read and (2) a user-supplied source.** (3) asks what the fresh set would have
+  shown under (1), replaying only the stored passages.
+- **(3) needs a paid call per BACKED verdict, so it is built here and not run** (§17.5). It runs only on a separate
+  approval and its own line.
+
+**17.1 Why.** On the fresh set, every one of v8's 18 disagreements with the OpenAI judge was v8 BACKED and the judge
+not supported: 12 Overstates, 4 Absent, 1 Understates, 1 Contradicted. The Claude judge agreed with v8 on 98 of 100,
+and the two judges agreed on 84. The pattern points at one failure: a passage that bears on the claim but is weaker,
+narrower or more hedged than the claim. v8's stage 1 counts that as BACKED. **This was seen before the design.** The
+second read is fitted to a failure observed on the fresh set, which is why that set can no longer test it.
+
+**17.2 The overstatement second read.**
+- **When.** After v8 has decided every claim, for every BACKED verdict, including those decided by a re-read or a
+  window. Every v8 verdict carries its passage (282 of 282 on the fresh set).
+- **Input: only the claim and the passage v8 showed.** That is `passage.quote`, under 60 words; 331 characters at
+  most on the fresh set. No source, no context sentence, no reason text and no label are given. The model judges
+  only what the user is shown.
+- **Model.** The OpenAI judge's model (`judge_m1.OPENAI_MODEL`, now `gpt-6-astra`), through `judge_m1.post_openai`
+  (rate-limit waits, OutOfCredit). It is metered on its own role and ledger issue, with `max_output_tokens` 2,000
+  (reasoning counts as output).
+- **Question.** Does the claim overstate the passage, generalise beyond it, or state more certainly than it? The
+  prompt is fixed text, and its sha256 is recorded on every reply. The reply is JSON only:
+  `{"may_overstate": true|false, "how": "overstates"|"generalises"|"more_certain"|"none", "reason": "<one line, at most 25 words>"}`.
+  `how` is "none" exactly when `may_overstate` is false.
+- **What the user sees.** No → **BACKED**. Yes → **"BACKED, but may overstate"**, with the model's one-line reason.
+  **The verdict is not flipped:** v8's label, passage and reason are kept as they were.
+- **A failed second read** is an API error, a refusal, an incomplete reply, or JSON that breaks the form above. It is
+  retried once. If it fails again it shows as "BACKED (overstatement check not done)" and is recorded with why.
+  It is never shown as plain BACKED.
+
+**17.3 Scoring, decided now, before any v9 call.**
+
+| v9 shows | Agreement (§10.7, against each judge and two-judge-agreed) | Coverage (COULDN'T CHECK bar) | Passages bar |
+|---|---|---|---|
+| BACKED | BACKED | checked | its passage |
+| BACKED, but may overstate | **NOT BACKED** (the advisor's proposal, adopted) | checked | its passage |
+| BACKED (overstatement check not done) | **COULDN'T CHECK** | **counts as COULDN'T CHECK** | its passage |
+| NOT BACKED / COULDN'T CHECK / NOT FOUND / NO SOURCE | as v8 | as v8 | as v8 |
+
+- The study labels are read through `pipeline.study_label_to_check`, unchanged. Overstates, Understates, Absent, Wrong
+  source and Contradicted all count as NOT BACKED. So "may overstate" agrees with any of those, and disagrees with
+  Supported.
+- **Why a failed check scores as COULDN'T CHECK.** v9's check is incomplete there. Scoring it BACKED would credit v9
+  with a check it did not make; scoring it NOT BACKED would credit it with a finding it did not make.
+- **What this can and cannot do.** The second read can only move a BACKED verdict to not-BACKED for scoring. So it can
+  only raise agreement where a judge said not supported, and only lower it where a judge said Supported. Against the
+  Claude judge (98 of 100 on the fresh set, 66 of its 100 labels Supported) it can only cost agreement. Ready needs
+  all three figures at or above 90%, so a second read that flags freely fails on the Claude-judge bar. The replay
+  (§17.5) measures both directions.
+
+**17.4 Points for the ruling (not decided here).**
+1. **Self-agreement moves to the other judge.** v8 reads with the Claude judge's model (§16.4). v9's second read uses
+   the OpenAI judge's model. On BACKED verdicts, agreement with the OpenAI judge becomes partly that model agreeing
+   with itself. The question it is asked is narrower than the judge's (passage only, overstatement only), but it is
+   the same model. Proposed: keep the ruled model and report this beside the bar. The alternative is a
+   non-Anthropic model that is not a study judge.
+2. **Passage only, by design.** A claim supported by the passage together with its surroundings can be flagged,
+   because the second read never sees the surroundings. That is the cost of judging only what the user is shown. The
+   replay's flag rate on BACKED verdicts the two judges both found Supported measures it.
+
+**17.5 The replay of (1) on the fresh set (built, not run).**
+- **Input.** v8's stored stage-1 rows: claim text and `passage.quote` for each of the 173 BACKED verdicts in the 18
+  answers. Nothing is fetched and no source is re-read. Because the second read sees only these two strings, the
+  replay is exactly what v9 would have done on the fresh set, given v8's verdicts.
+- **Output.**
+  - the flag rate over all 173;
+  - v9-scored agreement on the 100 judged stage-2 sentences (the 104 in scope held 72 BACKED), against each judge and
+    two-judge-agreed, with the same bootstrap over answers;
+  - the figures with "may overstate" items excluded, beside them;
+  - the flags on two-judge-Supported sentences (§17.4.2);
+  - the 16 contested sentences, unresolved.
+  - Labelled **"development evidence, in sample: v9 was designed after these results were seen; not a test"**.
+- **Cost** (free estimate, printed first). Each call is the fixed prompt plus the claim and passage, about 700
+  estimated tokens in, at $10 per million input and $50 per million output.
+  - Likely, at 250 output tokens (the OpenAI judge's replies on the fresh set ran 64-263): about $0.018 a call. That
+    is **about $3.0 for all 173, or $1.3 for the 72 in scope.**
+  - Worst, every call at 2,000 output tokens: $0.107 a call, $18.5 for 173 (one retry each: $37).
+- **Gate.** It runs only on a line in `caps.json` for its ledger issue `whu-check-v9-replay`. None exists, so
+  `run` stops before any call until one is approved. It is gated on likely, under the room rule.
+
+**17.6 The user-supplied source.**
+- **When offered.** After v9 has run, for each source v8 recorded as unreachable: bot wall, paywall, robots block, or
+  barred publisher. The user may upload the document for that citation. **The user supplies the document, never the
+  conclusion.**
+- **Identity check: `verify.supplied.supply`, unchanged, called with `store=False`.** The identifier comes from:
+  - the cited URL (DOI, PubMed id, PMCID, NCT);
+  - else the answer's own reference entry for that citation (a DOI or PMID in its text);
+  - else there is none, and the upload is refused: "no registry identifier: this document cannot be checked against
+    a registry, so it is not used".
+- **What `supply` checks.** The registry must answer for the identifier. If it does not, the upload is refused and
+  can be retried later. If the registry has no such identifier, it is refused. The document's own DOI, the first in
+  its head, must be the one offered. Otherwise the registry's title must be among the file's title lines, or contained
+  in its first 400 characters. A PDF with no text layer is recorded UNCHECKED and never used.
+- **No write to Signal's corpus.** v9 never writes `data/verify/supplied` or the document store. Its record (sha256,
+  bytes, who, when, the URL it was offered for, identifier, registry heading and the identity evidence) goes in the
+  run's private folder.
+- **Then.** An admitted document is served, as fetched bytes, to v8's own fetch for that one URL, through the net
+  wrapper. Only the claims citing that URL are re-checked (`check(..., selected=...)`), and the second read follows.
+  Their verdicts are marked **"checked against a document you supplied"**. Every other claim keeps its first
+  verdict. A supplied document that does not support the claim gives NOT BACKED, exactly as a fetched one would.
+- **The limit, found offline from stage 1's records before any build ($0).**
+  - The fresh set had **80 unreachable sources; 17 carry a registry identifier in their URL** (11 PMCID, 6 DOI). The
+    rest are OECD (10), ResearchGate (11), UNFCCC, IPCC, UNEP, IMF, ADB, LinkedIn and publisher pages without a DOI in
+    the address.
+  - Of the **190 COULDN'T CHECK claims**:
+    - 19 cite only identifiable unreachable sources;
+    - 4 cite some;
+    - **139 cite only unidentifiable ones**;
+    - 28 had a source held and still could not be checked.
+  - Even if every identifiable source were uploaded and checked, COULDN'T CHECK would be at least (190 - 23) / 682 =
+    **24.5%, over the 20% bar.** Reference entries may carry DOIs that URLs do not, so the true figure may be a
+    little lower; it is not counted here because the reference text is not in stage 1's rows.
+  - **Under the ruled identity check, v9 cannot pass the coverage bar on a set like this one.** Grey literature has no
+    registry heading to check against. A rule for registry-less documents is needed: the citing-source anchor of
+    `docs/source-status-no-registry-watches-2026-09-15.md`, or a title match against the citing answer's own
+    reference entry. It is a point for the ruling and is not built.
+- **Measuring it needs a person.** On a new fresh set, coverage would be reported twice: machine only, and after
+  Fred's uploads, with the count of documents offered, admitted and refused (by reason) and the minutes it took. The
+  bar would be judged on the machine-only figure unless the advisor rules otherwise.
+
+**17.7 Code and tests (offline).**
+- `check_pilot/pipeline_v9.py` imports v8 unchanged and adds:
+  - `second_read` (the call is injected; the default is `judge_m1.post_openai`);
+  - `apply_second_read`;
+  - `score_label` (§17.3);
+  - `identifier_for`;
+  - `supply_source` (`verify.supplied.supply`, `store=False`, records in the run folder);
+  - `supplied_net`;
+  - `recheck_with_supplied`;
+  - `check` (v8's, then the second read).
+- `check_pilot/run_v9_replay.py` has three commands: `estimate` (free), `run` (stops without a line), and `report`
+  (in-sample label, refuses a partial set).
+- Offline tests in `backend/tests/test_whu_check_pilot_v9.py`, including:
+  - a flag shows as "BACKED, but may overstate" with its reason, and v8's label and passage are unchanged;
+  - only BACKED rows are read, and the call sees only the claim and the passage (no source, context or reason);
+  - a malformed reply is retried once, then shown as "check not done" and scored COULDN'T CHECK;
+  - `score_label` follows §17.3's table;
+  - the prompt's sha256 is recorded;
+  - an upload with no identifier is refused before any registry call;
+  - `supply` is called with `store=False`, and Signal's supplied index is never written;
+  - a document whose registry title does not match is refused;
+  - an admitted document is served only for its own URL and marks only the claims citing it;
+  - the replay stops before any call when no line exists.
+- **The preview stays on v2.**
+
+**17.8 A new fresh set for v9 (proposal).** Same design as §16 (frames, eligibility, draw, three citing systems,
+round 1's runbook, the 20-sentence samples frozen before any call, both M1 judges, first reads), with new questions
+excluded from everything used so far, the fresh set's six included.
+
+Measured cost per answer on the fresh set:
+
+| Stage | Per answer |
+|---|---|
+| v8 | $1.50 |
+| Second read (9.6 BACKED per answer × $0.018) | $0.17 |
+| Judging ($49.15 / 104 items, 5.8 items per answer) | $2.73 |
+| **Total** | **$4.40** |
+
+| Option | Answers | Scoped pairs (expected) | Likely | Notes |
+|---|---|---|---|---|
+| A, as §16 | 6 questions, 18 | ~100 | **~$79** | The OpenAI-judge interval was 71-91% at this size: too wide to tell 85% from 90%. |
+| **B (proposed)** | **9 questions (3 per frame), 27** | **~150** | **~$119** | Interval about 0.82 times as wide. |
+| C | 12 questions, 36 | ~200 | ~$158 | |
+
+- **Worst** is printed by each free estimate before its run, as in stage 1 and 2. On the fresh set the printed
+  worst was 5.7 times measured for v8 and 5.6 times for judging.
+- **Capture is $0** (subscription accounts). Fred's time is about 27 browser runs for B, plus the uploads of §17.6.
+- **Proposed order:** the advisor rules on §17.4 and §17.6's registry-less rule → v9 frozen at a named commit → draw →
+  capture → samples frozen → free estimates → v9 run (with the second read) → uploads → judging → report.
+- **Recommendation: settle §17.6's registry-less rule first.** Without it the new set is predicted to fail coverage,
+  as v8's set was.

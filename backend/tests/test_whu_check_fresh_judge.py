@@ -134,6 +134,9 @@ def test_agreement_counts_three_ways_lists_disagreements_by_direction_and_is_nev
     nj = out["not_judged"]                       # I5: OpenAI did not judge it; listed, excluded, counted
     assert nj["items"] == 1 and nj["ids"] == ["I5"] and nj["by_judge_label"] == {"openai": {"Unreachable": 1}}
     assert nj["detail"][0]["judges"] == ["openai"] and nj["detail"][0]["sources"][0]["text_chars"] == 900000
+    ct = out["contested"]                        # I2: Claude judge BACKED, OpenAI NOT BACKED
+    assert ct["items"] == 1 and ct["detail"][0]["item"] == "I2" and ct["status"] == G.CONTESTED
+    assert G.committed(out)["contested"]["detail"][0].get("item") is None
 
 
 def test_the_not_judged_list_names_the_judge_and_the_source_length(stage2):
