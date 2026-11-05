@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """v9's second read replayed on the fresh set's stored v8 passages (docs/whu-check-an-answer-pilot.md §17.5).
+PARKED (advisor, 2026-11-05; §18): not to be run. The ledger issue has no budget line, so `run` stops before any call.
 Development evidence, in sample: v9 was designed after the fresh set's results were seen. Nothing is fetched and no
 source is re-read; the second read sees only the claim and passage.quote, so the replay is what v9 would have done
 given v8's verdicts.

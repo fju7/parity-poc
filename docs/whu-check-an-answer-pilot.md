@@ -5,6 +5,8 @@ reliability study's H1 and H2, and it changes no study record, result or rule. T
 sample and the pass bar below are fixed by the commit that adds this file, before any run.
 Budget: Fred's approval of 2026-10-28 (option B), `--cap 35` on ledger issue `whu-check-pilot`.
 
+**Status (advisor's ruling, 2026-11-05): parked as an honest partial result (§18).** The check tool fails coverage on fresh answers (27.9% vs 20%), mainly from access restrictions (bot walls 49% of COULDN'T CHECK); agreement 98% vs the Claude judge but 82% vs the OpenAI judge, all disagreements v8 BACKED where the judge found overstatement or absence; very long sources unvalidated.
+
 **Standing rule on overfitting (advisor's ruling, 2026-10-30; binding; full text in §13.0).** v3 to v6 were all
 designed from failures on the pilot set (§10.8's 8 round-1 answers). A pass on that set is development evidence
 only. Before the tool is described as ready for other users, the chosen version must pass all five bars (§10.7),
@@ -1079,7 +1081,7 @@ second read is fitted to a failure observed on the fresh set, which is why that 
 - **Gate.** It runs only on a line in `caps.json` for its ledger issue `whu-check-v9-replay`. None exists, so
   `run` stops before any call until one is approved. It is gated on likely, under the room rule.
 
-**17.6 The user-supplied source.**
+**17.6 The user-supplied source. Dropped (advisor, 2026-11-05; §18): the system must be machine-led, with no human intervention. The design below is kept as written; its code and tests were removed.**
 - **When offered.** After v9 has run, for each source v8 recorded as unreachable: bot wall, paywall, robots block, or
   barred publisher. The user may upload the document for that citation. **The user supplies the document, never the
   conclusion.**
@@ -1170,3 +1172,30 @@ Measured cost per answer on the fresh set:
   capture → samples frozen → free estimates → v9 run (with the second read) → uploads → judging → report.
 - **Recommendation: settle §17.6's registry-less rule first.** Without it the new set is predicted to fail coverage,
   as v8's set was.
+
+## 18. Status: parked (advisor's ruling, 2026-11-05)
+
+**The check tool is parked as an honest partial result.** It fails coverage on fresh answers (27.9% vs 20%), mainly from access restrictions (bot walls 49% of COULDN'T CHECK); agreement 98% vs the Claude judge but 82% vs the OpenAI judge, all disagreements v8 BACKED where the judge found overstatement or absence; very long sources unvalidated.
+
+- **The figures behind it.**
+  - COULDN'T CHECK: 190 of 682 claims on the fresh set's 18 answers (§16). 93 of the 190 were bot walls.
+  - Agreement on the 100 judged stage-2 sentences: 98 against the Claude judge, 82 against the OpenAI judge, 82 of
+    84 on two-judge-agreed sentences.
+  - Every disagreement is v8 BACKED with the judge not supported. The OpenAI judge's 18 labels are 12 Overstates, 4
+    Absent, 1 Understates and 1 Contradicted. The Claude judge's 2 are both Absent.
+  - The 16 contested sentences are reported "judges disagree; unresolved; no human check".
+  - 4 claims were not judged: their sources (173k-431k tokens) exceed the judges' single-read limit, so v8's windowed
+    reading of very long sources is not validated.
+  - Cost and time passed: $1.50 per answer, 59.8 s mean. Passages passed: 282 of 282. Stage 1 spent $26.98 and stage
+    2 $49.15.
+- **Not ready.** It fails the coverage bar, and the OpenAI-judge bar is under 90%.
+- **v9 (§17).**
+  - The overstatement second read (`pipeline_v9.py`, `run_v9_replay.py`, `backend/tests/test_whu_check_pilot_v9.py`)
+    stays committed and has **never been run**. The replay is not run, and `whu-check-v9-replay` has no budget line.
+  - The user-supplied source (§17.6) is dropped. Its code and tests were removed.
+  - §17.8's new fresh set is not planned.
+- **No paid calls are planned for the check tool.** A new session (LT) runs the lean WHU test and shares the ledger.
+- **The fresh set is development data** (§17.0): any later version needs a new fresh set before it can be called
+  ready.
+- Judged by AI models only; no human has checked the judgements. Blinding was partial: writing style allowed a model
+  to identify systems, and WHU's scope notes were left in.
