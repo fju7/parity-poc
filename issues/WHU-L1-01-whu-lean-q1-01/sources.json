@@ -1,0 +1,58 @@
+{
+  "sources": [
+    {
+      "id": "S001",
+      "type": "synthesis",
+      "form": "article",
+      "title": "Digital tracking, provider decision support systems, and targeted client communication via mobile devices to improve primary health care",
+      "authors": "Agarwal S, Chin WY, Vasudevan L, Henschke N, Tamrat T, Foss HS, Glenton C, Bergman H, Fønhus MS, Ratanaprayul N, et al.",
+      "year": 2025,
+      "journal": "Cochrane Database of Systematic Reviews",
+      "doi": "10.1002/14651858.CD012925.pub2",
+      "pmid": "40193137",
+      "pmcid": "PMC11975193",
+      "url": "https://europepmc.org/article/PMC/PMC11975193",
+      "used_for": "The Cochrane systematic review of exactly this question: its included trials, effect estimates and GRADE certainty ratings for care and health outcomes.",
+      "licence": {
+        "note": "Europe PMC lists this article under CC BY-NC (checked 2026-11-05 via the Europe PMC REST API, field license). Publisher terms rule: held from the Europe PMC CC copy only, never from cochranelibrary.com or onlinelibrary.wiley.com.",
+        "europepmc_license": "cc by-nc",
+        "machine_reading": "not forbidden by any recorded licence"
+      },
+      "access": {
+        "state": "full_text_held",
+        "held": {
+          "file": "docs/d7/d7e75af2910b5220d74c87d89e1dd526e979f711e1670b1ccc1afd7377dc699e.xml",
+          "sha256": "d7e75af2910b5220d74c87d89e1dd526e979f711e1670b1ccc1afd7377dc699e",
+          "bytes": 1164109,
+          "identified_by": "contains its identifier PMC11975193 — 536898 characters, reference list and discussion/introduction present; title present (12 of 12 title words in the visible text)",
+          "kind": "full_text",
+          "kind_why": "536898 characters, reference list and discussion/introduction present"
+        },
+        "on": "2026-11-05",
+        "sections": [
+          "the abstract",
+          "the plain language summary"
+        ],
+        "not_read": [
+          "the main text's results and discussion",
+          "the summary of findings tables",
+          "the reports of the included studies"
+        ]
+      },
+      "also_called": [
+        "the 2025 Cochrane review"
+      ]
+    }
+  ],
+  "search": {
+    "searched": [
+      "Europe PMC, for systematic reviews and trials of digital tracking combined with provider decision support or targeted client communication via mobile devices in primary health care"
+    ],
+    "not_searched": [
+      "trial registries",
+      "guideline repositories",
+      "databases other than Europe PMC",
+      "grey literature"
+    ]
+  }
+}
