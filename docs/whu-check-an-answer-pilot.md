@@ -1072,8 +1072,10 @@ second read is fitted to a failure observed on the fresh set, which is why that 
 - **Cost** (free estimate, printed first). Each call is the fixed prompt plus the claim and passage, about 700
   estimated tokens in, at $10 per million input and $50 per million output.
   - Likely, at 250 output tokens (the OpenAI judge's replies on the fresh set ran 64-263): about $0.018 a call. That
-    is **about $3.0 for all 173, or $1.3 for the 72 in scope.**
-  - Worst, every call at 2,000 output tokens: $0.107 a call, $18.5 for 173 (one retry each: $37).
+    is **about $3.0 for all 173, or $1.3 for the 72 in scope.** The free estimate, as built, prints **$3.32** for
+    all 173 (input counted at v8's chars/1.9, which runs high).
+  - Worst, every call at 2,000 output tokens: $0.107 a call, $18.5 for 173; with one retry each, the estimate prints
+    **$36.92**.
 - **Gate.** It runs only on a line in `caps.json` for its ledger issue `whu-check-v9-replay`. None exists, so
   `run` stops before any call until one is approved. It is gated on likely, under the room rule.
 
