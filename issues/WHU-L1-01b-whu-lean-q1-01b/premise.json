@@ -1,0 +1,85 @@
+{
+  "_what_this_is": "The entry gate, answered BEFORE drafting. The threshold question is whether a well-informed non-expert would confidently believe something the primary sources do not support.",
+  "belief": {
+    "_note": "What the reader already believes, stated as they would state it. If you cannot write this sentence, there is nothing to correct and no subject -- which is how the tobacco-analogy candidate died.",
+    "statement": "Giving primary-care health workers phones or tablets that track each patient's care, prompt them with on-screen guidance, and send patients reminder messages clearly improves the care people get and their health.",
+    "how_we_know_they_believe_it": "Not checked against coverage in this run: written from the drafting session's prior understanding before any source was opened. Digital health tools for community and primary-care workers are widely promoted by donors and ministries as improving care.",
+    "carried_by": []
+  },
+  "what_the_sources_show": {
+    "_note": "What the primary sources actually support, and which sources.",
+    "statement": "To be filled from held sources after research.",
+    "sources": []
+  },
+  "direction": {
+    "_note": "CORRECTS, CONFIRMS or NARROWS. This field exists so the contrarianism guard can count. A publication whose answer is always CORRECTS is performing scepticism rather than assessing evidence, and is not to be trusted.",
+    "value": "",
+    "_values": [
+      "corrects",
+      "confirms",
+      "narrows"
+    ]
+  },
+  "reader_with_a_decision": "A health-ministry or programme manager deciding whether to fund phone- or tablet-based tracking, decision support and client reminders for primary-care workers.",
+  "public_record_check": {
+    "_note": "NOT 'has anybody published this'. On any contested question, somebody has. The question is whether it has been carried WHERE THIS READER WOULD FIND IT. Run the counterexample hunter on the belief statement, not on the finding.",
+    "prior_art_found": [],
+    "carried_in_general_coverage": "",
+    "our_contribution": "translation, extension, or correction of the prior art -- say which"
+  },
+  "sources_are_open": "",
+  "evidence_base_is_bounded": "",
+  "kill_condition": "There is no story if the primary sources show, with high certainty, that combining digital tracking with decision support and/or targeted client communication clearly improves both the care people receive and their health in primary care; or if the sources show none of these is known with any certainty at all and that has already been widely reported.",
+  "kill_condition_tested": {
+    "_note": "Filled in AFTER going to look, by whoever looked.",
+    "by": "",
+    "on": "",
+    "result": "",
+    "_result_values": [
+      "survived",
+      "narrowed",
+      "killed"
+    ],
+    "note": ""
+  },
+  "lead_came_from": "The lean four-question test: round 1's question WHU-Q1-01, asked again (issue.json).",
+  "scope": {
+    "covers": "Primary health care settings; digital tracking of patients' health status and services on mobile devices (phones, tablets) combined with health-worker decision support, targeted client communication (reminders) to patients, or both; outcomes on the care people receive (e.g. services delivered, adherence to guidelines, timeliness) and on their health (e.g. mortality, morbidity, clinical measures); evidence from trials and other comparative studies, and expert assessments of that evidence (systematic reviews, guideline recommendations).",
+    "out": [
+      {
+        "what": "Hospital inpatient and specialist care settings",
+        "why": "The question asks about primary health care."
+      },
+      {
+        "what": "Digital tools not on mobile devices (desktop electronic records, telephone call centres without patient tracking)",
+        "why": "The question asks about mobile phones or tablets used to keep track of each patient's care."
+      },
+      {
+        "what": "Decision support or reminder messages used alone, without digital tracking of each patient's care",
+        "why": "The question asks about tracking together with prompts, reminders, or both."
+      },
+      {
+        "what": "Costs and cost-effectiveness",
+        "why": "The question asks whether care and health improve, not what it costs."
+      },
+      {
+        "what": "Health workers' and patients' experiences, acceptability and feasibility",
+        "why": "The question asks about the care people receive and their health, not about how the tools are perceived."
+      }
+    ],
+    "by": "Claude Code (session WHU-L1-01b)",
+    "written_at": "2026-11-05T20:51:28Z"
+  },
+  "evidence_standard": {
+    "_note": "What kinds of evidence the answer will weigh, written at step 1 BEFORE any source is opened (post-study fix 3, docs/whu-fix3-evidence-standard.md). 'measured': outcomes measured in trials, cohorts, evaluations. 'assessed': expert assessments -- systematic-review conclusions, IPCC confidence-rated statements, guideline recommendations. When they differ, the page states both and drops neither.",
+    "weighs": [
+      "measured",
+      "assessed"
+    ],
+    "measured": "Outcomes measured in randomised trials (individual or cluster) and other controlled comparative studies of the intervention against usual care or no intervention: care received (services delivered, guideline adherence, timeliness, follow-up) and health (mortality, morbidity, clinical measures).",
+    "assessed": "Systematic-review conclusions and their GRADE certainty ratings, and guideline recommendations with their certainty and strength (for example WHO recommendations on digital interventions).",
+    "when_they_differ": "state both",
+    "by": "Claude Code (session WHU-L1-01b)",
+    "written_at": "2026-11-05T20:51:28Z"
+  }
+}

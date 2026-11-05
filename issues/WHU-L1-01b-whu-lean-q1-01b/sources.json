@@ -1,0 +1,42 @@
+{
+  "sources": [
+    {
+      "id": "S001",
+      "type": "synthesis",
+      "title": "Digital tracking, provider decision support systems, and targeted client communication via mobile devices to improve primary health care",
+      "also_called": [
+        "the Agarwal 2025 Cochrane review"
+      ],
+      "citation": "Agarwal S, Chin WY, Vasudevan L, Henschke N, Tamrat T, Foss HS, Glenton C, Bergman H, Fønhus MS, Ratanaprayul N, Pandya S, Mehl GL, Lewin S. Cochrane Database of Systematic Reviews 2025, CD012925.pub2.",
+      "doi": "10.1002/14651858.CD012925.pub2",
+      "pubmed": "40193137",
+      "url": "https://europepmc.org/article/PMC/PMC11975193",
+      "licence": "CC BY-NC, as listed by Europe PMC for PMC11975193 (checked 2026-11-05 via the Europe PMC REST search API)",
+      "used_for": "the review's findings on each combination of digital tracking with decision support, targeted client communication, or both",
+      "access": {
+        "state": "full_text_held",
+        "held": {
+          "file": "docs/d7/d7e75af2910b5220d74c87d89e1dd526e979f711e1670b1ccc1afd7377dc699e.xml",
+          "sha256": "d7e75af2910b5220d74c87d89e1dd526e979f711e1670b1ccc1afd7377dc699e",
+          "bytes": 1164109,
+          "identified_by": "contains its identifier PMC11975193 — 536898 characters, reference list and discussion/introduction present; title present (12 of 12 title words in the visible text)",
+          "kind": "full_text",
+          "kind_why": "536898 characters, reference list and discussion/introduction present"
+        },
+        "on": "2026-11-05"
+      }
+    }
+  ],
+  "search": {
+    "searched": [
+      "Europe PMC, for titles containing both 'digital tracking' and 'targeted client communication'"
+    ],
+    "not_searched": [
+      "other bibliographic databases",
+      "other systematic reviews",
+      "guidelines, including WHO's guideline on digital interventions",
+      "trial registries",
+      "the reports of the individual studies the review included"
+    ]
+  }
+}
