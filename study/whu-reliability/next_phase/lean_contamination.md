@@ -43,3 +43,19 @@ SCRATCH: 0. The drafter never listed the scratchpad and never read or named LT's
 - **OUTPUT (5):** mentions in the files the brief requires: `git status` (other sessions' modified files, names only), CLAUDE.md, the process doc and its own publish.py output naming its own private archive. Benign.
 
 Outside its folder, the drafter edited `backend/data/whatholdsup/library/index.json` to drop S002 from this issue's entry (uncommitted, as the brief requires). This is the tools' store for its own issue, not a read of another issue. Its scratchpad files (pre-edit copies, the audit dry run, commit logs) are archived at `~/Projects/whu-study-private/lean/session_lt/scratch_after_q1-02r/`, and the scratchpad is empty again.
+
+## WHU-Q1-03 (whu-lean-q1-03): fresh drafter, frozen code fab2b3e
+
+**Final scan, all 234 tool calls (13:32-15:19Z): VALID.** No read of round 1's Q1-03 records, no SCRATCH read, no OTHER-ISSUE call, no CONTENT from another issue's folder, no FORBIDDEN path. Flags: NAMED 1, BROAD 6, OUTPUT 4.
+- **NAMED (1):** a write, not a read: its own premise text, `lead_came_from` = "…WHU-Q1-03, asked again of lean WHU (issue.json)". Benign.
+- **BROAD (6):**
+  - A `find backend -name caps.json` fallback that never ran (the `cat` before it succeeded; output: caps.json only).
+  - A `find issues` inside its own private-archive folder.
+  - The brief's pre-commit `git diff --cached --name-only` checks (three).
+  - A false match on a `**` inside study-log text.
+  - Its commits 8762d4c, e2f2d25 and a4b9996 touch only `issues/WHU-L1-03-whu-lean-q1-03/`.
+
+  Benign.
+- **OUTPUT (4):** `git status` (other sessions' modified files, names only), the process doc, its own first command's saved output, and its own private-archive path. Benign.
+
+It also read the ledger totals for the other lean issues (whu-lean-q1-01, -02, -04), which is spend only, for the room rule. Its scratchpad is archived at `~/Projects/whu-study-private/lean/session_lt/scratch_after_q1-03/` (58 files, checked identical), and the scratchpad is empty again. The scan output is at `…/session_lt/contam/scan-q1-03.txt` and `paths-q1-03.tsv`.
