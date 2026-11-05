@@ -45,3 +45,12 @@ Today (UTC 2026-11-05), all lines: **$40.76**. The room rule is $50. Lean issues
 
 ## Next step
 Ruling 2 said to start Q1-04 now, so it is next. Re-check the room rule (it resets at 00:00 UTC), then start the fresh Q1-04 drafter. While it runs, do the $0 system-level reading-record checks for Q1-03 and Q1-02r (pending item 2), but commit only after the drafter has finished, to avoid a git clash.
+
+## Update (after the restart, 2026-11-05 ~19:30Z)
+- Checks passed (main = origin/main = 488a8d2, no code change since fab2b3e, $40.76 today, prompt hash ok). **Q1-04 drafter restarted 18:58:45Z**, fresh, same prompt; running in the background.
+- Pending item 2 is **done ($0)**: see the deviations rows "Ruling 1, system-level reading-record check" and "Q1-03 fix-4 item". Under ruling 1, **neither Q1-02r nor Q1-03 passes**, because lean's checking stages are retrieval-based and are never sent whole sections. Waiting on the advisor: re-run on fab2b3e, or after fix 6? Tool: `~/Projects/whu-study-private/lean/session_lt/readcheck/system_read.py` (run it on Q1-04 once it finishes).
+- Not yet committed (wait for the drafter to finish): deviations.md, this note.
+
+## Update (2026-11-05 ~20:30Z): Q1-04 finished
+- **Q1-04: NOT Ready, stopped for good at 4d** (an omission was left for a person), $3.50 ledger, about $13.44 drafting, contamination VALID. Post-run steps done: scan, cost, fail-safe report, reading checks, scratchpad archived to `session_lt/scratch_after_q1-04/` and emptied, records written (lean_test_log, lean_contamination, deviations). Day total $44.26.
+- **Next, waiting on the advisor:** (1) Q1-02r and Q1-03 fail ruling 1 by design of lean's retrieval-based checking. Re-run them on fab2b3e as ruled, or after fix 6? (2) Q1-01 re-run (pending item 3). (3) Q1-03's fix-4 quote is recorded. Is it disclosure? Then post-test fixes 1-7 and judging.

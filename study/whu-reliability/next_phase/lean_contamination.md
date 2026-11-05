@@ -59,3 +59,19 @@ Outside its folder, the drafter edited `backend/data/whatholdsup/library/index.j
 - **OUTPUT (4):** `git status` (other sessions' modified files, names only), the process doc, its own first command's saved output, and its own private-archive path. Benign.
 
 It also read the ledger totals for the other lean issues (whu-lean-q1-01, -02, -04), which is spend only, for the room rule. Its scratchpad is archived at `~/Projects/whu-study-private/lean/session_lt/scratch_after_q1-03/` (58 files, checked identical), and the scratchpad is empty again. The scan output is at `…/session_lt/contam/scan-q1-03.txt` and `paths-q1-03.tsv`.
+
+## WHU-Q1-04 (whu-lean-q1-04)
+
+**Final scan, all 196 tool calls (18:58:49-20:02Z): VALID.** The drafter was restarted after the machine restart in a new LT session, so its scratchpad is a new folder (empty at the start). It was scanned with a private copy of `lean_contamination_scan.py` that differs only in `SCRATCH` (this session's scratchpad) and `CLEANED` (18:58:00Z). Copy, listing and path list: `contam/scan_q104_session.py`, `scan-q1-04.txt`, `paths-q1-04.tsv`. Flags: NAMED 1, BROAD 7, SCRATCH 0, OTHER-ISSUE 0, OUTPUT 8; no path in the path list is FORBIDDEN.
+
+| Time (UTC) | Flag | Exact text (relevant part) | Judgement |
+|---|---|---|---|
+| 19:17:43 | NAMED | writes `premise.json`: `d['lead_came_from']="The lean four-question test's question (round 1's WHU-Q1-04, asked again)."` | A write, not a read; the words come from its own issue.json `_round_note` and its brief (as Q1-01). Benign. |
+| 19:06:01, 19:34:36, 19:45:08, 19:59:58 | BROAD | `git diff --cached --name-only` (the brief's pre-commit check), `git log --oneline -1` | File names / one log line only. Each output lists only `issues/WHU-L1-04-whu-lean-q1-04/` files. Benign. |
+| 19:08:49, 19:44:20 | BROAD | Python text in heredocs: `def find(prefix):`, a comment `# find the declaration…`; `git diff --quiet HEAD -- issues/WHU-L1-04-whu-lean-q1-04/coverage.json` | False matches (a function name, a comment) and a git diff with its own pathspec. Benign. |
+| 19:59:52 | BROAD | `(cd "$DEST" && find . -type f \| wc -l)` | `$DEST` is its own new archive folder `~/Projects/whu-study-private/WHU-L1-04-whu-lean-q1-04/20261105T195953Z/` (OWN). Benign. |
+| 18:58:49 | OUTPUT | `git status --short \| head -20` | Names only: other sessions' modified `issues/WHU-Q1-0*/sweeps.json`. Benign. |
+| 18:58:52 | OUTPUT | `cat issues/WHU-L1-04-whu-lean-q1-04/issue.json` | Its own issue.json (`_round_note` names study paths). Required. Benign. |
+| 18:59:04, 18:59:10 | OUTPUT | CLAUDE.md sections; `docs/whatholdsup-process.md` | Required reading. Benign. |
+| 19:14:13, 19:22:00, 19:48:19 | OUTPUT | harness note "Session cwd remains …/study/whu-reliability/next_phase" on backgrounded commands | The harness reports LT's working directory. Every drafter command either starts with an absolute `cd` into the repo or the scratchpad, or uses absolute paths, or (from 19:53:28) uses repo-relative paths that resolved at the repo root (each succeeded; `next_phase/` holds no `issues/` or `backend/`). No file under `study/` was opened. Benign. |
+| 20:02:25 | OUTPUT | its final report names its own archive folder | OWN. Benign. |
