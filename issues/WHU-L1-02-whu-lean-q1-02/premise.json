@@ -1,0 +1,89 @@
+{
+  "_what_this_is": "The entry gate, answered BEFORE drafting. The threshold question is whether a well-informed non-expert would confidently believe something the primary sources do not support.",
+  "belief": {
+    "_note": "What the reader already believes, stated as they would state it. If you cannot write this sentence, there is nothing to correct and no subject -- which is how the tobacco-analogy candidate died.",
+    "statement": "Programmes that support children and young people with disabilities in low- and middle-income countries -- inclusive schooling, teacher training, assistive devices, community-based rehabilitation -- are widely believed to improve their enrolment and learning, with inclusive education in mainstream schools held up as the approach that works best.",
+    "how_we_know_they_believe_it": "Stated as a working belief before any source was opened: it is the position of the UN Convention on the Rights of Persons with Disabilities (Article 24) and of the international agencies' inclusive-education campaigns. No coverage has been opened yet; this is not yet evidenced from named outlets.",
+    "carried_by": [
+      {
+        "outlet": "",
+        "url": "",
+        "date": "",
+        "what_it_said": ""
+      }
+    ]
+  },
+  "what_the_sources_show": {
+    "_note": "What the primary sources actually support, and which sources.",
+    "statement": "",
+    "sources": []
+  },
+  "direction": {
+    "_note": "CORRECTS, CONFIRMS or NARROWS. This field exists so the contrarianism guard can count. A publication whose answer is always CORRECTS is performing scepticism rather than assessing evidence, and is not to be trusted.",
+    "value": "",
+    "_values": [
+      "corrects",
+      "confirms",
+      "narrows"
+    ]
+  },
+  "reader_with_a_decision": "Who has a decision to make, a real cost of being wrong, and no time to read the literature? Name them. A subject with no such reader is interesting rather than useful, and interesting is how four candidates died in one day.",
+  "public_record_check": {
+    "_note": "NOT 'has anybody published this'. On any contested question, somebody has. The question is whether it has been carried WHERE THIS READER WOULD FIND IT. Run the counterexample hunter on the belief statement, not on the finding.",
+    "prior_art_found": [],
+    "carried_in_general_coverage": "",
+    "our_contribution": "translation, extension, or correction of the prior art -- say which"
+  },
+  "sources_are_open": "",
+  "evidence_base_is_bounded": "",
+  "kill_condition": "There is no story if systematic reviews of evaluations in low- and middle-income countries find consistent, well-measured improvements in the education outcomes (enrolment, attendance, learning) of children with disabilities, and identify which kinds of programme work best with at least moderate certainty. The belief is narrowed if the reviews find the evidence too few, too weak or too mixed to say whether such programmes work or which kind works best.",
+  "kill_condition_tested": {
+    "_note": "Filled in AFTER going to look, by whoever looked.",
+    "by": "",
+    "on": "",
+    "result": "",
+    "_result_values": [
+      "survived",
+      "narrowed",
+      "killed"
+    ],
+    "note": ""
+  },
+  "lead_came_from": "The lean four-question test: round 1's question WHU-Q1-02, asked again verbatim (issue.json).",
+  "scope": {
+    "_note": "What the answer will and will not cover, written at step 1 BEFORE any source is opened, so scope cannot be fitted to the findings afterwards. An omission ruled OUT_OF_SCOPE, and a headline conclusion declared out of scope, must name the question's words or one of these entries (fix 2, docs/whu-fix2-omission-rulings-design.md section 2.4).",
+    "covers": "Evaluations and reviews of programmes, interventions or policies meant to improve the education (access, enrolment, attendance, participation, learning or school completion) of children and young people with disabilities in low- and middle-income countries, and comparisons between kinds of programme.",
+    "out": [
+      {
+        "what": "Programmes in high-income countries",
+        "why": "The question asks about low- and middle-income countries."
+      },
+      {
+        "what": "Health, rehabilitation or social outcomes that are not education outcomes",
+        "why": "The question asks whether programmes improve education; non-education outcomes are outside it unless a source reports them as education results."
+      },
+      {
+        "what": "Prevalence of disability and descriptive data on the education gap that evaluate no programme",
+        "why": "The question asks whether programmes work, not how large the gap is."
+      },
+      {
+        "what": "Adults with disabilities beyond school and youth age, and programmes for adults",
+        "why": "The question asks about children and young people."
+      }
+    ],
+    "by": "Claude Code (session WHU-L1-02 drafting)",
+    "written_at": "2026-11-05T02:47:13Z"
+  },
+  "evidence_standard": {
+    "_note": "What kinds of evidence the answer will weigh, written at step 1 BEFORE any source is opened (post-study fix 3, docs/whu-fix3-evidence-standard.md). 'measured': outcomes measured in trials, cohorts, evaluations. 'assessed': expert assessments -- systematic-review conclusions, IPCC confidence-rated statements, guideline recommendations. When they differ, the page states both and drops neither.",
+    "weighs": [
+      "measured",
+      "assessed"
+    ],
+    "measured": "Education outcomes (enrolment, attendance, learning, participation, completion) measured in evaluations of programmes in low- and middle-income countries: randomised and non-randomised controlled studies, before-after and other quantitative evaluations.",
+    "assessed": "Systematic-review conclusions and certainty or quality ratings on whether such programmes work and which kinds work best; agency evidence reviews only where they report their methods.",
+    "when_they_differ": "state both",
+    "by": "Claude Code (session WHU-L1-02 drafting)",
+    "written_at": "2026-11-05T02:47:13Z"
+  }
+}

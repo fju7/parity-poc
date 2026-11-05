@@ -1,0 +1,64 @@
+{
+  "sources": [
+    {
+      "id": "S001",
+      "type": "synthesis",
+      "title": "Effectiveness of interventions for improving educational outcomes for people with disabilities in low- and middle-income countries: A systematic review (Campbell Systematic Reviews 2025, doi 10.1002/cl2.70016, PMC11799928)",
+      "url": "https://europepmc.org/article/PMC/PMC11799928",
+      "used_for": "the systematic review of evaluations of education interventions for people with disabilities in LMICs: whether they work and which kinds; Europe PMC lists it CC BY, so the Europe PMC copy is used, not the Wiley copy",
+      "licence": {
+        "note": "Europe PMC lists the article under CC BY",
+        "checked_on": "2026-11-05",
+        "checked_by": "Claude Code (session WHU-L1-02 drafting)"
+      },
+      "access": {
+        "state": "full_text_held",
+        "on": "2026-11-05",
+        "by": "Claude Code (session WHU-L1-02 drafting)",
+        "held": {
+          "file": "docs/24/24587d9f8f9b68d1f6bbff588b3ea5a314d5b7e2555682e63c18a296ce8ed0ac.xml",
+          "sha256": "24587d9f8f9b68d1f6bbff588b3ea5a314d5b7e2555682e63c18a296ce8ed0ac",
+          "bytes": 395517,
+          "identified_by": "contains its identifier 10.1002/cl2.70016 — 165887 characters, reference list and discussion present; title present (10 of 12 title words in the visible text)",
+          "kind": "full_text",
+          "kind_why": "165887 characters, reference list and discussion present"
+        }
+      },
+      "identifier": {
+        "kind": "pmid",
+        "value": "39917627",
+        "shape": "PMCID PMC11799928 in the held URL",
+        "resolved_by": "Europe PMC search PMCID:PMC11799928 -> MED/39917627",
+        "identity": "the PMCID is literally in the URL we hold",
+        "resolved_on": "2026-11-04",
+        "resolved_title": "Effectiveness of interventions for improving educational outcomes for people with disabilities in low- and middle-income countries: A systematic review.",
+        "by": "sweep_sources.py resolve --write",
+        "pmcid": "PMC11799928",
+        "doi": "10.1002/cl2.70016"
+      },
+      "also_called": [
+        "the Campbell systematic review by Hunt and colleagues (2025)"
+      ],
+      "document_class": "document"
+    }
+  ],
+  "search": {
+    "searched": [
+      "Europe PMC, on 5 November 2026, for systematic reviews and evidence and gap maps of programmes to improve the education of children and young people with disabilities in low- and middle-income countries"
+    ],
+    "not_searched": [
+      "other bibliographic databases (for example ERIC, Scopus or Web of Science)",
+      "reports and evaluations published by governments, agencies and charities outside journals",
+      "the individual studies the review includes, beyond what the review reports of them"
+    ]
+  },
+  "dropped": [
+    {
+      "id": "S002",
+      "title": "Evidence and gap map of studies assessing the effectiveness of interventions for people with disabilities in low-and middle-income countries (Campbell Systematic Reviews 2020, doi 10.1002/cl2.1070, PMC8356326)",
+      "why": "errata.py found a published corrigendum (PMID 37133285, PMC8356339, doi 10.1002/cl2.1104). Europe PMC lists no CC licence for it and it is a Wiley publication, so under the publisher-terms rule it cannot be fetched or held; an amended source whose correction we cannot read is not relied on. Dropped before drafting; nothing on the page uses it.",
+      "on": "2026-11-05",
+      "by": "Claude Code (session WHU-L1-02 drafting)"
+    }
+  ]
+}
