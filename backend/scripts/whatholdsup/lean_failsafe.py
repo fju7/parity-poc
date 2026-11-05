@@ -33,6 +33,10 @@ from pathlib import Path
 FILE = "lean_removed.jsonl"
 OUTCOME = "removed: unresolved finding"
 REQUIRED = "removed: unresolved finding on a required page element"
+# A "no place" Not added line (coverage_check.NO_PLACE) is a required page element
+# the fail-safe may not remove: a finding on it stops the page (advisor, 2026-11-05).
+STOP = "Not Ready: unresolved finding on a required 'Not added' line"
+LEAN_RELEVANT_BY = "code (lean: relevance not verified, treated as relevant)"
 BY = "code (lean fail-safe, ruling.py)"
 # the protected kinds ruling.split_protected gives, and source_advocate.AMBIGUOUS
 REMOVABLE = ("question", "reading", "scope", "ambiguous")
@@ -47,6 +51,12 @@ def applies(protected: str | None) -> bool:
 def _words(s: str) -> str:
     import lean_sentences as LS
     return LS.words(s or "")
+
+
+def is_no_place_line(sentence: str) -> bool:
+    import coverage_check as C
+    w = " ".join((sentence or "").split())
+    return w.startswith(C.LEAD[C.NO_PLACE]) and w.rstrip(".").endswith(C.NO_PLACE_TAIL)
 
 
 def _key(it: dict) -> str:
@@ -88,7 +98,7 @@ def record(mode: str, it: dict, log: Path) -> dict | None:
     row = {"at": datetime.now(timezone.utc).isoformat(timespec="seconds"), "path": mode,
            "finding": it.get("kind") or "", "finding_key": _key(it), "protected": it.get("protected"),
            "sentence": sentence, "fingerprint": B.fingerprint(sentence), "ref": it.get("ref"),
-           "outcome": OUTCOME, "by": BY}
+           "outcome": STOP if is_no_place_line(sentence) else OUTCOME, "by": BY}
     have = load(log)
     if any((h["path"], h["finding_key"], h["fingerprint"]) == (mode, row["finding_key"], row["fingerprint"])
            for h in have):
@@ -97,7 +107,11 @@ def record(mode: str, it: dict, log: Path) -> dict | None:
     p.parent.mkdir(parents=True, exist_ok=True)
     with p.open("a", encoding="utf-8") as fh:
         fh.write(json.dumps(row, ensure_ascii=False) + "\n")
-    print("  lean fail-safe: %s -- the sentence leaves the page: %r" % (label(row), sentence[:80]))
+    if row["outcome"] == STOP:
+        print("  lean fail-safe: %s (%s, %s) -- the line stays; the page is Not Ready: %r"
+              % (STOP, mode, row["finding"], sentence[:80]))
+    else:
+        print("  lean fail-safe: %s -- the sentence leaves the page: %r" % (label(row), sentence[:80]))
     return row
 
 
@@ -110,12 +124,17 @@ def case_of(slug: str) -> Path | None:
 
 
 def removed(slug: str) -> list[dict]:
+    """Every fail-safe record for SLUG (removals and stops)."""
     case = case_of(slug)
     return load(case) if case else []
 
 
+def stops(slug: str) -> list[dict]:
+    return [r for r in removed(slug) if r.get("outcome") == STOP]
+
+
 def removed_words(slug: str) -> set[str]:
-    return {_words(r["sentence"]) for r in removed(slug) if r.get("sentence")}
+    return {_words(r["sentence"]) for r in removed(slug) if r.get("sentence") and r.get("outcome") == OUTCOME}
 
 
 FRAGMENT_WORDS = 5     # an ambiguous item's target is a fragment; it removes every sentence holding it
@@ -158,13 +177,25 @@ def report(slug: str) -> dict:
         pass
     conv = [{"key": d["key"], "source": d["source"], "from": d.get("converted_from"),
              "stated_by": d.get("stated_by")} for d in hidden if d.get("converted_from")]
-    rem = removed(slug)
+    rem = [r for r in removed(slug) if r.get("outcome") == OUTCOME]
     by = {}
     for r in rem:
         by.setdefault(r["path"], []).append({"finding": r["finding"], "finding_key": r["finding_key"],
                                              "sentence": r["sentence"]})
+    case = case_of(slug)
+    import judgements as J
+    import omissions as O
+    rel = [k for k, e in ((J.load(case).get("candidates") or {}).items() if case else [])
+           if e.get("by") == LEAN_RELEVANT_BY]
+    np_ = [e["key"] for e in (O.load(case).get("omissions") or [] if case else [])
+           if e.get("outcome") == O.NOT_ADDED_NO_PLACE]
+    st = stops(slug)
     return {"slug": slug, "removed": len(rem), "removed_by_path": by,
-            "already_stated_conversions": len(conv), "conversions": conv}
+            "already_stated_conversions": len(conv), "conversions": conv,
+            "relevance_treated_as_relevant": len(rel), "relevance_keys": rel,
+            "not_added_no_place_lines": len(np_), "not_added_keys": np_,
+            "stops_on_not_added_lines": len(st),
+            "stops": [{"path": r["path"], "finding": r["finding"], "sentence": r["sentence"]} for r in st]}
 
 
 def main(argv=None) -> int:

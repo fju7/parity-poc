@@ -219,7 +219,7 @@ def render(gen: list[dict]) -> str:
 
 
 def check(page_sentences: list[str], gen: list[dict], gone: set | None = None,
-          required: list[dict] | None = None) -> tuple[str, str, str]:
+          required: list[dict] | None = None, stops: list[dict] | None = None) -> tuple[str, str, str]:
     """GONE: the words() of every sentence lean's fail-safe removed; REQUIRED:
     the removed ones that are required page elements (lean_failsafe.required_removed)."""
     import lean_failsafe as LF
@@ -231,6 +231,10 @@ def check(page_sentences: list[str], gen: list[dict], gone: set | None = None,
     split = [g for g in gen if g.get("splits")]
     on = [s for s in page_sentences if matches(s, gen)]
     bits = []
+    if stops:
+        import lean_failsafe as LF
+        bits.append("%s: %d (e.g. %s on %r); the line stays and the page is Not Ready (process doc §4.6.1, "
+                    "the ruling paths)" % (LF.STOP, len(stops), stops[0].get("path"), (stops[0].get("sentence") or "")[:90]))
     if required:
         import lean_failsafe as LF
         bits.append("%s: %d (e.g. %r); the page is Not Ready (process doc §4.6.1, the ruling paths)"
@@ -267,7 +271,7 @@ def preflight_rows(slug: str, page_sentences: list[str] | None = None) -> list[t
     ps = page_sentences if page_sentences is not None else B.page_sentences(slug)
     gone = LF.removed_words(slug)
     required = LF.required_removed(generated(slug, keep_removed=True), gone) if gone else []
-    return [check(ps, generated(slug), gone, required)]
+    return [check(ps, generated(slug), gone, required, LF.stops(slug))]
 
 
 def main(argv=None) -> int:

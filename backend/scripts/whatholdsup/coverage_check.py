@@ -86,7 +86,11 @@ DECLARED = ("out_of_scope", "not_material", "not_added_cap")
 COUNTED = ("out_of_scope", "not_material")    # what the declarations budget counts
 HEADING = "Findings in our sources we judged outside this question"
 LEAD = {"out_of_scope": "Outside this question:", "not_material": "Judged not material to this question:",
-        "not_added_cap": "Not added:"}
+        "not_added_cap": "Not added:", "not_added_no_place": "Not added:"}
+# Lean WHU (process doc §4.6.1, the ruling paths): code's own line for an ADD with no
+# place on the page; a required page element, and not counted against the budget.
+NO_PLACE = "not_added_no_place"
+NO_PLACE_TAIL = "(no place on the page)"
 CAP_REASON = "the page's limit for %s was reached"     # not_added_cap's reader-facing reason
 
 CALIBRATED = re.compile(r"\b(?:very\s+low|low|medium|high|very\s+high)\s+confidence"
@@ -322,7 +326,8 @@ def account(units: list[dict], rows: dict, held: dict[str, str], omissions_doc: 
             hits = [e for e in omissions_doc.get("omissions") or []
                     if e.get("source") == u["source"] and e.get("at") and _overlaps(e["at"], u["at"])]
             add = [e for e in hits if e.get("outcome") == "ADD"]
-            dec = [e for e in hits if e.get("outcome") in ("OUT_OF_SCOPE", "NOT_MATERIAL", "NOT_ADDED_CAP")]
+            dec = [e for e in hits if e.get("outcome") in ("OUT_OF_SCOPE", "NOT_MATERIAL", "NOT_ADDED_CAP",
+                                                           "NOT_ADDED_NO_PLACE")]
             if add:
                 state, how = "added", add[0].get("key")
             elif k in declarations:
@@ -404,6 +409,9 @@ def declaration_sentence(state: str, span: str, label: str, reason: str | None) 
     words = span[:-2].split() if cut else span.split()
 
     def line(ws: list[str], c: bool) -> str:
+        if state == NO_PLACE:
+            # code's own words only: the span, the label, and why it was not added
+            return "%s “%s” (%s) %s." % (LEAD[state], " ".join(ws) + (" …" if c else ""), label, NO_PLACE_TAIL)
         if reason is None:
             # Lean WHU (process doc §4.6.1): no reason clause, no model-written prose.
             return "%s “%s” (%s)." % (LEAD[state], " ".join(ws) + (" …" if c else ""), label)
@@ -448,7 +456,7 @@ def declarations(slug: str, held: dict[str, str], case: Path | None = None,
     srcs = _sources(slug)
     out = []
     for e in O.load(case).get("omissions") or []:
-        if e.get("outcome") in ("OUT_OF_SCOPE", "NOT_MATERIAL", "NOT_ADDED_CAP") and e.get("at"):
+        if e.get("outcome") in ("OUT_OF_SCOPE", "NOT_MATERIAL", "NOT_ADDED_CAP", "NOT_ADDED_NO_PLACE") and e.get("at"):
             text = (held.get(e["source"]) or "")[e["at"][0]:e["at"][1]]
             out.append({"key": e["key"], "state": e["outcome"].lower(), "source": e["source"], "text": text,
                         "from": "omissions",
@@ -481,9 +489,12 @@ def declarations(slug: str, held: dict[str, str], case: Path | None = None,
                 got = LC.already_stated(d["text"], body)
                 if got:
                     d.update(state=LC.ALREADY, converted_from="not_material", stated_by=got)
+        # a "no place" Not added line is code's, and required: never dropped as furniture
+        def _off(d):
+            return d["state"] == LC.ALREADY or (d["state"] != NO_PLACE and LC.furniture(d["text"]))
         if hidden is not None:
-            hidden.extend(d for d in out if d["state"] == LC.ALREADY or LC.furniture(d["text"]))
-        out = [d for d in out if d["state"] != LC.ALREADY and not LC.furniture(d["text"])]
+            hidden.extend(d for d in out if _off(d))
+        out = [d for d in out if not _off(d)]
     for d in out:
         label = _label(srcs, d["source"])
         if lean.enabled():
@@ -584,7 +595,7 @@ def preflight_rows(slug: str, record_rows: list[dict] | None = None, *, rows: di
               if d["state"] == "out_of_scope" and not O.scope_element_ok(d.get("element") or "", scope)[0]]
     none = [u for u in acc if u["state"] == "none"]
     counts = {s: len([u for u in acc if u["state"] == s])
-              for s in ("used", "added") + DECLARED + (("already_stated",) if LEAN else ())}
+              for s in ("used", "added") + DECLARED + (("already_stated", NO_PLACE) if LEAN else ())}
     detail = "%d unit(s) in %d relied-on source(s): %s. %s" % (
         len(acc), len({u["source"] for u in acc}),
         ", ".join("%d %s" % (n, s) for s, n in counts.items() if n) or "none accounted", LIMIT)

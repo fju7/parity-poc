@@ -359,17 +359,42 @@ lines, and `ruling.py` left both for a person. Two changes, both under `WHU_LEAN
     stays in the records and the coverage row reports how many listed declarations were removed.
   - Reported per page by `lean_failsafe.py <slug> report`: the sentences removed, by path and finding, and
     the "already stated" conversions.
-- **Not reached by the fail-safe; these remain human steps and stop the run.** A source whose licence
-  forbids machine reading. A read that fails after escalation. A relevance judgement whose question words
-  code cannot verify, or whose reply is unusable (`rule_judgements`). An omission that `rule_omissions`
-  sends to a person: no place for the ADD, a budget reached, NOT_MATERIAL on a SERIOUS objection that
-  changes the conclusion, OUT_OF_SCOPE refused by code, or an unusable reply. None of these is a finding
-  on a sentence the page carries, so removing a sentence does not answer it.
+- **A relevance judgement code cannot verify is treated as relevant** (advisor's second ruling of 5
+  November 2026, option 2). This covers both a "relevant" answer whose question words code cannot find in
+  the question or the scope, and a reply that is not usable, each after lean's escalation.
+  `rule_judgements` records it `relevant: true`, by "code (lean: relevance not verified, treated as
+  relevant)", and never sends it to a person. The row "assessment judgements stated" then requires the
+  judgement either to be stated on the page with its certainty or to be declared on the readers' list. If
+  the page does neither, that row BLOCKs and the page is Not Ready. Code never records `not_relevant`, so
+  a judgement is never dropped this way.
+- **An omission addition with no place on the page becomes a "Not added" line.** When `rule_omissions`
+  would send an ADD to a person because there is "no place for the ADD", code records the outcome
+  `NOT_ADDED_NO_PLACE` in omissions.json. The readers' list then carries the generated line
+  `Not added: “<span>” (<label> [n]) (no place on the page).` That line does not count against the
+  declarations budget, which counts the drafter's choices, not code's. The advocate item is not closed:
+  no OMISSION or DID line is written. `rule_omissions` does not rule it again, and the advocate rows report
+  it in an INFO row ("listed for readers as Not added (no place on the page); not closed").
+- **A "no place" Not added line is a required page element.** The fail-safe may not remove it. A finding
+  that would go to a person on such a line is recorded in `rulings/lean_removed.jsonl` with the outcome
+  "Not Ready: unresolved finding on a required 'Not added' line". The line stays on the page, and
+  "generated sentences match the records" BLOCKs for good, so the page is Not Ready. No path drops, closes
+  or dismisses any finding.
+- **These remain human steps and stop the run:**
+  - a source whose licence forbids machine reading;
+  - a read that fails after escalation;
+  - an omission that `rule_omissions` sends to a person for any other reason: a budget reached,
+    NOT_MATERIAL on a SERIOUS objection that changes the conclusion, OUT_OF_SCOPE refused by code, an
+    unusable reply, or an ADD whose span is not in the finding.
+
+  None of these occurred on round 1's four questions.
 - Tested offline (`backend/tests/test_whu_lean_failsafe.py`):
   - On Q1-02's records, both contradiction lines leave the page: the first is converted to "already
     stated", the second is removed by the fail-safe.
   - No finding is marked resolved.
-  - Every person routing recorded on round 1's four questions is replayed through the lean router.
+  - Every person routing recorded on round 1's four questions (16) is replayed through the lean paths,
+    with zero left for a person. Of these, 4 are taken by the fail-safe, 9 are relevance judgements
+    treated as relevant, and 3 are ADDs with no place, which become "Not added" lines.
+  - A finding on a "Not added" line yields Not Ready, not removal.
 
 ---
 

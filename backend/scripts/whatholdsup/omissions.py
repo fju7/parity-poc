@@ -58,7 +58,10 @@ ADD, OUT_OF_SCOPE, NOT_MATERIAL, NOT_IN_SOURCE = "ADD", "OUT_OF_SCOPE", "NOT_MAT
 # (cap_of) -- and the readers' list says so: "Not added: ... the page's limit for
 # additions was reached".
 NOT_ADDED_CAP = "NOT_ADDED_CAP"
-OUTCOMES = (ADD, OUT_OF_SCOPE, NOT_MATERIAL, NOT_IN_SOURCE, NOT_ADDED_CAP)
+# Lean WHU only (process doc §4.6.1, the ruling paths; advisor, 2026-11-05): an ADD
+# with no place on the page, recorded by code and listed for readers as "Not added".
+NOT_ADDED_NO_PLACE = "NOT_ADDED_NO_PLACE"
+OUTCOMES = (ADD, OUT_OF_SCOPE, NOT_MATERIAL, NOT_IN_SOURCE, NOT_ADDED_CAP, NOT_ADDED_NO_PLACE)
 CAPS = ("additions", "declarations")
 TO_PERSON = "TO_PERSON"
 RECORD = "omissions.json"

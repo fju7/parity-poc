@@ -182,6 +182,15 @@ def test_q1_02_both_contradiction_lines_leave_the_page_and_no_finding_is_marked_
 
 
 # ------------------------------------------------------------ round 1's four audits
+#
+# Round 1 (full WHU) recorded 16 person routings. Replayed through the lean paths:
+# 4 on protected sentences -> the fail-safe; 9 relevance judgements code could
+# not verify -> treated as relevant (rule_judgements); 3 ADDs with no place ->
+# "Not added" lines (rule_omissions). Zero are left for a person.
+
+R1_RELEVANCE = {"whu-quarterly-r1-03": 4, "whu-quarterly-r1-04": 5}
+R1_PRESENT = (ROOT / "issues" / ROUND1["whu-quarterly-r1-04"]).exists()
+
 
 def _round1_rows():
     out = []
@@ -191,37 +200,140 @@ def _round1_rows():
     return out
 
 
-@pytest.mark.skipif(not (ROOT / "issues" / ROUND1["whu-quarterly-r1-04"]).exists(), reason="round 1's records absent")
-def test_round1_every_person_routing_on_a_protected_sentence_is_taken_by_the_fail_safe(tmp_path, lean_on):
-    rows = [(s, r) for s, r in _round1_rows() if r["protected"] in LF.REMOVABLE]
-    assert len(rows) == 4                    # Q1-02 advocate x2, Q1-04 changecheck x2
-    log = tmp_path / "rulings" / "rulings.jsonl"
-    log.parent.mkdir()
-    assert _replay([r for _s, r in rows], log) == []
-    assert {r["path"] for r in LF.load(log)} == {"advocate", "changecheck"}
+class _Relevance:
+    """A ruling model that answers 'relevant' with words code cannot verify
+    for the candidates in UNVERIFIED, and 'not_relevant' for the rest."""
+    model = "fake"
+
+    def __init__(self, texts):
+        self.texts = texts
+
+    def __call__(self, prompt, max_tokens, role):
+        import re
+        hit = any(all(w in prompt for w in re.findall(r"[A-Za-z]{5,}", t)[:15]) for t in self.texts)
+        if hit:
+            return json.dumps({"relevant": True, "question_words": "zqxv unverifiable words",
+                               "reason": "fake"}), {}
+        return json.dumps({"relevant": False, "question_words": "", "reason": "fake"}), {}
 
 
-@pytest.mark.skipif(not (ROOT / "issues" / ROUND1["whu-quarterly-r1-04"]).exists(), reason="round 1's records absent")
-def test_round1_what_remains_for_a_person_under_lean_is_named(tmp_path, lean_on):
-    """The ruling asks for zero person routings across all paths on round 1's
-    four audits. The fail-safe reaches findings on protected sentences only;
-    round 1 also has 12 routings that are not on a page sentence (9 relevance
-    judgements whose question words code could not verify, 3 omission ADDs with
-    no place on the page). They are pinned here, by path and reason, for the
-    advisor's ruling: they are NOT made to pass."""
-    log = tmp_path / "rulings" / "rulings.jsonl"
-    log.parent.mkdir()
-    left = _replay([r for _s, r in _round1_rows()], log)
-    from collections import Counter
-    got = Counter(it["protected"] for it in left)
-    assert got == Counter({"relevance words unverified": 9,
-                           "omission: no place for the ADD: the anchor is not on the page": 3})
+def _key_at(key: str) -> tuple[str, list[int]]:
+    sid, rng = key.split("@")
+    a, b = rng.split("-")
+    return sid, [int(a), int(b)]
 
 
-@pytest.mark.xfail(strict=True, reason="awaiting the advisor's ruling: 12 round-1 routings are not on a page "
-                                       "sentence, so the fail-safe does not reach them (see the test above)")
-@pytest.mark.skipif(not (ROOT / "issues" / ROUND1["whu-quarterly-r1-04"]).exists(), reason="round 1's records absent")
+def _lean_replay_all(tmp_path) -> dict:
+    """Replay every round-1 person routing through the lean paths. Returns
+    {left, failsafe, relevant, no_place, declared}."""
+    import judgements as J
+    import omissions as O
+    import premise as PM
+    out = {"left": [], "failsafe": [], "relevant": {}, "no_place": {}, "declared": {}}
+    rows = _round1_rows()
+    for slug in ROUND1:
+        mine = [r for s, r in rows if s == slug]
+        case = tmp_path / slug
+        (case / "rulings").mkdir(parents=True)
+        log = case / "rulings" / "rulings.jsonl"
+        held = R.held_texts(slug)
+        # protected sentences: the router
+        prot = [r for r in mine if r["protected"] in LF.REMOVABLE]
+        out["left"] += _replay(prot, log)
+        out["failsafe"] += LF.load(log)
+        # relevance: rule_judgements itself, on round 1's candidates, with a model whose words fail
+        rel = [r for r in mine if r["mode"] == "judgements"]
+        if rel:
+            texts = [held[_key_at(r["sentence"])[0]][slice(*_key_at(r["sentence"])[1])] for r in rel]
+            cands = [c for c in J.candidates(held) if c["key"] in {r["sentence"] for r in rel}]
+            assert len(cands) == len(rel)
+            R.rule_judgements(slug, _Relevance(texts), held=held, scope=PM.scope_of(slug), case=case)
+            doc = J.load(case)["candidates"]
+            out["relevant"][slug] = sorted(k for k, e in doc.items() if e.get("by") == LF.LEAN_RELEVANT_BY)
+            assert all(doc[k]["relevant"] is True and not doc[k]["to_person"] for k in out["relevant"][slug])
+        # omissions with no place: the lean branch rule_omissions takes
+        om = [r for r in mine if r["mode"] == "omissions"]
+        if om:
+            priv = ROOT / "issues" / ROUND1[slug] / "rulings" / "omissions.jsonl"
+            keys = [json.loads(l)["key"] for l in priv.read_text().splitlines()
+                    if json.loads(l).get("outcome") == "TO_PERSON"]
+            assert len(keys) == len(om)
+            for k in dict.fromkeys(keys):
+                sid, at = _key_at(k)
+                f = {"source": sid, "at": at, "origins": [k], "held_sha256": J.sha(held[sid]),
+                     "quote": held[sid][at[0]:at[1]]}
+                R.lean_no_place(case, f, held, "no place for the ADD: the anchor is not on the page")
+            out["no_place"][slug] = [e["key"] for e in O.load(case)["omissions"]
+                                     if e["outcome"] == O.NOT_ADDED_NO_PLACE]
+            out["declared"][slug] = C.declarations(slug, held, case=case)
+        out["left"] += [r for r in mine if r["mode"] not in ("judgements", "omissions")
+                        and r["protected"] not in LF.REMOVABLE]
+        assert not (case / "rulings" / R.FOR_PERSON).exists(), slug
+    return out
+
+
+@pytest.mark.skipif(not R1_PRESENT, reason="round 1's records absent")
 def test_round1_zero_person_routings_across_all_paths(tmp_path, lean_on):
+    got = _lean_replay_all(tmp_path)
+    assert got["left"] == []
+    assert len(got["failsafe"]) == 4 and {r["path"] for r in got["failsafe"]} == {"advocate", "changecheck"}
+    assert {s: len(k) for s, k in got["relevant"].items()} == R1_RELEVANCE
+    assert {s: len(k) for s, k in got["no_place"].items()} == {"whu-quarterly-r1-03": 2}   # 3 routings, 2 findings
+    assert len(_round1_rows()) == 16
+
+
+@pytest.mark.skipif(not R1_PRESENT, reason="round 1's records absent")
+def test_round1_no_place_adds_become_code_written_not_added_lines(tmp_path, lean_on):
+    got = _lean_replay_all(tmp_path)
+    lines = [d["sentence"] for d in got["declared"]["whu-quarterly-r1-03"]]
+    assert len(lines) == 2
+    for ln in lines:
+        assert ln.startswith("Not added: “") and ln.endswith("(no place on the page).")
+        assert LF.is_no_place_line(ln)
+
+
+@pytest.mark.skipif(not R1_PRESENT, reason="round 1's records absent")
+def test_a_relevance_judgement_treated_as_relevant_must_be_stated_or_declared(tmp_path, lean_on):
+    """Round 1's Q1-04 candidate S004@129779-131269, treated as relevant on an
+    empty record: the page neither states nor declares it -> the judgements row
+    BLOCKs (Not Ready)."""
+    import judgements as J
+    slug = "whu-quarterly-r1-04"
+    held = R.held_texts(slug)
+    c = next(c for c in J.candidates(held) if c["key"] == "S004@129779-131269")
+    case = tmp_path / "case"
+    (case / "rulings").mkdir(parents=True)
+    done = []
+    R._lean_relevant(case, c, held, "", "relevance refused by code: no words", None, done)
+    e = J.load(case)["candidates"][c["key"]]
+    assert e["relevant"] is True and e["by"] == LF.LEAN_RELEVANT_BY and not e["to_person"]
+    rows = [r for r in J.preflight_rows(slug, held=held, rows={}, case=case)]
+    assert rows[0][1] != "ok" and "neither stated with their certainty nor declared" in rows[0][2], rows
+
+
+def test_a_finding_on_a_not_added_line_stops_the_page_and_does_not_remove_it(tmp_path, lean_on):
+    line = "Not added: “A finding the page had no place for.” (A review [1]) (no place on the page)."
     log = tmp_path / "rulings" / "rulings.jsonl"
     log.parent.mkdir()
-    assert _replay([r for _s, r in _round1_rows()], log) == []
+    assert R.route_to_person("changecheck", [{"protected": "scope", "sentence": line,
+                                              "kind": "changecheck: CONTRADICTION",
+                                              "ref": {"finding_key": "nf1"}}], log) == []
+    rec = LF.load(log)
+    assert len(rec) == 1 and rec[0]["outcome"] == LF.STOP
+    # not a removal: the line is still generated, and the page stops
+    stops = [r for r in rec if r["outcome"] == LF.STOP]
+    gone = {LS.words(r["sentence"]) for r in rec if r["outcome"] == LF.OUTCOME}
+    assert gone == set()
+    decl = [{"key": "S001@1-9", "source": "S001", "state": C.NO_PLACE, "sentence": line}]
+    gen = LS.generate({"question": "Does X work?"},
+                      [{"id": "S001", "title": "A review", "access": {"state": "full_text"}}], {}, decl)
+    assert LF.required_removed(gen, gone) == []
+    row = LS.check([g["sentence"] for g in gen], gen, gone, [], stops)
+    assert row[1] == LS.BAD and LF.STOP in row[2]
+    assert not (tmp_path / "rulings" / R.FOR_PERSON).exists()
+
+
+def test_the_not_added_no_place_line_is_never_dropped_as_furniture_or_converted(lean_on):
+    import coverage_check as CC
+    assert CC.declaration_sentence(CC.NO_PLACE, "Table 3.", "A review [1]", None) == \
+        "Not added: “Table 3.” (A review [1]) (no place on the page)."

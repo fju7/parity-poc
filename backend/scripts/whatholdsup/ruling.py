@@ -1165,6 +1165,22 @@ def omission_payload(question: str, scope: dict, reader: str, finding: str, cont
     return p
 
 
+NO_PLACE_WHY = "no place for the ADD"
+NO_PLACE_BY = "code (lean: no place on the page)"
+
+
+def lean_no_place(case: Path, f: dict, held: dict, why: str) -> dict:
+    """Lean WHU (process doc §4.6.1, the ruling paths; advisor, 2026-11-05,
+    option 2): an ADD with no place on the page is recorded NOT_ADDED_NO_PLACE,
+    which the readers' list shows as code's "Not added ... (no place on the
+    page)" line. Not a person's, and nothing is closed."""
+    import omissions as O
+    O.record(case, f, held_text=held.get(f.get("source")), outcome=O.NOT_ADDED_NO_PLACE, reason=why,
+             by=NO_PLACE_BY)
+    print("  lean: %s (%s) -- listed for readers as Not added" % (why[:60], ", ".join(f.get("origins") or [])))
+    return {"outcome": O.NOT_ADDED_NO_PLACE, "origins": f.get("origins"), "why": why}
+
+
 def rule_omissions(slug: str, call, *, P=None, rows: dict | None = None, held: dict | None = None,
                    case: Path | None = None, page_sentences: list[str] | None = None,
                    scope: dict | None = None, reader: str | None = None, licensed: set | None = None,
@@ -1202,10 +1218,19 @@ def rule_omissions(slug: str, call, *, P=None, rows: dict | None = None, held: d
         return [r["sentence"] for r in rows.values()
                 if r.get("on_page") and sid in A.sources_of(r) and r.get("sentence")]
 
+    import lean
+    import lean_failsafe as LF
+    LEAN = lean.enabled()
+    # Lean WHU: an ADD with no place on the page is recorded NOT_ADDED_NO_PLACE and
+    # listed for readers; its advocate item is not closed, and is never ruled again.
+    no_place = {h for e in (O.load(case).get("omissions") or []) if e.get("outcome") == O.NOT_ADDED_NO_PLACE
+                for h in (e.get("origins") or [])} if LEAN else set()
     items, found = {}, []
     target = SA.protected_check(slug)
     for it in _leaves_out(slug, case):
         o, sid = it["objection"], it["source"]
+        if it["head"] in no_place:
+            continue
         items[it["head"]] = it
         if sid in lic:
             route_to_person("omissions", [{"protected": "licensed source", "sentence": o.get("claim_quoted"),
@@ -1237,6 +1262,9 @@ def rule_omissions(slug: str, call, *, P=None, rows: dict | None = None, held: d
                           "source": f.get("source")}, **extra))
 
     def to_person(f: dict, why: str) -> None:
+        if LEAN and why.startswith(NO_PLACE_WHY):
+            done.append(lean_no_place(case, f, held, why))
+            return
         O.record(case, f, held_text=held.get(f.get("source")), outcome=O.TO_PERSON, reason=why,
                  by="code (ruling.py omissions)")
         route_to_person("omissions", [{"protected": "omission: " + why, "sentence": f.get("anchor") or "",
@@ -1304,7 +1332,7 @@ def rule_omissions(slug: str, call, *, P=None, rows: dict | None = None, held: d
                 continue
             after, how = _placement(anchor, page_sentences, rows)
             if after is None:
-                to_person(f, "no place for the ADD: %s" % how)
+                to_person(f, "%s: %s" % (NO_PLACE_WHY, how))
                 continue
             if counts["ADD"] >= O.add_budget(n_body):
                 to_person(f, "over the ADD budget (%d)" % O.add_budget(n_body))
@@ -1358,6 +1386,8 @@ def rule_judgements(slug: str, call, *, P=None, held: dict | None = None, scope:
     held = held if held is not None else held_texts(slug)
     scope = scope if scope is not None else PM.scope_of(slug)
     log = case / "rulings" / "rulings.jsonl"
+    import lean
+    LEAN = lean.enabled()
     to_rule, _person = J.undecided(J.candidates(held), J.load(case), held)
     done = []
     for c in to_rule:
@@ -1383,6 +1413,9 @@ def rule_judgements(slug: str, call, *, P=None, held: dict | None = None, scope:
                 failed.append({"kind": "relevance", "refs": [c["key"]], "why": str(e)})
             continue
         except RulingError as e:
+            if LEAN:
+                _lean_relevant(case, c, held, "", "the ruling reply was not usable (%s)" % e, None, done)
+                continue
             J.record(case, c, held[c["source"]], relevant=None, words="", by="code (ruling.py judgements)",
                      reason="the ruling reply was not usable (%s)" % e, to_person=True)
             route_to_person("judgements", [{"protected": "relevance unusable", "sentence": c["key"],
@@ -1392,6 +1425,10 @@ def rule_judgements(slug: str, call, *, P=None, held: dict | None = None, scope:
         rid = _last_id(log)
         if got["relevant"]:
             ok, why = J.verify_words(got["question_words"], scope)
+            if not ok and LEAN:
+                _lean_relevant(case, c, held, got["question_words"], "relevance refused by code: %s" % why,
+                               rid, done)
+                continue
             if not ok:
                 J.record(case, c, held[c["source"]], relevant=None, words=got["question_words"],
                          by="code (ruling.py judgements)", reason="relevance refused by code: %s" % why,
@@ -1405,6 +1442,20 @@ def rule_judgements(slug: str, call, *, P=None, held: dict | None = None, scope:
                  reason=got["reason"], by=BY if dm == MODEL else "ruling model %s" % dm, ruling=rid)
         done.append({"key": c["key"], "relevant": got["relevant"], "section": c["section"]})
     return done
+
+
+def _lean_relevant(case: Path, c: dict, held: dict, words: str, why: str, rid, done: list) -> None:
+    """Lean WHU (process doc §4.6.1, the ruling paths; advisor, 2026-11-05,
+    option 2): a relevance judgement code cannot verify is treated as relevant,
+    never sent to a person and never dropped. The row "assessment judgements
+    stated" then requires the page to state it with its certainty or declare
+    it; if it can do neither, the page is Not Ready."""
+    import judgements as J
+    import lean_failsafe as LF
+    J.record(case, c, held[c["source"]], relevant=True, words=words, by=LF.LEAN_RELEVANT_BY,
+             reason="%s; under lean treated as relevant (the page must state or declare it)" % why, ruling=rid)
+    print("  lean: relevance not verified (%s) -- treated as relevant: %s" % (why[:60], c["key"]))
+    done.append({"key": c["key"], "relevant": True, "treated_as_relevant": True, "why": why})
 
 
 REASK_UNITS = 2      # a one-time omission re-ask (~$0.05) against an omission ruling (~$0.03)

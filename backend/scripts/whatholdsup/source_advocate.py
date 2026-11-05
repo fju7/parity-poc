@@ -794,7 +794,7 @@ def open_items(slug: str) -> tuple[list[str], list[str]]:
     with an incomplete withdrawal is neither: see withdrawals()."""
     objs, qs = [], []
     is_protected = protected_check(slug)
-    gone_items = {h for _f, h, _t in removed_items(slug)}
+    gone_items = {h for _f, h, _t in removed_items(slug)} | no_place_items(slug)
     for fname, head, chunk, mode in _chunks(slug):
         if _closed(chunk, mode, is_protected):
             continue
@@ -804,6 +804,22 @@ def open_items(slug: str) -> tuple[list[str], list[str]]:
             continue          # reported by withdrawals(), not as unanswered
         (qs if mode == "questions" else objs).append(f"{fname}: {head}")
     return objs, qs
+
+
+def no_place_items(slug: str) -> set[str]:
+    """LEAN WHU only (process doc §4.6.1, the ruling paths): advocate item heads
+    whose omission code recorded NOT_ADDED_NO_PLACE -- listed for readers as
+    "Not added (no place on the page)", never closed."""
+    import lean
+    if not lean.enabled():
+        return set()
+    import omissions as O
+    try:
+        doc = O.load(sl.case_dir(slug))
+    except (Exception, SystemExit):
+        return set()
+    return {h for e in doc.get("omissions") or [] if e.get("outcome") == O.NOT_ADDED_NO_PLACE
+            for h in e.get("origins") or []}
 
 
 def removed_items(slug: str) -> list[tuple[str, str, str]]:
@@ -919,6 +935,11 @@ def preflight_rows(slug: str) -> list[tuple[str, str, str]]:
         rows.append(("objections not ruled: protected sentence", OK,
                      f"INFO, for the study log (not the readers' list): {len(nrp)} item(s) on a "
                      f"protected sentence, closed not_ruled_protected: " + "; ".join(nrp[:4])))
+    np_ = no_place_items(slug)
+    if np_:
+        rows.append(("omissions listed as Not added (lean)", OK,
+                     f"INFO: {len(np_)} omission item(s) listed for readers as Not added (no place on the page); "
+                     f"not closed: " + ", ".join(sorted(np_)[:6])))
     gone = removed_items(slug)
     if gone:
         rows.append(("objections on removed sentences (lean fail-safe)", OK,
