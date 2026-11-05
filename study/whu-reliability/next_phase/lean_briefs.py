@@ -39,13 +39,15 @@ CAPS_LEAN = """CAPS (never --no-verify, --waive, --past-cap, --past-issue-cap or
 """
 
 
-def subs(n: str, r1: str, lean: str) -> list[tuple[str, str]]:
-    """(old, new) pairs for question n (01..04); each must occur in round 1's brief."""
+def subs(n: str, r1: str, lean: str, nid: str | None = None) -> list[tuple[str, str]]:
+    """(old, new) pairs for question n (01..04); each must occur in round 1's brief.
+    NID: the lean folder's number (n, or n + "r" for a re-run)."""
+    nid = nid or n
     return [
         ("You are a FRESH drafting session: What Holds Up (WHU) quarterly round 1, question WHU-Q1-%s." % n,
          "You are a FRESH drafting session: What Holds Up (WHU) lean four-question test (\"lean + machine scope "
          "notes\"), question WHU-Q1-%s." % n),
-        ("issues/WHU-Q1-%s-%s/" % (n, r1), "issues/WHU-L1-%s-%s/" % (n, lean)),
+        ("issues/WHU-Q1-%s-%s/" % (n, r1), "issues/WHU-L1-%s-%s/" % (nid, lean)),
         ("It is a quarterly-round question, outside the reliability study.",
          "It is a lean-test question (round 1's question, asked again of lean WHU), outside the reliability study."),
         ("- Any other issue's case folder, including the three other round-1 questions (issues/WHU-Q1-*), and their git history.",
@@ -53,19 +55,27 @@ def subs(n: str, r1: str, lean: str) -> list[tuple[str, str]]:
          "round-1 folder too) and the other lean-test questions (issues/WHU-L1-*), and their git history."),
         ("If you open one of the paths above by accident, stop and tell Fred which one.",
          "If you open one of the paths above by accident, stop and report which one."),
-        ("WHU-Q1-%s (quarterly round 1): <what>" % n, "WHU-L1-%s (lean test): <what>" % n),
-        ("~/Projects/whu-study-private/WHU-Q1-%s-%s/" % (n, r1), "~/Projects/whu-study-private/WHU-L1-%s-%s/" % (n, lean)),
+        ("WHU-Q1-%s (quarterly round 1): <what>" % n, "WHU-L1-%s (lean test): <what>" % nid),
+        ("~/Projects/whu-study-private/WHU-Q1-%s-%s/" % (n, r1), "~/Projects/whu-study-private/WHU-L1-%s-%s/" % (nid, lean)),
         ("- spend on %s and on all five round-1 ledger issues;" % r1,
-         "- spend on %s and on all four lean-test ledger issues (whu-lean-q1-01 to -04);" % lean),
+         "- spend on %s and on all four lean-test ledger issues (whu-lean-q1-01 to -04);" % lean if nid == n else
+         "- spend on %s and on all lean-test ledger issues (whu-lean-q1-01 to -04 and %s);" % (lean, lean)),
         ("   - Write the protected sentences (§4.5, fix 1) plainly: the question restatement and what we held, read, searched or did not read.",
          "   - Protected sentences: GENERATED (see LEAN SWITCH): fill the records and paste `lean_sentences.py %s render`." % lean),
     ]
 
 
-def make(n: str, r1_block: str) -> tuple[str, list[str]]:
-    r1, lean = "whu-quarterly-r1-%s" % n, "whu-lean-q1-%s" % n
+# Advisor ruling, 2026-11-05 (option 2): Q1-02 is re-run with a fresh drafter in a new
+# folder, on the code frozen at 4abcab6; the earlier attempt is named as forbidden.
+RERUN_LINE = ("- The earlier lean attempt at this question: issues/WHU-L1-{n}-whu-lean-q1-{n}/, its private archive "
+              "~/Projects/whu-study-private/WHU-L1-{n}-whu-lean-q1-{n}/, its library record "
+              "backend/data/whatholdsup/library/issues/whu-lean-q1-{n}.json, and its git history.\n")
+
+
+def make(n: str, r1_block: str, suffix: str = "") -> tuple[str, list[str]]:
+    r1, lean = "whu-quarterly-r1-%s" % n, "whu-lean-q1-%s%s" % (n, suffix)
     out, log = r1_block, []
-    for old, new in subs(n, r1, lean):
+    for old, new in subs(n, r1, lean, n + suffix):
         c = out.count(old)
         assert c >= 1, (n, old[:70])
         out = out.replace(old, new)
@@ -84,6 +94,10 @@ def make(n: str, r1_block: str) -> tuple[str, list[str]]:
         assert out.count(ADDED_ANCHOR) == 1
         out = out.replace(ADDED_ANCHOR, ADDED_ANCHOR + ADDED_AFTER_Q1_01)
         log.append("DO NOT READ: one line added (advisor ruling 2026-11-05, after Q1-01): %r" % ADDED_AFTER_Q1_01.strip())
+    if suffix:
+        line = RERUN_LINE.format(n=n)
+        out = out.replace(ADDED_AFTER_Q1_01, ADDED_AFTER_Q1_01 + line)
+        log.append("DO NOT READ: one line added for the re-run (advisor ruling 2026-11-05, option 2): %r" % line.strip())
     assert "quarterly-r1" not in out and "$250" not in out and "$25 per" not in out, n
     return out, log
 
@@ -100,6 +114,12 @@ def main() -> int:
         prompt, log = make(n, block)
         parts.append("## WHU-Q1-%s (whu-lean-q1-%s)\n\nChanges from round 1's brief:\n\n%s\n\nPrompt sha256: `%s`\n\n```text\n%s```\n"
                      % (n, n, "\n".join("- " + x for x in log), hashlib.sha256(prompt.encode()).hexdigest(), prompt))
+    # the re-run of Q1-02 (advisor ruling 2026-11-05, option 2), on the code frozen at 4abcab6
+    n, block = blocks[1]
+    prompt, log = make(n, block, "r")
+    parts.append("## WHU-Q1-%sr (whu-lean-q1-%sr): re-run with a fresh drafter on the frozen code (4abcab6)\n\n"
+                 "Changes from round 1's brief:\n\n%s\n\nPrompt sha256: `%s`\n\n```text\n%s```\n"
+                 % (n, n, "\n".join("- " + x for x in log), hashlib.sha256(prompt.encode()).hexdigest(), prompt))
     OUT.write_text("\n".join(parts), encoding="utf-8")
     print("wrote", OUT)
     return 0

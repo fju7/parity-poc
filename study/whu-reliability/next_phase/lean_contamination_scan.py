@@ -44,8 +44,19 @@ CLEANED = "2026-11-05T02:16:00"       # LT removed leandry/, the prompts and its
 FORBID = re.compile(r"WHU-Q1-0|whu-quarterly-r1|study/whu-reliability|whu-study-private|round1|/keys/|/scoring/"
                     r"|answers_manifest|key\.json|fixtures/whu_lean|test_whu_lean_scope_notes")
 # Another issue's case folder (the brief forbids it; not in the advisor's invalidation list): reported.
-OTHER_ISSUE = re.compile(r"issues/(?!WHU-L1-0(\d)-whu-lean-q1-0\1)(?:WHU-[A-Z0-9][\w*?\[\]-]*|[\w-]*\*)")
-OWN = re.compile(r"whu-study-private/WHU-L1-0(\d)-whu-lean-q1-0\1")
+OTHER_ISSUE = re.compile(r"issues/(?!WHU-L1-0(\d)(r?)-whu-lean-q1-0\1\2(?![\w]))(?:WHU-[A-Z0-9][\w*?\[\]-]*|[\w-]*\*)")
+OWN = re.compile(r"whu-study-private/WHU-L1-0(\d)(r?)-whu-lean-q1-0\1\2(?![\w])")
+
+
+def rerun(n: str) -> None:
+    """A re-run drafter (`--rerun 02`, advisor ruling 2026-11-05, option 2): the
+    earlier attempt's case folder, private archive and library record are
+    forbidden (NAMED), and the folder is no longer anyone's own."""
+    global FORBID, OTHER_ISSUE, OWN
+    old = "WHU-L1-%s-whu-lean-q1-%s(?![\\wr])" % (n, n)
+    FORBID = re.compile(FORBID.pattern + "|" + old + "|library/issues/whu-lean-q1-%s\\.json" % n)
+    OTHER_ISSUE = re.compile(r"issues/(?!WHU-L1-%sr-whu-lean-q1-%sr(?![\w]))(?:WHU-[A-Z0-9][\w*?\[\]-]*|[\w-]*\*)" % (n, n))
+    OWN = re.compile(r"whu-study-private/WHU-L1-%sr-whu-lean-q1-%sr(?![\w])" % (n, n))
 SCRATCH_LT = re.compile(r"leandry|prompt_0[1-4]\.txt|scratchpad/contam|scratchpad/full\.txt|scratchpad/t1\.txt")
 
 # Roots whose subtree holds a forbidden folder (relative to the repo root, or absolute).
@@ -252,7 +263,11 @@ PATH_TOKEN = re.compile(r"(?:~|/Users/fredugast|\.{0,2}/)?(?:[\w.\-~]+/)+[\w.\-*
 
 
 def main(argv=None) -> int:
-    argv = sys.argv[1:] if argv is None else argv
+    argv = list(sys.argv[1:] if argv is None else argv)
+    if "--rerun" in argv:
+        i = argv.index("--rerun")
+        rerun(argv[i + 1])
+        del argv[i:i + 2]
     if not argv:
         print(__doc__)
         return 2

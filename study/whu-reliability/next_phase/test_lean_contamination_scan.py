@@ -109,3 +109,22 @@ def test_another_issues_case_folder_is_reported_but_the_own_folder_is_not(tmp_pa
 ])
 def test_another_issues_folder_is_marked_names_only_or_content(cmd, kind):
     assert S.other_issue_kind(cmd) == kind, (cmd, S.other_issue_kind(cmd))
+
+
+def test_a_rerun_drafter_may_not_read_the_earlier_attempt(tmp_path):
+    import importlib
+    spec2 = importlib.util.spec_from_file_location("lcs2", HERE / "lean_contamination_scan.py")
+    S2 = importlib.util.module_from_spec(spec2)
+    spec2.loader.exec_module(S2)
+    # before --rerun: either folder is its own drafter's
+    assert not S2.OTHER_ISSUE.search("cat issues/WHU-L1-02r-whu-lean-q1-02r/issue.json")
+    assert not S2.OTHER_ISSUE.search("cat issues/WHU-L1-02-whu-lean-q1-02/issue.json")
+    S2.rerun("02")
+    assert not S2.OTHER_ISSUE.search("cat issues/WHU-L1-02r-whu-lean-q1-02r/issue.json")
+    assert S2.OTHER_ISSUE.search("cat issues/WHU-L1-02-whu-lean-q1-02/issue.json")
+    assert S2.FORBID.search("cat issues/WHU-L1-02-whu-lean-q1-02/draft/x.html")
+    assert S2.FORBID.search("cat backend/data/whatholdsup/library/issues/whu-lean-q1-02.json")
+    assert not S2.FORBID.search("cat backend/data/whatholdsup/library/issues/whu-lean-q1-02r.json")
+    assert not S2.FORBID.search("cat issues/WHU-L1-02r-whu-lean-q1-02r/issue.json")
+    assert S2.OWN.search("ls ~/Projects/whu-study-private/WHU-L1-02r-whu-lean-q1-02r/")
+    assert not S2.OWN.search("ls ~/Projects/whu-study-private/WHU-L1-02-whu-lean-q1-02/")

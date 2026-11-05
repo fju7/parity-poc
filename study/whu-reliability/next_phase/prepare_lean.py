@@ -44,7 +44,7 @@ RUN_ROOT = PRIV / "scoring" / "lean"
 ROOT_LINKS = RUN_ROOT / "root"
 LOG = HERE / "results" / "lean"
 R1SEED_HEX = "5f4a928b757d7f47c1ba8ed47600ced4a7a69f12"
-ALL = {"WHU-Q1-01": "whu-lean-q1-01", "WHU-Q1-02": "whu-lean-q1-02",
+ALL = {"WHU-Q1-01": "whu-lean-q1-01", "WHU-Q1-02": "whu-lean-q1-02r",
        "WHU-Q1-03": "whu-lean-q1-03", "WHU-Q1-04": "whu-lean-q1-04"}
 SYSTEM = "WHU-lean"
 sys.path.insert(0, str(SCRIPTS))
