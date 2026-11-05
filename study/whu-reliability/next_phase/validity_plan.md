@@ -456,9 +456,9 @@ supporting passage (7 of 8 disagreements are study BACKED → v4 NOT BACKED). It
 | Check 10: prompt wording | whu-reliability-judging-validity-c10 | ~$24 | $30 |
 | Seeded defects (code checks + first audit) | whu-validity-sd-{full,sonnet,haiku} | ~$106 | ~~$110~~ $89 |
 | Lean test: runs | whu-lean-q1-01 … -04 | ≤ $40 | $40 |
-| Lean test: judging | whu-reliability-judging-lean | ~$30-45 | $45 |
+| Lean test: judging | whu-reliability-judging-lean | ~$30-45 | ~~$45~~ $55 (ruling 2026-11-05) |
 | **Total** | | **~$270-310** | **$335** |
-| Reserve (Ruling 2) | | | $15 |
+| Reserve (Ruling 2) | | | ~~$15~~ $4 (after the rulings below) |
 
 **Ruling after the freeze (advisor, 2026-10-30, before any check-3 call):** check 3's cap is raised from $5 to $6,
 the extra $1 taken from the $15 reserve (reserve now $14; caps total $336). Reason: check 3's printed estimate was
@@ -485,6 +485,8 @@ ledger issue `whu-check-fresh-judge` (`caps.json` per-issue cap $80). Not part o
 nothing from any line or the reserve. It covers judging (pilot doc §16.9 stage 2): both M1 judges, first reads only,
 on the frozen-sample sentences v8 judged BACKED or NOT BACKED; a free estimate first, stopping if likely exceeds $80;
 the room rule each day.
+
+**Ruling on the lean test (advisor, 2026-11-05, before any lean call):** $10 moves from the reserve to the lean judging line ($45 -> **$55**; reserve $14 -> **$4**; caps total $336 -> $346); the runs line stays $40. The test is "lean + machine scope notes" (process doc §4.6.1); §10 stays the primary pass bar, with secondary views and the seeded-defect bar deferred (`lean_test_rule.md`, `deviations.md` 2026-11-05).
 
 Step 1's unspent $6.97 stays inside its line (caps are not moved between items without a ruling). Spending at
 up to $60 a day (§0) takes about six spending days.

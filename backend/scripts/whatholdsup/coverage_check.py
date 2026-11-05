@@ -394,7 +394,7 @@ def reader_reason(d: dict) -> str:
     return (d.get("reason_for_reader") or "").strip() or d.get("reason") or ""
 
 
-def declaration_sentence(state: str, span: str, label: str, reason: str) -> str:
+def declaration_sentence(state: str, span: str, label: str, reason: str | None) -> str:
     """One sentence, as the page is split (source_ledger.sentences): a span the
     splitter would break ("e.g. ...") is shortened, with an ellipsis, until the
     whole line is one sentence -- a second sentence would not carry the lead
@@ -404,6 +404,9 @@ def declaration_sentence(state: str, span: str, label: str, reason: str) -> str:
     words = span[:-2].split() if cut else span.split()
 
     def line(ws: list[str], c: bool) -> str:
+        if reason is None:
+            # Lean WHU (process doc §4.6.1): no reason clause, no model-written prose.
+            return "%s “%s” (%s)." % (LEAD[state], " ".join(ws) + (" …" if c else ""), label)
         return "%s “%s” (%s); %s." % (LEAD[state], " ".join(ws) + (" …" if c else ""), label, one_line(reason))
 
     while True:
@@ -421,7 +424,7 @@ def declaration_sentence(state: str, span: str, label: str, reason: str) -> str:
         words = words[:dotted[0]] if dotted and dotted[0] > 0 else words[:-1]
         cut = True
         if not words:
-            return "%s “…” (%s); %s." % (LEAD[state], label, one_line(reason))
+            return line([], True).replace("“ …”", "“…”")
 
 
 def _label(sources: list[dict], sid: str) -> str:
@@ -468,7 +471,11 @@ def declarations(slug: str, held: dict[str, str], case: Path | None = None) -> l
         label = _label(srcs, d["source"])
         if lean.enabled():
             label = LC.cite_label(label, srcs, d["source"])
-        d["sentence"] = declaration_sentence(d["state"], short_span(d["text"]), label, line_reason(d))
+        # Lean WHU (process doc §4.6.1): the line is generated from the records only;
+        # a declaration's reason is model-written prose and stays in the record.
+        # not_added_cap's reason is code's own wording (CAP_REASON) and is kept.
+        reason = line_reason(d) if not lean.enabled() or d["state"] == "not_added_cap" else None
+        d["sentence"] = declaration_sentence(d["state"], short_span(d["text"]), label, reason)
     return out
 
 

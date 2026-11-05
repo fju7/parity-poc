@@ -366,7 +366,9 @@ def test_the_audit_settles_a_generated_sentence_by_code_and_reads_no_model(tmp_p
     fake = Fake()
     m = A.run("demo", out_dir=tmp_path, ask=fake, held={}, unit_list=us, cap=1.0, licensed=set())
     assert m["state"][us[0]["sha"]] == LS.RECORD_CHECK
-    assert m["state"][us[1]["sha"]] == A.HUMAN_READ_REQUIRED               # a person still reads it
+    # Machine scope notes (process doc §4.6.1, 2026-11-05): under lean a hand-written
+    # protected sentence must leave the page for the generated one; no person reads it.
+    assert m["state"][us[1]["sha"]] == "must_leave_page"
     assert not [p for p in fake.prompts if q in p]
 
 

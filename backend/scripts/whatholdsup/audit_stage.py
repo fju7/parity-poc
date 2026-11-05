@@ -1184,6 +1184,18 @@ def run(slug: str, *, out_dir: Path, limit: int | None = None, cap: float = 40.0
                                      "reason": "unchanged since audit run %s (incremental re-audit)" % rp["from"]})
                     continue
                 kind = protected_kind(u["sentence"], u.get("row")) if u["part"] == "page" else None
+                if kind and LEAN:
+                    # Lean WHU, machine scope notes (process doc §4.6.1): every
+                    # protected sentence is generated from the records, so one
+                    # that is not (hand-written) has no person to read it. It
+                    # must leave the page for the generated one; it is never
+                    # HUMAN_READ_REQUIRED and no model reads it.
+                    state[u["sha"]] = "must_leave_page"
+                    prog["done"][u["id"]] = _snap(u, status="must_leave_page")
+                    log("verdicts", {"unit": u["id"], "part": u["part"], "sha": u["sha"], "round": 0,
+                                     "sentence": u["sentence"], "verdict": "must_leave_page",
+                                     "protected": kind, "reason": LS.HAND_WRITTEN})
+                    continue
                 if kind:
                     # The question restatement, or what we held, read or did not
                     # read: no document records that, so a reader of documents

@@ -19,6 +19,20 @@ generate now, or if the question restatement is missing. Every other protected
 sentence (the readers' list, a "we did not search" sentence written by hand)
 stays as it is: a person reads it.
 
+MACHINE SCOPE NOTES (process doc §4.6.1, advisor's ruling of 4-5 November
+2026). Two more kinds are generated, so that no protected sentence goes to a
+person under lean:
+
+  * the readers' list: its heading and one line per declared finding, from
+    coverage_check.declarations (the records; the span copied from the held
+    text by code; no reason clause, so no model-written prose);
+  * what we searched, from sources.json's top-level
+    "search": {"searched": [...], "not_searched": [...]}, in SEARCH_FRAMES.
+
+A protected sentence (bindings.protected_kind) on the page that is not word for
+word a generated one is HAND-WRITTEN: the check row STOPs on it, and the audit
+marks it must_leave_page, never HUMAN_READ_REQUIRED.
+
     python3 lean_sentences.py <slug> render   the HTML paragraphs to paste
     python3 lean_sentences.py <slug> check    the preflight row
 """
@@ -44,11 +58,14 @@ STATE_FRAMES = {
     "human_read": "No model read %s; a person read it.",
     "not_opened": "We have not opened %s.",
 }
+SEARCH_FRAMES = {"searched": "We searched: %s.", "not_searched": "We did not search: %s."}
 SECTIONS_FRAME = "Of %s, we read: %s."
 NOT_READ_FRAME = "Of %s, we did not read: %s."
 # What a sentence in a generated frame starts with (the check's net).
 LEADS = ("The question is: “", "We hold the full text of ", "We hold the abstract of ",
-         "We hold only a fragment of ", "We could not obtain ", "No model read ", "We have not opened ")
+         "We hold only a fragment of ", "We could not obtain ", "No model read ", "We have not opened ",
+         "We searched: ", "We did not search: ")
+HAND_WRITTEN = "lean: hand-written protected sentence; replace it with the generated one"
 
 
 def words(s: str) -> str:
@@ -88,9 +105,12 @@ def question_sentence(issue: dict) -> str | None:
     return QUESTION_FRAME % q if q else None
 
 
-def generate(issue: dict, sources: list[dict]) -> list[dict]:
+def generate(issue: dict, sources: list[dict], search: dict | None = None,
+             declared: list[dict] | None = None) -> list[dict]:
     """[{kind, source, field, sentence}] in page order: the question, then each
-    source's held state, sections read and not read."""
+    source's held state, sections read and not read, then what we searched and
+    did not search (SEARCH), then the readers' list (DECLARED: the sentences
+    coverage_check.declarations gives, heading first)."""
     out = []
     q = question_sentence(issue)
     if q:
@@ -110,25 +130,48 @@ def generate(issue: dict, sources: list[dict]) -> list[dict]:
         if nr:
             out.append({"kind": "reading", "source": sid, "field": "access.not_read",
                         "sentence": NOT_READ_FRAME % (c, "; ".join(nr))})
+    for field, frame in SEARCH_FRAMES.items():
+        items = [_clean(x) for x in (search or {}).get(field) or [] if _clean(x)]
+        if items:
+            out.append({"kind": "reading", "source": None, "field": "sources.json search.%s" % field,
+                        "sentence": frame % "; ".join(items)})
+    if declared:
+        import coverage_check as C
+        out.append({"kind": "scope", "source": None, "field": "coverage_check.HEADING", "sentence": C.HEADING})
+        for d in declared:
+            out.append({"kind": "scope", "source": d["source"], "field": "declaration %s (%s)" % (d["key"], d["state"]),
+                        "sentence": d["sentence"]})
     for g in out:
         if not _one_sentence(g["sentence"]):
             g["splits"] = True              # the page splitter would cut it; the check reports it
     return out
 
 
-def load(slug: str) -> tuple[dict, list[dict]]:
-    """(issue.json, sources.json's sources); empty for an issue with no records."""
+def load(slug: str) -> tuple[dict, list[dict], dict, list[dict]]:
+    """(issue.json, sources.json's sources, its search record, the declared
+    findings); empty for an issue with no records."""
     import source_store as store
     try:
         case = store.case_dir(slug)
     except (Exception, SystemExit):          # case_dir exits for an unknown slug
-        return {}, []
+        return {}, [], {}, []
     if not (case / "issue.json").exists():
-        return {}, []
+        return {}, [], {}, []
     issue = json.loads((case / "issue.json").read_text(encoding="utf-8"))
     sp = case / "sources.json"
-    sources = json.loads(sp.read_text(encoding="utf-8")).get("sources") or [] if sp.exists() else []
-    return issue, sources
+    doc = json.loads(sp.read_text(encoding="utf-8")) if sp.exists() else {}
+    return issue, doc.get("sources") or [], doc.get("search") or {}, declared_of(slug)
+
+
+def declared_of(slug: str) -> list[dict]:
+    """coverage_check.declarations for SLUG (lean's lines: no reason clause), or
+    [] when it has no declarations or its held texts cannot be read."""
+    import coverage_check as C
+    import ruling as R
+    try:
+        return C.declarations(slug, R.held_texts(slug))
+    except (Exception, SystemExit):
+        return []
 
 
 def generated(slug: str) -> list[dict]:
@@ -136,8 +179,20 @@ def generated(slug: str) -> list[dict]:
 
 
 def is_framed(sentence: str) -> bool:
+    import coverage_check as C
     w = words(sentence)
-    return w.startswith(LEADS) or (w.startswith("Of ") and (", we read: " in w or ", we did not read: " in w))
+    # Both sides folded (words): LEADS carry typographic quotes, which words() folds
+    # (found 2026-11-05: the question frame was never recognised as framed).
+    leads = tuple(words(x) for x in LEADS + tuple(C.LEAD.values()))
+    return (w.startswith(leads) or (w.startswith("Of ") and (", we read: " in w or ", we did not read: " in w))
+            or w == words(C.HEADING))
+
+
+def hand_written(sentence: str, gen: list[dict], row: dict | None = None) -> bool:
+    """A protected sentence (bindings.protected_kind) that is not word for word a
+    generated one: lean has no person to read it, so it must leave the page."""
+    import bindings as B
+    return bool(B.protected_kind(sentence, row)) and matches(sentence, gen) is None
 
 
 def matches(sentence: str, gen: list[dict]) -> dict | None:
@@ -152,6 +207,7 @@ def render(gen: list[dict]) -> str:
 
 def check(page_sentences: list[str], gen: list[dict]) -> tuple[str, str, str]:
     stale = [s for s in page_sentences if is_framed(s) and not matches(s, gen)]
+    hand = [s for s in page_sentences if s not in stale and hand_written(s, gen)]
     q = next((g for g in gen if g["kind"] == "question"), None)
     split = [g for g in gen if g.get("splits")]
     on = [s for s in page_sentences if matches(s, gen)]
@@ -163,6 +219,10 @@ def check(page_sentences: list[str], gen: list[dict]) -> tuple[str, str, str]:
     if stale:
         bits.append("%d sentence(s) in a generated frame do not match the records now (e.g. %r); "
                     "lean_sentences.py <slug> render" % (len(stale), stale[0][:90]))
+    if hand:
+        bits.append("%d hand-written protected sentence(s) on the page; under lean every question, reading, "
+                    "search and readers'-list sentence is generated (e.g. %r); lean_sentences.py <slug> render "
+                    "and coverage_check.py <slug> render" % (len(hand), hand[0][:90]))
     if split:
         bits.append("%d generated sentence(s) would be split by the page's sentence splitter (e.g. %r)"
                     % (len(split), split[0]["sentence"][:90]))

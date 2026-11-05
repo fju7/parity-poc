@@ -3043,6 +3043,15 @@ all `No module named 'anthropic'`).
   (a judge other than judge_m1.CLAUDE_MODEL is an estimate only; v4 as built judges on claude-opus-5-5).
 - Tests (offline): test_whu_lean_audit.py, test_whu_lean_tiering.py, test_whu_lean_coverage.py, test_whu_check_pilot_v4.py,
   test_whu_lean_prices.py.
+- Machine scope notes (process doc §4.6.1; advisor's ruling 2026-11-05, session LT; deviations.md 2026-11-05). Finding:
+  lean as built sent 65 scope/readers'-list sentences (plus 4 "we did not search") of round 1 to a person. Now, under lean:
+  readers'-list lines are generated from the records with no reason clause (coverage_check.declaration_sentence, reason
+  None); sources.json `search` {searched, not_searched} -> "We searched: …" / "We did not search: …"
+  (lean_sentences.SEARCH_FRAMES); lean_sentences.generate takes (issue, sources, search, declared); a hand-written
+  protected sentence is must_leave_page in the audit (LS.HAND_WRITTEN) and STOPs the lean row, never HUMAN_READ_REQUIRED.
+  is_framed now folds its leads (the question frame was never recognised). Licensed-source and failed-read person paths
+  unchanged. Test: backend/tests/test_whu_lean_scope_notes.py (fixture fixtures/whu_lean/round1_scope_notes.json, $0;
+  its search lists transcribed from round 1's pages). A run with it is "lean + machine scope notes".
 
 ## WHU validity phase (Part A of "WHU next phase"), session VP (2026-10-30)
 Plan: study/whu-reliability/next_phase/validity_plan.md, FROZEN at b4cf31a (SEED = that hash as an integer), with the
