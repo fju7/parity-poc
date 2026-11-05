@@ -12,8 +12,9 @@ sentences via `lean_sentences.py`; passage retrieval; prompt caching) **plus** t
 `docs/whatholdsup-process.md` §4.6.1, at commit `bf7bd4c`. The code is frozen at the commit that adds this file
 for all four runs (a fix found during the test waits for its end).
 
-Finding recorded first: **lean as built required person reads of 65 sentences across Q1-01..04** (69 counting
-the four hand-written "we did not search" sentences; `deviations.md` 2026-11-05).
+Finding recorded first: **lean as built required person reads of 69 sentences across Q1-01..04 (65
+scope/readers'-list plus 4 hand-written 'we did not search')** (`deviations.md` 2026-11-05; corrected by ruling 2,
+2026-11-05, from 65, LT's preliminary count).
 
 **Questions:** WHU-Q1-01..04, round 1's wording verbatim (each round-1 `issue.json` `question`). **Issues:**
 `whu-lean-q1-01` .. `-04` (case folders `issues/WHU-L1-0n-whu-lean-q1-0n/`, `"study": true`, `"round": "lean"`).

@@ -26,6 +26,12 @@ LEAN_SWITCH = """LEAN SWITCH (lean four-question test, "lean + machine scope not
 - No person takes part in this run. Wherever this brief says a person, Fred or OPERATOR STEPS is needed, you STOP instead: record in study_log.md exactly which step needed a person and why, and end with the REPORT. Never write human_reads.jsonl, person_decisions.md, protected_signoffs.json or any signed field naming a person.
 """
 
+# Advisor ruling, 2026-11-05 (after Q1-01's drafter grepped two study issues' sources.json):
+# added explicitly to the prompts for Q1-02, Q1-03 and Q1-04, before each starts.
+ADDED_AFTER_Q1_01 = ("- Do not open, search, list or grep inside any issues/ folder other than your own; for format "
+                     "examples use the process doc and backend/scripts only.\n")
+ADDED_ANCHOR = "- Tests or fixtures that name a round-1 question. Running the suite through the pre-commit hook is allowed.\n"
+
 CAPS_R1 = re.compile(r"CAPS \(never.*?\n(?=- A stage that prints NOT STARTED)", re.S)
 CAPS_LEAN = """CAPS (never --no-verify, --waive, --past-cap, --past-issue-cap or WHU_SPEND_OVERRIDE)
 - Run cap: $10 for this issue (lean test, validity_plan.md §10). Where a stage takes --cap, pass ($10 minus this issue's spend: `py backend/scripts/spend_ledger.py --issue {slug}`). Hitting it is a result, not a reason to raise it.
@@ -74,6 +80,10 @@ def make(n: str, r1_block: str) -> tuple[str, list[str]]:
     assert out.count(anchor) == 1
     out = out.replace(anchor, "\n" + LEAN_SWITCH.format(slug=lean) + anchor)
     log.append("LEAN SWITCH block inserted before THE SEQUENCE")
+    if n != "01":
+        assert out.count(ADDED_ANCHOR) == 1
+        out = out.replace(ADDED_ANCHOR, ADDED_ANCHOR + ADDED_AFTER_Q1_01)
+        log.append("DO NOT READ: one line added (advisor ruling 2026-11-05, after Q1-01): %r" % ADDED_AFTER_Q1_01.strip())
     assert "quarterly-r1" not in out and "$250" not in out and "$25 per" not in out, n
     return out, log
 

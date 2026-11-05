@@ -161,8 +161,9 @@ Changes from round 1's brief:
 - CAPS block -> lean caps ($10 run cap, $60 day cap, $50 room rule)
 - 37 x slug whu-quarterly-r1-02 -> whu-lean-q1-02
 - LEAN SWITCH block inserted before THE SEQUENCE
+- DO NOT READ: one line added (advisor ruling 2026-11-05, after Q1-01): '- Do not open, search, list or grep inside any issues/ folder other than your own; for format examples use the process doc and backend/scripts only.'
 
-Prompt sha256: `c5e7ea2fb8afa6836968d3821780d2cf2fa913580053d9d3557997ba55561862`
+Prompt sha256: `c5b4c4dfc22abe32ade7f774dff429705286426a02041fff31656bc8b62828a0`
 
 ```text
 You are a FRESH drafting session: What Holds Up (WHU) lean four-question test ("lean + machine scope notes"), question WHU-Q1-02. You run this one issue end to end, from the premise to `publish.py check whu-lean-q1-02` printing `Ready.`. The work is paid and metered.
@@ -186,6 +187,7 @@ DO NOT READ (blinding; these are rules, not suggestions)
 - Any judge output or score, and any answer to this question from another system (Claude Research, ChatGPT, Gemini, Perplexity).
 - Any other issue's case folder, including all four round-1 questions (issues/WHU-Q1-*, this question's round-1 folder too) and the other lean-test questions (issues/WHU-L1-*), and their git history.
 - Tests or fixtures that name a round-1 question. Running the suite through the pre-commit hook is allowed.
+- Do not open, search, list or grep inside any issues/ folder other than your own; for format examples use the process doc and backend/scripts only.
 
 The library holds documents from earlier runs. Research starts from the question, never from the library's list. If you open one of the paths above by accident, stop and report which one.
 
@@ -304,8 +306,9 @@ Changes from round 1's brief:
 - CAPS block -> lean caps ($10 run cap, $60 day cap, $50 room rule)
 - 37 x slug whu-quarterly-r1-03 -> whu-lean-q1-03
 - LEAN SWITCH block inserted before THE SEQUENCE
+- DO NOT READ: one line added (advisor ruling 2026-11-05, after Q1-01): '- Do not open, search, list or grep inside any issues/ folder other than your own; for format examples use the process doc and backend/scripts only.'
 
-Prompt sha256: `90fb1fa3c8edff23f24149aae1dc49ad77f45610a1db75aae39b4c9de4ad4f6e`
+Prompt sha256: `90fb10dec459dd545612ffc21a6a0c3c218bac54717404dba3b485eda65f801f`
 
 ```text
 You are a FRESH drafting session: What Holds Up (WHU) lean four-question test ("lean + machine scope notes"), question WHU-Q1-03. You run this one issue end to end, from the premise to `publish.py check whu-lean-q1-03` printing `Ready.`. The work is paid and metered.
@@ -329,6 +332,7 @@ DO NOT READ (blinding; these are rules, not suggestions)
 - Any judge output or score, and any answer to this question from another system (Claude Research, ChatGPT, Gemini, Perplexity).
 - Any other issue's case folder, including all four round-1 questions (issues/WHU-Q1-*, this question's round-1 folder too) and the other lean-test questions (issues/WHU-L1-*), and their git history.
 - Tests or fixtures that name a round-1 question. Running the suite through the pre-commit hook is allowed.
+- Do not open, search, list or grep inside any issues/ folder other than your own; for format examples use the process doc and backend/scripts only.
 
 The library holds documents from earlier runs. Research starts from the question, never from the library's list. If you open one of the paths above by accident, stop and report which one.
 
@@ -447,8 +451,9 @@ Changes from round 1's brief:
 - CAPS block -> lean caps ($10 run cap, $60 day cap, $50 room rule)
 - 37 x slug whu-quarterly-r1-04 -> whu-lean-q1-04
 - LEAN SWITCH block inserted before THE SEQUENCE
+- DO NOT READ: one line added (advisor ruling 2026-11-05, after Q1-01): '- Do not open, search, list or grep inside any issues/ folder other than your own; for format examples use the process doc and backend/scripts only.'
 
-Prompt sha256: `84da30521ec62ac11c91447b95e642de0dcf5b5bad43a3555afa88d9b4255015`
+Prompt sha256: `56996bacfdc0932825b772a28f55b7faa6eec621f0b6b061eab2fbd057f68f5b`
 
 ```text
 You are a FRESH drafting session: What Holds Up (WHU) lean four-question test ("lean + machine scope notes"), question WHU-Q1-04. You run this one issue end to end, from the premise to `publish.py check whu-lean-q1-04` printing `Ready.`. The work is paid and metered.
@@ -472,6 +477,7 @@ DO NOT READ (blinding; these are rules, not suggestions)
 - Any judge output or score, and any answer to this question from another system (Claude Research, ChatGPT, Gemini, Perplexity).
 - Any other issue's case folder, including all four round-1 questions (issues/WHU-Q1-*, this question's round-1 folder too) and the other lean-test questions (issues/WHU-L1-*), and their git history.
 - Tests or fixtures that name a round-1 question. Running the suite through the pre-commit hook is allowed.
+- Do not open, search, list or grep inside any issues/ folder other than your own; for format examples use the process doc and backend/scripts only.
 
 The library holds documents from earlier runs. Research starts from the question, never from the library's list. If you open one of the paths above by accident, stop and report which one.
 

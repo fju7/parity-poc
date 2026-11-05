@@ -10,7 +10,7 @@ sonnet-5-5), likely = base, pessimistic = the replay's pessimistic, worst = the 
 
 | Question | audit | rulings | gate | likely | pessimistic | worst |
 |---|---|---|---|---|---|---|
-| WHU-Q1-01 | $0.50 | $0.23 | $1.23 | $1.96 | $2.27 | $10.00 |
+| WHU-Q1-01 | claude-opus-5-5 (Agent tool, general-purpose, model "opus") | 2026-11-05T02:04:56Z | 2026-11-05T02:40:30Z (35 min) | $0.99 (incl. $0.21 audit "dry run", see deviations) | 148 calls; 296 in, 73,664 out, 253,043 cache write, 25,031,142 cache read; **$7.75 est.** (Opus 5.5 rates, cache write at the 5-min rate) | **Ready.** at 314b7af; 0 operator minutes; 0 to a person; audit 39 units (26 holds, 5 holds_by_record_check, 8 not_a_correction), 0 escalations (34 decided by claude-sonnet-5-5), 0 replies cut off; removed under the new rule 0; contamination: valid (lean_contamination.md) |
 | WHU-Q1-02 | $0.61 | $2.65 | $1.28 | $4.54 | $5.28 | $10.00 |
 | WHU-Q1-03 | $3.39 | $1.69 | $2.19 | $7.27 | $8.78 | $10.00 |
 | WHU-Q1-04 | $1.38 | $3.43 | $2.37 | $7.18 | $8.44 | $10.00 |
@@ -34,3 +34,4 @@ in question order. Each stage's own day-cap check and the brief's room rule deci
 
 | Question | subagent model | started (UTC) | ended (UTC) | ledger | drafting tokens (est. $) | outcome |
 |---|---|---|---|---|---|---|
+| WHU-Q1-01 | claude-opus-5-5 (Agent tool, general-purpose, model "opus") | 2026-11-05T02:04:56Z | | | | running; prompt sha256 e416e0d8fc4c… |
