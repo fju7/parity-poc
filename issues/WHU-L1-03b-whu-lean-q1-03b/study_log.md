@@ -27,3 +27,10 @@ Lean four-question test, "lean + machine scope notes". Every command run with WH
 | 7b apply audit wordings; step-3 checks, applied_check, --dangling | 2026-11-06T11:38:00Z | 2026-11-06T11:40:30Z | $0 | 0 | u28 and u141 replaced word for word with the audit's proposed text; all checks ok, 0 mismatches, 0 dangling |
 | 7c re-audit run 20261106T114125Z (incremental) | 2026-11-06T11:41:25Z | 2026-11-06T11:41:45Z | $0.07 | 0 | complete: 144 carried, 7 holds, 10 holds_by_record_check, 0 findings; preflight "audit complete" ok. consistency.py on it: no rulings |
 | 7d final narrow gate (run 2 of 3), --changed-since, dry run first | 2026-11-06T11:43:22Z | 2026-11-06T11:43:25Z | $0 | 0 | recency carried (0 days old); PASSED (narrow); findings --scan 0, ruling.py gate 0 |
+| 8 commit (4f02620) | 2026-11-06T11:45:00Z | 2026-11-06T11:46:30Z | $0 | 0 | pushed 2e1b243..4f02620 main -> main |
+| 9 changecheck --before 2e1b243 | 2026-11-06T11:47:18Z | 2026-11-06T11:47:21Z | $0.04 | 0 | 6 changed sentences; 1 finding NEW_AND_UNBOUND on the readers'-list line for omission S001-01 (NOT_MATERIAL), which had no binding row span. Not sent to ruling.py: the finding was a missing binding record, fixed by binding the line to its quoted span (in SPM B.2.3's group, already bound, so no coverage state changed). The page text did not change. Re-run: nothing found ($0.04) |
+| 9a changecheck_coverage --first 2e1b243 | 2026-11-06T11:52:00Z | 2026-11-06T11:52:30Z | $0 | 0 | every changed sentence was read |
+| 10 publish.py check | 2026-11-06T11:53:00Z | 2026-11-06T11:53:26Z | $0 | 0 | Ready. (80 ok, 13 warn, 0 STOP) |
+| 11 private archive | 2026-11-06T11:54:14Z | 2026-11-06T11:55:00Z | $0 | 0 | 34 git-ignored files copied to ~/Projects/whu-study-private/WHU-L1-03b-whu-lean-q1-03b/20261106T115414Z/ (paths kept, sha256 verified); manifest private_manifest.txt |
+
+Total metered spend on whu-lean-q1-03b: $3.10 of the $10 run cap. Gate runs used: 2 of 3. No step needed a person; nothing was routed to a person.
