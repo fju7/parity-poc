@@ -566,8 +566,13 @@ passages, not whole sections. Everything below is under `WHU_LEAN=1` unless it s
   restored from LT's pre-D copy and step 9 is run again under the new code; Q1-03b stands only if its
   preflight is `Ready.`, disclosed as "first Ready depended on a drafter departure; Ready again after
   the binding fix".
-  The ruling's second part, the rule-3b "could not establish" line naming what the recency check
-  searched (no lint exemption), is recorded in deviations and waits on one wording point before code.
+  Second part (the advisor's ruling on its wording, option (b)): no lint exemption. Rule 3b's line for
+  an UNKNOWN study reads "Our recency check could not establish whether <title> [n] has a newer
+  edition.", or "Our recency check (searched: <registries>) could not establish whether <title> [n] has
+  a newer edition." when the gate's recency record lists what it searched. The row "newer editions
+  handled" STOPs whenever an UNKNOWN line rests on a recency record that holds no list of registries
+  searched: missing provenance stops the page whatever the wording. The gate does not record its
+  searches today, so such a page is Not Ready; that is its result.
 - **Two lines added to the drafting brief:** never run a stage twice in parallel, and never switch a
   source to another edition (rule 3b decides that).
 - Code: `lean_received.py` (the measurement), `lean_reading.py` (the rows for fixes 4-6),
