@@ -87,3 +87,17 @@ Runs line spent $19.15 of $40, left $20.85 < $20.95 likely: the reserve's last $
 | WHU-Q1-02r | **yes** (S001 §5 and S003 §5 read in full; not-read records removed; two more inconsistencies within S001 put on the page, bound) | pipeline $0.10 (conclusion judge and audit repeated, 13:14:58-13:15:45); drafting est. $1.59 (17 drafter calls in the fix window 13:11:23-13:14:58, Opus 5.5 rates) |
 | WHU-Q1-03 | **yes, partly.** D.1 read in full (chars 105712-118151). Both not-read entries removed, including "the figures and tables as graphics", which was not read further; sections widened to "A to D" and the extracted figure text (see deviations: the record overstates what was seen) | pipeline $0; drafting est. $0.88 (12 drafter calls, 13:58:09-13:59:17Z) |
 | WHU-Q1-04 | **occurred, not cleared.** The preflight at the stop shows "claims a source could not be opened" STOP (4), against the generated "we did not read" sentences (sources.json lists not_read for S001-S004). The run stopped at 4d first, so the drafter neither read further nor changed the not-read records. | $0 |
+
+## Closed (advisor, 2026-11-06): final report
+
+The test is closed as reported. **§10: NOT PASSED.** WHU-Q1-04 did not reach `Ready.` (whu-lean-q1-04c, Not Ready on
+0fece2a and 9863fb2; recorded, not scored). On the three scored questions (whu-lean-q1-01c, -02b, -03b): bar 1 holds
+(ledger $1.53, $2.13, $3.14; median $2.13), bar 2 holds (0 minutes), bar 3 holds (M1 5.08% as scored, 1.92% excluding
+readers'-list and process sentences), **bar 4 fails** (M2 Understates+Omits 0% under both judges; Overstates+Contradicts
+6.7% Claude judge, 20.0% OpenAI judge, against round-1 WHU's 0% and 10.5%; all Overstates, none Contradicts), bar 5
+deferred. Advisor's reading: strong in-sample development evidence. Cost per question, pipeline + drafting (est.) = total:
+$1.53 + $11.92 = $13.45; $2.13 + $10.02 = $12.15; $3.14 + $12.77 = $15.91 (Q1-04c, not scored: $4.60 + $14.11 = $18.71).
+Analysis: `results/lean/lean_ai_only.json` (sha256 75ac76869bf0…). Disclosures as in `deviations.md` (code versions per
+page, departures E(1)-(6), the excluded unjudged item M1-28661d9b85, the limits including "fetches used a browser user
+agent (acquire_sources.py:62)"). No Substack post or page yet. Next phase: `docs/whu-orchestrator.md`.
+
