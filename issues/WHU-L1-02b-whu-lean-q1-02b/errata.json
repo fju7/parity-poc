@@ -1,0 +1,42 @@
+{
+  "_what_this_is": "For every source, whether its bibliographic record names a correction, erratum, retraction or expression of concern -- and, when the lookup failed, that it failed. 'checked, none' and 'could not check' are different states and this file never merges them.",
+  "checked": {
+    "S001": {
+      "source": "S001",
+      "title": "Effectiveness of interventions for improving educational outcomes for people with disabilities in low- and middle-income",
+      "checked_on": "2026-11-05",
+      "identifier": "PMCID PMC11799928",
+      "identifier_from": "the source URL",
+      "resolved_title": "Effectiveness of interventions for improving educational outcomes for people with disabilities in low- and middle-income countries: A systematic review.",
+      "identity": "resolved title shares 12 word(s) with ours: countries, disabilities, educational, effectiveness, improving, income, interven",
+      "amendments": [],
+      "comments": [],
+      "state": "CLEAN",
+      "why": "matched on PMCID PMC11799928"
+    },
+    "S002": {
+      "source": "S002",
+      "title": "Rapid Evidence Assessment (REA) of What Works to Improve Educational Outcomes for People with Disabilities in Low- and M",
+      "checked_on": "2026-11-05",
+      "state": "UNCHECKABLE",
+      "why": "no DOI, PMID, PMCID or PII can be parsed from the URL we hold; nothing is typed from memory, so this source cannot be looked up automatically",
+      "amendments": [],
+      "comments": []
+    },
+    "S003": {
+      "source": "S003",
+      "title": "Implementation of Inclusive Education: A Systematic Review of Studies of Inclusive Education Interventions in Low- and L",
+      "checked_on": "2026-11-05",
+      "identifier": "DOI 10.1080/1034912X.2022.2095359",
+      "identifier_from": "the held document",
+      "identity": "resolved title shares 11 word(s) with ours: countries, education, implementation, inclusive, income, interventions, lower, m",
+      "resolved_title": "Implementation of Inclusive Education: A Systematic Review of Studies of Inclusive Education Interventions in Low- and Lower-Middle-Income Countries",
+      "index": "Crossref",
+      "update_policy": "https://doi.org/10.1080/tandf_crossmark_01",
+      "amendments": [],
+      "comments": [],
+      "state": "CLEAN",
+      "why": "matched on DOI 10.1080/1034912X.2022.2095359 at Crossref; not in Europe PMC. The publisher registers a Crossmark update policy, so a correction would have been deposited here"
+    }
+  }
+}

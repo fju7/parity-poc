@@ -1,0 +1,81 @@
+{
+  "_what_this_is": "The entry gate, answered BEFORE drafting. The threshold question is whether a well-informed non-expert would confidently believe something the primary sources do not support.",
+  "belief": {
+    "_note": "What the reader already believes, stated as they would state it. If you cannot write this sentence, there is nothing to correct and no subject -- which is how the tobacco-analogy candidate died.",
+    "statement": "Programmes that put children with disabilities in low- and middle-income countries into mainstream, inclusive schools, with teacher training and classroom support, are known to work, and inclusive education is the kind that works best.",
+    "how_we_know_they_believe_it": "Written before any source was opened, from the drafter's prior knowledge of how the topic is usually framed: international policy (the UN Convention on the Rights of Persons with Disabilities, Article 24, and SDG 4) presents inclusive education as the goal, and advocacy coverage tends to present it as what works. No outlet was checked at this step.",
+    "carried_by": []
+  },
+  "what_the_sources_show": {
+    "_note": "What the primary sources actually support, and which sources.",
+    "statement": "",
+    "sources": []
+  },
+  "direction": {
+    "_note": "CORRECTS, CONFIRMS or NARROWS. This field exists so the contrarianism guard can count. A publication whose answer is always CORRECTS is performing scepticism rather than assessing evidence, and is not to be trusted.",
+    "value": "",
+    "_values": [
+      "corrects",
+      "confirms",
+      "narrows"
+    ]
+  },
+  "reader_with_a_decision": "A ministry of education official, donor programme officer or NGO manager in a low- or middle-income country deciding which disability-education programme to fund or scale.",
+  "public_record_check": {
+    "_note": "NOT 'has anybody published this'. On any contested question, somebody has. The question is whether it has been carried WHERE THIS READER WOULD FIND IT. Run the counterexample hunter on the belief statement, not on the finding.",
+    "prior_art_found": [],
+    "carried_in_general_coverage": "",
+    "our_contribution": "translation, extension, or correction of the prior art -- say which"
+  },
+  "sources_are_open": "",
+  "evidence_base_is_bounded": "",
+  "kill_condition": "There is no story if the held systematic reviews and trials show, with moderate or high certainty, that particular kinds of programme improve the education (enrolment, attendance, learning or participation) of children and young people with disabilities in low- and middle-income countries, and rank those kinds against each other; then the page simply confirms. The story narrows or corrects if the evidence is sparse, low-certainty, or mostly about other outcomes or other settings.",
+  "kill_condition_tested": {
+    "_note": "Filled in AFTER going to look, by whoever looked.",
+    "by": "",
+    "on": "",
+    "result": "",
+    "_result_values": [
+      "survived",
+      "narrowed",
+      "killed"
+    ],
+    "note": ""
+  },
+  "lead_came_from": "Round 1 question WHU-Q1-02, asked again of lean WHU (issue.json _round_note).",
+  "scope": {
+    "covers": "Programmes and interventions delivered in low- and middle-income countries that aim to improve the education of children and young people with disabilities: their access to school (enrolment, attendance, retention), their learning and their participation, and how the kinds of programme (for example inclusive schooling, teacher training, assistive technology, community-based rehabilitation, cash transfers or parent and community programmes) compare on those outcomes, as measured in studies and as assessed in systematic reviews.",
+    "out": [
+      {
+        "what": "Evidence from high-income countries only",
+        "why": "The question asks about low- and middle-income countries."
+      },
+      {
+        "what": "Interventions whose outcomes are only health, functioning or rehabilitation outcomes, with no educational outcome",
+        "why": "The question asks whether programmes improve education."
+      },
+      {
+        "what": "Programmes for adults past the age of young people, and general programmes for all children that report no result for children with disabilities",
+        "why": "The question asks about children and young people with disabilities."
+      },
+      {
+        "what": "Prevalence of disability and the size of the education gap, except as background",
+        "why": "The question asks whether programmes work and which kinds work best, not how large the gap is."
+      }
+    ],
+    "by": "Claude Code (session WHU-L1-02b)",
+    "written_at": "2026-11-06T00:03:35Z"
+  },
+  "evidence_standard": {
+    "_note": "What kinds of evidence the answer will weigh, written at step 1 BEFORE any source is opened (post-study fix 3, docs/whu-fix3-evidence-standard.md). 'measured': outcomes measured in trials, cohorts, evaluations. 'assessed': expert assessments -- systematic-review conclusions, IPCC confidence-rated statements, guideline recommendations. When they differ, the page states both and drops neither.",
+    "weighs": [
+      "measured",
+      "assessed"
+    ],
+    "measured": "Educational outcomes (enrolment, attendance, retention, learning or achievement, participation) of children and young people with disabilities measured in randomised trials, quasi-experimental and controlled evaluations, and other primary evaluations in low- and middle-income countries.",
+    "assessed": "Conclusions of systematic reviews, evidence and gap maps and rapid evidence assessments on these programmes, with their stated certainty or quality ratings, and agency or guideline assessments where they rate the evidence.",
+    "when_they_differ": "state both",
+    "by": "Claude Code (session WHU-L1-02b)",
+    "written_at": "2026-11-06T00:03:35Z"
+  }
+}

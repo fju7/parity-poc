@@ -1,0 +1,121 @@
+{
+  "_what_this_is": "Sources for WHU-L1-02b (lean test). Research started from the question, not the library.",
+  "sources": [
+    {
+      "id": "S001",
+      "type": "synthesis",
+      "form": "article",
+      "title": "Effectiveness of interventions for improving educational outcomes for people with disabilities in low- and middle-income countries: A systematic review",
+      "also_called": [
+        "Hunt 2025 Campbell review"
+      ],
+      "authors": "Hunt X, Saran A, White H, Kuper H",
+      "year": 2025,
+      "journal": "Campbell Systematic Reviews 21(1):e70016",
+      "doi": "10.1002/cl2.70016",
+      "pmid": "39917627",
+      "pmcid": "PMC11799928",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11799928/",
+      "licence": {
+        "name": "CC BY",
+        "checked": "Europe PMC lists the article under CC BY (search API, license field 'cc by')",
+        "on": "2026-11-06"
+      },
+      "added_for": "the most recent systematic review of what works to improve educational outcomes for people with disabilities in LMICs",
+      "access": {
+        "state": "full_text_held",
+        "on": "2026-11-06",
+        "by": "Claude Code (session WHU-L1-02b)",
+        "held": {
+          "file": "docs/24/24587d9f8f9b68d1f6bbff588b3ea5a314d5b7e2555682e63c18a296ce8ed0ac.xml",
+          "sha256": "24587d9f8f9b68d1f6bbff588b3ea5a314d5b7e2555682e63c18a296ce8ed0ac",
+          "bytes": 395517,
+          "identified_by": "contains its identifier PMC11799928 — 165887 characters, reference list and discussion present; title present (10 of 12 title words in the visible text)",
+          "kind": "full_text",
+          "kind_why": "165887 characters, reference list and discussion present"
+        }
+      },
+      "document_class": "document"
+    },
+    {
+      "id": "S002",
+      "type": "synthesis",
+      "form": "article",
+      "title": "Rapid Evidence Assessment (REA) of What Works to Improve Educational Outcomes for People with Disabilities in Low- and Middle-Income Countries",
+      "also_called": [
+        "Kuper 2018 rapid evidence assessment"
+      ],
+      "authors": "Kuper H, Saran A, White H",
+      "year": 2018,
+      "journal": "Rapid evidence assessment, published on GOV.UK",
+      "url": "https://assets.publishing.service.gov.uk/media/5b8ea83040f0b67d9a6fe669/Education_Rapid_Review_full_report.pdf",
+      "licence": {
+        "name": "UK government publication, published openly on GOV.UK",
+        "on": "2026-11-06"
+      },
+      "added_for": "the earlier rapid evidence assessment of the same question, with study confidence ratings by education stage",
+      "access": {
+        "state": "full_text_held",
+        "on": "2026-11-06",
+        "by": "Claude Code (session WHU-L1-02b)",
+        "held": {
+          "file": "docs/ef/eff79be37a05932a1d99c2d3c1ec9db6daf9cda1c8190127394cbfc59d47c010.pdf",
+          "sha256": "eff79be37a05932a1d99c2d3c1ec9db6daf9cda1c8190127394cbfc59d47c010",
+          "bytes": 1238506,
+          "identified_by": "contains 12 of 12 distinctive title words — 130587 characters, reference list and discussion present; title present (12 of 12 title words in the visible text)",
+          "kind": "full_text",
+          "kind_why": "130587 characters, reference list and discussion present"
+        }
+      },
+      "document_class": "document"
+    },
+    {
+      "id": "S003",
+      "type": "synthesis",
+      "form": "article",
+      "title": "Implementation of Inclusive Education: A Systematic Review of Studies of Inclusive Education Interventions in Low- and Lower-Middle-Income Countries",
+      "also_called": [
+        "Mendoza and Heymann 2022 review"
+      ],
+      "authors": "Mendoza M, Heymann J",
+      "year": 2022,
+      "journal": "International Journal of Disability, Development and Education 71(3):299-316",
+      "doi": "10.1080/1034912X.2022.2095359",
+      "url": "https://eenet.org.uk/resources/docs/Implementation%20of%20Inclusive%20Education%20A%20Systematic%20Review%20of%20Studies%20of%20Inclusive%20Education%20Interventions%20in%20Low-%20and%20Lower-Middle-Income%20Countries.pdf",
+      "licence": {
+        "name": "CC BY-NC-ND 4.0",
+        "checked": "Crossref licence record for the DOI; copy from the EENET repository, not the publisher",
+        "on": "2026-11-06"
+      },
+      "added_for": "a systematic review of inclusive education interventions specifically, in low- and lower-middle-income countries",
+      "access": {
+        "state": "full_text_held",
+        "on": "2026-11-06",
+        "by": "Claude Code (session WHU-L1-02b)",
+        "held": {
+          "file": "docs/7a/7a7e2b79f497e5def1e756f50a9bd9de9dfe071d403c41b8111c0009e9a1c2a3.pdf",
+          "sha256": "7a7e2b79f497e5def1e756f50a9bd9de9dfe071d403c41b8111c0009e9a1c2a3",
+          "bytes": 1586324,
+          "identified_by": "contains 10 of 10 distinctive title words — 59405 characters, reference list and discussion/introduction present; title present (12 of 12 title words in the visible text)",
+          "kind": "full_text",
+          "kind_why": "59405 characters, reference list and discussion/introduction present"
+        }
+      },
+      "document_class": "document"
+    }
+  ],
+  "search": {
+    "searched": [
+      "web searches for systematic reviews of interventions to improve educational outcomes for children with disabilities in low- and middle-income countries",
+      "web searches for Campbell Collaboration reviews of inclusive education in low- and middle-income countries",
+      "web searches for randomised trials of education programmes for children with disabilities in Africa and Asia",
+      "Europe PMC and Crossref licence records for the reviews we hold"
+    ],
+    "not_searched": [
+      "bibliographic databases such as ERIC, PubMed or Scopus directly",
+      "trial registries for unpublished results",
+      "studies published in languages other than English",
+      "primary studies beyond those the held reviews include"
+    ]
+  }
+}
