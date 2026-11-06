@@ -532,6 +532,23 @@ passages, not whole sections. Everything below is under `WHU_LEAN=1` unless it s
   whole-word fix". Tested on the actual check (`backend/tests/test_whu_lean_post_test_fixes.py`):
   Q1-02b's record no longer flags; a genuine six-word run is still flagged with changed
   punctuation, case, hyphenation or line breaks; a five-word run is not.
+- **Correction after Q1-04b (advisor's ruling of 6 November 2026, written before its code): an
+  omission over the additions budget becomes a "Not added" line.** Q1-04b stopped at step 4d:
+  `rule_omissions` ruled 8 ADDs, which filled the additions budget (min(8, 15% of body sentences)),
+  and sent 4 more ADDs to a person as "over the ADD budget (8)", a human step that stopped the run.
+  Under lean WHU, code now records each such omission as `NOT_ADDED_OVER_BUDGET` in omissions.json
+  ("code (lean: over the additions budget)"), and the readers' list carries the generated line
+  `Not added: “<span>” (<label> [n]) (over the additions budget).` It works as the "no place" line
+  does: a required page element, never removed by the fail-safe, never dismissed; it does not count
+  against the declarations budget; the advocate item is not closed (no OMISSION or DID line), is not
+  ruled again, and is reported in the advocate rows' INFO row. No person is asked. The additions
+  budget itself is unchanged, and so is every other route to a person in the list above (the
+  declarations budget among them). Tested offline on Q1-04b's own records
+  (`backend/tests/test_whu_lean_post_test_fixes.py`): replayed at $0 from its recorded rulings,
+  S002-08, -10, -13 and -14 become four such lines, and nothing is routed to a person. Fifth freeze;
+  Q1-01c, Q1-02b and Q1-03b are re-checked on it at $0 and each stands only if its preflight is
+  unchanged. Q1-04b is recorded as Not Ready on c41f80f; the question is drafted again as Q1-04c,
+  in a new folder and ledger issue.
 - **Two lines added to the drafting brief:** never run a stage twice in parallel, and never switch a
   source to another edition (rule 3b decides that).
 - Code: `lean_received.py` (the measurement), `lean_reading.py` (the rows for fixes 4-6),
