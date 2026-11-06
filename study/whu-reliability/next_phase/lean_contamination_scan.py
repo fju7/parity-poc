@@ -63,7 +63,7 @@ def rerun_b(n: str, suffix: str = "b") -> None:
     private archive and library record) is forbidden (NAMED); its own folder is
     WHU-L1-<n>b-whu-lean-q1-<n>b."""
     global FORBID, OTHER_ISSUE, OWN
-    olds = ({"01": ["01", "01b"]} if suffix == "c" else
+    olds = ({"01": ["01", "01b"], "04": ["04", "04b"]} if suffix == "c" else
             {"01": ["01"], "02": ["02", "02r"], "03": ["03"], "04": ["04"]})[n]
     pats = []
     for x in olds:
