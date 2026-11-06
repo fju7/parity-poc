@@ -23,3 +23,23 @@ Lean four-question test, "lean + machine scope notes". Round 1's question WHU-Q1
 | 8 commit | 2026-11-06T00:34:30Z | 2026-11-06T00:35:00Z | $0 | 0 | 31305b3, pushed 3713f26..31305b3 |
 | 9 changecheck --before 3713f26; ruling.py changecheck; cut applied word for word; applied_check; --dangling; ruling.py dangling | 2026-11-06T00:35:36Z | 2026-11-06T00:36:40Z | $0.0117 + $0.0310 | 0 | 14 changed sentences; 1 finding (NEW_AND_UNBOUND, source-list journal line) ruled accept with empty text, cut; --dangling lists 2 (Disability, Education), both ruled reject by ruling.py dangling |
 | 5-7d repeated after the cut (findings, ruling gate, conclusion judge, conclusions, re-audit, final gate) | 2026-11-06T00:36:45Z | 2026-11-06T00:37:15Z | $0 | 0 | 0 new findings; re-audit 51 carried, 16 record check; final gate SKIPPED, no sentence changed (not counted): gate runs used 2 of 3 |
+| 9 (repeat) changecheck --before 3713f26; 9a changecheck_coverage --first 3713f26 | 2026-11-06T00:39:27Z | 2026-11-06T00:39:30Z | ~$0.04 | 0 | 13 changed sentences, nothing found; every changed sentence was read |
+| 10 publish.py check | 2026-11-06T00:39:34Z | 2026-11-06T00:39:50Z | $0 | 0 | BLOCKED: one STOP, "omission objections ruled": omissions.json holds source text (S002: 'low and middle income countries an'). All other rows ok or warn (78 ok, 18 warn) |
+| 11 private archive | 2026-11-06T00:40:14Z | 2026-11-06T00:40:20Z | $0 | 0 | 42 git-ignored files copied to ~/Projects/whu-study-private/WHU-L1-02b-whu-lean-q1-02b/20261106T004014Z/; private_manifest.txt |
+
+## Stop: needs a person (2026-11-06T00:40Z)
+
+The run stops at step 10 on one STOP, and a person (the advisor) has to decide it. The STOP is a false positive in code, and no step in the brief lets the drafting session clear it.
+
+- **Row:** "omission objections ruled". `omissions.leaks_source_text` reports that omissions.json holds S002 text: 'low and middle income countries an'.
+- **What actually matched:** the public reason of the NOT_MATERIAL ruling on S001@9169-9380, after code redaction, reads "...whether interventions [S001@2975-3035] low- and middle-income countries, and which kinds...". Folded, that becomes "low and middle income countries and which". The guard's six-word S002 run ends in the word "an", and it matched only as a substring of "and". Tested with word boundaries, the match is False.
+- **What the record really holds:** five words in a row from a held text, "low- and middle-income countries". Those are also words of the issue's question. `omissions.redact` works word by word, and five words is below its six-word threshold.
+- **Why the session cannot clear it:**
+  - omissions.json is written by code from a model ruling, and editing its reason by hand would change a ruling record;
+  - `rule_omissions` does not rule a decided omission again;
+  - editing `omissions.py` is outside this brief (commits only under the case folder).
+- **Needed from a person:** a decision on the guard. One option: `leaks_source_text` matches whole words, as `redact` does. The other: a ruling on this record. After either, re-run `publish.py check whu-lean-q1-02b`.
+- **Everything else is settled:**
+  - every other preflight row is ok or warn;
+  - nothing went to a person in the audit or in any ruling path;
+  - gate runs used: 2 of 3.
