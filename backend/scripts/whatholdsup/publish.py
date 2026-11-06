@@ -1865,6 +1865,14 @@ def preflight(slug: str, *, for_email: bool,
             out.extend(_sibling("lean_editions").preflight_rows(slug))
         except BaseException as exc:
             out.append(("newer editions handled", BAD, "did not run: %s: %s" % (type(exc).__name__, exc)))
+        # The orchestrator's rows (docs/whu-orchestrator.md §2.5, §3): orchestrated issues only.
+        try:
+            sys.path.insert(0, str(Path(__file__).resolve().parent))
+            from orch import preflight as _orch_pf
+            out.extend(_orch_pf.preflight_rows(slug))
+        except BaseException as exc:
+            out.append(("records match the orchestrator's chain", BAD,
+                        "did not run: %s: %s" % (type(exc).__name__, exc)))
 
     # Fix 2: BLOCKED when they cannot run, as above.
     try:

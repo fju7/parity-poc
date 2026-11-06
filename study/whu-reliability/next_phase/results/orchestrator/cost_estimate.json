@@ -1,0 +1,111 @@
+{
+ "at": "2026-11-06T19:17:55+00:00",
+ "questions": [
+  {
+   "slug": "whu-lean-q1-01c",
+   "pipeline_ledger": 1.5276,
+   "new_model_steps": {
+    "premise": 0.0354,
+    "discover": 0.1957,
+    "draft": 0.1282,
+    "coverage": 0.0,
+    "judgement_sentences": 0.0023
+   },
+   "overstatement": {
+    "pairs": 48,
+    "input_tokens_approx": 23777,
+    "likely_usd_now": 0.2397,
+    "likely_usd_after_2026_11_30": 0.4793,
+    "pessimistic_usd_reask_every_pair_after_2026_11_30": 2.0612
+   },
+   "likely_total": 2.13,
+   "pessimistic_total": 6.08,
+   "sum_of_step_caps": 28.3,
+   "likely_total_after_2026_11_30": 2.37,
+   "worst_total_caps": 10.0,
+   "inputs": {
+    "page_sentences": 62,
+    "coverage_declarations": 0,
+    "relevant_judgements": 2,
+    "recency_calls_measured": 1
+   }
+  },
+  {
+   "slug": "whu-lean-q1-02b",
+   "pipeline_ledger": 2.133,
+   "new_model_steps": {
+    "premise": 0.033,
+    "discover": 0.1411,
+    "draft": 0.1429,
+    "coverage": 0.0,
+    "judgement_sentences": 0.0046
+   },
+   "overstatement": {
+    "pairs": 45,
+    "input_tokens_approx": 21496,
+    "likely_usd_now": 0.2231,
+    "likely_usd_after_2026_11_30": 0.4462,
+    "pessimistic_usd_reask_every_pair_after_2026_11_30": 1.9292
+   },
+   "likely_total": 2.68,
+   "pessimistic_total": 6.91,
+   "sum_of_step_caps": 28.3,
+   "likely_total_after_2026_11_30": 2.9,
+   "worst_total_caps": 10.0,
+   "inputs": {
+    "page_sentences": 68,
+    "coverage_declarations": 0,
+    "relevant_judgements": 4,
+    "recency_calls_measured": 1
+   }
+  },
+  {
+   "slug": "whu-lean-q1-03b",
+   "pipeline_ledger": 3.1447,
+   "new_model_steps": {
+    "premise": 0.0295,
+    "discover": 0.4215,
+    "draft": 0.3086,
+    "coverage": 0.0057,
+    "judgement_sentences": 0.0521
+   },
+   "overstatement": {
+    "pairs": 144,
+    "input_tokens_approx": 69970,
+    "likely_usd_now": 0.7161,
+    "likely_usd_after_2026_11_30": 1.4321,
+    "pessimistic_usd_reask_every_pair_after_2026_11_30": 6.1781
+   },
+   "likely_total": 4.68,
+   "pessimistic_total": 13.83,
+   "sum_of_step_caps": 28.3,
+   "likely_total_after_2026_11_30": 5.39,
+   "worst_total_caps": 10.0,
+   "inputs": {
+    "page_sentences": 163,
+    "coverage_declarations": 3,
+    "relevant_judgements": 45,
+    "recency_calls_measured": 1
+   }
+  }
+ ],
+ "summary": {
+  "likely": {
+   "whu-lean-q1-01c": 2.13,
+   "whu-lean-q1-02b": 2.68,
+   "whu-lean-q1-03b": 4.68
+  },
+  "likely_median": 2.68,
+  "pessimistic": {
+   "whu-lean-q1-01c": 6.08,
+   "whu-lean-q1-02b": 6.91,
+   "whu-lean-q1-03b": 13.83
+  },
+  "worst_each": 10.0,
+  "overstatement_pairs": {
+   "whu-lean-q1-01c": 48,
+   "whu-lean-q1-02b": 45,
+   "whu-lean-q1-03b": 144
+  }
+ }
+}

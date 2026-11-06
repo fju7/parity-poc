@@ -82,12 +82,15 @@ import urllib.parse
 import urllib.request
 from pathlib import Path
 
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import tls  # noqa: E402
+
 ROOT = Path(__file__).resolve().parents[3]
 CASES = ROOT / "issues"
 OK, BAD, WARN = "ok", "BLOCKED", "warn"
 
 MAX_BLOCK = 700
-UA = {"User-Agent": "civicscale-registry-check"}
+UA = {"User-Agent": tls.USER_AGENT}     # ruling A (2026-11-06)
 _SENT = re.compile(r"(?<=[.!?])\s+(?=[A-Z(“\"])")
 
 MONTHS = ["january", "february", "march", "april", "may", "june", "july",

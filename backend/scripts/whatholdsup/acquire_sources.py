@@ -59,8 +59,7 @@ sys.path.insert(0, str(HERE))
 import source_store as store          # noqa: E402
 import tls                             # noqa: E402
 
-UA = {"User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
-                    "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125 Safari/537.36",
+UA = {"User-Agent": tls.USER_AGENT,       # ruling A: generic automated client, never a browser string
       "Accept": "text/html,application/pdf,application/json;q=0.9,*/*;q=0.8"}
 
 # A DOCUMENT IS ACCEPTED BECAUSE IT IDENTIFIES ITSELF, NOT BECAUSE IT FAILED TO

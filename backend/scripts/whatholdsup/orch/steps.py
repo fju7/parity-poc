@@ -1,0 +1,111 @@
+"""The orchestrator's step table (docs/whu-orchestrator.md §2.1). Fixed in code: the order, what each step
+owns, the models it may call, and its limits. Nothing here is chosen at run time.
+
+`cmds(ctx)` lists the existing stages a step runs, each as an argv list the step builds itself (no command is
+typed by anyone); `code` names the orchestrator function that does the rest (orchestrator.py, STEP_CODE).
+"""
+from __future__ import annotations
+
+from dataclasses import dataclass, field
+
+GATE_MODEL = "claude-sonnet-4-6"       # factcheck_draft's (signal_model.DEFAULT_MODEL)
+CURRENT = "claude-opus-5-5"            # ruling.MODEL, audit_stage.MODEL, lean.CURRENT
+SMALL = "claude-sonnet-5-5"            # lean.SMALL
+GOOGLE = "gemini-4-argon"              # the overstatement check
+DRAFT_MODEL = CURRENT                  # the new model steps that replace the drafting agent
+STEP_MODEL = SMALL
+
+
+@dataclass(frozen=True)
+class Step:
+    name: str
+    kind: str                          # "code" | "model" | "stage" (existing paid stages) | "mixed"
+    owns: tuple = ()
+    models: tuple = ()
+    max_calls: int = 0                 # 0: no model call at all
+    cap_usd: float = 0.0
+    repeat_group: bool = False         # steps 12-18: re-run in order when a later step changed the page
+    cmds: tuple = field(default_factory=tuple)   # argv templates; {slug} {page} {gate} {cap} {first} {stamp}
+    code: str = ""
+
+
+PY = "backend/venv/bin/python3"
+W = "backend/scripts/whatholdsup/"
+RULINGS = ("rulings/*",)
+PAGE = ("draft/{slug}.html", "draft/page.json")
+
+STEPS: tuple[Step, ...] = (
+    Step("provenance", "code", owns=("orchestrator/manifest.json",), code="provenance"),
+    Step("premise", "model", owns=("premise.json",), models=(DRAFT_MODEL,), max_calls=2, cap_usd=0.20,
+         cmds=((PY, W + "premise.py", "init", "{slug}"),), code="premise"),
+    Step("discover", "model", owns=("sources.json",), models=(GATE_MODEL,), max_calls=3, cap_usd=1.50,
+         code="discover"),
+    Step("acquire", "code", owns=("sources.json", "errata.json", "sweeps.json", "canary.json", "library:*"),
+         cmds=((PY, W + "acquire_sources.py", "{slug}"), (PY, W + "source_store.py", "{slug}", "status"),
+               (PY, W + "errata.py", "{slug}"), (PY, W + "sweep_sources.py", "resolve", "{slug}", "--write"),
+               (PY, W + "canary.py", "{slug}")), code="acquire"),
+    Step("draft", "model", owns=PAGE, models=(DRAFT_MODEL,), max_calls=2, cap_usd=2.50, code="draft"),
+    Step("bind", "code", owns=PAGE + ("bindings.json", "quotations.json", "attributions.json"),
+         cmds=((PY, W + "bindings.py", "{slug}", "scan"),), code="bind"),
+    Step("coverage", "model", owns=PAGE + ("coverage.json", "bindings.json"), models=(STEP_MODEL,),
+         max_calls=60, cap_usd=0.60, code="coverage"),
+    Step("judgements", "mixed", owns=PAGE + ("judgements.json", "bindings.json", "coverage.json") + RULINGS,
+         models=(SMALL, CURRENT, STEP_MODEL), max_calls=400, cap_usd=3.00,
+         cmds=((PY, W + "ruling.py", "judgements", "{slug}", "--cap", "{cap}"),), code="judgements"),
+    Step("commit_3b", "code", code="commit"),
+    Step("gate", "stage", owns=("draft/{slug}.html.gate.json*", "gate-findings.json"), models=(GATE_MODEL,),
+         max_calls=40, cap_usd=3.00,
+         cmds=((PY, "backend/scripts/signal/factcheck_draft.py", "{page}", "--dry-run"),
+               (PY, "backend/scripts/signal/factcheck_draft.py", "{page}", "--report", "{gate}"))),
+    Step("advocate", "stage", owns=PAGE + ("advocate/*", "bindings.json", "attributions.json") + RULINGS,
+         models=(SMALL, GATE_MODEL, CURRENT), max_calls=120, cap_usd=2.50,
+         cmds=((PY, W + "source_advocate.py", "run", "{slug}", "--page", "{page}"),
+               (PY, W + "ruling.py", "advocate", "{slug}")), code="apply"),
+    Step("omissions", "stage", owns=PAGE + ("omissions.json", "bindings.json", "coverage.json") + RULINGS,
+         models=(CURRENT,), max_calls=120, cap_usd=2.50,
+         cmds=((PY, W + "ruling.py", "omissions", "{slug}"),), code="apply"),
+    Step("findings", "stage", owns=PAGE + ("gate-findings.json", "bindings.json") + RULINGS, models=(CURRENT,),
+         max_calls=200, cap_usd=2.50, repeat_group=True,
+         cmds=((PY, W + "findings.py", "{slug}", "--report", "{gate}", "--scan"),
+               (PY, W + "ruling.py", "gate", "{slug}")), code="apply"),
+    Step("conclusions", "stage", owns=PAGE + ("conclusion-review.json", "bindings.json") + RULINGS,
+         models=(CURRENT,), max_calls=60, cap_usd=1.00, repeat_group=True,
+         cmds=((PY, W + "conclusion_judge.py", "{slug}"), (PY, W + "ruling.py", "conclusions", "{slug}")),
+         code="apply"),
+    Step("audit", "stage", owns=PAGE + ("audit/*", "bindings.json") + RULINGS, models=(SMALL, CURRENT),
+         max_calls=600, cap_usd=4.00, repeat_group=True,
+         cmds=((PY, W + "audit_stage.py", "run", "{slug}", "--cap", "{cap}"),), code="audit"),
+    Step("overstatement", "model", owns=PAGE + ("rulings/overstatement.jsonl", "rulings/lean_removed.jsonl"),
+         models=(GOOGLE,), max_calls=400, cap_usd=2.00, repeat_group=True, code="overstatement"),
+    Step("final_gate", "stage", owns=PAGE + ("draft/{slug}.html.gate.json*", "gate-findings.json",
+                                             "bindings.json") + RULINGS,
+         models=(GATE_MODEL, CURRENT), max_calls=200, cap_usd=2.00, repeat_group=True,
+         cmds=((PY, "backend/scripts/signal/factcheck_draft.py", "{page}", "--changed-since", "{gate}",
+                "--dry-run"),
+               (PY, "backend/scripts/signal/factcheck_draft.py", "{page}", "--changed-since", "{gate}",
+                "--report", "{gate}"),
+               (PY, W + "findings.py", "{slug}", "--report", "{gate}", "--scan"),
+               (PY, W + "ruling.py", "gate", "{slug}")), code="apply"),
+    Step("commit_8", "code", repeat_group=True, code="commit"),
+    Step("changecheck", "stage", owns=PAGE + ("change-reviews.json", "bindings.json") + RULINGS,
+         models=(CURRENT,), max_calls=60, cap_usd=1.00, repeat_group=True,
+         cmds=((PY, W + "changecheck.py", "{slug}", "--page", "{page}", "--before", "{first}"),
+               (PY, W + "ruling.py", "changecheck", "{slug}"),
+               (PY, W + "changecheck_coverage.py", "{slug}", "--first", "{first}")), code="apply"),
+    Step("preflight", "code", cmds=((PY, W + "publish.py", "check", "{slug}"),), code="preflight"),
+    Step("archive", "code", owns=("private_manifest.txt",), code="archive"),
+)
+
+NAMES = tuple(s.name for s in STEPS)
+BY_NAME = {s.name: s for s in STEPS}
+MAX_REPEATS = 2                       # steps 12-18 re-run at most twice in all
+# Human records no step owns: a write to any of them stops the chain (no person takes part).
+NEVER_WRITTEN = ("human_reads.jsonl", "person_decisions.md", "protected_signoffs.json")
+
+
+def owns_for(step: Step, slug: str) -> tuple:
+    return tuple(p.replace("{slug}", slug) for p in step.owns)
+
+
+def allow_for(step: Step) -> dict:
+    return {"models": list(step.models), "roles": []}

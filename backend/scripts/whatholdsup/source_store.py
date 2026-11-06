@@ -328,6 +328,9 @@ TYPES = {
     "coverage":      ("journalism about a study", "page"),
     "carrier":       ("a piece that carried a claim onward", "page"),
     "secondary":     ("secondary coverage or commentary on a study", "page"),
+    # an assessment report's summary (post-test item 5b, advisor's ruling B, 2026-11-06)
+    "assessment_summary": ("a summary or the headline statements of an assessment report "
+                           "(a Summary for Policymakers, a Technical Summary)", "assessment summary"),
     # the type names a ROLE and does not settle the form
     "critique":      ("a critique of a study, in any form", None),
     "prior_art":     ("earlier work the page cites for context, in any form", None),
@@ -363,7 +366,20 @@ TYPES = {
 #   record   a structured record -- registry posting, drug label
 #   page     a web page -- journalism, a press release, an expert-reaction
 #            page, a newsletter
-FORMS = {"article", "notice", "record", "page"}
+#   assessment summary
+#            the summary or headline statements of an assessment report (an
+#            IPCC Summary for Policymakers, a Technical Summary). Added after
+#            the lean test (advisor's ruling B, 2026-11-06): Q1-03b and Q1-04c
+#            held such summaries as "page", which ran the web-page test on a
+#            report. Its test: at least ASSESSMENT_FLOOR characters, and the
+#            text names what it summarises (ASSESSMENT_PARENT) in its opening;
+#            errata are checked for it as for an article.
+FORMS = {"article", "notice", "record", "page", "assessment summary"}
+ASSESSMENT_FLOOR = 2000
+ASSESSMENT_HEAD = 3000
+ASSESSMENT_PARENT = re.compile(
+    r"\b(summary for policymakers|technical summary|headline statements|synthesis report|"
+    r"assessment report|working group (?:i{1,3}|[123]) contribution)\b", re.I)
 
 # Another name for a type, and the type it is (2026-10-23). A source typed
 # with an alias is treated as the type it names everywhere a type decides
@@ -375,6 +391,24 @@ def canonical_type(t: str | None) -> str:
     """The type an alias names, or the type itself."""
     return TYPE_ALIASES.get(t or "", t or "")
 FORM_FLOOR = {"notice": 600, "record": 2000, "page": 2000}
+
+
+def substance_assessment_summary(data: bytes, content_type: str = "") -> tuple[str, str]:
+    """The "assessment summary" form's test: enough text to be the summary, and
+    an opening that names what it summarises. Returns (kind, why)."""
+    text, _how = text_of(data, content_type, pages=0)
+    if data[:5] != b"%PDF-" and data[:1] not in (b"{", b"["):
+        text = re.sub(r"<(script|style)[^>]*>.*?</\1>", " ", text, flags=re.S | re.I)
+        text = re.sub(r"<[^>]+>", " ", text)
+    flat = " ".join(text.split())
+    if len(flat) < ASSESSMENT_FLOOR:
+        return "stub", ("form 'assessment summary', and only %d characters -- too little to be "
+                        "the summary" % len(flat))
+    if not ASSESSMENT_PARENT.search(flat[:ASSESSMENT_HEAD]):
+        return "undetermined", ("form 'assessment summary', but its first %d characters name no "
+                                "assessment report or summary it belongs to" % ASSESSMENT_HEAD)
+    return "document", ("form 'assessment summary' -- %d characters held, and it names the report "
+                        "it summarises" % len(flat))
 
 
 def form_of(src: dict) -> str | None:
@@ -489,6 +523,8 @@ def classify(slug: str, sid: str, data: bytes,
     form = form_of(src)
     if form == "article":
         return substance(data, content_type)
+    if form == "assessment summary":
+        return substance_assessment_summary(data, content_type)
     if form == "page":
         kind, why = substance_page(data, content_type)
         return ("document" if kind == "full_page" else "shell",

@@ -695,7 +695,11 @@ def test_over_budget_line_is_code_known_text_only():
 Q3B = ROOT / "issues" / "WHU-L1-03b-whu-lean-q1-03b"
 Q3B_SLUG = "whu-lean-q1-03b"
 Q3B_LINE = "d1624d4c9d8280b0"
-needs_q3b = pytest.mark.skipif(not (Q3B / "bindings.json").exists(), reason="Q1-03b's records are not on this machine")
+# Q1-03b's case folder was restored to its pre-D state and step 9 re-run after these tests were written
+# (advisor's ruling after Q1-04c; de7fc35), so the post-D records live only in session LT's private copy.
+Q3B_POST_D = Path.home() / "Projects" / "whu-study-private" / "lean" / "session_lt" / "d_q103b_postD"
+needs_q3b = pytest.mark.skipif(not ((Q3B / "bindings.json").exists() and (Q3B_POST_D / "bindings.json").exists()),
+                               reason="Q1-03b's records, or LT's post-D copy, are not on this machine")
 
 
 @pytest.fixture
@@ -704,6 +708,11 @@ def q3b(tmp_path, monkeypatch):
     import source_store as store
     case = tmp_path / Q3B.name
     shutil.copytree(Q3B, case)
+    for p in Q3B_POST_D.rglob("*"):                 # overlay the post-D records the tests were written on
+        if p.is_file():
+            dst = case / p.relative_to(Q3B_POST_D)
+            dst.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copy2(p, dst)
     monkeypatch.setattr(store, "case_dir", lambda slug: case)
     monkeypatch.setattr(SL, "case_dir", lambda slug: case)
     return case

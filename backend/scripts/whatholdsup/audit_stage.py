@@ -68,6 +68,7 @@ import functools
 import hashlib
 import importlib.util
 import json
+import os
 import random
 import re
 import sys
@@ -885,6 +886,13 @@ class Caller:
         # `ask` may pass its own, to stop a run as the day cap would.
         self._day_cap = day_cap
         self._start = self._spent()
+        if ask is None and os.environ.get("WHU_ORCH_MODE") in S.NO_PAID_MODES:
+            # An orchestrator trial or replay (docs/whu-orchestrator.md §4-5): no key and no call. A stage
+            # whose rulings are all carried (fix 7) finishes at $0; one that needs a new call is refused here.
+            def _refuse(prompt, max_tokens, _mode=os.environ.get("WHU_ORCH_MODE")):
+                raise S.OrchestratorRefused("orchestrator %s mode makes no paid call" % _mode)
+            self._ask = _refuse
+            ask = _refuse
         if ask is None:
             import anthropic
             key = None

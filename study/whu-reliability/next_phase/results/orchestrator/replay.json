@@ -1,0 +1,475 @@
+{
+ "replays": [
+  {
+   "slug": "whu-lean-q1-01c",
+   "baseline": {
+    "publish check": {
+     "rc": 0,
+     "sha256": "c9295e9b8ec87d818646bbdf6db03f7dce16df92a046f3ca1e4ad7ad12164f0c",
+     "lines": 96,
+     "last": "Ready.",
+     "stored_sixth_freeze_sha256": "7c5e88dbf37b03276adc178f60e3eb22aa246b4d539b4e97833cdc34d669fcec",
+     "matches_stored_sixth_freeze": true
+    },
+    "lean_sentences render": {
+     "rc": 0,
+     "sha256": "9b865b779bf1357dab4bd37de9da0b8e35f4f3cef7ca23c51bb559f1ac8aca88",
+     "lines": 10,
+     "last": "  <p>Not added: “This was the result of the non‐randomised design of some trials"
+    },
+    "coverage_check render": {
+     "rc": 0,
+     "sha256": "94ec9bfdaecbb816e9ed424c5cd3538e3558cb119736e364fe379cf9af2aca91",
+     "lines": 4,
+     "last": "  <p>Not added: “This was the result of the non‐randomised design of some trials"
+    },
+    "bindings status": {
+     "rc": 0,
+     "sha256": "11808c6317f9cd9680c78d386283d9a02e4742d6c3f5f17841428b89c87e4f73",
+     "lines": 12,
+     "last": "  ok     bound sentences the span checks flagged none of the 39 bound sentence(s"
+    },
+    "lean_failsafe report": {
+     "rc": 0,
+     "sha256": "01deafb4054d9d16eaf8cd43a7aadd810053709479f5d820940a26c67761a6fb",
+     "lines": 15,
+     "last": "}"
+    },
+    "applied_check": {
+     "rc": 0,
+     "sha256": "45b4d95d2bfac97cf48023c0a227293fbde7e661edb684aab29cc5b74d98f9e3",
+     "lines": 4,
+     "last": "  log: /private/var/folders/83/7t11xhdn4_559xyfn2x25gp40000gn/T/whu-orch-hdi4o37"
+    },
+    "applied_check --dangling": {
+     "rc": 0,
+     "sha256": "fab3e7c961b56e69eb3ed304d5fe8ec418b3994b400e0ead33d732812cfdfa2a",
+     "lines": 3,
+     "last": "0 reference(s) pointing at nothing"
+    }
+   },
+   "orchestrated": {
+    "outputs": {
+     "publish check": {
+      "rc": 0,
+      "sha256": "c9295e9b8ec87d818646bbdf6db03f7dce16df92a046f3ca1e4ad7ad12164f0c",
+      "lines": 96,
+      "refused_paid_calls": 0,
+      "last": "Ready."
+     },
+     "lean_sentences render": {
+      "rc": 0,
+      "sha256": "9b865b779bf1357dab4bd37de9da0b8e35f4f3cef7ca23c51bb559f1ac8aca88",
+      "lines": 10,
+      "refused_paid_calls": 0,
+      "last": "  <p>Not added: “This was the result of the non‐randomised design of some trials"
+     },
+     "coverage_check render": {
+      "rc": 0,
+      "sha256": "94ec9bfdaecbb816e9ed424c5cd3538e3558cb119736e364fe379cf9af2aca91",
+      "lines": 4,
+      "refused_paid_calls": 0,
+      "last": "  <p>Not added: “This was the result of the non‐randomised design of some trials"
+     },
+     "bindings status": {
+      "rc": 0,
+      "sha256": "11808c6317f9cd9680c78d386283d9a02e4742d6c3f5f17841428b89c87e4f73",
+      "lines": 12,
+      "refused_paid_calls": 0,
+      "last": "  ok     bound sentences the span checks flagged none of the 39 bound sentence(s"
+     },
+     "lean_failsafe report": {
+      "rc": 0,
+      "sha256": "01deafb4054d9d16eaf8cd43a7aadd810053709479f5d820940a26c67761a6fb",
+      "lines": 15,
+      "refused_paid_calls": 0,
+      "last": "}"
+     },
+     "applied_check": {
+      "rc": 0,
+      "sha256": "45b4d95d2bfac97cf48023c0a227293fbde7e661edb684aab29cc5b74d98f9e3",
+      "lines": 4,
+      "refused_paid_calls": 0,
+      "last": "  log: /private/var/folders/83/7t11xhdn4_559xyfn2x25gp40000gn/T/whu-orch-hdi4o37"
+     },
+     "applied_check --dangling": {
+      "rc": 0,
+      "sha256": "fab3e7c961b56e69eb3ed304d5fe8ec418b3994b400e0ead33d732812cfdfa2a",
+      "lines": 3,
+      "refused_paid_calls": 0,
+      "last": "0 reference(s) pointing at nothing"
+     },
+     "ruling.py gate": {
+      "rc": 0,
+      "sha256": "a8a4a15e80efba5726fbd5f02dec7e584a50df6cbba08fd0352abfa754661361",
+      "lines": 3,
+      "refused_paid_calls": 0,
+      "last": "  usd this run: 0.0000"
+     },
+     "ruling.py changecheck": {
+      "rc": 0,
+      "sha256": "a8a4a15e80efba5726fbd5f02dec7e584a50df6cbba08fd0352abfa754661361",
+      "lines": 3,
+      "refused_paid_calls": 0,
+      "last": "  usd this run: 0.0000"
+     }
+    },
+    "ownership": []
+   },
+   "identical": {
+    "publish check": true,
+    "lean_sentences render": true,
+    "coverage_check render": true,
+    "bindings status": true,
+    "lean_failsafe report": true,
+    "applied_check": true,
+    "applied_check --dangling": true
+   },
+   "applier": {
+    "first_draft_commit": "619bf7b",
+    "records": 3,
+    "placed": 3,
+    "not_placed": [],
+    "stored_sentences": 61,
+    "reproduced_sentences": 58,
+    "body": {
+     "stored": 51,
+     "reproduced": 51,
+     "identical_sequence": true,
+     "stored_not_reproduced": [],
+     "reproduced_not_stored": []
+    },
+    "generated": {
+     "stored": 10,
+     "generators_now": 13,
+     "identical_set": true,
+     "stored_not_generated": [],
+     "generated_not_stored": []
+    }
+   },
+   "real_ledger_and_records_untouched": true
+  },
+  {
+   "slug": "whu-lean-q1-02b",
+   "baseline": {
+    "publish check": {
+     "rc": 0,
+     "sha256": "e32af70539e6e8923a6330196e0395443b733e4a99c298b8ef2108101e2c5fbe",
+     "lines": 102,
+     "last": "Ready.",
+     "stored_sixth_freeze_sha256": "e32af70539e6e8923a6330196e0395443b733e4a99c298b8ef2108101e2c5fbe",
+     "matches_stored_sixth_freeze": true
+    },
+    "lean_sentences render": {
+     "rc": 0,
+     "sha256": "d2352753c9eff90ff9a3db00b2fab2975ddd84fc8d56b0678033bbe2274714dc",
+     "lines": 16,
+     "last": "  <p>Judged not material to this question: “The criteria for inclusion in the re"
+    },
+    "coverage_check render": {
+     "rc": 0,
+     "sha256": "37085b8acb8e52157a2ba95da5b226061829d3322c10ad99e20c3f2e8387cdbf",
+     "lines": 7,
+     "last": "  <p>Judged not material to this question: “The criteria for inclusion in the re"
+    },
+    "bindings status": {
+     "rc": 0,
+     "sha256": "e631bfccf34f3028f9129e3ca88c2cf75bd40310fdb0185aeb74e8ea38d4e750",
+     "lines": 13,
+     "last": "  warn   sentences with no declared bucket  7 of 61 — a sentence whose kind nobo"
+    },
+    "lean_failsafe report": {
+     "rc": 0,
+     "sha256": "bdaa3bfe52e08f4f7818648a78aea43c775bbcc3da13f434bae98d96d5cd71ca",
+     "lines": 16,
+     "last": "}"
+    },
+    "applied_check": {
+     "rc": 0,
+     "sha256": "a9569ac77ad10af920ef736b15f28b20cb09f88bec4ae7a618a8ffd10b9edc45",
+     "lines": 4,
+     "last": "  log: /private/var/folders/83/7t11xhdn4_559xyfn2x25gp40000gn/T/whu-orch-y_mmcvr"
+    },
+    "applied_check --dangling": {
+     "rc": 1,
+     "sha256": "50f8842ee69c8c0e807cd4cca93e10d7d1252aa01c34c291d0b30514b373c500",
+     "lines": 5,
+     "last": "  2 reference(s) pointing at nothing"
+    }
+   },
+   "orchestrated": {
+    "outputs": {
+     "publish check": {
+      "rc": 0,
+      "sha256": "e32af70539e6e8923a6330196e0395443b733e4a99c298b8ef2108101e2c5fbe",
+      "lines": 102,
+      "refused_paid_calls": 0,
+      "last": "Ready."
+     },
+     "lean_sentences render": {
+      "rc": 0,
+      "sha256": "d2352753c9eff90ff9a3db00b2fab2975ddd84fc8d56b0678033bbe2274714dc",
+      "lines": 16,
+      "refused_paid_calls": 0,
+      "last": "  <p>Judged not material to this question: “The criteria for inclusion in the re"
+     },
+     "coverage_check render": {
+      "rc": 0,
+      "sha256": "37085b8acb8e52157a2ba95da5b226061829d3322c10ad99e20c3f2e8387cdbf",
+      "lines": 7,
+      "refused_paid_calls": 0,
+      "last": "  <p>Judged not material to this question: “The criteria for inclusion in the re"
+     },
+     "bindings status": {
+      "rc": 0,
+      "sha256": "e631bfccf34f3028f9129e3ca88c2cf75bd40310fdb0185aeb74e8ea38d4e750",
+      "lines": 13,
+      "refused_paid_calls": 0,
+      "last": "  warn   sentences with no declared bucket  7 of 61 — a sentence whose kind nobo"
+     },
+     "lean_failsafe report": {
+      "rc": 0,
+      "sha256": "bdaa3bfe52e08f4f7818648a78aea43c775bbcc3da13f434bae98d96d5cd71ca",
+      "lines": 16,
+      "refused_paid_calls": 0,
+      "last": "}"
+     },
+     "applied_check": {
+      "rc": 0,
+      "sha256": "a9569ac77ad10af920ef736b15f28b20cb09f88bec4ae7a618a8ffd10b9edc45",
+      "lines": 4,
+      "refused_paid_calls": 0,
+      "last": "  log: /private/var/folders/83/7t11xhdn4_559xyfn2x25gp40000gn/T/whu-orch-y_mmcvr"
+     },
+     "applied_check --dangling": {
+      "rc": 1,
+      "sha256": "50f8842ee69c8c0e807cd4cca93e10d7d1252aa01c34c291d0b30514b373c500",
+      "lines": 5,
+      "refused_paid_calls": 0,
+      "last": "  2 reference(s) pointing at nothing"
+     },
+     "ruling.py gate": {
+      "rc": 0,
+      "sha256": "9f6ff813c9f2a85b634ba197485361f71630ecf7103c172380ec11ec2f0feae0",
+      "lines": 3,
+      "refused_paid_calls": 0,
+      "last": "  usd this run: 0.0000"
+     },
+     "ruling.py changecheck": {
+      "rc": 0,
+      "sha256": "9f6ff813c9f2a85b634ba197485361f71630ecf7103c172380ec11ec2f0feae0",
+      "lines": 3,
+      "refused_paid_calls": 0,
+      "last": "  usd this run: 0.0000"
+     }
+    },
+    "ownership": []
+   },
+   "identical": {
+    "publish check": true,
+    "lean_sentences render": true,
+    "coverage_check render": true,
+    "bindings status": true,
+    "lean_failsafe report": true,
+    "applied_check": true,
+    "applied_check --dangling": true
+   },
+   "applier": {
+    "first_draft_commit": "3713f26",
+    "records": 7,
+    "placed": 6,
+    "not_placed": [
+     {
+      "key": "ruling",
+      "op": "replace",
+      "why": "not found on the page: 'International Journal of Disability,",
+      "fingerprint": "3c9c85d4bf519fc5"
+     }
+    ],
+    "stored_sentences": 67,
+    "reproduced_sentences": 61,
+    "body": {
+     "stored": 51,
+     "reproduced": 52,
+     "identical_sequence": false,
+     "stored_not_reproduced": [],
+     "reproduced_not_stored": [
+      "90c9eece60533689"
+     ]
+    },
+    "generated": {
+     "stored": 16,
+     "generators_now": 22,
+     "identical_set": true,
+     "stored_not_generated": [],
+     "generated_not_stored": []
+    }
+   },
+   "real_ledger_and_records_untouched": true
+  },
+  {
+   "slug": "whu-lean-q1-03b",
+   "baseline": {
+    "publish check": {
+     "rc": 0,
+     "sha256": "a9962d98775485b0ca1495ebb90c076ab9462993ea839632cbe375ff56653a3a",
+     "lines": 98,
+     "last": "Ready.",
+     "stored_sixth_freeze_sha256": "a9962d98775485b0ca1495ebb90c076ab9462993ea839632cbe375ff56653a3a",
+     "matches_stored_sixth_freeze": true
+    },
+    "lean_sentences render": {
+     "rc": 0,
+     "sha256": "d91bff15da511001fa70e48ec34e8e7ea6777f708af30b9d0ce04ce4b827a0a4",
+     "lines": 10,
+     "last": "  <p>Judged not material to this question: “When considering scenarios similar t"
+    },
+    "coverage_check render": {
+     "rc": 0,
+     "sha256": "dd3fa5ad819fee9c7716e1acc066fea3d92dba4db21bc53829fd4ef3848fc196",
+     "lines": 6,
+     "last": "  <p>Judged not material to this question: “When considering scenarios similar t"
+    },
+    "bindings status": {
+     "rc": 0,
+     "sha256": "23c61317c0d6ed4634315447a9f66d656477d1d950e8173eebb544556be6a80e",
+     "lines": 13,
+     "last": "  ok     bound sentences the span checks flagged none of the 144 bound sentence("
+    },
+    "lean_failsafe report": {
+     "rc": 0,
+     "sha256": "8fd75bac171b9d4e4f4ea2e3374a490a3e10f9b107ca15dd3c9e3d42910fe94b",
+     "lines": 19,
+     "last": "}"
+    },
+    "applied_check": {
+     "rc": 0,
+     "sha256": "5ff63e77d8a1d4b36d25f9d5feffc78b690b8953c3f0bf8d57cf604c1f592198",
+     "lines": 4,
+     "last": "  log: /private/var/folders/83/7t11xhdn4_559xyfn2x25gp40000gn/T/whu-orch-rii2sq0"
+    },
+    "applied_check --dangling": {
+     "rc": 0,
+     "sha256": "fab3e7c961b56e69eb3ed304d5fe8ec418b3994b400e0ead33d732812cfdfa2a",
+     "lines": 3,
+     "last": "0 reference(s) pointing at nothing"
+    }
+   },
+   "orchestrated": {
+    "outputs": {
+     "publish check": {
+      "rc": 0,
+      "sha256": "a9962d98775485b0ca1495ebb90c076ab9462993ea839632cbe375ff56653a3a",
+      "lines": 98,
+      "refused_paid_calls": 0,
+      "last": "Ready."
+     },
+     "lean_sentences render": {
+      "rc": 0,
+      "sha256": "d91bff15da511001fa70e48ec34e8e7ea6777f708af30b9d0ce04ce4b827a0a4",
+      "lines": 10,
+      "refused_paid_calls": 0,
+      "last": "  <p>Judged not material to this question: “When considering scenarios similar t"
+     },
+     "coverage_check render": {
+      "rc": 0,
+      "sha256": "dd3fa5ad819fee9c7716e1acc066fea3d92dba4db21bc53829fd4ef3848fc196",
+      "lines": 6,
+      "refused_paid_calls": 0,
+      "last": "  <p>Judged not material to this question: “When considering scenarios similar t"
+     },
+     "bindings status": {
+      "rc": 0,
+      "sha256": "23c61317c0d6ed4634315447a9f66d656477d1d950e8173eebb544556be6a80e",
+      "lines": 13,
+      "refused_paid_calls": 0,
+      "last": "  ok     bound sentences the span checks flagged none of the 144 bound sentence("
+     },
+     "lean_failsafe report": {
+      "rc": 0,
+      "sha256": "8fd75bac171b9d4e4f4ea2e3374a490a3e10f9b107ca15dd3c9e3d42910fe94b",
+      "lines": 19,
+      "refused_paid_calls": 0,
+      "last": "}"
+     },
+     "applied_check": {
+      "rc": 0,
+      "sha256": "5ff63e77d8a1d4b36d25f9d5feffc78b690b8953c3f0bf8d57cf604c1f592198",
+      "lines": 4,
+      "refused_paid_calls": 0,
+      "last": "  log: /private/var/folders/83/7t11xhdn4_559xyfn2x25gp40000gn/T/whu-orch-rii2sq0"
+     },
+     "applied_check --dangling": {
+      "rc": 0,
+      "sha256": "fab3e7c961b56e69eb3ed304d5fe8ec418b3994b400e0ead33d732812cfdfa2a",
+      "lines": 3,
+      "refused_paid_calls": 0,
+      "last": "0 reference(s) pointing at nothing"
+     },
+     "ruling.py gate": {
+      "rc": 0,
+      "sha256": "d33ba7582a931869d0459639a25ca77aa6560253404f2ea347aa8683da26ffef",
+      "lines": 3,
+      "refused_paid_calls": 0,
+      "last": "  usd this run: 0.0000"
+     },
+     "ruling.py changecheck": {
+      "rc": 0,
+      "sha256": "d33ba7582a931869d0459639a25ca77aa6560253404f2ea347aa8683da26ffef",
+      "lines": 3,
+      "refused_paid_calls": 0,
+      "last": "  usd this run: 0.0000"
+     }
+    },
+    "ownership": []
+   },
+   "identical": {
+    "publish check": true,
+    "lean_sentences render": true,
+    "coverage_check render": true,
+    "bindings status": true,
+    "lean_failsafe report": true,
+    "applied_check": true,
+    "applied_check --dangling": true
+   },
+   "applier": {
+    "first_draft_commit": "2e1b243",
+    "records": 4,
+    "placed": 4,
+    "not_placed": [],
+    "stored_sentences": 161,
+    "reproduced_sentences": 161,
+    "body": {
+     "stored": 151,
+     "reproduced": 152,
+     "identical_sequence": false,
+     "stored_not_reproduced": [
+      {
+       "fingerprint": "9970da6a8dc48e78",
+       "in_audit_proposed_text": true
+      },
+      {
+       "fingerprint": "d42b88c933542ab8",
+       "in_audit_proposed_text": true
+      }
+     ],
+     "reproduced_not_stored": [
+      "45f56b839e2c8ff6",
+      "09895c4d74bfa360",
+      "c5d85eadbd7b55ea"
+     ]
+    },
+    "generated": {
+     "stored": 10,
+     "generators_now": 15,
+     "identical_set": true,
+     "stored_not_generated": [],
+     "generated_not_stored": []
+    }
+   },
+   "real_ledger_and_records_untouched": true
+  }
+ ],
+ "real_ledger_sha_before": "5f639d6923dd5850b09fc2b4d7c358ad477fd02b245a935a3b210b5257d2e269",
+ "real_ledger_sha_after": "5f639d6923dd5850b09fc2b4d7c358ad477fd02b245a935a3b210b5257d2e269"
+}

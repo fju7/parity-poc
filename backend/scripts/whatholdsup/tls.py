@@ -52,6 +52,13 @@ class AIAError(Exception):
 
 # --- reading the AIA extension (DER, no third-party parser) ---------------------
 
+
+# THE FETCH USER AGENT (advisor's ruling A, 2026-11-06, fixed after the lean test).
+# Every WHU fetch identifies as what it is: an automated client, with a generic
+# name -- no browser impersonation and no person's email. acquire_sources,
+# errata, find_access and registry_facts all send this one string.
+USER_AGENT = "WHU-fetch/1.0 (automated research client)"
+
 def _tlv(b: bytes, i: int) -> tuple[int, int, int]:
     """(tag, start of value, end of value) of the DER element at i."""
     if i + 2 > len(b):

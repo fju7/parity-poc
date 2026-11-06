@@ -259,3 +259,25 @@ each step's `max_tokens` and cap. Results: `results/orchestrator/cost_estimate.j
 - No paid call of any kind, including the Google preflight; the gateway is built and tested against a stub client.
 - No new question is run, and the lean-test records are not changed.
 - The seeded-defect test and a new-questions test wait for the advisor's ruling.
+
+## 7. Changes made while building (recorded after §1-6 were committed)
+
+- **Registry resolution is Europe PMC only**, through WHU's own lookup (`orch/resolve.py` on
+  `find_access.epmc`/`titles_agree`). The design named Crossref too, via the shared `verify` package; WHU's modules
+  may not import it (`tests/verify/test_units.py`, design doc §8 of that package). Crossref is listed under "not
+  searched".
+- **Trial and replay run in a scratch copy of the repository** (`orch/sandbox.py`): `backend/scripts`, the case
+  folders, the issue's library documents, the study folder and the homepage, a read-only local git clone (the
+  preflight reads earlier page versions), and an `.env` with no key in it. Every module finds the repository from
+  its own path, so nothing reaches the real records or ledger. Outputs are discarded when the copy is deleted.
+- **A Caller needs no key in trial or replay mode** (`audit_stage.Caller`): it refuses every call, so a stage whose
+  rulings are all carried (fix 7) finishes at $0 and one that needs a new call is refused, both by construction.
+- **Worst cost is the issue's run cap.** Every paid call checks `run_cap_usd` (`spend_ledger.cap_for`); the
+  orchestrator refuses an issue without one, at most $10. The step caps sum higher ($28.30) and are per-step limits.
+- **A changed sentence's binding, by rule.** A ruling's replacement rests on the passages of the sentence it
+  replaced; an omission ADD on its finding's span; a coverage "state" sentence on its unit's span. Nothing else may
+  be (re)bound after the draft (E2).
+- **The source's form is frozen after `acquire`** with the other frozen fields (E6).
+- **The audit step re-audits** until a round changes nothing, at most three rounds, then runs the consistency
+  audit; the applier runs `ruling.py dangling` once when an applied ruling left a reference pointing at nothing.
+- **Paid mode is refused** unless `WHU_ORCH_PAID_RULED` names the advisor's ruling (this build is $0).

@@ -664,6 +664,40 @@ def enter_issue(slug: str) -> None:
     _LEDGER_ISSUE = (slug or "").strip()
 
 
+# WHAT THE LAST CALL SEARCHED, read from the response itself (post-test item
+# (i), advisor's ruling of 2026-11-06): every web-search query the model issued
+# (server_tool_use blocks) and every domain a search result came from
+# (web_search_tool_result blocks). Code-captured, never model-claimed: the
+# recency sweep writes these onto its record, and lean_editions refuses an
+# UNKNOWN recency decision that rests on a record listing nothing searched.
+LAST_SEARCH: dict = {"queries": [], "domains": []}
+
+
+def _field(obj, name):
+    return obj.get(name) if isinstance(obj, dict) else getattr(obj, name, None)
+
+
+def searches_in(response) -> dict:
+    """{"queries": [...], "domains": [...]} from a response's content blocks, in order, de-duplicated."""
+    from urllib.parse import urlparse
+    queries, domains = [], []
+    for block in (_field(response, "content") or []):
+        kind = _field(block, "type")
+        if kind == "server_tool_use":
+            q = (_field(block, "input") or {})
+            q = q.get("query") if isinstance(q, dict) else getattr(q, "query", None)
+            if q and q not in queries:
+                queries.append(str(q))
+        elif kind == "web_search_tool_result":
+            for hit in (_field(block, "content") or []):
+                url = _field(hit, "url")
+                host = urlparse(str(url)).netloc.lower() if url else ""
+                host = host[4:] if host.startswith("www.") else host
+                if host and host not in domains:
+                    domains.append(host)
+    return {"queries": queries, "domains": domains}
+
+
 def call(system: str, user: str, *, search: bool,
          max_tokens: int = MAX_OUTPUT_TOKENS, label: str = ""):
     """One model call, optionally with web search. Returns parsed JSON or None.
@@ -711,11 +745,17 @@ def call(system: str, user: str, *, search: bool,
             "cost cannot be established and no cap can be enforced over it. Add its "
             "price (here and in spend_ledger.PRICES; the tests hold them equal) before "
             "any call." % SIGNAL_MODEL)
+    if _spend is None and any(os.environ.get(k) for k in ("WHU_ORCH_STEP", "WHU_ORCH_MODE")):
+        raise SystemExit("refusing to spend: the spend ledger did not load, so the orchestrator's guard "
+                         "cannot run (fails closed)")
     if _spend is not None:
+        # THE ORCHESTRATOR'S GUARD (docs/whu-orchestrator.md §2.3), before any spend.
+        _spend.orch_guard(SIGNAL_MODEL, "factcheck_draft.py", label, _LEDGER_ISSUE or None, 0.75)
         # A per-call estimate. Deliberately not free: the point is that a run
         # near the cap stops before the call that would cross it.
         _spend.check_cap(_LEDGER_ISSUE, about_to_spend=0.75)
     client = _get_client()
+    LAST_SEARCH.update({"queries": [], "domains": []})
     kwargs = {}
     if search:
         kwargs["tools"] = [dict(WEB_SEARCH_TOOL, max_uses=MAX_SEARCHES_PER_CALL)]
@@ -782,6 +822,10 @@ def call(system: str, user: str, *, search: bool,
         # identical call that was cut off just spends the money again, so this
         # says what happened and gives up rather than looping.
         truncated = getattr(response, "stop_reason", None) == "max_tokens"
+        try:
+            LAST_SEARCH.update(searches_in(response))
+        except Exception:
+            LAST_SEARCH.update({"queries": [], "domains": []})
         text = _response_text(response)
         try:
             parsed = json.loads(strip_code_fence(text))      # ```json ... ``` (WHU-S03)
@@ -1646,8 +1690,15 @@ def sweep_recency(draft: str, today: str) -> dict | None:
     if out is None:
         return None
     studies = out.get("studies", []) if isinstance(out, dict) else []
-    print(f"      {len(studies)} study/studies assessed")
-    return {"studies": studies}
+    got = {"queries": list(LAST_SEARCH.get("queries") or []), "domains": list(LAST_SEARCH.get("domains") or [])}
+    for st in studies:
+        if isinstance(st, dict):
+            # What was searched, from the response (never the model's own account): lean_editions.searched_of
+            st["searched"] = list(got["domains"])
+            st["queries"] = list(got["queries"])
+    print(f"      {len(studies)} study/studies assessed; {len(got['queries'])} search(es), "
+          f"{len(got['domains'])} domain(s)")
+    return {"studies": studies, "searched": got["domains"], "queries": got["queries"]}
 
 
 # ---------------------------------------------------------------------------

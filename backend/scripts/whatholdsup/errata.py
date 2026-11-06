@@ -51,12 +51,13 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import source_store as store  # noqa: E402
+import tls  # noqa: E402
 
 OK, BAD, WARN = "ok", "BLOCKED", "warn"
 
 EPMC = "https://www.ebi.ac.uk/europepmc/webservices/rest/search"
 CROSSREF = "https://api.crossref.org/works/"
-UA = "whatholdsup-errata/1.0 (editorial fact-check; contact fred.ugast@uspv.co)"
+UA = tls.USER_AGENT                     # ruling A (2026-11-06): generic, no email
 
 # The corrections that matter. Europe PMC's commentCorrectionList types include
 # several that are NOT corrections to the paper -- a comment on it, a reply, an
@@ -158,7 +159,7 @@ def identifier_from_held(slug: str, src: dict) -> tuple[str, str] | None:
     # the article whose DOI it prints. That is the distinction `form` was added
     # for, and it covers the cases nobody has met yet.
     form = store.form_of(src)
-    if form != "article":
+    if form not in ("article", "assessment summary"):   # an assessment summary carries its own DOI (ruling B)
         # An UNDECLARED form is not permission either. Reading a DOI out of a
         # document nobody has classified is a guess about what the document is,
         # and this function's whole justification is that it does not guess.

@@ -52,7 +52,7 @@ import source_store as store          # noqa: E402
 import tls                             # noqa: E402
 
 MAIL = "fred.ugast@uspv.co"
-UA = {"User-Agent": "whatholdsup/1.0 (mailto:%s)" % MAIL}
+UA = {"User-Agent": tls.USER_AGENT}     # ruling A (2026-11-06): generic, no email
 STOP = {"the", "a", "an", "of", "and", "or", "in", "for", "with", "on", "to", "as",
         "at", "by", "from", "is", "are", "was", "were", "not", "no", "vs", "versus",
         "study", "trial", "results", "analysis", "patients"}

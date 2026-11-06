@@ -416,6 +416,100 @@ def price(model: str, usage) -> tuple[float | None, dict]:
     return round(usd, 6), counts
 
 
+# ---------------------------------------------------------------------------
+# THE ORCHESTRATOR'S GUARD (docs/whu-orchestrator.md §2.3; advisor's ruling of
+# 2026-11-06). Every paid WHU call passes here BEFORE money is spent: the
+# metered client below, factcheck_draft.call, and the orchestrator's Google
+# gateway. Off an orchestrated issue, and outside an orchestrator run, it does
+# nothing, so every stage runs exactly as before.
+# ---------------------------------------------------------------------------
+
+ORCH_LOCK = ROOT / "backend" / "data" / "whatholdsup" / "orchestrator.lock"
+ORCH_ENV = ("WHU_ORCH_MODE", "WHU_ORCH_STEP", "WHU_ORCH_TOKEN", "WHU_ORCH_ISSUE", "WHU_ORCH_ALLOW",
+            "WHU_ORCH_STEP_START", "WHU_ORCH_STEP_CAP", "WHU_ORCH_STEP_CALLS")
+NO_PAID_MODES = ("trial", "replay")
+
+
+class OrchestratorRefused(RuntimeError):
+    """A paid call the orchestrator's rules do not allow. Raised before the call."""
+
+
+def orch_lock_path() -> Path:
+    """The lock file (WHU_ORCH_LOCK overrides it, for tests in a scratch directory)."""
+    return Path(os.environ.get("WHU_ORCH_LOCK") or ORCH_LOCK)
+
+
+def orch_lock() -> dict:
+    try:
+        return json.loads(orch_lock_path().read_text(encoding="utf-8"))
+    except Exception:
+        return {}
+
+
+def is_orchestrated(issue: str | None) -> bool:
+    return issue_meta(issue).get("orchestrated") is True
+
+
+def orch_guard(model: str, script: str = "", role: str = "", issue: str | None = None,
+               about_to_spend: float = 0.0) -> None:
+    """Refuse a paid call that is not inside a defined orchestrator step.
+
+    - WHU_ORCH_MODE trial or replay: every paid call is refused (post-test item 2).
+    - Inside an orchestrator run (WHU_ORCH_STEP set): the token must be the lock's,
+      the step the lock's current step, the issue the run's issue, the model and role
+      ones the step declares (WHU_ORCH_ALLOW, JSON {"models": [...], "roles": [...]}),
+      and the step's calls and spend so far under its limits.
+    - On an orchestrated issue (issue.json "orchestrated": true) outside a run: refused.
+    """
+    env = os.environ
+    mode = env.get("WHU_ORCH_MODE", "")
+    if mode in NO_PAID_MODES:
+        raise OrchestratorRefused("orchestrator %s mode makes no paid call (refused: %s %s %s)"
+                                  % (mode, script, role, model))
+    step = env.get("WHU_ORCH_STEP", "")
+    if not step:
+        if is_orchestrated(issue):
+            raise OrchestratorRefused(
+                "%s is an orchestrated issue: a paid call is made only inside an orchestrator step, "
+                "never by a command run by hand (refused: %s %s %s)" % (issue, script, role, model))
+        return
+    lock = orch_lock()
+    if not lock or env.get("WHU_ORCH_TOKEN", "") != lock.get("token"):
+        raise OrchestratorRefused("the orchestrator token does not match the lock: this process is not "
+                                  "the running orchestrator's (refused: %s %s)" % (script, model))
+    if lock.get("step") != step:
+        raise OrchestratorRefused("step %r is not the orchestrator's current step %r" % (step, lock.get("step")))
+    run_issue = env.get("WHU_ORCH_ISSUE", "")
+    if issue is not None and issue != run_issue:
+        raise OrchestratorRefused("a call for %r inside a run for %r" % (issue, run_issue))
+    try:
+        allow = json.loads(env.get("WHU_ORCH_ALLOW", "") or "{}")
+    except Exception:
+        allow = {}
+    if model not in (allow.get("models") or []):
+        raise OrchestratorRefused("step %r does not declare model %r" % (step, model))
+    roles = allow.get("roles") or []
+    if roles and role and role not in roles:
+        raise OrchestratorRefused("step %r does not declare role %r" % (step, role))
+    since = env.get("WHU_ORCH_STEP_START", "")
+    mine = [e for e in entries() if e.get("issue") == run_issue and (e.get("at") or "") >= since
+            and e.get("role") != "google-preflight"]
+    try:
+        max_calls = int(env.get("WHU_ORCH_STEP_CALLS", "0") or 0)
+    except ValueError:
+        max_calls = 0
+    if max_calls and len(mine) >= max_calls:
+        raise OrchestratorRefused("step %r has made its %d calls" % (step, max_calls))
+    try:
+        cap = float(env.get("WHU_ORCH_STEP_CAP", "0") or 0)
+    except ValueError:
+        cap = 0.0
+    used = sum(float(e.get("usd") or 0) for e in mine)
+    if cap and used + about_to_spend > cap:
+        raise OrchestratorRefused("step %r: $%.4f spent of its $%.2f cap; this call would add about $%.4f"
+                                  % (step, used, cap, about_to_spend))
+
+
 class _MeteredMessages:
     def __init__(self, inner, script, issue, role):
         self._inner, self._script, self._issue, self._role = inner, script, issue, role
@@ -423,6 +517,7 @@ class _MeteredMessages:
     def create(self, *a, **kw):
         # BEFORE spending: a model nobody has priced is refused outright.
         requested = (kw.get("model") or "").strip()
+        orch_guard(requested, self._script, self._role, self._issue or None)
         if requested and requested not in PRICES:
             raise UnpricedModel(
                 "refusing to spend: model %r is not in spend_ledger.PRICES, so its cost "

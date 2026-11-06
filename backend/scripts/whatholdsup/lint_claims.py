@@ -304,7 +304,24 @@ UNKNOWABILITY = re.compile(
     r"could not be (?:established|determined|verified|confirmed|sourced)|"
     r"(?:is|are|remains?) (?:not|un)(?:established|determined|verifiable|knowable)|"
     r"not established by us|we do not know|no way (?:for us )?to (?:know|tell)|"
-    r"behind a wall we could not open|every route we tried returned a block)\b", re.I)
+    r"behind a wall we could not open|every route we tried returned a block)\b"
+    # EVERY GRAMMATICAL FORM (post-test item (ii), advisor's ruling of
+    # 2026-11-06). The first pattern needed the subject "we": the lean rule-3b
+    # line "Our recency check could not establish whether ..." passed it, so a
+    # claim of unknowability reached the page unlinted. Any subject, any
+    # auxiliary, and the passive and impersonal forms.
+    r"|\b(?:could not|couldn't|cannot|can't|can not|(?:were|was|are|is|am) unable to|failed to) "
+    r"(?:establish|determine|verify|confirm|ascertain)\b"
+    r"|\b(?:could not|couldn't|cannot|can't|can not|could never|can never) be "
+    r"(?:established|determined|verified|confirmed|ascertained|known)\b"
+    r"|\b(?:it is|it was|it's) (?:not possible|impossible) to (?:establish|determine|know|tell|verify|confirm)\b",
+    re.I)
+
+# A code-written line that lists what it searched names its places: rule 3b's
+# "Our recency check (searched: <registries>) could not establish whether ..."
+# (lean_editions.UNKNOWN_FRAME_SEARCHED). Its list is the search record the gate
+# captured from the response; an empty list never reaches the page (fix 1 stops it).
+SEARCHED_LIST = re.compile(r"\(searched: [^)]*\w[^)]*\)")
 
 # Where a fact about a trial actually lives when the journal is shut.
 REGISTRY = re.compile(
@@ -354,7 +371,7 @@ def unknowability(text: str) -> list[str]:
     """
     return [f"{s[:170]}" for s in sentences(text)
             if UNKNOWABILITY.search(s)
-            and not REGISTRY.search(s) and not NAMED_PLACE.search(s)]
+            and not REGISTRY.search(s) and not NAMED_PLACE.search(s) and not SEARCHED_LIST.search(s)]
 
 
 # THE CORRECTION HISTORY RECOUNTS WHAT WE BELIEVED; IT IS NOT THE PAGE

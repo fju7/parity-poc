@@ -64,7 +64,7 @@ def substance_coverage(slug: str) -> dict:
     """Which held documents the article test actually examined."""
     types = {s["id"]: s.get("type", "") for s in store.sources(slug)}
     lib = store.held(slug) or {}
-    article, page, floor_only, unknown = [], [], [], []
+    article, page, floor_only, unknown, assessment = [], [], [], [], []
     for sid in sorted(lib):
         t = types.get(sid, "")
         src = next((x for x in store.sources(slug) if x["id"] == sid), {})
@@ -75,6 +75,10 @@ def substance_coverage(slug: str) -> dict:
             # A page gets a real substance test now — prose sentences, not a
             # character floor — so it counts as examined.
             page.append(sid)
+        elif form == "assessment summary":
+            # Its own test (source_store.substance_assessment_summary): a floor
+            # and a named parent report, so it counts as examined (ruling B).
+            assessment.append(sid)
         elif form is None:
             unknown.append(sid)
         elif t in TYPES:
@@ -82,7 +86,7 @@ def substance_coverage(slug: str) -> dict:
         else:
             unknown.append(sid)
     return {"held": len(lib), "article_test": article, "page_test": page,
-            "length_floor_only": floor_only, "type_unknown": unknown}
+            "length_floor_only": floor_only, "type_unknown": unknown, "assessment_test": assessment}
 
 
 def preflight_rows(slug: str) -> list[tuple[str, str, str]]:
@@ -104,14 +108,16 @@ def preflight_rows(slug: str) -> list[tuple[str, str, str]]:
     held = cov["held"]
     art, pg = len(cov["article_test"]), len(cov["page_test"])
     floor = len(cov["length_floor_only"])
-    examined = art + pg
+    asm = len(cov.get("assessment_test") or [])
+    examined = art + pg + asm
     if held:
         state = OK if examined == held else WARN
         rows.append(("documents a substance test examined", state,
                      "%d of %d held document(s) — %d by the article test, %d by "
-                     "the page test. %d were checked only against a length "
+                     "the page test%s. %d were checked only against a length "
                      "floor, which is a weaker thing%s"
-                     % (examined, held, art, pg, floor,
+                     % (examined, held, art, pg,
+                        ", %d by the assessment-summary test" % asm if asm else "", floor,
                         "" if not cov["type_unknown"] else
                         ", and %d are UNDETERMINED — their type does not settle "
                         "whether they are journal articles and they declare no "
