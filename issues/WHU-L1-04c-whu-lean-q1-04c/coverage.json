@@ -1,0 +1,68 @@
+{
+ "units": [],
+ "declarations": {
+  "S004@67533-75010": {
+   "state": "not_material",
+   "reason": "Warming under a continuation of current policies, with footnotes; it concerns emission trajectories without further action, not the part removal plays.",
+   "by": "Claude Code (session WHU-L1-04c)",
+   "element": "",
+   "decided_at": "2026-11-06T14:20:53+00:00"
+  },
+  "S004@117838-120245": {
+   "state": "not_material",
+   "reason": "Mostly the make-up of net-zero energy systems and renewables (C.4.1 to C.4.3 as one group); its one removal sentence, that CDR counterbalances residual energy emissions, is the page's C.11 finding already stated.",
+   "by": "Claude Code (session WHU-L1-04c)",
+   "element": "",
+   "decided_at": "2026-11-06T14:20:53+00:00"
+  },
+  "S004@148132-151268": {
+   "state": "not_material",
+   "reason": "Costs and financing of land-sector mitigation with interleaved footnotes on potentials and diets; the page states the land-sector potentials and barriers from C.9.1 to C.9.3.",
+   "by": "Claude Code (session WHU-L1-04c)",
+   "element": "",
+   "decided_at": "2026-11-06T14:20:53+00:00"
+  },
+  "S004@192075-193353": {
+   "state": "not_material",
+   "reason": "Urban planning for mitigation and adaptation benefits and land-related adaptation co-benefits (D.2.1, D.2.2); it does not bear on the part removal plays in reaching net zero.",
+   "by": "Claude Code (session WHU-L1-04c)",
+   "element": "",
+   "decided_at": "2026-11-06T14:20:53+00:00"
+  },
+  "S004@193353-194623": {
+   "state": "not_material",
+   "reason": "Resource competition from bioenergy, biochar and afforestation (D.2.3) and adaptation coordination (D.2.4); the risks of these methods are stated on the page from C.11.2 and D.2.3's substance is the same.",
+   "by": "Claude Code (session WHU-L1-04c)",
+   "element": "",
+   "decided_at": "2026-11-06T14:20:53+00:00"
+  },
+  "S004@198620-200488": {
+   "state": "not_material",
+   "reason": "Feasibility of mitigation options in general (E.1, E.1.1), mostly about energy and demand-side options; removal's own feasibility constraints are stated on the page from C.11 and Chapter 12.",
+   "by": "Claude Code (session WHU-L1-04c)",
+   "element": "",
+   "decided_at": "2026-11-06T14:20:53+00:00"
+  },
+  "S004@57929-58632": {
+   "state": "not_material",
+   "reason": "Figure axis, legend and label text (numbers, category names) that the furniture filter did not recognise; it states no finding.",
+   "by": "Claude Code (session WHU-L1-04c)",
+   "element": "",
+   "decided_at": "2026-11-06T14:23:43+00:00"
+  },
+  "S004@112656-113323": {
+   "state": "not_material",
+   "reason": "Figure axis, legend and label text (numbers, category names) that the furniture filter did not recognise; it states no finding.",
+   "by": "Claude Code (session WHU-L1-04c)",
+   "element": "",
+   "decided_at": "2026-11-06T14:23:43+00:00"
+  },
+  "S004@185861-189425": {
+   "state": "not_material",
+   "reason": "Figure axis, legend and label text (numbers, category names) that the furniture filter did not recognise; it states no finding.",
+   "by": "Claude Code (session WHU-L1-04c)",
+   "element": "",
+   "decided_at": "2026-11-06T14:23:43+00:00"
+  }
+ }
+}

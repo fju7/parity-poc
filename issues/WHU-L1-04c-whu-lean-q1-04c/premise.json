@@ -1,0 +1,94 @@
+{
+  "_what_this_is": "The entry gate, answered BEFORE drafting. The threshold question is whether a well-informed non-expert would confidently believe something the primary sources do not support.",
+  "belief": {
+    "_note": "What the reader already believes, stated as they would state it. If you cannot write this sentence, there is nothing to correct and no subject -- which is how the tobacco-analogy candidate died.",
+    "statement": "Removing carbon dioxide from the air, with machines or by planting trees, can make up for emissions we do not cut, so it offers a way to reach net zero without cutting emissions as deeply or as fast.",
+    "how_we_know_they_believe_it": "Coverage found by a web search on 2026-11-06 reports scientists warning that the promise of carbon removal is overhyped and risks delaying emission cuts ('mitigation deterrence'), which shows the belief that removal can stand in for cuts is in circulation. Found by a search tool, whose answer is a model's reading; not held and not cited on the page.",
+    "carried_by": [
+      {
+        "outlet": "swissinfo.ch",
+        "url": "https://www.swissinfo.ch/eng/climate-solutions/climate-scientist-overhyped-carbon-removal-risks-delaying-urgent-climate-action/89579435",
+        "date": "",
+        "what_it_said": "Headline: a climate scientist says overhyped carbon removal risks delaying urgent climate action (from the URL and search result title; not opened)."
+      }
+    ]
+  },
+  "what_the_sources_show": {
+    "_note": "What the primary sources actually support, and which sources.",
+    "statement": "The IPCC AR6 WGIII assesses carbon dioxide removal as unavoidable for counterbalancing hard-to-abate residual emissions at net zero and for net negative emissions later, in addition to deep, rapid and sustained emission cuts; the State of CDR 3rd Edition finds removal today is about 2,200 MtCO2 a year, almost all from forests, with novel methods about 1,000 times smaller, and gives removal about 16% of mitigation effort to net-zero CO2 in its most ambitious scenarios.",
+    "sources": [
+      "S001",
+      "S002",
+      "S003",
+      "S004"
+    ]
+  },
+  "direction": {
+    "_note": "CORRECTS, CONFIRMS or NARROWS. This field exists so the contrarianism guard can count. A publication whose answer is always CORRECTS is performing scepticism rather than assessing evidence, and is not to be trusted.",
+    "value": "narrows",
+    "_values": [
+      "corrects",
+      "confirms",
+      "narrows"
+    ]
+  },
+  "reader_with_a_decision": "A general reader, voter or local official weighing climate plans or corporate net-zero pledges that count on carbon removal, who has to judge whether removal can stand in for cutting emissions.",
+  "public_record_check": {
+    "_note": "NOT 'has anybody published this'. On any contested question, somebody has. The question is whether it has been carried WHERE THIS READER WOULD FIND IT. Run the counterexample hunter on the belief statement, not on the finding.",
+    "prior_art_found": [],
+    "carried_in_general_coverage": "Partly: the warning that removal must not substitute for cuts has been carried in general coverage (e.g. swissinfo.ch, found by search, not opened). What the page adds is the assessed scale and timing, today's measured levels, and each method's limits, from the primary assessments.",
+    "our_contribution": "translation: the IPCC's and the State of CDR report's assessed role, scale and limits of removal, in one place with their confidence terms"
+  },
+  "sources_are_open": "",
+  "evidence_base_is_bounded": "",
+  "kill_condition": "The primary assessments (IPCC AR6 and comparable reviews) say carbon dioxide removal can substitute for deep, rapid emission cuts in reaching net zero at the scale needed, or the reader does not in fact believe removal can stand in for cuts.",
+  "kill_condition_tested": {
+    "_note": "Filled in AFTER going to look, by whoever looked.",
+    "by": "Claude Code (session WHU-L1-04c)",
+    "on": "2026-11-06",
+    "result": "narrowed",
+    "_result_values": [
+      "survived",
+      "narrowed",
+      "killed"
+    ],
+    "note": "The held assessments do not say removal can substitute for deep emission cuts; they assess it as a necessary complement with limits. The belief is narrowed, not confirmed."
+  },
+  "lead_came_from": "Round 1 question WHU-Q1-04, asked again of lean WHU (lean four-question test).",
+  "scope": {
+    "_note": "What the answer will and will not cover, written at step 1 BEFORE any source is opened, so scope cannot be fitted to the findings afterwards. An omission ruled OUT_OF_SCOPE, and a headline conclusion declared out of scope, must name the question's words or one of these entries (fix 2, docs/whu-fix2-omission-rulings-design.md section 2.4).",
+    "covers": "The part carbon dioxide removal (taking CO2 out of the atmosphere and storing it, by land-based methods such as afforestation, reforestation and soil carbon, and by engineered or hybrid methods such as direct air capture with storage, bioenergy with carbon capture and storage, enhanced weathering and ocean-based methods) can play alongside cutting emissions in reaching net zero CO2 and net zero greenhouse gas emissions: why it is needed (counterbalancing residual emissions, net negative emissions later), how much is assessed to be needed and when, how much is done now, and the assessed limits and risks of each method (scale, cost, land, permanence, side effects).",
+    "out": [
+      {
+        "what": "Capturing CO2 from fossil-fuel or industrial point sources for storage where no CO2 is removed from the atmosphere (CCS on fossil emissions)",
+        "why": "It reduces emissions rather than removing CO2 from the air; the question asks about removal alongside cutting emissions."
+      },
+      {
+        "what": "Solar radiation modification and other geoengineering that does not remove CO2",
+        "why": "The question asks about removing carbon dioxide from the air."
+      },
+      {
+        "what": "The design, pricing and integrity of carbon credit markets and offsets, and specific companies' pledges",
+        "why": "The question asks what part removal can play in reaching net zero, not how it is bought, sold or claimed."
+      },
+      {
+        "what": "Removal of greenhouse gases other than CO2",
+        "why": "The question asks about carbon dioxide."
+      }
+    ],
+    "by": "Claude Code (session WHU-L1-04c)",
+    "written_at": "2026-11-06T13:46:54Z"
+  },
+  "evidence_standard": {
+    "_note": "What kinds of evidence the answer will weigh, written at step 1 BEFORE any source is opened (post-study fix 3, docs/whu-fix3-evidence-standard.md). 'measured': outcomes measured in trials, cohorts, evaluations. 'assessed': expert assessments -- systematic-review conclusions, IPCC confidence-rated statements, guideline recommendations. When they differ, the page states both and drops neither.",
+    "weighs": [
+      "measured",
+      "assessed"
+    ],
+    "measured": "Measured or inventoried quantities of carbon dioxide removal done today (e.g. reported removals by method), observed deployment and capacity of removal methods, and measured costs where reported.",
+    "assessed": "Expert assessments: IPCC AR6 confidence- and likelihood-rated statements (WGI, WGII, WGIII and the Synthesis Report), and conclusions of systematic reviews and assessment reports on carbon dioxide removal.",
+    "when_they_differ": "state both",
+    "by": "Claude Code (session WHU-L1-04c)",
+    "written_at": "2026-11-06T13:46:54Z"
+  }
+}

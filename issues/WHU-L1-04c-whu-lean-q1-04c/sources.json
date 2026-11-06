@@ -1,0 +1,142 @@
+{
+  "sources": [
+    {
+      "id": "S001",
+      "title": "Chapter 12: Cross-sectoral perspectives. In: Climate Change 2022: Mitigation of Climate Change. IPCC Sixth Assessment Report, Working Group III",
+      "short": "IPCC AR6 WGIII Chapter 12",
+      "url": "https://www.ipcc.ch/report/ar6/wg3/downloads/report/IPCC_AR6_WGIII_Chapter12.pdf",
+      "type": "review",
+      "form": "article",
+      "year": 2022,
+      "used_for": "The assessed role, scale, potentials, costs and risks of carbon dioxide removal methods (Section 12.3).",
+      "access": {
+        "state": "full_text_held",
+        "held": {
+          "file": "docs/b1/b1f31cc6390b25eef57a56511f3626f18c88ab81109c8e0e90a20e65143619b6.pdf",
+          "sha256": "b1f31cc6390b25eef57a56511f3626f18c88ab81109c8e0e90a20e65143619b6",
+          "bytes": 3093036,
+          "identified_by": "contains 10 of 10 distinctive title words — 674425 characters, reference list and discussion/introduction present; title present (12 of 12 title words in the visible text)",
+          "kind": "full_text",
+          "kind_why": "674425 characters, reference list and discussion/introduction present"
+        },
+        "on": "2026-11-06"
+      },
+      "also_called": [
+        "IPCC AR6 Working Group III, Chapter 12"
+      ],
+      "document_class": "document"
+    },
+    {
+      "id": "S002",
+      "title": "Chapter 7: Current levels of CDR. In: The State of Carbon Dioxide Removal, 3rd Edition",
+      "short": "State of CDR 3rd Edition, Chapter 7",
+      "url": "https://www.stateofcdr.org/asset/SoCDR-Ed3_Chapter-7_Final.pdf",
+      "doi": "10.17605/OSF.IO/VH7U6",
+      "type": "review",
+      "form": "article",
+      "year": 2026,
+      "edition": "3rd Edition, 2026",
+      "used_for": "Measured and estimated current levels of carbon dioxide removal, conventional and novel.",
+      "access": {
+        "state": "full_text_held",
+        "held": {
+          "file": "docs/19/1986f453b0f6aa1c807a453c371b870030b94ae7f1625172fd183d32a6cc3313.pdf",
+          "sha256": "1986f453b0f6aa1c807a453c371b870030b94ae7f1625172fd183d32a6cc3313",
+          "bytes": 1937668,
+          "identified_by": "contains 8 of 8 distinctive title words — 53984 characters, reference list and discussion present; title present (8 of 8 title words in the visible text)",
+          "kind": "full_text",
+          "kind_why": "53984 characters, reference list and discussion present"
+        },
+        "on": "2026-11-06"
+      },
+      "errata_note": "The report publishes 'Errata in the State of Carbon Dioxide Removal 3rd Edition, 2026' (https://www.stateofcdr.org/asset/Errata-in-SoCDR-ED3_July_26-1.pdf), stating the corrections were implemented in the website versions. It lists none for Chapter 7; for Chapter 8 it lists an author-name change and sign corrections in Table 8.2. Read by Claude Code (session WHU-L1-04c), 2026-11-06.",
+      "also_called": [
+        "State of CDR 3rd Edition, Chapter 7"
+      ],
+      "document_class": "document"
+    },
+    {
+      "id": "S003",
+      "title": "Chapter 8: Paris-consistent CDR scenarios. In: The State of Carbon Dioxide Removal, 3rd Edition",
+      "short": "State of CDR 3rd Edition, Chapter 8",
+      "url": "https://www.stateofcdr.org/asset/SoCDR-Ed3_Chapter-8_Final.pdf",
+      "type": "review",
+      "form": "page",
+      "year": 2026,
+      "edition": "3rd Edition, 2026",
+      "used_for": "How much carbon dioxide removal Paris-consistent scenarios deploy, and when.",
+      "access": {
+        "state": "full_text_held",
+        "held": {
+          "file": "docs/8a/8ab3ce1b14a6e599bde9ece8bd6245caf700dff4d43e4aa73157b513daaa6ae2.pdf",
+          "sha256": "8ab3ce1b14a6e599bde9ece8bd6245caf700dff4d43e4aa73157b513daaa6ae2",
+          "bytes": 1967352,
+          "identified_by": "contains 8 of 8 distinctive title words — form 'page' — 361 prose sentence(s) over sixty characters, 11410 words — this reads as the page itself; title present (8 of 8 title words in the visible text)",
+          "kind": "document",
+          "kind_why": "form 'page' — 361 prose sentence(s) over sixty characters, 11410 words — this reads as the page itself"
+        },
+        "on": "2026-11-06"
+      },
+      "form_why": "A chapter of a report published as a PDF on the report's own website. It has a reference list but no Introduction or Discussion heading, so the journal-article test (reference list plus introduction or discussion) does not fit its kind; declared 'page' so the prose test applies instead. Declared by Claude Code (session WHU-L1-04c), 2026-11-06.",
+      "doi": "10.17605/OSF.IO/JZDQM",
+      "doi_from": "the report's own citation file for Chapter 8, https://www.stateofcdr.org/asset/socdr-3rd-edition-chapter-8.ris",
+      "errata_note": "The report publishes 'Errata in the State of Carbon Dioxide Removal 3rd Edition, 2026' (https://www.stateofcdr.org/asset/Errata-in-SoCDR-ED3_July_26-1.pdf), stating the corrections were implemented in the website versions. It lists none for Chapter 7; for Chapter 8 it lists an author-name change and sign corrections in Table 8.2. Read by Claude Code (session WHU-L1-04c), 2026-11-06.",
+      "also_called": [
+        "State of CDR 3rd Edition, Chapter 8"
+      ],
+      "document_class": "document"
+    },
+    {
+      "id": "S004",
+      "type": "synthesis",
+      "form": "article",
+      "title": "IPCC 2022. Summary for Policymakers. In: Climate Change 2022: Mitigation of Climate Change (AR6 WGIII)",
+      "url": "https://www.ipcc.ch/report/ar6/wg3/downloads/report/IPCC_AR6_WGIII_SPM.pdf",
+      "used_for": "the assessment's Summary for Policymakers, for the chapter(s) held (S001); read by the coverage and assessment-judgement checks",
+      "added_by": "acquire_sources.py: assessment-summary rule (post-study fix 3)",
+      "added_for": "S001",
+      "licence": {
+        "note": "IPCC terms (https://www.ipcc.ch/copyright/): personal, non-commercial download and copying permitted; short excerpts may be quoted with the full report name. A note, not a legal opinion.",
+        "terms": "https://www.ipcc.ch/copyright/",
+        "terms_summary_by": "Fred's advisor (Claude), 2026-10-27",
+        "machine_reading": "not forbidden by any recorded licence",
+        "terms_checked": false
+      },
+      "access": {
+        "state": "full_text_held",
+        "on": "2026-11-06",
+        "by": "acquire_sources.py: assessment-summary rule (post-study fix 3)",
+        "robots": {
+          "on": "2026-11-06",
+          "by": "acquire_sources.py",
+          "why": "robots.txt allows it",
+          "result": "allows"
+        },
+        "held": {
+          "file": "docs/0a/0a3b9f671d7150c69a3088e006b7fab84e41ed90fc4eefdf92d076b2d3c8ce84.pdf",
+          "sha256": "0a3b9f671d7150c69a3088e006b7fab84e41ed90fc4eefdf92d076b2d3c8ce84",
+          "bytes": 2159848,
+          "identified_by": "contains 7 of 7 distinctive title words — 225501 characters, reference list and introduction present; title present (9 of 9 title words in the visible text)",
+          "kind": "full_text",
+          "kind_why": "225501 characters, reference list and introduction present"
+        }
+      },
+      "also_called": [
+        "IPCC AR6 Working Group III, Summary for Policymakers"
+      ],
+      "document_class": "document"
+    }
+  ],
+  "search": {
+    "searched": [
+      "the IPCC Sixth Assessment Report, Working Group III, for its assessment of carbon dioxide removal (Chapter 12 and the Summary for Policymakers)",
+      "the State of Carbon Dioxide Removal, 3rd Edition (2026), its chapter list and its errata, from which we took Chapter 7 on current levels and Chapter 8 on scenarios"
+    ],
+    "not_searched": [
+      "the peer-reviewed literature on carbon dioxide removal outside these two assessments",
+      "the IPCC Sixth Assessment Report's Working Group I and II reports and its Synthesis Report",
+      "the other chapters of the State of Carbon Dioxide Removal, 3rd Edition, including its chapters on costs and potentials and on the gap between pledges and pathways",
+      "national climate plans, company pledges and news coverage"
+    ]
+  }
+}
